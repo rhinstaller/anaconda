@@ -583,16 +583,12 @@ class ToDo:
 
         if optional:
             for n in optional:
-		self.comps[n].setDefaultSelection()
-
-                # hack to make GNOME default if specified
-                # not clear we want it enabled in comps file by default
-                if n == 'GNOME':
-                    try:
-                        self.comps['GNOME Workstation'].setDefault(1)
-                    except:
-                        pass
-                    
+		if type((1,)) == type(n):
+		    (on, n) = n
+		    if (on):
+			self.comps[n].select()
+		else:
+		    self.comps[n].setDefaultSelection()
                 
 	if packages:
 	    for n in packages:
