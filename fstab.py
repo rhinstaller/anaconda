@@ -191,7 +191,8 @@ class Fstab:
             fstab.append ((dev, mntpoint))
 
 	self.ddruid = self.fsedit(0, self.driveList(), fstab, self.zeroMbr,
-				  self.readOnly, 0, self.expert)
+				  self.readOnly, 0,
+                                  (self.expert or self.upgrade))
 	del self.cachedFstab
 
     def closeDrives(self, clearFstabCache = 0):
@@ -836,7 +837,8 @@ class Fstab:
             list = tlist
 
 	return self.fsedit(0, list, fstab, self.zeroMbr, 
-			   self.readOnly, ignoreBadDrives, self.expert)
+			   self.readOnly, ignoreBadDrives,
+                           (self.expert or self.upgrade))
 
     def getRunDruid(self):
 	return self.shouldRunDruid
@@ -846,7 +848,7 @@ class Fstab:
 
     def __init__(self, fsedit, fserror, setupFilesystems, serial, zeroMbr, 
 		 readOnly, waitWindow, messageWindow, progressWindow,
-		 ignoreRemovable, protected, expert):
+		 ignoreRemovable, protected, expert, upgrade):
 
 	self.fsedit = fsedit
         self.fserror = fserror
@@ -866,6 +868,7 @@ class Fstab:
 	self.badBlockCheck = 0
         self.ignoreRemovable = ignoreRemovable
         self.expert = expert
+        self.upgrade = upgrade
 
         #
         # extraFilesystems used for upgrades when /etc/fstab is read as
@@ -905,14 +908,15 @@ class GuiFstab(Fstab):
 
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow,
 		 messageWindow, progressWindow, ignoreRemovable,
-                 protected, expert):
+                 protected, expert, upgrade):
 	from gnomepyfsedit import fsedit
         from gnomepyfsedit import fserror
 	from gtk import *
 
 	Fstab.__init__(self, fsedit, fserror, setupFilesystems, serial, zeroMbr, 
 		       readOnly, waitWindow, messageWindow, 
-		       progressWindow, ignoreRemovable, protected, expert)
+		       progressWindow, ignoreRemovable, protected,
+                       expert, upgrade)
 
 	self.GtkFrame = GtkFrame
         self.GtkAccelGroup = GtkAccelGroup
@@ -923,14 +927,14 @@ class NewtFstab(Fstab):
 
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly,
                  waitWindow, messageWindow, progressWindow,
-                 ignoreRemovable, protected, expert):
+                 ignoreRemovable, protected, expert, upgrade):
 	from newtpyfsedit import fsedit
         from newtpyfsedit import fserror
         
 
 	Fstab.__init__(self, fsedit, fserror, setupFilesystems, serial, zeroMbr, 
 		       readOnly, waitWindow, messageWindow, progressWindow, 
-		       ignoreRemovable, protected, expert)
+		       ignoreRemovable, protected, expert, upgrade)
 
 def readFstab (path, fstab):
     loopIndex = {}

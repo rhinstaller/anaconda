@@ -130,7 +130,8 @@ class InstallPathWindow (InstallWindow):
 				       self.todo.intf.progressWindow,
                                        not self.todo.expert,
                                        self.todo.method.protectedPartitions(),
-                                       self.todo.expert)
+                                       self.todo.expert,
+                                       self.todo.upgrade)
 
 ###
 ### msf - 05-11-2000 - need to move this code!!!!!!
