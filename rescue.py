@@ -50,20 +50,12 @@ class RescueInterface:
 # XXX grub-install is stupid and uses df output to figure out
 # things when installing grub.  make /etc/mtab be at least
 # moderately useful.  
-def makeMtab(instPath):
+def makeMtab(instPath, theFsset):
     child = os.fork()
     if (not child):
         isys.chroot(instPath)
-        f = open("/proc/mounts", "r")
-        lines = f.readlines()
-        f.close()
         f = open("/etc/mtab", "w+")
-        for line in lines:
-            # and of course we don't want to reference dev nodes in /tmp
-            if line[0:5] == "/tmp/":
-                f.write("/dev/%s" % (line[5:]))
-            else:
-                f.write(line)
+        f.write(theFsset.mtab())
         f.close()
         sys.exit(0)
 
@@ -207,7 +199,7 @@ def runRescue(instPath, mountroot, id):
 
     print
     if rootmounted and not readOnly:
-        makeMtab("/mnt/sysimage")
+        makeMtab("/mnt/sysimage", fs)
         print _("Your system is mounted under the /mnt/sysimage directory.")
         print
 

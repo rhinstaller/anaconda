@@ -753,6 +753,24 @@ class FileSystemSet:
                                           entry.order)
         return fstab
 
+    def mtab (self):
+        format = "%s %s %s %s 0 0\n"
+        mtab = ""
+        for entry in self.entries:
+            if entry.mountpoint:
+                # swap doesn't end up in the mtab
+                if entry.fsystem.getName() == "swap":
+                    continue
+                if entry.options:
+                    options = "rw," + entry.options
+                else:
+                    options = "rw"
+                mtab = mtab + format % (devify(entry.device.getDevice()),
+                                        entry.mountpoint,
+                                        entry.fsystem.getName(),
+                                        options)
+        return mtab
+
     def raidtab(self):
         # set up raidtab...
         raidtab = ""
