@@ -3,17 +3,24 @@ from iw_gui import *
 
 from gtk import *
 from translate import _
-from xpms_gui import SMALL_CHECK
+from xpms_gui import CHECKBOX_ON_XPM
+from xpms_gui import CHECKBOX_OFF_XPM
 import GdkImlib
 import iutil
 if iutil.getArch() == 'i386':
     import edd
 
 class LiloWindow (InstallWindow):
-    foo = GdkImlib.create_image_from_xpm (SMALL_CHECK)
+    foo = GdkImlib.create_image_from_xpm (CHECKBOX_ON_XPM)
     foo.render()
     checkMark = foo.make_pixmap()
     del foo
+
+    foo = GdkImlib.create_image_from_xpm (CHECKBOX_OFF_XPM)
+    foo.render()
+    checkMark_Off = foo.make_pixmap()
+    del foo
+
 
     def __init__ (self, ics):
         InstallWindow.__init__ (self, ics)
@@ -176,7 +183,8 @@ class LiloWindow (InstallWindow):
             self.imageList.set_pixmap(index, 0, self.checkMark)
             self.default = index
         else:
-            self.imageList.set_text(index, 0, "")
+#            self.imageList.set_text(index, 0, "")
+            self.imageList.set_pixmap(index, 0, self.checkMark_Off)
             self.default = None
 
         if self.checkLiloReqs():
