@@ -20,12 +20,12 @@ class InstallClass(BaseInstallClass):
 	self.setMakeBootdisk(1)
 
 	if os.uname ()[4] != 'sparc64':
-	    self.addNewPartition('/boot', 16, -1, 0, None)
-	self.addNewPartition('/', 256, -1, 0, None)
-	self.addNewPartition('/usr', 512, -1, 1, None)
-	self.addNewPartition('/var', 256, -1, 0, None)
-	self.addNewPartition('/home', 512, -1, 1, None)
-	self.addNewPartition('swap', 64, 256, 1, None)
+	    self.addNewPartition('/boot', (16, -1, 0), (None, -1, 0), (0,0))
+	self.addNewPartition('/', (256, -1, 0), (None, -1, 0), (0,0))
+	self.addNewPartition('/usr', (512, -1, 1), (None, -1, 0), (0,0))
+	self.addNewPartition('/var', (256, -1, 0), (None, -1, 0), (0,0))
+	self.addNewPartition('/home',(512, -1, 1), (None, -1, 0), (0,0))
+	self.addNewPartition('swap', (64, 256, 1), (None, -1, 0), (0,0))
 	self.setClearParts(FSEDIT_CLEAR_ALL, 
 	    warningText = N_("You are about to erase ALL DATA on your hard "
 			     "drive to make room for your Linux installation."))
