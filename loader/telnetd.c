@@ -8,11 +8,11 @@
 #include <pty.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ioctl.h>
 #include <sys/poll.h>
 #include <sys/signal.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-#include <termios.h>
 #include <unistd.h>
 
 #include "lang.h"
@@ -24,6 +24,8 @@
 #ifndef IPPORT_TELNET
 #define IPPORT_TELNET 23
 #endif
+
+#define DEBUG
 
 /* Forks, keeping the loader as our child (so we know when it dies). */
 int beTelnet(int flags) {
@@ -37,7 +39,6 @@ int beTelnet(int flags) {
     char buf[4096];
     struct pollfd fds[3];
     telnet_state ts = TS_DATA;
-    struct termios orig, new;
     char * termType;
 
     if ((sock = socket(PF_INET, SOCK_STREAM, 0)) < 0) {
@@ -90,22 +91,16 @@ int beTelnet(int flags) {
     child = fork();
 
     if (child) {
+#ifndef DEBUG
 	startNewt(flags);
 	winStatus(45, 3, _("Telnet"), _("Running anaconda via telnet..."));
+#endif
 
 	fds[0].events = POLLIN;
 	fds[0].fd = masterFd;
 
 	fds[1].events = POLLIN;
 	fds[1].fd = conn;
-
-	tcgetattr(STDIN_FILENO, &orig);
-	tcgetattr(STDIN_FILENO, &new);
-	new.c_lflag &= ~(ICANON | ECHO | ECHOCTL | ECHONL);
-	new.c_oflag &= ~ONLCR;
-	new.c_iflag &= ~ICRNL;
-	new.c_cc[VSUSP] = 0;
-	tcsetattr(STDIN_FILENO, 0, &new);
 
 	while ((i = poll(fds, 2, -1)) > 0) {
 	    if (fds[0].revents) {
@@ -127,6 +122,18 @@ int beTelnet(int flags) {
 
 		i = telnet_process_input(&ts, buf, i);
 		write(masterFd, buf, i);
+
+#ifdef DEBUG
+		{
+		    int j;
+
+		    printf("got:");
+		    for (j = 0; j < i; j++)
+			printf(" 0x%x", (unsigned char) buf[j]);
+		    printf("\n");
+		}
+#endif
+
 	    }
 	}
 
@@ -135,16 +142,18 @@ int beTelnet(int flags) {
 	    logMessage("poll: %s", strerror(errno));
 	} 
 
+#ifdef DEBUG
 	stopNewt();
+#endif
 
 	kill(child, SIGTERM);
 	close(conn);
-	tcsetattr(STDIN_FILENO, 0, &orig);
 
 	exit(0);
     }
 
     close(masterFd);
+    setsid();
     close(0);
     close(1);
     close(2);
