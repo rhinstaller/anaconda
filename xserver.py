@@ -186,7 +186,7 @@ def testx(mouse, x):
 
     count = 0
 
-    sys.stdout.write("Waiting for X server to start...log located in /tmp/X.log\n")
+    sys.stdout.write(_("Waiting for X server to start...log located in /tmp/X.log\n"))
     sys.stdout.flush()
     while count < 60:
 	sys.stdout.write(".")
