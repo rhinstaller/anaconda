@@ -19,11 +19,14 @@ class UnresolvedDependenciesWindow (InstallWindow):
     def getScreen (self):
 	threads_leave ()
         # XXX fixme -- this is broken
+        # oh, this makes me sick
         if self.todo.upgrade:
             import rpm
+            self.todo.fstab.mountFilesystems (self.todo.instPath)
             db = rpm.opendb (0, self.todo.instPath)
             self.deps = self.todo.verifyDeps (self.todo.instPath, db)
             del db
+            self.todo.fstab.umountFilesystems (self.todo.instPath)
         else:
             self.deps = self.todo.verifyDeps ()
 	threads_enter ()
