@@ -113,6 +113,7 @@ class InstallPathWindow (InstallWindow):
 	    elif type == WORKSTATION_KDE and self.orig != WORKSTATION_KDE:
 		self.todo.setClass (installclass.KDEWorkstation ())
 	    elif type == SERVER and self.orig != SERVER:
+                print "SERVER"
 		self.todo.setClass (installclass.Server ())
 	    elif type == CUSTOM and self.orig != CUSTOM:
 		self.todo.setClass (installclass.CustomInstall ())

@@ -114,6 +114,14 @@ class PartitionWindow (InstallWindow):
         self.ics.setNextEnabled (value)
 
     def getScreen (self):
+        threads_leave ()
+	message = gui.MessageWindow(_("Low Memory"),
+		   _("As you don't have much memory in this machine, we "
+		     "need to turn on swap space immediately. To do this "
+		     "we'll have to write your new partition table to the "
+		     "disk immediately. Is that okay?"), "okcancel")
+        threads_enter ()
+        
         self.todo.ddruid.setCallback (self.enableCallback)
 
 	if self.todo.getSkipPartitioning():

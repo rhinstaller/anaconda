@@ -458,7 +458,7 @@ EndSection
         if self.monHoriz:
             info["HORIZ"] = self.monHoriz
         else:
-            info["HORIZ"] = "50-100"
+            info["HORIZ"] = "30-65"
         
         return """
 # **********************************************************************
