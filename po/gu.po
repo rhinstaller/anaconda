@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-22 18:11+0530\n"
+"PO-Revision-Date: 2004-07-22 18:40+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -1827,19 +1827,19 @@ msgstr ""
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
-msgstr ""
+msgstr "ફોર્મેટ?"
 
 #: ../partIntfHelpers.py:409 ../iw/partition_gui.py:1014
 msgid "_Modify Partition"
-msgstr ""
+msgstr "પાર્ટીશન સુધારો (_M)"
 
 #: ../partIntfHelpers.py:409
 msgid "Do _Not Format"
-msgstr ""
+msgstr "ફોર્મેટ કરો નહિં (_N)"
 
 #: ../partIntfHelpers.py:417
 msgid "Error with Partitioning"
-msgstr ""
+msgstr "પાર્ટીશન કરતી વખતે ભૂલ"
 
 #: ../partIntfHelpers.py:418
 #, python-format
@@ -1849,10 +1849,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"નીચેની ભૂલો તમારી મંજૂરી કરાયેલ પાર્ટીશન સાથે ઉદ્ભવી. આ ભૂલો તમારા %s ના સ્થાપન પહેલા સુધારાઈ જવી જ જોઈએ.\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:432
 msgid "Partitioning Warning"
-msgstr ""
+msgstr "પાર્ટીશનની ચેતવણી"
 
 #: ../partIntfHelpers.py:433
 #, python-format
@@ -1863,22 +1866,31 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
+"નીચેની ચેતવણીઓ તમારી મંજૂરી કરાયેલ પાર્ટીશન પદ્ધતિ સાથે ઉદ્ભવી.\n"
+"\n"
+"%s\n"
+"\n"
+"શું તમે તમારી મંજૂરી કરાયેલ પાર્ટીશન પદ્ધતિ સાથે ચાલુ રાખવા માંગો છો?"
 
 #: ../partIntfHelpers.py:447 ../iw/partition_gui.py:671
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
+"નીચેના પહેલાથી હયાત પાર્ટીશનો ફોર્મેટ કરવા માટે પસંદ થયેલ છે, "
+"જે બધી માહિતી કાઢી નાંખશે."
 
 #: ../partIntfHelpers.py:450
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
+"ચાલુ રાખવા માટે 'હા' પસંદ કરો અને આ પાર્ટીશનો ફોર્મેટ કરો અથવા "
+"પાછા જવા માટે 'ના' પસંદ કરો અને આ સુયોજનો બદલો."
 
 #: ../partIntfHelpers.py:456
 msgid "Format Warning"
-msgstr ""
+msgstr "ફોર્મેટ ચેતવણી"
 
 #: ../partIntfHelpers.py:504
 #, python-format
@@ -1887,36 +1899,41 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
+"તમે કદ જૂથ \"%s\" કાઢી નાંખવા માંગો છો.\n"
+"\n"
+"આ કદ જૂથમાંના બધા લોજિકલ કદ ખોવાઈ જશે!"
 
 #: ../partIntfHelpers.py:508
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr ""
+msgstr "તમે કદ જૂથ \"%s\" કાઢી નાંખવા માંગો છો."
 
 #: ../partIntfHelpers.py:511
 msgid "You are about to delete a RAID device."
-msgstr ""
+msgstr "તમે RAID ઉપકરણ કાઢી નાંખવા માંગો છો."
 
 #: ../partIntfHelpers.py:514
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr ""
+msgstr "તમે પાર્ટીશન /dev/%s કાઢી નાંખવા માંગો છો."
 
 #: ../partIntfHelpers.py:517
 msgid "The partition you selected will be deleted."
-msgstr ""
+msgstr "તમે પસંદ કરેલ પાર્ટીશન કાઢી નંખાશે."
 
 #: ../partIntfHelpers.py:527
 msgid "Confirm Reset"
-msgstr ""
+msgstr "રીસેટ કરવાનું ચોક્કસ છે"
 
 #: ../partIntfHelpers.py:528
 msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
+"શું તમે ખરેખર ચોક્કસ છો કે તમે પાર્ટીશન કોષ્ટક તેની મૂળ સ્થિતિમાં સુયોજિત "
+"કરવા માંગો છો?"
 
 #: ../partitioning.py:77
 msgid "Installation cannot continue."
-msgstr ""
+msgstr "સ્થાપન ચાલુ રાખી શકાતું નથી."
 
 #: ../partitioning.py:78
 msgid ""
@@ -1924,10 +1941,13 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
+"તમે પસંદ કરેલ પાર્ટીશન વિકલ્પો પહેલાથી જ સક્રિય કરેલ છે. તમે "
+"ડિસ્કમાં ફેરફાર કરવાની સ્ક્રીન પર પાછા આવી શકો નહિં. શું તમે સ્થાપનની "
+"પ્રક્રિયા સાથે ચાલુ રાખવા માંગો છો?"
 
 #: ../partitioning.py:108
 msgid "Low Memory"
-msgstr ""
+msgstr "નીચી મેમરી"
 
 #: ../partitioning.py:109
 msgid ""
@@ -1935,6 +1955,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
 msgstr ""
+"તમારી પાસે આ મશીન પર પૂરતી મેમરી નથી, અમારે સ્વેપ સ્પેશ તુરંત જ "
+"ચાલુ કરવાની જરુર પડશે. આમ કરવા માટે તમારુ નવું પાર્ટીશન કોષ્ટક "
+"તુરંત જ લખવું જરુરી છે. બરાબર ને?"
 
 #: ../partitions.py:761
 #, python-format
@@ -1942,6 +1965,8 @@ msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
+" તમે રુટ પાર્ટીશન (/) વ્યાખ્યાયિત નથી કર્યું,કે જે  %sનું સ્થાપન ચાલુ "
+"રાખવા માટે જરુરી છેe."
 
 #: ../partitions.py:766
 #, python-format
@@ -1949,14 +1974,18 @@ msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
+"તમારુ રુટ પાર્ટીશન એ ૨૫૦ મેગાબાઈટ કરતાં ઓછું છે કે જે %s સ્થાપિત કરવા "
+"માટે ખૂબ નાનું છે."
 
 #: ../partitions.py:773
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
+"તમારે FAT પ્રકારનું /boot/efi પાર્ટીશન બનાવવું જ જોઈએ અને તે પણ "
+"૫૦ મેગાબાઈટનું."
 
 #: ../partitions.py:796
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "તમારે PPC PReP બુટ પાર્ટીશન બનાવવું જ જોઈએ."
 
 #: ../partitions.py:804 ../partitions.py:815
 #, python-format
@@ -1964,20 +1993,24 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
+"તમારુ %s પાર્ટીશન એ %s મેગાબાઈટ કે જે સામાન્ય %s ના સ્થાપન માટે "
+"જરુરી છે તેના કરતાં નાનું છે."
 
 #: ../partitions.py:844 ../partRequests.py:651
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
+msgstr "બુટ કરી શકાય તેવું પાર્ટીશન માત્ર RAID1 ઉપકરણો પર છે."
 
 #: ../partitions.py:851
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr ""
+msgstr "બુટ કરી શકાય તેવા પાર્ટીશનો લોજિકલ જગ્યા પર હોઈ શકે નહિં."
 
 #: ../partitions.py:862
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
+"તમે સ્વેપ પાર્ટીશન સ્પષ્ટ કરેલ નથી. પરંતુ બધા કિસ્સાઓમાં તે જરુરી નથી, "
+"તે સાંકેતિક રીતે મોટા ભાગના સ્થાપનોનું પરિણામ સુધારે છે."
 
 #: ../partitions.py:869
 #, python-format
@@ -1985,6 +2018,8 @@ msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
+"તમે ૩૨ કરતાં વધુ સ્વેપ ઉપકરણો સ્પષ્ટ કર્યાં છે. %s માટેની કર્નલ માત્ર "
+"૩૨ સ્વેપ ઉપકરણોને આધાર આપે છે."
 
 #: ../partitions.py:880
 #, python-format
