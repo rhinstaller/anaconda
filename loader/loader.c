@@ -1626,7 +1626,7 @@ logMessage("Flags are 0x%x\n", flags);
     *argptr++ = "--keymap";
     *argptr++ = keymap;
 
-    if (kdbtype) {
+    if (kbdtype) {
 	*argptr++ = "--kbdtype";
 	*argptr++ = kbdtype;
     }
