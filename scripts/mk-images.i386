@@ -172,5 +172,5 @@ makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
 makemainmodules "=scsi =net $SECSTAGE"
 
 makeinstimage --size1 3300 --size2 4608 "netstg" "=scsi $SECSTAGE"
-makeinstimage --size1 3100 --size2 4608 "hdstg" "=net $SECSTAGE"
+makeinstimage --size1 3300 --size2 4608 "hdstg" "=net $SECSTAGE"
 makemainimage "stage2"
