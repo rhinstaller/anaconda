@@ -18,7 +18,7 @@ endif
 
 everything: $(TARGET)
 
-all:	modlist $(MODDEPS) genhdlist snarffont mapshdr readmap checkisomd5 implantisomd5
+all:	modlist $(MODDEPS) snarffont mapshdr readmap checkisomd5 implantisomd5
 
 modlist:    modlist.o 
 
