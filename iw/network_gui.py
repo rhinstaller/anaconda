@@ -169,9 +169,11 @@ class NetworkWindow(InstallWindow):
         devs = self.network.available()
         if not devs: return None
 
-        devs.keys().sort()
+	devnames = devs.keys()
+	devnames.sort()
+
         num = 0
-        for i in devs.keys():
+        for i in devnames:
             devbox = gtk.VBox()
             align = gtk.Alignment()
             DHCPcb = gtk.CheckButton(_("Configure using DHCP"))
@@ -181,7 +183,8 @@ class NetworkWindow(InstallWindow):
 
             align = gtk.Alignment()
             bootcb = gtk.CheckButton(_("Activate on boot"))
-            onboot = devs[i].get("onboot")
+	    onboot = devs[i].get("onboot")
+
 	    bootcb.connect("toggled", self.onBootToggled, devs[i])
             bootcb.set_active((num == 0 and not onboot)
                                or onboot == "yes")
@@ -206,6 +209,7 @@ class NetworkWindow(InstallWindow):
 
             DHCPcb.connect("toggled", self.DHCPtoggled, (devs[i], ipTable))
             bootproto = devs[i].get("bootproto")
+
             # go ahead and set up DHCP on the first device
             DHCPcb.set_active((num == 0 and not bootproto) or
                               bootproto == "dhcp")
