@@ -275,11 +275,14 @@ static void queryCDMediaCheck(char *dev, int flags) {
  * flags: usual loader flags
  * interactive: whether or not to prompt about questions/errors (1 is yes)
  *
+ * loaderData is the kickstart info, can be NULL meaning no info
+ *
  * side effect: found cdrom is mounted as /mnt/source.  stage2 mounted
  * as /mnt/runtime.
  */
 char * setupCdrom(char * location, 
                   struct knownDevices * kd, 
+		  struct loaderData_s * loaderData,
                   moduleInfoSet modInfo, 
                   moduleList modLoaded, 
                   moduleDeps modDeps, 
@@ -354,7 +357,7 @@ char * findRedHatCD(char * location,
                     moduleList modLoaded, 
                     moduleDeps modDeps, 
                     int flags) {
-    return setupCdrom(location, kd, modInfo, modLoaded, modDeps, flags, 0);
+    return setupCdrom(location, kd, NULL, modInfo, modLoaded, modDeps, flags, 0);
 }
 
 
@@ -366,5 +369,13 @@ char * mountCdromImage(struct installMethod * method,
                        moduleInfoSet modInfo, moduleList modLoaded,
                        moduleDeps * modDepsPtr, int flags) {
 
-    setupCdrom(location, kd, modInfo, modLoaded, *modDepsPtr, flags, 1);
+    setupCdrom(location, kd, loaderData, modInfo, modLoaded, *modDepsPtr, flags, 1);
+}
+
+void setKickstartCD(struct loaderData_s * loaderData, int argc,
+		    char ** argv, int * flagsPtr) {
+
+    logMessage("kickstartFromCD");
+
+    loaderData->method = strdup("cdrom");
 }
