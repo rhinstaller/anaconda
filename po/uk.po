@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-06-22 09:49+0200\n"
+"PO-Revision-Date: 2004-08-28 09:49+0200\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -603,7 +603,7 @@ msgstr "Віддалений вхід (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Веб-сервер (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
@@ -1447,11 +1447,11 @@ msgstr "Дисковий простір"
 
 #: ../packages.py:1043
 msgid "Post Install"
-msgstr "Настройка після встановлення"
+msgstr "Налаштовування після встановлення"
 
 #: ../packages.py:1044
 msgid "Performing post install configuration..."
-msgstr "Виконується настройка після встановлення..."
+msgstr "Виконується налаштовування після встановлення..."
 
 #: ../packages.py:1218
 msgid ""
@@ -1530,7 +1530,7 @@ msgstr ""
 "Переформатувати DASD використовуючи CDL формат?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1538,20 +1538,18 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"Таблиця розділів на пристрої /dev/%s має несподіваний для вашої архітектури "
-"тип %s. Для використання цього пристрою при встановленні %s його потрібно "
+"Пристрій /dev/%s вже має таблицю розділів типу %s. "
+"Щоб використати цей пристрій для встановлення %s, його потрібно "
 "повторно ініціалізувати, що призведе до втрати ВСІХ ДАНИХ на цьому "
 "пристрої.\n"
 "\n"
 "Ініціалізувати цей пристрій?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Ігнорувати"
+msgstr "_Ігнорувати пристрій"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
 msgstr "_Форматувати"
 
@@ -1570,7 +1568,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Будь ласка, зачекайте поки триває форматування пристрою %s...\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1581,8 +1579,8 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Таблицю розділів на пристрої %s неможливо прочитати. Для створення нових "
-"розділів його треба ініціалізувати, що призведе до втрати ВСІХ ДАНИХ на "
+"Таблицю розділів на пристрої %s (%s) неможливо прочитати. Для створення нових "
+"розділів пристрій треба ініціалізувати, що призведе до втрати ВСІХ ДАНИХ на "
 "цьому пристрої.\n"
 "\n"
 "Ця операція відмінить зроблений раніше вибір ігнорованих дисків.\n"
@@ -1881,7 +1879,7 @@ msgid ""
 "change these settings."
 msgstr ""
 "Виберіть 'Так' для продовження та форматування цих розділів. Натискання "
-"кнопки 'Ні' дозволить повернутись та змінити настройки."
+"кнопки 'Ні' дозволить повернутись та змінити параметри."
 
 #: ../partIntfHelpers.py:456
 msgid "Format Warning"
@@ -2124,7 +2122,7 @@ msgstr "Спроба запустити %s"
 
 #: ../rescue.py:174
 msgid "Setup Networking"
-msgstr "Настройка мережі"
+msgstr "Налаштовування мережі"
 
 #: ../rescue.py:175
 msgid "Do you want to start the network interfaces on this system?"
@@ -2509,7 +2507,7 @@ msgstr "Запускати VNC"
 
 #: ../vnc.py:55
 msgid "VNC Configuration"
-msgstr "Настройка VNC"
+msgstr "Налаштовування VNC"
 
 #: ../vnc.py:59
 msgid "No password"
@@ -2604,7 +2602,7 @@ msgstr "Під_твердження: "
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:337
 msgid "Authentication Configuration"
-msgstr "Настройка автентифікації"
+msgstr "Налаштовування автентифікації"
 
 #: ../iw/auth_gui.py:98
 msgid "Enable _MD5 passwords"
@@ -2779,7 +2777,7 @@ msgstr "_Ні, я не бажаю створювати завантажувал�
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
-msgstr "Додаткова настройка завантажувача"
+msgstr "Додаткові параметри завантажувача"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
 msgid ""
@@ -2820,7 +2818,7 @@ msgstr "_Загальні параметри ядра"
 #: ../textw/bootloader_text.py:125 ../textw/bootloader_text.py:184
 #: ../textw/bootloader_text.py:307 ../textw/bootloader_text.py:399
 msgid "Boot Loader Configuration"
-msgstr "Настройка завантажувача"
+msgstr "Параметри завантажувача"
 
 #: ../iw/bootloader_main_gui.py:75
 msgid "Change Boot Loader"
@@ -3021,7 +3019,7 @@ msgstr ""
 "Інформацію про автоматичне обновлення системи дивіться на:\n"
 "\thttp://rhn.redhat.com/\n"
 "\n"
-"Інформацію про використання та настройку системи дивіться на:\n"
+"Інформацію про використання та налаштовування системи дивіться на:\n"
 "\thttp://www.redhat.com/docs/\n"
 "\thttp://www.redhat.com/apps/support/\n"
 "\n"
@@ -3203,7 +3201,7 @@ msgid ""
 msgstr ""
 "Якщо система з'єднана безпосередньо з Інтернетом або з великою публічною "
 "мережею, рекомендується настроїти брандмауер для запобігання "
-"несанкціонованого доступу. Але ви вирішили пропустить настройку брандмауера. "
+"несанкціонованого доступу. Але ви вирішили пропустить налаштовування брандмауера. "
 "Натисніть \"Продовжити\", щоб продовжити установку без брандмауера."
 
 #: ../iw/firewall_gui.py:43
@@ -3236,6 +3234,8 @@ msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
 msgstr ""
+"Використовуючи брандмауер, ви можете забажати дозволити доступ до певних "
+"служб вашої системи. До яких служб треба дозволити доступ?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3244,11 +3244,14 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
+"Linux с вдосконаленою безпекою (SELinux) дозволяє більш точно керувати безпекою, ніж "
+"традиційні Linux системи. Ви можете встановити його у вимкнений стан, у "
+"стан в якому лише формуються повідомлення про те, що було б заборонено, та "
+"повністю увімкнений стан."
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "Вимкнути SELinux"
+msgstr "Увімкнути _SELinux?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3292,11 +3295,11 @@ msgstr "Підтримка додаткових мов"
 
 #: ../iw/language_support_gui.py:205
 msgid "Select the _default language for the system:   "
-msgstr "Виберіть типову мову цієї системи:   "
+msgstr "Виберіть _типову мову цієї системи:   "
 
 #: ../iw/language_support_gui.py:219
 msgid "Select _additional languages to install on the system:"
-msgstr "Відмітьте додаткові мови, які використовуватимуться у цій системі:"
+msgstr "Відмітьте д_одаткові мови, які використовуватимуться у цій системі:"
 
 #: ../iw/language_support_gui.py:254
 msgid "_Select All"
@@ -3641,7 +3644,7 @@ msgstr "Логічні томи"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
-msgstr "Настройка миші"
+msgstr "Параметри миші"
 
 #: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -3709,7 +3712,7 @@ msgstr "_Третинний DNS"
 
 #: ../iw/network_gui.py:35
 msgid "Network Configuration"
-msgstr "Настройка мережі"
+msgstr "Налаштовування мережі"
 
 #: ../iw/network_gui.py:155 ../iw/network_gui.py:159 ../iw/network_gui.py:163
 #: ../iw/network_gui.py:168 ../iw/network_gui.py:174 ../iw/network_gui.py:178
@@ -3805,14 +3808,12 @@ msgid "_Point to Point (IP)"
 msgstr "_Точка монтування (IP)"
 
 #: ../iw/network_gui.py:238
-#, fuzzy
 msgid "_ESSID"
-msgstr "ESSID"
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
-#, fuzzy
 msgid "Encryption _Key"
-msgstr "Ключ шифрування"
+msgstr "_Ключ шифрування"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -4043,11 +4044,11 @@ msgstr "_Незмінний розмір"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "Заповнити весь простір до (МБ):"
+msgstr "Заповнити весь простір д_о (МБ):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "Заповнити весь доступний простір"
+msgstr "Заповнити весь _наявний простір"
 
 #: ../iw/partition_dialog_gui.py:174
 msgid "The end cylinder must be greater than the start cylinder."
@@ -4285,7 +4286,7 @@ msgstr "Створити _пристрій RAID (типово /dev/md%s)."
 #: ../iw/partition_gui.py:1275
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "Клонувати диск для створення пристрою RAID (типово /dev/md%s)."
+msgstr "Клонувати _диск для створення пристрою RAID (типово /dev/md%s)."
 
 #: ../iw/partition_gui.py:1314
 msgid "Couldn't Create Drive Clone Editor"
@@ -4349,7 +4350,7 @@ msgstr "Як ви бажаєте підготувати файлову сист�
 
 #: ../iw/partition_ui_helpers_gui.py:249
 msgid "Leave _unchanged (preserve data)"
-msgstr "Залишити без змін (зберегти дані)"
+msgstr "Залишити _без змін (зберегти дані)"
 
 #: ../iw/partition_ui_helpers_gui.py:255
 msgid "_Format partition as:"
@@ -4374,7 +4375,7 @@ msgstr ""
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr "Настройка розподілу диску"
+msgstr "Параметри розподілу диску"
 
 #: ../iw/partmethod_gui.py:53
 msgid "_Automatically partition"
@@ -4681,7 +4682,7 @@ msgstr "Не вдається завантажити файл!"
 
 #: ../iw/silo_gui.py:28
 msgid "Silo Configuration"
-msgstr "Настройка SILO"
+msgstr "Налаштовування SILO"
 
 #: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:148
 #: ../textw/upgrade_text.py:112
@@ -4958,7 +4959,7 @@ msgstr "_Графічний"
 
 #: ../iw/xconfig_gui.py:413 ../textw/xconfig_text.py:416
 msgid "Monitor Configuration"
-msgstr "Настройка монітора"
+msgstr "Налаштовування монітора"
 
 #: ../iw/xconfig_gui.py:438 ../textw/xconfig_text.py:467
 msgid "Monitor Unspecified"
@@ -4982,7 +4983,7 @@ msgid ""
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
 "У більшості випадків монітор визначається автоматично. Якщо визначені "
-"автоматично настройки неправильні, вкажіть правильні правильні параметри."
+"автоматично параметри неправильні, вкажіть правильні правильні параметри."
 
 #: ../iw/xconfig_gui.py:740 ../iw/xconfig_gui.py:1103
 msgid "Restore _original values"
@@ -5006,7 +5007,7 @@ msgstr "Гц"
 
 #: ../iw/xconfig_gui.py:781
 msgid "Graphical Interface (X) Configuration"
-msgstr "Настройка графічного інтерфейсу"
+msgstr "Налаштовування графічного інтерфейсу"
 
 #: ../iw/xconfig_gui.py:811
 msgid "Unknown video card"
@@ -5032,8 +5033,8 @@ msgid ""
 "button."
 msgstr ""
 "Необхідно вибрати відеокарту для продовження налаштовування X Window.  Якщо "
-"ви бажаєте пропустити настройку повністю, тоді виберіть \"Пропустити "
-"настройку X Window\"'."
+"ви бажаєте пропустити налаштовування повністю, тоді виберіть \"Пропустити "
+"налаштовування X Window\"'."
 
 #: ../iw/xconfig_gui.py:974 ../textw/xconfig_text.py:637
 msgid ""
@@ -5043,7 +5044,7 @@ msgid ""
 msgstr ""
 "Ваша система буде налаштована для використання кадрового буфера для системи "
 "X Window.  Якщо ви не бажаєте настроювати систему X зараз, натисніть нижче"
-"\"Пропустити настройку X\"."
+"\"Пропустити налаштовування X\"."
 
 #: ../iw/xconfig_gui.py:983
 msgid ""
@@ -5068,11 +5069,11 @@ msgstr "_ОЗП на відеокарті: "
 
 #: ../iw/xconfig_gui.py:1107
 msgid "_Skip X configuration"
-msgstr "_Пропустити настройку Х"
+msgstr "_Пропустити налаштовування Х"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
-msgstr "Настройка завантажувача z/IPL"
+msgstr "Налаштовування завантажувача z/IPL"
 
 #: ../iw/zipl_gui.py:75
 msgid "The z/IPL boot loader will be installed on your system."
@@ -5317,7 +5318,7 @@ msgstr ""
 "Інформацію про виправлення до цього випуску Red Hat Linux, можна знайти у "
 "розділі Errata на http://www.redhat.com/errata\n"
 "\n"
-"Інформацію про використання та настройку вашої системи можна одержати з "
+"Інформацію про використання та налаштовування вашої системи можна одержати з "
 "документації %s на http://www.redhat.com/docs"
 
 #: ../textw/complete_text.py:47
@@ -5388,7 +5389,7 @@ msgstr ""
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
-msgstr "Настройка вибору ПЗ"
+msgstr "Уточнення вибору ПЗ"
 
 #: ../textw/fdasd_text.py:31
 msgid "Choose a disk to run fdasd or dasdfmt on"
@@ -5470,9 +5471,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "Не можна налаштовувати вимкнений брандмауер."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Доповнення графічної конфігурації"
+msgstr "Уточнення параметрів брандмауера"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5602,7 +5602,7 @@ msgstr "Активізувати при завантаженні"
 #: ../textw/network_text.py:138
 #, python-format
 msgid "Network Configuration for %s"
-msgstr "Настройка мережі для %s"
+msgstr "Налаштовування мережі для %s"
 
 #: ../textw/network_text.py:171
 msgid "Invalid information"
@@ -5990,7 +5990,7 @@ msgstr "Залишилося: "
 #: ../textw/silo_text.py:39 ../textw/silo_text.py:112
 #: ../textw/silo_text.py:224
 msgid "SILO Configuration"
-msgstr "Настройка SILO"
+msgstr "Налаштовування SILO"
 
 #: ../textw/silo_text.py:77
 msgid "Create PROM alias `linux'"
@@ -6021,7 +6021,7 @@ msgstr "У якому часовому поясі ви знаходитесь?"
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr "Оновити настройку завантажувача"
+msgstr "Оновити параметри завантажувача"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
@@ -6317,7 +6317,7 @@ msgstr "Виберіть бажану роздільну здатність:"
 
 #: ../textw/xconfig_text.py:131
 msgid "X Customization"
-msgstr "Настройка Х Window"
+msgstr "Налаштовування Х Window"
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
@@ -6487,11 +6487,11 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:629
 msgid "Skip X Configuration"
-msgstr "Пропустити настройку Х Window"
+msgstr "Пропустити налаштовування Х Window"
 
 #: ../textw/xconfig_text.py:631
 msgid "Video Card Configuration"
-msgstr "Настройка відеокарти"
+msgstr "Налаштовування відеокарти"
 
 #: ../textw/xconfig_text.py:645
 msgid "Select the video card and video RAM for your system."
@@ -6521,7 +6521,7 @@ msgstr ""
 
 #: ../textw/zipl_text.py:56
 msgid "z/IPL Configuration"
-msgstr "Настройка z/IPL"
+msgstr "Налаштовування z/IPL"
 
 #: ../textw/zipl_text.py:64 ../textw/zipl_text.py:68
 msgid "Chandev line "
@@ -6903,7 +6903,7 @@ msgid ""
 "to configure additional devices."
 msgstr ""
 "Вкажіть розділ та каталог на цьому розділі, які містять образи CD (iso9660) "
-"для %s. Якщо необхідний диск відсутній у списку, натисніть F2 для настройки "
+"для %s. Якщо необхідний диск відсутній у списку, натисніть F2 для налаштовування "
 "додаткових пристроїв."
 
 #: ../loader2/hdinstall.c:365
@@ -6956,9 +6956,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Не вдається знайти ks.cfg на завантажувальній дискеті."
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Недопустимий аргумент команди kickstart HD-методу %s: %s"
+msgstr "Недопустимий аргумент команди kickstart для вимкнення %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -7310,11 +7310,11 @@ msgstr "Первинний сервер назв (DNS):"
 
 #: ../loader2/net.c:490
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr "Динамічна настройка IP (BOOTP/DHCP)"
+msgstr "Динамічне налаштовування IP (BOOTP/DHCP)"
 
 #: ../loader2/net.c:518
 msgid "Configure TCP/IP"
-msgstr "Настройка TCP/IP"
+msgstr "Налаштовування TCP/IP"
 
 #: ../loader2/net.c:549
 msgid "Missing Information"
@@ -7361,7 +7361,7 @@ msgstr "Каталог %s:"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
-msgstr "Настройка NFS"
+msgstr "Налаштовування NFS"
 
 #: ../loader2/nfsinstall.c:197
 #, c-format
@@ -7448,11 +7448,11 @@ msgstr "Використовувати авторизований ftp"
 
 #: ../loader2/urls.c:309
 msgid "FTP Setup"
-msgstr "Настройка FTP"
+msgstr "Налаштовування FTP"
 
 #: ../loader2/urls.c:310
 msgid "HTTP Setup"
-msgstr "Настройка HTTP"
+msgstr "Налаштовування HTTP"
 
 #: ../loader2/urls.c:320
 msgid "You must enter a server name."
@@ -8155,15 +8155,15 @@ msgstr "Запоріжжя, Сх Луганськ"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Арабська"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr "Бенгалі"
+msgstr "Бенгальська"
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr "Каталанська"
+msgstr "Каталонська"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
@@ -8210,9 +8210,8 @@ msgid "German"
 msgstr "Німецька"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Пошук"
+msgstr "Хінді"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8236,7 +8235,7 @@ msgstr "Корейська"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Македонська"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8260,7 +8259,7 @@ msgstr "Португальська(Бразильська)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Панджабська"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8279,9 +8278,8 @@ msgid "Swedish"
 msgstr "Шведська"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Тасманія"
+msgstr "Тамільська"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8293,7 +8291,7 @@ msgstr "Українська"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "В'єтнамська"
 
 #. generated from lang-table
 msgid "Welsh"
@@ -8302,89 +8300,3 @@ msgstr "Уельська"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Зулу"
-
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "Вказано неправильний порт: %s.  Правильний формат 'порт:протокол', де "
-#~ "порт у діапазоні від 1 до 65535, а протокол 'tcp' або 'udp'.\n"
-#~ "\n"
-#~ "Наприклад, '1234:udp'"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "Увага: неправильний елемент"
-
-#~ msgid "Allow others on the internet to access these services."
-#~ msgstr "Дозволити іншим особам з Інтернет мати доступ до цих служб."
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "Дозволити в_хідні:"
-
-#~ msgid "Web Server"
-#~ msgstr "WWW сервер"
-
-#~ msgid "Other _ports:"
-#~ msgstr "Інші _порти:"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "_Розширення Security Enhanced Linux (SELinux):"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "Довірені пристрої:"
-
-#~ msgid "SSH"
-#~ msgstr "SSH"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "WWW (HTTP)"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "Пошта (SMTP)"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Other ports"
-#~ msgstr "Інші порти"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "Настройка брандмауера - Доповнення"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "Є два способи настроїти брандмауер. По-перше, дозволити весь трафік через "
-#~ "певні мережні. По-друге, дозволити проходження через брандмауер певних "
-#~ "протоколів. Вкажіть додаткові порти у розділеному комами переліку у формі "
-#~ "'служба:протокол', наприклад 'imap:tcp'. "
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "Увага: %s не є допустимим портом."
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "Компакт-диск неможливо підключити."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Введіть пароль користувача root(адміністратора) цієї системи."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "В_ибірковий брандмауер"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "Вкажіть служби, яким буде дозволений доступ через брандмауер."
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr ""
-#~ "Якщо хочете дозволити весь трафік через певний пристрій, відмітьте його "
-#~ "нижче."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "_Довірені пристрої:"
