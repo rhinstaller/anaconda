@@ -661,6 +661,7 @@ if not instClass:
 
 # this lets install classes force text mode instlls
 if instClass.forceTextMode:
+    dup_log(_("Install class forcing text mode installation"))
     display_mode = 't'
 
 #
@@ -721,10 +722,10 @@ time.sleep(3)
 # now determine if we're going to run in GUI or TUI mode
 #
 if (display_mode == 'g' and method and
-    method.startswith('ftp://') or
-    method.startswith('http://') or
-    method.startswith('hd://') or
-    method.startswith('oldhd://')):
+    (method.startswith('ftp://') or
+     method.startswith('http://') or
+     method.startswith('hd://') or
+     method.startswith('oldhd://'))):
     dup_log(_("Graphical installation not available for %s installs.  "
              "Starting text mode.") % (string.split(method, ':')[0],))
     display_mode = 't'
