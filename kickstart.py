@@ -6,7 +6,15 @@ import sys
 class Kickstart(InstallClass):
 
     def setRootPassword(self, args):
-	InstallClass.setRootPassword(self, args[0])
+	(args, extra) = getopt.getopt(args, '', [ 'iscrypted=' ])
+
+	isCrypted = 0
+	for n in args:
+	    (str, arg) = n
+	    if (str == '--iscrypted'):
+		isCrypted = 1
+
+	InstallClass.setRootPassword(self, extra[0], isCrypted = isCrypted)
 	self.addToSkipList("accounts")
 
     def authconfig(self, args):
