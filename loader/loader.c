@@ -2111,6 +2111,43 @@ void loadUfs(struct knownDevices *kd, moduleList modLoaded,
 #define loadUfs(kd,modLoaded,modDepsPtr,flags) do { } while (0)
 #endif
 
+void setFloppyDevice(int flags) {
+#if defined(__i386__)
+    struct device ** devices;
+    char line[256];
+    const char * match = "Floppy drive(s): ";
+    int foundFd0 = 0;
+    FILE * f;
+
+    /*if (FL_TESTING(flags)) return;*/
+
+    logMessage("probing for ide floppies");
+
+    devices = probeDevices(CLASS_FLOPPY, BUS_IDE, PROBE_ALL);
+
+    if (!devices) logMessage("no ide floppy devices found");
+    if (!devices) return;
+
+    logMessage("found IDE floppy %s", devices[0]->device);
+
+    f = fopen("/tmp/syslog", "r");
+    while (fgets(line, sizeof(line), f)) {
+	if (!strncmp(line + 1, match, strlen(match))) {
+	    foundFd0 = 1;
+	    break;
+	}
+    }
+
+    fclose(f);
+
+    if (!foundFd0) {
+	floppyDevice = strdup(devices[0]->device);
+	logMessage("IDE floppy %s is the primary floppy device on this "
+		    "system");
+    }
+#endif
+}
+
 int main(int argc, char ** argv) {
     char ** argptr;
     char * anacondaArgs[40];
@@ -2142,6 +2179,9 @@ int main(int argc, char ** argv) {
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
 	    { 0, 0, 0, 0, 0 }
     };
+    struct device ** devices;
+
+    devices = probeDevices(CLASS_FLOPPY, BUS_IDE, PROBE_ALL);
 
     if (!strcmp(argv[0] + strlen(argv[0]) - 6, "insmod"))
 	return ourInsmodCommand(argc, argv);
@@ -2208,6 +2248,8 @@ int main(int argc, char ** argv) {
 #endif
 
     openLog(FL_TESTING(flags));
+
+    setFloppyDevice(flags);
 
     kd = kdInit();
     mlReadLoadedList(&modLoaded);
