@@ -152,14 +152,6 @@ class LoopSizeWindow(InstallWindow):
         return vbox
         
 class AutoPartitionWindow(InstallWindow):
-    def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
-
-        self.todo = ics.getToDo ()
-        ics.setTitle (_("Automatic Partitioning"))
-	ics.setNextEnabled (TRUE)
-        self.ics = ics
-
     def getPrev(self):
 	self.druid = None
 	self.beingDisplayed = 0
@@ -194,8 +186,9 @@ class AutoPartitionWindow(InstallWindow):
 	    
 	return None
 
-    def __init__(self, todo):
-	InstallWindow.__init__(self, todo)
+    def __init__(self, ics):
+	InstallWindow.__init__(self, ics)
+        ics.setTitle (_("Automatic Partitioning"))
 	self.druid = None
 	self.beingDisplayed = 0
 

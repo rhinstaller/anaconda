@@ -4,6 +4,8 @@ import xkb
 import string
 import keyboard
 from translate import _
+from kbd import Keyboard
+import iutil
 
 class KeyboardWindow (InstallWindow):
 
@@ -40,6 +42,13 @@ class KeyboardWindow (InstallWindow):
 	self.kb.setRule (self.model, self.layout, self.variant, "complete")
 
     def getScreen (self):
+        if not self.hasrun:
+            default = iutil.defaultKeyboard()
+            if Keyboard.console2x.has_key (default):
+                self.model = Keyboard.console2x[default][0]
+                self.layout = Keyboard.console2x[default][1]
+                self.kb.setRule (self.model, self.layout, self.variant, "complete")
+
 	box = GtkVBox (FALSE, 5)
         im = self.ics.readPixmap ("gnome-keyboard.png")
         if im:

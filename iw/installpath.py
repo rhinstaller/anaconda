@@ -33,14 +33,17 @@ WORKSTATION_GNOME = 3
 WORKSTATION_KDE = 4
 SERVER = 5
 
+def D_(x):
+    return x
+
 class InstallPathWindow (InstallWindow):		
 
-    installTypes = ((WORKSTATION_GNOME, _("GNOME Workstation"),
+    installTypes = ((WORKSTATION_GNOME, D_("GNOME Workstation"),
                      "gnome-workstation.png"),
-                    (WORKSTATION_KDE, _("KDE Workstation"),
+                    (WORKSTATION_KDE, D_("KDE Workstation"),
                      "kde-workstation.png"),
-                    (SERVER, _("Server"), "server.png"),
-                    (CUSTOM, _("Custom"), "custom.png"))
+                    (SERVER, D_("Server"), "server.png"),
+                    (CUSTOM, D_("Custom"), "custom.png"))
 
     def __init__ (self, ics):
 	if iutil.getArch() == 'sparc':
@@ -213,10 +216,11 @@ class InstallPathWindow (InstallWindow):
 		default = WORKSTATION_GNOME
 
         self.installBox = GtkVBox (FALSE, 0)
+
         group = None
 	self.installClasses = []
 	for (type, name, pixmap) in self.installTypes:
-            group = self.pixRadioButton (group, name, pixmap)
+            group = self.pixRadioButton (group, _(name), pixmap)
             self.installBox.pack_start (group, FALSE)
 	    self.installClasses.append ((group, type))
 	    if (type == default):
@@ -225,11 +229,18 @@ class InstallPathWindow (InstallWindow):
 	spacer = GtkLabel("")
 	spacer.set_usize(60, 1)
 
-	table = GtkTable(2, 3)
-        table.attach(installButton, 0, 2, 0, 1)
-        table.attach(spacer, 0, 1, 1, 2, xoptions = FALSE)
-        table.attach(self.installBox, 1, 2, 1, 2, xoptions = FILL | EXPAND)
-        table.attach(self.upgradeButton, 0, 2, 2, 3)
+	InstallPathWindow.fdisk = GtkCheckButton (_("Use fdisk"))
+	align = GtkAlignment ()
+	align.add (InstallPathWindow.fdisk)
+	align.set (0.0, 0.0, 0.0, 0.0)
+
+	table = GtkTable(2, 4)
+        table.attach(installButton, 0, 2, 0, 1, xoptions = FILL | EXPAND)
+	table.attach(align, 2, 3, 0, 1, xoptions = FALSE)
+#        table.attach(spacer, 0, 1, 1, 2, xoptions = FALSE)
+	self.installBox.set_usize(300, -1)
+        table.attach(self.installBox, 1, 3, 1, 2)
+        table.attach(self.upgradeButton, 0, 3, 2, 3)
 
 	box.pack_start(table, FALSE)
 
@@ -239,15 +250,7 @@ class InstallPathWindow (InstallWindow):
 	else:
 	    fdiskState = InstallPathWindow.fdisk.get_active()
 
-	InstallPathWindow.fdisk = GtkCheckButton (_("Use fdisk"))
 	InstallPathWindow.fdisk.set_active(fdiskState)
-
-	align = GtkAlignment ()
-	align.add (InstallPathWindow.fdisk)
-	align.set (0.0, 0.0, 0.0, 0.0)
-	hbox.pack_start (box, TRUE)
-	hbox.pack_start (align, FALSE)
-	box = hbox
 
         self.toggled (installButton, INSTALL)
         self.toggled (self.upgradeButton, UPGRADE)

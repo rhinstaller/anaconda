@@ -14,30 +14,24 @@ SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
 BINS = init
 DIRS = 
 NETOBJS = net.o 
-ifeq (i386, $(ARCH))
-KON = 0
-endif
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 OPTS = -O2 -g
 
 MODULELINKAGE :=../isys/modutils/insmod/libmodutils.a    \
-        	../isys/modutils/util/libutil.a          \
-        	../isys/modutils/obj/libobj.a
+	       	../isys/modutils/util/libutil.a          \
+	       	../isys/modutils/obj/libobj.a
 
 CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1 -DVERSION='"$(VERSION)"' -DHAVE_LIBIO_H -ggdb
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
-ifeq (1, $(KON))
-DIRS += kon2
-OBJS += ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
-CFLAGS += -DINCLUDE_KON=1
-endif
-
+# XXX Japanese is i386 only at the moment
 ifeq (i386, $(ARCH))
-BINS += loader-local loader-network loader-pcmcia
-DIRS += pcmcia-install
-OBJS += stubs.o 
+BINS += loader-local loader-network loader-pcmcia \
+        loader-local-kon loader-network-kon loader-pcmcia-kon
+DIRS += pcmcia-install kon2
+OBJS += stubs.o
+KONOBJS += ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
 endif
 
 ifeq (ia64, $(ARCH))
@@ -80,19 +74,18 @@ STATIC=-static
 endif
 endif
 
-ifeq (1, $(KON))
-LANGS = ja
-else
-LANGS = $(shell awk '{ print $$2 }' ../lang-table | grep -v '^en$$')
-endif
+LANGS = $(shell awk '{ print $$2 }' ../lang-table | egrep -v '(^en$$)|(^ja$$)')
 
 TR = $(patsubst %,tr/%.tr,$(LANGS))
 TRFILES = $(patsubst %,%.tr,$(LANGS))
 
-all: dirs $(BINS) loader.tr
+all: dirs $(BINS) loader.tr kon-loader.tr
 
 loader.tr: $(TR) ../lang-table
 	(cd tr; ls $(TRFILES) | cpio --quiet -Hcrc -o | gzip -9) > $@
+
+kon-loader.tr: tr/ja.tr ../lang-table
+	(cd tr; echo ja.tr | cpio --quiet -Hcrc -o | gzip -9) > $@
 
 loader.po: *.c
 	xgettext --default-domain=loader --add-comments \
@@ -126,11 +119,25 @@ loader-local: loader-local.o $(OBJS)
 	$(MODULELINKAGE) \
         -L ../stubs -lz -lresolv -lnewt -lslang -lpci
 
+loader-local-kon: loader-local-kon.o $(OBJS)
+	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
+        -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
+	$(MODULELINKAGE) \
+        -L ../stubs -lz -lresolv -lnewt -lslang -lpci
+	./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
+
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
         -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
+
+loader-network-kon: loader-net-kon.o $(OBJS) $(NETOBJS)
+	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
+        -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
+	$(MODULELINKAGE) \
+        -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
+	./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
 
 loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o $(OBJS) \
@@ -140,25 +147,44 @@ loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	$(MODULELINKAGE) \
         -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
+loader-pcmcia-kon: loader-pcmcia-kon.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
+	$(CC) -g $(STATIC) -o $@ loader-pcmcia-kon.o $(OBJS) \
+	    $(PCMCIAOBJS) -L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
+        -lpopt     \
+        -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
+	$(MODULELINKAGE) \
+        ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
+
 loader.o: loader.c
 	$(CC) -DINCLUDE_LOCAL -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $^
 
 loader-local.o: loader.c
 	$(CC) -DINCLUDE_LOCAL $(CFLAGS) -o $@ -c $^
 
+loader-local-kon.o: loader.c
+	$(CC) -DINCLUDE_LOCAL -DINCLUDE_KON $(CFLAGS) -o $@ -c $^
+
 loader-net.o: loader.c
 	$(CC) -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $^
+
+loader-net-kon.o: loader.c
+	$(CC) -DINCLUDE_NETWORK -DINCLUDE_KON $(CFLAGS) -o $@ -c $^
 
 loader-pcmcia.o: loader.c
 	$(CC) -DINCLUDE_PCMCIA -DINCLUDE_LOCAL -DINCLUDE_NETWORK \
 	    $(CFLAGS) -o $@ -c $^
+
+loader-pcmcia-kon.o: loader.c
+	$(CC) -DINCLUDE_PCMCIA -DINCLUDE_LOCAL -DINCLUDE_NETWORK \
+	    -DINCLUDE_KON $(CFLAGS) -o $@ -c $^
 
 init: init.o $(MINILIBC)
 	$(CC) $(STATIC) -g $(LDFLAGS) -o $@ init.o $(MINILIBC)
 
 clean: 
 	rm -f *.o .depend *~ loader-local loader-network loader.old loader-pcmcia probe modprobe \
-	      loader.po loader.tr tr/*.tr loader init
+	      loader.po loader.tr tr/*.tr loader init loader-local-kon loader-network-kon \
+              loader-pcmcia-kon
 	for n in $(DIRS); do \
 	    (cd $$n; make clean) \
 	done
