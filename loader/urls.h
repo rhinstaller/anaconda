@@ -5,19 +5,20 @@ enum urlprotocol_t { URL_METHOD_FTP, URL_METHOD_HTTP };
 typedef enum urlprotocol_t urlprotocol;
 
 struct iurlinfo {
+    urlprotocol protocol;
     char * address;
     char * login;
     char * password;
     char * prefix;
     char * proxy;
     char * proxyPort;
-    char * urlprefix;
+    int ftpPort;
 };
 
 int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 		      char * doSecondarySetup);
 int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol);
-FD_t urlinstStartTransfer(struct iurlinfo * ui, char * filename);
-int urlinstFinishTransfer(FD_t fd);
+int urlinstStartTransfer(struct iurlinfo * ui, char * filename);
+int urlinstFinishTransfer(struct iurlinfo * ui, int fd);
 
 #endif

@@ -6,12 +6,12 @@ ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
 OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o lang.o \
-       misc.o
+       misc.o ftp.o
 LOADEROBJS = loader.o loader-pcmcia.o popen.o
 SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
 BINS = init
 DIRS = 
-NETOBJS = net.o
+NETOBJS = net.o 
 ifeq (i386, $(ARCH))
 KON = 0
 endif
@@ -117,7 +117,7 @@ loader-local: loader-local.o $(OBJS)
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
-        -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
+        -L ../stubs -L../pump -lpump -lz -lresolv -lnewt -lslang -lpci
 
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \

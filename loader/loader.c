@@ -29,10 +29,6 @@
 #include <newt.h>
 #include <popt.h>
 
-#include <glob.h>   /* XXX rpmlib.h */
-#include <dirent.h> /* XXX rpmlib.h */
-
-#include <rpmio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
@@ -918,7 +914,7 @@ static char * mountUrlImage(struct installMethod * method,
     struct iurlinfo ui;
     char needsSecondary = ' ';
     static struct networkDeviceConfig netDev;
-    FD_t fd;
+    int fd;
     char * url;
     char buf[1024];
     enum urlprotocol_t proto = 
@@ -951,10 +947,12 @@ static char * mountUrlImage(struct installMethod * method,
 			URL_STAGE_SECOND : URL_STAGE_FETCH;
 	    break;
 
+#if 0	    /* we don't support proxies, etc right now */
 	  case URL_STAGE_SECOND:
 	    rc = urlSecondarySetupPanel(&ui, proto);
 	    stage = rc ? URL_STAGE_MAIN : URL_STAGE_FETCH;
 	    break;
+#endif
 
 	  case URL_STAGE_FETCH:
 	    if (FL_TESTING(flags)) {
@@ -964,19 +962,16 @@ static char * mountUrlImage(struct installMethod * method,
 
 	    fd = urlinstStartTransfer(&ui, "base/stage2.img");
 	    
-	    if (fd == NULL || Ferror(fd)) {
+	    if (fd < 0) {
 		newtPopWindow();
-		snprintf(buf, sizeof(buf), "%s/RedHat/base/stage2.img",
-			 ui.urlprefix);
 		newtWinMessage(_("FTP"), _("OK"), 
 		       _("Unable to retrieve the second stage ramdisk"));
-		/*XXX ufdClose(fd);*/
 		stage = URL_STAGE_MAIN;
 		break;
 	    }
 	    
-	    rc = loadStage2Ramdisk(Fileno(fd), 0, flags);
-	    urlinstFinishTransfer(fd);
+	    rc = loadStage2Ramdisk(fd, 0, flags);
+	    urlinstFinishTransfer(&ui, fd);
 	    if (!rc)
 		stage = URL_STAGE_DONE;
 
@@ -984,8 +979,10 @@ static char * mountUrlImage(struct installMethod * method,
         }
     }
 
-    url = malloc(strlen(ui.urlprefix) + 2);
-    strcpy(url, ui.urlprefix);
+    url = malloc(strlen(ui.prefix) + 25 + strlen(ui.address));
+    sprintf(url, "%s//%s/%s", 
+	    ui.protocol == URL_METHOD_FTP ? "ftp" : "http",
+	    ui.address, ui.prefix);
 
     writeNetInfo("/tmp/netinfo", &netDev);
 

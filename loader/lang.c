@@ -14,7 +14,6 @@
 #include <glob.h>   /* XXX rpmlib.h */
 #include <dirent.h> /* XXX rpmlib.h */
 
-#include <rpm/rpmio.h>
 #include <linux/keyboard.h>
 #include <linux/kd.h>
 
@@ -105,7 +104,7 @@ const int numLanguages = sizeof(languages) / sizeof(struct langInfo);
 
 void loadLanguage (char * file, int flags) {
     char filename[200];
-    FD_t stream;
+    gzFile stream;
     int fd, hash, rc;
     char * key = getenv("LANG");
 
@@ -125,18 +124,18 @@ void loadLanguage (char * file, int flags) {
 	    sprintf(filename, "/etc/loader.tr");
     }
 
-    stream = Fopen (file, "r.fdio");
+    stream = gzopen(file, "r");
 
-    if (!stream || Ferror (stream)) {
+    if (!stream) {
 	newtWinMessage("Error", "OK", "Cannot open %s: %s. Installation will "
-			"proceed in English.", file, Fstrerror(stream));
+			"proceed in English.", file, strerror(errno));
 	return ;
     }
     
     sprintf(filename, "%s.tr", key);
 
     rc = installCpioFile(stream, filename, "/tmp/translation", 1);
-    Fclose(stream);
+    gzclose(stream);
 
     if (rc || access("/tmp/translation", R_OK)) {
 	newtWinMessage("Error", "OK", "Cannot get translation file %s.\n", 
@@ -179,21 +178,21 @@ static int loadFont(char * fontFile, int flags) {
     struct unimapinit u;
     struct unipair desc[2048];
     int fd;
-    FD_t stream;
+    gzFile stream;
     int rc;
 
 #if 0
     if (!FL_TESTING(flags)) {
 #endif
-	stream = Fopen("/etc/fonts.cgz", "r.fdio");
-	if (!stream || Ferror (stream)) {
+	stream = gzopen("/etc/fonts.cgz", "r");
+	if (!stream) {
 	    newtWinMessage("Error", "OK", 
-			"Cannot open fonts: %s", Fstrerror(stream));
+			"Cannot open fonts: %s", strerror(errno));
 	    return LOADER_ERROR;
 	}
 
 	rc = installCpioFile(stream, fontFile, "/tmp/font", 1);
-        Fclose(stream);
+        gzclose(stream);
 	if (rc || access("/tmp/font", R_OK)) {
 	    return LOADER_ERROR;
 	}

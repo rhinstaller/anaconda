@@ -3,25 +3,21 @@
 #include <fcntl.h>
 #include <netinet/in.h>
 #include <newt.h>
-
-#include <glob.h>   /* XXX rpmlib.h */
-#include <dirent.h> /* XXX rpmlib.h */
-
-#include <rpmio.h>
-#include <rpmlib.h>
-#include <rpmurl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "isys/dns.h"
 
+#include "ftp.h"
 #include "lang.h"
 #include "loader.h"
 #include "urls.h"
 #include "log.h"
-#include "rpmmacro.h"
+#include "windows.h"
 
+#if 0
 static const char * urlfilter(const char * u)
 {
     int i = 0;
@@ -54,34 +50,55 @@ static const char * urlfilter(const char * u)
     }
     return buf;
 }
+#endif
 
-FD_t urlinstStartTransfer(struct iurlinfo * ui, char * filename) {
+int urlinstStartTransfer(struct iurlinfo * ui, char * filename) {
     char * buf;
-    newtComponent form;
-    FD_t fd;
+    int fd;
     
-    logMessage("transferring %s/RedHat/%s to a fd", urlfilter(ui->urlprefix),
-	       filename);
-    
-    newtCenteredWindow(70, 3, _("Retrieving"));
+    logMessage("transferring %s://%s/%s/RedHat/%s to a fd",
+	       ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
+	       ui->address, ui->prefix, filename);
 
-    buf = alloca(strlen(ui->urlprefix) + strlen(filename) + 30);
-    sprintf(buf, "%s %s...", _("Retrieving"), filename);
-    form = newtForm(NULL, NULL, 0);
-    newtFormAddComponent(form, newtLabel(1, 1, buf));
+    buf = alloca(strlen(ui->prefix) + strlen(filename) + 20);
+    sprintf(buf, "%s/RedHat/%s", ui->prefix, filename);
 
-    newtDrawForm(form);
-    newtRefresh();
+    if (ui->protocol == URL_METHOD_FTP) {
+	ui->ftpPort = ftpOpen(ui->address, "anonymous", "rhinstall@", NULL,
+			      -1);
+	if (ui->ftpPort < 0) {
+	    newtWinMessage(_("Error"), _("Ok"), 
+		_("Failed to log into %s: %s"), ui->address, 
+		ftpStrerror(ui->ftpPort));
+	    return -1;
+	}
 
-    strcpy(buf, ui->urlprefix);
-    strcat(buf, "/RedHat/");
-    strcat(buf, filename);
-    fd = Fopen(buf, "r.ufdio");
+	fd = ftpGetFileDesc(ui->ftpPort, buf);
+	if (fd < 0) {
+	    close(ui->ftpPort);
+	    newtWinMessage(_("Error"), _("Ok"), 
+		_("Failed to retrieve %s: %s"), buf, ftpStrerror(fd));
+	    return -1;
+	}
+    } else {
+	fd = httpGetFileDesc(ui->address, -1, buf);
+	if (fd < 0) {
+	    newtWinMessage(_("Error"), _("Ok"), 
+		_("Failed to retrieve %s: %s"), buf, ftpStrerror(fd));
+	    return -1;
+	}
+    }
+
+    winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), filename);
 
     return fd;
 }
 
-int urlinstFinishTransfer(FD_t fd) {
+int urlinstFinishTransfer(struct iurlinfo * ui, int fd) {
+    if (ui->protocol == URL_METHOD_FTP)
+	close(ui->ftpPort);
+    close(fd);
+
     newtPopWindow();
 
     return 0;
@@ -109,7 +126,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     newtComponent answer, text;
     char * site, * dir;
     char * reflowedText = NULL;
-    int width, height, len;
+    int width, height;
     newtGrid entryGrid, buttons, grid;
     char * chptr;
 
@@ -242,10 +259,12 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     chptr++;
     *chptr = '\0';
 
+#if 0
     if (ui->urlprefix) free(ui->urlprefix);
     len = strlen(ui->address);
     if (len < 15) len = 15;
     ui->urlprefix = malloc(sizeof(char) * (len + strlen(ui->prefix) + 10));
+#endif
 
     if (*doSecondarySetup != '*') {
 	if (ui->login)
@@ -257,15 +276,15 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 	if (ui->proxyPort)
 	    free(ui->proxyPort);
 	ui->login = ui->password = ui->proxy = ui->proxyPort = NULL;
+	/*
 	delMacro(NULL, "_httpproxy");
 	delMacro(NULL, "_ftpproxy");
 	delMacro(NULL, "_httpproxyport");
 	delMacro(NULL, "_ftpproxyport");
+	*/
     }
 
-    sprintf(ui->urlprefix, "%s://%s/%s",
-	    protocol == URL_METHOD_FTP ? "ftp" : "http",
-	    addrToIp(ui->address), ui->prefix);
+    ui->protocol = protocol;
 
     newtFormDestroy(form);
     newtPopWindow();
@@ -273,6 +292,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     return 0;
 }
 
+#if 0
 int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
     newtComponent form, okay, cancel, answer, text, accountEntry = NULL;
     newtComponent passwordEntry = NULL, proxyEntry = NULL;
@@ -423,3 +443,4 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
 
     return 0;
 }
+#endif
