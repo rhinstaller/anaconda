@@ -23,9 +23,6 @@ if [ -z "$ARCH" ]; then
 fi
 
 NEEDGR=yes
-if [ $ARCH = ia64 ]; then
-    NEEDGR=""
-fi
 
 prunePackageList() {
 	PACKAGEPATH=$1
