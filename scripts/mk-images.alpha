@@ -22,7 +22,7 @@ EOF
 	mount -o loop -t ext2 $MBD_TMPIMAGE $MBD_BOOTTREE
 }
 
-NETMODULES="3c59x de4x5 depca eepro100 ibmtr old_tulip tulip ne"
+NETMODULES="nfs 3c59x de4x5 depca eepro100 ibmtr old_tulip tulip ne"
 SCSIMODULES="DAC960"
 
 mkdir -p $TOPDESTPATH/boot
