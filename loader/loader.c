@@ -767,6 +767,8 @@ static char * mountHardDrive(struct installMethod * method,
 #if !defined (__s390__) && !defined (__s390x__)
     mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, 
 		 NULL, modInfo, flags);
+#else
+    char c;
 #endif
 
     while (!done) {
@@ -836,7 +838,6 @@ static char * mountHardDrive(struct installMethod * method,
 	}
 
 #else
-	char c;
 	/* s390 */
 	for(c = 'a'; c <= 'z'; c++) {
 	  for(i = 1; i < 4; i++) {
