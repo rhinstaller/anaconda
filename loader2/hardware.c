@@ -333,7 +333,7 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
     dasd_parms[0] = NULL;
     dasd_parms[1] = NULL;
 
-    fd = fopen ("/proc/cmdline", "r");
+    fd = fopen ("/tmp/dasd_ports", "r");
     if(fd) {
         line = (char *)malloc(sizeof(char) * 200);
         while (fgets (line, 199, fd) != NULL) {
