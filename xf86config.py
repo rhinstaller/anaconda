@@ -165,7 +165,8 @@ class XF86Config:
         self.monID = monitor
         self.monHoriz = hrange
         self.monVert = vrange
-        
+
+    # must pass card as a dictionary entry for desired card
     def setVidcard (self, card):
         self.vidCards = [card]
         self.primary = 0
@@ -174,6 +175,36 @@ class XF86Config:
             self.devID = self.vidCards[self.primary]["NAME"]
             self.server = self.vidCards[self.primary]["SERVER"]
 
+    # locate dictionary entry for requested card name
+    # case matters
+    def locateVidcard (self, card):
+        cards = self.cards()
+        if cards.has_key(card):
+            return cards[card]
+        else:
+            return None
+
+    # server is string name of X server (eg. "SVGA")
+    # case matters
+    def setVidcardByServer (self, server):
+        tmpcard = "Generic " + server
+
+        entry = self.locateVidcard (tmpcard)
+
+        if entry != None:
+            self.setVidcard (entry)
+        else:
+            raise RuntimeError, "Could not find valid video card driver."
+    
+    # card is string name of video card (eg. "Generic SVGA")
+    def setVidcardByName (self, card):
+        entry = self.locateVidcard (card)
+
+        if entry != None:
+            self.setVidcard (entry)
+        else:
+            raise RuntimeError, "Could not find valid video card driver."
+    
     def probe (self, probeMonitor = 1):
 # XXX defer monitor probe, then re-enable this check
 #        if self.probed:

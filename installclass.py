@@ -117,7 +117,13 @@ class InstallClass:
 	    self.x.probe()
 
 	if not self.x.server:
-	    self.x.setVidcard (card)
+            if (card != None):
+                self.x.setVidcardByName (card)
+            elif (server != None):
+                self.x.setVidcardByServer (server)
+            else:
+                raise RuntimeError, "Could not probe video card and no fallback specified."
+                
 
 	if not self.x.monID and monitor:
 	    self.x.setMonitor((monitor, (None, None)))
