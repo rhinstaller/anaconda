@@ -26,6 +26,7 @@
 #include <sys/mount.h>
 #include <sys/stat.h>
 #include <sys/swap.h>
+#include <unistd.h>
 
 #include "devt.h"
 
