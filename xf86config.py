@@ -155,8 +155,8 @@ Section "Monitor"
 #                                  480 491 493 525
 
 # 800x600 @ 56 Hz, 35.15 kHz hsync
-#    ModeLine "800x600"     36     800  824  896 1024
-#                                  600  601  603  625
+    ModeLine "800x600"     36     800  824  896 1024
+                                  600  601  603  625
 
 EndSection
 
@@ -173,8 +173,7 @@ Section "Monitor"
 # NOTE: THE VALUES HERE ARE EXAMPLES ONLY.  REFER TO YOUR MONITOR'S
 # USER MANUAL FOR THE CORRECT NUMBERS.
 
-#    HorizSync   %(monitorHoriz)s
-    HorizSync 30-35.2
+    HorizSync   %(monitorHoriz)s
 
 # VertRefresh is in Hz unless units are specified.
 # VertRefresh may be a comma separated list of discrete values, or a
@@ -182,8 +181,7 @@ Section "Monitor"
 # NOTE: THE VALUES HERE ARE EXAMPLES ONLY.  REFER TO YOUR MONITOR'S
 # USER MANUAL FOR THE CORRECT NUMBERS.
 
-#    VertRefresh %(monitorVert)s
-    VertRefresh 55-60
+    VertRefresh %(monitorVert)s
 
 # Modes can be specified in two formats.  A compact one-line format, or
 # a multi-line format.
@@ -574,7 +572,7 @@ class XF86Config:
 #        self.res = ""
         self.res = resolution
 
-        self.monHoriz = "31.5-35.1"
+        self.monHoriz = "31.5-35.2"
         self.monVert = "50-61"
 
 	self.monSect = ""
@@ -1022,16 +1020,37 @@ class XF86Config:
         serverPath = "/usr/X11R6/bin/" + self.server
 
         server = os.fork()
+
         if (not server):
             args = [serverPath, '-xf86config', '/tmp/XF86Config.test' ]
+	    logFile = "/tmp/X.log"
             if self.server == "XFree86":
                 args = args + [ "-logfile", "/dev/null" ]
             if serverflags:
                 args = args + serverflags
             else:
                 args = args +  [ ":9", "vt6" ]
+		logFile = "/tmp/X-Test.log"
+
+	    try:
+		err = os.open(logFile, os.O_RDWR | os.O_CREAT)
+		if err < 0:
+		    sys.stderr.write("error opening /tmp/X.log\n")
+		else:
+		    os.dup2(err, 2)
+		    os.close(err)
+	    except:
+		# oh well
+		pass
+
             os.execv(args[0], args)
-        time.sleep (1)
+	    print "exec failed"
+#	    time.sleep(5)
+     	    os.exit (1)
+
+#        time.sleep (10)
+#	print "Here"
+#	time.sleep (5)
 
         if spawn:
             return server
