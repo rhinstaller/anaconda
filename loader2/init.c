@@ -55,6 +55,7 @@
 
 #include <asm/types.h>
 #include <linux/cdrom.h>
+#include <linux/serial.h>
 
 #ifndef MS_REMOUNT
 #define MS_REMOUNT      32
@@ -435,6 +436,7 @@ int main(int argc, char **argv) {
     char * argvc[15];
     char ** argvp = argvc;
     char twelve = 12;
+    struct serial_struct si;
     int i;
 
     if (!strncmp(basename(argv[0]), "poweroff", 8)) {
@@ -509,6 +511,10 @@ int main(int argc, char **argv) {
 #if !defined(__s390__) && !defined(__s390x__)
     if (ioctl (0, TIOCLINUX, &twelve) < 0) {
 	isSerial = 2;
+    }
+
+    if ((isSerial == 2) && (ioctl(0, TIOCGSERIAL, &si) == -1)) {
+        isSerial = 0;
     }
     
     if (isSerial) {
