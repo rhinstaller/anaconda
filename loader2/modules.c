@@ -94,13 +94,13 @@ static int scsiDiskCount(void) {
 
     devices = probeDevices(CLASS_HD, BUS_SCSI, PROBE_ALL);
     if (devices) {
-        for (i; devices[i]; i++);
+        for (; devices[i]; i++);
         free(devices);
     }
     /* have to probe for usb floppies too */
     devices = probeDevices(CLASS_FLOPPY, BUS_SCSI, PROBE_ALL);
     if (devices) {
-        for (i; devices[i]; i++);
+        for (; devices[i]; i++);
         free(devices);
     }
 
