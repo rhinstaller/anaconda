@@ -37,6 +37,7 @@
 #include "isys/imount.h"
 #include "isys/inet.h"
 #include "isys/isys.h"
+#include "isys/probe.h"
 #include "isys/pci/pciprobe.h"
 
 #include "lang.h"
@@ -47,21 +48,9 @@
 
 typedef int int32;
 
-struct device {
-    char * name;		/* malloced */
-    char * model;
-    enum deviceClass { DEVICE_UNKNOWN, DEVICE_DISK, DEVICE_CDROM, DEVICE_NET,
-    		       DEVICE_TAPE }
-    	class;
-};
-
-#define LOADER_FLAGS_TESTING		(1 << 0)
-
-#define FL_TESTING(a) ((a) && LOADER_FLAGS_TESTING)
-
 int flags = 0;
-struct device knownDevices[100];		/* arbitrary limit <shrug> */
-int numKnownDevices = 0;
+
+struct knownDevices devices;
 
 struct installMethod {
     char * name;
@@ -287,261 +276,6 @@ int readNetConfig(char * device, struct intfInfo * dev) {
     return 0;
 }
 
-int deviceKnown(char * dev) {
-    int i;
-
-    for (i = 0; i < numKnownDevices; i++)
-    	if (!strcmp(knownDevices[i].name, dev)) return 1;
-
-    return 0;
-}
-
-static int findNetList(void) {
-    int fd;
-    char buf[1024];
-    char * start, * end;
-
-    if ((fd = open("/proc/net/dev", O_RDONLY)) < 0) {
-	fprintf(stderr, "failed to open /proc/net/dev!\n");
-	return 1;
-    }
-
-    read(fd, buf, sizeof(buf));
-    close(fd);
-
-    /* skip the first two lines */
-    start = strchr(buf, '\n');
-    if (!start) return 0;
-    start = strchr(start + 1, '\n');
-    if (!start) return 0;
-
-    start++;
-    while (start && *start) {
-	while (isspace(*start)) start++;
-	end = strchr(start, ':');
-	if (!end) return 0;
-	*end = '\0';
-	
-    	if (strcmp(start, "lo")) {
-	    if (deviceKnown(start)) continue;
-
-	    knownDevices[numKnownDevices].name = strdup(start);
-	    knownDevices[numKnownDevices].model = NULL;
-	    knownDevices[numKnownDevices++].class = DEVICE_NET;
-	}
-
-	start = strchr(end + 1, '\n');
-	if (start) start++;
-    }
-
-    return 0;
-}
-
-static int findIdeList(void) {
-    DIR * dir;
-    char path[80];
-    int fd, i;
-    struct dirent * ent;
-    struct device device;
-
-    if (access("/proc/ide", R_OK)) return 0;
-
-    if (!(dir = opendir("/proc/ide"))) {
-        logMessage("failed to open /proc/ide for reading");
-	return 1;
-    }
-
-    /* set errno to 0, so we can tell when readdir() fails */
-    errno = 0;
-    while ((ent = readdir(dir))) {
-    	if (!deviceKnown(ent->d_name)) {
-	    sprintf(path, "/proc/ide/%s/media", ent->d_name);
-	    if ((fd = open(path, O_RDONLY)) >= 0) {
-		i = read(fd, path, 50);
-		close(fd);
-		path[i - 1] = '\0';		/* chop off trailing \n */
-
-		device.class = DEVICE_UNKNOWN;
-		if (!strcmp(path, "cdrom")) 
-		    device.class = DEVICE_CDROM;
-		else if (!strcmp(path, "disk"))
-		    device.class = DEVICE_DISK;
-
-		if (device.class != DEVICE_UNKNOWN) {
-		    device.name = strdup(ent->d_name);
-
-		    sprintf(path, "/proc/ide/%s/model", ent->d_name);
-		    if ((fd = open(path, O_RDONLY)) >= 0) {
-			i = read(fd, path, 50);
-			close(fd);
-			path[i - 1] = '\0';	/* chop off trailing \n */
-			device.model = strdup(path);
-		    }
-
-		    knownDevices[numKnownDevices++] = device;
-		}
-	    }
-	}
-
-        errno = 0;          
-    }
-
-    closedir(dir);
-
-    return 0;
-}
-
-#define SCSISCSI_TOP	0
-#define SCSISCSI_HOST 	1
-#define SCSISCSI_VENDOR 2
-#define SCSISCSI_TYPE 	3
-
-int findScsiList(void) {
-    int fd;
-    char buf[16384];
-    char linebuf[80];
-    char typebuf[10];
-    int i, state = SCSISCSI_TOP;
-    char * start, * chptr, * next, *end;
-    char driveName = 'a';
-    char cdromNum = '0';
-    char tapeNum = '0';
-
-    if (access("/proc/scsi/scsi", R_OK)) return 0;
-
-    fd = open("/proc/scsi/scsi", O_RDONLY);
-    if (fd < 0) return 1;
-    
-    i = read(fd, buf, sizeof(buf) - 1);
-    if (i < 1) {
-        close(fd);
-	return 1;
-    }
-    close(fd);
-    buf[i] = '\0';
-
-    start = buf;
-    while (*start) {
-	chptr = start;
- 	while (*chptr != '\n') chptr++;
-	*chptr = '\0';
-	next = chptr + 1;
-
-	switch (state) {
-	  case SCSISCSI_TOP:
-	    if (strcmp("Attached devices: ", start)) {
-		logMessage("unexpected line in /proc/scsi/scsi: %s", start);
-		return LOADER_ERROR;
-	    }
-	    state = SCSISCSI_HOST;
-	    break;
-
-	  case SCSISCSI_HOST:
-	    if (strncmp("Host: ", start, 6)) {
-		logMessage("unexpected line in /proc/scsi/scsi: %s", start);
-		return LOADER_ERROR;
-	    }
-
-	    start = strstr(start, "Id: ");
-	    if (!start) {
-		logMessage("Id: missing in /proc/scsi/scsi");
-		return LOADER_ERROR;
-	    }
-	    start += 4;
-
-	    /*id = strtol(start, NULL, 10);*/
-
-	    state = SCSISCSI_VENDOR;
-	    break;
-
-	  case SCSISCSI_VENDOR:
-	    if (strncmp("  Vendor: ", start, 10)) {
-		logMessage("unexpected line in /proc/scsi/scsi: %s", start);
-		return LOADER_ERROR;
-	    }
-
-	    start += 10;
-	    end = chptr = strstr(start, "Model:");
-	    if (!chptr) {
-		logMessage("Model missing in /proc/scsi/scsi");
-		return LOADER_ERROR;
-	    }
-
-	    chptr--;
-	    while (*chptr == ' ' && *chptr != ':' ) chptr--;
-	    if (*chptr == ':') {
-		    chptr++;
-		    *(chptr + 1) = '\0';
-		    strcpy(linebuf,"Unknown");
-	    } else {
-		    *(chptr + 1) = '\0';
-		    strcpy(linebuf, start);
-	    }
-	    *linebuf = toupper(*linebuf);
-	    chptr = linebuf + 1;
-	    while (*chptr) {
-		*chptr = tolower(*chptr);
-		chptr++;
-	    }
-
-	    start = end;  /* beginning of "Model:" */
-	    start += 7;
-		
-	    chptr = strstr(start, "Rev:");
-	    if (!chptr) {
-		logMessage("Rev missing in /proc/scsi/scsi");
-		return LOADER_ERROR;
-	    }
-	   
-	    chptr--;
-	    while (*chptr == ' ') chptr--;
-	    *(chptr + 1) = '\0';
-
-	    strcat(linebuf, " ");
-	    strcat(linebuf, start);
-
-	    state = SCSISCSI_TYPE;
-
-	    break;
-
-	  case SCSISCSI_TYPE:
-	    if (strncmp("  Type:", start, 7)) {
-		logMessage("unexpected line in /proc/scsi/scsi: %s", start);
-		return LOADER_ERROR;
-	    }
-	    *typebuf = '\0';
-	    if (strstr(start, "Direct-Access")) {
-		sprintf(typebuf, "sd%c", driveName++);
-		knownDevices[numKnownDevices].class = DEVICE_DISK;
-	    } else if (strstr(start, "Sequential-Access")) {
-		sprintf(typebuf, "st%c", tapeNum++);
-		knownDevices[numKnownDevices].class = DEVICE_DISK;
-	    } else if (strstr(start, "CD-ROM")) {
-		sprintf(typebuf, "scd%c", cdromNum++);
-		knownDevices[numKnownDevices].class = DEVICE_CDROM;
-	    }
-
-	    if (*typebuf && !deviceKnown(typebuf)) {
-		knownDevices[numKnownDevices].name = strdup(typebuf);
-		knownDevices[numKnownDevices].model = strdup(linebuf);
-
-		/* Do we need this for anything?
-		sdi[numMatches].bus = 0;
-		sdi[numMatches].id = id;
-		*/
-
-		numKnownDevices++;
-	    }
-
-	    state = SCSISCSI_HOST;
-	}
-
-	start = next;
-    }
-
-    return 0;
-}
-
 static int detectHardware(moduleInfoSet modInfo, 
 			  struct moduleInfo *** modules) {
     struct pciDevice **devices, **device;
@@ -592,7 +326,7 @@ static int detectHardware(moduleInfoSet modInfo,
 }
 
 int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
-	     int justProbe) {
+	     int justProbe, struct knownDevices * kd) {
     int i;
     struct moduleInfo ** modList;
 
@@ -627,8 +361,8 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		}
 	    }
 
-	    findScsiList();
-	    findNetList();
+	    kdFindScsiList(kd);
+	    kdFindNetList(kd);
 	} else 
 	    logMessage("found nothing");
     }
@@ -723,26 +457,56 @@ static int doMountImage(char * location, int numKnownDevices,
     		numKnownDevices, knownDevices, modLoaded, modDeps, flags);
 }
 
+static int parseCmdLineFlags(int flags, char * cmdLine) {
+    int fd;
+    char buf[500];
+    int len;
+    char ** argv;
+    int argc;
+    int i;
+
+    if (!cmdLine) {
+	if ((fd = open("/proc/cmdline", O_RDONLY)) < 0) return flags;
+	len = read(fd, buf, sizeof(buf) - 1);
+	close(fd);
+	if (len <= 0) return flags;
+
+	buf[len] = '\0';
+	cmdLine = buf;
+    }
+
+    if (poptParseArgvString(cmdLine, &argc, &argv)) return flags;
+
+    for (i = 0; i < argc; i++) {
+        if (!strcasecmp(argv[i], "expert"))
+	    flags |= LOADER_FLAGS_EXPERT;
+        else if (!strcasecmp(argv[i], "text"))
+	    flags |= LOADER_FLAGS_TEXT;
+    }
+
+    return flags;
+}
+
 int main(int argc, char ** argv) {
     char ** argptr;
     char * anacondaArgs[30];
     char * arg;
     poptContext optCon;
-    int network = 0;
     int probeOnly = 0;
     moduleList modLoaded;
+    char * cmdLine = NULL;
     moduleDeps modDeps;
     int local = 0;
-    int text = 0;
     int i, rc;
     int testing = 0;
+    struct knownDevices kd;
     moduleInfoSet modInfo;
     struct poptOption optionTable[] = {
-	    { "local", '\0', POPT_ARG_NONE, &local, 0 },
-	    { "network", '\0', POPT_ARG_NONE, &network, 0 },
-	    { "probe", '\0', POPT_ARG_NONE, &probeOnly, 0 },
+    	    { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0,
+	    	"override /proc/cmdline contents" },
+	    { "probe", '\0', POPT_ARG_NONE, &probeOnly, 0,
+	    	"display a list of probed pci devices" },
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
-	    { "text", '\0', POPT_ARG_NONE, &text, 0 },
 	    POPT_AUTOHELP
 	    { 0, 0, 0, 0, 0 }
     };
@@ -763,6 +527,8 @@ int main(int argc, char ** argv) {
 
     if (testing) flags |= LOADER_FLAGS_TESTING;
 
+    flags = parseCmdLineFlags(flags, cmdLine);
+
     arg = FL_TESTING(flags) ? "/boot/module-info" : "/modules/module-info";
     modInfo = isysNewModuleInfoSet();
     if (isysReadModuleInfo(arg, modInfo)) {
@@ -773,19 +539,21 @@ int main(int argc, char ** argv) {
 
     openLog(FL_TESTING(flags));
 
-    findIdeList();
-    findScsiList();
-    findNetList();
+    kd = kdInit();
+
+    kdFindIdeList(&kd);
+    kdFindScsiList(&kd);
+    kdFindNetList(&kd);
     mlReadLoadedList(&modLoaded);
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
-    pciProbe(modInfo, modLoaded, modDeps, probeOnly);
+    pciProbe(modInfo, modLoaded, modDeps, probeOnly, &kd);
     if (probeOnly) exit(0);
 
     startNewt();
 
-    doMountImage("/mnt/source", numKnownDevices, knownDevices, 
+    doMountImage("/mnt/source", kd.numKnown, kd.known, 
     		 modLoaded, modDeps, flags);
 
     if (!FL_TESTING(flags)) {
@@ -820,21 +588,21 @@ int main(int argc, char ** argv) {
 	sleep(5);
 	exit(1);
     }
-    pciProbe(modInfo, modLoaded, modDeps, 0);
+    pciProbe(modInfo, modLoaded, modDeps, 0, &kd);
 
     stopNewt();
     closeLog();
 
-    for (i = 0; i < numKnownDevices; i++) {
-    	printf("%-5s ", knownDevices[i].name);
-	if (knownDevices[i].class == DEVICE_CDROM)
+    for (i = 0; i < kd.numKnown; i++) {
+    	printf("%-5s ", kd.known[i].name);
+	if (kd.known[i].class == DEVICE_CDROM)
 	    printf("cdrom");
-	else if (knownDevices[i].class == DEVICE_DISK)
+	else if (kd.known[i].class == DEVICE_DISK)
 	    printf("disk ");
-	else if (knownDevices[i].class == DEVICE_NET)
+	else if (kd.known[i].class == DEVICE_NET)
 	    printf("net  ");
-    	if (knownDevices[i].model)
-	    printf(" %s\n", knownDevices[i].model);
+    	if (kd.known[i].model)
+	    printf(" %s\n", kd.known[i].model);
 	else
 	    printf("\n");
     }
@@ -844,7 +612,7 @@ int main(int argc, char ** argv) {
     *argptr++ = "-p";
     *argptr++ = "/mnt/source";
 
-    if (text)
+    if (FL_TEXT(flags))
 	*argptr++ = "-T";
     
     if (!FL_TESTING(flags)) {
