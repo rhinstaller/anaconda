@@ -2,14 +2,14 @@ import kudzu
 import _isys
 import string
 import os
+import os.path
+
+mountCount = {}
 
 def spaceAvailable(device, fsystem = "ext2"):
-    makeDevInode(device, "/tmp/spaceDev")
-    mount("/tmp/spaceDev", "/mnt/space", fstype = fsystem)
+    mount(device, "/mnt/space", fstype = fsystem)
     space = _isys.devSpaceFree("/mnt/space/.")
     umount("/mnt/space")
-    os.rmdir("/mnt/space")
-    os.remove("/tmp/spaceDev")
     return space
 
 def raidstop(mdDevice):
@@ -64,10 +64,40 @@ def ddfile(file, megs):
     os.close(fd)
 
 def mount(device, location, fstype = "ext2", readOnly = 0):
-    return _isys.mount(fstype, device, location, readOnly)
+    if device != "/proc":
+	devName = "/dev/%s" % device
+	makeDevInode(device, devName)
+	device = devName
 
-def umount(what):
-    return _isys.umount(what)
+    rc = _isys.mount(fstype, device, location, readOnly)
+
+    if not rc:
+	if not mountCount.has_key(location):
+	    mountCount[location] = 0
+	mountCount[location] = mountCount[location] + 1
+
+    if device != "/proc":
+	os.unlink(device)
+
+    return rc
+
+def umount(what, removeDir = 1):
+    if not os.path.isdir(what):
+	raise ValueError, "isys.umount() can only umount by mount point"
+
+    if mountCount.has_key(what) and mountCount[what] > 1:
+	mountCount[what] = mountCount - 1
+	return
+
+    rc = _isys.umount(what)
+
+    if removeDir and os.path.isdir(what):
+	os.rmdir(what)
+
+    if not rc and mountCount.has_key(what):
+	del mountCount[what]
+
+    return rc
 
 def smpAvailable():
     return _isys.smpavailable()

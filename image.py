@@ -46,10 +46,9 @@ class CdromInstallMethod(ImageInstallMethod):
 	    while not done:
 		self.messageWindow(_("Change CDROM"), 
 		    _("Please insert disc %d to continue.") % self.currentDisc)
-		isys.makeDevInode(self.device, "/tmp/cdrom")
 
 		try:
-		    isys.mount("/tmp/cdrom", "/mnt/source", fstype = "iso9660",
+		    isys.mount(self.device, "/mnt/source", fstype = "iso9660",
 			       readOnly = 1)
 		    
 		    if os.access("/mnt/source/%s" % key, os.O_RDONLY):

@@ -363,7 +363,7 @@ class Fstab:
     def umountFilesystems(self, instPath, ignoreErrors = 0):
 	if (not self.setupFilesystems): return 
 
-	isys.umount(instPath + '/proc')
+	isys.umount(instPath + '/proc', removeDir = 0)
 
 	mounts = self.mountList()
 	mounts.reverse()
@@ -371,7 +371,7 @@ class Fstab:
             if fsystem != "swap":
 		try:
 		    mntPoint = instPath + n
-                    isys.umount(mntPoint)
+                    isys.umount(mntPoint, removeDir = 0)
 		except SystemError, (errno, msg):
 		    if not ignoreErrors:
 			self.messageWindow(_("Error"), 
@@ -523,9 +523,7 @@ class Fstab:
 			      _("Creating loopback filesystem on device /dev/%s...") % (device,))
 
 		iutil.mkdirChain("/mnt/loophost")
-		isys.makeDevInode(device, '/tmp/' + device)
-		isys.mount('/tmp/' + device, "/mnt/loophost", fstype = "vfat")
-		os.remove( '/tmp/' + device);
+		isys.mount(device, "/mnt/loophost", fstype = "vfat")
 		
 		isys.makeDevInode("loop0", '/tmp/' + "loop0")
 		isys.ddfile("/mnt/loophost/redhat.img", self.loopbackSize)
@@ -541,8 +539,7 @@ class Fstab:
                                         stdout = messageFile, 
 					stderr = messageFile, searchPath = 1)
 
-		isys.mount('/tmp/loop0', instPath)
-		os.remove('/tmp/loop0')
+		isys.mount("loop0", instPath)
 
 		if self.loopbackSwapSize:
 		    isys.ddfile("/mnt/loophost/rh-swap.img", 
@@ -557,10 +554,7 @@ class Fstab:
 	    elif fsystem == "ext2":
 		try:
 		    iutil.mkdirChain(instPath + mntpoint)
-		    isys.makeDevInode(device, '/tmp/' + device)
-		    isys.mount('/tmp/' + device, 
-				instPath + mntpoint)
-		    os.remove( '/tmp/' + device);
+		    isys.mount(device, instPath + mntpoint)
 		except SystemError, (errno, msg):
 		    self.messageWindow(_("Error"), 
 			_("Error mounting %s: %s") % (device, msg))

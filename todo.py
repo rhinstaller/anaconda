@@ -589,6 +589,8 @@ class ToDo:
             out.write (inf.read ())
 
     def verifyDeps (self):
+	win = self.intf.waitWindow(_("Dependency Check"),
+	  _("Checking dependencies in packages selected for installation..."))
 	self.getCompsList()
         if self.upgrade:
             self.fstab.mountFilesystems (self.instPath)
@@ -630,6 +632,9 @@ class ToDo:
         if self.upgrade:
             del db
             self.fstab.umountFilesystems (self.instPath)            
+
+	win.pop()
+
         return rc
 
     def selectDeps (self, deps):
@@ -649,9 +654,8 @@ class ToDo:
 
 	for dev in mdList:
             if fstab.isValidExt2 (dev):
-                isys.makeDevInode(dev, '/tmp/' + dev)
                 try:
-                    isys.mount('/tmp/' + dev, '/mnt/sysimage')
+                    isys.mount(dev, '/mnt/sysimage')
                 except SystemError, (errno, msg):
                     self.intf.messageWindow(_("Error"),
                                             _("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
@@ -679,9 +683,8 @@ class ToDo:
                             dev = drive + 'p' + str (i + 1)
 			else:
                             dev = drive + str (i + 1)
-                        isys.makeDevInode(dev, '/tmp/' + dev)
                         try:
-                            isys.mount('/tmp/' + dev, '/mnt/sysimage')
+                            isys.mount(dev, '/mnt/sysimage')
                         except SystemError, (errno, msg):
                             self.intf.messageWindow(_("Error"),
                                                     _("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
@@ -698,9 +701,8 @@ class ToDo:
         win = self.intf.waitWindow (_("Finding"),
                                     _("Finding packages to upgrade..."))
         if self.setupFilesystems:
-            isys.makeDevInode(root, '/tmp/' + root)
 	    mdList = raid.startAllRaid(self.fstab.driveList())
-            isys.mount('/tmp/' + root, '/mnt/sysimage')
+            isys.mount(root, '/mnt/sysimage')
 	    fstab.readFstab('/mnt/sysimage/etc/fstab', self.fstab)
             isys.umount('/mnt/sysimage')        
 	    raid.stopAllRaid(mdList)

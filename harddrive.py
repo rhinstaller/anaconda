@@ -27,9 +27,7 @@ class HardDriveInstallMethod(InstallMethod):
 		self.tree = s[1] + "/"
 		return
 	
-	isys.makeDevInode(self.device, '/tmp/' + self.device)
-	isys.mount('/tmp/' + self.device, "/tmp/hdimage", 
-		   fstype = self.fstype);
+	isys.mount(self.device, "/tmp/hdimage", fstype = self.fstype);
 	self.tree = "/tmp/hdimage/"
 	self.isMounted = 1
 
