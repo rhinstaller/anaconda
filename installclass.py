@@ -137,7 +137,7 @@ class BaseInstallClass:
 
         # XXX ugh, this badly needs some clean up
         if (iutil.getArch() == "alpha" or iutil.getArch() == "ia64" or
-            iutil.getArch() == "sparc"):
+            iutil.getArch() == "sparc" or iutil.getArch() == "ppc"):
 	    dispatch.skipStep("bootdisk")
             dispatch.skipStep("bootloader")
             dispatch.skipStep("fdasd", permanent = 1)
