@@ -988,7 +988,6 @@ class XF86Config:
     FontPath	"/usr/X11R6/lib/X11/fonts/Speedo/"
     FontPath	"/usr/X11R6/lib/X11/fonts/75dpi:unscaled"
     FontPath	"/usr/X11R6/lib/X11/fonts/100dpi:unscaled"
-    FontPath    "/usr/X11R6/lib/X11/fonts/cyrillic:unscaled"
     FontPath    "/usr/X11R6/lib/X11/fonts/korean:unscaled"
     FontPath    "/usr/share/fonts/ISO8859-2/misc:unscaled"
     FontPath    "/usr/share/fonts/ISO8859-2/75dpi:unscaled"
