@@ -23,8 +23,9 @@ mount -t proc proc $p/proc
 (cd $p; /usr/sbin/chroot $p usr/sbin/ldconfig )
 
 if [ $ARCH != s390 -a $ARCH != s390x ]; then
-    rm -f $p/usr/sbin/ldconfig $p/etc/ld.so.conf
+    rm -f $p/usr/sbin/ldconfig 
 fi
+rm $p/etc/ld.so.conf
 
 (cd $p/usr/bin; ./collage | $p/usr/lib/anaconda-runtime/mkcollagelinks ./collage)
 
