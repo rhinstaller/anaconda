@@ -1172,8 +1172,8 @@ class PartitionWindow:
             vgs = self.partitions.getLVMVGRequests()
             if len(vgs) < 1:
                 ButtonChoiceWindow (self.screen, _("No Volume Groups"),
-                                    _("No volume groups to create a logical "
-                                      "volume in."), [ TEXT_OK_BUTTON ])
+                                    _("No volume groups in which to create "
+                                      "a logical volume"),[ TEXT_OK_BUTTON ])
                 return
 
             (vgtype, vggrid) = self.makeVGList(lvrequest)
