@@ -123,15 +123,23 @@ class InstallControlWindow (Thread):
 
     def setStateList (self, list, pos):
         self.stateList = []
+	self.stateTagByWindow = {}
         for x in list:
+	    if type(x) == type((1,)):
+		(x, tag) = x
+	    else:
+		tag = None
             instantiated = 0
             for y in self.windowList:
                 if isinstance (y, x):
                     self.stateList.append (y)
+		    self.stateTagByWindow[y] = tag
                     instantiated = 1
                     break
             if not instantiated:
-                self.stateList.append (self.instantiateWindow (x))
+		instance = self.instantiateWindow (x)
+                self.stateList.append (instance)
+		self.stateTagByWindow[instance] = tag
 
         self.stateListIndex = pos
         
@@ -197,7 +205,11 @@ class InstallControlWindow (Thread):
             self.displayHelp = TRUE
 
     def setScreen (self, screen, direction):
-        # if getScreen returns None, we continue advancing in direction given
+        # if getScreen returns None, or we're supposed to skip this screen
+	# entirely, we continue advancing in direction given
+	if self.todo.instClass.skipStep(self.stateTagByWindow[screen]):
+            direction ()
+            return
 	new_screen = screen.getScreen ()
 	if not new_screen:
             direction ()
