@@ -298,7 +298,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 
 void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
                moduleInfoSet modInfo, int flags) {
-    mlLoadModuleSet("scsi_mod:sd_mod:sr_mod", modLoaded, modDeps, modInfo, flags);
+    mlLoadModuleSet("scsi_mod:sd_mod:sr_mod:zfcp", modLoaded, modDeps, modInfo, flags);
 }
 
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
@@ -379,21 +379,19 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
             }
         }
         fclose(fd);
-        /* FIXME: we leak now, but otherwise we lose the parm */
-        /*        free(line);*/  
+        if (strlen(parms) > 5)
+		dasd_parms[0] = strdup(parms);
+        free(line);
     }
-    if(!parms || (strlen(parms) == 5)) {
-        parms = NULL;
-    } else {
-        dasd_parms[0] = strdup(parms);
+    if(dasd_parms[0]) {
         mlLoadModule("dasd_mod", modLoaded, modDeps, modInfo,
                      dasd_parms, flags);
 
         mlLoadModuleSet("dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod", 
                         modLoaded, modDeps, modInfo, flags);
+        free(dasd_parms);
         return;
-    }
-    if(!parms) {
+    } else {
         dasd_parms[0] = "dasd=autodetect";
         mlLoadModule("dasd_mod", modLoaded, modDeps, modInfo, dasd_parms, flags);
         mlLoadModuleSet("dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod",
