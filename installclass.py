@@ -20,6 +20,7 @@ import language
 
 from instdata import InstallData
 from partitioning import *
+from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 
 from rhpl.log import log
 from rhpl.translate import _, N_
@@ -446,7 +447,20 @@ class BaseInstallClass:
         mouseName = mouse.mouseToMouse()[mouseType]
         mouse.set(mouseName, emulThree, device)
         id.setMouse(mouse)
-    
+
+    def setDefaultPartitioning(self, id, clear = CLEARPART_TYPE_LINUX):
+        autorequests = [ ("/", None, 1024, None, 1, 1) ]
+
+        bootreq = getAutopartitionBoot()
+        if bootreq:
+            autorequests.extend(bootreq)
+
+        (minswap, maxswap) = iutil.swapSuggestion()
+        autorequests.append((None, "swap", minswap, maxswap, 1, 1))
+        id.partitions.autoClearPartType = clear
+        id.partitions.autoClearPartDrives = []
+        id.partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
+        
 
     def setInstallData(self, id):
 	id.reset()
