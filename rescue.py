@@ -32,6 +32,9 @@ class RescueInterface:
     def waitWindow(self, title, text):
 	return WaitWindow(self.screen, title, text)
 
+    def progressWindow(self, title, text, total):
+	return ProgressWindow(self.screen, title, text, total)
+	
     def messageWindow(self, title, text, type = "ok"):
 	if type == "ok":
 	    ButtonChoiceWindow(self.screen, _(title), _(text),
@@ -152,10 +155,15 @@ def runRescue(instPath, mountroot, id):
 	    root = disks[choice]
 
     rootmounted = 0
+
     if root:
 	try:
 	    fs = fsset.FileSystemSet()
-	    rc = upgrade.mountRootPartition(intf, root, fs, instPath,
+
+	    # only pass first two parts of tuple for root, since third
+	    # element is a comment we dont want
+	    rc = upgrade.mountRootPartition(intf, root[:2],
+					    fs, instPath,
                                             allowDirty = 1, warnDirty = 1,
                                             readOnly = readOnly)
 
