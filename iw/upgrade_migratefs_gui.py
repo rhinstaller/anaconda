@@ -13,7 +13,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gtk import *
 from iw_gui import *
 from translate import _, N_
 import string
@@ -23,6 +22,7 @@ from log import log
 import upgrade
 from fsset import *
 import gui
+import gtk
 
 class UpgradeMigrateFSWindow (InstallWindow):		
     windowTitle = N_("Migrate Filesystems")
@@ -47,7 +47,7 @@ class UpgradeMigrateFSWindow (InstallWindow):
         self.migent = fsset.getMigratableEntries()
         self.fsset = fsset
         
-        box = GtkVBox (FALSE, 5)
+        box = gtk.VBox (gtk.FALSE, 5)
         box.set_border_width (5)
 
 	text = N_("This release of Red Hat Linux supports "
@@ -57,13 +57,13 @@ class UpgradeMigrateFSWindow (InstallWindow):
                  "formatted partitions to ext3 without data loss.\n\n"
                  "Which of these partitions would you like to migrate?")
         
-	label = GtkLabel (_(text))
+	label = gtk.Label (_(text))
         label.set_alignment (0.5, 0.0)
         label.set_size_request(400, -1)
-        label.set_line_wrap (TRUE)
-        box.pack_start(label, FALSE)
+        label.set_line_wrap (gtk.TRUE)
+        box.pack_start(label, gtk.FALSE)
 
-        cbox = GtkVBox(FALSE, 5)
+        cbox = gtk.VBox(gtk.FALSE, 5)
         self.cbs = []
         for entry in self.migent:
             if entry.fsystem.getName() != entry.origfsystem.getName():
@@ -71,28 +71,28 @@ class UpgradeMigrateFSWindow (InstallWindow):
             else:
                 migrating = 0
             
-            cb = GtkCheckButton("/dev/%s - %s - %s" % (entry.device.getDevice(),
+            cb = gtk.CheckButton("/dev/%s - %s - %s" % (entry.device.getDevice(),
                                               entry.origfsystem.getName(),
                                               entry.mountpoint))
             cb.set_active(migrating)
-            cbox.pack_start(cb, FALSE)
+            cbox.pack_start(cb, gtk.FALSE)
 
             self.cbs.append((cb, entry))
 
-        sw = GtkScrolledWindow()
-        sw.set_policy(POLICY_NEVER, POLICY_AUTOMATIC)
+        sw = gtk.ScrolledWindow()
+        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         sw.add_with_viewport(cbox)
         sw.set_size_request(-1, 175)
         
         viewport = sw.children()[0]
-        viewport.set_shadow_type(SHADOW_ETCHED_IN)
+        viewport.set_shadow_type(gtk.SHADOW_IN)
         
-        a = GtkAlignment(0.25, 0.5)
+        a = gtk.Alignment(0.25, 0.5)
         a.add(sw)
 
-        box.pack_start(a, TRUE)
+        box.pack_start(a, gtk.TRUE)
         
-        a = GtkAlignment(0.5, 0.5)
+        a = gtk.Alignment(0.5, 0.5)
         a.add(box)
         return a
     

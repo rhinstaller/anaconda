@@ -18,7 +18,7 @@ import isys
 import iutil
 import upgrade
 import gui
-from gtk import *
+import gtk
 from iw_gui import *
 from package_gui import queryUpgradeContinue
 from translate import _, N_
@@ -83,10 +83,10 @@ class UpgradeSwapWindow (InstallWindow):
 
         self.neededSwap = 1
         self.row = 0
-        box = GtkVBox (FALSE, 5)
+        box = gtk.VBox (gtk.FALSE, 5)
         box.set_border_width (5)
 
-	label = GtkLabel (_("The 2.4 kernel needs significantly more "
+	label = gtk.Label (_("The 2.4 kernel needs significantly more "
                             "swap than older kernels, as much as twice "
                             "as much swap space as RAM on the system.  "
                             "You currently have %dMB of swap configured, but "
@@ -98,33 +98,33 @@ class UpgradeSwapWindow (InstallWindow):
 
         label.set_alignment (0.5, 0.0)
         label.set_size_request(400, 100)
-        label.set_line_wrap (TRUE)
-        box.pack_start(label, FALSE)
+        label.set_line_wrap (gtk.TRUE)
+        box.pack_start(label, gtk.FALSE)
 
-        hs = GtkHSeparator()
-        box.pack_start(hs, FALSE)
+        hs = gtk.HSeparator()
+        box.pack_start(hs, gtk.FALSE)
 
-        self.option1 = GtkRadioButton(None,
+        self.option1 = gtk.RadioButton(None,
                                       (_("I want to create a swap file")))
-        box.pack_start(self.option1, FALSE)
+        box.pack_start(self.option1, gtk.FALSE)
 
         (fsList, suggSize, suggMntPoint) = rc
 
-        self.swapbox = GtkVBox(FALSE, 5)
-        box.pack_start(self.swapbox, FALSE)
+        self.swapbox = gtk.VBox(gtk.FALSE, 5)
+        box.pack_start(self.swapbox, gtk.FALSE)
         
 
-        label = GtkLabel (_("Select the partition to put the swap file on:"))
-        a = GtkAlignment(0.2, 0.5)
+        label = gtk.Label (_("Select the partition to put the swap file on:"))
+        a = gtk.Alignment(0.2, 0.5)
         a.add(label)
-        self.swapbox.pack_start(a, FALSE)
+        self.swapbox.pack_start(a, gtk.FALSE)
 
         titles = ((_("Mount Point")), (_("Partition")), (_("Free Space (MB)")))
-        self.clist = GtkCList(3, titles)
+        self.clist = gtk.CList(3, titles)
         self.clist.connect("select-row", self.clist_cb)
-        a = GtkAlignment(0.5, 0.5)
+        a = gtk.Alignment(0.5, 0.5)
         a.add(self.clist)
-        self.swapbox.pack_start(a, FALSE, TRUE, 10)
+        self.swapbox.pack_start(a, gtk.FALSE, gtk.TRUE, 10)
 
         count = 0
         for (mnt, part, size) in fsList:
@@ -134,33 +134,33 @@ class UpgradeSwapWindow (InstallWindow):
 
         self.clist.select_row(0, 0)
 
-        label = GtkLabel (_("It is recommended that your swap file be at "
+        label = gtk.Label (_("It is recommended that your swap file be at "
                             "least %d MB.  Please enter a size for the swap "
                             "file:") % suggSize)
         label.set_size_request(400, 40)
-        label.set_line_wrap (TRUE)
-        a = GtkAlignment(0.5, 0.5)
+        label.set_line_wrap (gtk.TRUE)
+        a = gtk.Alignment(0.5, 0.5)
         a.add(label)
-        self.swapbox.pack_start(a, FALSE, TRUE, 10)
+        self.swapbox.pack_start(a, gtk.FALSE, gtk.TRUE, 10)
 
 
-        hbox = GtkHBox(FALSE, 5)
-        a = GtkAlignment(0.4, 0.5)
+        hbox = gtk.HBox(gtk.FALSE, 5)
+        a = gtk.Alignment(0.4, 0.5)
         a.add(hbox)
-        self.swapbox.pack_start(a, FALSE)
+        self.swapbox.pack_start(a, gtk.FALSE)
 
-        label = GtkLabel (_("Swap file size (MB):"))
-        hbox.pack_start(label, FALSE)
+        label = gtk.Label (_("Swap file size (MB):"))
+        hbox.pack_start(label, gtk.FALSE)
 
-        self.entry = GtkEntry(4)
+        self.entry = gtk.Entry(4)
         self.entry.set_size_request(40, 25)
         self.entry.set_text(str(suggSize))
-        hbox.pack_start(self.entry, FALSE, TRUE, 10)
+        hbox.pack_start(self.entry, gtk.FALSE, gtk.TRUE, 10)
 
-        self.option2 = GtkRadioButton(self.option1,
+        self.option2 = gtk.RadioButton(self.option1,
                                       (_("I don't want to create a swap "
                                          "file")))
-        box.pack_start(self.option2, FALSE, TRUE, 20)
+        box.pack_start(self.option2, gtk.FALSE, gtk.TRUE, 20)
 
         self.option1.connect("toggled", self.toggle)
         return box
