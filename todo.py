@@ -1148,12 +1148,13 @@ class ToDo:
 		list = devices.keys ()
 		list.sort()
 		dev = devices[list[0]]
-		dev.set (("bootproto", bootProto))
-
-		if (ip):
-		    dev.set (("ipaddr", ip))
-		if (netmask):
-		    dev.set (("netmask", netmask))
+                if bootProto:
+                    dev.set (("bootproto", bootProto))
+                else:
+                    if (ip):
+                        dev.set (("ipaddr", ip))
+                    if (netmask):
+                        dev.set (("netmask", netmask))
 
 	if (todo.instClass.mouse):
 	    (type, device, emulateThreeButtons) = todo.instClass.mouse
