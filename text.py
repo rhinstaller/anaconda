@@ -182,6 +182,9 @@ class LanguageDefaultWindow:
         languages = todo.language.available ()
         langs = todo.language.getSupported ()
 
+        if len(langs) <= 1:
+            return
+
         descriptions = languages.keys ()
         descriptions.sort ()
         current = todo.language.get ()
@@ -195,7 +198,7 @@ class LanguageDefaultWindow:
                 if found == 0:
                     default = langs[0]
                 
-        height = min((screen.height - 16, len(descriptions)))
+        height = min((screen.height - 16, len(langs)))
         
         buttons = [_("Ok"), _("Back")]
 
@@ -208,12 +211,6 @@ class LanguageDefaultWindow:
 
 
         choice = langs[choice]
-#        lang = languages [choice]
-        
-#        print choice
-#        time.sleep(2)
-#        todo.language.setByAbbrev (choice)
-
         todo.language.set (choice)
         return INSTALL_OK
 
