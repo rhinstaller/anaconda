@@ -1249,6 +1249,7 @@ def setFileCons(instPath):
                  "/etc/mtab", "/etc/fstab", "/etc/resolv.conf",
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
                  "/var/log/wtmp", "/var/run/utmp",
+                 "/dev/log",
                  "/var/lib/rpm", "/"] + rpmfiles
 
         # blah, to work in a chroot, we need to actually be inside so the
