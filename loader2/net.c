@@ -765,14 +765,6 @@ int chooseNetworkInterface(struct knownDevices * kd,
 
         devices[deviceNums++] = kd->known[i].name;
 
-        /* FIXME: blah, if we turn off s390 interfaces, we lose the 
-         * ability to actually do anything useful.
-         */
-#if !defined(__s390__) && !defined(__s390x__)
-        /* make sure that this device is disabled */
-        pumpDisableInterface(kd->known[i].name);
-#endif
-
         /* this device has been set and we don't really need to ask 
          * about it again... */
         if (loaderData->netDev && (loaderData->netDev_set == 1) &&
@@ -826,6 +818,14 @@ int chooseNetworkInterface(struct knownDevices * kd,
         return LOADER_BACK;
 
     loaderData->netDev = devices[deviceNum];
+
+    /* turn off the non-active interface.  this should keep things from
+     * breaking when we need the interface to do the install as long as
+     * you keep using that device */
+    for (i = 0; i < deviceNums; i++) {
+        if (strcmp(loaderData->netDev, devices[i]))
+            pumpDisableInterface(kd->known[i].name);
+    }
 
     return LOADER_OK;
 }
