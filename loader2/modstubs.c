@@ -60,7 +60,7 @@ int ourInsmodCommand(int argc, char ** argv) {
             argv += 2;
             argc -= 2;
         } else {
-            return usage();
+            break;
         }
     }
 
