@@ -234,7 +234,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
                     groups[toplevel] = []
 
             # don't display package if it is in the Base group
-            if not comps["Base"].includesPackage(header) or displayBase:
+            if not comps["Core"].includesPackage(header) or displayBase:
                 groups[group].append(header)
 		if len(hier) > 1:
 		    groups[toplevel].append(header)
@@ -278,8 +278,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
             # cache the full package list
             if not self.allPkgs:
                 self.allPkgs = []
-                for key in self.pkgs.keys():
-                    self.allPkgs.append(self.pkgs[key])
+                for pkg in self.pkgs.values():
+                    if not self.comps["Core"].includesPackage(pkg):
+                        self.allPkgs.append(pkg)
             packages = self.allPkgs
             self.packageTreeView.set_model(gtk.ListStore(gobject.TYPE_STRING))
 
