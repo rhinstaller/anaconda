@@ -17,7 +17,7 @@ from rhpl.translate import _, N_
 
 class WelcomeWindow (InstallWindow):		
 
-    windowTitle = N_("Welcome")
+    windowTitle = "" #N_("Welcome")
     htmlTag = "wel"
 
     def __init__ (self, ics):
@@ -27,14 +27,14 @@ class WelcomeWindow (InstallWindow):
     # WelcomeWindow tag="wel"
     def getScreen (self, configFileData):
         frame = gtk.Frame ()
-        frame.set_shadow_type (gtk.SHADOW_IN)
+        frame.set_shadow_type (gtk.SHADOW_NONE)
 
         image = configFileData["WelcomeScreen"]
         pix = self.ics.readPixmapDithered(image)
         
         if pix:
             box = gtk.EventBox ()
-            box.modify_bg(gtk.STATE_NORMAL, box.get_style ().white)
+#            box.modify_bg(gtk.STATE_NORMAL, box.get_style ().white)
             box.add (pix)
             frame.add (box)
 
