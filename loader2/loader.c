@@ -472,7 +472,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
                 numExtraArgs = numExtraArgs + 1;
         
                 if (numExtraArgs > (MAX_EXTRA_ARGS - 2)) {
-                    logMessage("Too many command line arguments (max allowed is %s), "
+                    logMessage("Too many command line arguments (max allowed is %d), "
                                "rest will be dropped.", MAX_EXTRA_ARGS);
                 }
             }

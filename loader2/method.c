@@ -92,7 +92,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     devMakeInode(device, filename);
     loopfd = open(filename, O_RDONLY);
     if (loopfd == -1) {
-	logMessage("unable to open loop device", filename);
+	logMessage("unable to open loop device %s", filename);
 	return LOADER_ERROR;
     }
     logMessage("mntloop %s on %s as %s fd is %d", 

@@ -281,7 +281,7 @@ static int loadModule(const char * modName, struct extractedModule * path,
     }
 
     if (FL_TESTING(flags)) {
-        logMessage("would have insmod %s (%s)", path, fileName);
+        logMessage("would have insmod %s (%s)", path->path, fileName);
         rc = 0;
     } else {
         if (!(child = fork())) {
@@ -503,7 +503,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
         if (loadModule(*l, p, modLoaded,
                        (argModule && !strcmp(argModule, *l)) ? args : NULL,
                        modInfo, flags)) {
-            logMessage("failed to insert %s", *p);
+            logMessage("failed to insert %s", p->path);
         } else {
             logMessage("inserted %s", p->path);
         }
