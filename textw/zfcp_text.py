@@ -23,57 +23,52 @@ import copy
 
 class ZFCPWindow:
     def editDevice(self, screen, fcpdev):
-	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
+        buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
         if fcpdev is None:
             dev = ("", "", "", "", "")
         else:
             dev = fcpdev
 
-        devLabel = Label(_("Device number:"))
-        devEntry = Entry(20, scroll = 1, text = dev[0])
-        sidLabel = Label(_("SCSI ID:"))
-        sidEntry = Entry(20, scroll = 1, text = dev[1])
-        wwpnLabel = Label(_("WWPN:"))
-        wwpnEntry = Entry(20, scroll = 1, text = dev[2])
-        slunLabel = Label(_("SCSI LUN:"))
-        slunEntry = Entry(20, scroll = 1, text = dev[3])
-        fcplunLabel = Label(_("FCP LUN:"))
-        fcplunEntry = Entry(20, scroll = 1, text = dev[4])
-
         subgrid = Grid(2, 5)
         idx = 0
-        for (lab, ent) in ( (devLabel, devEntry), (sidLabel, sidEntry),
-                            (wwpnLabel, wwpnEntry), (slunLabel, slunEntry),
-                            (fcplunLabel, fcplunEntry) ):
-            subgrid.setField(lab, 0, idx, anchorLeft = 1)
-            subgrid.setField(ent, 1, idx, padding = (1, 0, 0, 0),
+        entrys = {}
+        label = {}
+        for t in range(len(self.options)):
+            label[t] = Label("%s:" %(self.options[t][0],))
+            entrys[t] = Entry(20, scroll = 1, text = dev[t])
+            subgrid.setField(label[t], 0, idx, anchorLeft = 1)
+            subgrid.setField(entrys[t], 1, idx, padding = (1, 0, 0, 0),
                              anchorLeft = 1)
             idx += 1
 
         g = GridFormHelp(screen, _("FCP Device"), "fcpdev", 1, 2)
-	g.add(subgrid, 0, 0, padding = (0, 0, 0, 1))
-	g.add(buttons, 0, 1, growx = 1)
+        g.add(subgrid, 0, 0, padding = (0, 0, 0, 1))
+        g.add(buttons, 0, 1, growx = 1)
 
-	result = ""
-        while (result != TEXT_OK_CHECK and result != TEXT_F12_CHECK):
-	    result = g.run()
+        tmpvals = {}
+        while 1:
+            invalid = 0
+            rc = g.run()
+            result = buttons.buttonPressed(rc)
+            if result == "cancel":
+                screen.popWindow()
+                break;
+            if result == "ok" or rc == "F12":
+                for t in range(len(self.options)):
+                    tmpvals[t] = entrys[t].value()
+                    tmpvals[t] = self.options[t][3](tmpvals[t])   # sanitize input
+                    if tmpvals[t] is not None:                    # update text
+                        entrys[t].set(tmpvals[t])
+                    if self.options[t][4](tmpvals[t]) == -1:      # validate input
+                        ButtonChoiceWindow (screen, _("Error With Data"),
+                                            self.options[t][2])
+                        invalid = 1
+                        break
 
-	    if (buttons.buttonPressed(result)):
-		result = buttons.buttonPressed(result)
-
-	    if (result == "cancel"):
-		screen.popWindow ()
-                return
-            
-            elif (result  == TEXT_OK_CHECK or result == TEXT_F12_CHECK):
-                # FIXME: do sanity checking here
-
-                fcpdev = (string.lower(devEntry.value()), string.lower(sidEntry.value()),
-                          string.lower(wwpnEntry.value()), string.lower(slunEntry.value()),
-                          string.lower(fcplunEntry.value()))
-                break
-
-        screen.popWindow()
+                if invalid == 0:
+                    screen.popWindow()
+                    return tmpvals
+                    break
         return fcpdev
 
     def formatDevice(self, dev, wwpn, lun):
@@ -86,7 +81,7 @@ class ZFCPWindow:
             elif one[0] > two[0]:
                 return 1
             return 0
-        
+
         listbox.clear()
         fcpdevs.sort(sortFcpDevs)
         if len(fcpdevs) == 0:
@@ -95,15 +90,17 @@ class ZFCPWindow:
         for dev in fcpdevs:
             if dev != None:
                 listbox.append(self.formatDevice(dev[0], dev[2], dev[4]), dev[0])
-        
+
     def __call__(self, screen, fcp, diskset, intf):
         fcp.cleanFcpSysfs(fcp.fcpdevices)
 
         fcpdevs = copy.copy(fcp.fcpdevices)
-        
-	listboxLabel = Label(     "%-10s  %-25s %-15s" % 
-		( _("Device #"), _("WWPN"), _("FCP LUN")))
-	listbox = Listbox(5, scroll = 1, returnExit = 0)
+
+        self.options = fcp.options
+
+        listboxLabel = Label(     "%-10s  %-25s %-15s" % 
+            ( _("Device #"), _("WWPN"), _("FCP LUN")))
+        listbox = Listbox(5, scroll = 1, returnExit = 0)
 
         self.fillListbox(listbox, fcpdevs)
 
@@ -114,14 +111,14 @@ class ZFCPWindow:
                                       TEXT_BACK_BUTTON ])
 
         text = TextboxReflowed(55,
-                               ("Need some text here about zfcp"))
+                               (fcp.description))
 
-	g = GridFormHelp(screen, _("FCP Devices"), 
-			 "zfcpconfig", 1, 4)
-	g.add(text, 0, 0, anchorLeft = 1)
-	g.add(listboxLabel, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
-	g.add(listbox, 0, 2, padding = (0, 0, 0, 1), anchorLeft = 1)
-	g.add(buttons, 0, 3, growx = 1)
+        g = GridFormHelp(screen, _("FCP Devices"), 
+            "zfcpconfig", 1, 4)
+        g.add(text, 0, 0, anchorLeft = 1)
+        g.add(listboxLabel, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
+        g.add(listbox, 0, 2, padding = (0, 0, 0, 1), anchorLeft = 1)
+        g.add(buttons, 0, 3, growx = 1)
 
         g.addHotKey("F2")
         g.addHotKey("F3")
@@ -175,5 +172,7 @@ class ZFCPWindow:
         fcp.fcpdevices = fcpdevs
 
         fcp.updateConfig(fcp.fcpdevices, diskset, intf)
-        
+
         return INSTALL_OK
+
+# vim:tw=78:ts=4:et:sw=4
