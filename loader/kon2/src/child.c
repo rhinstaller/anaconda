@@ -138,7 +138,7 @@ void	ChildStart(FILE *errfp)
 	else {
 	    if ((execProg = getenv("SHELL")) == NULL)
 		execProg = "/bin/sh";
-	    if ((tail = rindex(execProg, '/')) == NULL)
+	    if ((tail = strrchr(execProg, '/')) == NULL)
 		tail = " sh";
 	    sprintf(buff, "-%s", tail + 1);
 	    execl(execProg, buff, 0);
