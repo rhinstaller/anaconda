@@ -730,6 +730,61 @@ static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     return 0;
 }
 
+static int totalMemory(void) {
+    int fd;
+    int bytesRead;
+    char buf[4096];
+    char * chptr, * start;
+    int total = 0;
+
+    fd = open("/proc/meminfo", O_RDONLY);
+    if (fd < 0) {
+	logMessage("failed to open /proc/meminfo: %s", strerror(errno));
+	return 0;
+    }
+
+    bytesRead = read(fd, buf, sizeof(buf) - 1);
+    if (bytesRead < 0) {
+	logMessage("failed to read from /proc/meminfo: %s", strerror(errno));
+	close(fd);
+	return 0;
+    }
+
+    close(fd);
+    buf[bytesRead] = '\0';
+
+    chptr = buf;
+    while (*chptr && !total) {
+	if (*chptr != '\n' || strncmp(chptr + 1, "MemTotal:", 9)) {
+	    chptr++;
+	    continue;
+	}
+
+	start = ++chptr ;
+	while (*chptr && *chptr != '\n') chptr++;
+
+	*chptr = '\0';
+
+	logMessage("found total memory tag: \"%s\"", start);
+	
+	while (!isdigit(*start) && *start) start++;
+	if (!*start) {
+	    logMessage("no number appears after MemTotal tag");
+	    return 0;
+	}
+
+	chptr = start;
+	while (*chptr && isdigit(*chptr)) {
+	    total = (total * 10) + (*chptr - '0');
+	    chptr++;
+	}
+    }
+
+    logMessage("%d kB are available", total);
+
+    return total;
+}
+
 #ifdef INCLUDE_LOCAL
 
 static char * mountHardDrive(struct installMethod * method,
@@ -1156,61 +1211,6 @@ static char * mountNfsImage(struct installMethod * method,
 #endif
 
 #ifdef INCLUDE_NETWORK
-
-static int totalMemory(void) {
-    int fd;
-    int bytesRead;
-    char buf[4096];
-    char * chptr, * start;
-    int total = 0;
-
-    fd = open("/proc/meminfo", O_RDONLY);
-    if (fd < 0) {
-	logMessage("failed to open /proc/meminfo: %s", strerror(errno));
-	return 0;
-    }
-
-    bytesRead = read(fd, buf, sizeof(buf) - 1);
-    if (bytesRead < 0) {
-	logMessage("failed to read from /proc/meminfo: %s", strerror(errno));
-	close(fd);
-	return 0;
-    }
-
-    close(fd);
-    buf[bytesRead] = '\0';
-
-    chptr = buf;
-    while (*chptr && !total) {
-	if (*chptr != '\n' || strncmp(chptr + 1, "MemTotal:", 9)) {
-	    chptr++;
-	    continue;
-	}
-
-	start = ++chptr ;
-	while (*chptr && *chptr != '\n') chptr++;
-
-	*chptr = '\0';
-
-	logMessage("found total memory tag: \"%s\"", start);
-	
-	while (!isdigit(*start) && *start) start++;
-	if (!*start) {
-	    logMessage("no number appears after MemTotal tag");
-	    return 0;
-	}
-
-	chptr = start;
-	while (*chptr && isdigit(*chptr)) {
-	    total = (total * 10) + (*chptr - '0');
-	    chptr++;
-	}
-    }
-
-    logMessage("%d kB are available", total);
-
-    return total;
-}
 
 static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags, 
 			char * device, char * mntpoint) {
@@ -2464,6 +2464,16 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
     kdFindIdeList(kd, 0);
 }
 
+static void checkForRam(int flags) {
+    if (!FL_EXPERT(flags) && (totalMemory() < MIN_RAM)) {
+	startNewt(flags);
+	newtWinMessage(_("Error"), _("OK"), _("You don't have enough "
+			"system memory to install Red Hat on this machine."));
+	stopNewt();
+	exit(0);
+    }
+}
+
 int main(int argc, char ** argv) {
     char ** argptr;
     char * anacondaArgs[50];
@@ -2562,6 +2572,8 @@ int main(int argc, char ** argv) {
     }
 
     openLog(FL_TESTING(flags));
+
+    checkForRam(flags);
 
     kd = kdInit();
     mlReadLoadedList(&modLoaded);
