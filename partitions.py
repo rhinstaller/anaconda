@@ -368,6 +368,12 @@ class Partitions:
 	    raidcounter = 0
 	    for dev in raiddev:
                 used = 0
+
+		if dev.fstype is None:
+		    continue
+		if dev.fstype.getName() != "physical volume (LVM)":
+		    continue
+		
                 for volgroup in volgroups:
                     if volgroup.physicalVolumes:
                         if dev.uniqueID in volgroup.physicalVolumes:
