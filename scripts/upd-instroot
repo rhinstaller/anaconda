@@ -133,7 +133,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            anaconda-images anaconda-help hdparm XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
            redhat-config-keyboard Xft fontconfig expat redhat-artwork
-           ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk"
+           ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -590,6 +590,14 @@ usr/sbin/gnome-pty-helper
 usr/sbin/traceroute
 usr/share/anaconda/*
 usr/share/fonts/bitmap-fonts/fangsongti*
+usr/share/fonts/default/Type1/n019003l*
+usr/share/fonts/default/Type1/n019004l*
+usr/share/fonts/default/Type1/n019023l*
+usr/share/fonts/default/Type1/n019024l*
+usr/share/fonts/default/Type1/n021003l*
+usr/share/fonts/default/Type1/n021004l*
+usr/share/fonts/default/Type1/n021023l*
+usr/share/fonts/default/Type1/n021024l*
 usr/share/fonts/ko/TrueType/dotum.ttf
 usr/share/fonts/ja/TrueType/kochi-gothic.ttf
 usr/share/fonts/zh_TW/TrueType/bsmi00lp.ttf
