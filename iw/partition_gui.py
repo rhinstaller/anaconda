@@ -1019,6 +1019,14 @@ class PartitionWindow(InstallWindow):
                            drive = [get_partition_drive(partition)])
             self.editPartitionRequest(request)
             return
+
+        elif partition.fs_type and not partition.fs_type.name:
+            dialog = GnomeWarningDialog(_("You cannot edit partitions without "
+                                          "a filesystem type."),
+                                        parent = self.parent)
+            dialog.set_position(WIN_POS_CENTER)
+            dialog.run()
+            return
         
         elif partition.type & parted.PARTITION_EXTENDED:
             return
