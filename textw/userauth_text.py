@@ -15,6 +15,7 @@ from snack import *
 from constants_text import *
 from translate import _
 import iutil
+from flags import flags
 
 class RootPasswordWindow:
     def __call__ (self, screen, rootPw, accounts):
@@ -79,6 +80,13 @@ class UsersWindow:
         pass1 = Entry (10, user["password"], password = 1)
         pass2 = Entry (10, user["password"], password = 1)
         fullname = Entry (20, user["name"], scroll = 1)
+
+        if flags.reconfig:
+            flag = FLAGS_SET
+            userid.setFlags(FLAG_DISABLED, flag)
+            pass1.setFlags(FLAG_DISABLED, flag)
+            pass2.setFlags(FLAG_DISABLED, flag)
+            fullname.setFlags(FLAG_DISABLED, flag)
 
 	if edit:
 	    title = _("Edit User")
