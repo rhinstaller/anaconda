@@ -20,24 +20,48 @@ static int doQuery(char * query, int queryType,
     int len, ancount, type;
     u_char * data, * end;
     char name[MAXDNAME];
-    union dns_response response;
+    union dns_response static_response, *response = &static_response;
+    size_t response_len = sizeof(static_response);
 
     /* Give time to finish ethernet negotiation */
     _res.retry = 3;
 
-    len = res_search(query, C_IN, queryType, (void *) &response, 
-		    sizeof(response));
-    if (len <= 0) return -1;
+    do {
+      len = res_search(query, C_IN, queryType, (void*) response, 
+                       response_len);
+      if (len <= 0) return -1;
+      if (len < response_len) break;
+      if (response != &static_response) free(response);
+      if (len > 0x10000) return -1;
+      response_len = len + 1024;
+      response = malloc(response_len);
+      if (response == NULL) return -1;
+    } while (1);
 
-    if (ntohs(response.hdr.rcode) != NOERROR) return -1;
-    ancount = ntohs(response.hdr.ancount);
-    if (ancount < 1) return -1;
+    if (len < sizeof(response->hdr)) {
+      if (response != &static_response) free(response);
+      return -1;
+    }
+    if (ntohs(response->hdr.rcode) != NOERROR) {
+      if (response != &static_response) free(response);
+      return -1;
+    }
+    ancount = ntohs(response->hdr.ancount);
+    if (ancount < 1) {
+      if (response != &static_response) free(response);
+      return -1;
+    }
 
-    data = response.buf + sizeof(HEADER);
-    end = response.buf + len;
+    data = response->buf + sizeof(HEADER);
+    end = response->buf + len;
     
     /* skip the question */
-    data += dn_skipname(data, end) + QFIXEDSZ;
+    len = dn_skipname(data, end);
+    if (len <= 0) {
+      if (response != &static_response) free(response);
+      return -1;
+    }
+    data += len + QFIXEDSZ;
 
     /* parse the answer(s) */
     while (--ancount >= 0 && data < end) {
@@ -46,19 +70,27 @@ static int doQuery(char * query, int queryType,
       data += dn_skipname(data, end);
 
       /* get RR information */
+      if (data + 3 * INT16SZ + INT32SZ > end) {
+          if (response != &static_response) free(response);
+          return -1;
+      }
       GETSHORT(type, data);
-      data += INT16SZ; /* skipp class */
-      data += INT32SZ; /* skipp TTL */
+      data += INT16SZ; /* skip class */
+      data += INT32SZ; /* skip TTL */
       GETSHORT(len,  data);
 
       if (type == T_PTR) {
 	/* we got a pointer */
-	len = dn_expand(response.buf, end, data, name, sizeof(name));
-	if (len <= 0) return -1;
+	len = dn_expand(response->buf, end, data, name, sizeof(name));
+	if (len <= 0) {
+          if (response != &static_response) free(response);
+          return -1;
+        }
 	if (queryType == T_PTR && domainName) {
 	  /* we wanted a pointer */
 	  *domainName = malloc(strlen(name) + 1);
 	  strcpy(*domainName, name);
+          if (response != &static_response) free(response);
 	  return 0;
 	}
       } else if (type == T_A) {
@@ -66,6 +98,7 @@ static int doQuery(char * query, int queryType,
 	if (queryType == T_A && ipNum) {
 	  /* we wanted an address */
 	  memcpy(ipNum, data, sizeof(*ipNum));
+          if (response != &static_response) free(response);
 	  return 0;
 	}
       }
@@ -74,6 +107,7 @@ static int doQuery(char * query, int queryType,
       data += len;
     } 
 
+    if (response != &static_response) free(response);
     return -1;
 }
 
@@ -148,4 +182,20 @@ char * mygethostbyaddr(const char * ipnum) {
         return NULL;
 }
 
+#endif
+
+#if 0
+int
+main(int argc, char **argv)
+{
+  struct in_addr address;
+  fprintf(stderr, "hostname for %s is %s\n", "152.1.2.22",
+  mygethostbyaddr("152.1.2.22"));
+  if (mygethostbyname("www.redhat.com", &address) == 0) {
+    fprintf(stderr, "ip for www.redhat.com is %d.%d.%d.%d\n",
+            (address.s_addr >>  0) & 0xff, (address.s_addr >>  8) & 0xff,
+            (address.s_addr >> 16) & 0xff, (address.s_addr >> 24) & 0xff);
+  }
+  return 0;
+}
 #endif
