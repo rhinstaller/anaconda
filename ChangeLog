@@ -1,5 +1,9 @@
 2005-01-10  Jeremy Katz  <katzj@redhat.com>
 
+	* installclass.py (BaseInstallClass.setSteps): Allow install
+	classes to turn off showing upgrade as an option (only really
+	applicable if you only have one install class)
+
 	* scripts/upd-instroot (KEEPFILE): Add /usr/sbin/lvm since
 	/sbin/lvm is gone
 
