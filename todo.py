@@ -717,6 +717,7 @@ class ToDo:
 
         lilo.addEntry("default", main)        
 
+	label = main
 	if (smpInstalled):
 	    kernelList.append((main, self.hdList['kernel-smp'], "smp"))
 	    label = main + "-up"
