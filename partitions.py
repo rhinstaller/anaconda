@@ -169,7 +169,11 @@ class Partitions:
 	    return None
 	
         for request in self.requests:
-            if request.device == device:
+	    if request.type == REQUEST_RAID and request.raidminor is not None:
+		tmp = "md%d" % (request.raidminor,)
+		if tmp == device:
+		    return request
+	    elif request.device == device:
                 return request
         return None
 
@@ -224,6 +228,16 @@ class Partitions:
                 
         return raidRequests
 
+    def getAvailableRaidMinors(self):
+        """Find and return a list of all of the unused minors for use in RAID."""
+        raidMinors = range(0,32)
+        for request in self.requests:
+            if isinstance(request, partRequests.RaidRequestSpec):
+                raidMinors.remove(request.raidminor)
+                
+        return raidMinors
+	
+
     def getAvailRaidPartitions(self, request, diskset):
         """Return a list of tuples of RAID partitions which can be used.
 
@@ -257,6 +271,7 @@ class Partitions:
                     rc.append((partname, size, 0))
                 elif used == 2:
                     rc.append((partname, size, 1))
+		    
         return rc
 
     def isRaidMember(self, request):
@@ -343,9 +358,36 @@ class Partitions:
                 size = partedUtils.getPartSizeMB(part)                    
 
                 if used == 0:
-                    rc.append((partname, size, 0))
+                    rc.append((partrequest.uniqueID, size, 0))
                 elif used == 2:
-                    rc.append((partname, size, 1))
+                    rc.append((partrequest.uniqueID, size, 1))
+
+	# now find available RAID devices
+	raiddev = self.getRaidRequests()
+	if raiddev:
+	    raidcounter = 0
+	    for dev in raiddev:
+                used = 0
+                for volgroup in volgroups:
+                    if volgroup.physicalVolumes:
+                        if dev.uniqueID in volgroup.physicalVolumes:
+                            if (request and request.uniqueID and
+                                volgroup.uniqueID == request.uniqueID):
+                                used = 2
+                            else:
+                                used = 1
+
+                    if used:
+                        break
+		    
+                size = dev.getActualSize(self, diskset)
+
+                if used == 0:
+                    rc.append((dev.uniqueID, size, 0))
+                elif used == 2:
+                    rc.append((dev.uniqueID, size, 1))
+
+		raidcounter = raidcounter + 1
         return rc
 
     def isLVMVolumeGroupMember(self, request):
