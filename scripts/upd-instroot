@@ -60,6 +60,8 @@ prunePackageList() {
 	    PATTERN="${PATTERN:+${PATTERN}|}(^$PKG )"
 	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*)"
 	done
+	# gtk+, enough said
+	PATTERN=$(echo $PATTERN | sed 's,[\+\*],\\&,g')
 
 	PACKAGEFILES=$(ls $PACKAGEFILES | sort -u)
 
