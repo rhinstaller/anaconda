@@ -593,7 +593,7 @@ class ToDo:
                           _("Formatting %s filesystem...") % (mntpoint,))
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2" and createFs:
-                args = [ "mke2fs", '/tmp/' + device, '-b', '4096', '-i', '16384' ]
+                args = [ "mke2fs", '/tmp/' + device ]
                 # set up raid options for md devices.
                 if device[:2] == 'md':
                     for (rmnt, rdevice, fsType, raidType, makeup) in raid:
@@ -609,11 +609,9 @@ class ToDo:
                 if self.badBlockCheck:
                     args.append ("-c")
 
-                self.log ("running mke2fs on %s with args %s", device, repr (args))
-                
                 iutil.execWithRedirect ("/usr/sbin/mke2fs",
                                         args,
-                                        stdout = None, stderr = None,
+                                        stdout = "/dev/tty5", stderr = "/dev/tty5",
                                         searchPath = 1)
             elif fsystem == "swap" and createSwap:
                 rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
@@ -628,7 +626,9 @@ class ToDo:
 
             os.remove('/tmp/' + device)
 	    w.pop()
-        self.madeFilesystems = 1
+
+	if createFs:
+	    self.madeFilesystems = 1
 
     def addMount(self, device, location, fsystem, reformat = 1):
         if fsystem == "swap":
