@@ -214,7 +214,9 @@ class ZoneTab:
         for entry in self.entries:
             if entry.tz == tz:
                 return entry
-        return None
+        # this has always been broken like this.  at least we're compatibly
+        # broken now.
+        return self.findEntryByTZ("America/New_York")
 
     def findNearest(self, lat, long):
         nearestEntry = None
