@@ -941,11 +941,13 @@ class InstallInterface:
 	    BootloaderWindow = SiloWindow
 	    BootloaderImagesWindow = SiloImagesWindow
 	    BootloaderConfiguration = _("SILO Configuration")
+            BootloaderSkipName = "silo"
 	else:
 	    BootloaderAppendWindow = LiloAppendWindow
 	    BootloaderWindow = LiloWindow
 	    BootloaderImagesWindow = LiloImagesWindow
 	    BootloaderConfiguration = _("LILO Configuration")
+            BootloaderSkipName = "lilo"            
 
         self.installSteps = [
             [_("Partition"), PartitionMethod,
@@ -961,11 +963,11 @@ class InstallInterface:
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo),
 		    "format" ],
             [BootloaderConfiguration, BootloaderAppendWindow, 
-		    (self.screen, todo), "lilo"],
+		    (self.screen, todo), BootloaderSkipName ],
             [BootloaderConfiguration, BootloaderWindow, 
-		    (self.screen, todo), "lilo"],
+		    (self.screen, todo), BootloaderSkipName ],
 	    [BootloaderConfiguration, BootloaderImagesWindow, 
-		    (self.screen, todo), "lilo"],
+		    (self.screen, todo), BootloaderSkipName ],
             [_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
 		    "network"],
             [_("Network Setup"), NetworkWindow, (self.screen, todo), 

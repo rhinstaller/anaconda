@@ -45,15 +45,17 @@ class InstallPathWindow (InstallWindow):
     def __init__ (self, ics):
 	if iutil.getArch() == 'sparc':
 	    BootloaderWindow = SiloWindow
+            BootloaderSkipname = "silo"
 	else:
 	    BootloaderWindow = LiloWindow
+            BootloaderSkipname = "lilo"            
 
 	self.installSteps = [
 		     ( AutoPartitionWindow, "partition" ),
                      FDiskWindow,
 		     ( PartitionWindow, "partition" ),
 		     ( FormatWindow, "format" ),
-		     ( BootloaderWindow, "lilo" ),
+		     ( BootloaderWindow, BootloaderSkipname ),
 		     ( NetworkWindow, "network" ),
 		     ( TimezoneWindow, "timezone" ),
 		     ( AccountWindow, "accounts" ),
