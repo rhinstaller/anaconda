@@ -24,6 +24,7 @@ import math
 import raid
 import fsset
 import os
+import sys
 import iutil
 from translate import _
 from log import log
@@ -1022,13 +1023,23 @@ class DiskSet:
                 part = disk.next_partition(part)
         return rc
 
-def partitionObjectsInitialize(diskset, partitions, dir):
+def partitionObjectsInitialize(diskset, partitions, dir, intf):
     if dir == DISPATCH_BACK:
         diskset.closeDevices()
         return
     
     # read in drive info
     diskset.refreshDevices()
+
+    if len(diskset.disks.keys()) == 0:
+        intf.messageWindow(_("No Drives Found"),
+                           _("An error has occurred - no valid devices were "
+                             "found on which to create new filesystems. "
+                             "Please check your hardware for the cause "
+                             "of this problem."))
+        sys.exit(0)
+                           
+    
     partitions.setFromDisk(diskset)
 
 def partitionMethodSetup(partitions, dispatch):
