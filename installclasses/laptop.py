@@ -10,10 +10,12 @@ class InstallClass(workstation.InstallClass):
     sortPriority = 5000
     arch = 'i386'
 
+    def setGroupSelection(self, comps):
+	workstation.InstallClass.__init__(self, comps)
+	comps["Laptop Support"].select()
+
     if pcmcia.pcicType():
 	default = 1
 
     def __init__(self, expert):
 	workstation.InstallClass.__init__(self, expert)
-        # XXX better interface for manipulating this stuff?
-	self.groups.append("Laptop Support")

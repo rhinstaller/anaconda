@@ -10,37 +10,36 @@ class InstallClass(BaseInstallClass):
     pixmap = "server.png"
     sortPriority = 10
 
-    def __init__(self, expert):
-	BaseInstallClass.__init__(self)
-	self.setGroups(["Server"])
-	self.setHostname("localhost.localdomain")
-	if not expert:
-	    self.addToSkipList("lilo")
-	self.addToSkipList("authentication")
-	self.setMakeBootdisk(1)
+    def setSteps(self, dispatch):
+	BaseInstallClass.setSteps(self, dispatch);
 
-        self.showgroups = [ "KDE", 
-			    (0, "GNOME"),
-                            (0, "X Window System"),
+	if self.skipLilo:
+	    dispatch.skipStep("bootloader")
+	dispatch.skipStep("authentication")
+	dispatch.skipStep("bootdisk", skip = 0)
+
+    def setGroupSelection(self, comps):
+	BaseInstallClass.__init__(self, comps)
+	self.showGroups(comps, 
+			  [ "KDE", 
+			    ("GNOME", 0),
+			    ("X Window System", 0),
 			    "News Server",
                             "NFS Server",
                             "Web Server",
                             "SMB (Samba) Server",
-                            "DNS Name Server" ]
+                            "DNS Name Server" ])
+	comps["Server"].select()
 
-	if os.uname ()[4] != 'sparc64':
-	    self.addNewPartition('/boot', (48, -1, 0), (None, -1, 0), (0,0))
-	self.addNewPartition('/', (256, -1, 0), (None, -1, 0), (0,0))
-	self.addNewPartition('/usr', (512, -1, 1), (None, -1, 0), (0,0))
-	self.addNewPartition('/var', (256, -1, 0), (None, -1, 0), (0,0))
-	self.addNewPartition('/home',(512, -1, 1), (None, -1, 0), (0,0))
-	self.setClearParts(FSEDIT_CLEAR_ALL, 
-	    warningText = N_("Automatic partitioning will erase ALL DATA on your hard "
-			     "drive to make room for your Linux installation."))
+    def setInstallData(self, id):
+	BaseInstallClass.setInstallData(self, id)
+	self.setHostname(id, "localhost.localdomain")
 
-#	self.addNewPartition('swap', (64, 256, 1), (None, -1, 0), (0,0))
+    def __init__(self, expert):
+	BaseInstallClass.__init__(self, expert)
 
-        # 2.4 kernel requires more swap, so base amount we try to get
-        # on amount of memory
-        (minswap, maxswap) = iutil.swapSuggestion()
-	self.addNewPartition('swap', (minswap, maxswap, 1), (None, -1, 0), (0,0))
+	if expert:
+	    self.skipLilo = 1
+	else:
+	    self.skipLilo = 0
+

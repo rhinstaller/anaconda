@@ -10,29 +10,27 @@ class InstallClass(BaseInstallClass):
 
     sortPriority = 1
 
+    def setSteps(self, dispatch):
+	BaseInstallClass.setSteps(self, dispatch);
+
+	if self.skipLilo:
+	    dispatch.skipStep("bootloader")
+
+	dispatch.skipStep("authentication")
+	dispatch.skipStep("bootdisk", skip = 0)
+
+    def setGroupSelection(self, comps):
+	BaseInstallClass.__init__(self, comps)
+	self.showGroups(comps, [ "KDE", ("GNOME", 1), "Games" ] )
+
+    def setInstallData(self, id):
+	BaseInstallClass.setInstallData(self, id)
+	self.setHostname(id, "localhost.localdomain")
+
     def __init__(self, expert):
-	BaseInstallClass.__init__(self)
-	self.setGroups(["Workstation Common"])
-	self.setHostname("localhost.localdomain")
-	if not expert:
-	    self.addToSkipList("lilo")
-	self.addToSkipList("authentication")
-	self.setMakeBootdisk(1)
+	BaseInstallClass.__init__(self, expert)
 
-        self.showgroups = [ "KDE",
-                            (1, "GNOME"),
-                            "Games" ]
-
-	if os.uname ()[4] != 'sparc64':
-	    self.addNewPartition('/boot', (48, -1, 0), (None,-1,0), (0,0))
-	self.addNewPartition('/', (1100, -1, 1), (None, -1, 0), (0,0))
-	self.setClearParts(FSEDIT_CLEAR_LINUX, 
-#	    warningText = N_("You are about to erase any preexisting Linux "
-#			     "installations on your system."))
-	    warningText = N_("Automatic partitioning will erase any preexisting Linux "
-			     "installations on your system."))
-
-        # 2.4 kernel requires more swap, so base amount we try to get
-        # on amount of memory
-        (minswap, maxswap) = iutil.swapSuggestion()
-	self.addNewPartition('swap', (minswap, maxswap, 1), (None, -1, 0), (0,0))
+	if expert:
+	    self.skipLilo = 1
+	else:
+	    self.skipLilo = 0
