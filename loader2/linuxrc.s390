@@ -63,12 +63,12 @@ startinetd()
 
 setupdevice()
 {
-   if [ -z "$CCWDEV" -o -z "$DIRNAME" ]; then
-      echo $"CCWDEV and DIRNAME empty, cannot continue."
+   if [ -z "$SUBCHANNELS" -o -z "$DIRNAME" ]; then
+      echo $"SUBCHANNELS and DIRNAME empty, cannot continue."
       exit 1
    fi
-   SYSDIR=${CCWDEV//,*/}   # get first subchannel. This is where the device can be brought online
-   echo "$CCWDEV"  >/sys/bus/ccwgroup/drivers/${DIRNAME}/group
+   SYSDIR=${SUBCHANNELS//,*/}   # get first subchannel. This is where the device can be brought online
+   echo "$SUBCHANNELS"  >/sys/bus/ccwgroup/drivers/${DIRNAME}/group
    [ -n "$PORTNAME" ] && echo "$PORTNAME" > /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/portname
    echo 1 > /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/online
 }
@@ -76,18 +76,18 @@ setupdevice()
 convertchandev()
 {
    local del dev channels
-   if [ -z "$CHANDEV" -o -n "$CCWDEV" ]; then
+   if [ -z "$CHANDEV" -o -n "$SUBCHANNELS" ]; then
       return
    fi
    dev=${CHANDEV//,*/}
    channels=${CHANDEV#${dev},*}
    channels=${channels//0x/0}
-   CCWDEV="0.0.${channels//,*/}"
+   SUBCHANNELS="0.0.${channels//,*/}"
    channels="${channels#*,}"
-   CCWDEV="$CCWDEV,0.0.${channels//,*/}"
+   SUBCHANNELS="$SUBCHANNELS,0.0.${channels//,*/}"
    if [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
       channels="${channels#*,}"
-      CCWDEV="$CCWDEV,0.0.${channels//,*/}"
+      SUBCHANNELS="$SUBCHANNELS,0.0.${channels//,*/}"
    fi
    [ -z "$QETHPARM" ] && return
    del=${QETHPARM%%portname:*}
@@ -154,13 +154,13 @@ done
 DEVICE=${NETTYPE}0
 if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw config
    convertchandev
-   while [ -z "$CCWDEV" ]; do
+   while [ -z "$SUBCHANNELS" ]; do
 		echo $"Enter the bus ID and the device number of your CCW devices."
 		echo $"CTC, ESCON and LCS need two subchannels:"
 		echo $"(e.g. \"0.0.0600,0.0.0601\" will configure the CTC or ESCON interface"
 		echo $"with the subchannels 0x600 and 0x601)"
 		echo $"QETH and HSI need three subchannels p.e. 0.0.03000,0.0.03001,0.0.03002"
-		read CCWDEV
+		read SUBCHANNELS
    done
 	if [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
 		if [ -z "$PORTNAME" ]; then
@@ -349,7 +349,7 @@ ONBOOT="yes"
 export LANG PORTNAME S390ARCH TEXTDOMAIN TEXTDOMAINDIR
 export HOSTNAME DEVICE NETTYPE IPADDR GATEWAY MTU
 export NETWORK NETMASK BROADCAST DNS SEARCHDNS
-export IUCV ONBOOT CCWDEV
+export IUCV ONBOOT SUBCHANNELS
 EOF
 # immediately read it in again to export these into the shell below
 . /tmp/install.cfg
