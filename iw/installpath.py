@@ -32,9 +32,9 @@ SERVER = 5
 class InstallPathWindow (InstallWindow):		
 
     installTypes = ((CUSTOM, _("Custom")),
-			 (WORKSTATION_GNOME, _("GNOME Workstation")),
-			 (WORKSTATION_KDE, _("KDE Workstation")),
-			 (SERVER, _("Server")))
+                    (WORKSTATION_GNOME, _("GNOME Workstation")),
+                    (WORKSTATION_KDE, _("KDE Workstation")),
+                    (SERVER, _("Server")))
 
     installSteps = [ ( PartitionWindow, "partition" ),
 		     ( FormatWindow, "format" ),
@@ -43,7 +43,7 @@ class InstallPathWindow (InstallWindow):
 		     ( TimezoneWindow, "timezone" ),
 		     ( AccountWindow, "accounts" ),
 		     ( AuthWindow, "authentication" ),
-		     PackageSelectionWindow, 
+		     ( PackageSelectionWindow, "package-selection" ), 
 		     ( UnresolvedDependenciesWindow, "dependencies" ),
 		     InstallProgressWindow,
 		     ( BootdiskWindow, "bootdisk" ),
@@ -84,13 +84,13 @@ class InstallPathWindow (InstallWindow):
 		    break
 
 	    if type == WORKSTATION_GNOME:
-		self.todo.setClass(installclass.GNOMEWorkstation())
+		self.todo.setClass (installclass.GNOMEWorkstation ())
 	    elif type == WORKSTATION_KDE:
-		self.todo.setClass(installclass.KDEWorkstation())
+		self.todo.setClass (installclass.KDEWorkstation ())
 	    elif type == SERVER:
-		self.todo.setClass(installclass.Server())
+		self.todo.setClass (installclass.Server ())
 	    else:
-		self.todo.setClass(installclass.CustomInstall())
+		self.todo.setClass (installclass.CustomInstall ())
 
     def toggled (self, widget, type):
         if not widget.get_active (): return
@@ -126,9 +126,9 @@ class InstallPathWindow (InstallWindow):
 	for (type, name) in self.installTypes:
             group = GtkRadioButton (group, name)
             self.installBox.pack_start (group, FALSE)
-	    self.installClasses.append((group, type))
+	    self.installClasses.append ((group, type))
 	    if (type == default):
-		group.set_active(1)
+		group.set_active (1)
 
 	spacer = GtkLabel("")
 	spacer.set_usize(15, 1)
@@ -142,5 +142,5 @@ class InstallPathWindow (InstallWindow):
 	box.pack_start(table, FALSE)
 
         self.toggled (installButton, INSTALL)
-
+        box.set_border_width (5)
         return box
