@@ -564,9 +564,19 @@ class MonitorWindow (InstallWindow):
 
         except:
 #            print "Except"
+            parent, monitor = self.ctree.node_get_row_data (self.originalNode)
+#            print "Original = ", parent, monitor
+            
+#            print self.originalNode
+#            print self.todo.monitorOriginalName
+#            print self.todo.monitorOriginalNode
+            
             old_parent, temp = self.ctree.node_get_row_data (self.currentNode)
             self.ctree.freeze ()
             self.ctree.collapse (old_parent)
+
+
+            
             self.ctree.thaw ()
             pass
 
@@ -673,7 +683,7 @@ class MonitorWindow (InstallWindow):
 
         if self.todo.isDDC == "TRUE":
 #            print "isDDC is TRUE"
-            
+#            print "self.todo.monitorOriginalName = ", self.todo.monitorOriginalName
             parent = self.ctree.insert_node (None, None, ("DDC Probed Monitor",),
                      2, self.monitor_p, self.monitor_b, self.monitor_p, self.monitor_b, is_leaf = FALSE)
 
@@ -682,12 +692,11 @@ class MonitorWindow (InstallWindow):
             monitor = (self.todo.monitorOriginalName, self.todo.monitorOriginalName, self.todo.monitorVsync,
                        self.todo.monitorHsync)
 
-            self.ctree.node_set_row_data (node, (parent, monitor))
+            self.ctree.node_set_row_data (self.originalNode, (parent, monitor))
+
 #            print self.originalNode
 
             
-
-
         # Add a category for a DDC probed monitor that isn't in MonitorDB
 #        if not select and self.todo.x.monID != "Generic Monitor":
         if not select and self.todo.x.monID != "Generic Monitor":
