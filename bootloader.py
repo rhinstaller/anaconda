@@ -112,6 +112,9 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     rootDev = fsset.getEntryByMountPoint('/').device.getDevice()
     defaultDev = bl.images.getDefault()
 
+    kernelLabel = None
+    kernelLongLabel = None
+
     for (dev, (label, longlabel, type)) in bl.images.getImages().items():
 	if dev == rootDev:
 	    kernelLabel = label
@@ -120,6 +123,9 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 	    otherList = [(label, longlabel, dev)] + otherList
 	else:
 	    otherList.append((label, longlabel, dev))
+
+    if kernelLabel is None:
+        log("unable to find default image, bailing")
 
     plainLabelUsed = 0
     for (version, nick) in comps.kernelVersionList():
