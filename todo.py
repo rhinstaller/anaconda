@@ -898,7 +898,6 @@ class ToDo:
 	    raid.stopAllRaid(mdList)
             self.fstab.mountFilesystems (self.instPath)
         packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
-        self.fstab.umountFilesystems (self.instPath)
 
         # unselect all packages
         for package in self.hdList.packages.values ():
@@ -932,6 +931,10 @@ class ToDo:
             
         # new package dependency fixup
         deps = self.verifyDeps (self.instPath, db)
+        del db
+        
+        self.fstab.umountFilesystems (self.instPath)
+
         for (name, suggest) in deps:
             self.log ("Upgrade Dependency: %s needs %s, automatically added.", name, suggest)
         self.selectDeps (deps)
