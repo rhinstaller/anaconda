@@ -170,6 +170,24 @@ class InstallPathWindow:
             todo.upgrade = 1
 	    return INSTALL_NOOP
 
+	if (todo.upgrade):
+	    default = 5
+	else:
+	    instClass = todo.getClass()
+	    orig = None
+	    if isinstance(instClass, installclass.GNOMEWorkstation):
+		orig = 0
+	    elif isinstance(instClass, installclass.KDEWorkstation):
+		orig = 1
+	    elif isinstance(instClass, installclass.Server):
+		orig = 2
+	    elif isinstance(instClass, installclass.CustomInstall):
+		orig = 3
+	    if (orig):
+		default = orig
+	    else:
+		default = 0
+
 	choices = [ _("Install GNOME Workstation"), 
 		    _("Install KDE Workstation"),
 		    _("Install Server System"),
@@ -178,7 +196,7 @@ class InstallPathWindow:
 	(button, choice) = ListboxChoiceWindow(screen, _("Installation Type"),
 			_("What type of system would you like to install?"),
 			    choices, [(_("OK"), "ok"), (_("Back"), "back")],
-			    width = 40)
+			    width = 40, default = default)
 
         if button == "back":
             return INSTALL_BACK
@@ -188,12 +206,14 @@ class InstallPathWindow:
         else:
             intf.steps = intf.commonSteps + intf.installSteps
             todo.upgrade = 0
-	    if (choice == 0):
+	    if (choice == 0 and orig != 0):
 		todo.setClass(installclass.GNOMEWorkstation())
-	    elif (choice == 1):
+	    elif (choice == 1 and orig != 1):
 		todo.setClass(installclass.KDEWorkstation())
-	    elif (choice == 2):
+	    elif (choice == 2 and orig != 2):
 		todo.setClass(installclass.Server())
+	    elif (choice == 3 and orig != 3):
+		todo.setClass(installclass.CustomInstall())
         return INSTALL_OK
 
 class UpgradeExamineWindow:
