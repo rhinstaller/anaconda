@@ -318,7 +318,7 @@ def queryNoFormatPreExisting(intf):
 #            "the partition ?")
 
 #    rc = intf.messageWindow(_("Format?"), txt, type = "yesno", default = "no")
-    rc = intf.messageWindow(_("Format?"), txt, type = "custom", custom_buttons=["gtk-cancel", _("Do Not Format")])
+    rc = intf.messageWindow(_("Format?"), txt, type = "custom", custom_buttons=[_("Cancel"), _("Do Not Format")])
     return rc
 
 def partitionSanityErrors(intf, errors):
@@ -405,7 +405,7 @@ def confirmDeleteRequest(intf, request):
         else:
             errmsg = _("You are about to delete the /dev/%s partition." % (request.device,))
 	rc = intf.messageWindow(_("Confirm Delete"), errmsg, type="custom",
-				    custom_buttons=["gtk-cancel", _("Delete")])
+				    custom_buttons=[_("Cancel"), _("Delete")])
     else:
         errmsg = _("Are you sure you want to delete this partition?")
 	rc = intf.messageWindow(_("Confirm Delete"), errmsg, type="yesno")

@@ -293,7 +293,11 @@ class MessageWindow:
 	if docustom:
 	    rid=0
 	    for button in custom_buttons:
-		widget = dialog.add_button(button, rid)
+		if button == _("Cancel"):
+		    tbutton = "gtk-cancel"
+		else:
+		    tbutton = button
+		widget = dialog.add_button(tbutton, rid)
 		rid = rid + 1
 
             defaultchoice = rid - 1
