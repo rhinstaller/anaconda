@@ -481,7 +481,7 @@ int main(int argc, const char ** argv) {
     char * hdListFile = NULL;
     char * hdListFile2 = NULL;
     char * depOrderFile = NULL;
-    char * prodDir = strdup("RedHat");
+    char * prodDir = strdup("anaconda");
     poptContext optCon;
     struct poptOption options[] = {
             { "hdlist", '\0', POPT_ARG_STRING, &hdListFile, 0 },

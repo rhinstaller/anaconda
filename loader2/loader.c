@@ -159,7 +159,7 @@ static void initProductInfo(void) {
     f = fopen("/.buildstamp", "r");
     if (!f) {
         productName = strdup("anaconda");
-	productPath = strdup("RedHat");
+	productPath = strdup("anaconda");
     } else {
 	productName = malloc(256);
 	productPath = malloc(256);

@@ -1,5 +1,8 @@
 2005-03-29  Jeremy Katz  <katzj@redhat.com>
 
+	* utils/genhdlist.c: Genericize product dir
+	* loader2/loader.c (initProductInfo): Likewise.
+
 	* scripts/check-repository.py: Remove dead code.
 
 	* partedUtils.py (getRedHatReleaseString): Change to getReleaseString.
