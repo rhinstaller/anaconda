@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-03 14:34-0500\n"
-"PO-Revision-Date: 2005-01-23 22:35+0100\n"
+"PO-Revision-Date: 2005-03-12 00:36+0100\n"
 "Last-Translator: Josep Puigdemont <josep@imatge-sintetica.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -220,16 +220,16 @@ msgid "Could not allocate partitions"
 msgstr "No s'han pogut assignar particions"
 
 #: ../autopart.py:1022
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
 "La partició d'arrencada %s no pertany a una etiqueta de disc BSD. SRM no "
-"podrà arrencar des d'aquesta partició. Feu servir una partició pertanyent a "
-"una etiqueta de disc BSD o canvieu l'etiqueta d'aquest dispositiu de disc a "
-"BSD."
+"podrà arrencar des d'aquesta partició. Feu servir una partició que pertanyi "
+"a una etiqueta de disc BSD o canvieu l'etiqueta d'aquest dispositiu de disc "
+"a BSD."
 
 #: ../autopart.py:1024
 #, python-format
@@ -1228,22 +1228,22 @@ msgstr "No s'ha pogut accedir al CDROM."
 msgid "Install on System"
 msgstr "Instal·la al sistema"
 
+# FIXME (josep)
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "S'ha produït un error en la seqüència"
 
+# FIXME (josep)
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"S'ha produït un error en instal·lar %s. Això pot indicar una falla del medi, "
-"falta d'espai al disc, i/o problemes de maquinari. Aquest és un error greu i "
-"s'anul·larà la instal·lació. Verifiqueu el medi i intenteu instal·lar de "
-"nou.\n"
+"S'ha produït un error en executar la seqüència. En podeu examinar la sortida "
+"a %s. Aquest és un error greu i s'abortarà la instal·lació.\n"
 "\n"
 "Premeu D'acord per arrencar de nou el sistema."
 
@@ -1416,10 +1416,10 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"S'ha produït un error en instal·lar %s. Això pot indicar una falla del medi, "
-"falta d'espai al disc, i/o problemes de maquinari. Aquest és un error greu i "
-"s'anul·larà la instal·lació. Verifiqueu el medi i intenteu instal·lar de "
-"nou.\n"
+"S'ha produït un error en instal·lar %s. Això pot indicar una fallada del "
+"medi, falta d'espai al disc, i/o problemes de maquinari. Aquest és un error "
+"greu i s'abortarà la instal·lació. Verifiqueu el medi i intenteu instal·lar "
+"de nou.\n"
 "\n"
 "Premeu D'acord per arrencar de nou el sistema."
 
@@ -2072,9 +2072,8 @@ msgstr ""
 "Heu de crear una partició /boot/efi del tipus FAT i d'una mida de 50 MB."
 
 #: ../partitions.py:823
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Heu de crear una partició d'arrencada PPC PReP."
+msgstr "Heu de crear una partició d'arrencada Apple."
 
 #: ../partitions.py:845
 msgid "You must create a PPC PReP Boot partition."
@@ -3120,15 +3119,14 @@ msgid "Congratulations"
 msgstr "Felicitats"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media  used during the installation process and "
 "press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Extraieu qualsevol medi (disquet o CD-ROM) que hagueu utilitzat durant el "
-"procés d'instal·lació, i premeu el botó \"Arrenca de nou\" per arrencar de "
-"nou el sistema.\n"
+"Extraieu qualsevol medi que hagueu utilitzat durant el procés "
+"d'instal·lació, i premeu el botó \"Arrenca de nou\" per arrencar de nou el "
+"sistema.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -5447,14 +5445,13 @@ msgid "<Enter> to exit"
 msgstr "Premeu <retorn> per sortir"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Extraieu els medis d'instal·lació usats durant el procés d'instal·lació "
-"(disquets i discos CD-ROM) i premeu <retorn> per reiniciar el sistema.\n"
+"Extraieu qualsevol medi d'instal·lació que hagueu usat durant el procés "
+"d'instal·lació i premeu <retorn> per reiniciar el sistema.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
