@@ -389,6 +389,7 @@ class LiloConfiguration:
 	    try:
 		(fsType, sl) = lilo.getImage(label)
 		lilo.delImage(label)
+                sl = LiloConfigFile(imageType = "image", path = kernelFile)
 	    except IndexError, msg:
 		sl = LiloConfigFile(imageType = "image", path = kernelFile)
 
