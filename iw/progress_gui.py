@@ -71,7 +71,7 @@ class InstallProgressWindow (InstallWindow):
                ("%d" % (self.numTotal - self.numComplete),))
 
         apply (self.clist.set_text, self.status["remaining"]["size"] +
-               ("%d M" % ((self.totalSize - self.sizeComplete)/1024),))
+               ("%d M" % (self.totalSize/1024 - self.sizeComplete/1024),))
 
         # check to see if we've started yet
         if (self.timeStarted == -1):
