@@ -12,7 +12,7 @@ DEST=../../../RedHat/instimage
 PACKAGES="glibc-2 ldconfig filesystem basesystem setup fileutils
           XFree86-libs glib- gtk+- gnome-libs slang python-1 newt
           imlib-1 libpng libtiff libjpeg- libtermcap-2 zlib rpm bash-
-          pygtk- pygnome-"
+          pygtk- pygnome- util-linux procps e2fsprogs-1"
 
 for I in $PACKAGES; do
     for J in `ls $SRC/$I*`; do
@@ -26,10 +26,11 @@ if [ ! -e $DEST/var/lib/rpm/packages.rpm ]; then
     mkdir -p $DEST/var/lib/rpm
     rpm --initdb -r `pwd`/$DEST
 fi
-rpm -Uvh $RPMS -r `pwd`/$DEST --relocate /bin=/usr/bin --badreloc \
+rpm -Uvh $RPMS -r `pwd`/$DEST --relocate /bin=/usr/bin \
+                              --relocate /sbin=/usr/sbin --badreloc \
                               --excludedocs --noscripts --nodeps --force
 
-rm -rf $DEST/bin $DEST/boot $DEST/home $DEST/root $DEST/tmp
+rm -rf $DEST/bin $DEST/sbin $DEST/boot $DEST/home $DEST/root $DEST/tmp
 
 make install
 
