@@ -498,6 +498,7 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
     int ksArgc;
     int netSet, rc;
     char * arg, * chptr;
+    char * kshostname=NULL;
     poptContext optCon;
     struct in_addr * parseAddress;
     int noDns = 0;
@@ -548,10 +549,12 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 		netSet = PUMP_INTFINFO_HAS_NETMASK;
 		break;
 
-              /* ignore hostname for now, just don't barf on it! */
- 	      case 'h':
-		parseAddress = NULL;
-   	        break;
+	      case 'h':
+		if (kshostname)
+		    free(kshostname);
+		kshostname =  strdup(arg);
+		logMessage("netDev->dev.hostname = %s", kshostname);
+		break;
 	    }
 
 	    if (parseAddress && !inet_aton(arg, parseAddress)) {
@@ -604,6 +607,12 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
     configureNetwork(netDev);
 
     logMessage("nodns is %d", noDns);
+
+    if (kshostname) {
+	logMessage("setting ks specified hostname of %s", kshostname);
+	netDev->dev.hostname=strdup(kshostname);
+	netDev->dev.set |= PUMP_NETINFO_HAS_HOSTNAME;
+    }
 
     if (!noDns)
 	findHostAndDomain(netDev, flags);
