@@ -52,6 +52,19 @@ int isysLoadFont(void) {
     return 0;
 }
 
+int isysSetUnicodeKeymap(void) {
+    int console;
+
+    console = open("/dev/console", O_RDWR);
+    if (console < 0)
+	return -EACCES;
+
+    /* place keyboard in unicode mode */
+    ioctl(console, KDSKBMODE, K_UNICODE);
+    close(console);
+    return 0;
+}
+
 /* the file pointer must be at the beginning of the section already! */
 int loadKeymap(gzFile stream) {
     int console;
@@ -74,9 +87,6 @@ int loadKeymap(gzFile stream) {
     if (console < 0)
 	return -EACCES;
 
-    /* place keyboard in unicode mode */
-    ioctl(console, KDSKBMODE, K_UNICODE);
-     
     for (kmap = 0; kmap < MAX_NR_KEYMAPS; kmap++) {
 	if (!keymaps[kmap]) continue;
 
