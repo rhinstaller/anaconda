@@ -206,6 +206,21 @@ def handleX11Packages(dir, intf, disp, id, instPath):
     if gnomeSelected or kdeSelected:
         id.desktop.setDefaultRunLevel(5)
 
+def getAnacondaTS(instPath = None):
+    if instPath:
+        ts = rpm.TransactionSet(instPath)
+    else:
+        ts = rpm.TransactionSet()
+    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
+    ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
+
+    # set color if needed.  FIXME: why isn't this the default :/
+    if (rhpl.arch.canonArch.startswith("ppc64") or
+        rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64")):
+        ts.setColor(3)
+
+    return ts
+
 def checkDependencies(dir, intf, disp, id, instPath):
     if dir == DISPATCH_BACK:
 	return
@@ -216,13 +231,11 @@ def checkDependencies(dir, intf, disp, id, instPath):
     # FIXME: we really don't need to build up a ts more than once
     # granted, this is better than before still
     if id.upgrade.get():
-        ts = rpm.TransactionSet(instPath)
+        ts = getAnacondaTS(instPath)
         how = "u"
     else:
-        ts = rpm.TransactionSet()
+        ts = getAnacondaTS()        
         how = "i"
-    ts.setVSFlags(-1)
-    ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
     
     for p in id.grpset.hdrlist.pkgs.values():
         if p.isSelected():
@@ -644,10 +657,7 @@ def doInstall(method, id, intf, instPath):
     import whiteout
     
     upgrade = id.upgrade.get()
-    ts = rpm.TransactionSet(instPath)
-
-    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
-    ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
+    ts = getAnacondaTS(instPath)
 
     total = 0
     totalSize = 0
@@ -686,9 +696,7 @@ def doInstall(method, id, intf, instPath):
         # new transaction set
         ts.closeDB()
         del ts
-        ts = rpm.TransactionSet(instPath)
-        ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
-        ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
+        ts = getAnacondaTS(instPath)
 
         # we don't want to try to remove things more than once (#84221)
         id.upgradeRemove = []
