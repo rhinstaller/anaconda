@@ -142,7 +142,7 @@ def dumpException(out, text, tb, dispatch):
         out.write("\nException occured during state dump:\n")
         traceback.print_exc(None, out)
 
-    for file in ("/tmp/syslog", "/tmp/netinfo",
+    for file in ("/tmp/syslog", "/tmp/anaconda.log", "/tmp/netinfo",
                  dispatch.instPath + "/root/install.log",
                  dispatch.instPath + "/root/upgrade.log"):
         try:

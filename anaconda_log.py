@@ -18,9 +18,14 @@ import sys
 class LogFile:
     def __init__ (self):
         self.logFile = None
+        self.logFile2 = None
     
     def close (self):
-        self.logFile.close ()
+        try:
+            self.logFile.close ()
+            self.logFile2.close()
+        except:
+            pass
     
     def open (self, file):
 	if type(file) == type("hello"):
@@ -32,6 +37,10 @@ class LogFile:
 	    self.logFile = file
 	else:
             self.logFile = open("/dev/tty3", "w")
+            try:
+                self.logFile2 = open("/tmp/anaconda.log", "a")
+            except:
+                pass
 
     def __call__ (self, format, *args):
         if not self.logFile:
@@ -41,6 +50,13 @@ class LogFile:
             self.logFile.write ("* %s\n" % (format % args))
         else:
             self.logFile.write ("* %s\n" % format)
+
+        if self.logFile2:
+            if args:
+                self.logFile2.write ("* %s\n" % (format % args))
+            else:
+                self.logFile2.write ("* %s\n" % format)
+            self.logFile2.flush()
 
     def getFile (self):
         return self.logFile.fileno ()
