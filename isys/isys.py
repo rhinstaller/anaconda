@@ -46,6 +46,17 @@ def hardDriveList ():
             dict[dev] = descr
     return dict
 
+def cdromList ():
+    p = _isys.ProbedList()
+    p.updateIde()
+    p.updateScsi()
+
+    list = []
+    for (klass, dev, descr) in p:
+        if (klass == "cdrom"):
+	    list.append((dev, descr))
+    return list
+
 def moduleListByType(type):
     return _isys.modulelist(type)
 
