@@ -88,6 +88,12 @@ class BaseInstallClass:
 
 	self.partitions.append((mntPoint, sizespec, (device, part, primOnly),typespec, fsopts))
 
+    # only defined in kickstart for now
+    # merges in fstab entries given in ks file
+    # expects the todo object, currently called from todo::setClass()
+    def mergeFstabEntries(self, todo):
+        pass
+    
     def addToFstab(self, mntpoint, dev, fstype = "ext2" , reformat = 1):
 	self.fstab.append((mntpoint, (dev, fstype, reformat)))
 
@@ -108,7 +114,7 @@ class BaseInstallClass:
 	  "accounts", "dependencies", "language", "keyboard", "xconfig",
 	  "welcome", "custom-upgrade", "installtype", "mouse", 
 	  "confirm-install", "confirm-upgrade", "languagesupport",
-          "languagedefault" ].index(type)
+          "languagedefault", "lba32warning" ].index(type)
 	self.skipSteps[type] = 1
 
     def setHostname(self, hostname):

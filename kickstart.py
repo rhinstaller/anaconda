@@ -42,6 +42,10 @@ class Script:
 
 class KickstartBase(BaseInstallClass):
 
+    def mergeFstabEntries(self, todo):
+	for (mntpoint, (dev, fstype, reformat)) in self.fstab:
+	    todo.fstab.addMount(dev, mntpoint, fstype, reformat)
+
     def postAction(self, rootPath, serial):
 	for script in self.postScripts:
 	    script.run(rootPath, serial)
@@ -109,7 +113,6 @@ class KickstartBase(BaseInstallClass):
 	    
 	self.setFirewall(enable, policy, trusts, ports, dhcp, ssh, telnet,
 			smtp, http, ftp)
-	self.addToSkipList("firewall")
 	    
     def doAuthconfig(self, args):
 	(args, extra) = isys.getopt(args, '',
@@ -194,7 +197,7 @@ class KickstartBase(BaseInstallClass):
 
 	appendLine = None
 	location = "mbr"
-	linear = 0
+	linear = 1
 
 	for n in args:
 	    (str, arg) = n
@@ -610,6 +613,11 @@ class KickstartBase(BaseInstallClass):
         self.addToSkipList("confirm-install")
         self.addToSkipList("custom-upgrade")
         self.addToSkipList("network")
+        # skipping firewall by default, disabled by default
+	self.addToSkipList("firewall")
+        # skip interactive warning about placing boot partition > 1024 cyl
+	self.addToSkipList("lba32warning")
+        
 	self.setEarlySwapOn(1)
 	self.partitions = []
 	self.postScripts = []

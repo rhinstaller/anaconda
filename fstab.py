@@ -220,7 +220,6 @@ class Fstab:
 	if bootpart[0:2] == "md":
             return 0
 
-
         (drives, raid) = self.partitionList()
 
         for (dev, devName, type, start, size, maxcyl, preexist) in drives:
@@ -821,7 +820,8 @@ class Fstab:
                           "This most likely means this partition has "
                           "not been formatted.\n\nPress OK to reboot your "
                           "system.") % (device, mntpoint, msg))
-		    raise SystemError, (errno, msg)
+#		    raise SystemError, (errno, msg)
+                    sys.exit(0)
 
         try:
             os.mkdir (instPath + '/proc')

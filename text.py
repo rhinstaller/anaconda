@@ -277,6 +277,11 @@ class InstallPathWindow:
                                    not todo.expert,
                                    todo.method.protectedPartitions(),
                                    todo.expert, todo.upgrade)
+#
+# merge in fstab entries specified in ks
+#
+            todo.instClass.mergeFstabEntries(todo)
+
 	    return INSTALL_NOOP
 
 	classes = installclass.availableClasses()
