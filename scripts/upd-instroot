@@ -111,7 +111,7 @@ mkdir -p $DEST
 mkdir -p $DESTGR
 
 PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
-	 libtermcap zlib ash e2fsprogs util-linux raidtools popt mdadm
+	 libsepol libtermcap zlib ash e2fsprogs util-linux raidtools popt mdadm
 	 procps rpm XFree86 Xconfigurator anaconda tzdata
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
@@ -259,6 +259,7 @@ $LIBDIR/libpthread*
 $LIBDIR/libresolv*
 $LIBDIR/librt[-.]*
 $LIBDIR/libselinux*
+$LIBDIR/libsepol*
 $LIBDIR/libss*
 $LIBDIR/libtermcap*
 $LIBDIR/libhandle*
