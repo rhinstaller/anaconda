@@ -55,7 +55,7 @@ try:
             'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
-	    'expert', 'serial' ])
+	    'expert', 'serial', 'lowres'])
 except TypeError, msg:
     print "Error:", msg
     sys.exit(-1)
@@ -99,6 +99,7 @@ if iutil.getArch() == 'ia64':
 # localInstall   - install to chroot
 # reconfigOnly   - allow user to reconfig installed box w/o reinstall
 # nofallback     - don't fall back to text mode on gui startup failure
+# lowres         - run in 640x480 mode
 test = 0
 xmode = 0
 debug = 0
@@ -109,6 +110,7 @@ forceMount = 0
 localInstall = 0
 reconfigOnly = 0
 nofallback = 0
+lowres = 0
 
 #
 # x          - xserver info (?)
@@ -187,6 +189,8 @@ for n in args:
         kbdtype = arg
     elif (str == '--class'):
         customClass = arg
+    elif (str == '--lowres'):
+        lowres = '640x480'
 
 #
 # must specify install or reconfig mode
@@ -451,12 +455,12 @@ if reconfigOnly:
     installPackages = 0
     setupFilesystems = 0
     rootPath = '/'
-    
+
 todo = ToDo(intf, method, rootPath, installSystem = installPackages,
 	    setupFilesystems = setupFilesystems, mouse = mouseInfo,
 	    instClass = instClass, x = x, expert = expert,
 	    serial = serial, reconfigOnly = reconfigOnly, test = test,
-	    extraModules = extraModules)
+	    extraModules = extraModules, lowres = lowres)
 
 try:
     intf.run(todo, test = test)
