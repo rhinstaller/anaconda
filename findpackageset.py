@@ -1,9 +1,8 @@
 import rpm
 
 
-# set DB_PRIVATE to make rpm happy...  do it in here since we include
-# this with all of the useful rpm bits
-#rpm.addMacro("__dbi_cdb", "create private")
+# set DB_PRIVATE to make rpm happy
+rpm.addMacro("__dbi_cdb", "create private mpool mp_mmapsize=16Mb mp_size=1Mb")
 
 
 def dEBUG(str):
