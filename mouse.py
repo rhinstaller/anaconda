@@ -28,6 +28,8 @@ class Mouse (SimpleConfigFile):
 		("netmouse", "NetMousePS/2", "psaux", 1),
 	"Genius - NetScroll (PS/2)" :
 		("netmouse", "NetScrollPS/2", "psaux", 1),
+	"Kensington - Thinking Mouse (serial)" :
+		("Microsoft", "ThinkingMouse", "ttyS", 1),
 	"Kensington - Thinking Mouse (PS/2)" :
 		("ps/2", "ThinkingMousePS/2", "psaux", 1),
 	"Logitech - C7 Mouse (serial, old C7 type)" :
