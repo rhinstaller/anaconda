@@ -328,7 +328,7 @@ class NetworkWindow(InstallWindow):
 
 	    if bootproto and bootproto == 'dhcp':
 		onboot = self.devices[device].get("ONBOOT")
-		if onboot == "yes":
+		if onboot != "no":
 		    return 1
 
 	return 0
@@ -489,6 +489,7 @@ class NetworkWindow(InstallWindow):
 
 
         # figure out if they have overridden using dhcp for hostname
+	print self.anyUsingDHCP()
 	if self.anyUsingDHCP():
 	    if self.hostname != "localhost.localdomain" and self.network.overrideDHCPhostname:
 		self.hostnameManual.set_active(1)
