@@ -168,17 +168,8 @@ class BaseInstallClass:
 
 	# see if we need to write out a rescue boot floppy
 	if iutil.getArch() == "i386":
-	    import kudzu
-	    try:
-                floppyDevices = 0
-                for dev in kudzu.probe(kudzu.CLASS_FLOPPY, kudzu.BUS_UNSPEC,
-                                       kudzu.PROBE_ALL):
-                    if not dev.detached:
-                        floppyDevices = floppyDevices + 1
-	    except:
-		floppyDevices = 0
-
-	    if not floppyDevices:
+	    import floppy
+            if not floppy.hasFloppyDevice():
 		dispatch.skipStep("bootdisk")
             
         if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":

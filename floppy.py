@@ -26,6 +26,18 @@ from flags import flags
 from rhpl.log import log
 from rhpl.translate import _
 
+def hasFloppyDevice():
+    try:
+        floppyDevices = 0
+        for dev in kudzu.probe(kudzu.CLASS_FLOPPY, kudzu.BUS_UNSPEC,
+                               kudzu.PROBE_ALL):
+            if not dev.detached:
+                floppyDevices = floppyDevices + 1
+    except:
+        floppyDevices = 0
+
+    return floppyDevices
+
 def probeFloppyDevice():
     fdDevice = "fd0"
 
