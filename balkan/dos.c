@@ -139,6 +139,7 @@ int dospReadTable(int fd, struct partitionTable * table) {
 
 	      case 0x7:
 		table->parts[i].type = BALKAN_PART_NTFS;
+		break;
 
 	      case 0x83:
 		table->parts[i].type = BALKAN_PART_EXT2;
