@@ -178,7 +178,7 @@ msgstr "Overfører installasjonsbildet til harddisken..."
 
 #: ../image.py:58
 msgid "Change CDROM"
-msgstr "Bytt CDROM"
+msgstr "Bytt CD-ROM"
 
 #: ../image.py:59
 #, c-format
@@ -187,7 +187,7 @@ msgstr "Vennligst sett inn CD %d for å fortsette."
 
 #: ../image.py:68
 msgid "Wrong CDROM"
-msgstr "Feil CDROM"
+msgstr "Feil CD-ROM"
 
 #: ../image.py:69
 msgid "That's not the correct Red Hat CDROM."
@@ -195,7 +195,7 @@ msgstr "Dette er ikke den korrekte Red Hat CDROM'en."
 
 #: ../image.py:74
 msgid "The CDROM could not be mounted."
-msgstr "Denne CDROM'en kunne ikke monteres."
+msgstr "Denne CD-ROMen kunne ikke monteres."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
@@ -405,11 +405,11 @@ msgstr "Kort som ikke er listet"
 
 #: ../text.py:402
 msgid "Video Card Selection"
-msgstr "Valg av grafikk kort"
+msgstr "Valg av skjermkort"
 
 #: ../text.py:403
 msgid "Which video card do you have?"
-msgstr "Hvilket grafikk-kort har du?"
+msgstr "Hvilket skjermkort har du?"
 
 #: ../text.py:416
 msgid "X Server Selection"
@@ -509,7 +509,7 @@ msgstr "Sammendrag: "
 
 #: ../text.py:628
 msgid "    Packages"
-msgstr "    Pakker"
+msgstr "      Pakker"
 
 #: ../text.py:629
 msgid "       Bytes"
@@ -517,7 +517,7 @@ msgstr "       Bytes"
 
 #: ../text.py:630
 msgid "        Time"
-msgstr "        Tid"
+msgstr "         Tid"
 
 #: ../text.py:632
 msgid "Total    :"
@@ -603,7 +603,7 @@ msgstr "Oppsett av tidssone"
 
 #: ../text.py:886 ../text.py:954 ../textw/userauth_text.py:9
 msgid "Root Password"
-msgstr "Root-passord"
+msgstr "Passord for root"
 
 #: ../text.py:888 ../text.py:956 ../textw/userauth_text.py:172
 msgid "User Account Setup"
@@ -642,7 +642,7 @@ msgstr "Automatisk partisjon"
 
 #: ../text.py:932 ../textw/partitioning_text.py:301
 msgid "Root Filesystem Size"
-msgstr "Størrelse på rot filsystem"
+msgstr "Størrelse på rot-filsystem"
 
 #: ../text.py:934
 msgid "Swap"
@@ -706,7 +706,7 @@ msgstr "Oppgradér system"
 
 #: ../text.py:997
 msgid "Upgrade Complete"
-msgstr "Oppgradéring ferdig"
+msgstr "Oppgradering ferdig"
 
 #: ../text.py:1031
 msgid "Cancelled"
@@ -746,7 +746,7 @@ msgstr "Søker"
 
 #: ../todo.py:809
 msgid "Searching for Red Hat Linux installations..."
-msgstr "Slker etter Red Hat Linux installasjoner..."
+msgstr "Søker etter Red Hat Linux installasjoner..."
 
 #: ../todo.py:820 ../todo.py:848
 #, c-format
@@ -838,11 +838,11 @@ msgstr "Utfører etter-installasjons konfigurasjon..."
 
 #: ../iw/xconfig_gui.py:10 ../xf86config.py:852
 msgid "Video Card"
-msgstr "Grafikk-kort"
+msgstr "Skjermkort"
 
 #: ../iw/xconfig_gui.py:12 ../xf86config.py:854
 msgid "Video Ram"
-msgstr "Grafikkminne"
+msgstr "Minne på skjermkort"
 
 #: ../xf86config.py:856
 msgid "X server"
@@ -870,7 +870,7 @@ msgstr "Vertikalt frekvensområde"
 
 #: ../xserver.py:26
 msgid "Mouse Not Detected"
-msgstr "Mus ikke funnet"
+msgstr "Fant ikke mus"
 
 #: ../xserver.py:27
 msgid ""
@@ -898,7 +898,7 @@ msgstr "Passord for root godtatt."
 
 #: ../iw/account_gui.py:39
 msgid "Please enter root password."
-msgstr "Vennligst skriv inn root-passord."
+msgstr "Vennligst skriv inn passord for root."
 
 #: ../iw/account_gui.py:41
 msgid "Root password is too short."
@@ -1120,7 +1120,7 @@ msgstr "Avhengighet"
 
 #: ../iw/dependencies_gui.py:86 ../textw/packages_text.py:327
 msgid "Install packages to satisfy dependencies"
-msgstr "Installer pakker for å tilfredstille avhengigheter"
+msgstr "Installér pakker for å tilfredstille avhengigheter"
 
 #: ../iw/dependencies_gui.py:89 ../textw/packages_text.py:328
 msgid "Do not install packages that have dependencies"
@@ -1156,7 +1156,7 @@ msgstr "fdisk"
 
 #: ../iw/fdisk_gui.py:109
 msgid "Select drive to run fdisk on"
-msgstr "Velg disk det fdisk skal kjøres på"
+msgstr "Velg disk fdisk skal kjøres på"
 
 #: ../iw/format_gui.py:12
 msgid "Choose partitions to Format"
@@ -1196,11 +1196,11 @@ msgstr "Døde taster"
 
 #: ../iw/keyboard_gui.py:117
 msgid "Enable dead keys"
-msgstr "Slå på døde taster"
+msgstr "Bruk døde taster"
 
 #: ../iw/keyboard_gui.py:118
 msgid "Disable dead keys"
-msgstr "Slå av døde taster"
+msgstr "Ikke bruk døde taster"
 
 #: ../iw/keyboard_gui.py:127
 msgid "Test your selection here:"
