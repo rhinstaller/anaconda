@@ -63,7 +63,7 @@ int probePciReadDrivers(const char * fn) {
 	if (start) start++;
     }
 
-    /*qsort(pciDriverList, numPciDrivers, sizeof(*pciDriverList), driverCmp);*/
+    qsort(pciDriverList, numPciDrivers, sizeof(*pciDriverList), driverCmp);
 
     return 0;
 }
@@ -129,6 +129,7 @@ char ** probePciDriverList(void) {
     }
 
     free(buf);
+
     if (!driverCount) {
 	free(drivers);
 	drivers = NULL;
