@@ -242,7 +242,8 @@ class InstallInterface:
     def progressWindow(self, title, text, total):
         return ProgressWindow(self.screen, title, text, total)
 
-    def messageWindow(self, title, text, type="ok", default = None):
+    def messageWindow(self, title, text, type="ok", default = None,
+		      custom_buttons=[]):
 	if type == "ok":
 	    ButtonChoiceWindow(self.screen, title, text,
 			       buttons=[TEXT_OK_BUTTON])
@@ -257,6 +258,16 @@ class InstallInterface:
                 return 1
             else:
                 return 0
+	elif type == "custom":
+	    rc = ButtonChoiceWindow(self.screen, title, text,
+			       buttons=custom_buttons)
+	    
+	    idx = 0
+	    for b in custom_buttons:
+		if string.lower(b) == rc:
+		    return idx != 0
+		idx = idx + 1
+	    return 0
 	else:
 	    return OkCancelWindow(self.screen, title, text)
 
