@@ -10,6 +10,7 @@
 #include "inet.h"
 #include "isys.h"
 #include "pci/pciprobe.h"
+#include "probe.h"
 #include "smp.h"
 
 /* FIXME: this is such a hack -- moduleInfoList ought to be a proper object */
@@ -26,6 +27,7 @@ static PyObject * makeDevInode(PyObject * s, PyObject * args);
 static PyObject * doPciProbe(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
+static PyObject * createProbedList(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "findmoduleinfo", (PyCFunction) doFindModInfo, METH_VARARGS, NULL },
@@ -33,6 +35,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "mkdevinode", (PyCFunction) makeDevInode, METH_VARARGS, NULL },
     { "modulelist", (PyCFunction) getModuleList, METH_VARARGS, NULL },
     { "pciprobe", (PyCFunction) doPciProbe, METH_VARARGS, NULL },
+    { "ProbedList", (PyCFunction) createProbedList, METH_VARARGS, NULL }, 
     { "readmoduleinfo", (PyCFunction) doReadModInfo, METH_VARARGS, NULL },
     { "rmmod", (PyCFunction) doRmmod, METH_VARARGS, NULL },
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
@@ -41,6 +44,53 @@ static PyMethodDef isysModuleMethods[] = {
     { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
     { NULL }
 } ;
+
+typedef struct {
+    PyObject_HEAD;
+    struct knownDevices list;
+} probedListObject;
+
+static PyObject * probedListGetAttr(probedListObject * o, char * name);
+static void probedListDealloc (probedListObject * o);
+static PyObject * probedListNet(probedListObject * s, PyObject * args);
+static PyObject * probedListScsi(probedListObject * s, PyObject * args);
+static PyObject * probedListIde(probedListObject * s, PyObject * args);
+static int probedListLength(PyObject * o);
+static PyObject * probedListSubscript(PyObject * o, int item);
+
+static PyMethodDef probedListObjectMethods[] = {
+    { "updateNet", (PyCFunction) probedListNet, METH_VARARGS, NULL },
+    { "updateScsi", (PyCFunction) probedListScsi, METH_VARARGS, NULL },
+    { "updateIde", (PyCFunction) probedListIde, METH_VARARGS, NULL },
+    { NULL },
+};
+
+static PySequenceMethods probedListAsSequence = {
+	probedListLength,		/* length */
+	0,				/* concat */
+	0,				/* repeat */
+	probedListSubscript,		/* item */
+	0,				/* slice */
+	0,				/* assign item */
+	0,				/* assign slice */
+};
+
+static PyTypeObject probedListType = {
+	PyObject_HEAD_INIT(&PyType_Type)
+	0,				/* ob_size */
+	"ProbedList",			/* tp_name */
+	sizeof(probedListObject),	/* tp_size */
+	0,				/* tp_itemsize */
+	(destructor) probedListDealloc,	/* tp_dealloc */
+	0,				/* tp_print */
+	(getattrfunc) probedListGetAttr,/* tp_getattr */
+	0,				/* tp_setattr */
+	0,				/* tp_compare */
+	0,				/* tp_repr */
+	0,				/* tp_as_number */
+	&probedListAsSequence,		/* tp_as_sequence */
+	0,				/* tp_as_mapping */
+};
 
 static PyObject * buildModuleObject(struct moduleInfo * mi) {
     PyObject * major, * minor, * result;
@@ -313,4 +363,71 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
 
     Py_INCREF(Py_None);
     return Py_None;
+}
+
+static PyObject * probedListGetAttr(probedListObject * o, char * name) {
+    return Py_FindMethod(probedListObjectMethods, (PyObject * ) o, name);
+}
+
+static void probedListDealloc (probedListObject * o) {
+    kdFree(&o->list);
+}
+
+static PyObject * probedListNet(probedListObject * o, PyObject * args) {
+    if (!PyArg_ParseTuple(args, "")) return NULL;
+    
+    kdFindNetList(&o->list);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * probedListScsi(probedListObject * o, PyObject * args) {
+    if (!PyArg_ParseTuple(args, "")) return NULL;
+
+    kdFindScsiList(&o->list);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * probedListIde(probedListObject * o, PyObject * args) {
+    if (!PyArg_ParseTuple(args, "")) return NULL;
+
+    kdFindIdeList(&o->list);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * createProbedList(PyObject * s, PyObject * args) {
+    probedListObject * o;
+
+    o = (probedListObject *) PyObject_NEW(PyObject, &probedListType);
+    o->list = kdInit();
+
+    return (PyObject *) o;
+}
+
+static int probedListLength(PyObject * o) {
+    return ((probedListObject *) o)->list.numKnown;
+}
+
+static PyObject * probedListSubscript(PyObject * o, int item) {
+    probedListObject * po = (probedListObject *) o;
+    char * model = "";
+    char * class;
+
+    if (po->list.known[item].model) model = po->list.known[item].model;
+
+    switch (po->list.known[item].class) {
+      case DEVICE_CDROM:
+	class = "cdrom"; break;
+      case DEVICE_DISK:
+	class = "disk"; break;
+      case DEVICE_NET:
+	class = "net"; break;
+    }
+
+    return Py_BuildValue("(sss)", class, po->list.known[item].name, model);
 }
