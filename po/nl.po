@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-01-28 22:39+0100\n"
+"PO-Revision-Date: 2005-04-04 21:01+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -222,7 +222,7 @@ msgid "Could not allocate partitions"
 msgstr "Kon partities niet alloceren"
 
 #: ../autopart.py:1032
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
@@ -558,7 +558,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "Bezig met installeren van %s-%s-%s... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -567,10 +567,10 @@ msgstr ""
 "Er is iets uitzonderlijks gebeurd.  Het is waarschijnlijk een fout.  Wij "
 "verzoeken u om de volledige tekst van deze 'exception' te kopiëren of de "
 "'crash-dump' op diskette te schrijven en een gedetailleerd foutrapport voor "
-"het pakket anaconda te maken op http://bugzilla.redhat.com/bugzilla/"
+"het pakket anaconda te maken op %s"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
@@ -578,8 +578,7 @@ msgid ""
 msgstr ""
 "Er is iets uitzonderlijks gebeurd.  Het is waarschijnlijk een fout.  Wij "
 "verzoeken u om de volledige tekst van deze 'exception' te kopiëren en een "
-"gedetailleerd foutrapport voor het pakket anaconda te maken op http://"
-"bugzilla.redhat.com/bugzilla/"
+"gedetailleerd foutrapport voor het pakket anaconda te maken op %s"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -595,7 +594,7 @@ msgid ""
 "will now be reset."
 msgstr ""
 "De toestand van uw systeem is succesvol opgeslagen op diskette. Uw systeem "
-"zal nu worden gereset."
+"zal nu worden herstart."
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
@@ -1038,7 +1037,6 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
 msgstr "Uitzondering opgetreden"
 
@@ -1048,7 +1046,7 @@ msgstr "_Fout zoeken"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Opslaan op diskette"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1256,20 +1254,19 @@ msgstr "Installeren op systeem"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Scriptlet fout"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Er was een fout bij het installeren van %s.  De oorzaak kan zijn: slechte "
-"mediadrager, te weinig vrije ruimte of hardwareproblemen. Dit is een fatale "
-"fout en uw installatie zal worden afgebroken.  Controleer uw mediadrager en "
-"probeer opnieuw te installeren.\n"
+"Er was een fout bij het uitvoeren van het scriptlet.  U kunt de uitvoer "
+"bekijken in %s.  Dit is een fatale fout en uw installatie zal worden "
+"afgebroken.\n"
 "\n"
 "Geef OK om uw systeem opnieuw op te starten."
 
@@ -1595,7 +1592,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Opgepast! Deze software is een proefversie!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1617,7 +1614,7 @@ msgstr ""
 "\n"
 "Voor het geven van feedback, ga naar:\n"
 "\n"
-"   http://bugzilla.redhat.com/bugzilla\n"
+"   %s\n"
 "\n"
 "en maak een foutrapportage voor '%s'.\n"
 
@@ -2113,9 +2110,8 @@ msgstr ""
 "50 megabytes."
 
 #: ../partitions.py:821
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "U moet een PPC PReP Boot partitie aanmaken."
+msgstr "U moet een Apple Bootstrap partitie aanmaken."
 
 #: ../partitions.py:843
 msgid "You must create a PPC PReP Boot partition."
@@ -3176,15 +3172,13 @@ msgid "Congratulations"
 msgstr "Gefeliciteerd"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Verwijder alle installatiemedia (diskettes of CD-ROMs) die u tijdens de "
-"installatie heeft gebruikt en klik op <Herstarten> om uw systeem te "
-"herstarten.\n"
+"Verwijder alle installatiemedia die u tijdens de installatie hebt gebruikt en "
+"klik op <Herstarten> om uw systeem te herstarten.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -5161,13 +5155,13 @@ msgid "Unknown video card"
 msgstr "Onbekende videokaart"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
 msgstr ""
 "Er is een fout opgetreden bij het selecteren van de videokaart %s. "
-"Rapporteer deze fout bij bugzilla.redhat.com."
+"Rapporteer deze fout bij %s."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -5465,14 +5459,13 @@ msgid "<Enter> to exit"
 msgstr "<Enter> om te beëindigen"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Verwijder alle installatie media (diskettes of CD-ROMs) die u tijdens de "
-"installatie heeft gebruikt en geef <Enter> om uw systeem te herstarten.\n"
+"Verwijder alle installatiemedia die u tijdens de installatie hebt gebruikt en "
+"geef <Enter> om uw systeem te herstarten.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
@@ -6231,9 +6224,8 @@ msgid "What time zone are you located in?"
 msgstr "In welke tijdzone bevindt u zich?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Systeemklok gebruikt _UTC"
+msgstr "Systeemklok gebruikt UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -8497,12 +8489,11 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Arabisch"
+msgstr "Amhaars"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8586,9 +8577,8 @@ msgid "Icelandic"
 msgstr "IJslands"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Macedonisch"
+msgstr "Indonesisch"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8615,9 +8605,8 @@ msgid "Norwegian"
 msgstr "Noors"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Northern Territory"
+msgstr "Northern Sotho"
 
 # arabisch?
 #. generated from lang-table
@@ -8645,9 +8634,8 @@ msgid "Russian"
 msgstr "Russisch"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "Sloveens"
+msgstr "Slowaaks"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8666,9 +8654,8 @@ msgid "Tamil"
 msgstr "Tamil"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Tamil"
+msgstr "Thai"
 
 #. generated from lang-table
 msgid "Turkish"
