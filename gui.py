@@ -984,24 +984,31 @@ class InstallControlState:
         text = None
         if self.htmlFile:
             file = self.htmlFile
+	    langs = cat.getlangs()
+	    if not langs or langs[0] == "en_US":
+		langs = [ 'C' ]
+            
             for path in self.searchPath:
-                try:
-                    text = open("%s/help/%s/s1-help-screens-%s.html" %
-                                (path, self.cw.locale, file)).read ()
-                except IOError:
+                for lang in langs:
                     try:
-                        text = open("%s/help/C/s1-help-screens-%s.html" %
-                                    (path, file)).read ()
+                        text = open("%s/help/%s/s1-help-screens-%s.html" %
+                                    (path, lang, file)).read ()
                     except IOError:
                         continue
-
+                    else:
+                        break
                 if text:
                     break
+                try:
+                    text = open("%s/help/C/s1-help-screens-%s.html" %
+                                (path, file)).read ()
+                except IOError:
+                        continue
 
             if text:
                 return text
-            else:
-                print "Unable to read %s help text" % (file,)
+
+            print "Unable to read %s help text" % (file,)
 
         return self.html
     
