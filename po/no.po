@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: rhinstall 6.0\n"
+"Project-Id-Version: install 6.0\n"
 "POT-Creation-Date: 1999-09-06 11:04-0400\n"
-"PO-Revision-Date: 1999-04-18 10:10+0200\n"
+"PO-Revision-Date: 1999-09-08 17:08+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,12 +51,11 @@ msgstr "Tilbake"
 
 #: ../iw/language.py:10 ../text.py:29 ../text.py:1529
 msgid "Language Selection"
-msgstr ""
+msgstr "Valg av språk"
 
 #: ../text.py:30
-#, fuzzy
 msgid "What language would you like to use during the installation process?"
-msgstr "Hvilket språk skal brukes under installasjonen?"
+msgstr "Hvilket språk ønsker du å bruke under installasjonen?"
 
 #: ../text.py:32 ../text.py:80 ../text.py:131 ../text.py:157 ../text.py:198
 #: ../text.py:255 ../text.py:269 ../text.py:274 ../text.py:308 ../text.py:320
@@ -66,23 +65,23 @@ msgstr "Hvilket språk skal brukes under installasjonen?"
 #: ../text.py:1166 ../text.py:1230 ../text.py:1250 ../text.py:1262
 #: ../text.py:1274 ../text.py:1452 ../text.py:1496 ../text.py:1502
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../text.py:44
 msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS0 (COM1 i DOS)"
 
 #: ../text.py:45
 msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS1 (COM2 i DOS)"
 
 #: ../text.py:46
 msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS2 (COM3 i DOS)"
 
 #: ../text.py:47
 msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS3 (COM4 i DOS)"
 
 #: ../iw/lilo.py:171 ../text.py:62 ../text.py:1012 ../text.py:1070
 msgid "Device"
@@ -91,64 +90,55 @@ msgstr "Enhet"
 #: ../text.py:63
 #, c-format
 msgid "What device is your mouse located on? %s %i"
-msgstr ""
+msgstr "Hvilken enhet er musen plassert på? %s %i"
 
 #: ../text.py:82
 msgid "Which model mouse is attached to this computer?"
-msgstr ""
+msgstr "Hvilken mustype brukes på denne datamaskinen?"
 
 #: ../text.py:91
 msgid "Emulate 3 Buttons?"
-msgstr ""
+msgstr "Emuler 3 knapper?"
 
 #: ../text.py:93
-#, fuzzy
 msgid "Mouse Selection"
-msgstr "Alternativer for modul"
+msgstr "Musvalg"
 
 #: ../text.py:129 ../text.py:1531
-#, fuzzy
 msgid "Keyboard Selection"
-msgstr "Tastaturtype"
+msgstr "Tastaturvalg"
 
 #: ../text.py:130
 msgid "Which model keyboard is attached to this computer?"
-msgstr ""
+msgstr "Hvilken type tastatur brukes på denne datamaskinen?"
 
 #: ../text.py:150
-#, fuzzy
 msgid "Install GNOME Workstation"
-msgstr "Arbeidsstasjon"
+msgstr "Installer GNOME arbeidsstasjon"
 
 #: ../text.py:151
-#, fuzzy
 msgid "Install KDE Workstation"
-msgstr "Arbeidsstasjon"
+msgstr "Installer KDE arbeidsstasjon"
 
 #: ../text.py:152
-#, fuzzy
 msgid "Install Server System"
-msgstr "Installér system"
+msgstr "Installér tjenersystem"
 
 #: ../text.py:153
-#, fuzzy
 msgid "Install Custom System"
-msgstr "Installér system"
+msgstr "Installér spesialtilpasset system"
 
 #: ../text.py:154
-#, fuzzy
 msgid "Upgrade Existing Installation"
-msgstr "Lilo installasjon"
+msgstr "Oppgrader eksisterende installasjon"
 
 #: ../text.py:155 ../text.py:1534
-#, fuzzy
 msgid "Installation Type"
-msgstr "Installasjons-steg"
+msgstr "Installasjonstype"
 
 #: ../text.py:156
-#, fuzzy
 msgid "What type of system would you like to install?"
-msgstr "Hvilken type media inneholder pakkene som skal installeres?"
+msgstr "Hvilken type installasjon ønsker du?"
 
 #: ../libfdisk/newtfsedit.c:1545 ../text.py:181 ../text.py:1270
 msgid "Error"
@@ -159,18 +149,16 @@ msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Du har ingen Linux-partisjoner. Du kan ikke oppgradere dette systemet!"
 
 #: ../text.py:195
-#, fuzzy
 msgid "System to Upgrade"
-msgstr "Systemfeil %d"
+msgstr "System som skal oppgraderes"
 
 #: ../text.py:196
 msgid "What partition holds the root partition of your installation?"
 msgstr "Hvilken partisjon inneholder rotpartisjonen til din installasjon?"
 
 #: ../text.py:211
-#, fuzzy
 msgid "Customize Packages to Upgrade"
-msgstr "Velg pakker som skal oppgraderes"
+msgstr "Tilpass pakker som skal oppgraderes"
 
 #: ../text.py:212
 msgid ""
@@ -224,9 +212,8 @@ msgid "Password (again):"
 msgstr "Passord (igjen):"
 
 #: ../text.py:266 ../text.py:317
-#, fuzzy
 msgid "Password Length"
-msgstr "Passordene er ikke like"
+msgstr "Passordlengde"
 
 #: ../text.py:267
 msgid "The root password must be at least 6 characters long."
@@ -248,46 +235,40 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 #: ../text.py:297
-#, fuzzy
 msgid "Edit User"
-msgstr "Rediger"
+msgstr "Rediger bruker"
 
 #: ../text.py:299
-#, fuzzy
 msgid "Add User"
-msgstr "Legg til skriver"
+msgstr "Legg til bruker"
 
 #: ../text.py:304
-#, fuzzy
 msgid "User ID"
-msgstr "Bruker:"
+msgstr "Bruker-ID:"
 
 #: ../iw/account.py:171 ../iw/account.py:192 ../text.py:305 ../text.py:386
 msgid "Full Name"
-msgstr ""
+msgstr "Fullt navn"
 
 #: ../iw/account.py:166 ../text.py:306
-#, fuzzy
 msgid "Password"
-msgstr "Passord:"
+msgstr "Passord"
 
 #: ../iw/account.py:168 ../text.py:307
-#, fuzzy
 msgid "Password (confirm)"
-msgstr "Passord (igjen):"
+msgstr "Passord (bekreft)"
 
 #: ../text.py:318
-#, fuzzy
 msgid "The password must be at least 6 characters long."
-msgstr "Root-passordet må være minst 6 tegn langt."
+msgstr "Passordet må bestå av minst 6 tegn."
 
 #: ../text.py:335
 msgid "User Exists"
-msgstr ""
+msgstr "Brukeren eksisterer"
 
 #: ../text.py:336
 msgid "This user id already exists.  Choose another."
-msgstr ""
+msgstr "Denne brukeren eksisterer allerede. Velg en annen."
 
 #: ../text.py:363
 msgid ""
@@ -295,10 +276,13 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
+"Du bør bruk en vanlig brukerkonto for de fleste aktivitetene på systemet "
+"ditt Ved å ikke bruke root kontoen reduserer du sjansene for å ødelegge "
+"systemets konfigurasjon."
 
 #: ../text.py:374 ../text.py:1563
 msgid "User Account Setup"
-msgstr ""
+msgstr "Oppsett av brukerkonto"
 
 #: ../text.py:376
 msgid ""
@@ -306,11 +290,13 @@ msgid ""
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
+"Hvilken brukerkonto ønsker du å ha på systemet? Du bør ha minst en konto ved "
+"siden av root for vanlig arbeid, men flerbrukersystemer kan ha mange kontoer "
+"satt opp."
 
 #: ../text.py:386
-#, fuzzy
 msgid "User name"
-msgstr "Brukernavn:"
+msgstr "Brukernavn"
 
 #: ../iw/account.py:178 ../libfdisk/newtfsedit.c:1303 ../text.py:397
 msgid "Add"
@@ -329,19 +315,17 @@ msgstr "Rediger"
 
 #: ../text.py:410
 msgid "Enter the information for the user."
-msgstr ""
+msgstr "Skriv inn informasjon om brukeren."
 
 #: ../text.py:422
 msgid "Change the information for this user."
-msgstr ""
+msgstr "Endre informasjonen om denne brukeren."
 
 #: ../text.py:457
-#, fuzzy
 msgid "Red Hat Linux"
-msgstr "Velkommen til Red Hat Linux"
+msgstr "Red Hat Linux"
 
 #: ../text.py:458
-#, fuzzy
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -354,53 +338,50 @@ msgid ""
 msgstr ""
 "Velkommen til Red Hat Linux!\n"
 "\n"
-"Denne installasjonsprosessen er beskrevet i detalj i \"Official Red Hat "
+"Denne installasjonsprosessen er beskrevet i detalj i \"Official Red Hat \n"
 "Linux Installation Guide\", som er tilgjengelig fra Red Hat Software. Hvis "
-"du har tilgang til denne manualen, så bør du lese installasjonsseksjonen før "
-"du fortsetter.\n"
+"du har\n"
+"tilgang til denne manualen bør du lese installasjonsdelen før du "
+"fortsetter.\n"
 "\n"
-"Hvis du har kjøpt den offisielle Red Hat Linux bør du registrere ditt kjøp "
-"gjennom vårt web-sted, http://www.redhat.com."
+"Hvis du har kjøpt Official Red Hat Linux bør du registrere kjøpet gjennom "
+"vårt web-sted, http://www.redhat.com/."
 
 #: ../iw/auth.py:11 ../text.py:490
-#, fuzzy
 msgid "Authentication Configuration"
-msgstr "Nettverkskonfigurasjon"
+msgstr "Konfigurasjon av autentisering"
 
 #: ../text.py:491
-#, fuzzy
 msgid "Use Shadow Passwords"
-msgstr "Root-passord"
+msgstr "Bruk skyggepassord"
 
 #: ../text.py:493
 msgid "Enable MD5 Passwords"
-msgstr ""
+msgstr "Bruk MD5-passord"
 
 #: ../iw/auth.py:53 ../text.py:495
 msgid "Enable NIS"
-msgstr ""
+msgstr "Bruk NIS"
 
 #: ../text.py:500
-#, fuzzy
 msgid "NIS Domain:"
-msgstr "Domenenavn:"
+msgstr "NIS-domene:"
 
 #: ../text.py:502
-#, fuzzy
 msgid "NIS Server:"
-msgstr "Tjener:"
+msgstr "NIS-tjener:"
 
 #: ../text.py:504
 msgid "or use:"
-msgstr ""
+msgstr "eller bruk:"
 
 #: ../text.py:507
 msgid "Request server via broadcast"
-msgstr ""
+msgstr "Forespør tjener via kringkasting"
 
 #: ../text.py:593
 msgid "Use bootp/dhcp"
-msgstr ""
+msgstr "Bruk bootp/dhcp"
 
 #: ../text.py:598
 msgid "IP address:"
@@ -423,34 +404,32 @@ msgid "Network Configuration"
 msgstr "Nettverkskonfigurasjon"
 
 #: ../text.py:639
-#, fuzzy
 msgid "Invalid information"
-msgstr "Manglende informasjon"
+msgstr "Ugyldig informasjon"
 
 #: ../text.py:640
-#, fuzzy
 msgid "You must enter valid IP information to continue"
-msgstr "Du må skrive inn både en gyldig IP-adresse og en nettmaske."
+msgstr "Du må skrive inn gyldig IP-informasjon for å fortsette"
 
 #: ../text.py:668
-#, fuzzy
 msgid "Hostname Configuration"
-msgstr "SCSI-konfigurasjon"
+msgstr "Konfigurasjon av vertsnavn"
 
 #: ../text.py:669
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
+"Vertsnavnet er navnet på din datamaskin.  Hvis datamaskinen er tilknyttet et "
+"nettverk, er det mulig at dette oppgis av din nettverksadministrator."
 
 #: ../iw/network.py:180 ../text.py:672
 msgid "Hostname"
 msgstr "Vertsnavn"
 
 #: ../iw/rootpartition.py:75 ../text.py:697
-#, fuzzy
 msgid "Automatic Partitioning"
-msgstr "Rediger partisjon"
+msgstr "Automatisk partisjonering"
 
 #: ../iw/rootpartition.py:111 ../text.py:698
 #, c-format
@@ -461,15 +440,19 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
+"%s\n"
+"\n"
+"Hvis du ikke ønsker å gjøre dette, kan du fortsette denne installasjonen ved "
+"å partisjonere manuelt, eller du kan gå tilbake og utføre en tilpasset "
+"installasjon."
 
 #: ../text.py:702 ../text.py:703
 msgid "Continue"
 msgstr "Fortsett"
 
 #: ../iw/rootpartition.py:126 ../text.py:702
-#, fuzzy
 msgid "Manually partition"
-msgstr "Repartisjonér"
+msgstr "Manuell partisjonering"
 
 #: ../text.py:726
 msgid ""
@@ -488,7 +471,6 @@ msgid "Check for bad blocks during format"
 msgstr "Sjekk etter dårlige blokker under formatering"
 
 #: ../text.py:750
-#, fuzzy
 msgid "Choose Partitions to Format"
 msgstr "Velg partisjoner som skal formateres"
 
@@ -498,12 +480,11 @@ msgstr "Velg individuelle pakker"
 
 #: ../iw/package.py:377 ../text.py:790 ../text.py:855
 msgid "Package Group Selection"
-msgstr ""
+msgstr "Valg av pakkegruppe"
 
 #: ../text.py:882 ../text.py:1571
-#, fuzzy
 msgid "Package Dependencies"
-msgstr "Uløste avhengigheter"
+msgstr "Pakkeavhengigheter"
 
 #: ../text.py:883
 msgid ""
@@ -573,9 +554,8 @@ msgstr "Hopp over"
 
 #: ../text.py:957 ../text.py:996 ../text.py:1093 ../text.py:1545
 #: ../text.py:1547 ../text.py:1549
-#, fuzzy
 msgid "LILO Configuration"
-msgstr "SCSI-konfigurasjon"
+msgstr "LILO-konfigurasjon"
 
 #: ../text.py:997
 msgid "Where do you want to install the bootloader?"
@@ -612,38 +592,32 @@ msgstr ""
 "fra og hvilket navn du vil gi hver av dem."
 
 #: ../text.py:1142
-#, fuzzy
 msgid "X probe results"
-msgstr "Autosøk"
+msgstr "Resultater etter X søk"
 
 #: ../text.py:1155 ../text.py:1174
 msgid "Unlisted Card"
-msgstr ""
+msgstr "Kort som ikke er listet"
 
 #: ../text.py:1163
-#, fuzzy
 msgid "Video Card Selection"
-msgstr "Tastaturtype"
+msgstr "Valg av grafikk kort"
 
 #: ../text.py:1164
-#, fuzzy
 msgid "Which video card do you have?"
-msgstr "Hvilken type tastatur har du?"
+msgstr "Hvilket grafikk-kort har du?"
 
 #: ../text.py:1176
-#, fuzzy
 msgid "X Server Selection"
-msgstr "Alternativer for modul"
+msgstr "Valg av X-tjener"
 
 #: ../text.py:1176
-#, fuzzy
 msgid "Choose a server"
-msgstr "Bruk proxytjener"
+msgstr "Velg en tjener"
 
 #: ../text.py:1226
-#, fuzzy
 msgid "Installation to begin"
-msgstr "Installasjons-steg"
+msgstr "Installasjon som skal starte"
 
 #: ../text.py:1227
 msgid ""
@@ -683,80 +657,78 @@ msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
+"Sett inn en tom diskett i den første diskettstasjonen. Alle data på denne "
+"disketten vil bli slettet under oppretting av oppstartsdisketten."
 
 #: ../iw/bootdisk.py:44 ../text.py:1271
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
+"En feil oppstod under oppretting av oppstartsdisketten. Vennligst forsikre "
+"deg om at det står en formatert diskett i diskettstasjonen."
 
 #: ../text.py:1333
-#, fuzzy
 msgid "Package Installation"
-msgstr "Lilo installasjon"
+msgstr "Pakkeinstallasjon"
 
 #: ../text.py:1335
-#, fuzzy
 msgid "Name   : "
-msgstr "Navn på kø:"
+msgstr "Navn   : "
 
 #: ../text.py:1336
-#, fuzzy
 msgid "Size   : "
-msgstr "Størrelse:"
+msgstr "Størr. : "
 
 #: ../text.py:1337
 msgid "Summary: "
-msgstr ""
+msgstr "Sammendrag: "
 
 #: ../text.py:1363
-#, fuzzy
 msgid "    Packages"
-msgstr "Pakke"
+msgstr "    Pakker"
 
 #: ../text.py:1364
 msgid "       Bytes"
-msgstr ""
+msgstr "       Bytes"
 
 #: ../text.py:1365
 msgid "        Time"
-msgstr ""
+msgstr "        Tid"
 
 #: ../text.py:1367
 msgid "Total    :"
-msgstr ""
+msgstr "Total    :"
 
 #: ../text.py:1374
-#, fuzzy
 msgid "Completed:   "
-msgstr "Ferdig"
+msgstr "Ferdig:      "
 
 #: ../text.py:1384
 msgid "Remaining:  "
-msgstr ""
+msgstr "Gjenstår:   "
 
 #: ../text.py:1454
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "Hvilken tidssone befinner du deg i?"
 
 #: ../text.py:1462
 msgid "Hardware clock set to GMT?"
-msgstr ""
+msgstr "Maskinvareklokken satt til GMT?"
 
 #: ../iw/timezone.py:29 ../text.py:1464
 msgid "Time Zone Selection"
-msgstr ""
+msgstr "Valg av tidssone"
 
 #: ../text.py:1502 ../text.py:1503
 msgid "Debug"
-msgstr ""
+msgstr "Debug"
 
 #: ../text.py:1515
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
-msgstr ""
+msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
 #: ../text.py:1517
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -766,225 +738,195 @@ msgstr ""
 
 #: ../text.py:1533
 msgid "Welcome"
-msgstr ""
+msgstr "Velkommen"
 
 #: ../text.py:1539
-#, fuzzy
 msgid "Automatic Partition"
-msgstr "Rediger partisjon"
+msgstr "Automatisk partisjon"
 
 #: ../iw/lilo.py:91 ../iw/lilo.py:194 ../text.py:1541
-#, fuzzy
 msgid "Partition"
-msgstr "Repartisjonér"
+msgstr "Partisjonér"
 
 #: ../text.py:1543
-#, fuzzy
 msgid "Filesystem Formatting"
-msgstr "Formaterer"
+msgstr "Formatering av filsystem"
 
 #: ../text.py:1551
-#, fuzzy
 msgid "Hostname Setup"
-msgstr "Oppslag av vertsnavn"
+msgstr "Oppsett av vertsnavn"
 
 #: ../text.py:1553
-#, fuzzy
 msgid "Network Setup"
-msgstr "NFS-oppsett"
+msgstr "Oppsett av nettverk"
 
 #: ../text.py:1555 ../text.py:1557
-#, fuzzy
 msgid "Mouse Configuration"
-msgstr "SCSI-konfigurasjon"
+msgstr "Konfigurasjon av mus"
 
 #: ../text.py:1559
 msgid "Time Zone Setup"
-msgstr ""
+msgstr "Oppsett av tidssone"
 
 #: ../text.py:1565
-#, fuzzy
 msgid "Authentication"
-msgstr "Konfigurer autentisering"
+msgstr "Autentisering"
 
 #: ../text.py:1567
-#, fuzzy
 msgid "Package Groups"
-msgstr "Pakke"
+msgstr "Pakkegrupper"
 
 #: ../text.py:1569 ../text.py:1589
-#, fuzzy
 msgid "Individual Packages"
-msgstr "Velg individuelle pakker"
+msgstr "Individuelle pakker"
 
 #: ../iw/xconfig.py:91 ../text.py:1573 ../text.py:1581
-#, fuzzy
 msgid "X Configuration"
-msgstr "SCSI-konfigurasjon"
+msgstr "Konfigurasjon av X"
 
 #: ../text.py:1575
-#, fuzzy
 msgid "Boot Disk"
 msgstr "Oppstartsdiskett"
 
 #: ../text.py:1577
-#, fuzzy
 msgid "Installation Begins"
-msgstr "Installasjons-steg"
+msgstr "Installasjonen starter"
 
 #: ../text.py:1579
-#, fuzzy
 msgid "Install System"
 msgstr "Installér system"
 
 #: ../text.py:1582
-#, fuzzy
 msgid "Installation Complete"
-msgstr "Installasjonsklasse"
+msgstr "Installasjon ferdig"
 
 #: ../text.py:1587
 msgid "Examine System"
-msgstr ""
+msgstr "Undersøk system"
 
 #: ../text.py:1588
 msgid "Customize Upgrade"
-msgstr ""
+msgstr "Tilpass oppgradering"
 
 #: ../text.py:1590
-#, fuzzy
 msgid "Upgrade System"
 msgstr "Oppgradér system"
 
 #: ../text.py:1591
-#, fuzzy
 msgid "Upgrade Complete"
-msgstr "Oppgradér system"
+msgstr "Oppgradéring ferdig"
 
 #: ../gui.py:280
 msgid "Red Hat Linux Installer"
-msgstr ""
+msgstr "Red Hat Linux installasjon"
 
 #: ../gui.py:289
 msgid "Finish"
-msgstr ""
+msgstr "Fullfør"
 
 #: ../gui.py:290
 msgid "Hide Help"
-msgstr ""
+msgstr "Skjul hjelp"
 
 #: ../gui.py:291
 msgid "Show Help"
-msgstr ""
+msgstr "Vis hjelp"
 
 #: ../gui.py:312
 msgid "Online Help"
-msgstr ""
+msgstr "Online hjelp"
 
 #: ../iw/account.py:14
-#, fuzzy
 msgid "Account Configuration"
-msgstr "SCSI-konfigurasjon"
+msgstr "Konfigurasjon av kontoer"
 
 #: ../iw/account.py:115
-#, fuzzy
 msgid "Root Password: "
-msgstr "Root-passord"
+msgstr "Passord for root: "
 
 #: ../iw/account.py:116
-#, fuzzy
 msgid "Confirm: "
-msgstr "Konfigurér X"
+msgstr "Bekreft: "
 
 #: ../iw/account.py:164 ../iw/account.py:192
-#, fuzzy
 msgid "Account Name"
-msgstr "Kontonavn:"
+msgstr "Kontonavn"
 
 #: ../iw/account.py:184
 msgid "New"
-msgstr ""
+msgstr "Ny"
 
 #: ../iw/auth.py:50
 msgid "Enable MD5 passwords"
-msgstr ""
+msgstr "Bruk MD5 passord"
 
 #: ../iw/auth.py:51
-#, fuzzy
 msgid "Enable shadow passwords"
-msgstr "Sett root-passord"
+msgstr "Bruk skyggepassord"
 
 #: ../iw/auth.py:54
 msgid "Use broadcast to find NIS server"
-msgstr ""
+msgstr "Bruk kringkasting til å finne NIS-tjener"
 
 #: ../iw/auth.py:66
 msgid "NIS Domain: "
-msgstr ""
+msgstr "NIS-domene: "
 
 #: ../iw/auth.py:68
-#, fuzzy
 msgid "NIS Server: "
-msgstr "Tjener:"
+msgstr "NIS-tjener: "
 
 #: ../iw/bootdisk.py:10
-#, fuzzy
 msgid "Bootdisk Creation"
-msgstr "Oppstartsdiskett"
+msgstr "Lag oppstartsdiskett"
 
 #: ../iw/bootdisk.py:51
 msgid "Skip boot disk creation"
-msgstr ""
+msgstr "Hopp over oppstartsdiskett"
 
 #: ../iw/congrats.py:11
-#, fuzzy
 msgid "Congratulations"
-msgstr "Konfigurer autentisering"
+msgstr "Gratulerer"
 
 #: ../iw/congrats.py:13
-#, fuzzy
 msgid "Exit"
-msgstr "Rediger"
+msgstr "Avslutt"
 
 #: ../iw/dependencies.py:9
 msgid "Unresolved Dependencies"
 msgstr "Uløste avhengigheter"
 
 #: ../iw/examine.py:11
-#, fuzzy
 msgid "Upgrade Examine"
-msgstr "Oppgraderer"
+msgstr "Undersøk oppgradering"
 
 #: ../iw/examine.py:35
-#, fuzzy
 msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
-msgstr "Du har ingen Linux-partisjoner. Du kan ikke oppgradere dette systemet!"
+msgstr ""
+"Du har ingen Linux-partisjoner.\n"
+"Du kan ikke oppgradere dette systemet!"
 
 #: ../iw/examine.py:53
-#, fuzzy
 msgid "Customize packages to be upgraded"
 msgstr "Velg pakker som skal oppgraderes"
 
 #: ../iw/format.py:12
-#, fuzzy
 msgid "Choose partitions to Format"
 msgstr "Velg partisjoner som skal formateres"
 
 #: ../iw/format.py:47
-#, fuzzy
 msgid "Check for bad blocks while formatting"
 msgstr "Sjekk etter dårlige blokker under formatering"
 
 #: ../iw/installpath.py:34
-#, fuzzy
 msgid "GNOME Workstation"
-msgstr "Arbeidsstasjon"
+msgstr "GNOME arbeidsstasjon"
 
 #: ../iw/installpath.py:35
-#, fuzzy
 msgid "KDE Workstation"
-msgstr "Arbeidsstasjon"
+msgstr "KDE arbeidsstasjon"
 
 #: ../iw/installpath.py:36 ../libfdisk/gnomefsedit.c:2156
 #: ../libfdisk/gnomefsedit.c:2176
@@ -996,9 +938,8 @@ msgid "Custom"
 msgstr "Egendefinert"
 
 #: ../iw/installpath.py:73
-#, fuzzy
 msgid "Install Type"
-msgstr "Installér system"
+msgstr "Type installasjon"
 
 #: ../iw/installpath.py:122
 msgid "Install"
@@ -1009,13 +950,12 @@ msgid "Upgrade"
 msgstr "Oppgradér"
 
 #: ../iw/keyboard.py:11
-#, fuzzy
 msgid "Keyboard Configuration"
-msgstr "Nettverkskonfigurasjon"
+msgstr "Konfigurasjon av tastatur"
 
 #: ../iw/keyboard.py:27
 msgid "Model"
-msgstr ""
+msgstr "Modell"
 
 #: ../iw/keyboard.py:39
 msgid "Layout"
@@ -1023,241 +963,215 @@ msgstr ""
 
 #: ../iw/keyboard.py:53
 msgid "Variant"
-msgstr ""
+msgstr "Variant"
 
 #: ../iw/language.py:15
 msgid "What language should be used during the installation process?"
 msgstr "Hvilket språk skal brukes under installasjonen?"
 
 #: ../iw/lilo.py:18
-#, fuzzy
 msgid "Lilo Configuration"
-msgstr "SCSI-konfigurasjon"
+msgstr "LILO-konfigurasjon"
 
 #: ../iw/lilo.py:96 ../iw/lilo.py:195
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: ../iw/lilo.py:125
-#, fuzzy
 msgid "Install LILO boot record on:"
-msgstr "Installér oppstartslaster"
+msgstr "Installér oppstartslaster på:"
 
 #: ../iw/lilo.py:130
-#, fuzzy
 msgid "Master Boot Record (MBR)"
-msgstr "Master Boot Record"
+msgstr "Master Boot Record (MBR)"
 
 #: ../iw/lilo.py:134
 msgid "First sector of boot partition"
 msgstr "Første sektor på oppstartspartisjonen"
 
 #: ../iw/lilo.py:141
-#, fuzzy
 msgid "Kernel parameters"
-msgstr "Parametere for modul"
+msgstr "Parametere for kjerne"
 
 #: ../iw/lilo.py:156
-#, fuzzy
 msgid "Create boot disk"
 msgstr "Lag oppstartsdiskett"
 
 #: ../iw/lilo.py:160
 msgid "Do not install LILO"
-msgstr ""
+msgstr "Ikke installer LILO"
 
 #: ../iw/network.py:127
-#, fuzzy
 msgid "Configure using DHCP"
-msgstr "Konfigurér mus"
+msgstr "Konfigurér ved bruk av DHCP"
 
 #: ../iw/network.py:133
 msgid "Activate on boot"
-msgstr ""
+msgstr "Aktiver ved oppstart"
 
 #: ../iw/network.py:142
-#, fuzzy
 msgid "IP Address"
-msgstr "IP-adresse:"
+msgstr "IP-adresse"
 
 #: ../iw/network.py:142
-#, fuzzy
 msgid "Netmask"
-msgstr "Nettmaske:"
+msgstr "Nettmaske"
 
 #: ../iw/network.py:142
 msgid "Network"
-msgstr ""
+msgstr "Nettverk"
 
 #: ../iw/network.py:142
 msgid "Broadcast"
-msgstr ""
+msgstr "Kringkast"
 
 #: ../iw/network.py:181
 msgid "Gateway"
-msgstr ""
+msgstr "Gateway"
 
 #: ../iw/network.py:181
 msgid "Primary DNS"
-msgstr ""
+msgstr "Primær DNS"
 
 #: ../iw/network.py:181
 msgid "Secondary DNS"
-msgstr ""
+msgstr "Sekundær DNS"
 
 #: ../iw/network.py:181
 msgid "Ternary DNS"
-msgstr ""
+msgstr "Tertiær DNS"
 
 #: ../iw/package.py:20
 msgid "Individual Package Selection"
-msgstr ""
+msgstr "Indiviuelt pakkevalg"
 
 #: ../iw/package.py:178
 msgid "Up"
-msgstr ""
+msgstr "Opp"
 
 #: ../iw/package.py:324
 msgid "Name: "
-msgstr ""
+msgstr "Navn: "
 
 #: ../iw/package.py:329
-#, fuzzy
 msgid "Package Details"
 msgstr "Pakke"
 
 #: ../iw/package.py:335
-#, fuzzy
 msgid "Size: "
-msgstr "Størrelse:"
+msgstr "Størr.: "
 
 #: ../iw/package.py:341
-#, fuzzy
 msgid "Select Package For Installation"
-msgstr "Silo-installasjon"
+msgstr "Velg pakke for installasjon"
 
 #: ../iw/progress.py:26
-#, fuzzy
 msgid "Installing Packages"
-msgstr "Installerer"
+msgstr "Installerer pakker"
 
 #: ../iw/progress.py:113 ../iw/progress.py:148
-#, fuzzy
 msgid "Size"
-msgstr "Størrelse:"
+msgstr "Størrelse"
 
 #: ../iw/progress.py:114
-#, fuzzy
 msgid "Summary"
-msgstr "(ikke noe sammendrag)"
+msgstr "Sammendrag"
 
 #: ../iw/progress.py:148
-#, fuzzy
 msgid "Status"
-msgstr "Installasjons-status"
+msgstr "Status"
 
 #: ../iw/progress.py:148
-#, fuzzy
 msgid "Packages"
-msgstr "Pakke"
+msgstr "Pakker"
 
 #: ../iw/progress.py:148
 msgid "Time"
-msgstr ""
+msgstr "Tid"
 
 #: ../iw/progress.py:153
-#, fuzzy
 msgid "Total"
-msgstr "Lokal"
+msgstr "Total"
 
 #: ../iw/progress.py:154
-#, fuzzy
 msgid "Completed"
 msgstr "Ferdig"
 
 #: ../iw/progress.py:155
-#, fuzzy
 msgid "Remaining"
-msgstr "Bygger opp på nytt"
+msgstr "Gjenstår"
 
 #: ../iw/rootpartition.py:12
 msgid "Confirm Partitioning Selection"
-msgstr ""
+msgstr "Bekreft valg av partisjonering"
 
 #: ../iw/rootpartition.py:27
-#, fuzzy
 msgid "Root Partition Selection"
-msgstr "Rot-partisjon"
+msgstr "Valg av rot-partisjon"
 
 #: ../iw/rootpartition.py:123
-#, fuzzy
 msgid "Remove data"
-msgstr "Ekstern lpd"
+msgstr "Fjern data"
 
 #: ../iw/timezone.py:109
 msgid "View:"
-msgstr ""
+msgstr "Vis:"
 
 #: ../iw/timezone.py:139
 msgid "Use Daylight Saving Time"
-msgstr ""
+msgstr "Bruk \"Daylight Saving Time\""
 
 #: ../iw/timezone.py:146
-#, fuzzy
 msgid "Location"
 msgstr "Arbeidsstasjon"
 
 #: ../iw/timezone.py:147
 msgid "UTC Offset"
-msgstr ""
+msgstr "Forskyvning fra UTC"
 
 #: ../iw/timezone.py:151
 msgid "System clock uses UTC"
-msgstr ""
+msgstr "Systemklokken bruker UTC"
 
 #: ../iw/welcome.py:10
-#, fuzzy
 msgid "Welcome to Red Hat Linux!"
-msgstr "Velkommen til Red Hat Linux"
+msgstr "Velkommen til Red Hat Linux!"
 
 #: ../iw/xconfig.py:9
 msgid "Video Card"
-msgstr ""
+msgstr "Grafikk-kort"
 
 #: ../iw/xconfig.py:10
 msgid "Monitor"
-msgstr ""
+msgstr "Skjerm"
 
 #: ../iw/xconfig.py:11
 msgid "Video Ram"
-msgstr ""
+msgstr "Grafikkminne"
 
 #: ../iw/xconfig.py:12
 msgid "Horizontal Frequency Range"
-msgstr ""
+msgstr "Horisontalt frekvensområde"
 
 #: ../iw/xconfig.py:13
 msgid "Vertical Frequency Range"
-msgstr ""
+msgstr "Vertikalt frekvensområde"
 
 #: ../iw/xconfig.py:14
 msgid "Test failed"
-msgstr ""
+msgstr "Testen feilet"
 
 #: ../iw/xconfig.py:22 ../iw/xconfig.py:198
-#, fuzzy
 msgid "Customize X Configuration"
-msgstr "SCSI-konfigurasjon"
+msgstr "Tilpass konfigurasjon av X"
 
 #: ../iw/xconfig.py:63
-#, fuzzy
 msgid "Bits per Pixel"
-msgstr "Biter pr. piksel:"
+msgstr "Biter pr. piksel"
 
 #: ../iw/xconfig.py:73 ../iw/xconfig.py:194
-#, fuzzy
 msgid "Test this configuration"
-msgstr "SCSI-konfigurasjon"
+msgstr "Test denne konfigurasjonen"
 
 #: ../iw/xconfig.py:149
 msgid ""
@@ -1266,23 +1180,22 @@ msgid ""
 msgstr ""
 
 #: ../iw/xconfig.py:157
-#, fuzzy
 msgid "Autoprobe results:"
-msgstr "Autosøk"
+msgstr "Resultat av autosøk"
 
 #: ../iw/xconfig.py:171
 msgid ""
 "Your monitor could not be autodetected. Please choose it from the list below:"
 msgstr ""
+"Din skjerm kunne ikke finnes av autosøk. Vennligst velg fra listen under:"
 
 #: ../iw/xconfig.py:201
 msgid "Use Graphical Login"
-msgstr ""
+msgstr "Bruk grafisk pålogging"
 
 #: ../iw/xconfig.py:203
-#, fuzzy
 msgid "Skip X Configuration"
-msgstr "SCSI-konfigurasjon"
+msgstr "Hopp over konfigurasjon av X"
 
 #: ../libfdisk/fsedit.c:604 ../libfdisk/fsedit.c:611 ../libfdisk/fsedit.c:618
 #: ../libfdisk/fsedit.c:627 ../libfdisk/fsedit.c:639 ../libfdisk/fsedit.c:649
@@ -1449,14 +1362,12 @@ msgid "Fdisk Error"
 msgstr "Fdisk-feil"
 
 #: ../libfdisk/gnomefsedit.c:477 ../libfdisk/gnomefsedit.c:646
-#, fuzzy
 msgid "<Swap Partition>"
-msgstr "Swap-partisjon"
+msgstr "<Swap-partisjon>"
 
 #: ../libfdisk/gnomefsedit.c:485 ../libfdisk/gnomefsedit.c:648
-#, fuzzy
 msgid "<RAID Partition>"
-msgstr "Rot-partisjon"
+msgstr "<RAID-partisjon>"
 
 #: ../libfdisk/gnomefsedit.c:540 ../libfdisk/newtfsedit.c:697
 msgid "Delete Partition"
@@ -1474,18 +1385,16 @@ msgid "Edit Partition"
 msgstr "Rediger partisjon"
 
 #: ../libfdisk/gnomefsedit.c:626 ../libfdisk/gnomefsedit.c:1588
-#, fuzzy
 msgid "Mount Point:"
-msgstr "Monteringspunkt"
+msgstr "Monteringspunkt:"
 
 #: ../libfdisk/gnomefsedit.c:661
-#, fuzzy
 msgid "Size (Megs):"
-msgstr "Størrelse:"
+msgstr "Størrelse (MB):"
 
 #: ../libfdisk/gnomefsedit.c:692
 msgid "Grow to fill disk?"
-msgstr ""
+msgstr "Fyll resterende plass på disken?"
 
 #: ../libfdisk/gnomefsedit.c:711 ../libfdisk/newtfsedit.c:335
 msgid "Allocation Status:"
@@ -1504,13 +1413,12 @@ msgid "Failure Reason:"
 msgstr "Feilårsak:"
 
 #: ../libfdisk/gnomefsedit.c:744 ../libfdisk/gnomefsedit.c:1614
-#, fuzzy
 msgid "Partition Type:"
-msgstr "Partisjonstype"
+msgstr "Partisjonstype:"
 
 #: ../libfdisk/gnomefsedit.c:811
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "Tillate stasjoner:"
 
 #: ../libfdisk/gnomefsedit.c:916 ../libfdisk/gnomefsedit.c:1806
 #: ../libfdisk/newtfsedit.c:486
@@ -1543,13 +1451,12 @@ msgid "Size Error"
 msgstr "Feil ved størrelse"
 
 #: ../libfdisk/gnomefsedit.c:987 ../libfdisk/newtfsedit.c:546
-#, fuzzy
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
 msgstr ""
 "Størrelsen du ba om er ugyldig. Sørg for at størrelsen er større enn null "
-"(0) og at den er spesifisert i desimal format (base 10)."
+"(0), og at den er spesifisert i desimal format (base 10)."
 
 #: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/gnomefsedit.c:1927
 #: ../libfdisk/newtfsedit.c:581
@@ -1568,22 +1475,21 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1039 ../libfdisk/gnomefsedit.c:1046
 msgid "No RAID Drive Constraint"
-msgstr ""
+msgstr "Ingen begrensning på RAID stasjon"
 
 #: ../libfdisk/gnomefsedit.c:1041
-#, fuzzy
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
-"Du har ikke valgt et monteringspunkt for denne partisjonen. Er du sikker på "
-"at du ønsker å gjøre dette?"
+"Du har konfigurert en RAID partisjon uten å begrense partisjonen til en "
+"enkelt stasjon.\n"
+" Er du sikker på at du vil gjøre dette?"
 
 #: ../libfdisk/gnomefsedit.c:1047
-#, fuzzy
 msgid "Close"
-msgstr "Slett"
+msgstr "Lukk"
 
 #: ../libfdisk/gnomefsedit.c:1048
 msgid ""
@@ -1595,7 +1501,7 @@ msgstr ""
 #. now contains unallocated partitions!
 #: ../libfdisk/gnomefsedit.c:1227
 msgid "RAID Entry Incomplete"
-msgstr ""
+msgstr "RAID-oppføringen er ikke komplett"
 
 #: ../libfdisk/gnomefsedit.c:1228
 #, c-format
@@ -1623,42 +1529,36 @@ msgstr ""
 "ikke ble allokert."
 
 #: ../libfdisk/gnomefsedit.c:1600
-#, fuzzy
 msgid "<Swap Partition"
-msgstr "Swap-partisjon"
+msgstr "<Swap-partisjon"
 
 #: ../libfdisk/gnomefsedit.c:1658
 msgid "RAID Device: /dev/"
-msgstr ""
+msgstr "RAID-enhet: /dev/"
 
 #: ../libfdisk/gnomefsedit.c:1681
 msgid "RAID Type:"
-msgstr ""
+msgstr "RAID-type:"
 
 #: ../libfdisk/gnomefsedit.c:1718
-#, fuzzy
 msgid "Partitions For RAID Array:"
-msgstr "Partisjoner som skal formateres"
+msgstr "Partisjoner for RAID-disk:"
 
 #: ../libfdisk/gnomefsedit.c:1807
-#, fuzzy
 msgid "You have not selected a mount point. A mount point is required."
-msgstr ""
-"Du har ikke valgt et monteringspunkt for denne partisjonen. Er du sikker på "
-"at du ønsker å gjøre dette?"
+msgstr "Du har ikke valgt et monteringspunkt. Dette er påkrevd."
 
 #: ../libfdisk/gnomefsedit.c:1815
-#, fuzzy
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
-"Monteringspunktet som ble forespurt er enten en ugyldig sti eller det er "
-"allerede i bruk. Vennligst velg et gyldig monteringspunkt."
+"Monteringspunktet som ble forespurt er allerede i bruk. Vennligst velg et "
+"gyldig monteringspunkt."
 
 #: ../libfdisk/gnomefsedit.c:1828
 msgid "Booting From RAID Warning"
-msgstr ""
+msgstr "Advarsel ved oppstart fra RAID"
 
 #: ../libfdisk/gnomefsedit.c:1829
 msgid ""
@@ -1667,17 +1567,16 @@ msgid ""
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1839
-#, fuzzy
 msgid "No RAID Device"
-msgstr "Enhet"
+msgstr "Ingen RAID-enhet"
 
 #: ../libfdisk/gnomefsedit.c:1840
 msgid "You need to selected a RAID device."
-msgstr ""
+msgstr "Du må velge en RAID-enhet."
 
 #: ../libfdisk/gnomefsedit.c:1846
 msgid "Used Raid Device"
-msgstr ""
+msgstr "Brukt Raid enhet"
 
 #: ../libfdisk/gnomefsedit.c:1847
 #, c-format
@@ -1687,23 +1586,23 @@ msgid ""
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1860
-#, fuzzy
 msgid "Not Enough Partitions"
-msgstr "Ingen rotpartisjon"
+msgstr "Ikke nok partisjoner"
 
 #: ../libfdisk/gnomefsedit.c:1862
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
+"Du har ikke konfigurert mange nok partisjoner for RAID-typen du valgte."
 
 #: ../libfdisk/gnomefsedit.c:1869
 msgid "Illegal /boot RAID Type"
-msgstr ""
+msgstr "Ugyldig RAID-type i /boot"
 
 #: ../libfdisk/gnomefsedit.c:1871
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr ""
+msgstr "Oppstartspartisjoner (/boot) kan kun plasseres på RAID-1."
 
 #: ../libfdisk/gnomefsedit.c:1972
 #, c-format
@@ -1714,32 +1613,29 @@ msgid ""
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1979
-#, fuzzy
 msgid "Use Pre-existing Partition?"
-msgstr "Slett partisjon"
+msgstr "Bruk eksisterende partisjon?"
 
 #: ../libfdisk/gnomefsedit.c:2088
-#, fuzzy
 msgid "Auto-Partition"
-msgstr "Rediger partisjon"
+msgstr "Auto-partisjoner"
 
 #: ../libfdisk/gnomefsedit.c:2095
 msgid "Using Existing Disk Space"
-msgstr ""
+msgstr "Bruk eksisterende diskplass"
 
 #: ../libfdisk/gnomefsedit.c:2114
-#, fuzzy
 msgid "Remove Linux partitions"
-msgstr "Endre størrelse på partisjoner"
+msgstr "Fjern Linux partisjoner"
 
 #: ../libfdisk/gnomefsedit.c:2125
 msgid "Use existing free space"
-msgstr ""
+msgstr "Bruk eksisterende ledig plass"
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2137
 msgid "Intended Use"
-msgstr ""
+msgstr "Påtenkt bruk"
 
 #: ../libfdisk/gnomefsedit.c:2176
 msgid "Workstation"
@@ -1747,12 +1643,11 @@ msgstr "Arbeidsstasjon"
 
 #: ../libfdisk/gnomefsedit.c:2250
 msgid "Delete RAID Device?"
-msgstr ""
+msgstr "Slett RAID enhet?"
 
 #: ../libfdisk/gnomefsedit.c:2251
-#, fuzzy
 msgid "Are you sure you want to remove this RAID device?"
-msgstr "Er du sikker på at du vil slette denne partisjonen?"
+msgstr "Er du sikker på at du vil fjerne denne RAID-enheten?"
 
 #: ../libfdisk/gnomefsedit.c:2302 ../libfdisk/newtfsedit.c:1585
 msgid "Reset Partition Table"
@@ -1764,29 +1659,28 @@ msgstr "Sett partisjonstabellen tilbake til originalt innhold? "
 
 #: ../libfdisk/gnomefsedit.c:2340 ../libfdisk/gnomefsedit.c:2391
 msgid "<Swap>"
-msgstr ""
+msgstr "<Swap>"
 
 #: ../libfdisk/gnomefsedit.c:2342
 msgid "<RAID>"
-msgstr ""
+msgstr "<RAID>"
 
 #: ../libfdisk/gnomefsedit.c:2344
 msgid "<not set>"
-msgstr ""
+msgstr "<ikke satt>"
 
 #: ../libfdisk/gnomefsedit.c:2901
-#, fuzzy
 msgid "Unallocated Partitions Exist..."
-msgstr "Ikke-allokerte partisjoner"
+msgstr "Det finnes ikke-allokerte partisjoner..."
 
 #: ../libfdisk/gnomefsedit.c:2912
-#, fuzzy
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
 "Du må tilegne systemet en rot-partisjon (/) plassert på  en Linux Native- "
-"partisjon (ext2) for at installasjonen skal fortsette."
+"partisjon (ext2), eller en RAID-partisjon for at installasjonen skal "
+"fortsette."
 
 #: ../libfdisk/gnomefsedit.c:2926 ../libfdisk/gnomefsedit.c:2939
 #, fuzzy
@@ -1808,28 +1702,24 @@ msgstr ""
 "partisjon (ext2) for at installasjonen skal fortsette."
 
 #: ../libfdisk/gnomefsedit.c:3027
-#, fuzzy
 msgid "Partitions"
-msgstr "Repartisjonér"
+msgstr "Partisjoner"
 
 #: ../libfdisk/gnomefsedit.c:3071
-#, fuzzy
 msgid "_Add..."
-msgstr "Legg til"
+msgstr "_Legg til"
 
 #: ../libfdisk/gnomefsedit.c:3083
-#, fuzzy
 msgid "_Edit..."
-msgstr "Rediger"
+msgstr "R_ediger"
 
 #: ../libfdisk/gnomefsedit.c:3084
-#, fuzzy
 msgid "_Delete"
-msgstr "Slett"
+msgstr "_Slett"
 
 #: ../libfdisk/gnomefsedit.c:3085
 msgid "_Reset"
-msgstr ""
+msgstr "_Nullstill"
 
 #. XXXX - uncomment if you want the add raid button
 #.
@@ -1865,7 +1755,6 @@ msgstr ""
 #. }
 #.
 #: ../libfdisk/gnomefsedit.c:3138
-#, fuzzy
 msgid "Drive Summary"
 msgstr "Disksammendrag"
 
@@ -1926,1476 +1815,1573 @@ msgstr "Lagre endringer til partisjonstabellen(e)?"
 msgid "You may only delete NFS mounts."
 msgstr "Du kan bare slette NFS-monteringer."
 
-#~ msgid "Warning"
-#~ msgstr "Advarsel"
-
-#~ msgid "You are about to lose data! Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Du er i ferd med å miste data! Er du sikker på at du vil gjøre dette?"
-
-#~ msgid "Disk Space"
-#~ msgstr "Diskplass"
-
-#~ msgid "There is not enough disk space for this type of installation."
-#~ msgstr "Det er ikke nok diskplass for denne installasjonstypen."
+#, fuzzy
+msgid "Warning"
+msgstr "Gjenstår"
 
 #, fuzzy
-#~ msgid "There is not enough disk space for the chosen partitioning."
-#~ msgstr "Det er ikke nok diskplass for denne installasjonstypen."
+msgid "You are about to lose data! Are you sure you want to do this?"
+msgstr ""
+"Du har ikke valgt et monteringspunkt for denne partisjonen. Er du sikker på "
+"at du ønsker å gjøre dette?"
+
+msgid "Disk Space"
+msgstr "Diskplass"
+
+msgid "There is not enough disk space for this type of installation."
+msgstr "Det er ikke nok diskplass for denne installasjonstypen."
 
 #, fuzzy
-#~ msgid "_Make RAID Device"
-#~ msgstr "Enhet"
+msgid "There is not enough disk space for the chosen partitioning."
+msgstr "Det er ikke nok diskplass for denne installasjonstypen."
 
 #, fuzzy
-#~ msgid "Skip LILO install"
-#~ msgstr "SILO-installasjon"
+msgid "_Make RAID Device"
+msgstr "Ingen RAID-enhet"
 
-#~ msgid "No BOOTP reply received"
-#~ msgstr "Ingen BOOTP-svar mottatt"
+#, fuzzy
+msgid "Skip LILO install"
+msgstr "SILO-installasjon"
 
-#~ msgid "No DHCP reply received"
-#~ msgstr "Ingen DHCP-svar mottatt"
+msgid "No BOOTP reply received"
+msgstr "Ingen BOOTP-svar mottatt"
 
-#~ msgid "Other CDROM"
-#~ msgstr "Andre CDROM"
+msgid "No DHCP reply received"
+msgstr "Ingen DHCP-svar mottatt"
 
-#~ msgid "CDROM type"
-#~ msgstr "CDROM-type"
+msgid "Other CDROM"
+msgstr "Andre CDROM"
 
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "Hvilken CDROM-type har du?"
+msgid "CDROM type"
+msgstr "CDROM-type"
 
-#~ msgid "Initializing CDROM..."
-#~ msgstr "Initialiserer CDROM..."
+#, fuzzy
+msgid "What type of CDROM do you have?"
+msgstr "Hvilket grafikk-kort har du?"
 
-#~ msgid "Base IO port:"
-#~ msgstr "Base IO-port:"
+msgid "Initializing CDROM..."
+msgstr "Initialiserer CDROM..."
 
-#~ msgid "IRQ level:"
-#~ msgstr "IRQ-nivå:"
+msgid "Base IO port:"
+msgstr "Base IO-port:"
 
-#~ msgid "IO base, IRQ:"
-#~ msgstr "IO-base, IRQ:"
+msgid "IRQ level:"
+msgstr "IRQ-nivå:"
 
-#~ msgid "Use other options"
-#~ msgstr "Bruk andre alternativer"
+msgid "IO base, IRQ:"
+msgstr "IO-base, IRQ:"
 
-#~ msgid "Interrupt level (IRQ):"
-#~ msgstr "Avbruddsnivå (IRQ):"
+msgid "Use other options"
+msgstr "Bruk andre alternativer"
 
-#~ msgid "IO base, IRQ, label:"
-#~ msgstr "IO-base, IRQ, etikett:"
+msgid "Interrupt level (IRQ):"
+msgstr "Avbruddsnivå (IRQ):"
 
-#~ msgid "Specify options"
-#~ msgstr "Spesifisér alternativer"
+msgid "IO base, IRQ, label:"
+msgstr "IO-base, IRQ, etikett:"
 
-#~ msgid "mknod() failed: %s"
-#~ msgstr "mknod() feilet: %s"
+msgid "Specify options"
+msgstr "Spesifisér alternativer"
 
-#~ msgid "Load module"
-#~ msgstr "Last modul"
+msgid "mknod() failed: %s"
+msgstr "mknod() feilet: %s"
 
-#~ msgid "Which driver should I try?"
-#~ msgstr "Hvilken driver skal jeg forsøke?"
+msgid "Load module"
+msgstr "Last modul"
 
-#~ msgid "Probe"
-#~ msgstr "Søk"
+msgid "Which driver should I try?"
+msgstr "Hvilken driver skal jeg forsøke?"
 
-#~ msgid "A %s card has been found on your system."
-#~ msgstr "Et %s kort er funnet på ditt system."
+msgid "Probe"
+msgstr "Søk"
 
-#~ msgid "device command"
-#~ msgstr "enhets-kommando"
+msgid "A %s card has been found on your system."
+msgstr "Et %s kort er funnet på ditt system."
 
-#~ msgid "bad argument to kickstart device command %s: %s"
-#~ msgstr "ugyldig argument til enhets-kommando for kickstart %s: %s"
+msgid "device command"
+msgstr "enhets-kommando"
 
-#~ msgid "bad arguments to kickstart device command"
-#~ msgstr "ugyldige argumenter til enhets-kommando for kickstart"
+msgid "bad argument to kickstart device command %s: %s"
+msgstr "ugyldig argument til enhets-kommando for kickstart %s: %s"
 
-#~ msgid "No module exists for %s"
-#~ msgstr "Ingen modul eksisterer for %s"
+msgid "bad arguments to kickstart device command"
+msgstr "ugyldige argumenter til enhets-kommando for kickstart"
 
-#~ msgid "I can't find the device anywhere on your system!"
-#~ msgstr "Jeg kan ikke finne enheten noe sted i systemet!"
+msgid "No module exists for %s"
+msgstr "Ingen modul eksisterer for %s"
 
-#~ msgid ""
-#~ "In some cases, the %s driver needs to have extra information to work "
-#~ "properly, although it normally works fine without. Would you like to specify "
-#~ "extra options for it or allow the driver to probe your machine for the "
-#~ "information it needs? Occasionally, probing will hang a computer, but it "
-#~ "should not cause any damage."
-#~ msgstr ""
-#~ "I noen tilfeller trenger %s-driveren ekstra informasjon for å virke "
-#~ "ordentlig, selv om den vanligvis virker fint uten. Vil du spesifisere ekstra "
-#~ "alternativer for den, eller la driveren søke etter informasjonen den "
-#~ "trenger? Noen ganger kan autosøk få en maskin til å henge, men det skal ikke "
-#~ "forårsake noen skade."
+msgid "I can't find the device anywhere on your system!"
+msgstr "Jeg kan ikke finne enheten noe sted i systemet!"
 
-#~ msgid ""
-#~ "In many cases, the %s driver needs to be provided with extra information on "
-#~ "your hardware. If you prefer, some common values for those parameters will "
-#~ "be tried. This process can hang a machine, although it should not cause any "
-#~ "damage."
-#~ msgstr ""
-#~ "I noen tilfeller trenger %s-driveren å bli tilført ekstra informasjon om din "
-#~ "maskinvare. Hvis du foretrekker det kan noen vanlige verdier for disse "
-#~ "parameterene prøves. Denne prosessen kan få en maskin til å henge, men det "
-#~ "skal ikke forårsake noen skade."
+msgid ""
+"In some cases, the %s driver needs to have extra information to work "
+"properly, although it normally works fine without. Would you like to specify "
+"extra options for it or allow the driver to probe your machine for the "
+"information it needs? Occasionally, probing will hang a computer, but it "
+"should not cause any damage."
+msgstr ""
+"I noen tilfeller trenger %s-driveren ekstra informasjon for å virke "
+"ordentlig, selv om den vanligvis virker fint uten. Vil du spesifisere ekstra "
+"alternativer for den, eller la driveren søke etter informasjonen den "
+"trenger? Noen ganger kan autosøk få en maskin til å henge, men det skal ikke "
+"forårsake noen skade."
 
-#~ msgid "Miscellaneous options:"
-#~ msgstr "Forskjellige alternativer:"
+msgid ""
+"In many cases, the %s driver needs to be provided with extra information on "
+"your hardware. If you prefer, some common values for those parameters will "
+"be tried. This process can hang a machine, although it should not cause any "
+"damage."
+msgstr ""
+"I noen tilfeller trenger %s-driveren å bli tilført ekstra informasjon om din "
+"maskinvare. Hvis du foretrekker det kan noen vanlige verdier for disse "
+"parameterene prøves. Denne prosessen kan få en maskin til å henge, men det "
+"skal ikke forårsake noen skade."
 
-#~ msgid "Module options:"
-#~ msgstr "Alternativer for modul:"
+msgid "Miscellaneous options:"
+msgstr "Forskjellige alternativer:"
 
-#~ msgid "Cannot open /proc/filesystems: %d"
-#~ msgstr "Kan ikke åpne /proc/filesystems: %d"
+#, fuzzy
+msgid "Module options:"
+msgstr "Musvalg"
 
-#~ msgid "Failed to open %s. No upgrade log will be kept."
-#~ msgstr "Klarte ikke å åpne %s. Ingen oppgraderingslogg vil bli ført."
+msgid "Cannot open /proc/filesystems: %d"
+msgstr "Kan ikke åpne /proc/filesystems: %d"
 
-#~ msgid "Fatal error opening RPM database"
-#~ msgstr "Fatal feil under åpning av RPM-databasen"
+msgid "Failed to open %s. No upgrade log will be kept."
+msgstr "Klarte ikke å åpne %s. Ingen oppgraderingslogg vil bli ført."
 
-#~ msgid "Error ordering package list: %s"
-#~ msgstr "Feil under sortering av pakkelisten: %s"
+msgid "Fatal error opening RPM database"
+msgstr "Fatal feil under åpning av RPM-databasen"
 
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following filesystems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Det ser ikke ut til at du har nok diskplass til å installere pakkene du har "
-#~ "valgt. Du trenger mer plass på følgende filsystemer:\n"
+msgid "Error ordering package list: %s"
+msgstr "Feil under sortering av pakkelisten: %s"
 
-#~ msgid "Space Needed"
-#~ msgstr "Nødvendig plass"
+msgid ""
+"You don't appear to have enough disk space to install the packages you've "
+"selected. You need more space on the following filesystems:\n"
+"\n"
+msgstr ""
+"Det ser ikke ut til at du har nok diskplass til å installere pakkene du har "
+"valgt. Du trenger mer plass på følgende filsystemer:\n"
 
-#~ msgid "Install anyway"
-#~ msgstr "Installér likevel"
+msgid "Space Needed"
+msgstr "Nødvendig plass"
 
-#~ msgid "Fatal error reopening RPM database"
-#~ msgstr "Fatal feil under gjenåpning av RPM-databasen"
+#, fuzzy
+msgid "Install anyway"
+msgstr "Type installasjon"
 
-#~ msgid "Examining packages to install..."
-#~ msgstr "Undersøker pakker som skal installeres..."
+msgid "Fatal error reopening RPM database"
+msgstr "Fatal feil under gjenåpning av RPM-databasen"
 
-#~ msgid "Examining files to install..."
-#~ msgstr "Undersøker filer som skal installeres..."
+msgid "Examining packages to install..."
+msgstr "Undersøker pakker som skal installeres..."
 
-#~ msgid "Finding overlapping files..."
-#~ msgstr "Finner overlappende filer..."
+msgid "Examining files to install..."
+msgstr "Undersøker filer som skal installeres..."
 
-#~ msgid "Processing"
-#~ msgstr "Arbeider"
+msgid "Finding overlapping files..."
+msgstr "Finner overlappende filer..."
 
-#~ msgid "Removing old files..."
-#~ msgstr "Fjerner gamle filer..."
+msgid "Processing"
+msgstr "Arbeider"
 
-#~ msgid "Error installing package: cannot open RPM file for %s: %s"
-#~ msgstr "Feil under installasjon av pakke: kan ikke åpne RPM-fil for %s: %s"
+msgid "Removing old files..."
+msgstr "Fjerner gamle filer..."
 
-#~ msgid "Force supplemental disk"
-#~ msgstr "Tvungen bruk av tilleggsdisk"
+msgid "Error installing package: cannot open RPM file for %s: %s"
+msgstr "Feil under installasjon av pakke: kan ikke åpne RPM-fil for %s: %s"
 
-#~ msgid "Installation Method"
-#~ msgstr "Installasjonsmetode"
+msgid "Force supplemental disk"
+msgstr "Tvungen bruk av tilleggsdisk"
 
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Vær snill å skriv inn følgende informasjon:\n"
-#~ "\n"
-#~ "    o navnet eller IP-adressen til din NFS-tjener\n"
-#~ "    o katalogen på tjeneren som inneholder \n"
-#~ "      Red Har Linux for din arkitektur."
+#, fuzzy
+msgid "Installation Method"
+msgstr "Installasjonstype"
 
-#~ msgid "NFS server name:"
-#~ msgstr "Navn på NFS-tjener:"
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Vær snill å skriv inn følgende informasjon:\n"
+"\n"
+"    o navnet eller IP-adressen til din NFS-tjener\n"
+"    o katalogen på tjeneren som inneholder \n"
+"      Red Har Linux for din arkitektur."
 
-#~ msgid "Red Hat directory:"
-#~ msgstr "Red Hat katalog:"
+#, fuzzy
+msgid "NFS server name:"
+msgstr "NIS-tjener:"
 
-#~ msgid "Note"
-#~ msgstr "Merk"
+msgid "Red Hat directory:"
+msgstr "Red Hat katalog:"
 
-#~ msgid "Insert your Red Hat CD into your CD drive now"
-#~ msgstr "Sett inn din Red Hat CD i CD-spilleren nå"
+#, fuzzy
+msgid "Note"
+msgstr "Nei"
 
-#~ msgid "I could not mount a CD on device /dev/%s"
-#~ msgstr "Klarte ikke å montere en CD på enhet /dev/%s"
+msgid "Insert your Red Hat CD into your CD drive now"
+msgstr "Sett inn din Red Hat CD i CD-spilleren nå"
+
+msgid "I could not mount a CD on device /dev/%s"
+msgstr "Klarte ikke å montere en CD på enhet /dev/%s"
 
-#~ msgid "That CDROM device does not seem to contain a Red Hat CDROM."
-#~ msgstr "Den CD-ROM-enheten ser ikke ut til å inneholde en Red Hat CD-ROM."
+msgid "That CDROM device does not seem to contain a Red Hat CDROM."
+msgstr "Den CD-ROM-enheten ser ikke ut til å inneholde en Red Hat CD-ROM."
 
-#~ msgid "nfs command"
-#~ msgstr "nfs-kommando"
+msgid "nfs command"
+msgstr "nfs-kommando"
 
-#~ msgid "bad argument to kickstart nfs command %s: %s"
-#~ msgstr "ugyldig argument til nfs-kommando for kickstart %s: %s"
+msgid "bad argument to kickstart nfs command %s: %s"
+msgstr "ugyldig argument til nfs-kommando for kickstart %s: %s"
 
-#~ msgid "nfs command incomplete"
-#~ msgstr "ukomplett nfs-kommando"
+msgid "nfs command incomplete"
+msgstr "ukomplett nfs-kommando"
 
-#~ msgid "I could not mount that directory from the server"
-#~ msgstr "Klarte ikke å montere den katalogen fra tjeneren"
+msgid "I could not mount that directory from the server"
+msgstr "Klarte ikke å montere den katalogen fra tjeneren"
 
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr ""
-#~ "Den katalogen ser ikke ut til å inneholde et Red Hat installasjonstre."
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Den katalogen ser ikke ut til å inneholde et Red Hat installasjonstre."
 
-#~ msgid "Loading second stage ramdisk..."
-#~ msgstr "Laster ramdisk for andre nivå..."
+msgid "Loading second stage ramdisk..."
+msgstr "Laster ramdisk for andre nivå..."
 
-#~ msgid "PCMCIA Disk"
-#~ msgstr "PCMCIA-disk"
+msgid "PCMCIA Disk"
+msgstr "PCMCIA-disk"
 
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Klarte ikke å montere disketten. Vennligst sett inn Red Hats PCMCIA-diskett, "
-#~ "eller velg avbryt for å velge en annen installasjonsprosess."
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Klarte ikke å montere disketten. Vennligst sett inn Red Hats PCMCIA-diskett, "
+"eller velg avbryt for å velge en annen installasjonsprosess."
 
-#~ msgid "Loading PCMCIA Support"
-#~ msgstr "Laster PCMCIA-støtte"
+msgid "Loading PCMCIA Support"
+msgstr "Laster PCMCIA-støtte"
 
-#~ msgid "Supplemental Disk"
-#~ msgstr "Tilleggsdisk"
+msgid "Supplemental Disk"
+msgstr "Tilleggsdisk"
 
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Supplementary "
-#~ "Install disk, or choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Klarte ikke å montere disketten. Vennligst sett inn Red Hats tilleggsdiskett "
-#~ "(supplemental disk), eller velg avbryt for å velge en annen "
-#~ "installasjonsprosess."
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Supplementary "
+"Install disk, or choose Cancel to pick a different installation process."
+msgstr ""
+"Klarte ikke å montere disketten. Vennligst sett inn Red Hats tilleggsdiskett "
+"(supplemental disk), eller velg avbryt for å velge en annen "
+"installasjonsprosess."
+
+msgid "Loading Supplemental Disk..."
+msgstr "Laster tilleggsdiskett..."
 
-#~ msgid "Loading Supplemental Disk..."
-#~ msgstr "Laster tilleggsdiskett..."
+#, fuzzy
+msgid "Driver Disk"
+msgstr "Disksammendrag"
+
+msgid ""
+"This install method requires a driver disk. Please remove the supplemental "
+"disk currently in your drive and replace it with the Red Hat Modules disk."
+msgstr ""
+"Denne installasjonsmetoden er avhengig av en driverdisk. Venligst fjern "
+"supplementdisken som står i stasjonen og erstatt den med Red Hats moduldisk."
+
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Module disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Klarte ikke å montere disketten. Vennligst sett inn Red Hats moduldisk, "
+"eller velg avbryt for å velge en annen installasjonsprosess."
+
+msgid "Loading Driver Disk..."
+msgstr "Laster driverdisk..."
+
+msgid ""
+"This install method requires two additional disks. Please remove the boot "
+"disk currently in your drive and replace it with the Red Hat Supplementary "
+"Install disk."
+msgstr ""
+"Denne installasjonsmetoden er avhengig av to tilleggsdisker. Vennligst fjern "
+"oppstartsdisken som står i stasjonen og erstatt den med Red Hats "
+"tilleggsdisk."
+
+msgid "hd command"
+msgstr "hd-kommando"
+
+msgid "bad argument to kickstart hd command %s: %s"
+msgstr "ugyldig argument til hd-kommando for kickstart %s: %s"
+
+msgid "hd command incomplete"
+msgstr "ukomplett hd-kommando"
+
+msgid "HD device %s not found"
+msgstr "HD-enhet %s ikke funnet"
+
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories?"
+msgstr ""
+"Hvilken katalog på hvilken partisjon inneholder katalogene RedHat/RPMS og "
+"RedHat/base?"
+
+msgid "Directory holding Red Hat:"
+msgstr "Katalog som inneholder Red Hat:"
+
+#, fuzzy
+msgid "Select Partition"
+msgstr "Slett partisjon"
+
+msgid "Failed to create /tmp/rhimage symlink: %s"
+msgstr "Klarte ikke å opprette symlinken /tmp/rhimage: %s"
+
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "Enheten %s ser ikke ut til å inneholde et Red Hat installasjonstre."
+
+msgid "Error reading second stage ramdisk. "
+msgstr "Feil under lesing av ramdisk for nivå to. "
+
+msgid "url command"
+msgstr "url-kommando"
+
+msgid "bad argument to kickstart url command %s: %s"
+msgstr "ugyldig argument til url-kommando for kickstart %s: %s"
+
+msgid "url command incomplete"
+msgstr "ukomplett url-kommando"
+
+msgid "Unable to retrieve the second stage ramdisk: %s"
+msgstr "Kunne ikke finne ramdisk for nivå to: %s"
+
+#, fuzzy
+msgid "Mount points must begin with a leading /."
+msgstr ""
+"Monteringspunktet %s er ugyldig.\n"
+"\n"
+"Monteringspunkter må begynne med \"/\"."
+
+#, fuzzy
+msgid "Mount points may not end with a /."
+msgstr ""
+"Monteringspunktet %s er ugyldig.\n"
+"\n"
+"Monteringspunkter kan ikke slutte med \"/\"."
+
+#, fuzzy
+msgid "Mount points may only printable characters."
+msgstr ""
+"Monteringspunktet %s er ugyldig.\n"
+"\n"
+"Monteringpunkt kan bare inneholde skrivbare tegn."
+
+#, fuzzy
+msgid "System partitions must be on Linux Native partitions."
+msgstr ""
+"Monteringspunktet %s er ugyldig.\n"
+"\n"
+"Systempartisjoner må ligge på Linux Native-partisjoner."
+
+#, fuzzy
+msgid "/usr must be on a Linux Native partition or an NFS volume."
+msgstr ""
+"Monteringspunktet %s er ugyldig.\n"
+"\n"
+"/usr må ligge på en Linux Native-partisjon eller et NFS-volum."
+
+#, fuzzy
+msgid "Edit Network Mount Point"
+msgstr "Ingen monteringspunkt"
+
+msgid "Making ext2 filesystem on /dev/%s..."
+msgstr "Oppretter ext2 filsystem på /dev/%s..."
+
+#, fuzzy
+msgid "Running"
+msgstr "Gjenstår"
+
+msgid "nfs mount failed: %s"
+msgstr "nfs-montering feilet: %s"
+
+msgid "mount failed: %s"
+msgstr "montering feilet: %s"
+
+#, fuzzy
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized. You can specify \"zerombr yes\" in the kickstart file "
+"to have this done automatically"
+msgstr ""
+"Partisjonstabellen på enhet %s er korrupt. For å opprette nye partisjoner må "
+"denne initialiseres. Dette medfører tap av ALLE DATA på denne disken."
+
+#, fuzzy
+msgid "Zero Partition Table"
+msgstr "Nullstill partisjonstabellen"
+
+msgid ""
+"bad argument to kickstart zerombr command: %s.\n"
+"Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
+msgstr ""
+"ugyldig argument til zerombr kommando for kickstart: %s.\n"
+"Må være 'on', '1', eller 'yes' for å slå på, eller 'off', '0', eller 'no' "
+"for å slå av."
+
+#, fuzzy
+msgid "Clear Partition Command"
+msgstr "Velg partisjoner som skal formateres"
+
+msgid "bad argument to kickstart clearpart command %s: %s"
+msgstr "ugyldig argument til clearpart kommando for kickstart %s: %s"
+
+#, fuzzy
+msgid "Partition Command"
+msgstr "Partisjonér"
 
-#~ msgid "Driver Disk"
-#~ msgstr "Driverdisk"
+msgid "bad argument to kickstart part command %s: %s"
+msgstr "ugyldig argument til part kommando for kickstart %s: %s"
 
-#~ msgid ""
-#~ "This install method requires a driver disk. Please remove the supplemental "
-#~ "disk currently in your drive and replace it with the Red Hat Modules disk."
-#~ msgstr ""
-#~ "Denne installasjonsmetoden er avhengig av en driverdisk. Venligst fjern "
-#~ "supplementdisken som står i stasjonen og erstatt den med Red Hats moduldisk."
+msgid "Option Ignored"
+msgstr "Flagget ignorert"
 
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Module disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Klarte ikke å montere disketten. Vennligst sett inn Red Hats moduldisk, "
-#~ "eller velg avbryt for å velge en annen installasjonsprosess."
+msgid ""
+"The --maxsize option for the partition %s was ignored. Check that it is "
+"larger than the --size option."
+msgstr ""
+"Flagget --maxsize ble ignorert for partisjon %s. Sjekk om det er større enn "
+"--size flagget."
 
-#~ msgid "Loading Driver Disk..."
-#~ msgstr "Laster driverdisk..."
+#, fuzzy
+msgid "The mount point %s is already in use."
+msgstr ""
+"Monteringspunktet som ble forespurt er allerede i bruk. Vennligst velg et "
+"gyldig monteringspunkt."
 
-#~ msgid ""
-#~ "This install method requires two additional disks. Please remove the boot "
-#~ "disk currently in your drive and replace it with the Red Hat Supplementary "
-#~ "Install disk."
-#~ msgstr ""
-#~ "Denne installasjonsmetoden er avhengig av to tilleggsdisker. Vennligst fjern "
-#~ "oppstartsdisken som står i stasjonen og erstatt den med Red Hats "
-#~ "tilleggsdisk."
-
-#~ msgid "hd command"
-#~ msgstr "hd-kommando"
-
-#~ msgid "bad argument to kickstart hd command %s: %s"
-#~ msgstr "ugyldig argument til hd-kommando for kickstart %s: %s"
-
-#~ msgid "hd command incomplete"
-#~ msgstr "ukomplett hd-kommando"
-
-#~ msgid "HD device %s not found"
-#~ msgstr "HD-enhet %s ikke funnet"
-
-#~ msgid ""
-#~ "What partition and directory on that partition hold the RedHat/RPMS and "
-#~ "RedHat/base directories?"
-#~ msgstr ""
-#~ "Hvilken katalog på hvilken partisjon inneholder katalogene RedHat/RPMS og "
-#~ "RedHat/base?"
-
-#~ msgid "Directory holding Red Hat:"
-#~ msgstr "Katalog som inneholder Red Hat:"
-
-#~ msgid "Select Partition"
-#~ msgstr "Velg partisjon"
-
-#~ msgid "Failed to create /tmp/rhimage symlink: %s"
-#~ msgstr "Klarte ikke å opprette symlinken /tmp/rhimage: %s"
-
-#~ msgid "Device %s does not appear to contain a Red Hat installation tree."
-#~ msgstr "Enheten %s ser ikke ut til å inneholde et Red Hat installasjonstre."
-
-#~ msgid "Error reading second stage ramdisk. "
-#~ msgstr "Feil under lesing av ramdisk for nivå to. "
-
-#~ msgid "url command"
-#~ msgstr "url-kommando"
-
-#~ msgid "bad argument to kickstart url command %s: %s"
-#~ msgstr "ugyldig argument til url-kommando for kickstart %s: %s"
-
-#~ msgid "url command incomplete"
-#~ msgstr "ukomplett url-kommando"
-
-#~ msgid "Unable to retrieve the second stage ramdisk: %s"
-#~ msgstr "Kunne ikke finne ramdisk for nivå to: %s"
-
-#~ msgid "Mount points must begin with a leading /."
-#~ msgstr "Monteringspunker må begynne med en innledende \"/\"."
-
-#~ msgid "Mount points may not end with a /."
-#~ msgstr "Monteringspunkter kan ikke slutte med \"/\"."
-
-#~ msgid "Mount points may only printable characters."
-#~ msgstr "Monteringspunkter kan bare inneholde skrivbare tegn."
-
-#~ msgid "System partitions must be on Linux Native partitions."
-#~ msgstr "Systempartisjoner må være på Linux Native-partisjoner."
-
-#~ msgid "/usr must be on a Linux Native partition or an NFS volume."
-#~ msgstr "/usr må være på en Linux Native-partisjon eller et NFS-volum."
-
-#~ msgid "Edit Network Mount Point"
-#~ msgstr "Rediger monteringspunkt på nettverk"
-
-#~ msgid "Making ext2 filesystem on /dev/%s..."
-#~ msgstr "Oppretter ext2 filsystem på /dev/%s..."
-
-#~ msgid "Running"
-#~ msgstr "Kjører"
-
-#~ msgid "nfs mount failed: %s"
-#~ msgstr "nfs-montering feilet: %s"
-
-#~ msgid "mount failed: %s"
-#~ msgstr "montering feilet: %s"
-
-#~ msgid ""
-#~ "The partition table on device %s is corrupted.  To create new partitions it "
-#~ "must be initialized. You can specify \"zerombr yes\" in the kickstart file "
-#~ "to have this done automatically"
-#~ msgstr ""
-#~ "Partisjonstabellen på enhet %s er korrupt. For å opprette nye partisjoner må "
-#~ "denne initialiseres. Du kan spesifisere \"zerombr yes\" i kickstart filen "
-#~ "for å gjøre dette automatisk"
-
-#~ msgid "Zero Partition Table"
-#~ msgstr "Zero Partition Table"
-
-#~ msgid ""
-#~ "bad argument to kickstart zerombr command: %s.\n"
-#~ "Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
-#~ msgstr ""
-#~ "ugyldig argument til zerombr kommando for kickstart: %s.\n"
-#~ "Må være 'on', '1', eller 'yes' for å slå på, eller 'off', '0', eller 'no' "
-#~ "for å slå av."
-
-#~ msgid "Clear Partition Command"
-#~ msgstr "Slett partisjon-kommando"
-
-#~ msgid "bad argument to kickstart clearpart command %s: %s"
-#~ msgstr "ugyldig argument til clearpart kommando for kickstart %s: %s"
-
-#~ msgid "Partition Command"
-#~ msgstr "Partisjoneringskommando"
-
-#~ msgid "bad argument to kickstart part command %s: %s"
-#~ msgstr "ugyldig argument til part kommando for kickstart %s: %s"
-
-#~ msgid "Option Ignored"
-#~ msgstr "Flagget ignorert"
-
-#~ msgid ""
-#~ "The --maxsize option for the partition %s was ignored. Check that it is "
-#~ "larger than the --size option."
-#~ msgstr ""
-#~ "Flagget --maxsize ble ignorert for partisjon %s. Sjekk om det er større enn "
-#~ "--size flagget."
-
-#~ msgid "The mount point %s is already in use."
-#~ msgstr "Monteringspunktet %s er allerede i bruk."
-
-#~ msgid "Failed Allocation"
-#~ msgstr "Feilet allokering"
-
-#~ msgid "The partition %s could not be allocated."
-#~ msgstr "Partisjonen %s kunne ikke allokeres."
-
-#~ msgid "Disk Setup"
-#~ msgstr "Oppsett av disk"
-
-#~ msgid ""
-#~ "There are partitions that can be resized nondestructively to make room for "
-#~ "your Red Hat Linux installation. Do you want to resize these partitions now?"
-#~ msgstr ""
-#~ "Det finnes partisjoner som du kan endre størrelsen på uten å ødelegge data "
-#~ "for å gjøre plass til din installasjon av Red Hat Linux. Vil du endre "
-#~ "størrelsen på disse partisjonene nå?"
-
-#~ msgid "Success"
-#~ msgstr "Suksess"
-
-#~ msgid "Bad server response"
-#~ msgstr "Ugyldig svar fra tjener"
-
-#~ msgid "Server IO error"
-#~ msgstr "IO-feil på tjener"
-
-#~ msgid "Server timeout"
-#~ msgstr "Tjeners tidsavbrudd"
-
-#~ msgid "Unable to lookup server host address"
-#~ msgstr "Kan ikke slå opp tjeners vertsadresse"
-
-#~ msgid "Unable to lookup server host name"
-#~ msgstr "Kan ikke slå opp tjeners vertsnavn"
-
-#~ msgid "Failed to connect to server"
-#~ msgstr "Klarte ikke å koble til tjener"
-
-#~ msgid "Failed to establish data connection to server"
-#~ msgstr "Klarte ikke å etablere dataforbindelse til tjeneren"
-
-#~ msgid "IO error to local file"
-#~ msgstr "IO-feil til lokal fil"
-
-#~ msgid "Error setting remote server to passive mode"
-#~ msgstr "Feil ved endring til passiv modus på tjener"
-
-#~ msgid "File not found on server"
-#~ msgstr "Fil ikke funnet på tjener"
-
-#~ msgid "Abort in progress"
-#~ msgstr "Avbrudd pågår"
-
-#~ msgid "Unknown or unexpected error"
-#~ msgstr "Ukjent eller uventet feil"
-
-#~ msgid "Whole disk"
-#~ msgstr "Hele disken"
-
-#~ msgid "Linux swap"
-#~ msgstr "Linux swap"
-
-#~ msgid "Linux native"
-#~ msgstr "Linux native"
-
-#~ msgid "DOS 12-bit FAT"
-#~ msgstr "DOS 12-bit FAT"
-
-#~ msgid "DOS 16-bit <32M"
-#~ msgstr "DOS 16-bit <32M"
-
-#~ msgid "DOS 16-bit >=32"
-#~ msgstr "DOS 16-bit >=32M"
-
-#~ msgid "OS/2 HPFS"
-#~ msgstr "OS/2 HPFS"
-
-#~ msgid "Win95 FAT32"
-#~ msgstr "Win95 FAT32"
-
-#~ msgid "Hard Drives"
-#~ msgstr "Harddisker"
-
-#~ msgid "Scanning hard drives..."
-#~ msgstr "Søker etter harddisker..."
-
-#~ msgid ""
-#~ "You don't have any hard drives available! You probably forgot to configure a "
-#~ "SCSI controller."
-#~ msgstr ""
-#~ "Du har ingen harddisker tilgjengelig! Du glemte sannsynligvis å konfigurere "
-#~ "en SCSI-kontroller."
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux. We suggest placing that partition on one of the first "
-#~ "two hard drives in your system so you can boot into Linux with LILO."
-#~ msgstr ""
-#~ "For å installere Red Hat Linux må du ha minst én partisjon på 150 MB "
-#~ "dedikert til Linux. Vi foreslår at du plasserer den partisjonen på en av de "
-#~ "første to harddiskene i systemet ditt, slik at du kan bruke LILO til å "
-#~ "starte opp Linux."
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux."
-#~ msgstr ""
-#~ "For å installere Red Hat Linux må du ha minst én partisjon på 150 MB "
-#~ "dedikert til Linux."
-
-#~ msgid "Partition Disks"
-#~ msgstr "Partisjoner disker"
-
-#~ msgid "Done"
-#~ msgstr "Ferdig"
-
-#~ msgid "Reboot Needed"
-#~ msgstr "Omstart nødvendig"
-
-#~ msgid ""
-#~ "The kernel is unable to read your new partitioning information, probably "
-#~ "because you modified extended partitions. While this is not critical, you "
-#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
-#~ "and press Return to reboot your system.\n"
-#~ "\n"
-#~ "If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
-#~ "empty SCSI drive can also cause this problem."
-#~ msgstr ""
-#~ "Kjernen er ute av stand til å lese din nye partisjonsinformasjon, "
-#~ "sannsynligvis fordi du modifiserte utvidede partisjoner. Selv om dette ikke "
-#~ "er kritisk, må du starte opp på nytt før du går videre. Sett inn "
-#~ "oppstartsdisketten for Red Hat nå, og trykk Linjeskift for å starte systemet "
-#~ "på nytt.\n"
-#~ "\n"
-#~ "Hvis du har en ZIP- eller JAZ-disk, forsikre deg om at det er en disk i "
-#~ "stasjonen siden en tom SCSI-stasjon også kan forårsake dette problemet."
-
-#~ msgid "lilo command"
-#~ msgstr "lilo-kommando"
-
-#~ msgid "bad argument to kickstart lilo command %s: %s"
-#~ msgstr "ugyldig argument til lilo-kommando for kickstart %s: %s"
-
-#~ msgid "PCMCIA Support"
-#~ msgstr "PCMCIA-støtte"
-
-#~ msgid ""
-#~ "Do you need to use PCMCIA devices during the install? Answer no to this "
-#~ "question if only need PCMCIA support after the install. You do not need "
-#~ "install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
-#~ "with a built-in CDROM drive."
-#~ msgstr ""
-#~ "Er du avhengig av å bruke PCMCIA-enheter under installasjonen? Svar nei til "
-#~ "dette spørsmålet hvis du bare trenger PCMCIA-støtte etter installasjonen Du "
-#~ "trenger ikke PCMCIA-støtte under installasjonen hvis du installerer Red Hat "
-#~ "Linux på en bærbar med intern CDROM-spiller."
-
-#~ msgid "PCMCIA Support Disk"
-#~ msgstr "Diskett for PCMCIA-støtte"
-
-#~ msgid ""
-#~ "PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
-#~ "currently in your drive and replace it with the Red Hat PCMCIA support disk."
-#~ msgstr ""
-#~ "PCMCIA støtte er avhengig av en disk for PCMCIA-støtte. Vennligst fjern "
-#~ "oppstartsdisketten som står i stasjonen og erstatt den med Red Hats PCMCIA- "
-#~ "støttedisk."
-
-#~ msgid "Starting PCMCIA services..."
-#~ msgstr "Starter PCMCIA-tjenester..."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Type <exit> to return to the install program.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Skriv <exit> for å gå tilbake til installasjonsprogrammet.\n"
-#~ "\n"
-
-#~ msgid "Kickstart Error"
-#~ msgstr "Kickstart-feil"
-
-#~ msgid "No kickstart configuration file server can be found."
-#~ msgstr "Ingen filtjener for kickstart-konfigurasjonsfiler ble funnet. "
-
-#~ msgid "I could not mount the kickstart path %s.\n"
-#~ msgstr "Kunne ikke montere kickstart-stien %s.\n"
-
-#~ msgid "I could not mount the boot floppy."
-#~ msgstr "Jeg kunne ikke montere oppstartsdisketten."
-
-#~ msgid "Cannot find ks.cfg on boot floppy."
-#~ msgstr "Kan ikke finne ks.cfg på oppstartsdisketten."
-
-#~ msgid "Error opening files for kickstart copy: %s\n"
-#~ msgstr "Feil under åpning av filer for kickstart-kopiering: %s\n"
-
-#~ msgid "Error copying kickstart file from floppy."
-#~ msgstr "Feil under kopiering av kickstart-filen fra diskett."
-
-#~ msgid "Select installation path"
-#~ msgstr "Velg installasjonssti"
-
-#~ msgid "Select installation class"
-#~ msgstr "Velg installasjonsklasse"
-
-#~ msgid "Setup SCSI"
-#~ msgstr "SCSI-oppsett"
-
-#~ msgid "Setup filesystems"
-#~ msgstr "Oppsett av filsystemer"
-
-#~ msgid "Setup swap space"
-#~ msgstr "Oppsett av swap-område"
-
-#~ msgid "Find installation files"
-#~ msgstr "Finn installasjonsfiler"
-
-#~ msgid "Choose packages to install"
-#~ msgstr "Velg pakker som skal installeres"
-
-#~ msgid "Configure networking"
-#~ msgstr "Konfigurér nettverk"
-
-#~ msgid "Configure timezone"
-#~ msgstr "Konfigurér tidssone"
-
-#~ msgid "Configure services"
-#~ msgstr "Konfigurér tjenester"
-
-#~ msgid "Configure printer"
-#~ msgstr "Konfigurér skriver"
-
-#~ msgid "Exit install"
-#~ msgstr "Avslutt installasjon"
-
-#~ msgid "Find current installation"
-#~ msgstr "Finn eksisterende installasjon"
-
-#~ msgid "Disk Druid"
-#~ msgstr "Disk Druid"
-
-#~ msgid "fdisk"
-#~ msgstr "fdisk"
-
-#~ msgid ""
-#~ "Disk Druid is a tool for partitioning and setting up mount points. It is "
-#~ "designed to be easier to use than Linux's traditional disk partitioning "
-#~ "sofware, fdisk, as well as more powerful. However, there are some cases "
-#~ "where fdisk may be preferred.\n"
-#~ "\n"
-#~ "Which tool would you like to use?"
-#~ msgstr ""
-#~ "Disk Druid er et verktøy for partisjonering og oppsett av monteringspunkter. "
-#~ "Det er laget for å være lettere å bruke enn Linux's tradisjonelle disk- "
-#~ "partisjoneringsprogramvare, fdisk, i tillegg til å være kraftigere. Likevel "
-#~ "finnes det tilfeller hvor fdisk kan være å foretrekke.\n"
-#~ "\n"
-#~ "Hvilket verktøy vil du bruke?"
-
-#~ msgid "Scanning packages..."
-#~ msgstr "Søker etter pakker..."
-
-#~ msgid "Install log"
-#~ msgstr "Installasjonslogg"
-
-#~ msgid "Upgrade log"
-#~ msgstr "Oppgraderingslogg"
-
-#~ msgid ""
-#~ "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
-#~ "is finished. After rebooting, please read it to ensure configuration files "
-#~ "are properly updated."
-#~ msgstr ""
-#~ "En komplett logg av oppgraderingen vil befinne seg i /tmp/upgrade.log når "
-#~ "oppgraderingen er ferdig. Etter omstart, vær vennlig å lese denne for å "
-#~ "forsikre deg om at konfigurasjonsfilene er oppdatert på riktig måte."
-
-#~ msgid "Rebuilding RPM database..."
-#~ msgstr "Bygger opp RPM-databasen på nytt..."
-
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr "Gjenoppbygging av RPM-databasen feilet. Er du tom for diskplass?"
-
-#~ msgid "rootpw command"
-#~ msgstr "rootpw-kommando"
-
-#~ msgid "bad argument to kickstart rootpw command %s: %s"
-#~ msgstr "ugyldig argument til rootpw kommando for kickstart %s: %s"
-
-#~ msgid "Missing password"
-#~ msgstr "Manglende passord"
-
-#~ msgid "Unexpected arguments"
-#~ msgstr "Uventede argumenter"
-
-#~ msgid "Installation Path"
-#~ msgstr "Installasjonssti"
-
-#~ msgid ""
-#~ "Would you like to install a new system or upgrade a system which already "
-#~ "contains Red Hat Linux 2.0 or later?"
-#~ msgstr ""
-#~ "Ønsker du å installere et nytt system eller oppgradere et system som "
-#~ "allerede inneholder Red Hat Linux 2.0 eller senere?"
-
-#~ msgid ""
-#~ "What type of machine are you installing? For maximum flexibility, choose "
-#~ "\"Custom\"."
-#~ msgstr ""
-#~ "Hvilken maskintype installerer du? For maksimal fleksibilitet, velger du "
-#~ "\"Egendefinert\"."
-
-#~ msgid "Converting RPM database..."
-#~ msgstr "Konverterer RPM-databasen..."
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Finner pakker som skal oppgraderes..."
-
-#~ msgid "Previous"
-#~ msgstr "Forrige"
-
-#~ msgid "Menu"
-#~ msgstr "Meny"
-
-#~ msgid ""
-#~ "An error occured during step \"%s\" of the install.\n"
-#~ "\n"
-#~ "You may retry that step, return to the previous step in the install, or see "
-#~ "a menu of installation steps which will allow you to move around in the "
-#~ "install more freely. It is not recommended to use the menu unless you are "
-#~ "already familiar with Red Hat Linux. What would you like to do?"
-#~ msgstr ""
-#~ "En feil oppstod under steg \"%s\" av installasjonen.\n"
-#~ "\n"
-#~ "Du kan forsøke dette steget igjen, gå tilbake til forrige steg av "
-#~ "installasjonen eller se en meny over installasjonssteg som vil la deg bevege "
-#~ "deg friere rundt i installasjonen. Det er ikke å anbefale å bruke menyen "
-#~ "uten å være kjent med Red Hat Linux fra før. Hva ønsker du å gjøre?"
-
-#~ msgid "  Continue with install"
-#~ msgstr "  Forsett installasjonen"
-
-#~ msgid ""
-#~ "What step would you like to run? Steps with a * next to them have already "
-#~ "been completed."
-#~ msgstr ""
-#~ "Hvilket steg ønsker du å kjøre? Steg med en * ved siden av seg er allerede "
-#~ "ferdig."
-
-#~ msgid "Cancelled"
-#~ msgstr "Avbrutt"
-
-#~ msgid ""
-#~ "I can't go to the previous step from here. You will have to try again."
-#~ msgstr "Kan ikke gå til forrige steg herfra. Du må prøve igjen."
-
-#~ msgid "Insert a blank floppy in the first drive /dev/fd0."
-#~ msgstr "Sett inn en tom diskett i den første stasjonen, /dev/fd0."
-
-#~ msgid "file %s missing from source directory"
-#~ msgstr "filen %s mangler i kildekatalogen"
-
-#~ msgid "failed to create file %s"
-#~ msgstr "klarte ikke å opprette filen %s"
-
-#~ msgid "error writing to file %s: %s"
-#~ msgstr "feil under skriving til fil %s: %s"
-
-#~ msgid "error reading from file %s: %s"
-#~ msgstr "feil under lesing fra fil %s: %s"
-
-#~ msgid "Kernel"
-#~ msgstr "Kjerne"
-
-#~ msgid ""
-#~ "Please insert your boot disk in your first disk drive if it's not already "
-#~ "present."
-#~ msgstr ""
-#~ "Vennligst sett inn oppstartsdisketten i den første stasjonen hvis den ikke "
-#~ "står i allerede."
-
-#~ msgid "Copying kernel from floppy..."
-#~ msgstr "Kopierer kjernen fra diskett..."
-
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Feil under åpning: kickstart-fil %s: %s"
-
-#~ msgid "Error reading contents of kickstart file %s: %s"
-#~ msgstr "Feil under lesing av innholdet i kickstart-fil %s: %s"
-
-#~ msgid "Error on line %d of kickstart file %s."
-#~ msgstr "Feil på linje %d i kickstart-fil %s."
-
-#~ msgid "Unknown command %s on line %d of kickstart file %s."
-#~ msgstr "Ukjent kommando %s på linje %d i kickstart-fil %s."
-
-#~ msgid "Failed to create /mnt/tmp/ks.script: %s"
-#~ msgstr "Klarte ikke å opprette /mnt/tmp/ks.script: %s"
-
-#~ msgid "Failed to write ks post script: %s"
-#~ msgstr "Klarte ikke å skrive ks post-skript: %s"
-
-#~ msgid "Choose a Language"
-#~ msgstr "Velg et språk"
-
-#~ msgid "Failed to create symlink for package source."
-#~ msgstr "Klarte ikke å opprette symbolsk lenke for pakkens kildekode."
-
-#~ msgid "ftp"
-#~ msgstr "ftp"
-
-#~ msgid "I'm having trouble getting %s. Would you like to retry?"
-#~ msgstr "Jeg har problemer med å hente %s. Ønsker du å forsøke igjen?"
-
-#~ msgid "SILO"
-#~ msgstr "SILO"
-
-#~ msgid "LILO"
-#~ msgstr "LILO"
-
-#~ msgid "Creating initial ramdisk..."
-#~ msgstr "Oppretter initiell ramdisk..."
-
-#~ msgid "Device:"
-#~ msgstr "Enhet:"
-
-#~ msgid "Boot label:"
-#~ msgstr "Oppstartsetikett:"
-
-#~ msgid "Installing boot loader..."
-#~ msgstr "Installerer oppstartslaster..."
-
-#~ msgid "Bootable Partitions"
-#~ msgstr "Oppstartbare partisjoner"
-
-#~ msgid "Creating bootdisk..."
-#~ msgstr "Lager oppstartsdisk..."
-
-#~ msgid "Formatting swap space on device %s..."
-#~ msgstr "Formaterer swapområde på enhet %s..."
-
-#~ msgid "No Swap Space"
-#~ msgstr "Ikke noe swap-område"
-
-#~ msgid ""
-#~ "You don't have any swap space defined. Would you like to continue, or "
-#~ "repartition your disk?"
-#~ msgstr ""
-#~ "Du har ikke definert swap-område. Ønsker du å fortsette, eller vil du "
-#~ "repartisjonere disken din?"
-
-#~ msgid ""
-#~ "What partitions would you like to use for swap space? This will destroy any "
-#~ "information already on the partition."
-#~ msgstr ""
-#~ "Hvilke partisjoner ønsker du å bruke som swap-område? Dette vil ødelegge all "
-#~ "informasjon som ligger på denne partisjonen."
-
-#~ msgid "Active Swap Space"
-#~ msgstr "Aktiver swap-område"
-
-#~ msgid "Could not mount automatically selected device."
-#~ msgstr "Kunne ikke montere automatisk valgt enhet."
-
-#~ msgid "Cannot read /mnt/etc/fstab: %s"
-#~ msgstr "Kan ikke lese /mnt/etc/fstab: %s"
-
-#~ msgid "Bad line in /mnt/etc/fstab -- aborting"
-#~ msgstr "Ugyldig linje i /mnt/etc/fstab -- avbryter"
-
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Undersøker vertsnavn og domene..."
-
-#~ msgid "Ethernet Probe"
-#~ msgstr "Ethernet-søk"
-
-#~ msgid ""
-#~ "The Ethernet probe failed to find a card on your system. Press <Enter> to "
-#~ "manually configure one."
-#~ msgstr ""
-#~ "Ethernet-søket fant ikke et kort på systemet ditt. Trykk <linjeskift> for å "
-#~ "konfigurere ett manuelt."
-
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-#~ msgstr ""
-#~ "Vær snill å skrive inn IP-konfigurasjonen for denne maskinen. Hver oppføring "
-#~ "skal skrives inn som en IP-adresse i punktdelt desimal notasjon (f.eks, "
-#~ "1.2.3.4)."
-
-#~ msgid "Configure TCP/IP"
-#~ msgstr "Konfigurere TCP/IP"
-
-#~ msgid "Static IP address"
-#~ msgstr "Statisk IP-adresse"
-
-#~ msgid "BOOTP"
-#~ msgstr "BOOTP"
-
-#~ msgid "DHCP"
-#~ msgstr "DHCP"
-
-#~ msgid "kickstart"
-#~ msgstr "kickstart"
-
-#~ msgid "bad ip number in network command: %s"
-#~ msgstr "ugyldig ip-adresse i nettverks-kommando: %s"
-
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "ugyldig argument til nettverks-kommando for kickstart %s: %s"
-
-#~ msgid "kickstart network command is missing ip address"
-#~ msgstr "kickstart nettverks-kommando mangler ip-adresse"
-
-#~ msgid "Boot Protocol"
-#~ msgstr "Oppstartsprotokoll"
-
-#~ msgid ""
-#~ "How should the IP information be set? If your system administrator gave you "
-#~ "an IP address, choose static IP."
-#~ msgstr ""
-#~ "Hvordan skal IP-informasjonen settes? Hvis din systemadministrator gav deg "
-#~ "en IP-adresse, velg statisk IP."
-
-#~ msgid "Sending DHCP request..."
-#~ msgstr "Sender DHCP-forespørsel..."
-
-#~ msgid "Sending BOOTP request..."
-#~ msgstr "Sender BOOTP-forespørsel..."
-
-#~ msgid "Cannot create %s: %s\n"
-#~ msgstr "Kan ikke opprette %s: %s\n"
-
-#~ msgid "cannot create network device config file: %s"
-#~ msgstr "kan ikke opprette netverks-enhetens konfigurasjonsfil: %s"
-
-#~ msgid "cannot open file: %s"
-#~ msgstr "kan ikke åpne fil: %s"
-
-#~ msgid ""
-#~ "I cannot automatically determine the hostname. Press <Enter> to enter "
-#~ "hostname information."
-#~ msgstr ""
-#~ "Jeg kan ikke bestemme vertsnavnet automatisk. Trykk <linjeskift> for å "
-#~ "skrive inn informasjon om vertsnavn."
-
-#~ msgid ""
-#~ "Please enter your domain name, host name, and the IP addresses of any "
-#~ "additional nameservers. Your host name should be a fully-qualified host "
-#~ "name, such as mybox.mylab.myco.com. If you don't have any additional "
-#~ "nameservers, leave the nameserver entries blank."
-#~ msgstr ""
-#~ "Vennligst skriv inn ditt domenenavn, vertsnavn, og IP-adressen til "
-#~ "eventuelle ekstra navnetjenere. Vertsnavnet skal være et fullkvalifisert "
-#~ "vertsnavn (FQHN), slik som minmaskin.minlabb.mittfirma.no. Hvis du ikke har "
-#~ "noen ekstra navnetjenere kan du la navnetjenerfeltene være blanke."
-
-#~ msgid "Host name:"
-#~ msgstr "Vertsnavn:"
-
-#~ msgid "Secondary nameserver (IP):"
-#~ msgstr "Sekundær navnetjener (IP):"
-
-#~ msgid "Tertiary nameserver (IP):"
-#~ msgstr "Tertiær navnetjener (IP):"
-
-#~ msgid "Configure Network"
-#~ msgstr "Konfigurér nettverk"
-
-#~ msgid "Keep the current IP configuration"
-#~ msgstr "Behold nåværende IP-konfigurasjon"
-
-#~ msgid "Reconfigure network now"
-#~ msgstr "Rekonfigurér nettverket nå"
-
-#~ msgid "Don't set up networking"
-#~ msgstr "Ikke sett opp nettverk"
-
-#~ msgid "LAN networking has already been configured. Do you want to:"
-#~ msgstr "LAN nettverk er allerede konfigurert. Vil du:"
-
-#~ msgid ""
-#~ "Do you want to configure LAN (not dialup) networking for your installed "
-#~ "system?"
-#~ msgstr ""
-#~ "Vil du konfigurere LAN (ikke oppringt) nettverk for ditt installerte system?"
-
-#~ msgid "Cannot open components file: %s"
-#~ msgstr "Kan ikke åpne komponentfil: %s"
-
-#~ msgid "Cannot read components file: %s"
-#~ msgstr "Kan ikke lese komponentfil: %s"
-
-#~ msgid "Comps file is not version 0.1 as expected"
-#~ msgstr "Comps-fil er ikke versjon 0.1 som forventet"
-
-#~ msgid "bad comps file at line %d"
-#~ msgstr "ugyldig comps-fil ved linje %d"
-
-#~ msgid "comps Error"
-#~ msgstr "comps feil"
-
-#~ msgid "missing component name at line %d"
-#~ msgstr "manglende komponentnavn ved linje %d"
-
-#~ msgid "Ignore all"
-#~ msgstr "Ignorér alle"
-
-#~ msgid "package %s at line %d does not exist"
-#~ msgstr "pakke %s ved linje %d eksisterer ikke"
-
-#~ msgid "Component %s does not exist.\n"
-#~ msgstr "Komponent %s eksisterer ikke.\n"
-
-#~ msgid "Package %s does not exist.\n"
-#~ msgstr "Pakke %s eksisterer ikke.\n"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid ""
-#~ "Would you like to have the GNOME desktop installed? It provides an easy to "
-#~ "use interface, including a drag and drop capability and an integrated help "
-#~ "system."
-#~ msgstr ""
-#~ "Ønsker du å installere GNOME? Dette gir deg et brukervennlig grensesnitt, "
-#~ "inkludert dra-og-slipp funksjonalitet og et integrert hjelpsystem. "
-
-#~ msgid "no suggestion"
-#~ msgstr "ingen forslag"
-
-#~ msgid "Everything"
-#~ msgstr "Alt"
-
-#~ msgid "Choose components to install:"
-#~ msgstr "Velg komponenter som skal installeres:"
-
-#~ msgid "Components to Install"
-#~ msgstr "Komponenter som skal installeres"
-
-#~ msgid "error opening header file: %s"
-#~ msgstr "feil under åpning av header-fil: %s"
-
-#~ msgid "Installed system size:"
-#~ msgstr "Størrelse på installert system:"
-
-#~ msgid "Choose a group to examine"
-#~ msgstr "Velg gruppe som skal undersøkes"
-
-#~ msgid "Press F1 for a package description"
-#~ msgstr "Trykk F1 for en beskrivelse av pakken"
-
-#~ msgid "Select Group"
-#~ msgstr "Velg gruppe"
-
-#~ msgid "(none available)"
-#~ msgstr "(ingen tilgjengelig)"
-
-#~ msgid "Package:"
-#~ msgstr "Pakke    :"
-
-#~ msgid "Upgrade Packages"
-#~ msgstr "Oppgradér pakker"
-
-#~ msgid "Printer Information"
-#~ msgstr "Skriverinformasjon"
-
-#~ msgid "<F1> will give you information on a particular printer type"
-#~ msgstr "<F1> gir deg informasjon om en bestemt skrivertype"
-
-#~ msgid "What type of printer do you have?"
-#~ msgstr "Hvilken type skriver har du?"
-
-#~ msgid "Configure Printer"
-#~ msgstr "Konfigurér skriver"
-
-#~ msgid "<F1> will give you information on this printer driver."
-#~ msgstr "<F1> gir deg informasjon om denne skriverdriveren."
-
-#~ msgid ""
-#~ "You may now configure the paper size and resolution for this printer."
-#~ msgstr ""
-#~ "Du kan nå konfigurere papirstørrelsen og oppløsningen for denne skriveren."
-
-#~ msgid "Paper Size"
-#~ msgstr "Pairstørrelse"
-
-#~ msgid "Resolution"
-#~ msgstr "Oppløsning"
-
-#~ msgid "Fix stair-stepping of text?"
-#~ msgstr "Fiks trappetekst?"
-
-#~ msgid "You may now configure the color options for this printer."
-#~ msgstr "Du kan nå konfigurere fargevalgene for denne skriveren."
-
-#~ msgid "You may now configure the uniprint options for this printer."
-#~ msgstr "Du kan nå konfigurere uniprint-alternativene for denne skriveren."
-
-#~ msgid "Configure Color Depth"
-#~ msgstr "Konfigurér fargedybde"
-
-#~ msgid "Configure Uniprint Driver"
-#~ msgstr "Konfigurér Uniprint-driver"
-
-#~ msgid ""
-#~ "What device is your printer connected to (note that /dev/lp0 is equivalent "
-#~ "to LPT1:)?"
-#~ msgstr ""
-#~ "Hvilken enhet er skriveren tilkoblet (merk at /dev/lp0 er det samme som "
-#~ "LPT1:)?"
-
-#~ msgid ""
-#~ "Auto-detected ports:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Auto-gjenkjente porter:\n"
-#~ "\n"
-
-#~ msgid "Not "
-#~ msgstr "Ikke "
-
-#~ msgid "Detected\n"
-#~ msgstr "Funnet\n"
-
-#~ msgid "Printer Device:"
-#~ msgstr "Skriverenhet:"
-
-#~ msgid "Local Printer Device"
-#~ msgstr "Lokal skriverenhet"
-
-#~ msgid "Remote hostname:"
-#~ msgstr "Eksternt vertsnavn:"
-
-#~ msgid "Remote queue:"
-#~ msgstr "Ekstern kø:"
-
-#~ msgid "Remote lpd Printer Options"
-#~ msgstr "Ekstern lpd skriveralternativer"
-
-#~ msgid ""
-#~ "To use a remote lpd print queue, you need to supply the hostname of the "
-#~ "printer server and the queue name on that server which jobs should be placed "
-#~ "in."
-#~ msgstr ""
-#~ "For å bruke en ekstern lpd-skriverkø, må du gi vertsnavnet til "
-#~ "skriver-tjeneren og navnet på køen på denne tjeneren som jobbene skal "
-#~ "plasseres i."
-
-#~ msgid "Printer Server:"
-#~ msgstr "Skrivertjener:"
-
-#~ msgid "Print Queue Name:"
-#~ msgstr "Navn på utskriftskø:"
-
-#~ msgid "NetWare Printer Options"
-#~ msgstr "Skriveralternativer for Netware"
-
-#~ msgid ""
-#~ "To print to a NetWare printer, you need to provide the NetWare print server "
-#~ "name (this is not always the same as the machines TCP/IP hostname) as well "
-#~ "as the print queue name for the printer you wish to access and any "
-#~ "applicable user name and password."
-#~ msgstr ""
-#~ "For å skrive til en NetWare skriver må du oppgi navnet på NetWares "
-#~ "utskriftskø-tjener (dette er ikke alltid det samme som maskinens TCP/IP- "
-#~ "vertsnavn) i tillegg til navnet på utskriftskøen du vil aksessere og "
-#~ "eventuelt brukernavn og passord."
-
-#~ msgid "SMB server host:"
-#~ msgstr "SMB-tjeners vert:"
-
-#~ msgid "SMB server IP:"
-#~ msgstr "SMB-tjeners IP:"
-
-#~ msgid "Share name:"
-#~ msgstr "Delt navn:"
-
-#~ msgid "Workgroup:"
-#~ msgstr "Arbeidsgruppe:"
-
-#~ msgid "SMB/Windows 95/NT Printer Options"
-#~ msgstr "SMB/Windows 95/NT skriveralternativer"
-
-#~ msgid ""
-#~ "To print to a SMB printer, you need to provide the SMB host name (this is "
-#~ "not always the same as the machines TCP/IP hostname) and possibly the IP "
-#~ "address of the print server, as well as the share name for the printer you "
-#~ "wish to access and any applicable user name, password, and workgroup "
-#~ "information."
-#~ msgstr ""
-#~ "For å skrive til en SMB-skriver må du oppgi navnet på SMB-verten (dette er "
-#~ "ikke alltid det samme som maskinens TCP/IP vertsnavn) og kanskje IP-adressen "
-#~ "til utskriftstjeneren, i tillegg til navnet på den delte skriveren du ønsker "
-#~ "å aksessere og evt. brukernavn, passord og arbeidsgruppeinformasjon."
-
-#~ msgid "Spool directory:"
-#~ msgstr "Spool-katalog:"
-
-#~ msgid "Standard Printer Options"
-#~ msgstr "Standard skriveralternativer"
-
-#~ msgid ""
-#~ "Every print queue (which print jobs are directed to) needs a name (often lp) "
-#~ "and a spool directory associated with it. What name and directory should be "
-#~ "used for this queue?"
-#~ msgstr ""
-#~ "Hver utskriftskø (som utskriftsjobber sendes til) må ha et navn (ofte lp) og "
-#~ "en spool-katalog knyttet til seg. Hvilket navn og hilken katalog skal brukes "
-#~ "for denne køen?"
-
-#~ msgid "Would you like to configure a printer?"
-#~ msgstr "Ønsker du å konfigurere en skriver?"
-
-#~ msgid "Would you like to add another printer?"
-#~ msgstr "Ønsker du å legge til enda en skriver?"
-
-#~ msgid "SMB/Windows 95/NT"
-#~ msgstr "SMB/Windows 95/NT"
-
-#~ msgid "NetWare"
-#~ msgstr "Netware"
-
-#~ msgid "Select Printer Connection"
-#~ msgstr "Velg skriverforbindelse"
-
-#~ msgid "How is this printer connected?"
-#~ msgstr "Hvordan er du koblet til denne skriveren?"
-
-#~ msgid "Printer type:"
-#~ msgstr "Skrivertype:"
-
-#~ msgid "Queue:"
-#~ msgstr "Kø:"
-
-#~ msgid "Printer device:"
-#~ msgstr "Skriverenhet:"
-
-#~ msgid "Remote host:"
-#~ msgstr "Ekstern vert:"
-
-#~ msgid "Share:"
-#~ msgstr "Delt ressurs:"
-
-#~ msgid "Printer driver:"
-#~ msgstr "Skriverdriver:"
-
-#~ msgid "Paper size:"
-#~ msgstr "Papirstørrelse:"
-
-#~ msgid "Resolution:"
-#~ msgstr "Oppløsning:"
-
-#~ msgid "Uniprint driver:"
-#~ msgstr "Uniprint driver:"
-
-#~ msgid ""
-#~ "Please verify that this printer information is correct:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Vennligst verifiser at informasjonen om skriveren er korrekt:\n"
-#~ "\n"
-
-#~ msgid "Printer device"
-#~ msgstr "Skriverenhet"
-
-#~ msgid "Verify Printer Configuration"
-#~ msgstr "Verifiser skriverkonfigurasjonen"
-
-#~ msgid ""
-#~ "I have found the following types of SCSI adapters on your system:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Jeg har funnet følgende typer SCSI-kort på ditt system:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Do you have any more SCSI adapters on your system?"
-#~ msgstr ""
-#~ "\n"
-#~ "Har du noen flere SCSI-kort på systemet ditt?"
-
-#~ msgid "Do you have any SCSI adapters?"
-#~ msgstr "Har du noen SCSI-kort"
-
-#~ msgid "SMB server name  :"
-#~ msgstr "Navn på SMB-tjener:"
-
-#~ msgid "Share volume     :"
-#~ msgstr "Delt volum        :"
-
-#~ msgid "Account name     :"
-#~ msgstr "Kontonavn         :"
-
-#~ msgid "Password         :"
-#~ msgstr "Passord           :"
-
-#~ msgid "SMB Setup"
-#~ msgstr "SMB-oppsett"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your SMB server\n"
-#~ "    o the volume to share which contains\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Vær snill å skriv inn følgende informasjon:\n"
-#~ "\n"
-#~ "    o navnet eller IP-adressen til din SMB-tjener\n"
-#~ "    o katalogen på tjeneren som inneholder \n"
-#~ "      Red Har Linux for din arkitektur."
-
-#~ msgid "Password for %s@%s: "
-#~ msgstr "Passord for %s@%s: "
-
-#~ msgid "error: %sport must be a number\n"
-#~ msgstr "feil: %sport må være et nummer\n"
-
-#~ msgid "url port must be a number\n"
-#~ msgstr "url-port må være et nummer\n"
-
-#~ msgid "logging into %s as %s, pw %s\n"
-#~ msgstr "logger in på %s som %s, pw %s\n"
-
-#~ msgid "failed to open %s\n"
-#~ msgstr "klarte ikke å åpne %s\n"
-
-#~ msgid "failed to create %s\n"
-#~ msgstr "klarte ikke å opprette %s\n"
-
-#~ msgid "Retrieving"
-#~ msgstr "Henter"
-
-#~ msgid "open of %s failed: %s\n"
-#~ msgstr "åpning av %s feilet: %s\n"
-
-#~ msgid ""
-#~ "Error transferring file %s:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Feil under overføring av fil %s:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Vær snill å skriv inn følgende informasjon:\n"
-#~ "\n"
-#~ "    o navnet eller IP-adressen til din FTP-tjener\n"
-#~ "    o katalogen på den tjeneren som inneholder\n"
-#~ "      Red Hat Linux for din arkitektur\n"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your web server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Vær snill å skriv inn følgende informasjon:\n"
-#~ "\n"
-#~ "    o navnet eller IP-adressen til din web-tjener\n"
-#~ "    o katalogen på den tjeneren som inneholder\n"
-#~ "      Red Hat Linux for din arkitektur\n"
-
-#~ msgid "FTP site name:"
-#~ msgstr "FTP-tjeners navn:"
-
-#~ msgid "Web site name:"
-#~ msgstr "Web-tjeners navn:"
-
-#~ msgid "Use non-anonymous ftp or a proxy server"
-#~ msgstr "Bruk ikke-anonym ftp eller en proxytjener"
-
-#~ msgid "FTP Setup"
-#~ msgstr "FTP-oppsett"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "HTTP-oppsett"
-
-#~ msgid "You must enter a server name."
-#~ msgstr "Du må skrive inn et tjenernavn."
-
-#~ msgid "You must enter a directory."
-#~ msgstr "Du må skrive inn en katalog."
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password you "
-#~ "wish to use below. If you are using an FTP proxy enter the name of the FTP "
-#~ "proxy server to use."
-#~ msgstr ""
-#~ "Hvis du bruker ikke-anonym ftp, skriv inn kontonavnet og passordet du ønsker "
-#~ "å bruke under. Hvis du bruker en FTP-proxy, skriv inn navnet til FTP- "
-#~ "proxytjeneren som skal brukes."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
-#~ "to use."
-#~ msgstr ""
-#~ "Hvis du bruker en HTTP-proxytjener, skriv inn navnet til HTTP-proxytjeneren "
-#~ "som skal brukes."
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "FTP-proxy:"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "HTTP-proxy:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "FTP-proxy-port:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "HTTP-proxy-port:"
-
-#~ msgid ""
-#~ "An error occurred reading the partition table for the block device %s.  The "
-#~ "error was:"
-#~ msgstr ""
-#~ "En feil oppstod under lesing av partisjonstabellen for blokkenhet %s. Feilen "
-#~ "var:"
-
-#~ msgid "LAN manager host:"
-#~ msgstr "LAN-manager-vert:"
-
-#~ msgid "What packages should be installed?"
-#~ msgstr "Hvilke pakker skal installeres?"
-
-#~ msgid "LAN Manager Printer Options"
-#~ msgstr "LAN Manager skriveralternativer"
-
-#~ msgid "LAN Manager"
-#~ msgstr "LAN Manager"
-
-#~ msgid "RPM install of %s failed: %s"
-#~ msgstr "RPM-installasjon av %s feilet: %s"
-
-#~ msgid "<F1> will show you a size and description of a package"
-#~ msgstr "<F1> viser deg størrelsen på og beskrivelsen av en pakke"
-
-#~ msgid "Size of all selected packages:"
-#~ msgstr "Størrelsen av alle valgte pakker:"
-
-#~ msgid "Select Packages"
-#~ msgstr "Velg pakker"
-
-#~ msgid "I cannot get file %s: %s\n"
-#~ msgstr "Kan ikke hente fil %s: %s\n"
-
-#~ msgid "I cannot log into machine: %s\n"
-#~ msgstr "Kan ikke logge inn på maskin: %s\n"
-
-#~ msgid ""
-#~ "Would you like to install or configure the SILO bootloader on your system?"
-#~ msgstr ""
-#~ "Ønsker du å installere eller konfigurere oppstartslasteren SILO på systemet?"
-
-#~ msgid "LAN manager IP:"
-#~ msgstr "LAN-manager IP-adresse:"
+msgid "Failed Allocation"
+msgstr "Feilet allokering"
+
+msgid "The partition %s could not be allocated."
+msgstr "Partisjonen %s kunne ikke allokeres."
+
+#, fuzzy
+msgid "Disk Setup"
+msgstr "Oppsett av nettverk"
+
+msgid ""
+"There are partitions that can be resized nondestructively to make room for "
+"your Red Hat Linux installation. Do you want to resize these partitions now?"
+msgstr ""
+"Det finnes partisjoner som du kan endre størrelsen på uten å ødelegge data "
+"for å gjøre plass til din installasjon av Red Hat Linux. Vil du endre "
+"størrelsen på disse partisjonene nå?"
+
+#, fuzzy
+msgid "Success"
+msgstr "Fullført"
+
+msgid "Bad server response"
+msgstr "Ugyldig svar fra tjener"
+
+msgid "Server IO error"
+msgstr "IO-feil på tjener"
+
+#, fuzzy
+msgid "Server timeout"
+msgstr "Valg av X-tjener"
+
+msgid "Unable to lookup server host address"
+msgstr "Kan ikke slå opp tjeners vertsadresse"
+
+msgid "Unable to lookup server host name"
+msgstr "Kan ikke slå opp tjeners vertsnavn"
+
+msgid "Failed to connect to server"
+msgstr "Klarte ikke å koble til tjener"
+
+msgid "Failed to establish data connection to server"
+msgstr "Klarte ikke å etablere dataforbindelse til tjeneren"
+
+msgid "IO error to local file"
+msgstr "IO-feil til lokal fil"
+
+msgid "Error setting remote server to passive mode"
+msgstr "Feil ved endring til passiv modus på tjener"
+
+msgid "File not found on server"
+msgstr "Fil ikke funnet på tjener"
+
+msgid "Abort in progress"
+msgstr "Avbrudd pågår"
+
+msgid "Unknown or unexpected error"
+msgstr "Ukjent eller uventet feil"
+
+msgid "Whole disk"
+msgstr "Hele disken"
+
+msgid "Linux swap"
+msgstr "Linux swap"
+
+msgid "Linux native"
+msgstr "Linux native"
+
+msgid "DOS 12-bit FAT"
+msgstr "DOS 12-bit FAT"
+
+msgid "DOS 16-bit <32M"
+msgstr "DOS 16-bit <32M"
+
+msgid "DOS 16-bit >=32"
+msgstr "DOS 16-bit >=32M"
+
+msgid "OS/2 HPFS"
+msgstr "OS/2 HPFS"
+
+msgid "Win95 FAT32"
+msgstr "Win95 FAT32"
+
+#, fuzzy
+msgid "Hard Drives"
+msgstr "For mange disker"
+
+msgid "Scanning hard drives..."
+msgstr "Søker etter harddisker..."
+
+msgid ""
+"You don't have any hard drives available! You probably forgot to configure a "
+"SCSI controller."
+msgstr ""
+"Du har ingen harddisker tilgjengelig! Du glemte sannsynligvis å konfigurere "
+"en SCSI-kontroller."
+
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"For å installere Red Hat Linux må du ha minst én partisjon på 150 MB "
+"dedikert til Linux. Vi foreslår at du plasserer den partisjonen på en av de "
+"første to harddiskene i systemet ditt, slik at du kan bruke LILO til å "
+"starte opp Linux."
+
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux."
+msgstr ""
+"For å installere Red Hat Linux må du ha minst én partisjon på 150 MB "
+"dedikert til Linux."
+
+#, fuzzy
+msgid "Partition Disks"
+msgstr "Partisjoner"
+
+msgid "Done"
+msgstr "Ferdig"
+
+msgid "Reboot Needed"
+msgstr "Omstart nødvendig"
+
+msgid ""
+"The kernel is unable to read your new partitioning information, probably "
+"because you modified extended partitions. While this is not critical, you "
+"must reboot your machine before proceeding. Insert the Red Hat boot disk now "
+"and press Return to reboot your system.\n"
+"\n"
+"If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
+"empty SCSI drive can also cause this problem."
+msgstr ""
+"Kjernen er ute av stand til å lese din nye partisjonsinformasjon, "
+"sannsynligvis fordi du modifiserte utvidede partisjoner. Selv om dette ikke "
+"er kritisk, må du starte opp på nytt før du går videre. Sett inn "
+"oppstartsdisketten for Red Hat nå, og trykk Linjeskift for å starte systemet "
+"på nytt.\n"
+"\n"
+"Hvis du har en ZIP- eller JAZ-disk, forsikre deg om at det er en disk i "
+"stasjonen siden en tom SCSI-stasjon også kan forårsake dette problemet."
+
+msgid "lilo command"
+msgstr "lilo-kommando"
+
+msgid "bad argument to kickstart lilo command %s: %s"
+msgstr "ugyldig argument til lilo-kommando for kickstart %s: %s"
+
+msgid "PCMCIA Support"
+msgstr "PCMCIA-støtte"
+
+msgid ""
+"Do you need to use PCMCIA devices during the install? Answer no to this "
+"question if only need PCMCIA support after the install. You do not need "
+"install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
+"with a built-in CDROM drive."
+msgstr ""
+"Er du avhengig av å bruke PCMCIA-enheter under installasjonen? Svar nei til "
+"dette spørsmålet hvis du bare trenger PCMCIA-støtte etter installasjonen Du "
+"trenger ikke PCMCIA-støtte under installasjonen hvis du installerer Red Hat "
+"Linux på en bærbar med intern CDROM-spiller."
+
+msgid "PCMCIA Support Disk"
+msgstr "Diskett for PCMCIA-støtte"
+
+msgid ""
+"PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
+"currently in your drive and replace it with the Red Hat PCMCIA support disk."
+msgstr ""
+"PCMCIA støtte er avhengig av en disk for PCMCIA-støtte. Vennligst fjern "
+"oppstartsdisketten som står i stasjonen og erstatt den med Red Hats PCMCIA- "
+"støttedisk."
+
+msgid "Starting PCMCIA services..."
+msgstr "Starter PCMCIA-tjenester..."
+
+msgid ""
+"\n"
+"\n"
+"Type <exit> to return to the install program.\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"Skriv <exit> for å gå tilbake til installasjonsprogrammet.\n"
+"\n"
+
+#, fuzzy
+msgid "Kickstart Error"
+msgstr "Fdisk-feil"
+
+msgid "No kickstart configuration file server can be found."
+msgstr "Ingen filtjener for kickstart-konfigurasjonsfiler ble funnet. "
+
+msgid "I could not mount the kickstart path %s.\n"
+msgstr "Kunne ikke montere kickstart-stien %s.\n"
+
+msgid "I could not mount the boot floppy."
+msgstr "Jeg kunne ikke montere oppstartsdisketten."
+
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Kan ikke finne ks.cfg på oppstartsdisketten."
+
+msgid "Error opening files for kickstart copy: %s\n"
+msgstr "Feil under åpning av filer for kickstart-kopiering: %s\n"
+
+msgid "Error copying kickstart file from floppy."
+msgstr "Feil under kopiering av kickstart-filen fra diskett."
+
+#, fuzzy
+msgid "Select installation path"
+msgstr "Velg pakke for installasjon"
+
+#, fuzzy
+msgid "Select installation class"
+msgstr "Velg pakke for installasjon"
+
+msgid "Setup SCSI"
+msgstr "SCSI-oppsett"
+
+msgid "Setup filesystems"
+msgstr "Oppsett av filsystemer"
+
+msgid "Setup swap space"
+msgstr "Oppsett av swap-område"
+
+#, fuzzy
+msgid "Find installation files"
+msgstr "Installasjonen starter"
+
+msgid "Choose packages to install"
+msgstr "Velg pakker som skal installeres"
+
+#, fuzzy
+msgid "Configure networking"
+msgstr "Konfigurér ved bruk av DHCP"
+
+#, fuzzy
+msgid "Configure timezone"
+msgstr "Konfigurasjon av X"
+
+#, fuzzy
+msgid "Configure services"
+msgstr "Konfigurér ved bruk av DHCP"
+
+#, fuzzy
+msgid "Configure printer"
+msgstr "Konfigurér ved bruk av DHCP"
+
+#, fuzzy
+msgid "Exit install"
+msgstr "Installér"
+
+#, fuzzy
+msgid "Find current installation"
+msgstr "Pakkeinstallasjon"
+
+msgid "Disk Druid"
+msgstr "Disk Druid"
+
+#, fuzzy
+msgid "fdisk"
+msgstr "Oppstartsdiskett"
+
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Disk Druid er et verktøy for partisjonering og oppsett av monteringspunkter. "
+"Det er laget for å være lettere å bruke enn Linux's tradisjonelle disk- "
+"partisjoneringsprogramvare, fdisk, i tillegg til å være kraftigere. Likevel "
+"finnes det tilfeller hvor fdisk kan være å foretrekke.\n"
+"\n"
+"Hvilket verktøy vil du bruke?"
+
+#, fuzzy
+msgid "Scanning packages..."
+msgstr "Installerer pakker"
+
+#, fuzzy
+msgid "Install log"
+msgstr "Installér"
+
+#, fuzzy
+msgid "Upgrade log"
+msgstr "Oppgradér"
+
+msgid ""
+"A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
+"is finished. After rebooting, please read it to ensure configuration files "
+"are properly updated."
+msgstr ""
+"En komplett logg av oppgraderingen vil befinne seg i /tmp/upgrade.log når "
+"oppgraderingen er ferdig. Etter omstart, vær vennlig å lese denne for å "
+"forsikre deg om at konfigurasjonsfilene er oppdatert på riktig måte."
+
+msgid "Rebuilding RPM database..."
+msgstr "Bygger opp RPM-databasen på nytt..."
+
+msgid "Rebuild of RPM database failed. You may be out of disk space?"
+msgstr "Gjenoppbygging av RPM-databasen feilet. Er du tom for diskplass?"
+
+msgid "rootpw command"
+msgstr "rootpw-kommando"
+
+msgid "bad argument to kickstart rootpw command %s: %s"
+msgstr "ugyldig argument til rootpw kommando for kickstart %s: %s"
+
+msgid "Missing password"
+msgstr "Manglende passord"
+
+msgid "Unexpected arguments"
+msgstr "Uventede argumenter"
+
+#, fuzzy
+msgid "Installation Path"
+msgstr "Installasjonstype"
+
+msgid ""
+"Would you like to install a new system or upgrade a system which already "
+"contains Red Hat Linux 2.0 or later?"
+msgstr ""
+"Ønsker du å installere et nytt system eller oppgradere et system som "
+"allerede inneholder Red Hat Linux 2.0 eller senere?"
+
+msgid ""
+"What type of machine are you installing? For maximum flexibility, choose "
+"\"Custom\"."
+msgstr ""
+"Hvilken maskintype installerer du? For maksimal fleksibilitet, velger du "
+"\"Egendefinert\"."
+
+msgid "Converting RPM database..."
+msgstr "Konverterer RPM-databasen..."
+
+#, fuzzy
+msgid "Finding packages to upgrade..."
+msgstr "Velg pakker som skal oppgraderes"
+
+msgid "Previous"
+msgstr "Forrige"
+
+msgid "Menu"
+msgstr "Meny"
+
+msgid ""
+"An error occured during step \"%s\" of the install.\n"
+"\n"
+"You may retry that step, return to the previous step in the install, or see "
+"a menu of installation steps which will allow you to move around in the "
+"install more freely. It is not recommended to use the menu unless you are "
+"already familiar with Red Hat Linux. What would you like to do?"
+msgstr ""
+"En feil oppstod under steg \"%s\" av installasjonen.\n"
+"\n"
+"Du kan forsøke dette steget igjen, gå tilbake til forrige steg av "
+"installasjonen eller se en meny over installasjonssteg som vil la deg bevege "
+"deg friere rundt i installasjonen. Det er ikke å anbefale å bruke menyen "
+"uten å være kjent med Red Hat Linux fra før. Hva ønsker du å gjøre?"
+
+msgid "  Continue with install"
+msgstr "  Forsett installasjonen"
+
+msgid ""
+"What step would you like to run? Steps with a * next to them have already "
+"been completed."
+msgstr ""
+"Hvilket steg ønsker du å kjøre? Steg med en * ved siden av seg er allerede "
+"ferdig."
+
+#, fuzzy
+msgid "Cancelled"
+msgstr "Avbryt"
+
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr "Kan ikke gå til forrige steg herfra. Du må prøve igjen."
+
+msgid "Insert a blank floppy in the first drive /dev/fd0."
+msgstr "Sett inn en tom diskett i den første stasjonen, /dev/fd0."
+
+msgid "file %s missing from source directory"
+msgstr "filen %s mangler i kildekatalogen"
+
+msgid "failed to create file %s"
+msgstr "klarte ikke å opprette filen %s"
+
+msgid "error writing to file %s: %s"
+msgstr "feil under skriving til fil %s: %s"
+
+msgid "error reading from file %s: %s"
+msgstr "feil under lesing fra fil %s: %s"
+
+msgid "Kernel"
+msgstr "Kjerne"
+
+msgid ""
+"Please insert your boot disk in your first disk drive if it's not already "
+"present."
+msgstr ""
+"Vennligst sett inn oppstartsdisketten i den første stasjonen hvis den ikke "
+"står i allerede."
+
+msgid "Copying kernel from floppy..."
+msgstr "Kopierer kjernen fra diskett..."
+
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Feil under åpning: kickstart-fil %s: %s"
+
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Feil under lesing av innholdet i kickstart-fil %s: %s"
+
+msgid "Error on line %d of kickstart file %s."
+msgstr "Feil på linje %d i kickstart-fil %s."
+
+msgid "Unknown command %s on line %d of kickstart file %s."
+msgstr "Ukjent kommando %s på linje %d i kickstart-fil %s."
+
+msgid "Failed to create /mnt/tmp/ks.script: %s"
+msgstr "Klarte ikke å opprette /mnt/tmp/ks.script: %s"
+
+msgid "Failed to write ks post script: %s"
+msgstr "Klarte ikke å skrive ks post-skript: %s"
+
+#, fuzzy
+msgid "Choose a Language"
+msgstr "Velg en tjener"
+
+msgid "Failed to create symlink for package source."
+msgstr "Klarte ikke å opprette symbolsk lenke for pakkens kildekode."
+
+msgid "ftp"
+msgstr "ftp"
+
+msgid "I'm having trouble getting %s. Would you like to retry?"
+msgstr "Jeg har problemer med å hente %s. Ønsker du å forsøke igjen?"
+
+msgid "SILO"
+msgstr "SILO"
+
+msgid "LILO"
+msgstr "LILO"
+
+msgid "Creating initial ramdisk..."
+msgstr "Oppretter initiell ramdisk..."
+
+#, fuzzy
+msgid "Device:"
+msgstr "Enhet"
+
+#, fuzzy
+msgid "Boot label:"
+msgstr "Oppstartsetikett"
+
+msgid "Installing boot loader..."
+msgstr "Installerer oppstartslaster..."
+
+#, fuzzy
+msgid "Bootable Partitions"
+msgstr "Ingen rotpartisjon"
+
+#, fuzzy
+msgid "Creating bootdisk..."
+msgstr "Lag oppstartsdiskett"
+
+msgid "Formatting swap space on device %s..."
+msgstr "Formaterer swapområde på enhet %s..."
+
+#, fuzzy
+msgid "No Swap Space"
+msgstr "Ingen swappartisjon"
+
+msgid ""
+"You don't have any swap space defined. Would you like to continue, or "
+"repartition your disk?"
+msgstr ""
+"Du har ikke definert swap-område. Ønsker du å fortsette, eller vil du "
+"repartisjonere disken din?"
+
+msgid ""
+"What partitions would you like to use for swap space? This will destroy any "
+"information already on the partition."
+msgstr ""
+"Hvilke partisjoner ønsker du å bruke som swap-område? Dette vil ødelegge all "
+"informasjon som ligger på denne partisjonen."
+
+msgid "Active Swap Space"
+msgstr "Aktiver swap-område"
+
+msgid "Could not mount automatically selected device."
+msgstr "Kunne ikke montere automatisk valgt enhet."
+
+msgid "Cannot read /mnt/etc/fstab: %s"
+msgstr "Kan ikke lese /mnt/etc/fstab: %s"
+
+msgid "Bad line in /mnt/etc/fstab -- aborting"
+msgstr "Ugyldig linje i /mnt/etc/fstab -- avbryter"
+
+msgid "Determining host name and domain..."
+msgstr "Undersøker vertsnavn og domene..."
+
+msgid "Ethernet Probe"
+msgstr "Ethernet-søk"
+
+msgid ""
+"The Ethernet probe failed to find a card on your system. Press <Enter> to "
+"manually configure one."
+msgstr ""
+"Ethernet-søket fant ikke et kort på systemet ditt. Trykk <linjeskift> for å "
+"konfigurere ett manuelt."
+
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Vær snill å skrive inn IP-konfigurasjonen for denne maskinen. Hver oppføring "
+"skal skrives inn som en IP-adresse i punktdelt desimal notasjon (f.eks, "
+"1.2.3.4)."
+
+#, fuzzy
+msgid "Configure TCP/IP"
+msgstr "Konfigurér ved bruk av DHCP"
+
+#, fuzzy
+msgid "Static IP address"
+msgstr "IP-adresse:"
+
+msgid "BOOTP"
+msgstr "BOOTP"
+
+msgid "DHCP"
+msgstr "DHCP"
+
+msgid "kickstart"
+msgstr "kickstart"
+
+msgid "bad ip number in network command: %s"
+msgstr "ugyldig ip-adresse i nettverks-kommando: %s"
+
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "ugyldig argument til nettverks-kommando for kickstart %s: %s"
+
+msgid "kickstart network command is missing ip address"
+msgstr "kickstart nettverks-kommando mangler ip-adresse"
+
+msgid "Boot Protocol"
+msgstr "Oppstartsprotokoll"
+
+msgid ""
+"How should the IP information be set? If your system administrator gave you "
+"an IP address, choose static IP."
+msgstr ""
+"Hvordan skal IP-informasjonen settes? Hvis din systemadministrator gav deg "
+"en IP-adresse, velg statisk IP."
+
+msgid "Sending DHCP request..."
+msgstr "Sender DHCP-forespørsel..."
+
+msgid "Sending BOOTP request..."
+msgstr "Sender BOOTP-forespørsel..."
+
+msgid "Cannot create %s: %s\n"
+msgstr "Kan ikke opprette %s: %s\n"
+
+msgid "cannot create network device config file: %s"
+msgstr "kan ikke opprette netverks-enhetens konfigurasjonsfil: %s"
+
+msgid "cannot open file: %s"
+msgstr "kan ikke åpne fil: %s"
+
+msgid ""
+"I cannot automatically determine the hostname. Press <Enter> to enter "
+"hostname information."
+msgstr ""
+"Jeg kan ikke bestemme vertsnavnet automatisk. Trykk <linjeskift> for å "
+"skrive inn informasjon om vertsnavn."
+
+msgid ""
+"Please enter your domain name, host name, and the IP addresses of any "
+"additional nameservers. Your host name should be a fully-qualified host "
+"name, such as mybox.mylab.myco.com. If you don't have any additional "
+"nameservers, leave the nameserver entries blank."
+msgstr ""
+"Vennligst skriv inn ditt domenenavn, vertsnavn, og IP-adressen til "
+"eventuelle ekstra navnetjenere. Vertsnavnet skal være et fullkvalifisert "
+"vertsnavn (FQHN), slik som minmaskin.minlabb.mittfirma.no. Hvis du ikke har "
+"noen ekstra navnetjenere kan du la navnetjenerfeltene være blanke."
+
+#, fuzzy
+msgid "Host name:"
+msgstr "Vertsnavn"
+
+#, fuzzy
+msgid "Secondary nameserver (IP):"
+msgstr "Primær navnetjener:"
+
+#, fuzzy
+msgid "Tertiary nameserver (IP):"
+msgstr "Primær navnetjener:"
+
+#, fuzzy
+msgid "Configure Network"
+msgstr "Konfigurasjon av X"
+
+#, fuzzy
+msgid "Keep the current IP configuration"
+msgstr "Test denne konfigurasjonen"
+
+msgid "Reconfigure network now"
+msgstr "Rekonfigurér nettverket nå"
+
+msgid "Don't set up networking"
+msgstr "Ikke sett opp nettverk"
+
+msgid "LAN networking has already been configured. Do you want to:"
+msgstr "LAN nettverk er allerede konfigurert. Vil du:"
+
+msgid ""
+"Do you want to configure LAN (not dialup) networking for your installed "
+"system?"
+msgstr ""
+"Vil du konfigurere LAN (ikke oppringt) nettverk for ditt installerte system?"
+
+msgid "Cannot open components file: %s"
+msgstr "Kan ikke åpne komponentfil: %s"
+
+msgid "Cannot read components file: %s"
+msgstr "Kan ikke lese komponentfil: %s"
+
+msgid "Comps file is not version 0.1 as expected"
+msgstr "Comps-fil er ikke versjon 0.1 som forventet"
+
+msgid "bad comps file at line %d"
+msgstr "ugyldig comps-fil ved linje %d"
+
+#, fuzzy
+msgid "comps Error"
+msgstr "Fdisk-feil"
+
+msgid "missing component name at line %d"
+msgstr "manglende komponentnavn ved linje %d"
+
+msgid "Ignore all"
+msgstr "Ignorér alle"
+
+msgid "package %s at line %d does not exist"
+msgstr "pakke %s ved linje %d eksisterer ikke"
+
+msgid "Component %s does not exist.\n"
+msgstr "Komponent %s eksisterer ikke.\n"
+
+msgid "Package %s does not exist.\n"
+msgstr "Pakke %s eksisterer ikke.\n"
+
+msgid "GNOME"
+msgstr "GNOME"
+
+msgid ""
+"Would you like to have the GNOME desktop installed? It provides an easy to "
+"use interface, including a drag and drop capability and an integrated help "
+"system."
+msgstr ""
+"Ønsker du å installere GNOME? Dette gir deg et brukervennlig grensesnitt, "
+"inkludert dra-og-slipp funksjonalitet og et integrert hjelpsystem. "
+
+msgid "no suggestion"
+msgstr "ingen forslag"
+
+msgid "Everything"
+msgstr "Alt"
+
+msgid "Choose components to install:"
+msgstr "Velg komponenter som skal installeres:"
+
+msgid "Components to Install"
+msgstr "Komponenter som skal installeres"
+
+msgid "error opening header file: %s"
+msgstr "feil under åpning av header-fil: %s"
+
+#, fuzzy
+msgid "Installed system size:"
+msgstr "Installér system"
+
+msgid "Choose a group to examine"
+msgstr "Velg gruppe som skal undersøkes"
+
+msgid "Press F1 for a package description"
+msgstr "Trykk F1 for en beskrivelse av pakken"
+
+msgid "Select Group"
+msgstr "Velg gruppe"
+
+msgid "(none available)"
+msgstr "(ingen tilgjengelig)"
+
+#, fuzzy
+msgid "Package:"
+msgstr "Pakke"
+
+#, fuzzy
+msgid "Upgrade Packages"
+msgstr "Pakker"
+
+#, fuzzy
+msgid "Printer Information"
+msgstr "Ugyldig informasjon"
+
+msgid "<F1> will give you information on a particular printer type"
+msgstr "<F1> gir deg informasjon om en bestemt skrivertype"
+
+#, fuzzy
+msgid "What type of printer do you have?"
+msgstr "Hvilket grafikk-kort har du?"
+
+#, fuzzy
+msgid "Configure Printer"
+msgstr "Konfigurér ved bruk av DHCP"
+
+msgid "<F1> will give you information on this printer driver."
+msgstr "<F1> gir deg informasjon om denne skriverdriveren."
+
+msgid "You may now configure the paper size and resolution for this printer."
+msgstr ""
+"Du kan nå konfigurere papirstørrelsen og oppløsningen for denne skriveren."
+
+msgid "Paper Size"
+msgstr "Pairstørrelse"
+
+msgid "Resolution"
+msgstr "Oppløsning"
+
+msgid "Fix stair-stepping of text?"
+msgstr "Fiks trappetekst?"
+
+msgid "You may now configure the color options for this printer."
+msgstr "Du kan nå konfigurere fargevalgene for denne skriveren."
+
+msgid "You may now configure the uniprint options for this printer."
+msgstr "Du kan nå konfigurere uniprint-alternativene for denne skriveren."
+
+msgid "Configure Color Depth"
+msgstr "Konfigurér fargedybde"
+
+#, fuzzy
+msgid "Configure Uniprint Driver"
+msgstr "Konfigurér ved bruk av DHCP"
+
+msgid ""
+"What device is your printer connected to (note that /dev/lp0 is equivalent "
+"to LPT1:)?"
+msgstr ""
+"Hvilken enhet er skriveren tilkoblet (merk at /dev/lp0 er det samme som "
+"LPT1:)?"
+
+msgid ""
+"Auto-detected ports:\n"
+"\n"
+msgstr ""
+"Auto-gjenkjente porter:\n"
+"\n"
+
+#, fuzzy
+msgid "Not "
+msgstr "Nei"
+
+#, fuzzy
+msgid "Detected\n"
+msgstr "Slett"
+
+msgid "Printer Device:"
+msgstr "Skriverenhet:"
+
+msgid "Local Printer Device"
+msgstr "Lokal skriverenhet"
+
+msgid "Remote hostname:"
+msgstr "Eksternt vertsnavn:"
+
+msgid "Remote queue:"
+msgstr "Ekstern kø:"
+
+#, fuzzy
+msgid "Remote lpd Printer Options"
+msgstr "Fjern Linux partisjoner"
+
+msgid ""
+"To use a remote lpd print queue, you need to supply the hostname of the "
+"printer server and the queue name on that server which jobs should be placed "
+"in."
+msgstr ""
+"For å bruke en ekstern lpd-skriverkø, må du gi vertsnavnet til "
+"skriver-tjeneren og navnet på køen på denne tjeneren som jobbene skal "
+"plasseres i."
+
+#, fuzzy
+msgid "Printer Server:"
+msgstr "Primær navnetjener:"
+
+msgid "Print Queue Name:"
+msgstr "Navn på utskriftskø:"
+
+msgid "NetWare Printer Options"
+msgstr "Skriveralternativer for Netware"
+
+msgid ""
+"To print to a NetWare printer, you need to provide the NetWare print server "
+"name (this is not always the same as the machines TCP/IP hostname) as well "
+"as the print queue name for the printer you wish to access and any "
+"applicable user name and password."
+msgstr ""
+"For å skrive til en NetWare skriver må du oppgi navnet på NetWares "
+"utskriftskø-tjener (dette er ikke alltid det samme som maskinens TCP/IP- "
+"vertsnavn) i tillegg til navnet på utskriftskøen du vil aksessere og "
+"eventuelt brukernavn og passord."
+
+msgid "SMB server host:"
+msgstr "SMB-tjeners vert:"
+
+#, fuzzy
+msgid "SMB server IP:"
+msgstr "NIS-tjener:"
+
+#, fuzzy
+msgid "Share name:"
+msgstr "Brukernavn"
+
+msgid "Workgroup:"
+msgstr "Arbeidsgruppe:"
+
+msgid "SMB/Windows 95/NT Printer Options"
+msgstr "SMB/Windows 95/NT skriveralternativer"
+
+msgid ""
+"To print to a SMB printer, you need to provide the SMB host name (this is "
+"not always the same as the machines TCP/IP hostname) and possibly the IP "
+"address of the print server, as well as the share name for the printer you "
+"wish to access and any applicable user name, password, and workgroup "
+"information."
+msgstr ""
+"For å skrive til en SMB-skriver må du oppgi navnet på SMB-verten (dette er "
+"ikke alltid det samme som maskinens TCP/IP vertsnavn) og kanskje IP-adressen "
+"til utskriftstjeneren, i tillegg til navnet på den delte skriveren du ønsker "
+"å aksessere og evt. brukernavn, passord og arbeidsgruppeinformasjon."
+
+msgid "Spool directory:"
+msgstr "Spool-katalog:"
+
+msgid "Standard Printer Options"
+msgstr "Standard skriveralternativer"
+
+msgid ""
+"Every print queue (which print jobs are directed to) needs a name (often lp) "
+"and a spool directory associated with it. What name and directory should be "
+"used for this queue?"
+msgstr ""
+"Hver utskriftskø (som utskriftsjobber sendes til) må ha et navn (ofte lp) og "
+"en spool-katalog knyttet til seg. Hvilket navn og hilken katalog skal brukes "
+"for denne køen?"
+
+msgid "Would you like to configure a printer?"
+msgstr "Ønsker du å konfigurere en skriver?"
+
+msgid "Would you like to add another printer?"
+msgstr "Ønsker du å legge til enda en skriver?"
+
+msgid "SMB/Windows 95/NT"
+msgstr "SMB/Windows 95/NT"
+
+msgid "NetWare"
+msgstr "Netware"
+
+msgid "Select Printer Connection"
+msgstr "Velg skriverforbindelse"
+
+msgid "How is this printer connected?"
+msgstr "Hvordan er du koblet til denne skriveren?"
+
+#, fuzzy
+msgid "Printer type:"
+msgstr "Partisjonstype"
+
+msgid "Queue:"
+msgstr "Kø:"
+
+msgid "Printer device:"
+msgstr "Skriverenhet:"
+
+#, fuzzy
+msgid "Remote host:"
+msgstr "Fjern data"
+
+msgid "Share:"
+msgstr "Delt ressurs:"
+
+msgid "Printer driver:"
+msgstr "Skriverdriver:"
+
+msgid "Paper size:"
+msgstr "Papirstørrelse:"
+
+msgid "Resolution:"
+msgstr "Oppløsning:"
+
+msgid "Uniprint driver:"
+msgstr "Uniprint driver:"
+
+msgid ""
+"Please verify that this printer information is correct:\n"
+"\n"
+msgstr ""
+"Vennligst verifiser at informasjonen om skriveren er korrekt:\n"
+"\n"
+
+msgid "Printer device"
+msgstr "Skriverenhet"
+
+#, fuzzy
+msgid "Verify Printer Configuration"
+msgstr "Nettverkskonfigurasjon"
+
+msgid ""
+"I have found the following types of SCSI adapters on your system:\n"
+"\n"
+msgstr ""
+"Jeg har funnet følgende typer SCSI-kort på ditt system:\n"
+"\n"
+
+msgid ""
+"\n"
+"Do you have any more SCSI adapters on your system?"
+msgstr ""
+"\n"
+"Har du noen flere SCSI-kort på systemet ditt?"
+
+msgid "Do you have any SCSI adapters?"
+msgstr "Har du noen SCSI-kort"
+
+msgid "SMB server name  :"
+msgstr "Navn på SMB-tjener:"
+
+msgid "Share volume     :"
+msgstr "Delt volum        :"
+
+#, fuzzy
+msgid "Account name     :"
+msgstr "Kontonavn"
+
+#, fuzzy
+msgid "Password         :"
+msgstr "Passord:"
+
+msgid "SMB Setup"
+msgstr "SMB-oppsett"
+
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your SMB server\n"
+"    o the volume to share which contains\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Vær snill å skriv inn følgende informasjon:\n"
+"\n"
+"    o navnet eller IP-adressen til din SMB-tjener\n"
+"    o katalogen på tjeneren som inneholder \n"
+"      Red Har Linux for din arkitektur."
+
+#, fuzzy
+msgid "Password for %s@%s: "
+msgstr "Passord:"
+
+msgid "error: %sport must be a number\n"
+msgstr "feil: %sport må være et nummer\n"
+
+msgid "url port must be a number\n"
+msgstr "url-port må være et nummer\n"
+
+msgid "logging into %s as %s, pw %s\n"
+msgstr "logger in på %s som %s, pw %s\n"
+
+msgid "failed to open %s\n"
+msgstr "klarte ikke å åpne %s\n"
+
+msgid "failed to create %s\n"
+msgstr "klarte ikke å opprette %s\n"
+
+#, fuzzy
+msgid "Retrieving"
+msgstr "Gjenstår"
+
+msgid "open of %s failed: %s\n"
+msgstr "åpning av %s feilet: %s\n"
+
+msgid ""
+"Error transferring file %s:\n"
+"%s"
+msgstr ""
+"Feil under overføring av fil %s:\n"
+"%s"
+
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Vær snill å skriv inn følgende informasjon:\n"
+"\n"
+"    o navnet eller IP-adressen til din FTP-tjener\n"
+"    o katalogen på den tjeneren som inneholder\n"
+"      Red Hat Linux for din arkitektur\n"
+
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Vær snill å skriv inn følgende informasjon:\n"
+"\n"
+"    o navnet eller IP-adressen til din web-tjener\n"
+"    o katalogen på den tjeneren som inneholder\n"
+"      Red Hat Linux for din arkitektur\n"
+
+#, fuzzy
+msgid "FTP site name:"
+msgstr "Brukernavn"
+
+#, fuzzy
+msgid "Web site name:"
+msgstr "Brukernavn"
+
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Bruk ikke-anonym ftp eller en proxytjener"
+
+msgid "FTP Setup"
+msgstr "FTP-oppsett"
+
+msgid "HTTP Setup"
+msgstr "HTTP-oppsett"
+
+msgid "You must enter a server name."
+msgstr "Du må skrive inn et tjenernavn."
+
+msgid "You must enter a directory."
+msgstr "Du må skrive inn en katalog."
+
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Hvis du bruker ikke-anonym ftp, skriv inn kontonavnet og passordet du ønsker "
+"å bruke under. Hvis du bruker en FTP-proxy, skriv inn navnet til FTP- "
+"proxytjeneren som skal brukes."
+
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+"Hvis du bruker en HTTP-proxytjener, skriv inn navnet til HTTP-proxytjeneren "
+"som skal brukes."
+
+msgid "FTP Proxy:"
+msgstr "FTP-proxy:"
+
+msgid "HTTP Proxy:"
+msgstr "HTTP-proxy:"
+
+msgid "FTP Proxy Port:"
+msgstr "FTP-proxy-port:"
+
+msgid "HTTP Proxy Port:"
+msgstr "HTTP-proxy-port:"
+
+#, fuzzy
+msgid ""
+"An error occurred reading the partition table for the block device %s.  The "
+"error was:"
+msgstr ""
+"En feil oppstod under lesing av partisjonstabellen for blokkenhet %s. Feilen "
+"var"
+
+msgid "LAN manager host:"
+msgstr "LAN-manager-vert:"
+
+#, fuzzy
+msgid "What packages should be installed?"
+msgstr "Hvilket språk skal brukes under installasjonen?"
+
+msgid "LAN Manager Printer Options"
+msgstr "LAN Manager skriveralternativer"
+
+msgid "LAN Manager"
+msgstr "LAN Manager"
+
+msgid "RPM install of %s failed: %s"
+msgstr "RPM-installasjon av %s feilet: %s"
+
+msgid "<F1> will show you a size and description of a package"
+msgstr "<F1> viser deg størrelsen på og beskrivelsen av en pakke"
+
+msgid "Size of all selected packages:"
+msgstr "Størrelsen av alle valgte pakker:"
+
+#, fuzzy
+msgid "Select Packages"
+msgstr "Pakker"
+
+msgid "I cannot get file %s: %s\n"
+msgstr "Kan ikke hente fil %s: %s\n"
+
+msgid "I cannot log into machine: %s\n"
+msgstr "Kan ikke logge inn på maskin: %s\n"
+
+msgid ""
+"Would you like to install or configure the SILO bootloader on your system?"
+msgstr ""
+"Ønsker du å installere eller konfigurere oppstartslasteren SILO på systemet?"
+
+msgid "LAN manager IP:"
+msgstr "LAN-manager IP-adresse:"
