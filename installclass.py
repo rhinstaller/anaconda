@@ -19,10 +19,18 @@ class InstallClass:
     def getLiloInformation(self):
 	return self.lilo
 
+    def setTimezoneInfo(self, timezone, asUtc = 0, asArc = 0):
+	self.timezone = (timezone, asUtc, asArc)
+
+    def getTimezoneInfo(self):
+	return self.timezone
+
     def addToSkipList(self, type):
 	# this throws an exception if there is a problem
 	[ "lilo", "mouse", "network", "authentication", "complete",
-	  "package-selection", "bootdisk", "install-pause" ].index(type)
+	  "package-selection", "bootdisk", "partition", "format",
+	  "accounts", "dependencies", "language", "keyboard",
+	  "welcome", "installtype", "mouse" ].index(type)
 	self.skipSteps[type] = 1
 
     def setHostname(self, hostname):
@@ -59,6 +67,7 @@ class InstallClass:
 	self.lilo = ("mbr", 0, "")
 	self.groups = None
 	self.makeBootdisk = 0
+	self.timezone = None
 	self.setAuthentication(1, 1, 0)
 
 # custom installs are easy :-)
@@ -73,9 +82,45 @@ class Workstation(InstallClass):
     def __init__(self):
 	InstallClass.__init__(self)
 	self.setHostname("localhost.localdomain")
-	self.setGroups(["Base"])
 	self.addToSkipList("lilo")
 	self.addToSkipList("network")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
+
+class GNOMEWorkstation(Workstation):
+
+    def __init__(self):
+	Workstation.__init__(self)
+	self.setGroups(["Base"])
+
+class KDEWorkstation(Workstation):
+
+    def __init__(self):
+	Workstation.__init__(self)
+	self.setGroups(["Base"])
+
+class Server(InstallClass):
+
+    def __init__(self):
+	InstallClass.__init__(self)
+	self.setHostname("localhost.localdomain")
+	self.addToSkipList("lilo")
+	self.addToSkipList("network")
+	self.addToSkipList("package-selection")
+	self.addToSkipList("authentication")
+	self.addToSkipList("bootdisk")
+
+class Kickstart(InstallClass):
+    def __init__(self):
+	InstallClass.__init__(self)
+	self.addToSkipList("lilo")
+	self.addToSkipList("bootdisk")
+        self.addToSkipList("installtype")
+        self.addToSkipList("welcome")
+
+        # need to take care of:
+	#[ "lilo", "mouse", "network", "authentication", "complete",
+	  #"package-selection", "bootdisk", "partition", "format",
+	  #"accounts", "dependencies", "language", "keyboard",
+	  #"installtype", "mouse" ].index(type)
