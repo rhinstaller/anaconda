@@ -27,7 +27,7 @@ def stamp(path, releasestr, num, arch, startedAt):
     f.write("%f\n" % startedAt)
     f.write("%s\n" % releasestr)
     f.write("%s\n" % arch)
-    f.write("%s\n" % name)
+    f.write("%s\n" % num)
     f.close()
 
 def moveFiles(srcDir, destDir, files):
