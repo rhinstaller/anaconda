@@ -9,7 +9,7 @@ useful utilities (editor, hard drive and RAID tools, etc.) which will allow
 one to restore a system to a working state.
 
 To enter the rescue mode, boot your system from the 02Red Hat07 Linux 
-CDROM and type 0flinux rescue <ENTER>07.
+and type 0flinux rescue <ENTER>07.
 
 
 
