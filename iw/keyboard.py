@@ -85,6 +85,10 @@ class KeyboardWindow (InstallWindow):
         sw.add (self.variantList)
 	box.pack_start (sw, FALSE)
 
+        label = GtkLabel (_("Test your selection here:"))
+        label.set_alignment (0.0, 0.5)
+        box.pack_start (label, FALSE)
+
         entry = GtkEntry ()
         box.pack_start (entry, FALSE)
 

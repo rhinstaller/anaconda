@@ -214,7 +214,6 @@ class UpgradeExamineWindow:
         else:
             root = parts[0]
 
-	todo.makeFilesystems (createFs = 0)
         todo.upgradeFindPackages (root)
 
 class CustomizeUpgradeWindow:

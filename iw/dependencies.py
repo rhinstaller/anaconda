@@ -8,6 +8,7 @@ class UnresolvedDependenciesWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
         ics.setTitle (_("Unresolved Dependencies"))
         ics.setNextEnabled (1)
+        ics.readHTML ("depend")
         self.dependCB = None
 
     def getNext (self):

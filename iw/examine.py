@@ -15,7 +15,6 @@ class UpgradeExamineWindow (InstallWindow):
 
     def getNext (self):
         threads_leave ()
-	self.todo.makeFilesystems (createFs = 0)
         self.todo.upgradeFindPackages (self.root)
         threads_enter ()
         

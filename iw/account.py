@@ -13,10 +13,6 @@ class AccountWindow (InstallWindow):
         self.todo = ics.getToDo ()
         ics.setTitle (_("Account Configuration"))
         ics.readHTML ("accts")
-##         ics.setHTML ("<HTML><BODY>Enter a root password.  The password "
-##                      "must be at least six characters in length."
-##                      "<p>The \"Next\" button will become enabled when both entry fields match."
-##                      "</BODY></HTML>")
 
     def getNext (self):
 	if not self.__dict__.has_key("pw"): return None
@@ -116,6 +112,15 @@ class AccountWindow (InstallWindow):
 	self.editingUser = None
 
         box = GtkVBox ()
+        im = self.ics.readPixmap ("root-password.png")
+        if im:
+            im.render ()
+            pix = im.make_pixmap ()
+            a = GtkAlignment ()
+            a.add (pix)
+            a.set (0.0, 0.0, 0.0, 0.0)
+            box.pack_start (a, FALSE)
+        
         forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
         table = GtkTable (2, 2)

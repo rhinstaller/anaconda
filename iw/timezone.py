@@ -91,6 +91,7 @@ class TimezoneWindow (InstallWindow):
 	nb = GtkNotebook ()
 
         mainBox = GtkVBox (FALSE, 5)
+        
         tz = timezonemap.new (path)
         self.tz = tz
         map = Map (tz.map)
@@ -111,6 +112,14 @@ class TimezoneWindow (InstallWindow):
         hbox = GtkHBox (FALSE, 5)
         hbox.pack_start (label, FALSE)
         hbox.pack_start (views, FALSE)
+        im = self.ics.readPixmap ("timezone.png")
+        if im:
+            im.render ()
+            pix = im.make_pixmap ()
+            a = GtkAlignment ()
+            a.add (pix)
+            a.set (1.0, 0.0, 0.0, 0.0)
+            hbox.pack_start (a, TRUE)
         
         frame = GtkFrame ()
         frame.set_shadow_type (SHADOW_IN)

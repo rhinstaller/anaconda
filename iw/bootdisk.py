@@ -10,6 +10,7 @@ class BootdiskWindow (InstallWindow):
         ics.setTitle (_("Bootdisk Creation"))
         ics.setPrevEnabled (0)
         ics.setNextEnabled (1)
+        ics.readHTML ("bootdisk")
         BootdiskWindow.initial = 1
         self.bootdisk = None
 

@@ -542,22 +542,24 @@ Section "Monitor"
     Modeline "512x384"    22     512  528  592  640
                                  384  385  388  404 -HSync -VSync
 
+# -- 640x400 --
+# 640x400 @ 70 Hz, 31.5 kHz hsync
+    Modeline "640x400"     25.175 640  664  760  800
+                                  400  409  411  450
+# 640x400 @ 85 Hz, 37.86 kHz hsync
+    Modeline "640x400"     31.5   640  672 736   832
+                                  400  401  404  445 -HSync +VSync
+
 # --- 640x480 ---
 # 640x480 @ 60 Hz, 31.5 kHz hsync
     Modeline "640x480"     25.175 640  664  760  800
                                   480  491  493  525
-# 640x400 @ 70 Hz, 31.5 kHz hsync
-    Modeline "640x400"     25.175 640  664  760  800
-                                  400  409  411  450
 # 640x480 @ 72 Hz, 36.5 kHz hsync
     Modeline "640x480"     31.5   640  680  720  864
                                   480  488  491  521
 # 640x480 @ 75 Hz, 37.50 kHz hsync
     ModeLine  "640x480"    31.5   640  656  720  840
                                   480  481  484  500 -HSync -VSync
-# 640x400 @ 85 Hz, 37.86 kHz hsync
-    Modeline "640x400"     31.5   640  672 736   832
-                                  400  401  404  445 -HSync +VSync
 # 640x480 @ 85 Hz, 43.27 kHz hsync
     Modeline "640x480"     36     640  696  752  832
                                   480  481  484  509 -HSync -VSync

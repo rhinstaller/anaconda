@@ -982,7 +982,14 @@ class ToDo:
                             rootparts.append (dev)
                         isys.umount('/mnt/sysimage')
                         os.remove ('/tmp/' + dev)
-                        
+                    if size and type == 5:
+                        dev = drive + str (i + 1)
+                        isys.makeDevInode(dev, '/tmp/' + dev)
+                        try:
+                            isys.swapon (dev)
+                        except:
+                            self.log ("Error turning on swap on %s", dev)
+                        os.remove ('/tmp/' + dev)
             os.remove ('/tmp/' + drive)
         win.pop ()
         return rootparts

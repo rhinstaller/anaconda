@@ -22,21 +22,34 @@ class LanguageWindow (InstallWindow):
         label = GtkLabel (self.question)
         label.set_alignment (0.5, 0.5)
         
-        box = GtkVBox (FALSE, 10)
-	language_keys = self.todo.language.available ().keys ()
-        language1 = GtkRadioButton (None, language_keys[0])
-        language1.connect ("clicked", self.languageSelected, language_keys[0])
-        self.todo.language.set (language_keys[0])
-        box.pack_start (language1, FALSE)
+##         box = GtkVBox (FALSE, 5)
+## 	language_keys = self.todo.language.available ().keys ()
+##         language1 = GtkRadioButton (None, language_keys[0])
+##         language1.connect ("clicked", self.languageSelected, language_keys[0])
+##         self.todo.language.set (language_keys[0])
+
+##         box.pack_start (language1, FALSE)
+##         for locale in language_keys[1:]:
+##             language = GtkRadioButton (language1, locale)
+##             language.connect ("clicked", self.languageSelected, locale)
+##             box.pack_start (language, FALSE)
+
+ 	language_keys = self.todo.language.available ().keys ()
+
+        self.language = GtkCList ()
+        self.language.set_selection_mode (SELECTION_BROWSE)
         for locale in language_keys[1:]:
-            language = GtkRadioButton (language1, locale)
-            language.connect ("clicked", self.languageSelected, locale)
-            box.pack_start (language, FALSE)
+            self.language.append ((locale,))
 
-        align = GtkAlignment (0.5, 0.5)
-        align.add (box)
+        print self.todo.language.available ().values ()
+        self.language.select_row (self.todo.language.available ().values ().index ((self.todo.language.get ())) - 1, 0)
 
+        sw = GtkScrolledWindow ()
+        sw.set_border_width (5)
+        sw.set_policy (POLICY_NEVER, POLICY_NEVER)
+        sw.add (self.language)
+        
         mainBox.pack_start (label, FALSE, FALSE, 10)
-        mainBox.pack_start (align)
+        mainBox.pack_start (sw, TRUE)
         
         return mainBox
