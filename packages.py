@@ -489,6 +489,9 @@ def doPreInstall(method, id, intf, instPath, dir):
         if id.auth.useSamba:
             select(id.hdList, 'pam_smb')
 
+        if iutil.getArch() == "i386" and id.bootloader.useGrubVal == 0:
+            select(id.hdList, 'lilo')            
+
         if pcmcia.pcicType():
             select(id.hdList, 'kernel-pcmcia-cs')
 
