@@ -141,6 +141,22 @@ def dumpException(out, text, tb, dispatch):
         out.write("\nException occured during state dump:\n")
         traceback.print_exc(None, out)
 
+    for file in ("/tmp/syslog", "/tmp/netinfo",
+                 "/mnt/sysimage/tmp/install.log",
+                 "/mnt/sysimage/tmp/upgrade.log"):
+        try:
+            f = open(file, 'r')
+            line = "\n\n%s:\n" % (file,)
+            while line:
+                out.write(line)
+                line = f.readline()
+            f.close()
+        except IOError:
+            pass
+        except:
+            out.write("\nException occured during %s file copy:\n" % (file,))
+            traceback.print_exc(None, out)
+
 def handleException(dispatch, intf, (type, value, tb)):
     list = traceback.format_exception (type, value, tb)
     text = joinfields (list, "")
