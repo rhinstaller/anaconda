@@ -1052,7 +1052,6 @@ int main(int argc, char ** argv) {
         manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);
     }
     
-
     if (FL_UPDATES(flags)) 
         loadUpdates(&kd, flags);
 
@@ -1070,6 +1069,10 @@ int main(int argc, char ** argv) {
     /* we've loaded all the modules we're going to.  write out a file
      * describing which scsi disks go with which scsi adapters */
     writeScsiDisks(modLoaded);
+
+    /* if we are in rescue mode lets load st.o for tape support */
+    if (FL_RESCUE(flags))
+	scsiTapeInitialize(modLoaded, modDeps, modInfo, flags);
 
     /* we only want to use RHupdates on nfs installs.  otherwise, we'll 
      * use files on the first iso image and not be able to umount it */

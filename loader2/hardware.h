@@ -6,6 +6,8 @@
 
 int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
                       moduleInfoSet modInfo, int flags);
+int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
+                      moduleInfoSet modInfo, int flags);
 void initializeParallelPort(moduleList modLoaded, moduleDeps modDeps,
                             moduleInfoSet modInfo, int flags);
 

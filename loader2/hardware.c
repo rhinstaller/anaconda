@@ -134,6 +134,34 @@ int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
     return 0;
 }
 
+int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
+                      moduleInfoSet modInfo, int flags) {
+    struct device ** devices;
+
+    if (FL_TESTING(flags)) return 0;
+
+    logMessage("looking for scsi tape devices");
+    
+    devices = probeDevices(CLASS_TAPE, BUS_SCSI, PROBE_ALL);
+    
+    if (!devices) {
+        logMessage("no scsi tape devices found");
+        return 0;
+    }
+
+    logMessage("scsi tape device(s) found, loading st.o");
+
+    if (mlLoadModuleSetLocation("st", modLoaded, modDeps, 
+				modInfo, flags, 
+				secondStageModuleLocation)) {
+	logMessage("failed to insert st module");
+	return 1;
+    }
+    
+    return 0;
+}
+
+
 /* This loads the necessary parallel port drivers for printers so that
    kudzu can autodetect and setup printers in post install*/
 void initializeParallelPort(moduleList modLoaded, moduleDeps modDeps,
