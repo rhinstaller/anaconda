@@ -97,20 +97,20 @@ readcmsfile() # $1=dasdport $2=filename
 
 setupdevice()
 {
-   if [ -z "$SUBCHANNELS" -o -z "$DIRNAME" ]; then
-      echo $"SUBCHANNELS and DIRNAME empty, cannot continue."
+   if [ -z "$SUBCHANNELS" -o -z "$NETTYPE" ]; then
+      echo $"SUBCHANNELS or NETTYPE empty, cannot continue."
       exit 1
    fi
    SYSDIR=${SUBCHANNELS//,*/}   # get first subchannel. This is where the device can be brought online
-   sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/group "$SUBCHANNELS"
+   sysecho /sys/bus/ccwgroup/drivers/${NETTYPE}/group "$SUBCHANNELS"
    if [ -n "$PORTNAME" ]; then
-		if [ "$DIRNAME" = "lcs" ]; then
-			sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/portno "$PORTNAME"
+		if [ "$NETTYPE" = "lcs" ]; then
+			sysecho /sys/bus/ccwgroup/drivers/${NETTYPE}/${SYSDIR}/portno "$PORTNAME"
 		else
-			sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/portname "$PORTNAME"
+			sysecho /sys/bus/ccwgroup/drivers/${NETTYPE}/${SYSDIR}/portname "$PORTNAME"
 		fi
 	fi
-   sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/online 1
+   sysecho /sys/bus/ccwgroup/drivers/${NETTYPE}/${SYSDIR}/online 1
 }
 
 S390ARCH=`uname -m`
@@ -166,18 +166,15 @@ fi
 # Check for missing parameters, prompt for them if necessary
 while [ -z "$NETTYPE" ]; do
    echo $"Which kind of network device do you intend to use"
-   echo $"  (e.g. ctc, iucv, eth, hsi, lcs)."
-   echo $"Enter 'eth' for OSA-Express Fast Ethernet, Gigabit Ethernet"
+   echo $"  (e.g. ctc, iucv, qeth, lcs)."
+   echo $"Enter 'qeth' for OSA-Express Fast Ethernet, Gigabit Ethernet"
    echo $"  (including 1000Base-T), High Speed Token Ring, and ATM "
    echo $"  (running Ethernet LAN emulation) features in QDIO mode."
-   echo $"Enter 'hsi' for Guest LANs using virtual HiperSockets or"
-   echo $"  HiperSockets."
    echo $"Enter 'lcs' for OSA­2 Ethernet/Token Ring, OSA-Express Fast Ethernet in"
    echo $"  non-QDIO mode, OSA-Express High Speed Token Ring in non-QDIO mode and"
    echo $"  Gigabit Ethernet in non-QDIO mode."
 	read NETTYPE
 done
-DEVICE=${NETTYPE}0
 if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw config
    if [ -n "$CHANDEV" ]; then
 		echo
@@ -190,10 +187,10 @@ if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw con
 		echo $"CTC/ESCON and LCS need two subchannels:"
 		echo $"(e.g. \"0.0.0600,0.0.0601\" will configure the CTC or ESCON interface"
 		echo $"with the subchannels 0x600 and 0x601)"
-		echo $"QETH and HSI need three subchannels p.e. 0.0.0300,0.0.0301,0.0.0302"
+		echo $"QETH needs three subchannels p.e. 0.0.0300,0.0.0301,0.0.0302"
 		read SUBCHANNELS
    done
-	if [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
+	if [ "$NETTYPE" = "qeth" ]; then
       QETH="yes"
 		if [ -z "$PORTNAME" ]; then
 			echo $"Portname of the OSA-Express feature in QDIO mode and z/VM Guest LAN"
@@ -202,16 +199,9 @@ if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw con
 			echo $"Press enter if you don't want to enter a portname"
 			read PORTNAME
 		fi
-      DIRNAME="qeth"
-   elif [ "$NETTYPE" = "ctc" ]; then
-      DIRNAME="ctc"
-   elif [ "$NETTYPE" = "lcs" ]; then
-      DIRNAME="lcs"
    fi
-      
-else
-   DIRNAME="iucv"
 fi
+      
 while [ -z "$HOSTNAME" -o "$HOSTNAME" = "(none)" ]; do
 	echo $"Enter the FQDN of your new Linux guest (e.g. s390.redhat.com):"
 	read HOSTNAME
@@ -224,7 +214,7 @@ while [ -z "$NETWORK" ]; do
   echo $"Enter the network address of the new Linux guest:"
   read NETWORK
 done
-if [ "$NETTYPE" = "eth" ] || [ "$NETTYPE" = "hsi" ] || [ "$NETTYPE" = "lcs" ]; then
+if [ "$NETTYPE" = "qeth" ] || [ "$NETTYPE" = "lcs" ]; then
 	 while [ -z "$NETMASK" ]; do
 		  echo $"Enter the netmask for the new Linux guest (e.g. 255.255.255.0):"
 		  read NETMASK
@@ -277,6 +267,7 @@ if [ ":$NETTYPE" = ":ctc" ]; then
 	insmod fsm$LO
 	insmod ctc$LO
    setupdevice
+   DEVICE=${NETTYPE}0
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
    echo "alias $DEVICE ctc" >> /tmp/modprobe.conf
 elif [ ":$NETTYPE" = ":iucv" ]; then
@@ -284,6 +275,7 @@ elif [ ":$NETTYPE" = ":iucv" ]; then
 	insmod iucv$LO
 	insmod netiucv$LO
 	sysecho /sys/bus/iucv/drivers/netiucv/connection $PEERID
+   DEVICE=${NETTYPE}0
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
    echo "alias $DEVICE netiucv" >> /tmp/modprobe.conf
 elif [ "$NETTYPE" = "lcs" ]; then
@@ -295,12 +287,13 @@ elif [ "$NETTYPE" = "lcs" ]; then
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
    echo "alias $DEVICE lcs" >> /tmp/modprobe.conf
-elif [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
+elif [ "$NETTYPE" = "qeth" ]; then
    insmod ccwgroup$LO
 	insmod qdio$LO
 	insmod ipv6$LO
 	insmod qeth$LO
    setupdevice
+   DEVICE=`cat /sys/devices/qeth/${SUBCHANNELS//,*/}/if_name`
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
 	echo "alias $DEVICE qeth" >> /tmp/modprobe.conf
