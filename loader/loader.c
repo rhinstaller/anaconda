@@ -1922,6 +1922,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_RESCUE;
         else if (!strcasecmp(argv[i], "nomount"))
 	    flags |= LOADER_FLAGS_RESCUE_NOMOUNT;
+        else if (!strcasecmp(argv[i], "nopass"))
+	    flags |= LOADER_FLAGS_NOPASS;
 	else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
 	    *ksDevice = argv[i] + 9;
 	} else if (!strcasecmp(argv[i], "serial"))
@@ -2859,12 +2861,12 @@ int main(int argc, char ** argv) {
 	    *argptr++ = lang;
 	}
 	
-	if (keymap) {
+	if (keymap && !FL_NOPASS(flags)) {
 	    *argptr++ = "--keymap";
 	    *argptr++ = keymap;
 	}
 
-	if (kbdtype) {
+	if (kbdtype && !FL_NOPASS(flags)) {
 	    *argptr++ = "--kbdtype";
 	    *argptr++ = kbdtype;
 	}

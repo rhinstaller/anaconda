@@ -28,7 +28,7 @@ int main(void) {
 	buf[size] = '\0';
 	urlinstFinishTransfer(&iu, fd);
 
-	newtWinMessage("Got it", "Ok", "Got: '%s'", buf);
+	newtWinMessage("Got it", "OK", "Got: '%s'", buf);
     }
 
     newtFinished();

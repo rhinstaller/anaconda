@@ -76,7 +76,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
 			      ui->password ? ui->password : "rhinstall@", 
 			      NULL, -1);
 	if (ui->ftpPort < 0) {
-	    newtWinMessage(_("Error"), _("Ok"), 
+	    newtWinMessage(_("Error"), _("OK"), 
 		_("Failed to log into %s: %s"), ui->address, 
 		ftpStrerror(ui->ftpPort));
 	    return -2;
@@ -86,7 +86,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
 	if (fd < 0) {
 	    close(ui->ftpPort);
 	    if (!silentErrors)
-		newtWinMessage(_("Error"), _("Ok"), 
+		newtWinMessage(_("Error"), _("OK"), 
 		    _("Failed to retrieve %s: %s"), buf, ftpStrerror(fd));
 	    return -1;
 	}
@@ -94,7 +94,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
 	fd = httpGetFileDesc(ui->address, -1, buf);
 	if (fd < 0) {
 	    if (!silentErrors)
-		newtWinMessage(_("Error"), _("Ok"), 
+		newtWinMessage(_("Error"), _("OK"), 
 		    _("Failed to retrieve %s: %s"), buf, ftpStrerror(fd));
 	    return -1;
 	}
@@ -244,7 +244,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 	    }
 
 	    if (!addrToIp(site)) {
-		newtWinMessage(_("Unknown Host"), _("Ok"),
+		newtWinMessage(_("Unknown Host"), _("OK"),
 			_("%s is not a valid hostname."), site);
 		continue;
 	    }
