@@ -93,7 +93,7 @@ FSMODS="msdos vfat ext3 reiserfs jfs"
 SECSTAGE="agpgart raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS"
 
 COMMONMODULES="vfat $USBMODS"
-LOCALMODULES="$COMMONMODULES BusLogic aic7xxx megaraid ncr53c8xx 
+LOCALMODULES="$COMMONMODULES aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci 
 	       eepro100 tulip pcnet32 8139too"
