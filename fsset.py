@@ -111,7 +111,7 @@ class FileSystemType:
     def registerDeviceArgumentFunction(self, klass, function):
         self.deviceArguments[klass] = function
 
-    def formatDevice(self, devicePath, device, progress, message, chroot='/'):
+    def formatDevice(self, devicePath, device, progress, chroot='/'):
         if self.isFormattable():
             raise RuntimeError, "formatDevice method not defined"
 
@@ -180,7 +180,7 @@ class reiserfsFileSystem(FileSystemType):
         self.maxSize = 4 * 1024 * 1024
 
 
-    def formatDevice(self, entry, progress, message, chroot='/'):
+    def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
 
         p = os.pipe()
@@ -194,12 +194,6 @@ class reiserfsFileSystem(FileSystemType):
                                     stderr = "/dev/tty5")
 
         if rc:
-            message and message(_("Error"),
-                                _("An error occurred trying to format %s. "
-                                  "This problem is serious, and the install "
-                                  "cannot continue.\n\n"
-                                  "Press Enter to reboot your "
-                                  "system.") %(entry.device.getDevice(),))
             raise SystemError
                                   
 fileSystemTypeRegister(reiserfsFileSystem())
@@ -213,7 +207,7 @@ class extFileSystem(FileSystemType):
         self.linuxnativefs = 1
         self.maxSize = 4 * 1024 * 1024
 
-    def formatDevice(self, entry, progress, message, chroot='/'):
+    def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         devArgs = self.getDeviceArgs(entry.device)
         label = labelFactory.createLabel(entry.mountpoint)
@@ -226,12 +220,6 @@ class extFileSystem(FileSystemType):
                                   progress,
                                   entry.mountpoint)
         if rc:
-            message and message(_("Error"), 
-                                _("An error occured trying to format %s. "
-                                  "This problem is serious, and the install "
-                                  "cannot continue.\n\n"
-                                  "Press Enter to reboot your "
-                                  "system.") % (entry.device.getDevice(),))
             raise SystemError
     
 
@@ -276,7 +264,7 @@ class raidMemberDummyFileSystem(FileSystemType):
         self.maxSize = 4 * 1024 * 1024
         self.supported = 1
 
-    def formatDevice(self, entry, progress, message, chroot='/'):
+    def formatDevice(self, entry, progress, chroot='/'):
         # mkraid did all we need to format this partition...
         pass
     
@@ -300,7 +288,7 @@ class swapFileSystem(FileSystemType):
         # unfortunately, turning off swap is bad.
         pass
     
-    def formatDevice(self, entry, progress, message, chroot='/'):
+    def formatDevice(self, entry, progress, chroot='/'):
         file = entry.device.setupDevice(chroot)
         rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
                                      [ "mkswap", '-v1', file ],
@@ -326,7 +314,7 @@ class ForeignFileSystem(FileSystemType):
         self.checked = 0
         self.name = "foreign"
 
-    def formatDevice(self, entry, progress, message, chroot='/'):
+    def formatDevice(self, entry, progress, chroot='/'):
         return
 
 fileSystemTypeRegister(ForeignFileSystem())
@@ -469,13 +457,26 @@ class FileSystemSet:
         for entry in self.entries:
             if (entry.fsystem and entry.fsystem.getName() == "swap"
                 and entry.getFormat()):
-                entry.fsystem.formatDevice(entry, self.progressWindow,
-                                           self.messageWindow, chroot)
+                entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
                 
     def turnOnSwap (self, chroot):
         for entry in self.entries:
             if entry.fsystem and entry.fsystem.getName() == "swap":
-                entry.mount(chroot)
+                try:
+                    entry.mount(chroot)
+                except SystemError, (errno, msg):
+                    if self.messageWindow:
+                        self.messageWindow(_("Error"), 
+                                           _("Error enabling swap device %s: "
+                                             "%s\n\n"
+                                             "This most likely means this "
+                                             "swap partition has not been "
+                                             "initialized."
+                                             "\n\n"
+                                             "Press OK to reboot your "
+                                             "system.")
+                                           % (entry.device.getDevice(), msg))
+                    sys.exit(0)
 
     def turnOffSwap(self, devices = 1, files = 0):
         for entry in self.entries:
@@ -494,8 +495,18 @@ class FileSystemSet:
             if (not entry.fsystem.isFormattable() or not entry.getFormat()
                 or entry.isMounted()):
                 continue
-            entry.fsystem.formatDevice(entry, self.progressWindow,
-                                       self.messageWindow, chroot)
+            try: 
+                entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
+            except SystemError:
+                if self.messageWindow:
+                    self.messageWindow(_("Error"),
+                                       _("An error occurred trying to "
+                                         "format %s.  This problem is "
+                                         "serious, and the install cannot "
+                                         "continue.\n\n"
+                                         "Press Enter to reboot your system.")
+                                       % (entry.device.getDevice(),))
+                sys.exit(0)
 
     def mountFilesystems(self, instPath = '/', raiseErrors = 0, readOnly = 0):
 	for entry in self.entries:
@@ -506,12 +517,16 @@ class FileSystemSet:
             except SystemError, (errno, msg):
                 if raiseErrors:
                     raise SystemError, (errno, msg)
-                self.messageWindow and self.messageWindow(_("Error"), 
-                    _("Error mounting device %s as %s: %s\n\n"
-                      "This most likely means this partition has "
-                      "not been formatted.\n\nPress OK to reboot your "
-                      "system.") % (entry.device.getDevice(),
-                                    entry.mountpoint, msg))
+                if self.messageWindow:
+                    self.messageWindow(_("Error"), 
+                                       _("Error mounting device %s as %s: "
+                                         "%s\n\n"
+                                         "This most likely means this "
+                                         "partition has not been formatted."
+                                         "\n\n"
+                                         "Press OK to reboot your system.")
+                                       % (entry.device.getDevice(),
+                                          entry.mountpoint, msg))
                 sys.exit(0)
 
     def filesystemSpace(self, chroot='/'):
