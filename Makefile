@@ -1,10 +1,10 @@
-SUBDIRS = rpmmodule isys balkan loader po libfdisk collage
+SUBDIRS = rpmmodule isys balkan po libfdisk collage loader
 BUILDONLYSUBDIRS = pump
 
 TOPDIR = ../../..
-DESTDIR = $(TOPDIR)/RedHat/instimage/usr/bin
+DESTDIR = $(TOPDIR)/RedHat/instimage
 CATALOGS = po/anaconda-text.pot
-ALLSUBDIRS = $(SUBDIRS) $(BUILDONLYSUBDIRS)
+ALLSUBDIRS = $(BUILDONLYSUBDIRS) $(SUBDIRS) 
 
 all: subdirs _xkb.so $(CATALOGS)
 
@@ -19,8 +19,10 @@ subdirs:
 	for d in $(ALLSUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d; done
 
 install: all
-	mkdir -p $(DESTDIR)
-	mkdir -p $(DESTDIR)/iw
-	cp -a anaconda *.py $(DESTDIR)
-	cp -a iw/*.py $(DESTDIR)/iw
+	mkdir -p $(DESTDIR)/usr/bin
+	mkdir -p $(DESTDIR)/usr/lib/python1.5/lib-dynload
+	mkdir -p $(DESTDIR)/usr/bin/iw
+	cp -a anaconda *.py $(DESTDIR)/usr/bin
+	cp -a iw/*.py $(DESTDIR)/usr/bin/iw
+	cp -a *.so $(DESTDIR)/usr/lib/python1.5/site-packages
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d install; done
