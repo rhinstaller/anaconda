@@ -2591,9 +2591,9 @@ int main(int argc, char ** argv) {
     }
 
 #ifdef INCLUDE_KON
-    startNewt(flags);
     if (continuing)
 	setLanguage ("ja", flags);
+    startNewt(flags);
 #endif
 
 #ifdef INCLUDE_PCMCIA
