@@ -238,7 +238,7 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 "Partycja startowa %s należy do dysku mającego na początku zbyt mało wolnego "
-"miejsca, aby można było umieścić na nim program startowy. Zapewnij co "
+"miejsca aby można było umieścić na nim program startowy. Zapewnij co "
 "najmniej 5MB wolnego miejsca na początku dysku zawierającego /boot"
 
 #: ../autopart.py:1024
@@ -292,7 +292,7 @@ msgstr ""
 
 #: ../autopart.py:1252
 msgid "Requested Raid Device Does Not Exist"
-msgstr "Nie istnieje żądane urządzenie raid"
+msgstr "Żądane urządzenie raid nie istnieje"
 
 #: ../autopart.py:1253
 #, python-format
@@ -307,7 +307,7 @@ msgstr ""
 
 #: ../autopart.py:1282
 msgid "Requested Volume Group Does Not Exist"
-msgstr "Nie istnieje żądana grupa woluminów"
+msgstr "Żądana grupa woluminów nie istnieje"
 
 #: ../autopart.py:1283
 #, python-format
@@ -322,7 +322,7 @@ msgstr ""
 
 #: ../autopart.py:1318
 msgid "Requested Logical Volume Does Not Exist"
-msgstr "Nie istnieje żądany wolumin logiczny"
+msgstr "Żądany wolumin logiczny nie istnieje"
 
 #: ../autopart.py:1319
 #, python-format
@@ -579,7 +579,7 @@ msgid ""
 "creating small router/firewall boxes, for example."
 msgstr ""
 "Wybierz tę grupę aby uzyskać najmniejszy możliwy zbiór pakietów. Jest to "
-"przydatne na przykład do tworzenia małych routerów/zapór ogniowych."
+"przydatne na przykład do tworzenia małych routerów/firewalli."
 
 #: ../constants.py:72
 msgid ""
@@ -953,7 +953,7 @@ msgstr ""
 #: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
-msgstr "_Uruchom ponownie"
+msgstr "U_ruchom ponownie"
 
 #: ../fsset.py:2475
 msgid "Formatting"
@@ -1356,7 +1356,7 @@ msgstr ""
 #: ../packages.py:441
 #, fuzzy
 msgid "Re_boot"
-msgstr "Restart"
+msgstr "Re_start"
 
 #: ../packages.py:445
 msgid ""
@@ -1599,7 +1599,7 @@ msgstr ""
 
 #: ../partedUtils.py:326
 msgid "_Ignore drive"
-msgstr "_Zignoruj napęd"
+msgstr "Z_ignoruj napęd"
 
 #: ../partedUtils.py:327
 msgid "_Format drive"
@@ -1936,7 +1936,7 @@ msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"Wybierz 'Tak' aby sformatować te partycje albo 'Nie' aby wrócić i zmienić "
+"Wybierz 'Tak' aby sformatować te partycje, albo 'Nie' aby wrócić i zmienić "
 "ustawienia."
 
 #: ../partIntfHelpers.py:457
@@ -2380,7 +2380,7 @@ msgstr "Wyszukiwanie instalacji systemu %s..."
 
 #: ../upgrade.py:123 ../upgrade.py:131
 msgid "Dirty File Systems"
-msgstr "Systemy plików zamknięte nieczysto"
+msgstr "Systemy plików nieczysto zamknięte"
 
 #: ../upgrade.py:124
 #, python-format
@@ -2390,7 +2390,7 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"Następujące systemy plików w twoim systemie Linuksowym zostały zamknięte nieczysto. "
+"Następujące systemy plików w twoim systemie Linuksowym zostały nieczysto zamknięte. "
 "Zrestartuj Linuksa, pozwól na sprawdzenie systemów plików i czysto zamknij "
 "system zanim dokonasz aktualizacji.\n"
 "%s"
@@ -2498,7 +2498,7 @@ msgid ""
 msgstr ""
 "Architektura wydania %s, które aktualizujesz wydaje się być architekturą %s, "
 "która nie odpowiada poprzednio zainstalowanej architekturze %s.  "
-"Prawdopodobnie aktualizacja nie powiedzie się.  Jesteś pewien że chcesz "
+"Prawdopodobnie aktualizacja nie powiedzie się.  Jesteś pewien, że chcesz "
 "kontynuować proces aktualizacji?"
 
 #: ../upgrade.py:483
@@ -2537,13 +2537,13 @@ msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Zdaje się, że chcesz aktualizować system, który jest za stary, aby można "
+"Zdaje się, że chcesz aktualizować system, który jest za stary aby można "
 "było go zaktualizować do tej wersji systemu %s. Czy jesteś pewien, że chcesz "
 "kontynuować proces aktualizacji?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
-msgstr "Łączenie ..."
+msgstr "Łączenie..."
 
 #: ../vnc.py:54
 msgid "Unable to Start X"
@@ -2903,9 +2903,7 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 "Wymuszenie użycia LBA32 przez program startowy, gdy nie jest wspierane przez "
-"BIOS, może spowodować, że twój komputer nie będzie mógł wystartować. "
-"Zalecamy utworzenie dyskietki startowej, gdy zostanie to zaproponowane "
-"później podczas instalacji.\n"
+"BIOS, może spowodować, że twój komputer nie będzie mógł wystartować.\n"
 "\n"
 "Czy chcesz wymusić tryb LBA32 i przejść dalej?"
 
@@ -3205,8 +3203,9 @@ msgstr ""
 "\n"
 "Po instalacji dodatkowe oprogramowanie może być dodane lub usunięte przy "
 "pomocy programu 'system-config-packages'.\n"
+"\n"
 "Jeśli jesteś zaznajomiony z systemem %s, możesz wskazać pakiety, które "
-"chcesz zainstalować lub nie. Wybierz je poniżej dostosowując swoją "
+"chcesz zainstalować. Wybierz je poniżej dostosowując swoją "
 "instalację."
 
 #: ../iw/desktop_choice_gui.py:70
@@ -3257,7 +3256,7 @@ msgstr ""
 
 #: ../iw/examine_gui.py:65
 msgid "_Upgrade an existing installation"
-msgstr "_Uaktualnij istniejącą instalacje"
+msgstr "_Uaktualnij istniejącą instalację"
 
 #: ../iw/examine_gui.py:67
 #, python-format
@@ -3355,7 +3354,7 @@ msgstr "_Bez firewalla"
 
 #: ../iw/firewall_gui.py:92
 msgid "_Enable firewall"
-msgstr "_Włącz firewalla"
+msgstr "_Włącz firewall"
 
 #: ../iw/firewall_gui.py:109
 msgid ""
@@ -3413,19 +3412,19 @@ msgstr "Obsługa dodatkowych języków"
 
 #: ../iw/language_support_gui.py:193
 msgid "Select the _default language for the system:   "
-msgstr "Wybierz _domyślny język dla systemu:         "
+msgstr "Wybierz _domyślny język dla systemu:   "
 
 #: ../iw/language_support_gui.py:206
 msgid "Select _additional languages to install on the system:"
-msgstr "Wybierz _dodatkowe języki do zainstalowania w systemie:"
+msgstr "Wybierz dod_atkowe języki do zainstalowania w systemie:"
 
 #: ../iw/language_support_gui.py:241
 msgid "_Select All"
-msgstr "Z_aznacz wszystko"
+msgstr "Zaznacz w_szystko"
 
 #: ../iw/language_support_gui.py:249
 msgid "Select Default _Only"
-msgstr "Wybierz _tylko domyślny"
+msgstr "Wybierz tylk_o domyślny"
 
 #: ../iw/language_support_gui.py:260
 msgid "Rese_t"
@@ -3752,7 +3751,7 @@ msgstr "Rozmiar (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1077 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:98
 msgid "_Add"
-msgstr "_Dodaj"
+msgstr "Dod_aj"
 
 #: ../iw/lvm_dialog_gui.py:1080 ../iw/network_gui.py:524
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1350 ../iw/zfcp_gui.py:101
@@ -3825,7 +3824,7 @@ msgstr "_Pierwszy serwer DNS"
 
 #: ../iw/network_gui.py:31
 msgid "_Secondary DNS"
-msgstr "_Drugi serwer DNS"
+msgstr "Drugi _serwer DNS"
 
 #: ../iw/network_gui.py:31
 msgid "_Tertiary DNS"
@@ -3914,7 +3913,7 @@ msgstr "Konfiguracja przez _DHCP"
 
 #: ../iw/network_gui.py:221
 msgid "_Activate on boot"
-msgstr "_Włącz przy starcie"
+msgstr "Włącz przy st_arcie"
 
 #: ../iw/network_gui.py:230
 msgid "_IP Address"
@@ -3939,7 +3938,7 @@ msgstr "_Klucz szyfrujący"
 #: ../iw/network_gui.py:252
 #, fuzzy
 msgid "Hardware address:"
-msgstr "Adres IP:"
+msgstr "Adres sprzętu:"
 
 #: ../iw/network_gui.py:291
 #, python-format
@@ -4116,7 +4115,7 @@ msgstr "_Wybierz wszystko w grupie"
 
 #: ../iw/package_gui.py:434
 msgid "_Unselect all in group"
-msgstr "_Rezygnuj ze wszystkiego w grupie"
+msgstr "Rezygn_uj ze wszystkiego w grupie"
 
 #: ../iw/package_gui.py:471 ../textw/packages_text.py:63
 msgid "Package Group Selection"
@@ -4129,7 +4128,7 @@ msgstr "Minimalna"
 #: ../iw/package_gui.py:740
 #, python-format
 msgid "Details for '%s'"
-msgstr "Szczegółowo o '%s'"
+msgstr "Szczegóły o '%s'"
 
 #: ../iw/package_gui.py:749
 msgid ""
@@ -4186,7 +4185,7 @@ msgstr "Dodaj partycję"
 #: ../iw/partition_dialog_gui.py:272
 #, python-format
 msgid "Edit Partition: /dev/%s"
-msgstr "Edytuj partycje: /dev/%s"
+msgstr "Edytuj partycję: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:274
 msgid "Edit Partition"
@@ -4606,7 +4605,7 @@ msgstr "Liczba dysków zapa_sowych:"
 
 #: ../iw/raid_dialog_gui.py:396
 msgid "_Format partition?"
-msgstr "Czy _formatować partycję?"
+msgstr "Czy s_formatować partycję?"
 
 #: ../iw/raid_dialog_gui.py:475
 msgid ""
@@ -4886,7 +4885,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
-msgstr "Pomiń aktualiza_cję programu startowego"
+msgstr "Pomiń aktualizację programu _startowego"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
@@ -4915,8 +4914,8 @@ msgid ""
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "Niniejsze wydanie %s wspiera system plików z księgowaniem - ext3.  Ma on "
-"kilka zalet w porównaniu z systemem plików ext2 tradycyjnie dostarczanym z %"
-"s. Możliwa jest migracja partycji sformatowanych jako ext2 do ext3 bez "
+"kilka zalet w porównaniu z systemem plików ext2 tradycyjnie dostarczanym z "
+"%s. Możliwa jest migracja partycji sformatowanych jako ext2 do ext3 bez "
 "utraty danych.\n"
 "\n"
 "Które z tych partycji mają migrować?"
@@ -5008,7 +5007,7 @@ msgstr "Dostosowywanie konfiguracji wyświetlania"
 
 #: ../iw/xconfig_gui.py:251
 msgid "_Color Depth:"
-msgstr "Głębia _koloru:"
+msgstr "Głębia _kolorów:"
 
 #: ../iw/xconfig_gui.py:260 ../textw/xconfig_text.py:106
 msgid "256 Colors (8 Bit)"
@@ -5084,7 +5083,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:740 ../iw/xconfig_gui.py:1103
 msgid "Restore _original values"
-msgstr "Przywróć wa_rtości początkowe"
+msgstr "Przywróć wart_ości początkowe"
 
 #: ../iw/xconfig_gui.py:748
 msgid "Hori_zontal Sync:"
@@ -5104,7 +5103,7 @@ msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:781
 msgid "Graphical Interface (X) Configuration"
-msgstr "Konfiguracja X Window"
+msgstr "Konfiguracja interfejsu graficznego (X)"
 
 #: ../iw/xconfig_gui.py:811
 msgid "Unknown video card"
@@ -5121,7 +5120,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:838 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
-msgstr "Nie określona karta graficzna"
+msgstr "Nieokreślona karta graficzna"
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:685
 msgid ""
@@ -5194,7 +5193,7 @@ msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
-"Masz zamiar usunąć dysk typu FCP ze swojej konfiguracji. Czy jesteś pewien "
+"Masz zamiar usunąć dysk typu FCP ze swojej konfiguracji. Czy jesteś pewien, "
 "że chcesz kontynuować?"
 
 #: ../iw/zipl_gui.py:32
@@ -5240,7 +5239,7 @@ msgstr "Parametry jądra"
 
 #: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
 msgid "Chandev Parameters"
-msgstr "Parametry chandev "
+msgstr "Parametry chandev"
 
 #: ../textw/bootdisk_text.py:24
 #, python-format
@@ -5295,7 +5294,7 @@ msgid ""
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
 "Zdecydowałeś aby nie instalować żadnego programu startowego. Zainstalowanie "
-"programu startowego jest zdecydowanie zalecane, chyba że masz jakieś "
+"programu startowego jest zdecydowanie zalecane, chyba, że masz jakieś "
 "specjalne wymagania. Program startowy jest niemal zawsze konieczny do "
 "wystartowania systemu Linux bezpośrednio z dysku twardego.\n"
 "\n"
@@ -5378,7 +5377,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:402
 msgid "Use a GRUB Password"
-msgstr "Użyj hasła dla GRUBa"
+msgstr "Użyj hasła dla GRUB"
 
 #: ../textw/bootloader_text.py:414
 msgid "Boot Loader Password:"
@@ -5584,7 +5583,7 @@ msgstr "Dostosuj"
 
 #: ../textw/firewall_text.py:44
 msgid "Enable firewall"
-msgstr "Włącz firewalla"
+msgstr "Włącz firewall"
 
 #: ../textw/firewall_text.py:47
 msgid "No firewall"
@@ -5724,7 +5723,7 @@ msgstr "Konfiguracja przez DHCP"
 
 #: ../textw/network_text.py:116
 msgid "Activate on boot"
-msgstr "Włącz przy starcie"
+msgstr "Aktywuj przy starcie"
 
 #: ../textw/network_text.py:142
 #, python-format
@@ -6105,7 +6104,7 @@ msgstr "Brak głównej partycji"
 
 #: ../textw/partition_text.py:1475
 msgid "Must have a / partition to install on."
-msgstr "Musisz mieć partycję /, aby zainstalować system."
+msgstr "Musisz mieć partycję / aby zainstalować system."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
@@ -6316,7 +6315,7 @@ msgstr "Hasło"
 
 #: ../textw/userauth_text.py:112
 msgid "Password (confirm)"
-msgstr "Hasło (ponownie)"
+msgstr "Hasło (powtórz)"
 
 #: ../textw/userauth_text.py:113 ../textw/userauth_text.py:222
 msgid "Full Name"
@@ -6351,8 +6350,7 @@ msgstr "Użytkownik już istnieje"
 msgid ""
 "The root user is already configured. You don't need to add this user here."
 msgstr ""
-"Użytkownik root już został dodany (jest to konto administratora). Nie trzeba "
-"dodawać tego użytkownika."
+"Użytkownik root już został dodany. Nie trzeba dodawać tutaj tego użytkownika."
 
 #: ../textw/userauth_text.py:163
 msgid ""
@@ -6517,7 +6515,7 @@ msgstr "Rozdzielczość:"
 
 #: ../textw/xconfig_text.py:155
 msgid "Default Desktop:"
-msgstr "Domyślne biurka:"
+msgstr "Domyślne biurko:"
 
 # ../comps/comps-master:259
 #: ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
@@ -7189,7 +7187,7 @@ msgstr "Witamy w %s"
 #: ../loader2/lang.c:53
 #, fuzzy, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Witamy w %s - trybie ratunkowym"
+msgstr "Witamy w %s - tryb ratunkowy"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:138
 msgid ""
@@ -7336,7 +7334,7 @@ msgstr "Uruchamiam anacondę, tryb ratunkowy systemu %s - proszę czekać...\n"
 #: ../loader2/loader.c:1519
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Uruchamiam anacondę, instalację systemu %s - proszę czekać...\n"
+msgstr "Uruchamiam anacondę, instalatora systemu %s - proszę czekać...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -8657,7 +8655,7 @@ msgstr "zulu"
 #~ "\n"
 #~ "Would you like to continue and not install a boot loader?"
 #~ msgstr ""
-#~ "Wybrałeś zeby nie instalować programu startowego w systemie. W takim "
+#~ "Wybrałeś żeby nie instalować programu startowego w systemie. W takim "
 #~ "razie będziesz musiał utworzyć dyskietkę startową i w ten sposób "
 #~ "uruchamiać system.\n"
 #~ "\n"
