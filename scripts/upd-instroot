@@ -585,13 +585,9 @@ echo "done."
 
 for p in $DEST $DESTGR; do
 	find $p -name "*.py" | while read fn; do
-	    if [ -f ${fn}c ]; then
-		rm -f ${fn}c
-	    fi
-	    if [ -f ${fn}o ]; then
-		rm -f ${fn}o
-	    fi
+	    rm -f ${fn}o
 	    if [ $p = $DEST ]; then
+		rm -f ${fn}c
 		ln -sf /dev/null ${fn}c
 	    fi
 	done
