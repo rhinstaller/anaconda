@@ -927,8 +927,10 @@ class InstallInterface:
     def run(self, todo, test = 0):
 	if todo.serial:
 	    self.screen.suspendCallback(spawnShell, self.screen)
-	todo.fstab = NewtFstab(todo.setupFilesystems, todo.serial, 0, 0,
-			       self.waitWindow, self.messageWindow)
+
+        if not todo.reconfigOnly:
+            todo.fstab = NewtFstab(todo.setupFilesystems, todo.serial, 0, 0,
+                                   self.waitWindow, self.messageWindow)
 
         if todo.reconfigOnly:
             self.commonSteps = [
