@@ -365,6 +365,38 @@ static void writeVNCPasswordFile(char *pfile, char *password) {
     fclose(f);
 }
 
+/* read information that's passed as environmental variables */
+static void readEnvVars(int flags, struct loaderData_s ** ld) {
+  struct loaderData_s * loaderData = *ld;
+   char * env;
+
+   env = getenv("IPADDR");
+   if (env && *env) {
+     loaderData->ip = strdup(env);
+     loaderData->ipinfo_set = 1;
+   }
+   env = getenv("NETMASK");
+   if (env && *env) {
+     loaderData->netmask = strdup(env);
+   }
+   env = getenv("GATEWAY");
+   if (env && *env) {
+     loaderData->gateway = strdup(env);
+   }
+   env = getenv("DNS");
+   if (env && *env) {
+     loaderData->dns = strdup(env);
+   }
+   env = getenv("MTU");
+   if (env && *env) {
+     loaderData->mtu = atoi(env);
+   }
+   env = getenv("REMIP");
+   if (env && *env) {
+     loaderData->ptpaddr = strdup(env);
+   }
+}
+
 /* parses /proc/cmdline for any arguments which are important to us.  
  * NOTE: in test mode, can specify a cmdline with --cmdline
  */
@@ -492,6 +524,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
 	    }
         }
     }
+
+    readEnvVars(flags, &loaderData);
 
     /* NULL terminates the array of extra args */
     extraArgs[numExtraArgs] = NULL;

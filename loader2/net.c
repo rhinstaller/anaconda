@@ -280,6 +280,16 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         cfg->dev.set |= PUMP_NETINFO_HAS_HOSTNAME;
     }
 
+    if (loaderData->mtu) {
+        cfg->dev.mtu = loaderData->mtu;
+        cfg->dev.set |= PUMP_INTFINFO_HAS_MTU;
+    }
+
+    if (loaderData->ptpaddr && (inet_aton(loaderData->ptpaddr, &addr))) {
+        cfg->dev.ptpaddr = addr;
+        cfg->dev.set |= PUMP_INTFINFO_HAS_PTPADDR;
+    }
+
     cfg->noDns = loaderData->noDns;
 }
 

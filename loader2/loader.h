@@ -89,7 +89,8 @@ struct loaderData_s {
     int kbd_set;
     char * netDev;
     int netDev_set;
-    char * ip, * netmask, *gateway, *dns, *hostname;
+    char * ip, * netmask, *gateway, *dns, *hostname, *ptpaddr;
+    int mtu;
     int noDns;
     int ipinfo_set;
     char * ksFile;
