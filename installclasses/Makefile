@@ -4,9 +4,9 @@ all:
 	echo "nothing to make"
 
 install: 
-	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)/installclass
-	install *.py $(DESTDIR)/$(PYTHONLIBDIR)/installclass
-	../py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR)/installclass $(DESTDIR)/$(PYTHONLIBDIR)/installclass/*.py
+	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)/installclasses
+	install *.py $(DESTDIR)/$(PYTHONLIBDIR)/installclasses
+	../py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR)/installclasses $(DESTDIR)/$(PYTHONLIBDIR)/installclasses/*.py
 
 clean:
 	rm -f *.o *.so *.pyc
