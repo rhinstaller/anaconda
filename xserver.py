@@ -105,9 +105,23 @@ def startX():
     # otherwise with NFS installs the X server may be still being
     # fetched from the network while we already continue to run
     time.sleep (4)
-    pid, status = os.waitpid (server, os.WNOHANG)
-    if status:
-        raise RuntimeError, "X server failed to start"
+    count = 0
+    sys.stdout.write("Waiting for X server to start")
+    sys.stdout.flush()
+    while count < 60:
+        sys.stdout.write(".")
+        sys.stdout.flush()
+        pid, status = os.waitpid (server, os.WNOHANG)
+        if status:
+            raise RuntimeError, "X server failed to start"
+        try:
+            os.stat ("/tmp/.X11-unix/X1")
+            print
+            break
+        except OSError:
+            pass
+        time.sleep(1)
+        count = count + 1
         
     child = os.fork()
     if (child):
