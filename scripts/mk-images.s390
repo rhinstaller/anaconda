@@ -170,7 +170,7 @@ EOF
     install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
 
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
-    for i in a/ansi d/dumb k/kterm l/linux s/screen v/vt100 v/vt102 x/xterm x/xterm-color; do
+    for i in a/ansi d/dumb k/kterm l/linux s/screen v/vt100 v/vt10-nav v/vt102 x/xterm x/xterm-color; do
          install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
     done
     makeproductfile $MBD_DIR
