@@ -1107,12 +1107,12 @@ class InstallInterface:
 		    newArgs = ()
 		    for n in args:
 			if n == "dir":
-			    newArgs = newArgs + (dir,)
-			else:
-			    newArgs = args + (n,)
+			    n = dir
+
+			newArgs = newArgs + (n,)
 		    args = newArgs
 
-		rc = apply (step[1](), step[2])
+		rc = apply (step[1](), args)
 
 	    if rc == INSTALL_BACK:
 		dir = -1
