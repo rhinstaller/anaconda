@@ -33,6 +33,8 @@
 #include <string.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
+#include <sys/sysmacros.h>
+#include <sys/utsname.h>
 #include <unistd.h>
 #include <zlib.h>
 
@@ -156,7 +158,7 @@ static void spawnShell(int flags) {
 	    close(fd);
 	    setsid();
 	    if (ioctl(0, TIOCSCTTY, NULL)) {
-		perror("could not set new controlling tty");
+		logMessage("could not set new controlling tty");
 	    }
 
 	    execl("/bin/sh", "-/bin/sh", NULL);
@@ -1584,7 +1586,6 @@ void readExtraModInfo(moduleInfoSet modInfo) {
     }
 }
 
-
 /* Recursive */
 int copyDirectory(char * from, char * to) {
     DIR * dir;
@@ -1682,10 +1683,44 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
 	}
     } while (!done);
 
-    chdir("/tmp/updates");
-
     return;
 }
+
+#ifdef __sparc__
+/* Don't load the large ufs module if it will not be needed
+   to save some memory on lowmem SPARCs. */
+void loadUfs(struct knownDevices *kd, moduleList modLoaded,
+	     moduleDeps modDeps, int flags) {
+    int i, j, fd, rc;
+    struct partitionTable table;
+    int ufsloaded = 0;
+
+    for (i = 0; i < kd->numKnown; i++) {
+	if (kd->known[i].class == CLASS_HD) {
+	    devMakeInode(kd->known[i].name, "/tmp/hddevice");
+	    if ((fd = open("/tmp/hddevice", O_RDONLY)) >= 0) {
+		if ((rc = balkanReadTable(fd, &table))) {
+		    logMessage("failed to read partition table for "
+			       "device %s: %d", kd->known[i].name, rc);
+		} else {
+		    for (j = 0; j < table.maxNumPartitions; j++) {
+			if (table.parts[j].type == BALKAN_PART_UFS) {
+			    if (!ufsloaded)
+				mlLoadModule("ufs", NULL, modLoaded, modDeps, NULL, flags);
+			    ufsloaded = 1;
+			}
+		    }
+		}
+
+		close(fd);
+	    }
+	    unlink("/tmp/hddevice");
+	}
+    }
+}
+#else
+#define loadUfs(kd,modLoaded,modDeps,flags) do { } while (0)
+#endif
 
 int main(int argc, char ** argv) {
     char ** argptr;
@@ -1707,6 +1742,7 @@ int main(int argc, char ** argv) {
     char * where;
     struct moduleInfo * mi;
     char * ksFile = NULL, * ksSource = NULL;
+    struct stat sb;
     struct poptOption optionTable[] = {
     	    { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
 	    { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
@@ -1723,8 +1759,11 @@ int main(int argc, char ** argv) {
 	return ourInsmodCommand(argc, argv);
 
 #ifdef INCLUDE_KON
-    else if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon"))
-	return kon_main(argc, argv);
+    else if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon")) {
+	i = kon_main(argc, argv);
+	return i;
+    } else if (!strcmp(argv[0] + strlen(argv[0]) - 8, "continue"))
+	startKon = 0;
 #endif
 
 #ifdef INCLUDE_PCMCIA
@@ -1869,6 +1908,11 @@ int main(int argc, char ** argv) {
 	  FL_ISA(flags) || FL_NOPROBE(flags)) && !ksFile) {
 	manualDeviceCheck(modInfo, modLoaded, modDeps, &kd, flags);
     }
+
+    if (FL_UPDATES(flags))
+        loadUpdates(&kd, modLoaded, modDeps, flags);
+
+    loadUfs(&kd, modLoaded, modDeps, flags);
 
     if (!FL_TESTING(flags)) {
         int fd;

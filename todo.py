@@ -438,6 +438,8 @@ class ToDo:
         self.bootdisk = 0
 	self.liloImages = {}
         self.liloDevice = None
+        self.liloLinear = 0
+        self.liloAppend = None
 	self.timezone = None
         self.upgrade = 0
 	self.ddruidAlreadySaved = 0
@@ -605,26 +607,23 @@ class ToDo:
 	keys.sort()
         for mntpoint in keys:
             (device, fsystem, format) = self.mounts[mntpoint]
-            isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "swap":
 		continue
 	    elif fsystem == "ext2":
 		try:
-		    os.mkdir (self.instPath + mntpoint)
-		except:
-		    pass
-		try:
-		    isys.mount( '/tmp/' + device, self.instPath + mntpoint)
+		    iutil.mkdirChain(self.instPath + mntpoint)
+		    isys.makeDevInode(device, '/tmp/' + device)
+		    isys.mount('/tmp/' + device, 
+				self.instPath + mntpoint)
+		    os.remove( '/tmp/' + device);
 		except SystemError, (errno, msg):
 		    self.intf.messageWindow(_("Error"), 
 			_("Error mounting %s: %s") % (device, msg))
-		os.remove( '/tmp/' + device);
 
         try:
             os.mkdir (self.instPath + '/proc')
         except:
             pass
-            
             
 	isys.mount('/proc', self.instPath + '/proc', 'proc')
 
@@ -729,6 +728,7 @@ class ToDo:
 	keys.sort ()
 	for mntpoint in keys: 
 	    (dev, fs, reformat) = self.mounts[mntpoint]
+	    iutil.mkdirChain(self.instPath + mntpoint)
 	    if (mntpoint == '/'):
 		f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 1))
 	    else:
@@ -758,14 +758,23 @@ class ToDo:
             # skip comments
             if fields and fields[0][0] == '#':
                 continue
+	    if not fields: continue
+
             # all valid fstab entries have 6 fields
-            if not len (fields) < 4 and len (fields) <= 6:
-                if fields and (fields[2] == "ext2" or fields[2] == "swap") \
-                   and fields[3] == "defaults":
-                    format = 0
-                    # XXX always format swap. 
-                    if fields[2] == "swap": format = 1
-                    fstab[fields[1]] = (fields[0][5:], fields[2], format)
+            if len (fields) < 4 or len (fields) > 6: continue
+
+	    if fields[2] != "ext2" and fields[2] != "swap": continue
+	    if string.find(fields[3], "noauto") != -1: continue
+	    if (fields[0][0:7] != "/dev/hd" and 
+		fields[0][0:7] != "/dev/sd" and
+		fields[0][0:8] != "/dev/rd/" and
+		fields[0][0:9] != "/dev/ida/"): continue
+
+	    format = 0
+	    # XXX always format swap. 
+	    if fields[2] == "swap": format = 1
+	    fstab[fields[1]] = (fields[0][5:], fields[2], format)
+
         return fstab
 
     def writeLanguage(self):
@@ -832,6 +841,10 @@ class ToDo:
 ##             lilo.read (self.instPath + '/etc/lilo.conf')
 ##         elif not self.liloDevice: return
 
+        if os.access (self.instPath + '/etc/lilo.conf', os.R_OK):
+	    os.rename(self.instPath + '/etc/lilo.conf',
+		      self.instPath + '/etc/lilo.conf.rpmsave')
+
 	(bootpart, boothd) = self.getLiloOptions()
 	if (type((1,)) == type(bootpart)):
 	    (kind, self.liloDevice) = bootpart
@@ -846,6 +859,8 @@ class ToDo:
 	lilo.addEntry("install", "/boot/boot.b")
 	lilo.addEntry("prompt")
 	lilo.addEntry("timeout", "50")
+	if self.liloLinear:
+	    lilo.addEntry("linear")
 
 	smpInstalled = (self.hdList.has_key('kernel-smp') and 
                         self.hdList['kernel-smp'].selected)
@@ -893,6 +908,10 @@ class ToDo:
 	    sl.addEntry("read-only")
 	    sl.addEntry("root", '/dev/' + rootDev)
 	    kernelFile = "/boot/vmlinuz" + kernelTag
+
+	    if self.liloAppend:
+		sl.addEntry('append', '"%s"' % (self.liloAppend,))
+		
 	    lilo.addImage ("image", kernelFile, sl)
 
 	for (label, device) in otherList:
@@ -1214,6 +1233,8 @@ class ToDo:
 	todo.zeroMbr = todo.instClass.zeroMbr
 	(where, linear, append) = todo.instClass.getLiloInformation()
 	todo.liloDevice = where
+	todo.liloLinear = linear
+	todo.liloAppend = append
 
 	for (mntpoint, (dev, fstype, reformat)) in todo.instClass.fstab:
 	    todo.addMount(dev, mntpoint, fstype, reformat)
@@ -1597,7 +1618,7 @@ class ToDo:
 		    "/tmp/ks-script" ], stdout = "/dev/tty3",
 		    stderr = "/dev/tty3", root = scriptRoot)
 				    
-	    #os.unlink(path)
+	    os.unlink(path)
 
         del syslog
         

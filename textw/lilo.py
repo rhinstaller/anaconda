@@ -2,6 +2,7 @@ import gettext
 from snack import *
 from textw.constants import *
 from text import _
+import string
 
 #cat = gettext.Catalog ("anaconda", "/usr/share/locale")
 #_ = cat.gettext
@@ -16,8 +17,12 @@ class LiloAppendWindow:
 		       "kernel, enter them now. If you don't need any or "
 		       "aren't sure, leave this blank."))
 
-        cb = Checkbox(_("Use linear mode (needed for some SCSI drives)"))
+        cb = Checkbox(_("Use linear mode (needed for some SCSI drives)"),
+		      isOn = todo.liloLinear)
 	entry = Entry(48, scroll = 1, returnExit = 1)
+	if todo.liloAppend:
+	    entry.set(todo.liloAppend)
+
 	buttons = ButtonBar(screen, [(_("OK"), "ok"), (_("Skip"), "skip"),  
 			     (_("Back"), "back") ] )
 
@@ -38,6 +43,12 @@ class LiloAppendWindow:
 	    todo.liloDevice = None
 	else:
 	    todo.skipLilo = 0
+
+	todo.liloLinear = cb.selected()
+	if entry.value():
+	    todo.liloAppend = string.strip(entry.value())
+	else:
+	    todo.liloAppend = None
 
 	return INSTALL_OK
 
@@ -147,7 +158,8 @@ class LiloImagesWindow:
 	buttons = ButtonBar(screen, [ (_("Ok"), "ok"), (_("Edit"), "edit"), 
 				      (_("Back"), "back") ] )
 
-	text = TextboxReflowed(55, _("The boot manager Red Hat uses can boot other " 
+	text = TextboxReflowed(55,
+		    _("The boot manager Red Hat uses can boot other " 
 		      "operating systems as well. You need to tell me " 
 		      "what partitions you would like to be able to boot " 
 		      "and what label you want to use for each of them."))

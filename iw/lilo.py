@@ -40,6 +40,9 @@ class LiloWindow (InstallWindow):
 
 	self.todo.setLiloImages(self.images)
 
+	self.todo.liloLinear = self.linearCheck.get_active()
+	self.todo.liloAppend = self.appendEntry.get_text()
+
     def typeName(self, type):
 	if (type == 2):
 	    return "Linux Native"
@@ -139,11 +142,14 @@ class LiloWindow (InstallWindow):
 
 	self.linearCheck = GtkCheckButton(
 	    _("Use linear mode (needed for some SCSI drives)"))
+	self.linearCheck.set_active(self.todo.liloLinear)
 	self.radioBox.attach(self.linearCheck, 0, 2, 4, 5)
 
 	label = GtkLabel(_("Kernel parameters") + ":")
 	label.set_alignment(0.0, 0.5)
-	self.appendEntry = GtkEntry(15)
+	self.appendEntry = GtkEntry()
+	if self.todo.liloAppend:
+	    self.appendEntry.set_text(self.todo.liloAppend)
 	box = GtkHBox(FALSE, 5)
 	box.pack_start(label)
 	box.pack_start(self.appendEntry)

@@ -44,7 +44,7 @@ class LanguageWindow:
             if languages[lang] == current:
                 default = descriptions.index (lang)
             
-        height = min((screen.height - 16, len(descriptions)))
+        height = screen.height - 16
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Language Selection"),
 			_("What language would you like to use during the "
@@ -95,13 +95,9 @@ class MouseDeviceWindow:
 
 class MouseWindow:
     def __call__(self, screen, todo):
-	if todo.serial:
-	    return INSTALL_NOOP
         mice = todo.mouse.available ().keys ()
         mice.sort ()
 	(default, emulate) = todo.mouse.get ()
-	if default == "Sun - Mouse":
-	    return INSTALL_NOOP
         default = mice.index (default)
 
 	bb = ButtonBar(screen, [_("OK"), _("Back")])
@@ -148,8 +144,6 @@ class MouseWindow:
 
 class KeyboardWindow:
     def __call__(self, screen, todo):
-	if todo.serial:
-	    return INSTALL_NOOP
         keyboards = todo.keyboard.available ()
         keyboards.sort ()
         default = keyboards.index (todo.keyboard.get ())
@@ -443,8 +437,8 @@ class HostnameWindow:
 
 class BootDiskWindow:
     def __call__(self, screen, todo):
-	buttons = [ _("Yes"), _("No"), _("Back") ]
-	text =  _("A custom boot disk provides a way of booting into your "
+        rc = ButtonChoiceWindow(screen, _("Bootdisk"), 
+		_("A custom boot disk provides a way of booting into your "
 		  "Linux system without depending on the normal bootloader. "
 		  "This is useful if you don't want to install lilo on your "
 		  "system, another operating system removes lilo, or lilo "
@@ -452,31 +446,19 @@ class BootDiskWindow:
 		  "boot disk can also be used with the Red Hat rescue image, "
 		  "making it much easier to recover from severe system "
 		  "failures.\n\n"
-		  "Would you like to create a boot disk for your system?")
+		  "Would you like to create a boot disk for your system?"),
+		buttons = [ _("Yes"), _("No"), _("Back") ])
+                                
 
-	if todo.silo:
-	    floppy = todo.silo.hasUsableFloppy()
-	    if floppy == 0:
-		todo.bootdisk = 0
-		return INSTALL_NOOP
-	    text = string.replace (text, "lilo", "silo")
-	    if floppy == 1:
-		buttons = [ _("No"), _("Yes"), _("Back") ]
-		text = string.replace (text, "\n\n",
-				       _("\nOn SMCC made Ultra machines floppy booting "
-					 "probably does not work\n\n"))
+        if rc == string.lower (_("Yes")):
+            todo.bootdisk = 1
+        
+        if rc == string.lower (_("No")):
+            todo.bootdisk = 0
 
-	rc = ButtonChoiceWindow(screen, _("Bootdisk"), text, buttons = buttons)
-
-	if rc == string.lower (_("Yes")):
-	    todo.bootdisk = 1
-	
-	if rc == string.lower (_("No")):
-	    todo.bootdisk = 0
-
-	if rc == string.lower (_("Back")):
-	    return INSTALL_BACK
-	return INSTALL_OK
+        if rc == string.lower (_("Back")):
+            return INSTALL_BACK
+        return INSTALL_OK
 
 class XConfigWindow:
     def __call__(self, screen, todo):
@@ -499,11 +481,6 @@ class XConfigWindow:
                 return INSTALL_BACK
 	    todo._cardindex = -1
             return INSTALL_OK
-
-	if todo.serial:
-	    # if doing serial installation and no card was probed,
-	    # assume no card is present (typical case).
-	    return INSTALL_NOOP
 
 	# if we didn't find a server, we need the user to choose...
 	carddb = todo.x.cards()
@@ -562,11 +539,6 @@ class XConfigWindow:
 class XconfiguratorWindow:
     def __call__ (self, screen, todo):
         if not todo.x.server: return INSTALL_NOOP
-
-	# if serial install, we can't run it.
-	if todo.serial:
-	    todo.x.skip = 1
-	    return INSTALL_NOOP
 
         # if Xconfigurator isn't installed, we can't run it.
         if not os.access (todo.instPath + '/usr/X11R6/bin/Xconfigurator',
@@ -780,9 +752,9 @@ class WaitWindow:
 	width = 40
 	if (len(text) < width): width = len(text)
 
-	t = TextboxReflowed(width, _(text))
+	t = TextboxReflowed(width, text)
 
-	g = GridForm(self.screen, _(title), 1, 1)
+	g = GridForm(self.screen, title, 1, 1)
 	g.add(t, 0, 0)
 	g.draw()
 	self.screen.refresh()
@@ -790,7 +762,7 @@ class WaitWindow:
 class TimezoneWindow:
 
     def getTimezoneList(self, test):
-	if test and not os.access("/usr/lib/timezones.gz", os.R_OK):
+	if test:
 	    cmd = "./gettzlist"
 	    stdin = None
 	else:
@@ -881,10 +853,10 @@ class ProgressWindow:
 
 class InstallInterface:
     def progressWindow(self, title, text, total):
-        return ProgressWindow (self.screen, _(title), _(text), total)
+        return ProgressWindow (self.screen, title, text, total)
 
     def messageWindow(self, title, text):
-	ButtonChoiceWindow(self.screen, _(title), _(text),
+	ButtonChoiceWindow(self.screen, title, text,
                            buttons = [ _("OK") ])
     
     def exceptionWindow(self, title, text):
@@ -919,8 +891,6 @@ class InstallInterface:
         self.screen.finish()
 
     def run(self, todo, test = 0):
-	if todo.serial:
-	    self.screen.suspendCallback(spawnShell, self.screen)
         self.commonSteps = [
             [_("Language Selection"), LanguageWindow, 
 		    (self.screen, todo), "language" ],
@@ -1003,9 +973,18 @@ class InstallInterface:
 
 	self.upgradeSteps = [
 	    [_("Examine System"), UpgradeExamineWindow, (self.screen, todo)],
+            [_("LILO Configuration"), LiloAppendWindow, 
+		    (self.screen, todo), "lilo"],
+            [_("LILO Configuration"), LiloWindow, 
+		    (self.screen, todo), "lilo"],
+	    [_("LILO Configuration"), LiloImagesWindow, 
+		    (self.screen, todo), "lilo"],
 	    [_("Customize Upgrade"), CustomizeUpgradeWindow, (self.screen, todo, self.individual)],
             [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
+            [_("Boot Disk"), BootDiskWindow, (self.screen, todo),
+		"bootdisk" ],
             [_("Upgrade System"), InstallWindow, (self.screen, todo)],
+            [_("Boot Disk"), BootdiskWindow, (self.screen, todo), "bootdisk"],
             [_("Upgrade Complete"), FinishedWindow, (self.screen,)]
             ]
 
@@ -1035,14 +1014,6 @@ class InstallInterface:
 		dir = 1
 
 	    self.step = self.step + dir
-            if self.step < 0:
-                ButtonChoiceWindow(self.screen, _("Cancelled"),
-                                   _("I can't go to the previous step"
-                                     " from here. You will have to try again."),
-                                   buttons = [ _("OK") ])
-                                   
-                self.step = 0
-                dir = 1
         self.screen.finish ()
 
 def killSelf(screen):
@@ -1053,11 +1024,4 @@ def debugSelf(screen):
     screen.suspend ()
     import pdb
     pdb.set_trace()
-    screen.resume ()
-
-def spawnShell(screen):
-    screen.suspend ()
-    print "\n\nType <exit> to return to the install program.\n"
-    iutil.execWithRedirect ("/bin/sh", ["-/bin/sh"])
-    time.sleep(5)
     screen.resume ()
