@@ -179,18 +179,24 @@ class InstallProgressWindow (InstallWindow):
         for key in ("package", "size", "summary"):
             label = GtkLabel ("%s: " % (self.curPackage[key],))
             label.set_alignment (0, 0)
-            table.attach (label, 0, 1, i, i+1, FILL, FILL)
+            if key == "summary":
+                fillopts = EXPAND|FILL
+            else:
+                fillopts = FILL
+            table.attach (label, 0, 1, i, i+1, FILL, fillopts)
             label = GtkLabel ()
             label.set_alignment (0, 0)
             label.set_line_wrap (TRUE)
             if key == "summary":
                 label.set_text ("\n\n")
+#                label.set_usize(-1, 35)
+                label.set_usize(-1, 1)
             self.curPackage[key] = label
-            table.attach (label, 1, 2, i, i+1, FILL, FILL)
+            table.attach (label, 1, 2, i, i+1, FILL, fillopts)
             i = i + 1
 
         vbox = GtkVBox (FALSE, 10)
-        vbox.pack_start (table, FALSE)
+        vbox.pack_start (table)
 
 	self.progress = GtkProgressBar ()
         self.totalProgress = GtkProgressBar ()
