@@ -1097,7 +1097,7 @@ def queryAutoPartitionOK(intf, diskset, partitions):
 
     drvstr = drvstr +"\n"
     
-    rc = intf.messageWindow(_("Warning"), _(msg) % drvstr, type="yesno", default="no")
+    rc = intf.messageWindow(_("Warning"), _(msg) % drvstr, type="yesno", default="no", custom_icon ="warning")
 
     return rc
 
