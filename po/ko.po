@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: 1999-09-12 13:09-0400\n"
-"PO-Revision-Date: 1999-09-13 16:20+0900\n"
+"PO-Revision-Date: 1999-09-13 16:40+0900\n"
 "Last-Translator: Byeong-Chan Kim <redhands@linux.sarang.net>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -754,7 +754,7 @@ msgstr "기본값"
 
 #: ../iw/lilo.py:174
 msgid "Partition type"
-msgstr "파티션 유형"
+msgstr "파티션 종류"
 
 #: ../iw/lilo.py:174 ../iw/lilo.py:209
 msgid "Boot label"
@@ -900,7 +900,7 @@ msgstr "파티션 수동 설정"
 
 #: ../iw/timezone.py:110
 msgid "View:"
-msgstr ""
+msgstr "보기:"
 
 #: ../iw/timezone.py:140
 msgid "Use Daylight Saving Time"
@@ -908,7 +908,7 @@ msgstr ""
 
 #: ../iw/timezone.py:147
 msgid "Location"
-msgstr ""
+msgstr "위치"
 
 #: ../iw/timezone.py:148
 msgid "UTC Offset"
@@ -1522,29 +1522,27 @@ msgstr "NFS 마운트만 삭제할 수 있습니다."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
-msgstr ""
+msgstr "다른 CDROM"
 
 #: ../loader/cdrom.c:32
 msgid "CDROM type"
-msgstr ""
+msgstr "CDROM 종류"
 
 #: ../loader/cdrom.c:32
-#, fuzzy
 msgid "What type of CDROM do you have?"
-msgstr "어떤 비디오 카드를 사용하십니까?"
+msgstr "어떤 CDROM을 사용하십니까?"
 
 #: ../loader/cdrom.c:88
 msgid "Initializing CDROM..."
-msgstr ""
+msgstr "CDROM 초기화 중..."
 
 #: ../loader/devices.c:45
 msgid "Miscellaneous"
 msgstr ""
 
 #: ../loader/devices.c:54
-#, fuzzy
 msgid "Module Parameters"
-msgstr "커널 매개 변수"
+msgstr "모듈 매개 변수"
 
 #: ../loader/devices.c:54
 msgid ""
@@ -1555,23 +1553,20 @@ msgstr ""
 
 #: ../loader/devices.c:120
 msgid "Which driver should I try?"
-msgstr ""
+msgstr "어떤 드라이버로 시도해 볼까요?"
 
 #: ../loader/devices.c:135
-#, fuzzy
 msgid "Specify module parameters"
-msgstr "커널 매개 변수"
+msgstr "모듈 매개 변수 지정"
 
 #: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
 #: ../loader/loader.c:311
-#, fuzzy
 msgid "Devices"
 msgstr "장치명"
 
 #: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
-#, fuzzy
 msgid "Kickstart Error"
-msgstr "Fdisk 오류"
+msgstr "Kickstart 오류"
 
 #: ../loader/kickstart.c:57
 #, c-format
@@ -1589,55 +1584,50 @@ msgid "Error on line %d of kickstart file %s."
 msgstr ""
 
 #: ../loader/lang.c:232
-#, fuzzy
 msgid "Choose a Language"
-msgstr "서버를 선택하세요"
+msgstr "언어를 선택하세요"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
-msgstr ""
+msgstr "지역 CDROM"
 
 #: ../loader/loader.c:101
 msgid "NFS image"
-msgstr ""
+msgstr "NFS 이미지"
 
 #: ../loader/loader.c:106
 msgid "Hard drive"
-msgstr ""
+msgstr "하드 드라이브"
 
 #: ../loader/loader.c:122
-#, fuzzy
 msgid "Welcome to Red Hat Linux"
-msgstr "레드햇 리눅스"
+msgstr ""
 
 #: ../loader/loader.c:124
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
-"  <Tab>/<Alt-Tab> 다음 항목          |  <Space> 선택      |  <F12> 다음 화면"
+"  <Tab>/<Alt-Tab> 다음 항목         |  <Space> 선택   |  <F12> 다음 화면"
 
 #: ../loader/loader.c:226
 msgid "SCSI"
-msgstr ""
+msgstr "SCSI"
 
 #: ../loader/loader.c:238
-#, fuzzy
 msgid "What kind of device would you like to add"
-msgstr "어떤 유형으로 설치를 하겠습니까?"
+msgstr "어떤 종류의 장치를 추가할까요"
 
 #: ../loader/loader.c:285
 msgid "I have found the following devices in your system:"
-msgstr ""
+msgstr "현재 시스템에서 다음 장치들을 찾았습니다:"
 
 #: ../loader/loader.c:287 ../loader/loader.c:311
 msgid "Done"
-msgstr ""
+msgstr "완료"
 
 #: ../loader/loader.c:287 ../loader/loader.c:311
-#, fuzzy
 msgid "Add Device"
-msgstr "장치명"
+msgstr "장치 추가"
 
 #: ../loader/loader.c:312
 msgid ""
@@ -1647,20 +1637,19 @@ msgstr ""
 
 #: ../loader/loader.c:393 ../loader/loader.c:395
 msgid "Loading"
-msgstr ""
+msgstr "읽는 중"
 
 #: ../loader/loader.c:447
 msgid "Loading second stage ramdisk..."
-msgstr ""
+msgstr "두번째 단계 램디스크 읽는 중..."
 
 #: ../loader/loader.c:451
 msgid "Error loading ramdisk."
-msgstr ""
+msgstr "램디스크 읽는 중 오류"
 
 #: ../loader/loader.c:572
-#, fuzzy
 msgid "Hard Drives"
-msgstr "드라이브가 너무 많음"
+msgstr "하드 드라이브"
 
 #: ../loader/loader.c:573
 msgid ""
@@ -1680,9 +1669,8 @@ msgid "Directory holding Red Hat:"
 msgstr ""
 
 #: ../loader/loader.c:622
-#, fuzzy
 msgid "Select Partition"
-msgstr "파티션 삭제"
+msgstr "파티션 선택"
 
 #: ../loader/loader.c:666
 #, c-format
@@ -1705,7 +1693,7 @@ msgstr ""
 
 #: ../loader/loader.c:934
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader/loader.c:935
 msgid "Unable to retrieve the second stage ramdisk"
@@ -1713,47 +1701,43 @@ msgstr ""
 
 #: ../loader/loader.c:1038
 msgid "Rescue Method"
-msgstr ""
+msgstr "복구 방법"
 
 #: ../loader/loader.c:1039
-#, fuzzy
 msgid "Installation Method"
-msgstr "설치 유형"
+msgstr "설치 방법"
 
 #: ../loader/loader.c:1041
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "복구 이미지가 어떤 저장 장치에 있습니까?"
 
 #: ../loader/loader.c:1043
-#, fuzzy
 msgid "What type of media contains the packages to be installed?"
-msgstr "어떤 유형으로 설치를 하겠습니까?"
+msgstr "설치할 패키지가 어떤 저장 장치에 있습니까?"
 
 #: ../loader/loader.c:1357
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr ""
+msgstr "부트 플로피에서 ks.cfg를 찾지 못했습니다."
 
 #: ../loader/loader.c:1466
 msgid "PC Card"
-msgstr ""
+msgstr "PC 카드"
 
 #: ../loader/loader.c:1466
 msgid "Initializing PC Card Devices..."
-msgstr ""
+msgstr "PC 카드 장치 초기화 중..."
 
 #: ../loader/net.c:147
-#, fuzzy
 msgid "NFS server name:"
-msgstr "NIS 서버: "
+msgstr "NFS 서버명: "
 
 #: ../loader/net.c:150 ../loader/urls.c:160
 msgid "Red Hat directory:"
-msgstr ""
+msgstr "레드햇 디렉토리:"
 
 #: ../loader/net.c:156
-#, fuzzy
 msgid "NFS Setup"
-msgstr "네트워크 설정"
+msgstr "NFS 설정"
 
 #: ../loader/net.c:157
 msgid ""
@@ -1763,6 +1747,11 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecture"
 msgstr ""
+"다음의 정보들을 입력해 주십시오:\n"
+"\n"
+"    o NFS 서버의 이름 또는 IP 주소\n"
+"    o 사용하는 아키텍쳐에 맞는 레드햇 리눅스가\n"
+"      있는 서버의 디렉토리"
 
 #: ../loader/net.c:228
 msgid ""
@@ -1772,34 +1761,31 @@ msgstr ""
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr ""
+msgstr "동적 IP 설정 사용 (BOOTP/DHCP)"
 
 #: ../loader/net.c:298
-#, fuzzy
 msgid "Configure TCP/IP"
-msgstr "DHCP 사용 설정"
+msgstr "TCP/IP 설정"
 
 #: ../loader/net.c:329
-#, fuzzy
 msgid "Missing Information"
-msgstr "부족한 정보"
+msgstr "정보가 모자람"
 
 #: ../loader/net.c:330
-#, fuzzy
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "계속하시려면 정확한 IP 정보를 입력하십시오"
+msgstr "정확한 IP 주소와 넷마스크를 입력하십시오."
 
 #: ../loader/net.c:338 ../loader/net.c:569
 msgid "Dynamic IP"
-msgstr ""
+msgstr "동적 IP"
 
 #: ../loader/net.c:339 ../loader/net.c:570
 msgid "Sending request for IP information..."
-msgstr ""
+msgstr "IP 정보를 얻기 위해 요청하는 중..."
 
 #: ../loader/net.c:461
 msgid "Determining host name and domain..."
-msgstr ""
+msgstr "호스트명과 도메인 결정 중..."
 
 #: ../loader/net.c:559
 msgid "kickstart"
@@ -1808,44 +1794,38 @@ msgstr ""
 #: ../loader/net.c:560
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr ""
+msgstr "킥스타트 네트워크 명령 %s에 잘못된 인자: %s"
 
 #: ../loader/net.c:607
 msgid "Boot protocol to use"
-msgstr ""
+msgstr "사용할 부트 프로토콜"
 
 #: ../loader/net.c:609
-#, fuzzy
 msgid "Network gateway"
-msgstr "네트워크 설정"
+msgstr "네트워크 게이트웨이"
 
 #: ../loader/net.c:611
-#, fuzzy
 msgid "IP address"
-msgstr "IP 주소:"
+msgstr "IP 주소"
 
 #: ../loader/net.c:613
-#, fuzzy
 msgid "Nameserver"
-msgstr "서버"
+msgstr "네임서버"
 
 #: ../loader/net.c:620
-#, fuzzy
 msgid "Domain name"
-msgstr "NIS 도메인: "
+msgstr "도메인명"
 
 #: ../loader/net.c:623
-#, fuzzy
 msgid "Network device"
-msgstr "네트워크 설정"
+msgstr "네트워크 장치"
 
 #: ../loader/net.c:695
-#, fuzzy
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> 다음 항목          |  <Space> 선택      |  <F12> 다음 화면"
+" <Tab>/<Alt-Tab> 다음 항목          |   <Space> 선택     |   <F12> 다음 화면"
 
 #: ../loader/net.c:696
 #, c-format
@@ -1853,7 +1833,6 @@ msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr ""
 
 #: ../loader/net.c:698
-#, fuzzy
 msgid "Network configuration"
 msgstr "네트워크 설정"
 
@@ -1862,9 +1841,8 @@ msgid "Would you like to set up networking?"
 msgstr ""
 
 #: ../loader/urls.c:62 ../loader/urls.c:65
-#, fuzzy
 msgid "Retrieving"
-msgstr "남음"
+msgstr ""
 
 #: ../loader/urls.c:129
 msgid ""
@@ -1874,6 +1852,11 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
+"다음의 정보들을 입력해 주십시오:\n"
+"\n"
+"    o FTP 서버의 이름 또는 IP 주소\n"
+"    o 사용하는 아키텍쳐에 맞는 레드햇 리눅스가\n"
+"      있는 서버의 디렉토리"
 
 #: ../loader/urls.c:138
 msgid ""
@@ -1883,39 +1866,43 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
+"다음의 정보들을 입력해 주십시오:\n"
+"\n"
+"    o 웹 서버의 이름 또는 IP 주소\n"
+"    o 사용하는 아키텍쳐에 맞는 레드햇 리눅스가\n"
+"      있는 서버의 디렉토리"
 
 #: ../loader/urls.c:156
 msgid "FTP site name:"
-msgstr ""
+msgstr "FTP 사이트명:"
 
 #: ../loader/urls.c:157
 msgid "Web site name:"
-msgstr ""
+msgstr "웹 사이트명:"
 
 #: ../loader/urls.c:176
 msgid "Use non-anonymous ftp or a proxy server"
-msgstr ""
+msgstr "익명 FTP가 아니거나 프록시 서버 사용"
 
 #: ../loader/urls.c:180
-#, fuzzy
 msgid "Use proxy server"
-msgstr "서버를 선택하세요"
+msgstr "프록시 서버 사용"
 
 #: ../loader/urls.c:191
 msgid "FTP Setup"
-msgstr ""
+msgstr "FTP 설정"
 
 #: ../loader/urls.c:192
 msgid "HTTP Setup"
-msgstr ""
+msgstr "HTTP 설정"
 
 #: ../loader/urls.c:202
 msgid "You must enter a server name."
-msgstr ""
+msgstr "서버명을 입력해야 합니다."
 
 #: ../loader/urls.c:207
 msgid "You must enter a directory."
-msgstr ""
+msgstr "디렉토리를 입력해야 합니다."
 
 #: ../loader/urls.c:268
 msgid ""
@@ -1931,31 +1918,29 @@ msgid ""
 msgstr ""
 
 #: ../loader/urls.c:295
-#, fuzzy
 msgid "Account name:"
-msgstr "계정 이름"
+msgstr "계정 이름:"
 
 #: ../loader/urls.c:298
-#, fuzzy
 msgid "Password:"
-msgstr "패스워드"
+msgstr "패스워드:"
 
 #: ../loader/urls.c:303
 msgid "FTP Proxy:"
-msgstr ""
+msgstr "FTP 프록시:"
 
 #: ../loader/urls.c:304
 msgid "HTTP Proxy:"
-msgstr ""
+msgstr "HTTP 프록시:"
 
 #: ../loader/urls.c:308
 msgid "FTP Proxy Port:"
-msgstr ""
+msgstr "FTP 프록시 포트:"
 
 #: ../loader/urls.c:309
 msgid "HTTP Proxy Port:"
-msgstr ""
+msgstr "HTTP 프록시 포트:"
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
-msgstr ""
+msgstr "SCSI 드라이버 읽는 중"
