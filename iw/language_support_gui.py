@@ -98,6 +98,7 @@ class LanguageSupportWindow (InstallWindow):
     def reset (self, data):
         self.ics.setNextEnabled (TRUE)
 	list = []
+
         for row in range(self.maxrows):
 	    (val, row_data, header) = self.language.get_row_data (row)
             item = self.language.get_text (row, 1)
@@ -126,11 +127,19 @@ class LanguageSupportWindow (InstallWindow):
             widget.moveto (item, 0, 0.5, 0.5)
 
         self.langs = self.todo.language.getSupported()
-	self.origLangs = self.langs
+	self.origLangs = []
+        for i in self.langs:
+            self.origLangs.append(i)
+            
+        print "self.origLangs is ", self.origLangs
 
 	self.defaultLang = self.todo.language.getDefault()
 	self.oldDefaultLang = self.defaultLang
-            
+
+        # first time we hit this point in install this is not initialized
+        if self.origLangs == []:
+            self.origLangs.append(self.defaultLang)
+        
         vbox = GtkVBox (FALSE, 10)
         hbox = GtkHBox (FALSE)
         
@@ -157,11 +166,13 @@ class LanguageSupportWindow (InstallWindow):
         self.language.connect ("button_press_event", self.support_select_row)
         self.language.connect ("key_press_event", self.language_key_press)
 
+
         self.maxrows = 0
         list = []
         comboCurr = 0
 	firstItem = 0
         sel = 0
+
         for locale in self.languages:
 	    if locale == self.defaultLang or (locale in self.langs):
 		self.language.append_row((locale, ""), TRUE)
