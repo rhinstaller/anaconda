@@ -6,6 +6,7 @@ import rpm
 import time
 import gettext
 import glob
+from newtpyfsedit import fsedit        
 
 INSTALL_OK = 0
 INSTALL_BACK = -1
@@ -377,7 +378,6 @@ class NetworkWindow:
 class PartitionWindow:
     def __call__(self, screen, todo):
 	if (not todo.setupFilesystems): return INSTALL_NOOP
-        from newtpyfsedit import fsedit        
 
         fstab = []
         for (mntpoint, (dev, fstype, reformat)) in todo.mounts.items ():
