@@ -172,6 +172,7 @@ class TimezoneWindow(InstallWindow):
         # set up page 2
 	tzBox = gtk.VBox(gtk.FALSE)
         sw = gtk.ScrolledWindow()
+        sw.set_shadow_type(gtk.SHADOW_IN)
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 	self.ustore = gtk.ListStore(gobject.TYPE_STRING,
 				    gobject.TYPE_STRING)
