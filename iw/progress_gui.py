@@ -16,15 +16,19 @@ import rpm
 import os
 import gui
 import sys
+import time
 import timer
 import gobject
 import gtk
 import locale
+
+from flags import flags
 from iw_gui import *
 from rhpl.translate import _, N_
 from packages import doInstall
 from constants import *
 from rhpl.log import log
+from gui import processEvents, takeScreenShot
 
 # FIXME: from redhat-config-packages.  perhaps move to common location
 def size_string (size):
@@ -120,10 +124,13 @@ class InstallProgressWindow_NEW (InstallWindow):
             if self.pixtimer is None or self.pixtimer.elapsed() > 30:
                 if self.pixtimer is None:
                     self.pixtimer = timer.Timer()
-                
+
+		wrappixlist = 0
                 num = self.pixcurnum
                 if num >= len(self.pixmaps):
                     num = 0
+		    wrappixlist = 1
+		    
                 pix = self.ics.readPixmapDithered (self.pixmaps[num], 425, 225)
                 if pix:
 		    if self.adpix:
@@ -135,6 +142,14 @@ class InstallProgressWindow_NEW (InstallWindow):
                     log("couldn't get a pix")
                 self.adbox.show_all()
                 self.pixcurnum = num + 1
+
+		# take screenshot if desired
+		if flags.autoscreenshot and not wrappixlist:
+		    # let things settle down graphically??
+		    processEvents()
+		    time.sleep(5)
+		    takeScreenShot()
+		    
                 self.pixtimer.reset()
                 
         size = size_string(header[rpm.RPMTAG_SIZE])
