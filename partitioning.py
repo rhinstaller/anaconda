@@ -1391,32 +1391,78 @@ class DiskSet:
         w = intf.waitWindow (_("Initializing"),
                              _("Running dasdfmt on drive %s...\n"
                                "This can take quite a while!\n\n"
-                               "Get yourself a coffee and thank\n"
-                               "IBM for the lack of a progress bar!\n"
+                               "Get yourself a coffee...\n"
                                ) % (drive,))
         try:
-            isys.makeDevInode(device, '/tmp/' + device)
+            isys.makeDevInode(drive, '/tmp/' + drive)
         except:
             pass
 
-        rc = iutil.execWithRedirect("/sbin/dasdfmt",
-                                    [ "/sbin/dasdfmt",
-                                      "-y",
-                                      "-b", "4096",
-                                      "-d", "cdl",
-                                      "-f",
-                                      "/tmp/%s" % drive],
-                                    stdin = "/dev/null",
-                                    stdout = "/dev/null")
-        w.pop()
+        argList = [ "/sbin/dasdfmt",
+                    "-y",
+                    "-b", "4096",
+                    "-d", "cdl",
+                    "-f",
+                    "-P",
+                    "/tmp/%s" % drive]
         
-        if rc:
-            intf.messageWindow( _("Error"),
-                                _("An error occured while running dasdfmt on drive %s.") % (drive))
-        else:
-            isys.flushDriveDict()
+        fd = os.open("/dev/null", os.O_RDWR | os.O_CREAT | os.O_APPEND)
+        p = os.pipe()
+        childpid = os.fork()
+        if not childpid:
+            os.close(p[0])
+            os.dup2(p[1], 1)
+            os.dup2(fd, 2)
+            os.close(p[1])
+            os.close(fd)
+            os.execv(argList[0], argList)
+            log("failed to exec %s", argList)
+            sys.exit(1)
+			    
+        os.close(p[1])
+
+        num = ''
+        sync = 0
+        while s:
+            try:
+                s = os.read(p[0], 1)
+                os.write(fd, s)
+
+                if s != '\n':
+                    try:
+                        num = num + s
+                    except:
+                        pass
+                else:
+                    if num and len(num) >= 26:
+                        # printf("cyl %5d of %5d |  %3d%%\n",
+                        val = int(num[23:26])
+                        w and w.set(val)
+                        # sync every 10%
+                        if sync + 10 < val:
+                            isys.sync()
+                            sync = val
+                    num = ''
+                except OSError, args:
+                    (errno, str) = args
+                    if (errno != 4):
+                        raise IOError, args
+
+        try:
+            (pid, status) = os.waitpid(childpid, 0)
+        except OSError, (num, msg):
+            print __name__, "waitpid:", msg
             
-        return rc
+        os.close(fd)
+
+        w and w.pop()
+        
+        isys.flushDriveDict()
+            
+        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
+            return 0
+
+        return 1
 
     def openDevices (self, intf = None, initAll = 0, zeroMbr = 0):
         if self.disks:
