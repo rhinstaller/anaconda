@@ -3,13 +3,66 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sndconfig 3.0\n"
-"POT-Creation-Date: 2001-07-31 15:54-0400\n"
+"POT-Creation-Date: 2001-08-02 15:21-0400\n"
 "PO-Revision-Date: 2000-02-21 19:27-05:00\n"
 "Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8-bit\n"
+
+#: ../anaconda:308
+msgid ""
+"You do not have enough RAM to use the graphical installer.  Starting text "
+"mode."
+msgstr ""
+
+#: ../anaconda:327 ../iw/account_gui.py:150 ../iw/account_gui.py:161
+#: ../iw/partition_gui.py:496 ../iw/partition_gui.py:838
+#: ../iw/partition_gui.py:1289 ../loader/urls.c:79 ../loader/urls.c:89
+#: ../loader/urls.c:97 ../loader/urls.c:247 ../rescue.py:34 ../rescue.py:130
+#: ../rescue.py:151 ../rescue.py:168 ../rescue.py:174 ../text.py:389
+#: ../textw/bootdisk_text.py:65 ../textw/bootdisk_text.py:67
+#: ../textw/complete_text.py:41 ../textw/complete_text.py:56
+#: ../textw/complete_text.py:72 ../textw/confirm_text.py:24
+#: ../textw/confirm_text.py:36 ../textw/constants_text.py:20
+#: ../textw/firewall_text.py:201 ../textw/network_text.py:134
+#: ../textw/silo_text.py:110 ../xserver.py:51
+msgid "OK"
+msgstr "OK"
+
+#: ../anaconda:370
+msgid "Probing for video card:   "
+msgstr ""
+
+#: ../anaconda:378
+#, fuzzy
+msgid "Unable to probe\n"
+msgstr "Nu s-a putut detecta placa video"
+
+#: ../anaconda:380
+msgid "Probing for monitor type: "
+msgstr ""
+
+#: ../anaconda:387
+msgid "Probing for mouse type:   "
+msgstr ""
+
+#: ../anaconda:391
+msgid "Skipping mouse probe.\n"
+msgstr ""
+
+#: ../anaconda:405
+#, c-format
+msgid ""
+"Graphical installation not available for %s installs.  Starting text mode."
+msgstr ""
+
+#: ../anaconda:413
+msgid ""
+"No mouse was detected.  A mouse is required for graphical installation.  "
+"Starting text mode."
+msgstr ""
 
 #: ../autopart.py:729
 #, c-format
@@ -58,7 +111,7 @@ msgid ""
 "%s"
 msgstr "Partiþionare Automatã"
 
-#: ../autopart.py:900 ../iw/partition_gui.py:1227
+#: ../autopart.py:900 ../iw/partition_gui.py:1242
 #: ../textw/partition_text.py:149
 #, fuzzy
 msgid "Error Partitioning"
@@ -73,10 +126,11 @@ msgid ""
 msgstr "Existã Partiþii Nealocate..."
 
 #: ../autopart.py:935 ../harddrive.py:233 ../iw/bootloader_gui.py:58
-#: ../iw/partition_gui.py:1232 ../iw/partition_gui.py:1547
-#: ../iw/upgrade_swap_gui.py:169 ../iw/upgrade_swap_gui.py:177
-#: ../iw/upgrade_swap_gui.py:184 ../partitioning.py:1331
-#: ../textw/bootloader_text.py:128 ../textw/partition_text.py:153
+#: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1247
+#: ../iw/partition_gui.py:1570 ../iw/upgrade_swap_gui.py:169
+#: ../iw/upgrade_swap_gui.py:177 ../iw/upgrade_swap_gui.py:184
+#: ../partitioning.py:1331 ../textw/bootloader_text.py:128
+#: ../textw/bootloader_text.py:424 ../textw/partition_text.py:153
 #: ../textw/upgrade_text.py:172
 #, fuzzy
 msgid "Warning"
@@ -138,12 +192,12 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../bootloader.py:629
+#: ../bootloader.py:651
 #, fuzzy
 msgid "Bootloader"
 msgstr "Eticheta"
 
-#: ../bootloader.py:629
+#: ../bootloader.py:651
 #, fuzzy
 msgid "Installing bootloader..."
 msgstr "Instalare %s.\n"
@@ -170,10 +224,9 @@ msgid ""
 "will now be reset."
 msgstr ""
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:713 ../fsset.py:732
-#: ../fsset.py:777 ../fsset.py:797 ../fsset.py:826 ../fsset.py:846
-#: ../harddrive.py:171 ../image.py:65 ../image.py:142
-#: ../libfdisk/newtfsedit.c:1746 ../loader/devices.c:259
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:714 ../fsset.py:733
+#: ../fsset.py:778 ../fsset.py:798 ../fsset.py:827 ../fsset.py:847
+#: ../harddrive.py:171 ../image.py:65 ../image.py:142 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:27 ../loader/lang.c:102
 #: ../loader/loader.c:478 ../loader/loader.c:535 ../loader/loader.c:912
@@ -215,15 +268,15 @@ msgstr "Verificare blocuri defecte la formatare"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Verificare blocuri defecte la formatare"
 
-#: ../fsset.py:654 ../iw/silo_gui.py:168 ../textw/silo_text.py:75
+#: ../fsset.py:655 ../iw/silo_gui.py:168 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:655 ../iw/silo_gui.py:171 ../textw/silo_text.py:76
+#: ../fsset.py:656 ../iw/silo_gui.py:171 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Primul sector al partiþiei active"
 
-#: ../fsset.py:714
+#: ../fsset.py:715
 #, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -232,7 +285,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:733
+#: ../fsset.py:734
 #, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -242,7 +295,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:778
+#: ../fsset.py:779
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -251,7 +304,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:798
+#: ../fsset.py:799
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -260,7 +313,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:827
+#: ../fsset.py:828
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -269,7 +322,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:847
+#: ../fsset.py:848
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -279,11 +332,11 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1365
+#: ../fsset.py:1366
 msgid "Formatting"
 msgstr "Formatare sistem fiºiere"
 
-#: ../fsset.py:1366
+#: ../fsset.py:1367
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Se iniþializeazã %s cu un sistem ext2..."
@@ -292,62 +345,24 @@ msgstr "Se iniþializeazã %s cu un sistem ext2..."
 msgid "Fix"
 msgstr ""
 
-#: ../gui.py:105 ../iw/partition_gui.py:483 ../iw/partition_gui.py:640
-#: ../iw/partition_gui.py:703 ../iw/welcome_gui.py:84 ../libfdisk/fsedit.c:953
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237
-#: ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398
-#: ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754
-#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:618
-#: ../libfdisk/newtfsedit.c:745 ../libfdisk/newtfsedit.c:877
-#: ../libfdisk/newtfsedit.c:1683 ../libfdisk/newtfsedit.c:1701
-#: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:230
+#: ../gui.py:105 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
+#: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:84 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:276
 #: ../textw/bootdisk_text.py:25 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:32 ../textw/upgrade_text.py:251
 msgid "Yes"
 msgstr "Da"
 
-#: ../gui.py:106 ../iw/partition_gui.py:484 ../iw/partition_gui.py:642
-#: ../iw/partition_gui.py:705 ../iw/welcome_gui.py:87 ../libfdisk/fsedit.c:953
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237
-#: ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398
-#: ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754
-#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:618
-#: ../libfdisk/newtfsedit.c:745 ../libfdisk/newtfsedit.c:877
-#: ../libfdisk/newtfsedit.c:1683 ../libfdisk/newtfsedit.c:1701
-#: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:231 ../loader/net.c:889
-#: ../text.py:277 ../textw/bootdisk_text.py:25 ../textw/bootdisk_text.py:54
-#: ../textw/bootloader_text.py:76 ../textw/constants_text.py:36
-#: ../textw/upgrade_text.py:251 ../textw/upgrade_text.py:258
+#: ../gui.py:106 ../iw/partition_gui.py:499 ../iw/partition_gui.py:657
+#: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:87 ../loader/devices.c:231
+#: ../loader/net.c:889 ../text.py:277 ../textw/bootdisk_text.py:25
+#: ../textw/bootdisk_text.py:54 ../textw/bootloader_text.py:76
+#: ../textw/constants_text.py:36 ../textw/upgrade_text.py:251
+#: ../textw/upgrade_text.py:258
 msgid "No"
 msgstr "Nu"
 
-#. code to create dialog in gtk+
-#: ../gui.py:107 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
-#: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
-#: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
-#: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1052
-#: ../libfdisk/fsedit.c:1476 ../libfdisk/gnomefsedit.c:756
-#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
-#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
-#: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
-#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526
-#: ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651
-#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737
-#: ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024
-#: ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278
-#: ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332
-#: ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354
-#: ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374
-#: ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544
-#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170
-#: ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:580
-#: ../libfdisk/newtfsedit.c:642 ../libfdisk/newtfsedit.c:675
-#: ../libfdisk/newtfsedit.c:701 ../libfdisk/newtfsedit.c:720
-#: ../libfdisk/newtfsedit.c:851 ../libfdisk/newtfsedit.c:1480
-#: ../libfdisk/newtfsedit.c:1488 ../libfdisk/newtfsedit.c:1613
-#: ../libfdisk/newtfsedit.c:1634 ../libfdisk/newtfsedit.c:1662
-#: ../libfdisk/newtfsedit.c:1746 ../loader/cdrom.c:34 ../loader/devices.c:92
+#: ../gui.py:107 ../loader/cdrom.c:34 ../loader/devices.c:92
 #: ../loader/devices.c:237 ../loader/devices.c:259 ../loader/devices.c:266
 #: ../loader/devices.c:335 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/devices.c:532 ../loader/kickstart.c:58
@@ -368,8 +383,7 @@ msgstr "Nu"
 msgid "Ok"
 msgstr "Ok"
 
-#: ../gui.py:108 ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1463
-#: ../loader/net.c:277 ../loader/net.c:404 ../text.py:279
+#: ../gui.py:108 ../loader/net.c:277 ../loader/net.c:404 ../text.py:279
 msgid "Retry"
 msgstr "Încearcã din nou"
 
@@ -377,17 +391,14 @@ msgstr "Încearcã din nou"
 msgid "Ignore"
 msgstr ""
 
-#: ../gui.py:110 ../iw/account_gui.py:150 ../iw/account_gui.py:161
-#: ../iw/partition_gui.py:824 ../iw/partition_gui.py:1275
-#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
-#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:581
-#: ../libfdisk/newtfsedit.c:1701 ../loader/devices.c:238
-#: ../loader/devices.c:532 ../loader/loader.c:2300 ../loader/pcmcia.c:104
-#: ../text.py:114 ../text.py:115 ../text.py:249 ../text.py:251 ../text.py:281
-#: ../textw/bootloader_text.py:197 ../textw/constants_text.py:24
-#: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:75 ../textw/welcome_text.py:48
-#: ../textw/welcome_text.py:51
+#: ../gui.py:110 ../iw/account_gui.py:151 ../iw/account_gui.py:162
+#: ../iw/partition_gui.py:839 ../iw/partition_gui.py:1290
+#: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
+#: ../loader/pcmcia.c:104 ../text.py:114 ../text.py:115 ../text.py:249
+#: ../text.py:251 ../text.py:281 ../textw/bootloader_text.py:197
+#: ../textw/constants_text.py:24 ../textw/silo_text.py:147
+#: ../textw/silo_text.py:165 ../textw/userauth_text.py:75
+#: ../textw/welcome_text.py:48 ../textw/welcome_text.py:51
 msgid "Cancel"
 msgstr "Abandon"
 
@@ -420,8 +431,7 @@ msgstr "Detalii instalare"
 msgid "Language Selection"
 msgstr "Selecþie limbã de instalare"
 
-#: ../gui.py:436 ../iw/firewall_gui.py:122 ../libfdisk/gnomefsedit.c:1388
-#: ../libfdisk/gnomefsedit.c:1405
+#: ../gui.py:436 ../iw/firewall_gui.py:122
 msgid "Close"
 msgstr "Închide"
 
@@ -437,13 +447,12 @@ msgstr ""
 msgid "Release notes are missing.\n"
 msgstr ""
 
-#: ../gui.py:599 ../libfdisk/newtfsedit.c:1480 ../libfdisk/newtfsedit.c:1488
-#: ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238
-#: ../loader/devices.c:335 ../loader/lang.c:596 ../loader/loader.c:323
-#: ../loader/loader.c:816 ../loader/loader.c:853 ../loader/loader.c:967
-#: ../loader/loader.c:1061 ../loader/loader.c:1490 ../loader/net.c:185
-#: ../loader/net.c:272 ../loader/net.c:359 ../loader/urls.c:158
-#: ../loader/urls.c:387 ../textw/confirm_text.py:24
+#: ../gui.py:599 ../loader/cdrom.c:34 ../loader/devices.c:93
+#: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:596
+#: ../loader/loader.c:323 ../loader/loader.c:816 ../loader/loader.c:853
+#: ../loader/loader.c:967 ../loader/loader.c:1061 ../loader/loader.c:1490
+#: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:359
+#: ../loader/urls.c:158 ../loader/urls.c:387 ../textw/confirm_text.py:24
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:38 ../textw/constants_text.py:28
 #: ../textw/silo_text.py:110 ../textw/userauth_text.py:177
@@ -604,9 +613,8 @@ msgstr ""
 "urmatoarele sisteme de fisiere:\n"
 "\n"
 
-#: ../iw/partition_gui.py:1484 ../iw/upgrade_swap_gui.py:121
-#: ../libfdisk/gnomefsedit.c:3132 ../packages.py:565 ../packages.py:585
-#: ../textw/upgrade_text.py:106
+#: ../iw/partition_gui.py:1507 ../iw/upgrade_swap_gui.py:121
+#: ../packages.py:565 ../packages.py:585 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Mount Point"
 
@@ -788,7 +796,7 @@ msgstr ""
 "aceasta trebuie initializatã, ceea ce va conduce la pierderea TUTUROR "
 "informaþiilor de pe acest disc."
 
-#: ../libfdisk/fsedit.c:1052 ../partitioning.py:1409
+#: ../partitioning.py:1409
 msgid "No Drives Found"
 msgstr "Nu s-a identificat nici un disc"
 
@@ -818,7 +826,6 @@ msgid ""
 "Are you sure?"
 msgstr "Sînteþi sigur cã doriþi sã ºtergeþi aceastã partiþie?"
 
-#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:878
 #: ../partitioning.py:1490
 msgid "Are you sure you want to delete this partition?"
 msgstr "Sînteþi sigur cã doriþi sã ºtergeþi aceastã partiþie?"
@@ -995,13 +1002,13 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../iw/partition_gui.py:561 ../partitioning.py:1731
+#: ../iw/partition_gui.py:576 ../partitioning.py:1731
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
 
-#: ../iw/partition_gui.py:564 ../partitioning.py:1734
+#: ../iw/partition_gui.py:579 ../partitioning.py:1734
 msgid ""
 "Selected 'Yes' to continue and format these partitions, or 'No' to go back "
 "and change these settings."
@@ -1012,30 +1019,16 @@ msgstr ""
 msgid "Format Warning"
 msgstr "Formatare sistem fiºiere"
 
-#: ../iw/account_gui.py:149 ../iw/account_gui.py:160
-#: ../iw/partition_gui.py:481 ../iw/partition_gui.py:823
-#: ../iw/partition_gui.py:1274 ../loader/urls.c:79 ../loader/urls.c:89
-#: ../loader/urls.c:97 ../loader/urls.c:247 ../rescue.py:34 ../rescue.py:110
-#: ../rescue.py:131 ../rescue.py:148 ../rescue.py:154 ../text.py:389
-#: ../textw/bootdisk_text.py:65 ../textw/bootdisk_text.py:67
-#: ../textw/complete_text.py:41 ../textw/complete_text.py:56
-#: ../textw/complete_text.py:72 ../textw/confirm_text.py:24
-#: ../textw/confirm_text.py:36 ../textw/constants_text.py:20
-#: ../textw/firewall_text.py:201 ../textw/network_text.py:134
-#: ../textw/silo_text.py:110 ../xserver.py:51
-msgid "OK"
-msgstr "OK"
-
-#: ../rescue.py:48 ../rescue.py:84 ../rescue.py:163
+#: ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 
-#: ../rescue.py:70 ../rescue.py:125 ../rescue.py:143
+#: ../rescue.py:90 ../rescue.py:145 ../rescue.py:163
 #, fuzzy
 msgid "Rescue"
 msgstr "_Resetare"
 
-#: ../rescue.py:71
+#: ../rescue.py:91
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory /mnt/sysimage.  You can then "
@@ -1047,31 +1040,31 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../rescue.py:79
+#: ../rescue.py:99
 msgid "Continue"
 msgstr "Continuare"
 
-#: ../rescue.py:79 ../rescue.py:81 ../textw/bootdisk_text.py:67
+#: ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:67
 #: ../textw/bootdisk_text.py:89 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:118
 msgid "Skip"
 msgstr "Urmãtoarea etapã"
 
-#: ../rescue.py:107
+#: ../rescue.py:127
 #, fuzzy
 msgid "System to Rescue"
 msgstr "System pentru actualizare"
 
-#: ../rescue.py:108 ../textw/upgrade_text.py:208
+#: ../rescue.py:128 ../textw/upgrade_text.py:208
 msgid "What partition holds the root partition of your installation?"
 msgstr "Ce partiþie conþine partiþia de root a instalãrii Red Hat Linux?"
 
-#: ../iw/congrats_gui.py:14 ../iw/congrats_gui.py:64 ../rescue.py:110
-#: ../rescue.py:114
+#: ../iw/congrats_gui.py:14 ../iw/congrats_gui.py:64 ../rescue.py:130
+#: ../rescue.py:134
 msgid "Exit"
 msgstr "Exit"
 
-#: ../rescue.py:126
+#: ../rescue.py:146
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -1083,7 +1076,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:144
+#: ../rescue.py:164
 msgid ""
 "An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under /mnt/sysimage.\n"
@@ -1092,18 +1085,18 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: ../rescue.py:150
+#: ../rescue.py:170
 #, fuzzy
 msgid "Rescue Mode"
 msgstr "Metodã de Salvare"
 
-#: ../rescue.py:151
+#: ../rescue.py:171
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:160
+#: ../rescue.py:181
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr ""
 
@@ -1275,117 +1268,114 @@ msgstr ""
 msgid " X server started successfully."
 msgstr ""
 
-#: ../iw/account_gui.py:25
+#: ../iw/account_gui.py:26
 msgid "Account Configuration"
 msgstr "Configurare Conturi Utilizator"
 
-#: ../iw/account_gui.py:48
+#: ../iw/account_gui.py:49
 msgid "Root password accepted."
 msgstr "Parola de root acceptatã"
 
-#: ../iw/account_gui.py:53
+#: ../iw/account_gui.py:54
 msgid "Root password is too short."
 msgstr "Parola de root este prea scurtã."
 
-#: ../iw/account_gui.py:55
+#: ../iw/account_gui.py:56
 msgid "Root passwords do not match."
 msgstr "Parolele introduse sînt diferite."
 
-#: ../iw/account_gui.py:67
+#: ../iw/account_gui.py:68
 msgid "User password accepted."
 msgstr "Parola acceptatã"
 
-#: ../iw/account_gui.py:74
+#: ../iw/account_gui.py:75
 msgid "Root account can not be added here."
 msgstr "Contul pentru root nu poate fi adãugat aici"
 
-#: ../iw/account_gui.py:76
+#: ../iw/account_gui.py:77
 msgid "Please enter user password."
 msgstr "Introduceþi parola utilizatorului"
 
-#: ../iw/account_gui.py:78
+#: ../iw/account_gui.py:79
 msgid "User password is too short."
 msgstr "Parola este prea scurtã."
 
-#: ../iw/account_gui.py:80
+#: ../iw/account_gui.py:81
 msgid "User passwords do not match."
 msgstr "Parolele introduse sînt diferite."
 
-#: ../iw/account_gui.py:147
+#: ../iw/account_gui.py:148
 #, fuzzy
 msgid "Add a New User"
 msgstr "Adaugã Utlizator"
 
-#: ../iw/account_gui.py:157 ../textw/userauth_text.py:84
+#: ../iw/account_gui.py:158 ../textw/userauth_text.py:84
 msgid "Edit User"
 msgstr "Modificare Utilizator"
 
-#: ../iw/account_gui.py:182
+#: ../iw/account_gui.py:183
 #, fuzzy
 msgid "User Name:"
 msgstr "Nume utilizator"
 
-#: ../iw/account_gui.py:184
+#: ../iw/account_gui.py:185
 #, fuzzy
 msgid "Full Name:"
 msgstr "Nume Complet"
 
-#: ../iw/account_gui.py:186 ../iw/bootloaderpassword_gui.py:75
+#: ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 #: ../loader/urls.c:357 ../textw/userauth_text.py:36
 msgid "Password:"
 msgstr "Parola:"
 
-#: ../iw/account_gui.py:188 ../iw/bootloaderpassword_gui.py:79
+#: ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
 #: ../textw/bootloader_text.py:385
 #, fuzzy
 msgid "Confirm:"
 msgstr "Din nou: "
 
-#: ../iw/account_gui.py:191
+#: ../iw/account_gui.py:192
 #, fuzzy
 msgid "Please enter user name"
 msgstr "Introduceþi parola utilizatorului"
 
-#: ../iw/account_gui.py:270
+#: ../iw/account_gui.py:273
 msgid "Enter the password for the root user (administrator) of this system."
 msgstr ""
 
-#: ../iw/account_gui.py:283
+#: ../iw/account_gui.py:286
 msgid "Root Password: "
 msgstr "Parola de root:"
 
-#: ../iw/account_gui.py:286
+#: ../iw/account_gui.py:289
 msgid "Confirm: "
 msgstr "Din nou: "
 
-#: ../iw/account_gui.py:320
+#: ../iw/account_gui.py:323
 msgid "Account Name"
 msgstr "Nume Cont"
 
-#: ../iw/account_gui.py:320 ../textw/userauth_text.py:95
+#: ../iw/account_gui.py:323 ../textw/userauth_text.py:95
 #: ../textw/userauth_text.py:196
 msgid "Full Name"
 msgstr "Nume Complet"
 
-#: ../iw/account_gui.py:327 ../libfdisk/newtfsedit.c:1486
-#: ../textw/userauth_text.py:210
+#: ../iw/account_gui.py:330 ../textw/userauth_text.py:210
 msgid "Add"
 msgstr "Adãugare"
 
-#: ../iw/account_gui.py:329 ../libfdisk/newtfsedit.c:1479
-#: ../libfdisk/newtfsedit.c:1487 ../textw/bootloader_text.py:274
-#: ../textw/fdisk_text.py:40 ../textw/partition_text.py:942
+#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:274
+#: ../textw/fdisk_text.py:40 ../textw/partition_text.py:961
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:211
 msgid "Edit"
 msgstr "Editare"
 
-#: ../iw/account_gui.py:332 ../libfdisk/newtfsedit.c:1487
-#: ../textw/userauth_text.py:210
+#: ../iw/account_gui.py:335 ../textw/userauth_text.py:210
 msgid "Delete"
 msgstr "ªtergere"
 
-#: ../iw/account_gui.py:352
+#: ../iw/account_gui.py:355
 msgid ""
 "Additional accounts can be created for other users of this system. Such "
 "accounts could be for a personal login account, or for other non-"
@@ -1525,15 +1515,14 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 
-#: ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:434
+#: ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:432
 #: ../iw/silo_gui.py:122 ../iw/silo_gui.py:273 ../iw/upgrade_swap_gui.py:121
 #: ../textw/upgrade_text.py:107
 msgid "Partition"
 msgstr "Partiþionare"
 
-#: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:435
-#: ../iw/partition_gui.py:1484 ../iw/silo_gui.py:127 ../iw/silo_gui.py:274
-#: ../libfdisk/gnomefsedit.c:3136
+#: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:433
+#: ../iw/partition_gui.py:1507 ../iw/silo_gui.py:127 ../iw/silo_gui.py:274
 msgid "Type"
 msgstr "Tip"
 
@@ -1567,10 +1556,10 @@ msgid "Default"
 msgstr "Implicit"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:145
-#: ../iw/partition_gui.py:1483 ../iw/silo_gui.py:250
-#: ../libfdisk/gnomefsedit.c:3133 ../textw/bootloader_text.py:191
-#: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
-#: ../textw/silo_text.py:142 ../textw/silo_text.py:207
+#: ../iw/partition_gui.py:1506 ../iw/silo_gui.py:250
+#: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:259
+#: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
+#: ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Partiþie"
 
@@ -1579,7 +1568,7 @@ msgstr "Partiþie"
 msgid "Partition type"
 msgstr "Tip partiþie"
 
-#: ../iw/bootloader_gui.py:354 ../iw/bootloader_gui.py:445
+#: ../iw/bootloader_gui.py:354 ../iw/bootloader_gui.py:443
 #: ../iw/silo_gui.py:250 ../iw/silo_gui.py:285 ../textw/bootloader_text.py:192
 #: ../textw/bootloader_text.py:259 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
@@ -1599,7 +1588,7 @@ msgstr ""
 msgid "Do not install a boot loader"
 msgstr "Instalare Sistem"
 
-#: ../iw/bootloader_gui.py:442 ../iw/silo_gui.py:281
+#: ../iw/bootloader_gui.py:440 ../iw/silo_gui.py:281
 #, fuzzy
 msgid "Default boot image"
 msgstr "Seteazã imaginea implicitã de boot în PROM"
@@ -1609,34 +1598,42 @@ msgstr "Seteazã imaginea implicitã de boot în PROM"
 msgid "Boot Loader Password Configuration"
 msgstr "Configurare Monitoare"
 
-#: ../iw/bootloaderpassword_gui.py:43
+#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:425
+msgid ""
+"Your boot loader password is less than six characters.  We recommend a "
+"longer boot loader password.\n"
+"\n"
+"Would you like to continue with this password?"
+msgstr ""
+
+#: ../iw/bootloaderpassword_gui.py:54
 #, fuzzy
 msgid "Password accepted."
 msgstr "Parola de root acceptatã"
 
-#: ../iw/bootloaderpassword_gui.py:48
+#: ../iw/bootloaderpassword_gui.py:59
 #, fuzzy
 msgid "Password is too short."
 msgstr "Parola de root este prea scurtã."
 
-#: ../iw/bootloaderpassword_gui.py:50
+#: ../iw/bootloaderpassword_gui.py:61
 #, fuzzy
 msgid "Passwords do not match."
 msgstr "Parolele introduse sînt diferite."
 
-#: ../iw/bootloaderpassword_gui.py:65 ../textw/bootloader_text.py:362
+#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:362
 msgid ""
-"A GRUB password prevents users from passing arbitrary options to the "
+"A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
 
-#: ../iw/bootloaderpassword_gui.py:72
+#: ../iw/bootloaderpassword_gui.py:84
 #, fuzzy
 msgid "Use a GRUB Password?"
 msgstr "Foloseºte shadow passwords"
 
-#: ../iw/bootloaderpassword_gui.py:97
+#: ../iw/bootloaderpassword_gui.py:109
 #, fuzzy
 msgid "Please enter password"
 msgstr "Introduceþi parola utilizatorului"
@@ -2031,7 +2028,7 @@ msgstr ""
 msgid "Flat View"
 msgstr ""
 
-#: ../iw/package_gui.py:410 ../iw/partition_gui.py:1484
+#: ../iw/package_gui.py:410 ../iw/partition_gui.py:1507
 #, fuzzy
 msgid "Size (MB)"
 msgstr "Mãrime (MB):"
@@ -2057,300 +2054,302 @@ msgstr "Selectare Grupuri Aplicaþii"
 msgid "Select individual packages"
 msgstr "Selectaþi pachetele individuale"
 
-#: ../iw/partition_gui.py:298 ../iw/partition_gui.py:319
-#: ../iw/partition_gui.py:321 ../textw/partition_text.py:172
+#: ../iw/partition_gui.py:313 ../iw/partition_gui.py:334
+#: ../iw/partition_gui.py:336 ../textw/partition_text.py:172
 #: ../textw/partition_text.py:174 ../textw/partition_text.py:176
 #: ../textw/partition_text.py:201
 msgid "<Not Applicable>"
 msgstr ""
 
-#: ../iw/partition_gui.py:468 ../textw/fdisk_text.py:38
+#: ../iw/partition_gui.py:483 ../textw/fdisk_text.py:38
 msgid "Disk Setup"
 msgstr "Setare Disc"
 
-#: ../iw/partition_gui.py:528
+#: ../iw/partition_gui.py:543
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
-#: ../iw/partition_gui.py:531
+#: ../iw/partition_gui.py:546
 msgid ""
 "These errors must be corrected prior to continuing with your install of Red "
 "Hat Linux."
 msgstr ""
 
-#: ../iw/partition_gui.py:538
+#: ../iw/partition_gui.py:553
 #, fuzzy
 msgid "Partitioning Errors"
 msgstr "Partiþionare"
 
-#: ../iw/partition_gui.py:544
+#: ../iw/partition_gui.py:559
 msgid "The following warnings exist with your requested partition scheme."
 msgstr ""
 
-#: ../iw/partition_gui.py:546
+#: ../iw/partition_gui.py:561
 #, fuzzy
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "Doriþi sã vã configuraþi sistemul acum?"
 
-#: ../iw/partition_gui.py:552
+#: ../iw/partition_gui.py:567
 #, fuzzy
 msgid "Partitioning Warnings"
 msgstr "Partiþionare Automatã"
 
-#: ../iw/partition_gui.py:574
+#: ../iw/partition_gui.py:589
 #, fuzzy
 msgid "Format Warnings"
 msgstr "Formatare sistem fiºiere"
 
-#: ../iw/partition_gui.py:627 ../textw/partition_text.py:61
+#: ../iw/partition_gui.py:642 ../textw/partition_text.py:61
 #: ../textw/partition_text.py:100
 #, fuzzy
 msgid "Free space"
 msgstr "Spaþiu pe Disc"
 
-#: ../iw/partition_gui.py:629 ../textw/partition_text.py:63
+#: ../iw/partition_gui.py:644 ../textw/partition_text.py:63
 msgid "Extended"
 msgstr ""
 
-#: ../iw/partition_gui.py:631 ../textw/partition_text.py:65
+#: ../iw/partition_gui.py:646 ../textw/partition_text.py:65
 msgid "software RAID"
 msgstr ""
 
-#: ../iw/partition_gui.py:649 ../iw/partition_gui.py:707
+#: ../iw/partition_gui.py:664 ../iw/partition_gui.py:722
 #: ../textw/partition_text.py:79 ../textw/partition_text.py:131
 #, fuzzy
 msgid "None"
 msgstr "Gata"
 
-#: ../iw/partition_gui.py:651
+#: ../iw/partition_gui.py:666
 #, fuzzy
 msgid "Free"
 msgstr "Free (M)"
 
-#: ../iw/partition_gui.py:709 ../textw/partition_text.py:133
+#: ../iw/partition_gui.py:724 ../textw/partition_text.py:133
 #, fuzzy, c-format
 msgid "RAID Device %s"
 msgstr "System RAID inexistent"
 
-#: ../iw/partition_gui.py:778
+#: ../iw/partition_gui.py:793
 msgid "Additional Size Options"
 msgstr ""
 
-#: ../iw/partition_gui.py:783
+#: ../iw/partition_gui.py:798
 msgid "Fixed size"
 msgstr ""
 
-#: ../iw/partition_gui.py:784
+#: ../iw/partition_gui.py:799
 msgid "Fill all space up to (MB):"
 msgstr ""
 
-#: ../iw/partition_gui.py:792
+#: ../iw/partition_gui.py:807
 msgid "Fill to maximum allowable size"
 msgstr ""
 
-#: ../iw/partition_gui.py:821 ../textw/partition_text.py:523
+#: ../iw/partition_gui.py:836 ../textw/partition_text.py:525
 #, fuzzy
 msgid "Add Partition"
 msgstr "Partiþionare"
 
-#: ../iw/partition_gui.py:838 ../iw/partition_gui.py:1289
-#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
-#: ../libfdisk/newtfsedit.c:392 ../textw/partition_text.py:191
+#: ../iw/partition_gui.py:853 ../iw/partition_gui.py:1312
+#: ../textw/partition_text.py:191
 msgid "Mount Point:"
 msgstr "Mount Point:"
 
-#: ../iw/partition_gui.py:846 ../textw/partition_text.py:579
+#: ../iw/partition_gui.py:861 ../textw/partition_text.py:581
 #, fuzzy
 msgid "Filesystem Type:"
 msgstr "Marime Root Filesystem"
 
-#: ../iw/partition_gui.py:854
+#: ../iw/partition_gui.py:869
 #, fuzzy
 msgid "Original Filesystem Type:"
 msgstr "Marime Root Filesystem"
 
-#: ../iw/partition_gui.py:863 ../libfdisk/newtfsedit.c:494
+#: ../iw/partition_gui.py:878
 msgid "Unknown"
 msgstr "Necunoscut"
 
-#: ../iw/partition_gui.py:875 ../libfdisk/gnomefsedit.c:1134
-#: ../libfdisk/newtfsedit.c:527 ../textw/partition_text.py:246
+#: ../iw/partition_gui.py:890 ../textw/partition_text.py:246
 msgid "Allowable Drives:"
 msgstr "Discuri Permise:"
 
-#: ../iw/partition_gui.py:883
+#: ../iw/partition_gui.py:898
 #, fuzzy
 msgid "Drive:"
 msgstr "Drive"
 
-#: ../iw/partition_gui.py:892
+#: ../iw/partition_gui.py:907
 #, fuzzy
 msgid "Original Filesystem Label:"
 msgstr "Marime Root Filesystem"
 
-#: ../iw/partition_gui.py:903 ../iw/partition_gui.py:938
-#: ../textw/partition_text.py:267 ../textw/partition_text.py:350
-#: ../textw/partition_text.py:595
+#: ../iw/partition_gui.py:918 ../iw/partition_gui.py:953
+#: ../textw/partition_text.py:268 ../textw/partition_text.py:351
+#: ../textw/partition_text.py:597
 #, fuzzy
 msgid "Size (MB):"
 msgstr "Mãrime (MB):"
 
-#: ../iw/partition_gui.py:916 ../textw/partition_text.py:330
+#: ../iw/partition_gui.py:931 ../textw/partition_text.py:331
 msgid "Start Cylinder:"
 msgstr ""
 
-#: ../iw/partition_gui.py:932 ../textw/partition_text.py:343
+#: ../iw/partition_gui.py:947 ../textw/partition_text.py:344
 msgid "End Cylinder:"
 msgstr ""
 
-#: ../iw/partition_gui.py:954
+#: ../iw/partition_gui.py:969
 msgid "How would you like to prepare the filesystem on this partition?"
 msgstr ""
 
-#: ../iw/partition_gui.py:963 ../textw/partition_text.py:432
+#: ../iw/partition_gui.py:978 ../textw/partition_text.py:434
 msgid "Leave unchanged (preserve data)"
 msgstr ""
 
-#: ../iw/partition_gui.py:968
+#: ../iw/partition_gui.py:983
 #, fuzzy
 msgid "Format partition as:"
 msgstr "Partiþia root nedefinita"
 
-#: ../iw/partition_gui.py:988
+#: ../iw/partition_gui.py:1003
 #, fuzzy
 msgid "Migrate partition to:"
 msgstr "Partiþia root nedefinita"
 
-#: ../iw/partition_gui.py:1009
+#: ../iw/partition_gui.py:1024
 #, fuzzy
 msgid "Check for bad blocks?"
 msgstr "Verificare blocuri defecte la formatare"
 
-#: ../iw/partition_gui.py:1040 ../textw/partition_text.py:565
+#: ../iw/partition_gui.py:1055 ../textw/partition_text.py:567
 msgid "Force to be a primary partition"
 msgstr ""
 
-#: ../iw/partition_gui.py:1047 ../textw/partition_text.py:430
-#: ../textw/partition_text.py:568
+#: ../iw/partition_gui.py:1062 ../textw/partition_text.py:432
+#: ../textw/partition_text.py:570
 #, fuzzy
 msgid "Check for bad blocks"
 msgstr "Verificare blocuri defecte la formatare"
 
-#: ../iw/partition_gui.py:1118 ../iw/partition_gui.py:1127
-#: ../iw/partition_gui.py:1165 ../iw/partition_gui.py:1419
-#: ../textw/partition_text.py:731 ../textw/partition_text.py:748
-#: ../textw/partition_text.py:857
+#: ../iw/partition_gui.py:1133 ../iw/partition_gui.py:1142
+#: ../iw/partition_gui.py:1180 ../iw/partition_gui.py:1442
+#: ../textw/partition_text.py:739 ../textw/partition_text.py:756
+#: ../textw/partition_text.py:876
 msgid "Error With Request"
 msgstr ""
 
-#: ../iw/partition_gui.py:1228 ../textw/partition_text.py:150
+#: ../iw/partition_gui.py:1243 ../textw/partition_text.py:150
 #, fuzzy, c-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Existã Partiþii Nealocate..."
 
-#: ../iw/partition_gui.py:1234 ../textw/partition_text.py:154
+#: ../iw/partition_gui.py:1249 ../textw/partition_text.py:154
 #, fuzzy
 msgid "Modify Partition"
 msgstr "Editare partiþie"
 
-#: ../iw/partition_gui.py:1235 ../textw/partition_text.py:154
+#: ../iw/partition_gui.py:1250 ../textw/partition_text.py:154
 #, fuzzy
 msgid "Add anyway"
 msgstr "Swap"
 
-#: ../iw/partition_gui.py:1239
+#: ../iw/partition_gui.py:1254
 #, fuzzy, c-format
 msgid "Warning: %s."
 msgstr "Cãutare"
 
-#: ../iw/partition_gui.py:1272 ../textw/partition_text.py:778
+#: ../iw/partition_gui.py:1287 ../textw/partition_text.py:786
 #, fuzzy
 msgid "Make RAID Device"
 msgstr "_Creazã o partiþie RAID"
 
-#: ../iw/partition_gui.py:1296 ../textw/partition_text.py:212
+#: ../iw/partition_gui.py:1305 ../textw/partition_text.py:810
+msgid "At least two software RAID partitions are needed."
+msgstr ""
+
+#: ../iw/partition_gui.py:1319 ../textw/partition_text.py:212
 #, fuzzy
 msgid "Filesystem type:"
 msgstr "Marime Root Filesystem"
 
-#: ../iw/partition_gui.py:1308 ../textw/partition_text.py:367
+#: ../iw/partition_gui.py:1331 ../textw/partition_text.py:368
 #, fuzzy
 msgid "RAID Level:"
 msgstr "Tip RAID:"
 
-#: ../iw/partition_gui.py:1343 ../textw/partition_text.py:385
+#: ../iw/partition_gui.py:1366 ../textw/partition_text.py:386
 #, fuzzy
 msgid "RAID Members:"
 msgstr "Tip RAID:"
 
-#: ../iw/partition_gui.py:1354
+#: ../iw/partition_gui.py:1377
 msgid "Number of spares:"
 msgstr ""
 
-#: ../iw/partition_gui.py:1361 ../textw/partition_text.py:803
+#: ../iw/partition_gui.py:1384 ../textw/partition_text.py:822
 #, fuzzy
 msgid "Format partition?"
 msgstr "Partiþia root nedefinita"
 
-#: ../iw/partition_gui.py:1464
+#: ../iw/partition_gui.py:1487
 #, fuzzy
 msgid "_New"
 msgstr "Nou"
 
-#: ../iw/partition_gui.py:1465
+#: ../iw/partition_gui.py:1488
 #, fuzzy
 msgid "_Edit"
 msgstr "Editare"
 
-#: ../iw/partition_gui.py:1466 ../libfdisk/gnomefsedit.c:3699
+#: ../iw/partition_gui.py:1489
 msgid "_Delete"
 msgstr "_ªtergere..."
 
-#: ../iw/partition_gui.py:1467 ../libfdisk/gnomefsedit.c:3694
+#: ../iw/partition_gui.py:1490
 msgid "_Reset"
 msgstr "_Resetare"
 
-#: ../iw/partition_gui.py:1468
+#: ../iw/partition_gui.py:1491
 #, fuzzy
 msgid "Make _RAID"
 msgstr "Partiþie de RAID folositã"
 
-#: ../iw/partition_gui.py:1483
+#: ../iw/partition_gui.py:1506
 #, fuzzy
 msgid "Start"
 msgstr "Progres Instalare"
 
-#: ../iw/partition_gui.py:1483
+#: ../iw/partition_gui.py:1506
 msgid "End"
 msgstr ""
 
-#: ../iw/partition_gui.py:1484
+#: ../iw/partition_gui.py:1507
 #, fuzzy
 msgid "Format"
 msgstr "Formatare sistem fiºiere"
 
-#: ../iw/partition_gui.py:1529 ../textw/partition_text.py:1018
+#: ../iw/partition_gui.py:1552 ../textw/partition_text.py:1037
 msgid "Automatic Partitioning"
 msgstr "Partiþionare Automatã"
 
-#: ../iw/partition_gui.py:1548
+#: ../iw/partition_gui.py:1571
 #, fuzzy
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "Limbã program instalare"
 
-#: ../iw/partition_gui.py:1587
+#: ../iw/partition_gui.py:1610
 #, fuzzy
 msgid "I want to have automatic partitioning:"
 msgstr "Partiþionare Automatã"
 
-#: ../iw/partition_gui.py:1618 ../textw/partition_text.py:1041
+#: ../iw/partition_gui.py:1641 ../textw/partition_text.py:1060
 #, fuzzy
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Unde doriþi sã instalaþi managerul de încãrcare Linux?"
 
-#: ../iw/partition_gui.py:1635
+#: ../iw/partition_gui.py:1659
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr ""
@@ -2848,6 +2847,16 @@ msgstr "Parolele introduse sînt diferite."
 msgid "Passwords do not match"
 msgstr "Parolele introduse sînt diferite."
 
+#: ../textw/bootloader_text.py:419
+#, fuzzy
+msgid "Password Too Short"
+msgstr "Parola de root este prea scurtã."
+
+#: ../textw/bootloader_text.py:420
+#, fuzzy
+msgid "Boot loader password is too short"
+msgstr "Parola de root este prea scurtã."
+
 #: ../textw/complete_text.py:25
 msgid "<Enter> to reboot"
 msgstr ""
@@ -3162,29 +3171,29 @@ msgstr ""
 msgid "Warning: %s"
 msgstr "Cãutare"
 
-#: ../textw/partition_text.py:301
+#: ../textw/partition_text.py:302
 #, fuzzy
 msgid "Fixed Size:"
 msgstr "Mãrime Invalidã"
 
-#: ../textw/partition_text.py:303
+#: ../textw/partition_text.py:304
 msgid "Fill maximum size of (MB):"
 msgstr ""
 
-#: ../textw/partition_text.py:307
+#: ../textw/partition_text.py:308
 msgid "Fill all available space:"
 msgstr ""
 
-#: ../textw/partition_text.py:403
+#: ../textw/partition_text.py:405
 msgid "Number of spares?"
 msgstr ""
 
-#: ../textw/partition_text.py:421 ../textw/partition_text.py:618
+#: ../textw/partition_text.py:423 ../textw/partition_text.py:625
 #, fuzzy
 msgid "Filesystem Options"
 msgstr "Formatare filesystem"
 
-#: ../textw/partition_text.py:424
+#: ../textw/partition_text.py:426
 #, fuzzy
 msgid ""
 "Please choose how you would like to prepare the filesystem on this partition."
@@ -3192,114 +3201,119 @@ msgstr ""
 "\n"
 "Alegeþi ce utilitar doriþi sã folosiþi pentru partiþionarea sistemului."
 
-#: ../textw/partition_text.py:441
+#: ../textw/partition_text.py:443
 msgid "Format as:"
 msgstr ""
 
-#: ../textw/partition_text.py:460
+#: ../textw/partition_text.py:462
 msgid "Migrate to:"
 msgstr ""
 
-#: ../textw/partition_text.py:589
+#: ../textw/partition_text.py:591
 #, fuzzy
 msgid "Filesystem Label:"
 msgstr "Marime Root Filesystem"
 
-#: ../textw/partition_text.py:600
+#: ../textw/partition_text.py:602
 #, fuzzy
 msgid "Filesystem Option:"
 msgstr "Marime Root Filesystem"
 
-#: ../textw/partition_text.py:626
+#: ../textw/partition_text.py:605 ../textw/partition_text.py:645
 #, c-format
 msgid "Format as %s"
 msgstr ""
 
-#: ../textw/partition_text.py:628
+#: ../textw/partition_text.py:607 ../textw/partition_text.py:647
 #, c-format
 msgid "Migrate to %s"
 msgstr ""
 
-#: ../textw/partition_text.py:630
+#: ../textw/partition_text.py:609 ../textw/partition_text.py:649
 #, fuzzy
 msgid "Leave unchanged"
 msgstr "Salvare"
 
-#: ../textw/partition_text.py:666
+#: ../textw/partition_text.py:674
 msgid "Must Specify Size"
 msgstr ""
 
-#: ../textw/partition_text.py:667
+#: ../textw/partition_text.py:675
 msgid "Must specify a base size for the partition."
 msgstr ""
 
-#: ../textw/partition_text.py:679
+#: ../textw/partition_text.py:687
 msgid "Specify Maximum Size"
 msgstr ""
 
-#: ../textw/partition_text.py:680
+#: ../textw/partition_text.py:688
 msgid "Please specify a maximum size for the partition."
 msgstr ""
 
-#: ../textw/partition_text.py:699
+#: ../textw/partition_text.py:707
 msgid "Specify Start"
 msgstr ""
 
-#: ../textw/partition_text.py:700
+#: ../textw/partition_text.py:708
 msgid "Please specify a starting cylinder for the partition."
 msgstr ""
 
-#: ../textw/partition_text.py:710
+#: ../textw/partition_text.py:718
 msgid "Specify End"
 msgstr ""
 
-#: ../textw/partition_text.py:711
+#: ../textw/partition_text.py:719
 msgid "Please specify the end cylinder for the partition."
 msgstr ""
 
-#: ../textw/partition_text.py:719
+#: ../textw/partition_text.py:727
 msgid "Specify Size"
 msgstr ""
 
-#: ../textw/partition_text.py:720
+#: ../textw/partition_text.py:728
 msgid "Please specify the  size for the partition."
 msgstr ""
 
-#: ../textw/partition_text.py:849
+#: ../textw/partition_text.py:809
+#, fuzzy
+msgid "No RAID partitions"
+msgstr "<Partiþie RAID>"
+
+#: ../textw/partition_text.py:868
 #, fuzzy
 msgid "Too many spares"
 msgstr "Prea multe discuri"
 
-#: ../textw/partition_text.py:850
+#: ../textw/partition_text.py:869
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr ""
 
-#: ../textw/partition_text.py:932
+#: ../textw/partition_text.py:951
 #, fuzzy
 msgid "Partitioning"
 msgstr "Partiþionare"
 
-#: ../textw/partition_text.py:942
+#: ../textw/partition_text.py:961
 msgid "New"
 msgstr "Nou"
 
-#: ../textw/partition_text.py:942
+#: ../textw/partition_text.py:961
 #, fuzzy
 msgid "RAID"
 msgstr "<RAID>"
 
-#: ../textw/partition_text.py:945
+#: ../textw/partition_text.py:964
 #, fuzzy
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
 "    F1-Ajutor   F2-Adaugã   F3-Edit   F4-ªterge    F5-Reset    F12-Ok        "
 
-#: ../libfdisk/newtfsedit.c:1613 ../textw/partition_text.py:972
+#: ../textw/partition_text.py:991
 msgid "No Root Partition"
 msgstr "Partiþia root nedefinita"
 
-#: ../textw/partition_text.py:973
+#: ../textw/partition_text.py:992
 #, fuzzy
 msgid "Must have a / partition to install on."
 msgstr ""
@@ -3845,8 +3859,7 @@ msgstr "Actualizare Personalizatã"
 msgid "Laptop"
 msgstr ""
 
-#: ../installclasses/server.py:9 ../libfdisk/gnomefsedit.c:2654
-#: ../libfdisk/gnomefsedit.c:2674
+#: ../installclasses/server.py:9
 msgid "Server"
 msgstr "Server"
 
@@ -3859,815 +3872,9 @@ msgstr "Actualizare Sistem"
 msgid "Upgrade"
 msgstr "Actualizare"
 
-#: ../installclasses/workstation.py:9 ../libfdisk/gnomefsedit.c:2674
+#: ../installclasses/workstation.py:9
 msgid "Workstation"
 msgstr "Workstation"
-
-#: ../libfdisk/fsedit.c:401
-msgid "partitioning did not meet requirements"
-msgstr "partiþionarea nu satiface cerinþele de instalare"
-
-#: ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936
-#: ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985
-#: ../libfdisk/fsedit.c:995
-msgid "Bad Mount Point"
-msgstr "Director montare invalid"
-
-#: ../libfdisk/fsedit.c:923
-#, c-format
-msgid "The %s directory must be on the root filesystem."
-msgstr "Directorul %s trebuie sã fie pe root filesystem."
-
-#: ../libfdisk/fsedit.c:930
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"Mount points must begin with a leading /."
-msgstr ""
-"Directorul %s de montare a partiþiei este invalid.\n"
-"\n"
-"Directoarele încep cu caracterul /."
-
-#: ../libfdisk/fsedit.c:937
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"Mount points may not end with a /."
-msgstr ""
-"Directorul %s de montare a partiþiei este invalid.\n"
-"\n"
-"Directoarele nu se pot termina în caracterul /."
-
-#: ../libfdisk/fsedit.c:946
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"Mount points may only printable characters."
-msgstr ""
-"Directorul %s de montare a partiþiei este invalid.\n"
-"\n"
-"Directoarele trebuie sã conþinã numai caractere printabile."
-
-#: ../libfdisk/fsedit.c:954
-msgid ""
-"You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
-"You can do this, but you may not use any other filesystems for your Linux "
-"system. Additionally, there will be a speed penalty for not using Linux-"
-"native partitions. Do you want to continue?"
-msgstr ""
-"Aþi ales sã configuraþi sisteml de directoare de bazã (/) pe o partiþie DOS "
-"de tip FAT. Aceastã setare este validã, dar nu veþi putea folosi nici o altã "
-"partiþie sau sistem de fiºiere pentru Linux, fiind limitaþi la aceastã "
-"partiþie DOS. În plus, existã o serioasã penalizare la vitezã pentru "
-"nefolosirea unui sistem de fiºiere ºi partiþii native Linux. Doriþi sã "
-"continuaþi?"
-
-#: ../libfdisk/fsedit.c:973
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"System partitions must be on Linux Native partitions."
-msgstr ""
-"Directorul %s de montare a partiþiei este invalid.\n"
-"\n"
-"Partiþiile de sistem trebuie sa fie montate în directoare pe partiþii de tip "
-"Linux Native."
-
-#: ../libfdisk/fsedit.c:986
-#, c-format
-msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-msgstr ""
-"Pe acest sistem directorul /boot trebuie sã fie asignat unei partiþii de tip "
-"DOS sau compatibilã DOS %x."
-
-#: ../libfdisk/fsedit.c:996
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"/usr must be on a Linux Native partition or an NFS volume."
-msgstr ""
-"Directorul %s de montare a partiþiei este invalid.\n"
-"\n"
-"Directorul /usr trebuie sa fie pe o partiþie de tip Linux Native sau montat "
-"prin NFS."
-
-#: ../libfdisk/fsedit.c:1024
-msgid "Too Many Drives"
-msgstr "Prea multe discuri"
-
-#: ../libfdisk/fsedit.c:1025
-msgid ""
-"You have more drives than this program supports. Please use the standard "
-"fdisk program to setup your drives and please notify Red Hat Software that "
-"you saw this message."
-msgstr ""
-"Aveþi instalate mai multe discuri decît acest program poate controla. Vã "
-"rugãm sã folositi programul fdisk standard pentru a partiþiona discurile "
-"dumneavoastrã ºi notificaþi Red Hat Software cã aþi vãzut acest mesaj."
-
-#: ../libfdisk/fsedit.c:1034
-msgid "Error Creating Device Nodes"
-msgstr "Eroare la crearea nodurilor de access hardware"
-
-#: ../libfdisk/fsedit.c:1035
-#, fuzzy
-msgid ""
-"An error has occurred while trying to create device nodes for the hard "
-"drives in your system.  This may be because you have run out of disk space "
-"on the /tmp partition."
-msgstr ""
-"S-a detectat o eroare la crearea nodurilor necesare pentru acesul "
-"programului de instalare la hard discurile instalate în sistem. O posibilã "
-"cauzã este lipsa de spaþiu suficient în partiþia /tmp."
-
-#: ../libfdisk/fsedit.c:1053
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"filesystems.  Please check your hardware for the cause of this problem."
-msgstr ""
-"Eroare - nu s-au putut identifica nici un hard disc pentru crearea de "
-"partitii ºi sisteme de fiºiere care sã conþinã Red Hat Linux. Verificaþi "
-"hardware-ul pentru posibile cauze ale acestei probleme."
-
-#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1445
-#, c-format
-msgid ""
-"An error occurred reading the partition table for the block device %s.  The "
-"error was"
-msgstr ""
-"Eroare la citirea tabelei de partiþii de pe discul %s. Mesajul de eroare este"
-
-#: ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1428
-#: ../libfdisk/fsedit.c:1450 ../libfdisk/fsedit.c:1456
-#: ../libfdisk/fsedit.c:1463
-msgid "Skip Drive"
-msgstr "Urmãtorul disc"
-
-#: ../libfdisk/fsedit.c:1422
-#, c-format
-msgid ""
-"The partition table on device %s is corrupted.  To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive."
-msgstr ""
-"Tabela de partiþii pe discul %s este invalidã. Pentru a crea noi partiþii "
-"aceasta trebuie initializatã, ceea ce va conduce la pierderea TUTUROR "
-"informaþiilor de pe acest disc."
-
-#: ../libfdisk/fsedit.c:1427
-msgid "Bad Partition Table"
-msgstr "Tabela de Partiþii Invalidã"
-
-#: ../libfdisk/fsedit.c:1428
-msgid "Initialize"
-msgstr "Iniþializare"
-
-#: ../libfdisk/fsedit.c:1476
-msgid "BSD Disklabel"
-msgstr "BSD Disklabel"
-
-#: ../libfdisk/fsedit.c:1476
-msgid ""
-"A disk with a BSD disklabel has been found. The Red Hat installation only "
-"supports BSD Disklabels in read-only mode, so you must use a custom install "
-"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
-msgstr ""
-"S-a gãsit un disc avînd identificatorul de volum BSD. Red Hat Linux suportã "
-"BSD disklabel numai în mod read-only, de aceea va trebui sã folosiþi modul "
-"de instalare Custom ºi utilitarul fdisk (în loc de Disk Druid) pentru "
-"calculatoarele care au BSD disklabel instalat."
-
-#: ../libfdisk/fsedit.c:1506 ../libfdisk/fsedit.c:1529
-#: ../libfdisk/fsedit.c:1555
-#, c-format
-msgid "System error %d"
-msgstr "Eroare sistem %d"
-
-#: ../libfdisk/fsedit.c:1515 ../libfdisk/fsedit.c:1517
-#: ../libfdisk/fsedit.c:1544 ../libfdisk/fsedit.c:1574
-msgid "Fdisk Error"
-msgstr "Eroare fdisk"
-
-#: ../libfdisk/fsedit.c:1539
-msgid ""
-"This occurs because the drive geometry detected by the kernel used by the "
-"installer is different than the drive geometry used when the drive was "
-"partitioned.  This can be corrected by specifying the drive geometry on the "
-"kernel command line when booting the installer."
-msgstr ""
-
-#: ../libfdisk/fsedit.c:1565
-msgid ""
-"This error has occurred because there is a logical partition on the drive "
-"which has a partition type of zero (0).  A partition type of zero means that "
-"the drive's partitioning is not completely defined, and may have been caused "
-"by another operating system's partitioning program.  This condition is not "
-"supported by the anaconda installer.  You may be able to set the partition "
-"type correctly using your other operating system's partitioning program."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
-#: ../libfdisk/gnomefsedit.c:2050
-msgid "<Swap Partition>"
-msgstr "<Partiþie Swap>"
-
-#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:954
-msgid "<RAID Partition>"
-msgstr "<Partiþie RAID>"
-
-#: ../libfdisk/gnomefsedit.c:745
-#, c-format
-msgid "Couldnt find partition named %s\n"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:755 ../libfdisk/gnomefsedit.c:787
-#, fuzzy
-msgid "Root partition"
-msgstr "Partiþia root nedefinita"
-
-#: ../libfdisk/gnomefsedit.c:757
-msgid ""
-"The growth of the root (/) RAID array appears to have been stunted by the "
-"1024 cylinder boot limit. If this is the case then adding a /boot partition "
-"(50 MB is fine) may allow the root partition to grow to fill the disk."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:789
-msgid ""
-"The growth of the root (/) partition appears to have been stunted by the "
-"1024 cylinder boot limit. If this is the case then adding a /boot partition "
-"(50 MB is fine) may allow the root partition to grow to fill the disk."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:877
-msgid "Delete Partition"
-msgstr "ªtergere partiþie"
-
-#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:347
-msgid "Cannot Edit Partitions"
-msgstr "Nu se pot edita partiþiile"
-
-#: ../libfdisk/gnomefsedit.c:880 ../libfdisk/newtfsedit.c:348
-msgid ""
-"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
-"edit other partitions."
-msgstr ""
-"Aþi definit directorul rãdãcinã (/) pe o partiþie care nu este de tip ext2 "
-"ºi de aceea nu mai puteþi adãuga/edita alte partiþii pentru acest sistem."
-
-#: ../libfdisk/gnomefsedit.c:898 ../libfdisk/gnomefsedit.c:904
-#: ../libfdisk/gnomefsedit.c:908 ../libfdisk/gnomefsedit.c:910
-#: ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:377
-#: ../libfdisk/newtfsedit.c:381 ../libfdisk/newtfsedit.c:383
-msgid "Edit Partition"
-msgstr "Editare partiþie"
-
-#: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
-msgid "Size (Megs):"
-msgstr "Mãrime (MB):"
-
-#: ../libfdisk/gnomefsedit.c:999
-msgid "Use remaining space?"
-msgstr "Foloseºte spaþiul liber?"
-
-#. give status
-#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:443
-#: ../libfdisk/newtfsedit.c:446
-msgid "Allocation Status:"
-msgstr "Stare Alocare:"
-
-#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:448
-msgid "Successful"
-msgstr "Succes"
-
-#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:450
-msgid "Failed"
-msgstr "Eroare"
-
-#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:455
-msgid "Failure Reason:"
-msgstr "Cauzã eroare:"
-
-#: ../libfdisk/gnomefsedit.c:1051 ../libfdisk/gnomefsedit.c:2071
-msgid "Partition Type:"
-msgstr "Tip Partiþie:"
-
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
-#: ../libfdisk/newtfsedit.c:618
-msgid "No Mount Point"
-msgstr "Director de montare nespecificat"
-
-#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:619
-msgid ""
-"You have not selected a mount point for this partition. Are you sure you "
-"want to do this?"
-msgstr ""
-"Nu aþi selectat un director de montare pentru aceastã partiþie. Sînteþi "
-"sigur cã aceasta este ceea ce doriþi?"
-
-#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
-#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:642
-#: ../libfdisk/newtfsedit.c:675
-msgid "Mount Point Error"
-msgstr "Eroare - Director de montare"
-
-#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:643
-msgid ""
-"You have tried to assign the '/' mount point to a FAT-style partition.  You "
-"cannot do this now because mount points have been assigned to ext2 "
-"partitions also.  Clear those mount points and then you will be able to "
-"assign '/' to this partition."
-msgstr ""
-"Aþi încercat sã atribuiþi directorul rãdãcinã (/) unei partiþii de tip FAT. "
-"Nu puteþi face aceasta acum din cauzã ca alte directoare au fost atribuite "
-"unor partiþii de tip ext2. Eliminaþi acele directoare si atunci veþi putea "
-"atribui directorul '/' acestei partiþii."
-
-#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:676
-msgid ""
-"The mount point requested is either an illegal path or is already in use. "
-"Please select a valid mount point."
-msgstr ""
-"Directorul de montare specificat este o cale ilegalã sau este deja utilizat. "
-"Selectaþi un director de activare valid."
-
-#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:701
-msgid "Size Error"
-msgstr "Eroare mãrime"
-
-#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:702
-msgid ""
-"The size requested is illegal. Make sure the size is greater and zero (0), "
-"and is specified int decimal (base 10) format."
-msgstr ""
-"Mãrimea cerutã este invalidã. Mãrimea trebuie sa fie mai mare decît zero (0) "
-"ºi este un numãr natural specificat în baza 10."
-
-#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
-#: ../libfdisk/newtfsedit.c:720
-msgid "Swap Size Error"
-msgstr "Eroare mãrime swap"
-
-#: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414
-#: ../libfdisk/newtfsedit.c:721
-#, c-format
-msgid ""
-"You have created a swap partition which is too large. The maximum size of a "
-"swap partition is %ld Megabytes."
-msgstr ""
-"Mãrimea cerutã pentru swap este prea mare. Dimensiunea maximã a unei "
-"partiþii de swap este de %ld MB."
-
-#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:737
-#, c-format
-msgid ""
-"It is recommended that the root (/) partition have a minimum size of %ld "
-"Megabytes. You are trying to create one which is %ld Megabytes, which could "
-"cause the install to fail.\n"
-"\n"
-"Are you sure you want to do this?"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:745
-msgid "Warning: Root FS Size"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:1387
-msgid "No Drives Specified"
-msgstr "Nu s-a specificat nici un disc"
-
-#: ../libfdisk/gnomefsedit.c:1389
-msgid "You must constrain this partition to at least one drive."
-msgstr "Trebuie sã selectaþi pentru aceastã partiþie cel puþin un drive."
-
-#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:1404
-msgid "No RAID Drive Constraint"
-msgstr "Limitãri Disc RAID Inexistente"
-
-#: ../libfdisk/gnomefsedit.c:1399
-msgid ""
-"You have configured a RAID partition without constraining the partition to a "
-"single drive.\n"
-" Are you sure you want to do this?"
-msgstr ""
-"Aþi configurat o partiþie RAID fãrã a o limita la un singur hard disc.\n"
-"Sînteþi sigur cã doriþi sã faceþi acest lucru?"
-
-#: ../libfdisk/gnomefsedit.c:1406
-msgid ""
-"You have configured a RAID partition without constraining the partition to a "
-"single drive. Please select one drive to constrain this partition to."
-msgstr ""
-"Aþi configurat o partiþie de RAID fãrã a impune limitãri la un singur disc. "
-"Selectaþi un disc pentru a folosi ca limitã a sistemului RAID."
-
-#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:851
-msgid "Cannot Add Partitions"
-msgstr "Nu se pot adãuga partiþii"
-
-#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:852
-msgid ""
-"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
-"add other partitions."
-msgstr ""
-"Aþi definit directorul rãdãcinã (/) pe o partiþie care nu este de tip ext2 "
-"ºi de aceea nu mai puteþi adãuga/edita alte partiþii pentru acest sistem."
-
-#. XXXXX - for now destroy the raid entry since it
-#. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1601
-msgid "RAID Entry Incomplete"
-msgstr "Configurare RAID incompletã"
-
-#: ../libfdisk/gnomefsedit.c:1602
-#, c-format
-msgid ""
-"The raid device /dev/%s now contains partitions which are unallocated. The "
-"raid device /dev/%s will now be decomposed into its component partitions. "
-"Please recompose the raid device with allocated partitions."
-msgstr ""
-"Partiþia RAID /dev/%s conþine partiþii care nu sînt alocate. Partiþia RAID /"
-"dev/%s va fi decompusã în partiþiile care o compun. Recompuneþi partiþia "
-"RAID folosind numai partiþii care au fost alocate."
-
-#: ../libfdisk/gnomefsedit.c:1651
-msgid "Cannot Remove /boot"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:1652
-msgid ""
-"You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
-"non-RAID device first."
-msgstr ""
-
-#. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738
-#: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1682
-msgid "Unallocated Partitions"
-msgstr "Partiþii nealocate"
-
-#: ../libfdisk/gnomefsedit.c:1723 ../libfdisk/gnomefsedit.c:1733
-#: ../libfdisk/newtfsedit.c:142
-msgid ""
-"There are currently unallocated partition(s) present in the list of "
-"requested partitions. The unallocated partition(s) are shown below, along "
-"with the reason they were not allocated."
-msgstr ""
-"În acest moment existã partiþii nealocate prezente în lista de partiþii "
-"selectate pentru instalare. Partiþiile nealocate sînt afiºate mai jos, "
-"împreunã cu motivul pentru care nu au fost alocate."
-
-#: ../libfdisk/gnomefsedit.c:2015
-msgid "Cannot Edit Raid"
-msgstr "Nu se poate edita RAID"
-
-#: ../libfdisk/gnomefsedit.c:2016
-msgid ""
-"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
-"edit RAID devices."
-msgstr ""
-"Aþi definit directorul rãdãcinã (/) pe o partiþie care nu este de tip ext2 "
-"ºi de aceea nu mai puteþi adãuga/edita alte partiþii pentru acest sistem."
-
-#: ../libfdisk/gnomefsedit.c:2116
-msgid "RAID Device: /dev/"
-msgstr "Partiþia RAID: /dev/"
-
-#: ../libfdisk/gnomefsedit.c:2139
-msgid "RAID Type:"
-msgstr "Tip RAID:"
-
-#: ../libfdisk/gnomefsedit.c:2176
-msgid "Partitions For RAID Array:"
-msgstr "Partiþii pentru systemul RAID:"
-
-#: ../libfdisk/gnomefsedit.c:2271
-msgid "You have not selected a mount point. A mount point is required."
-msgstr ""
-"Nu aþi selectat un director de montare pentru aceastã partiþie. Este necesar "
-"sã selectaþi un director de montare."
-
-#: ../libfdisk/gnomefsedit.c:2279
-msgid ""
-"The mount point requested is already in use. Please select a valid mount "
-"point."
-msgstr ""
-"Directorul de montare specificat este deja utilizat. Selectaþi un director "
-"de montare valid."
-
-#: ../libfdisk/gnomefsedit.c:2315
-msgid ""
-"The bootable raid device can only include partitions from the first two "
-"drives on your system.\n"
-"\n"
-"These drives are: "
-msgstr ""
-"Partiþia RAID selectatã pentru /boot poate include partiþii numai de pe "
-"primele douã hard discuri din sistem.\n"
-"\n"
-"Aceste hard discuri sunt: "
-
-#: ../libfdisk/gnomefsedit.c:2322
-msgid "Booting From RAID Warning"
-msgstr "Avertisment pentru startarea de pe o partiþie RAID"
-
-#: ../libfdisk/gnomefsedit.c:2332
-msgid "No RAID Device"
-msgstr "System RAID inexistent"
-
-#: ../libfdisk/gnomefsedit.c:2333
-msgid "You need to selected a RAID device."
-msgstr "Trebuie sã selectaþi o partiþie de RAID"
-
-#: ../libfdisk/gnomefsedit.c:2339
-msgid "Used Raid Device"
-msgstr "Partiþie de RAID folositã"
-
-#: ../libfdisk/gnomefsedit.c:2340
-#, c-format
-msgid ""
-"The raid device \"/dev/%s\" is already configured as a raid device. Please "
-"select another."
-msgstr ""
-"Partiþia RAID \"/dev/%s\" este configuratã deja pentru un sistem RAID. "
-"Selectaþi o altã partiþie."
-
-#: ../libfdisk/gnomefsedit.c:2353
-msgid "Not Enough Partitions"
-msgstr "Nu existã suficiente partiþii"
-
-#: ../libfdisk/gnomefsedit.c:2355
-msgid ""
-"You have not configured enough partitions for the RAID type you have "
-"selected."
-msgstr ""
-"Nu aþi configurat suficiente partiþii pentru tipul de sistem RAID pe care l-"
-"aþi selectat."
-
-#: ../libfdisk/gnomefsedit.c:2363
-msgid "Illegal /boot RAID Type"
-msgstr "Partiþia /boot are tip RAID invalid."
-
-#: ../libfdisk/gnomefsedit.c:2365
-msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr "Partiþiile de boot (/boot) sînt permise numai pe sisteme RAID-1"
-
-#: ../libfdisk/gnomefsedit.c:2373
-msgid "Illegal RAID mountpoint"
-msgstr "Partiþia RAID nu poate fi montatã în directorul specificat."
-
-#: ../libfdisk/gnomefsedit.c:2375
-#, fuzzy
-msgid ""
-"RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
-"partition (non-RAID) as well."
-msgstr ""
-"Partiþiile RAID nu pot fi montate sub directorul rãdãcinã pe maºinile Alpha."
-
-#: ../libfdisk/gnomefsedit.c:2459
-#, c-format
-msgid ""
-"The partition %s is a pre-existing partition in the set of partitions for "
-"this RAID device.  The mount point is set to /boot. Are you sure that it is "
-"possible to boot from this partition?"
-msgstr ""
-"Partiþia %s din acest RAID sistem este o partiþie configuratã înainte de "
-"instalare. Directorul de montare este setat pentru /boot. Sînteþi sigur cã "
-"este posibil sã se iniþializeze sistemul de pe aceastã partiþie?"
-
-#: ../libfdisk/gnomefsedit.c:2466
-msgid "Use Pre-existing Partition?"
-msgstr "Folosiþi partiþia existentã?"
-
-#: ../libfdisk/gnomefsedit.c:2544
-msgid "Cannot Add RAID Devices"
-msgstr "Nu se pot adãuga partiþii RAID"
-
-#: ../libfdisk/gnomefsedit.c:2545
-msgid ""
-"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
-"add RAID devices."
-msgstr ""
-"Aþi definit directorul rãdãcinã (/) pe o partiþie care nu este de tip ext2 "
-"ºi de aceea nu mai puteþi adãuga/edita alte partiþii pentru acest sistem.<"
-
-#: ../libfdisk/gnomefsedit.c:2586
-msgid "Auto-Partition"
-msgstr "Partiþionare Automatã"
-
-#: ../libfdisk/gnomefsedit.c:2593
-msgid "Using Existing Disk Space"
-msgstr "Folosire spaþiu disc existent"
-
-#: ../libfdisk/gnomefsedit.c:2612
-msgid "Remove Linux partitions"
-msgstr "ªterge Partiþiile Linux"
-
-#: ../libfdisk/gnomefsedit.c:2623
-msgid "Use existing free space"
-msgstr "Folosire spaþiu liber"
-
-#. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2635
-msgid "Intended Use"
-msgstr "Folosit pentru"
-
-#: ../libfdisk/gnomefsedit.c:2754
-msgid "Delete RAID Device?"
-msgstr "ªterge partiþia RAID?"
-
-#: ../libfdisk/gnomefsedit.c:2755
-msgid "Are you sure you want to remove this RAID device?"
-msgstr "Sînteþi sigur cã doriþi sã ºtergeþi aceastã partiþie RAID?"
-
-#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1787
-msgid "Reset Partition Table"
-msgstr "Resetare Tabela de partiþii"
-
-#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1789
-msgid "Reset partition table to original contents? "
-msgstr "Restauraþi conþinutul original al tabelei de partiþii ? "
-
-#: ../libfdisk/gnomefsedit.c:2846 ../libfdisk/gnomefsedit.c:2897
-msgid "<Swap>"
-msgstr "<Swap>"
-
-#: ../libfdisk/gnomefsedit.c:2848
-msgid "<RAID>"
-msgstr "<RAID>"
-
-#: ../libfdisk/gnomefsedit.c:2850
-msgid "<not set>"
-msgstr "<nesetat>"
-
-#: ../libfdisk/gnomefsedit.c:3134
-msgid "Requested"
-msgstr "Cerut"
-
-#: ../libfdisk/gnomefsedit.c:3135
-msgid "Actual"
-msgstr "Actual"
-
-#: ../libfdisk/gnomefsedit.c:3308
-msgid "Drive"
-msgstr "Drive"
-
-#: ../libfdisk/gnomefsedit.c:3309
-msgid "Geom [C/H/S]"
-msgstr "Geom [C/H/S]"
-
-#: ../libfdisk/gnomefsedit.c:3310
-msgid "Total (M)"
-msgstr "Total (M)"
-
-#: ../libfdisk/gnomefsedit.c:3311
-msgid "Free (M)"
-msgstr "Free (M)"
-
-#: ../libfdisk/gnomefsedit.c:3312
-msgid "Used (M)"
-msgstr "Folosit(M)"
-
-#: ../libfdisk/gnomefsedit.c:3313
-msgid "Used (%)"
-msgstr "Folosit(%)"
-
-#: ../libfdisk/gnomefsedit.c:3561
-msgid "Unallocated Partitions Exist..."
-msgstr "Existã Partiþii Nealocate..."
-
-#: ../libfdisk/gnomefsedit.c:3567 ../libfdisk/gnomefsedit.c:3585
-msgid ""
-"You must assign a root (/) partition to a Linux native partition (ext2) or a "
-"RAID partition for the install to proceed."
-msgstr ""
-"O partiþie de tip Linux Native (ext2) sau RAID trebuie asignatã partiþiei de "
-"root (/) înainte ca procesul de instalare sã continue."
-
-#: ../libfdisk/gnomefsedit.c:3656
-msgid "Partitions"
-msgstr "Partiþii"
-
-#: ../libfdisk/gnomefsedit.c:3686
-msgid "_Add..."
-msgstr "_Adãugare..."
-
-#: ../libfdisk/gnomefsedit.c:3693
-msgid "_Edit..."
-msgstr "_Editare..."
-
-#. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3712
-msgid "_Make RAID Device"
-msgstr "_Creazã o partiþie RAID"
-
-#: ../libfdisk/gnomefsedit.c:3722
-msgid "Auto Partition"
-msgstr "Partiþionare automatã"
-
-#: ../libfdisk/gnomefsedit.c:3731
-msgid "Drive Summary"
-msgstr "Raport disc"
-
-#: ../libfdisk/newtfsedit.c:204
-msgid "Swap Partition"
-msgstr "Partiþie Swap"
-
-#: ../libfdisk/newtfsedit.c:210
-msgid "Raid Partition"
-msgstr "Partiþie RAID"
-
-#: ../libfdisk/newtfsedit.c:366
-msgid "Edit New Partition"
-msgstr "Editare partiþie nouã"
-
-#: ../libfdisk/newtfsedit.c:432 ../libfdisk/newtfsedit.c:433
-msgid "Use remaining space?:"
-msgstr "Folosire spaþiu liber?:"
-
-#: ../libfdisk/newtfsedit.c:479 ../libfdisk/newtfsedit.c:480
-msgid "Type:"
-msgstr "Tip"
-
-#: ../libfdisk/newtfsedit.c:1464
-msgid "Current Disk Partitions"
-msgstr "Partitii curente pe disc"
-
-#: ../libfdisk/newtfsedit.c:1470
-msgid "   Mount Point          Device     Requested   Actual         Type"
-msgstr ""
-
-#: ../libfdisk/newtfsedit.c:1494
-msgid ""
-"    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
-msgstr ""
-"    F1-Ajutor   F2-Adaugã   F3-Edit   F4-ªterge    F5-Reset    F12-Ok        "
-
-#: ../libfdisk/newtfsedit.c:1497
-msgid "Drive Summaries"
-msgstr "Raport disc"
-
-#: ../libfdisk/newtfsedit.c:1499
-msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-msgstr "  Disk       Geom [C/H/S]      Total   Folosit Liber"
-
-#: ../libfdisk/newtfsedit.c:1614
-msgid ""
-"You must assign a root (/) partition to a Linux native partition (ext2) for "
-"the install to proceed."
-msgstr ""
-"O partiþie de tip Linux Native (ext2) trebuie asignatã partiþiei de root (/) "
-"înainte ca procesul de instalare sã continue."
-
-#: ../libfdisk/newtfsedit.c:1633
-msgid "No Swap Partition"
-msgstr "Nu s-a definit nici o partiþie de swap"
-
-#: ../libfdisk/newtfsedit.c:1635
-msgid "You must assign a swap partition for the install to proceed."
-msgstr ""
-"Trebuie sã selectaþi o partiþie de swap înainte ca procesul de instalare sã "
-"poatã continua."
-
-#: ../libfdisk/newtfsedit.c:1661
-msgid "No /boot/efi Partition"
-msgstr "Partiþia /boot/efi nu existã"
-
-#: ../libfdisk/newtfsedit.c:1663
-msgid ""
-"You must assign the mount point /boot/efi to a FAT-style primary partition "
-"for the install to proceed."
-msgstr ""
-"Trebuie sã asignaþi directorul /boot/efi unei partiþii de tip FAT înainte ca "
-"programul de instalare sã poatã continua"
-
-#: ../libfdisk/newtfsedit.c:1684
-msgid ""
-"There are unallocated partitions left. If you quit now they will not be "
-"written to the disk.\n"
-"\n"
-"Are you sure you want to exit?"
-msgstr ""
-"Existã partiþii nealocate pe disc. Dacã iesiþi acum acestea nu vor fi scrise "
-"pe disc.\n"
-"\n"
-"Sînteti sigur cã doriþi sã ieºiþi din program?"
-
-#: ../libfdisk/newtfsedit.c:1700
-msgid "Save Changes"
-msgstr "Salvare"
-
-#: ../libfdisk/newtfsedit.c:1702
-msgid "Save changes to partition table(s)?"
-msgstr "Salvaþi schimbãrile în tabela de partiþii?"
-
-#: ../libfdisk/newtfsedit.c:1747
-msgid "You may only delete NFS mounts."
-msgstr "Puteþi ºterge numai NFS mounts."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
@@ -6189,6 +5396,589 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+#~ msgid "partitioning did not meet requirements"
+#~ msgstr "partiþionarea nu satiface cerinþele de instalare"
+
+#~ msgid "Bad Mount Point"
+#~ msgstr "Director montare invalid"
+
+#~ msgid "The %s directory must be on the root filesystem."
+#~ msgstr "Directorul %s trebuie sã fie pe root filesystem."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "Mount points must begin with a leading /."
+#~ msgstr ""
+#~ "Directorul %s de montare a partiþiei este invalid.\n"
+#~ "\n"
+#~ "Directoarele încep cu caracterul /."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "Mount points may not end with a /."
+#~ msgstr ""
+#~ "Directorul %s de montare a partiþiei este invalid.\n"
+#~ "\n"
+#~ "Directoarele nu se pot termina în caracterul /."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "Mount points may only printable characters."
+#~ msgstr ""
+#~ "Directorul %s de montare a partiþiei este invalid.\n"
+#~ "\n"
+#~ "Directoarele trebuie sã conþinã numai caractere printabile."
+
+#~ msgid ""
+#~ "You've asked to put your root (/) filesystem on a DOS-style FAT "
+#~ "partition. You can do this, but you may not use any other filesystems for "
+#~ "your Linux system. Additionally, there will be a speed penalty for not "
+#~ "using Linux-native partitions. Do you want to continue?"
+#~ msgstr ""
+#~ "Aþi ales sã configuraþi sisteml de directoare de bazã (/) pe o partiþie "
+#~ "DOS de tip FAT. Aceastã setare este validã, dar nu veþi putea folosi nici "
+#~ "o altã partiþie sau sistem de fiºiere pentru Linux, fiind limitaþi la "
+#~ "aceastã partiþie DOS. În plus, existã o serioasã penalizare la vitezã "
+#~ "pentru nefolosirea unui sistem de fiºiere ºi partiþii native Linux. "
+#~ "Doriþi sã continuaþi?"
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "System partitions must be on Linux Native partitions."
+#~ msgstr ""
+#~ "Directorul %s de montare a partiþiei este invalid.\n"
+#~ "\n"
+#~ "Partiþiile de sistem trebuie sa fie montate în directoare pe partiþii de "
+#~ "tip Linux Native."
+
+#~ msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
+#~ msgstr ""
+#~ "Pe acest sistem directorul /boot trebuie sã fie asignat unei partiþii de "
+#~ "tip DOS sau compatibilã DOS %x."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "/usr must be on a Linux Native partition or an NFS volume."
+#~ msgstr ""
+#~ "Directorul %s de montare a partiþiei este invalid.\n"
+#~ "\n"
+#~ "Directorul /usr trebuie sa fie pe o partiþie de tip Linux Native sau "
+#~ "montat prin NFS."
+
+#~ msgid "Too Many Drives"
+#~ msgstr "Prea multe discuri"
+
+#~ msgid ""
+#~ "You have more drives than this program supports. Please use the standard "
+#~ "fdisk program to setup your drives and please notify Red Hat Software "
+#~ "that you saw this message."
+#~ msgstr ""
+#~ "Aveþi instalate mai multe discuri decît acest program poate controla. Vã "
+#~ "rugãm sã folositi programul fdisk standard pentru a partiþiona discurile "
+#~ "dumneavoastrã ºi notificaþi Red Hat Software cã aþi vãzut acest mesaj."
+
+#~ msgid "Error Creating Device Nodes"
+#~ msgstr "Eroare la crearea nodurilor de access hardware"
+
+#, fuzzy
+#~ msgid ""
+#~ "An error has occurred while trying to create device nodes for the hard "
+#~ "drives in your system.  This may be because you have run out of disk "
+#~ "space on the /tmp partition."
+#~ msgstr ""
+#~ "S-a detectat o eroare la crearea nodurilor necesare pentru acesul "
+#~ "programului de instalare la hard discurile instalate în sistem. O "
+#~ "posibilã cauzã este lipsa de spaþiu suficient în partiþia /tmp."
+
+#~ msgid ""
+#~ "An error has occurred - no valid devices were found on which to create "
+#~ "new filesystems.  Please check your hardware for the cause of this "
+#~ "problem."
+#~ msgstr ""
+#~ "Eroare - nu s-au putut identifica nici un hard disc pentru crearea de "
+#~ "partitii ºi sisteme de fiºiere care sã conþinã Red Hat Linux. Verificaþi "
+#~ "hardware-ul pentru posibile cauze ale acestei probleme."
+
+#~ msgid ""
+#~ "An error occurred reading the partition table for the block device %s.  "
+#~ "The error was"
+#~ msgstr ""
+#~ "Eroare la citirea tabelei de partiþii de pe discul %s. Mesajul de eroare "
+#~ "este"
+
+#~ msgid "Skip Drive"
+#~ msgstr "Urmãtorul disc"
+
+#~ msgid ""
+#~ "The partition table on device %s is corrupted.  To create new partitions "
+#~ "it must be initialized, causing the loss of ALL DATA on this drive."
+#~ msgstr ""
+#~ "Tabela de partiþii pe discul %s este invalidã. Pentru a crea noi partiþii "
+#~ "aceasta trebuie initializatã, ceea ce va conduce la pierderea TUTUROR "
+#~ "informaþiilor de pe acest disc."
+
+#~ msgid "Bad Partition Table"
+#~ msgstr "Tabela de Partiþii Invalidã"
+
+#~ msgid "Initialize"
+#~ msgstr "Iniþializare"
+
+#~ msgid "BSD Disklabel"
+#~ msgstr "BSD Disklabel"
+
+#~ msgid ""
+#~ "A disk with a BSD disklabel has been found. The Red Hat installation only "
+#~ "supports BSD Disklabels in read-only mode, so you must use a custom "
+#~ "install and fdisk (instead of Disk Druid) for machines with BSD "
+#~ "Disklabels."
+#~ msgstr ""
+#~ "S-a gãsit un disc avînd identificatorul de volum BSD. Red Hat Linux "
+#~ "suportã BSD disklabel numai în mod read-only, de aceea va trebui sã "
+#~ "folosiþi modul de instalare Custom ºi utilitarul fdisk (în loc de Disk "
+#~ "Druid) pentru calculatoarele care au BSD disklabel instalat."
+
+#~ msgid "System error %d"
+#~ msgstr "Eroare sistem %d"
+
+#~ msgid "Fdisk Error"
+#~ msgstr "Eroare fdisk"
+
+#~ msgid "<Swap Partition>"
+#~ msgstr "<Partiþie Swap>"
+
+#, fuzzy
+#~ msgid "Root partition"
+#~ msgstr "Partiþia root nedefinita"
+
+#~ msgid "Delete Partition"
+#~ msgstr "ªtergere partiþie"
+
+#~ msgid "Cannot Edit Partitions"
+#~ msgstr "Nu se pot edita partiþiile"
+
+#~ msgid ""
+#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
+#~ "cannot edit other partitions."
+#~ msgstr ""
+#~ "Aþi definit directorul rãdãcinã (/) pe o partiþie care nu este de tip "
+#~ "ext2 ºi de aceea nu mai puteþi adãuga/edita alte partiþii pentru acest "
+#~ "sistem."
+
+#~ msgid "Edit Partition"
+#~ msgstr "Editare partiþie"
+
+#~ msgid "Size (Megs):"
+#~ msgstr "Mãrime (MB):"
+
+#~ msgid "Use remaining space?"
+#~ msgstr "Foloseºte spaþiul liber?"
+
+#~ msgid "Allocation Status:"
+#~ msgstr "Stare Alocare:"
+
+#~ msgid "Successful"
+#~ msgstr "Succes"
+
+#~ msgid "Failed"
+#~ msgstr "Eroare"
+
+#~ msgid "Failure Reason:"
+#~ msgstr "Cauzã eroare:"
+
+#~ msgid "Partition Type:"
+#~ msgstr "Tip Partiþie:"
+
+#~ msgid "No Mount Point"
+#~ msgstr "Director de montare nespecificat"
+
+#~ msgid ""
+#~ "You have not selected a mount point for this partition. Are you sure you "
+#~ "want to do this?"
+#~ msgstr ""
+#~ "Nu aþi selectat un director de montare pentru aceastã partiþie. Sînteþi "
+#~ "sigur cã aceasta este ceea ce doriþi?"
+
+#~ msgid "Mount Point Error"
+#~ msgstr "Eroare - Director de montare"
+
+#~ msgid ""
+#~ "You have tried to assign the '/' mount point to a FAT-style partition.  "
+#~ "You cannot do this now because mount points have been assigned to ext2 "
+#~ "partitions also.  Clear those mount points and then you will be able to "
+#~ "assign '/' to this partition."
+#~ msgstr ""
+#~ "Aþi încercat sã atribuiþi directorul rãdãcinã (/) unei partiþii de tip "
+#~ "FAT. Nu puteþi face aceasta acum din cauzã ca alte directoare au fost "
+#~ "atribuite unor partiþii de tip ext2. Eliminaþi acele directoare si atunci "
+#~ "veþi putea atribui directorul '/' acestei partiþii."
+
+#~ msgid ""
+#~ "The mount point requested is either an illegal path or is already in use. "
+#~ "Please select a valid mount point."
+#~ msgstr ""
+#~ "Directorul de montare specificat este o cale ilegalã sau este deja "
+#~ "utilizat. Selectaþi un director de activare valid."
+
+#~ msgid "Size Error"
+#~ msgstr "Eroare mãrime"
+
+#~ msgid ""
+#~ "The size requested is illegal. Make sure the size is greater and zero "
+#~ "(0), and is specified int decimal (base 10) format."
+#~ msgstr ""
+#~ "Mãrimea cerutã este invalidã. Mãrimea trebuie sa fie mai mare decît zero "
+#~ "(0) ºi este un numãr natural specificat în baza 10."
+
+#~ msgid "Swap Size Error"
+#~ msgstr "Eroare mãrime swap"
+
+#~ msgid ""
+#~ "You have created a swap partition which is too large. The maximum size of "
+#~ "a swap partition is %ld Megabytes."
+#~ msgstr ""
+#~ "Mãrimea cerutã pentru swap este prea mare. Dimensiunea maximã a unei "
+#~ "partiþii de swap este de %ld MB."
+
+#~ msgid "No Drives Specified"
+#~ msgstr "Nu s-a specificat nici un disc"
+
+#~ msgid "You must constrain this partition to at least one drive."
+#~ msgstr "Trebuie sã selectaþi pentru aceastã partiþie cel puþin un drive."
+
+#~ msgid "No RAID Drive Constraint"
+#~ msgstr "Limitãri Disc RAID Inexistente"
+
+#~ msgid ""
+#~ "You have configured a RAID partition without constraining the partition "
+#~ "to a single drive.\n"
+#~ " Are you sure you want to do this?"
+#~ msgstr ""
+#~ "Aþi configurat o partiþie RAID fãrã a o limita la un singur hard disc.\n"
+#~ "Sînteþi sigur cã doriþi sã faceþi acest lucru?"
+
+#~ msgid ""
+#~ "You have configured a RAID partition without constraining the partition "
+#~ "to a single drive. Please select one drive to constrain this partition to."
+#~ msgstr ""
+#~ "Aþi configurat o partiþie de RAID fãrã a impune limitãri la un singur "
+#~ "disc. Selectaþi un disc pentru a folosi ca limitã a sistemului RAID."
+
+#~ msgid "Cannot Add Partitions"
+#~ msgstr "Nu se pot adãuga partiþii"
+
+#~ msgid ""
+#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
+#~ "cannot add other partitions."
+#~ msgstr ""
+#~ "Aþi definit directorul rãdãcinã (/) pe o partiþie care nu este de tip "
+#~ "ext2 ºi de aceea nu mai puteþi adãuga/edita alte partiþii pentru acest "
+#~ "sistem."
+
+#~ msgid "RAID Entry Incomplete"
+#~ msgstr "Configurare RAID incompletã"
+
+#~ msgid ""
+#~ "The raid device /dev/%s now contains partitions which are unallocated. "
+#~ "The raid device /dev/%s will now be decomposed into its component "
+#~ "partitions. Please recompose the raid device with allocated partitions."
+#~ msgstr ""
+#~ "Partiþia RAID /dev/%s conþine partiþii care nu sînt alocate. Partiþia "
+#~ "RAID /dev/%s va fi decompusã în partiþiile care o compun. Recompuneþi "
+#~ "partiþia RAID folosind numai partiþii care au fost alocate."
+
+#~ msgid "Unallocated Partitions"
+#~ msgstr "Partiþii nealocate"
+
+#~ msgid ""
+#~ "There are currently unallocated partition(s) present in the list of "
+#~ "requested partitions. The unallocated partition(s) are shown below, along "
+#~ "with the reason they were not allocated."
+#~ msgstr ""
+#~ "În acest moment existã partiþii nealocate prezente în lista de partiþii "
+#~ "selectate pentru instalare. Partiþiile nealocate sînt afiºate mai jos, "
+#~ "împreunã cu motivul pentru care nu au fost alocate."
+
+#~ msgid "Cannot Edit Raid"
+#~ msgstr "Nu se poate edita RAID"
+
+#~ msgid ""
+#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
+#~ "cannot edit RAID devices."
+#~ msgstr ""
+#~ "Aþi definit directorul rãdãcinã (/) pe o partiþie care nu este de tip "
+#~ "ext2 ºi de aceea nu mai puteþi adãuga/edita alte partiþii pentru acest "
+#~ "sistem."
+
+#~ msgid "RAID Device: /dev/"
+#~ msgstr "Partiþia RAID: /dev/"
+
+#~ msgid "RAID Type:"
+#~ msgstr "Tip RAID:"
+
+#~ msgid "Partitions For RAID Array:"
+#~ msgstr "Partiþii pentru systemul RAID:"
+
+#~ msgid "You have not selected a mount point. A mount point is required."
+#~ msgstr ""
+#~ "Nu aþi selectat un director de montare pentru aceastã partiþie. Este "
+#~ "necesar sã selectaþi un director de montare."
+
+#~ msgid ""
+#~ "The mount point requested is already in use. Please select a valid mount "
+#~ "point."
+#~ msgstr ""
+#~ "Directorul de montare specificat este deja utilizat. Selectaþi un "
+#~ "director de montare valid."
+
+#~ msgid ""
+#~ "The bootable raid device can only include partitions from the first two "
+#~ "drives on your system.\n"
+#~ "\n"
+#~ "These drives are: "
+#~ msgstr ""
+#~ "Partiþia RAID selectatã pentru /boot poate include partiþii numai de pe "
+#~ "primele douã hard discuri din sistem.\n"
+#~ "\n"
+#~ "Aceste hard discuri sunt: "
+
+#~ msgid "Booting From RAID Warning"
+#~ msgstr "Avertisment pentru startarea de pe o partiþie RAID"
+
+#~ msgid "No RAID Device"
+#~ msgstr "System RAID inexistent"
+
+#~ msgid "You need to selected a RAID device."
+#~ msgstr "Trebuie sã selectaþi o partiþie de RAID"
+
+#~ msgid "Used Raid Device"
+#~ msgstr "Partiþie de RAID folositã"
+
+#~ msgid ""
+#~ "The raid device \"/dev/%s\" is already configured as a raid device. "
+#~ "Please select another."
+#~ msgstr ""
+#~ "Partiþia RAID \"/dev/%s\" este configuratã deja pentru un sistem RAID. "
+#~ "Selectaþi o altã partiþie."
+
+#~ msgid "Not Enough Partitions"
+#~ msgstr "Nu existã suficiente partiþii"
+
+#~ msgid ""
+#~ "You have not configured enough partitions for the RAID type you have "
+#~ "selected."
+#~ msgstr ""
+#~ "Nu aþi configurat suficiente partiþii pentru tipul de sistem RAID pe care "
+#~ "l-aþi selectat."
+
+#~ msgid "Illegal /boot RAID Type"
+#~ msgstr "Partiþia /boot are tip RAID invalid."
+
+#~ msgid "Boot partitions (/boot) are only allowed on RAID-1."
+#~ msgstr "Partiþiile de boot (/boot) sînt permise numai pe sisteme RAID-1"
+
+#~ msgid "Illegal RAID mountpoint"
+#~ msgstr "Partiþia RAID nu poate fi montatã în directorul specificat."
+
+#, fuzzy
+#~ msgid ""
+#~ "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
+#~ "partition (non-RAID) as well."
+#~ msgstr ""
+#~ "Partiþiile RAID nu pot fi montate sub directorul rãdãcinã pe maºinile "
+#~ "Alpha."
+
+#~ msgid ""
+#~ "The partition %s is a pre-existing partition in the set of partitions for "
+#~ "this RAID device.  The mount point is set to /boot. Are you sure that it "
+#~ "is possible to boot from this partition?"
+#~ msgstr ""
+#~ "Partiþia %s din acest RAID sistem este o partiþie configuratã înainte de "
+#~ "instalare. Directorul de montare este setat pentru /boot. Sînteþi sigur "
+#~ "cã este posibil sã se iniþializeze sistemul de pe aceastã partiþie?"
+
+#~ msgid "Use Pre-existing Partition?"
+#~ msgstr "Folosiþi partiþia existentã?"
+
+#~ msgid "Cannot Add RAID Devices"
+#~ msgstr "Nu se pot adãuga partiþii RAID"
+
+#~ msgid ""
+#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
+#~ "cannot add RAID devices."
+#~ msgstr ""
+#~ "Aþi definit directorul rãdãcinã (/) pe o partiþie care nu este de tip "
+#~ "ext2 ºi de aceea nu mai puteþi adãuga/edita alte partiþii pentru acest "
+#~ "sistem.<"
+
+#~ msgid "Auto-Partition"
+#~ msgstr "Partiþionare Automatã"
+
+#~ msgid "Using Existing Disk Space"
+#~ msgstr "Folosire spaþiu disc existent"
+
+#~ msgid "Remove Linux partitions"
+#~ msgstr "ªterge Partiþiile Linux"
+
+#~ msgid "Use existing free space"
+#~ msgstr "Folosire spaþiu liber"
+
+#~ msgid "Intended Use"
+#~ msgstr "Folosit pentru"
+
+#~ msgid "Delete RAID Device?"
+#~ msgstr "ªterge partiþia RAID?"
+
+#~ msgid "Are you sure you want to remove this RAID device?"
+#~ msgstr "Sînteþi sigur cã doriþi sã ºtergeþi aceastã partiþie RAID?"
+
+#~ msgid "Reset Partition Table"
+#~ msgstr "Resetare Tabela de partiþii"
+
+#~ msgid "Reset partition table to original contents? "
+#~ msgstr "Restauraþi conþinutul original al tabelei de partiþii ? "
+
+#~ msgid "<Swap>"
+#~ msgstr "<Swap>"
+
+#~ msgid "<RAID>"
+#~ msgstr "<RAID>"
+
+#~ msgid "<not set>"
+#~ msgstr "<nesetat>"
+
+#~ msgid "Requested"
+#~ msgstr "Cerut"
+
+#~ msgid "Actual"
+#~ msgstr "Actual"
+
+#~ msgid "Drive"
+#~ msgstr "Drive"
+
+#~ msgid "Geom [C/H/S]"
+#~ msgstr "Geom [C/H/S]"
+
+#~ msgid "Total (M)"
+#~ msgstr "Total (M)"
+
+#~ msgid "Free (M)"
+#~ msgstr "Free (M)"
+
+#~ msgid "Used (M)"
+#~ msgstr "Folosit(M)"
+
+#~ msgid "Used (%)"
+#~ msgstr "Folosit(%)"
+
+#~ msgid "Unallocated Partitions Exist..."
+#~ msgstr "Existã Partiþii Nealocate..."
+
+#~ msgid ""
+#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
+#~ "or a RAID partition for the install to proceed."
+#~ msgstr ""
+#~ "O partiþie de tip Linux Native (ext2) sau RAID trebuie asignatã partiþiei "
+#~ "de root (/) înainte ca procesul de instalare sã continue."
+
+#~ msgid "Partitions"
+#~ msgstr "Partiþii"
+
+#~ msgid "_Add..."
+#~ msgstr "_Adãugare..."
+
+#~ msgid "_Edit..."
+#~ msgstr "_Editare..."
+
+#~ msgid "_Make RAID Device"
+#~ msgstr "_Creazã o partiþie RAID"
+
+#~ msgid "Auto Partition"
+#~ msgstr "Partiþionare automatã"
+
+#~ msgid "Drive Summary"
+#~ msgstr "Raport disc"
+
+#~ msgid "Swap Partition"
+#~ msgstr "Partiþie Swap"
+
+#~ msgid "Raid Partition"
+#~ msgstr "Partiþie RAID"
+
+#~ msgid "Edit New Partition"
+#~ msgstr "Editare partiþie nouã"
+
+#~ msgid "Use remaining space?:"
+#~ msgstr "Folosire spaþiu liber?:"
+
+#~ msgid "Type:"
+#~ msgstr "Tip"
+
+#~ msgid "Current Disk Partitions"
+#~ msgstr "Partitii curente pe disc"
+
+#~ msgid ""
+#~ "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-"
+#~ "Ok        "
+#~ msgstr ""
+#~ "    F1-Ajutor   F2-Adaugã   F3-Edit   F4-ªterge    F5-Reset    F12-"
+#~ "Ok        "
+
+#~ msgid "Drive Summaries"
+#~ msgstr "Raport disc"
+
+#~ msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
+#~ msgstr "  Disk       Geom [C/H/S]      Total   Folosit Liber"
+
+#~ msgid ""
+#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
+#~ "for the install to proceed."
+#~ msgstr ""
+#~ "O partiþie de tip Linux Native (ext2) trebuie asignatã partiþiei de root "
+#~ "(/) înainte ca procesul de instalare sã continue."
+
+#~ msgid "No Swap Partition"
+#~ msgstr "Nu s-a definit nici o partiþie de swap"
+
+#~ msgid "You must assign a swap partition for the install to proceed."
+#~ msgstr ""
+#~ "Trebuie sã selectaþi o partiþie de swap înainte ca procesul de instalare "
+#~ "sã poatã continua."
+
+#~ msgid "No /boot/efi Partition"
+#~ msgstr "Partiþia /boot/efi nu existã"
+
+#~ msgid ""
+#~ "You must assign the mount point /boot/efi to a FAT-style primary "
+#~ "partition for the install to proceed."
+#~ msgstr ""
+#~ "Trebuie sã asignaþi directorul /boot/efi unei partiþii de tip FAT înainte "
+#~ "ca programul de instalare sã poatã continua"
+
+#~ msgid ""
+#~ "There are unallocated partitions left. If you quit now they will not be "
+#~ "written to the disk.\n"
+#~ "\n"
+#~ "Are you sure you want to exit?"
+#~ msgstr ""
+#~ "Existã partiþii nealocate pe disc. Dacã iesiþi acum acestea nu vor fi "
+#~ "scrise pe disc.\n"
+#~ "\n"
+#~ "Sînteti sigur cã doriþi sã ieºiþi din program?"
+
+#~ msgid "Save Changes"
+#~ msgstr "Salvare"
+
+#~ msgid "Save changes to partition table(s)?"
+#~ msgstr "Salvaþi schimbãrile în tabela de partiþii?"
+
+#~ msgid "You may only delete NFS mounts."
+#~ msgstr "Puteþi ºterge numai NFS mounts."
 
 #, fuzzy
 #~ msgid "Passwords do not match.asdfasdfdsafasdfdf"

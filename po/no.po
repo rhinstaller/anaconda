@@ -1,13 +1,67 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
-"POT-Creation-Date: 2001-07-31 15:54-0400\n"
+"POT-Creation-Date: 2001-08-02 15:21-0400\n"
 "PO-Revision-Date: 2001-07-24 19:14+0200\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
+
+#: ../anaconda:308
+#, fuzzy
+msgid ""
+"You do not have enough RAM to use the graphical installer.  Starting text "
+"mode."
+msgstr "Du har ikke nok RAM til å installere Red Hat Linux på denne maskinen."
+
+#: ../anaconda:327 ../iw/account_gui.py:150 ../iw/account_gui.py:161
+#: ../iw/partition_gui.py:496 ../iw/partition_gui.py:838
+#: ../iw/partition_gui.py:1289 ../loader/urls.c:79 ../loader/urls.c:89
+#: ../loader/urls.c:97 ../loader/urls.c:247 ../rescue.py:34 ../rescue.py:130
+#: ../rescue.py:151 ../rescue.py:168 ../rescue.py:174 ../text.py:389
+#: ../textw/bootdisk_text.py:65 ../textw/bootdisk_text.py:67
+#: ../textw/complete_text.py:41 ../textw/complete_text.py:56
+#: ../textw/complete_text.py:72 ../textw/confirm_text.py:24
+#: ../textw/confirm_text.py:36 ../textw/constants_text.py:20
+#: ../textw/firewall_text.py:201 ../textw/network_text.py:134
+#: ../textw/silo_text.py:110 ../xserver.py:51
+msgid "OK"
+msgstr "OK"
+
+#: ../anaconda:370
+msgid "Probing for video card:   "
+msgstr ""
+
+#: ../anaconda:378
+#, fuzzy
+msgid "Unable to probe\n"
+msgstr "Kunne ikke søke"
+
+#: ../anaconda:380
+msgid "Probing for monitor type: "
+msgstr ""
+
+#: ../anaconda:387
+msgid "Probing for mouse type:   "
+msgstr ""
+
+#: ../anaconda:391
+msgid "Skipping mouse probe.\n"
+msgstr ""
+
+#: ../anaconda:405
+#, c-format
+msgid ""
+"Graphical installation not available for %s installs.  Starting text mode."
+msgstr ""
+
+#: ../anaconda:413
+msgid ""
+"No mouse was detected.  A mouse is required for graphical installation.  "
+"Starting text mode."
+msgstr ""
 
 #: ../autopart.py:729
 #, c-format
@@ -67,7 +121,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:900 ../iw/partition_gui.py:1227
+#: ../autopart.py:900 ../iw/partition_gui.py:1242
 #: ../textw/partition_text.py:149
 msgid "Error Partitioning"
 msgstr "Feil under partisjonering"
@@ -84,10 +138,11 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:935 ../harddrive.py:233 ../iw/bootloader_gui.py:58
-#: ../iw/partition_gui.py:1232 ../iw/partition_gui.py:1547
-#: ../iw/upgrade_swap_gui.py:169 ../iw/upgrade_swap_gui.py:177
-#: ../iw/upgrade_swap_gui.py:184 ../partitioning.py:1331
-#: ../textw/bootloader_text.py:128 ../textw/partition_text.py:153
+#: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1247
+#: ../iw/partition_gui.py:1570 ../iw/upgrade_swap_gui.py:169
+#: ../iw/upgrade_swap_gui.py:177 ../iw/upgrade_swap_gui.py:184
+#: ../partitioning.py:1331 ../textw/bootloader_text.py:128
+#: ../textw/bootloader_text.py:424 ../textw/partition_text.py:153
 #: ../textw/upgrade_text.py:172
 msgid "Warning"
 msgstr "Advarsel"
@@ -112,9 +167,9 @@ msgstr ""
 "monteringspunkter, størrelse og mer i dette lettbrukte, kraftige "
 "grensesnittet.\n"
 "\n"
-"fdisk er det tradisjonele, tekstbaserte partisjoneringsverktøyet som tilbys "
-"av Red Hat. Selv om dette ikke er lett å bruke, finnes det tilfeller hvor "
-"dette er foretrukket."
+"fdisk er det tradisjonelle, tekstbaserte partisjoneringsverktøyet som tilbys "
+"av Red Hat. Selv om dette kan være noe vanskeligere i bruk, finnes det "
+"tilfeller hvor fdisk er å foretrekke."
 
 #: ../autopart.py:957
 msgid ""
@@ -166,11 +221,11 @@ msgstr ""
 "følgende stasjoner:%s\n"
 "Er du sikker på at du ønsker å gjøre dette?"
 
-#: ../bootloader.py:629
+#: ../bootloader.py:651
 msgid "Bootloader"
 msgstr "Bootloader"
 
-#: ../bootloader.py:629
+#: ../bootloader.py:651
 msgid "Installing bootloader..."
 msgstr "Installerer bootloader..."
 
@@ -198,10 +253,9 @@ msgstr ""
 "Systemets tilstand ble skrevet til disketten. Systemet vil nå bli startet på "
 "nytt."
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:713 ../fsset.py:732
-#: ../fsset.py:777 ../fsset.py:797 ../fsset.py:826 ../fsset.py:846
-#: ../harddrive.py:171 ../image.py:65 ../image.py:142
-#: ../libfdisk/newtfsedit.c:1746 ../loader/devices.c:259
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:714 ../fsset.py:733
+#: ../fsset.py:778 ../fsset.py:798 ../fsset.py:827 ../fsset.py:847
+#: ../harddrive.py:171 ../image.py:65 ../image.py:142 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:27 ../loader/lang.c:102
 #: ../loader/loader.c:478 ../loader/loader.c:535 ../loader/loader.c:912
@@ -242,15 +296,15 @@ msgstr "Lter etter dårlige blokker"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Leter etter dårlige blokker på /dev/%s..."
 
-#: ../fsset.py:654 ../iw/silo_gui.py:168 ../textw/silo_text.py:75
+#: ../fsset.py:655 ../iw/silo_gui.py:168 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:655 ../iw/silo_gui.py:171 ../textw/silo_text.py:76
+#: ../fsset.py:656 ../iw/silo_gui.py:171 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Første sektor på oppstartspartisjonen"
 
-#: ../fsset.py:714
+#: ../fsset.py:715
 #, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -263,7 +317,7 @@ msgstr ""
 "\n"
 "Trykk linjeskift for å starte systemet på nytt."
 
-#: ../fsset.py:733
+#: ../fsset.py:734
 #, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -278,7 +332,7 @@ msgstr ""
 "\n"
 "Trykk OK for å starte systemet på nytt."
 
-#: ../fsset.py:778
+#: ../fsset.py:779
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -291,7 +345,7 @@ msgstr ""
 "\n"
 "Trykk linjeskift for å starte systemet på nytt."
 
-#: ../fsset.py:798
+#: ../fsset.py:799
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -304,7 +358,7 @@ msgstr ""
 "\n"
 "Trykk linjeskift for å starte systemet på nytt."
 
-#: ../fsset.py:827
+#: ../fsset.py:828
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -317,7 +371,7 @@ msgstr ""
 "\n"
 "Trykk linjeskift for å starte systemet på nytt."
 
-#: ../fsset.py:847
+#: ../fsset.py:848
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -332,11 +386,11 @@ msgstr ""
 "\n"
 "Trykk OK for å starte systemet på nytt."
 
-#: ../fsset.py:1365
+#: ../fsset.py:1366
 msgid "Formatting"
 msgstr "Formaterer"
 
-#: ../fsset.py:1366
+#: ../fsset.py:1367
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formaterer %s-filsystem..."
@@ -345,62 +399,24 @@ msgstr "Formaterer %s-filsystem..."
 msgid "Fix"
 msgstr "Fiks"
 
-#: ../gui.py:105 ../iw/partition_gui.py:483 ../iw/partition_gui.py:640
-#: ../iw/partition_gui.py:703 ../iw/welcome_gui.py:84 ../libfdisk/fsedit.c:953
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237
-#: ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398
-#: ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754
-#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:618
-#: ../libfdisk/newtfsedit.c:745 ../libfdisk/newtfsedit.c:877
-#: ../libfdisk/newtfsedit.c:1683 ../libfdisk/newtfsedit.c:1701
-#: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:230
+#: ../gui.py:105 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
+#: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:84 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:276
 #: ../textw/bootdisk_text.py:25 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:32 ../textw/upgrade_text.py:251
 msgid "Yes"
 msgstr "Ja"
 
-#: ../gui.py:106 ../iw/partition_gui.py:484 ../iw/partition_gui.py:642
-#: ../iw/partition_gui.py:705 ../iw/welcome_gui.py:87 ../libfdisk/fsedit.c:953
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237
-#: ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398
-#: ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754
-#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:618
-#: ../libfdisk/newtfsedit.c:745 ../libfdisk/newtfsedit.c:877
-#: ../libfdisk/newtfsedit.c:1683 ../libfdisk/newtfsedit.c:1701
-#: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:231 ../loader/net.c:889
-#: ../text.py:277 ../textw/bootdisk_text.py:25 ../textw/bootdisk_text.py:54
-#: ../textw/bootloader_text.py:76 ../textw/constants_text.py:36
-#: ../textw/upgrade_text.py:251 ../textw/upgrade_text.py:258
+#: ../gui.py:106 ../iw/partition_gui.py:499 ../iw/partition_gui.py:657
+#: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:87 ../loader/devices.c:231
+#: ../loader/net.c:889 ../text.py:277 ../textw/bootdisk_text.py:25
+#: ../textw/bootdisk_text.py:54 ../textw/bootloader_text.py:76
+#: ../textw/constants_text.py:36 ../textw/upgrade_text.py:251
+#: ../textw/upgrade_text.py:258
 msgid "No"
 msgstr "Nei"
 
-#. code to create dialog in gtk+
-#: ../gui.py:107 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
-#: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
-#: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
-#: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1052
-#: ../libfdisk/fsedit.c:1476 ../libfdisk/gnomefsedit.c:756
-#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
-#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
-#: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
-#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526
-#: ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651
-#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737
-#: ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024
-#: ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278
-#: ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332
-#: ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354
-#: ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374
-#: ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544
-#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170
-#: ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:580
-#: ../libfdisk/newtfsedit.c:642 ../libfdisk/newtfsedit.c:675
-#: ../libfdisk/newtfsedit.c:701 ../libfdisk/newtfsedit.c:720
-#: ../libfdisk/newtfsedit.c:851 ../libfdisk/newtfsedit.c:1480
-#: ../libfdisk/newtfsedit.c:1488 ../libfdisk/newtfsedit.c:1613
-#: ../libfdisk/newtfsedit.c:1634 ../libfdisk/newtfsedit.c:1662
-#: ../libfdisk/newtfsedit.c:1746 ../loader/cdrom.c:34 ../loader/devices.c:92
+#: ../gui.py:107 ../loader/cdrom.c:34 ../loader/devices.c:92
 #: ../loader/devices.c:237 ../loader/devices.c:259 ../loader/devices.c:266
 #: ../loader/devices.c:335 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/devices.c:532 ../loader/kickstart.c:58
@@ -421,8 +437,7 @@ msgstr "Nei"
 msgid "Ok"
 msgstr "Ok"
 
-#: ../gui.py:108 ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1463
-#: ../loader/net.c:277 ../loader/net.c:404 ../text.py:279
+#: ../gui.py:108 ../loader/net.c:277 ../loader/net.c:404 ../text.py:279
 msgid "Retry"
 msgstr "Prøv igjen"
 
@@ -430,17 +445,14 @@ msgstr "Prøv igjen"
 msgid "Ignore"
 msgstr "Ignorer"
 
-#: ../gui.py:110 ../iw/account_gui.py:150 ../iw/account_gui.py:161
-#: ../iw/partition_gui.py:824 ../iw/partition_gui.py:1275
-#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
-#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:581
-#: ../libfdisk/newtfsedit.c:1701 ../loader/devices.c:238
-#: ../loader/devices.c:532 ../loader/loader.c:2300 ../loader/pcmcia.c:104
-#: ../text.py:114 ../text.py:115 ../text.py:249 ../text.py:251 ../text.py:281
-#: ../textw/bootloader_text.py:197 ../textw/constants_text.py:24
-#: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:75 ../textw/welcome_text.py:48
-#: ../textw/welcome_text.py:51
+#: ../gui.py:110 ../iw/account_gui.py:151 ../iw/account_gui.py:162
+#: ../iw/partition_gui.py:839 ../iw/partition_gui.py:1290
+#: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
+#: ../loader/pcmcia.c:104 ../text.py:114 ../text.py:115 ../text.py:249
+#: ../text.py:251 ../text.py:281 ../textw/bootloader_text.py:197
+#: ../textw/constants_text.py:24 ../textw/silo_text.py:147
+#: ../textw/silo_text.py:165 ../textw/userauth_text.py:75
+#: ../textw/welcome_text.py:48 ../textw/welcome_text.py:51
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -472,8 +484,7 @@ msgstr "Online hjelp"
 msgid "Language Selection"
 msgstr "Valg av språk"
 
-#: ../gui.py:436 ../iw/firewall_gui.py:122 ../libfdisk/gnomefsedit.c:1388
-#: ../libfdisk/gnomefsedit.c:1405
+#: ../gui.py:436 ../iw/firewall_gui.py:122
 msgid "Close"
 msgstr "Lukk"
 
@@ -489,13 +500,12 @@ msgstr "Kan ikke lese filen!"
 msgid "Release notes are missing.\n"
 msgstr "Notis for denne utgaven mangler.\n"
 
-#: ../gui.py:599 ../libfdisk/newtfsedit.c:1480 ../libfdisk/newtfsedit.c:1488
-#: ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238
-#: ../loader/devices.c:335 ../loader/lang.c:596 ../loader/loader.c:323
-#: ../loader/loader.c:816 ../loader/loader.c:853 ../loader/loader.c:967
-#: ../loader/loader.c:1061 ../loader/loader.c:1490 ../loader/net.c:185
-#: ../loader/net.c:272 ../loader/net.c:359 ../loader/urls.c:158
-#: ../loader/urls.c:387 ../textw/confirm_text.py:24
+#: ../gui.py:599 ../loader/cdrom.c:34 ../loader/devices.c:93
+#: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:596
+#: ../loader/loader.c:323 ../loader/loader.c:816 ../loader/loader.c:853
+#: ../loader/loader.c:967 ../loader/loader.c:1061 ../loader/loader.c:1490
+#: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:359
+#: ../loader/urls.c:158 ../loader/urls.c:387 ../textw/confirm_text.py:24
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:38 ../textw/constants_text.py:28
 #: ../textw/silo_text.py:110 ../textw/userauth_text.py:177
@@ -657,9 +667,8 @@ msgstr ""
 "valgt. Du må ha mer plass på følgende filsystemer:\n"
 "\n"
 
-#: ../iw/partition_gui.py:1484 ../iw/upgrade_swap_gui.py:121
-#: ../libfdisk/gnomefsedit.c:3132 ../packages.py:565 ../packages.py:585
-#: ../textw/upgrade_text.py:106
+#: ../iw/partition_gui.py:1507 ../iw/upgrade_swap_gui.py:121
+#: ../packages.py:565 ../packages.py:585 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
@@ -853,7 +862,7 @@ msgstr ""
 "\n"
 "Ønsker du å initiere denne stasjonen?"
 
-#: ../libfdisk/fsedit.c:1052 ../partitioning.py:1409
+#: ../partitioning.py:1409
 msgid "No Drives Found"
 msgstr "Ingen stasjoner funnet"
 
@@ -886,7 +895,6 @@ msgstr ""
 "\n"
 "Er du sikker?"
 
-#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:878
 #: ../partitioning.py:1490
 msgid "Are you sure you want to delete this partition?"
 msgstr "Er du sikker på at du vil slette denne partisjonen?"
@@ -1079,7 +1087,7 @@ msgstr ""
 "\n"
 "Vil du fortsette med det forespurte partisjoneringsopplegget?"
 
-#: ../iw/partition_gui.py:561 ../partitioning.py:1731
+#: ../iw/partition_gui.py:576 ../partitioning.py:1731
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1087,7 +1095,7 @@ msgstr ""
 "Disse eksisterende partisjonene er merket for formatering, som vil ødelegge "
 "alle data."
 
-#: ../iw/partition_gui.py:564 ../partitioning.py:1734
+#: ../iw/partition_gui.py:579 ../partitioning.py:1734
 msgid ""
 "Selected 'Yes' to continue and format these partitions, or 'No' to go back "
 "and change these settings."
@@ -1099,29 +1107,15 @@ msgstr ""
 msgid "Format Warning"
 msgstr "Formateringsadvarsel"
 
-#: ../iw/account_gui.py:149 ../iw/account_gui.py:160
-#: ../iw/partition_gui.py:481 ../iw/partition_gui.py:823
-#: ../iw/partition_gui.py:1274 ../loader/urls.c:79 ../loader/urls.c:89
-#: ../loader/urls.c:97 ../loader/urls.c:247 ../rescue.py:34 ../rescue.py:110
-#: ../rescue.py:131 ../rescue.py:148 ../rescue.py:154 ../text.py:389
-#: ../textw/bootdisk_text.py:65 ../textw/bootdisk_text.py:67
-#: ../textw/complete_text.py:41 ../textw/complete_text.py:56
-#: ../textw/complete_text.py:72 ../textw/confirm_text.py:24
-#: ../textw/confirm_text.py:36 ../textw/constants_text.py:20
-#: ../textw/firewall_text.py:201 ../textw/network_text.py:134
-#: ../textw/silo_text.py:110 ../xserver.py:51
-msgid "OK"
-msgstr "OK"
-
-#: ../rescue.py:48 ../rescue.py:84 ../rescue.py:163
+#: ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Når ferdig, avslutt skallet for å starte systemet på nytt."
 
-#: ../rescue.py:70 ../rescue.py:125 ../rescue.py:143
+#: ../rescue.py:90 ../rescue.py:145 ../rescue.py:163
 msgid "Rescue"
 msgstr "Redning"
 
-#: ../rescue.py:71
+#: ../rescue.py:91
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory /mnt/sysimage.  You can then "
@@ -1140,30 +1134,30 @@ msgstr ""
 "dette steget bli hoppet over og du vil gå direkte til et kommandoskall.\n"
 "\n"
 
-#: ../rescue.py:79
+#: ../rescue.py:99
 msgid "Continue"
 msgstr "Fortsett"
 
-#: ../rescue.py:79 ../rescue.py:81 ../textw/bootdisk_text.py:67
+#: ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:67
 #: ../textw/bootdisk_text.py:89 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:118
 msgid "Skip"
 msgstr "Hopp over"
 
-#: ../rescue.py:107
+#: ../rescue.py:127
 msgid "System to Rescue"
 msgstr "System som skal reddes"
 
-#: ../rescue.py:108 ../textw/upgrade_text.py:208
+#: ../rescue.py:128 ../textw/upgrade_text.py:208
 msgid "What partition holds the root partition of your installation?"
 msgstr "Hvilken partisjon inneholder rotpartisjonen til din installasjon?"
 
-#: ../iw/congrats_gui.py:14 ../iw/congrats_gui.py:64 ../rescue.py:110
-#: ../rescue.py:114
+#: ../iw/congrats_gui.py:14 ../iw/congrats_gui.py:64 ../rescue.py:130
+#: ../rescue.py:134
 msgid "Exit"
 msgstr "Avslutt"
 
-#: ../rescue.py:126
+#: ../rescue.py:146
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -1183,7 +1177,7 @@ msgstr ""
 "\n"
 "Systemet vil starte på nytt når du avslutter skallet."
 
-#: ../rescue.py:144
+#: ../rescue.py:164
 msgid ""
 "An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under /mnt/sysimage.\n"
@@ -1197,11 +1191,11 @@ msgstr ""
 "Trykk <linjeskift> for å gå til et skall. Systemet vil starte på nytt når du "
 "avslutter skallet."
 
-#: ../rescue.py:150
+#: ../rescue.py:170
 msgid "Rescue Mode"
 msgstr "Redningsmodus"
 
-#: ../rescue.py:151
+#: ../rescue.py:171
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -1209,7 +1203,7 @@ msgstr ""
 "Du har ingen Linux-partisjoner. Trykk linjeskift for å gå til et skall. "
 "Systemet vil starte på nytt når du avslutter skallet."
 
-#: ../rescue.py:160
+#: ../rescue.py:181
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr "Systemet er montert under katalogen \"/mnt/sysimage\"."
 
@@ -1379,112 +1373,109 @@ msgstr "Venter mens X starter... logg finnes i /tmp/X.log\n"
 msgid " X server started successfully."
 msgstr "X er startet"
 
-#: ../iw/account_gui.py:25
+#: ../iw/account_gui.py:26
 msgid "Account Configuration"
 msgstr "Konfigurasjon av konti"
 
-#: ../iw/account_gui.py:48
+#: ../iw/account_gui.py:49
 msgid "Root password accepted."
 msgstr "Root-passord godtatt."
 
-#: ../iw/account_gui.py:53
+#: ../iw/account_gui.py:54
 msgid "Root password is too short."
 msgstr "Root-passord er for kort."
 
-#: ../iw/account_gui.py:55
+#: ../iw/account_gui.py:56
 msgid "Root passwords do not match."
 msgstr "Root-passordene er ikke like."
 
-#: ../iw/account_gui.py:67
+#: ../iw/account_gui.py:68
 msgid "User password accepted."
 msgstr "Brukerpassord godtatt."
 
-#: ../iw/account_gui.py:74
+#: ../iw/account_gui.py:75
 msgid "Root account can not be added here."
 msgstr "Root-kontoen kan ikke legges til her."
 
-#: ../iw/account_gui.py:76
+#: ../iw/account_gui.py:77
 msgid "Please enter user password."
 msgstr "Vennligst skriv inn brukers passord."
 
-#: ../iw/account_gui.py:78
+#: ../iw/account_gui.py:79
 msgid "User password is too short."
 msgstr "Brukers passord er for kort."
 
-#: ../iw/account_gui.py:80
+#: ../iw/account_gui.py:81
 msgid "User passwords do not match."
 msgstr "Brukerpassordene er ikke like."
 
-#: ../iw/account_gui.py:147
+#: ../iw/account_gui.py:148
 msgid "Add a New User"
 msgstr "Legg til ny bruker"
 
-#: ../iw/account_gui.py:157 ../textw/userauth_text.py:84
+#: ../iw/account_gui.py:158 ../textw/userauth_text.py:84
 msgid "Edit User"
 msgstr "Rediger bruker"
 
-#: ../iw/account_gui.py:182
+#: ../iw/account_gui.py:183
 msgid "User Name:"
 msgstr "Brukernavn:"
 
-#: ../iw/account_gui.py:184
+#: ../iw/account_gui.py:185
 msgid "Full Name:"
 msgstr "Fullt navn:"
 
-#: ../iw/account_gui.py:186 ../iw/bootloaderpassword_gui.py:75
+#: ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 #: ../loader/urls.c:357 ../textw/userauth_text.py:36
 msgid "Password:"
 msgstr "Passord:"
 
-#: ../iw/account_gui.py:188 ../iw/bootloaderpassword_gui.py:79
+#: ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
 #: ../textw/bootloader_text.py:385
 msgid "Confirm:"
 msgstr "Bekreft:"
 
-#: ../iw/account_gui.py:191
+#: ../iw/account_gui.py:192
 msgid "Please enter user name"
 msgstr "Vennligst oppgi brukernavn"
 
-#: ../iw/account_gui.py:270
+#: ../iw/account_gui.py:273
 msgid "Enter the password for the root user (administrator) of this system."
 msgstr "Oppgi passord for root-bruker (administrator) for dette systemet."
 
-#: ../iw/account_gui.py:283
+#: ../iw/account_gui.py:286
 msgid "Root Password: "
 msgstr "Root-passord: "
 
-#: ../iw/account_gui.py:286
+#: ../iw/account_gui.py:289
 msgid "Confirm: "
 msgstr "Bekreft: "
 
-#: ../iw/account_gui.py:320
+#: ../iw/account_gui.py:323
 msgid "Account Name"
 msgstr "Kontonavn"
 
-#: ../iw/account_gui.py:320 ../textw/userauth_text.py:95
+#: ../iw/account_gui.py:323 ../textw/userauth_text.py:95
 #: ../textw/userauth_text.py:196
 msgid "Full Name"
 msgstr "Fullt navn"
 
-#: ../iw/account_gui.py:327 ../libfdisk/newtfsedit.c:1486
-#: ../textw/userauth_text.py:210
+#: ../iw/account_gui.py:330 ../textw/userauth_text.py:210
 msgid "Add"
 msgstr "Legg til"
 
-#: ../iw/account_gui.py:329 ../libfdisk/newtfsedit.c:1479
-#: ../libfdisk/newtfsedit.c:1487 ../textw/bootloader_text.py:274
-#: ../textw/fdisk_text.py:40 ../textw/partition_text.py:942
+#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:274
+#: ../textw/fdisk_text.py:40 ../textw/partition_text.py:961
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:211
 msgid "Edit"
 msgstr "Redigér"
 
-#: ../iw/account_gui.py:332 ../libfdisk/newtfsedit.c:1487
-#: ../textw/userauth_text.py:210
+#: ../iw/account_gui.py:335 ../textw/userauth_text.py:210
 msgid "Delete"
 msgstr "Slett"
 
-#: ../iw/account_gui.py:352
+#: ../iw/account_gui.py:355
 msgid ""
 "Additional accounts can be created for other users of this system. Such "
 "accounts could be for a personal login account, or for other non-"
@@ -1635,15 +1626,14 @@ msgstr ""
 "\n"
 "Vil du fortsette med tvungen bruk av LBA32-modus?"
 
-#: ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:434
+#: ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:432
 #: ../iw/silo_gui.py:122 ../iw/silo_gui.py:273 ../iw/upgrade_swap_gui.py:121
 #: ../textw/upgrade_text.py:107
 msgid "Partition"
 msgstr "Partisjon"
 
-#: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:435
-#: ../iw/partition_gui.py:1484 ../iw/silo_gui.py:127 ../iw/silo_gui.py:274
-#: ../libfdisk/gnomefsedit.c:3136
+#: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:433
+#: ../iw/partition_gui.py:1507 ../iw/silo_gui.py:127 ../iw/silo_gui.py:274
 msgid "Type"
 msgstr "Type"
 
@@ -1678,10 +1668,10 @@ msgid "Default"
 msgstr "Standard"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:145
-#: ../iw/partition_gui.py:1483 ../iw/silo_gui.py:250
-#: ../libfdisk/gnomefsedit.c:3133 ../textw/bootloader_text.py:191
-#: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
-#: ../textw/silo_text.py:142 ../textw/silo_text.py:207
+#: ../iw/partition_gui.py:1506 ../iw/silo_gui.py:250
+#: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:259
+#: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
+#: ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Enhet"
 
@@ -1690,7 +1680,7 @@ msgstr "Enhet"
 msgid "Partition type"
 msgstr "Partisjonstype"
 
-#: ../iw/bootloader_gui.py:354 ../iw/bootloader_gui.py:445
+#: ../iw/bootloader_gui.py:354 ../iw/bootloader_gui.py:443
 #: ../iw/silo_gui.py:250 ../iw/silo_gui.py:285 ../textw/bootloader_text.py:192
 #: ../textw/bootloader_text.py:259 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
@@ -1709,7 +1699,7 @@ msgstr "Bruk LILO som oppstartslaster"
 msgid "Do not install a boot loader"
 msgstr "Ikke installer oppstartslaster"
 
-#: ../iw/bootloader_gui.py:442 ../iw/silo_gui.py:281
+#: ../iw/bootloader_gui.py:440 ../iw/silo_gui.py:281
 msgid "Default boot image"
 msgstr "Sett standard bootfil"
 
@@ -1717,21 +1707,30 @@ msgstr "Sett standard bootfil"
 msgid "Boot Loader Password Configuration"
 msgstr "Passord for oppstartslaster"
 
-#: ../iw/bootloaderpassword_gui.py:43
+#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:425
+msgid ""
+"Your boot loader password is less than six characters.  We recommend a "
+"longer boot loader password.\n"
+"\n"
+"Would you like to continue with this password?"
+msgstr ""
+
+#: ../iw/bootloaderpassword_gui.py:54
 msgid "Password accepted."
 msgstr "Passordet er godtatt."
 
-#: ../iw/bootloaderpassword_gui.py:48
+#: ../iw/bootloaderpassword_gui.py:59
 msgid "Password is too short."
 msgstr "Passordet er for kort."
 
-#: ../iw/bootloaderpassword_gui.py:50
+#: ../iw/bootloaderpassword_gui.py:61
 msgid "Passwords do not match."
 msgstr "Passordene er ikke like."
 
-#: ../iw/bootloaderpassword_gui.py:65 ../textw/bootloader_text.py:362
+#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:362
+#, fuzzy
 msgid ""
-"A GRUB password prevents users from passing arbitrary options to the "
+"A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
@@ -1739,11 +1738,11 @@ msgstr ""
 "høyest mulig sikkerhet anbefaler vi å sette et passord, men dette er ikke "
 "nødvendig for brukere med mindre krav til sikkerhet."
 
-#: ../iw/bootloaderpassword_gui.py:72
+#: ../iw/bootloaderpassword_gui.py:84
 msgid "Use a GRUB Password?"
 msgstr "Bruk passord for GRUB?"
 
-#: ../iw/bootloaderpassword_gui.py:97
+#: ../iw/bootloaderpassword_gui.py:109
 msgid "Please enter password"
 msgstr "Vennligst oppgi passord"
 
@@ -2122,7 +2121,7 @@ msgstr "Trevisning"
 msgid "Flat View"
 msgstr "Flat visning"
 
-#: ../iw/package_gui.py:410 ../iw/partition_gui.py:1484
+#: ../iw/package_gui.py:410 ../iw/partition_gui.py:1507
 msgid "Size (MB)"
 msgstr "Størrelse (MB)"
 
@@ -2146,23 +2145,23 @@ msgstr "Valg av pakkegruppe"
 msgid "Select individual packages"
 msgstr "Velg individuelle pakker"
 
-#: ../iw/partition_gui.py:298 ../iw/partition_gui.py:319
-#: ../iw/partition_gui.py:321 ../textw/partition_text.py:172
+#: ../iw/partition_gui.py:313 ../iw/partition_gui.py:334
+#: ../iw/partition_gui.py:336 ../textw/partition_text.py:172
 #: ../textw/partition_text.py:174 ../textw/partition_text.py:176
 #: ../textw/partition_text.py:201
 msgid "<Not Applicable>"
 msgstr "<Ikke brukbar>"
 
-#: ../iw/partition_gui.py:468 ../textw/fdisk_text.py:38
+#: ../iw/partition_gui.py:483 ../textw/fdisk_text.py:38
 msgid "Disk Setup"
 msgstr "Diskoppsett"
 
-#: ../iw/partition_gui.py:528
+#: ../iw/partition_gui.py:543
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr "Følgende kritiske feil oppsto for ditt forespurte partisjonsopplegg."
 
-#: ../iw/partition_gui.py:531
+#: ../iw/partition_gui.py:546
 msgid ""
 "These errors must be corrected prior to continuing with your install of Red "
 "Hat Linux."
@@ -2170,246 +2169,248 @@ msgstr ""
 "Disse feilene må rettes opp før du fortsetter med installasjonen av Red Hat "
 "Linux."
 
-#: ../iw/partition_gui.py:538
+#: ../iw/partition_gui.py:553
 msgid "Partitioning Errors"
 msgstr "Feil under partisjonering"
 
-#: ../iw/partition_gui.py:544
+#: ../iw/partition_gui.py:559
 msgid "The following warnings exist with your requested partition scheme."
 msgstr "Følgende advarsler oppsto med ditt partisjoneringsopplegg."
 
-#: ../iw/partition_gui.py:546
+#: ../iw/partition_gui.py:561
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "Vil du fortsette med ditt forespurte partisjonsopplegg?"
 
-#: ../iw/partition_gui.py:552
+#: ../iw/partition_gui.py:567
 msgid "Partitioning Warnings"
 msgstr "Advarsler fra partisjonering"
 
-#: ../iw/partition_gui.py:574
+#: ../iw/partition_gui.py:589
 msgid "Format Warnings"
 msgstr "Formateringsadvarsler"
 
-#: ../iw/partition_gui.py:627 ../textw/partition_text.py:61
+#: ../iw/partition_gui.py:642 ../textw/partition_text.py:61
 #: ../textw/partition_text.py:100
 msgid "Free space"
 msgstr "Ledig plass"
 
-#: ../iw/partition_gui.py:629 ../textw/partition_text.py:63
+#: ../iw/partition_gui.py:644 ../textw/partition_text.py:63
 msgid "Extended"
 msgstr "Utvidet"
 
-#: ../iw/partition_gui.py:631 ../textw/partition_text.py:65
+#: ../iw/partition_gui.py:646 ../textw/partition_text.py:65
 msgid "software RAID"
 msgstr "programvare RAID"
 
-#: ../iw/partition_gui.py:649 ../iw/partition_gui.py:707
+#: ../iw/partition_gui.py:664 ../iw/partition_gui.py:722
 #: ../textw/partition_text.py:79 ../textw/partition_text.py:131
 msgid "None"
 msgstr "Ingen"
 
-#: ../iw/partition_gui.py:651
+#: ../iw/partition_gui.py:666
 msgid "Free"
 msgstr "Ledig"
 
-#: ../iw/partition_gui.py:709 ../textw/partition_text.py:133
+#: ../iw/partition_gui.py:724 ../textw/partition_text.py:133
 #, c-format
 msgid "RAID Device %s"
 msgstr "RAID-enhet %s"
 
-#: ../iw/partition_gui.py:778
+#: ../iw/partition_gui.py:793
 msgid "Additional Size Options"
 msgstr "Flere alternativer for størrelse"
 
-#: ../iw/partition_gui.py:783
+#: ../iw/partition_gui.py:798
 msgid "Fixed size"
 msgstr "Fast størrelse"
 
-#: ../iw/partition_gui.py:784
+#: ../iw/partition_gui.py:799
 msgid "Fill all space up to (MB):"
 msgstr "Fyll all plass opp til (MB):"
 
-#: ../iw/partition_gui.py:792
+#: ../iw/partition_gui.py:807
 msgid "Fill to maximum allowable size"
 msgstr "Fyll opp til maksimal tillatt størrelse"
 
-#: ../iw/partition_gui.py:821 ../textw/partition_text.py:523
+#: ../iw/partition_gui.py:836 ../textw/partition_text.py:525
 msgid "Add Partition"
 msgstr "Legg til partisjon"
 
-#: ../iw/partition_gui.py:838 ../iw/partition_gui.py:1289
-#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
-#: ../libfdisk/newtfsedit.c:392 ../textw/partition_text.py:191
+#: ../iw/partition_gui.py:853 ../iw/partition_gui.py:1312
+#: ../textw/partition_text.py:191
 msgid "Mount Point:"
 msgstr "Monteringspunkt:"
 
-#: ../iw/partition_gui.py:846 ../textw/partition_text.py:579
+#: ../iw/partition_gui.py:861 ../textw/partition_text.py:581
 msgid "Filesystem Type:"
 msgstr "Filsystemtype:"
 
-#: ../iw/partition_gui.py:854
+#: ../iw/partition_gui.py:869
 msgid "Original Filesystem Type:"
 msgstr "Opprinnelig filsystemtype:"
 
-#: ../iw/partition_gui.py:863 ../libfdisk/newtfsedit.c:494
+#: ../iw/partition_gui.py:878
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: ../iw/partition_gui.py:875 ../libfdisk/gnomefsedit.c:1134
-#: ../libfdisk/newtfsedit.c:527 ../textw/partition_text.py:246
+#: ../iw/partition_gui.py:890 ../textw/partition_text.py:246
 msgid "Allowable Drives:"
 msgstr "Tillatte stasjoner:"
 
-#: ../iw/partition_gui.py:883
+#: ../iw/partition_gui.py:898
 msgid "Drive:"
 msgstr "Stasjon:"
 
-#: ../iw/partition_gui.py:892
+#: ../iw/partition_gui.py:907
 msgid "Original Filesystem Label:"
 msgstr "Opprinnelig etikett for filsystem:"
 
-#: ../iw/partition_gui.py:903 ../iw/partition_gui.py:938
-#: ../textw/partition_text.py:267 ../textw/partition_text.py:350
-#: ../textw/partition_text.py:595
+#: ../iw/partition_gui.py:918 ../iw/partition_gui.py:953
+#: ../textw/partition_text.py:268 ../textw/partition_text.py:351
+#: ../textw/partition_text.py:597
 msgid "Size (MB):"
 msgstr "Størrelse (MB):"
 
-#: ../iw/partition_gui.py:916 ../textw/partition_text.py:330
+#: ../iw/partition_gui.py:931 ../textw/partition_text.py:331
 msgid "Start Cylinder:"
 msgstr "Startsylinder:"
 
-#: ../iw/partition_gui.py:932 ../textw/partition_text.py:343
+#: ../iw/partition_gui.py:947 ../textw/partition_text.py:344
 msgid "End Cylinder:"
 msgstr "Sluttsylinder:"
 
-#: ../iw/partition_gui.py:954
+#: ../iw/partition_gui.py:969
 msgid "How would you like to prepare the filesystem on this partition?"
 msgstr "Hvordan ønsker du å forberede filsystemet på denne partisjonen?"
 
-#: ../iw/partition_gui.py:963 ../textw/partition_text.py:432
+#: ../iw/partition_gui.py:978 ../textw/partition_text.py:434
 msgid "Leave unchanged (preserve data)"
 msgstr "La den være (ta vare på data)"
 
-#: ../iw/partition_gui.py:968
+#: ../iw/partition_gui.py:983
 msgid "Format partition as:"
 msgstr "Formater partisjon som:"
 
-#: ../iw/partition_gui.py:988
+#: ../iw/partition_gui.py:1003
 msgid "Migrate partition to:"
 msgstr "Migrer partisjon til:"
 
-#: ../iw/partition_gui.py:1009
+#: ../iw/partition_gui.py:1024
 msgid "Check for bad blocks?"
 msgstr "Sjekk etter dårlige blokker?"
 
-#: ../iw/partition_gui.py:1040 ../textw/partition_text.py:565
+#: ../iw/partition_gui.py:1055 ../textw/partition_text.py:567
 msgid "Force to be a primary partition"
 msgstr "Tving til å være en primærpartisjon"
 
-#: ../iw/partition_gui.py:1047 ../textw/partition_text.py:430
-#: ../textw/partition_text.py:568
+#: ../iw/partition_gui.py:1062 ../textw/partition_text.py:432
+#: ../textw/partition_text.py:570
 msgid "Check for bad blocks"
 msgstr "Sjekk etter dårlige blokker"
 
-#: ../iw/partition_gui.py:1118 ../iw/partition_gui.py:1127
-#: ../iw/partition_gui.py:1165 ../iw/partition_gui.py:1419
-#: ../textw/partition_text.py:731 ../textw/partition_text.py:748
-#: ../textw/partition_text.py:857
+#: ../iw/partition_gui.py:1133 ../iw/partition_gui.py:1142
+#: ../iw/partition_gui.py:1180 ../iw/partition_gui.py:1442
+#: ../textw/partition_text.py:739 ../textw/partition_text.py:756
+#: ../textw/partition_text.py:876
 msgid "Error With Request"
 msgstr "Feil med forespørsel"
 
-#: ../iw/partition_gui.py:1228 ../textw/partition_text.py:150
+#: ../iw/partition_gui.py:1243 ../textw/partition_text.py:150
 #, c-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Kunne ikke allokere forespurte partisjoner: %s."
 
-#: ../iw/partition_gui.py:1234 ../textw/partition_text.py:154
+#: ../iw/partition_gui.py:1249 ../textw/partition_text.py:154
 msgid "Modify Partition"
 msgstr "Rediger partisjon"
 
-#: ../iw/partition_gui.py:1235 ../textw/partition_text.py:154
+#: ../iw/partition_gui.py:1250 ../textw/partition_text.py:154
 msgid "Add anyway"
 msgstr "Legg til likevel"
 
-#: ../iw/partition_gui.py:1239
+#: ../iw/partition_gui.py:1254
 #, c-format
 msgid "Warning: %s."
 msgstr "Advarsel: %s."
 
-#: ../iw/partition_gui.py:1272 ../textw/partition_text.py:778
+#: ../iw/partition_gui.py:1287 ../textw/partition_text.py:786
 msgid "Make RAID Device"
 msgstr "Lag RAID-enhet"
 
-#: ../iw/partition_gui.py:1296 ../textw/partition_text.py:212
+#: ../iw/partition_gui.py:1305 ../textw/partition_text.py:810
+msgid "At least two software RAID partitions are needed."
+msgstr ""
+
+#: ../iw/partition_gui.py:1319 ../textw/partition_text.py:212
 msgid "Filesystem type:"
 msgstr "Filsystemtype:"
 
-#: ../iw/partition_gui.py:1308 ../textw/partition_text.py:367
+#: ../iw/partition_gui.py:1331 ../textw/partition_text.py:368
 msgid "RAID Level:"
 msgstr "RAID-nivå:"
 
-#: ../iw/partition_gui.py:1343 ../textw/partition_text.py:385
+#: ../iw/partition_gui.py:1366 ../textw/partition_text.py:386
 msgid "RAID Members:"
 msgstr "RAID-medlemmer:"
 
-#: ../iw/partition_gui.py:1354
+#: ../iw/partition_gui.py:1377
 msgid "Number of spares:"
 msgstr "Antall reservedisker:"
 
-#: ../iw/partition_gui.py:1361 ../textw/partition_text.py:803
+#: ../iw/partition_gui.py:1384 ../textw/partition_text.py:822
 msgid "Format partition?"
 msgstr "Formater partisjon?"
 
-#: ../iw/partition_gui.py:1464
+#: ../iw/partition_gui.py:1487
 msgid "_New"
 msgstr "_Ny"
 
-#: ../iw/partition_gui.py:1465
+#: ../iw/partition_gui.py:1488
 msgid "_Edit"
 msgstr "R_ediger"
 
-#: ../iw/partition_gui.py:1466 ../libfdisk/gnomefsedit.c:3699
+#: ../iw/partition_gui.py:1489
 msgid "_Delete"
 msgstr "_Slett"
 
-#: ../iw/partition_gui.py:1467 ../libfdisk/gnomefsedit.c:3694
+#: ../iw/partition_gui.py:1490
 msgid "_Reset"
 msgstr "_Nullstill"
 
-#: ../iw/partition_gui.py:1468
+#: ../iw/partition_gui.py:1491
 msgid "Make _RAID"
 msgstr "Lag _RAID"
 
-#: ../iw/partition_gui.py:1483
+#: ../iw/partition_gui.py:1506
 msgid "Start"
 msgstr "Start"
 
-#: ../iw/partition_gui.py:1483
+#: ../iw/partition_gui.py:1506
 msgid "End"
 msgstr "Slutt"
 
-#: ../iw/partition_gui.py:1484
+#: ../iw/partition_gui.py:1507
 msgid "Format"
 msgstr "Formater"
 
-#: ../iw/partition_gui.py:1529 ../textw/partition_text.py:1018
+#: ../iw/partition_gui.py:1552 ../textw/partition_text.py:1037
 msgid "Automatic Partitioning"
 msgstr "Automatisk partisjonering"
 
-#: ../iw/partition_gui.py:1548
+#: ../iw/partition_gui.py:1571
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "Du må velge minst en stasjon du skal installere Red Hat Linux på."
 
-#: ../iw/partition_gui.py:1587
+#: ../iw/partition_gui.py:1610
 msgid "I want to have automatic partitioning:"
 msgstr "Jeg vil bruke automatisk partisjonering:"
 
-#: ../iw/partition_gui.py:1618 ../textw/partition_text.py:1041
+#: ../iw/partition_gui.py:1641 ../textw/partition_text.py:1060
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hvilke stasjoner vil du bruke for denne installasjonen?"
 
-#: ../iw/partition_gui.py:1635
+#: ../iw/partition_gui.py:1659
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr ""
@@ -2896,6 +2897,16 @@ msgstr "Passordene er ikke like"
 msgid "Passwords do not match"
 msgstr "Passordene er ikke like"
 
+#: ../textw/bootloader_text.py:419
+#, fuzzy
+msgid "Password Too Short"
+msgstr "Passordet er for kort."
+
+#: ../textw/bootloader_text.py:420
+#, fuzzy
+msgid "Boot loader password is too short"
+msgstr "Root-passord er for kort."
+
 #: ../textw/complete_text.py:25
 msgid "<Enter> to reboot"
 msgstr "<Enter> for å starte på nytt"
@@ -3214,134 +3225,139 @@ msgstr ""
 msgid "Warning: %s"
 msgstr "Advarsel: %s"
 
-#: ../textw/partition_text.py:301
+#: ../textw/partition_text.py:302
 msgid "Fixed Size:"
 msgstr "Fast størrelse:"
 
-#: ../textw/partition_text.py:303
+#: ../textw/partition_text.py:304
 msgid "Fill maximum size of (MB):"
 msgstr "Fyll maksimal størrelse på (MB):"
 
-#: ../textw/partition_text.py:307
+#: ../textw/partition_text.py:308
 msgid "Fill all available space:"
 msgstr "Fyll all tilgjengelig plass:"
 
-#: ../textw/partition_text.py:403
+#: ../textw/partition_text.py:405
 msgid "Number of spares?"
 msgstr "Antall reservedisker?"
 
-#: ../textw/partition_text.py:421 ../textw/partition_text.py:618
+#: ../textw/partition_text.py:423 ../textw/partition_text.py:625
 msgid "Filesystem Options"
 msgstr "Alternativer for filsystem"
 
-#: ../textw/partition_text.py:424
+#: ../textw/partition_text.py:426
 msgid ""
 "Please choose how you would like to prepare the filesystem on this partition."
 msgstr ""
 "Vennligst velg hvordan du ønsker å forberede filsystemet på denne "
 "partisjonen."
 
-#: ../textw/partition_text.py:441
+#: ../textw/partition_text.py:443
 msgid "Format as:"
 msgstr "Formater som:"
 
-#: ../textw/partition_text.py:460
+#: ../textw/partition_text.py:462
 msgid "Migrate to:"
 msgstr "Migrer til:"
 
-#: ../textw/partition_text.py:589
+#: ../textw/partition_text.py:591
 msgid "Filesystem Label:"
 msgstr "Etikett for filsystem:"
 
-#: ../textw/partition_text.py:600
+#: ../textw/partition_text.py:602
 msgid "Filesystem Option:"
 msgstr "Alternativer for filsystem:"
 
-#: ../textw/partition_text.py:626
+#: ../textw/partition_text.py:605 ../textw/partition_text.py:645
 #, c-format
 msgid "Format as %s"
 msgstr "Formater som %s"
 
-#: ../textw/partition_text.py:628
+#: ../textw/partition_text.py:607 ../textw/partition_text.py:647
 #, c-format
 msgid "Migrate to %s"
 msgstr "Migrer til %s"
 
-#: ../textw/partition_text.py:630
+#: ../textw/partition_text.py:609 ../textw/partition_text.py:649
 msgid "Leave unchanged"
 msgstr "La være"
 
-#: ../textw/partition_text.py:666
+#: ../textw/partition_text.py:674
 msgid "Must Specify Size"
 msgstr "Størrelse må spesifiseres."
 
-#: ../textw/partition_text.py:667
+#: ../textw/partition_text.py:675
 msgid "Must specify a base size for the partition."
 msgstr "Størrelse må spesifiseres for partisjonen."
 
-#: ../textw/partition_text.py:679
+#: ../textw/partition_text.py:687
 msgid "Specify Maximum Size"
 msgstr "Spesifisér maksimumsstørrelse"
 
-#: ../textw/partition_text.py:680
+#: ../textw/partition_text.py:688
 msgid "Please specify a maximum size for the partition."
 msgstr "Spesifisér en maksimumsstørrelse for partisjonen."
 
-#: ../textw/partition_text.py:699
+#: ../textw/partition_text.py:707
 msgid "Specify Start"
 msgstr "Spesifisér start"
 
-#: ../textw/partition_text.py:700
+#: ../textw/partition_text.py:708
 msgid "Please specify a starting cylinder for the partition."
 msgstr "Spesifisér en startsylinder for denne partisjonen."
 
-#: ../textw/partition_text.py:710
+#: ../textw/partition_text.py:718
 msgid "Specify End"
 msgstr "Spesifisér slutt"
 
-#: ../textw/partition_text.py:711
+#: ../textw/partition_text.py:719
 msgid "Please specify the end cylinder for the partition."
 msgstr "Spesifisér en sluttsylinder for denne partisjonen."
 
-#: ../textw/partition_text.py:719
+#: ../textw/partition_text.py:727
 msgid "Specify Size"
 msgstr "Spesifisér størrelse."
 
-#: ../textw/partition_text.py:720
+#: ../textw/partition_text.py:728
 msgid "Please specify the  size for the partition."
 msgstr "Spesifiser en størrelse for partisjonen."
 
-#: ../textw/partition_text.py:849
+#: ../textw/partition_text.py:809
+#, fuzzy
+msgid "No RAID partitions"
+msgstr "<RAID-partisjon>"
+
+#: ../textw/partition_text.py:868
 msgid "Too many spares"
 msgstr "For mange reservedisker"
 
-#: ../textw/partition_text.py:850
+#: ../textw/partition_text.py:869
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Maksimalt antall reservedisker med for en RAID0-array er 0."
 
-#: ../textw/partition_text.py:932
+#: ../textw/partition_text.py:951
 msgid "Partitioning"
 msgstr "Partisjonering"
 
-#: ../textw/partition_text.py:942
+#: ../textw/partition_text.py:961
 msgid "New"
 msgstr "Ny"
 
-#: ../textw/partition_text.py:942
+#: ../textw/partition_text.py:961
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:945
+#: ../textw/partition_text.py:964
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
 "    F1-Hjelp    F2-Ny     F3-Rediger F4-Slett    F5-Nullstill F12-Ok       "
 
-#: ../libfdisk/newtfsedit.c:1613 ../textw/partition_text.py:972
+#: ../textw/partition_text.py:991
 msgid "No Root Partition"
 msgstr "Ingen rotpartisjon"
 
-#: ../textw/partition_text.py:973
+#: ../textw/partition_text.py:992
 msgid "Must have a / partition to install on."
 msgstr "Må ha en \"/\"-partisjon å installere på."
 
@@ -3879,8 +3895,7 @@ msgstr "Tilpasset"
 msgid "Laptop"
 msgstr "Bærbar"
 
-#: ../installclasses/server.py:9 ../libfdisk/gnomefsedit.c:2654
-#: ../libfdisk/gnomefsedit.c:2674
+#: ../installclasses/server.py:9
 msgid "Server"
 msgstr "Tjener"
 
@@ -3892,824 +3907,9 @@ msgstr "Oppgrader eksisterende system"
 msgid "Upgrade"
 msgstr "Oppgrader"
 
-#: ../installclasses/workstation.py:9 ../libfdisk/gnomefsedit.c:2674
+#: ../installclasses/workstation.py:9
 msgid "Workstation"
 msgstr "Arbeidsstasjon"
-
-#: ../libfdisk/fsedit.c:401
-msgid "partitioning did not meet requirements"
-msgstr "partisjonering tilfredsstilte ikke kravene"
-
-#: ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936
-#: ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985
-#: ../libfdisk/fsedit.c:995
-msgid "Bad Mount Point"
-msgstr "Ugyldig monteringspunkt"
-
-#: ../libfdisk/fsedit.c:923
-#, c-format
-msgid "The %s directory must be on the root filesystem."
-msgstr "Katalogen %s må være på rot-filsystemet."
-
-#: ../libfdisk/fsedit.c:930
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"Mount points must begin with a leading /."
-msgstr ""
-"Monteringspunktet %s er ugyldig.\n"
-"\n"
-"Monteringspunkter må begynne med \"/\"."
-
-#: ../libfdisk/fsedit.c:937
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"Mount points may not end with a /."
-msgstr ""
-"Monteringspunktet %s er ugyldig.\n"
-"\n"
-"Monteringspunkter kan ikke slutte med \"/\"."
-
-#: ../libfdisk/fsedit.c:946
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"Mount points may only printable characters."
-msgstr ""
-"Monteringspunktet %s er ugyldig.\n"
-"\n"
-"Monteringpunkt kan bare inneholde skrivbare tegn."
-
-#: ../libfdisk/fsedit.c:954
-msgid ""
-"You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
-"You can do this, but you may not use any other filesystems for your Linux "
-"system. Additionally, there will be a speed penalty for not using Linux-"
-"native partitions. Do you want to continue?"
-msgstr ""
-"Du har bedt om å lage rot(/)-filsystemet på en DOS-type FAT-partisjon. Du "
-"kan gjøre det, men vil ikke kunne bruke andre filsystemer for ditt Linux-"
-"system. I tilegg vil det bli et hastighetstap. Ønsker du å fortsette?"
-
-#: ../libfdisk/fsedit.c:973
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"System partitions must be on Linux Native partitions."
-msgstr ""
-"Monteringspunktet %s er ugyldig.\n"
-"\n"
-"Systempartisjoner må ligge på Linux Native-partisjoner."
-
-#: ../libfdisk/fsedit.c:986
-#, c-format
-msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-msgstr "På denne plattformen må /boot være på et DOS-kompatibelt filsystem %x."
-
-#: ../libfdisk/fsedit.c:996
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"/usr must be on a Linux Native partition or an NFS volume."
-msgstr ""
-"Monteringspunktet %s er ugyldig.\n"
-"\n"
-"/usr må ligge på en Linux Native-partisjon eller et NFS-volum."
-
-#: ../libfdisk/fsedit.c:1024
-msgid "Too Many Drives"
-msgstr "For mange disker"
-
-#: ../libfdisk/fsedit.c:1025
-msgid ""
-"You have more drives than this program supports. Please use the standard "
-"fdisk program to setup your drives and please notify Red Hat Software that "
-"you saw this message."
-msgstr ""
-"Du har flere disker enn dette programmet støtter. Vennligst bruk fdisk- "
-"programmet til å sette opp diskene dine og informer Red Hat Software om "
-"denne meldingen."
-
-#: ../libfdisk/fsedit.c:1034
-msgid "Error Creating Device Nodes"
-msgstr "Feil under oppretting av enhetsnoder"
-
-#: ../libfdisk/fsedit.c:1035
-msgid ""
-"An error has occurred while trying to create device nodes for the hard "
-"drives in your system.  This may be because you have run out of disk space "
-"on the /tmp partition."
-msgstr ""
-"En feil har oppstått under forsøk på å opprette enhetsnoder for harddiskene "
-"i ditt system. Dette kan være forårsaket av at du har gått tom for diskplass "
-"på /tmp-partisjonen."
-
-#: ../libfdisk/fsedit.c:1053
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"filesystems.  Please check your hardware for the cause of this problem."
-msgstr ""
-"En feil har oppstått - ingen gyldige enheter for oppretting av filsystemer "
-"ble funnet. Vennligst sjekk maskinvaren din for å finne årsaken til dette."
-
-#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1445
-#, c-format
-msgid ""
-"An error occurred reading the partition table for the block device %s.  The "
-"error was"
-msgstr ""
-"En feil oppstod under lesing av partisjonstabellen for blokkenhet %s. Feilen "
-"var"
-
-#: ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1428
-#: ../libfdisk/fsedit.c:1450 ../libfdisk/fsedit.c:1456
-#: ../libfdisk/fsedit.c:1463
-msgid "Skip Drive"
-msgstr "Hopp over stasjon"
-
-#: ../libfdisk/fsedit.c:1422
-#, c-format
-msgid ""
-"The partition table on device %s is corrupted.  To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive."
-msgstr ""
-"Partisjonstabellen på enhet %s er korrupt. For å opprette nye partisjoner må "
-"denne initialiseres. Dette medfører tap av ALLE DATA på denne disken."
-
-#: ../libfdisk/fsedit.c:1427
-msgid "Bad Partition Table"
-msgstr "Ugyldig partisjonstabell"
-
-#: ../libfdisk/fsedit.c:1428
-msgid "Initialize"
-msgstr "Initiér"
-
-#: ../libfdisk/fsedit.c:1476
-msgid "BSD Disklabel"
-msgstr "BSD-disketikett"
-
-#: ../libfdisk/fsedit.c:1476
-msgid ""
-"A disk with a BSD disklabel has been found. The Red Hat installation only "
-"supports BSD Disklabels in read-only mode, so you must use a custom install "
-"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
-msgstr ""
-"En disk med en BSD-disketikett ble funnet. Red Hat installasjonen støtter "
-"bare BSD-disketiketter i skrivebeskyttet modus, så du må bruke en spesiell "
-"installasjonsdisk og fdisk (i stedet for Disk Druid) for maskiner med BSD- "
-"disketiketter."
-
-#: ../libfdisk/fsedit.c:1506 ../libfdisk/fsedit.c:1529
-#: ../libfdisk/fsedit.c:1555
-#, c-format
-msgid "System error %d"
-msgstr "Systemfeil %d"
-
-#: ../libfdisk/fsedit.c:1515 ../libfdisk/fsedit.c:1517
-#: ../libfdisk/fsedit.c:1544 ../libfdisk/fsedit.c:1574
-msgid "Fdisk Error"
-msgstr "Fdisk-feil"
-
-#: ../libfdisk/fsedit.c:1539
-msgid ""
-"This occurs because the drive geometry detected by the kernel used by the "
-"installer is different than the drive geometry used when the drive was "
-"partitioned.  This can be corrected by specifying the drive geometry on the "
-"kernel command line when booting the installer."
-msgstr ""
-"Dette skjer fordi harddiskgeometrien kjernen finner er forskjellig fra det "
-"den var da harddisken ble partisjonert. Dette kan fikses ved å spesifisere "
-"harddiskgeometrien som en kjerneopsjon når installeringsprogrammet startes."
-
-#: ../libfdisk/fsedit.c:1565
-msgid ""
-"This error has occurred because there is a logical partition on the drive "
-"which has a partition type of zero (0).  A partition type of zero means that "
-"the drive's partitioning is not completely defined, and may have been caused "
-"by another operating system's partitioning program.  This condition is not "
-"supported by the anaconda installer.  You may be able to set the partition "
-"type correctly using your other operating system's partitioning program."
-msgstr ""
-"Denne feilen oppstår fordi det er en logisk partisjon på harddisken med "
-"partisjonstype null (0). En partisjonstype null innebærer at harddiskens "
-"partisjonering ikke er fullstending, noe som kan forårsakes av "
-"partisjoneringsprogrammer for andre operativsystemer. Denne tilstanden "
-"støttes ikke av installeringsprogrammet, anaconda. Du kan forsøke å rette "
-"problemet i programmet som opprettet partisjonen."
-
-#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
-#: ../libfdisk/gnomefsedit.c:2050
-msgid "<Swap Partition>"
-msgstr "<Swap-partisjon>"
-
-#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:954
-msgid "<RAID Partition>"
-msgstr "<RAID-partisjon>"
-
-#: ../libfdisk/gnomefsedit.c:745
-#, c-format
-msgid "Couldnt find partition named %s\n"
-msgstr "Fant ikke partisjonen med navn %s\n"
-
-#: ../libfdisk/gnomefsedit.c:755 ../libfdisk/gnomefsedit.c:787
-msgid "Root partition"
-msgstr "Rotpartisjon"
-
-#: ../libfdisk/gnomefsedit.c:757
-msgid ""
-"The growth of the root (/) RAID array appears to have been stunted by the "
-"1024 cylinder boot limit. If this is the case then adding a /boot partition "
-"(50 MB is fine) may allow the root partition to grow to fill the disk."
-msgstr ""
-"Veksten av rot (/)-RAIDet ser ut til å ha blitt stoppet av 1024-sylinders "
-"grensen for oppstart. Hvis dette er tilfelle, kan det å lage en egen /boot-"
-"partisjon (50 MB holder) gjøre det mulig å lage en større rotpartisjon."
-
-#: ../libfdisk/gnomefsedit.c:789
-msgid ""
-"The growth of the root (/) partition appears to have been stunted by the "
-"1024 cylinder boot limit. If this is the case then adding a /boot partition "
-"(50 MB is fine) may allow the root partition to grow to fill the disk."
-msgstr ""
-"Veksten av rot (/)-partisjonen ser ut til å ha blitt stoppet av 1024-"
-"sylinders grensen for oppstart. Hvis dette er tilfelle, kan det å lage en "
-"egen /boot-partisjon (50 MB holder) gjøre det mulig å lage en større "
-"rotpartisjon."
-
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:877
-msgid "Delete Partition"
-msgstr "Slett partisjon"
-
-#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:347
-msgid "Cannot Edit Partitions"
-msgstr "Kan ikke redigere partisjoner"
-
-#: ../libfdisk/gnomefsedit.c:880 ../libfdisk/newtfsedit.c:348
-msgid ""
-"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
-"edit other partitions."
-msgstr ""
-"Du har definert '/'-filsystemet på en partisjon av en annen type enn ext2. "
-"Du kan derfor ikke redigere andre partisjoner."
-
-#: ../libfdisk/gnomefsedit.c:898 ../libfdisk/gnomefsedit.c:904
-#: ../libfdisk/gnomefsedit.c:908 ../libfdisk/gnomefsedit.c:910
-#: ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:377
-#: ../libfdisk/newtfsedit.c:381 ../libfdisk/newtfsedit.c:383
-msgid "Edit Partition"
-msgstr "Redigér partisjon"
-
-#: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
-msgid "Size (Megs):"
-msgstr "Størrelse (MB):"
-
-#: ../libfdisk/gnomefsedit.c:999
-msgid "Use remaining space?"
-msgstr "Bruk gjenværende plass?"
-
-#. give status
-#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:443
-#: ../libfdisk/newtfsedit.c:446
-msgid "Allocation Status:"
-msgstr "Allokeringsstatus:"
-
-#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:448
-msgid "Successful"
-msgstr "Fullført"
-
-#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:450
-msgid "Failed"
-msgstr "Feilet"
-
-#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:455
-msgid "Failure Reason:"
-msgstr "Feilårsak:"
-
-#: ../libfdisk/gnomefsedit.c:1051 ../libfdisk/gnomefsedit.c:2071
-msgid "Partition Type:"
-msgstr "Partisjonstype:"
-
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
-#: ../libfdisk/newtfsedit.c:618
-msgid "No Mount Point"
-msgstr "Ingen monteringspunkt"
-
-#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:619
-msgid ""
-"You have not selected a mount point for this partition. Are you sure you "
-"want to do this?"
-msgstr ""
-"Du har ikke valgt et monteringspunkt for denne partisjonen. Er du sikker på "
-"at du ønsker å gjøre dette?"
-
-#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
-#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:642
-#: ../libfdisk/newtfsedit.c:675
-msgid "Mount Point Error"
-msgstr "Feil ved monteringspunkt"
-
-#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:643
-msgid ""
-"You have tried to assign the '/' mount point to a FAT-style partition.  You "
-"cannot do this now because mount points have been assigned to ext2 "
-"partitions also.  Clear those mount points and then you will be able to "
-"assign '/' to this partition."
-msgstr ""
-"Du har forsøkt å tildele '/'-monteringspunktet til en FAT-partisjon. Du kan "
-"ikke gjøre dette nå fordi monteringspunkter er satt opp for ext2 partisjoner "
-"også. Fjern disse monteringspunktene, så vil du kunne tildele '/' til denne "
-"partisjonen."
-
-#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:676
-msgid ""
-"The mount point requested is either an illegal path or is already in use. "
-"Please select a valid mount point."
-msgstr ""
-"Monteringspunktet som ble forespurt er enten en ugyldig sti eller det er "
-"allerede i bruk. Vennligst velg et gyldig monteringspunkt."
-
-#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:701
-msgid "Size Error"
-msgstr "Feil ved størrelse"
-
-#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:702
-msgid ""
-"The size requested is illegal. Make sure the size is greater and zero (0), "
-"and is specified int decimal (base 10) format."
-msgstr ""
-"Størrelsen du ba om er ugyldig. Sørg for at størrelsen er større enn null "
-"(0), og at den er spesifisert i desimalformat (base 10)."
-
-#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
-#: ../libfdisk/newtfsedit.c:720
-msgid "Swap Size Error"
-msgstr "Feil ved størrelse på swap"
-
-#: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414
-#: ../libfdisk/newtfsedit.c:721
-#, c-format
-msgid ""
-"You have created a swap partition which is too large. The maximum size of a "
-"swap partition is %ld Megabytes."
-msgstr ""
-"Du har opprettet en swap-partisjon som er for stor. Maksimal størrelse på en "
-"swap-partisjon er %ld Megabyte."
-
-#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:737
-#, c-format
-msgid ""
-"It is recommended that the root (/) partition have a minimum size of %ld "
-"Megabytes. You are trying to create one which is %ld Megabytes, which could "
-"cause the install to fail.\n"
-"\n"
-"Are you sure you want to do this?"
-msgstr ""
-"Det anbefales at rotpartisjonen (/) har en minste størrelse på %ld megabyte. "
-"Du prøver å opprette en som er %ld megabyte, noe som kan få installasjonen "
-"til å feile.\n"
-"\n"
-"Er du sikker på at du vil gjøre dette?"
-
-#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:745
-msgid "Warning: Root FS Size"
-msgstr "Advarsel: Rot-FS størrelse"
-
-#: ../libfdisk/gnomefsedit.c:1387
-msgid "No Drives Specified"
-msgstr "Ingen stasjoner spesifisert"
-
-#: ../libfdisk/gnomefsedit.c:1389
-msgid "You must constrain this partition to at least one drive."
-msgstr "Du må begrense denne partisjonen til én stasjon."
-
-#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:1404
-msgid "No RAID Drive Constraint"
-msgstr "Ingen begrensning på RAID stasjon"
-
-#: ../libfdisk/gnomefsedit.c:1399
-msgid ""
-"You have configured a RAID partition without constraining the partition to a "
-"single drive.\n"
-" Are you sure you want to do this?"
-msgstr ""
-"Du har konfigurert en RAID-partisjon uten å begrense partisjonen til en "
-"enkelt stasjon.\n"
-" Er du sikker på at du vil gjøre dette?"
-
-#: ../libfdisk/gnomefsedit.c:1406
-msgid ""
-"You have configured a RAID partition without constraining the partition to a "
-"single drive. Please select one drive to constrain this partition to."
-msgstr ""
-"Du har konfigurert en RAID-partisjon uten å begrense partisjonen til en "
-"enkelt disk. Vennligst velg en disk å begrense denne partisjonen til."
-
-#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:851
-msgid "Cannot Add Partitions"
-msgstr "Kan ikke legge til partisjoner"
-
-#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:852
-msgid ""
-"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
-"add other partitions."
-msgstr ""
-"Du har definert '/'-filsystemet på en partisjon av en annen type enn ext2. "
-"Du kan derfor ikke legge til andre partisjoner."
-
-#. XXXXX - for now destroy the raid entry since it
-#. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1601
-msgid "RAID Entry Incomplete"
-msgstr "RAID-oppføringen er ikke komplett"
-
-#: ../libfdisk/gnomefsedit.c:1602
-#, c-format
-msgid ""
-"The raid device /dev/%s now contains partitions which are unallocated. The "
-"raid device /dev/%s will now be decomposed into its component partitions. "
-"Please recompose the raid device with allocated partitions."
-msgstr ""
-"RAID-enheten /dev/%s inneholder nå ikke-allokerte partisjoner. RAID-enheten /"
-"dev/%s vil nå deles opp i sine enkeltkomponenter. Vennligst sett sammen RAID-"
-"enheten på nytt med de allokerte partisjonene."
-
-#: ../libfdisk/gnomefsedit.c:1651
-msgid "Cannot Remove /boot"
-msgstr "Kan ikke fjerne /boot"
-
-#: ../libfdisk/gnomefsedit.c:1652
-msgid ""
-"You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
-"non-RAID device first."
-msgstr ""
-"Du kan ikke fjerne \"/boot\" hvis \"/\" er på en RAID-enhet. Flytt \"/\" til "
-"en ikke-RAID-enhet først."
-
-#. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738
-#: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1682
-msgid "Unallocated Partitions"
-msgstr "Ikke-allokerte partisjoner"
-
-#: ../libfdisk/gnomefsedit.c:1723 ../libfdisk/gnomefsedit.c:1733
-#: ../libfdisk/newtfsedit.c:142
-msgid ""
-"There are currently unallocated partition(s) present in the list of "
-"requested partitions. The unallocated partition(s) are shown below, along "
-"with the reason they were not allocated."
-msgstr ""
-"Det finnes ikke-allokerte partisjoner i listen over forespurte partisjoner. "
-"De ikke-allokerte partisjonene vises under, sammen med grunnen til at de "
-"ikke ble allokert."
-
-#: ../libfdisk/gnomefsedit.c:2015
-msgid "Cannot Edit Raid"
-msgstr "Kan ikke redigere RAID"
-
-#: ../libfdisk/gnomefsedit.c:2016
-msgid ""
-"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
-"edit RAID devices."
-msgstr ""
-"Du har definert '/'-filsystemet på en partisjon av en annen type enn ext2. "
-"Du kan derfor ikke redigere RAID-enheter."
-
-#: ../libfdisk/gnomefsedit.c:2116
-msgid "RAID Device: /dev/"
-msgstr "RAID-enhet: /dev/"
-
-#: ../libfdisk/gnomefsedit.c:2139
-msgid "RAID Type:"
-msgstr "RAID-type:"
-
-#: ../libfdisk/gnomefsedit.c:2176
-msgid "Partitions For RAID Array:"
-msgstr "Partisjoner for RAID-disk:"
-
-#: ../libfdisk/gnomefsedit.c:2271
-msgid "You have not selected a mount point. A mount point is required."
-msgstr "Du har ikke valgt et monteringspunkt. Dette er påkrevd."
-
-#: ../libfdisk/gnomefsedit.c:2279
-msgid ""
-"The mount point requested is already in use. Please select a valid mount "
-"point."
-msgstr ""
-"Monteringspunktet som ble forespurt er allerede i bruk. Vennligst velg et "
-"gyldig monteringspunkt."
-
-#: ../libfdisk/gnomefsedit.c:2315
-msgid ""
-"The bootable raid device can only include partitions from the first two "
-"drives on your system.\n"
-"\n"
-"These drives are: "
-msgstr ""
-"Den oppstartbare RAID-enheten kan kun inkludere partisjoner fra de to første "
-"diskene i systemet.\n"
-"\n"
-"Det er disse diskene:"
-
-#: ../libfdisk/gnomefsedit.c:2322
-msgid "Booting From RAID Warning"
-msgstr "Advarsel ved oppstart fra RAID"
-
-#: ../libfdisk/gnomefsedit.c:2332
-msgid "No RAID Device"
-msgstr "Ingen RAID-enhet"
-
-#: ../libfdisk/gnomefsedit.c:2333
-msgid "You need to selected a RAID device."
-msgstr "Du må velge en RAID-enhet."
-
-#: ../libfdisk/gnomefsedit.c:2339
-msgid "Used Raid Device"
-msgstr "Brukt RAID-enhet"
-
-#: ../libfdisk/gnomefsedit.c:2340
-#, c-format
-msgid ""
-"The raid device \"/dev/%s\" is already configured as a raid device. Please "
-"select another."
-msgstr ""
-"RAID-enheten \"/dev/%s\" er allerede konfigurert som en RAID-enhet. "
-"Vennligst velg en annen."
-
-#: ../libfdisk/gnomefsedit.c:2353
-msgid "Not Enough Partitions"
-msgstr "Ikke nok partisjoner"
-
-#: ../libfdisk/gnomefsedit.c:2355
-msgid ""
-"You have not configured enough partitions for the RAID type you have "
-"selected."
-msgstr ""
-"Du har ikke konfigurert mange nok partisjoner for RAID-typen du valgte."
-
-#: ../libfdisk/gnomefsedit.c:2363
-msgid "Illegal /boot RAID Type"
-msgstr "Ugyldig RAID-type i /boot"
-
-#: ../libfdisk/gnomefsedit.c:2365
-msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr "Oppstartspartisjoner (/boot) kan kun plasseres på RAID-1."
-
-#: ../libfdisk/gnomefsedit.c:2373
-msgid "Illegal RAID mountpoint"
-msgstr "Ugyldig RAID monteringspunkt"
-
-#: ../libfdisk/gnomefsedit.c:2375
-msgid ""
-"RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
-"partition (non-RAID) as well."
-msgstr "RAID-partisjoner kan ikke monteres som rot (/) på Alpha."
-
-#: ../libfdisk/gnomefsedit.c:2459
-#, c-format
-msgid ""
-"The partition %s is a pre-existing partition in the set of partitions for "
-"this RAID device.  The mount point is set to /boot. Are you sure that it is "
-"possible to boot from this partition?"
-msgstr ""
-"Partisjonen %s er en eksisterende partisjon i settet med partisjoner for "
-"denne RAID-enheten. Monteringspunktet er satt til /boot. Er du sikker på at "
-"det er mulig å starte opp fra denne partisjonen?"
-
-#: ../libfdisk/gnomefsedit.c:2466
-msgid "Use Pre-existing Partition?"
-msgstr "Bruk eksisterende partisjon?"
-
-#: ../libfdisk/gnomefsedit.c:2544
-msgid "Cannot Add RAID Devices"
-msgstr "Kan ikke legge til RAID-enheter"
-
-#: ../libfdisk/gnomefsedit.c:2545
-msgid ""
-"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
-"add RAID devices."
-msgstr ""
-"Du har definert '/'-filsystemet på en partisjon av en annen type enn ext2. "
-"Du kan derfor ikke legge til RAID-enheter."
-
-#: ../libfdisk/gnomefsedit.c:2586
-msgid "Auto-Partition"
-msgstr "Auto-partisjonér"
-
-#: ../libfdisk/gnomefsedit.c:2593
-msgid "Using Existing Disk Space"
-msgstr "Bruk eksisterende diskplass"
-
-#: ../libfdisk/gnomefsedit.c:2612
-msgid "Remove Linux partitions"
-msgstr "Fjern Linux-partisjoner"
-
-#: ../libfdisk/gnomefsedit.c:2623
-msgid "Use existing free space"
-msgstr "Bruk eksisterende ledig plass"
-
-#. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2635
-msgid "Intended Use"
-msgstr "Tenkt bruk"
-
-#: ../libfdisk/gnomefsedit.c:2754
-msgid "Delete RAID Device?"
-msgstr "Slett RAID-enhet?"
-
-#: ../libfdisk/gnomefsedit.c:2755
-msgid "Are you sure you want to remove this RAID device?"
-msgstr "Er du sikker på at du vil fjerne denne RAID-enheten?"
-
-#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1787
-msgid "Reset Partition Table"
-msgstr "Nullstill partisjonstabellen"
-
-#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1789
-msgid "Reset partition table to original contents? "
-msgstr "Sett partisjonstabellen tilbake til originalt innhold? "
-
-#: ../libfdisk/gnomefsedit.c:2846 ../libfdisk/gnomefsedit.c:2897
-msgid "<Swap>"
-msgstr "<Swap>"
-
-#: ../libfdisk/gnomefsedit.c:2848
-msgid "<RAID>"
-msgstr "<RAID>"
-
-#: ../libfdisk/gnomefsedit.c:2850
-msgid "<not set>"
-msgstr "<ikke satt>"
-
-#: ../libfdisk/gnomefsedit.c:3134
-msgid "Requested"
-msgstr "Forespurt"
-
-#: ../libfdisk/gnomefsedit.c:3135
-msgid "Actual"
-msgstr "Reell"
-
-#: ../libfdisk/gnomefsedit.c:3308
-msgid "Drive"
-msgstr "Stasjon"
-
-#: ../libfdisk/gnomefsedit.c:3309
-msgid "Geom [C/H/S]"
-msgstr "Geom [C/H/S]"
-
-#: ../libfdisk/gnomefsedit.c:3310
-msgid "Total (M)"
-msgstr "Total (M)"
-
-#: ../libfdisk/gnomefsedit.c:3311
-msgid "Free (M)"
-msgstr "Ledig (M)"
-
-#: ../libfdisk/gnomefsedit.c:3312
-msgid "Used (M)"
-msgstr "Brukt (M)"
-
-#: ../libfdisk/gnomefsedit.c:3313
-msgid "Used (%)"
-msgstr "Brukt (%)"
-
-#: ../libfdisk/gnomefsedit.c:3561
-msgid "Unallocated Partitions Exist..."
-msgstr "Det finnes ikke-allokerte partisjoner..."
-
-#: ../libfdisk/gnomefsedit.c:3567 ../libfdisk/gnomefsedit.c:3585
-msgid ""
-"You must assign a root (/) partition to a Linux native partition (ext2) or a "
-"RAID partition for the install to proceed."
-msgstr ""
-"Du må tilegne systemet en rot-partisjon (/) plassert på  en Linux Native-"
-"partisjon (ext2), eller en RAID-partisjon for at installasjonen skal "
-"fortsette."
-
-#: ../libfdisk/gnomefsedit.c:3656
-msgid "Partitions"
-msgstr "Partisjoner"
-
-#: ../libfdisk/gnomefsedit.c:3686
-msgid "_Add..."
-msgstr "_Legg til"
-
-#: ../libfdisk/gnomefsedit.c:3693
-msgid "_Edit..."
-msgstr "R_edigér"
-
-#. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3712
-msgid "_Make RAID Device"
-msgstr "_Opprett RAID-enhet"
-
-#: ../libfdisk/gnomefsedit.c:3722
-msgid "Auto Partition"
-msgstr "Auto-partisjonér"
-
-#: ../libfdisk/gnomefsedit.c:3731
-msgid "Drive Summary"
-msgstr "Disksammendrag"
-
-#: ../libfdisk/newtfsedit.c:204
-msgid "Swap Partition"
-msgstr "Swap-partisjon"
-
-#: ../libfdisk/newtfsedit.c:210
-msgid "Raid Partition"
-msgstr "RAID-partisjon"
-
-#: ../libfdisk/newtfsedit.c:366
-msgid "Edit New Partition"
-msgstr "Redigér ny partisjon"
-
-#: ../libfdisk/newtfsedit.c:432 ../libfdisk/newtfsedit.c:433
-msgid "Use remaining space?:"
-msgstr "Bruk all gjenværende plass?:"
-
-#: ../libfdisk/newtfsedit.c:479 ../libfdisk/newtfsedit.c:480
-msgid "Type:"
-msgstr "Type:"
-
-#: ../libfdisk/newtfsedit.c:1464
-msgid "Current Disk Partitions"
-msgstr "Nåværende diskpartisjoner"
-
-#: ../libfdisk/newtfsedit.c:1470
-msgid "   Mount Point          Device     Requested   Actual         Type"
-msgstr "   Monteringspunkt      Enhet      Forespurt   Faktisk        Type"
-
-#: ../libfdisk/newtfsedit.c:1494
-msgid ""
-"    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
-msgstr ""
-"    F1-Hjelp    F2-Legg til F3-Redigér F4-Slett    F5-Nullstill F12-Ok       "
-
-#: ../libfdisk/newtfsedit.c:1497
-msgid "Drive Summaries"
-msgstr "Disksammendrag"
-
-#: ../libfdisk/newtfsedit.c:1499
-msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-msgstr "  Disk       Geom [C/H/S]      Total    Brukt   Ledig"
-
-#: ../libfdisk/newtfsedit.c:1614
-msgid ""
-"You must assign a root (/) partition to a Linux native partition (ext2) for "
-"the install to proceed."
-msgstr ""
-"Du må tilegne systemet en rot-partisjon (/) plassert på en Linux Native-"
-"partisjon (ext2) for at installasjonen skal fortsette."
-
-#: ../libfdisk/newtfsedit.c:1633
-msgid "No Swap Partition"
-msgstr "Ingen swappartisjon"
-
-#: ../libfdisk/newtfsedit.c:1635
-msgid "You must assign a swap partition for the install to proceed."
-msgstr ""
-"Du må sette opp en swap-partisjon for at installasjonen skal fortsette."
-
-#: ../libfdisk/newtfsedit.c:1661
-msgid "No /boot/efi Partition"
-msgstr "Ingen /boot/efi-partisjon"
-
-#: ../libfdisk/newtfsedit.c:1663
-msgid ""
-"You must assign the mount point /boot/efi to a FAT-style primary partition "
-"for the install to proceed."
-msgstr ""
-"Du må tilegne monteringspunktet /boot/efi til en FAT primærpartisjon for at "
-"installasjonen skal fortsette."
-
-#: ../libfdisk/newtfsedit.c:1684
-msgid ""
-"There are unallocated partitions left. If you quit now they will not be "
-"written to the disk.\n"
-"\n"
-"Are you sure you want to exit?"
-msgstr ""
-"Det finnes ikke-allokerte partisjoner ennå. Hvis du avslutter nå vil disse "
-"ikke bli skrevet til disken.\n"
-"\n"
-"Er du sikker på at du vil avslutte?"
-
-#: ../libfdisk/newtfsedit.c:1700
-msgid "Save Changes"
-msgstr "Lagre endringer"
-
-#: ../libfdisk/newtfsedit.c:1702
-msgid "Save changes to partition table(s)?"
-msgstr "Lagre endringer til partisjonstabellen(e)?"
-
-#: ../libfdisk/newtfsedit.c:1747
-msgid "You may only delete NFS mounts."
-msgstr "Du kan bare slette NFS-monteringer."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
@@ -6186,6 +5386,652 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
+
+#~ msgid "partitioning did not meet requirements"
+#~ msgstr "partisjonering tilfredsstilte ikke kravene"
+
+#~ msgid "Bad Mount Point"
+#~ msgstr "Ugyldig monteringspunkt"
+
+#~ msgid "The %s directory must be on the root filesystem."
+#~ msgstr "Katalogen %s må være på rot-filsystemet."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "Mount points must begin with a leading /."
+#~ msgstr ""
+#~ "Monteringspunktet %s er ugyldig.\n"
+#~ "\n"
+#~ "Monteringspunkter må begynne med \"/\"."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "Mount points may not end with a /."
+#~ msgstr ""
+#~ "Monteringspunktet %s er ugyldig.\n"
+#~ "\n"
+#~ "Monteringspunkter kan ikke slutte med \"/\"."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "Mount points may only printable characters."
+#~ msgstr ""
+#~ "Monteringspunktet %s er ugyldig.\n"
+#~ "\n"
+#~ "Monteringpunkt kan bare inneholde skrivbare tegn."
+
+#~ msgid ""
+#~ "You've asked to put your root (/) filesystem on a DOS-style FAT "
+#~ "partition. You can do this, but you may not use any other filesystems for "
+#~ "your Linux system. Additionally, there will be a speed penalty for not "
+#~ "using Linux-native partitions. Do you want to continue?"
+#~ msgstr ""
+#~ "Du har bedt om å lage rot(/)-filsystemet på en DOS-type FAT-partisjon. Du "
+#~ "kan gjøre det, men vil ikke kunne bruke andre filsystemer for ditt Linux-"
+#~ "system. I tilegg vil det bli et hastighetstap. Ønsker du å fortsette?"
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "System partitions must be on Linux Native partitions."
+#~ msgstr ""
+#~ "Monteringspunktet %s er ugyldig.\n"
+#~ "\n"
+#~ "Systempartisjoner må ligge på Linux Native-partisjoner."
+
+#~ msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
+#~ msgstr ""
+#~ "På denne plattformen må /boot være på et DOS-kompatibelt filsystem %x."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "/usr must be on a Linux Native partition or an NFS volume."
+#~ msgstr ""
+#~ "Monteringspunktet %s er ugyldig.\n"
+#~ "\n"
+#~ "/usr må ligge på en Linux Native-partisjon eller et NFS-volum."
+
+#~ msgid "Too Many Drives"
+#~ msgstr "For mange disker"
+
+#~ msgid ""
+#~ "You have more drives than this program supports. Please use the standard "
+#~ "fdisk program to setup your drives and please notify Red Hat Software "
+#~ "that you saw this message."
+#~ msgstr ""
+#~ "Du har flere disker enn dette programmet støtter. Vennligst bruk fdisk- "
+#~ "programmet til å sette opp diskene dine og informer Red Hat Software om "
+#~ "denne meldingen."
+
+#~ msgid "Error Creating Device Nodes"
+#~ msgstr "Feil under oppretting av enhetsnoder"
+
+#~ msgid ""
+#~ "An error has occurred while trying to create device nodes for the hard "
+#~ "drives in your system.  This may be because you have run out of disk "
+#~ "space on the /tmp partition."
+#~ msgstr ""
+#~ "En feil har oppstått under forsøk på å opprette enhetsnoder for "
+#~ "harddiskene i ditt system. Dette kan være forårsaket av at du har gått "
+#~ "tom for diskplass på /tmp-partisjonen."
+
+#~ msgid ""
+#~ "An error has occurred - no valid devices were found on which to create "
+#~ "new filesystems.  Please check your hardware for the cause of this "
+#~ "problem."
+#~ msgstr ""
+#~ "En feil har oppstått - ingen gyldige enheter for oppretting av "
+#~ "filsystemer ble funnet. Vennligst sjekk maskinvaren din for å finne "
+#~ "årsaken til dette."
+
+#~ msgid ""
+#~ "An error occurred reading the partition table for the block device %s.  "
+#~ "The error was"
+#~ msgstr ""
+#~ "En feil oppstod under lesing av partisjonstabellen for blokkenhet %s. "
+#~ "Feilen var"
+
+#~ msgid "Skip Drive"
+#~ msgstr "Hopp over stasjon"
+
+#~ msgid ""
+#~ "The partition table on device %s is corrupted.  To create new partitions "
+#~ "it must be initialized, causing the loss of ALL DATA on this drive."
+#~ msgstr ""
+#~ "Partisjonstabellen på enhet %s er korrupt. For å opprette nye partisjoner "
+#~ "må denne initialiseres. Dette medfører tap av ALLE DATA på denne disken."
+
+#~ msgid "Bad Partition Table"
+#~ msgstr "Ugyldig partisjonstabell"
+
+#~ msgid "Initialize"
+#~ msgstr "Initiér"
+
+#~ msgid "BSD Disklabel"
+#~ msgstr "BSD-disketikett"
+
+#~ msgid ""
+#~ "A disk with a BSD disklabel has been found. The Red Hat installation only "
+#~ "supports BSD Disklabels in read-only mode, so you must use a custom "
+#~ "install and fdisk (instead of Disk Druid) for machines with BSD "
+#~ "Disklabels."
+#~ msgstr ""
+#~ "En disk med en BSD-disketikett ble funnet. Red Hat installasjonen støtter "
+#~ "bare BSD-disketiketter i skrivebeskyttet modus, så du må bruke en "
+#~ "spesiell installasjonsdisk og fdisk (i stedet for Disk Druid) for "
+#~ "maskiner med BSD- disketiketter."
+
+#~ msgid "System error %d"
+#~ msgstr "Systemfeil %d"
+
+#~ msgid "Fdisk Error"
+#~ msgstr "Fdisk-feil"
+
+#~ msgid ""
+#~ "This occurs because the drive geometry detected by the kernel used by the "
+#~ "installer is different than the drive geometry used when the drive was "
+#~ "partitioned.  This can be corrected by specifying the drive geometry on "
+#~ "the kernel command line when booting the installer."
+#~ msgstr ""
+#~ "Dette skjer fordi harddiskgeometrien kjernen finner er forskjellig fra "
+#~ "det den var da harddisken ble partisjonert. Dette kan fikses ved å "
+#~ "spesifisere harddiskgeometrien som en kjerneopsjon når "
+#~ "installeringsprogrammet startes."
+
+#~ msgid ""
+#~ "This error has occurred because there is a logical partition on the drive "
+#~ "which has a partition type of zero (0).  A partition type of zero means "
+#~ "that the drive's partitioning is not completely defined, and may have "
+#~ "been caused by another operating system's partitioning program.  This "
+#~ "condition is not supported by the anaconda installer.  You may be able to "
+#~ "set the partition type correctly using your other operating system's "
+#~ "partitioning program."
+#~ msgstr ""
+#~ "Denne feilen oppstår fordi det er en logisk partisjon på harddisken med "
+#~ "partisjonstype null (0). En partisjonstype null innebærer at harddiskens "
+#~ "partisjonering ikke er fullstending, noe som kan forårsakes av "
+#~ "partisjoneringsprogrammer for andre operativsystemer. Denne tilstanden "
+#~ "støttes ikke av installeringsprogrammet, anaconda. Du kan forsøke å rette "
+#~ "problemet i programmet som opprettet partisjonen."
+
+#~ msgid "<Swap Partition>"
+#~ msgstr "<Swap-partisjon>"
+
+#~ msgid "Couldnt find partition named %s\n"
+#~ msgstr "Fant ikke partisjonen med navn %s\n"
+
+#~ msgid "Root partition"
+#~ msgstr "Rotpartisjon"
+
+#~ msgid ""
+#~ "The growth of the root (/) RAID array appears to have been stunted by the "
+#~ "1024 cylinder boot limit. If this is the case then adding a /boot "
+#~ "partition (50 MB is fine) may allow the root partition to grow to fill "
+#~ "the disk."
+#~ msgstr ""
+#~ "Veksten av rot (/)-RAIDet ser ut til å ha blitt stoppet av 1024-sylinders "
+#~ "grensen for oppstart. Hvis dette er tilfelle, kan det å lage en egen /"
+#~ "boot-partisjon (50 MB holder) gjøre det mulig å lage en større "
+#~ "rotpartisjon."
+
+#~ msgid ""
+#~ "The growth of the root (/) partition appears to have been stunted by the "
+#~ "1024 cylinder boot limit. If this is the case then adding a /boot "
+#~ "partition (50 MB is fine) may allow the root partition to grow to fill "
+#~ "the disk."
+#~ msgstr ""
+#~ "Veksten av rot (/)-partisjonen ser ut til å ha blitt stoppet av 1024-"
+#~ "sylinders grensen for oppstart. Hvis dette er tilfelle, kan det å lage en "
+#~ "egen /boot-partisjon (50 MB holder) gjøre det mulig å lage en større "
+#~ "rotpartisjon."
+
+#~ msgid "Delete Partition"
+#~ msgstr "Slett partisjon"
+
+#~ msgid "Cannot Edit Partitions"
+#~ msgstr "Kan ikke redigere partisjoner"
+
+#~ msgid ""
+#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
+#~ "cannot edit other partitions."
+#~ msgstr ""
+#~ "Du har definert '/'-filsystemet på en partisjon av en annen type enn "
+#~ "ext2. Du kan derfor ikke redigere andre partisjoner."
+
+#~ msgid "Edit Partition"
+#~ msgstr "Redigér partisjon"
+
+#~ msgid "Size (Megs):"
+#~ msgstr "Størrelse (MB):"
+
+#~ msgid "Use remaining space?"
+#~ msgstr "Bruk gjenværende plass?"
+
+#~ msgid "Allocation Status:"
+#~ msgstr "Allokeringsstatus:"
+
+#~ msgid "Successful"
+#~ msgstr "Fullført"
+
+#~ msgid "Failed"
+#~ msgstr "Feilet"
+
+#~ msgid "Failure Reason:"
+#~ msgstr "Feilårsak:"
+
+#~ msgid "Partition Type:"
+#~ msgstr "Partisjonstype:"
+
+#~ msgid "No Mount Point"
+#~ msgstr "Ingen monteringspunkt"
+
+#~ msgid ""
+#~ "You have not selected a mount point for this partition. Are you sure you "
+#~ "want to do this?"
+#~ msgstr ""
+#~ "Du har ikke valgt et monteringspunkt for denne partisjonen. Er du sikker "
+#~ "på at du ønsker å gjøre dette?"
+
+#~ msgid "Mount Point Error"
+#~ msgstr "Feil ved monteringspunkt"
+
+#~ msgid ""
+#~ "You have tried to assign the '/' mount point to a FAT-style partition.  "
+#~ "You cannot do this now because mount points have been assigned to ext2 "
+#~ "partitions also.  Clear those mount points and then you will be able to "
+#~ "assign '/' to this partition."
+#~ msgstr ""
+#~ "Du har forsøkt å tildele '/'-monteringspunktet til en FAT-partisjon. Du "
+#~ "kan ikke gjøre dette nå fordi monteringspunkter er satt opp for ext2 "
+#~ "partisjoner også. Fjern disse monteringspunktene, så vil du kunne tildele "
+#~ "'/' til denne partisjonen."
+
+#~ msgid ""
+#~ "The mount point requested is either an illegal path or is already in use. "
+#~ "Please select a valid mount point."
+#~ msgstr ""
+#~ "Monteringspunktet som ble forespurt er enten en ugyldig sti eller det er "
+#~ "allerede i bruk. Vennligst velg et gyldig monteringspunkt."
+
+#~ msgid "Size Error"
+#~ msgstr "Feil ved størrelse"
+
+#~ msgid ""
+#~ "The size requested is illegal. Make sure the size is greater and zero "
+#~ "(0), and is specified int decimal (base 10) format."
+#~ msgstr ""
+#~ "Størrelsen du ba om er ugyldig. Sørg for at størrelsen er større enn null "
+#~ "(0), og at den er spesifisert i desimalformat (base 10)."
+
+#~ msgid "Swap Size Error"
+#~ msgstr "Feil ved størrelse på swap"
+
+#~ msgid ""
+#~ "You have created a swap partition which is too large. The maximum size of "
+#~ "a swap partition is %ld Megabytes."
+#~ msgstr ""
+#~ "Du har opprettet en swap-partisjon som er for stor. Maksimal størrelse på "
+#~ "en swap-partisjon er %ld Megabyte."
+
+#~ msgid ""
+#~ "It is recommended that the root (/) partition have a minimum size of %ld "
+#~ "Megabytes. You are trying to create one which is %ld Megabytes, which "
+#~ "could cause the install to fail.\n"
+#~ "\n"
+#~ "Are you sure you want to do this?"
+#~ msgstr ""
+#~ "Det anbefales at rotpartisjonen (/) har en minste størrelse på %ld "
+#~ "megabyte. Du prøver å opprette en som er %ld megabyte, noe som kan få "
+#~ "installasjonen til å feile.\n"
+#~ "\n"
+#~ "Er du sikker på at du vil gjøre dette?"
+
+#~ msgid "Warning: Root FS Size"
+#~ msgstr "Advarsel: Rot-FS størrelse"
+
+#~ msgid "No Drives Specified"
+#~ msgstr "Ingen stasjoner spesifisert"
+
+#~ msgid "You must constrain this partition to at least one drive."
+#~ msgstr "Du må begrense denne partisjonen til én stasjon."
+
+#~ msgid "No RAID Drive Constraint"
+#~ msgstr "Ingen begrensning på RAID stasjon"
+
+#~ msgid ""
+#~ "You have configured a RAID partition without constraining the partition "
+#~ "to a single drive.\n"
+#~ " Are you sure you want to do this?"
+#~ msgstr ""
+#~ "Du har konfigurert en RAID-partisjon uten å begrense partisjonen til en "
+#~ "enkelt stasjon.\n"
+#~ " Er du sikker på at du vil gjøre dette?"
+
+#~ msgid ""
+#~ "You have configured a RAID partition without constraining the partition "
+#~ "to a single drive. Please select one drive to constrain this partition to."
+#~ msgstr ""
+#~ "Du har konfigurert en RAID-partisjon uten å begrense partisjonen til en "
+#~ "enkelt disk. Vennligst velg en disk å begrense denne partisjonen til."
+
+#~ msgid "Cannot Add Partitions"
+#~ msgstr "Kan ikke legge til partisjoner"
+
+#~ msgid ""
+#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
+#~ "cannot add other partitions."
+#~ msgstr ""
+#~ "Du har definert '/'-filsystemet på en partisjon av en annen type enn "
+#~ "ext2. Du kan derfor ikke legge til andre partisjoner."
+
+#~ msgid "RAID Entry Incomplete"
+#~ msgstr "RAID-oppføringen er ikke komplett"
+
+#~ msgid ""
+#~ "The raid device /dev/%s now contains partitions which are unallocated. "
+#~ "The raid device /dev/%s will now be decomposed into its component "
+#~ "partitions. Please recompose the raid device with allocated partitions."
+#~ msgstr ""
+#~ "RAID-enheten /dev/%s inneholder nå ikke-allokerte partisjoner. RAID-"
+#~ "enheten /dev/%s vil nå deles opp i sine enkeltkomponenter. Vennligst sett "
+#~ "sammen RAID-enheten på nytt med de allokerte partisjonene."
+
+#~ msgid "Cannot Remove /boot"
+#~ msgstr "Kan ikke fjerne /boot"
+
+#~ msgid ""
+#~ "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" "
+#~ "to a non-RAID device first."
+#~ msgstr ""
+#~ "Du kan ikke fjerne \"/boot\" hvis \"/\" er på en RAID-enhet. Flytt \"/\" "
+#~ "til en ikke-RAID-enhet først."
+
+#~ msgid "Unallocated Partitions"
+#~ msgstr "Ikke-allokerte partisjoner"
+
+#~ msgid ""
+#~ "There are currently unallocated partition(s) present in the list of "
+#~ "requested partitions. The unallocated partition(s) are shown below, along "
+#~ "with the reason they were not allocated."
+#~ msgstr ""
+#~ "Det finnes ikke-allokerte partisjoner i listen over forespurte "
+#~ "partisjoner. De ikke-allokerte partisjonene vises under, sammen med "
+#~ "grunnen til at de ikke ble allokert."
+
+#~ msgid "Cannot Edit Raid"
+#~ msgstr "Kan ikke redigere RAID"
+
+#~ msgid ""
+#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
+#~ "cannot edit RAID devices."
+#~ msgstr ""
+#~ "Du har definert '/'-filsystemet på en partisjon av en annen type enn "
+#~ "ext2. Du kan derfor ikke redigere RAID-enheter."
+
+#~ msgid "RAID Device: /dev/"
+#~ msgstr "RAID-enhet: /dev/"
+
+#~ msgid "RAID Type:"
+#~ msgstr "RAID-type:"
+
+#~ msgid "Partitions For RAID Array:"
+#~ msgstr "Partisjoner for RAID-disk:"
+
+#~ msgid "You have not selected a mount point. A mount point is required."
+#~ msgstr "Du har ikke valgt et monteringspunkt. Dette er påkrevd."
+
+#~ msgid ""
+#~ "The mount point requested is already in use. Please select a valid mount "
+#~ "point."
+#~ msgstr ""
+#~ "Monteringspunktet som ble forespurt er allerede i bruk. Vennligst velg et "
+#~ "gyldig monteringspunkt."
+
+#~ msgid ""
+#~ "The bootable raid device can only include partitions from the first two "
+#~ "drives on your system.\n"
+#~ "\n"
+#~ "These drives are: "
+#~ msgstr ""
+#~ "Den oppstartbare RAID-enheten kan kun inkludere partisjoner fra de to "
+#~ "første diskene i systemet.\n"
+#~ "\n"
+#~ "Det er disse diskene:"
+
+#~ msgid "Booting From RAID Warning"
+#~ msgstr "Advarsel ved oppstart fra RAID"
+
+#~ msgid "No RAID Device"
+#~ msgstr "Ingen RAID-enhet"
+
+#~ msgid "You need to selected a RAID device."
+#~ msgstr "Du må velge en RAID-enhet."
+
+#~ msgid "Used Raid Device"
+#~ msgstr "Brukt RAID-enhet"
+
+#~ msgid ""
+#~ "The raid device \"/dev/%s\" is already configured as a raid device. "
+#~ "Please select another."
+#~ msgstr ""
+#~ "RAID-enheten \"/dev/%s\" er allerede konfigurert som en RAID-enhet. "
+#~ "Vennligst velg en annen."
+
+#~ msgid "Not Enough Partitions"
+#~ msgstr "Ikke nok partisjoner"
+
+#~ msgid ""
+#~ "You have not configured enough partitions for the RAID type you have "
+#~ "selected."
+#~ msgstr ""
+#~ "Du har ikke konfigurert mange nok partisjoner for RAID-typen du valgte."
+
+#~ msgid "Illegal /boot RAID Type"
+#~ msgstr "Ugyldig RAID-type i /boot"
+
+#~ msgid "Boot partitions (/boot) are only allowed on RAID-1."
+#~ msgstr "Oppstartspartisjoner (/boot) kan kun plasseres på RAID-1."
+
+#~ msgid "Illegal RAID mountpoint"
+#~ msgstr "Ugyldig RAID monteringspunkt"
+
+#~ msgid ""
+#~ "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
+#~ "partition (non-RAID) as well."
+#~ msgstr "RAID-partisjoner kan ikke monteres som rot (/) på Alpha."
+
+#~ msgid ""
+#~ "The partition %s is a pre-existing partition in the set of partitions for "
+#~ "this RAID device.  The mount point is set to /boot. Are you sure that it "
+#~ "is possible to boot from this partition?"
+#~ msgstr ""
+#~ "Partisjonen %s er en eksisterende partisjon i settet med partisjoner for "
+#~ "denne RAID-enheten. Monteringspunktet er satt til /boot. Er du sikker på "
+#~ "at det er mulig å starte opp fra denne partisjonen?"
+
+#~ msgid "Use Pre-existing Partition?"
+#~ msgstr "Bruk eksisterende partisjon?"
+
+#~ msgid "Cannot Add RAID Devices"
+#~ msgstr "Kan ikke legge til RAID-enheter"
+
+#~ msgid ""
+#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
+#~ "cannot add RAID devices."
+#~ msgstr ""
+#~ "Du har definert '/'-filsystemet på en partisjon av en annen type enn "
+#~ "ext2. Du kan derfor ikke legge til RAID-enheter."
+
+#~ msgid "Auto-Partition"
+#~ msgstr "Auto-partisjonér"
+
+#~ msgid "Using Existing Disk Space"
+#~ msgstr "Bruk eksisterende diskplass"
+
+#~ msgid "Remove Linux partitions"
+#~ msgstr "Fjern Linux-partisjoner"
+
+#~ msgid "Use existing free space"
+#~ msgstr "Bruk eksisterende ledig plass"
+
+#~ msgid "Intended Use"
+#~ msgstr "Tenkt bruk"
+
+#~ msgid "Delete RAID Device?"
+#~ msgstr "Slett RAID-enhet?"
+
+#~ msgid "Are you sure you want to remove this RAID device?"
+#~ msgstr "Er du sikker på at du vil fjerne denne RAID-enheten?"
+
+#~ msgid "Reset Partition Table"
+#~ msgstr "Nullstill partisjonstabellen"
+
+#~ msgid "Reset partition table to original contents? "
+#~ msgstr "Sett partisjonstabellen tilbake til originalt innhold? "
+
+#~ msgid "<Swap>"
+#~ msgstr "<Swap>"
+
+#~ msgid "<RAID>"
+#~ msgstr "<RAID>"
+
+#~ msgid "<not set>"
+#~ msgstr "<ikke satt>"
+
+#~ msgid "Requested"
+#~ msgstr "Forespurt"
+
+#~ msgid "Actual"
+#~ msgstr "Reell"
+
+#~ msgid "Drive"
+#~ msgstr "Stasjon"
+
+#~ msgid "Geom [C/H/S]"
+#~ msgstr "Geom [C/H/S]"
+
+#~ msgid "Total (M)"
+#~ msgstr "Total (M)"
+
+#~ msgid "Free (M)"
+#~ msgstr "Ledig (M)"
+
+#~ msgid "Used (M)"
+#~ msgstr "Brukt (M)"
+
+#~ msgid "Used (%)"
+#~ msgstr "Brukt (%)"
+
+#~ msgid "Unallocated Partitions Exist..."
+#~ msgstr "Det finnes ikke-allokerte partisjoner..."
+
+#~ msgid ""
+#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
+#~ "or a RAID partition for the install to proceed."
+#~ msgstr ""
+#~ "Du må tilegne systemet en rot-partisjon (/) plassert på  en Linux Native-"
+#~ "partisjon (ext2), eller en RAID-partisjon for at installasjonen skal "
+#~ "fortsette."
+
+#~ msgid "Partitions"
+#~ msgstr "Partisjoner"
+
+#~ msgid "_Add..."
+#~ msgstr "_Legg til"
+
+#~ msgid "_Edit..."
+#~ msgstr "R_edigér"
+
+#~ msgid "_Make RAID Device"
+#~ msgstr "_Opprett RAID-enhet"
+
+#~ msgid "Auto Partition"
+#~ msgstr "Auto-partisjonér"
+
+#~ msgid "Drive Summary"
+#~ msgstr "Disksammendrag"
+
+#~ msgid "Swap Partition"
+#~ msgstr "Swap-partisjon"
+
+#~ msgid "Raid Partition"
+#~ msgstr "RAID-partisjon"
+
+#~ msgid "Edit New Partition"
+#~ msgstr "Redigér ny partisjon"
+
+#~ msgid "Use remaining space?:"
+#~ msgstr "Bruk all gjenværende plass?:"
+
+#~ msgid "Type:"
+#~ msgstr "Type:"
+
+#~ msgid "Current Disk Partitions"
+#~ msgstr "Nåværende diskpartisjoner"
+
+#~ msgid "   Mount Point          Device     Requested   Actual         Type"
+#~ msgstr "   Monteringspunkt      Enhet      Forespurt   Faktisk        Type"
+
+#~ msgid ""
+#~ "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-"
+#~ "Ok        "
+#~ msgstr ""
+#~ "    F1-Hjelp    F2-Legg til F3-Redigér F4-Slett    F5-Nullstill F12-"
+#~ "Ok       "
+
+#~ msgid "Drive Summaries"
+#~ msgstr "Disksammendrag"
+
+#~ msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
+#~ msgstr "  Disk       Geom [C/H/S]      Total    Brukt   Ledig"
+
+#~ msgid ""
+#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
+#~ "for the install to proceed."
+#~ msgstr ""
+#~ "Du må tilegne systemet en rot-partisjon (/) plassert på en Linux Native-"
+#~ "partisjon (ext2) for at installasjonen skal fortsette."
+
+#~ msgid "No Swap Partition"
+#~ msgstr "Ingen swappartisjon"
+
+#~ msgid "You must assign a swap partition for the install to proceed."
+#~ msgstr ""
+#~ "Du må sette opp en swap-partisjon for at installasjonen skal fortsette."
+
+#~ msgid "No /boot/efi Partition"
+#~ msgstr "Ingen /boot/efi-partisjon"
+
+#~ msgid ""
+#~ "You must assign the mount point /boot/efi to a FAT-style primary "
+#~ "partition for the install to proceed."
+#~ msgstr ""
+#~ "Du må tilegne monteringspunktet /boot/efi til en FAT primærpartisjon for "
+#~ "at installasjonen skal fortsette."
+
+#~ msgid ""
+#~ "There are unallocated partitions left. If you quit now they will not be "
+#~ "written to the disk.\n"
+#~ "\n"
+#~ "Are you sure you want to exit?"
+#~ msgstr ""
+#~ "Det finnes ikke-allokerte partisjoner ennå. Hvis du avslutter nå vil "
+#~ "disse ikke bli skrevet til disken.\n"
+#~ "\n"
+#~ "Er du sikker på at du vil avslutte?"
+
+#~ msgid "Save Changes"
+#~ msgstr "Lagre endringer"
+
+#~ msgid "Save changes to partition table(s)?"
+#~ msgstr "Lagre endringer til partisjonstabellen(e)?"
+
+#~ msgid "You may only delete NFS mounts."
+#~ msgstr "Du kan bare slette NFS-monteringer."
 
 #~ msgid "Passwords do not match.asdfasdfdsafasdfdf"
 #~ msgstr "Passordene er ikke like."

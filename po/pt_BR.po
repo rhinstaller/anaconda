@@ -5,13 +5,67 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Installer 6.2\n"
-"POT-Creation-Date: 2001-07-31 15:54-0400\n"
+"POT-Creation-Date: 2001-08-02 15:21-0400\n"
 "PO-Revision-Date: 2000-03-01 17:24-0500\n"
 "Last-Translator: Arnaldo Carvalho de Melo <acme@conectiva.com.br>\n"
 "Language-Team: Portugese Brasil <LL@li.org>\n"
 "MIME-Version: 1.0\\n\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../anaconda:308
+msgid ""
+"You do not have enough RAM to use the graphical installer.  Starting text "
+"mode."
+msgstr ""
+
+#: ../anaconda:327 ../iw/account_gui.py:150 ../iw/account_gui.py:161
+#: ../iw/partition_gui.py:496 ../iw/partition_gui.py:838
+#: ../iw/partition_gui.py:1289 ../loader/urls.c:79 ../loader/urls.c:89
+#: ../loader/urls.c:97 ../loader/urls.c:247 ../rescue.py:34 ../rescue.py:130
+#: ../rescue.py:151 ../rescue.py:168 ../rescue.py:174 ../text.py:389
+#: ../textw/bootdisk_text.py:65 ../textw/bootdisk_text.py:67
+#: ../textw/complete_text.py:41 ../textw/complete_text.py:56
+#: ../textw/complete_text.py:72 ../textw/confirm_text.py:24
+#: ../textw/confirm_text.py:36 ../textw/constants_text.py:20
+#: ../textw/firewall_text.py:201 ../textw/network_text.py:134
+#: ../textw/silo_text.py:110 ../xserver.py:51
+msgid "OK"
+msgstr ""
+
+#: ../anaconda:370
+msgid "Probing for video card:   "
+msgstr ""
+
+#: ../anaconda:378
+#, fuzzy
+msgid "Unable to probe\n"
+msgstr "Erro de E/S em arquivo local"
+
+#: ../anaconda:380
+#, fuzzy
+msgid "Probing for monitor type: "
+msgstr "Tipo Impressora:"
+
+#: ../anaconda:387
+msgid "Probing for mouse type:   "
+msgstr ""
+
+#: ../anaconda:391
+msgid "Skipping mouse probe.\n"
+msgstr ""
+
+#: ../anaconda:405
+#, c-format
+msgid ""
+"Graphical installation not available for %s installs.  Starting text mode."
+msgstr ""
+
+#: ../anaconda:413
+msgid ""
+"No mouse was detected.  A mouse is required for graphical installation.  "
+"Starting text mode."
+msgstr ""
 
 #: ../autopart.py:729
 #, c-format
@@ -60,7 +114,7 @@ msgid ""
 "%s"
 msgstr "Editar Partição"
 
-#: ../autopart.py:900 ../iw/partition_gui.py:1227
+#: ../autopart.py:900 ../iw/partition_gui.py:1242
 #: ../textw/partition_text.py:149
 #, fuzzy
 msgid "Error Partitioning"
@@ -75,10 +129,11 @@ msgid ""
 msgstr "Partições não Alocadas"
 
 #: ../autopart.py:935 ../harddrive.py:233 ../iw/bootloader_gui.py:58
-#: ../iw/partition_gui.py:1232 ../iw/partition_gui.py:1547
-#: ../iw/upgrade_swap_gui.py:169 ../iw/upgrade_swap_gui.py:177
-#: ../iw/upgrade_swap_gui.py:184 ../partitioning.py:1331
-#: ../textw/bootloader_text.py:128 ../textw/partition_text.py:153
+#: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1247
+#: ../iw/partition_gui.py:1570 ../iw/upgrade_swap_gui.py:169
+#: ../iw/upgrade_swap_gui.py:177 ../iw/upgrade_swap_gui.py:184
+#: ../partitioning.py:1331 ../textw/bootloader_text.py:128
+#: ../textw/bootloader_text.py:424 ../textw/partition_text.py:153
 #: ../textw/upgrade_text.py:172
 #, fuzzy
 msgid "Warning"
@@ -139,12 +194,12 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../bootloader.py:629
+#: ../bootloader.py:651
 #, fuzzy
 msgid "Bootloader"
 msgstr "Rótulo de Boot"
 
-#: ../bootloader.py:629
+#: ../bootloader.py:651
 #, fuzzy
 msgid "Installing bootloader..."
 msgstr "Instalando carregador de boot..."
@@ -172,10 +227,9 @@ msgid ""
 "will now be reset."
 msgstr ""
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:713 ../fsset.py:732
-#: ../fsset.py:777 ../fsset.py:797 ../fsset.py:826 ../fsset.py:846
-#: ../harddrive.py:171 ../image.py:65 ../image.py:142
-#: ../libfdisk/newtfsedit.c:1746 ../loader/devices.c:259
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:714 ../fsset.py:733
+#: ../fsset.py:778 ../fsset.py:798 ../fsset.py:827 ../fsset.py:847
+#: ../harddrive.py:171 ../image.py:65 ../image.py:142 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:27 ../loader/lang.c:102
 #: ../loader/loader.c:478 ../loader/loader.c:535 ../loader/loader.c:912
@@ -216,16 +270,16 @@ msgstr "Checar blocos ruins durante formatação"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Checar blocos ruins durante formatação"
 
-#: ../fsset.py:654 ../iw/silo_gui.py:168 ../textw/silo_text.py:75
+#: ../fsset.py:655 ../iw/silo_gui.py:168 ../textw/silo_text.py:75
 #, fuzzy
 msgid "Master Boot Record (MBR)"
 msgstr "Registro Mestre de Inicialização (MBR)"
 
-#: ../fsset.py:655 ../iw/silo_gui.py:171 ../textw/silo_text.py:76
+#: ../fsset.py:656 ../iw/silo_gui.py:171 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Primeiro setor da partição de inicialização"
 
-#: ../fsset.py:714
+#: ../fsset.py:715
 #, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -234,7 +288,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:733
+#: ../fsset.py:734
 #, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -244,7 +298,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:778
+#: ../fsset.py:779
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -253,7 +307,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:798
+#: ../fsset.py:799
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -262,7 +316,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:827
+#: ../fsset.py:828
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -271,7 +325,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:847
+#: ../fsset.py:848
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -281,12 +335,12 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1365
+#: ../fsset.py:1366
 #, fuzzy
 msgid "Formatting"
 msgstr "Formatando"
 
-#: ../fsset.py:1366
+#: ../fsset.py:1367
 #, fuzzy, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Criando sistema de arquivos ext2 em /dev/%s..."
@@ -295,62 +349,24 @@ msgstr "Criando sistema de arquivos ext2 em /dev/%s..."
 msgid "Fix"
 msgstr ""
 
-#: ../gui.py:105 ../iw/partition_gui.py:483 ../iw/partition_gui.py:640
-#: ../iw/partition_gui.py:703 ../iw/welcome_gui.py:84 ../libfdisk/fsedit.c:953
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237
-#: ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398
-#: ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754
-#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:618
-#: ../libfdisk/newtfsedit.c:745 ../libfdisk/newtfsedit.c:877
-#: ../libfdisk/newtfsedit.c:1683 ../libfdisk/newtfsedit.c:1701
-#: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:230
+#: ../gui.py:105 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
+#: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:84 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:276
 #: ../textw/bootdisk_text.py:25 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:32 ../textw/upgrade_text.py:251
 msgid "Yes"
 msgstr "Sim"
 
-#: ../gui.py:106 ../iw/partition_gui.py:484 ../iw/partition_gui.py:642
-#: ../iw/partition_gui.py:705 ../iw/welcome_gui.py:87 ../libfdisk/fsedit.c:953
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237
-#: ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398
-#: ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754
-#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:618
-#: ../libfdisk/newtfsedit.c:745 ../libfdisk/newtfsedit.c:877
-#: ../libfdisk/newtfsedit.c:1683 ../libfdisk/newtfsedit.c:1701
-#: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:231 ../loader/net.c:889
-#: ../text.py:277 ../textw/bootdisk_text.py:25 ../textw/bootdisk_text.py:54
-#: ../textw/bootloader_text.py:76 ../textw/constants_text.py:36
-#: ../textw/upgrade_text.py:251 ../textw/upgrade_text.py:258
+#: ../gui.py:106 ../iw/partition_gui.py:499 ../iw/partition_gui.py:657
+#: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:87 ../loader/devices.c:231
+#: ../loader/net.c:889 ../text.py:277 ../textw/bootdisk_text.py:25
+#: ../textw/bootdisk_text.py:54 ../textw/bootloader_text.py:76
+#: ../textw/constants_text.py:36 ../textw/upgrade_text.py:251
+#: ../textw/upgrade_text.py:258
 msgid "No"
 msgstr "Não"
 
-#. code to create dialog in gtk+
-#: ../gui.py:107 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
-#: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
-#: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
-#: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1052
-#: ../libfdisk/fsedit.c:1476 ../libfdisk/gnomefsedit.c:756
-#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
-#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
-#: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
-#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526
-#: ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651
-#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737
-#: ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024
-#: ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278
-#: ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332
-#: ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354
-#: ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374
-#: ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544
-#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170
-#: ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:580
-#: ../libfdisk/newtfsedit.c:642 ../libfdisk/newtfsedit.c:675
-#: ../libfdisk/newtfsedit.c:701 ../libfdisk/newtfsedit.c:720
-#: ../libfdisk/newtfsedit.c:851 ../libfdisk/newtfsedit.c:1480
-#: ../libfdisk/newtfsedit.c:1488 ../libfdisk/newtfsedit.c:1613
-#: ../libfdisk/newtfsedit.c:1634 ../libfdisk/newtfsedit.c:1662
-#: ../libfdisk/newtfsedit.c:1746 ../loader/cdrom.c:34 ../loader/devices.c:92
+#: ../gui.py:107 ../loader/cdrom.c:34 ../loader/devices.c:92
 #: ../loader/devices.c:237 ../loader/devices.c:259 ../loader/devices.c:266
 #: ../loader/devices.c:335 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/devices.c:532 ../loader/kickstart.c:58
@@ -371,8 +387,7 @@ msgstr "Não"
 msgid "Ok"
 msgstr ""
 
-#: ../gui.py:108 ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1463
-#: ../loader/net.c:277 ../loader/net.c:404 ../text.py:279
+#: ../gui.py:108 ../loader/net.c:277 ../loader/net.c:404 ../text.py:279
 msgid "Retry"
 msgstr "Insistir"
 
@@ -380,17 +395,14 @@ msgstr "Insistir"
 msgid "Ignore"
 msgstr ""
 
-#: ../gui.py:110 ../iw/account_gui.py:150 ../iw/account_gui.py:161
-#: ../iw/partition_gui.py:824 ../iw/partition_gui.py:1275
-#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
-#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:581
-#: ../libfdisk/newtfsedit.c:1701 ../loader/devices.c:238
-#: ../loader/devices.c:532 ../loader/loader.c:2300 ../loader/pcmcia.c:104
-#: ../text.py:114 ../text.py:115 ../text.py:249 ../text.py:251 ../text.py:281
-#: ../textw/bootloader_text.py:197 ../textw/constants_text.py:24
-#: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:75 ../textw/welcome_text.py:48
-#: ../textw/welcome_text.py:51
+#: ../gui.py:110 ../iw/account_gui.py:151 ../iw/account_gui.py:162
+#: ../iw/partition_gui.py:839 ../iw/partition_gui.py:1290
+#: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
+#: ../loader/pcmcia.c:104 ../text.py:114 ../text.py:115 ../text.py:249
+#: ../text.py:251 ../text.py:281 ../textw/bootloader_text.py:197
+#: ../textw/constants_text.py:24 ../textw/silo_text.py:147
+#: ../textw/silo_text.py:165 ../textw/userauth_text.py:75
+#: ../textw/welcome_text.py:48 ../textw/welcome_text.py:51
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -416,8 +428,7 @@ msgstr ""
 msgid "Language Selection"
 msgstr ""
 
-#: ../gui.py:436 ../iw/firewall_gui.py:122 ../libfdisk/gnomefsedit.c:1388
-#: ../libfdisk/gnomefsedit.c:1405
+#: ../gui.py:436 ../iw/firewall_gui.py:122
 #, fuzzy
 msgid "Close"
 msgstr "Limpar"
@@ -435,13 +446,12 @@ msgstr "Erro de E/S em arquivo local"
 msgid "Release notes are missing.\n"
 msgstr ""
 
-#: ../gui.py:599 ../libfdisk/newtfsedit.c:1480 ../libfdisk/newtfsedit.c:1488
-#: ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238
-#: ../loader/devices.c:335 ../loader/lang.c:596 ../loader/loader.c:323
-#: ../loader/loader.c:816 ../loader/loader.c:853 ../loader/loader.c:967
-#: ../loader/loader.c:1061 ../loader/loader.c:1490 ../loader/net.c:185
-#: ../loader/net.c:272 ../loader/net.c:359 ../loader/urls.c:158
-#: ../loader/urls.c:387 ../textw/confirm_text.py:24
+#: ../gui.py:599 ../loader/cdrom.c:34 ../loader/devices.c:93
+#: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:596
+#: ../loader/loader.c:323 ../loader/loader.c:816 ../loader/loader.c:853
+#: ../loader/loader.c:967 ../loader/loader.c:1061 ../loader/loader.c:1490
+#: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:359
+#: ../loader/urls.c:158 ../loader/urls.c:387 ../textw/confirm_text.py:24
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:38 ../textw/constants_text.py:28
 #: ../textw/silo_text.py:110 ../textw/userauth_text.py:177
@@ -604,9 +614,8 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1484 ../iw/upgrade_swap_gui.py:121
-#: ../libfdisk/gnomefsedit.c:3132 ../packages.py:565 ../packages.py:585
-#: ../textw/upgrade_text.py:106
+#: ../iw/partition_gui.py:1507 ../iw/upgrade_swap_gui.py:121
+#: ../packages.py:565 ../packages.py:585 ../textw/upgrade_text.py:106
 #, fuzzy
 msgid "Mount Point"
 msgstr "Nenhum Mount Point"
@@ -785,7 +794,7 @@ msgstr ""
 "partições ela precisa ser inicializada, o que causará a perda de TODOS OS "
 "DADOS neste disco."
 
-#: ../libfdisk/fsedit.c:1052 ../partitioning.py:1409
+#: ../partitioning.py:1409
 msgid "No Drives Found"
 msgstr "Nenhum Drive Encontrado"
 
@@ -814,7 +823,6 @@ msgid ""
 "Are you sure?"
 msgstr "Tem certeza que quer deletar esta partição?"
 
-#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:878
 #: ../partitioning.py:1490
 #, fuzzy
 msgid "Are you sure you want to delete this partition?"
@@ -988,13 +996,13 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../iw/partition_gui.py:561 ../partitioning.py:1731
+#: ../iw/partition_gui.py:576 ../partitioning.py:1731
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
 
-#: ../iw/partition_gui.py:564 ../partitioning.py:1734
+#: ../iw/partition_gui.py:579 ../partitioning.py:1734
 msgid ""
 "Selected 'Yes' to continue and format these partitions, or 'No' to go back "
 "and change these settings."
@@ -1005,29 +1013,15 @@ msgstr ""
 msgid "Format Warning"
 msgstr "Formatando"
 
-#: ../iw/account_gui.py:149 ../iw/account_gui.py:160
-#: ../iw/partition_gui.py:481 ../iw/partition_gui.py:823
-#: ../iw/partition_gui.py:1274 ../loader/urls.c:79 ../loader/urls.c:89
-#: ../loader/urls.c:97 ../loader/urls.c:247 ../rescue.py:34 ../rescue.py:110
-#: ../rescue.py:131 ../rescue.py:148 ../rescue.py:154 ../text.py:389
-#: ../textw/bootdisk_text.py:65 ../textw/bootdisk_text.py:67
-#: ../textw/complete_text.py:41 ../textw/complete_text.py:56
-#: ../textw/complete_text.py:72 ../textw/confirm_text.py:24
-#: ../textw/confirm_text.py:36 ../textw/constants_text.py:20
-#: ../textw/firewall_text.py:201 ../textw/network_text.py:134
-#: ../textw/silo_text.py:110 ../xserver.py:51
-msgid "OK"
-msgstr ""
-
-#: ../rescue.py:48 ../rescue.py:84 ../rescue.py:163
+#: ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 
-#: ../rescue.py:70 ../rescue.py:125 ../rescue.py:143
+#: ../rescue.py:90 ../rescue.py:145 ../rescue.py:163
 msgid "Rescue"
 msgstr ""
 
-#: ../rescue.py:71
+#: ../rescue.py:91
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory /mnt/sysimage.  You can then "
@@ -1039,32 +1033,32 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../rescue.py:79
+#: ../rescue.py:99
 msgid "Continue"
 msgstr "Continuar"
 
-#: ../rescue.py:79 ../rescue.py:81 ../textw/bootdisk_text.py:67
+#: ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:67
 #: ../textw/bootdisk_text.py:89 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:118
 msgid "Skip"
 msgstr "Ignore"
 
-#: ../rescue.py:107
+#: ../rescue.py:127
 #, fuzzy
 msgid "System to Rescue"
 msgstr "Erro de sistema %d"
 
-#: ../rescue.py:108 ../textw/upgrade_text.py:208
+#: ../rescue.py:128 ../textw/upgrade_text.py:208
 msgid "What partition holds the root partition of your installation?"
 msgstr "Em que partição está o diretório root de sua máquina?"
 
-#: ../iw/congrats_gui.py:14 ../iw/congrats_gui.py:64 ../rescue.py:110
-#: ../rescue.py:114
+#: ../iw/congrats_gui.py:14 ../iw/congrats_gui.py:64 ../rescue.py:130
+#: ../rescue.py:134
 #, fuzzy
 msgid "Exit"
 msgstr "Edite"
 
-#: ../rescue.py:126
+#: ../rescue.py:146
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -1076,7 +1070,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:144
+#: ../rescue.py:164
 msgid ""
 "An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under /mnt/sysimage.\n"
@@ -1085,17 +1079,17 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: ../rescue.py:150
+#: ../rescue.py:170
 msgid "Rescue Mode"
 msgstr ""
 
-#: ../rescue.py:151
+#: ../rescue.py:171
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:160
+#: ../rescue.py:181
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr ""
 
@@ -1257,126 +1251,123 @@ msgstr ""
 msgid " X server started successfully."
 msgstr ""
 
-#: ../iw/account_gui.py:25
+#: ../iw/account_gui.py:26
 #, fuzzy
 msgid "Account Configuration"
 msgstr "Configuração SCSI"
 
-#: ../iw/account_gui.py:48
+#: ../iw/account_gui.py:49
 #, fuzzy
 msgid "Root password accepted."
 msgstr "Senha do Root"
 
-#: ../iw/account_gui.py:53
+#: ../iw/account_gui.py:54
 #, fuzzy
 msgid "Root password is too short."
 msgstr "Senha do Root"
 
-#: ../iw/account_gui.py:55
+#: ../iw/account_gui.py:56
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "Erro na Digitação da Senha"
 
-#: ../iw/account_gui.py:67
+#: ../iw/account_gui.py:68
 #, fuzzy
 msgid "User password accepted."
 msgstr "Senha do Root"
 
-#: ../iw/account_gui.py:74
+#: ../iw/account_gui.py:75
 msgid "Root account can not be added here."
 msgstr ""
 
-#: ../iw/account_gui.py:76
+#: ../iw/account_gui.py:77
 msgid "Please enter user password."
 msgstr ""
 
-#: ../iw/account_gui.py:78
+#: ../iw/account_gui.py:79
 #, fuzzy
 msgid "User password is too short."
 msgstr "Senha do Root"
 
-#: ../iw/account_gui.py:80
+#: ../iw/account_gui.py:81
 #, fuzzy
 msgid "User passwords do not match."
 msgstr "Erro na Digitação da Senha"
 
-#: ../iw/account_gui.py:147
+#: ../iw/account_gui.py:148
 #, fuzzy
 msgid "Add a New User"
 msgstr "Adicionar Impressora"
 
-#: ../iw/account_gui.py:157 ../textw/userauth_text.py:84
+#: ../iw/account_gui.py:158 ../textw/userauth_text.py:84
 #, fuzzy
 msgid "Edit User"
 msgstr "Edite"
 
-#: ../iw/account_gui.py:182
+#: ../iw/account_gui.py:183
 #, fuzzy
 msgid "User Name:"
 msgstr "Usuário:"
 
-#: ../iw/account_gui.py:184
+#: ../iw/account_gui.py:185
 msgid "Full Name:"
 msgstr ""
 
-#: ../iw/account_gui.py:186 ../iw/bootloaderpassword_gui.py:75
+#: ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 #: ../loader/urls.c:357 ../textw/userauth_text.py:36
 msgid "Password:"
 msgstr "Senha:"
 
-#: ../iw/account_gui.py:188 ../iw/bootloaderpassword_gui.py:79
+#: ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
 #: ../textw/bootloader_text.py:385
 #, fuzzy
 msgid "Confirm:"
 msgstr "Configuração TCP/IP"
 
-#: ../iw/account_gui.py:191
+#: ../iw/account_gui.py:192
 msgid "Please enter user name"
 msgstr ""
 
-#: ../iw/account_gui.py:270
+#: ../iw/account_gui.py:273
 msgid "Enter the password for the root user (administrator) of this system."
 msgstr ""
 
-#: ../iw/account_gui.py:283
+#: ../iw/account_gui.py:286
 #, fuzzy
 msgid "Root Password: "
 msgstr "Senha do Root"
 
-#: ../iw/account_gui.py:286
+#: ../iw/account_gui.py:289
 #, fuzzy
 msgid "Confirm: "
 msgstr "Configuração TCP/IP"
 
-#: ../iw/account_gui.py:320
+#: ../iw/account_gui.py:323
 #, fuzzy
 msgid "Account Name"
 msgstr "Usuário:"
 
-#: ../iw/account_gui.py:320 ../textw/userauth_text.py:95
+#: ../iw/account_gui.py:323 ../textw/userauth_text.py:95
 #: ../textw/userauth_text.py:196
 msgid "Full Name"
 msgstr ""
 
-#: ../iw/account_gui.py:327 ../libfdisk/newtfsedit.c:1486
-#: ../textw/userauth_text.py:210
+#: ../iw/account_gui.py:330 ../textw/userauth_text.py:210
 msgid "Add"
 msgstr "Adicione"
 
-#: ../iw/account_gui.py:329 ../libfdisk/newtfsedit.c:1479
-#: ../libfdisk/newtfsedit.c:1487 ../textw/bootloader_text.py:274
-#: ../textw/fdisk_text.py:40 ../textw/partition_text.py:942
+#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:274
+#: ../textw/fdisk_text.py:40 ../textw/partition_text.py:961
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:211
 msgid "Edit"
 msgstr "Edite"
 
-#: ../iw/account_gui.py:332 ../libfdisk/newtfsedit.c:1487
-#: ../textw/userauth_text.py:210
+#: ../iw/account_gui.py:335 ../textw/userauth_text.py:210
 msgid "Delete"
 msgstr "Apague"
 
-#: ../iw/account_gui.py:352
+#: ../iw/account_gui.py:355
 msgid ""
 "Additional accounts can be created for other users of this system. Such "
 "accounts could be for a personal login account, or for other non-"
@@ -1520,16 +1511,15 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 
-#: ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:434
+#: ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:432
 #: ../iw/silo_gui.py:122 ../iw/silo_gui.py:273 ../iw/upgrade_swap_gui.py:121
 #: ../textw/upgrade_text.py:107
 #, fuzzy
 msgid "Partition"
 msgstr "Reparticionar"
 
-#: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:435
-#: ../iw/partition_gui.py:1484 ../iw/silo_gui.py:127 ../iw/silo_gui.py:274
-#: ../libfdisk/gnomefsedit.c:3136
+#: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:433
+#: ../iw/partition_gui.py:1507 ../iw/silo_gui.py:127 ../iw/silo_gui.py:274
 msgid "Type"
 msgstr ""
 
@@ -1563,10 +1553,10 @@ msgid "Default"
 msgstr ""
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:145
-#: ../iw/partition_gui.py:1483 ../iw/silo_gui.py:250
-#: ../libfdisk/gnomefsedit.c:3133 ../textw/bootloader_text.py:191
-#: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
-#: ../textw/silo_text.py:142 ../textw/silo_text.py:207
+#: ../iw/partition_gui.py:1506 ../iw/silo_gui.py:250
+#: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:259
+#: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
+#: ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Dispositivo"
 
@@ -1575,7 +1565,7 @@ msgstr "Dispositivo"
 msgid "Partition type"
 msgstr "Tipo da Partição"
 
-#: ../iw/bootloader_gui.py:354 ../iw/bootloader_gui.py:445
+#: ../iw/bootloader_gui.py:354 ../iw/bootloader_gui.py:443
 #: ../iw/silo_gui.py:250 ../iw/silo_gui.py:285 ../textw/bootloader_text.py:192
 #: ../textw/bootloader_text.py:259 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
@@ -1595,7 +1585,7 @@ msgstr ""
 msgid "Do not install a boot loader"
 msgstr "Instalando carregador de boot..."
 
-#: ../iw/bootloader_gui.py:442 ../iw/silo_gui.py:281
+#: ../iw/bootloader_gui.py:440 ../iw/silo_gui.py:281
 msgid "Default boot image"
 msgstr ""
 
@@ -1604,34 +1594,42 @@ msgstr ""
 msgid "Boot Loader Password Configuration"
 msgstr "Configuração SCSI"
 
-#: ../iw/bootloaderpassword_gui.py:43
+#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:425
+msgid ""
+"Your boot loader password is less than six characters.  We recommend a "
+"longer boot loader password.\n"
+"\n"
+"Would you like to continue with this password?"
+msgstr ""
+
+#: ../iw/bootloaderpassword_gui.py:54
 #, fuzzy
 msgid "Password accepted."
 msgstr "Senha do Root"
 
-#: ../iw/bootloaderpassword_gui.py:48
+#: ../iw/bootloaderpassword_gui.py:59
 #, fuzzy
 msgid "Password is too short."
 msgstr "Senha do Root"
 
-#: ../iw/bootloaderpassword_gui.py:50
+#: ../iw/bootloaderpassword_gui.py:61
 #, fuzzy
 msgid "Passwords do not match."
 msgstr "Erro na Digitação da Senha"
 
-#: ../iw/bootloaderpassword_gui.py:65 ../textw/bootloader_text.py:362
+#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:362
 msgid ""
-"A GRUB password prevents users from passing arbitrary options to the "
+"A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
 
-#: ../iw/bootloaderpassword_gui.py:72
+#: ../iw/bootloaderpassword_gui.py:84
 #, fuzzy
 msgid "Use a GRUB Password?"
 msgstr "Senha do Root"
 
-#: ../iw/bootloaderpassword_gui.py:97
+#: ../iw/bootloaderpassword_gui.py:109
 #, fuzzy
 msgid "Please enter password"
 msgstr "Senha do Root"
@@ -2036,7 +2034,7 @@ msgstr ""
 msgid "Flat View"
 msgstr ""
 
-#: ../iw/package_gui.py:410 ../iw/partition_gui.py:1484
+#: ../iw/package_gui.py:410 ../iw/partition_gui.py:1507
 #, fuzzy
 msgid "Size (MB)"
 msgstr "Tamanho:"
@@ -2064,300 +2062,302 @@ msgstr ""
 msgid "Select individual packages"
 msgstr "Selecionar pacotes individuais"
 
-#: ../iw/partition_gui.py:298 ../iw/partition_gui.py:319
-#: ../iw/partition_gui.py:321 ../textw/partition_text.py:172
+#: ../iw/partition_gui.py:313 ../iw/partition_gui.py:334
+#: ../iw/partition_gui.py:336 ../textw/partition_text.py:172
 #: ../textw/partition_text.py:174 ../textw/partition_text.py:176
 #: ../textw/partition_text.py:201
 msgid "<Not Applicable>"
 msgstr ""
 
-#: ../iw/partition_gui.py:468 ../textw/fdisk_text.py:38
+#: ../iw/partition_gui.py:483 ../textw/fdisk_text.py:38
 msgid "Disk Setup"
 msgstr "Configuração dos Discos"
 
-#: ../iw/partition_gui.py:528
+#: ../iw/partition_gui.py:543
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
-#: ../iw/partition_gui.py:531
+#: ../iw/partition_gui.py:546
 msgid ""
 "These errors must be corrected prior to continuing with your install of Red "
 "Hat Linux."
 msgstr ""
 
-#: ../iw/partition_gui.py:538
+#: ../iw/partition_gui.py:553
 #, fuzzy
 msgid "Partitioning Errors"
 msgstr "Reparticionar"
 
-#: ../iw/partition_gui.py:544
+#: ../iw/partition_gui.py:559
 msgid "The following warnings exist with your requested partition scheme."
 msgstr ""
 
-#: ../iw/partition_gui.py:546
+#: ../iw/partition_gui.py:561
 #, fuzzy
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "Deseja configurar uma impressora?"
 
-#: ../iw/partition_gui.py:552
+#: ../iw/partition_gui.py:567
 #, fuzzy
 msgid "Partitioning Warnings"
 msgstr "Partição Root"
 
-#: ../iw/partition_gui.py:574
+#: ../iw/partition_gui.py:589
 #, fuzzy
 msgid "Format Warnings"
 msgstr "Formatando"
 
-#: ../iw/partition_gui.py:627 ../textw/partition_text.py:61
+#: ../iw/partition_gui.py:642 ../textw/partition_text.py:61
 #: ../textw/partition_text.py:100
 #, fuzzy
 msgid "Free space"
 msgstr "Configuração dos Discos"
 
-#: ../iw/partition_gui.py:629 ../textw/partition_text.py:63
+#: ../iw/partition_gui.py:644 ../textw/partition_text.py:63
 msgid "Extended"
 msgstr ""
 
-#: ../iw/partition_gui.py:631 ../textw/partition_text.py:65
+#: ../iw/partition_gui.py:646 ../textw/partition_text.py:65
 msgid "software RAID"
 msgstr ""
 
-#: ../iw/partition_gui.py:649 ../iw/partition_gui.py:707
+#: ../iw/partition_gui.py:664 ../iw/partition_gui.py:722
 #: ../textw/partition_text.py:79 ../textw/partition_text.py:131
 #, fuzzy
 msgid "None"
 msgstr "Pronto"
 
-#: ../iw/partition_gui.py:651
+#: ../iw/partition_gui.py:666
 msgid "Free"
 msgstr ""
 
-#: ../iw/partition_gui.py:709 ../textw/partition_text.py:133
+#: ../iw/partition_gui.py:724 ../textw/partition_text.py:133
 #, fuzzy, c-format
 msgid "RAID Device %s"
 msgstr "Dispositivo"
 
-#: ../iw/partition_gui.py:778
+#: ../iw/partition_gui.py:793
 msgid "Additional Size Options"
 msgstr ""
 
-#: ../iw/partition_gui.py:783
+#: ../iw/partition_gui.py:798
 msgid "Fixed size"
 msgstr ""
 
-#: ../iw/partition_gui.py:784
+#: ../iw/partition_gui.py:799
 msgid "Fill all space up to (MB):"
 msgstr ""
 
-#: ../iw/partition_gui.py:792
+#: ../iw/partition_gui.py:807
 msgid "Fill to maximum allowable size"
 msgstr ""
 
-#: ../iw/partition_gui.py:821 ../textw/partition_text.py:523
+#: ../iw/partition_gui.py:836 ../textw/partition_text.py:525
 #, fuzzy
 msgid "Add Partition"
 msgstr "Reparticionar"
 
-#: ../iw/partition_gui.py:838 ../iw/partition_gui.py:1289
-#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
-#: ../libfdisk/newtfsedit.c:392 ../textw/partition_text.py:191
+#: ../iw/partition_gui.py:853 ../iw/partition_gui.py:1312
+#: ../textw/partition_text.py:191
 #, fuzzy
 msgid "Mount Point:"
 msgstr "Nenhum Mount Point"
 
-#: ../iw/partition_gui.py:846 ../textw/partition_text.py:579
+#: ../iw/partition_gui.py:861 ../textw/partition_text.py:581
 #, fuzzy
 msgid "Filesystem Type:"
 msgstr "Instalar sistema"
 
-#: ../iw/partition_gui.py:854
+#: ../iw/partition_gui.py:869
 #, fuzzy
 msgid "Original Filesystem Type:"
 msgstr "Instalar sistema"
 
-#: ../iw/partition_gui.py:863 ../libfdisk/newtfsedit.c:494
+#: ../iw/partition_gui.py:878
 msgid "Unknown"
 msgstr ""
 
-#: ../iw/partition_gui.py:875 ../libfdisk/gnomefsedit.c:1134
-#: ../libfdisk/newtfsedit.c:527 ../textw/partition_text.py:246
+#: ../iw/partition_gui.py:890 ../textw/partition_text.py:246
 msgid "Allowable Drives:"
 msgstr ""
 
-#: ../iw/partition_gui.py:883
+#: ../iw/partition_gui.py:898
 #, fuzzy
 msgid "Drive:"
 msgstr "Ignore Drive"
 
-#: ../iw/partition_gui.py:892
+#: ../iw/partition_gui.py:907
 #, fuzzy
 msgid "Original Filesystem Label:"
 msgstr "Instalar sistema"
 
-#: ../iw/partition_gui.py:903 ../iw/partition_gui.py:938
-#: ../textw/partition_text.py:267 ../textw/partition_text.py:350
-#: ../textw/partition_text.py:595
+#: ../iw/partition_gui.py:918 ../iw/partition_gui.py:953
+#: ../textw/partition_text.py:268 ../textw/partition_text.py:351
+#: ../textw/partition_text.py:597
 #, fuzzy
 msgid "Size (MB):"
 msgstr "Tamanho:"
 
-#: ../iw/partition_gui.py:916 ../textw/partition_text.py:330
+#: ../iw/partition_gui.py:931 ../textw/partition_text.py:331
 msgid "Start Cylinder:"
 msgstr ""
 
-#: ../iw/partition_gui.py:932 ../textw/partition_text.py:343
+#: ../iw/partition_gui.py:947 ../textw/partition_text.py:344
 msgid "End Cylinder:"
 msgstr ""
 
-#: ../iw/partition_gui.py:954
+#: ../iw/partition_gui.py:969
 msgid "How would you like to prepare the filesystem on this partition?"
 msgstr ""
 
-#: ../iw/partition_gui.py:963 ../textw/partition_text.py:432
+#: ../iw/partition_gui.py:978 ../textw/partition_text.py:434
 msgid "Leave unchanged (preserve data)"
 msgstr ""
 
-#: ../iw/partition_gui.py:968
+#: ../iw/partition_gui.py:983
 #, fuzzy
 msgid "Format partition as:"
 msgstr "Nenhuma Partição Root"
 
-#: ../iw/partition_gui.py:988
+#: ../iw/partition_gui.py:1003
 #, fuzzy
 msgid "Migrate partition to:"
 msgstr "Nenhuma Partição Root"
 
-#: ../iw/partition_gui.py:1009
+#: ../iw/partition_gui.py:1024
 #, fuzzy
 msgid "Check for bad blocks?"
 msgstr "Checar blocos ruins durante formatação"
 
-#: ../iw/partition_gui.py:1040 ../textw/partition_text.py:565
+#: ../iw/partition_gui.py:1055 ../textw/partition_text.py:567
 msgid "Force to be a primary partition"
 msgstr ""
 
-#: ../iw/partition_gui.py:1047 ../textw/partition_text.py:430
-#: ../textw/partition_text.py:568
+#: ../iw/partition_gui.py:1062 ../textw/partition_text.py:432
+#: ../textw/partition_text.py:570
 #, fuzzy
 msgid "Check for bad blocks"
 msgstr "Checar blocos ruins durante formatação"
 
-#: ../iw/partition_gui.py:1118 ../iw/partition_gui.py:1127
-#: ../iw/partition_gui.py:1165 ../iw/partition_gui.py:1419
-#: ../textw/partition_text.py:731 ../textw/partition_text.py:748
-#: ../textw/partition_text.py:857
+#: ../iw/partition_gui.py:1133 ../iw/partition_gui.py:1142
+#: ../iw/partition_gui.py:1180 ../iw/partition_gui.py:1442
+#: ../textw/partition_text.py:739 ../textw/partition_text.py:756
+#: ../textw/partition_text.py:876
 msgid "Error With Request"
 msgstr ""
 
-#: ../iw/partition_gui.py:1228 ../textw/partition_text.py:150
+#: ../iw/partition_gui.py:1243 ../textw/partition_text.py:150
 #, fuzzy, c-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Partições não Alocadas"
 
-#: ../iw/partition_gui.py:1234 ../textw/partition_text.py:154
+#: ../iw/partition_gui.py:1249 ../textw/partition_text.py:154
 #, fuzzy
 msgid "Modify Partition"
 msgstr "Editar Partição"
 
-#: ../iw/partition_gui.py:1235 ../textw/partition_text.py:154
+#: ../iw/partition_gui.py:1250 ../textw/partition_text.py:154
 msgid "Add anyway"
 msgstr ""
 
-#: ../iw/partition_gui.py:1239
+#: ../iw/partition_gui.py:1254
 #, fuzzy, c-format
 msgid "Warning: %s."
 msgstr "Todos os Pacotes"
 
-#: ../iw/partition_gui.py:1272 ../textw/partition_text.py:778
+#: ../iw/partition_gui.py:1287 ../textw/partition_text.py:786
 #, fuzzy
 msgid "Make RAID Device"
 msgstr "Dispositivo"
 
-#: ../iw/partition_gui.py:1296 ../textw/partition_text.py:212
+#: ../iw/partition_gui.py:1305 ../textw/partition_text.py:810
+msgid "At least two software RAID partitions are needed."
+msgstr ""
+
+#: ../iw/partition_gui.py:1319 ../textw/partition_text.py:212
 #, fuzzy
 msgid "Filesystem type:"
 msgstr "Instalar sistema"
 
-#: ../iw/partition_gui.py:1308 ../textw/partition_text.py:367
+#: ../iw/partition_gui.py:1331 ../textw/partition_text.py:368
 #, fuzzy
 msgid "RAID Level:"
 msgstr "Nível IRQ:"
 
-#: ../iw/partition_gui.py:1343 ../textw/partition_text.py:385
+#: ../iw/partition_gui.py:1366 ../textw/partition_text.py:386
 #, fuzzy
 msgid "RAID Members:"
 msgstr "Nível IRQ:"
 
-#: ../iw/partition_gui.py:1354
+#: ../iw/partition_gui.py:1377
 msgid "Number of spares:"
 msgstr ""
 
-#: ../iw/partition_gui.py:1361 ../textw/partition_text.py:803
+#: ../iw/partition_gui.py:1384 ../textw/partition_text.py:822
 #, fuzzy
 msgid "Format partition?"
 msgstr "Nenhuma Partição Root"
 
-#: ../iw/partition_gui.py:1464
+#: ../iw/partition_gui.py:1487
 msgid "_New"
 msgstr ""
 
-#: ../iw/partition_gui.py:1465
+#: ../iw/partition_gui.py:1488
 #, fuzzy
 msgid "_Edit"
 msgstr "Edite"
 
-#: ../iw/partition_gui.py:1466 ../libfdisk/gnomefsedit.c:3699
+#: ../iw/partition_gui.py:1489
 #, fuzzy
 msgid "_Delete"
 msgstr "Apague"
 
-#: ../iw/partition_gui.py:1467 ../libfdisk/gnomefsedit.c:3694
+#: ../iw/partition_gui.py:1490
 msgid "_Reset"
 msgstr ""
 
-#: ../iw/partition_gui.py:1468
+#: ../iw/partition_gui.py:1491
 #, fuzzy
 msgid "Make _RAID"
 msgstr "Dispositivo"
 
-#: ../iw/partition_gui.py:1483
+#: ../iw/partition_gui.py:1506
 #, fuzzy
 msgid "Start"
 msgstr "Status da Instalação"
 
-#: ../iw/partition_gui.py:1483
+#: ../iw/partition_gui.py:1506
 msgid "End"
 msgstr ""
 
-#: ../iw/partition_gui.py:1484
+#: ../iw/partition_gui.py:1507
 #, fuzzy
 msgid "Format"
 msgstr "Formatando"
 
-#: ../iw/partition_gui.py:1529 ../textw/partition_text.py:1018
+#: ../iw/partition_gui.py:1552 ../textw/partition_text.py:1037
 #, fuzzy
 msgid "Automatic Partitioning"
 msgstr "Editar Partição"
 
-#: ../iw/partition_gui.py:1548
+#: ../iw/partition_gui.py:1571
 #, fuzzy
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "Escolher pacotes para instalação"
 
-#: ../iw/partition_gui.py:1587
+#: ../iw/partition_gui.py:1610
 #, fuzzy
 msgid "I want to have automatic partitioning:"
 msgstr "Editar Partição"
 
-#: ../iw/partition_gui.py:1618 ../textw/partition_text.py:1041
+#: ../iw/partition_gui.py:1641 ../textw/partition_text.py:1060
 #, fuzzy
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Onde deve ser instalado o carregador de boot?"
 
-#: ../iw/partition_gui.py:1635
+#: ../iw/partition_gui.py:1659
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr ""
@@ -2854,6 +2854,16 @@ msgstr "Erro na Digitação da Senha"
 msgid "Passwords do not match"
 msgstr "Erro na Digitação da Senha"
 
+#: ../textw/bootloader_text.py:419
+#, fuzzy
+msgid "Password Too Short"
+msgstr "Senha do Root"
+
+#: ../textw/bootloader_text.py:420
+#, fuzzy
+msgid "Boot loader password is too short"
+msgstr "Senha do Root"
+
 #: ../textw/complete_text.py:25
 msgid "<Enter> to reboot"
 msgstr ""
@@ -3172,141 +3182,146 @@ msgstr ""
 msgid "Warning: %s"
 msgstr "Todos os Pacotes"
 
-#: ../textw/partition_text.py:301
+#: ../textw/partition_text.py:302
 #, fuzzy
 msgid "Fixed Size:"
 msgstr "Tamanho:"
 
-#: ../textw/partition_text.py:303
+#: ../textw/partition_text.py:304
 msgid "Fill maximum size of (MB):"
 msgstr ""
 
-#: ../textw/partition_text.py:307
+#: ../textw/partition_text.py:308
 msgid "Fill all available space:"
 msgstr ""
 
-#: ../textw/partition_text.py:403
+#: ../textw/partition_text.py:405
 msgid "Number of spares?"
 msgstr ""
 
-#: ../textw/partition_text.py:421 ../textw/partition_text.py:618
+#: ../textw/partition_text.py:423 ../textw/partition_text.py:625
 #, fuzzy
 msgid "Filesystem Options"
 msgstr "Formatando"
 
-#: ../textw/partition_text.py:424
+#: ../textw/partition_text.py:426
 msgid ""
 "Please choose how you would like to prepare the filesystem on this partition."
 msgstr ""
 
-#: ../textw/partition_text.py:441
+#: ../textw/partition_text.py:443
 msgid "Format as:"
 msgstr ""
 
-#: ../textw/partition_text.py:460
+#: ../textw/partition_text.py:462
 msgid "Migrate to:"
 msgstr ""
 
-#: ../textw/partition_text.py:589
+#: ../textw/partition_text.py:591
 #, fuzzy
 msgid "Filesystem Label:"
 msgstr "Instalar sistema"
 
-#: ../textw/partition_text.py:600
+#: ../textw/partition_text.py:602
 #, fuzzy
 msgid "Filesystem Option:"
 msgstr "Instalar sistema"
 
-#: ../textw/partition_text.py:626
+#: ../textw/partition_text.py:605 ../textw/partition_text.py:645
 #, c-format
 msgid "Format as %s"
 msgstr ""
 
-#: ../textw/partition_text.py:628
+#: ../textw/partition_text.py:607 ../textw/partition_text.py:647
 #, c-format
 msgid "Migrate to %s"
 msgstr ""
 
-#: ../textw/partition_text.py:630
+#: ../textw/partition_text.py:609 ../textw/partition_text.py:649
 #, fuzzy
 msgid "Leave unchanged"
 msgstr "Salvar Alterações"
 
-#: ../textw/partition_text.py:666
+#: ../textw/partition_text.py:674
 msgid "Must Specify Size"
 msgstr ""
 
-#: ../textw/partition_text.py:667
+#: ../textw/partition_text.py:675
 msgid "Must specify a base size for the partition."
 msgstr ""
 
-#: ../textw/partition_text.py:679
+#: ../textw/partition_text.py:687
 msgid "Specify Maximum Size"
 msgstr ""
 
-#: ../textw/partition_text.py:680
+#: ../textw/partition_text.py:688
 msgid "Please specify a maximum size for the partition."
 msgstr ""
 
-#: ../textw/partition_text.py:699
+#: ../textw/partition_text.py:707
 #, fuzzy
 msgid "Specify Start"
 msgstr "Especificar Opções"
 
-#: ../textw/partition_text.py:700
+#: ../textw/partition_text.py:708
 msgid "Please specify a starting cylinder for the partition."
 msgstr ""
 
-#: ../textw/partition_text.py:710
+#: ../textw/partition_text.py:718
 #, fuzzy
 msgid "Specify End"
 msgstr "Especificar Opções"
 
-#: ../textw/partition_text.py:711
+#: ../textw/partition_text.py:719
 msgid "Please specify the end cylinder for the partition."
 msgstr ""
 
-#: ../textw/partition_text.py:719
+#: ../textw/partition_text.py:727
 #, fuzzy
 msgid "Specify Size"
 msgstr "Especificar Opções"
 
-#: ../textw/partition_text.py:720
+#: ../textw/partition_text.py:728
 msgid "Please specify the  size for the partition."
 msgstr ""
 
-#: ../textw/partition_text.py:849
+#: ../textw/partition_text.py:809
+#, fuzzy
+msgid "No RAID partitions"
+msgstr "Partição Root"
+
+#: ../textw/partition_text.py:868
 #, fuzzy
 msgid "Too many spares"
 msgstr "Muitos Discos"
 
-#: ../textw/partition_text.py:850
+#: ../textw/partition_text.py:869
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr ""
 
-#: ../textw/partition_text.py:932
+#: ../textw/partition_text.py:951
 #, fuzzy
 msgid "Partitioning"
 msgstr "Reparticionar"
 
-#: ../textw/partition_text.py:942
+#: ../textw/partition_text.py:961
 msgid "New"
 msgstr ""
 
-#: ../textw/partition_text.py:942
+#: ../textw/partition_text.py:961
 msgid "RAID"
 msgstr ""
 
-#: ../textw/partition_text.py:945
+#: ../textw/partition_text.py:964
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1613 ../textw/partition_text.py:972
+#: ../textw/partition_text.py:991
 msgid "No Root Partition"
 msgstr "Nenhuma Partição Root"
 
-#: ../textw/partition_text.py:973
+#: ../textw/partition_text.py:992
 #, fuzzy
 msgid "Must have a / partition to install on."
 msgstr "Você deve indicar uma partição de swap para a instalação continuar."
@@ -3842,8 +3857,7 @@ msgstr "Instalar sistema"
 msgid "Laptop"
 msgstr ""
 
-#: ../installclasses/server.py:9 ../libfdisk/gnomefsedit.c:2654
-#: ../libfdisk/gnomefsedit.c:2674
+#: ../installclasses/server.py:9
 #, fuzzy
 msgid "Server"
 msgstr "Servidor:"
@@ -3857,798 +3871,9 @@ msgstr "Atualizar sistema"
 msgid "Upgrade"
 msgstr "Atualizar"
 
-#: ../installclasses/workstation.py:9 ../libfdisk/gnomefsedit.c:2674
+#: ../installclasses/workstation.py:9
 msgid "Workstation"
 msgstr ""
-
-#: ../libfdisk/fsedit.c:401
-msgid "partitioning did not meet requirements"
-msgstr ""
-
-#: ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936
-#: ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985
-#: ../libfdisk/fsedit.c:995
-msgid "Bad Mount Point"
-msgstr "Mount Point Inválido"
-
-#: ../libfdisk/fsedit.c:923
-#, c-format
-msgid "The %s directory must be on the root filesystem."
-msgstr "O diretório %s deve estar no sistema de arquivos raiz."
-
-#: ../libfdisk/fsedit.c:930
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"Mount points must begin with a leading /."
-msgstr ""
-"O mount point %s é inválido.\n"
-"\n"
-"Mount points devem começar com /."
-
-#: ../libfdisk/fsedit.c:937
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"Mount points may not end with a /."
-msgstr ""
-"O mount point %s é inválido.\n"
-"\n"
-"Mount points não podem terminar com uma /."
-
-#: ../libfdisk/fsedit.c:946
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"Mount points may only printable characters."
-msgstr ""
-"O mount point %s é inválido.\n"
-"\n"
-"Mount points só podem conter caracteres imprimíveis."
-
-#: ../libfdisk/fsedit.c:954
-msgid ""
-"You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
-"You can do this, but you may not use any other filesystems for your Linux "
-"system. Additionally, there will be a speed penalty for not using Linux-"
-"native partitions. Do you want to continue?"
-msgstr ""
-
-#: ../libfdisk/fsedit.c:973
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"System partitions must be on Linux Native partitions."
-msgstr ""
-"O mount point %s é inválido.\n"
-"\n"
-"Partições de sistema devem ser do tipo Linux Native."
-
-#: ../libfdisk/fsedit.c:986
-#, c-format
-msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-msgstr ""
-
-#: ../libfdisk/fsedit.c:996
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"/usr must be on a Linux Native partition or an NFS volume."
-msgstr ""
-"O mount point %s é inválido.\n"
-"\n"
-"/usr deve ser do tipo Linux Native ou um volume NFS."
-
-#: ../libfdisk/fsedit.c:1024
-msgid "Too Many Drives"
-msgstr "Muitos Discos"
-
-#: ../libfdisk/fsedit.c:1025
-msgid ""
-"You have more drives than this program supports. Please use the standard "
-"fdisk program to setup your drives and please notify Red Hat Software that "
-"you saw this message."
-msgstr ""
-"Você tem mais drives do que este programa suporta. Por favor use o programa "
-"fdisk para configurar seus drives e por favor notifique a Conectiva que você "
-"viu esta mensagem."
-
-#: ../libfdisk/fsedit.c:1034
-#, fuzzy
-msgid "Error Creating Device Nodes"
-msgstr "Formatando swap no dispositivo %s..."
-
-#: ../libfdisk/fsedit.c:1035
-msgid ""
-"An error has occurred while trying to create device nodes for the hard "
-"drives in your system.  This may be because you have run out of disk space "
-"on the /tmp partition."
-msgstr ""
-
-#: ../libfdisk/fsedit.c:1053
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"filesystems.  Please check your hardware for the cause of this problem."
-msgstr ""
-"Um erro ocorreu - nenhum dispositivo válido foi encontrado para criar novos "
-"sistemas de arquivos. Por favor cheque seu hardware para encontrar a causa "
-"deste problema."
-
-#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1445
-#, fuzzy, c-format
-msgid ""
-"An error occurred reading the partition table for the block device %s.  The "
-"error was"
-msgstr ""
-"Um erro ocorreu durante a leitura da tabela de partições do dispositivo tipo "
-"bloco %s. O erro foi:"
-
-#: ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1428
-#: ../libfdisk/fsedit.c:1450 ../libfdisk/fsedit.c:1456
-#: ../libfdisk/fsedit.c:1463
-msgid "Skip Drive"
-msgstr "Ignore Drive"
-
-#: ../libfdisk/fsedit.c:1422
-#, c-format
-msgid ""
-"The partition table on device %s is corrupted.  To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive."
-msgstr ""
-"A tabela de partições do dispositivo %s está danificada. Para criar novas "
-"partições ela precisa ser inicializada, o que causará a perda de TODOS OS "
-"DADOS neste disco."
-
-#: ../libfdisk/fsedit.c:1427
-msgid "Bad Partition Table"
-msgstr "Tabela de Partições Inválida"
-
-#: ../libfdisk/fsedit.c:1428
-msgid "Initialize"
-msgstr "Inicialize"
-
-#: ../libfdisk/fsedit.c:1476
-#, fuzzy
-msgid "BSD Disklabel"
-msgstr "Rótulo de Boot"
-
-#: ../libfdisk/fsedit.c:1476
-msgid ""
-"A disk with a BSD disklabel has been found. The Red Hat installation only "
-"supports BSD Disklabels in read-only mode, so you must use a custom install "
-"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
-msgstr ""
-
-#: ../libfdisk/fsedit.c:1506 ../libfdisk/fsedit.c:1529
-#: ../libfdisk/fsedit.c:1555
-#, c-format
-msgid "System error %d"
-msgstr "Erro de sistema %d"
-
-#: ../libfdisk/fsedit.c:1515 ../libfdisk/fsedit.c:1517
-#: ../libfdisk/fsedit.c:1544 ../libfdisk/fsedit.c:1574
-msgid "Fdisk Error"
-msgstr "Erro no Fdisk"
-
-#: ../libfdisk/fsedit.c:1539
-msgid ""
-"This occurs because the drive geometry detected by the kernel used by the "
-"installer is different than the drive geometry used when the drive was "
-"partitioned.  This can be corrected by specifying the drive geometry on the "
-"kernel command line when booting the installer."
-msgstr ""
-
-#: ../libfdisk/fsedit.c:1565
-msgid ""
-"This error has occurred because there is a logical partition on the drive "
-"which has a partition type of zero (0).  A partition type of zero means that "
-"the drive's partitioning is not completely defined, and may have been caused "
-"by another operating system's partitioning program.  This condition is not "
-"supported by the anaconda installer.  You may be able to set the partition "
-"type correctly using your other operating system's partitioning program."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
-#: ../libfdisk/gnomefsedit.c:2050
-#, fuzzy
-msgid "<Swap Partition>"
-msgstr "Partição de Swap"
-
-#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:954
-#, fuzzy
-msgid "<RAID Partition>"
-msgstr "Partição Root"
-
-#: ../libfdisk/gnomefsedit.c:745
-#, c-format
-msgid "Couldnt find partition named %s\n"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:755 ../libfdisk/gnomefsedit.c:787
-#, fuzzy
-msgid "Root partition"
-msgstr "Nenhuma Partição Root"
-
-#: ../libfdisk/gnomefsedit.c:757
-msgid ""
-"The growth of the root (/) RAID array appears to have been stunted by the "
-"1024 cylinder boot limit. If this is the case then adding a /boot partition "
-"(50 MB is fine) may allow the root partition to grow to fill the disk."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:789
-msgid ""
-"The growth of the root (/) partition appears to have been stunted by the "
-"1024 cylinder boot limit. If this is the case then adding a /boot partition "
-"(50 MB is fine) may allow the root partition to grow to fill the disk."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:877
-msgid "Delete Partition"
-msgstr "Delete Partição"
-
-#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:347
-#, fuzzy
-msgid "Cannot Edit Partitions"
-msgstr "Editar Partição"
-
-#: ../libfdisk/gnomefsedit.c:880 ../libfdisk/newtfsedit.c:348
-msgid ""
-"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
-"edit other partitions."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:898 ../libfdisk/gnomefsedit.c:904
-#: ../libfdisk/gnomefsedit.c:908 ../libfdisk/gnomefsedit.c:910
-#: ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:377
-#: ../libfdisk/newtfsedit.c:381 ../libfdisk/newtfsedit.c:383
-msgid "Edit Partition"
-msgstr "Editar Partição"
-
-#: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
-#, fuzzy
-msgid "Size (Megs):"
-msgstr "Tamanho:"
-
-#: ../libfdisk/gnomefsedit.c:999
-msgid "Use remaining space?"
-msgstr ""
-
-#. give status
-#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:443
-#: ../libfdisk/newtfsedit.c:446
-msgid "Allocation Status:"
-msgstr "Status da Alocação:"
-
-#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:448
-msgid "Successful"
-msgstr "Sucesso"
-
-#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:450
-msgid "Failed"
-msgstr "Falha"
-
-#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:455
-msgid "Failure Reason:"
-msgstr "Razão da Falha:"
-
-#: ../libfdisk/gnomefsedit.c:1051 ../libfdisk/gnomefsedit.c:2071
-#, fuzzy
-msgid "Partition Type:"
-msgstr "Tipo da Partição"
-
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
-#: ../libfdisk/newtfsedit.c:618
-msgid "No Mount Point"
-msgstr "Nenhum Mount Point"
-
-#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:619
-msgid ""
-"You have not selected a mount point for this partition. Are you sure you "
-"want to do this?"
-msgstr ""
-"Você não selecionou um mount point para esta partição. Tem certeza que quer "
-"fazer isso?"
-
-#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
-#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:642
-#: ../libfdisk/newtfsedit.c:675
-msgid "Mount Point Error"
-msgstr "Erro no Mount Point"
-
-#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:643
-msgid ""
-"You have tried to assign the '/' mount point to a FAT-style partition.  You "
-"cannot do this now because mount points have been assigned to ext2 "
-"partitions also.  Clear those mount points and then you will be able to "
-"assign '/' to this partition."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:676
-msgid ""
-"The mount point requested is either an illegal path or is already in use. "
-"Please select a valid mount point."
-msgstr ""
-"O mount point requisitado tem um path ilegal ou já está em uso. Por favor "
-"selecione um mount point válido."
-
-#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:701
-msgid "Size Error"
-msgstr "Erro de Tamanho"
-
-#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:702
-#, fuzzy
-msgid ""
-"The size requested is illegal. Make sure the size is greater and zero (0), "
-"and is specified int decimal (base 10) format."
-msgstr ""
-"O tamanho requisitado é ilegal. Certifique-se que o tamanho seja maior que "
-"zero e que esteja em formato decimal (base 10.)"
-
-#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
-#: ../libfdisk/newtfsedit.c:720
-msgid "Swap Size Error"
-msgstr "Erro de Tamanho de Swap"
-
-#: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414
-#: ../libfdisk/newtfsedit.c:721
-#, fuzzy, c-format
-msgid ""
-"You have created a swap partition which is too large. The maximum size of a "
-"swap partition is %ld Megabytes."
-msgstr ""
-"Você criou uma partição de swap muito grande. O tamanho máximo para uma "
-"partição de swap é 128 Megabytes."
-
-#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:737
-#, c-format
-msgid ""
-"It is recommended that the root (/) partition have a minimum size of %ld "
-"Megabytes. You are trying to create one which is %ld Megabytes, which could "
-"cause the install to fail.\n"
-"\n"
-"Are you sure you want to do this?"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:745
-msgid "Warning: Root FS Size"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:1387
-#, fuzzy
-msgid "No Drives Specified"
-msgstr "Nenhum Drive Encontrado"
-
-#: ../libfdisk/gnomefsedit.c:1389
-#, fuzzy
-msgid "You must constrain this partition to at least one drive."
-msgstr "Você deve indicar uma partição de swap para a instalação continuar."
-
-#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:1404
-msgid "No RAID Drive Constraint"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:1399
-#, fuzzy
-msgid ""
-"You have configured a RAID partition without constraining the partition to a "
-"single drive.\n"
-" Are you sure you want to do this?"
-msgstr ""
-"Você não selecionou um mount point para esta partição. Tem certeza que quer "
-"fazer isso?"
-
-#: ../libfdisk/gnomefsedit.c:1406
-msgid ""
-"You have configured a RAID partition without constraining the partition to a "
-"single drive. Please select one drive to constrain this partition to."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:851
-#, fuzzy
-msgid "Cannot Add Partitions"
-msgstr "Partições não Alocadas"
-
-#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:852
-msgid ""
-"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
-"add other partitions."
-msgstr ""
-
-#. XXXXX - for now destroy the raid entry since it
-#. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1601
-msgid "RAID Entry Incomplete"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:1602
-#, c-format
-msgid ""
-"The raid device /dev/%s now contains partitions which are unallocated. The "
-"raid device /dev/%s will now be decomposed into its component partitions. "
-"Please recompose the raid device with allocated partitions."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:1651
-msgid "Cannot Remove /boot"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:1652
-msgid ""
-"You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
-"non-RAID device first."
-msgstr ""
-
-#. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738
-#: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1682
-msgid "Unallocated Partitions"
-msgstr "Partições não Alocadas"
-
-#: ../libfdisk/gnomefsedit.c:1723 ../libfdisk/gnomefsedit.c:1733
-#: ../libfdisk/newtfsedit.c:142
-msgid ""
-"There are currently unallocated partition(s) present in the list of "
-"requested partitions. The unallocated partition(s) are shown below, along "
-"with the reason they were not allocated."
-msgstr ""
-"Atualmente existem partições não alocadas na lista de partições "
-"requisitadas. As partições não alocadas são listadas abaixo, juntamente com "
-"a razão de não terem sido alocadas."
-
-#: ../libfdisk/gnomefsedit.c:2015
-msgid "Cannot Edit Raid"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2016
-msgid ""
-"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
-"edit RAID devices."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2116
-msgid "RAID Device: /dev/"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2139
-msgid "RAID Type:"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2176
-#, fuzzy
-msgid "Partitions For RAID Array:"
-msgstr "Partições para Formatação"
-
-#: ../libfdisk/gnomefsedit.c:2271
-#, fuzzy
-msgid "You have not selected a mount point. A mount point is required."
-msgstr ""
-"Você não selecionou um mount point para esta partição. Tem certeza que quer "
-"fazer isso?"
-
-#: ../libfdisk/gnomefsedit.c:2279
-#, fuzzy
-msgid ""
-"The mount point requested is already in use. Please select a valid mount "
-"point."
-msgstr ""
-"O mount point requisitado tem um path ilegal ou já está em uso. Por favor "
-"selecione um mount point válido."
-
-#: ../libfdisk/gnomefsedit.c:2315
-msgid ""
-"The bootable raid device can only include partitions from the first two "
-"drives on your system.\n"
-"\n"
-"These drives are: "
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2322
-msgid "Booting From RAID Warning"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2332
-#, fuzzy
-msgid "No RAID Device"
-msgstr "Dispositivo"
-
-#: ../libfdisk/gnomefsedit.c:2333
-msgid "You need to selected a RAID device."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2339
-msgid "Used Raid Device"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2340
-#, c-format
-msgid ""
-"The raid device \"/dev/%s\" is already configured as a raid device. Please "
-"select another."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2353
-#, fuzzy
-msgid "Not Enough Partitions"
-msgstr "Nenhuma Partição Root"
-
-#: ../libfdisk/gnomefsedit.c:2355
-msgid ""
-"You have not configured enough partitions for the RAID type you have "
-"selected."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2363
-msgid "Illegal /boot RAID Type"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2365
-msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2373
-msgid "Illegal RAID mountpoint"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2375
-msgid ""
-"RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
-"partition (non-RAID) as well."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2459
-#, c-format
-msgid ""
-"The partition %s is a pre-existing partition in the set of partitions for "
-"this RAID device.  The mount point is set to /boot. Are you sure that it is "
-"possible to boot from this partition?"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2466
-#, fuzzy
-msgid "Use Pre-existing Partition?"
-msgstr "Delete Partição"
-
-#: ../libfdisk/gnomefsedit.c:2544
-#, fuzzy
-msgid "Cannot Add RAID Devices"
-msgstr "Dispositivo"
-
-#: ../libfdisk/gnomefsedit.c:2545
-msgid ""
-"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
-"add RAID devices."
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2586
-#, fuzzy
-msgid "Auto-Partition"
-msgstr "Editar Partição"
-
-#: ../libfdisk/gnomefsedit.c:2593
-msgid "Using Existing Disk Space"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2612
-#, fuzzy
-msgid "Remove Linux partitions"
-msgstr "Resetar Tabela de Partições"
-
-#: ../libfdisk/gnomefsedit.c:2623
-msgid "Use existing free space"
-msgstr ""
-
-#. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2635
-msgid "Intended Use"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2754
-msgid "Delete RAID Device?"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2755
-#, fuzzy
-msgid "Are you sure you want to remove this RAID device?"
-msgstr "Tem certeza que quer deletar esta partição?"
-
-#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1787
-msgid "Reset Partition Table"
-msgstr "Resetar Tabela de Partições"
-
-#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1789
-msgid "Reset partition table to original contents? "
-msgstr "Reseto a tabela de partições para o conte·do original?"
-
-#: ../libfdisk/gnomefsedit.c:2846 ../libfdisk/gnomefsedit.c:2897
-msgid "<Swap>"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2848
-msgid "<RAID>"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:2850
-msgid "<not set>"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:3134
-msgid "Requested"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:3135
-msgid "Actual"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:3308
-#, fuzzy
-msgid "Drive"
-msgstr "Ignore Drive"
-
-#: ../libfdisk/gnomefsedit.c:3309
-msgid "Geom [C/H/S]"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:3310
-msgid "Total (M)"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:3311
-msgid "Free (M)"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:3312
-msgid "Used (M)"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:3313
-msgid "Used (%)"
-msgstr ""
-
-#: ../libfdisk/gnomefsedit.c:3561
-#, fuzzy
-msgid "Unallocated Partitions Exist..."
-msgstr "Partições não Alocadas"
-
-#: ../libfdisk/gnomefsedit.c:3567 ../libfdisk/gnomefsedit.c:3585
-#, fuzzy
-msgid ""
-"You must assign a root (/) partition to a Linux native partition (ext2) or a "
-"RAID partition for the install to proceed."
-msgstr ""
-"Você deve atribuir a partição root (/) para uma partição Nativa Linux (ext2) "
-"para a instalação continuar."
-
-#: ../libfdisk/gnomefsedit.c:3656
-#, fuzzy
-msgid "Partitions"
-msgstr "Reparticionar"
-
-#: ../libfdisk/gnomefsedit.c:3686
-#, fuzzy
-msgid "_Add..."
-msgstr "Adicione"
-
-#: ../libfdisk/gnomefsedit.c:3693
-#, fuzzy
-msgid "_Edit..."
-msgstr "Edite"
-
-#. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3712
-#, fuzzy
-msgid "_Make RAID Device"
-msgstr "Dispositivo"
-
-#: ../libfdisk/gnomefsedit.c:3722
-#, fuzzy
-msgid "Auto Partition"
-msgstr "Editar Partição"
-
-#: ../libfdisk/gnomefsedit.c:3731
-#, fuzzy
-msgid "Drive Summary"
-msgstr "Sumários dos Drives"
-
-#: ../libfdisk/newtfsedit.c:204
-msgid "Swap Partition"
-msgstr "Partição de Swap"
-
-#: ../libfdisk/newtfsedit.c:210
-#, fuzzy
-msgid "Raid Partition"
-msgstr "Editar Partição"
-
-#: ../libfdisk/newtfsedit.c:366
-#, fuzzy
-msgid "Edit New Partition"
-msgstr "Editar Partição"
-
-#: ../libfdisk/newtfsedit.c:432 ../libfdisk/newtfsedit.c:433
-msgid "Use remaining space?:"
-msgstr ""
-
-#: ../libfdisk/newtfsedit.c:479 ../libfdisk/newtfsedit.c:480
-msgid "Type:"
-msgstr ""
-
-#: ../libfdisk/newtfsedit.c:1464
-msgid "Current Disk Partitions"
-msgstr "Partições de Disco Atuais"
-
-#: ../libfdisk/newtfsedit.c:1470
-msgid "   Mount Point          Device     Requested   Actual         Type"
-msgstr ""
-
-#: ../libfdisk/newtfsedit.c:1494
-msgid ""
-"    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
-msgstr ""
-
-#: ../libfdisk/newtfsedit.c:1497
-msgid "Drive Summaries"
-msgstr "Sumários dos Drives"
-
-#: ../libfdisk/newtfsedit.c:1499
-msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-msgstr ""
-
-#: ../libfdisk/newtfsedit.c:1614
-msgid ""
-"You must assign a root (/) partition to a Linux native partition (ext2) for "
-"the install to proceed."
-msgstr ""
-"Você deve atribuir a partição root (/) para uma partição Nativa Linux (ext2) "
-"para a instalação continuar."
-
-#: ../libfdisk/newtfsedit.c:1633
-msgid "No Swap Partition"
-msgstr "Nenhuma Partição de Swap"
-
-#: ../libfdisk/newtfsedit.c:1635
-msgid "You must assign a swap partition for the install to proceed."
-msgstr "Você deve indicar uma partição de swap para a instalação continuar."
-
-#: ../libfdisk/newtfsedit.c:1661
-#, fuzzy
-msgid "No /boot/efi Partition"
-msgstr "Nenhuma Partição Root"
-
-#: ../libfdisk/newtfsedit.c:1663
-#, fuzzy
-msgid ""
-"You must assign the mount point /boot/efi to a FAT-style primary partition "
-"for the install to proceed."
-msgstr "Você deve indicar uma partição de swap para a instalação continuar."
-
-#: ../libfdisk/newtfsedit.c:1684
-msgid ""
-"There are unallocated partitions left. If you quit now they will not be "
-"written to the disk.\n"
-"\n"
-"Are you sure you want to exit?"
-msgstr ""
-"Ainda existem partições não alocadas. Se você sair agora elas não serão "
-"escritas no disco.\n"
-"\n"
-"Tem certeza que quer sair?"
-
-#: ../libfdisk/newtfsedit.c:1700
-msgid "Save Changes"
-msgstr "Salvar Alterações"
-
-#: ../libfdisk/newtfsedit.c:1702
-msgid "Save changes to partition table(s)?"
-msgstr "As alterações devem ser salvas na(s) tabela(s) de partições?"
-
-#: ../libfdisk/newtfsedit.c:1747
-msgid "You may only delete NFS mounts."
-msgstr "Você somente pode deletar pontos de montagem NFS."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
@@ -6176,6 +5401,382 @@ msgstr ""
 msgid "Ukrainian"
 msgstr ""
 
+#~ msgid "Bad Mount Point"
+#~ msgstr "Mount Point Inválido"
+
+#~ msgid "The %s directory must be on the root filesystem."
+#~ msgstr "O diretório %s deve estar no sistema de arquivos raiz."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "Mount points must begin with a leading /."
+#~ msgstr ""
+#~ "O mount point %s é inválido.\n"
+#~ "\n"
+#~ "Mount points devem começar com /."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "Mount points may not end with a /."
+#~ msgstr ""
+#~ "O mount point %s é inválido.\n"
+#~ "\n"
+#~ "Mount points não podem terminar com uma /."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "Mount points may only printable characters."
+#~ msgstr ""
+#~ "O mount point %s é inválido.\n"
+#~ "\n"
+#~ "Mount points só podem conter caracteres imprimíveis."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "System partitions must be on Linux Native partitions."
+#~ msgstr ""
+#~ "O mount point %s é inválido.\n"
+#~ "\n"
+#~ "Partições de sistema devem ser do tipo Linux Native."
+
+#~ msgid ""
+#~ "The mount point %s is illegal.\n"
+#~ "\n"
+#~ "/usr must be on a Linux Native partition or an NFS volume."
+#~ msgstr ""
+#~ "O mount point %s é inválido.\n"
+#~ "\n"
+#~ "/usr deve ser do tipo Linux Native ou um volume NFS."
+
+#~ msgid "Too Many Drives"
+#~ msgstr "Muitos Discos"
+
+#~ msgid ""
+#~ "You have more drives than this program supports. Please use the standard "
+#~ "fdisk program to setup your drives and please notify Red Hat Software "
+#~ "that you saw this message."
+#~ msgstr ""
+#~ "Você tem mais drives do que este programa suporta. Por favor use o "
+#~ "programa fdisk para configurar seus drives e por favor notifique a "
+#~ "Conectiva que você viu esta mensagem."
+
+#, fuzzy
+#~ msgid "Error Creating Device Nodes"
+#~ msgstr "Formatando swap no dispositivo %s..."
+
+#~ msgid ""
+#~ "An error has occurred - no valid devices were found on which to create "
+#~ "new filesystems.  Please check your hardware for the cause of this "
+#~ "problem."
+#~ msgstr ""
+#~ "Um erro ocorreu - nenhum dispositivo válido foi encontrado para criar "
+#~ "novos sistemas de arquivos. Por favor cheque seu hardware para encontrar "
+#~ "a causa deste problema."
+
+#, fuzzy
+#~ msgid ""
+#~ "An error occurred reading the partition table for the block device %s.  "
+#~ "The error was"
+#~ msgstr ""
+#~ "Um erro ocorreu durante a leitura da tabela de partições do dispositivo "
+#~ "tipo bloco %s. O erro foi:"
+
+#~ msgid "Skip Drive"
+#~ msgstr "Ignore Drive"
+
+#~ msgid ""
+#~ "The partition table on device %s is corrupted.  To create new partitions "
+#~ "it must be initialized, causing the loss of ALL DATA on this drive."
+#~ msgstr ""
+#~ "A tabela de partições do dispositivo %s está danificada. Para criar novas "
+#~ "partições ela precisa ser inicializada, o que causará a perda de TODOS OS "
+#~ "DADOS neste disco."
+
+#~ msgid "Bad Partition Table"
+#~ msgstr "Tabela de Partições Inválida"
+
+#~ msgid "Initialize"
+#~ msgstr "Inicialize"
+
+#, fuzzy
+#~ msgid "BSD Disklabel"
+#~ msgstr "Rótulo de Boot"
+
+#~ msgid "System error %d"
+#~ msgstr "Erro de sistema %d"
+
+#~ msgid "Fdisk Error"
+#~ msgstr "Erro no Fdisk"
+
+#, fuzzy
+#~ msgid "<Swap Partition>"
+#~ msgstr "Partição de Swap"
+
+#, fuzzy
+#~ msgid "Root partition"
+#~ msgstr "Nenhuma Partição Root"
+
+#~ msgid "Delete Partition"
+#~ msgstr "Delete Partição"
+
+#, fuzzy
+#~ msgid "Cannot Edit Partitions"
+#~ msgstr "Editar Partição"
+
+#~ msgid "Edit Partition"
+#~ msgstr "Editar Partição"
+
+#, fuzzy
+#~ msgid "Size (Megs):"
+#~ msgstr "Tamanho:"
+
+#~ msgid "Allocation Status:"
+#~ msgstr "Status da Alocação:"
+
+#~ msgid "Successful"
+#~ msgstr "Sucesso"
+
+#~ msgid "Failed"
+#~ msgstr "Falha"
+
+#~ msgid "Failure Reason:"
+#~ msgstr "Razão da Falha:"
+
+#, fuzzy
+#~ msgid "Partition Type:"
+#~ msgstr "Tipo da Partição"
+
+#~ msgid "No Mount Point"
+#~ msgstr "Nenhum Mount Point"
+
+#~ msgid ""
+#~ "You have not selected a mount point for this partition. Are you sure you "
+#~ "want to do this?"
+#~ msgstr ""
+#~ "Você não selecionou um mount point para esta partição. Tem certeza que "
+#~ "quer fazer isso?"
+
+#~ msgid "Mount Point Error"
+#~ msgstr "Erro no Mount Point"
+
+#~ msgid ""
+#~ "The mount point requested is either an illegal path or is already in use. "
+#~ "Please select a valid mount point."
+#~ msgstr ""
+#~ "O mount point requisitado tem um path ilegal ou já está em uso. Por favor "
+#~ "selecione um mount point válido."
+
+#~ msgid "Size Error"
+#~ msgstr "Erro de Tamanho"
+
+#, fuzzy
+#~ msgid ""
+#~ "The size requested is illegal. Make sure the size is greater and zero "
+#~ "(0), and is specified int decimal (base 10) format."
+#~ msgstr ""
+#~ "O tamanho requisitado é ilegal. Certifique-se que o tamanho seja maior "
+#~ "que zero e que esteja em formato decimal (base 10.)"
+
+#~ msgid "Swap Size Error"
+#~ msgstr "Erro de Tamanho de Swap"
+
+#, fuzzy
+#~ msgid ""
+#~ "You have created a swap partition which is too large. The maximum size of "
+#~ "a swap partition is %ld Megabytes."
+#~ msgstr ""
+#~ "Você criou uma partição de swap muito grande. O tamanho máximo para uma "
+#~ "partição de swap é 128 Megabytes."
+
+#, fuzzy
+#~ msgid "No Drives Specified"
+#~ msgstr "Nenhum Drive Encontrado"
+
+#, fuzzy
+#~ msgid "You must constrain this partition to at least one drive."
+#~ msgstr "Você deve indicar uma partição de swap para a instalação continuar."
+
+#, fuzzy
+#~ msgid ""
+#~ "You have configured a RAID partition without constraining the partition "
+#~ "to a single drive.\n"
+#~ " Are you sure you want to do this?"
+#~ msgstr ""
+#~ "Você não selecionou um mount point para esta partição. Tem certeza que "
+#~ "quer fazer isso?"
+
+#, fuzzy
+#~ msgid "Cannot Add Partitions"
+#~ msgstr "Partições não Alocadas"
+
+#~ msgid "Unallocated Partitions"
+#~ msgstr "Partições não Alocadas"
+
+#~ msgid ""
+#~ "There are currently unallocated partition(s) present in the list of "
+#~ "requested partitions. The unallocated partition(s) are shown below, along "
+#~ "with the reason they were not allocated."
+#~ msgstr ""
+#~ "Atualmente existem partições não alocadas na lista de partições "
+#~ "requisitadas. As partições não alocadas são listadas abaixo, juntamente "
+#~ "com a razão de não terem sido alocadas."
+
+#, fuzzy
+#~ msgid "Partitions For RAID Array:"
+#~ msgstr "Partições para Formatação"
+
+#, fuzzy
+#~ msgid "You have not selected a mount point. A mount point is required."
+#~ msgstr ""
+#~ "Você não selecionou um mount point para esta partição. Tem certeza que "
+#~ "quer fazer isso?"
+
+#, fuzzy
+#~ msgid ""
+#~ "The mount point requested is already in use. Please select a valid mount "
+#~ "point."
+#~ msgstr ""
+#~ "O mount point requisitado tem um path ilegal ou já está em uso. Por favor "
+#~ "selecione um mount point válido."
+
+#, fuzzy
+#~ msgid "No RAID Device"
+#~ msgstr "Dispositivo"
+
+#, fuzzy
+#~ msgid "Not Enough Partitions"
+#~ msgstr "Nenhuma Partição Root"
+
+#, fuzzy
+#~ msgid "Use Pre-existing Partition?"
+#~ msgstr "Delete Partição"
+
+#, fuzzy
+#~ msgid "Cannot Add RAID Devices"
+#~ msgstr "Dispositivo"
+
+#, fuzzy
+#~ msgid "Auto-Partition"
+#~ msgstr "Editar Partição"
+
+#, fuzzy
+#~ msgid "Remove Linux partitions"
+#~ msgstr "Resetar Tabela de Partições"
+
+#, fuzzy
+#~ msgid "Are you sure you want to remove this RAID device?"
+#~ msgstr "Tem certeza que quer deletar esta partição?"
+
+#~ msgid "Reset Partition Table"
+#~ msgstr "Resetar Tabela de Partições"
+
+#~ msgid "Reset partition table to original contents? "
+#~ msgstr "Reseto a tabela de partições para o conte·do original?"
+
+#, fuzzy
+#~ msgid "Drive"
+#~ msgstr "Ignore Drive"
+
+#, fuzzy
+#~ msgid "Unallocated Partitions Exist..."
+#~ msgstr "Partições não Alocadas"
+
+#, fuzzy
+#~ msgid ""
+#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
+#~ "or a RAID partition for the install to proceed."
+#~ msgstr ""
+#~ "Você deve atribuir a partição root (/) para uma partição Nativa Linux "
+#~ "(ext2) para a instalação continuar."
+
+#, fuzzy
+#~ msgid "Partitions"
+#~ msgstr "Reparticionar"
+
+#, fuzzy
+#~ msgid "_Add..."
+#~ msgstr "Adicione"
+
+#, fuzzy
+#~ msgid "_Edit..."
+#~ msgstr "Edite"
+
+#, fuzzy
+#~ msgid "_Make RAID Device"
+#~ msgstr "Dispositivo"
+
+#, fuzzy
+#~ msgid "Auto Partition"
+#~ msgstr "Editar Partição"
+
+#, fuzzy
+#~ msgid "Drive Summary"
+#~ msgstr "Sumários dos Drives"
+
+#~ msgid "Swap Partition"
+#~ msgstr "Partição de Swap"
+
+#, fuzzy
+#~ msgid "Raid Partition"
+#~ msgstr "Editar Partição"
+
+#, fuzzy
+#~ msgid "Edit New Partition"
+#~ msgstr "Editar Partição"
+
+#~ msgid "Current Disk Partitions"
+#~ msgstr "Partições de Disco Atuais"
+
+#~ msgid "Drive Summaries"
+#~ msgstr "Sumários dos Drives"
+
+#~ msgid ""
+#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
+#~ "for the install to proceed."
+#~ msgstr ""
+#~ "Você deve atribuir a partição root (/) para uma partição Nativa Linux "
+#~ "(ext2) para a instalação continuar."
+
+#~ msgid "No Swap Partition"
+#~ msgstr "Nenhuma Partição de Swap"
+
+#~ msgid "You must assign a swap partition for the install to proceed."
+#~ msgstr "Você deve indicar uma partição de swap para a instalação continuar."
+
+#, fuzzy
+#~ msgid "No /boot/efi Partition"
+#~ msgstr "Nenhuma Partição Root"
+
+#, fuzzy
+#~ msgid ""
+#~ "You must assign the mount point /boot/efi to a FAT-style primary "
+#~ "partition for the install to proceed."
+#~ msgstr "Você deve indicar uma partição de swap para a instalação continuar."
+
+#~ msgid ""
+#~ "There are unallocated partitions left. If you quit now they will not be "
+#~ "written to the disk.\n"
+#~ "\n"
+#~ "Are you sure you want to exit?"
+#~ msgstr ""
+#~ "Ainda existem partições não alocadas. Se você sair agora elas não serão "
+#~ "escritas no disco.\n"
+#~ "\n"
+#~ "Tem certeza que quer sair?"
+
+#~ msgid "Save Changes"
+#~ msgstr "Salvar Alterações"
+
+#~ msgid "Save changes to partition table(s)?"
+#~ msgstr "As alterações devem ser salvas na(s) tabela(s) de partições?"
+
+#~ msgid "You may only delete NFS mounts."
+#~ msgstr "Você somente pode deletar pontos de montagem NFS."
+
 #, fuzzy
 #~ msgid "Passwords do not match.asdfasdfdsafasdfdf"
 #~ msgstr "Erro na Digitação da Senha"
@@ -7422,9 +7023,6 @@ msgstr ""
 
 #~ msgid "How is this printer connected?"
 #~ msgstr "Como esta impressora está conectada?"
-
-#~ msgid "Printer type:"
-#~ msgstr "Tipo Impressora:"
 
 #~ msgid "Queue:"
 #~ msgstr "Fila:"
