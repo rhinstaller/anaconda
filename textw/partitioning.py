@@ -69,7 +69,7 @@ class ManualPartitionWindow:
 		    path = "/sbin/fdisk"
 		else:
 		    path = "/usr/sbin/fdisk"
-		iutil.execWithRedirect (path, [ "/dev/" + device ])
+		iutil.execWithRedirect (path, [ "/tmp/" + device ])
 		screen.resume ()
 
 	if button == "back":
