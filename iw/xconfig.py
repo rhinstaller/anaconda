@@ -325,7 +325,8 @@ class XConfigWindow (InstallWindow):
 
         self.autoBox = GtkVBox (FALSE, 5)
 
-        if iutil.getArch() == "alpha":
+        arch = iutil.getArch()
+        if arch == "alpha":
             label = GtkLabel (_("Your video ram size can not be autodetected.  "
                                 "Choose your video ram size from the choices below:"))
             label.set_justify (JUSTIFY_LEFT)
@@ -333,7 +334,7 @@ class XConfigWindow (InstallWindow):
             label.set_alignment (0.0, 0.5)
             label.set_usize (400, -1)
             box.pack_start (label, FALSE)
-        else:
+        elif arch == "i386":
             # but we can on everything else
             self.autoBox = GtkVBox (FALSE, 5)
 
@@ -346,18 +347,6 @@ class XConfigWindow (InstallWindow):
             label.set_usize (400, -1)
             self.autoBox.pack_start (label, FALSE)
 
-#              label = GtkLabel (_("Autoprobe results:"))
-#              label.set_alignment (0.0, 0.5)
-#              self.autoBox.pack_start (label, FALSE)
-
-#              report = self.todo.x.probeReport ()
-#              report = string.replace (report, '\t', '       ')
-
-#              result = GtkLabel (report)
-#              result.set_alignment (0.2, 0.5)
-#              result.set_justify (JUSTIFY_LEFT)
-#              self.autoBox.pack_start (result, FALSE)
-
             label = GtkLabel (_("If the probed settings do not match your hardware "
                                 "select the correct setting below:"))
             label.set_justify (JUSTIFY_LEFT)
@@ -367,53 +356,76 @@ class XConfigWindow (InstallWindow):
             self.autoBox.pack_start (label, FALSE)
 
             box.pack_start (self.autoBox, FALSE)
+        else:
+            # sparc
+            self.autoBox = GtkVBox (FALSE, 5)
+            label = GtkLabel (_("In most cases your video hardware can "
+                                "be probed to automatically determine the "
+                                "best settings for your display."))
+            label.set_justify (JUSTIFY_LEFT)
+            label.set_line_wrap (TRUE)        
+            label.set_alignment (0.0, 0.5)
+            label.set_usize (400, -1)
+            self.autoBox.pack_start (label, FALSE)
 
+            label = GtkLabel (_("Autoprobe results:"))
+            label.set_alignment (0.0, 0.5)
+            self.autoBox.pack_start (label, FALSE)
+            report = self.todo.x.probeReport ()
+            report = string.replace (report, '\t', '       ')
+            result = GtkLabel (report)
+            result.set_alignment (0.2, 0.5)
+            result.set_justify (JUSTIFY_LEFT)
+            self.autoBox.pack_start (result, FALSE)
+            box.pack_start (self.autoBox, FALSE)
+            
         # card configuration
-        self.cardList = GtkCList ()
-        self.cardList.set_selection_mode (SELECTION_BROWSE)
-        self.cardList.connect ("select_row", self.selectCb)
+        if arch == "i386" or arch == "alpha":
+            self.cardList = GtkCList ()
+            self.cardList.set_selection_mode (SELECTION_BROWSE)
+            self.cardList.connect ("select_row", self.selectCb)
 
-        self.cards = self.todo.x.cards ()
-        cards = self.cards.keys ()
-        cards.sort ()
-        select = 0
-        for card in cards:
-            row = self.cardList.append ((card,))
-            self.cardList.set_row_data (row, card)
-            if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
-                select = row
-        self.cardList.connect ("draw", self.moveto, select)
-        sw = GtkScrolledWindow ()
-        sw.add (self.cardList)
-        box.pack_start (sw, TRUE)
+            self.cards = self.todo.x.cards ()
+            cards = self.cards.keys ()
+            cards.sort ()
+            select = 0
+            for card in cards:
+                row = self.cardList.append ((card,))
+                self.cardList.set_row_data (row, card)
+                if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
+                    select = row
+            self.cardList.connect ("draw", self.moveto, select)
+            sw = GtkScrolledWindow ()
+            sw.add (self.cardList)
+            box.pack_start (sw, TRUE)
 
-        # Memory configuration table
-        table = GtkTable()
-        group = None
-        count = 0
-        for size in ("256k", "512k", "1024k", "2048k", "4096k",
-                     "8192k", "16384k"):
-            button = GtkRadioButton (group, size)
-            button.connect ('clicked', self.memory_cb, size)
-            if size[:-1] == self.todo.x.vidRam:
-                button.set_active (1)
-            if not group:
-                group = button
-            table.attach (button, count % 4, (count % 4) + 1,
-                          count / 4, (count / 4) + 1)
-            count = count + 1
-        box.pack_start (table, FALSE)
+            # Memory configuration table
+            table = GtkTable()
+            group = None
+            count = 0
+            for size in ("256k", "512k", "1024k", "2048k", "4096k",
+                         "8192k", "16384k"):
+                button = GtkRadioButton (group, size)
+                button.connect ('clicked', self.memory_cb, size)
+                if size[:-1] == self.todo.x.vidRam:
+                    button.set_active (1)
+                if not group:
+                    group = button
+                table.attach (button, count % 4, (count % 4) + 1,
+                              count / 4, (count / 4) + 1)
+                count = count + 1
+            box.pack_start (table, FALSE)
 
-	if not self.sunServer:
-	    test = GtkAlignment ()
-	    button = GtkButton (_("Test this configuration"))
-	    button.connect ("clicked", self.testPressed)
-	    test.add (button)
-        
-	    self.custom = GtkCheckButton (_("Customize X Configuration"))
-	    self.custom.connect ("toggled", self.customToggled)
-	    box.pack_start (test, FALSE)
-	    box.pack_start (self.custom, FALSE)
+        if not self.sunServer:
+            test = GtkAlignment ()
+            button = GtkButton (_("Test this configuration"))
+            button.connect ("clicked", self.testPressed)
+            test.add (button)
+
+            self.custom = GtkCheckButton (_("Customize X Configuration"))
+            self.custom.connect ("toggled", self.customToggled)
+            box.pack_start (test, FALSE)
+            box.pack_start (self.custom, FALSE)
 
         self.xdm = GtkCheckButton (_("Use Graphical Login"))
         self.skip = GtkCheckButton (_("Skip X Configuration"))
