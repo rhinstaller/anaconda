@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: installer 7.0\n"
-"POT-Creation-Date: 2001-03-26 15:39-0500\n"
+"POT-Creation-Date: 2001-03-27 22:12-0500\n"
 "PO-Revision-Date: 2001-03-23 11:00+0100\n"
 "Last-Translator: Claudia Krug <ckrug@redhat.it>\n"
 "Language-Team: German <de@li.org>\n"
@@ -3205,6 +3205,13 @@ msgid ""
 "supported by the anaconda installer.  You may be able to set the partition "
 "type correctly using your other operating system's partitioning program."
 msgstr ""
+"Dieser Fehler ist aufgetreten, da die Festplatte eine logische Partition mit "
+"dem Partitionstyp Null (0) besitzt. Dieser Partitionstyp bedeutet, dass die "
+"Partitionierung der Festplatte nicht vollständig definiert ist, was "
+"eventuelldurch das Partitionierungsprogramm eines anderen Betriebssystems "
+"verursacht wurde. Der Anaconda-Installer liefert hier keine Unterstützung.  "
+"Versuchen Sie, den korrekten Partitionstyp mithilfe des "
+"Partitionierungsprogramms Ihres anderen Betriebssystems einzustellen."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
@@ -5093,7 +5100,7 @@ msgstr "New South Wales - most locations"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr ""
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
@@ -5217,7 +5224,7 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Vostok Station, S Magnetic Pole"
 
 #. generated from zone.tab
 msgid "Wake Island"
