@@ -1,0 +1,6 @@
+#!/bin/bash
+
+read line
+while read line; do
+    ln -sf $1 $line
+done
