@@ -2825,7 +2825,7 @@ DB
 #if !defined (__s390__) && !defined (__s390x__)
 	unlink("/lib");
 #else
-	fd = open("/etc/ld.so.conf", O_WRONLY|O_CREAT, 0);
+	fd = open("/etc/ld.so.conf", O_WRONLY|O_CREAT, 0644);
         if (fd >= 0) {
 #define LD_SO_CONF_STR "/lib/\n/mnt/runtime/lib\n/usr/lib\n/usr/X11R6/lib\n"
 	  const char *buf = LD_SO_CONF_STR;
