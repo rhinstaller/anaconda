@@ -52,7 +52,7 @@ class InstallClass:
 		    found = 1
 	    if not found:
 		raise ValueError, "unknown raid device %s" % (device,)
-	if mntPoint[0] != '/':
+	if mntPoint[0] != '/' and mntPoint != 'swap':
 	    raise ValueError, "bad raid mount point %s" % (mntPoint,)
 	if raidDev[0:2] != "md":
 	    raise ValueError, "bad raid device point %s" % (raidDev,)
