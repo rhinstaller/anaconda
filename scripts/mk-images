@@ -431,6 +431,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/dev/input
     mkdir -p $MBD_DIR/etc
     mkdir -p $MBD_DIR/proc
+    mkdir -p $MBD_DIR/selinux
     mkdir -p $MBD_DIR/sys
     mkdir -p $MBD_DIR/tmp
     mkdir -p $MBD_DIR/etc/terminfo/l
