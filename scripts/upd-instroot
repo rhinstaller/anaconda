@@ -802,14 +802,14 @@ cat $DESTGR/usr/lib/anaconda/lang-table* | awk '
   print $4;
   print gensub(/\..*$/,"","",$4);
   print gensub(/_.*$/,"","",$4);
-  if (split ($4, a, "\.") > 1) {
+  if (split ($4, a, ".") > 1) {
     print gensub(/\..*$/,tolower("." a[2]),"",$4);
   };
   gsub("-", "", $7);
   print $7;
   print gensub(/\..*$/,"","",$7);
   print gensub(/_.*$/,"","",$7);
-  if (split ($7, a, "\.") > 1) {
+  if (split ($7, a, ".") > 1) {
     print gensub(/\..*$/,tolower("." a[2]),"",$7);
   };
 }
