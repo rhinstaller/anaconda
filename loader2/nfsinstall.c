@@ -173,7 +173,6 @@ char * mountNfsImage(struct installMethod * method,
                     rc = mountStage2("/mnt/source/RedHat/base/stage2.img");
                     logMessage("after mountStage2, rc is %d", rc);
                     if (rc) {
-                        umount("/mnt/source");
                         if (rc == -1) { 
                             foundinvalid = 1; 
                             logMessage("not the right one"); 
@@ -183,7 +182,8 @@ char * mountNfsImage(struct installMethod * method,
                         url = "nfs://mnt/source/.";
                         break;
                     }
-                }
+                } 
+
                 if ((path = validIsoImages("/mnt/source"))) {
 		    logMessage("Path to valid iso is %s", path);
                     copyUpdatesImg("/mnt/source/updates.img");
@@ -206,6 +206,9 @@ char * mountNfsImage(struct installMethod * method,
                     }
                 }
 
+		/* if we fell through to here we did not find a valid NFS */
+		/* source for installation.                               */
+		umount("/mnt/source");
                 if (foundinvalid) 
                     buf = sdupprintf(_("The %s installation tree in that "
                                        "directory does not seem to match "
@@ -215,6 +218,7 @@ char * mountNfsImage(struct installMethod * method,
                                        "contain a %s installation tree."),
                                      getProductName());
                 newtWinMessage(_("Error"), _("OK"), buf);
+		
                 break;
             } else {
                 newtWinMessage(_("Error"), _("OK"),
