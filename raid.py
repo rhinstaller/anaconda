@@ -23,6 +23,10 @@ import partedUtils
 
 from rhpl.log import log
 
+# these arches can have their /boot on RAID and not have their
+# boot loader blow up
+raidBootArches = [ "i386", "x86_64" ]
+
 def scanForRaid(drives):
     """Scans for raid devices on drives.
 

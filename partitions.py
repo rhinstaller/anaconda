@@ -865,7 +865,6 @@ class Partitions:
         bootreqs = self.getBootableRequest()
         if bootreqs:
             for bootreq in bootreqs:
-                # XXX 390 can't have boot on RAID
                 if (bootreq and
                     (isinstance(bootreq, partRequests.RaidRequestSpec)) and
                     (not raid.isRaid1(bootreq.raidlevel))):
@@ -878,6 +877,13 @@ class Partitions:
                                 partRequests.LogicalVolumeRequestSpec))):
                     errors.append(_("Bootable partitions cannot be on a "
                                     "logical volume."))
+
+                # most arches can't have boot on RAID
+                if (bootreq and
+                    (isinstance(bootreq, partRequests.RaidRequestSpec)) and
+                    (iutil.getArch() not in raid.raidBootArches)):
+                    errors.append("Bootable partitions cannot be on a RAID "
+                                  "device.")
 
         if foundSwap == 0:
             warnings.append(_("You have not specified a swap partition.  "
