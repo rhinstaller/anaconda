@@ -2137,7 +2137,7 @@ void setFloppyDevice(int flags) {
 
     f = fopen("/tmp/syslog", "r");
     while (fgets(line, sizeof(line), f)) {
-	if (!strncmp(line + 1, match, strlen(match))) {
+	if (!strncmp(line + 3, match, strlen(match))) {
 	    foundFd0 = 1;
 	    break;
 	}
@@ -2145,12 +2145,11 @@ void setFloppyDevice(int flags) {
 
     fclose(f);
 
-    if (!foundFd0) {
+    if (!foundFd0)
 	floppyDevice = strdup(devices[0]->device);
-	logMessage("IDE floppy %s is the primary floppy device on this "
-		    "system");
-    }
 #endif
+
+    logMessage("system floppy device is %s", floppyDevice);
 }
 
 int main(int argc, char ** argv) {
