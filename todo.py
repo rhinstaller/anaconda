@@ -1986,10 +1986,21 @@ class ToDo:
 
 		if errors:
 		    w.pop()
-		    mess = _("The following error occured while installing "
-			     "the bootloader:\n\n") + errors
+		    mess = _("An error occured while installing "
+			     "the bootloader.\n\n"
+                             "We HIGHLY recommend you make a recovery "
+                             "boot floppy when prompted, otherwise you "
+                             "may not be able to reboot into Red Hat Linux."
+                             "\n\nThe error reported was:\n\n") + errors
 		    self.intf.messageWindow(_("Bootloader Errors"), mess)
+
+                    # make sure bootdisk window appears
+                    if iutil.getArch () == "i386":
+                        self.instClass.removeFromSkipList('bootdisk')
+                        self.bootdisk = 1
+
 		    w = apply(apply, createWindow)
+
 
 		w.set(5)
 
