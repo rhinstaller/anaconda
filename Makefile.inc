@@ -1,11 +1,6 @@
 #
 # define destination locations
 #
-VERSION=$(shell awk '/Version:/ { print $$2 }' anaconda.spec)
-RELEASE=$(shell awk '/Release:/ { print $$2 }' anaconda.spec)
-TIMESTAMP := $(shell date "+.%Y%m%d%H%M%S")
-SNAPRELEASE := $(RELEASE)$(TIMESTAMP)
-
 PYTHONLIBDIR = /usr/lib/anaconda
 RUNTIMEDIR = /usr/lib/anaconda-runtime
 ANACONDADATADIR = /usr/share/anaconda

@@ -1,5 +1,13 @@
 2004-09-24  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/Makefile (VERSION): Define VERSION.
+
+	* Makefile: Define VERSION and RELEASE here.
+
+	* Makefile.inc (VERSION):
+	* Makefile.inc (RELEASE):
+	Move to Makefile
+
 	* loader2/module-info: Add 3w-9xxx (#133525)
 
 	* scripts/upd-instroot: Switch back to default zh_CN font instead
