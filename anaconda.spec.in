@@ -1,5 +1,6 @@
 %define i386buildreqs dietlibc kernel-pcmcia-cs
 
+ExclusiveArch: i386
 Name: anaconda
 Version: @@VERSION@@
 Release: @@RELEASE@@
