@@ -252,6 +252,7 @@ class Server(InstallClass):
 
     def __init__(self):
 	InstallClass.__init__(self)
+	self.setGroups(["Server"])
 	self.setHostname("localhost.localdomain")
 	self.addToSkipList("lilo")
 	self.addToSkipList("network")
@@ -270,3 +271,4 @@ class Server(InstallClass):
 	self.setClearParts(FSEDIT_CLEAR_ALL, 
 	    warningText = _("You are about to erase ALL DATA on your hard " + \
 			    "drive to make room for your Linux installation."))
+
