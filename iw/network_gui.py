@@ -201,13 +201,11 @@ class NetworkWindow (InstallWindow):
 
 #            DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
 #            DHCPcb.set_active (TRUE)
-            print devs[i].get ("bootproto")
 
             if devs[i].get ("bootproto") == "static":
                 DHCPcb.set_active (FALSE)
             else:
                 DHCPcb.set_active (TRUE)
-
 
             forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
