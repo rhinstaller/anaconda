@@ -5,7 +5,7 @@ if [ ! -d $1/RedHat/RPMS ]; then
     exit 1
 fi
 
-BUILDINSTDIR=/tmp/buildinstall.tree
+BUILDINSTDIR=/tmp/buildinstall.tree.$$
 
 rm -rf $BUILDINSTDIR
 mkdir -p $BUILDINSTDIR
@@ -30,6 +30,6 @@ if [ ! -f $MK_IMAGES ]; then
 fi
 
 $UPD_INSTROOT $1/RedHat/RPMS $1
-$MK_IMAGES dist-7.0 /mnt/redhat/test/oot/i386/images /mnt/redhat/test/oot/i386/RedHat/instimage/modules
+$MK_IMAGES dist-7.0 $1/images $1/RedHat/instimage/modules
 
-
+rm -rf $BUILDINSTDIR
