@@ -116,6 +116,7 @@ class KeyboardWindow (InstallWindow):
 	box.pack_start(gtk.Label(_("Model")), gtk.FALSE)
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        sw.set_shadow_type(gtk.SHADOW_IN)
 
         self.modelStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
 
@@ -141,13 +142,13 @@ class KeyboardWindow (InstallWindow):
              
 
         sw.add(self.modelView)
-        
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         box.pack_start(sw, gtk.TRUE)
 
 	box.pack_start(gtk.Label(_("Layout")), gtk.FALSE)
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        sw.set_shadow_type(gtk.SHADOW_IN)
 
         self.layoutStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
 
@@ -180,6 +181,7 @@ class KeyboardWindow (InstallWindow):
 	box.pack_start(gtk.Label(_("Dead Keys")), gtk.FALSE)
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        sw.set_shadow_type(gtk.SHADOW_IN)
 
         self.variantStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
 
