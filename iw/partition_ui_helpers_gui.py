@@ -316,7 +316,8 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     rc = {}
     for var in ['noformatrb', 'formatrb', 'fstype', 'fstypeMenu',
 	    'migraterb', 'migfstype', 'migfstypeMenu', 'badblocks' ]:
-	rc[var] = eval("%s" % (var,))
+        if eval("%s" % (var,)) is not None:
+            rc[var] = eval("%s" % (var,))
 
     return (row, rc)
 
