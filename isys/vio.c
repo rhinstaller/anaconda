@@ -180,10 +180,10 @@ int isVioConsole(void) {
     int fd, i;
     char *buf, *start;
     char driver[50], device[50];
-    static isviocons = 0;
+    static int isviocons = -1;
 
-    if (isviocons)
-	return 1;
+    if (isviocons != -1)
+	return isviocons;
     
     fd = open("/proc/tty/drivers", O_RDONLY);
     if (fd < 0) {
@@ -197,6 +197,7 @@ int isVioConsole(void) {
 	fprintf(stderr, "error reading /proc/tty/drivers!\n");
         return 0;
     }
+    isviocons = 0;
     start = buf;
     while (start && *start) {
 	if (sscanf(start, "%s %s", &driver, &device) == 2) {
