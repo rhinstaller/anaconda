@@ -15,7 +15,6 @@
 
 #include "isys/imount.h"
 #include "isys/isys.h"
-#include "isys/cpio.h"
 
 #include "lang.h"
 #include "loader.h"

@@ -19,6 +19,7 @@
 #include "modules.h"
 #include "windows.h"
 #include "../kudzu/kudzu.h"
+#include "isys/cpio.h"
 
 void ejectFloppy(void) {
 #if defined(__sparc__) || defined(__ia64__)
