@@ -1135,7 +1135,10 @@ class KickstartBase(BaseInstallClass):
 	    comps[n].select()
 
         for n in self.excludedList:
-            comps.packages[n].unselect()
+            if comps.packages.has_key(n):
+                comps.packages[n].unselect()
+            else:
+                log("%s does not exist, can't exclude" %(n,))
 
     def __init__(self, file, serial):
 	self.serial = serial
