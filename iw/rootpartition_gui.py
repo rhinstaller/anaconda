@@ -199,7 +199,7 @@ class AutoPartitionWindow(InstallWindow):
 	    self.todo.instClass.removeFromSkipList("format")
             self.lastChoice = CHOICE_DDRUID
         elif AutoPartitionWindow.manuallyPartitionfdisk.get_active():
-            self.todo.fstab.setRunDruid(0)
+            self.todo.fstab.setRunDruid(1)
             self.todo.fstab.setReadonly(1)
             self.lastChoice = CHOICE_FDISK
 	else:
