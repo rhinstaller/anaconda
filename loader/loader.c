@@ -1538,9 +1538,7 @@ static char * doMountImage(char * location,
     while (step != STEP_DONE) {
 	switch (step) {
 	case STEP_LANG:
-#if !defined (__s390__) && !defined (__s390x__)
 	    chooseLanguage(lang, flags);
-#endif
 	    defaultLang = 0;
 	    step = STEP_KBD;
             dir = 1;
@@ -2715,6 +2713,7 @@ int main(int argc, char ** argv) {
     setsid();
 
 #else
+    textdomain("anaconda");
 
     if (!FL_TESTING(flags)) {
         int fd;
