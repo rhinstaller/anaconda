@@ -675,7 +675,7 @@ class ToDo:
 	    self.hdlist['XFree86-' + self.x.server].selected = 1
 
     def selectPackage(self, package):
-	self.hdlist[package].selected = 1
+	self.hdList.packages[package].selected = 1
 
     def writeNetworkConfig (self):
         # /etc/sysconfig/network-scripts/ifcfg-*
