@@ -18,6 +18,8 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+mv /usr/lib /usr/lib_rd 2>/dev/null
+ln -sf /mnt/runtime/usr/lib /usr/lib
 /sbin/loaderbin
 
 for file in `cat /proc/mounts | /bin/grep '/mnt/sysimage' |
