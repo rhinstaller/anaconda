@@ -6,7 +6,7 @@ from partitioning import *
 from fsset import *
 
 class InstallClass(BaseInstallClass):
-    name = N_("Workstation")
+    name = N_("Advanced Workstation")
     pixmap = "workstation.png"
 
     sortPriority = 1

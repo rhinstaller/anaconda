@@ -6,7 +6,7 @@ from partitioning import *
 
 class InstallClass(BaseInstallClass):
 
-    name = N_("Server")
+    name = N_("Advanced Server")
     pixmap = "server.png"
     sortPriority = 10
 
