@@ -131,8 +131,6 @@ class LanguageSupportWindow (InstallWindow):
         for i in self.langs:
             self.origLangs.append(i)
             
-        print "self.origLangs is ", self.origLangs
-
 	self.defaultLang = self.todo.language.getDefault()
 	self.oldDefaultLang = self.defaultLang
 
