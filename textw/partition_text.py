@@ -955,7 +955,7 @@ class PartitionWindow:
         partition = self.lb.current()
 
         if (iutil.getArch() == "s390" or iutil.getArch() == "s390x") \
-           and not partition.get_flag(parted.PARTITION_RAID) == 1:
+           and type(partition) != type("RAID"):
             self.intf.messageWindow(_("Error"),
                                     _("DASD partitions can only be deleted with fdasd"))
             return
@@ -998,7 +998,7 @@ class PartitionWindow:
         self.g.add(self.lb, 0, 1)
 
 	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-            self.bb = ButtonBar (screen, (_("Edit"), "edit", "F3"), (_("Delete"), "delete", "F4"), (_("RAID"), "raid", "F11"), TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+            self.bb = ButtonBar (screen, ((_("Edit"), "edit", "F3"), (_("Delete"), "delete", "F4"), (_("RAID"), "raid", "F11"), TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
             screen.pushHelpLine( _("    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "))
         else:
             self.bb = ButtonBar (screen, ((_("New"), "new", "F2"), (_("Edit"), "edit", "F3"), (_("Delete"), "delete", "F4"), (_("RAID"), "raid", "F11"), TEXT_OK_BUTTON, TEXT_BACK_BUTTON))

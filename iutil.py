@@ -15,7 +15,7 @@
 
 import types, os, sys, isys, select, string, stat, signal
 import os.path
-from log import log
+import log
 
 memoryOverhead = 0
 
@@ -214,7 +214,7 @@ def memInstalled(corrected = 1):
 def swapSuggestion():
     mem = memInstalled(corrected=0)/1024
     mem = ((mem/16)+1)*16
-    log("Detected %sM of memory", mem)
+    log.log("Detected %sM of memory", mem)
     if mem < 128:
         minswap = 96
         maxswap = 192
@@ -226,7 +226,7 @@ def swapSuggestion():
             minswap = mem
             maxswap = 2*mem
             
-    log("Swap attempt of %sM to %sM", minswap, maxswap)
+    log.log("Swap attempt of %sM to %sM", minswap, maxswap)
 
     return (minswap, maxswap)
 

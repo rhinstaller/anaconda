@@ -1250,7 +1250,7 @@ class PartitionWindow(InstallWindow):
         partition = self.tree.node_get_row_data (node)
 
         if (iutil.getArch() == "s390" or iutil.getArch() == "s390x") \
-           and not partition.get_flag(parted.PARTITION_RAID) == 1:
+           and type(partition) != type("RAID"):
             self.intf.messageWindow(_("Error"),
                                     _("DASD partitions can only be deleted with fdasd"))
             return
