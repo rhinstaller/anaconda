@@ -183,12 +183,25 @@ class reiserfsFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, message, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
 
-        # XXX need to actually capture mkreiserfs output
-        rc = iutil.execWithRedirect ("/sbin/mkreiserfs",
-                                     ["mkreiserfs", devicePath],
-                                     stdout = None, stderr = None,
-                                     searchPath = 1)
-    
+        p = os.pipe()
+        os.write(p[1], "y\n")
+        os.close(p[1])
+
+        rc = iutil.execWithRedirect("/usr/sbin/mkreiserfs",
+                                    ["mkreiserfs", devicePath ],
+                                    stdin = p[0],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+
+        if rc:
+            message and message(_("Error"),
+                                _("An error occurred trying to format %s. "
+                                  "This problem is serious, and the install "
+                                  "cannot continue.\n\n"
+                                  "Press Enter to reboot your "
+                                  "system.") %(entry.device.getDevice(),))
+            raise SystemError
+                                  
 fileSystemTypeRegister(reiserfsFileSystem())
 
 class extFileSystem(FileSystemType):
