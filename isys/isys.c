@@ -357,6 +357,11 @@ static PyObject * doUnLoSetup(PyObject * s, PyObject * args) {
     return Py_None;
 }
 
+/* XXX - msw */
+#ifndef LOOP_CHANGE_FD
+#define LOOP_CHANGE_FD	0x4C04
+#endif
+
 static PyObject * doLoChangeFd(PyObject * s, PyObject * args) {
     int loopfd;
     int targfd;
