@@ -335,9 +335,9 @@ class BootloaderImagesWindow:
 
 	for (dev, (label, longlabel, type)) in images.items():
             if not bl.useGrub():
-                bl.images.setImageLabel(dev, label)
+                bl.images.setImageLabel(dev, label, setLong = 0)
             else:
-                bl.images.setImageLabel(dev, longlabel)
+                bl.images.setImageLabel(dev, longlabel, setLong = 1)
 	bl.images.setDefault(default)
 
 	return INSTALL_OK

@@ -101,7 +101,7 @@ class BootloaderWindow (InstallWindow):
             type = self.types[index]
             label = self.imageList.get_text(index, 3)
 
-	    self.bl.images.setImageLabel(device, label)
+	    self.bl.images.setImageLabel(device, label, self.bl.useGrub())
 
             if self.default == index:
                 default = device

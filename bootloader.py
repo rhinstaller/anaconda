@@ -85,8 +85,6 @@ class KernelArguments:
 class BootImages:
 
     # returns dictionary of (label, longlabel, devtype) pairs indexed by device
-    # XXX note that after we've gone through the bootloader screen once we
-    # lose the distinction between the two and label == longlabel
     def getImages(self):
 	# return a copy so users can modify it w/o affecting us
 
@@ -96,8 +94,12 @@ class BootImages:
 
 	return dict
 
-    def setImageLabel(self, dev, label):
-	self.images[dev] = (label, label, self.images[dev][2])
+    def setImageLabel(self, dev, label, setLong = 0):
+        if setLong:
+            self.images[dev] = (self.images[dev][0], label, self.images[dev][2])
+        else:
+            self.images[dev] = (label, self.images[dev][0], self.images[dev][2])            
+            
 
     # default is a device
     def setDefault(self, default):
