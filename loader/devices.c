@@ -354,7 +354,7 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
     }
 
     if (rc)
-	newtWinMessage(_("Error"), _("Failed to insert %s module."),
+	newtWinMessage(_("Error"), _("OK"), _("Failed to insert %s module."),
 		       mod->moduleName);
 
     if (!rc && moduleName)
