@@ -39,7 +39,7 @@ def has_lvm():
             (dev, name) = line[:-1].split(' ', 2)
         except:
             continue
-        if name == "lvm":
+        if name == "device-mapper":
             lvmDevicePresent = 1
             break
     return lvmDevicePresent
@@ -54,8 +54,8 @@ def vgscan():
     if flags.test or lvmDevicePresent == 0:
         return
 
-    rc = iutil.execWithRedirect("vgscan",
-                                ["vgscan", "-v"],
+    rc = iutil.execWithRedirect("lvm",
+                                ["lvm", "vgscan", "-v"],
                                 stdout = output,
                                 stderr = output,
                                 searchPath = 1)
@@ -72,7 +72,7 @@ def vgactivate(volgroup = None):
     if flags.test or lvmDevicePresent == 0:
         return
 
-    args = ["vgchange", "-ay", "-An"]
+    args = ["lvm", "vgchange", "-ay", "-An"]
     if volgroup:
         args.append(volgroup)
     rc = iutil.execWithRedirect(args[0], args,
@@ -81,6 +81,18 @@ def vgactivate(volgroup = None):
                                 searchPath = 1)
     if rc:
         log("running vgchange failed: %s.  disabling lvm" %(rc,))
+        lvmDevicePresent = 0
+
+    # now make the device nodes
+    args = ["lvm", "vgmknodes"]
+    if volgroup:
+        args.append(volgroup)
+    rc = iutil.execWithRedirect(args[0], args,
+                                stdout = output,
+                                stderr = output,
+                                searchPath = 1)
+    if rc:
+        log("running vgmknodes failed: %s.  disabling lvm" %(rc,))
         lvmDevicePresent = 0
 
 def vgdeactivate(volgroup = None):
@@ -92,7 +104,7 @@ def vgdeactivate(volgroup = None):
     if flags.test or lvmDevicePresent == 0:
         return
 
-    args = ["vgchange", "-an", "-An"]
+    args = ["lvm", "vgchange", "-an", "-An"]
     if volgroup:
         args.append(volgroup)
     rc = iutil.execWithRedirect(args[0], args,
@@ -114,7 +126,7 @@ def lvremove(lvname, vgname):
     if flags.test or lvmDevicePresent == 0:
         return
 
-    args = ["lvremove", "-f", "-An"]
+    args = ["lvm", "lvremove", "-f", "-An"]
     dev = "/dev/%s/%s" %(vgname, lvname)
     args.append(dev)
 
@@ -142,7 +154,7 @@ def vgremove(vgname):
     except:
         pass
 
-    args = ["vgremove", vgname]
+    args = ["lvm", "vgremove", vgname]
 
     rc = iutil.execWithRedirect(args[0], args,
                                 stdout = output,
