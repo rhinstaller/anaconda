@@ -220,9 +220,11 @@ class Language (SimpleConfigFile):
         self.lang = self.langs[lang]
         self.info["LANG"] = self.langs[lang]
         os.environ["LANG"] = self.langs[lang]
-        os.environ["LINGUAS"] = self.langs[lang]        
         self.info["LC_ALL"] = self.langs[lang]
         os.environ["LC_ALL"] = self.langs[lang]
+
+	rpm.addMacro("_install_langs", self.langs[lang]);
+        os.environ["LINGUAS"] = self.langs[lang]        
         
     def get (self):
 	return self.lang
