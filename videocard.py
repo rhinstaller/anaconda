@@ -253,6 +253,23 @@ class VideoCardInfo:
         #--Valid video ram sizes--
         return [256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]
 
+    def index_closest_ram_size(self, detected):
+        possram = self.possible_ram_sizes()
+        match = -1
+
+        for i in range(0, len(possram)-1):
+            if detected <= possram[i]:
+                match = i
+                break
+            elif detected >= possram[i]-64 and detected < possram[i+1]-65:
+                match = i
+                break
+
+        if match < 0:
+            match = len(possram)-1
+            
+        return match
+
     def possible_depths(self):
         #--Valid bit depths--
         return ["8", "16", "24", "32"]

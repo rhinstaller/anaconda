@@ -798,15 +798,8 @@ class XConfigWindow (InstallWindow):
         except:
             vidRam = 1024
 
-        count = 0
-        for size in self.videocard.possible_ram_sizes():
-            #--Cards such as Mach64 and ATI Rage Mobility report 64k less ram
-            #  than it should
-            small = size - 64
-            if size == vidRam or small == vidRam:
-                self.ramMenu.set_active(count)
-                break
-            count = count + 1
+        count = self.videocard.index_closest_ram_size(vidRam)
+        self.ramMenu.set_active(count)
 
     # XConfigWindow tag="xconf"
     def getScreen (self, dispatch, xconfig, videocard, intf):
