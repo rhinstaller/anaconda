@@ -872,14 +872,16 @@ char *getReleaseDescriptorFromIso(char *file) {
 		len = strlen(descr) + strlen(tmpstr) + 10;
 		newstr = malloc(len);
 		strncpy(newstr, descr, len-1);
-		strncat(newstr, " disc ", len-1);
+		strncat(newstr, " ", len-1);
 
 		/* is this a DVD or not?  If disc id has commas, like */
 		/* "1,2,3", its a DVD                                 */
 		if (strchr(tmpstr, ','))
 		    strncat(newstr, "DVD\n", len-1);
-		else
+		else {
+		    strncat(newstr, "disc ", len-1);
 		    strncat(newstr, tmpstr, len-1);
+		}
 
 		free(descr);
 		descr = newstr;
