@@ -1542,113 +1542,117 @@ class ToDo:
         w = self.intf.waitWindow(_("Post Install"), 
                                  _("Performing post install configuration..."))
 
-        if not self.upgrade:
-	    self.createCdrom()
+        try:
+            if not self.upgrade:
+                self.createCdrom()
 
-	    self.fstab.addMount(self.fdDevice, "/mnt/floppy", "auto")
-	    if self.fdDevice[0:2] == "fd":
-		self.createRemovable("ls-120", mntDirRoot = "ls120")
+                self.fstab.addMount(self.fdDevice, "/mnt/floppy", "auto")
+                if self.fdDevice[0:2] == "fd":
+                    self.createRemovable("ls-120", mntDirRoot = "ls120")
 
-	    self.createRemovable("zip", partNum = 4)
-	    self.createRemovable("jaz", partNum = 4)
+                self.createRemovable("zip", partNum = 4)
+                self.createRemovable("jaz", partNum = 4)
 
-	    self.copyExtraModules()
-            self.fstab.write (self.instPath)
-            self.writeConfiguration ()
-            self.writeDesktop ()
-	    if (self.instClass.defaultRunlevel):
-		self.initlevel = self.instClass.defaultRunlevel
-		self.setDefaultRunlevel ()
-            
-            # pcmcia is supported only on i386 at the moment
-            if arch == "i386":
-                pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
-            self.copyConfModules ()
-            if not self.x.skip and self.x.server:
-		if os.access (self.instPath + "/etc/X11/X", os.R_OK):
-		    os.rename (self.instPath + "/etc/X11/X",
-			       self.instPath + "/etc/X11/X.rpmsave")
-                try:
-                    os.unlink (self.instPath + "/etc/X11/X")
-                except OSError:
-                    pass
-		os.symlink ("../../usr/X11R6/bin/" + self.x.server,
-			    self.instPath + "/etc/X11/X")
+                self.copyExtraModules()
+                self.fstab.write (self.instPath)
+                self.writeConfiguration ()
+                self.writeDesktop ()
+                if (self.instClass.defaultRunlevel):
+                    self.initlevel = self.instClass.defaultRunlevel
+                    self.setDefaultRunlevel ()
 
-		self.x.write (self.instPath + "/etc/X11")
-            self.setDefaultRunlevel ()
+                # pcmcia is supported only on i386 at the moment
+                if arch == "i386":
+                    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
+                self.copyConfModules ()
+                if not self.x.skip and self.x.server:
+                    if os.access (self.instPath + "/etc/X11/X", os.R_OK):
+                        os.rename (self.instPath + "/etc/X11/X",
+                                   self.instPath + "/etc/X11/X.rpmsave")
+                    try:
+                        os.unlink (self.instPath + "/etc/X11/X")
+                    except OSError:
+                        pass
+                    os.symlink ("../../usr/X11R6/bin/" + self.x.server,
+                                self.instPath + "/etc/X11/X")
 
-            # blah.  If we're on a serial mouse, and we have X, we need to
-            # close the mouse device, then run kudzu, then open it again.
+                    self.x.write (self.instPath + "/etc/X11")
+                self.setDefaultRunlevel ()
 
-            # turn it off
-            mousedev = None
+                # blah.  If we're on a serial mouse, and we have X, we need to
+                # close the mouse device, then run kudzu, then open it again.
 
-            # XXX currently Bad Things (X async reply) happen when doing
-            # Mouse Magic on Sparc (Mach64, specificly)
-            if os.environ.has_key ("DISPLAY") and not arch == "sparc":
-                import xmouse
-                try:
-                    mousedev = xmouse.get()[0]
-                except RuntimeError:
-                    pass
-            if mousedev:
-                try:
-                    os.rename (mousedev, "/dev/disablemouse")
-                except OSError:
-                    pass
-                try:
-                    xmouse.reopen()
-                except RuntimeError:
-                    pass
-            argv = [ "/usr/sbin/kudzu", "-q" ]
-	    devnull = os.open("/dev/null", os.O_RDWR)
-	    iutil.execWithRedirect(argv[0], argv, root = self.instPath,
-				   stdout = devnull)
-            # turn it back on            
-            if mousedev:
-                try:
-                    os.rename ("/dev/disablemouse", mousedev)
-                except OSError:
-                    pass
-                try:
-                    xmouse.reopen()
-                except RuntimeError:
-                    pass
+                # turn it off
+                mousedev = None
 
-        # needed for prior systems which were not xinetd based
-        if self.upgrade:
-            self.migrateXinetd()
-        
-        # XXX make me "not test mode"
-        if self.setupFilesystems:
-	    if arch == "sparc":
-		self.silo.install (self.fstab, self.instPath, self.hdList, 
-				   self.upgrade)
-	    elif arch == "i386":
-		self.lilo.install (self.fstab, self.instPath, self.hdList, 
-				   self.upgrade)
-	    elif arch == "ia64":
-		self.eli.install (self.fstab, self.instPath, self.hdList, 
-				   self.upgrade)
-	    elif arch == "alpha":
-		self.milo.write ()
-	    else:
-		raise RuntimeError, "What kind of machine is this, anyway?!"
+                # XXX currently Bad Things (X async reply) happen when doing
+                # Mouse Magic on Sparc (Mach64, specificly)
+                if os.environ.has_key ("DISPLAY") and not arch == "sparc":
+                    import xmouse
+                    try:
+                        mousedev = xmouse.get()[0]
+                    except RuntimeError:
+                        pass
+                if mousedev:
+                    try:
+                        os.rename (mousedev, "/dev/disablemouse")
+                    except OSError:
+                        pass
+                    try:
+                        xmouse.reopen()
+                    except RuntimeError:
+                        pass
+                argv = [ "/usr/sbin/kudzu", "-q" ]
+                devnull = os.open("/dev/null", os.O_RDWR)
+                iutil.execWithRedirect(argv[0], argv, root = self.instPath,
+                                       stdout = devnull)
+                # turn it back on            
+                if mousedev:
+                    try:
+                        os.rename ("/dev/disablemouse", mousedev)
+                    except OSError:
+                        pass
+                    try:
+                        xmouse.reopen()
+                    except RuntimeError:
+                        pass
 
-            # go ahead and depmod modules as modprobe in rc.sysinit
-            # will complain loaduly if we don't do it now.
-            self.depmodModules()
+            # needed for prior systems which were not xinetd based
+            if self.upgrade:
+                self.migrateXinetd()
 
-	self.instClass.postAction(self.instPath, self.serial)
+            # XXX make me "not test mode"
+            if self.setupFilesystems:
+                if arch == "sparc":
+                    self.silo.install (self.fstab, self.instPath, self.hdList, 
+                                       self.upgrade)
+                elif arch == "i386":
+                    self.lilo.install (self.fstab, self.instPath, self.hdList, 
+                                       self.upgrade)
+                elif arch == "ia64":
+                    self.eli.install (self.fstab, self.instPath, self.hdList, 
+                                       self.upgrade)
+                elif arch == "alpha":
+                    self.milo.write ()
+                else:
+                    raise RuntimeError, "What kind of machine is this, anyway?!"
 
-	if self.setupFilesystems:
-	    f = open("/tmp/cleanup", "w")
-	    self.method.writeCleanupPath(f)
-	    self.fstab.writeCleanupPath(f)
-	    f.close()
+                # go ahead and depmod modules as modprobe in rc.sysinit
+                # will complain loaduly if we don't do it now.
+                self.depmodModules()
 
-        del syslog
-        
+            self.instClass.postAction(self.instPath, self.serial)
+
+            if self.setupFilesystems:
+                f = open("/tmp/cleanup", "w")
+                self.method.writeCleanupPath(f)
+                self.fstab.writeCleanupPath(f)
+                f.close()
+
+            del syslog
+
+        finally:
+            w.pop ()
+
         w.pop ()
 
