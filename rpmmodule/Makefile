@@ -3,7 +3,17 @@
 #
 # $Id$
 
-include ../Makefile.inc
+# Try to let other people continue using it
+-include ../Makefile.inc
+
+# If the above did not exist, then hardcode it here
+ifndef PYTHONLIBDIR
+PYTHONLIBDIR = /usr/lib/anaconda 
+endif
+ifndef ANACONDADATADIR
+ANACONDADATADIR = /usr/share/anaconda 
+endif
+# end of ugly useability hack
 
 PYTHON   = $(DESTDIR)/$(PYTHONLIBDIR)
 
