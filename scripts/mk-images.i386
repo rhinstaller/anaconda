@@ -11,6 +11,12 @@ prepareBootImage() {
 	$SYSLINUX $MBD_TMPIMAGE
 	mount -o loop -t msdos $MBD_TMPIMAGE $MBD_BOOTTREE
 
+	prepareBootTree
+}
+
+# prepare a directory with the kernel, initrd, and various message files
+# used to populate a boot image
+prepareBootTree() {
 	(cd $BOOTDISKDIR; find . ! -name "*.msg" -maxdepth 1 ! -type d | cpio --quiet -p $MBD_BOOTTREE)
 	
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
@@ -208,6 +214,21 @@ makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 	   --loaderbin loader-pcmcia \
 	   --modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES =scsi =net"
 [ $? = 0 ] || exit 1
+
+if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
+	echo "Building isolinux directory"
+	MBD_BOOTTREE=$TOPDESTPATH/isolinux
+	MBD_FSIMAGE=$TOPDESTPATH/images/pxeboot/initrd-everything.
+	mkdir $MBD_BOOTTREE
+	cp $IMGPATH/usr/lib/syslinux/isolinux.bin $MBD_BOOTTREE/isolinux.bin
+
+	prepareBootTree
+
+	# isolinux needs the config file to be isolinux.cfg
+	mv $BOOTTREE/syslinux.cfg $BOOTTREE/isolinux.cfg
+else
+	echo "No isolinux binaries.  Skipping isolinux creation"
+fi
 
 echo "Building main moduleball"
 makemainmodules "=scsi =net $SECSTAGE"
