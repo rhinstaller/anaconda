@@ -606,7 +606,7 @@ class PartitionWindow(InstallWindow):
 		for lvrequest in lvmrequests[vgname]:
 		    iter = self.tree.append(vgparent)
 		    self.tree[iter]['Device'] = lvrequest.logicalVolumeName
-		    if lvrequest.fstype and lvrequest.fstype.isMountable() and lvrequest.mountpoint:
+		    if lvrequest.fstype and lvrequest.mountpoint:
 			self.tree[iter]['Mount Point'] = lvrequest.mountpoint
 		    else:
 			self.tree[iter]['Mount Point'] = ""
@@ -614,7 +614,7 @@ class PartitionWindow(InstallWindow):
 		    self.tree[iter]['PyObject'] = str(lvrequest.uniqueID)
 		
                     ptype = lvrequest.fstype.getName()
-                    self.tree[iter]['Format'] = gtk.TRUE
+                    self.tree[iter]['Format'] = lvrequest.format
                     self.tree[iter]['IsFormattable'] = lvrequest.fstype.isFormattable()
 		    self.tree[iter]['IsLeaf'] = gtk.TRUE
 		    self.tree[iter]['Type'] = ptype
@@ -934,6 +934,22 @@ class PartitionWindow(InstallWindow):
 
 	    # first add the volume group
 	    if not isNew:
+                # if an lv was preexisting and isn't in the new lv requests,
+                # we need to add a delete for it.  
+                for lv in origvolreqs:
+                    if not lv.getPreExisting():
+                        continue
+                    found = 0
+                    for newlv in logvolreqs:
+                        if (newlv.getPreExisting() and
+                            newlv.logicalVolumeName == lv.logicalVolumeName):
+                            found = 1
+                            break
+                    if found == 0:
+                        delete = partRequests.DeleteLogicalVolumeSpec(lv.logicalVolumeName,
+                                                                      origvgrequest.volumeGroupName)
+                        self.partitions.addDelete(delete)
+                        
 		for lv in origvolreqs:
 		    self.partitions.removeRequest(lv)
 
@@ -944,7 +960,8 @@ class PartitionWindow(InstallWindow):
 	    # now add the logical volumes
 	    for lv in logvolreqs:
 		lv.volumeGroup = vgID
-		lv.format = 1
+                if not lv.getPreExisting():
+                    lv.format = 1
 		self.partitions.addRequest(lv)
 
 	    if self.refresh():
