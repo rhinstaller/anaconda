@@ -178,7 +178,16 @@ class LiloConfiguration:
 
 		foundDos = 1
                 isys.makeDevInode(dev, '/tmp/' + dev)
-		bootable = isys.checkBoot('/tmp/' + dev)
+                # this can fail for several reasons, main being
+                # they created a DOS partition in disk druid, but
+                # we haven't written new partition table out yet!
+                # this is because we are called from init in todo.py
+                # which is way too early! FIX in future
+                try:
+                    bootable = isys.checkBoot('/tmp/' + dev)
+                except:
+                    bootable = 0
+
 		os.unlink('/tmp/' + dev)
 
 		if bootable:
