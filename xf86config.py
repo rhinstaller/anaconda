@@ -569,6 +569,7 @@ Section "Screen"
 EndSection
 
 Section "DRI"
+	Mode 0666
 EndSection
 """
 
