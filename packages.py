@@ -492,8 +492,6 @@ def setupTimezone(timezone, upgrade, instPath, dir):
         args.append("-u")
     elif timezone.arc:
         args.append("-a")
-    else:
-        flags = None
 
     try:
         iutil.execWithRedirect(args[0], args, stdin = None,
