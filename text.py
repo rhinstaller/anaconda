@@ -182,13 +182,22 @@ class InstallPathWindow:
     def __call__ (self, screen, todo, intf):
 	from fstab import NewtFstab
 
+	showScreen = 1
 	if (todo.instClass.installType == "install"):
             intf.steps = intf.commonSteps + intf.installSteps
             todo.upgrade = 0
-	    return INSTALL_NOOP
+	    showScreen = 0
 	elif (todo.instClass.installType == "upgrade"):
             intf.steps = intf.commonSteps + intf.upgradeSteps
             todo.upgrade = 1
+	    showScreen = 0
+
+	if not showScreen:
+	    if not todo.fstab:
+		todo.fstab = NewtFstab(todo.setupFilesystems, 
+					   todo.serial, 0, 0,
+					   todo.intf.waitWindow,
+					   todo.intf.messageWindow)
 	    return INSTALL_NOOP
 
 	if (todo.upgrade):
