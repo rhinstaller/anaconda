@@ -530,11 +530,11 @@ instClass.setInstallData(id)
 dispatch = dispatch.Dispatcher(intf, id, method, rootPath)
 
 if lang:
-    dispatch.skipStep("language")
+    dispatch.skipStep("language", permanent = 1)
     instClass.setLanguage(id, lang)
             
 if keymap:
-    dispatch.skipStep("keyboard")
+    dispatch.skipStep("keyboard", permanent = 1)
     instClass.setKeyboard(id, keymap)
 
 instClass.setSteps(dispatch)

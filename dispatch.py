@@ -110,7 +110,11 @@ class Dispatcher:
 	self.moveStep()
 
     def setStepList(self, *steps):
-	self.skipSteps = {}
+        # only remove non-permanently skipped steps from our skip list
+        for step, state in self.skipSteps.items():
+            if state == 1:
+                del self.skipSteps[step]
+
 	stepExists = {}
 	for step in installSteps:
 	    name = step[0]
@@ -126,12 +130,15 @@ class Dispatcher:
     def stepInSkipList(self, step):
 	return self.skipSteps.has_key(step)
 
-    def skipStep(self, stepToSkip, skip = 1):
+    def skipStep(self, stepToSkip, skip = 1, permanent = 0):
 	for step in installSteps:
 	    name = step[0]
 	    if name == stepToSkip:
 		if skip:
-		    self.skipSteps[name] = 1
+                    if permanent:
+                        self.skipSteps[name] = 2
+                    else:
+                        self.skipSteps[name] = 1
 		elif self.skipSteps.has_key(name):
 		    del self.skipSteps[name]
 		return
