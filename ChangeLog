@@ -1,5 +1,8 @@
 2004-09-27  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstart.py: Allow name.arch syntax for selecting a package in
+	%packages (#124456)
+
 	* iw/partition_dialog_gui.py (PartitionEditor.run): 
 	* iw/raid_dialog_gui.py (RaidEditor.run): 
 	Update SpinButtons before getting their value (#133456)

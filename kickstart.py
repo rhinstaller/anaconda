@@ -1394,6 +1394,19 @@ class KickstartBase(BaseInstallClass):
     # setPackageSelection()
     def setPackageSelection(self, hdlist, intf):
 	for n in self.packageList:
+
+            # allow arch:name syntax
+            if n.find("."):
+                fields = n.split(".")
+                name = string.join(fields[:-1], ".")
+                arch = fields[-1]
+                if hdlist.pkgnames.has_key(name):
+                    pkgs = hdlist.pkgnames[name]
+                    for (nevra, parch) in pkgs:
+                        if parch == arch:
+                            hdlist.pkgs[nevra].select()
+                            break
+            
             if hdlist.has_key(n):
                 hdlist[n].select()
             elif self.handleMissing == KS_MISSING_IGNORE:
