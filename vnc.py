@@ -17,12 +17,30 @@ import os, sys, string
 from snack import *
 from constants_text import *
 from rhpl.translate import _, N_
+import network
+import isys
 
-def radiocb(*args):
-    pass
+def hasActiveNetDev():
+    # try to load /tmp/netinfo and see if we can sniff out network info
+    netinfo = network.Network()
+    for dev in netinfo.netdevices.keys():
+        try:
+            ip = isys.getIPAddress(dev)
+        except Exception, e:
+            log("Got an exception trying to get the ip addr of %s: "
+                "%s" %(dev, e))
+            continue
+        if ip == '127.0.0.1' or ip is None:
+            continue
+        return True
+    return False
+
 
 # return -1 to use text mode, None for no vncpass, or vncpass otherwise
 def askVncWindow():
+    if hasActiveNetDev() == False:
+        return -1
+    
     screen = SnackScreen()
     vncpass = None
     vncconnect = 0
