@@ -130,7 +130,11 @@ class PartitionWindow:
                     mount = ""
 
                 if part.type & parted.PARTITION_FREESPACE:
-                    ptype = _("Free space")
+                    if (device[:4] == "dasd" and part.geom.start < 2
+                    and disk.next_partition(part)):
+                        ptype = _("hidden")
+                    else:
+                        ptype = _("Free space")
                 elif part.type & parted.PARTITION_EXTENDED:
                     ptype = _("Extended")
                 elif part.get_flag(parted.PARTITION_RAID) == 1:
@@ -150,41 +154,42 @@ class PartitionWindow:
                     else:
                         ptype = _("None")
 
-                start = (part.geom.start / sectorsPerCyl) + 1
-                end = (part.geom.end / sectorsPerCyl) + 1
-                size = (part.geom.length * disk.dev.sector_size / (1024.0 * 1024.0))
-
-                if part.type & parted.PARTITION_EXTENDED:
-                    if extendedParent:
-                        raise RuntimeError, ("can't handle more than"
-                                             "one extended partition per disk")
-                    extendedParent = part.num
-                    indent = 2 * " "
-                elif part.type & parted.PARTITION_LOGICAL:
-                    if not extendedParent:
-                        raise RuntimeError("crossed logical partition "
-                                           "before extended")
-                    indent = 4 * " "
-                else:
-                    indent = 2 * " "
-
-                if part.type & parted.PARTITION_FREESPACE:
-                    self.lb.append(["%s%s" %(indent, _("Free space")),
-                                    "%d" %(start),
-                                    "%d" %(end),
-                                    "%dM" %(size),
-                                    "%s" %(ptype),
-                                    ""], part,
-                                   [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
+                if ptype != "hidden":
+                    start = (part.geom.start / sectorsPerCyl) + 1
+                    end = (part.geom.end / sectorsPerCyl) + 1
+                    size = (part.geom.length * disk.dev.sector_size / (1024.0 * 1024.0))
+    
+                    if part.type & parted.PARTITION_EXTENDED:
+                        if extendedParent:
+                            raise RuntimeError, ("can't handle more than"
+                                                 "one extended partition per disk")
+                        extendedParent = part.num
+                        indent = 2 * " "
+                    elif part.type & parted.PARTITION_LOGICAL:
+                        if not extendedParent:
+                            raise RuntimeError("crossed logical partition "
+                                               "before extended")
+                        indent = 4 * " "
+                    else:
+                        indent = 2 * " "
+    
+                    if part.type & parted.PARTITION_FREESPACE:
+                        self.lb.append(["%s%s" %(indent, _("Free space")),
+                                        "%d" %(start),
+                                        "%d" %(end),
+                                        "%dM" %(size),
+                                        "%s" %(ptype),
+                                        ""], part,
+                                       [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
                                     
-                else:
-                    self.lb.append(["%s%s" %(indent, devify(get_partition_name(part))),
-                                    "%d" %(start),
-                                    "%d" %(end),
-                                    "%dM" %(size),
-                                    "%s" %(ptype),
-                                    "%s" %(mount)], part,
-                                   [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
+                    else:
+                        self.lb.append(["%s%s" %(indent, devify(get_partition_name(part))),
+                                        "%d" %(start),
+                                        "%d" %(end),
+                                        "%dM" %(size),
+                                        "%s" %(ptype),
+                                        "%s" %(mount)], part,
+                                       [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
                 part = disk.next_partition(part)
 
     def refresh(self):
