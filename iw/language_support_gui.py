@@ -142,10 +142,11 @@ class LanguageSupportWindow (InstallWindow):
         vbox = gtk.VBox (gtk.FALSE, 10)
         hbox = gtk.HBox (gtk.FALSE)
         
-        label = gtk.Label (_("_Choose the default language for this system:   "))
-        hbox.pack_start (label, gtk.FALSE, 20)
-
         self.combo = gtk.Combo ()
+
+        label = gui.MnemonicLabel(_("_Choose the default language for this system:   "))
+        label.set_mnemonic_widget(self.combo.entry)
+        hbox.pack_start (label, gtk.FALSE, 20)
 
         hbox.pack_start (self.combo, gtk.FALSE, 20)
         vbox.pack_start (hbox, gtk.FALSE, 50)
@@ -153,9 +154,9 @@ class LanguageSupportWindow (InstallWindow):
         sep = gtk.HSeparator ()
         vbox.pack_start (sep, gtk.FALSE, 15)
 
-	label = gui.MnemonicLabel (_("Choose _additional languages you would "
-			     "like to use on this system:"))
-
+	label = gui.MnemonicLabel(_("Choose _additional languages you would "
+                                    "like to use on this system:"))
+        
         label.set_alignment (0.0, 0.5)
         label.set_line_wrap (gtk.TRUE)
         label.set_size_request(400, -1)
