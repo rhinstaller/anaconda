@@ -107,7 +107,7 @@ class KickstartBase(BaseInstallClass):
 		trusts.append(arg)
 	    elif str == '--port':
 		if ports:
-		    ports = '%s %s' % (ports, arg)
+		    ports = '%s,%s' % (ports, arg)
 		else:
 		    ports = arg
 	    
