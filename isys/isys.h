@@ -11,6 +11,8 @@ struct moduleArg {
     char * description;
 };
 
+#define MI_FLAG_NOMISCARGS	(1 << 0)
+
 struct moduleInfo {
     char * moduleName;
     char * description;
@@ -18,6 +20,7 @@ struct moduleInfo {
     enum driverMinor minor;
     int numArgs;
     struct moduleArg * args;
+    int flags;
 };
 
 struct moduleInfoSet_s {

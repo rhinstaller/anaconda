@@ -105,6 +105,7 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis) {
 		nextModule->major = DRIVER_NONE;
 		nextModule->minor = DRIVER_MINOR_NONE;
 		nextModule->description = NULL;
+		nextModule->flags = 0;
 		nextModule->args = NULL;
 		nextModule->numArgs = 0;
 	    } else if (nextModule->major == DRIVER_NONE) {
