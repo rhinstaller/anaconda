@@ -246,7 +246,7 @@ void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 /* These parameters define the order in which the DASDs */
 /* are visible to Linux. Otherwise load dasd modules probeonly, */
 /* then parse proc to find active DASDs */
-/* Reload dasd_mod with correct range o DASD ports */
+/* Reload dasd_mod with correct range of DASD ports */
 void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
 		moduleInfoSet modInfo, int flags,
 		struct knownDevices * kd) {
@@ -292,7 +292,7 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
 		mlLoadModuleSet("dasd_mod:dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod",
 				modLoaded, modDeps, modInfo, flags);
 		if((ports = getDasdPorts())) {
-			parms = (char *)malloc(strlen("dasd=") + strlen(getDasdPorts()) + 1);
+			parms = (char *)malloc(strlen("dasd=") + strlen(ports) + 1);
 			strcpy(parms,"dasd=");
 			strcat(parms, ports);
 			dasd_parms[0] = parms;
