@@ -453,8 +453,8 @@ class MonitorWindow:
 					    type="custom",
 					    custom_buttons = [ _("Choose monitor type"), _("Proceed")],
 					    custom_icon="warning")
-		if not unspecrc:
-		    continue
+		    if not unspecrc:
+			continue
 
 		if not self.sanityCheckSyncRates(screen, hval, vval):
 		    continue
