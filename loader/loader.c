@@ -261,10 +261,10 @@ static void spawnShell(int flags) {
 }
 
 static int detectHardware(moduleInfoSet modInfo, 
-			  struct moduleInfo *** modules, int flags) {
+			  char *** modules, int flags) {
     struct device ** devices, ** device;
-    struct moduleInfo * mod, ** modList;
-    int numMods, i;
+    char ** modList;
+    int numMods;
     char *driver;
 
     logMessage("probing buses");
@@ -280,32 +280,29 @@ static int detectHardware(moduleInfoSet modInfo,
 	return LOADER_OK;
     }
 
-    modList = malloc(sizeof(*modList) * 50);	/* should be enough */
+    numMods = 0;
+    for (device = devices; *device; device++) numMods++;
+
+    if (!numMods) {
+	*modules = NULL;
+	return LOADER_OK;
+    }
+
+    modList = malloc(sizeof(*modList) * (numMods + 1));
     numMods = 0;
 
     for (device = devices; *device; device++) {
 	driver = (*device)->driver;
 	if (strcmp (driver, "ignore") && strcmp (driver, "unknown")
 	    && strcmp (driver, "disabled")) {
-	    logMessage("found suggestion of %s", driver);
-	    if ((mod = isysFindModuleInfo(modInfo, driver))) {
-		logMessage("found %s device", driver);
-		for (i = 0; i < numMods; i++) 
-		    if (modList[i] == mod) break;
-		if (i == numMods) 
-		    modList[numMods++] = mod;
-	    }
+	    modList[numMods++] = strdup(driver);
 	}
+
 	freeDevice (*device);
     }
 
-    if (numMods) {
-        *modules = modList;
-	modList[numMods] = NULL;
-    } else {
-        free(modList);
-	*modules = NULL;
-    }
+    modList[numMods] = NULL;
+    *modules = modList;
 
     free(devices);
 
@@ -422,8 +419,8 @@ int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
 int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 	     int justProbe, struct knownDevices * kd, int flags) {
     int i;
+    char ** modList;
     char modules[1024];
-    struct moduleInfo ** modList;
 
     if (FL_NOPROBE(flags)) return 0;
 
@@ -435,14 +432,13 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 	    return 0;
 	} else if (modList && justProbe) {
 	    for (i = 0; modList[i]; i++)
-		if (modList[i]->major == DRIVER_NET)
-		    printf("%s\n", modList[i]->moduleName);
+		printf("%s\n", modList[i]);
 	} else if (modList) {
 	    *modules = '\0';
 
 	    for (i = 0; modList[i]; i++) {
 		if (i) strcat(modules, ":");
-		strcat(modules, modList[i]->moduleName);
+		strcat(modules, modList[i]);
 	    }
 
 	    mlLoadModuleSet(modules, modLoaded, modDeps, modInfo, flags);
