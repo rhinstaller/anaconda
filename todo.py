@@ -1273,7 +1273,8 @@ class ToDo:
                                stdout = logfile, stderr = logfile)
         os.close(logfile)
         
-    def instCallback(self, what, amount, total, h, intf):
+    def instCallback(self, what, amount, total, h, (param)):
+	(intf, messageWindow) = param
         if (what == rpm.RPMCALLBACK_TRANS_START):
             # step 6 is the bulk of the transaction set
             # processing time
@@ -1295,7 +1296,25 @@ class ToDo:
             self.instLog.write (self.modeText % (h[rpm.RPMTAG_NAME],))
             self.instLog.flush ()
             fn = self.method.getFilename(h)
-            self.rpmFD = os.open(fn, os.O_RDONLY)
+
+	    self.rpmFD = -1
+	    while self.rpmFD < 0:
+		try:
+		    self.rpmFD = os.open(fn, os.O_RDONLY)
+		    # Make sure this package seems valid
+		    try:
+			(h, isSource) = rpm.headerFromPackage(self.rpmFD)
+			os.lseek(self.rpmFD, 0, 0)
+		    except:
+			self.rpmFD = -1
+			os.close(self.rpmFD)
+			raise SystemError
+		except:
+		    messageWindow(_("Error"),
+			_("The file %s cannot be opened. This is due to "
+			  "a missing file, a bad package, or bad media. "
+			  "Press <return> to try again.") % fn)
+
             fn = self.method.unlinkFilename(fn)
             return self.rpmFD
         elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
@@ -1540,10 +1559,10 @@ class ToDo:
         oldError = rpm.errorSetCallback (self.rpmError)
 
         problems = ts.run(0, ~rpm.RPMPROB_FILTER_DISKSPACE,
-                          self.instCallback, p)
+                          self.instCallback, (p, self.intf.messageWindow))
 
 #        problems = ts.run(rpm.RPMTRANS_FLAG_TEST, ~0,
-#                          self.instCallback, p)
+#                          self.instCallback, (p, self.intf.messageWindow))
 
         if problems:
             needed = {}
