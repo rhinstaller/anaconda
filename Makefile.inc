@@ -22,6 +22,7 @@ LIBDIR = lib64
 endif
 
 # diet defines
+USEDIET=0
 ifeq (i386, $(ARCH))
 USEDIET=1
 endif
