@@ -317,20 +317,6 @@ def fstypechangeCB(widget, mountCombo):
 
     mountCombo.set_data("prevmountable", fstype.isMountable())
     
-    # XXX hrmm... we need to get these passed into the callback somehow
-##     # XXX ugly, there has to be a better way
-##     adj = maxSizeSpinner.get_adjustment()
-##     adj.set_all(adj.value, size, fstype.getMaxSize(),
-##                 adj.step_increment, adj.page_increment,
-##                 adj.page_size)
-##     maxSizeSpinner.set_adjustment(adj)
-
-##     adj = sizeSpinner.get_adjustment()
-##     adj.set_all(adj.value, size, fstype.getMaxSize(),
-##                 adj.step_increment, adj.page_increment,
-##                 adj.page_size)
-##     sizeSpinner.set_adjustment(adj)
-
 def createAllowedDrivesClist(drives, reqdrives):
     driveclist = GtkCList()
     driveclist.set_selection_mode (SELECTION_MULTIPLE)
@@ -514,7 +500,10 @@ class PartitionWindow(InstallWindow):
                 elif part.get_flag(parted.PARTITION_RAID) == 1:
                     ptype = _("software RAID component")
                 elif part.fs_type:
-                    ptype = part.fs_type.name
+                    if request.fstype != None:
+                        ptype = request.fstype.getName()
+                    else:
+                        ptype = part.fs_type.name
                 else:
                     ptype = _("None")
                 if part.type & parted.PARTITION_FREESPACE:
