@@ -12,6 +12,8 @@
 # translation of es.po to
 # translation of es.po to
 # translation of es.po to
+# translation of es.po to
+# translation of es.po to
 # translation of es.po to Español
 # Copyright (C) 2000,2003,2004 Free Software Foundation, Inc.
 # Tullio Dovera <tdovera@redhat.it>, 2000.
@@ -27,7 +29,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-24 17:14-0400\n"
-"PO-Revision-Date: 2004-09-28 13:31+1000\n"
+"PO-Revision-Date: 2004-09-29 10:44+1000\n"
 "Last-Translator: Yelitza Louze <ylouze@redhat.com>\n"
 "Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -836,7 +838,7 @@ msgstr ""
 "Se ha producido una situación excepcional. Se trata probablemente de un "
 "error. Por favor copie el texto completo de esta excepción, a continuación "
 "registre un informe detallado del error de anaconda en http://bugzilla."
-"redhat.com/bugzilla"
+"redhat.com/bugzilla/"
 
 # ../exception.py:83 ../text.py:218
 # ../exception.py:83 ../text.py:218
@@ -10160,7 +10162,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -10170,13 +10172,17 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tShell de escritorio (GNOME)\n"
+"\tHerramientas de administración\n"
+"\tHerramientas de configuración de servidores\n"
+"\tServidor Web\n"
+"\tServidor de archivos Windows (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -10188,23 +10194,23 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\tShell de escritorio (GNOME)\n"
-" \tPaquete de Ofimática (OppenOffice.org)\n"
+" \tPaquete de Ofimática (OppenOffice)\n"
 "\tNavegador Web (Mozilla)\n"
 "\tCorreo electrónico (Evolution)\n"
 "\tMensajería instantánea\n"
 "\tAplicaciones de sonido y vídeo\n"
 "\tJuegos\n"
+"\tHerramientas de administración\n"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -10217,7 +10223,7 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\tShell de escritorio (GNOME)\n"
-"\tPaquete de Ofimática (OppenOffice.org)\n"
+"\tPaquete de Ofimática (OppenOffice)\n"
 "\tNavegador Web (Mozilla)\n"
 "\tCorreo electrónico (Evolution)\n"
 "\tMensajería instantánea\n"
