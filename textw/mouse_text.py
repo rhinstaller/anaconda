@@ -32,11 +32,19 @@ class MouseDeviceWindow:
         return INSTALL_OK
 
 class MouseWindow:
+    def listcb(self):
+        if self.mice[self.micenames[self.l.current()]][3]:
+            self.c.setValue("*")
+        else:
+            self.c.setValue(" ")
+            
     def __call__(self, screen, mouse):
 	if mouse.probed(): return
 
-        mice = mouse.available ().keys ()
+        self.mice = mouse.available ()
+        mice = self.mice.keys ()
         mice.sort ()
+        self.micenames = mice
         (default, emulate) = mouse.get ()
         if default == "Sun - Mouse":
             return INSTALL_NOOP
@@ -46,14 +54,17 @@ class MouseWindow:
         t = TextboxReflowed(40, 
                 _("Which model mouse is attached to this computer?"))
         l = Listbox(8, scroll = 1, returnExit = 0)
+        self.l = l
 
         key = 0
         for amouse in mice:
             l.append(amouse, key)
             key = key + 1
         l.setCurrent(default)
+        l.setCallback (self.listcb)
 
         c = Checkbox(_("Emulate 3 Buttons?"), isOn = emulate)
+        self.c = c
 
         g = GridFormHelp(screen, _("Mouse Selection"), "mousetype", 1, 4)
         g.add(t, 0, 0)
