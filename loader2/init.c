@@ -518,7 +518,7 @@ int main(int argc, char **argv) {
                          "/dev/hvsi2", /* hvsi for POWER5 */
                          NULL };
     for (i = 0; consoles[i] != NULL; i++) {
-        if ((fd = open(consoles[i], O_RDONLY)) >= 0) {
+        if ((fd = open(consoles[i], O_RDWR)) >= 0) {
             printf("anaconda installer init version %s using %s as console\n",
                    VERSION, consoles[i]);
             isSerial = 0;
