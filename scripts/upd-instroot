@@ -122,7 +122,8 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            pygtk-libglade pygnome-libglade pygnome-applet
            pygnome-capplet gdk-pixbuf XFree86-KOI8-R
            XFree86-KOI8-R-75dpi-fonts pciutils pam reiserfs-utils
-           anaconda-help anaconda-images hdparm XFree86-base-fonts"
+           anaconda-help anaconda-images hdparm XFree86-base-fonts
+           ttfonts-ko"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -333,6 +334,8 @@ usr/X11R6/lib/X11/fonts/75dpi/helv*ISO8859*
 usr/X11R6/lib/X11/fonts/75dpi/tim*ISO8859*
 usr/X11R6/lib/X11/fonts/cyrillic/*
 usr/X11R6/lib/X11/fonts/encodings/large/big5*
+usr/X11R6/lib/X11/fonts/korean/gulim*
+usr/X11R6/lib/X11/fonts/korean/font*
 usr/X11R6/lib/X11/fonts/misc/12x*
 usr/X11R6/lib/X11/fonts/misc/6x*
 usr/X11R6/lib/X11/fonts/misc/7x*
@@ -341,7 +344,6 @@ usr/X11R6/lib/X11/fonts/misc/9x*
 usr/X11R6/lib/X11/fonts/misc/cursor*
 usr/X11R6/lib/X11/fonts/misc/fonts*
 usr/X11R6/lib/X11/fonts/misc/gb*
-usr/X11R6/lib/X11/fonts/misc/hangl*
 usr/X11R6/lib/X11/fonts/misc/jis*
 usr/X11R6/lib/X11/fonts/misc/k14*
 usr/X11R6/lib/X11/fonts/misc/olcursor*
