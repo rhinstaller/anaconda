@@ -608,6 +608,9 @@ def getLinkStatus(dev):
 def getMacAddress(dev):
     return _isys.getMacAddress(dev)
 
+def getIPAddress(dev):
+    return _isys.getIPAddress(dev)
+
 def startBterm():
     return _isys.startBterm()
 
