@@ -7,7 +7,6 @@ import iutil
 import rpm
 import time
 import gettext_rh
-import glob
 import signal
 import installclass
 from translate import _, cat, N_

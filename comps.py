@@ -7,6 +7,7 @@ import urllib
 from translate import _
 from translate import N_
 from log import log
+import time
 
 XFreeServerPackages = { 'XFree86-3DLabs' : 1, 	'XFree86-8514' : 1,
 			'XFree86-AGX' : 1, 	'XFree86-I128' : 1,

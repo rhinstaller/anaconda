@@ -392,7 +392,19 @@ if not reconfigOnly:
         type = driveAndType[i + 1:]
         
         from harddrive import HardDriveInstallMethod
-        method = HardDriveInstallMethod(drive, type, dir)
+        method = HardDriveInstallMethod(drive, type, dir, intf.messageWindow)
+    elif (method[0:8] == "oldhd://"):
+        method = method[8:]
+        i = string.index(method, '/')
+        dir = method[i:]
+        driveAndType = method[0:i]
+        
+        i = string.index(driveAndType, ":")
+        drive = driveAndType[0:i]
+        type = driveAndType[i + 1:]
+        
+        from harddrive import OldHardDriveInstallMethod
+        method = OldHardDriveInstallMethod(drive, type, dir)
     else:
         print "unknown install method:", method
         sys.exit(1)
