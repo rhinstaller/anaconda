@@ -14,6 +14,8 @@ from iw.keyboard import *
 from iw.format import *
 from iw.congrats import *
 from iw.autopartition import *
+from iw.installtype import *
+from iw.dependencies import *
 
 import sys
 import GdkImlib
@@ -94,15 +96,15 @@ class InstallInterface:
         gtkThread = GtkMainThread ()
         gtkThread.start ()
         
-        steps = [WelcomeWindow, LanguageWindow, MouseWindow, 
+        steps = [WelcomeWindow, LanguageWindow, InstallTypeWindow, MouseWindow, 
 	         KeyboardWindow, NetworkWindow, AutoPartitionWindow, PartitionWindow, 
-                 FormatWindow, PackageSelectionWindow, AuthWindow, 
+                 FormatWindow, PackageSelectionWindow, UnresolvedDependenciesWindow, AuthWindow, 
 	         AccountWindow, InstallProgressWindow, CongratulationWindow]
 
-        windows = [WelcomeWindow, LanguageWindow, MouseWindow, 
+        windows = [WelcomeWindow, LanguageWindow, InstallTypeWindow, MouseWindow, 
 	           KeyboardWindow, NetworkWindow, AutoPartitionWindow,
-                   PartitionWindow, FormatWindow, PackageSelectionWindow, AuthWindow, 
-	           AccountWindow, IndividualPackageSelectionWindow,
+                   PartitionWindow, FormatWindow, PackageSelectionWindow, UnresolvedDependenciesWindow, 
+		   AuthWindow, AccountWindow, IndividualPackageSelectionWindow, 
                    InstallProgressWindow, ConfirmPartitionWindow, CongratulationWindow]
 
         self.finishedTODO = Event ()
@@ -171,6 +173,7 @@ class InstallControlWindow (Thread):
 	new_screen = screen.getScreen ()
 	if not new_screen:
             direction ()
+            return
 
         self.update (screen.getICS ())
 
