@@ -72,5 +72,13 @@ install:	all
 		$(PREFIX)/$(INSTALLNLSDIR)/$$l/LC_MESSAGES/$(NLSPACKAGE).mo; \
 	done
 
+missing: Makefile
+	mkdir -p missing; \
+	for n in $(CATALOGS); do \
+	    msghack --missing $$n > missing/$$n-; \
+            msghack --empty missing/$$n- | grep -v "^#," > missing/$$n; \
+	    rm missing/$$n-; \
+	done
+
 %.mo: %.po
 	msgfmt -o $@ $<
