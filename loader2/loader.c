@@ -1171,6 +1171,10 @@ int main(int argc, char ** argv) {
     /* explicitly read this to let libkudzu know we want to merge
      * in future tables rather than replace the initial one */
     pciReadDrivers("/modules/pcitable");
+    
+    if (loaderData.lang && (loaderData.lang_set == 1)) {
+        setLanguage(loaderData.lang, flags);
+    }
 
     if (!canProbeDevices() || FL_MODDISK(flags)) {
         startNewt(flags);
