@@ -429,14 +429,15 @@ if not reconfigOnly:
         method = UrlInstallMethod(method)
     elif (method[0:5] == "hd://"):
         method = method[5:]
-        i = string.index(method, '/')
-        dir = method[i:]
-        driveAndType = method[0:i]
+
+        i = string.index(method, ":")
+        drive = method[0:i]
+        method = method[i+1:]
         
-        i = string.index(driveAndType, ":")
-        drive = driveAndType[0:i]
-        type = driveAndType[i + 1:]
-        
+        i = string.index(method, "/")
+        type = method[0:i]
+        dir = method[i+1:]
+
         from harddrive import HardDriveInstallMethod
         method = HardDriveInstallMethod(drive, type, dir, intf.messageWindow)
     elif (method[0:8] == "oldhd://"):
