@@ -96,6 +96,14 @@ msgstr ""
 msgid "Using mouse type: "
 msgstr "S-a detectat tipul de mouse: "
 
+#: ../anaconda:422
+msgid "DISPLAY variable not set. Starting text mode!"
+msgstr "Variabila DISPLAY nu este setatã. Procesul va continua în mod text!"
+
+#: ../anaconda:422
+msgid "DISPLAY variable not set. Starting text mode!"
+msgstr ""
+
 #: ../autopart.py:713
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr "Aceste tip de partiþie nu poate fi alocat pentru o partiþie primarã"
@@ -116,7 +124,7 @@ msgstr "Nu s-au putut aloca partiþii"
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
-msgstr ""
+msgstr "Este posibil ca partiþia de boot %s sã nu poatã fi încãrcatã de acest calculator. Se recomandã crearea unui disk de boot."
 
 #: ../autopart.py:901
 msgid "Requested Partition Does Not Exist"
@@ -128,10 +136,13 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Nu se poate gãsi partiþia %s pentru utilizarea cu %s.\n"
+"\n"
+"Selectaþi OK pentru a reseta sistemul."
 
 #: ../autopart.py:935
 msgid "Partition Request Sanity Check Errors"
-msgstr ""
+msgstr "Erori la verificarea schemei de partiþionare"
 
 #: ../autopart.py:936
 msgid ""
@@ -141,6 +152,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Schema de partiþionare selectatã a produs urmãtoaele erori:\n"
+"\n"
+"%s\n"
+"\n"
+"Selectaþi OK pentru a reseta sistemul."
 
 #: ../autopart.py:945
 msgid "Warnings During Automatic Partitioning"
@@ -152,6 +168,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"S-au detectat urmãtoarele avertismente în procesul de partiþionare automatã:\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959 ../iw/partition_gui.py:1291
 #: ../textw/partition_text.py:164
@@ -164,6 +183,9 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
+"Nu s-au putut aloca partiþiile cerute: \n"
+"\n"
+"%s.%s"
 
 #: ../autopart.py:996 ../bootloader.py:286 ../image.py:198
 #: ../iw/bootloader_gui.py:58 ../iw/bootloaderpassword_gui.py:29
@@ -189,12 +211,17 @@ msgid ""
 "fdisk is the traditional, text-based partitioning tool offered by Red Hat. "
 "Although it is not as easy to use, there are cases where fdisk is preferred."
 msgstr ""
+"Partiþionarea Automatã alege o schemã de partiþionare bazatã pe tipul instalãrii pe care o efectuaþi. Aceastã schemã poate fi modificatã pentru a îndeplini cerinþele acestui sistem.\n"
+"\n"
+"Partiþionarea Manualã cu Disk Druid vã permite sã alegeþi o schemã de partiþionare într-un mod interactiv. Puteþi selecta tipurile de sisteme de fiºiere, directoarele de montare ºi mãrimea partiþiilor folosind o interfaþã intuitivã.\n"
+"\n"
+"Partiþionarea cu fdisk este metoda tradiþionalã de selectare a schemei de partiþionare a acestui calculator. Interfaþa este în mod text; deºi nu este cea mai simplã interfaþã utilizator vã permite totuºi cea mai mare flexibilitate în cazurile cînd partiþionarea cu fdisk este preferatã."
 
 #: ../autopart.py:1018
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
-msgstr ""
+msgstr "Înainte ca partiþionarea automatã sã fie activatã trebuie sã selectaþi cum doriþi sã folosiþi spaþiul pe pe acest calculator."
 
 #: ../autopart.py:1023
 msgid "Remove all partitions on this system"
@@ -216,6 +243,10 @@ msgid ""
 "drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"ATENÞIE!!       ATENÞIE!!\n"
+"\n"
+"Aþi ales stergerea tuturor partiþiilor (TOATE DATELE) de pe urmãtoarele discuri: %s\n"
+"Sunteþi sigur cã doriþi sã continuaþi?"
 
 #: ../autopart.py:1032
 msgid ""
@@ -225,6 +256,11 @@ msgid ""
 "the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"ATENÞIE!!       ATENÞIE!!\n"
+"\n"
+"Aþi ales sã ºtergeþi toate partiþiile Linux (ºi TOATE DATELE) de pe urmãtoarele discuri:%s\n"
+"\n"
+"Sunteþi sigur cã doriþi sã continuaþi?"
 
 #: ../bootloader.py:287
 msgid ""
@@ -240,6 +276,19 @@ msgstr "Încãrcãtor de sistem"
 msgid "Installing bootloader..."
 msgstr "Instalare încãrcãtor de sistem..."
 
+#: ../bootloader.py:116
+msgid ""
+"No kernel packages were installed on your system.  Your boot loader "
+"configuration will not be changed."
+msgstr "Nu s-a instalat nici un kernel pe acest calculator. Configuraþia de boot nu va fi schimbatã."
+
+#: ../comps.py:563
+#: ../bootloader.py:116
+msgid ""
+"No kernel packages were installed on your system.  Your boot loader "
+"configuration will not be changed."
+msgstr ""
+
 #: ../comps.py:563
 msgid "Everything"
 msgstr "Toate pachetele"
@@ -254,13 +303,13 @@ msgstr "S-a detectat o excpeþie în program"
 
 #: ../exception.py:230
 msgid "Dump Written"
-msgstr ""
+msgstr "Scriere Completã"
 
 #: ../exception.py:231
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
+msgstr "Starea sistemului a fost scrisã pe dischetã cu succes. Acum se va reseta sistemul."
 
 #: ../floppy.py:62 ../floppy.py:85 ../fsset.py:522 ../fsset.py:928
 #: ../fsset.py:947 ../fsset.py:992 ../fsset.py:1014 ../fsset.py:1059
@@ -314,6 +363,9 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
+"S-a detectat o eroare la migrarea %s cãtre ext3. Este posibil sã continuaþi fãrã a migra acest sistem de fiºiere dacã doriþi acest lucru.\n"
+"\n"
+"Doriþi sã continuaþi fãrã a migra %s?"
 
 #: ../fsset.py:862 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
@@ -330,6 +382,9 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"S-a detectat o eroare la iniþializarea memoriei swap pe partiþia %s. Aceastã probelmã este fatalã ºi programul de instalare nu poate continua.\n"
+"\n"
+"Apãsaþi Enter pentru a reseta sistemul."
 
 #: ../fsset.py:948
 msgid ""
@@ -339,6 +394,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Eroare la activarea partiþiei de memorie swap %s: %s\n"
+"\n"
+"În multe cazuri aceasta înseamnã cã partiþia pentru memoria swap nu a fost iniþializatã.\n"
+"\n"
+"Selectaþi OK pentru a reseta sistemul."
 
 #: ../fsset.py:993
 msgid ""
@@ -347,6 +407,9 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"S-a detectat o eroare la verificarea blocurilor defecte de pe %s. Aceastã problemã este fatalã. Programul de instalare nu poate continua.\n"
+"\n"
+"Apãsaþi Enter pentru a reseta sistemul."
 
 #: ../fsset.py:1015
 msgid ""
@@ -355,6 +418,9 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"S-a detectat o eroare la formatarea %s. Aceasta problemã este fatalã. Programul de instalare nu poate continua.\n"
+"\n"
+"Apãsaþi Enter pentru a reseta sistemul."
 
 #: ../fsset.py:1060
 msgid ""
