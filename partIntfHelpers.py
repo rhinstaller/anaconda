@@ -184,8 +184,9 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
                                                  partition.geom.end)
                 requestlist.addDelete(delete)
             elif isinstance(request, partRequests.LogicalVolumeRequestSpec):
+                vgreq = requestlist.getRequestByID(request.volumeGroup)
                 delete = partRequests.DeleteLogicalVolumeSpec(request.logicalVolumeName,
-                                                              request.volumeGroup)
+                                                              vgreq.volumeGroupName)
                 requestlist.addDelete(delete)
             elif isinstance(request, partRequests.VolumeGroupRequestSpec):
                 delete = partRequests.DeleteVolumeGroupSpec(request.volumeGroupName)
@@ -399,7 +400,7 @@ def getPreExistFormatWarnings(partitions, diskset):
             elif isinstance(request, partRequests.VolumeGroupRequestSpec):
                 dev = request.volumeGroupName
             elif isinstance(request, partRequests.LogicalVolumeRequestSpec):
-                vgreq = partitions.getRequestByID(request)
+                vgreq = partitions.getRequestByID(request.volumeGroup)
                 dev = "%s/%s" %(vgreq.volumeGroupName,
                                 request.logicalVolumeName)
 
