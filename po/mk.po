@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-08-02 20:20+0200\n"
+"PO-Revision-Date: 2004-08-07 19:47+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
@@ -219,9 +219,9 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
-"Стартната партиција %s не припаѓа на диск со доволно празен простор на неговиот "
+"Стартната партиција %s не припаѓа на диск со доволно слободен простор на неговиот "
 "почеток за поставување на покренувачката програма. Осигурајте се дека постојат најмалку 5MB "
-"празен простор на почетокот на дискот кој го содржи /boot"
+"слободен простор на почетокот на дискот кој го содржи /boot"
 
 #: ../autopart.py:1008
 #, python-format
@@ -459,7 +459,7 @@ msgstr "Отстрани ги сите Linux партиции од овој си
 
 #: ../autopart.py:1501
 msgid "Keep all partitions and use existing free space"
-msgstr "Зачувај ги сите партиции и користи го постоечкиот празен простор"
+msgstr "Зачувај ги сите партиции и користи го постоечкиот слободен простор"
 
 #: ../autopart.py:1503
 #, python-format
@@ -554,14 +554,14 @@ msgid ""
 "copy the full text of this exception or save the crash dump to a floppy then "
 "file a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
-msgstr "Се појави не прифатен исклучок.  Тоа би можело да е грешка.  Ве молам направете копија од целиот текст на овој исклучок или зачувајте ја грешката на дискета, а потоа пријавете детален извештај за грешката на програмата anaconda на страницата http://bugzilla.redhat.com/bugzilla/"
+msgstr "Се појави не прифатен исклучок.  Тоа би можело да е грешка.  Ве молам направете копија од целиот текст на овој исклучок или зачувајте ја грешката на дискета, а потоа пријавете детален извештај за грешката на програмата анаконда на страницата http://bugzilla.redhat.com/bugzilla/"
 
 #: ../constants.py:79
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
-msgstr "Се појави не прифатен исклучок.  Тоа би можело да е грешка.  Ве молам направете копија од целиот текст на овој исклучок и пријавете детален извештај за грешката на програмата anaconda на страницата http://bugzilla.redhat.com/bugzilla/"
+msgstr "Се појави не прифатен исклучок.  Тоа би можело да е грешка.  Ве молам направете копија од целиот текст на овој исклучок и пријавете детален извештај за грешката на програмата анаконда на страницата http://bugzilla.redhat.com/bugzilla/"
 
 #: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
@@ -891,7 +891,7 @@ msgstr ""
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
-"Можете да им пристапите откако ќе рестартирате и ќе се пријавите како администратор (root)."
+"Можете да им пристапите откако ќе рестартирате и ќе се пријавите како root."
 
 #: ../gui.py:163
 msgid "Saving Screenshot"
@@ -1623,7 +1623,7 @@ msgstr "Прво означете ја партицијата за да ја и�
 
 #: ../partIntfHelpers.py:150
 msgid "You cannot delete free space."
-msgstr "Не може да се избриши празен простор."
+msgstr "Не може да се избрише слободниот простор."
 
 #: ../partIntfHelpers.py:157
 msgid "You cannot delete a partition of a LDL formatted DASD."
@@ -2338,7 +2338,7 @@ msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
+msgstr "Лозинката ќе оневозможи неавторизирани лица да се врзуваат и да го следат процесот на Вашата инсталација.  Ве молам внесете лозинка која што ќе се користи при инсталација"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2589,6 +2589,9 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
+"Наметнувањето на употреба на LBA32 за Вашиот подигнувач во случај кога Вашиот BIOS не го поддржува тоа, може да предизвика Вашата машина да не се подигне. Строго препорачливо е да креирате дискета за подигнување.\n"
+"\n"
+"Дали сакате да продолжите и да наметнете LBA32 режим?"
 
 #: ../iw/bootloader_advanced_gui.py:51
 msgid "Force LBA32"
@@ -2698,6 +2701,9 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
+"Намести ги уредите по истиот редослед како што се во BIOS. Промената на редоследот на уредите може да биде корисно кога користите SCSI адаптери или пак и SCSI и IDE адаптери, а сакате да го подигнете системот од SCSI уредот.\n"
+"\n"
+"Со промената на редоследот на уредите ќе се промени и местото каде што инсталационата програма го поставува Master Boot Record (MBR)."
 
 #: ../iw/confirm_gui.py:57
 msgid "About to Install"
@@ -2791,6 +2797,19 @@ msgid ""
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
 msgstr ""
+"За информации за Errata (надградби и закрпи), посетете ја:\n"
+"\thttp://www.redhat.com/errata/\n"
+"\n"
+"За информации за автоматска надградба преку мрежата на Red Hat, посетете ја:\n"
+"\thttp://rhn.redhat.com/\n"
+"\n"
+"За инфромации за користење и конфигурација на системот, посетете ја:\n"
+"\thttp://www.redhat.com/docs/\n"
+"\thttp://www.redhat.com/apps/support/\n"
+"\n"
+"За да го регистрирате продуктот за поддршка, посетете ја:\n"
+"\thttp://www.redhat.com/apps/activate/\n"
+"\n"
 
 #: ../iw/dependencies_gui.py:21
 msgid "Unresolved Dependencies"
@@ -2955,7 +2974,7 @@ msgid ""
 "network, it is recommended that a firewall be configured to help prevent "
 "unauthorized access.  However, you have selected not to configure a "
 "firewall.  Choose \"Proceed\" to continue without a firewall."
-msgstr ""
+msgstr "Доколку овој систем е врзан директно за Интернет, или пак е на голема јавна мрежа, препорачливо е огнениот ѕид да Ви е конфигуриран да спречува неавторизиран пристап.  Како и да е, Вие избравте да не го конфигурирате огнениот ѕид.  Одберете \"Продолжи\" за да продолжите без огнен ѕид."
 
 #: ../iw/firewall_gui.py:43
 msgid "_Configure Firewall"
@@ -3311,7 +3330,7 @@ msgstr "Име на група дискови:"
 
 #: ../iw/lvm_dialog_gui.py:971
 msgid "_Physical Extent:"
-msgstr ""
+msgstr "_Физичко проширување:"
 
 #: ../iw/lvm_dialog_gui.py:978
 msgid "Physical Extent:"
@@ -3343,7 +3362,7 @@ msgstr "Големина (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1081 ../iw/osbootwidget.py:95
 msgid "_Add"
-msgstr "Додадете"
+msgstr "_Додади"
 
 #: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:508
 #: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1360
@@ -3376,15 +3395,15 @@ msgstr "/dev/ttyS3 (COM4 под DOS)"
 
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:159
 msgid "_Device"
-msgstr "Уред"
+msgstr "_Уред"
 
 #: ../iw/mouse_gui.py:137
 msgid "_Model"
-msgstr "Модел"
+msgstr "_Модел"
 
 #: ../iw/mouse_gui.py:235
 msgid "_Emulate 3 buttons"
-msgstr "Емулира 3 копчиња"
+msgstr "_Емулирај 3 копчиња"
 
 #: ../iw/mouse_gui.py:250
 msgid "Select the appropriate mouse for the system."
@@ -3830,7 +3849,7 @@ msgstr "Партиционирање"
 
 #: ../iw/partition_gui.py:639
 msgid "The following critical errors exist with your requested partitioning scheme."
-msgstr ""
+msgstr "Во Вашата шема за партиционирање постојата следниве грешки."
 
 #: ../iw/partition_gui.py:642
 #, python-format
@@ -3843,11 +3862,11 @@ msgstr "Грешки при партиционирање"
 
 #: ../iw/partition_gui.py:654
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
+msgstr "Во вашата шема за партиционирање постојата следниве предупредувања."
 
 #: ../iw/partition_gui.py:656
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr ""
+msgstr "Дали сакате да продолжите со Вашата шема за партиционирање?"
 
 #: ../iw/partition_gui.py:661
 msgid "Partitioning Warnings"
@@ -3863,7 +3882,7 @@ msgstr "_Формат"
 
 #: ../iw/partition_gui.py:723
 msgid "LVM Volume Groups"
-msgstr ""
+msgstr "LVM групи на партиции"
 
 #: ../iw/partition_gui.py:758
 msgid "RAID Devices"
@@ -3898,7 +3917,7 @@ msgstr "Слободни"
 #: ../iw/partition_gui.py:1003 ../textw/partition_text.py:224
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr ""
+msgstr "Не можам да ги алоцирам потребните партиции: %s."
 
 #: ../iw/partition_gui.py:1012
 #, python-format
@@ -6777,7 +6796,7 @@ msgstr "Чекам за воспоставување на врската пре�
 
 #: ../loader2/telnetd.c:122
 msgid "Running anaconda via telnet..."
-msgstr "Подигнување на програмата anaconda преку telnet..."
+msgstr "Подигнување на програмата анаконда преку telnet..."
 
 #: ../loader2/urlinstall.c:67
 #, c-format
@@ -7676,5 +7695,4 @@ msgstr "Велшки"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Зулу"
-
 
