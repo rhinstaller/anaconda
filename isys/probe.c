@@ -35,6 +35,17 @@ static void addDevice(struct knownDevices * devices, struct device dev) {
     devices->known[devices->numKnown++] = dev;
 }
 
+void kdAddDevice(struct knownDevices * devices, enum deviceClass devClass, 
+		 char * devName, char * devModel) {
+    struct device new;
+
+    new.class = devClass;
+    new.name = devName;
+    new.model = devModel;
+
+    addDevice(devices, new);
+}
+
 void kdFree(struct knownDevices * devices) {
     if (devices->known) free(devices->known);
     devices->known = NULL;

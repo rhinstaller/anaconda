@@ -20,5 +20,7 @@ int kdFindNetList(struct knownDevices * devices);
 int kdFindIdeList(struct knownDevices * devices);
 int kdFindScsiList(struct knownDevices * devices);
 void kdFree(struct knownDevices * devices);
+void kdAddDevice(struct knownDevices * devices, enum deviceClass devClass, 
+		 char * devName, char * devModel);
 
 #endif
