@@ -9,7 +9,7 @@ class InstallMethod:
     def readComps(self, hdlist):
 	pass
 
-    def getFilename(self, h):
+    def getFilename(self, h, timer):
 	pass
 
     def readHeaders(self):
