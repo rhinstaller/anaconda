@@ -12,7 +12,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gtk import *
+import gtk
 from iw_gui import *
 from package_gui import *
 from translate import _, N_
@@ -45,59 +45,59 @@ class UpgradeExamineWindow (InstallWindow):
 
         self.parts = self.id.upgradeRoot
         
-	box = GtkVBox (FALSE)
+	box = gtk.VBox (gtk.FALSE)
         if not self.parts:
-            box.pack_start (GtkLabel (_("You don't have any Linux partitions."
+            box.pack_start (gtk.Label (_("You don't have any Linux partitions."
                                         "\nYou can't upgrade this sytem!")),
-                            FALSE)
-            self.ics.setNextEnabled (FALSE)
+                            gtk.FALSE)
+            self.ics.setNextEnabled (gtk.FALSE)
             return box
 
-        vbox = GtkVBox (FALSE, 10)
+        vbox = gtk.VBox (gtk.FALSE, 10)
 	vbox.set_border_width (8)
 
         if self.parts and len (self.parts) > 1:
-	    label = GtkLabel (_("Please select the device containing the root "
+	    label = gtk.Label (_("Please select the device containing the root "
                                 "filesystem: "))
 	    label.set_alignment(0.0, 0.5)
-	    box.pack_start(label, FALSE)
+	    box.pack_start(label, gtk.FALSE)
 
-	    table = GtkTable(2, 6)
+	    table = gtk.Table(2, 6)
 	    table.set_border_width (10)
-            box.pack_start (table, FALSE)
-	    box.pack_start (GtkHSeparator ())
-	    spacer = GtkLabel("")
+            box.pack_start (table, gtk.FALSE)
+	    box.pack_start (gtk.HSeparator ())
+	    spacer = gtk.Label("")
 	    spacer.set_usize(15, 1)
-	    table.attach(spacer, 0, 1, 2, 4, FALSE)
+	    table.attach(spacer, 0, 1, 2, 4, gtk.FALSE)
 
-            self.ics.setNextEnabled (TRUE)
+            self.ics.setNextEnabled (gtk.TRUE)
             self.root = self.parts[0]
             group = None
 	    row = 1
             for (part, filesystem) in self.parts:
-                group = GtkRadioButton (group, part)
+                group = gtk.RadioButton (group, part)
                 group.connect ("toggled", self.toggled, (part, filesystem))
 		table.attach(group, 1, 2, row, row+1)
 		row = row + 1
 
-	    vbox.pack_start (box, FALSE)
+	    vbox.pack_start (box, gtk.FALSE)
         else:
             # if there is only one partition, go on.
-            self.ics.setNextEnabled (TRUE)
+            self.ics.setNextEnabled (gtk.TRUE)
             self.root = self.parts[0]
-	    label = GtkLabel (_("Upgrading the Red Hat Linux installation "
+	    label = gtk.Label (_("Upgrading the Red Hat Linux installation "
                                 "on partition /dev/%s")
                               % (self.root[0] + "\n\n",))
 	    label.set_alignment(0.0, 0.5)
-	    vbox.pack_start(label, FALSE)
+	    vbox.pack_start(label, gtk.FALSE)
             
-        self.individualPackages = GtkCheckButton (_("Customize packages to be "
+        self.individualPackages = gtk.CheckButton (_("Customize packages to be "
                                                     "upgraded"))
         self.individualPackages.set_active (not dispatch.stepInSkipList("indivpackage"))
             
-        align = GtkAlignment (0.0, 0.5)
+        align = gtk.Alignment (0.0, 0.5)
         align.add (self.individualPackages)
 
-        vbox.pack_start (align, FALSE)
+        vbox.pack_start (align, gtk.FALSE)
 
         return vbox
