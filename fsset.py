@@ -1227,7 +1227,7 @@ class FileSystemSet:
             try:
                 space.append((entry.mountpoint, isys.fsSpaceAvailable(path)))
             except SystemError:
-                pass
+                log("failed to get space available in filesystemSpace() for %s" %(entry.mountpoint,))
 
         def spaceSort(a, b):
             (m1, s1) = a
