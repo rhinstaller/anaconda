@@ -21,6 +21,7 @@ import fsset
 from partitioning import *
 from constants import *
 from translate import _, N_
+from log import log
 
 PARTITION_FAIL = -1
 PARTITION_SUCCESS = 0
@@ -259,22 +260,34 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 
             largestPart = (0, None)
             drives = getDriveList(request, diskset)
-#            print "Trying drives to find best free space out of", free
+#            log("Trying drives to find best free space out of %s" % free)
             for drive in drives:
                 # this request is bootable and we've found a large enough
                 # partition already, so we don't need to keep trying other
                 # drives.  this keeps us on the first possible drive
                 if isBoot and largestPart[1]:
                     break
-#                print "Trying drive", drive
                 disk = diskset.disks[drive]
+		numPrimary = len(get_primary_partitions(disk))
+
+		# if there is an extended partition add it in
+		if disk.extended_partition:
+		    numPrimary = numPrimary + 1
+		    
+		maxPrimary = disk.max_primary_partition_count
 
                 for part in free[drive]:
-#                    print "Trying partition", printFreespaceitem(part)
+		    # if this is a free space outside extended partition
+		    # make sure we have free primary partition slots
+		    if not part.type & parted.PARTITION_LOGICAL:
+			if numPrimary == maxPrimary:
+			    continue
+		    
+#                    log( "Trying partition %s" % (printFreespaceitem(part),))
                     partSize = getPartSizeMB(part)
-#		    print "partSize %s  request %s" % (partSize, request.requestSize)
+#		    log("partSize %s  request %s" % (partSize, request.requestSize))
                     if partSize >= request.requestSize and partSize > largestPart[0]:
-                        if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
+			if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
                             largestPart = (partSize, part)
                             if isBoot:
                                 break
@@ -283,7 +296,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 return PARTITION_FAIL
 #                raise PartitioningError, "Can't fulfill request for partition: \n%s" %(request)
 
-#            print "largestPart is",largestPart
+#            log( "largestPart is %s" % (largestPart,))
             freespace = largestPart[1]
             freeStartSec = freespace.geom.start
             freeEndSec = freespace.geom.end
@@ -345,7 +358,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     raise PartitioningError, "Impossible partition to create"
 
             fsType = request.fstype.getPartedFileSystemType()
-#            print "creating newp with start=%s, end=%s, len=%s" % (startSec, endSec, endSec - startSec)
+#            log("creating newp with start=%s, end=%s, len=%s" % (startSec, endSec, endSec - startSec))
             newp = disk.partition_new (partType, fsType, startSec, endSec)
             constraint = disk.constraint_any ()
 
@@ -740,7 +753,6 @@ def doPartitioning(diskset, requests, doRefresh = 1):
 
     if ret == PARTITION_FAIL:
         raise PartitioningError, "Partitioning failed: %s" %(msg)
-            
     ret = growParts(diskset, requests, newParts)
 
     newParts.reset()
@@ -876,7 +888,6 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     # XXX only do this if we're dirty
 ##     id.diskset.refreshDevices()
 ##     id.partrequests = PartitionRequests(id.diskset)
-
     doClearPartAction(partitions, diskset)
 
     # XXX clearpartdrives is overloaded as drives we want to use for linux
