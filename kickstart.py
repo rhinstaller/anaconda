@@ -709,7 +709,7 @@ class KickstartBase(BaseInstallClass):
                                                 'fstype=',
                                                 'percent=',
 						'maxsize=',
-						'grow'])
+						'grow', 'recommended'])
 
         mountpoint = None
         vgname = None
@@ -720,6 +720,7 @@ class KickstartBase(BaseInstallClass):
 	grow = 0
 	maxSizeMB = 0
         format = 1
+        recommended = None
 
         for n in args:
             (str, arg) = n
@@ -737,12 +738,17 @@ class KickstartBase(BaseInstallClass):
 		maxSizeMB = int(arg)
 	    elif str == '--grow':
 		grow = 1
+            elif str == '--recommended':
+                recommended = 1
             else:
                 print str, " ", arg
 
         if extra[0] == 'swap':
             filesystem = fileSystemTypeGet('swap')
             mountpoint = None
+            if recommended:
+                (size, maxSizeMB) = iutil.swapSuggestion()
+                grow = 1
         else:
             if fstype:
                 filesystem = fileSystemTypeGet(fstype)
