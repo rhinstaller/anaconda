@@ -568,18 +568,22 @@ if (display_mode == 't'):
 if xmode:
     os.environ["TERM"] = "xterm"
     import gtk
-    from gnome import zvt
+    import vte
 
     def child_died (widget, *args):
         gtk.mainquit()
 
     win = gtk.Window ()
-    zvt = zvt.Term (80, 24)
-    zvt.connect ("child_died", child_died)
-    zvt.set_del_key_swap(gtk.TRUE)
-    win.add (zvt)
+    term = vte.Terminal ()
+    term.set_encoding("UTF-8")
+    term.set_font_from_string("monospace 10")
+    term.set_color_background(gtk.gdk.color_parse('white'))
+    term.set_color_foreground(gtk.gdk.color_parse('black'))
+    term.connect ("child_exited", child_died)
+    term.reset(gtk.TRUE, gtk.TRUE)
+    win.add (term)
     win.show_all ()
-    child = zvt.forkpty()
+    child = term.forkpty()
     if child != 0:
         gtk.mainloop()
         try:
