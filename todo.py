@@ -815,8 +815,8 @@ class ToDo:
 
         if self.upgrade:
             del db
+            self.fstab.umountFilesystems (self.instPath)            
         del ts
-        self.fstab.umountFilesystems (self.instPath)            
         return rc
 
     def selectDeps (self, deps):
