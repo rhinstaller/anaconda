@@ -168,8 +168,7 @@ char *getDasdPorts() {
                                 ports = (char *)malloc(strlen("dasd=") + strlen(port) + 1);
                                 strcpy(ports, port);
                         } else {
-                                ports = (char *)realloc(ports, strlen(ports) + strlen(port) +
- 2);   /* portnumber + ',' */
+                                ports = (char *)realloc(ports, strlen(ports) + strlen(port) + 2);   /* portnumber + ',' */
                                 strcat(ports, ",");
                                 strcat(ports, port);
                         }
