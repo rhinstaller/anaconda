@@ -351,7 +351,7 @@ static PyObject * findUpgradeSet(PyObject * self, PyObject * args) {
     }
 
     list.numPackages = PyList_Size(hdrList);
-    list.packages = alloca(sizeof(*list.packages) * list.numPackages);
+    list.packages = alloca(sizeof(list.packages) * list.numPackages);
     for (i = 0; i < list.numPackages; i++) {
 	hdr = (hdrObject *) PyList_GetItem(hdrList, i);
 	if (hdr->ob_type != &hdrType) {
