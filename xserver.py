@@ -208,7 +208,7 @@ def testx(mouse, x):
 	time.sleep(1)
 	count = count + 1
 
-    print " X server started successfully."
+    print _(" X server started successfully.")
     
     child = os.fork()
     if (child):
