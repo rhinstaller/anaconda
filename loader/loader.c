@@ -1115,28 +1115,22 @@ static char * setupCdrom(struct installMethod * method,
 				devMakeInode(kd->known[i].name, "/tmp/cdrom");
 				gotcd1 = 0;
 				do {
-				    logMessage("1");
 				    do {
 					if (doPwMount("/tmp/cdrom", "/mnt/source", 
 						      "iso9660", 1, 0, NULL, NULL)) {
-					    logMessage("1w");
 					    ejectCdrom();
 					    wrongCDMessage();
 					} else {
-					    logMessage("2");
 					    break;
 					}
 				    } while (1);
 
-				    logMessage("3");
 				    if (mountLoopback("/mnt/source/RedHat/base/stage2.img",
 						      "/mnt/runtime", "loop0")) {
 					umount("/mnt/source");
-					logMessage("2w");
 					ejectCdrom();
 					wrongCDMessage();
 				    } else {
-					logMessage("4");
 					gotcd1 = 1;
 				    }
 				} while (!gotcd1);
