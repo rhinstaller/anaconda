@@ -711,9 +711,8 @@ msgid "fdisk"
 msgstr "fdisk"
 
 #: ../iw/fdisk.py:42
-#, fuzzy
 msgid "Select drive to run fdisk on"
-msgstr "Válasszon nyomtató csatlakozást"
+msgstr "Válassza ki melyik meghajtón futtassam az fdisk-et"
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
@@ -754,7 +753,7 @@ msgstr "Frissítés"
 
 #: ../iw/installpath.py:183
 msgid "Use fdisk to format drives"
-msgstr ""
+msgstr "Fdisk használata a meghajtók formázásához"
 
 #: ../iw/keyboard.py:11
 msgid "Keyboard Configuration"
@@ -1140,7 +1139,7 @@ msgstr "Folytatás"
 
 #: ../textw/partitioning.py:130
 msgid "Low Memory"
-msgstr ""
+msgstr "Kevés a memória"
 
 #: ../textw/partitioning.py:131
 msgid ""
@@ -1148,6 +1147,8 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
+"Mivel niccs elég memória a gépben, már most be kell kapcsolni a swap "
+"területet. Ehhez az új partíciós táblát a lemezre kell írni. Rendben van?"
 
 #: ../textw/partitioning.py:150
 msgid ""
@@ -1913,14 +1914,13 @@ msgid "Module Parameters"
 msgstr "Modul paraméterek"
 
 #: ../loader/devices.c:54
-#, fuzzy
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
 "Ehhez a modulhoz a mûködését befolyásoló paramétereket adhat meg. Ha nem "
-"tudja milyen paramétereket kell megadni, ugorja át ezt a képernyõt az \"Ok\" "
+"tudja milyen paramétereket kell megadni, ugorja át ezt a képernyõt az \"OK\" "
 "gomb megnyomásával."
 
 #: ../loader/devices.c:120
@@ -1963,14 +1963,12 @@ msgid "Choose a Language"
 msgstr "Válasszon egy nyelvet"
 
 #: ../loader/lang.c:501
-#, fuzzy
 msgid "Keyboard Type"
-msgstr "Billentyûzet kiválasztás"
+msgstr "Billentyûzet típus"
 
 #: ../loader/lang.c:502
-#, fuzzy
 msgid "What type of keyboard do you have?"
-msgstr "Milyen típusú nyomtatója van?"
+msgstr "Milyen típusú billentyûzete van?"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
@@ -2067,13 +2065,12 @@ msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "A(z) %s eszköz nem tartalmaz Red Hat telepítõkészletet."
 
 #: ../loader/loader.c:709
-#, fuzzy
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 "Egyik CDROM meghajtóban sem találok Red Hat Linux CDROM-ot. Tegye be a Red "
-"Hat CD-t, és nyomja meg az \"Ok\"-t a folytatáshoz."
+"Hat CD-t, és nyomja meg az \"OK\"-t a folytatáshoz."
 
 #: ../loader/loader.c:842
 msgid "That directory does not seem to contain a Red Hat installation tree."
