@@ -847,7 +847,7 @@ class XF86Config:
         if self.monlist:
             return self.monlist
         if not lines:
-            db = open ('/usr/share/hwdata/MonitorsDB')
+            db = open ('/usr/X11R6/share/Xconfigurator/MonitorsDB')
             lines = db.readlines ()
             db.close ()
 

@@ -251,10 +251,8 @@ usr/share/anaconda/locale-list
 usr/share/anaconda/anaconda.conf
 usr/share/terminfo/l/linux
 usr/share/doc/kon2*/terminfo.kon
-usr/share/hwdata/pcitable
-usr/share/hwdata/pci.ids
-usr/share/hwdata/Cards
-usr/share/hwdata/MonitorsDB
+usr/share/kudzu/pcitable
+usr/share/pci.ids
 usr/share/themes/Raleigh/gtk/gtkrc
 EOF
 
@@ -706,7 +704,7 @@ echo "Cleaning ramdisk install images..."
 
 if [ -n "$NEEDGR" ]; then
     cd $ORIGDIR
-    $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/hwdata/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
+    $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
 fi
 
 # pick Raleigh theme as default
