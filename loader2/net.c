@@ -580,7 +580,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
         fprintf(f, "MTU=%d\n", dev->dev.mtu);
     if (dev->dev.set & PUMP_INTFINFO_HAS_PTPADDR)
         fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.ptpaddr));
-
+    
     fclose(f);
 
     return 0;
@@ -815,6 +815,9 @@ int chooseNetworkInterface(struct knownDevices * kd,
     }
 
     startNewt(flags);
+
+    if (max > 70)
+        max = 70;
 
     /* JKFIXME: should display link status */
     deviceNum = 0;
