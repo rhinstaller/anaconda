@@ -1,3 +1,8 @@
+2004-11-08  Jeremy Katz  <katzj@redhat.com>
+
+	* text.py (InstallInterface.run): Fallback to English for
+	languages that can't do text-mode (#138308)
+
 2004-11-08  Karsten Hopp  <karsten@redhat.com>
 
 	* loader2/linuxrc.s390: Don't ask for input if PORTNAME or CTCPROT
