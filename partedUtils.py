@@ -215,7 +215,7 @@ def getDefaultDiskType():
     if iutil.getArch() == "i386":
         return parted.disk_type_get("msdos")
     elif iutil.getArch() == "ia64":
-        return parted.disk_type_get("GPT")
+        return parted.disk_type_get("gpt")
     elif iutil.getArch() == "s390":
         return parted.disk_type_get("dasd")
     elif iutil.getArch() == "alpha":
