@@ -99,7 +99,8 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 
     return status
 
-def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0):
+def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0,
+		    catchfd = 1, closefd = -1):
 
     if not os.access (root + command, os.X_OK):
         if not os.access (command, os.X_OK):
@@ -112,7 +113,12 @@ def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0):
     childpid = os.fork()
     if (not childpid):
         if (root and root != '/'): isys.chroot (root)
-	os.dup2(write, 1)
+	os.dup2(write, catchfd)
+	os.close(write)
+	os.close(read)
+
+	if closefd != -1:
+	    os.close(closefd)
 
 	if stdin:
 	    os.dup2(stdin, 0)
