@@ -1137,12 +1137,14 @@ class RAIDDevice(Device):
             f.write(self.raidTab('/tmp'))
             f.close()
             for device in self.members:
-                PartitionDevice(device).setupDevice(chroot, devPrefix=devPrefix)
+                PartitionDevice(device).setupDevice(chroot,
+                                                    devPrefix=devPrefix)
             iutil.execWithRedirect ("/usr/sbin/mkraid", 
-                                    ( 'mkraid', '--really-force',
-                                      '--configfile', raidtab, node ),
-                                    stderr = "/dev/tty5", stdout = "/dev/tty5")
-            partitioning.register_raid_device(self.device)
+                                    ('mkraid', '--really-force',
+                                     '--configfile', raidtab, node),
+                                    stderr="/dev/tty5", stdout="/dev/tty5")
+            partitioning.register_raid_device((self.device, self.members[:],
+                                               self.level, self.numDisks))
             self.isSetup = 1
         return node
 
@@ -1244,9 +1246,22 @@ class LoopbackDevice(Device):
     def getComment (self):
         return "# LOOP1: %s %s /redhat.img\n" % (self.host, self.hostfs)
 
+def getDevice(dev):
+    if dev[:2] == "md":
+        try:
+            mdname, devices, level, numActive = \
+                    partitioning.lookup_raid_device(dev)
+            device = RAIDDevice(level, devices,
+                                minor=int(mdname[2:]),
+                                spares=len(devices) - numActive,
+                                existing=1)
+        except KeyError:
+            device = PartitionDevice(dev)
+    else:
+        device = PartitionDevice(dev)
+    return device
+
 # XXX fix RAID
-# XXX don't reserve labels on filesystems that are going to be
-#     reformatted
 def readFstab (path):
     fsset = FileSystemSet()
 
@@ -1308,7 +1323,7 @@ def readFstab (path):
         elif len(fields) >= 6 and fields[0][:6] == "LABEL=":
             label = fields[0][6:]
             if labelToDevice.has_key(label):
-                device = PartitionDevice(labelToDevice[label])
+                device = getDevice(labelToDevice[label])
             else:
                 log ("Warning: fstab file has LABEL=%s, but this label "
                      "could not be found on any filesystem", label)
@@ -1331,7 +1346,7 @@ def readFstab (path):
 		(dev, fs) = loopIndex[device]
                 device = LoopbackDevice(dev, fs)
 	elif fields[0][:5] == "/dev/":
-            device = PartitionDevice(fields[0][5:])
+            device = getDevice(fields[0][5:])
 	else:
             continue
         

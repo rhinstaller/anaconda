@@ -82,18 +82,19 @@ def scanForRaid(drives):
                 "This raid device will not be started.", mdMinor,
                 len(devices), totalDisks)
 	    continue
-	raidList.append((mdMinor, devices))
+	raidList.append((mdMinor, devices, level, totalDisks))
 
     return raidList
 		
 def startAllRaid(driveList):
-    mdList = []
-    for (mdDevice, deviceList) in scanForRaid(driveList):
+    rc = []
+    mdList = scanForRaid(driveList)
+    for mdDevice, deviceList, level, numActive in mdList:
     	devName = "md%d" % (mdDevice,)
 	isys.raidstart(devName, deviceList[0])
-	mdList.append(devName)
-    return mdList
+        rc.append((devName, deviceList, level, numActive))
+    return rc
 
 def stopAllRaid(mdList):
-    for dev in mdList:
+    for dev, devices, level, numActive in mdList:
 	isys.raidstop(dev)

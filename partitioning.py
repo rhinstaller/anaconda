@@ -213,10 +213,17 @@ def get_raid_devices(requests):
             
     return raidRequests
 
-def register_raid_device(mdname):
-    if mdname in DiskSet.mdList:
-        raise ValueError, "%s is already in the mdList!" % (mdname,)
-    DiskSet.mdList.append(mdname)
+def register_raid_device(mdname, devices, level, numActive):
+    for dev, devices, level, numActive in DiskSet.mdList:
+        if mdname == dev:
+            raise ValueError, "%s is already in the mdList!" % (mdname,)
+    DiskSet.mdList.append((mdname, devices, level, numActive))
+
+def lookup_raid_device(mdname):
+    for dev, devices, level, numActive in DiskSet.mdList:
+        if mdname == dev:
+            return (dev, devices, level, numActive)
+    raise KeyError, "md device not found"
 
 # returns a list of tuples of raid partitions which can be used or are used
 # with whether they're used (0 if not, 1 if so)   eg (part, size, used)
@@ -1189,7 +1196,7 @@ class DiskSet:
         self.disks = {}
 
     def startAllRaid(self):
-        DiskSet.mdList.extend(raid.startAllRaid(self.driveList ()))
+        DiskSet.mdList.extend(raid.startAllRaid(self.driveList()))
 
     def stopAllRaid(self):
         raid.stopAllRaid(DiskSet.mdList)
@@ -1217,7 +1224,7 @@ class DiskSet:
                 if label:
                     labels[node] = label
 
-        for dev in DiskSet.mdList:
+        for dev, devices, level, numActive in DiskSet.mdList:
             label = isys.readExt2Label(dev)
             if label:
                 labels[dev] = label
@@ -1229,7 +1236,7 @@ class DiskSet:
 
         self.startAllRaid()
 
-        for dev in self.mdList:
+        for dev, devices, level, numActive in self.mdList:
             # XXX multifsify.
             # XXX NOTE!  reiserfs isn't supported on software raid devices.
             if not fsset.isValidExt2 (dev):
