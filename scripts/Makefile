@@ -11,6 +11,7 @@ install:
 	install -m 755 pythondeps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 pkgorder $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 check-repository.py $(DESTDIR)/$(RUNTIMEDIR)
+	install -m 755 getkeymaps $(DESTDIR)/$(RUNTIMEDIR)
 	./genlocalelist.py > $(DESTDIR)/$(ANACONDADATADIR)/locale-list
 
 depend:

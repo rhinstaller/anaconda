@@ -58,7 +58,8 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
 # Stuff that we need
     TRIMPCITABLE=$IMGPATH/usr/lib/anaconda-runtime/trimpcitable
-    KEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/keymaps-${BASEARCH}
+    GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
+    KEYMAPS=/tmp/keymaps-$BUILDARCH.$$
     FONTS=$IMGPATH/usr/lib/anaconda-runtime/fonts-${BASEARCH}
     GETMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/moddeps
     MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
@@ -74,7 +75,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     touch $MODULESUSED
 
     REQUIREMENTS="$TRIMPCITABLE $PCITABLE $GETMODDEPS $MODINFO
-		  $FILTERMODDEPS $LANGTABLE $KEYMAPS"
+		  $FILTERMODDEPS $LANGTABLE $GETKEYMAPS"
 
     dieLater=
     for n in $REQUIREMENTS; do
@@ -93,6 +94,13 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     if [ -n "$dieLater" ]; then exit 1; fi
 
+    # go ahead and create the keymaps so we only have to do it once
+    $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
+    if [ $? != 0 ]; then
+        echo "Unable to create keymaps and thus can't create initrd."
+	exit 1
+    fi
+ 
 findPackage() {
     dir=$1
     name=$2
