@@ -430,8 +430,8 @@ def sniffFilesystemType(device):
     if buf.startswith("XFSB"):
         return "xfs"
 
-    if (buf[pagesize - 10:] == "SWAP-SPACE" or
-        buf[pagesize - 10:] == "SWAPSPACE2"):
+    # 2.6 doesn't support version 0, so we don't like SWAP-SPACE
+    if (buf[pagesize - 10:] == "SWAPSPACE2"):
         return "swap"
 
     if fsset.isValidReiserFS(dev):

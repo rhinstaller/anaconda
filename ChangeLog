@@ -1,5 +1,10 @@
 2004-09-27  Jeremy Katz  <katzj@redhat.com>
 
+	* fsset.py (swapFileSystem.mount): Skip version 0 swaps (#122101)
+
+	* partedUtils.py (sniffFilesystemType): Don't accept version 0
+	swaps as swap
+
 	* kickstart.py (KickstartBase.definePartition): strip /dev from
 	--onpart (inspired by #121486)
 
