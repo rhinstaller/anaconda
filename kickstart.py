@@ -110,7 +110,7 @@ class KickstartBase(BaseInstallClass):
             elif (str == '--enableldapauth'):
                 useLdapauth = 1
             elif (str == '--ldapserver'):
-                ldapSever = arg
+                ldapServer = arg
             elif (str == '--ldapbasedn'):
                 ldapBasedn = arg
             elif (str == '--enablekrb5'):
@@ -263,7 +263,8 @@ class KickstartBase(BaseInstallClass):
 		device = arg
 	    elif str == "--hostname":
 		hostname = arg
-	self.setNetwork(bootProto, ip, netmask, gateway, nameserver, device)
+
+	self.setNetwork(bootProto, ip, netmask, gateway, nameserver, device=device)
 	if hostname != "":
 	    self.setHostname(hostname)
 
