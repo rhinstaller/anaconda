@@ -239,7 +239,7 @@ class ExceptionWindow:
         win.show_all ()
         self.window = win
         self.rc = self.window.run ()
-        self.window.destroy()
+#        self.window.destroy()
         
     def getrc (self):
         # I did it this way for future expantion
@@ -344,7 +344,7 @@ class InstallInterface:
                                  "choose your diskette carefully."),
                                "okcancel")
         rc = window.getrc()
-	return rc
+	return not rc
 
     def getBootdisk (self):
         return None
