@@ -80,7 +80,7 @@ def raidstart(mdDevice, aMember):
 
 def wipeRaidSB(device):
     try:
-        fd = os.open(device, O_WRONLY)
+        fd = os.open(device, os.O_WRONLY)
     except OSError, e:
         log("error wiping raid device superblock for %s: %s", device, e)
         return
