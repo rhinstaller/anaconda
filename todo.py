@@ -443,15 +443,13 @@ class ToDo:
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2":
                 iutil.execWithRedirect ("/usr/sbin/mke2fs",
-                                       [ "mke2fs", '/tmp/' + device ],
-                                        stdout = self.log.getFile (),
-                                        stderr = self.log.getFile (),
-                                       searchPath = 1)
+                                        [ "mke2fs", '/tmp/' + device ],
+                                        stdout = None, stderr = None,
+                                        searchPath = 1)
             elif fsystem == "swap":
                 rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
                                              [ "mkswap", '/tmp/' + device ],
-                                             stdout = self.log.getFile (),
-                                             stderr = self.log.getFile (),
+                                             stdout = None, stderr = None,
                                              searchPath = 1)
                 if rc:
                     raise ToDoError, "error making swap on " + device
