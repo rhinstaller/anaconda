@@ -509,11 +509,17 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
     char ctl[64];
     char *path;
 	
-    path = "/proc/driver/array";
+    path = "/proc/driver/cpqarray";
 
     sprintf(ctl, "%s/ida%d", path, ctlNum++);
-		
     f = fopen(ctl, "r");
+
+    if (!f) {
+	    path = "/proc/driver/array";
+	    sprintf(ctl, "%s/ida%d", path, ctlNum++);
+	    f = fopen(ctl, "r");
+    }
+
     if (!f) {
 	    path = "/proc/ida";
 	    sprintf(ctl, "%s/ida%d", path, ctlNum++);
