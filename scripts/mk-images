@@ -387,7 +387,7 @@ EOF
 
     # setup xinetd for telnet
     cp -f $IMGPATH/etc/xinetd.conf $MBD_DIR/etc/xinetd.conf
-    mkdir -p $MBD_DIR_/etc/xinetd.d
+    mkdir -p $MBD_DIR/etc/xinetd.d
     cat > $MBD_DIR/etc/xinetd.d/telnet <<EOF
 service telnet
 {
@@ -479,6 +479,7 @@ EOF
     	       $IMGPATH/$LIBDIR/libdl.so* \
     	       $IMGPATH/$LIBDIR/libdl-*.so* \
 	       $IMGPATH/$LIBDIR/libnss_files* \
+	       $IMGPATH/$LIBDIR/libnsl* \
 	       $IMGPATH/$LIBDIR/libutil.so* \
 	       $IMGPATH/$LIBDIR/libutil-*.so* \
 	       $IMGPATH/$LIBDIR/libcrypt*so* \
