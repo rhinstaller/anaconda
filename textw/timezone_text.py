@@ -106,15 +106,15 @@ class TimezoneWindow:
 #	    if result == "TIMER":
 #		self.updateClock()
 
-        result = self.g.run()
+        result = ""
+        while 1:
+            result = self.g.run()
+            rc = bb.buttonPressed (result)
+            if rc == "back":
+                screen.popWindow()
+                return INSTALL_BACK
 
-	screen.popWindow()
-
-        button = bb.buttonPressed(result)
-
-        if button == "back":
-            return INSTALL_BACK
-
+        screen.popWindow()
 	todo.setTimezoneInfo(self.l.current(), asUtc = self.c.selected())
 
 	return INSTALL_OK
