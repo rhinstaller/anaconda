@@ -22,6 +22,7 @@ import time
 import gettext_rh
 import signal
 import parted
+import string
 from translate import _, cat, N_
 from language import expandLangs
 from log import log
@@ -283,12 +284,13 @@ class InstallInterface:
                  (parted.EXCEPTION_RETRY, N_("Retry")),
                  (parted.EXCEPTION_IGNORE, N_("Ignore")),
                  (parted.EXCEPTION_CANCEL, N_("Cancel")))
-        for flag, string in flags:
+        for flag, errorstring in flags:
             if exc.options & flag:
-                buttons.append(_(string))
-                buttonToAction[_(string)] = flag
+                buttons.append(_(errorstring))
+                buttonToAction[string.lower(errorstring)] = flag
         rc = ButtonChoiceWindow(self.screen, exc.type_string, exc.message,
                                 buttons = buttons)
+
         return buttonToAction[rc]
     
 
