@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2000-08-14 16:58-0400\n"
-"PO-Revision-Date: 2000-07-13 22:56+0200\n"
+"PO-Revision-Date: 2000-09-21 20:59+0200\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -10,9 +10,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../comps.py:444
-#, fuzzy
 msgid "Everything"
-msgstr "Buscando"
+msgstr "Todo"
 
 #: ../exception.py:13 ../text.py:795
 msgid "Exception Occurred"
@@ -39,6 +38,11 @@ msgid ""
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
 msgstr ""
+"O kernel non é capaz de le-la información das novas particións, "
+"probablemente porque modificou particións estendidas. Aínda que isto non é "
+"crítico, terá que reinicia-la máquina antes de continuar. Insira agora o "
+"disquete de arrinque de Red Hat e prema \"Aceptar\" para reinicia-lo "
+"sistema.\n"
 
 #: ../fstab.py:393 ../fstab.py:620 ../fstab.py:630 ../fstab.py:654
 msgid "Formatting"
@@ -191,6 +195,8 @@ msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
+"Ocorreu un erro transferindo a imaxe de instalación ó seu disco duro. "
+"Probablemente non ten espacio libre no disco."
 
 #: ../image.py:78
 msgid "Change CDROM"
@@ -557,7 +563,6 @@ msgid "Save Crash Dump"
 msgstr "Garda-lo Envorcado do Erro"
 
 #: ../text.py:820
-#, fuzzy
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -802,9 +807,8 @@ msgstr ""
 "disco?"
 
 #: ../todo.py:965
-#, fuzzy
 msgid "An error occured when finding the packages to upgrade."
-msgstr "Buscando os paquetes a actualizar..."
+msgstr "Ocorreu un erro buscando os paquetes para actualizar."
 
 #: ../todo.py:1274
 msgid "Processing"
@@ -925,9 +929,8 @@ msgid "Root passwords do not match."
 msgstr "Os contrasinais de root non coinciden."
 
 #: ../iw/account_gui.py:56
-#, fuzzy
 msgid "User password accepted."
-msgstr "Contrasinal de root aceptado."
+msgstr "Contrasinal de usuario aceptado."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -2122,9 +2125,8 @@ msgid "Custom System"
 msgstr "Sistema Personalizado"
 
 #: ../installclasses/server.py:8
-#, fuzzy
 msgid "Server System"
-msgstr "Actualizar Sistema"
+msgstr "Sistema Servidor"
 
 #: ../installclasses/server.py:34
 msgid ""
@@ -2983,12 +2985,12 @@ msgstr "Indicar parámetros para o módulo"
 #: ../loader/devices.c:410
 #, c-format
 msgid "Failed to insert %s module."
-msgstr "Fallo ó inseri-lo módulo %s."
+msgstr "Erro ó inseri-lo módulo %s."
 
 #: ../loader/devices.c:456
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Fallo ó monta-lo disquete de controlador."
+msgstr "Erro ó monta-lo disquete de controlador: %s."
 
 #: ../loader/devices.c:476
 msgid "The wrong diskette was inserted."
@@ -3503,61 +3505,60 @@ msgstr "Cargando o controlador SCSI"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr ""
+msgstr "Imaxe de Mapa para visualizar"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr ""
+msgstr "Anchura do mapa (en puntos)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
-msgstr ""
+msgstr "Activar antialias"
 
 #: ../gnome-map/gglobe-canvas.c:100
 msgid "World"
-msgstr ""
+msgstr "Mundo"
 
 #: ../gnome-map/gglobe-canvas.c:101
 msgid "North America"
-msgstr ""
+msgstr "América do Norte"
 
 #: ../gnome-map/gglobe-canvas.c:102
 msgid "South America"
-msgstr ""
+msgstr "América do Sur"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Pacific Rim"
-msgstr ""
+msgstr "Pacífico"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
-msgstr ""
+msgstr "Europa"
 
 #: ../gnome-map/gglobe-canvas.c:105
 msgid "Africa"
-msgstr ""
+msgstr "África"
 
 #: ../gnome-map/gglobe-canvas.c:106
 msgid "Asia"
-msgstr ""
+msgstr "Asia"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr ""
+msgstr "Non é posible carga-los datos da zona horaria"
 
 #: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
-msgstr ""
+msgstr "gglobe-canvas"
 
 #: ../gnome-map/gglobe-canvas.c:764
-#, fuzzy
 msgid "View: "
-msgstr "Vista:"
+msgstr "Vista: "
 
 #. pick New York City as default
 #: ../gnome-map/gglobe-canvas.c:781
 msgid "America/New_York"
-msgstr ""
+msgstr "América/Nova_York"
 
 msgid "Base"
 msgstr "Base"
@@ -3619,9 +3620,8 @@ msgstr "Servidor Web"
 msgid "DNS Name Server"
 msgstr "Servidor de Nomes DNS"
 
-#, fuzzy
 msgid "Postgres (SQL) Server"
-msgstr "Servidor SQL"
+msgstr "Servidor Postgres (SQL)"
 
 msgid "Network Management Workstation"
 msgstr "Estación de Traballo de Xestión de Rede"
