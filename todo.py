@@ -425,7 +425,11 @@ class ToDo:
             (device, fsystem, format) = self.mounts[mntpoint]
             isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "swap":
-                isys.swapon ('/tmp/' + device)
+                try:
+                    isys.swapon ('/tmp/' + device)
+                except:
+                    # XXX
+                    pass
                 os.remove ('/tmp/' + device);
                 break
 	    try:
