@@ -30,11 +30,11 @@ class EliConfiguration:
         # on upgrade read in the eli config file
 	eli = LiloConfigFile ()
 	perms = 0644
-        if os.access (instRoot + '/boot/eli.cfg', os.R_OK):
+        if os.access (instRoot + '/boot/efi/eli.cfg', os.R_OK):
 	    perms = os.stat(instRoot + '/boot/eli.conf')[0] & 0777
-	    #eli.read (instRoot + '/boot/eli.cfg')
-	    os.rename(instRoot + '/boot/eli.cfg',
-		      instRoot + '/boot/eli.cfg.rpmsave')
+	    #eli.read (instRoot + '/boot/efi/eli.cfg')
+	    os.rename(instRoot + '/boot/efi/eli.cfg',
+		      instRoot + '/boot/efi/eli.cfg.rpmsave')
 
 	# Remove any invalid entries that are in the file; we probably
 	# just removed those kernels. 
@@ -71,8 +71,6 @@ class EliConfiguration:
             elif label:
                 otherList.append (label, "/dev/" + drive)
 
-        eli.addEntry("default", self.default)        
-
 	label = main
 
 	label = main
@@ -84,7 +82,7 @@ class EliConfiguration:
 
 	for (label, kernel, tag) in kernelList:
 	    kernelTag = "-%s-%s%s" % (kernel['version'], kernel['release'], tag)
-	    kernelFile = "/boot/vmlinuz" + kernelTag
+	    kernelFile = "vmlinux" + kernelTag
 
 	    try:
 		(fsType, sl) = eli.getImage(label)
