@@ -30,4 +30,4 @@ install: all
 	cp -a *.py $(DESTDIR)/usr/lib/python1.5/site-packages
 	cp -a iw/*.py $(DESTDIR)/usr/bin/iw
 	cp -a *.py *.so $(DESTDIR)/usr/lib/python1.5/site-packages
-	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) DESTDIR=../$(DESTDIR) -C $$d install; done
+	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
