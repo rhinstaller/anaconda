@@ -285,7 +285,7 @@ class ToDo:
 	# default install class
         arch = iutil.getArch ()
         self.lilo = LiloConfiguration()
-        elif arch == "sparc":
+	if arch == "sparc":
 	    self.silo = SiloInstall (self.serial)
         elif arch == "alpha":
             self.milo = MiloInstall (self)
