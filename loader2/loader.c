@@ -163,10 +163,10 @@ static void initProductInfo(void) {
     } else {
 	productName = malloc(256);
 	productPath = malloc(256);
-        fgets(productName, 256, f); /* stamp time */
-        fgets(productName, 256, f); /* product name */
-	fgets(productPath, 256, f); /* product version */
-	fgets(productPath, 256, f); /* product path */
+        productName = fgets(productName, 256, f); /* stamp time */
+        productName = fgets(productName, 256, f); /* product name */
+	productPath = fgets(productPath, 256, f); /* product version */
+	productPath = fgets(productPath, 256, f); /* product path */
 
         i = strlen(productName) - 1;
 	while (isspace(*(productName + i))) {
@@ -1076,6 +1076,7 @@ static int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
  * with a '/' */
 static void migrate_runtime_directory(char * dirname) {
     char * runtimedir;
+    int ret;
 
     runtimedir = sdupprintf("/mnt/runtime%s", dirname);
     if (!access(runtimedir, X_OK)) {
@@ -1088,7 +1089,7 @@ static void migrate_runtime_directory(char * dirname) {
         rename(dirname, olddir);
         free(olddir);
 #endif
-        symlink(runtimedir, dirname);
+        ret = symlink(runtimedir, dirname);
     }
     free(runtimedir);
 }
@@ -1339,7 +1340,8 @@ int main(int argc, char ** argv) {
         } else {
             /* FIXME: this is a bad hack for libselinux assuming things
              * about paths */
-            symlink("/mnt/runtime/etc/selinux", "/etc/selinux");
+	    int ret;
+            ret = symlink("/mnt/runtime/etc/selinux", "/etc/selinux");
             if (loadpolicy() == 0) {
                 setexeccon(ANACONDA_CONTEXT);
             } else {
@@ -1447,11 +1449,11 @@ int main(int argc, char ** argv) {
     if (strncmp(url, "ftp:", 4)) {
         *argptr++ = url;
     } else {
-        int fd;
+        int fd, ret;
 
         fd = open("/tmp/method", O_CREAT | O_TRUNC | O_RDWR, 0600);
-        write(fd, url, strlen(url));
-        write(fd, "\r", 1);
+        ret = write(fd, url, strlen(url));
+        ret = write(fd, "\r", 1);
         close(fd);
         *argptr++ = "@/tmp/method";
     }
