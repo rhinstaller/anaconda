@@ -1393,7 +1393,7 @@ static PyObject * doGetMacAddress(PyObject * s, PyObject * args) {
 	return NULL;
 
     ret = getMacAddr(dev);
-    /* returns 1 for link, 0 for no link, -1 for unknown */
+
     return Py_BuildValue("s", ret);
 }
 
