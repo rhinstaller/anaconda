@@ -37,7 +37,8 @@ class InstallProgressWindow (InstallWindow):
     def setPackageScale (self, amount, total):
         threads_enter ()
 	self.progress.update (float (amount) / total)
-#        self.totalProgress.update (float (self.sizeComplete + amount) / self.totalSize) 
+#        self.totalProgress.update (float (self.sizeComplete + amount) / self.totalSize)
+        gdk_flush ()
         threads_leave ()
 
     def completePackage(self, header):
@@ -73,7 +74,8 @@ class InstallProgressWindow (InstallWindow):
 	remainingTime = finishTime - elapsedTime
         apply (self.clist.set_text, self.status["remaining"]["time"] + ("%s" % formatTime(remainingTime),))
 
-        self.totalProgress.update (float (self.sizeComplete) / self.totalSize) 
+        self.totalProgress.update (float (self.sizeComplete) / self.totalSize)
+        gdk_flush ()
         threads_leave ()
         
         return
@@ -97,6 +99,7 @@ class InstallProgressWindow (InstallWindow):
 	if (summary == None):
             summary = "(none)"
         self.curPackage["summary"].set_text (summary)
+        gdk_flush ()
         threads_leave ()
 
     def setSizes (self, total, totalSize):
@@ -109,6 +112,7 @@ class InstallProgressWindow (InstallWindow):
         
         apply (self.clist.set_text, self.status["total"]["size"] +
                                     ("%d M" % (totalSize / (1024 * 1024)),))
+        gdk_flush ()
         threads_leave ()
 
     def allocate (self, widget, *args):
