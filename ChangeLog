@@ -1,5 +1,7 @@
 2005-01-06  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* loader2/modules.c: Add lateModuleSort so that ibmvscsic gets
 	loaded last (#137920).  Also, allow booting with "latefcload" to
 	add the various fiberchannel controllers to the list of being

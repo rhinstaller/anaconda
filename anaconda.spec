@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.5.0
+Version: 9.1.5.1
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jan  6 2005 Jeremy Katz <katzj@redhat.com> - 9.1.5.1-1.RHEL
+- Support parsing of pxelinux IPAPPEND (bnocera, #134054)
+- Load ibmvscsic late (#137920)
+- Add command line option "latefcload" to load known fiberchannel controllers 
+  later than other modules.  Should help some users with fiberchannel 
+  controllers so that they don't end up with their SAN as /dev/sda
+
 * Tue Jan 04 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.5.0-1.RHEL
 - Backport ignoredisk (#140464)
 - Fix quoting for ETHTOOL_OPTS (#142041)
