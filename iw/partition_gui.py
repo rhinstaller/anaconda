@@ -690,6 +690,7 @@ class PartitionWindow(InstallWindow):
     def presentPartitioningComments(self, type,
                                     title, labelstr1, labelstr2, comments):
         win = gtk.Dialog(title)
+        gui.addFrame(win)
         
         if type == "ok":
             win.add_button('gtk-ok', 1)
@@ -1099,6 +1100,7 @@ class PartitionWindow(InstallWindow):
 
 
         dialog = gtk.Dialog(_("Add Partition"), self.parent)
+        gui.addFrame(dialog)
         dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
         dialog.set_position(gtk.WIN_POS_CENTER)
@@ -1550,6 +1552,7 @@ class PartitionWindow(InstallWindow):
             dialog = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
                                        gtk.BUTTONS_NONE,
                                        _("Warning: %s.") % (msg))
+            gui.addFrame(dialog)
             button = gtk.Button(_("_Modify Partition"))
             dialog.add_action_widget(button, 1)
             button = gtk.Button(_("_Continue"))
@@ -1599,15 +1602,19 @@ class PartitionWindow(InstallWindow):
                                                        raidrequest)
         # if no raid partitions exist, raise an error message and return
         if len(availraidparts) < 2:
-            dlg = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK,
+            dlg = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
+                                    gtk.BUTTONS_OK,
                                     _("At least two software RAID "
                                       "partitions are needed."))
+            gui.addFrame(dlg)
+            dlg.show_all()
             dlg.set_position(gtk.WIN_POS_CENTER)
             dlg.run()
             dlg.destroy()
             return
 
         dialog = gtk.Dialog(_("Make RAID Device"), self.parent)
+        gui.addFrame(dialog)
         dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
         dialog.set_position(gtk.WIN_POS_CENTER)
@@ -1791,6 +1798,7 @@ class PartitionWindow(InstallWindow):
 
     def editLogicalVolume(self, logrequest, isNew = 0):
         dialog = gtk.Dialog(_("Make Logical Volume"), self.parent)
+        gui.addFrame(dialog)
         dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
         dialog.set_position(gtk.WIN_POS_CENTER)
@@ -1992,6 +2000,7 @@ class PartitionWindow(InstallWindow):
 
 
         dialog = gtk.Dialog(_("Make LVM Device"), self.parent)
+        gui.addFrame(dialog)
         dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
         dialog.set_position(gtk.WIN_POS_CENTER)
@@ -2313,10 +2322,12 @@ class AutoPartitionWindow(InstallWindow):
 	    next = model.iter_next(iter)
 
         if len(allowdrives) < 1:
-            dlg = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK,
+            dlg = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
+                                    gtk.BUTTONS_OK,
                                     _("You need to select at least one "
                                       "drive to have Red Hat Linux installed "
                                       "onto."))
+            gui.addFrame(dlg)
             dlg.show_all()
             rc = dlg.run()
             dlg.destroy()

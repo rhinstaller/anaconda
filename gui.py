@@ -141,6 +141,14 @@ class WrappingLabel(gtk.Label):
 #        self.set_size_request(-1, 1)
         widgetExpander(self)
 
+def addFrame(dialog):
+    contents = dialog.children()[0]
+    dialog.remove(contents)
+    frame = gtk.Frame()
+    frame.set_shadow_type(gtk.SHADOW_OUT)
+    frame.add(contents)
+    dialog.add(frame)
+
 class WaitWindow:
     def __init__(self, title, text):
         self.window = gtk.Window(gtk.WINDOW_POPUP)
@@ -227,9 +235,11 @@ class ExceptionWindow:
         win.vbox.pack_start (hbox, gtk.TRUE)
         win.set_size_request (500, 300)
         win.set_position (gtk.WIN_POS_CENTER)
+        addFrame(win)
         win.show_all ()
         self.window = win
         self.rc = self.window.run ()
+        self.window.destroy()
         
     def getrc (self):
         # I did it this way for future expantion
@@ -271,24 +281,25 @@ class MessageWindow:
             buttons = gtk.BUTTONS_YES_NO
             style = gtk.MESSAGE_QUESTION
 
-        window = gtk.MessageDialog(mainWindow, 0, style, buttons, _(text))
-        
-        if default == "no":
-            window.set_default_response(0)
-        elif default == "yes" or default == "ok":
-            window.set_default_response(1)
-        else:
-            window.set_default_response(0)
+        dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, _(text))
 
-        window.set_position (gtk.WIN_POS_CENTER)
-        window.show_all ()
-        rc = window.run()
+        if default == "no":
+            dialog.set_default_response(0)
+        elif default == "yes" or default == "ok":
+            dialog.set_default_response(1)
+        else:
+            dialog.set_default_response(0)
+
+        addFrame(dialog)
+        dialog.set_position (gtk.WIN_POS_CENTER)
+        dialog.show_all ()
+        rc = dialog.run()
         if rc == gtk.RESPONSE_OK or rc == gtk.RESPONSE_YES:
             self.rc = 1
         elif (rc == gtk.RESPONSE_CANCEL or rc == gtk.RESPONSE_NO
             or rc == gtk.RESPONSE_CLOSE):
             self.rc = 0
-        window.destroy()
+        dialog.destroy()
     
 class InstallInterface:
     def __init__ (self):
@@ -500,6 +511,7 @@ class InstallControlWindow:
                           gtk.FILL | gtk.EXPAND, 5, 5)
 
             self.textWin.set_border_width(0)
+            addFrame(self.textWin)
             self.textWin.show_all()
 
         else:
@@ -510,6 +522,7 @@ class InstallControlWindow:
                           gtk.FILL | gtk.EXPAND, gtk.FILL | gtk.EXPAND, 5, 5)
 
             self.textWin.set_border_width(0)
+            addFrame(self.textWin)
             self.textWin.show_all()
 
     def loadReleaseNotes(self):
