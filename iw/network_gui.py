@@ -19,7 +19,7 @@ from translate import _, N_
 class NetworkWindow(InstallWindow):		
 
     windowTitle = N_("Network Configuration")
-    htmlTag = "netconf"
+    htmlTag = "netconf-s390"
 
     def __init__(self, ics):
 	InstallWindow.__init__(self, ics)

@@ -31,7 +31,7 @@ def D_(x):
 class InstallPathWindow (InstallWindow):		
 
     installTypes = installclass.availableClasses()
-    htmlTag = "instpath"
+    htmlTag = "instpath-s390"
     windowTitle = N_("Installation Type")
 
     def getNext(self):
