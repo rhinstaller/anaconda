@@ -29,7 +29,7 @@ class AccountWindow (InstallWindow):
 	if not self.__dict__.has_key("pw"): return None
 
         pw = self.pw.get_text()
-        allowed = string.digits + string.ascii_letters + string.punctuation
+        allowed = string.digits + string.ascii_letters + string.punctuation + " "
         for letter in pw:
             if letter not in allowed:
                 self.intf.messageWindow(_("Error with Password"),

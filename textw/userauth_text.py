@@ -18,7 +18,7 @@ import iutil
 from flags import flags
 
 def has_bad_chars(pw):
-    allowed = string.digits + string.ascii_letters + string.punctuation
+    allowed = string.digits + string.ascii_letters + string.punctuation + " "
     for letter in pw:
         if letter not in allowed:
             return 1
