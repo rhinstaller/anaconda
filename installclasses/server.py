@@ -27,12 +27,13 @@ class InstallClass(BaseInstallClass):
 			  [ "KDE", 
 			    ("GNOME", 0),
 			    ("X Window System", 0),
+                            "DNS Name Server",
+                            "Web Server",
+                            "SQL Database Server",
                             "NFS File Server",
                             "Windows File Server",
-                            "Web Server",
-                            "SQL Database Server"
-			    "News Server",
-                            "DNS Name Server" ])
+                            "Anonymous FTP Server",
+			    "News Server"])
 
 	comps["Server"].select()
 
