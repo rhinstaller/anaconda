@@ -72,6 +72,7 @@ struct installMethod {
 		      moduleDeps modDeps, int flags);
 };
 
+#ifdef INCLUDE_LOCAL
 static char * mountCdromImage(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
@@ -80,6 +81,8 @@ static char * mountHardDrive(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
+#endif
+#ifdef INCLUDE_NETWORK
 static char * mountNfsImage(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
@@ -88,6 +91,7 @@ static char * mountUrlImage(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
+#endif
 
 static struct installMethod installMethods[] = {
 #if defined(INCLUDE_LOCAL)
@@ -118,6 +122,7 @@ static void startNewt(int flags) {
 	newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
 
 	newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
+
 	newtRunning = 1;
         if (FL_TESTING(flags)) 
 	    newtSetSuspendCallback((void *) doSuspend, NULL);
@@ -465,7 +470,6 @@ static int loadStage2Ramdisk(int fd, off_t size, int flags) {
 }
 
 #ifdef INCLUDE_LOCAL
-
 static char * setupHardDrive(char * device, char * type, char * dir, 
 			     int flags) {
     int fd;
@@ -1028,6 +1032,8 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 
     startNewt(flags);
 
+    chooseLanguage(flags);
+
     do { 
 	rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
 				_("Installation Method"), 
@@ -1053,37 +1059,44 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     		             moduleInfoSet modInfo,
 			     moduleList modLoaded,
 		             moduleDeps modDeps, int * flagsPtr) {
-    static struct networkDeviceConfig netDev;
-    char * host = NULL, * dir = NULL, * partname = NULL;
-    char * url = NULL, * proxy = NULL, * proxyport = NULL;
     char ** ksArgv;
-    char * fullPath;
     char * device = NULL;
     int ksArgc;
     int ksType;
-    int i, rc, fd, partNum;
+    int i, rc;
     int flags = *flagsPtr;
     enum deviceClass ksDeviceType;
     struct poptOption * table;
     poptContext optCon;
-    struct partitionTable partTable;
+    char * dir = NULL;
+#ifdef INCLUDE_NETWORK
+    static struct networkDeviceConfig netDev;
+    char * host = NULL, * url = NULL, * proxy = NULL, * proxyport = NULL;
+    char * fullPath;
+
     struct poptOption ksNfsOptions[] = {
 	    { "server", '\0', POPT_ARG_STRING, &host, 0 },
 	    { "dir", '\0', POPT_ARG_STRING, &dir, 0 },
 	    { 0, 0, 0, 0, 0 }
 	};
-    struct poptOption ksHDOptions[] = {
-	    { "dir", '\0', POPT_ARG_STRING, &dir, 0 },
-	    { "partition", '\0', POPT_ARG_STRING, &partname, 0 },
-	    { 0, 0, 0, 0, 0 }
-    };
+    
     struct poptOption ksUrlOptions[] = {
 	    { "url", '\0', POPT_ARG_STRING, &url, 0 },
 	    { "proxy", '\0', POPT_ARG_STRING, &proxy, 0 },
 	    { "proxyport", '\0', POPT_ARG_STRING, &proxyport, 0 },
 	    { 0, 0, 0, 0, 0 }
 	};
-
+#endif
+#ifdef INCLUDE_LOCAL
+    int partNum, fd;
+    char * partname = NULL;
+    struct partitionTable partTable;
+    struct poptOption ksHDOptions[] = {
+	    { "dir", '\0', POPT_ARG_STRING, &dir, 0 },
+	    { "partition", '\0', POPT_ARG_STRING, &partname, 0 },
+	    { 0, 0, 0, 0, 0 }
+    };
+#endif
     /* XXX kickstartDevices(modInfo, modLoaded, modDeps); */
 
     if (0) {

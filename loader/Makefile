@@ -5,7 +5,7 @@ DESTDIR = ../../trees/initrd
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
-OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o
+OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o lang.o
 LOADEROBJS = loader.o loader-pcmcia.o popen.o
 SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
 BINS = init
@@ -65,7 +65,21 @@ STATIC=-static
 endif
 endif
 
-all: dirs $(BINS)
+LANGS = cs et id pl se tr da fi is pt_BR sk uk de fr it ro sl es hu no ru sr
+
+TR = $(patsubst %,tr/%.tr,$(LANGS))
+
+all: dirs $(BINS) loader.tr
+
+loader.tr: $(TR)
+	(cd tr; ls *.tr | cpio --quiet -Hcrc -o | gzip -9) > $@
+
+loader.po: *.c
+	xgettext --default-domain=loader --add-comments \
+		--keyword=_ --keyword=N_ *.c
+
+tr/%.tr: ../po/%.po loader.po
+	msgmerge $< loader.po | ./simplemot > $@
 
 dirs:
 	for n in $(DIRS); do \
@@ -80,6 +94,7 @@ install: all
 #	install -s loader $(DESTDIR)/sbin/loader
 #	install -s init $(DESTDIR)/sbin/init
 #	install -m 755 ../kudzu/pcitable $(DESTDIR)/etc
+#	install -m 644 loader.tr $(DESTDIR)/etc
 
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \

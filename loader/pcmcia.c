@@ -7,6 +7,9 @@
 #include "log.h"
 #include "modules.h"
 
+int probe_main (int argc, char ** argv);
+int cardmgr_main (int argc, char ** argv);
+
 void startPcmcia(moduleList modLoaded, moduleDeps modDeps, int flags) {
     pid_t child;
     char * probeArgs[] = { "/sbin/probe", NULL };
