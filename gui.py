@@ -146,13 +146,13 @@ class InstallInterface:
         rc_parse("gtkrc")
 
         steps = [
-            ["Welcome", WelcomeWindow],
-            ["Partition", PartitionWindow]
+            ["Welcome", WelcomeWindow, ()],
+            ["Partition", PartitionWindow, ()]
         ]
 
         step = 0
         while step >= 0 and step < len(steps) and steps[step]:
-            if steps[step][1]().run() == -1:
+            if apply(steps[step][1]().run,steps[step][2]) == -1:
                 step = step - 1
             else:
                 step = step + 1
