@@ -3344,7 +3344,7 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
-    mlLoadModuleSet("cramfs:vfat", modLoaded, modDeps, modInfo, flags);
+    mlLoadModuleSet("cramfs:vfat:nfs", modLoaded, modDeps, modInfo, flags);
 
 
 #if defined (__s390__) || defined (__s390x__)
