@@ -1413,18 +1413,23 @@ class ToDo:
         else:
             pass
 
-    def copyExtraModules(self):
-	kernelVersions = []
-	
-	if (self.hdList.has_key('kernel-smp') and 
-	    self.hdList['kernel-smp'].selected):
-	    version = (self.hdList['kernel-smp'][rpm.RPMTAG_VERSION] + "-" +
-		       self.hdList['kernel-smp'][rpm.RPMTAG_RELEASE] + "smp")
-	    kernelVersions.append(version)
+    def kernelVersionList(self):
+	for ktag in [ 'kernel-smp', 'kernel-enterprise' ]:
+	    tag = string.split(ktag, '-')[1]
+	    if (self.hdList.has_key(ktag) and 
+		self.hdList[ktag].selected):
+		version = (self.hdList[ktag][rpm.RPMTAG_VERSION] + "-" +
+			   self.hdList[ktag][rpm.RPMTAG_RELEASE] + tag)
+		kernelVersions.append(version)
+ 
+ 	version = (self.hdList['kernel'][rpm.RPMTAG_VERSION] + "-" +
+ 		   self.hdList['kernel'][rpm.RPMTAG_RELEASE])
+ 	kernelVersions.append(version)
+ 
+	return kernelVersions
 
-	version = (self.hdList['kernel'][rpm.RPMTAG_VERSION] + "-" +
-		   self.hdList['kernel'][rpm.RPMTAG_RELEASE])
-	kernelVersions.append(version)
+    def copyExtraModules(self):
+	kernelVersions = self.kernelVersionList()
 
         for (path, subdir, name) in self.extraModules:
 	    pattern = ""
@@ -1451,17 +1456,7 @@ class ToDo:
 				fromFile)
 
     def depmodModules(self):
-	kernelVersions = []
-	
-	if (self.hdList.has_key('kernel-smp') and 
-	    self.hdList['kernel-smp'].selected):
-	    version = (self.hdList['kernel-smp'][rpm.RPMTAG_VERSION] + "-" +
-		       self.hdList['kernel-smp'][rpm.RPMTAG_RELEASE] + "smp")
-	    kernelVersions.append(version)
-
-	version = (self.hdList['kernel'][rpm.RPMTAG_VERSION] + "-" +
-		   self.hdList['kernel'][rpm.RPMTAG_RELEASE])
-	kernelVersions.append(version)
+	kernelVersions = self.kernelVersionList()
 
         for version in kernelVersions:
 	    iutil.execWithRedirect ("/sbin/depmod",
@@ -1532,6 +1527,12 @@ class ToDo:
 	# installs detect this properly
 	if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
 	    self.hdList['kernel-smp'].selected = 1
+
+	if (self.hdList.has_key('kernel-enterprise')):
+	    import lilo
+
+	    if lilo.needsEnterpriseKernel():
+		self.hdList['kernel-enterprise'].selected = 1
 
 	# we *always* need a kernel installed
 	if (self.hdList.has_key('kernel')):
