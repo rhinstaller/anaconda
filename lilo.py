@@ -251,6 +251,7 @@ class LiloConfiguration:
 	lilo.addEntry("install", "/boot/boot.b", replace = 0)
 	lilo.addEntry("prompt", replace = 0)
 	lilo.addEntry("timeout", "50", replace = 0)
+	lilo.addEntry("message", "/boot/message", replace = 0)
         # XXX edd overrides linear, lba32/linear are mutually exclusive
         if self.edd:
 	    lilo.addEntry("lba32", replace = 0)
