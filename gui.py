@@ -221,6 +221,7 @@ def processEvents():
 def partedExceptionWindow(exc):
     # if our only option is to cancel, let us handle the exception
     # in our code and avoid popping up the exception window here.
+    log("parted exception: %s: %s" %(exc.type_string,exc.message))
     if exc.options == parted.EXCEPTION_CANCEL:
         return parted.EXCEPTION_UNHANDLED
     print exc.type_string
