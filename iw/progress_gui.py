@@ -89,18 +89,19 @@ class InstallProgressWindow (InstallWindow):
 
     def setPackage(self, header):
         threads_enter ()
-        if not (self.numComplete) % (self.numTotal / len(self.pixmaps)):
-            if self.numComplete:
-                num = self.numComplete * len(self.pixmaps) / self.numTotal
-            else:
-                num = 0
-            im = self.ics.readPixmap (self.pixmaps[num])
-            im.render ()
-            pix = im.make_pixmap ()
-            self.adbox.remove (self.adpix)
-            self.adbox.add (pix)
-            self.adpix = pix
-            self.adbox.show_all()
+        if len(self.pixmaps):
+            if not (self.numComplete) % (self.numTotal / len(self.pixmaps)):
+                if self.numComplete:
+                    num = self.numComplete * len(self.pixmaps) / self.numTotal
+                else:
+                    num = 0
+                im = self.ics.readPixmap (self.pixmaps[num])
+                im.render ()
+                pix = im.make_pixmap ()
+                self.adbox.remove (self.adpix)
+                self.adbox.add (pix)
+                self.adpix = pix
+                self.adbox.show_all()
 
         self.curPackage["package"].set_text ("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
                                                            header[rpm.RPMTAG_VERSION],
