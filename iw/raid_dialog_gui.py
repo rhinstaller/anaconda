@@ -214,8 +214,9 @@ class RaidEditor:
 	if len(availraidparts) < 2:
 	    dlg = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
 				    gtk.BUTTONS_OK,
-				    _("At least two software RAID "
-				      "partitions are needed.\n\n"
+				    _("At least two unused software RAID "
+				      "partitions are needed to create "
+				      "a RAID device.\n\n"
 				      "First create at least two partitions "
 				      "of type \"software RAID\", and then "
 				      "select the \"RAID\" option again."))

@@ -231,7 +231,7 @@ class RequestSpec:
                 if request.mountpoint == mntpt:
                     if (not self.uniqueID or
                         request.uniqueID != self.uniqueID):
-                        return _("The mount point %s is already in use, "
+                        return _("The mount point \"%s\" is already in use, "
                                  "please choose a different mount point."
                                  %(mntpt))
         return None
@@ -245,8 +245,8 @@ class RequestSpec:
             return None
 
         if self.size and self.size > self.fstype.getMaxSizeMB():
-            return (_("The size of the %s partition (size = %s MB) "
-                      "exceeds the maximum size of %s MB.")
+            return (_("The size of the %s partition (%10.2f MB) "
+                      "exceeds the maximum size of %10.2f MB.")
                     % (self.fstype.getName(), self.size,
                        self.fstype.getMaxSizeMB()))
         
