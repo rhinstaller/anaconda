@@ -97,14 +97,6 @@ echo "1 4 1 1" > /proc/sys/kernel/printk
 # make /tmp/ramfs
 mount -t ramfs none /tmp
 
-mkdir /OCO
-mount -t ext2 /dev/ram /OCO >/dev/null 2>&1
-# if there is no second initrd, remove mountpoint because 
-# anaconda checks for its existance:
-if [ "$?" != "0" ]; then
-	rm -rf /OCO 2>/dev/null
-fi
-
 ifconfig lo 127.0.0.1 netmask 255.0.0.0
 route add -host 127.0.0.1 dev lo 2>/dev/null
 
@@ -182,16 +174,18 @@ if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ] || [ ":$NETTYPE" = ":hsi"
 		  read GATEWAY
 	 done
     if echo "$CHANDEV" |grep -q "lcs"; then
-        LCS="on"
+		  if [ ":$NETTYPE" = ":tr" ]; then
+			   TR="on"
+        else
+            LCS="on"
+        fi
     fi
     # qeth and nettype!= eth  is hipersockets ! 
     if echo "$CHANDEV" |grep -q "qeth"; then
-        if echo "$NETTYPE" |grep -q "eth"; then
+        if [ ":$NETTYPE" = ":eth" ]; then
             QETH="on"
-		  elif echo "$NETTYPE" |grep -q "hsi"; then
+		  elif [ ":$NETTYPE" = ":hsi" ]; then
 			   HSI="on"
-		  elif echo "$NETTYPE" |grep -q "tr"; then
-			   TR="on"
 		  fi
     fi
 else  # ctc0, escon0, iucv0
@@ -201,10 +195,6 @@ else  # ctc0, escon0, iucv0
 	 done
 
 	 if [ "$NETTYPE" = "ctc" ]; then
-# 		 if [ -z "$MTU" ]; then
-#			   echo $"Enter the maximal transfer unit (MTU) for this connection or leave empty:"
-#			   read MTU
-#		 fi
 		 if [ -z "$MTU" ]; then
 			   MTU="1500"
 		 fi
@@ -237,41 +227,23 @@ elif [ ":$NETTYPE" = ":iucv" ]; then
 	insmod netiucv$LO $IUCV
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 	route add -host $IPADDR dev $DEVICE 2>/dev/null
-else   # lcs, tr, qeth, hsi or older kernel without opensource-lcs
+elif [ -n "$LCS" -o -n "$TR" ]; then
+	insmod lcs$LO
+	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
+	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
+elif [ -n "$QETH" -o -n "$HSI" ]; then
 	if [ "$DEVICE" = "eth0" -a "$HSI" = "on" ]; then
 		DEVICE="hsi0"
 	fi
-   insmod ipv6$LO
-	if [ -n "$LCS" ]; then
-		insmod -f lcs$LO
-		if [ "$?" = "1" ]; then
-			echo $"warning: no lcs module found in the first initrd, "
-			echo $"  looking for second initrd"
-		else
-		   ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
-		   route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
-		fi
-	fi
-	if [ -d "/OCO" ]; then
-		if [ -n "$LCS" ]; then
-			if [ -f /OCO/$KERNELVERSION/kernel/drivers/s390/net/lcs.o ]; then
-				insmod -f /OCO/$KERNELVERSION/kernel/drivers/s390/net/lcs$LO
-			else
-				echo $"error: no lcs module found"
-			fi
-		else # qeth or hsi
-			if [ -f /OCO/$KERNELVERSION/kernel/drivers/s390/qdio.o -a -f /OCO/$KERNELVERSION/kernel/drivers/s390/net/qeth.o ]; then
-				insmod -f /OCO/$KERNELVERSION/kernel/drivers/s390/qdio$LO
-				insmod -f /OCO/$KERNELVERSION/kernel/drivers/s390/net/qeth$LO
-			else
-				echo $"error: The qdio and the qeth modules are needed for this"
-				echo $"They cannot be found in /OCO/$KERNELVERSION/kernel/drivers/s390/, skipping..."
-			fi
-		fi
-		ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
-		route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
-	fi
+	insmod qdio$LO
+	insmod qeth$LO
+	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
+	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
+else
+   echo $"Unknown network device, aborting installation"
+   exit 1
 fi
+
 route add default gw $GATEWAY dev $DEVICE 2>/dev/null
 
 if [ -z "$DNS" ]; then
