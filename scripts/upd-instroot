@@ -104,7 +104,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm
 	 rhpl pyxf86config libxml2 libxml2-python glib2
-	 elfutils-libelf bogl-bterm krb5-libs"
+	 elfutils-libelf bogl-bterm krb5-libs convertdb1"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -144,7 +144,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
            redhat-config-keyboard Xft fontconfig redhat-artwork
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts 
-           comps-extras XFree86-libs-data"
+           comps-extras XFree86-libs-data convertdb1"
 
 #
 # stuff ONLY included for rescue mode
@@ -339,6 +339,7 @@ usr/$LIBDIR/python2.2/site-packages/rhpl
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
+usr/libexec/convertdb1
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/sbin/anaconda
 usr/sbin/ddcprobe
