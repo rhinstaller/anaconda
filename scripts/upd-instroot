@@ -721,7 +721,7 @@ rm -f $DESTGR/usr/X11R6/lib/modules/extensions/lib{GLcore,glx,pex5}*
 # moving comps-extras images in to where anaconda expects them
 echo "Moving comps-extras pixmaps to where anaconda expects them"
 if [ -n "$NEEDGR" ]; then
-    mkdir -p $DESTGR/usr/share/pixmaps/comps
+    mkdir -p $DESTGR/usr/share/anaconda/pixmaps/comps
     mv $DESTGR/usr/share/pixmaps/comps/* $DESTGR/usr/share/anaconda/pixmaps/comps/
 fi
 
