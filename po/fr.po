@@ -8,14 +8,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-08-18 08:53+1000\n"
+"PO-Revision-Date: 2004-09-02 15:21+1000\n"
 "Last-Translator: Audrey Simons <asimons@redhat.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.0.2\n"
 
 #: ../anaconda:94
@@ -964,7 +964,7 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
-"Les captures décrans on été enregistrées dans le répertoire:\n"
+"Les captures d'écrans on été enregistrées dans le répertoire:\n"
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
@@ -978,7 +978,7 @@ msgstr "Enregistrement des captures d'écrans en cours."
 #: ../gui.py:165
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "Une caprure d'écran intitulée '%s' vient d'être enregistrée. "
+msgstr "Une capture d'écran intitulée '%s' vient d'être enregistrée. "
 
 #: ../gui.py:168
 msgid "Error Saving Screenshot"
@@ -1279,12 +1279,12 @@ msgstr "Le nom d'hôte doit comporter au minimum 64 caractères."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr "Le nom d'hôte doit commencer par un caractère entre 'a-z' o 'A-Z'"
+msgstr "Le nom d'hôte doit commencer par un caractère entre 'a-z' ou 'A-Z'"
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
-"Les noms d'hôte ne peuvent contenir que des caarctères compris entre 'a-z', "
+"Les noms d'hôte ne peuvent contenir que des caractères compris entre 'a-z', "
 "'A-Z' ou '.'"
 
 #: ../packages.py:46 ../iw/package_gui.py:41
@@ -1630,7 +1630,7 @@ msgstr "Initialisation"
 #: ../partedUtils.py:740
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr "Formatation du disque en cours, veuillez patienter %s...\n"
+msgstr "Formatage du disque en cours, veuillez patienter %s...\n"
 
 #: ../partedUtils.py:831
 #, python-format
@@ -1767,7 +1767,7 @@ msgstr "Cette partition car elle fait partie du groupe de volume LVM."
 #: ../partIntfHelpers.py:156 ../partIntfHelpers.py:166
 #: ../partIntfHelpers.py:183
 msgid "Unable To Delete"
-msgstr "Impossible d'efffacer"
+msgstr "Impossible d'effacer"
 
 #: ../partIntfHelpers.py:142
 msgid "You must first select a partition to delete."
@@ -1779,7 +1779,7 @@ msgstr "Vous ne pouvez pas supprimer de l'espace libre."
 
 #: ../partIntfHelpers.py:157
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr "Vous ne pouvez pas supprimer la partition d'un DASD formatté en LDL."
+msgstr "Vous ne pouvez pas supprimer la partition d'un DASD formaté en LDL."
 
 #: ../partIntfHelpers.py:167
 #, python-format
@@ -2109,7 +2109,7 @@ msgstr "la partition utilisée par le programme d'installation."
 
 #: ../partitions.py:1170
 msgid "a partition which is a member of a RAID array."
-msgstr "une partition qui fait partie d'un RAID array."
+msgstr "une partition qui fait partie d'une matrice RAID."
 
 #: ../partitions.py:1173
 msgid "a partition which is a member of a LVM Volume Group."
@@ -2525,7 +2525,7 @@ msgid ""
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 "L'architecture de la version de %s que vous êtes en train de mettre à jour "
-"sermble être %s et ne correspond pas à l'architecture précédemment installée "
+"semble être %s et ne correspond pas à l'architecture précédemment installée "
 "de %s. Il n'y a peu de chance de réussite. Souhaitez-vous continuer le "
 "processus de mise à niveau ?"
 
@@ -3047,7 +3047,7 @@ msgstr "Impossible de modifier l'ordre du disque pour LILO "
 msgid "We do not support changing the drive order for use with LILO."
 msgstr ""
 "Nous ne prenons pas en charge la modification de l'ordre du disque pour "
-"l'utlisation avec LILO. "
+"l'utilisation avec LILO. "
 
 #: ../iw/bootlocwidget.py:92
 msgid "Edit Drive Order"
@@ -3120,7 +3120,7 @@ msgid ""
 "your system."
 msgstr ""
 "Un journal complet de la mise à niveau est disponible dans le fichier '%s' "
-"après le redémarrage de votre systsème."
+"après le redémarrage de votre système."
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
@@ -3373,7 +3373,7 @@ msgid ""
 "firewall.  Choose \"Proceed\" to continue without a firewall."
 msgstr ""
 "Si ce système est relié directement à l'Internet ou s'il fait partie d'un "
-"grand réseau public, il est recommendé de configurer un pare-feu afin "
+"grand réseau public, il est recommandé de configurer un pare-feu afin "
 "d'empêcher tout accès non autorisé. Vous avez cependant choisi de ne pas "
 "configurer de pare-feu. Sélectionnez \"Poursuivre\" si vous souhaitez "
 "continuer sans pare-feu."
@@ -3530,7 +3530,7 @@ msgid ""
 msgstr ""
 "La taille physique ne peut pas être modifiée car la valeur sélectionnée (%"
 "10.2f Mo) est plus grande que le plus petit volume physique du groupe de "
-"volume(%10.2f MB). "
+"volume(%10.2f Mo). "
 
 #: ../iw/lvm_dialog_gui.py:167
 #, python-format
@@ -3541,7 +3541,7 @@ msgid ""
 msgstr ""
 "La taille physique ne peut pas être modifiée car la valeur sélectionnée (%"
 "10.2f Mo) est plus grande que le plus petit volume physique du groupe de "
-"volume (%10.2f MB). "
+"volume (%10.2f Mo). "
 
 #: ../iw/lvm_dialog_gui.py:181
 msgid "Too small"
@@ -3553,7 +3553,7 @@ msgid ""
 "on one or more of the physical volumes in the volume group."
 msgstr ""
 "Cette modification de la valeur de la dimension physique gaspillera l'espace "
-"substanciel d'un ou de plusieurs volumes physiques dans le groupe de volume."
+"substantiel d'un ou de plusieurs volumes physiques dans le groupe de volume."
 
 #: ../iw/lvm_dialog_gui.py:207
 #, python-format
@@ -3669,7 +3669,7 @@ msgid ""
 msgstr ""
 "La taille en cours demandée (%10.2f Mo) est supérieure à la taille du volume "
 "logique maximum  (%10.2f Mo). Pour augmenter cette limite, vous pouvez "
-"augmenter la taille physqiue de ce groupe de volume."
+"augmenter la taille physique de ce groupe de volume."
 
 #: ../iw/lvm_dialog_gui.py:620 ../iw/partition_dialog_gui.py:173
 #: ../iw/partition_dialog_gui.py:185 ../iw/partition_dialog_gui.py:233
@@ -3747,7 +3747,7 @@ msgstr ""
 "Au moins une partition de volume physique est nécessaire à la création d'un "
 "groupe de volume LVM.\n"
 "\n"
-"Créer avant tout une partition ou un array raid de type \"physical volume "
+"Créer avant tout une partition ou une matrice raid de type \"physical volume "
 "(LVM)\" puis sélectionnez à nouveau l'option \"LVM\"."
 
 #: ../iw/lvm_dialog_gui.py:932
@@ -3955,7 +3955,7 @@ msgstr ""
 "activé.\n"
 "\n"
 "REMARQUE : Si vous disposez d'un adaptateur de réseau basé sur PCMCIA, il "
-"vous faut le maintenir désactivé. Lorsque vous redémarez votre système, "
+"vous faut le maintenir désactivé. Lorsque vous redémarrez votre système, "
 "l'adaptateur sera activé automatiquement."
 
 #: ../iw/network_gui.py:204
@@ -4475,7 +4475,7 @@ msgstr "Cloner un _disque pour créer un périphérique RAID [default=/dev/md%s]
 
 #: ../iw/partition_gui.py:1306
 msgid "Couldn't Create Drive Clone Editor"
-msgstr "Impossible de créer l'éditeur de clobage de lecteur"
+msgstr "Impossible de créer l'éditeur de clonage de lecteur"
 
 #: ../iw/partition_gui.py:1307
 msgid "The drive clone editor could not be created for some reason."
@@ -4728,7 +4728,7 @@ msgid ""
 msgstr ""
 "Le disque source sélectionné comprend des partitions qui ne sont pas de type "
 "'software RAID'.\n"
-"Ces partitions devront être supprimées avant de cloner le dique. "
+"Ces partitions devront être supprimées avant de cloner le disque. "
 
 #: ../iw/raid_dialog_gui.py:497
 #, python-format
@@ -4739,7 +4739,7 @@ msgid ""
 "These partitions will have to be removed or restricted to this drive before "
 "this drive can be cloned. "
 msgstr ""
-"Le disque source sélectionné comprend des parititons qui ne sont pas "
+"Le disque source sélectionné comprend des partitions qui ne sont pas "
 "contenues dans le disque /dev/%s.\n"
 "\n"
 "Ces partitions devront être supprimées ou restreintes à ce disque avant de "
@@ -4847,7 +4847,7 @@ msgstr ""
 "Outil de clonage de disque\n"
 "\n"
 "Cet outil vous permet de réduire de manière significative les efforts lors "
-"du paramétrage des arrays RAID. L'idée est de prendre un disque source "
+"du paramétrage des matrices RAID. L'idée est de prendre un disque source "
 "préparé selon la disposition de partition désirée et de cloner cette "
 "disposition dans des disques de taille similaire. Le périphérique RAID peut "
 "être créé.\n"
@@ -4936,7 +4936,8 @@ msgstr "Horloge système en U_TC"
 
 #: ../iw/timezone_gui.py:75
 msgid "Please select the nearest city in your timezone:"
-msgstr "Veuillez sélectionner la ville la plus proche de votre fuseu horaire :"
+msgstr ""
+"Veuillez sélectionner la ville la plus proche de votre fuseau horaire :"
 
 #: ../iw/timezone_map_gui.py:126
 msgid "_Location"
@@ -5000,7 +5001,7 @@ msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
-"Ceci n'apportera aucun changemement à la configuration du chargeur de "
+"Ceci n'apportera aucun changement à la configuration du chargeur de "
 "démarrage. Si vous utilisez un chargeur de démarrage de tierce partie, "
 "choisissez cette option."
 
@@ -5055,7 +5056,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Le programme d'installation a détecté %s Mo de mémore vive.\n"
+"Le programme d'installation a détecté %s Mo de mémoire vive.\n"
 
 #: ../iw/upgrade_swap_gui.py:120
 msgid "I _want to create a swap file"
@@ -5557,7 +5558,7 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
-"Félicitations, votre installation de %s est désormais termionée.\n"
+"Félicitations, votre installation de %s est désormais terminée.\n"
 "\n"
 "%s%s"
 
@@ -6178,7 +6179,7 @@ msgstr "Trop de disques restants"
 
 #: ../textw/partition_text.py:1093
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr "Le nombre maximum de disques restants avec un array RAID0 est 0."
+msgstr "Le nombre maximum de disques restants avec une matrice RAID0 est 0."
 
 #: ../textw/partition_text.py:1174
 #, fuzzy
@@ -6198,7 +6199,7 @@ msgid ""
 msgstr ""
 "La taille en cours demandée (%10.2f Mo) est supérieure à la taille du volume "
 "logique maximum  (%10.2f Mo). Pour augmenter cette limite, vous pouvez "
-"augmenter la taille physqiue de ce groupe de volume."
+"augmenter la taille physique de ce groupe de volume."
 
 #: ../textw/partition_text.py:1310
 #, python-format
@@ -6361,7 +6362,7 @@ msgid ""
 "file systems now."
 msgstr ""
 "Le noyau 2.4 requiert beaucoup plus d'espace swap que les noyaux précédents, "
-"deux fois la mémoire vive du système. Actuellement vous avez %dMB d'espace "
+"deux fois la mémoire vive du système. Actuellement vous avez %dMo d'espace "
 "swap configuré, mais vous pouvez créer un autre espace swap sur l'un de vos "
 "systèmes de fichiers."
 
@@ -6730,7 +6731,7 @@ msgstr ""
 "\n"
 "      %s\n"
 "\n"
-"Une fréquence de rafraichissement valide a cette forme :\n"
+"Une fréquence de rafraîchissement valide a cette forme :\n"
 "\n"
 "      31.5                   un seul numéro\n"
 "    50.1-90.2                une plage de numéros\n"
@@ -6750,7 +6751,7 @@ msgstr ""
 "Saisissez les fréquences de rafraîchissement de votre écran. \n"
 "\n"
 "REMARQUE - normalement il n'est pas nécessaire de modifier les fréquences de "
-"rafraichissement manuellement et il est conseillé de vérifier que les "
+"rafraîchissement manuellement et il est conseillé de vérifier que les "
 "valeurs introduites sont correctes."
 
 #: ../textw/xconfig_text.py:286
@@ -6844,9 +6845,8 @@ msgid "Video RAM:"
 msgstr "Mémoire vive :"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Périphérique"
+msgstr ""
 
 #: ../textw/zfcp_text.py:34
 #, fuzzy
@@ -7634,7 +7634,7 @@ msgid ""
 "field blank and the install will continue."
 msgstr ""
 "%s est un adaptateur de réseau sans fil. Veuillez fournir l'ESSID et la clé\n"
-"de cryptage nécessaires pour accèder à votre réseau. Si aucune clé n'est \n"
+"de cryptage nécessaires pour accéder à votre réseau. Si aucune clé n'est \n"
 "nécessaire laissez ce champs vide et l'installation se poursuivra."
 
 #: ../loader2/net.c:190
@@ -7793,7 +7793,7 @@ msgstr "Impossible de récupérer %s://%s/%s/%s. "
 
 #: ../loader2/urlinstall.c:137
 msgid "Unable to retrieve the install image."
-msgstr "Impossible de récupérer l'mage d'installation."
+msgstr "Impossible de récupérer l'image d'installation."
 
 #: ../loader2/urlinstall.c:272
 msgid "Media Detected"
@@ -7918,7 +7918,7 @@ msgstr "Heure de l'Alaska - Alaska de l'ouest"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr "Iles Aléoutiennes"
+msgstr "Îles Aléoutiennes"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
@@ -7934,7 +7934,7 @@ msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr "Iles de l'Atlantique"
+msgstr "Îles de l'Atlantique"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
@@ -7975,7 +7975,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr "Iles Canaries"
+msgstr "Îles Canaries"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
@@ -8057,7 +8057,7 @@ msgstr "Ceuta et Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr "Iles Chatham "
+msgstr "Îles Chatham "
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
@@ -8173,11 +8173,11 @@ msgstr "Les Galapagos "
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr "Iles Gambier "
+msgstr "Îles Gambier "
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr "Iles Gilbert "
+msgstr "Îles Gilbert "
 
 #. generated from zone.tab
 msgid "Great Britain"
@@ -8225,15 +8225,15 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr "Iles Line"
+msgstr "Îles Line"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr "Iles Lord Howe "
+msgstr "Îles Lord Howe "
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr "Iles de Madère"
+msgstr "Îles de Madère"
 
 #. generated from zone.tab
 msgid "mainland"
@@ -8241,7 +8241,7 @@ msgstr "métropole"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr "Iles Marquise"
+msgstr "Îles Marquise"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
@@ -8257,7 +8257,7 @@ msgstr "Station Mawson, Baie de Holme"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr "Station McMurdo, Ile de Ross"
+msgstr "Station McMurdo, Île de Ross"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
@@ -8265,7 +8265,7 @@ msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr "Iles Midway "
+msgstr "Îles Midway "
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -8309,7 +8309,7 @@ msgstr "Moscou +07 - Fleuve Amour"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
-msgstr "Moscou+07 - Ile de Sakhalin "
+msgstr "Moscou+07 - Île de Sakhalin "
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
@@ -8429,7 +8429,7 @@ msgstr "Heure du Pacifique - Colombie-Britannique de l'ouest"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr "Palmer Station, Ile d'Anvers "
+msgstr "Palmer Station, Île d'Anvers "
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
@@ -8441,7 +8441,7 @@ msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr "Iles Phoenix "
+msgstr "Îles Phoenix "
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
@@ -8449,7 +8449,7 @@ msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr "Queensland - Iles Holiday "
+msgstr "Queensland - Îles Holiday "
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
@@ -8465,7 +8465,7 @@ msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr "Rothera Station, Ile d'Adelaide"
+msgstr "Rothera Station, Île d'Adelaide"
 
 #. generated from zone.tab
 msgid "Ruthenia"
@@ -8489,7 +8489,7 @@ msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr "Iles de la Société"
+msgstr "Îles de la Société"
 
 #. generated from zone.tab
 msgid "South Australia"
@@ -8553,7 +8553,7 @@ msgstr "Station Vostok, Pôle Sud Magnétique"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr "Ile de Wake"
+msgstr "Île de Wake"
 
 #. generated from zone.tab
 msgid "W Amazonas"
