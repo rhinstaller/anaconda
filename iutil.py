@@ -300,6 +300,7 @@ def rmrf (path):
     for file in files:
         if (not os.path.islink(path + '/' + file) and
             os.path.isdir(path + '/' + file)):
+            rmrf (path + '/' + file)
         else:
             os.unlink (path + '/' + file)
     os.rmdir (path)
