@@ -141,7 +141,7 @@ class AccountWindow (InstallWindow):
         self.edit.set_sensitive(FALSE)
         self.delete.set_sensitive(FALSE)
         self.userList.unselect_all()
-        self.win.destroy()        
+        self.win.destroy()
 
     def addUser (self, widget):
         title = _("Add a New User")
@@ -193,19 +193,14 @@ class AccountWindow (InstallWindow):
 
         #entry boxes
         self.accountName = GtkEntry (8)
-        self.accountName.connect("changed", self.userOkay)
-        self.accountName.connect("insert-text", self.filter)
-        self.accountName.connect("activate", self.forward)
         userTable.attach(self.accountName, 1, 2, 0, 1, SHRINK, SHRINK)
         self.fullName = GtkEntry ()
         userTable.attach(self.fullName, 1, 2, 1, 2, SHRINK, SHRINK)
         self.userPass1 = GtkEntry (9)
         self.userPass1.set_visibility(FALSE)
-        self.userPass1.connect("changed", self.userOkay)
         userTable.attach(self.userPass1, 1, 2, 2, 3, SHRINK, SHRINK)
         self.userPass2 = GtkEntry (9)
         self.userPass2.set_visibility(FALSE)
-        self.userPass2.connect("changed", self.userOkay)
         userTable.attach (self.userPass2, 1, 2, 3, 4, SHRINK, SHRINK)
 
         if data:
@@ -214,7 +209,14 @@ class AccountWindow (InstallWindow):
             self.fullName.set_text(name)
             self.userPass1.set_text(password)
             self.userPass2.set_text(password)
-
+            
+        self.accountName.grab_focus()
+        self.accountName.connect("changed", self.userOkay)
+        self.accountName.connect("insert-text", self.filter)
+        self.accountName.connect("activate", self.forward)
+        self.userPass1.connect("changed", self.userOkay)
+        self.userPass2.connect("changed", self.userOkay)
+        
         return userWin
         
     def deleteUser(self, *args):
