@@ -88,7 +88,7 @@ EOF
 USBMODS="usb-ohci usb-uhci hid keybdev usb-storage sd_mod sr_mod"
 # usb-storage goes on both so we can reload it.  *sigh*
 LATEUSBMODS="mousedev usb-storage"
-IDEMODS=""
+IDEMODS="ide-cd"
 SCSIMODS="sd_mod sg sr_mod st"
 
 FSMODS="msdos vfat ext3 reiserfs jfs"
