@@ -2,7 +2,7 @@
 include Makefile.inc
 VERSION := $(shell awk '/Version:/ { print $$2 }' anaconda.spec)
 RELEASE := $(shell awk '/Release:/ { print $$2 }' anaconda.spec)
-CVSROOT := $(shell cat CVS/Root 2>/dev/null)
+CVSROOT := ${CVSROOT:-$(shell cat CVS/Root 2>/dev/null))
 
 SUBDIRS = isys loader2 po stubs \
 	    textw utils scripts bootdisk installclasses \
