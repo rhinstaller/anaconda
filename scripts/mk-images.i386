@@ -56,7 +56,7 @@ LOCALMODULES="$COMMONMODULES BusLogic aic7xxx megaraid ncr53c8xx
 	     sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs 3c509 3c59x 8390 ne ne2k-pci de4x5
 	       eepro100 e100 e1000 pcnet32 tulip pcnet32 hp100
-	       8139too tlan sis900 dmfe"
+	       tlan sis900 dmfe"
 
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
 	   --initrdsize 2100 \
