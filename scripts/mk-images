@@ -861,9 +861,7 @@ fi
 foundakernel=""
 for KERNELARCH in $arches; do
   for kernelvers in $vertag; do
-    KERNELROOT=$KERNELBASE/$KERNELARCH
     kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
-    mkdir -p $KERNELROOT/lib/modules/misc
     if [ ! -f "$kpackage" ]; then
 	echo "kernel-$kernelvers does not exist for $KERNELARCH -- using kernel package"
 	kpackage=$($LATEST $KERNELPATH kernel)
@@ -880,6 +878,9 @@ for KERNELARCH in $arches; do
 	echo "kernel doesn't exist for $KERNELARCH.  skipping arch"
 	continue
     fi
+
+    KERNELROOT=$KERNELBASE/$KERNELARCH
+    mkdir -p $KERNELROOT/lib/modules/misc
 
     foundakernel="yes"
 
