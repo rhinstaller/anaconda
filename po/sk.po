@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"POT-Creation-Date: 2003-02-24 19:53-0500\n"
+"POT-Creation-Date: 2003-05-28 21:45-0400\n"
 "PO-Revision-Date: 2003-01-27 20:50+0100\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -13,90 +13,140 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../anaconda:397
+#: ../anaconda:97
+msgid "Starting VNC..."
+msgstr ""
+
+#: ../anaconda:114
+msgid "Unable to set vnc password - using no password!"
+msgstr ""
+
+#: ../anaconda:115
+#, fuzzy
+msgid "Make sure your password is at least 6 characters in length."
+msgstr "Heslo root-a musí mať aspoň 6 znakov."
+
+#: ../anaconda:135
+msgid ""
+"\n"
+"\n"
+"WARNING!!! VNC server running with NO PASSWORD!"
+msgstr ""
+
+#: ../anaconda:136
+msgid "You can use the vncpasswd=<password> boot option"
+msgstr ""
+
+#: ../anaconda:137
+msgid ""
+"if you would like to secure the server.\n"
+"\n"
+msgstr ""
+
+#: ../anaconda:139
+msgid "VNC server now running - please connect to install..."
+msgstr ""
+
+#: ../anaconda:495
+#, fuzzy
+msgid "Unknown Error"
+msgstr "Neznámy počítač"
+
+#: ../anaconda:498
+#, fuzzy, c-format
+msgid "Error pulling second part of kickstart config: %s!"
+msgstr "Chyba pri čítaní obsahu kickstart súboru %s: %s"
+
+#: ../anaconda:570
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
 
-#: ../anaconda:412 ../gui.py:239 ../rescue.py:40 ../rescue.py:224
+#: ../anaconda:585 ../gui.py:238 ../rescue.py:40 ../rescue.py:224
 #: ../rescue.py:252 ../rescue.py:262 ../rescue.py:331 ../rescue.py:337
-#: ../text.py:324 ../text.py:456 ../textw/complete_text.py:54
+#: ../text.py:321 ../text.py:459 ../textw/complete_text.py:55
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
-#: ../textw/network_text.py:154 ../textw/silo_text.py:110
-#: ../textw/silo_text.py:147 ../textw/silo_text.py:160
-#: ../loader2/cdinstall.c:143 ../loader2/cdinstall.c:144
-#: ../loader2/cdinstall.c:257 ../loader2/cdinstall.c:260
-#: ../loader2/cdinstall.c:352 ../loader2/cdinstall.c:357
-#: ../loader2/cdinstall.c:360 ../loader2/cdinstall.c:429
-#: ../loader2/driverdisk.c:211 ../loader2/driverdisk.c:227
-#: ../loader2/driverdisk.c:239 ../loader2/driverdisk.c:392
-#: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
-#: ../loader2/hdinstall.c:255 ../loader2/hdinstall.c:422
-#: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:504
-#: ../loader2/hdinstall.c:554 ../loader2/kbd.c:125 ../loader2/kickstart.c:101
-#: ../loader2/kickstart.c:111 ../loader2/kickstart.c:154
-#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/lang.c:375
-#: ../loader2/loader.c:303 ../loader2/loader.c:316 ../loader2/loader.c:327
-#: ../loader2/loader.c:572 ../loader2/loader.c:694 ../loader2/mediacheck.c:255
+#: ../textw/network_text.py:31 ../textw/network_text.py:135
+#: ../textw/network_text.py:359 ../textw/network_text.py:367
+#: ../textw/silo_text.py:110 ../textw/silo_text.py:147
+#: ../textw/silo_text.py:160 ../loader2/cdinstall.c:136
+#: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:250
+#: ../loader2/cdinstall.c:253 ../loader2/cdinstall.c:345
+#: ../loader2/cdinstall.c:350 ../loader2/cdinstall.c:353
+#: ../loader2/cdinstall.c:422 ../loader2/driverdisk.c:212
+#: ../loader2/driverdisk.c:228 ../loader2/driverdisk.c:240
+#: ../loader2/driverdisk.c:393 ../loader2/driverselect.c:73
+#: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:218
+#: ../loader2/hdinstall.c:267 ../loader2/hdinstall.c:434
+#: ../loader2/hdinstall.c:485 ../loader2/hdinstall.c:516
+#: ../loader2/hdinstall.c:566 ../loader2/kbd.c:125 ../loader2/kickstart.c:104
+#: ../loader2/kickstart.c:114 ../loader2/kickstart.c:157
+#: ../loader2/kickstart.c:257 ../loader2/lang.c:102 ../loader2/lang.c:374
+#: ../loader2/loader.c:302 ../loader2/loader.c:315 ../loader2/loader.c:326
+#: ../loader2/loader.c:636 ../loader2/loader.c:763 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
-#: ../loader2/method.c:160 ../loader2/method.c:368 ../loader2/method.c:453
-#: ../loader2/modules.c:928 ../loader2/net.c:170 ../loader2/net.c:366
-#: ../loader2/net.c:702 ../loader2/net.c:725 ../loader2/net.c:788
-#: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:223
-#: ../loader2/nfsinstall.c:227 ../loader2/nfsinstall.c:265
+#: ../loader2/method.c:146 ../loader2/method.c:354 ../loader2/method.c:439
+#: ../loader2/modules.c:921 ../loader2/net.c:170 ../loader2/net.c:377
+#: ../loader2/net.c:662 ../loader2/net.c:685 ../loader2/net.c:748
+#: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:224
+#: ../loader2/nfsinstall.c:228 ../loader2/nfsinstall.c:266
 #: ../loader2/telnetd.c:86 ../loader2/urlinstall.c:58
 #: ../loader2/urlinstall.c:98 ../loader2/urlinstall.c:111
-#: ../loader2/urlinstall.c:368 ../loader2/urlinstall.c:377
-#: ../loader2/urlinstall.c:388 ../loader2/urls.c:168 ../loader2/urls.c:178
+#: ../loader2/urlinstall.c:369 ../loader2/urlinstall.c:378
+#: ../loader2/urlinstall.c:389 ../loader2/urls.c:168 ../loader2/urls.c:178
 #: ../loader2/urls.c:186 ../loader2/urls.c:248 ../loader2/urls.c:309
 #: ../loader2/urls.c:314 ../loader2/urls.c:320 ../loader2/urls.c:433
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:477 ../anaconda:695
+#: ../anaconda:642
+msgid "No video hardware found, assuming headless"
+msgstr ""
+
+#: ../anaconda:653 ../anaconda:889
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
-#: ../anaconda:494
+#: ../anaconda:680
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 
-#: ../anaconda:508
+#: ../anaconda:693
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
 
-#: ../anaconda:513
+#: ../anaconda:698
 #, c-format
 msgid "Using mouse type: %s"
 msgstr ""
 
-#: ../autopart.py:910
+#: ../autopart.py:922
 #, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr "Existujú nepridelené oddiely..."
 
-#: ../autopart.py:913
+#: ../autopart.py:925
 #, fuzzy
 msgid "Could not allocate partitions as primary partitions"
 msgstr "Existujú nepridelené oddiely..."
 
-#: ../autopart.py:916
+#: ../autopart.py:928
 #, fuzzy
 msgid "Could not allocate cylinder-based partitions"
 msgstr "Existujú nepridelené oddiely..."
 
-#: ../autopart.py:919
+#: ../autopart.py:931
 #, fuzzy
 msgid "Could not allocate partitions"
 msgstr "Existujú nepridelené oddiely..."
 
-#: ../autopart.py:981
+#: ../autopart.py:993
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
@@ -104,7 +154,7 @@ msgid ""
 "change this device disk label to BSD."
 msgstr ""
 
-#: ../autopart.py:983
+#: ../autopart.py:995
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -112,35 +162,40 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 
-#: ../autopart.py:985
+#: ../autopart.py:997
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
 
-#: ../autopart.py:988
+#: ../autopart.py:999
+#, python-format
+msgid ""
+"Boot partition %s isn't a PPC PReP boot partition.  OpenFirmware won't be "
+"able to boot from this partition."
+msgstr ""
+
+#: ../autopart.py:1002
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
 
-#: ../autopart.py:1013
+#: ../autopart.py:1027
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
 
-#: ../autopart.py:1160 ../autopart.py:1186 ../autopart.py:1216
-#: ../autopart.py:1252
+#: ../autopart.py:1192
 #, fuzzy
 msgid "Requested Partition Does Not Exist"
 msgstr "Existujú nepridelené oddiely..."
 
-#: ../autopart.py:1161 ../autopart.py:1187 ../autopart.py:1217
-#: ../autopart.py:1253
+#: ../autopart.py:1193
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -148,12 +203,51 @@ msgid ""
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1285 ../autopart.py:1326
+#: ../autopart.py:1218
+#, fuzzy
+msgid "Requested Raid Device Does Not Exist"
+msgstr "Existujú nepridelené oddiely..."
+
+#: ../autopart.py:1219
+#, python-format
+msgid ""
+"Unable to locate raid device %s to use for %s.\n"
+"\n"
+"Press 'OK' to reboot your system."
+msgstr ""
+
+#: ../autopart.py:1248
+#, fuzzy
+msgid "Requested Volume Group Does Not Exist"
+msgstr "Existujú nepridelené oddiely..."
+
+#: ../autopart.py:1249
+#, python-format
+msgid ""
+"Unable to locate volume group %s to use for %s.\n"
+"\n"
+"Press 'OK' to reboot your system."
+msgstr ""
+
+#: ../autopart.py:1284
+#, fuzzy
+msgid "Requested Logical Volume Does Not Exist"
+msgstr "Existujú nepridelené oddiely..."
+
+#: ../autopart.py:1285
+#, python-format
+msgid ""
+"Unable to locate logical volume %s to use for %s.\n"
+"\n"
+"Press 'OK' to reboot your system."
+msgstr ""
+
+#: ../autopart.py:1317 ../autopart.py:1358
 #, fuzzy
 msgid "Automatic Partitioning Errors"
 msgstr "Automatické rozdelenie oddielov"
 
-#: ../autopart.py:1286
+#: ../autopart.py:1318
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -163,12 +257,12 @@ msgid ""
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1296
+#: ../autopart.py:1328
 #, fuzzy
 msgid "Warnings During Automatic Partitioning"
 msgstr "Automatické rozdelenie oddielov"
 
-#: ../autopart.py:1297
+#: ../autopart.py:1329
 #, fuzzy, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -176,20 +270,20 @@ msgid ""
 "%s"
 msgstr "Automatické rozdelenie oddielov"
 
-#: ../autopart.py:1310
+#: ../autopart.py:1342
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1311 ../iw/partition_gui.py:983
+#: ../autopart.py:1343 ../iw/partition_gui.py:983
 #: ../textw/partition_text.py:213
 #, fuzzy
 msgid "Error Partitioning"
 msgstr "Manuálne rozdelenie"
 
-#: ../autopart.py:1312
+#: ../autopart.py:1344
 #, fuzzy, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -197,7 +291,7 @@ msgid ""
 "%s.%s"
 msgstr "Existujú nepridelené oddiely..."
 
-#: ../autopart.py:1327
+#: ../autopart.py:1359
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -211,20 +305,20 @@ msgid ""
 "Press 'OK' to continue."
 msgstr ""
 
-#: ../autopart.py:1405 ../bootloader.py:123 ../image.py:386
-#: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:303
-#: ../upgrade.py:439 ../upgrade.py:459 ../upgrade.py:500
+#: ../autopart.py:1446 ../bootloader.py:133 ../image.py:384
+#: ../partedUtils.py:252 ../partedUtils.py:747 ../upgrade.py:304
+#: ../upgrade.py:441 ../upgrade.py:461 ../upgrade.py:502
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
-#: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
+#: ../iw/bootloader_main_gui.py:91 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
-#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:139
-#: ../textw/bootloader_text.py:454 ../textw/fdasd_text.py:84
+#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:142
+#: ../textw/bootloader_text.py:457 ../textw/fdasd_text.py:84
 #: ../textw/partition_text.py:217 ../textw/upgrade_text.py:177
-#: ../loader2/loader.c:352
+#: ../loader2/loader.c:351
 msgid "Warning"
 msgstr "Upozornenie"
 
-#: ../autopart.py:1411
+#: ../autopart.py:1452
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -234,78 +328,106 @@ msgid ""
 "mount points, partition sizes, and more."
 msgstr ""
 
-#: ../autopart.py:1422
+#: ../autopart.py:1463
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
 
-#: ../autopart.py:1427
+#: ../autopart.py:1468
 msgid "Remove all partitions on this system"
 msgstr "Odstrániť všetky oddiely v systéme"
 
-#: ../autopart.py:1428
-msgid "Remove all Linux Partitions on this system"
+#: ../autopart.py:1469
+#, fuzzy
+msgid "Remove all Linux partitions on this system"
 msgstr "Odstrániť všetky Linux oddiely v systéme"
 
-#: ../autopart.py:1429
+#: ../autopart.py:1470
 msgid "Keep all partitions and use existing free space"
 msgstr "Zachovať všetky oddiely a použiť existujúce voľné miesto"
 
-#: ../autopart.py:1431
+#: ../autopart.py:1472
 #, fuzzy, python-format
 msgid ""
-"You have selected to remove all partitions (ALL DATA) on the following "
-"drives:%s\n"
+"You have chosen to remove all partitions (ALL DATA) on the following drives:%"
+"s\n"
 "Are you sure you want to do this?"
 msgstr ""
 "Nakonfigurovali ste RAID oddiel bez jeho obmedzenia na jeden disk.\n"
 " Určite to tak chcete?"
 
-#: ../autopart.py:1435
+#: ../autopart.py:1476
 #, fuzzy, python-format
 msgid ""
-"You have selected to remove all Linux partitions (and ALL DATA on them) on "
-"the following drives:%s\n"
+"You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
+"following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
 "Nakonfigurovali ste RAID oddiel bez jeho obmedzenia na jeden disk.\n"
 " Určite to tak chcete?"
 
-#: ../bootloader.py:89
+#: ../bootloader.py:99
 msgid "Bootloader"
 msgstr "Systémový zavádzač"
 
-#: ../bootloader.py:89
+#: ../bootloader.py:99
 msgid "Installing bootloader..."
 msgstr "Inštalujem systémový zavádzač..."
 
-#: ../bootloader.py:124
+#: ../bootloader.py:134
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
 
-#: ../comps.py:752 ../comps.py:780
+#: ../cmdline.py:42 ../iw/progress_gui.py:93 ../iw/progress_gui.py:273
+msgid "Completed"
+msgstr "Hotovo"
+
+#: ../cmdline.py:47
+#, fuzzy
+msgid "In progress...   "
+msgstr "Spolu    :"
+
+#: ../cmdline.py:68
+msgid "Can't have a question in command line mode!"
+msgstr ""
+
+#: ../cmdline.py:86
+msgid "Parted exceptions can't be handled in command line mode!"
+msgstr ""
+
+#: ../cmdline.py:131
+#, python-format
+msgid "Done [%d/%d]"
+msgstr ""
+
+#: ../cmdline.py:137
+#, fuzzy, python-format
+msgid "Installing %s-%s-%s... "
+msgstr "Inštalácia %s-%s-%s.\n"
+
+#: ../comps.py:761 ../comps.py:789 ../hdrlist.py:677
 msgid "Everything"
 msgstr "Všetko"
 
-#: ../comps.py:921 ../comps.py:986 ../upgrade.py:618
+#: ../comps.py:930 ../comps.py:995
 msgid "no suggestion"
 msgstr "žiadny návrh"
 
-#: ../comps.py:1081
+#: ../comps.py:1092 ../hdrlist.py:876
 msgid "Miscellaneous"
 msgstr "Rôzne"
 
-#: ../comps.py:1097
+#: ../comps.py:1108 ../hdrlist.py:42 ../hdrlist.py:823
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
 
-#: ../comps.py:1101
+#: ../comps.py:1112 ../hdrlist.py:827
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -326,15 +448,15 @@ msgid ""
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
 
-#: ../exception.py:168 ../text.py:240
+#: ../exception.py:167 ../text.py:237
 msgid "Exception Occurred"
 msgstr "Vyskytla sa výnimka"
 
-#: ../exception.py:235
+#: ../exception.py:234
 msgid "Dump Written"
 msgstr ""
 
-#: ../exception.py:236
+#: ../exception.py:235
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -375,25 +497,24 @@ msgid "_Make boot disk"
 msgstr "_Vytvoriť zavádzaciu disketu"
 
 #: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
-#: ../fsset.py:559 ../fsset.py:1040 ../fsset.py:1059 ../fsset.py:1106
-#: ../fsset.py:1117 ../fsset.py:1153 ../fsset.py:1203 ../fsset.py:1246
-#: ../harddrive.py:217 ../image.py:76 ../image.py:113 ../image.py:249
-#: ../packages.py:140 ../packages.py:154 ../packages.py:341 ../packages.py:513
-#: ../packages.py:586 ../partedUtils.py:531 ../partIntfHelpers.py:147
-#: ../partIntfHelpers.py:332 ../upgrade.py:334 ../upgrade.py:359
-#: ../upgrade.py:385 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
-#: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
-#: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1068
-#: ../textw/partition_text.py:1079 ../textw/upgrade_text.py:165
-#: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:144
-#: ../loader2/cdinstall.c:429 ../loader2/driverdisk.c:239
-#: ../loader2/driverdisk.c:311 ../loader2/hdinstall.c:255
-#: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:554
-#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/loader.c:327
-#: ../loader2/loader.c:572 ../loader2/mediacheck.c:255
-#: ../loader2/mediacheck.c:312 ../loader2/method.c:160 ../loader2/method.c:368
-#: ../loader2/method.c:453 ../loader2/nfsinstall.c:223
-#: ../loader2/nfsinstall.c:227 ../loader2/telnetd.c:86
+#: ../fsset.py:562 ../fsset.py:1189 ../fsset.py:1208 ../fsset.py:1255
+#: ../fsset.py:1266 ../fsset.py:1302 ../fsset.py:1352 ../fsset.py:1395
+#: ../harddrive.py:217 ../image.py:74 ../image.py:111 ../image.py:247
+#: ../packages.py:147 ../packages.py:161 ../packages.py:312 ../packages.py:481
+#: ../packages.py:564 ../partedUtils.py:545 ../upgrade.py:335
+#: ../upgrade.py:360 ../upgrade.py:387 ../iw/osbootwidget.py:222
+#: ../iw/osbootwidget.py:231 ../iw/raid_dialog_gui.py:616
+#: ../iw/raid_dialog_gui.py:655 ../textw/fdasd_text.py:73
+#: ../textw/upgrade_text.py:165 ../textw/upgrade_text.py:172
+#: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:422
+#: ../loader2/driverdisk.c:240 ../loader2/driverdisk.c:312
+#: ../loader2/hdinstall.c:218 ../loader2/hdinstall.c:267
+#: ../loader2/hdinstall.c:485 ../loader2/hdinstall.c:566
+#: ../loader2/kickstart.c:257 ../loader2/lang.c:102 ../loader2/loader.c:326
+#: ../loader2/loader.c:636 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/method.c:146 ../loader2/method.c:354
+#: ../loader2/method.c:439 ../loader2/nfsinstall.c:224
+#: ../loader2/nfsinstall.c:228 ../loader2/telnetd.c:86
 #: ../loader2/urlinstall.c:58 ../loader2/urlinstall.c:98
 #: ../loader2/urlinstall.c:111 ../loader2/urls.c:168 ../loader2/urls.c:178
 #: ../loader2/urls.c:186 ../loader2/urls.c:309 ../loader2/urls.c:314
@@ -434,16 +555,16 @@ msgstr ""
 "Počas tvorby zavádzacej diskety sa vyskytla chyba. Uistite sa, že je v prvej "
 "disketovej mechanike vložená naformátovaná disketa."
 
-#: ../fsset.py:176
+#: ../fsset.py:174
 msgid "Checking for Bad Blocks"
 msgstr "Kontrola na chybné bloky"
 
-#: ../fsset.py:177
+#: ../fsset.py:175
 #, fuzzy, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Kontrola na chybné bloky na /dev/%s..."
 
-#: ../fsset.py:560
+#: ../fsset.py:563
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -452,19 +573,27 @@ msgid ""
 "Would you like to continue without migrating %s?"
 msgstr ""
 
-#: ../fsset.py:973
+#: ../fsset.py:1103
 msgid "RAID Device"
 msgstr "Zariadenie RAID"
 
-#: ../fsset.py:976 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1107 ../fsset.py:1113
+msgid "Apple Bootstrap"
+msgstr ""
+
+#: ../fsset.py:1119
+msgid "PPC PReP Boot"
+msgstr ""
+
+#: ../fsset.py:1122 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Prvý sektor zavádzacieho oddielu"
 
-#: ../fsset.py:977 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1123 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Hlavný zavádzač (MBR)"
 
-#: ../fsset.py:1041
+#: ../fsset.py:1190
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -473,7 +602,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1060
+#: ../fsset.py:1209
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -483,7 +612,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1107
+#: ../fsset.py:1256
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -492,7 +621,7 @@ msgid ""
 "Press <Enter> to reboot your system"
 msgstr ""
 
-#: ../fsset.py:1118
+#: ../fsset.py:1267
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -501,7 +630,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1154
+#: ../fsset.py:1303
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -510,7 +639,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1204
+#: ../fsset.py:1353
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -519,11 +648,11 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1224 ../fsset.py:1233
+#: ../fsset.py:1373 ../fsset.py:1382
 msgid "Invalid mount point"
 msgstr "Neplatný bod pripojenia"
 
-#: ../fsset.py:1225
+#: ../fsset.py:1374
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -532,7 +661,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1234
+#: ../fsset.py:1383
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -541,7 +670,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1247
+#: ../fsset.py:1396
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -551,25 +680,25 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:2019
+#: ../fsset.py:2204
 msgid "Formatting"
 msgstr "Formátovanie"
 
-#: ../fsset.py:2020
+#: ../fsset.py:2205
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Formátovanie súborového systému %s..."
 
-#: ../gui.py:106
+#: ../gui.py:105
 #, fuzzy
 msgid "An error occurred copying the screenshots over."
 msgstr "Vyskytla sa chyba pri kopírovaní."
 
-#: ../gui.py:118
+#: ../gui.py:117
 msgid "Screenshots Copied"
 msgstr ""
 
-#: ../gui.py:119
+#: ../gui.py:118
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -578,96 +707,96 @@ msgid ""
 "You can access these when you reboot and login as root."
 msgstr ""
 
-#: ../gui.py:163
+#: ../gui.py:162
 msgid "Saving Screenshot"
 msgstr ""
 
-#: ../gui.py:164
+#: ../gui.py:163
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr ""
 
-#: ../gui.py:167
+#: ../gui.py:166
 msgid "Error Saving Screenshot"
 msgstr ""
 
-#: ../gui.py:168
+#: ../gui.py:167
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 
-#: ../gui.py:236 ../text.py:321
+#: ../gui.py:235 ../text.py:318
 msgid "Fix"
 msgstr "Oprava"
 
-#: ../gui.py:237 ../rescue.py:141 ../text.py:322 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../rescue.py:141 ../text.py:319 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:356
-#: ../loader2/driverdisk.c:367 ../loader2/hdinstall.c:368
-#: ../loader2/loader.c:352
+#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:357
+#: ../loader2/driverdisk.c:368 ../loader2/hdinstall.c:380
+#: ../loader2/loader.c:351
 msgid "Yes"
 msgstr "Áno"
 
-#: ../gui.py:238 ../rescue.py:141 ../rescue.py:143 ../text.py:323
+#: ../gui.py:237 ../rescue.py:141 ../rescue.py:143 ../text.py:320
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
-#: ../loader2/driverdisk.c:356 ../loader2/driverdisk.c:367
-#: ../loader2/loader.c:352
+#: ../loader2/driverdisk.c:357 ../loader2/driverdisk.c:368
+#: ../loader2/loader.c:351
 msgid "No"
 msgstr "Nie"
 
-#: ../gui.py:240 ../text.py:325 ../loader2/net.c:175 ../loader2/net.c:411
+#: ../gui.py:239 ../text.py:322 ../loader2/net.c:175 ../loader2/net.c:422
 msgid "Retry"
 msgstr "Znovu"
 
-#: ../gui.py:241 ../text.py:326
+#: ../gui.py:240 ../text.py:323
 msgid "Ignore"
 msgstr "Ignorovať"
 
-#: ../gui.py:242 ../gui.py:549 ../partIntfHelpers.py:231
-#: ../partIntfHelpers.py:417 ../partIntfHelpers.py:528 ../text.py:116
-#: ../text.py:117 ../text.py:286 ../text.py:288 ../text.py:327
-#: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
-#: ../textw/bootloader_text.py:216 ../textw/constants_text.py:40
+#: ../gui.py:241 ../gui.py:548 ../partIntfHelpers.py:225
+#: ../partIntfHelpers.py:406 ../partIntfHelpers.py:517 ../text.py:113
+#: ../text.py:114 ../text.py:283 ../text.py:285 ../text.py:324
+#: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:103
+#: ../textw/bootloader_text.py:219 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:212
-#: ../loader2/loader.c:316
+#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:213
+#: ../loader2/loader.c:315
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: ../gui.py:631 ../text.py:284
+#: ../gui.py:630 ../text.py:281
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
 
-#: ../gui.py:739 ../gui.py:1249
+#: ../gui.py:738 ../gui.py:1248
 msgid "Online Help"
 msgstr "Online pomocník"
 
-#: ../gui.py:740 ../iw/language_gui.py:23 ../textw/language_text.py:38
+#: ../gui.py:739 ../iw/language_gui.py:23 ../textw/language_text.py:38
 msgid "Language Selection"
 msgstr "Výber jazyka"
 
-#: ../gui.py:861 ../gui.py:890
+#: ../gui.py:860 ../gui.py:889
 msgid "Release Notes"
 msgstr "Poznámky k vydaniu"
 
-#: ../gui.py:895
+#: ../gui.py:894
 msgid "Unable to load file!"
 msgstr ""
 
-#: ../gui.py:932
+#: ../gui.py:931
 msgid "Release notes are missing.\n"
 msgstr "Poznámky k vydaniu chýbajú.\n"
 
-#: ../gui.py:964
+#: ../gui.py:963
 msgid "Error!"
 msgstr "Chyba!"
 
-#: ../gui.py:965
+#: ../gui.py:964
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -675,67 +804,67 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: ../gui.py:969 ../packages.py:518 ../packages.py:1257
+#: ../gui.py:968 ../packages.py:486 ../packages.py:1207
 #: ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "_Ukončiť"
 
-#: ../gui.py:970
+#: ../gui.py:969
 msgid "_Retry"
 msgstr "_Znovu"
 
-#: ../gui.py:972 ../packages.py:1260
+#: ../gui.py:971 ../packages.py:1210
 msgid "Rebooting System"
 msgstr "Reštartovanie systému"
 
-#: ../gui.py:973 ../packages.py:1261
+#: ../gui.py:972 ../packages.py:1211
 msgid "Your system will now be rebooted..."
 msgstr "Váš systém bude teraz reštartovaný..."
 
-#: ../gui.py:976 ../packages.py:1263
+#: ../gui.py:975 ../packages.py:1213
 msgid "_Reboot"
 msgstr "_Reštart"
 
-#: ../gui.py:1067 ../packages.py:1263
+#: ../gui.py:1066 ../packages.py:1213
 msgid "_Back"
 msgstr "_Späť"
 
-#: ../gui.py:1069
+#: ../gui.py:1068
 msgid "_Next"
 msgstr "Ďa_lej"
 
-#: ../gui.py:1071
+#: ../gui.py:1070
 msgid "_Release Notes"
 msgstr "_Poznámky k vydaniu"
 
-#: ../gui.py:1073
+#: ../gui.py:1072
 msgid "Show _Help"
 msgstr "Zobraziť _pomocníka"
 
-#: ../gui.py:1075
+#: ../gui.py:1074
 msgid "Hide _Help"
 msgstr "Skryť _pomocníka"
 
-#: ../gui.py:1077
+#: ../gui.py:1076
 msgid "_Debug"
 msgstr "_Ladenie"
 
-#: ../gui.py:1153
+#: ../gui.py:1152
 #, python-format
 msgid "%s Installer"
 msgstr "Inštalátor %s"
 
-#: ../gui.py:1168
+#: ../gui.py:1167
 #, python-format
 msgid "%s Installer on %s"
 msgstr "Inštalátor %s na %s"
 
-#: ../gui.py:1207
+#: ../gui.py:1206
 #, fuzzy
 msgid "Unable to load title bar"
 msgstr "Nepodarilo sa zistiť grafickú kartu"
 
-#: ../gui.py:1311
+#: ../gui.py:1310
 msgid "Install Window"
 msgstr "Okno inštalácie"
 
@@ -747,46 +876,46 @@ msgid ""
 "The system will now reboot."
 msgstr "Chýbajúce CD č. %d, ktoré je potrebné pre inštaláciu."
 
-#: ../image.py:77
+#: ../image.py:75
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: ../image.py:110
+#: ../image.py:108
 msgid "Copying File"
 msgstr "Kopírovanie súboru"
 
-#: ../image.py:111
+#: ../image.py:109
 msgid "Transferring install image to hard drive..."
 msgstr "Prenášanie inštalačného obrazu na pevný disk..."
 
-#: ../image.py:114
+#: ../image.py:112
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
 
-#: ../image.py:207
+#: ../image.py:205
 msgid "Change CDROM"
 msgstr "Vymeniť CDROM"
 
-#: ../image.py:208
+#: ../image.py:206
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Pre pokračovanie vložte, prosím, disk %d."
 
-#: ../image.py:243
+#: ../image.py:241
 msgid "Wrong CDROM"
 msgstr "Nesprávna CDROM"
 
-#: ../image.py:244
+#: ../image.py:242
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "To je nesprávna CDROM %s."
 
-#: ../image.py:250
+#: ../image.py:248
 msgid "The CDROM could not be mounted."
 msgstr "CDROM nemohla byť pripojená."
 
@@ -795,96 +924,96 @@ msgstr "CDROM nemohla byť pripojená."
 msgid "Install on System"
 msgstr "Typ inštalácie"
 
-#: ../kickstart.py:1168
+#: ../kickstart.py:1191
 msgid "Missing Package"
 msgstr "Chýbajúci balík"
 
-#: ../kickstart.py:1169
+#: ../kickstart.py:1192
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../kickstart.py:1175 ../kickstart.py:1201
+#: ../kickstart.py:1198 ../kickstart.py:1225
 msgid "_Abort"
 msgstr "_Prerušiť"
 
-#: ../kickstart.py:1176 ../kickstart.py:1202 ../iw/partition_gui.py:997
+#: ../kickstart.py:1199 ../kickstart.py:1226 ../iw/partition_gui.py:997
 msgid "_Continue"
 msgstr "_Pokračovať"
 
-#: ../kickstart.py:1194
+#: ../kickstart.py:1217
 msgid "Missing Group"
 msgstr "Chýbajúca skupina"
 
-#: ../kickstart.py:1195
+#: ../kickstart.py:1218
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../network.py:39
+#: ../network.py:40
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
 msgstr ""
 
-#: ../network.py:44
+#: ../network.py:45
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
 
-#: ../packages.py:45 ../iw/package_gui.py:38
+#: ../packages.py:45 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
 msgstr "Pokračovať v aktualizácii?"
 
-#: ../packages.py:46 ../iw/package_gui.py:39
+#: ../packages.py:46 ../iw/package_gui.py:42
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
 
-#: ../packages.py:50 ../iw/package_gui.py:43
+#: ../packages.py:50 ../iw/package_gui.py:46
 msgid "Would you like to continue with the upgrade?"
 msgstr "Želáte si pokračovať v aktualizácii?"
 
-#: ../packages.py:134
+#: ../packages.py:141
 msgid "Reading"
 msgstr "Čítanie"
 
-#: ../packages.py:134
+#: ../packages.py:141
 msgid "Reading package information..."
 msgstr "Čítanie informácií o balíkoch..."
 
-#: ../packages.py:141
+#: ../packages.py:148
 msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:155
+#: ../packages.py:162
 msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
 "Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:227
+#: ../packages.py:210
 msgid "Dependency Check"
 msgstr "Kontrola závislostí"
 
-#: ../packages.py:228
+#: ../packages.py:211
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kontrolovanie závislostí v balíkoch vybraných na inštaláciu..."
 
-#: ../packages.py:293 ../packages.py:709
+#: ../packages.py:264 ../packages.py:661
 msgid "Processing"
 msgstr "Spracovanie"
 
-#: ../packages.py:294
+#: ../packages.py:265
 msgid "Preparing to install..."
 msgstr "Príprava inštalácie..."
 
-#: ../packages.py:342
+#: ../packages.py:313
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -894,11 +1023,11 @@ msgid ""
 "Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:371
+#: ../packages.py:342
 msgid "Error Installing Package"
 msgstr "Chyba pri inštalácii balíka"
 
-#: ../packages.py:372
+#: ../packages.py:343
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -909,24 +1038,25 @@ msgid ""
 "Press the OK button to reboot your system."
 msgstr ""
 
-#: ../packages.py:514
+#: ../packages.py:482
 #, python-format
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
 msgstr ""
 
-#: ../packages.py:587 ../upgrade.py:335
+#: ../packages.py:565 ../upgrade.py:336
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:710
-msgid "Setting up RPM transaction..."
+#: ../packages.py:662
+#, fuzzy
+msgid "Preparing RPM transaction..."
 msgstr "Nastavovanie transakciu RPM..."
 
-#: ../packages.py:779
+#: ../packages.py:734
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -935,7 +1065,7 @@ msgstr ""
 "Aktualizácia %s balíkov\n"
 "\n"
 
-#: ../packages.py:781
+#: ../packages.py:736
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -944,17 +1074,17 @@ msgstr ""
 "Inštalovanie %s balíkov\n"
 "\n"
 
-#: ../packages.py:789 ../packages.py:1095
+#: ../packages.py:744 ../packages.py:1045
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Aktualizácia %s-%s-%s.\n"
 
-#: ../packages.py:791 ../packages.py:1097
+#: ../packages.py:746 ../packages.py:1047
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Inštalácia %s-%s-%s.\n"
 
-#: ../packages.py:807
+#: ../packages.py:762
 #, python-format
 msgid ""
 "\n"
@@ -965,15 +1095,15 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../packages.py:813
+#: ../packages.py:768
 msgid "Install Starting"
 msgstr "Inštalácia začína"
 
-#: ../packages.py:814
+#: ../packages.py:769
 msgid "Starting install process, this may take several minutes..."
 msgstr "Začína proces inštalácie. Toto môže trvať niekoľko minút..."
 
-#: ../packages.py:859
+#: ../packages.py:809
 #, fuzzy
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
@@ -983,17 +1113,17 @@ msgstr ""
 "Zdá sa, že nemáte na disku dostatok miesta pre nainštalovanie vybraných "
 "balíkov. Potrebujete viac miesta na nasledovných súborových systémoch:\n"
 
-#: ../packages.py:863 ../packages.py:884 ../iw/lvm_dialog_gui.py:1064
+#: ../packages.py:813 ../packages.py:834 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:349 ../iw/upgrade_swap_gui.py:148
-#: ../textw/partition_text.py:1116 ../textw/upgrade_text.py:111
+#: ../textw/partition_text.py:1119 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Bod pripojenia"
 
-#: ../packages.py:864
+#: ../packages.py:814
 msgid "Space Needed"
 msgstr "Potrebný priestor"
 
-#: ../packages.py:880
+#: ../packages.py:830
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -1003,37 +1133,38 @@ msgstr ""
 "Zdá sa, že nemáte na disku dostatok miesta pre nainštalovanie vybraných "
 "balíkov. Potrebujete viac miesta na nasledovných súborových systémoch:\n"
 
-#: ../packages.py:885
+#: ../packages.py:835
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Potredný priestor"
 
-#: ../packages.py:896
+#: ../packages.py:846
 msgid "Disk Space"
 msgstr "Priestor na disku"
 
-#: ../packages.py:933
+#: ../packages.py:883
 msgid ""
 "\n"
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
 
-#: ../packages.py:954
+#: ../packages.py:904
 msgid "Post Install"
 msgstr "Po inštalácii"
 
-#: ../packages.py:955
+#: ../packages.py:905
 msgid "Performing post install configuration..."
 msgstr "Vykonanie poinštalačnej konfigurácie..."
 
-#: ../packages.py:1243
+#: ../packages.py:1193
 msgid "Warning! This is a beta!"
 msgstr "Upozornenie! Toto je beta verzia!"
 
-#: ../packages.py:1244
+#: ../packages.py:1194
+#, python-format
 msgid ""
-"Thank you for downloading this Red Hat Beta release.\n"
+"Thank you for downloading this %s Beta release.\n"
 "\n"
 "This is not a final release and is not intended for use on production "
 "systems.  The purpose of this release is to collect feedback from testers, "
@@ -1041,20 +1172,20 @@ msgid ""
 "\n"
 "To report feedback, please visit:\n"
 "\n"
-"    http://bugzilla.redhat.com/bugzilla\n"
+"   http://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"and file a report against 'Red Hat Public Beta'.\n"
+"and file a report against '%s Beta'.\n"
 msgstr ""
 
-#: ../packages.py:1257
+#: ../packages.py:1207
 msgid "_Install BETA"
 msgstr "_Inštalovať BETA verziu"
 
-#: ../partedUtils.py:172 ../textw/partition_text.py:491
+#: ../partedUtils.py:174 ../textw/partition_text.py:491
 msgid "Foreign"
 msgstr ""
 
-#: ../partedUtils.py:248
+#: ../partedUtils.py:253
 #, fuzzy, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type %s for your "
@@ -1067,21 +1198,21 @@ msgstr ""
 "oddielov musí byť inicializovaná, čo spôsobí stratu VŠETKÝCH ÚDAJOV na tomto "
 "disku."
 
-#: ../partedUtils.py:532
+#: ../partedUtils.py:546
 #, fuzzy, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Chyba pri pripájaní súborového systému ext2 %s: %s"
 
-#: ../partedUtils.py:615
+#: ../partedUtils.py:629
 msgid "Initializing"
 msgstr "Inicializácia"
 
-#: ../partedUtils.py:616
+#: ../partedUtils.py:630
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Prosím počkajte, kým sa naformátuje zariadenie %s...\n"
 
-#: ../partedUtils.py:733
+#: ../partedUtils.py:748
 #, fuzzy, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1096,11 +1227,11 @@ msgstr ""
 "oddielov musí byť inicializovaná, čo spôsobí stratu VŠETKÝCH ÚDAJOV na tomto "
 "disku."
 
-#: ../partedUtils.py:851 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:866 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "Neboli nájdené žiadne jednotky"
 
-#: ../partedUtils.py:852
+#: ../partedUtils.py:867
 #, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
@@ -1195,8 +1326,8 @@ msgid "This partition is part of a LVM volume group."
 msgstr ""
 "Musíte prideliť odkladací priestor, aby bolo možné pokračovať v inštalácii."
 
-#: ../partIntfHelpers.py:141 ../partIntfHelpers.py:155
-#: ../partIntfHelpers.py:165 ../partIntfHelpers.py:182
+#: ../partIntfHelpers.py:141 ../partIntfHelpers.py:149
+#: ../partIntfHelpers.py:159 ../partIntfHelpers.py:176
 msgid "Unable To Delete"
 msgstr "Nepodarilo sa odstrániť"
 
@@ -1205,15 +1336,11 @@ msgstr "Nepodarilo sa odstrániť"
 msgid "You must first select a partition to delete."
 msgstr "Prvý sektor zavádzacieho oddielu"
 
-#: ../partIntfHelpers.py:148 ../textw/partition_text.py:1080
-msgid "DASD partitions can only be deleted with fdasd"
-msgstr ""
-
-#: ../partIntfHelpers.py:156
+#: ../partIntfHelpers.py:150
 msgid "You cannot delete free space."
 msgstr "Nemôžete odstrániť prázdne miesto."
 
-#: ../partIntfHelpers.py:166
+#: ../partIntfHelpers.py:160
 #, fuzzy, python-format
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
@@ -1221,35 +1348,34 @@ msgid ""
 msgstr ""
 "Musíte prideliť odkladací priestor, aby bolo možné pokračovať v inštalácii."
 
-#: ../partIntfHelpers.py:183
+#: ../partIntfHelpers.py:177
 #, fuzzy
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr "Skutočne chcete zrušiť tento oddiel?"
 
-#: ../partIntfHelpers.py:227 ../partIntfHelpers.py:527
+#: ../partIntfHelpers.py:221 ../partIntfHelpers.py:516
 #: ../iw/lvm_dialog_gui.py:730
 msgid "Confirm Delete"
 msgstr "Potvrdiť odstránenie"
 
-#: ../partIntfHelpers.py:228
+#: ../partIntfHelpers.py:222
 #, fuzzy, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Skutočne chcete zrušiť tento oddiel?"
 
-#: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
+#: ../partIntfHelpers.py:225 ../partIntfHelpers.py:517
 #: ../iw/lvm_dialog_gui.py:733 ../iw/lvm_dialog_gui.py:1087
 #: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1340
-#: ../iw/partition_gui.py:1346
 msgid "_Delete"
 msgstr "_Odstrániť"
 
-#: ../partIntfHelpers.py:289
+#: ../partIntfHelpers.py:283
 msgid "Notice"
 msgstr ""
 
-#: ../partIntfHelpers.py:290
+#: ../partIntfHelpers.py:284
 #, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
@@ -1257,28 +1383,24 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../partIntfHelpers.py:306 ../partIntfHelpers.py:319
-#: ../partIntfHelpers.py:350 ../partIntfHelpers.py:361
+#: ../partIntfHelpers.py:300 ../partIntfHelpers.py:313
+#: ../partIntfHelpers.py:339 ../partIntfHelpers.py:350
 msgid "Unable To Edit"
 msgstr ""
 
-#: ../partIntfHelpers.py:307
+#: ../partIntfHelpers.py:301
 #, fuzzy
 msgid "You must select a partition to edit"
 msgstr "Výber jazyka"
 
-#: ../partIntfHelpers.py:319 ../partIntfHelpers.py:362
+#: ../partIntfHelpers.py:313 ../partIntfHelpers.py:351
 #, fuzzy
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr "Úprava oddielu"
 
-#: ../partIntfHelpers.py:333
-msgid "You must go back and use fdasd to inititalize this partition"
-msgstr ""
-
-#: ../partIntfHelpers.py:351
+#: ../partIntfHelpers.py:340
 #, fuzzy, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1286,12 +1408,12 @@ msgid ""
 msgstr ""
 "Musíte prideliť odkladací priestor, aby bolo možné pokračovať v inštalácii."
 
-#: ../partIntfHelpers.py:383
+#: ../partIntfHelpers.py:372
 #, fuzzy
 msgid "Format as Swap?"
 msgstr "Formátovanie"
 
-#: ../partIntfHelpers.py:384
+#: ../partIntfHelpers.py:373
 #, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1300,7 +1422,7 @@ msgid ""
 "Would you like to format this partition as a swap partition?"
 msgstr ""
 
-#: ../partIntfHelpers.py:405
+#: ../partIntfHelpers.py:394
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. Red Hat recommends that you format this partition to "
@@ -1310,20 +1432,20 @@ msgid ""
 "you should continue without formatting this partition."
 msgstr ""
 
-#: ../partIntfHelpers.py:417
+#: ../partIntfHelpers.py:406
 msgid "Format?"
 msgstr "Formátovať?"
 
-#: ../partIntfHelpers.py:417
+#: ../partIntfHelpers.py:406
 msgid "Do _Not Format"
 msgstr "_Neformátovať"
 
-#: ../partIntfHelpers.py:425
+#: ../partIntfHelpers.py:414
 #, fuzzy
 msgid "Error with Partitioning"
 msgstr "Manuálne rozdelenie"
 
-#: ../partIntfHelpers.py:426
+#: ../partIntfHelpers.py:415
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1332,12 +1454,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../partIntfHelpers.py:440
+#: ../partIntfHelpers.py:429
 #, fuzzy
 msgid "Partitioning Warning"
 msgstr "Automatické rozdelenie oddielov"
 
-#: ../partIntfHelpers.py:441
+#: ../partIntfHelpers.py:430
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1347,23 +1469,23 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../partIntfHelpers.py:455 ../iw/partition_gui.py:660
+#: ../partIntfHelpers.py:444 ../iw/partition_gui.py:660
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
 
-#: ../partIntfHelpers.py:458
+#: ../partIntfHelpers.py:447
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
 
-#: ../partIntfHelpers.py:464
+#: ../partIntfHelpers.py:453
 msgid "Format Warning"
 msgstr "Upozornenie pri formátovaní"
 
-#: ../partIntfHelpers.py:512
+#: ../partIntfHelpers.py:501
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1371,51 +1493,51 @@ msgid ""
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
 
-#: ../partIntfHelpers.py:516
+#: ../partIntfHelpers.py:505
 #, fuzzy, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "Potrebujete vybrať RAID zariadenie."
 
-#: ../partIntfHelpers.py:519
+#: ../partIntfHelpers.py:508
 #, fuzzy
 msgid "You are about to delete a RAID device."
 msgstr "Potrebujete vybrať RAID zariadenie."
 
-#: ../partIntfHelpers.py:522
+#: ../partIntfHelpers.py:511
 #, fuzzy, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr "Skutočne chcete zrušiť tento oddiel?"
 
-#: ../partIntfHelpers.py:525
+#: ../partIntfHelpers.py:514
 msgid "The partition you selected will be deleted."
 msgstr ""
 
-#: ../partIntfHelpers.py:535
+#: ../partIntfHelpers.py:524
 msgid "Confirm Reset"
 msgstr "Potvrdiť reštart"
 
-#: ../partIntfHelpers.py:536
+#: ../partIntfHelpers.py:525
 #, fuzzy
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "Skutočne chcete zrušiť tento oddiel?"
 
-#: ../partitioning.py:83
+#: ../partitioning.py:76
 msgid "Installation cannot continue."
 msgstr "Inštalácia nemôže pokračovať"
 
-#: ../partitioning.py:84
+#: ../partitioning.py:77
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
 
-#: ../partitioning.py:114
+#: ../partitioning.py:107
 msgid "Low Memory"
 msgstr "Málo pamäti"
 
-#: ../partitioning.py:115
+#: ../partitioning.py:108
 #, fuzzy
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
@@ -1426,73 +1548,73 @@ msgstr ""
 "odkladací priestor už teraz. Aby to bolo možné urobiť, vaša nová tabuľka "
 "rozdelenia sa zapíše na disk okamžite. Je to v poriadku?"
 
-#: ../partitions.py:752
+#: ../partitions.py:772
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
 
-#: ../partitions.py:757
+#: ../partitions.py:777
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
 
-#: ../partitions.py:764
+#: ../partitions.py:784
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 
-#: ../partitions.py:772
+#: ../partitions.py:792
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
 
-#: ../partitions.py:799 ../partRequests.py:635
+#: ../partitions.py:819 ../partRequests.py:635
 #, fuzzy
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Zavádzacie oddiely (/boot) sú povolené iba na RAID-1."
 
-#: ../partitions.py:805
+#: ../partitions.py:825
 #, fuzzy
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Zavádzacie oddiely (/boot) sú povolené iba na RAID-1."
 
-#: ../partitions.py:809
+#: ../partitions.py:829
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 
-#: ../partitions.py:816
+#: ../partitions.py:836
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
 
-#: ../partitions.py:827
+#: ../partitions.py:847
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
 
-#: ../partitions.py:1108
+#: ../partitions.py:1128
 #, fuzzy
 msgid "the partition in use by the installer."
 msgstr ""
 "Musíte prideliť odkladací priestor, aby bolo možné pokračovať v inštalácii."
 
-#: ../partitions.py:1111
+#: ../partitions.py:1131
 msgid "a partition which is a member of a RAID array."
 msgstr ""
 
-#: ../partitions.py:1114
+#: ../partitions.py:1134
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr ""
 
@@ -1598,8 +1720,8 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../rescue.py:189 ../iw/partition_gui.py:562 ../loader2/cdinstall.c:116
-#: ../loader2/cdinstall.c:124 ../loader2/driverdisk.c:312
+#: ../rescue.py:189 ../iw/partition_gui.py:562 ../loader2/cdinstall.c:109
+#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:313
 msgid "Continue"
 msgstr "Pokračovať"
 
@@ -1609,8 +1731,8 @@ msgid "Read-Only"
 msgstr "Čítanie"
 
 #: ../rescue.py:189 ../rescue.py:191 ../textw/silo_text.py:36
-#: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:260 ../loader2/method.c:415
+#: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:251
+#: ../loader2/cdinstall.c:253 ../loader2/method.c:401
 msgid "Skip"
 msgstr "Vynechať"
 
@@ -1673,39 +1795,39 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Musíte zadať adresár."
 
-#: ../text.py:193
+#: ../text.py:190
 msgid "Help not available"
 msgstr ""
 
-#: ../text.py:194
+#: ../text.py:191
 msgid "No help is available for this step of the install."
 msgstr ""
 
-#: ../text.py:283
+#: ../text.py:280
 msgid "Save Crash Dump"
 msgstr ""
 
-#: ../text.py:302 ../text.py:310
+#: ../text.py:299 ../text.py:307
 msgid "Save"
 msgstr ""
 
-#: ../text.py:302 ../text.py:305 ../text.py:308
+#: ../text.py:299 ../text.py:302 ../text.py:305
 msgid "Debug"
 msgstr "Ladenie"
 
-#: ../text.py:342
+#: ../text.py:339
 #, fuzzy, python-format
 msgid "%s (C) 2003 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
-#: ../text.py:349
+#: ../text.py:346
 #, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> medzi položkami   | <Space> vyberá  |  <F12> nasl. obr. "
 
-#: ../text.py:351
+#: ../text.py:348
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -1713,11 +1835,11 @@ msgstr ""
 "  <Tab>/<Alt-Tab> medzi položkami    |  <Space> vyberá    |  <F12> nasl. "
 "obr. "
 
-#: ../text.py:452
+#: ../text.py:455
 msgid "Cancelled"
 msgstr "Zrušené"
 
-#: ../text.py:453
+#: ../text.py:456
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Odtiaľto sa nedá vrátiť na predchádzajúci krok. Budete musieť skúsiť znovu."
@@ -1731,21 +1853,21 @@ msgstr "Aktualizácia systému"
 msgid "Upgrade"
 msgstr "Aktualizovať"
 
-#: ../upgrade.py:61
+#: ../upgrade.py:62
 msgid "Searching"
 msgstr "Vyhľadávanie"
 
-#: ../upgrade.py:62
+#: ../upgrade.py:63
 #, fuzzy, python-format
 msgid "Searching for %s installations..."
 msgstr "Vyhľadávanie inštalácií Red Hat Linuxu..."
 
-#: ../upgrade.py:113 ../upgrade.py:121
+#: ../upgrade.py:114 ../upgrade.py:122
 #, fuzzy
 msgid "Dirty File Systems"
 msgstr "Veľkosť koreňového súborového systému"
 
-#: ../upgrade.py:114
+#: ../upgrade.py:115
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -1754,7 +1876,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../upgrade.py:122
+#: ../upgrade.py:123
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -1762,25 +1884,25 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../upgrade.py:251 ../upgrade.py:257
+#: ../upgrade.py:252 ../upgrade.py:258
 #, fuzzy
 msgid "Mount failed"
 msgstr "Test zlyhal"
 
-#: ../upgrade.py:252
+#: ../upgrade.py:253
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
 
-#: ../upgrade.py:258
+#: ../upgrade.py:259
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
 
-#: ../upgrade.py:275
+#: ../upgrade.py:276
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1788,49 +1910,49 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../upgrade.py:281
+#: ../upgrade.py:282
 msgid "Absolute Symlinks"
 msgstr ""
 
-#: ../upgrade.py:292
+#: ../upgrade.py:293
 msgid ""
-"The following are directories which should instead be symbolic link, which "
+"The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
-"state as a symbolic link and restart the upgrade.\n"
+"state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
 
-#: ../upgrade.py:298
+#: ../upgrade.py:299
 #, fuzzy
 msgid "Invalid Directories"
 msgstr "Upraviť zavádzací popis"
 
-#: ../upgrade.py:304
+#: ../upgrade.py:305
 #, python-format
 msgid "%s not found"
 msgstr ""
 
-#: ../upgrade.py:347
+#: ../upgrade.py:348
 msgid "Finding"
 msgstr "Vyhľadávanie"
 
-#: ../upgrade.py:348
+#: ../upgrade.py:349
 msgid "Finding packages to upgrade..."
 msgstr "Vyhľadávanie balíkov pre aktualizáciu..."
 
-#: ../upgrade.py:360
+#: ../upgrade.py:361
 msgid ""
 "The installation program is unable to upgrade systems with a pre-rpm 4.x "
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
 
-#: ../upgrade.py:386
+#: ../upgrade.py:388
 #, fuzzy
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "Vyhľadávanie balíkov pre aktualizáciu..."
 
-#: ../upgrade.py:440
+#: ../upgrade.py:442
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1839,7 +1961,7 @@ msgid ""
 "process?"
 msgstr ""
 
-#: ../upgrade.py:460
+#: ../upgrade.py:462
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1847,7 +1969,7 @@ msgid ""
 "process?"
 msgstr ""
 
-#: ../upgrade.py:501
+#: ../upgrade.py:503
 #, python-format
 msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
@@ -1855,7 +1977,7 @@ msgid ""
 "upgrade process?"
 msgstr ""
 
-#: ../xsetup.py:53 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:23
+#: ../xsetup.py:54 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
 msgstr ""
 
@@ -1864,41 +1986,45 @@ msgstr ""
 msgid "Set Root Password"
 msgstr "Heslo superpoužívateľa"
 
-#: ../iw/account_gui.py:35 ../textw/userauth_text.py:71
+#: ../iw/account_gui.py:35 ../iw/account_gui.py:43 ../iw/account_gui.py:50
+#: ../iw/account_gui.py:59 ../textw/userauth_text.py:71
 #, fuzzy
 msgid "Error with Password"
 msgstr "Heslo superpoužívateľa"
 
-#: ../iw/account_gui.py:36 ../textw/userauth_text.py:72
+#: ../iw/account_gui.py:36
+msgid ""
+"You must enter your root password and confirm it by typing it a second time "
+"to continue."
+msgstr ""
+
+#: ../iw/account_gui.py:44
+#, fuzzy
+msgid "The passwords you entered were different.  Please try again."
+msgstr "Zadané heslá neboli rovnaké. Skúste znovu."
+
+#: ../iw/account_gui.py:51
+#, fuzzy
+msgid "The root password must be at least six characters long."
+msgstr "Heslo root-a musí mať aspoň 6 znakov."
+
+#: ../iw/account_gui.py:60 ../textw/userauth_text.py:72
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
 
-#: ../iw/account_gui.py:51
-msgid "Root password accepted."
-msgstr "Heslo root-a akceptované."
-
-#: ../iw/account_gui.py:56
-msgid "Root password is too short."
-msgstr "Heslo root-a je príliš krátke."
-
-#: ../iw/account_gui.py:58
-#, fuzzy
-msgid "Root passwords do not match."
-msgstr "Heslo root-a nesúhlasí."
-
-#: ../iw/account_gui.py:80
+#: ../iw/account_gui.py:87
 #, fuzzy
 msgid "Enter the root (administrator) password for the system."
 msgstr "Zadať informáciu o používateľovi."
 
-#: ../iw/account_gui.py:96
+#: ../iw/account_gui.py:103
 #, fuzzy
 msgid "Root _Password: "
 msgstr "Heslo root-a: "
 
-#: ../iw/account_gui.py:99
+#: ../iw/account_gui.py:106
 #, fuzzy
 msgid "_Confirm: "
 msgstr "Znovu: "
@@ -2046,12 +2172,12 @@ msgstr "Znovu: "
 msgid "Passwords don't match"
 msgstr "Heslo root-a nesúhlasí."
 
-#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:445
+#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:448
 #, fuzzy
 msgid "Passwords do not match"
 msgstr "Heslo root-a nesúhlasí."
 
-#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:455
+#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:458
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2088,7 +2214,7 @@ msgstr ""
 msgid "Advanced Boot Loader Configuration"
 msgstr "Konfigurácia monitora"
 
-#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:140
+#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:143
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.  We highly recommend you create "
@@ -2117,18 +2243,18 @@ msgid "_General kernel parameters"
 msgstr "Parametre jadra"
 
 #: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:54
-#: ../textw/bootloader_text.py:123 ../textw/bootloader_text.py:182
-#: ../textw/bootloader_text.py:305 ../textw/bootloader_text.py:397
+#: ../textw/bootloader_text.py:126 ../textw/bootloader_text.py:185
+#: ../textw/bootloader_text.py:308 ../textw/bootloader_text.py:400
 #, fuzzy
 msgid "Boot Loader Configuration"
 msgstr "Konfigurácia monitora"
 
-#: ../iw/bootloader_main_gui.py:71
+#: ../iw/bootloader_main_gui.py:74
 #, fuzzy
 msgid "Change Boot Loader"
 msgstr "Popis"
 
-#: ../iw/bootloader_main_gui.py:89
+#: ../iw/bootloader_main_gui.py:92
 msgid ""
 "You have selected not to install a boot loader on your system.  You will "
 "have to create a boot disk to boot your system with this option.\n"
@@ -2136,46 +2262,46 @@ msgid ""
 "Would you like to continue and not install a boot loader?"
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:101
+#: ../iw/bootloader_main_gui.py:104
 #, fuzzy
 msgid "C_ontinue with no boot loader"
 msgstr "Inštalácia systému"
 
-#: ../iw/bootloader_main_gui.py:127
+#: ../iw/bootloader_main_gui.py:130
 msgid ""
 "Please select the boot loader that the computer will use.  GRUB is the "
 "default boot loader. However, if you do not wish to overwrite your current "
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:135
+#: ../iw/bootloader_main_gui.py:138
 msgid "Use _GRUB as the boot loader"
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:139
+#: ../iw/bootloader_main_gui.py:142
 msgid "Use _LILO as the boot loader"
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:143
+#: ../iw/bootloader_main_gui.py:146
 #, fuzzy
 msgid "_Do not install a boot loader"
 msgstr "Inštalácia systému"
 
-#: ../iw/bootloader_main_gui.py:166
+#: ../iw/bootloader_main_gui.py:169
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:171
+#: ../iw/bootloader_main_gui.py:174
 msgid "No boot loader will be installed."
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:223
+#: ../iw/bootloader_main_gui.py:226
 #, fuzzy
 msgid "_Change boot loader"
 msgstr "Inštalácia %s.\n"
 
-#: ../iw/bootloader_main_gui.py:251
+#: ../iw/bootloader_main_gui.py:254
 #, fuzzy
 msgid "Configure advanced boot loader _options"
 msgstr "Konfigurácia monitora"
@@ -2251,7 +2377,7 @@ msgstr ""
 msgid "Congratulations"
 msgstr "Gratulujeme"
 
-#: ../iw/congrats_gui.py:53
+#: ../iw/congrats_gui.py:53 ../textw/complete_text.py:28
 #, python-format
 msgid ""
 "If you created a boot diskette during this installation as your primary "
@@ -2260,15 +2386,19 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/congrats_gui.py:62
+#: ../iw/congrats_gui.py:63 ../textw/complete_text.py:38
+msgid ""
+"Remove any installation media (diskettes or CD-ROMs) used during the "
+"installation process and press <Enter> to reboot your system.\n"
+"\n"
+msgstr ""
+
+#: ../iw/congrats_gui.py:70
 #, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
 "\n"
-"Remove any installation media (diskettes or CD-ROMs) used during the "
-"installation.\n"
-"\n"
-"%sFor information on Errata (updates and bug fixes), visit:\n"
+"%s%sFor information on Errata (updates and bug fixes), visit:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
 "For information on automatic updates through Red Hat Network, visit:\n"
@@ -2288,14 +2418,14 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Nevyriešené závislosti"
 
-#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:263
-#: ../iw/package_gui.py:506 ../iw/package_gui.py:696
+#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:252
+#: ../iw/package_gui.py:495 ../iw/package_gui.py:672
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
 msgstr ""
 
-#: ../iw/dependencies_gui.py:74 ../iw/progress_gui.py:209
+#: ../iw/dependencies_gui.py:74 ../iw/progress_gui.py:221
 #: ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Balík"
@@ -2405,8 +2535,8 @@ msgstr "Výber balíkov pre aktualizáciu"
 msgid "Drive"
 msgstr "Vynechať jednotku"
 
-#: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:210
-#: ../iw/progress_gui.py:273 ../textw/partition_text.py:1116
+#: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:222
+#: ../iw/progress_gui.py:285 ../textw/partition_text.py:1119
 msgid "Size"
 msgstr "Veľkosť"
 
@@ -2530,32 +2660,33 @@ msgstr "Vlastný výber"
 msgid "_Trusted devices:"
 msgstr "Použité RAID zariadenie"
 
-#: ../iw/firewall_gui.py:254
+#: ../iw/firewall_gui.py:255
 msgid "_Allow incoming:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:278
+#: ../iw/firewall_gui.py:280
 msgid "Other _ports:"
 msgstr ""
 
-#: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:42
+#: ../iw/installpath_gui_hacked.py:34 ../iw/installpath_gui.py:34
+#: ../textw/installpath_text.py:42
 msgid "Installation Type"
 msgstr "Typ inštalácie"
 
-#: ../iw/ipwidget.py:104
+#: ../iw/ipwidget.py:92
 #, fuzzy
 msgid "IP Address is missing"
 msgstr "IP adresa"
 
-#: ../iw/ipwidget.py:109
+#: ../iw/ipwidget.py:97
 msgid "IP Addresses must contain numbers between 1 and 255"
 msgstr ""
 
-#: ../iw/ipwidget.py:114 ../iw/ipwidget.py:116
+#: ../iw/ipwidget.py:102 ../iw/ipwidget.py:104
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr ""
 
-#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:373
+#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:372
 msgid "What language would you like to use during the installation process?"
 msgstr "Ktorý jazyk má byť použitý počas procesu inštalácie?"
 
@@ -2768,8 +2899,8 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:621 ../iw/partition_dialog_gui.py:169
 #: ../iw/partition_dialog_gui.py:181 ../iw/partition_dialog_gui.py:229
-#: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:831
-#: ../textw/partition_text.py:853 ../textw/partition_text.py:1026
+#: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:843
+#: ../textw/partition_text.py:865 ../textw/partition_text.py:1038
 msgid "Error With Request"
 msgstr ""
 
@@ -2901,7 +3032,6 @@ msgstr "Pridať"
 
 #: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:488
 #: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1339
-#: ../iw/partition_gui.py:1345
 #, fuzzy
 msgid "_Edit"
 msgstr "Upraviť"
@@ -3010,7 +3140,7 @@ msgid ""
 "environment this may cause problems later."
 msgstr ""
 
-#: ../iw/network_gui.py:162
+#: ../iw/network_gui.py:162 ../textw/network_text.py:364
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3071,8 +3201,9 @@ msgid "Net_mask"
 msgstr "Maska siete"
 
 #: ../iw/network_gui.py:229
-msgid "Point to Point (IP)"
-msgstr ""
+#, fuzzy
+msgid "_Point to Point (IP)"
+msgstr "Bod pripojenia:"
 
 #: ../iw/network_gui.py:252
 #, fuzzy, python-format
@@ -3086,8 +3217,8 @@ msgstr "Aktivovať pri štarte systému"
 
 #: ../iw/network_gui.py:396 ../iw/osbootwidget.py:65
 #: ../iw/partition_gui.py:348 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:210 ../textw/bootloader_text.py:281
-#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1116
+#: ../textw/bootloader_text.py:213 ../textw/bootloader_text.py:284
+#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1119
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Zariadenie"
@@ -3097,8 +3228,7 @@ msgstr "Zariadenie"
 msgid "IP/Netmask"
 msgstr "Maska siete"
 
-#: ../iw/network_gui.py:421 ../iw/network_gui.py:522
-#: ../textw/network_text.py:224 ../loader2/net.c:627
+#: ../iw/network_gui.py:421 ../iw/network_gui.py:522 ../loader2/net.c:587
 msgid "Hostname"
 msgstr "Názov počítača"
 
@@ -3140,10 +3270,10 @@ msgid ""
 msgstr ""
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:207
-#: ../textw/xconfig_text.py:395 ../textw/xconfig_text.py:402
-#: ../textw/xconfig_text.py:516 ../textw/xconfig_text.py:517
-#: ../textw/xconfig_text.py:536 ../textw/xconfig_text.py:537
+#: ../textw/bootloader_text.py:284 ../textw/silo_text.py:207
+#: ../textw/xconfig_text.py:393 ../textw/xconfig_text.py:400
+#: ../textw/xconfig_text.py:514 ../textw/xconfig_text.py:515
+#: ../textw/xconfig_text.py:534 ../textw/xconfig_text.py:535
 msgid "Default"
 msgstr "Predvoľba"
 
@@ -3209,68 +3339,68 @@ msgid ""
 "system you are about to install."
 msgstr ""
 
-#: ../iw/package_gui.py:49 ../textw/packages_text.py:237
+#: ../iw/package_gui.py:52 ../textw/packages_text.py:237
 msgid "Individual Package Selection"
 msgstr "Vlastný výber balíkov"
 
-#: ../iw/package_gui.py:77
+#: ../iw/package_gui.py:66
 #, fuzzy
 msgid "All Packages"
 msgstr "Balíky"
 
-#: ../iw/package_gui.py:197
+#: ../iw/package_gui.py:186
 #, python-format
 msgid ""
 "Package: %s\n"
 "Version: %s\n"
 msgstr ""
 
-#: ../iw/package_gui.py:367
+#: ../iw/package_gui.py:356
 msgid "_Tree View"
 msgstr ""
 
-#: ../iw/package_gui.py:369
+#: ../iw/package_gui.py:358
 msgid "_Flat View"
 msgstr ""
 
-#: ../iw/package_gui.py:384
+#: ../iw/package_gui.py:373
 #, fuzzy
 msgid "_Package"
 msgstr "Balík"
 
-#: ../iw/package_gui.py:386
+#: ../iw/package_gui.py:375
 #, fuzzy
 msgid "_Size (MB)"
 msgstr "Veľkosť (MB)  :"
 
-#: ../iw/package_gui.py:437
+#: ../iw/package_gui.py:426
 #, fuzzy
 msgid "Total size: "
 msgstr "Spolu"
 
-#: ../iw/package_gui.py:440
+#: ../iw/package_gui.py:429
 #, fuzzy
 msgid "Select _all in group"
 msgstr "Výber oddielu"
 
-#: ../iw/package_gui.py:444
+#: ../iw/package_gui.py:433
 msgid "_Unselect all in group"
 msgstr ""
 
-#: ../iw/package_gui.py:481 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:470 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr "Výber skupín balíkov"
 
-#: ../iw/package_gui.py:701
+#: ../iw/package_gui.py:677
 msgid "Minimal"
 msgstr ""
 
-#: ../iw/package_gui.py:772
+#: ../iw/package_gui.py:739
 #, python-format
 msgid "Details for '%s'"
 msgstr ""
 
-#: ../iw/package_gui.py:781
+#: ../iw/package_gui.py:748
 msgid ""
 "A package group can have both Base and Optional package members.  Base "
 "packages are always selected as long as the package group is selected.\n"
@@ -3278,22 +3408,22 @@ msgid ""
 "Select the optional packages to be installed:"
 msgstr ""
 
-#: ../iw/package_gui.py:822
+#: ../iw/package_gui.py:791
 #, fuzzy
 msgid "Base Packages"
 msgstr "Balíky"
 
-#: ../iw/package_gui.py:852
+#: ../iw/package_gui.py:821
 #, fuzzy
 msgid "Optional Packages"
 msgstr "Balíky"
 
-#: ../iw/package_gui.py:1072
+#: ../iw/package_gui.py:1027
 #, fuzzy
 msgid "Details"
 msgstr "Detaily balíka"
 
-#: ../iw/package_gui.py:1166
+#: ../iw/package_gui.py:1121
 #, fuzzy
 msgid "_Select individual packages"
 msgstr "Vyberte jednotlivé balíky"
@@ -3366,13 +3496,8 @@ msgstr ""
 msgid "Force to be a _primary partition"
 msgstr "Existujú nepridelené oddiely..."
 
-#: ../iw/partition_dialog_gui.py:456
-#, fuzzy
-msgid "Check for _bad blocks"
-msgstr "Počas formátovania kontrolovať na chybné bloky"
-
 #: ../iw/partition_gui.py:350 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
-#: ../textw/partition_text.py:1116
+#: ../textw/partition_text.py:1119
 msgid "Type"
 msgstr "Typ"
 
@@ -3381,12 +3506,12 @@ msgstr "Typ"
 msgid "Format"
 msgstr "Formátovanie"
 
-#: ../iw/partition_gui.py:355 ../textw/partition_text.py:1116
+#: ../iw/partition_gui.py:355 ../textw/partition_text.py:1119
 #, fuzzy
 msgid "Start"
 msgstr "Stav"
 
-#: ../iw/partition_gui.py:356 ../textw/partition_text.py:1116
+#: ../iw/partition_gui.py:356 ../textw/partition_text.py:1119
 msgid "End"
 msgstr ""
 
@@ -3404,7 +3529,7 @@ msgid ""
 "(MB)"
 msgstr "Veľkosť (MB)  :"
 
-#: ../iw/partition_gui.py:536 ../textw/partition_text.py:1110
+#: ../iw/partition_gui.py:536 ../textw/partition_text.py:1113
 #, fuzzy
 msgid "Partitioning"
 msgstr "Oddiel"
@@ -3464,7 +3589,7 @@ msgstr "Žiadne RAID zariadenie"
 msgid "None"
 msgstr "Hotovo"
 
-#: ../iw/partition_gui.py:793 ../loader2/hdinstall.c:368
+#: ../iw/partition_gui.py:793 ../loader2/hdinstall.c:380
 msgid "Hard Drives"
 msgstr "Pevné disky"
 
@@ -3578,58 +3703,49 @@ msgstr ""
 msgid "The drive clone editor could not be created for some reason."
 msgstr "Nie je možné pripojiť tento adresár zo servera"
 
-#: ../iw/partition_gui.py:1341
-msgid "_Reset"
-msgstr "_Vrátiť"
-
-#: ../iw/partition_gui.py:1342
-#, fuzzy
-msgid "Make _RAID"
-msgstr "Použité RAID zariadenie"
-
-#: ../iw/partition_gui.py:1344
+#: ../iw/partition_gui.py:1338
 #, fuzzy
 msgid "Ne_w"
 msgstr "Nový"
 
-#: ../iw/partition_gui.py:1347
+#: ../iw/partition_gui.py:1341
 #, fuzzy
 msgid "Re_set"
 msgstr "_Vrátiť"
 
-#: ../iw/partition_gui.py:1348
+#: ../iw/partition_gui.py:1342
 #, fuzzy
 msgid "R_AID"
 msgstr "<RAID>"
 
-#: ../iw/partition_gui.py:1349
+#: ../iw/partition_gui.py:1343
 msgid "_LVM"
 msgstr ""
 
-#: ../iw/partition_gui.py:1388
+#: ../iw/partition_gui.py:1382
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr ""
 
-#: ../iw/partition_gui.py:1403 ../textw/partition_text.py:1207
+#: ../iw/partition_gui.py:1397 ../textw/partition_text.py:1203
 msgid "Automatic Partitioning"
 msgstr "Automatické rozdelenie oddielov"
 
-#: ../iw/partition_gui.py:1431
+#: ../iw/partition_gui.py:1425
 #, fuzzy, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "Výber jazyka"
 
-#: ../iw/partition_gui.py:1473
+#: ../iw/partition_gui.py:1467
 #, fuzzy
 msgid "I want to have automatic partitioning:"
 msgstr "Automatické rozdelenie oddielov"
 
-#: ../iw/partition_gui.py:1504
+#: ../iw/partition_gui.py:1498
 #, fuzzy
 msgid "Select the drive(s) to use for this installation:"
 msgstr "Kam si želáte nainštalovať zavádzač?"
 
-#: ../iw/partition_gui.py:1528
+#: ../iw/partition_gui.py:1522
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr ""
 
@@ -3664,7 +3780,7 @@ msgstr "Chýba koreňový oddiel"
 msgid "Check for _bad blocks?"
 msgstr "Počas formátovania kontrolovať na chybné bloky"
 
-#: ../iw/partition_ui_helpers_gui.py:335
+#: ../iw/partition_ui_helpers_gui.py:336
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
@@ -3686,50 +3802,46 @@ msgstr "Automatický oddiel"
 msgid "Manually partition with _Disk Druid"
 msgstr "Manuálne rozdelenie"
 
-#: ../iw/progress_gui.py:29
+#: ../iw/progress_gui.py:30
 msgid "Installing Packages"
 msgstr "Inštalácia balíkov"
 
-#: ../iw/progress_gui.py:92 ../iw/progress_gui.py:261
-msgid "Completed"
-msgstr "Hotovo"
-
-#: ../iw/progress_gui.py:98 ../iw/progress_gui.py:260
+#: ../iw/progress_gui.py:99 ../iw/progress_gui.py:272
 msgid "Total"
 msgstr "Spolu"
 
-#: ../iw/progress_gui.py:104 ../iw/progress_gui.py:262
+#: ../iw/progress_gui.py:105 ../iw/progress_gui.py:274
 msgid "Remaining"
 msgstr "Zostáva"
 
-#: ../iw/progress_gui.py:137
+#: ../iw/progress_gui.py:143
 #, python-format
 msgid "%s KBytes"
 msgstr ""
 
-#: ../iw/progress_gui.py:211
+#: ../iw/progress_gui.py:223
 msgid "Summary"
 msgstr "Súhrn"
 
-#: ../iw/progress_gui.py:241
+#: ../iw/progress_gui.py:253
 #, fuzzy
 msgid "Package Progress: "
 msgstr "Skupiny balíkov"
 
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:258
 #, fuzzy
 msgid "Total Progress:   "
 msgstr "Spolu    :"
 
-#: ../iw/progress_gui.py:273
+#: ../iw/progress_gui.py:285
 msgid "Status"
 msgstr "Stav"
 
-#: ../iw/progress_gui.py:273
+#: ../iw/progress_gui.py:285
 msgid "Packages"
 msgstr "Balíky"
 
-#: ../iw/progress_gui.py:273
+#: ../iw/progress_gui.py:285
 msgid "Time"
 msgstr "Čas"
 
@@ -3743,7 +3855,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:275 ../iw/raid_dialog_gui.py:680
-#: ../textw/partition_text.py:888
+#: ../textw/partition_text.py:900
 #, fuzzy
 msgid "Make RAID Device"
 msgstr "Vytvoriť RAID zariadenie"
@@ -3753,7 +3865,7 @@ msgstr "Vytvoriť RAID zariadenie"
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "RAID zariadenie: /dev/"
 
-#: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:886
+#: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:898
 #, fuzzy
 msgid "Edit RAID Device"
 msgstr "Žiadne RAID zariadenie"
@@ -3947,8 +4059,8 @@ msgstr "Neinštalovať SILO"
 msgid "Partition type"
 msgstr "Typ oddielu"
 
-#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:211
-#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:143
+#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:214
+#: ../textw/bootloader_text.py:284 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "Popis"
@@ -4133,7 +4245,7 @@ msgstr ""
 msgid "Welcome"
 msgstr "Vitajte"
 
-#: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:24
+#: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
 #, fuzzy
 msgid "Unprobed Monitor"
 msgstr "Monitor"
@@ -4143,122 +4255,125 @@ msgstr "Monitor"
 msgid "Customize Graphical Configuration"
 msgstr "Úprava X konfigurácie"
 
-#: ../iw/xconfig_gui.py:249
+#: ../iw/xconfig_gui.py:251
 msgid "_Color Depth:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:258 ../textw/xconfig_text.py:108
+#: ../iw/xconfig_gui.py:260 ../textw/xconfig_text.py:106
 msgid "256 Colors (8 Bit)"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:259 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:261 ../textw/xconfig_text.py:107
 msgid "High Color (16 Bit)"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:260 ../textw/xconfig_text.py:110
+#: ../iw/xconfig_gui.py:262 ../textw/xconfig_text.py:108
 msgid "True Color (24 Bit)"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:280
+#: ../iw/xconfig_gui.py:282
 msgid "_Screen Resolution:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:336
+#: ../iw/xconfig_gui.py:338
 msgid "Please choose your default desktop environment:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:338
+#: ../iw/xconfig_gui.py:340
 msgid "Your desktop environment is:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:353
+#: ../iw/xconfig_gui.py:355
 msgid "GNO_ME"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:355
+#: ../iw/xconfig_gui.py:357
 msgid "_KDE"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:386
+#: ../iw/xconfig_gui.py:388
 msgid "Please choose your login type:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:393
+#: ../iw/xconfig_gui.py:395
 #, fuzzy
 msgid "_Text"
 msgstr "Ďalej"
 
-#: ../iw/xconfig_gui.py:394
+#: ../iw/xconfig_gui.py:396
 #, fuzzy
 msgid "_Graphical"
 msgstr "Používať grafické prihlasovanie sa"
 
-#: ../iw/xconfig_gui.py:411 ../textw/xconfig_text.py:398
+#: ../iw/xconfig_gui.py:413 ../textw/xconfig_text.py:396
 msgid "Monitor Configuration"
 msgstr "Konfigurácia monitora"
 
-#: ../iw/xconfig_gui.py:608
+#: ../iw/xconfig_gui.py:610
 msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:671
-msgid "Generic"
-msgstr ""
-
-#: ../iw/xconfig_gui.py:718 ../iw/xconfig_gui.py:1061
+#: ../iw/xconfig_gui.py:725 ../iw/xconfig_gui.py:1087
 msgid "Restore _original values"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:726
+#: ../iw/xconfig_gui.py:733
 #, fuzzy
 msgid "Hori_zontal Sync:"
 msgstr "Horizontálna synchronizácia"
 
-#: ../iw/xconfig_gui.py:729
+#: ../iw/xconfig_gui.py:736
 #, fuzzy
 msgid "_Vertical Sync:"
 msgstr "Vertikálna synchronizácia"
 
-#: ../iw/xconfig_gui.py:736
+#: ../iw/xconfig_gui.py:743
 msgid "kHz"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:739
+#: ../iw/xconfig_gui.py:746
 msgid "Hz"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:759
+#: ../iw/xconfig_gui.py:766
 #, fuzzy
 msgid "Graphical Interface (X) Configuration"
 msgstr "Úprava X konfigurácie"
 
-#: ../iw/xconfig_gui.py:784
+#: ../iw/xconfig_gui.py:795
 #, fuzzy
 msgid "Unknown video card"
 msgstr "Neznámy počítač"
 
-#: ../iw/xconfig_gui.py:785
+#: ../iw/xconfig_gui.py:796
 #, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:809 ../textw/xconfig_text.py:637
+#: ../iw/xconfig_gui.py:822 ../textw/xconfig_text.py:655
 #, fuzzy
 msgid "Unspecified video card"
 msgstr "Nepodarilo sa zistiť grafickú kartu"
 
-#: ../iw/xconfig_gui.py:810 ../textw/xconfig_text.py:638
+#: ../iw/xconfig_gui.py:823 ../textw/xconfig_text.py:656
 msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
 "button."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:947
+#: ../iw/xconfig_gui.py:958
+msgid ""
+"Your system will be setup to use the frame buffer driver for the X Window "
+"System.  If you do not want to setup the X Window System , choose 'Skip X "
+"Configuration' below."
+msgstr ""
+
+#: ../iw/xconfig_gui.py:967
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -4266,7 +4381,7 @@ msgstr ""
 "Veľkosť vašej videopamäti sa nepodarilo zistiť. Vyberte si prosím veľkosť "
 "videopamäti z nasledujúceho zoznamu:"
 
-#: ../iw/xconfig_gui.py:954
+#: ../iw/xconfig_gui.py:974
 #, fuzzy
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
@@ -4276,12 +4391,12 @@ msgstr ""
 "Vo väčšine prípadov je možné automaticky zistiť typ vášho hardvéru a získať "
 "tak optimálne nastavenie pre váš displej."
 
-#: ../iw/xconfig_gui.py:1039
+#: ../iw/xconfig_gui.py:1062
 #, fuzzy
 msgid "_Video card RAM: "
 msgstr "Videokarta"
 
-#: ../iw/xconfig_gui.py:1065
+#: ../iw/xconfig_gui.py:1091
 #, fuzzy
 msgid "_Skip X configuration"
 msgstr "Vynechať konfiguráciu X"
@@ -4291,7 +4406,11 @@ msgstr "Vynechať konfiguráciu X"
 msgid "z/IPL Boot Loader Configuration"
 msgstr "Konfigurácia monitora"
 
-#: ../iw/zipl_gui.py:74
+#: ../iw/zipl_gui.py:75
+msgid "The z/IPL boot loader will be installed on your system."
+msgstr ""
+
+#: ../iw/zipl_gui.py:77
 msgid ""
 "The z/IPL Boot Loader will now be installed on your system.\n"
 "\n"
@@ -4308,9 +4427,14 @@ msgid ""
 "your setup may require."
 msgstr ""
 
-#: ../iw/zipl_gui.py:101 ../textw/zipl_text.py:51
+#: ../iw/zipl_gui.py:104 ../textw/zipl_text.py:60
 #, fuzzy
 msgid "Kernel Parameters"
+msgstr "Parametre jadra"
+
+#: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
+#, fuzzy
+msgid "Chandev Parameters"
 msgstr "Parametre jadra"
 
 #: ../textw/bootdisk_text.py:24
@@ -4363,7 +4487,7 @@ msgid ""
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
 
-#: ../textw/bootloader_text.py:108 ../textw/silo_text.py:25
+#: ../textw/bootloader_text.py:111 ../textw/silo_text.py:25
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -4374,45 +4498,44 @@ msgstr ""
 "Pokiaľ ich potrebujete, zadajte ich; pokiaľ nie alebo neviete, nezadávajte "
 "nič."
 
-#: ../textw/bootloader_text.py:117
+#: ../textw/bootloader_text.py:120
 msgid "Force use of LBA32 (not normally required)"
 msgstr ""
 
-#: ../textw/bootloader_text.py:183
+#: ../textw/bootloader_text.py:186
 #, fuzzy
 msgid "Where do you want to install the boot loader?"
 msgstr "Kam si želáte nainštalovať zavádzač?"
 
-#: ../textw/bootloader_text.py:215 ../textw/silo_text.py:147
+#: ../textw/bootloader_text.py:218 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
 msgstr "Vynulovať"
 
-#: ../textw/bootloader_text.py:223 ../textw/silo_text.py:155
+#: ../textw/bootloader_text.py:226 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
 msgstr "Upraviť zavádzací popis"
 
-#: ../textw/bootloader_text.py:241 ../textw/bootloader_text.py:246
+#: ../textw/bootloader_text.py:244 ../textw/bootloader_text.py:249
 #, fuzzy
 msgid "Invalid Boot Label"
 msgstr "Upraviť zavádzací popis"
 
-#: ../textw/bootloader_text.py:242
+#: ../textw/bootloader_text.py:245
 msgid "Boot label may not be empty."
 msgstr ""
 
-#: ../textw/bootloader_text.py:247
+#: ../textw/bootloader_text.py:250
 msgid "Boot label contains illegal characters."
 msgstr ""
 
-#: ../textw/bootloader_text.py:296 ../textw/fdisk_text.py:41
-#: ../textw/partition_text.py:1121 ../textw/partition_text.py:1128
-#: ../textw/silo_text.py:216 ../textw/silo_text.py:238
-#: ../textw/userauth_text.py:237
+#: ../textw/bootloader_text.py:299 ../textw/fdisk_text.py:41
+#: ../textw/partition_text.py:1124 ../textw/silo_text.py:216
+#: ../textw/silo_text.py:238 ../textw/userauth_text.py:237
 msgid "Edit"
 msgstr "Upraviť"
 
-#: ../textw/bootloader_text.py:300 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:303 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -4422,44 +4545,44 @@ msgstr ""
 "systémy. Potrebujete zadať oddiely, na ktorých sa nachádzajú zavediteľné "
 "systémy a popis, ktorý pre ne chcete použiť."
 
-#: ../textw/bootloader_text.py:313
+#: ../textw/bootloader_text.py:316
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 
-#: ../textw/bootloader_text.py:392
+#: ../textw/bootloader_text.py:395
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
 
-#: ../textw/bootloader_text.py:402
+#: ../textw/bootloader_text.py:405
 #, fuzzy
 msgid "Use a GRUB Password"
 msgstr "Používať shadow heslá"
 
-#: ../textw/bootloader_text.py:414
+#: ../textw/bootloader_text.py:417
 #, fuzzy
 msgid "Boot Loader Password:"
 msgstr "Heslo root-a: "
 
-#: ../textw/bootloader_text.py:415
+#: ../textw/bootloader_text.py:418
 #, fuzzy
 msgid "Confirm:"
 msgstr "Znovu: "
 
-#: ../textw/bootloader_text.py:444
+#: ../textw/bootloader_text.py:447
 #, fuzzy
 msgid "Passwords Do Not Match"
 msgstr "Heslo root-a nesúhlasí."
 
-#: ../textw/bootloader_text.py:449
+#: ../textw/bootloader_text.py:452
 #, fuzzy
 msgid "Password Too Short"
 msgstr "Heslo root-a je príliš krátke."
 
-#: ../textw/bootloader_text.py:450
+#: ../textw/bootloader_text.py:453
 #, fuzzy
 msgid "Boot loader password is too short"
 msgstr "Heslo root-a je príliš krátke."
@@ -4468,26 +4591,17 @@ msgstr "Heslo root-a je príliš krátke."
 msgid "<Enter> to reboot"
 msgstr ""
 
-#: ../textw/complete_text.py:28
-#, python-format
+#: ../textw/complete_text.py:36
 msgid ""
-"If you created a boot disk to use to boot your %s system, insert it before "
-"you press <Enter> to reboot.\n"
+"Press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
 
-#: ../textw/complete_text.py:37
-msgid ""
-"Remove any floppy diskettes you used during the installation process and "
-"press <Enter> to reboot your system.\n"
-"\n"
-msgstr ""
-
-#: ../textw/complete_text.py:43
+#: ../textw/complete_text.py:44
 msgid "Complete"
 msgstr "Hotovo"
 
-#: ../textw/complete_text.py:44
+#: ../textw/complete_text.py:45
 #, fuzzy, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
@@ -4522,13 +4636,13 @@ msgstr ""
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
-#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:360
-#: ../loader2/driverdisk.c:212 ../loader2/driverdisk.c:227
+#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:353
+#: ../loader2/driverdisk.c:213 ../loader2/driverdisk.c:228
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
-#: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:368
-#: ../loader2/hdinstall.c:422 ../loader2/kbd.c:125 ../loader2/loader.c:303
-#: ../loader2/loader.c:694 ../loader2/loader.c:723 ../loader2/net.c:170
-#: ../loader2/net.c:366 ../loader2/net.c:788 ../loader2/nfsinstall.c:54
+#: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:380
+#: ../loader2/hdinstall.c:434 ../loader2/kbd.c:125 ../loader2/loader.c:302
+#: ../loader2/loader.c:763 ../loader2/loader.c:792 ../loader2/net.c:170
+#: ../loader2/net.c:377 ../loader2/net.c:748 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:248 ../loader2/urls.c:433
 msgid "Back"
 msgstr "Späť"
@@ -4689,7 +4803,7 @@ msgid "Other ports"
 msgstr ""
 
 #: ../textw/firewall_text.py:130 ../textw/firewall_text.py:193
-#: ../textw/language_text.py:161
+#: ../textw/language_text.py:145
 #, fuzzy
 msgid "Invalid Choice"
 msgstr "Upraviť zavádzací popis"
@@ -4728,36 +4842,36 @@ msgstr "Výber klávesnice"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Aký model klávesnice je pripojený k tomuto počítaču?"
 
-#: ../textw/language_text.py:124
+#: ../textw/language_text.py:108
 #, fuzzy
 msgid "Select All"
 msgstr "Výber oddielu"
 
-#: ../textw/language_text.py:124
+#: ../textw/language_text.py:108
 #, fuzzy
 msgid "Reset"
 msgstr "_Vrátiť"
 
-#: ../textw/language_text.py:126
+#: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
 msgstr ""
 
-#: ../textw/language_text.py:130
+#: ../textw/language_text.py:114
 #, fuzzy
 msgid "Language Support"
 msgstr "Výber jazyka"
 
-#: ../textw/language_text.py:162
+#: ../textw/language_text.py:146
 #, fuzzy
 msgid "You must select at least one language to install."
 msgstr "Výber jazyka"
 
-#: ../textw/language_text.py:190
+#: ../textw/language_text.py:174
 #, fuzzy
 msgid "Default Language"
 msgstr "Výber jazyka"
 
-#: ../textw/language_text.py:191
+#: ../textw/language_text.py:175
 #, fuzzy
 msgid "Choose the default language for this system: "
 msgstr "Výber jazyka"
@@ -4779,74 +4893,111 @@ msgstr "Emulovať 3 tlačítka?"
 msgid "Mouse Selection"
 msgstr "Výber myši"
 
-#: ../textw/network_text.py:67
+#: ../textw/network_text.py:29
+#, fuzzy
+msgid "Invalid IP string"
+msgstr "Neprípustná informácia"
+
+#: ../textw/network_text.py:30
+#, fuzzy, python-format
+msgid "The entered IP '%s' is not a valid IP."
+msgstr "Zadaná veľkosť musí byť číslom."
+
+#: ../textw/network_text.py:62
+#, fuzzy
+msgid "IP Address"
+msgstr "IP adresa"
+
+#: ../textw/network_text.py:63
+msgid "Netmask"
+msgstr "Maska siete"
+
+#: ../textw/network_text.py:65
+msgid "Point to Point (IP)"
+msgstr ""
+
+#: ../textw/network_text.py:70
 #, fuzzy, python-format
 msgid "Network Device: %s"
 msgstr "Sieťové zariadenie"
 
-#: ../textw/network_text.py:70
-msgid "Use bootp/dhcp"
-msgstr "Použiť bootp/dhcp"
+#: ../textw/network_text.py:75
+#, fuzzy
+msgid "Configure using DHCP"
+msgstr "Konfigurácia s použitím DHCP"
 
-#: ../textw/network_text.py:73
+#: ../textw/network_text.py:79
 msgid "Activate on boot"
 msgstr "Aktivovať pri štarte systému"
 
-#: ../textw/network_text.py:83 ../loader2/net.c:316
-msgid "IP address:"
-msgstr "IP adresa:"
-
-#: ../textw/network_text.py:84 ../loader2/net.c:319
-msgid "Netmask:"
-msgstr "Maska siete:"
-
-#: ../textw/network_text.py:85 ../loader2/net.c:322
-msgid "Default gateway (IP):"
-msgstr "Brána (IP):"
-
-#: ../textw/network_text.py:87 ../loader2/net.c:325
-msgid "Primary nameserver:"
-msgstr "Primárny nameserver:"
-
-#: ../textw/network_text.py:89
-#, fuzzy
-msgid "Secondary nameserver:"
-msgstr "Primárny nameserver:"
-
-#: ../textw/network_text.py:91
-#, fuzzy
-msgid "Tertiary nameserver:"
-msgstr "Primárny nameserver:"
-
-#: ../textw/network_text.py:94
-#, fuzzy
-msgid "Point to Point (IP):"
-msgstr "Bod pripojenia:"
-
-#: ../textw/network_text.py:129
+#: ../textw/network_text.py:101
 #, fuzzy, python-format
 msgid "Network Configuration for %s"
 msgstr "Konfigurácia siete"
 
-#: ../textw/network_text.py:152
+#: ../textw/network_text.py:132
 msgid "Invalid information"
 msgstr "Neprípustná informácia"
 
-#: ../textw/network_text.py:153
+#: ../textw/network_text.py:133
 msgid "You must enter valid IP information to continue"
 msgstr "Aby ste mohli pokračovať, musíte zadať platnú IP informáciu."
 
-#: ../textw/network_text.py:220
+#: ../textw/network_text.py:211
+#, fuzzy
+msgid "Gateway:"
+msgstr "Brána"
+
+#: ../textw/network_text.py:221
+#, fuzzy
+msgid "Primary DNS:"
+msgstr "Primárny DNS"
+
+#: ../textw/network_text.py:226
+#, fuzzy
+msgid "Secondary DNS:"
+msgstr "Sekundárny DNS"
+
+#: ../textw/network_text.py:231
+#, fuzzy
+msgid "Tertiary DNS:"
+msgstr "Terciárny DNS"
+
+#: ../textw/network_text.py:238
+#, fuzzy
+msgid "Miscellaneous Network Settings"
+msgstr "Rôzne"
+
+#: ../textw/network_text.py:305
+#, fuzzy
+msgid "automatically via DHCP"
+msgstr "Automatický oddiel"
+
+#: ../textw/network_text.py:309
+#, fuzzy
+msgid "manually"
+msgstr "Manuálne rozdelenie"
+
+#: ../textw/network_text.py:328
 msgid "Hostname Configuration"
 msgstr "Konfigurácia názvu počítača"
 
-#: ../textw/network_text.py:221
+#: ../textw/network_text.py:331
 msgid ""
-"The hostname is the name of your computer.  If your computer is attached to "
-"a network, this may be assigned by your network administrator."
+"If your system is part of a larger network where hostnames are assigned by "
+"DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
+"a hostname for your system. If you do not, your system will be known as "
+"'localhost.'"
 msgstr ""
-"Názov počítača pomenováva váš počítač. Pokiaľ je pripojený do siete, je "
-"možné, že názov prideľuje správca siete."
+
+#: ../textw/network_text.py:357 ../textw/network_text.py:363
+#, fuzzy
+msgid "Invalid Hostname"
+msgstr "Upraviť zavádzací popis"
+
+#: ../textw/network_text.py:358
+msgid "You have not specified a hostname."
+msgstr ""
 
 #: ../textw/packages_text.py:50
 msgid "Select individual packages"
@@ -5000,26 +5151,26 @@ msgstr "Veľkosť koreňového súborového systému"
 msgid "File System Option:"
 msgstr "Veľkosť koreňového súborového systému"
 
-#: ../textw/partition_text.py:510 ../textw/partition_text.py:743
-#: ../textw/partition_text.py:973
+#: ../textw/partition_text.py:510 ../textw/partition_text.py:748
+#: ../textw/partition_text.py:985
 #, python-format
 msgid "Format as %s"
 msgstr ""
 
-#: ../textw/partition_text.py:512 ../textw/partition_text.py:745
-#: ../textw/partition_text.py:975
+#: ../textw/partition_text.py:512 ../textw/partition_text.py:750
+#: ../textw/partition_text.py:987
 #, python-format
 msgid "Migrate to %s"
 msgstr ""
 
-#: ../textw/partition_text.py:514 ../textw/partition_text.py:747
-#: ../textw/partition_text.py:977
+#: ../textw/partition_text.py:514 ../textw/partition_text.py:752
+#: ../textw/partition_text.py:989
 #, fuzzy
 msgid "Leave unchanged"
 msgstr "Zapísať zmeny"
 
-#: ../textw/partition_text.py:530 ../textw/partition_text.py:719
-#: ../textw/partition_text.py:953
+#: ../textw/partition_text.py:530 ../textw/partition_text.py:725
+#: ../textw/partition_text.py:965
 #, fuzzy
 msgid "File System Options"
 msgstr "Formátovanie súborového systému"
@@ -5030,7 +5181,7 @@ msgid ""
 "partition."
 msgstr ""
 
-#: ../textw/partition_text.py:541 ../textw/partition_text.py:689
+#: ../textw/partition_text.py:541
 #, fuzzy
 msgid "Check for bad blocks"
 msgstr "Počas formátovania kontrolovať na chybné bloky"
@@ -5051,99 +5202,89 @@ msgstr ""
 msgid "Force to be a primary partition"
 msgstr ""
 
-#: ../textw/partition_text.py:697
+#: ../textw/partition_text.py:703
 #, fuzzy
 msgid "Not Supported"
 msgstr "Nastavenie siete"
 
-#: ../textw/partition_text.py:698
+#: ../textw/partition_text.py:704
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr ""
 
-#: ../textw/partition_text.py:772 ../textw/partition_text.py:821
+#: ../textw/partition_text.py:780 ../textw/partition_text.py:833
 #, fuzzy
 msgid "Invalid Entry for Partition Size"
 msgstr "Neprípustná informácia"
 
-#: ../textw/partition_text.py:784
+#: ../textw/partition_text.py:792
 msgid "Invalid Entry for Maximum Size"
 msgstr ""
 
-#: ../textw/partition_text.py:803
+#: ../textw/partition_text.py:811
 msgid "Invalid Entry for Starting Cylinder"
 msgstr ""
 
-#: ../textw/partition_text.py:813
+#: ../textw/partition_text.py:825
 msgid "Invalid Entry for End Cylinder"
 msgstr ""
 
-#: ../textw/partition_text.py:926
+#: ../textw/partition_text.py:938
 #, fuzzy
 msgid "No RAID partitions"
 msgstr "<RAID oddiel>"
 
-#: ../textw/partition_text.py:927
+#: ../textw/partition_text.py:939
 msgid "At least two software RAID partitions are needed."
 msgstr ""
 
-#: ../textw/partition_text.py:939
+#: ../textw/partition_text.py:951
 #, fuzzy
 msgid "Format partition?"
 msgstr "Chýba koreňový oddiel"
 
-#: ../textw/partition_text.py:1001
+#: ../textw/partition_text.py:1013
 #, fuzzy
 msgid "Invalid Entry for RAID Spares"
 msgstr "Neprípustná informácia"
 
-#: ../textw/partition_text.py:1014
+#: ../textw/partition_text.py:1026
 #, fuzzy
 msgid "Too many spares"
 msgstr "Priveľa jednotiek"
 
-#: ../textw/partition_text.py:1015
+#: ../textw/partition_text.py:1027
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr ""
 
-#: ../textw/partition_text.py:1069
-msgid "You must go back and use fdasd to initialize this partition"
-msgstr ""
+#: ../textw/partition_text.py:1123
+msgid "New"
+msgstr "Nový"
 
-#: ../textw/partition_text.py:1122 ../textw/partition_text.py:1129
-#: ../textw/userauth_text.py:236
+#: ../textw/partition_text.py:1125 ../textw/userauth_text.py:236
 msgid "Delete"
 msgstr "Zrušiť"
 
-#: ../textw/partition_text.py:1123 ../textw/partition_text.py:1130
+#: ../textw/partition_text.py:1126
 #, fuzzy
 msgid "RAID"
 msgstr "<RAID>"
 
-#: ../textw/partition_text.py:1125
-msgid ""
-"    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-
-#: ../textw/partition_text.py:1127
-msgid "New"
-msgstr "Nový"
-
-#: ../textw/partition_text.py:1133
+#: ../textw/partition_text.py:1129
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
-#: ../textw/partition_text.py:1162
+#: ../textw/partition_text.py:1158
 msgid "No Root Partition"
 msgstr "Chýba koreňový oddiel"
 
-#: ../textw/partition_text.py:1163
+#: ../textw/partition_text.py:1159
 #, fuzzy
 msgid "Must have a / partition to install on."
 msgstr ""
 "Musíte prideliť odkladací priestor, aby bolo možné pokračovať v inštalácii."
 
-#: ../textw/partition_text.py:1230
+#: ../textw/partition_text.py:1226
 #, fuzzy
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Kam si želáte nainštalovať zavádzač?"
@@ -5551,101 +5692,101 @@ msgstr ""
 "Pokiaľ ste si zakúpili Official Red Hat Linux, nezabudnite svoju kúpu "
 "zaregistrovať prostredníctvom našej Web stránky http://www.redhat.com/."
 
-#: ../textw/xconfig_text.py:37
+#: ../textw/xconfig_text.py:35
 msgid "Color Depth"
 msgstr ""
 
-#: ../textw/xconfig_text.py:38
+#: ../textw/xconfig_text.py:36
 msgid "Please select the color depth you would like to use:"
 msgstr ""
 
-#: ../textw/xconfig_text.py:61
+#: ../textw/xconfig_text.py:59
 msgid "Resolution"
 msgstr ""
 
-#: ../textw/xconfig_text.py:62
+#: ../textw/xconfig_text.py:60
 msgid "Please select the resolution you would like to use:"
 msgstr ""
 
-#: ../textw/xconfig_text.py:133
+#: ../textw/xconfig_text.py:131
 #, fuzzy
 msgid "X Customization"
 msgstr "Konfigurácia X"
 
-#: ../textw/xconfig_text.py:136
+#: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
 msgstr ""
 
-#: ../textw/xconfig_text.py:140
+#: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
 msgstr ""
 
-#: ../textw/xconfig_text.py:144 ../textw/xconfig_text.py:151
-#: ../textw/xconfig_text.py:409 ../textw/xconfig_text.py:420
-#: ../textw/xconfig_text.py:614 ../textw/xconfig_text.py:621
+#: ../textw/xconfig_text.py:142 ../textw/xconfig_text.py:149
+#: ../textw/xconfig_text.py:407 ../textw/xconfig_text.py:418
+#: ../textw/xconfig_text.py:625 ../textw/xconfig_text.py:632
 #, fuzzy
 msgid "Change"
 msgstr "Iná CDROM"
 
-#: ../textw/xconfig_text.py:147
+#: ../textw/xconfig_text.py:145
 msgid "Resolution:"
 msgstr ""
 
-#: ../textw/xconfig_text.py:157
+#: ../textw/xconfig_text.py:155
 #, fuzzy
 msgid "Default Desktop:"
 msgstr "Predvoľba"
 
 # ../comps/comps-master:259
-#: ../textw/xconfig_text.py:161 ../textw/xconfig_text.py:170
+#: ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
 msgid "GNOME"
 msgstr ""
 
 # ../comps/comps-master:315
-#: ../textw/xconfig_text.py:163 ../textw/xconfig_text.py:172
+#: ../textw/xconfig_text.py:161 ../textw/xconfig_text.py:170
 msgid "KDE"
 msgstr ""
 
-#: ../textw/xconfig_text.py:178
+#: ../textw/xconfig_text.py:176
 #, fuzzy
 msgid "Default Login:"
 msgstr "Výber jazyka"
 
-#: ../textw/xconfig_text.py:180
+#: ../textw/xconfig_text.py:178
 #, fuzzy
 msgid "Graphical"
 msgstr "Používať grafické prihlasovanie sa"
 
-#: ../textw/xconfig_text.py:182
+#: ../textw/xconfig_text.py:180
 #, fuzzy
 msgid "Text"
 msgstr "Ďalej"
 
-#: ../textw/xconfig_text.py:230
+#: ../textw/xconfig_text.py:228
 msgid "Monitor"
 msgstr "Monitor"
 
-#: ../textw/xconfig_text.py:231
+#: ../textw/xconfig_text.py:229
 #, fuzzy
 msgid "Please select the monitor attached to your system."
 msgstr "Adresár %s sa musí nachádzať v koreňovom súborovom systéme."
 
-#: ../textw/xconfig_text.py:256
+#: ../textw/xconfig_text.py:254
 #, fuzzy
 msgid "horizontal"
 msgstr "Horizontálna synchronizácia"
 
-#: ../textw/xconfig_text.py:259
+#: ../textw/xconfig_text.py:257
 #, fuzzy
 msgid "vertical"
 msgstr "Vertikálna synchronizácia"
 
-#: ../textw/xconfig_text.py:263
+#: ../textw/xconfig_text.py:261
 #, fuzzy
 msgid "Invalid Sync Rates"
 msgstr "Upraviť zavádzací popis"
 
-#: ../textw/xconfig_text.py:264
+#: ../textw/xconfig_text.py:262
 #, python-format
 msgid ""
 "The %s sync rate is invalid:\n"
@@ -5659,11 +5800,11 @@ msgid ""
 "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
 msgstr ""
 
-#: ../textw/xconfig_text.py:278
+#: ../textw/xconfig_text.py:276
 msgid "Monitor Sync Rates"
 msgstr ""
 
-#: ../textw/xconfig_text.py:283
+#: ../textw/xconfig_text.py:281
 msgid ""
 "Please enter the sync rates for your monitor. \n"
 "\n"
@@ -5671,98 +5812,105 @@ msgid ""
 "should be taken to make sure the values entered are accurate."
 msgstr ""
 
-#: ../textw/xconfig_text.py:288
+#: ../textw/xconfig_text.py:286
 msgid "HSync Rate: "
 msgstr ""
 
-#: ../textw/xconfig_text.py:293
+#: ../textw/xconfig_text.py:291
 msgid "VSync Rate: "
 msgstr ""
 
-#: ../textw/xconfig_text.py:401
+#: ../textw/xconfig_text.py:399
 #, python-format
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
 msgstr ""
 
-#: ../textw/xconfig_text.py:405
+#: ../textw/xconfig_text.py:403
 #, fuzzy
 msgid "Monitor:"
 msgstr "Monitor"
 
-#: ../textw/xconfig_text.py:412
+#: ../textw/xconfig_text.py:410
 msgid "HSync Rate:"
 msgstr ""
 
-#: ../textw/xconfig_text.py:422
+#: ../textw/xconfig_text.py:420
 msgid "VSync Rate:"
 msgstr ""
 
-#: ../textw/xconfig_text.py:512
+#: ../textw/xconfig_text.py:510
 msgid "Video Card"
 msgstr "Videokarta"
 
-#: ../textw/xconfig_text.py:513
+#: ../textw/xconfig_text.py:511
 #, python-format
 msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
 msgstr ""
 
-#: ../textw/xconfig_text.py:531
+#: ../textw/xconfig_text.py:529
 #, fuzzy
 msgid "Video RAM"
 msgstr "Videopamäť"
 
-#: ../textw/xconfig_text.py:532
+#: ../textw/xconfig_text.py:530
 #, python-format
 msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
 
-#: ../textw/xconfig_text.py:595
+#: ../textw/xconfig_text.py:596
 msgid "Skip X Configuration"
 msgstr "Vynechať konfiguráciu X"
 
-#: ../textw/xconfig_text.py:598
+#: ../textw/xconfig_text.py:599
 #, fuzzy
 msgid "Video Card Configuration"
 msgstr "Konfigurácia klávesnice"
 
-#: ../textw/xconfig_text.py:601
+#: ../textw/xconfig_text.py:605
+msgid ""
+"Your system will be setup to use the frame buffer driver for the X Window "
+"System.  If you do not want setup the X Window System, choose 'Skip X "
+"Configuration' below."
+msgstr ""
+
+#: ../textw/xconfig_text.py:613
 msgid "Select the video card and video RAM for your system."
 msgstr ""
 
-#: ../textw/xconfig_text.py:604
+#: ../textw/xconfig_text.py:615
 #, fuzzy
 msgid "Video Card:"
 msgstr "Videokarta"
 
-#: ../textw/xconfig_text.py:609
+#: ../textw/xconfig_text.py:620
 #, fuzzy
 msgid "Unknown card"
 msgstr "Neznámy počítač"
 
-#: ../textw/xconfig_text.py:617
+#: ../textw/xconfig_text.py:628
 #, fuzzy
 msgid "Video RAM:"
 msgstr "Videokarta"
 
-#: ../textw/zipl_text.py:22
+#: ../textw/zipl_text.py:24
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
 
-#: ../textw/zipl_text.py:47
+#: ../textw/zipl_text.py:56
 #, fuzzy
 msgid "z/IPL Configuration"
 msgstr "Konfigurácia SILO"
 
-#: ../textw/zipl_text.py:54 ../textw/zipl_text.py:57
+#: ../textw/zipl_text.py:64 ../textw/zipl_text.py:68
 msgid "Chandev line "
 msgstr ""
 
@@ -5801,30 +5949,30 @@ msgid ""
 "development and system administration. "
 msgstr ""
 
-#: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:116
+#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
 msgid "Media Check"
 msgstr ""
 
-#: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:98
-#: ../loader2/cdinstall.c:116 ../loader2/cdinstall.c:124
-#: ../loader2/method.c:415
+#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
+#: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
+#: ../loader2/method.c:401
 #, fuzzy
 msgid "Test"
 msgstr "Ďalej"
 
-#: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:99
+#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
 msgid "Eject CD"
 msgstr ""
 
-#: ../loader2/cdinstall.c:96
+#: ../loader2/cdinstall.c:89
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
 
-#: ../loader2/cdinstall.c:117
+#: ../loader2/cdinstall.c:110
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -5835,7 +5983,7 @@ msgid ""
 "\"."
 msgstr ""
 
-#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:354
+#: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:347
 #, fuzzy, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -5844,12 +5992,12 @@ msgstr ""
 "V žiadnej z vašich CDROM mechaník nebolo nájdené CD s Red Hat Linuxom. "
 "Vložte prosím Red Hat CD a stlačte \"OK\" pre nový pokus."
 
-#: ../loader2/cdinstall.c:257
+#: ../loader2/cdinstall.c:250
 #, fuzzy
 msgid "CD Found"
 msgstr "Neboli nájdené žiadne jednotky"
 
-#: ../loader2/cdinstall.c:259
+#: ../loader2/cdinstall.c:252
 #, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
@@ -5857,7 +6005,7 @@ msgid ""
 "Choose %s to skip the media test and start the installation."
 msgstr ""
 
-#: ../loader2/cdinstall.c:349
+#: ../loader2/cdinstall.c:342
 #, fuzzy, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
@@ -5866,94 +6014,99 @@ msgstr ""
 "V žiadnej z vašich CDROM mechaník nebolo nájdené CD s Red Hat Linuxom. "
 "Vložte prosím Red Hat CD a stlačte \"OK\" pre nový pokus."
 
-#: ../loader2/cdinstall.c:359
+#: ../loader2/cdinstall.c:352
 #, fuzzy
 msgid "CD Not Found"
 msgstr "Neboli nájdené žiadne jednotky"
 
-#: ../loader2/cdinstall.c:430
+#: ../loader2/cdinstall.c:423
 msgid "Cannot find kickstart file on CDROM."
 msgstr ""
 
-#: ../loader2/driverdisk.c:92 ../loader2/firewire.c:50
+#: ../loader2/driverdisk.c:93 ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Načítanie"
 
-#: ../loader2/driverdisk.c:92
+#: ../loader2/driverdisk.c:93
 #, fuzzy
 msgid "Reading driver disk..."
 msgstr "Nepodarilo sa mi pripojiť disketu."
 
-#: ../loader2/driverdisk.c:206
+#: ../loader2/driverdisk.c:207
 #, fuzzy
 msgid "Driver Disk Source"
 msgstr "Súhrny pre disky"
 
-#: ../loader2/driverdisk.c:207
+#: ../loader2/driverdisk.c:208
 #, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr "Aký typ systému si želáte nainštalovať?"
 
-#: ../loader2/driverdisk.c:225
+#: ../loader2/driverdisk.c:226
 #, fuzzy, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "Vložte disketu s ovládačmi a stlačte \"OK\" pre pokračovanie."
 
-#: ../loader2/driverdisk.c:227
+#: ../loader2/driverdisk.c:228
 #, fuzzy
 msgid "Insert Driver Disk"
 msgstr "Súhrny pre disky"
 
-#: ../loader2/driverdisk.c:240
+#: ../loader2/driverdisk.c:241
 #, fuzzy
 msgid "Failed to mount driver disk."
 msgstr "Nepodarilo sa mi pripojiť disketu."
 
-#: ../loader2/driverdisk.c:311
+#: ../loader2/driverdisk.c:312
 #, fuzzy
 msgid "Manually choose"
 msgstr "Manuálne rozdelenie"
 
-#: ../loader2/driverdisk.c:312
+#: ../loader2/driverdisk.c:313
 msgid "Load another disk"
 msgstr ""
 
-#: ../loader2/driverdisk.c:313
+#: ../loader2/driverdisk.c:314
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 
-#: ../loader2/driverdisk.c:356
+#: ../loader2/driverdisk.c:357
 #, fuzzy
 msgid "Driver disk"
 msgstr "Súhrny pre disky"
 
-#: ../loader2/driverdisk.c:357
+#: ../loader2/driverdisk.c:358
 #, fuzzy
 msgid "Do you have a driver disk?"
 msgstr "Súhrny pre disky"
 
-#: ../loader2/driverdisk.c:367
+#: ../loader2/driverdisk.c:368
 #, fuzzy
 msgid "More Driver Disks?"
 msgstr "Súhrny pre disky"
 
-#: ../loader2/driverdisk.c:368
+#: ../loader2/driverdisk.c:369
 msgid "Do you wish to load any more driver disks?"
 msgstr ""
 
-#: ../loader2/driverdisk.c:392 ../loader2/hdinstall.c:504
-#: ../loader2/kickstart.c:101 ../loader2/kickstart.c:111
-#: ../loader2/kickstart.c:154 ../loader2/modules.c:928 ../loader2/net.c:702
-#: ../loader2/net.c:725 ../loader2/nfsinstall.c:265
-#: ../loader2/urlinstall.c:368 ../loader2/urlinstall.c:377
-#: ../loader2/urlinstall.c:388
+#: ../loader2/driverdisk.c:393 ../loader2/hdinstall.c:516
+#: ../loader2/kickstart.c:104 ../loader2/kickstart.c:114
+#: ../loader2/kickstart.c:157 ../loader2/modules.c:921 ../loader2/net.c:662
+#: ../loader2/net.c:685 ../loader2/nfsinstall.c:266
+#: ../loader2/urlinstall.c:369 ../loader2/urlinstall.c:378
+#: ../loader2/urlinstall.c:389
 msgid "Kickstart Error"
 msgstr "Chyba kickstart-u"
+
+#: ../loader2/driverdisk.c:394
+#, fuzzy, c-format
+msgid "Bad argument to driver disk kickstart method command %s: %s"
+msgstr "chybný argument pre sieťový príkaz kickstartu %s: %s"
 
 #: ../loader2/driverselect.c:60
 #, fuzzy, c-format
@@ -6011,7 +6164,15 @@ msgstr "Vyberte disk, na ktorý sa má použiť fdisk"
 msgid "Loading %s driver..."
 msgstr "Načítava sa ramdisk druhej fázy..."
 
-#: ../loader2/hdinstall.c:256
+#: ../loader2/hdinstall.c:214 ../loader2/nfsinstall.c:217
+#: ../loader2/urlinstall.c:107
+#, c-format
+msgid ""
+"The %s installation tree in that directory does not seem to match your boot "
+"media."
+msgstr ""
+
+#: ../loader2/hdinstall.c:268
 #, fuzzy
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
@@ -6019,7 +6180,7 @@ msgid ""
 msgstr ""
 "Pri čítaní tabuľky rozdelenia blokového zariadenia %s sa vyskytla chyba: "
 
-#: ../loader2/hdinstall.c:369
+#: ../loader2/hdinstall.c:381
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -6027,7 +6188,7 @@ msgstr ""
 "Zdá sa, že na vašom systéme nemáte žiadne pevné disky! Želáte si "
 "nakonfigurovať prídavné zariadenia?"
 
-#: ../loader2/hdinstall.c:385
+#: ../loader2/hdinstall.c:397
 #, fuzzy, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6038,26 +6199,26 @@ msgstr ""
 "RedHat/base? Pokiaľ tu nevidíte zariadenie, ktoré používate, stlačte F2 a "
 "nakonfigurujte prídavné zariadenia."
 
-#: ../loader2/hdinstall.c:407
+#: ../loader2/hdinstall.c:419
 #, fuzzy
 msgid "Directory holding images:"
 msgstr "Adresár obsahujúci Red Hat:"
 
-#: ../loader2/hdinstall.c:434
+#: ../loader2/hdinstall.c:446
 msgid "Select Partition"
 msgstr "Výber oddielu"
 
-#: ../loader2/hdinstall.c:474
+#: ../loader2/hdinstall.c:486
 #, fuzzy, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Zariadenie %s zrejme neobsahuje inštalačný strom Red Hat distribúcie."
 
-#: ../loader2/hdinstall.c:505
+#: ../loader2/hdinstall.c:517
 #, fuzzy, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "chybný argument pre sieťový príkaz kickstartu %s: %s"
 
-#: ../loader2/hdinstall.c:555
+#: ../loader2/hdinstall.c:567
 msgid "Cannot find kickstart file on hard drive."
 msgstr ""
 
@@ -6069,45 +6230,45 @@ msgstr "Typ klávesnice"
 msgid "What type of keyboard do you have?"
 msgstr "Aký typ klávesnice máte?"
 
-#: ../loader2/kickstart.c:102
+#: ../loader2/kickstart.c:105
 #, fuzzy, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "Chyba pri otváraní kickstart súboru %s: %s"
 
-#: ../loader2/kickstart.c:112
+#: ../loader2/kickstart.c:115
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Chyba pri čítaní obsahu kickstart súboru %s: %s"
 
-#: ../loader2/kickstart.c:155
+#: ../loader2/kickstart.c:158
 #, fuzzy, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Chyba na riadku %d kickstart súboru %s."
 
-#: ../loader2/kickstart.c:255
+#: ../loader2/kickstart.c:258
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Na zavádzacej diskete nie je možné nájsť súbor ks.cfg."
 
-#: ../loader2/lang.c:51 ../loader2/loader.c:166
+#: ../loader2/lang.c:52 ../loader2/loader.c:165
 #, fuzzy, c-format
 msgid "Welcome to %s"
 msgstr "Vitajte"
 
-#: ../loader2/lang.c:52 ../loader2/loader.c:172
+#: ../loader2/lang.c:53 ../loader2/loader.c:171
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> medzi položkami   | <Space> vyberá  |  <F12> nasl. obr. "
 
-#: ../loader2/lang.c:372
+#: ../loader2/lang.c:371
 msgid "Choose a Language"
 msgstr "Výber jazyka"
 
-#: ../loader2/loader.c:97
+#: ../loader2/loader.c:98
 msgid "Local CDROM"
 msgstr "Lokálna CDROM"
 
-#: ../loader2/loader.c:98
+#: ../loader2/loader.c:100
 msgid "Hard drive"
 msgstr "Pevný disk"
 
@@ -6115,96 +6276,96 @@ msgstr "Pevný disk"
 msgid "NFS image"
 msgstr "NFS obraz"
 
-#: ../loader2/loader.c:298
+#: ../loader2/loader.c:297
 #, fuzzy
 msgid "Update Disk Source"
 msgstr "Aktualizácie"
 
-#: ../loader2/loader.c:299
+#: ../loader2/loader.c:298
 #, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr "Aký typ systému si želáte nainštalovať?"
 
-#: ../loader2/loader.c:314
+#: ../loader2/loader.c:313
 #, fuzzy, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "Vložte disketu s aktualizáciou a stlačte \"OK\" pre pokračovanie."
 
-#: ../loader2/loader.c:316
+#: ../loader2/loader.c:315
 #, fuzzy
 msgid "Updates Disk"
 msgstr "Aktualizácie"
 
-#: ../loader2/loader.c:328
+#: ../loader2/loader.c:327
 #, fuzzy
 msgid "Failed to mount updates disk"
 msgstr "Nepodarilo sa mi pripojiť disketu."
 
-#: ../loader2/loader.c:331
+#: ../loader2/loader.c:330
 msgid "Updates"
 msgstr "Aktualizácie"
 
-#: ../loader2/loader.c:331
+#: ../loader2/loader.c:330
 msgid "Reading anaconda updates..."
 msgstr "Načítanie aktualizácií anakondy..."
 
-#: ../loader2/loader.c:353
+#: ../loader2/loader.c:352
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
 
-#: ../loader2/loader.c:569
+#: ../loader2/loader.c:633
 #, fuzzy, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Výber jazyka"
 
-#: ../loader2/loader.c:686
+#: ../loader2/loader.c:755
 msgid "Rescue Method"
 msgstr "Záchranná metóda"
 
-#: ../loader2/loader.c:687
+#: ../loader2/loader.c:756
 msgid "Installation Method"
 msgstr "Spôsob inštalácie"
 
-#: ../loader2/loader.c:689
+#: ../loader2/loader.c:758
 msgid "What type of media contains the rescue image?"
 msgstr "Aký typ média obsahuje záchranný obraz systému?"
 
-#: ../loader2/loader.c:691
+#: ../loader2/loader.c:760
 msgid "What type of media contains the packages to be installed?"
 msgstr "Aký typ média obsahuje balíky, ktoré si želáte nainštalovať?"
 
-#: ../loader2/loader.c:722
+#: ../loader2/loader.c:791
 #, fuzzy
 msgid "No driver found"
 msgstr "Neboli nájdené žiadne jednotky"
 
-#: ../loader2/loader.c:722
+#: ../loader2/loader.c:791
 #, fuzzy
 msgid "Select driver"
 msgstr "Vyberte disk, na ktorý sa má použiť fdisk"
 
-#: ../loader2/loader.c:723
+#: ../loader2/loader.c:792
 #, fuzzy
 msgid "Use a driver disk"
 msgstr "Súhrny pre disky"
 
-#: ../loader2/loader.c:724
+#: ../loader2/loader.c:793
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: ../loader2/loader.c:818
+#: ../loader2/loader.c:887
 #, fuzzy
 msgid "The following devices have been found on your system."
 msgstr "Na vašom systéme boli nájdené nasledovné zariadenia:"
 
-#: ../loader2/loader.c:820
+#: ../loader2/loader.c:889
 #, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
@@ -6213,19 +6374,23 @@ msgstr ""
 "Pre váš systém nie sú načítané žiadne špeciálne ovládače. Želáte si teraz "
 "nejaké zaviesť?"
 
-#: ../loader2/loader.c:824
+#: ../loader2/loader.c:893
 msgid "Devices"
 msgstr "Zariadenia"
 
-#: ../loader2/loader.c:825
+#: ../loader2/loader.c:894
 msgid "Done"
 msgstr "Hotovo"
 
-#: ../loader2/loader.c:826
+#: ../loader2/loader.c:895
 msgid "Add Device"
 msgstr "Pridať zariadenie"
 
-#: ../loader2/loader.c:1204
+#: ../loader2/loader.c:995
+msgid "loader has already been run.  Starting shell."
+msgstr ""
+
+#: ../loader2/loader.c:1314
 #, fuzzy, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Načítanie aktualizácií anakondy..."
@@ -6291,12 +6456,12 @@ msgstr ""
 msgid "The media check %sis complete, and the result is: %s\n"
 msgstr ""
 
-#: ../loader2/method.c:161 ../loader2/method.c:369 ../loader2/method.c:454
+#: ../loader2/method.c:147 ../loader2/method.c:355 ../loader2/method.c:440
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Nepodarilo sa prečítať adresár %s: %s"
 
-#: ../loader2/method.c:412
+#: ../loader2/method.c:398
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6304,9 +6469,14 @@ msgid ""
 "   %s?"
 msgstr ""
 
-#: ../loader2/method.c:415
+#: ../loader2/method.c:401
 msgid "Checksum Test"
 msgstr ""
+
+#: ../loader2/modules.c:922
+#, fuzzy, c-format
+msgid "Bad argument to device kickstart method command %s: %s"
+msgstr "chybný argument pre sieťový príkaz kickstartu %s: %s"
 
 #: ../loader2/net.c:43
 #, fuzzy, c-format
@@ -6350,16 +6520,16 @@ msgstr "Neprípustná informácia"
 msgid "You entered an invalid IP address."
 msgstr "Musíte zadať platnú IP adresu aj sieťovú masku."
 
-#: ../loader2/net.c:222 ../loader2/net.c:420
+#: ../loader2/net.c:222 ../loader2/net.c:431
 msgid "Dynamic IP"
 msgstr "Dynamické IP"
 
-#: ../loader2/net.c:223 ../loader2/net.c:421
+#: ../loader2/net.c:223 ../loader2/net.c:432
 #, fuzzy, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "Posiela sa žiadosť o IP informáciu..."
 
-#: ../loader2/net.c:310
+#: ../loader2/net.c:321
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -6367,42 +6537,58 @@ msgstr ""
 "Zadajte IP konfiguráciu tohoto počítača. Každý záznam by mal byť zadaný ako "
 "IP adresa v dekadickom tvare oddelenom bodkami (napr. 1.2.3.4)."
 
-#: ../loader2/net.c:352
+#: ../loader2/net.c:327
+msgid "IP address:"
+msgstr "IP adresa:"
+
+#: ../loader2/net.c:330
+msgid "Netmask:"
+msgstr "Maska siete:"
+
+#: ../loader2/net.c:333
+msgid "Default gateway (IP):"
+msgstr "Brána (IP):"
+
+#: ../loader2/net.c:336
+msgid "Primary nameserver:"
+msgstr "Primárny nameserver:"
+
+#: ../loader2/net.c:363
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Použiť dynamickú konfiguráciu IP (BOOTP/DHCP)"
 
-#: ../loader2/net.c:380
+#: ../loader2/net.c:391
 msgid "Configure TCP/IP"
 msgstr "Konfigurácia TCP/IP"
 
-#: ../loader2/net.c:411
+#: ../loader2/net.c:422
 msgid "Missing Information"
 msgstr "Chýbajúca informácia"
 
-#: ../loader2/net.c:412
+#: ../loader2/net.c:423
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Musíte zadať platnú IP adresu aj sieťovú masku."
 
-#: ../loader2/net.c:628
+#: ../loader2/net.c:588
 msgid "Determining host name and domain..."
 msgstr "Zisťuje sa názov počítača a domény..."
 
-#: ../loader2/net.c:703
+#: ../loader2/net.c:663
 #, fuzzy, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "chybný argument pre sieťový príkaz kickstartu %s: %s"
 
-#: ../loader2/net.c:726
+#: ../loader2/net.c:686
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Chybný štartovací protokol %s v sieťovom príkaze"
 
-#: ../loader2/net.c:784
+#: ../loader2/net.c:744
 #, fuzzy
 msgid "Networking Device"
 msgstr "Sieťové zariadenie"
 
-#: ../loader2/net.c:785
+#: ../loader2/net.c:745
 #, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
@@ -6421,24 +6607,17 @@ msgstr "Red Hat adresár:"
 msgid "NFS Setup"
 msgstr "Nastavenie NFS"
 
-#: ../loader2/nfsinstall.c:216 ../loader2/urlinstall.c:107
-#, c-format
-msgid ""
-"The %s installation tree in that directory does not seem to match your boot "
-"media."
-msgstr ""
-
-#: ../loader2/nfsinstall.c:220
+#: ../loader2/nfsinstall.c:221
 #, fuzzy, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "Tento adresár zrejme neobsahuje inštalačný strom Red Hat distribúcie."
 
-#: ../loader2/nfsinstall.c:228
+#: ../loader2/nfsinstall.c:229
 #, fuzzy
 msgid "That directory could not be mounted from the server."
 msgstr "Nie je možné pripojiť tento adresár zo servera"
 
-#: ../loader2/nfsinstall.c:266
+#: ../loader2/nfsinstall.c:267
 #, fuzzy, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "chybný argument pre sieťový príkaz kickstartu %s: %s"
@@ -6462,16 +6641,16 @@ msgstr "Nepodarilo sa načítať %s: %s"
 msgid "Unable to retrieve the install image."
 msgstr "Nepodarilo sa načítať ramdisk druhej fázy"
 
-#: ../loader2/urlinstall.c:369
+#: ../loader2/urlinstall.c:370
 #, fuzzy, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "chybný argument pre sieťový príkaz kickstartu %s: %s"
 
-#: ../loader2/urlinstall.c:378
+#: ../loader2/urlinstall.c:379
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr ""
 
-#: ../loader2/urlinstall.c:389
+#: ../loader2/urlinstall.c:390
 #, fuzzy, c-format
 msgid "Unknown Url method %s"
 msgstr "Neznámy počítač"
@@ -7084,6 +7263,10 @@ msgid "Roraima"
 msgstr ""
 
 #. generated from zone.tab
+msgid "Rothera Station, Adelaide Island"
+msgstr ""
+
+#. generated from zone.tab
 #, fuzzy
 msgid "Ruthenia"
 msgstr "Autentifikácia"
@@ -7271,6 +7454,49 @@ msgstr "Ukončiť"
 msgid "Swedish"
 msgstr ""
 
+#. generated from lang-table
+msgid "Turkish"
+msgstr ""
+
+#~ msgid "Root password accepted."
+#~ msgstr "Heslo root-a akceptované."
+
+#~ msgid "Root password is too short."
+#~ msgstr "Heslo root-a je príliš krátke."
+
+#, fuzzy
+#~ msgid "Root passwords do not match."
+#~ msgstr "Heslo root-a nesúhlasí."
+
+#, fuzzy
+#~ msgid "Check for _bad blocks"
+#~ msgstr "Počas formátovania kontrolovať na chybné bloky"
+
+#~ msgid "_Reset"
+#~ msgstr "_Vrátiť"
+
+#, fuzzy
+#~ msgid "Make _RAID"
+#~ msgstr "Použité RAID zariadenie"
+
+#~ msgid "Use bootp/dhcp"
+#~ msgstr "Použiť bootp/dhcp"
+
+#, fuzzy
+#~ msgid "Secondary nameserver:"
+#~ msgstr "Primárny nameserver:"
+
+#, fuzzy
+#~ msgid "Tertiary nameserver:"
+#~ msgstr "Primárny nameserver:"
+
+#~ msgid ""
+#~ "The hostname is the name of your computer.  If your computer is attached "
+#~ "to a network, this may be assigned by your network administrator."
+#~ msgstr ""
+#~ "Názov počítača pomenováva váš počítač. Pokiaľ je pripojený do siete, je "
+#~ "možné, že názov prideľuje správca siete."
+
 #~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
 #~ msgstr ""
 #~ "Znovuvytvorenie RPM databázy zlyhalo. Možno nie je dostatok miesta na "
@@ -7395,9 +7621,6 @@ msgstr ""
 
 #~ msgid "IP address"
 #~ msgstr "IP adresa"
-
-#~ msgid "Netmask"
-#~ msgstr "Maska siete"
 
 #~ msgid "Domain name"
 #~ msgstr "Názov domény"
@@ -7824,10 +8047,6 @@ msgstr ""
 
 #~ msgid "Would you like to configure your system?"
 #~ msgstr "Želáte si konfigurovať váš systém?"
-
-#, fuzzy
-#~ msgid "Unknown server"
-#~ msgstr "Neznámy počítač"
 
 #, fuzzy
 #~ msgid "Other"
