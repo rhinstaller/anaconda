@@ -802,7 +802,7 @@ static PyObject * hdrUnload(hdrObject * s, PyObject * args) {
     int len;
     PyObject * rc;
 
-    len = headerSizeof(s->h, 1);
+    len = headerSizeof(s->h, 0);
     buf = headerUnload(s->h);
     
     rc = PyString_FromStringAndSize(buf, len);
