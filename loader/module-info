@@ -492,9 +492,9 @@ eata
 	scsi_hostadapter
 	"All DMA-capable DPT SCSI"
 # deprecated
-#eata_dma
-#	scsi_hostadapter
-#	"All DMA-capable DPT SCSI"
+eata_dma
+	scsi_hostadapter
+	"All DMA-capable DPT SCSI (dma mode)"
 
 # deprecated
 #eata_pio
