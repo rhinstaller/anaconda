@@ -1,4 +1,5 @@
 import isys
+import os
 from installclass import InstallClass
 from installclass import FSEDIT_CLEAR_LINUX
 from installclass import FSEDIT_CLEAR_ALL
@@ -8,7 +9,7 @@ import string
 class Kickstart(InstallClass):
 
     def doRootPw(self, args):
-	(args, extra) = isys.getopt(args, '', [ 'iscrypted' ])
+	(args, extra) = isys.getopt(args, '', [ 'iscrypted=' ])
 
 	isCrypted = 0
 	for n in args:
@@ -75,6 +76,18 @@ class Kickstart(InstallClass):
 
 	self.setLiloInformation(location, linear, appendLine)
 	self.addToSkipList("lilo")
+
+    def doLiloCheck (self, args):
+        drives = isys.hardDriveList ().keys()
+	drives.sort(isys.compareDrives)
+	device = drives[0]
+	isys.makeDevInode(device, '/tmp/' + device)
+	fd = os.open('/tmp/' + device, os.O_RDONLY)
+	os.unlink('/tmp/' + device)
+	block = os.read(fd, 512)
+	os.close(fd)
+	if block[6:10] == "LILO":
+	    sys.exit(0)
 
     def doTimezone(self, args):
 	(args, extra) = isys.getopt(args, '',
@@ -195,8 +208,7 @@ class Kickstart(InstallClass):
 	     "msbm" : "Microsoft - Bus Mouse" ,
 	     "mousesystems" : "Mouse Systems - Mouse (serial)" ,
 	     "mmseries" : "MM - Series (serial)" ,
-	     "mmhittab" : "MM - HitTablet (serial)" ,
-	     "sun" : "Sun - Mouse"
+	     "mmhittab" : "MM - HitTablet (serial)" 
 	}
 
 	(args, extra) = isys.getopt(args, '', [ 'device=', 'emulthree',
@@ -233,11 +245,13 @@ class Kickstart(InstallClass):
 		     "cdrom"		: None			,
 		     "clearpart"	: self.doClearPart	,
 		     "device"		: None			,
+		     "driverdisk"	: None			,
 		     "harddrive"	: None			,
 		     "install"		: self.doInstall	,
 		     "keyboard"		: self.doKeyboard	,
 		     "lang"		: self.doLang		,
 		     "lilo"		: self.doLilo		,
+		     "lilocheck"	: self.doLiloCheck	,
 		     "mouse"		: self.doMouse		,
 		     "network"		: self.doNetwork	,
 		     "nfs"		: None			,
