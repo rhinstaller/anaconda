@@ -434,6 +434,10 @@ def doPreInstall(method, id, intf, instPath, dir):
     # write out the fstab
     if not upgrade:
         id.fsset.write(instPath)
+        # rootpath mode doesn't have this file around
+        if os.access("/tmp/modules.conf", os.R_OK):
+            iutil.copyFile("/tmp/modules.conf", 
+                           instPath + "/etc/modules.conf")
     else:
         id.fsset.migratewrite(instPath)
 
@@ -658,11 +662,6 @@ def doPostInstall(method, id, intf, instPath):
 		pcmcia.createPcmciaConfig(
 			instPath + "/etc/sysconfig/pcmcia")
 		       
-	    # rootpath mode doesn't have this file around
-	    if os.access("/tmp/modules.conf", os.R_OK):
-		iutil.copyFile("/tmp/modules.conf", 
-			       instPath + "/etc/modules.conf")
-
 	    w.set(3)
 
 	    # blah.  If we're on a serial mouse, and we have X, we need to

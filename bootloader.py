@@ -28,8 +28,6 @@ from constants import *
 from lilo import LiloConfigFile
 from translate import _
 
-initrdsMade = {}
-
 ## if 0:
 ##     if arch == "sparc":
 ##         errors = self.silo.install (self.fstab, instPath, 
@@ -659,24 +657,13 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 
     w.pop()
 
+# note that this function no longer actually creates an initrd.
+# the kernel's %post does this now
 def makeInitrd (kernelTag, instRoot):
-    global initrdsMade
-
     if iutil.getArch() == 'ia64':
 	initrd = "/boot/efi/initrd%s.img" % (kernelTag, )
     else:
 	initrd = "/boot/initrd%s.img" % (kernelTag, )
-    
-    if not initrdsMade.has_key(initrd) and flags.setupFilesystems:
-	iutil.execWithRedirect("/sbin/mkinitrd",
-			      [ "/sbin/mkinitrd",
-				"--ifneeded",
-				"-f",
-				initrd,
-				kernelTag[1:] ],
-			      stdout = None, stderr = None, searchPath = 1,
-			      root = instRoot)
-	initrdsMade[kernelTag] = 1
 
     return initrd
 
