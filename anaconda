@@ -171,9 +171,9 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 	sys.exit (1)
 
     if vncpassword is None:
-	dup_log(_("\n\nWARNING!!! VNC server running with NO PASSWORD!"))
-	dup_log(_("You can use the vncpassword=<password> boot option"))
-	dup_log(_("if you would like to secure the server.\n\n"))
+	dup_log(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
+		"You can use the vncpassword=<password> boot option\n"
+		"if you would like to secure the server.\n\n"))
 	
     dup_log(_("The VNC server now running."))
 
@@ -842,6 +842,8 @@ if display_mode == 'g' and flags.usevnc:
 		   vncconnecthost=vncconnecthost,
 		   vncconnectport=vncconnectport)
 
+# if DISPLAY not set either vnc server failed to start or we're not
+# running on a redirected X display, so start local X server
 if display_mode == 'g' and not os.environ.has_key('DISPLAY'):
     import rhpl.monitor as monitor
     
