@@ -12,7 +12,7 @@ while (<STDIN>) {
 	print "$_\n";
     } elsif ($_ =~ /Card:Intel.*81[05]/) {
 	print "$_\n";
-    } elsif ($a[2] =~ /\"ignore\"/ || $a[4] =~ /\"ignore\"/) {
+    } elsif ($a[4] =~ /\"ignore\"/) {
 	print "$_\n";
     }
 
