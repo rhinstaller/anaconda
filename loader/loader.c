@@ -596,7 +596,7 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 		}
 	    }
 
-	    umount("/tmp/loopimage");
+	    umountLoopback("/tmp/loopimage", "loop0");
 
 	    if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags))
 		mediaCheckISODir("/mnt/source");
