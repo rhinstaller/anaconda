@@ -57,7 +57,7 @@ installSteps = [
     ("welcome", ("id.configFileData",)),
     ("betanag", betaNagScreen, ("intf", "dir")),
     ("language", ("intf", "id.instLanguage")),
-    ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard", "id.xsetup")),
+    ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard")),
     ("mouse", ("id.mouse",)),
     ("checkmonitorok", checkMonitorOK, ("id.monitor", "dispatch")),
     ("monitor", ("id.xsetup", "id.monitor", "intf")),
