@@ -11,9 +11,9 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gtk import *
+import gtk
 from iw_gui import *
-from gnome.zvt import *
+#from gnome.zvt import *
 from translate import _
 from dispatch import DISPATCH_NOOP
 import partitioning
@@ -38,7 +38,7 @@ class FDiskWindow (InstallWindow):
     def child_died (self, widget, button):
         self.windowContainer.remove (self.windowContainer.children ()[0])
         self.windowContainer.pack_start (self.buttonBox)
-        button.set_state (STATE_NORMAL)
+        button.set_state (gtk.STATE_NORMAL)
         try:
             os.remove ('/tmp/' + self.drive)
         except:
@@ -52,32 +52,34 @@ class FDiskWindow (InstallWindow):
 
 
     def button_clicked (self, widget, drive):
-        zvt = ZvtTerm (80, 24)
-        zvt.set_del_key_swap(TRUE)
-        zvt.connect ("child_died", self.child_died, widget)
-        self.drive = drive
+        self.intf.messageWindow("zvt no workie", "zvt2 no workie yet, so no fdisk yet")
+        # XXX zvt doesn't work with gnome-python2 yet
+##         zvt = ZvtTerm (80, 24)
+##         zvt.set_del_key_swap(TRUE)
+##         zvt.connect ("child_died", self.child_died, widget)
+##         self.drive = drive
 
-	# free our fd's to the hard drive -- we have to 
-	# fstab.rescanDrives() after this or bad things happen!
-        if os.access("/sbin/fdisk", os.X_OK):
-            path = "/sbin/fdisk"
-        else:
-            path = "/usr/sbin/fdisk"
+## 	# free our fd's to the hard drive -- we have to 
+## 	# fstab.rescanDrives() after this or bad things happen!
+##         if os.access("/sbin/fdisk", os.X_OK):
+##             path = "/sbin/fdisk"
+##         else:
+##             path = "/usr/sbin/fdisk"
         
-	isys.makeDevInode(drive, '/tmp/' + drive)
+## 	isys.makeDevInode(drive, '/tmp/' + drive)
 
-        if zvt.forkpty() == 0:
-            env = os.environ
-            os.execve (path, (path, '/tmp/' + drive), env)
-        zvt.show ()
+##         if zvt.forkpty() == 0:
+##             env = os.environ
+##             os.execve (path, (path, '/tmp/' + drive), env)
+##         zvt.show ()
 
-        self.windowContainer.remove (self.buttonBox)
-        self.windowContainer.pack_start (zvt)
+##         self.windowContainer.remove (self.buttonBox)
+##         self.windowContainer.pack_start (zvt)
 
-#        self.ics.setHelpEnabled (0)
-        self.ics.readHTML ("fdiskpart")
-	self.ics.setPrevEnabled (0)
-        self.ics.setNextEnabled (0)
+##         self.ics.readHTML ("fdiskpart")
+##         self.ics.setPrevEnabled (0)
+##         self.ics.setNextEnabled (0)
+
 
     # FDiskWindow tag="fdisk"
     def getScreen (self, diskset, partrequests, intf):
@@ -86,11 +88,12 @@ class FDiskWindow (InstallWindow):
         self.partrequests = partrequests
         self.intf = intf
         
-        self.windowContainer = GtkVBox (FALSE)
-        self.buttonBox = GtkVBox (FALSE, 5)
+        self.windowContainer = gtk.VBox (gtk.FALSE)
+        self.buttonBox = gtk.VBox (gtk.FALSE, 5)
         self.buttonBox.set_border_width (5)
-        box = GtkVButtonBox ()
-        label = GtkLabel (_("Select drive to run fdisk on"))
+        box = gtk.VButtonBox ()
+        box.set_layout("start")
+        label = gtk.Label (_("Select drive to run fdisk on"))
 
         drives =  self.diskset.driveList()
         
@@ -98,12 +101,21 @@ class FDiskWindow (InstallWindow):
         self.diskset.closeDevices()
 
         for drive in drives:
-            button = GtkButton (drive)
+            button = gtk.Button (drive)
             button.connect ("clicked", self.button_clicked, drive)
-            box.add (button)
+            box.pack_start (button)
 
-        self.buttonBox.pack_start (label, FALSE)
-        self.buttonBox.pack_start (box, FALSE)
+        # put the button box in a scrolled window in case there are
+        # a lot of drives
+        sw = gtk.ScrolledWindow()
+        sw.add_with_viewport(box)
+        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        viewport = sw.children()[0]
+        viewport.set_shadow_type(gtk.SHADOW_ETCHED_IN)
+        sw.set_usize(-1, 400)
+
+        self.buttonBox.pack_start (label, gtk.FALSE)
+        self.buttonBox.pack_start (sw, gtk.FALSE)
         self.windowContainer.pack_start (self.buttonBox)
 
         self.ics.setNextEnabled (1)
