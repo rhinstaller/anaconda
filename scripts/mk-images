@@ -42,6 +42,8 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
 # Stuff that we need
     TRIMPCITABLE=$IMGPATH/usr/lib/anaconda-runtime/trimpcitable
+    KEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/keymaps-${ARCH}
+    FONTS=$IMGPATH/usr/lib/anaconda-runtime/fonts-${ARCH}
     GETMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/moddeps
     MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
     MODINFO=$IMGPATH/usr/lib/anaconda-runtime/loader/module-info
@@ -58,7 +60,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     dieLater=
     for n in $TRIMPCITABLE $PCITABLE $GETMODDEPS $MODINFO $FILTERMODDEPS \
-	     $LANGTABLE $SYSLINUX; do
+	     $LANGTABLE $SYSLINUX $KEYMAPS; do
 	if [ ! -f $n ]; then
 	    echo "$n doesn't exist"
 	    dieLater=1
@@ -263,12 +265,10 @@ makebootdisk() {
     root::0:0:root:/:/bin/bash
 EOF
 
-    # FIXME
-    #cp -a keymaps/keymaps.gz initrd/etc
-    #cp -a fonts.cgz initrd/etc
-
     install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
     install -s -m 755 $LOADERBINDIR/$INITBIN $MBD_DIR/sbin
+    install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
+    install -m 644 $FONTS $MBD_DIR/etc/fonts.cgz
     install -m 644 $LANGTABLE $MBD_DIR/etc
     install -m 644 $LANGTABLE $LOADERBINDIR/loader.tr $MBD_DIR/etc
     install -m 644 /usr/share/terminfo/l/linux $MBD_DIR/etc/terminfo/l/linux
@@ -377,7 +377,7 @@ EOF
     rmdir $MBD_BOOTTREE 
     rm -f $MBD_FILENAME
     mv -f $MBD_TMPIMAGE $MBD_FILENAME
-    rm -rf $MBD_TMPIMAGE $MBD_FSIMAGE
+    rm -rf $MBD_TMPIMAGE $MBD_FSIMAGE $MBD_MNTPOINT $MBD_BOOTTREE
 }
 
 makeinstimage () {
