@@ -106,9 +106,6 @@ class Partitions:
                     ptype = fsset.fileSystemTypeGet("physical volume (LVM)")
                 else:
                     ptype = partedUtils.get_partition_file_system_type(part)
-                    if part.fs_type and part.fs_type.name == "linux-swap":
-                        # XXX this is a hack
-                        format = 1
 
                     # FIXME: we don't handle ptype being None very well, so
                     # just say it's foreign.  Should probably fix None
@@ -170,13 +167,8 @@ class Partitions:
             else:
                 fsystem = fsset.fileSystemTypeGet(fs)
 
-            if fs == "swap":
-                mnt = None
-                # more forced swap format hacking
-                format = 1
-            else:
-                mnt = None
-                format = 0
+            mnt = None
+            format = 0
                     
             spares = len(devices) - numActive
             spec = partRequests.RaidRequestSpec(fsystem, format = format,
@@ -236,12 +228,8 @@ class Partitions:
                 else:
                     fsystem = fsset.fileSystemTypeGet(fs)
 
-                if fs == "swap":
-                    mnt = None
-                    format = 1
-                else:
-                    mnt = None
-                    format = 0
+                mnt = 0
+                format = 0
 
                 spec = partRequests.LogicalVolumeRequestSpec(fsystem,
                                                              format = format,
