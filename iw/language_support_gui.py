@@ -1,20 +1,20 @@
 from gtk import *
 from iw_gui import *
 from translate import _
-from xpms_gui import RADIOBUTTON_ON_XPM
-from xpms_gui import RADIOBUTTON_OFF_XPM
+from xpms_gui import CHECKBOX_ON_XPM
+from xpms_gui import CHECKBOX_OFF_XPM
 import GdkImlib
 from GDK import _2BUTTON_PRESS
 from gnome.ui import *
-
+import checklist
 
 class LanguageSupportWindow (InstallWindow):
-    foo = GdkImlib.create_image_from_xpm (RADIOBUTTON_ON_XPM)
+    foo = GdkImlib.create_image_from_xpm (CHECKBOX_ON_XPM)
     foo.render()
     checkMark = foo.make_pixmap()
     del foo
 
-    foo = GdkImlib.create_image_from_xpm (RADIOBUTTON_OFF_XPM)
+    foo = GdkImlib.create_image_from_xpm (CHECKBOX_OFF_XPM)
     foo.render()
     checkMark_Off = foo.make_pixmap()
     del foo
@@ -61,24 +61,13 @@ class LanguageSupportWindow (InstallWindow):
         language_keys.sort ()
         for locale in language_keys:
             if not self.langs or (self.languages[locale] in self.langs):
-                row = self.language.append (("", locale))
-                if self.languages[locale] == self.defaultLang:
-                    self.language.set_pixmap(i, 0, self.checkMark)
-                else:
-                    self.language.set_pixmap(i, 0, self.checkMark_Off)
+                row = self.language.append_row ((locale, "1"), TRUE, None)
+#                if self.languages[locale] == self.defaultLang:
+#                    self.language.set_pixmap(i, 0, self.checkMark)
+#                else:
+#                    self.language.set_pixmap(i, 0, self.checkMark_Off)
                 i = i + 1
         self.language.thaw ()
-
-    def updateAvailable (self):
-        self.languageAvailable.freeze ()
-        for i in range(self.languageAvailable.rows):
-            self.languageAvailable.remove (0)
-
-        self.available.sort ()
-        for locale in self.available:
-            row = self.languageAvailable.append ((locale,))
-
-        self.languageAvailable.thaw ()
 
 
     def allToggled (self, button):
@@ -111,7 +100,7 @@ class LanguageSupportWindow (InstallWindow):
             self.langs = []
             
         self.updateSelected()
-        self.updateAvailable()
+
 
     def onAdd (self, button):
         for i in self.languageAvailable.selection:
@@ -137,83 +126,100 @@ class LanguageSupportWindow (InstallWindow):
         self.running = 0
         self.defaultLang = self.todo.language.get()
 
-        table = GtkTable ()
-        
-        label = GtkLabel (_("Which languages should be supported on this "
-                            "system?"))
-        label.set_alignment (0.5, 0.5)
-        label.set_line_wrap (TRUE)
-        table.attach (label, 0, 3, 0, 1, FALSE, FALSE)
-        
+
  	language_keys = self.languages.keys ()
         language_keys.sort ()
 
-        # support everything?
-        self.supportAll = GtkRadioButton(None,
-                                         _("Install support for all languages"))
-        self.supportAll.connect ("toggled", self.allToggled)
-        self.selectLanguages = GtkRadioButton(self.supportAll,
-                                              _("Select languages to support"))
+#        table = GtkTable ()
 
-        if self.langs:
-            self.selectLanguages.set_active (TRUE)
+        vbox = GtkVBox (FALSE, 10)
+
+        hbox = GtkHBox (FALSE)
         
-        align = GtkAlignment (0.0, 0.5)
-        vbox = GtkVBox (3, FALSE)
-        vbox.pack_start (self.supportAll)
-        vbox.pack_start (self.selectLanguages)
-        align.add (vbox)
-        table.attach (align, 0, 3, 1, 2, FILL|EXPAND, FALSE)
+        label = GtkLabel (_("Choose the default language:   "))
+#        label.set_alignment (0.01, 0.5)
+#        label.set_line_wrap (TRUE)
+        hbox.pack_start (label, FALSE, 20)
 
-        # langs we can support
-        self.languageAvailable = GtkCList (1, (_("Available"),))
-        self.languageAvailable.set_selection_mode (SELECTION_MULTIPLE)
-        self.languageAvailable.connect ("select_row",
-                                        self.available_select_row)
+        combo = GtkCombo ()
+        combo.set_popdown_strings (language_keys)
+#        alignment = GtkAlignment (1.0, 0.0)
+#        alignment.add (combo)
 
-        sw = GtkScrolledWindow ()
-        sw.set_border_width (5)
-        sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
-        sw.add (self.languageAvailable)
+        hbox.pack_start (combo, FALSE, 20)
 
-        vbox = GtkVBox(FALSE, 5)
-        header = GtkLabel (_("Languages Available"))
-#        vbox.pack_start (header, FALSE)
-        vbox.pack_start (sw, TRUE)
-        self.sensitiveList.append (sw)
-        table.attach (vbox, 0, 1, 3, 4, EXPAND|FILL, EXPAND|FILL)
+        vbox.pack_start (hbox, FALSE, 50)
 
-        # <- -> buttons
-        vbox = GtkVBox (FALSE, 5)
-        self.addbutton = GtkButton()
-        self.addbutton.add (GnomeStock (STOCK_BUTTON_NEXT))
-        self.addbutton.connect ("pressed", self.onAdd)
-        self.removebutton = GtkButton()
-        self.removebutton.add (GnomeStock (STOCK_BUTTON_PREV))
-        self.removebutton.connect ("pressed", self.onRemove)
-        vbox.pack_start (self.addbutton, FALSE)
-        vbox.pack_start (self.removebutton, FALSE)
-        self.sensitiveList.append (self.removebutton)
-        self.sensitiveList.append (self.addbutton)
 
-        alignment = GtkAlignment (.5, .5)
-        alignment.add(vbox)
+        sep = GtkHSeparator ()
+        vbox.pack_start (sep, FALSE, 15)
 
-        table.attach(alignment, 1, 2, 3, 4, FALSE)
+        label = GtkLabel (_("Choose the languages to install:"))
+        label.set_alignment (0.0, 0.5)
+        label.set_line_wrap (TRUE)
+        vbox.pack_start (label, FALSE)
+        
+#        bb = GtkHButtonBox ()
+
+
+        hbox = GtkHBox (FALSE)
+
 
         # langs we want to support
-        self.language = GtkCList (2, (_("Default"), _("Selected")))
-        self.language.set_selection_mode (SELECTION_MULTIPLE)
-        self.language.connect ("select_row", self.support_select_row)
+        self.language = checklist.CheckList(1)
+#        self.language.set_column_title (0, (_("Default")))
+#        self.language.set_column_title (1, (_("Selected")))
+#        self.language.column_titles_show ()
+#        self.language.set_selection_mode (SELECTION_MULTIPLE)
+#        self.language.connect ("select_row", self.support_select_row)
+
+#        i = 0
+        for locale in language_keys:
+
+            if self.languages[locale] == self.defaultLang:
+                self.language.append_row((locale, ""), TRUE)
+#                self.language.set_pixmap(i, 0, self.checkMark)
+            else:
+                self.language.append_row((locale, ""), FALSE)
+#                self.language.set_pixmap(i, 0, self.checkMark_Off)
+#            i = i + 1
 
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
         sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
         sw.add (self.language)
-        table.attach (sw, 2, 3, 3, 4, EXPAND|FILL, EXPAND|FILL)
+#        table.attach (sw, 2, 3, 3, 4, EXPAND|FILL, EXPAND|FILL)
+#        vbox.pack_start (sw, TRUE)
+
+        vbox2 = GtkVBox (FALSE, 12)
+
+        all_button = GtkButton (_("Select all"))
+        all_button.set_usize(160, -1)
+        a1 = GtkAlignment (0.5, 0.5)
+        a1.add (all_button)
+
+        reset_button = GtkButton (_("Reset"))
+        reset_button.set_usize(160, -1)
+        a2 = GtkAlignment (0.5, 0.5)
+        a2.add (reset_button)
+
+        vbox2.pack_start (a1, FALSE, 10)
+        vbox2.pack_start (a2, FALSE)
+        
+#        vbox.pack_start (alignment, FALSE, 25)
+
+
+
+
+
+
+
+        hbox.pack_start (sw, TRUE, 10)
+        hbox.pack_start (vbox2, FALSE, 10)
+        vbox.pack_start (hbox, TRUE)
 
         # default button
-        alignment = GtkAlignment (0.5, 0.5)
+        alignment = GtkAlignment (0.0, 0.0)
         button = GtkButton (_("Select as default"))
         alignment.add (button)
 
@@ -223,6 +229,7 @@ class LanguageSupportWindow (InstallWindow):
         self.running = 1
 
         # set up initial state
-        self.allToggled (self.supportAll)
-        
-        return table
+#        self.allToggled (self.supportAll)
+
+        return vbox
+#        return table
