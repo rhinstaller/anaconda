@@ -1017,7 +1017,7 @@ class FileSystemSet:
                                          "initialize swap on device %s.  This "
                                          "problem is serious, and the install "
                                          "cannot continue.\n\n"
-                                         "Press Enter to reboot your system.")
+                                         "Press <Enter> to reboot your system.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
                     
@@ -1083,7 +1083,7 @@ class FileSystemSet:
 					     "device /dev/%s. We do "
 					     "not recommend you use this device."
 					     "\n\n"
-					     "Press Enter to reboot your system") %
+					     "Press <Enter> to reboot your system") %
 					   (entry.device.getDevice(),))
 		    sys.exit(0)
 		
@@ -1094,7 +1094,7 @@ class FileSystemSet:
                                          "bad blocks on %s.  This problem is "
                                          "serious, and the install cannot "
                                          "continue.\n\n"
-                                         "Press Enter to reboot your system.")
+                                         "Press <Enter> to reboot your system.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
 
@@ -1130,7 +1130,7 @@ class FileSystemSet:
                                          "format %s.  This problem is "
                                          "serious, and the install cannot "
                                          "continue.\n\n"
-                                         "Press Enter to reboot your system.")
+                                         "Press <Enter> to reboot your system.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
 
@@ -1180,7 +1180,7 @@ class FileSystemSet:
                                          "migrate %s.  This problem is "
                                          "serious, and the install cannot "
                                          "continue.\n\n"
-                                         "Press Enter to reboot your system.")
+                                         "Press <Enter> to reboot your system.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
 
@@ -1202,7 +1202,7 @@ class FileSystemSet:
                                              "this path is not a directory. "
                                              "This is a fatal error and the "
                                              "install cannot continue.\n\n"
-                                             "Press Enter to reboot your "
+                                             "Press <Enter> to reboot your "
                                              "system.") % (entry.mountpoint,))
                     else:
                         self.messageWindow(_("Invalid mount point"),
@@ -1210,7 +1210,7 @@ class FileSystemSet:
                                              "to create %s: %s.  This is "
                                              "a fatal error and the install "
                                              "cannot continue.\n\n"
-                                             "Press Enter to reboot your "
+                                             "Press <Enter> to reboot your "
                                              "system.") % (entry.mountpoint,
                                                            msg))
                 sys.exit(0)
