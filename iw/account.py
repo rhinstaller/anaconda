@@ -98,6 +98,17 @@ class AccountWindow (InstallWindow):
 	self.passwords[accountName] = password1
 	self.newUser()
 
+    def editUser(self, widget, *args):
+	index = self.userList.selection
+	if (not index): return
+	index = index[0]
+	accountName = self.userList.get_text(index, 0)
+
+        self.editingUser = None
+	del self.passwords[accountName]
+	self.userList.remove(index)
+        self.addUser (None)
+
     def deleteUser(self, *args):
 	index = self.userList.selection
 	if (not index): return
@@ -218,7 +229,7 @@ class AccountWindow (InstallWindow):
         self.add = GtkButton (_("Add"))
 	self.add.connect("clicked", self.addUser)
         self.edit = GtkButton (_("Edit"))
-	self.edit.connect("clicked", self.addUser)
+	self.edit.connect("clicked", self.editUser)
         delete = GtkButton (_("Delete"))
 	delete.connect("clicked", self.deleteUser)
         new = GtkButton (_("New"))
