@@ -886,6 +886,8 @@ class XF86Config:
     FontPath    "/usr/share/fonts/ISO8859-9/misc/"
     FontPath    "/usr/share/fonts/ISO8859-9/75dpi/"
     FontPath    "/usr/share/fonts/ISO8859-9/100dpi/"
+    FontPath    "/usr/share/fonts/KOI8-R/misc/"
+    FontPath    "/usr/share/fonts/KOI8-R/75dpi/"
 """
         f = open ('/tmp/XF86Config.test', 'w')
 

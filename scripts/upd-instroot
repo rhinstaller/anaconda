@@ -111,7 +111,8 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            net-tools traceroute tar procps textutils sed ncurses bash
            cpio mt-st iputils sh-utils XFree86-cyrillic-fonts XFree86
            Xconfigurator pygnome pygtk pygtk-libglade pygnome-libglade
-           pygnome-applet pygnome-capplet gdk-pixbuf"
+           pygnome-applet pygnome-capplet gdk-pixbuf XFree86-KOI8-R
+           XFree86-KOI8-R-75dpi-fonts"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -389,6 +390,13 @@ usr/share/fonts/ISO8859-9/75dpi/tr*tim*
 usr/share/fonts/ISO8859-9/misc/fonts*
 usr/share/fonts/ISO8859-9/misc/tr*6x*
 usr/share/fonts/ISO8859-9/misc/tr*9x*
+usr/share/fonts/KOI8-R/75dpi/cour*
+usr/share/fonts/KOI8-R/75dpi/fonts*
+usr/share/fonts/KOI8-R/75dpi/helv*
+usr/share/fonts/KOI8-R/75dpi/tim*
+usr/share/fonts/KOI8-R/misc/6x*
+usr/share/fonts/KOI8-R/misc/9x*
+usr/share/fonts/KOI8-R/misc/fonts*
 usr/share/locale/*
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/share/pixmaps/gnome-default-dlg.png
