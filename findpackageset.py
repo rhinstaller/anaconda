@@ -1,4 +1,5 @@
 import rpm
+import rhpl.arch
 import string
 from constants import *
 
@@ -38,24 +39,19 @@ def comparePackageForUpgrade(updDict, h, pkg):
 #        dEBUG("found same verison of %(name)s %(arch)s" % h)
         pass
 
-def findBestArch(arch, archlist):
-    bestarch = arch
+def findBestArch(archlist):
+    bestarch = None
     for availarch in archlist:
         newscore = rpm.archscore(availarch)
-        oldscore = rpm.archscore(bestarch)
-        # Both unsupported
-        if newscore == 0 and oldscore == 0:
+        # unsupported
+        if newscore <= 0:
             continue
-        # If old arch is better or now unsupported and we have a better one
-        if oldscore < newscore:
-            if oldscore == 0:
-                bestarch = availarch
-        # If new arch is better but not unsupported
-        if newscore < oldscore:
-            if newscore != 0:
-                bestarch = availarch
-        if oldscore = newscore:
-            pass
+        # If old arch is better or same
+        if bestarch and rpm.archscore(bestarch) <= newscore:
+            continue
+                
+        # If we get here we're better
+        bestarch = availarch
     return bestarch
         
 def getAvailPackages(hdrlist):     
@@ -119,7 +115,9 @@ def findpackageset(hdrlist, dbPath='/'):
         else:
             # See if we have a better arch than that installed
             if name in availNames.keys():
-                bestarch = findBestArch(arch, availNames[name])
+                bestarch = findBestArch(availNames[name])
+                if not bestarch:
+                    continue
                 if availDict.has_key((name,bestarch)):
                     h = instDict[(name,arch)]
                     pkg = availDict[(name,bestarch)]
