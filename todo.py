@@ -1128,7 +1128,10 @@ class ToDo:
 	    except os.error, (errno, msg):
                 # self.intf.messageWindow("Error", "Error making directory %s: %s" % (i, msg))
                 pass
-        
+
+        # XXX in case we started out in Upgrade land, we need to
+        # reset this macro to point to the right place.
+        rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
 	db = rpm.opendb(1, self.instPath)
 	ts = rpm.TransactionSet(self.instPath, db)
 
