@@ -17,7 +17,6 @@ msgstr ""
 msgid "Next"
 msgstr "Lanjutkan"
 
-<<<<<<< id.po
 #: ../gui.py:264 ../gui.py:508 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../loader/cdrom.c:34 ../loader/devices.c:67
 #: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:530
@@ -37,9 +36,6 @@ msgstr "Lanjutkan"
 #: ../textw/partitioning.py:202 ../textw/silo.py:22 ../textw/silo.py:77
 #: ../textw/silo.py:176 ../textw/userauth.py:29 ../textw/userauth.py:141
 #: ../textw/userauth.py:172 ../textw/userauth.py:244
-=======
-#: ../gui.py:264 ../gui.py:508 ../libfdisk/newtfsedit.c:1291 ../libfdisk/newtfsedit.c:1299 ../loader/cdrom.c:34 ../loader/devices.c:67 ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:531 ../loader/loader.c:248 ../loader/loader.c:596 ../loader/loader.c:632 ../loader/loader.c:735 ../loader/loader.c:1103 ../loader/net.c:162 ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:87 ../text.py:88 ../text.py:107 ../text.py:130 ../text.py:160 ../text.py:163 ../text.py:205 ../text.py:234 ../text.py:248 ../text.py:250 ../text.py:269 ../text.py:271 ../text.py:293 ../text.py:295 ../text.py:384 ../text.py:435 ../text.py:437 ../text.py:446 ../text.py:464 ../text.py:477 ../text.py:496 ../text.py:498 ../text.py:523 ../text.py:526 ../text.py:535 ../text.py:593 ../text.py:594 ../text.py:816 ../text.py:838 ../textw/constants.py:10 ../textw/lilo.py:22 ../textw/lilo.py:66 ../textw/lilo.py:73 ../textw/lilo.py:148 ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:136 ../textw/packages.py:145 ../textw/partitioning.py:25 ../textw/partitioning.py:64 ../textw/partitioning.py:202 ../textw/silo.py:22 ../textw/silo.py:77 ../textw/silo.py:176 ../textw/userauth.py:29 ../textw/userauth.py:141 ../textw/userauth.py:172 ../textw/userauth.py:244
->>>>>>> 1.16
 msgid "Back"
 msgstr "Kembali"
 
@@ -67,7 +63,6 @@ msgstr "Pilih Bahasa"
 msgid "Red Hat Linux Installer"
 msgstr "Installer Red Hat Linux"
 
-<<<<<<< id.po
 #: ../gui.py:479
 msgid "Red Hat Linux Install Shell"
 msgstr "Shell Install Red Hat Linux"
@@ -86,46 +81,17 @@ msgstr "Shell Install Red Hat Linux untuk %s"
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr "Anda akan menghapus instalasi Linux yang sudah ada di sistem ini"
-=======
-#: ../gui.py:479
-#, fuzzy
-msgid "Red Hat Linux Install Shell"
-msgstr "Installer Red Hat Linux"
-
-#: ../gui.py:490
-#, fuzzy, c-format
-msgid "Red Hat Linux Installer on %s"
-msgstr "Installer Red Hat Linux"
-
-#: ../gui.py:491
-#, fuzzy, c-format
-msgid "Red Hat Linux Install Shell on %s"
-msgstr "Installer Red Hat Linux"
-
-#: ../installclass.py:248
-msgid "You are about to erase any preexisting Linux installations on your system."
-msgstr ""
->>>>>>> 1.16
 
 #: ../installclass.py:288
-<<<<<<< id.po
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
 msgstr ""
-"Anda akan menghapus SELURUH DATA di hard drive untuk menambah ruangan untuk "
-"instalasi Linux"
-=======
-#, fuzzy
-msgid "You are about to erase ALL DATA on your hard drive to make room for your Linux installation."
-msgstr "Anda akan kehilangan data Anda! Benar ingin melanjutkan?"
->>>>>>> 1.16
 
 #: ../text.py:50
 msgid "What language would you like to use during the installation process?"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
-<<<<<<< id.po
 #: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167
 #: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
@@ -145,9 +111,6 @@ msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 #: ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48
 #: ../textw/userauth.py:82 ../textw/userauth.py:94 ../textw/userauth.py:102
 #: ../textw/userauth.py:111 ../textw/userauth.py:172 ../textw/userauth.py:244
-=======
-#: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167 ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:271 ../loader/lang.c:531 ../loader/loader.c:248 ../loader/loader.c:464 ../loader/loader.c:474 ../loader/loader.c:632 ../loader/loader.c:690 ../loader/loader.c:735 ../loader/loader.c:873 ../loader/loader.c:878 ../loader/loader.c:964 ../loader/loader.c:1103 ../loader/loader.c:1609 ../loader/net.c:162 ../loader/net.c:284 ../loader/net.c:560 ../loader/urls.c:124 ../loader/urls.c:201 ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:52 ../text.py:107 ../text.py:160 ../text.py:205 ../text.py:248 ../text.py:293 ../text.py:384 ../text.py:404 ../text.py:435 ../text.py:496 ../text.py:523 ../text.py:593 ../text.py:614 ../text.py:626 ../text.py:638 ../text.py:816 ../text.py:888 ../text.py:892 ../text.py:1042 ../textw/lilo.py:21 ../textw/lilo.py:66 ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:136 ../textw/partitioning.py:202 ../textw/silo.py:21 ../textw/silo.py:77 ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48 ../textw/userauth.py:82 ../textw/userauth.py:94 ../textw/userauth.py:102 ../textw/userauth.py:111 ../textw/userauth.py:172 ../textw/userauth.py:244
->>>>>>> 1.16
 msgid "OK"
 msgstr "OK"
 
@@ -229,16 +192,12 @@ msgstr "Tipe Instalasi"
 msgid "What type of system would you like to install?"
 msgstr "Sistem macam mana yang hendak diinstal ?"
 
-<<<<<<< id.po
 #: ../libfdisk/newtfsedit.c:1539 ../loader/devices.c:178
 #: ../loader/devices.c:183 ../loader/loader.c:461 ../loader/loader.c:471
 #: ../loader/loader.c:687 ../loader/loader.c:732 ../loader/loader.c:865
 #: ../loader/loader.c:870 ../loader/loader.c:1601 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../text.py:231 ../text.py:634 ../todo.py:362
 #: ../todo.py:503 ../todo.py:1043 ../todo.py:1362
-=======
-#: ../libfdisk/newtfsedit.c:1539 ../loader/devices.c:178 ../loader/devices.c:183 ../loader/loader.c:464 ../loader/loader.c:474 ../loader/loader.c:690 ../loader/loader.c:735 ../loader/loader.c:873 ../loader/loader.c:878 ../loader/loader.c:1609 ../loader/urls.c:201 ../loader/urls.c:206 ../text.py:231 ../text.py:634 ../todo.py:362 ../todo.py:503 ../todo.py:1043 ../todo.py:1362
->>>>>>> 1.16
 msgid "Error"
 msgstr "Error"
 
@@ -571,13 +530,9 @@ msgstr "Install sistem"
 msgid "Installation Complete"
 msgstr "Instalasi Beres"
 
-<<<<<<< id.po
 #: ../text.py:994 ../text.py:997 ../text.py:1000 ../textw/silo.py:24
 #: ../textw/silo.py:79 ../textw/silo.py:183
-=======
-#: ../text.py:994 ../text.py:997 ../text.py:1000 ../textw/silo.py:24 ../textw/silo.py:79 ../textw/silo.py:183
 #, fuzzy
->>>>>>> 1.16
 msgid "SILO Configuration"
 msgstr "Konfigurasi LILO"
 
@@ -605,23 +560,14 @@ msgstr "Dibatalkan"
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Saya tidak dapat kembali ke tahap sebelumnya. Anda harus mengulangi lagi."
 
-<<<<<<< id.po
 #: ../todo.py:363
 #, c-format
-=======
-#: ../todo.py:363
-#, fuzzy, c-format
->>>>>>> 1.16
 msgid "Error unmounting %s: %s"
 msgstr "tidak bisa unmount %s: %s"
 
-<<<<<<< id.po
 #: ../todo.py:504
 #, c-format
-=======
-#: ../todo.py:504
 #, fuzzy, c-format
->>>>>>> 1.16
 msgid "Error mounting %s: %s"
 msgstr "tidak bisa mount %s: %s"
 
@@ -629,58 +575,33 @@ msgstr "tidak bisa mount %s: %s"
 msgid "Creating"
 msgstr "Saya sedang membuat"
 
-<<<<<<< id.po
-#: ../todo.py:526
-=======
 #: ../todo.py:526
 #, fuzzy
->>>>>>> 1.16
 msgid "Creating RAID devices..."
 msgstr "Membuat device RAID..."
 
-<<<<<<< id.po
-#: ../todo.py:575 ../todo.py:588
-=======
 #: ../todo.py:575 ../todo.py:588
 #, fuzzy
->>>>>>> 1.16
 msgid "Formatting"
 msgstr "Saya sedang memformat "
 
-<<<<<<< id.po
-#: ../todo.py:576 ../todo.py:589
-#, c-format
-=======
 #: ../todo.py:576 ../todo.py:589
 #, fuzzy, c-format
->>>>>>> 1.16
 msgid "Formatting %s filesystem..."
 msgstr "Sedang membuat filesystem %s"
 
-<<<<<<< id.po
-#: ../todo.py:714
-=======
 #: ../todo.py:714
 #, fuzzy
->>>>>>> 1.16
 msgid "Creating boot disk..."
 msgstr "Membuat bootdisk..."
 
-<<<<<<< id.po
-#: ../todo.py:845
-=======
 #: ../todo.py:845
 #, fuzzy
->>>>>>> 1.16
 msgid "Reading"
 msgstr "Saya sedang membaca"
 
-<<<<<<< id.po
-#: ../todo.py:846
-=======
 #: ../todo.py:846
 #, fuzzy
->>>>>>> 1.16
 msgid "Reading package information..."
 msgstr "Saya sedang membaca informasi paket..."
 
@@ -688,12 +609,8 @@ msgstr "Saya sedang membaca informasi paket..."
 msgid "no suggestion"
 msgstr "tidak tahu"
 
-<<<<<<< id.po
-#: ../todo.py:1016
-=======
 #: ../todo.py:1016
 #, fuzzy
->>>>>>> 1.16
 msgid "Searching"
 msgstr "Saya sedang mencari"
 
@@ -701,22 +618,13 @@ msgstr "Saya sedang mencari"
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Saya sedang mencari instalasi Red Hat Linux..."
 
-<<<<<<< id.po
-#: ../todo.py:1044
-#, c-format
-=======
 #: ../todo.py:1044
 #, fuzzy, c-format
->>>>>>> 1.16
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "Error saat memount filesistem ext2 %s: %s"
 
-<<<<<<< id.po
-#: ../todo.py:1063
-=======
 #: ../todo.py:1063
 #, fuzzy
->>>>>>> 1.16
 msgid "Finding"
 msgstr "Ketemu"
 
@@ -728,21 +636,13 @@ msgstr "Mencari paket yang hendak diupgrade..."
 msgid "Processing"
 msgstr "Mulai diproses"
 
-<<<<<<< id.po
-#: ../todo.py:1253
-=======
 #: ../todo.py:1253
 #, fuzzy
->>>>>>> 1.16
 msgid "Preparing to install..."
 msgstr "Mengecek file yang hendak diinstall"
 
-<<<<<<< id.po
-#: ../todo.py:1357
-=======
 #: ../todo.py:1357
 #, fuzzy
->>>>>>> 1.16
 msgid "Rebuilding"
 msgstr "Membangun ulang"
 
@@ -759,13 +659,8 @@ msgstr "Gagal dalam pembuatan database RPM. Mungkin spasi disk habis?"
 msgid "Upgrading %s.\n"
 msgstr "Sedang mengupgrade %s.\n"
 
-<<<<<<< id.po
 #: ../todo.py:1415
 #, c-format
-=======
-#: ../todo.py:1415
-#, fuzzy, c-format
->>>>>>> 1.16
 msgid "Installing %s.\n"
 msgstr "Instalasi %s.\n"
 
@@ -777,12 +672,8 @@ msgstr ""
 "Sepertinya space hard drive Anda kurang untuk menginstall seluruh paketyang Anda pilih. Coba tambahkan lagi space di filesystem ini:\n"
 "\n"
 
-<<<<<<< id.po
-#: ../todo.py:1439
-=======
 #: ../todo.py:1439
 #, fuzzy
->>>>>>> 1.16
 msgid "Mount Point"
 msgstr "Lokasi Mount"
 
@@ -794,21 +685,13 @@ msgstr "Spasi yg dibutuhkan"
 msgid "Disk Space"
 msgstr "Space disk"
 
-<<<<<<< id.po
-#: ../todo.py:1476
-=======
 #: ../todo.py:1476
 #, fuzzy
->>>>>>> 1.16
 msgid "Post Install"
 msgstr "Install Tahap Akhir"
 
-<<<<<<< id.po
-#: ../todo.py:1477
-=======
 #: ../todo.py:1477
 #, fuzzy
->>>>>>> 1.16
 msgid "Performing post install configuration..."
 msgstr "Lakukan konfigurasi install tahap akhir.."
 
@@ -820,21 +703,13 @@ msgstr "Card Video"
 msgid "Video Ram"
 msgstr "Video Ram"
 
-<<<<<<< id.po
-#: ../xf86config.py:235
-=======
 #: ../xf86config.py:239
 #, fuzzy
->>>>>>> 1.16
 msgid "X server"
 msgstr "Server X"
 
-<<<<<<< id.po
-#: ../xf86config.py:237
-=======
 #: ../xf86config.py:241
 #, fuzzy
->>>>>>> 1.16
 msgid "Unable to detect video card"
 msgstr "Saya gagal mendeteksi video card"
 
@@ -846,21 +721,13 @@ msgstr "Monitor"
 msgid "Plug and Play Monitor"
 msgstr "Monitor Plug and Play"
 
-<<<<<<< id.po
-#: ../xf86config.py:246
-=======
 #: ../xf86config.py:250
 #, fuzzy
->>>>>>> 1.16
 msgid "Horizontal frequency range"
 msgstr "Jangkauan Frekuensi Horizontal"
 
-<<<<<<< id.po
-#: ../xf86config.py:248
-=======
 #: ../xf86config.py:252
 #, fuzzy
->>>>>>> 1.16
 msgid "Vertical frequency range"
 msgstr "Jangkauan Frekuensi Vertikal"
 
@@ -1060,11 +927,7 @@ msgstr "Varian"
 msgid "Test your selection here:"
 msgstr "Coba keyboardnya di sini:"
 
-<<<<<<< id.po
-#: ../iw/language.py:16 ../loader/lang.c:268
-=======
 #: ../iw/language.py:16 ../loader/lang.c:269
->>>>>>> 1.16
 msgid "What language should be used during the installation process?"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
@@ -1331,7 +1194,6 @@ msgstr "Bits per pixel"
 msgid "Test this configuration"
 msgstr "Test Konfigurasi ini"
 
-<<<<<<< id.po
 #: ../iw/xconfig.py:175
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
@@ -1339,24 +1201,14 @@ msgid ""
 msgstr ""
 "Biasanya hardware video akan dideteksi otomatis untuk menentukan setting "
 "terbaik untuk sistem Anda."
-=======
-#: ../iw/xconfig.py:175
-msgid "In most cases your video hardware can be probed to automatically determine the best settings for your display."
-msgstr "Biasanya hardware video akan dideteksi otomatis untuk menentukan setting terbaik untuk sistem Anda."
->>>>>>> 1.16
 
 #: ../iw/xconfig.py:183
 msgid "Autoprobe results:"
 msgstr "Hasil Deteksi:"
 
-<<<<<<< id.po
 #: ../iw/xconfig.py:197
 msgid ""
 "Your monitor could not be autodetected. Please choose it from the list below:"
-=======
-#: ../iw/xconfig.py:197
-msgid "Your monitor could not be autodetected. Please choose it from the list below:"
->>>>>>> 1.16
 msgstr "Monitor Anda tidak bisa dideteksi, silahkan pilih di daftar:"
 
 #: ../iw/xconfig.py:234
@@ -2081,27 +1933,15 @@ msgstr "Error saat membaca isi file kickstart %s: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "Error pada baris %d di file kickstart %s."
 
-<<<<<<< id.po
-#: ../loader/lang.c:268
-=======
 #: ../loader/lang.c:269
->>>>>>> 1.16
 msgid "Choose a Language"
 msgstr "Pilih bahasanya:"
 
-<<<<<<< id.po
-#: ../loader/lang.c:528
-=======
 #: ../loader/lang.c:529
->>>>>>> 1.16
 msgid "Keyboard Type"
 msgstr "Tipe Keyboard"
 
-<<<<<<< id.po
 #: ../loader/lang.c:529
-=======
-#: ../loader/lang.c:530
->>>>>>> 1.16
 msgid "What type of keyboard do you have?"
 msgstr "Keyboard mana yang Anda punya?"
 
@@ -2218,27 +2058,15 @@ msgstr "Tipe media yang berisi image rescue itu apa?"
 msgid "What type of media contains the packages to be installed?"
 msgstr "Media macam mana yang berisi paket yang hendak diinstal ?"
 
-<<<<<<< id.po
 #: ../loader/loader.c:1602
-=======
-#: ../loader/loader.c:1610
->>>>>>> 1.16
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Saya tak dapat menemukan ks.cfg di floppy."
 
-<<<<<<< id.po
 #: ../loader/loader.c:1769
-=======
-#: ../loader/loader.c:1774
->>>>>>> 1.16
 msgid "PC Card"
 msgstr "Card PC"
 
-<<<<<<< id.po
 #: ../loader/loader.c:1769
-=======
-#: ../loader/loader.c:1774
->>>>>>> 1.16
 msgid "Initializing PC Card Devices..."
 msgstr "Inisialisasi PC Card..."
 
