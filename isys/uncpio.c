@@ -484,7 +484,8 @@ int myCpioInstallArchive(gzFile stream, struct cpioFileMapping * mappings,
 
     do {
 	if ((rc = getNextHeader(&fd, &ch, NULL))) {
-	    fprintf(stderr, _("error %d reading header: %s\n"), rc, strerror(errno));
+	    fprintf(stderr, _("error %d reading header: %s\n"), rc, 
+		    myCpioStrerror(rc));
 	    return CPIOERR_BAD_HEADER;
 	}
 
@@ -734,7 +735,7 @@ int myCpioFilterArchive(gzFile inStream, gzFile outStream, char ** patterns) {
     do {
 	if ((rc = getNextHeader(&inFd, &ch, &pHeader))) {
 	    fprintf(stderr, _("error %d reading header: %s\n"), rc, 
-		    strerror(errno));
+		    myCpioStrerror(rc));
 	    return CPIOERR_BAD_HEADER;
 	}
 
