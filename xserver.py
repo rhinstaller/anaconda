@@ -148,10 +148,6 @@ def canUseFrameBuffer (videocard):
     if videocard:
         carddata = videocard.getProbedCard()
 
-        if carddata:
-            if carddata[:13] == "Card:NeoMagic":
-                return 0
-
     return 1
 
 def testx(x):
