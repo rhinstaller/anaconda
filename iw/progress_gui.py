@@ -76,7 +76,7 @@ class InstallProgressWindow (InstallWindow):
         # check to see if we've started yet
         if (self.timeStarted == -1):
             self.timeStarted = time.time ()
-            elapsedTime = 0
+            elapsedTime = 1
         else:
             elapsedTime = time.time() - self.timeStarted
 
