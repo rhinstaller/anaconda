@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2000-08-14 16:58-0400\n"
-"PO-Revision-Date: 2000-08-11 02:07+02:00\n"
-"Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
+"PO-Revision-Date: 2000-08-16 22:49+02:00\n"
+"Last-Translator: Kjartan Maraas <kmaraas@gnu.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -38,6 +38,10 @@ msgid ""
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
 msgstr ""
+"Kjernen kan ikke lese din nye partisjonsinformasjon. Sannsynligvis fordi du "
+"endret utvidete partisjoner. Selv om dette ikke er kritisk må du starte "
+"maskinen på nytt før du fortsetter. Sett inn Red Hat oppstartsdisketten nå "
+"og trykk \"Ok\" for å starte systemet på nytt.\n"
 
 #: ../fstab.py:393 ../fstab.py:620 ../fstab.py:630 ../fstab.py:654
 msgid "Formatting"
@@ -190,6 +194,8 @@ msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
+"En feil oppsto under overføring av installasjonsfilen til din harddisk. Du "
+"har sannsynlig sluppet opp for diskplass."
 
 #: ../image.py:78
 msgid "Change CDROM"
@@ -3494,61 +3500,60 @@ msgstr "Laster SCSI-driver..."
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr ""
+msgstr "Kart som skal vises"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr ""
+msgstr "Bredde på kart (i piksler)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
-msgstr ""
+msgstr "Slå på antialias"
 
 #: ../gnome-map/gglobe-canvas.c:100
 msgid "World"
-msgstr ""
+msgstr "Verden"
 
 #: ../gnome-map/gglobe-canvas.c:101
 msgid "North America"
-msgstr ""
+msgstr "Nord-Amerika"
 
 #: ../gnome-map/gglobe-canvas.c:102
 msgid "South America"
-msgstr ""
+msgstr "Sør-Amerika"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Pacific Rim"
-msgstr ""
+msgstr "Stillehavet"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
-msgstr ""
+msgstr "Europa"
 
 #: ../gnome-map/gglobe-canvas.c:105
 msgid "Africa"
-msgstr ""
+msgstr "Afrika"
 
 #: ../gnome-map/gglobe-canvas.c:106
 msgid "Asia"
-msgstr ""
+msgstr "Asia"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr ""
+msgstr "Kan ikke lese inn tidssonedata"
 
 #: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
-msgstr ""
+msgstr "gglobe-canvas"
 
 #: ../gnome-map/gglobe-canvas.c:764
-#, fuzzy
 msgid "View: "
 msgstr "Vis:"
 
 #. pick New York City as default
 #: ../gnome-map/gglobe-canvas.c:781
 msgid "America/New_York"
-msgstr ""
+msgstr "Amerika/New_York"
 
 msgid "Base"
 msgstr "Basis"
@@ -3610,9 +3615,8 @@ msgstr "Web-tjener"
 msgid "DNS Name Server"
 msgstr "DNS navnetjener"
 
-#, fuzzy
 msgid "Postgres (SQL) Server"
-msgstr "SQL-tjener"
+msgstr "Postgres-tjener (SQL)"
 
 msgid "Network Management Workstation"
 msgstr "Arbeidsstasjon for nettverksadministrasjon"
