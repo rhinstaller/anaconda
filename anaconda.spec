@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.11
+Version: 10.1.1.12
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 23 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.12-1
+- improved handling for kernel*devel (#143257)
+- make images look better (#143276)
+- make sure hwaddr gets written (#143535)
+- handle newer swap label format (#143447)
+
 * Thu Dec 16 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.11-1
 - more powerpc console fixing (nasrat, #134397)
 
