@@ -204,7 +204,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
             header = hdList.packages[key]
 
             group = utf8(header[rpm.RPMTAG_GROUP])
-            toplevel = string.split(group, '/')[0]
+	    hier = string.split(group, '/')
+            toplevel = hier[0]
 
             # make sure the dictionary item exists for group and toplevel
             # note that if group already exists, toplevel must also exist
@@ -216,9 +217,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
             # don't display package if it is in the Base group
             if not comps["Base"].includesPackage(header) or displayBase:
-#                print "adding %s to %s and %s" % (header, group, toplevel)
                 groups[group].append(header)
-                groups[toplevel].append(header)
+		if len(hier) > 1:
+		    groups[toplevel].append(header)
                 groups["allpkgs"].append(header)
 
         return groups
