@@ -535,7 +535,7 @@ class XF86Config:
         if mouse:
             self.setMouse(mouse)
         else:
-            self.mouse = Mouse ()
+            self.mouse = Mouse (skipProbe = 1)
         self.server = None
         self.vidCards = []
         self.cardMan = None

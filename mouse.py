@@ -73,11 +73,17 @@ class Mouse (SimpleConfigFile):
 	}
 
     # XXX fixme - externalize
-    def __init__ (self):
+    def __init__ (self, skipProbe = 0):
         self.info = {}
         self.device = None
         self.emulate = 0
         self.set ("Generic - 3 Button Mouse (PS/2)")
+	self.wasProbed = 0
+	if not skipProbe:
+	    self.probe()
+
+    def probed(self):
+	return self.wasProbed
 
     def probe (self):
         list = kudzu.probe(kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, 
@@ -108,9 +114,11 @@ class Mouse (SimpleConfigFile):
                 self.set("Generic - 2 Button Mouse (serial)", 1)
 
             self.device = device
+	    self.wasProbed = 1
             return 1
         else:
             self.set("None - None")
+	    self.wasProbed = 0
             return 0
     
     def available (self):
