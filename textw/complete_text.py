@@ -1,12 +1,26 @@
+#
+# complete_text.py: text mode congratulations windows
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
 from snack import *
 from constants_text import *
 from translate import _
 
 class FinishedWindow:
     def __call__ (self, screen):
-
-
-        screen.pushHelpLine (_("                              <Return> to reboot                              "))
+        msg = _("<Return> to reboot")
+        padding = " " * ((screen.width - len(msg)) / 2)
+        text = "%s%s%s" % (padding, msg, padding)
+        screen.pushHelpLine (text)
 
 	rc = ButtonChoiceWindow (screen, _("Complete"), 
              _("Congratulations, your Red Hat Linux installation is "
@@ -27,8 +41,10 @@ class FinishedWindow:
 
 class ReconfigFinishedWindow:
     def __call__ (self, screen):
-
-        screen.pushHelpLine (_("                                <Return> to exit                              "))
+        msg = _("<Return> to exit")
+        padding = " " * ((screen.width - len(msg)) / 2)
+        text = "%s%s%s" % (padding, msg, padding)
+        screen.pushHelpLine (text)
 
         rc = ButtonChoiceWindow (screen, _("Complete"), 
                 _("Congratulations, configuration is complete.\n\n"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Installer 7.0\n"
-"POT-Creation-Date: 2001-07-08 16:34-0400\n"
+"POT-Creation-Date: 2001-07-08 21:42-0400\n"
 "PO-Revision-Date: 2001-03-23 10:33+0100\n"
 "Last-Translator: Bettina De Monti <bdemonti@redhat.it>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -130,7 +130,7 @@ msgstr "Premier secteur de la partition de démarrage"
 #: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:79
 #: ../loader/urls.c:89 ../loader/urls.c:97 ../loader/urls.c:236
 #: ../loader/urls.c:241 ../packages.py:226 ../partitioning.py:844
-#: ../partitioning.py:867 ../textw/bootdisk_text.py:75
+#: ../partitioning.py:867 ../textw/bootdisk_text.py:88
 #: ../textw/upgrade_text.py:142 ../textw/upgrade_text.py:149
 #: ../textw/upgrade_text.py:174 ../upgrade.py:260 ../upgrade.py:274
 msgid "Error"
@@ -224,7 +224,7 @@ msgstr "Création du système de fichiers %s ..."
 #: ../libfdisk/newtfsedit.c:1683 ../libfdisk/newtfsedit.c:1701
 #: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:845 ../text.py:278
-#: ../textw/bootdisk_text.py:12 ../textw/bootloader_text.py:66
+#: ../textw/bootdisk_text.py:25 ../textw/bootloader_text.py:75
 #: ../textw/constants_text.py:19 ../textw/upgrade_text.py:236
 msgid "Yes"
 msgstr "Oui"
@@ -238,8 +238,8 @@ msgstr "Oui"
 #: ../libfdisk/newtfsedit.c:745 ../libfdisk/newtfsedit.c:877
 #: ../libfdisk/newtfsedit.c:1683 ../libfdisk/newtfsedit.c:1701
 #: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:231 ../loader/net.c:845
-#: ../text.py:279 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:41
-#: ../textw/bootloader_text.py:66 ../textw/constants_text.py:23
+#: ../text.py:279 ../textw/bootdisk_text.py:25 ../textw/bootdisk_text.py:54
+#: ../textw/bootloader_text.py:75 ../textw/constants_text.py:23
 #: ../textw/upgrade_text.py:236 ../textw/upgrade_text.py:243
 msgid "No"
 msgstr "Non"
@@ -292,7 +292,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1701 ../loader/devices.c:238
 #: ../loader/devices.c:532 ../loader/loader.c:2194 ../loader/pcmcia.c:104
 #: ../text.py:125 ../text.py:126 ../text.py:253 ../text.py:255 ../text.py:283
-#: ../textw/bootloader_text.py:161 ../textw/constants_text.py:11
+#: ../textw/bootloader_text.py:170 ../textw/constants_text.py:11
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:154
 #: ../textw/userauth_text.py:62 ../textw/welcome_text.py:35
 #: ../textw/welcome_text.py:38
@@ -318,7 +318,7 @@ msgstr ""
 "Insérez une disquette. Tout le contenu du disque va être effacé, choisissez "
 "donc soigneusement votre disquette."
 
-#: ../gui.py:367 ../gui.py:730
+#: ../gui.py:367 ../gui.py:715
 msgid "Online Help"
 msgstr "Aide en ligne"
 
@@ -326,26 +326,26 @@ msgstr "Aide en ligne"
 msgid "Language Selection"
 msgstr "Sélection de la langue"
 
-#: ../gui.py:440 ../iw/firewall_gui.py:121 ../libfdisk/gnomefsedit.c:1388
+#: ../gui.py:426 ../iw/firewall_gui.py:121 ../libfdisk/gnomefsedit.c:1388
 #: ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr "Fermer"
 
-#: ../gui.py:445 ../gui.py:593
+#: ../gui.py:431 ../gui.py:580
 msgid "Release Notes"
 msgstr "Notes de mise à jour"
 
-#: ../gui.py:476
+#: ../gui.py:462
 msgid "Unable to load file!"
 msgstr "Impossible de charger le fichier !"
 
-#: ../gui.py:497
+#: ../gui.py:483
 msgid "Release notes are missing.\n"
 msgstr ""
 
-#: ../gui.py:589 ../libfdisk/newtfsedit.c:1480 ../libfdisk/newtfsedit.c:1488
+#: ../gui.py:576 ../libfdisk/newtfsedit.c:1480 ../libfdisk/newtfsedit.c:1488
 #: ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238
-#: ../loader/devices.c:335 ../loader/lang.c:592 ../loader/loader.c:323
+#: ../loader/devices.c:335 ../loader/lang.c:596 ../loader/loader.c:323
 #: ../loader/loader.c:816 ../loader/loader.c:853 ../loader/loader.c:967
 #: ../loader/loader.c:1061 ../loader/loader.c:1481 ../loader/net.c:185
 #: ../loader/net.c:272 ../loader/net.c:357 ../loader/urls.c:158
@@ -356,33 +356,33 @@ msgstr ""
 msgid "Back"
 msgstr "Précédent"
 
-#: ../gui.py:591
+#: ../gui.py:578
 msgid "Next"
 msgstr "Suivant"
 
-#: ../gui.py:595
+#: ../gui.py:582
 msgid "Show Help"
 msgstr "Afficher l'aide"
 
-#: ../gui.py:597
+#: ../gui.py:584
 msgid "Hide Help"
 msgstr "Masquer l'aide"
 
-#: ../gui.py:640
+#: ../gui.py:626
 msgid "Red Hat Linux Installer"
 msgstr "Programme d'installation de Red Hat Linux"
 
-#: ../gui.py:655
+#: ../gui.py:641
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Programme d'installation de Red Hat Linux sur %s"
 
-#: ../gui.py:694
+#: ../gui.py:680
 #, fuzzy
 msgid "Unable to load title bar"
 msgstr "Impossible de charger le fichier !"
 
-#: ../gui.py:778
+#: ../gui.py:763
 msgid "Install Window"
 msgstr "Fenêtre Install"
 
@@ -758,8 +758,8 @@ msgstr "Cette partition doit comprendre au moins un lecteur."
 #: ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader/lang.c:27 ../loader/lang.c:102 ../loader/lang.c:297
-#: ../loader/lang.c:592 ../loader/loader.c:323 ../loader/loader.c:478
+#: ../loader/lang.c:27 ../loader/lang.c:102 ../loader/lang.c:300
+#: ../loader/lang.c:596 ../loader/loader.c:323 ../loader/loader.c:478
 #: ../loader/loader.c:535 ../loader/loader.c:853 ../loader/loader.c:912
 #: ../loader/loader.c:967 ../loader/loader.c:1061 ../loader/loader.c:1139
 #: ../loader/loader.c:1144 ../loader/loader.c:1184 ../loader/loader.c:1212
@@ -770,9 +770,9 @@ msgstr "Cette partition doit comprendre au moins un lecteur."
 #: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:158 ../loader/urls.c:236 ../loader/urls.c:241
 #: ../loader/urls.c:387 ../rescue.py:34 ../rescue.py:85 ../rescue.py:106
-#: ../rescue.py:123 ../text.py:389 ../textw/bootdisk_text.py:52
-#: ../textw/bootdisk_text.py:54 ../textw/complete_text.py:23
-#: ../textw/complete_text.py:39 ../textw/confirm_text.py:11
+#: ../rescue.py:123 ../text.py:389 ../textw/bootdisk_text.py:65
+#: ../textw/bootdisk_text.py:67 ../textw/complete_text.py:37
+#: ../textw/complete_text.py:55 ../textw/confirm_text.py:11
 #: ../textw/confirm_text.py:23 ../textw/firewall_text.py:201
 #: ../textw/network_text.py:121 ../textw/silo_text.py:99 ../xserver.py:50
 msgid "OK"
@@ -1106,7 +1106,7 @@ msgstr "Ajouter"
 
 #: ../iw/account_gui.py:315 ../iw/partition_gui.py:1264
 #: ../libfdisk/newtfsedit.c:1479 ../libfdisk/newtfsedit.c:1487
-#: ../textw/bootloader_text.py:237 ../textw/fdisk_text.py:40
+#: ../textw/bootloader_text.py:246 ../textw/fdisk_text.py:40
 #: ../textw/partition_text.py:822 ../textw/silo_text.py:205
 #: ../textw/silo_text.py:227 ../textw/userauth_text.py:198
 msgid "Edit"
@@ -1223,7 +1223,7 @@ msgstr "Svalbard"
 msgid "Boot Disk Creation"
 msgstr "Création d'une disquette d'amorçage"
 
-#: ../iw/bootdisk_gui.py:43 ../textw/bootdisk_text.py:62
+#: ../iw/bootdisk_gui.py:44 ../textw/bootdisk_text.py:75
 msgid ""
 "The boot disk allows you to boot your Red Hat Linux system from a floppy "
 "diskette.\n"
@@ -1232,14 +1232,14 @@ msgid ""
 "diskette. All data will be ERASED during creation of the boot disk."
 msgstr ""
 
-#: ../iw/bootdisk_gui.py:49 ../textw/bootdisk_text.py:70
+#: ../iw/bootdisk_gui.py:50 ../textw/bootdisk_text.py:83
 msgid ""
 "\n"
 "\n"
 "A boot disk is REQUIRED to boot a partitionless install."
 msgstr ""
 
-#: ../iw/bootdisk_gui.py:52 ../textw/bootdisk_text.py:76
+#: ../iw/bootdisk_gui.py:53 ../textw/bootdisk_text.py:89
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
@@ -1248,13 +1248,13 @@ msgstr ""
 "Assurez-vous qu'une disquette formatée se trouve dans le premier lecteur de "
 "disquettes."
 
-#: ../iw/bootdisk_gui.py:60
+#: ../iw/bootdisk_gui.py:61
 msgid "Skip boot disk creation"
 msgstr "Ignorer la création d'une disquette d'amorçage"
 
-#: ../iw/bootloader_gui.py:24 ../textw/bootloader_text.py:41
-#: ../textw/bootloader_text.py:96 ../textw/bootloader_text.py:129
-#: ../textw/bootloader_text.py:246
+#: ../iw/bootloader_gui.py:24 ../textw/bootloader_text.py:50
+#: ../textw/bootloader_text.py:105 ../textw/bootloader_text.py:138
+#: ../textw/bootloader_text.py:255
 #, fuzzy
 msgid "Boot Loader Configuration"
 msgstr "Configuration de l'écran"
@@ -1289,7 +1289,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/bootloader_gui.py:320 ../iw/silo_gui.py:257
-#: ../textw/bootloader_text.py:222 ../textw/silo_text.py:196
+#: ../textw/bootloader_text.py:231 ../textw/silo_text.py:196
 #: ../textw/xconfig_text.py:362 ../textw/xconfig_text.py:369
 #: ../textw/xconfig_text.py:462 ../textw/xconfig_text.py:463
 #: ../textw/xconfig_text.py:482 ../textw/xconfig_text.py:483
@@ -1298,20 +1298,20 @@ msgstr "Par défaut"
 
 #: ../iw/bootloader_gui.py:320 ../iw/mouse_gui.py:145
 #: ../iw/partition_gui.py:1274 ../iw/silo_gui.py:257
-#: ../libfdisk/gnomefsedit.c:3133 ../textw/bootloader_text.py:155
-#: ../textw/bootloader_text.py:222 ../textw/mouse_text.py:25
+#: ../libfdisk/gnomefsedit.c:3133 ../textw/bootloader_text.py:164
+#: ../textw/bootloader_text.py:231 ../textw/mouse_text.py:25
 #: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
 msgstr "Périphérique"
 
 #: ../iw/bootloader_gui.py:321 ../iw/silo_gui.py:257
-#: ../textw/bootloader_text.py:222 ../textw/silo_text.py:196
+#: ../textw/bootloader_text.py:231 ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "Type de partition"
 
 #: ../iw/bootloader_gui.py:321 ../iw/bootloader_gui.py:409
-#: ../iw/silo_gui.py:257 ../iw/silo_gui.py:292 ../textw/bootloader_text.py:156
-#: ../textw/bootloader_text.py:222 ../textw/silo_text.py:132
+#: ../iw/silo_gui.py:257 ../iw/silo_gui.py:292 ../textw/bootloader_text.py:165
+#: ../textw/bootloader_text.py:231 ../textw/silo_text.py:132
 #: ../textw/silo_text.py:196
 msgid "Boot label"
 msgstr "Etiquette de démarrage"
@@ -1374,7 +1374,7 @@ msgstr ""
 msgid "Congratulations"
 msgstr "Félicitations"
 
-#: ../iw/congrats_gui.py:34 ../textw/complete_text.py:12
+#: ../iw/congrats_gui.py:34 ../textw/complete_text.py:26
 msgid ""
 "Congratulations, your Red Hat Linux installation is complete.\n"
 "\n"
@@ -1391,7 +1391,7 @@ msgid ""
 "Linux manuals."
 msgstr ""
 
-#: ../iw/congrats_gui.py:83 ../textw/complete_text.py:34
+#: ../iw/congrats_gui.py:83 ../textw/complete_text.py:50
 #, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
@@ -2340,7 +2340,7 @@ msgstr "Mémoire carte vidéo"
 msgid "Skip X Configuration"
 msgstr "Ignorer la configuration X"
 
-#: ../textw/bootdisk_text.py:13
+#: ../textw/bootdisk_text.py:26
 #, fuzzy
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
@@ -2362,39 +2362,39 @@ msgstr ""
 "\n"
 "Voulez-vous créer une disquette d'amorçage pour votre système ?"
 
-#: ../textw/bootdisk_text.py:37 ../textw/bootdisk_text.py:72
+#: ../textw/bootdisk_text.py:50 ../textw/bootdisk_text.py:85
 msgid "Boot Disk"
 msgstr "Disquette d'amorçage"
 
-#: ../textw/bootdisk_text.py:54 ../textw/bootdisk_text.py:80
+#: ../textw/bootdisk_text.py:67 ../textw/bootdisk_text.py:93
 #: ../textw/silo_text.py:25 ../textw/upgrade_text.py:103
 msgid "Skip"
 msgstr "Ignorer"
 
-#: ../textw/bootloader_text.py:20
+#: ../textw/bootloader_text.py:29
 #, fuzzy
 msgid "Which bootloader would you like to use?"
 msgstr "Quel type de périphérique voulez-vous ajouter ?"
 
-#: ../textw/bootloader_text.py:36
+#: ../textw/bootloader_text.py:45
 msgid "Use GRUB Boot Loader"
 msgstr ""
 
-#: ../textw/bootloader_text.py:37
+#: ../textw/bootloader_text.py:46
 msgid "Use LILO Boot Loader"
 msgstr ""
 
-#: ../textw/bootloader_text.py:38
+#: ../textw/bootloader_text.py:47
 #, fuzzy
 msgid "No Boot Loader"
 msgstr "Erreurs de chargeurs de démarrage"
 
-#: ../textw/bootloader_text.py:56
+#: ../textw/bootloader_text.py:65
 #, fuzzy
 msgid "Skip Boot Loader"
 msgstr "Erreurs de chargeurs de démarrage"
 
-#: ../textw/bootloader_text.py:57
+#: ../textw/bootloader_text.py:66
 #, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
@@ -2411,7 +2411,7 @@ msgstr ""
 "\n"
 "Etes-vous sûr de vouloir ignorer l'installation de LILO ?"
 
-#: ../textw/bootloader_text.py:85 ../textw/silo_text.py:14
+#: ../textw/bootloader_text.py:94 ../textw/silo_text.py:14
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -2423,33 +2423,33 @@ msgstr ""
 "des options de démarrage au noyau, faites-le maintenant. Si cela n'est pas "
 "nécessaire ou si vous n'êtes pas sûr de vous, laissez ce champ vide."
 
-#: ../textw/bootloader_text.py:130
+#: ../textw/bootloader_text.py:139
 #, fuzzy
 msgid "Where do you want to install the boot loader?"
 msgstr "Où voulez-vous installer le chargeur de démarrage ?"
 
-#: ../textw/bootloader_text.py:160 ../textw/silo_text.py:136
+#: ../textw/bootloader_text.py:169 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:157
 msgid "Clear"
 msgstr "Réinitialiser"
 
-#: ../textw/bootloader_text.py:169
+#: ../textw/bootloader_text.py:178
 msgid "Edit Boot Label Please"
 msgstr "Modifier l'étiquette de démarrage"
 
-#: ../textw/bootloader_text.py:187 ../textw/bootloader_text.py:192
+#: ../textw/bootloader_text.py:196 ../textw/bootloader_text.py:201
 msgid "Invalid Boot Label"
 msgstr "Etiquette de démarrage non valide"
 
-#: ../textw/bootloader_text.py:188
+#: ../textw/bootloader_text.py:197
 msgid "Boot label may not be empty."
 msgstr "L'étiquette de démarrage ne peut pas être vide."
 
-#: ../textw/bootloader_text.py:193
+#: ../textw/bootloader_text.py:202
 msgid "Boot label contains illegal characters."
 msgstr "L'étiquette de démarrage contient des caractères non valides."
 
-#: ../textw/bootloader_text.py:241 ../textw/silo_text.py:208
+#: ../textw/bootloader_text.py:250 ../textw/silo_text.py:208
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -2459,22 +2459,17 @@ msgstr ""
 "d'exploitation. Vous devez indiquer les partitions que vous souhaitez "
 "pouvoir lancer et l'étiquette que vous voulez utiliser pour chacune d'elles."
 
-#: ../textw/complete_text.py:9
-msgid ""
-"                              <Return> to "
-"reboot                              "
-msgstr ""
-"                         Appuyer sur <Quitter> pour redémarrer l'ordinateur"
+#: ../textw/complete_text.py:20
+msgid "<Return> to reboot"
+msgstr "Appuyer sur <Quitter> pour redémarrer l'ordinateur"
 
-#: ../textw/complete_text.py:11 ../textw/complete_text.py:33
+#: ../textw/complete_text.py:25 ../textw/complete_text.py:49
 msgid "Complete"
 msgstr "Terminé"
 
-#: ../textw/complete_text.py:31
-msgid ""
-"                                <Return> to "
-"exit                              "
-msgstr "                          Appuyer sur <Quitter> pour quitter"
+#: ../textw/complete_text.py:44
+msgid "<Return> to exit"
+msgstr "Appuyer sur <Quitter> pour quitter"
 
 #: ../textw/confirm_text.py:7
 msgid "Installation to begin"
@@ -4314,19 +4309,19 @@ msgid ""
 msgstr ""
 "<Tab>/<Alt-Tab> Changer d'élément |<Espace> Sélectionner |<F12> Ecran suivant"
 
-#: ../loader/lang.c:295
+#: ../loader/lang.c:298
 msgid "Choose a Language"
 msgstr "Choisir une langue"
 
-#: ../loader/lang.c:295
+#: ../loader/lang.c:298
 msgid "What language should be used during the installation process?"
 msgstr "Quelle langue désirez-vous utiliser pour l'installation ?"
 
-#: ../loader/lang.c:590
+#: ../loader/lang.c:594
 msgid "Keyboard Type"
 msgstr "Type de clavier"
 
-#: ../loader/lang.c:591
+#: ../loader/lang.c:595
 msgid "What type of keyboard do you have?"
 msgstr "Quel type de clavier utilisez-vous ?"
 
