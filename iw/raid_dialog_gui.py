@@ -479,7 +479,7 @@ class RaidCloneDialog:
         requests = self.getInterestingRequestsForDrive(self.sourceDrive)
         
         errmsg1 = _("The source drive has no partitions to be cloned.  "
-                    "You must first defined partitions of type "
+                    "You must first define partitions of type "
                     "'software RAID' on this drive before it can be cloned.")
         if requests is None or len(requests) == 0:
             self.intf.messageWindow(_("Source Drive Error"), errmsg1,
