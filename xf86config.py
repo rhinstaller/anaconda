@@ -532,7 +532,7 @@ EndSection
 """
 
 class XF86Config:
-    def __init__ (self, mouse = None):
+    def __init__ (self, mouse = None, resolution = None):
 
         if mouse:
             self.setMouse(mouse)
@@ -547,6 +547,9 @@ class XF86Config:
 #        self.monHoriz = "31.5"
 #        self.monVert = "60"
 
+        self.res = ""
+        self.res = resolution
+
         self.monHoriz = "35.15"
         self.monVert = "56"
 
@@ -559,8 +562,20 @@ class XF86Config:
         self.skip = 0
 	self.primary = 0
         self.manualModes = {}
-#        self.modes = { "8" :  ["640x480"] }
-        self.modes = { "16" :  ["800x600"] }
+
+#        print "Inside XF86Config"
+#        print self.res
+#        time.sleep(3)
+
+        if self.res == "640x480":
+             self.modes = { "8" :  ["640x480"] }
+        else:
+            self.modes = { "16" :  ["800x600"] }
+
+#        print "self.modes"
+#        print self.modes
+#        time.sleep(3)
+
 	self.device = None
         self.keyRules = "xfree86"
         self.keyModel = "pc101"
@@ -616,8 +631,18 @@ class XF86Config:
         return 0
 
     def availableModes (self):
+#        print "Inside xf86Config...availableModes", self.res
+#        print x.res
+#        time.sleep (5)
+
+        if self.res == "640x480":
+            self.modes = { "8" :  ["640x480"] }
+        else:
+            self.modes = { "16" :  ["800x600"] }
+            
 #        modes = { "8" : [ "640x480" ] }
-        modes = { "16" : [ "800x600" ] }
+#        modes = { "16" : [ "800x600" ] }
+
         if not self.vidRam:
             return modes
         laptop = self.laptop()
@@ -1009,6 +1034,10 @@ class XF86Config:
             return
 
     def Version3Config (self, test=0):
+#        print "Inside Version3Config"
+#        print self.res
+#        time.sleep (5)
+
         info = {}
         devices = ""
         screens = ""
@@ -1228,6 +1257,10 @@ if __name__ == "__main__":
     print x.Version4Config()
     sys.exit (0)
     x.filterModesByMemory ()
+
+#    print self.modes
+#    time.sleep (5)
+    
     print x.preludeSection ()
     print x.keyboardSection ()
     print x.mouseSection ()
