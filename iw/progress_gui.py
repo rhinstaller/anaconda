@@ -43,8 +43,13 @@ class InstallProgressWindow (InstallWindow):
 	gui.processEvents()
         
     def setPackageScale (self, amount, total):
-	self.progress.update (float (amount) / total)
-#        self.totalProgress.update (float (self.sizeComplete + amount) / self.totalSize)
+	curval = self.progress.get_current_percentage()
+	newval = float (amount) / total
+	if (newval - curval) < 0.01 and newval > curval:
+	   return
+
+	self.progress.set_percentage (newval)
+	self.processEvents()
 
     def completePackage(self, header, timer):
         def formatTime(amt):
