@@ -167,8 +167,6 @@ class DiskStripe:
         else:
             width = CANVAS_WIDTH_640
         
-        print "width = %s" % width
-
         group.add ("rect", x1=0.0, y1=10.0, x2=width,
                    y2=STRIPE_HEIGHT, fill_color='green',
                    outline_color='grey71', width_units=1.0)
