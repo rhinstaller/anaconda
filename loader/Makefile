@@ -5,7 +5,7 @@ VERSION = 7.2
 DESTDIR = ../../trees/initrd
 
 OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o lang.o \
-       misc.o ftp.o
+       misc.o ftp.o md5.o mediacheck.o
 
 SLANGLIB = -lslang
 ifneq (ia64, $(ARCH))
@@ -27,7 +27,7 @@ DEBUG = -g
 MODULELINKAGE :=../isys/modutils/insmod/libmodutils.a    \
 	       	../isys/modutils/util/libutil.a          \
 	       	../isys/modutils/obj/libobj.a
-	
+
 COPTS = $(DEBUG) -Wall -DVERSION='"$(VERSION)"' 
 
 CFLAGS = $(COPTS) $(OPTS) -ffunction-sections -D_GNU_SOURCE=1 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DHAVE_LIBIO_H -ggdb

@@ -41,6 +41,10 @@
 #include <unistd.h>
 #include <sys/vt.h>
 
+#if defined(__i386__) || defined(__ia64__) || defined(__alpha__)
+#include <linux/cdrom.h>
+#endif
+
 #include <popt.h>
 /* Need to tell loop.h what the actual dev_t type is. */
 #undef dev_t
@@ -910,6 +914,61 @@ static char * mountHardDrive(struct installMethod * method,
     return url;
 }
 
+
+void ejectCdrom(void) {
+  int ejectfd;
+
+  logMessage("ejecting /tmp/cdrom...");
+  if ((ejectfd = open("/tmp/cdrom", O_RDONLY | O_NONBLOCK, 0)) >= 0) {
+      if (ioctl(ejectfd, CDROMEJECT, 0))
+        logMessage("eject failed %d ", errno);
+      close(ejectfd);
+  } else {
+      logMessage("eject failed %d ", errno);
+  }
+}
+
+
+/* XXX this ignores "location", which should be fixed */
+static char * mediaCheckCdrom(char *cddriver, int flags) {
+
+    int i;
+    int rc;
+    char * buf;
+
+    devMakeInode(cddriver, "/tmp/cdrom");
+
+    do {
+	mediaCheckFile("/tmp/cdrom");
+
+	ejectCdrom();
+	
+	rc = newtWinChoice(_("Media Check"), _("Test"), _("Continue"),
+			   _("Please insert any additional media you "
+			     "would like to test and press %s.\n\n"
+			     "Otherwise insert CD #1 into your drive "
+			     "and press %s to continue."),
+			   _("Test"), _("Continue"));
+
+	if (rc == 2) {
+	    unlink("/tmp/cdrom");
+	    return NULL;
+	} else {
+	    continue;
+	}
+    } while (1);
+    
+    return NULL;
+}
+
+static void wrongCDMessage(void) {
+    newtWinMessage(_("Error"), _("OK"),
+		   _("I could not find a Red Hat Linux "
+		     "CDROM in any of your CDROM drives. Please insert "
+		     "the Red Hat CD and press \"OK\" to retry."));
+}
+
+
 /* XXX this ignores "location", which should be fixed */
 static char * setupCdrom(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
@@ -918,7 +977,7 @@ static char * setupCdrom(struct installMethod * method,
 		      int needRedHatCD) {
     int i;
     int rc;
-    int hasCdrom = 0;
+    int hasCdrom = 0, gotcd1;
     char * buf;
 
     do {
@@ -937,7 +996,57 @@ static char * setupCdrom(struct installMethod * method,
 				       "/mnt/runtime", "loop0")) {
 			buf = malloc(200);
 			sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
-			return buf;
+
+			/* check image(s) if not kickstart and requested */
+			if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags)) {
+
+			    startNewt(flags);
+			    rc = newtWinChoice(_("CD Found"), _("OK"),
+					       _("Skip"), 
+       _("We will now test your media before installing.\n\nChoose 'Skip' "
+	 "if you would like to skip this test."));
+
+			    if (rc != 2) {
+
+				umount("/mnt/runtime");
+				umountLoopback("/mnt/runtime", "loop0");
+				umount("/mnt/source");
+
+				mediaCheckCdrom(kd->known[i].name, flags);
+
+				/* put mounts back and continue */
+				devMakeInode(kd->known[i].name, "/tmp/cdrom");
+				gotcd1 = 0;
+				do {
+				    logMessage("1");
+				    do {
+					if (doPwMount("/tmp/cdrom", "/mnt/source", 
+						      "iso9660", 1, 0, NULL, NULL)) {
+					    logMessage("1w");
+					    ejectCdrom();
+					    wrongCDMessage();
+					} else {
+					    logMessage("2");
+					    break;
+					}
+				    } while (1);
+
+				    logMessage("3");
+				    if (mountLoopback("/mnt/source/RedHat/base/stage2.img",
+						      "/mnt/runtime", "loop0")) {
+					umount("/mnt/source");
+					logMessage("2w");
+					ejectCdrom();
+					wrongCDMessage();
+				    } else {
+					logMessage("4");
+					gotcd1 = 1;
+				    }
+				} while (!gotcd1);
+			    }
+
+			    return buf;
+			}
 		    }
 		}
 		umount("/mnt/source");
@@ -969,6 +1078,9 @@ static char * mountCdromImage(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps * modDepsPtr, int flags) {
+
+    /* first do media check if necessary */
+    
     return setupCdrom(method, location, kd, modInfo, modLoaded, modDepsPtr,
 		      flags, 0, 1);
 }
@@ -2599,6 +2711,8 @@ int main(int argc, char ** argv) {
     }
 
     if (testing) flags |= LOADER_FLAGS_TESTING;
+
+    flags |= LOADER_FLAGS_MEDIACHECK;
 
     flags = parseCmdLineFlags(flags, cmdLine, &ksSource, &ksNetDevice,
 			      &instClass);

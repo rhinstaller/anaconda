@@ -19,10 +19,20 @@
 #define MAX(x, y)  ((x > y) ? x : y)
 #define MIN(x, y)  ((x < y) ? x : y)
 
+/* number of sectors to ignore at end of iso when computing sum */
+#define SKIPSECTORS 15
+
 typedef void (*checkCallback)(void *, long long offset);
+
+struct progressCBdata {
+    newtComponent scale;
+    newtComponent label;
+};
 
 #ifdef TESTING
 #define _(x) (x)
+#else
+#include "lang.h"
 #endif
 
 /* finds primary volume descriptor and returns info from it */
@@ -76,6 +86,7 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
     int dirty;
     int sector;
     int appdata_start_offset, appdata_end_offset;
+    int nattempt;
     unsigned int bufsize = 32768;
     unsigned char md5sum[16];
     unsigned int len;
@@ -86,6 +97,8 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
     if ((pvd_offset = parsepvd(isofd, mediasum, &isosize)) < 0)
 	return -1;
 
+    /*    printf("Mediasum = %s\n",mediasum); */
+
     /* rewind, compute md5sum */
     lseek(isofd, 0L, SEEK_SET);
 
@@ -95,8 +108,12 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
     apoff = pvd_offset + APPDATA_OFFSET;
 
     buf = malloc(bufsize * sizeof(unsigned char));
-    while (offset < isosize) {
-	nread = read(isofd, buf, bufsize);
+    while (offset < isosize - SKIPSECTORS*2048) {
+	nattempt = MIN(isosize - SKIPSECTORS*2048 - offset, bufsize);
+
+	/*	printf("%lld %lld %lld %d\n", offset, isosize, isosize-SKIPSECTORS*2048, nattempt); */
+
+	nread = read(isofd, buf, nattempt);
 	if (nread <= 0)
 	    break;
 
@@ -125,6 +142,11 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
 	    cb(cbdata, offset);
     }
 
+    if (cb)
+	cb(cbdata, isosize);
+    
+    sleep(1);
+
     free(buf);
 
     MD5_Final(md5sum, &md5ctx);
@@ -136,6 +158,8 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
 	strcat(computedsum, tmpstr);
     }
 
+    /*    printf("mediasum, computedsum = %s %s\n", mediasum, computedsum); */
+
     if (strcmp(mediasum, computedsum))
 	return 0;
     else
@@ -144,13 +168,34 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
 
 
 static void readCB(void *co, long long pos) {
-    newtScaleSet((newtComponent) co, pos);
+    struct progressCBdata *data = co;
+    static tick = 0;
+    char *tickmark;
+
+    newtScaleSet(data->scale, pos);
+    tick++;
+    if (tick < 100)
+	tickmark = "-";
+    if (tick >= 100 && tick < 200)
+	tickmark = "\\";
+    else if (tick >= 200 && tick < 300)
+	tickmark = "|";
+    else if (tick >= 300 && tick < 400)
+	tickmark = "/";
+    else if (tick >= 400) {
+	tick = 0;
+	tickmark = "-";
+    }
+
+    newtLabelSetText(data->label, tickmark);
     newtRefresh();
 }
 
 int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosize) {
-    newtComponent t, f, scale;
+    struct progressCBdata data;
+    newtComponent t, f, scale, label;
     int rc;
+    int llen;
 
     if (parsepvd(isofd, mediasum, isosize) < 0) {
 	newtWinMessage(_("Error"), _("OK"),
@@ -161,6 +206,9 @@ int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosiz
     newtCenteredWindow(35, 6, _("Media Check"));
     t = newtTextbox(1, 1, 24, 3, NEWT_TEXTBOX_WRAP);
     newtTextboxSetText(t, _("Checking media now..."));
+    llen = strlen(_("Checking media now..."));
+
+    label = newtLabel(llen+2, 1, "-");
     f = newtForm(NULL, NULL, 0);
     newtFormAddComponent(f, t);
     scale = newtScale(3, 3, 25, *isosize);
@@ -169,8 +217,10 @@ int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosiz
     newtDrawForm(f);
     newtRefresh();
 
-    rc = checkmd5sum(isofd, mediasum, computedsum, readCB, scale);
-    sleep(1);
+    data.scale = scale;
+    data.label = label;
+
+    rc = checkmd5sum(isofd, mediasum, computedsum, readCB, &data);
 
     newtFormDestroy(f);
     newtPopWindow();
@@ -208,6 +258,7 @@ int mediaCheckFile(char *file) {
 	result = _("PASS.\n\nIt is OK to install from this media.");
     else
 	result = _("NA.\n\nNo checksum information available, unable to verify media.");
+
     newtCenteredWindow(60, 10, _("Media Check Result"));
     t = newtTextbox(4, 1, 52 , 5, NEWT_TEXTBOX_WRAP);
     snprintf(tmpstr, sizeof(tmpstr), _("The media check is complete, the "
@@ -218,7 +269,8 @@ int mediaCheckFile(char *file) {
     newtFormAddComponent(f, newtButton(26, 6, _("OK")));
 
     newtRunForm(f);
-
+    newtFormDestroy(f);
+    newtPopWindow();
     return rc;
 }
 
