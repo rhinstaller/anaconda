@@ -38,6 +38,7 @@ from timezone_text import TimezoneWindow
 from bootdisk_text import BootDiskWindow
 from bootdisk_text import MakeBootDiskWindow
 from mouse_text import MouseWindow, MouseDeviceWindow
+from firewall_text import FirewallWindow
 
 import installclass
 
@@ -1001,6 +1002,8 @@ class InstallInterface:
                  "network"],
                 [N_("Network Setup"), NetworkWindow, (self.screen, todo), 
                  "network"],
+		[N_("Firewall Configuration"), FirewallWindow, (self.screen, todo),
+		 "firewall" ],
 
 #                [N_("Mouse Configuration"), MouseWindow, (self.screen, todo),
 #                 "mouse" ],
@@ -1077,7 +1080,8 @@ class InstallInterface:
 
             [N_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
 		    "network"],
-
+	    [N_("Firewall Configuration"), FirewallWindow, (self.screen, todo),
+		 "firewall" ],
             [N_("Mouse Configuration"), MouseWindow, (self.screen, todo.mouse),
 		    "mouse" ],
             [N_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo.mouse),

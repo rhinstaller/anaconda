@@ -301,6 +301,20 @@ class Language (SimpleConfigFile):
 	# name as that's unique, font names are not
 	return self.font[lang]
 
+class Firewall:
+    def __init__ (self):
+	self.enabled = -1
+	self.ssh = 0
+	self.telnet = 0
+	self.smtp = 0
+	self.http = 0
+	self.ftp = 0
+	self.portlist = ""
+	self.ports = []
+	self.policy = 0
+	self.dhcp = 0
+	self.trustdevs = []
+    
 class Authentication:
     def __init__ (self):
         self.useShadow = 1
@@ -368,6 +382,7 @@ class ToDo:
         
         self.keyboard = Keyboard ()
         self.auth = Authentication ()
+	self.firewall = Firewall()
         self.ddruidReadOnly = 0
         self.bootdisk = 1
         self.bdstate = ""
@@ -721,6 +736,35 @@ class ToDo:
             iutil.execWithRedirect(argv[0], argv, root = self.instPath, 
                                    stdout = devnull, stderr = None)
             os.close(devnull)
+	    
+    def setupFirewall (self):
+	args = [ "/usr/sbin/lokkit", "--kickstart", "--nostart",
+		"--policy", self.firewall.policy ]
+	if self.firewall.dhcp:
+	    args.append ("--dhcp")
+	if portlist:
+	    ports = string.split(portlist,',')
+	    for port in ports:
+		port = string.strip(port)
+		if not port.index(':'):
+		    port = '%s:tcp' % port
+		self.firewall.ports.append(port)
+	for port in self.firewall.ports:
+	    args.append ("--port", port)
+	if self.firewall.smtp:
+	    args.append ("--smtp")
+	if self.firewall.http:
+	    args.append ("--http")
+	if self.firewall.ftp:
+	    args.append ("--ftp")
+	if self.firewall.ssh:
+	    args.append ("--ssh")
+	if self.firewall.telnet:
+	    args.append ("--telnet")
+	for dev in self.firewall.trustdevs:
+	    args.append ("--trust", dev)
+	#iutil.execWithRedirect(args[0], args, root = self.instPath,
+	#		       stdout = None, stderr = None)
 
     def setupAuthentication (self):
         args = [ "/usr/sbin/authconfig", "--kickstart", "--nostart" ]
