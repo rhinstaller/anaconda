@@ -334,7 +334,7 @@ class VolumeGroupEditor:
         row = 0
 
 	maintable.attach(createAlignedLabel(_("Mount point:")), 0, 1, row,row+1)
-        mountCombo = createMountPointCombo(logrequest)
+        mountCombo = createMountPointCombo(logrequest, excludeMountPoints=["/boot"])
         maintable.attach(mountCombo, 1, 2, row, row + 1)
         row = row + 1
 
