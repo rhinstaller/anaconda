@@ -850,7 +850,14 @@ class DiskSet:
             disk = self.disks[drive]
             part = disk.next_partition ()
             while part:
-                if part.fs_type and (part.fs_type.name == "ext2"
+                if (part.is_active()
+                    and (part.get_flag(parted.PARTITION_RAID)
+                         or part.get_flag(parted.PARTITION_LVM))):
+                    # skip RAID and LVM partitions.
+                    # XXX check for raid superblocks on non-autoraid partitions
+                    #  (#32562)
+                    pass
+                elif part.fs_type and (part.fs_type.name == "ext2"
                                      or part.fs_type.name == "ext3"
                                      or part.fs_type.name == "reiserfs"):
                     node = get_partition_name(part)
@@ -865,7 +872,7 @@ class DiskSet:
 		    if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
 			rootparts.append ((node, part.fs_type.name))
 		    isys.umount('/mnt/sysimage')
-                if part.fs_type and (part.fs_type.name == "FAT"):
+                elif part.fs_type and (part.fs_type.name == "FAT"):
                     try:
                         isys.mount(node, '/mnt/sysimage', fstype = "vfat",
                                    readOnly = 1)
