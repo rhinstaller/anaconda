@@ -64,12 +64,12 @@ class ManualPartitionWindow:
 		  (_("Back"), "back") ], width = 50)
 
 	    if button != "done" and button != "back":
-		haveEdited = 1
 		# free our fd's to the hard drive -- we have to 
 		# fstab.rescanDrives() after this or bad things happen!
 		if not haveEdited:
-		    todo.fstab.closeDrives()
 		    todo.fstab.setReadonly(1)
+		    todo.fstab.closeDrives()
+		haveEdited = 1
 		device = driveNames[choice]
 		screen.suspend ()
 		if os.access("/sbin/fdisk", os.X_OK):
