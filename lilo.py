@@ -311,12 +311,6 @@ class LiloConfiguration:
 
 	mainLabelUsed = 0
 
-	if (isys.smpAvailable() and hdList.has_key('kernel-enterprise') and 
-                        hdList['kernel-enterprise'].selected):
-	    mainLabelUsed = 1
-	    kernelList.append((main,
-			      hdList['kernel-enterprise'], "enterprise"))
-
 	if (smpInstalled):
 	    thisLabel = main
 	    if mainLabelUsed:

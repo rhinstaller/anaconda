@@ -1359,12 +1359,6 @@ class ToDo:
 		       self.hdList['kernel-smp'][rpm.RPMTAG_RELEASE] + "smp")
 	    kernelVersions.append(version)
 
-	if (self.hdList.has_key('kernel-enterprise') and 
-	    self.hdList['kernel-enterprise'].selected):
-	    version = (self.hdList['kernel-enterprise'][rpm.RPMTAG_VERSION] + "-" +
-		   self.hdList['kernel-enterprise'][rpm.RPMTAG_RELEASE] + "smp")
-	    kernelVersions.append(version)
-
 	version = (self.hdList['kernel'][rpm.RPMTAG_VERSION] + "-" +
 		   self.hdList['kernel'][rpm.RPMTAG_RELEASE])
 	kernelVersions.append(version)
@@ -1400,12 +1394,6 @@ class ToDo:
 	    self.hdList['kernel-smp'].selected):
 	    version = (self.hdList['kernel-smp'][rpm.RPMTAG_VERSION] + "-" +
 		       self.hdList['kernel-smp'][rpm.RPMTAG_RELEASE] + "smp")
-	    kernelVersions.append(version)
-
-	if (self.hdList.has_key('kernel-enterprise') and 
-	    self.hdList['kernel-enterprise'].selected):
-	    version = (self.hdList['kernel-enterprise'][rpm.RPMTAG_VERSION] + "-" +
-		       self.hdList['kernel-enterprise'][rpm.RPMTAG_RELEASE] + "smp")
 	    kernelVersions.append(version)
 
 	version = (self.hdList['kernel'][rpm.RPMTAG_VERSION] + "-" +
