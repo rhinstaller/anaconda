@@ -532,7 +532,8 @@ class InstallControlWindow:
         self.installFrame.add (new_screen)
         self.installFrame.show_all ()
 
-	self.handle = idle_add(self.handleRenderCallback)
+	#self.handle = idle_add(self.handleRenderCallback)
+        self.currentWindow.renderCallback()
 
         if self.reloadRcQueued:
             self.window.reset_rc_styles ()
