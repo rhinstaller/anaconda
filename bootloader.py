@@ -22,7 +22,8 @@ import whrandom
 import language
 import iutil
 import string
-import edd
+if iutil.getArch() == "i386":
+    import edd
 from flags import flags
 from log import log
 from constants import *
