@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 6.2 Install\n"
 "POT-Creation-Date: 2000-02-17 18:41-0500\n"
-"PO-Revision-Date: 2000-02-21 20:13+01:00\n"
+"PO-Revision-Date: 2000-02-22 02:00+01:00\n"
 "Last-Translator: K. Christiansen & B. Langkjer <birger.langkjer@image.dk>\n"
 "Language-Team: Danish/Dansk <sslug-locale@sslug.dk>\n"
 "MIME-Version: 1.0\n"
@@ -11,12 +11,12 @@ msgstr ""
 
 #: ../fstab.py:235 ../fstab.py:394
 msgid "Formatting"
-msgstr "Formatterer"
+msgstr "Formaterer"
 
 #: ../fstab.py:236
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
-msgstr "Formatterer swapplads på /dev/%s..."
+msgstr "Formaterer swapplads på /dev/%s..."
 
 #: ../fstab.py:246 ../fstab.py:326 ../fstab.py:460
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:182
@@ -50,7 +50,7 @@ msgstr "Opretter RAID-enheder..."
 #: ../fstab.py:395
 #, c-format
 msgid "Formatting %s filesystem..."
-msgstr "Formatterer %s filsystem..."
+msgstr "Formaterer %s filsystem..."
 
 #: ../fstab.py:417
 msgid "Loopback"
@@ -291,7 +291,7 @@ msgstr "Hvilken partition indeholder din installations rodpartition?"
 
 #: ../text.py:311
 msgid "Customize Packages to Upgrade"
-msgstr "Angiv hvilke pakker som skal opgraderes"
+msgstr "Vælg selv pakker som skal opgraderes"
 
 #: ../text.py:312
 msgid ""
@@ -556,7 +556,7 @@ msgid ""
 "a formatted floppy in the first floppy drive."
 msgstr ""
 "En fejl opstod under oprettelsen af opstartsdisketten. Se efter om der er en "
-"formatteret diskette i det første diskettedrev."
+"formateret diskette i det første diskettedrev."
 
 #: ../text.py:828
 msgid "Package Installation"
@@ -678,7 +678,7 @@ msgstr "Swap"
 
 #: ../text.py:1069
 msgid "Filesystem Formatting"
-msgstr "Filsystemsformattering"
+msgstr "Filsystemsformatering"
 
 #: ../iw/mouse.py:55 ../text.py:1081 ../text.py:1083
 msgid "Mouse Configuration"
@@ -722,7 +722,7 @@ msgstr "Undersøg system"
 
 #: ../text.py:1121
 msgid "Customize Upgrade"
-msgstr "Egendefineret opgradering"
+msgstr "Manuel opgradering"
 
 #: ../text.py:1124
 msgid "Upgrade System"
@@ -738,8 +738,7 @@ msgstr "Annulleret"
 
 #: ../text.py:1163
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Jeg kan ikke gå til forrige trin herfra. Du bliver nødt til at prøve igen."
+msgstr "Jeg kan ikke gå til forrige trin herfra. Du må prøve igen."
 
 #: ../todo.py:337
 #, c-format
@@ -781,7 +780,7 @@ msgstr "Finder"
 
 #: ../todo.py:698
 msgid "Finding packages to upgrade..."
-msgstr "Finder pakker som skal opgraderes"
+msgstr "Finder pakker som skal opgraderes..."
 
 #: ../todo.py:954
 msgid "Processing"
@@ -845,7 +844,7 @@ msgstr "X-tjener"
 
 #: ../xf86config.py:263
 msgid "Unable to detect video card"
-msgstr "Kunne ikke bestemme grafikkort"
+msgstr "Kunne ikke identificere grafikkort"
 
 #: ../iw/xconfig.py:11 ../xf86config.py:270 ../xf86config.py:272
 msgid "Monitor"
@@ -1036,11 +1035,11 @@ msgstr "Vælg drev som fdisk skal køres på"
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
-msgstr "Vælg partitioner som skal formatteres"
+msgstr "Vælg partitioner som skal formateres"
 
 #: ../iw/format.py:47
 msgid "Check for bad blocks while formatting"
-msgstr "Se efter beskadigede blokke under formatteringen"
+msgstr "Se efter beskadigede blokke under formateringen"
 
 #: ../iw/installpath.py:38
 msgid "GNOME Workstation"
@@ -1057,7 +1056,7 @@ msgstr "Tjener"
 
 #: ../iw/installpath.py:43
 msgid "Custom"
-msgstr "Egendefineret"
+msgstr "Manuel"
 
 #: ../iw/installpath.py:93
 msgid "Install Type"
@@ -1330,7 +1329,7 @@ msgstr ""
 "%s\n"
 "\n"
 "Hvis du ikke vil gøre dette, kan du fortsætte installationen ved at oprette "
-"partitionerne manuelt, eller du kan gå tilbage og lave en personlig, "
+"partitionerne manuelt, eller du kan gå tilbage og lave en manuel, "
 "brugerdefineret installation."
 
 #: ../iw/rootpartition.py:248
@@ -1551,18 +1550,18 @@ msgid ""
 "format /home or /usr/local if they have already been configured during a "
 "previous install."
 msgstr ""
-"Hvilke partitioner vil du formattere? Vi anbefaler kraftigt at du "
-"formatterer alle dine systempartitioner, inklusive /, /usr og /var. Der er "
-"ingen grund til at formattere /home eller /usr/local hvis de allerede er "
-"blevet konfigureret under en tidligere installation."
+"Hvilke partitioner vil du formatere? Vi anbefaler kraftigt at du formaterer "
+"alle dine systempartitioner, inklusive /, /usr og /var. Der er ingen grund "
+"til at formatere /home eller /usr/local hvis de allerede er blevet "
+"konfigureret under en tidligere installation."
 
 #: ../textw/partitioning.py:228
 msgid "Check for bad blocks during format"
-msgstr "Se efter beskadigede blokke under formattering"
+msgstr "Se efter beskadigede blokke under formatering"
 
 #: ../textw/partitioning.py:233
 msgid "Choose Partitions to Format"
-msgstr "Vælg partitioner at formattere"
+msgstr "Vælg partitioner at formatere"
 
 #: ../textw/partitioning.py:278
 msgid "Root filesystem size"
@@ -1889,8 +1888,8 @@ msgid ""
 msgstr ""
 "Et drev med en BSD-disknavn blev fundet. Red Hat's installation understøtter "
 "kun BSD-disknavne i skrivebeskyttet modus, så du er nødt til at køre en "
-"brugerdefineret installation og 'fdisk' (istedetfor Diskdruiden) for "
-"maskiner med BSD-disknavne."
+"manuel installation og 'fdisk' (istedetfor Diskdruiden) for maskiner med "
+"BSD-disknavne."
 
 #: ../libfdisk/fsedit.c:1268
 #, c-format
