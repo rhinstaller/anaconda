@@ -401,9 +401,12 @@ class XConfigWindow (InstallWindow):
             for card in cards:
                 row = self.cardList.append ((card,))
                 self.cardList.set_row_data (row, card)
-                if (self.todo.x.vidCards
-                    and card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]):
-                    select = row
+                if self.todo.x.vidCards:
+                    if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
+                        select = row
+                else:
+                    if card == "Generic VGA compatible":
+                        select = row
             self.cardList.connect ("draw", self.moveto, select)
             sw = GtkScrolledWindow ()
             sw.add (self.cardList)
