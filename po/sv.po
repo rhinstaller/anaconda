@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-03-01 11:37-0500\n"
-"PO-Revision-Date: 2001-02-19 18:52+0100\n"
+"PO-Revision-Date: 2001-03-02 00:12+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -492,7 +492,7 @@ msgstr "Vilken typ av system vill du installera?"
 
 #: ../iw/lilo_gui.py:50 ../text.py:340
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "Fortsätt med uppgraderingen?"
 
 #: ../iw/lilo_gui.py:51 ../text.py:341
 msgid ""
@@ -500,12 +500,17 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"Filsystemen på den Linuxinstallation som du har valt att uppgradera har "
+"redan monterats. Du kan inte gå tillbaka efter detta.\n"
+"\n"
 
 #: ../text.py:345
 msgid ""
 "If you would like to exit the upgrade select Exit, or choose Ok to continue "
 "with the upgrade."
 msgstr ""
+"Välj Avsluta om du vill avsluta uppgraderingen, eller välj Ok för att "
+"fortsätta med uppgraderingen."
 
 #: ../text.py:375
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
@@ -516,13 +521,12 @@ msgid "System to Upgrade"
 msgstr "System att uppgradera"
 
 #: ../text.py:405
-#, fuzzy
 msgid "Upgrade Partition"
-msgstr "RAID-partition"
+msgstr "Uppgradera partition"
 
 #: ../text.py:406
 msgid "Going to upgrade partition /dev/"
-msgstr ""
+msgstr "Kommer att uppgradera partitionen /dev/"
 
 #: ../text.py:415
 msgid "Customize Packages to Upgrade"
@@ -1186,7 +1190,7 @@ msgstr "Använd textläge"
 
 #: ../xserver.py:69
 msgid "Probing for mouse type..."
-msgstr ""
+msgstr "Testar mustyp..."
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -1579,14 +1583,12 @@ msgid "Lilo Configuration"
 msgstr "Lilo-konfiguration"
 
 #: ../iw/lilo_gui.py:55
-#, fuzzy
 msgid "Would you like to continue with the upgrade?"
-msgstr "Vill du konfigurera ditt system?"
+msgstr "Vill du fortsätta med uppgraderingen?"
 
 #: ../iw/lilo_gui.py:64
-#, fuzzy
 msgid "Aborting upgrade"
-msgstr "Redo att uppgradera"
+msgstr "Avbryter uppgraderingen"
 
 #: ../iw/lilo_gui.py:233 ../iw/lilo_gui.py:394 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
@@ -3915,9 +3917,8 @@ msgstr ""
 "maskin."
 
 #: ../loader/loader.c:2934
-#, fuzzy
 msgid "Running anaconda - please wait...\n"
-msgstr "Läser anaconda-uppdateringar..."
+msgstr "Kör anaconda - var vänlig vänta...\n"
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
