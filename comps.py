@@ -964,7 +964,8 @@ class ComponentSet:
 	kernelVersions = []
 
 	# nick is used to generate the lilo name
-	for (ktag, nick) in [ ('kernel-bigmem', 'bigmem'),
+	for (ktag, nick) in [ ('kernel-summit', 'summit'),
+                              ('kernel-bigmem', 'bigmem'),
 			      ('kernel-smp', 'smp'),
 			      ('kernel-tape', 'tape') ]:
 	    tag = split(ktag, '-')[1]

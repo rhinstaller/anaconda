@@ -468,6 +468,10 @@ def doPreInstall(method, id, intf, instPath, dir):
 	    if iutil.needsEnterpriseKernel():
 		id.hdList['kernel-bigmem'].selected = 1
 
+	if (id.hdList.has_key('kernel-summit')):
+	    if isys.summitavailable():
+		id.hdList['kernel-summit'].selected = 1
+
 	# we *always* need a kernel installed
         select(id.hdList, 'kernel')
 
