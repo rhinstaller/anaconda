@@ -301,14 +301,19 @@ def checkDiskLabel(disk, intf):
 
     if intf:
         rc = intf.messageWindow(_("Warning"),
-                       _("The partition table on device /dev/%s is of an "
-                         "unexpected type %s for your architecture.  To "
-                         "use this disk for installation of %s, "
-                         "it must be re-initialized causing the loss of "
-                         "ALL DATA on this drive.\n\n"
-                         "Would you like to initialize this drive?")
-                       % (disk.dev.path[5:], disk.type.name, productName),
-                                type = "yesno")
+                                _("/dev/%s currently has a %s partition "
+                                  "layout.  To use this disk for "
+                                  "the installation of %s, it must be "
+                                  "re-initialized, causing the loss of "
+                                  "ALL DATA on this drive.\n\n"
+                                  "Would you like to format this
+                                  drive?")
+                                %(disk.dev.path[5:], disk.type.name,
+                                  productName), type="custom",
+                                custom_buttons = [ _("_Ignore drive"),
+                                                   _("_Format drive") ],
+                                custom_icon="question")
+
         if rc == 0:
             return 1
         else:
