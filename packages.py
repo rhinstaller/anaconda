@@ -90,6 +90,7 @@ def copyAnacondaLogs(instPath):
         if os.access(fn, os.R_OK):
             try:
                 iutil.copyFile(fn, "%s/var/log/%s" %(instPath, dest))
+                os.chmod("%s/var/log/%s" %(instPath, dest), 0600)
             except:
                 pass
 

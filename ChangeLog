@@ -1,5 +1,7 @@
 2004-11-03  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py (copyAnacondaLogs): Set permissions on logs (#137963)
+
 	* scripts/scrubtree: Don't use busybox shutdown, poweroff, or
 	reboot (#137948)
 
