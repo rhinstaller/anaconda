@@ -946,6 +946,14 @@ if [ -n "$NEEDGR" ]; then
     mv $DESTGR/etc/fonts/fonts.conf.foo $DESTGR/etc/fonts/fonts.conf
 fi
 
+# hack so vesa fallback doesn't always happen for netstg2 installs (#144128)
+if [ -n "$NEEDGR" ]; then
+    mkdir -p $DEST/usr/X11R6/$LIBDIR/modules/drivers
+    for drv in $DESTGR/usr/X11R6/$LIBDIR/modules/drivers/*.o ; do
+	touch $DEST/usr/X11R6/$LIBDIR/modules/drivers/$(basename $drv)
+    done
+fi
+
 rm -f $KEEPFILE $KEEPFILEGR $KEEPFILERESCUE
 
 for p in $DEST $DESTGR; do

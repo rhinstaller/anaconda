@@ -1,3 +1,11 @@
+2005-03-02  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot: Touch files so that netstg2 has X driver
+	files and we don't fall back to vesa for all ftp/http 
+	installs (#144128)
+
+	* scripts/mk-images.i386: Make splash.lss removal more explicit
+
 2005-02-24  Paul Nasrat <pnasrat@redhat.com>
 
 	* loader2/net.c: Do ethtool setup everywhere (#145422)
