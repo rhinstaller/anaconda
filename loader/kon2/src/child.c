@@ -103,7 +103,7 @@ void	ChildStart(FILE *errfp)
 
 #if defined(linux)
 #ifdef	MINI_KON
-	strcpy(buff, "TERM=linux");
+	strcpy(buff, "TERM=kon");
 #else
 	strcpy(buff, "TERM=kon");
 #endif
