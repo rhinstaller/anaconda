@@ -90,7 +90,7 @@ class AuthWindow (InstallWindow):
     def getScreen (self, auth):
 	self.auth = auth
 
-        box = GtkVBox (FALSE, 10)
+        box = VBox (FALSE, 10)
 
         nb = GtkNotebook ()
 
