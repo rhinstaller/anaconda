@@ -1,8 +1,22 @@
+#
+# dispatch.py: install/upgrade master flow control
+#
+# Erik Troan <ewt@redhat.com>
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
 import string
 from types import *
 from packages import readPackages, checkDependencies, doInstall, handleX11Packages
 from packages import writeConfiguration, writeXConfiguration, writeKSConfiguration, turnOnFilesystems, queryUpgradeContinue
-from partitioning import AutoPartition
 from iutil import makeBootdisk
 from bootloader import partitioningComplete, writeBootloader
 from flags import flags
@@ -24,19 +38,9 @@ DISPATCH_NOOP = None
 # in the second case, the function is called directly from the dispatcher
 
 installSteps = [
-# XXX for msw partition development    
-#                 ( "partition", ("id.fsset", "id.diskset", "id.partrequests") ),
 		 ( "language", ("intf", "id.instLanguage") ),
 		 ( "keyboard", ("id.instLanguage", "id.keyboard") ),
 		 ( "mouse", ("id.mouse", ) ),
-#
-# uncomment next 4 steps to debug X config easier
-#
-#		 ( "videocard", ("dispatch", "id.xconfig", "id.videocard")),
-#		 ( "monitor", ("id.xconfig", "id.monitor") ),
-#		 ( "xcustom", ("id.xconfig", "id.monitor", "id.videocard",
-#                               "id.desktop", "id.comps") ),
-#                 ( "writexconfig", writeXConfiguration, ("id", "instPath")),
 		 ( "welcome", () ),
 		 ( "reconfigwelcome", () ),
 		 ( "reconfigkeyboard", ("id.instLanguage", "id.keyboard" ) ),
@@ -44,12 +48,6 @@ installSteps = [
 				   "intf") ),
                  ( "partition", ("id.fsset", "id.diskset", "id.partrequests",
                                  "intf")),
-                 #( "partitionmethod", ( "dispatch", )),
-                 #( "fdisk", ( "id.diskset", )),
-		 #( "custom-upgrade", () ),
-		 #( "addswap", () ),
-		 #( "fdisk", () ),
-		 #( "partition", () ),
 		 ( "partitiondone", partitioningComplete, 
 				 ("dispatch", "id.bootloader",
 				  "id.fsset", "id.diskset" ) ),

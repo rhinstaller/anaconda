@@ -287,7 +287,7 @@ class FATFileSystem(FileSystemType):
 
 fileSystemTypeRegister(FATFileSystem())
 
-class ForeignFileSystemType(FileSystemType):
+class ForeignFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
         self.formattable = 0
@@ -297,7 +297,7 @@ class ForeignFileSystemType(FileSystemType):
     def formatDevice(self, entry, progress, message, chroot='/'):
         return
 
-fileSystemTypeRegister(ForeignFileSystemType())
+fileSystemTypeRegister(ForeignFileSystem())
 
 class PsudoFileSystem(FileSystemType):
     def __init__(self, name):
