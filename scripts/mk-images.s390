@@ -150,8 +150,7 @@ EOF
     for i in a/ansi d/dumb k/kterm l/linux s/screen v/vt100 v/vt102 x/xterm x/xterm-color; do
          install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
     done
-    rm -f $MBD_DIR/.buildstamp
-    echo $IMAGEUUID > $MBD_DIR/.buildstamp
+    makeproductfile $MBD_DIR
 
     if [ -f $LOADERBINDIR/kon.cfg ]; then
         mkdir -p $MBD_DIR/etc/terminfo/k
@@ -188,7 +187,7 @@ EOF
     done
     cp -f $IMGPATH/usr/X11R6/bin/xauth $MBD_DIR/sbin/xauth
     cp -f $IMGPATH/usr/bin/sed_save $MBD_DIR/sbin/sed
-    cp -f $IMGPATH/usr/bin/mount_save $MBD_DIR/sbin/mount
+    cp -f $IMGPATH/usr/bin/mount $MBD_DIR/sbin/mount
     cp -f $IMGPATH/usr/bin/umount $MBD_DIR/sbin/umount
     ln -s gzip $MBD_DIR/sbin/zcat
     cp -f $IMGPATH/usr/bin/ldd $MBD_DIR/sbin/ldd
@@ -250,7 +249,7 @@ EOF
 /mnt/runtime/lib
 /mnt/runtime/usr/lib
 EOF
-    (/usr/sbin/chroot $MBD_DIR /sbin/ldconfig -v )
+    (/usr/sbin/chroot $MBD_DIR /sbin/ldconfig )
     ln -s /proc/mounts $MBD_DIR/etc/mtab
     ln -s sbin $MBD_DIR/bin
 
