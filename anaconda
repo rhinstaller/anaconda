@@ -198,7 +198,7 @@ if lang:
     instClass.addToSkipList("language")
     instClass.setLanguage(lang)
             
-if keymap and kbdtype:
+if keymap:
     instClass.addToSkipList("keyboard")
     instClass.setKeyboard(keymap)
 
