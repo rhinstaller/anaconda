@@ -40,13 +40,10 @@
 #include "isys/pci/pciprobe.h"
 
 #include "lang.h"
+#include "loader.h"
 #include "log.h"
 #include "modules.h"
 #include "windows.h"
-
-#define LOADER_OK 0
-#define LOADER_BACK 1
-#define LOADER_ERROR -1
 
 typedef int int32;
 
@@ -61,6 +58,27 @@ struct device {
 int testing = 0;
 struct device knownDevices[100];		/* arbitrary limit <shrug> */
 int numKnownDevices = 0;
+
+struct installMethod {
+    char * name;
+    enum deviceClass deviceRequired;
+    int (*mountImage)(char * location, int numKnownDevices, 
+    		      struct device * knownDevices, moduleList modLoaded,
+		      moduleDeps modDeps, int testing);
+};
+
+static int mountCdromImage(char * location, int numKnownDevices, 
+    		      struct device * knownDevices, moduleList modLoaded,
+		      moduleDeps modDeps, int testing);
+static int mountNfsImage(char * location, int numKnownDevices, 
+    		      struct device * knownDevices, moduleList modLoaded,
+		      moduleDeps modDeps, int testing);
+
+static struct installMethod installMethods[] = {
+    { N_("Local CDROM"), DEVICE_CDROM, mountCdromImage },
+    { N_("NFS image"), DEVICE_NET, mountNfsImage }
+};
+static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
 struct intfconfig_s {
     newtComponent ipEntry, nmEntry, gwEntry, nsEntry;
@@ -612,6 +630,77 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
     return 0;
 }
 
+static int mountCdromImage(char * location, int numKnownDevices, 
+    		      struct device * knownDevices, moduleList modLoaded,
+		      moduleDeps modDeps, int testing) {
+    return LOADER_BACK;
+}
+
+static int mountNfsImage(char * location, int numKnownDevices, 
+    		      struct device * knownDevices, moduleList modLoaded,
+		      moduleDeps modDeps, int testing) {
+    struct intfInfo netDev;
+
+    readNetConfig("eth0", &netDev);
+    netDev.isPtp = netDev.isUp = 0;
+    
+    configureNetDevice(&netDev);
+    addDefaultRoute(&netDev);
+
+    if (!testing) {
+	mlLoadModule("nfs", modLoaded, modDeps, testing);
+
+	doPwMount("207.175.42.68:/mnt/test/msw/i386",
+		  "/mnt/source", "nfs", 1, 0, NULL, NULL);
+    }		  
+
+    return 0;
+}
+    
+static int doMountImage(char * location, int numKnownDevices, 
+    		        struct device * knownDevices, moduleList modLoaded,
+		        moduleDeps modDeps, int testing) {
+    static int defaultMethod = 0;
+    int i, j, rc;
+    int validMethods[10];
+    int numValidMethods = 0;
+    char * installNames[10];
+    int methodNum = 0;
+
+    for (i = 0; i < numMethods; i++) {
+	for (j = 0; j < numKnownDevices; j++) {
+	    if (installMethods[i].deviceRequired == knownDevices[j].class)
+		break;
+	}
+
+	if (j < numKnownDevices) {
+	    if (i == defaultMethod) methodNum = numValidMethods;
+	    installNames[numValidMethods] = installMethods[i].name;
+	    validMethods[numValidMethods++] = i;
+	}
+    }
+
+    installNames[numValidMethods] = NULL;
+
+    /* XXX we need to go through the available modules and see what install
+       methods might be valid with a bit more hardware support */
+
+    if (!numValidMethods) {
+	logMessage("no install methods have the required devices!\n");
+	return LOADER_ERROR;
+    }
+
+    rc = newtWinMenu(_("Installation Method"), 
+    		     _("What type of media contains the packages to be "
+    		       "installed?"), 30, 10, 20, 6, installNames, &methodNum,
+		     _("Ok"), _("Back"), NULL);
+
+    if (rc == 2) return LOADER_BACK;
+
+    return installMethods[validMethods[methodNum]].mountImage(location,
+    		numKnownDevices, knownDevices, modLoaded, modDeps, testing);
+}
+
 int main(int argc, char ** argv) {
     char ** argptr;
     char * anacondaArgs[30];
@@ -624,7 +713,6 @@ int main(int argc, char ** argv) {
     int local = 0;
     int i, rc;
     moduleInfoSet modInfo;
-    struct intfInfo netDev;
     struct poptOption optionTable[] = {
 	    { "local", '\0', POPT_ARG_NONE, &local, 0 },
 	    { "network", '\0', POPT_ARG_NONE, &network, 0 },
@@ -658,8 +746,6 @@ int main(int argc, char ** argv) {
 
     openLog(testing);
 
-    logMessage("looking around for statically compiled devices");
-
     findIdeList();
     findScsiList();
     findNetList();
@@ -671,19 +757,14 @@ int main(int argc, char ** argv) {
     if (probeOnly) exit(0);
 
     startNewt();
+
+    doMountImage("/mnt/source", numKnownDevices, knownDevices, 
+    		 modLoaded, modDeps, testing);
+
+    newtFinished();
+    exit(0);
     
-    readNetConfig("eth0", &netDev);
-    netDev.isPtp = netDev.isUp = 0;
-
     if (!testing) {
-	configureNetDevice(&netDev);
-	addDefaultRoute(&netDev);
-
-	mlLoadModule("nfs", modLoaded, modDeps, 
-		     testing);
-
-	doPwMount("207.175.42.68:/mnt/test/msw/i386",
-		  "/mnt/source", "nfs", 1, 0, NULL, NULL);
      
 	symlink("mnt/source/RedHat/instimage/usr", "/usr");
 	symlink("mnt/source/RedHat/instimage/lib", "/lib");
