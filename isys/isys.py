@@ -445,10 +445,13 @@ def pumpNetDevice(device):
     # otherwise
     return _isys.pumpnetdevice(device)
 
-def readExt2Label(device):
-    makeDevInode(device, "/tmp/disk")
-    label = _isys.e2fslabel("/tmp/disk");
-    os.unlink("/tmp/disk")
+def readExt2Label(device, makeDevNode = 1):
+    if makeDevNode:
+        makeDevInode(device, "/tmp/disk")
+        label = _isys.e2fslabel("/tmp/disk");
+        os.unlink("/tmp/disk")
+    else:
+        label = _isys.e2fslabel(device)
     return label
 
 def ext2IsDirty(device):

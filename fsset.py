@@ -1224,7 +1224,10 @@ class FileSystemSet:
                     sys.exit(0)
 
     def labelEntry(self, entry, chroot):
-        if entry.device.doLabel is not None:
+        label = entry.device.getLabel()
+        if label:
+            entry.setLabel(label)
+        elif entry.device.doLabel is not None:
             entry.fsystem.labelDevice(entry, chroot)
     
     def formatEntry(self, entry, chroot):
@@ -1628,6 +1631,12 @@ class Device:
 
     def getName(self):
         return self.__class__.__name__
+
+    def getLabel(self):
+        try:
+            return isys.readExt2Label(self.setupDevice(), makeDevNode = 0)
+        except:
+            return ""
 
 class DevDevice(Device):
     """Device with a device node rooted in /dev that we just always use
