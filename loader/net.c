@@ -227,7 +227,7 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 		  "If you know what your nameserver is, please enter it "
 		  "now. If you don't have this information, you can leave "
 		  "this field blank and the install will continue."),
-		40, 5, 10, 25, entry, _("OK"), _("Back"));
+		40, 5, 10, 25, entry, _("OK"), _("Back"), NULL);
 
 	if (rc == 2) return LOADER_BACK;
 
@@ -237,8 +237,10 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 	    rc = 2;
 	} 
 
-	cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
-    } while (rc != 2);
+    } while (rc == 2);
+
+    cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
+    cfg->dev.numDns = 1;
 
     return LOADER_OK;
 }
