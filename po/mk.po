@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-02 18:25+0200\n"
+"PO-Revision-Date: 2004-07-04 15:29+0200\n"
 "Last-Translator: Blagoja Gjakovski <blgj@freemail.com.mk>\n"
 "Language-Team: Macedonian <info@slobodensoftver.org.mk>\n"
 "MIME-Version: 1.0\n"
@@ -757,7 +757,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
-"Оштетени блокови се детектирани на уредот /dev/%s. Не ви препорачуваме да го користите овој уред.\n"
+"Оштетени блокови се пронајдени на уредот /dev/%s. Не ви препорачуваме да го користите овој уред.\n"
 "\n"
 "Притиснете <Enter> за рестартирање на вашиот систем"
 
@@ -1046,12 +1046,12 @@ msgstr "Дебагирај"
 #: ../gui.py:1282
 #, python-format
 msgid "%s Installer"
-msgstr "%s Инсталер"
+msgstr "%s инсталациска програма"
 
 #: ../gui.py:1297
 #, python-format
 msgid "%s Installer on %s"
-msgstr "%s Инсталер на %s"
+msgstr "%s инсталациска програма на %s"
 
 #: ../gui.py:1325
 msgid "Unable to load title bar"
@@ -1659,7 +1659,7 @@ msgstr "Настојувате да ги избришите сите парти�
 #: ../iw/lvm_dialog_gui.py:733 ../iw/lvm_dialog_gui.py:1087
 #: ../iw/osbootwidget.py:103 ../iw/partition_gui.py:1361
 msgid "_Delete"
-msgstr "Избриши"
+msgstr "Бриши"
 
 #: ../partIntfHelpers.py:290
 msgid "Notice"
@@ -1724,7 +1724,7 @@ msgid ""
 "problems with this installation of Linux. However, if this partition "
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
-msgstr ""
+msgstr "За оваа инсталација одбравте да користите постоечка партиција без да ја форматирате. Ви препорачуваме да ја форматирате партицијата за да се осигурате дека датотеките од претходната инсталација на оперативен систем нема да предизвикаат никакви проблеми со оваа инсталација на Linux. Сепак, ако оваа партиција содржи датотеки што ви се потребни, како што се почетните папки (/home), тогаш продолжете без да ја форматирате партицијата."
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
@@ -1750,6 +1750,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Во партиционата шема што ја баравте постојат следниве критични грешки. Овие грешки мора да се поправат пред да продолжите со вашата инсталација на %s.\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:432
 msgid "Partitioning Warning"
@@ -1769,13 +1772,13 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
+msgstr "Следниве веќе постоечки партиции се означени за да бидат форматирани, уништувајќи ги сите податоци."
 
 #: ../partIntfHelpers.py:450
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
-msgstr ""
+msgstr "Одберете 'Да' за да продолжите и да ги форматирате партициите или 'Не' за да се вратите назад и да ги промените овие поставки."
 
 #: ../partIntfHelpers.py:456
 msgid "Format Warning"
@@ -1788,6 +1791,9 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
+"Настојувате да ја избришите групата дискови \"%s\".\n"
+"\n"
+"СИТЕ логички дискови во оваа група ќе бидат изгубени!"
 
 #: ../partIntfHelpers.py:508
 #, python-format
@@ -1805,7 +1811,7 @@ msgstr "Настојувате да ја избришите /dev/%s партиц
 
 #: ../partIntfHelpers.py:517
 msgid "The partition you selected will be deleted."
-msgstr "Партицијата што ја избравте ќе биде избришана."
+msgstr "Партицијата што ја избравте ќе биде избришена."
 
 #: ../partIntfHelpers.py:527
 msgid "Confirm Reset"
@@ -1824,7 +1830,7 @@ msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr ""
+msgstr "Опциите за партиционирање што ги одбравте веќе се активирани. Веќе не можете да се вратите на екранот за уредување на дискот. Дали сакате да продолжите со процесот на инсталирање?"
 
 #: ../partitioning.py:108
 msgid "Low Memory"
@@ -1835,7 +1841,7 @@ msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
-msgstr ""
+msgstr "Со оглед на тоа дека немате доволно меморија, ќе биде потребно веднаш да активираме swap простор. За да го направиме тоа, веднаш ќе запишеме нова партициона табела на дискот. Дали е тоа во ред?"
 
 #: ../partitions.py:761
 #, python-format
@@ -1885,7 +1891,7 @@ msgstr ""
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr ""
+msgstr "Одредивте повеќе од 32 swap уреди.  Кернелот за %s поддржува само 32 swap уреди."
 
 #: ../partitions.py:880
 #, python-format
@@ -1927,21 +1933,21 @@ msgstr "Оваа монтирачка папка мора да е на linux д�
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
+msgstr "Монтирачката папка \"%s\" веќе е во употреба, ве молам одберете друга монтирачка папка."
 
 #: ../partRequests.py:278
 #, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
+msgstr "Големината на %s партиција (%10.2f MB) ја надминува максималната големина од %10.2f MB."
 
 #: ../partRequests.py:465
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
+msgstr "Големината на бараната партиција (големина = %s MB) ја надминува максималната големина од %s MB."
 
 #: ../partRequests.py:470
 #, python-format
@@ -1987,7 +1993,7 @@ msgstr "Поставување на мрежа"
 
 #: ../rescue.py:175
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "Дали сакате да ги стартувате мрежните интерфејси на овој систем?"
 
 #: ../rescue.py:220 ../text.py:479
 msgid "Cancelled"
@@ -1995,7 +2001,7 @@ msgstr "Откажано"
 
 #: ../rescue.py:221 ../text.py:480
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
+msgstr "Не можам од овде да одам на претходниот чекор. Ќе треба да се обидете повторно."
 
 #: ../rescue.py:237 ../rescue.py:272 ../rescue.py:426
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2163,6 +2169,8 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
+"Следниве датотечни системи за вашиот Linux систем не се правилно одмонтирани.  Сепак, дали сакате да ги монтирате?\n"
+"%s"
 
 #: ../upgrade.py:258 ../upgrade.py:264
 msgid "Mount failed"
@@ -3537,11 +3545,11 @@ msgstr "Ознака"
 
 #: ../iw/osbootwidget.py:195
 msgid "Default Boot _Target"
-msgstr ""
+msgstr "Вообичаена цел при стартување на системот"
 
 #: ../iw/osbootwidget.py:224
 msgid "You must specify a label for the entry"
-msgstr ""
+msgstr "Мора да ја одредите ознаката за влез"
 
 #: ../iw/osbootwidget.py:233
 msgid "Boot label contains illegal characters"
@@ -3565,7 +3573,7 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:336
 msgid "Cannot Delete"
-msgstr ""
+msgstr "Не може да се избриши"
 
 #: ../iw/osbootwidget.py:337
 #, python-format
@@ -4323,21 +4331,21 @@ msgstr ""
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
+msgstr "Инсталациската програма пронајде %s програма за стартување на системот веќе инсталирана на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
-msgstr ""
+msgstr "Ова е препорачлива опција."
 
 #: ../iw/upgrade_bootloader_gui.py:80 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
+msgstr "Инсталациската програма не може да ја пронајде програмата за стартување на системот која што се употребува на вашиот систем."
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
-msgstr ""
+msgstr "Креирајте нова конфигурација за програмата за стартување на системот"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
@@ -4357,11 +4365,11 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:111
 msgid "What would you like to do?"
-msgstr ""
+msgstr "Што сакате да направите?"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:34
 msgid "Migrate File Systems"
-msgstr ""
+msgstr "Префрлување на датотечни системи"
 
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:36
 #, python-format
@@ -4376,7 +4384,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:31
 msgid "Upgrade Swap Partition"
-msgstr ""
+msgstr "Надградба на swap партиција"
 
 #: ../iw/upgrade_swap_gui.py:101
 #, python-format
@@ -4394,18 +4402,21 @@ msgid ""
 "\n"
 "The installer has detected %s MB of RAM.\n"
 msgstr ""
+"\n"
+"\n"
+"Инсталациската програма пронајде %s MB на RAM.\n"
 
 #: ../iw/upgrade_swap_gui.py:120
 msgid "I _want to create a swap file"
-msgstr ""
+msgstr "Сакам да креирам swap датотека"
 
 #: ../iw/upgrade_swap_gui.py:129
 msgid "Select the _partition to put the swap file on:"
-msgstr ""
+msgstr "Одберете ја партицијата на која ќе биде поставена swap датотеката:"
 
 #: ../iw/upgrade_swap_gui.py:148
 msgid "Free Space (MB)"
-msgstr ""
+msgstr "Слободен простор (MB)"
 
 #: ../iw/upgrade_swap_gui.py:166
 #, python-format
@@ -4416,11 +4427,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:181
 msgid "Swap file _size (MB):"
-msgstr ""
+msgstr "Големина на swap датотека (MB):"
 
 #: ../iw/upgrade_swap_gui.py:191
 msgid "I _don't want to create a swap file"
-msgstr ""
+msgstr "Не сакам да креирам swap датотека"
 
 #: ../iw/upgrade_swap_gui.py:201
 msgid ""
@@ -4431,7 +4442,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "Swap датотеката мора да има големина помеѓу 1 и 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
 msgid "There is not enough space on the device you selected for the swap partition."
@@ -5197,15 +5208,15 @@ msgstr ""
 
 #: ../textw/partition_text.py:228
 msgid "Add anyway"
-msgstr ""
+msgstr "Сепак додадете"
 
 #: ../textw/partition_text.py:266
 msgid "Mount Point:"
-msgstr ""
+msgstr "Монтирачка папка:"
 
 #: ../textw/partition_text.py:287
 msgid "File System type:"
-msgstr ""
+msgstr "Вид на датотечен систем:"
 
 #: ../textw/partition_text.py:321
 msgid "Allowable Drives:"
@@ -5213,75 +5224,75 @@ msgstr ""
 
 #: ../textw/partition_text.py:377
 msgid "Fixed Size:"
-msgstr ""
+msgstr "Фиксна големина:"
 
 #: ../textw/partition_text.py:379
 msgid "Fill maximum size of (MB):"
-msgstr ""
+msgstr "Исполнете максимална големина од (MB):"
 
 #: ../textw/partition_text.py:383
 msgid "Fill all available space:"
-msgstr ""
+msgstr "Исполнете го целиот достапен простор:"
 
 #: ../textw/partition_text.py:406
 msgid "Start Cylinder:"
-msgstr ""
+msgstr "Почетен цилиндер:"
 
 #: ../textw/partition_text.py:419
 msgid "End Cylinder:"
-msgstr ""
+msgstr "Краен цилиндер:"
 
 #: ../textw/partition_text.py:443
 msgid "RAID Level:"
-msgstr ""
+msgstr "RAID ниво:"
 
 #: ../textw/partition_text.py:461
 msgid "RAID Members:"
-msgstr ""
+msgstr "RAID членови:"
 
 #: ../textw/partition_text.py:480
 msgid "Number of spares?"
-msgstr ""
+msgstr "Број на заштити?"
 
 #: ../textw/partition_text.py:494
 msgid "File System Type:"
-msgstr ""
+msgstr "Вид на датотечен систем:"
 
 #: ../textw/partition_text.py:507
 msgid "File System Label:"
-msgstr ""
+msgstr "Ознака на датотечен систем:"
 
 #: ../textw/partition_text.py:518
 msgid "File System Option:"
-msgstr ""
+msgstr "Опција на датотечен систем:"
 
 #: ../textw/partition_text.py:521 ../textw/partition_text.py:759
 #: ../textw/partition_text.py:996
 #, python-format
 msgid "Format as %s"
-msgstr ""
+msgstr "Форматирај како %s"
 
 #: ../textw/partition_text.py:523 ../textw/partition_text.py:761
 #: ../textw/partition_text.py:998
 #, python-format
 msgid "Migrate to %s"
-msgstr ""
+msgstr "Префрлете на %s"
 
 #: ../textw/partition_text.py:525 ../textw/partition_text.py:763
 #: ../textw/partition_text.py:1000
 msgid "Leave unchanged"
-msgstr ""
+msgstr "Оставете непроменето"
 
 #: ../textw/partition_text.py:541 ../textw/partition_text.py:736
 #: ../textw/partition_text.py:976
 msgid "File System Options"
-msgstr ""
+msgstr "Опции на датотечен систем"
 
 #: ../textw/partition_text.py:544
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
+msgstr "Ве молам одберете како сакате да го подготвите датотечниот систем на оваа партиција."
 
 #: ../textw/partition_text.py:552
 msgid "Check for bad blocks"
@@ -5309,59 +5320,59 @@ msgstr "Не е поддржано"
 
 #: ../textw/partition_text.py:715
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
+msgstr "LVM групи на дискови исклучиво можат да бидат уредени во графичката инсталациска програма."
 
 #: ../textw/partition_text.py:791 ../textw/partition_text.py:844
 msgid "Invalid Entry for Partition Size"
-msgstr ""
+msgstr "Неисправен влез за големината на партицијата"
 
 #: ../textw/partition_text.py:803
 msgid "Invalid Entry for Maximum Size"
-msgstr ""
+msgstr "Неисправен влез за максималната големина"
 
 #: ../textw/partition_text.py:822
 msgid "Invalid Entry for Starting Cylinder"
-msgstr ""
+msgstr "Неисправен влез за почетниот цилиндер"
 
 #: ../textw/partition_text.py:836
 msgid "Invalid Entry for End Cylinder"
-msgstr ""
+msgstr "Неисправен влез за крајниот цилиндер"
 
 #: ../textw/partition_text.py:949
 msgid "No RAID partitions"
-msgstr ""
+msgstr "Нема RAID партиции"
 
 #: ../textw/partition_text.py:950
 msgid "At least two software RAID partitions are needed."
-msgstr ""
+msgstr "Потребни се најмалку две RAID програмски партиции."
 
 #: ../textw/partition_text.py:962
 msgid "Format partition?"
-msgstr ""
+msgstr "Да ја форматирам партицијата?"
 
 #: ../textw/partition_text.py:1024
 msgid "Invalid Entry for RAID Spares"
-msgstr ""
+msgstr "Неисправен влез за RAID заштити"
 
 #: ../textw/partition_text.py:1037
 msgid "Too many spares"
-msgstr ""
+msgstr "Премногу заштити"
 
 #: ../textw/partition_text.py:1038
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr ""
+msgstr "Максималниот број на заштити со RAID0 поле е 0."
 
 #: ../textw/partition_text.py:1134
 msgid "New"
-msgstr ""
+msgstr "Ново"
 
 #: ../textw/partition_text.py:1136 ../textw/userauth_text.py:236
 msgid "Delete"
-msgstr ""
+msgstr "Бриши"
 
 #: ../textw/partition_text.py:1137
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../textw/partition_text.py:1140
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
@@ -5369,11 +5380,11 @@ msgstr "   F1-Помош    F2-Ново    F3-Уреди   F4-Бриши    F5-�
 
 #: ../textw/partition_text.py:1169
 msgid "No Root Partition"
-msgstr ""
+msgstr "Нема root партиција"
 
 #: ../textw/partition_text.py:1170
 msgid "Must have a / partition to install on."
-msgstr ""
+msgstr "Мора да постои / партиција за да се инсталира на неа."
 
 #: ../textw/partition_text.py:1237
 msgid "Which drive(s) do you want to use for this installation?"
