@@ -169,17 +169,22 @@ def ddfile(file, megs, pw = None):
 def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remount = 0):
     location = os.path.normpath(location)
 
-    #
-    # Apparently we don't need to create to create device nodes for
-    # a device that starts with a '/' (like '/usbdevfs').
-    # We note whether or not we created a node so we can cleanup later.
-    #
+    # We don't need to create device nodes for devices that start with '/'
+    # (like '/usbdevfs') and also some special fake devices like 'proc'.
+    # First try to make a device node and if that fails, assume we can
+    # mount without making a device node.  If that still fails, the caller
+    # will have to deal with the exception.
+    # We note whether or not we created a node so we can clean up later.
     createdNode = 0
     if device and device != "none" and device[0] != "/":
 	devName = "/tmp/%s" % device
-	makeDevInode(device, devName)
-	device = devName
-	createdNode = 1
+	
+	try:
+	    makeDevInode (device, devName)
+	    device = devName
+	    createdNode = 1
+	except SystemError:
+	    pass
 
     if mountCount.has_key(location) and mountCount[location] > 0:
 	mountCount[location] = mountCount[location] + 1

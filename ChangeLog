@@ -1,3 +1,8 @@
+2004-02-03  Chris Lumens  <clumens@redhat.com>
+
+	* isys/isys.py (mount):  Don't try to make a device node for virtual
+	filesystems like proc or shm.
+
 2005-02-02  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
