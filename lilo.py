@@ -373,8 +373,11 @@ class LiloConfiguration:
 	self.initrdsMade = {}
         # XXX only i386 supports edd, nothing else should
         # instantiate this class
-        import edd
-        self.edd = edd.detect()
+        if iutil.getArch() == "i386":
+            import edd
+            self.edd = edd.detect()
+        else:
+            self.edd = 0
 
 
 if __name__ == "__main__":
