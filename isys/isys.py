@@ -19,6 +19,7 @@ import _isys
 import string
 import os
 import os.path
+import posix
 import sys
 import kudzu
 
@@ -387,7 +388,10 @@ def makeDevInode(name, fn=None):
     return path
 
 def makedev(major, minor):
-    return _isys.makedev(major, minor)
+    if posix.__dict__.has_key("makedev"):
+        return posix.makedev(major, minor)
+    else:
+        return _isys.makedev(major, minor)
 
 def mknod(pathname, mode, dev):
     return _isys.mknod(pathname, mode, dev)
