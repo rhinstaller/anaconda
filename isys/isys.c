@@ -1239,7 +1239,13 @@ static PyObject * doExt2Dirty(PyObject * s, PyObject * args) {
 
     return Py_BuildValue("i", !clean); 
 }
-
+/* doIsScsiRemovable()
+   Returns:
+    -1 on error
+     0 if not removable
+     0 if removable, but is aacraid driver (should be treated as not removable)
+     1 if removable (not to be used by installer)
+*/
 static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args) {
     char *path;
     int fd;
@@ -1282,8 +1288,8 @@ static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args) {
 	    if ((!strncmp (inq.cmd + 8, "DELL", 4))
 		|| (!strncmp (inq.cmd + 8, "HP", 2))) {
 		rc = 0;
-	    }
-	    rc = 1;
+	    } else
+		rc = 1;
 	} else
 	    rc = 0;
     } else {
