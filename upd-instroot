@@ -1,10 +1,17 @@
 #!/bin/bash
 
 ORIGDIR=`pwd`
+STRIP=strip
+
+NEEDGR=yes
+if [ $(uname -m) = ia64 ]; then
+    NEEDGR=""
+    STRIP=echo
+fi
 
 # latest is a script which returns the file containing the most recent
 # binary RPM for the given package names
-LATEST=latest
+LATEST="rsh porkchop latest"
 
 if [ -z "$1" ]; then
 	echo "$0: updates instimage from a Red Hat RPMS directory"
@@ -56,22 +63,34 @@ cd -
 echo "DEST is $DEST"
 echo "DESTGR is $DESTGR"
 
-PACKAGES="glibc ldconfig setup e2fsprogs XFree86-libs XFree86-SVGA
+PACKAGES="glibc ldconfig setup e2fsprogs  
+          python newt
+          libtermcap zlib rpm rpm-devel rpm-python ash bash 
+	  util-linux procps
+          raidtools locale-ja open
+          cpio tar fileutils net-tools grep sed mt-st gzip
+          iputils traceroute sh-utils textutils less rsh
+          ncurses popt ftp readline mount
+          specspo"
+
+if [ $ARCH = i386 ]; then
+    PACKAGES="$PACKAGES kernel-pcmcia-cs"
+fi
+
+if [ $ARCH != ia64 ]; then
+    PACKAGES="$PACKAGES mtools pine modutils"
+fi
+
+if [ -n "$NEEDGR" ]; then
+    PACKAGES="$PACKAGES XFree86-libs XFree86-SVGA imlib libpng libtiff libjpeg
           XFree86-S3 XFree86-S3V XFree86-Mach32 XFree86-Mach64
           XFree86-FBDev XFree86-I128 XFree86-3DLabs XFree86-VGA16
-          XFree86-75dpi-fonts XFree86-ISO8859-2-75dpi-fonts 
-	  XFree86-ISO8859-9-75dpi-fonts
+          XFree86-75dpi-fonts XFree86-ISO8859-2-75dpi-fonts glib gtk+
+	  XFree86-ISO8859-9-75dpi-fonts esound audiofile gnome-libs
           XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
-          XFree86-cyrillic-fonts XFree86  xpm glib gtk+
-          gnome-libs python newt imlib libpng libtiff libjpeg
-          libtermcap zlib rpm rpm-devel rpm-python ash bash pygtk
-          pygnome pygtk-libglade pygnome-libglade pygnome-applet pygnome-capplet 
-	  util-linux procps esound audiofile
-          kernel-pcmcia-cs Xconfigurator raidtools locale-ja open
-          cpio tar fileutils net-tools grep sed mt-st gzip
-          iputils traceroute sh-utils textutils pine less rsh
-          ncurses popt mtools ftp readline mount modutils
-          specspo"
+          XFree86-cyrillic-fonts XFree86 xpm Xconfigurator pygnome pygtk
+	  pygtk-libglade pygnome-libglade pygnome-applet pygnome-capplet"
+fi
 
 if [ $ARCH = sparc ]; then
     PACKAGES="$PACKAGES XFree86-Sun"
@@ -342,7 +361,10 @@ for n in $RPMS; do
 	GLIBC=$n
     fi 
     rpm2cpio $n | (cd $DEST; cpio -E $KEEPFILE --quiet -iumd)
-    rpm2cpio $n | (cd $DESTGR; cpio -E $KEEPFILEGR --quiet -iumd)
+
+    if [ -n "NEEDGR" ]; then
+	rpm2cpio $n | (cd $DESTGR; cpio -E $KEEPFILEGR --quiet -iumd)
+    fi
 done
 
 echo "retrieving timezones"
@@ -361,9 +383,11 @@ if [ $ARCH = sparc ]; then
     rm -f $DESTGR/usr/X11R6/bin/XF86_VGA16
 fi
 
-for I in $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/* $DESTGR/usr/share/fonts/ISO8859-9/*; do
-    mkfontdir $I
-done
+if [ -n "$NEEDGR" ]; then
+    for I in $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/* $DESTGR/usr/share/fonts/ISO8859-9/*; do
+	mkfontdir $I
+    done
+fi
 
 rm -f $KEEPFILE $KEEPFILEGR
 
@@ -400,7 +424,7 @@ for p in $DESTGR $DEST; do
 	rm -f $p/usr/sbin/ldconfig $p/etc/ld.so.conf
 
 	for l in `find $p -exec file {} \; | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
-	    strip $l -R .comment -R .note `objdump -h $l | \
+	    $STRIP $l -R .comment -R .note `objdump -h $l | \
 		sed -n 's/^.*\(\.gnu\.warning\.[^ ]*\) .*$/-R \1/p'`
 	done
 	find $p -name "*.a" | xargs rm -rf
@@ -449,9 +473,11 @@ for p in $DEST $DESTGR; do
 	done
 done
 
-# Xserver needs a place to put the compiled xkb maps.
-rm -rf $DESTGR/usr/X11R6/lib/X11/xkb/compiled
-ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
+if [ $NEED_GR ]; then
+    # Xserver needs a place to put the compiled xkb maps.
+    rm -rf $DESTGR/usr/X11R6/lib/X11/xkb/compiled
+    ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
+fi
 
 # this is only for the minimal second stage
 
@@ -489,5 +515,7 @@ ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
 
 	cp -a $HOMEDIR/anaconda-stub $DEST/usr/bin/anaconda
 
-cd $ORIGDIR
-utils/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
+if [ -n "$NEEDGR" ]; then
+    cd $ORIGDIR
+    utils/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
+fi
