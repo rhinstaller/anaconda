@@ -310,6 +310,7 @@ class ToDo:
         self.liloDevice = None
 	self.timezone = None
         self.upgrade = 0
+	self.ddruidAlreadySaved = 0
 	self.lilo = LiloConfiguration ()
 	self.initrdsMade = {}
 	self.liloImages = {}
@@ -443,7 +444,7 @@ class ToDo:
                 self.intf.messageWindow(_("Error"), _("Error mounting %s: %s") % (device, msg))
 	    os.remove( '/tmp/' + device);
 
-    def makeFilesystems(self):
+    def makeFilesystems(self, createSwap = 1, createFs = 1):
 	if (not self.setupFilesystems): return 
         
         keys = self.mounts.keys ()
@@ -454,7 +455,7 @@ class ToDo:
 	    w = self.intf.waitWindow(_("Formatting"),
                           _("Formatting %s filesystem...") % (mntpoint,))
 	    isys.makeDevInode(device, '/tmp/' + device)
-            if fsystem == "ext2":
+            if fsystem == "ext2" and createFs:
                 args = [ "mke2fs", '/tmp/' + device ]
                 if self.badBlockCheck:
                     args.append ("-c")
@@ -462,7 +463,7 @@ class ToDo:
                                         args,
                                         stdout = None, stderr = None,
                                         searchPath = 1)
-            elif fsystem == "swap":
+            elif fsystem == "swap" and createSwap:
                 rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
                                              [ "mkswap", '/tmp/' + device ],
                                              stdout = None, stderr = None,
@@ -1022,8 +1023,11 @@ class ToDo:
         # on the children
         if self.setupFilesystems:
             if not self.upgrade:
-                self.ddruid.save ()
-                self.makeFilesystems ()
+		if (self.ddruidAlreadySaved):
+		    self.makeFilesystems (createSwap = 0)
+		else:
+		    self.ddruid.save ()
+		    self.makeFilesystems ()
             self.mountFilesystems ()
 
         if self.upgrade:

@@ -786,6 +786,11 @@ class PartitionWindow:
 
 	for partition, mount, fstype, size in todo.ddruid.getFstab ():
 	    todo.addMount(partition, mount, fstype)
+
+	if iutil.memAvailable() < 14000:
+	    todo.ddruid.save ()
+	    todo.makeFilesystems (createFs = 0)
+	    todo.ddruidAlreadySaved = 1
                 
         return dir
 
