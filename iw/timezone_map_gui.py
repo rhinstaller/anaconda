@@ -28,6 +28,12 @@ class Enum:
             i += 1
 
 class TimezoneMap(gtk.VBox):
+    # force order of destruction for a few items.
+    def __del__(self):
+        del self.arrow
+        del self.markers
+        del self.current
+    
     def __init__(self, zonetab, default="America/New_York",
                  map='/usr/share/anaconda/pixmaps/map480.png'):
         gtk.VBox.__init__(self, gtk.FALSE, 5)
@@ -269,7 +275,7 @@ if __name__ == "__main__":
     zonetab = ZoneTab()
     win = gtk.Window()
     win.connect('destroy', gtk.mainquit)
-    map = TimezoneMap(zonetab)
+    map = TimezoneMap(zonetab, map='../pixmaps/map480.png')
     vbox = gtk.VBox()
     vbox.pack_start(map)
     button = gtk.Button("Quit")
