@@ -11,14 +11,10 @@ import GtkExtra
 import string
 import sys
 import xpms_gui
-from translate import _
+from translate import _, N_
 import checklist
-import time
-from threading import *
-import os
 
 def queryUpgradeContinue(intf):
-    threads_leave()
     rc = intf.messageWindow(_("Proceed with upgrade?"),
                        _("The filesystems of the Linux installation "
                          "you have chosen to upgrade have already been "
@@ -26,18 +22,16 @@ def queryUpgradeContinue(intf):
                          "\n\n") + 
                      _( "Would you like to continue with the upgrade?"),
                                       type = "yesno").getrc()
-    threads_enter()
     return rc
 
 class IndividualPackageSelectionWindow (InstallWindow):
 
+    windowTitle = N_("Individual Package Selection")
+    htmlTag = "sel-indiv"
+
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        self.todo = ics.getToDo ()
-        ics.setTitle (_("Individual Package Selection"))
-        ics.setNextEnabled (1)
-        ics.readHTML ("sel-indiv")
         ics.setHelpEnabled (FALSE)
         self.DIR = 0
         self.DIR_UP = 1
@@ -47,17 +41,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.updatingIcons = FALSE
 
     def getPrev (self):
-        for x in self.ics.getICW ().stateList:
-            if isinstance (x, PackageSelectionWindow):
-                return PackageSelectionWindow
-            elif isinstance (x, UpgradeExamineWindow):
-                rc = queryUpgradeContinue(self.todo.intf)
-                if not rc:
-                    raise gui.StayOnScreen
-                else:
-                    import sys
-                    print _("Aborting upgrade")
-                    sys.exit(0)
         return None
     
     def build_tree (self, x):
@@ -106,26 +89,21 @@ class IndividualPackageSelectionWindow (InstallWindow):
     
     def sort_list (self, args, col):
         self.packageList.freeze ()
-
-        if col == 3:
+        if col == 2:         #sort by column #2
             self.bubblesort(args, col)
             min = 0
             max = self.maxrows - 1
             self.sortType = "Size"
-
-        elif col == 1:
+        elif col == 1:       #sort by column #1
             self.packageList.set_sort_column (col)
             self.packageList.sort ()
             self.sortType = "Package"
-
-        elif col == 0:
+        elif col == 0:       #sort by column #0
             self.bubblesort(args, col)
             min = 0
             max = self.maxrows - 1
-            self.sortType = "Selected"
-            
+            self.sortType = "Selected"            
         self.packageList.thaw () 
-
 
     def bubblesort (self, args, col):
         count = 0
@@ -144,7 +122,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
                     (curr, row_data, header) = self.packageList.get_row_data (currow)
                     (next, row_data, header) = self.packageList.get_row_data (nextrow)
 
-                elif col == 3:
+                elif col == 2:
                     curr = self.packageList.get_text(currow, col)
                     curr = string.atoi(curr)
                     next = self.packageList.get_text(nextrow, col)
@@ -157,28 +135,19 @@ class IndividualPackageSelectionWindow (InstallWindow):
                     self.packageList._update_row(nextrow)
 
 
-    def select_all (self, rownum):
+    def select_all (self, rownum, select_all):
         self.packageDesc.freeze ()
         self.packageDesc.delete_text (0, -1)
         self.packageDesc.thaw ()
         
         for i in range(self.rownum + 1):
              (val, row_data, header) = self.packageList.get_row_data (i)
-             header.select ()
-             self.packageList.set_row_data (i, (TRUE, row_data, header)) 
-             self.packageList._update_row (i)
-
-        self.updateSize()
-
-    def unselect_all (self, rownum):
-        self.packageDesc.freeze ()
-        self.packageDesc.delete_text (0, -1)
-        self.packageDesc.thaw ()
-
-        for i in range (self.rownum + 1):
-             (val, row_data, header) = self.packageList.get_row_data(i)
-             header.unselect()
-             self.packageList.set_row_data(i, (FALSE, row_data, header)) 
+             if select_all == 1:
+                 header.select ()
+                 self.packageList.set_row_data (i, (TRUE, row_data, header)) 
+             elif select_all == 0:
+                 header.unselect()
+                 self.packageList.set_row_data (i, (FALSE, row_data, header)) 
              self.packageList._update_row (i)
 
         self.updateSize()
@@ -246,6 +215,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
             self.toggle_row (self.packageList.focus_row)
 
     def select (self, ctree, node, *args):
+        self.pkgTreeNode = node
         self.clear_package_desc ()
         self.packageList.freeze ()
         self.packageList.clear ()
@@ -257,23 +227,20 @@ class IndividualPackageSelectionWindow (InstallWindow):
             dirName = ctree.get_node_info (x)[0]
             self.packageList.column_titles_passive ()
                 
-
         try:
             # drop the leading slash off the package namespace
             for header in self.flat_groups[ctree.node_get_row_data (node)[1:]]:
                 dirName = header[rpm.RPMTAG_NAME] 
                 dirSize = header[rpm.RPMTAG_SIZE]
-                dirVersion = header[rpm.RPMTAG_VERSION]
                 dirDesc = header[rpm.RPMTAG_DESCRIPTION]
 
                 dirSize = dirSize/1000000
                 if dirSize > 1:
                     row = [ "", dirName, "%s" % dirSize]
-                    self.rownum = self.packageList.append_row((dirName, dirVersion, "%s" % dirSize), TRUE, dirDesc)
-                    
+                    self.rownum = self.packageList.append_row((dirName, "%s" % dirSize), TRUE, dirDesc)
                 else:
                     row = [ "", dirName, "1"]
-                    self.rownum = self.packageList.append_row((dirName, dirVersion, "1"), TRUE, dirDesc)
+                    self.rownum = self.packageList.append_row((dirName, "1"), TRUE, dirDesc)
 
                 if header.isSelected():
                     self.packageList.set_row_data(self.rownum, (1, dirDesc, header))
@@ -286,11 +253,11 @@ class IndividualPackageSelectionWindow (InstallWindow):
             if self.sortType == "Package":
                 pass
             elif self.sortType == "Size":
-                self.sort_list (args, 3)
+                self.sort_list (args, 2)
             elif self.sortType == "Selected":
                 self.sort_list (args, 0)
 
-            self.packageList.column_titles_active ()            
+            self.packageList.column_titles_active ()
             self.selectAllButton.set_sensitive (TRUE)
             self.unselectAllButton.set_sensitive (TRUE)
             
@@ -303,19 +270,72 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageList.show_all ()
 
     def updateSize(self):
-        self.totalSizeLabel.set_text(_("Total install size: ")+ str(self.todo.comps.sizeStr()))
+        self.totalSizeLabel.set_text(_("Total install size: ")+ str(self.comps.sizeStr()))
 
+    def changePkgView(self, widget):
+        if self.treeRadio.get_active():
+            self.packageList.clear()
+            self.packageList.column_title_active (0)
+            self.packageList.column_title_active (1)
+            self.packageList.column_title_active (2)
+            list = self.sw.children()
+            if list != []:
+                self.sw.remove(self.ctreeAllPkgs)
+                self.sw.add(self.ctree)
+                try:   #If there was already a selected node in the self.ctree, we want to select it again
+                    self.ctree.select(self.pkgTreeNode)
+                except:  #If the self.ctree has no selected nodes, do nothing
+                    pass
+                
+        elif self.flatRadio.get_active():
+            list = self.sw.children()
+            self.packageList.column_titles_passive ()
+            
+            if list != []:
+                self.sw.remove(self.ctree)
+                self.sw.add(self.ctreeAllPkgs)
+                self.ctreeAllPkgs.show()
+
+                self.packageList.clear()
+                self.packageList.freeze()
+                pkgList = self.pkgs.packages.keys()
+                pkgList.sort()
+
+                myList = []
+                for key in pkgList:
+                    header = self.pkgs.packages[key]
+                    name = header[rpm.RPMTAG_NAME]
+                    size = header[rpm.RPMTAG_SIZE]
+                    size = size/1000000
+                    if size > 1:   #We don't want packages with > 1MB to appear as 0 MB in the list
+                        size = 1
+
+                    desc = header[rpm.RPMTAG_DESCRIPTION]
+                    
+                    if header.isSelected():
+                        self.rownum = self.packageList.append_row((name, "%s" %size), TRUE, desc)
+                        self.packageList.set_row_data(self.rownum, (1, desc, header))
+                    else:
+                        self.rownum = self.packageList.append_row((name, "%s" %size), FALSE, desc)
+                        self.packageList.set_row_data(self.rownum, (0, desc, header))
+            self.packageList.thaw()
+            
     # IndividualPackageSelectionWindow tag="sel-indiv"
-    def getScreen (self):
-        threads_leave ()
-        self.todo.getHeaderList()
-        threads_enter ()
+    def getScreen (self, comps, hdList):
+	self.comps = comps
 
+        self.pkgs = hdList
+        
         self.path_mapping = {}
-        self.ctree = GtkCTree ()
+        self.ctree = GtkCTree()
         self.ctree.set_selection_mode (SELECTION_BROWSE)
         self.ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
         self.ctree.set_line_style(CTREE_LINES_NONE)
+
+        self.ctreeAllPkgs = GtkCTree()
+        self.ctreeAllPkgs.set_selection_mode (SELECTION_BROWSE)
+        self.ctreeAllPkgs.set_expander_style(CTREE_EXPANDER_TRIANGLE)
+        self.ctreeAllPkgs.set_line_style(CTREE_LINES_NONE)
 
         # Kludge to get around CTree s extremely broken focus behavior
         # self.ctree.unset_flags (CAN_FOCUS)     
@@ -325,17 +345,20 @@ class IndividualPackageSelectionWindow (InstallWindow):
                                                                  None, xpms_gui.DIRECTORY_OPEN_XPM)
             self.closed_p, self.closed_b = create_pixmap_from_xpm_d (self.ctree,
                                                                      None, xpms_gui.DIRECTORY_CLOSE_XPM)
+            
+        node = self.ctreeAllPkgs.insert_node (None, None, (_("All Packages"),), 2,
+                                       self.closed_p, self.closed_b, self.open_p, self.open_b, TRUE, FALSE)
 
         groups = {}
 
         # go through all the headers and grok out the group names, placing
         # packages in lists in the groups dictionary.        
-        for key in self.todo.hdList.packages.keys():
-            header = self.todo.hdList.packages[key]
+        for key in hdList.packages.keys():
+            header = hdList.packages[key]
             if not groups.has_key (header[rpm.RPMTAG_GROUP]):
                 groups[header[rpm.RPMTAG_GROUP]] = []
             # don't display package if it is in the Base group
-            if not self.todo.comps["Base"].includesPackage (header):
+            if not comps["Base"].includesPackage (header):
                 groups[header[rpm.RPMTAG_GROUP]].append (header)
 
         keys = groups.keys ()
@@ -367,35 +390,43 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.ctree.thaw ()
 
         self.ctree.connect ("tree_select_row", self.select)
-        sw = GtkScrolledWindow ()
-        sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
+        self.sw = GtkScrolledWindow ()
+        self.sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
 
         # Set the style for the tree
         self.ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
         self.ctree.set_line_style(CTREE_LINES_NONE)
 
-        sw.add (self.ctree)
-        packageHBox = GtkHBox ()
-        packageHBox.pack_start (sw, FALSE)
+        self.sw.add(self.ctree)
+        packageHBox = GtkHBox()
 
-        self.packageList = checklist.CheckList(3)
+        self.leftVBox = GtkVBox(FALSE)
+        optionHBox = GtkHBox()
+
+        self.treeRadio = GtkRadioButton(None, (_("Tree View")))
+        self.treeRadio.connect("clicked", self.changePkgView)
+        self.flatRadio = GtkRadioButton(self.treeRadio, (_("Flat View")))
+
+        optionHBox.pack_start(self.treeRadio)
+        optionHBox.pack_start(self.flatRadio)
+        
+        self.leftVBox.pack_start(optionHBox, FALSE)
+        self.leftVBox.pack_start(self.sw, TRUE)
+        packageHBox.pack_start(self.leftVBox, FALSE)
+
+        self.packageList = checklist.CheckList(2)
 
         self.sortType = "Package"
         self.packageList.set_column_title (1, (_("Package")))
         self.packageList.set_column_auto_resize (1, TRUE)
-
-        self.packageList.set_column_title (2, (_("Version")))
+        self.packageList.set_column_title (2, (_("Size (MB)")))
         self.packageList.set_column_auto_resize (2, TRUE)
-
-        self.packageList.set_column_title (3, (_("Size (MB)")))
-        self.packageList.set_column_auto_resize (3, TRUE)
         self.packageList.column_titles_show ()
 
         self.packageList.set_column_min_width(0, 16)
         self.packageList.column_title_active (0)
         self.packageList.column_title_active (1)
         self.packageList.column_title_active (2)
-        self.packageList.column_title_active (3)
         self.packageList.connect ('click-column', self.sort_list)
         self.packageList.connect ('button_press_event', self.button_press)
         self.packageList.connect ("key_press_event", self.key_press_cb)
@@ -424,12 +455,12 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         self.selectAllButton = GtkButton (_("Select all in group"))
         bb.pack_start (self.selectAllButton, FALSE)
-        self.selectAllButton.connect ('clicked', self.select_all)
+        self.selectAllButton.connect ('clicked', self.select_all, 1)
 
         self.unselectAllButton = GtkButton(_("Unselect all in group"))
         bb.pack_start(self.unselectAllButton, FALSE)
-        self.unselectAllButton.connect ('clicked', self.unselect_all)        
-
+        self.unselectAllButton.connect ('clicked', self.select_all, 0)
+        
         hbox.pack_start (bb)
 
         self.selectAllButton.set_sensitive (FALSE)
@@ -458,73 +489,30 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         return vbox
 
-
-class ErrorWindow:
-    def __init__ (self, text):
-        win = GnomeDialog (_("File not found"))
-        win.connect ("clicked", self.exit)
-
-        info = GtkLabel (text)
-        info.set_line_wrap (TRUE)
-
-        hbox = GtkHBox (FALSE)
-        hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-warning.png'), FALSE)
-        hbox.pack_start (info)
-
-        win.append_button (_("Ok"))
-        win.button_connect (0 , self.exit)
-
-        win.vbox.pack_start (hbox, FALSE)
-
-        win.set_usize (450, 180)
-        win.set_position (WIN_POS_CENTER)
-        win.show_all ()
-        self.window = win
-        
-        thread = currentThread ()
-        if thread.getName () == "gtk_main":
-            self.mutex = None
-            self.rc = self.window.run ()
-            threads_leave()
-        else:
-            threads_leave ()
-            self.mutex = Event ()
-            self.mutex.wait ()
-        
-    def exit (self, args):
-        os._exit(0)
-
 class PackageSelectionWindow (InstallWindow):
+    windowTitle = N_("Package Group Selection")
+    htmlTag = "sel-group"
+
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle (_("Package Group Selection"))
         ics.setNextEnabled (1)
-        ics.readHTML ("sel-group")
-        self.selectIndividualPackages = FALSE
-
         self.files_found = "FALSE"
         
     def getPrev (self):
-	self.todo.comps.setSelectionState(self.origSelection)
+	self.comps.setSelectionState(self.origSelection)
 
     def getNext (self):
-	if not self.__dict__.has_key ("individualPackages"):
-	    return None
-
-        gotoIndividualPackages = self.individualPackages.get_active ()
-        del self.individualPackages
-        
-        if gotoIndividualPackages:
-            self.selectIndividualPackages = TRUE
-            return IndividualPackageSelectionWindow
-        else:
-            self.selectIndividualPackages = FALSE
-          
+	if self.individualPackages.get_active():
+	    self.dispatch.skipStep("indivpackage", skip = 0)
+	else:
+	    self.dispatch.skipStep("indivpackage")
+	    
         return None
 
     def setSize(self):
-        self.sizelabel.set_text (_("Total install size: %s") % self.todo.comps.sizeStr())
+        self.sizelabel.set_text (_("Total install size: %s") % 
+					self.comps.sizeStr())
 
     def componentToggled(self, widget, comp):
         # turn on all the comps we selected
@@ -535,39 +523,12 @@ class PackageSelectionWindow (InstallWindow):
 
 	self.setSize()
 
-    def getScreen (self):
-        #--If we can't retreive hdlist or comps files, raise an error
-        try:
-	    threads_leave ()
-	    self.todo.getHeaderList ()
-	    self.todo.getCompsList()
-	    threads_enter ()
-            self.files_found = "TRUE"
-        except ValueError, msg:
-            extra = msg
-        except RuntimeError, msg:
-            extra = msg
-        except TypeError, msg:
-            extra = msg
-        except KeyError, key:
-            extra = (_("The comps file references a package called \"%s\" which "
-                     "could not be found." % (key,)))
-        except:
-            extra = ""
+    def getScreen(self, comps, dispatch):
+    # PackageSelectionWindow tag="sel-group"
+	self.comps = comps
+	self.dispatch = dispatch
 
-        if self.files_found == "FALSE":
-            if extra:
-                text = (_("The following error occurred while "
-                          "retreiving hdlist file:\n\n"
-                          "%s\n\n"
-                          "Installer will exit now.") % extra)
-            else:
-                text = (_("An error has occurred while retreiving the hdlist "
-                          "file.  The installation media or image is "
-                          "probably corrupt.  Installer will exit now."))
-            win = ErrorWindow (text)
-        else:
-            self.origSelection = self.todo.comps.getSelectionState()
+	self.origSelection = self.comps.getSelectionState()
             
         sw = GtkScrolledWindow ()
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
@@ -575,21 +536,8 @@ class PackageSelectionWindow (InstallWindow):
         box = GtkVBox (FALSE, 2)
 
         self.checkButtons = []
-        klass = self.todo.getClass ()
-	showList = klass.getOptionalGroups()
-        for comp in self.todo.comps:
-            show = 0
-            if showList:
-                try:
-                    if klass.findOptionalGroup (comp.name):
-			show = 1
-                except ValueError:
-                    # comp not in show list
-                    pass
-            else:
-                show = not comp.hidden
-
-            if show:
+        for comp in self.comps:
+            if not comp.hidden:
                 pixname = string.replace (comp.name, ' ', '-')
                 pixname = string.replace (pixname, '/', '-')
                 pixname = string.replace (pixname, '.', '-')
@@ -628,8 +576,10 @@ class PackageSelectionWindow (InstallWindow):
 
         hbox = GtkHBox (FALSE, 5)
 
-        self.individualPackages = GtkCheckButton (_("Select individual packages"))
-        self.individualPackages.set_active (self.selectIndividualPackages)
+        self.individualPackages = GtkCheckButton (
+		_("Select individual packages"))
+        self.individualPackages.set_active (
+		not dispatch.stepInSkipList("indivpackage"))
         hbox.pack_start (self.individualPackages, FALSE)
 
         self.sizelabel = GtkLabel ("")
@@ -642,3 +592,4 @@ class PackageSelectionWindow (InstallWindow):
         vbox.set_border_width (5)
 
         return vbox
+
