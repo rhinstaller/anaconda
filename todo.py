@@ -236,10 +236,6 @@ class Authentication:
         self.useBroadcast = 1
         self.server = ""
 
-class Drives:
-    def available (self):
-        return isys.hardDriveList ()
-
 class InstSyslog:
     def __init__ (self, root, log):
         self.pid = os.fork ()
@@ -283,7 +279,6 @@ class ToDo:
         self.auth = Authentication ()
         self.desktop = Desktop ()
         self.ddruidReadOnly = 0
-        self.drives = Drives ()
         self.badBlockCheck = 0
         self.bootdisk = 0
 	self.liloImages = {}
@@ -816,7 +811,7 @@ class ToDo:
         win = self.intf.waitWindow (_("Searching"),
                                     _("Searching for Red Hat Linux installations..."))
         
-        drives = self.drives.available ().keys ()
+        drives = self.fstab.driveList()
 	mdList = raid.startAllRaid(drives)
 
 	for dev in mdList:
