@@ -1182,6 +1182,10 @@ class KickstartBase(BaseInstallClass):
     # Note that this assumes setGroupSelection() is called after
     # setPackageSelection()
     def setPackageSelection(self, hdlist, intf):
+        for h in hdlist.pkgs.values():
+            self.usecount = 0
+            self.manual_state = 0
+            
 	for n in self.packageList:
             if hdlist.has_key(n):
                 hdlist[n].select()
@@ -1204,7 +1208,7 @@ class KickstartBase(BaseInstallClass):
                                 
 
     def setGroupSelection(self, grpset, intf):
-        grpset.unselectAll()
+        grpset.unselectAll(unselectPkgs = 0)
 
 	grpset.selectGroup("base")
 	for n in self.groupList:
