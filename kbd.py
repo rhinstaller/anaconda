@@ -6,49 +6,49 @@ from log import log
 class Keyboard (SimpleConfigFile):
     # the *first* item in each of these wins conflicts
     console2xlist = [
-            ("be-latin1"         , ('pc102', 'be')),
-            ("be2-latin1"        , ('pc102', 'be')),
-            ("bg"                , ('pc102', 'bg')),
-            ("cf"                , ('pc102', 'cf')),
-            ("cz-lat2"           , ('pc102', 'cs')),
-            ("cz-lat2-prog"      , ('pc102', 'cs')),
-            ("de-latin1"         , ('pc102', 'de')),
-            ("de"                , ('pc102', 'de')),
-            ("de-latin1-nodeadkeys" , ('pc102', 'de')),
-            ("dvorak"            , ('pc105', 'dvorak')),
-            ("dk"                , ('pc102', 'dk')),
-            ("dk-latin1"         , ('pc102', 'dk')),
-            ("es"                , ('pc102', 'es')),
-            ("fi"                , ('pc102', 'fi')),
-            ("fi-latin1"         , ('pc102', 'fi')),
-            ("fr"                , ('pc102', 'fr')),
-            ("fr-latin0"         , ('pc102', 'fr')),
-            ("fr-latin1"         , ('pc102', 'fr')),
-            ("fr-pc"             , ('pc102', 'fr')),
-            ("fr_CH"             , ('pc102', 'fr_CH')),
-            ("fr_CH-latin1"      , ('pc102', 'fr_CH')),
-            ("hu"                , ('pc102', 'hu')),
-            ("hu101"             , ('pc102', 'hu')),
-            ("is-latin1"         , ('pc102', 'is')),
-            ("it"                , ('pc102', 'it')),
-            ("it-ibm"            , ('pc101', 'it')),
-            ("it2"               , ('pc102', 'it')),
-            ("jp106"             , ('jp106', 'jp')),
-            ("no-latin1"         , ('pc102', 'no')),
-            ("no"                , ('pc102', 'no')),
-            ("pl"                , ('pc102', 'pl')),
-            ("pt-latin1"         , ('pc102', 'pt')),
-            ("ru"                , ('pc102', 'ru')),
-            ("ru-cp1251"         , ('pc102', 'ru')),
-            ("ru-ms"             , ('microsoft', 'ru')),
-            ("ru1"               , ('pc102', 'ru')),
-            ("ru2"               , ('pc102', 'ru')),
-            ("ru_win"            , ('pc105', 'ru')),
-            ("se-latin1"         , ('pc102', 'se')),
-            ("sk-qwerty"         , ('pc102', 'us_sk_qwerty')),
-            ("uk"                , ('pc101', 'gb')),
-            ("us"                , ('pc105', 'us')),
-            ("ua"                , ('pc102', 'ua')),
+            ("be-latin1"         , ('pc102', 'be', '')),
+            ("be2-latin1"        , ('pc102', 'be', '')),
+            ("bg"                , ('pc102', 'bg', '')),
+            ("cf"                , ('pc102', 'cf', '')),
+            ("cz-lat2"           , ('pc102', 'cs', '')),
+            ("cz-lat2-prog"      , ('pc102', 'cs', '')),
+            ("de-latin1"         , ('pc102', 'de', '')),
+            ("de"                , ('pc102', 'de', '')),
+            ("de-latin1-nodeadkeys" , ('pc102', 'de', 'nodeadkeys')),
+            ("dvorak"            , ('pc105', 'dvorak', '')),
+            ("dk"                , ('pc102', 'dk', '')),
+            ("dk-latin1"         , ('pc102', 'dk', '')),
+            ("es"                , ('pc102', 'es', '')),
+            ("fi"                , ('pc102', 'fi', '')),
+            ("fi-latin1"         , ('pc102', 'fi', '')),
+            ("fr"                , ('pc102', 'fr', '')),
+            ("fr-latin0"         , ('pc102', 'fr', '')),
+            ("fr-latin1"         , ('pc102', 'fr', '')),
+            ("fr-pc"             , ('pc102', 'fr', '')),
+            ("fr_CH"             , ('pc102', 'fr_CH', '')),
+            ("fr_CH-latin1"      , ('pc102', 'fr_CH', '')),
+            ("hu"                , ('pc102', 'hu', '')),
+            ("hu101"             , ('pc102', 'hu', '')),
+            ("is-latin1"         , ('pc102', 'is', '')),
+            ("it"                , ('pc102', 'it', '')),
+            ("it-ibm"            , ('pc101', 'it', '')),
+            ("it2"               , ('pc102', 'it', '')),
+            ("jp106"             , ('jp106', 'jp', '')),
+            ("no-latin1"         , ('pc102', 'no', '')),
+            ("no"                , ('pc102', 'no', '')),
+            ("pl"                , ('pc102', 'pl', '')),
+            ("pt-latin1"         , ('pc102', 'pt', '')),
+            ("ru"                , ('pc102', 'ru', '')),
+            ("ru-cp1251"         , ('pc102', 'ru', '')),
+            ("ru-ms"             , ('microsoft', 'ru', '')),
+            ("ru1"               , ('pc102', 'ru', '')),
+            ("ru2"               , ('pc102', 'ru', '')),
+            ("ru_win"            , ('pc105', 'ru', '')),
+            ("se-latin1"         , ('pc102', 'se', '')),
+            ("sk-qwerty"         , ('pc102', 'us_sk_qwerty', '')),
+            ("uk"                , ('pc101', 'gb', '')),
+            ("us"                , ('pc105', 'us', '')),
+            ("ua"                , ('pc102', 'ua', '')),
             ]
 
     console2xsun = {
@@ -67,13 +67,14 @@ class Keyboard (SimpleConfigFile):
 
 
     console2x = {}
-    for (console, (map, layout)) in console2xlist:
-	console2x[console] = (map, layout)
+    for (console, (map, layout, variant)) in console2xlist:
+	console2x[console] = (map, layout, variant)
 
     x2console = {}
-    for (console, (map, layout)) in console2xlist:
-	if not x2console.has_key((map, layout)):
-	    x2console [(map, layout)] = console
+    for (console, (map, layout, variant)) in console2xlist:
+        
+	if not x2console.has_key((map, layout, variant)):
+	    x2console [(map, layout, variant)] = console
 
     xsun2console = {}
     for (key, value) in console2xsun.items():
@@ -236,19 +237,21 @@ class Keyboard (SimpleConfigFile):
             mapping = Keyboard.x2console
         else:
             mapping = Keyboard.xsun2console
-            
+
         keys = mapping.keys ()
+#        print keys
 
         fuzzy = None
         for key in keys:
+#            print "key is = ", key
             if type(key) == type(()):
-                (mod, lay) = key
-#                print "Inside if", mod, lay
+                (mod, lay, variant) = key
+#                print "Inside if", mod, lay, variant
 
             else:
                 mod = model
                 lay = key;
-#                print "Inside else", mod, lay
+#                print "Inside else", mod, lay, variant
             if model == mod and layout == lay:
                 #--Check to see if keyboard is German and has deadkeys disabled
                 
@@ -285,8 +288,9 @@ class Keyboard (SimpleConfigFile):
     def getXKB (self):
 	if self.type == "PC":
 	    if Keyboard.console2x.has_key (self.get ()):
-		(model, keylayout) = Keyboard.console2x[self.get ()]
-		return ("xfree86", model, keylayout, "", "")
+		(model, keylayout, variant) = Keyboard.console2x[self.get ()]
+#                print "xfree86", model, keylayout, variant, ""
+		return ("xfree86", model, keylayout, variant, "")
 	else:
 	    if Keyboard.console2xsun.has_key (self.get ()):
 		keylayout = Keyboard.console2xsun[self.get ()]
