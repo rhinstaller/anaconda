@@ -289,7 +289,7 @@ EndSection
         child = os.fork()
         if (not child):
             os.environ["DISPLAY"] = ":9"
-            os.execv("/usr/X11R6/bin/Xtest", ["Xtest", "--nostart"])
+            os.execv("/usr/X11R6/bin/Xtest", ["Xtest", "--nostart", "--noinitlevel"])
         else:
             pid, status = os.waitpid(child, 0)
             os.kill (server, 15)
@@ -764,28 +764,29 @@ Section "Screen"
     EndSubsection
 EndSection
 """ % info
-        for driver in [ "svga", "accel" ]:
-            info["DRIVER"] = driver
-            section = section + """
+        if self.devID:
+            for driver in [ "svga", "accel" ]:
+                info["DRIVER"] = driver
+                section = section + """
 # The %(DRIVER)s server
 Section "Screen"
     Driver      "%(DRIVER)s"
     Device      "%(DEVICE)s"
     Monitor     "%(MONITOR)s"
 """ % info
-            for depth in self.modes.keys ():
-		if not self.modes[depth]: continue
-                section = section + """
+                for depth in self.modes.keys ():
+                    if not self.modes[depth]: continue
+                    section = section + """
     Subsection "Display"
         Depth       %s
         Modes       """ % depth
-                for res in self.modes[depth]:
-                    section = section + '"' + res + '" '
-                section = section + """
+                    for res in self.modes[depth]:
+                        section = section + '"' + res + '" '
+                    section = section + """
         ViewPort    0 0
     EndSubsection
 """
-            section = section + "EndSection\n"
+                section = section + "EndSection\n"
         return section
 
 if __name__ == "__main__":
