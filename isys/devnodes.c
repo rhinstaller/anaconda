@@ -205,27 +205,27 @@ int devMakeInode(char * devName, char * path) {
 #endif
     } else if (!strncmp(devName, "rd/", 3)) {
 	/* dac 960 "/rd/c0d0{p1}" */
-	int c, d, p;
+	int c, d, p, e;
 	c = d = p = 0;
-	sscanf(devName + 3, "c%dd%dp%d", &c, &d, &p);
+	e = sscanf(devName + 3, "c%dd%dp%d", &c, &d, &p);
 	type = S_IFBLK;
 	major = 48 + c;     /* controller */
 	minor = d * 8;      /* disk */
 	minor += p; 	    /* partition */
     } else if (!strncmp(devName, "ida/", 4)) {
 	/* Compaq Smart Array "ida/c0d0{p1} */
-	int c, d, p;
+	int c, d, p, e;
 	c = d = p = 0;
-	sscanf(devName + 4, "c%dd%dp%d", &c, &d, &p);
+	e = sscanf(devName + 4, "c%dd%dp%d", &c, &d, &p);
 	type = S_IFBLK;
 	major = 72 + c;     /* controller */
 	minor = d * 16;     /* disk */
 	minor += p; 	    /* partition */
     } else if (!strncmp(devName, "cciss/", 6)) {
 	/* Compaq Smart Array 5300 "cciss/c0d0{p1} */
-	int c, d, p;
+	int c, d, p, e;
 	c = d = p = 0;
-	sscanf(devName + 6, "c%dd%dp%d", &c, &d, &p);
+	e = sscanf(devName + 6, "c%dd%dp%d", &c, &d, &p);
 	type = S_IFBLK;
 	major = 104 + c;    /* controller */
 	minor = d * 16;     /* disk */
@@ -238,9 +238,9 @@ int devMakeInode(char * devName, char * path) {
 	    minor += atoi(devName + 11);
     } else if (!strncmp(devName, "sx8/", 4)) {
 	/* Promise SX8 "sx8/0{p1} */
-	int d, p;
+	int d, p, e;
 	d = p = 0;
-	sscanf(devName + 4, "%dp%d", &d, &p);
+	e = sscanf(devName + 4, "%dp%d", &d, &p);
 	type = S_IFBLK;
 	major = 160 + (d/8);    /* controller */
 	minor = (d % 8) * 32;     /* disk */
