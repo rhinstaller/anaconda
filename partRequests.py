@@ -200,12 +200,13 @@ class RequestSpec:
 
     def doMountPointLinuxFSChecks(self):
         """Return an error string if the mountpoint is not valid for Linux FS."""
-        mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root',
-                        '/mnt', 'lost+found', '/proc']
-        mustbeonlinuxfs = ['/', '/boot', '/var', '/tmp', '/usr', '/home']
+        mustbeonroot = ('/bin','/dev','/sbin','/etc','/lib','/root',
+                        '/mnt', 'lost+found', '/proc')
+        mustbeonlinuxfs = ('/', '/boot', '/var', '/tmp', '/usr', '/home',
+                           '/usr/share', '/usr/lib' )
 
 	# these are symlinks so you cant make them mount points
-	otherexcept = ['/var/mail', '/usr/bin/X11', '/usr/lib/X11', '/usr/tmp']
+	otherexcept = ('/var/mail', '/usr/bin/X11', '/usr/lib/X11', '/usr/tmp')
 
         if not self.mountpoint:
             return None
