@@ -43,7 +43,7 @@ class ImageInstallMethod(InstallMethod):
 
     def getFilename(self, h, timer):
         if self.currentIso is not None and self.currentIso != h[1000002]:
-            log("switching from iso %s to %s" %(self.currentIso, h[1000002]))
+            log("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentIso, h[1000002], h['name'], h['version'], h['release'], h['arch']))
         self.currentIso = h[1000002]
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
 
@@ -135,7 +135,7 @@ class CdromInstallMethod(ImageInstallMethod):
                  "on the current CD", h[1000000])
         elif h[1000002] not in self.currentDisc:
 	    timer.stop()
-            log("switching from iso %s to %s" %(self.currentDisc, h[1000002]))
+            log("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentDisc, h[1000002], h['name'], h['version'], h['release'], h['arch']))
 
             if os.access("/mnt/source/.discinfo", os.R_OK):
                 f = open("/mnt/source/.discinfo")
@@ -420,7 +420,7 @@ def findIsoImages(path, messageWindow):
 class NfsIsoInstallMethod(NfsInstallMethod):
     def getFilename(self, h, timer):
 	if self.imageMounted != h[1000002]:
-            log("switching from iso %s to %s" %(self.imageMounted, h[1000002]))
+            log("switching from iso %s to %s for %s-%s-%s.%s" %(self.imageMounted, h[1000002], h['name'], h['version'], h['release'], h['arch']))
 	    self.umountImage()
 	    self.mountImage(h[1000002])
 
