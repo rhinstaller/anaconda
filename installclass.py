@@ -172,6 +172,16 @@ class BaseInstallClass:
     def getOptionalGroups(self):
 	return self.showgroups
 
+    def findOptionalGroup(self, needle):
+	for g in self.showgroups:
+	    name = g
+	    if type((1,)) == type(g):
+		(on, name) = g
+	    if name == needle:
+		return g
+
+	return None
+
     # This is a list of packages -- it is combined with the group list
     def setPackages(self, packages):
         hash = {}
