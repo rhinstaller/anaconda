@@ -226,7 +226,7 @@ def handleException(dispatch, intf, (type, value, tb)):
 
         # write out any syslog information as well
         try:
-            iutil.copyFile("/tmp/syslog", "/tmp/crash")
+            iutil.copyFile("/tmp/syslog", "/tmp/crash/syslog")
         except:
             pass
         
