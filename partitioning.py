@@ -1203,7 +1203,12 @@ class DiskSet:
         self.disks = {}
 
     def startAllRaid(self):
-        DiskSet.mdList.extend(raid.startAllRaid(self.driveList()))
+        driveList = []
+        origDriveList = self.driveList()
+        for drive in origDriveList:
+            if not drive in DiskSet.skippedDisks:
+                driveList.append(drive)
+        DiskSet.mdList.extend(raid.startAllRaid(driveList))
 
     def stopAllRaid(self):
         raid.stopAllRaid(DiskSet.mdList)
