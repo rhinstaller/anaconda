@@ -1,5 +1,8 @@
 2004-11-04  Jeremy Katz  <katzj@redhat.com>
 
+	* partitions.py (Partitions.writeKS): Have to have sizes as
+	integers (#138109)
+
 	* loader2/modules.c (lateModuleSort): Implement an additional sort
 	to move drivers to the end of our list of drivers to load.  This
 	is handy for, eg, fibre channel so that it doesn't end up at the

@@ -993,7 +993,7 @@ class Partitions:
             # we have a billion ways to specify new partitions
             elif request.type == REQUEST_NEW:
                 if request.size:
-                    args.append("--size=%s" % (request.size))
+                    args.append("--size=%s" % (int(request.size),))
                 if request.size == 0:
                     args.append("--size=0")
                 if request.grow:
@@ -1119,7 +1119,7 @@ class Partitions:
 
 	    if request.grow:
 		if request.startSize is not None:
-		    args.append("--size=%s" % (request.startSize,))
+		    args.append("--size=%s" % (int(request.startSize),))
 		else:
 		    # shouldnt happen
 		    continue
@@ -1131,7 +1131,7 @@ class Partitions:
 		if request.percent is not None:
 		    args.append("--percent=%s" %(request.percent,))
 		elif request.size is not None:
-		    args.append("--size=%s" %(request.size,))
+		    args.append("--size=%s" %(int(request.size),))
 		else:
 		    continue
             
