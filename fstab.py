@@ -52,7 +52,7 @@ class Fstab:
 
 	(drives, raid) = self.partitionList()
         for (drive, part, type, start, cyl, size, preexisting) in drives:
-	    if preexisting:
+	    if preexisting and isValidExt2(drive):
 		alreadyExists[part] = 1
 
 	badList = []
