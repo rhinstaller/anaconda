@@ -534,7 +534,7 @@ class DiskSet:
     def savePartitions (self):
         """Write the partition tables out to the disks."""
         for disk in self.disks.values():
-            disk.write()
+            disk.commit()
             #disk.close()
             del disk
         self.refreshDevices()
