@@ -20,15 +20,8 @@ import os
 class WelcomeWindow:
     def __call__(self, screen, configFileData):
         rc = ButtonChoiceWindow(screen, _("%s") % (productName,), 
-                                _("Welcome to %s!\n\n"
-                                  "This installation process is outlined in detail in the "
-                                  "Official %s Installation Guide available from "
-                                  "Red Hat, Inc. If you have access to this manual, you "
-                                  "should read the installation section before continuing.\n\n"
-                                  "If you have purchased Official %s, be sure to "
-                                  "register your purchase through our web site, "
-                                  "http://www.redhat.com/.")
-                                % (productName, productName, productName),
+                                _("Welcome to %s!\n\n")
+                                % (productName, ),
                                 buttons = [TEXT_OK_BUTTON, TEXT_BACK_BUTTON], width = 50,
 				help = "welcome")
 
