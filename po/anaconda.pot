@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-08-13 10:39-0400\n"
+"POT-Creation-Date: 2001-08-14 14:10-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -164,10 +164,10 @@ msgstr ""
 
 #: ../autopart.py:945 ../harddrive.py:233 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1275
-#: ../iw/partition_gui.py:1598 ../iw/upgrade_swap_gui.py:171
+#: ../iw/partition_gui.py:1600 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:694 ../partitioning.py:1401
-#: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:424
+#: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:426
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
 #: ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
 msgid "Warning"
@@ -224,11 +224,11 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../bootloader.py:682
+#: ../bootloader.py:710
 msgid "Bootloader"
 msgstr ""
 
-#: ../bootloader.py:682
+#: ../bootloader.py:710
 msgid "Installing bootloader..."
 msgstr ""
 
@@ -254,9 +254,9 @@ msgid ""
 "will now be reset."
 msgstr ""
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:358 ../fsset.py:764
-#: ../fsset.py:783 ../fsset.py:828 ../fsset.py:848 ../fsset.py:882
-#: ../fsset.py:925 ../harddrive.py:171 ../image.py:65 ../image.py:142
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:359 ../fsset.py:765
+#: ../fsset.py:784 ../fsset.py:829 ../fsset.py:849 ../fsset.py:883
+#: ../fsset.py:926 ../harddrive.py:171 ../image.py:65 ../image.py:142
 #: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:27
 #: ../loader/lang.c:102 ../loader/loader.c:478 ../loader/loader.c:535
@@ -287,16 +287,16 @@ msgstr ""
 msgid "Creating boot disk..."
 msgstr ""
 
-#: ../fsset.py:144
+#: ../fsset.py:145
 msgid "Checking for Bad Blocks"
 msgstr ""
 
-#: ../fsset.py:145
+#: ../fsset.py:146
 #, c-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr ""
 
-#: ../fsset.py:359
+#: ../fsset.py:360
 #, c-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -305,15 +305,15 @@ msgid ""
 "Would you like to continue without migrating %s?"
 msgstr ""
 
-#: ../fsset.py:705 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:706 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: ../fsset.py:706 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:707 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr ""
 
-#: ../fsset.py:765
+#: ../fsset.py:766
 #, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -322,7 +322,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:784
+#: ../fsset.py:785
 #, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -332,7 +332,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:829
+#: ../fsset.py:830
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -341,7 +341,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:849
+#: ../fsset.py:850
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -350,7 +350,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:883
+#: ../fsset.py:884
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -359,11 +359,11 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:903 ../fsset.py:912
+#: ../fsset.py:904 ../fsset.py:913
 msgid "Invalid mount point"
 msgstr ""
 
-#: ../fsset.py:904
+#: ../fsset.py:905
 #, c-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -372,7 +372,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:913
+#: ../fsset.py:914
 #, c-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -381,7 +381,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:926
+#: ../fsset.py:927
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -391,11 +391,11 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1466
+#: ../fsset.py:1465
 msgid "Formatting"
 msgstr ""
 
-#: ../fsset.py:1467
+#: ../fsset.py:1466
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr ""
@@ -559,7 +559,7 @@ msgstr ""
 msgid "The CDROM could not be mounted."
 msgstr ""
 
-#: ../installclass.py:27
+#: ../installclass.py:28
 msgid "Install"
 msgstr ""
 
@@ -650,7 +650,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1535 ../iw/upgrade_swap_gui.py:123
+#: ../iw/partition_gui.py:1537 ../iw/upgrade_swap_gui.py:123
 #: ../packages.py:581 ../packages.py:601 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr ""
@@ -920,45 +920,54 @@ msgid ""
 "contains %s"
 msgstr ""
 
-#: ../partitioning.py:1716 ../partitioning.py:1721
+#: ../partitioning.py:1716
 msgid "Unable to Edit"
 msgstr ""
 
 #: ../partitioning.py:1717
-msgid "You cannot edit this partition, as it is in use by the installer."
-msgstr ""
-
-#: ../partitioning.py:1722
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr ""
 
-#: ../partitioning.py:1734
+#: ../partitioning.py:1729
 msgid "Installation cannot continue."
 msgstr ""
 
-#: ../partitioning.py:1735
+#: ../partitioning.py:1730
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
 
-#: ../partitioning.py:1755
+#: ../partitioning.py:1750
 msgid "Low Memory"
 msgstr ""
 
-#: ../partitioning.py:1756
+#: ../partitioning.py:1751
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
 
-#: ../partitioning.py:1768 ../partitioning.py:1786
+#: ../partitioning.py:1769
+msgid "Format as Swap?"
+msgstr ""
+
+#: ../partitioning.py:1770
+#, c-format
+msgid ""
+"/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
+"formatted as a Linux swap partition.\n"
+"\n"
+"Would you like to format this partition as a swap partition?"
+msgstr ""
+
+#: ../partitioning.py:1789 ../partitioning.py:1807
 msgid "Format?"
 msgstr ""
 
-#: ../partitioning.py:1769
+#: ../partitioning.py:1790
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -966,7 +975,7 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../partitioning.py:1777
+#: ../partitioning.py:1798
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -977,11 +986,11 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../partitioning.py:1793
+#: ../partitioning.py:1814
 msgid "Error with Partitioning"
 msgstr ""
 
-#: ../partitioning.py:1794
+#: ../partitioning.py:1815
 #, c-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -991,11 +1000,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../partitioning.py:1807
+#: ../partitioning.py:1828
 msgid "Partitioning Warning"
 msgstr ""
 
-#: ../partitioning.py:1808
+#: ../partitioning.py:1829
 #, c-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1005,19 +1014,19 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../iw/partition_gui.py:576 ../partitioning.py:1820
+#: ../iw/partition_gui.py:576 ../partitioning.py:1841
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
 
-#: ../iw/partition_gui.py:579 ../partitioning.py:1823
+#: ../iw/partition_gui.py:579 ../partitioning.py:1844
 msgid ""
 "Selected 'Yes' to continue and format these partitions, or 'No' to go back "
 "and change these settings."
 msgstr ""
 
-#: ../partitioning.py:1829
+#: ../partitioning.py:1850
 msgid "Format Warning"
 msgstr ""
 
@@ -1311,7 +1320,7 @@ msgid "Password:"
 msgstr ""
 
 #: ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
-#: ../textw/bootloader_text.py:385
+#: ../textw/bootloader_text.py:387
 msgid "Confirm:"
 msgstr ""
 
@@ -1345,13 +1354,13 @@ msgid "Add"
 msgstr ""
 
 #: ../iw/account_gui.py:332 ../textw/bootloader_text.py:274
-#: ../textw/fdisk_text.py:41 ../textw/partition_text.py:976
+#: ../textw/fdisk_text.py:41 ../textw/partition_text.py:983
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
 msgid "Edit"
 msgstr ""
 
-#: ../iw/account_gui.py:335 ../textw/partition_text.py:976
+#: ../iw/account_gui.py:335 ../textw/partition_text.py:983
 #: ../textw/userauth_text.py:218
 msgid "Delete"
 msgstr ""
@@ -1478,7 +1487,7 @@ msgstr ""
 
 #: ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 #: ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
-#: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:367
+#: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:369
 msgid "Boot Loader Configuration"
 msgstr ""
 
@@ -1498,7 +1507,7 @@ msgid "Partition"
 msgstr ""
 
 #: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:433
-#: ../iw/partition_gui.py:1535 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../iw/partition_gui.py:1537 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 msgid "Type"
 msgstr ""
 
@@ -1530,7 +1539,7 @@ msgid "Default"
 msgstr ""
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
-#: ../iw/partition_gui.py:1534 ../iw/silo_gui.py:263
+#: ../iw/partition_gui.py:1536 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:259
 #: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 #: ../textw/silo_text.py:207
@@ -1569,7 +1578,7 @@ msgstr ""
 msgid "Boot Loader Password Configuration"
 msgstr ""
 
-#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:425
+#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:427
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -1589,7 +1598,7 @@ msgstr ""
 msgid "Passwords do not match."
 msgstr ""
 
-#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:362
+#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:364
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -1954,7 +1963,7 @@ msgstr ""
 msgid "Flat View"
 msgstr ""
 
-#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1535
+#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1537
 msgid "Size (MB)"
 msgstr ""
 
@@ -2141,8 +2150,8 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1161 ../iw/partition_gui.py:1170
 #: ../iw/partition_gui.py:1208 ../iw/partition_gui.py:1470
-#: ../textw/partition_text.py:749 ../textw/partition_text.py:766
-#: ../textw/partition_text.py:891
+#: ../textw/partition_text.py:749 ../textw/partition_text.py:771
+#: ../textw/partition_text.py:896
 msgid "Error With Request"
 msgstr ""
 
@@ -2164,11 +2173,11 @@ msgstr ""
 msgid "Warning: %s."
 msgstr ""
 
-#: ../iw/partition_gui.py:1315 ../textw/partition_text.py:796
+#: ../iw/partition_gui.py:1315 ../textw/partition_text.py:801
 msgid "Make RAID Device"
 msgstr ""
 
-#: ../iw/partition_gui.py:1333 ../textw/partition_text.py:820
+#: ../iw/partition_gui.py:1333 ../textw/partition_text.py:825
 msgid "At least two software RAID partitions are needed."
 msgstr ""
 
@@ -2188,60 +2197,60 @@ msgstr ""
 msgid "Number of spares:"
 msgstr ""
 
-#: ../iw/partition_gui.py:1412 ../textw/partition_text.py:832
+#: ../iw/partition_gui.py:1412 ../textw/partition_text.py:837
 msgid "Format partition?"
 msgstr ""
 
-#: ../iw/partition_gui.py:1515
+#: ../iw/partition_gui.py:1517
 msgid "_New"
 msgstr ""
 
-#: ../iw/partition_gui.py:1516
+#: ../iw/partition_gui.py:1518
 msgid "_Edit"
 msgstr ""
 
-#: ../iw/partition_gui.py:1517
+#: ../iw/partition_gui.py:1519
 msgid "_Delete"
 msgstr ""
 
-#: ../iw/partition_gui.py:1518
+#: ../iw/partition_gui.py:1520
 msgid "_Reset"
 msgstr ""
 
-#: ../iw/partition_gui.py:1519
+#: ../iw/partition_gui.py:1521
 msgid "Make _RAID"
 msgstr ""
 
-#: ../iw/partition_gui.py:1534
+#: ../iw/partition_gui.py:1536
 msgid "Start"
 msgstr ""
 
-#: ../iw/partition_gui.py:1534
+#: ../iw/partition_gui.py:1536
 msgid "End"
 msgstr ""
 
-#: ../iw/partition_gui.py:1535
+#: ../iw/partition_gui.py:1537
 msgid "Format"
 msgstr ""
 
-#: ../iw/partition_gui.py:1580 ../textw/partition_text.py:1052
+#: ../iw/partition_gui.py:1582 ../textw/partition_text.py:1059
 msgid "Automatic Partitioning"
 msgstr ""
 
-#: ../iw/partition_gui.py:1599
+#: ../iw/partition_gui.py:1601
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr ""
 
-#: ../iw/partition_gui.py:1638
+#: ../iw/partition_gui.py:1640
 msgid "I want to have automatic partitioning:"
 msgstr ""
 
-#: ../iw/partition_gui.py:1669 ../textw/partition_text.py:1075
+#: ../iw/partition_gui.py:1671 ../textw/partition_text.py:1082
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr ""
 
-#: ../iw/partition_gui.py:1691
+#: ../iw/partition_gui.py:1693
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr ""
@@ -2678,27 +2687,27 @@ msgid ""
 "label you want to use for each of them."
 msgstr ""
 
-#: ../textw/bootloader_text.py:372
+#: ../textw/bootloader_text.py:374
 msgid "Use a GRUB Password"
 msgstr ""
 
-#: ../textw/bootloader_text.py:384
+#: ../textw/bootloader_text.py:386
 msgid "Boot Loader Password:"
 msgstr ""
 
-#: ../textw/bootloader_text.py:414
+#: ../textw/bootloader_text.py:416
 msgid "Passwords Do Not Match"
 msgstr ""
 
-#: ../textw/bootloader_text.py:415
+#: ../textw/bootloader_text.py:417
 msgid "Passwords do not match"
 msgstr ""
 
-#: ../textw/bootloader_text.py:419
+#: ../textw/bootloader_text.py:421
 msgid "Password Too Short"
 msgstr ""
 
-#: ../textw/bootloader_text.py:420
+#: ../textw/bootloader_text.py:422
 msgid "Boot loader password is too short"
 msgstr ""
 
@@ -3062,44 +3071,44 @@ msgstr ""
 msgid "Invalid Entry for End Cylinder"
 msgstr ""
 
-#: ../textw/partition_text.py:819
+#: ../textw/partition_text.py:824
 msgid "No RAID partitions"
 msgstr ""
 
-#: ../textw/partition_text.py:870
+#: ../textw/partition_text.py:875
 msgid "Invalid Entry for Raid Spares"
 msgstr ""
 
-#: ../textw/partition_text.py:883
+#: ../textw/partition_text.py:888
 msgid "Too many spares"
 msgstr ""
 
-#: ../textw/partition_text.py:884
+#: ../textw/partition_text.py:889
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr ""
 
-#: ../textw/partition_text.py:966
+#: ../textw/partition_text.py:973
 msgid "Partitioning"
 msgstr ""
 
-#: ../textw/partition_text.py:976
+#: ../textw/partition_text.py:983
 msgid "New"
 msgstr ""
 
-#: ../textw/partition_text.py:976
+#: ../textw/partition_text.py:983
 msgid "RAID"
 msgstr ""
 
-#: ../textw/partition_text.py:979
+#: ../textw/partition_text.py:986
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
-#: ../textw/partition_text.py:1006
+#: ../textw/partition_text.py:1013
 msgid "No Root Partition"
 msgstr ""
 
-#: ../textw/partition_text.py:1007
+#: ../textw/partition_text.py:1014
 msgid "Must have a / partition to install on."
 msgstr ""
 
@@ -4234,91 +4243,91 @@ msgstr ""
 msgid "Laptop Support"
 msgstr ""
 
-# ../comps/comps-master:505
+# ../comps/comps-master:507
 msgid "Sound and Multimedia Support"
 msgstr ""
 
-# ../comps/comps-master:554
+# ../comps/comps-master:556
 msgid "Network Support"
 msgstr ""
 
-# ../comps/comps-master:626
+# ../comps/comps-master:628
 msgid "Dialup Support"
 msgstr ""
 
-# ../comps/comps-master:646
+# ../comps/comps-master:648
 msgid "Messaging and Web Tools"
 msgstr ""
 
-# ../comps/comps-master:690
+# ../comps/comps-master:692
 msgid "Graphics and Image Manipulation"
 msgstr ""
 
-# ../comps/comps-master:724
+# ../comps/comps-master:726
 msgid "News Server"
 msgstr ""
 
-# ../comps/comps-master:730
+# ../comps/comps-master:732
 msgid "NFS File Server"
 msgstr ""
 
-# ../comps/comps-master:735
+# ../comps/comps-master:737
 msgid "Windows File Server"
 msgstr ""
 
-# ../comps/comps-master:742
+# ../comps/comps-master:744
 msgid "Anonymous FTP Server"
 msgstr ""
 
-# ../comps/comps-master:748
+# ../comps/comps-master:750
 msgid "SQL Database Server"
 msgstr ""
 
-# ../comps/comps-master:762
+# ../comps/comps-master:764
 msgid "Web Server"
 msgstr ""
 
-# ../comps/comps-master:797
+# ../comps/comps-master:799
 msgid "Router / Firewall"
 msgstr ""
 
-# ../comps/comps-master:812
+# ../comps/comps-master:814
 msgid "DNS Name Server"
 msgstr ""
 
-# ../comps/comps-master:824
+# ../comps/comps-master:826
 msgid "Network Managed Workstation"
 msgstr ""
 
-# ../comps/comps-master:833
+# ../comps/comps-master:835
 msgid "Authoring and Publishing"
 msgstr ""
 
-# ../comps/comps-master:863
+# ../comps/comps-master:865
 msgid "Emacs"
 msgstr ""
 
-# ../comps/comps-master:886
+# ../comps/comps-master:888
 msgid "Utilities"
 msgstr ""
 
-# ../comps/comps-master:923
+# ../comps/comps-master:925
 msgid "Legacy Application Support"
 msgstr ""
 
-# ../comps/comps-master:946
+# ../comps/comps-master:948
 msgid "Software Development"
 msgstr ""
 
-# ../comps/comps-master:1144
+# ../comps/comps-master:1146
 msgid "Kernel Development"
 msgstr ""
 
-# ../comps/comps-master:1149
+# ../comps/comps-master:1151
 msgid "Windows Compatibility / Interoperability"
 msgstr ""
 
-# ../comps/comps-master:1167
+# ../comps/comps-master:1169
 msgid "Games and Entertainment"
 msgstr ""
 
