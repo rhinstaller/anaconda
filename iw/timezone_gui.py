@@ -97,7 +97,10 @@ class TimezoneWindow (InstallWindow):
             self.ics.setNextEnabled (TRUE)
 
     def setcurrent (self, widget, area):
-        self.tz.setcurrent (self.default)
+        try:
+            self.tz.setcurrent (self.default)
+        except SystemError:
+            pass
         widget.disconnect (self.id)
         
     def getScreen (self):
