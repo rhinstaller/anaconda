@@ -22,6 +22,7 @@ import whrandom
 import language
 import iutil
 import string
+import edd
 from flags import flags
 from log import log
 from constants import *
@@ -296,6 +297,7 @@ class bootloaderInfo:
         self.forceLBA32 = 0
 	self.password = None
         self.pure = None
+        self.above1024 = 0
 
 class ia64BootloaderInfo(bootloaderInfo):
     def writeLilo(self, instRoot, fsset, bl, langs, kernelList, 
@@ -548,7 +550,7 @@ class x86BootloaderInfo(bootloaderInfo):
 	config.addEntry("message", message, replace = 0)
 
         if not config.testEntry('lba32') and not config.testEntry('linear'):
-            if self.forceLBA32:
+            if self.forceLBA32 or (bl.above1024 and edd.detect()):
                 config.addEntry("lba32", replace = 0)
             elif self.useLinear:
                 config.addEntry("linear", replace = 0)
@@ -661,6 +663,15 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
         if bl.defaultDevice > len(choices):
             bl.defaultDevice = len(choices)
         bl.setDevice(choices[bl.defaultDevice][0])
+
+    bootDev = fsset.getEntryByMountPoint("/")
+    if not bootDev:
+        bootDev = fsset.getEntryByMountPoint("/boot")
+    part = partitioning.get_partition_by_name(diskSet.disks, bootDev.device.getDevice())
+    if part and partitioning.end_sector_to_cyl(part.geom.disk.dev,
+                                               part.geom.end) >= 1024:
+        bl.above1024 = 1
+    
 
 def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     justConfigFile = not flags.setupFilesystems
