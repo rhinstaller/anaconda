@@ -30,6 +30,9 @@ import types
 from rhpl.log import log
 from rhpl.translate import _, N_
 
+class BadBlocksError(Exception):
+    pass
+
 defaultMountPoints = ['/', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
 
 if iutil.getArch() == "ia64":
@@ -203,22 +206,34 @@ class FileSystemType:
             os.write(fd, s)
 
         num = ''
+	numbad = 0
         while s:
             try:
                 s = os.read(p[0], 1)
                 os.write(fd, s)
 
-                if s != '\b':
+                if s not in ['\b', '\n']:
                     try:
                         num = num + s
                     except:
                         pass
                 else:
-                    if num:
-                        l = string.split(num, '/')
-                        val = (long(l[0]) * 100) / long(l[1])
-                        w and w.set(val)
-                    num = ''
+		    if s == '\b':
+			if num:
+			    l = string.split(num, '/')
+			    val = (long(l[0]) * 100) / long(l[1])
+			    w and w.set(val)
+		    else:
+			try:
+			    blocknum = long(num)
+			    numbad = numbad + 1
+			except:
+			    pass
+
+			if numbad > 0:
+			    raise BadBlocksError
+			    
+		    num = ''
             except OSError, args:
                 (num, str) = args
                 if (num != 4):
@@ -231,6 +246,9 @@ class FileSystemType:
         os.close(fd)
 
         w and w.pop()
+
+	if numbad > 0:
+	    raise BadBlocksError
 
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
             return
@@ -1053,6 +1071,18 @@ class FileSystemSet:
                 continue
             try:
                 self.badblocksEntry(entry, chroot)
+	    except BadBlocksError:
+		    log("Bad blocks detected on device %s",entry.device.getDevice())
+		    if self.messageWindow:
+			self.messageWindow(_("Error"),
+					   _("Bad blocks have been detected on "
+					     "device /dev/%s. We do "
+					     "not recommend you use this device."
+					     "\n\n"
+					     "Press Enter to reboot your system") %
+					   (entry.device.getDevice(),))
+		    sys.exit(0)
+		
             except SystemError:
                 if self.messageWindow:
                     self.messageWindow(_("Error"),
