@@ -24,11 +24,17 @@ class WelcomeWindow (InstallWindow):
 
     def getScreen (self):
         box = GtkVBox (FALSE, 10)
+        im = None
         try:
-            im = GdkImlib.Image ("splash.png")
+            print "foo"
+            im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/splash.png")
         except:
-            print "Unable to load splash.png"
-        else:
+            try:
+                print "bar"
+                im = GdkImlib.Image ("pixmaps/splash.png")
+            except:
+                print "Unable to load splash.png"
+        if im:
             im.render ()
             pix = im.make_pixmap ()
             box.pack_start (pix, TRUE, TRUE, 0)

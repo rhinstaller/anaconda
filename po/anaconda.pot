@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-09-08 20:05-0400\n"
+"POT-Creation-Date: 1999-09-09 01:26-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,8 +31,8 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:19 ../text.py:64 ../text.py:1091
-#: ../text.py:1104 ../text.py:1159 ../text.py:1252
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:19 ../text.py:64 ../text.py:1110
+#: ../text.py:1123 ../text.py:1178 ../text.py:1271
 msgid "Ok"
 msgstr ""
 
@@ -42,15 +42,15 @@ msgstr ""
 #: ../text.py:184 ../text.py:198 ../text.py:200 ../text.py:219 ../text.py:221
 #: ../text.py:255 ../text.py:367 ../text.py:398 ../text.py:466 ../text.py:468
 #: ../text.py:488 ../text.py:621 ../text.py:672 ../text.py:674 ../text.py:696
-#: ../text.py:733 ../text.py:823 ../text.py:863 ../text.py:928 ../text.py:979
-#: ../text.py:988 ../text.py:1004 ../text.py:1013 ../text.py:1030
-#: ../text.py:1073 ../text.py:1080 ../text.py:1160 ../text.py:1218
-#: ../text.py:1220 ../text.py:1240 ../text.py:1243 ../text.py:1252
-#: ../text.py:1304 ../text.py:1305 ../text.py:1526 ../text.py:1548
+#: ../text.py:733 ../text.py:842 ../text.py:882 ../text.py:947 ../text.py:998
+#: ../text.py:1007 ../text.py:1023 ../text.py:1032 ../text.py:1049
+#: ../text.py:1092 ../text.py:1099 ../text.py:1179 ../text.py:1237
+#: ../text.py:1239 ../text.py:1259 ../text.py:1262 ../text.py:1271
+#: ../text.py:1323 ../text.py:1324 ../text.py:1545 ../text.py:1567
 msgid "Back"
 msgstr ""
 
-#: ../iw/language.py:10 ../text.py:29 ../text.py:1600
+#: ../iw/language.py:10 ../text.py:29 ../text.py:1619
 msgid "Language Selection"
 msgstr ""
 
@@ -61,11 +61,11 @@ msgstr ""
 #: ../text.py:32 ../text.py:80 ../text.py:131 ../text.py:157 ../text.py:198
 #: ../text.py:255 ../text.py:269 ../text.py:274 ../text.py:308 ../text.py:320
 #: ../text.py:328 ../text.py:337 ../text.py:398 ../text.py:466 ../text.py:488
-#: ../text.py:621 ../text.py:641 ../text.py:672 ../text.py:823 ../text.py:863
-#: ../text.py:928 ../text.py:979 ../text.py:1029 ../text.py:1073
-#: ../text.py:1218 ../text.py:1240 ../text.py:1304 ../text.py:1324
-#: ../text.py:1336 ../text.py:1348 ../text.py:1526 ../text.py:1569
-#: ../text.py:1573
+#: ../text.py:621 ../text.py:641 ../text.py:672 ../text.py:842 ../text.py:882
+#: ../text.py:947 ../text.py:998 ../text.py:1048 ../text.py:1092
+#: ../text.py:1237 ../text.py:1259 ../text.py:1323 ../text.py:1343
+#: ../text.py:1355 ../text.py:1367 ../text.py:1545 ../text.py:1588
+#: ../text.py:1592
 msgid "OK"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgstr ""
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr ""
 
-#: ../iw/lilo.py:171 ../text.py:62 ../text.py:1086 ../text.py:1144
+#: ../iw/lilo.py:171 ../text.py:62 ../text.py:1105 ../text.py:1163
 msgid "Device"
 msgstr ""
 
@@ -106,7 +106,7 @@ msgstr ""
 msgid "Mouse Selection"
 msgstr ""
 
-#: ../text.py:129 ../text.py:1602
+#: ../text.py:129 ../text.py:1621
 msgid "Keyboard Selection"
 msgstr ""
 
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Upgrade Existing Installation"
 msgstr ""
 
-#: ../text.py:155 ../text.py:1605
+#: ../text.py:155 ../text.py:1624
 msgid "Installation Type"
 msgstr ""
 
@@ -142,7 +142,7 @@ msgstr ""
 msgid "What type of system would you like to install?"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:181 ../text.py:1344
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:181 ../text.py:1363
 msgid "Error"
 msgstr ""
 
@@ -174,8 +174,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2251 ../libfdisk/gnomefsedit.c:2304
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:219 ../text.py:1004
-#: ../text.py:1007
+#: ../libfdisk/newtfsedit.c:1586 ../text.py:219 ../text.py:805 ../text.py:1023
+#: ../text.py:1026
 msgid "Yes"
 msgstr ""
 
@@ -184,12 +184,12 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2251 ../libfdisk/gnomefsedit.c:2304
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:219 ../text.py:224 ../text.py:1004
-#: ../text.py:1010
+#: ../libfdisk/newtfsedit.c:1586 ../text.py:219 ../text.py:224 ../text.py:805
+#: ../text.py:1023 ../text.py:1029
 msgid "No"
 msgstr ""
 
-#: ../text.py:234 ../text.py:1636
+#: ../text.py:234 ../text.py:1657
 msgid "Root Password"
 msgstr ""
 
@@ -226,8 +226,8 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:616 ../libfdisk/gnomefsedit.c:1580
 #: ../libfdisk/gnomefsedit.c:2089 ../libfdisk/newtfsedit.c:450
-#: ../libfdisk/newtfsedit.c:1501 ../text.py:288 ../text.py:1091
-#: ../text.py:1109
+#: ../libfdisk/newtfsedit.c:1501 ../text.py:288 ../text.py:1110
+#: ../text.py:1128
 msgid "Cancel"
 msgstr ""
 
@@ -274,7 +274,7 @@ msgid ""
 "your system's configuration."
 msgstr ""
 
-#: ../text.py:374 ../text.py:1638
+#: ../text.py:374 ../text.py:1659
 msgid "User Account Setup"
 msgstr ""
 
@@ -299,8 +299,8 @@ msgid "Delete"
 msgstr ""
 
 #: ../iw/account.py:180 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304 ../text.py:398 ../text.py:732 ../text.py:1159
-#: ../text.py:1180
+#: ../libfdisk/newtfsedit.c:1304 ../text.py:398 ../text.py:732 ../text.py:1178
+#: ../text.py:1199
 msgid "Edit"
 msgstr ""
 
@@ -439,11 +439,11 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: ../iw/rootpartition.py:75 ../text.py:767
+#: ../iw/rootpartition.py:74 ../text.py:767
 msgid "Automatic Partitioning"
 msgstr ""
 
-#: ../iw/rootpartition.py:111 ../text.py:768
+#: ../iw/rootpartition.py:110 ../text.py:768
 #, c-format
 msgid ""
 "%s\n"
@@ -457,11 +457,22 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: ../iw/rootpartition.py:126 ../text.py:772
+#: ../iw/rootpartition.py:125 ../text.py:772
 msgid "Manually partition"
 msgstr ""
 
+#: ../text.py:800
+msgid "Low Memory"
+msgstr ""
+
 #: ../text.py:801
+msgid ""
+"As you don't have much memory in this machine, we need to turn on swap space "
+"immediately. To do this we'll have to write your new partition table to the "
+"disk immediately. Is that okay?"
+msgstr ""
+
+#: ../text.py:820
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -469,50 +480,50 @@ msgid ""
 "previous install."
 msgstr ""
 
-#: ../text.py:821
+#: ../text.py:840
 msgid "Check for bad blocks during format"
 msgstr ""
 
-#: ../text.py:825
+#: ../text.py:844
 msgid "Choose Partitions to Format"
 msgstr ""
 
-#: ../iw/package.py:445 ../text.py:861
+#: ../iw/package.py:445 ../text.py:880
 msgid "Select individual packages"
 msgstr ""
 
-#: ../iw/package.py:377 ../text.py:865 ../text.py:930
+#: ../iw/package.py:377 ../text.py:884 ../text.py:949
 msgid "Package Group Selection"
 msgstr ""
 
-#: ../text.py:957 ../text.py:1646
+#: ../text.py:976 ../text.py:1667
 msgid "Package Dependencies"
 msgstr ""
 
-#: ../text.py:958
+#: ../text.py:977
 msgid ""
 "Some of the packages you have selected to install require packages you have "
 "not selected. If you just select Ok all of those required packages will be "
 "installed."
 msgstr ""
 
-#: ../iw/dependencies.py:29 ../iw/progress.py:112 ../text.py:964
+#: ../iw/dependencies.py:29 ../iw/progress.py:112 ../text.py:983
 msgid "Package"
 msgstr ""
 
-#: ../iw/dependencies.py:29 ../text.py:964
+#: ../iw/dependencies.py:29 ../text.py:983
 msgid "Requirement"
 msgstr ""
 
-#: ../iw/dependencies.py:36 ../text.py:976
+#: ../iw/dependencies.py:36 ../text.py:995
 msgid "Install packages to satisfy dependencies"
 msgstr ""
 
-#: ../text.py:994 ../text.py:1332 ../text.py:1655
+#: ../text.py:1013 ../text.py:1351 ../text.py:1676
 msgid "Bootdisk"
 msgstr ""
 
-#: ../text.py:995
+#: ../text.py:1014
 msgid ""
 "A custom bootdisk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -524,7 +535,7 @@ msgid ""
 "Would you like to create a bootdisk for your system?"
 msgstr ""
 
-#: ../text.py:1021
+#: ../text.py:1040
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -532,90 +543,90 @@ msgid ""
 "blank."
 msgstr ""
 
-#: ../iw/lilo.py:138 ../text.py:1027
+#: ../iw/lilo.py:138 ../text.py:1046
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr ""
 
-#: ../text.py:1029 ../text.py:1336 ../text.py:1337 ../text.py:1348
-#: ../text.py:1349
+#: ../text.py:1048 ../text.py:1355 ../text.py:1356 ../text.py:1367
+#: ../text.py:1368
 msgid "Skip"
 msgstr ""
 
-#: ../text.py:1032 ../text.py:1070 ../text.py:1167 ../text.py:1620
-#: ../text.py:1622 ../text.py:1624
+#: ../text.py:1051 ../text.py:1089 ../text.py:1186 ../text.py:1641
+#: ../text.py:1643 ../text.py:1645
 msgid "LILO Configuration"
 msgstr ""
 
-#: ../text.py:1071
+#: ../text.py:1090
 msgid "Where do you want to install the bootloader?"
 msgstr ""
 
-#: ../iw/lilo.py:171 ../iw/lilo.py:206 ../text.py:1087 ../text.py:1144
+#: ../iw/lilo.py:171 ../iw/lilo.py:206 ../text.py:1106 ../text.py:1163
 msgid "Boot label"
 msgstr ""
 
-#: ../text.py:1091 ../text.py:1111
+#: ../text.py:1110 ../text.py:1130
 msgid "Clear"
 msgstr ""
 
-#: ../text.py:1099
+#: ../text.py:1118
 msgid "Edit Boot Label"
 msgstr ""
 
-#: ../iw/lilo.py:171 ../text.py:1144
+#: ../iw/lilo.py:171 ../text.py:1163
 msgid "Partition type"
 msgstr ""
 
-#: ../iw/lilo.py:171 ../text.py:1144
+#: ../iw/lilo.py:171 ../text.py:1163
 msgid "Default"
 msgstr ""
 
-#: ../text.py:1162
+#: ../text.py:1181
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
 
-#: ../text.py:1216
+#: ../text.py:1235
 msgid "X probe results"
 msgstr ""
 
-#: ../text.py:1229 ../text.py:1248
+#: ../text.py:1248 ../text.py:1267
 msgid "Unlisted Card"
 msgstr ""
 
-#: ../text.py:1237
+#: ../text.py:1256
 msgid "Video Card Selection"
 msgstr ""
 
-#: ../text.py:1238
+#: ../text.py:1257
 msgid "Which video card do you have?"
 msgstr ""
 
-#: ../text.py:1250
+#: ../text.py:1269
 msgid "X Server Selection"
 msgstr ""
 
-#: ../text.py:1250
+#: ../text.py:1269
 msgid "Choose a server"
 msgstr ""
 
-#: ../text.py:1300
+#: ../text.py:1319
 msgid "Installation to begin"
 msgstr ""
 
-#: ../text.py:1301
+#: ../text.py:1320
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 
-#: ../text.py:1316
+#: ../text.py:1335
 msgid "Complete"
 msgstr ""
 
-#: ../iw/congrats.py:17 ../text.py:1317
+#: ../iw/congrats.py:17 ../text.py:1336
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -627,165 +638,169 @@ msgid ""
 "chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
 
-#: ../iw/bootdisk.py:40 ../text.py:1333
+#: ../iw/bootdisk.py:40 ../text.py:1352
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
 
-#: ../iw/bootdisk.py:44 ../text.py:1345
+#: ../iw/bootdisk.py:44 ../text.py:1364
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
 
-#: ../text.py:1407
+#: ../text.py:1426
 msgid "Package Installation"
 msgstr ""
 
-#: ../text.py:1409
+#: ../text.py:1428
 msgid "Name   : "
 msgstr ""
 
-#: ../text.py:1410
+#: ../text.py:1429
 msgid "Size   : "
 msgstr ""
 
-#: ../text.py:1411
+#: ../text.py:1430
 msgid "Summary: "
 msgstr ""
 
-#: ../text.py:1437
+#: ../text.py:1456
 msgid "    Packages"
 msgstr ""
 
-#: ../text.py:1438
+#: ../text.py:1457
 msgid "       Bytes"
 msgstr ""
 
-#: ../text.py:1439
+#: ../text.py:1458
 msgid "        Time"
 msgstr ""
 
-#: ../text.py:1441
+#: ../text.py:1460
 msgid "Total    :"
 msgstr ""
 
-#: ../text.py:1448
+#: ../text.py:1467
 msgid "Completed:   "
 msgstr ""
 
-#: ../text.py:1458
+#: ../text.py:1477
 msgid "Remaining:  "
 msgstr ""
 
-#: ../text.py:1528
+#: ../text.py:1547
 msgid "What time zone are you located in?"
 msgstr ""
 
-#: ../text.py:1536
+#: ../text.py:1555
 msgid "Hardware clock set to GMT?"
 msgstr ""
 
-#: ../iw/timezone.py:29 ../text.py:1538
+#: ../iw/timezone.py:29 ../text.py:1557
 msgid "Time Zone Selection"
 msgstr ""
 
-#: ../text.py:1573 ../text.py:1574
+#: ../text.py:1592 ../text.py:1593
 msgid "Debug"
 msgstr ""
 
-#: ../text.py:1586
+#: ../text.py:1605
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr ""
 
-#: ../text.py:1588
+#: ../text.py:1607
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 
-#: ../text.py:1604
+#: ../text.py:1623
 msgid "Welcome"
 msgstr ""
 
-#: ../iw/lilo.py:91 ../iw/lilo.py:194 ../text.py:1610 ../text.py:1616
+#: ../iw/lilo.py:91 ../iw/lilo.py:194 ../text.py:1629 ../text.py:1635
 msgid "Partition"
 msgstr ""
 
-#: ../text.py:1612
+#: ../text.py:1631
 msgid "Manually Partition"
 msgstr ""
 
-#: ../text.py:1614
+#: ../text.py:1633
 msgid "Automatic Partition"
 msgstr ""
 
-#: ../text.py:1618
+#: ../text.py:1637
+msgid "Swap"
+msgstr ""
+
+#: ../text.py:1639
 msgid "Filesystem Formatting"
 msgstr ""
 
-#: ../text.py:1626
+#: ../text.py:1647
 msgid "Hostname Setup"
 msgstr ""
 
-#: ../text.py:1628
+#: ../text.py:1649
 msgid "Network Setup"
 msgstr ""
 
-#: ../text.py:1630 ../text.py:1632
+#: ../text.py:1651 ../text.py:1653
 msgid "Mouse Configuration"
 msgstr ""
 
-#: ../text.py:1634
+#: ../text.py:1655
 msgid "Time Zone Setup"
 msgstr ""
 
-#: ../text.py:1640
+#: ../text.py:1661
 msgid "Authentication"
 msgstr ""
 
-#: ../text.py:1642
+#: ../text.py:1663
 msgid "Package Groups"
 msgstr ""
 
-#: ../text.py:1644 ../text.py:1664
+#: ../text.py:1665 ../text.py:1685
 msgid "Individual Packages"
 msgstr ""
 
-#: ../iw/xconfig.py:91 ../text.py:1648 ../text.py:1656
+#: ../iw/xconfig.py:91 ../text.py:1669 ../text.py:1677
 msgid "X Configuration"
 msgstr ""
 
-#: ../text.py:1650
+#: ../text.py:1671
 msgid "Boot Disk"
 msgstr ""
 
-#: ../text.py:1652
+#: ../text.py:1673
 msgid "Installation Begins"
 msgstr ""
 
-#: ../text.py:1654
+#: ../text.py:1675
 msgid "Install System"
 msgstr ""
 
-#: ../text.py:1657
+#: ../text.py:1678
 msgid "Installation Complete"
 msgstr ""
 
-#: ../text.py:1662
+#: ../text.py:1683
 msgid "Examine System"
 msgstr ""
 
-#: ../text.py:1663
+#: ../text.py:1684
 msgid "Customize Upgrade"
 msgstr ""
 
-#: ../text.py:1665
+#: ../text.py:1686
 msgid "Upgrade System"
 msgstr ""
 
-#: ../text.py:1666
+#: ../text.py:1687
 msgid "Upgrade Complete"
 msgstr ""
 
@@ -1080,7 +1095,7 @@ msgstr ""
 msgid "Root Partition Selection"
 msgstr ""
 
-#: ../iw/rootpartition.py:123
+#: ../iw/rootpartition.py:122
 msgid "Remove data"
 msgstr ""
 
@@ -1104,7 +1119,7 @@ msgstr ""
 msgid "System clock uses UTC"
 msgstr ""
 
-#: ../iw/welcome.py:10
+#: ../iw/welcome.py:11
 msgid "Welcome to Red Hat Linux!"
 msgstr ""
 
