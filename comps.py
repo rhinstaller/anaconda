@@ -728,17 +728,7 @@ class ComponentSet:
 		log("OSError %s occurred getting %s: %s", filename,
 			errnum, str(msg))
             else:
-		# sanity check result - sometimes FTP doesnt
-		# catch a file is missing
-		try:
-		    clen = file.info()['content-length']
-		except:
-		    clen = 0
-
-		if clen > 0:
-		    connected = 1
-		else:
-		    log("Error occurred getting %s", filename)
+		connected = 1
 
 	    if not connected:
 		time.sleep(5)
