@@ -95,7 +95,7 @@ and RPMs. Set to 1 to turn on."""
         self.src_list = []
         self.shared_list = []
         self.reverse_sort_srpms=None
-        self.common_files = ['beta_eula.txt', 'EULA', 'README', 'GPL', 'RPM-GPG-KEY', 'RPM-GPG-KEY-beta']
+        self.common_files = ['beta_eula.txt', 'EULA', 'README', 'GPL', 'RPM-GPG-KEY', 'RPM-GPG-KEY-beta', 'RPM-GPG-KEY-fedora']
         self.logfile = []
 
 
