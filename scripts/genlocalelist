@@ -84,6 +84,7 @@ while (<FILE>) {
     $lang =~ s/gb18030/GB18030/;
     $lang =~ s/^zh_CN$/zh_CN.GB2312/;
     $lang =~ s/^zh_TW$/zh_TW.Big5/;
+    $lang =~ s/utf8/UTF-8/;
 
     # major hack.  just chop of iso885915 and it'll be shorter 
     $lang =~ s/iso885915//;
