@@ -461,6 +461,11 @@ NCR53c406a
 # not a module
 #a2091
 #a3000
+a100u2w
+	scsi_hostadapter
+	"Initio INI-9100UW"
+	aha152x "ioport, irq, host scsiid"
+
 aacraid
         scsi_hostadapter
         "Adaptec AACRAID"
