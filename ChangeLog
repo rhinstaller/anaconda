@@ -1,5 +1,8 @@
 2004-10-25  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/net.c (setKickstartNetwork): Handle onboot 
+	properly (#136903)
+
 	* lang-table: Punjabi shouldn't try to do text mode (#137030)
 
 2004-10-24  Jeremy Katz  <katzj@redhat.com>

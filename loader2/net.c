@@ -832,7 +832,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
 void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr) {
     char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL, * class = NULL;
-    char * essid = NULL, * wepkey = NULL;
+    char * essid = NULL, * wepkey = NULL, * onboot = NULL;
     int noDns = 0, rc;
     poptContext optCon;
 
@@ -849,6 +849,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "ethtool", '\0', POPT_ARG_STRING, &ethtool, 0 },
         { "essid", '\0', POPT_ARG_STRING, &essid, 0 },
         { "wepkey", '\0', POPT_ARG_STRING, &wepkey, 0 },
+        { "onboot", '\0', POPT_ARG_STRING, &onboot, 0 },
         { 0, 0, 0, 0, 0 }
     };
     
