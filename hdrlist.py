@@ -347,7 +347,9 @@ class HeaderList:
         # This will allow us to get the best package by name for both
         # system packages and kernel while not getting the secondary arch
         # glibc.
-        if rhpl.arch.getBaseArch() != rhpl.arch.canonArch:
+        if prefArch is not None:
+            arches = (prefArch, )
+        elif rhpl.arch.getBaseArch() != rhpl.arch.canonArch:
             arches = (rhpl.arch.getBaseArch(), rhpl.arch.canonArch)
         else:
             arches = (rhpl.arch.canonArch, )
@@ -415,10 +417,19 @@ class Group:
         self.default = xmlgrp.default
 
         # if it's a biarch group and we're not a biarch-arch, be hidden and off
-        if xmlgrp.biarchonly and rhpl.arch.getSecondaryArch() is None:
+        if xmlgrp.biarchonly and rhpl.arch.getMultiArchInfo() is None:
             self.hidden = 1
             self.default = 0
-        
+
+        # figure out the preferred arch.  if this isn't a biarch group,
+        # fall back to the normal picking.  if its a biarch group and we
+        # are a biarch arch, use the information we've got
+        if xmlgrp.biarchonly and rhpl.arch.getMultiArchInfo() is not None:
+            (comp, best, biarch) = rhpl.arch.getMultiArchInfo()
+            pref = biarch
+        else:
+            pref = None
+
         # FIXME: this is a hack to handle language support groups
         self.langonly = xmlgrp.langonly
 
@@ -435,13 +446,17 @@ class Group:
 
         self.packages = {}
         for (pkg, (type, name)) in xmlgrp.packages.items():
-            pkgnevra = hdrlist.getBestNevra(pkg)
+            pkgnevra = hdrlist.getBestNevra(pkg, prefArch = pref)
             if pkgnevra is None:
                 log("%s references package %s which doesn't exist"
                     %(self.id, pkg))
                 continue
 
             self.packages[pkgnevra] = self.makePackageDict(pkgnevra, type)
+
+        # if we don't have any packages, make it hidden to avoid confusion
+        if len(self.packages.keys()) == 0:
+            self.hidden = 1
 
     def getState(self):
         return (self.usecount, self.manual_state)
