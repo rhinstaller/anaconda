@@ -9,8 +9,10 @@ from fsset import *
 class InstallClass(BaseInstallClass):
     name = N_("Workstation")
     pixmap = "workstation.png"
-    description = N_("For systems intended for graphical desktop use using "
-		     "the GNOME or KDE desktop environments.")
+    description = N_("Perfect for workstations or laptops, select this "
+		     "installation type to install a graphical desktop "
+		     "environment and create a system ideal for home "
+		     "or desktop use.")
 
     sortPriority = 1
 

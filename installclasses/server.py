@@ -9,8 +9,9 @@ class InstallClass(BaseInstallClass):
 
     name = N_("Server")
     pixmap = "server.png"
-    description = N_("Includes services for file and print sharing, "
-		     "hosting web serving, and necessary config tools.")
+    description = N_("Select this installation type if you would like to "
+		     "set up file sharing, print sharing, and Web services. "
+		     "Additional services can also be enabled.")
     
     sortPriority = 10
 

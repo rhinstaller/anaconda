@@ -81,6 +81,7 @@ class InstallPathWindow (InstallWindow):
 	if description is not None:
 	    label.set_text (label.get_text() + "\n<small>"+description+"</small>")
 	    label.set_line_wrap(gtk.TRUE)
+	    label.set_size_request(350, -1)
 	label.set_use_markup (gtk.TRUE)
 	hbox.pack_start (label, gtk.TRUE, gtk.TRUE, 0)
 	button = gtk.RadioButton (group)
