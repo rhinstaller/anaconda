@@ -4,7 +4,7 @@
 #	lilo boot.b installation (may be None)		liloLocation()
 
 import rpm, os
-import util, isys
+import iutil, isys
 from lilo import LiloConfiguration
 from syslog import Syslog
 import string
@@ -430,15 +430,15 @@ class ToDo:
 			"Formatting %s filesystem..." % (mntpoint,))
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2":
-                util.execWithRedirect("/usr/sbin/mke2fs",
-                                      [ "mke2fs", '/tmp/' + device ],
-                                      stdout = None, stderr = None,
-                                      searchPath = 1)
+                util.execWithRedirect ("/usr/sbin/mke2fs",
+                                       [ "mke2fs", '/tmp/' + device ],
+                                       stdout = None, stderr = None,
+                                       searchPath = 1)
             elif fsystem == "swap":
-                util.execWithRedirect("/usr/sbin/mkswap",
-                                      [ "mkswap", '/tmp/' + device ],
-                                      stdout = None, stderr = None,
-                                      searchPath = 1)
+                util.execWithRedirect ("/usr/sbin/mkswap",
+                                       [ "mkswap", '/tmp/' + device ],
+                                       stdout = None, stderr = None,
+                                       searchPath = 1)
             else:
                 pass
 
