@@ -1,5 +1,9 @@
 2004-10-19  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py (handleX11Packages): Make sure that we don't do a
+	graphical startup if people run out of space and then go back to
+	unselect stuff (#135895)
+
 	* scripts/upd-instroot: Change filenames for Indic fonts
 
 2004-10-18  Jeremy Katz  <katzj@redhat.com>
