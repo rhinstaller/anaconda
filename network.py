@@ -98,6 +98,8 @@ class NetworkDevice(SimpleConfigFile):
         keys = self.info.keys()
         keys.sort()
         keys.remove("DEVICE")
+	if "DESC" in keys:
+	    keys.remove("DESC")
 
 	# Don't let onboot be turned on unless we have config information
 	# to go along with it
