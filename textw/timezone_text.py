@@ -63,7 +63,7 @@ class TimezoneWindow:
 	if rc:
 	    (default, asUtc, asArc) = rc
 	else:
-	    default = iutil.defaultZone()
+	    default = iutil.defaultZone(todo.language.get())
 	    asUtc = 0
 
 	bb = ButtonBar(screen, [(_("OK"), "ok"), (_("Back"), "back")])

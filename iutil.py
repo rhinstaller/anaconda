@@ -309,7 +309,7 @@ esac
                      stdout = None, stderr = None,
                      root = root)
 
-def defaultZone():
+def defaultZone(locale):
     if os.access("lang-table", os.R_OK):
         f = open("lang-table", "r")
     elif os.access("/etc/lang-table", os.R_OK):
@@ -323,7 +323,7 @@ def defaultZone():
     for line in lines:
         string.strip(line)
         l = string.split(line)
-        if l[4] == os.environ["LANG"]:
+        if l[4] == locale:
             return l[6]
     
     return "US/Eastern"
