@@ -27,6 +27,9 @@
 
 import sys, os
 
+# keep up with process ID of miniwm if we start it
+
+miniwm_pid = None
 # helper function to duplicate diagnostic output
 def dup_log(format, *args):
     if args:
@@ -35,7 +38,63 @@ def dup_log(format, *args):
 	sys.stdout.write ("%s\n" % format)
     apply(log, (format,) +  args)
 
+# start miniWM
+def startMiniWM(root='/'):
+    childpid = os.fork()
+    if not childpid:
+	args = [root + '/usr/bin/mini-wm', '--display', ':1']
+	os.execv(args[0], args)
+	sys.exit (1)
 
+    return childpid
+	
+# function to handle X startup special issues for anaconda
+def doStartupX11Actions():
+    global miniwm_pid
+
+    # now start up mini-wm
+    try:
+	miniwm_pid = startMiniWM()
+	log("Started mini-wm")
+    except:
+	miniwm_pid = None
+	log("Unable to start mini-wm")
+
+    # test to setup dpi
+    # cant do this if miniwm didnt run because otherwise when
+    # we open and close an X connection in the xutils calls
+    # the X server will exit since this is the first X
+    # connection (if miniwm isnt running)
+    if miniwm_pid is not None:
+	import xutils
+
+	try:
+	    if xutils.screenWidth() > 640:
+		dpi = "96"
+	    else:
+		dpi = "75"
+
+	    xutils.setRootResource('Xft.antialias', '1')
+	    xutils.setRootResource('Xft.dpi', dpi)
+	    xutils.setRootResource('Xft.hinting', '1')
+	    xutils.setRootResource('Xft.hintstyle', 'hintslight')
+	    xutils.setRootResource('Xft.rgba', 'none')
+	except:
+	    sys.stderr.write("X SERVER STARTED, THEN FAILED");
+	    raise RuntimeError, "X server failed to start"
+    
+def doShutdownX11Actions():
+    global miniwm_pid
+    
+    if miniwm_pid is not None:
+	try:
+	    os.kill(miniwm_pid, 15)
+	    os.waitpid(miniwm_pid, 0)
+	except:
+	    pass
+
+
+    
 # For anaconda in test mode
 if (os.path.exists('isys')):
     sys.path.append('libfdisk')
@@ -284,9 +343,7 @@ import instdata
 import floppy
 import xsetup
 
-import rhpl.videocard as videocard
-import rhpl.monitor as monitor
-import rhpl.mouse as mouse
+import rhpl.xhwstate as xhwstate
 import rhpl.keyboard as keyboard
 
 # handle traceonly and exit
@@ -309,7 +366,6 @@ if traceOnly:
     import installclass
     import re
     import rescue
-    import xserver
     import configFileData
     import kickstart
     import whiteout
@@ -399,44 +455,39 @@ if os.environ.has_key('DISPLAY') and display_mode == 'g':
 else:
     x_already_set = 0
 
-# mouse
-mousehw    = mouse.Mouse(skipProbe = 1)
+#
+# Probe what is available for X and setup a hardware state
+#
+# try to probe interesting hw
+import rhpl.xserver as xserver
+skipddcprobe = (skipddc or (x_already_set and flags.test))
+skipmouseprobe = not (not os.environ.has_key('DISPLAY') or flags.setupFilesystems)
 
-# videocard
-
-videohw    = videocard.VideoCardInfo(skipDDCProbe = (skipddc or (x_already_set and flags.test)))
-
-if videohw and videohw.primaryCard():
-    cardstr = videohw.primaryCard().shortDescription()
-else:
-    cardstr = _("Unable to probe")
-
-dup_log(_("Probing for video card:   %s"), cardstr)
-
-# monitor
-monitorhw  = monitor.MonitorInfo(fbDevice=None,
-				 skipDDCProbe = (skipddc or  (x_already_set and flags.test)))
-monstr = monitorhw.shortDescription()
-dup_log(_("Probing for monitor type: %s"), monstr)
+(videohw, monitorhw, mousehw) = xserver.probeHW(skipDDCProbe=skipddcprobe,
+						skipMouseProbe = skipmouseprobe)
 
 # keyboard
 kbd = keyboard.Keyboard()
 if keymap:
     kbd.set(keymap)
 
-# only probe if we're installing a real box or
-# we're running in a virtual console and need to startup X server
-if not os.environ.has_key('DISPLAY') or flags.setupFilesystems:
-    sys.stdout.write(_("Probing for mouse type:   "))
-    mousehw.probe (frob = 1)
-    mousestr = mousehw.shortDescription()
-    sys.stdout.write(mousestr+'\n')
-    log(_("Probing for mouse type:   %s"), mousestr)
-else:
-    dup_log(_("Skipping mouse probe."))
+# setup a X hw state for use later with configuration
+xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
+try:
+    xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
+except:
+    print _("Unable to instantiate a X hardware state object.")
+    xcfg = None
 
+#
+# delay to let use see status of attempt to probe hw 
+#
 time.sleep(3)
 
+
+#
+# now determine if we're going to run in GUI or TUI mode
+#
 if (display_mode != 't' and method and
     method.startswith('ftp://') or
     method.startswith('http://') or
@@ -466,30 +517,11 @@ else: # s390 checks
         display_mode = 't'
         time.sleep(2)
 
-
-#
-# startup X server is we're not already running under an X session
-#
-from rhpl.xhwstate import *
-
-xsetup_failed = 0
-try:
-    xcfg = XF86HardwareState(defcard=videohw, defmon=monitorhw)
-    xcfg.set_resolution(runres)
-except:
-    xsetup_failed = 1
-    xcfg = None
-
-if display_mode == 'g':
-    if not xsetup_failed:
-	if not os.environ.has_key('DISPLAY'):
-	    import xserver
-
-	    try:
-		testxcfg = xserver.startX(runres, videohw, monitorhw, mousehw, kbd)
-	    except RuntimeError:
-		testxcfg = None
-		xsetup_failed = 1
+if display_mode == 'g' and not os.environ.has_key('DISPLAY'):
+    xsetup_failed = xserver.startXServer(videohw, monitorhw, mousehw, kbd,
+					 runres,
+					 xStartedCB=doStartupX11Actions,
+					 xQuitCB=doShutdownX11Actions)
 
     if xsetup_failed:
 	dup_log(" X startup failed, falling back to text mode")
@@ -649,8 +681,9 @@ if monitorhw:
 #
 if xcfg is None:
     try:
-	xcfg = XF86HardwareState()
+	xcfg = xhwstate.XF86HardwareState()
     except:
+	print _("Unable to instantiate a X hardware state object.")
 	xcfg = None
 
 if xcfg is not None:
