@@ -210,8 +210,6 @@ class Fstab:
 
     def runDruid(self):
 	rc = self.ddruid.edit()
-	# yikes! this needs to be smarter
-	self.beenSaved = 0
 	return rc
 
     def updateFsCache(self):
@@ -837,11 +835,6 @@ class Fstab:
 
 	return fstab
 
-    def saveDruidPartitions(self):
-	if self.beenSaved: return
-	self.ddruid.save()
-	self.beenSaved = 1
-
     def setBadBlockCheck(self, state):
 	self.badBlockCheck = state
 
@@ -882,7 +875,6 @@ class Fstab:
         self.protectList = protected
 	self.swapOn = 0
 	self.supplementalRaid = []
-	self.beenSaved = 1
 	self.setupFilesystems = setupFilesystems
 	self.serial = serial
 	self.zeroMbr = zeroMbr
@@ -929,7 +921,6 @@ class GuiFstab(Fstab):
 	self.ddruid.next ()
 	self.updateFsCache()
 	# yikes! this needs to be smarter
-	self.beenSaved = 0
 
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow,
 		 messageWindow, progressWindow, ignoreRemovable,
