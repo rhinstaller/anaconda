@@ -108,9 +108,14 @@ class partlist:
         return retval
 
     def reset(self):
+        dellist = []
         for part in self.parts:
+            dellist.append(part)
+
+        for part in dellist:
             self.parts.remove(part)
             del part
+            
         self.parts = []
 
 
@@ -570,10 +575,14 @@ def processPartitioning(diskset, requests, newParts):
     # If we created the extended partition on the same device as the logical
     # partition, remove it from out list, as it will be cleaned up for us
     # when the extended partition gets removed.
+    dellist = []
     for part in newParts.parts:
         if (part.type & parted.PARTITION_LOGICAL
             and extendeds.has_key(part.geom.disk.dev.path)):
-            newParts.parts.remove(part)
+            dellist.append(part)
+
+    for part in dellist:
+        newParts.parts.remove(part)
 
     # Finally, remove all of the partitions we added in the last try from
     # the disks.  We'll start again from there.
