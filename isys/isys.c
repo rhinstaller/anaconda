@@ -622,10 +622,12 @@ static PyObject * doUMount(PyObject * s, PyObject * args) {
 static PyObject * doMount(PyObject * s, PyObject * args) {
     char * fs, * device, * mntpoint;
     int rc;
+    int readOnly;
 
-    if (!PyArg_ParseTuple(args, "sss", &fs, &device, &mntpoint)) return NULL;
+    if (!PyArg_ParseTuple(args, "sssi", &fs, &device, &mntpoint,
+			  &readOnly)) return NULL;
 
-    rc = doPwMount(device, mntpoint, fs, 0, 0, NULL, NULL);
+    rc = doPwMount(device, mntpoint, fs, readOnly, 0, NULL, NULL);
     if (rc == IMOUNT_ERR_ERRNO) 
 	PyErr_SetFromErrno(PyExc_SystemError);
     else if (rc)

@@ -63,8 +63,8 @@ def ddfile(file, megs):
     _isys.ddfile(fd, megs)
     os.close(fd)
 
-def mount(device, location, fstype = "ext2"):
-    return _isys.mount(fstype, device, location)
+def mount(device, location, fstype = "ext2", readOnly = 0):
+    return _isys.mount(fstype, device, location, readOnly)
 
 def umount(what):
     return _isys.umount(what)
