@@ -218,7 +218,7 @@ makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
 	echo "Building isolinux directory"
 	MBD_BOOTTREE=$TOPDESTPATH/isolinux
-	MBD_FSIMAGE=$TOPDESTPATH/images/pxeboot/initrd-everything.
+	MBD_FSIMAGE=$TOPDESTPATH/images/pxeboot/initrd-everything.img
 	mkdir $MBD_BOOTTREE
 	cp $IMGPATH/usr/lib/syslinux/isolinux.bin $MBD_BOOTTREE/isolinux.bin
 
