@@ -17,6 +17,9 @@ from constants_text import *
 from snack import *
 from translate import _
 
+ddc_monitor_string = _("DDC Probed Monitor")
+unprobed_monitor_string = _("Unprobed Monitor")
+
 class XCustomWindow:
 
     def depthchangeCB(self, screen):
@@ -261,12 +264,15 @@ class MonitorWindow:
                             "system.") , self.monitorsnames,
                             [ TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON],
                             scroll = 1, height = 7, help = "monitor",
-                            default = self.selectedMonitor)
+                            default = self.currentMonitor)
 
         if button != TEXT_CANCEL_CHECK:
-            self.selectedMonitor = result
-            selMonitorName = self.monitorsnames[self.selectedMonitor]
-            selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
+            self.currentMonitor = self.monitorsnames[result]
+            selMonitorName = self.currentMonitor
+	    if selMonitorName[:len(ddc_monitor_string)] == ddc_monitor_string:
+		selMonitor = self.ddcmon
+	    else:
+		selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
 
 	    if selMonitor:
 		self.hsync = selMonitor[3]
@@ -335,14 +341,22 @@ class MonitorWindow:
                            buttons = [ TEXT_OK_BUTTON ], width = 45)
 
     def resetCB(self, screen):
-        self.hsync = self.orig_hsync
-        self.vsync = self.orig_vsync
-        self.selectedMonitor = self.origMonitor
+        self.hsync = self.origHsync
+        self.vsync = self.origVsync
+        self.currentMonitor = self.origMonitor
         
     def __call__(self, screen, xconfig, monitor):
 
         self.xconfig = xconfig
         self.monitor = monitor
+
+        self.origMonitorID = self.monitor.getMonitorID()
+	self.origMonitorName = self.monitor.getMonitorName()
+	if not self.origMonitorName:
+	    self.origMonitorName = self.origMonitorID
+
+        self.origHsync = self.monitor.getMonitorHorizSync()
+        self.origVsync = self.monitor.getMonitorVertSync()
 
         self.monDB = self.monitor.monitorsDB()
         self.monitorslist = {}
@@ -352,28 +366,35 @@ class MonitorWindow:
         self.monitorsnames = self.monitorslist.keys()
         self.monitorsnames.sort()
 
-        try:
-            self.origMonitor = self.monitorsnames.index(self.monitor.getMonitorID(useProbed=1))
-        except:
-            self.origMonitor = 0
+        # Insert DDC probed monitor if it had no match in database
+        # or otherwise if we did not detect a monitor at all
+        #--Add a category for a DDC probed monitor if a DDC monitor was probed
+	self.ddcmon = self.monitor.getDDCProbeResults()
+	if self.ddcmon:
+	    title = ddc_monitor_string + " - " + self.ddcmon[1]
+	else:
+	    title = unprobed_monitor_string
 
-        try:
-            self.selectedMonitor = self.monitorsnames.index(self.monitor.getMonitorID())
-        except:
-            try:
-                self.selectedMonitor = self.monitorsnames.index('Generic Standard VGA, 640x480 @ 60 Hz')
-            except:
-                raise RuntimeError, "Could not match monitor %s" % (self.monitor.getMonitorID())
-
+	man = title
+	self.monitorslist[title] = self.ddcmon
+	self.monitorsnames.append(title)
+	
+	# set as current monitor if necessary
+	if self.origMonitorID == "DDCPROBED" or self.origMonitorID == "Unprobed Monitor":
+	    self.currentMonitor = title
+	    self.origMonitorName = title
+	else:
+	    self.currentMonitor = self.origMonitorName
 
         self.hsync = self.monitor.getMonitorHorizSync()
-        self.orig_hsync = self.monitor.getMonitorHorizSync(useProbed=1)
         self.vsync = self.monitor.getMonitorVertSync()
-        self.orig_vsync = self.monitor.getMonitorVertSync(useProbed=1)
 
 	while 1:
-            selMonitorName = self.monitorsnames[self.selectedMonitor]
-            selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
+            selMonitorName = self.currentMonitor
+	    if selMonitorName[:len(ddc_monitor_string)] == ddc_monitor_string:
+		selMonitor = self.ddcmon
+	    else:
+		selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
             
             bb = ButtonBar (screen, (TEXT_OK_BUTTON, (_("Default"), "default"),
                                      TEXT_BACK_BUTTON))
@@ -434,8 +455,11 @@ class MonitorWindow:
             screen.popWindow()
 
         # store results
-        selMonitorName = self.monitorsnames[self.selectedMonitor]
-        selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
+        selMonitorName = self.currentMonitor
+	if selMonitorName[:len(ddc_monitor_string)] == ddc_monitor_string:
+	    selMonitor = self.ddcmon
+	else:
+	    selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
 
 	if selMonitor:
 	    self.monitor.setSpecs(selMonitor[3], 
