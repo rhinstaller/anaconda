@@ -1,5 +1,8 @@
 2004-10-12  Jeremy Katz  <katzj@redhat.com>
 
+	* network.py (Network.__init__): Don't save the hwaddr 
+	for qeth (#135023)
+
 	* packages.py (doPostInstall): Add rhgb in post-install, not
 	doInstall (from msw on anaconda-devel-list)
 

@@ -229,6 +229,9 @@ class Network:
 		    if desc is not None and len(desc) > 0:
 			self.netdevices[device].set(("desc", desc))
 
+                    # hwaddr for qeth doesn't make sense (#135023)
+                    if netdev.driver == "qeth":
+                        continue
                     # add hwaddr
                     hwaddr = isys.getMacAddress(device)
                     if hwaddr and hwaddr != "00:00:00:00:00:00":
