@@ -1,7 +1,7 @@
 DESTDIR = $(TOPDIR)/RedHat/instimage/usr/lib/python1.5/site-packages
 
 CFLAGS = -I/usr/include/python1.5
-OBJECTS = isys.o nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o
+OBJECTS = isys.o nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o smp.o
 LOADLIBES = -lresolv
 
 all: _isys.so isys.a
