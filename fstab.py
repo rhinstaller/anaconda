@@ -22,6 +22,7 @@ import raid
 import struct
 import _balkan
 from translate import _
+from log import log
 
 def isValidExt2(device):
     file = '/tmp/' + device
@@ -491,6 +492,24 @@ class Fstab:
                 pass
 
             os.remove('/tmp/' + device)
+
+    def hasDirtyFilesystems(self):
+	log("setupFilesystems is %s\n", self.setupFilesystems)
+	if (not self.setupFilesystems): return 
+
+	log("mountList %s\n", self.mountList())
+
+	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
+	    if fsystem != "ext2": continue
+	    if doFormat: continue
+
+	    log("checking device %s\n", device)
+
+	    if isys.ext2dirty(device): return 1
+
+	    log("clean\n")
+
+	return 0
 
     def mountFilesystems(self, instPath):
 	if (not self.setupFilesystems): return 
