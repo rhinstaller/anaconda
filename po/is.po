@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 1.130\n"
-"POT-Creation-Date: 2002-07-18 23:21-0400\n"
+"POT-Creation-Date: 2002-07-24 01:40-0400\n"
 "PO-Revision-Date: 2002-04-06 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Það er ekki nægjanlegt vinnsluminni í vélinni til að nota myndræna "
 "uppsetningarforritið. Fer í textaham."
 
-#: ../anaconda:356 ../gui.py:103 ../rescue.py:36 ../rescue.py:143
+#: ../anaconda:356 ../gui.py:136 ../rescue.py:36 ../rescue.py:143
 #: ../rescue.py:166 ../rescue.py:176 ../rescue.py:192 ../rescue.py:198
 #: ../text.py:315 ../text.py:440 ../xserver.py:53 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
@@ -220,13 +220,13 @@ msgstr ""
 "%s\n"
 "\n"
 "Þetta getir átt sér stað ef það er ekki nóg pláss á diskunum þínum fyrir "
-"uppsetninguna. Þú getur valið um aðra sjálfvirka sneiðingu eða smellt á "
-"'Til baka' hnappinn og sneitt diskana handvirkt.\n"
+"uppsetninguna. Þú getur valið um aðra sjálfvirka sneiðingu eða smellt á 'Til "
+"baka' hnappinn og sneitt diskana handvirkt.\n"
 "\n"
 "Veldu 'Í lagi' til að halda áfram."
 
-#: ../autopart.py:1103 ../bootloader.py:123 ../image.py:270
-#: ../partedUtils.py:240 ../partedUtils.py:658 ../upgrade.py:259
+#: ../autopart.py:1103 ../bootloader.py:123 ../image.py:282
+#: ../partedUtils.py:240 ../partedUtils.py:665 ../upgrade.py:259
 #: ../upgrade.py:385 ../upgrade.py:404 ../iw/blpasswidget.py:148
 #: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:88
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
@@ -318,22 +318,28 @@ msgstr ""
 "Engir kjarnapakkar voru settir inn á vélina þína. Stillingum ræsistjóra "
 "verður ekki breytt."
 
-#: ../comps.py:697
+#: ../comps.py:699
 msgid "Everything"
 msgstr "Allt"
 
-#: ../comps.py:856 ../comps.py:922 ../upgrade.py:584
+#: ../comps.py:866 ../comps.py:932 ../upgrade.py:584
 msgid "no suggestion"
 msgstr "engin tillaga"
 
-#: ../comps.py:1046
+#: ../comps.py:1024
 msgid ""
 "This group includes all the packages available.  Note that this is "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
-"Þessi hópur inniheldur alla pakkana sem koma með dreyfingunni. Athugaðu "
-"að þetta eru fleiri pakkar en eru í hinum pakkahópunum á þessari síðu."
+"Þessi hópur inniheldur alla pakkana sem koma með dreyfingunni. Athugaðu að "
+"þetta eru fleiri pakkar en eru í hinum pakkahópunum á þessari síðu."
+
+#: ../comps.py:1028
+msgid ""
+"Choose this group to get the minimal possible set of packages.  Useful for "
+"creating small router/firewall boxes, for example."
+msgstr ""
 
 #: ../exception.py:167 ../text.py:236
 msgid "Exception Occurred"
@@ -377,9 +383,9 @@ msgstr "_Búa til ræsidiskling"
 
 #: ../floppy.py:76 ../floppy.py:105 ../fsset.py:554 ../fsset.py:1015
 #: ../fsset.py:1034 ../fsset.py:1081 ../fsset.py:1092 ../fsset.py:1128
-#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:184 ../image.py:77
-#: ../image.py:187 ../packages.py:304 ../packages.py:536 ../partedUtils.py:451
-#: ../partIntfHelpers.py:144 ../partIntfHelpers.py:326 ../upgrade.py:312
+#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:196 ../image.py:85
+#: ../image.py:195 ../packages.py:306 ../packages.py:546 ../partedUtils.py:458
+#: ../partIntfHelpers.py:142 ../partIntfHelpers.py:327 ../upgrade.py:312
 #: ../upgrade.py:330 ../iw/osbootwidget.py:221 ../iw/osbootwidget.py:230
 #: ../iw/raid_dialog_gui.py:613 ../iw/raid_dialog_gui.py:652
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1048
@@ -585,18 +591,18 @@ msgstr "Forsníð"
 msgid "Formatting %s file system..."
 msgstr "Forsníð %s skráakerfið..."
 
-#: ../gui.py:100 ../text.py:312
+#: ../gui.py:133 ../text.py:312
 msgid "Fix"
 msgstr "Laga"
 
-#: ../gui.py:101 ../text.py:313 ../textw/bootdisk_text.py:22
+#: ../gui.py:134 ../text.py:313 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:255 ../loader/devices.c:232
 #: ../loader/loader.c:1021 ../loader/loader.c:3520 ../loader/net.c:901
 msgid "Yes"
 msgstr "Já"
 
-#: ../gui.py:102 ../text.py:314 ../textw/bootdisk_text.py:22
+#: ../gui.py:135 ../text.py:314 ../textw/bootdisk_text.py:22
 #: ../textw/bootdisk_text.py:35 ../textw/bootloader_text.py:79
 #: ../textw/constants_text.py:52 ../textw/upgrade_text.py:255
 #: ../textw/upgrade_text.py:262 ../loader/devices.c:233
@@ -604,16 +610,16 @@ msgstr "Já"
 msgid "No"
 msgstr "Nei"
 
-#: ../gui.py:104 ../text.py:316 ../loader/net.c:274 ../loader/net.c:400
+#: ../gui.py:137 ../text.py:316 ../loader/net.c:274 ../loader/net.c:400
 msgid "Retry"
 msgstr "Reyna aftur"
 
-#: ../gui.py:105 ../text.py:317
+#: ../gui.py:138 ../text.py:317
 msgid "Ignore"
 msgstr "Hunsa"
 
-#: ../gui.py:106 ../gui.py:370 ../partIntfHelpers.py:226
-#: ../partIntfHelpers.py:410 ../partIntfHelpers.py:521 ../text.py:116
+#: ../gui.py:139 ../gui.py:403 ../partIntfHelpers.py:226
+#: ../partIntfHelpers.py:412 ../partIntfHelpers.py:523 ../text.py:116
 #: ../text.py:117 ../text.py:282 ../text.py:284 ../text.py:318
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
 #: ../textw/bootloader_text.py:212 ../textw/constants_text.py:40
@@ -623,7 +629,7 @@ msgstr "Hunsa"
 msgid "Cancel"
 msgstr "Hætta við"
 
-#: ../gui.py:292 ../text.py:290
+#: ../gui.py:325 ../text.py:290
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -635,7 +641,7 @@ msgstr ""
 "hann á diskling og sendu inn villutilkynningu um anaconda á http://bugzilla."
 "redhat.com/bugzilla"
 
-#: ../gui.py:443 ../text.py:280
+#: ../gui.py:476 ../text.py:280
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -643,82 +649,82 @@ msgstr ""
 "Vinsamlegast settu diskling í drifið. Öllu innihaldi disklingsins verður "
 "eytt svo veldu disklinginn vel."
 
-#: ../gui.py:551 ../gui.py:993
+#: ../gui.py:584 ../gui.py:1026
 msgid "Online Help"
 msgstr "Hjálp"
 
-#: ../gui.py:552 ../iw/language_gui.py:21 ../textw/language_text.py:39
+#: ../gui.py:585 ../iw/language_gui.py:23 ../textw/language_text.py:39
 msgid "Language Selection"
 msgstr "Veljið tungumál"
 
-#: ../gui.py:644
+#: ../gui.py:677
 msgid "Release Notes"
 msgstr "Útgáfuupplýsingar"
 
-#: ../gui.py:678
+#: ../gui.py:711
 msgid "Unable to load file!"
 msgstr "Get ekki lesið skrá!"
 
-#: ../gui.py:715
+#: ../gui.py:748
 msgid "Release notes are missing.\n"
 msgstr "Útgáfuupplýsingarnar vantar.\n"
 
-#: ../gui.py:831 ../packages.py:1001
+#: ../gui.py:864 ../packages.py:1040
 msgid "_Back"
 msgstr "_Til baka"
 
-#: ../gui.py:833
+#: ../gui.py:866
 msgid "_Next"
 msgstr "Á_fram"
 
-#: ../gui.py:835
+#: ../gui.py:868
 msgid "_Release Notes"
 msgstr "Ú_tgáfuupplýsingar"
 
-#: ../gui.py:837
+#: ../gui.py:870
 msgid "Show _Help"
 msgstr "Sýna _hjálp"
 
-#: ../gui.py:839
+#: ../gui.py:872
 msgid "Hide _Help"
 msgstr "_Fela hjálp"
 
-#: ../gui.py:841
+#: ../gui.py:874
 msgid "_Debug"
 msgstr "_Aflúsun"
 
-#: ../gui.py:897
+#: ../gui.py:930
 #, python-format
 msgid "%s Installer"
 msgstr "%s uppsetningarforrit"
 
-#: ../gui.py:912
+#: ../gui.py:945
 #, python-format
 msgid "%s Installer on %s"
 msgstr "%s uppsetningarforrit á %s"
 
-#: ../gui.py:951
+#: ../gui.py:984
 msgid "Unable to load title bar"
 msgstr "Get ekki lesið titilröndina"
 
-#: ../gui.py:1048
+#: ../gui.py:1081
 msgid "Install Window"
 msgstr "Uppsetningargluggi"
 
-#: ../harddrive.py:185
+#: ../harddrive.py:197
 #, python-format
 msgid "Missing CD #%d, which is required for the install."
 msgstr "Geisladisk nr. %d vantar, en hann er nauðsynlegur til uppsetningar."
 
-#: ../image.py:74
+#: ../image.py:82
 msgid "Copying File"
 msgstr "Afrita skrá"
 
-#: ../image.py:75
+#: ../image.py:83
 msgid "Transferring install image to hard drive..."
 msgstr "Flyt uppsetningarskrár á harða diskinn..."
 
-#: ../image.py:78
+#: ../image.py:86
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -726,48 +732,29 @@ msgstr ""
 "Villa kom upp við að flytja uppsetningarskrár á harða diskinn. Hann er "
 "líklega fullur."
 
-#: ../image.py:146
+#: ../image.py:154
 msgid "Change CDROM"
 msgstr "Skipta um geisladisk"
 
-#: ../image.py:147
+#: ../image.py:155
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Vinsamlegast settu inn disk %d til að halda áfram."
 
-#: ../image.py:181
+#: ../image.py:189
 msgid "Wrong CDROM"
 msgstr "Rangur geisladiskur"
 
-#: ../image.py:182
+#: ../image.py:190
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Þetta er ekki rétti %s geisladiskurinn."
 
-#: ../image.py:188
+#: ../image.py:196
 msgid "The CDROM could not be mounted."
 msgstr "Ekki var hægt að tengja geisladiskinn."
 
-#: ../installclass.py:30
-msgid "The following software will be installed:"
-msgstr "Eftirfarandi hugbúnaður verður settur upp:"
-
-#: ../installclass.py:32
-#, python-format
-msgid ""
-"These applications will allow you to browse the Internet, send and receive "
-"email, and create and edit documents on your %s system.\n"
-"\n"
-"However %s ships with many more applications, and you may customize the "
-"selection of software installed if you want."
-msgstr ""
-"Þessi forrit gera þér kleyft að flakka um internetið, senda og taka við "
-"pósti og búa til og breyta skjölum á %s vélinni þinni.\n"
-"\n"
-"Með %s fylgir hinsvegar miklu meira af hugbúnaði og þó getur sérsniðið "
-"hvaða hugbúnað þú vilt nota."
-
-#: ../installclass.py:55
+#: ../installclass.py:43
 msgid "Install on System"
 msgstr "Setja upp á kerfi"
 
@@ -779,11 +766,11 @@ msgstr "Heiti vélar verður að byrja á gildum staf á bilinu 'a-z' eða 'A-Z'"
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Heiti vélar má einungis innihalda stafina 'a-z', 'A-Z', '-', eða '.'"
 
-#: ../packages.py:39 ../iw/package_gui.py:36
+#: ../packages.py:40 ../iw/package_gui.py:37
 msgid "Proceed with upgrade?"
 msgstr "Halda áfram með uppfærslu?"
 
-#: ../packages.py:40 ../iw/package_gui.py:37
+#: ../packages.py:41 ../iw/package_gui.py:38
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -793,35 +780,35 @@ msgstr ""
 "verið tengd. Þú getur ekki farið til baka aftur fyrir þennan stað. \n"
 "\n"
 
-#: ../packages.py:44 ../iw/package_gui.py:41
+#: ../packages.py:45 ../iw/package_gui.py:42
 msgid "Would you like to continue with the upgrade?"
 msgstr "Viltu halda áfram með uppfærsluna?"
 
-#: ../packages.py:113
+#: ../packages.py:114
 msgid "Reading"
 msgstr "Les"
 
-#: ../packages.py:113
+#: ../packages.py:114
 msgid "Reading package information..."
 msgstr "Les upplýsingar um pakkana..."
 
-#: ../packages.py:190
+#: ../packages.py:191
 msgid "Dependency Check"
 msgstr "Athuga pakkaskilyrði"
 
-#: ../packages.py:191
+#: ../packages.py:192
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Athuga skilyrði pakkanna sem voru valdir til uppsetningar..."
 
-#: ../packages.py:256 ../packages.py:580
+#: ../packages.py:257 ../packages.py:597
 msgid "Processing"
 msgstr "Vinnsla"
 
-#: ../packages.py:257
+#: ../packages.py:258
 msgid "Preparing to install..."
 msgstr "Undirbý uppsetningu..."
 
-#: ../packages.py:305
+#: ../packages.py:307
 #, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -830,11 +817,11 @@ msgstr ""
 "Ekki er hægt að opna skrána %s. Þetta orsakast af skrá sem vantar, skemmdum "
 "pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
 
-#: ../packages.py:329
+#: ../packages.py:339
 msgid "Error Installing Package"
 msgstr "Villa við að setja inn pakka"
 
-#: ../packages.py:330
+#: ../packages.py:340
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -851,23 +838,23 @@ msgstr ""
 "\n"
 "Veldu Í lagi hnappinn til að endurræsa."
 
-#: ../packages.py:537
+#: ../packages.py:547
 msgid ""
 "Unable to create symlink for /var/tmp.  This should only happen if there "
 "were errors creating your filesystems.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Get ekki búið til tákntengið /var/tmp.  Þetta ætti einungis að eiga sér "
-"stað ef upp komu villur við gerð skráarkerfa.\n"
+"Get ekki búið til tákntengið /var/tmp.  Þetta ætti einungis að eiga sér stað "
+"ef upp komu villur við gerð skráarkerfa.\n"
 "\n"
 "Veldu Í lagi hnappinn til að endurræsa."
 
-#: ../packages.py:581
+#: ../packages.py:598
 msgid "Setting up RPM transaction..."
 msgstr "Set upp RPM færslu..."
 
-#: ../packages.py:618
+#: ../packages.py:635
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -876,7 +863,7 @@ msgstr ""
 "Uppfæri %s pakkana\n"
 "\n"
 
-#: ../packages.py:620
+#: ../packages.py:637
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -885,17 +872,17 @@ msgstr ""
 "Set inn %s pakkana\n"
 "\n"
 
-#: ../packages.py:627
+#: ../packages.py:644
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Uppfæri %s-%s-%s.\n"
 
-#: ../packages.py:629
+#: ../packages.py:646
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Set inn %s-%s-%s.\n"
 
-#: ../packages.py:645
+#: ../packages.py:662
 #, python-format
 msgid ""
 "\n"
@@ -912,15 +899,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:651
+#: ../packages.py:668
 msgid "Install Starting"
 msgstr "Uppsetning að hefjast"
 
-#: ../packages.py:652
+#: ../packages.py:669
 msgid "Starting install process, this may take several minutes..."
 msgstr "Ræsi uppsetningarferlið. Þetta gæti tekið nokkrar mínútur..."
 
-#: ../packages.py:697
+#: ../packages.py:714
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -930,17 +917,17 @@ msgstr ""
 "valdir. Þú þarft meira pláss í eftirtöldum skráarkerfum:\n"
 "\n"
 
-#: ../packages.py:701 ../packages.py:721 ../iw/lvm_dialog_gui.py:1003
+#: ../packages.py:718 ../packages.py:738 ../iw/lvm_dialog_gui.py:1003
 #: ../iw/partition_gui.py:347 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1096 ../textw/upgrade_text.py:109
 msgid "Mount Point"
 msgstr "Tengipunktur"
 
-#: ../packages.py:702
+#: ../packages.py:719
 msgid "Space Needed"
 msgstr "Þarfnast diskrýmis"
 
-#: ../packages.py:717
+#: ../packages.py:734
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -950,15 +937,15 @@ msgstr ""
 "valdir. Þú þarft fleiri lausar skrár (inóður) í eftirtöldum skráarkerfum:\n"
 "\n"
 
-#: ../packages.py:722
+#: ../packages.py:739
 msgid "Nodes Needed"
 msgstr "Vantar inóður"
 
-#: ../packages.py:728
+#: ../packages.py:745
 msgid "Disk Space"
 msgstr "Diskpláss"
 
-#: ../packages.py:749
+#: ../packages.py:766
 msgid ""
 "\n"
 "\n"
@@ -968,19 +955,19 @@ msgstr ""
 "\n"
 "Eftirfarandi pakkar voru til staðar í þessari útgáfu en EKKI uppfærðir:\n"
 
-#: ../packages.py:766
+#: ../packages.py:783
 msgid "Post Install"
 msgstr "Eftir uppsetningu"
 
-#: ../packages.py:767
+#: ../packages.py:784
 msgid "Performing post install configuration..."
 msgstr "Breyta stillingum eftir uppsetningu..."
 
-#: ../packages.py:981
+#: ../packages.py:1020
 msgid "Warning! This is a beta!"
 msgstr "Aðvörun! Þetta er beta-hugbúnaður!"
 
-#: ../packages.py:982
+#: ../packages.py:1021
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1005,23 +992,23 @@ msgstr ""
 "\n"
 "og flokkað það í flokkinn 'Red Hat Public Beta'.\n"
 
-#: ../packages.py:995 ../iw/congrats_gui.py:29
+#: ../packages.py:1034 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "_Hætta"
 
-#: ../packages.py:995
+#: ../packages.py:1034
 msgid "_Install BETA"
 msgstr "_Setja upp BETU"
 
-#: ../packages.py:998
+#: ../packages.py:1037
 msgid "Rebooting System"
 msgstr "Endurræsi vélina"
 
-#: ../packages.py:999
+#: ../packages.py:1038
 msgid "Your system will now be rebooted..."
 msgstr "Vélin þín mun nú endurræsa sig..."
 
-#: ../packages.py:1001
+#: ../packages.py:1040
 msgid "_Reboot"
 msgstr "En_durræsa"
 
@@ -1038,27 +1025,28 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"Disksneiðataflan á tæki /dev/%s er af gerð %s sem ekki passar fyrir vélbúnað þinn. "
-"Til þess að hægt sé að nota diskinn fyrir þessa uppsetningu af %s þarf að "
-"frumstilla disksneiðatöfluna, sem veldur því að ÖLL GÖGN á disknum tapast.\n"
+"Disksneiðataflan á tæki /dev/%s er af gerð %s sem ekki passar fyrir vélbúnað "
+"þinn. Til þess að hægt sé að nota diskinn fyrir þessa uppsetningu af %s þarf "
+"að frumstilla disksneiðatöfluna, sem veldur því að ÖLL GÖGN á disknum "
+"tapast.\n"
 "\n"
 "Viltu frumstilla töfluna?"
 
-#: ../partedUtils.py:452
+#: ../partedUtils.py:459
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Villa við tengingu skráakerfis á %s: %s"
 
-#: ../partedUtils.py:543
+#: ../partedUtils.py:550
 msgid "Initializing"
 msgstr "Frumstilli"
 
-#: ../partedUtils.py:544
+#: ../partedUtils.py:551
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Vinsamlegast bíðið meðan drifið %s er forsniðið...\n"
 
-#: ../partedUtils.py:659
+#: ../partedUtils.py:666
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1072,11 +1060,11 @@ msgstr ""
 "\n"
 "Viltu frumstilla þennan disk?"
 
-#: ../partedUtils.py:769 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:776 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "Engin drif fundust"
 
-#: ../partedUtils.py:770
+#: ../partedUtils.py:777
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1132,57 +1120,55 @@ msgid "Please specify a mount point for this partition."
 msgstr "Vinsamlegast gefðu upp tengipunkt fyrir þess disksneið."
 
 #: ../partIntfHelpers.py:104
-#, python-format
-msgid ""
-"You cannot %s this partition, as it is holding the data for the hard drive "
-"install."
+#, fuzzy
+msgid "This partition is holding the data for the hard drive install."
 msgstr ""
-"Þú getur ekki %s þessa disksneið því hún inniheldur gögnin fyrir "
-"uppsetningu frá hörðum disk."
+"Þú getur ekki %s þessa disksneið því hún inniheldur gögnin fyrir uppsetningu "
+"frá hörðum disk."
 
 #: ../partIntfHelpers.py:110
-#, python-format
-msgid ""
-"You cannot %%s this partition as it is part of the RAID device /dev/md%s."
+#, fuzzy, python-format
+msgid "This partition is part of the RAID device /dev/md%s."
 msgstr ""
-"Þú getur ekki %%s þessari disksneið þar sem hún er hluti af RAID tækinu /dev/md%s."
+"Þú getur ekki %%s þessari disksneið þar sem hún er hluti af RAID tækinu /dev/"
+"md%s."
 
 #: ../partIntfHelpers.py:113
-#, python-format
-msgid "You cannot %s this partition as it is part of a RAID device."
+#, fuzzy
+msgid "This partition is part of a RAID device."
+msgstr "Þú getur ekki %s þessari disksneið þar sem hún er hluti af RAID tæki."
+
+#: ../partIntfHelpers.py:118
+#, fuzzy, python-format
+msgid "This partition is part of the LVM volume group '%s'."
 msgstr ""
-"Þú getur ekki %s þessari disksneið þar sem hún er hluti af RAID tæki."
+"Þú getur ekki %%s þessa sneið þar sem hún er hluti af LVM sýndardiskhópnum '%"
+"s'."
 
-#: ../partIntfHelpers.py:119
-#, python-format
-msgid ""
-"You cannot %%s this partition, as it is part of the LVM volume group '%s'."
+#: ../partIntfHelpers.py:121
+#, fuzzy
+msgid "This partition is part of a LVM volume group."
 msgstr ""
-"Þú getur ekki %%s þessa sneið þar sem hún er hluti af LVM sýndardiskhópnum '%s'."
+"Þú getur ekki %s þessa sneið þar sem hún er hluti af LVM sýndardiskhóp."
 
-#: ../partIntfHelpers.py:122
-#, python-format
-msgid "You cannot %s this partition, as it is part of a LVM volume group."
-msgstr "Þú getur ekki %s þessa sneið þar sem hún er hluti af LVM sýndardiskhóp."
-
-#: ../partIntfHelpers.py:138 ../partIntfHelpers.py:152
-#: ../partIntfHelpers.py:162 ../partIntfHelpers.py:179
+#: ../partIntfHelpers.py:136 ../partIntfHelpers.py:150
+#: ../partIntfHelpers.py:160 ../partIntfHelpers.py:177
 msgid "Unable To Delete"
 msgstr "Get ekki fjarlægt"
 
-#: ../partIntfHelpers.py:139
+#: ../partIntfHelpers.py:137
 msgid "You must first select a partition to delete."
 msgstr "Þú verður að velja disksneið sem á að fjarlægja."
 
-#: ../partIntfHelpers.py:145 ../textw/partition_text.py:1060
+#: ../partIntfHelpers.py:143 ../textw/partition_text.py:1060
 msgid "DASD partitions can only be deleted with fdasd"
 msgstr "DASD disksneiðar má einungis fjarlægja með fdasd"
 
-#: ../partIntfHelpers.py:153
+#: ../partIntfHelpers.py:151
 msgid "You cannot delete free space."
 msgstr "Þú getur ekki fjarlægt laust pláss."
 
-#: ../partIntfHelpers.py:163
+#: ../partIntfHelpers.py:161
 #, python-format
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
@@ -1191,7 +1177,14 @@ msgstr ""
 "Þú getur ekki breytt þessari disksneið því hún er \"extended\" disksneið sem "
 "inniheldur %s"
 
-#: ../partIntfHelpers.py:222 ../partIntfHelpers.py:520
+#: ../partIntfHelpers.py:178
+#, fuzzy
+msgid ""
+"You cannot delete this partition:\n"
+"\n"
+msgstr "Þú ert við það að eyða /dev/%s disksneiðinni."
+
+#: ../partIntfHelpers.py:222 ../partIntfHelpers.py:522
 #: ../iw/lvm_dialog_gui.py:682
 msgid "Confirm Delete"
 msgstr "Staðfesta eyðingu"
@@ -1201,10 +1194,10 @@ msgstr "Staðfesta eyðingu"
 msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Þú ert við það að eyða öllum disksneiðum á tækinu '/dev/%s'."
 
-#: ../partIntfHelpers.py:226 ../partIntfHelpers.py:521
+#: ../partIntfHelpers.py:226 ../partIntfHelpers.py:523
 #: ../iw/account_gui.py:424 ../iw/lvm_dialog_gui.py:685
 #: ../iw/lvm_dialog_gui.py:1026 ../iw/osbootwidget.py:101
-#: ../iw/partition_gui.py:1297 ../iw/partition_gui.py:1303
+#: ../iw/partition_gui.py:1298 ../iw/partition_gui.py:1304
 msgid "_Delete"
 msgstr "_Eyða"
 
@@ -1224,7 +1217,7 @@ msgstr ""
 "%s"
 
 #: ../partIntfHelpers.py:301 ../partIntfHelpers.py:314
-#: ../partIntfHelpers.py:344 ../partIntfHelpers.py:355
+#: ../partIntfHelpers.py:345 ../partIntfHelpers.py:356
 msgid "Unable To Edit"
 msgstr "Get ekki breytt skrá"
 
@@ -1232,11 +1225,19 @@ msgstr "Get ekki breytt skrá"
 msgid "You must select a partition to edit"
 msgstr "Þú verður að velja disksneið til að breyta"
 
-#: ../partIntfHelpers.py:327
-msgid "You must go back and use fdasd to inititalize this partition"
-msgstr "Þú verður að fara til baka og nota fdasd til að frumstilla þessa disksneið"
+#: ../partIntfHelpers.py:314 ../partIntfHelpers.py:357
+#, fuzzy
+msgid ""
+"You cannot edit this partition:\n"
+"\n"
+msgstr "Þú ert við það að eyða /dev/%s disksneiðinni."
 
-#: ../partIntfHelpers.py:345
+#: ../partIntfHelpers.py:328
+msgid "You must go back and use fdasd to inititalize this partition"
+msgstr ""
+"Þú verður að fara til baka og nota fdasd til að frumstilla þessa disksneið"
+
+#: ../partIntfHelpers.py:346
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1245,11 +1246,11 @@ msgstr ""
 "Þú getur ekki breytt þessari disksneið því hún er \"extended\" disksneið sem "
 "inniheldur %s"
 
-#: ../partIntfHelpers.py:376
+#: ../partIntfHelpers.py:378
 msgid "Format as Swap?"
 msgstr "Forsniða sem diskminni?"
 
-#: ../partIntfHelpers.py:377
+#: ../partIntfHelpers.py:379
 #, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1262,7 +1263,7 @@ msgstr ""
 "\n"
 "Viltu forsníða þessa disksneið sem diskminnissneið?"
 
-#: ../partIntfHelpers.py:398
+#: ../partIntfHelpers.py:400
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. Red Hat recommends that you format this partition to "
@@ -1274,23 +1275,23 @@ msgstr ""
 "Þú hefur kosið að nota disksneið sem þegar var til fyrir þessa uppsetningu "
 "án þess að forsníða hana. Red Hat mælir með að þú forsníðir þessa disksneið "
 "til að ganga úr skugga um að skrár sem tilheyra eldri uppsetningu valdi ekki "
-"vandræðum í þessari útgáfu. Hinsvegar, ef diskurinn inniheldur skrár sem "
-"þú vilt eiga, eins og heimasvæði notanda þá ættir þú að halda áfram án "
-"þess að forsníða."
+"vandræðum í þessari útgáfu. Hinsvegar, ef diskurinn inniheldur skrár sem þú "
+"vilt eiga, eins og heimasvæði notanda þá ættir þú að halda áfram án þess að "
+"forsníða."
 
-#: ../partIntfHelpers.py:410
+#: ../partIntfHelpers.py:412
 msgid "Format?"
 msgstr "Forsníða?"
 
-#: ../partIntfHelpers.py:410
+#: ../partIntfHelpers.py:412
 msgid "Do _Not Format"
 msgstr "_Ekki forsníða"
 
-#: ../partIntfHelpers.py:418
+#: ../partIntfHelpers.py:420
 msgid "Error with Partitioning"
 msgstr "Villa við disksneiðingu"
 
-#: ../partIntfHelpers.py:419
+#: ../partIntfHelpers.py:421
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1303,11 +1304,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:433
+#: ../partIntfHelpers.py:435
 msgid "Partitioning Warning"
 msgstr "Disksneiðaaðvörun"
 
-#: ../partIntfHelpers.py:434
+#: ../partIntfHelpers.py:436
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1323,7 +1324,7 @@ msgstr ""
 "\n"
 "Viltu halda áfram með þessar disksneiðar?"
 
-#: ../partIntfHelpers.py:448 ../iw/partition_gui.py:635
+#: ../partIntfHelpers.py:450 ../iw/partition_gui.py:635
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1331,7 +1332,7 @@ msgstr ""
 "Eftirfarandi disksneiðar sem voru til fyrir hefur þú kosið að forsníða og "
 "eyða á öllum gögnum."
 
-#: ../partIntfHelpers.py:451
+#: ../partIntfHelpers.py:453
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1339,11 +1340,11 @@ msgstr ""
 "Veldu 'Já' til að halda áfram og forsníða þessar sneiðar eða 'Nei' til að "
 "fara til baka og breyta þessum stillingum."
 
-#: ../partIntfHelpers.py:457
+#: ../partIntfHelpers.py:459
 msgid "Format Warning"
 msgstr "Forsniðsaðvörun"
 
-#: ../partIntfHelpers.py:505
+#: ../partIntfHelpers.py:507
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1354,29 +1355,29 @@ msgstr ""
 "\n"
 "ALLIR sýndardiskar í honum munu týnast!"
 
-#: ../partIntfHelpers.py:509
+#: ../partIntfHelpers.py:511
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "Þú ert við það að eyða sýndardisknum \"%s\"."
 
-#: ../partIntfHelpers.py:512
+#: ../partIntfHelpers.py:514
 msgid "You are about to delete a RAID device."
 msgstr "Þú ert við það að eyða RAID tæki."
 
-#: ../partIntfHelpers.py:515
+#: ../partIntfHelpers.py:517
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr "Þú ert við það að eyða /dev/%s disksneiðinni."
 
-#: ../partIntfHelpers.py:518
+#: ../partIntfHelpers.py:520
 msgid "The partition you selected will be deleted."
 msgstr "Disksneiðin sem þú valdir verður eytt."
 
-#: ../partIntfHelpers.py:528
+#: ../partIntfHelpers.py:530
 msgid "Confirm Reset"
 msgstr "Staðfesta frumstillingu"
 
-#: ../partIntfHelpers.py:529
+#: ../partIntfHelpers.py:531
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "Ertu viss um að þú viljir frumstilla disksneiðatöfluna ?"
@@ -1503,7 +1504,8 @@ msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
 msgstr ""
-"Tengipunkturinn \"%s\" er þegar í notkun. Vinsamlegast veldu annan tengipunkt."
+"Tengipunkturinn \"%s\" er þegar í notkun. Vinsamlegast veldu annan "
+"tengipunkt."
 
 #: ../partRequests.py:248
 #, python-format
@@ -1576,10 +1578,10 @@ msgid ""
 "\n"
 msgstr ""
 "Björgunarumhverfið mun nú reyna að finna Red Hat Linux kerfið þitt og tengja "
-"það undir möppuna %s. Þú getur gert þær breytingar sem þú þarft í "
-"þeirri möppu.  Ef þú vilt halda áfram veldu þá 'Halda áfram'. Þú getur "
-"einnig kosið að tengja diskinn annig að einungis er hægt að lesa hann með "
-"'Einungis lestur' hnappnum.\n"
+"það undir möppuna %s. Þú getur gert þær breytingar sem þú þarft í þeirri "
+"möppu.  Ef þú vilt halda áfram veldu þá 'Halda áfram'. Þú getur einnig kosið "
+"að tengja diskinn annig að einungis er hægt að lesa hann með 'Einungis "
+"lestur' hnappnum.\n"
 "\n"
 "Ef þetta bregst á einhvern hátt getur þú valið 'Sleppa' og þessu þrepi "
 "verður þá sleppt og þú lendir í skel.\n"
@@ -1756,8 +1758,8 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"Eftirfarandi Linux skráarkerfi voru ekki aftengt á réttan máta. Viltu "
-"tengja þau þrátt fyrir það?\n"
+"Eftirfarandi Linux skráarkerfi voru ekki aftengt á réttan máta. Viltu tengja "
+"þau þrátt fyrir það?\n"
 "%s"
 
 #: ../upgrade.py:226 ../upgrade.py:232
@@ -1779,8 +1781,8 @@ msgid ""
 "try to upgrade again."
 msgstr ""
 "Ekki tókst að tengja eitt eða fleiri af skráarkerfunum í /etc/fstab á "
-"vélinni þinni því það er óhreint. Vinsamlegast lagfærðu þetta og reyndu "
-"svo að uppfæra aftur."
+"vélinni þinni því það er óhreint. Vinsamlegast lagfærðu þetta og reyndu svo "
+"að uppfæra aftur."
 
 #: ../upgrade.py:249
 msgid ""
@@ -1975,7 +1977,7 @@ msgstr "_Bæta við"
 
 #: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1023
 #: ../iw/network_gui.py:457 ../iw/osbootwidget.py:97
-#: ../iw/partition_gui.py:1296 ../iw/partition_gui.py:1302
+#: ../iw/partition_gui.py:1297 ../iw/partition_gui.py:1303
 msgid "_Edit"
 msgstr "_Breyta"
 
@@ -2291,8 +2293,8 @@ msgid ""
 "the Master Boot Record (MBR)."
 msgstr ""
 "Raðaðu diskunum í sömu röð og BIOS vélarinnar sér þá í. Að breyta röðinni er "
-"gagnlegt ef þú ert með margar SCSI stýringar eða bæði SCSI og IDE stýringar og "
-"vilt ræsa af SCSI tæki.\n"
+"gagnlegt ef þú ert með margar SCSI stýringar eða bæði SCSI og IDE stýringar "
+"og vilt ræsa af SCSI tæki.\n"
 "\n"
 "Ef þú breytir röðinni mun það hafa áhrif á hvar uppsetningartólið finnur "
 "aðalræsifærsluna (MBR)."
@@ -2334,8 +2336,7 @@ msgstr "Veldu áfram-örina til að byrja uppsetningu %s.."
 msgid ""
 "A complete log of the upgrade can be found in the %s file after rebooting "
 "your system."
-msgstr ""
-"Annáll um þessa uppsetningu verður að finna í %s eftir endurræsinguna."
+msgstr "Annáll um þessa uppsetningu verður að finna í %s eftir endurræsinguna."
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
@@ -2347,8 +2348,8 @@ msgid ""
 "rebooting.\n"
 "\n"
 msgstr ""
-"Ef þú bjóst til ræsidiskling til að ræsa vélina settu hann í núna áður "
-"en þú endurræsir.\n"
+"Ef þú bjóst til ræsidiskling til að ræsa vélina settu hann í núna áður en þú "
+"endurræsir.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:56
@@ -2398,8 +2399,8 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Óuppfyllt pakkaskilyrði"
 
-#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:256
-#: ../iw/package_gui.py:495 ../iw/package_gui.py:589
+#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:257
+#: ../iw/package_gui.py:500 ../iw/package_gui.py:687
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
@@ -2426,15 +2427,69 @@ msgstr "_Ekki setja inn pakka sem þarfnast annara pakka"
 msgid "I_gnore package dependencies"
 msgstr "_Hunsa pakkaskilyrði"
 
-#: ../iw/desktop_choice_gui.py:26 ../textw/desktop_choice_text.py:25
+#: ../iw/desktop_choice_gui.py:25 ../iw/desktop_choice_gui.py:53
+#: ../textw/desktop_choice_text.py:24
 msgid "Workstation Defaults"
 msgstr "Sjálfgefin gildi vinnustöðvar"
 
-#: ../iw/desktop_choice_gui.py:57
-#, python-format
+#: ../iw/desktop_choice_gui.py:52 ../installclasses/workstation.py:6
+msgid "Workstation"
+msgstr "Vinnustöð"
+
+#: ../iw/desktop_choice_gui.py:58
+#, fuzzy, python-format
 msgid ""
 "The default workstation environment includes our recommendations for new "
 "users, including:\n"
+"\n"
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tSoftware Development Tools\n"
+"\tAdministration Tools\n"
+"\n"
+"After installation, additional software can be added or removed using the "
+"'redhat-config-package' tool.\n"
+"\n"
+"If you are familiar with %s, you may have specific packages you would like "
+"to install or avoid installing. Check the box below to customize your "
+"installation."
+msgstr ""
+"Sjálfgefna vinnustöðvaruppsetningir inniheldur það sem við mælum með fyrir "
+"nýja notendur, og innifelur amk:\n"
+"\n"
+"\tMyndrænt vinnuumhverfi (GNOME)\n"
+"\tSkrifstofutól (OpenOffice)\n"
+"\tVefrápara (Mozilla) \n"
+"\tPóstforrit (Evolution)\n"
+"\tInstant messaging\n"
+"\tHlóð og myndtól\n"
+"\tLeiki\n"
+"\n"
+"Eftir að uppsetningu lýkur mða bæta við fleiri pökkum eða taka út pakka með "
+"'redhat-config-package' tólinu.\n"
+"\n"
+"Ef þú er vanur að nota %s getur þú velið pakka sem þú vilt setja inn eða "
+"ekki setja inn með því að haka við í boxið hér að neðan."
+
+#: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:10
+msgid "Personal Desktop"
+msgstr "Skjáborð"
+
+#: ../iw/desktop_choice_gui.py:76
+#, fuzzy
+msgid "Personal Desktop Defaults"
+msgstr "Skjáborð"
+
+#: ../iw/desktop_choice_gui.py:81
+#, fuzzy, python-format
+msgid ""
+"The default personal desktop environment includes our recommendations for "
+"new users, including:\n"
 "\n"
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -2462,17 +2517,23 @@ msgstr ""
 "\tHlóð og myndtól\n"
 "\tLeiki\n"
 "\n"
-"Eftir að uppsetningu lýkur mða bæta við fleiri pökkum eða taka út pakka "
-"með 'redhat-config-package' tólinu.\n"
+"Eftir að uppsetningu lýkur mða bæta við fleiri pökkum eða taka út pakka með "
+"'redhat-config-package' tólinu.\n"
 "\n"
 "Ef þú er vanur að nota %s getur þú velið pakka sem þú vilt setja inn eða "
 "ekki setja inn með því að haka við í boxið hér að neðan."
 
-#: ../iw/desktop_choice_gui.py:77
+#: ../iw/desktop_choice_gui.py:98
+msgid ""
+"If you would like to change the default package set to be installed you can "
+"choose to customize this below."
+msgstr ""
+
+#: ../iw/desktop_choice_gui.py:106
 msgid "_Accept the current package list"
 msgstr "_Samþykkja núverandi pakkalista"
 
-#: ../iw/desktop_choice_gui.py:78
+#: ../iw/desktop_choice_gui.py:107
 msgid "_Customize the set of packages to be installed"
 msgstr "_Velja pakka sem á að uppfæra"
 
@@ -2526,7 +2587,7 @@ msgstr "Veldu disk til að keyra fdasd á"
 msgid "Partitioning with fdisk"
 msgstr "Disksneiðing með fdisk"
 
-#: ../iw/fdisk_gui.py:100
+#: ../iw/fdisk_gui.py:103
 msgid "Select a drive to partition with fdisk:"
 msgstr "Veldu disk til að keyra fdisk á:"
 
@@ -2603,31 +2664,31 @@ msgstr "IP vistfang má einungis innihalda tölur á bilinu 1 til 255"
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP vistfang má einungis innihalda tölur á bilinu 0 til 255"
 
-#: ../iw/language_gui.py:59 ../textw/language_text.py:40 ../loader/lang.c:306
+#: ../iw/language_gui.py:61 ../textw/language_text.py:40 ../loader/lang.c:306
 msgid "What language would you like to use during the installation process?"
 msgstr "Hvaða tungumál viltu nota meðan á uppsetningu stendur?"
 
-#: ../iw/language_support_gui.py:22
+#: ../iw/language_support_gui.py:24
 msgid "Additional Language Support"
 msgstr "Tungumálastuðningur"
 
-#: ../iw/language_support_gui.py:147
+#: ../iw/language_support_gui.py:149
 msgid "Select the _default language for the system:   "
 msgstr "Veldu _sjálfgefna tungumálið:   "
 
-#: ../iw/language_support_gui.py:157
+#: ../iw/language_support_gui.py:159
 msgid "Select _additional languages to install on the system:"
 msgstr "Hvaða _viðbótartungumál viltu nota á þessari vél:"
 
-#: ../iw/language_support_gui.py:206
+#: ../iw/language_support_gui.py:208
 msgid "_Select All"
 msgstr "Velja ö_ll"
 
-#: ../iw/language_support_gui.py:212
+#: ../iw/language_support_gui.py:214
 msgid "Select Default _Only"
 msgstr "Velja sjálfgefið _eingöngu"
 
-#: ../iw/language_support_gui.py:218
+#: ../iw/language_support_gui.py:220
 msgid "Rese_t"
 msgstr "Endur_stilla"
 
@@ -2644,9 +2705,9 @@ msgid ""
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
-"Það er ekki hægt sð breyta stærð raundiskabútanna því þá stækkar það "
-"pláss sem sýndardiskarnir sem þegar eru skilgreindir nota umfram það "
-"pláss sem þegar er til."
+"Það er ekki hægt sð breyta stærð raundiskabútanna því þá stækkar það pláss "
+"sem sýndardiskarnir sem þegar eru skilgreindir nota umfram það pláss sem "
+"þegar er til."
 
 #: ../iw/lvm_dialog_gui.py:114
 msgid "Confirm Physical Extent Change"
@@ -2660,8 +2721,9 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
-"Þessi breyting á stærð raundiskabúta veldur því að stækka þarf þá sýndardiska "
-"sem þegar eru til í heiltölu margfeldi af stærð raundiskabútanna.\n"
+"Þessi breyting á stærð raundiskabúta veldur því að stækka þarf þá "
+"sýndardiska sem þegar eru til í heiltölu margfeldi af stærð "
+"raundiskabútanna.\n"
 "\n"
 "Þessi breyting á sér stað umleið."
 
@@ -2677,8 +2739,8 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
-"Stærð raundiskbúta er ekki hægt að breyta svona því gildið sem þú valdir "
-"(%10.2f MB) er stærra en minnsti raundiskurinn (%10.2f MB) í sýndardiskhópnum."
+"Stærð raundiskbúta er ekki hægt að breyta svona því gildið sem þú valdir (%"
+"10.2f MB) er stærra en minnsti raundiskurinn (%10.2f MB) í sýndardiskhópnum."
 
 #: ../iw/lvm_dialog_gui.py:160
 msgid "Too small"
@@ -2793,7 +2855,8 @@ msgstr "Ógilt heiti sýndardisks"
 #: ../iw/lvm_dialog_gui.py:535
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "Heiti sýndardisksins \"%s\" er þegar í notkun. Vinsamlegast veldu annað."
+msgstr ""
+"Heiti sýndardisksins \"%s\" er þegar í notkun. Vinsamlegast veldu annað."
 
 #: ../iw/lvm_dialog_gui.py:549
 #, python-format
@@ -2843,8 +2906,9 @@ msgid ""
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
-"Það er ekkert laust pláss í sýndardiskhópnum til að búa til nýja sýndardiska. "
-"Til að það sé hægt þarftu að minnka þau sem þegar eru til í sýndardiskhópnum"
+"Það er ekkert laust pláss í sýndardiskhópnum til að búa til nýja "
+"sýndardiska. Til að það sé hægt þarftu að minnka þau sem þegar eru til í "
+"sýndardiskhópnum"
 
 #: ../iw/lvm_dialog_gui.py:683
 #, python-format
@@ -2862,7 +2926,8 @@ msgstr "Heiti í notkun"
 #: ../iw/lvm_dialog_gui.py:816
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr "Heiti sýndardiskhópsins \"%s\" er þegar í notkun. Vinsamlegast veldi annað."
+msgstr ""
+"Heiti sýndardiskhópsins \"%s\" er þegar í notkun. Vinsamlegast veldi annað."
 
 #: ../iw/lvm_dialog_gui.py:860
 msgid "Not enough physical volumes"
@@ -2939,39 +3004,39 @@ msgstr "Stærð (MB)"
 msgid "Logical Volumes"
 msgstr "Sýndardiskar"
 
-#: ../iw/mouse_gui.py:24
+#: ../iw/mouse_gui.py:26
 msgid "Mouse Configuration"
 msgstr "Stillingar músar"
 
-#: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:20
+#: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
 msgstr "/dev/ttyS0 (COM1 í DOS)"
 
-#: ../iw/mouse_gui.py:79 ../textw/mouse_text.py:21
+#: ../iw/mouse_gui.py:81 ../textw/mouse_text.py:21
 msgid "/dev/ttyS1 (COM2 under DOS)"
 msgstr "/dev/ttyS1 (COM2 í DOS)"
 
-#: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:22
+#: ../iw/mouse_gui.py:82 ../textw/mouse_text.py:22
 msgid "/dev/ttyS2 (COM3 under DOS)"
 msgstr "/dev/ttyS2 (COM3 í DOS)"
 
-#: ../iw/mouse_gui.py:81 ../textw/mouse_text.py:23
+#: ../iw/mouse_gui.py:83 ../textw/mouse_text.py:23
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 í DOS)"
 
-#: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:157
+#: ../iw/mouse_gui.py:93 ../iw/osbootwidget.py:157
 msgid "_Device"
 msgstr "Tæ_ki"
 
-#: ../iw/mouse_gui.py:136
+#: ../iw/mouse_gui.py:138
 msgid "_Model"
 msgstr "_Tegund"
 
-#: ../iw/mouse_gui.py:219
+#: ../iw/mouse_gui.py:221
 msgid "_Emulate 3 buttons"
 msgstr "_Herma eftir þrem hnöppum"
 
-#: ../iw/mouse_gui.py:233
+#: ../iw/mouse_gui.py:235
 msgid "Select the appropriate mouse for the system."
 msgstr "Veldu rétta mús fyrir þessa vél."
 
@@ -3067,8 +3132,8 @@ msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
-"Þú hefur engin virk netkort. Vélin þín mun ekki geta haft samskipti "
-"við aðrar vélar á neti án að minnsta kosti eins netkorts."
+"Þú hefur engin virk netkort. Vélin þín mun ekki geta haft samskipti við "
+"aðrar vélar á neti án að minnsta kosti eins netkorts."
 
 #: ../iw/network_gui.py:201
 #, python-format
@@ -3210,18 +3275,18 @@ msgid ""
 "This boot target cannot be deleted because it is for the Red Hat Linux "
 "system you are about to install."
 msgstr ""
-"Þessu ræsitæki er ekki hægt að eyða vegna þess að það verður notað í "
-"þessari Red Hat Linux vél sem þú ert að fara að setja upp."
+"Þessu ræsitæki er ekki hægt að eyða vegna þess að það verður notað í þessari "
+"Red Hat Linux vél sem þú ert að fara að setja upp."
 
-#: ../iw/package_gui.py:47 ../textw/packages_text.py:237
+#: ../iw/package_gui.py:48 ../textw/packages_text.py:237
 msgid "Individual Package Selection"
 msgstr "Val einstakra pakka"
 
-#: ../iw/package_gui.py:75
+#: ../iw/package_gui.py:76
 msgid "All Packages"
 msgstr "Allir pakkar"
 
-#: ../iw/package_gui.py:189
+#: ../iw/package_gui.py:190
 #, python-format
 msgid ""
 "Package: %s\n"
@@ -3230,44 +3295,48 @@ msgstr ""
 "Pakki:  %s\n"
 "Útgáfa: %s\n"
 
-#: ../iw/package_gui.py:360
+#: ../iw/package_gui.py:361
 msgid "_Tree View"
 msgstr "_Trjáarhamur"
 
-#: ../iw/package_gui.py:362
+#: ../iw/package_gui.py:363
 msgid "_Flat View"
 msgstr "_Flatur hamur"
 
-#: ../iw/package_gui.py:377
+#: ../iw/package_gui.py:378
 msgid "_Package"
 msgstr "_Pakki"
 
-#: ../iw/package_gui.py:379
+#: ../iw/package_gui.py:380
 msgid "_Size (MB)"
 msgstr "_Stærð (MB)"
 
-#: ../iw/package_gui.py:430
+#: ../iw/package_gui.py:431
 msgid "Total size: "
 msgstr "Heildarstærð: "
 
-#: ../iw/package_gui.py:433
+#: ../iw/package_gui.py:434
 msgid "Select _all in group"
 msgstr "Velja _allt í hópnum"
 
-#: ../iw/package_gui.py:437
+#: ../iw/package_gui.py:438
 msgid "_Unselect all in group"
 msgstr "_Afvelja allt í hópnum"
 
-#: ../iw/package_gui.py:474 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:475 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr "Velja pakkahópa"
 
-#: ../iw/package_gui.py:667
+#: ../iw/package_gui.py:692
+msgid "Minimal"
+msgstr ""
+
+#: ../iw/package_gui.py:764
 #, python-format
 msgid "Details for '%s'"
 msgstr "Upplýsingar um '%s'"
 
-#: ../iw/package_gui.py:676
+#: ../iw/package_gui.py:773
 msgid ""
 "A package group can have both Base and Optional package members.  Base "
 "packages are always selected as long as the package group is selected.\n"
@@ -3279,19 +3348,19 @@ msgstr ""
 "\n"
 "Veldu þá aukapakka sem þú vilt setja inn:"
 
-#: ../iw/package_gui.py:716
+#: ../iw/package_gui.py:814
 msgid "Base Packages"
 msgstr "Grunnpakkar"
 
-#: ../iw/package_gui.py:744
+#: ../iw/package_gui.py:844
 msgid "Optional Packages"
 msgstr "Aukapakkar"
 
-#: ../iw/package_gui.py:920
+#: ../iw/package_gui.py:1060
 msgid "Details"
 msgstr "Lýsing"
 
-#: ../iw/package_gui.py:980
+#: ../iw/package_gui.py:1148
 msgid "_Select individual packages"
 msgstr "_Velja hvern pakka fyrir sig"
 
@@ -3499,22 +3568,24 @@ msgid "Software RAID is NOT supported on this platform."
 msgstr "RAID er ekki stutt á þessum vélbúnaði."
 
 #: ../iw/partition_gui.py:1153
-msgid "No RAID minors available"
+#, fuzzy
+msgid "No RAID minor device numbers available"
 msgstr "Engin RAID tæki tiltæk"
 
 #: ../iw/partition_gui.py:1154
+#, fuzzy
 msgid ""
-"A software RAID device cannot be created because all of the available minors "
-"have been used."
+"A software RAID device cannot be created because all of the available RAID "
+"minor device numbers have been used."
 msgstr ""
-"Það er ekki hægt að búa til RAID tæki því allar tiltækar RAID sneiðar eru "
-"í notkun." 
+"Það er ekki hægt að búa til RAID tæki því allar tiltækar RAID sneiðar eru í "
+"notkun."
 
-#: ../iw/partition_gui.py:1167
+#: ../iw/partition_gui.py:1168
 msgid "RAID Options"
 msgstr "Stillingar RAID"
 
-#: ../iw/partition_gui.py:1178
+#: ../iw/partition_gui.py:1179
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3525,15 +3596,15 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
-"RAID gerir þér kleyft að sameina marga diska í eitt stærra RAID tæki. "
-"RAID tæki má svo nota til að fá fram aukinn hraða og meiri gagnaöryggi "
-"miðað við eitt stakt drif. Eg þig langar að lesa meira um RAID tæki "
-"getur þú lesið %s handbókina.\n"
+"RAID gerir þér kleyft að sameina marga diska í eitt stærra RAID tæki. RAID "
+"tæki má svo nota til að fá fram aukinn hraða og meiri gagnaöryggi miðað við "
+"eitt stakt drif. Eg þig langar að lesa meira um RAID tæki getur þú lesið %s "
+"handbókina.\n"
 "\n"
 "Þú ert núna með %s RAID disksneiðar sem eru ekki í notkun.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1189
+#: ../iw/partition_gui.py:1190
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3541,82 +3612,82 @@ msgid ""
 "\n"
 msgstr ""
 "Til að nota RAID þarftu að búa til að minnsta kosti tvær disksneiðar af "
-"gerðinni 'software RAID'. Þá býrðu til RAID tæki sem hægt er að forsníða "
-"og tengja inn í skráarkerfið.\n"
+"gerðinni 'software RAID'. Þá býrðu til RAID tæki sem hægt er að forsníða og "
+"tengja inn í skráarkerfið.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1195
+#: ../iw/partition_gui.py:1196
 msgid "What do you want to do now?"
 msgstr "Hvað viltu gera núna?"
 
-#: ../iw/partition_gui.py:1204
+#: ../iw/partition_gui.py:1205
 msgid "Create a software RAID _partition."
 msgstr "Búa til RAID _disksneið."
 
-#: ../iw/partition_gui.py:1207
+#: ../iw/partition_gui.py:1208
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "Búa til RAID _tæki [sjálfgefið=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1211
+#: ../iw/partition_gui.py:1212
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr "Afrita d_rif til að búa til RAID tæki [sjálfgefið=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1250
+#: ../iw/partition_gui.py:1251
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "Gat ekki opnað diskafritunartólið"
 
-#: ../iw/partition_gui.py:1251
+#: ../iw/partition_gui.py:1252
 msgid "The drive clone editor could not be created for some reason."
 msgstr "Einhverra hluta vegna tókst ekki að opna diskafritunartólið."
 
-#: ../iw/partition_gui.py:1298
+#: ../iw/partition_gui.py:1299
 msgid "_Reset"
 msgstr "En_durstilla"
 
-#: ../iw/partition_gui.py:1299
+#: ../iw/partition_gui.py:1300
 msgid "Make _RAID"
 msgstr "Búa til _RAID"
 
-#: ../iw/partition_gui.py:1301
+#: ../iw/partition_gui.py:1302
 msgid "Ne_w"
 msgstr "_Nýr"
 
-#: ../iw/partition_gui.py:1304
+#: ../iw/partition_gui.py:1305
 msgid "Re_set"
 msgstr "En_durstilla"
 
-#: ../iw/partition_gui.py:1305
+#: ../iw/partition_gui.py:1306
 msgid "R_AID"
 msgstr "R_AID"
 
-#: ../iw/partition_gui.py:1306
+#: ../iw/partition_gui.py:1307
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1345
+#: ../iw/partition_gui.py:1346
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Fela RAID _drif og LVM diska"
 
-#: ../iw/partition_gui.py:1360 ../textw/partition_text.py:1187
+#: ../iw/partition_gui.py:1361 ../textw/partition_text.py:1187
 msgid "Automatic Partitioning"
 msgstr "Sjálfvirk disksneiðing"
 
-#: ../iw/partition_gui.py:1388
+#: ../iw/partition_gui.py:1389
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "Þú verður að velja amk. eitt drif til að setja %s upp á."
 
-#: ../iw/partition_gui.py:1430
+#: ../iw/partition_gui.py:1431
 msgid "I want to have automatic partitioning:"
 msgstr "Ég vil sneiða diskinn sjálfvirkt:"
 
-#: ../iw/partition_gui.py:1461
+#: ../iw/partition_gui.py:1462
 msgid "Select the drive(s) to use for this installation:"
 msgstr "Veldu þá harða diska sem þú vilt nota fyrir þessa uppsetningu:"
 
-#: ../iw/partition_gui.py:1485
+#: ../iw/partition_gui.py:1486
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr "_Endurskoða (og breyta ef þarf) disksneiðunum"
 
@@ -3784,8 +3855,8 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
-"Diskurinn sem afrita á hefur disksneiðar sem ekki eru af gerðinni "
-"'software RAID'.\n"
+"Diskurinn sem afrita á hefur disksneiðar sem ekki eru af gerðinni 'software "
+"RAID'.\n"
 "\n"
 "Þessum disksneiðum þarf að eyða áður en hægt er að afrita diskinn."
 
@@ -3801,8 +3872,8 @@ msgstr ""
 "Diskurinn sem afrita á hefur RAID disksneiðar sem ekki eru bundnar við "
 "drifið /dev/%s.\n"
 "\n"
-"Þessum disksneiðum þarf að eyða eða binda við drifið áður en hægt er að afrita "
-"diskinn."
+"Þessum disksneiðum þarf að eyða eða binda við drifið áður en hægt er að "
+"afrita diskinn."
 
 #: ../iw/raid_dialog_gui.py:516
 msgid ""
@@ -3811,8 +3882,8 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
-"Diskurinn sem afrita á hefur RAID disksneiðar sem þegar eru í notkun í "
-"virku RAID tæki.\n"
+"Diskurinn sem afrita á hefur RAID disksneiðar sem þegar eru í notkun í virku "
+"RAID tæki.\n"
 "\n"
 "Þessum disksneiðum þarf að eyða áður en hægt er að afrita diskinn."
 
@@ -3845,10 +3916,6 @@ msgstr ""
 "\"%s\"\n"
 "\n"
 "Þú verður að eyða henni áður en hægt er að afrita á þennan disk."
-
-#: ../iw/raid_dialog_gui.py:556
-msgid "delete"
-msgstr "eyða"
 
 #: ../iw/raid_dialog_gui.py:614
 msgid "Please select a source drive."
@@ -3883,7 +3950,8 @@ msgstr "Afrita drif"
 
 #: ../iw/raid_dialog_gui.py:653
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr "Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
+msgstr ""
+"Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
 
 #: ../iw/raid_dialog_gui.py:687
 msgid ""
@@ -3906,9 +3974,9 @@ msgstr ""
 "sett upp á þær disksneiðar sem þarf og afrita þá uppsettningu á önnur drif "
 "svo unnt sé að búa til RAID tæki.\n"
 "\n"
-"ATH: Frumdiskurinn má einungis innihalda disksneiðar sem eiga að vera á honum "
-"sjálfum og má einungis innihalda ónotaðar RAID disksneiðar. Aðrar gerðir "
-"disksneiða eru ekki leyfðar.\n"
+"ATH: Frumdiskurinn má einungis innihalda disksneiðar sem eiga að vera á "
+"honum sjálfum og má einungis innihalda ónotaðar RAID disksneiðar. Aðrar "
+"gerðir disksneiða eru ekki leyfðar.\n"
 "\n"
 "ÖLLU á diskunum sem afritað er á verður eytt í þessu ferli."
 
@@ -3999,11 +4067,11 @@ msgstr "Nota _sumartíma/vetrartíma (bara BNA)"
 msgid "UTC Offset"
 msgstr "Frávik frá UTC"
 
-#: ../iw/timezone_map_gui.py:108
+#: ../iw/timezone_map_gui.py:114
 msgid "_Location"
 msgstr "_Staðsetning"
 
-#: ../iw/timezone_map_gui.py:110
+#: ../iw/timezone_map_gui.py:116
 msgid "Description"
 msgstr "Lýsing"
 
@@ -4079,10 +4147,10 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Þessi útgáfa af %s styður ext3 \"journalling\" skráarkerfið. Það hefur "
-"marga eiginleika umfram ext2 sem er staðlaða skráarkerfið sem hefur verið í %s"
-"hingað til. Það er einnig hægt að breyta disksneiðum sem eru forsniðnar "
-"sem ext2 í ext3 án þess að tapa gögnum.\n"
+"Þessi útgáfa af %s styður ext3 \"journalling\" skráarkerfið. Það hefur marga "
+"eiginleika umfram ext2 sem er staðlaða skráarkerfið sem hefur verið í %"
+"shingað til. Það er einnig hægt að breyta disksneiðum sem eru forsniðnar sem "
+"ext2 í ext3 án þess að tapa gögnum.\n"
 "\n"
 "Hvaða disksneiðum viltu breyta ?"
 
@@ -4167,75 +4235,75 @@ msgstr ""
 msgid "Welcome"
 msgstr "Velkomin(n)"
 
-#: ../iw/xconfig_gui.py:33 ../textw/xconfig_text.py:24
+#: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:24
 msgid "DDC Probed Monitor"
 msgstr "Skjár fundinn með DDC"
 
-#: ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:25
+#: ../iw/xconfig_gui.py:36 ../textw/xconfig_text.py:25
 msgid "Unprobed Monitor"
 msgstr "Unprobed skjár"
 
-#: ../iw/xconfig_gui.py:50
+#: ../iw/xconfig_gui.py:52
 msgid "Customize Graphical Configuration"
 msgstr "Sérsníða grafískar stillingar"
 
-#: ../iw/xconfig_gui.py:217
+#: ../iw/xconfig_gui.py:219
 msgid "_Color Depth:"
 msgstr "_Litadýpt:"
 
-#: ../iw/xconfig_gui.py:223 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:225 ../textw/xconfig_text.py:109
 msgid "256 Colors (8 Bit)"
 msgstr "256 litir (8 bita)"
 
-#: ../iw/xconfig_gui.py:223 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:225 ../textw/xconfig_text.py:109
 msgid "High Color (16 Bit)"
 msgstr "Mjög margir litir (16 bita)"
 
-#: ../iw/xconfig_gui.py:223 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:225 ../textw/xconfig_text.py:109
 msgid "True Color (24 Bit)"
 msgstr "Allir litirnir (24 bita)"
 
-#: ../iw/xconfig_gui.py:233
+#: ../iw/xconfig_gui.py:235
 msgid "_Screen Resolution:"
 msgstr "_Upplausn skjás:"
 
-#: ../iw/xconfig_gui.py:320
+#: ../iw/xconfig_gui.py:322
 msgid "   _Test Setting   "
 msgstr " _Prófa stillingar "
 
-#: ../iw/xconfig_gui.py:343
+#: ../iw/xconfig_gui.py:345
 msgid "Please choose your default desktop environment:"
 msgstr "Vinsamlegast veldu sjálfgefið skjáborðsumhverfi:"
 
-#: ../iw/xconfig_gui.py:345
+#: ../iw/xconfig_gui.py:347
 msgid "Your desktop environment is:"
 msgstr "Sjálfgefið skjáborðsumhverfi er:"
 
-#: ../iw/xconfig_gui.py:360
+#: ../iw/xconfig_gui.py:362
 msgid "GNO_ME"
 msgstr "GNO_ME"
 
-#: ../iw/xconfig_gui.py:362
+#: ../iw/xconfig_gui.py:364
 msgid "_KDE"
 msgstr "_KDE"
 
-#: ../iw/xconfig_gui.py:391
+#: ../iw/xconfig_gui.py:393
 msgid "Please choose your login type:"
 msgstr "Vinsamlega veldu tegund kveðju:"
 
-#: ../iw/xconfig_gui.py:398
+#: ../iw/xconfig_gui.py:400
 msgid "T_ext"
 msgstr "_Texti"
 
-#: ../iw/xconfig_gui.py:399
+#: ../iw/xconfig_gui.py:401
 msgid "_Graphical"
 msgstr "_Myndræn"
 
-#: ../iw/xconfig_gui.py:416 ../textw/xconfig_text.py:434
+#: ../iw/xconfig_gui.py:418 ../textw/xconfig_text.py:434
 msgid "Monitor Configuration"
 msgstr "Stillingar skjás"
 
-#: ../iw/xconfig_gui.py:599
+#: ../iw/xconfig_gui.py:601
 msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
@@ -4243,52 +4311,52 @@ msgstr ""
 "Í flestum tilfellum er hægt að leita sjálfvirkt eftir bestu stillingunum "
 "fyrir skjáinn þinn. Takist það ekki veldu þá réttar stillingar hér."
 
-#: ../iw/xconfig_gui.py:660
+#: ../iw/xconfig_gui.py:662
 msgid "Generic"
 msgstr "Almennur"
 
-#: ../iw/xconfig_gui.py:707 ../iw/xconfig_gui.py:1048
+#: ../iw/xconfig_gui.py:709 ../iw/xconfig_gui.py:1052
 msgid "Restore _original values"
 msgstr "_Endurheimta fyrri gildi"
 
-#: ../iw/xconfig_gui.py:715
+#: ../iw/xconfig_gui.py:717
 msgid "Hori_zontal Sync:"
 msgstr "Lá_rétt samhæfing:"
 
-#: ../iw/xconfig_gui.py:718
+#: ../iw/xconfig_gui.py:720
 msgid "_Vertical Sync:"
 msgstr "_Lóðrétt samhæfing:"
 
-#: ../iw/xconfig_gui.py:725
+#: ../iw/xconfig_gui.py:727
 msgid "kHz"
 msgstr "kHz"
 
-#: ../iw/xconfig_gui.py:728
+#: ../iw/xconfig_gui.py:730
 msgid "Hz"
 msgstr "Hz"
 
-#: ../iw/xconfig_gui.py:746
+#: ../iw/xconfig_gui.py:750
 msgid "Graphical Interface (X) Configuration"
 msgstr "Myndræn (X) stilling"
 
-#: ../iw/xconfig_gui.py:771
+#: ../iw/xconfig_gui.py:775
 msgid "Unknown video card"
 msgstr "Óþekkt skjákort"
 
-#: ../iw/xconfig_gui.py:772
+#: ../iw/xconfig_gui.py:776
 #, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
 msgstr ""
-"Villa kom upp við val skjákorts %s. Vinsamlegast tilkynntu þetta á "
-"bugzilla.redhat.com."
+"Villa kom upp við val skjákorts %s. Vinsamlegast tilkynntu þetta á bugzilla."
+"redhat.com."
 
-#: ../iw/xconfig_gui.py:796 ../textw/xconfig_text.py:666
+#: ../iw/xconfig_gui.py:800 ../textw/xconfig_text.py:666
 msgid "Unspecified video card"
 msgstr "Ótilgreint skjákort"
 
-#: ../iw/xconfig_gui.py:797 ../textw/xconfig_text.py:667
+#: ../iw/xconfig_gui.py:801 ../textw/xconfig_text.py:667
 msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
@@ -4297,7 +4365,7 @@ msgstr ""
 "Þú þarft að velja skjákort áður en hægt er að stilla X gluggakerfið. Ef þú "
 "vilt sleppa því að stilla X getur þú valið 'Sleppa að stilla X' hnappinn."
 
-#: ../iw/xconfig_gui.py:925
+#: ../iw/xconfig_gui.py:929
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -4305,7 +4373,7 @@ msgstr ""
 "Ekki var hægt að finna magn skjáminnis sjálfvirkt. Veldu magn skjáminnis úr "
 "listanum að neðan:"
 
-#: ../iw/xconfig_gui.py:933
+#: ../iw/xconfig_gui.py:937
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
 "detected settings are not correct for the hardware, select the right "
@@ -4314,11 +4382,11 @@ msgstr ""
 "Í flestum tilfellum er hægt að leita sjálfvirkt eftir bestu stillingunum "
 "fyrir skjákortið þitt. Takist það ekki veldu þá réttar stillingar hér."
 
-#: ../iw/xconfig_gui.py:1026
+#: ../iw/xconfig_gui.py:1030
 msgid "_Video card RAM: "
 msgstr "_Vinnsluminni skjákorts: "
 
-#: ../iw/xconfig_gui.py:1052
+#: ../iw/xconfig_gui.py:1056
 msgid "_Skip X configuration"
 msgstr "_Sleppa að stilla X"
 
@@ -4348,8 +4416,8 @@ msgstr ""
 "\n"
 "Kjarninn sem ræsir vélina verður uppsettur sjálfkrafa.\n"
 "\n"
-"Ef þú vilt grea breytingar á þessu eftir á getur þú breytt stillingaskránni "
-"/etc/zipl.conf.\n"
+"Ef þú vilt grea breytingar á þessu eftir á getur þú breytt stillingaskránni /"
+"etc/zipl.conf.\n"
 "\n"
 "Þú getur nú slegið inn aukaviðföng á kjarnann sem vélin þín kann að þurfa."
 
@@ -4599,7 +4667,24 @@ msgstr ""
 "Eftir að uppfærslunni lýkur verður til annáll í %s eftir endurræsinguna. "
 "Honum ættir þú að halda til haga."
 
-#: ../textw/desktop_choice_text.py:35
+#: ../textw/desktop_choice_text.py:27
+#, fuzzy, python-format
+msgid ""
+"The Personal Desktop and Workstation options install a default set of "
+"applications that will allow you to browse the Internet, send and receive "
+"email, and create and edit documents on your %s system. The Workstation "
+"option includes development and administration tools as well.\n"
+"\n"
+"However %s ships with many more applications, and you may customize the "
+"selection of software installed if you want."
+msgstr ""
+"Þessi forrit gera þér kleyft að flakka um internetið, senda og taka við "
+"pósti og búa til og breyta skjölum á %s vélinni þinni.\n"
+"\n"
+"Með %s fylgir hinsvegar miklu meira af hugbúnaði og þó getur sérsniðið hvaða "
+"hugbúnað þú vilt nota."
+
+#: ../textw/desktop_choice_text.py:39
 msgid "Customize software selection"
 msgstr "Sérsníða hugbúnaðarval"
 
@@ -4646,7 +4731,8 @@ msgid ""
 "Back to the fdasd screen?"
 msgstr ""
 "Það kom upp villa. Engin tæki fundust sem unnt er að búa til ný skráakerfi "
-"á. Vinsamlegast skoðaðu vélbúnaðinn og athugaðu hverju sætir eða notaðu dasdfmt.\n"
+"á. Vinsamlegast skoðaðu vélbúnaðinn og athugaðu hverju sætir eða notaðu "
+"dasdfmt.\n"
 "\n"
 "Fara aftur í fdasd skjámyndina?"
 
@@ -4899,8 +4985,7 @@ msgstr "Heildarstærð"
 #: ../textw/packages_text.py:245
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"  <Bilslá>,<+>,<-> velur       |   <F1> hjálp  |   <F2> pakkalýsingar"
+msgstr "  <Bilslá>,<+>,<-> velur       |   <F1> hjálp  |   <F2> pakkalýsingar"
 
 #: ../textw/packages_text.py:293
 msgid "Package Dependencies"
@@ -5070,7 +5155,8 @@ msgstr "Ekki stutt"
 
 #: ../textw/partition_text.py:680
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr "LVM sýndardiska er einungis hægt að breyta í myndræna uppsetningartólinu."
+msgstr ""
+"LVM sýndardiska er einungis hægt að breyta í myndræna uppsetningartólinu."
 
 #: ../textw/partition_text.py:754 ../textw/partition_text.py:803
 msgid "Invalid Entry for Partition Size"
@@ -5401,8 +5487,8 @@ msgstr ""
 msgid ""
 "This system user is already configured. You don't need to add this user here."
 msgstr ""
-"Þegar er búið að skilgreina þennan kerfisnotanda. Þú þarft ekki að bæta honum við "
-"hér."
+"Þegar er búið að skilgreina þennan kerfisnotanda. Þú þarft ekki að bæta "
+"honum við hér."
 
 #: ../textw/userauth_text.py:159
 msgid "This user id already exists.  Choose another."
@@ -5428,9 +5514,9 @@ msgid ""
 "have at least one non-root account for normal work, but multi-user systems "
 "can have any number of accounts set up."
 msgstr ""
-"Hvaða aðra notanda viltu hafa á þessari vél? Þú ættir að hafa að minnsta kosti "
-"einn notandaaðgang, sem er ekki rót fyrir dagleg störf. Fjölnotandavélar "
-"geta haft ótakmarkaðan fjölda notenda."
+"Hvaða aðra notanda viltu hafa á þessari vél? Þú ættir að hafa að minnsta "
+"kosti einn notandaaðgang, sem er ekki rót fyrir dagleg störf. "
+"Fjölnotandavélar geta haft ótakmarkaðan fjölda notenda."
 
 #: ../textw/userauth_text.py:210
 msgid "User name"
@@ -5753,18 +5839,14 @@ msgstr "Stillingar z/IPL"
 msgid "Custom"
 msgstr "Sérsniðið"
 
-#: ../installclasses/custom.py:12
+#: ../installclasses/custom.py:13
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and authentication preferences."
 msgstr ""
 "Með þessari uppsetningaraðferð færðu fulla stjórn á því hvernig vélin verður "
-"sett upp ásamt stjórn á hvaða hugbúnaðarpakkar fara inn og hvernig auðkenning "
-"fer fram."
-
-#: ../installclasses/personal_desktop.py:10
-msgid "Personal Desktop"
-msgstr "Skjáborð"
+"sett upp ásamt stjórn á hvaða hugbúnaðarpakkar fara inn og hvernig "
+"auðkenning fer fram."
 
 #: ../installclasses/personal_desktop.py:12
 msgid ""
@@ -5785,9 +5867,9 @@ msgid ""
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
 msgstr ""
-"Veldu þessa uppsetningaraðferð ef þú vilt setja upp skráarþjón, "
-"prentþjón og/eða vefþjón. Hægt er að virkja fleiri þjónustur og þú "
-"getur kosið að setja ekki upp myndræn notandaskil."
+"Veldu þessa uppsetningaraðferð ef þú vilt setja upp skráarþjón, prentþjón og/"
+"eða vefþjón. Hægt er að virkja fleiri þjónustur og þú getur kosið að setja "
+"ekki upp myndræn notandaskil."
 
 #: ../installclasses/upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -5797,18 +5879,15 @@ msgstr "Uppfæra núverandi kerfi"
 msgid "Upgrade"
 msgstr "Uppfæra"
 
-#: ../installclasses/workstation.py:6
-msgid "Workstation"
-msgstr "Vinnustöð"
-
 #: ../installclasses/workstation.py:8
+#, fuzzy
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
-"development and system adminstration.A good choice for programmers and "
-"system administrators."
+"development and system adminstration. "
 msgstr ""
-"Þessi valkostur setur upp myndræn notandaskil með tólum til hugbúnaðarþróunar "
-"og kerfisstjórnun. Þetta er gott val fyrir forritara og kerfisstjóra."
+"Þessi valkostur setur upp myndræn notandaskil með tólum til "
+"hugbúnaðarþróunar og kerfisstjórnun. Þetta er gott val fyrir forritara og "
+"kerfisstjóra."
 
 #: ../loader/cdrom.c:31
 msgid "CDROM type"
@@ -6200,7 +6279,8 @@ msgstr ""
 "handvirkt svo uppsetningin geti haldið áfram. Viltu velja þá núna ?"
 
 #: ../loader/loader.c:3693
-msgid "Running the anaconda system installer - please wait...\n"
+#, fuzzy, c-format
+msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Keyri anaconda kerfisuppsetningatólið - Vinsamlegast bíðið...\n"
 
 #: ../loader/mediacheck.c:193
@@ -7364,3 +7444,9 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
+
+#~ msgid "The following software will be installed:"
+#~ msgstr "Eftirfarandi hugbúnaður verður settur upp:"
+
+#~ msgid "delete"
+#~ msgstr "eyða"

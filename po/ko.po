@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.3\n"
-"POT-Creation-Date: 2002-07-18 23:21-0400\n"
+"POT-Creation-Date: 2002-07-24 01:40-0400\n"
 "PO-Revision-Date: 2002-07-19 17:06GMT+10:00\n"
 "Last-Translator: Michelle Kim <mkim@brisbane.redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "그래픽 모드로 설치하기에는 시스템의 램 용량이 부족합니다.  텍스트 모드로 설치"
 "합니다."
 
-#: ../anaconda:356 ../gui.py:103 ../rescue.py:36 ../rescue.py:143
+#: ../anaconda:356 ../gui.py:136 ../rescue.py:36 ../rescue.py:143
 #: ../rescue.py:166 ../rescue.py:176 ../rescue.py:192 ../rescue.py:198
 #: ../text.py:315 ../text.py:440 ../xserver.py:53 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
@@ -76,8 +76,10 @@ msgstr "마우스 검색을 생략합니다.\n"
 
 #: ../anaconda:433
 #, c-format
-msgid "Graphical installation not available for %s installs.  Starting text mode."
-msgstr "그래픽 모드 설치로는 %s (을)를 설치할 수 없습니다.  텍스트 모드로 설치합니다."
+msgid ""
+"Graphical installation not available for %s installs.  Starting text mode."
+msgstr ""
+"그래픽 모드 설치로는 %s (을)를 설치할 수 없습니다.  텍스트 모드로 설치합니다."
 
 #: ../anaconda:445
 msgid ""
@@ -227,8 +229,8 @@ msgstr ""
 "\n"
 "'확인' 버튼을 누르시면, 설치를 계속 진행합니다."
 
-#: ../autopart.py:1103 ../bootloader.py:123 ../image.py:270
-#: ../partedUtils.py:240 ../partedUtils.py:658 ../upgrade.py:259
+#: ../autopart.py:1103 ../bootloader.py:123 ../image.py:282
+#: ../partedUtils.py:240 ../partedUtils.py:665 ../upgrade.py:259
 #: ../upgrade.py:385 ../upgrade.py:404 ../iw/blpasswidget.py:148
 #: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:88
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
@@ -319,22 +321,28 @@ msgstr ""
 "시스템에 아무런 커널 패키지도 설치되지 않았습니다.  여러분의 부트로더 설정은 "
 "바뀌지 않을 것입니다."
 
-#: ../comps.py:697
+#: ../comps.py:699
 msgid "Everything"
 msgstr "전부 설치"
 
-#: ../comps.py:856 ../comps.py:922 ../upgrade.py:584
+#: ../comps.py:866 ../comps.py:932 ../upgrade.py:584
 msgid "no suggestion"
 msgstr "관련된 내용 없음"
 
-#: ../comps.py:1046
+#: ../comps.py:1024
 msgid ""
 "This group includes all the packages available.  Note that this is "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
-"이 그룹은 사용 가능한 모든 패키지를 포함합니다.  이 페이지 상의 다른 패키지 그룹 보다 "
-"훨씬 많은 패키지가 포함되어 있다는 사실에 유의해 주십시오."
+"이 그룹은 사용 가능한 모든 패키지를 포함합니다.  이 페이지 상의 다른 패키지 "
+"그룹 보다 훨씬 많은 패키지가 포함되어 있다는 사실에 유의해 주십시오."
+
+#: ../comps.py:1028
+msgid ""
+"Choose this group to get the minimal possible set of packages.  Useful for "
+"creating small router/firewall boxes, for example."
+msgstr ""
 
 #: ../exception.py:167 ../text.py:236
 msgid "Exception Occurred"
@@ -379,9 +387,9 @@ msgstr "부팅 디스켓 제작(_M)"
 
 #: ../floppy.py:76 ../floppy.py:105 ../fsset.py:554 ../fsset.py:1015
 #: ../fsset.py:1034 ../fsset.py:1081 ../fsset.py:1092 ../fsset.py:1128
-#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:184 ../image.py:77
-#: ../image.py:187 ../packages.py:304 ../packages.py:536 ../partedUtils.py:451
-#: ../partIntfHelpers.py:144 ../partIntfHelpers.py:326 ../upgrade.py:312
+#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:196 ../image.py:85
+#: ../image.py:195 ../packages.py:306 ../packages.py:546 ../partedUtils.py:458
+#: ../partIntfHelpers.py:142 ../partIntfHelpers.py:327 ../upgrade.py:312
 #: ../upgrade.py:330 ../iw/osbootwidget.py:221 ../iw/osbootwidget.py:230
 #: ../iw/raid_dialog_gui.py:613 ../iw/raid_dialog_gui.py:652
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1048
@@ -587,18 +595,18 @@ msgstr "포맷 중"
 msgid "Formatting %s file system..."
 msgstr "%s 파일시스템을 포맷하고 있습니다..."
 
-#: ../gui.py:100 ../text.py:312
+#: ../gui.py:133 ../text.py:312
 msgid "Fix"
 msgstr "수정(Fix)"
 
-#: ../gui.py:101 ../text.py:313 ../textw/bootdisk_text.py:22
+#: ../gui.py:134 ../text.py:313 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:255 ../loader/devices.c:232
 #: ../loader/loader.c:1021 ../loader/loader.c:3520 ../loader/net.c:901
 msgid "Yes"
 msgstr "예"
 
-#: ../gui.py:102 ../text.py:314 ../textw/bootdisk_text.py:22
+#: ../gui.py:135 ../text.py:314 ../textw/bootdisk_text.py:22
 #: ../textw/bootdisk_text.py:35 ../textw/bootloader_text.py:79
 #: ../textw/constants_text.py:52 ../textw/upgrade_text.py:255
 #: ../textw/upgrade_text.py:262 ../loader/devices.c:233
@@ -606,16 +614,16 @@ msgstr "예"
 msgid "No"
 msgstr "아니오"
 
-#: ../gui.py:104 ../text.py:316 ../loader/net.c:274 ../loader/net.c:400
+#: ../gui.py:137 ../text.py:316 ../loader/net.c:274 ../loader/net.c:400
 msgid "Retry"
 msgstr "재시도"
 
-#: ../gui.py:105 ../text.py:317
+#: ../gui.py:138 ../text.py:317
 msgid "Ignore"
 msgstr "무시"
 
-#: ../gui.py:106 ../gui.py:370 ../partIntfHelpers.py:226
-#: ../partIntfHelpers.py:410 ../partIntfHelpers.py:521 ../text.py:116
+#: ../gui.py:139 ../gui.py:403 ../partIntfHelpers.py:226
+#: ../partIntfHelpers.py:412 ../partIntfHelpers.py:523 ../text.py:116
 #: ../text.py:117 ../text.py:282 ../text.py:284 ../text.py:318
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
 #: ../textw/bootloader_text.py:212 ../textw/constants_text.py:40
@@ -625,7 +633,7 @@ msgstr "무시"
 msgid "Cancel"
 msgstr "취소"
 
-#: ../gui.py:292 ../text.py:290
+#: ../gui.py:325 ../text.py:290
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -637,7 +645,7 @@ msgstr ""
 "파일의 내용을 http://bugzilla.redhat.com/bugzilla/ 의 anaconda 항목에 자세히 "
 "보고해 주시기 바랍니다"
 
-#: ../gui.py:443 ../text.py:280
+#: ../gui.py:476 ../text.py:280
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -645,82 +653,83 @@ msgstr ""
 "플로피 디스켓을 넣어주십시오. 디스켓 안의 모든 자료는 삭제되므로 주의하시기 "
 "바랍니다."
 
-#: ../gui.py:551 ../gui.py:993
+#: ../gui.py:584 ../gui.py:1026
 msgid "Online Help"
 msgstr "도움말 화면"
 
-#: ../gui.py:552 ../iw/language_gui.py:21 ../textw/language_text.py:39
+#: ../gui.py:585 ../iw/language_gui.py:23 ../textw/language_text.py:39
 msgid "Language Selection"
 msgstr "언어 선택"
 
-#: ../gui.py:644
+#: ../gui.py:677
 msgid "Release Notes"
 msgstr "출시에 앞서"
 
-#: ../gui.py:678
+#: ../gui.py:711
 msgid "Unable to load file!"
 msgstr "파일을 불러올 수 없습니다!"
 
-#: ../gui.py:715
+#: ../gui.py:748
 msgid "Release notes are missing.\n"
 msgstr "출시에 앞서의 내용을 찾을 수 없습니다.\n"
 
-#: ../gui.py:831 ../packages.py:1001
+#: ../gui.py:864 ../packages.py:1040
 msgid "_Back"
 msgstr "뒤로(_B)"
 
-#: ../gui.py:833
+#: ../gui.py:866
 msgid "_Next"
 msgstr "다음(_N)"
 
-#: ../gui.py:835
+#: ../gui.py:868
 msgid "_Release Notes"
 msgstr "출시에 앞서(_R)"
 
-#: ../gui.py:837
+#: ../gui.py:870
 msgid "Show _Help"
 msgstr "도움말 표시(_H)"
 
-#: ../gui.py:839
+#: ../gui.py:872
 msgid "Hide _Help"
 msgstr "도움말 숨김(_H)"
 
-#: ../gui.py:841
+#: ../gui.py:874
 msgid "_Debug"
 msgstr "디버그(_D)"
 
-#: ../gui.py:897
+#: ../gui.py:930
 #, python-format
 msgid "%s Installer"
 msgstr "%s 설정 프로그램"
 
-#: ../gui.py:912
+#: ../gui.py:945
 #, python-format
 msgid "%s Installer on %s"
 msgstr "%s 의 %s 설치 프로그램"
 
-#: ../gui.py:951
+#: ../gui.py:984
 msgid "Unable to load title bar"
 msgstr "제목 표시줄(title bar) 을 불러올 수 없습니다"
 
-#: ../gui.py:1048
+#: ../gui.py:1081
 msgid "Install Window"
 msgstr "설치 화면"
 
-#: ../harddrive.py:185
+#: ../harddrive.py:197
 #, python-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr "#%d 번 CD를 찾을 수 없습니다. 설치를 위해서는 반드시 이 CD가 필요합니다."
+msgstr ""
+"#%d 번 CD를 찾을 수 없습니다. 설치를 위해서는 반드시 이 CD가 필요합니다."
 
-#: ../image.py:74
+#: ../image.py:82
 msgid "Copying File"
 msgstr "파일 복사 중"
 
-#: ../image.py:75
+#: ../image.py:83
 msgid "Transferring install image to hard drive..."
 msgstr "설치 이미지를 하드 드라이브로 전송하고 있습니다..."
 
-#: ../image.py:78
+#: ../image.py:86
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -728,48 +737,29 @@ msgstr ""
 "설치 이미지를 하드 드라이브로 전송하는 도중 오류가 발생되었습니다. 드라이브"
 "의 공간이 부족한 것 같습니다."
 
-#: ../image.py:146
+#: ../image.py:154
 msgid "Change CDROM"
 msgstr "CDROM 교체"
 
-#: ../image.py:147
+#: ../image.py:155
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "%d 번째 CD를 넣어 주십시오."
 
-#: ../image.py:181
+#: ../image.py:189
 msgid "Wrong CDROM"
 msgstr "CDROM 오류"
 
-#: ../image.py:182
+#: ../image.py:190
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "올바른 %s CDROM이 아닙니다."
 
-#: ../image.py:188
+#: ../image.py:196
 msgid "The CDROM could not be mounted."
 msgstr "CDROM을 마운트할 수 없습니다."
 
-#: ../installclass.py:30
-msgid "The following software will be installed:"
-msgstr "다음과 같은 소프트웨어가 설치될 것입니다:"
-
-#: ../installclass.py:32
-#, python-format
-msgid ""
-"These applications will allow you to browse the Internet, send and receive "
-"email, and create and edit documents on your %s system.\n"
-"\n"
-"However %s ships with many more applications, and you may customize the "
-"selection of software installed if you want."
-msgstr ""
-"여러분은 이 응용 프로그램을 사용하여 인터넷을 검색하고 이메일을 보내고 받을 "
-"수 있으며, %s 시스템 상에서 문서를 생성하고 편집하실 수 있습니다.\n"
-"\n"
-"하지만 %s에는 보다 많은 응용 프로그램이 포함되어 있으므로 여러분이 원하시는 "
-"소프트웨어를 선택하여 설치하실 수 있습니다."
-
-#: ../installclass.py:55
+#: ../installclass.py:43
 msgid "Install on System"
 msgstr "시스템 상에 설치"
 
@@ -785,11 +775,11 @@ msgstr ""
 "호스트명은 소문자 'a-z', 대문자 'A-Z', '-' 기호, '.' 기호만을 이용하여 지정"
 "해 주셔야 합니다. "
 
-#: ../packages.py:39 ../iw/package_gui.py:36
+#: ../packages.py:40 ../iw/package_gui.py:37
 msgid "Proceed with upgrade?"
 msgstr "업그레이드 설치 진행"
 
-#: ../packages.py:40 ../iw/package_gui.py:37
+#: ../packages.py:41 ../iw/package_gui.py:38
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -799,35 +789,35 @@ msgstr ""
 "있습니다. 현재 이곳에서는 뒤로 되돌아 가실 수 없습니다. \n"
 "\n"
 
-#: ../packages.py:44 ../iw/package_gui.py:41
+#: ../packages.py:45 ../iw/package_gui.py:42
 msgid "Would you like to continue with the upgrade?"
 msgstr "업그레이드 설치를 하시겠습니까?"
 
-#: ../packages.py:113
+#: ../packages.py:114
 msgid "Reading"
 msgstr "읽는 중"
 
-#: ../packages.py:113
+#: ../packages.py:114
 msgid "Reading package information..."
 msgstr "패키지에 대한 정보를 읽고 있습니다..."
 
-#: ../packages.py:190
+#: ../packages.py:191
 msgid "Dependency Check"
 msgstr "의존성 검사"
 
-#: ../packages.py:191
+#: ../packages.py:192
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "설치될 패키지의 의존성을 검사하고 있습니다..."
 
-#: ../packages.py:256 ../packages.py:580
+#: ../packages.py:257 ../packages.py:597
 msgid "Processing"
 msgstr "진행 중"
 
-#: ../packages.py:257
+#: ../packages.py:258
 msgid "Preparing to install..."
 msgstr "설치를 위한 준비를 하고 있습니다..."
 
-#: ../packages.py:305
+#: ../packages.py:307
 #, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -836,11 +826,11 @@ msgstr ""
 "%s 파일을 열 수 없습니다. 파일이 없거나, 패키지 불량, 혹은 손상된 CD인 것 같"
 "습니다. 다시 확인해 보시려면, [ENTER] 키를 누르십시오."
 
-#: ../packages.py:329
+#: ../packages.py:339
 msgid "Error Installing Package"
 msgstr "패키지 설치 오류"
 
-#: ../packages.py:330
+#: ../packages.py:340
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -857,23 +847,23 @@ msgstr ""
 "\n"
 "확인 버튼을 누르시면, 시스템을 재부팅합니다."
 
-#: ../packages.py:537
+#: ../packages.py:547
 msgid ""
 "Unable to create symlink for /var/tmp.  This should only happen if there "
 "were errors creating your filesystems.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"/var/tmp에 사용될 심볼링 링크를 생성할 수 없습니다.  파일 시스템을 "
-"생성하는 도중 오류가 발생했을 가능성이 있습니다. \n"
+"/var/tmp에 사용될 심볼링 링크를 생성할 수 없습니다.  파일 시스템을 생성하는 "
+"도중 오류가 발생했을 가능성이 있습니다. \n"
 "\n"
 "확인 버튼을 누르시면, 시스템을 재부팅합니다."
 
-#: ../packages.py:581
+#: ../packages.py:598
 msgid "Setting up RPM transaction..."
 msgstr "RPM 사용을 위한 설정을 하고 있습니다..."
 
-#: ../packages.py:618
+#: ../packages.py:635
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -882,7 +872,7 @@ msgstr ""
 "%s 패키지를 업그레이드 합니다.\n"
 "\n"
 
-#: ../packages.py:620
+#: ../packages.py:637
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -891,17 +881,17 @@ msgstr ""
 "%s 패키지를 설치합니다\n"
 "\n"
 
-#: ../packages.py:627
+#: ../packages.py:644
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "%s -%s-%s.(을)를 업그레이드 합니다.\n"
 
-#: ../packages.py:629
+#: ../packages.py:646
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "%s-%s-%s (을)를 설치합니다.\n"
 
-#: ../packages.py:645
+#: ../packages.py:662
 #, python-format
 msgid ""
 "\n"
@@ -918,15 +908,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:651
+#: ../packages.py:668
 msgid "Install Starting"
 msgstr "설치 시작"
 
-#: ../packages.py:652
+#: ../packages.py:669
 msgid "Starting install process, this may take several minutes..."
 msgstr "설치를 시작합니다, 몇분 소요될 수 도 있습니다..."
 
-#: ../packages.py:697
+#: ../packages.py:714
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -936,17 +926,17 @@ msgstr ""
 "의 파일시스템에 충분한 공간이 확보되어야 합니다:\n"
 "\n"
 
-#: ../packages.py:701 ../packages.py:721 ../iw/lvm_dialog_gui.py:1003
+#: ../packages.py:718 ../packages.py:738 ../iw/lvm_dialog_gui.py:1003
 #: ../iw/partition_gui.py:347 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1096 ../textw/upgrade_text.py:109
 msgid "Mount Point"
 msgstr "마운트할 지점"
 
-#: ../packages.py:702
+#: ../packages.py:719
 msgid "Space Needed"
 msgstr "공간 부족"
 
-#: ../packages.py:717
+#: ../packages.py:734
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -956,15 +946,15 @@ msgstr ""
 "다음의 파일시스템에 충분한 파일 노드가 확보되어야 합니다:\n"
 "\n"
 
-#: ../packages.py:722
+#: ../packages.py:739
 msgid "Nodes Needed"
 msgstr "노드 부족"
 
-#: ../packages.py:728
+#: ../packages.py:745
 msgid "Disk Space"
 msgstr "드라이브 공간"
 
-#: ../packages.py:749
+#: ../packages.py:766
 msgid ""
 "\n"
 "\n"
@@ -974,19 +964,19 @@ msgstr ""
 "\n"
 "다음 패키지는 이번 버전에서 사용가능하지만 업그레이되지는 않았습니다:\n"
 
-#: ../packages.py:766
+#: ../packages.py:783
 msgid "Post Install"
 msgstr "설치 후 설정"
 
-#: ../packages.py:767
+#: ../packages.py:784
 msgid "Performing post install configuration..."
 msgstr "설치 후에 적용될 내용을 설정하고 있습니다..."
 
-#: ../packages.py:981
+#: ../packages.py:1020
 msgid "Warning! This is a beta!"
 msgstr "경고! 이것은 베타 버전입니다!"
 
-#: ../packages.py:982
+#: ../packages.py:1021
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1012,23 +1002,23 @@ msgstr ""
 "\n"
 "'Red Hat Public Beta'에 대한 보고서를 제출해 주십시오.\n"
 
-#: ../packages.py:995 ../iw/congrats_gui.py:29
+#: ../packages.py:1034 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "종료(_E)"
 
-#: ../packages.py:995
+#: ../packages.py:1034
 msgid "_Install BETA"
 msgstr "BETA 설치(_I)"
 
-#: ../packages.py:998
+#: ../packages.py:1037
 msgid "Rebooting System"
 msgstr "시스템 재부팅"
 
-#: ../packages.py:999
+#: ../packages.py:1038
 msgid "Your system will now be rebooted..."
 msgstr "이제 시스템을 재부팅합니다..."
 
-#: ../packages.py:1001
+#: ../packages.py:1040
 msgid "_Reboot"
 msgstr "재부팅(_R)"
 
@@ -1051,21 +1041,21 @@ msgstr ""
 "\n"
 "이 드라이브를 초기화 하시겠습니까? "
 
-#: ../partedUtils.py:452
+#: ../partedUtils.py:459
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "%s에 파일시스템을 마운트하는 도중 오류가 발생하였습니다: %s"
 
-#: ../partedUtils.py:543
+#: ../partedUtils.py:550
 msgid "Initializing"
 msgstr "초기화하고 있습니다."
 
-#: ../partedUtils.py:544
+#: ../partedUtils.py:551
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "%s 드라이브를 포맷 중입니다. 잠시만 기다려 주십시오...\n"
 
-#: ../partedUtils.py:659
+#: ../partedUtils.py:666
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1079,11 +1069,11 @@ msgstr ""
 "\n"
 "이 드라이브를 초기화 하시겠습니까?"
 
-#: ../partedUtils.py:769 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:776 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "드라이브를 찾을 수 없음"
 
-#: ../partedUtils.py:770
+#: ../partedUtils.py:777
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1106,7 +1096,8 @@ msgstr "오류 - 볼륨 그룹명 %s이 올바르지 않습니다."
 
 #: ../partIntfHelpers.py:45
 msgid "Error - the volume group name contains illegal characters  or spaces."
-msgstr "오류 - 볼륨 그룹명에는 특수한 문자 또는 빈 공간을 사용하실 수 없습니다."
+msgstr ""
+"오류 - 볼륨 그룹명에는 특수한 문자 또는 빈 공간을 사용하실 수 없습니다."
 
 #: ../partIntfHelpers.py:54
 msgid "Please enter a logical volume name."
@@ -1123,7 +1114,8 @@ msgstr "오류 - 논리 볼륨명 %s이 올바르지 않습니다."
 
 #: ../partIntfHelpers.py:67
 msgid "Error - the logical volume name contains illegal characters or spaces."
-msgstr "오류 - 논리 볼륨명에는 특수한 문자 또는 빈 공간을 사용하실 수 없습니다."
+msgstr ""
+"오류 - 논리 볼륨명에는 특수한 문자 또는 빈 공간을 사용하실 수 없습니다."
 
 #: ../partIntfHelpers.py:89
 msgid ""
@@ -1138,56 +1130,54 @@ msgid "Please specify a mount point for this partition."
 msgstr "이 파티션의 마운트할 지점을 지정해 주십시오."
 
 #: ../partIntfHelpers.py:104
-#, python-format
-msgid ""
-"You cannot %s this partition, as it is holding the data for the hard drive "
-"install."
+#, fuzzy
+msgid "This partition is holding the data for the hard drive install."
 msgstr ""
 "이 파티션은 현재 하드 드라이브 설치를 위한 자료가 저장되어 있기 때문에 %s하"
 "실 수 없습니다."
 
 #: ../partIntfHelpers.py:110
-#, python-format
-msgid "You cannot %%s this partition as it is part of the RAID device /dev/md%s."
+#, fuzzy, python-format
+msgid "This partition is part of the RAID device /dev/md%s."
 msgstr ""
 "이 파티션을 %%s하실 수 없습니다. 이 파티션은 RAID 장치 /dev/md%s의 일부분 입"
 "니다."
 
 #: ../partIntfHelpers.py:113
-#, python-format
-msgid "You cannot %s this partition as it is part of a RAID device."
+#, fuzzy
+msgid "This partition is part of a RAID device."
 msgstr "이 파티션은 현재 RAID 장치의 일부분이므로 %s하실 수 없습니다."
 
-#: ../partIntfHelpers.py:119
-#, python-format
-msgid "You cannot %%s this partition, as it is part of the LVM volume group '%s'."
+#: ../partIntfHelpers.py:118
+#, fuzzy, python-format
+msgid "This partition is part of the LVM volume group '%s'."
 msgstr ""
 "이 파티션을 %%s하실 수 없습니다. 이 파티션은 LVM 볼륨 그룹 '%s'의 일부분 입니"
 "다."
 
-#: ../partIntfHelpers.py:122
-#, python-format
-msgid "You cannot %s this partition, as it is part of a LVM volume group."
+#: ../partIntfHelpers.py:121
+#, fuzzy
+msgid "This partition is part of a LVM volume group."
 msgstr "이 파티션은 LVM 볼륨 그룹의 일부분이므로 %s하실 수 없습니다."
 
-#: ../partIntfHelpers.py:138 ../partIntfHelpers.py:152
-#: ../partIntfHelpers.py:162 ../partIntfHelpers.py:179
+#: ../partIntfHelpers.py:136 ../partIntfHelpers.py:150
+#: ../partIntfHelpers.py:160 ../partIntfHelpers.py:177
 msgid "Unable To Delete"
 msgstr "삭제할 수 없음"
 
-#: ../partIntfHelpers.py:139
+#: ../partIntfHelpers.py:137
 msgid "You must first select a partition to delete."
 msgstr "삭제할 파티션을 먼저 선택해 주십시오."
 
-#: ../partIntfHelpers.py:145 ../textw/partition_text.py:1060
+#: ../partIntfHelpers.py:143 ../textw/partition_text.py:1060
 msgid "DASD partitions can only be deleted with fdasd"
 msgstr "DASD 파티션은 fdasd를 사용해야만 삭제하실 수 있습니다."
 
-#: ../partIntfHelpers.py:153
+#: ../partIntfHelpers.py:151
 msgid "You cannot delete free space."
 msgstr "여유 공간을 삭제하실 수 없습니다."
 
-#: ../partIntfHelpers.py:163
+#: ../partIntfHelpers.py:161
 #, python-format
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
@@ -1196,7 +1186,14 @@ msgstr ""
 "이 파티션은 현재 %s (이)가 포함되어 있는 확장 파티션이므로 삭제하실 수 없습니"
 "다."
 
-#: ../partIntfHelpers.py:222 ../partIntfHelpers.py:520
+#: ../partIntfHelpers.py:178
+#, fuzzy
+msgid ""
+"You cannot delete this partition:\n"
+"\n"
+msgstr "/dev/%s 파티션을 삭제하려고 합니다."
+
+#: ../partIntfHelpers.py:222 ../partIntfHelpers.py:522
 #: ../iw/lvm_dialog_gui.py:682
 msgid "Confirm Delete"
 msgstr "삭제 확인"
@@ -1206,10 +1203,10 @@ msgstr "삭제 확인"
 msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr " '/dev/%s' 장치의 모든 파티션을 삭제하려고 합니다."
 
-#: ../partIntfHelpers.py:226 ../partIntfHelpers.py:521
+#: ../partIntfHelpers.py:226 ../partIntfHelpers.py:523
 #: ../iw/account_gui.py:424 ../iw/lvm_dialog_gui.py:685
 #: ../iw/lvm_dialog_gui.py:1026 ../iw/osbootwidget.py:101
-#: ../iw/partition_gui.py:1297 ../iw/partition_gui.py:1303
+#: ../iw/partition_gui.py:1298 ../iw/partition_gui.py:1304
 msgid "_Delete"
 msgstr "삭제(_D)"
 
@@ -1229,7 +1226,7 @@ msgstr ""
 "%s"
 
 #: ../partIntfHelpers.py:301 ../partIntfHelpers.py:314
-#: ../partIntfHelpers.py:344 ../partIntfHelpers.py:355
+#: ../partIntfHelpers.py:345 ../partIntfHelpers.py:356
 msgid "Unable To Edit"
 msgstr "편집할 수 없음"
 
@@ -1237,11 +1234,18 @@ msgstr "편집할 수 없음"
 msgid "You must select a partition to edit"
 msgstr "편집하시려면, 파티션을 선택해 주십시오"
 
-#: ../partIntfHelpers.py:327
+#: ../partIntfHelpers.py:314 ../partIntfHelpers.py:357
+#, fuzzy
+msgid ""
+"You cannot edit this partition:\n"
+"\n"
+msgstr "/dev/%s 파티션을 삭제하려고 합니다."
+
+#: ../partIntfHelpers.py:328
 msgid "You must go back and use fdasd to inititalize this partition"
 msgstr "되돌아 가셔서 fdasd를 사용하여 이 파티션을 초기화 하십시오."
 
-#: ../partIntfHelpers.py:345
+#: ../partIntfHelpers.py:346
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1250,11 +1254,11 @@ msgstr ""
 "이 파티션은 현재 %s (이)가 포함되어 있는 확장 파티션이므로 편집하실 수 없습니"
 "다"
 
-#: ../partIntfHelpers.py:376
+#: ../partIntfHelpers.py:378
 msgid "Format as Swap?"
 msgstr "스왑으로 포맷하시겠습니까?"
 
-#: ../partIntfHelpers.py:377
+#: ../partIntfHelpers.py:379
 #, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1267,7 +1271,7 @@ msgstr ""
 "\n"
 "이 파티션을 스왑 파티션으로 포맷하시겠습니까?"
 
-#: ../partIntfHelpers.py:398
+#: ../partIntfHelpers.py:400
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. Red Hat recommends that you format this partition to "
@@ -1282,19 +1286,19 @@ msgstr ""
 "홈 디렉토리)를 보존하실 필요가 있으시다면, 이 파티션을 포맷하지 않은 채로 계"
 "속 진행하시기 바랍니다."
 
-#: ../partIntfHelpers.py:410
+#: ../partIntfHelpers.py:412
 msgid "Format?"
 msgstr "포맷"
 
-#: ../partIntfHelpers.py:410
+#: ../partIntfHelpers.py:412
 msgid "Do _Not Format"
 msgstr "포맷하지 않음(_N)"
 
-#: ../partIntfHelpers.py:418
+#: ../partIntfHelpers.py:420
 msgid "Error with Partitioning"
 msgstr "파티션 설정의 오류"
 
-#: ../partIntfHelpers.py:419
+#: ../partIntfHelpers.py:421
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1308,11 +1312,11 @@ msgstr ""
 "\n"
 "%s "
 
-#: ../partIntfHelpers.py:433
+#: ../partIntfHelpers.py:435
 msgid "Partitioning Warning"
 msgstr "파티션 설정 경고"
 
-#: ../partIntfHelpers.py:434
+#: ../partIntfHelpers.py:436
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1327,13 +1331,14 @@ msgstr ""
 "\n"
 "여러분이 지정하신 내용으로 파티션을 설정하시겠습니까?"
 
-#: ../partIntfHelpers.py:448 ../iw/partition_gui.py:635
+#: ../partIntfHelpers.py:450 ../iw/partition_gui.py:635
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr "다음의 기존-파티션이 포맷되기 위해 선택되었으며, 모든 자료는 삭제됩니다."
+msgstr ""
+"다음의 기존-파티션이 포맷되기 위해 선택되었으며, 모든 자료는 삭제됩니다."
 
-#: ../partIntfHelpers.py:451
+#: ../partIntfHelpers.py:453
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1341,11 +1346,11 @@ msgstr ""
 "이 파티션을 포맷하시려면 [예] 를 선택하시고, 설정하신 내용을 변경하시려면 [아"
 "니오] 를 선택하십시오."
 
-#: ../partIntfHelpers.py:457
+#: ../partIntfHelpers.py:459
 msgid "Format Warning"
 msgstr "포맷시 주의사항"
 
-#: ../partIntfHelpers.py:505
+#: ../partIntfHelpers.py:507
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1356,30 +1361,31 @@ msgstr ""
 "\n"
 "이 볼륨 그룹에 속한 모든 논리 볼륩은 삭제되므로 주의하시기 바랍니다!"
 
-#: ../partIntfHelpers.py:509
+#: ../partIntfHelpers.py:511
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "\"%s\" 논리 볼륨을 삭제하려고 합니다."
 
-#: ../partIntfHelpers.py:512
+#: ../partIntfHelpers.py:514
 msgid "You are about to delete a RAID device."
 msgstr "RAID 장치를 삭제하려고 합니다."
 
-#: ../partIntfHelpers.py:515
+#: ../partIntfHelpers.py:517
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr "/dev/%s 파티션을 삭제하려고 합니다."
 
-#: ../partIntfHelpers.py:518
+#: ../partIntfHelpers.py:520
 msgid "The partition you selected will be deleted."
 msgstr "여러분이 선택하신 파티션을 삭제합니다."
 
-#: ../partIntfHelpers.py:528
+#: ../partIntfHelpers.py:530
 msgid "Confirm Reset"
 msgstr "재설정 확인"
 
-#: ../partIntfHelpers.py:529
-msgid "Are you sure you want to reset the partition table to its original state?"
+#: ../partIntfHelpers.py:531
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "확실히 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
 
 #: ../partitioning.py:83
@@ -1428,7 +1434,8 @@ msgstr ""
 "설정된 용량이 너무 적습니다."
 
 #: ../partitions.py:749
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "반드시 FAT 유형의 /boot/efi 파티션을 생성해야 하며, 용량은 50 MB 이어야 합니"
 "다."
@@ -1491,7 +1498,8 @@ msgstr "LVM 볼륨 그룹의 요소(Member) 파티션 입니다."
 
 #: ../partRequests.py:214
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "마운트할 지점이 올바르지 않습니다.   %s 디렉토리는 반드시 루트(/) 파일시스템 "
 "상에 위치해야 합니다."
@@ -1505,7 +1513,8 @@ msgstr "이 마운트할 지점은 반드시 리눅스 파일시스템 상에 �
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr "\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr ""
+"\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../partRequests.py:248
 #, python-format
@@ -1536,12 +1545,14 @@ msgstr "파티션은 절대 실린더 값 밖에서 끝날 수 없습니다."
 
 #: ../partRequests.py:609
 msgid "No members in RAID request, or not RAID level specified."
-msgstr "RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
+msgstr ""
+"RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
 
 #: ../partRequests.py:621
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr "%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
+msgstr ""
+"%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
 
 #: ../partRequests.py:627
 #, python-format
@@ -1699,14 +1710,17 @@ msgid "%s (C) 2002 Red Hat, Inc."
 msgstr "%s (C) 2002 Red Hat, Inc."
 
 #: ../text.py:336
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr "     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr ""
+"     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
 
 #: ../text.py:338
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgstr ""
+"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../text.py:436
 msgid "Cancelled"
@@ -1972,7 +1986,7 @@ msgstr "추가(_A)"
 
 #: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1023
 #: ../iw/network_gui.py:457 ../iw/osbootwidget.py:97
-#: ../iw/partition_gui.py:1296 ../iw/partition_gui.py:1302
+#: ../iw/partition_gui.py:1297 ../iw/partition_gui.py:1303
 msgid "_Edit"
 msgstr "편집(_E)"
 
@@ -2391,8 +2405,8 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "패키지간의 의존성 문제"
 
-#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:256
-#: ../iw/package_gui.py:495 ../iw/package_gui.py:589
+#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:257
+#: ../iw/package_gui.py:500 ../iw/package_gui.py:687
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
@@ -2419,15 +2433,68 @@ msgstr "의존 관계에 있는 패키지는 설치하지 않음(_D)"
 msgid "I_gnore package dependencies"
 msgstr "패키지가 갖는 의존성 무시(_G)"
 
-#: ../iw/desktop_choice_gui.py:26 ../textw/desktop_choice_text.py:25
+#: ../iw/desktop_choice_gui.py:25 ../iw/desktop_choice_gui.py:53
+#: ../textw/desktop_choice_text.py:24
 msgid "Workstation Defaults"
 msgstr "기본 웍스테이션"
 
-#: ../iw/desktop_choice_gui.py:57
-#, python-format
+#: ../iw/desktop_choice_gui.py:52 ../installclasses/workstation.py:6
+msgid "Workstation"
+msgstr "웍스테이션"
+
+#: ../iw/desktop_choice_gui.py:58
+#, fuzzy, python-format
 msgid ""
 "The default workstation environment includes our recommendations for new "
 "users, including:\n"
+"\n"
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tSoftware Development Tools\n"
+"\tAdministration Tools\n"
+"\n"
+"After installation, additional software can be added or removed using the "
+"'redhat-config-package' tool.\n"
+"\n"
+"If you are familiar with %s, you may have specific packages you would like "
+"to install or avoid installing. Check the box below to customize your "
+"installation."
+msgstr ""
+"초보 사용자를 위한 기본 웍스테이션 환경 권장사항은 다음과 같습니다:\n"
+"\n"
+"\t데스크탑 쉘 (GNOME)\n"
+"\t오피스 수트 (OpenOffice)\n"
+"\t웹 브라우저 (Mozilla) \n"
+"\t이메일 (Evolution)\n"
+"\t인스턴트 메신저\n"
+"\t사운드와 비디오 응용 프로그램\n"
+"\t게임\n"
+"\n"
+"설치가 끝난 후, 'redhat-config-package' 도구를 사용하여 소프트웨어를 추가하거"
+"나 삭제하실 수 있습니다.\n"
+"\n"
+"%s에 익숙하시다면, 설치하고 싶은 패키지나 설치하지 않을 패키지가 있을 것입니"
+"다. 아래의 상자를 선택하여 설치를 사용자 정의하십시오."
+
+#: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:10
+msgid "Personal Desktop"
+msgstr "개인 데스크탑"
+
+#: ../iw/desktop_choice_gui.py:76
+#, fuzzy
+msgid "Personal Desktop Defaults"
+msgstr "개인 데스크탑"
+
+#: ../iw/desktop_choice_gui.py:81
+#, fuzzy, python-format
+msgid ""
+"The default personal desktop environment includes our recommendations for "
+"new users, including:\n"
 "\n"
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -2454,17 +2521,23 @@ msgstr ""
 "\t사운드와 비디오 응용 프로그램\n"
 "\t게임\n"
 "\n"
-"설치가 끝난 후, 'redhat-config-package' 도구를 사용하여 소프트웨어를 추가하거나 "
-"삭제하실 수 있습니다.\n"
+"설치가 끝난 후, 'redhat-config-package' 도구를 사용하여 소프트웨어를 추가하거"
+"나 삭제하실 수 있습니다.\n"
 "\n"
-"%s에 익숙하시다면, 설치하고 싶은 패키지나 설치하지 않을 패키지가 있을 것입니다. "
-"아래의 상자를 선택하여 설치를 사용자 정의하십시오."
+"%s에 익숙하시다면, 설치하고 싶은 패키지나 설치하지 않을 패키지가 있을 것입니"
+"다. 아래의 상자를 선택하여 설치를 사용자 정의하십시오."
 
-#: ../iw/desktop_choice_gui.py:77
+#: ../iw/desktop_choice_gui.py:98
+msgid ""
+"If you would like to change the default package set to be installed you can "
+"choose to customize this below."
+msgstr ""
+
+#: ../iw/desktop_choice_gui.py:106
 msgid "_Accept the current package list"
 msgstr "현재 패키지 목록 수용(_A)"
 
-#: ../iw/desktop_choice_gui.py:78
+#: ../iw/desktop_choice_gui.py:107
 msgid "_Customize the set of packages to be installed"
 msgstr "설치할 패키지 사용자 설정(_C)"
 
@@ -2518,7 +2591,7 @@ msgstr "fdasd를 실행할 드라이브를 선택해 주십시오."
 msgid "Partitioning with fdisk"
 msgstr "fdisk를 통한 파티션 분할"
 
-#: ../iw/fdisk_gui.py:100
+#: ../iw/fdisk_gui.py:103
 msgid "Select a drive to partition with fdisk:"
 msgstr "fdisk로 파티션할 드라이브를 선택해 주십시오:"
 
@@ -2596,31 +2669,31 @@ msgstr "IP 주소는 1에서 255 사이의 숫자로 지정해 주셔야 합니�
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP 주소는 1에서 255 사이의 숫자로 지정해 주셔야 합니다."
 
-#: ../iw/language_gui.py:59 ../textw/language_text.py:40 ../loader/lang.c:306
+#: ../iw/language_gui.py:61 ../textw/language_text.py:40 ../loader/lang.c:306
 msgid "What language would you like to use during the installation process?"
 msgstr "설치 과정에서 사용하실 언어를 선택해 주십시오"
 
-#: ../iw/language_support_gui.py:22
+#: ../iw/language_support_gui.py:24
 msgid "Additional Language Support"
 msgstr "추가 언어 지원"
 
-#: ../iw/language_support_gui.py:147
+#: ../iw/language_support_gui.py:149
 msgid "Select the _default language for the system:   "
 msgstr "시스템에서 사용될 기본 언어를 선택해 주십시오(_D):  "
 
-#: ../iw/language_support_gui.py:157
+#: ../iw/language_support_gui.py:159
 msgid "Select _additional languages to install on the system:"
 msgstr "시스템에서 추가적으로 사용될 언어를 선택해 주십시오(_A):"
 
-#: ../iw/language_support_gui.py:206
+#: ../iw/language_support_gui.py:208
 msgid "_Select All"
 msgstr "모두 선택(_S)"
 
-#: ../iw/language_support_gui.py:212
+#: ../iw/language_support_gui.py:214
 msgid "Select Default _Only"
 msgstr "기본 언어 선택(_O)"
 
-#: ../iw/language_support_gui.py:218
+#: ../iw/language_support_gui.py:220
 msgid "Rese_t"
 msgstr "재설정(_T)"
 
@@ -2762,7 +2835,8 @@ msgstr "부적절한 용량"
 
 #: ../iw/lvm_dialog_gui.py:470
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr "여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
+msgstr ""
+"여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:503
 msgid "Mount point in use"
@@ -2771,7 +2845,8 @@ msgstr "마운트 지점이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:504
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr " \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr ""
+" \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:515
 msgid "Illegal Logical Volume Name"
@@ -2784,7 +2859,8 @@ msgstr "부적절한 논리 볼륨명"
 #: ../iw/lvm_dialog_gui.py:535
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr " \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr ""
+" \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:549
 #, python-format
@@ -2852,7 +2928,8 @@ msgstr "이름이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:816
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr "\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr ""
+"\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:860
 msgid "Not enough physical volumes"
@@ -2929,39 +3006,39 @@ msgstr "용량 (MB)"
 msgid "Logical Volumes"
 msgstr "논리 볼륨"
 
-#: ../iw/mouse_gui.py:24
+#: ../iw/mouse_gui.py:26
 msgid "Mouse Configuration"
 msgstr "마우스 설정"
 
-#: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:20
+#: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
 msgstr "/dev/ttyS0 (DOS에서의 COM1)"
 
-#: ../iw/mouse_gui.py:79 ../textw/mouse_text.py:21
+#: ../iw/mouse_gui.py:81 ../textw/mouse_text.py:21
 msgid "/dev/ttyS1 (COM2 under DOS)"
 msgstr "/dev/ttyS1 (DOS에서의 COM2)"
 
-#: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:22
+#: ../iw/mouse_gui.py:82 ../textw/mouse_text.py:22
 msgid "/dev/ttyS2 (COM3 under DOS)"
 msgstr "/dev/ttyS2 (DOS에서의 COM3)"
 
-#: ../iw/mouse_gui.py:81 ../textw/mouse_text.py:23
+#: ../iw/mouse_gui.py:83 ../textw/mouse_text.py:23
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (DOS에서의 COM4)"
 
-#: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:157
+#: ../iw/mouse_gui.py:93 ../iw/osbootwidget.py:157
 msgid "_Device"
 msgstr "장치(_D)"
 
-#: ../iw/mouse_gui.py:136
+#: ../iw/mouse_gui.py:138
 msgid "_Model"
 msgstr "모델(_M)"
 
-#: ../iw/mouse_gui.py:219
+#: ../iw/mouse_gui.py:221
 msgid "_Emulate 3 buttons"
 msgstr "3-버튼 마우스처럼 사용(_E)"
 
-#: ../iw/mouse_gui.py:233
+#: ../iw/mouse_gui.py:235
 msgid "Select the appropriate mouse for the system."
 msgstr "시스템에서 사용될 마우스를 선택해 선택해 주십시오."
 
@@ -3204,15 +3281,15 @@ msgstr ""
 "이 부트 대상은 여러분이 설치하시려는 Red Hat Linux 시스템이기 때문에 삭제할 "
 "수 없습니다."
 
-#: ../iw/package_gui.py:47 ../textw/packages_text.py:237
+#: ../iw/package_gui.py:48 ../textw/packages_text.py:237
 msgid "Individual Package Selection"
 msgstr "개별 패키지 선택"
 
-#: ../iw/package_gui.py:75
+#: ../iw/package_gui.py:76
 msgid "All Packages"
 msgstr "전체 패키지"
 
-#: ../iw/package_gui.py:189
+#: ../iw/package_gui.py:190
 #, python-format
 msgid ""
 "Package: %s\n"
@@ -3221,68 +3298,72 @@ msgstr ""
 "패키지: %s\n"
 "버전: %s\n"
 
-#: ../iw/package_gui.py:360
+#: ../iw/package_gui.py:361
 msgid "_Tree View"
 msgstr "유형별로 보기(_T)"
 
-#: ../iw/package_gui.py:362
+#: ../iw/package_gui.py:363
 msgid "_Flat View"
 msgstr "영문자 순으로 보기(_F)"
 
-#: ../iw/package_gui.py:377
+#: ../iw/package_gui.py:378
 msgid "_Package"
 msgstr "패키지(_P)"
 
-#: ../iw/package_gui.py:379
+#: ../iw/package_gui.py:380
 msgid "_Size (MB)"
 msgstr "용량 (MB)(_S)"
 
-#: ../iw/package_gui.py:430
+#: ../iw/package_gui.py:431
 msgid "Total size: "
 msgstr "총 용량: "
 
-#: ../iw/package_gui.py:433
+#: ../iw/package_gui.py:434
 msgid "Select _all in group"
 msgstr "그룹 안의 모든 패키지 선택(_A)"
 
-#: ../iw/package_gui.py:437
+#: ../iw/package_gui.py:438
 msgid "_Unselect all in group"
 msgstr "그룹 안에 선택된 패키지 모두 해제(_U)"
 
-#: ../iw/package_gui.py:474 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:475 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr "패키지 그룹 선택"
 
-#: ../iw/package_gui.py:667
+#: ../iw/package_gui.py:692
+msgid "Minimal"
+msgstr ""
+
+#: ../iw/package_gui.py:764
 #, python-format
 msgid "Details for '%s'"
 msgstr "'%s'에 대한 자세한 정보"
 
-#: ../iw/package_gui.py:676
+#: ../iw/package_gui.py:773
 msgid ""
 "A package group can have both Base and Optional package members.  Base "
 "packages are always selected as long as the package group is selected.\n"
 "\n"
 "Select the optional packages to be installed:"
 msgstr ""
-"패키지 그룹은 기본(Base) 패키지 요소와 옵션 패키지 요소를 모두 가질 수 있습니다. "
-"기본 패키지는 패키지 그룹이 선택되는 한 언제나 선택되어 집니다.\n"
+"패키지 그룹은 기본(Base) 패키지 요소와 옵션 패키지 요소를 모두 가질 수 있습니"
+"다. 기본 패키지는 패키지 그룹이 선택되는 한 언제나 선택되어 집니다.\n"
 "\n"
 "설치할 옵션 패키지를 선택해 주십시오:"
 
-#: ../iw/package_gui.py:716
+#: ../iw/package_gui.py:814
 msgid "Base Packages"
 msgstr "기본 패키지"
 
-#: ../iw/package_gui.py:744
+#: ../iw/package_gui.py:844
 msgid "Optional Packages"
 msgstr "옵션 패키지"
 
-#: ../iw/package_gui.py:920
+#: ../iw/package_gui.py:1060
 msgid "Details"
 msgstr "자세한 정보"
 
-#: ../iw/package_gui.py:980
+#: ../iw/package_gui.py:1148
 msgid "_Select individual packages"
 msgstr "개별 패키지 선택(_S)"
 
@@ -3389,14 +3470,16 @@ msgid "Partitioning"
 msgstr "파티션 설정"
 
 #: ../iw/partition_gui.py:603
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "여러분이 요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니"
 "다."
 
 #: ../iw/partition_gui.py:606
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "%s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시기 바랍니"
 "다. "
@@ -3407,7 +3490,8 @@ msgstr "파티션 설정의 오류"
 
 #: ../iw/partition_gui.py:618
 msgid "The following warnings exist with your requested partition scheme."
-msgstr "여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
+msgstr ""
+"여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
 
 #: ../iw/partition_gui.py:620
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3490,22 +3574,24 @@ msgid "Software RAID is NOT supported on this platform."
 msgstr "소프트웨어 RAID는 이 플랫폼에서 지원하지 않습니다."
 
 #: ../iw/partition_gui.py:1153
-msgid "No RAID minors available"
+#, fuzzy
+msgid "No RAID minor device numbers available"
 msgstr "RAID minors 없음"
 
 #: ../iw/partition_gui.py:1154
+#, fuzzy
 msgid ""
-"A software RAID device cannot be created because all of the available minors "
-"have been used."
+"A software RAID device cannot be created because all of the available RAID "
+"minor device numbers have been used."
 msgstr ""
 "모든 사용 가능한 minors가 사용되었기 때문에 소프트웨어 RAID 장치를 생성할 수 "
 "없습니다. "
 
-#: ../iw/partition_gui.py:1167
+#: ../iw/partition_gui.py:1168
 msgid "RAID Options"
 msgstr "RAID 옵션"
 
-#: ../iw/partition_gui.py:1178
+#: ../iw/partition_gui.py:1179
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3524,7 +3610,7 @@ msgstr ""
 "현재 %s 소프트웨어 RAID 파티션이 사용 가능합니다.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1189
+#: ../iw/partition_gui.py:1190
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3535,78 +3621,78 @@ msgstr ""
 "드셔야 합니다.  그 후 RAID 장치를 생성하여 포맷하고 마운트할 수 있습니다.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1195
+#: ../iw/partition_gui.py:1196
 msgid "What do you want to do now?"
 msgstr "어떻게 하시겠습니까?"
 
-#: ../iw/partition_gui.py:1204
+#: ../iw/partition_gui.py:1205
 msgid "Create a software RAID _partition."
 msgstr "소프트웨어 RAID 파티션 만들기(_P)"
 
-#: ../iw/partition_gui.py:1207
+#: ../iw/partition_gui.py:1208
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "RAID 장치 만들기 [기본=/dev/md%s](_D)"
 
-#: ../iw/partition_gui.py:1211
+#: ../iw/partition_gui.py:1212
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr "RAID 장치를 만들기 위해 드라이브를 복제 [기본=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1250
+#: ../iw/partition_gui.py:1251
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "드라이브 복제품 편집기를 생성하지 못함"
 
-#: ../iw/partition_gui.py:1251
+#: ../iw/partition_gui.py:1252
 msgid "The drive clone editor could not be created for some reason."
 msgstr "드라이브 복제 편집기가 생성되지 않았습니다."
 
-#: ../iw/partition_gui.py:1298
+#: ../iw/partition_gui.py:1299
 msgid "_Reset"
 msgstr "재설정(_R)"
 
-#: ../iw/partition_gui.py:1299
+#: ../iw/partition_gui.py:1300
 msgid "Make _RAID"
 msgstr "RAID 설정(_R)"
 
-#: ../iw/partition_gui.py:1301
+#: ../iw/partition_gui.py:1302
 msgid "Ne_w"
 msgstr "새로 생성(_W)"
 
-#: ../iw/partition_gui.py:1304
+#: ../iw/partition_gui.py:1305
 msgid "Re_set"
 msgstr "재설정(_S)"
 
-#: ../iw/partition_gui.py:1305
+#: ../iw/partition_gui.py:1306
 msgid "R_AID"
 msgstr "R_AID"
 
-#: ../iw/partition_gui.py:1306
+#: ../iw/partition_gui.py:1307
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1345
+#: ../iw/partition_gui.py:1346
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "RAID 장치 감추기/LVM 볼륨 그룹 요소(_G)"
 
-#: ../iw/partition_gui.py:1360 ../textw/partition_text.py:1187
+#: ../iw/partition_gui.py:1361 ../textw/partition_text.py:1187
 msgid "Automatic Partitioning"
 msgstr "자동 파티션 설정"
 
-#: ../iw/partition_gui.py:1388
+#: ../iw/partition_gui.py:1389
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "%s 설치를 위해 최소한 하나의 드라이브는 선택해 주셔야 합니다. "
 
-#: ../iw/partition_gui.py:1430
+#: ../iw/partition_gui.py:1431
 msgid "I want to have automatic partitioning:"
 msgstr "자동으로 파티션을 설정합니다:"
 
-#: ../iw/partition_gui.py:1461
+#: ../iw/partition_gui.py:1462
 msgid "Select the drive(s) to use for this installation:"
 msgstr "설치에 사용할 드라이브를 지정해 주십시오:"
 
-#: ../iw/partition_gui.py:1485
+#: ../iw/partition_gui.py:1486
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr "생성된 파티션 재확인 (만일 필요하다면 수정)"
 
@@ -3836,10 +3922,6 @@ msgstr ""
 "\n"
 "파티션을 삭제하신 후 대상 드라이브로 선택해 주십시오."
 
-#: ../iw/raid_dialog_gui.py:556
-msgid "delete"
-msgstr "삭제"
-
 #: ../iw/raid_dialog_gui.py:614
 msgid "Please select a source drive."
 msgstr "소스 드라이브를 선택해 주십시오."
@@ -3989,11 +4071,11 @@ msgstr "일광-절약 시간 사용 (미국 사용자만)(_D)"
 msgid "UTC Offset"
 msgstr "UTC와의 시차"
 
-#: ../iw/timezone_map_gui.py:108
+#: ../iw/timezone_map_gui.py:114
 msgid "_Location"
 msgstr "지역(_L)"
 
-#: ../iw/timezone_map_gui.py:110
+#: ../iw/timezone_map_gui.py:116
 msgid "Description"
 msgstr "설명"
 
@@ -4011,8 +4093,10 @@ msgstr "이것은 현재의 부트 로더를 업데이트 시킬 것입니다."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr "설치 프로그램이  %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
+msgstr ""
+"설치 프로그램이  %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -4022,7 +4106,8 @@ msgstr "이 옵션을 사용하시길 권장합니다."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr "설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
+msgstr ""
+"설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
@@ -4145,82 +4230,83 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "스왑 파일은 '2 GB' 용량 내에서 지정해 주셔야 합니다."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:171
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "여러분이 선택하신 장치에 스왑 파티션을 생성하기에는 공간이 부족합니다."
 
 #: ../iw/welcome_gui.py:20
 msgid "Welcome"
 msgstr "환영합니다"
 
-#: ../iw/xconfig_gui.py:33 ../textw/xconfig_text.py:24
+#: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:24
 msgid "DDC Probed Monitor"
 msgstr "DDC에 의해 검색된 모니터"
 
-#: ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:25
+#: ../iw/xconfig_gui.py:36 ../textw/xconfig_text.py:25
 msgid "Unprobed Monitor"
 msgstr "모니터를 검색할 수 없음"
 
-#: ../iw/xconfig_gui.py:50
+#: ../iw/xconfig_gui.py:52
 msgid "Customize Graphical Configuration"
 msgstr "그래픽 환경 사용자 설정"
 
-#: ../iw/xconfig_gui.py:217
+#: ../iw/xconfig_gui.py:219
 msgid "_Color Depth:"
 msgstr "색상 수(_C):"
 
-#: ../iw/xconfig_gui.py:223 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:225 ../textw/xconfig_text.py:109
 msgid "256 Colors (8 Bit)"
 msgstr "256 컬러 (8 비트)"
 
-#: ../iw/xconfig_gui.py:223 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:225 ../textw/xconfig_text.py:109
 msgid "High Color (16 Bit)"
 msgstr "하이 컬러 (16비트)"
 
-#: ../iw/xconfig_gui.py:223 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:225 ../textw/xconfig_text.py:109
 msgid "True Color (24 Bit)"
 msgstr "트루 컬러 (24 비트)"
 
-#: ../iw/xconfig_gui.py:233
+#: ../iw/xconfig_gui.py:235
 msgid "_Screen Resolution:"
 msgstr "화면 해상도(_S):"
 
-#: ../iw/xconfig_gui.py:320
+#: ../iw/xconfig_gui.py:322
 msgid "   _Test Setting   "
 msgstr "  설정 내용 확인  (_T)"
 
-#: ../iw/xconfig_gui.py:343
+#: ../iw/xconfig_gui.py:345
 msgid "Please choose your default desktop environment:"
 msgstr "기본 데스크탑 환경을 선택해 주십시오:"
 
-#: ../iw/xconfig_gui.py:345
+#: ../iw/xconfig_gui.py:347
 msgid "Your desktop environment is:"
 msgstr "여러분의 데스크탑 환경:"
 
-#: ../iw/xconfig_gui.py:360
+#: ../iw/xconfig_gui.py:362
 msgid "GNO_ME"
 msgstr "GNOME(_M)"
 
-#: ../iw/xconfig_gui.py:362
+#: ../iw/xconfig_gui.py:364
 msgid "_KDE"
 msgstr "KDE(_K)"
 
-#: ../iw/xconfig_gui.py:391
+#: ../iw/xconfig_gui.py:393
 msgid "Please choose your login type:"
 msgstr "로그인 유형을 선택해 주십시오:"
 
-#: ../iw/xconfig_gui.py:398
+#: ../iw/xconfig_gui.py:400
 msgid "T_ext"
 msgstr "텍스트 환경(_E)"
 
-#: ../iw/xconfig_gui.py:399
+#: ../iw/xconfig_gui.py:401
 msgid "_Graphical"
 msgstr "그래픽 환경(_G)"
 
-#: ../iw/xconfig_gui.py:416 ../textw/xconfig_text.py:434
+#: ../iw/xconfig_gui.py:418 ../textw/xconfig_text.py:434
 msgid "Monitor Configuration"
 msgstr "모니터 설정"
 
-#: ../iw/xconfig_gui.py:599
+#: ../iw/xconfig_gui.py:601
 msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
@@ -4228,39 +4314,39 @@ msgstr ""
 "대부분의 경우에 모니터는 자동으로 검색됩니다. 만일 검색된 설정 사항이 모니터"
 "와 맞지 않는다면, 올바른 설정을 선택해 주십시오."
 
-#: ../iw/xconfig_gui.py:660
+#: ../iw/xconfig_gui.py:662
 msgid "Generic"
 msgstr "일반(Generic)"
 
-#: ../iw/xconfig_gui.py:707 ../iw/xconfig_gui.py:1048
+#: ../iw/xconfig_gui.py:709 ../iw/xconfig_gui.py:1052
 msgid "Restore _original values"
 msgstr "초기 설정 값으로 되돌림(_O)"
 
-#: ../iw/xconfig_gui.py:715
+#: ../iw/xconfig_gui.py:717
 msgid "Hori_zontal Sync:"
 msgstr "수평 동기(_Z):"
 
-#: ../iw/xconfig_gui.py:718
+#: ../iw/xconfig_gui.py:720
 msgid "_Vertical Sync:"
 msgstr "수직 동기(_V):"
 
-#: ../iw/xconfig_gui.py:725
+#: ../iw/xconfig_gui.py:727
 msgid "kHz"
 msgstr "KHz"
 
-#: ../iw/xconfig_gui.py:728
+#: ../iw/xconfig_gui.py:730
 msgid "Hz"
 msgstr "Hz"
 
-#: ../iw/xconfig_gui.py:746
+#: ../iw/xconfig_gui.py:750
 msgid "Graphical Interface (X) Configuration"
 msgstr "그래픽 환경 (X 윈도우) 설정"
 
-#: ../iw/xconfig_gui.py:771
+#: ../iw/xconfig_gui.py:775
 msgid "Unknown video card"
 msgstr "알 수 없는 비디오 카드"
 
-#: ../iw/xconfig_gui.py:772
+#: ../iw/xconfig_gui.py:776
 #, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
@@ -4269,11 +4355,11 @@ msgstr ""
 "%s 비디오 카드를 선택하는 도중 오류가 발생하였습니다. 이 오류의 내용을 "
 "bugzilla.redhat.com에 보고해 주시기 바랍니다."
 
-#: ../iw/xconfig_gui.py:796 ../textw/xconfig_text.py:666
+#: ../iw/xconfig_gui.py:800 ../textw/xconfig_text.py:666
 msgid "Unspecified video card"
 msgstr "목록에 없는 비디오 카드"
 
-#: ../iw/xconfig_gui.py:797 ../textw/xconfig_text.py:667
+#: ../iw/xconfig_gui.py:801 ../textw/xconfig_text.py:667
 msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
@@ -4282,7 +4368,7 @@ msgstr ""
 "X 윈도우 설정을 진행하기에 앞서 비디오 카드를 선택해 주셔야 합니다.  만일 X "
 "윈도우 설정을 하지 않으신다면, [X 윈도우 설정 생략] 버튼을 누르십시오."
 
-#: ../iw/xconfig_gui.py:925
+#: ../iw/xconfig_gui.py:929
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -4290,7 +4376,7 @@ msgstr ""
 "비디오 카드의 램 용량이 자동 검색되지 않았습니다.  비디오 카드의 램 용량을 아"
 "래에서 직접 선택해 주십시오:"
 
-#: ../iw/xconfig_gui.py:933
+#: ../iw/xconfig_gui.py:937
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
 "detected settings are not correct for the hardware, select the right "
@@ -4299,11 +4385,11 @@ msgstr ""
 "대부분의 경우 비디오 카드는 최적의 화면 설정을 위해 자동으로 검색됩니다. 검색"
 "된 설정 사항이 하드웨어와 맞지 않는다면, 올바른 설정을 선택해 주십시오."
 
-#: ../iw/xconfig_gui.py:1026
+#: ../iw/xconfig_gui.py:1030
 msgid "_Video card RAM: "
 msgstr "비디오 카드의 램(_V):"
 
-#: ../iw/xconfig_gui.py:1052
+#: ../iw/xconfig_gui.py:1056
 msgid "_Skip X configuration"
 msgstr "X 설정 생략(_S)"
 
@@ -4459,7 +4545,8 @@ msgstr ""
 "정해 주십시오."
 
 #: ../textw/bootloader_text.py:310
-msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid ""
+" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> 는 버튼 선택 | <F2> 는 기본 부트 엔트리 선택 | <F12> 는 다음 화면으"
 "로 가기>"
@@ -4584,7 +4671,24 @@ msgstr ""
 "업그레이드 설치의 내용이 기록된 로그 파일은 시스템 재부팅 후 %s 파일에 저장됩"
 "니다. 추후에 참고하실 경우를 대비하여 잘 보관해 두시기 바랍니다."
 
-#: ../textw/desktop_choice_text.py:35
+#: ../textw/desktop_choice_text.py:27
+#, fuzzy, python-format
+msgid ""
+"The Personal Desktop and Workstation options install a default set of "
+"applications that will allow you to browse the Internet, send and receive "
+"email, and create and edit documents on your %s system. The Workstation "
+"option includes development and administration tools as well.\n"
+"\n"
+"However %s ships with many more applications, and you may customize the "
+"selection of software installed if you want."
+msgstr ""
+"여러분은 이 응용 프로그램을 사용하여 인터넷을 검색하고 이메일을 보내고 받을 "
+"수 있으며, %s 시스템 상에서 문서를 생성하고 편집하실 수 있습니다.\n"
+"\n"
+"하지만 %s에는 보다 많은 응용 프로그램이 포함되어 있으므로 여러분이 원하시는 "
+"소프트웨어를 선택하여 설치하실 수 있습니다."
+
+#: ../textw/desktop_choice_text.py:39
 msgid "Customize software selection"
 msgstr "소프트웨어 선택 사용자 설정"
 
@@ -4883,7 +4987,8 @@ msgid "Total size"
 msgstr "총 용량"
 
 #: ../textw/packages_text.py:245
-msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid ""
+"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "        <Space>,<+>,<-> 선택   |   <F1> 도움말   |   <F2> 패키지 정보"
 
 #: ../textw/packages_text.py:293
@@ -5108,16 +5213,20 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1105
-msgid "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "     F1-도움말                 F3-편집   F4-삭제   F5-재설정   F12-확인      "
+msgid ""
+"    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr ""
+"     F1-도움말                 F3-편집   F4-삭제   F5-재설정   F12-확인      "
 
 #: ../textw/partition_text.py:1107
 msgid "New"
 msgstr "새로생성"
 
 #: ../textw/partition_text.py:1113
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr ""
+"     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
 
 #: ../textw/partition_text.py:1142
 msgid "No Root Partition"
@@ -5371,13 +5480,15 @@ msgid "User Exists"
 msgstr "사용자가 존재함"
 
 #: ../textw/userauth_text.py:144
-msgid "The root user is already configured. You don't need to add this user here."
+msgid ""
+"The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Root 사용자는 이미 설정되어 있습니다. Root 사용자를 이곳에 추가하실 필요는 없"
 "습니다."
 
 #: ../textw/userauth_text.py:151
-msgid "This system user is already configured. You don't need to add this user here."
+msgid ""
+"This system user is already configured. You don't need to add this user here."
 msgstr ""
 "이 시스템 사용자는 이미 설정되어 있습니다. 이사용자를 이곳에 추가하실 필요는 "
 "없습니다."
@@ -5731,17 +5842,13 @@ msgstr "z/IPL 설정"
 msgid "Custom"
 msgstr "사용자 설치"
 
-#: ../installclasses/custom.py:12
+#: ../installclasses/custom.py:13
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and authentication preferences."
 msgstr ""
 "이 설치 유형을 선택하여 소프트웨어 패키지 선택과 인증 기본 설정과 같은 설치 "
 "과정에 대한 완전한 제어권을 갖습니다."
-
-#: ../installclasses/personal_desktop.py:10
-msgid "Personal Desktop"
-msgstr "개인 데스크탑"
 
 #: ../installclasses/personal_desktop.py:12
 msgid ""
@@ -5774,19 +5881,14 @@ msgstr "이전 시스템 업그레이드"
 msgid "Upgrade"
 msgstr "업그레이드"
 
-#: ../installclasses/workstation.py:6
-msgid "Workstation"
-msgstr "웍스테이션"
-
 #: ../installclasses/workstation.py:8
+#, fuzzy
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
-"development and system adminstration.A good choice for programmers and "
-"system administrators."
+"development and system adminstration. "
 msgstr ""
-"이 옵션은 소프트웨어 개발과 시스템 관리에 사용되는 도구를 "
-"사용하여 그래픽 데스크탑 환경을 설치합니다. 프로그래머와 시스템 관리자에게 "
-"좋습니다."
+"이 옵션은 소프트웨어 개발과 시스템 관리에 사용되는 도구를 사용하여 그래픽 데"
+"스크탑 환경을 설치합니다. 프로그래머와 시스템 관리자에게 좋습니다."
 
 #: ../loader/cdrom.c:31
 msgid "CDROM type"
@@ -5884,8 +5986,10 @@ msgid "Welcome to %s"
 msgstr "%s에 오신것을 환영합니다 "
 
 #: ../loader/lang.c:42 ../loader/loader.c:205
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../loader/lang.c:305
 msgid "Choose a Language"
@@ -6094,7 +6198,8 @@ msgstr "첫번째 설치 이미지를 읽어올 수 없습니다"
 
 #: ../loader/loader.c:1719
 msgid "FTP and HTTP installs require 20MB or more of system memory."
-msgstr "FTP 와 HTTP 를 통해 설치하시려면, 최소한 '20 MB' 이상의 메모리가 필요합니다."
+msgstr ""
+"FTP 와 HTTP 를 통해 설치하시려면, 최소한 '20 MB' 이상의 메모리가 필요합니다."
 
 #: ../loader/loader.c:1959
 msgid "Rescue Method"
@@ -6167,7 +6272,8 @@ msgstr ""
 "치 드라이버를 선택하셔야 합니다. 드라이버를 지금 선택하시겠습니까?"
 
 #: ../loader/loader.c:3693
-msgid "Running the anaconda system installer - please wait...\n"
+#, fuzzy, c-format
+msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "anaconda 시스템 설치 프로그램 실행 중 - 잠시만 기다려 주십시오...\n"
 
 #: ../loader/mediacheck.c:193
@@ -6408,7 +6514,8 @@ msgstr "DNS 검색 사용하지 않음"
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
-msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgstr ""
+"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../loader/net.c:899
 #, c-format
@@ -6683,8 +6790,10 @@ msgid "Atlantic Time - E Labrador"
 msgstr "대서양 시간 - E Labrador"
 
 #. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr "대서양 시간 - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid ""
+"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr ""
+"대서양 시간 - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6863,7 +6972,8 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "동부시 - Ontario & Quebec - most locations"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "동부시 - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
@@ -7031,8 +7141,10 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7329,6 +7441,12 @@ msgstr "스웨덴어"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "우크라니아어"
+
+#~ msgid "The following software will be installed:"
+#~ msgstr "다음과 같은 소프트웨어가 설치될 것입니다:"
+
+#~ msgid "delete"
+#~ msgstr "삭제"
 
 #~ msgid "Make LVM Device"
 #~ msgstr "LVM 장치 설정"
@@ -7792,4 +7910,3 @@ msgstr "우크라니아어"
 
 #~ msgid "Portuguese(Brasilian) pt"
 #~ msgstr "포루투칼어(브리질) pt"
-

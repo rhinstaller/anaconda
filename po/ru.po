@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
-"POT-Creation-Date: 2002-07-18 23:21-0400\n"
+"POT-Creation-Date: 2002-07-24 01:40-0400\n"
 "PO-Revision-Date: 2002-04-06 23:24EET\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Недостаточно ОЗУ для запуска графической установки. Установка будет "
 "продолжена в текстовом режиме."
 
-#: ../anaconda:356 ../gui.py:103 ../rescue.py:36 ../rescue.py:143
+#: ../anaconda:356 ../gui.py:136 ../rescue.py:36 ../rescue.py:143
 #: ../rescue.py:166 ../rescue.py:176 ../rescue.py:192 ../rescue.py:198
 #: ../text.py:315 ../text.py:440 ../xserver.py:53 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
@@ -215,8 +215,8 @@ msgid ""
 "Press 'OK' to continue."
 msgstr ""
 
-#: ../autopart.py:1103 ../bootloader.py:123 ../image.py:270
-#: ../partedUtils.py:240 ../partedUtils.py:658 ../upgrade.py:259
+#: ../autopart.py:1103 ../bootloader.py:123 ../image.py:282
+#: ../partedUtils.py:240 ../partedUtils.py:665 ../upgrade.py:259
 #: ../upgrade.py:385 ../upgrade.py:404 ../iw/blpasswidget.py:148
 #: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:88
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
@@ -312,19 +312,25 @@ msgstr ""
 "На вашей системе не установлен ни один пакет с ядром Linux. Конфигурация "
 "загрузчика не будет изменена."
 
-#: ../comps.py:697
+#: ../comps.py:699
 msgid "Everything"
 msgstr "Все"
 
-#: ../comps.py:856 ../comps.py:922 ../upgrade.py:584
+#: ../comps.py:866 ../comps.py:932 ../upgrade.py:584
 msgid "no suggestion"
 msgstr "нет вариантов"
 
-#: ../comps.py:1046
+#: ../comps.py:1024
 msgid ""
 "This group includes all the packages available.  Note that this is "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
+msgstr ""
+
+#: ../comps.py:1028
+msgid ""
+"Choose this group to get the minimal possible set of packages.  Useful for "
+"creating small router/firewall boxes, for example."
 msgstr ""
 
 #: ../exception.py:167 ../text.py:236
@@ -373,9 +379,9 @@ msgstr "Создать загрузочный диск"
 
 #: ../floppy.py:76 ../floppy.py:105 ../fsset.py:554 ../fsset.py:1015
 #: ../fsset.py:1034 ../fsset.py:1081 ../fsset.py:1092 ../fsset.py:1128
-#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:184 ../image.py:77
-#: ../image.py:187 ../packages.py:304 ../packages.py:536 ../partedUtils.py:451
-#: ../partIntfHelpers.py:144 ../partIntfHelpers.py:326 ../upgrade.py:312
+#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:196 ../image.py:85
+#: ../image.py:195 ../packages.py:306 ../packages.py:546 ../partedUtils.py:458
+#: ../partIntfHelpers.py:142 ../partIntfHelpers.py:327 ../upgrade.py:312
 #: ../upgrade.py:330 ../iw/osbootwidget.py:221 ../iw/osbootwidget.py:230
 #: ../iw/raid_dialog_gui.py:613 ../iw/raid_dialog_gui.py:652
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1048
@@ -577,18 +583,18 @@ msgstr "Форматирование"
 msgid "Formatting %s file system..."
 msgstr "Форматирование файловой системы %s..."
 
-#: ../gui.py:100 ../text.py:312
+#: ../gui.py:133 ../text.py:312
 msgid "Fix"
 msgstr "Исправить"
 
-#: ../gui.py:101 ../text.py:313 ../textw/bootdisk_text.py:22
+#: ../gui.py:134 ../text.py:313 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:255 ../loader/devices.c:232
 #: ../loader/loader.c:1021 ../loader/loader.c:3520 ../loader/net.c:901
 msgid "Yes"
 msgstr "Да"
 
-#: ../gui.py:102 ../text.py:314 ../textw/bootdisk_text.py:22
+#: ../gui.py:135 ../text.py:314 ../textw/bootdisk_text.py:22
 #: ../textw/bootdisk_text.py:35 ../textw/bootloader_text.py:79
 #: ../textw/constants_text.py:52 ../textw/upgrade_text.py:255
 #: ../textw/upgrade_text.py:262 ../loader/devices.c:233
@@ -596,16 +602,16 @@ msgstr "Да"
 msgid "No"
 msgstr "Нет"
 
-#: ../gui.py:104 ../text.py:316 ../loader/net.c:274 ../loader/net.c:400
+#: ../gui.py:137 ../text.py:316 ../loader/net.c:274 ../loader/net.c:400
 msgid "Retry"
 msgstr "Повторить"
 
-#: ../gui.py:105 ../text.py:317
+#: ../gui.py:138 ../text.py:317
 msgid "Ignore"
 msgstr "Игнорировать"
 
-#: ../gui.py:106 ../gui.py:370 ../partIntfHelpers.py:226
-#: ../partIntfHelpers.py:410 ../partIntfHelpers.py:521 ../text.py:116
+#: ../gui.py:139 ../gui.py:403 ../partIntfHelpers.py:226
+#: ../partIntfHelpers.py:412 ../partIntfHelpers.py:523 ../text.py:116
 #: ../text.py:117 ../text.py:282 ../text.py:284 ../text.py:318
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
 #: ../textw/bootloader_text.py:212 ../textw/constants_text.py:40
@@ -615,7 +621,7 @@ msgstr "Игнорировать"
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ../gui.py:292 ../text.py:290
+#: ../gui.py:325 ../text.py:290
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -626,7 +632,7 @@ msgstr ""
 "скопируйте полный текст исключения или сохраните отладочную информацию на "
 "дискету и заполните отчет об ошибке на http://bugzilla.redhat.com/bugzilla."
 
-#: ../gui.py:443 ../text.py:280
+#: ../gui.py:476 ../text.py:280
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -634,88 +640,88 @@ msgstr ""
 "Вставьте, пожалуйста, дискету. Будьте внимательны, так как все содержимое "
 "этой дискеты будет удалено."
 
-#: ../gui.py:551 ../gui.py:993
+#: ../gui.py:584 ../gui.py:1026
 msgid "Online Help"
 msgstr "Помощь"
 
-#: ../gui.py:552 ../iw/language_gui.py:21 ../textw/language_text.py:39
+#: ../gui.py:585 ../iw/language_gui.py:23 ../textw/language_text.py:39
 msgid "Language Selection"
 msgstr "Выбор языка"
 
-#: ../gui.py:644
+#: ../gui.py:677
 msgid "Release Notes"
 msgstr "Что нового"
 
-#: ../gui.py:678
+#: ../gui.py:711
 msgid "Unable to load file!"
 msgstr "Невозможно загрузить файл!"
 
-#: ../gui.py:715
+#: ../gui.py:748
 msgid "Release notes are missing.\n"
 msgstr "Файл примечаний остутсвует.\n"
 
-#: ../gui.py:831 ../packages.py:1001
+#: ../gui.py:864 ../packages.py:1040
 #, fuzzy
 msgid "_Back"
 msgstr "Назад"
 
-#: ../gui.py:833
+#: ../gui.py:866
 #, fuzzy
 msgid "_Next"
 msgstr "Далее"
 
-#: ../gui.py:835
+#: ../gui.py:868
 #, fuzzy
 msgid "_Release Notes"
 msgstr "Что нового"
 
-#: ../gui.py:837
+#: ../gui.py:870
 #, fuzzy
 msgid "Show _Help"
 msgstr "Показать помощь"
 
-#: ../gui.py:839
+#: ../gui.py:872
 #, fuzzy
 msgid "Hide _Help"
 msgstr "Скрыть помощь"
 
-#: ../gui.py:841
+#: ../gui.py:874
 #, fuzzy
 msgid "_Debug"
 msgstr "Отладка"
 
-#: ../gui.py:897
+#: ../gui.py:930
 #, python-format
 msgid "%s Installer"
 msgstr "Программа установки %s"
 
-#: ../gui.py:912
+#: ../gui.py:945
 #, python-format
 msgid "%s Installer on %s"
 msgstr "Программа установки %s на %s"
 
-#: ../gui.py:951
+#: ../gui.py:984
 msgid "Unable to load title bar"
 msgstr "Невозможно загрузить заголовок"
 
-#: ../gui.py:1048
+#: ../gui.py:1081
 msgid "Install Window"
 msgstr "Окно установки"
 
-#: ../harddrive.py:185
+#: ../harddrive.py:197
 #, python-format
 msgid "Missing CD #%d, which is required for the install."
 msgstr "Для установки необходим компакт-диск N %d."
 
-#: ../image.py:74
+#: ../image.py:82
 msgid "Copying File"
 msgstr "Копирование файла"
 
-#: ../image.py:75
+#: ../image.py:83
 msgid "Transferring install image to hard drive..."
 msgstr "Установочный образ переносится на жесткий диск..."
 
-#: ../image.py:78
+#: ../image.py:86
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -723,44 +729,29 @@ msgstr ""
 "Произошла ошибка при переносе установочного образа на жесткий диск. Наиболее "
 "вероятная причина - отсутствие места на диске."
 
-#: ../image.py:146
+#: ../image.py:154
 msgid "Change CDROM"
 msgstr "Смена CD-ROM"
 
-#: ../image.py:147
+#: ../image.py:155
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Вставьте пожалуйста диск %d для продолжения"
 
-#: ../image.py:181
+#: ../image.py:189
 msgid "Wrong CDROM"
 msgstr "Неверный CD-ROM"
 
-#: ../image.py:182
+#: ../image.py:190
 #, fuzzy, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Этот диск не является необходимым Red Hat CD-ROM"
 
-#: ../image.py:188
+#: ../image.py:196
 msgid "The CDROM could not be mounted."
 msgstr "CD-ROM не может быть смонтирован."
 
-#: ../installclass.py:30
-#, fuzzy
-msgid "The following software will be installed:"
-msgstr "Программа установки обнаружила загрузчик %s, установленный на %s."
-
-#: ../installclass.py:32
-#, python-format
-msgid ""
-"These applications will allow you to browse the Internet, send and receive "
-"email, and create and edit documents on your %s system.\n"
-"\n"
-"However %s ships with many more applications, and you may customize the "
-"selection of software installed if you want."
-msgstr ""
-
-#: ../installclass.py:55
+#: ../installclass.py:43
 #, fuzzy
 msgid "Install on System"
 msgstr "Тип установки"
@@ -773,11 +764,11 @@ msgstr ""
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
 
-#: ../packages.py:39 ../iw/package_gui.py:36
+#: ../packages.py:40 ../iw/package_gui.py:37
 msgid "Proceed with upgrade?"
 msgstr "Продолжить обновление?"
 
-#: ../packages.py:40 ../iw/package_gui.py:37
+#: ../packages.py:41 ../iw/package_gui.py:38
 #, fuzzy
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
@@ -788,35 +779,35 @@ msgstr ""
 "смонтированы. Вернуться назад от этой точки невозможно.\n"
 "\n"
 
-#: ../packages.py:44 ../iw/package_gui.py:41
+#: ../packages.py:45 ../iw/package_gui.py:42
 msgid "Would you like to continue with the upgrade?"
 msgstr "Продолжить обновление?"
 
-#: ../packages.py:113
+#: ../packages.py:114
 msgid "Reading"
 msgstr "Чтение"
 
-#: ../packages.py:113
+#: ../packages.py:114
 msgid "Reading package information..."
 msgstr "Чтение информации о пакетах..."
 
-#: ../packages.py:190
+#: ../packages.py:191
 msgid "Dependency Check"
 msgstr "Проверка зависимостей"
 
-#: ../packages.py:191
+#: ../packages.py:192
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Проверяются зависимости выбранных для установки пакетов..."
 
-#: ../packages.py:256 ../packages.py:580
+#: ../packages.py:257 ../packages.py:597
 msgid "Processing"
 msgstr "Обработка"
 
-#: ../packages.py:257
+#: ../packages.py:258
 msgid "Preparing to install..."
 msgstr "Подготовка к установке..."
 
-#: ../packages.py:305
+#: ../packages.py:307
 #, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -825,11 +816,11 @@ msgstr ""
 "Невозможно открыть файл %s из-за отсутствия файла, дефекта пакета или "
 "носителя. Нажмите <Enter>, чтобы повторить попытку."
 
-#: ../packages.py:329
+#: ../packages.py:339
 msgid "Error Installing Package"
 msgstr "Ошибка установки пакета"
 
-#: ../packages.py:330
+#: ../packages.py:340
 #, fuzzy, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -846,7 +837,7 @@ msgstr ""
 "\n"
 "Нажмите OK для перезагрузки вашей системы."
 
-#: ../packages.py:537
+#: ../packages.py:547
 msgid ""
 "Unable to create symlink for /var/tmp.  This should only happen if there "
 "were errors creating your filesystems.\n"
@@ -854,11 +845,11 @@ msgid ""
 "Press the OK button to reboot your system."
 msgstr ""
 
-#: ../packages.py:581
+#: ../packages.py:598
 msgid "Setting up RPM transaction..."
 msgstr "Устанавливаются транзакции RPM..."
 
-#: ../packages.py:618
+#: ../packages.py:635
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -867,7 +858,7 @@ msgstr ""
 "Обновление %s пакетов\n"
 "\n"
 
-#: ../packages.py:620
+#: ../packages.py:637
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -876,17 +867,17 @@ msgstr ""
 "Установка %s пакетов\n"
 "\n"
 
-#: ../packages.py:627
+#: ../packages.py:644
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Обновление %s-%s-%s.\n"
 
-#: ../packages.py:629
+#: ../packages.py:646
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Установка %s-%s-%s.\n"
 
-#: ../packages.py:645
+#: ../packages.py:662
 #, python-format
 msgid ""
 "\n"
@@ -903,15 +894,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:651
+#: ../packages.py:668
 msgid "Install Starting"
 msgstr "Запуск установки"
 
-#: ../packages.py:652
+#: ../packages.py:669
 msgid "Starting install process, this may take several minutes..."
 msgstr "Запуск процесса установки, это может занять несколько минут..."
 
-#: ../packages.py:697
+#: ../packages.py:714
 #, fuzzy
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
@@ -922,17 +913,17 @@ msgstr ""
 "Вам необходимо больше места на следующих файловых системах:\n"
 "\n"
 
-#: ../packages.py:701 ../packages.py:721 ../iw/lvm_dialog_gui.py:1003
+#: ../packages.py:718 ../packages.py:738 ../iw/lvm_dialog_gui.py:1003
 #: ../iw/partition_gui.py:347 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1096 ../textw/upgrade_text.py:109
 msgid "Mount Point"
 msgstr "Точка монтирования"
 
-#: ../packages.py:702
+#: ../packages.py:719
 msgid "Space Needed"
 msgstr "Мало места"
 
-#: ../packages.py:717
+#: ../packages.py:734
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -943,15 +934,15 @@ msgstr ""
 "вами пакетов. Вам необходимо больше места на следующих файловых системах:\n"
 "\n"
 
-#: ../packages.py:722
+#: ../packages.py:739
 msgid "Nodes Needed"
 msgstr "Недостаточно дескрипторов файлов"
 
-#: ../packages.py:728
+#: ../packages.py:745
 msgid "Disk Space"
 msgstr "Дисковое пространство"
 
-#: ../packages.py:749
+#: ../packages.py:766
 msgid ""
 "\n"
 "\n"
@@ -961,19 +952,19 @@ msgstr ""
 "\n"
 "Следующие пакеты были доступны для этой версии, но НЕ были обновлены:\n"
 
-#: ../packages.py:766
+#: ../packages.py:783
 msgid "Post Install"
 msgstr "Настройка после установки"
 
-#: ../packages.py:767
+#: ../packages.py:784
 msgid "Performing post install configuration..."
 msgstr "Выполняется настройка после установки..."
 
-#: ../packages.py:981
+#: ../packages.py:1020
 msgid "Warning! This is a beta!"
 msgstr ""
 
-#: ../packages.py:982
+#: ../packages.py:1021
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -988,26 +979,26 @@ msgid ""
 "and file a report against 'Red Hat Public Beta'.\n"
 msgstr ""
 
-#: ../packages.py:995 ../iw/congrats_gui.py:29
+#: ../packages.py:1034 ../iw/congrats_gui.py:29
 #, fuzzy
 msgid "_Exit"
 msgstr "Выход"
 
-#: ../packages.py:995
+#: ../packages.py:1034
 #, fuzzy
 msgid "_Install BETA"
 msgstr "Установка"
 
-#: ../packages.py:998
+#: ../packages.py:1037
 #, fuzzy
 msgid "Rebooting System"
 msgstr "Обновление существующей системы"
 
-#: ../packages.py:999
+#: ../packages.py:1038
 msgid "Your system will now be rebooted..."
 msgstr ""
 
-#: ../packages.py:1001
+#: ../packages.py:1040
 #, fuzzy
 msgid "_Reboot"
 msgstr "_Перечитать"
@@ -1031,22 +1022,22 @@ msgstr ""
 "\n"
 "Вы действительно хотите использовать этот диск? "
 
-#: ../partedUtils.py:452
+#: ../partedUtils.py:459
 #, fuzzy, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Ошибка монтирования файловой системы на %s: %s"
 
-#: ../partedUtils.py:543
+#: ../partedUtils.py:550
 #, fuzzy
 msgid "Initializing"
 msgstr "Инициализация CD-ROM..."
 
-#: ../partedUtils.py:544
+#: ../partedUtils.py:551
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr ""
 
-#: ../partedUtils.py:659
+#: ../partedUtils.py:666
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1060,11 +1051,11 @@ msgstr ""
 "\n"
 "Вы действительно хотите инициализировать этот диск?"
 
-#: ../partedUtils.py:769 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:776 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "Диски не найдены"
 
-#: ../partedUtils.py:770
+#: ../partedUtils.py:777
 #, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
@@ -1126,63 +1117,59 @@ msgid "Please specify a mount point for this partition."
 msgstr "Укажите точку монтирования для этого раздела."
 
 #: ../partIntfHelpers.py:104
-#, fuzzy, python-format
-msgid ""
-"You cannot %s this partition, as it is holding the data for the hard drive "
-"install."
+#, fuzzy
+msgid "This partition is holding the data for the hard drive install."
 msgstr ""
 "Невозможно удалить этот раздел, поскольку он содержит данные, необходимые "
 "для установки с жесткого диска."
 
 #: ../partIntfHelpers.py:110
 #, fuzzy, python-format
-msgid ""
-"You cannot %%s this partition as it is part of the RAID device /dev/md%s."
+msgid "This partition is part of the RAID device /dev/md%s."
 msgstr ""
 "Правка этого раздела невозможна, поскольку он является частью устройства "
 "RAID."
 
 #: ../partIntfHelpers.py:113
-#, fuzzy, python-format
-msgid "You cannot %s this partition as it is part of a RAID device."
+#, fuzzy
+msgid "This partition is part of a RAID device."
 msgstr ""
 "Правка этого раздела невозможна, поскольку он является частью устройства "
 "RAID."
 
-#: ../partIntfHelpers.py:119
+#: ../partIntfHelpers.py:118
 #, fuzzy, python-format
-msgid ""
-"You cannot %%s this partition, as it is part of the LVM volume group '%s'."
+msgid "This partition is part of the LVM volume group '%s'."
 msgstr ""
 "Невозможно удалить этот раздел, поскольку он является частью устройства RAID."
 
-#: ../partIntfHelpers.py:122
-#, fuzzy, python-format
-msgid "You cannot %s this partition, as it is part of a LVM volume group."
+#: ../partIntfHelpers.py:121
+#, fuzzy
+msgid "This partition is part of a LVM volume group."
 msgstr ""
 "Невозможно удалить этот раздел, поскольку он является частью устройства RAID."
 
-#: ../partIntfHelpers.py:138 ../partIntfHelpers.py:152
-#: ../partIntfHelpers.py:162 ../partIntfHelpers.py:179
+#: ../partIntfHelpers.py:136 ../partIntfHelpers.py:150
+#: ../partIntfHelpers.py:160 ../partIntfHelpers.py:177
 #, fuzzy
 msgid "Unable To Delete"
 msgstr "Невозможно удалить"
 
-#: ../partIntfHelpers.py:139
+#: ../partIntfHelpers.py:137
 #, fuzzy
 msgid "You must first select a partition to delete."
 msgstr "Необходимо указать раздел для удаления."
 
-#: ../partIntfHelpers.py:145 ../textw/partition_text.py:1060
+#: ../partIntfHelpers.py:143 ../textw/partition_text.py:1060
 msgid "DASD partitions can only be deleted with fdasd"
 msgstr ""
 
-#: ../partIntfHelpers.py:153
+#: ../partIntfHelpers.py:151
 #, fuzzy
 msgid "You cannot delete free space."
 msgstr "Невозможно удалить свободное место."
 
-#: ../partIntfHelpers.py:163
+#: ../partIntfHelpers.py:161
 #, fuzzy, python-format
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
@@ -1191,7 +1178,17 @@ msgstr ""
 "Правка этого раздела невозможна, потому что это расширенный раздел, который "
 "содержит %s"
 
-#: ../partIntfHelpers.py:222 ../partIntfHelpers.py:520
+#: ../partIntfHelpers.py:178
+#, fuzzy
+msgid ""
+"You cannot delete this partition:\n"
+"\n"
+msgstr ""
+"Вы собираетесь удалить раздел /dev/%s.\n"
+"\n"
+"Вы уверены? "
+
+#: ../partIntfHelpers.py:222 ../partIntfHelpers.py:522
 #: ../iw/lvm_dialog_gui.py:682
 msgid "Confirm Delete"
 msgstr "Подтвердите удаление"
@@ -1204,10 +1201,10 @@ msgstr ""
 "\n"
 "Вы уверены? "
 
-#: ../partIntfHelpers.py:226 ../partIntfHelpers.py:521
+#: ../partIntfHelpers.py:226 ../partIntfHelpers.py:523
 #: ../iw/account_gui.py:424 ../iw/lvm_dialog_gui.py:685
 #: ../iw/lvm_dialog_gui.py:1026 ../iw/osbootwidget.py:101
-#: ../iw/partition_gui.py:1297 ../iw/partition_gui.py:1303
+#: ../iw/partition_gui.py:1298 ../iw/partition_gui.py:1304
 msgid "_Delete"
 msgstr "_Удалить"
 
@@ -1230,7 +1227,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:301 ../partIntfHelpers.py:314
-#: ../partIntfHelpers.py:344 ../partIntfHelpers.py:355
+#: ../partIntfHelpers.py:345 ../partIntfHelpers.py:356
 msgid "Unable To Edit"
 msgstr "Правка невозможна"
 
@@ -1238,11 +1235,21 @@ msgstr "Правка невозможна"
 msgid "You must select a partition to edit"
 msgstr "Необходимо указать раздел для правки."
 
-#: ../partIntfHelpers.py:327
+#: ../partIntfHelpers.py:314 ../partIntfHelpers.py:357
+#, fuzzy
+msgid ""
+"You cannot edit this partition:\n"
+"\n"
+msgstr ""
+"Вы собираетесь удалить раздел /dev/%s.\n"
+"\n"
+"Вы уверены? "
+
+#: ../partIntfHelpers.py:328
 msgid "You must go back and use fdasd to inititalize this partition"
 msgstr ""
 
-#: ../partIntfHelpers.py:345
+#: ../partIntfHelpers.py:346
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1251,11 +1258,11 @@ msgstr ""
 "Правка этого раздела невозможна, потому что это расширенный раздел, который "
 "содержит %s"
 
-#: ../partIntfHelpers.py:376
+#: ../partIntfHelpers.py:378
 msgid "Format as Swap?"
 msgstr "Форматировать как Swap?"
 
-#: ../partIntfHelpers.py:377
+#: ../partIntfHelpers.py:379
 #, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1267,7 +1274,7 @@ msgstr ""
 "Linux swap. \n"
 "Отформатировать этот раздел как разел свопинга?"
 
-#: ../partIntfHelpers.py:398
+#: ../partIntfHelpers.py:400
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. Red Hat recommends that you format this partition to "
@@ -1277,19 +1284,19 @@ msgid ""
 "you should continue without formatting this partition."
 msgstr ""
 
-#: ../partIntfHelpers.py:410
+#: ../partIntfHelpers.py:412
 msgid "Format?"
 msgstr "Форматировать?"
 
-#: ../partIntfHelpers.py:410
+#: ../partIntfHelpers.py:412
 msgid "Do _Not Format"
 msgstr ""
 
-#: ../partIntfHelpers.py:418
+#: ../partIntfHelpers.py:420
 msgid "Error with Partitioning"
 msgstr "Ошибка разбиения"
 
-#: ../partIntfHelpers.py:419
+#: ../partIntfHelpers.py:421
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1302,11 +1309,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:433
+#: ../partIntfHelpers.py:435
 msgid "Partitioning Warning"
 msgstr "Предостережение разбиения"
 
-#: ../partIntfHelpers.py:434
+#: ../partIntfHelpers.py:436
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1321,7 +1328,7 @@ msgstr ""
 "\n"
 "Вы действительно хотите продолжить с выбранной схемой разбиения?"
 
-#: ../partIntfHelpers.py:448 ../iw/partition_gui.py:635
+#: ../partIntfHelpers.py:450 ../iw/partition_gui.py:635
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1329,7 +1336,7 @@ msgstr ""
 "Следующие ранее существовавшие разделы будут отформатированы с удалением "
 "всех данных."
 
-#: ../partIntfHelpers.py:451
+#: ../partIntfHelpers.py:453
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1337,11 +1344,11 @@ msgstr ""
 "Нажмите 'Да' для продолжения и форматирования этих разделов. Нажатие кнопки "
 "'Нет' позволит вернуться и изменить эти установки."
 
-#: ../partIntfHelpers.py:457
+#: ../partIntfHelpers.py:459
 msgid "Format Warning"
 msgstr "Предостережение форматирования"
 
-#: ../partIntfHelpers.py:505
+#: ../partIntfHelpers.py:507
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1349,7 +1356,7 @@ msgid ""
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
 
-#: ../partIntfHelpers.py:509
+#: ../partIntfHelpers.py:511
 #, fuzzy, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr ""
@@ -1357,7 +1364,7 @@ msgstr ""
 "\n"
 "Вы уверены? "
 
-#: ../partIntfHelpers.py:512
+#: ../partIntfHelpers.py:514
 #, fuzzy
 msgid "You are about to delete a RAID device."
 msgstr ""
@@ -1365,7 +1372,7 @@ msgstr ""
 "\n"
 "Вы уверены? "
 
-#: ../partIntfHelpers.py:515
+#: ../partIntfHelpers.py:517
 #, fuzzy, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr ""
@@ -1373,15 +1380,15 @@ msgstr ""
 "\n"
 "Вы уверены? "
 
-#: ../partIntfHelpers.py:518
+#: ../partIntfHelpers.py:520
 msgid "The partition you selected will be deleted."
 msgstr ""
 
-#: ../partIntfHelpers.py:528
+#: ../partIntfHelpers.py:530
 msgid "Confirm Reset"
 msgstr "Подтвердите возврат"
 
-#: ../partIntfHelpers.py:529
+#: ../partIntfHelpers.py:531
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
@@ -2000,7 +2007,7 @@ msgstr "Добавить"
 
 #: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1023
 #: ../iw/network_gui.py:457 ../iw/osbootwidget.py:97
-#: ../iw/partition_gui.py:1296 ../iw/partition_gui.py:1302
+#: ../iw/partition_gui.py:1297 ../iw/partition_gui.py:1303
 msgid "_Edit"
 msgstr "_Правка"
 
@@ -2416,8 +2423,8 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Неопределенные зависимости"
 
-#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:256
-#: ../iw/package_gui.py:495 ../iw/package_gui.py:589
+#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:257
+#: ../iw/package_gui.py:500 ../iw/package_gui.py:687
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
@@ -2447,16 +2454,55 @@ msgstr "Не устанавливать пакеты для удовлетворения зависимостей"
 msgid "I_gnore package dependencies"
 msgstr "Игнорировать зависимости пакетов"
 
-#: ../iw/desktop_choice_gui.py:26 ../textw/desktop_choice_text.py:25
+#: ../iw/desktop_choice_gui.py:25 ../iw/desktop_choice_gui.py:53
+#: ../textw/desktop_choice_text.py:24
 #, fuzzy
 msgid "Workstation Defaults"
 msgstr "Рабочая станция"
 
-#: ../iw/desktop_choice_gui.py:57
+#: ../iw/desktop_choice_gui.py:52 ../installclasses/workstation.py:6
+msgid "Workstation"
+msgstr "Рабочая станция"
+
+#: ../iw/desktop_choice_gui.py:58
 #, python-format
 msgid ""
 "The default workstation environment includes our recommendations for new "
 "users, including:\n"
+"\n"
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tSoftware Development Tools\n"
+"\tAdministration Tools\n"
+"\n"
+"After installation, additional software can be added or removed using the "
+"'redhat-config-package' tool.\n"
+"\n"
+"If you are familiar with %s, you may have specific packages you would like "
+"to install or avoid installing. Check the box below to customize your "
+"installation."
+msgstr ""
+
+#: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:10
+#, fuzzy
+msgid "Personal Desktop"
+msgstr "Рабочий стол:"
+
+#: ../iw/desktop_choice_gui.py:76
+#, fuzzy
+msgid "Personal Desktop Defaults"
+msgstr "Рабочий стол:"
+
+#: ../iw/desktop_choice_gui.py:81
+#, python-format
+msgid ""
+"The default personal desktop environment includes our recommendations for "
+"new users, including:\n"
 "\n"
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -2474,11 +2520,17 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/desktop_choice_gui.py:77
+#: ../iw/desktop_choice_gui.py:98
+msgid ""
+"If you would like to change the default package set to be installed you can "
+"choose to customize this below."
+msgstr ""
+
+#: ../iw/desktop_choice_gui.py:106
 msgid "_Accept the current package list"
 msgstr ""
 
-#: ../iw/desktop_choice_gui.py:78
+#: ../iw/desktop_choice_gui.py:107
 #, fuzzy
 msgid "_Customize the set of packages to be installed"
 msgstr "Уточните пакеты для обновления"
@@ -2537,7 +2589,7 @@ msgstr "Выберите устройство для работы fdisk"
 msgid "Partitioning with fdisk"
 msgstr "Разбиение"
 
-#: ../iw/fdisk_gui.py:100
+#: ../iw/fdisk_gui.py:103
 #, fuzzy
 msgid "Select a drive to partition with fdisk:"
 msgstr "Выберите устройство для работы fdisk"
@@ -2621,36 +2673,36 @@ msgstr ""
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr ""
 
-#: ../iw/language_gui.py:59 ../textw/language_text.py:40 ../loader/lang.c:306
+#: ../iw/language_gui.py:61 ../textw/language_text.py:40 ../loader/lang.c:306
 msgid "What language would you like to use during the installation process?"
 msgstr "Какой язык должен использоваться в процессе установки?"
 
-#: ../iw/language_support_gui.py:22
+#: ../iw/language_support_gui.py:24
 msgid "Additional Language Support"
 msgstr "Поддержка дополнительных языков"
 
-#: ../iw/language_support_gui.py:147
+#: ../iw/language_support_gui.py:149
 #, fuzzy
 msgid "Select the _default language for the system:   "
 msgstr "Выберите основной язык для этой системы:   "
 
-#: ../iw/language_support_gui.py:157
+#: ../iw/language_support_gui.py:159
 #, fuzzy
 msgid "Select _additional languages to install on the system:"
 msgstr ""
 "Выберите дополнительные языки, которые будут использоваться в этой системе:"
 
-#: ../iw/language_support_gui.py:206
+#: ../iw/language_support_gui.py:208
 #, fuzzy
 msgid "_Select All"
 msgstr "Выбрать все"
 
-#: ../iw/language_support_gui.py:212
+#: ../iw/language_support_gui.py:214
 #, fuzzy
 msgid "Select Default _Only"
 msgstr "Сделать основным"
 
-#: ../iw/language_support_gui.py:218
+#: ../iw/language_support_gui.py:220
 #, fuzzy
 msgid "Rese_t"
 msgstr "Сбросить изменения"
@@ -2951,42 +3003,42 @@ msgstr "Размер (МB)"
 msgid "Logical Volumes"
 msgstr ""
 
-#: ../iw/mouse_gui.py:24
+#: ../iw/mouse_gui.py:26
 msgid "Mouse Configuration"
 msgstr "Выбор мыши"
 
-#: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:20
+#: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
 msgstr "/dev/ttyS0 (COM1 в  DOS)"
 
-#: ../iw/mouse_gui.py:79 ../textw/mouse_text.py:21
+#: ../iw/mouse_gui.py:81 ../textw/mouse_text.py:21
 msgid "/dev/ttyS1 (COM2 under DOS)"
 msgstr "/dev/ttyS1 (COM2 в  DOS)"
 
-#: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:22
+#: ../iw/mouse_gui.py:82 ../textw/mouse_text.py:22
 msgid "/dev/ttyS2 (COM3 under DOS)"
 msgstr "/dev/ttyS2 (COM3 в DOS)"
 
-#: ../iw/mouse_gui.py:81 ../textw/mouse_text.py:23
+#: ../iw/mouse_gui.py:83 ../textw/mouse_text.py:23
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 в DOS)"
 
-#: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:157
+#: ../iw/mouse_gui.py:93 ../iw/osbootwidget.py:157
 #, fuzzy
 msgid "_Device"
 msgstr "Устройство"
 
-#: ../iw/mouse_gui.py:136
+#: ../iw/mouse_gui.py:138
 #, fuzzy
 msgid "_Model"
 msgstr "Модель"
 
-#: ../iw/mouse_gui.py:219
+#: ../iw/mouse_gui.py:221
 #, fuzzy
 msgid "_Emulate 3 buttons"
 msgstr "Эмулировать 3 кнопки"
 
-#: ../iw/mouse_gui.py:233
+#: ../iw/mouse_gui.py:235
 #, fuzzy
 msgid "Select the appropriate mouse for the system."
 msgstr "Укажите видеокарту и объем видео ОЗУ в вашей системе."
@@ -3234,66 +3286,70 @@ msgid ""
 "system you are about to install."
 msgstr ""
 
-#: ../iw/package_gui.py:47 ../textw/packages_text.py:237
+#: ../iw/package_gui.py:48 ../textw/packages_text.py:237
 msgid "Individual Package Selection"
 msgstr "Индивидуальный выбор пакетов"
 
-#: ../iw/package_gui.py:75
+#: ../iw/package_gui.py:76
 #, fuzzy
 msgid "All Packages"
 msgstr "Пакетов"
 
-#: ../iw/package_gui.py:189
+#: ../iw/package_gui.py:190
 #, python-format
 msgid ""
 "Package: %s\n"
 "Version: %s\n"
 msgstr ""
 
-#: ../iw/package_gui.py:360
+#: ../iw/package_gui.py:361
 #, fuzzy
 msgid "_Tree View"
 msgstr "Просмотр дерева"
 
-#: ../iw/package_gui.py:362
+#: ../iw/package_gui.py:363
 #, fuzzy
 msgid "_Flat View"
 msgstr "Простой просмотр"
 
-#: ../iw/package_gui.py:377
+#: ../iw/package_gui.py:378
 #, fuzzy
 msgid "_Package"
 msgstr "Пакет"
 
-#: ../iw/package_gui.py:379
+#: ../iw/package_gui.py:380
 #, fuzzy
 msgid "_Size (MB)"
 msgstr "Размер (МB)"
 
-#: ../iw/package_gui.py:430
+#: ../iw/package_gui.py:431
 msgid "Total size: "
 msgstr "Всего  : "
 
-#: ../iw/package_gui.py:433
+#: ../iw/package_gui.py:434
 #, fuzzy
 msgid "Select _all in group"
 msgstr "Выбрать группу"
 
-#: ../iw/package_gui.py:437
+#: ../iw/package_gui.py:438
 #, fuzzy
 msgid "_Unselect all in group"
 msgstr "Пропустить группу"
 
-#: ../iw/package_gui.py:474 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:475 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr "Выбор групп пакетов"
 
-#: ../iw/package_gui.py:667
+#: ../iw/package_gui.py:692
+msgid "Minimal"
+msgstr ""
+
+#: ../iw/package_gui.py:764
 #, python-format
 msgid "Details for '%s'"
 msgstr ""
 
-#: ../iw/package_gui.py:676
+#: ../iw/package_gui.py:773
 msgid ""
 "A package group can have both Base and Optional package members.  Base "
 "packages are always selected as long as the package group is selected.\n"
@@ -3301,22 +3357,22 @@ msgid ""
 "Select the optional packages to be installed:"
 msgstr ""
 
-#: ../iw/package_gui.py:716
+#: ../iw/package_gui.py:814
 #, fuzzy
 msgid "Base Packages"
 msgstr "Пакетов"
 
-#: ../iw/package_gui.py:744
+#: ../iw/package_gui.py:844
 #, fuzzy
 msgid "Optional Packages"
 msgstr "Пакетов"
 
-#: ../iw/package_gui.py:920
+#: ../iw/package_gui.py:1060
 #, fuzzy
 msgid "Details"
 msgstr "Датский"
 
-#: ../iw/package_gui.py:980
+#: ../iw/package_gui.py:1148
 #, fuzzy
 msgid "_Select individual packages"
 msgstr "Индивидуальный выбор пакетов"
@@ -3538,21 +3594,21 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1153
 #, fuzzy
-msgid "No RAID minors available"
+msgid "No RAID minor device numbers available"
 msgstr "Помощь отсутствует"
 
 #: ../iw/partition_gui.py:1154
 msgid ""
-"A software RAID device cannot be created because all of the available minors "
-"have been used."
+"A software RAID device cannot be created because all of the available RAID "
+"minor device numbers have been used."
 msgstr ""
 
-#: ../iw/partition_gui.py:1167
+#: ../iw/partition_gui.py:1168
 #, fuzzy
 msgid "RAID Options"
 msgstr "Нет разделов RAID"
 
-#: ../iw/partition_gui.py:1178
+#: ../iw/partition_gui.py:1179
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3564,7 +3620,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1189
+#: ../iw/partition_gui.py:1190
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3572,85 +3628,85 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1195
+#: ../iw/partition_gui.py:1196
 #, fuzzy
 msgid "What do you want to do now?"
 msgstr "Что бы вы хотели сделать?"
 
-#: ../iw/partition_gui.py:1204
+#: ../iw/partition_gui.py:1205
 #, fuzzy
 msgid "Create a software RAID _partition."
 msgstr "Необходимо как минимум два раздела типа \"программный RAID\"."
 
-#: ../iw/partition_gui.py:1207
+#: ../iw/partition_gui.py:1208
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr ""
 
-#: ../iw/partition_gui.py:1211
+#: ../iw/partition_gui.py:1212
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
 
-#: ../iw/partition_gui.py:1250
+#: ../iw/partition_gui.py:1251
 msgid "Couldn't Create Drive Clone Editor"
 msgstr ""
 
-#: ../iw/partition_gui.py:1251
+#: ../iw/partition_gui.py:1252
 #, fuzzy
 msgid "The drive clone editor could not be created for some reason."
 msgstr "Невозможно смонтировать этот каталог с сервера"
 
-#: ../iw/partition_gui.py:1298
+#: ../iw/partition_gui.py:1299
 msgid "_Reset"
 msgstr "_Перечитать"
 
-#: ../iw/partition_gui.py:1299
+#: ../iw/partition_gui.py:1300
 msgid "Make _RAID"
 msgstr "_Создать RAID"
 
-#: ../iw/partition_gui.py:1301
+#: ../iw/partition_gui.py:1302
 #, fuzzy
 msgid "Ne_w"
 msgstr "Новый"
 
-#: ../iw/partition_gui.py:1304
+#: ../iw/partition_gui.py:1305
 #, fuzzy
 msgid "Re_set"
 msgstr "Сбросить изменения"
 
-#: ../iw/partition_gui.py:1305
+#: ../iw/partition_gui.py:1306
 #, fuzzy
 msgid "R_AID"
 msgstr "RAID"
 
-#: ../iw/partition_gui.py:1306
+#: ../iw/partition_gui.py:1307
 msgid "_LVM"
 msgstr ""
 
-#: ../iw/partition_gui.py:1345
+#: ../iw/partition_gui.py:1346
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr ""
 
-#: ../iw/partition_gui.py:1360 ../textw/partition_text.py:1187
+#: ../iw/partition_gui.py:1361 ../textw/partition_text.py:1187
 msgid "Automatic Partitioning"
 msgstr "Автоматическое разбиение"
 
-#: ../iw/partition_gui.py:1388
+#: ../iw/partition_gui.py:1389
 #, fuzzy, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "Вы должны выбрать хотя бы одно устройство для установки %s."
 
-#: ../iw/partition_gui.py:1430
+#: ../iw/partition_gui.py:1431
 msgid "I want to have automatic partitioning:"
 msgstr "Мне нужно автоматическое разбиение:"
 
-#: ../iw/partition_gui.py:1461
+#: ../iw/partition_gui.py:1462
 #, fuzzy
 msgid "Select the drive(s) to use for this installation:"
 msgstr "Какие устройства вы хотите использовать для этой установки?"
 
-#: ../iw/partition_gui.py:1485
+#: ../iw/partition_gui.py:1486
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr ""
 
@@ -3869,11 +3925,6 @@ msgid ""
 "This partition must be removed before this drive can be a target."
 msgstr ""
 
-#: ../iw/raid_dialog_gui.py:556
-#, fuzzy
-msgid "delete"
-msgstr "Удалить"
-
 #: ../iw/raid_dialog_gui.py:614
 #, fuzzy
 msgid "Please select a source drive."
@@ -4015,12 +4066,12 @@ msgstr "Использовать летнее время (только США)"
 msgid "UTC Offset"
 msgstr "Сдвиг относительно UTC"
 
-#: ../iw/timezone_map_gui.py:108
+#: ../iw/timezone_map_gui.py:114
 #, fuzzy
 msgid "_Location"
 msgstr "Расположение"
 
-#: ../iw/timezone_map_gui.py:110
+#: ../iw/timezone_map_gui.py:116
 msgid "Description"
 msgstr ""
 
@@ -4191,136 +4242,136 @@ msgstr ""
 msgid "Welcome"
 msgstr "Welcome"
 
-#: ../iw/xconfig_gui.py:33 ../textw/xconfig_text.py:24
+#: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:24
 msgid "DDC Probed Monitor"
 msgstr "Определенный по DDC"
 
-#: ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:25
+#: ../iw/xconfig_gui.py:36 ../textw/xconfig_text.py:25
 msgid "Unprobed Monitor"
 msgstr "Неопределенный монитор"
 
-#: ../iw/xconfig_gui.py:50
+#: ../iw/xconfig_gui.py:52
 #, fuzzy
 msgid "Customize Graphical Configuration"
 msgstr "Уточнить конфигурацию графики"
 
-#: ../iw/xconfig_gui.py:217
+#: ../iw/xconfig_gui.py:219
 #, fuzzy
 msgid "_Color Depth:"
 msgstr "Глубина цвета:"
 
-#: ../iw/xconfig_gui.py:223 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:225 ../textw/xconfig_text.py:109
 msgid "256 Colors (8 Bit)"
 msgstr "256 цветов (8 Bit)"
 
-#: ../iw/xconfig_gui.py:223 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:225 ../textw/xconfig_text.py:109
 msgid "High Color (16 Bit)"
 msgstr "Многоцветный (16 Bit)"
 
-#: ../iw/xconfig_gui.py:223 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:225 ../textw/xconfig_text.py:109
 msgid "True Color (24 Bit)"
 msgstr "Реальный цвет (24 Bit)"
 
-#: ../iw/xconfig_gui.py:233
+#: ../iw/xconfig_gui.py:235
 #, fuzzy
 msgid "_Screen Resolution:"
 msgstr "Разрешение экрана:"
 
-#: ../iw/xconfig_gui.py:320
+#: ../iw/xconfig_gui.py:322
 #, fuzzy
 msgid "   _Test Setting   "
 msgstr "    Проверить     "
 
-#: ../iw/xconfig_gui.py:343
+#: ../iw/xconfig_gui.py:345
 msgid "Please choose your default desktop environment:"
 msgstr "Выберите основное окружение рабочего стола:"
 
-#: ../iw/xconfig_gui.py:345
+#: ../iw/xconfig_gui.py:347
 msgid "Your desktop environment is:"
 msgstr "Окружение рабочего стола:"
 
-#: ../iw/xconfig_gui.py:360
+#: ../iw/xconfig_gui.py:362
 #, fuzzy
 msgid "GNO_ME"
 msgstr "GNOME"
 
-#: ../iw/xconfig_gui.py:362
+#: ../iw/xconfig_gui.py:364
 #, fuzzy
 msgid "_KDE"
 msgstr "KDE"
 
-#: ../iw/xconfig_gui.py:391
+#: ../iw/xconfig_gui.py:393
 msgid "Please choose your login type:"
 msgstr "Выберите способ входа в систему:"
 
-#: ../iw/xconfig_gui.py:398
+#: ../iw/xconfig_gui.py:400
 #, fuzzy
 msgid "T_ext"
 msgstr "Текстовый"
 
-#: ../iw/xconfig_gui.py:399
+#: ../iw/xconfig_gui.py:401
 #, fuzzy
 msgid "_Graphical"
 msgstr "Графический"
 
-#: ../iw/xconfig_gui.py:416 ../textw/xconfig_text.py:434
+#: ../iw/xconfig_gui.py:418 ../textw/xconfig_text.py:434
 msgid "Monitor Configuration"
 msgstr "Конфигурация монитора"
 
-#: ../iw/xconfig_gui.py:599
+#: ../iw/xconfig_gui.py:601
 msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:660
+#: ../iw/xconfig_gui.py:662
 msgid "Generic"
 msgstr "Стандартный"
 
-#: ../iw/xconfig_gui.py:707 ../iw/xconfig_gui.py:1048
+#: ../iw/xconfig_gui.py:709 ../iw/xconfig_gui.py:1052
 #, fuzzy
 msgid "Restore _original values"
 msgstr "Восстановить первоначальные параметры"
 
-#: ../iw/xconfig_gui.py:715
+#: ../iw/xconfig_gui.py:717
 #, fuzzy
 msgid "Hori_zontal Sync:"
 msgstr "Частота строк:"
 
-#: ../iw/xconfig_gui.py:718
+#: ../iw/xconfig_gui.py:720
 #, fuzzy
 msgid "_Vertical Sync:"
 msgstr "Частота кадров:"
 
-#: ../iw/xconfig_gui.py:725
+#: ../iw/xconfig_gui.py:727
 msgid "kHz"
 msgstr "кГц"
 
-#: ../iw/xconfig_gui.py:728
+#: ../iw/xconfig_gui.py:730
 msgid "Hz"
 msgstr "Гц"
 
-#: ../iw/xconfig_gui.py:746
+#: ../iw/xconfig_gui.py:750
 msgid "Graphical Interface (X) Configuration"
 msgstr "Настройка графического интерфейса (X)"
 
-#: ../iw/xconfig_gui.py:771
+#: ../iw/xconfig_gui.py:775
 #, fuzzy
 msgid "Unknown video card"
 msgstr "Неизвестная карта"
 
-#: ../iw/xconfig_gui.py:772
+#: ../iw/xconfig_gui.py:776
 #, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:796 ../textw/xconfig_text.py:666
+#: ../iw/xconfig_gui.py:800 ../textw/xconfig_text.py:666
 msgid "Unspecified video card"
 msgstr "Неуказанная видеокарта"
 
-#: ../iw/xconfig_gui.py:797 ../textw/xconfig_text.py:667
+#: ../iw/xconfig_gui.py:801 ../textw/xconfig_text.py:667
 msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
@@ -4330,7 +4381,7 @@ msgstr ""
 "хотите полностью пропустить конфигурацию X, нажмите кнопку 'Пропустить "
 "конфигурацию X'."
 
-#: ../iw/xconfig_gui.py:925
+#: ../iw/xconfig_gui.py:929
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -4338,7 +4389,7 @@ msgstr ""
 "Объем видеопамяти не может быть определен автоматически. Выберите объем "
 "видеопамяти из списка:"
 
-#: ../iw/xconfig_gui.py:933
+#: ../iw/xconfig_gui.py:937
 #, fuzzy
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
@@ -4348,12 +4399,12 @@ msgstr ""
 "В большинстве случаев оптимальные настройки вашей видеокарты и монитора "
 "могут быть установлены автоматически."
 
-#: ../iw/xconfig_gui.py:1026
+#: ../iw/xconfig_gui.py:1030
 #, fuzzy
 msgid "_Video card RAM: "
 msgstr "Видеокарта RAM"
 
-#: ../iw/xconfig_gui.py:1052
+#: ../iw/xconfig_gui.py:1056
 #, fuzzy
 msgid "_Skip X configuration"
 msgstr "Пропустить конфигурацию Х"
@@ -4616,7 +4667,19 @@ msgstr ""
 "Полный протокол обновления вашей системы после перезагрузки будет находиться "
 "в /tmp/upgrade.log. Возможно вам понадобится к нему обратиться."
 
-#: ../textw/desktop_choice_text.py:35
+#: ../textw/desktop_choice_text.py:27
+#, python-format
+msgid ""
+"The Personal Desktop and Workstation options install a default set of "
+"applications that will allow you to browse the Internet, send and receive "
+"email, and create and edit documents on your %s system. The Workstation "
+"option includes development and administration tools as well.\n"
+"\n"
+"However %s ships with many more applications, and you may customize the "
+"selection of software installed if you want."
+msgstr ""
+
+#: ../textw/desktop_choice_text.py:39
 #, fuzzy
 msgid "Customize software selection"
 msgstr "Доп. настройка Х"
@@ -5779,16 +5842,11 @@ msgstr "Конфигурация SILO"
 msgid "Custom"
 msgstr "Выборочная установка"
 
-#: ../installclasses/custom.py:12
+#: ../installclasses/custom.py:13
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and authentication preferences."
 msgstr ""
-
-#: ../installclasses/personal_desktop.py:10
-#, fuzzy
-msgid "Personal Desktop"
-msgstr "Рабочий стол:"
 
 #: ../installclasses/personal_desktop.py:12
 msgid ""
@@ -5816,15 +5874,10 @@ msgstr "Обновление существующей системы"
 msgid "Upgrade"
 msgstr "Обновление"
 
-#: ../installclasses/workstation.py:6
-msgid "Workstation"
-msgstr "Рабочая станция"
-
 #: ../installclasses/workstation.py:8
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
-"development and system adminstration.A good choice for programmers and "
-"system administrators."
+"development and system adminstration. "
 msgstr ""
 
 #: ../loader/cdrom.c:31
@@ -6213,8 +6266,8 @@ msgstr ""
 "сейчас?"
 
 #: ../loader/loader.c:3693
-#, fuzzy
-msgid "Running the anaconda system installer - please wait...\n"
+#, fuzzy, c-format
+msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Запускается anaconda...\n"
 
 #: ../loader/mediacheck.c:193
@@ -7385,6 +7438,14 @@ msgstr "Шведский"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Украинский"
+
+#, fuzzy
+#~ msgid "The following software will be installed:"
+#~ msgstr "Программа установки обнаружила загрузчик %s, установленный на %s."
+
+#, fuzzy
+#~ msgid "delete"
+#~ msgstr "Удалить"
 
 #, fuzzy
 #~ msgid "Make LVM Device"
