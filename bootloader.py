@@ -123,7 +123,7 @@ class BootImages:
 	    self.default = entry.device.getDevice()
 	    (label, type) = self.images[self.default]
 	    if not label:
-		self.images[self.default] = ("Red Hat Linux 7.2", type)
+		self.images[self.default] = ("Red Hat Linux", type)
 
     def __init__(self):
 	self.default = None
