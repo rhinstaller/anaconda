@@ -172,7 +172,10 @@ class LanguageSupportWindow:
         if todo.language.getSupported () == descriptions:
             todo.language.setSupported (None)
         else:
-            todo.language.setSupported (ct.getSelection()) 
+            langs = []
+            for lang in ct.getSelection():
+                langs.append (languages[lang])
+            todo.language.setSupported (langs)
 
         return INSTALL_OK
 
