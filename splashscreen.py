@@ -70,7 +70,7 @@ def splashScreenShow(configFileData):
 
         im = load_image(image)
     else:
-        im = load_image('first-lowres.png')
+        im = load_image('pixmaps/first-lowres.png')
                         
     if im:
         im.render ()
