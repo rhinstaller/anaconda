@@ -395,6 +395,11 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/state
     ln -s /tmp $MBD_DIR/var/state/xkb
 
+    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+       mkdir -p $KERNELROOT/lib/modules/misc
+       cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $KERNELROOT/lib/modules/misc
+    fi
+
     if [ -n "$LOADERMODULES" ]; then
 	MODSET=`expandModuleSet "$LOADERMODULES"`
         makemoduleball --name $MODULEBALLNAME $MBD_DIR/modules "$MODSET"
@@ -415,7 +420,7 @@ makeinitrd() {
     install -m 644 $IMGPATH/usr/share/terminfo/l/linux $MBD_DIR/etc/terminfo/l/linux
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
       mkdir -p $MBD_DIR/etc/terminfo/{a,d,s,v}
-      for i in a/ansi d/dumb s/screen v/vt100 v/vt102 ; do
+      for i in a/ansi d/dumb s/screen v/vt100 v/vt102 x/xterm; do
          install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
       done
     fi
@@ -448,6 +453,11 @@ makeinitrd() {
        cp -f $IMGPATH/usr/bin/strace $MBD_DIR/sbin/strace
        cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
        #cp -f $IMGPATH/usr/sbin/insmod $MBD_DIR/sbin/insmod
+       #install -m 755 $IMGPATH/usr/sbin/insmod $MBD_DIR/sbin/insmod
+       #install -m 755 $IMGPATH/usr/sbin/rmmod $MBD_DIR/sbin/rmmod
+       #install -m 755 $IMGPATH/usr/sbin/modprobe $MBD_DIR/sbin/modprobe
+       #install -m 755 $IMGPATH/bin/ls $MBD_DIR/sbin/ls
+       #install -m 755 $IMGPATH/lib/libtermcap.so.2.0.8 $MBD_DIR/lib/libtermcap.so.2
        cp -f $IMGPATH/usr/sbin/ifconfig $MBD_DIR/sbin/ifconfig
        cp -f $IMGPATH/usr/sbin/inetd $MBD_DIR/sbin/inetd
        cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd

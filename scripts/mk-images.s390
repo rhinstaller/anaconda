@@ -40,13 +40,12 @@ SCSIMODS=""
 #SECSTAGE="raid0 raid1 raid5 ext3 $IDEMODS $SCSIMODS "
 SECSTAGE="$IDEMODS $SCSIMODS ext3"
 
-COMMONMODULES="vfat"
+COMMONMODULES="vfat loop cramfs dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod tape390"
 LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs ctc netiucv"
 
-
 makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
-	   --initrdsize 6000 \
+	   --initrdsize 7000 \
 	   --loaderbin loader \
 	   --modules "$NETWORKMODULES"
 
