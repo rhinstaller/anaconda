@@ -248,12 +248,46 @@ archLabels = {'i386': ['msdos'],
               'ppc': ['msdos', 'mac'],
               'x86_64': ['msdos']}
 
+# this is kind of crappy, but we don't really want to allow LDL formatted
+# dasd to be used during the install
+def checkDasdFmt(disk, intf):
+    if iutil.getArch() != "s390":
+        return 0
+
+    if disk.type.name != "dasd":
+        return 0
+
+    # FIXME: there has to be a better way to check LDL vs CDL
+    # how do I test ldl vs cdl?
+    if disk.max_primary_partition_count > 1:
+        return 0
+
+    if intf:
+        rc = intf.messageWindow(_("Warning"),
+                       _("The /dev/%s device is LDL formatted instead of"
+                         "CDL formatted.  LDL formatted dasds are not "
+                         "supported for usage during an install of %s.  "
+                         "If you wish to use this disk for installation, "
+                         "it must be re-initialized causing the loss of "
+                         "ALL DATA on this drive.\n\n"
+                         "Would you like to reformat this DASD using CDL "
+                         "format?")
+                        %(disk.dev.path[5:], productName), type = "yesno")
+        if rc == 0:
+            return 1
+        else:
+            return -1
+    else:
+        return 1
+    
+
 def checkDiskLabel(disk, intf):
     """Check that the disk label on disk is valid for this machine type."""
     arch = iutil.getArch()
     if arch in archLabels.keys():
         if disk.type.name in archLabels[arch]:
-            return 0
+            # this is kind of a hack since we don't want LDL to be used
+            return checkDasdFmt(disk, intf)
     else:
         if disk.type.name == "msdos":
             return 0
