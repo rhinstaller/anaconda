@@ -313,6 +313,25 @@ def isUsableDasd(device):
 def isLdlDasd(device):
     return _isys.isLdlDasd(device)
 
+# read /proc/dasd/devices and get a mapping between devs and the dasdnum
+def getDasdDevPort():
+    ret = {}
+    f = open("/proc/dasd/devices", "r")
+    lines = f.readlines()
+    f.close()
+
+    for line in lines:
+        index = line.index("(")
+        dasdnum = line[:index]
+        
+        start = line[index:].find("dasd")
+        end = line[start:].find(":")
+        dev = line[start:end + start].strip()
+        
+        ret[dev] = dasdnum
+
+    return ret
+
 def makeDevInode(name, fn=None):
     if fn:
         _isys.mkdevinode(name, fn)
