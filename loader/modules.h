@@ -17,12 +17,12 @@ struct moduleList_s {
     int numModules;
 };
 
+
 int mlReadLoadedList(moduleList * list);
 void mlFreeList(moduleList list);
 int mlLoadDeps(moduleDeps * moduleDepList, const char * path);
 moduleDeps mlNewDeps(void);
-int mlLoadModule(char * modName, enum miLocationTypes locationType,
-		 char * location, moduleList modLoaded,
+int mlLoadModule(char * modName, void * location, moduleList modLoaded,
 	         moduleDeps modDeps, char ** args, moduleInfoSet modInfo,
 		 int flags);
 char ** mlGetDeps(moduleDeps modDeps, const char * modName);

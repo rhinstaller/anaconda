@@ -56,8 +56,7 @@ moduleInfoSet isysNewModuleInfoSet(void) {
     return calloc(sizeof(struct moduleInfoSet_s), 1);
 }
 
-int isysReadModuleInfo(const char * filename, moduleInfoSet mis,
-		       enum miLocationTypes identType, void * ident) {
+int isysReadModuleInfo(const char * filename, moduleInfoSet mis, void * ident) {
     int fd, isIndented;
     char * buf, * start, * next, * chptr;
     struct stat sb;
@@ -125,15 +124,15 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis,
 		    nextModule = mis->moduleList + mis->numModules;
 
 		    nextModule->moduleName = strdup(start);
-		    nextModule->major = DRIVER_NONE;
-		    nextModule->minor = DRIVER_MINOR_NONE;
-		    nextModule->description = NULL;
-		    nextModule->flags = 0;
-		    nextModule->args = NULL;
-		    nextModule->numArgs = 0;
-		    nextModule->location = identType;
-		    nextModule->locationID = ident;
-		}
+		} 
+
+		nextModule->major = DRIVER_NONE;
+		nextModule->minor = DRIVER_MINOR_NONE;
+		nextModule->description = NULL;
+		nextModule->flags = 0;
+		nextModule->args = NULL;
+		nextModule->numArgs = 0;
+		nextModule->locationID = ident;
 	    } else if (!nextModule) {
 		/* ACK! syntax error */
 		return 1;

@@ -12,8 +12,6 @@ struct moduleArg {
 };
 
 #define MI_FLAG_NOMISCARGS	(1 << 0)
-enum miLocationTypes { MI_LOCATION_NONE, MI_LOCATION_DISKNAME, 
-		       MI_LOCATION_DIRECTORY };
 
 struct moduleInfo {
     char * moduleName;
@@ -23,7 +21,6 @@ struct moduleInfo {
     int numArgs;
     struct moduleArg * args;
     int flags;
-    enum miLocationTypes location;
     void * locationID;
 };
 
@@ -36,8 +33,7 @@ typedef struct moduleInfoSet_s * moduleInfoSet;
 
 moduleInfoSet isysNewModuleInfoSet(void);
 void isysFreeModuleInfoSet(moduleInfoSet mis);
-int isysReadModuleInfo(const char * filename, moduleInfoSet mis,
-		       enum miLocationTypes identType, void * path);
+int isysReadModuleInfo(const char * filename, moduleInfoSet mis, void * path);
 struct moduleInfo * isysFindModuleInfo(moduleInfoSet mis, 
 				       const char * moduleName);
 

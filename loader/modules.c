@@ -206,8 +206,7 @@ static void removeExtractedModule(char * path) {
     rmdir(path);
 }
 
-int mlLoadModule(char * modName, enum miLocationTypes locationType,
-		 char * location, moduleList modLoaded,
+int mlLoadModule(char * modName, void * location, moduleList modLoaded,
 	         moduleDeps modDeps, char ** args, moduleInfoSet modInfo,
 		 int flags) {
     moduleDeps dep;
@@ -220,6 +219,7 @@ int mlLoadModule(char * modName, enum miLocationTypes locationType,
     pid_t child;
     int status;
     char * path = NULL;
+    int needUmount = 0;
 
     if (mlModuleInList(modName, modLoaded)) {
 	return 0;
@@ -237,20 +237,16 @@ int mlLoadModule(char * modName, enum miLocationTypes locationType,
     if (dep && dep->deps) {
 	nextDep = dep->deps;
 	while (*nextDep) {
-	    if (mlLoadModule(*nextDep, locationType, location, modLoaded, 
-			     modDeps, NULL, modInfo, flags) && location)
-		  mlLoadModule(*nextDep, MI_LOCATION_NONE, NULL, modLoaded, 
-			       modDeps, NULL, modInfo, flags);
+	    if (mlLoadModule(*nextDep, location, modLoaded, modDeps, NULL, 
+			     modInfo, flags) && location)
+		  mlLoadModule(*nextDep, NULL, modLoaded, modDeps, NULL, 
+			       modInfo, flags);
 	    nextDep++;
 	}
     }
 
-    if (locationType == MI_LOCATION_DISKNAME) {
+    if (location)
 	path = extractModule(location, modName); 
-	if (!path) return 1;
-    } else if (locationType == MI_LOCATION_DIRECTORY) {
-	path = strdup(location);
-    }
 
     sprintf(fileName, "%s.o", modName);
     for (argPtr = args; argPtr && *argPtr; argPtr++)  {
@@ -287,6 +283,9 @@ int mlLoadModule(char * modName, enum miLocationTypes locationType,
 	    rc = 0;
 	}
     }
+
+    if (needUmount)
+	umount(path);
 
     if (!rc) {
 	modLoaded->mods[modLoaded->numModules].name = strdup(modName);

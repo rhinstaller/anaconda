@@ -138,7 +138,7 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
 
 int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
 		      moduleDeps *modDepsPtr, int flags, char * mntPoint,
-		      int removeable) {
+		      struct driverDiskInfo * ddi) {
     int badDisk = 0;
     char from[200];
     struct stat sb;
@@ -171,13 +171,11 @@ int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     diskName[sb.st_size] = '\0';
     close(fd);
 
+    ddi->title = strdup(diskName);
+
     sprintf(from, "%s/modinfo", mntPoint);
 
-    if (removeable)
-	fd = isysReadModuleInfo(from, modInfo, MI_LOCATION_DISKNAME, diskName);
-    else
-	fd = isysReadModuleInfo(from, modInfo, MI_LOCATION_DIRECTORY, 
-				mntPoint);
+    fd = isysReadModuleInfo(from, modInfo, ddi);
 
     sprintf(from, "%s/modules.dep", mntPoint);
     mlLoadDeps(modDepsPtr, from);
@@ -191,6 +189,9 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps *modDepsPtr, int flags, int cancelNotBack) {
     int rc;
     int done = 0;
+    struct driverDiskInfo * ddi;
+
+    ddi = calloc(sizeof(*ddi), 1);
 
     do { 
 	if (FL_EXPERT(flags)) {
@@ -207,18 +208,27 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 
 	if (rc == 2) return LOADER_BACK;
 
-	mlLoadModule("vfat", MI_LOCATION_NONE, NULL, modLoaded, (*modDepsPtr), 
-		     NULL, modInfo, flags);
+	mlLoadModule("vfat", NULL, modLoaded, (*modDepsPtr), NULL, modInfo, 
+		     flags);
 
-	devMakeInode("fd0", "/tmp/fd0");
+	ddi->device = "fd0";
+	ddi->mntDevice = "/tmp/fd0";
 
-	if (doPwMount("/tmp/fd0", "/tmp/drivers", "vfat", 1, 0, NULL, NULL))
-	    if (doPwMount("/tmp/fd0", "/tmp/drivers", "ext2", 1, 0, NULL, NULL))
+	devMakeInode(ddi->device, ddi->mntDevice);
+
+	ddi->fs = "vfat";
+	if (doPwMount(ddi->mntDevice, "/tmp/drivers", ddi->fs, 1, 0, NULL, 
+		      NULL)) {
+	    ddi->fs = "ext2";
+	    if (doPwMount(ddi->mntDevice, "/tmp/drivers", ddi->fs, 1, 0, NULL, 
+			  NULL))
 		newtWinMessage(_("Error"), _("OK"), 
 			       _("Failed to mount driver disk."));
+	}
 
-	if (devInitDriverDisk(modInfo, modLoaded, modDepsPtr, 
-			      flags, "/tmp/drivers", 1))
+
+	if (devInitDriverDisk(modInfo, modLoaded, modDepsPtr, flags, 
+			      "/tmp/drivers", ddi))
 	    newtWinMessage(_("Error"), _("OK"),
 		_("The floppy disk you inserted is not a valid driver disk "
 		  "for this release of Red Hat Linux."));
@@ -365,8 +375,8 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 	scsiWindow(mod->moduleName);
 	sleep(1);
     }
-    rc = mlLoadModule(mod->moduleName, mod->location, mod->locationID, 
-			modLoaded, *modDepsPtr, args, modInfo, flags);
+    rc = mlLoadModule(mod->moduleName, mod->locationID, modLoaded, 
+		      *modDepsPtr, args, modInfo, flags);
     if (mod->major == DRIVER_SCSI) newtPopWindow();
 
     if (args) {
@@ -385,7 +395,7 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
     return rc;
 }
 
-char * extractModule(char * location, char * modName) {
+char * extractModule(struct driverDiskInfo * ddi, char * modName) {
     char * pattern[] = { NULL, NULL };
     struct utsname un;
     gzFile from;
@@ -397,20 +407,28 @@ char * extractModule(char * location, char * modName) {
     int rc;
     int failed;
     char * toPath;
+    char * chptr;
 
     uname(&un);
+
+    /* strip off BOOT, -SMP, whatever */
+    chptr = un.release + strlen(un.release) - 1;
+    while (!isdigit(*chptr)) chptr--;
+    *(chptr + 1) = '\0';
 
     pattern[0] = alloca(strlen(modName) + strlen(un.release) + 5);
     sprintf(pattern[0], "%s*/%s.o", un.release, modName);
     logMessage("extracting pattern %s", pattern[0]);
 
-    devMakeInode("fd0", "/tmp/fd0");
+    if (ddi->device)
+	devMakeInode(ddi->device, ddi->mntDevice);
+
     while (1) {
 	failed = 0;
 
-	if (doPwMount("/tmp/fd0", "/tmp/drivers", "vfat", 1, 0, NULL, NULL))
-	    if (doPwMount("/tmp/fd0", "/tmp/drivers", "ext2", 1, 0, NULL, NULL))
-		failed = 1;
+	if (doPwMount(ddi->mntDevice, "/tmp/drivers", ddi->fs, 1, 0, 
+		      NULL, NULL))
+	    failed = 1;
 
 	if (failed && !first) {
 	    newtWinMessage(_("Error"), _("OK"), 
@@ -427,7 +445,7 @@ char * extractModule(char * location, char * modName) {
 		buf[sb.st_size] = '\0';
 		close(fd);
 
-		failed = strcmp(buf, location);
+		failed = strcmp(buf, ddi->title);
 		free(buf);
 	    }
 
@@ -460,7 +478,7 @@ char * extractModule(char * location, char * modName) {
 
 	ejectFloppy();
 	rc = newtWinChoice(_("Driver Disk"), _("OK"), _("Cancel"),
-		_("Please insert the %s driver disk now."), location);
+		_("Please insert the %s driver disk now."), ddi->title);
 	if (rc == 2) return NULL;
     }
 }
