@@ -465,6 +465,7 @@ def setupTimezone(timezone, upgrade, instPath, dir):
     if upgrade.get() or (dir == DISPATCH_BACK):
         return
     
+    os.environ["TZ"] = timezone.tz
     tzfile = "/usr/share/zoneinfo/" + timezone.tz
     if not os.access(tzfile, os.R_OK):
         log("unable to set timezone")
