@@ -113,6 +113,8 @@ class TimezoneWindow:
             if rc == "back":
                 screen.popWindow()
                 return INSTALL_BACK
+            else:
+                break
 
         screen.popWindow()
 	todo.setTimezoneInfo(self.l.current(), asUtc = self.c.selected())
