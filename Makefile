@@ -1,6 +1,7 @@
 include Makefile.inc
 
 VERSION = 7.0
+DATE = $(shell date "+%Y%m%d%H%m")
 
 SUBDIRSHD = balkan isys libfdisk collage loader po text-help \
 	    minislang textw utils scripts bootdisk installclasses \
@@ -78,7 +79,7 @@ create-archive:
 	@cd /tmp ; cvs -Q -d $(CVSROOT) export -r HEAD anaconda || echo "Um... export aborted."
 	@cd /tmp/anaconda ; rm isys/modutils/modutils.spec
 	@cd /tmp/anaconda ; rm -rf comps
-	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" < anaconda.spec.in > anaconda.spec
+	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@DATE@@/$(DATE)/g" < anaconda.spec.in > anaconda.spec
 	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
 	@cd /tmp ; tar -czSpf anaconda-$(VERSION).tar.gz anaconda-$(VERSION)
 	@rm -rf /tmp/anaconda-$(VERSION)
