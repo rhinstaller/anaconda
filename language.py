@@ -198,8 +198,12 @@ class InstallTimeLanguage:
         # Try to find a match for the language nick we were given.
         for k in self.langInfoByName.keys():
             row = self.langInfoByName[k]
-            if row[0] == nick:
+            if nick in expandLangs(row[0]):
                 name = k
+
+        # It's possible we didn't find a match.
+        self.default = None
+        return
 
 	self.default = name
 	(lang, map, font) = self.langInfoByName[name]
