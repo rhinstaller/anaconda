@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: redhat-install\n"
 "POT-Creation-Date: 2001-01-24 22:20-0500\n"
-"PO-Revision-Date: 2001-01-22 12:04+00:00\n"
+"PO-Revision-Date: 2001-01-28 14:01+00:00\n"
 "Last-Translator: Pedro Morais <morais@poli.org>\n"
 "Language-Team: Portuguese <morais@poli.org>\n"
 "MIME-Version: 1.0\n"
@@ -1408,18 +1408,16 @@ msgid "Select drive to run fdisk on"
 msgstr "Escolha a unidade onde quer correr o fdisk"
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid "Warning: "
-msgstr "Aviso"
+msgstr "Aviso: "
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid " is an invalid port."
-msgstr "%s não é um nome de servidor válido."
+msgstr " é um porto inválida."
 
 #: ../iw/firewall_gui.py:141
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr ""
+msgstr "O formato é 'porto:protocolo'. Por exemplo, '1234:udp'"
 
 #: ../iw/firewall_gui.py:245
 msgid "Please choose your security level:  "
@@ -1796,7 +1794,6 @@ msgstr ""
 "partições para o disco imediatamente. OK?"
 
 #: ../iw/rootpartition_gui.py:82
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1810,7 +1807,7 @@ msgid ""
 "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 msgstr ""
 "Colocou a partição que contém o 'kernel' (a partição de arranque) acima do "
-"limite de 1023 cilindros. Aparentemente a BIOS deste computador não consegue "
+"limite de 1024 cilindros. Aparentemente a BIOS deste computador não consegue "
 "arrancar acima deste limite. Se continuar o seu sistema provavelmente não "
 "conseguirá arrancar o Linux.\n"
 "\n"
@@ -1822,7 +1819,6 @@ msgstr ""
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
 #: ../textw/partitioning_text.py:411
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit. It appears that this systems BIOS supports booting "
@@ -1833,7 +1829,7 @@ msgid ""
 "Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
 "Colocou a partição que contém o 'kernel' (a partição de arranque) acima do "
-"limite de 1023 cilindros. Aparentemente a BIOS deste computador consegue "
+"limite de 1024 cilindros. Aparentemente a BIOS deste computador consegue "
 "arrancar acima deste limite.\n"
 "\n"
 "É ALTAMENTE recomendado que faça uma disquete de arranque quando tal lhe for "
@@ -1934,7 +1930,6 @@ msgid "Boot Partition Location Warning"
 msgstr "Aviso de Localização da Partição de Arranque"
 
 #: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:391
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1948,7 +1943,7 @@ msgid ""
 "Are you sure you want to proceed?"
 msgstr ""
 "Colocou a partição que contém o 'kernel' (a partição de arranque) acima do "
-"limite de 1023 cilindros. Aparentemente a BIOS deste computador não consegue "
+"limite de 1024 cilindros. Aparentemente a BIOS deste computador não consegue "
 "arrancar acima deste limite. Se continuar o seu sistema provavelmente não "
 "conseguirá arrancar o Linux.\n"
 "\n"
@@ -2265,9 +2260,9 @@ msgstr ""
 "adicionais no campo 'serviço:protocolo', por exemplo 'imap:tcp'. "
 
 #: ../textw/firewall_text.py:186
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: %s is not a valid port."
-msgstr "%s não é um nome de servidor válido."
+msgstr "Aviso: %s não é um porto válido."
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -4245,9 +4240,3 @@ msgstr "Desenvolvimento do Kernel"
 
 msgid "Utilities"
 msgstr "Utilitários"
-
-#~ msgid "IDE"
-#~ msgstr "IDE"
-
-#~ msgid "Initializing IDE modules..."
-#~ msgstr "A inicializar módulos IDE..."
