@@ -103,7 +103,7 @@ fi
 
 PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            XFree86-S3 XFree86-SVGA XFree86-75dpi-fonts
-           XFree86-ISO8859-2-75dpi-fonts glib gtk+
+           XFree86-ISO8859-2-75dpi-fonts glib gtk+ gtk-engines
            XFree86-ISO8859-9-75dpi-fonts esound audiofile gnome-libs
            XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
            XFree86-xfs e2fsprogs fileutils glibc rsh less ftp readline
@@ -191,6 +191,7 @@ usr/lib/anaconda-runtime/*
 usr/lib/anaconda/*
 usr/lib/anaconda/installclasses/*
 usr/lib/anaconda/textw/*
+usr/lib/gtk/themes/engines/libraleigh.so
 usr/lib/libssl*
 usr/lib/libcrypto*
 usr/lib/libbz2*
@@ -215,6 +216,7 @@ usr/sbin/anaconda-runrescue
 usr/share/doc/kon2*/terminfo.kon
 usr/share/kudzu/pcitable
 usr/share/pci.ids
+usr/share/themes/Raleigh/gtk/gtkrc
 EOF
 
 KEEPFILEGR=/tmp/keepfilegr.$$
@@ -667,4 +669,11 @@ echo "Compressing ramdisk install images..."
 if [ -n "$NEEDGR" ]; then
     cd $ORIGDIR
     $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
+fi
+
+# pick Raleigh theme as default
+if [ -n "$NEEDGR" ]; then
+
+    echo '' >> $DESTGR/etc/gtk/gtkrc
+    echo 'include "/usr/share/themes/Raleigh/gtk/gtkrc"' >> /$DESTGR/etc/gtk/gtkrc
 fi
