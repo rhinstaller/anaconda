@@ -71,7 +71,8 @@ class XCustomWindow (InstallWindow):
         hbox = GtkHBox (FALSE, 5)
 
 	# I'm not sure what monitors handle this wide aspect resolution, so better play safe
-	if self.todo.x.vidRam and self.todo.x.vidRam >= 4096 and self.todo.x.monName[:11] == 'Sun 24-inch':
+	if (self.todo.x.vidRam and self.todo.x.vidRam >= 4096 and
+            self.todo.x.monName and self.todo.x.monName[:11] == 'Sun 24-inch'):
 	    self.todo.x.modes["8"].append("1920x1200")
 
         depths = self.todo.x.modes.keys ()
