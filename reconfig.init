@@ -5,7 +5,9 @@
 # chkconfig: 345 05 95
 # description: 	If /etc/reconfigSys exists, run the reconfiguration
 #		program and remove /etc/reconfigSys when done.
-
+#
+#               Also will run if 'reconfig' is on the kernel cmdline.
+#
 # Source function library.
 . /etc/rc.d/init.d/functions
 
@@ -13,7 +15,7 @@ RETVAL=$?
 
 case "$1" in
  start)
-        if [ -f /etc/reconfigSys ]; then
+        if grep -i reconfig /proc/cmdline >/dev/null || [ -f /etc/reconfigSys ]; then
 	    echo -n "Running system reconfiguration tool"
 	    /usr/sbin/anaconda --reconfig
 	    rm /etc/reconfigSys
