@@ -1184,6 +1184,11 @@ int main(int argc, char ** argv) {
     else
         *argptr++ = "/usr/bin/anaconda";
 
+    /* make sure /tmp/updates exists so that magic in anaconda to */
+    /* symlink rhpl/ will work                                    */
+    if (access("/tmp/updates", F_OK))
+	mkdirChain("/tmp/updates");
+
     logMessage("Running anaconda script %s", *(argptr-1));
     
     *argptr++ = "-m";
