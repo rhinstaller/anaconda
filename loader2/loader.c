@@ -635,6 +635,8 @@ static int haveDeviceOfType(int type, moduleList modLoaded) {
 
     devices = probeDevices(type, BUS_UNSPEC, PROBE_LOADED);
     if (devices) {
+        return 1;
+#if 0
         int i;
         for (i = 0; devices[i]; i++) {
             if (devices[i]->driver && mlModuleInList(devices[i]->driver,
@@ -648,6 +650,7 @@ static int haveDeviceOfType(int type, moduleList modLoaded) {
                 logMessage("devices[%d] is %s - %s using %s (not loaded)", i, devices[i]->desc, devices[i]->device, devices[i]->driver);
             }
         }
+#endif
     }
     return 0;
 }
