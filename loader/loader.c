@@ -1317,6 +1317,7 @@ logMessage("Flags are 0x%x\n", flags);
     if (FL_KSFLOPPY(flags)) {
 	ksFile = "/tmp/ks.cfg";
 	kickstartFromFloppy(ksFile, modLoaded, modDeps, flags);
+	flags |= LOADER_FLAGS_KICKSTART;
     } else if (FL_KICKSTART(flags)) {
 	/* XXX we need to get our ks file from the network */
     }
@@ -1426,6 +1427,11 @@ logMessage("Flags are 0x%x\n", flags);
 
 	if (FL_TEXT(flags))
 	    *argptr++ = "-T";
+    }
+
+    if (FL_KICKSTART(flags)) {
+	*argptr++ = "--kickstart";
+	*argptr++ = ksFile;
     }
 
     *argptr = NULL;
