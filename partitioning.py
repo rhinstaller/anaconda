@@ -541,7 +541,11 @@ def sanityCheckRaidRequest(reqpartitions, newraid, doPartitionCheck = 1):
 # return the actual size being used by the request in megabytes
 def requestSize(req, diskset):
     if req.type == REQUEST_RAID:
-        thissize = req.size
+        # XXX duplicate the hack below.  
+        if req.size != None:
+            thissize = req.size
+        else:
+            thissize = 0
     else:
         part = get_partition_by_name(diskset.disks, req.device)
         if not part:
@@ -590,7 +594,7 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
     foundSwap = 0
     swapSize = 0
     for request in requests.requests:
-        if request.fstype and request.fstype.getName() == "swap" and not request.raidlevel:
+        if request.fstype and request.fstype.getName() == "swap":
             foundSwap = foundSwap + 1
             swapSize = swapSize + requestSize(request, diskset)
         if baseChecks:
