@@ -132,7 +132,7 @@ class Kickstart(InstallClass):
 
     def doNetwork(self, args):
 	(args, extra) = isys.getopt(args, '',
-		[ 'bootproto', 'ip', 'netmask', 'gateway', 'nameserver' ])
+		[ 'bootproto=', 'ip=', 'netmask=', 'gateway=', 'nameserver=' ])
 	bootProto = "dhcp"
 	ip = None
 	netmask = ""
@@ -197,7 +197,7 @@ class Kickstart(InstallClass):
 	     "mmhittab" : "MM - HitTablet (serial)" 
 	}
 
-	(args, extra) = isys.getopt(args, '', [ 'device', 'emulthree',
+	(args, extra) = isys.getopt(args, '', [ 'device=', 'emulthree',
 				    'kickstart'])
         mouseType = "none"
 	device = None
