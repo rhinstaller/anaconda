@@ -267,7 +267,7 @@ def writeForceConf():
 # anaconda hacked lvm.conf to avoid filtering breaking things
 devices {
   sysfs_scan = 0
-  md_component_detection = 0
+  md_component_detection = 1
 }
 """)
 
