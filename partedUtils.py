@@ -18,7 +18,7 @@
 
 import parted
 import math
-import os, sys, string
+import os, sys, string, struct
 
 from product import *
 import fsset
@@ -261,6 +261,64 @@ def isLinuxNativeByNumtype(numtype):
             return 1
 
     return 0
+
+def sniffFilesystemType(device):
+    """Sniff to determine the type of fs on device.  
+
+    device - name of device to sniff.  we try to create it if it doesn't exist.
+    """
+
+    if os.access(device, os.O_RDONLY):
+        dev = device
+    else:
+        dev = "/tmp/" + device
+        if not os.access(dev, os.O_RDONLY):
+            try:
+                isys.makeDevInode(device, dev)
+            except:
+                pass
+
+    pagesize = isys.getpagesize()
+    if pagesize > 2048:
+        num = pagesize
+    else:
+        num = 2048
+    try:
+        fd = os.open(dev, os.O_RDONLY)
+        buf = os.read(fd, num)
+        os.close(fd)
+    except:
+        return None
+
+    # ext2 check
+    if struct.unpack("H", buf[1080:1082]) == (0xef53,):
+        if isys.ext2HasJournal(dev, makeDevNode = 0):
+            return "ext3"
+        else:
+            return "ext2"
+
+    # physical volumes start with HM (see linux/lvm.h
+    # and LVM/ver/tools/lib/pv_copy.c)
+    if buf.startswith("HM"):
+        return "physical volume (LVM)"
+    # xfs signature
+    if buf.startswith("XFSB"):
+        return "xfs"
+
+    if (buf[pagesize - 10:] == "SWAP-SPACE" or
+        buf[pagesize - 10:] == "SWAPSPACE2"):
+        return "swap"
+
+    try:
+        raidsbFromDevice(dev)
+        return "software RAID"
+    except:
+        pass
+
+    # FIXME:  we don't look for reiserfs, jfs, or vfat
+
+    return None
+        
 
 class DiskSet:
     """The disks in the system."""
