@@ -446,7 +446,10 @@ except:
 
 	device = todo.fdDevice
 	file = "/tmp/floppy"
-	isys.makeDevInode(device, file)
+        try:
+            isys.makeDevInode(device, file)
+        except SystemError:
+            pass
 	try:
 	    fd = os.open(file, os.O_RDONLY)
 	except:
@@ -462,12 +465,20 @@ except:
 
 	iutil.execWithRedirect (cmd, args, 
 			        stdout = '/dev/tty5', stderr = '/dev/tty5')
-	isys.mount(device, "/mnt/crash", fstype = "vfat")
+	isys.mount(device, "/tmp/crash", fstype = "vfat")
 
-	out = open("/mnt/crash/anacdump.txt", "w")
+	out = open("/tmp/crash/anacdump.txt", "w")
 	p = Pickler(out)
 
 	out.write(text)
+
+        trace = tb
+        while trace.tb_next:
+            trace = trace.tb_next
+        frame = trace.tb_frame
+        out.write ("\nLocal variables in innermost frame:\n")
+        for (key, value) in frame.f_locals.items():
+            out.write ("%s: %s\n" % (key, value))
 
 	out.write("\nToDo object:\n")
 	todo.intf = None
@@ -475,7 +486,7 @@ except:
 	p.dump(todo)
 
 	out.close()
-	isys.umount("/mnt/crash")
+	isys.umount("/tmp/crash")
 
 	intf.__del__ ()
 	os._exit (1)

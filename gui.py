@@ -122,6 +122,7 @@ class ProgressWindow:
 def ExceptionWindow(text):
     win = GnomeDialog ("Exception Occured")
     win.append_button ("Debug")
+    win.append_button ("Save to floppy")
     win.append_button_with_pixmap ("OK", STOCK_BUTTON_OK)
     textbox = GtkText()
     textbox.insert_defaults (text)
@@ -151,6 +152,7 @@ def ExceptionWindow(text):
     win.set_position (WIN_POS_CENTER)
     win.show_all ()
     rc = win.run ()
+    threads_leave()
     # I did it this way for future expantion
     # 0 is debug
     if rc == 0:
@@ -161,8 +163,11 @@ def ExceptionWindow(text):
         except SystemError:
             pass
         return 1
-    # 1 is OK
-    elif rc == 1:
+    # 1 is save
+    if rc == 1:
+        return 2
+    # 2 is OK
+    elif rc == 2:
         return 0
 
 class MessageWindow:
@@ -241,6 +246,16 @@ class InstallInterface:
     def exceptionWindow(self, title, text):
         print text
         return ExceptionWindow (text)
+
+    def dumpWindow(self):
+        window = MessageWindow("Save Crash Dump", 
+                               _("Please insert a floppy now. All "
+                                 "contents of the disk "
+                                 "will be erased, so please "
+                                 "choose your diskette carefully."),
+                               "okcancel")
+        rc = window.getrc()
+	return rc
 
     def getBootdisk ():
         return None
