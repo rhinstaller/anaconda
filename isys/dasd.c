@@ -18,7 +18,7 @@
 
 #if defined(__s390__) || defined(__s390x__)
 /* s390 stuff to detect DASDs */
-int vtoc_read_volume_label (int fd, unsigned long vlabel_start,
+static int vtoc_read_volume_label (int fd, unsigned long vlabel_start,
 		volume_label_t *vlabel) {
 	int rc;
 	if (lseek(fd, vlabel_start, SEEK_SET) < 0) {
@@ -33,13 +33,13 @@ int vtoc_read_volume_label (int fd, unsigned long vlabel_start,
 	return 0;
 }
 
-int read_vlabel(dasd_information_t *dasd_info, int fd, int blksize, volume_label_t *vlabel) {
+static int read_vlabel(dasd_information_t *dasd_info, int fd, int blksize, volume_label_t *vlabel) {
 	unsigned long  pos;
 
 	pos = dasd_info->label_block * blksize;
 
 	memset(vlabel, 0, sizeof(volume_label_t));
-	return vtoc_read_volume_label(fd, pos, vlabel);
+	return read_volume_label(fd, pos, vlabel);
 }
 #endif
 
