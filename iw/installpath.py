@@ -44,10 +44,10 @@ class InstallPathWindow (InstallWindow):
         if not widget.get_active (): return
         if type == INSTALL:
             self.ics.getICW ().setStateList (self.commonSteps + self.installSteps, len (self.commonSteps)-1)
-            todo.upgrade = 0
+            self.todo.upgrade = 0
         else:
             self.ics.getICW ().setStateList (self.commonSteps + self.upgradeSteps, len (self.commonSteps)-1)
-            todo.upgrade = 1
+            self.todo.upgrade = 1
 
     def getScreen (self):
 	box = GtkVBox (FALSE, 5)
