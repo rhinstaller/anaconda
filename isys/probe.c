@@ -12,6 +12,38 @@
 static int dac960GetDevices(struct knownDevices * devices);
 static int CompaqSmartArrayGetDevices(struct knownDevices * devices);
 
+static int readFD (int fd, char **buf)
+{
+    char *p;
+    size_t size = 4096;
+    int s, filesize;
+
+    *buf = malloc (size);
+    if (*buf == 0)
+      return -1;
+
+    filesize = 0;
+    do {
+	p = &(*buf) [filesize];
+	s = read (fd, p, 4096);
+	if (s < 0)
+	    break;
+	filesize += s;
+	if (s != 4096)
+	    break;
+	size += 4096;
+	*buf = realloc (*buf, size);
+    } while (1);
+
+    if (filesize == 0 && s < 0) {
+	free (*buf);     
+	*buf = NULL;
+	return -1;
+    }
+
+    return filesize;
+}
+
 static int sortDevices(const void * a, const void * b) {
     const struct kddevice * one = a;
     const struct kddevice * two = b;
@@ -57,7 +89,7 @@ void kdFree(struct knownDevices * devices) {
 
 int kdFindNetList(struct knownDevices * devices, int code) {
     int fd;
-    char buf[1024];
+    char *buf;
     char * start, * end;
     struct kddevice newDevice;
     int s;
@@ -67,7 +99,7 @@ int kdFindNetList(struct knownDevices * devices, int code) {
 	return 1;
     }
 
-    s = read(fd, buf, sizeof(buf));
+    s = readFD(fd, &buf);
     close(fd);
     if (s < 0) {
 	fprintf(stderr, "error reading /proc/net/dev!\n");
@@ -78,15 +110,15 @@ int kdFindNetList(struct knownDevices * devices, int code) {
 
     /* skip the first two lines */
     start = strchr(buf, '\n');
-    if (!start) return 0;
+    if (!start) goto bye;
     start = strchr(start + 1, '\n');
-    if (!start) return 0;
+    if (!start) goto bye;
 
     start++;
     while (start && *start) {
 	while (isspace(*start)) start++;
 	end = strchr(start, ':');
-	if (!end) return 0;
+	if (!end) goto bye;
 	*end = '\0';
 	
     	if (strcmp(start, "lo")) {
@@ -106,6 +138,8 @@ int kdFindNetList(struct knownDevices * devices, int code) {
     qsort(devices->known, devices->numKnown, sizeof(*devices->known),
 	  sortDevices);
 
+bye:
+    free (buf);
     return 0;
 }
 
@@ -176,7 +210,7 @@ int kdFindIdeList(struct knownDevices * devices, int code) {
 
 int kdFindScsiList(struct knownDevices * devices, int code) {
     int fd;
-    char buf[16384];
+    char *buf;
     char linebuf[80];
     char typebuf[10];
     int i, state = SCSISCSI_TOP;
@@ -185,6 +219,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     char cdromNum = '0';
     char tapeNum = '0';
     struct kddevice device;
+    int val = 0;
 
     if (access("/proc/scsi/scsi", R_OK)) {
 	dac960GetDevices(devices);
@@ -195,7 +230,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     fd = open("/proc/scsi/scsi", O_RDONLY);
     if (fd < 0) return 1;
     
-    i = read(fd, buf, sizeof(buf) - 1);
+    i = readFD(fd, &buf);
     if (i < 1) {
         close(fd);
 	return 1;
@@ -206,7 +241,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     if (!strncmp(buf, "Attached devices: none", 22)) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
-	return 0;
+	goto bye;
     }
 
     start = buf;
@@ -219,19 +254,22 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	switch (state) {
 	  case SCSISCSI_TOP:
 	    if (strcmp("Attached devices: ", start)) {
-		return -1;
+		val = -1;
+		goto bye;
 	    }
 	    state = SCSISCSI_HOST;
 	    break;
 
 	  case SCSISCSI_HOST:
 	    if (strncmp("Host: ", start, 6)) {
-		return -1;
+		val = -1;
+		goto bye;
 	    }
 
 	    start = strstr(start, "Id: ");
 	    if (!start) {
-		return -1;
+		val = -1;
+		goto bye;
 	    }
 	    start += 4;
 
@@ -242,13 +280,15 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 
 	  case SCSISCSI_VENDOR:
 	    if (strncmp("  Vendor: ", start, 10)) {
-		return -1;
+		val = -1;
+		goto bye;
 	    }
 
 	    start += 10;
 	    end = chptr = strstr(start, "Model:");
 	    if (!chptr) {
-		return -1;
+		val = -1;
+		goto bye;
 	    }
 
 	    chptr--;
@@ -273,7 +313,8 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 		
 	    chptr = strstr(start, "Rev:");
 	    if (!chptr) {
-		return -1;
+		val = -1;
+		goto bye;
 	    }
 	   
 	    chptr--;
@@ -289,7 +330,8 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 
 	  case SCSISCSI_TYPE:
 	    if (strncmp("  Type:", start, 7)) {
-		return -1;
+		val = -1;
+		goto bye;
 	    }
 	    *typebuf = '\0';
 	    if (strstr(start, "Direct-Access")) {
@@ -328,7 +370,9 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     qsort(devices->known, devices->numKnown, sizeof(*devices->known),
 	  sortDevices);
 
-    return 0;
+bye:
+    free (buf);
+    return val;
 }
 
 struct knownDevices kdInit(void) {
@@ -343,15 +387,16 @@ static int dac960GetDevices(struct knownDevices * devices) {
     struct kddevice newDevice;
     char ctl[50];
     int ctlNum = 0;
-    char buf[4096];
+    char *buf = NULL;
     int fd;
     int i;
     char * start, * chptr;
 
     sprintf(ctl, "/proc/rd/c%d/current_status", ctlNum++);
-		
+
     while ((fd = open(ctl, O_RDONLY)) >= 0) {
-	i = read(fd, buf, sizeof(buf));
+    	free (buf);
+	i = readFD(fd, &buf);
 	buf[i] = '\0';
 	start = buf;
 	while (start && (start = strstr(start, "/dev/rd/"))) {
@@ -382,6 +427,7 @@ static int dac960GetDevices(struct knownDevices * devices) {
 	sprintf(ctl, "/proc/rd/c%d/current_status", ctlNum++);
     }
 
+    free (buf);
     return 0;
 }
 
