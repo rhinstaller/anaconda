@@ -164,7 +164,7 @@ class LanguageSupportWindow:
 
                 if ct.getSelection() == []:
                     ButtonChoiceWindow(screen, _("Invalid Choice"),
-                                       _("You select at least one language to install."),
+                                       _("You must select at least one language to install."),
                                        buttons = [ _("OK") ], width = 40)
 
                 else:
