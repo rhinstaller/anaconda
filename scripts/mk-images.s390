@@ -445,6 +445,9 @@ makeBootImages() {
 	    --loaderbin loader \
 	    --modules "$NETWORKMODULES"
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
+
+	cp -v $BOOTDISKDIR/generic.prm $TOPDESTPATH/images/generic.prm
+	cp -v $BOOTDISKDIR/generic.ins $TOPDESTPATH/generic.ins
 }
 
 makeSecondStage() {
