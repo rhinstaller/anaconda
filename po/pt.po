@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-09-02 11:13+0100\n"
+"PO-Revision-Date: 2004-09-03 10:28+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -297,13 +297,10 @@ msgstr ""
 "disco.  O OpenFirmware não vai conseguir arrancar desta instalação."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"A partição de arranque %s pode não satisfazer as limitações de arranque da "
-"sua arquitectura.  A criação de uma disquete de arranque é fortemente "
-"recomendada."
+msgstr "A partição de arranque %s pode não satisfazer as limitações de arranque da sua arquitectura."
 
 #: ../autopart.py:1056
 #, python-format
@@ -2654,7 +2651,7 @@ msgid ""
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr "As máquinas zSeries podem aceder a dispositivos SCSI normais utilizando 'Fibre Channel' (FCP). Deve indicar 5 parâmetros para cada dispositivo: um número de dispositivo de 16 bits, um ID SCSI de 16 bits, um Número de Porto Global (WWPN) de 64 bits, um LUN SCSI de 16 bits e um LUN FCP de 64 bits."
 
 #: ../zfcp.py:29
 msgid "Device number"
@@ -3404,7 +3401,6 @@ msgstr ""
 "seu computador.  Permitir o acesso a quais serviços?"
 
 #: ../iw/firewall_gui.py:145
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
@@ -5282,7 +5278,7 @@ msgstr "Editar o dispositivo FCP %s"
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
+msgstr "Está prestes a remover um disco FCP da sua configuração. Tem a certeza que deseja continuar?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -6137,35 +6133,30 @@ msgid "No Volume Groups"
 msgstr "Sem Grupos de Volumes"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "Por favor indique o nome do volume lógico."
+msgstr "Não há grupos de volume onde criar um volume lógico."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
-msgstr ""
-"O tamanho actual pedido (%10.2f MB) é maior do que o tamanho máximo dos "
-"volumes lógicos (%10.2f MB). Para aumentar este limite, o utilizador pode "
-"aumentar o tamanho da Extensão Física para este Grupo de Volumes."
+msgstr "O tamanho actual pedido (%10.2f MB) é maior do que o tamanho máximo dos volumes lógicos (%10.2f MB)."
 
 #: ../textw/partition_text.py:1310
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
+msgstr "O tamanho actual pedido (%10.2f MB) é maior do que o tamanho disponível no grupo de volumes (%10.2f MB)."
 
 #: ../textw/partition_text.py:1364
 msgid "New Partition or Logical Volume?"
 msgstr "Nova Partição ou Volume Lógico?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Partições de arranque não são permitidas em volumes lógicos."
+msgstr "Deseja criar uma nova partição ou um novo volume lógico?"
 
 #: ../textw/partition_text.py:1367
 msgid "partition"
