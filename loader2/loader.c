@@ -1265,6 +1265,7 @@ int main(int argc, char ** argv) {
             if (loadpolicy() == 0) {
                 setexeccon(ANACONDA_CONTEXT);
             } else {
+                logMessage("failed to load policy, disabling SELinux");
                 flags &= ~LOADER_FLAGS_SELINUX;
             }
         }
@@ -1410,7 +1411,7 @@ int main(int argc, char ** argv) {
             *argptr++ = "-C";
         if (FL_EXPERT(flags))
             *argptr++ = "--expert";
-        if (FL_NOSELINUX(flags))
+        if (!FL_SELINUX(flags))
             *argptr++ = "--noselinux";
         
         if (FL_KICKSTART(flags)) {

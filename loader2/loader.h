@@ -65,7 +65,6 @@
 #define FL_CMDLINE(a)	    ((a) & LOADER_FLAGS_CMDLINE)
 /* FIXME: this should go away */
 #define FL_ENABLECDDMA(a)   ((a) & LOADER_FLAGS_ENABLECDDMA)
-#define FL_NOSELINUX(a)     ((a) & ~LOADER_FLAGS_SELINUX)
 #define FL_SELINUX(a)       ((a) & LOADER_FLAGS_SELINUX)
 
 
