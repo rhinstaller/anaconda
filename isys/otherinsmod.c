@@ -11,9 +11,8 @@
 #include "isys.h"
 
 /* hack */
-int insmod_main(int argc, char ** argv);
-int insmod64_main(int argc, char ** argv);
-int rmmod_main(int argc, char ** argv);
+int combined_insmod_main(int argc, char ** argv);
+int combined_insmod64_main(int argc, char ** argv);
 
 int ourInsmodCommand(int argc, char ** argv) {
     char * file;
@@ -91,10 +90,10 @@ int ourInsmodCommand(int argc, char ** argv) {
 
 #ifdef __sparc__
     if (sparc64)
-	rc = insmod64_main(argc, argv);
+	rc = combined_insmod64_main(argc, argv);
     else
 #endif
-	rc = insmod_main(argc, argv);
+	rc = combined_insmod_main(argc, argv);
     
     if (rmObj) unlink(file);
 
@@ -109,7 +108,7 @@ int rmmod(char * modName) {
     int rc = 0;
 
     if ((child = fork()) == 0) {
-	exit(rmmod_main(argc, argv));
+	exit(combined_insmod_main(argc, argv));
     }
 
     waitpid(child, &status, 0);
