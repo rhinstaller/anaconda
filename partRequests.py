@@ -113,7 +113,7 @@ class RequestSpec:
     """Generic Request specification."""
     def __init__(self, fstype, size = None, mountpoint = None, format = None,
                  badblocks = None, preexist = 0,
-                 migrate = None, origfstype = None):
+                 migrate = None, origfstype = None, bytesPerInode = 4096):
         """Create a generic RequestSpec.
 
         This should probably never be externally used.
@@ -128,6 +128,11 @@ class RequestSpec:
         self.migrate = migrate
         self.origfstype = origfstype
         self.fslabel = None
+
+        if bytesPerInode == None:
+            self.bytesPerInode = 4096
+        else:
+            self.bytesPerInode = bytesPerInode
 
         self.device = None
         """what we currently think the device is"""
@@ -155,10 +160,12 @@ class RequestSpec:
 
         str = ("Generic Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
-               "  device: %(dev)s  migrate: %(migrate)s" % 
+               "  device: %(dev)s  migrate: %(migrate)s\n"
+               "  bytesPerInode:  %(bytesPerInode)s" % 
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "bb": self.badblocks,
-                "dev": self.device, "migrate": self.migrate})
+                "dev": self.device, "migrate": self.migrate,
+                "bytesPerInode": self.bytesPerInode})
         return str
 
     def getActualSize(self, partitions, diskset):
@@ -188,7 +195,8 @@ class RequestSpec:
             mountpoint = self.mountpoint
 
         entry = fsset.FileSystemSetEntry(device, mountpoint, self.fstype,
-                                         origfsystem=self.origfstype)
+                                         origfsystem=self.origfstype,
+                                         bytesPerInode=self.bytesPerInode)
         if self.format:
             entry.setFormat(self.format)
 
@@ -364,7 +372,7 @@ class PartitionSpec(RequestSpec):
                  grow = 0, maxSizeMB = None,
                  start = None, end = None,
                  drive = None, primary = None, format = None,
-                 multidrive = None):
+                 multidrive = None, bytesPerInode = 4096):
         """Create a new PartitionSpec object.
 
         fstype is the fsset filesystem type.
@@ -381,6 +389,7 @@ class PartitionSpec(RequestSpec):
         migrate is whether or not the partition should be migrated.
         multidrive specifies if this is a request that should be replicated
             across _all_ of the drives in drive
+        bytesPerInode is the size of the inodes on the filesystem.
         """
 
         # if it's preexisting, the original fstype should be set
@@ -392,7 +401,7 @@ class PartitionSpec(RequestSpec):
         RequestSpec.__init__(self, fstype = fstype, size = size,
                              mountpoint = mountpoint, format = format,
                              preexist = preexist, migrate = None,
-                             origfstype = origfs)
+                             origfstype = origfs, bytesPerInode = bytesPerInode)
         self.type = REQUEST_NEW
 
         self.grow = grow
@@ -431,14 +440,16 @@ class PartitionSpec(RequestSpec):
                "  device: %(dev)s drive: %(drive)s  primary: %(primary)s\n"
                "  size: %(size)s  grow: %(grow)s  maxsize: %(max)s\n"
                "  start: %(start)s  end: %(end)s"
-               "  migrate: %(migrate)s  origfstype: %(origfs)s" % 
+               "  migrate: %(migrate)s  origfstype: %(origfs)s\n"
+               "  bytesPerInode: %(bytesPerInode)s" % 
                {"n": pre, "mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format,
                 "dev": self.device, "drive": self.drive,
                 "primary": self.primary, "size": self.size,
                 "grow": self.grow, "max": self.maxSizeMB,
                 "start": self.start, "end": self.end, "bb": self.badblocks,
-                "migrate": self.migrate, "origfs": oldfs})
+                "migrate": self.migrate, "origfs": oldfs,
+                "bytesPerInode": self.bytesPerInode})
         return str
 
 
@@ -787,7 +798,8 @@ class LogicalVolumeRequestSpec(RequestSpec):
     
     def __init__(self, fstype, format = None, mountpoint = None,
                  size = None, volgroup = None, lvname = None,
-                 preexist = 0, percent = None, grow=0, maxSizeMB=0):
+                 preexist = 0, percent = None, grow=0, maxSizeMB=0,
+		 bytesPerInode = 4096):
         """Create a new VolumeGroupRequestSpec object.
 
         fstype is the fsset filesystem type.
@@ -798,8 +810,9 @@ class LogicalVolumeRequestSpec(RequestSpec):
         lvname is the name of the logical volume.
         preexist is whether the logical volume previously existed or not.
         percent is the percentage of the volume group's space this should use.
-	grow is whether or not to use free space remaining
-	maxSizeMB is max size to grow to
+	grow is whether or not to use free space remaining.
+	maxSizeMB is max size to grow to.
+	bytesPerInode is the size of the inodes on the partition.
         """
 
         # if it's preexisting, the original fstype should be set
@@ -808,9 +821,15 @@ class LogicalVolumeRequestSpec(RequestSpec):
         else:
             origfs = None
 
+        if bytesPerInode == None:
+            self.bytesPerInode = 4096
+        else:
+            self.bytesPerInode = bytesPerInode
+
 	RequestSpec.__init__(self, fstype = fstype, format = format,
 			     mountpoint = mountpoint, size = size,
-			     preexist = preexist, origfstype = origfs)
+			     preexist = preexist, origfstype = origfs,
+			     bytesPerInode = bytesPerInode)
 	    
         self.type = REQUEST_LV
 
@@ -841,11 +860,12 @@ class LogicalVolumeRequestSpec(RequestSpec):
         
         str = ("LV Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
-               "  size: %(size)s  lvname: %(lvname)s  volgroup: %(vgid)s" %
+               "  size: %(size)s  lvname: %(lvname)s  volgroup: %(vgid)s\n"
+	       "  bytesPerInode: %(bytesPerInode)s" %
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "bb": self.badblocks,
                 "lvname": self.logicalVolumeName, "vgid": self.volumeGroup,
-                "size": size})
+		"size": size, "bytesPerInode": bytesPerInode})
         return str
     
     def getDevice(self, partitions):

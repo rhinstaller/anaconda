@@ -424,6 +424,7 @@ class xfsFileSystem(FileSystemType):
         
         rc = iutil.execWithRedirect("/usr/sbin/mkfs.xfs",
                                     ["mkfs.xfs", "-f", "-l", "internal",
+                                     "-i size=" + str(entry.bytesPerInode),
                                      devicePath ],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
@@ -526,10 +527,12 @@ class extFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         devArgs = self.getDeviceArgs(entry.device)
-        args = [ "/usr/sbin/mke2fs", devicePath]
+        args = [ "/usr/sbin/mke2fs", devicePath, "-i", str(entry.bytesPerInode) ]
 
         args.extend(devArgs)
         args.extend(self.extraFormatArgs)
+
+	log("Format command:  %s\n" % str(args))
 
         rc = ext2FormatFilesystem(args, "/dev/tty5",
                                   progress,
@@ -1679,7 +1682,7 @@ class FileSystemSetEntry:
                   fsystem=None, options=None,
                   origfsystem=None, migrate=0,
                   order=-1, fsck=-1, format=0,
-                  badblocks = 0):
+                  badblocks = 0, bytesPerInode=4096):
         if not fsystem:
             fsystem = fileSystemTypeGet("ext2")
         self.device = device
@@ -1712,6 +1715,7 @@ class FileSystemSetEntry:
                                  "flag on" % fsystem.getName())
         self.format = format
         self.badblocks = badblocks
+        self.bytesPerInode = bytesPerInode
 
     def mount(self, chroot='/', devPrefix='/tmp', readOnly = 0):
         device = self.device.setupDevice(chroot, devPrefix=devPrefix)
@@ -1786,10 +1790,11 @@ class FileSystemSetEntry:
             
         str = ("fsentry -- device: %(device)s   mountpoint: %(mountpoint)s\n"
                "           fsystem: %(fsystem)s format: %(format)s\n"
-               "           ismounted: %(mounted)s \n"%
+               "           ismounted: %(mounted)s\n"
+               "           bytesPerInode: %(bytesPerInode)s\n"%
                {"device": self.device.getDevice(), "mountpoint": mntpt,
                 "fsystem": self.fsystem.getName(), "format": self.format,
-                "mounted": self.mountcount})
+		"mounted": self.mountcount, "bytesPerInode": self.bytesPerInode})
         return str
         
 

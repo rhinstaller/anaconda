@@ -933,6 +933,7 @@ class KickstartBase(BaseInstallClass):
                                                 'fstype=',
                                                 'percent=',
 						'maxsize=',
+                                                'bytes-per-inode=',
 						'grow',
                                                 'recommended',
                                                 'noformat',
@@ -949,6 +950,7 @@ class KickstartBase(BaseInstallClass):
         format = 1
         recommended = None
         preexist = 0
+        bytesPerInode = None
 
         for n in args:
             (str, arg) = n
@@ -964,6 +966,8 @@ class KickstartBase(BaseInstallClass):
                 percent = int(arg)
 	    elif str == '--maxsize':
 		maxSizeMB = int(arg)
+	    elif str == '--bytes-per-inode':
+		bytesPerInode = int(arg)
 	    elif str == '--grow':
 		grow = 1
             elif str == '--recommended':
@@ -1020,7 +1024,9 @@ class KickstartBase(BaseInstallClass):
                                                         lvname = name,
 							grow = grow,
 							maxSizeMB=maxSizeMB,
-                                                        preexist = preexist)
+                                                        preexist = preexist,
+                                                        bytesPerInode = bytesPerInode)
+
         self.addPartRequest(id.partitions, request)
                                                         
 
@@ -1187,6 +1193,7 @@ class KickstartBase(BaseInstallClass):
         end = None
         badblocks = None
         recommended = None
+        bytesPerInode = None
 
 	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
 					'grow', 'onpart=', 'ondisk=',
@@ -1213,7 +1220,7 @@ class KickstartBase(BaseInstallClass):
                 if disk is None:
                     raise KickstartValueError, "Specified BIOS disk %s cannot be determined" %(arg,)
             elif str == '--bytes-per-inode':
-                fsopts = ['-i', arg]
+                bytesPerInode = int(arg)
             # XXX this doesn't do anything right now
             elif str == '--type':
                 type = int(arg)
@@ -1294,15 +1301,13 @@ class KickstartBase(BaseInstallClass):
         if disk and disk not in isys.hardDriveDict().keys():
             raise KickstartValueError, "specified disk %s in partition command which does not exist" %(disk,)
         
-        # XXX bytes per inode is the only per fs option at the moment
-        # and we can assume that it works like this since it only works
-        # with ext[23]
         if fsopts:
             filesystem.extraFormatArgs.extend(fsopts)
 
         request = partRequests.PartitionSpec(filesystem,
                                              mountpoint = mountpoint,
-                                             format = 1)
+                                             format = 1,
+                                             bytesPerInode = bytesPerInode)
         
         if size is not None:
             request.size = size

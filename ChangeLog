@@ -1,3 +1,11 @@
+2005-01-14  Chris Lumens  <clumens@redhat.com>
+
+	* fsset.py:  Support bytes per inode on a per-partition basis
+	(#57550).
+	* kickstart.py:  Likewise.  Also, add --bytes-per-inode as an option
+	for logical volumes as well.
+	* partRequest.py:  Likewise.
+
 2005-01-13  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
