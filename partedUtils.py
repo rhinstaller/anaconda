@@ -395,26 +395,24 @@ def getRedHatReleaseString(mountpoint):
             return ""
 	relstr = string.strip(lines[0][:-1])
 
-	# clean it up some
-	#
-	# see if it fits expected form:
-	#
-	#   'Red Hat Linux release 6.2 (Zoot)'
-	#
-	#
+        # get the release name and version
+        # assumes that form is something
+        # like "Red Hat Linux release 6.2 (Zoot)"
+        if relstr.find("release") != -1:
+            try:
+                idx = relstr.find("release")
+                prod = relstr[:idx - 1]
 
-        if relstr.startswith(productName):
-	    try:
-		# look for version string
-		vers = string.split(relstr[14:])[1]
-		for a in string.split(vers, '.'):
-		    anum = string.atof(a)
+                ver = ""
+                for a in relstr[idx + 8:]:
+                    if a in string.digits() + ".":
+                        ver = ver + a
+                    else:
+                        break
 
-		relstr = productName + " " + vers
-	    except:
-		# didnt pass test dont change relstr
-		pass
-
+                    relstr = prod + " " + ver
+            except:
+                pass # don't worry, just use the relstr as we have it
         return relstr
     return ""
 
