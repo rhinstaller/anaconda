@@ -483,7 +483,16 @@ def deleteAllLogicalPartitions(part, requests):
             drive = get_partition_drive(partition)
             delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
             requests.addDelete(delete)
-            
+
+# get the default partition table type for our architecture
+def getDefaultDiskType():
+    if iutil.getArch() == "i386":
+        return parted.disk_type_get("msdos")
+    elif iutil.getArch() == "ia64":
+        return parted.disk_type_get("GPT")
+    else:
+        # XXX fix me for alpha at least
+        return parted.disk_type_get("msdos")
 
 class DeleteSpec:
     def __init__(self, drive, start, end):
@@ -955,15 +964,15 @@ class DiskSet:
             del disk
         self.refreshDevices()
 
-    def refreshDevices (self):
+    def refreshDevices (self, intf = None):
         self.disks = {}
-        self.openDevices()
+        self.openDevices(intf)
 
     def closeDevices (self):
         for disk in self.disks.keys():
             del self.disks[disk]
 
-    def openDevices (self):
+    def openDevices (self, intf = None):
         if self.disks:
             return
         for drive in self.driveList ():
@@ -982,7 +991,23 @@ class DiskSet:
                 disk = parted.PedDisk.open(dev)
                 self.disks[drive] = disk
             except parted.error, msg:
-                DiskSet.skippedDisks.append(drive)
+                if not intf:
+                    DiskSet.skippedDisks.append(drive)
+                rc = intf.messageWindow(_("Warning"),
+                          _("The partition table on device %s was unreadable. "
+                            "To create new partitions it must be initialized, "
+                            "causing the loss of ALL DATA on this drive.\n\n"
+                            "Would you like to initialize this drive?")
+                                        % (drive,), type = "yesno")
+                if rc == 0:
+                    DiskSet.skippedDisks.append(drive)
+                else:
+                    try:
+                        dev.disk_create(getDefaultDiskType())
+                        disk = parted.PedDisk.open(dev)
+                        self.disks[drive] = disk
+                    except parted.error, msg:
+                        DiskSet.skippedDisks.append(drive)
 
     def partitionTypes (self):
         rc = []
@@ -1043,7 +1068,7 @@ def partitionObjectsInitialize(diskset, partitions, dir, intf):
         return
     
     # read in drive info
-    diskset.refreshDevices()
+    diskset.refreshDevices(intf)
 
     if len(diskset.disks.keys()) == 0:
         intf.messageWindow(_("No Drives Found"),
