@@ -1406,7 +1406,9 @@ static char * doMountImage(char * location,
 	installNames[numValidMethods] = _(installMethods[i].name);
 	validMethods[numValidMethods++] = i;
     }
-#elif defined(INCLUDE_PCMCIA)
+#else
+    /* platforms with split boot/bootnet disks */
+  #if defined(INCLUDE_PCMCIA)
     for (i = 0; i < numMethods; i++) {
 	int j;
 
@@ -1420,14 +1422,17 @@ static char * doMountImage(char * location,
 	    validMethods[numValidMethods++] = i;
 	}
     }
-#else
-    for (i = 0; i < numMethods; i++) {
-	if ((networkAvailable && installMethods[i].network) ||
-		(localAvailable && !installMethods[i].network)) {
-	    if (i == defaultMethod) methodNum = numValidMethods;
+  #endif
 
-	    installNames[numValidMethods] = _(installMethods[i].name);
-	    validMethods[numValidMethods++] = i;
+    if (!numValidMethods) {
+	for (i = 0; i < numMethods; i++) {
+	    if ((networkAvailable && installMethods[i].network) ||
+		    (localAvailable && !installMethods[i].network)) {
+		if (i == defaultMethod) methodNum = numValidMethods;
+
+		installNames[numValidMethods] = _(installMethods[i].name);
+		validMethods[numValidMethods++] = i;
+	    }
 	}
     }
 #endif
