@@ -30,6 +30,9 @@ class KeyboardWindow (InstallWindow):
 
     def getNext (self):
         if self.hasrun:
+            if self.todo.setupFilesystems:
+                self.kb.setRule (self.model, self.layout, self.variant, "complete")
+            
             self.todo.x.setKeyboard (self.rulesbase, self.model,
                                      self.layout, self.variant, "")
             self.todo.keyboard.setfromx (self.model, self.layout, self.variant)
@@ -43,7 +46,11 @@ class KeyboardWindow (InstallWindow):
 	self.model = self.modelList.get_row_data (self.modelList.selection[0])
 	self.layout = self.layoutList.get_row_data (self.layoutList.selection[0])
 	self.variant = self.variantList.get_row_data (self.variantList.selection[0])
-        
+
+#        if self.todo.setupFilesystems:
+#            self.kb.setRule (self.model, self.layout, self.variant, "complete")
+
+    def setMap (self, data):
         if self.todo.setupFilesystems:
             self.kb.setRule (self.model, self.layout, self.variant, "complete")
 
@@ -133,6 +140,8 @@ class KeyboardWindow (InstallWindow):
 
         entry = GtkEntry ()
         box.pack_start (entry, FALSE)
+
+        entry.connect("grab-focus", self.setMap)
 
         box.set_border_width (5)
         self.hasrun = 1
