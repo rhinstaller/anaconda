@@ -6,7 +6,6 @@ import iutil
 import urllib
 
 class Package:
-
     def __getitem__(self, item):
 	return self.h[item]
 
@@ -19,7 +18,6 @@ class Package:
 	self.selected = 0
 
 class HeaderList:
-
     def selected(self):
 	l = []
  	keys = self.packages.keys()
@@ -84,16 +82,32 @@ class Component:
     def addRequires(self, component):
 	self.requires = component
 
+    def conditionalSelect (self, key):
+        for pkg in self.conditional[key]:
+            pkg.selected = 1
+
+    def conditionalUnselect (self, key):
+        for pkg in self.conditional[key]:
+            pkg.selected = 0
+
     def select(self, recurse = 1):
         self.selected = 1
 	for pkg in self.items.keys ():
 	    self.items[pkg].selected = 1
-        conds = self.conditional.keys ()
-        if conds:
-            for condition in conds:
-                if condition.selected:
-                    for pkg in self.conditional[condition]:
-                        pkg.selected = 1
+        # turn on any conditional packages
+        for (condition, pkgs) in self.conditional.items ():
+            if condition.selected:
+                for pkg in pkgs:
+                    pkg.selected = 1
+
+        # components that have conditional packages keyed on this
+        # component AND are currently selected have those conditional
+        # packages turned turned on when this component is turned on.
+        if self.dependents:
+            for dep in self.dependents:
+                if dep.selected:
+                    dep.conditionalSelect (self)
+                
 	if recurse:
 	    for n in self.includes:
 		if n.requires:
@@ -111,13 +125,19 @@ class Component:
         self.selected = 0
 	for n in self.items.keys ():
 	    self.items[n].selected = 0
+
         # always turn off conditional packages, regardless
         # if the condition is met or not.
-        conds = self.conditional.keys ()
-        if conds:
-            for condition in conds:
-                for pkg in self.conditional[condition]:
-                    pkg.selected = 0
+        for (condition, pkgs) in self.conditional.items ():
+            for pkg in pkgs:
+                pkg.selected = 0
+
+        # now we must turn off conditional packages in components that
+        # are keyed on this package
+        if self.dependents:
+            for dep in self.dependents:
+                dep.conditionalUnselect (self)
+
 	if recurse:
 	    for n in self.includes:
 		n.unselect(recurse)
@@ -128,6 +148,7 @@ class Component:
 	self.selected = selected
 	self.items = {}
         self.conditional = {}
+        self.dependents = []
 	self.requires = None
 	self.includes = []
 
@@ -199,6 +220,7 @@ class ComponentSet:
 		comp = Component(l, default == '1', hidden)
 	    elif (l == "}"):
                 if conditional:
+                    conditional.dependents.append (comp)
                     conditional = None
                 else:
                     self.comps.append(comp)

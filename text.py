@@ -32,21 +32,31 @@ class LanguageWindow:
     def __call__(self, screen, todo):
         languages = todo.language.available ()
         descriptions = languages.keys ()
-        locales = languages.values ()
-        default = locales.index (todo.language.get ())
-
+        descriptions.sort ()
+        current = todo.language.get ()
+        for lang in descriptions:
+            if languages[lang] == current:
+                default = descriptions.index (lang)
+            
+        height = screen.height - 16
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Language Selection"),
 			_("What language would you like to use during the "
 			  "installation process?"), descriptions, 
-			buttons = [_("OK")], width = 30, default = default)
+			buttons = [_("OK")], width = 30, default = default, scroll = 1,
+                                height = height)
+        choice = descriptions[choice]
+        lang = languages [choice]
+        newlangs = [lang]
+	if len(lang) > 2:
+            newlangs.append(lang[:2])
         langs = gettext.getlangs ()
-        langs = [languages [languages.keys()[choice]]] + langs
+        langs = newlangs + langs
         gettext.setlangs (langs)
         global cat, _
-        cat = gettext.Catalog ("anaconda-text", "/usr/share/locale")
+        cat = gettext.Catalog ("anaconda", "/usr/share/locale")
         _ = cat.gettext
-        todo.language.set (languages.keys()[choice])
+        todo.language.set (choice)
         return INSTALL_OK
 
 class MouseDeviceWindow:

@@ -42,13 +42,37 @@ import os, string
 prefix = '/usr/local'
 localedir = prefix + '/share/locale'
 
+def _expandLang(str):
+	langs = [str]
+	# remove charset ...
+	if '.' in str:
+		langs.append(string.split(str, '.')[0])
+	# also add 2 character language code ...
+	if len(str) > 2:
+		langs.append(str[:2])
+	return langs
+
 lang = []
 for env in 'LANGUAGE', 'LC_ALL', 'LC_MESSAGES', 'LANG':
 	if os.environ.has_key(env):
 		lang = string.split(os.environ[env], ':')
+		lang = map(_expandLang, lang)
+		lang = reduce(lambda a, b: a + b, lang)
 		break
 if 'C' not in lang:
 	lang.append('C')
+
+# remove duplicates
+i = 0
+while i < len(lang):
+	j = i + 1
+	while j < len(lang):
+		if lang[i] == lang[j]:
+			del lang[j]
+		else:
+			j = j + 1
+	i = i + 1
+del i, j
 
 if os.environ.has_key('PY_XGETTEXT'):
 	xgettext = os.environ['PY_XGETTEXT']
@@ -301,6 +325,4 @@ def setlangs(newlang):
 
 if __name__ == '__main__':
 	test()
-
-
 

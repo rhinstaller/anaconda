@@ -246,7 +246,7 @@ int chooseLanguage(char ** lang, int flags) {
 		"during the installation process?"), 40, 5, 5, 8,
 		langs, &choice, _("OK"), NULL);
 
-    *lang = languages[choice].key;
+    *lang = languages[choice].lc_all;
 
     if (choice == english) {
 	/* stick with the default (English) */

@@ -161,27 +161,27 @@ class Language (SimpleConfigFile):
         self.info = {}
         self.lang = None
         self.langs = {
-            "Czech"	:	"cs",
-            "English"	:	"en",
-            "French":	"fr",
-            "German":	"de",
-            "Hungarian":  "hu", 
-            "Icelandic":	"is",
-            "Indonesian":	"id",
-            "Italian":	"it",
-            "Norwegian":	"no",
-            "Polish":	"pl",
-            "Romanian":	"ro",
-            "Slovak":	"sk",
-            "Spanish":	"es",
-            "Russian": 	"ru",
-            "Ukrainian":  "uk",
-            "German" : "de",
+            "Czech"	 : "cs_CZ" ,
+            "English"	 : "en_US" ,
+            "French"	 : "fr_FR" ,
+            "German"	 : "de_DE" ,
+            "Hungarian"	 : "hu_HU" ,
+            "Icelandic"	 : "is_IS" ,
+            "Indonesian" : "id_ID" ,
+            "Italian"	 : "it_IT" ,
+            "Norwegian"	 : "no_NO" ,
+            "Polish"	 : "pl_PL" ,
+            "Romanian"	 : "ro_RO" ,
+            "Slovak"	 : "sk_SK" ,
+            "Spanish"	 : "es_MX" ,
+            "Russian"	 : "ru_SU" ,
+            "Ukrainian"	 : "uk_UA" ,
             }
-	self.abbrevMap = {		# kickstart needs this
-	    "en": "English",
-	    "de": "German"
-	    }
+        
+        # kickstart needs this
+        self.abbrevMap = {}
+        for (key, value) in self.langs.items ():
+            self.abbrevMap[value] = key
 
     def available (self):
         return self.langs

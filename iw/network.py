@@ -129,7 +129,6 @@ class NetworkWindow (InstallWindow):
                 devbox = GtkVBox ()
                 align = GtkAlignment ()
                 DHCPcb = GtkCheckButton (_("Configure using DHCP"))
-                DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
         
                 align.add (DHCPcb)
                 devbox.pack_start (align, FALSE)
@@ -179,6 +178,9 @@ class NetworkWindow (InstallWindow):
                 options[3].connect ("focus_out_event", self.focusOutBC, devs[i])
 
                 devbox.pack_start (ipTable, FALSE, FALSE, 5)
+
+                DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
+                
                 notebook.append_page (devbox, GtkLabel (i))
 
             box.pack_start (notebook, FALSE)
