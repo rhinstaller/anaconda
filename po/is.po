@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.27\n"
+"Project-Id-Version: install 1.28\n"
 "POT-Creation-Date: 1999-09-17 14:05-0400\n"
-"PO-Revision-Date: 1999-09-17 23:40+0000\n"
+"PO-Revision-Date: 1999-09-18 00:36+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -1296,7 +1296,7 @@ msgstr "Kalla eftir þjóni"
 #: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
 #: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
 msgid "Bad Mount Point"
-msgstr "Ólöglegur tengipunktur"
+msgstr "Óleyfilegur tengipunktur"
 
 #: ../libfdisk/fsedit.c:606
 #, c-format
@@ -1310,7 +1310,7 @@ msgid ""
 "\n"
 "Mount points must begin with a leading /."
 msgstr ""
-"Tengipunkturinn %s er ólöglegur.\n"
+"Tengipunkturinn %s er óleyfilegur.\n"
 "\n"
 "Heiti tengipunkta verður að byrja á /."
 
@@ -1321,7 +1321,7 @@ msgid ""
 "\n"
 "Mount points may not end with a /."
 msgstr ""
-"Tengipunkturinn %s er ólöglegur.\n"
+"Tengipunkturinn %s er óleyfilegur.\n"
 "\n"
 "Heiti tengipunkta má ekki enda á /."
 
@@ -1332,7 +1332,7 @@ msgid ""
 "\n"
 "Mount points may only printable characters."
 msgstr ""
-"Tengipunkturinn %s er ólöglegur.\n"
+"Tengipunkturinn %s er óleyfilegur.\n"
 "\n"
 "Heiti tengipunkta mega einungis innihalda prentanlega stafi."
 
@@ -1343,7 +1343,7 @@ msgid ""
 "\n"
 "System partitions must be on Linux Native partitions."
 msgstr ""
-"Tengipunkturinn %s er ólöglegur.\n"
+"Tengipunkturinn %s er óleyfilegur.\n"
 "\n"
 "Kerfissneiðar verða að vera á Linux disksneiðum."
 
@@ -1354,7 +1354,7 @@ msgid ""
 "\n"
 "/usr must be on a Linux Native partition or an NFS volume."
 msgstr ""
-"Tengipunkturinn %s er ólöglegur.\n"
+"Tengipunkturinn %s er óleyfilegur.\n"
 "\n"
 "/usr verður að vera á Linux disksneið eða NFS tengt."
 
@@ -1538,7 +1538,7 @@ msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
 msgstr ""
-"Tengipunkturinn sem þú valdir er annað hvort ólöglegur eða þegar í notkun. "
+"Tengipunkturinn sem þú valdir er annað hvort óleyfilegur eða þegar í notkun. "
 "Vinsamlegast veldu löglegan tengipunkt."
 
 #: ../libfdisk/gnomefsedit.c:1026 ../libfdisk/newtfsedit.c:545
@@ -1550,8 +1550,8 @@ msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
 msgstr ""
-"Stærðin sem þú valdir er ólögleg. Gakktu úr skugga um að stærðin sé stærri "
-"núll (0), og sé talin fram í tugakerfistölu (base 10)."
+"Stærðin sem þú valdir er óleyfilegur. Gakktu úr skugga um að stærðin sé "
+"stærri núll (0), og sé talin fram í tugakerfistölu (base 10)."
 
 #: ../libfdisk/gnomefsedit.c:1062 ../libfdisk/gnomefsedit.c:1967
 #: ../libfdisk/newtfsedit.c:581
@@ -1702,7 +1702,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1909
 msgid "Illegal /boot RAID Type"
-msgstr "Ólögleg RAID tegund fyrir /boot"
+msgstr "Óleyfileg RAID tegund fyrir /boot"
 
 #: ../libfdisk/gnomefsedit.c:1911
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
@@ -2189,7 +2189,7 @@ msgstr "hraðuppsetning"
 #: ../loader/net.c:560
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr "ólöglegt viðfang við netskipun hraðuppsetningar %s: %s"
+msgstr "óleyfilegt viðfang við netskipun hraðuppsetningar %s: %s"
 
 #: ../loader/net.c:607
 msgid "Boot protocol to use"
