@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-10-15 11:47+1000\n"
+"PO-Revision-Date: 2004-11-01 11:51+1000\n"
 "Last-Translator: David Barzilay <barzilay@redhat.com>\n"
 "Language-Team: Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -1084,7 +1084,7 @@ msgstr ""
 
 #: ../gui.py:763
 msgid "default:LTR"
-msgstr "Padrão:LTR"
+msgstr "default:LTR"
 
 #: ../gui.py:837 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -2638,7 +2638,7 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
 msgstr ""
-"Máquinas zSeries podem acessar dispositivos SCSI padrão através do Fibre "
+"Máquinas zSeries podem acessar dispositivos SCSI default através do Fibre "
 "Channel (FCP). Você precisa prover 5 parâmetros para cada dispositivo: um "
 "número de dispositivo de 16bits, um ID SCSI de 16 bits, um World Wide Port "
 "Name (WWPN) de 64 bits, um LUN SCSI de 16 bits e um LUN FCP de 64 bits."
@@ -2980,7 +2980,7 @@ msgid ""
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
 "Por favor selecione o gestor de início que o seu computador utilizará. GRUB "
-"é o gestor padrão. Mas se você não deseja apagar seu gestor de início atual, "
+"é o gestor default. Mas se você não deseja apagar seu gestor de início atual, "
 "selecione \"Não instalar gestor de início.\"  "
 
 #: ../iw/bootloader_main_gui.py:139
@@ -3232,7 +3232,7 @@ msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
 msgstr ""
-"Se você deseja alterar o conjunto de pacotes padrão na instalação, pode "
+"Se você deseja alterar o conjunto de pacotes default na instalação, pode "
 "optar por escolher abaixo."
 
 #: ../iw/desktop_choice_gui.py:73
@@ -3433,7 +3433,7 @@ msgstr "Suporte Adicional de Idiomas"
 
 #: ../iw/language_support_gui.py:193
 msgid "Select the _default language for the system:   "
-msgstr "Escolha o idioma padrão para o sistema:   "
+msgstr "Escolha o idioma default para o sistema:   "
 
 #: ../iw/language_support_gui.py:206
 msgid "Select _additional languages to install on the system:"
@@ -3445,7 +3445,7 @@ msgstr "E_scolher Todos"
 
 #: ../iw/language_support_gui.py:249
 msgid "Select Default _Only"
-msgstr "Seleci_one Apenas o Padrão"
+msgstr "Seleci_one Apenas o Default"
 
 #: ../iw/language_support_gui.py:260
 msgid "Rese_t"
@@ -3993,7 +3993,7 @@ msgstr "_manualmente"
 
 #: ../iw/network_gui.py:545
 msgid "(ex. \"host.domain.com\")"
-msgstr "(ex.: \"nomedamáquina.domínio.com\")"
+msgstr "(ex.: \"nome.exemplo.com\")"
 
 #: ../iw/network_gui.py:552 ../loader2/net.c:797
 msgid "Hostname"
@@ -4015,7 +4015,7 @@ msgstr ""
 "operacionais. Isto permite que você selecione um sistema operacional da "
 "lista ao iniciar a máquina. Para adicionar outros sistemas operacionais, que "
 "não são automaticamente detectados, clique em 'Adicionar'. Para alterar o "
-"sistema operacional iniciado por padrão, clique em 'Default' no sistema "
+"sistema operacional iniciado por default, clique em 'Default' no sistema "
 "operacional desejado."
 
 #: ../iw/osbootwidget.py:67 ../iw/silo_gui.py:263
@@ -4024,7 +4024,7 @@ msgstr ""
 #: ../textw/xconfig_text.py:547 ../textw/xconfig_text.py:548
 #: ../textw/xconfig_text.py:567 ../textw/xconfig_text.py:568
 msgid "Default"
-msgstr "Padrão"
+msgstr "Default"
 
 #: ../iw/osbootwidget.py:67
 msgid "Label"
@@ -4048,7 +4048,7 @@ msgstr "_Nome"
 
 #: ../iw/osbootwidget.py:191
 msgid "Default Boot _Target"
-msgstr "Inicialização Padrão"
+msgstr "Inicialização Default"
 
 #: ../iw/osbootwidget.py:220
 msgid "You must specify a label for the entry"
@@ -4424,12 +4424,12 @@ msgstr "Criar uma _partição Software RAID."
 #: ../iw/partition_gui.py:1261
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr "Criar um _dispositivo RAID [padrão=/dev/md%s]."
+msgstr "Criar um _dispositivo RAID [default=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1265
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "Clonar um _disco para criar um dispositivo RAID [padrão=/dev/md%s]."
+msgstr "Clonar um _disco para criar um dispositivo RAID [default=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1304
 msgid "Couldn't Create Drive Clone Editor"
@@ -4851,7 +4851,7 @@ msgstr "Criar um codenome para PROM"
 
 #: ../iw/silo_gui.py:212
 msgid "Set default PROM boot device to linux"
-msgstr "Configurar dispositivo de inicialização padrão do PROM para Linux"
+msgstr "Configurar dispositivo de inicialização default do PROM para Linux"
 
 #: ../iw/silo_gui.py:216
 msgid "Kernel parameters"
@@ -4877,7 +4877,7 @@ msgstr "Nome da inicialização"
 
 #: ../iw/silo_gui.py:294
 msgid "Default boot image"
-msgstr "Imagem padrão de inicialização"
+msgstr "Imagem default de inicialização"
 
 #: ../iw/timezone_gui.py:28 ../textw/timezone_text.py:97
 msgid "Time Zone Selection"
@@ -5084,7 +5084,7 @@ msgstr "Re_solução da Tela:"
 
 #: ../iw/xconfig_gui.py:338
 msgid "Please choose your default desktop environment:"
-msgstr "Por favor escolha o ambiente padrão da sua área de trabalho:"
+msgstr "Por favor escolha o ambiente default da sua área de trabalho:"
 
 #: ../iw/xconfig_gui.py:340
 msgid "Your desktop environment is:"
@@ -5285,7 +5285,7 @@ msgstr ""
 "partições.\n"
 "\n"
 "O kernel utilizado para iniciar a máquina será aquele instalado como "
-"padrão.\n"
+"default.\n"
 "\n"
 "Para efetuar alterações depois da instalação altere o arquivo de "
 "configuração /etc/zipl.conf.\n"
@@ -5422,7 +5422,7 @@ msgstr ""
 #: ../textw/bootloader_text.py:315
 msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
-" <Espaço> seleciona botão | <F2> seleciona inicialização padrão | <F12> "
+" <Espaço> seleciona botão | <F2> seleciona inicialização default | <F12> "
 "continuar"
 
 #: ../textw/bootloader_text.py:394
@@ -5570,7 +5570,7 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"O ambiente de instalação padrão inclui nossa seleção de pacotes "
+"O ambiente de instalação default inclui nossa seleção de pacotes "
 "recomendados. Após a instalação, é possível adicionar ou remover programas "
 "usando a ferramenta 'system-config-packages'.\n"
 "\n"
@@ -5711,11 +5711,11 @@ msgstr "Você deve selecionar pelo menos uma idioma para a instalação."
 
 #: ../textw/language_text.py:189
 msgid "Default Language"
-msgstr "Idioma Padrão"
+msgstr "Idioma default"
 
 #: ../textw/language_text.py:190
 msgid "Choose the default language for this system: "
-msgstr "Escolha o idioma padrão para este sistema: "
+msgstr "Escolha o idioma default para este sistema: "
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
@@ -6225,7 +6225,7 @@ msgstr "Criar um codenome para linux na PROM"
 
 #: ../textw/silo_text.py:78
 msgid "Set default PROM boot device"
-msgstr "Configurar dispositivo de inicialização PROM padrão"
+msgstr "Configurar dispositivo de inicialização PROM default"
 
 #: ../textw/silo_text.py:114
 msgid "Where do you want to install the bootloader?"
@@ -6564,7 +6564,7 @@ msgstr "Resolução:"
 
 #: ../textw/xconfig_text.py:155
 msgid "Default Desktop:"
-msgstr "Área de Trabalho Padrão:"
+msgstr "Área de Trabalho default:"
 
 #: ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
 msgid "GNOME"
@@ -6576,7 +6576,7 @@ msgstr "KDE"
 
 #: ../textw/xconfig_text.py:176
 msgid "Default Login:"
-msgstr "Usuário Padrão:"
+msgstr "Usuário default:"
 
 #: ../textw/xconfig_text.py:178
 msgid "Graphical"
@@ -7576,7 +7576,7 @@ msgstr "Máscara de rede:"
 
 #: ../loader2/net.c:480
 msgid "Default gateway (IP):"
-msgstr "Gateway padrão (IP):"
+msgstr "Gateway default (IP):"
 
 #: ../loader2/net.c:483
 msgid "Primary nameserver:"
