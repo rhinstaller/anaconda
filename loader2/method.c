@@ -39,22 +39,7 @@
 #include "../isys/imount.h"
 #include "../isys/isys.h"
 
-
-/* JKFIXME: this is a pile of crap... should at least only be done once */
-/* Need to tell loop.h what the actual dev_t type is. */
-#undef dev_t
-#if defined(__alpha) || (defined(__sparc__) && defined(__arch64__))
-#define dev_t unsigned int
-#else
-#if defined(__x86_64__)
-#define dev_t unsigned long
-#else
-#define dev_t unsigned short
-#endif
-#endif
-#include <linux/loop.h>
-#undef dev_t
-#define dev_t dev_t
+#include "devt.h"
 
 #include "nfsinstall.h"
 #include "hdinstall.h"
