@@ -241,7 +241,7 @@ class XCustomWindow (InstallWindow):
         frame2 = GtkFrame (_("Screen Resolution:"))
         frame2.set_shadow_type (SHADOW_NONE)
         frame2.set_border_width (10)
-        hbox1.pack_start (frame2, TRUE, FALSE, 10)
+        hbox1.pack_start (frame2, TRUE, FALSE, 2)
 
         self.res_list = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1400x1050", "1600x1200"]
 
@@ -334,7 +334,7 @@ class XCustomWindow (InstallWindow):
 
             frame3 = GtkFrame (_("Please choose your default desktop environment:"))
             frame3.set_shadow_type (SHADOW_NONE)
-            hbox3.pack_start (frame3, TRUE, FALSE, 10)
+            hbox3.pack_start (frame3, TRUE, FALSE, 2)
 
             self.hbox4 = GtkHBox ()
             frame3.add (self.hbox4)
@@ -344,7 +344,7 @@ class XCustomWindow (InstallWindow):
 
             gnome_radio = GtkRadioButton (None, (_("GNOME")))
             gnome_radio.connect ("clicked", self.desktop_cb, "GNOME")        
-            vbox3.pack_start (gnome_radio, TRUE, FALSE, 10)
+            vbox3.pack_start (gnome_radio, TRUE, FALSE, 2)
 
             im = self.ics.readPixmap ("gnome.png")
             if im:
@@ -358,13 +358,66 @@ class XCustomWindow (InstallWindow):
             kde_radio = GtkRadioButton(gnome_radio, (_("KDE")))
             kde_radio.connect ("clicked", self.desktop_cb, "KDE")
             
-            vbox3.pack_start (kde_radio, TRUE, FALSE, 10)
+            vbox3.pack_start (kde_radio, TRUE, FALSE, 2)
 
             self.hbox4.pack_start (vbox3)
             self.hbox4.pack_start (self.vbox4)
-            box.pack_start (hbox3, FALSE, TRUE, 10)
+            box.pack_start (hbox3, FALSE, TRUE, 2)
             
-        else:
+        elif ((self.todo.hdList.has_key('gnome-core')
+             and self.todo.hdList['gnome-core'].selected)
+            or (self.todo.hdList.has_key('kdebase')
+                 and self.todo.hdList['kdebase'].selected)):
+
+            hsep = GtkHSeparator ()
+            box.pack_start (hsep)
+
+            frame3 = GtkFrame (_("Your desktop environment is:"))
+            frame3.set_shadow_type (SHADOW_NONE)
+            hbox3.pack_start (frame3, TRUE, FALSE, 2)
+            self.hbox4 = GtkHBox ()
+            frame3.add (self.hbox4)
+
+#            vbox3 = GtkVBox()
+#            self.vbox4 = GtkVBox()
+
+            if self.todo.hdList['gnome-core'].selected:
+                im = self.ics.readPixmap ("gnome.png")
+                if im:
+                    im.render ()
+                    pix = im.make_pixmap ()
+                    a = GtkAlignment ()
+                    a.add (pix)
+                    a.set (0.5, 0.5, 1.0, 1.0)
+                    self.hbox4.pack_start (a, TRUE, TRUE)
+
+                label = GtkLabel (_("GNOME"))
+                self.hbox4.pack_start (label, TRUE, FALSE, 2)
+
+
+            elif self.todo.hdList['kdebase'].selected:
+                im = self.ics.readPixmap ("kde.png")
+                if im:
+                    im.render ()
+                    pix = im.make_pixmap ()
+                    a = GtkAlignment ()
+                    a.add (pix)
+                    a.set (0.5, 0.5, 1.0, 1.0)
+                    self.hbox4.pack_start (a, TRUE, TRUE)
+
+                label = GtkLabel (_("KDE"))
+                self.hbox4.pack_start (label, TRUE, FALSE, 2)
+
+
+
+#            self.hbox4.pack_start (vbox3)
+#            self.hbox4.pack_start (self.vbox4)
+            box.pack_start (hbox3, FALSE, TRUE, 2)
+
+            
+
+
+            
             pass
 
         hsep = GtkHSeparator ()
@@ -373,11 +426,11 @@ class XCustomWindow (InstallWindow):
 #        self.xdm = GtkCheckButton (_("Please Choose Your Login Type"))
         frame4 = GtkFrame (_("Please choose your login type:"))
         frame4.set_shadow_type (SHADOW_NONE)
-        hbox4.pack_start (frame4, TRUE, FALSE, 10)
+        hbox4.pack_start (frame4, TRUE, FALSE, 2)
         
 #        box.pack_start (frame4, TRUE, FALSE, 10)
 
-        self.hbox5 = GtkHBox (TRUE, 10)
+        self.hbox5 = GtkHBox (TRUE, 2)
         frame4.add (self.hbox5)
 
         self.text = GtkRadioButton (None, "Text")
@@ -389,10 +442,10 @@ class XCustomWindow (InstallWindow):
             self.graphical.set_active (TRUE)
 
 
-        self.hbox5.pack_start (self.text, FALSE, 15)
-        self.hbox5.pack_start (self.graphical, FALSE, 15)
+        self.hbox5.pack_start (self.text, FALSE, 2)
+        self.hbox5.pack_start (self.graphical, FALSE, 2)
         
-        box.pack_start (hbox4, FALSE, TRUE, 10)
+        box.pack_start (hbox4, FALSE, TRUE, 2)
 #        self.xdm.set_active (TRUE)
 
 
