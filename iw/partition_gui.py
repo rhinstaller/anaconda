@@ -1006,9 +1006,10 @@ class PartitionWindow(InstallWindow):
                 rc = -1
             else:
                 rc = 0
-                req = self.partitions.getBootableRequest()
-                if req:
-                    req.ignoreBootConstraints = 1
+                reqs = self.partitions.getBootableRequest()
+                if reqs:
+                    for req in reqs:
+                        req.ignoreBootConstraints = 1
 
         self.populate()
         return rc

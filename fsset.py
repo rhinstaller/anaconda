@@ -755,6 +755,7 @@ class prepbootFileSystem(FileSystemType):
         self.partedFileSystemType = None
         self.checked = 0
         self.name = "PPC PReP Boot"
+        self.maxSizeMB = 10
 
         # supported for use on the pseries
         if (iutil.getPPCMachine() == "pSeries" or
@@ -1078,9 +1079,15 @@ class FileSystemSet:
                     bootDev = entry.device
         elif (iutil.getPPCMachine() == "pSeries" or
               iutil.getPPCMachine() == "iSeries"):
+            # we want the first prep partition or the first newly formatted one
+            bestprep = None
             for entry in self.entries:
-                if entry.fsystem.getName() == "PPC PReP Boot":
-                    bootDev = entry.device
+                if ((entry.fsystem.getName() == "PPC PReP Boot")
+                    and ((bestprep is None) or
+                         ((bestprep.format == 0) and (entry.format == 1)))):
+                    bestprep = entry
+            if bestprep:
+                bootDev = bestprep.device
         elif iutil.getArch() == "ia64":
             if mntDict.has_key("/boot/efi"):
                 bootDev = mntDict['/boot/efi']
@@ -1113,7 +1120,6 @@ class FileSystemSet:
                                            N_("Apple Bootstrap"))
                     n = n + 1
             return ret
-        # FIXME: is this right?
         elif (iutil.getPPCMachine() == "pSeries" or
               iutil.getPPCMachine() == "iSeries"):
             ret['boot'] = (bootDev.device, N_("PPC PReP Boot"))

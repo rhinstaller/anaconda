@@ -35,20 +35,21 @@ BOOT_ABOVE_1024 = -1
 BOOTEFI_NOT_VFAT = -2
 BOOTALPHA_NOT_BSD = -3
 BOOTALPHA_NO_RESERVED_SPACE = -4
-BOOTPSERIES_NOT_PREP = -5
-# XXX TODO: check for PReP partitions > 4 MiB and starting over 4096M.
-BOOTPSERIES_LARGER_THAN_4M = -6
-BOOTPSERIES_ABOVE_4096M = -7
+BOOTIPSERIES_TOO_HIGH = -5
 
 DEBUG_LVM_GROW = 0
 
 # check that our "boot" partition meets necessary constraints unless
 # the request has its ignore flag set
 def bootRequestCheck(requests, diskset):
-    dev = requests.getBootableRequest()
-    if not dev or not dev.device or dev.ignoreBootConstraints:
+    reqs = requests.getBootableRequest()
+    if not reqs:
         return PARTITION_SUCCESS
-    part = partedUtils.get_partition_by_name(diskset.disks, dev.device)
+    for req in reqs:
+        if not req.device or req.ignoreBootConstraints:
+            return PARTITION_SUCCESS
+    # side effect: dev is left as the last in devs
+    part = partedUtils.get_partition_by_name(diskset.disks, req.device)
     if not part:
         return PARTITION_SUCCESS
 
@@ -65,10 +66,11 @@ def bootRequestCheck(requests, diskset):
         return bootAlphaCheckRequirements(part, diskset)
     elif (iutil.getPPCMachine() == "pSeries" or
           iutil.getPPCMachine() == "iSeries"):
-        # FIXME: does this also have to be at the beginning of the disk
-##         if part.native_type != 0x41:
-##             return BOOTPSERIES_NOT_PREP
-        log("FIXME: unable to check suitability of boot partition on pseries right now")
+        for req in reqs:
+            part = partedUtils.get_partition_by_name(diskset.disks, req.device)
+            if part and ((part.geom.end * part.geom.dev.sector_size /
+                          (1024.0 * 1024)) > 4096):
+                return BOOTIPSERIES_TOO_HIGH
         
     return PARTITION_SUCCESS
 
@@ -180,14 +182,12 @@ class partlist:
 # partitions with a specific start and end cylinder requested are
 # placed where they were asked to go
 def fitConstrained(diskset, requests, primOnly=0, newParts = None):
-    bootreq = requests.getBootableRequest()
-    
     for request in requests.requests:
         if request.type != REQUEST_NEW:
             continue
         if request.device:
             continue
-        if primOnly and not request.primary and request != bootreq:
+        if primOnly and not request.primary and not requests.isBootable(request):
             continue
         if request.drive and (request.start != None):
             if not request.end and not request.size:
@@ -283,18 +283,20 @@ def getDriveList(request, diskset):
 # into the freespace
 def fitSized(diskset, requests, primOnly = 0, newParts = None):
     todo = {}
-    bootreq = requests.getBootableRequest()
 
     for request in requests.requests:
         if request.type != REQUEST_NEW:
             continue
         if request.device:
             continue
-        if primOnly and not request.primary and request != bootreq:
+        if primOnly and not request.primary and not requests.isBootable(request):
             continue
-        if request == bootreq:
+        if requests.isBootable(request):
             drives = getDriveList(request, diskset)
             numDrives = 0 # allocate bootable requests first
+            # FIXME: this is a hack to make sure prep boot is even more first
+            if request.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
+                numDrives = -1
         else:
             drives = getDriveList(request, diskset)
             numDrives = len(drives)
@@ -309,7 +311,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 
     for num in number:
         for request in todo[num]:
-##             print "\nInserting ->",request
+#            print "\nInserting ->",request
             if requests.isBootable(request):
                 isBoot = 1
             else:
@@ -990,16 +992,16 @@ def doPartitioning(diskset, requests, doRefresh = 1):
     ret = bootRequestCheck(requests, diskset)
 
     if ret == BOOTALPHA_NOT_BSD:
-        raise PartitioningWarning, _("Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to boot from this paritition. Use a partition belonging to a BSD disk label or change this device disk label to BSD.") %(requests.getBootableRequest().mountpoint)
+        raise PartitioningWarning, _("Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to boot from this paritition. Use a partition belonging to a BSD disk label or change this device disk label to BSD.") %(requests.getBootableRequest()[0].mountpoint,)
     elif ret == BOOTALPHA_NO_RESERVED_SPACE:
-        raise PartitioningWarning, _("Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot") %(requests.getBootableRequest().mountpoint)
+        raise PartitioningWarning, _("Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot") %(requests.getBootableRequest()[0].mountpoint,)
     elif ret == BOOTEFI_NOT_VFAT:
-        raise PartitioningError, _("Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition.") %(requests.getBootableRequest().mountpoint,)
-    elif ret == BOOTPSERIES_NOT_PREP:
-        raise PartitioningError, _("Boot partition %s isn't a PPC PReP boot partition.  OpenFirmware won't be able to boot from this partition.") %(requests.getBootableRequest().mountpoint,)
+        raise PartitioningError, _("Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition.") %(requests.getBootableRequest()[0].mountpoint,)
+    elif ret == BOOTIPSERIES_TOO_HIGH:
+        raise PartitioningError, _("Boot partition isn't located early enough on the disk.  OpenFirmware wan't be able to boot this installation.")
     elif ret != PARTITION_SUCCESS:
         # more specific message?
-        raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest().mountpoint)
+        raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest()[0].mountpoint,)
 
     # now grow the logical partitions
     growLogicalVolumes(diskset, requests)
@@ -1164,7 +1166,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
         # XXX if we noop, then we fail later steps... let's just make it
         # the workstation default.  should instead just never get here
         # if no autopart info
-        instClass.setDefaultPartitioning(partitions)
+        instClass.setDefaultPartitioning(partitions, doClear = 0)
 
     # reset drive and request info to original state
     # XXX only do this if we're dirty

@@ -634,12 +634,41 @@ class Partitions:
 
         if iutil.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")
-            return bootreq
-        elif (iutil.getPPCMachine() == "pSeries" or
-              iutil.getPPCMachine() == "iSeries"):
+            return [ bootreq ]
+        elif iutil.getPPCMachine() == "iSeries":
             for req in self.requests:
                 if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
                     return req
+            return None
+        elif iutil.getPPCMachine() == "pSeries":
+            # pSeries bootable requests are odd.
+            # have to consider both the PReP partition (with potentially > 1
+            # existing) as well as /boot,/
+
+            # for the prep partition, we want either the first or the
+            # first non-preexisting one
+            bestprep = None
+            for req in self.requests:
+                if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
+                    if ((bestprep is None) or
+                        (bestprep.getPreExisting() and
+                         not req.getPreExisting())):
+                        bestprep = req
+
+            if bestprep:
+                ret = [ bestprep ]
+            else:
+                ret = []
+
+            # now add the /boot
+            bootreq = self.getRequestByMountPoint("/boot")
+            if not bootreq:
+                bootreq = self.getRequestByMountPoint("/")
+            if bootreq:
+                ret.append(bootreq)
+
+            if len(ret) >= 1:
+                return ret
             return None
         
         if not bootreq:
@@ -647,7 +676,7 @@ class Partitions:
         if not bootreq:
             bootreq = self.getRequestByMountPoint("/")
             
-        return bootreq
+        return [ bootreq ]
 
     def getBootableMountpoints(self):
         """Return a list of bootable valid mountpoints for this arch."""
@@ -664,16 +693,17 @@ class Partitions:
         This basically means that it should be sorted to the beginning of
         the drive to avoid cylinder problems in most cases.
         """
-        bootreq = self.getBootableRequest()
-        if not bootreq:
+        bootreqs = self.getBootableRequest()
+        if not bootreqs:
             return 0
-        
-        if bootreq == request:
-            return 1
 
-        if bootreq.type == REQUEST_RAID and \
-           request.uniqueID in bootreq.raidmembers:
-            return 1
+        for bootreq in bootreqs:
+            if bootreq == request:
+                return 1
+
+            if bootreq.type == REQUEST_RAID and \
+                   request.uniqueID in bootreq.raidmembers:
+                return 1
 
         return 0
 
@@ -734,15 +764,15 @@ class Partitions:
 
         tmp = self.getBootableRequest()
 
-        # if raid, we want all of the contents of the bootable raid
-        if tmp and tmp.type == REQUEST_RAID:
-            boot = []
-            for member in tmp.raidmembers:
-                boot.append(self.getRequestByID(member))
-        elif tmp:
-            boot = [tmp]
-        else:
-            boot = []
+        boot = []
+        if tmp:
+            for req in tmp:
+                # if raid, we want all of the contents of the bootable raid
+                if req.type == REQUEST_RAID:
+                    for member in req.raidmembers:
+                        boot.append(self.getRequestByID(member))
+                else:
+                    boot.append(req)
 
         # remove the bootables from the request
         for bootable in boot:
@@ -784,6 +814,17 @@ class Partitions:
                 errors.append(_("You must create a /boot/efi partition of "
                                 "type FAT and a size of 50 megabytes."))
 
+        if (iutil.getPPCMachine() == "pSeries" or
+            iutil.getPPCMachine() == "iSeries"):
+            reqs = self.getBootableRequest()
+            found = 0
+            for req in reqs:
+                if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
+                    found = 1
+                    break
+            if not found:
+                errors.append(_("You must create a PPC PReP Boot partition."))
+
         for (mount, size) in checkSizes:
             req = self.getRequestByMountPoint(mount)
             if not req:
@@ -812,18 +853,22 @@ class Partitions:
                     if rc:
                         errors.append(rc)
 
-        bootreq = self.getBootableRequest()
-        # XXX 390 can't have boot on RAID
-        if (bootreq and (isinstance(bootreq, partRequests.RaidRequestSpec)) and
-            (not raid.isRaid1(bootreq.raidlevel))):
-            errors.append(_("Bootable partitions can only be on RAID1 "
-                            "devices."))
+        bootreqs = self.getBootableRequest()
+        if bootreqs:
+            for bootreq in bootreqs:
+                # XXX 390 can't have boot on RAID
+                if (bootreq and
+                    (isinstance(bootreq, partRequests.RaidRequestSpec)) and
+                    (not raid.isRaid1(bootreq.raidlevel))):
+                    errors.append(_("Bootable partitions can only be on RAID1 "
+                                    "devices."))
 
-        # can't have bootable partition on LV
-        if (bootreq and
-            (isinstance(bootreq, partRequests.LogicalVolumeRequestSpec))):
-            errors.append(_("Bootable partitions cannot be on a "
-                            "logical volume."))
+                # can't have bootable partition on LV
+                if (bootreq and
+                    (isinstance(bootreq,
+                                partRequests.LogicalVolumeRequestSpec))):
+                    errors.append(_("Bootable partitions cannot be on a "
+                                    "logical volume."))
 
         if foundSwap == 0:
             warnings.append(_("You have not specified a swap partition.  "
