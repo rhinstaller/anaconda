@@ -55,14 +55,23 @@ def fitConstrained(diskset, requests, primOnly=0):
             continue
         if primOnly and not request.primary:
             continue
-        if request.drive and (request.start != None) and request.end:
+        if request.drive and (request.start != None):
+            if not request.end and not request.size:
+                raise PartitioningError, "Tried to create constrained partition without size or end"
+
             fsType = request.fstype.getPartedFileSystemType()
             disk = diskset.disks[request.drive]
             if not disk: # this shouldn't happen
                 raise PartitioningError, "Selected to put partition on non-existent disk!"
 
             startSec = start_cyl_to_sector(disk.dev, request.start)
-            endSec = end_cyl_to_sector(disk.dev, request.end)
+
+            if request.end:
+                endCyl = request.end
+            elif request.size:
+                endCyl = end_sector_to_cyl(disk.dev, ((1024 * 1024 * request.size) / disk.dev.sector_size) + startSec)
+            
+            endSec = end_cyl_to_sector(disk.dev, endCyl)
 
             # XXX need to check overlaps properly here
             if startSec < 0:
@@ -100,7 +109,7 @@ def fitConstrained(diskset, requests, primOnly=0):
                                            "a flag that is not available.")
                 newp.set_flag(flag, 1)
             request.device = PartedPartitionDevice(newp).getDevice()
-            request.currentDrive = drive
+            request.currentDrive = request.drive
 
     return PARTITION_SUCCESS
 

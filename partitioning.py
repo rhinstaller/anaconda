@@ -94,6 +94,9 @@ def get_partition_name(partition):
     return "%s%d" % (partition.geom.disk.dev.path[5:],
                      partition.num)
 
+def get_partition_drive(partition):
+    return "%s" %(partition.geom.disk.dev.path[5:])
+
 def get_logical_partitions(disk):
     rc = []
     part = disk.next_partition ()

@@ -243,6 +243,54 @@ class PartitionWindow:
         self.sizeOptionsChange((sizeopts, limitentry))
         return (sizeopts, limitentry, optiongrid)
 
+
+    # the selected cylinder boundary type changed
+    def cylOptionsChange(self, (cylopts, end, size)):
+        if cylopts.getSelection() == "end":
+            end.setFlags(FLAG_DISABLED, FLAGS_RESET)
+            size.setFlags(FLAG_DISABLED, FLAGS_SET)
+        elif cylopts.getSelection() == "size":
+            end.setFlags(FLAG_DISABLED, FLAGS_SET)            
+            size.setFlags(FLAG_DISABLED, FLAGS_RESET)
+
+
+    # make the list of cylinder stuff
+    def makeCylEntries(self, request):
+        subgrid = Grid(2, 4)
+
+        startLbl = Label(_("Start Cylinder:"))
+        subgrid.setField(startLbl, 0, 0, (0,0,2,0), anchorRight=1)
+        start = "%s" %(int(request.start))
+        start = Entry(7, start)
+        subgrid.setField(start, 1, 0, anchorLeft=1)
+
+        cylopts = RadioGroup()
+        enddef = 1
+        sizedef = 0
+        if not request.end:
+            enddef = 0
+            sizedef = 1
+
+        endrb = cylopts.add(_("End Cylinder:"), "end", enddef)
+        subgrid.setField(endrb, 0, 1, (0,0,2,0), anchorRight=1)
+        end = Entry(7)
+        if request.end:
+            end.set("%s" %(int(request.end)))
+        subgrid.setField(end, 1, 1, anchorLeft=1)
+
+        sizerb = cylopts.add(_("Size (MB):"), "size", sizedef)
+        subgrid.setField(sizerb, 0, 2, (0,0,2,0), anchorRight=1)
+        size = Entry(7)
+        if request.size:
+            size.set("%s" %(int(request.size)))
+        subgrid.setField(size, 1, 2, anchorLeft=1)
+
+        endrb.setCallback(self.cylOptionsChange, (cylopts, end, size))
+        sizerb.setCallback(self.cylOptionsChange, (cylopts, end, size))
+        self.cylOptionsChange((cylopts, end, size))
+        
+        return (cylopts, start, end, size, subgrid)
+
         
     # make the list of RAID levels
     def makeRaidList(self, request):
@@ -308,21 +356,30 @@ class PartitionWindow:
             subgrid = Grid(2, 1)
             (fstype, fsgrid) = self.makeFsList(origrequest)
             subgrid.setField(fsgrid, 0, 0, anchorLeft = 1, anchorTop=1)
-            (drivelist, drivegrid) = self.makeDriveList(origrequest)
-            subgrid.setField(drivegrid, 1, 0, (2,0,0,0), anchorRight=1, anchorTop=1)
-            poplevel.add(subgrid, 0, row, (0,1,0,0), growx=1)
 
-            # size stuff
-            row = row + 1
+            if origrequest.start == None:
+                (drivelist, drivegrid) = self.makeDriveList(origrequest)
+                subgrid.setField(drivegrid, 1, 0, (2,0,0,0), anchorRight=1, anchorTop=1)
+                poplevel.add(subgrid, 0, row, (0,1,0,0), growx=1)
 
-            allsize = Grid(2, 1)
-            (size, sizegrid) = self.makeSizeEntry(origrequest)
-            allsize.setField(sizegrid, 0, 0, anchorTop = 1)
-            
-            (sizeopts, limitentry, optiongrid) = self.makeSizeOptions(origrequest)
-            allsize.setField(optiongrid, 1, 0)
+                # size stuff
+                row = row + 1
 
-            poplevel.add(allsize, 0, row, (0,1,0,0), growx=1)
+                allsize = Grid(2, 1)
+                (size, sizegrid) = self.makeSizeEntry(origrequest)
+                allsize.setField(sizegrid, 0, 0, anchorTop = 1)
+
+                (sizeopts, limitentry, optiongrid) = self.makeSizeOptions(origrequest)
+                allsize.setField(optiongrid, 1, 0)
+
+                poplevel.add(allsize, 0, row, (0,1,0,0), growx=1)
+            else: # explicit add via cylinder
+                poplevel.add(subgrid, 0, row, (0,1,0,0))
+
+                row = row + 1
+                (cylopts, start, end, size, cylgrid) = self.makeCylEntries(origrequest)
+                poplevel.add(cylgrid, 0, row, (0,1,0,0))
+                
 
             # primary
             row = row + 1
@@ -367,23 +424,6 @@ class PartitionWindow:
 
             if origrequest.type == REQUEST_NEW:
                 filesystem = fstype.current()
-                growtype = sizeopts.getSelection()
-                if growtype == "fixed":
-                    grow = None
-                else:
-                    grow = TRUE
-
-                if growtype == "limit":
-                    maxsize = int(limitentry.value())
-                else:
-                    maxsize = None
-
-                if len(drivelist.getSelection()) == len(self.diskset.disks.keys()):
-                    allowdrives = None
-                else:
-                    allowdrives = []
-                    for i in drivelist.getSelection():
-                        allowdrives.append(self.diskset.disks[i])
 
                 if primary.selected():
                     primonly = TRUE
@@ -392,16 +432,48 @@ class PartitionWindow:
 
                 request = copy.copy(origrequest)
                 request.fstype = filesystem
-                request.size = int(size.value())
                 if request.fstype.isMountable():
                     request.mountpoint = self.mount.value()
                 else:
                     request.mountpoint = None
-                request.drive = allowdrives
                 request.format = TRUE
-                request.grow = grow
                 request.primary = primonly
-                request.maxSize = maxsize
+
+                if origrequest.start == None:
+                    request.size = int(size.value())
+                
+                    growtype = sizeopts.getSelection()
+                    if growtype == "fixed":
+                        grow = None
+                    else:
+                        grow = TRUE
+                    if growtype == "limit":
+                        maxsize = int(limitentry.value())
+                    else:
+                        maxsize = None
+                    request.grow = grow
+                    request.maxSize = maxsize
+
+                    if len(drivelist.getSelection()) == len(self.diskset.disks.keys()):
+                        allowdrives = None
+                    else:
+                        allowdrives = []
+                        for i in drivelist.getSelection():
+                            allowdrives.append(self.diskset.disks[i]) 
+                    request.drive = allowdrives
+                else:
+                    request.start = int(start.value())
+
+                    cyltype = cylopts.getSelection()
+                    if cyltype == "end":
+                        request.end = int(end.value())
+                        request.size = None
+                    elif cyltype == "size":
+                        request.end = None
+                        request.size = int(size.value())
+                    else: # can't ever get here
+                        raise RuntimeError, "Selected a way of partitioning by cylinder that's not supported"
+                    
 
                 err = sanityCheckPartitionRequest(self.partitions, request)
                 if err:
@@ -540,8 +612,11 @@ class PartitionWindow:
                                buttons = [ TEXT_OK_BUTTON ] )
             return
         elif part.type & parted.PARTITION_FREESPACE:
-            # XXX should do an add by cylinder instead of this
-            self.newCb()
+            request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW,
+                                    start = start_sector_to_cyl(part.geom.disk.dev, part.geom.start),
+                                    end = end_sector_to_cyl(part.geom.disk.dev, part.geom.end),
+                                    drive = get_partition_drive(part))
+            self.editPartitionRequest(request)
             return
         elif part.type & parted.PARTITION_EXTENDED:
             return
