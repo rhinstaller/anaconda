@@ -222,7 +222,7 @@ class Network:
 		self.netdevices[self.firstnetdevice].set(("onboot", "yes"))
 
 	    # assign description to each device based on kudzu information
-	    probedevs = kudzu.probe(kudzu.CLASS_NETWORK, kudzu.CLASS_UNSPEC, kudzu.PROBE_ALL)
+	    probedevs = kudzu.probe(kudzu.CLASS_NETWORK, kudzu.CLASS_UNSPEC, 0)
 	    for netdev in probedevs:
 		device = netdev.device
 		if device in self.netdevices.keys():
