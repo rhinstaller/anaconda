@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.5.2
+Version: 9.1.5.3
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Feb 19 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.5.3-1.RHEL
+- Add forcedeth support (#148868
+- Add 3w-9xxx (katzj, #128651)
+
 * Tue Feb 08 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.5.2-1.RHEL
 - Only configure ksdevice if no --device (#138852)
 - backport changes from Kristian Høgsberg <krh@redhat.com> 
