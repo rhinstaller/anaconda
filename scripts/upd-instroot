@@ -759,12 +759,12 @@ rm -f $KEEPFILE $KEEPFILEGR
 echo -n "Scrubbing trees..."
 for p in $DEST $DESTGR; do
 	echo -n -e "\rScrubbing trees..." "$p"
-	cp ../lib/anaconda/raidstart-stub $p/usr/bin/raidstart
-	cp ../lib/anaconda/raidstop-stub $p/usr/bin/raidstop
-	cp ../lib/anaconda/losetup-stub $p/usr/bin/losetup
-	cp ../lib/anaconda/pump-stub $p/usr/bin/pump
-	cp ../lib/anaconda/list-harddrives-stub $p/usr/bin/list-harddrives
-	cp ../lib/anaconda/kudzu-probe-stub $p/usr/bin/list-harddrives
+	cp $p/usr/lib/anaconda/raidstart-stub $p/usr/bin/raidstart
+	cp $p/usr/lib/anaconda/raidstop-stub $p/usr/bin/raidstop
+	cp $p/usr/lib/anaconda/losetup-stub $p/usr/bin/losetup
+	cp $p/usr/lib/anaconda/pump-stub $p/usr/bin/pump
+	cp $p/usr/lib/anaconda/list-harddrives-stub $p/usr/bin/list-harddrives
+	cp $p/usr/lib/anaconda/kudzu-probe-stub $p/usr/bin/list-harddrives
 
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
 	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/lib
