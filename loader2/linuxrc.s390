@@ -210,7 +210,9 @@ else  # ctc0, escon0, iucv0
 	 if [ ":$NETTYPE" = ":iucv" ]; then
 		  while [ -z "$IUCV" ]; do
 			   echo $"Enter iucv kernel module options (usually iucv=HOST,"
-			   echo $"where HOST is TCPIP for VM, \$TCPIP for VIF):"
+			   echo $"where HOST is TCPIP for the VM TCP/IP service machine"
+				echo $"or the name (in capitalized letters) of another"
+				echo $"Linux guest:"
 			   read IUCV
 		  done
 	 fi
@@ -250,7 +252,7 @@ elif [ -n "$QETH" -o -n "$HSI" ]; then
 	insmod qeth$LO
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
-   echo "alias $DEVICE qeth" >> /tmp/modules.conf
+	echo "alias $DEVICE qeth" >> /tmp/modules.conf
 else
    echo $"Unknown network device, aborting installation"
    exit 1
