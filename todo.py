@@ -1095,6 +1095,10 @@ class ToDo:
 	(where, linear, append) = todo.instClass.getLiloInformation()
 	todo.liloDevice = where
 
+	if todo.ddruid:
+	    todo.ddruid = None
+	    todo.mounts = {}
+
 	todo.users = []
 	if todo.instClass.rootPassword:
 	    todo.rootpassword.set(todo.instClass.rootPassword)
