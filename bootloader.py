@@ -138,7 +138,7 @@ class x86BootloaderInfo:
 	    f.write('\n')
 
 	    if os.access (instRoot + initrd, os.R_OK):
-		f.write('\tinitrd %s\n' % (initrd[len(cfPath):], ))
+		f.write('\tinitrd %s\n' % (cfPath + initrd[len(cfPath):]))
 
 	for (label, device) in chainList:
 	    f.write('title %s (%s)\n' % (label, version))
