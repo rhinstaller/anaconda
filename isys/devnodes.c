@@ -101,6 +101,10 @@ int devMakeInode(char * devName, char * path) {
 	type = S_IFBLK;
 	major = 9;
 	minor = atoi(devName + 2);
+    } else if (devName[0] == 's' && devName[1] == 'g') {
+	type = S_IFBLK;
+	major = 21;
+	minor = atoi(devName + 2);
     } else if (!strncmp(devName, "loop", 4)) {
 	type = S_IFBLK;
 	major = 7;
