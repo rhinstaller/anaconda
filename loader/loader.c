@@ -320,7 +320,7 @@ int addDeviceManually(moduleInfoSet modInfo, moduleList modLoaded,
     do {
 	rc = newtWinMenu(_("Devices"), 
 		       _("What kind of device would you like to add"), 40,
-		       0, 20, 2, items, &choice, _("Ok"), _("Back"), NULL);
+		       0, 20, 2, items, &choice, _("OK"), _("Back"), NULL);
 	if (rc == 2) return LOADER_BACK;
 
 	if (choice == 1)
@@ -475,7 +475,7 @@ static int setupStage2Image(int fd, char * dest, int flags,
     }
 
     if (mountLoopback(dest, mntpoint, device)) {
-	newtWinMessage(_("Error"), _("Ok"),
+	newtWinMessage(_("Error"), _("OK"),
 		"Error mounting /dev/%s on %s (%s). This shouldn't "
 		    "happen, and I'm rebooting your system now.", 
 		device, mntpoint, strerror(errno));
@@ -532,7 +532,7 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 
 	sprintf(filespec, "/tmp/hdimage/%s", dirName);
 	if (!(dir = opendir(filespec))) {
-	    newtWinMessage(_("Error"), _("Ok"), 
+	    newtWinMessage(_("Error"), _("OK"), 
 			   _("Failed to read directory %s: %s"),
 			   filespec, strerror(errno));
 	    umount("/tmp/hdimage");
@@ -850,7 +850,7 @@ static char * mountHardDrive(struct installMethod * method,
 				     NEWT_GRID_COMPONENT, dirEntry,
 				     NEWT_GRID_EMPTY);
 
-	buttons = newtButtonBar(_("Ok"), &okay, _("Back"), &back, NULL);
+	buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
 	
 	grid = newtCreateGrid(1, 4);
 	newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
@@ -909,7 +909,7 @@ static char * mountHardDrive(struct installMethod * method,
 
 	url = setupIsoImages(part->name + 5, type, dir, flags);
 	if (!url) {
-	    newtWinMessage(_("Error"), _("Ok"), 
+	    newtWinMessage(_("Error"), _("OK"), 
 			_("Device %s does not appear to contain "
 			  "Red Hat CDROM images."), part->name);
 	    continue;
@@ -964,7 +964,7 @@ static char * setupCdrom(struct installMethod * method,
 	if (probeQuickly) return NULL;
 
 	if (hasCdrom) {
-	    rc = newtWinChoice(_("Error"), _("Ok"), _("Back"), 
+	    rc = newtWinChoice(_("Error"), _("OK"), _("Back"), 
 			_("I could not find a Red Hat Linux "
 			  "CDROM in any of your CDROM drives. Please insert "
 			  "the Red Hat CD and press \"OK\" to retry."));
@@ -1058,7 +1058,7 @@ static int ensureNetDevice(struct knownDevices * kd,
 		     _("You have multiple network devices on this system. "
 		       "Which would you like to install through?"), 40, 10, 10, 
 		     deviceNums < 6 ? deviceNums : 6, devices,
-		     &deviceNum, _("Ok"), _("Back"), NULL);
+		     &deviceNum, _("OK"), _("Back"), NULL);
     if (rc == 2)
 	return LOADER_BACK;
 
@@ -1137,12 +1137,12 @@ static char * mountNfsImage(struct installMethod * method,
 		    }
 		} else {
 		    umount("/mnt/source");
-		    newtWinMessage(_("Error"), _("Ok"), 
+		    newtWinMessage(_("Error"), _("OK"), 
 				   _("That directory does not seem to contain "
 				     "a Red Hat installation tree."));
 		}
 	    } else {
-		newtWinMessage(_("Error"), _("Ok"), 
+		newtWinMessage(_("Error"), _("OK"), 
 		        _("I could not mount that directory from the server"));
 	    }
 
@@ -1182,7 +1182,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 
 	if (fd == -2) return 1;
 	if (fd < 0) {
-	    newtWinMessage(_("Error"), _("Ok"),
+	    newtWinMessage(_("Error"), _("OK"),
 			    _("File %s/%s not found on server."), 
 			    ui->prefix, file);
 	    return 1;
@@ -1210,7 +1210,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
 			   "/tmp/ramfs/netstg1.img",
 			   "/mnt/runtime", "loop0")) {
 	newtWinMessage(ui->protocol == URL_METHOD_FTP ?
-			_("FTP") : _("HTTP"), _("Ok"), 
+			_("FTP") : _("HTTP"), _("OK"), 
 	       _("Unable to retrieve the first install image"));
 	return 1;
     }
@@ -1241,7 +1241,7 @@ static char * mountUrlImage(struct installMethod * method,
 	!strcmp(method->name, "FTP") ? URL_METHOD_FTP : URL_METHOD_HTTP;
 
     if (totalMemory() < 18000) {
-	newtWinMessage(_("Error"), _("Ok"), _("FTP and HTTP installs "
+	newtWinMessage(_("Error"), _("OK"), _("FTP and HTTP installs "
 			"require 20MB or more of system memory."));
 
 	return NULL;
@@ -1487,7 +1487,7 @@ static char * doMountImage(char * location,
 			     _("What type of media contains the packages to be "
 			       "installed?"), 
 			     30, 10, 20, 6, installNames, 
-			     &methodNum, _("Ok"), _("Back"), NULL);
+			     &methodNum, _("OK"), _("Back"), NULL);
 	    if (rc && rc != 1) {
 		step = STEP_KBD;
                 dir = -1;
@@ -2204,7 +2204,7 @@ int kickstartFromFloppy(char * location, moduleList modLoaded,
     }
 
     if (access("/tmp/ks/ks.cfg", R_OK)) {
-	newtWinMessage(_("Error"), _("Ok"),
+	newtWinMessage(_("Error"), _("OK"),
 		_("Cannot find ks.cfg on boot floppy."));
 	return 1;
     }
@@ -2234,7 +2234,7 @@ int copyDirectory(char * from, char * to) {
     mkdir(to, 0755);
 
     if (!(dir = opendir(from))) {
-	newtWinMessage(_("Error"), _("Ok"),
+	newtWinMessage(_("Error"), _("OK"),
 		       _("Failed to read directory %s: %s"),
 		       from, strerror(errno));
 	return 1;
@@ -2297,7 +2297,7 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
     startNewt(flags);
 
     do { 
-	rc = newtWinChoice(_("Updates Disk"), _("Ok"), _("Cancel"),
+	rc = newtWinChoice(_("Updates Disk"), _("OK"), _("Cancel"),
 		_("Insert your updates disk and press \"OK\" to continue."));
 
 	if (rc == 2) return;
@@ -2312,7 +2312,7 @@ logMessage("UPDATES floppy device is %s", floppyDevice);
 	devMakeInode(floppyDevice, "/tmp/floppy");
 	if (doPwMount("/tmp/floppy", "/tmp/update-disk", "ext2", 1, 0, NULL, 
 		      NULL)) {
-	    newtWinMessage(_("Error"), _("Ok"), 
+	    newtWinMessage(_("Error"), _("OK"), 
 			   _("Failed to mount floppy disk."));
 	} else {
 	    /* Copy everything to /tmp/updates so .so files don't get run
@@ -2521,7 +2521,7 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 static void checkForRam(int flags) {
     if (!FL_EXPERT(flags) && (totalMemory() < MIN_RAM)) {
 	startNewt(flags);
-	newtWinMessage(_("Error"), _("Ok"), _("You do not have enough "
+	newtWinMessage(_("Error"), _("OK"), _("You do not have enough "
 					      "RAM to install Red Hat Linux on this machine."));
 	stopNewt();
 	exit(0);

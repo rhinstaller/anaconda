@@ -144,7 +144,7 @@ class SiloImagesWindow:
 	device = Label("/dev/" + partition)
 	newLabel = Entry (20, scroll = 1, returnExit = 1, text = itemLabel)
 
-	buttons = ButtonBar(screen, [_("Ok"), _("Clear"), _("Cancel")])
+	buttons = ButtonBar(screen, [_("OK"), _("Clear"), _("Cancel")])
 
 	subgrid = Grid(2, 2)
 	subgrid.setField(devLabel, 0, 0, anchorLeft = 1)
@@ -157,7 +157,7 @@ class SiloImagesWindow:
 	g.add(buttons, 0, 1, growx = 1)
 
 	result = ""
-	while (result != string.lower(_("Ok")) and result != newLabel):
+	while (result != string.lower(_("OK")) and result != newLabel):
 	    result = g.run()
 	    if (buttons.buttonPressed(result)):
 		result = buttons.buttonPressed(result)

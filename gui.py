@@ -108,7 +108,7 @@ def partedExceptionWindow(exc):
     flags = ((parted.EXCEPTION_FIX, N_("Fix")),
              (parted.EXCEPTION_YES, N_("Yes")),
              (parted.EXCEPTION_NO, N_("No")),
-             (parted.EXCEPTION_OK, N_("Ok")),
+             (parted.EXCEPTION_OK, N_("OK")),
              (parted.EXCEPTION_RETRY, N_("Retry")),
              (parted.EXCEPTION_IGNORE, N_("Ignore")),
              (parted.EXCEPTION_CANCEL, N_("Cancel")))

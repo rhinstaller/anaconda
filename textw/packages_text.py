@@ -295,7 +295,7 @@ class PackageDepWindow:
         g.add (TextboxReflowed (50, _("Some of the packages you have "
                                       "selected to install require "
                                       "packages you have not selected. If "
-                                      "you just select Ok all of those "
+                                      "you just select OK all of those "
                                       "required packages will be "
                                       "installed.")), 0, 0, (0, 0, 0, 1))
         g.add (Label ("%-20s %-20s" % (_("Package"), _("Requirement"))), 0, 1, anchorLeft = 1)

@@ -31,7 +31,7 @@ static int setupCDdevicePanel(int * type) {
 
     rc = newtWinMenu(_("CDROM type"), _("What type of CDROM do you have?"),
 		     30, 5, 5, 7, menuItems,
-		     &cdromType, _("Ok"), _("Back"), NULL);
+		     &cdromType, _("OK"), _("Back"), NULL);
 
     if (rc == 2) return LOADER_BACK;
 

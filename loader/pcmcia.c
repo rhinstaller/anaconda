@@ -101,7 +101,7 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
     }
 
     while (rc) {
-	rc = newtWinChoice(_("PCMCIA"), _("Ok"), _("Cancel"),
+	rc = newtWinChoice(_("PCMCIA"), _("OK"), _("Cancel"),
 		      _("Please insert your PCMCIA driver disk "
 			"into your floppy drive now."));
 	if (rc == 2) return LOADER_BACK;
@@ -111,7 +111,7 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
 	rc = 1;
 	if (doPwMount("/tmp/floppy", "/modules", "ext2", 1, 0, NULL, 
 		      NULL)) {
-	    newtWinMessage(_("Error"), _("Ok"), _("Failed to mount disk."));
+	    newtWinMessage(_("Error"), _("OK"), _("Failed to mount disk."));
 	} else {
 	    int fd;
 
@@ -128,7 +128,7 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
 		    if (mlLoadModule("pcmcia_core", NULL, modLoaded, modDeps, 
 				     NULL, modInfo, flags)) {
 			newtPopWindow();
-			newtWinMessage(_("Error"), _("Ok"),
+			newtWinMessage(_("Error"), _("OK"),
 				_("That floppy does not look like a "
 				  "Red Hat PCMCIA driver disk."));
 		    }

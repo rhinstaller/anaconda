@@ -24,7 +24,7 @@
 #include "windows.h"
 
 #define errorWindow(String) \
-	newtWinMessage(_("Error"), _("Ok"), String, strerror (errno));
+	newtWinMessage(_("Error"), _("OK"), String, strerror (errno));
 
 extern int haveKon;
 
@@ -99,7 +99,7 @@ static void loadLanguageList(int flags) {
 
     f = fopen(file, "r");
     if (!f) {
-        newtWinMessage(_("Error"), _("Ok"), "cannot open %s: %s",
+        newtWinMessage(_("Error"), _("OK"), "cannot open %s: %s",
                        file, strerror (errno));
         return;
     }
@@ -147,7 +147,7 @@ void loadLanguage (char * file, int flags) {
     stream = gzopen(file, "r");
 
     if (!stream) {
-	newtWinMessage("Error", "Ok", "Translation for %s is not available.  "
+	newtWinMessage("Error", "OK", "Translation for %s is not available.  "
 		       "The Installation will proceed in English.", key);
 	return ;
     }
@@ -158,14 +158,14 @@ void loadLanguage (char * file, int flags) {
     gzclose(stream);
 
     if (rc || access("/tmp/translation", R_OK)) {
-	newtWinMessage("Error", "Ok", "Cannot get translation file %s.\n", 
+	newtWinMessage("Error", "OK", "Cannot get translation file %s.\n", 
 			filename);
 	return;
     }
     
     fd = open("/tmp/translation", O_RDONLY);
     if (fd < 0) {
-	newtWinMessage("Error", "Ok", "Failed to open /tmp/translation: %s\n", 
+	newtWinMessage("Error", "OK", "Failed to open /tmp/translation: %s\n", 
 			strerror(errno));
 	return;
     }
@@ -207,7 +207,7 @@ static int loadFont(char * fontFile, int flags) {
 #endif
 	stream = gzopen("/etc/fonts.cgz", "r");
 	if (!stream) {
-	    newtWinMessage("Error", "Ok", 
+	    newtWinMessage("Error", "OK", 
 			"Cannot open fonts: %s", strerror(errno));
 	    return LOADER_ERROR;
 	}
@@ -296,7 +296,7 @@ int chooseLanguage(char ** lang, int flags) {
 
     newtWinMenu(_("Choose a Language"), _("What language should be used "
 		"during the installation process?"), 40, 5, 5, 8,
-		langs, &choice, _("Ok"), NULL);
+		langs, &choice, _("OK"), NULL);
 
     *lang = languages[choice].lc_all;
 
@@ -355,7 +355,7 @@ int chooseLanguage(char ** lang, int flags) {
 	(strcmp (languages[choice].font, "None"))) {
 	loadLanguage (NULL, flags);
     } else {
-	newtWinMessage("Language Unavailable", "Ok", 
+	newtWinMessage("Language Unavailable", "OK", 
 		       "%s display is unavailable in text mode.  The "
 		       "installation will continue in English until the "
 		       "display of %s is possible.", languages[choice].lang,
@@ -570,7 +570,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 		if (i < hdr.numEntries)
 		    num = i;
 		else 
-		    newtWinMessage("Kickstart Error", "Ok", "Bad keymap "
+		    newtWinMessage("Kickstart Error", "OK", "Bad keymap "
 				   "name %s passed to kickstart command.",
 				   argv[1]);
 	    }
@@ -605,7 +605,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 
 	rc = newtWinMenu(_("Keyboard Type"), 
 			_("What type of keyboard do you have?"),
-		        40, 5, 5, 8, kbds, &num, _("Ok"), _("Back"), NULL);
+		        40, 5, 5, 8, kbds, &num, _("OK"), _("Back"), NULL);
 	if (rc == 2) return LOADER_BACK;
 
 	/* num needs to index the right keyboard infoTable */
