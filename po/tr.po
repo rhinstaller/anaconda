@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall\n"
 "POT-Creation-Date: 1999-09-19 11:17-0400\n"
-"PO-Revision-Date: 1999-03-28 04:05+0200\n"
+"PO-Revision-Date: 1999-09-20 12:00+0200\n"
 "Last-Translator: Görkem Çetin <gorkem@gelecek.com.tr>\n"
 "Language-Team: Gelecek A.Þ <gorkem@gelecek.com.tr>\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 
 #: ../iw/language.py:10 ../text.py:39 ../text.py:856
 msgid "Language Selection"
-msgstr "Dil seçimi"
+msgstr "Dil Seçimi"
 
 #: ../text.py:40
 msgid "What language would you like to use during the installation process?"
@@ -669,13 +669,12 @@ msgid "Skip boot disk creation"
 msgstr "Açýlýþ disketi yaratmayý atla"
 
 #: ../iw/confirm.py:10
-#, fuzzy
 msgid "About to Install"
-msgstr "Kurulacak Bileþenler"
+msgstr "Kuruluma Baþlanýyor"
 
 #: ../iw/confirm.py:15
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr ""
+msgstr "Red Hat Linux kurulumuna baþlamak için týklayýn."
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -763,9 +762,8 @@ msgid "Upgrade"
 msgstr "Güncelleme"
 
 #: ../iw/installpath.py:188
-#, fuzzy
 msgid "Use fdisk"
-msgstr "fdisk"
+msgstr "fdisk Kullan"
 
 #: ../iw/keyboard.py:12
 msgid "Keyboard Configuration"
@@ -1926,8 +1924,8 @@ msgid ""
 "button now."
 msgstr ""
 "Bu modül, çalýþmasýný ekleyecek parametreler alabilir. Eðer hangi "
-"parametreleri kullanacaðýnýzý bilmiyorsanýz, bu bölümü atlamak için "
-"þimdi\"OK\" tuþuna basýn."
+"parametreleri kullanacaðýnýzý bilmiyorsanýz, bu bölümü atlamak için þimdi "
+"\"Tamam\" tuþuna basýn."
 
 #: ../loader/devices.c:64
 msgid "Module Parameters"
@@ -1940,24 +1938,27 @@ msgstr "Aygýtlar"
 
 #: ../loader/devices.c:166
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr ""
+msgstr "Sürücü disketini takýp \"Tamam\" düðmesine týklayýn."
 
 #: ../loader/devices.c:175
-#, fuzzy
 msgid "Failed to mount floppy disk."
-msgstr "Sunucuya baðlanýlamadý"
+msgstr "Disket baðlanamadý."
 
 #: ../loader/devices.c:179
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
+"Sürücüye yerleþtirilen disket, Red Hat'in bu sürümü için güncel "
+"sürücüleriçermiyor."
 
 #: ../loader/devices.c:198
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
+"Hangi sürücü denensin? Eðer listede bulunmayan bir sürücüye ihtiyacýnýz "
+"varsa,ve elinizde ayrý bir sürücü disketi bulunuyorsa, lütfen F2 tuþun basýn."
 
 #: ../loader/devices.c:203
 msgid "Which driver should I try?"
@@ -2096,7 +2097,7 @@ msgid ""
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 "CD sürücülerinizde Red Hat Linux CD'si bulunamadý. Lütfen Red Hat "
-"CD'sinisürücüye yerleþtirin ve \"OK\" tuþuna basýn."
+"CD'sinisürücüye yerleþtirin ve \"Tamam\" tuþuna basýn."
 
 #: ../loader/loader.c:849
 msgid "That directory does not seem to contain a Red Hat installation tree."
