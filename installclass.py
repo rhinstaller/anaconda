@@ -30,7 +30,7 @@ class BaseInstallClass:
     # default to not being hidden
     hidden = 0
     pixmap = None
-    showMinimal = 0
+    showMinimal = 1
     showLoginChoice = 0
     description = None
     
@@ -313,7 +313,9 @@ class BaseInstallClass:
 	id.langSupport.setDefault(id.langSupport.getLangNameByNick(default))
 
     def setLanguage(self, id, lang):
+        print "lang is ", lang
 	instLangName = id.instLanguage.getLangNameByNick(lang)
+        print "instlangname is ", instLangName
 	id.instLanguage.setRuntimeLanguage(instLangName)
 
     def setDesktop(self, id, desktop):
@@ -424,8 +426,9 @@ class BaseInstallClass:
 
         if resolution and depth:
 	    if depth not in availableDepths:
-                raise RuntimeError, "Invalid depth specified"
-            # XXX should we fallback to our "best possible" here?
+                log("Requested depth %s not available, falling back to %s"
+                    %(depth, availableDepths[-1]))
+                depth = availableDepths[-1]
 
 	    xcfg.set_colordepth(depth)
 	    availableRes = xcfg.available_resolutions()
