@@ -1321,6 +1321,8 @@ class PartitionWindow(InstallWindow):
                                    GDK.MOD1_MASK, 0)
             buttonBox.add (button)
             button.connect ("clicked", cb)
+
+        self.ics.getICW().window.add_accel_group (self.accelgroup)
         
         # set up the tree
         titles = [N_("Device"), N_("Start"), N_("End"),
