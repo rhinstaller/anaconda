@@ -25,7 +25,6 @@ class InstallProgressWindow (InstallWindow):
 
         ics.setTitle (_("Installing Packages"))
         ics.setPrevEnabled (0)
-        ics.readHTML ("installing")
 
         self.todo = ics.getToDo ()
 	self.numComplete = 0
@@ -84,9 +83,11 @@ class InstallProgressWindow (InstallWindow):
 
     def setPackage(self, header):
         threads_enter ()
-        self.name.set_text (header[rpm.RPMTAG_NAME])
-        self.size.set_text ("%.1f KBytes" % (header[rpm.RPMTAG_SIZE] / 1024.0))
-        self.summary.set_text (header[rpm.RPMTAG_SUMMARY])
+        self.curPackage["package"].set_text (header[rpm.RPMTAG_NAME])
+        self.curPackage["size"].set_text ("%.1f KBytes" % (header[rpm.RPMTAG_SIZE] / 1024.0))
+        self.curPackage["summary"].set_text (header[rpm.RPMTAG_SUMMARY])
+        print "foobar"
+        print header[rpm.RPMTAG_SUMMARY]
         threads_leave ()
 
     def setSizes (self, total, totalSize):
@@ -99,38 +100,27 @@ class InstallProgressWindow (InstallWindow):
         
         apply (self.clist.set_text, self.status["total"]["size"] +
                                     ("%d M" % (totalSize / (1024 * 1024)),))
+        self.clist.columns_autosize ()
         threads_leave ()
 
     def getScreen (self):
-	table = GtkTable (3, 3)
-	label = GtkLabel (_("Package"))
-        label.set_alignment (0.0, 0.0)
-	table.attach (label, 0, 1, 0, 1, FILL, 0)
-	label = GtkLabel (":")
-	table.attach (label, 1, 2, 0, 1, 0, 0, 5)
-	label = GtkLabel (":")
-	table.attach (label, 1, 2, 1, 2, 0, 0, 5)
-	label = GtkLabel (":")
-	label.set_alignment (0.0, 0.0)
-	table.attach (label, 1, 2, 2, 3, 0, FILL | EXPAND, 5)
-	label = GtkLabel (_("Size"))
-        label.set_alignment (0.0, 0.0)
-	table.attach (label, 0, 1, 1, 2, FILL, 0)
-	label = GtkLabel (_("Summary"))
-        label.set_alignment (0.0, 0.0)
-	table.attach (label, 0, 1, 2, 3, FILL, FILL | EXPAND)
-
-	self.name = GtkLabel();
-        self.name.set_alignment (0.0, 0.0)
-	self.size = GtkLabel();
-        self.size.set_alignment (0.0, 0.0)
-	self.summary = GtkLabel();
-        self.summary.set_alignment (0.0, 0.0)
-        self.summary.set_line_wrap (TRUE)
-	self.summary.set_text ("\n\n")
-	table.attach(self.name, 2, 3, 0, 1, FILL | EXPAND, 0)
-	table.attach(self.size, 2, 3, 1, 2, FILL | EXPAND, 0)
-	table.attach(self.summary, 2, 3, 2, 3, FILL | EXPAND, FILL | EXPAND)
+	table = GtkTable (3, 2)
+        self.curPackage = { "package" : _("Package"),
+                            "size"    : _("Size"),
+                            "summary" : _("Summary") }
+        i = 0
+        for key in ("package", "size", "summary"):
+            label = GtkLabel ("%s: " % (self.curPackage[key],))
+            label.set_alignment (0, 0)
+            table.attach (label, 0, 1, i, i+1, FILL, FILL)
+            label = GtkLabel ()
+            label.set_alignment (0, 0)
+            label.set_line_wrap (TRUE)
+            if key == "summary":
+                label.set_text ("\n\n")
+            self.curPackage[key] = label
+            table.attach (label, 1, 2, i, i+1, FILL, FILL)
+            i = i + 1
 
         vbox = GtkVBox (FALSE, 10)
         vbox.pack_start (table, FALSE)
@@ -155,18 +145,26 @@ class InstallProgressWindow (InstallWindow):
         clist.set_column_justification (1, JUSTIFY_RIGHT)
         clist.set_column_justification (2, JUSTIFY_RIGHT)
         clist.set_column_justification (3, JUSTIFY_RIGHT)
-        clist.append ((_("Total"), "0", "0", "0:00.00"))
-        clist.append ((_("Completed"), "0", "0", "0:00.00"))
-        clist.append ((_("Remaining"), "0", "0", "0:00.00"))
-#        clist.set_column_auto_resize (0, TRUE)
+        clist.append ((_("Total"),     "0", "0 M", "0:00.00"))
+        clist.append ((_("Completed"), "0", "0 M", "0:00.00"))
+        clist.append ((_("Remaining"), "0", "0 M", "0:00.00"))
 	clist.columns_autosize ()
+        for x in range (4):
+            clist.column_title_passive (x)
+        for x in range (3):
+            clist.set_selectable (x, FALSE)
+        clist['can_focus'] = FALSE
         self.clist = clist
-        vbox.pack_start (clist, TRUE)
+        hbox = GtkHBox (FALSE, 5)
+        hbox.pack_start (clist, TRUE)
+        vbox.pack_start (hbox, FALSE)
 
 	self.ics.getInstallInterface ().setPackageProgressWindow (self)
         ii = self.ics.getInstallInterface ()
         icw = ii.icw
         worker = DoInstall (icw, self.todo)
         worker.start ()
+
+	vbox.set_border_width (5)
 	return vbox
 
