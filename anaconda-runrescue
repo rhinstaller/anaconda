@@ -5,8 +5,8 @@
 
 # link from instimage to /etc so things work
 
-for i in "services protocols group"; do
-   ln -s /mnt/source/RedHat/sysimage/etc/$i /etc/$i
-   echo "ln -s /mnt/source/RedHat/sysimage/etc/$i /etc/$i"
+for i in services protocols group; do
+   ln -s /mnt/runtime/etc/$i /etc/$i
+done
 
 exec /bin/sh
