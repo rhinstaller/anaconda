@@ -583,8 +583,6 @@ int main(int argc, char **argv) {
 	/* turn off screen blanking */
 	printstr("\033[9;0]");
 	printstr("\033[8]");
-	/* enable UTF-8 console */
-	printstr("\033%G");
     } else {
 	printstr("(running in test mode).\n");
     }
