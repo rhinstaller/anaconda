@@ -951,7 +951,9 @@ class ToDo:
                     package.select()
             
         del db
-        self.fstab.umountFilesystems (self.instPath)
+
+	if self.setupFilesystems:
+	    self.fstab.umountFilesystems (self.instPath)
 
         # new package dependency fixup
         deps = self.verifyDeps ()
