@@ -174,7 +174,7 @@ class NetworkWindow:
             return INSTALL_BACK
         return INSTALL_OK
 
-    def __call__(self, screen, network, dispatch):
+    def __call__(self, screen, network, dispatch, intf):
 
         devices = network.available ()
         if not devices:
