@@ -112,6 +112,7 @@ void fatal_error(int usePerror) {
 	printf("failed.\n");
 
     printf("\nI can't recover from this.\n");
+    if (testing) exit(0);
     while (1) ;
 }
 
@@ -496,13 +497,14 @@ int main(int argc, char **argv) {
     char twelve = 12;
     int i;
 
-    /* getpid() != 1 should work, by linuxrc tends to get a larger pid */
-    testing = (getpid() > 50);
+    testing = (getppid() != 0) && (getppid() != 1);
 
     if (!testing) {
 	/* turn off screen blanking */
 	printstr("\033[9;0]");
 	printstr("\033[8]");
+    } else {
+	printstr("(running in test mode).\n");
     }
 
     printstr("Greetings.\n");
