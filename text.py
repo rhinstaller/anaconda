@@ -44,7 +44,8 @@ stepToClasses = {
     "partition": ("partition_text", ("PartitionWindow") ),
     "findinstall" : ( "upgrade_text", "UpgradeExamineWindow" ),
     "addswap" : ( "upgrade_text", "UpgradeSwapWindow" ),
-    "bootloader" : ("bootloader_text", ("BootloaderAppendWindow",
+    "bootloader" : ("bootloader_text", ("BootloaderChoiceWindow",
+                                  "BootloaderAppendWindow",
 				  "BootloaderWindow",
 				  "BootloaderImagesWindow" ) ),
     "network" : ("network_text", ( "NetworkWindow", "HostnameWindow" ) ),
@@ -75,11 +76,6 @@ if iutil.getArch() == 'sparc':
     stepToClasses["bootloader"] = ( "silo_text", ( "SiloAppendWindow",
                                                    "SiloWindow"
                                                    "SiloImagesWindow" ) )
-else:
-    stepToClasses["bootloader"] = ( "bootloader_text", ( "BootloaderAppendWindow",
-                                                   "BootloaderWindow",
-                                                   "BootloaderImagesWindow") )
-
 
 
 class InstallWindow:
