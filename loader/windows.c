@@ -8,16 +8,6 @@
 #include "windows.h"
 #include "lang.h"
 
-void errorWindow(char * str) {
-    char * a;
-
-    a = alloca(strlen(str) + 5);
-    strcpy(a, str);
-    strcat(a, ": %s");
-
-    newtWinMessage(_("Error"), _("Ok"), str, strerror(errno));
-}
-
 void winStatus(int width, int height, char * title,
 		char * text, ...) {
     newtComponent t, f;
