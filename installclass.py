@@ -414,6 +414,14 @@ class BaseInstallClass:
         xcfg = xhwstate.XF86HardwareState(defcard=id.videocard, defmon=id.monitor)
 	availableDepths = xcfg.available_color_depths()
 
+	# XXXX -xhwstate will not always get monitor specs set
+	# correctly, so make sure they are set - this is another place
+	# where maintaining the monitor data in xhwstate and
+	# monitor objects IS BAD!
+	xcfg.set_monitor_name(id.monitor.getMonitorName())
+	xcfg.set_hsync(id.monitor.getMonitorHorizSync())
+	xcfg.set_vsync(id.monitor.getMonitorVertSync())
+
         if resolution and depth:
 	    if depth not in availableDepths:
                 raise RuntimeError, "Invalid depth specified"
