@@ -1255,8 +1255,11 @@ class PartitionWindow(InstallWindow):
                 raidmembers.append(id)
 
             request.raidmembers = raidmembers
-            request.raidspares = sparesb.get_value_as_int()
             request.raidlevel = leveloptionmenu.get_active().get_data("level")
+            if request.raidlevel != "RAID0":
+                request.raidspares = sparesb.get_value_as_int()
+            else:
+                request.raidspares = 0
             
             if formatButton:
                 request.format = formatButton.get_active()
