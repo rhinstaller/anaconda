@@ -29,6 +29,7 @@ class KeyboardWindow (InstallWindow):
         if self.hasrun:
             self.todo.x.setKeyboard (self.rulesbase, self.model,
                                      self.layout, self.variant, "")
+            self.todo.keyboard.setfromx (self.model, self.layout)
         return None
 
     def select_row (self, clist, row, col, event):

@@ -56,7 +56,10 @@ class Keyboard (SimpleConfigFile):
 	    "sunt5-uk"		: 'en_US',
 	    "sunt5-us-cz"	: 'cs',
 	    }
-
+    x2console = {}
+    for (key, value) in console2x.items():
+        x2console [value] = key
+    
     def __init__ (self):
 	self.type = "PC"
 	self.model = None
@@ -205,6 +208,23 @@ class Keyboard (SimpleConfigFile):
     def set (self, keytable):
 	if self.type != "Serial":
 	    self.info["KEYTABLE"] = keytable
+
+    def setfromx (self, model, layout):
+        keys = Keyboard.x2console.keys ()
+
+        fuzzy = None
+        for key in keys:
+            (mod, lay) = key
+            if model == mod and layout == lay:
+                self.info["KEYTABLE"] = Keyboard.x2console[key]
+                break
+            if layout == lay:
+                fuzzy = key
+
+        if fuzzy:
+            self.info["KEYTABLE"] = Keyboard.x2console[fuzzy]
+        else:
+            self.info["KEYTABLE"] = "us"
 
     def get (self):
         if self.info.has_key ("KEYTABLE"):
