@@ -386,7 +386,7 @@ class KickstartBase(BaseInstallClass):
 
 	self.setNetwork(id, bootProto, ip, netmask, gateway, nameserver, device=device)
 	if hostname != "":
-	    self.setHostname(hostname)
+	    self.setHostname(id, hostname)
 
     def doLang(self, id, args):
         self.setLanguage(id, args[0])
