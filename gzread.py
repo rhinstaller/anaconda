@@ -200,6 +200,7 @@ class GzipFile:
 		return string.join(bufs, '')
 	    bufs.append(c)
 	    readsize = readsize * 2
+        return None
 
     def readlines(self):
 	buf = self.read()
