@@ -712,7 +712,7 @@ def migrateXinetd(instPath, instLog):
 def copyExtraModules(instPath, comps, extraModules):
     kernelVersions = comps.kernelVersionList()
 
-    for (path, subdir, name, pkg) in extraModules:
+    for (path, subdir, name) in extraModules:
 	pattern = ""
 	names = ""
 	for (n, tag) in kernelVersions:
