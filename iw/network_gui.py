@@ -128,14 +128,21 @@ class NetworkWindow (InstallWindow):
     def calcNetmask (self, widget, (ip, nm)):
         ip = ip.get_text ()
         dots = 0
+        valid_list = [ "1", "2", "3", "4", "5", "6", "7", "8" , "9", "0", "." ]
+        valid_ip = TRUE
+
         for x in ip:
             if x == '.':
                 dots = dots + 1
+            if x not in valid_list:        #-if there's an invalid char in the widget, don't calculate netmask
+                print "found invalid char"
+                valid_ip = FALSE
         if dots != 3: return
 
-        new_nm = inet_calcNetmask (ip)
-        if (new_nm != nm.get_text ()):
-            nm.set_text (new_nm)
+        if valid_ip == TRUE:
+            new_nm = inet_calcNetmask (ip)
+            if (new_nm != nm.get_text ()):
+                nm.set_text (new_nm)
 
     def DHCPtoggled (self, widget, (dev, table)):
 	active = widget.get_active ()
@@ -153,6 +160,7 @@ class NetworkWindow (InstallWindow):
 	else:
 	    onboot = "no"
 	dev.set (("onboot", onboot))
+
 
     # NetworkWindow tag="netconf"
     def getScreen (self):
@@ -203,6 +211,7 @@ class NetworkWindow (InstallWindow):
                 # entry.set_usize (gdk_char_width (entry.get_style ().font, '0')*15, -1)
                 entry.set_usize (7 * 15, -1)
                 entry.connect ("activate", forward)
+
                 entry.set_text (devs[i].get (options[t][1]))
                 options[t] = entry
                 ipTable.attach (entry, 1, 2, t, t+1, 0, FILL|EXPAND)
