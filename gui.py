@@ -408,7 +408,6 @@ class MessageWindow:
 		else:
 		    tbutton = button
 
-		print "adding button ",tbutton
 		widget = dialog.add_button(tbutton, rid)
 		rid = rid + 1
 
