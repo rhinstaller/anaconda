@@ -176,7 +176,7 @@ class x86BootloaderInfo:
 
 	for (label, version) in kernelList:
 	    kernelTag = "-" + version
-	    kernelFile = cfPath + "vmlinuz" + kernelTag
+	    kernelFile = "%svmlinuz%s" (cfPath, kernelTag)
 
 	    initrd = makeInitrd (kernelTag, instRoot)
 
@@ -188,7 +188,8 @@ class x86BootloaderInfo:
 	    f.write('\n')
 
 	    if os.access (instRoot + initrd, os.R_OK):
-		f.write('\tinitrd %s\n' % (cfPath + 'initrd' + kernelTag + '.img'))
+		f.write('\tinitrd %sinitrd%s.img\n' % (cfPath, 'initrd',
+                                                       kernelTag, '.img'))
 
 	for (label, device) in chainList:
 	    f.write('title %s\n' % (label))
@@ -200,7 +201,7 @@ class x86BootloaderInfo:
 	f.close()
 
 	part = grubbyPartitionName(bootDev)
-	prefix = grubbyPartitionName(bootDev) + "/" + grubPath
+	prefix = "%s/%s" % (grubbyPartitionName(bootDev), grubPath)
 	cmd = "root %s\ninstall %s/i386-pc/stage1 d (%s) %s/i386-pc/stage2 p %s%s/grub.conf" % \
 	    (part, grubPath, grubbyDiskName(bl.getDevice()), grubPath,
 	     part, grubPath)
@@ -418,7 +419,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     plainLabelUsed = 0
     for (version, nick) in comps.kernelVersionList():
 	if plainLabelUsed:
-	    kernelList.append(kernelLabel + "-" + nick, version)
+	    kernelList.append("%s-%s" % (kernelLabel, nick), version)
 	else:
 	    kernelList.append(kernelLabel, version)
 	    plainLabelUsed = 1
