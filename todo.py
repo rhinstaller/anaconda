@@ -383,6 +383,10 @@ class ToDo:
 	for n in self.mounts.items ():
             (mntpoint, (device, filesystem, format)) = n
             isys.makeDevInode(device, '/tmp/' + device)
+            try:
+                os.mkdir (self.instPath + mntpoint)
+            except:
+                pass
 	    isys.mount( '/tmp/' + device, self.instPath + mntpoint)
 	    os.remove( '/tmp/' + device);
 
