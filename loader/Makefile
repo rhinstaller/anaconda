@@ -22,8 +22,8 @@ BINS = init
 DIRS = 
 NETOBJS = net.o 
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
-#OPTS = -O2 -g
-OPTS = -O -g
+#OPTS = -Os -g
+OPTS = -Os -g
 
 MODULELINKAGE :=../isys/modutils/insmod/libmodutils.a    \
 	       	../isys/modutils/util/libutil.a          \
