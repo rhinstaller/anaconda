@@ -34,7 +34,7 @@ def vgactivate(volgroup = None):
     volgroup - optional single volume group to activate
     """
 
-    args = ["vgchange", "-ay"]
+    args = ["vgchange", "-ay", "-An"]
     if volgroup:
         args.append(volgroup)
     rc = iutil.execWithRedirect(args[0], args,
@@ -50,7 +50,7 @@ def vgdeactivate(volgroup = None):
     volgroup - optional single volume group to deactivate
     """
 
-    args = ["vgchange", "-an"]
+    args = ["vgchange", "-an", "-An"]
     if volgroup:
         args.append(volgroup)
     rc = iutil.execWithRedirect(args[0], args,
@@ -68,7 +68,7 @@ def lvremove(lvname, vgname):
     vgname - name of volume group lv is in.
     """
 
-    args = ["lvremove", "-f"]
+    args = ["lvremove", "-f", "-An"]
     dev = "/dev/%s/%s" %(vgname, lvname)
     args.append(dev)
 
