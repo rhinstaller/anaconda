@@ -48,7 +48,9 @@ class InstallConfirmWindow (ConfirmWindow):
 	    _("Click next to begin installation of Red Hat Linux."),
 	    _("A complete log of your installation will be in "
 	      "/tmp/install.log after rebooting your system. You "
-	      "may want to keep this file for later reference."))
+	      "may want to keep this file for later reference. "
+              "A kickstart file representing the choices you have made "
+              "will be in /root/anaconda-ks.cfg."))
 
 class UpgradeConfirmWindow (ConfirmWindow):
     windowTitle = N_("About to Upgrade")
