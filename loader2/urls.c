@@ -454,10 +454,10 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
     
     
     if (protocol == URL_METHOD_FTP) {
-        newtGridWrappedWindow(grid, "Further FTP Setup");
+        newtGridWrappedWindow(grid, _("Further FTP Setup"));
     } else {
         if (protocol == URL_METHOD_HTTP)
-            newtGridWrappedWindow(grid, "Further HTTP Setup");
+            newtGridWrappedWindow(grid, _("Further HTTP Setup"));
     }
 
     form = newtForm(NULL, NULL, 0);
