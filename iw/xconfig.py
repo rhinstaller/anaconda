@@ -335,9 +335,9 @@ class XConfigWindow (InstallWindow):
             label.set_usize (400, -1)
             self.autoBox.pack_start (label, FALSE)
 
-            label = GtkLabel (_("Autoprobe results:"))
-            label.set_alignment (0.0, 0.5)
-            self.autoBox.pack_start (label, FALSE)
+#              label = GtkLabel (_("Autoprobe results:"))
+#              label.set_alignment (0.0, 0.5)
+#              self.autoBox.pack_start (label, FALSE)
 
 #              report = self.todo.x.probeReport ()
 #              report = string.replace (report, '\t', '       ')
@@ -346,7 +346,6 @@ class XConfigWindow (InstallWindow):
 #              result.set_alignment (0.2, 0.5)
 #              result.set_justify (JUSTIFY_LEFT)
 #              self.autoBox.pack_start (result, FALSE)
-#              box.pack_start (self.autoBox, FALSE)
 
             label = GtkLabel (_("If the probed settings do not match your hardware "
                                 "select the correct setting below:"))
@@ -355,6 +354,8 @@ class XConfigWindow (InstallWindow):
             label.set_alignment (0.0, 0.5)
             label.set_usize (400, -1)
             self.autoBox.pack_start (label, FALSE)
+
+            box.pack_start (self.autoBox, FALSE)
 
         # card configuration
         self.cardList = GtkCList ()
