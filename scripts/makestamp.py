@@ -1,4 +1,4 @@
-#!/usr/bin/python2.2
+#!/usr/bin/python
 #
 # makes a .discinfo file.  if information isn't provided, prompts for it
 #

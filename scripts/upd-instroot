@@ -103,7 +103,7 @@ rm -rf $DEST $DESTGR
 mkdir -p $DEST
 mkdir -p $DESTGR
 
-PACKAGES="glibc glibc-common setup openssl python python2 newt slang
+PACKAGES="glibc glibc-common setup openssl python newt slang
 	 libtermcap zlib ash e2fsprogs util-linux raidtools popt
 	 procps rpm XFree86 Xconfigurator anaconda tzdata
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt
@@ -322,7 +322,7 @@ sbin/vgscan
 sbin/vgsplit
 usr/X11R6/share/Xconfigurator/MonitorsDB
 usr/bin/python
-usr/bin/python2.2
+usr/bin/python?.?
 usr/bin/hmount
 usr/bin/humount
 usr/bin/hcopy
@@ -363,14 +363,14 @@ usr/$LIBDIR/libslang*
 usr/$LIBDIR/libxml2.so*
 usr/$LIBDIR/libz.*
 usr/$LIBDIR/libbogl.so*
-usr/$LIBDIR/python2.2/*
-usr/$LIBDIR/python2.2/site-packages/libxml2*
-usr/$LIBDIR/python2.2/site-packages/*kudzu*
-usr/$LIBDIR/python2.2/site-packages/rpmmodule.so
-usr/$LIBDIR/python2.2/site-packages/partedmodule.so
-usr/$LIBDIR/python2.2/site-packages/ixf86configmodule.so
-usr/$LIBDIR/python2.2/site-packages/xf86config.py
-usr/$LIBDIR/python2.2/site-packages/rhpl
+usr/$LIBDIR/python?.?/*
+usr/$LIBDIR/python?.?/site-packages/libxml2*
+usr/$LIBDIR/python?.?/site-packages/*kudzu*
+usr/$LIBDIR/python?.?/site-packages/rpmmodule.so
+usr/$LIBDIR/python?.?/site-packages/partedmodule.so
+usr/$LIBDIR/python?.?/site-packages/ixf86configmodule.so
+usr/$LIBDIR/python?.?/site-packages/xf86config.py
+usr/$LIBDIR/python?.?/site-packages/rhpl
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
@@ -608,7 +608,7 @@ usr/$LIBDIR/libstdc++.so.5*
 usr/$LIBDIR/libwrap*
 usr/lib/locale/*
 usr/$LIBDIR/pango/*
-usr/$LIBDIR/python2.2/site-packages/gtk*/gtk/*
+usr/$LIBDIR/python?.?/site-packages/gtk*/gtk/*
 usr/$LIBDIR/rpm/rpmpopt
 usr/lib/syslinux/*
 usr/lib/yaboot/*
@@ -1053,7 +1053,7 @@ fi
 echo "Patching python library..."
 
 # always use passive mode for ftp installs
-cd $DEST/usr/$LIBDIR/python2.2
+cd $DEST/usr/$LIBDIR/python2.3
 patch -p0 > /dev/null <<EOF
 --- urllib.py.orig	Thu Oct 25 17:05:06 2001
 +++ urllib.py	Thu Oct 25 17:05:34 2001
