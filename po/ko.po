@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
-"POT-Creation-Date: 2003-02-20 22:29-0500\n"
+"POT-Creation-Date: 2003-02-24 19:53-0500\n"
 "PO-Revision-Date: 2003-02-21 09:49+1000\n"
 "Last-Translator: Michelle Kim <mkim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -248,7 +248,7 @@ msgstr ""
 
 #: ../autopart.py:1405 ../bootloader.py:123 ../image.py:386
 #: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:303
-#: ../upgrade.py:438 ../upgrade.py:458 ../upgrade.py:500
+#: ../upgrade.py:439 ../upgrade.py:459 ../upgrade.py:500
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
@@ -444,8 +444,8 @@ msgstr "부팅 디스켓 제작(_M)"
 #: ../harddrive.py:217 ../image.py:76 ../image.py:113 ../image.py:249
 #: ../packages.py:140 ../packages.py:154 ../packages.py:341 ../packages.py:513
 #: ../packages.py:586 ../partedUtils.py:531 ../partIntfHelpers.py:147
-#: ../partIntfHelpers.py:332 ../upgrade.py:333 ../upgrade.py:358
-#: ../upgrade.py:384 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
+#: ../partIntfHelpers.py:332 ../upgrade.py:334 ../upgrade.py:359
+#: ../upgrade.py:385 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1068
 #: ../textw/partition_text.py:1079 ../textw/upgrade_text.py:165
@@ -918,11 +918,11 @@ msgstr "CDROM을 마운트할 수 없습니다."
 msgid "Install on System"
 msgstr "시스템 상에 설치"
 
-#: ../kickstart.py:1170
+#: ../kickstart.py:1168
 msgid "Missing Package"
 msgstr "없는 패키지"
 
-#: ../kickstart.py:1171
+#: ../kickstart.py:1169
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -931,19 +931,19 @@ msgstr ""
 "'%s' 패키지를 설치하도록 지정하셨지만, 이 패키지가 존재하지 않습니다. 설치를 "
 "계속 하시겠습니까 또는 중지할까요?"
 
-#: ../kickstart.py:1177 ../kickstart.py:1203
+#: ../kickstart.py:1175 ../kickstart.py:1201
 msgid "_Abort"
 msgstr "중지(_A)"
 
-#: ../kickstart.py:1178 ../kickstart.py:1204 ../iw/partition_gui.py:997
+#: ../kickstart.py:1176 ../kickstart.py:1202 ../iw/partition_gui.py:997
 msgid "_Continue"
 msgstr "진행(_C)"
 
-#: ../kickstart.py:1196
+#: ../kickstart.py:1194
 msgid "Missing Group"
 msgstr "없는 그룹"
 
-#: ../kickstart.py:1197
+#: ../kickstart.py:1195
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1065,7 +1065,7 @@ msgid ""
 "of %s."
 msgstr "이번 %s 배포판에서 지원하지 않는 컴퓨터에 설치를 시도하고 계십니다."
 
-#: ../packages.py:587 ../upgrade.py:334
+#: ../packages.py:587 ../upgrade.py:335
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -2054,15 +2054,15 @@ msgstr "잘못된 디렉토리"
 msgid "%s not found"
 msgstr "%s (을)를 찾을 수 없음"
 
-#: ../upgrade.py:346
+#: ../upgrade.py:347
 msgid "Finding"
 msgstr "검색 중"
 
-#: ../upgrade.py:347
+#: ../upgrade.py:348
 msgid "Finding packages to upgrade..."
 msgstr "업그레이드할 패키지를 검색하고 있습니다..."
 
-#: ../upgrade.py:359
+#: ../upgrade.py:360
 msgid ""
 "The installation program is unable to upgrade systems with a pre-rpm 4.x "
 "database. Please install the errata rpm packages for your release as "
@@ -2072,11 +2072,11 @@ msgstr ""
 "니다. 출시에 앞서에 설명된 것처럼 배포판에 맞는 에라타 rpm 패키지를 설치하신 "
 "후 업그레이드를 수행하시기 바랍니다."
 
-#: ../upgrade.py:385
+#: ../upgrade.py:386
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "업그레이드할 패키지를 검색하는 도중 오류가 발생되었습니다."
 
-#: ../upgrade.py:439
+#: ../upgrade.py:440
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -2089,7 +2089,7 @@ msgstr ""
 "에는 그 패키지의 기능이 완전히 멈춰버리거나, 시스템의 다른 부분이 불안정할 "
 "수 있습니다.  업그레이드 설치를 계속 진행하시겠습니까?"
 
-#: ../upgrade.py:459
+#: ../upgrade.py:460
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -7581,9 +7581,8 @@ msgstr "스페인어"
 msgid "Swedish"
 msgstr "스웨덴어"
 
-#. generated from lang-table
-msgid "Turkish"
-msgstr "터키어"
+#~ msgid "Turkish"
+#~ msgstr "터키어"
 
 #~ msgid "Slovenian"
 #~ msgstr "슬로베니아어"

@@ -40,7 +40,9 @@ whiteout="""
         perl-Date-Calc>perl-Bit-Vector  \
         glibc-debug>glibc-devel \
 	xinitrc>XFree86 \
-	xemacs>apel-xemacs
+	xemacs>apel-xemacs \
+	gstreamer-tools>gstreamer \
+	gimp>gimp-print-plugin
 """
 
 rpm.addMacro("_dependency_whiteout", whiteout)

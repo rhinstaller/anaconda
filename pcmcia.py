@@ -29,10 +29,17 @@ def pcicType(test = 0):
     except RuntimeError:
         return None
 
+
+    # VERY VERY BAD - we're depending on the output of /sbin/probe
+    # to guess the PCMCIA controller.  Output has changed over the
+    # years and this tries to catch cases we know of
     if (string.find(result, "TCIC-2 probe: not found") != -1):
 	return None
     elif (string.find(result, "TCIC-2") != -1):
-	return "tcic"
+	if (string.find(result, "not") == -1):
+	    return "tcic"
+	else:
+	    return None
 
     return "i82365"
 

@@ -1,30 +1,30 @@
 
 Kickstart
 
-Copyright � 2002 by Red Hat, Inc.
+   Copyright � 2003 by Red Hat, Inc.
 
-   kickstart(EN)-anaconda-HTML-RHI (2002-08-06T17:28-0500)
+   kickstart(EN)-anaconda-HTML-RHI (2003-02-24T01:49)
 
-   Copyright � 2002 by Red Hat, Inc. This material may be
+   Copyright  �  2002  by  Red  Hat,  Inc.  This  material may be
    distributed only subject to the terms and conditions set forth
-   in the Open Publication License, V1.0 or later (the latest
+   in  the  Open  Publication  License, V1.0 or later (the latest
    version is presently available at
    http://www.opencontent.org/openpub/).
 
-   Distribution of substantively modified versions of this
-   document is prohibited without the explicit permission of the
+   Distribution   of  substantively  modified  versions  of  this
+   document  is prohibited without the explicit permission of the
    copyright holder.
 
-   Distribution of the work or derivative of the work in any
-   standard (paper) book form for commercial purposes is
-   prohibited unless prior permission is obtained from the
+   Distribution  of  the  work  or  derivative of the work in any
+   standard   (paper)   book  form  for  commercial  purposes  is
+   prohibited  unless  prior  permission  is  obtained  from  the
    copyright holder.
 
-   Red Hat, Red Hat Network, the Red Hat "Shadow Man" logo, RPM,
-   Maximum RPM, the RPM logo, Linux Library, PowerTools, Linux
-   Undercover, RHmember, RHmember More, Rough Cuts, Rawhide and
-   all Red Hat-based trademarks and logos are trademarks or
-   registered trademarks of Red Hat, Inc. in the United States
+   Red  Hat, Red Hat Network, the Red Hat "Shadow Man" logo, RPM,
+   Maximum  RPM,  the  RPM logo, Linux Library, PowerTools, Linux
+   Undercover,  RHmember,  RHmember More, Rough Cuts, Rawhide and
+   all  Red  Hat-based  trademarks  and  logos  are trademarks or
+   registered  trademarks  of  Red Hat, Inc. in the United States
    and other countries.
 
    Linux is a registered trademark of Linus Torvalds.
@@ -40,6 +40,9 @@ Copyright � 2002 by Red Hat, Inc.
    Kickstart Options
    Package Selection
    Pre-installation Script
+
+        Example
+
    Post-installation Script
 
         Examples
@@ -47,6 +50,7 @@ Copyright � 2002 by Red Hat, Inc.
    Making the Kickstart File Available
 
         Creating a Kickstart Boot Diskette
+        Creating a Kickstart Boot CD-ROM
         Making the Kickstart File Available on the Network
 
    Making the Installation Tree Available
@@ -57,28 +61,29 @@ Introduction
 
 What are Kickstart Installations?
 
-Many system administrators would prefer to use an automated
-installation method to install Red Hat Linux on their machines. To
-answer this need, Red Hat created the kickstart installation method.
-Using kickstart, a system administrator can create a single file
-containing the answers to all the questions that would normally be
-asked during a typical Red Hat Linux installation.
+   Many  system  administrators  would prefer to use an automated
+   installation   method  to  install  Red  Hat  Linux  on  their
+   machines.  To  answer this need, Red Hat created the kickstart
+   installation  method.  Using kickstart, a system administrator
+   can  create  a  single  file containing the answers to all the
+   questions  that  would  normally be asked during a typical Red
+   Hat Linux installation.
 
-Kickstart files can be kept on single server system and read by
-individual computers during the installation. This installation
-method can support the use of a single kickstart file to install Red
-Hat Linux on multiple machines, making it ideal for network and
-system administrators.
+   Kickstart  files  can be kept on single server system and read
+   by   individual   computers   during  the  installation.  This
+   installation  method can support the use of a single kickstart
+   file  to install Red Hat Linux on multiple machines, making it
+   ideal for network and system administrators.
 
-Kickstart lets you automate a Red Hat Linux installation.
+   Kickstart lets you automate a Red Hat Linux installation.
      _________________________________________________________
 
 How Do You Perform a Kickstart Installation?
 
-Kickstart installations can be performed using a local CD-ROM, a
-local hard drive, or via NFS, FTP, or HTTP.
+   Kickstart installations can be performed using a local CD-ROM,
+   a local hard drive, or via NFS, FTP, or HTTP.
 
-To use kickstart, you must:
+   To use kickstart, you must:
 
     1. Create a kickstart file.
     2. Create a boot diskette with the kickstart file or make the
@@ -91,59 +96,61 @@ To use kickstart, you must:
 
 Creating the Kickstart File
 
-The kickstart file is a simple text file, containing a list of
-items, each identified by a keyword. You can create it by editing a
-copy of the sample.ks file found in the RH-DOCS directory of the Red
-Hat Linux Documentation CD, using the Kickstart Configurator
-application, or writing it from scratch. The Red Hat Linux
-installation program also creates a sample kickstart file based on
-the options that you selected during installation. It is written to
-the file /root/anaconda-ks.cfg. You should be able to edit it with
-any text editor or word processor that can save files as ASCII text.
+   The kickstart file is a simple text file, containing a list of
+   items,  each  identified  by  a  keyword. You can create it by
+   editing  a  copy  of  the  sample.ks file found in the RH-DOCS
+   directory  of  the  Red  Hat Linux Documentation CD, using the
+   Kickstart   Configurator   application,  or  writing  it  from
+   scratch. The Red Hat Linux installation program also creates a
+   sample  kickstart  file based on the options that you selected
+   during    installation.    It   is   written   to   the   file
+   /root/anaconda-ks.cfg.  You should be able to edit it with any
+   text  editor  or  word  processor that can save files as ASCII
+   text.
 
-First, be aware of the following issues when you are creating your
-kickstart file:
+   First,  be aware of the following issues when you are creating
+   your kickstart file:
 
-     * Sections must be specified in order. Items within the
-       sections do not have to be in a specific order unless
+     * Sections  must  be  specified  in  order. Items within the
+       sections  do  not  have  to  be in a specific order unless
        otherwise specified. The section order is:
-          + Command section -- Refer to the chapter called
-            Kickstart Options for a list of kickstart options.
+          + Command  section  --  Refer  to  the  chapter  called
+            Kickstart  Options  for  a list of kickstart options.
             You must include the required options.
-          + The %packages section -- Refer to the chapter called
+          + The  %packages section -- Refer to the chapter called
             Package Selection for details.
           + The %pre and %post sections -- These two sections can
-            be in any order and are not required. Refer to the
-            chapter called Pre-installation Script and the
+            be  in  any  order and are not required. Refer to the
+            chapter   called   Pre-installation  Script  and  the
             chapter called Post-installation Script for details.
      * Items that are not required can be omitted.
      * Omitting any required item will result in the installation
-       program prompting the user for an answer to the related
-       item, just as the user would be prompted during a typical
-       installation. Once the answer is given, the installation
-       will continue unattended (unless it finds another missing
+       program  prompting  the  user for an answer to the related
+       item,  just as the user would be prompted during a typical
+       installation.  Once  the answer is given, the installation
+       will  continue unattended (unless it finds another missing
        item).
-     * Lines starting with a pound sign ("#") are treated as
+     * Lines  starting  with  a  pound  sign  (#)  are treated as
        comments and are ignored.
      * For kickstart upgrades, the following items are required:
           + Language
           + Language support
           + Installation method
-          + Device specification (if device is needed to perform
+          + Device  specification (if device is needed to perform
             installation)
           + Keyboard setup
           + The upgrade keyword
           + Boot loader configuration
-       If any other items are specified for an upgrade, those
-       items will be ignored (note that this includes package
+       If  any  other  items  are specified for an upgrade, those
+       items  will  be  ignored  (note that this includes package
        selection).
      _________________________________________________________
 
 Kickstart Options
 
-The following options can be placed in a kickstart file. If you
-prefer to use a graphical interface for creating your kickstart
-file, you can use the Kickstart Configurator application.
+   The  following  options  can be placed in a kickstart file. If
+   you  prefer  to  use  a  graphical interface for creating your
+   kickstart file, use the Kickstart Configurator application.
 
    Note Note
 
@@ -201,9 +208,9 @@ file, you can use the Kickstart Configurator application.
 
         --ldapserver=
                 If   you   specified   either   --enableldap   or
-                --enableldapauth,  the name of the LDAP server to
-                use.  This  option  is  set in the /etc/ldap.conf
-                file.
+                --enableldapauth,  use this option to specify the
+                name  of  the  LDAP server to use. This option is
+                set in the /etc/ldap.conf file.
 
         --ldapbasedn=
                 If   you   specified   either   --enableldap   or
@@ -323,7 +330,11 @@ file, you can use the Kickstart Configurator application.
           --upgrade.
 
         --append=
-                Specifies kernel parameters.
+                Specifies  kernel parameters. To specify multiple
+                parameters,   separate   them  with  spaces.  For
+                example:
+
+bootloader --location=mbr --append="hdd=ide-scsi ide=nodma"
 
         --location=
                 Specifies where the boot record is written. Valid
@@ -347,8 +358,8 @@ file, you can use the Kickstart Configurator application.
 
         --linear
                 If  using  LILO, use the linear LILO option; this
-                is  only  for backwards compatibility (and linear
-                is now used by default).
+                is only for backward compatibility (and linear is
+                now used by default).
 
         --nolinear
                 If  using  LILO,  use  the  nolinear LILO option;
@@ -356,7 +367,7 @@ file, you can use the Kickstart Configurator application.
 
         --lba32
                 If using LILO, force use of lba32 mode instead of
-                autodetecting.
+                auto-detecting.
 
         --upgrade
                 Upgrade  the  existing boot loader configuration,
@@ -380,16 +391,21 @@ file, you can use the Kickstart Configurator application.
         --all
                 Erases all partitions from the system.
 
-        --drives
-                Specifies which drives to clear partitions from.
+        --drives=
+                Specifies  which drives to clear partitions from.
+                For  example, the following clears the partitions
+                on  the  first  two  drives  on  the  primary IDE
+                controller:
+
+clearpart --drives hda,hdb
 
         --initlabel
                 Initializes  the  disk  label  to the default for
-                your  architecture  (msdos  for  x86  and gpt for
-                Itanium).  It  is useful so that the installation
-                program  does not ask if it should initialize the
-                disk  label  if  installing  to  a brand new hard
-                drive.
+                your  architecture (for example msdos for x86 and
+                gpt  for  Itanium).  It  is  useful  so  that the
+                installation  program  does  not ask if it should
+                initialize  the  disk  label  if  installing to a
+                brand new hard drive.
 
    device (optional)
           On  most  PCI  systems,  the  installation program will
@@ -433,8 +449,7 @@ driverdisk <partition> [--type=<fstype>]
                 Partition containing the driver disk.
 
         --type=
-                Filesystem  type  (for  example,  vfat,  ext2, or
-                ext3).
+                File system type (for example, vfat or ext2).
 
    firewall (optional)
           This  option  corresponds to the Firewall Configuration
@@ -473,19 +488,21 @@ firewall <securitylevel> [--trust=] <incoming> [--port=]
         --port=
                 You can specify that ports be allowed through the
                 firewall  using  the  port:protocol  format.  For
-                example,  if  you  wanted  to  allow  IMAP access
-                through  your firewall, you can specify imap:tcp.
-                You  can  also  specify numeric ports explicitly;
-                for  example,  to  allow UDP packets on port 1234
-                through,  specify  1234:udp.  To specify multiple
-                ports, separate them by commas.
+                example,   to  allow  IMAP  access  through  your
+                firewall, specify imap:tcp. specify numeric ports
+                can also be specified explicitly; for example, to
+                allow  UDP  packets on port 1234 through, specify
+                1234:udp.  To  specify  multiple  ports, separate
+                them by commas.
 
    install (optional)
           Tells  the system to install a fresh system rather than
           upgrade  an  existing system. This is the default mode.
           For   installation,   you  must  specify  the  type  of
           installation  from one of cdrom, harddrive, nfs, or url
-          (for ftp or http installations).
+          (for  ftp  or  http installations). The install command
+          and the installation method command must be on separate
+          lines.
 
         cdrom
                 Install  from  the  first  CD-ROM  drive  on  the
@@ -544,13 +561,19 @@ url --url ftp://<username>:<password>@<server>/<dir>
           available   keyboards   on  i386,  Itanium,  and  Alpha
           machines:
 
-be-latin1, be-latin2, bg, br-abnt2, cf, cz-lat2, cz-us-qwertz, de,
+be-latin1, bg, br-abnt2, cf, cz-lat2, cz-us-qwertz, de,
 de-latin1, de-latin1-nodeadkeys, dk, dk-latin1, dvorak, es, et,
-fi, i-latin1, fr, fr-latin0, fr-latin1, fr-pc, fr_CH, fr_CH-latin1,
-gr, hu, hu101, is-latin1, it, it-ibm, it2, jp106, no, no-latin1,
-pl, pt-latin1, ro, ru, ru-cp1251, ru-ms, ru1, ru2, ru_win,
-se-latin1, sg, sg-latin1, sk-qwerty, slovene, speakup, speakup-lt,
-trq, ua, uk, us
+fi, fi-latin1, fr, fr-latin0, fr-latin1, fr-pc, fr_CH, fr_CH-latin1,
+gr, hu, hu101, is-latin1, it, it-ibm, it2, jp106, la-latin1, mk-utf,
+no, no-latin1, pl, pt-latin1, ro_win, ru, ru-cp1251, ru-ms, ru1, ru2,
+ru_win, se-latin1, sg, sg-latin1, sk-qwerty, slovene, speakup,
+speakup-lt, sv-latin1, sg, sg-latin1, sk-querty, slovene, trq, ua,
+uk, us, us-acentos
+
+          The file
+          /usr/lib/python2.2/site-packages/rhpl/keyboard_models.p
+          y  also  contains  this  list  and  is part of the rhpl
+          package.
 
    lang (required)
           Sets  the  language  to  use  during  installation. For
@@ -559,27 +582,24 @@ trq, ua, uk, us
 
 lang en_US
 
-          Valid  language  codes  are  the following (please note
-          that these are subject to change at any time):
-
-cs_CZ, da_DK, en_US, fr_FR, de_DE, is_IS, it_IT, ja_JP.eucJP,
-ko_KR.eucKR, no_NO, pt_PT, ru_RU.koi8r, sl_SI, es_ES, sv_SE, uk_UA,
-zh_CN.GB18030, zh_TW.Big5
+          The  file /usr/share/redhat-config-language/locale-list
+          provides  a  list the valid language codes in the first
+          column    of   each   line   and   is   part   of   the
+          redhat-config-languages package.
 
    langsupport (required)
           Sets the language(s) to install on the system. The same
           language   codes  used  with  lang  can  be  used  with
           langsupport.
 
-          If  you  just want to install one language, specify it.
-          For  example,  to  install  and use the French language
-          fr_FR:
+          To  install  one  language, specify it. For example, to
+          install and use the French language fr_FR:
 
 langsupport fr_FR
 
         --default=
-                If  you want to install language support for more
-                than one language, you must specify a default.
+                If language support for more than one language is
+                specified, a default must be identified.
 
           For  example,  to  install  English  and French and use
           English as the default language:
@@ -596,7 +616,7 @@ langsupport --default=en_US fr_FR
 
 
    This option has been replaced by bootloader and is only
-   available for backwards compatibility. Refer to bootloader.
+   available for backward compatibility. Refer to bootloader.
 
           Specifies  how  the  boot loader should be installed on
           the system. By default, LILO installs on the MBR of the
@@ -609,7 +629,7 @@ langsupport --default=en_US fr_FR
 
         --linear
                 Use  the  linear  LILO  option;  this is only for
-                backwards  compatibility  (and linear is now used
+                back-wards  compatibility (and linear is now used
                 by default).
 
         --nolinear
@@ -626,7 +646,7 @@ langsupport --default=en_US fr_FR
 
         --lba32
                 Forces   the   use   of  lba32  mode  instead  of
-                autodetecting.
+                auto-detecting.
 
    lilocheck (optional)
           If  lilocheck  is  present,  the  installation  program
@@ -635,7 +655,7 @@ langsupport --default=en_US fr_FR
           installation  is  performed. This can prevent kickstart
           from reinstalling an already installed system.
 
-   logvol (optional) [1]
+   logvol (optional)
           Create  a  logical volume for Logical Volume Management
           (LVM) with the syntax:
 
@@ -665,18 +685,23 @@ logvol / --vgname=myvg --size=2000 --name=rootvol
           After  options,  the mouse type may be specified as one
           of the following:
 
-alpsps/2, ascii, asciips/2, atibm, generic, generic3,
-genericps/2, generic3ps/2, genericusb, generic3usb,
-geniusnm, geniusnmps/2,geniusprops/2, geniusscrollps/2,
-geniusscrollps/2+, thinking, thinkingps/2, logitech,
-logitechcc, logibm, logimman, logimmanps/2, logimman+,
-logimman+ps/2, logimmusb, microsoft, msnew, msintelli,
-msintellips/2, msintelliusb, msbm, mousesystems, mmseries,
+alpsps/2, ascii, asciips/2, atibm, generic, generic3, genericps/2,
+generic3ps/2, genericwheelps/2, genericusb, generic3usb, genericwheelus
+b,
+geniusnm, geniusnmps/2, geniusprops/2, geniusscrollps/2, geniusscrollps
+/2+,
+thinking, thinkingps/2, logitech, logitechcc, logibm, logimman,
+logimmanps/2, logimman+, logimman+ps/2, logimmusb, microsoft, msnew,
+msintelli, msintellips/2, msintelliusb, msbm, mousesystems, mmseries,
 mmhittab, sun, none
+
+          This list can also be found in the
+          /usr/lib/python2.2/site-packages/rhpl/mouse.py    file,
+          which is part of the rhpl package.
 
           If the mouse command is given without any arguments, or
           it is omitted, the installation program will attempt to
-          autodetect  the  mouse.  This  procedure works for most
+          auto-detect  the  mouse.  This procedure works for most
           modern mice.
 
    network (optional)
@@ -831,7 +856,7 @@ swap --recommended
                 Put the partition on the already existing device.
                 For example:
 
-partition /home --onpart hda1
+partition /home --onpart=hda1
 
                 will  put  /home on /dev/hda1, which must already
                 exist.
@@ -848,17 +873,17 @@ partition /home --onpart hda1
 
         --bytes-per-inode=
                 Number  specified  represents the number of bytes
-                per  inode  on the filesystem when it is created.
+                per  inode on the file system when it is created.
                 It  must  be given in decimal format. This option
                 is  useful  for  applications  where  you want to
-                increase the number of inodes on the filesystem.
+                increase the number of inodes on the file system.
 
         --type= (replaced by fstype)
                 This option is no longer available. Use fstype.
 
         --fstype=
-                Sets the filesystem type for the partition. Valid
-                values are ext2, ext3, swap, and vfat.
+                Sets  the  file  system  type  for the partition.
+                Valid values are ext2, ext3, swap, and vfat.
 
         --start=
                 Specifies   the   starting   cylinder   for   the
@@ -889,14 +914,15 @@ partition /home --onpart hda1
 raid <mntpoint> --level=<level> --device=<mddevice> <partitions*>
 
         <mntpoint>
-                Location where the RAID filesystem is mounted. If
-                it  is  /, the RAID level must be 1 unless a boot
-                partition (/boot) is present. If a boot partition
-                is  present,  the /boot partition must be level 1
-                and  the  root  (/)  partition  can be any of the
-                available types. The <partitions*> (which denotes
-                that multiple partitions can be listed) lists the
-                RAID identifiers to add to the RAID array.
+                Location  where  the RAID file system is mounted.
+                If  it  is  /,  the RAID level must be 1 unless a
+                boot  partition  (/boot)  is  present.  If a boot
+                partition is present, the /boot partition must be
+                level  1 and the root (/) partition can be any of
+                the  available  types.  The  <partitions*> (which
+                denotes  that  multiple partitions can be listed)
+                lists  the  RAID  identifiers  to add to the RAID
+                array.
 
         --level=
                 RAID level to use (0, 1, or 5).
@@ -912,7 +938,7 @@ raid <mntpoint> --level=<level> --device=<mddevice> <partitions*>
                 rebuild the array in case of drive failure.
 
         --fstype=
-                Sets  the  filesystem  type  for  the RAID array.
+                Sets  the  file  system  type for the RAID array.
                 Valid values are ext2, ext3, swap, and vfat.
 
         --noformat
@@ -992,7 +1018,9 @@ timezone [--utc] <timezone>
         --card=
                 Use specified card; this card name should be from
                 the list of cards in /usr/share/hwdata/Cards from
-                the  hwdata  package.  If  this  argument  is not
+                the hwdata package. The list of cards can also be
+                found  on  the  X  Configuration  screen  of  the
+                Kickstart  Configurator.  If this argument is not
                 provided, the installation program will probe the
                 PCI  bus  for  the card. Since AGP is part of the
                 PCI bus, AGP cards will be detected if supported.
@@ -1007,10 +1035,12 @@ timezone [--utc] <timezone>
                 Use  specified  monitor;  monitor  name should be
                 from the list of monitors in
                 /usr/share/hwdata/MonitorsDB   from   the  hwdata
-                package. This is ignored if --hsync or --vsync is
-                provided.  If no monitor information is provided,
-                the  installation  program  tries to probe for it
-                automatically.
+                package.  The  list of monitors can also be found
+                on  the  X  Configuration screen of the Kickstart
+                Configurator.  This  is  ignored  if  --hsync  or
+                --vsync is provided. If no monitor information is
+                provided, the installation program tries to probe
+                for it automatically.
 
         --hsync=
                 Specifies  the  horizontal  sync frequency of the
@@ -1044,7 +1074,7 @@ timezone [--utc] <timezone>
                 depth  that is compatible with the video card and
                 monitor.
 
-   volgroup (optional) [1]
+   volgroup (optional)
           Use  to  create a Logical Volume Management (LVM) group
           with the syntax:
 
@@ -1077,35 +1107,27 @@ zerombr yes
 
 Package Selection
 
-Use the %packages command to begin a kickstart file section that
-lists the packages you would like to install (this is for
-installations only, as package selection during upgrades is not
-supported).
-
-   --resolvedeps
-          Install the listed packages and automatically resolve
-          package dependencies.
-
-   --ignoredeps
-          Ignore the unresolved dependencies and install the
-          listed packages without the dependencies.
+   Use  the  %packages  command to begin a kickstart file section
+   that lists the packages you would like to install (this is for
+   installations  only,  as  package selection during upgrades is
+   not supported).
 
    Packages  can  be  specified by group or by individual package
    name.  The  installation  program  defines several groups that
    contain  related  packages. See the RedHat/base/comps.xml file
-   on  any  Red Hat Linux CD-ROM for a list of groups. Each group
-   as  an id, uservisiblity value, name, description, and package
-   list.  In  the  package list, the packages marked as mandatory
-   are  always  installed  if the group is selected, the packages
-   marked  default  are  selected  by  default  if  the  group is
-   selected,   and   the   packages   marked   optional  must  be
+   on  the  first Red Hat Linux CD-ROM for a list of groups. Each
+   group has an id, user visibility value, name, description, and
+   package  list.  In  the  package  list, the packages marked as
+   mandatory  are  always installed if the group is selected, the
+   packages  marked  default are selected by default if the group
+   is   selected,  and  the  packages  marked  optional  must  be
    specifically  selected  even  if  the  group is selected to be
    installed.
 
    In most cases, it is only necessary to list the desired groups
    and  not  individual  packages.  Note  that  the Core and Base
    groups  are always selected by default, so it is not necessary
-   to specify it in the %packages section.
+   to specify them in the %packages section.
 
    Here is an example %packages selection:
 %packages
@@ -1117,29 +1139,64 @@ galeon
 
    As  you can see, groups are specified, one to a line, starting
    with  an  @  symbol,  a space, and then the full group name as
-   given  in  the comps file. Specify individual packages with no
-   additional characters (the galeon line in the example above is
-   an individual package).
-
-   To   specify   an   everything  installation  to  install  all
-   packages), add the one to the %packages section:
-   @ Everything
+   given  in the comps.xml file. Specify individual packages with
+   no additional characters (the galeon line in the example above
+   is an individual package).
 
    You  can  also  specify which packages not to install from the
    default package list:
 @ Games and Entertainment
 -kdegames
+
+   Two options are available for the %packages option.
+
+   --resolvedeps
+          Install  the  listed packages and automatically resolve
+          package  dependencies.  If this option is not specified
+          and  there  are  package  dependencies,  the  automated
+          installation  will  pause  and  prompt  the  user.  For
+          example:
+
+%packages --resolvedeps
+
+   --ignoredeps
+          Ignore  the  unresolved  dependencies  and  install the
+          listed packages without the dependencies. For example:
+
+%packages --ignoredeps
+
+   --ignoremissing[1]
+          Ignore  the  missing  packages  and  groups  instead of
+          halting  the  installation  to  ask if the installation
+          should be aborted or continued. For example:
+
+%packages --ignoremissing
      _________________________________________________________
 
 Pre-installation Script
 
-You can add commands to run on the system immediately after the
-ks.cfg has been parsed. This section must be at the end of the
-kickstart file (after the commands) and must start with the %pre
-command. You can access the network in the %pre section; however,
-name service has not been configured at this point, so only IP
-addresses will work. Here is an example %pre section:
+   You  can  add  commands to run on the system immediately after
+   the ks.cfg has been parsed. This section must be at the end of
+   the  kickstart  file  (after the commands) and must start with
+   the  %pre  command.  You  can  access  the network in the %pre
+   section; however, name service has not been configured at this
+   point, so only IP addresses will work.
 
+   Note Note
+
+
+   Note that the pre-install script is not run in the change root
+   environment.
+
+   --interpreter /usr/bin/python
+          Allows  you  to specify a different scripting language,
+          such   as  Python.  Replace  /usr/bin/python  with  the
+          scripting language of your choice.
+     _________________________________________________________
+
+Example
+
+   Here is an example %pre section:
 %pre
 
 #!/bin/sh
@@ -1196,26 +1253,16 @@ fi
    %include /tmp/part-include
 
    The partitioning commands selected in the script will be used.
-
-   Note Note
-
-
-   Note that the pre-install script is not run in the change root
-   environment.
-
-   --interpreter /usr/bin/python
-          Allows  you  to specify a different scripting language,
-          such   as  Python.  Replace  /usr/bin/python  with  the
-          scripting language of your choice.
      _________________________________________________________
 
 Post-installation Script
 
-You have the option of adding commands to run on the system once the
-installation is complete. This section must be at the end of the
-kickstart file and must start with the %post command. This section
-is useful for functions such as installing additional software and
-configuring an additional nameserver.
+   You  have  the  option of adding commands to run on the system
+   once the installation is complete. This section must be at the
+   end  of  the  kickstart  file  and  must  start with the %post
+   command.   This  section  is  useful  for  functions  such  as
+   installing  additional  software and configuring an additional
+   nameserver.
 
    Note Note
 
@@ -1241,7 +1288,7 @@ configuring an additional nameserver.
           run outside of the chroot environment.
 
           The  following example copies the file /etc/resolv.conf
-          to the filesystem that was just installed.
+          to the file system that was just installed.
 
 %post --nochroot
 cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf
@@ -1254,8 +1301,7 @@ cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf
 
 Examples
 
-Turn services on and off:
-
+   Turn services on and off:
 /sbin/chkconfig --level 345 telnet off
 /sbin/chkconfig --level 345 finger off
 /sbin/chkconfig --level 345 lpd off
@@ -1275,9 +1321,11 @@ umount /mnt/temp
 
 Making the Kickstart File Available
 
-A kickstart file must be placed in one of two locations:
+   A  kickstart  file  must  be  placed  in  one of the following
+   locations:
 
      * On a boot diskette
+     * On a boot CD-ROM
      * On a network
 
    Normally  a  kickstart file is copied to the boot diskette, or
@@ -1291,46 +1339,63 @@ A kickstart file must be placed in one of two locations:
 
 Creating a Kickstart Boot Diskette
 
-To perform a diskette-based kickstart installation, the kickstart
-file must be named ks.cfg and must be located in the boot diskette's
-top-level directory. Note that the Red Hat Linux boot diskettes are
-in MS-DOS format, so it is easy to copy the kickstart file under
-Linux using the mcopy command:
-
-mcopy ks.cfg a:
+   To   perform  a  diskette-based  kickstart  installation,  the
+   kickstart file must be named ks.cfg and must be located in the
+   boot  diskette's  top-level  directory.  Refer  to the section
+   Making  an  Installation  Boot  Diskette  in the Red Hat Linux
+   Installation   Guide   for  instruction  on  creating  a  boot
+   diskette.  Because  the  Red  Hat  Linux boot diskettes are in
+   MS-DOS  format,  it  is  easy to copy the kickstart file under
+   Linux using the mcopy command:
+   mcopy ks.cfg a:
 
    Alternatively,  you  can use Windows to copy the file. You can
-   also mount the MS-DOS boot diskette and cp the file over.
+   also  mount the MS-DOS boot diskette in Red Hat Linux with the
+   file  system type vfat and use the cp command to copy the file
+   on the diskette.
+     _________________________________________________________
+
+Creating a Kickstart Boot CD-ROM
+
+   To   perform   a   CD-ROM-based  kickstart  installation,  the
+   kickstart file must be named ks.cfg and must be located in the
+   boot   CD-ROM's   top-level   directory.  Since  a  CD-ROM  is
+   read-only,  the  file  must  be added to the directory used to
+   create  the  image that is written to the CD-ROM. Refer to the
+   Making  an  Installation  Boot  CD-ROM  section in the Red Hat
+   Linux  Installation  Guide  for instruction on creating a boot
+   CD-ROM;  however,  before making the file.iso image file, copy
+   the ks.cfg kickstart file to the isolinux/ directory.
      _________________________________________________________
 
 Making the Kickstart File Available on the Network
 
-Network installations using kickstart are quite common, because
-system administrators can easily automate the installation on many
-networked computers quickly and painlessly. In general, the approach
-most commonly used is for the administrator to have both a
-BOOTP/DHCP server and an NFS server on the local network. The
-BOOTP/DHCP server is used to give the client system its networking
-information, while the actual files used during the installation are
-served by the NFS server. Often, these two servers run on the same
-physical machine, but they are not required to.
+   Network   installations  using  kickstart  are  quite  common,
+   because   system   administrators   can  easily  automate  the
+   installation   on   many   networked   computers  quickly  and
+   painlessly. In general, the approach most commonly used is for
+   the  administrator to have both a BOOTP/DHCP server and an NFS
+   server  on the local network. The BOOTP/DHCP server is used to
+   give  the  client system its networking information, while the
+   actual  files  used  during the installation are served by the
+   NFS  server. Often, these two servers run on the same physical
+   machine, but they are not required to.
 
-To perform a network-based kickstart installation, you must have a
-BOOTP/DHCP server on your network, and it must include configuration
-information for the machine on which you are attempting to install
-Red Hat Linux. The BOOTP/DHCP server will provide the client with
-its networking information as well as the location of the kickstart
-file.
+   To  perform  a  network-based kickstart installation, you must
+   have  a BOOTP/DHCP server on your network, and it must include
+   configuration  information  for  the  machine on which you are
+   attempting  to  install  Red  Hat Linux. The BOOTP/DHCP server
+   will  provide  the  client  with its networking information as
+   well as the location of the kickstart file.
 
-If a kickstart file is specified by the BOOTP/DHCP server, the
-client system will attempt an NFS mount of the file's path, and will
-copy the specified file to the client, using it as the kickstart
-file. The exact settings required vary depending on the BOOTP/DHCP
-server you use.
+   If a kickstart file is specified by the BOOTP/DHCP server, the
+   client  system  will  attempt an NFS mount of the file's path,
+   and  will  copy  the specified file to the client, using it as
+   the kickstart file. The exact settings required vary depending
+   on the BOOTP/DHCP server you use.
 
-Here is an example of a line from the dhcpd.conf file for the DHCP
-server shipped with Red Hat Linux:
-
+   Here  is an example of a line from the dhcpd.conf file for the
+   DHCP server shipped with Red Hat Linux:
 filename "/usr/new-machine/kickstart/";
 next-server blarg.redhat.com;
 
@@ -1362,50 +1427,77 @@ next-server blarg.redhat.com;
 
 Making the Installation Tree Available
 
-The kickstart installation needs to access an installation tree. An
-installation tree is a copy of the binary Red Hat Linux CD-ROMs with
-the same directory structure.
+   The  kickstart  installation  needs  to access an installation
+   tree.  An  installation  tree  is a copy of the binary Red Hat
+   Linux CD-ROMs with the same directory structure.
 
-If you are performing a CD-based installation, insert the Red Hat
-Linux CD-ROM #1 into the computer before starting the kickstart
-installation.
+   If  you are performing a CD-based installation, insert the Red
+   Hat  Linux  CD-ROM  #1  into  the computer before starting the
+   kickstart installation.
 
-If you are performing a hard-drive installation, make sure the ISO
-images of the binary Red Hat Linux CD-ROMs are on a hard drive in
-the computer.
+   If you are performing a hard-drive installation, make sure the
+   ISO  images  of the binary Red Hat Linux CD-ROMs are on a hard
+   drive in the computer.
 
-If you are performing a network-based (NFS, FTP, or HTTP)
-installation, you must make the installation tree available over the
-network. Refer to the Preparing for a Network Installation section
-of the Official Red Hat Linux Installation Guide for details.
+   If  you  are  performing  a  network-based (NFS, FTP, or HTTP)
+   installation,  you  must  make the installation tree available
+   over  the  network.  Refer  to  the  Preparing  for  a Network
+   Installation  section  of the Red Hat Linux Installation Guide
+   for details.
      _________________________________________________________
 
 Starting a Kickstart Installation
 
-To begin a kickstart installation, you must boot the system from a
-Red Hat Linux boot diskette or the CD-ROM and enter a special boot
-command at the boot prompt. If the kickstart file is located on a
-boot diskette that was created from the boot.img or bootnet.img
-image file, the correct boot command would be:
+   To  begin  a  kickstart installation, you must boot the system
+   from a Red Hat Linux boot diskette, Red Hat Linux boot CD-ROM,
+   or  the  Red  Hat  Linux  CD-ROM  #1  and enter a special boot
+   command at the boot prompt. The installation program looks for
+   a  kickstart file if the ks command line argument is passed to
+   the kernel.
 
-boot: linux ks=floppy
+   Boot Diskette
+          If  the kickstart file is located on a boot diskette as
+          described  in  the  Section called Creating a Kickstart
+          Boot   Diskette   in  the  chapter  called  Making  the
+          Kickstart  File  Available,  boot  the  system with the
+          diskette  in the drive, and enter the following command
+          at the boot: prompt:
 
-   The  linux  ks=floppy command also works if the ks.cfg file is
-   located  on a vfat or ext2 filesystem on a floppy diskette and
-   you boot from the Red Hat Linux CD-ROM.
+linux ks=floppy
 
-   An  alternate  boot  command for booting off the Red Hat Linux
-   CD-ROM  and  having  the  kickstart  file  on  a  vfat or ext2
-   filesystem on a floppy diskette is:
-   boot: linux ks=hd:fd0/ks.cfg
+   CD-ROM #1 and Diskette
+          The  linux  ks=floppy  command also works if the ks.cfg
+          file  is  located  on  a  vfat or ext2 file system on a
+          diskette and you boot from the Red Hat Linux CD-ROM #1.
 
-   If you need to use a driver disk with kickstart, you can still
-   have the kickstart file on a floppy disk:
-   boot: linux ks=floppy dd
+          An  alternate  boot  command is to boot off the Red Hat
+          Linux  CD-ROM  #1 and have the kickstart file on a vfat
+          or  ext2 file system on a diskette. To do so, enter the
+          following command at the boot: prompt:
 
-   The  Red  Hat Linux installation program looks for a kickstart
-   file  if the ks command line argument is passed to the kernel.
-   The command line argument can take a number of forms:
+linux ks=hd:fd0:/ks.cfg
+
+   With Driver Disk
+          If  you  need  to  use  a  driver  disk with kickstart,
+          specify the dd option as well. For example, to boot off
+          a  boot  diskette  and  use  a  driver  disk, enter the
+          following command at the boot: prompt:
+
+linux ks=floppy dd
+
+   Boot CD-ROM
+          If  the kickstart file is on a boot CD-ROM as described
+          in  the Section called Creating a Kickstart Boot CD-ROM
+          in   the  chapter  called  Making  the  Kickstart  File
+          Available,  insert the CD-ROM into the system, boot the
+          system,  and  enter  the following command at the boot:
+          prompt  (where  ks.cfg  is  the  name  of the kickstart
+          file):
+
+linux ks=cdrom:/ks.cfg
+
+   Other  options  to  start  a  kickstart  installation  are  as
+   follows:
 
    ks=nfs:<server>:/<path>
           The  installation  program  will look for the kickstart
@@ -1427,18 +1519,26 @@ boot: linux ks=floppy
 
    ks=floppy
           The installation program looks for the file ks.cfg on a
-          vfat   or  ext2  filesystem  on  the  floppy  in  drive
-          /dev/fd0.
+          vfat or ext2 file system on the diskette in /dev/fd0.
 
-   ks=hd:<device>/<file>
-          The  installation  program will mount the filesystem on
+   ks=floppy:/<path>
+          The  installation  program  will look for the kickstart
+          file on the diskette in /dev/fd0, as file <path>.
+
+   ks=hd:<device>:/<file>
+          The  installation program will mount the file system on
           <device> (which must be vfat or ext2), and look for the
-          kickstart   configuration   file   as  <file>  in  that
-          filesystem (for example, ks=hd:sda3/mydir/ks.cfg).
+          kickstart  configuration  file  as  <file> in that file
+          system (for example, ks=hd:sda3:/mydir/ks.cfg).
+
+          Note Note
+
+
+   The second colon is a syntax change for Red Hat Linux 9.
 
    ks=file:/<file>
           The  installation  program  will  try  to read the file
-          <file>  from  the  filesystem;  no mounts will be done.
+          <file>  from  the  file system; no mounts will be done.
           This  is normally used if the kickstart file is already
           on the initrd image.
 
@@ -1476,4 +1576,4 @@ boot: linux ks=floppy
 
   Notes
 
-   [1] New option
+   [1] This option is new to Red Hat Linux 9.

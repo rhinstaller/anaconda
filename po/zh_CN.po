@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 8.0 beta\n"
-"POT-Creation-Date: 2003-02-20 22:29-0500\n"
+"POT-Creation-Date: 2003-02-24 19:53-0500\n"
 "PO-Revision-Date: 2003-02-21 08:07GMT+10:00\n"
 "Last-Translator: Sarah Smith <sarahs@redhat.com>\n"
 "Language-Team: Simplified Chinese <i18n@redhat.com>\n"
@@ -236,7 +236,7 @@ msgstr ""
 
 #: ../autopart.py:1405 ../bootloader.py:123 ../image.py:386
 #: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:303
-#: ../upgrade.py:438 ../upgrade.py:458 ../upgrade.py:500
+#: ../upgrade.py:439 ../upgrade.py:459 ../upgrade.py:500
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
@@ -417,8 +417,8 @@ msgstr "创建引导盘(_M)"
 #: ../harddrive.py:217 ../image.py:76 ../image.py:113 ../image.py:249
 #: ../packages.py:140 ../packages.py:154 ../packages.py:341 ../packages.py:513
 #: ../packages.py:586 ../partedUtils.py:531 ../partIntfHelpers.py:147
-#: ../partIntfHelpers.py:332 ../upgrade.py:333 ../upgrade.py:358
-#: ../upgrade.py:384 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
+#: ../partIntfHelpers.py:332 ../upgrade.py:334 ../upgrade.py:359
+#: ../upgrade.py:385 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1068
 #: ../textw/partition_text.py:1079 ../textw/upgrade_text.py:165
@@ -872,30 +872,30 @@ msgstr "该光盘无法被挂载。"
 msgid "Install on System"
 msgstr "在系统上安装"
 
-#: ../kickstart.py:1170
+#: ../kickstart.py:1168
 msgid "Missing Package"
 msgstr "缺少软件包"
 
-#: ../kickstart.py:1171
+#: ../kickstart.py:1169
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr "您已指定要安装“%s”软件包。该软件包不存在。您想要继续还是中止安装？"
 
-#: ../kickstart.py:1177 ../kickstart.py:1203
+#: ../kickstart.py:1175 ../kickstart.py:1201
 msgid "_Abort"
 msgstr "中止(_A)"
 
-#: ../kickstart.py:1178 ../kickstart.py:1204 ../iw/partition_gui.py:997
+#: ../kickstart.py:1176 ../kickstart.py:1202 ../iw/partition_gui.py:997
 msgid "_Continue"
 msgstr "继续(_C)"
 
-#: ../kickstart.py:1196
+#: ../kickstart.py:1194
 msgid "Missing Group"
 msgstr "缺少组群"
 
-#: ../kickstart.py:1197
+#: ../kickstart.py:1195
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1007,7 +1007,7 @@ msgid ""
 "of %s."
 msgstr "您试图在 %s 的本次发行版不支持的机器上安装。"
 
-#: ../packages.py:587 ../upgrade.py:334
+#: ../packages.py:587 ../upgrade.py:335
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1943,15 +1943,15 @@ msgstr "无效目录"
 msgid "%s not found"
 msgstr "没有发现 %s"
 
-#: ../upgrade.py:346
+#: ../upgrade.py:347
 msgid "Finding"
 msgstr "查找"
 
-#: ../upgrade.py:347
+#: ../upgrade.py:348
 msgid "Finding packages to upgrade..."
 msgstr "正在查找要升级的软件包..."
 
-#: ../upgrade.py:359
+#: ../upgrade.py:360
 msgid ""
 "The installation program is unable to upgrade systems with a pre-rpm 4.x "
 "database. Please install the errata rpm packages for your release as "
@@ -1960,11 +1960,11 @@ msgstr ""
 "安装程序无法升级带有 rpm 4.x 之前数据库的系统。请按照发行注记中的描述安装用于"
 "您的发行版本的勘误 rpm 软件包，然后再运行升级进程。"
 
-#: ../upgrade.py:385
+#: ../upgrade.py:386
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "在查找要升级的软件包时出错。"
 
-#: ../upgrade.py:439
+#: ../upgrade.py:440
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1975,7 +1975,7 @@ msgstr ""
 "这个系统内似乎存在第三方软件包，与 Red Hat Linux 所提供的软件包重复。由于软件"
 "包重复，继续升级可能会导致功能不正常或系统不稳定。您想继续升级吗？"
 
-#: ../upgrade.py:459
+#: ../upgrade.py:460
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -7328,9 +7328,8 @@ msgstr "西班牙语"
 msgid "Swedish"
 msgstr "瑞典语"
 
-#. generated from lang-table
-msgid "Turkish"
-msgstr "土耳其语"
+#~ msgid "Turkish"
+#~ msgstr "土耳其语"
 
 #~ msgid "Slovenian"
 #~ msgstr "斯洛文尼亚语"

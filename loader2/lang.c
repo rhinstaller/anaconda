@@ -116,8 +116,7 @@ static void loadLanguageList(int flags) {
             languages[numLanguages].map = strdup(map);
             languages[numLanguages].lc_all = strdup(code);
             languages[numLanguages].keyboard = strdup(keyboard);
-            languages[numLanguages].instlang = strdup(instlang);
-            numLanguages++;
+            languages[numLanguages++].instlang = strdup(instlang);
         }
     }
     fclose(f);

@@ -29,7 +29,7 @@ NAME="AEN2"
 >Kickstart</H1
 ><P
 CLASS="COPYRIGHT"
->Copyright &copy; 2002 by Red Hat, Inc.</P
+>Copyright &copy; 2003 by Red Hat, Inc.</P
 ><DIV
 CLASS="LEGALNOTICE"
 ><A
@@ -38,7 +38,7 @@ NAME="LEGALNOTICE"
 ><P
 ></P
 ><P
->	kickstart(EN)-anaconda-HTML-RHI (2002-08-06T17:28-0500)
+>	kickstart(EN)-anaconda-HTML-RHI (2003-02-24T01:49)
       </P
 ><P
 >	Copyright � 2002 by Red Hat, Inc. This material may be distributed only
@@ -200,7 +200,7 @@ CLASS="EMPHASIS"
 ><LI
 ><P
 >Command section &#8212; Refer to <A
-HREF="#KICKSTART2-OPTIONS"
+HREF="#S1-KICKSTART2-OPTIONS"
 >Chapter 2</A
 > for a list of kickstart
 		options. You must include the required options.
@@ -256,7 +256,7 @@ HREF="#S1-KICKSTART2-POSTINSTALLCONFIG"
 ></LI
 ><LI
 ><P
->Lines starting with a pound sign ("#") are treated as comments and
+>Lines starting with a pound sign (#) are treated as comments and
 	    are ignored.
 	  </P
 ></LI
@@ -316,17 +316,17 @@ CLASS="COMMAND"
 CLASS="CHAPTER"
 ><CHAPTER><H1
 ><A
-NAME="KICKSTART2-OPTIONS"
+NAME="S1-KICKSTART2-OPTIONS"
 ></A
 >Chapter 2. Kickstart Options</H1
 ><P
 >	The following options can be placed in a kickstart file. If you prefer
-	to use a graphical interface for creating your kickstart file, you can
+	to use a graphical interface for creating your kickstart file, 
 	use the <B
 CLASS="APPLICATION"
 >Kickstart Configurator</B
 >
-	application.
+	application. 
       </P
 ><DIV
 CLASS="NOTE"
@@ -337,14 +337,6 @@ CLASS="NOTE"
 WIDTH="100%"
 BORDER="0"
 ><TR
-><TD
-WIDTH="25"
-ALIGN="CENTER"
-VALIGN="TOP"
-><IMG
-SRC="./stylesheet-images/note.png"
-HSPACE="5"
-ALT="Note"></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -542,7 +534,8 @@ CLASS="COMMAND"
 		    or <TT
 CLASS="COMMAND"
 >--enableldapauth</TT
->, the name of the
+>, use this option to 
+                    specify the name of the
 		    LDAP server to use.  This option is set in the
 		    <TT
 CLASS="FILENAME"
@@ -707,14 +700,6 @@ CLASS="TIP"
 WIDTH="90%"
 BORDER="0"
 ><TR
-><TD
-WIDTH="25"
-ALIGN="CENTER"
-VALIGN="TOP"
-><IMG
-SRC="./stylesheet-images/tip.png"
-HSPACE="5"
-ALT="Tip"></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -871,7 +856,23 @@ CLASS="COMMAND"
 ></DT
 ><DD
 ><P
->Specifies kernel parameters.</P
+>Specifies kernel parameters. To specify multiple
+		  parameters, separate them with spaces. For example:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMMAND"
+>bootloader --location=mbr --append="hdd=ide-scsi ide=nodma"</TT
+></PRE
+></TD
+></TR
+></TABLE
 ></DD
 ><DT
 ><TT
@@ -946,7 +947,7 @@ CLASS="COMMAND"
 CLASS="COMMAND"
 >linear</TT
 > LILO
-		    option; this is only for backwards compatibility (and
+		    option; this is only for backward compatibility (and
 		    linear is now used by default).
 		  </P
 ></DD
@@ -972,7 +973,7 @@ CLASS="COMMAND"
 ><DD
 ><P
 >If using LILO, force use of lba32 mode instead of
-		    autodetecting. 
+		    auto-detecting. 
 		  </P
 ></DD
 ><DT
@@ -1009,14 +1010,6 @@ CLASS="NOTE"
 WIDTH="90%"
 BORDER="0"
 ><TR
-><TD
-WIDTH="25"
-ALIGN="CENTER"
-VALIGN="TOP"
-><IMG
-SRC="./stylesheet-images/note.png"
-HSPACE="5"
-ALT="Note"></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -1071,11 +1064,28 @@ CLASS="COMMAND"
 ><DT
 ><TT
 CLASS="COMMAND"
->--drives</TT
+>--drives=</TT
 ></DT
 ><DD
 ><P
->Specifies which drives to clear partitions from.</P
+>Specifies which drives to clear partitions from. For
+		  example, the following clears the partitions on the first two
+		  drives on the primary IDE controller:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMMAND"
+>clearpart --drives hda,hdb</TT
+></PRE
+></TD
+></TR
+></TABLE
 ></DD
 ><DT
 ><TT
@@ -1085,17 +1095,17 @@ CLASS="COMMAND"
 ><DD
 ><P
 >Initializes the disk label to the default for your
-		    architecture (<TT
+		    architecture (for example <TT
 CLASS="COMMAND"
 >msdos</TT
-> for x86 and
-		    <TT
+> for x86
+		    and <TT
 CLASS="COMMAND"
 >gpt</TT
 > for Itanium). It is useful so
 		    that the installation program does not ask if it should
-		    initialize the disk label if installing to a brand new
-		    hard drive.
+		    initialize the disk label if installing to a brand new hard
+		    drive.
 		  </P
 ></DD
 ></DL
@@ -1286,7 +1296,7 @@ CLASS="COMMAND"
 ></DT
 ><DD
 ><P
->Filesystem type (for example, vfat, ext2, or ext3).</P
+>File system type (for example, vfat or ext2).</P
 ></DD
 ></DL
 ></DIV
@@ -1455,19 +1465,20 @@ CLASS="COMMAND"
 ></DT
 ><DD
 ><P
->You can specify that ports be allowed through the firewall using
-		    the port:protocol format. For example, if you wanted to allow
-		    IMAP access through your firewall, you can specify
+>You can specify that ports be allowed through the
+		    firewall using the port:protocol format. For example, to
+		    allow IMAP access through your firewall, specify
 		    <TT
 CLASS="COMMAND"
 >imap:tcp</TT
->.  You can also specify numeric ports
-		explicitly; for example, to allow UDP packets on port 1234
-		    through, specify <TT
+>.  specify numeric ports can also
+		    be specified explicitly; for example, to allow UDP packets
+		    on port 1234 through, specify
+		    <TT
 CLASS="COMMAND"
 >1234:udp</TT
->. To specify
-		    multiple ports, separate them by commas.
+>. To specify multiple ports,
+		    separate them by commas.
 		  </P
 ></DD
 ></DL
@@ -1497,7 +1508,11 @@ CLASS="COMMAND"
 CLASS="COMMAND"
 >url</TT
 > (for ftp or http
-	      installations).
+	      installations). The <TT
+CLASS="COMMAND"
+>install</TT
+> command and the
+	      installation method command must be on separate lines.
 	    </P
 ><P
 ></P
@@ -1737,16 +1752,29 @@ WIDTH="90%"
 ><TD
 ><PRE
 CLASS="SCREEN"
->be-latin1, be-latin2, bg, br-abnt2, cf, cz-lat2, cz-us-qwertz, de,
+>be-latin1, bg, br-abnt2, cf, cz-lat2, cz-us-qwertz, de,
 de-latin1, de-latin1-nodeadkeys, dk, dk-latin1, dvorak, es, et,
-fi, i-latin1, fr, fr-latin0, fr-latin1, fr-pc, fr_CH, fr_CH-latin1,
-gr, hu, hu101, is-latin1, it, it-ibm, it2, jp106, no, no-latin1,
-pl, pt-latin1, ro, ru, ru-cp1251, ru-ms, ru1, ru2, ru_win,
-se-latin1, sg, sg-latin1, sk-qwerty, slovene, speakup, speakup-lt,
-trq, ua, uk, us</PRE
+fi, fi-latin1, fr, fr-latin0, fr-latin1, fr-pc, fr_CH, fr_CH-latin1,
+gr, hu, hu101, is-latin1, it, it-ibm, it2, jp106, la-latin1, mk-utf,
+no, no-latin1, pl, pt-latin1, ro_win, ru, ru-cp1251, ru-ms, ru1, ru2, 
+ru_win, se-latin1, sg, sg-latin1, sk-qwerty, slovene, speakup, 
+speakup-lt, sv-latin1, sg, sg-latin1, sk-querty, slovene, trq, ua, 
+uk, us, us-acentos</PRE
 ></TD
 ></TR
 ></TABLE
+><P
+>The file
+	      <TT
+CLASS="FILENAME"
+>/usr/lib/python2.2/site-packages/rhpl/keyboard_models.py</TT
+>
+	      also contains this list and is part of the
+	      <TT
+CLASS="FILENAME"
+>rhpl</TT
+> package.
+	    </P
 ></DD
 ><DT
 ><TT
@@ -1777,23 +1805,18 @@ CLASS="COMMAND"
 ></TR
 ></TABLE
 ><P
->	      Valid language codes are the following (please note that these
-	      are subject to change at any time):
+>The file
+	      <TT
+CLASS="FILENAME"
+>/usr/share/redhat-config-language/locale-list</TT
+>
+	      provides a list the valid language codes in the first column of
+	      each line and is part of the
+	      <TT
+CLASS="FILENAME"
+>redhat-config-languages</TT
+> package.
 	    </P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="90%"
-><TR
-><TD
-><PRE
-CLASS="SCREEN"
->cs_CZ, da_DK, en_US, fr_FR, de_DE, is_IS, it_IT, ja_JP.eucJP, 
-ko_KR.eucKR, no_NO, pt_PT, ru_RU.koi8r, sl_SI, es_ES, sv_SE, uk_UA,
-zh_CN.GB18030, zh_TW.Big5</PRE
-></TD
-></TR
-></TABLE
 ></DD
 ><DT
 ><TT
@@ -1813,9 +1836,8 @@ CLASS="COMMAND"
 >.
 	    </P
 ><P
->	      If you just want to install one language, specify it. For
-	      example, to install and use the French language
-	      <TT
+>To install one language, specify it. For example, to install
+	      and use the French language <TT
 CLASS="COMMAND"
 >fr_FR</TT
 >:
@@ -1847,8 +1869,8 @@ CLASS="COMMAND"
 ></DT
 ><DD
 ><P
->If you want to install language support for more than
-		    one language, you must specify a default.
+>If language support for more than one language is specified,
+		  a default must be identified.
 		  </P
 ></DD
 ></DL
@@ -1899,14 +1921,6 @@ CLASS="WARNING"
 WIDTH="90%"
 BORDER="0"
 ><TR
-><TD
-WIDTH="25"
-ALIGN="CENTER"
-VALIGN="TOP"
-><IMG
-SRC="./stylesheet-images/warning.png"
-HSPACE="5"
-ALT="Warning"></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -1925,7 +1939,7 @@ VALIGN="TOP"
 CLASS="COMMAND"
 >bootloader</TT
 >
-		and is only available for backwards compatibility. Refer to
+		and is only available for backward compatibility. Refer to
 		<TT
 CLASS="COMMAND"
 >bootloader</TT
@@ -1980,7 +1994,7 @@ CLASS="COMMAND"
 CLASS="COMMAND"
 >linear</TT
 > LILO option; this is
-		    only for backwards compatibility (and linear is now used
+		    only for back-wards compatibility (and linear is now used
 		    by default).
 		  </P
 ></DD
@@ -2026,7 +2040,7 @@ CLASS="COMMAND"
 ></DT
 ><DD
 ><P
->Forces the use of lba32 mode instead of autodetecting.</P
+>Forces the use of lba32 mode instead of auto-detecting.</P
 ></DD
 ></DL
 ></DIV
@@ -2052,12 +2066,7 @@ CLASS="COMMAND"
 ><TT
 CLASS="COMMAND"
 >logvol</TT
-> (optional)
-	    <A
-NAME="NEW-OPTION"
-HREF="#FTN.NEW-OPTION"
->[1]</A
-></DT
+> (optional)</DT
 ><DD
 ><P
 >Create a logical volume for Logical Volume Management
@@ -2173,21 +2182,31 @@ WIDTH="90%"
 ><TD
 ><PRE
 CLASS="SCREEN"
->alpsps/2, ascii, asciips/2, atibm, generic, generic3,
-genericps/2, generic3ps/2, genericusb, generic3usb, 
-geniusnm, geniusnmps/2,geniusprops/2, geniusscrollps/2, 
-geniusscrollps/2+, thinking, thinkingps/2, logitech, 
-logitechcc, logibm, logimman, logimmanps/2, logimman+, 
-logimman+ps/2, logimmusb, microsoft, msnew, msintelli, 
-msintellips/2, msintelliusb, msbm, mousesystems, mmseries, 
+>alpsps/2, ascii, asciips/2, atibm, generic, generic3, genericps/2, 
+generic3ps/2, genericwheelps/2, genericusb, generic3usb, genericwheelusb, 
+geniusnm, geniusnmps/2, geniusprops/2, geniusscrollps/2, geniusscrollps/2+, 
+thinking, thinkingps/2, logitech, logitechcc, logibm, logimman, 
+logimmanps/2, logimman+, logimman+ps/2, logimmusb, microsoft, msnew, 
+msintelli, msintellips/2, msintelliusb, msbm, mousesystems, mmseries, 
 mmhittab, sun, none</PRE
 ></TD
 ></TR
 ></TABLE
 ><P
+>This list can also be found in the
+	      <TT
+CLASS="FILENAME"
+>/usr/lib/python2.2/site-packages/rhpl/mouse.py</TT
+>
+	      file, which is part of the <TT
+CLASS="FILENAME"
+>rhpl</TT
+> package.
+	    </P
+><P
 >If the mouse command is given without any arguments, or
 	      it is omitted, the installation program will attempt to
-	      autodetect the mouse.  This procedure works for most
+	      auto-detect the mouse.  This procedure works for most
 	      modern mice.
 	    </P
 ></DD
@@ -2468,14 +2487,6 @@ CLASS="WARNING"
 WIDTH="90%"
 BORDER="0"
 ><TR
-><TD
-WIDTH="25"
-ALIGN="CENTER"
-VALIGN="TOP"
-><IMG
-SRC="./stylesheet-images/warning.png"
-HSPACE="5"
-ALT="Warning"></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -2709,7 +2720,7 @@ WIDTH="90%"
 CLASS="SCREEN"
 ><TT
 CLASS="COMMAND"
->partition /home --onpart hda1</TT
+>partition /home --onpart=hda1</TT
 ></PRE
 ></TD
 ></TR
@@ -2763,10 +2774,10 @@ CLASS="COMMAND"
 ><DD
 ><P
 >Number specified represents the
-		    number of bytes per inode on the filesystem when it is
+		    number of bytes per inode on the file system when it is
 		    created.  It must be given in decimal format. This
 		    option is useful for applications where you want to
-		    increase the number of inodes on the filesystem.
+		    increase the number of inodes on the file system.
 		  </P
 ></DD
 ><DT
@@ -2794,7 +2805,7 @@ CLASS="COMMAND"
 ></DT
 ><DD
 ><P
->Sets the filesystem type for the partition. Valid
+>Sets the file system type for the partition. Valid
 		    values are <TT
 CLASS="COMMAND"
 >ext2</TT
@@ -2878,14 +2889,6 @@ CLASS="NOTE"
 WIDTH="90%"
 BORDER="0"
 ><TR
-><TD
-WIDTH="25"
-ALIGN="CENTER"
-VALIGN="TOP"
-><IMG
-SRC="./stylesheet-images/note.png"
-HSPACE="5"
-ALT="Note"></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -2962,7 +2965,7 @@ CLASS="REPLACEABLE"
 ></DT
 ><DD
 ><P
->Location where the RAID filesystem is mounted. If it is
+>Location where the RAID file system is mounted. If it is
 		    <TT
 CLASS="FILENAME"
 >/</TT
@@ -3031,7 +3034,7 @@ CLASS="COMMAND"
 ></DT
 ><DD
 ><P
->Sets the filesystem type for the RAID array. Valid values
+>Sets the file system type for the RAID array. Valid values
 		    are ext2, ext3, swap, and vfat.
 		  </P
 ></DD
@@ -3317,8 +3320,8 @@ CLASS="COMMAND"
 ></DT
 ><DD
 ><P
->Use specified card; this
-		    card name should be from the list of cards in
+>Use specified card; this card name should be from the
+		    list of cards in
 		    <TT
 CLASS="FILENAME"
 >/usr/share/hwdata/Cards</TT
@@ -3326,12 +3329,20 @@ CLASS="FILENAME"
 		    <TT
 CLASS="FILENAME"
 >hwdata</TT
-> package. If this
-		    argument is not provided,
-		    the installation program will probe the 
-		    PCI bus for the card. Since AGP is part of the PCI bus,
-		    AGP cards will be detected if supported. The probe order
-		    is determined by the PCI scan order of the motherboard.
+> package. The list of cards can
+		    also be found on the <B
+CLASS="GUILABEL"
+>X Configuration</B
+>
+		    screen of the <B
+CLASS="APPLICATION"
+>Kickstart Configurator</B
+>. If this
+		    argument is not provided, the installation program will
+		    probe the PCI bus for the card. Since AGP is part of the PCI
+		    bus, AGP cards will be detected if supported. The probe
+		    order is determined by the PCI scan order of the
+		    motherboard.
 		  </P
 ></DD
 ><DT
@@ -3359,7 +3370,15 @@ CLASS="FILENAME"
 		    <TT
 CLASS="FILENAME"
 >hwdata</TT
-> package.  This is
+> package.  The list of monitors can
+		    also be found on the <B
+CLASS="GUILABEL"
+>X Configuration</B
+>
+		    screen of the <B
+CLASS="APPLICATION"
+>Kickstart Configurator</B
+>. This is
 		    ignored if <TT
 CLASS="COMMAND"
 >--hsync</TT
@@ -3449,11 +3468,7 @@ CLASS="COMMAND"
 ><TT
 CLASS="COMMAND"
 >volgroup</TT
-> (optional)
-	    <A
-HREF="#FTN.NEW-OPTION"
->[1]</A
-></DT
+> (optional)</DT
 ><DD
 ><P
 >Use to create a Logical Volume Management (LVM) group with
@@ -3587,44 +3602,15 @@ CLASS="COMMAND"
 	supported).
       </P
 ><P
-></P
-><DIV
-CLASS="VARIABLELIST"
-><DL
-><DT
-><TT
-CLASS="COMMAND"
->--resolvedeps</TT
-></DT
-><DD
-><P
->Install the listed packages and automatically resolve
-	      package dependencies.
-	    </P
-></DD
-><DT
-><TT
-CLASS="COMMAND"
->--ignoredeps</TT
-></DT
-><DD
-><P
->Ignore the unresolved dependencies and install the listed
-	      packages without the dependencies.
-	    </P
-></DD
-></DL
-></DIV
-><P
 >Packages can be specified by group or by individual package name.
 	The installation program defines several groups that contain
 	related packages.  See the
 	<TT
 CLASS="FILENAME"
 >RedHat/base/comps.xml</TT
-> file on any Red Hat Linux CD-ROM
+> file on the first Red Hat Linux CD-ROM
 	for a list of groups.
-	Each group as an id, uservisiblity value, name, description, and
+	Each group has an id, user visibility value, name, description, and
 	package list. In the package list, the packages marked as mandatory
 	are always installed if the group is selected, the packages marked
 	default are selected by default if the group is selected, and the
@@ -3641,7 +3627,7 @@ CLASS="COMMAND"
 CLASS="COMMAND"
 >Base</TT
 > groups are always selected by default, so it
-	is not necessary to specify it in the <TT
+	is not necessary to specify them in the <TT
 CLASS="COMMAND"
 >%packages</TT
 >
@@ -3681,7 +3667,7 @@ CLASS="COMMAND"
 > symbol, a space, and then the full group
 	name as given in the <TT
 CLASS="FILENAME"
->comps</TT
+>comps.xml</TT
 > file.  Specify
 	individual packages with no additional characters (the
 	<TT
@@ -3690,31 +3676,6 @@ CLASS="FILENAME"
 > line in the example above is an
 	individual package).
       </P
-><P
->To specify an everything installation to install all packages), add the
-	<I
-CLASS="EMPHASIS"
->one</I
-> to the <TT
-CLASS="COMMAND"
->%packages</TT
-> section:
-      </P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="SCREEN"
-><TT
-CLASS="COMPUTEROUTPUT"
->@ Everything</TT
-></PRE
-></TD
-></TR
-></TABLE
 ><P
 >You can also specify which packages not to install from the default
 	package list:
@@ -3735,6 +3696,105 @@ CLASS="COMPUTEROUTPUT"
 ></TD
 ></TR
 ></TABLE
+><P
+>	Two options are available for the <TT
+CLASS="COMMAND"
+>%packages</TT
+>
+	option.
+      </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="COMMAND"
+>--resolvedeps</TT
+></DT
+><DD
+><P
+>Install the listed packages and automatically resolve package
+	      dependencies. If this option is not specified and there are
+	      package dependencies, the automated installation will pause and
+	      prompt the user. For example:
+	    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMPUTEROUTPUT"
+>%packages --resolvedeps</TT
+></PRE
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><TT
+CLASS="COMMAND"
+>--ignoredeps</TT
+></DT
+><DD
+><P
+>Ignore the unresolved dependencies and install the listed
+	      packages without the dependencies. For example:
+	    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMPUTEROUTPUT"
+>%packages --ignoredeps</TT
+></PRE
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><TT
+CLASS="COMMAND"
+>--ignoremissing</TT
+><A
+NAME="AEN1289"
+HREF="#FTN.AEN1289"
+>[1]</A
+></DT
+><DD
+><P
+>Ignore the missing packages and groups instead of halting the
+	    installation to ask if the installation should be aborted or
+	    continued. For example:
+	    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMPUTEROUTPUT"
+>%packages --ignoremissing</TT
+></PRE
+></TD
+></TR
+></TABLE
+></DD
+></DL
+></DIV
 ></DIV
 ><DIV
 CLASS="CHAPTER"
@@ -3762,90 +3822,7 @@ CLASS="FIRSTTERM"
 >name
 	  service</I
 > has not been configured at this point, so only IP
-	addresses will work.  Here is an example <TT
-CLASS="COMMAND"
->%pre</TT
->
-	section:
-      </P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="SCREEN"
-><TT
-CLASS="COMPUTEROUTPUT"
->%pre
-
-#!/bin/sh
-
-hds=""
-mymedia=""
-
-for file in /proc/ide/h*
-do
-  mymedia=`cat $file/media`
-  if [ $mymedia == "disk" ] ; then
-      hds="$hds `basename $file`"
-  fi
-done
-
-set $hds
-numhd=`echo $#`
-
-drive1=`echo $hds | cut -d' ' -f1`
-drive2=`echo $hds | cut -d' ' -f2`
-
-#Write out partition scheme based on whether there are 1 or 2 hard drives
-
-if [ $numhd == "2" ] ; then
-  #2 drives
-  echo "#partitioning scheme generated in %pre for 2 drives" &#62; /tmp/part-include
-  echo "clearpart --all" &#62;&#62; /tmp/part-include
-  echo "part /boot --fstype ext3 --size 75 --ondisk hda" &#62;&#62; /tmp/part-include
-  echo "part / --fstype ext3 --size 1 --grow --ondisk hda" &#62;&#62; /tmp/part-include
-  echo "part swap --recommended --ondisk $drive1" &#62;&#62; /tmp/part-include
-  echo "part /home --fstype ext3 --size 1 --grow --ondisk hdb" &#62;&#62; /tmp/part-include
-else
-  #1 drive
-  echo "#partitioning scheme generated in %pre for 1 drive" &#62; /tmp/part-include
-  echo "clearpart --all" &#62;&#62; /tmp/part-include
-  echo "part /boot --fstype ext3 --size 75" &#62;&#62; /tmp/part-includ
-  echo "part swap --recommended" &#62;&#62; /tmp/part-include
-  echo "part / --fstype ext3 --size 2048" &#62;&#62; /tmp/part-include
-  echo "part /home --fstype ext3 --size 2048 --grow" &#62;&#62; /tmp/part-include
-fi</TT
-></PRE
-></TD
-></TR
-></TABLE
-><P
->This script determines the number of hard drives in the system
-	and writes a text file with a different partitioning scheme
-	depending on whether it has one or two drives. Instead of having a
-	set of partitioning commands in the kickstart file, include the
-	line:
-      </P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><PRE
-CLASS="SCREEN"
-><TT
-CLASS="COMMAND"
->%include /tmp/part-include</TT
->	</PRE
-></TD
-></TR
-></TABLE
-><P
->The partitioning commands selected in the script will be used.
+	addresses will work.  
       </P
 ><DIV
 CLASS="NOTE"
@@ -3856,14 +3833,6 @@ CLASS="NOTE"
 WIDTH="100%"
 BORDER="0"
 ><TR
-><TD
-WIDTH="25"
-ALIGN="CENTER"
-VALIGN="TOP"
-><IMG
-SRC="./stylesheet-images/note.png"
-HSPACE="5"
-ALT="Note"></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -3914,6 +3883,100 @@ CLASS="REPLACEABLE"
 ></DD
 ></DL
 ></DIV
+><DIV
+CLASS="SECT1"
+><SECT1><H2
+CLASS="SECT1"
+><A
+NAME="S2-KICKSTART2-PRESCRIPT-EXAMPLE"
+></A
+>Example</H2
+><P
+>	  Here is an example <TT
+CLASS="COMMAND"
+>%pre</TT
+> section:
+	</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMPUTEROUTPUT"
+>%pre
+
+#!/bin/sh
+
+hds=""
+mymedia=""
+
+for file in /proc/ide/h*
+do
+  mymedia=`cat $file/media`
+  if [ $mymedia == "disk" ] ; then
+      hds="$hds `basename $file`"
+  fi
+done
+
+set $hds
+numhd=`echo $#`
+
+drive1=`echo $hds | cut -d' ' -f1`
+drive2=`echo $hds | cut -d' ' -f2`
+
+#Write out partition scheme based on whether there are 1 or 2 hard drives
+
+if [ $numhd == "2" ] ; then
+  #2 drives
+  echo "#partitioning scheme generated in %pre for 2 drives" &#62; /tmp/part-include
+  echo "clearpart --all" &#62;&#62; /tmp/part-include
+  echo "part /boot --fstype ext3 --size 75 --ondisk hda" &#62;&#62; /tmp/part-include
+  echo "part / --fstype ext3 --size 1 --grow --ondisk hda" &#62;&#62; /tmp/part-include
+  echo "part swap --recommended --ondisk $drive1" &#62;&#62; /tmp/part-include
+  echo "part /home --fstype ext3 --size 1 --grow --ondisk hdb" &#62;&#62; /tmp/part-include
+else
+  #1 drive
+  echo "#partitioning scheme generated in %pre for 1 drive" &#62; /tmp/part-include
+  echo "clearpart --all" &#62;&#62; /tmp/part-include
+  echo "part /boot --fstype ext3 --size 75" &#62;&#62; /tmp/part-includ
+  echo "part swap --recommended" &#62;&#62; /tmp/part-include
+  echo "part / --fstype ext3 --size 2048" &#62;&#62; /tmp/part-include
+  echo "part /home --fstype ext3 --size 2048 --grow" &#62;&#62; /tmp/part-include
+fi&#13;</TT
+></PRE
+></TD
+></TR
+></TABLE
+><P
+>This script determines the number of hard drives in the system
+	and writes a text file with a different partitioning scheme
+	depending on whether it has one or two drives. Instead of having a
+	set of partitioning commands in the kickstart file, include the
+	line:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMMAND"
+>%include /tmp/part-include</TT
+>	</PRE
+></TD
+></TR
+></TABLE
+><P
+>The partitioning commands selected in the script will be used.
+      </P
+></DIV
 ></DIV
 ><DIV
 CLASS="CHAPTER"
@@ -3941,14 +4004,6 @@ CLASS="NOTE"
 WIDTH="100%"
 BORDER="0"
 ><TR
-><TD
-WIDTH="25"
-ALIGN="CENTER"
-VALIGN="TOP"
-><IMG
-SRC="./stylesheet-images/note.png"
-HSPACE="5"
-ALT="Note"></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -3998,14 +4053,6 @@ CLASS="NOTE"
 WIDTH="100%"
 BORDER="0"
 ><TR
-><TD
-WIDTH="25"
-ALIGN="CENTER"
-VALIGN="TOP"
-><IMG
-SRC="./stylesheet-images/note.png"
-HSPACE="5"
-ALT="Note"></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -4048,7 +4095,7 @@ CLASS="COMMAND"
 	      <TT
 CLASS="FILENAME"
 >/etc/resolv.conf</TT
-> to the filesystem that was
+> to the file system that was
 	      just installed.
 	    </P
 ><TABLE
@@ -4175,7 +4222,7 @@ NAME="S1-KICKSTART2-PUTKICKSTARTHERE"
 ></A
 >Chapter 6. Making the Kickstart File Available</H1
 ><P
->	A kickstart file must be placed in one of two locations:
+>	A kickstart file must be placed in one of the following locations:
       </P
 ><P
 ></P
@@ -4183,6 +4230,10 @@ NAME="S1-KICKSTART2-PUTKICKSTARTHERE"
 ><LI
 ><P
 >On a boot diskette</P
+></LI
+><LI
+><P
+>On a boot CD-ROM</P
 ></LI
 ><LI
 ><P
@@ -4213,9 +4264,18 @@ NAME="S2-KICKSTART2-DISKBASED"
 CLASS="FILENAME"
 >ks.cfg</TT
 > and must be located in the
-	  boot diskette's top-level directory. Note that the Red Hat Linux boot diskettes are in
-	  MS-DOS format, so it is easy to copy the kickstart file under Linux
-	  using the <TT
+	  boot diskette's top-level directory. Refer to the section
+	  <I
+CLASS="CITETITLE"
+>Making an Installation Boot Diskette</I
+> in the
+	  <I
+CLASS="CITETITLE"
+>Red Hat Linux Installation Guide</I
+> for instruction on creating a boot
+	  diskette. Because the Red Hat Linux boot diskettes are in MS-DOS format, it is
+	  easy to copy the kickstart file under Linux using the
+	  <TT
 CLASS="COMMAND"
 >mcopy</TT
 > command:
@@ -4237,11 +4297,51 @@ CLASS="COMMAND"
 ></TABLE
 ><P
 >	  Alternatively, you can use Windows to copy the file.  You can also
-	  mount the MS-DOS boot diskette and <TT
+	  mount the MS-DOS boot diskette in Red Hat Linux with the file system type vfat
+	  and use the <TT
 CLASS="COMMAND"
 >cp</TT
-> the file
-	  over.
+> command to copy the file on the
+	  diskette.
+	</P
+></DIV
+><DIV
+CLASS="SECT1"
+><SECT1><H2
+CLASS="SECT1"
+><A
+NAME="S2-KICKSTART2-CDBASED"
+></A
+>Creating a Kickstart Boot CD-ROM</H2
+><P
+>	  To perform a CD-ROM-based kickstart installation, the kickstart file
+	  must be named <TT
+CLASS="FILENAME"
+>ks.cfg</TT
+> and must be located in the
+	  boot CD-ROM's top-level directory. Since a CD-ROM is read-only, the
+	  file must be added to the directory used to create the image that is
+	  written to the CD-ROM. Refer to the <I
+CLASS="CITETITLE"
+>Making an Installation
+	  Boot CD-ROM</I
+> section in the <I
+CLASS="CITETITLE"
+>Red Hat Linux Installation Guide</I
+>
+	  for instruction on creating a boot CD-ROM; however, before making the
+	  <TT
+CLASS="FILENAME"
+>file.iso</TT
+> image file, copy the
+	  <TT
+CLASS="FILENAME"
+>ks.cfg</TT
+> kickstart file to the
+	  <TT
+CLASS="FILENAME"
+>isolinux/</TT
+> directory.
 	</P
 ></DIV
 ><DIV
@@ -4427,7 +4527,7 @@ CLASS="CITETITLE"
 >
 	section of the <I
 CLASS="CITETITLE"
->Official Red Hat Linux Installation Guide</I
+>Red Hat Linux Installation Guide</I
 > for details.
       </P
 ></DIV
@@ -4435,34 +4535,50 @@ CLASS="CITETITLE"
 CLASS="CHAPTER"
 ><CHAPTER><H1
 ><A
-NAME="AEN1425"
+NAME="S1-KICKSTART2-STARTINGINSTALL"
 ></A
 >Chapter 8. Starting a Kickstart Installation</H1
 ><P
 >	To begin a kickstart installation, you must boot the system from a Red Hat Linux
-	boot diskette or the CD-ROM and enter a special boot command at the boot prompt.  If the
-	kickstart file is located on a boot diskette that was created from the
-	<TT
-CLASS="FILENAME"
->boot.img</TT
-> or <TT
-CLASS="FILENAME"
->bootnet.img</TT
-> image
-	file, the correct boot command would be:
+	boot diskette, Red Hat Linux boot CD-ROM, or the Red Hat Linux CD-ROM #1 and enter a
+	special boot command at the boot prompt. The installation program looks
+	for a kickstart file if the <TT
+CLASS="COMMAND"
+>ks</TT
+> command line argument
+	is passed to the kernel.
       </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>Boot Diskette</DT
+><DD
+><P
+>If the kickstart file is located on a boot diskette as
+	      described in <A
+HREF="#S2-KICKSTART2-DISKBASED"
+>the Section called <I
+>Creating a Kickstart Boot Diskette</I
+> in Chapter 6</A
+>, boot the
+	      system with the diskette in the drive, and enter the following
+	      command at the <TT
+CLASS="PROMPT"
+>boot:</TT
+> prompt:
+	    </P
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
-WIDTH="100%"
+WIDTH="90%"
 ><TR
 ><TD
 ><PRE
 CLASS="SCREEN"
 ><TT
-CLASS="PROMPT"
->boot:</TT
-> <TT
 CLASS="USERINPUT"
 ><B
 >linux ks=floppy</B
@@ -4471,59 +4587,84 @@ CLASS="USERINPUT"
 ></TD
 ></TR
 ></TABLE
+></DD
+><DT
+>CD-ROM #1 and Diskette</DT
+><DD
 ><P
->	The <TT
+>The <TT
 CLASS="USERINPUT"
 ><B
 >linux ks=floppy</B
 ></TT
-> command also works if the
-	<TT
+> command also works
+	      if the <TT
 CLASS="FILENAME"
 >ks.cfg</TT
-> file is located on a vfat or ext2 filesystem on a
-	floppy diskette and you boot from the Red Hat Linux CD-ROM.
-      </P
+> file is located on a vfat or
+	      ext2 file system on a diskette and you boot from the Red Hat Linux CD-ROM
+	      #1.
+	    </P
 ><P
->	An alternate boot command for booting off the Red Hat Linux CD-ROM and having the
-	kickstart file on a vfat or ext2 filesystem on a floppy diskette is:
-      </P
+>An alternate boot command is to boot off the Red Hat Linux CD-ROM #1
+	      and have the kickstart file on a vfat or ext2 file system on a
+	      diskette. To do so, enter the following command at the
+	      <TT
+CLASS="PROMPT"
+>boot:</TT
+> prompt:
+	    </P
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
-WIDTH="100%"
+WIDTH="90%"
 ><TR
 ><TD
 ><PRE
 CLASS="SCREEN"
 ><TT
-CLASS="PROMPT"
->boot:</TT
-> <TT
 CLASS="USERINPUT"
 ><B
->linux ks=hd:fd0/ks.cfg</B
+>linux ks=hd:fd0:/ks.cfg</B
 ></TT
 ></PRE
 ></TD
 ></TR
 ></TABLE
+></DD
+></DL
+></DIV
 ><P
->	If you need to use a driver disk with kickstart, you can still have the
-	kickstart file on a floppy disk:
-      </P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>With Driver Disk</DT
+><DD
+><P
+>If you need to use a driver disk with kickstart, specify the
+	      <TT
+CLASS="USERINPUT"
+><B
+>dd</B
+></TT
+> option as well. For example, to boot off
+	      a boot diskette and use a driver disk, enter the following command
+	      at the <TT
+CLASS="PROMPT"
+>boot:</TT
+> prompt:
+	    </P
 ><TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
-WIDTH="100%"
+WIDTH="90%"
 ><TR
 ><TD
 ><PRE
 CLASS="SCREEN"
 ><TT
-CLASS="PROMPT"
->boot:</TT
-> <TT
 CLASS="USERINPUT"
 ><B
 >linux ks=floppy dd</B
@@ -4532,13 +4673,50 @@ CLASS="USERINPUT"
 ></TD
 ></TR
 ></TABLE
+></DD
+><DT
+>Boot CD-ROM</DT
+><DD
 ><P
->	The Red Hat Linux installation program looks for a kickstart file if the
-	<TT
-CLASS="COMMAND"
->ks</TT
-> command line argument is passed to the kernel. 
-	The command line argument can take a number of forms:
+>If the kickstart file is on a boot CD-ROM as described in
+	      <A
+HREF="#S2-KICKSTART2-CDBASED"
+>the Section called <I
+>Creating a Kickstart Boot CD-ROM</I
+> in Chapter 6</A
+>, insert the CD-ROM into the
+	      system, boot the system, and enter the following command at the
+	      <TT
+CLASS="PROMPT"
+>boot:</TT
+> prompt (where <TT
+CLASS="FILENAME"
+>ks.cfg</TT
+>
+	      is the name of the kickstart file):
+	    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="USERINPUT"
+><B
+>linux ks=cdrom:/ks.cfg</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></DD
+></DL
+></DIV
+><P
+>	Other options to start a kickstart installation are as follows:
       </P
 ><P
 ></P
@@ -4640,10 +4818,35 @@ CLASS="COMMAND"
 	      <TT
 CLASS="FILENAME"
 >ks.cfg</TT
-> on a vfat or ext2 filesystem on the floppy in
-	      drive <TT
+> on a vfat or ext2 file system on the
+	      diskette in <TT
 CLASS="FILENAME"
 >/dev/fd0</TT
+>.
+	    </P
+></DD
+><DT
+><TT
+CLASS="COMMAND"
+>ks=floppy:/<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></TT
+></DT
+><DD
+><P
+>The installation program will look for the kickstart file on
+	      the diskette in <TT
+CLASS="FILENAME"
+>/dev/fd0</TT
+>, as file
+	      <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
 >.
 	    </P
 ></DD
@@ -4655,7 +4858,7 @@ CLASS="REPLACEABLE"
 ><I
 >&#60;device&#62;</I
 ></TT
->/<TT
+>:/<TT
 CLASS="REPLACEABLE"
 ><I
 >&#60;file&#62;</I
@@ -4664,7 +4867,7 @@ CLASS="REPLACEABLE"
 ></DT
 ><DD
 ><P
->The installation program will mount the filesystem on
+>The installation program will mount the file system on
 	      <TT
 CLASS="REPLACEABLE"
 ><I
@@ -4677,12 +4880,40 @@ CLASS="REPLACEABLE"
 ><I
 >&#60;file&#62;</I
 ></TT
-> in that filesystem (for
+> in that file system (for
 	      example, <TT
 CLASS="COMMAND"
->ks=hd:sda3/mydir/ks.cfg</TT
+>ks=hd:sda3:/mydir/ks.cfg</TT
 >).
 	    </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Note</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>The second colon is a syntax change for Red Hat Linux 9.</P
+></TD
+></TR
+></TABLE
+></DIV
 ></DD
 ><DT
 ><TT
@@ -4702,7 +4933,7 @@ CLASS="REPLACEABLE"
 ><I
 >&#60;file&#62;</I
 ></TT
-> from the filesystem; no
+> from the file system; no
 	      mounts will be done. This is normally used if the kickstart file
 	      is already on the <TT
 CLASS="FILENAME"
@@ -4847,8 +5078,8 @@ ALIGN="LEFT"
 VALIGN="TOP"
 WIDTH="5%"
 ><A
-NAME="FTN.NEW-OPTION"
-HREF="#NEW-OPTION"
+NAME="FTN.AEN1289"
+HREF="#AEN1289"
 >[1]</A
 ></TD
 ><TD
@@ -4856,7 +5087,8 @@ ALIGN="LEFT"
 VALIGN="TOP"
 WIDTH="95%"
 ><P
->New option</P
+>This option is new to Red Hat Linux 9.
+	      </P
 ></TD
 ></TR
 ></TABLE

@@ -39,12 +39,12 @@ class UpgradeBootloaderWindow:
         elif dispatch.stepInSkipList("instbootloader"):
             nobl = 1
         else:
-            if self.type != None and self.bootDev != None:
+            if self.type is not None and self.bootDev is not None:
                 update = 1
             else:
                 nobl = 0
         
-        if self.type != None and self.bootDev != None:
+        if self.type is not None and self.bootDev is not None:
             t = TextboxReflowed(53,
                                 _("The installer has detected the %s boot "
                                   "loader currently installed on %s.")
@@ -93,7 +93,7 @@ class UpgradeBootloaderWindow:
                 self.dispatch.skipStep("bootloader", skip = 1)
                 self.dispatch.skipStep("bootloaderadvanced", skip = 1)
                 self.dispatch.skipStep("instbootloader", skip = 1)
-            if blradio.getSelection() == "newbl":
+            elif blradio.getSelection() == "newbl":
                 self.dispatch.skipStep("bootloadersetup", skip = 0)
                 self.dispatch.skipStep("bootloader", skip = 0)
                 self.dispatch.skipStep("bootloaderadvanced", skip = 0)
