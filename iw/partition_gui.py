@@ -975,10 +975,10 @@ class PartitionWindow(InstallWindow):
             # default to fixed, turn off max size spinbutton
             fillmaxszsb.set_sensitive(0)
             if request.grow:
-                if request.maxSize != None:
+                if request.maxSizeMB != None:
                     fillmaxszrb.set_active(1)
                     fillmaxszsb.set_sensitive(1)
-                    fillmaxszsb.set_value(request.maxSize)
+                    fillmaxszsb.set_value(request.maxSizeMB)
                 else:
                     fillunlimrb.set_active(1)
             else:
@@ -1319,7 +1319,7 @@ class PartitionWindow(InstallWindow):
                     request.drive = allowdrives
                     request.grow = grow
                     request.primary = primonly
-                    request.maxSize = maxsize
+                    request.maxSizeMB = maxsize
                 else:
                     request.start = startcylspin.get_value_as_int()
                     request.end = endcylspin.get_value_as_int()

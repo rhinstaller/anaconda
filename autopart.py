@@ -512,9 +512,9 @@ def growParts(diskset, requests, newParts):
 #                print "max is ",maxsect
 
                 imposedMax = 0
-                if request.maxSize:
+                if request.maxSizeMB:
                     # round down a cylinder, see comment below
-                    tmpint = request.maxSize*1024.0*1024.0/sector_size
+                    tmpint = request.maxSizeMB*1024.0*1024.0/sector_size
                     tmpint = long(tmpint / cylsectors)
                     maxUserSize = tmpint * cylsectors
                     if maxsect > maxUserSize:
@@ -524,7 +524,7 @@ def growParts(diskset, requests, newParts):
                 # round max fs limit down a cylinder, helps when growing
                 # so we don't end up with a free cylinder at end if
                 # maxlimit fell between cylinder boundaries
-                tmpint = request.fstype.getMaxSize()*1024.0*1024.0/sector_size
+                tmpint = request.fstype.getMaxSizeMB()*1024.0*1024.0/sector_size
                 tmpint = long(tmpint / cylsectors)
                 maxFSSize = tmpint * cylsectors
                 if maxsect > maxFSSize:

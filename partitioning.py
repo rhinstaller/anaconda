@@ -480,17 +480,17 @@ def doPartitionSizeCheck(newrequest):
         return None
 
     # XXX need to figure out the size for partitions specified by cyl range
-    if newrequest.size and newrequest.size > newrequest.fstype.getMaxSize():
+    if newrequest.size and newrequest.size > newrequest.fstype.getMaxSizeMB():
         return (_("The size of the %s partition (size = %s MB) "
                   "exceeds the maximum size of %s MB.")
                 % (newrequest.fstype.getName(), newrequest.size,
-                   newrequest.fstype.getMaxSize()))
+                   newrequest.fstype.getMaxSizeMB()))
 
-    if (newrequest.size and newrequest.maxSize
-        and (newrequest.size > newrequest.maxSize)):
+    if (newrequest.size and newrequest.maxSizeMB
+        and (newrequest.size > newrequest.maxSizeMB)):
         return (_("The size of the requested partition (size = %s MB) "
                  "exceeds the maximum size of %s MB.")
-                % (newrequest.size, newrequest.maxSize))
+                % (newrequest.size, newrequest.maxSizeMB))
 
     if newrequest.size and newrequest.size < 0:
         return _("The size of the requested partition is "
@@ -764,7 +764,7 @@ class DeleteSpec:
 # partition, raid, and lvm from me.  then it would be a lot less crufty
 class PartitionSpec:
     def __init__(self, fstype, requesttype = REQUEST_NEW,
-                 size = None, grow = 0, maxSize = None,
+                 size = None, grow = 0, maxSizeMB = None,
                  mountpoint = None, origfstype = None,
                  start = None, end = None, partnum = None,
                  drive = None, primary = None,
@@ -791,7 +791,7 @@ class PartitionSpec:
         self.origfstype = origfstype
         self.size = size
         self.grow = grow
-        self.maxSize = maxSize
+        self.maxSizeMB = maxSizeMB
         self.mountpoint = mountpoint
         self.start = start
         self.end = end
@@ -847,7 +847,7 @@ class PartitionSpec:
                 raidmem.append(i)
                 
         return "mountpoint: %s   type: %s   uniqueID:%s\n" %(self.mountpoint, fsname, self.uniqueID) +\
-               "  size: %sM   requestSize: %sM  grow: %s   max: %s\n" %(self.size, self.requestSize, self.grow, self.maxSize) +\
+               "  size: %sM   requestSize: %sM  grow: %s   max: %s\n" %(self.size, self.requestSize, self.grow, self.maxSizeMB) +\
                "  start: %s   end: %s   partnum: %s\n" %(self.start, self.end, self.partnum) +\
                "  drive: %s   primary: %s  \n" %(self.drive, self.primary) +\
                "  format: %s, options: %s" %(self.format, self.options) +\
@@ -1231,8 +1231,8 @@ class Partitions:
                     args.append("--start=%s" % (request.start))
                 if request.end:
                     args.append("--end=%s" % (request.end))
-                if request.maxSize:
-                    args.append("--maxsize=%s" % (request.maxSize))
+                if request.maxSizeMB:
+                    args.append("--maxsize=%s" % (request.maxSizeMB))
                 if request.drive:
                     args.append("--ondisk=%s" % (request.drive[0]))
                 if request.primary:
@@ -1761,7 +1761,7 @@ def autoCreatePartitionRequests(autoreq):
         newrequest = PartitionSpec(ptype,
                                    mountpoint = mntpt,
                                    size = minsize,
-                                   maxSize = maxsize,
+                                   maxSizeMB = maxsize,
                                    grow = grow,
                                    requesttype = REQUEST_NEW,
                                    format = format)

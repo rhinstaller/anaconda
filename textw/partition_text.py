@@ -307,9 +307,9 @@ class PartitionWindow:
         fixeddef = 0
         limitentrydef = "1"
         if request.grow:
-            if request.maxSize != None:
+            if request.maxSizeMB != None:
                 limitdef = 1
-                limitentrydef = "%s" %(int(request.maxSize))
+                limitentrydef = "%s" %(int(request.maxSizeMB))
             else:
                 maxdef = 1
         else:
@@ -709,7 +709,7 @@ class PartitionWindow:
                     else:
                         maxsize = None
                     request.grow = grow
-                    request.maxSize = maxsize
+                    request.maxSizeMB = maxsize
 
                     if len(self.drivelist.getSelection()) == len(self.diskset.disks.keys()):
                         allowdrives = None
