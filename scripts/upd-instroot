@@ -91,7 +91,7 @@ mkdir -p $DESTGR
 PACKAGES="glibc setup python newt libtermcap zlib ash
 	 e2fsprogs util-linux raidtools locale-ja popt mount procps
 	 rpm XFree86 Xconfigurator anaconda anaconda-runtime
-	 kudzu-devel kudzu db3 rpm-python bzip2 dosfstools"
+	 kudzu-devel kudzu db3 rpm-python bzip2 dosfstools pciutils"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
@@ -183,6 +183,7 @@ sbin/mkfs.ext2
 sbin/mkfs.msdos
 sbin/mkraid
 sbin/mkswap
+sbin/pciutils
 sbin/probe
 usr/X11R6/lib/X11/Cards
 usr/X11R6/share/Xconfigurator/MonitorsDB
@@ -208,6 +209,7 @@ usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
 usr/sbin/anaconda
 usr/share/kudzu/pcitable
+usr/share/pci.ids
 EOF
 
 KEEPFILEGR=/tmp/keepfilegr.$$
@@ -249,6 +251,7 @@ lib/libproc*
 lib/libutil*
 sbin/depmod
 sbin/e2fsck
+sbin/e2label
 sbin/fsck
 sbin/fsck.ext2
 sbin/ifconfig
