@@ -26,15 +26,10 @@ class PartitionMethodWindow(InstallWindow):
 
     def getNext(self):
         
-        if self.useFdisk.get_active():
-            self.partitions.useAutopartitioning = 0
-            self.partitions.useFdisk = 1
-        elif self.useAuto.get_active():
+        if self.useAuto.get_active():
             self.partitions.useAutopartitioning = 1
-            self.partitions.useFdisk = 0
         else:
             self.partitions.useAutopartitioning = 0
-            self.partitions.useFdisk = 0
             
 	return None
 
@@ -60,14 +55,9 @@ class PartitionMethodWindow(InstallWindow):
         self.useDS = gtk.RadioButton(
             self.useAuto, _("Manually partition with _Disk Druid"))
 	radioBox.pack_start(self.useDS, gtk.FALSE, gtk.FALSE)
-        self.useFdisk = gtk.RadioButton(
-            self.useAuto, _("Manually partition with _fdisk (experts only)"))
-	radioBox.pack_start(self.useFdisk, gtk.FALSE, gtk.FALSE)
 
         if partitions.useAutopartitioning:
             self.useAuto.set_active(1)
-        elif partitions.useFdisk:
-            self.useFdisk.set_active(1)
         else:
             self.useDS.set_active(1)
             

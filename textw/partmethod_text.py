@@ -25,19 +25,12 @@ class PartitionMethod:
                                _(PARTMETHOD_TYPE_DESCR_TEXT),
                                 [ (_("Autopartition"), "auto"),
                                   (_("Disk Druid"), "ds"),
-                                  (_("fdisk"), "fd"), TEXT_BACK_BUTTON ],
+                                  TEXT_BACK_BUTTON ],
                                 width = 50, help = "parttool")
 
         if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
-        elif rc == "fd":
-            partitions.useAutopartitioning = 0
-            partitions.useFdisk = 1
-        elif rc == "ds":
-            partitions.useAutopartitioning = 0
-            partitions.useFdisk = 0
         else:
             partitions.useAutopartitioning = 1
-            partitions.useFdisk = 0
 
         return INSTALL_OK
