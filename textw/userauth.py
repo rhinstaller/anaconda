@@ -184,11 +184,11 @@ class UsersWindow:
 
             if rc == "add":
                 user = { "id" : "", "name" : "", "password" : "" }
-                self.editWindow (user, 
-		    _("Enter the information for the user."), 0)
-                listbox.append (userformat % user, user["id"])
-                listbox.setCurrent (user["id"])
-                self.users[user["id"]] = user
+                if self.editWindow (user, 
+                    _("Enter the information for the user."), 0) != INSTALL_BACK:
+                    listbox.append (userformat % user, user["id"])
+                    listbox.setCurrent (user["id"])
+                    self.users[user["id"]] = user
             elif rc == "delete":
                 current = listbox.current ()
                 listbox.delete (current)
@@ -196,20 +196,20 @@ class UsersWindow:
             elif rc == "edit" or result == listbox:
 		current = listbox.current()
                 user = self.users[current]
-                self.editWindow (user, 
-			_("Change the information for this user."), 1)
-                # if the user id changed, we need to delete the old key
-                # and insert this new one.
-                if user["id"] != current:
-                    del self.users [current]
-                    listbox.insert (userformat % user, user["id"], current)
-                    listbox.delete (current)
-                # and if the user id didn't change, just replace the old
-                # listbox entry.
-                else:
-                    listbox.replace (userformat % user, user["id"])
-                self.users [user["id"]] = user
-		listbox.setCurrent(user["id"])
+                if self.editWindow (user, 
+			_("Change the information for this user."), 1) != INSTALL_BACK:
+                    # if the user id changed, we need to delete the old key
+                    # and insert this new one.
+                    if user["id"] != current:
+                        del self.users [current]
+                        listbox.insert (userformat % user, user["id"], current)
+                        listbox.delete (current)
+                    # and if the user id didn't change, just replace the old
+                    # listbox entry.
+                    else:
+                        listbox.replace (userformat % user, user["id"])
+                    self.users [user["id"]] = user
+                    listbox.setCurrent(user["id"])
             elif rc == "ok" or result == "F12":
                 dir = INSTALL_OK
                 break
