@@ -580,8 +580,8 @@ class FileSystemSet:
 
 	for entry in self.entries:
             # XXX - multifsify, virtualize isdirty per fstype
-	    if fsystem != "ext2": continue
-	    if doFormat: continue
+	    if entry.fsystem.getName() != "ext2": continue
+	    if entry.getFormat(): continue
 
 	    if isys.ext2IsDirty(entry.device.getDevice()): return 1
 
