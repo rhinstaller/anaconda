@@ -510,6 +510,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOUSB;
         else if (!strcasecmp(argv[i], "telnet"))
             flags |= LOADER_FLAGS_TELNETD;
+        else if (!strcasecmp(argv[i], "latefcload"))
+            flags |= LOADER_FLAGS_LOADFCLATE;
         else if (!strcasecmp(argv[i], "nofirewire"))
             flags |= LOADER_FLAGS_NOIEEE1394;
         else if (!strcasecmp(argv[i], "noprobe"))

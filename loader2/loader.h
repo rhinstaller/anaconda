@@ -31,6 +31,7 @@
 #define LOADER_FLAGS_NOIEEE1394         (1 << 26)
 #define LOADER_FLAGS_NOFB		(1 << 27)
 #define LOADER_FLAGS_CMDLINE            (1 << 28)
+#define LOADER_FLAGS_LOADFCLATE         (1 << 13)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -58,7 +59,7 @@
 #define FL_NOIEEE1394(a)    ((a) & LOADER_FLAGS_NOIEEE1394)
 #define FL_NOFB(a)	    ((a) & LOADER_FLAGS_NOFB)
 #define FL_CMDLINE(a)	    ((a) & LOADER_FLAGS_CMDLINE)
-
+#define FL_LOADFCLATE(a)    ((a) & LOADER_FLAGS_LOADFCLATE)
 
 
 void startNewt(int flags);

@@ -1,5 +1,13 @@
 2005-01-06  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/modules.c: Add lateModuleSort so that ibmvscsic gets
+	loaded last (#137920).  Also, allow booting with "latefcload" to
+	add the various fiberchannel controllers to the list of being
+	loaded "late".
+
+	* loader2/loader.c: Add handling fo "latefcload" flag
+	* loader2/loader.h: Likewise
+	
 	* loader2/loader.c (parseCmdLineIp): Add patch from Bastien Nocera
 	to support parsing of pxelinux IPAPPEND (#134054)
 
@@ -13,7 +21,6 @@
 
 	* kickstart.py: U5 backport n.arch support (#139824)
 
->>>>>>> 1.11.2.22
 2004-11-10  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/loader.c: Fix tyop
