@@ -22,6 +22,28 @@ import isys
 import socket
 import os
 from log import log
+from translate import _, N_
+
+def inStrRange(v, s):
+    if string.find(s, v) == -1:
+	return 0
+    else:
+	return 1
+
+def sanityCheckHostname(hostname):
+    if len(hostname) < 1:
+	return None
+
+    if not inStrRange(hostname[0], string.ascii_letters):
+	return _("Hostname must start with a valid character in the range "
+		 "'a-z' or 'A-Z'")
+
+    for i in range(1, len(hostname)):
+	if not inStrRange(hostname[i], string.ascii_letters+string.digits+".-"):
+	    return _("Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'")
+
+    return None
+	    
 
 def networkDeviceCheck(network, dispatch):
     devs = network.available()
