@@ -132,7 +132,7 @@ class PartitionWindow:
 	rootpart = ""
         for i in range(0, numext2):
             if buttons[i].active:
-                rootpart = "/dev/%s%d" % (device, i + 1)
+                rootpart = "%s%d" % (device, i + 1)
 
 	todo.addMount(rootpart, '/')
 
