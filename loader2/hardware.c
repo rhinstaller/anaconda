@@ -82,13 +82,13 @@ static int detectHardware(moduleInfoSet modInfo,
         driver = (*device)->driver;
         /* this is kind of icky and verbose.  there are better and more 
          * general ways to do it but this is simple and obvious */
-        if (FL_NOPCMCIA(flags) && ((*device)->class == CLASS_SOCKET)) {
+        if (FL_NOPCMCIA(flags) && ((*device)->type == CLASS_SOCKET)) {
             logMessage("ignoring pcmcia device %s (%s)", (*device)->desc,
                        (*device)->driver);
-        } else if (FL_NOIEEE1394(flags) && ((*device)->class == CLASS_FIREWIRE)) {
+        } else if (FL_NOIEEE1394(flags) && ((*device)->type == CLASS_FIREWIRE)) {
             logMessage("ignoring firewire device %s (%s)", (*device)->desc,
                        (*device)->driver);
-        } else if (FL_NOUSB(flags) && ((*device)->class == CLASS_USB)) {
+        } else if (FL_NOUSB(flags) && ((*device)->type == CLASS_USB)) {
             logMessage("ignoring usb device %s (%s)", (*device)->desc,
                        (*device)->driver);
         } else if (strcmp (driver, "ignore") && strcmp (driver, "unknown")
