@@ -654,7 +654,7 @@ int main(int argc, char ** argv) {
     unlink("/modules/pcitable");
 
     symlink("mnt/source/RedHat/instimage/modules/modules.dep", "/modules");
-    symlink("mnt/source/RedHat/instimage/modules/modules.info", "/modules");
+    symlink("mnt/source/RedHat/instimage/modules/modules-info", "/modules");
     symlink("mnt/source/RedHat/instimage/modules/modules.cgz", "/modules");
     symlink("mnt/source/RedHat/instimage/modules/pcitable", "/modules");
 
