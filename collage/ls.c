@@ -472,10 +472,6 @@ void listFiles(char * path, char * fn, int flags) {
 
     for (i = 0; i < matches.gl_pathc && !failed; i++) {
 	this = matches.gl_pathv[i] + strlen(path);
-	if (*this) 
-	    this++;
-	else
-	    this = ".";
 
 	if (!statFile(path, this, flags, &sb)) {
 	    if (S_ISDIR(sb.st_mode) && !(flags & SENDDIR_SIMPLEDIRS)) {
