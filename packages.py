@@ -1129,6 +1129,10 @@ def doPostInstall(method, id, intf, instPath):
 	    # needed for prior systems which were not xinetd based
 	    migrateXinetd(instPath, instLogName)
 
+            # needed for prior to 2.6 so that mice have some chance
+            # of working afterwards. FIXME: this is a hack
+            migrateMouseConfig(instPath, instLogName)
+
         w.set(5)
 
         # FIXME: hack to install the comps package
@@ -1277,6 +1281,19 @@ def setFileCons(instPath):
             
 
     return
+
+# XXX: large hack lies here
+def migrateMouseConfig(instPath, instLog):
+    if not os.access (instPath + "/usr/sbin/fix-mouse-psaux", os.X_OK):
+        return
+
+    argv = [ "/usr/sbin/fix-mouse-psaux" ]
+
+    logfile = os.open (instLog, os.O_APPEND)
+    iutil.execWithRedirect(argv[0], argv, root = instPath,
+			   stdout = logfile, stderr = logfile)
+    os.close(logfile)
+
 
 def migrateXinetd(instPath, instLog):
     if not os.access (instPath + "/usr/sbin/inetdconvert", os.X_OK):
