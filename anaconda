@@ -756,11 +756,12 @@ if iutil.memInstalled() < isys.MIN_RAM:
 
     screen = SnackScreen()
     ButtonChoiceWindow(screen, _('Fatal Error'),
-			_('You do not have enough RAM to install Red Hat '
-			  'Linux on this machine.\n'
+			_('You do not have enough RAM to install %s '
+			  'on this machine.\n'
 			  '\n'
-			  'Press <return> to reboot your system.\n'), 
-			  buttons = (_("OK"),))
+			  'Press <return> to reboot your system.\n')
+                       %(product.productName,), 
+                       buttons = (_("OK"),))
     screen.finish()
     sys.exit(0)
 

@@ -13,7 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from rhpl.translate import N_
+from rhpl.translate import _, N_
 
 BETANAG = 1
 

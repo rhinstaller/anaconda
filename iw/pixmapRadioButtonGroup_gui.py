@@ -190,9 +190,9 @@ if __name__ == "__main__":
 
 
     if 0:
-	opts = ['Red Hat 8.0 - /dev/hda1', 'Red Hat 7.1 - /dev/hda5']
+	opts = ['8.0 - /dev/hda1', '7.1 - /dev/hda5']
     else:
-	opts = ['Red Hat 8.0 - /dev/hda1']
+	opts = ['8.0 - /dev/hda1']
 
     label = _("The following installed system will be upgraded:")
     upgradeoption = gtk.OptionMenu()
