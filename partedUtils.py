@@ -236,7 +236,11 @@ def getDefaultDiskType():
     elif iutil.getArch() == "ia64":
         return parted.disk_type_get("gpt")
     elif iutil.getArch() == "s390":
-        return parted.disk_type_get("dasd")
+        # the "default" type is dasd, but we don't really do dasd
+        # formatting with parted and use dasdfmt directly for them
+        # so if we get here, it's an fcp disk and we should write
+        # an msdos partition table (#144199)
+        return parted.disk_type_get("msdos")
     elif iutil.getArch() == "alpha":
         return parted.disk_type_get("bsd")
     elif iutil.getArch() == "sparc":
