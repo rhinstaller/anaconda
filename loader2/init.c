@@ -487,6 +487,13 @@ int main(int argc, char **argv) {
     }
     printf("done\n");
 
+    printf("mounting /sys filesystem... "); 
+    if (!testing) {
+	if (mount("/sys", "/sys", "sysfs", 0, NULL))
+	    fatal_error(1);
+    }
+    printf("done\n");
+	
     printf("mounting /dev/pts (unix98 pty) filesystem... "); 
     if (!testing) {
 	if (mount("/dev/pts", "/dev/pts", "devpts", 0, NULL))

@@ -869,6 +869,12 @@ class ProcFileSystem(PsudoFileSystem):
 
 fileSystemTypeRegister(ProcFileSystem())
 
+class SysfsFileSystem(PsudoFileSystem):
+    def __init__(self):
+        PsudoFileSystem.__init__(self, "sysfs")
+
+fileSystemTypeRegister(SysfsFileSystem())
+
 class DevptsFileSystem(PsudoFileSystem):
     def __init__(self):
         PsudoFileSystem.__init__(self, "devpts")
@@ -926,6 +932,8 @@ class FileSystemSet:
         self.entries = []
         proc = FileSystemSetEntry(Device(), '/proc', fileSystemTypeGet("proc"))
         self.add(proc)
+        sys = FileSystemSetEntry(Device(), '/sys', fileSystemTypeGet("sysfs"))
+        self.add(sys)
         pts = FileSystemSetEntry(Device(), '/dev/pts',
                                  fileSystemTypeGet("devpts"), "gid=5,mode=620")
         self.add(pts)
