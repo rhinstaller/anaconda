@@ -55,9 +55,10 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
     for (i = 0; i < mod->numArgs; i++) {
     	entries[i].text = mod->args[i].description;
 	if (mod->args[i].arg) {
-	    values[i] = malloc(strlen(mod->args[i].arg) + 2);
+	    int io = !strcmp (mod->args[i].arg, "io");
+	    values[i] = malloc(strlen(mod->args[i].arg) + (io ? 4 : 2));
 	    strcpy(values[i], mod->args[i].arg);
-	    strcat(values[i], "=");
+	    strcat(values[i], (io ? "=0x" : "="));
 	} else {
 	    values[i] = NULL;
 	}
