@@ -37,7 +37,7 @@ elif [ "$kernelvers" = "iseries" ]; then
     makeinitrd --initrdto $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz \
 	       --initrdsize 8192 \
 	       --loaderbin loader \
-               --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+               --modules "nfs fat vfat cramfs veth $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
 
     cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/iSeries/vmlinux
 
