@@ -389,7 +389,7 @@ class ToDo:
 
         keys = self.mounts.keys ()
 	keys.sort()
-	for mntpoint in self.mounts.keys ():
+	for mntpoint in keys:
 	    (device, fsystem, format) = self.mounts[mntpoint]
 	    if not format: continue
 	    w = self.intf.waitWindow("Formatting", 
@@ -613,11 +613,12 @@ class ToDo:
                 intf.setPackage(h)
                 intf.setPackageScale(0, 1)
                 fn = method.getFilename(h)
-                d = os.open(fn, os.O_RDONLY)
-                return d
+                instCallbsack.d = os.open(fn, os.O_RDONLY)
+                return instCallback.d
             elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
                 intf.setPackageScale(amount, total)
             elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
+                instCallback.d.close ()
                 (h, method) = key
                 intf.completePackage(h)
             else:
