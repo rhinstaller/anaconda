@@ -1,11 +1,10 @@
 #!/usr/bin/python
 
-import iutil, string
+import iutil, string, os
 
 def pcicType(test = 0):
-    if (test):
-	loc = "/sbin/probe"
-    else:
+    loc = "/sbin/probe"
+    if not os.access(loc, os.X_OK):
 	loc = "/usr/sbin/probe"
 
     result = iutil.execWithCapture(loc, [ loc ])
