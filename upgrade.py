@@ -47,7 +47,8 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     (root, rootFs) = rootInfo
 
     diskset = DiskSet()
-    mdList = raid.startAllRaid(diskset.driveList())
+    diskset.openDevices()
+    diskset.startAllRaid()
 
     if rootFs == "vfat":
 	mountLoopbackRoot(root)
@@ -64,10 +65,9 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     else:
 	isys.umount('/mnt/sysimage')        
 
-    raid.stopAllRaid(mdList)
-
     if not allowDirty and oldfsset.hasDirtyFilesystems():
         import sys
+        diskset.stopAllRaid()
 	intf.messageWindow(_("Dirty Filesystems"),
 	    _("One or more of the filesystems for your Linux system "
 	      "was not unmounted cleanly. Please boot your Linux "

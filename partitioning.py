@@ -800,8 +800,17 @@ class Partitions:
 
 class DiskSet:
     skippedDisks = []
+    mdList = []
     def __init__ (self):
         self.disks = {}
+
+    def startAllRaid(self):
+        DiskSet.mdList.extend(raid.startAllRaid(self.driveList ()))
+
+    def stopAllRaid(self):
+        raid.stopAllRaid(DiskSet.mdList)
+        while DiskSet.mdList:
+            DiskSet.mdList.pop()
 
     def getLabels(self):
         labels = {}
@@ -811,27 +820,32 @@ class DiskSet:
 
         for drive in drives:
             disk = self.disks[drive]
-            part = disk.next_partition ()
-            while part:
-                if part.fs_type and (part.fs_type.name == "ext2"
-                                     or part.fs_type.name == "ext3"):
-                    node = get_partition_name(part)
-                    label = isys.readExt2Label(node)
-                    if label:
-                        labels[node] = label
-                part = disk.next_partition(part)
+            func = lambda part: (part.is_active() and
+                                 not (part.get_flag(parted.PARTITION_RAID)
+                                      or part.get_flag(parted.PARTITION_LVM))
+                                 and part.fs_type
+                                 and (part.fs_type.name == "ext2"
+                                      or part.fs_type.name == "ext3"))
+            parts = filter_partitions(disk, func)
+            for part in parts:
+                node = get_partition_name(part)
+                label = isys.readExt2Label(node)
+                if label:
+                    labels[node] = label
+
+        for dev in DiskSet.mdList:
+            label = isys.readExt2Label(dev)
+            if label:
+                labels[dev] = label
 
         return labels
 
     def findExistingRootPartitions(self, intf):
         rootparts = []
 
-        drives = self.disks.keys()
-        drives.sort()
-        
-        mdList = raid.startAllRaid(drives)
+        self.startAllRaid()
 
-        for dev in mdList:
+        for dev in self.mdList:
             # XXX multifsify
             if not fsset.isValidExt2 (dev):
                 continue
@@ -847,8 +861,8 @@ class DiskSet:
                 rootparts.append ((dev, "ext2"))
             isys.umount('/mnt/sysimage')
 
-        raid.stopAllRaid(mdList)
-        
+        self.stopAllRaid()
+
         drives = self.disks.keys()
         drives.sort()
 
