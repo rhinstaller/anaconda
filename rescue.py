@@ -76,7 +76,7 @@ def runRescue(serial):
     rootmounted = 0
     if root:
 	try:
-	    upgrade.mountRootPartition(root, fstab, '/mnt/sysimage', 
+	    upgrade.mountRootPartition(intf, root, fstab, '/mnt/sysimage', 
 			       allowDirty = 1)
 	    ButtonChoiceWindow(screen, _("Rescue"),
 		_("Your system has been mounted under /mnt/sysimage.\n\n"

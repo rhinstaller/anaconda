@@ -77,7 +77,7 @@ def findExistingRoots (intf, theFstab):
     win.pop ()
     return rootparts
 
-def mountRootPartition(rootInfo, theFstab, instPath, allowDirty = 0):
+def mountRootPartition(intf, rootInfo, theFstab, instPath, allowDirty = 0):
     (root, rootFs) = rootInfo
 
     mdList = raid.startAllRaid(theFstab.driveList())
@@ -97,6 +97,7 @@ def mountRootPartition(rootInfo, theFstab, instPath, allowDirty = 0):
     raid.stopAllRaid(mdList)
 
     if not allowDirty and theFstab.hasDirtyFilesystems():
+        import sys
 	intf.messageWindow(("Dirty Filesystems"),
 	    _("One or more of the filesystems for your Linux system "
 	      "was not unmounted cleanly. Please boot your Linux "

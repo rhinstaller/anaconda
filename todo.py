@@ -1076,7 +1076,8 @@ class ToDo:
     def upgradeFindPackages (self, rootInfo):
         if self.setupFilesystems:
 	    try:
-		upgrade.mountRootPartition(rootInfo, self.fstab, self.instPath,
+		upgrade.mountRootPartition(self.intf,rootInfo,
+                                           self.fstab, self.instPath,
 					   allowDirty = 0)
 	    except SystemError, msg:
 		intf.messageWindow(("Dirty Filesystems"),
