@@ -30,6 +30,7 @@ from rhpl.translate import _, N_, utf8
 from comps import orderPackageGroups, getCompGroupDescription
 from comps import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT, PKGTYPE_OPTIONAL
 from comps import Package, Component
+import packages
 
 
 def queryUpgradeContinue(intf):
@@ -495,7 +496,40 @@ class PackageSelectionWindow (InstallWindow):
         self.sizelabel.set_text (_("Total install size: %s") % 
 					self.comps.sizeStr())
 
+    # given a value, set all components except Everything and Base to
+    # that value.  Handles restoring state if it exists
+    def setComponentsSensitive(self, comp, value):
+	tmpval = self.ignoreComponentToggleEvents
+	self.ignoreComponentToggleEvents = 1
+	for (cb, lbl, cbox, cbox2, cbcomp) in self.checkButtons:
+	    if cbcomp.name == comp.name:
+		continue
+
+	    if value:
+		if cbcomp.name not in [u"Everything", u"Base"]:
+#		    print "restoring checkbutton for ",cbcomp.name," at state ",self.savedStateDict[cbcomp.name]
+		    if self.savedStateDict[cbcomp.name]:
+			cb.set_active(1)
+		    else:
+			cb.set_active(0)
+		else:
+		    cb.set_active(0)
+	    else:
+		cb.set_active(0)
+
+	    if lbl:
+		self.setCompCountLabel(cbcomp, lbl)
+	    if cbox:
+		cbox.set_sensitive(value)
+	    if cbox2:
+		cbox2.set_sensitive(value)
+
+	self.ignoreComponentToggleEvents = tmpval
+
     def componentToggled(self, widget, data):
+	if self.ignoreComponentToggleEvents:
+	    return
+
         # turn on all the comps we selected
 	(comp, lbl, count, al, ebutton) = data
 	if widget.get_active ():
@@ -506,34 +540,73 @@ class PackageSelectionWindow (InstallWindow):
 	else:
             if ebutton in al.get_children():
                 al.remove(ebutton)
-	    comp.unselect ()
 
-	self.setSize()
-	
-	if lbl:
-	    self.setCompLabel(comp, lbl)
+	    if comp.name != u"Base":
+		comp.unselect ()
+
         if count:
             self.setCompCountLabel(comp, count)
 
         ### XXX - need to i18n??
-        if comp.name == "Everything":
-            for (cb, cb2, cbcomp) in self.checkButtons:
-                if cbcomp.name == 'Everything':
-                    continue
-		if cb:
-		    cb.set_sensitive(not widget.get_active())
-		if cb2:
-		    cb2.set_sensitive(not widget.get_active())
+        if comp.name == u"Everything" or comp.name == u"Base":
+	    
+	    self.ignoreComponentToggleEvents = 1
+	    # save state of buttons if they hit everything or minimal
+#	    print "entered, savedstateflag = ",self.savedStateFlag
+	    if not self.savedStateFlag:
+		self.savedStateDict = {}
+		self.savedStateFlag = 1
+		savestate = 1
+	    else:
+		savestate = 0
+
+	    for c in self.comps:
+		if c.name in [u"Everything", u"Base"]:
+		    continue
+		
+		if widget.get_active():
+			sel = c.isSelected()			
+#			print "saving ",c.name," at state ",sel
+			if savestate:
+			    self.savedStateDict[c.name] = sel
+			if sel:
+			    c.unselect()
+		else:
+#		    print "restoring ",c.name," at state ",self.savedStateDict[c.name]
+		    if self.savedStateDict[c.name]:
+			c.select()
+
+	    # turn on lang support if we're minimal and enabling
+	    if comp.name == u"Base" and widget.get_active():
+		packages.selectLanguageSupportGroups(self.comps, self.langSupport)
+
+	    self.setComponentsSensitive(comp, not widget.get_active())
+
+	    self.ignoreComponentToggleEvents = 0
+	else:
+#	    print "Disabled saved state for compname = ",comp.name
+	    self.savedStateDict = {}
+	    self.savedStateFlag = 0
+
+	# after all this we need to recompute total size
+	self.setSize()
+
+	try:
+	    os.unlink("/tmp/a.lst")
+	except:
+	    pass
+	a = open("/tmp/a.lst", "w+")
+	for pkg in self.comps.packages.list():
+	    if pkg.selected:
+		a.write(pkg.name)
+		a.write("\n")
+
+	a.close()
 
 
     def pkgGroupMemberToggled(self, widget, data):
 	(comp, sizeLabel, pkg) = data
 	(ptype, sel) = self.getFullInfo(pkg, comp)
-
-	# DONT handle metapackages write yet!
-	if pkg in comp.metapackagesFullInfo().keys():
-	    log("cant toggle metapackage yet!")
-	    return
 
 	# dont select or unselect if its already in that state
 	if widget.get_active():
@@ -563,6 +636,26 @@ class PackageSelectionWindow (InstallWindow):
 	    return comp.metapackagesFullInfo()[obj]
 	else:
 	    return None
+
+    # have to do magic to handle 'Minimal'
+    def setCheckButtonState(self, cb, comp):
+	state = 0
+	if comp.name != u"Base":
+	    state = comp.isSelected(justManual = 1)	    
+	    cb.set_active (state)
+	else:
+	    state = 1
+	    for c in self.comps:
+		if c.name == u"Base":
+		    continue
+		
+		if c.isSelected(justManual = 1):
+		    state = 0
+		    break
+
+	    cb.set_active (state)
+
+	return state
 	
     def getStats(self, comp):
 	allpkgs = comp.packagesFullInfo().keys() + comp.metapackagesFullInfo().keys()
@@ -590,18 +683,18 @@ class PackageSelectionWindow (InstallWindow):
 	sizeLabel.set_text(text)
 
     def setCompLabel(self, comp, label):
-	(selpkg, totpkg) = self.getStats(comp)
-        if not comp.isSelected(justManual = 1):
-            selpkg = 0
-
-	label.set_markup("<b>%s</b>" % (_(comp.name),))
+	if comp.name == u"Base":
+	    nm = _("Minimal")
+	else:
+	    nm = _(comp.name)
+	label.set_markup("<b>%s</b>" % (nm,))
 
     def setCompCountLabel(self, comp, label):
 	(selpkg, totpkg) = self.getStats(comp)
         if not comp.isSelected(justManual = 1):
             selpkg = 0
 
-	if comp.name == u"Everything":
+	if comp.name == u"Everything" or comp.name == u"Base":
 	    txt = ""
 	else:
 	    txt = "<b>[%d/%d]</b>" % (selpkg, totpkg)
@@ -632,7 +725,6 @@ class PackageSelectionWindow (InstallWindow):
 	def getNextMember(goodpkgs, comp, domandatory = 0):
 	    curpkg = None
 	    for pkg in goodpkgs:
-		pkgname = pkg.name
 
 		if domandatory:
 		    (ptype, sel) = self.getFullInfo(pkg, comp)
@@ -641,7 +733,7 @@ class PackageSelectionWindow (InstallWindow):
 
 		foundone = 1
 		if curpkg is not None:
-		    if pkgname < curpkg.name:
+		    if pkg.name < curpkg.name:
 			curpkg = pkg
 		else:
 		    curpkg = pkg
@@ -679,7 +771,7 @@ class PackageSelectionWindow (InstallWindow):
 			  "is selected.\n\nSelect the optional packages "
 			  "to be installed:"))
         lbl.set_line_wrap(gtk.TRUE)
-	lbl.set_size_request(450, -1)
+	lbl.set_size_request(475, -1)
 	lbl.set_alignment(0.0, 0.5)
 	lblhbox.pack_start(lbl, gtk.TRUE, gtk.TRUE)
 
@@ -700,17 +792,18 @@ class PackageSelectionWindow (InstallWindow):
 
         cbvbox = gtk.VBox(gtk.FALSE)
 	cbvbox.set_border_width(5)
-
+	
 	# will pack this last, need to create it for toggle callback below
         sizeLabel = gtk.Label("")
 	self.setDetailSizeLabel(comp, sizeLabel)
+
 	
         goodpkgs = comp.packagesFullInfo().keys() + comp.metapackagesFullInfo().keys()
 
 	# first show default members, if any
 	haveBase = 0
 	next = getNextMember(goodpkgs, comp, domandatory = 1)
-	if next:
+	if next is not None:
 	    haveBase = 1
 	    lbl = gtk.Label("")
 	    lbl.set_markup("<b>%s</b>" % (_("Base Packages"),))
@@ -718,13 +811,14 @@ class PackageSelectionWindow (InstallWindow):
 	    cbvbox.pack_start(lbl, gtk.FALSE, gtk.FALSE);
 	    while 1:
 		next = getNextMember(goodpkgs, comp, domandatory = 1)
-		if not next:
+		if next is None:
 		    break
 
 		goodpkgs.remove(next)
 		desc = getDescription(next, comp)
 		lbl = gtk.Label(desc)
 		lbl.set_alignment(0.0, 0.0)
+		lbl.set_property("use-underline", gtk.FALSE)
 
 		thbox = gtk.HBox(gtk.FALSE)
 		chbox = gtk.HBox(gtk.FALSE)
@@ -732,27 +826,32 @@ class PackageSelectionWindow (InstallWindow):
 		thbox.pack_start(chbox, gtk.FALSE, gtk.FALSE)
 		thbox.pack_start(lbl, gtk.TRUE, gtk.TRUE)
 
-		cbvbox.pack_start(thbox, gtk.TRUE, gtk.TRUE)
+		cbvbox.pack_start(thbox, gtk.FALSE, gtk.FALSE)
 
 	# now the optional parts, if any
 	next = getNextMember(goodpkgs, comp, domandatory = 0)
-	if next:
-	    optvbox = gtk.VBox(gtk.FALSE)
-	    cbvbox.pack_start(optvbox, gtk.FALSE, gtk.FALSE, haveBase*10)
+	if next is not None:
+	    spacer = gtk.Fixed()
+	    spacer.set_size_request(-1, 10)
+	    cbvbox.pack_start(spacer, gtk.FALSE, gtk.FALSE)
 	    
 	    lbl = gtk.Label("")
 	    lbl.set_markup("<b>%s</b>" % (_("Optional Packages"),))
 	    lbl.set_alignment(0.0, 0.0)
-	    optvbox.pack_start(lbl, gtk.FALSE, gtk.FALSE)
+	    cbvbox.pack_start(lbl, gtk.FALSE, gtk.FALSE)
 	    while 1:
 		next = getNextMember(goodpkgs, comp, domandatory = 0)
-		if not next:
+		if next is None:
 		    break
 
 		goodpkgs.remove(next)
 
 		desc = getDescription(next, comp)
-		cb = gtk.CheckButton(desc)
+		lbl = gtk.Label(desc)
+		lbl.set_alignment(0.0, 0.0)
+		lbl.set_property("use-underline", gtk.FALSE)
+		cb = gtk.CheckButton()
+		cb.add(lbl)
 		(ptype, sel) = self.getFullInfo(next, comp)
 		cb.set_active(sel)
 		cb.connect("toggled", self.pkgGroupMemberToggled,
@@ -764,7 +863,7 @@ class PackageSelectionWindow (InstallWindow):
 		thbox.pack_start(chbox, gtk.FALSE, gtk.FALSE)
 		thbox.pack_start(cb, gtk.TRUE, gtk.TRUE)
 
-		optvbox.pack_start(thbox, gtk.FALSE, gtk.FALSE)
+		cbvbox.pack_start(thbox, gtk.FALSE, gtk.FALSE)
 
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
@@ -783,7 +882,7 @@ class PackageSelectionWindow (InstallWindow):
 
         mainvbox.pack_start(sizeLabel, gtk.FALSE, gtk.FALSE)
                             
-        self.dialog.set_size_request(500, 420)
+        self.dialog.set_size_request(550, 420)
         self.dialog.show_all()
 
 	while 1:
@@ -821,27 +920,30 @@ class PackageSelectionWindow (InstallWindow):
         self.dialog.destroy()
 	self.setSize()
 
-	if hdrlbl:
-	    self.setCompLabel(comp, hdrlbl)
 	if count:
 	    self.setCompCountLabel(comp, count)
 	    
         return
     
 
-    def getScreen(self, comps, dispatch):
+    def getScreen(self, comps, langSupport, dispatch):
     # PackageSelectionWindow tag="sel-group"
         ICON_SIZE = 32
         
 	self.comps = comps
+	self.langSupport = langSupport
 	self.dispatch = dispatch
 
 	self.origSelection = self.comps.getSelectionState()
 
         self.checkButtons = []
-	(parlist, pardict) = orderPackageGroups(self.comps)
 
-        row = 0
+	# used to save buttons state if they hit everything or minimal
+	self.savedStateDict = {}
+	self.savedStateFlag = 0
+	self.ignoreComponentToggleEvents = 0
+
+	(parlist, pardict) = orderPackageGroups(self.comps)
 
         topbox = gtk.VBox(gtk.FALSE, 3)
         topbox.set_border_width(3)
@@ -849,7 +951,13 @@ class PackageSelectionWindow (InstallWindow):
         checkGroup = gtk.SizeGroup(gtk.SIZE_GROUP_BOTH)
         countGroup = gtk.SizeGroup(gtk.SIZE_GROUP_BOTH)
         detailGroup = gtk.SizeGroup(gtk.SIZE_GROUP_BOTH)
-        
+
+        minimalActive = 0
+	minimalComp = None
+	minimalCB = None
+	everythingActive = 0
+	everythingComp = None
+	everythingCB = None
 	for par in parlist:
             # set the background to our selection color
 	    eventBox = gtk.EventBox()
@@ -866,7 +974,7 @@ class PackageSelectionWindow (InstallWindow):
             topbox.pack_start(eventBox)
             
 	    for comp in pardict[par]:
-		if comp.hidden:
+		if comp.hidden and comp.name != u"Base":
 		    continue
 		
 		pixname = string.lower(comp.id) + ".png"
@@ -913,7 +1021,7 @@ class PackageSelectionWindow (InstallWindow):
                 compbox.pack_start(buttonal, gtk.FALSE, gtk.FALSE)
 
 		# now make the url looking button for details
-		if comp.name != u"Everything":
+		if comp.name != u"Everything" and comp.name != u"Base":
 		    nlbl = gtk.Label("")
                     selected = comp.isSelected(justManual = 1)
                     nlbl.set_markup('<span foreground="#3030c0"><u>'
@@ -953,17 +1061,27 @@ class PackageSelectionWindow (InstallWindow):
                     detailbox.pack_start(label, gtk.TRUE)
                 topbox.pack_start(detailbox)
 
-		checkButton.set_active (comp.isSelected(justManual = 1))
+		state = self.setCheckButtonState(checkButton, comp)
+		if comp.name == u"Base":
+		    minimalActive = state
+		    minimalComp = comp
+		    minimalCB = checkButton
+		elif comp.name == u"Everything":
+		    everythingActive = state
+		    everythingComp = comp
+		    everythingCB = checkButton
+		    
 		checkButton.connect('toggled', self.componentToggled,
 				    (comp, hdrlabel, count, buttonal,
                                      editbutton))
-		self.checkButtons.append ((compbox, detailbox, comp))
+		self.checkButtons.append ((checkButton, count, compbox, detailbox, comp))
 
             # add some extra space to the end of each group
             spacer = gtk.Fixed()
             spacer.set_size_request(-1, 3)
             topbox.pack_start(spacer, gtk.FALSE, gtk.FALSE)
 
+	# hack to make everything and minimal act right
         sw = gtk.ScrolledWindow()
         sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         viewport = gtk.Viewport(sw.get_hadjustment(), sw.get_vadjustment())
@@ -974,6 +1092,15 @@ class PackageSelectionWindow (InstallWindow):
         topbox.set_focus_hadjustment(sw.get_hadjustment())
         topbox.set_focus_vadjustment(sw.get_vadjustment())
 
+	# if special case we do things a little differently
+	if minimalActive:
+	    self.setComponentsSensitive(minimalComp, 0)
+	    sw.set_focus_child(minimalCB)
+	elif everythingActive:
+	    self.setComponentsSensitive(everythingComp, 0)
+	    sw.set_focus_child(everythingCB)
+
+	# pack rest of screen
         hbox = gtk.HBox (gtk.FALSE, 5)
 
         self.individualPackages = gtk.CheckButton (
