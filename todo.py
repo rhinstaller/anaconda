@@ -21,7 +21,6 @@ import errno
 import raid
 import fstab
 import time
-import xmouse
 
 def _(x):
     return x
@@ -1243,9 +1242,16 @@ class ToDo:
             # close the mouse device, then run kudzu, then open it again.
 
             # turn it off
+            mousedev = None
             if os.environ.has_key ("DISPLAY"):
+                import xmouse
                 try:
-                    os.rename ("/dev/" + self.mouse.getDevice(), "/dev/disablemouse")
+                    mousedev = xmouse.get()[0]
+                except RuntimeError:
+                    pass
+            if mousedev:
+                try:
+                    os.rename (mousedev, "/dev/disablemouse")
                 except OSError:
                     pass
                 try:
@@ -1257,9 +1263,9 @@ class ToDo:
 	    iutil.execWithRedirect(argv[0], argv, root = self.instPath,
 				   stdout = devnull)
             # turn it back on            
-            if os.environ.has_key ("DISPLAY"):
+            if mousedev:
                 try:
-                    os.rename ("/dev/disablemouse", "/dev/" + self.mouse.getDevice())
+                    os.rename ("/dev/disablemouse", mousedev)
                 except OSError:
                     pass
                 try:
