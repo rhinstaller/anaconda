@@ -168,6 +168,7 @@ def ExceptionWindow(text):
     if rc == 0:
         import isys
         try:
+            # switch to VC1 so we can debug
             isys.vtActivate (1)
         except SystemError:
             pass
@@ -376,20 +377,6 @@ class InstallControlWindow:
         
     def prevClicked (self, *args):
         self.currentScreen.getPrev ()
-#          if prev:
-#              instantiated = 0
-#              for x in self.windowList:
-#                  if isinstance (x, prev):
-#                      self.currentScreen = x
-#                      instantiated = 1
-#                      break
-#              if not instantiated:
-#                  self.currentScreen = self.instantiateWindow (prev)
-            
-#          else:
-#              self.stateListIndex = self.stateListIndex - 1
-#              self.currentScreen = self.stateList[self.stateListIndex]
-
         self.prevList.pop ()
         (self.currentScreen, self.stateListIndex) = self.prevList[-1]
         self.setScreen (self.currentScreen, self.prevClicked)
@@ -444,8 +431,8 @@ class InstallControlWindow:
     def setScreen (self, screen, direction):
         # if getScreen returns None, or we're supposed to skip this screen
 	# entirely, we continue advancing in direction given
-	if (self.stateTagByWindow.has_key(screen) and
-	        self.todo.instClass.skipStep(self.stateTagByWindow[screen])):
+	if (self.stateTagByWindow.has_key(screen)
+            and self.todo.instClass.skipStep(self.stateTagByWindow[screen])):
             direction ()
             return
 
@@ -538,8 +525,9 @@ class InstallControlWindow:
     def keyRelease (self, window, event):
         if ((event.keyval == KP_Delete or event.keyval == Delete)
             and (event.state & (CONTROL_MASK | MOD1_MASK))):
-            #os.kill (os.getpid(), 9)
             mainquit ()
+            import os
+            os._exit (0)
 
     def setup_window (self):
         threads_enter()
@@ -662,19 +650,6 @@ class InstallControlWindow:
         thread.setName ("gtk_main")
         mainloop ()
         threads_leave ()
-
-#          try:
-#              self.setup_window ()
-#              threads_enter ()
-#              thread = currentThread ()
-#              thread.setName ("gtk_main")
-#              mainloop ()
-#          except SystemExit, code:
-#              threads_leave ()
-#              sys.exit(code)
-#          except:
-#              ExceptionWindow ()
-#          threads_leave ()
             
 class InstallControlState:
     def __init__ (self, cw, ii, todo, title = _("Install Window"),
