@@ -718,9 +718,18 @@ class LogicalVolumeRequestSpec(RequestSpec):
         percent is the percentage of the volume group's space this should use.
         """
 
-        RequestSpec.__init__(self, fstype = fstype, format = format,
-                             mountpoint = mountpoint, size = size,
-                             preexist = preexist)
+        # if it's preexisting, the original fstype should be set
+        if preexist == 1:
+            origfs = fstype
+        else:
+            origfs = None
+
+	RequestSpec.__init__(self, fstype = fstype, format = format,
+			     mountpoint = mountpoint, size = size,
+			     preexist = preexist, origfstype = origfs)
+
+
+	    
         self.type = REQUEST_LV
 
         self.logicalVolumeName = lvname
