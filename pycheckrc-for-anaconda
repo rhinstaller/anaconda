@@ -15,6 +15,9 @@ onlyCheckInitForMembers = 0
 # bool: warn when all module variables are not used (including private vars)
 allVariablesUsed = 0
 
+# bool: produce warnings for each occurrence of a warning for global (xxx)
+reportAllGlobals = 0
+
 # bool: warn when private module variables are not used (_var)
 privateVariableUsed = 1
 
@@ -25,30 +28,36 @@ importUsed = 1
 localVariablesUsed = 1
 
 # bool:  assume a, b, and c are used in this case:  a, b, c = func()
-unusedLocalTuple = 0
+unusedLocalTuple = 1
 
 # bool: warn when __init__ is defined in a subclass
 initDefinedInSubclass = 0
 
 # bool: warn when calling an attribute not a method
-callingAttribute = 0
+callingAttribute = 1
 
 # bool: warn when using named arguments: func(a=1, b=2), where def func(a, b):
 #       def func2(a, b, **kw): doesn't generate a warning
-namedArgs = 0
+namedArgs = 1
 
 # int: warnings for code complexity, max value before generating a warning
-maxLines = 2000
-maxBranches = 500
-maxReturns = 100
-
+maxLines = 200
+maxBranches = 50
+maxReturns = 10
 
 # list of strings: ignore warnings generated from these modules
-blacklist = [ 'Tkinter' ]
+blacklist = [ 'Tkinter', 'wxPython', 'gtk', 'GTK', 'GDK', ]
 
+
+# list of strings: ignore variable not used warnings from the list
+variablesToIgnore = [ '__all__', '__version__', '__copyright__', ]
 
 # bool: print the PyChecker parse of modules, classes, etc.
 printParse = 0
 
 # bool: turn debugging of PyChecker on
 debug = 0
+
+# EXPERIMENTAL bool: check consistent return values
+checkReturnValues = 0
+
