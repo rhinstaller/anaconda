@@ -119,7 +119,7 @@ fi
 %define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
 
 %changelog
-* Sun Nov  9 2003 Jeremy Katz <katzj@redhat.com> 
+* Sun Nov  9 2003 Jeremy Katz <katzj@redhat.com> 7.3-13
 - add some modules to module-info
 - fix typo in HTTP GET that causes problems with some versions of IIS (#108652)
 
