@@ -14,5 +14,6 @@ install:
 	install -m 755 check-repository.py $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 getkeymaps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 makestamp.py $(DESTDIR)/$(RUNTIMEDIR)
+	install -m 755 splittree.py $(DESTDIR)/$(RUNTIMEDIR)
 
 depend:
