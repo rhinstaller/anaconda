@@ -568,7 +568,7 @@ class ToDo:
 	    for line in lines:
 		if line[0:4] == "root":
 		    entry = string.splitfields (line, ':')
-		    entry[1] = self.rootpassword.get ()
+		    entry[1] = self.rootpassword.getCrypted ()
 		    lines[index] = string.joinfields (entry, ':')
 		    break
 		index = index + 1
@@ -790,7 +790,8 @@ class ToDo:
 
 	todo.users = []
 	if todo.instClass.rootPassword:
-	    todo.rootpassword.set(todo.instClass.rootPassword)
+	    todo.rootpassword.set(todo.instClass.rootPassword,
+			      isCrypted = todo.instClass.rootPasswordCrypted)
 	if todo.instClass.language:
 	    todo.language.setByAbbrev(todo.instClass.language)
 	if todo.instClass.keyboard:

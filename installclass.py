@@ -145,6 +145,7 @@ class InstallClass:
 
     def doRootPw(self, pw, isCrypted = 0):
 	self.rootPassword = pw
+	self.rootPasswordCrypted = isCrypted
 
     def getMakeBootdisk(self):
 	return self.makeBootdisk
@@ -186,6 +187,7 @@ class InstallClass:
 	self.timezone = None
 	self.setAuthentication(1, 1, 0)
 	self.rootPassword = None
+	self.rootPasswordCrypted = 0
 	self.installType = None
 	self.bootProto = None
 	self.ip = ""
