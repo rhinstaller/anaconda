@@ -14,5 +14,5 @@ makedriverdisk "paride" "parport_pc parport pcd paride aten bpck comm dstr epat 
 
 makemainmodules "=scsi =net $SECSTAGE"
 
-makeinstimage "netimg" "=scsi $SECSTAGE"
-makeinstimage "hdimg" "=scsi $SECSTAGE"
+makeinstimage "netstg2" "=scsi $SECSTAGE"
+makeinstimage "hdstg2" "=scsi $SECSTAGE"
