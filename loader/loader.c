@@ -1480,6 +1480,9 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
         else if (!strncasecmp(argv[i], "ks=hd:", 6)) {
 	    flags |= LOADER_FLAGS_KSHD;
 	    *ksSource = argv[i] + 6;
+        } else if (!strncasecmp(argv[i], "ks=file:", 10)) {
+	    flags |= LOADER_FLAGS_KSFILE;
+	    *ksSource = argv[i] + 8;
 	} else if (!strncasecmp(argv[i], "lang=", 5)) {
 	    setLanguage (argv[i] + 5);
 #ifdef INCLUDE_KON
@@ -1913,6 +1916,9 @@ int main(int argc, char ** argv) {
     if (FL_KSHD(flags)) {
 	ksFile = "/tmp/ks.cfg";
 	kickstartFromHardDrive(ksFile, modLoaded, modDeps, ksSource, flags);
+	flags |= LOADER_FLAGS_KICKSTART;
+    } else if (FL_KSFILE(flags)) {
+	ksFile = ksSource;
 	flags |= LOADER_FLAGS_KICKSTART;
     } 
     

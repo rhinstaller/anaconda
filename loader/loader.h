@@ -14,6 +14,7 @@
 #define LOADER_FLAGS_ISA		(1 << 9)
 #define LOADER_FLAGS_SERIAL		(1 << 10)
 #define LOADER_FLAGS_UPDATES		(1 << 11)
+#define LOADER_FLAGS_KSFILE		(1 << 12)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -27,3 +28,4 @@
 #define FL_ISA(a)	    ((a) & LOADER_FLAGS_ISA)
 #define FL_SERIAL(a)	    ((a) & LOADER_FLAGS_SERIAL)
 #define FL_UPDATES(a)	    ((a) & LOADER_FLAGS_UPDATES)
+#define FL_KSFILE(a)	    ((a) & LOADER_FLAGS_KSFILE)
