@@ -397,6 +397,7 @@ session     required      pam_limits.so
 session     required      pam_unix.so
 EOF
     cp -f $MBD_DIR/etc/pam.d/login $MBD_DIR/etc/pam.d/sshd
+    cp -f $MBD_DIR/etc/pam.d/login $MBD_DIR/etc/pam.d/remote
 
     cp -f $IMGPATH/etc/security/{limits.conf,pam_env.conf} $MBD_DIR/etc/security/
 
