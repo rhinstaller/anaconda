@@ -549,15 +549,17 @@ class ToDo:
             isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "swap":
 		continue
-	    try:
-		os.mkdir (self.instPath + mntpoint)
-	    except:
-		pass
-            try:
-                isys.mount( '/tmp/' + device, self.instPath + mntpoint)
-            except SystemError, (errno, msg):
-                self.intf.messageWindow(_("Error"), _("Error mounting %s: %s") % (device, msg))
-	    os.remove( '/tmp/' + device);
+	    elif fsystem == "ext2":
+		try:
+		    os.mkdir (self.instPath + mntpoint)
+		except:
+		    pass
+		try:
+		    isys.mount( '/tmp/' + device, self.instPath + mntpoint)
+		except SystemError, (errno, msg):
+		    self.intf.messageWindow(_("Error"), 
+			_("Error mounting %s: %s") % (device, msg))
+		os.remove( '/tmp/' + device);
 
     def makeFilesystems(self, createSwap = 1, createFs = 1):
         if not self.setupFilesystems: return
