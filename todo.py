@@ -1015,7 +1015,6 @@ class ToDo:
 
         self.method.filesDone ()
         
-	del syslog
         del p
 
         self.instLog.close ()
@@ -1037,6 +1036,8 @@ class ToDo:
 	    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
 	self.installLilo ()
+
+	del syslog
         
         w.pop ()
 
