@@ -29,6 +29,7 @@ import raid
 from iw_gui import *
 from translate import _, N_
 from partitioning import *
+from partIntfHelpers import *
 from partedUtils import *
 from fsset import *
 

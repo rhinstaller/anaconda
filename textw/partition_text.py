@@ -21,6 +21,7 @@ import copy
 import parted
 from partitioning import *
 from partedUtils import *
+from partIntfHelpers import *
 from fsset import *
 from autopart import *
 from snack import *
