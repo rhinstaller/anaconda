@@ -17,7 +17,7 @@ from gnomepyfsedit import fsedit
 
 import isys
 import sys
-import _balkan
+
 import thread
 import rpm
 from thread import *

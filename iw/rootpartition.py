@@ -2,7 +2,6 @@ from gtk import *
 from iw import *
 from thread import *
 import isys
-import _balkan
 
 class ConfirmPartitionWindow (InstallWindow):
     def __init__ (self, ics):
