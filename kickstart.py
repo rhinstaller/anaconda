@@ -684,13 +684,14 @@ class KickstartBase(BaseInstallClass):
         start = None
         end = None
         badblocks = None
+        recommended = None
         
 	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
 					'grow', 'onpart=', 'ondisk=',
                                         'bytes-per-inode=', 'usepart=',
                                         'type=', 'fstype=', 'asprimary',
                                         'noformat', 'start=', 'end=',
-                                        'badblocks'])
+                                        'badblocks', 'recommended'])
 
 	for n in args:
 	    (str, arg) = n
@@ -723,6 +724,8 @@ class KickstartBase(BaseInstallClass):
                 end = arg
             elif str == "--badblocks":
                 badblocks = 1
+            elif str == "--recommended":
+                recommended = 1
 
 	if len(extra) != 1:
 	    raise ValueError, "partition command requires one anonymous argument"
@@ -730,6 +733,9 @@ class KickstartBase(BaseInstallClass):
         if extra[0] == 'swap':
             filesystem = fileSystemTypeGet('swap')
             mountpoint = None
+            if recommended:
+                (size, maxSize) = iutil.swapSuggestion()
+                grow = 1
         else:
             if fstype:
                 filesystem = fileSystemTypeGet(fstype)
