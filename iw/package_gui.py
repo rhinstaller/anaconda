@@ -805,9 +805,6 @@ class PackageSelectionWindow (InstallWindow):
 
 	self.origSelection = self.comps.getSelectionState()
 
-        sw = gtk.ScrolledWindow ()
-        sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
-
         box = gtk.VBox (gtk.FALSE, 10)
 	box.set_border_width(5)
 
@@ -914,15 +911,15 @@ class PackageSelectionWindow (InstallWindow):
 		tmphbox.pack_start(cvbox, gtk.TRUE, gtk.TRUE)
 		vbox.pack_start (tmphbox)
 
-        wrapper = gtk.VBox (gtk.FALSE, 0)
-        wrapper.pack_start (box, gtk.FALSE)
-        
-        sw.add_with_viewport (wrapper)
-        viewport = sw.get_children()[0]
-        viewport.set_shadow_type (gtk.SHADOW_IN)
-	viewport.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse ("white"))
-        box.set_focus_hadjustment(sw.get_hadjustment ())
-        box.set_focus_vadjustment(sw.get_vadjustment ())
+        sw = gtk.ScrolledWindow()
+        sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        viewport = gtk.Viewport(sw.get_hadjustment(), sw.get_vadjustment())
+        sw.add(viewport)
+        viewport.add(box)
+        viewport.set_property('shadow-type', gtk.SHADOW_IN)
+	viewport.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("white"))
+#        box.set_focus_hadjustment(sw.get_hadjustment())
+#        box.set_focus_vadjustment(sw.get_vadjustment())
 
         hbox = gtk.HBox (gtk.FALSE, 5)
 
