@@ -145,7 +145,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
             if request.end:
                 endCyl = request.end
             elif request.size:
-                endCyl = end_sector_to_cyl(disk.dev, ((1024 * 1024 * request.size) / disk.dev.sector_size) + startSec)
+                endCyl = end_sector_to_cyl(disk.dev, ((1024L * 1024L * request.size) / disk.dev.sector_size) + startSec)
 
             endSec = end_cyl_to_sector(disk.dev, endCyl)
 
