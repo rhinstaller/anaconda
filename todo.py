@@ -53,7 +53,7 @@ class ToDo:
 	    (device, mntpoint, format) = n
             isys.makeDevInode(device, '/tmp/' + device)
 	    isys.mount( '/tmp/' + device, self.instPath + mntpoint)
-	    os.remove( '/tmp' + device);
+	    os.remove( '/tmp/' + device);
 
     def doInstall(self):
 	# make sure we have the header list and comps file
