@@ -81,6 +81,10 @@ class InstallTimeLanguage:
 	for line in lines:
 	    string.strip(line)
 	    l = string.split(line)
+
+            # throw out invalid lines
+            if len(l) < 8:
+                continue
 	    
 	    longName = l[0]
 	    font = l[2]
