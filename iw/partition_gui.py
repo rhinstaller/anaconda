@@ -310,8 +310,11 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
         partclist.append((partname,))
 
         if reqraidpart:
-            if partname in reqraidpart:
-                partclist.select_row(partrow, 0)
+            for member in reqraidpart:
+                mempart = member.partition
+                if partname == get_partition_name(mempart):
+                    partclist.select_row(partrow, 0)
+                    break
         else:
             partclist.select_row(partrow, 0)
         partrow = partrow + 1
@@ -500,6 +503,35 @@ class PartitionWindow(InstallWindow):
 
                 part = disk.next_partition (part)
 
+        # handle RAID next
+        raidcounter = 0
+        raidrequests = self.partitions.getRaidRequests()
+        if raidrequests:
+            for request in raidrequests:
+                if request and request.mountpoint:
+                    text[self.titleSlot["Mount Point"]] = request.mountpoint
+                
+                if request.fstype:
+                    ptype = request.fstype.getName()
+                else:
+                    ptype = _("None")
+
+                device = _("RAID Device %s"  % (str(raidcounter)))
+                text[self.titleSlot["Device"]] = device
+                text[self.titleSlot["Type"]] = ptype
+                text[self.titleSlot["Start"]] = ""
+                text[self.titleSlot["End"]] = ""
+                text[self.titleSlot["Size (MB)"]] = \
+                                          "%g" % (get_raid_device_size(request)
+                                                  / 1024.0 / 1024.0)
+                
+                # add a parent node to the tree
+                parent = self.tree.insert_node (None, None, text,
+                                                is_leaf = FALSE,
+                                                expanded = TRUE,
+                                                spacing = TREE_SPACING)
+                self.tree.node_set_row_data (parent, request.device)
+                
         canvas = self.diskStripeGraph.getCanvas()
         apply(canvas.set_scroll_region, canvas.root().get_bounds())
         self.tree.columns_autosize()
@@ -858,12 +890,20 @@ class PartitionWindow(InstallWindow):
     def editCb(self, widget):
         node = self.tree.selection[0]
         partition = self.tree.node_get_row_data (node)
+        print "editcb->", partition, type(partition), type("RAID")
         if partition == None:
             dialog = GnomeWarningDialog(_("You must first select an existing "
                                           "partition to edit."),
                                         parent=self.parent)
             dialog.set_position(WIN_POS_CENTER)            
             dialog.run()
+            return
+        elif type(partition) == type("RAID"):
+            print "edit ",partition
+            # XXXX evil way to reference RAID device requests!!
+            req = self.partitions.getRequestByDeviceName(partition)
+            print "request is", req
+            self.editRaidDevice(req)
             return
         elif partition.type & parted.PARTITION_FREESPACE:
             dialog = GnomeWarningDialog (_("You may only add partitions to "
@@ -897,8 +937,14 @@ class PartitionWindow(InstallWindow):
         maintable.set_col_spacings (5)
         row = 0
 
-        availraidparts = get_available_raid_partitions(self.diskset, self.partitions.requests)
+        availraidparts = get_available_raid_partitions(self.diskset,
+                                                      self.partitions.requests)
 
+        # add in partitions we're currently using
+        if raidrequest.raidmembers:
+            for member in raidrequest.raidmembers:
+                availraidparts.append(member.partition)
+                
         # Mount Point entry
         maintable.attach(createAlignedLabel(_("Mount Point:")),
                                             0, 1, row, row + 1)

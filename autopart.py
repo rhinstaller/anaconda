@@ -327,7 +327,7 @@ def processPartitioning(diskset, requests):
 
         # set the unique identifier for raid devices
         if request.type == REQUEST_RAID and not request.device:
-            request.device = requests.maxcontainer
+            request.device = str(requests.maxcontainer)
             requests.maxcontainer = requests.maxcontainer + 1
 
     # XXX - handle delete requests

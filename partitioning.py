@@ -165,6 +165,7 @@ def get_available_raid_partitions(diskset, requests):
 
             if not used:
                 rc.append(part)
+                print "appended", get_partition_name(part), part.fs_type.name
     return rc
 
 # return minimum numer of raid members required for a raid level
@@ -192,7 +193,7 @@ def get_raid_device_size(raidrequest):
         return 0
     
     raidlevel = raidrequest.raidlevel
-    nummembers = len(raidrequest.raidmembers)
+    nummembers = len(raidrequest.raidmembers) - raidrequest.raidspares
     smallest = None
     sum = 0
     for member in raidrequest.raidmembers:
@@ -204,7 +205,7 @@ def get_raid_device_size(raidrequest):
         else:
             if not smallest:
                 smallest = partsize
-            elif sizekb < smallest:
+            elif partsize < smallest:
                 smallest = partsize
 
     if raidlevel == "RAID0":
@@ -216,15 +217,6 @@ def get_raid_device_size(raidrequest):
     else:
         raise ValueError, "Invalid raidlevel in get_raid_device_size()"
     
-# return name of boot mount point in current requests
-def getBootableRequest(reqpartitions):
-    bootreq = reqpartitions.getRequestByMountPoint("/boot")
-    if not bootreq:
-        bootreq = reqpartitions.getRequestByMountPoint("/")
-
-    return bootreq
-
-
 # sanityCheckMountPoint
 def sanityCheckMountPoint(mntpt, fstype, reqtype):
     if mntpt:
@@ -288,7 +280,7 @@ def doMountPointLinuxFSChecks(newrequest):
 
         print "swapsize ->",swapsize
 
-        if swapsize * 1024 > MAX_SWAP_PART_SIZE_KB:
+        if swapsize / 1024 > MAX_SWAP_PART_SIZE_KB:
             return _("This swap partition exceeds the maximum size of "
                      "%s MB.") % (MAX_SWAP_PART_SIZE_KB / 1024)
         else:
@@ -296,7 +288,7 @@ def doMountPointLinuxFSChecks(newrequest):
     else:
         if newrequest.mountpoint in mustbeonlinuxfs:
             return _("This mount point must be on a linux filesystem.")
-
+        
     return None
     
 
@@ -324,8 +316,34 @@ def sanityCheckPartitionRequest(reqpartitions, newrequest):
 
 # return error string is something not right about raid request
 def sanityCheckRaidRequest(reqpartitions, newraid):
-    rc = sanityCheckPartitionRequest(reqpartitions, newraid)
+    if not newraid.raidmembers or not newraid.raidlevel:
+        return _("No members in RAID request, or not RAID level specified.")
+    
+    for member in newraid.raidmembers:
+        part = member.partition
+        print get_partition_name(part), part.fs_type.name
+        if part.fs_type and part.get_flag(parted.PARTITION_RAID) != 1:
+            return _("Some members of RAID request are not RAID partitions.")
 
+    rc = sanityCheckPartitionRequest(reqpartitions, newraid)
+    if rc:
+        return rc
+
+    # XXX fix this code to look to see if there is a bootable partition
+#    if newraid.mountpoint and newraid.raidlevel != "RAID1":
+#        return _("Bootable partitions can only be on RAID1 devices.")
+
+    minmembers = get_raid_min_members(newraid.raidlevel)
+    if len(newraid.raidmembers) < minmembers:
+        return _("A RAID device of type %s requires at least %s members.") % (newraid.raidlevel, minmembers)
+
+    if newraid.raidspares:
+        if (len(newraid.raidmembers) - newraid.raidspares) < minmembers:
+            return _("This RAID device can have a maximum of %s spares. "
+                     "To have more spares you will need to add members to "
+                     "the RAID device.") % (len(newraid.raidmembers) - minmembers )
+
+    return None
 
 class DeleteSpec:
     def __init__(self, drive, start, end):
@@ -487,6 +505,8 @@ class PartitionRequests:
 
     def getRequestByMountPoint(self, mount):
         for request in self.requests:
+            if request.mountpoint:
+                print "considering", request.mountpoint, mount
             if request.mountpoint == mount:
                 return request
         return None
@@ -496,6 +516,26 @@ class PartitionRequests:
             if request.device == device:
                 return request
         return None
+
+    def getRaidRequests(self):
+        retval = []
+        for request in self.requests:
+            if request.type == REQUEST_RAID:
+                retval.append(request)
+
+        return retval
+
+    # return name of boot mount point in current requests
+    def getBootableRequest(self):
+        print "doing boot"
+        bootreq = self.getRequestByMountPoint("/boot")
+        print "bootreq ->",bootreq
+        if not bootreq:
+            print "doing /"
+            bootreq = self.getRequestByMountPoint("/")
+            print "bootreq 2->", bootreq
+            
+        return bootreq
 
     def sortRequests(self):
         n = 0
