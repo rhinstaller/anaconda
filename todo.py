@@ -31,7 +31,7 @@ class LogFile:
 	elif reconfigOnly:
 	    self.logFile = open("/tmp/reconfig.log", "w")
 	elif test:
-	    self.logFile = open("anaconda-debug.log", "w")
+	    self.logFile = open("/tmp/anaconda-debug.log", "w")
 	else:
 	    self.logFile = open("/dev/tty3", "w")
 
