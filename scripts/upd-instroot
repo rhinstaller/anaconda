@@ -120,7 +120,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
  	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
-	 libstdc++"
+	 libstdc++ expat libgcc"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -259,6 +259,7 @@ $LIBDIR/libdl*
 $LIBDIR/libe2p*
 $LIBDIR/libext2fs*
 $LIBDIR/liblvm-10.so*
+$LIBDIR/libgcc_s*
 $LIBDIR/libm[-.]*
 $LIBDIR/libnsl*
 $LIBDIR/libnss_dns*
@@ -343,6 +344,7 @@ usr/$LIBDIR/libgssapi_krb5.so*
 usr/$LIBDIR/gconv/ISO8859-1.so
 usr/$LIBDIR/gconv/gconv-modules
 usr/$LIBDIR/libbeecrypt*
+usr/$LIBDIR/libexpat*
 usr/$LIBDIR/libglib*
 usr/$LIBDIR/libgmodule*
 usr/$LIBDIR/libgobject*
@@ -610,7 +612,6 @@ usr/$LIBDIR/libart*
 usr/$LIBDIR/libatk*
 usr/$LIBDIR/libaudio*
 usr/$LIBDIR/libesd*
-usr/$LIBDIR/libexpat*
 usr/$LIBDIR/libfontconfig*
 usr/$LIBDIR/libfreetype*
 usr/$LIBDIR/libgdk*
