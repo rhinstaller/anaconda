@@ -251,6 +251,12 @@ class Fstab:
     def partitionList(self):
 	return self.ddruid.partitionList()
 
+    def getprotectedList(self):
+        if self.protectList:
+            return self.protectList
+        else:
+            return []
+
     def driveList(self):
 	drives = isys.hardDriveDict().keys()
 	drives.sort (isys.compareDrives)

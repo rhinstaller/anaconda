@@ -240,8 +240,7 @@ class FormatWindow:
 	for (mount, dev, fstype, format, size) in mounts:
 
             # dont format protected partitions
-            if todo.fstab.protectList:
-                for n in todo.fstab.protectList:
+            for n in todo.fstab.getprotectedList():
                     if n == dev:
                         continue
                 
