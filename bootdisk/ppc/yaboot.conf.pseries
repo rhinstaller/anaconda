@@ -5,5 +5,4 @@ default=linux
 image=ppc/chrp/vmlinuz
 	label=linux
 	initrd=ppc/chrp/ramdisk.image.gz
-	append="maxcpus=1"
 	read-only

@@ -5,5 +5,4 @@ enablecdboot
 image=cd:,/ppc/mac/vmlinuz
 	label=linux
 	initrd=cd:,/ppc/mac/ramdisk.image.gz    
-	append="maxcpus=1 ramdisk_size=8192"
 	read-only

@@ -1,3 +1,9 @@
+2005-03-30  Jeremy Katz  <katzj@redhat.com>
+
+	* bootdisk/ppc/yaboot.conf.mac: Nuke maxcpus=1
+	* bootdisk/ppc/yaboot.conf.pseries: Likewise.
+	* scripts/mk-images.ia64 (image): Likewise.
+
 2005-03-30  Chris Lumens  <clumens@redhat,com>
 
 	* language.py (InstallTimeLanguage.setSupported):  supported is a list
