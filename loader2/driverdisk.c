@@ -233,6 +233,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
 
             rc = verifyDriverDisk("/tmp/drivers", flags);
             if (rc == LOADER_BACK) {
+                umount("/tmp/drivers");
                 stage = DEV_INSERT;
                 break;
             }
