@@ -9,7 +9,7 @@ import time
 import gettext_rh
 import glob
 import signal
-from translate import _, cat
+from translate import _, cat, N_
 from log import log
 
 # dont do this anymore, makes update disk hard
@@ -70,7 +70,7 @@ from bootdisk_text import MakeBootDiskWindow
 import installclass
 
 class LanguageWindow:
-    def __call__(self, screen, todo):
+    def __call__(self, screen, todo, textInterface):
         languages = todo.language.available ()
         descriptions = languages.keys ()
         descriptions.sort ()
@@ -108,6 +108,9 @@ class LanguageWindow:
 		    isys.loadFont(font)
 		except SystemError, (errno, msg):
 		    log("Could not load font %s: %s" % (font, msg))
+
+	textInterface.drawFrame()
+	    
         return INSTALL_OK
 
 class MouseDeviceWindow:
@@ -807,11 +810,14 @@ class InstallInterface:
     def packageProgressWindow(self, total, totalSize):
 	return InstallProgressWindow(self.screen, total, totalSize)
 
-    def __init__(self):
-        self.screen = SnackScreen()
+    def drawFrame(self):
         self.welcomeText = _("Red Hat Linux (C) 2000 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
         self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
+
+    def __init__(self):
+        self.screen = SnackScreen()
+	self.drawFrame()
 # uncomment this line to make the installer quit on <Ctrl+Z>
 # handy for quick debugging.
 	self.screen.suspendCallback(killSelf, self.screen)
@@ -833,43 +839,43 @@ class InstallInterface:
 
         if todo.reconfigOnly:
             self.commonSteps = [
-                [_("Welcome"), ReconfigWelcomeWindow, 
+                [N_("Welcome"), ReconfigWelcomeWindow, 
                  (self.screen,), "reconfig" ],
-                [_("Language Selection"), LanguageWindow, 
+                [N_("Language Selection"), LanguageWindow, 
                  (self.screen, todo), "language" ],
-                [_("Keyboard Selection"), KeyboardWindow, 
+                [N_("Keyboard Selection"), KeyboardWindow, 
                  (self.screen, todo), "keyboard" ],
-                [_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
+                [N_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
                  "network"],
-                [_("Network Setup"), NetworkWindow, (self.screen, todo), 
+                [N_("Network Setup"), NetworkWindow, (self.screen, todo), 
                  "network"],
-#                [_("Mouse Configuration"), MouseWindow, (self.screen, todo),
+#                [N_("Mouse Configuration"), MouseWindow, (self.screen, todo),
 #                 "mouse" ],
-#                [_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo),
+#                [N_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo),
 #                 "mouse" ],
-                [_("Time Zone Setup"), TimezoneWindow, 
+                [N_("Time Zone Setup"), TimezoneWindow, 
                  (self.screen, todo, test), "timezone" ],
-                [_("Root Password"), RootPasswordWindow, 
+                [N_("Root Password"), RootPasswordWindow, 
                  (self.screen, todo), "accounts" ],
-                [_("User Account Setup"), UsersWindow, 
+                [N_("User Account Setup"), UsersWindow, 
                  (self.screen, todo), "accounts" ],
-                [_("Authentication"), AuthConfigWindow, (self.screen, todo),
+                [N_("Authentication"), AuthConfigWindow, (self.screen, todo),
                  "authentication" ],
-#                [_("X Configuration"), XConfigWindow, (self.screen, todo),
+#                [N_("X Configuration"), XConfigWindow, (self.screen, todo),
 #                 "xconfig" ],
-#                [_("X Configuration"), XconfiguratorWindow, (self.screen, todo), 
+#                [N_("X Configuration"), XconfiguratorWindow, (self.screen, todo), 
 #		    "xconfig"],
-                [_("Configuration Complete"), ReconfigFinishedWindow, (self.screen,todo),
+                [N_("Configuration Complete"), ReconfigFinishedWindow, (self.screen,todo),
                  "complete" ],
                 ]
         else:
             self.commonSteps = [
-                [_("Language Selection"), LanguageWindow, 
-                 (self.screen, todo), "language" ],
-                [_("Keyboard Selection"), KeyboardWindow, 
+                [N_("Language Selection"), LanguageWindow, 
+                 (self.screen, todo, self), "language" ],
+                [N_("Keyboard Selection"), KeyboardWindow, 
                  (self.screen, todo), "keyboard" ],
-                [_("Welcome"), WelcomeWindow, (self.screen,), "welcome" ],
-                [_("Installation Type"), InstallPathWindow, 
+                [N_("Welcome"), WelcomeWindow, (self.screen,), "welcome" ],
+                [N_("Installation Type"), InstallPathWindow, 
                  (self.screen, todo, self) ],
                 ]
 
@@ -887,19 +893,19 @@ class InstallInterface:
             BootloaderSkipName = "lilo"            
 
         self.installSteps = [
-            [_("Partition"), PartitionMethod,
+            [N_("Partition"), PartitionMethod,
 		    (self.screen, todo), "partition" ],
-            [_("Manually Partition"), ManualPartitionWindow, 
+            [N_("Manually Partition"), ManualPartitionWindow, 
 		    (self.screen, todo), "partition" ],
-            [_("Automatic Partition"), AutoPartitionWindow, 
+            [N_("Automatic Partition"), AutoPartitionWindow, 
 		    (self.screen, todo), "partition" ],
-            [_("Partition"), PartitionWindow, (self.screen, todo),
+            [N_("Partition"), PartitionWindow, (self.screen, todo),
 		    "partition" ],
-            [_("Root Filesystem Size"), LoopSizeWindow, (self.screen, todo),
+            [N_("Root Filesystem Size"), LoopSizeWindow, (self.screen, todo),
 		    "partition" ],
-            [_("Swap"), TurnOnSwapWindow, (self.screen, todo),
+            [N_("Swap"), TurnOnSwapWindow, (self.screen, todo),
 		    "partition" ],
-            [_("Filesystem Formatting"), FormatWindow, (self.screen, todo),
+            [N_("Filesystem Formatting"), FormatWindow, (self.screen, todo),
 		    "format" ],
             [BootloaderConfiguration, BootloaderAppendWindow, 
 		    (self.screen, todo), BootloaderSkipName ],
@@ -907,39 +913,39 @@ class InstallInterface:
 		    (self.screen, todo), BootloaderSkipName ],
 	    [BootloaderConfiguration, BootloaderImagesWindow, 
 		    (self.screen, todo), BootloaderSkipName ],
-            [_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
+            [N_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
 		    "network"],
-            [_("Network Setup"), NetworkWindow, (self.screen, todo), 
+            [N_("Network Setup"), NetworkWindow, (self.screen, todo), 
 		    "network"],
-            [_("Mouse Configuration"), MouseWindow, (self.screen, todo),
+            [N_("Mouse Configuration"), MouseWindow, (self.screen, todo),
 		    "mouse" ],
-            [_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo),
+            [N_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo),
 		    "mouse" ],
-            [_("Time Zone Setup"), TimezoneWindow, 
+            [N_("Time Zone Setup"), TimezoneWindow, 
 		    (self.screen, todo, test), "timezone" ],
-            [_("Root Password"), RootPasswordWindow, 
+            [N_("Root Password"), RootPasswordWindow, 
 		    (self.screen, todo), "accounts" ],
-            [_("User Account Setup"), UsersWindow, 
+            [N_("User Account Setup"), UsersWindow, 
 		    (self.screen, todo), "accounts" ],
-            [_("Authentication"), AuthConfigWindow, (self.screen, todo),
+            [N_("Authentication"), AuthConfigWindow, (self.screen, todo),
 		    "authentication" ],
-            [_("Package Groups"), PackageGroupWindow, 
+            [N_("Package Groups"), PackageGroupWindow, 
 		(self.screen, todo, self.individual), "package-selection" ],
-            [_("Individual Packages"), IndividualPackageWindow, 
+            [N_("Individual Packages"), IndividualPackageWindow, 
 		(self.screen, todo, self.individual), "package-selection" ],
-            [_("Package Dependencies"), PackageDepWindow, (self.screen, todo),
+            [N_("Package Dependencies"), PackageDepWindow, (self.screen, todo),
 		"package-selection" ],
-            [_("X Configuration"), XConfigWindow, (self.screen, todo),
+            [N_("X Configuration"), XConfigWindow, (self.screen, todo),
                 "xconfig" ],
-            [_("Installation Begins"), BeginInstallWindow, 
+            [N_("Installation Begins"), BeginInstallWindow, 
 		(self.screen, todo), "confirm-install" ],
-            [_("Install System"), InstallWindow, (self.screen, todo) ],
-            [_("Boot Disk"), BootDiskWindow, (self.screen, todo),
+            [N_("Install System"), InstallWindow, (self.screen, todo) ],
+            [N_("Boot Disk"), BootDiskWindow, (self.screen, todo),
 		"bootdisk" ],
-            [_("Boot Disk"), MakeBootDiskWindow, (self.screen, todo), "bootdisk"],
-            [_("X Configuration"), XconfiguratorWindow, (self.screen, todo), 
+            [N_("Boot Disk"), MakeBootDiskWindow, (self.screen, todo), "bootdisk"],
+            [N_("X Configuration"), XconfiguratorWindow, (self.screen, todo), 
 		    "xconfig"],
-            [_("Installation Complete"), FinishedWindow, (self.screen, todo),
+            [N_("Installation Complete"), FinishedWindow, (self.screen, todo),
 		"complete" ]
             ]
 
@@ -978,7 +984,7 @@ class InstallInterface:
 		self.screen.drawRootText (len(self.welcomeText), 0,
 			     (self.screen.width - len(self.welcomeText)) * " ")
 		self.screen.drawRootText (0 - len(step[0]),
-					 0, step[0])
+					 0, _(step[0]))
 		# This is *disgusting* (ewt)
 		if step[1] == UpgradeExamineWindow:
 		    rc = apply (step[1](), (dir,) + step[2])
