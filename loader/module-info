@@ -267,7 +267,7 @@ ne
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 	irq "IRQ level" "[0-9]+"
 
-n32k-pci
+ne2k-pci
 	eth
 	"PCI NE2000 clones"
 
@@ -410,9 +410,10 @@ yellowfin
 
 # drivers/scsi directory
 
-53c7,8xx
-	scsi_hostadapter
-	"Symbios/NCR 53c700 and 53c800 series"
+# XXX this needs to be put back
+#53c7,8xx
+	#scsi_hostadapter
+	#"Symbios/NCR 53c700 and 53c800 series"
 
 AM53C974
 	scsi_hostadapter
@@ -451,17 +452,18 @@ aic7xxx
 	scsi_hostadapter
 	"Adaptec AHA-2740, 28xx, 29xx, 39xx"
 
-atp870u
-	scsi_hostadapter
-	"atp870u"
+#atp870u
+	#scsi_hostadapter
+	#"atp870u"
 
 dtc
 	scsi_hostadapter
 	"DTC 3180/3280"
 
-eata
-	scsi_hostadapter
-	"All DMA-capable DPT SCSI"
+# deprecated
+#eata
+	#scsi_hostadapter
+	#"All DMA-capable DPT SCSI"
 
 eata_dma
 	scsi_hostadapter
@@ -482,9 +484,10 @@ g_NCR5380
 	scsi_hostadapter
 	"generic NCR5380"
 
-gdth
-	scsi_hostadapter
-	"GDT ISA/EISA/PCI Disk Array Controller"
+# XXX these needs to be put back
+#gdth
+	#scsi_hostadapter
+	#"GDT ISA/EISA/PCI Disk Array Controller"
 
 # not a module
 # gvp11
@@ -506,10 +509,11 @@ pas16
 	scsi_hostadapter
 	"Pro Audio Spectrum/Studio 16"
 
-ppa
-	scsi_hostadapter
-	"IOMEGA PPA3/Parallel ZIP"
-	ppa_base "Base I/O address" "0x[0-9a-fA-F]+"
+# <SIGH>
+#ppa
+	#scsi_hostadapter
+	#"IOMEGA PPA3/Parallel ZIP"
+	#ppa_base "Base I/O address" "0x[0-9a-fA-F]+"
 
 psi240i
 	scsi_hostadapter
@@ -615,10 +619,10 @@ isp16
 	isp16_cdrom_irq "IRQ"
 	isp16_cdrom_dma "DMA Channel (0,3,5,6,7)"
 
-mcd
-	block-major-23	cdrom
-	"Mitsumi CDROM"
-	mcd "Base I/O Address,irq"
+#mcd
+	#block-major-23	cdrom
+	#"Mitsumi CDROM"
+	#mcd "Base I/O Address,irq"
 
 mcdx
 	block-major-20	cdrom

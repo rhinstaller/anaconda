@@ -458,70 +458,85 @@ static char * mountHardDrive(struct installMethod * method,
 	char name[20];
 	int type;
     } partitions[1024], * part;
-    int numPartitions = 0;
     struct partitionTable table;
-    newtComponent listbox, label, dirEntry, form, answer, okay, back, text;
+    newtComponent listbox, label, dirEntry, form, okay, back, text;
+    struct newtExitStruct es;
     newtGrid entryGrid, grid, buttons;
     int done = 0;
     char * dir = NULL;
+    char * tmpDir;
     char * type;
     char * path;
     char * url = NULL;
-
-    /* XXX load scsi devices here */
+    int numPartitions;
 
     /*mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);*/
 
-    for (i = 0; i < kd->numKnown; i++) {
-	if (kd->known[i].class == DEVICE_DISK) {
-	    devMakeInode(kd->known[i].name, "/tmp/hddevice");
-	    if ((fd = open("/tmp/hddevice", O_RDONLY)) >= 0) {
-		if ((rc = balkanReadTable(fd, &table))) {
-		    logMessage("failed to read partition table for "
-			       "device %s: %d", kd->known[i].name, rc);
-		} else {
-		    for (j = 0; j < table.maxNumPartitions; j++) {
-			if (table.parts[j].type == BALKAN_PART_DOS ||
-				table.parts[j].type == BALKAN_PART_EXT2) {
-			    sprintf(partitions[numPartitions].name, 
-				    "/dev/%s%d", kd->known[i].name, j + 1);
-			    partitions[numPartitions].type = 
-				    table.parts[j].type;
-			    numPartitions++;
+    while (!done) {
+	numPartitions = 0;
+	for (i = 0; i < kd->numKnown; i++) {
+	    if (kd->known[i].class == DEVICE_DISK) {
+		devMakeInode(kd->known[i].name, "/tmp/hddevice");
+		if ((fd = open("/tmp/hddevice", O_RDONLY)) >= 0) {
+		    if ((rc = balkanReadTable(fd, &table))) {
+			logMessage("failed to read partition table for "
+				   "device %s: %d", kd->known[i].name, rc);
+		    } else {
+			for (j = 0; j < table.maxNumPartitions; j++) {
+			    if (table.parts[j].type == BALKAN_PART_DOS ||
+				    table.parts[j].type == BALKAN_PART_EXT2) {
+				sprintf(partitions[numPartitions].name, 
+					"/dev/%s%d", kd->known[i].name, j + 1);
+				partitions[numPartitions].type = 
+					table.parts[j].type;
+				numPartitions++;
+			    }
 			}
 		    }
+
+		    close(fd);
+		} else {
+		    /* XXX ignore errors on removable drives? */
 		}
 
-		close(fd);
-	    } else {
-		/* XXX ignore errors on removable drives? */
+		unlink("/tmp/hddevice");
 	    }
-
-	    unlink("/tmp/hddevice");
 	}
-    }
 
-    if (!numPartitions) {
-	newtWinMessage(_("Error"), _("Ok"), 
-			_("You don't seem to have any hard drives on "
-			  "your system!"));
-	return NULL;
-    }
+	if (!numPartitions) {
+	    rc = newtWinChoice(_("Hard Drives"), _("Yes"), _("Back"),
+			    _("You don't seem to have any hard drives on "
+			      "your system! Would you like to configure "
+			      "additional devices?"));
+	    if (rc == 2) return NULL;
 
-    while (!done) {
+	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDeps, flags, 
+			  NULL);
+	    kdFindScsiList(kd);
+
+	    continue;
+	}
+
 	text = newtTextboxReflowed(-1, -1,
 		_("What partition and directory on that partition hold the "
-		  "RedHat/RPMS and RedHat/base directories?"), 62, 5, 5, 0);
+		  "RedHat/RPMS and RedHat/base directories? If you don't "
+		  "see the disk drive you're using listed here, press F2 "
+		  "to configure additional devices."), 62, 5, 5, 0);
 
 	listbox = newtListbox(-1, -1, numPartitions > 5 ? 5 : numPartitions,
-			      numPartitions > 5 ? NEWT_FLAG_SCROLL : 0);
+			      NEWT_FLAG_RETURNEXIT | 
+				(numPartitions > 5 ? NEWT_FLAG_SCROLL : 0)
+			    );
 	
 	for (i = 0; i < numPartitions; i++) 
 	    newtListboxAppendEntry(listbox, partitions[i].name, 
 				   partitions + i);
 	
 	label = newtLabel(-1, -1, _("Directory holding Red Hat:"));
-	dirEntry = newtEntry(28, 11, dir, 28, &dir, NEWT_ENTRY_SCROLL);
+
+	tmpDir = dir ? strdup(dir) : NULL;
+
+	dirEntry = newtEntry(28, 11, dir, 28, &tmpDir, NEWT_ENTRY_SCROLL);
 	
 	entryGrid = newtGridHStacked(NEWT_GRID_COMPONENT, label,
 				     NEWT_GRID_COMPONENT, dirEntry,
@@ -541,22 +556,35 @@ static char * mountHardDrive(struct installMethod * method,
 	
 	newtGridWrappedWindow(grid, _("Select Partition"));
 	
-	form = newtForm(NULL, NULL, 0);
+	form = newtForm(NULL, NULL, NEWT_FLAG_NOF12);
+	newtFormAddHotKey(form, NEWT_KEY_F2);
+
 	newtGridAddComponentsToForm(grid, form, 1);
 	newtGridFree(grid, 1);
-	
-	answer = newtRunForm(form);
-	part = newtListboxGetCurrent(listbox);
 
-	if (*dir)
-	    dir = strdup(dir);
-	else
+	newtFormRun(form, &es);
+
+	part = newtListboxGetCurrent(listbox);
+	
+	if (dir) free(dir);
+	if (tmpDir && *tmpDir) {
+	    dir = strdup(tmpDir);
+	    free(tmpDir);
+	} else  {
 	    dir = NULL;
+	}
 	
 	newtFormDestroy(form);
 	newtPopWindow();
-	
-	if (answer == back) return NULL;
+
+	if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
+	    return NULL;
+	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
+	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDeps, flags, 
+			  NULL);
+	    kdFindScsiList(kd);
+	    continue;
+	}
 
 	logMessage("partition %s selected", part->name);
 	
@@ -597,7 +625,7 @@ static char * mountHardDrive(struct installMethod * method,
 	    close(fd);
 	    if (rc) continue;
 
-	    url = malloc(50 + strlen(dir));
+	    url = malloc(50 + strlen(dir ? dir : ""));
 	    sprintf(url, "hd://%s/%s", part->name + 5, dir ? dir : ".");
 	    if (dir) free(dir);
 	}
@@ -645,10 +673,10 @@ static char * setupCdrom(struct installMethod * method,
 			_("I could not find a Red Hat Linux "
 			  "CDROM in any of your CDROM drives. Please insert "
 			  "the Red Hat CD and press \"Ok\" to retry."));
-	    if (rc == LOADER_BACK) break;
+	    if (rc == LOADER_BACK) return NULL;
 	} else {
 	    rc = setupCDdevice(kd, modInfo, modLoaded, modDeps, flags);
-	    if (rc == LOADER_BACK) break;
+	    if (rc == LOADER_BACK) return NULL;
 	}
     } while (1);
 
