@@ -945,7 +945,9 @@ def doPostInstall(method, id, intf, instPath):
 	    # XXX currently Bad Things (X async reply) happen when doing
 	    # Mouse Magic on Sparc (Mach64, specificly)
 	    # The s390 doesn't even have a mouse!
-	    if os.environ.has_key ("DISPLAY") and not (arch == "sparc" or arch == "s390"):
+            if (os.environ.has_key ("DISPLAY")
+                and not arch in ('sparc', 's390')
+                and iutil.getPPCMachine() != 'iSeries'):
 		try:
                     import xmouse
 		    mousedev = xmouse.get()[0]
