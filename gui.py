@@ -21,7 +21,7 @@ import sys
 import parted
 import gtk
 import htmlbuffer
-from translate import _, N_
+from translate import _, N_, utf8
 from language import expandLangs
 from splashscreen import splashScreenPop
 from log import log
@@ -445,7 +445,7 @@ class InstallControlWindow:
     def refreshHelp(self):
         buffer = htmlbuffer.HTMLBuffer()
         ics = self.currentWindow.getICS()
-        buffer.feed(ics.getHTML(self.langSearchPath))
+        buffer.feed(utf8(ics.getHTML(self.langSearchPath)))
         textbuffer = buffer.get_buffer()
         self.help.set_buffer(textbuffer)
         # scroll to the top.  Do this with a mark so it's done in the idle loop

@@ -14,7 +14,8 @@
 #
 
 import gettext
-import iconvcodec
+import iconv
+import os
 
 class i18n:
     def __init__(self):
@@ -22,24 +23,53 @@ class i18n:
             self.cat = gettext.translation("anaconda")
         except IOError:
             self.cat = None
+        self.iconv = iconv.open('utf-8', 'iso-8859-1')
 
     def getlangs(self):
 	return self.langs
         
     def setlangs(self, langs):
-        self.__init__()
 	self.langs = langs
+        mofile = None
+        for lang in langs:
+            try:
+                mofile = open("/usr/share/locale/%s/LC_MESSAGES/anaconda.mo"
+                              % (lang), "rb")
+            except IOError:
+                try:
+                    mofile = open("po/%s.mo" % (lang,), "rb")
+                except IOError:
+                    pass
+            if mofile:
+                break
+        if not mofile:
+            print "unable to find translation file"
+            self.cat = None
+            self.iconv = iconv.open("utf-8", 'iso-8859-1')
+            return
+
+        self.cat = gettext.GNUTranslations(mofile)
+        try:
+            self.iconv = iconv.open("utf-8", self.cat.charset())
+        except:
+            self.iconv = iconv.open("utf-8", "iso-8859-1")
+
+    def utf8(self, string):
+        try:
+            return self.iconv.iconv(string)
+        except:
+            return string
 
     def gettext(self, string):
         if not self.cat:
-            return string
-        try:
-            return self.cat.ugettext(string)
-        except TypeError:
-            return string
+            return self.utf8(string)
+        return self.utf8(self.cat.gettext(string))
 
 def N_(str):
     return str
 
 cat = i18n()
 _ = cat.gettext
+utf8 = cat.utf8
+
+

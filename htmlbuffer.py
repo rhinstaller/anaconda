@@ -61,6 +61,10 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         tag.set_property('font', '%s %d' % (baseFont, baseSize + 4))
         tag.set_property('weight', pango.WEIGHT_BOLD)
 
+        tag = self.buffer.create_tag('h3')
+        tag.set_property('font', '%s %d' % (baseFont, baseSize + 4))
+        tag.set_property('weight', pango.WEIGHT_BOLD)
+
         tag = self.buffer.create_tag('b')
         tag.set_property('weight', pango.WEIGHT_BOLD)
 

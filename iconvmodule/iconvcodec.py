@@ -1,3 +1,5 @@
+raise RuntimeError, "Don't use me right now!"
+
 import sys, iconv, codecs, errno
 
 # First we need to find out what the Unicode code set name is
