@@ -91,7 +91,7 @@ mkdir -p $DESTGR
 PACKAGES="glibc setup python newt libtermcap zlib ash
 	 e2fsprogs util-linux raidtools locale-ja popt mount procps
 	 rpm XFree86 Xconfigurator anaconda anaconda-runtime
-	 kudzu-devel kudzu db3 rpm-python bzip2"
+	 kudzu-devel kudzu db3 rpm-python bzip2 dosfstools"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
@@ -132,6 +132,7 @@ fi
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
+sbin/mkdosfs
 sbin/ldconfig
 sbin/clock
 sbin/hwclock
