@@ -59,6 +59,7 @@ static inline _syscall1(int,unlink,const char *,fn)
 static inline _syscall1(int,close,int,fd)
 static inline _syscall1(int,swapoff,const char *,fn)
 static inline _syscall0(int,getpid)
+static inline _syscall0(int,getppid)
 static inline _syscall0(int,sync)
 #ifdef __sparc__
 /* Nonstandard fork calling convention :( */
