@@ -304,7 +304,7 @@ def queryNoFormatPreExisting(intf):
             "However, if this partition contains files that you need "
             "to keep, such as a users home directories, then you should "
             "continue without formatting this partition. \n\n"
-            "Are you sure you want to continue without formatting"
+            "Are you sure you want to continue without formatting "
             "the partition ?")
 
     rc = intf.messageWindow(_("Format?"), txt, type = "yesno", default = "no")
