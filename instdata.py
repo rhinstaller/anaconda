@@ -67,6 +67,8 @@ class InstallData:
 	self.bootloader = bootloader.x86BootloaderInfo()
         self.dependencies = []
         self.dbpath = None
+        self.useFdisk = 0
+        self.useAutopartitioning = 1
 
     def setInstallProgressClass(self, c):
 	self.instProgress = c

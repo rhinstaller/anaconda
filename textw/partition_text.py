@@ -793,35 +793,144 @@ class PartitionWindow:
 
 
 class AutoPartitionWindow:
-    def __call__(self, screen, type, cleardrives, diskset, intf):
-        self.screen = screen
-        self.type = type
-        self.cleardrives = cleardrives
-        self.diskset = diskset
-        self.intf = intf
+    def typeboxChange(self, (typebox, drivelist)):
+        flag = FLAGS_RESET
+        if typebox.current() == CLEARPART_TYPE_NONE:
+            flag = FLAGS_SET
+        # XXX need a way to disable the checkbox tree
+        
+    def __call__(self, screen, type, cleardrives, diskset, intf, useAuto):
+        if not useAuto:
+            return INSTALL_NOOP
+        
+        self.g = GridFormHelp(screen, _("Autopartitioning"), "autopartitioning", 1, 6)
 
-        if type == CLEARPART_TYPE_LINUX:
-            clearstring = "all Linux partitions"
-        elif type == CLEARPART_TYPE_ALL:
-            clearstring = "all partitions"
-        else:
-            clearstring = "no partitions"
+        # listbox for types of removal
+        typebox = Listbox(height=3, scroll=0)
+        typebox.append(_("Remove all Linux partitions"), CLEARPART_TYPE_LINUX)
+        typebox.append(_("Remove all partitions"), CLEARPART_TYPE_ALL)
+        typebox.append(_("Remove no partitions"), CLEARPART_TYPE_NONE)
+        typebox.setCurrent(type)
+        self.g.add(typebox, 0, 2, (0,1,0,0))
 
+        # list of drives to select which to clear
+        subgrid = Grid(1, 2)
+        driveLbl = Label(_("Clear Partitions on These Drives:"))
+        subgrid.setField(driveLbl, 0, 0)
+        disks = diskset.disks.keys()
+        drivelist = CheckboxTree(height=3, scroll=1)
         if not cleardrives or len(cleardrives) < 1:
-            cleardrivestring = "on all drives"
+            for disk in disks:
+                drivelist.append(disk, selected = 1)
         else:
-            cleardrivestring = "on these drives: "
-            for drive in cleardrives:
-                cleardrivestring = cleardrivestring + drive + " "
+            for disk in disks:
+                if disk in cleardrives:
+                    selected = 1
+                else:
+                    selected = 0
+                drivelist.append(disk, selected = selected)
+        subgrid.setField(drivelist, 0, 1)
+        self.g.add(subgrid, 0, 3, (0,1,0,0))
 
-        rc = ButtonChoiceWindow(self.screen, _("Autopartitioning"),
-              _("Autopartitioning will remove %s %s" %
-                (clearstring, cleardrivestring)),
-                                buttons = [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
+        typebox.setCallback(self.typeboxChange, (typebox, drivelist))
+
+        bb = ButtonBar(screen, [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
+        self.g.add(bb, 0, 4, (0,1,0,0))
+
+        rc = self.g.run()
+        res = bb.buttonPressed(rc)
+
+        screen.popWindow()
+        if res == TEXT_BACK_CHECK:
+            return INSTALL_BACK
+
+        type = typebox.current()
+        cleardrives = drivelist.getSelection()
+        return INSTALL_OK
+        
+
+class PartitionMethod:
+    def __call__(self, screen, id):
+        rc = ButtonChoiceWindow(screen, _("Disk Setup"),
+             _("Autopartitioning sets up your partitioning in a reasonable "
+               "way depending on your installation type and then gives you a "
+               "chance to customize this setup.\n"
+               "\n"
+               "Disk Shaman is a tool designed for partitioning and setting "
+               "up mount points.  It is designed to be easier to use than "
+               "Linux's traditional disk partitioning software, fdisk, as "
+               "well as more powerful.  However, there are some cases where "
+               "fdisk may be preferred.\n"
+               "\n"
+               "Which tool would you like to use?"),
+             [ (_("Autopartitioning"), "auto"), (_("Disk Shaman"), "ds"),
+                (_("fdisk"), "fd"), TEXT_BACK_BUTTON ],
+               width = 50, help = "parttool")
 
         if rc == TEXT_BACK_CHECK:
-            self.screen.popWindow()
+            return INSTALL_BACK
+        elif rc == "fd":
+            id.useAutopartitioning = 0
+            id.useFdisk = 1
+        elif rc == "ds":
+            id.useAutopartitioning = 0
+            id.useFdisk = 0
+        else:
+            id.useAutopartitioning = 1
+            id.useFdisk = 0
+
+        return INSTALL_OK
+
+class fdiskPartitionWindow:
+    def __call__(self, screen, useFdisk, diskset, partrequests):
+        if not useFdisk:
+            return INSTALL_NOOP
+
+        choices = []
+        drives = diskset.disks.keys()
+        drives.sort()
+        for drive in drives:
+            choices.append("%s" %(drive))
+
+        button = None
+        while button != "done" and button != "back":
+            (button, choice) = \
+                     ListboxChoiceWindow(screen, _("Disk Setup"),
+                     _("Choose a disk to run fdisk on"), choices,
+                     [ (_("Done"), "done"), (_("Edit"), "edit"),
+                       TEXT_BACK_BUTTON ], width = 50, help = "fdisk")
+
+            if button != "done" and button != TEXT_BACK_CHECK:
+                screen.suspend()
+                device = choices[choice]
+                
+                if os.access("/sbin/fdisk", os.X_OK):
+                    path = "/sbin/fdisk"
+                else:
+                    path = "/usr/sbin/fdisk"
+
+                try:
+                    isys.makeDevInode(device, '/tmp/' + device)
+                except:
+                    pass
+
+                iutil.execWithRedirect (path, [ path, "/tmp/" + device ],
+                                        ignoreTermSigs = 1)
+
+                try:
+                    os.remove('/tmp/' + device)
+                except:
+                    pass
+
+                screen.resume()
+
+            partrequests.setFromDisk(diskset)
+
+        if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
         return INSTALL_OK
-        
+                
+            
+                                         
+                                         

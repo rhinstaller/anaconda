@@ -515,6 +515,9 @@ def doClearPartAction(id, type, cleardrives):
             part = disk.next_partition(part)
     
 def doAutoPartition(id):
+    if not id.useAutopartitioning:
+        return DISPATCH_NOOP
+    
     # if no auto partition info in instclass we bail
     if len(id.autoPartitionRequests) < 1:
         return DISPATCH_NOOP
