@@ -608,6 +608,7 @@ makeinitrd() {
 	mkdir -m 111 -p $MBD_DIR/var/empty/sshd
 	mkdir -p $MBD_DIR/etc/{pam.d,security}
 	mkdir -p $MBD_DIR/$LIBDIR/security
+	cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
 	ln -s /tmp $MBD_DIR/var/state/xkb
     fi
 
@@ -629,6 +630,7 @@ EOF
     else
 	install -s -m 755 $LOADERBINDIR/shutdown $MBD_DIR/sbin/shutdown
 	install -m 755 $IMGPATH/usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR/linuxrc
+	install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
 	ln -s ../linuxrc $MBD_DIR/sbin/init
     fi
 
