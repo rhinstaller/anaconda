@@ -190,7 +190,7 @@ class AccountWindow (InstallWindow):
     def userWindow (self, title, data=None):
         userWin = gtk.Dialog()
         userWin.set_modal(gtk.TRUE)
-        userWin.set_usize(350, 200)		
+        userWin.set_size_request(350, 200)		
         userWin.set_position (gtk.WIN_POS_CENTER)
         userWin.set_border_width(5)
 
@@ -306,7 +306,7 @@ class AccountWindow (InstallWindow):
         label = gtk.Label (_("Enter the password for the root user "
                              "(administrator) of this system."))
         label.set_line_wrap(gtk.TRUE)
-        label.set_usize(350, -1)
+        label.set_size_request(350, -1)
 
         a = gtk.Alignment ()
         a.add (label)

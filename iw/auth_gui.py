@@ -126,7 +126,7 @@ class AuthWindow (InstallWindow):
         nistable.attach (self.nis, 0, 10, 0, 1, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
 
 	spacer = gtk.Label("")
-	spacer.set_usize(10, 1)
+	spacer.set_size_request(10, 1)
         nistable.attach (spacer, 0, 1, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
         
         nistable.attach (self.nisDomainLabel, 2, 3, 1, 2, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
@@ -155,7 +155,7 @@ class AuthWindow (InstallWindow):
         ldaptable.attach (self.ldap, 0, 10, 0, 1, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
 
 	spacer = gtk.Label("")
-	spacer.set_usize(10, 1)
+	spacer.set_size_request(10, 1)
         ldaptable.attach (spacer, 0, 1, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
         ldaptable.attach (self.ldapServerLabel, 2, 3, 1, 2, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
         ldaptable.attach (self.ldapServer, 3, 10, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
@@ -191,7 +191,7 @@ class AuthWindow (InstallWindow):
         krb5table.attach (self.krb5, 0, 10, 0, 1, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
 
 	spacer = gtk.Label("")
-	spacer.set_usize(10, 1)
+	spacer.set_size_request(10, 1)
         krb5table.attach (spacer, 0, 1, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
         krb5table.attach (self.krb5RealmLabel, 2, 3, 1, 2, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
         krb5table.attach (self.krb5Realm, 3, 10, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
@@ -223,7 +223,7 @@ class AuthWindow (InstallWindow):
         sambatable.attach (self.samba, 0, 10, 0, 1, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
 
         spacer = gtk.Label("")
-        spacer.set_usize(10, 1)
+        spacer.set_size_request(10, 1)
         sambatable.attach (spacer, 0, 1, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
         sambatable.attach (self.sambaLabel1, 2, 3, 1, 2, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
         sambatable.attach (self.sambaServer, 3, 10, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)

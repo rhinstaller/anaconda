@@ -166,7 +166,7 @@ class SiloWindow (InstallWindow):
 	self.radioBox.set_border_width (5)
 	
 	spacer = GtkLabel("")
-	spacer.set_usize(10, 1)
+	spacer.set_size_request(10, 1)
 	self.radioBox.attach(spacer, 0, 1, 2, 4, FALSE)
 
 	label = GtkLabel(_("Install SILO boot record on:"))

@@ -385,7 +385,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageDesc.set_cursor_visible(gtk.FALSE)
         self.packageDesc.set_wrap_mode(gtk.TRUE)
         descSW.add (self.packageDesc)
-        descSW.set_usize (-1, 100)
+        descSW.set_size_request (-1, 100)
 
         descVBox.pack_start (descSW)
 

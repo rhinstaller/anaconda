@@ -124,9 +124,9 @@ def growToParent(widget, rect, growTo=None):
     if not ignore:
         if growTo:
             x, y, width, height = growTo.get_allocation()
-            widget.set_usize(width, -1)
+            widget.set_size_request(width, -1)
         else:
-            widget.set_usize(rect.width, -1)
+            widget.set_size_request(rect.width, -1)
         widget.ignoreEvents = 1
     else:
         widget.ignoreEvents = 0
@@ -136,7 +136,7 @@ class WrappingLabel(gtk.Label):
         gtk.Label.__init__(self, label)
         self.set_line_wrap(gtk.TRUE)
         self.ignoreEvents = 0
-        self.set_usize(-1, 1)
+        self.set_size_request(-1, 1)
         widgetExpander(self)
 
 class WaitWindow:
@@ -218,12 +218,12 @@ class ExceptionWindow:
                                "dump to a floppy then file a detailed bug "
                                "report against anaconda at "
                                "http://bugzilla.redhat.com/bugzilla/"))
-        info.set_usize (400, -1)
+        info.set_size_request (400, -1)
 
         hbox.pack_start (sw, gtk.TRUE)
         win.vbox.pack_start (info, gtk.FALSE)            
         win.vbox.pack_start (hbox, gtk.TRUE)
-        win.set_usize (500, 300)
+        win.set_size_request (500, 300)
         win.set_position (gtk.WIN_POS_CENTER)
         win.show_all ()
         self.window = win
@@ -490,7 +490,7 @@ class InstallControlWindow:
             a.add (frame)
             
             self.textWin.set_default_size (635, 393)
-            self.textWin.set_usize (635, 393)
+            self.textWin.set_size_request (635, 393)
             self.textWin.set_position (gtk.WIN_POS_CENTER)
 
             table.attach (a, 1, 2, 1, 2,
@@ -652,7 +652,7 @@ class InstallControlWindow:
     def abortInstall (self, *args):
         dlg = gtk.Dialog(_("Warning"), mainWindow)
         dlg.set_modal(gtk.TRUE)
-        dlg.set_usize(350, 200)
+        dlg.set_size_request(350, 200)
         dlg.set_position(gtk.WIN_POS_CENTER)
         dlg.set_border_width(5)
         dlg.add_button('gtk-yes', 0)
@@ -717,10 +717,10 @@ class InstallControlWindow:
 
         if runres == '640x480':
             self.window.set_default_size (640, 480)
-            self.window.set_usize (640, 480)
+            self.window.set_size_request (640, 480)
         else:
             self.window.set_default_size (800, 600)
-            self.window.set_usize (800, 600)
+            self.window.set_size_request (800, 600)
 
         self.window.set_border_width (10)
 

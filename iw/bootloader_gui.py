@@ -299,7 +299,7 @@ class BootloaderWindow (InstallWindow):
         self.radioBox.set_border_width (5)
         
         spacer = gtk.Label("")
-        spacer.set_usize(10, 1)
+        spacer.set_size_request(10, 1)
         self.radioBox.attach(spacer, 0, 1, 2, 4, gtk.FALSE)
 
         label = gtk.Label(_("Install Boot Loader record on:"))

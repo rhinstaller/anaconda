@@ -84,7 +84,7 @@ class ReconfigWelcomeWindow (InstallWindow):
         label = gtk.Label(_("Would you like to configure your system?"))
 	label.set_line_wrap(gtk.TRUE)
 	label.set_alignment(0.0, 0.0)
-	label.set_usize(400, -1)
+	label.set_size_request(400, -1)
 
         box.pack_start(label)
         

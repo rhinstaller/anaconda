@@ -106,7 +106,7 @@ class KeyboardWindow (InstallWindow):
 
         label = gtk.Label(_("Which model keyboard is attached to the computer?"))
         label.set_line_wrap(gtk.TRUE)
-        label.set_usize(350, -1)
+        label.set_size_request(350, -1)
         hbox.pack_start(label, gtk.FALSE)
         box.pack_start(hbox, gtk.FALSE)
 

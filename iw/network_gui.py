@@ -219,8 +219,8 @@ class NetworkWindow(InstallWindow):
                 label.set_alignment(0.0, 0.5)
                 ipTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
                 entry = gtk.Entry(15)
-          # entry.set_usize(gdk_char_width(entry.get_style().font, '0')*15, -1)
-                entry.set_usize(7 * 15, -1)
+          # entry.set_size_request(gdk_char_width(entry.get_style().font, '0')*15, -1)
+                entry.set_size_request(7 * 15, -1)
                 entry.connect("activate", forward)
 
                 entry.set_text(devs[i].get(options[t][1]))
@@ -262,10 +262,10 @@ class NetworkWindow(InstallWindow):
             self.ipTable.attach(label, 0, 1, i, i+1, gtk.FILL, 0, 10)
             if i == 0:
                 options[i] = gtk.Entry()
-                options[i].set_usize(7 * 30, -1)
+                options[i].set_size_request(7 * 30, -1)
             else:
                 options[i] = gtk.Entry(15)
-                options[i].set_usize(7 * 15, -1)
+                options[i].set_size_request(7 * 15, -1)
             options[i].connect("activate", forward)
             align = gtk.Alignment(0, 0.5)
             align.add(options[i])

@@ -91,7 +91,7 @@ class ZiplWindow (InstallWindow):
                            "\n"
                            "You can now enter any additional kernel parameters "
                            "which your machine or your setup may require."))
-        label.set_usize(500, -1)
+        label.set_size_request(500, -1)
         label.set_line_wrap(TRUE)
         label.set_alignment(0.0, 0.0)
         label.set_padding(50,50)

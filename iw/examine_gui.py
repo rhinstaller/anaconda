@@ -67,7 +67,7 @@ class UpgradeExamineWindow (InstallWindow):
             box.pack_start (table, gtk.FALSE)
 	    box.pack_start (gtk.HSeparator ())
 	    spacer = gtk.Label("")
-	    spacer.set_usize(15, 1)
+	    spacer.set_size_request(15, 1)
 	    table.attach(spacer, 0, 1, 2, 4, gtk.FALSE)
 
             self.ics.setNextEnabled (gtk.TRUE)

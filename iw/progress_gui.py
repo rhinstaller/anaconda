@@ -215,8 +215,8 @@ class InstallProgressWindow (InstallWindow):
             label.set_line_wrap (gtk.TRUE)
             if key == "summary":
                 label.set_text ("\n\n")
-                label.set_usize(450, 35)
-#                label.set_usize(-1, 1)
+                label.set_size_request(450, 35)
+#                label.set_size_request(-1, 1)
             self.curPackage[key] = label
             table.attach (label, 1, 2, i, i+1, gtk.FILL, fillopts)
             i = i + 1

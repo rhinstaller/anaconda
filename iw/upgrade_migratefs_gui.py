@@ -59,7 +59,7 @@ class UpgradeMigrateFSWindow (InstallWindow):
         
 	label = GtkLabel (_(text))
         label.set_alignment (0.5, 0.0)
-        label.set_usize(400, -1)
+        label.set_size_request(400, -1)
         label.set_line_wrap (TRUE)
         box.pack_start(label, FALSE)
 
@@ -82,7 +82,7 @@ class UpgradeMigrateFSWindow (InstallWindow):
         sw = GtkScrolledWindow()
         sw.set_policy(POLICY_NEVER, POLICY_AUTOMATIC)
         sw.add_with_viewport(cbox)
-        sw.set_usize(-1, 175)
+        sw.set_size_request(-1, 175)
         
         viewport = sw.children()[0]
         viewport.set_shadow_type(SHADOW_ETCHED_IN)

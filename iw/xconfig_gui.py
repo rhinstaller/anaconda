@@ -613,8 +613,8 @@ class MonitorWindow (InstallWindow):
         vlabel = gtk.Label (_("Vertical Sync:"))
         vlabel.set_alignment (0, 0.5)
         
-        self.hEntry.set_usize (80, 0)
-        self.vEntry.set_usize (80, 0)
+        self.hEntry.set_size_request (80, 0)
+        self.vEntry.set_size_request (80, 0)
         
         hz = gtk.Label (_("kHz"))
         hz.set_alignment (0, 0.5)
@@ -794,7 +794,7 @@ class XConfigWindow (InstallWindow):
             label.set_justify (gtk.JUSTIFY_LEFT)
             label.set_line_wrap (gtk.TRUE)        
             label.set_alignment (0.0, 0.5)
-            label.set_usize (400, -1)
+            label.set_size_request (400, -1)
             return label
             
         self.dispatch = dispatch
@@ -912,7 +912,7 @@ class XConfigWindow (InstallWindow):
         label = gtk.Label (_("Video card RAM: "))
 
         self.ramOption = gtk.OptionMenu()
-        self.ramOption.set_usize (40, 20)
+        self.ramOption.set_size_request (40, 20)
         self.ramMenu = gtk.Menu()
 
         for mem in self.videocard.possible_ram_sizes():

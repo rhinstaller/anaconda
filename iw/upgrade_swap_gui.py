@@ -97,7 +97,7 @@ class UpgradeSwapWindow (InstallWindow):
                           (iutil.memInstalled(corrected = 1)/1024))
 
         label.set_alignment (0.5, 0.0)
-        label.set_usize(400, 100)
+        label.set_size_request(400, 100)
         label.set_line_wrap (TRUE)
         box.pack_start(label, FALSE)
 
@@ -137,7 +137,7 @@ class UpgradeSwapWindow (InstallWindow):
         label = GtkLabel (_("It is recommended that your swap file be at "
                             "least %d MB.  Please enter a size for the swap "
                             "file:") % suggSize)
-        label.set_usize(400, 40)
+        label.set_size_request(400, 40)
         label.set_line_wrap (TRUE)
         a = GtkAlignment(0.5, 0.5)
         a.add(label)
@@ -153,7 +153,7 @@ class UpgradeSwapWindow (InstallWindow):
         hbox.pack_start(label, FALSE)
 
         self.entry = GtkEntry(4)
-        self.entry.set_usize(40, 25)
+        self.entry.set_size_request(40, 25)
         self.entry.set_text(str(suggSize))
         hbox.pack_start(self.entry, FALSE, TRUE, 10)
 

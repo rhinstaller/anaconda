@@ -132,7 +132,7 @@ class InstallPathWindow (InstallWindow):
 		    _(parentName), parentPixmap)
 
 		box = gtk.VBox (gtk.FALSE, 0)
-		box.set_usize(300, -1)
+		box.set_size_request(300, -1)
 		group = None
 
 		for obj in topButtons[item]:

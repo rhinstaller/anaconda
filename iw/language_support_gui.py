@@ -127,7 +127,7 @@ class LanguageSupportWindow (InstallWindow):
 
         label.set_alignment (0.0, 0.5)
         label.set_line_wrap (gtk.TRUE)
-        label.set_usize(400, -1)
+        label.set_size_request(400, -1)
         vbox.pack_start (label, gtk.FALSE)
         
         hbox = gtk.HBox (gtk.FALSE)
@@ -170,13 +170,13 @@ class LanguageSupportWindow (InstallWindow):
         vbox2 = gtk.VBox (gtk.FALSE, 12)
 
         all_button = gtk.Button (_("Select all"))
-        all_button.set_usize(160, -1)
+        all_button.set_size_request(160, -1)
         all_button.connect ('clicked', self.select_all)
         a1 = gtk.Alignment (0.5, 0.5)
         a1.add (all_button)
 
         reset_button = gtk.Button (_("Reset"))
-        reset_button.set_usize(160, -1)
+        reset_button.set_size_request(160, -1)
         reset_button.connect ('clicked', self.reset)
         a2 = gtk.Alignment (0.5, 0.5)
         a2.add (reset_button)

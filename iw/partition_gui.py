@@ -474,7 +474,7 @@ def fstypechangeCB(widget, mountCombo):
 def createAllowedDrivesClist(disks, reqdrives):
     driveclist = gtk.CList()
     driveclist.set_selection_mode(gtk.SELECTION_MULTIPLE)
-    driveclist.set_usize(-1, 75)
+    driveclist.set_size_request(-1, 75)
 
     driverow = 0
     drives = disks.keys()
@@ -498,7 +498,7 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
 
     partclist = gtk.CList()
     partclist.set_selection_mode(gtk.SELECTION_MULTIPLE)
-    partclist.set_usize(-1, 95)
+    partclist.set_size_request(-1, 95)
     sw = gtk.ScrolledWindow()
     sw.add(partclist)
     sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
@@ -652,11 +652,11 @@ class PartitionWindow(InstallWindow):
         
         info1 = gtk.Label(labelstr1)
         info1.set_line_wrap(gtk.TRUE)
-#        info1.set_usize(300, -1)
+#        info1.set_size_request(300, -1)
 
         info2 = gtk.Label(labelstr2)
         info2.set_line_wrap(gtk.TRUE)
-#        info2.set_usize(300, -1)
+#        info2.set_size_request(300, -1)
         
         vbox = gtk.VBox(gtk.FALSE)
         vbox.pack_start(info1, gtk.FALSE)
@@ -665,7 +665,7 @@ class PartitionWindow(InstallWindow):
         hbox.pack_start(vbox, gtk.FALSE)
 
         win.vbox.pack_start(hbox)
-#        win.set_usize(400,300)
+#        win.set_size_request(400,300)
         win.set_position(gtk.WIN_POS_CENTER)
         win.show_all()
         rc = win.run()
@@ -1137,7 +1137,7 @@ class PartitionWindow(InstallWindow):
                                "on this partition?"))
             label.set_line_wrap(1)
             label.set_alignment(0.0, 0.0)
-#            label.set_usize(400, -1)
+#            label.set_size_request(400, -1)
 
             maintable.attach(label, 0, 2, row, row + 1)
             row = row + 1
@@ -1809,7 +1809,7 @@ class AutoPartitionWindow(InstallWindow):
         self.driveclist = createAllowedDrivesClist(diskset.disks,
                                                    cleardrives)
         # XXX bad use of usize
-        self.driveclist.set_usize(300, 80)
+        self.driveclist.set_size_request(300, 80)
 
         sw = gtk.ScrolledWindow()
         sw.add(self.driveclist)

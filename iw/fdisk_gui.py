@@ -109,7 +109,7 @@ class FDiskWindow (InstallWindow):
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         viewport = sw.children()[0]
         viewport.set_shadow_type(gtk.SHADOW_ETCHED_IN)
-        sw.set_usize(-1, 400)
+        sw.set_size_request(-1, 400)
 
         self.buttonBox.pack_start (label, gtk.FALSE)
         self.buttonBox.pack_start (sw, gtk.FALSE)

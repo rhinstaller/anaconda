@@ -33,11 +33,11 @@ class ConfirmWindow (InstallWindow):
 
 	label = gtk.Label (labelText)
         label.set_line_wrap (gtk.TRUE)
-        label.set_usize(190, -1)
+        label.set_size_request(190, -1)
 
 	label2 = gtk.Label (longText)
         label2.set_line_wrap (gtk.TRUE)
-        label2.set_usize(190, -1)
+        label2.set_size_request(190, -1)
         
         box.pack_start (label, gtk.FALSE)
         box.pack_start (label2, gtk.FALSE)

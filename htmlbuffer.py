@@ -164,6 +164,6 @@ if __name__ == '__main__':
     win.connect('destroy', quit)
     win.add(sw)
     win.show_all()
-    win.set_usize(300, 300)
+    win.set_size_request(300, 300)
     gtk.main()
 
