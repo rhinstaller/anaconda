@@ -56,6 +56,11 @@ for line in lines:
 
 carddb = getcards (cardsfile)
 
+rc = 0
 for card in cards:
     if not carddb.has_key(card):
         print "*** pcitable error *** Card not found:", card
+        rc = 1
+
+sys.exit(rc)
+
