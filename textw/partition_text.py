@@ -983,8 +983,8 @@ class AutoPartitionWindow:
             res = bb.buttonPressed(rc)
 
             if res == TEXT_BACK_CHECK:
-                screen.popWindow()
                 self.shutdownUI()
+                screen.popWindow()
                 
                 return INSTALL_BACK
 
@@ -993,6 +993,6 @@ class AutoPartitionWindow:
 
             if queryAutoPartitionOK(intf, diskset, partitions):
                 self.shutdownUI()
-                
                 screen.popWindow()
+                
                 return INSTALL_OK
