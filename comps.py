@@ -377,11 +377,6 @@ class Component:
             if p not in self.newpkgDict.keys():
                 log("%s not in pkgDict for component %s" % (p.name, self.name))
             else:
-                # dont ref count more than once
-                if p in self.pkgDict.keys():
-                    log("%s already enabled in pkgDict for component %s" % (p.name, self.name))
-                    return
-
                 self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 1)
                 p.registerComponent(self)
                 self.pkgDict[p] = None
@@ -415,6 +410,8 @@ class Component:
                     self.depsDict[p.name] = self.depsDict[p.name] - 1
                     if self.depsDict[p.name] == 0:
                         del self.depsDict[p.name]
+                    else:
+                        log("%s is required elsewhere (either as a dependency or for a group), remaining installed to satisfy" %(p.name,))
                 self.updateDependencyCountForRemoval(p)
         elif isinstance(p, Component):
             p.unselect(forInclude = 1, toplevel = 0)
