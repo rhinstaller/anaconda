@@ -78,7 +78,7 @@ class UpgradeExamineWindow:
             ButtonChoiceWindow(screen, _("Error"),
                                _("You don't have any Linux partitions. You "
                                  "can't upgrade this system!")
-                               [ _("Back") ], width = 50)
+                               buttons = [ _("Back") ], width = 50)
             return INSTALL_BACK
         
         if len (parts) > 1:
@@ -811,6 +811,9 @@ class InstallProgressWindow:
 	toplevel.draw()
 	self.g = toplevel
 	screen.refresh()
+
+    def __del__ (self):
+        self.screen.popWindow ()
 
 class WaitWindow:
 
