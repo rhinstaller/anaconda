@@ -1,4 +1,5 @@
 #include <fcntl.h>
+#include <kudzu/kudzu.h>
 #include <newt.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,9 +18,10 @@
 int probe_main (int argc, char ** argv);
 int cardmgr_main (int argc, char ** argv);
 
-int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
-		 moduleInfoSet modInfo, int flags) {
+int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps, 
+		moduleInfoSet modInfo, char * pcicPtr, int flags) {
     pid_t child;
+    struct device ** devices, ** device;
     char * probeArgs[] = { "/sbin/probe", NULL };
     char * cardmgrArgs[] = { "/sbin/cardmgr", "-o", "-m", "/modules", "-d", 
 			NULL };
@@ -34,40 +36,51 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
 
     logMessage("in startPcmcia()");
 
-    pipe(p);
+    devices = probeDevices(CLASS_SOCKET, BUS_PCI, PROBE_ALL);
+    if (devices) {
+	logMessage("found cardbus pci adapter");
+	pcic = "yenta_socket";
 
-    if (!(child = fork())) {
-	close(p[0]);
-	dup2(p[1], 1);
-	close(p[1]);
-	exit(probe_main(1, probeArgs));
-    }
+	for (device = devices; *device; device++)
+	    freeDevice(*device);
 
-    close(p[1]);
-    
-    waitpid(child, NULL, 0);
+	free(devices);
+    } else {
+	pipe(p);
 
-    i = read(p[0], buf, sizeof(buf));
-    close(p[0]);
-    buf[i] = '\0';
-
-    logMessage("pcmcia probe returned: |%s|", buf);
- 
-    /* So this is totally counter-intuitive. Just remember that probe
-       stops printing output once it finds a pcic, so this is actually
-       correct */
-
-    line = strtok(buf, "\r\n");
-
-    do {
-	if (!strstr(line, "not found"))
-	{
-	    if (strstr(line, "TCIC"))
-	        pcic = "tcic";
-	    else
-		pcic = "i82365";
+	if (!(child = fork())) {
+	    close(p[0]);
+	    dup2(p[1], 1);
+	    close(p[1]);
+	    exit(probe_main(1, probeArgs));
 	}
-    } while((line = strtok(NULL, "\r\n")));
+
+	close(p[1]);
+	
+	waitpid(child, NULL, 0);
+
+	i = read(p[0], buf, sizeof(buf));
+	close(p[0]);
+	buf[i] = '\0';
+
+	logMessage("pcmcia probe returned: |%s|", buf);
+     
+	/* So this is totally counter-intuitive. Just remember that probe
+	   stops printing output once it finds a pcic, so this is actually
+	   correct */
+
+	line = strtok(buf, "\r\n");
+
+	do {
+	    if (!strstr(line, "not found"))
+	    {
+		if (strstr(line, "TCIC"))
+		    pcic = "tcic";
+		else
+		    pcic = "i82365";
+	    }
+	} while((line = strtok(NULL, "\r\n")));
+    }
 
     if (!pcic)
     {
@@ -157,6 +170,8 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
 
     newtPopWindow();
     umount("/modules");
+
+    strcpy(pcicPtr, pcic);
     
     return 0;
 }

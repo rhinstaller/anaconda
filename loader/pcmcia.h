@@ -1,7 +1,8 @@
 #ifndef H_LOADER_PCMCIA
 #define H_LOADER_PCMCIA
 
-int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
-		 moduleInfoSet modInfo, int flags);
+/* pcic should point to a space 20 characters long */
+int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps, 
+		moduleInfoSet modInfo, char * pcic, int flags);
 
 #endif

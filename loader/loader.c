@@ -2465,7 +2465,7 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 
 int main(int argc, char ** argv) {
     char ** argptr;
-    char * anacondaArgs[40];
+    char * anacondaArgs[50];
     char * arg, * url = NULL;
     poptContext optCon;
     int probeOnly = 0;
@@ -2482,6 +2482,7 @@ int main(int argc, char ** argv) {
     struct knownDevices kd;
     moduleInfoSet modInfo;
     char * where;
+    char pcic[20] = "";
     struct moduleInfo * mi;
     char twelve = 12;
     char * ksFile = NULL, * ksSource = NULL;
@@ -2597,7 +2598,7 @@ int main(int argc, char ** argv) {
     startNewt(flags);
 
     if (!continuing) {
-	startPcmcia(floppyDevice, modLoaded, modDeps, modInfo, flags);
+	startPcmcia(floppyDevice, modLoaded, modDeps, modInfo, pcic, flags);
     }
 #endif
 
@@ -2859,6 +2860,11 @@ int main(int argc, char ** argv) {
 	if (instClass) {
 	    *argptr++ = "--class";
 	    *argptr++ = instClass;
+	}
+
+	if (pcic[0]) {
+	    *argptr++ = "--pcic";
+	    *argptr++ = pcic;
 	}
 
 	for (i = 0; i < modLoaded->numModules; i++) {
