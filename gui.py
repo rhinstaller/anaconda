@@ -773,6 +773,10 @@ class InstallControlWindow:
                  suffixList.append("-%s.html" % (lang,))
                  suffixList.append(".%s" % (lang,))
             else:
+                 # XXX hack to work around #116170
+                 suffixList.append("-en.html")
+                 suffixList.append("-en")
+                 
                  suffixList.append(".html")
                  suffixList.append("")
 
