@@ -301,7 +301,7 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
 			simpleRemoveLoadedModule("dasd_diag_mod", modLoaded, flags);
 			simpleRemoveLoadedModule("dasd_mod", modLoaded, flags);
 			reloadUnloadedModule("dasd_mod", modLoaded, dasd_parms, flags);
-			reloadUnloadedModule("dasd_eckd_mod", modLoaded, dasd_parms, flags);
+			reloadUnloadedModule("dasd_eckd_mod", modLoaded, NULL, flags);
 			free(dasd_parms);
 			free(ports);
 		}
