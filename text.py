@@ -763,7 +763,7 @@ class ProgressWindow:
 	t = TextboxReflowed(width, text)
 
 	g = GridForm(self.screen, title, 1, 2)
-	g.add(t, 0, 0, (0, 0, 0, 1))
+	g.add(t, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
 
         self.scale = Scale (width, total)
         g.add(self.scale, 0, 1)
