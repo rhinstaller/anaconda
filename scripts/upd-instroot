@@ -502,14 +502,17 @@ for p in $DEST $DESTGR; do
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
 		gzip -9) > $p/usr/lib/timezones.gz
 
-	if [ -d $p/usr/share/locale ]; then
-	    for i in `find $p/usr/share/locale -name anaconda.mo`; do
-		gzip -9 $i
-		mv -f $i.gz $i
-	    done
-	fi
 	echo -n -e "\rScrubbing trees..." "$(echo $p | sed 's/./ /g')"
 done
+
+echo -e "\nCompressing .mo files in stage2 images..."
+if [ -d $DEST/usr/share/locale ]; then
+    for i in `find $DEST/usr/share/locale -name anaconda.mo`; do
+	gzip -9 $i
+	mv -f $i.gz $i
+    done
+fi
+
 echo -e "\rScrubbing trees..."
 
 echo "Patching python library..."
