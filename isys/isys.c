@@ -32,6 +32,7 @@
 #include <sys/types.h>
 #include <linux/hdreg.h>
 #include <linux/fb.h>
+#include <libintl.h>
 
 #include "Python.h"
 
@@ -100,6 +101,7 @@ static PyObject * dogetGeometry(PyObject * s, PyObject * args);
 static PyObject * getFramebufferInfo(PyObject * s, PyObject * args);
 static PyObject * printObject(PyObject * s, PyObject * args);
 static PyObject * doGetPageSize(PyObject * s, PyObject * args);
+static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -155,6 +157,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "fbinfo", (PyCFunction) getFramebufferInfo, METH_VARARGS, NULL},
     { "getpagesize", (PyCFunction) doGetPageSize, METH_VARARGS, NULL},
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
+    { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1619,4 +1622,20 @@ static PyObject * printObject (PyObject * o, PyObject * args) {
 	     (long) obj);
 
     return PyString_FromString(buf);
+}
+
+static PyObject *
+py_bind_textdomain_codeset(PyObject * o, PyObject * args) {
+    char *domain, *codeset, *ret;
+	
+    if (!PyArg_ParseTuple(args, "ss", &domain, &codeset))
+	return NULL;
+
+    ret = bind_textdomain_codeset(domain, codeset);
+
+    if (ret)
+	return PyString_FromString(ret);
+
+    PyErr_SetFromErrno(PyExc_SystemError);
+    return NULL;
 }

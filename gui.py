@@ -31,6 +31,7 @@ from rhpl.log import log
 from rhpl.translate import _, N_, utf8
 
 rpm.addMacro("_i18ndomains", "redhat-dist")
+isys.bind_textdomain_codeset("redhat-dist", "UTF-8")
 
 StayOnScreen = "stayOnScreen"
 mainWindow = None

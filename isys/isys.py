@@ -494,4 +494,5 @@ def getpagesize():
     return _isys.getpagesize()
 
 printObject = _isys.printObject
+bind_textdomain_codeset = _isys.bind_textdomain_codeset
 
