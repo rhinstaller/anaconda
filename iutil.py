@@ -361,9 +361,12 @@ case "$SRM" in
 esac
 /sbin/hwclock $CLOCKFLAGS
 """)
-    execWithRedirect('/bin/sh', args, stdin = None,
-                     stdout = None, stderr = None,
-                     root = root)
+    try:
+        execWithRedirect('/bin/bash', args, stdin = None,
+                         stdout = None, stderr = None,
+                         root = root)
+    except RuntimeError:
+        log("Failed to set clock properly.  Going to try to continue anyway.")
 
 def swapAmount():
     f = open("/proc/meminfo", "r")
