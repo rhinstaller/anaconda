@@ -288,6 +288,14 @@ if not reconfigOnly:
 if reconfigOnly and method != None:
     print "Conflicting options: cannot reconfig and install simultaneously!\n"
     sys.exit(1)
+
+if kickstart:
+    instClass = Kickstart(kickstart, serial)
+elif reconfigOnly:
+    instClass = ReconfigStation(expert)
+else:
+    instClass = DefaultInstall(expert)
+
 intf = InstallInterface()
 
 # set the default actions
@@ -302,14 +310,6 @@ if test:
     setupFilesystems = 0
 if forceMount:
     setupFilesystems = 1
-
-if kickstart:
-    instClass = Kickstart(kickstart)
-    os.unlink(kickstart)
-elif reconfigOnly:
-    instClass = ReconfigStation(expert)
-else:
-    instClass = DefaultInstall(expert)
 
 if lang:
     instClass.addToSkipList("language")
