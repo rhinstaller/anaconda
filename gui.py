@@ -189,7 +189,7 @@ class ExceptionWindow:
             return 0
 
 class MessageWindow:
-    def quit (self, dialog, button):
+    def quit (self, dialog, button=None):
         self.rc = button
         if self.mutex:
             self.mutex.set ()
