@@ -19,8 +19,10 @@ import copy
 import string, sys
 import fsset
 from partitioning import *
+import partedUtils
 from constants import *
 from translate import _, N_
+from partErrors import *
 
 PARTITION_FAIL = -1
 PARTITION_SUCCESS = 0
@@ -35,7 +37,7 @@ def bootRequestCheck(requests, diskset):
     dev = requests.getBootableRequest()
     if not dev or not dev.device or dev.ignoreBootConstraints:
         return PARTITION_SUCCESS
-    part = get_partition_by_name(diskset.disks, dev.device)
+    part = partedUtils.get_partition_by_name(diskset.disks, dev.device)
     if not part:
         return PARTITION_SUCCESS
 
@@ -45,7 +47,7 @@ def bootRequestCheck(requests, diskset):
             return BOOTEFI_NOT_VFAT
         pass
     elif iutil.getArch() == "i386":
-        if end_sector_to_cyl(part.geom.disk.dev, part.geom.end) >= 1024:
+        if partedUtils.end_sector_to_cyl(part.geom.disk.dev, part.geom.end) >= 1024:
             return BOOT_ABOVE_1024
         
     return PARTITION_SUCCESS
@@ -55,13 +57,13 @@ def printNewRequestsCyl(diskset, newRequest):
         if req.type != REQUEST_NEW:
             continue
         
-        part = get_partition_by_name(diskset.disks, req.device)
+        part = partedUtils.get_partition_by_name(diskset.disks, req.device)
         print req
-        print "Start Cyl:%s    End Cyl: %s" % (start_sector_to_cyl(part.geom.disk.dev, part.geom.start),
-                                 end_sector_to_cyl(part.geom.disk.dev, part.geom.end))
+        print "Start Cyl:%s    End Cyl: %s" % (partedUtils.start_sector_to_cyl(part.geom.disk.dev, part.geom.start),
+                                 partedUtils.end_sector_to_cyl(part.geom.disk.dev, part.geom.end))
 
 def printFreespaceitem(part):
-    return get_partition_name(part), part.geom.start, part.geom.end, getPartSizeMB(part)
+    return partedUtils.get_partition_name(part), part.geom.start, part.geom.end, partedUtils.getPartSizeMB(part)
 
 def printFreespace(free):
     print "Free Space Summary:"
@@ -85,7 +87,7 @@ def findFreespace(diskset):
 
 
 def bestPartType(disk, request):
-    numPrimary = len(get_primary_partitions(disk))
+    numPrimary = len(partedUtils.get_primary_partitions(disk))
     maxPrimary = disk.max_primary_partition_count
     if numPrimary == maxPrimary:
         raise PartitioningError, "Unable to create additional primary partitions on /dev/%s" % (disk.dev.path[5:])
@@ -102,7 +104,7 @@ class partlist:
     def __str__(self):
         retval = ""
         for p in self.parts:
-            retval = retval + "\t%s %s %s\n" % (get_partition_name(p), get_partition_file_system_type(p), getPartSizeMB(p))
+            retval = retval + "\t%s %s %s\n" % (partedUtils.get_partition_name(p), partedUtils.get_partition_file_system_type(p), partedUtils.getPartSizeMB(p))
 
         return retval
 
@@ -140,14 +142,14 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
             if not disk: # this shouldn't happen
                 raise PartitioningError, "Selected to put partition on non-existent disk!"
 
-            startSec = start_cyl_to_sector(disk.dev, request.start)
+            startSec = partedUtils.start_cyl_to_sector(disk.dev, request.start)
 
             if request.end:
                 endCyl = request.end
             elif request.size:
-                endCyl = end_sector_to_cyl(disk.dev, ((1024L * 1024L * request.size) / disk.dev.sector_size) + startSec)
+                endCyl = partedUtils.end_sector_to_cyl(disk.dev, ((1024L * 1024L * request.size) / disk.dev.sector_size) + startSec)
 
-            endSec = end_cyl_to_sector(disk.dev, endCyl)
+            endSec = partedUtils.end_cyl_to_sector(disk.dev, endCyl)
 
             if endSec > disk.dev.length:
                 raise PartitioningError, "Unable to create partition which extends beyond the end of the disk."
@@ -271,7 +273,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 
                 for part in free[drive]:
 #                    print "Trying partition", printFreespaceitem(part)
-                    partSize = getPartSizeMB(part)
+                    partSize = partedUtils.getPartSizeMB(part)
 #		    print "partSize %s  request %s" % (partSize, request.requestSize)
                     if partSize >= request.requestSize and partSize > largestPart[0]:
                         if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
@@ -385,7 +387,7 @@ def growParts(diskset, requests, newParts):
                 continue
             freeSize[key] = 0
             for part in free[key]:
-                freeSize[key] = freeSize[key] + getPartSize(part)
+                freeSize[key] = freeSize[key] + partedUtils.getPartSize(part)
 
         return (free, freeSize)
 
@@ -496,8 +498,8 @@ def growParts(diskset, requests, newParts):
                 donegrowing = 0
 
                 # get amount of space actually used by current allocation
-                part = get_partition_by_name(diskset.disks, request.device)
-                startSize = getPartSize(part)
+                part = partedUtils.get_partition_by_name(diskset.disks, request.device)
+                startSize = partedUtils.getPartSize(part)
 
                 # compute fraction of freespace which to give to this
                 # request. Weight by original request size
@@ -611,7 +613,7 @@ def setPreexistParts(diskset, requests, newParts):
         part = disk.next_partition()
         while part:
             if part.geom.start == request.start and part.geom.end == request.end:
-                request.device = get_partition_name(part)
+                request.device = partedUtils.get_partition_name(part)
                 if request.fstype:
                     if request.fstype.getName() != request.origfstype.getName():
                         if request.fstype.getName() == "software RAID":
@@ -624,7 +626,7 @@ def setPreexistParts(diskset, requests, newParts):
                         else:
                             part.set_flag(parted.PARTITION_LVM, 0)
 
-                        set_partition_file_system_type(part, request.fstype)
+                        partedUtils.set_partition_file_system_type(part, request.fstype)
                             
                 break
             part = disk.next_partition(part)
@@ -666,7 +668,7 @@ def processPartitioning(diskset, requests, newParts):
     # the disks.  We'll start again from there.
     for part in newParts.parts:
         disk = part.geom.disk
-#        disk = diskset.disks[get_partition_drive(part)]
+#        disk = diskset.disks[partedUtils.get_partition_drive(part)]
         disk.delete_partition(part)
 
     newParts.reset()
@@ -797,19 +799,19 @@ def doClearPartAction(partitions, diskset):
                 part = disk.next_partition(part)
                 continue
             if part.fs_type:
-                ptype = get_partition_file_system_type(part)
+                ptype = partedUtils.get_partition_file_system_type(part)
             else:
                 ptype = None
             if (linuxOnly == 0) or (ptype and ptype.isLinuxNativeFS()) or \
                (not ptype and query_is_linux_native_by_numtype(part.native_type)):
-                old = partitions.getRequestByDeviceName(get_partition_name(part))
+                old = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
                 if old.type == REQUEST_PROTECTED:
                     part = disk.next_partition(part)
                     continue
 
                 partitions.removeRequest(old)
 
-                drive = get_partition_drive(part)
+                drive = partedUtils.get_partition_drive(part)
                 delete = DeleteSpec(drive, part.geom.start, part.geom.end)
                 partitions.addDelete(delete)
 
@@ -823,7 +825,7 @@ def doClearPartAction(partitions, diskset):
                 part.is_flag_available(parted.PARTITION_BOOT)):
                 if part.fs_type and part.fs_type.name == "FAT":
                     if part.get_flag(parted.PARTITION_BOOT):
-                        req = partitions.getRequestByDeviceName(get_partition_name(part))
+                        req = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
                         req.mountpoint = "/boot/efi"
                         req.format = 0
 
@@ -845,9 +847,9 @@ def doClearPartAction(partitions, diskset):
 
         disk = diskset.disks[drive]
         ext = disk.extended_partition
-        if ext and len(get_logical_partitions(disk)) == 0:
+        if ext and len(partedUtils.get_logical_partitions(disk)) == 0:
             delete = DeleteSpec(drive, ext.geom.start, ext.geom.end)
-            old = partitions.getRequestByDeviceName(get_partition_name(ext))
+            old = partitions.getRequestByDeviceName(partedUtils.get_partition_name(ext))
             partitions.removeRequest(old)
             partitions.addDelete(delete)
             deletePart(diskset, delete)

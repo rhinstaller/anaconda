@@ -16,6 +16,7 @@
 
 import isys
 import partitioning
+import partedUtils
 import os
 import crypt
 import whrandom
@@ -64,9 +65,9 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
     bootDev = fsset.getEntryByMountPoint("/")
     if not bootDev:
         bootDev = fsset.getEntryByMountPoint("/boot")
-    part = partitioning.get_partition_by_name(diskSet.disks,
+    part = partedUtils.get_partition_by_name(diskSet.disks,
                                               bootDev.device.getDevice())
-    if part and partitioning.end_sector_to_cyl(part.geom.disk.dev,
+    if part and partedUtils.end_sector_to_cyl(part.geom.disk.dev,
                                                part.geom.end) >= 1024:
         bl.above1024 = 1
     

@@ -22,6 +22,7 @@ import parted
 import sys
 import struct
 import partitioning
+import partedUtils
 import types
 from log import log
 from translate import _, N_
@@ -828,7 +829,7 @@ class FileSystemSet:
 
         # stupid itanium
         if iutil.getArch() == "ia64":
-            part = partitioning.get_partition_by_name(diskset.disks, bootDev)
+            part = partedUtils.get_partition_by_name(diskset.disks, bootDev)
             if part and part.is_flag_available(parted.PARTITION_BOOT):
                 part.set_flag(parted.PARTITION_BOOT, 1)
             return
@@ -856,7 +857,7 @@ class FileSystemSet:
                 if not bootPart:
                     bootPart = part
 
-                if partitioning.get_partition_name(part) == bootDev:
+                if partedUtils.get_partition_name(part) == bootDev:
                     bootPart = part
                 
                 part = disk.next_partition(part)
@@ -1497,7 +1498,7 @@ class PartedPartitionDevice(PartitionDevice):
         if not self.partition:
             return self.device
         
-        return partitioning.get_partition_name(self.partition)
+        return partedUtils.get_partition_name(self.partition)
 
     def solidify(self):
         # drop reference on the parted partition object and note
@@ -1598,7 +1599,7 @@ def readFstab (path):
 
     f = open (path, "r")
     lines = f.readlines ()
-    f.close
+    f.close()
 
     for line in lines:
 	fields = string.split (line)

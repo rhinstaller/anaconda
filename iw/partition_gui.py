@@ -28,6 +28,7 @@ import checklist
 from iw_gui import *
 from translate import _, N_
 from partitioning import *
+from partedUtils import *
 from fsset import *
 
 STRIPE_HEIGHT = 32.0

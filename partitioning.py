@@ -29,10 +29,12 @@ import os
 import sys
 import string
 import iutil
+import partedUtils
 from translate import _
 from log import log
 from constants import *
 from flags import flags
+from partErrors import *
 
 # different types of partition requests
 # REQUEST_PREEXIST is a placeholder for a pre-existing partition on the system
@@ -54,125 +56,6 @@ CLEARPART_TYPE_LINUX = 1
 CLEARPART_TYPE_ALL   = 2
 CLEARPART_TYPE_NONE  = 3
 
-fsTypes = {}
-
-fs_type = parted.file_system_type_get_next ()
-while fs_type:
-    fsTypes[fs_type.name] = fs_type
-    fs_type = parted.file_system_type_get_next (fs_type)
-
-class PartitioningError:
-    def __init__ (self, value):
-        self.value = value
-
-    def __str__ (self):
-        return self.value
-
-class PartitioningWarning:
-    def __init__ (self, value):
-        self.value = value
-
-    def __str__ (self):
-        return self.value
-
-def get_flags (part):
-    string=""
-    if not part.is_active ():
-        return string
-    first=1
-    flag = parted.partition_flag_next (0)
-    while flag:
-        if part.get_flag (flag):
-            string = string + parted.partition_flag_get_name (flag)
-            if first:
-                first = 0
-            else:
-                string = string + ", "
-        flag = parted.partition_flag_next (flag)
-    return string
-
-def start_sector_to_cyl(device, sector):
-    return int(math.floor((float(sector)
-                           / (device.heads * device.sectors)) + 1))
-
-def end_sector_to_cyl(device, sector):
-    return int(math.ceil(float((sector + 1))
-                         / (device.heads * device.sectors)))
-
-def start_cyl_to_sector(device, cyl):
-    return long((cyl - 1) * (device.heads * device.sectors))
-
-def end_cyl_to_sector(device, cyl):
-    return long(((cyl) * (device.heads * device.sectors)) - 1)
-
-def getPartSize(partition):
-    return partition.geom.length 
-
-def getPartSizeMB(partition):
-    return (partition.geom.length * partition.geom.disk.dev.sector_size
-            / 1024.0 / 1024.0)
-
-def getDeviceSizeMB(dev):
-    return (float(dev.heads * dev.cylinders * dev.sectors) / (1024 * 1024)
-            * dev.sector_size)
-
-def get_partition_by_name(disks, partname):
-    for diskname in disks.keys():
-        disk = disks[diskname]
-        part = disk.next_partition()
-        while part:
-            if get_partition_name(part) == partname:
-               return part
-
-            part = disk.next_partition(part)
-
-    return None
-
-def get_partition_name(partition):
-    if (partition.geom.disk.dev.type == parted.DEVICE_DAC960
-        or partition.geom.disk.dev.type == parted.DEVICE_CPQARRAY):
-        return "%sp%d" % (partition.geom.disk.dev.path[5:],
-                          partition.num)
-    return "%s%d" % (partition.geom.disk.dev.path[5:],
-                     partition.num)
-
-def get_partition_file_system_type(part):
-    if part.fs_type == None:
-        return None
-    if part.fs_type.name == "linux-swap":
-        ptype = fsset.fileSystemTypeGet("swap")
-    elif part.fs_type.name == "FAT":
-        ptype = fsset.fileSystemTypeGet("vfat")
-    else:
-        try:
-            ptype = fsset.fileSystemTypeGet(part.fs_type.name)
-        except:
-            ptype = fsset.fileSystemTypeGet("foreign")
-
-    return ptype
-
-def set_partition_file_system_type(part, fstype):
-    if fstype == None:
-        return
-    try:
-        for flag in fstype.getPartedPartitionFlags():
-            if not part.is_flag_available(flag):
-                raise PartitioningError, ("requested FileSystemType needs "
-                                          "a flag that is not available.")
-            part.set_flag(flag, 1)
-        part.set_system(fstype.getPartedFileSystemType())
-    except:
-        print "Failed to set partition type to ",fstype.getName()
-        pass
-
-def get_partition_drive(partition):
-    return "%s" %(partition.geom.disk.dev.path[5:])
-
-def map_foreign_to_fsname(type):
-    if type in allPartitionTypesDict.keys():
-        return allPartitionTypesDict[type]
-    else:
-        return _("Foreign")
 
 def query_is_linux_native_by_numtype(numtype):
     linuxtypes = [0x82, 0x83, 0x8e, 0xfd]
@@ -182,37 +65,6 @@ def query_is_linux_native_by_numtype(numtype):
             return 1
 
     return 0
-
-def filter_partitions(disk, func):
-    rc = []
-    part = disk.next_partition ()
-    while part:
-        if func(part):
-            rc.append(part)
-        part = disk.next_partition (part)
-
-    return rc
-
-def get_logical_partitions(disk):
-    func = lambda part: (part.is_active()
-                         and part.type & parted.PARTITION_LOGICAL)
-    return filter_partitions(disk, func)
-
-def get_primary_partitions(disk):
-    func = lambda part: part.type == parted.PARTITION_PRIMARY
-    return filter_partitions(disk, func)
-
-# returns a list of partitions which can make up RAID devices
-def get_raid_partitions(disk):
-    func = lambda part: (part.is_active()
-                         and part.get_flag(parted.PARTITION_RAID) == 1)
-    return filter_partitions(disk, func)
-
-# returns a list of partitions which can make up volume groups
-def get_lvm_partitions(disk):
-    func = lambda part: (part.is_active()
-                         and part.get_flag(parted.PARTITION_LVM) == 1)
-    return filter_partitions(disk, func)
 
 # returns a list of the actual raid device requests
 def get_lvm_volume_groups(requests):
@@ -257,8 +109,8 @@ def get_available_raid_partitions(diskset, requests, request):
     drives.sort()
     for drive in drives:
         disk = diskset.disks[drive]
-        for part in get_raid_partitions(disk):
-            partname = get_partition_name(part)
+        for part in partedUtils.get_raid_partitions(disk):
+            partname = partedUtils.get_partition_name(part)
             used = 0
             for raid in raiddevs:
                 if raid.raidmembers:
@@ -287,8 +139,8 @@ def get_available_lvm_partitions(diskset, requests, request):
     volgroups = get_lvm_volume_groups(requests.requests)
     for drive in drives:
         disk = diskset.disks[drive]
-        for part in get_lvm_partitions(disk):
-            partname = get_partition_name(part)
+        for part in partedUtils.get_lvm_partitions(disk):
+            partname = partedUtils.get_partition_name(part)
 	    partrequest = requests.getRequestByDeviceName(partname)
 	    used = 0
 	    for volgroup in volgroups:
@@ -315,7 +167,8 @@ def get_lvm_volume_group_size(request, requests, diskset):
 	totalspace = 0
 	for physvolid in request.physicalVolumes:
 	    pvreq = requests.getRequestByID(physvolid)
-	    part = get_partition_by_name(diskset.disks, pvreq.device)
+	    part = partedUtils.get_partition_by_name(diskset.disks,
+                                                     pvreq.device)
 	    totalspace = totalspace + part.geom.length * part.geom.disk.dev.sector_size
 
 	return totalspace
@@ -380,7 +233,7 @@ def get_raid_device_size(raidrequest, partitions, diskset):
     for member in raidrequest.raidmembers:
         req = partitions.getRequestByID(member)
         device = req.device
-        part = get_partition_by_name(diskset.disks, device)
+        part = partedUtils.get_partition_by_name(diskset.disks, device)
         partsize =  part.geom.length * part.geom.disk.dev.sector_size
 
         if isRaid0(raidlevel):
@@ -681,7 +534,7 @@ def requestSize(req, diskset):
         else:
             thissize = 0
     else:
-        part = get_partition_by_name(diskset.disks, req.device)
+        part = partedUtils.get_partition_by_name(diskset.disks, req.device)
         if not part:
             # XXX hack for kickstart which ends up calling this
             # before allocating the partitions
@@ -690,7 +543,7 @@ def requestSize(req, diskset):
             else:
                 thissize = 0
         else:
-            thissize = getPartSizeMB(part)
+            thissize = partedUtils.getPartSizeMB(part)
     return thissize
 
 # this function is called at the end of partitioning so that we
@@ -807,8 +660,8 @@ def getPreExistFormatWarnings(partitions, diskset):
 
 # add delete specs to requests for all logical partitions in part
 def deleteAllLogicalPartitions(part, requests):
-    for partition in get_logical_partitions(part.geom.disk):
-        request = requests.getRequestByDeviceName(get_partition_name(partition))
+    for partition in partedUtils.get_logical_partitions(part.geom.disk):
+        request = requests.getRequestByDeviceName(partedUtils.get_partition_name(partition))
         requests.removeRequest(request)
         if request.type == REQUEST_PREEXIST:
             drive = get_partition_drive(partition)
@@ -1085,7 +938,7 @@ class Partitions:
                 elif part.get_flag(parted.PARTITION_LVM) == 1:
                     ptype = fsset.fileSystemTypeGet("physical volume (LVM)")
                 elif part.fs_type:
-                    ptype = get_partition_file_system_type(part)
+                    ptype = partedUtils.get_partition_file_system_type(part)
                     if part.fs_type.name == "linux-swap":
                         # XXX this is a hack
                         format = 1
@@ -1094,8 +947,8 @@ class Partitions:
                     
                 start = part.geom.start
                 end = part.geom.end
-                size = getPartSizeMB(part)
-                drive = get_partition_drive(part)
+                size = partedUtils.getPartSizeMB(part)
+                drive = partedUtils.get_partition_drive(part)
                 
                 spec = PartitionSpec(ptype, origfstype = ptype,
                                      requesttype = REQUEST_PREEXIST,
@@ -1511,9 +1364,9 @@ class DiskSet:
                                  and part.fs_type
                                  and (part.fs_type.name == "ext2"
                                       or part.fs_type.name == "ext3"))
-            parts = filter_partitions(disk, func)
+            parts = partedUtils.filter_partitions(disk, func)
             for part in parts:
-                node = get_partition_name(part)
+                node = partedUtils.get_partition_name(part)
                 label = isys.readExt2Label(node)
                 if label:
                     labels[node] = label
@@ -1568,7 +1421,7 @@ class DiskSet:
                     #  (#32562)
                     pass
                 elif part.fs_type and part.fs_type.name in fsset.getUsableLinuxFs():
-                    node = get_partition_name(part)
+                    node = partedUtils.get_partition_name(part)
 		    try:
 			isys.mount(node, mountpoint, part.fs_type.name)
 		    except SystemError, (errno, msg):
@@ -1581,7 +1434,7 @@ class DiskSet:
 			rootparts.append ((node, part.fs_type.name))
 		    isys.umount(mountpoint)
                 elif part.fs_type and (part.fs_type.name == "FAT"):
-                    node = get_partition_name(part)
+                    node = partedUtils.get_partition_name(part)
                     try:
                         isys.mount(node, mountpoint, fstype = "vfat",
                                    readOnly = 1)
@@ -1823,7 +1676,7 @@ class DiskSet:
     def partitionTypes (self):
         rc = []
         drives = self.disks.keys()
-        drives.sort
+        drives.sort()
 
         for drive in drives:
             disk = self.disks[drive]
@@ -1831,7 +1684,7 @@ class DiskSet:
             while part:
                 if part.type in (parted.PARTITION_PRIMARY,
                                  parted.PARTITION_LOGICAL):
-                    device = get_partition_name(part)
+                    device = partedUtils.get_partition_name(part)
                     if part.fs_type:
                         ptype = part.fs_type.name
                     else:
@@ -1862,10 +1715,10 @@ class DiskSet:
                     device = ""
                     fs_type_name = ""
                     if part.num > 0:
-                        device = get_partition_name(part)
+                        device = partedUtils.get_partition_name(part)
                     if part.fs_type:
                         fs_type_name = part.fs_type.name
-                    flags = get_flags (part)
+                    flags = partedUtils.get_flags (part)
                     rc = rc + ("%-9s %-12s %-12s %-10ld %-10ld %-10ld %7s\n"
                                % (device, part.type_name, fs_type_name,
                               part.geom.start, part.geom.end, part.geom.length,
@@ -2004,7 +1857,7 @@ def containsImmutablePart(part, requestlist):
             part = disk.next_partition(part)
             continue
 
-        device = get_partition_name(part)
+        device = partedUtils.get_partition_name(part)
         request = requestlist.getRequestByDeviceName(device)
 
         if request:
@@ -2038,7 +1891,7 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
                            _("You cannot remove free space."))
         return 0
     else:
-        device = get_partition_name(partition)
+        device = partedUtils.get_partition_name(partition)
 
     ret = containsImmutablePart(partition, requestlist)
     if ret:
@@ -2085,7 +1938,7 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
 
         if request.type == REQUEST_PREEXIST:
             # get the drive
-            drive = get_partition_drive(partition)
+            drive = partedUtils.get_partition_drive(partition)
 
             if partition.type & parted.PARTITION_EXTENDED:
                 deleteAllLogicalPartitions(partition, requestlist)
@@ -2122,17 +1975,17 @@ def doEditPartitionByRequest(intf, requestlist, part):
 	else:
 	    return (None, None)
     elif iutil.getArch() == "s390":
-	self.intf.messageWindow(_("Error"),
+	intf.messageWindow(_("Error"),
 				_("You must go back and use fdasd to "
 				  "inititalize this partition"))
 	return (None, None)
     elif part.type & parted.PARTITION_FREESPACE:
         request = PartitionSpec(fsset.fileSystemTypeGetDefault(), REQUEST_NEW,
-                                start = start_sector_to_cyl(part.geom.disk.dev,
+                                start = partedUtils.start_sector_to_cyl(part.geom.disk.dev,
                                                             part.geom.start),
-                                end = end_sector_to_cyl(part.geom.disk.dev,
+                                end = partedUtils.end_sector_to_cyl(part.geom.disk.dev,
                                                         part.geom.end),
-                                drive = [ get_partition_drive(part) ])
+                                drive = [ partedUtils.get_partition_drive(part) ])
 
         return ("NEW", request)
     elif part.type & parted.PARTITION_EXTENDED:
@@ -2146,7 +1999,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
                              "which contains %s") %(ret))
         return 0
 
-    request = requestlist.getRequestByDeviceName(get_partition_name(part))
+    request = requestlist.getRequestByDeviceName(partedUtils.get_partition_name(part))
     if request:
         if requestlist.isRaidMember(request):
             intf.messageWindow( _("Unable to Edit"),
@@ -2157,7 +2010,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
         return ("PARTITION", request)
     else: # shouldn't ever happen
         raise ValueError, ("Trying to edit non-existent partition %s"
-                           % (get_partition_name(part)))
+                           % (partedUtils.get_partition_name(part)))
     
     
 def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
@@ -2210,7 +2063,8 @@ def checkForSwapNoMatch(intf, diskset, partitions):
         if not request.device or not request.fstype:
             continue
         
-        part = get_partition_by_name(diskset.disks, request.device)
+        part = partedUtils.get_partition_by_name(diskset.disks,
+                                                 request.device)
         if (part and (not part.type & parted.PARTITION_FREESPACE) and (part.native_type == 0x82) and (request.fstype and request.fstype.getName() != "swap") and (not request.format)):
             rc = intf.messageWindow(_("Format as Swap?"),
                                     _("/dev/%s has a partition type of 0x82 "
@@ -2228,7 +2082,7 @@ def checkForSwapNoMatch(intf, diskset, partitions):
                 else:
                     part.set_flag(parted.PARTITION_RAID, 0)
                     
-                set_partition_file_system_type(part, request.fstype)
+                partedUtils.set_partition_file_system_type(part, request.fstype)
 
 
 def queryFormatPreExisting(intf):
@@ -2299,76 +2153,4 @@ def partitionPreExistFormatWarnings(intf, warnings):
                                 type="yesno")
     return rc
 
-# XXX is this all of the possibilities?
-dosPartitionTypes = [ 1, 6, 11, 12, 14, 15 ]
 
-# master list of partition types
-allPartitionTypesDict = {
-    0 : "Empty",
-    1: "DOS 12-bit FAT",
-    2: "XENIX root",
-    3: "XENIX usr",
-    4: "DOS 16-bit <32M",
-    5: "Extended",
-    6: "DOS 16-bit >=32M",
-    7: "NTFS/HPFS",
-    8: "AIX",
-    9: "AIX bootable",
-    10: "OS/2 Boot Manager",
-    0xb: "Win95 FAT32",
-    0xc: "Win95 FAT32",
-    0xe: "Win95 FAT16",
-    0xf: "Win95 Ext'd",
-    0x10: "OPUS",
-    0x11: "Hidden FAT12",
-    0x12: "Compaq Setup",
-    0x14: "Hidden FAT16 <32M",
-    0x16: "Hidden FAT16",
-    0x17: "Hidden HPFS/NTFS",
-    0x18: "AST SmartSleep",
-    0x1b: "Hidden Win95 FAT32",
-    0x1c: "Hidden Win95 FAT32 (LBA)",
-    0x1e: "Hidden Win95 FAT16 (LBA)",
-    0x24: "NEC_DOS",
-    0x39: "Plan 9",
-    0x40: "Venix 80286",
-    0x41: "PPC_PReP Boot",
-    0x42: "SFS",
-    0x4d: "QNX4.x",
-    0x4e: "QNX4.x 2nd part",
-    0x4f: "QNX4.x 2nd part",
-    0x51: "Novell?",
-    0x52: "Microport",
-    0x63: "GNU HURD",
-    0x64: "Novell Netware 286",
-    0x65: "Novell Netware 386",
-    0x75: "PC/IX",
-    0x80: "Old MINIX",
-    0x81: "Linux/MINIX",
-    0x82: "Linux swap",
-    0x83: "Linux native",
-    0x84: "OS/2 hidden C:",
-    0x85: "Linux Extended",
-    0x86: "NTFS volume set",
-    0x87: "NTFS volume set",
-    0x8e: "Linux LVM",
-    0x93: "Amoeba",
-    0x94: "Amoeba BBT",
-    0x9f: "BSD/OS",
-    0xa0: "IBM Thinkpad hibernation",
-    0xa5: "BSD/386",
-    0xa6: "OpenBSD",
-    0xb7: "BSDI fs",
-    0xb8: "BSDI swap",
-    0xc7: "Syrinx",
-    0xdb: "CP/M",
-    0xde: "Dell Utility",
-    0xe1: "DOS access",
-    0xe3: "DOS R/O",
-    0xeb: "BEOS",
-    0xee: "EFI GPT",    
-    0xef: "EFI (FAT-12/16/32)",
-    0xf2: "DOS secondary",
-    0xfd: "Linux RAID",
-    0xff: "BBT"
-    }

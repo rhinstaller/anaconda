@@ -20,6 +20,7 @@ import string
 import copy
 import parted
 from partitioning import *
+from partedUtils import *
 from fsset import *
 from autopart import *
 from snack import *

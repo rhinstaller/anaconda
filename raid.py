@@ -18,6 +18,7 @@ import parted
 import isys
 import os
 import partitioning
+import partedUtils
 from log import log
 
 def scanForRaid(drives):
@@ -31,9 +32,9 @@ def scanForRaid(drives):
             dev = parted.PedDevice.get("/tmp/" + d)
             disk = parted.PedDisk.open(dev)
 
-            raidParts = partitioning.get_raid_partitions(disk)
+            raidParts = partedUtils.get_raid_partitions(disk)
             for part in raidParts:
-                parts.append(partitioning.get_partition_name(part))
+                parts.append(partedUtils.get_partition_name(part))
         except:
             pass
 
