@@ -929,6 +929,8 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
 
     devices[deviceNums] = NULL;
     deviceNames[deviceNums] = NULL;
+    qsort(devices, deviceNums, sizeof(*devices), simpleStringCmp);
+    qsort(deviceNames, deviceNums, sizeof(*devices), simpleStringCmp);
 
     /* ASSERT: we should *ALWAYS* have a network device when we get here */
     if (!deviceNums) {
