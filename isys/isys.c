@@ -63,6 +63,7 @@ static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
 static PyObject * doRaidStart(PyObject * s, PyObject * args);
 static PyObject * doRaidStop(PyObject * s, PyObject * args);
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
+static PyObject * doResetResolv(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
@@ -96,6 +97,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
     { "fbconprobe", (PyCFunction) doFbconProbe, METH_VARARGS, NULL },
+    { "resetresolv", (PyCFunction) doResetResolv, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -1032,6 +1034,15 @@ static PyObject * doRaidStart(PyObject * s, PyObject * args) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doResetResolv(PyObject * s, PyObject * args) {
+    if (!PyArg_ParseTuple(args, "")) return NULL;
+
+    res_init();		/* reinit the resolver so DNS changes take affect */
 
     Py_INCREF(Py_None);
     return Py_None;

@@ -220,3 +220,8 @@ def compareDrives(first, second):
 
     return 0
 
+def configNetDevice(device, ip, netmask, gw):
+    return _isys.confignetdevice(device, ip, netmask, gw)
+
+def resetResolv():
+    return _isys.resetresolv()
