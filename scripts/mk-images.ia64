@@ -1,0 +1,16 @@
+# No modules yet
+#SECSTAGE="vfat raid0 raid1 raid5"
+
+prepareBootImage() {
+	gunzip < $BOOTDISKDIR/bootfs.gz > $MBD_TMPIMAGE
+	mount -o loop -t vfat $MBD_TMPIMAGE $MBD_BOOTTREE
+	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
+
+	cp $KERNELROOT/boot/vmlinux-* $MBD_BOOTTREE/vmlinux
+}
+
+makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinux  \
+	     --imagename boot.img \
+	     --initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
+		     	    --initrdsize 4096 \
+			    --loaderbin loader'
