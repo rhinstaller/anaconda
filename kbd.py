@@ -1,6 +1,7 @@
 import kudzu
 import string
 from simpleconfig import SimpleConfigFile
+from log import log
 
 class Keyboard (SimpleConfigFile):
     # the *first* item in each of these wins conflicts
@@ -15,7 +16,7 @@ class Keyboard (SimpleConfigFile):
             ("de-latin1"         , ('pc102', 'de')),
             ("de"                , ('pc102', 'de')),
             ("de-latin1-nodeadkeys" , ('pc102', 'de')),
-
+            ("dvorak"            , ('pc105', 'dvorak')),
             ("dk"                , ('pc102', 'dk')),
             ("dk-latin1"         , ('pc102', 'dk')),
             ("es"                , ('pc102', 'es')),
@@ -225,9 +226,11 @@ class Keyboard (SimpleConfigFile):
 
     def set (self, keytable):
 	if self.type != "Serial":
+            log ("Inside kbd.py %s", keytable)
 	    self.info["KEYTABLE"] = keytable
 
     def setfromx (self, model, layout, variant):
+        print "Inside setfromx -------",  model, layout, variant
 	if self.type == "PC":
             mapping = Keyboard.x2console
         else:
@@ -239,11 +242,17 @@ class Keyboard (SimpleConfigFile):
         for key in keys:
             if type(key) == type(()):
                 (mod, lay) = key
+                print "Inside if", mod, lay
+
             else:
                 mod = model
                 lay = key;
+                print "Inside else", mod, lay
             if model == mod and layout == lay:
                 #--Check to see if keyboard is German and has deadkeys disabled
+                
+                print mod, lay
+                
                 if lay == "de" and variant == "nodeadkeys":
                     self.info["KEYTABLE"] = "de-latin1-nodeadkeys"
                 else:
