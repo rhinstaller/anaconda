@@ -82,6 +82,8 @@ class AccountWindow (InstallWindow):
 
         if not (accountName and password1 and (password1 == password2)):
             return
+	if accountName == "root":
+	    return
 
         if self.passwords.has_key (accountName):
             return
