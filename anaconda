@@ -52,7 +52,7 @@ else:
 try:
     (args, extra) = isys.getopt(theargs, 'GTRxtdr:fm:', 
           [ 'gui', 'text', 'reconfig', 'xmode', 'test', 'debug', 'nofallback',
-            'method=', 'rootpath=', 'pcic=',
+            'method=', 'rootpath=', 'pcic=', "overhead=",
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'rescue'])
@@ -112,6 +112,7 @@ localInstall = 0
 reconfigOnly = 0
 nofallback = 0
 rescue = 0
+overhead = 0
 runres = '800x600'
 
 #
@@ -154,6 +155,8 @@ for n in args:
 	test = 1
     elif (str == '--pcic'):
 	pcicController = arg
+    elif (str == '--overhead'):
+	overhead = int(arg)
     elif (str == '--rescue'):
         progmode = 'rescue'
     elif (str == '--nofallback'):
@@ -237,7 +240,7 @@ from installclass import DefaultInstall
 from installclass import ReconfigStation
 from kickstart import Kickstart
 
-
+iutil.setMemoryOverhead(overhead)
 
 #
 # override display mode if machine cannot nicely run X

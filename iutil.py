@@ -2,6 +2,14 @@
 import types, os, sys, isys, select, string, stat, signal
 import os.path
 
+memoryOverhead = 0
+
+def setMemoryOverhead(amount):
+    global memoryOverhead
+
+    memoryOverhead = amount
+    print memoryOverhead
+
 def getArch ():
     arch = os.uname ()[4]
     if (len (arch) == 4 and arch[0] == 'i' and
@@ -162,7 +170,9 @@ def copyFile(source, to, pw = None):
 	if pw:
 	    win.pop()
 
-def memInstalled():
+def memInstalled(corrected = 1):
+    global memoryOverhead
+
     f = open("/proc/meminfo", "r")
     mem = f.readlines()[1]
     del f
@@ -173,6 +183,10 @@ def memInstalled():
        mem = int(fields[1]) / 1024
     except:
         mem = 2097151
+
+    print corrected, memoryOverhead
+    if corrected:
+	mem = mem - memoryOverhead
 
     return mem
 
