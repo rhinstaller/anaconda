@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.21
+Version: 10.1.0.0
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 20 2004 Jeremy Katz <katzj@redhat.com> - 10.1.0.0-1
+- Lowercase OSA addresses from a parm file too (karsten)
+- Turn off beta nag for FC3 release
+
 * Tue Oct 19 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.21-1
 - Lowercase OSA addresses to make the kernel happy (#133190)
 - Don't hard code the VG name used for auto-partitioning to avoid 
