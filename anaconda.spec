@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.5
+Version: 10.0.3.6
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 27 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.6-1
+- Fix traceback from auto-partitioning if you don't have enough space (#131325)
+- Update FCP config for adding SCSI LUNs (#133290)
+
 * Mon Sep 27 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.5-1
 - Fix driver disk segfault when using a partition (#133036)
 - Let driver disk images on ext2 partitions work
