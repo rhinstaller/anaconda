@@ -484,7 +484,7 @@ class Partitions:
         If baseChecks is set, the basic sanity tests which the UI runs prior to
         accepting a partition will be run on the requests as well.
         """
-        checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 50),
+        checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 384),
                       ('/home', 100), ('/boot', 20)]
         warnings = []
         errors = []
