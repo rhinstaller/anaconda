@@ -127,6 +127,8 @@ def startX(resolution, nofbmode, video, monitor, mouse):
             if os.access (serverPath, os.X_OK):
                 try:
                     x = XF86Config (card, monitor, mouse, resolution)
+		    x.setForcedDPI(75)
+		    
                     testx(x)
                     failed = 0
                     break
