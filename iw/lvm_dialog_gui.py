@@ -471,10 +471,10 @@ class VolumeGroupEditor:
 		continue
 
 	    # create potential request
-	    request = LogicalVolumeRequestSpec(fsystem, mountpoint = mntpt,
-					       lvname = lvname, size = size,
-					       format = 1)
-#	    request = copy.copy(logrequest)
+#	    request = LogicalVolumeRequestSpec(fsystem, mountpoint = mntpt,
+#					       lvname = lvname, size = size,
+#					       format = 1)
+	    request = copy.copy(logrequest)
 	    pesize = self.peOptionMenu.get_active().get_data("value")
 	    size = lvm.clampLVSizeRequest(size, pesize)
 
@@ -490,23 +490,26 @@ class VolumeGroupEditor:
 					  "for this Volume Group."))
 		continue
 
-# 	    request.fstype = fsystem
+ 	    request.fstype = fsystem
 
-# 	    if request.fstype.isMountable():
-# 		request.mountpoint = mntpt
-# 	    else:
-# 		request.mountpoint = None
+ 	    if request.fstype.isMountable():
+ 		request.mountpoint = mntpt
+ 	    else:
+ 		request.mountpoint = None
 
-# 	    if not logrequest.preexist:
-# 		request.format = 1
-# 	    else:
-# 		request.format = 0
+	    request.logicalVolumeName = lvname
+	    request.size = size
+
+ 	    if not logrequest.preexist:
+ 		request.format = 1
+ 	    else:
+ 		request.format = 0
 	    
-# 	    err = request.sanityCheckRequest(self.partitions)
-# 	    if err:
-# 		self.intf.messageWindow(_("Error With Request"),
-# 					"%s" % (err))
-# 		continue
+ 	    err = request.sanityCheckRequest(self.partitions)
+ 	    if err:
+ 		self.intf.messageWindow(_("Error With Request"),
+ 					"%s" % (err))
+ 		continue
 
 	    # see if there is room for request
 	    pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
