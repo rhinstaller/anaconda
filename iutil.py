@@ -1,6 +1,7 @@
 
 import types, os, sys, isys, select, string, stat, signal
 import os.path
+from log import *
 
 memoryOverhead = 0
 
@@ -175,6 +176,7 @@ def copyFile(source, to, pw = None):
 	if pw:
 	    win.pop()
 
+
 def memInstalled(corrected = 1):
     global memoryOverhead
 
@@ -194,6 +196,25 @@ def memInstalled(corrected = 1):
 
     return mem
 
+# try to keep 2.4 kernel swapper happy!
+def swapSuggestion():
+    mem = memInstalled(corrected=0)/1024
+    mem = ((mem/16)+1)*16
+    log("Detected %sM of memory", mem)
+    if mem < 128:
+        minswap = 96
+        maxswap = 192
+    else:
+        minswap = mem
+        if mem > 1000:
+            maxswap = 2000
+        else:
+            maxswap = 2*mem
+    log("Swap attempt of %sM to %sM", minswap, maxswap)
+
+    return (minswap, maxswap)
+
+    
 # this is a mkdir that won't fail if a directory already exists and will
 # happily make all of the directories leading up to it. 
 def mkdirChain(dir):
