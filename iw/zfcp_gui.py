@@ -19,6 +19,7 @@ import gui
 from rhpl.translate import _, N_
 import os
 import isys
+import iutil
 
 class ZFCPWindow(InstallWindow):
 
