@@ -1008,17 +1008,8 @@ class ToDo:
         if todo.instClass.desktop:
             todo.desktop.set (todo.instClass.desktop)
 
-    def getSkipPartitioning(self):
-	return self.instClass.skipPartitioning
-
     def getPartitionWarningText(self):
 	return self.instClass.clearPartText
-
-    def manuallyPartition(self):
-	self.instClass.skipPartitioning = 0
-	self.instClass.clearPartText = None
-	self.instClass.removeFromSkipList("partition")
-	self.instClass.removeFromSkipList("format")
 
     # List of (accountName, fullName, password) tupes
     def setUserList(todo, users):

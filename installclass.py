@@ -18,34 +18,6 @@ _ = cat.gettext
 
 class InstallClass:
 
-    # ummm, HACK
-    def finishPartitioning(self, ddruid):
-	if not self.partitions: return
-
-	attempt = []
-	swapCount = 0
-
-	for (mntpoint, size, maxsize, grow) in self.partitions:
-	    type = 0x83
-	    if (mntpoint == "swap"):
-		mntpoint = "Swap%04d-auto" % swapCount
-		swapCount = swapCount + 1
-		type = 0x82
-
-	    attempt.append((mntpoint, size, type, grow, -1))
-
-	try:
-	    ddruid.attempt (attempt, "Junk Argument", self.clearParts)
-	    return 1
-	except:
-	    # life's a female dog <shrug> -- we should log something though
-	    # <double-shrug>
-	    self.skipPartitioning = 0
-	    self.clearPartText = None
-	    pass
-
-	return 0
-
     # look in mouse.py for a list of valid mouse names -- use the LONG names
     def setMouseType(self, name, device = None, emulateThreeButtons = 0):
 	self.mouse = (name, device, emulateThreeButtons)
@@ -81,12 +53,8 @@ class InstallClass:
 	return self.timezone
 
     def removeFromSkipList(self, type):
-	if type == "partition":
-	    self.skipPartitioning = 0
-	    self.removeFromSkipList("format")
-	else:
-	    if self.skipSteps.has_key(type):
-		del self.skipSteps[type]
+	if self.skipSteps.has_key(type):
+	    del self.skipSteps[type]
 
     def addToSkipList(self, type):
 	# this throws an exception if there is a problem
@@ -94,10 +62,7 @@ class InstallClass:
 	  "package-selection", "bootdisk", "partition", "format", "timezone",
 	  "accounts", "dependencies", "language", "keyboard", "xconfig",
 	  "welcome", "installtype", "mouse", "confirm-install" ].index(type)
-	if type == "partition":
-	    self.skipPartitioning = 1
-	else:
-	    self.skipSteps[type] = 1
+	self.skipSteps[type] = 1
 
     def setHostname(self, hostname):
 	self.hostname = hostname
@@ -197,7 +162,6 @@ class InstallClass:
 	self.gateway = ""
 	self.nameserver = ""
 	self.partitions = []
-	self.skipPartitioning = 0
 	self.clearParts = 0
         self.clearType = None
 	self.clearText = None
@@ -235,7 +199,6 @@ class Workstation(InstallClass):
 	if not expert:
 	    self.addToSkipList("lilo")
 	self.addToSkipList("authentication")
-	self.addToSkipList("partition")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("format")
 
@@ -272,7 +235,6 @@ class Server(InstallClass):
 	    self.addToSkipList("lilo")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")
-	self.addToSkipList("partition")
 	self.addToSkipList("format")
 
 	if os.uname ()[4] != 'sparc64':

@@ -25,6 +25,36 @@ def _(str):
 
 class Fstab:
 
+    def attemptPartitioning(self, partitions, clearParts):
+	attempt = []
+	swapCount = 0
+
+	fstab = []
+	for (mntpoint, dev, fstype, reformat, size) in self.extraFilesystems:
+            fstab.append ((dev, mntpoint))
+
+	ddruid = self.createDruid(fstab = fstab)
+
+	for (mntpoint, size, maxsize, grow) in partitions:
+	    type = 0x83
+	    if (mntpoint == "swap"):
+		mntpoint = "Swap%04d-auto" % swapCount
+		swapCount = swapCount + 1
+		type = 0x82
+
+	    attempt.append((mntpoint, size, type, grow, -1))
+
+	try:
+	    ddruid.attempt (attempt, "Junk Argument", clearParts)
+	    return ddruid
+	except:
+	    pass
+
+	return None
+
+    def setDruid(self, druid):
+	self.ddruid = druid
+
     def rescanPartitions(self):
 	if self.ddruid:
 	    self.closeDrives()
@@ -325,6 +355,16 @@ class Fstab:
     def getBadBlockCheck(self):
 	return self.badBlockCheck
 
+    def createDruid(self, fstab = []):
+	return self.fsedit(0, self.driveList(), fstab, self.zeroMbr, 
+			   self.readOnly)
+
+    def getRunDruid(self):
+	return self.shouldRunDruid
+
+    def setRunDruid(self, state):
+	self.shouldRunDruid = state
+
     def __init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
 		 readOnly, waitWindow, messageWindow):
 	self.fsedit = fsedit
@@ -339,8 +379,10 @@ class Fstab:
 	self.messageWindow = messageWindow
 	self.badBlockCheck = 0
 	self.extraFilesystems = []
-	self.ddruid = self.fsedit(0, self.driveList(), [], 
-			     zeroMbr, readOnly)
+	self.ddruid = self.createDruid()
+	# I intentionally don't initialize this, as all install paths should
+	# initialize this automatically
+	#self.shouldRunDruid = 0
 
 class GuiFstab(Fstab):
 

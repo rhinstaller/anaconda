@@ -60,6 +60,7 @@ class PartitionWindow (InstallWindow):
         return 1
 
     def getNext (self):
+	if not self.running: return 0
 	self.todo.fstab.runDruidFinished()
 
         # FIXME
@@ -84,23 +85,10 @@ class PartitionWindow (InstallWindow):
         self.ics.setNextEnabled (value)
 
     def getScreen (self):
-	if 0 and self.todo.getSkipPartitioning():
-	    self.skippedScreen = 1
-	    fstab = self.todo.ddruid.getFstab ()
-	    self.todo.resetMounts()
-	    for (partition, mount, fsystem, size) in fstab:
-		self.todo.addMount(partition, mount, fsystem)
-		if mount == "/":
-		    rootPartition = partition
-		elif mount == "/boot":
-		    bootPartition = partition
-            if not self.checkSwap ():
-                return AutoPartitionWindow
-	    return None
-
+	self.running = 0
+	if not self.todo.fstab.getRunDruid(): return None
+	self.running = 1
 	return self.todo.fstab.runDruid(self.enableCallback)
-
-        return self.bin
 
 class AutoPartitionWindow(InstallWindow):
     def __init__ (self, ics):
@@ -111,24 +99,36 @@ class AutoPartitionWindow(InstallWindow):
 	ics.setNextEnabled (TRUE)
         self.ics = ics
 
-    def getNext(self):
-        from gnomepyfsedit import fsedit
+    def getPrev(self):
+	self.druid = None
+	self.beingDisplayed = 0
 
-	if (self.__dict__.has_key("manuallyPartition") and   
-		self.manuallyPartition.get_active()):
-	    self.todo.manuallyPartition()
+    def getNext(self):
+	if not self.beingDisplayed: return
+
+	if not self.__dict__.has_key("manuallyPartition"):
+	    self.todo.fstab.setRunDruid(1)
+	elif self.manuallyPartition.get_active():
+	    self.todo.fstab.setRunDruid(1)
+	    self.todo.fstab.rescanPartitions()
+	else:
+	    self.todo.fstab.setRunDruid(0)
+	    self.todo.fstab.setDruid(self.druid)
+
+	self.beingDisplayed = 0
 	    
 	return None
 
-    def getScreen (self):   
-        from gnomepyfsedit import fsedit
-        from installpath import InstallPathWindow
+    def __init__(self, todo):
+	InstallWindow.__init__(self, todo)
+	self.druid = None
+	self.beingDisplayed = 0
 
-	return None
+    def getScreen (self):   
+        from installpath import InstallPathWindow
 
         if (InstallPathWindow.fdisk and
             InstallPathWindow.fdisk.get_active ()):
-		self.todo.manuallyPartition()
 		return None
         
         # XXX hack
@@ -136,21 +136,22 @@ class AutoPartitionWindow(InstallWindow):
             self.ics.readHTML (self.todo.instClass.clearType)
 
 	todo = self.todo
+	self.druid = None
 
-        self.fstab = []
-        for mntpoint, (dev, fstype, reformat) in todo.mounts.items ():
-            self.fstab.append ((dev, mntpoint))
+	if self.todo.instClass.partitions:
+	    self.druid = \
+		todo.fstab.attemptPartitioning(todo.instClass.partitions,
+					       todo.instClass.clearParts)
+	self.ics.setNextEnabled (TRUE)
 
-        if not todo.ddruid:
-            drives = todo.drives.available ().keys ()
-            drives.sort (isys.compareDrives)
-            todo.ddruid = fsedit(0, drives, self.fstab, self.todo.zeroMbr,
-				  self.todo.ddruidReadOnly)
-            if not todo.instClass.finishPartitioning(todo.ddruid):
-                self.todo.log ("Autopartitioning FAILED\n")
+	if not self.druid:
+	    # auto partitioning failed
+	    self.todo.fstab.setRunDruid(1)
+	    return
 
-	if not todo.getPartitionWarningText(): 
-	    return None
+	if not todo.getPartitionWarningText():
+	    self.fstab.setRunDruid(0)
+	    return
 
 	label = \
            GtkLabel(_("%s\n\nIf you don't want to do this, you can continue with "
@@ -179,6 +180,7 @@ class AutoPartitionWindow(InstallWindow):
 
 	box.pack_start(align, TRUE, TRUE)
 	box.set_border_width (5)
+	self.beingDisplayed = 1
 	return box
 
 

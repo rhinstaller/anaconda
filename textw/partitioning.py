@@ -98,9 +98,6 @@ class ManualPartitionWindow:
 
 class AutoPartitionWindow:
     def __call__(self, screen, todo):
-	return
-	from newtpyfsedit import fsedit        
-
         fstab = []
         for mntpoint, (dev, fstype, reformat) in todo.mounts.items ():
             fstab.append ((dev, mntpoint))

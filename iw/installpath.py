@@ -51,8 +51,8 @@ class InstallPathWindow (InstallWindow):
             BootloaderSkipname = "lilo"            
 
 	self.installSteps = [
-		     ( AutoPartitionWindow, "partition" ),
                      FDiskWindow,
+		     ( AutoPartitionWindow, "partition" ),
 		     ( PartitionWindow, "partition" ),
 		     ( FormatWindow, "format" ),
 		     ( BootloaderWindow, BootloaderSkipname ),
@@ -105,6 +105,8 @@ class InstallPathWindow (InstallWindow):
 
 	if not self.__dict__.has_key("upgradeButton"):
 	    return
+
+	self.todo.fstab.setRunDruid(InstallPathWindow.fdisk.get_active())
 
 	icw = self.ics.getICW ()
 	if self.upgradeButton.get_active():
