@@ -2625,9 +2625,9 @@ int kickstartFromHardDrive(char * location,
 	return 1;
     }
 
-    if (doPwMount("/tmp/hddevice", "/mnt/hddrive", "ext2", 0, 0, 
+    if (doPwMount("/tmp/hddevice", "/mnt/hddrive", "ext2", 1, 0, 
 		  NULL, NULL) &&
-	doPwMount("/tmp/hddevice", "/mnt/hddrive", "vfat", 0, 0, 
+	doPwMount("/tmp/hddevice", "/mnt/hddrive", "vfat", 1, 0, 
 		  NULL, NULL)) {
 	logMessage("failed to mount %s", device);
     }
@@ -2646,7 +2646,8 @@ int kickstartFromFloppy(char * location, moduleList modLoaded,
     if (devMakeInode(floppyDevice, "/tmp/floppy"))
 	return 1;
 
-    if (doPwMount("/tmp/floppy", "/tmp/ks", "vfat", 1, 0, NULL, NULL)) {
+    if ((doPwMount("/tmp/floppy", "/tmp/ks", "vfat", 1, 0, NULL, NULL)) && 
+	doPwMount("/tmp/floppy", "/tmp/ks", "ext2", 1, 0, NULL, NULL)) {
 	logMessage("failed to mount floppy: %s", strerror(errno));
 	return 1;
     }
