@@ -4,7 +4,7 @@ INSTALL_DATA= ${INSTALL} -m 644
 PREFIX=$(DESTDIR)/
 INSTALLNLSDIR=usr/share/locale
 
-MSGMERGE = msgmerge
+MSGMERGE = msgmerge -w 9999999
 
 NLSPACKAGE = anaconda
 
