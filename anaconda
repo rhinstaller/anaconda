@@ -704,9 +704,11 @@ for i in ( "services", "protocol", "nsswitch.conf", "joe"):
 #
 if (display_mode == 'g'):
     if not flags.test and flags.setupFilesystems:
-        for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts"):
+        for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
+                   "fb.modes"):
             try:
-                os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
+                if os.path.exists("/mnt/runtime/etc/%s" %(i,))
+                    os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
             except:
                 pass
 
