@@ -164,9 +164,9 @@ class SiloWindow (InstallWindow):
 	self.radioBox.attach(label, 0, 2, 1, 2)
 
         self.mbr = GtkRadioButton(None, 
-	    ("/dev/%s %s" % (boothd, _("Master Boot Record (MBR)"))))
+	    ("/dev/%s %s" % (self.mbrpart, _("Master Boot Record (MBR)"))))
         part = GtkRadioButton(self.mbr,
-	    ("/dev/%s %s" % (bootpart, 
+	    ("/dev/%s %s" % (self.bootpart, 
 		_("First sector of boot partition"))))
 	self.radioBox.attach(self.mbr, 1, 2, 2, 3)
 	self.radioBox.attach(part, 1, 2, 3, 4)
