@@ -1,5 +1,6 @@
 #include <alloca.h>
 #include <ctype.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <newt.h>
 #include <stdlib.h>
@@ -215,12 +216,13 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 		     flags);
 
 	ddi->device = strdup(device);
-	ddi->mntDevice = alloca(strlen(device) + 10);
+	ddi->mntDevice = malloc(strlen(device) + 10);
 	sprintf(ddi->mntDevice, "/tmp/%s", device);
 
 	devMakeInode(ddi->device, ddi->mntDevice);
 
 	ddi->fs = "vfat";
+	logMessage("trying to mount device %s", ddi->mntDevice);
 	if (doPwMount(ddi->mntDevice, "/tmp/drivers", ddi->fs, 1, 0, NULL, 
 		      NULL)) {
 	    ddi->fs = "ext2";
@@ -437,7 +439,7 @@ char * extractModule(struct driverDiskInfo * ddi, char * modName) {
 
 	if (failed && !first) {
 	    newtWinMessage(_("Error"), _("OK"), 
-		    _("Failed to mount driver disk."));
+		    _("Failed to mount driver disk: %s."), strerror(errno));
 	} else if (!failed) {
 	    if ((fd = open("/tmp/drivers/rhdd-6.1", O_RDONLY)) < 0)
 		failed = 1;
