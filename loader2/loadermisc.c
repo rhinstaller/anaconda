@@ -88,6 +88,15 @@ int simpleStringCmp(const void * a, const void * b) {
     return strcmp(first, second);
 }
 
+char * l_strndup(const char * s, size_t n) {
+    char * buf = malloc(n + 1);
+    if (!buf) return NULL;
+
+    strncpy(buf, s, n);
+    buf[n] = '\0';
+    return buf;
+}
+
 char * sdupprintf(const char *format, ...) {
     char *buf = NULL;
     char c;

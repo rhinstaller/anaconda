@@ -1,5 +1,12 @@
 2005-01-06  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/loader.c (parseCmdLineIp): Use l_strndup instead of
+	strndup since dietlibc in RHEL 3 doesn't have strndup.
+
+	* loader2/loadermisc.c (l_strndup): Add strndup implementation
+	from newer dietlibc
+	* loader2/loadermisc.h (l_strndup): Add prototype.
+
 	* anaconda.spec: Bump version.
 
 	* loader2/modules.c: Add lateModuleSort so that ibmvscsic gets

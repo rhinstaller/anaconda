@@ -8,5 +8,6 @@ int copyFileFd(int infd, char * dest);
 char * readLine(FILE * f);
 int simpleStringCmp(const void * a, const void * b);
 char * sdupprintf(const char *format, ...) __attribute__ ((format (printf, 1, 2)));
+char * l_strndup(const char * s, size_t n);
 
 #endif
