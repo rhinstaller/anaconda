@@ -35,7 +35,7 @@ class AccountWindow (InstallWindow):
             self.rootStatus.set_text (_("Root password accepted."))
         else:
 	    if not pw and not confirm:
-                self.rootStatus.set_text (_(""))
+                self.rootStatus.set_text ("")
             elif len (pw) < 6:
                 self.rootStatus.set_text (_("Root password is too short."))
             else:
