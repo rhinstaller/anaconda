@@ -64,6 +64,9 @@ class LiloConfigFile:
 	    l.append(config.getEntry('label'))
 	return l
 
+    def getPath (self):
+	return self.path
+
     def write(self, file, perms = 0644):
 	f = open(file, "w")
 	f.write(self.__repr__())
@@ -238,7 +241,7 @@ class LiloConfiguration:
 	    (fsType, sl) = lilo.getImage(label)
 	    if fsType == "other": continue
 
-	    if not os.access(instRoot + label.getPath(), os.R_OK):
+	    if not os.access(instRoot + sl.getPath(), os.R_OK):
 		lilo.delImage(image)
 
 	bootpart = fstab.getBootDevice()
