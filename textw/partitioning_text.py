@@ -134,6 +134,14 @@ class AutoPartitionWindow:
 	    todo.lilo.allowLiloLocationConfig(todo.fstab)
 
 	    todo.fstab.formatAllFilesystems()
+
+            # make sure we don't format partitions we were told not too in
+            # kickstart mode
+            if todo.instClass.fstab:
+                for (mntpoint, (dev, fstype, reformat)) in todo.instClass.fstab:
+                    if reformat == 0:
+                        todo.fstab.setFormatFilesystem(dev, 0)
+                        
 	    todo.instClass.addToSkipList("format")
 
 	    return
