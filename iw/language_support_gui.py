@@ -74,7 +74,7 @@ class LanguageSupportWindow (InstallWindow):
 	    self.ics.setNextEnabled (gtk.TRUE)
 
 	curidx = self.deflang_combo.get_active()
-	if curidx > 0:
+	if curidx >= 0 and len(self.deflang_values) > 0:
 	    self.defaultLang = self.deflang_values[curidx]
 	else:
 	    self.defaultLang = None
