@@ -25,7 +25,7 @@
 #include <endian.h>
 #include "md5.h"
 
-void MD5_Transform(uint32 *buf, uint32 const *in);
+void MD5_Transform(uint32_t *buf, uint32_t const *in);
 
 #define IS_BIG_ENDIAN() (__BYTE_ORDER == __BIG_ENDIAN)
 #define IS_LITTLE_ENDIAN() (__BYTE_ORDER == __LITTLE_ENDIAN)
