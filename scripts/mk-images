@@ -306,7 +306,7 @@ makemainmodules() {
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
        mkdir -p $KERNELROOT/lib/modules/misc
-       cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $KERNELROOT/lib/modules/misc
+       find $KERNELROOT/lib/modules/*/kernel/drivers/s390/ -name "*.o" -exec cp -f {} $KERNELROOT/lib/modules/misc \;
     fi
     makemoduleball $extraargs $FULLMODPATH "$modlist"
     cp -ar $FULLMODPATH $FINALFULLMODPATH
@@ -401,7 +401,7 @@ makeinitrd() {
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
        mkdir -p $KERNELROOT/lib/modules/misc
-       cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $KERNELROOT/lib/modules/misc
+       find $KERNELROOT/lib/modules/*/kernel/drivers/s390/ -name "*.o" -exec cp -f {} $KERNELROOT/lib/modules/misc \;
     fi
 
     if [ -n "$LOADERMODULES" ]; then
@@ -784,7 +784,7 @@ makeinstimage () {
     (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmpdir)
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
        mkdir -p $KERNELROOT/lib/modules/misc
-       cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $KERNELROOT/lib/modules/misc
+       find $KERNELROOT/lib/modules/*/kernel/drivers/s390/ -name "*.o" -exec cp -f {} $KERNELROOT/lib/modules/misc \;
     fi
     makemoduleball $tmpdir/modules "$modlist"
 
