@@ -140,9 +140,7 @@ makebootdisk --imagename ja/pcmcia.img \
 			    --loaderbin loader-pcmcia-kon \
 			    --modules "nfs vfat"'
 
-makedriverdisk "Supplemental Drivers" "drivers" "+scsi +net +cdrom"
-
-makedriverdisk "Parallel port IDE Drivers" "paride" "parport_pc parport pcd paride aten bpck comm dstr epat fit2 fit3 friq frpw kbic ktti on20 on26 epia ppa imm"
+makedriverdisk "Supplemental Drivers" "drivers" "parport_pc parport +scsi +net +cdrom"
 
 makedriverdisk "rhpcmcia" "pcmciadd" "$PCMCIAMODULES"
 
