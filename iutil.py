@@ -201,11 +201,13 @@ def swapSuggestion():
         minswap = 96
         maxswap = 192
     else:
-        minswap = mem
         if mem > 1000:
+            minswap = 1000
             maxswap = 2000
         else:
+            minswap = mem
             maxswap = 2*mem
+            
     log("Swap attempt of %sM to %sM", minswap, maxswap)
 
     return (minswap, maxswap)
