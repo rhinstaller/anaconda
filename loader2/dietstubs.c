@@ -194,6 +194,10 @@ char *setlocale (int category, const char *locale) {
     return 0;
 }
 
+char * __secure_getenv (const char * name) {
+    return getenv(name);
+}
+
 #ifdef GZLIB
 void *gzopen(const char *file) {
     return gunzip_open(file);
