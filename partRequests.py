@@ -798,7 +798,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
     def __init__(self, fstype, format = None, mountpoint = None,
                  size = None, volgroup = None, lvname = None,
                  preexist = 0, percent = None, grow=0, maxSizeMB=0,
-		 bytesPerInode = 4096):
+		 bytesPerInode = 4096, lvorigin=None):
         """Create a new VolumeGroupRequestSpec object.
 
         fstype is the fsset filesystem type.
@@ -812,6 +812,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
 	grow is whether or not to use free space remaining.
 	maxSizeMB is max size to grow to.
 	bytesPerInode is the size of the inodes on the partition.
+        lvorigin is the name of the LV that this snapshot LV is taken from
         """
 
         # if it's preexisting, the original fstype should be set
@@ -838,6 +839,8 @@ class LogicalVolumeRequestSpec(RequestSpec):
         self.grow = grow
         self.maxSizeMB = maxSizeMB
         self.startSize = size
+        self.lvorigin = lvorigin
+        self.snapshots = []
 	
         if not percent and not size and not preexist:
             raise RuntimeError, "Error with Volume Group:Logical Volume %s:%s - Logical Volume must specify either percentage of vgsize or size" % (volgroup, lvname)

@@ -207,18 +207,27 @@ def lvlist():
         return []
 
     lvs = []
-    args = ["lvm", "lvdisplay", "-C", "--noheadings", "--units", "b"]
+    # field names for "options" are in LVM2.2.01.01/lib/report/columns.h
+    args = ["lvm", "lvdisplay", "-C", "--noheadings", "--units", "b",
+            "--nosuffix", "--separator", ":", "--options",
+            "vg_name,lv_name,lv_size,origin"
+           ]
     lvscanout = iutil.execWithCapture(args[0], args, searchPath = 1,
                                       stderr = "/dev/tty6")
     for line in lvscanout.split("\n"):
         try:
-            (lv, vg, attr, size) = line.strip()[:-1].split()
+            (vg, lv, size, origin) = line.strip().split(':')
+            size = long(math.floor(long(size) / (1024 * 1024)))
+            if origin == '':
+                origin = None
         except:
             continue
-        size = long(size)
-        size = long(math.floor(size / (1024 * 1024)))
-        log("lv is %s/%s, size of %s" %(vg, lv, size))
-        lvs.append( (vg, lv, size) )
+
+        logmsg = "lv is %s/%s, size of %s" % (vg, lv, size)
+        if origin:
+            logmsg += ", snapshot from %s" % (origin,)
+        log(logmsg)
+        lvs.append( (vg, lv, size, origin) )
 
     return lvs
 
@@ -228,16 +237,18 @@ def pvlist():
         return []
 
     pvs = []
-    args = ["lvm", "pvdisplay", "-C", "--noheadings", "--units", "b"]
+    args = ["lvm", "pvdisplay", "-C", "--noheadings", "--units", "b",
+            "--nosuffix", "--separator", ":", "--options",
+            "pv_name,vg_name,dev_size"
+           ]
     scanout = iutil.execWithCapture(args[0], args, searchPath = 1,
                                     stderr = "/dev/tty6")
     for line in scanout.split("\n"):
         try:
-            (dev, vg, format, attr, size, free) = line.strip()[:-1].split()
+            (dev, vg, size) = line.strip().split(':')
+            size = long(math.floor(long(size) / (1024 * 1024)))
         except:
             continue
-        size = long(size[:-1])
-        size = long(math.floor(size / (1024 * 1024)))
         log("pv is %s in vg %s, size is %s" %(dev, vg, size))
         pvs.append( (dev, vg, size) )
 
@@ -249,18 +260,19 @@ def vglist():
         return []
 
     vgs = []
-    args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b", "-v"]
+    args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b",
+            "--nosuffix", "--separator", ":", "--options",
+            "vg_name,vg_size,vg_extent_size"
+           ]
     scanout = iutil.execWithCapture(args[0], args, searchPath = 1,
                                     stderr = "/dev/tty6")
     for line in scanout.split("\n"):
         try:
-            (vg, attr, pesize, numpv, numlv, numsn, size, free, uuid) = line.strip().split()
+            (vg, size, pesize) = line.strip().split(':')
+            size = long(math.floor(long(size) / (1024 * 1024)))
+            pesize = long(pesize)/1024
         except:
             continue
-        size = long(size[:-1])
-        size = long(math.floor(size / (1024 * 1024)))
-        pesize = long(pesize[:-1])
-        pesize /= 1024
         log("vg %s, size is %s, pesize is %s" %(vg, size, pesize))
         vgs.append( (vg, size, pesize) )
 

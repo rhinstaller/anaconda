@@ -615,7 +615,9 @@ class DiskSet:
 	lvm.vgscan()
 	lvm.vgactivate()
 
-        for (vg, lv, size) in lvm.lvlist():
+        for (vg, lv, size, lvorigin) in lvm.lvlist():
+            if lvorigin:
+                continue
             dev = "/dev/%s/%s" %(vg, lv)
             found = 0
             for fs in fsset.getFStoTry(dev):

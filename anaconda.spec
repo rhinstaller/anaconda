@@ -72,6 +72,7 @@ rm -rf $RPM_BUILD_ROOT
 * Mon Mar 28 2005 XXX <XXX@redhat.com> - XXX-XXX
 - Adjust pcmcia module loading for new in-kernel ds (#151235)
 - Make the rescue images identify which arch they're for (#151501)
+- Delete LV snapshots before the parent LV (#151524)
 
 * Fri Mar 25 2005 Bill Nottingham <notting@redhat.com> - 10.2.0.33-1
 - fix typo in partedUtils.py

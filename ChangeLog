@@ -1,5 +1,26 @@
 2005-03-28  Peter Jones  <pjones@redhat.com>
 
+	* lvm.py (lvlist,vglist,pvlist): make lvm list functions use
+	a specified separator, explicitly ask for the fields we need,
+	and get sizes without format specifiers
+	
+	* lvm.py (lvlist): list the "origin" of snapshot LVs
+	
+	* partRequests.py (LogicalVolumeRequestSpec.__init__): add 
+	"snapshots" and "lvorigin" attributes, so we can track lv
+	snapshots we need to delete
+
+	* partedUtils.py (DiskSet.findExistingRootPartitions): explictly
+	ignore snapshot LVs
+
+	* partitions.py (Partitions.setFromDisk): mark snapshot LV requests
+	with lvorigin, and link snapshots to parents.
+
+	* partitions.py (Partitions.deleteDependentRequests): add snapshot
+	requests to the delete list when deleting snapshots.
+
+2005-03-28  Peter Jones  <pjones@redhat.com>
+
 	* scripts/mk-rescueimage.i386 scripts/mk-rescueimage.x86_64:
 	Make the rescue images identify which arch they're for (#151501)
 

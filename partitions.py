@@ -192,6 +192,7 @@ class Partitions:
         lvm.vgactivate()
 
         pvs = lvm.pvlist()
+        snapshots = {}
         for (vg, size, pesize) in lvm.vglist():
             try:
                 preexist_size = float(size)
@@ -217,9 +218,11 @@ class Partitions:
                                                        preexist_size = preexist_size)
             vgid = self.addRequest(spec)
 
-            for (lvvg, lv, size) in lvm.lvlist():
+            for (lvvg, lv, size, lvorigin) in lvm.lvlist():
                 if lvvg != vg:
                     continue
+                snapshots.setdefault(lvorigin, [])
+                snapshots[lvorigin].append(lv)
                 
                 # size is number of bytes, we want size in megs
                 lvsize = float(size)
@@ -235,13 +238,16 @@ class Partitions:
                 format = 0
 
                 spec = partRequests.LogicalVolumeRequestSpec(fsystem,
-                                                             format = format,
-                                                             size = lvsize,
-                                                             volgroup = vgid,
-                                                             lvname = lv,
-                                                             mountpoint = mnt,
-                                                             preexist = 1)
+                    format = format, size = lvsize, volgroup = vgid,
+                    lvname = lv, mountpoint = mnt, preexist = 1,
+                    lvorigin = lvorigin)
                 self.addRequest(spec)
+
+        for origin, snapnames in snapshots.entries():
+            parent = self.getRequestByLogicalVolumeName(origin)
+            for snapname in snapnames:
+                child = self.getRequestByLogicalVolumeName(snapname)
+                parent.snapshots.append(child)
 
         for vg in lvm.partialvgs():
             spec = partRequests.PartialVolumeGroupSpec(vgname = vg)
@@ -1286,6 +1292,8 @@ class Partitions:
                         self.addDelete(delete)
             elif isinstance(req, partRequests.LogicalVolumeRequestSpec):
                 if id == req.volumeGroup:
+                    for child in req.snapshots:
+                        toRemove.append(child)
                     toRemove.append(req)
                     tmp = self.getRequestByID(req.volumeGroup)
                     if not tmp:
