@@ -1557,11 +1557,11 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	    setLanguage (argv[i] + 5, flags);
 #ifdef INCLUDE_KON
 	    if (!strcmp (argv[i] + 5, "ja") && startKon) {
-		char * args[5];
+		char * args[4];
 
 		args[0] = "kon";
 		args[1] = "-e";
-		args[2] = "/sbin/continue";
+		args[2] = FL_TESTING(flags) ? "./loader" : "/sbin/continue";
 		args[3] = NULL;
 		
 		execv(FL_TESTING(flags) ? "./loader" : "/sbin/loader", args);
