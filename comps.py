@@ -45,6 +45,9 @@ class HeaderList:
     def __getitem__(self, item):
 	return self.packages[item]
 
+    def list(self):
+	return self.packages.values()
+
     def __init__(self, hdlist):
         self.hdlist = hdlist
 	self.packages = {}
@@ -76,6 +79,9 @@ class Component:
 
     def __getitem__(self, key):
 	return self.items[key]
+
+    def __repr__(self):
+	return "comp %s" % (self.name)
 
     def addPackage(self, package):
 	self.items[package] = package
@@ -170,6 +176,48 @@ class ComponentSet:
 	if (type(key) == types.IntType):
 	    return self.comps[key]
 	return self.compsDict[key]
+
+    def getSelectionState(self):
+	compsSelected = []
+	pkgsSelected = []
+	for comp in self.comps:
+	    if comp.selected:
+		compsSelected.append(comp)
+
+	for pkg in self.packages.list():
+	    if pkg.selected:
+		pkgsSelected.append(pkg)
+
+	return (compsSelected, pkgsSelected)
+
+    def setSelectionState(self, pickle):
+	(compsSelected, pkgsSelected) = pickle
+
+        for comp in self.comps:
+            if not comp.hidden: comp.unselect(0)
+	for comp in compsSelected:
+	    comp.select(1)
+	self['Base'].select(1)
+
+	for pkg in self.packages.list():
+	    pkg.selected = 0
+	for pkg in pkgsSelected:
+	    pkg.selected = 1
+
+    def sizeStr(self):
+	megs = self.size() / 1024 / 1024
+	if (megs >= 1000):
+	    big = megs / 1000
+	    little = megs % 1000
+	    return "%d,%dM" % (big, little)
+
+	return "%dM" % (megs)
+
+    def size(self):
+	total = 0
+	for pkg in self.packages.list():
+	    if pkg.selected: total = total + pkg['size']
+	return total
 
     def keys(self):
 	return self.compsDict.keys()

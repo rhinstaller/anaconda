@@ -5,41 +5,62 @@ from constants_text import *
 from translate import _
 
 class PackageGroupWindow:
+
+    def size(self, comps):
+	return _("Total install size: %s") % comps.sizeStr()
+    
+    def updateSize(self, args):
+	(label, comps, ct) = args
+
+        # turn off all the comps
+        for comp in comps:
+            if not comp.hidden: comp.unselect(0)
+
+	# it's a shame component selection sucks
+
+        # turn on all the comps we selected
+        comps['Base'].select (1)
+        for comp in ct.getSelection():
+            comp.select (1)
+
+	label.setText(self.size(comps))
+
     def __call__(self, screen, todo, individual):
         # be sure that the headers and comps files have been read.
 	todo.getHeaderList()
         todo.getCompsList()
 
-        ct = CheckboxTree(height = 10, scroll = 1)
+	origSelection = todo.comps.getSelectionState()
+
+        ct = CheckboxTree(height = 8, scroll = 1)
         for comp in todo.comps:
             if not comp.hidden:
                 ct.append(comp.name, comp, comp.selected)
 
         cb = Checkbox (_("Select individual packages"), individual.get ())
-
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+	la = Label(self.size(todo.comps))
+
+	ct.setCallback(self.updateSize, (la, todo.comps, ct))
 
         g = GridFormHelp (screen, _("Package Group Selection"), 
-			  "components", 1, 3)
-        g.add (ct, 0, 0, (0, 0, 0, 1))
-        g.add (cb, 0, 1, (0, 0, 0, 1))
-        g.add (bb, 0, 2, growx = 1)
+			  "components", 1, 4)
+
+        g.add (la, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
+        g.add (ct, 0, 1, (0, 0, 0, 1))
+        g.add (cb, 0, 2, (0, 0, 0, 1))
+        g.add (bb, 0, 3, growx = 1)
 
         result = g.runOnce()
-
-        individual.set (cb.selected())
-        # turn off all the comps
-        for comp in todo.comps:
-            if not comp.hidden: comp.unselect(0)
-
-        # turn on all the comps we selected
-        for comp in ct.getSelection():
-            comp.select (1)
 
         rc = bb.buttonPressed (result)
 
         if rc == "back":
+	    todo.comps.setSelectionState(origSelection)
             return INSTALL_BACK
+
+	individual.set (cb.selected())
+
         return INSTALL_OK
 
 class IndividualPackageWindow:
@@ -79,7 +100,7 @@ class IndividualPackageWindow:
 
     def printTotal(self):
 	size = self.total / 1024
-	self.lbl.setText("%4d.%dM" % (size / 1024, (((size * 10) / 1024) % 10)))
+	self.lbl.setText("%-*s   %4d.%dM" % (self.length, _("Total size"), size / 1024, (((size * 10) / 1024) % 10)))
 
     def printNum(self, group):
 	if self.groupCount[group] == self.groupSelCount[group]:
@@ -130,6 +151,7 @@ class IndividualPackageWindow:
             return
 	todo.getHeaderList()
         todo.getCompsList()
+	origSelection = todo.comps.getSelectionState()
 
         ct = CheckboxTree(height = 10, scroll = 1)
 	self.ct = ct
@@ -201,7 +223,7 @@ class IndividualPackageWindow:
 	g = GridFormHelp (screen, _("Package Group Selection"), "packagetree", 
 			    1, 3)
 	g.add (ct, 0, 0, (0, 0, 0, 0))
-	g.add (self.lbl, 0, 1, (self.length + 5, 0, 0, 1))
+	g.add (self.lbl, 0, 1, (4, 0, 0, 1), anchorLeft = 1)
 	g.add (bb, 0, 2, growx = 1)
 
 	g.addHotKey("F2")
@@ -219,11 +241,12 @@ class IndividualPackageWindow:
 
 	screen.popWindow()
 
-	screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
+	screen.popHelpLine ()
 
         rc = bb.buttonPressed (result)
         
         if rc == "back":
+	    todo.comps.setSelectionState(origSelection)
             return INSTALL_BACK
 
         return INSTALL_OK
