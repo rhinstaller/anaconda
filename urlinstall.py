@@ -31,12 +31,12 @@ import httplib
 import StringIO
 
 FILENAME = 1000000
+DISCNUM  = 1000002
 
 class UrlInstallMethod(InstallMethod):
 
     def readComps(self, hdlist):
-	return ComponentSet(self.baseUrl + '/RedHat/base/comps',
-                            hdlist)
+	return ComponentSet(self.baseUrl + '/RedHat/base/comps', hdlist)
 
     def getFilename(self, h, timer):
 	root = "/mnt/sysimage"
@@ -51,7 +51,12 @@ class UrlInstallMethod(InstallMethod):
 	if type("/") == type(h):
 	    fullPath = self.baseUrl + "/" + h
 	else:
-	    fullPath = self.baseUrl + "/RedHat/RPMS/" + h[FILENAME]
+	    if self.multiDiscs:
+		base = "%s/disc%d" % (self.pkgUrl, h[DISCNUM])
+	    else:
+		base = self.pkgUrl
+
+	    fullPath = base + "/RedHat/RPMS/" + h[FILENAME]
 
 	file = tmppath + os.path.basename(fullPath)
 
@@ -121,3 +126,11 @@ class UrlInstallMethod(InstallMethod):
         if rem and rem[-1] == "/":
             rem = rem[:-1]
 	self.baseUrl = self.baseUrl + rem
+
+	if self.baseUrl[-6:] == "/disc1":
+	    self.multiDiscs = 1
+	    self.pkgUrl = self.baseUrl[:-6]
+	else:
+	    self.multiDiscs = 0
+	    self.pkgUrl = self.baseUrl
+	    
