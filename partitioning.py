@@ -279,7 +279,7 @@ def doPartitionSizeCheck(newrequest):
 
     # XXX need to figure out the size for partitions specified by cyl range
     if newrequest.size and newrequest.size > newrequest.fstype.getMaxSize():
-        return _("This %s partition exceeds the maximum size of %s MB.") %(newrequest.fstype.getName(), newrequest.fstype.getMaxSize())
+        return _("The size of the %s partition (size = %s MB) exceeds the maximum size of %s MB.") %(newrequest.fstype.getName(), newrequest.size, newrequest.fstype.getMaxSize())
     else:
         return None
 
