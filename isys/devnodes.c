@@ -46,10 +46,6 @@ int devMakeInode(char * devName, char * path) {
     char *ptr;
     char *dir;
 
-    printf("hi there jturner\n");
-    mknod("/something", S_IFBLK | 0600, 0x800);
-    printf("mknod worked\n");
-
     if (devName[0] == 's' && devName[1] == 'd') {
 	type = S_IFBLK;
 	major = 8;
