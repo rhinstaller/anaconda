@@ -640,7 +640,7 @@ class x86BootloaderInfo(bootloaderInfo):
                              justConfig | (not self.useGrubVal))
         # XXX move the lilo.conf out of the way if they're using GRUB
         # so that /sbin/installkernel does a more correct thing
-        if self.useGrubVal:
+        if self.useGrubVal and os.access(instRoot + '/etc/lilo.conf', os.R_OK):
             os.rename(instRoot + "/etc/lilo.conf",
                       instRoot + "/etc/lilo.conf.anaconda")
         
