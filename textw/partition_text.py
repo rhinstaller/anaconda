@@ -669,7 +669,7 @@ class PartitionWindow:
                                     drive = [ get_partition_drive(part) ])
             self.editPartitionRequest(request)
             return
-        elif part.fs_type and not part.fs_type.name:
+        elif (part.fs_type == None) or (part.fs_type and not part.fs_type.name):
             ButtonChoiceWindow(self.screen, _("You cannot edit partitions "
                                "without a filesystem type."),
                                buttons = [ TEXT_OK_BUTTON ] )
