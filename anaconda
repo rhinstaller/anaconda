@@ -437,6 +437,24 @@ anaconda_log.open (logFile)
 log.handler = anaconda_log
 
 #
+# Here we have a hook to pull in second half of kickstart file via https
+# if desired.
+#
+if ksfile is not None:
+    from kickstart import pullRemainingKickstartConfig, KSAppendException
+
+    try:
+	rc=pullRemainingKickstartConfig(ksfile)
+    except KSAppendException, msg:
+	rc = msg
+    except:
+	rc = _("Unknown Error")
+
+    if rc is not None:
+	dup_log(_("Error pulling second part of kickstart config: %s!") % (rc,))
+	sys.exit(1)
+
+#
 # Determine install method - GUI or TUI
 #
 # use GUI by default except for install methods that were traditionally
