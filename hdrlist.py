@@ -23,6 +23,7 @@ import os,sys,time
 from rhpl.log import log
 from rhpl.translate import _, N_
 import rhpl.comps
+import rhpl.arch
 
 import language
 
@@ -90,7 +91,7 @@ class DependencyChecker:
         self.how = how
 
     # FIXME: this is the simple stupid version.  it doesn't actually handle
-    # paying attention to EVR
+    # paying attention to EVR.  Or getting the "best" arch.
     def callback(self, ts, tag, name, evr, flags):
         if tag == rpm.RPMTAG_REQUIRENAME:
             hdr = None
@@ -255,22 +256,33 @@ class HeaderList:
     # FIXME: surely this can be made faster/less complicated
     # doing scoring everytime seems like it might be overkill
     # then again, it shouldn't be called *that* often so it might not matter
-    def getBestNevra(self, item):
+    def getBestNevra(self, item, prefArch = None):
         bestscore = 0
         bestpkg = None
 
         if not self.pkgnames.has_key(item):
             return None
-        
-        for (nevra, arch) in self.pkgnames[item]:
-            # FIXME: need to use our replacement for arch scoring
-            # so that we can work with biarch
-            score = rpm.archscore(arch)
-            if not score:
-                continue
-            if (bestscore == 0) or (score < bestscore):
-                bestpkg = nevra
-                bestscore = score
+
+        # the best nevra is going to be defined by being 1) the best match
+        # for the primary arch (eg, x86_64 on AMD64, ppc on pSeries) and
+        # if that fails, fall back to the canonical (which could be the same)
+        # This will allow us to get the best package by name for both
+        # system packages and kernel while not getting the secondary arch
+        # glibc.
+        if rhpl.arch.getBaseArch() != rhpl.arch.canonArch:
+            arches = (rhpl.arch.getBaseArch(), rhpl.arch.canonArch)
+        else:
+            arches = (rhpl.arch.canonArch, )
+        for basearch in arches:
+            for (nevra, arch) in self.pkgnames[item]:
+                score = rhpl.arch.archDifference(basearch, arch)
+                if not score:
+                    continue
+                if (bestscore == 0) or (score < bestscore):
+                    bestpkg = nevra
+                    bestscore = score
+            if bestpkg is not None:
+                return bestpkg
         return bestpkg
 
     # FIXME: surely this can be made faster/less complicated
@@ -782,7 +794,7 @@ def orderPackageGroups(grpset):
     return (retlist, retdict)
 
 if __name__ == "__main__":
-    tree = "/mnt/test/latest-taroon-i386/"
+    tree = "/mnt/redhat/test/katzj/x86_64/"
     
     def simpleInstallCallback(what, amount, total, h, (param)):
         global rpmfd
@@ -844,8 +856,6 @@ if __name__ == "__main__":
     showMem()    
     groups = GroupSet(comps, hdrlist)
     showMem()
-
-#    sys.exit(0)
 
     ts = rpm.TransactionSet("/tmp/testinstall")
     ts.setVSFlags(-1)
