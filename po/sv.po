@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-16 12:06-0400\n"
-"PO-Revision-Date: 2004-09-07 01:22+0200\n"
+"PO-Revision-Date: 2004-09-23 01:26+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2586,7 +2586,6 @@ msgid "DDC Probed Monitor"
 msgstr "DDC-testad bildskärm"
 
 #: ../zfcp.py:27
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
@@ -2596,7 +2595,7 @@ msgstr ""
 "zSeries-maskiner kan komma åt SCSI-enheter som följer industristandarden via "
 "Fibre Channel (FCP). Du måste ange 5 parametrar för varje enhet: ett 16-"
 "bitars enhetsnummer, ett 16-bitars SCSI-id, ett 64-bitars World Wide Port "
-"Number (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars FCP-LUN."
+"Name (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars FCP-LUN."
 
 #: ../zfcp.py:29
 msgid "Device number"
@@ -3336,14 +3335,14 @@ msgid "_Enable firewall"
 msgstr "_Aktivera brandvägg"
 
 #: ../iw/firewall_gui.py:109
-#, fuzzy
 msgid ""
 "You can use a firewall to allow access to specific services on your computer "
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
 msgstr ""
-"Med en brandvägg kan du tillåta åtkomst för andra till specifika tjänster på "
-"din dator. Tillåt åtkomst för vilka tjänster?"
+"Du kan använda en brandvägg för att tillåta åtkomst till specifika tjänster "
+"på din dator från andra datorer. Vilka tjänster, om några, vill du tillåta "
+"åtkomst till?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -6057,9 +6056,8 @@ msgid "No Volume Groups"
 msgstr "Inga volymgrupper"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups in which to create a logical volume"
-msgstr "Inga volymgrupper att skapa en logisk volym i."
+msgstr "Inga volymgrupper att skapa en logisk volym i"
 
 #: ../textw/partition_text.py:1291
 #, python-format
@@ -8393,9 +8391,11 @@ msgid "Bengali"
 msgstr "Bengali"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bengali(India)"
-msgstr "Bengali"
+msgstr "Bengali(Indien)"
+
+msgid "Bengali (India)"
+msgstr "Bengali (Indien)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -8451,7 +8451,7 @@ msgstr "Tyska"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -8555,24 +8555,24 @@ msgstr "Zulu"
 #~ msgid ""
 #~ "zSeries machines can access industry-standard SCSI devices via Fibre "
 #~ "Channel (FCP). You need to provide 5 parameters for each device: a 16bit "
-#~ "device number, a 16bit SCSI ID, a 64bit World Wide Port Number (WWPN), a "
+#~ "device number, a 16bit SCSI ID, a 64bit World Wide Port Name (WWPN), a "
 #~ "16bit SCSI LUN and a 64 bit FCP LUN."
 #~ msgstr ""
 #~ "zSeries-maskiner kan komma åt SCSI-enheter som följer industristandarden "
 #~ "via Fibre Channel (FCP). Du måste ange 5 parametrar för varje enhet: ett "
 #~ "16-bitars enhetsnummer, ett 16-bitars SCSI-id, ett 64-bitars World Wide "
-#~ "Port Number (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars FCP-LUN."
+#~ "Port Name (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars FCP-LUN."
 
 #~ msgid ""
 #~ "zSeries machines can access industry-standard SCSI devices via Fibre "
 #~ "Channel (FCP). You need to provide 5 parameters for each device: a 16 bit "
-#~ "device number, a 16 bit SCSI ID, a 64 bit World Wide Port Number (WWPN), "
+#~ "device number, a 16 bit SCSI ID, a 64 bit World Wide Port Name (WWPN), "
 #~ "a 16 bit SCSI LUN and a 64 bit FCP LUN."
 #~ msgstr ""
 #~ "zSeries-maskiner kan komma åt SCSI-enheter som följer industristandarden "
 #~ "via Fibre Channel (FCP). Du måste ange 5 parametrar för varje enhet: ett "
 #~ "16-bitars enhetsnummer, ett 16-bitars SCSI-id, ett 64-bitars World Wide "
-#~ "Port Number (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars FCP-LUN."
+#~ "Port Name (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars FCP-LUN."
 
 #~ msgid "You have not specified a device number or the number is invalid."
 #~ msgstr "Du har inte angivit ett enhetsnummer eller så är numret ogiltigt."
