@@ -73,6 +73,7 @@ rm -rf $RPM_BUILD_ROOT
 - fix swap detection on upgrade (pjones)
 - don't use os.read to make a buffer of '\x00'
 - move availRaidLevels to raid.py from fsset.py
+- fix Xvnc parameters (clumens, #150498)
 
 * Mon Mar  7 2005 Peter Jones <pjones@redhat.com> - 20.2.0.27-1
 - supress lvm fd warning messages
