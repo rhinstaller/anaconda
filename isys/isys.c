@@ -738,7 +738,6 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     strncpy(device.device, dev, sizeof(device.device) - 1);
     device.ip.s_addr = inet_addr(ip);
     device.netmask.s_addr = inet_addr(netmask);
-    device.gateway.s_addr = inet_addr(gateway);
 
     *((int32 *) &device.broadcast) = (*((int32 *) &device.ip) & 
 		       *((int32 *) &device.netmask)) | 
@@ -755,9 +754,12 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
 	return NULL;
     }
 
-    if (pumpSetupDefaultGateway(&device.gateway)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
+    if (strlen(gateway)) {
+	device.gateway.s_addr = inet_addr(gateway);
+	if (pumpSetupDefaultGateway(&device.gateway)) {
+	    PyErr_SetFromErrno(PyExc_SystemError);
+	    return NULL;
+	}
     }
 
     Py_INCREF(Py_None);
