@@ -79,6 +79,7 @@ while (<FILE>) {
     /^[a-zA-Z][a-zA-Z]_/ || next;
 
     $lang=$_;
+    $lang =~ s/eucjp/eucJP/;
 
     open(INFO, "LANG=$lang locale -c language -c territory -k charmap|");
     <INFO>;
