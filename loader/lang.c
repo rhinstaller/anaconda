@@ -74,19 +74,18 @@ struct langInfo {
 static const struct langInfo languages[] = {
         { "Czech", 	"cs", 	"lat2-sun16", 	"iso02",	"cs_CZ" },
         { "English",	"en",	NULL,		NULL,		"en_US" },
-	{ "French",	"fr",	"lat0-sun16",	"iso15",	"fr_FR" },
-	{ "German",	"de",	"lat0-sun16",	"iso15",	"de_DE" },
 	{ "Hungarian",  "hu",   "lat2-sun16",   "iso02",	"hu_HU" },
 	{ "Icelandic",	"is",	"lat0-sun16",	"iso15",	"is_IS" },
-	{ "Indonesian",	"id",	"lat0-sun16",	"iso01",	"id_ID" },
+	{ "Indonesian",	"id",	"lat0-sun16",	"iso15",	"id_ID" },
 	{ "Italian",	"it",	"lat0-sun16",	"iso15",	"it_IT" },
 	{ "Norwegian",	"no",	"lat0-sun16",	"iso15",	"no_NO" },
-	{ "Polish",	"pl",	"lat2-sun16",	"iso02",	"pl_PL" },
 	{ "Romanian",	"ro",	"lat2-sun16",	"iso02",	"ro_RO" },
-	{ "Slovak",	"sk",	"lat2-sun16",	"iso02",	"sk_SK" },
-	{ "Spanish",	"es",	"lat0-sun16",	"iso01",	"es_MX" },
 	{ "Russian", 	"ru", 	"Cyr_a8x16", 	"koi2alt",	"ru_RU.KOI8-R" },
-	{ "Ukrainian",  "uk",   "RUSCII_8x16",	"koi2alt",	"uk_UA" },
+	{ "Serbian",	"sr",	"lat2-sun16",	"iso02",	"sr_YU" },
+	{ "Slovak",	"sk",	"lat2-sun16",	"iso02",	"sk_SK" },
+	{ "Slovanian",	"sl",	"lat2-sun16",	"iso02",	"sl_SI" },
+	{ "Turkish",	"tr",	"iso05",	"iso05",	"tr_TR" },
+	{ "Ukrainian",  "uk",   "Cyr_a8x16",	"koi2alt",	"ru_RU.KOI8-R" },
 };
 /* FONT LIST ENDS */
 const int numLanguages = sizeof(languages) / sizeof(struct langInfo);
