@@ -24,19 +24,19 @@ class FinishedWindow:
         screen.pushHelpLine (string.center(_("<Enter> to reboot"),
                                            screen.width))
 
-        if iutil.getArch() != "ia64":
-          bootstr = _("If you created a boot disk to use to boot your "
-                        "%s system, insert it before you "
-                        "press <Enter> to reboot.\n\n") % (productName,)
+        if iutil.getArch() == "i386":
+          bootstr = _("If you created a boot diskette during this "
+                      "installation as your primary means of "
+                      "booting %s, insert it before "
+                      "rebooting your newly installed system.\n\n") % (productName,)
         else:
           bootstr = ""
 
         if iutil.getArch() == "s390":
-          floppystr = ""
+          floppystr = _("Press <Enter> to reboot your system.\n\n")
         else:
-          floppystr = _("Remove any floppy diskettes you used during the "
-                        "installation process and press <Enter> to reboot "
-                        "your system."
+          floppystr = _("Remove any installation media (diskettes or CD-ROMs) used during the "
+                        "installation process and press <Enter> to reboot your system."
                         "\n\n")
           
 

@@ -56,13 +56,18 @@ class CongratulationWindow (InstallWindow):
 			"rebooting your newly installed system.\n\n") % (productName,)
         else:
             bootstr = ""
+
+        if iutil.getArch() == "s390":
+            floppystr = ""
+        else:
+            floppystr = _("Remove any installation media (diskettes or CD-ROMs) used during the "
+                          "installation process and press <Enter> to reboot your system.
+                          "\n\n")
             
 
 	label = gui.WrappingLabel(
              _("Congratulations, the installation is complete.\n\n"
-               "Remove any installation media (diskettes or CD-ROMs) used during the "
-               "installation."
-               "\n\n"
+               "%s"
                "%s"
 	       "For information on Errata (updates and bug fixes), visit:\n"
 	       "\thttp://www.redhat.com/errata/\n\n"
@@ -74,7 +79,7 @@ class CongratulationWindow (InstallWindow):
 	       "\thttp://www.redhat.com/apps/support/\n\n"
 	       "To register the product for support, visit:\n"
 	       "\thttp://www.redhat.com/apps/activate/\n\n"
-	       "Click 'Exit' to reboot the system.") % (bootstr,))
+	       "Click 'Exit' to reboot the system.") % (floppystr, bootstr,))
 
         hbox.pack_start (label, gtk.TRUE, gtk.TRUE)
         return hbox
