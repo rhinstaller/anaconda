@@ -82,7 +82,7 @@ makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --pcmcia \
 	   --initrdsize 2100 \
 	   --loaderbin loader-pcmcia \
-	   --modules "$PCMCIAMODULES nfs vfat"
+	   --modules "nfs vfat"
 
 for I in `find $BOOTDISKDIR -type d`; do
     BOOTLANG=`basename $I`
@@ -106,9 +106,9 @@ for I in `find $BOOTDISKDIR -type d`; do
 		 --imagename $BOOTDIR/bootnet.img \
 		 --initrd $TOPDESTPATH/images/pxeboot/initrd.img
 
-    #makebootdisk --imagename $BOOTDIR/pcmcia.img \
-	         #--bootdisksize 1440 \
-		 #--initrd $TOPDESTPATH/images/initrd-pcmcia.img
+    makebootdisk --imagename $BOOTDIR/pcmcia.img \
+	         --bootdisksize 1440 \
+		 --initrd $TOPDESTPATH/images/initrd-pcmcia.img
 done
 
 rm -f $TOPDESTPATH/images/initrd-pcmcia.img
@@ -138,22 +138,24 @@ makebootdisk --bootdisksize 1440 \
 			    --loaderbin loader-network-kon \
 		 	    --modules "$NETWORKMODULES"'
 
-#makebootdisk --imagename ja/pcmcia.img \
-	     #--bootdisksize 1440 \
-	     #--initrdflags '--japanese
-			    #--pcmcia \
-		     	    #--initrdsize 2600 \
-			    #--loaderbin loader-pcmcia-kon \
-			    #--modules "$PCMCIAMODULES nfs vfat"'
+makebootdisk --imagename ja/pcmcia.img \
+	     --bootdisksize 1440 \
+	     --initrdflags '--japanese
+			    --pcmcia \
+		     	    --initrdsize 2600 \
+			    --loaderbin loader-pcmcia-kon \
+			    --modules "nfs vfat"'
 
 makedriverdisk "Supplemental Drivers" "drivers" "+scsi +net +cdrom"
 
 makedriverdisk "Parallel port IDE Drivers" "paride" "parport_pc parport pcd paride aten bpck comm dstr epat fit2 fit3 friq frpw kbic ktti on20 on26 epia ppa imm"
 
+makedriverdisk "rhpcmcia" "pcmciadd" "$PCMCIAMODULES"
+
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
 	   --initrdsize 4100 \
-	   --loaderbin loader-local \
-	   --modules "$COMMONMODULES =scsi"
+	   --loaderbin loader-pcmcia \
+	   --modules "$COMMONMODULES $PCMCIAMODULES =scsi"
 
 makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
 	     --bootdisksize 2880 \
