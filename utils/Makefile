@@ -3,3 +3,5 @@ CFLAGS = -Wall -g
 LDFLAGS = -g
 
 all:	modlist
+
+clean:	rm -f modlist

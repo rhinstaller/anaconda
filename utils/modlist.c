@@ -39,8 +39,10 @@ int main(int argc, char ** argv) {
 	    major = DRIVER_NET;
 	} else if (!strcasecmp(type, "fs")) {
 	    major = DRIVER_FS;
+	} else if (!strcasecmp(type, "cdrom")) {
+	    major = DRIVER_CDROM;
 	} else {
-	    fprintf(stderr, "type must be one of scsi, net, fs\n");
+	    fprintf(stderr, "type must be one of scsi, net, fs, cdrom\n");
 	    exit(1);
 	}
 
