@@ -1262,7 +1262,11 @@ def setFileCons(instPath):
                 log("set fc of %s to %s" %(f, ret))
             sys.exit(0)
 
-        (pid, rc) = os.waitpid(child, 0)
+        try:
+            os.waitpid(child, 0)
+        except OSError, (num, msg):
+            pass
+            
 
     return
 
