@@ -47,10 +47,8 @@ else:
 fileSystemTypes = {}
 
 # XXX define availraidlevels and defaultmntpts as arch characteristics
-if iutil.getArch() != "s390":
-    availRaidLevels = ['RAID0', 'RAID1', 'RAID5']
-else:    
-    availRaidLevels = ['RAID0', 'RAID5']
+# FIXME: this should be done dynamically by reading /proc/mdstat
+availRaidLevels = ['RAID0', 'RAID1', 'RAID5']
 
 def fileSystemTypeGetDefault():
     if fileSystemTypeGet('ext3').isSupported():
@@ -716,7 +714,7 @@ fileSystemTypeRegister(NTFSFileSystem())
 class hfsFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_sysstem_type_get("hfs")
+        self.partedFileSystemType = parted.file_system_type_get("hfs")
         self.formattable = 1
         self.checked = 0
         self.name = "hfs"
@@ -751,6 +749,72 @@ class applebootstrapFileSystem(hfsFileSystem):
             self.supported = 0
 
 fileSystemTypeRegister(applebootstrapFileSystem())
+
+class prepbootFileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.partedFileSystemType = None
+        self.checked = 0
+        self.name = "PPC PReP Boot"
+
+        # supported for use on the pseries
+        if iutil.getPPCMachine() == "pSeries":
+            self.supported = 1
+            self.formattable = 1
+        else:
+            self.supported = 0
+            self.formattable = 0
+
+    def formatDevice(self, entry, progress, chroot='/'):
+        # copy and paste job from booty/bootloaderInfo.py...
+        def getDiskPart(dev):
+            cut = len(dev)
+            if (dev.startswith('rd/') or dev.startswith('ida/') or
+                dev.startswith('cciss/')):
+                if dev[-2] == 'p':
+                    cut = -1
+                elif dev[-3] == 'p':
+                    cut = -2
+            else:
+                if dev[-2] in string.digits:
+                    cut = -2
+                elif dev[-1] in string.digits:
+                    cut = -1
+
+            name = dev[:cut]
+
+            # hack off the trailing 'p' from /dev/cciss/*, for example
+            if name[-1] == 'p':
+                for letter in name:
+                    if letter not in string.letters and letter != "/":
+                        name = name[:-1]
+                        break
+
+            if cut < 0:
+                partNum = int(dev[cut:]) - 1
+            else:
+                partNum = None
+
+            return (name, partNum)
+        
+        # FIXME: oh dear is this a hack beyond my wildest imagination.
+        # parted doesn't really know how to do these, so we're going to
+        # exec sfdisk and make it set the partition type.  this is bloody
+        # ugly
+        devicePath = entry.device.setupDevice(chroot)
+        (disk, part) = getDiskPart(devicePath)
+        if disk is None or part is None:
+            log("oops, somehow got a bogus device for the PrEP partition "
+                "(%s)" %(devicePath,))
+            return
+        
+        args = [ "sfdisk", "--change-id", disk, part, "41" ]
+        rc = iutil.execWithRedirect("/usr/sbin/sfdisk", args,
+                                    stdout = "/dev/tty5", stderr = "/dev/tty5")
+        if rc:
+            raise SystemError
+
+fileSystemTypeRegister(prepbootFileSystem())
 
 class ForeignFileSystem(FileSystemType):
     def __init__(self):
@@ -1002,9 +1066,15 @@ class FileSystemSet:
         for entry in self.entries:
 	    mntDict[entry.mountpoint] = entry.device
 
+        # FIXME: this ppc stuff feels kind of crufty -- the abstraction
+        # here needs a little bit of work
         if iutil.getPPCMacGen() == "NewWorld":
             for entry in self.entries:
                 if entry.fsystem.getName() == "Apple Bootstrap":
+                    bootDev = entry.device
+        elif iutil.getPPCMachine() == "pSeries":
+            for entry in self.entries:
+                if entry.fsystem.getName() == "PPC PReP Boot":
                     bootDev = entry.device
         elif iutil.getArch() == "ia64":
             if mntDict.has_key("/boot/efi"):
@@ -1031,11 +1101,16 @@ class FileSystemSet:
         if iutil.getPPCMacGen() == "NewWorld":
             ret['boot'] = (bootDev.device, N_("Apple Bootstrap"))
             n = 1
-            if ((entry.fsystem.getName() == "Apple Bootstrap") and (
-                entry.device.getDevice() != bootDev.device)):
-                ret['boot%d' %(n,)] = (entry.device.getDevice(),
-                                       N_("Apple Bootstrap"))
-                n = n + 1
+            for entry in self.entries:
+                if ((entry.fsystem.getName() == "Apple Bootstrap") and (
+                    entry.device.getDevice() != bootDev.device)):
+                    ret['boot%d' %(n,)] = (entry.device.getDevice(),
+                                           N_("Apple Bootstrap"))
+                    n = n + 1
+            return ret
+        # FIXME: is this right?
+        elif iutil.getPPCMachine() == "pSeries":
+            ret['boot'] = (bootDev.device, N_("PPC PReP Boot"))
             return ret
                 
 	ret['boot'] = (bootDev.device, N_("First sector of boot partition"))
@@ -1053,8 +1128,9 @@ class FileSystemSet:
         
         bootDev = dev.device
 
-        # stupid itanium
-        if iutil.getArch() == "ia64":
+        # on ia64, *only* /boot/efi should be marked bootable
+        # similarly, on pseries, we really only want the PReP partition active
+        if iutil.getArch() == "ia64" or iutil.getPPCMachine() == "pSeries":
             part = partedUtils.get_partition_by_name(diskset.disks, bootDev)
             if part and part.is_flag_available(parted.PARTITION_BOOT):
                 part.set_flag(parted.PARTITION_BOOT, 1)

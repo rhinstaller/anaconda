@@ -35,6 +35,7 @@ BOOT_ABOVE_1024 = -1
 BOOTEFI_NOT_VFAT = -2
 BOOTALPHA_NOT_BSD = -3
 BOOTALPHA_NO_RESERVED_SPACE = -4
+BOOTPSERIES_NOT_PREP = -5
 
 DEBUG_LVM_GROW = 0
 
@@ -59,6 +60,10 @@ def bootRequestCheck(requests, diskset):
             return BOOT_ABOVE_1024
     elif iutil.getArch() == "alpha":
         return bootAlphaCheckRequirements(part, diskset)
+    elif iutil.getPPCMachine() == "pSeries":
+        # FIXME: does this also have to be at the beginning of the disk
+        if part.native_type != 0x43:
+            return BOOTPSERIES_NOT_PREP
         
     return PARTITION_SUCCESS
 
@@ -985,6 +990,8 @@ def doPartitioning(diskset, requests, doRefresh = 1):
         raise PartitioningWarning, _("Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot") %(requests.getBootableRequest().mountpoint)
     elif ret == BOOTEFI_NOT_VFAT:
         raise PartitioningError, _("Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition.") %(requests.getBootableRequest().mountpoint,)
+    elif ret == BOOTPSERIES_NOT_PREP:
+        raise PartitioningError, _("Boot partition %s isn't a PPC PReP boot partition.  OpenFirmware won't be able to boot from this partition.") %(requests.getBootableRequest().mountpoint,)
     elif ret != PARTITION_SUCCESS:
         # more specific message?
         raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest().mountpoint)
@@ -1093,7 +1100,23 @@ def doClearPartAction(partitions, diskset):
                                 break
                         if request:
                             partitions.autoPartitionRequests.remove(request)
-
+            # hey, what do you know, pseries is weird too.  *grumble*
+            elif ((iutil.getPPCMachine() == "pSeries") and (linuxOnly == 1)
+                  and (not partitions.isKickstart) and
+                  part.is_flag_available(parted.PARTITION_BOOT) and
+                  (part.native_type == 0x43) and
+                  part.get_flag(parted.PARTITION_BOOT)):
+                req = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))                
+                req.mountpoint = None
+                req.format = 0
+                request = None
+                for req in partitions.autoPartitionRequests:
+                    if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
+                        request = req
+                        break
+                if request:
+                    partitions.autoPartitionRequests.remove(request)
+                
             part = disk.next_partition(part)
 
     # set the diskset up
@@ -1373,6 +1396,8 @@ def getAutopartitionBoot():
     """Return the proper shorthand for the boot dir (arch dependent)."""
     if iutil.getArch() == "ia64":
         return ("/boot/efi", "vfat", 100, None, 0, 1)
+    elif iutil.getPPCMachine() == "pSeries":
+        return(None, "PPC PReP Boot", 10, None, 0, 1)
     else:
         return ("/boot", None, 100, None, 0, 1)
 

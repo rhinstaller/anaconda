@@ -129,9 +129,11 @@ def get_partition_file_system_type(part):
     Return:
     Filesystem object (as defined in fsset.py)
     """
-    if part.fs_type == None:
+    if part.fs_type is None and part.native_type == 0x41:
+        ptype = fsset.fileSystemTypeGet("PPC PReP Boot")
+    elif part.fs_type == None:
         return None
-    if part.fs_type.name == "linux-swap":
+    elif part.fs_type.name == "linux-swap":
         ptype = fsset.fileSystemTypeGet("swap")
     elif (part.fs_type.name == "FAT" or part.fs_type.name == "fat16"
           or part.fs_type.name == "fat32"):
