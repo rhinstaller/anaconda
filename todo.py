@@ -507,6 +507,38 @@ class ToDo:
 
 	return self.liloImages
 
+    def createRaidTab(self, file, devPrefix, createDevices = 0):
+        (devices, raid) = self.ddruid.partitionList()
+	if not raid: return
+
+	deviceDict = {}
+	for (device, name, type) in devices:
+	    deviceDict[name] = device
+
+	rt = open(file, "w")
+	for (mntpoint, device, raidType, makeup) in raid:
+
+	    if createDevices:
+		isys.makeDevInode(device, devPrefix + '/' + device)
+
+	    rt.write("raiddev		    %s/%s\n" % (devPrefix, device,))
+	    rt.write("raid-level		    %d\n" % (raidType,))
+	    rt.write("nr-raid-disks		    %d\n" % (len(makeup),))
+	    rt.write("chunk-size		    64k\n")
+	    rt.write("persistent-superblock	    1\n");
+	    rt.write("#nr-spare-disks	    0\n")
+	    i = 0
+	    for subDevName in makeup:
+		isys.makeDevInode(deviceDict[subDevName], '%s/%s' % 
+			    (devPrefix, deviceDict[subDevName]))
+		rt.write("    device	    %s/%s\n" % 
+		    (devPrefix, deviceDict[subDevName],))
+		rt.write("    raid-disk     %d\n" % (i,))
+		i = i + 1
+
+	rt.write("\n")
+	rt.close()
+
     def mountFilesystems(self):
 	if (not self.setupFilesystems): return 
 
@@ -536,32 +568,7 @@ class ToDo:
         (devices, raid) = self.ddruid.partitionList()
 	  
 	if raid:
-	    deviceDict = {}
-	    for (device, name, type) in devices:
-		deviceDict[name] = device
-
-	    rt = open("/tmp/raidtab", "w")
-	    for (mntpoint, device, raidType, makeup) in raid:
-
-		isys.makeDevInode(device, '/tmp/' + device)
-
-		rt.write("raiddev		    /tmp/%s\n" % (device,))
-		rt.write("raid-level		    %d\n" % (raidType,))
-		rt.write("nr-raid-disks		    %d\n" % (len(makeup),))
-		rt.write("chunk-size		    64k\n")
-		rt.write("persistent-superblock	    1\n");
-		rt.write("#nr-spare-disks	    0\n")
-		i = 0
-		for subDevName in makeup:
-		    isys.makeDevInode(deviceDict[subDevName], '/tmp/%s' % 
-				deviceDict[subDevName])
-		    rt.write("    device	    /tmp/%s\n" % 
-			(deviceDict[subDevName],))
-		    rt.write("    raid-disk     %d\n" % (i,))
-		    i = i + 1
-
-	    rt.write("\n")
-	    rt.close()
+	    self.createRaidTab("/tmp/raidtab", "/tmp", createDevices = 1)
 
 	    w = self.intf.waitWindow(_("Creating"),
 			  _("Creating RAID devices..."))
@@ -573,9 +580,6 @@ class ToDo:
 
 	    w.pop()
         
-	    #iutil.execWithRedirect ("/usr/sbin/raidstart",
-		    #[ 'raidstart', '--configfile', '/tmp/raidtab', '-a' ])
-
 	    # XXX remove extraneous inodes here
 
         keys = self.mounts.keys ()
@@ -649,6 +653,8 @@ class ToDo:
         # touch mtab
         open (self.instPath + "/etc/mtab", "w+")
         f.close ()
+
+	self.createRaidTab("/mnt/sysimage/etc/raidtab", "/dev")
 
     def readFstab (self, path):
         f = open (path, "r")
