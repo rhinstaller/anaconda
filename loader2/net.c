@@ -126,6 +126,7 @@ static void waitForLink(char * dev) {
         if (get_link_status(dev) != 0)
             break;
         sleep(1);
+        tries++;
     }
     logMessage("%d seconds.", tries);
     /* JKFIXME: arguably, we shouldn't let you use nics without link */
