@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install $Revision$\n"
-"POT-Creation-Date: 1999-09-12 13:09-0400\n"
+"POT-Creation-Date: 1999-09-13 14:19-0400\n"
 "PO-Revision-Date: 1999-09-09 10:00-0500\n"
 "Last-Translator: Zoltan Èala <zolika@sezampro.yu>\n"
 "Language-Team: Serbian <sr@li.org>\n"
@@ -22,10 +22,24 @@ msgstr "Izbor jezika"
 msgid "What language would you like to use during the installation process?"
 msgstr "Koji jezik biste ¾eleli da koristite tokom procesa instalacije?"
 
-#: ../text.py:42 ../text.py:90 ../text.py:141 ../text.py:167 ../text.py:208
-#: ../text.py:253 ../text.py:343 ../text.py:363 ../text.py:394 ../text.py:435
-#: ../text.py:457 ../text.py:522 ../text.py:542 ../text.py:554 ../text.py:566
-#: ../text.py:744 ../text.py:787 ../text.py:791
+#: ../loader/cdrom.c:34 ../loader/devices.c:58 ../loader/devices.c:134
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+#: ../loader/lang.c:247 ../loader/lang.c:503 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:608
+#: ../loader/loader.c:663 ../loader/loader.c:708 ../loader/loader.c:841
+#: ../loader/loader.c:846 ../loader/loader.c:932 ../loader/loader.c:1065
+#: ../loader/loader.c:1387 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:42 ../text.py:90
+#: ../text.py:141 ../text.py:167 ../text.py:208 ../text.py:253 ../text.py:343
+#: ../text.py:363 ../text.py:394 ../text.py:435 ../text.py:457 ../text.py:522
+#: ../text.py:542 ../text.py:554 ../text.py:566 ../text.py:744 ../text.py:787
+#: ../text.py:791 ../textw/lilo.py:20 ../textw/lilo.py:64
+#: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
+#: ../textw/partitioning.py:172 ../textw/userauth.py:31
+#: ../textw/userauth.py:45 ../textw/userauth.py:50 ../textw/userauth.py:84
+#: ../textw/userauth.py:96 ../textw/userauth.py:104 ../textw/userauth.py:113
+#: ../textw/userauth.py:174 ../textw/userauth.py:246
 msgid "OK"
 msgstr "U redu"
 
@@ -46,7 +60,7 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 pod MS-DOSom)"
 
 # ../lilo.c:335
-#: ../iw/lilo.py:174 ../text.py:72
+#: ../iw/lilo.py:174 ../text.py:72 ../textw/lilo.py:77 ../textw/lilo.py:135
 msgid "Device"
 msgstr "Ureðaj"
 
@@ -109,15 +123,9 @@ msgstr "Na kom ureðaju se nalazi mi¹? %s %i"
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
-#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
-#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
-#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
-#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
-#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
-#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../textw/constants.py:10 ../textw/lilo.py:82 ../textw/lilo.py:95
+#: ../textw/lilo.py:150
 msgid "Ok"
 msgstr "U redu"
 
@@ -133,17 +141,24 @@ msgstr "U redu"
 # ../printercfg.c:972 ../printercfg.c:1021 ../printercfg.c:1066
 # ../printercfg.c:1111 ../printercfg.c:1136 ../printercfg.c:1181
 # ../printercfg.c:1259 ../scsi.c:54
-#: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
+#: ../gui.py:316 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
 #: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
-#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
-#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
-#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
-#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
-#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
-#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
-#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
-#: ../text.py:744 ../text.py:766
+#: ../loader/devices.c:134 ../loader/lang.c:503 ../loader/loader.c:239
+#: ../loader/loader.c:572 ../loader/loader.c:608 ../loader/loader.c:708
+#: ../loader/loader.c:1065 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74 ../text.py:75
+#: ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167
+#: ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231
+#: ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396
+#: ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457
+#: ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744
+#: ../text.py:766 ../textw/constants.py:10 ../textw/lilo.py:21
+#: ../textw/lilo.py:64 ../textw/lilo.py:71 ../textw/lilo.py:151
+#: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
+#: ../textw/packages.py:147 ../textw/partitioning.py:26
+#: ../textw/partitioning.py:63 ../textw/partitioning.py:172
+#: ../textw/userauth.py:31 ../textw/userauth.py:143 ../textw/userauth.py:174
+#: ../textw/userauth.py:246
 msgid "Back"
 msgstr "Natrag"
 
@@ -214,8 +229,8 @@ msgstr "Kakav tip sistema biste ¾eleli da instalirate?"
 # ../latemethods.c:439 ../latemethods.c:854 ../net.c:632 ../net.c:706
 # ../net.c:908 ../pkgs.c:206 ../pkgs.c:241 ../pkgs.c:875 ../windows.c:18
 #: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
-#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
-#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/loader.c:663 ../loader/loader.c:708 ../loader/loader.c:841
+#: ../loader/loader.c:846 ../loader/loader.c:1387 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr "Gre¹ka"
@@ -261,7 +276,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
 #: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
-#: ../text.py:229 ../text.py:415 ../text.py:418
+#: ../text.py:229 ../text.py:415 ../text.py:418 ../textw/partitioning.py:135
 msgid "Yes"
 msgstr "Da"
 
@@ -275,7 +290,7 @@ msgstr "Da"
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
 #: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
-#: ../text.py:234 ../text.py:415 ../text.py:421
+#: ../text.py:234 ../text.py:415 ../text.py:421 ../textw/partitioning.py:135
 msgid "No"
 msgstr "Ne"
 
@@ -358,7 +373,7 @@ msgstr ""
 "dodeliti administrator va¹e mre¾e."
 
 # ../net.c:86
-#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
+#: ../iw/network.py:187 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr "Ime raèunara"
 
@@ -466,6 +481,7 @@ msgstr ""
 
 # ../lilo.c:74
 #: ../text.py:554 ../text.py:555 ../text.py:566 ../text.py:567
+#: ../textw/lilo.py:20
 msgid "Skip"
 msgstr "Preskoèi"
 
@@ -580,7 +596,8 @@ msgid "Filesystem Formatting"
 msgstr "Formatiranje sistema datoteka"
 
 # ../scsi.c:53
-#: ../text.py:840 ../text.py:842 ../text.py:844
+#: ../text.py:840 ../text.py:842 ../text.py:844 ../textw/lilo.py:23
+#: ../textw/lilo.py:61 ../textw/lilo.py:158
 msgid "LILO Configuration"
 msgstr "LILO pode¹avanje"
 
@@ -604,11 +621,11 @@ msgid "Time Zone Setup"
 msgstr "Pode¹avanje vremenske zone"
 
 # ../install2.c:627
-#: ../text.py:856
+#: ../text.py:856 ../textw/userauth.py:10
 msgid "Root Password"
 msgstr "Root lozinka"
 
-#: ../text.py:858
+#: ../text.py:858 ../textw/userauth.py:150
 msgid "User Account Setup"
 msgstr "Pode¹avanje korisnièkog naloga"
 
@@ -628,7 +645,7 @@ msgid "Individual Packages"
 msgstr "Pojedinaèni paketi"
 
 # ../pkgs.c:712
-#: ../text.py:866
+#: ../text.py:866 ../textw/packages.py:116
 msgid "Package Dependencies"
 msgstr "Paketske meðuzavisnosti"
 
@@ -675,23 +692,23 @@ msgstr "A¾uriraj sistem"
 msgid "Upgrade Complete"
 msgstr "A¾uriranje zavr¹eno"
 
-#: ../gui.py:306
+#: ../gui.py:310
 msgid "Red Hat Linux Installer"
 msgstr "Instalacioni majstor za Red Hat Linux"
 
-#: ../gui.py:315
+#: ../gui.py:319
 msgid "Finish"
 msgstr "Zavr¹i"
 
-#: ../gui.py:316
+#: ../gui.py:320
 msgid "Hide Help"
 msgstr "Sakrij pomoæ"
 
-#: ../gui.py:317
+#: ../gui.py:321
 msgid "Show Help"
 msgstr "Prika¾i pomoæ"
 
-#: ../gui.py:338
+#: ../gui.py:343
 msgid "Online Help"
 msgstr "'Online' pomoæ"
 
@@ -701,57 +718,59 @@ msgid "Account Configuration"
 msgstr "Pode¹avanje naloga"
 
 # ../install2.c:627
-#: ../iw/account.py:115
+#: ../iw/account.py:121
 msgid "Root Password: "
 msgstr "Root lozinka: "
 
 # ../net.c:397
-#: ../iw/account.py:116
+#: ../iw/account.py:124
 msgid "Confirm: "
 msgstr "Potvrda: "
 
 # ../latemethods.c:574
-#: ../iw/account.py:164 ../iw/account.py:192
+#: ../iw/account.py:175 ../iw/account.py:218
 msgid "Account Name"
 msgstr "Ime naloga"
 
 # ../install2.c:597 ../latemethods.c:577 ../printercfg.c:1058
-#: ../iw/account.py:166
+#: ../iw/account.py:179 ../textw/userauth.py:82
 msgid "Password"
 msgstr "Lozinka"
 
 # ../install2.c:600
-#: ../iw/account.py:168
+#: ../iw/account.py:183 ../textw/userauth.py:83
 msgid "Password (confirm)"
 msgstr "Lozinka (potvrda)"
 
-#: ../iw/account.py:171 ../iw/account.py:192
+#: ../iw/account.py:187 ../iw/account.py:218 ../textw/userauth.py:81
+#: ../textw/userauth.py:162
 msgid "Full Name"
 msgstr "Puno ime"
 
 # ../fsedit.c:1712
-#: ../iw/account.py:178 ../libfdisk/newtfsedit.c:1303
+#: ../iw/account.py:196 ../libfdisk/newtfsedit.c:1303 ../textw/userauth.py:173
 msgid "Add"
 msgstr "Dodaj"
 
 # ../fsedit.c:1705 ../fsedit.c:1713 ../hd.c:280 ../lilo.c:391 ../pkgs.c:1011
-#: ../iw/account.py:180 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304
+#: ../iw/account.py:198 ../libfdisk/newtfsedit.c:1296
+#: ../libfdisk/newtfsedit.c:1304 ../textw/lilo.py:150 ../textw/lilo.py:171
+#: ../textw/partitioning.py:62 ../textw/userauth.py:174
 msgid "Edit"
 msgstr "Uredi"
 
 # ../fsedit.c:1705 ../fsedit.c:1713
-#: ../iw/account.py:182 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304
+#: ../iw/account.py:200 ../libfdisk/newtfsedit.c:1296
+#: ../libfdisk/newtfsedit.c:1304 ../textw/userauth.py:173
 msgid "Delete"
 msgstr "Bri¹i"
 
-#: ../iw/account.py:184
+#: ../iw/account.py:202
 msgid "New"
 msgstr "Novo"
 
 # ../net.c:1396 ../net.c:1408
-#: ../iw/auth.py:11
+#: ../iw/auth.py:11 ../textw/userauth.py:248
 msgid "Authentication Configuration"
 msgstr "Pode¹avanje provere identiteta"
 
@@ -764,7 +783,7 @@ msgstr "Omoguæi MD5 lozinke"
 msgid "Enable shadow passwords"
 msgstr "Omoguæi 'shadows' lozinke"
 
-#: ../iw/auth.py:53
+#: ../iw/auth.py:53 ../textw/userauth.py:253
 msgid "Enable NIS"
 msgstr "Omoguæi NIS"
 
@@ -806,17 +825,17 @@ msgid "Unresolved Dependencies"
 msgstr "Nere¹ene zavisnosti"
 
 # ../pkgs.c:686
-#: ../iw/dependencies.py:29 ../iw/progress.py:113
+#: ../iw/dependencies.py:29 ../iw/progress.py:113 ../textw/packages.py:123
 msgid "Package"
 msgstr "Paket"
 
 # ../pkgs.c:686
-#: ../iw/dependencies.py:29
+#: ../iw/dependencies.py:29 ../textw/packages.py:123
 msgid "Requirement"
 msgstr "Potrebno"
 
 # ../pkgs.c:703
-#: ../iw/dependencies.py:36
+#: ../iw/dependencies.py:36 ../textw/packages.py:135
 msgid "Install packages to satisfy dependencies"
 msgstr "Instaliraj pakete da zadovolji¹ zavisnosti"
 
@@ -839,6 +858,18 @@ msgstr ""
 msgid "Customize packages to be upgraded"
 msgstr "Izaberite pakete koji æe biti a¾urirani"
 
+# ../install2.c:1191 ../install2.c:1208 ../lilo.c:667
+#: ../iw/fdisk.py:11 ../textw/partitioning.py:25
+#, fuzzy
+msgid "fdisk"
+msgstr "Startni disk"
+
+# ../printercfg.c:1179
+#: ../iw/fdisk.py:42
+#, fuzzy
+msgid "Select drive to run fdisk on"
+msgstr "Izbor povezanosti ¹tampaèa"
+
 # ../install2.c:172
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
@@ -850,60 +881,64 @@ msgid "Check for bad blocks while formatting"
 msgstr "Provera lo¹ih blokova tokom formatiranja"
 
 # ../install2.c:836
-#: ../iw/installpath.py:34
+#: ../iw/installpath.py:35
 msgid "GNOME Workstation"
 msgstr "GNOME radna stanica"
 
 # ../install2.c:836
-#: ../iw/installpath.py:35
+#: ../iw/installpath.py:36
 msgid "KDE Workstation"
 msgstr "KDE radna stanica"
 
 # ../install2.c:837
-#: ../iw/installpath.py:36 ../libfdisk/gnomefsedit.c:2196
+#: ../iw/installpath.py:37 ../libfdisk/gnomefsedit.c:2196
 #: ../libfdisk/gnomefsedit.c:2216
 msgid "Server"
 msgstr "Server"
 
 # ../install2.c:838
-#: ../iw/installpath.py:37
+#: ../iw/installpath.py:38
 msgid "Custom"
 msgstr "Izbor po ¾elji"
 
 # ../install2.c:176
-#: ../iw/installpath.py:73
+#: ../iw/installpath.py:74
 msgid "Install Type"
 msgstr "Tip instalacije"
 
 # ../install2.c:819
-#: ../iw/installpath.py:122
+#: ../iw/installpath.py:142
 msgid "Install"
 msgstr "Instalacija"
 
 # ../install2.c:819 ../install2.c:929
-#: ../iw/installpath.py:124
+#: ../iw/installpath.py:144
 msgid "Upgrade"
 msgstr "A¾uriranje"
+
+#: ../iw/installpath.py:183
+msgid "Use fdisk to format drives"
+msgstr ""
 
 # ../net.c:1396 ../net.c:1408
 #: ../iw/keyboard.py:11
 msgid "Keyboard Configuration"
 msgstr "Pode¹avanje tastature"
 
-#: ../iw/keyboard.py:27
+#: ../iw/keyboard.py:35
 msgid "Model"
 msgstr ""
 
-#: ../iw/keyboard.py:39
+#: ../iw/keyboard.py:47
 msgid "Layout"
 msgstr "Izgled"
 
-#: ../iw/keyboard.py:53
+#: ../iw/keyboard.py:61
 msgid "Variant"
 msgstr "Varijanta"
 
 # ../pkgs.c:430
-#: ../iw/language.py:14 ../loader/lang.c:232
+#: ../iw/language.py:14 ../loader/lang.c:245
 msgid "What language should be used during the installation process?"
 msgstr "Koji jezik æe se koristiti tokom procesa instalacije?"
 
@@ -932,7 +967,7 @@ msgid "First sector of boot partition"
 msgstr "Prvi sektor startne particije"
 
 # ../lilo.c:498
-#: ../iw/lilo.py:141
+#: ../iw/lilo.py:141 ../textw/lilo.py:18
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Koristi linearni re¾im (potreban nekim SCSI diskovima)"
 
@@ -951,60 +986,61 @@ msgid "Do not install LILO"
 msgstr "Nemoj da instalira¹ LILO"
 
 # ../lilo.c:336 ../printercfg.c:641 ../printercfg.c:712
-#: ../iw/lilo.py:174
+#: ../iw/lilo.py:174 ../textw/lilo.py:135
 msgid "Default"
 msgstr "Podrazumevano"
 
 # ../lilo.c:335
-#: ../iw/lilo.py:174
+#: ../iw/lilo.py:174 ../textw/lilo.py:135
 msgid "Partition type"
 msgstr "Tip particije"
 
 # ../lilo.c:336
-#: ../iw/lilo.py:174 ../iw/lilo.py:209
+#: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:78
+#: ../textw/lilo.py:135
 msgid "Boot label"
 msgstr "Startna oznaka"
 
 # ../install2.c:180
-#: ../iw/network.py:127
+#: ../iw/network.py:131
 msgid "Configure using DHCP"
 msgstr "Podesi kori¹æenjem DHCP-a"
 
-#: ../iw/network.py:133
+#: ../iw/network.py:138
 msgid "Activate on boot"
 msgstr "Aktiviraj prilikom starta"
 
 # ../net.c:351
-#: ../iw/network.py:142
+#: ../iw/network.py:147
 msgid "IP Address"
 msgstr "IP adresa"
 
 # ../net.c:354
-#: ../iw/network.py:142 ../loader/net.c:615
+#: ../iw/network.py:147 ../loader/net.c:615
 msgid "Netmask"
 msgstr "Mre¾na maska"
 
-#: ../iw/network.py:142 ../loader/loader.c:226
+#: ../iw/network.py:147 ../loader/loader.c:226
 msgid "Network"
 msgstr "Mre¾a"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:147
 msgid "Broadcast"
 msgstr ""
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Gateway"
 msgstr "Gejtvej"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Primary DNS"
 msgstr "Glavni DNS"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Secondary DNS"
 msgstr "Sekundarni DNS"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Ternary DNS"
 msgstr "Ternarni DNS"
 
@@ -1035,12 +1071,12 @@ msgstr "Velièina: "
 msgid "Select Package For Installation"
 msgstr "Izaberite pakete koji æe biti instalirani"
 
-#: ../iw/package.py:377
+#: ../iw/package.py:377 ../textw/packages.py:24 ../textw/packages.py:89
 msgid "Package Group Selection"
 msgstr "Izbor grupe paketa"
 
 # ../pkgs.c:787
-#: ../iw/package.py:445
+#: ../iw/package.py:445 ../textw/packages.py:20
 msgid "Select individual packages"
 msgstr "Izbor pojedinaènih paketa"
 
@@ -1093,17 +1129,17 @@ msgstr "Preostalo"
 msgid "Confirm Partitioning Selection"
 msgstr "Potvrdite naèin particionisanja"
 
-# ../mtab.c:106
-#: ../iw/rootpartition.py:27
-msgid "Root Partition Selection"
-msgstr "Izbor 'root' particije"
+# ../install2.c:282
+#: ../iw/rootpartition.py:27 ../textw/partitioning.py:25
+msgid "Disk Druid"
+msgstr "Disk-èarobnjak"
 
 # ../fsedit.c:640 ../fsedit.c:646 ../fsedit.c:650 ../fsedit.c:652
-#: ../iw/rootpartition.py:86
+#: ../iw/rootpartition.py:86 ../textw/partitioning.py:97
 msgid "Automatic Partitioning"
 msgstr "Automatsko particionisanje"
 
-#: ../iw/rootpartition.py:125
+#: ../iw/rootpartition.py:125 ../textw/partitioning.py:98
 #, c-format
 msgid ""
 "%s\n"
@@ -1124,7 +1160,7 @@ msgid "Remove data"
 msgstr "Ukloni podatke"
 
 # ../mkswap.c:339
-#: ../iw/rootpartition.py:140
+#: ../iw/rootpartition.py:140 ../textw/partitioning.py:102
 msgid "Manually partition"
 msgstr "Ruèno particionisanje"
 
@@ -1148,11 +1184,6 @@ msgstr "Razlika za UTC"
 #: ../iw/timezone.py:152
 msgid "System clock uses UTC"
 msgstr "Sistemski èasovnik koristi UTC"
-
-# ../install.c:378
-#: ../iw/welcome.py:11
-msgid "Welcome to Red Hat Linux!"
-msgstr "Dobrodo¹li u Red Hat Linux"
 
 #: ../iw/xconfig.py:9
 msgid "Video Card"
@@ -1220,6 +1251,272 @@ msgstr "Koristi grafièki login"
 #: ../iw/xconfig.py:203
 msgid "Skip X Configuration"
 msgstr "Preskoèi pode¹avanje X-Windows-a"
+
+# ../lilo.c:485
+#: ../textw/lilo.py:12
+msgid ""
+"A few systems will need to pass special options to the kernel at boot time "
+"for the system to function properly. If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
+msgstr ""
+"Neki sistemi moraju da proslede specijalne opcije kernelu na poèetku da bi "
+"sistem ispravno radio. Ako su i vama potrebne neke od tih opcija, unesite ih "
+"sada. Ako vam nijedna nije potrebna ili niste sigurni ¹ta da otkucate, "
+"ostavite ovo polje prazno."
+
+# ../lilo.c:72
+#: ../textw/lilo.py:62
+msgid "Where do you want to install the bootloader?"
+msgstr "Gde biste da instalirate starter?"
+
+# ../lilo.c:138
+#: ../textw/lilo.py:82 ../textw/lilo.py:102
+msgid "Clear"
+msgstr "Oèisti"
+
+# ../earlymethods.c:631 ../fs.c:220 ../fsedit.c:818 ../fsedit.c:1893
+# ../fsedit.c:2684 ../latemethods.c:194 ../latemethods.c:589
+# ../latemethods.c:900 ../lilo.c:139 ../mtab.c:91 ../pkgs.c:374
+#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
+#: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
+#: ../libfdisk/newtfsedit.c:1501 ../textw/lilo.py:82 ../textw/lilo.py:100
+#: ../textw/userauth.py:64
+msgid "Cancel"
+msgstr "Obustavi"
+
+# ../lilo.c:148
+#: ../textw/lilo.py:90
+msgid "Edit Boot Label"
+msgstr "Promena startne labele"
+
+# ../lilo.c:324
+#: ../textw/lilo.py:153
+msgid ""
+"The boot manager Red Hat uses can boot other operating systems as well. You "
+"need to tell me what partitions you would like to be able to boot and what "
+"label you want to use for each of them."
+msgstr ""
+"Startni menad¾er koji koristi Red Hat mo¾e da pokrene i druge operativne "
+"sisteme. Morate mi reæi koje particije biste da pokrenete i koje oznake da "
+"koristim za svaku od njih."
+
+# ../pkgs.c:678
+#: ../textw/packages.py:117
+msgid ""
+"Some of the packages you have selected to install require packages you have "
+"not selected. If you just select Ok all of those required packages will be "
+"installed."
+msgstr ""
+"Neki paketi koje ste odabrali da instalirate zahtevaju druge pakete koje "
+"niste odabrali. Ako odaberete 'U redu' svi potrebni paketi æe biti "
+"instalirani."
+
+# ../install2.c:282
+#: ../textw/partitioning.py:17 ../textw/partitioning.py:56
+msgid "Disk Setup"
+msgstr "Pode¹avanje diska"
+
+# ../install2.c:284
+#: ../textw/partitioning.py:18
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Disk-èarobnjak je alat za particionisanje i pode¹avanje taèaka montiranja. "
+"Napravljen je da bude lak¹i za kori¹æenje od Linux-ovog tradicionalnog "
+"alata, fdiska, a i moæniji je. Meðutim, u nekim sluèajevima kori¹æenje "
+"fdiska mo¾e biti bolja odluka.\n"
+"\n"
+"Koji alat biste hteli da koristite?"
+
+# ../hd.c:249
+#: ../textw/partitioning.py:57
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"Da biste instalirali Red Hat Linux, morate imati najmanje jednu particiju od "
+"150 MB posveæenu Linux-u. Preporuèujemo da particija bude na jednom od prva "
+"dva hard-diska da biste mogli da pokrenete Linux sa LILO-m."
+
+# ../hd.c:280 ../install2.c:1470 ../pkgs.c:1011
+#: ../loader/loader.c:287 ../loader/loader.c:311 ../textw/partitioning.py:62
+msgid "Done"
+msgstr "Uradjeno"
+
+# ../mkswap.c:339
+#: ../textw/partitioning.py:102 ../textw/partitioning.py:103
+msgid "Continue"
+msgstr "Nastavak"
+
+#: ../textw/partitioning.py:130
+msgid "Low Memory"
+msgstr ""
+
+#: ../textw/partitioning.py:131
+msgid ""
+"As you don't have much memory in this machine, we need to turn on swap space "
+"immediately. To do this we'll have to write your new partition table to the "
+"disk immediately. Is that okay?"
+msgstr ""
+
+# ../fs.c:349
+#: ../textw/partitioning.py:150
+msgid ""
+"What partitions would you like to format? We strongly suggest formatting all "
+"of the system partitions, including /, /usr, and /var. There is no need to "
+"format /home or /usr/local if they have already been configured during a "
+"previous install."
+msgstr ""
+"Koje particije biste hteli da formatirate? Toplo preporuèujemo da "
+"formatirate SVE sistemske particije, ukljuèujuæi /, /usr i /var. Nema "
+"potrebe da formatirate /home ili /usr/local ako su bile pode¹ene u "
+"prethodnoj instalaciji."
+
+# ../fs.c:389 ../mkswap.c:407
+#: ../textw/partitioning.py:170
+msgid "Check for bad blocks during format"
+msgstr "Provera lo¹ih blokova tokom formatiranja"
+
+# ../install2.c:172
+#: ../textw/partitioning.py:174
+msgid "Choose Partitions to Format"
+msgstr "Izaberite particije za formatiranje"
+
+# ../install2.c:612
+#: ../textw/userauth.py:12
+msgid ""
+"Pick a root password. You must type it twice to ensure you know what it is "
+"and didn't make a mistake in typing. Remember that the root password is a "
+"critical part of system security!"
+msgstr ""
+"Izaberite root lozinku. Morate je otkucati dvaput da biste utvrdili da nema "
+"gre¹aka u kucanju, a i da znate kako glasi. Zapamtite da je root lozinka "
+"bitan deo sigurnosti sistema!"
+
+# ../install2.c:597 ../latemethods.c:577 ../printercfg.c:1058
+#: ../loader/urls.c:298 ../textw/userauth.py:25
+msgid "Password:"
+msgstr "Lozinka:"
+
+# ../install2.c:600
+#: ../textw/userauth.py:26
+msgid "Password (again):"
+msgstr "Lozinka (opet):"
+
+# ../install2.c:643 ../install2.c:653
+#: ../textw/userauth.py:42 ../textw/userauth.py:93
+msgid "Password Length"
+msgstr "Du¾ina lozinke"
+
+# ../install2.c:654
+#: ../textw/userauth.py:43
+msgid "The root password must be at least 6 characters long."
+msgstr "Root lozinka mora imati najmanje 6 znakova."
+
+# ../install2.c:643 ../install2.c:653
+#: ../textw/userauth.py:47 ../textw/userauth.py:101
+msgid "Password Mismatch"
+msgstr "Nepodudarnost lozinki"
+
+# ../install2.c:644
+#: ../textw/userauth.py:48 ../textw/userauth.py:102
+msgid "The passwords you entered were different. Please try again."
+msgstr "Lozinke koje ste uneli se razlikuju. Molim poku¹ajte opet."
+
+# ../fsedit.c:1705 ../fsedit.c:1713 ../hd.c:280 ../lilo.c:391 ../pkgs.c:1011
+#: ../textw/userauth.py:73
+msgid "Edit User"
+msgstr "A¾uriranje korisnika"
+
+# ../printercfg.c:1151
+#: ../textw/userauth.py:75
+msgid "Add User"
+msgstr "Dodavanje korisnika"
+
+# ../printercfg.c:1205 ../printercfg.c:1243
+#: ../textw/userauth.py:80
+msgid "User ID"
+msgstr "Korisnikov ID:"
+
+# ../install2.c:654
+#: ../textw/userauth.py:94
+msgid "The password must be at least 6 characters long."
+msgstr "Lozinka mora imati najmanje 6 znakova."
+
+#: ../textw/userauth.py:111
+msgid "User Exists"
+msgstr "Korisnik postoji"
+
+#: ../textw/userauth.py:112
+msgid "This user id already exists.  Choose another."
+msgstr "Ovo ime korisnika veæ postoji. Izaberite drugo."
+
+#: ../textw/userauth.py:139
+msgid ""
+"You should use a normal user account for most activities on your system. By "
+"not using the root account casually, you'll reduce the chance of disrupting "
+"your system's configuration."
+msgstr ""
+"Trebalo bi da koristite obièan korisnièki nalog za svakodnevan rad na "
+"sistemu. Izbegavanjem kori¹æenja 'root' naloga smanjujete moguænost da ne¹to "
+"o¹tetite na sistemu."
+
+#: ../textw/userauth.py:152
+msgid ""
+"What user account would you like to have on the system? You should have at "
+"least one non-root account for normal work, but multi-user systems can have "
+"any number of accounts set up."
+msgstr ""
+"Kakav korisnièki nalog biste ¾eleli da imate na sistemu? Trebalo bi da imate "
+"najmanje jedan ne-root nalog za svakodnevan rad, ali vi¹ekorisnièki sistemi "
+"mogu da imaju ma koliko naloga."
+
+# ../printercfg.c:1057
+#: ../textw/userauth.py:162
+msgid "User name"
+msgstr "Korisnièko ime"
+
+#: ../textw/userauth.py:186
+msgid "Enter the information for the user."
+msgstr "Unesi podatke za korisnika."
+
+#: ../textw/userauth.py:198
+msgid "Change the information for this user."
+msgstr "Promeni podatke za ovog korisnika."
+
+# ../install2.c:627
+#: ../textw/userauth.py:249
+msgid "Use Shadow Passwords"
+msgstr "Kori¹æenje 'shadow' lozinki"
+
+#: ../textw/userauth.py:251
+msgid "Enable MD5 Passwords"
+msgstr "Omoguæi MD5 lozinke"
+
+# ../net.c:1131
+#: ../textw/userauth.py:258
+msgid "NIS Domain:"
+msgstr "NIS domen:"
+
+# ../printercfg.c:1203 ../printercfg.c:1232
+#: ../textw/userauth.py:260
+msgid "NIS Server:"
+msgstr "NIS server:"
+
+#: ../textw/userauth.py:262
+msgid "or use:"
+msgstr "ili koristi:"
+
+#: ../textw/userauth.py:265
+msgid "Request server via broadcast"
+msgstr "Zahtevaj server preko 'broadcast'-a"
 
 # ../fs.c:112 ../fs.c:118 ../fs.c:126 ../fs.c:141 ../fs.c:149 ../fsedit.c:215
 # ../fsedit.c:222 ../fsedit.c:229 ../fsedit.c:238 ../fsedit.c:250
@@ -1437,15 +1734,6 @@ msgstr "Da li ste sigurni da hoæete da uklonite ovu particiju?"
 #: ../libfdisk/newtfsedit.c:273 ../libfdisk/newtfsedit.c:275
 msgid "Edit Partition"
 msgstr "Uredi particiju"
-
-# ../earlymethods.c:631 ../fs.c:220 ../fsedit.c:818 ../fsedit.c:1893
-# ../fsedit.c:2684 ../latemethods.c:194 ../latemethods.c:589
-# ../latemethods.c:900 ../lilo.c:139 ../mtab.c:91 ../pkgs.c:374
-#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
-#: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
-#: ../libfdisk/newtfsedit.c:1501
-msgid "Cancel"
-msgstr "Obustavi"
 
 # ../fsedit.c:854
 #: ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
@@ -1949,7 +2237,7 @@ msgstr "Parametri kernela"
 #: ../loader/devices.c:54
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
-"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
 
@@ -1996,10 +2284,22 @@ msgid "Error on line %d of kickstart file %s."
 msgstr "Gre¹ka u liniji %d fajla za brzi poèetak %s."
 
 # ../pkgs.c:1031
-#: ../loader/lang.c:232
+#: ../loader/lang.c:245
 #, fuzzy
 msgid "Choose a Language"
 msgstr "Izaberite server"
+
+# ../kbd.c:167
+#: ../loader/lang.c:501
+#, fuzzy
+msgid "Keyboard Type"
+msgstr "Izbor tastature"
+
+# ../printercfg.c:484
+#: ../loader/lang.c:502
+#, fuzzy
+msgid "What type of keyboard do you have?"
+msgstr "Koju vrstu ¹tampaèa imate?"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
@@ -2046,11 +2346,6 @@ msgid "I have found the following devices in your system:"
 msgstr ""
 "Na¹ao sam sledeæe tipove SCSI adaptera u va¹em sistemu:\n"
 "\n"
-
-# ../hd.c:280 ../install2.c:1470 ../pkgs.c:1011
-#: ../loader/loader.c:287 ../loader/loader.c:311
-msgid "Done"
-msgstr "Uradjeno"
 
 # ../lilo.c:335
 #: ../loader/loader.c:287 ../loader/loader.c:311
@@ -2113,72 +2408,72 @@ msgid "Directory holding Red Hat:"
 msgstr "Direktorijum sa Red Hatom:"
 
 # ../latemethods.c:219
-#: ../loader/loader.c:622
+#: ../loader/loader.c:620
 msgid "Select Partition"
 msgstr "Izaberite particiju"
 
 # ../latemethods.c:275
-#: ../loader/loader.c:666
+#: ../loader/loader.c:664
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Izgleda da ureðaj %s ne sadr¾i Red Hat-ovo instalaciono stablo."
 
-#: ../loader/loader.c:711
+#: ../loader/loader.c:709
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
-"insert the Red Hat CD and press \"Ok\" to retry."
+"insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 
 # ../earlymethods.c:540 ../latemethods.c:855
-#: ../loader/loader.c:844
+#: ../loader/loader.c:842
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Izgleda da taj direktorijum ne sadr¾i Red Hat instalaciono stablo."
 
 # ../earlymethods.c:535
-#: ../loader/loader.c:849
+#: ../loader/loader.c:847
 msgid "I could not mount that directory from the server"
 msgstr "Nisam mogao da montiram taj direktorijum na serveru"
 
-#: ../loader/loader.c:934
+#: ../loader/loader.c:932
 msgid "FTP"
 msgstr ""
 
 # ../lilo.c:35
-#: ../loader/loader.c:935
+#: ../loader/loader.c:933
 #, fuzzy
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Gre¹ka kod èitanja ramdisk-a druge faze. "
 
-#: ../loader/loader.c:1038
+#: ../loader/loader.c:1057
 msgid "Rescue Method"
 msgstr ""
 
 # ../earlymethods.c:232
-#: ../loader/loader.c:1039
+#: ../loader/loader.c:1058
 msgid "Installation Method"
 msgstr "Naèin instalacije"
 
-#: ../loader/loader.c:1041
+#: ../loader/loader.c:1060
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
 # ../earlymethods.c:207
-#: ../loader/loader.c:1043
+#: ../loader/loader.c:1062
 #, fuzzy
 msgid "What type of media contains the packages to be installed?"
 msgstr "Kakav tip sistema biste ¾eleli da instalirate?"
 
 # ../install.c:392
-#: ../loader/loader.c:1357
+#: ../loader/loader.c:1388
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Ne mogu da naðem ks.cfg na startnoj disketi."
 
-#: ../loader/loader.c:1466
+#: ../loader/loader.c:1500
 msgid "PC Card"
 msgstr ""
 
 # ../cdrom.c:145
-#: ../loader/loader.c:1466
+#: ../loader/loader.c:1500
 #, fuzzy
 msgid "Initializing PC Card Devices..."
 msgstr "Inicijalizujem CDROM..."
@@ -2427,11 +2722,6 @@ msgstr ""
 msgid "Account name:"
 msgstr "Ime naloga"
 
-# ../install2.c:597 ../latemethods.c:577 ../printercfg.c:1058
-#: ../loader/urls.c:298
-msgid "Password:"
-msgstr "Lozinka:"
-
 # ../latemethods.c:580
 #: ../loader/urls.c:303
 msgid "FTP Proxy:"
@@ -2458,169 +2748,13 @@ msgstr "HTTP proksi port:"
 msgid "Loading SCSI driver"
 msgstr "Uèitavanje disk sa drajverima..."
 
-# ../install2.c:612
-#~ msgid ""
-#~ "Pick a root password. You must type it twice to ensure you know what it is "
-#~ "and didn't make a mistake in typing. Remember that the root password is a "
-#~ "critical part of system security!"
-#~ msgstr ""
-#~ "Izaberite root lozinku. Morate je otkucati dvaput da biste utvrdili da nema "
-#~ "gre¹aka u kucanju, a i da znate kako glasi. Zapamtite da je root lozinka "
-#~ "bitan deo sigurnosti sistema!"
+# ../mtab.c:106
+#~ msgid "Root Partition Selection"
+#~ msgstr "Izbor 'root' particije"
 
-# ../install2.c:600
-#~ msgid "Password (again):"
-#~ msgstr "Lozinka (opet):"
-
-# ../install2.c:643 ../install2.c:653
-#~ msgid "Password Length"
-#~ msgstr "Du¾ina lozinke"
-
-# ../install2.c:654
-#~ msgid "The root password must be at least 6 characters long."
-#~ msgstr "Root lozinka mora imati najmanje 6 znakova."
-
-# ../install2.c:643 ../install2.c:653
-#~ msgid "Password Mismatch"
-#~ msgstr "Nepodudarnost lozinki"
-
-# ../install2.c:644
-#~ msgid "The passwords you entered were different. Please try again."
-#~ msgstr "Lozinke koje ste uneli se razlikuju. Molim poku¹ajte opet."
-
-# ../fsedit.c:1705 ../fsedit.c:1713 ../hd.c:280 ../lilo.c:391 ../pkgs.c:1011
-#~ msgid "Edit User"
-#~ msgstr "A¾uriranje korisnika"
-
-# ../printercfg.c:1151
-#~ msgid "Add User"
-#~ msgstr "Dodavanje korisnika"
-
-# ../printercfg.c:1205 ../printercfg.c:1243
-#~ msgid "User ID"
-#~ msgstr "Korisnikov ID:"
-
-# ../install2.c:654
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Lozinka mora imati najmanje 6 znakova."
-
-# ../printercfg.c:1057
-#~ msgid "User name"
-#~ msgstr "Korisnièko ime"
-
-# ../install2.c:627
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Kori¹æenje 'shadow' lozinki"
-
-# ../net.c:1131
-#~ msgid "NIS Domain:"
-#~ msgstr "NIS domen:"
-
-# ../printercfg.c:1203 ../printercfg.c:1232
-#~ msgid "NIS Server:"
-#~ msgstr "NIS server:"
-
-# ../install2.c:282
-#~ msgid "Disk Setup"
-#~ msgstr "Pode¹avanje diska"
-
-# ../install2.c:284
-#~ msgid ""
-#~ "Disk Druid is a tool for partitioning and setting up mount points. It is "
-#~ "designed to be easier to use than Linux's traditional disk partitioning "
-#~ "sofware, fdisk, as well as more powerful. However, there are some cases "
-#~ "where fdisk may be preferred.\n"
-#~ "\n"
-#~ "Which tool would you like to use?"
-#~ msgstr ""
-#~ "Disk-èarobnjak je alat za particionisanje i pode¹avanje taèaka montiranja. "
-#~ "Napravljen je da bude lak¹i za kori¹æenje od Linux-ovog tradicionalnog "
-#~ "alata, fdiska, a i moæniji je. Meðutim, u nekim sluèajevima kori¹æenje "
-#~ "fdiska mo¾e biti bolja odluka.\n"
-#~ "\n"
-#~ "Koji alat biste hteli da koristite?"
-
-# ../install2.c:282
-#~ msgid "Disk Druid"
-#~ msgstr "Disk-èarobnjak"
-
-# ../hd.c:249
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux. We suggest placing that partition on one of the first "
-#~ "two hard drives in your system so you can boot into Linux with LILO."
-#~ msgstr ""
-#~ "Da biste instalirali Red Hat Linux, morate imati najmanje jednu particiju od "
-#~ "150 MB posveæenu Linux-u. Preporuèujemo da particija bude na jednom od prva "
-#~ "dva hard-diska da biste mogli da pokrenete Linux sa LILO-m."
-
-# ../mkswap.c:339
-#~ msgid "Continue"
-#~ msgstr "Nastavak"
-
-# ../fs.c:349
-#~ msgid ""
-#~ "What partitions would you like to format? We strongly suggest formatting all "
-#~ "of the system partitions, including /, /usr, and /var. There is no need to "
-#~ "format /home or /usr/local if they have already been configured during a "
-#~ "previous install."
-#~ msgstr ""
-#~ "Koje particije biste hteli da formatirate? Toplo preporuèujemo da "
-#~ "formatirate SVE sistemske particije, ukljuèujuæi /, /usr i /var. Nema "
-#~ "potrebe da formatirate /home ili /usr/local ako su bile pode¹ene u "
-#~ "prethodnoj instalaciji."
-
-# ../fs.c:389 ../mkswap.c:407
-#~ msgid "Check for bad blocks during format"
-#~ msgstr "Provera lo¹ih blokova tokom formatiranja"
-
-# ../install2.c:172
-#~ msgid "Choose Partitions to Format"
-#~ msgstr "Izaberite particije za formatiranje"
-
-# ../pkgs.c:678
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you have "
-#~ "not selected. If you just select Ok all of those required packages will be "
-#~ "installed."
-#~ msgstr ""
-#~ "Neki paketi koje ste odabrali da instalirate zahtevaju druge pakete koje "
-#~ "niste odabrali. Ako odaberete 'U redu' svi potrebni paketi æe biti "
-#~ "instalirani."
-
-# ../lilo.c:485
-#~ msgid ""
-#~ "A few systems will need to pass special options to the kernel at boot time "
-#~ "for the system to function properly. If you need to pass boot options to the "
-#~ "kernel, enter them now. If you don't need any or aren't sure, leave this "
-#~ "blank."
-#~ msgstr ""
-#~ "Neki sistemi moraju da proslede specijalne opcije kernelu na poèetku da bi "
-#~ "sistem ispravno radio. Ako su i vama potrebne neke od tih opcija, unesite ih "
-#~ "sada. Ako vam nijedna nije potrebna ili niste sigurni ¹ta da otkucate, "
-#~ "ostavite ovo polje prazno."
-
-# ../lilo.c:72
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Gde biste da instalirate starter?"
-
-# ../lilo.c:138
-#~ msgid "Clear"
-#~ msgstr "Oèisti"
-
-# ../lilo.c:148
-#~ msgid "Edit Boot Label"
-#~ msgstr "Promena startne labele"
-
-# ../lilo.c:324
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
-#~ "need to tell me what partitions you would like to be able to boot and what "
-#~ "label you want to use for each of them."
-#~ msgstr ""
-#~ "Startni menad¾er koji koristi Red Hat mo¾e da pokrene i druge operativne "
-#~ "sisteme. Morate mi reæi koje particije biste da pokrenete i koje oznake da "
-#~ "koristim za svaku od njih."
+# ../install.c:378
+#~ msgid "Welcome to Red Hat Linux!"
+#~ msgstr "Dobrodo¹li u Red Hat Linux"
 
 # ../fsedit.c:2684 ../fsedit.c:2687
 #~ msgid "Warning"
@@ -3651,10 +3785,6 @@ msgstr "Uèitavanje disk sa drajverima..."
 #~ msgid "<F1> will give you information on a particular printer type"
 #~ msgstr "<F1> æe vam prikazati informacije o specifiènom tipu ¹tampaèa"
 
-# ../printercfg.c:484
-#~ msgid "What type of printer do you have?"
-#~ msgstr "Koju vrstu ¹tampaèa imate?"
-
 # ../printercfg.c:517 ../printercfg.c:1135
 #~ msgid "Configure Printer"
 #~ msgstr "Pode¹avanje printera"
@@ -3828,10 +3958,6 @@ msgstr "Uèitavanje disk sa drajverima..."
 #~ msgid "Would you like to add another printer?"
 #~ msgstr "Da li biste da dodate jo¹ jedan ¹tampaè?"
 
-# ../printercfg.c:1179
-#~ msgid "Select Printer Connection"
-#~ msgstr "Izbor povezanosti ¹tampaèa"
-
 # ../printercfg.c:1180
 #~ msgid "How is this printer connected?"
 #~ msgstr "Kako je ovaj ¹tampaè povezan?"
@@ -4001,42 +4127,3 @@ msgstr "Uèitavanje disk sa drajverima..."
 #~ "Would you like to install or configure the SILO bootloader on your system?"
 #~ msgstr ""
 #~ "Da li biste da instalirate ili podesite SILO starter na va¹em sistemu?"
-
-#~ msgid "User Exists"
-#~ msgstr "Korisnik postoji"
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Ovo ime korisnika veæ postoji. Izaberite drugo."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. By "
-#~ "not using the root account casually, you'll reduce the chance of disrupting "
-#~ "your system's configuration."
-#~ msgstr ""
-#~ "Trebalo bi da koristite obièan korisnièki nalog za svakodnevan rad na "
-#~ "sistemu. Izbegavanjem kori¹æenja 'root' naloga smanjujete moguænost da ne¹to "
-#~ "o¹tetite na sistemu."
-
-#~ msgid ""
-#~ "What user account would you like to have on the system? You should have at "
-#~ "least one non-root account for normal work, but multi-user systems can have "
-#~ "any number of accounts set up."
-#~ msgstr ""
-#~ "Kakav korisnièki nalog biste ¾eleli da imate na sistemu? Trebalo bi da imate "
-#~ "najmanje jedan ne-root nalog za svakodnevan rad, ali vi¹ekorisnièki sistemi "
-#~ "mogu da imaju ma koliko naloga."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "Unesi podatke za korisnika."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "Promeni podatke za ovog korisnika."
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Omoguæi MD5 lozinke"
-
-#~ msgid "or use:"
-#~ msgstr "ili koristi:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Zahtevaj server preko 'broadcast'-a"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 6.0\n"
-"POT-Creation-Date: 1999-09-12 13:09-0400\n"
+"POT-Creation-Date: 1999-09-13 14:19-0400\n"
 "PO-Revision-Date: 1999-09-08 17:08+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -21,10 +21,24 @@ msgstr "Valg av språk"
 msgid "What language would you like to use during the installation process?"
 msgstr "Hvilket språk ønsker du å bruke under installasjonen?"
 
-#: ../text.py:42 ../text.py:90 ../text.py:141 ../text.py:167 ../text.py:208
-#: ../text.py:253 ../text.py:343 ../text.py:363 ../text.py:394 ../text.py:435
-#: ../text.py:457 ../text.py:522 ../text.py:542 ../text.py:554 ../text.py:566
-#: ../text.py:744 ../text.py:787 ../text.py:791
+#: ../loader/cdrom.c:34 ../loader/devices.c:58 ../loader/devices.c:134
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+#: ../loader/lang.c:247 ../loader/lang.c:503 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:608
+#: ../loader/loader.c:663 ../loader/loader.c:708 ../loader/loader.c:841
+#: ../loader/loader.c:846 ../loader/loader.c:932 ../loader/loader.c:1065
+#: ../loader/loader.c:1387 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:42 ../text.py:90
+#: ../text.py:141 ../text.py:167 ../text.py:208 ../text.py:253 ../text.py:343
+#: ../text.py:363 ../text.py:394 ../text.py:435 ../text.py:457 ../text.py:522
+#: ../text.py:542 ../text.py:554 ../text.py:566 ../text.py:744 ../text.py:787
+#: ../text.py:791 ../textw/lilo.py:20 ../textw/lilo.py:64
+#: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
+#: ../textw/partitioning.py:172 ../textw/userauth.py:31
+#: ../textw/userauth.py:45 ../textw/userauth.py:50 ../textw/userauth.py:84
+#: ../textw/userauth.py:96 ../textw/userauth.py:104 ../textw/userauth.py:113
+#: ../textw/userauth.py:174 ../textw/userauth.py:246
 msgid "OK"
 msgstr "OK"
 
@@ -44,7 +58,7 @@ msgstr "/dev/ttyS2 (COM3 i DOS)"
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 i DOS)"
 
-#: ../iw/lilo.py:174 ../text.py:72
+#: ../iw/lilo.py:174 ../text.py:72 ../textw/lilo.py:77 ../textw/lilo.py:135
 msgid "Device"
 msgstr "Enhet"
 
@@ -70,29 +84,30 @@ msgstr "Hvilken enhet er musen plassert på? %s %i"
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
-#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
-#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
-#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
-#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
-#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
-#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../textw/constants.py:10 ../textw/lilo.py:82 ../textw/lilo.py:95
+#: ../textw/lilo.py:150
 msgid "Ok"
 msgstr "Ok"
 
-#: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
+#: ../gui.py:316 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
 #: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
-#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
-#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
-#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
-#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
-#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
-#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
-#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
-#: ../text.py:744 ../text.py:766
+#: ../loader/devices.c:134 ../loader/lang.c:503 ../loader/loader.c:239
+#: ../loader/loader.c:572 ../loader/loader.c:608 ../loader/loader.c:708
+#: ../loader/loader.c:1065 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74 ../text.py:75
+#: ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167
+#: ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231
+#: ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396
+#: ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457
+#: ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744
+#: ../text.py:766 ../textw/constants.py:10 ../textw/lilo.py:21
+#: ../textw/lilo.py:64 ../textw/lilo.py:71 ../textw/lilo.py:151
+#: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
+#: ../textw/packages.py:147 ../textw/partitioning.py:26
+#: ../textw/partitioning.py:63 ../textw/partitioning.py:172
+#: ../textw/userauth.py:31 ../textw/userauth.py:143 ../textw/userauth.py:174
+#: ../textw/userauth.py:246
 msgid "Back"
 msgstr "Tilbake"
 
@@ -145,8 +160,8 @@ msgid "What type of system would you like to install?"
 msgstr "Hvilken type installasjon ønsker du?"
 
 #: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
-#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
-#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/loader.c:663 ../loader/loader.c:708 ../loader/loader.c:841
+#: ../loader/loader.c:846 ../loader/loader.c:1387 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr "Feil"
@@ -183,7 +198,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
 #: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
-#: ../text.py:229 ../text.py:415 ../text.py:418
+#: ../text.py:229 ../text.py:415 ../text.py:418 ../textw/partitioning.py:135
 msgid "Yes"
 msgstr "Ja"
 
@@ -193,7 +208,7 @@ msgstr "Ja"
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
 #: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
-#: ../text.py:234 ../text.py:415 ../text.py:421
+#: ../text.py:234 ../text.py:415 ../text.py:421 ../textw/partitioning.py:135
 msgid "No"
 msgstr "Nei"
 
@@ -267,7 +282,7 @@ msgstr ""
 "Vertsnavnet er navnet på din datamaskin.  Hvis datamaskinen er tilknyttet et "
 "nettverk, er det mulig at dette oppgis av din nettverksadministrator."
 
-#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
+#: ../iw/network.py:187 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr "Vertsnavn"
 
@@ -365,6 +380,7 @@ msgstr ""
 "disketten vil bli slettet under oppretting av oppstartsdisketten."
 
 #: ../text.py:554 ../text.py:555 ../text.py:566 ../text.py:567
+#: ../textw/lilo.py:20
 msgid "Skip"
 msgstr "Hopp over"
 
@@ -470,7 +486,8 @@ msgstr "<Swap>"
 msgid "Filesystem Formatting"
 msgstr "Formatering av filsystem"
 
-#: ../text.py:840 ../text.py:842 ../text.py:844
+#: ../text.py:840 ../text.py:842 ../text.py:844 ../textw/lilo.py:23
+#: ../textw/lilo.py:61 ../textw/lilo.py:158
 msgid "LILO Configuration"
 msgstr "LILO-konfigurasjon"
 
@@ -490,11 +507,11 @@ msgstr "Konfigurasjon av mus"
 msgid "Time Zone Setup"
 msgstr "Oppsett av tidssone"
 
-#: ../text.py:856
+#: ../text.py:856 ../textw/userauth.py:10
 msgid "Root Password"
 msgstr "Root-passord"
 
-#: ../text.py:858
+#: ../text.py:858 ../textw/userauth.py:150
 msgid "User Account Setup"
 msgstr "Oppsett av brukerkonto"
 
@@ -510,7 +527,7 @@ msgstr "Pakkegrupper"
 msgid "Individual Packages"
 msgstr "Individuelle pakker"
 
-#: ../text.py:866
+#: ../text.py:866 ../textw/packages.py:116
 msgid "Package Dependencies"
 msgstr "Pakkeavhengigheter"
 
@@ -550,23 +567,23 @@ msgstr "Oppgradér system"
 msgid "Upgrade Complete"
 msgstr "Oppgradéring ferdig"
 
-#: ../gui.py:306
+#: ../gui.py:310
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux installasjon"
 
-#: ../gui.py:315
+#: ../gui.py:319
 msgid "Finish"
 msgstr "Fullfør"
 
-#: ../gui.py:316
+#: ../gui.py:320
 msgid "Hide Help"
 msgstr "Skjul hjelp"
 
-#: ../gui.py:317
+#: ../gui.py:321
 msgid "Show Help"
 msgstr "Vis hjelp"
 
-#: ../gui.py:338
+#: ../gui.py:343
 msgid "Online Help"
 msgstr "Online hjelp"
 
@@ -574,49 +591,51 @@ msgstr "Online hjelp"
 msgid "Account Configuration"
 msgstr "Konfigurasjon av kontoer"
 
-#: ../iw/account.py:115
+#: ../iw/account.py:121
 msgid "Root Password: "
 msgstr "Passord for root: "
 
-#: ../iw/account.py:116
+#: ../iw/account.py:124
 msgid "Confirm: "
 msgstr "Bekreft: "
 
-#: ../iw/account.py:164 ../iw/account.py:192
+#: ../iw/account.py:175 ../iw/account.py:218
 msgid "Account Name"
 msgstr "Kontonavn"
 
-#: ../iw/account.py:166
+#: ../iw/account.py:179 ../textw/userauth.py:82
 msgid "Password"
 msgstr "Passord"
 
-#: ../iw/account.py:168
+#: ../iw/account.py:183 ../textw/userauth.py:83
 msgid "Password (confirm)"
 msgstr "Passord (bekreft)"
 
-#: ../iw/account.py:171 ../iw/account.py:192
+#: ../iw/account.py:187 ../iw/account.py:218 ../textw/userauth.py:81
+#: ../textw/userauth.py:162
 msgid "Full Name"
 msgstr "Fullt navn"
 
-#: ../iw/account.py:178 ../libfdisk/newtfsedit.c:1303
+#: ../iw/account.py:196 ../libfdisk/newtfsedit.c:1303 ../textw/userauth.py:173
 msgid "Add"
 msgstr "Legg til"
 
-#: ../iw/account.py:180 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304
+#: ../iw/account.py:198 ../libfdisk/newtfsedit.c:1296
+#: ../libfdisk/newtfsedit.c:1304 ../textw/lilo.py:150 ../textw/lilo.py:171
+#: ../textw/partitioning.py:62 ../textw/userauth.py:174
 msgid "Edit"
 msgstr "Rediger"
 
-#: ../iw/account.py:182 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304
+#: ../iw/account.py:200 ../libfdisk/newtfsedit.c:1296
+#: ../libfdisk/newtfsedit.c:1304 ../textw/userauth.py:173
 msgid "Delete"
 msgstr "Slett"
 
-#: ../iw/account.py:184
+#: ../iw/account.py:202
 msgid "New"
 msgstr "Ny"
 
-#: ../iw/auth.py:11
+#: ../iw/auth.py:11 ../textw/userauth.py:248
 msgid "Authentication Configuration"
 msgstr "Konfigurasjon av autentisering"
 
@@ -628,7 +647,7 @@ msgstr "Bruk MD5 passord"
 msgid "Enable shadow passwords"
 msgstr "Bruk skyggepassord"
 
-#: ../iw/auth.py:53
+#: ../iw/auth.py:53 ../textw/userauth.py:253
 msgid "Enable NIS"
 msgstr "Bruk NIS"
 
@@ -664,15 +683,15 @@ msgstr "Avslutt"
 msgid "Unresolved Dependencies"
 msgstr "Uløste avhengigheter"
 
-#: ../iw/dependencies.py:29 ../iw/progress.py:113
+#: ../iw/dependencies.py:29 ../iw/progress.py:113 ../textw/packages.py:123
 msgid "Package"
 msgstr "Pakke"
 
-#: ../iw/dependencies.py:29
+#: ../iw/dependencies.py:29 ../textw/packages.py:123
 msgid "Requirement"
 msgstr "Avhengighet"
 
-#: ../iw/dependencies.py:36
+#: ../iw/dependencies.py:36 ../textw/packages.py:135
 msgid "Install packages to satisfy dependencies"
 msgstr "Installer pakker for å tilfredstille avhengigheter"
 
@@ -692,6 +711,16 @@ msgstr ""
 msgid "Customize packages to be upgraded"
 msgstr "Velg pakker som skal oppgraderes"
 
+#: ../iw/fdisk.py:11 ../textw/partitioning.py:25
+#, fuzzy
+msgid "fdisk"
+msgstr "Oppstartsdiskett"
+
+#: ../iw/fdisk.py:42
+#, fuzzy
+msgid "Select drive to run fdisk on"
+msgstr "Velg skriverforbindelse"
+
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
 msgstr "Velg partisjoner som skal formateres"
@@ -700,52 +729,56 @@ msgstr "Velg partisjoner som skal formateres"
 msgid "Check for bad blocks while formatting"
 msgstr "Sjekk etter dårlige blokker under formatering"
 
-#: ../iw/installpath.py:34
+#: ../iw/installpath.py:35
 msgid "GNOME Workstation"
 msgstr "GNOME arbeidsstasjon"
 
-#: ../iw/installpath.py:35
+#: ../iw/installpath.py:36
 msgid "KDE Workstation"
 msgstr "KDE arbeidsstasjon"
 
-#: ../iw/installpath.py:36 ../libfdisk/gnomefsedit.c:2196
+#: ../iw/installpath.py:37 ../libfdisk/gnomefsedit.c:2196
 #: ../libfdisk/gnomefsedit.c:2216
 msgid "Server"
 msgstr "Tjener"
 
-#: ../iw/installpath.py:37
+#: ../iw/installpath.py:38
 msgid "Custom"
 msgstr "Egendefinert"
 
-#: ../iw/installpath.py:73
+#: ../iw/installpath.py:74
 msgid "Install Type"
 msgstr "Type installasjon"
 
-#: ../iw/installpath.py:122
+#: ../iw/installpath.py:142
 msgid "Install"
 msgstr "Installér"
 
-#: ../iw/installpath.py:124
+#: ../iw/installpath.py:144
 msgid "Upgrade"
 msgstr "Oppgradér"
+
+#: ../iw/installpath.py:183
+msgid "Use fdisk to format drives"
+msgstr ""
 
 #: ../iw/keyboard.py:11
 msgid "Keyboard Configuration"
 msgstr "Konfigurasjon av tastatur"
 
-#: ../iw/keyboard.py:27
+#: ../iw/keyboard.py:35
 msgid "Model"
 msgstr "Modell"
 
-#: ../iw/keyboard.py:39
+#: ../iw/keyboard.py:47
 msgid "Layout"
 msgstr ""
 
-#: ../iw/keyboard.py:53
+#: ../iw/keyboard.py:61
 msgid "Variant"
 msgstr "Variant"
 
-#: ../iw/language.py:14 ../loader/lang.c:232
+#: ../iw/language.py:14 ../loader/lang.c:245
 msgid "What language should be used during the installation process?"
 msgstr "Hvilket språk skal brukes under installasjonen?"
 
@@ -769,7 +802,7 @@ msgstr "Master Boot Record (MBR)"
 msgid "First sector of boot partition"
 msgstr "Første sektor på oppstartspartisjonen"
 
-#: ../iw/lilo.py:141
+#: ../iw/lilo.py:141 ../textw/lilo.py:18
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Bruk lineær modus (nødvendig for noen SCSI-disker)"
 
@@ -785,55 +818,56 @@ msgstr "Lag oppstartsdiskett"
 msgid "Do not install LILO"
 msgstr "Ikke installer LILO"
 
-#: ../iw/lilo.py:174
+#: ../iw/lilo.py:174 ../textw/lilo.py:135
 msgid "Default"
 msgstr "Standard"
 
-#: ../iw/lilo.py:174
+#: ../iw/lilo.py:174 ../textw/lilo.py:135
 msgid "Partition type"
 msgstr "Partisjonstype"
 
-#: ../iw/lilo.py:174 ../iw/lilo.py:209
+#: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:78
+#: ../textw/lilo.py:135
 msgid "Boot label"
 msgstr "Oppstartsetikett"
 
-#: ../iw/network.py:127
+#: ../iw/network.py:131
 msgid "Configure using DHCP"
 msgstr "Konfigurér ved bruk av DHCP"
 
-#: ../iw/network.py:133
+#: ../iw/network.py:138
 msgid "Activate on boot"
 msgstr "Aktiver ved oppstart"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:147
 msgid "IP Address"
 msgstr "IP-adresse"
 
-#: ../iw/network.py:142 ../loader/net.c:615
+#: ../iw/network.py:147 ../loader/net.c:615
 msgid "Netmask"
 msgstr "Nettmaske"
 
-#: ../iw/network.py:142 ../loader/loader.c:226
+#: ../iw/network.py:147 ../loader/loader.c:226
 msgid "Network"
 msgstr "Nettverk"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:147
 msgid "Broadcast"
 msgstr "Kringkast"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Primary DNS"
 msgstr "Primær DNS"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Secondary DNS"
 msgstr "Sekundær DNS"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Ternary DNS"
 msgstr "Tertiær DNS"
 
@@ -861,11 +895,11 @@ msgstr "Størr.: "
 msgid "Select Package For Installation"
 msgstr "Velg pakke for installasjon"
 
-#: ../iw/package.py:377
+#: ../iw/package.py:377 ../textw/packages.py:24 ../textw/packages.py:89
 msgid "Package Group Selection"
 msgstr "Valg av pakkegruppe"
 
-#: ../iw/package.py:445
+#: ../iw/package.py:445 ../textw/packages.py:20
 msgid "Select individual packages"
 msgstr "Velg individuelle pakker"
 
@@ -909,15 +943,15 @@ msgstr "Gjenstår"
 msgid "Confirm Partitioning Selection"
 msgstr "Bekreft valg av partisjonering"
 
-#: ../iw/rootpartition.py:27
-msgid "Root Partition Selection"
-msgstr "Valg av rot-partisjon"
+#: ../iw/rootpartition.py:27 ../textw/partitioning.py:25
+msgid "Disk Druid"
+msgstr "Disk Druid"
 
-#: ../iw/rootpartition.py:86
+#: ../iw/rootpartition.py:86 ../textw/partitioning.py:97
 msgid "Automatic Partitioning"
 msgstr "Automatisk partisjonering"
 
-#: ../iw/rootpartition.py:125
+#: ../iw/rootpartition.py:125 ../textw/partitioning.py:98
 #, c-format
 msgid ""
 "%s\n"
@@ -936,7 +970,7 @@ msgstr ""
 msgid "Remove data"
 msgstr "Fjern data"
 
-#: ../iw/rootpartition.py:140
+#: ../iw/rootpartition.py:140 ../textw/partitioning.py:102
 msgid "Manually partition"
 msgstr "Manuell partisjonering"
 
@@ -959,10 +993,6 @@ msgstr "Forskyvning fra UTC"
 #: ../iw/timezone.py:152
 msgid "System clock uses UTC"
 msgstr "Systemklokken bruker UTC"
-
-#: ../iw/welcome.py:11
-msgid "Welcome to Red Hat Linux!"
-msgstr "Velkommen til Red Hat Linux!"
 
 #: ../iw/xconfig.py:9
 msgid "Video Card"
@@ -1023,6 +1053,241 @@ msgstr "Bruk grafisk pålogging"
 #: ../iw/xconfig.py:203
 msgid "Skip X Configuration"
 msgstr "Hopp over konfigurasjon av X"
+
+#: ../textw/lilo.py:12
+msgid ""
+"A few systems will need to pass special options to the kernel at boot time "
+"for the system to function properly. If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
+msgstr ""
+"For noen få systemer kan det være nødvendig å gi spesielle flagg til kjernen "
+"ved oppstart for at systemet skal fungere ordentlig. Hvis du trenger å gi "
+"oppstartsflagg til kjernen, skriv dem inn nå. Hvis du ikke trenger dette, "
+"eller ikke er sikker, kan du la dette stå tomt."
+
+#: ../textw/lilo.py:62
+msgid "Where do you want to install the bootloader?"
+msgstr "Hvor vil du installere oppstartslasteren?"
+
+#: ../textw/lilo.py:82 ../textw/lilo.py:102
+msgid "Clear"
+msgstr "Slett"
+
+#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
+#: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
+#: ../libfdisk/newtfsedit.c:1501 ../textw/lilo.py:82 ../textw/lilo.py:100
+#: ../textw/userauth.py:64
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: ../textw/lilo.py:90
+msgid "Edit Boot Label"
+msgstr "Rediger oppstartsetikett"
+
+#: ../textw/lilo.py:153
+msgid ""
+"The boot manager Red Hat uses can boot other operating systems as well. You "
+"need to tell me what partitions you would like to be able to boot and what "
+"label you want to use for each of them."
+msgstr ""
+"Oppstartslasteren som brukes av Red Hat kan starte andre operativsystemer "
+"også. Du må fortelle hvilke partisjoner du ønsker å starte andre systemer "
+"fra og hvilket navn du vil gi hver av dem."
+
+#: ../textw/packages.py:117
+msgid ""
+"Some of the packages you have selected to install require packages you have "
+"not selected. If you just select Ok all of those required packages will be "
+"installed."
+msgstr ""
+"Noen av pakkene du har valgt å installere trenger pakker som ikke er valgt. "
+"Hvis du bare velger Ok vil alle de nødvendige pakkene bli installert."
+
+#: ../textw/partitioning.py:17 ../textw/partitioning.py:56
+#, fuzzy
+msgid "Disk Setup"
+msgstr "Oppsett av nettverk"
+
+#: ../textw/partitioning.py:18
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Disk Druid er et verktøy for partisjonering og oppsett av monteringspunkter. "
+"Det er laget for å være lettere å bruke enn Linux's tradisjonelle disk- "
+"partisjoneringsprogramvare, fdisk, i tillegg til å være kraftigere. Likevel "
+"finnes det tilfeller hvor fdisk kan være å foretrekke.\n"
+"\n"
+"Hvilket verktøy vil du bruke?"
+
+#: ../textw/partitioning.py:57
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"For å installere Red Hat Linux må du ha minst én partisjon på 150 MB "
+"dedikert til Linux. Vi foreslår at du plasserer den partisjonen på en av de "
+"første to harddiskene i systemet ditt, slik at du kan bruke LILO til å "
+"starte opp Linux."
+
+#: ../loader/loader.c:287 ../loader/loader.c:311 ../textw/partitioning.py:62
+msgid "Done"
+msgstr "Ferdig"
+
+#: ../textw/partitioning.py:102 ../textw/partitioning.py:103
+msgid "Continue"
+msgstr "Fortsett"
+
+#: ../textw/partitioning.py:130
+msgid "Low Memory"
+msgstr ""
+
+#: ../textw/partitioning.py:131
+msgid ""
+"As you don't have much memory in this machine, we need to turn on swap space "
+"immediately. To do this we'll have to write your new partition table to the "
+"disk immediately. Is that okay?"
+msgstr ""
+
+#: ../textw/partitioning.py:150
+msgid ""
+"What partitions would you like to format? We strongly suggest formatting all "
+"of the system partitions, including /, /usr, and /var. There is no need to "
+"format /home or /usr/local if they have already been configured during a "
+"previous install."
+msgstr ""
+"Hvilke partisjoner ønsker du å formatere? Vi vil på det sterkeste anbefale å "
+"formatere alle systempartisjonene, inkludert /, /usr, og /var. Det er ikke "
+"nødvendig å formatere /home eller /usr/local hvis de allerede har blitt "
+"konfigurert ved en tildligere installasjon."
+
+#: ../textw/partitioning.py:170
+msgid "Check for bad blocks during format"
+msgstr "Sjekk etter dårlige blokker under formatering"
+
+#: ../textw/partitioning.py:174
+msgid "Choose Partitions to Format"
+msgstr "Velg partisjoner som skal formateres"
+
+#: ../textw/userauth.py:12
+msgid ""
+"Pick a root password. You must type it twice to ensure you know what it is "
+"and didn't make a mistake in typing. Remember that the root password is a "
+"critical part of system security!"
+msgstr ""
+"Velg et root-passord. Du må skrive det inn to ganger for å være sikker på at "
+"du vet hva det er og at du ikke gjorde en skrivefeil. Husk at root-passordet "
+"er kritisk for systemsikkerheten!"
+
+#: ../loader/urls.c:298 ../textw/userauth.py:25
+msgid "Password:"
+msgstr "Passord:"
+
+#: ../textw/userauth.py:26
+msgid "Password (again):"
+msgstr "Passord (igjen):"
+
+#: ../textw/userauth.py:42 ../textw/userauth.py:93
+msgid "Password Length"
+msgstr "Passordlengde"
+
+#: ../textw/userauth.py:43
+msgid "The root password must be at least 6 characters long."
+msgstr "Root-passordet må være minst 6 tegn langt."
+
+#: ../textw/userauth.py:47 ../textw/userauth.py:101
+msgid "Password Mismatch"
+msgstr "Passordene er ikke like"
+
+#: ../textw/userauth.py:48 ../textw/userauth.py:102
+msgid "The passwords you entered were different. Please try again."
+msgstr "Passordene du skrev inn var forskjellige. Vennligst forsøk igjen."
+
+#: ../textw/userauth.py:73
+msgid "Edit User"
+msgstr "Rediger bruker"
+
+#: ../textw/userauth.py:75
+msgid "Add User"
+msgstr "Legg til bruker"
+
+#: ../textw/userauth.py:80
+msgid "User ID"
+msgstr "Bruker-ID:"
+
+#: ../textw/userauth.py:94
+msgid "The password must be at least 6 characters long."
+msgstr "Passordet må bestå av minst 6 tegn."
+
+#: ../textw/userauth.py:111
+msgid "User Exists"
+msgstr "Brukeren eksisterer"
+
+#: ../textw/userauth.py:112
+msgid "This user id already exists.  Choose another."
+msgstr "Denne brukeren eksisterer allerede. Velg en annen."
+
+#: ../textw/userauth.py:139
+msgid ""
+"You should use a normal user account for most activities on your system. By "
+"not using the root account casually, you'll reduce the chance of disrupting "
+"your system's configuration."
+msgstr ""
+"Du bør bruk en vanlig brukerkonto for de fleste aktivitetene på systemet "
+"ditt Ved å ikke bruke root kontoen reduserer du sjansene for å ødelegge "
+"systemets konfigurasjon."
+
+#: ../textw/userauth.py:152
+msgid ""
+"What user account would you like to have on the system? You should have at "
+"least one non-root account for normal work, but multi-user systems can have "
+"any number of accounts set up."
+msgstr ""
+"Hvilken brukerkonto ønsker du å ha på systemet? Du bør ha minst en konto ved "
+"siden av root for vanlig arbeid, men flerbrukersystemer kan ha mange kontoer "
+"satt opp."
+
+#: ../textw/userauth.py:162
+msgid "User name"
+msgstr "Brukernavn"
+
+#: ../textw/userauth.py:186
+msgid "Enter the information for the user."
+msgstr "Skriv inn informasjon om brukeren."
+
+#: ../textw/userauth.py:198
+msgid "Change the information for this user."
+msgstr "Endre informasjonen om denne brukeren."
+
+#: ../textw/userauth.py:249
+msgid "Use Shadow Passwords"
+msgstr "Bruk skyggepassord"
+
+#: ../textw/userauth.py:251
+msgid "Enable MD5 Passwords"
+msgstr "Bruk MD5-passord"
+
+#: ../textw/userauth.py:258
+msgid "NIS Domain:"
+msgstr "NIS-domene:"
+
+#: ../textw/userauth.py:260
+msgid "NIS Server:"
+msgstr "NIS-tjener:"
+
+#: ../textw/userauth.py:262
+msgid "or use:"
+msgstr "eller bruk:"
+
+#: ../textw/userauth.py:265
+msgid "Request server via broadcast"
+msgstr "Forespør tjener via kringkasting"
 
 #: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
 #: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
@@ -1211,12 +1476,6 @@ msgstr "Er du sikker på at du vil slette denne partisjonen?"
 #: ../libfdisk/newtfsedit.c:273 ../libfdisk/newtfsedit.c:275
 msgid "Edit Partition"
 msgstr "Rediger partisjon"
-
-#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
-#: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
-#: ../libfdisk/newtfsedit.c:1501
-msgid "Cancel"
-msgstr "Avbryt"
 
 #: ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
 msgid "Mount Point:"
@@ -1656,7 +1915,7 @@ msgstr "Parametere for kjerne"
 #: ../loader/devices.c:54
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
-"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
 
@@ -1695,10 +1954,20 @@ msgstr "Feil under lesing av innholdet i kickstart-fil %s: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "Feil på linje %d i kickstart-fil %s."
 
-#: ../loader/lang.c:232
+#: ../loader/lang.c:245
 #, fuzzy
 msgid "Choose a Language"
 msgstr "Velg en tjener"
+
+#: ../loader/lang.c:501
+#, fuzzy
+msgid "Keyboard Type"
+msgstr "Tastaturvalg"
+
+#: ../loader/lang.c:502
+#, fuzzy
+msgid "What type of keyboard do you have?"
+msgstr "Hvilket grafikk-kort har du?"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
@@ -1741,10 +2010,6 @@ msgid "I have found the following devices in your system:"
 msgstr ""
 "Jeg har funnet følgende typer SCSI-kort på ditt system:\n"
 "\n"
-
-#: ../loader/loader.c:287 ../loader/loader.c:311
-msgid "Done"
-msgstr "Ferdig"
 
 #: ../loader/loader.c:287 ../loader/loader.c:311
 #, fuzzy
@@ -1799,66 +2064,66 @@ msgstr ""
 msgid "Directory holding Red Hat:"
 msgstr "Katalog som inneholder Red Hat:"
 
-#: ../loader/loader.c:622
+#: ../loader/loader.c:620
 #, fuzzy
 msgid "Select Partition"
 msgstr "Slett partisjon"
 
-#: ../loader/loader.c:666
+#: ../loader/loader.c:664
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Enheten %s ser ikke ut til å inneholde et Red Hat installasjonstre."
 
-#: ../loader/loader.c:711
+#: ../loader/loader.c:709
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
-"insert the Red Hat CD and press \"Ok\" to retry."
+"insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 
-#: ../loader/loader.c:844
+#: ../loader/loader.c:842
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Den katalogen ser ikke ut til å inneholde et Red Hat installasjonstre."
 
-#: ../loader/loader.c:849
+#: ../loader/loader.c:847
 msgid "I could not mount that directory from the server"
 msgstr "Klarte ikke å montere den katalogen fra tjeneren"
 
-#: ../loader/loader.c:934
+#: ../loader/loader.c:932
 msgid "FTP"
 msgstr ""
 
-#: ../loader/loader.c:935
+#: ../loader/loader.c:933
 #, fuzzy
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Kunne ikke finne ramdisk for nivå to: %s"
 
-#: ../loader/loader.c:1038
+#: ../loader/loader.c:1057
 msgid "Rescue Method"
 msgstr ""
 
-#: ../loader/loader.c:1039
+#: ../loader/loader.c:1058
 #, fuzzy
 msgid "Installation Method"
 msgstr "Installasjonstype"
 
-#: ../loader/loader.c:1041
+#: ../loader/loader.c:1060
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader/loader.c:1043
+#: ../loader/loader.c:1062
 #, fuzzy
 msgid "What type of media contains the packages to be installed?"
 msgstr "Hvilket språk skal brukes under installasjonen?"
 
-#: ../loader/loader.c:1357
+#: ../loader/loader.c:1388
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Kan ikke finne ks.cfg på oppstartsdisketten."
 
-#: ../loader/loader.c:1466
+#: ../loader/loader.c:1500
 msgid "PC Card"
 msgstr ""
 
-#: ../loader/loader.c:1466
+#: ../loader/loader.c:1500
 #, fuzzy
 msgid "Initializing PC Card Devices..."
 msgstr "Initialiserer CDROM..."
@@ -2086,10 +2351,6 @@ msgstr ""
 msgid "Account name:"
 msgstr "Kontonavn"
 
-#: ../loader/urls.c:298
-msgid "Password:"
-msgstr "Passord:"
-
 #: ../loader/urls.c:303
 msgid "FTP Proxy:"
 msgstr "FTP-proxy:"
@@ -2111,185 +2372,11 @@ msgstr "HTTP-proxy-port:"
 msgid "Loading SCSI driver"
 msgstr "Laster driverdisk..."
 
-#~ msgid ""
-#~ "Pick a root password. You must type it twice to ensure you know what it is "
-#~ "and didn't make a mistake in typing. Remember that the root password is a "
-#~ "critical part of system security!"
-#~ msgstr ""
-#~ "Velg et root-passord. Du må skrive det inn to ganger for å være sikker på at "
-#~ "du vet hva det er og at du ikke gjorde en skrivefeil. Husk at root-passordet "
-#~ "er kritisk for systemsikkerheten!"
+#~ msgid "Root Partition Selection"
+#~ msgstr "Valg av rot-partisjon"
 
-#~ msgid "Password (again):"
-#~ msgstr "Passord (igjen):"
-
-#~ msgid "Password Length"
-#~ msgstr "Passordlengde"
-
-#~ msgid "The root password must be at least 6 characters long."
-#~ msgstr "Root-passordet må være minst 6 tegn langt."
-
-#~ msgid "Password Mismatch"
-#~ msgstr "Passordene er ikke like"
-
-#~ msgid "The passwords you entered were different. Please try again."
-#~ msgstr "Passordene du skrev inn var forskjellige. Vennligst forsøk igjen."
-
-#~ msgid "Edit User"
-#~ msgstr "Rediger bruker"
-
-#~ msgid "Add User"
-#~ msgstr "Legg til bruker"
-
-#~ msgid "User ID"
-#~ msgstr "Bruker-ID:"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Passordet må bestå av minst 6 tegn."
-
-#~ msgid "User Exists"
-#~ msgstr "Brukeren eksisterer"
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Denne brukeren eksisterer allerede. Velg en annen."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. By "
-#~ "not using the root account casually, you'll reduce the chance of disrupting "
-#~ "your system's configuration."
-#~ msgstr ""
-#~ "Du bør bruk en vanlig brukerkonto for de fleste aktivitetene på systemet "
-#~ "ditt Ved å ikke bruke root kontoen reduserer du sjansene for å ødelegge "
-#~ "systemets konfigurasjon."
-
-#~ msgid ""
-#~ "What user account would you like to have on the system? You should have at "
-#~ "least one non-root account for normal work, but multi-user systems can have "
-#~ "any number of accounts set up."
-#~ msgstr ""
-#~ "Hvilken brukerkonto ønsker du å ha på systemet? Du bør ha minst en konto ved "
-#~ "siden av root for vanlig arbeid, men flerbrukersystemer kan ha mange kontoer "
-#~ "satt opp."
-
-#~ msgid "User name"
-#~ msgstr "Brukernavn"
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "Skriv inn informasjon om brukeren."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "Endre informasjonen om denne brukeren."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Bruk skyggepassord"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Bruk MD5-passord"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "NIS-domene:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "NIS-tjener:"
-
-#~ msgid "or use:"
-#~ msgstr "eller bruk:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Forespør tjener via kringkasting"
-
-#, fuzzy
-#~ msgid "Disk Setup"
-#~ msgstr "Oppsett av nettverk"
-
-#~ msgid ""
-#~ "Disk Druid is a tool for partitioning and setting up mount points. It is "
-#~ "designed to be easier to use than Linux's traditional disk partitioning "
-#~ "sofware, fdisk, as well as more powerful. However, there are some cases "
-#~ "where fdisk may be preferred.\n"
-#~ "\n"
-#~ "Which tool would you like to use?"
-#~ msgstr ""
-#~ "Disk Druid er et verktøy for partisjonering og oppsett av monteringspunkter. "
-#~ "Det er laget for å være lettere å bruke enn Linux's tradisjonelle disk- "
-#~ "partisjoneringsprogramvare, fdisk, i tillegg til å være kraftigere. Likevel "
-#~ "finnes det tilfeller hvor fdisk kan være å foretrekke.\n"
-#~ "\n"
-#~ "Hvilket verktøy vil du bruke?"
-
-#~ msgid "Disk Druid"
-#~ msgstr "Disk Druid"
-
-#, fuzzy
-#~ msgid "fdisk"
-#~ msgstr "Oppstartsdiskett"
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux. We suggest placing that partition on one of the first "
-#~ "two hard drives in your system so you can boot into Linux with LILO."
-#~ msgstr ""
-#~ "For å installere Red Hat Linux må du ha minst én partisjon på 150 MB "
-#~ "dedikert til Linux. Vi foreslår at du plasserer den partisjonen på en av de "
-#~ "første to harddiskene i systemet ditt, slik at du kan bruke LILO til å "
-#~ "starte opp Linux."
-
-#~ msgid "Continue"
-#~ msgstr "Fortsett"
-
-#~ msgid ""
-#~ "What partitions would you like to format? We strongly suggest formatting all "
-#~ "of the system partitions, including /, /usr, and /var. There is no need to "
-#~ "format /home or /usr/local if they have already been configured during a "
-#~ "previous install."
-#~ msgstr ""
-#~ "Hvilke partisjoner ønsker du å formatere? Vi vil på det sterkeste anbefale å "
-#~ "formatere alle systempartisjonene, inkludert /, /usr, og /var. Det er ikke "
-#~ "nødvendig å formatere /home eller /usr/local hvis de allerede har blitt "
-#~ "konfigurert ved en tildligere installasjon."
-
-#~ msgid "Check for bad blocks during format"
-#~ msgstr "Sjekk etter dårlige blokker under formatering"
-
-#~ msgid "Choose Partitions to Format"
-#~ msgstr "Velg partisjoner som skal formateres"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you have "
-#~ "not selected. If you just select Ok all of those required packages will be "
-#~ "installed."
-#~ msgstr ""
-#~ "Noen av pakkene du har valgt å installere trenger pakker som ikke er valgt. "
-#~ "Hvis du bare velger Ok vil alle de nødvendige pakkene bli installert."
-
-#~ msgid ""
-#~ "A few systems will need to pass special options to the kernel at boot time "
-#~ "for the system to function properly. If you need to pass boot options to the "
-#~ "kernel, enter them now. If you don't need any or aren't sure, leave this "
-#~ "blank."
-#~ msgstr ""
-#~ "For noen få systemer kan det være nødvendig å gi spesielle flagg til kjernen "
-#~ "ved oppstart for at systemet skal fungere ordentlig. Hvis du trenger å gi "
-#~ "oppstartsflagg til kjernen, skriv dem inn nå. Hvis du ikke trenger dette, "
-#~ "eller ikke er sikker, kan du la dette stå tomt."
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Hvor vil du installere oppstartslasteren?"
-
-#~ msgid "Clear"
-#~ msgstr "Slett"
-
-#~ msgid "Edit Boot Label"
-#~ msgstr "Rediger oppstartsetikett"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
-#~ "need to tell me what partitions you would like to be able to boot and what "
-#~ "label you want to use for each of them."
-#~ msgstr ""
-#~ "Oppstartslasteren som brukes av Red Hat kan starte andre operativsystemer "
-#~ "også. Du må fortelle hvilke partisjoner du ønsker å starte andre systemer "
-#~ "fra og hvilket navn du vil gi hver av dem."
+#~ msgid "Welcome to Red Hat Linux!"
+#~ msgstr "Velkommen til Red Hat Linux!"
 
 #, fuzzy
 #~ msgid "Warning"
@@ -3263,10 +3350,6 @@ msgstr "Laster driverdisk..."
 #~ msgstr "<F1> gir deg informasjon om en bestemt skrivertype"
 
 #, fuzzy
-#~ msgid "What type of printer do you have?"
-#~ msgstr "Hvilket grafikk-kort har du?"
-
-#, fuzzy
 #~ msgid "Configure Printer"
 #~ msgstr "Konfigurér ved bruk av DHCP"
 
@@ -3423,9 +3506,6 @@ msgstr "Laster driverdisk..."
 
 #~ msgid "NetWare"
 #~ msgstr "Netware"
-
-#~ msgid "Select Printer Connection"
-#~ msgstr "Velg skriverforbindelse"
 
 #~ msgid "How is this printer connected?"
 #~ msgstr "Hvordan er du koblet til denne skriveren?"

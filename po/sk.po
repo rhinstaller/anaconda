@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall unknown\n"
-"POT-Creation-Date: 1999-09-12 13:09-0400\n"
+"POT-Creation-Date: 1999-09-13 14:19-0400\n"
 "PO-Revision-Date: 1999-09-13 23:25+02:00\n"
 "Last-Translator: Stanislav Meduna <stano@eunet.sk>\n"
 "Language-Team: Slovak <sk-i18n@rak.isternet.sk>\n"
@@ -19,10 +19,24 @@ msgstr "Výber jazyka"
 msgid "What language would you like to use during the installation process?"
 msgstr "Ktorý jazyk má by» pou¾itý poèas procesu in¹talácie?"
 
-#: ../text.py:42 ../text.py:90 ../text.py:141 ../text.py:167 ../text.py:208
-#: ../text.py:253 ../text.py:343 ../text.py:363 ../text.py:394 ../text.py:435
-#: ../text.py:457 ../text.py:522 ../text.py:542 ../text.py:554 ../text.py:566
-#: ../text.py:744 ../text.py:787 ../text.py:791
+#: ../loader/cdrom.c:34 ../loader/devices.c:58 ../loader/devices.c:134
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+#: ../loader/lang.c:247 ../loader/lang.c:503 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:608
+#: ../loader/loader.c:663 ../loader/loader.c:708 ../loader/loader.c:841
+#: ../loader/loader.c:846 ../loader/loader.c:932 ../loader/loader.c:1065
+#: ../loader/loader.c:1387 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:42 ../text.py:90
+#: ../text.py:141 ../text.py:167 ../text.py:208 ../text.py:253 ../text.py:343
+#: ../text.py:363 ../text.py:394 ../text.py:435 ../text.py:457 ../text.py:522
+#: ../text.py:542 ../text.py:554 ../text.py:566 ../text.py:744 ../text.py:787
+#: ../text.py:791 ../textw/lilo.py:20 ../textw/lilo.py:64
+#: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
+#: ../textw/partitioning.py:172 ../textw/userauth.py:31
+#: ../textw/userauth.py:45 ../textw/userauth.py:50 ../textw/userauth.py:84
+#: ../textw/userauth.py:96 ../textw/userauth.py:104 ../textw/userauth.py:113
+#: ../textw/userauth.py:174 ../textw/userauth.py:246
 msgid "OK"
 msgstr "OK"
 
@@ -42,7 +56,7 @@ msgstr "/dev/ttyS2 (COM3 v DOS-e)"
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 v DOS-e)"
 
-#: ../iw/lilo.py:174 ../text.py:72
+#: ../iw/lilo.py:174 ../text.py:72 ../textw/lilo.py:77 ../textw/lilo.py:135
 msgid "Device"
 msgstr "Zariadenie"
 
@@ -68,29 +82,30 @@ msgstr "Na ktoré zariadenie je va¹a my¹ pripojená? %s %i"
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
-#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
-#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
-#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
-#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
-#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
-#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../textw/constants.py:10 ../textw/lilo.py:82 ../textw/lilo.py:95
+#: ../textw/lilo.py:150
 msgid "Ok"
 msgstr "OK"
 
-#: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
+#: ../gui.py:316 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
 #: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
-#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
-#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
-#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
-#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
-#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
-#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
-#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
-#: ../text.py:744 ../text.py:766
+#: ../loader/devices.c:134 ../loader/lang.c:503 ../loader/loader.c:239
+#: ../loader/loader.c:572 ../loader/loader.c:608 ../loader/loader.c:708
+#: ../loader/loader.c:1065 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74 ../text.py:75
+#: ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167
+#: ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231
+#: ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396
+#: ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457
+#: ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744
+#: ../text.py:766 ../textw/constants.py:10 ../textw/lilo.py:21
+#: ../textw/lilo.py:64 ../textw/lilo.py:71 ../textw/lilo.py:151
+#: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
+#: ../textw/packages.py:147 ../textw/partitioning.py:26
+#: ../textw/partitioning.py:63 ../textw/partitioning.py:172
+#: ../textw/userauth.py:31 ../textw/userauth.py:143 ../textw/userauth.py:174
+#: ../textw/userauth.py:246
 msgid "Back"
 msgstr "Spä»"
 
@@ -143,8 +158,8 @@ msgid "What type of system would you like to install?"
 msgstr "Aký typ systému si ¾eláte nain¹talova»?"
 
 #: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
-#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
-#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/loader.c:663 ../loader/loader.c:708 ../loader/loader.c:841
+#: ../loader/loader.c:846 ../loader/loader.c:1387 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr "Chyba"
@@ -181,7 +196,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
 #: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
-#: ../text.py:229 ../text.py:415 ../text.py:418
+#: ../text.py:229 ../text.py:415 ../text.py:418 ../textw/partitioning.py:135
 msgid "Yes"
 msgstr "Áno"
 
@@ -191,7 +206,7 @@ msgstr "Áno"
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
 #: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
-#: ../text.py:234 ../text.py:415 ../text.py:421
+#: ../text.py:234 ../text.py:415 ../text.py:421 ../textw/partitioning.py:135
 msgid "No"
 msgstr "Nie"
 
@@ -264,7 +279,7 @@ msgstr ""
 "Názov poèítaèa pomenováva vá¹ poèítaè. Pokiaµ je pripojený do siete, je "
 "mo¾né, ¾e názov prideµuje správca siete."
 
-#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
+#: ../iw/network.py:187 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr "Názov poèítaèa"
 
@@ -361,6 +376,7 @@ msgstr ""
 "zavádzacej diskety budú v¹etky údaje na nej vymazané."
 
 #: ../text.py:554 ../text.py:555 ../text.py:566 ../text.py:567
+#: ../textw/lilo.py:20
 msgid "Skip"
 msgstr "Vynecha»"
 
@@ -464,7 +480,8 @@ msgstr "Swap"
 msgid "Filesystem Formatting"
 msgstr "Formátuje sa súborový systém"
 
-#: ../text.py:840 ../text.py:842 ../text.py:844
+#: ../text.py:840 ../text.py:842 ../text.py:844 ../textw/lilo.py:23
+#: ../textw/lilo.py:61 ../textw/lilo.py:158
 msgid "LILO Configuration"
 msgstr "Konfigurácia LILO"
 
@@ -484,11 +501,11 @@ msgstr "Konfigurácia my¹i"
 msgid "Time Zone Setup"
 msgstr "Nastavenie èasového pásma"
 
-#: ../text.py:856
+#: ../text.py:856 ../textw/userauth.py:10
 msgid "Root Password"
 msgstr "Heslo root-a"
 
-#: ../text.py:858
+#: ../text.py:858 ../textw/userauth.py:150
 msgid "User Account Setup"
 msgstr "Nastavenie pou¾ívateµského úètu"
 
@@ -504,7 +521,7 @@ msgstr "Skupiny balíkov"
 msgid "Individual Packages"
 msgstr "Jednotlivé balíky"
 
-#: ../text.py:866
+#: ../text.py:866 ../textw/packages.py:116
 msgid "Package Dependencies"
 msgstr "Závislosti balíkov"
 
@@ -544,23 +561,23 @@ msgstr "Aktualizácia systému"
 msgid "Upgrade Complete"
 msgstr "Aktualizácia ukonèená"
 
-#: ../gui.py:306
+#: ../gui.py:310
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux in¹talátor"
 
-#: ../gui.py:315
+#: ../gui.py:319
 msgid "Finish"
 msgstr "Ukonèenie"
 
-#: ../gui.py:316
+#: ../gui.py:320
 msgid "Hide Help"
 msgstr "Skry» pomôcky"
 
-#: ../gui.py:317
+#: ../gui.py:321
 msgid "Show Help"
 msgstr "Zobrazi» pomôcky"
 
-#: ../gui.py:338
+#: ../gui.py:343
 msgid "Online Help"
 msgstr "Online pomôcky"
 
@@ -568,49 +585,51 @@ msgstr "Online pomôcky"
 msgid "Account Configuration"
 msgstr "Konfigurácia úètov"
 
-#: ../iw/account.py:115
+#: ../iw/account.py:121
 msgid "Root Password: "
 msgstr "Heslo root-a: "
 
-#: ../iw/account.py:116
+#: ../iw/account.py:124
 msgid "Confirm: "
 msgstr "Znovu: "
 
-#: ../iw/account.py:164 ../iw/account.py:192
+#: ../iw/account.py:175 ../iw/account.py:218
 msgid "Account Name"
 msgstr "Názov úètu"
 
-#: ../iw/account.py:166
+#: ../iw/account.py:179 ../textw/userauth.py:82
 msgid "Password"
 msgstr "Heslo"
 
-#: ../iw/account.py:168
+#: ../iw/account.py:183 ../textw/userauth.py:83
 msgid "Password (confirm)"
 msgstr "Heslo (znovu)"
 
-#: ../iw/account.py:171 ../iw/account.py:192
+#: ../iw/account.py:187 ../iw/account.py:218 ../textw/userauth.py:81
+#: ../textw/userauth.py:162
 msgid "Full Name"
 msgstr "Úplné meno"
 
-#: ../iw/account.py:178 ../libfdisk/newtfsedit.c:1303
+#: ../iw/account.py:196 ../libfdisk/newtfsedit.c:1303 ../textw/userauth.py:173
 msgid "Add"
 msgstr "Prida»"
 
-#: ../iw/account.py:180 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304
+#: ../iw/account.py:198 ../libfdisk/newtfsedit.c:1296
+#: ../libfdisk/newtfsedit.c:1304 ../textw/lilo.py:150 ../textw/lilo.py:171
+#: ../textw/partitioning.py:62 ../textw/userauth.py:174
 msgid "Edit"
 msgstr "Upravi»"
 
-#: ../iw/account.py:182 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304
+#: ../iw/account.py:200 ../libfdisk/newtfsedit.c:1296
+#: ../libfdisk/newtfsedit.c:1304 ../textw/userauth.py:173
 msgid "Delete"
 msgstr "Zru¹i»"
 
-#: ../iw/account.py:184
+#: ../iw/account.py:202
 msgid "New"
 msgstr "Nový"
 
-#: ../iw/auth.py:11
+#: ../iw/auth.py:11 ../textw/userauth.py:248
 msgid "Authentication Configuration"
 msgstr "Konfigurácia autentifikácie"
 
@@ -622,7 +641,7 @@ msgstr "Povoli» MD5 heslá"
 msgid "Enable shadow passwords"
 msgstr "Povoli» shadow heslá"
 
-#: ../iw/auth.py:53
+#: ../iw/auth.py:53 ../textw/userauth.py:253
 msgid "Enable NIS"
 msgstr "Povoli» NIS"
 
@@ -658,15 +677,15 @@ msgstr "Ukonèi»"
 msgid "Unresolved Dependencies"
 msgstr "Nevyrie¹ené závislosti"
 
-#: ../iw/dependencies.py:29 ../iw/progress.py:113
+#: ../iw/dependencies.py:29 ../iw/progress.py:113 ../textw/packages.py:123
 msgid "Package"
 msgstr "Balík"
 
-#: ../iw/dependencies.py:29
+#: ../iw/dependencies.py:29 ../textw/packages.py:123
 msgid "Requirement"
 msgstr "Vy¾aduje"
 
-#: ../iw/dependencies.py:36
+#: ../iw/dependencies.py:36 ../textw/packages.py:135
 msgid "Install packages to satisfy dependencies"
 msgstr "In¹taluj balíky pre vyrie¹enie závislostí"
 
@@ -686,6 +705,16 @@ msgstr ""
 msgid "Customize packages to be upgraded"
 msgstr "Výber balíkov pre aktualizáciu"
 
+#: ../iw/fdisk.py:11 ../textw/partitioning.py:25
+#, fuzzy
+msgid "fdisk"
+msgstr "Zavádzacia disketa"
+
+#: ../iw/fdisk.py:42
+#, fuzzy
+msgid "Select drive to run fdisk on"
+msgstr "Výber oddielu"
+
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
 msgstr "Výber oddielov pre formátovanie"
@@ -694,52 +723,56 @@ msgstr "Výber oddielov pre formátovanie"
 msgid "Check for bad blocks while formatting"
 msgstr "Poèas formátovania kontrolova» na chybné bloky"
 
-#: ../iw/installpath.py:34
+#: ../iw/installpath.py:35
 msgid "GNOME Workstation"
 msgstr "Pracovná stanica GNOME"
 
-#: ../iw/installpath.py:35
+#: ../iw/installpath.py:36
 msgid "KDE Workstation"
 msgstr "Pracovná stanica KDE"
 
-#: ../iw/installpath.py:36 ../libfdisk/gnomefsedit.c:2196
+#: ../iw/installpath.py:37 ../libfdisk/gnomefsedit.c:2196
 #: ../libfdisk/gnomefsedit.c:2216
 msgid "Server"
 msgstr "Server"
 
-#: ../iw/installpath.py:37
+#: ../iw/installpath.py:38
 msgid "Custom"
 msgstr "Vlastný výber"
 
-#: ../iw/installpath.py:73
+#: ../iw/installpath.py:74
 msgid "Install Type"
 msgstr "Typ in¹talácie"
 
-#: ../iw/installpath.py:122
+#: ../iw/installpath.py:142
 msgid "Install"
 msgstr "In¹talácia"
 
-#: ../iw/installpath.py:124
+#: ../iw/installpath.py:144
 msgid "Upgrade"
 msgstr "Aktualizácia"
+
+#: ../iw/installpath.py:183
+msgid "Use fdisk to format drives"
+msgstr ""
 
 #: ../iw/keyboard.py:11
 msgid "Keyboard Configuration"
 msgstr "Konfigurácia klávesnice"
 
-#: ../iw/keyboard.py:27
+#: ../iw/keyboard.py:35
 msgid "Model"
 msgstr "Model"
 
-#: ../iw/keyboard.py:39
+#: ../iw/keyboard.py:47
 msgid "Layout"
 msgstr "Rozlo¾enie"
 
-#: ../iw/keyboard.py:53
+#: ../iw/keyboard.py:61
 msgid "Variant"
 msgstr "Varianta"
 
-#: ../iw/language.py:14 ../loader/lang.c:232
+#: ../iw/language.py:14 ../loader/lang.c:245
 msgid "What language should be used during the installation process?"
 msgstr "Ktorý jazyk má by» pou¾itý poèas procesu in¹talácie?"
 
@@ -763,7 +796,7 @@ msgstr "Hlavný zavádzaè (MBR)"
 msgid "First sector of boot partition"
 msgstr "Prvý sektor zavádzacieho oddielu"
 
-#: ../iw/lilo.py:141
+#: ../iw/lilo.py:141 ../textw/lilo.py:18
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Pou¾itie lineárneho módu (potrebné pre niektoré SCSI jednotky)"
 
@@ -779,55 +812,56 @@ msgstr "Vytvorenie zavádzacej diskety"
 msgid "Do not install LILO"
 msgstr "Nein¹talova» LILO"
 
-#: ../iw/lilo.py:174
+#: ../iw/lilo.py:174 ../textw/lilo.py:135
 msgid "Default"
 msgstr "Predvoµba"
 
-#: ../iw/lilo.py:174
+#: ../iw/lilo.py:174 ../textw/lilo.py:135
 msgid "Partition type"
 msgstr "Typ oddielu"
 
-#: ../iw/lilo.py:174 ../iw/lilo.py:209
+#: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:78
+#: ../textw/lilo.py:135
 msgid "Boot label"
 msgstr "Popis"
 
-#: ../iw/network.py:127
+#: ../iw/network.py:131
 msgid "Configure using DHCP"
 msgstr "Konfigurácia s pou¾itím DHCP"
 
-#: ../iw/network.py:133
+#: ../iw/network.py:138
 msgid "Activate on boot"
 msgstr "Aktivova» pri ¹tarte systému"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:147
 msgid "IP Address"
 msgstr "IP adresa"
 
-#: ../iw/network.py:142 ../loader/net.c:615
+#: ../iw/network.py:147 ../loader/net.c:615
 msgid "Netmask"
 msgstr "Maska siete"
 
-#: ../iw/network.py:142 ../loader/loader.c:226
+#: ../iw/network.py:147 ../loader/loader.c:226
 msgid "Network"
 msgstr "Sie»"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:147
 msgid "Broadcast"
 msgstr "Broadcast"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Gateway"
 msgstr "Brána"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Primary DNS"
 msgstr "Primárny DNS"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Secondary DNS"
 msgstr "Sekundárny DNS"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Ternary DNS"
 msgstr "Terciárny DNS"
 
@@ -855,11 +889,11 @@ msgstr "Veµkos»:"
 msgid "Select Package For Installation"
 msgstr "Výber balíkov pre in¹taláciu"
 
-#: ../iw/package.py:377
+#: ../iw/package.py:377 ../textw/packages.py:24 ../textw/packages.py:89
 msgid "Package Group Selection"
 msgstr "Výber skupín balíkov"
 
-#: ../iw/package.py:445
+#: ../iw/package.py:445 ../textw/packages.py:20
 msgid "Select individual packages"
 msgstr "Výber jednotlivých balíkov"
 
@@ -903,15 +937,15 @@ msgstr "Zostáva"
 msgid "Confirm Partitioning Selection"
 msgstr "Potvrïte výber rozdelenia"
 
-#: ../iw/rootpartition.py:27
-msgid "Root Partition Selection"
-msgstr "Výber koreòového oddielu"
+#: ../iw/rootpartition.py:27 ../textw/partitioning.py:25
+msgid "Disk Druid"
+msgstr "Disk Druid"
 
-#: ../iw/rootpartition.py:86
+#: ../iw/rootpartition.py:86 ../textw/partitioning.py:97
 msgid "Automatic Partitioning"
 msgstr "Automatické rozdelenie oddielov"
 
-#: ../iw/rootpartition.py:125
+#: ../iw/rootpartition.py:125 ../textw/partitioning.py:98
 #, c-format
 msgid ""
 "%s\n"
@@ -929,7 +963,7 @@ msgstr ""
 msgid "Remove data"
 msgstr "Odstráni» údaje"
 
-#: ../iw/rootpartition.py:140
+#: ../iw/rootpartition.py:140 ../textw/partitioning.py:102
 msgid "Manually partition"
 msgstr "Manuálne rozdelenie"
 
@@ -952,10 +986,6 @@ msgstr "Èasový posun vzhµadom na UTC"
 #: ../iw/timezone.py:152
 msgid "System clock uses UTC"
 msgstr "Systémové hodiny pou¾ívajú UTC"
-
-#: ../iw/welcome.py:11
-msgid "Welcome to Red Hat Linux!"
-msgstr "Víta vás Red Hat Linux!"
 
 #: ../iw/xconfig.py:9
 msgid "Video Card"
@@ -1018,6 +1048,254 @@ msgstr "Pou¾íva» grafické prihlasovanie sa"
 #: ../iw/xconfig.py:203
 msgid "Skip X Configuration"
 msgstr "Vynecha» konfiguráciu X"
+
+#: ../textw/lilo.py:12
+msgid ""
+"A few systems will need to pass special options to the kernel at boot time "
+"for the system to function properly. If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
+msgstr ""
+"Niektoré systémy potrebujú zada» jadru poèas bootovania ¹peciálne voµby. "
+"Pokiaµ ich potrebujete, zadajte ich; pokiaµ nie alebo neviete, nezadávajte "
+"niè."
+
+#: ../textw/lilo.py:62
+msgid "Where do you want to install the bootloader?"
+msgstr "Kam si ¾eláte nain¹talova» zavádzaè?"
+
+#: ../textw/lilo.py:82 ../textw/lilo.py:102
+#, fuzzy
+msgid "Clear"
+msgstr "Zavrie»"
+
+#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
+#: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
+#: ../libfdisk/newtfsedit.c:1501 ../textw/lilo.py:82 ../textw/lilo.py:100
+#: ../textw/userauth.py:64
+msgid "Cancel"
+msgstr "Zru¹i»"
+
+#: ../textw/lilo.py:90
+#, fuzzy
+msgid "Edit Boot Label"
+msgstr "Popis"
+
+#: ../textw/lilo.py:153
+msgid ""
+"The boot manager Red Hat uses can boot other operating systems as well. You "
+"need to tell me what partitions you would like to be able to boot and what "
+"label you want to use for each of them."
+msgstr ""
+"Zavádzaè pou¾ívaný systémom Red Hat je schopný zavies» aj iné operaèné "
+"systémy. Potrebujete zada» oddiely, na ktorých sa nachádzajú zavediteµné "
+"systémy a popis, ktorý pre ne chcete pou¾i»."
+
+#: ../textw/packages.py:117
+msgid ""
+"Some of the packages you have selected to install require packages you have "
+"not selected. If you just select Ok all of those required packages will be "
+"installed."
+msgstr ""
+"Niektoré vami vybrané balíky potrebujú ku svojej èinnosti balíky, ktoré ste "
+"nevybrali. Pokiaµ zvolíte OK, potrebné balíky sa nain¹talujú."
+
+#: ../textw/partitioning.py:17 ../textw/partitioning.py:56
+#, fuzzy
+msgid "Disk Setup"
+msgstr "Nastavenie NFS"
+
+#: ../textw/partitioning.py:18
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Disk Druid je nástroj pre rozdelenie disku na oddiely a nastavenie bodov "
+"pripojenia. Je vytvorený tak, aby bolo jeho pou¾itie jednoduch¹ie ako "
+"tradièný fdisk a aby poskytoval viac mo¾ností. Existujú v¹ak prípady, kedy "
+"mô¾e by» vhodnej¹í fdisk.\n"
+"\n"
+"Ktorý nástroj chcete pou¾i»?"
+
+#: ../textw/partitioning.py:57
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"Pre in¹taláciu Red Hat Linuxu potrebujete aspoò jeden 150 MB oddiel "
+"vyhradený pre Linux. Odporúèame umiestni» tento oddiel na jeden z prvých "
+"dvoch pevných diskov vo va¹om systéme, aby bolo mo¾né zavies» Linux pomocou "
+"LILO zavádzaèa."
+
+#: ../loader/loader.c:287 ../loader/loader.c:311 ../textw/partitioning.py:62
+msgid "Done"
+msgstr "Hotovo"
+
+#: ../textw/partitioning.py:102 ../textw/partitioning.py:103
+msgid "Continue"
+msgstr "Pokraèova»"
+
+#: ../textw/partitioning.py:130
+msgid "Low Memory"
+msgstr ""
+
+#: ../textw/partitioning.py:131
+msgid ""
+"As you don't have much memory in this machine, we need to turn on swap space "
+"immediately. To do this we'll have to write your new partition table to the "
+"disk immediately. Is that okay?"
+msgstr ""
+
+#: ../textw/partitioning.py:150
+msgid ""
+"What partitions would you like to format? We strongly suggest formatting all "
+"of the system partitions, including /, /usr, and /var. There is no need to "
+"format /home or /usr/local if they have already been configured during a "
+"previous install."
+msgstr ""
+"Ktoré oddiely chcete naformátova»? Silne sa odporúèa naformátova» v¹etky "
+"systémové oddiely, vrátane /, /usr a /var. BòNie je potrebné formátova» "
+"/home alebo /usr/local, pokiaµ boli u¾ nakonfigurované poèas predchádzajúcej "
+"in¹talácie."
+
+#: ../textw/partitioning.py:170
+#, fuzzy
+msgid "Check for bad blocks during format"
+msgstr "Poèas formátovania kontrolova» na chybné bloky"
+
+#: ../textw/partitioning.py:174
+#, fuzzy
+msgid "Choose Partitions to Format"
+msgstr "Výber oddielov pre formátovanie"
+
+#: ../textw/userauth.py:12
+msgid ""
+"Pick a root password. You must type it twice to ensure you know what it is "
+"and didn't make a mistake in typing. Remember that the root password is a "
+"critical part of system security!"
+msgstr ""
+"Zvoµte si heslo root-a. Musíte ho napísa» dvakrát, aby ste sa uistili, ¾e ho "
+"poznáte a ¾e ste pri zápise neurobili preklep. Pamätajte na top, ¾e toto "
+"heslo je kritickou èas»ou bezpeènosti systému!"
+
+#: ../loader/urls.c:298 ../textw/userauth.py:25
+msgid "Password:"
+msgstr "Heslo:"
+
+#: ../textw/userauth.py:26
+#, fuzzy
+msgid "Password (again):"
+msgstr "Heslo:"
+
+#: ../textw/userauth.py:42 ../textw/userauth.py:93
+#, fuzzy
+msgid "Password Length"
+msgstr "Heslo"
+
+#: ../textw/userauth.py:43
+msgid "The root password must be at least 6 characters long."
+msgstr "Heslo root-a musí ma» aspoò 6 znakov."
+
+#: ../textw/userauth.py:47 ../textw/userauth.py:101
+#, fuzzy
+msgid "Password Mismatch"
+msgstr "Heslo"
+
+#: ../textw/userauth.py:48 ../textw/userauth.py:102
+msgid "The passwords you entered were different. Please try again."
+msgstr "Zadané heslá neboli rovnaké. Skúste znovu."
+
+#: ../textw/userauth.py:73
+#, fuzzy
+msgid "Edit User"
+msgstr "Upravi»"
+
+#: ../textw/userauth.py:75
+#, fuzzy
+msgid "Add User"
+msgstr "Zamý¹µané pou¾itie"
+
+#: ../textw/userauth.py:80
+msgid "User ID"
+msgstr "ID pou¾ívateµa"
+
+#: ../textw/userauth.py:94
+msgid "The password must be at least 6 characters long."
+msgstr "Heslo musí ma» aspoò 6 znakov."
+
+#: ../textw/userauth.py:111
+msgid "User Exists"
+msgstr "Pou¾ívateµ existuje"
+
+#: ../textw/userauth.py:112
+msgid "This user id already exists.  Choose another."
+msgstr "Toto id pou¾ívateµa u¾ existuje - zvoµte iné."
+
+#: ../textw/userauth.py:139
+msgid ""
+"You should use a normal user account for most activities on your system. By "
+"not using the root account casually, you'll reduce the chance of disrupting "
+"your system's configuration."
+msgstr ""
+"Pre väè¹inu èinností na va¹om systéme by ste mali pou¾íva» be¾ný "
+"pou¾ívateµský úèet. Pokiaµ si zvyknete nepracova» be¾ne ako superpou¾ívateµ, "
+"zmen¹íte tým pravdepodobnos» po¹kodenia konfigurácie vá¹ho systému."
+
+#: ../textw/userauth.py:152
+msgid ""
+"What user account would you like to have on the system? You should have at "
+"least one non-root account for normal work, but multi-user systems can have "
+"any number of accounts set up."
+msgstr ""
+"Aký pou¾ívateµský úèet chcete ma» na va¹om systéme: Mali by ste ma» aspoò "
+"jeden nie-superpou¾ívateµský úèet pre be¾nú prácu, ale viacpou¾ívateµské "
+"systémy ich mô¾u ma» µubovoµné mno¾stvo."
+
+#: ../textw/userauth.py:162
+#, fuzzy
+msgid "User name"
+msgstr "Názov NFS servera:"
+
+#: ../textw/userauth.py:186
+msgid "Enter the information for the user."
+msgstr "Zadajte informáciu o pou¾ívateµovi."
+
+#: ../textw/userauth.py:198
+msgid "Change the information for this user."
+msgstr "Zmeòte informáciu o tomto pou¾ívateµovi."
+
+#: ../textw/userauth.py:249
+#, fuzzy
+msgid "Use Shadow Passwords"
+msgstr "Povoli» shadow heslá"
+
+#: ../textw/userauth.py:251
+#, fuzzy
+msgid "Enable MD5 Passwords"
+msgstr "Povoli» MD5 heslá"
+
+#: ../textw/userauth.py:258
+#, fuzzy
+msgid "NIS Domain:"
+msgstr "NIS doména: "
+
+#: ../textw/userauth.py:260
+#, fuzzy
+msgid "NIS Server:"
+msgstr "NIS server:"
+
+#: ../textw/userauth.py:262
+msgid "or use:"
+msgstr "alebo pou¾i»:"
+
+#: ../textw/userauth.py:265
+msgid "Request server via broadcast"
+msgstr "Po¾iada» o server broadcastom"
 
 #: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
 #: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
@@ -1205,12 +1483,6 @@ msgstr "Skutoène chcete zru¹i» tento oddiel?"
 #: ../libfdisk/newtfsedit.c:273 ../libfdisk/newtfsedit.c:275
 msgid "Edit Partition"
 msgstr "Úprava oddielu"
-
-#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
-#: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
-#: ../libfdisk/newtfsedit.c:1501
-msgid "Cancel"
-msgstr "Zru¹i»"
 
 #: ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
 msgid "Mount Point:"
@@ -1648,9 +1920,10 @@ msgid "Module Parameters"
 msgstr "Parametre modulu"
 
 #: ../loader/devices.c:54
+#, fuzzy
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
-"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
 "Tomuto modulu je mo¾né zada» parametre, ovplyvòujúce jeho èinnos». Pokiaµ "
@@ -1688,9 +1961,19 @@ msgstr "Chyba pri èítaní obsahu kickstart súboru %s: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "Chyba na riadku %d kickstart súboru %s."
 
-#: ../loader/lang.c:232
+#: ../loader/lang.c:245
 msgid "Choose a Language"
 msgstr "Výber jazyka"
+
+#: ../loader/lang.c:501
+#, fuzzy
+msgid "Keyboard Type"
+msgstr "Výber klávesnice"
+
+#: ../loader/lang.c:502
+#, fuzzy
+msgid "What type of keyboard do you have?"
+msgstr "Aký typ mechaniky CDROM máte?"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
@@ -1725,10 +2008,6 @@ msgstr "Aký typ zariadenia si ¾eláte prida»?"
 #: ../loader/loader.c:285
 msgid "I have found the following devices in your system:"
 msgstr "Na va¹om systéme boli nájdené nasledovné zariadenia:"
-
-#: ../loader/loader.c:287 ../loader/loader.c:311
-msgid "Done"
-msgstr "Hotovo"
 
 #: ../loader/loader.c:287 ../loader/loader.c:311
 msgid "Add Device"
@@ -1780,64 +2059,65 @@ msgstr ""
 msgid "Directory holding Red Hat:"
 msgstr "Adresár obsahujúci Red Hat:"
 
-#: ../loader/loader.c:622
+#: ../loader/loader.c:620
 msgid "Select Partition"
 msgstr "Výber oddielu"
 
-#: ../loader/loader.c:666
+#: ../loader/loader.c:664
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Zariadenie %s zrejme neobsahuje in¹talaèný strom Red Hat distribúcie."
 
-#: ../loader/loader.c:711
+#: ../loader/loader.c:709
+#, fuzzy
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
-"insert the Red Hat CD and press \"Ok\" to retry."
+"insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 "V ¾iadnej z va¹ich CDROM mechaník nebolo nájdené CD s Red Hat Linuxom. "
 "Vlo¾te prosím Red Hat CD a stlaète \"OK\" pre nový pokus."
 
-#: ../loader/loader.c:844
+#: ../loader/loader.c:842
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Tento adresár zrejme neobsahuje in¹talaèný strom Red Hat distribúcie."
 
-#: ../loader/loader.c:849
+#: ../loader/loader.c:847
 msgid "I could not mount that directory from the server"
 msgstr "Nie je mo¾né pripoji» tento adresár zo servera"
 
-#: ../loader/loader.c:934
+#: ../loader/loader.c:932
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader/loader.c:935
+#: ../loader/loader.c:933
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Nepodarilo sa naèíta» ramdisk druhej fázy"
 
-#: ../loader/loader.c:1038
+#: ../loader/loader.c:1057
 msgid "Rescue Method"
 msgstr "Záchranná metóda"
 
-#: ../loader/loader.c:1039
+#: ../loader/loader.c:1058
 msgid "Installation Method"
 msgstr "Spôsob in¹talácie"
 
-#: ../loader/loader.c:1041
+#: ../loader/loader.c:1060
 msgid "What type of media contains the rescue image?"
 msgstr "Aký typ média obsahuje záchranný obraz systému?"
 
-#: ../loader/loader.c:1043
+#: ../loader/loader.c:1062
 msgid "What type of media contains the packages to be installed?"
 msgstr "Aký typ média obsahuje balíky, ktoré si ¾eláte nain¹talova»?"
 
-#: ../loader/loader.c:1357
+#: ../loader/loader.c:1388
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Na zavádzacej diskete nie je mo¾né nájs» súbor ks.cfg."
 
-#: ../loader/loader.c:1466
+#: ../loader/loader.c:1500
 msgid "PC Card"
 msgstr "PC Card"
 
-#: ../loader/loader.c:1466
+#: ../loader/loader.c:1500
 msgid "Initializing PC Card Devices..."
 msgstr "Inicializzácia PC Card zariadení..."
 
@@ -2043,10 +2323,6 @@ msgstr ""
 msgid "Account name:"
 msgstr "Názov úètu:"
 
-#: ../loader/urls.c:298
-msgid "Password:"
-msgstr "Heslo:"
-
 #: ../loader/urls.c:303
 msgid "FTP Proxy:"
 msgstr "FTP proxy:"
@@ -2067,198 +2343,11 @@ msgstr "HTTP proxy port:"
 msgid "Loading SCSI driver"
 msgstr "Naèítava sa SCSI ovládaè"
 
-#~ msgid ""
-#~ "Pick a root password. You must type it twice to ensure you know what it is "
-#~ "and didn't make a mistake in typing. Remember that the root password is a "
-#~ "critical part of system security!"
-#~ msgstr ""
-#~ "Zvoµte si heslo root-a. Musíte ho napísa» dvakrát, aby ste sa uistili, ¾e ho "
-#~ "poznáte a ¾e ste pri zápise neurobili preklep. Pamätajte na top, ¾e toto "
-#~ "heslo je kritickou èas»ou bezpeènosti systému!"
+#~ msgid "Root Partition Selection"
+#~ msgstr "Výber koreòového oddielu"
 
-#, fuzzy
-#~ msgid "Password (again):"
-#~ msgstr "Heslo:"
-
-#, fuzzy
-#~ msgid "Password Length"
-#~ msgstr "Heslo"
-
-#~ msgid "The root password must be at least 6 characters long."
-#~ msgstr "Heslo root-a musí ma» aspoò 6 znakov."
-
-#, fuzzy
-#~ msgid "Password Mismatch"
-#~ msgstr "Heslo"
-
-#~ msgid "The passwords you entered were different. Please try again."
-#~ msgstr "Zadané heslá neboli rovnaké. Skúste znovu."
-
-#, fuzzy
-#~ msgid "Edit User"
-#~ msgstr "Upravi»"
-
-#, fuzzy
-#~ msgid "Add User"
-#~ msgstr "Zamý¹µané pou¾itie"
-
-#~ msgid "User ID"
-#~ msgstr "ID pou¾ívateµa"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Heslo musí ma» aspoò 6 znakov."
-
-#~ msgid "User Exists"
-#~ msgstr "Pou¾ívateµ existuje"
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Toto id pou¾ívateµa u¾ existuje - zvoµte iné."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. By "
-#~ "not using the root account casually, you'll reduce the chance of disrupting "
-#~ "your system's configuration."
-#~ msgstr ""
-#~ "Pre väè¹inu èinností na va¹om systéme by ste mali pou¾íva» be¾ný "
-#~ "pou¾ívateµský úèet. Pokiaµ si zvyknete nepracova» be¾ne ako superpou¾ívateµ, "
-#~ "zmen¹íte tým pravdepodobnos» po¹kodenia konfigurácie vá¹ho systému."
-
-#~ msgid ""
-#~ "What user account would you like to have on the system? You should have at "
-#~ "least one non-root account for normal work, but multi-user systems can have "
-#~ "any number of accounts set up."
-#~ msgstr ""
-#~ "Aký pou¾ívateµský úèet chcete ma» na va¹om systéme: Mali by ste ma» aspoò "
-#~ "jeden nie-superpou¾ívateµský úèet pre be¾nú prácu, ale viacpou¾ívateµské "
-#~ "systémy ich mô¾u ma» µubovoµné mno¾stvo."
-
-#, fuzzy
-#~ msgid "User name"
-#~ msgstr "Názov NFS servera:"
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "Zadajte informáciu o pou¾ívateµovi."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "Zmeòte informáciu o tomto pou¾ívateµovi."
-
-#, fuzzy
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Povoli» shadow heslá"
-
-#, fuzzy
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Povoli» MD5 heslá"
-
-#, fuzzy
-#~ msgid "NIS Domain:"
-#~ msgstr "NIS doména: "
-
-#, fuzzy
-#~ msgid "NIS Server:"
-#~ msgstr "NIS server:"
-
-#~ msgid "or use:"
-#~ msgstr "alebo pou¾i»:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Po¾iada» o server broadcastom"
-
-#, fuzzy
-#~ msgid "Disk Setup"
-#~ msgstr "Nastavenie NFS"
-
-#~ msgid ""
-#~ "Disk Druid is a tool for partitioning and setting up mount points. It is "
-#~ "designed to be easier to use than Linux's traditional disk partitioning "
-#~ "sofware, fdisk, as well as more powerful. However, there are some cases "
-#~ "where fdisk may be preferred.\n"
-#~ "\n"
-#~ "Which tool would you like to use?"
-#~ msgstr ""
-#~ "Disk Druid je nástroj pre rozdelenie disku na oddiely a nastavenie bodov "
-#~ "pripojenia. Je vytvorený tak, aby bolo jeho pou¾itie jednoduch¹ie ako "
-#~ "tradièný fdisk a aby poskytoval viac mo¾ností. Existujú v¹ak prípady, kedy "
-#~ "mô¾e by» vhodnej¹í fdisk.\n"
-#~ "\n"
-#~ "Ktorý nástroj chcete pou¾i»?"
-
-#~ msgid "Disk Druid"
-#~ msgstr "Disk Druid"
-
-#, fuzzy
-#~ msgid "fdisk"
-#~ msgstr "Zavádzacia disketa"
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux. We suggest placing that partition on one of the first "
-#~ "two hard drives in your system so you can boot into Linux with LILO."
-#~ msgstr ""
-#~ "Pre in¹taláciu Red Hat Linuxu potrebujete aspoò jeden 150 MB oddiel "
-#~ "vyhradený pre Linux. Odporúèame umiestni» tento oddiel na jeden z prvých "
-#~ "dvoch pevných diskov vo va¹om systéme, aby bolo mo¾né zavies» Linux pomocou "
-#~ "LILO zavádzaèa."
-
-#~ msgid "Continue"
-#~ msgstr "Pokraèova»"
-
-#~ msgid ""
-#~ "What partitions would you like to format? We strongly suggest formatting all "
-#~ "of the system partitions, including /, /usr, and /var. There is no need to "
-#~ "format /home or /usr/local if they have already been configured during a "
-#~ "previous install."
-#~ msgstr ""
-#~ "Ktoré oddiely chcete naformátova»? Silne sa odporúèa naformátova» v¹etky "
-#~ "systémové oddiely, vrátane /, /usr a /var. BòNie je potrebné formátova» "
-#~ "/home alebo /usr/local, pokiaµ boli u¾ nakonfigurované poèas predchádzajúcej "
-#~ "in¹talácie."
-
-#, fuzzy
-#~ msgid "Check for bad blocks during format"
-#~ msgstr "Poèas formátovania kontrolova» na chybné bloky"
-
-#, fuzzy
-#~ msgid "Choose Partitions to Format"
-#~ msgstr "Výber oddielov pre formátovanie"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you have "
-#~ "not selected. If you just select Ok all of those required packages will be "
-#~ "installed."
-#~ msgstr ""
-#~ "Niektoré vami vybrané balíky potrebujú ku svojej èinnosti balíky, ktoré ste "
-#~ "nevybrali. Pokiaµ zvolíte OK, potrebné balíky sa nain¹talujú."
-
-#~ msgid ""
-#~ "A few systems will need to pass special options to the kernel at boot time "
-#~ "for the system to function properly. If you need to pass boot options to the "
-#~ "kernel, enter them now. If you don't need any or aren't sure, leave this "
-#~ "blank."
-#~ msgstr ""
-#~ "Niektoré systémy potrebujú zada» jadru poèas bootovania ¹peciálne voµby. "
-#~ "Pokiaµ ich potrebujete, zadajte ich; pokiaµ nie alebo neviete, nezadávajte "
-#~ "niè."
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Kam si ¾eláte nain¹talova» zavádzaè?"
-
-#, fuzzy
-#~ msgid "Clear"
-#~ msgstr "Zavrie»"
-
-#, fuzzy
-#~ msgid "Edit Boot Label"
-#~ msgstr "Popis"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
-#~ "need to tell me what partitions you would like to be able to boot and what "
-#~ "label you want to use for each of them."
-#~ msgstr ""
-#~ "Zavádzaè pou¾ívaný systémom Red Hat je schopný zavies» aj iné operaèné "
-#~ "systémy. Potrebujete zada» oddiely, na ktorých sa nachádzajú zavediteµné "
-#~ "systémy a popis, ktorý pre ne chcete pou¾i»."
+#~ msgid "Welcome to Red Hat Linux!"
+#~ msgstr "Víta vás Red Hat Linux!"
 
 #, fuzzy
 #~ msgid "Warning"
@@ -3259,10 +3348,6 @@ msgstr "Naèítava sa SCSI ovládaè"
 #~ msgstr "<F1> zobrazí informáciu o konkrétnom type tlaèiarne"
 
 #, fuzzy
-#~ msgid "What type of printer do you have?"
-#~ msgstr "Aký typ mechaniky CDROM máte?"
-
-#, fuzzy
 #~ msgid "Configure Printer"
 #~ msgstr "Konfigurácia TCP/IP"
 
@@ -3423,10 +3508,6 @@ msgstr "Naèítava sa SCSI ovládaè"
 
 #~ msgid "NetWare"
 #~ msgstr "NetWare"
-
-#, fuzzy
-#~ msgid "Select Printer Connection"
-#~ msgstr "Výber oddielu"
 
 #~ msgid "How is this printer connected?"
 #~ msgstr "Ako je pripojená táto tlaèiareò?"

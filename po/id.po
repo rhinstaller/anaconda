@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ID-rhinstall 1.4\n"
-"POT-Creation-Date: 1999-09-12 13:09-0400\n"
+"POT-Creation-Date: 1999-09-13 14:19-0400\n"
 "PO-Revision-Date: 1998-09-12 09:57+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@ldp.linux.or.id>\n"
 "Language-Team: LDP Indonesia <http://ldp.linux.or.id>\n"
@@ -22,10 +22,24 @@ msgstr "Pilih Bahasa"
 msgid "What language would you like to use during the installation process?"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
-#: ../text.py:42 ../text.py:90 ../text.py:141 ../text.py:167 ../text.py:208
-#: ../text.py:253 ../text.py:343 ../text.py:363 ../text.py:394 ../text.py:435
-#: ../text.py:457 ../text.py:522 ../text.py:542 ../text.py:554 ../text.py:566
-#: ../text.py:744 ../text.py:787 ../text.py:791
+#: ../loader/cdrom.c:34 ../loader/devices.c:58 ../loader/devices.c:134
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+#: ../loader/lang.c:247 ../loader/lang.c:503 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:608
+#: ../loader/loader.c:663 ../loader/loader.c:708 ../loader/loader.c:841
+#: ../loader/loader.c:846 ../loader/loader.c:932 ../loader/loader.c:1065
+#: ../loader/loader.c:1387 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:42 ../text.py:90
+#: ../text.py:141 ../text.py:167 ../text.py:208 ../text.py:253 ../text.py:343
+#: ../text.py:363 ../text.py:394 ../text.py:435 ../text.py:457 ../text.py:522
+#: ../text.py:542 ../text.py:554 ../text.py:566 ../text.py:744 ../text.py:787
+#: ../text.py:791 ../textw/lilo.py:20 ../textw/lilo.py:64
+#: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
+#: ../textw/partitioning.py:172 ../textw/userauth.py:31
+#: ../textw/userauth.py:45 ../textw/userauth.py:50 ../textw/userauth.py:84
+#: ../textw/userauth.py:96 ../textw/userauth.py:104 ../textw/userauth.py:113
+#: ../textw/userauth.py:174 ../textw/userauth.py:246
 msgid "OK"
 msgstr "OK"
 
@@ -45,7 +59,7 @@ msgstr "/dev/ttyS2 (COM3 di DOS)"
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 di DOS)"
 
-#: ../iw/lilo.py:174 ../text.py:72
+#: ../iw/lilo.py:174 ../text.py:72 ../textw/lilo.py:77 ../textw/lilo.py:135
 msgid "Device"
 msgstr "Perangkat"
 
@@ -71,29 +85,30 @@ msgstr "Perangkat apa yang disambung ke mouse? %s %i"
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
-#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
-#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
-#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
-#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
-#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
-#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../textw/constants.py:10 ../textw/lilo.py:82 ../textw/lilo.py:95
+#: ../textw/lilo.py:150
 msgid "Ok"
 msgstr "Ok"
 
-#: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
+#: ../gui.py:316 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
 #: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
-#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
-#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
-#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
-#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
-#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
-#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
-#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
-#: ../text.py:744 ../text.py:766
+#: ../loader/devices.c:134 ../loader/lang.c:503 ../loader/loader.c:239
+#: ../loader/loader.c:572 ../loader/loader.c:608 ../loader/loader.c:708
+#: ../loader/loader.c:1065 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74 ../text.py:75
+#: ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167
+#: ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231
+#: ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396
+#: ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457
+#: ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744
+#: ../text.py:766 ../textw/constants.py:10 ../textw/lilo.py:21
+#: ../textw/lilo.py:64 ../textw/lilo.py:71 ../textw/lilo.py:151
+#: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
+#: ../textw/packages.py:147 ../textw/partitioning.py:26
+#: ../textw/partitioning.py:63 ../textw/partitioning.py:172
+#: ../textw/userauth.py:31 ../textw/userauth.py:143 ../textw/userauth.py:174
+#: ../textw/userauth.py:246
 msgid "Back"
 msgstr "Kembali"
 
@@ -146,8 +161,8 @@ msgid "What type of system would you like to install?"
 msgstr "Sistem macam mana yang hendak diinstal ?"
 
 #: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
-#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
-#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/loader.c:663 ../loader/loader.c:708 ../loader/loader.c:841
+#: ../loader/loader.c:846 ../loader/loader.c:1387 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr "Error"
@@ -183,7 +198,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
 #: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
-#: ../text.py:229 ../text.py:415 ../text.py:418
+#: ../text.py:229 ../text.py:415 ../text.py:418 ../textw/partitioning.py:135
 msgid "Yes"
 msgstr "YA"
 
@@ -193,7 +208,7 @@ msgstr "YA"
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
 #: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
-#: ../text.py:234 ../text.py:415 ../text.py:421
+#: ../text.py:234 ../text.py:415 ../text.py:421 ../textw/partitioning.py:135
 msgid "No"
 msgstr "Tidak"
 
@@ -266,7 +281,7 @@ msgstr ""
 "Nama host adalah nama komputer Anda. Bila komputer Anda dihubungkan ke "
 "jaringan, maka biasanya namanya ditentukan oleh administrator jaringan."
 
-#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
+#: ../iw/network.py:187 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr "Hostname"
 
@@ -363,6 +378,7 @@ msgstr ""
 "dihapus saat membuat boot disk."
 
 #: ../text.py:554 ../text.py:555 ../text.py:566 ../text.py:567
+#: ../textw/lilo.py:20
 msgid "Skip"
 msgstr "Lewatkan"
 
@@ -465,7 +481,8 @@ msgstr "Swap"
 msgid "Filesystem Formatting"
 msgstr "Sedang memformat sistem file"
 
-#: ../text.py:840 ../text.py:842 ../text.py:844
+#: ../text.py:840 ../text.py:842 ../text.py:844 ../textw/lilo.py:23
+#: ../textw/lilo.py:61 ../textw/lilo.py:158
 msgid "LILO Configuration"
 msgstr "Konfigurasi LILO"
 
@@ -485,11 +502,11 @@ msgstr "Konfigurasi Mouse"
 msgid "Time Zone Setup"
 msgstr "Setup Time Zone"
 
-#: ../text.py:856
+#: ../text.py:856 ../textw/userauth.py:10
 msgid "Root Password"
 msgstr "Password Root"
 
-#: ../text.py:858
+#: ../text.py:858 ../textw/userauth.py:150
 msgid "User Account Setup"
 msgstr "Setup account user"
 
@@ -505,7 +522,7 @@ msgstr "Grup Paket"
 msgid "Individual Packages"
 msgstr "Pilih beberapa paket"
 
-#: ../text.py:866
+#: ../text.py:866 ../textw/packages.py:116
 msgid "Package Dependencies"
 msgstr "Ketergantungan paket"
 
@@ -545,23 +562,23 @@ msgstr "Upgrade sistem"
 msgid "Upgrade Complete"
 msgstr "Upgrade Beres"
 
-#: ../gui.py:306
+#: ../gui.py:310
 msgid "Red Hat Linux Installer"
 msgstr "Installer Red Hat Linux"
 
-#: ../gui.py:315
+#: ../gui.py:319
 msgid "Finish"
 msgstr "Selesai"
 
-#: ../gui.py:316
+#: ../gui.py:320
 msgid "Hide Help"
 msgstr "Sembunyikan help"
 
-#: ../gui.py:317
+#: ../gui.py:321
 msgid "Show Help"
 msgstr "Lihat Help"
 
-#: ../gui.py:338
+#: ../gui.py:343
 msgid "Online Help"
 msgstr "Help online"
 
@@ -569,49 +586,51 @@ msgstr "Help online"
 msgid "Account Configuration"
 msgstr "Konfigurasi Account"
 
-#: ../iw/account.py:115
+#: ../iw/account.py:121
 msgid "Root Password: "
 msgstr "Password Root:"
 
-#: ../iw/account.py:116
+#: ../iw/account.py:124
 msgid "Confirm: "
 msgstr "Konfirmasi:"
 
-#: ../iw/account.py:164 ../iw/account.py:192
+#: ../iw/account.py:175 ../iw/account.py:218
 msgid "Account Name"
 msgstr "Nama Account"
 
-#: ../iw/account.py:166
+#: ../iw/account.py:179 ../textw/userauth.py:82
 msgid "Password"
 msgstr "Password"
 
-#: ../iw/account.py:168
+#: ../iw/account.py:183 ../textw/userauth.py:83
 msgid "Password (confirm)"
 msgstr "Password (lagi)"
 
-#: ../iw/account.py:171 ../iw/account.py:192
+#: ../iw/account.py:187 ../iw/account.py:218 ../textw/userauth.py:81
+#: ../textw/userauth.py:162
 msgid "Full Name"
 msgstr "Nama Lengkap"
 
-#: ../iw/account.py:178 ../libfdisk/newtfsedit.c:1303
+#: ../iw/account.py:196 ../libfdisk/newtfsedit.c:1303 ../textw/userauth.py:173
 msgid "Add"
 msgstr "Tambah"
 
-#: ../iw/account.py:180 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304
+#: ../iw/account.py:198 ../libfdisk/newtfsedit.c:1296
+#: ../libfdisk/newtfsedit.c:1304 ../textw/lilo.py:150 ../textw/lilo.py:171
+#: ../textw/partitioning.py:62 ../textw/userauth.py:174
 msgid "Edit"
 msgstr "Edit"
 
-#: ../iw/account.py:182 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304
+#: ../iw/account.py:200 ../libfdisk/newtfsedit.c:1296
+#: ../libfdisk/newtfsedit.c:1304 ../textw/userauth.py:173
 msgid "Delete"
 msgstr "Hapus"
 
-#: ../iw/account.py:184
+#: ../iw/account.py:202
 msgid "New"
 msgstr "Baru"
 
-#: ../iw/auth.py:11
+#: ../iw/auth.py:11 ../textw/userauth.py:248
 msgid "Authentication Configuration"
 msgstr "Konfigurasi Autentikasi"
 
@@ -623,7 +642,7 @@ msgstr "Gunakan password MD5"
 msgid "Enable shadow passwords"
 msgstr "Gunakan password shadow"
 
-#: ../iw/auth.py:53
+#: ../iw/auth.py:53 ../textw/userauth.py:253
 msgid "Enable NIS"
 msgstr "Gunakan NIS"
 
@@ -659,15 +678,15 @@ msgstr "Keluar"
 msgid "Unresolved Dependencies"
 msgstr "Ketergantungan paket tidak diketahui"
 
-#: ../iw/dependencies.py:29 ../iw/progress.py:113
+#: ../iw/dependencies.py:29 ../iw/progress.py:113 ../textw/packages.py:123
 msgid "Package"
 msgstr "Nama Paket"
 
-#: ../iw/dependencies.py:29
+#: ../iw/dependencies.py:29 ../textw/packages.py:123
 msgid "Requirement"
 msgstr "Membutuhkan"
 
-#: ../iw/dependencies.py:36
+#: ../iw/dependencies.py:36 ../textw/packages.py:135
 msgid "Install packages to satisfy dependencies"
 msgstr "Install paketnya agar bisa dipakai"
 
@@ -687,6 +706,15 @@ msgstr ""
 msgid "Customize packages to be upgraded"
 msgstr "Pilih paket yang hendak diupgrade"
 
+#: ../iw/fdisk.py:11 ../textw/partitioning.py:25
+msgid "fdisk"
+msgstr "fdisk"
+
+#: ../iw/fdisk.py:42
+#, fuzzy
+msgid "Select drive to run fdisk on"
+msgstr "Pilih koneksi printer"
+
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
 msgstr "Pilih partisi yang hendak diformat"
@@ -695,52 +723,56 @@ msgstr "Pilih partisi yang hendak diformat"
 msgid "Check for bad blocks while formatting"
 msgstr "Mengecek bad blok pada saat format"
 
-#: ../iw/installpath.py:34
+#: ../iw/installpath.py:35
 msgid "GNOME Workstation"
 msgstr "Workstation GNOME"
 
-#: ../iw/installpath.py:35
+#: ../iw/installpath.py:36
 msgid "KDE Workstation"
 msgstr "Workstation KDE"
 
-#: ../iw/installpath.py:36 ../libfdisk/gnomefsedit.c:2196
+#: ../iw/installpath.py:37 ../libfdisk/gnomefsedit.c:2196
 #: ../libfdisk/gnomefsedit.c:2216
 msgid "Server"
 msgstr "Server"
 
-#: ../iw/installpath.py:37
+#: ../iw/installpath.py:38
 msgid "Custom"
 msgstr "Bebas"
 
-#: ../iw/installpath.py:73
+#: ../iw/installpath.py:74
 msgid "Install Type"
 msgstr "Install sistem"
 
-#: ../iw/installpath.py:122
+#: ../iw/installpath.py:142
 msgid "Install"
 msgstr "Install"
 
-#: ../iw/installpath.py:124
+#: ../iw/installpath.py:144
 msgid "Upgrade"
 msgstr "Upgrade"
+
+#: ../iw/installpath.py:183
+msgid "Use fdisk to format drives"
+msgstr ""
 
 #: ../iw/keyboard.py:11
 msgid "Keyboard Configuration"
 msgstr "Konfigurasi Keyboard"
 
-#: ../iw/keyboard.py:27
+#: ../iw/keyboard.py:35
 msgid "Model"
 msgstr "Model"
 
-#: ../iw/keyboard.py:39
+#: ../iw/keyboard.py:47
 msgid "Layout"
 msgstr "Layout"
 
-#: ../iw/keyboard.py:53
+#: ../iw/keyboard.py:61
 msgid "Variant"
 msgstr "Varian"
 
-#: ../iw/language.py:14 ../loader/lang.c:232
+#: ../iw/language.py:14 ../loader/lang.c:245
 msgid "What language should be used during the installation process?"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
@@ -764,7 +796,7 @@ msgstr "Master Boot Record (MBR)"
 msgid "First sector of boot partition"
 msgstr "Partisi pertama dari partisi boot"
 
-#: ../iw/lilo.py:141
+#: ../iw/lilo.py:141 ../textw/lilo.py:18
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Gunakan mode linear (untuk beberapa drive SCSI)"
 
@@ -780,55 +812,56 @@ msgstr "Buat bootdisk"
 msgid "Do not install LILO"
 msgstr "Jangan install LILO"
 
-#: ../iw/lilo.py:174
+#: ../iw/lilo.py:174 ../textw/lilo.py:135
 msgid "Default"
 msgstr "Default"
 
-#: ../iw/lilo.py:174
+#: ../iw/lilo.py:174 ../textw/lilo.py:135
 msgid "Partition type"
 msgstr "Tipe partisi"
 
-#: ../iw/lilo.py:174 ../iw/lilo.py:209
+#: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:78
+#: ../textw/lilo.py:135
 msgid "Boot label"
 msgstr "Label boot"
 
-#: ../iw/network.py:127
+#: ../iw/network.py:131
 msgid "Configure using DHCP"
 msgstr "Konfigurasikan pakai DHCP"
 
-#: ../iw/network.py:133
+#: ../iw/network.py:138
 msgid "Activate on boot"
 msgstr "Aktifkan saat boot"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:147
 msgid "IP Address"
 msgstr "Alamat IP"
 
-#: ../iw/network.py:142 ../loader/net.c:615
+#: ../iw/network.py:147 ../loader/net.c:615
 msgid "Netmask"
 msgstr "Netmask"
 
-#: ../iw/network.py:142 ../loader/loader.c:226
+#: ../iw/network.py:147 ../loader/loader.c:226
 msgid "Network"
 msgstr "Network"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:147
 msgid "Broadcast"
 msgstr "Broadcast"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Primary DNS"
 msgstr "DNS Primer"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Secondary DNS"
 msgstr "DNS Sekunder"
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Ternary DNS"
 msgstr "DNS Tersier"
 
@@ -856,11 +889,11 @@ msgstr "Ukuran :"
 msgid "Select Package For Installation"
 msgstr "Pilih paket Instalasi"
 
-#: ../iw/package.py:377
+#: ../iw/package.py:377 ../textw/packages.py:24 ../textw/packages.py:89
 msgid "Package Group Selection"
 msgstr "Pilihan Grup Paket"
 
-#: ../iw/package.py:445
+#: ../iw/package.py:445 ../textw/packages.py:20
 msgid "Select individual packages"
 msgstr "Pilih beberapa paket"
 
@@ -904,15 +937,15 @@ msgstr "Sisa waktu"
 msgid "Confirm Partitioning Selection"
 msgstr "Konfirmasi pilihan partisi"
 
-#: ../iw/rootpartition.py:27
-msgid "Root Partition Selection"
-msgstr "Pilih Partisi root"
+#: ../iw/rootpartition.py:27 ../textw/partitioning.py:25
+msgid "Disk Druid"
+msgstr "Setup disk"
 
-#: ../iw/rootpartition.py:86
+#: ../iw/rootpartition.py:86 ../textw/partitioning.py:97
 msgid "Automatic Partitioning"
 msgstr "Partisi otomatis"
 
-#: ../iw/rootpartition.py:125
+#: ../iw/rootpartition.py:125 ../textw/partitioning.py:98
 #, c-format
 msgid ""
 "%s\n"
@@ -930,7 +963,7 @@ msgstr ""
 msgid "Remove data"
 msgstr "Hapus data"
 
-#: ../iw/rootpartition.py:140
+#: ../iw/rootpartition.py:140 ../textw/partitioning.py:102
 msgid "Manually partition"
 msgstr "Partisi manual"
 
@@ -953,10 +986,6 @@ msgstr "Offset UTC"
 #: ../iw/timezone.py:152
 msgid "System clock uses UTC"
 msgstr "Jam sistem menggunakan UTC"
-
-#: ../iw/welcome.py:11
-msgid "Welcome to Red Hat Linux!"
-msgstr "Selamat Datang di Linux Red Hat!"
 
 #: ../iw/xconfig.py:9
 msgid "Video Card"
@@ -1018,6 +1047,239 @@ msgstr "Gunakan login grafikal"
 #: ../iw/xconfig.py:203
 msgid "Skip X Configuration"
 msgstr "Tidak Konfigurasikan X"
+
+#: ../textw/lilo.py:12
+msgid ""
+"A few systems will need to pass special options to the kernel at boot time "
+"for the system to function properly. If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
+msgstr ""
+"Ada sistem yang harus memberikan option tambahan untuk kernel pada saat boot "
+"agar sistem berfungsi baik. Bila sistem ini juga demikian, ketikkan option "
+"kernelnya sekarang. Bila tidak, maka kosongkan saja."
+
+#: ../textw/lilo.py:62
+msgid "Where do you want to install the bootloader?"
+msgstr "Dimana hendak diinstallkan bootloadernya?"
+
+#: ../textw/lilo.py:82 ../textw/lilo.py:102
+msgid "Clear"
+msgstr "Hapus"
+
+#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
+#: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
+#: ../libfdisk/newtfsedit.c:1501 ../textw/lilo.py:82 ../textw/lilo.py:100
+#: ../textw/userauth.py:64
+msgid "Cancel"
+msgstr "Batal"
+
+#: ../textw/lilo.py:90
+msgid "Edit Boot Label"
+msgstr "Ganti label boot"
+
+#: ../textw/lilo.py:153
+msgid ""
+"The boot manager Red Hat uses can boot other operating systems as well. You "
+"need to tell me what partitions you would like to be able to boot and what "
+"label you want to use for each of them."
+msgstr ""
+"Boot manager yang digunakan Red Hat dapat juga digunakan untuk sistem "
+"operasi lain. Anda bisa menambahkan partisi yang Anda ingin gunakan untuk "
+"boot dan sertakan juga labelnya untuk masing-masing partisi"
+
+#: ../textw/packages.py:117
+msgid ""
+"Some of the packages you have selected to install require packages you have "
+"not selected. If you just select Ok all of those required packages will be "
+"installed."
+msgstr ""
+"Ada beberapa paket yang Anda pilih ternyata memerlukan paket yang lainnya "
+"namun belum Anda pilih. Tekan Ok bila Anda setuju untuk menginstall paket "
+"lain tersebut."
+
+#: ../textw/partitioning.py:17 ../textw/partitioning.py:56
+msgid "Disk Setup"
+msgstr "Setup Disk"
+
+#: ../textw/partitioning.py:18
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Disk Druid adalah alat untuk mempartisi dan setting mount point. Program ini "
+"dirancang sedemikian rupa untuk memudahkan proses partisi, namun secanggih "
+"program partisi tradisional (misalnya fdisk). Tetapi adakalanya fdisk lebih "
+"enak digunakan daripada Disk Druid.\n"
+"\n"
+"Program mana yang hendak Anda gunakan?"
+
+#: ../textw/partitioning.py:57
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"Untuk menginstal Red Hat Linux, Anda harus paling tidak memiliki satu "
+"partisi dengan ukuran minimal 150 MB untuk Linux. Saya sarankan untuk "
+"membuat partisi tersebut di salah satu dari dua hard disk pertama di sistem "
+"agar Anda dapat langsung memboot ke Linux dengan LILO."
+
+#: ../loader/loader.c:287 ../loader/loader.c:311 ../textw/partitioning.py:62
+msgid "Done"
+msgstr "Selesai"
+
+#: ../textw/partitioning.py:102 ../textw/partitioning.py:103
+msgid "Continue"
+msgstr "Lanjutkan"
+
+#: ../textw/partitioning.py:130
+msgid "Low Memory"
+msgstr ""
+
+#: ../textw/partitioning.py:131
+msgid ""
+"As you don't have much memory in this machine, we need to turn on swap space "
+"immediately. To do this we'll have to write your new partition table to the "
+"disk immediately. Is that okay?"
+msgstr ""
+
+#: ../textw/partitioning.py:150
+msgid ""
+"What partitions would you like to format? We strongly suggest formatting all "
+"of the system partitions, including /, /usr, and /var. There is no need to "
+"format /home or /usr/local if they have already been configured during a "
+"previous install."
+msgstr ""
+"Partisi mana yang ingin diformat? Saya menyarankan untuk memformat semua "
+"partisi sistem, termasuk /, /usr, dan /var. Partisi /home atau /usr/local "
+"tidak perlu diformat, bila sudah dikonfigurasikan sebelumnya."
+
+#: ../textw/partitioning.py:170
+msgid "Check for bad blocks during format"
+msgstr "Mengecek bad blok pada saat format"
+
+#: ../textw/partitioning.py:174
+msgid "Choose Partitions to Format"
+msgstr "Pilih partisi yang hendak diformat"
+
+#: ../textw/userauth.py:12
+msgid ""
+"Pick a root password. You must type it twice to ensure you know what it is "
+"and didn't make a mistake in typing. Remember that the root password is a "
+"critical part of system security!"
+msgstr ""
+"Buatlah password root. Anda harus menuliskannya dua kali agar Anda ingat dan "
+"tidak salah ketik. Ingatlah selalu bahwa password root ini sangat penting "
+"dalam keamanan sistem!"
+
+#: ../loader/urls.c:298 ../textw/userauth.py:25
+msgid "Password:"
+msgstr "Password:"
+
+#: ../textw/userauth.py:26
+msgid "Password (again):"
+msgstr "Password (lagi):"
+
+#: ../textw/userauth.py:42 ../textw/userauth.py:93
+msgid "Password Length"
+msgstr "Panjang Password"
+
+#: ../textw/userauth.py:43
+msgid "The root password must be at least 6 characters long."
+msgstr "Password root haruslah minimal 6 karakter"
+
+#: ../textw/userauth.py:47 ../textw/userauth.py:101
+msgid "Password Mismatch"
+msgstr "Password tidak sama"
+
+#: ../textw/userauth.py:48 ../textw/userauth.py:102
+msgid "The passwords you entered were different. Please try again."
+msgstr "Password yang Anda ketikkan saling berbeda. Ulangi lagi."
+
+#: ../textw/userauth.py:73
+msgid "Edit User"
+msgstr "Edit User"
+
+#: ../textw/userauth.py:75
+msgid "Add User"
+msgstr "Tambahkan user"
+
+#: ../textw/userauth.py:80
+msgid "User ID"
+msgstr "User ID"
+
+#: ../textw/userauth.py:94
+msgid "The password must be at least 6 characters long."
+msgstr "Password haruslah minimal 6 karakter"
+
+#: ../textw/userauth.py:111
+msgid "User Exists"
+msgstr "User sudah ada"
+
+#: ../textw/userauth.py:112
+msgid "This user id already exists.  Choose another."
+msgstr "User ini sudah ada. Coba cari nama lain."
+
+#: ../textw/userauth.py:139
+msgid ""
+"You should use a normal user account for most activities on your system. By "
+"not using the root account casually, you'll reduce the chance of disrupting "
+"your system's configuration."
+msgstr ""
+"Anda harus gunakan account user biasa untuk menggunakan sistem ini. Jangan "
+"gunakan account root, kalau kebiasaan pakai account root nanti malah bisa "
+"merusak konfigurasi sistem."
+
+#: ../textw/userauth.py:152
+msgid ""
+"What user account would you like to have on the system? You should have at "
+"least one non-root account for normal work, but multi-user systems can have "
+"any number of accounts set up."
+msgstr ""
+"User account macam mana yang hendak dipasang di sistem? Anda mesti paling "
+"tidak punya satu account yang bukan root, kalau sistem ini nantinya jadi "
+"sistem multi user, bikin banyak aja."
+
+#: ../textw/userauth.py:162
+msgid "User name"
+msgstr "Nama user"
+
+#: ../textw/userauth.py:186
+msgid "Enter the information for the user."
+msgstr "Masukkan keterangan tentang user ini."
+
+#: ../textw/userauth.py:198
+msgid "Change the information for this user."
+msgstr "Ubah keterangan user ini."
+
+#: ../textw/userauth.py:249
+msgid "Use Shadow Passwords"
+msgstr "Gunakan password shadow"
+
+#: ../textw/userauth.py:251
+msgid "Enable MD5 Passwords"
+msgstr "Gunakan password MD5"
+
+#: ../textw/userauth.py:258
+msgid "NIS Domain:"
+msgstr "Domain NIS:"
+
+#: ../textw/userauth.py:260
+msgid "NIS Server:"
+msgstr "Server NIS:"
+
+#: ../textw/userauth.py:262
+msgid "or use:"
+msgstr "atau gunakan:"
+
+#: ../textw/userauth.py:265
+msgid "Request server via broadcast"
+msgstr "Ambil server pakai broadcast"
 
 #: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
 #: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
@@ -1204,12 +1466,6 @@ msgstr "Benar ingin menghapus partisi ini?"
 #: ../libfdisk/newtfsedit.c:273 ../libfdisk/newtfsedit.c:275
 msgid "Edit Partition"
 msgstr "Edit Partisi"
-
-#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
-#: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
-#: ../libfdisk/newtfsedit.c:1501
-msgid "Cancel"
-msgstr "Batal"
 
 #: ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
 msgid "Mount Point:"
@@ -1641,7 +1897,7 @@ msgstr "Parameter Kernel"
 #: ../loader/devices.c:54
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
-"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
 
@@ -1679,9 +1935,19 @@ msgstr "Error saat membaca isi file kickstart %s: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "Error pada baris %d di file kickstart %s."
 
-#: ../loader/lang.c:232
+#: ../loader/lang.c:245
 msgid "Choose a Language"
 msgstr "Pilih bahasanya:"
+
+#: ../loader/lang.c:501
+#, fuzzy
+msgid "Keyboard Type"
+msgstr "Pilih Keyboard"
+
+#: ../loader/lang.c:502
+#, fuzzy
+msgid "What type of keyboard do you have?"
+msgstr "Printer mana yang Anda punya?"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
@@ -1723,10 +1989,6 @@ msgid "I have found the following devices in your system:"
 msgstr ""
 "Saya menemukan adapter SCSI berikut ini:\n"
 "\n"
-
-#: ../loader/loader.c:287 ../loader/loader.c:311
-msgid "Done"
-msgstr "Selesai"
 
 #: ../loader/loader.c:287 ../loader/loader.c:311
 #, fuzzy
@@ -1780,64 +2042,64 @@ msgstr ""
 msgid "Directory holding Red Hat:"
 msgstr "Direktori yang berisi Red Hat:"
 
-#: ../loader/loader.c:622
+#: ../loader/loader.c:620
 msgid "Select Partition"
 msgstr "Pilih Partisinya"
 
-#: ../loader/loader.c:666
+#: ../loader/loader.c:664
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Device %s kelihatannya tidak berisi instalasi Red Hat tuh."
 
-#: ../loader/loader.c:711
+#: ../loader/loader.c:709
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
-"insert the Red Hat CD and press \"Ok\" to retry."
+"insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 
-#: ../loader/loader.c:844
+#: ../loader/loader.c:842
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Direktori ini tidak memiliki tree Red Hat"
 
-#: ../loader/loader.c:849
+#: ../loader/loader.c:847
 msgid "I could not mount that directory from the server"
 msgstr "Saya tak dapat memount direktori tersebut dari server"
 
-#: ../loader/loader.c:934
+#: ../loader/loader.c:932
 msgid "FTP"
 msgstr ""
 
-#: ../loader/loader.c:935
+#: ../loader/loader.c:933
 #, fuzzy
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Saya gagal mengambil ramdisk tahap kedua: %s"
 
-#: ../loader/loader.c:1038
+#: ../loader/loader.c:1057
 msgid "Rescue Method"
 msgstr ""
 
-#: ../loader/loader.c:1039
+#: ../loader/loader.c:1058
 msgid "Installation Method"
 msgstr "Metode Instalasi"
 
-#: ../loader/loader.c:1041
+#: ../loader/loader.c:1060
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader/loader.c:1043
+#: ../loader/loader.c:1062
 #, fuzzy
 msgid "What type of media contains the packages to be installed?"
 msgstr "Sistem macam mana yang hendak diinstal ?"
 
-#: ../loader/loader.c:1357
+#: ../loader/loader.c:1388
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Saya tak dapat menemukan ks.cfg di floppy."
 
-#: ../loader/loader.c:1466
+#: ../loader/loader.c:1500
 msgid "PC Card"
 msgstr ""
 
-#: ../loader/loader.c:1466
+#: ../loader/loader.c:1500
 #, fuzzy
 msgid "Initializing PC Card Devices..."
 msgstr "Inisialisasi CDROM..."
@@ -2057,10 +2319,6 @@ msgstr ""
 msgid "Account name:"
 msgstr "Nama Account"
 
-#: ../loader/urls.c:298
-msgid "Password:"
-msgstr "Password:"
-
 #: ../loader/urls.c:303
 msgid "FTP Proxy:"
 msgstr "Proxy FTP:"
@@ -2082,182 +2340,11 @@ msgstr "Port Proxy HTTP:"
 msgid "Loading SCSI driver"
 msgstr "Meload Disket Driver..."
 
-#~ msgid ""
-#~ "Pick a root password. You must type it twice to ensure you know what it is "
-#~ "and didn't make a mistake in typing. Remember that the root password is a "
-#~ "critical part of system security!"
-#~ msgstr ""
-#~ "Buatlah password root. Anda harus menuliskannya dua kali agar Anda ingat dan "
-#~ "tidak salah ketik. Ingatlah selalu bahwa password root ini sangat penting "
-#~ "dalam keamanan sistem!"
+#~ msgid "Root Partition Selection"
+#~ msgstr "Pilih Partisi root"
 
-#~ msgid "Password (again):"
-#~ msgstr "Password (lagi):"
-
-#~ msgid "Password Length"
-#~ msgstr "Panjang Password"
-
-#~ msgid "The root password must be at least 6 characters long."
-#~ msgstr "Password root haruslah minimal 6 karakter"
-
-#~ msgid "Password Mismatch"
-#~ msgstr "Password tidak sama"
-
-#~ msgid "The passwords you entered were different. Please try again."
-#~ msgstr "Password yang Anda ketikkan saling berbeda. Ulangi lagi."
-
-#~ msgid "Edit User"
-#~ msgstr "Edit User"
-
-#~ msgid "Add User"
-#~ msgstr "Tambahkan user"
-
-#~ msgid "User ID"
-#~ msgstr "User ID"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Password haruslah minimal 6 karakter"
-
-#~ msgid "User Exists"
-#~ msgstr "User sudah ada"
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "User ini sudah ada. Coba cari nama lain."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. By "
-#~ "not using the root account casually, you'll reduce the chance of disrupting "
-#~ "your system's configuration."
-#~ msgstr ""
-#~ "Anda harus gunakan account user biasa untuk menggunakan sistem ini. Jangan "
-#~ "gunakan account root, kalau kebiasaan pakai account root nanti malah bisa "
-#~ "merusak konfigurasi sistem."
-
-#~ msgid ""
-#~ "What user account would you like to have on the system? You should have at "
-#~ "least one non-root account for normal work, but multi-user systems can have "
-#~ "any number of accounts set up."
-#~ msgstr ""
-#~ "User account macam mana yang hendak dipasang di sistem? Anda mesti paling "
-#~ "tidak punya satu account yang bukan root, kalau sistem ini nantinya jadi "
-#~ "sistem multi user, bikin banyak aja."
-
-#~ msgid "User name"
-#~ msgstr "Nama user"
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "Masukkan keterangan tentang user ini."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "Ubah keterangan user ini."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Gunakan password shadow"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Gunakan password MD5"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "Domain NIS:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "Server NIS:"
-
-#~ msgid "or use:"
-#~ msgstr "atau gunakan:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Ambil server pakai broadcast"
-
-#~ msgid "Disk Setup"
-#~ msgstr "Setup Disk"
-
-#~ msgid ""
-#~ "Disk Druid is a tool for partitioning and setting up mount points. It is "
-#~ "designed to be easier to use than Linux's traditional disk partitioning "
-#~ "sofware, fdisk, as well as more powerful. However, there are some cases "
-#~ "where fdisk may be preferred.\n"
-#~ "\n"
-#~ "Which tool would you like to use?"
-#~ msgstr ""
-#~ "Disk Druid adalah alat untuk mempartisi dan setting mount point. Program ini "
-#~ "dirancang sedemikian rupa untuk memudahkan proses partisi, namun secanggih "
-#~ "program partisi tradisional (misalnya fdisk). Tetapi adakalanya fdisk lebih "
-#~ "enak digunakan daripada Disk Druid.\n"
-#~ "\n"
-#~ "Program mana yang hendak Anda gunakan?"
-
-#~ msgid "Disk Druid"
-#~ msgstr "Setup disk"
-
-#~ msgid "fdisk"
-#~ msgstr "fdisk"
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux. We suggest placing that partition on one of the first "
-#~ "two hard drives in your system so you can boot into Linux with LILO."
-#~ msgstr ""
-#~ "Untuk menginstal Red Hat Linux, Anda harus paling tidak memiliki satu "
-#~ "partisi dengan ukuran minimal 150 MB untuk Linux. Saya sarankan untuk "
-#~ "membuat partisi tersebut di salah satu dari dua hard disk pertama di sistem "
-#~ "agar Anda dapat langsung memboot ke Linux dengan LILO."
-
-#~ msgid "Continue"
-#~ msgstr "Lanjutkan"
-
-#~ msgid ""
-#~ "What partitions would you like to format? We strongly suggest formatting all "
-#~ "of the system partitions, including /, /usr, and /var. There is no need to "
-#~ "format /home or /usr/local if they have already been configured during a "
-#~ "previous install."
-#~ msgstr ""
-#~ "Partisi mana yang ingin diformat? Saya menyarankan untuk memformat semua "
-#~ "partisi sistem, termasuk /, /usr, dan /var. Partisi /home atau /usr/local "
-#~ "tidak perlu diformat, bila sudah dikonfigurasikan sebelumnya."
-
-#~ msgid "Check for bad blocks during format"
-#~ msgstr "Mengecek bad blok pada saat format"
-
-#~ msgid "Choose Partitions to Format"
-#~ msgstr "Pilih partisi yang hendak diformat"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you have "
-#~ "not selected. If you just select Ok all of those required packages will be "
-#~ "installed."
-#~ msgstr ""
-#~ "Ada beberapa paket yang Anda pilih ternyata memerlukan paket yang lainnya "
-#~ "namun belum Anda pilih. Tekan Ok bila Anda setuju untuk menginstall paket "
-#~ "lain tersebut."
-
-#~ msgid ""
-#~ "A few systems will need to pass special options to the kernel at boot time "
-#~ "for the system to function properly. If you need to pass boot options to the "
-#~ "kernel, enter them now. If you don't need any or aren't sure, leave this "
-#~ "blank."
-#~ msgstr ""
-#~ "Ada sistem yang harus memberikan option tambahan untuk kernel pada saat boot "
-#~ "agar sistem berfungsi baik. Bila sistem ini juga demikian, ketikkan option "
-#~ "kernelnya sekarang. Bila tidak, maka kosongkan saja."
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Dimana hendak diinstallkan bootloadernya?"
-
-#~ msgid "Clear"
-#~ msgstr "Hapus"
-
-#~ msgid "Edit Boot Label"
-#~ msgstr "Ganti label boot"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
-#~ "need to tell me what partitions you would like to be able to boot and what "
-#~ "label you want to use for each of them."
-#~ msgstr ""
-#~ "Boot manager yang digunakan Red Hat dapat juga digunakan untuk sistem "
-#~ "operasi lain. Anda bisa menambahkan partisi yang Anda ingin gunakan untuk "
-#~ "boot dan sertakan juga labelnya untuk masing-masing partisi"
+#~ msgid "Welcome to Red Hat Linux!"
+#~ msgstr "Selamat Datang di Linux Red Hat!"
 
 #~ msgid "Warning"
 #~ msgstr "Perhatian"
@@ -3152,9 +3239,6 @@ msgstr "Meload Disket Driver..."
 #~ msgid "<F1> will give you information on a particular printer type"
 #~ msgstr "Tekan <F1> untuk melihat informasi printer ini"
 
-#~ msgid "What type of printer do you have?"
-#~ msgstr "Printer mana yang Anda punya?"
-
 #~ msgid "Configure Printer"
 #~ msgstr "Konfigurasi Printer"
 
@@ -3301,9 +3385,6 @@ msgstr "Meload Disket Driver..."
 
 #~ msgid "NetWare"
 #~ msgstr "NetWare"
-
-#~ msgid "Select Printer Connection"
-#~ msgstr "Pilih koneksi printer"
 
 #~ msgid "How is this printer connected?"
 #~ msgstr "Bagaimana printer ini dipasang?"
