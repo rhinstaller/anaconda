@@ -302,7 +302,7 @@ EOF
     cp -df $IMGPATH/$LIBDIR/libutil-*.so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libcrypt*so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libselinux*so* $MBD_DIR/$LIBDIR
-    cp -df $IMGPATH/$LIBDIR/]libattr*so* $MBD_DIR/$LIBDIR
+    cp -df $IMGPATH/$LIBDIR/libattr*so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/usr/$LIBDIR/libwrap*.so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libc.so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libc-*.so* $MBD_DIR/$LIBDIR
