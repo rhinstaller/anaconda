@@ -81,6 +81,8 @@ lib/libe2p*
 lib/libext2fs*
 lib/libss*
 lib/libuuid*
+usr/X11R6/lib/X11/Cards
+usr/X11R6/share/Xconfigurator/MonitorsDB
 EOF
 
 KEEPFILEGR=/tmp/keepfilegr.$$
@@ -116,8 +118,6 @@ usr/X11R6/bin/XF86_S3
 usr/X11R6/bin/XF86_S3V
 usr/X11R6/bin/XF86_FBDev
 usr/X11R6/bin/Xtest
-usr/X11R6/lib/X11/Cards
-usr/X11R6/share/Xconfigurator/MonitorsDB
 usr/X11R6/lib/X11/fonts/75dpi/cour*
 usr/X11R6/lib/X11/fonts/75dpi/helv*
 usr/X11R6/lib/X11/fonts/75dpi/tim*
@@ -255,5 +255,10 @@ ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
 			| cpio --quiet -H crc -o | gzip -9 > libs.cgz
 	rm -f libcom* libcrypt* libdl* libe2p* libext2* libm* libnss* libnsl* \
 	   libpthread* libss* libtermcap* libuuid* \
+
+	cd $DEST/usr
+	echo X11R6 | cpio --quiet -H crc -o | \
+            gzip -9 > X11R6.cgz
+	rm -rf X11R6
 
 	cp -a $HOMEDIR/anaconda-stub $DEST/usr/bin/anaconda
