@@ -303,9 +303,6 @@ def cdromList():
     list.sort()
     return list
 
-def moduleListByType(type):
-    return _isys.modulelist(type)
-
 def makeDevInode(name, fn=None):
     if fn:
         _isys.mkdevinode(name, fn)
