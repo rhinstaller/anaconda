@@ -1,3 +1,8 @@
+2005-03-22  Chris Lumens  <clumens@redhat.com>
+
+	* scripts/upd-instroot (PACKAGES):  List libstdc++ in PACKAGES to
+	hopefully really fix the tree scrubbing problem.
+
 2005-03-21  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
