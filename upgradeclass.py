@@ -42,18 +42,10 @@ class InstallClass(BaseInstallClass):
                     "postinstallconfig",
                     "instbootloader",
                     "dopostaction",
-                    "bootdisk",
                     "methodcomplete",
 		    "complete"
 		)
 
-        if iutil.getArch() != "i386":
-            dispatch.skipStep("bootdisk")
-        else:
-	    import floppy
-            if not floppy.hasFloppyDevice():
-		dispatch.skipStep("bootdisk")
-            
         if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":
             dispatch.skipStep("bootloader")
             dispatch.skipStep("bootloaderadvanced")
