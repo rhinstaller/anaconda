@@ -270,8 +270,8 @@ class KickstartBase(BaseInstallClass):
             raise ValueError, "mbr, partition, or none expected for bootloader command"
         if location == "none":
             location = None
-        else:
-            location = validLocations.index(location)
+        elif location == "partition":
+            location = "boot"
 
         if upgrade and not id.upgrade.get():
             raise RuntimeError, "Selected upgrade mode for bootloader but not doing an upgrade"

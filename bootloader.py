@@ -45,13 +45,13 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
 
     bl.images.setup(diskSet, fsset)
 
-    # XXX fix mbr vs boot handling here
     if bl.defaultDevice != None and choices:
         keys = choices.keys()
-#        if bl.defaultDevice > len(keys)
-        if "mbr" in keys:
-            bl.defaultDevice = "mbr"
-        else:
+        # there are only two possible things that can be in the keys
+        # mbr and boot.  boot is ALWAYS present.  so if the dev isn't
+        # listed, it was mbr and we should nicely fall back to boot
+        if bl.defaultDevice not in keys:
+            log("MBR not suitable as boot device; installing to partition")
             bl.defaultDevice = "boot"
         bl.setDevice(choices[bl.defaultDevice][0])
 
