@@ -40,7 +40,7 @@ DIET=diet
 REALCC=gcc
 CC=$(DIET) $(REALCC)
 BTERMLIB = -lbtermdiet -lbogldiet 
-WLITELIB = -lwlite
+WLITELIB = -lwlitediet
 ISYSLIB = ../isys/libisys-diet.a
 GUNZIP = ../isys/gzlib/libgunzip-diet.a
 
