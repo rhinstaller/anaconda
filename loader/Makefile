@@ -32,10 +32,13 @@ VERSION = 6.0
 all: $(BINS)
 
 install: all
-	rm -f $(DESTDIR)/sbin/loader
 	mkdir -p $(DESTDIR)/sbin
+	mkdir -p $(DESTDIR)/etc
+	rm -f $(DESTDIR)/sbin/loader
+	rm -f $(DESTDIR)/sbin/init
 	install -s loader $(DESTDIR)/sbin/loader
-	install -s init $(DESTDIR)/sbin/loader
+	install -s init $(DESTDIR)/sbin/init
+	install 755 ../isys/pci/pcitable $(DESTDIR)/etc
 
 loader: $(OBJS)
 	$(CC) $(STATIC) -o $@ $(OBJS) -lpopt     \
