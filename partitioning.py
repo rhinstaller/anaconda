@@ -1083,7 +1083,7 @@ class Partitions:
                 elif part.get_flag(parted.PARTITION_RAID) == 1:
                     ptype = fsset.fileSystemTypeGet("software RAID")
                 elif part.get_flag(parted.PARTITION_LVM) == 1:
-                    pytpe = fsset.fileSystemTypeGet("physical volume (LVM)")
+                    ptype = fsset.fileSystemTypeGet("physical volume (LVM)")
                 elif part.fs_type:
                     ptype = get_partition_file_system_type(part)
                     if part.fs_type.name == "linux-swap":
