@@ -393,6 +393,8 @@ def copyDeviceNode(src, dest):
 
 # make the device nodes for all of the drives on the system
 def makeDriveDeviceNodes():
+    import raid
+    
     hardDrives = isys.hardDriveDict()
     for drive in hardDrives.keys():
         isys.makeDevInode(drive, "/dev/%s" % (drive,))
