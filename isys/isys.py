@@ -150,22 +150,6 @@ def loadFont(font):
 def loadKeymap(keymap):
     return _isys.loadKeymap (keymap)
 
-def probePciDevices():
-    # probes all probeable buses and returns a list of 
-    # ( driver, major, minor, description, args ) tuples, where args is a
-    # list of (argName, argDescrip) tuples
-    devices = _isys.pciprobe()
-    if (not devices): return None
-
-    result = []
-    for dev in devices:
-	info = _isys.findmoduleinfo(dev)
-	if not info:
-	    raise KeyError, "module " + dev + " is not in the module list"
-	result.append(info)
-
-    return result
-
 def driveDict(klassArg):
     p = _isys.ProbedList()
     p.updateIde()

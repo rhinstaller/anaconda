@@ -56,7 +56,6 @@ static PyObject * doReadModInfo(PyObject * s, PyObject * args);
 static PyObject * doUMount(PyObject * s, PyObject * args);
 static PyObject * getModuleList(PyObject * s, PyObject * args);
 static PyObject * makeDevInode(PyObject * s, PyObject * args);
-static PyObject * doPciProbe(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
 static PyObject * createProbedList(PyObject * s, PyObject * args);
 static PyObject * doChroot(PyObject * s, PyObject * args);
@@ -110,7 +109,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "poptParseArgv", (PyCFunction) doPoptParse, METH_VARARGS, NULL },
     { "mkdevinode", (PyCFunction) makeDevInode, METH_VARARGS, NULL },
     { "modulelist", (PyCFunction) getModuleList, METH_VARARGS, NULL },
-    { "pciprobe", (PyCFunction) doPciProbe, METH_VARARGS, NULL },
     { "ProbedList", (PyCFunction) createProbedList, METH_VARARGS, NULL }, 
     { "readmoduleinfo", (PyCFunction) doReadModInfo, METH_VARARGS, NULL },
 /*
@@ -596,30 +594,6 @@ static PyObject * doReadModInfo(PyObject * s, PyObject * args) {
 
     Py_INCREF(Py_None);
     return Py_None;
-}
-
-static PyObject * doPciProbe(PyObject * s, PyObject * args) {
-    struct device ** matches, ** item;
-    PyObject * list;
-
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-
-    matches = probeDevices(CLASS_UNSPEC,BUS_PCI|BUS_SBUS,PROBE_ALL);
-
-    if (!matches) {
-	Py_INCREF(Py_None);
-	return Py_None;
-    }
-
-    list = PyList_New(0);
-    for (item = matches; *item; item++) {
-	PyList_Append(list, Py_BuildValue("s", (*item)->driver));
-	freeDevice (*item);
-    }
-
-    free(matches);
-
-    return list;
 }
 
 static PyObject * doUMount(PyObject * s, PyObject * args) {
