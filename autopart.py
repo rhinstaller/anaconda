@@ -356,8 +356,12 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 		    
 #                    log( "Trying partition %s" % (printFreespaceitem(part),))
                     partSize = partedUtils.getPartSizeMB(part)
+                    # figure out what the request size will be given the
+                    # geometry (#130885)
+                    requestSectors = long((request.requestSize * 1024L * 1024L) / part.disk.dev.sector_size) - 1
+                    requestSizeMB = long((requestSectors * part.disk.dev.sector_size) / 1024L / 1024L)
 #		    log("partSize %s  request %s" % (partSize, request.requestSize))
-                    if partSize >= request.requestSize and partSize > largestPart[0]:
+                    if partSize >= requestSizeMB and partSize > largestPart[0]:
                         if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
                             largestPart = (partSize, part)
                             if isBoot:
