@@ -1982,6 +1982,12 @@ class ToDo:
                 os.rename (self.instPath + self.dbpath,
                            self.instPath + "/var/lib/rpm")
 
+                # XXX - rpm 4.0.2 %post braindeadness support
+                try:
+                    os.unlink ("/etc/rpm/macros.db1")
+                except OSError:
+                    pass
+
                 # needed for prior systems which were not xinetd based
                 self.migrateXinetd()
 
