@@ -2,11 +2,12 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # Richard Allen <ra@hp.is>, 1999.
 #
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: specs 1.15\n"
+"Project-Id-Version: install 1.18\n"
 "POT-Creation-Date: 1999-09-11 11:16-0400\n"
-"PO-Revision-Date: 1999-09-12 04:12+0000\n"
+"PO-Revision-Date: 1999-09-12 16:15+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -479,9 +480,8 @@ msgid "User Account Setup"
 msgstr "Búa til notanda"
 
 #: ../text.py:860
-#, fuzzy
 msgid "Authentication"
-msgstr "Leiðbeiningar"
+msgstr "Auðkenning"
 
 #: ../text.py:862
 msgid "Package Groups"
@@ -598,9 +598,8 @@ msgid "New"
 msgstr "Nýr"
 
 #: ../iw/auth.py:11
-#, fuzzy
 msgid "Authentication Configuration"
-msgstr "Forrit/Samskipti"
+msgstr "Stillingar auðkenningar"
 
 #: ../iw/auth.py:50
 msgid "Enable MD5 passwords"
@@ -931,9 +930,8 @@ msgid "Use Daylight Saving Time"
 msgstr "Nota hvaðabullerþetta tíma"
 
 #: ../iw/timezone.py:147
-#, fuzzy
 msgid "Location"
-msgstr "Leiðbeiningar"
+msgstr "Staðsetning"
 
 #: ../iw/timezone.py:148
 msgid "UTC Offset"
@@ -1681,9 +1679,8 @@ msgstr ""
 "einn aðgang sem er ekki rót fyrir dagleg störf. Fjölnotandavélar geta haft "
 "marga aðganga."
 
-#, fuzzy
 msgid "User name"
-msgstr "Notandaviðmót/X"
+msgstr "Notandi"
 
 msgid "Enter the information for the user."
 msgstr "Sláðu inn upplýsingum þessa notanda."
@@ -3208,511 +3205,505 @@ msgid ""
 "Would you like to install or configure the SILO bootloader on your system?"
 msgstr "Viltu setja upp eða stilla SILO ræsistjórann á vélinni þinni?"
 
-#~ msgid "User Interface/Desktops"
-#~ msgstr "Notandaviðmót/Skjáborð"
+msgid "User Interface/Desktops"
+msgstr "Notandaviðmót/Skjáborð"
 
-#~ msgid "An X window manager which emulates the look and feel of NEXTSTEP(R)."
-#~ msgstr "X gluggastjóri sem líkir eftir NEXSTEP umhverfinu."
+msgid "An X window manager which emulates the look and feel of NEXTSTEP(R)."
+msgstr "X gluggastjóri sem líkir eftir NEXSTEP umhverfinu."
 
-#~ msgid ""
-#~ "Various applets for use with AfterStep and compatible window managers."
-#~ msgstr "Ýmis smáforrit fyrir AfterStep og aðra samhæfða gluggastjóra."
+msgid "Various applets for use with AfterStep and compatible window managers."
+msgstr "Ýmis smáforrit fyrir AfterStep og aðra samhæfða gluggastjóra."
 
-#~ msgid "A customized configuration of the fvwm2 window manager."
-#~ msgstr "Sérsniðnar stillingar fyrir fvwm2 gluggastjórann."
+msgid "A customized configuration of the fvwm2 window manager."
+msgstr "Sérsniðnar stillingar fyrir fvwm2 gluggastjórann."
 
-#~ msgid "Development/Tools"
-#~ msgstr "Þróunartól/Tól"
+msgid "Development/Tools"
+msgstr "Þróunartól/Tól"
 
-#~ msgid "A debugger which detects memory allocation violations."
-#~ msgstr "Aflúsunartól sem finnur villur í minnisfrátekt."
+msgid "A debugger which detects memory allocation violations."
+msgstr "Aflúsunartól sem finnur villur í minnisfrátekt."
 
-#~ msgid "Applications/Editors"
-#~ msgstr "Forrit/Ritlar"
+msgid "Applications/Editors"
+msgstr "Forrit/Ritlar"
 
-#~ msgid "A multi-function text editor which uses GTK+."
-#~ msgstr "Grafískur textaritill sem notar GTK+."
+msgid "A multi-function text editor which uses GTK+."
+msgstr "Grafískur textaritill sem notar GTK+."
 
-#~ msgid "Applications/Multimedia"
-#~ msgstr "Forrit/Margmiðlun"
+msgid "Applications/Multimedia"
+msgstr "Forrit/Margmiðlun"
 
-#~ msgid "An X application for displaying and manipulating images."
-#~ msgstr "X forrit til þess að skoða og breyta myndum."
+msgid "An X application for displaying and manipulating images."
+msgstr "X forrit til þess að skoða og breyta myndum."
 
-#~ msgid "Development/Libraries"
-#~ msgstr "Þróunartól/Stefjasöfn"
+msgid "Development/Libraries"
+msgstr "Þróunartól/Stefjasöfn"
 
-#~ msgid "Static libraries and header files for ImageMagick app development."
-#~ msgstr "Fastbundin stefjasöfn og hausaskrár fyrir forritun með ImageMagick."
+msgid "Static libraries and header files for ImageMagick app development."
+msgstr "Fastbundin stefjasöfn og hausaskrár fyrir forritun með ImageMagick."
 
-#~ msgid "System Environment/Base"
-#~ msgstr "Kerfisumhverfi/Grunnforrit"
+msgid "System Environment/Base"
+msgstr "Kerfisumhverfi/Grunnforrit"
 
-#~ msgid "A script for creating the device files in /dev."
-#~ msgstr "Skeljarforrit til þess að búa til skrárnar í /dev."
+msgid "A script for creating the device files in /dev."
+msgstr "Skeljarforrit til þess að búa til skrárnar í /dev."
 
-#~ msgid "System Environment/Daemons"
-#~ msgstr "Kerfisumhverfi/Dímonar"
+msgid "System Environment/Daemons"
+msgstr "Kerfisumhverfi/Dímonar"
 
-#~ msgid "A high-performance CORBA Object Request Broker."
-#~ msgstr "Afkastamikill CORBA hlutamiðlari."
+msgid "A high-performance CORBA Object Request Broker."
+msgstr "Afkastamikill CORBA hlutamiðlari."
 
-#~ msgid "Development libraries, header files and utilities for ORBit."
-#~ msgstr "Þróunarstefjasöfn, hausaskrár og tól fyrir ORBit."
+msgid "Development libraries, header files and utilities for ORBit."
+msgstr "Þróunarstefjasöfn, hausaskrár og tól fyrir ORBit."
 
-#~ msgid "Applications/System"
-#~ msgstr "Forrit/Kerfisforrit"
+msgid "Applications/System"
+msgstr "Forrit/Kerfisforrit"
 
-#~ msgid "A utility for improving the appearance of text consoles."
-#~ msgstr "Tól til þess að bæta útlit texta stjórnskjáa."
+msgid "A utility for improving the appearance of text consoles."
+msgstr "Tól til þess að bæta útlit texta stjórnskjáa."
 
-#~ msgid "Programs which control basic system processes."
-#~ msgstr "Forrit sem stýra grunnþáttum keyrslu stýrikerfissins."
+msgid "Programs which control basic system processes."
+msgstr "Forrit sem stýra grunnþáttum keyrslu stýrikerfissins."
 
-#~ msgid "A window manager for the X Window System."
-#~ msgstr "Gluggastjóri fyrir X gluggakerfið."
+msgid "A window manager for the X Window System."
+msgstr "Gluggastjóri fyrir X gluggakerfið."
 
-#~ msgid "A collection of user-contributed X Window System programs."
-#~ msgstr "Safn notendaforrita fyrir X gluggaumhverfið."
+msgid "A collection of user-contributed X Window System programs."
+msgstr "Safn notendaforrita fyrir X gluggaumhverfið."
 
-#~ msgid "The basic fonts, programs and docs for an X workstation."
-#~ msgstr "Grunnforrit, leturgerðir og leiðbeiningar fyrir X vinnustöð."
+msgid "The basic fonts, programs and docs for an X workstation."
+msgstr "Grunnforrit, leturgerðir og leiðbeiningar fyrir X vinnustöð."
 
-#~ msgid "X Window System 100dpi fonts."
-#~ msgstr "100 dpi leturgerðir fyrir X gluggakerfið."
+msgid "X Window System 100dpi fonts."
+msgstr "100 dpi leturgerðir fyrir X gluggakerfið."
 
-#~ msgid "User Interface/X Hardware Support"
-#~ msgstr "Notandaviðmót/X vélbúnaðarstuðningur"
+msgid "User Interface/X Hardware Support"
+msgstr "Notandaviðmót/X vélbúnaðarstuðningur"
 
-#~ msgid "The XFree86 server for 3Dlabs video cards."
-#~ msgstr "XFree86 þjónn fyrir 3Dlabs skjákort."
+msgid "The XFree86 server for 3Dlabs video cards."
+msgstr "XFree86 þjónn fyrir 3Dlabs skjákort."
 
-#~ msgid "A set of 75 dpi resolution fonts for the X Window System."
-#~ msgstr "75 dpi leturgerðir fyrir X gluggakerfið."
+msgid "A set of 75 dpi resolution fonts for the X Window System."
+msgstr "75 dpi leturgerðir fyrir X gluggakerfið."
 
-#~ msgid ""
-#~ "The XFree86 server program for older IBM 8514 or compatible video cards."
-#~ msgstr "XFree86 þjónn fyrir IBM 8514 samhæfð skjákort."
+msgid ""
+"The XFree86 server program for older IBM 8514 or compatible video cards."
+msgstr "XFree86 þjónn fyrir IBM 8514 samhæfð skjákort."
 
-#~ msgid "The XFree86 server for AGX-based video cards."
-#~ msgstr "XFree86 þjónn fyrir skjákort byggð á AGX kubbnum."
+msgid "The XFree86 server for AGX-based video cards."
+msgstr "XFree86 þjónn fyrir skjákort byggð á AGX kubbnum."
 
-#~ msgid "The X server for the generic frame buffer device on some machines."
-#~ msgstr "X þjónn fyrir almenna skjáminnistækið (frame buffer) á sumum vélum."
+msgid "The X server for the generic frame buffer device on some machines."
+msgstr "X þjónn fyrir almenna skjáminnistækið (frame buffer) á sumum vélum."
 
-#~ msgid "The XFree86 server for Number Nine Imagine 128 video cards."
-#~ msgstr "XFree86 þjónn fyrir 'Number Nine Imagine 128' skjákort."
+msgid "The XFree86 server for Number Nine Imagine 128 video cards."
+msgstr "XFree86 þjónn fyrir 'Number Nine Imagine 128' skjákort."
 
-#~ msgid "Central European language fonts for the X Window System."
-#~ msgstr "Leturgerðir fyrir X sem innihalda stafi frá miðevrópu."
+msgid "Central European language fonts for the X Window System."
+msgstr "Leturgerðir fyrir X sem innihalda stafi frá miðevrópu."
 
-#~ msgid "ISO 8859-2 fonts in 100 dpi resolution for the X Window System."
-#~ msgstr "ISO 8859-2 leturgerðir í 100 dpi upplausn fyrir X gluggakerfið."
+msgid "ISO 8859-2 fonts in 100 dpi resolution for the X Window System."
+msgstr "ISO 8859-2 leturgerðir í 100 dpi upplausn fyrir X gluggakerfið."
 
-#~ msgid "A set of 75 dpi Central European language fonts for X."
-#~ msgstr "75 dpi leturgerðir sem innihalda stafi frá miðevrópu."
+msgid "A set of 75 dpi Central European language fonts for X."
+msgstr "75 dpi leturgerðir sem innihalda stafi frá miðevrópu."
 
-#~ msgid "Type 1 scalable Central European language (ISO8859-2) fonts for X."
-#~ msgstr "Skalanlegt miðevrópuletur (ISO8859-2) af gerð 1 fyrir X."
-
-#
-#~ msgid "Greek language fonts for the X Window System."
-#~ msgstr "Leturgerðir sem innihalda Gríska stafi fyrir X."
+msgid "Type 1 scalable Central European language (ISO8859-2) fonts for X."
+msgstr "Skalanlegt miðevrópuletur (ISO8859-2) af gerð 1 fyrir X."
 
 #
-#~ msgid "ISO 8859-7 fonts in 100 dpi resolution for the X Window System."
-#~ msgstr "ISO 8859-7 leturgerðir í 100 dpi upplausn fyrir X gluggakerfið."
+msgid "Greek language fonts for the X Window System."
+msgstr "Leturgerðir sem innihalda Gríska stafi fyrir X."
 
 #
-#~ msgid "ISO 8859-7 fonts in 75 dpi resolution for the X Window System."
-#~ msgstr "ISO 8859-7 leturgerðir í 75 dpi upplausn fyrir X gluggakerfið."
+msgid "ISO 8859-7 fonts in 100 dpi resolution for the X Window System."
+msgstr "ISO 8859-7 leturgerðir í 100 dpi upplausn fyrir X gluggakerfið."
 
 #
-#~ msgid "Type 1 scalable Greek (ISO 8859-7 ) fonts"
-#~ msgstr "Skalanlegt Grískt letur (ISO 8859-7) af gerð 1 fyrir X."
-
-#~ msgid "Turkish language fonts and modmaps for X."
-#~ msgstr "Tyrknenskt letur og lyklaborðsvarpanir fyrir X."
-
-#~ msgid "100 dpi Turkish (ISO8859-9) fonts for X."
-#~ msgstr "Tyrknenskt letur (ISO8859-9) í 100 dpi upplausn fyrir X."
-
-#~ msgid "75 dpi Turkish (ISO8859-9) fonts for X."
-#~ msgstr "Tyrknenskt letur (ISO8859-9) í 75 dpi upplausn fyrir X."
-
-#~ msgid "The XFree86 server for Mach32 based video cards."
-#~ msgstr "XFree86 þjónn fyrir Mach32 samhæfð skjákort."
-
-#~ msgid "The XFree86 server for Mach64 based video cards."
-#~ msgstr "XFree86 þjónn fyrir Mach64 samhæfð skjákort."
-
-#~ msgid "The XFree86 server for Mach8 video cards."
-#~ msgstr "XFree86 þjónn fyrir Mach8 samhæfð skjákort."
-
-#~ msgid "A generic XFree86 monochrome server for VGA cards."
-#~ msgstr "Almennur svart/hvítur X þjónn fyrir VGA skjákort."
-
-#~ msgid "The XFree86 server for P9000 cards."
-#~ msgstr "XFree86 þjónn fyrir P9000 samhæfð skjákort."
-
-#~ msgid "The XFree86 server for video cards based on the S3 chip."
-#~ msgstr "XFree86 þjónn fyrir skjákort með S3 kubbnum."
-
-#~ msgid "The XFree86 server for video cards based on the S3 Virge chip."
-#~ msgstr "XFree86 þjónn fyrir skjákort með 'S3 Virge' kubbnum."
-
-#~ msgid "An XFree86 server for most simple framebuffer SVGA devices."
-#~ msgstr "XFree86 þjónn fyrir flest SVGA almenn skjáminnistækiskort."
-
-#~ msgid "X server for Suns with monochrome and 8-bit color SBUS framebuffers."
-#~ msgstr ""
-#~ "X þjónn fyrir SUN vélar með svart/hvítum eða 8 bita SBUS skjákortum."
-
-#~ msgid "The X server for Suns with all supported SBUS framebuffers."
-#~ msgstr "Sun X þjónn fyrir öll studd SBUS skjákort."
-
-#~ msgid "X server for Sun computers with monochrome SBUS framebuffers only."
-#~ msgstr "X þjónn fyrir Sun vélar með svart/hvítum SBUS skjákortum."
-
-#~ msgid "X server for systems with Digital TGA boards based on DC21040 chips."
-#~ msgstr "X þjónn fyrir vélar með Digital TGA kort með DC21040 kubb."
-
-#~ msgid "A generic XFree86 server for VGA16 boards."
-#~ msgstr "Almennur XFree86 þjónn fyrir VGA16 skjákort."
-
-#~ msgid "The XFree86 server for video cards based on ET4000/W32 chips."
-#~ msgstr "XFree86 þjónn fyrir ET4000/W32 samhæfð skjákort."
-
-#~ msgid ""
-#~ "A graphical user interface configuration tool for the X Window System."
-#~ msgstr "Grafískt tól til þess að stilla X gluggakerfið."
-
-#~ msgid "A nested XFree86 server."
-#~ msgstr "X þjónn sem keyrir ofan á öðrum X þjóni."
-
-#~ msgid "A virtual framebuffer X Windows System server for XFree86."
-#~ msgstr "Sýndar X þjónn fyrir almenn skjáminnistæki."
-
-#~ msgid "Cyrillic fonts for X."
-#~ msgstr "Kýrilískst letur fyrir X"
-
-#~ msgid "X11R6 static libraries, headers and programming man pages."
-#~ msgstr ""
-#~ "Fastbundin X11R6 stefjasöfn, hausaskrár og forritunarhandbókarsíður."
-
-#~ msgid "Documentation on various X11 programming interfaces."
-#~ msgstr "Leiðbeiningar um ýmis X11 forritunarviðmót."
-
-#~ msgid "System Environment/Libraries"
-#~ msgstr "Kerfisumhverfi/Stefjasöfn"
-
-#~ msgid "Shared libraries needed by the X Window System version 11 release 6."
-#~ msgstr "Samnýtt stefjasöfn sem eru nauðsynleg fyrir X11 útgáfu 6."
-
-#~ msgid "A font server for the X Window System."
-#~ msgstr "Leturgerðamiðlari fyrir X gluggakerfið."
-
-#~ msgid "A version of the MIT Athena widget set for X."
-#~ msgstr "Athena viðmótshlutirnir frá MIT fyrir X."
-
-#~ msgid "Header files and static libraries for development using Xaw3d."
-#~ msgstr "Hausaskrár og fastbundin stefjasöfn fyrir forritun í Xaw3d."
-
-#~ msgid "The Red Hat Linux configuration tool for the X Window System."
-#~ msgstr "Stillingatól fyrir X gluggakerfið frá RedHat."
-
-#~ msgid "A bootloader which can be started from the SRM console."
-#~ msgstr "Ræsistjóri sem ræsa má frá SRM stjórnskjá."
-
-#~ msgid "A utility for adjusting kernel time variables."
-#~ msgstr "Tól til að breyta tímagildum í kjarnanum."
-
-#~ msgid "A movie and animation player for KDE."
-#~ msgstr "Kvik- or teiknimyndaspilari fyrir KDE."
-
-#~ msgid "Automount utilities including an updated version of Amd."
-#~ msgstr "Tól til að tengja skráarkerfi sjálfvirkt og uppfærð útgáfa af Amd."
-
-#~ msgid "A fast, read-only, anonymous FTP server."
-#~ msgstr "Hraður 'anonymous' FTP þjónn sem veitir aðeins lesaðgang."
-
-#~ msgid "The most widely used Web server on the Internet."
-#~ msgstr "Mest notaði vefþjónn á netinu."
-
-#~ msgid "Development tools for the Apache Web server."
-#~ msgstr "Þróunartól fyrir Apache vefþjóninn."
-
-#~ msgid "Advanced Power Management (APM) BIOS utilities for laptops."
-#~ msgstr "Advanced Power Management (APM) BIOS tól fyrir kjöltutölvur."
-
-#~ msgid "Network monitoring tools for tracking IP addresses on a network."
-#~ msgstr "Neteftirlitstól til að fylgjast með IP vistföngum á neti."
-
-#~ msgid "System Environment/Shells"
-#~ msgstr "Kerfisumhverfi/Skeljar"
-
-#~ msgid "A smaller version of the Bourne shell (sh)."
-#~ msgstr "Minni útgáfa af Bourne skelinni (sh)"
-
-#~ msgid "Job spooling tools."
-#~ msgstr "Tól til runuverka."
-
-#~ msgid "An audio control application for Linux/SPARC"
-#~ msgstr "Tól til að stilla hljóð fyrir Linux á SPARC"
-
-#~ msgid "A library for accessing various audio file formats."
-#~ msgstr "Stefjasafn sem inniheldur köll til að lesa mörg hljóðsnið."
-
-#~ msgid ""
-#~ "Libraries, includes and other files to develop audiofile applications."
-#~ msgstr "Stefjasöfn, hausaskrár og þróunartól fyrir audiofile forritasafnið."
-
-#~ msgid "An ncurses-based audio mixer."
-#~ msgstr "Hljóðblöndunartól byggt á ncurses."
-
-#~ msgid "This is a LDAP authentication module for Apache"
-#~ msgstr "Þetta er LDAP auðkenningareining fyrir Apache"
-
-#~ msgid "Text-mode tool for setting up NIS and shadow passwords."
-#~ msgstr "Textatól til að setja upp NIS og falin leyniorð."
-
-#~ msgid "A GNU tool for automatically configuring source code."
-#~ msgstr "GNU forrit til að að stilla frumkóða sjálfvirkt."
-
-#~ msgid "A tool for automatically mounting and unmounting filesystems."
-#~ msgstr "Tól til að tengja og aftengja skrárkerfi sjálfvirkt."
-
-#~ msgid "A GNU tool for automatically creating Makefiles."
-#~ msgstr "GNU tól til að búa til Makeskrár sjálfvirkt."
-
-#~ msgid "A program to automagically mount/play cdroms"
-#~ msgstr "Forrit til þess að tengja/spila geisladiska sjálfvirkt."
-
-#~ msgid "Utility programs for the AWE32 sound driver."
-#~ msgstr "Ýmis tól fyrir AWE32 hljóðrekilinn."
-
-#~ msgid "The skeleton package which defines a Red Hat Linux system."
-#~ msgstr "Þessi pakki er grunnurinn að Red Hat Linux kerfinu."
-
-#~ msgid "The GNU Bourne Again shell (bash) version 1.14."
-#~ msgstr "GNU Bourne Again skelin (bash) útgáfa 1.14."
-
-#~ msgid "The GNU Bourne Again shell (bash)."
-#~ msgstr "GNU Bourne Again skelin (bash)."
-
-#~ msgid "Documentation for the GNU Bourne Again shell (bash)."
-#~ msgstr "Leiðbeiningar um GNU Bourne Again skelina (bash)."
-
-#~ msgid "Development/Languages"
-#~ msgstr "Þróunartól/Forritunarmál"
-
-#~ msgid "A BASIC language interpreter."
-#~ msgstr "BASIC túlkur."
-
-#~ msgid "Applications/Engineering"
-#~ msgstr "Forrit/Verkfræði"
-
-#~ msgid "GNU's bc (a numeric processing language) and dc (a calculator)."
-#~ msgstr "bc og dc reiknivélarnar frá GNU."
-
-#~ msgid "The daemon which starts the flushing of dirty buffers back to disk."
-#~ msgstr "Dímon sem sér um að skrifa gögn í minni á disk."
-
-#~ msgid "A real mode 80x86 assembler and linker."
-#~ msgstr "80x86 smalamálsþýðandi og tengir."
-
-#~ msgid "A DNS (Domain Name System) server."
-#~ msgstr "DNS (Domain Name System) nafnaþjónn."
-
-#~ msgid "Include files and libraries needed for bind DNS development."
-#~ msgstr "Hausaskrár og stefjasöfn fyrir forritun í DNS."
-
-#~ msgid "DNS utilities:  host, dig, dnsquery, and nslookup."
-#~ msgstr "DNS tólin host, dig, dnsquery og nslookup."
-
-#~ msgid "A GNU collection of binary utilities."
-#~ msgstr "Samansafn GNU forritunartóla."
-
-#~ msgid "A GNU general-purpose parser generator."
-#~ msgstr "Almennur GNU greinir."
-
-#~ msgid "A Tk toolkit extension, including widgets, geometry managers, etc."
-#~ msgstr "TK viðbot sem inniheldur viðmótshluti og fleira."
-
-#~ msgid ""
-#~ "A server process which provides boot information to diskless clients."
-#~ msgstr "Þjónn sem veitir disklausum biðlurum upplýsingar fyrir ræsingu."
-
-#~ msgid "The client for BOOTP servers."
-#~ msgstr "Biðlarahluti fyrir BOTP þjóna."
-
-#~ msgid "A public domain Yacc parser generator."
-#~ msgstr "Yacc greinir í almenningseign."
-
-#~ msgid "Applications/File"
-#~ msgstr "Forrit/Skráatól"
-
-#~ msgid "A file compression utility."
-#~ msgstr "tól til að þjappa skrám."
-
-#~ msgid "The configuration files for setting up a caching name server."
-#~ msgstr "Stillingaskrár til að setja upp nafnaþjón sem geymir niðurstöður."
-
-#~ msgid "Programs for encoding and decoding C and C++ function declarations."
-#~ msgstr "Forrit til að kóta og afkóta C og C++ stefjaskilgreiningar."
-
-#~ msgid "An interactive text-mode program for playing audio CD-ROMs."
-#~ msgstr "Gagnvirkt textaforrit til þess að spila geisladiska."
-
-#~ msgid "A Compact Disc Digital Audio (CDDA) extraction tool."
-#~ msgstr "Forrit til þess að lesa inn lög af geisladiskum."
-
-#~ msgid "Applications/Archiving"
-#~ msgstr "Forrit/Þjöppun"
-
-#~ msgid "A command line CD/DVD recording program"
-#~ msgstr "Skipanalínutól til að skrifa geisladiska."
-
-#~ msgid "Amusements/Games"
-#~ msgstr "Skemmtun/Leikir"
-
-#~ msgid "Applications/Text"
-#~ msgstr "Forrit/Texti"
-
-#~ msgid "Applications/Emulators"
-#~ msgstr "Forrit/Hermar"
-
-#~ msgid "System Environment/Kernel"
-#~ msgstr "Kerfisumhverfi/Kjarninn"
-
-#~ msgid "Applications/Internet"
-#~ msgstr "Forrit/Internetið"
-
-#~ msgid "Applications/Publishing"
-#~ msgstr "Forrit/Umbrot"
-
-#~ msgid "Development/Debuggers"
-#~ msgstr "Þróunartól/Aflúsarar"
-
-#~ msgid "Applications/Productivity"
-#~ msgstr "Forrit/Framleiðni"
+msgid "ISO 8859-7 fonts in 75 dpi resolution for the X Window System."
+msgstr "ISO 8859-7 leturgerðir í 75 dpi upplausn fyrir X gluggakerfið."
 
 #
-#~ msgid "Applications/Cryptography"
-#~ msgstr "Forrit/Kóðun"
+msgid "Type 1 scalable Greek (ISO 8859-7 ) fonts"
+msgstr "Skalanlegt Grískt letur (ISO 8859-7) af gerð 1 fyrir X."
 
-#~ msgid "Development/System"
-#~ msgstr "Þróunartól/Kerfistól"
+msgid "Turkish language fonts and modmaps for X."
+msgstr "Tyrknenskt letur og lyklaborðsvarpanir fyrir X."
 
-#~ msgid "Amusements/Graphics"
-#~ msgstr "Skemmtun/Grafík"
+msgid "100 dpi Turkish (ISO8859-9) fonts for X."
+msgstr "Tyrknenskt letur (ISO8859-9) í 100 dpi upplausn fyrir X."
+
+msgid "75 dpi Turkish (ISO8859-9) fonts for X."
+msgstr "Tyrknenskt letur (ISO8859-9) í 75 dpi upplausn fyrir X."
+
+msgid "The XFree86 server for Mach32 based video cards."
+msgstr "XFree86 þjónn fyrir Mach32 samhæfð skjákort."
+
+msgid "The XFree86 server for Mach64 based video cards."
+msgstr "XFree86 þjónn fyrir Mach64 samhæfð skjákort."
+
+msgid "The XFree86 server for Mach8 video cards."
+msgstr "XFree86 þjónn fyrir Mach8 samhæfð skjákort."
+
+msgid "A generic XFree86 monochrome server for VGA cards."
+msgstr "Almennur svart/hvítur X þjónn fyrir VGA skjákort."
+
+msgid "The XFree86 server for P9000 cards."
+msgstr "XFree86 þjónn fyrir P9000 samhæfð skjákort."
+
+msgid "The XFree86 server for video cards based on the S3 chip."
+msgstr "XFree86 þjónn fyrir skjákort með S3 kubbnum."
+
+msgid "The XFree86 server for video cards based on the S3 Virge chip."
+msgstr "XFree86 þjónn fyrir skjákort með 'S3 Virge' kubbnum."
+
+msgid "An XFree86 server for most simple framebuffer SVGA devices."
+msgstr "XFree86 þjónn fyrir flest SVGA almenn skjáminnistækiskort."
+
+msgid "X server for Suns with monochrome and 8-bit color SBUS framebuffers."
+msgstr "X þjónn fyrir SUN vélar með svart/hvítum eða 8 bita SBUS skjákortum."
+
+msgid "The X server for Suns with all supported SBUS framebuffers."
+msgstr "Sun X þjónn fyrir öll studd SBUS skjákort."
+
+msgid "X server for Sun computers with monochrome SBUS framebuffers only."
+msgstr "X þjónn fyrir Sun vélar með svart/hvítum SBUS skjákortum."
+
+msgid "X server for systems with Digital TGA boards based on DC21040 chips."
+msgstr "X þjónn fyrir vélar með Digital TGA kort með DC21040 kubb."
+
+msgid "A generic XFree86 server for VGA16 boards."
+msgstr "Almennur XFree86 þjónn fyrir VGA16 skjákort."
+
+msgid "The XFree86 server for video cards based on ET4000/W32 chips."
+msgstr "XFree86 þjónn fyrir ET4000/W32 samhæfð skjákort."
+
+msgid "A graphical user interface configuration tool for the X Window System."
+msgstr "Grafískt tól til þess að stilla X gluggakerfið."
+
+msgid "A nested XFree86 server."
+msgstr "X þjónn sem keyrir ofan á öðrum X þjóni."
+
+msgid "A virtual framebuffer X Windows System server for XFree86."
+msgstr "Sýndar X þjónn fyrir almenn skjáminnistæki."
+
+msgid "Cyrillic fonts for X."
+msgstr "Kýrilískst letur fyrir X"
+
+msgid "X11R6 static libraries, headers and programming man pages."
+msgstr "Fastbundin X11R6 stefjasöfn, hausaskrár og forritunarhandbókarsíður."
+
+msgid "Documentation on various X11 programming interfaces."
+msgstr "Leiðbeiningar um ýmis X11 forritunarviðmót."
+
+msgid "System Environment/Libraries"
+msgstr "Kerfisumhverfi/Stefjasöfn"
+
+msgid "Shared libraries needed by the X Window System version 11 release 6."
+msgstr "Samnýtt stefjasöfn sem eru nauðsynleg fyrir X11 útgáfu 6."
+
+msgid "A font server for the X Window System."
+msgstr "Leturgerðamiðlari fyrir X gluggakerfið."
+
+msgid "A version of the MIT Athena widget set for X."
+msgstr "Athena viðmótshlutirnir frá MIT fyrir X."
+
+msgid "Header files and static libraries for development using Xaw3d."
+msgstr "Hausaskrár og fastbundin stefjasöfn fyrir forritun í Xaw3d."
+
+msgid "The Red Hat Linux configuration tool for the X Window System."
+msgstr "Stillingatól fyrir X gluggakerfið frá RedHat."
+
+msgid "A bootloader which can be started from the SRM console."
+msgstr "Ræsistjóri sem ræsa má frá SRM stjórnskjá."
+
+msgid "A utility for adjusting kernel time variables."
+msgstr "Tól til að breyta tímagildum í kjarnanum."
+
+msgid "A movie and animation player for KDE."
+msgstr "Kvik- or teiknimyndaspilari fyrir KDE."
+
+msgid "Automount utilities including an updated version of Amd."
+msgstr "Tól til að tengja skráarkerfi sjálfvirkt og uppfærð útgáfa af Amd."
+
+msgid "A fast, read-only, anonymous FTP server."
+msgstr "Hraður 'anonymous' FTP þjónn sem veitir aðeins lesaðgang."
+
+msgid "The most widely used Web server on the Internet."
+msgstr "Mest notaði vefþjónn á netinu."
+
+msgid "Development tools for the Apache Web server."
+msgstr "Þróunartól fyrir Apache vefþjóninn."
+
+msgid "Advanced Power Management (APM) BIOS utilities for laptops."
+msgstr "Advanced Power Management (APM) BIOS tól fyrir kjöltutölvur."
+
+msgid "Network monitoring tools for tracking IP addresses on a network."
+msgstr "Neteftirlitstól til að fylgjast með IP vistföngum á neti."
+
+msgid "System Environment/Shells"
+msgstr "Kerfisumhverfi/Skeljar"
+
+msgid "A smaller version of the Bourne shell (sh)."
+msgstr "Minni útgáfa af Bourne skelinni (sh)"
+
+msgid "Job spooling tools."
+msgstr "Tól til runuverka."
+
+msgid "An audio control application for Linux/SPARC"
+msgstr "Tól til að stilla hljóð fyrir Linux á SPARC"
+
+msgid "A library for accessing various audio file formats."
+msgstr "Stefjasafn sem inniheldur köll til að lesa mörg hljóðsnið."
+
+msgid "Libraries, includes and other files to develop audiofile applications."
+msgstr "Stefjasöfn, hausaskrár og þróunartól fyrir audiofile forritasafnið."
+
+msgid "An ncurses-based audio mixer."
+msgstr "Hljóðblöndunartól byggt á ncurses."
+
+msgid "This is a LDAP authentication module for Apache"
+msgstr "Þetta er LDAP auðkenningareining fyrir Apache"
+
+msgid "Text-mode tool for setting up NIS and shadow passwords."
+msgstr "Textatól til að setja upp NIS og falin leyniorð."
+
+msgid "A GNU tool for automatically configuring source code."
+msgstr "GNU forrit til að að stilla frumkóða sjálfvirkt."
+
+msgid "A tool for automatically mounting and unmounting filesystems."
+msgstr "Tól til að tengja og aftengja skrárkerfi sjálfvirkt."
+
+msgid "A GNU tool for automatically creating Makefiles."
+msgstr "GNU tól til að búa til Makeskrár sjálfvirkt."
+
+msgid "A program to automagically mount/play cdroms"
+msgstr "Forrit til þess að tengja/spila geisladiska sjálfvirkt."
+
+msgid "Utility programs for the AWE32 sound driver."
+msgstr "Ýmis tól fyrir AWE32 hljóðrekilinn."
+
+msgid "The skeleton package which defines a Red Hat Linux system."
+msgstr "Þessi pakki er grunnurinn að Red Hat Linux kerfinu."
+
+msgid "The GNU Bourne Again shell (bash) version 1.14."
+msgstr "GNU Bourne Again skelin (bash) útgáfa 1.14."
+
+msgid "The GNU Bourne Again shell (bash)."
+msgstr "GNU Bourne Again skelin (bash)."
+
+msgid "Documentation for the GNU Bourne Again shell (bash)."
+msgstr "Leiðbeiningar um GNU Bourne Again skelina (bash)."
+
+msgid "Development/Languages"
+msgstr "Þróunartól/Forritunarmál"
+
+msgid "A BASIC language interpreter."
+msgstr "BASIC túlkur."
+
+msgid "Applications/Engineering"
+msgstr "Forrit/Verkfræði"
+
+msgid "GNU's bc (a numeric processing language) and dc (a calculator)."
+msgstr "bc og dc reiknivélarnar frá GNU."
+
+msgid "The daemon which starts the flushing of dirty buffers back to disk."
+msgstr "Dímon sem sér um að skrifa gögn í minni á disk."
+
+msgid "A real mode 80x86 assembler and linker."
+msgstr "80x86 smalamálsþýðandi og tengir."
+
+msgid "A DNS (Domain Name System) server."
+msgstr "DNS (Domain Name System) nafnaþjónn."
+
+msgid "Include files and libraries needed for bind DNS development."
+msgstr "Hausaskrár og stefjasöfn fyrir forritun í DNS."
+
+msgid "DNS utilities:  host, dig, dnsquery, and nslookup."
+msgstr "DNS tólin host, dig, dnsquery og nslookup."
+
+msgid "A GNU collection of binary utilities."
+msgstr "Samansafn GNU forritunartóla."
+
+msgid "A GNU general-purpose parser generator."
+msgstr "Almennur GNU greinir."
+
+msgid "A Tk toolkit extension, including widgets, geometry managers, etc."
+msgstr "TK viðbot sem inniheldur viðmótshluti og fleira."
+
+msgid "A server process which provides boot information to diskless clients."
+msgstr "Þjónn sem veitir disklausum biðlurum upplýsingar fyrir ræsingu."
+
+msgid "The client for BOOTP servers."
+msgstr "Biðlarahluti fyrir BOTP þjóna."
+
+msgid "A public domain Yacc parser generator."
+msgstr "Yacc greinir í almenningseign."
+
+msgid "Applications/File"
+msgstr "Forrit/Skráatól"
+
+msgid "A file compression utility."
+msgstr "tól til að þjappa skrám."
+
+msgid "The configuration files for setting up a caching name server."
+msgstr "Stillingaskrár til að setja upp nafnaþjón sem geymir niðurstöður."
+
+msgid "Programs for encoding and decoding C and C++ function declarations."
+msgstr "Forrit til að kóta og afkóta C og C++ stefjaskilgreiningar."
+
+msgid "An interactive text-mode program for playing audio CD-ROMs."
+msgstr "Gagnvirkt textaforrit til þess að spila geisladiska."
+
+msgid "A Compact Disc Digital Audio (CDDA) extraction tool."
+msgstr "Forrit til þess að lesa inn lög af geisladiskum."
+
+msgid "Applications/Archiving"
+msgstr "Forrit/Þjöppun"
+
+msgid "A command line CD/DVD recording program"
+msgstr "Skipanalínutól til að skrifa geisladiska."
+
+msgid "Amusements/Games"
+msgstr "Skemmtun/Leikir"
+
+msgid "Applications/Text"
+msgstr "Forrit/Texti"
+
+msgid "Applications/Emulators"
+msgstr "Forrit/Hermar"
+
+msgid "System Environment/Kernel"
+msgstr "Kerfisumhverfi/Kjarninn"
+
+msgid "Applications/Internet"
+msgstr "Forrit/Internetið"
+
+msgid "Applications/Publishing"
+msgstr "Forrit/Umbrot"
+
+msgid "Development/Debuggers"
+msgstr "Þróunartól/Aflúsarar"
+
+msgid "Applications/Productivity"
+msgstr "Forrit/Framleiðni"
 
 #
-#~ msgid "Linux PCI development library."
-#~ msgstr "PCI þróunarforritasafn fyrir Linux"
+msgid "Applications/Cryptography"
+msgstr "Forrit/Kóðun"
 
-#~ msgid "Applications/Databases"
-#~ msgstr "Forrit/Gagnagrunnar"
+msgid "Development/System"
+msgstr "Þróunartól/Kerfistól"
+
+msgid "Amusements/Graphics"
+msgstr "Skemmtun/Grafík"
+
+#
+msgid "Linux PCI development library."
+msgstr "PCI þróunarforritasafn fyrir Linux"
+
+msgid "Applications/Databases"
+msgstr "Forrit/Gagnagrunnar"
 
 # ========================================================
-#~ msgid ""
-#~ "Zgv is an image viewer which can display graphics in GIF, JPEG/JFIF,\n"
-#~ "PNG, PBM/PGM/PPM, BMP, TGA, PCX and MRF formats on VGA and SVGA\n"
-#~ "displays.  Zgv can also display thumbnails of the images.  Zgv is\n"
-#~ "based on svgalib, which you will need to have on your system in order\n"
-#~ "to use zgv.\n"
-#~ "\n"
-#~ "Install zgv if you need an image viewer."
-#~ msgstr ""
-#~ "Zgv er forrit sem getur sýnt GIF, JPEG/JFIF, PNG, PBM/PGM/PPM,\n"
-#~ "BMP, TGA, PCX og MRF myndir á VGA og SVGA skjám. Zgv getur einnig\n"
-#~ "sýnt smámyndir af stærri myndum. Zgv notar svgalib, sem verður að vera\n"
-#~ "uppsett á vélinni svo zgv virki.\n"
-#~ "\n"
-#~ "Settu upp zgv ef þú þarft að skoða myndir á stjórnskjá."
+msgid ""
+"Zgv is an image viewer which can display graphics in GIF, JPEG/JFIF,\n"
+"PNG, PBM/PGM/PPM, BMP, TGA, PCX and MRF formats on VGA and SVGA\n"
+"displays.  Zgv can also display thumbnails of the images.  Zgv is\n"
+"based on svgalib, which you will need to have on your system in order\n"
+"to use zgv.\n"
+"\n"
+"Install zgv if you need an image viewer."
+msgstr ""
+"Zgv er forrit sem getur sýnt GIF, JPEG/JFIF, PNG, PBM/PGM/PPM,\n"
+"BMP, TGA, PCX og MRF myndir á VGA og SVGA skjám. Zgv getur einnig\n"
+"sýnt smámyndir af stærri myndum. Zgv notar svgalib, sem verður að vera\n"
+"uppsett á vélinni svo zgv virki.\n"
+"\n"
+"Settu upp zgv ef þú þarft að skoða myndir á stjórnskjá."
 
-#~ msgid "A viewer for many different image formats."
-#~ msgstr "Forrit til að skoða myndir í margskonar forsniðum."
-
-# ========================================================
-#~ msgid ""
-#~ "The zip program is a compression and file packaging utility.  Zip is\n"
-#~ "analogous to a combination of the UNIX tar and compress commands and\n"
-#~ "is compatible with PKZIP (a compression and file packaging utility for\n"
-#~ "MS-DOS systems).\n"
-#~ "\n"
-#~ "Install the zip package if you need to compress files using the zip\n"
-#~ "program."
-#~ msgstr ""
-#~ "Zip forritið er pökkunar og þjöppunartól. Zip gerir svipaða hluti\n"
-#~ "og UNIX tar og compress og er samhæft við PKZIP (pökkunar og þjöppunartól\n"
-#~ "fyrir MS-DOS vélar).\n"
-#~ "\n"
-#~ "Settu upp zip ef þú þarft að vinna með skrár í zip formi."
-
-#~ msgid "A file compression and packaging utility compatible with PKZIP."
-#~ msgstr "Pökkunar og þjöppunartól samhæft PKZIP."
+msgid "A viewer for many different image formats."
+msgstr "Forrit til að skoða myndir í margskonar forsniðum."
 
 # ========================================================
-#~ msgid ""
-#~ "The zlib compression library provides in-memory compression and\n"
-#~ "decompression functions, including integrity checks of the\n"
-#~ "uncompressed data.  This version of the library supports only one\n"
-#~ "compression method (deflation), but other algorithms may be added\n"
-#~ "later, which will have the same stream interface.  The zlib library is\n"
-#~ "used by many different system programs."
-#~ msgstr ""
-#~ "Zlib þjöppunarforritssafnið býður uppá þjöppun og afþjöppun á gögnum\n"
-#~ "í minni og leiðir til að ganga úr skugga um áreyðanleika gagnanna.\n"
-#~ "Þessi útgáfa af zlib styður aðeins eina þjöppunaraðferð (deflation)\n"
-#~ "en fleiri þjöppunaraðferðum má bæta við í framtíðinni sem nota samskonar\n"
-#~ "forritunarviðmót. Zlib er notað af mörgum kerfisforritum."
+msgid ""
+"The zip program is a compression and file packaging utility.  Zip is\n"
+"analogous to a combination of the UNIX tar and compress commands and\n"
+"is compatible with PKZIP (a compression and file packaging utility for\n"
+"MS-DOS systems).\n"
+"\n"
+"Install the zip package if you need to compress files using the zip\n"
+"program."
+msgstr ""
+"Zip forritið er pökkunar og þjöppunartól. Zip gerir svipaða hluti\n"
+"og UNIX tar og compress og er samhæft við PKZIP (pökkunar og þjöppunartól\n"
+"fyrir MS-DOS vélar).\n"
+"\n"
+"Settu upp zip ef þú þarft að vinna með skrár í zip formi."
 
-#~ msgid "The zlib compression and decompression library."
-#~ msgstr "Zlib þjöppunarforritssafnið."
-
-# ========================================================
-#~ msgid ""
-#~ "The zlib-devel package contains the header files and libraries needed\n"
-#~ "to develop programs that use the zlib compression and decompression\n"
-#~ "library.\n"
-#~ "\n"
-#~ "Install the zlib-devel package if you want to develop applications that\n"
-#~ "will use the zlib library."
-#~ msgstr ""
-#~ "Zlib-devel pakkinn inniheldur hausa og önnur forritasöfn sem eru nauðsynleg\n"
-#~ "til að skrifa forrit sem nota zlib þjöppun og afþjöppun.\n"
-#~ "\n"
-#~ "Settu upp zlib-devel pakkann ef þú vilt skrifa eða þýða forrit sem nota zlib."
-
-#~ msgid "Header files and libraries for developing apps which will use zlib."
-#~ msgstr "Hausar og foritasöfn fyrir forritara sem vilja nota zlib."
+msgid "A file compression and packaging utility compatible with PKZIP."
+msgstr "Pökkunar og þjöppunartól samhæft PKZIP."
 
 # ========================================================
-#~ msgid ""
-#~ "The zsh shell is a command interpreter usable as an interactive login\n"
-#~ "shell and as a shell script command processor.  Zsh resembles the ksh\n"
-#~ "shell (the Korn shell), but includes many enhancements.  Zsh supports\n"
-#~ "command line editing, built-in spelling correction, programmable\n"
-#~ "command completion, shell functions (with autoloading), a history\n"
-#~ "mechanism and more.\n"
-#~ "\n"
-#~ "Install the zsh package if you'd like to try out a different shell."
-#~ msgstr ""
-#~ "Zsh skélin er bæði almenn skél til vinnslu í Linux og til að keyra\n"
-#~ "skeljarforrit. Zsh svipar til ksh (Korn skélin) en inniheldur margar\n"
-#~ "umbætur. Zsh styður sýsl með skipanalínur, innbyggðar leiðréttingar á\n"
-#~ "stafsettningu, stillanlega eiginleika sem klárar skipanir fyrir mann,\n"
-#~ "skipanaannál og fleira.\n"
-#~ "\n"
-#~ "Settu upp zsh ef þú vilt prófa öðruvísi skél."
+msgid ""
+"The zlib compression library provides in-memory compression and\n"
+"decompression functions, including integrity checks of the\n"
+"uncompressed data.  This version of the library supports only one\n"
+"compression method (deflation), but other algorithms may be added\n"
+"later, which will have the same stream interface.  The zlib library is\n"
+"used by many different system programs."
+msgstr ""
+"Zlib þjöppunarforritssafnið býður uppá þjöppun og afþjöppun á gögnum\n"
+"í minni og leiðir til að ganga úr skugga um áreyðanleika gagnanna.\n"
+"Þessi útgáfa af zlib styður aðeins eina þjöppunaraðferð (deflation)\n"
+"en fleiri þjöppunaraðferðum má bæta við í framtíðinni sem nota samskonar\n"
+"forritunarviðmót. Zlib er notað af mörgum kerfisforritum."
 
-#~ msgid "A shell similar to ksh, but with improvements."
-#~ msgstr "Skél sem er svipuð ksh en endurbætt."
+msgid "The zlib compression and decompression library."
+msgstr "Zlib þjöppunarforritssafnið."
+
+# ========================================================
+msgid ""
+"The zlib-devel package contains the header files and libraries needed\n"
+"to develop programs that use the zlib compression and decompression\n"
+"library.\n"
+"\n"
+"Install the zlib-devel package if you want to develop applications that\n"
+"will use the zlib library."
+msgstr ""
+"Zlib-devel pakkinn inniheldur hausa og önnur forritasöfn sem eru nauðsynleg\n"
+"til að skrifa forrit sem nota zlib þjöppun og afþjöppun.\n"
+"\n"
+"Settu upp zlib-devel pakkann ef þú vilt skrifa eða þýða forrit sem nota zlib."
+
+msgid "Header files and libraries for developing apps which will use zlib."
+msgstr "Hausar og foritasöfn fyrir forritara sem vilja nota zlib."
+
+# ========================================================
+msgid ""
+"The zsh shell is a command interpreter usable as an interactive login\n"
+"shell and as a shell script command processor.  Zsh resembles the ksh\n"
+"shell (the Korn shell), but includes many enhancements.  Zsh supports\n"
+"command line editing, built-in spelling correction, programmable\n"
+"command completion, shell functions (with autoloading), a history\n"
+"mechanism and more.\n"
+"\n"
+"Install the zsh package if you'd like to try out a different shell."
+msgstr ""
+"Zsh skélin er bæði almenn skél til vinnslu í Linux og til að keyra\n"
+"skeljarforrit. Zsh svipar til ksh (Korn skélin) en inniheldur margar\n"
+"umbætur. Zsh styður sýsl með skipanalínur, innbyggðar leiðréttingar á\n"
+"stafsettningu, stillanlega eiginleika sem klárar skipanir fyrir mann,\n"
+"skipanaannál og fleira.\n"
+"\n"
+"Settu upp zsh ef þú vilt prófa öðruvísi skél."
+
+msgid "A shell similar to ksh, but with improvements."
+msgstr "Skél sem er svipuð ksh en endurbætt."
 
 #
-#~ msgid "X11/Development"
-#~ msgstr "X11/Þróunartól"
+msgid "X11/Development"
+msgstr "X11/Þróunartól"
 
-#~ msgid "AfterStep Window Manager"
-#~ msgstr "AfterStep gluggastjórinn"
+msgid "AfterStep Window Manager"
+msgstr "AfterStep gluggastjórinn"
