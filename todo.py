@@ -786,10 +786,10 @@ class ToDo:
 
         for (drive, (label, liloType)) in self.liloImages.items ():
             if (drive == rootDev) and label:
-                self.log ("%s label %s is root (%s) \n", drive, label, rootDev)
+                self.log ("%s label %s is root (%s)", drive, label, rootDev)
                 main = label
             elif label:
-                self.log ("%s label %s is ohter\n", drive, label)
+                self.log ("%s label %s is ohter", drive, label)
                 otherList.append (label, "/dev/" + drive)
 
         lilo.addEntry("default", main)        
@@ -1065,8 +1065,8 @@ class ToDo:
                         isys.makeDevInode(dev, '/tmp/' + dev)
                         try:
                             isys.swapon ('/tmp/' + dev)
-                        except:
-                            self.log ("Error in swapon of %s\n", dev)
+                        except SystemError, (error, msg):
+                            self.log ("Error in swapon of %s: %s", dev, msg)
                         os.remove ('/tmp/' + dev)
             os.remove ('/tmp/' + drive)
         win.pop ()
@@ -1286,11 +1286,11 @@ class ToDo:
 	    command = ("cd %s/lib/modules; gunzip < %s/modules.cgz | " +
 			"%s/bin/cpio  --quiet -iumd %s") % \
 		(self.instPath, path, self.instPath, pattern)
-	    self.log("running: '%s'\n" % (command, ))
+	    self.log("running: '%s'" % (command, ))
 	    os.system(command)
 
 	    for n in kernelVersions:
-		self.log("from %s/lib/modules/%s/%s.o\n" % (self.instPath, n, name))
+		self.log("from %s/lib/modules/%s/%s.o" % (self.instPath, n, name))
 		self.log("to %s/lib/modules/%s/%s/%s.o" % (self.instPath, n, 
 							subdir, name))
 		os.rename("%s/lib/modules/%s/%s.o" % (self.instPath, n, name),
