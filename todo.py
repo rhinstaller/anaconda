@@ -1992,3 +1992,4 @@ class ToDo:
 
         finally:
             w.pop ()
+        sys.stdout.flush()
