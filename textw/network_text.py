@@ -12,7 +12,7 @@ class NetworkWindow:
         else:
             sense = FLAGS_RESET
 
-        for n in self.ip, self.nm, self.gw, self.ns:
+        for n in self.ip, self.nm, self.gw, self.ns, self.ns2, self.ns3:
             n.setFlags (FLAG_DISABLED, sense)
 
     def calcNM (self):
@@ -65,11 +65,14 @@ class NetworkWindow:
                             isOn = (boot == "dhcp"))
         firstg.setField (self.cb, 0, 0, anchorLeft = 1)
 
-        secondg = Grid (2, 4)
+        secondg = Grid (2, 6)
         secondg.setField (Label (_("IP address:")), 0, 0, anchorLeft = 1)
 	secondg.setField (Label (_("Netmask:")), 0, 1, anchorLeft = 1)
 	secondg.setField (Label (_("Default gateway (IP):")), 0, 2, anchorLeft = 1)
         secondg.setField (Label (_("Primary nameserver:")), 0, 3, anchorLeft = 1)
+        secondg.setField (Label (_("Secondary nameserver:")), 0, 4, anchorLeft = 1)
+        secondg.setField (Label (_("Ternary nameserver:")), 0, 5, anchorLeft = 1)
+
 
         self.ip = Entry (16)
         self.ip.set (dev.get ("ipaddr"))
@@ -79,6 +82,10 @@ class NetworkWindow:
         self.gw.set (todo.network.gateway)
         self.ns = Entry (16)
         self.ns.set (todo.network.primaryNS)
+        self.ns2 = Entry (16)
+        self.ns2.set (todo.network.secondaryNS)
+        self.ns3 = Entry (16)
+        self.ns3.set (todo.network.ternaryNS)
 
         self.cb.setCallback (self.setsensitive)
         self.ip.setCallback (self.calcNM)
@@ -88,6 +95,10 @@ class NetworkWindow:
 	secondg.setField (self.nm, 1, 1, (1, 0, 0, 0))
 	secondg.setField (self.gw, 1, 2, (1, 0, 0, 0))
         secondg.setField (self.ns, 1, 3, (1, 0, 0, 0))
+        secondg.setField (self.ns2, 1, 4, (1, 0, 0, 0))
+        secondg.setField (self.ns3, 1, 5, (1, 0, 0, 0))
+
+
 
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 
@@ -118,6 +129,9 @@ class NetworkWindow:
                          ("network", network), ("broadcast", broadcast))
                 todo.network.gateway = self.gw.value ()
                 todo.network.primaryNS = self.ns.value ()
+                todo.network.secondaryNS = self.ns2.value()
+                todo.network.ternaryNS = self.ns3.value()
+
             screen.popWindow()
             break
                      
