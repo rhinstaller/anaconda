@@ -1249,6 +1249,12 @@ class PartitionWindow(InstallWindow):
         node = self.tree.selection[0]
         partition = self.tree.node_get_row_data (node)
 
+        if (iutil.getArch() == "s390" or iutil.getArch() == "s390x") \
+           and not partition.get_flag(parted.PARTITION_RAID) == 1:
+            self.intf.messageWindow(_("Error"),
+                                    _("DASD partitions can only be deleted with fdasd"))
+            return
+
         if doDeletePartitionByRequest(self.intf, self.partitions, partition):
             self.refresh()
             
@@ -1538,6 +1544,8 @@ class PartitionWindow(InstallWindow):
 
 	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
             ops = ((_("_Edit"), self.editCb),
+                   (_("_Delete"), self.deleteCb),
+                   (_("_Reset"), self.resetCb),
                    (_("Make _RAID"), self.makeraidCB),)
         else:
             ops = ((_("_New"), self.newCB),
