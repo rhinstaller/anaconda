@@ -76,7 +76,8 @@ class Network:
         self.domains = []
         self.readData = 0
 	self.isConfigured = 0
-        self.hostname = "localhost.localdomain"
+#        self.hostname = "localhost.localdomain"
+        self.hostname = "test123.test.redhat.com"
         try:
             f = open ("/tmp/netinfo", "r")
         except:
@@ -394,6 +395,7 @@ class ToDo:
         self.resState = ""
         self.depthState = ""
         self.initState = ""
+        self.dhcpState = ""
 
         # If reconfig mode, don't probe floppy
         #print self.reconfigOnly
