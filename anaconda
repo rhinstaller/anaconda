@@ -18,6 +18,12 @@ if len(sys.argv) > 1:
 
 if (os.path.exists('isys')):
     sys.path.append('isys')
+    sys.path.append('rpmmodule')
+    sys.path.append('libfdisk')
+    sys.path.append('balkan')
+    sys.path.append('kudzu')
+    sys.path.append('gnome-map')
+
 
 import gettext
 import traceback

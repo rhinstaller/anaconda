@@ -83,6 +83,7 @@ install: all
 		exit 1; \
 	fi
 	mkdir -p $(DESTDIR)/usr/bin
+	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a anaconda $(DESTDIR)/usr/bin
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYHTONLIBDIR) $(PYFILES)
