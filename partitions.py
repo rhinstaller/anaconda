@@ -345,9 +345,9 @@ class Partitions:
                 size = partedUtils.getPartSizeMB(part)                    
 
                 if used == 0:
-                    rc.append((partname, part, 0))
+                    rc.append((partname, size, 0))
                 elif used == 2:
-                    rc.append((partname, part, 1))
+                    rc.append((partname, size, 1))
         return rc
 
     def isLVMVolumeGroupMember(self, request):
@@ -413,11 +413,21 @@ class Partitions:
         """Resort the requests into allocation order."""
         n = 0
         while n < len(self.requests):
+	    # Ignore LVM Volume Group and Logical Volume requests,
+	    # since these are not related to allocating disk partitions
+	    if (self.requests[n].type == REQUEST_VG or self.requests[n].type == REQUEST_LV):
+		n = n + 1
+		continue
+	    
             for request in self.requests:
+		# Ignore LVM Volume Group and Logical Volume requests,
+		# since these are not related to allocating disk partitions
+		if (request.type == REQUEST_VG or request.type == REQUEST_LV):
+		    continue
                 # for raid requests, the only thing that matters for sorting
                 # is the raid device since ordering by size is mostly
                 # irrelevant.  this also keeps things more consistent
-                if (request.type == REQUEST_RAID or
+                elif (request.type == REQUEST_RAID or
                     self.requests[n].type == REQUEST_RAID):
                     if (request.type == self.requests[n].type and
                         (self.requests[n].raidminor != None) and
