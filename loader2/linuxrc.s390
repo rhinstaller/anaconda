@@ -296,8 +296,8 @@ fi
 ifconfig -a
 route -n
 
-echo $"Starting portmap."
-portmap
+#echo $"Starting portmap."
+#portmap
 
 # convert to space-separated lists
 if [ -n "$SEARCHDNS" ]; then
