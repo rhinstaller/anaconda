@@ -14,7 +14,7 @@ class FirewallWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
     def getNext (self):
-        if not self.__dict__.has_key("radio3"):
+        if not self.__dict__.has_key("sec_none_radio"):
             return None
 
         if self.sec_none_radio.get_active ():
