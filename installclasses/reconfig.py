@@ -32,6 +32,7 @@ class InstallClass(BaseInstallClass):
 	dispatch.setStepList(
 		    "reconfigwelcome",
 		    "reconfigkeyboard",
+                    "networkdevicecheck",
 		    "network",
 		    "firewall",
 		    "languagesupport",
