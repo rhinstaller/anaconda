@@ -1698,8 +1698,15 @@ class ToDo:
 #                          self.instCallback, (p, self.intf.messageWindow))
 
         if problems:
-            needed = {}
+            spaceneeded = {}
+            nodeneeded = {}
             size = 12
+
+            # XXX
+            nodeprob = -1
+            if rpm.__dict__.has_key ("RPMPROB_DISKNODES"):
+                nodeprob = rpm.RPMPROB_DISKNODES
+
             for (descr, (type, mount, need)) in problems:
                 idx = string.find (mount, "/mnt/sysimage")
 		if mount[0:13] == "/mnt/sysimage":
@@ -1707,26 +1714,46 @@ class ToDo:
 		    if not mount:
 			mount = '/'
 
-                if needed.has_key (mount) and needed[mount] < need:
-                    needed[mount] = need
+                if type == rpm.RPMPROB_DISKSPACE:
+                    if spaceneeded.has_key (mount) and spaceneeded[mount] < need:
+                        spaceneeded[mount] = need
+                    else:
+                        spaceneeded[mount] = need
+                else if type == nodeprob:
+                    if nodeneeded.has_key (mount) and nodeneeded[mount] < need:
+                        nodeneeded[mount] = need
+                    else:
+                        nodeneeded[mount] = need
                 else:
-                    needed[mount] = need
+                    log ("WARNING: unhandled problem returned from transaction set type %d",
+                         type)
 
-            probs = _("You don't appear to have enough disk space to install "
-                      "the packages you've selected. You need more space on the "
-                      "following filesystems:\n\n")
-            probs = probs + ("%-15s %s\n") % (_("Mount Point"), _("Space Needed"))
-                    
-            for (mount, need) in needed.items ():
-                if need > (1024*1024):
-                    need = (need + 1024 * 1024 - 1) / (1024 * 1024)
-                    suffix = "M"
-                else:
-                    need = (need + 1023) / 1024
-                    suffix = "k"
+            probs = ""
+            if spaceneeded:
+                probs = probs + _("You don't appear to have enough disk space to install "
+                                  "the packages you've selected. You need more space on the "
+                                  "following filesystems:\n\n")
+                probs = probs + ("%-15s %s\n") % (_("Mount Point"), _("Space Needed"))
 
-                prob = "%-15s %d %c\n" % (mount, need, suffix)
-                probs = probs + prob
+                for (mount, need) in spaceneeded.items ():
+                    if need > (1024*1024):
+                        need = (need + 1024 * 1024 - 1) / (1024 * 1024)
+                        suffix = "M"
+                    else:
+                        need = (need + 1023) / 1024
+                        suffix = "k"
+
+                    prob = "%-15s %d %c\n" % (mount, need, suffix)
+                    probs = probs + prob
+            if nodeneeded:
+                probs = probs + _("You don't appear to have enough file nodes to install "
+                                  "the packages you've selected. You need more file nodes on the "
+                                  "following filesystems:\n\n")
+                probs = probs + ("%-15s %s\n") % (_("Mount Point"), _("Nodes Needed"))
+
+                for (mount, need) in nodeneeded.items ():
+                    prob = "%-15s %d\n" % (mount, need)
+                    probs = probs + prob
 
             self.intf.messageWindow (_("Disk Space"), probs)
 
