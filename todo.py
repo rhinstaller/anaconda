@@ -267,7 +267,7 @@ class InstSyslog:
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
 		 installSystem = 1, mouse = None, instClass = None, x = None,
-		 expert = 0, serial = 0, unconfigOnly = 0, extraModules = []):
+		 expert = 0, serial = 0, reconfigOnly = 0, extraModules = []):
 	self.intf = intf
 	self.method = method
 	self.mounts = {}
@@ -278,7 +278,7 @@ class ToDo:
 	self.installSystem = installSystem
         self.language = Language ()
 	self.serial = serial
-        self.unconfigOnly = unconfigOnly
+        self.reconfigOnly = reconfigOnly
         self.log = LogFile (serial)
         self.network = Network ()
         self.rootpassword = Password ()

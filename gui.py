@@ -224,7 +224,7 @@ class InstallInterface:
         gtkThread.start ()
 
         # This is the same as the file
-        if todo.unconfigOnly:
+        if todo.reconfigOnly:
             if todo.serial:
                 commonSteps = [ ( LanguageWindow, "language" ), 
                                 ]

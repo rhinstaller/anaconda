@@ -3,7 +3,7 @@
 import sys, os
 
 #
-# For anaconda in unconfig mode
+# For anaconda in reconfig mode
 #
 sys.path.append('/usr/lib/anaconda')
 
@@ -32,8 +32,8 @@ gettext.bindtextdomain("anaconda", "/usr/share/locale")
 gettext.textdomain("anaconda")
 _ = gettext.gettext
 
-(args, extra) = isys.getopt(sys.argv[1:], 'GTUtdr:fm:', 
-          [ 'gui', 'text', 'unconfig', 'test', 'debug', 'method=', 'rootpath=',
+(args, extra) = isys.getopt(sys.argv[1:], 'GTRtdr:fm:', 
+          [ 'gui', 'text', 'reconfig', 'test', 'debug', 'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=',
 	    'expert', 'serial' ])
@@ -64,7 +64,7 @@ display_mode = 'g'
 # traceOnly      - print out loaded modules
 # forceMount     - ? used ?
 # localInstall   - install to chroot
-# unconfigOnly   - allow user to reconfig installed box w/o reinstall
+# reconfigOnly   - allow user to reconfig installed box w/o reinstall
 test = 0
 debug = 0
 serial = 0
@@ -72,12 +72,12 @@ expert = 0
 traceOnly = 0
 forceMount = 0
 localInstall = 0
-unconfigOnly = 0
+reconfigOnly = 0
 
 #
 # x          - xserver info (?)
 # lang       - language to use for install/machine default
-# method     - install method (not used if unconfigOnly is true)
+# method     - install method (not used if reconfigOnly is true)
 # keymap     - kbd map
 # kbdtype    - type of keyboard (84 key, 101 key, etc)
 # kickstart  - ?
@@ -100,8 +100,8 @@ for n in args:
 	display_mode = 'g'
     elif (str == '-T' or str == '--text'):
 	display_mode = 't'
-    elif (str == '-U' or str == '--unconfig'):
-	unconfigOnly = 1
+    elif (str == '-R' or str == '--reconfig'):
+	reconfigOnly = 1
     elif (str == '-t' or str == '--test'):
 	test = 1
     elif (str == '--module'):
@@ -134,14 +134,14 @@ for n in args:
 #
 # see how we were run, override command line mode selection
 #
-if (execname == "anaconda-unconfig"):
-    print "overriding to unconfig mode based on script name"
-    unconfigOnly = 1
+if (execname == "anaconda-reconfig"):
+    print "overriding to reconfig mode based on script name"
+    reconfigOnly = 1
 
 #
 # if not just reconfiguring box, must have install method
 #
-if (not unconfigOnly  and not method):
+if (not reconfigOnly  and not method):
     print "no install method specified"
     sys.exit(1)
 
@@ -151,7 +151,7 @@ if (debug):
 #
 # don't let a developer reinstall their box unknowingly
 #
-if (not unconfigOnly and not test and not localInstall and os.getpid() > 50):
+if (not reconfigOnly and not test and not localInstall and os.getpid() > 50):
     print "you're running me on a live system! that's incredibly stupid."
     sys.exit(1)
 
@@ -174,7 +174,7 @@ import lilo
 from todo import ToDo
 import isys
 from installclass import DefaultInstall
-from installclass import UnconfigStation
+from installclass import ReconfigStation
 from kickstart import Kickstart
 
 #
@@ -201,7 +201,7 @@ if (display_mode == 'g' and not os.environ.has_key('DISPLAY')):
 # setup links required by graphical mode if installing and verify display mode
 #
 if (display_mode == 'g'):
-    if not test and not localInstall and not unconfigOnly:
+    if not test and not localInstall and not reconfigOnly:
         for i in ( "imrc", "im_palette.pal", "gtk" ):
             os.symlink ("../mnt/source/RedHat/instimage/etc/" + i, "/etc/" + i)
     from gui import InstallInterface
@@ -231,7 +231,7 @@ if traceOnly:
     sys.exit(0)
 
 # imports after setting up the path
-if not unconfigOnly:
+if not reconfigOnly:
     if (method[0:5] == "dir:/"):
         from image import InstallMethod
         method = InstallMethod(method[5:])
@@ -257,8 +257,8 @@ if not unconfigOnly:
 #
 # do some final sanity checking before going off into the great wide wonder
 #
-if unconfigOnly and method != None:
-    print "Conflicting options: cannot unconfig and install simultaneously!\n"
+if reconfigOnly and method != None:
+    print "Conflicting options: cannot reconfig and install simultaneously!\n"
     sys.exit(1)
     
 intf = InstallInterface()
@@ -278,8 +278,8 @@ if forceMount:
 
 if kickstart:
     instClass = Kickstart(kickstart)
-elif unconfigOnly:
-    instClass = UnconfigStation()
+elif reconfigOnly:
+    instClass = ReconfigStation()
 else:
     instClass = DefaultInstall()
 
@@ -300,7 +300,7 @@ if iutil.getArch() == "sparc":
 	    instClass.addToSkipList("mouse")
 	    instClass.setMouseType("Sun - Mouse", "sunmouse")
 
-if unconfigOnly:
+if reconfigOnly:
     installPackages = 0
     setupFilesystems = 0
     rootPath = '/'
@@ -309,7 +309,7 @@ try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
                 setupFilesystems = setupFilesystems, mouse = mouseInfo,
                 instClass = instClass, x = x, expert = expert,
-                serial = serial, unconfigOnly = unconfigOnly,
+                serial = serial, reconfigOnly = reconfigOnly,
                 extraModules = extraModules)
     intf.run(todo, test = test)
 except:

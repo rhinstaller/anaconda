@@ -168,10 +168,10 @@ class XConfigWindow (InstallWindow):
             
     def getScreen (self):
         #
-        # if in unconfigOnly mode we query existing rpm db
+        # if in reconfigOnly mode we query existing rpm db
         # if X not installed, just skip this step
         #
-        if self.todo.unconfigOnly:
+        if self.todo.reconfigOnly:
             import rpm
             db = rpm.opendb()
             rc = db.findbyname ("XFree86")

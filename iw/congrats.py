@@ -28,7 +28,7 @@ class CongratulationWindow (InstallWindow):
             a.set (0.5, 0.5, 1.0, 1.0)
             hbox.pack_start (a, FALSE)
 
-        if not self.ics.cw.todo.unconfigOnly:
+        if not self.ics.cw.todo.reconfigOnly:
             label = GtkLabel(_("Congratulations, installation is complete.\n\n"
                                    "Remove the boot media and "
                                    "press return to reboot. For information on fixes which are "

@@ -3,7 +3,7 @@ include Makefile.inc
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
-SUBDIRSUNCFG = balkan help isys iw pixmaps po textw gnome-map
+SUBDIRSRECFG = balkan help isys iw pixmaps po textw gnome-map
 SUBDIRSHD = rpmmodule kudzu isys balkan libfdisk collage loader stubs po \
 	    minislang textw utils
 SUBDIRS = $(SUBDIRSHD) gnome-map iw help pixmaps
@@ -11,17 +11,17 @@ BUILDONLYSUBDIRS = pump
 
 ifeq (i386, $(ARCH))
 SUBDIRS += ddcprobe
-SUBDIRSUNCFG += ddcprobe
+SUBDIRSRECFG += ddcprobe
 endif
 
 
 #
 # TOPDIR         - ?
 # DESTDIR        - destination for install image for install purposes
-# UNCFGDESTDIR   - root of destination for install image for unconfig purposes
+# RECFGDESTDIR   - root of destination for install image for reconfig purposes
 TOPDIR = ../../..
 DESTDIR = ../../../RedHat/instimage
-UNCFGDESTDIR = /
+RECFGDESTDIR = /
 
 CATALOGS = po/anaconda.pot
 ALLSUBDIRS = $(BUILDONLYSUBDIRS) $(SUBDIRS) 
@@ -41,21 +41,21 @@ clean:
 subdirs:
 	for d in $(ALLSUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d; done
 
-install-unconfig: all
-	@if [ "$(UNCFGDESTDIR)" = "" ]; then \
+install-reconfig: all
+	@if [ "$(RECFGDESTDIR)" = "" ]; then \
 		echo " "; \
 		echo "ERROR: A destdir is required"; \
 		exit 1; \
 	fi
 
-	mkdir -p $(UNCFGDESTDIR)/usr/sbin
-	mkdir -p $(UNCFGDESTDIR)/$(PYTHONLIBDIR)
-	cp -a anaconda $(UNCFGDESTDIR)/usr/sbin/anaconda-unconfig
-	cp -var $(PYFILES) $(UNCFGDESTDIR)/$(PYTHONLIBDIR)
-	./py-compile --basedir $(UNCFGDESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
-	cp -a *.so $(UNCFGDESTDIR)/$(PYTHONLIBDIR)
-	cp -a kudzu/kudzumodule.so $(UNCFGDESTDIR)/$(PYTHONLIBDIR)
-	for d in $(SUBDIRSUNCFG); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(UNCFGDESTDIR); pwd` -C $$d install; done
+	mkdir -p $(RECFGDESTDIR)/usr/sbin
+	mkdir -p $(RECFGDESTDIR)/$(PYTHONLIBDIR)
+	cp -a anaconda $(RECFGDESTDIR)/usr/sbin/anaconda-reconfig
+	cp -var $(PYFILES) $(RECFGDESTDIR)/$(PYTHONLIBDIR)
+	./py-compile --basedir $(RECFGDESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
+	cp -a *.so $(RECFGDESTDIR)/$(PYTHONLIBDIR)
+	cp -a kudzu/kudzumodule.so $(RECFGDESTDIR)/$(PYTHONLIBDIR)
+	for d in $(SUBDIRSRECFG); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(RECFGDESTDIR); pwd` -C $$d install; done
 
 install-hd: all
 	@if [ "$(DESTDIR)" = "" ]; then \

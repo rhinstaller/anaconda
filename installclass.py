@@ -287,13 +287,12 @@ class Server(InstallClass):
 			    "drive to make room for your Linux installation."))
 
 # reconfig machine w/o reinstall
-class UnconfigStation(InstallClass):
+class ReconfigStation(InstallClass):
 
     def __init__(self):
 	InstallClass.__init__(self)
 	self.setHostname("localhost.localdomain")
 	self.addToSkipList("lilo")
-	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
 	self.addToSkipList("partition")
 	self.addToSkipList("package-selection")
