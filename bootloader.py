@@ -149,7 +149,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     f.write("UPDATEDEFAULT=yes\n")
     f.write("\n")
     f.write("# DEFAULTKERNEL specifies the default kernel package type\n")
-    f.write("DEFAULTKERNEL=%s" %(defkern,))
+    f.write("DEFAULTKERNEL=%s\n" %(defkern,))
     f.close()
 
     dosync()

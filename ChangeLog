@@ -1,5 +1,7 @@
 2004-10-18  Jeremy Katz  <katzj@redhat.com>
 
+	* bootloader.py: Add a trailing newline to /etc/sysconfig/kernel
+
 	* loader2/urlinstall.c: When using the local stage2.img shortcut,
 	ensure that an hdlist exists in the tree they point at to catch
 	typos sooner (#135603, #117155, #120101)
