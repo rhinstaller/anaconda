@@ -167,7 +167,7 @@ class LiloConfiguration:
 
 	self.liloImages = {}
         foundDos = 0
-	for (dev, devName, fsType, start, size) in drives:
+	for (dev, devName, fsType, start, size, maxcyl) in drives:
 	    # ext2 and raid partitions get listed if they're / -- we do
 	    # not allow non-mounted partitions to be booted anymore as
 	    # modules are so unlikely to work out as to be not worth
