@@ -29,7 +29,8 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                               struct loaderData_s * loaderData, 
                               int flags);
 
-void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
+void setKickstartNetwork(struct knownDevices * kd, 
+                         struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr);
 
 int kickstartNetworkUp(struct knownDevices * kd, 

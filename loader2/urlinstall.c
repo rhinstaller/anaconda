@@ -320,7 +320,8 @@ int kickstartFromUrl(char * url, struct knownDevices * kd,
     return getFileFromUrl(url, "/tmp/ks.cfg", kd, loaderData, flags);
 }
 
-void setKickstartUrl(struct loaderData_s * loaderData, int argc,
+void setKickstartUrl(struct knownDevices * kd, 
+                     struct loaderData_s * loaderData, int argc,
 		    char ** argv, int * flagsPtr) {
 
     char *url;

@@ -209,7 +209,8 @@ char * mountNfsImage(struct installMethod * method,
 }
 
 
-void setKickstartNfs(struct loaderData_s * loaderData, int argc,
+void setKickstartNfs(struct knownDevices * kd, 
+                     struct loaderData_s * loaderData, int argc,
                      char ** argv, int * flagsPtr) {
     char * host, * dir;
     poptContext optCon;

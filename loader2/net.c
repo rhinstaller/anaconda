@@ -616,7 +616,8 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     return 0;
 }
 
-void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
+void setKickstartNetwork(struct knownDevices * kd, 
+                         struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr) {
     char * arg, * bootProto = NULL, * device = NULL;;
     int noDns = 0, rc;

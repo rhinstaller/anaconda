@@ -9,7 +9,8 @@ struct hdInstallData {
 };
 
 
-void setKickstartHD(struct loaderData_s * loaderData, int argc,
+void setKickstartHD(struct knownDevices * kd, 
+                    struct loaderData_s * loaderData, int argc,
 		    char ** argv, int * flagsPtr);
 char * mountHardDrive(struct installMethod * method,
                       char * location, struct knownDevices * kd,

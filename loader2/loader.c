@@ -1180,7 +1180,7 @@ int main(int argc, char ** argv) {
         if (FL_KICKSTART(flags) && 
             (ksReadCommands((ksFile) ? ksFile : loaderData.ksFile, 
                             flags) != LOADER_ERROR)) {
-            setupKickstart(&loaderData, &flags);
+            runKickstart(&kd, &loaderData, &flags);
         }
         
         /* JKFIXME: this is kind of gross, but we need to do it in case

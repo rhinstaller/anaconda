@@ -499,7 +499,8 @@ char * mountHardDrive(struct installMethod * method,
     return url;
 }
 
-void setKickstartHD(struct loaderData_s * loaderData, int argc,
+void setKickstartHD(struct knownDevices * kd, 
+                    struct loaderData_s * loaderData, int argc,
                      char ** argv, int * flagsPtr) {
     char *partition, *dir;
     poptContext optCon;
