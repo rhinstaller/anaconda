@@ -98,22 +98,24 @@ class LoopSizeWindow(InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
     def getNext (self):
-        todo.fstab.setLoopbackSize (self.adj.value)
+        self.todo.fstab.setLoopbackSize (self.adj.value, self.swapAdj.value)
 
     def getScreen (self):
         # XXX error check mount that this check tries
         avail = apply(isys.spaceAvailable, self.todo.fstab.getRootDevice())
-	size = self.todo.fstab.getLoopbackSize()
+	(size, swapSize) = self.todo.fstab.getLoopbackSize()
 	if not size:
 	    size = avail / 2
+	    swapSize = 32
 
         vbox = GtkVBox (FALSE, 5)
         
-        label = GtkLabel (_("You've chosen to put your root filesystem "
-                            "in a file on an already-existing DOS or "
-                            "Windows filesystem. How large would you "
-                            "like to make the root filesystem? You may "
-                            "make it up to %d megabytes in size." % avail))
+        label = GtkLabel (
+		_("You've chosen to put your root filesystem in a file on "
+		  "an already-existing DOS or Windows filesystem. How large, "
+		  "in megabytes, should would you like the root filesystem "
+		  "to be, and how much swap space would you like? They must "
+		  "total less then %d megabytes in size." % (avail, )))
         label.set_usize (400, -1)
         label.set_line_wrap (TRUE)
         vbox.pack_start (label, FALSE, FALSE)
@@ -122,9 +124,22 @@ class LoopSizeWindow(InstallWindow):
         self.adj = GtkAdjustment (value = size, lower = 150, upper = avail, step_incr = 1)
         self.spin = GtkSpinButton (self.adj, digits = 0)
         self.spin.set_usize (100, -1)
+
+        self.swapAdj = GtkAdjustment (value = swapSize, lower = 16, upper = avail, step_incr = 1)
+        self.swapSpin = GtkSpinButton (self.swapAdj, digits = 0)
+        self.swapSpin.set_usize (100, -1)
+
+
         align = GtkAlignment ()
         align.add (self.spin)
+
+        align2 = GtkAlignment ()
+        align2.add (self.swapSpin)
         vbox.pack_start (align, FALSE, FALSE)
+        vbox.pack_start (align2, FALSE, FALSE)
+
+	self.ics.setNextEnabled (TRUE)
+
         return vbox
         
 class AutoPartitionWindow(InstallWindow):
