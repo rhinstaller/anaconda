@@ -1,10 +1,29 @@
 #!/usr/bin/python
 
 import rpm
+import os
 
-(h, isSource) = rpm.headerFromPackage('foo')
+def cb(what, amount, total, key, data):
+    if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
+	d = os.open(key, os.O_RDONLY)
+	return d
+
+fd = os.open('foo', os.O_RDONLY);
+(h, isSource) = rpm.headerFromPackage(fd)
 print "from foo:", h[rpm.RPMTAG_NAME]
+os.close(fd)
 
-list = rpm.readHeaderList('hdlist')
-for n in list:
-    print "from list:", n[rpm.RPMTAG_NAME]
+#list = rpm.readHeaderList('hdlist')
+#print "got", len(list), "items"
+
+d = rpm.opendb(0)
+
+ts = rpm.TransactionSet("/", d)
+
+ts.add(h, "foo")
+rc = ts.depcheck()
+print rc
+
+ts.order()
+print "run", ts.run(rpm.RPMTRANS_FLAG_TEST, 0, cb, "arg")
+
