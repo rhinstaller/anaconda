@@ -1311,7 +1311,11 @@ class PartitionWindow(InstallWindow):
             if type == "RAID":
                 self.editRaidRequest(request)
             elif type == "NEW":
-                self.editPartitionRequest(request, isNew = 1)
+                if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+                    self.intf.messageWindow(_("Error"),
+                        _("You must go back and use fdasd to inititalize this partition"))
+                else:
+                    self.editPartitionRequest(request, isNew = 1)
             else:
                 self.editPartitionRequest(request)
 

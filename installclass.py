@@ -118,19 +118,19 @@ class BaseInstallClass:
             dispatch.skipStep("bootloaderpassword")
 
 	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-	    #dispatch.skipStep("language")
+	    dispatch.skipStep("language")
 	    dispatch.skipStep("keyboard", permanent = 1)
 	    dispatch.skipStep("mouse", permanent = 1)
 
             dispatch.skipStep("partitionmethod", permanent = 1)
             #dispatch.skipStep("partitionobjinit", permanent = 1)
             #dispatch.skipStep("partitionmethodsetup", permanent = 1)
-            #dispatch.skipStep("autopartition", permanent = 1)
-            #dispatch.skipStep("autopartitionexecute", permanent = 1)
+            dispatch.skipStep("autopartition", permanent = 1)
+            dispatch.skipStep("autopartitionexecute", permanent = 1)
             #dispatch.skipStep("fdisk", permanent = 1)
             #dispatch.skipStep("partition", permanent = 1)
             #dispatch.skipStep("partitiondone", permanent = 1)
-            #dispatch.skipStep("bootloadersetup", permanent = 1)
+            dispatch.skipStep("bootloadersetup", permanent = 1)
             #dispatch.skipStep("bootloader",  permanent = 1)
             #dispatch.skipStep("bootloaderpassword",  permanent = 1)
 

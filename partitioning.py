@@ -2,6 +2,7 @@
 # partitioning.py: partitioning and other disk management
 #
 # Matt Wilson <msw@redhat.com>
+# Harald Hoyer <harald@redhat.de>
 #
 # Copyright 2001 Red Hat, Inc.
 #
@@ -675,6 +676,8 @@ def getDefaultDiskType():
         return parted.disk_type_get("GPT")
     elif iutil.getArch() == "s390":
         return parted.disk_type_get("dasd")
+    elif iutil.getArch() == "s390x":
+        return parted.disk_type_get("dasd")
     else:
         # XXX fix me for alpha at least
         return parted.disk_type_get("msdos")
@@ -682,6 +685,7 @@ def getDefaultDiskType():
 archLabels = {'i386': ['msdos'],
               'alpha': ['bsd'],
               's390': ['dasd'],
+              's390x': ['dasd'],
               'ia64': ['msdos', 'GPT']}
 
 def checkDiskLabel(disk, intf):
@@ -1374,6 +1378,29 @@ class DiskSet:
         for disk in self.disks.keys():
             del self.disks[disk]
 
+    def dasdFmt (self, intf = None, drive = None):
+        w = intf.waitWindow (_("Initializing"),
+                             _("Running dasdfmt on drive %s...\n"
+                               "This can take quite a while!\n\n"
+                               "Get yourself a coffee and thank\n"
+                               "IBM for the lack of a progress bar!\n"
+                               ) % (drive,))
+        rc = iutil.execWithRedirect("/sbin/dasdfmt",
+                                    [ "/sbin/dasdfmt",
+                                      "-y",
+                                      "-b", "4096",
+                                      "-d", "cdl",
+                                      "-f",
+                                      "/dev/%s" % drive],
+                                    stdin = "/dev/null",
+                                    stdout = "/dev/null")
+        w.pop()
+        
+        if rc:
+            intf.messageWindow( _("Error"),
+                                _("An error occured while running dasdfmt on drive %s.") % (drive))
+        return rc
+
     def openDevices (self, intf = None, initAll = 0):
         if self.disks:
             return
@@ -1416,8 +1443,17 @@ class DiskSet:
                         DiskSet.skippedDisks.append(drive)
                         continue
                     else:
+                        if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+                            if (self.dasdFmt(intf, drive)):
+                                DiskSet.skippedDisks.append(drive)
+                                continue
+                        else:                    
+                            try:
+                                dev.disk_create(getDefaultDiskType())
+                            except parted.error, msg:
+                                DiskSet.skippedDisks.append(drive)
+                                continue
                         try:
-                            dev.disk_create(getDefaultDiskType())
                             disk = parted.PedDisk.open(dev)
                             self.disks[drive] = disk
                         except parted.error, msg:
@@ -1430,8 +1466,17 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
             elif ret == -1:
+                if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+                    if (self.dasdFmt(intf, drive)):
+                        DiskSet.skippedDisks.append(drive)
+                        continue                    
+                else:
+                    try:
+                        dev.disk_create(getDefaultDiskType())
+                    except parted.error, msg:
+                        DiskSet.skippedDisks.append(drive)
+                        continue
                 try:
-                    dev.disk_create(getDefaultDiskType())
                     disk = parted.PedDisk.open(dev)
                     self.disks[drive] = disk
                 except parted.error, msg:

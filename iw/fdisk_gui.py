@@ -24,8 +24,15 @@ import iutil
 class FDiskWindow (InstallWindow):		
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-        ics.setTitle (_("fdisk"))
-        ics.readHTML ("fdisk")
+        if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+            self.fdisk_name = _("fdasd")
+            self.selectlabel = _("Select drive to run fdasd on")
+        else:
+            self.fdisk_name = ("fdisk")
+            self.selectlabel = _("Select drive to run fdisk on")
+
+        ics.setTitle (self.fdisk_name)
+        ics.readHTML (self.fdisk_name)
 
     def getNext(self):
         # reread partitions
@@ -46,7 +53,7 @@ class FDiskWindow (InstallWindow):
             # XXX fixme
             pass
 
-        self.ics.readHTML ("fdisk")
+        self.ics.readHTML (self.fdisk_name)
         self.ics.setPrevEnabled (1)
         self.ics.setNextEnabled (1)
 #        self.ics.setHelpEnabled (1)
@@ -89,7 +96,10 @@ class FDiskWindow (InstallWindow):
         self.windowContainer.pack_start (zvt)
 
 #        self.ics.setHelpEnabled (0)
-        self.ics.readHTML ("fdiskpart")
+	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+            self.ics.readHTML ("fdasdpart")
+        else:
+            self.ics.readHTML ("fdiskpart")
 	self.ics.setPrevEnabled (0)
         self.ics.setNextEnabled (0)
 
@@ -103,7 +113,7 @@ class FDiskWindow (InstallWindow):
         self.buttonBox = GtkVBox (FALSE, 5)
         self.buttonBox.set_border_width (5)
         box = GtkVButtonBox ()
-        label = GtkLabel (_("Select drive to run fdisk on"))
+        label = GtkLabel (self.selectlabel)
 
         drives =  self.diskset.driveList()
         

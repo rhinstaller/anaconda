@@ -326,7 +326,7 @@ class BootloaderWindow (InstallWindow):
         label = GtkLabel(_("Kernel Parameters") + ":")
         label.set_alignment(0.0, 0.5)
         self.appendEntry = GtkEntry()
-        if bl.args.get():
+        if bl.args and bl.args.get():
             self.appendEntry.set_text(bl.args.get())
         box = GtkHBox(FALSE, 5)
         box.pack_start(label)

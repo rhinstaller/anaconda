@@ -425,7 +425,8 @@ class raidMemberDummyFileSystem(FileSystemType):
         # mkraid did all we need to format this partition...
         pass
     
-fileSystemTypeRegister(raidMemberDummyFileSystem())
+if not (iutil.getArch() == "s390" or iutil.getArch() == "s390x"):
+    fileSystemTypeRegister(raidMemberDummyFileSystem())
 
 class swapFileSystem(FileSystemType):
     enabledSwaps = {}
