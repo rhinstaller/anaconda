@@ -136,12 +136,12 @@ int mygethostbyname(char * host, struct in_addr * address) {
 
 char * mygethostbyaddr(const char * ipnum) {
     struct hostent * he;
-    struct in_addr * addr;
+    struct in_addr addr;
 
-    if (!inet_aton(ipnum, addr)) 
+    if (!inet_aton(ipnum, &addr)) 
 	return NULL;
     
-    he = gethostbyaddr(addr, sizeof(struct in_addr), AF_INET);
+    he = gethostbyaddr(&addr, sizeof(struct in_addr), AF_INET);
     if (he)
         return he->h_name;
     else
