@@ -592,15 +592,10 @@ def setupTimezone(timezone, upgrade, instPath, dir):
                                stdout = "/dev/tty5", stderr = "/dev/tty5")
     except RuntimeError:
         log("Failed to set clock")
-    
-            
 
-def doPreInstall(method, id, intf, instPath, dir):
+# do miscellaneous package selections based on other installation selections
+def handleMiscPackages(intf, id, dir):
     if dir == DISPATCH_BACK:
-        try:
-            isys.umount(instPath + "/selinux")
-        except:
-            pass
         return
 
     arch = iutil.getArch ()
@@ -681,8 +676,19 @@ def doPreInstall(method, id, intf, instPath, dir):
                 if select(id.grpset.hdrlist, pkg):
                     log("Needed %s for %s" %(pkg, entry.getMountPoint()))
 
+def doPreInstall(method, id, intf, instPath, dir):
+    if dir == DISPATCH_BACK:
+        try:
+            isys.umount(instPath + "/selinux")
+        except:
+            pass
+        return
+
     if flags.test:
 	return
+
+    # shorthand
+    upgrade = id.upgrade.get()
 
     # make sure that all comps that include other comps are
     # selected (i.e. - recurse down the selected comps and turn

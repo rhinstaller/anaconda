@@ -30,6 +30,7 @@ class InstallClass(BaseInstallClass):
                     "readcomps",
                     "findpackages",
                     "upgbootloader",
+                    "handlemiscpkgs",
                     "checkdeps",
 		    "dependencies",
 		    "confirmupgrade",

@@ -1,5 +1,16 @@
 2004-11-07  Jeremy Katz  <katzj@redhat.com>
 
+	* dispatch.py (installSteps): Add handleMiscPackages steps.
+	* installclass.py (BaseInstallClass.setSteps): Likewise.
+	* upgradeclass.py (InstallClass.setSteps): Likewise.
+
+	* packages.py (handleMiscPackages): Add a step to do all of the
+	miscellaneous package selection based on installer selections
+	instead of doing them in doPreInstall so that our needed CD list
+	is correct (#122017)
+
+	* loader2/urls.c: Mark strings for translation (#137197)
+
 	* iw/bootloader_main_gui.py: Don't reference boot 
 	disks anymore (#135851)
 	* textw/bootloader_text.py: Likewise.

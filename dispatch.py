@@ -22,7 +22,8 @@ from packages import checkMonitorOK, setSaneXSettings
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
 from packages import queryUpgradeContinue
-from packages import doPreInstall, doPostInstall, doPostAction,copyAnacondaLogs
+from packages import doPreInstall, doPostInstall, doPostAction
+from packages import handleMiscPackages, copyAnacondaLogs
 from autopart import doAutoPartition
 from packages import firstbootConfiguration
 from packages import betaNagScreen
@@ -114,6 +115,7 @@ installSteps = [
     ("indivpackage", ("id.grpset",)),
     ("handleX11pkgs", handleX11Packages, ("dir", "intf", "dispatch",
                                           "id", "instPath")),
+    ("handlemiscpkgs", handleMiscPackages, ("intf", "id", "dir")),
     ("checkdeps", checkDependencies, ("dir", "intf", "dispatch",
                                       "id", "instPath")),
     ("dependencies", ("id.grpset", "id.dependencies")),

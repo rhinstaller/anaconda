@@ -145,6 +145,7 @@ class BaseInstallClass:
                  "selectlangpackages",
 		 "package-selection",
                  "handleX11pkgs",
+                 "handlemiscpkgs",
 		 "checkdeps",
 		 "dependencies",
 		 "confirminstall",
