@@ -51,7 +51,7 @@ class PartitionWindow (InstallWindow):
 	print "raid", raid
 
 	for (mount, device, other) in raid:
-	    self.todo.addMount("/dev/" + device, mount, "ext2")
+	    self.todo.addMount(device, mount, "ext2")
 
 	print "self.todo.mounts", self.todo.mounts
 
