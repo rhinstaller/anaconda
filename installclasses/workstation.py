@@ -3,6 +3,7 @@ from translate import N_
 import os
 import iutil
 from partitioning import *
+from fsset import *
 from autopart import CLEARPART_TYPE_LINUX
 from autopart import CLEARPART_TYPE_ALL
 from autopart import CLEARPART_TYPE_NONE

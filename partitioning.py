@@ -477,8 +477,8 @@ class PartitionRequests:
         self.deletes = []
         # identifier used for raid partitions
         self.nextUniqueID = 1
-        if diskset:
-            self.setFromDisk(diskset)
+#        if diskset:
+#            self.setFromDisk(diskset)
 
 
     def setFromDisk(self, diskset):
@@ -596,6 +596,7 @@ class PartitionRequests:
         
 
 class DiskSet:
+    skippedDisks = []
     def __init__ (self):
         self.disks = {}
 
@@ -736,20 +737,21 @@ class DiskSet:
         if self.disks:
             return
         for drive in self.driveList ():
+            if drive in DiskSet.skippedDisks:
+                continue
 	    deviceFile = '/dev/' + drive
 	    if not os.access(deviceFile, os.R_OK):
-		deviceFile = '/tmp/' + drive
-		isys.makeDevInode(drive, deviceFile)
-
+		deviceFile = isys.makeDevInode(drive)
             try:
                 dev = parted.PedDevice.get (deviceFile)
             except parted.error, msg:
-                raise PartitioningError, msg
+                DiskSet.skippedDisks.append(drive)
+                continue
             try:
                 disk = parted.PedDisk.open(dev)
                 self.disks[drive] = disk
             except parted.error, msg:
-                raise PartitioningError, msg
+                DiskSet.skippedDisks.append(drive)
 
     def partitionTypes (self):
         rc = []

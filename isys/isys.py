@@ -196,8 +196,17 @@ def cdromList():
 def moduleListByType(type):
     return _isys.modulelist(type)
 
-def makeDevInode(name, fn):
-    return _isys.mkdevinode(name, fn)
+def makeDevInode(name, fn=None):
+    if fn:
+        _isys.mkdevinode(name, fn)
+        return fn
+    path = '/dev/%s' % (name,)
+    try:
+        os.stat(path)
+    except OSError:
+        path = '/tmp/%s' % (name,)
+        _isys.mkdevinode(name, fn)
+    return path
 
 def inet_ntoa (addr):
     return "%d.%d.%d.%d" % ((addr >> 24) & 0x000000ff,

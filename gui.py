@@ -25,7 +25,8 @@ import iutil
 import string
 import isys
 import sys
-from translate import cat, _
+import parted
+from translate import cat, _, N_
 from gnome.ui import *
 from gnome.xmhtml import *
 from gtk import *
@@ -82,6 +83,31 @@ def processEvents():
     gdk_flush()
     while events_pending ():
         mainiteration (FALSE)
+
+def partedExceptionWindow(exc):
+    print exc.type_string
+    print exc.message
+    print exc.options
+    win = GnomeDialog (exc.type_string)
+    win.vbox.pack_start (GtkLabel(exc.message))
+    numButtons = 0
+    buttonToAction = {}
+    
+    flags = ((parted.EXCEPTION_YES, N_("Yes")),
+             (parted.EXCEPTION_NO, N_("No")),
+             (parted.EXCEPTION_OK, N_("Ok")),
+             (parted.EXCEPTION_RETRY, N_("Retry")),
+             (parted.EXCEPTION_IGNORE, N_("Ignore")),
+             (parted.EXCEPTION_CANCEL, N_("Cancel")))
+    for flag, string in flags:
+        if exc.options & flag:
+            win.append_button (_(string))
+            buttonToAction[numButtons] = flag
+            numButtons = numButtons + 1
+    win.show_all()
+    rc = win.run()
+    print rc, buttonToAction
+    return buttonToAction[rc]
 
 class WaitWindow:
     def __init__(self, title, text):
@@ -296,6 +322,7 @@ class InstallInterface:
 
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)
+        parted.exception_set_handler(partedExceptionWindow)
 
 	lang = id.instLanguage.getCurrent()
 	lang = id.instLanguage.getLangNick(lang)
