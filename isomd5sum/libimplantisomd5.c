@@ -27,12 +27,12 @@ static int parsepvd(int isofd, char *mediasum, long long *isosize) {
     long long offset;
     unsigned char *p;
 
-    if (lseek(isofd, (off_t)(16L * 2048L), SEEK_SET) == -1)
+    if (lseek(isofd, 16*2048, SEEK_SET) == -1)
 	return ((long long)-1);
-
-    offset = (16L * 2048L);
+    
+    offset = (16 * 2048);
     for (;1;) {
-	if (read(isofd, buf, 2048) <= 0)
+        if (read(isofd, buf, 2048L) == -1)
 	    return ((long long)-1);
 
 	if (buf[0] == 1)

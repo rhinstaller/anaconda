@@ -10,6 +10,7 @@ struct MD5Context {
 	uint32 buf[4];
 	uint32 bits[2];
 	unsigned char in[64];
+	int doByteReverse;
 };
 
 void MD5_Init(struct MD5Context *);
