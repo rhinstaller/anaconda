@@ -302,6 +302,8 @@ class BootloaderImagesWindow:
 		(label, longlabel, type) = images[item]
                 if bl.useGrub():
                     label = longlabel
+                if label == None:
+                    label = ""
 
 		label = self.editItem(screen, item, label, allowNone = (rootdev != item and item != default))
 		images[item] = (label, label, type)
