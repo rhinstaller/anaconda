@@ -145,7 +145,7 @@ int setupRamdisk(void) {
 }
 
 void setupRamfs(void) {
-    mkdirChain("/ramfs");
+    mkdirChain("/tmp/ramfs");
     doPwMount("none", "/tmp/ramfs", "ramfs", 0, 0, NULL, NULL);
 }
 

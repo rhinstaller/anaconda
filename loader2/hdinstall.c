@@ -186,7 +186,7 @@ static int loadHDImages(char * prefix, char * dir, int flags,
     int fd, rc;
     char * path;
 
-    setupRamdisk();
+    /*setupRamdisk();*/
 
     path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
 

@@ -85,20 +85,20 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     title[sb.st_size] = '\0';
     close(fd);
 
-    sprintf(file, "/ramfs/DD-%d", disknum);
+    sprintf(file, "/tmp/ramfs/DD-%d", disknum);
     mkdirChain(file);
 
     winStatus(40, 3, _("Loading"), _("Reading driver disk"));
 
     for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
         sprintf(file, "%s/%s", mntpt, *fnPtr);
-        sprintf(dest, "/ramfs/DD-%d/%s", disknum, *fnPtr);
+        sprintf(dest, "/tmp/ramfs/DD-%d/%s", disknum, *fnPtr);
         copyFile(file, dest);
     }
 
     location = malloc(sizeof(struct moduleBallLocation));
     location->title = strdup(title);
-    location->path = sdupprintf("/ramfs/DD-%d/modules.cgz", disknum);
+    location->path = sdupprintf("/tmp/ramfs/DD-%d/modules.cgz", disknum);
 
     sprintf(file, "%s/modinfo", mntpt);
     readModuleInfo(file, modInfo, location, 1);

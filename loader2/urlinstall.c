@@ -32,8 +32,8 @@
 #include "urls.h"
 
 static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags, 
-			char * dest, char * mntpoint, char * device,
-			int silentErrors) {
+                              char * dest, char * mntpoint, char * device,
+                              int silentErrors) {
     int fd;
     int rc;
     char * newFile = NULL;
@@ -76,7 +76,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 
 
 static int loadUrlImages(struct iurlinfo * ui, int flags) {
-    setupRamdisk();
+    /*    setupRamdisk();*/
 
     /* grab the updates.img before netstg1.img so that we minimize our
      * ramdisk usage */
@@ -255,6 +255,10 @@ char * mountUrlImage(struct installMethod * method,
             if (loadUrlImages(&ui, flags)) {
                 stage = URL_STAGE_MAIN;
                 dir = -1;
+                if (loaderData->method) {
+                    free(loaderData->method);
+                    loaderData->method = NULL;
+                }
             } else {
                 stage = URL_STAGE_DONE;
                 dir = 1;

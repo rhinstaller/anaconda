@@ -16,6 +16,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#include <ctype.h>
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -581,8 +582,8 @@ int copyFileAndLoopbackMount(int fd, char * dest, int flags,
 
     rc = copyFileFd(fd, dest);
     stat(dest, &sb);
-    logMessage("copied %d bytes to %s%s", sb.st_size, dest, 
-	       (rc) ? " (incomplete)" : "");
+    logMessage("copied %d bytes to %s (%s)", sb.st_size, dest, 
+               ((rc) ? " incomplete" : "complete"));
     
     if (rc) {
 	/* just to make sure */
