@@ -64,17 +64,6 @@ class CongratulationWindow (InstallWindow):
 
         txt = _("Congratulations, the installation is complete.\n\n"
                 "%s%s") %(floppystr, bootstr)
-        foo = _("For information on Errata (updates and bug fixes), visit:\n"
-                "\thttp://www.redhat.com/errata/\n\n"
-                "For information on automatic updates through Red Hat "
-                "Network, visit:\n"
-                "\thttp://rhn.redhat.com/\n\n"
-                "For information on using and configuring the system, visit:\n"
-                "\thttp://www.redhat.com/docs/\n"
-                "\thttp://www.redhat.com/apps/support/\n\n"
-                "To register the product for support, visit:\n"
-                "\thttp://www.redhat.com/apps/activate/\n\n")
-
 	label = gui.WrappingLabel(txt)
 
         hbox.pack_start (label, True, True)
