@@ -9,29 +9,15 @@ fi
 HOMEDIR=`pwd`
 echo HOMEDIR $HOMEDIR
 
+# remove all non unused python files
 pythondeps() {
         DIR=$1
 
-	cp /usr/bin/strace $DIR
-
-	(cd $DIR; \
-	    chroot . ./strace -o straceout.$$ \
-		usr/bin/anaconda -m dir://mnt/source --test --text --traceonly
-	)
-
-	((cat $DIR/straceout.$$ |
-	    grep ^open | grep '= [0-9]' | sed 's/[^"]*"//' | sed 's/".*//' |
-	    sort -u | grep /usr/lib/python
-	) ;  \
-	(cd $DIR;
-	    find usr/lib/python* -type f | sed 's,^,/,' \
-	)) | sort | uniq -u |
-	\
-	    sed s,^,./, | while read fn; do
-		[ ! -d $DIR/$fn ] && rm $DIR/$fn
-	    done
-
-	rm -f $DIR/strace $DIR/straceout.$$
+	(chroot $DIR /usr/bin/anaconda -m dir://mnt/source --test --text --traceonly; \
+	cd $DIR; find usr/lib/python* -type f | sed 's,^,/,' ) | sort | uniq -u |
+	sed s,^,./, | while read fn; do
+  	    [ ! -d $DIR/$fn ] && rm $DIR/$fn
+  	done
 }
 
 SRC=$1/RedHat/RPMS
@@ -220,6 +206,7 @@ for p in $DEST $DESTGR; do
 	rm -f $p/ldconfig
 
 	find $p -name "*.so" | xargs strip
+	find $p -name "*.a" | xargs rm -rf
 
 	(cd /usr/share/zoneinfo; find . -type f -or -type l | 
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
