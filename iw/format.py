@@ -22,7 +22,7 @@ class FormatWindow (InstallWindow):
 		todo.fstab.setFormatFilesystem(dev, 0)
 
         def check (widget, todo):
-            todo.badBlockCheck = widget.get_active ()
+            todo.fstab.setBadBlockCheck(widget.get_active ())
 
         box = GtkVBox (FALSE, 10)
 
@@ -45,7 +45,7 @@ class FormatWindow (InstallWindow):
         vbox.pack_start (GtkHSeparator (), FALSE, padding=3)
         
         self.check = GtkCheckButton (_("Check for bad blocks while formatting"))
-        self.check.set_active (self.todo.badBlockCheck)
+        self.check.set_active (self.todo.fstab.getBadBlockCheck())
         self.check.connect ("toggled", check, self.todo)
         vbox.pack_start (self.check, FALSE)
         
