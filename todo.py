@@ -13,6 +13,9 @@ import crypt
 import whrandom
 import _balkan
 
+def _(x):
+    return x
+
 class LogFile:
     def __init__ (self):
         self.logFile = open("/dev/tty3", "w")
