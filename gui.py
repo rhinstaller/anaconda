@@ -56,7 +56,7 @@ class WaitWindow:
 	self.window.show_all ()
 	gdk_flush ()
 	while events_pending ():
-            mainiteration ()
+            mainiteration (FALSE)
         threads_leave ()
             
     def pop(self):
