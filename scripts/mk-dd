@@ -36,11 +36,12 @@ modversions=$(rpm -ql kernel-source-$version | grep modversions.h)
 
 usage() {
     echo "usage: ./mk-dd <source.c> <kernel-version>"
+    exit 1
 }
 
 if [ ! -x /usr/lib/anaconda-runtime/modlist -o ! -f /usr/lib/anaconda-runtime/loader/module-info ]; then
     echo "You need to have anaconda-runtime installed."
-    usage()
+    usage
 fi
 
 if [ ! -f "$srcname" -o ! -f $modversions ]; then
