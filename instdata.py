@@ -27,6 +27,7 @@ import bootloader
 import partitions
 import partedUtils
 import hdrlist
+import zfcp
 from flags import *
 from constants import *
 
@@ -57,6 +58,7 @@ class InstallData:
 	self.langSupport = language.Language()
 	self.instClass = None
 	self.network = network.Network()
+	self.zfcp = zfcp.ZFCP()
 	self.firewall = firewall.Firewall()
         self.security = security.Security()
 	self.timezone = timezone.Timezone()
@@ -119,6 +121,7 @@ class InstallData:
         self.timezone.write (instPath)
         self.auth.write (instPath)
 	self.firewall.write (instPath)
+	self.zfcp.write (instPath)
         self.security.write (instPath)
         self.rootPassword.write (instPath, self.auth)
         self.accounts.write (instPath, self.auth)
@@ -172,6 +175,7 @@ class InstallData:
             self.keyboard.writeKS(f)
             self.xsetup.writeKS(f, self.desktop)
 	self.network.writeKS(f)
+	self.zfcp.writeKS(f)
 	self.rootPassword.writeKS(f, self.auth)
 	self.firewall.writeKS(f)
         self.security.writeKS(f)
