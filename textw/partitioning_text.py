@@ -357,17 +357,17 @@ class LBA32WarningWindow:
         if dir == -1:
             return INSTALL_NOOP
         
-        # check if boot partition is above 1023 cyl limit
+        # check if boot partition is above 1024 cyl limit
         if iutil.getArch() != "i386":
             return INSTALL_NOOP
 
         maxcyl = todo.fstab.getBootPartitionMaxCylFromDesired()
         log("Maximum cylinder is %s" % maxcyl)
-        if maxcyl > 1023:
+        if maxcyl > 1024:
             if not todo.fstab.edd:
                 rc = ButtonChoiceWindow(screen, _("Boot Partition Warning"),
                      _("You have put the partition containing the kernel (the "
-                      "boot partition) above the 1023 cylinder limit, and "
+                      "boot partition) above the 1024 cylinder limit, and "
                       "it appears that this systems BIOS does not support "
                       "booting from above this limit. Proceeding will "
                       "most likely make the system unable to reboot into "
@@ -387,7 +387,7 @@ class LBA32WarningWindow:
             else:
                 rc = ButtonChoiceWindow(screen, _("Boot Partition Warning"),
                     _("You have put the partition containing the kernel (the "
-                      "boot partition) above the 1023 cylinder limit. "
+                      "boot partition) above the 1024 cylinder limit. "
                       "It appears that this systems BIOS supports "
                       "booting from above this limit. \n\n"
                       "It is HIGHLY recommended you make a boot floppy when "

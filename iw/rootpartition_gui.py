@@ -67,6 +67,48 @@ class PartitionWindow (InstallWindow):
 
         return 1
 
+
+    def lba32Check (self):
+        # check if boot partition is above 1024 cyl limit
+        if iutil.getArch() != "i386":
+            return 0
+
+        maxcyl = self.todo.fstab.getBootPartitionMaxCylFromDesired()
+        log("Maximum cylinder is %s" % maxcyl)
+
+        if maxcyl > 1024:
+            if not self.todo.fstab.edd:
+                rc = self.todo.intf.messageWindow(_("Warning"), 
+                    _("You have put the partition containing the kernel (the "
+                      "boot partition) above the 1024 cylinder limit, and "
+                      "it appears that this systems BIOS does not support "
+                      "booting from above this limit. Proceeding will "
+                      "most likely make the system unable to reboot into "
+                      "Linux.\n\n"
+                      "If you choose to proceed, it is HIGHLY recommended "
+                      "you make a boot floppy when asked. This will "
+                      "guarantee you have a way to boot into the system "
+                      "after installation.\n\n"
+                      "Press OK to proceed, or Cancel to go back and "
+                      "reassign the boot partition."),
+                                   type = "okcancel").getrc()
+                return rc
+            else:
+                self.todo.intf.messageWindow(_("Warning"), 
+                    _("You have put the partition containing the kernel (the "
+                      "boot partition) above the 1024 cylinder limit. "
+                      "It appears that this systems BIOS supports "
+                      "booting from above this limit. \n\n"
+                      "It is HIGHLY recommended you make a boot floppy when "
+                      "asked by the installer, as this is a new feature in "
+                      "recent motherboards and is not always reliable. "
+                      "Making a boot disk will guarantee you can boot "
+                      "your system once installed."),
+                                   type = "ok")
+                return 0
+
+        return 0
+
     def getNext (self):
 	if not self.running: return 0
 	self.todo.fstab.runDruidFinished()
@@ -83,6 +125,12 @@ class PartitionWindow (InstallWindow):
 
 	bootPartition = None
 	rootPartition = None
+
+        threads_leave()
+        rc = self.lba32Check ()
+        threads_enter()
+        if rc:
+            raise gui.StayOnScreen
 
         if not self.checkSwap ():
             return PartitionWindow
@@ -388,20 +436,20 @@ class LBA32WarningWindow(InstallWindow):
 
     def getScreen (self):
 
-        # check if boot partition is above 1023 cyl limit
+        # check if boot partition is above 1024 cyl limit
         if iutil.getArch() != "i386":
             return None
 
         maxcyl = self.todo.fstab.getBootPartitionMaxCylFromDesired()
         log("Maximum cylinder is %s" % maxcyl)
         
-        if maxcyl > 1023:
+        if maxcyl > 1024:
             vbox = GtkVBox (FALSE, 5)
 
             if not self.todo.fstab.edd:
                 label = GtkLabel (
                     _("You have put the partition containing the kernel (the "
-                      "boot partition) above the 1023 cylinder limit, and "
+                      "boot partition) above the 1024 cylinder limit, and "
                       "it appears that this systems BIOS does not support "
                       "booting from above this limit. Proceeding will "
                       "most likely make the system unable to reboot into "
@@ -414,7 +462,7 @@ class LBA32WarningWindow(InstallWindow):
             else:
                 label = GtkLabel (
                     _("You have put the partition containing the kernel (the "
-                      "boot partition) above the 1023 cylinder limit. "
+                      "boot partition) above the 1024 cylinder limit. "
                       "It appears that this systems BIOS supports "
                       "booting from above this limit. \n\n"
                       "It is HIGHLY recommended you make a boot floppy when "

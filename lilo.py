@@ -290,7 +290,7 @@ class LiloConfiguration:
         if self.edd:
             from log import log
             maxcyl = fstab.getBootPartitionMaxCylFromDrive()
-            if maxcyl > 1023:
+            if maxcyl > 1024:
                 log("Maximum cylinder is %s, using lba32" % maxcyl)
                 useLBA32 = 1
 
