@@ -51,17 +51,17 @@ int getOrder (char * fn)
 	return -1;
     }
 
-    i = -1;
-    do {
-	i++;
-	p = depOrder[i];
-    } while (p && *p && strncmp (fn, p, strlen(p)));
+    i = 0;
+    p = depOrder[i];
+    while (p && *p && strncmp (fn, p, strlen(p))) {
+	p = depOrder[++i];
+    } 
     
     if (p) {
-	return i;
+	return i - 1;
     }
 
-    return i;
+    return -1;
 }
 
 int onePass(FD_t outfd, const char * dirName, int cdNum) {
@@ -246,32 +246,34 @@ int main(int argc, const char ** argv) {
 	int nalloced = 0;
 	int numpkgs = 0;
 	int len = 0;
-	char buf[80];
+	char b[80];
 	char *p;
 	int i;
 	
-	if (!(f = fopen(depOrderFile, "r")))
+	if (!(f = fopen(depOrderFile, "r"))) {
+	    fprintf (stderr, "Unable to read %s\n", depOrderFile);
 	    usage();
-
-	while ((fgets(buf, sizeof(buf) - 1, f))) {
-	    if (numpkgs == nalloced) {
+	}
+	
+	while ((fgets(b, sizeof(b) - 1, f))) {
+	    if (numpkgs == nalloced - 1) {
 		depOrder = realloc (depOrder, sizeof (char *) * (nalloced += 5));
 		memset (depOrder + numpkgs, '\0', 5);
 	    }
 
-	    p = buf + strlen(buf);
+	    p = b + strlen(b);
 	    i = 0;
 	    /* trim off two '.' worth of data */
-	    while (p > buf && i < 2) {
+	    while (p > b && i < 2) {
 		p--;
 		if (*p == '.')
 		    i++;
 	    }
 	    *p = '\0';
 
-	    len = strlen(buf);
+	    len = strlen(b);
 	    depOrder[numpkgs] = malloc (len + 1);
-	    strcpy (depOrder[numpkgs], buf);
+	    strcpy (depOrder[numpkgs], b);
 	    numpkgs++;
 	}
     }
@@ -293,10 +295,10 @@ int main(int argc, const char ** argv) {
     if (doNumber)
 	cdNum = 1;
 
-    if (args > 1 && !doNumber) {
-	fprintf(stderr, "error: building hdlist for multiple trees without numbers\n");
-	exit(1);
-    }
+/*      if (args > 1 && !doNumber) { */
+/*  	fprintf(stderr, "error: building hdlist for multiple trees without numbers\n"); */
+/*  	exit(1); */
+/*      } */
 
     while (args[0]) {
 	if (onePass(outfd, args[0], cdNum))
