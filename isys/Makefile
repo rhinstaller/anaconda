@@ -4,7 +4,7 @@ CFLAGS = -ffunction-sections -I$(PYTHONINCLUDE) -I.. -Wall -Os -g  -DHAVE_NFS -D
 
 OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o uncpio.o \
-	  lang.o isofs.o pdc.o
+	  lang.o isofs.o pdc.o dns.o
 SOBJECTS = $(patsubst %.o,%.lo,$(OBJECTS))
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 DOBJECTS = $(patsubst %.o,%.do,$(OBJECTS) $(STATICOBJS))
