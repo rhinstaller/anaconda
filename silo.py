@@ -184,7 +184,9 @@ class SiloInstall:
 	    (images, default) = self.getSiloImages(fstab)
 	    self.setSiloImages(images)
 
-	(bootpart, boothd, mbrpart) = self.getSiloOptions()
+	bootpart = fstab.getBootDevice()
+	boothd = fstab.getMbrDevice()
+
 	smpInstalled = (hdList.has_key('kernel-smp') and 
 			hdList['kernel-smp'].selected)
 
