@@ -719,7 +719,7 @@ static char * setupCdrom(struct installMethod * method,
 	    if (rc == 2) return NULL;
 	} else {
 	    rc = setupCDdevice(kd, modInfo, modLoaded, modDeps, flags);
-	    if (rc == 2) return NULL;
+	    if (rc == LOADER_BACK) return NULL;
 	}
     } while (1);
 
@@ -1071,7 +1071,7 @@ static char * doMountImage(char * location,
 			     30, 10, 20, 6, installNames, 
 			     &methodNum, _("OK"), _("Back"), NULL);
 	    if (rc && rc != 1)
-		step = STEP_LANG;
+		step = STEP_KBD;
 	    else
 		step = STEP_URL;
 	    break;
@@ -1693,7 +1693,6 @@ int main(int argc, char ** argv) {
 	startNewt(flags);
         devLoadDriverDisk(modInfo, modLoaded, modDeps, flags, 1);
     }
-
 
     busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
     if (probeOnly) exit(0);
