@@ -36,6 +36,10 @@ _xkb.so: xkb.c
 	gcc -Wall -o _xkb.o -fPIC -I/usr/include/python1.5 `gtk-config --cflags gtk` -c xkb.c 
 	gcc -o _xkb.so -shared _xkb.o /usr/X11R6/lib/libxkbfile.a `gtk-config --libs gtk`
 
+xmouse.so: xmouse.c
+	gcc -Wall -o xmouse.o -fPIC -I/usr/include/python1.5 -I /usr/include/python1.5 -c xmouse.c 
+	gcc -o xmouse.so -shared xmouse.o /usr/X11R6/lib/libXxf86misc.a -L/usr/X11R6/lib -lX11 -lXext
+
 clean:
 	rm -f *.o *.so *.pyc
 	for d in $(ALLSUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d clean; done

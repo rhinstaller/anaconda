@@ -21,6 +21,7 @@ import errno
 import raid
 import fstab
 import time
+import xmouse
 
 def _(x):
     return x
@@ -1237,10 +1238,34 @@ class ToDo:
 				self.instPath + "/etc/X11/X")
 		self.x.write (self.instPath + "/etc/X11/XF86Config")
             self.setDefaultRunlevel ()
+
+            # blah.  If we're on a serial mouse, and we have X, we need to
+            # close the mouse device, then run kudzu, then open it again.
+
+            # turn it off
+            if os.environ.has_key ("DISPLAY"):
+                try:
+                    os.rename ("/dev/" + self.mouse.getDevice(), "/dev/disablemouse")
+                except OSError:
+                    pass
+                try:
+                    xmouse.reopen()
+                except RuntimeError:
+                    pass
             argv = [ "/usr/sbin/kudzu", "-q" ]
 	    devnull = os.open("/dev/null", os.O_RDWR)
 	    iutil.execWithRedirect(argv[0], argv, root = self.instPath,
 				   stdout = devnull)
+            # turn it back on            
+            if os.environ.has_key ("DISPLAY"):
+                try:
+                    os.rename ("/dev/disablemouse", "/dev/" + self.mouse.getDevice())
+                except OSError:
+                    pass
+                try:
+                    xmouse.reopen()
+                except RuntimeError:
+                    pass
         
         # XXX make me "not test mode"
         if self.setupFilesystems:
