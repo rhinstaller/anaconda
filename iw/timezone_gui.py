@@ -183,7 +183,7 @@ class TimezoneWindow (InstallWindow):
             hbox.pack_start (a, TRUE)
         
         frame = GtkFrame ()
-        frame.set_shadow_type (SHADOW_ETCHED_IN)
+        frame.set_shadow_type (SHADOW_NONE)
         frame.add (map)
         
         mainBox.pack_start (hbox, FALSE)
