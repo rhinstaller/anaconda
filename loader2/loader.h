@@ -90,4 +90,13 @@ struct loaderData_s {
     moduleInfoSet modInfo;
 };
 
+/* 64 bit platforms, definitions courtesy of glib */
+#if defined (__x86_64__) || defined(__ia64__) || defined(__alpha__) || defined(__powerpc64__) || defined(__sparc64__) || defined(__s390x__)
+#define POINTER_TO_INT(p)  ((int) (long) (p))
+#define INT_TO_POINTER(i)  ((void *) (long) (i))
+#else
+#define POINTER_TO_INT(p)  ((int) (p))
+#define INT_TO_POINTER(i)  ((void *) (i))
+#endif
+
 #endif
