@@ -154,6 +154,9 @@ makedriverdisk "Supplemental Drivers" "drivers" "parport_pc parport +scsi +net +
 
 makedriverdisk "rhpcmcia" "pcmciadd" "$PCMCIAMODULES"
 
+unset BOOTLANG
+unset BOOTDIR
+
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
 	   --initrdsize 4100 \
 	   --pcmcia \
