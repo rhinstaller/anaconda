@@ -26,6 +26,7 @@ import fsset
 import os
 from translate import _
 from log import log
+from constants import *
 from flags import flags
 
 # different types of partition requests
@@ -86,7 +87,26 @@ def end_cyl_to_sector(device, cyl):
     return long(((cyl) * (device.heads * device.sectors)) - 1)
 
 def getPartSize(partition):
+    return partition.geom.length 
+
+def getPartSizeMB(partition):
     return partition.geom.length * partition.geom.disk.dev.sector_size / 1024.0 / 1024.0
+
+def get_partition_by_name(disks, partname):
+    for diskname in disks.keys():
+        disk = disks[diskname]
+        part = disk.next_partition()
+        while part:
+            if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA:
+                part = disk.next_partition(part)
+                continue
+
+            if get_partition_name(part) == partname:
+               return part
+
+            part = disk.next_partition(part)
+
+    return None
 
 def get_partition_name(partition):
     if (partition.geom.disk.dev.type == parted.DEVICE_DAC960
@@ -836,9 +856,13 @@ class DiskSet:
                 part = disk.next_partition(part)
         return rc
 
-def partitionObjectsInitialize(id):
+def partitionObjectsInitialize(id, dir):
+    if dir == DISPATCH_BACK:
+        return
+    
     # read in drive info
     id.diskset = DiskSet()
+    id.diskset.refreshDevices()
     id.partrequests = PartitionRequests(id.diskset)
 
 def partitionMethodSetup(id, dispatch):

@@ -51,7 +51,7 @@ installSteps = [
     ( "upgradecontinue", queryUpgradeContinue, ("intf", "dir")),
     ( "addswap", ("dispatch", "intf", "id.fsset", "instPath") ),
     ( "partitionmethod", ("id",) ),
-    ( "partitionobjinit", partitionObjectsInitialize, ("id",) ),
+    ( "partitionobjinit", partitionObjectsInitialize, ("id", "dir") ),
     ( "partitionmethodsetup", partitionMethodSetup, ("id", "dispatch") ),
     ( "autopartition", ("id", "id.diskset", "intf") ),
     ( "autopartitionexecute", doAutoPartition, ("dir", "id", "intf")),
