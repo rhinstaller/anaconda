@@ -185,12 +185,14 @@ int readModuleInfo(const char * filename, moduleInfoSet mis,
                 } else if (!strcmp(chptr, "scsi_hostadapter") ||
                            !strcmp(chptr, "scsi")) {
                     nextModule->major = DRIVER_SCSI;
-                } if (!strcmp(chptr, "pcmcia")) {
+                } else if (!strcmp(chptr, "pcmcia")) {
                     nextModule->major = DRIVER_PCMCIA;
-                } if (!strcmp(chptr, "fs")) {
+                } else if (!strcmp(chptr, "fs")) {
                     nextModule->major = DRIVER_FS;
                 } else if (!strcmp(chptr, "cdrom")) {
                     nextModule->major = DRIVER_CDROM;
+                } else if (!strcmp(chptr, "ide")) {
+                    nextModule->major = DRIVER_IDE;
                 } else {
                     nextModule->major = DRIVER_OTHER;
                 }
