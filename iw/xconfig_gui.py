@@ -306,6 +306,9 @@ class XCustomWindow (InstallWindow):
 
                 self.res_combo.list.select_item (count)
                 self.selectedRes = res
+#                print count, res
+                self.swap_monitor (count)
+
             count = count + 1
 
 
@@ -480,8 +483,8 @@ class XCustomWindow (InstallWindow):
         self.hbox5 = GtkHBox (TRUE, 2)
         frame4.add (self.hbox5)
 
-        self.text = GtkRadioButton (None, "Text")
-        self.graphical = GtkRadioButton (self.text, "Graphical")
+        self.text = GtkRadioButton (None, (_("Text")))
+        self.graphical = GtkRadioButton (self.text, (_("Graphical")))
 
         if self.todo.initState == 3:
             self.text.set_active (TRUE)
