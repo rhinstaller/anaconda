@@ -4,6 +4,7 @@ from thread import *
 import isys
 from translate import _
 from rootpartition_gui import AutoPartitionWindow
+import gui
 
 class FormatWindow (InstallWindow):
     def __init__ (self, ics):
@@ -14,6 +15,14 @@ class FormatWindow (InstallWindow):
         ics.setNextEnabled (1)
 ##         ics.setHTML ("<HTML><BODY>Choose partitions to Format</BODY></HTML>")
         ics.readHTML ("format")
+
+    def getNext(self):
+	threads_leave()
+	rc = self.todo.fstab.checkFormatting(self.todo.intf.messageWindow)
+	threads_enter()
+
+	if rc:
+	    raise gui.StayOnScreen
 
     # FormatWindow tag="format"
     def getScreen (self):
@@ -42,12 +51,9 @@ class FormatWindow (InstallWindow):
 
 	if not gotOne: return None
 
-
         sw.add_with_viewport (box)
         viewport = sw.children()[0]
         viewport.set_shadow_type (SHADOW_ETCHED_IN)
-        
-
         
         vbox = GtkVBox (FALSE, 10)
         vbox.pack_start (sw, TRUE, TRUE)

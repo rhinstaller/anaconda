@@ -263,22 +263,31 @@ class FormatWindow:
         g.add (cb, 0, 2, (0, 1, 0, 1))
         g.add (bb, 0, 3, growx = 1)
 
-        result = g.runOnce()
+	done = 0
 
-	for (mount, dev, fstype, format, size) in mounts:
-	    todo.fstab.setFormatFilesystem(dev, 0)
+	while not done:
+	    result = g.run()
+	    rc = bb.buttonPressed (result)
+	    if rc == "back":
+		screen.popWindow()
+		return INSTALL_BACK
 
-        for dev in ct.getSelection():
-	    todo.fstab.setFormatFilesystem(dev, 1)
+	    for (mount, dev, fstype, format, size) in mounts:
+		todo.fstab.setFormatFilesystem(dev, 0)
 
-        todo.fstab.setBadBlockCheck(cb.selected ())
+	    for dev in ct.getSelection():
+		todo.fstab.setFormatFilesystem(dev, 1)
 
-        rc = bb.buttonPressed (result)
+	    todo.fstab.setBadBlockCheck(cb.selected ())
 
-        if rc == "back":
-            return INSTALL_BACK
+	    rc = todo.fstab.checkFormatting(todo.intf.messageWindow)
+
+	    if not rc:
+		done = 1
+
+	screen.popWindow()
+
         return INSTALL_OK
-
 
 class LoopSizeWindow:
 
