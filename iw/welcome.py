@@ -82,21 +82,3 @@ class ReconfigWelcomeWindow (InstallWindow):
 	box.set_border_width (5)
 	self.beingDisplayed = 1
 	return box
-
-
-#        frame = GtkFrame ()
-#        frame.set_shadow_type (SHADOW_IN)
-#        im = self.ics.readPixmap ("splash.png")
-#        
-#        if im:
-#            im.render ()
-#            box = GtkEventBox ()
-#            pix = im.make_pixmap ()
-#            style = box.get_style ().copy ()
-#            style.bg[STATE_NORMAL] = style.white
-#            box.set_style (style)
-#            box.add (pix)
-#            frame.add (box)
-#
-#        return frame
-
