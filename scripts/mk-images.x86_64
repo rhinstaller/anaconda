@@ -39,7 +39,7 @@ SCSIMODS="sd_mod sr_mod"
 FSMODS="msdos vfat ext3 reiserfs"
 SECSTAGE="agpgart raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
 
-COMMONMODULES="vfat $USBMODS"
+COMMONMODULES="vfat loop $USBMODS"
 LOCALMODULES="$COMMONMODULES aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs 3c59x 
@@ -86,7 +86,7 @@ echo "Building initrd-everything.img"
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 	   --pcmcia \
 	   --initrdsize 5000 \
-	   --loaderbin loader-pcmcia \
+	   --loaderbin loader \
 	   --modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
 [ $? = 0 ] || exit 1
 
