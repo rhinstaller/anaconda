@@ -1476,8 +1476,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 		
 		execv(FL_TESTING(flags) ? "./loader" : "/sbin/loader", args);
 	    }
-	}
 #endif /* INCLUDE_KON */
+	}
     }
 
     return flags;
