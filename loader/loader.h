@@ -29,6 +29,7 @@
 #define LOADER_FLAGS_NOUSBSTORAGE       (1 << 23)
 #define LOADER_FLAGS_ASKMETHOD          (1 << 24)
 #define LOADER_FLAGS_NOPARPORT          (1 << 25)
+#define LOADER_FLAGS_NOIEEE1394         (1 << 26)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -59,6 +60,7 @@
 #define FL_NOUSBSTORAGE(a)  ((a) & LOADER_FLAGS_NOUSBSTORAGE)
 #define FL_ASKMETHOD(a)     ((a) & LOADER_FLAGS_ASKMETHOD)
 #define FL_NOPARPORT(a)     ((a) & LOADER_FLAGS_NOPARPORT)
+#define FL_NOIEEE1394(a)    ((a) & LOADER_FLAGS_NOIEEE1394)
 
 #define CODE_PCMCIA	1
 

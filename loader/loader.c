@@ -1522,9 +1522,6 @@ static char * mountNfsImage(struct installMethod * method,
     char * url = NULL;
     int stage = NFS_STAGE_IP;
 
-/*XXX
-    mlLoadModuleSet("nfs", modLoaded, *modDepsPtr, modInfo, flags);*/
-
     initLoopback();
 
     memset(&ui, 0, sizeof(ui));
@@ -1537,6 +1534,7 @@ static char * mountNfsImage(struct installMethod * method,
     while (stage != NFS_STAGE_DONE) {
         switch (stage) {
 	  case NFS_STAGE_IP:
+	    logMessage("going to do getNetConfig");
 	    rc = readNetConfig(devName, &netDev, flags);
 	    if (rc) {
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
@@ -1551,6 +1549,7 @@ static char * mountNfsImage(struct installMethod * method,
 	    break;
 
 	  case NFS_STAGE_NFS:
+	    logMessage("going to do nfsGetSetup");
 	    if (nfsGetSetup(&host, &dir) == LOADER_BACK)
 		stage = NFS_STAGE_IP;
 	    else
@@ -1558,8 +1557,6 @@ static char * mountNfsImage(struct installMethod * method,
 	    break;
 
 	  case NFS_STAGE_MOUNT:
-	    mlLoadModuleSet("nfs", modLoaded, *modDepsPtr, modInfo, flags);
-
 	    if (FL_TESTING(flags)) {
 		stage = NFS_STAGE_DONE;
 		break;
@@ -2288,7 +2285,6 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 #ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS) {
 	int count = 0;
-	mlLoadModuleSet("nfs", modLoaded, *modDepsPtr, modInfo, flags);
 	fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	sprintf(fullPath, "%s:%s", host, dir);
 
@@ -2483,6 +2479,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
   	    flags |= LOADER_FLAGS_NOUSBSTORAGE;
         else if (!strcasecmp(argv[i], "nousb"))
 	    flags |= LOADER_FLAGS_NOUSB;
+        else if (!strcasecmp(argv[i], "nofirewire"))
+	    flags |= LOADER_FLAGS_NOIEEE1394;
         else if (!strcasecmp(argv[i], "noprobe"))
 	    flags |= LOADER_FLAGS_NOPROBE;
         else if (!strcasecmp(argv[i], "nopcmcia"))
@@ -2631,8 +2629,6 @@ int kickstartFromNfs(struct knownDevices * kd, char * location,
     }
 
     logMessage("ks server: %s file: %s", ksPath, file);
-
-    mlLoadModuleSet("nfs", modLoaded, *modDepsPtr, NULL, flags);
 
     if (doPwMount(ksPath, "/tmp/nfskd", "nfs", 1, 0, NULL, NULL)) {
 	logMessage("failed to mount %s", ksPath);
@@ -3030,6 +3026,41 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     return 0;
 }
 
+static int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
+			      moduleInfoSet modInfo, int flags) {
+    struct device ** devices;
+    int i = 0;
+
+    if (FL_NOIEEE1394(flags)) return 0;
+
+    devices = probeDevices(CLASS_FIREWIRE, BUS_PCI, PROBE_ALL);
+
+    if (!devices) {
+	logMessage("no firewire controller found");
+	return 0;
+    }
+
+    logMessage("found firewire controller %s", devices[0]->driver);
+
+    if (mlLoadModuleSet(devices[0]->driver, modLoaded, modDeps, modInfo,
+			flags)) {
+	logMessage("failed to insert firewire module");
+	return 1;
+    }
+
+    if (FL_TESTING(flags)) return 0;
+
+    devices = probeDevices(CLASS_SCSI, BUS_FIREWIRE, PROBE_ALL);
+
+    for (i=0;devices[i];i++) {
+	if ((devices[i]->detached == 0) && (devices[i]->driver != NULL)) {
+	    logMessage("found firewire device using %s", devices[i]->device);
+	    mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps, 
+			    modInfo, flags);
+	}
+    }
+}
+
 /* This loads the necessary parallel port drivers for printers so that
    kudzu can autodetect and setup printers in post install*/
 static void initializeParallelPort(moduleList modLoaded, moduleDeps modDeps,
@@ -3359,6 +3390,9 @@ int main(int argc, char ** argv) {
 	/* Note we *always* do this. If you could avoid this you could get
 	   a system w/o USB keyboard support, which would be bad. */
 	usbInitialize(modLoaded, modDeps, modInfo, flags);
+
+	/* now let's initialize any possible firewire.  fun */
+	firewireInitialize(modLoaded, modDeps, modInfo, flags);
     }
 
     setFloppyDevice(flags);
