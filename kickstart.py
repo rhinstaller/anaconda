@@ -640,6 +640,7 @@ class KickstartBase(BaseInstallClass):
         self.addToSkipList("welcome")
         self.addToSkipList("package-selection")
         self.addToSkipList("confirm-install")
+        self.addToSkipList("confirm-upgrade")
         self.addToSkipList("custom-upgrade")
         self.addToSkipList("network")
         # skipping firewall by default, disabled by default
