@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: install 7.1\n"
+"Project-Id-Version: install FC4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-13 14:23-0500\n"
-"PO-Revision-Date: 2004-10-05 14:19+0200\n"
-"Last-Translator: Trond Varslot <varslot@math.ntnu.no>\n"
-"Language-Team: Norwegian <no@li.org>\n"
+"PO-Revision-Date: 2005-02-21 15:47+0100\n"
+"Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
+"Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -770,13 +770,12 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"En feil oppstoid under forsøk på å initsiere swap på enhet %s. Dette "
-"problemet er alvorlig, og installasjonen kan ikke fortsette.\n"
+"En feil oppstoid under forsøk på å initiere swap på enhet %s. Dette problemet er alvorlig, og installasjonen kan ikke fortsette.\n"
 "\n"
 "Trykk <Linjeskift> for å starte systemet på nytt."
 
 #: ../fsset.py:1355
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -787,7 +786,7 @@ msgid ""
 msgstr ""
 "Feil under aktivering av swap-enhet %s: %s\n"
 "\n"
-"Dette betyr sannsynligvis at swap-partisjonen ikke er initsiert.\n"
+"/etc/fstab på din oppgraderte partisjon inneholder ikke en gyldig referanse til en swap-enhet.\n"
 "\n"
 "Trykk OK for å starte systemet på nytt."
 
@@ -802,7 +801,7 @@ msgid ""
 msgstr ""
 "Feil under aktivering av swap-enhet %s: %s\n"
 "\n"
-"Dette betyr sannsynligvis at swap-partisjonen ikke er initsiert.\n"
+"Dette betyr sannsynligvis at swap-partisjonen ikke er initiert.\n"
 "\n"
 "Trykk OK for å starte systemet på nytt."
 
@@ -905,7 +904,6 @@ msgstr ""
 "Trykk OK for å starte systemet på nytt."
 
 #: ../fsset.py:1575
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -913,9 +911,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Feil under montering av enhet %s som %s: %s\n"
+"Finner ikke /\n"
 "\n"
-"Dette betyr sannsynligvis at partisjonen ikke er formatert.\n"
+"/etc/fstab er sannsynligvis ikke korrekt.\n"
 "\n"
 "Trykk OK for å starte systemet på nytt."
 
@@ -1296,7 +1294,7 @@ msgstr ""
 msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
-msgstr ""
+msgstr "comps-filen i ditt installasjonstre mangler viktige grupper. Vennligst sjekk at installasjonstreet er generert på en korrekt måte."
 
 #: ../packages.py:197 ../packages.py:629
 #, python-format
@@ -1339,15 +1337,14 @@ msgstr ""
 "Trykk <linjeskift> for å prøve igjen."
 
 #: ../packages.py:441
-#, fuzzy
 msgid "Re_boot"
-msgstr "Start på nytt"
+msgstr "St_art på nytt"
 
 #: ../packages.py:445
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
-msgstr ""
+msgstr "Hvis du starter på nytt vil systemet ende opp i en inkonsistent tilstand som sannsynligvis vil medføre at du vil måtte installere på nytt. Er du sikker på at du vil fortsette?"
 
 #: ../packages.py:459
 msgid "Installing..."
@@ -2868,17 +2865,14 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Avansert konfigurasjon av oppstartslaster"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Tvungen bruk av LBA32 for din oppstartslaster uten at BIOS støtter dette kan "
-"forårsake at maskinen ikke kan starte. Vi anbefaler på det sterkeste at du "
-"oppretter en oppstartsdiskett når du blir spurt senere i installasjonen.\n"
-"\n"
+"Tvungen bruk av LBA32 for din oppstartslaster kan medføre at maskinen ikke kan startes hvis BIOS ikke støtter dette.\n"
+" \n"
 "Vil du fortsette med tvungen bruk av LBA32-modus?"
 
 #: ../iw/bootloader_advanced_gui.py:49
@@ -2912,7 +2906,6 @@ msgid "Change Boot Loader"
 msgstr "Bytt oppstartslaster"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -2921,12 +2914,9 @@ msgid ""
 "\n"
 "Would you like to continue and not install a boot loader?"
 msgstr ""
-"Du har valgt å ikke installere en oppstartslaster. Det anbefales at du "
-"installerer en oppstartslaster med mindre du har helt spesielle behov. En "
-"oppstartslaster er nesten alltid nødvendig for å starte systemet med Linux "
-"direkte fra harddisken.\n"
+"Du har valgt å ikke installere en oppstartslaster. Det anbefales at du installerer en oppstartslaster med mindre du har helt spesielle behov. En oppstartslaster er nesten alltid nødvendig for å starte systemet med Linux direkte fra harddisken.\n"
 "\n"
-"Er du sikker på at du vil hoppe over installasjon av oppstartslaster?"
+"Vil du fortsette uten installasjon av oppstartslaster?"
 
 #: ../iw/bootloader_main_gui.py:97
 msgid "C_ontinue with no boot loader"
@@ -3905,9 +3895,8 @@ msgid "Encryption _Key"
 msgstr "Krypteringsnø_kkel"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Hardware address:"
-msgstr "IP-adresse:"
+msgstr "Maskinvareadresse:"
 
 #: ../iw/network_gui.py:291
 #, python-format
@@ -5681,7 +5670,7 @@ msgstr "Beskrivelse: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Maskinvareadresse: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -7159,9 +7148,9 @@ msgid "Welcome to %s"
 msgstr "Velkommen til %s"
 
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Velkommen til %s"
+msgstr "Velkommen til %s - redningsmodus"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:138
 msgid ""
@@ -7688,14 +7677,12 @@ msgid "Account name:"
 msgstr "Kontonavn:"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "FTP-oppsett"
+msgstr "Videre FTP-oppsett"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "HTTP-oppsett"
+msgstr "Videre HTTP-oppsett"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
@@ -8569,83 +8556,3 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "%s installering på %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Du har valgt ikke å installere en oppstartslaster på ditt system. Du vil "
-#~ "måtte lage en oppstartsdiskett for å kunne starte ditt system.\n"
-#~ "\n"
-#~ "Ønsker du å fortsette og ikke installere en oppstartslaster?"
-
-#~ msgid "Total"
-#~ msgstr "Totalt"
-
-#~ msgid "Remaining"
-#~ msgstr "Gjenstår"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "Installerer %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "Fremgang for pakke: "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "Fremgang totalt:  "
-
-#~ msgid "Status"
-#~ msgstr "Status"
-
-#~ msgid "Packages"
-#~ msgstr "Pakker"
-
-#~ msgid "Time"
-#~ msgstr "Tid"
-
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "Oppgraderinger til denne versjonen av %s er bare støttet for Red Hat "
-#~ "Linux 6.2 og nyere. Dette synes å være et eldre system. Ønsker du å "
-#~ "fortsette oppgraderingsprosssen?"
-
-#~ msgid "Physical Extent:"
-#~ msgstr "Fysisk utbredelse:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux gir strengere tilgangskontroll for å øke "
-#~ "sikkerheten på ditt system. Hvordan ønsker du at denne funskjonen skal "
-#~ "aktiveres?"
-
-#~ msgid "Disable SELinux"
-#~ msgstr "Deaktiver SELinux"
-
-#~ msgid "Warn on violations"
-#~ msgstr "Advar ved overtramp"
-
-#~ msgid "Device number:"
-#~ msgstr "Enhetsnummer:"
-
-#~ msgid "SCSI ID:"
-#~ msgstr "SCSI-ID:"
-
-#~ msgid "WWPN:"
-#~ msgstr "WWPN:"
-
-#~ msgid "SCSI LUN:"
-#~ msgstr "SCSI-LUN:"
-
-#~ msgid "FCP LUN:"
-#~ msgstr "FCP-LUN:"
