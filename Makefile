@@ -57,7 +57,8 @@ install:
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
 
 	cp -a reconfig.init $(DESTDIR)/etc/rc.d/init.d/reconfig
-	cp -a anaconda $(DESTDIR)/usr/sbin/anaconda
+	install -m 755 anaconda $(DESTDIR)/usr/sbin/anaconda
+	install -m 755 anaconda-stub $(DESTDIR)/usr/sbin/anaconda-stub
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
