@@ -626,6 +626,8 @@ static int writeModulesConf(moduleList list, int fd) {
                     tmp = "";
                 }
 
+                if (lm->firstDevNum > lm->lastDevNum) break;
+
                 for (ethNum = lm->firstDevNum; 
                      ethNum <= lm->lastDevNum; ethNum++) {
                     sprintf(buf2, "%s%d ", tmp, ethNum);
