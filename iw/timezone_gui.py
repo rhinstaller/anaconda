@@ -127,11 +127,12 @@ class TimezoneWindow (InstallWindow):
 	if rc:
 	    (self.default, asUTC, asArc) = rc
 	else:
-	    self.default = iutil.defaultZone ()
+	    self.default = _(iutil.defaultZone ())
+            print self.default
 	    asUTC = 0
 
         if (string.find (self.default, "UTC") != -1):
-            self.default = "America/New_York"
+            self.default = _("America/New_York")
 
         self.id = self.list.connect ("draw", self.setcurrent)
 

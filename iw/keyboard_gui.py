@@ -44,7 +44,8 @@ class KeyboardWindow (InstallWindow):
 	self.layout = self.layoutList.get_row_data (self.layoutList.selection[0])
 	self.variant = self.variantList.get_row_data (self.variantList.selection[0])
         
-	self.kb.setRule (self.model, self.layout, self.variant, "complete")
+        if self.todo.setupFilesystems:
+            self.kb.setRule (self.model, self.layout, self.variant, "complete")
 
     def getScreen (self):
         if not self.hasrun:
@@ -52,7 +53,8 @@ class KeyboardWindow (InstallWindow):
             if Keyboard.console2x.has_key (default):
                 self.model = Keyboard.console2x[default][0]
                 self.layout = Keyboard.console2x[default][1]
-                self.kb.setRule (self.model, self.layout, self.variant, "complete")
+                if self.todo.setupFilesystems:
+                    self.kb.setRule (self.model, self.layout, self.variant, "complete")
 
 	box = GtkVBox (FALSE, 5)
         im = self.ics.readPixmap ("gnome-keyboard.png")
@@ -114,7 +116,7 @@ class KeyboardWindow (InstallWindow):
 #  as special case, so the text can be less confusing.
 #        self.variantList.append (("None",))
 #        for (key, variant) in self.rules[2].items ():
-        for (key, variant) in ((None, (_("Enable dead keys"))),
+        for (key, variant) in (("", (_("Enable dead keys"))),
                                ("nodeadkeys", (_("Disable dead keys")))):
             loc = self.variantList.append ((variant,))
 	    self.variantList.set_row_data (loc, key)
