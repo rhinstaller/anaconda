@@ -1,11 +1,17 @@
-CFLAGS = -Wall
+CFLAGS = -Wall -g
+LOADLIBES = libpciprobe.a
+LDFLAGS = -g
 
-libpciprobe.a: libpciprobe.a(pciprobe.o)
+all: testprobe
 
-pciprobe.c: driverlist.h
+libpciprobe.a: libpciprobe.a(pciprobe.o) pcitable 
 
-driverlist.h: pci.ids unsupported kernel video mergeids
+testprobe: testprobe.o libpciprobe.a
+
+pciprobe.c: pciprobe.h
+
+pcitable: pci.ids unsupported kernel video mergeids
 	./mergeids
 
 clean:
-	rm -f driverlist.h pciprobe *.o
+	rm -f driverlist.h pciprobe *.o testprobe *.a
