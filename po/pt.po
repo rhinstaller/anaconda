@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-10-15 14:38-0400\n"
-"PO-Revision-Date: 2004-01-21 22:04+0000\n"
+"PO-Revision-Date: 2004-02-07 15:33+0000\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -2581,7 +2581,7 @@ msgstr "_Servidor de LDAP:"
 
 #: ../iw/auth_gui.py:149
 msgid "LDAP _Base DN:"
-msgstr "DN de _base de LDAP:"
+msgstr "DN _base de LDAP:"
 
 #: ../iw/auth_gui.py:177
 msgid "Enable _Kerberos"
@@ -2609,7 +2609,7 @@ msgstr "Servidor de _SMB:"
 
 #: ../iw/auth_gui.py:222
 msgid "SMB Work_group:"
-msgstr "_Grupo de trabalho de SMB:"
+msgstr "_Grupo de trabalho SMB:"
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
@@ -3829,7 +3829,7 @@ msgstr "(ex. \"maquina.dominio.pt\")"
 
 #: ../iw/network_gui.py:521 ../loader2/net.c:640
 msgid "Hostname"
-msgstr "Máquina"
+msgstr "Nome da Máquina"
 
 #: ../iw/network_gui.py:582
 msgid "Miscellaneous Settings"
@@ -4700,7 +4700,7 @@ msgstr "Escolha do Fuso Horário"
 
 #: ../iw/timezone_gui.py:67 ../textw/timezone_text.py:96
 msgid "System clock uses _UTC"
-msgstr "Relógio de sistema utiliza _UTC"
+msgstr "Relógio do sistema utiliza _UTC"
 
 #: ../iw/timezone_gui.py:75
 msgid "Please select the nearest city in your timezone:"
@@ -4963,11 +4963,11 @@ msgstr "Voltar aos Val_ores Originais"
 
 #: ../iw/xconfig_gui.py:748
 msgid "Hori_zontal Sync:"
-msgstr "Sinc. hori_zontal:"
+msgstr "Sincronismo hori_zontal:"
 
 #: ../iw/xconfig_gui.py:751
 msgid "_Vertical Sync:"
-msgstr "Sinc. _vertical:"
+msgstr "Sincronismo _vertical:"
 
 #: ../iw/xconfig_gui.py:758
 msgid "kHz"
@@ -5893,7 +5893,7 @@ msgstr "São necessárias pelo menos duas partições de RAID por software."
 
 #: ../textw/partition_text.py:958
 msgid "Format partition?"
-msgstr "Formatar partição?"
+msgstr "Formatar a partição?"
 
 #: ../textw/partition_text.py:1020
 msgid "Invalid Entry for RAID Spares"
@@ -6245,7 +6245,7 @@ msgstr "Activar Senhas MD5"
 
 #: ../textw/userauth_text.py:346
 msgid "Enable NIS"
-msgstr "Activar NIS"
+msgstr "Activar o NIS"
 
 #: ../textw/userauth_text.py:352
 msgid "NIS Domain:"
@@ -6265,11 +6265,11 @@ msgstr "Pedir servidor por broadcast"
 
 #: ../textw/userauth_text.py:380
 msgid "Enable LDAP"
-msgstr "Activar LDAP"
+msgstr "Activar o LDAP"
 
 #: ../textw/userauth_text.py:386
 msgid "LDAP Server:"
-msgstr "Servidor LDAP:"
+msgstr "Servidor de LDAP:"
 
 #: ../textw/userauth_text.py:388
 msgid "LDAP Base DN:"
@@ -6281,7 +6281,7 @@ msgstr "Utilizar ligações TLS"
 
 #: ../textw/userauth_text.py:409
 msgid "Enable Kerberos"
-msgstr "Activar Kerberos"
+msgstr "Activar o Kerberos"
 
 #: ../textw/userauth_text.py:416
 msgid "Realm:"
@@ -6293,7 +6293,7 @@ msgstr "KDC:"
 
 #: ../textw/userauth_text.py:420
 msgid "Admin Server:"
-msgstr "Servidor admin:"
+msgstr "Servidor de admin:"
 
 #: ../textw/welcome_text.py:22
 #, python-format
@@ -8240,24 +8240,6 @@ msgstr "Turco"
 #~ "computador.\n"
 #~ "\n"
 #~ "Tem a certeza que quer desligar a 'firewall'?"
-
-#~ msgid "Set hostname"
-#~ msgstr "Nome da máquina"
-
-#~ msgid "Welcome"
-#~ msgstr "Bem-vindo"
-
-#~ msgid "Hardware clock set to GMT?"
-#~ msgstr "Relógio Hardware em GMT?"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "WARNING!!! VNC server running with NO PASSWORD!"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "AVISO!!! Servidor VNC a correr SEM SENHA!"
 
 #~ msgid "You can use the vncpasswd=<password> boot option"
 #~ msgstr "Pode utilizar a opção de arranque vncpasswd=<senha>"

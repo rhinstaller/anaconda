@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "POT-Creation-Date: 2003-10-15 14:38-0400\n"
-"PO-Revision-Date: 2004-01-24 19:49+0100\n"
+"PO-Revision-Date: 2004-02-07 15:29+0100\n"
 "Last-Translator: Radosław Zawartko <radzaw@radzaw.one.pl>\n"
 "Language-Team: POLISH <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr ""
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
-msgstr ""
+msgstr "Kolejna próba połączenia nastąpi za 15 sekund..."
 
 #: ../anaconda:208
 msgid "Connected!"
@@ -87,11 +87,11 @@ msgstr "Połączono!"
 #: ../anaconda:212
 #, c-format
 msgid "Please connect to %s to begin the install..."
-msgstr ""
+msgstr "Połącz sie z %s aby rozpocząć instalację..."
 
 #: ../anaconda:214
 msgid "Please connect to begin the install..."
-msgstr ""
+msgstr "Połącz się aby rozpocząć instalację..."
 
 #: ../anaconda:550
 #: ../anaconda:732
@@ -605,35 +605,33 @@ msgid "Your system's state has been successfully written to the floppy. Your sys
 msgstr ""
 
 #: ../floppy.py:103
-#, fuzzy
 msgid "Unable to make boot floppy"
-msgstr "Nie można utworzyć kopii zapasowej pierwotnego pliku."
+msgstr "Nie można utworzyć dyskietki startowej"
 
 #: ../floppy.py:104
 msgid "The size of the kernel modules needed for your machine make it impossible to create a boot disk that will fit on a floppy diskette."
 msgstr ""
 
 #: ../floppy.py:113
-#, fuzzy
 msgid "Insert a floppy disk"
-msgstr "Formatowanie dyskietek"
+msgstr "Włóż dyskietkę"
 
 #: ../floppy.py:114
-#, fuzzy
 msgid ""
 "Please remove any diskettes from the floppy drive, and insert the floppy diskette that is to contain the boot disk.\n"
 "\n"
 "All data will be ERASED during creation of the boot disk."
-msgstr "Włóż pustą dyskietkę do pierwszego napędu. Jeżeli są na niej jakieś dane, będą skasowane podczas tworzenia dyskietki startowej."
+msgstr ""
+"Włóż pustą dyskietkę która ma być dyskietką startową.\n"
+"Jeżeli są na niej jakieś dane, będą skasowane podczas tworzenia dyskietki startowej."
 
 #: ../floppy.py:118
 msgid "_Cancel"
 msgstr "_Anuluj"
 
 #: ../floppy.py:118
-#, fuzzy
 msgid "_Make boot disk"
-msgstr "Utworzenie dyskietki startowej"
+msgstr "_Utwórz dyskietkę startową"
 
 #: ../floppy.py:129
 #: ../floppy.py:154
@@ -727,14 +725,13 @@ msgid "Your boot floppy appears to be invalid.  This is likely due to a bad flop
 msgstr "Podczas tworzenia dyskietki startowej wystąpił błąd. Upewnij się, że sformatowana dyskietka jest w pierwszym napędzie."
 
 #: ../fsset.py:174
-#, fuzzy
 msgid "Checking for Bad Blocks"
-msgstr "Wyszukiwanie błędnych bloków..."
+msgstr "Wyszukiwanie błędnych bloków"
 
 #: ../fsset.py:175
-#, fuzzy, python-format
+#, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "Wyszukiwanie błędnych bloków... (może to nieco potrwać)"
+msgstr "Wyszukiwanie błędnych bloków na /dev/%s..."
 
 #: ../fsset.py:563
 #, python-format
@@ -745,9 +742,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1113
-#, fuzzy
 msgid "RAID Device"
-msgstr "błędne urządzenie %s %s"
+msgstr "Urządzenie RAID"
 
 #: ../fsset.py:1117
 #: ../fsset.py:1123
@@ -1950,9 +1946,8 @@ msgstr ""
 #: ../rescue.py:325
 #: ../rescue.py:333
 #: ../rescue.py:404
-#, fuzzy
 msgid "Rescue"
-msgstr "Metoda ratunkowa"
+msgstr "Ratunek"
 
 #: ../rescue.py:257
 #, python-format
@@ -1987,9 +1982,8 @@ msgid "Skip"
 msgstr "Pomiń"
 
 #: ../rescue.py:299
-#, fuzzy
 msgid "System to Rescue"
-msgstr "System do uaktualnienia"
+msgstr "System do uratowania"
 
 #: ../rescue.py:300
 msgid "What partition holds the root partition of your installation?"
@@ -2025,23 +2019,21 @@ msgid ""
 msgstr ""
 
 #: ../rescue.py:411
-#, fuzzy
 msgid "Rescue Mode"
-msgstr "niewłaściwy tryb `%s'"
+msgstr "Tryb ratunkowy"
 
 #: ../rescue.py:412
 msgid "You don't have any Linux partitions. Press return to get a shell. The system will reboot automatically when you exit from the shell."
 msgstr ""
 
 #: ../rescue.py:423
-#, fuzzy, python-format
+#, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr "Musisz podać katalog."
+msgstr "Twój system jest zamontowany pod katalogiem %s."
 
 #: ../text.py:192
-#, fuzzy
 msgid "Help not available"
-msgstr "Pomoc jest nie dostępna."
+msgstr "Pomoc jest nie dostępna"
 
 #: ../text.py:193
 msgid "No help is available for this step of the install."
@@ -2146,9 +2138,8 @@ msgid ""
 msgstr ""
 
 #: ../upgrade.py:305
-#, fuzzy
 msgid "Invalid Directories"
-msgstr "zmień katalog"
+msgstr "Niewłaściwe katalogi"
 
 #: ../upgrade.py:311
 #, python-format
@@ -2813,9 +2804,8 @@ msgstr "Firewall"
 
 #: ../iw/firewall_gui.py:31
 #: ../textw/firewall_text.py:193
-#, fuzzy
 msgid "Warning - No Firewall"
-msgstr "UWAGA: Brak etykiety części"
+msgstr "Ostrzeżenie - brak firewall'a"
 
 #: ../iw/firewall_gui.py:32
 #: ../textw/firewall_text.py:194
@@ -2823,9 +2813,8 @@ msgid "If this system is attached directly to the Internet or is on a large publ
 msgstr ""
 
 #: ../iw/firewall_gui.py:39
-#, fuzzy
 msgid "_Configure Firewall"
-msgstr "Zapora sieciowa Centri"
+msgstr "_Konfiguracja Firewall'a"
 
 #: ../iw/firewall_gui.py:39
 #: ../iw/xconfig_gui.py:444
@@ -2852,28 +2841,24 @@ msgid "A firewall can help prevent unauthorized access to your computer from the
 msgstr ""
 
 #: ../iw/firewall_gui.py:166
-#, fuzzy
 msgid "N_o firewall"
-msgstr "Zapora sieciowa"
+msgstr "_Brak firewalla"
 
 #: ../iw/firewall_gui.py:168
-#, fuzzy
 msgid "_Enable firewall"
-msgstr "Włącz firewall"
+msgstr "_Włącz firewall"
 
 #: ../iw/firewall_gui.py:170
-#, fuzzy
 msgid "_Custom firewall"
-msgstr "Zapora sieciowa Centri"
+msgstr "_Dostosuj firewall"
 
 #: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
 msgstr ""
 
 #: ../iw/firewall_gui.py:197
-#, fuzzy
 msgid "_Allow incoming:"
-msgstr " Wiadomości przychodzące: %1"
+msgstr "_Zezwól na przychodzące:"
 
 #: ../iw/firewall_gui.py:222
 msgid "Other _ports:"
@@ -2893,9 +2878,8 @@ msgid "Installation Type"
 msgstr "Rodzaj instalacji"
 
 #: ../iw/ipwidget.py:92
-#, fuzzy
 msgid "IP Address is missing"
-msgstr "Adres nadawcy nie został podany."
+msgstr "Brakuje adresu IP"
 
 #: ../iw/ipwidget.py:97
 msgid "IP Addresses must contain numbers between 1 and 255"
@@ -3561,11 +3545,8 @@ msgid "This device is already being used for another boot entry."
 msgstr "Ten identyfikator już istnieje. Wybierz inny."
 
 #: ../iw/osbootwidget.py:336
-#, fuzzy
 msgid "Cannot Delete"
-msgstr ""
-"Nie można usunąć folderu:\n"
-"%s"
+msgstr "Nie można usunąć"
 
 #: ../iw/osbootwidget.py:337
 #, python-format
@@ -3599,9 +3580,8 @@ msgid "_Flat View"
 msgstr "Zobacz zał."
 
 #: ../iw/package_gui.py:373
-#, fuzzy
 msgid "_Package"
-msgstr "<pakiet>+"
+msgstr "_Pakiet"
 
 #: ../iw/package_gui.py:375
 msgid "_Size (MB)"
@@ -3627,17 +3607,13 @@ msgid "Package Group Selection"
 msgstr "Wybranie grupy pakietów"
 
 #: ../iw/package_gui.py:677
-#, fuzzy
 msgid "Minimal"
-msgstr "M&inimalna szybkość transmisji"
+msgstr "Minimalna"
 
 #: ../iw/package_gui.py:739
-#, fuzzy, python-format
+#, python-format
 msgid "Details for '%s'"
-msgstr ""
-"Pobieranie szczegółów błędu %1\n"
-"\n"
-"(%2)"
+msgstr "Szczegóły dla '%s'"
 
 #: ../iw/package_gui.py:748
 msgid ""
@@ -3647,17 +3623,14 @@ msgid ""
 msgstr ""
 
 #: ../iw/package_gui.py:791
-#, fuzzy
 msgid "Base Packages"
-msgstr "Uaktualnianie pakietów..."
+msgstr "Pakiety podstawowe"
 
 #: ../iw/package_gui.py:821
-#, fuzzy
 msgid "Optional Packages"
-msgstr "<b>Pakiety opcjonalne</b>"
+msgstr "Pakiety opcjonalne"
 
 #: ../iw/package_gui.py:1031
-#, fuzzy
 msgid "Details"
 msgstr "Szczegóły"
 
@@ -3672,9 +3645,8 @@ msgid "Additional Size Options"
 msgstr "Dodatkowe opcje GS"
 
 #: ../iw/partition_dialog_gui.py:60
-#, fuzzy
 msgid "_Fixed size"
-msgstr "Stały rozmiar suwaka"
+msgstr ""
 
 #: ../iw/partition_dialog_gui.py:62
 msgid "Fill all space _up to (MB):"
@@ -3705,7 +3677,6 @@ msgstr "Edycja partycji"
 
 #: ../iw/partition_dialog_gui.py:292
 #: ../iw/raid_dialog_gui.py:302
-#, fuzzy
 msgid "File System _Type:"
 msgstr "_Typ systemu plików:"
 
@@ -3715,9 +3686,8 @@ msgid "Allowable _Drives:"
 msgstr "Możliwe dyski:"
 
 #: ../iw/partition_dialog_gui.py:338
-#, fuzzy
 msgid "Drive:"
-msgstr "Dysk %d"
+msgstr "Napęd:"
 
 #: ../iw/partition_dialog_gui.py:347
 #, fuzzy
@@ -3725,14 +3695,12 @@ msgid "Original File System Label:"
 msgstr "System plików wyłącznie do odczytu"
 
 #: ../iw/partition_dialog_gui.py:382
-#, fuzzy
 msgid "_Start Cylinder:"
-msgstr "Długość cylindra"
+msgstr "_Początkowy cylinder"
 
 #: ../iw/partition_dialog_gui.py:400
-#, fuzzy
 msgid "_End Cylinder:"
-msgstr "Długość cylindra"
+msgstr "_Końcowy cylinder"
 
 #: ../iw/partition_dialog_gui.py:451
 #, fuzzy
@@ -3753,35 +3721,34 @@ msgstr "Format"
 
 #: ../iw/partition_gui.py:364
 #: ../textw/partition_text.py:1126
-#, fuzzy
 msgid "Start"
-msgstr "Rozpoczynanie"
+msgstr "Początek"
 
 #: ../iw/partition_gui.py:365
 #: ../textw/partition_text.py:1126
-#, fuzzy
 msgid "End"
 msgstr "Koniec"
 
 #: ../iw/partition_gui.py:402
-#, fuzzy
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
-msgstr "Punkt montowania (/mnt/floppy):"
+msgstr ""
+"Punkt montowania/\n"
+"RAID/Wolumin"
 
 #: ../iw/partition_gui.py:404
-#, fuzzy
 msgid ""
 "Size\n"
 "(MB)"
-msgstr "%.1f MB"
+msgstr ""
+"Rozmiar\n"
+"(MB)"
 
 #: ../iw/partition_gui.py:547
 #: ../textw/partition_text.py:1120
-#, fuzzy
 msgid "Partitioning"
-msgstr "Automatyczny podział dysku"
+msgstr "Partycjonowanie"
 
 #: ../iw/partition_gui.py:639
 msgid "The following critical errors exist with your requested partitioning scheme."
@@ -3817,7 +3784,6 @@ msgid "Format Warnings"
 msgstr "ostrzeżenia"
 
 #: ../iw/partition_gui.py:688
-#, fuzzy
 msgid "_Format"
 msgstr "_Formatuj"
 
@@ -3827,9 +3793,8 @@ msgid "LVM Volume Groups"
 msgstr "zbyt wiele grup\n"
 
 #: ../iw/partition_gui.py:758
-#, fuzzy
 msgid "RAID Devices"
-msgstr "Urządzenia wejściowe"
+msgstr "Urządzenia RAID"
 
 #: ../iw/partition_gui.py:786
 #: ../iw/partition_gui.py:907
@@ -3858,9 +3823,8 @@ msgstr "Rozszerzone"
 
 #: ../iw/partition_gui.py:874
 #: ../textw/partition_text.py:137
-#, fuzzy
 msgid "software RAID"
-msgstr "Tworzenie oprogramowania"
+msgstr "programowy RAID"
 
 #: ../iw/partition_gui.py:909
 #, fuzzy
@@ -3883,9 +3847,8 @@ msgstr "uwaga: %s: %s\n"
 
 #: ../iw/partition_gui.py:1190
 #: ../iw/partition_gui.py:1204
-#, fuzzy
 msgid "Not supported"
-msgstr "nie jest obsługiwany"
+msgstr "Nie jest obsługiwany"
 
 #: ../iw/partition_gui.py:1191
 #, fuzzy
@@ -3905,9 +3868,8 @@ msgid "A software RAID device cannot be created because all of the available RAI
 msgstr ""
 
 #: ../iw/partition_gui.py:1227
-#, fuzzy
 msgid "RAID Options"
-msgstr "niezgodne opcje"
+msgstr "Opcje RAID"
 
 #: ../iw/partition_gui.py:1238
 #, python-format
@@ -3958,9 +3920,8 @@ msgid "Ne_w"
 msgstr "No_wy"
 
 #: ../iw/partition_gui.py:1358
-#, fuzzy
 msgid "Re_set"
-msgstr "nieznany zestaw `%s'"
+msgstr "Re_set"
 
 #: ../iw/partition_gui.py:1359
 msgid "R_AID"
@@ -4103,12 +4064,10 @@ msgid "Installing %s-%s-%s.%s"
 msgstr "Instalacja %s-%s-%s.%s"
 
 #: ../iw/progress_gui.py:651
-#, fuzzy
 msgid "Package Progress: "
-msgstr "pasek-postępu"
+msgstr "Postęp pakietu:"
 
 #: ../iw/progress_gui.py:656
-#, fuzzy
 msgid "Total Progress:   "
 msgstr "Wykonano:"
 
@@ -4150,21 +4109,16 @@ msgid "Edit RAID Device"
 msgstr "Wymagane urządzenie blokowe"
 
 #: ../iw/raid_dialog_gui.py:321
-#, fuzzy
 msgid "RAID _Device:"
-msgstr "błędne urządzenie %s %s"
+msgstr "Urządzenie RAID:"
 
 #: ../iw/raid_dialog_gui.py:339
-#, fuzzy
 msgid "RAID _Level:"
-msgstr "Poziom 2 zatrzymany"
+msgstr "_Poziom RAID:"
 
 #: ../iw/raid_dialog_gui.py:381
-#, fuzzy
 msgid "_RAID Members:"
-msgstr ""
-"\n"
-"Członkowie grupy :\n"
+msgstr "Członkowie _RAID:"
 
 #: ../iw/raid_dialog_gui.py:398
 #, fuzzy
@@ -4292,9 +4246,8 @@ msgid "Target Drive(s):"
 msgstr "<b>_Napęd CD</b>"
 
 #: ../iw/raid_dialog_gui.py:726
-#, fuzzy
 msgid "Drives"
-msgstr "Możliwe dyski:"
+msgstr "Napędy"
 
 #: ../iw/release_notes_viewer_gui.py:142
 #, fuzzy
@@ -4384,7 +4337,6 @@ msgid "_Location"
 msgstr "_Położenie"
 
 #: ../iw/timezone_map_gui.py:128
-#, fuzzy
 msgid "Description"
 msgstr "Opis"
 
@@ -4535,26 +4487,22 @@ msgstr "_Głębia koloru:"
 
 #: ../iw/xconfig_gui.py:260
 #: ../textw/xconfig_text.py:106
-#, fuzzy
 msgid "256 Colors (8 Bit)"
-msgstr "VGA 1024x768, 256 kolorów (773)"
+msgstr "256 Kolorów (8 Bit)"
 
 #: ../iw/xconfig_gui.py:261
 #: ../textw/xconfig_text.py:107
-#, fuzzy
 msgid "High Color (16 Bit)"
-msgstr "16-bitowa wartość całkowitoliczbowa bez znaku"
+msgstr "High Color (16 Bit)"
 
 #: ../iw/xconfig_gui.py:262
 #: ../textw/xconfig_text.py:108
-#, fuzzy
 msgid "True Color (24 Bit)"
-msgstr "24-bit linear PCM"
+msgstr "True Color (24 Bit)"
 
 #: ../iw/xconfig_gui.py:282
-#, fuzzy
 msgid "_Screen Resolution:"
-msgstr "Rozdzielczość ekranu"
+msgstr "_Rozdzielczość ekranu:"
 
 #: ../iw/xconfig_gui.py:338
 msgid "Please choose your default desktop environment:"
@@ -4566,28 +4514,24 @@ msgid "Your desktop environment is:"
 msgstr "Co to jest K Desktop Environment?"
 
 #: ../iw/xconfig_gui.py:355
-#, fuzzy
 msgid "GNO_ME"
-msgstr "ME 1100"
+msgstr "GNO_ME"
 
 #: ../iw/xconfig_gui.py:357
-#, fuzzy
 msgid "_KDE"
-msgstr "KDE"
+msgstr "_KDE"
 
 #: ../iw/xconfig_gui.py:388
 msgid "Please choose your login type:"
 msgstr ""
 
 #: ../iw/xconfig_gui.py:395
-#, fuzzy
 msgid "_Text"
-msgstr "Tekst"
+msgstr "_Tekstowy"
 
 #: ../iw/xconfig_gui.py:396
-#, fuzzy
 msgid "_Graphical"
-msgstr "Graficzny ekran powitalny"
+msgstr "_Graficzny"
 
 #: ../iw/xconfig_gui.py:413
 #: ../textw/xconfig_text.py:416
@@ -4631,12 +4575,10 @@ msgid "_Vertical Sync:"
 msgstr "Kategorie synchronizacji:"
 
 #: ../iw/xconfig_gui.py:758
-#, fuzzy
 msgid "kHz"
-msgstr "1:1 (44 kHz)"
+msgstr "kHz"
 
 #: ../iw/xconfig_gui.py:761
-#, fuzzy
 msgid "Hz"
 msgstr "Hz"
 
@@ -5044,44 +4986,36 @@ msgid "Customize"
 msgstr "Dostosuj..."
 
 #: ../textw/firewall_text.py:45
-#, fuzzy
 msgid "Enable firewall"
 msgstr "Włącz firewall"
 
 #: ../textw/firewall_text.py:48
-#, fuzzy
 msgid "No firewall"
-msgstr "Zapora sieciowa Centri"
+msgstr "Brak firewall'a"
 
 #: ../textw/firewall_text.py:67
-#, fuzzy
 msgid "Trusted Devices:"
 msgstr "Zaufane urządzenia:"
 
 #: ../textw/firewall_text.py:77
-#, fuzzy
 msgid "Allow incoming:"
-msgstr " Wiadomości przychodzące: %1"
+msgstr "Zezwól na przychodzące:"
 
 #: ../textw/firewall_text.py:82
-#, fuzzy
 msgid "SSH"
 msgstr "SSH"
 
 #: ../textw/firewall_text.py:84
 #: ../loader2/telnetd.c:82
 #: ../loader2/telnetd.c:124
-#, fuzzy
 msgid "Telnet"
 msgstr "Telnet"
 
 #: ../textw/firewall_text.py:86
-#, fuzzy
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
 #: ../textw/firewall_text.py:88
-#, fuzzy
 msgid "Mail (SMTP)"
 msgstr "Poczta (SMTP)"
 
@@ -5090,7 +5024,6 @@ msgid "FTP"
 msgstr "FTP"
 
 #: ../textw/firewall_text.py:94
-#, fuzzy
 msgid "Other ports"
 msgstr "Inne porty"
 
@@ -5132,14 +5065,12 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "Jaki jest typ klawiatury?"
 
 #: ../textw/language_text.py:108
-#, fuzzy
 msgid "Select All"
 msgstr "Zaznacz wszystko"
 
 #: ../textw/language_text.py:108
-#, fuzzy
 msgid "Reset"
-msgstr "Reset"
+msgstr "Wyczyść"
 
 #: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
@@ -5193,9 +5124,8 @@ msgid "The entered IP '%s' is not a valid IP."
 msgstr "%s nie jest poprawnym adresem IP."
 
 #: ../textw/network_text.py:68
-#, fuzzy
 msgid "IP Address"
-msgstr "Adresy IP"
+msgstr "Adres IP"
 
 #: ../textw/network_text.py:69
 msgid "Netmask"
@@ -5212,9 +5142,9 @@ msgid "Network Device: %s"
 msgstr "Urządzenie sieciowe"
 
 #: ../textw/network_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid "Description: %s"
-msgstr "OPIS"
+msgstr "Opis: %s"
 
 #: ../textw/network_text.py:94
 #, fuzzy
@@ -5264,14 +5194,12 @@ msgid "Miscellaneous Network Settings"
 msgstr "Dodatkowe opcje sprawdzania pisowni"
 
 #: ../textw/network_text.py:340
-#, fuzzy
 msgid "automatically via DHCP"
-msgstr "Nowiny USENET za pośrednictwem %s"
+msgstr "automatycznie via DHCP"
 
 #: ../textw/network_text.py:344
-#, fuzzy
 msgid "manually"
-msgstr "Ręcznie:"
+msgstr "ręcznie"
 
 #: ../textw/network_text.py:363
 msgid "Hostname Configuration"
@@ -5622,14 +5550,12 @@ msgid "Package Installation"
 msgstr "Instalacja pakietu"
 
 #: ../textw/progress_text.py:100
-#, fuzzy
 msgid " Name   : "
-msgstr "NAZWA"
+msgstr " Nazwa  : "
 
 #: ../textw/progress_text.py:101
-#, fuzzy
 msgid " Size   : "
-msgstr "Rozmiar"
+msgstr " Rozmiar: "
 
 #: ../textw/progress_text.py:102
 #, fuzzy
@@ -5641,9 +5567,8 @@ msgid "    Packages"
 msgstr "     Pakiety"
 
 #: ../textw/progress_text.py:148
-#, fuzzy
 msgid "      Bytes"
-msgstr "\t[%u] - [%u bajtów] "
+msgstr "     Bajtów"
 
 #: ../textw/progress_text.py:149
 msgid "        Time"
@@ -5710,9 +5635,8 @@ msgid "Free Space"
 msgstr "Wolna przestrzeń"
 
 #: ../textw/upgrade_text.py:127
-#, fuzzy
 msgid "RAM detected (MB):"
-msgstr "%lu MB RAM"
+msgstr "RAM wykryty (MB):"
 
 #: ../textw/upgrade_text.py:130
 #, fuzzy
@@ -6287,14 +6211,13 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:134
 #: ../loader2/cdinstall.c:383
-#, fuzzy, c-format
+#, c-format
 msgid "The %s CD was not found in any of your CDROM drives. Please insert the %s CD and press %s to retry."
-msgstr "Nie mogę znaleźć CDROMu z Red Hatem w żadnym napędzie CDROM. Proszę włożyć CD z Red Hatem i nacisnąć \"OK\" żeby ponowic próbę."
+msgstr "Nie mogę znaleźć %s CD w żadnym napędzie CDROM. Proszę włożyć %s CD i nacisnąć %s aby ponowić próbę."
 
 #: ../loader2/cdinstall.c:254
-#, fuzzy
 msgid "CD Found"
-msgstr "Nie znaleziono"
+msgstr "Znaleziono CD"
 
 #: ../loader2/cdinstall.c:256
 #, c-format
@@ -6305,14 +6228,13 @@ msgid ""
 msgstr ""
 
 #: ../loader2/cdinstall.c:378
-#, fuzzy, c-format
+#, c-format
 msgid "No %s CD was found which matches your boot media.  Please insert the %s CD and press %s to retry."
-msgstr "Nie mogę znaleźć CDROMu z Red Hatem w żadnym napędzie CDROM. Proszę włożyć CD z Red Hatem i nacisnąć \"OK\" żeby ponowic próbę."
+msgstr "Nie mogę znaleźć %s CD w żadnym napędzie CDROM. Proszę włożyć %s CD i nacisnąć %s aby ponowić próbę."
 
 #: ../loader2/cdinstall.c:388
-#, fuzzy
 msgid "CD Not Found"
-msgstr "Nie znaleziono tej płyty CD.\n"
+msgstr "Nie znaleziono CD"
 
 #: ../loader2/cdinstall.c:461
 msgid "Cannot find kickstart file on CDROM."
@@ -6453,9 +6375,9 @@ msgstr "<qt>Nie można wczytać żądanego sterownika:<p>%1</p></qt>"
 
 #: ../loader2/firewire.c:50
 #: ../loader2/windows.c:65
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver..."
-msgstr "Ładowanie sterownika SCSI"
+msgstr "Ładowanie sterownika %s..."
 
 #: ../loader2/hdinstall.c:239
 #: ../loader2/hdinstall.c:292
@@ -7068,32 +6990,28 @@ msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Azores"
-msgstr "Atlantyk/Azory"
+msgstr "Azory"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Bahia"
-msgstr "Bahia Blanca"
+msgstr "Bahia"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Canary Islands"
-msgstr "Wyspy Kajmany"
+msgstr "Wyspy Kanary"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT)"
-msgstr "Ameryka/Catamarca"
+msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
