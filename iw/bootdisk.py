@@ -14,9 +14,10 @@ class BootdiskWindow (InstallWindow):
         ics.setPrevEnabled (0)
         ics.setNextEnabled (1)
         BootdiskWindow.initial = 1
+        self.bootdisk = None
 
     def getNext (self):
-        if self.bootdisk.get_active (): return None
+        if self.bootdisk and self.bootdisk.get_active (): return None
         
 
         threads_leave ()
