@@ -28,7 +28,8 @@ class SimpleConfigFile:
         keys = self.info.keys ()
         keys.sort ()
         for key in keys:
-            s = s + key + "=" + self.info[key] + "\n"
+            # FIXME - use proper escaping
+            s = s + key + "=\"" + self.info[key] + "\"\n"
         return s
             
     def __init__ (self):
