@@ -188,7 +188,7 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = ppc ]; then
-    PACKAGESGR="$PACKAGESGR fbset yaboot"
+    PACKAGESGR="$PACKAGESGR fbset yaboot ppc64-utils"
 fi
 
 #
@@ -482,6 +482,7 @@ $LIBDIR/libnss_dns*
 $LIBDIR/libnss_nis*
 $LIBDIR/libpam*
 $LIBDIR/libproc*
+sbin/addRamDisk
 sbin/debugfs
 sbin/e2fsck
 sbin/e2label
