@@ -317,7 +317,7 @@ makemoduleball() {
     pushd $MMB_DIR/modules > /dev/null
 
     GZIPPED=$(find . -name '*.o.gz')
-    if [ -n $GZIPPED ]; then
+    if [ -n "$GZIPPED" ]; then
 	echo $GZIPPED | xargs gunzip
     fi
 
@@ -900,7 +900,7 @@ for kernelvers in $vertag; do
     fi
 
     GZIPPED=$(find $KERNELROOT/lib/modules/$version -name "*.o.gz")
-    if [ -n $GZIPPED ]; then
+    if [ -n "$GZIPPED" ]; then
 	echo $GZIPPED |xargs gunzip
     fi
     allmods=$(find $KERNELROOT/lib/modules/$version -name *.o)
