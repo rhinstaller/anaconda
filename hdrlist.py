@@ -920,10 +920,12 @@ def groupSetFromCompsFile(filename, hdrlist, doSelect = 1):
     grpset = GroupSet(compsxml, hdrlist)
 
     # precache provides of base and core.  saves us about 10% time-wise
-    for pnevra in (grpset.groups["base"].packages.keys() +
-                   grpset.groups["core"].packages.keys()):
-        for prov in grpset.hdrlist[pnevra][rpm.RPMTAG_PROVIDENAME]:
-            cached[prov] = pnevra
+    for groupname in [ "base", "core" ]:
+        if not grpset.groups.has_key(groupname):
+            continue
+        for pnevra in grpset.groups[groupname].packages.keys():
+            for prov in grpset.hdrlist[pnevra][rpm.RPMTAG_PROVIDENAME]:
+                cached[prov] = pnevra
 
     if doSelect:
         for group in grpset.groups.values():
