@@ -739,6 +739,7 @@ class ToDo:
         self.writeRootPassword ()
         self.setupAuthentication ()
         self.copyConfModules ()
+        self.makeBootdisk ()
 	self.installLilo ()
         
         w.pop ()
