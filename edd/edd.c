@@ -55,6 +55,8 @@ edd_get_parameters (EDDCapability *ec)
   struct LRMI_regs regs;
   EDDParameters *ep, *ret;
 
+  return NULL;
+
   if (edd_lrmi_init() == EDD_ERROR) {
     return NULL;
   }
@@ -105,7 +107,9 @@ EDDCapability *
 edd_supported(int drive)
 {
   struct LRMI_regs regs;
-  
+
+  return NULL; 
+ 
   if (edd_lrmi_init() == EDD_ERROR) {
     return NULL;
   }
