@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-01-16 16:09-0500\n"
-"PO-Revision-Date: 2001-01-19 05:07+0100\n"
+"PO-Revision-Date: 2001-01-19 11:15+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
-"Ditt systemtillstånd har skrivits till disketten. Ditt system kommer nu att "
+"Systemets tillstånd har skrivits till disketten. Ditt system kommer nu att "
 "startas om."
 
 #: ../fstab.py:65
@@ -35,9 +35,9 @@ msgid ""
 "format them. This will probably cause an error later in the install.\n"
 "\n"
 msgstr ""
-"Följande partitioner har skapats nyligen, men du har valt att inte formatera "
-"dem. Detta kommer troligtvis att orsaka ett fel senare under "
-"installationen.\n"
+"Följande partitioner har skapats, men du har valt att inte formatera dem. "
+"Detta kommer troligtvis att orsaka ett fel senare under installationen.\n"
+"\n"
 
 #: ../fstab.py:73
 msgid ""
@@ -49,7 +49,7 @@ msgstr ""
 "\n"
 "\n"
 "Tryck OK för att fortsätta, eller Avbryt för att gå tillbaka och välja att "
-"dessa partitioner formateras (REKOMMENDERAS)."
+"formatera dessa partitioner (REKOMMENDERAS)."
 
 #: ../fstab.py:74
 msgid "Warning"
@@ -1930,7 +1930,7 @@ msgstr "Tidszonsval"
 #: ../gnome-map/gglobe-canvas.c:781 ../gnome-map/timezonemapmodule.c:766
 #: ../gnome-map/timezonemapmodule.c:768 ../iw/timezone_gui.py:140
 msgid "America/New_York"
-msgstr "Europa/Stockholm"
+msgstr "America/New_York"
 
 #: ../iw/timezone_gui.py:157
 msgid "View:"
