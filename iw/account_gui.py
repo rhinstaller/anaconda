@@ -102,11 +102,10 @@ class AccountWindow (InstallWindow):
 
     def getSelectedIter(self):
 	selection = self.userlist.get_selection()
-        rc = selection.get_selected()
-        if rc is None:
+        (model, iter) = selection.get_selected()
+        if iter is None:
             return None
 	
-        model, iter = rc
 	return iter
 
     def getSelectedData(self):
@@ -279,12 +278,10 @@ class AccountWindow (InstallWindow):
         
     def deleteUser(self, *args):
 	selection = self.userlist.get_selection()
-        rc = selection.get_selected()
-        if rc is None:
+        (model, iter) = selection.get_selected()
+        if iter is None:
             return
 	
-        model, iter = rc
-
 	accountName = self.userstore.get_value(iter, 0)
 
 	del self.passwords[accountName]

@@ -67,9 +67,8 @@ class TimezoneWindow(InstallWindow):
             self.timezone.setTimezoneInfo(newzone, self.systemUTC.get_active())
         else:
 	    selection = self.uview.get_selection()
-	    rc = selection.get_selected()
-	    if rc:
-		model, iter = rc
+	    (model, iter) = selection.get_selected()
+	    if iter:
 		val = model.get_value(iter, 0)
 		timezone = None
 		for zone in self.timeZones:

@@ -125,9 +125,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
         
 
     def select_group(self, selection):
-        rc = selection.get_selected()
-        if rc:
-            model, iter = rc
+        (model, iter) = selection.get_selected()
+        if iter:
             currentGroup = model.get_value(iter, 1)
 
             self.packageList.clear()
@@ -160,9 +159,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.updateSize()
 
     def select_package(self, selection):
-        rc = selection.get_selected()
-        if rc:
-            model, iter = rc
+        (model, iter) = selection.get_selected()
+        if iter:
             package = model.get_value(iter, 1)
 
             if not self.pkgs.has_key(package):

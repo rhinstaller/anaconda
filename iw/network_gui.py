@@ -186,10 +186,9 @@ class NetworkWindow(InstallWindow):
 	    return
 	
 	selection = self.ethdevices.get_selection()
-        rc = selection.get_selected()
-        if not rc:
+        (model, iter) = selection.get_selected()
+        if not iter:
             return None
-        model, iter = rc
 
         dev = model.get_value(iter, 1)
 	bootproto = model.get_value(iter, 2)

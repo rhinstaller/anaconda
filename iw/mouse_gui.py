@@ -42,9 +42,8 @@ class MouseWindow(InstallWindow):
     def selectDeviceType(self, selection, *args):
         if self.ignoreEvents:
             return
-        rc = selection.get_selected()
-        if rc:
-            model, iter = rc
+        (model, iter) = selection.get_selected()
+        if iter:
             self.serialDevice = model.get_value(iter, 1)
             self.ics.setNextEnabled(gtk.TRUE)
         else:
@@ -53,10 +52,9 @@ class MouseWindow(InstallWindow):
     def selectMouseType(self, selection, *args):
         if self.ignoreEvents:
             return
-        rc = selection.get_selected()
-        if rc is None:
+        (model, iter) = selection.get_selected()
+        if iter is None:
             return
-        model, iter = rc
 
         if model.iter_has_child(iter):
 	    self.devview.get_selection().unselect_all()

@@ -45,8 +45,8 @@ class UpgradeSwapWindow (InstallWindow):
                 return None
 
 	selection = self.view.get_selection()
-	rc = selection.get_selected()
-	if rc:
+	(model, iter) = selection.get_selected()
+	if iter:
 	    model, iter = rc
 	    mnt = model.get_value(iter, 0)
 	    part = model.get_value(iter, 1)

@@ -317,12 +317,7 @@ class VolumeGroupEditor:
 	
     def getCurrentLogicalVolume(self):
 	selection = self.logvollist.get_selection()
-	rc = selection.get_selected()
-	if rc:
-	    model, iter = rc
-	else:
-	    return None
-
+	(model, iter) = selection.get_selected()
 	return iter
 
 

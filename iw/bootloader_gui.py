@@ -481,10 +481,9 @@ class AdvancedBootloaderWindow (InstallWindow):
 
     def getSelected(self):
         selection = self.osTreeView.get_selection()
-        rc = selection.get_selected()
-        if not rc:
+        (model, iter) = selection.get_selected()
+        if not iter:
             return None
-        model, iter = rc
 
         dev = model.get_value(iter, 2)
         theDev = dev[5:] # strip /dev/
@@ -567,10 +566,9 @@ class AdvancedBootloaderWindow (InstallWindow):
 
     def arrowClicked(self, widget, direction, *args):
         selection = self.driveOrderView.get_selection()
-        rc = selection.get_selected()
-        if not rc:
+        (model, iter) = selection.get_selected()
+        if not iter:
             return
-        model, iter = rc
 
         # there has got to be a better way to do this =\
         drive = model.get_value(iter, 0)[5:]

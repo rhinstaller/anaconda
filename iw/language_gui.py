@@ -25,9 +25,8 @@ class LanguageWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
             
     def getNext (self):
-        rc = self.listView.get_selection().get_selected()
-        if rc:
-            model, iter = rc
+        (model, iter) = self.listView.get_selection().get_selected()
+        if iter:
             self.lang = self.listStore.get_value(iter, 1)
 
 	self.instLang.setRuntimeLanguage(self.lang)
@@ -37,10 +36,9 @@ class LanguageWindow (InstallWindow):
 
     def listScroll(self, widget, *args):
         # recenter the list
-        rc = self.listView.get_selection().get_selected()
-        if rc is None:
+        (model, iter) = self.listView.get_selection().get_selected()
+        if iter is None:
             return
-        model, iter = rc
         
         path = self.listStore.get_path(iter)
         col = self.listView.get_column(0)

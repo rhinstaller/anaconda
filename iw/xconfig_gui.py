@@ -511,9 +511,8 @@ class MonitorWindow (InstallWindow):
 	if self.ignoreEvents:
 	    return
 
-	rc = selection.get_selected()
-	if rc:
-	    monxxx, iter = rc
+	(monxxx, iter) = selection.get_selected()
+	if iter:
 	    monid = monxxx.get_value(iter, 0)
 		
 	    self.setCurrent(monid, recenter=0)
@@ -803,9 +802,8 @@ class XConfigWindow (InstallWindow):
 	if self.ignoreEvents:
 	    return
 
-	rc = selection.get_selected()
-	if rc:
-	    model, iter = rc
+	(model, iter) = selection.get_selected()
+	if iter:
 	    self.currentCard = model.get_value(iter, 0)
 	else:
 	    print "unknown error in selectCardType!"

@@ -121,12 +121,9 @@ class TimezoneMap(gtk.VBox):
         return self.currentEntry
 
     def selectionChanged(self, selection, *args):
-        # XXX broken, returns None if there is no selection, so I have to
-        #     check before unpacking
-        rc = selection.get_selected()
-        if rc is None:
+        (model, iter) = selection.get_selected()
+        if iter is None:
             return
-        model, iter = rc
         entry = self.listStore.get_value(iter, self.columns.ENTRY)
         self.setCurrent(entry, skipList=1)
 
