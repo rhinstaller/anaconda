@@ -177,6 +177,8 @@ def umount(what, removeDir = 1):
 def smpAvailable():
     return _isys.smpavailable()
 
+htavailable = _isys.htavailable
+
 def chroot (path):
     return _isys.chroot (path)
 
