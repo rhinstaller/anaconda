@@ -164,7 +164,10 @@ def runRescue(instPath, mountroot, id):
 
     for file in [ "services", "protocols", "group", "joe", "man.config",
                   "nsswitch.conf", "selinux" ]:
-       os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
+        try:
+            os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
+        except:
+            pass
 
     # see if they would like networking enabled
     if not methodUsesNetworking(id.methodstr):
