@@ -46,7 +46,7 @@ class InstallMethod:
     def targetFstab(self, fstab):
 	self.isMounted = 0
 	for (mntpoint, device, fsystem, reformat, size) in fstab.mountList():
-	    if (device == self.device):
+	    if (device == self.device and fsystem == "ext2"):
 		self.isMounted = 1
 		self.tree = "/mnt/sysimage" + mntpoint + "/" + self.path
 		self.needsUnmount = 0
