@@ -821,7 +821,7 @@ class MonitorWindow (InstallWindow):
 
                     
                     if monitor[0] == self.todo.monitorOriginalName:
-                        print monitor[0], " = ", self.todo.monitorOriginalName
+#                        print monitor[0], " = ", self.todo.monitorOriginalName
                         tmp, self.todo.monitorOriginalNode =  self.ctree.node_get_row_data(node)
                         self.originalNode = node
 
@@ -1712,10 +1712,23 @@ class XConfigWindow (InstallWindow):
             self.ramMenu.add(mem7)
             self.ramMenu.add(mem8)
 
+
+            #--Valid video ram sizes--
+            ram_sizes = [256, 512, 1024, 2048, 4096, 8192, 16384, 32768]
+
             count = 0
-            for size in ("256k", "512k", "1024k", "2048k", "4096k",
-                         "8192k", "16384k", "32768k"):
-                if size[:-1] == self.todo.x.vidRam:
+#            current = 0
+            #--Some video cards don't return exact numbers, so we've got to do some hacks
+
+            vidRam = string.atoi (self.todo.x.vidRam)
+#            print vidRam
+
+            for size in ram_sizes:
+                small = size - 64
+#                print size
+                #--Cards such as ATI Rage Mobility report 64k less ram than it should
+#                if size == self.todo.x.vidRam or small == self.todo.x.vidRam:
+                if size == vidRam or small == vidRam:
                     if self.todo.videoRamState == "":          
                         self.todo.videoRamState = count
                         self.todo.videoRamOriginal = count
@@ -1723,6 +1736,11 @@ class XConfigWindow (InstallWindow):
                     else:                        
                         self.ramMenu.set_active(self.todo.videoRamState)
                 count = count + 1
+
+
+
+
+
 
             hbox.pack_start(label, FALSE)
             hbox.pack_start(self.ramOption, TRUE, TRUE, 25)
