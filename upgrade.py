@@ -317,7 +317,8 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     rpm.addMacro("_dbpath", id.dbpath)
     rpm.addMacro("_dbapi", "3")
     try:
-	packages = rpm.findUpgradeSet(id.hdList.hdlist, instPath)
+        import findpackageset
+	packages = findpackageset.findpackageset(id.hdList.hdlist, instPath)
     except rpm.error:
 	iutil.rmrf(rebuildpath)
 	win.pop()
