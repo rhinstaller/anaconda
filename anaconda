@@ -77,83 +77,6 @@ def startVNCServer(vncpassword=None, root='/'):
 
 	# write password again
 	os.write(fd, passwd + "\n")
-	
-	# read remaining output
-	os.read(fd, 1000)
-
-	# wait for status
-	try:
-	    (pid, status) = os.waitpid(pid, 0)
-	except OSError, (errno, msg):
-	    print __name__, "waitpid:", msg
-
-	return status
-	
-    dup_log(_("Starting VNC..."))
-
-    vncpid = os.fork()
-
-    if not vncpid:
-	args = [ root + "/usr/bin/Xvnc", ":1", "-nevershared",
-		 "-depth", "16", "-geometry", "800x600" "-dontdisconnect"]
-
-	# set passwd if necessary
-	if vncpassword is not None:
-	    rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
-	    if rc:
-		dup_log(_("Unable to set vnc password - using no password!"))
-		dup_log(_("Make sure your password is at least 6 characters in length."))
-	    else:
-		args = args + ["-rfbauth", "/tmp/vncpasswd_file"]
-			     
-	tmplogFile = "/tmp/vncserver.log"
-	try:
-	    err = os.open(tmplogFile, os.O_RDWR | os.O_CREAT)
-	    if err < 0:
-		sys.stderr.write("error opening %s\n", tmplogFile)
-	    else:
-		os.dup2(err, 2)
-		os.close(err)
-	except:
-	    # oh well
-	    pass
-
-	os.execv(args[0], args)
-	sys.exit (1)
-
-    if vncpassword is None:
-	dup_log(_("\n\nWARNING!!! VNC server running with NO PASSWORD!"))
-	dup_log(_("You can use the vncpasswd=<password> boot option"))
-	dup_log(_("if you would like to secure the server.\n\n"))
-	
-    dup_log(_("VNC server now running - please connect to install..."))
-
-    os.environ["DISPLAY"]=":1"
-    doStartupX11Actions()
-
-	
-# startup vnc X server
-def startVNCServer(vncpassword=None, root='/'):
-    
-    def set_vnc_password(root, passwd, passwd_file):
-	(pid, fd) = os.forkpty()
-
-	if not pid:
-	    os.execv(root + "/usr/bin/vncpasswd", [root + "/usr/bin/vncpasswd", passwd_file])
-	    sys.exit(1)
-
-	# read password prompt
-	os.read(fd, 1000)
-
-	# write password
-	os.write(fd, passwd + "\n")
-
-	# read challenge again, and newline
-	os.read(fd, 1000)
-	os.read(fd, 1000)
-
-	# write password again
-	os.write(fd, passwd + "\n")
 
 	# write out a 'n\n' to answer question about creating a view only pw
 	os.read(fd, 1000)
@@ -181,7 +104,12 @@ def startVNCServer(vncpassword=None, root='/'):
 
 	# set passwd if necessary
 	if vncpassword is not None:
-	    rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
+	    try:
+		rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
+	    except:
+		dup_log("Unknown expection setting vnc password.")
+		rc = 1
+		
 	    if rc:
 		dup_log(_("Unable to set vnc password - using no password!"))
 		dup_log(_("Make sure your password is at least 6 characters in length."))
@@ -524,6 +452,21 @@ for n in args:
 	except:
 	    vncpassword=None
 	    pass
+
+	# check length of vnc password	
+	if vncpassword is not None and len(vncpassword) < 6:
+	    from snack import *
+	    
+	    screen = SnackScreen()
+	    ButtonChoiceWindow(screen, _('VNC Password Error'),
+				_('You need to specify a vnc password of at least 6 characters long.\n\n'
+				  'Press <return> to reboot your system.\n'), 
+				  buttons = (_("OK"),))
+	    screen.finish()
+	    sys.exit(0)
+	    
+	
+	
 
 	
 #
