@@ -477,15 +477,14 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
    if (!strncmp(newCfg.dev.device, "ctc", 3)) {
      env = getenv("REMIP");
      if (env && strlen(env)) {
-       if(inet_aton(env, &newCfg.dev.broadcast))
-	 newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
+       if(inet_aton(env, &newCfg.dev.gateway))
+	 newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
      }
-   } else {
-     env = getenv("BROADCAST");
-     if (env && strlen(env)) {
-       if(inet_aton(env, &newCfg.dev.broadcast))
-	 newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
-     }
+   }
+   env = getenv("BROADCAST");
+   if (env && strlen(env)) {
+     if(inet_aton(env, &newCfg.dev.broadcast))
+       newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
    }
 #endif   /* s390 */
 
@@ -565,14 +564,13 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 	fprintf(f, "BOOTPROTO=static\n");
 	fprintf(f, "IPADDR=%s\n", inet_ntoa(dev->dev.ip));
 	fprintf(f, "NETMASK=%s\n", inet_ntoa(dev->dev.netmask));
-	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
 	  fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
-	if (!strncmp(dev->dev.device, "ctc", 3)) {
-	  if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
-	    fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.broadcast));
-	} else {
-	  if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
-	    fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));
+	  if (!strncmp(dev->dev.device, "ctc", 3)) 
+	    fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.gateway));
+	}
+	if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
+	  fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));
 	}
     }
 
