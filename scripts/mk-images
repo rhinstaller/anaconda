@@ -757,6 +757,16 @@ EOF
 	setupShellEnvironment
     fi
 
+    # weird ppc consoles
+    if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
+	mknod $MBD_DIR/dev/hvsi0 c 229 128
+	mknod $MBD_DIR/dev/hvsi1 c 229 129
+	mknod $MBD_DIR/dev/hvsi2 c 229 130
+	mknod $MBD_DIR/dev/hvc0 c 229 0
+	chown root:root $MBD_DIR/dev/hvsi0 $MBD_DIR/dev/hvsi1 $MBD_DIR/dev/hvsi2 $MBD_DIR/dev/hvc0
+	chmod 644 $MBD_DIR/dev/hvsi0 $MBD_DIR/dev/hvsi1 $MBD_DIR/dev/hvsi2 $MBD_DIR/dev/hvc0
+    fi
+
     dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=20000 2>/dev/null
     mke2fs -F -q $MBD_DIR/etc/ramfs.img.big
     tune2fs -c0 -i0 $MBD_DIR/etc/ramfs.img.big >/dev/null
