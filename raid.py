@@ -7,7 +7,11 @@ import os
 def scanForRaid(drives):
     for d in drives:
 	isys.makeDevInode(d, "/tmp/" + d)
-	parts = _balkan.readTable('/tmp/' + d)
+	try:
+	    parts = _balkan.readTable('/tmp/' + d)
+	except SystemError, msg:
+	    parts = []
+
 	os.remove("/tmp/" + d)
 	raidSets = {}
 	raidDevices = {}
@@ -50,11 +54,11 @@ def scanForRaid(drives):
 		
 def startAllRaid(driveList):
     mdList = []
-    for (mdDevice, deviceList) in scanForRaid(['sda']):
+    for (mdDevice, deviceList) in scanForRaid(driveList):
     	devName = "md%d" % (mdDevice,)
 	isys.raidstart(devName, deviceList[0])
 	mdList.append(devName)
-	return mdList
+    return mdList
 
 def stopAllRaid(mdList):
     for dev in mdList:

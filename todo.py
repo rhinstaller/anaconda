@@ -827,6 +827,8 @@ class ToDo:
 		rootparts.append (dev)
 	    isys.umount('/mnt/sysimage')
 	    os.remove ('/tmp/' + dev)
+
+	raid.stopAllRaid(mdList)
 	
         for drive in drives:
             isys.makeDevInode(drive, '/tmp/' + drive)
@@ -875,9 +877,11 @@ class ToDo:
 	self.getHeaderList ()
         if self.setupFilesystems:
             isys.makeDevInode(root, '/tmp/' + root)
+	    mdList = raid.startAllRaid(self.fstab.driveList())
             isys.mount('/tmp/' + root, '/mnt/sysimage')
 	    fstab.readFstab('/mnt/sysimage/etc/fstab', self.fstab)
             isys.umount('/mnt/sysimage')        
+	    raid.stopAllRaid(mdList)
             self.fstab.mountFilesystems (self.instPath)
         packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
         self.fstab.umountFilesystems (self.instPath)

@@ -1051,7 +1051,7 @@ class InstallInterface:
 		"bootdisk" ],
             [_("Upgrade System"), InstallWindow, (self.screen, todo)],
             [_("Boot Disk"), BootdiskWindow, (self.screen, todo), "bootdisk"],
-            [_("Upgrade Complete"), FinishedWindow, (self.screen,)]
+            [_("Upgrade Complete"), FinishedWindow, (self.screen, todo)]
             ]
 
         self.steps = self.commonSteps

@@ -18,6 +18,7 @@ import isys
 import iutil
 import os
 import string
+import raid
 
 def _(str):
     return str
@@ -75,7 +76,7 @@ class Fstab:
 		fsystem = "swap"
 	    else:
 		fsystem = "ext2"
-	    self.addRaidDevice(mntPoint, raidDev, fsystem, level, devices)
+	    self.addNewRaidDevice(mntPoint, raidDev, fsystem, level, devices)
 	    
     def rescanPartitions(self):
 	if self.ddruid:
@@ -181,10 +182,14 @@ class Fstab:
 
 	    os.unlink(file)
 
-    def addRaidDevice(self, mountPoint, raidDevice, fileSystem, 
+    def addNewRaidDevice(self, mountPoint, raidDevice, fileSystem, 
 		      raidLevel, deviceList):
 	self.supplementalRaid.append((mountPoint, raidDevice, fileSystem,
 				  raidLevel, deviceList))
+
+    def addExistingRaidDevice(self, raidDevice, fileSystem, deviceList):
+	# these are added to the fstab separately!!!
+        self.existingRaid.append(raidDevice, fileSystem, deviceList)
 	
     def raidList(self):
         (devices, raid) = self.ddruid.partitionList()
@@ -244,6 +249,8 @@ class Fstab:
 		    self.messageWindow(_("Error"), 
 			_("Error unmounting %s: %s") % (device, msg))
 
+	for (raidDevice, fileSystem, deviceList) in self.existingRaid:
+	    isys.raidstop(raidDevice)
 
     def makeFilesystems(self):
 	# let's make the RAID devices first -- the fstab will then proceed
@@ -319,6 +326,9 @@ class Fstab:
 
     def mountFilesystems(self, instPath):
 	if (not self.setupFilesystems): return 
+
+	for (raidDevice, fileSystem, deviceList) in self.existingRaid:
+	    isys.raidstart(raidDevice, deviceList[0])
 
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
             if fsystem == "swap":
@@ -475,6 +485,7 @@ class Fstab:
 	self.messageWindow = messageWindow
 	self.badBlockCheck = 0
 	self.extraFilesystems = []
+	self.existingRaid = []
 	self.ddruid = self.createDruid()
 	# I intentionally don't initialize this, as all install paths should
 	# initialize this automatically
@@ -520,6 +531,13 @@ def readFstab (path, fstab):
     f = open (path, "r")
     lines = f.readlines ()
     f.close
+
+    drives = fstab.driveList()
+    raidList = raid.scanForRaid(drives)
+    raidByDev = {}
+    for (mdDev, devList) in raidList:
+	raidByDev[mdDev] = devList
+
     for line in lines:
 	fields = string.split (line)
 	# skip comments
@@ -536,5 +554,9 @@ def readFstab (path, fstab):
 	    fields[0][0:7] != "/dev/md" and
 	    fields[0][0:8] != "/dev/rd/" and
 	    fields[0][0:9] != "/dev/ida/"): continue
+
+        if fields[0][0:7] == "/dev/md":
+	    fstab.addExistingRaidDevice(fields[0][5:], fields[1], 
+					raidByDev[mdDev])
 
 	fstab.addMount(fields[0][5:], fields[1], fields[2])
