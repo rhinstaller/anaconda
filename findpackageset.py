@@ -28,16 +28,17 @@ def addNewPackageToUpgSet(pkgDict, pkg):
     
 
 def findpackageset(hdlist, dbPath='/'):
-    db = rpm.opendb(0, dbPath)
+    ts = rpm.TransactionSet(dbPath)
+    ts.setVSFlags(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA)
+    ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5)
 
     pkgDict = {}
     
     # first loop through packages and find ones which are a newer
     # version than what we have
     for pkg in hdlist:
-        mi = db.match('name', pkg[rpm.RPMTAG_NAME])
-        h = mi.next()
-        while h:
+        mi = ts.dbMatch('name', pkg[rpm.RPMTAG_NAME])
+        for h in mi:
             val = rpm.versionCompare(h, pkg)
             if (val > 0):
 #                dEBUG("found older version of %(name)s" % h)
@@ -49,7 +50,6 @@ def findpackageset(hdlist, dbPath='/'):
             else:
 #                dEBUG("found same verison of %(name)s" % h)
                 pass
-            h = mi.next()
             
     # handle obsoletes
     for pkg in hdlist:
@@ -59,15 +59,38 @@ def findpackageset(hdlist, dbPath='/'):
 
         if pkg[rpm.RPMTAG_OBSOLETENAME] is not None:
             for obs in pkg[rpm.RPMTAG_OBSOLETENAME]:
-                mi = db.match('name', obs)
-                h = mi.next()
+                mi = ts.dbMatch('name', obs)
                 # FIXME: I should really iterate over all matches and verify
                 # versioned obsoletes, but nothing in Red Hat Linux uses
                 # them, so I'll optimize
-                if h:
+                for h in mi:
 #                    dEBUG("adding %(name)s to the upgrade set for obsoletes" % pkg)
-                    addNewPackageToUpgSet(pkgDict, pkg)                    
-                    h = mi.next()
+                    addNewPackageToUpgSet(pkgDict, pkg)
+                    break
 
     return pkgDict.values()
 
+
+
+if __name__ == "__main__":
+    import sys, os
+
+    if len(sys.argv) < 2:
+        print "Usage: %s /path/to/tree [rootpath]" %(sys.argv[0],)
+        sys.exit(0)
+        
+    tree = sys.argv[1]
+    if len(sys.argv) >= 3:
+        instPath = sys.argv[2]
+    else:
+        instPath = "/"
+    
+    fd = os.open("%s/RedHat/base/hdlist" %(tree,), os.O_RDONLY)
+    hdlist = rpm.readHeaderListFromFD(fd)
+    os.close(fd)
+
+    
+    packages = findpackageset(hdlist, instPath)
+    for pkg in packages:
+        print pkg[rpm.RPMTAG_NAME]
+                   
