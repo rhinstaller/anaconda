@@ -34,6 +34,10 @@ from rhpl.log import log
 FILENAME = 1000000
 DISCNUM  = 1000002
 
+# cache ftp connections
+opener = urllib2.build_opener(urllib2.CacheFTPHandler)
+urllib2.install_opener(opener)
+
 def urlretrieve(location, file):
     """Downloads from location and saves to file."""
 
