@@ -46,10 +46,10 @@ from network import networkDeviceCheck
 # in the second case, the function is called directly from the dispatcher
 
 installSteps = [
+    ("welcome", ("id.configFileData",)),
     ("language", ("intf", "id.instLanguage")),
     ("keyboard", ("id.instLanguage", "id.keyboard", "id.xconfig")),
     ("mouse", ("id.mouse",)),
-    ("welcome", ("id.configFileData",)),
     ("reconfigwelcome", ()),
     ("reconfigkeyboard", ("id.instLanguage", "id.keyboard", "id.xconfig")),
     ("installtype", ("dispatch", "id", "method", "intf")),
