@@ -247,7 +247,9 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 
 rebuildTime = None
 
-def upgradeFindPackages (intf, method, id, instPath):
+def upgradeFindPackages (intf, method, id, instPath, dir):
+    if dir == DISPATCH_BACK:
+        return
     global rebuildTime
     if not rebuildTime:
 	rebuildTime = str(int(time.time()))
@@ -257,6 +259,7 @@ def upgradeFindPackages (intf, method, id, instPath):
                            _("Finding packages to upgrade..."))
 
     id.dbpath = "/var/lib/anaconda-rebuilddb" + rebuildTime
+    rpm.addMacro("_dbpath", "/var/lib/rpm")
     rpm.addMacro("_dbpath_rebuild", id.dbpath)
     rpm.addMacro("_dbapi", "-1")
 
@@ -268,6 +271,12 @@ def upgradeFindPackages (intf, method, id, instPath):
     # sets against the on disk db
 
     rebuildpath = instPath + id.dbpath
+
+    try:
+        iutil.rmrf (rebuildpath)
+    except:
+        pass
+
     rc = rpm.rebuilddb (instPath)
     if rc:
         try:

@@ -92,7 +92,7 @@ installSteps = [
     ("authentication", ("id.auth",)),
     ("readcomps", readPackages, ("intf", "method", "id")),
     ("findpackages", upgradeFindPackages, ("intf", "method", "id",
-                                           "instPath")),
+                                           "instPath", "dir")),
     ("package-selection", ("id.comps", "dispatch")),
     ("indivpackage", ("id.comps", "id.hdList")),
     ("handleX11pkgs", handleX11Packages, ("dir", "intf", "dispatch",
