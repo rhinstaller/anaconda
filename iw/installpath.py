@@ -32,8 +32,10 @@ SERVER = 5
 
 class InstallPathWindow (InstallWindow):		
 
-    installTypes = ((WORKSTATION_GNOME, _("GNOME Workstation"), "gnome.png"),
-                    (WORKSTATION_KDE, _("KDE Workstation"), "kde.png"),
+    installTypes = ((WORKSTATION_GNOME, _("GNOME Workstation"),
+                     "gnome-workstation.png"),
+                    (WORKSTATION_KDE, _("KDE Workstation"),
+                     "kde-workstation.png"),
                     (SERVER, _("Server"), "server.png"),
                     (CUSTOM, _("Custom"), "custom.png"))
 

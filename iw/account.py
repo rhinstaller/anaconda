@@ -81,6 +81,9 @@ class AccountWindow (InstallWindow):
         if not (accountName and password1 and (password1 == password2)):
             return
 
+        if self.passwords.has_key (accountName):
+            return
+
         if (self.editingUser != None):
 	    index = self.editingUser
 	    self.userList.set_text(index, 0, accountName)

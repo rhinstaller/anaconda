@@ -19,19 +19,21 @@ class LiloWindow (InstallWindow):
         ics.setNextEnabled (1)
         self.type = None
         self.bootdisk = None
+        self.lilo = None
 
     def getNext (self):
-        if self.bootdisk:
-            if self.bootdisk.get_active ():
-                self.todo.bootdisk = 1
-            else:
-                self.todo.bootdisk = 0
+        # XXX
+        if not self.bootdisk: return None
+
+        if self.bootdisk.get_active ():
+            self.todo.bootdisk = 1
+        else:
+            self.todo.bootdisk = 0
 
         if self.lilo.get_active ():
             self.todo.setLiloLocation (None)
         else:
-            self.type = self.list.selection[0]
-            if self.list.selection[0] == 0:
+            if self.mbr.get_active ():
                 self.todo.setLiloLocation ("mbr")
             else:
                 self.todo.setLiloLocation ("partition")
@@ -127,13 +129,13 @@ class LiloWindow (InstallWindow):
 	label.set_alignment(0.0, 0.5)
 	self.radioBox.attach(label, 0, 2, 1, 2)
 
-        group = GtkRadioButton(None, 
+        self.mbr = GtkRadioButton(None, 
 	    ("/dev/%s %s" % (boothd, _("Master Boot Record (MBR)"))))
-	self.radioBox.attach(group, 1, 2, 2, 3)
-        group = GtkRadioButton(group, 
+	self.radioBox.attach(self.mbr, 1, 2, 2, 3)
+        part = GtkRadioButton(self.mbr, 
 	    ("/dev/%s %s" % (bootpart, 
 		_("First sector of boot partition"))))
-	self.radioBox.attach(group, 1, 2, 3, 4)
+	self.radioBox.attach(part, 1, 2, 3, 4)
 
 	self.linearCheck = GtkCheckButton(
 	    _("Use linear mode (needed for some SCSI drives)"))
