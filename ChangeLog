@@ -1,5 +1,8 @@
 2004-10-26  Jeremy Katz  <katzj@redhat.com>
 
+	* partedUtils.py (DiskSet.openDevices): Don't die if we don't have
+	an intf set up yet (#130123, #137239)
+
 	* upgrade.py (upgradeFindPackages): firefox replaces
 	mozilla/netscape (#137244)
 	

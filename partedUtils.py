@@ -827,6 +827,9 @@ class DiskSet:
             # FIXME: need the right fix for z/VM formatted dasd
             if iutil.getArch() == "s390" and drive[:4] == "dasd" and isys.getDasdState(drive):
                 devs = isys.getDasdDevPort()
+                if intf is None:
+                    DiskSet.skippedDisks.append(drive)
+                    continue
                 rc = intf.messageWindow(_("Warning"),
                         _("The partition table on device %s (%s) was unreadable. "
                           "To create new partitions it must be initialized, "
@@ -854,7 +857,7 @@ class DiskSet:
             if (initAll and ((clearDevs is None) or (len(clearDevs) == 0)
                              or drive in clearDevs) and not flags.test):
                 if iutil.getArch() == "s390" and drive[:4] == "dasd":
-                    if (self.dasdFmt(intf, drive)):
+                    if (intf is None or self.dasdFmt(intf, drive)):
                         DiskSet.skippedDisks.append(drive)
                         continue                    
                 else:
@@ -902,7 +905,7 @@ class DiskSet:
 
                 if recreate == 1 and not flags.test:
                     if iutil.getArch() == "s390" and drive[:4] == "dasd":
-                        if (self.dasdFmt(intf, drive)):
+                        if (intf is None or self.dasdFmt(intf, drive)):
                             DiskSet.skippedDisks.append(drive)
                             continue
                     else:                    
@@ -928,7 +931,7 @@ class DiskSet:
                 continue
             elif ret == -1:
                 if iutil.getArch() == "s390" and drive[:4] == "dasd":
-                    if (self.dasdFmt(intf, drive)):
+                    if (intf is None or self.dasdFmt(intf, drive)):
                         DiskSet.skippedDisks.append(drive)
                         continue                    
                 else:
