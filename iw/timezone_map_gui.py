@@ -64,7 +64,7 @@ class TimezoneMap(gtk.VBox):
         root.add(gnome.canvas.CanvasPixbuf, x=0, y=0, pixbuf=pixbuf)
         x1, y1, x2, y2 = root.get_bounds()
         self.canvas.set_scroll_region(x1, y1, x2, y2)
-        self.canvas.set_size_request(x2, y2)
+        self.canvas.set_size_request(int(x2), int(y2))
         self.pack_start(self.canvas, gtk.FALSE, gtk.FALSE)
 
         self.current = root.add(gnome.canvas.CanvasText, text='x',
