@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install $Revision$\n"
-"POT-Creation-Date: 2002-08-14 16:41-0400\n"
+"POT-Creation-Date: 2002-08-16 02:09-0400\n"
 "PO-Revision-Date: 2000-02-21 24:00-0500\n"
 "Last-Translator: Zoltan Èala <zolika@sezampro.yu>\n"
 "Language-Team: Serbian <sr@li.org>\n"
@@ -185,8 +185,8 @@ msgid ""
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1009 ../iw/partition_gui.py:951
-#: ../textw/partition_text.py:198
+#: ../autopart.py:1009 ../iw/partition_gui.py:980
+#: ../textw/partition_text.py:213
 #, fuzzy
 msgid "Error Partitioning"
 msgstr "Ruèno particionisanje"
@@ -214,13 +214,13 @@ msgid ""
 msgstr ""
 
 #: ../autopart.py:1103 ../bootloader.py:123 ../image.py:308
-#: ../partedUtils.py:240 ../partedUtils.py:668 ../upgrade.py:259
-#: ../upgrade.py:388 ../upgrade.py:407 ../iw/blpasswidget.py:148
+#: ../partedUtils.py:240 ../partedUtils.py:668 ../upgrade.py:260
+#: ../upgrade.py:389 ../upgrade.py:408 ../iw/blpasswidget.py:148
 #: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:88
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
 #: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:135
 #: ../textw/bootloader_text.py:451 ../textw/fdasd_text.py:84
-#: ../textw/partition_text.py:202 ../textw/upgrade_text.py:175
+#: ../textw/partition_text.py:217 ../textw/upgrade_text.py:175
 #: ../loader/loader.c:3612
 #, fuzzy
 msgid "Warning"
@@ -301,18 +301,22 @@ msgstr ""
 msgid "Everything"
 msgstr "Pretra¾ujem"
 
-#: ../comps.py:893 ../comps.py:959 ../upgrade.py:587
+#: ../comps.py:893 ../comps.py:959 ../upgrade.py:588
 msgid "no suggestion"
 msgstr "nemam ¹ta da ka¾em"
 
-#: ../comps.py:1051
+#: ../comps.py:1053 ../loader/devices.c:79
+msgid "Miscellaneous"
+msgstr "Razno"
+
+#: ../comps.py:1069
 msgid ""
 "This group includes all the packages available.  Note that this is "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
 
-#: ../comps.py:1055
+#: ../comps.py:1073
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -362,11 +366,11 @@ msgstr "Pravljenje startnog diska"
 #: ../fsset.py:1034 ../fsset.py:1081 ../fsset.py:1092 ../fsset.py:1128
 #: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:202 ../image.py:86
 #: ../image.py:198 ../packages.py:306 ../partedUtils.py:458
-#: ../partIntfHelpers.py:147 ../partIntfHelpers.py:332 ../upgrade.py:315
-#: ../upgrade.py:333 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
+#: ../partIntfHelpers.py:147 ../partIntfHelpers.py:332 ../upgrade.py:316
+#: ../upgrade.py:334 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
-#: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1051
-#: ../textw/partition_text.py:1062 ../textw/upgrade_text.py:163
+#: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1066
+#: ../textw/partition_text.py:1077 ../textw/upgrade_text.py:163
 #: ../textw/upgrade_text.py:170 ../textw/upgrade_text.py:193
 #: ../loader/devices.c:258 ../loader/devices.c:265 ../loader/devices.c:429
 #: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/loader.c:471
@@ -611,7 +615,7 @@ msgid ""
 "An error occured when attempting to load an installer interface component."
 msgstr ""
 
-#: ../gui.py:810 ../packages.py:1086 ../iw/congrats_gui.py:29
+#: ../gui.py:810 ../packages.py:1100 ../iw/congrats_gui.py:29
 #, fuzzy
 msgid "_Exit"
 msgstr "Izaði"
@@ -621,21 +625,21 @@ msgstr "Izaði"
 msgid "_Retry"
 msgstr "Ponovo"
 
-#: ../gui.py:813 ../packages.py:1089
+#: ../gui.py:813 ../packages.py:1103
 #, fuzzy
 msgid "Rebooting System"
 msgstr "A¾uriraj sistem"
 
-#: ../gui.py:814 ../packages.py:1090
+#: ../gui.py:814 ../packages.py:1104
 msgid "Your system will now be rebooted..."
 msgstr ""
 
-#: ../gui.py:817 ../packages.py:1092
+#: ../gui.py:817 ../packages.py:1106
 #, fuzzy
 msgid "_Reboot"
 msgstr "_Resetuj"
 
-#: ../gui.py:908 ../packages.py:1092
+#: ../gui.py:908 ../packages.py:1106
 #, fuzzy
 msgid "_Back"
 msgstr "Natrag"
@@ -821,12 +825,12 @@ msgid ""
 "\n"
 msgstr "Instaliranje paketa"
 
-#: ../packages.py:685 ../packages.py:954
+#: ../packages.py:685 ../packages.py:968
 #, fuzzy, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "A¾uriranje %s.\n"
 
-#: ../packages.py:687 ../packages.py:956
+#: ../packages.py:687 ../packages.py:970
 #, fuzzy, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Instaliranje %s.\n"
@@ -862,9 +866,9 @@ msgstr ""
 "Potrebno vam je vi¹e prostora na sledeæim sistemima datoteka:\n"
 "\n"
 
-#: ../packages.py:759 ../packages.py:779 ../iw/lvm_dialog_gui.py:1003
-#: ../iw/partition_gui.py:347 ../iw/upgrade_swap_gui.py:148
-#: ../textw/partition_text.py:1099 ../textw/upgrade_text.py:109
+#: ../packages.py:759 ../packages.py:779 ../iw/lvm_dialog_gui.py:1036
+#: ../iw/partition_gui.py:348 ../iw/upgrade_swap_gui.py:148
+#: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:109
 msgid "Mount Point"
 msgstr "Taèka montiranja"
 
@@ -907,11 +911,11 @@ msgstr "Posle instalacije"
 msgid "Performing post install configuration..."
 msgstr "Konfigurisanje posle instalacije..."
 
-#: ../packages.py:1072
+#: ../packages.py:1086
 msgid "Warning! This is a beta!"
 msgstr ""
 
-#: ../packages.py:1073
+#: ../packages.py:1087
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -926,12 +930,12 @@ msgid ""
 "and file a report against 'Red Hat Public Beta'.\n"
 msgstr ""
 
-#: ../packages.py:1086
+#: ../packages.py:1100
 #, fuzzy
 msgid "_Install BETA"
 msgstr "Tip instalacije"
 
-#: ../partedUtils.py:171 ../textw/partition_text.py:476
+#: ../partedUtils.py:171 ../textw/partition_text.py:491
 msgid "Foreign"
 msgstr ""
 
@@ -1079,7 +1083,7 @@ msgstr "Ne mogu da detektujem video-karticu"
 msgid "You must first select a partition to delete."
 msgstr "Prvi sektor startne particije"
 
-#: ../partIntfHelpers.py:148 ../textw/partition_text.py:1063
+#: ../partIntfHelpers.py:148 ../textw/partition_text.py:1078
 msgid "DASD partitions can only be deleted with fdasd"
 msgstr ""
 
@@ -1102,7 +1106,7 @@ msgid ""
 msgstr "Da li ste sigurni da hoæete da uklonite ovu particiju?"
 
 #: ../partIntfHelpers.py:227 ../partIntfHelpers.py:527
-#: ../iw/lvm_dialog_gui.py:682
+#: ../iw/lvm_dialog_gui.py:714
 #, fuzzy
 msgid "Confirm Delete"
 msgstr "Potvrda: "
@@ -1113,9 +1117,9 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Da li ste sigurni da hoæete da uklonite ovu particiju?"
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
-#: ../iw/account_gui.py:424 ../iw/lvm_dialog_gui.py:685
-#: ../iw/lvm_dialog_gui.py:1026 ../iw/osbootwidget.py:102
-#: ../iw/partition_gui.py:1307 ../iw/partition_gui.py:1313
+#: ../iw/account_gui.py:424 ../iw/lvm_dialog_gui.py:717
+#: ../iw/lvm_dialog_gui.py:1059 ../iw/osbootwidget.py:102
+#: ../iw/partition_gui.py:1336 ../iw/partition_gui.py:1342
 msgid "_Delete"
 msgstr "_Obri¹i"
 
@@ -1221,7 +1225,7 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../partIntfHelpers.py:455 ../iw/partition_gui.py:644
+#: ../partIntfHelpers.py:455 ../iw/partition_gui.py:657
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1458,7 +1462,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../rescue.py:108 ../iw/partition_gui.py:546 ../loader/loader.c:1256
+#: ../rescue.py:108 ../iw/partition_gui.py:559 ../loader/loader.c:1256
 #: ../loader/loader.c:1264
 msgid "Continue"
 msgstr "Nastavak"
@@ -1630,7 +1634,7 @@ msgid ""
 "try to upgrade again."
 msgstr ""
 
-#: ../upgrade.py:249
+#: ../upgrade.py:250
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1638,30 +1642,30 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../upgrade.py:260
+#: ../upgrade.py:261
 #, python-format
 msgid "%s not found"
 msgstr ""
 
-#: ../upgrade.py:282
+#: ../upgrade.py:283
 msgid "Finding"
 msgstr "Tra¾im"
 
-#: ../upgrade.py:283
+#: ../upgrade.py:284
 msgid "Finding packages to upgrade..."
 msgstr "Tra¾enje paketa za a¾uriranje..."
 
-#: ../upgrade.py:316
+#: ../upgrade.py:317
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Oporavak RPM baze nije uspeo. Moguæe je da vam nedostaje prostor na disku."
 
-#: ../upgrade.py:334
+#: ../upgrade.py:335
 #, fuzzy
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "Tra¾enje paketa za a¾uriranje..."
 
-#: ../upgrade.py:389
+#: ../upgrade.py:390
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1670,7 +1674,7 @@ msgid ""
 "process?"
 msgstr ""
 
-#: ../upgrade.py:408
+#: ../upgrade.py:409
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1818,15 +1822,15 @@ msgstr "Ime naloga"
 msgid "Full Name"
 msgstr "Puno ime"
 
-#: ../iw/account_gui.py:419 ../iw/lvm_dialog_gui.py:1020
+#: ../iw/account_gui.py:419 ../iw/lvm_dialog_gui.py:1053
 #: ../iw/osbootwidget.py:94
 #, fuzzy
 msgid "_Add"
 msgstr "Dodaj"
 
-#: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1023
+#: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1056
 #: ../iw/network_gui.py:488 ../iw/osbootwidget.py:98
-#: ../iw/partition_gui.py:1306 ../iw/partition_gui.py:1312
+#: ../iw/partition_gui.py:1335 ../iw/partition_gui.py:1341
 #, fuzzy
 msgid "_Edit"
 msgstr "Uredi"
@@ -2338,7 +2342,7 @@ msgid "Drive"
 msgstr "Preskoèi drajv"
 
 #: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:210
-#: ../iw/progress_gui.py:273 ../textw/partition_text.py:1099
+#: ../iw/progress_gui.py:273 ../textw/partition_text.py:1114
 msgid "Size"
 msgstr "Velièina"
 
@@ -2501,25 +2505,25 @@ msgstr "Izaberite particiju"
 msgid "Rese_t"
 msgstr "_Resetuj"
 
-#: ../iw/lvm_dialog_gui.py:104 ../iw/lvm_dialog_gui.py:150
-#: ../iw/lvm_dialog_gui.py:184 ../iw/lvm_dialog_gui.py:257
-#: ../iw/lvm_dialog_gui.py:548 ../iw/lvm_dialog_gui.py:596
-#: ../iw/lvm_dialog_gui.py:790
+#: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
+#: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
+#: ../iw/lvm_dialog_gui.py:286 ../iw/lvm_dialog_gui.py:580
+#: ../iw/lvm_dialog_gui.py:628 ../iw/lvm_dialog_gui.py:823
 msgid "Not enough space"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:105
+#: ../iw/lvm_dialog_gui.py:108
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:114
+#: ../iw/lvm_dialog_gui.py:117
 msgid "Confirm Physical Extent Change"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:115
+#: ../iw/lvm_dialog_gui.py:118
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -2528,13 +2532,13 @@ msgid ""
 "This change will take affect immediately."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:124 ../iw/lvm_dialog_gui.py:167
+#: ../iw/lvm_dialog_gui.py:127 ../iw/lvm_dialog_gui.py:186
 #: ../iw/network_gui.py:154 ../iw/network_gui.py:158 ../iw/network_gui.py:181
 #, fuzzy
 msgid "C_ontinue"
 msgstr "Nastavak"
 
-#: ../iw/lvm_dialog_gui.py:151
+#: ../iw/lvm_dialog_gui.py:154
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2542,17 +2546,25 @@ msgid ""
 "volume group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:160
+#: ../iw/lvm_dialog_gui.py:165
+#, python-format
+msgid ""
+"The physical extent size cannot be changed because the value selected (%"
+"10.2f MB) is too large compared to the size of the smallest physical volume "
+"(%10.2f MB) in the volume group."
+msgstr ""
+
+#: ../iw/lvm_dialog_gui.py:179
 msgid "Too small"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:161
+#: ../iw/lvm_dialog_gui.py:180
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:185
+#: ../iw/lvm_dialog_gui.py:205
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
@@ -2560,110 +2572,110 @@ msgid ""
 "defined logical volumes."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:258
+#: ../iw/lvm_dialog_gui.py:287
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:329
+#: ../iw/lvm_dialog_gui.py:358
 msgid "Make Logical Volume"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:332
+#: ../iw/lvm_dialog_gui.py:361
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:334
+#: ../iw/lvm_dialog_gui.py:363
 msgid "Edit Logical Volume"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:347 ../iw/partition_dialog_gui.py:281
+#: ../iw/lvm_dialog_gui.py:376 ../iw/partition_dialog_gui.py:281
 #: ../iw/raid_dialog_gui.py:294
 #, fuzzy
 msgid "_Mount Point:"
 msgstr "Taèka montiranja:"
 
-#: ../iw/lvm_dialog_gui.py:355
+#: ../iw/lvm_dialog_gui.py:384
 #, fuzzy
 msgid "_File System Type:"
 msgstr "Velièina 'root' sistema datoteka"
 
-#: ../iw/lvm_dialog_gui.py:363 ../iw/partition_dialog_gui.py:299
+#: ../iw/lvm_dialog_gui.py:392 ../iw/partition_dialog_gui.py:299
 #, fuzzy
 msgid "Original File System Type:"
 msgstr "Velièina 'root' sistema datoteka"
 
-#: ../iw/lvm_dialog_gui.py:368 ../iw/partition_dialog_gui.py:310
+#: ../iw/lvm_dialog_gui.py:397 ../iw/partition_dialog_gui.py:310
 #: ../iw/raid_dialog_gui.py:315
 #, fuzzy
 msgid "Unknown"
 msgstr "Nepoznat host"
 
-#: ../iw/lvm_dialog_gui.py:374
+#: ../iw/lvm_dialog_gui.py:403
 msgid "_Logical Volume Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:382
+#: ../iw/lvm_dialog_gui.py:411
 msgid "Logical Volume Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:390 ../iw/partition_dialog_gui.py:356
+#: ../iw/lvm_dialog_gui.py:419 ../iw/partition_dialog_gui.py:356
 #, fuzzy
 msgid "_Size (MB):"
 msgstr "Velièina (MB):"
 
-#: ../iw/lvm_dialog_gui.py:396 ../iw/partition_dialog_gui.py:373
-#: ../iw/partition_dialog_gui.py:416 ../textw/partition_text.py:317
-#: ../textw/partition_text.py:400 ../textw/partition_text.py:487
+#: ../iw/lvm_dialog_gui.py:425 ../iw/partition_dialog_gui.py:373
+#: ../iw/partition_dialog_gui.py:416 ../textw/partition_text.py:332
+#: ../textw/partition_text.py:415 ../textw/partition_text.py:502
 #, fuzzy
 msgid "Size (MB):"
 msgstr "Velièina (MB):"
 
-#: ../iw/lvm_dialog_gui.py:408
+#: ../iw/lvm_dialog_gui.py:440
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:469
+#: ../iw/lvm_dialog_gui.py:501
 #, fuzzy
 msgid "Illegal size"
 msgstr "Ukupno"
 
-#: ../iw/lvm_dialog_gui.py:470
+#: ../iw/lvm_dialog_gui.py:502
 #, fuzzy
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "Velièina koju unosite mora biti broj."
 
-#: ../iw/lvm_dialog_gui.py:503
+#: ../iw/lvm_dialog_gui.py:535
 #, fuzzy
 msgid "Mount point in use"
 msgstr "Taèka montiranja"
 
-#: ../iw/lvm_dialog_gui.py:504
+#: ../iw/lvm_dialog_gui.py:536
 #, fuzzy, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
 msgstr ""
 "Zahtevana taèka montiranja se veæ koristi. Molim navedite ispravnu taèku "
 "montiranja."
 
-#: ../iw/lvm_dialog_gui.py:515
+#: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:534
+#: ../iw/lvm_dialog_gui.py:566
 msgid "Illegal logical volume name"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:535
+#: ../iw/lvm_dialog_gui.py:567
 #, fuzzy, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr ""
 "RAID ureðaj \"/dev/%s\" je veæ pode¹en kao RAID ureðaj. Molim da izaberete "
 "neki drugi."
 
-#: ../iw/lvm_dialog_gui.py:549
+#: ../iw/lvm_dialog_gui.py:581
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -2671,14 +2683,14 @@ msgid ""
 "Extent size for this Volume Group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:573 ../iw/partition_dialog_gui.py:169
+#: ../iw/lvm_dialog_gui.py:605 ../iw/partition_dialog_gui.py:169
 #: ../iw/partition_dialog_gui.py:181 ../iw/partition_dialog_gui.py:229
-#: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:816
-#: ../textw/partition_text.py:838 ../textw/partition_text.py:1009
+#: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:831
+#: ../textw/partition_text.py:853 ../textw/partition_text.py:1024
 msgid "Error With Request"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:597 ../iw/lvm_dialog_gui.py:791
+#: ../iw/lvm_dialog_gui.py:629 ../iw/lvm_dialog_gui.py:824
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -2686,53 +2698,53 @@ msgid ""
 "logical volume(s) smaller."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:647
+#: ../iw/lvm_dialog_gui.py:679
 msgid "No free slots"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:648
+#: ../iw/lvm_dialog_gui.py:680
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:654
+#: ../iw/lvm_dialog_gui.py:686
 #, fuzzy
 msgid "No free space"
 msgstr "Prostor na disku"
 
-#: ../iw/lvm_dialog_gui.py:655
+#: ../iw/lvm_dialog_gui.py:687
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:683
+#: ../iw/lvm_dialog_gui.py:715
 #, fuzzy, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "Da li ste sigurni da hoæete da uklonite ovu particiju?"
 
-#: ../iw/lvm_dialog_gui.py:802
+#: ../iw/lvm_dialog_gui.py:835
 #, fuzzy
 msgid "Invalid Volume Group Name"
 msgstr "Promena startne labele"
 
-#: ../iw/lvm_dialog_gui.py:815
+#: ../iw/lvm_dialog_gui.py:848
 msgid "Name in use"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:816
+#: ../iw/lvm_dialog_gui.py:849
 #, fuzzy, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Zahtevana taèka montiranja se veæ koristi. Molim navedite ispravnu taèku "
 "montiranja."
 
-#: ../iw/lvm_dialog_gui.py:860
+#: ../iw/lvm_dialog_gui.py:893
 msgid "Not enough physical volumes"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:861
+#: ../iw/lvm_dialog_gui.py:894
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2741,66 +2753,66 @@ msgid ""
 "select the \"LVM\" option again."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:872
+#: ../iw/lvm_dialog_gui.py:905
 #, fuzzy
 msgid "Make LVM Volume Group"
 msgstr "Promena startne labele"
 
-#: ../iw/lvm_dialog_gui.py:875
+#: ../iw/lvm_dialog_gui.py:908
 #, fuzzy, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Promena startne labele"
 
-#: ../iw/lvm_dialog_gui.py:877
+#: ../iw/lvm_dialog_gui.py:910
 #, fuzzy
 msgid "Edit LVM Volume Group"
 msgstr "Promena startne labele"
 
-#: ../iw/lvm_dialog_gui.py:893
+#: ../iw/lvm_dialog_gui.py:926
 msgid "_Volume Group Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:901
+#: ../iw/lvm_dialog_gui.py:934
 msgid "Volume Group Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:910
+#: ../iw/lvm_dialog_gui.py:943
 msgid "_Physical Extent:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:917
+#: ../iw/lvm_dialog_gui.py:950
 msgid "Physical Extent:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:930
+#: ../iw/lvm_dialog_gui.py:963
 msgid "Physical Volumes to _Use:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:936
+#: ../iw/lvm_dialog_gui.py:969
 #, fuzzy
 msgid "Used Space:"
 msgstr "Prostor na disku"
 
-#: ../iw/lvm_dialog_gui.py:953
+#: ../iw/lvm_dialog_gui.py:986
 #, fuzzy
 msgid "Free Space:"
 msgstr "Prostor na disku"
 
-#: ../iw/lvm_dialog_gui.py:971
+#: ../iw/lvm_dialog_gui.py:1004
 #, fuzzy
 msgid "Total Space:"
 msgstr "Ukupno"
 
-#: ../iw/lvm_dialog_gui.py:1000
+#: ../iw/lvm_dialog_gui.py:1033
 msgid "Logical Volume Name"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1006 ../iw/partition_gui.py:352
+#: ../iw/lvm_dialog_gui.py:1039 ../iw/partition_gui.py:353
 #, fuzzy
 msgid "Size (MB)"
 msgstr "Velièina (MB):"
 
-#: ../iw/lvm_dialog_gui.py:1037
+#: ../iw/lvm_dialog_gui.py:1070
 msgid "Logical Volumes"
 msgstr ""
 
@@ -2979,9 +2991,9 @@ msgid "Active on Boot"
 msgstr "Aktiviraj prilikom starta"
 
 #: ../iw/network_gui.py:396 ../iw/osbootwidget.py:65
-#: ../iw/partition_gui.py:346 ../iw/silo_gui.py:263
+#: ../iw/partition_gui.py:347 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:206 ../textw/bootloader_text.py:277
-#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1099
+#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1114
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Ureðaj"
@@ -3213,7 +3225,7 @@ msgstr ""
 msgid "The end cylinder must be greater than the start cylinder."
 msgstr ""
 
-#: ../iw/partition_dialog_gui.py:258 ../textw/partition_text.py:629
+#: ../iw/partition_dialog_gui.py:258 ../textw/partition_text.py:644
 #, fuzzy
 msgid "Add Partition"
 msgstr "Particija"
@@ -3265,170 +3277,170 @@ msgstr "Postoje nealocirane particije..."
 msgid "Check for _bad blocks"
 msgstr "Provera lo¹ih blokova tokom formatiranja"
 
-#: ../iw/partition_gui.py:348 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
-#: ../textw/partition_text.py:1099
+#: ../iw/partition_gui.py:349 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../textw/partition_text.py:1114
 msgid "Type"
 msgstr "Tip"
 
-#: ../iw/partition_gui.py:351
+#: ../iw/partition_gui.py:352
 #, fuzzy
 msgid "Format"
 msgstr "Formatiranje"
 
-#: ../iw/partition_gui.py:353 ../textw/partition_text.py:1099
+#: ../iw/partition_gui.py:354 ../textw/partition_text.py:1114
 #, fuzzy
 msgid "Start"
 msgstr "Status"
 
-#: ../iw/partition_gui.py:354 ../textw/partition_text.py:1099
+#: ../iw/partition_gui.py:355 ../textw/partition_text.py:1114
 msgid "End"
 msgstr ""
 
-#: ../iw/partition_gui.py:391
+#: ../iw/partition_gui.py:392
 #, fuzzy
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr "Taèka montiranja"
 
-#: ../iw/partition_gui.py:393
+#: ../iw/partition_gui.py:394
 #, fuzzy
 msgid ""
 "Size\n"
 "(MB)"
 msgstr "Velièina (MB):"
 
-#: ../iw/partition_gui.py:520 ../textw/partition_text.py:1093
+#: ../iw/partition_gui.py:533 ../textw/partition_text.py:1108
 #, fuzzy
 msgid "Partitioning"
 msgstr "Particija"
 
-#: ../iw/partition_gui.py:612
+#: ../iw/partition_gui.py:625
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
-#: ../iw/partition_gui.py:615
+#: ../iw/partition_gui.py:628
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 
-#: ../iw/partition_gui.py:621
+#: ../iw/partition_gui.py:634
 #, fuzzy
 msgid "Partitioning Errors"
 msgstr "Particija"
 
-#: ../iw/partition_gui.py:627
+#: ../iw/partition_gui.py:640
 msgid "The following warnings exist with your requested partition scheme."
 msgstr ""
 
-#: ../iw/partition_gui.py:629
+#: ../iw/partition_gui.py:642
 #, fuzzy
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "Da li biste ¾eleli da podesite sistem?"
 
-#: ../iw/partition_gui.py:634
+#: ../iw/partition_gui.py:647
 #, fuzzy
 msgid "Partitioning Warnings"
 msgstr "Automatsko particionisanje"
 
-#: ../iw/partition_gui.py:656
+#: ../iw/partition_gui.py:669
 #, fuzzy
 msgid "Format Warnings"
 msgstr "Formatiranje"
 
-#: ../iw/partition_gui.py:661
+#: ../iw/partition_gui.py:674
 #, fuzzy
 msgid "_Format"
 msgstr "Formatiranje"
 
-#: ../iw/partition_gui.py:696
+#: ../iw/partition_gui.py:709
 msgid "LVM Volume Groups"
 msgstr ""
 
-#: ../iw/partition_gui.py:731
+#: ../iw/partition_gui.py:744
 #, fuzzy
 msgid "RAID Devices"
 msgstr "Nema RAID ureðaja"
 
-#: ../iw/partition_gui.py:759 ../iw/partition_gui.py:876
+#: ../iw/partition_gui.py:772 ../iw/partition_gui.py:889
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:151
 #, fuzzy
 msgid "None"
 msgstr "Uradjeno"
 
-#: ../iw/partition_gui.py:777 ../loader/loader.c:1055
+#: ../iw/partition_gui.py:790 ../loader/loader.c:1055
 msgid "Hard Drives"
 msgstr "Hard-diskovi"
 
-#: ../iw/partition_gui.py:839 ../textw/partition_text.py:133
+#: ../iw/partition_gui.py:852 ../textw/partition_text.py:133
 #: ../textw/partition_text.py:172
 #, fuzzy
 msgid "Free space"
 msgstr "Prostor na disku"
 
-#: ../iw/partition_gui.py:841 ../textw/partition_text.py:135
+#: ../iw/partition_gui.py:854 ../textw/partition_text.py:135
 msgid "Extended"
 msgstr ""
 
-#: ../iw/partition_gui.py:843 ../textw/partition_text.py:137
+#: ../iw/partition_gui.py:856 ../textw/partition_text.py:137
 msgid "software RAID"
 msgstr ""
 
-#: ../iw/partition_gui.py:878
+#: ../iw/partition_gui.py:891
 msgid "Free"
 msgstr ""
 
-#: ../iw/partition_gui.py:952 ../textw/partition_text.py:199
+#: ../iw/partition_gui.py:981 ../textw/partition_text.py:214
 #, fuzzy, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Postoje nealocirane particije..."
 
-#: ../iw/partition_gui.py:961
+#: ../iw/partition_gui.py:990
 #, fuzzy, python-format
 msgid "Warning: %s."
 msgstr "Pretra¾ujem"
 
-#: ../iw/partition_gui.py:963
+#: ../iw/partition_gui.py:992
 #, fuzzy
 msgid "_Modify Partition"
 msgstr "Uredi particiju"
 
-#: ../iw/partition_gui.py:965
+#: ../iw/partition_gui.py:994
 #, fuzzy
 msgid "_Continue"
 msgstr "Nastavak"
 
-#: ../iw/partition_gui.py:1140 ../iw/partition_gui.py:1154
+#: ../iw/partition_gui.py:1169 ../iw/partition_gui.py:1183
 #, fuzzy
 msgid "Not supported"
 msgstr "Pode¹avanje mre¾e"
 
-#: ../iw/partition_gui.py:1141
+#: ../iw/partition_gui.py:1170
 msgid "LVM is NOT supported on this platform."
 msgstr ""
 
-#: ../iw/partition_gui.py:1155
+#: ../iw/partition_gui.py:1184
 msgid "Software RAID is NOT supported on this platform."
 msgstr ""
 
-#: ../iw/partition_gui.py:1162
+#: ../iw/partition_gui.py:1191
 msgid "No RAID minor device numbers available"
 msgstr ""
 
-#: ../iw/partition_gui.py:1163
+#: ../iw/partition_gui.py:1192
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr ""
 
-#: ../iw/partition_gui.py:1177
+#: ../iw/partition_gui.py:1206
 #, fuzzy
 msgid "RAID Options"
 msgstr "<'Raid' particija>"
 
-#: ../iw/partition_gui.py:1188
+#: ../iw/partition_gui.py:1217
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3440,7 +3452,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1199
+#: ../iw/partition_gui.py:1228
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3448,94 +3460,94 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1205
+#: ../iw/partition_gui.py:1234
 #, fuzzy
 msgid "What do you want to do now?"
 msgstr "Kakav vrstu ureðaja biste ¾eleli da dodate"
 
-#: ../iw/partition_gui.py:1214
+#: ../iw/partition_gui.py:1243
 #, fuzzy
 msgid "Create a software RAID _partition."
 msgstr "<'Raid' particija>"
 
-#: ../iw/partition_gui.py:1217
+#: ../iw/partition_gui.py:1246
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr ""
 
-#: ../iw/partition_gui.py:1221
+#: ../iw/partition_gui.py:1250
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
 
-#: ../iw/partition_gui.py:1260
+#: ../iw/partition_gui.py:1289
 msgid "Couldn't Create Drive Clone Editor"
 msgstr ""
 
-#: ../iw/partition_gui.py:1261
+#: ../iw/partition_gui.py:1290
 #, fuzzy
 msgid "The drive clone editor could not be created for some reason."
 msgstr "Nisam mogao da montiram taj direktorijum na serveru"
 
-#: ../iw/partition_gui.py:1308
+#: ../iw/partition_gui.py:1337
 msgid "_Reset"
 msgstr "_Resetuj"
 
-#: ../iw/partition_gui.py:1309
+#: ../iw/partition_gui.py:1338
 #, fuzzy
 msgid "Make _RAID"
 msgstr "Kori¹æen RAID ureðaj"
 
-#: ../iw/partition_gui.py:1311
+#: ../iw/partition_gui.py:1340
 #, fuzzy
 msgid "Ne_w"
 msgstr "Novo"
 
-#: ../iw/partition_gui.py:1314
+#: ../iw/partition_gui.py:1343
 #, fuzzy
 msgid "Re_set"
 msgstr "_Resetuj"
 
-#: ../iw/partition_gui.py:1315
+#: ../iw/partition_gui.py:1344
 #, fuzzy
 msgid "R_AID"
 msgstr "<RAID>"
 
-#: ../iw/partition_gui.py:1316
+#: ../iw/partition_gui.py:1345
 msgid "_LVM"
 msgstr ""
 
-#: ../iw/partition_gui.py:1355
+#: ../iw/partition_gui.py:1384
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr ""
 
-#: ../iw/partition_gui.py:1370 ../textw/partition_text.py:1190
+#: ../iw/partition_gui.py:1399 ../textw/partition_text.py:1205
 msgid "Automatic Partitioning"
 msgstr "Automatsko particionisanje"
 
-#: ../iw/partition_gui.py:1398
+#: ../iw/partition_gui.py:1427
 #, fuzzy, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "Izaberite jezik"
 
-#: ../iw/partition_gui.py:1440
+#: ../iw/partition_gui.py:1469
 #, fuzzy
 msgid "I want to have automatic partitioning:"
 msgstr "Automatsko particionisanje"
 
-#: ../iw/partition_gui.py:1471
+#: ../iw/partition_gui.py:1500
 #, fuzzy
 msgid "Select the drive(s) to use for this installation:"
 msgstr "Gde biste da instalirate starter?"
 
-#: ../iw/partition_gui.py:1495
+#: ../iw/partition_gui.py:1524
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr ""
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
-#: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:221
-#: ../textw/partition_text.py:223 ../textw/partition_text.py:225
-#: ../textw/partition_text.py:250
+#: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:236
+#: ../textw/partition_text.py:238 ../textw/partition_text.py:240
+#: ../textw/partition_text.py:265
 msgid "<Not Applicable>"
 msgstr ""
 
@@ -3647,7 +3659,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:275 ../iw/raid_dialog_gui.py:680
-#: ../textw/partition_text.py:874
+#: ../textw/partition_text.py:889
 #, fuzzy
 msgid "Make RAID Device"
 msgstr "_Napravi RAID ureðaj"
@@ -3657,7 +3669,7 @@ msgstr "_Napravi RAID ureðaj"
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "RAID ureðaj: /dev/"
 
-#: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:872
+#: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:887
 #, fuzzy
 msgid "Edit RAID Device"
 msgstr "Nema RAID ureðaja"
@@ -4318,7 +4330,7 @@ msgid "Boot label contains illegal characters."
 msgstr ""
 
 #: ../textw/bootloader_text.py:293 ../textw/fdisk_text.py:41
-#: ../textw/partition_text.py:1104 ../textw/partition_text.py:1111
+#: ../textw/partition_text.py:1119 ../textw/partition_text.py:1126
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:225
 msgid "Edit"
@@ -4826,227 +4838,227 @@ msgstr ""
 msgid "RAID Device %s"
 msgstr "Nema RAID ureðaja"
 
-#: ../textw/partition_text.py:202
+#: ../textw/partition_text.py:217
 #, fuzzy, python-format
 msgid "Warning: %s"
 msgstr "Pretra¾ujem"
 
-#: ../textw/partition_text.py:203
+#: ../textw/partition_text.py:218
 #, fuzzy
 msgid "Modify Partition"
 msgstr "Uredi particiju"
 
-#: ../textw/partition_text.py:203
+#: ../textw/partition_text.py:218
 #, fuzzy
 msgid "Add anyway"
 msgstr "Swap"
 
-#: ../textw/partition_text.py:240
+#: ../textw/partition_text.py:255
 msgid "Mount Point:"
 msgstr "Taèka montiranja:"
 
-#: ../textw/partition_text.py:261
+#: ../textw/partition_text.py:276
 #, fuzzy
 msgid "File System type:"
 msgstr "Velièina 'root' sistema datoteka"
 
-#: ../textw/partition_text.py:295
+#: ../textw/partition_text.py:310
 msgid "Allowable Drives:"
 msgstr "Dozvoljeni diskovi:"
 
-#: ../textw/partition_text.py:351
+#: ../textw/partition_text.py:366
 #, fuzzy
 msgid "Fixed Size:"
 msgstr "Lo¹a velièina"
 
-#: ../textw/partition_text.py:353
+#: ../textw/partition_text.py:368
 msgid "Fill maximum size of (MB):"
 msgstr ""
 
-#: ../textw/partition_text.py:357
+#: ../textw/partition_text.py:372
 msgid "Fill all available space:"
 msgstr ""
 
-#: ../textw/partition_text.py:380
+#: ../textw/partition_text.py:395
 msgid "Start Cylinder:"
 msgstr ""
 
-#: ../textw/partition_text.py:393
+#: ../textw/partition_text.py:408
 msgid "End Cylinder:"
 msgstr ""
 
-#: ../textw/partition_text.py:417
+#: ../textw/partition_text.py:432
 #, fuzzy
 msgid "RAID Level:"
 msgstr "RAID tip:"
 
-#: ../textw/partition_text.py:435
+#: ../textw/partition_text.py:450
 #, fuzzy
 msgid "RAID Members:"
 msgstr "RAID tip:"
 
-#: ../textw/partition_text.py:454
+#: ../textw/partition_text.py:469
 msgid "Number of spares?"
 msgstr ""
 
-#: ../textw/partition_text.py:468
+#: ../textw/partition_text.py:483
 #, fuzzy
 msgid "File System Type:"
 msgstr "Velièina 'root' sistema datoteka"
 
-#: ../textw/partition_text.py:481
+#: ../textw/partition_text.py:496
 #, fuzzy
 msgid "File System Label:"
 msgstr "Velièina 'root' sistema datoteka"
 
-#: ../textw/partition_text.py:492
+#: ../textw/partition_text.py:507
 #, fuzzy
 msgid "File System Option:"
 msgstr "Velièina 'root' sistema datoteka"
 
-#: ../textw/partition_text.py:495 ../textw/partition_text.py:728
-#: ../textw/partition_text.py:956
+#: ../textw/partition_text.py:510 ../textw/partition_text.py:743
+#: ../textw/partition_text.py:971
 #, python-format
 msgid "Format as %s"
 msgstr ""
 
-#: ../textw/partition_text.py:497 ../textw/partition_text.py:730
-#: ../textw/partition_text.py:958
+#: ../textw/partition_text.py:512 ../textw/partition_text.py:745
+#: ../textw/partition_text.py:973
 #, python-format
 msgid "Migrate to %s"
 msgstr ""
 
-#: ../textw/partition_text.py:499 ../textw/partition_text.py:732
-#: ../textw/partition_text.py:960
+#: ../textw/partition_text.py:514 ../textw/partition_text.py:747
+#: ../textw/partition_text.py:975
 #, fuzzy
 msgid "Leave unchanged"
 msgstr "Snimi promene"
 
-#: ../textw/partition_text.py:515 ../textw/partition_text.py:704
-#: ../textw/partition_text.py:936
+#: ../textw/partition_text.py:530 ../textw/partition_text.py:719
+#: ../textw/partition_text.py:951
 #, fuzzy
 msgid "File System Options"
 msgstr "Formatiranje sistema datoteka"
 
-#: ../textw/partition_text.py:518
+#: ../textw/partition_text.py:533
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
 msgstr ""
 
-#: ../textw/partition_text.py:526 ../textw/partition_text.py:674
+#: ../textw/partition_text.py:541 ../textw/partition_text.py:689
 #, fuzzy
 msgid "Check for bad blocks"
 msgstr "Provera lo¹ih blokova tokom formatiranja"
 
-#: ../textw/partition_text.py:530
+#: ../textw/partition_text.py:545
 msgid "Leave unchanged (preserve data)"
 msgstr ""
 
-#: ../textw/partition_text.py:539
+#: ../textw/partition_text.py:554
 msgid "Format as:"
 msgstr ""
 
-#: ../textw/partition_text.py:559
+#: ../textw/partition_text.py:574
 msgid "Migrate to:"
 msgstr ""
 
-#: ../textw/partition_text.py:671
+#: ../textw/partition_text.py:686
 msgid "Force to be a primary partition"
 msgstr ""
 
-#: ../textw/partition_text.py:682
+#: ../textw/partition_text.py:697
 #, fuzzy
 msgid "Not Supported"
 msgstr "Pode¹avanje mre¾e"
 
-#: ../textw/partition_text.py:683
+#: ../textw/partition_text.py:698
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr ""
 
-#: ../textw/partition_text.py:757 ../textw/partition_text.py:806
+#: ../textw/partition_text.py:772 ../textw/partition_text.py:821
 #, fuzzy
 msgid "Invalid Entry for Partition Size"
 msgstr "Pogre¹na informacija"
 
-#: ../textw/partition_text.py:769
+#: ../textw/partition_text.py:784
 msgid "Invalid Entry for Maximum Size"
 msgstr ""
 
-#: ../textw/partition_text.py:788
+#: ../textw/partition_text.py:803
 msgid "Invalid Entry for Starting Cylinder"
 msgstr ""
 
-#: ../textw/partition_text.py:798
+#: ../textw/partition_text.py:813
 msgid "Invalid Entry for End Cylinder"
 msgstr ""
 
-#: ../textw/partition_text.py:909
+#: ../textw/partition_text.py:924
 #, fuzzy
 msgid "No RAID partitions"
 msgstr "<'Raid' particija>"
 
-#: ../textw/partition_text.py:910
+#: ../textw/partition_text.py:925
 msgid "At least two software RAID partitions are needed."
 msgstr ""
 
-#: ../textw/partition_text.py:922
+#: ../textw/partition_text.py:937
 #, fuzzy
 msgid "Format partition?"
 msgstr "Nema 'root' particije"
 
-#: ../textw/partition_text.py:984
+#: ../textw/partition_text.py:999
 #, fuzzy
 msgid "Invalid Entry for RAID Spares"
 msgstr "Pogre¹na informacija"
 
-#: ../textw/partition_text.py:997
+#: ../textw/partition_text.py:1012
 #, fuzzy
 msgid "Too many spares"
 msgstr "Previ¹e drajvova"
 
-#: ../textw/partition_text.py:998
+#: ../textw/partition_text.py:1013
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr ""
 
-#: ../textw/partition_text.py:1052
+#: ../textw/partition_text.py:1067
 msgid "You must go back and use fdasd to initialize this partition"
 msgstr ""
 
-#: ../textw/partition_text.py:1105 ../textw/partition_text.py:1112
+#: ../textw/partition_text.py:1120 ../textw/partition_text.py:1127
 #: ../textw/userauth_text.py:224
 msgid "Delete"
 msgstr "Obri¹i"
 
-#: ../textw/partition_text.py:1106 ../textw/partition_text.py:1113
+#: ../textw/partition_text.py:1121 ../textw/partition_text.py:1128
 #, fuzzy
 msgid "RAID"
 msgstr "<RAID>"
 
-#: ../textw/partition_text.py:1108
+#: ../textw/partition_text.py:1123
 msgid ""
 "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
-#: ../textw/partition_text.py:1110
+#: ../textw/partition_text.py:1125
 msgid "New"
 msgstr "Novo"
 
-#: ../textw/partition_text.py:1116
+#: ../textw/partition_text.py:1131
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
-#: ../textw/partition_text.py:1145
+#: ../textw/partition_text.py:1160
 msgid "No Root Partition"
 msgstr "Nema 'root' particije"
 
-#: ../textw/partition_text.py:1146
+#: ../textw/partition_text.py:1161
 #, fuzzy
 msgid "Must have a / partition to install on."
 msgstr "Morate dodeliti swap particiju da biste nastavili instalaciju."
 
-#: ../textw/partition_text.py:1213
+#: ../textw/partition_text.py:1228
 #, fuzzy
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Gde biste da instalirate starter?"
@@ -5714,10 +5726,6 @@ msgstr "Koji tip CDROM-a imate?"
 #: ../loader/cdrom.c:88
 msgid "Initializing CDROM..."
 msgstr "Inicijalizujem CDROM..."
-
-#: ../loader/devices.c:79
-msgid "Miscellaneous"
-msgstr "Razno"
 
 #: ../loader/devices.c:88
 #, fuzzy

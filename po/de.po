@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"POT-Creation-Date: 2002-08-14 16:41-0400\n"
+"POT-Creation-Date: 2002-08-16 02:09-0400\n"
 "PO-Revision-Date: 2002-08-14 15:14+1000\n"
 "Last-Translator: Paul Gampe <pgampe@redhat.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -210,8 +210,8 @@ msgstr ""
 "\n"
 "Klicken Sie auf 'OK', um das System neu zu starten."
 
-#: ../autopart.py:1009 ../iw/partition_gui.py:951
-#: ../textw/partition_text.py:198
+#: ../autopart.py:1009 ../iw/partition_gui.py:980
+#: ../textw/partition_text.py:213
 msgid "Error Partitioning"
 msgstr "Fehler bei der Partitionierung"
 
@@ -252,13 +252,13 @@ msgstr ""
 "Klicken Sie auf 'OK', um fortzufahren."
 
 #: ../autopart.py:1103 ../bootloader.py:123 ../image.py:308
-#: ../partedUtils.py:240 ../partedUtils.py:668 ../upgrade.py:259
-#: ../upgrade.py:388 ../upgrade.py:407 ../iw/blpasswidget.py:148
+#: ../partedUtils.py:240 ../partedUtils.py:668 ../upgrade.py:260
+#: ../upgrade.py:389 ../upgrade.py:408 ../iw/blpasswidget.py:148
 #: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:88
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
 #: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:135
 #: ../textw/bootloader_text.py:451 ../textw/fdasd_text.py:84
-#: ../textw/partition_text.py:202 ../textw/upgrade_text.py:175
+#: ../textw/partition_text.py:217 ../textw/upgrade_text.py:175
 #: ../loader/loader.c:3612
 msgid "Warning"
 msgstr "Warnung"
@@ -350,11 +350,15 @@ msgstr ""
 msgid "Everything"
 msgstr "Alles"
 
-#: ../comps.py:893 ../comps.py:959 ../upgrade.py:587
+#: ../comps.py:893 ../comps.py:959 ../upgrade.py:588
 msgid "no suggestion"
 msgstr "keine Vorschläge"
 
-#: ../comps.py:1051
+#: ../comps.py:1053 ../loader/devices.c:79
+msgid "Miscellaneous"
+msgstr "Verschiedenes"
+
+#: ../comps.py:1069
 msgid ""
 "This group includes all the packages available.  Note that this is "
 "substantially more packages than just the ones in all the other package "
@@ -364,7 +368,7 @@ msgstr ""
 "wesentlich mehr Pakete sind als die Pakete in allen anderen Paketgruppen "
 "dieser Seite."
 
-#: ../comps.py:1055
+#: ../comps.py:1073
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -419,11 +423,11 @@ msgstr "_Bootdiskette anlegen"
 #: ../fsset.py:1034 ../fsset.py:1081 ../fsset.py:1092 ../fsset.py:1128
 #: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:202 ../image.py:86
 #: ../image.py:198 ../packages.py:306 ../partedUtils.py:458
-#: ../partIntfHelpers.py:147 ../partIntfHelpers.py:332 ../upgrade.py:315
-#: ../upgrade.py:333 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
+#: ../partIntfHelpers.py:147 ../partIntfHelpers.py:332 ../upgrade.py:316
+#: ../upgrade.py:334 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
-#: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1051
-#: ../textw/partition_text.py:1062 ../textw/upgrade_text.py:163
+#: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1066
+#: ../textw/partition_text.py:1077 ../textw/upgrade_text.py:163
 #: ../textw/upgrade_text.py:170 ../textw/upgrade_text.py:193
 #: ../loader/devices.c:258 ../loader/devices.c:265 ../loader/devices.c:429
 #: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/loader.c:471
@@ -720,7 +724,7 @@ msgid ""
 msgstr ""
 "Beim Laden einer Installer-Interface Komponente ist ein Fehler aufgetreten."
 
-#: ../gui.py:810 ../packages.py:1086 ../iw/congrats_gui.py:29
+#: ../gui.py:810 ../packages.py:1100 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "_Beenden"
 
@@ -728,19 +732,19 @@ msgstr "_Beenden"
 msgid "_Retry"
 msgstr "Wiede_rholen"
 
-#: ../gui.py:813 ../packages.py:1089
+#: ../gui.py:813 ../packages.py:1103
 msgid "Rebooting System"
 msgstr "Systemneustart"
 
-#: ../gui.py:814 ../packages.py:1090
+#: ../gui.py:814 ../packages.py:1104
 msgid "Your system will now be rebooted..."
 msgstr "Ihr System wird nun neu gestartet..."
 
-#: ../gui.py:817 ../packages.py:1092
+#: ../gui.py:817 ../packages.py:1106
 msgid "_Reboot"
 msgstr "_Neu starten"
 
-#: ../gui.py:908 ../packages.py:1092
+#: ../gui.py:908 ../packages.py:1106
 msgid "_Back"
 msgstr "_Zurück"
 
@@ -937,12 +941,12 @@ msgstr ""
 "%s Pakete werden installiert\n"
 "\n"
 
-#: ../packages.py:685 ../packages.py:954
+#: ../packages.py:685 ../packages.py:968
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "%s-%s-%s wird aktualisiert.\n"
 
-#: ../packages.py:687 ../packages.py:956
+#: ../packages.py:687 ../packages.py:970
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "%s-%s-%s wird installiert.\n"
@@ -983,9 +987,9 @@ msgstr ""
 "mehr Platz: \n"
 "\n"
 
-#: ../packages.py:759 ../packages.py:779 ../iw/lvm_dialog_gui.py:1003
-#: ../iw/partition_gui.py:347 ../iw/upgrade_swap_gui.py:148
-#: ../textw/partition_text.py:1099 ../textw/upgrade_text.py:109
+#: ../packages.py:759 ../packages.py:779 ../iw/lvm_dialog_gui.py:1036
+#: ../iw/partition_gui.py:348 ../iw/upgrade_swap_gui.py:148
+#: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:109
 msgid "Mount Point"
 msgstr "Mount-Point"
 
@@ -1030,11 +1034,11 @@ msgstr "Nachträgliche Installation"
 msgid "Performing post install configuration..."
 msgstr "Konfiguration nach erfolgter Installation wird durchgeführt..."
 
-#: ../packages.py:1072
+#: ../packages.py:1086
 msgid "Warning! This is a beta!"
 msgstr "Achtung! Dies ist ein Beta!"
 
-#: ../packages.py:1073
+#: ../packages.py:1087
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1061,11 +1065,11 @@ msgstr ""
 "\n"
 "Hier können Sie Berichte in Bezug auf 'Red Hat Public Beta' weiterleiten.\n"
 
-#: ../packages.py:1086
+#: ../packages.py:1100
 msgid "_Install BETA"
 msgstr "Beta _installieren"
 
-#: ../partedUtils.py:171 ../textw/partition_text.py:476
+#: ../partedUtils.py:171 ../textw/partition_text.py:491
 msgid "Foreign"
 msgstr "Ausländisch"
 
@@ -1214,7 +1218,7 @@ msgstr "Kann nicht entfernt werden"
 msgid "You must first select a partition to delete."
 msgstr "Wählen Sie zuerst die zu löschende Partition aus."
 
-#: ../partIntfHelpers.py:148 ../textw/partition_text.py:1063
+#: ../partIntfHelpers.py:148 ../textw/partition_text.py:1078
 msgid "DASD partitions can only be deleted with fdasd"
 msgstr "DASD Partitionen können nur mit fdasd gelöscht werden."
 
@@ -1240,7 +1244,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:227 ../partIntfHelpers.py:527
-#: ../iw/lvm_dialog_gui.py:682
+#: ../iw/lvm_dialog_gui.py:714
 msgid "Confirm Delete"
 msgstr "Löschen bestätigen"
 
@@ -1250,9 +1254,9 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Sie sind dabei, alle Partitionen auf dem Gerät /dev/%s zu löschen."
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
-#: ../iw/account_gui.py:424 ../iw/lvm_dialog_gui.py:685
-#: ../iw/lvm_dialog_gui.py:1026 ../iw/osbootwidget.py:102
-#: ../iw/partition_gui.py:1307 ../iw/partition_gui.py:1313
+#: ../iw/account_gui.py:424 ../iw/lvm_dialog_gui.py:717
+#: ../iw/lvm_dialog_gui.py:1059 ../iw/osbootwidget.py:102
+#: ../iw/partition_gui.py:1336 ../iw/partition_gui.py:1342
 msgid "_Delete"
 msgstr "_Löschen"
 
@@ -1383,7 +1387,7 @@ msgstr ""
 "\n"
 "Möchten Sie mit dem geforderten Partitionsschema fortfahren?"
 
-#: ../partIntfHelpers.py:455 ../iw/partition_gui.py:644
+#: ../partIntfHelpers.py:455 ../iw/partition_gui.py:657
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1658,7 +1662,7 @@ msgstr ""
 "angezeigt.\n"
 "\n"
 
-#: ../rescue.py:108 ../iw/partition_gui.py:546 ../loader/loader.c:1256
+#: ../rescue.py:108 ../iw/partition_gui.py:559 ../loader/loader.c:1256
 #: ../loader/loader.c:1264
 msgid "Continue"
 msgstr "Weiter"
@@ -1861,7 +1865,7 @@ msgstr ""
 "werden. Beheben Sie dieses Problem und beginnen Sie dann erneut mit dem "
 "Aktualisieren Ihres Systems."
 
-#: ../upgrade.py:249
+#: ../upgrade.py:250
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1873,32 +1877,32 @@ msgstr ""
 "symbolische Links um und starten Sie die Aktualisierung dann erneut.\n"
 "\n"
 
-#: ../upgrade.py:260
+#: ../upgrade.py:261
 #, python-format
 msgid "%s not found"
 msgstr "%s nicht gefunden"
 
-#: ../upgrade.py:282
+#: ../upgrade.py:283
 msgid "Finding"
 msgstr "Suchen"
 
-#: ../upgrade.py:283
+#: ../upgrade.py:284
 msgid "Finding packages to upgrade..."
 msgstr "Zu aktualisierende Pakete werden gesucht..."
 
-#: ../upgrade.py:316
+#: ../upgrade.py:317
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "RPM-Datenbank konnte nicht neu erstellt werden. Möglicherweise steht auf der "
 "Festplatte nicht genügend Platz zur Verfügung."
 
-#: ../upgrade.py:334
+#: ../upgrade.py:335
 msgid "An error occurred when finding the packages to upgrade."
 msgstr ""
 "Ein Fehler ist bei der Suche nach den zu aktualisierenden Paketen "
 "aufgetreten. "
 
-#: ../upgrade.py:389
+#: ../upgrade.py:390
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1911,7 +1915,7 @@ msgstr ""
 "wird, könnten diese nicht mehr richtig funktionieren, oder das System "
 "instabil werden. Wollen Sie mit dem Upgrade fortfahren?"
 
-#: ../upgrade.py:408
+#: ../upgrade.py:409
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -2054,14 +2058,14 @@ msgstr "Accountname"
 msgid "Full Name"
 msgstr "Vollständiger Name"
 
-#: ../iw/account_gui.py:419 ../iw/lvm_dialog_gui.py:1020
+#: ../iw/account_gui.py:419 ../iw/lvm_dialog_gui.py:1053
 #: ../iw/osbootwidget.py:94
 msgid "_Add"
 msgstr "_Hinzufügen"
 
-#: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1023
+#: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1056
 #: ../iw/network_gui.py:488 ../iw/osbootwidget.py:98
-#: ../iw/partition_gui.py:1306 ../iw/partition_gui.py:1312
+#: ../iw/partition_gui.py:1335 ../iw/partition_gui.py:1341
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
@@ -2641,7 +2645,7 @@ msgid "Drive"
 msgstr "Festplatte"
 
 #: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:210
-#: ../iw/progress_gui.py:273 ../textw/partition_text.py:1099
+#: ../iw/progress_gui.py:273 ../textw/partition_text.py:1114
 msgid "Size"
 msgstr "Größe"
 
@@ -2794,14 +2798,14 @@ msgstr "N_ur Standard auswählen "
 msgid "Rese_t"
 msgstr "Wiederhers_tellen"
 
-#: ../iw/lvm_dialog_gui.py:104 ../iw/lvm_dialog_gui.py:150
-#: ../iw/lvm_dialog_gui.py:184 ../iw/lvm_dialog_gui.py:257
-#: ../iw/lvm_dialog_gui.py:548 ../iw/lvm_dialog_gui.py:596
-#: ../iw/lvm_dialog_gui.py:790
+#: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
+#: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
+#: ../iw/lvm_dialog_gui.py:286 ../iw/lvm_dialog_gui.py:580
+#: ../iw/lvm_dialog_gui.py:628 ../iw/lvm_dialog_gui.py:823
 msgid "Not enough space"
 msgstr "Nicht genügend Platz"
 
-#: ../iw/lvm_dialog_gui.py:105
+#: ../iw/lvm_dialog_gui.py:108
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
@@ -2811,11 +2815,11 @@ msgstr ""
 "derzeit definierten logischen Volumen auf mehr als den verfügbaren Platz "
 "erhöht würden."
 
-#: ../iw/lvm_dialog_gui.py:114
+#: ../iw/lvm_dialog_gui.py:117
 msgid "Confirm Physical Extent Change"
 msgstr "Änderung der physischen Größe bestätigen"
 
-#: ../iw/lvm_dialog_gui.py:115
+#: ../iw/lvm_dialog_gui.py:118
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -2829,12 +2833,12 @@ msgstr ""
 "\n"
 "Diese Änderung ist sofort wirksam."
 
-#: ../iw/lvm_dialog_gui.py:124 ../iw/lvm_dialog_gui.py:167
+#: ../iw/lvm_dialog_gui.py:127 ../iw/lvm_dialog_gui.py:186
 #: ../iw/network_gui.py:154 ../iw/network_gui.py:158 ../iw/network_gui.py:181
 msgid "C_ontinue"
 msgstr "_Weiter"
 
-#: ../iw/lvm_dialog_gui.py:151
+#: ../iw/lvm_dialog_gui.py:154
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2845,11 +2849,22 @@ msgstr ""
 "MB) größer ist als das kleinste physische Volumen (%10.2f MB) in "
 "derVolumengruppe."
 
-#: ../iw/lvm_dialog_gui.py:160
+#: ../iw/lvm_dialog_gui.py:165
+#, fuzzy, python-format
+msgid ""
+"The physical extent size cannot be changed because the value selected (%"
+"10.2f MB) is too large compared to the size of the smallest physical volume "
+"(%10.2f MB) in the volume group."
+msgstr ""
+"Die physische Größe kann nicht geändert werden, da der gewählte Wert (%10.2f "
+"MB) größer ist als das kleinste physische Volumen (%10.2f MB) in "
+"derVolumengruppe."
+
+#: ../iw/lvm_dialog_gui.py:179
 msgid "Too small"
 msgstr "Zu klein"
 
-#: ../iw/lvm_dialog_gui.py:161
+#: ../iw/lvm_dialog_gui.py:180
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
@@ -2857,7 +2872,7 @@ msgstr ""
 "Diese Änderung der physischen Größe verbraucht wertvollen Platz in einem "
 "oder mehreren physischen Volumen der Volumengruppe."
 
-#: ../iw/lvm_dialog_gui.py:185
+#: ../iw/lvm_dialog_gui.py:205
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
@@ -2868,7 +2883,7 @@ msgstr ""
 "maximale Größe des logischen Volumens (%10.2f MB) kleiner ist als eines oder "
 "mehrere der derzeit definierten logischen Volumen."
 
-#: ../iw/lvm_dialog_gui.py:258
+#: ../iw/lvm_dialog_gui.py:287
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
@@ -2876,96 +2891,96 @@ msgstr ""
 "Sie können dieses physische Volumen nicht entfernen, da sonst die "
 "Volumengruppefür die derzeit definierten Volument zu klein wird."
 
-#: ../iw/lvm_dialog_gui.py:329
+#: ../iw/lvm_dialog_gui.py:358
 msgid "Make Logical Volume"
 msgstr "Logisches Volumen anlegen"
 
-#: ../iw/lvm_dialog_gui.py:332
+#: ../iw/lvm_dialog_gui.py:361
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "Logisches Volumen bearbeiten: %s"
 
-#: ../iw/lvm_dialog_gui.py:334
+#: ../iw/lvm_dialog_gui.py:363
 msgid "Edit Logical Volume"
 msgstr "Logisches Volumen bearbeiten"
 
-#: ../iw/lvm_dialog_gui.py:347 ../iw/partition_dialog_gui.py:281
+#: ../iw/lvm_dialog_gui.py:376 ../iw/partition_dialog_gui.py:281
 #: ../iw/raid_dialog_gui.py:294
 msgid "_Mount Point:"
 msgstr "_Mount-Point:"
 
-#: ../iw/lvm_dialog_gui.py:355
+#: ../iw/lvm_dialog_gui.py:384
 msgid "_File System Type:"
 msgstr "_Dateisystemtyp:"
 
-#: ../iw/lvm_dialog_gui.py:363 ../iw/partition_dialog_gui.py:299
+#: ../iw/lvm_dialog_gui.py:392 ../iw/partition_dialog_gui.py:299
 msgid "Original File System Type:"
 msgstr "Originaler Dateisystemtyp:"
 
-#: ../iw/lvm_dialog_gui.py:368 ../iw/partition_dialog_gui.py:310
+#: ../iw/lvm_dialog_gui.py:397 ../iw/partition_dialog_gui.py:310
 #: ../iw/raid_dialog_gui.py:315
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: ../iw/lvm_dialog_gui.py:374
+#: ../iw/lvm_dialog_gui.py:403
 msgid "_Logical Volume Name:"
 msgstr "Name des _logischen Volumens:"
 
-#: ../iw/lvm_dialog_gui.py:382
+#: ../iw/lvm_dialog_gui.py:411
 msgid "Logical Volume Name:"
 msgstr "Name des logischen Volumens:"
 
-#: ../iw/lvm_dialog_gui.py:390 ../iw/partition_dialog_gui.py:356
+#: ../iw/lvm_dialog_gui.py:419 ../iw/partition_dialog_gui.py:356
 msgid "_Size (MB):"
 msgstr "Grö_ße (MB):"
 
-#: ../iw/lvm_dialog_gui.py:396 ../iw/partition_dialog_gui.py:373
-#: ../iw/partition_dialog_gui.py:416 ../textw/partition_text.py:317
-#: ../textw/partition_text.py:400 ../textw/partition_text.py:487
+#: ../iw/lvm_dialog_gui.py:425 ../iw/partition_dialog_gui.py:373
+#: ../iw/partition_dialog_gui.py:416 ../textw/partition_text.py:332
+#: ../textw/partition_text.py:415 ../textw/partition_text.py:502
 msgid "Size (MB):"
 msgstr "Größe (MB):"
 
-#: ../iw/lvm_dialog_gui.py:408
+#: ../iw/lvm_dialog_gui.py:440
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(Max Größe: %s MB)"
 
-#: ../iw/lvm_dialog_gui.py:469
+#: ../iw/lvm_dialog_gui.py:501
 msgid "Illegal size"
 msgstr "Ungültige Größe"
 
-#: ../iw/lvm_dialog_gui.py:470
+#: ../iw/lvm_dialog_gui.py:502
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr ""
 "Die erforderliche Größe ist, wie eingegeben, keine gültige Zahl größer als 0."
 
-#: ../iw/lvm_dialog_gui.py:503
+#: ../iw/lvm_dialog_gui.py:535
 msgid "Mount point in use"
 msgstr "Mount-Point in Gebrauch"
 
-#: ../iw/lvm_dialog_gui.py:504
+#: ../iw/lvm_dialog_gui.py:536
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
 msgstr ""
 "Der Mount-Point \"%s\" wird bereits verwendet. Wählen Sie einen anderen "
 "Mount-Point."
 
-#: ../iw/lvm_dialog_gui.py:515
+#: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
 msgstr "Ungültiger Name des logischen Volumens"
 
-#: ../iw/lvm_dialog_gui.py:534
+#: ../iw/lvm_dialog_gui.py:566
 msgid "Illegal logical volume name"
 msgstr "Ungültiger Name des logischen Volumens"
 
-#: ../iw/lvm_dialog_gui.py:535
+#: ../iw/lvm_dialog_gui.py:567
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Der Name des logischen Volumens \"%s\" wird bereits verwendet. Wählen Sie "
 "einen anderen Namen."
 
-#: ../iw/lvm_dialog_gui.py:549
+#: ../iw/lvm_dialog_gui.py:581
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -2976,14 +2991,14 @@ msgstr ""
 "Größe des logischen Volumens (%10.2f MB). Um diesen Grenzwert zu erhöhen, "
 "können Sie die Größe der physischen Größe für diese Volumengruppe erhöhen."
 
-#: ../iw/lvm_dialog_gui.py:573 ../iw/partition_dialog_gui.py:169
+#: ../iw/lvm_dialog_gui.py:605 ../iw/partition_dialog_gui.py:169
 #: ../iw/partition_dialog_gui.py:181 ../iw/partition_dialog_gui.py:229
-#: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:816
-#: ../textw/partition_text.py:838 ../textw/partition_text.py:1009
+#: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:831
+#: ../textw/partition_text.py:853 ../textw/partition_text.py:1024
 msgid "Error With Request"
 msgstr "Fehler mit Anfrage"
 
-#: ../iw/lvm_dialog_gui.py:597 ../iw/lvm_dialog_gui.py:791
+#: ../iw/lvm_dialog_gui.py:629 ../iw/lvm_dialog_gui.py:824
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -2994,21 +3009,21 @@ msgstr ""
 "Volumengruppe besitzt jedoch nur %g MB. Vergrößern Sie die Volumengruppe "
 "oder verkleinern Sie das/dielogische/n Volumen."
 
-#: ../iw/lvm_dialog_gui.py:647
+#: ../iw/lvm_dialog_gui.py:679
 msgid "No free slots"
 msgstr "Keine freien Steckplätze"
 
-#: ../iw/lvm_dialog_gui.py:648
+#: ../iw/lvm_dialog_gui.py:680
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
 "Sie können nicht mehr als %s logische Volumen pro Volumengruppe anlegen."
 
-#: ../iw/lvm_dialog_gui.py:654
+#: ../iw/lvm_dialog_gui.py:686
 msgid "No free space"
 msgstr "Kein freier Platz"
 
-#: ../iw/lvm_dialog_gui.py:655
+#: ../iw/lvm_dialog_gui.py:687
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
@@ -3019,31 +3034,31 @@ msgstr ""
 "Größe von einem oder mehreren der derzeit existierenden logischen Volumen "
 "reduzieren."
 
-#: ../iw/lvm_dialog_gui.py:683
+#: ../iw/lvm_dialog_gui.py:715
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "Möchten Sie das logische Volumen \"%s\" wirklich löschen?"
 
-#: ../iw/lvm_dialog_gui.py:802
+#: ../iw/lvm_dialog_gui.py:835
 msgid "Invalid Volume Group Name"
 msgstr "Ungültiger Volumengruppen-Name"
 
-#: ../iw/lvm_dialog_gui.py:815
+#: ../iw/lvm_dialog_gui.py:848
 msgid "Name in use"
 msgstr "Name in Gebrauch"
 
-#: ../iw/lvm_dialog_gui.py:816
+#: ../iw/lvm_dialog_gui.py:849
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Der Volumengruppen-Name \"%s\" wird bereits verwendet. Wählen Sie einen "
 "anderen Namen."
 
-#: ../iw/lvm_dialog_gui.py:860
+#: ../iw/lvm_dialog_gui.py:893
 msgid "Not enough physical volumes"
 msgstr "Nicht genügend physische Volumen"
 
-#: ../iw/lvm_dialog_gui.py:861
+#: ../iw/lvm_dialog_gui.py:894
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3057,60 +3072,60 @@ msgstr ""
 "Legen Sie zunächst eine Partition oder Raid-Array des Typs \"physisches "
 "Volumen (LVM)\" an und wählen Sie anschließend erneut die Option \"LVM\"."
 
-#: ../iw/lvm_dialog_gui.py:872
+#: ../iw/lvm_dialog_gui.py:905
 msgid "Make LVM Volume Group"
 msgstr "LVM Volumengruppe erstellen"
 
-#: ../iw/lvm_dialog_gui.py:875
+#: ../iw/lvm_dialog_gui.py:908
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "LVM Volumengruppe bearbeiten: %s"
 
-#: ../iw/lvm_dialog_gui.py:877
+#: ../iw/lvm_dialog_gui.py:910
 msgid "Edit LVM Volume Group"
 msgstr "LVM Volumengruppe bearbeiten"
 
-#: ../iw/lvm_dialog_gui.py:893
+#: ../iw/lvm_dialog_gui.py:926
 msgid "_Volume Group Name:"
 msgstr "_Volumengruppen-Name"
 
-#: ../iw/lvm_dialog_gui.py:901
+#: ../iw/lvm_dialog_gui.py:934
 msgid "Volume Group Name:"
 msgstr "Volumengruppen-Name"
 
-#: ../iw/lvm_dialog_gui.py:910
+#: ../iw/lvm_dialog_gui.py:943
 msgid "_Physical Extent:"
 msgstr "_Physische Größe"
 
-#: ../iw/lvm_dialog_gui.py:917
+#: ../iw/lvm_dialog_gui.py:950
 msgid "Physical Extent:"
 msgstr "Physische Größe"
 
-#: ../iw/lvm_dialog_gui.py:930
+#: ../iw/lvm_dialog_gui.py:963
 msgid "Physical Volumes to _Use:"
 msgstr "Zu verwendender physischer _Umfang"
 
-#: ../iw/lvm_dialog_gui.py:936
+#: ../iw/lvm_dialog_gui.py:969
 msgid "Used Space:"
 msgstr "Verwendeter Platz:"
 
-#: ../iw/lvm_dialog_gui.py:953
+#: ../iw/lvm_dialog_gui.py:986
 msgid "Free Space:"
 msgstr "Freier Platz:"
 
-#: ../iw/lvm_dialog_gui.py:971
+#: ../iw/lvm_dialog_gui.py:1004
 msgid "Total Space:"
 msgstr "Gesamter Platz: "
 
-#: ../iw/lvm_dialog_gui.py:1000
+#: ../iw/lvm_dialog_gui.py:1033
 msgid "Logical Volume Name"
 msgstr "Name des logischen Volumens"
 
-#: ../iw/lvm_dialog_gui.py:1006 ../iw/partition_gui.py:352
+#: ../iw/lvm_dialog_gui.py:1039 ../iw/partition_gui.py:353
 msgid "Size (MB)"
 msgstr "Größe (MB)"
 
-#: ../iw/lvm_dialog_gui.py:1037
+#: ../iw/lvm_dialog_gui.py:1070
 msgid "Logical Volumes"
 msgstr "Logische Volumen"
 
@@ -3290,9 +3305,9 @@ msgid "Active on Boot"
 msgstr "Beim Starten aktiv"
 
 #: ../iw/network_gui.py:396 ../iw/osbootwidget.py:65
-#: ../iw/partition_gui.py:346 ../iw/silo_gui.py:263
+#: ../iw/partition_gui.py:347 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:206 ../textw/bootloader_text.py:277
-#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1099
+#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1114
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Gerät"
@@ -3521,7 +3536,7 @@ msgstr "Bis zur m_aximal erlaubten Größe ausfüllen"
 msgid "The end cylinder must be greater than the start cylinder."
 msgstr "Der End-Zylinder muss größer sein als der Start-Zylinder."
 
-#: ../iw/partition_dialog_gui.py:258 ../textw/partition_text.py:629
+#: ../iw/partition_dialog_gui.py:258 ../textw/partition_text.py:644
 msgid "Add Partition"
 msgstr "Partition hinzufügen"
 
@@ -3566,24 +3581,24 @@ msgstr "Verwendung als _primäre Partition erzwingen."
 msgid "Check for _bad blocks"
 msgstr "Auf defekte _Blöcke überprüfen."
 
-#: ../iw/partition_gui.py:348 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
-#: ../textw/partition_text.py:1099
+#: ../iw/partition_gui.py:349 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../textw/partition_text.py:1114
 msgid "Type"
 msgstr "Typ"
 
-#: ../iw/partition_gui.py:351
+#: ../iw/partition_gui.py:352
 msgid "Format"
 msgstr "Formatieren"
 
-#: ../iw/partition_gui.py:353 ../textw/partition_text.py:1099
+#: ../iw/partition_gui.py:354 ../textw/partition_text.py:1114
 msgid "Start"
 msgstr "Start"
 
-#: ../iw/partition_gui.py:354 ../textw/partition_text.py:1099
+#: ../iw/partition_gui.py:355 ../textw/partition_text.py:1114
 msgid "End"
 msgstr "Ende"
 
-#: ../iw/partition_gui.py:391
+#: ../iw/partition_gui.py:392
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
@@ -3591,7 +3606,7 @@ msgstr ""
 "Mount-Point/\n"
 "RAID/Volumen"
 
-#: ../iw/partition_gui.py:393
+#: ../iw/partition_gui.py:394
 msgid ""
 "Size\n"
 "(MB)"
@@ -3599,18 +3614,18 @@ msgstr ""
 "Größe\n"
 "(MB)"
 
-#: ../iw/partition_gui.py:520 ../textw/partition_text.py:1093
+#: ../iw/partition_gui.py:533 ../textw/partition_text.py:1108
 msgid "Partitioning"
 msgstr "Partitionieren"
 
-#: ../iw/partition_gui.py:612
+#: ../iw/partition_gui.py:625
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "Die folgenden kritischen Fehler bestehen mit dem geforderten "
 "Partitionsschema."
 
-#: ../iw/partition_gui.py:615
+#: ../iw/partition_gui.py:628
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
@@ -3618,101 +3633,101 @@ msgstr ""
 "Diese Fehler müssen korrigiert werden, bevor Sie mit der Installation von %s "
 "fortfahren."
 
-#: ../iw/partition_gui.py:621
+#: ../iw/partition_gui.py:634
 msgid "Partitioning Errors"
 msgstr "Partitionierfehler"
 
-#: ../iw/partition_gui.py:627
+#: ../iw/partition_gui.py:640
 msgid "The following warnings exist with your requested partition scheme."
 msgstr ""
 "Die folgenden Warnungen wurden für das geforderte\n"
 "Partitionsschema ausgegeben."
 
-#: ../iw/partition_gui.py:629
+#: ../iw/partition_gui.py:642
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "Möchten Sie mit dem geforderten Partitionsschema fortfahren?"
 
-#: ../iw/partition_gui.py:634
+#: ../iw/partition_gui.py:647
 msgid "Partitioning Warnings"
 msgstr "Partitionierungswarnungen"
 
-#: ../iw/partition_gui.py:656
+#: ../iw/partition_gui.py:669
 msgid "Format Warnings"
 msgstr "Formatierwarnungen"
 
-#: ../iw/partition_gui.py:661
+#: ../iw/partition_gui.py:674
 msgid "_Format"
 msgstr "_Formatieren"
 
-#: ../iw/partition_gui.py:696
+#: ../iw/partition_gui.py:709
 msgid "LVM Volume Groups"
 msgstr "LVM Volumengruppen"
 
-#: ../iw/partition_gui.py:731
+#: ../iw/partition_gui.py:744
 msgid "RAID Devices"
 msgstr "RAID-Geräte"
 
-#: ../iw/partition_gui.py:759 ../iw/partition_gui.py:876
+#: ../iw/partition_gui.py:772 ../iw/partition_gui.py:889
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:151
 msgid "None"
 msgstr "Keine"
 
-#: ../iw/partition_gui.py:777 ../loader/loader.c:1055
+#: ../iw/partition_gui.py:790 ../loader/loader.c:1055
 msgid "Hard Drives"
 msgstr "Festplatten"
 
-#: ../iw/partition_gui.py:839 ../textw/partition_text.py:133
+#: ../iw/partition_gui.py:852 ../textw/partition_text.py:133
 #: ../textw/partition_text.py:172
 msgid "Free space"
 msgstr "Freier Platz"
 
-#: ../iw/partition_gui.py:841 ../textw/partition_text.py:135
+#: ../iw/partition_gui.py:854 ../textw/partition_text.py:135
 msgid "Extended"
 msgstr "Erweitert"
 
-#: ../iw/partition_gui.py:843 ../textw/partition_text.py:137
+#: ../iw/partition_gui.py:856 ../textw/partition_text.py:137
 msgid "software RAID"
 msgstr "Software RAID"
 
-#: ../iw/partition_gui.py:878
+#: ../iw/partition_gui.py:891
 msgid "Free"
 msgstr "Frei"
 
-#: ../iw/partition_gui.py:952 ../textw/partition_text.py:199
+#: ../iw/partition_gui.py:981 ../textw/partition_text.py:214
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Geforderte Partitionen konnten nicht zugewiesen werden: %s."
 
-#: ../iw/partition_gui.py:961
+#: ../iw/partition_gui.py:990
 #, python-format
 msgid "Warning: %s."
 msgstr "Warnung: %s."
 
-#: ../iw/partition_gui.py:963
+#: ../iw/partition_gui.py:992
 msgid "_Modify Partition"
 msgstr "_Partition ändern"
 
-#: ../iw/partition_gui.py:965
+#: ../iw/partition_gui.py:994
 msgid "_Continue"
 msgstr "_Weiter"
 
-#: ../iw/partition_gui.py:1140 ../iw/partition_gui.py:1154
+#: ../iw/partition_gui.py:1169 ../iw/partition_gui.py:1183
 msgid "Not supported"
 msgstr "Nicht unterstützt"
 
-#: ../iw/partition_gui.py:1141
+#: ../iw/partition_gui.py:1170
 msgid "LVM is NOT supported on this platform."
 msgstr "LVM wird auf dieser Plattform NICHT unterstützt."
 
-#: ../iw/partition_gui.py:1155
+#: ../iw/partition_gui.py:1184
 msgid "Software RAID is NOT supported on this platform."
 msgstr "Software RAID wird auf dieser Plattform NICHT unterstützt."
 
-#: ../iw/partition_gui.py:1162
+#: ../iw/partition_gui.py:1191
 msgid "No RAID minor device numbers available"
 msgstr "Keine RAID Minor-Nummern verfügbar."
 
-#: ../iw/partition_gui.py:1163
+#: ../iw/partition_gui.py:1192
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
@@ -3720,11 +3735,11 @@ msgstr ""
 "Es kann kein Software-RAID-Gerät angelegt werden, da alle verfügbaren Minor-"
 "Nummern bereits verwendet werden."
 
-#: ../iw/partition_gui.py:1177
+#: ../iw/partition_gui.py:1206
 msgid "RAID Options"
 msgstr "RAID-Optionen"
 
-#: ../iw/partition_gui.py:1188
+#: ../iw/partition_gui.py:1217
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3744,7 +3759,7 @@ msgstr ""
 "Derzeit stehen Ihnen %s Software RAID Partitionen zur Verfügung.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1199
+#: ../iw/partition_gui.py:1228
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3756,88 +3771,88 @@ msgstr ""
 "formatiert und gemountet werden kann.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1205
+#: ../iw/partition_gui.py:1234
 msgid "What do you want to do now?"
 msgstr "Was möchten Sie nun tun?"
 
-#: ../iw/partition_gui.py:1214
+#: ../iw/partition_gui.py:1243
 msgid "Create a software RAID _partition."
 msgstr "Software RAID _Partition anlegen."
 
-#: ../iw/partition_gui.py:1217
+#: ../iw/partition_gui.py:1246
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "RAID _Gerät anlegen [Standard=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1221
+#: ../iw/partition_gui.py:1250
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr "_Festplatte klonen, um ein RAID-Gerät anzulegen [Standard=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1260
+#: ../iw/partition_gui.py:1289
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "Festplatten-Kloneditor konnte nicht angelegt werden."
 
-#: ../iw/partition_gui.py:1261
+#: ../iw/partition_gui.py:1290
 msgid "The drive clone editor could not be created for some reason."
 msgstr "Der Festplatten-Kloneditor konnte nicht angelegt werden."
 
-#: ../iw/partition_gui.py:1308
+#: ../iw/partition_gui.py:1337
 msgid "_Reset"
 msgstr "_Zurücksetzen"
 
-#: ../iw/partition_gui.py:1309
+#: ../iw/partition_gui.py:1338
 msgid "Make _RAID"
 msgstr "_RAID erstellen"
 
-#: ../iw/partition_gui.py:1311
+#: ../iw/partition_gui.py:1340
 msgid "Ne_w"
 msgstr "Ne_u"
 
-#: ../iw/partition_gui.py:1314
+#: ../iw/partition_gui.py:1343
 msgid "Re_set"
 msgstr "Wiederher_stellen"
 
-#: ../iw/partition_gui.py:1315
+#: ../iw/partition_gui.py:1344
 msgid "R_AID"
 msgstr "R_AID"
 
-#: ../iw/partition_gui.py:1316
+#: ../iw/partition_gui.py:1345
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1355
+#: ../iw/partition_gui.py:1384
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "RAID-Gerät/LVM Volumen Gruppen-Member ausblenden"
 
-#: ../iw/partition_gui.py:1370 ../textw/partition_text.py:1190
+#: ../iw/partition_gui.py:1399 ../textw/partition_text.py:1205
 msgid "Automatic Partitioning"
 msgstr "Automatisches Partitionieren"
 
-#: ../iw/partition_gui.py:1398
+#: ../iw/partition_gui.py:1427
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr ""
 "Sie müssen mindestens eine Festplatte auswählen, auf der %s installiert wird."
 
-#: ../iw/partition_gui.py:1440
+#: ../iw/partition_gui.py:1469
 msgid "I want to have automatic partitioning:"
 msgstr "Ich möchte eine automatische Partitionierung:"
 
-#: ../iw/partition_gui.py:1471
+#: ../iw/partition_gui.py:1500
 msgid "Select the drive(s) to use for this installation:"
 msgstr ""
 "Wählen Sie die Festplatte/n, die für die Installation verwendet werden "
 "sollen:"
 
-#: ../iw/partition_gui.py:1495
+#: ../iw/partition_gui.py:1524
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr "Angelegte Partitionen _prüfen (und ändern, wenn erforderlich)."
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
-#: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:221
-#: ../textw/partition_text.py:223 ../textw/partition_text.py:225
-#: ../textw/partition_text.py:250
+#: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:236
+#: ../textw/partition_text.py:238 ../textw/partition_text.py:240
+#: ../textw/partition_text.py:265
 msgid "<Not Applicable>"
 msgstr "<Nicht Anwendbar>"
 
@@ -3947,7 +3962,7 @@ msgstr ""
 "wählenSie anschließend erneut die \"RAID\" Option."
 
 #: ../iw/raid_dialog_gui.py:275 ../iw/raid_dialog_gui.py:680
-#: ../textw/partition_text.py:874
+#: ../textw/partition_text.py:889
 msgid "Make RAID Device"
 msgstr "RAID-Gerät erstellen"
 
@@ -3956,7 +3971,7 @@ msgstr "RAID-Gerät erstellen"
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "RAID-Gerät bearbeiten: /dev/md%s"
 
-#: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:872
+#: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:887
 msgid "Edit RAID Device"
 msgstr "RAID-Gerät bearbeiten"
 
@@ -4684,7 +4699,7 @@ msgid "Boot label contains illegal characters."
 msgstr "Bootkennung enthält ungültige Zeichen."
 
 #: ../textw/bootloader_text.py:293 ../textw/fdisk_text.py:41
-#: ../textw/partition_text.py:1104 ../textw/partition_text.py:1111
+#: ../textw/partition_text.py:1119 ../textw/partition_text.py:1126
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:225
 msgid "Edit"
@@ -5204,214 +5219,214 @@ msgstr "Der eingegebene Wert ist zu groß"
 msgid "RAID Device %s"
 msgstr "RAID-Gerät %s"
 
-#: ../textw/partition_text.py:202
+#: ../textw/partition_text.py:217
 #, python-format
 msgid "Warning: %s"
 msgstr "Warnung: %s"
 
-#: ../textw/partition_text.py:203
+#: ../textw/partition_text.py:218
 msgid "Modify Partition"
 msgstr "Partition modifizieren"
 
-#: ../textw/partition_text.py:203
+#: ../textw/partition_text.py:218
 msgid "Add anyway"
 msgstr "Trotzdem hinzufügen"
 
-#: ../textw/partition_text.py:240
+#: ../textw/partition_text.py:255
 msgid "Mount Point:"
 msgstr "Mount-Point:"
 
-#: ../textw/partition_text.py:261
+#: ../textw/partition_text.py:276
 msgid "File System type:"
 msgstr "Dateisystemtyp:"
 
-#: ../textw/partition_text.py:295
+#: ../textw/partition_text.py:310
 msgid "Allowable Drives:"
 msgstr "Verfügbare Festplatten:"
 
-#: ../textw/partition_text.py:351
+#: ../textw/partition_text.py:366
 msgid "Fixed Size:"
 msgstr "Feste Größe:"
 
-#: ../textw/partition_text.py:353
+#: ../textw/partition_text.py:368
 msgid "Fill maximum size of (MB):"
 msgstr "Größe maximal ausfüllen bis (MB):"
 
-#: ../textw/partition_text.py:357
+#: ../textw/partition_text.py:372
 msgid "Fill all available space:"
 msgstr "Den gesamten verfügbaren Platz ausfüllen:"
 
-#: ../textw/partition_text.py:380
+#: ../textw/partition_text.py:395
 msgid "Start Cylinder:"
 msgstr "Zylinderanfang:"
 
-#: ../textw/partition_text.py:393
+#: ../textw/partition_text.py:408
 msgid "End Cylinder:"
 msgstr "Zylinderende:"
 
-#: ../textw/partition_text.py:417
+#: ../textw/partition_text.py:432
 msgid "RAID Level:"
 msgstr "RAID-Level:"
 
-#: ../textw/partition_text.py:435
+#: ../textw/partition_text.py:450
 msgid "RAID Members:"
 msgstr "RAID-Members:"
 
-#: ../textw/partition_text.py:454
+#: ../textw/partition_text.py:469
 msgid "Number of spares?"
 msgstr "Anzahl der Spare-Geräte?"
 
-#: ../textw/partition_text.py:468
+#: ../textw/partition_text.py:483
 msgid "File System Type:"
 msgstr "Dateisystemtyp:"
 
-#: ../textw/partition_text.py:481
+#: ../textw/partition_text.py:496
 msgid "File System Label:"
 msgstr "Dateisystemkennung:"
 
-#: ../textw/partition_text.py:492
+#: ../textw/partition_text.py:507
 msgid "File System Option:"
 msgstr "Dateisystem-Option:"
 
-#: ../textw/partition_text.py:495 ../textw/partition_text.py:728
-#: ../textw/partition_text.py:956
+#: ../textw/partition_text.py:510 ../textw/partition_text.py:743
+#: ../textw/partition_text.py:971
 #, python-format
 msgid "Format as %s"
 msgstr "Als %s formatieren"
 
-#: ../textw/partition_text.py:497 ../textw/partition_text.py:730
-#: ../textw/partition_text.py:958
+#: ../textw/partition_text.py:512 ../textw/partition_text.py:745
+#: ../textw/partition_text.py:973
 #, python-format
 msgid "Migrate to %s"
 msgstr "Auf %s migrieren"
 
-#: ../textw/partition_text.py:499 ../textw/partition_text.py:732
-#: ../textw/partition_text.py:960
+#: ../textw/partition_text.py:514 ../textw/partition_text.py:747
+#: ../textw/partition_text.py:975
 msgid "Leave unchanged"
 msgstr "Unverändert lassen"
 
-#: ../textw/partition_text.py:515 ../textw/partition_text.py:704
-#: ../textw/partition_text.py:936
+#: ../textw/partition_text.py:530 ../textw/partition_text.py:719
+#: ../textw/partition_text.py:951
 msgid "File System Options"
 msgstr "Dateisystem-Optionen"
 
-#: ../textw/partition_text.py:518
+#: ../textw/partition_text.py:533
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
 msgstr ""
 "Wählen Sie aus, wie Sie das Dateisystem auf dieser Partition anlegen möchten."
 
-#: ../textw/partition_text.py:526 ../textw/partition_text.py:674
+#: ../textw/partition_text.py:541 ../textw/partition_text.py:689
 msgid "Check for bad blocks"
 msgstr "Auf defekte Blöcke überprüfen"
 
-#: ../textw/partition_text.py:530
+#: ../textw/partition_text.py:545
 msgid "Leave unchanged (preserve data)"
 msgstr "Bleibt unverändert (Datenerhalt)"
 
-#: ../textw/partition_text.py:539
+#: ../textw/partition_text.py:554
 msgid "Format as:"
 msgstr "Formatieren als:"
 
-#: ../textw/partition_text.py:559
+#: ../textw/partition_text.py:574
 msgid "Migrate to:"
 msgstr "Migrieren auf:"
 
-#: ../textw/partition_text.py:671
+#: ../textw/partition_text.py:686
 msgid "Force to be a primary partition"
 msgstr "Als primäre Partition forcieren"
 
-#: ../textw/partition_text.py:682
+#: ../textw/partition_text.py:697
 msgid "Not Supported"
 msgstr "Nicht unterstützt"
 
-#: ../textw/partition_text.py:683
+#: ../textw/partition_text.py:698
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr ""
 "LVM Volumengruppen können nur im grafischen Installer bearbeitet werden."
 
-#: ../textw/partition_text.py:757 ../textw/partition_text.py:806
+#: ../textw/partition_text.py:772 ../textw/partition_text.py:821
 msgid "Invalid Entry for Partition Size"
 msgstr "Ungültige Angaben für Partitionsgröße"
 
-#: ../textw/partition_text.py:769
+#: ../textw/partition_text.py:784
 msgid "Invalid Entry for Maximum Size"
 msgstr "Eingegebener Wert für maximale Größe nicht gültig"
 
-#: ../textw/partition_text.py:788
+#: ../textw/partition_text.py:803
 msgid "Invalid Entry for Starting Cylinder"
 msgstr "Ungültige Angaben für den Zylinderstart"
 
-#: ../textw/partition_text.py:798
+#: ../textw/partition_text.py:813
 msgid "Invalid Entry for End Cylinder"
 msgstr "Ungültige Angaben zum Beenden des Zylinders"
 
-#: ../textw/partition_text.py:909
+#: ../textw/partition_text.py:924
 msgid "No RAID partitions"
 msgstr "Keine RAID-Partitionen"
 
-#: ../textw/partition_text.py:910
+#: ../textw/partition_text.py:925
 msgid "At least two software RAID partitions are needed."
 msgstr "Mindestens zwei Software-RAID-Partitionen sind erforderlich."
 
-#: ../textw/partition_text.py:922
+#: ../textw/partition_text.py:937
 msgid "Format partition?"
 msgstr "Partition formatieren?"
 
-#: ../textw/partition_text.py:984
+#: ../textw/partition_text.py:999
 msgid "Invalid Entry for RAID Spares"
 msgstr "Ungültige Eingaben für RAID Spares"
 
-#: ../textw/partition_text.py:997
+#: ../textw/partition_text.py:1012
 msgid "Too many spares"
 msgstr "Zu viele Spare-Geräte"
 
-#: ../textw/partition_text.py:998
+#: ../textw/partition_text.py:1013
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Die maximale Anzahl von Spare-Geräten bei RAID0 ist 0."
 
-#: ../textw/partition_text.py:1052
+#: ../textw/partition_text.py:1067
 msgid "You must go back and use fdasd to initialize this partition"
 msgstr ""
 "Sie müssen zurückkehren und fdasd verwenden, um diese Partition zu "
 "initialisieren."
 
-#: ../textw/partition_text.py:1105 ../textw/partition_text.py:1112
+#: ../textw/partition_text.py:1120 ../textw/partition_text.py:1127
 #: ../textw/userauth_text.py:224
 msgid "Delete"
 msgstr "Löschen"
 
-#: ../textw/partition_text.py:1106 ../textw/partition_text.py:1113
+#: ../textw/partition_text.py:1121 ../textw/partition_text.py:1128
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:1108
+#: ../textw/partition_text.py:1123
 msgid ""
 "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Hilfe                 F3-Bearbeiten   F4-Löschen    F5-"
 "Wiederherstellen    F12-OK        "
 
-#: ../textw/partition_text.py:1110
+#: ../textw/partition_text.py:1125
 msgid "New"
 msgstr "Neu"
 
-#: ../textw/partition_text.py:1116
+#: ../textw/partition_text.py:1131
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 " F1-Hilfe     F2-Neu     F3-Bearbeiten   F4-Löschen   F5-Zurücksetzen  F12-OK"
 
-#: ../textw/partition_text.py:1145
+#: ../textw/partition_text.py:1160
 msgid "No Root Partition"
 msgstr "Keine Root-Partition"
 
-#: ../textw/partition_text.py:1146
+#: ../textw/partition_text.py:1161
 msgid "Must have a / partition to install on."
 msgstr "Sie müssen eine / Partition haben, auf der Sie installieren können."
 
-#: ../textw/partition_text.py:1213
+#: ../textw/partition_text.py:1228
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Welche Festplatte/n möchten Sie für diese Installation verwenden?"
 
@@ -6081,10 +6096,6 @@ msgstr "Über welchen CD-ROM-Laufwerkstyp verfügen Sie?"
 #: ../loader/cdrom.c:88
 msgid "Initializing CDROM..."
 msgstr "CD-ROM-Laufwerk wird initialisiert..."
-
-#: ../loader/devices.c:79
-msgid "Miscellaneous"
-msgstr "Verschiedenes"
 
 #: ../loader/devices.c:88
 msgid ""
