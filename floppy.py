@@ -59,6 +59,10 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath):
     try:
 	fd = os.open(file, os.O_RDONLY)
     except:
+        intf.messageWindow( _("Error"),
+		    _("An error occured while making the boot disk. "
+		      "Please make sure that there is a formatted floppy "
+		      "in the first floppy drive."))
 	return DISPATCH_BACK
     os.close(fd)
 
@@ -78,5 +82,9 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath):
     w.pop()
 
     if rc:
+        intf.messageWindow( _("Error"),
+		    _("An error occured while making the boot disk. "
+		      "Please make sure that there is a formatted floppy "
+		      "in the first floppy drive."))
 	return DISPATCH_BACK
 

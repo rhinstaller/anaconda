@@ -71,24 +71,20 @@ class MakeBootDiskWindow:
 	if disp.stepInSkipList("makebootdisk"):
 	    return INSTALL_NOOP
 
-	if dir == DISPATCH_FORWARD:
-            text = _("The boot disk allows you to boot "
-                     "your Red Hat Linux system from a "
-                     "floppy diskette.\n\n"
-                     "Please remove any diskettes from the "
-                     "floppy drive and insert a blank "
-                     "diskette. All data will be ERASED "
-                     "during creation of the boot disk.")
-            if fsset.rootOnLoop():
-                text = text + _("\n\nA boot disk is REQUIRED to boot a "
-                                "partitionless install.")
-	    rc = ButtonChoiceWindow (screen, _("Boot Disk"),
-                                     text, buttons, help = "insertbootdisk")
-	else:
-	    rc = ButtonChoiceWindow (screen, _("Error"),
-		    _("An error occured while making the boot disk. "
-		      "Please make sure that there is a formatted floppy "
-		      "in the first floppy drive."), buttons)
+        text = _("The boot disk allows you to boot "
+                 "your Red Hat Linux system from a "
+                 "floppy diskette.\n\n"
+                 "Please remove any diskettes from the "
+                 "floppy drive and insert a blank "
+                 "diskette. All data will be ERASED "
+                 "during creation of the boot disk.")
+
+        if fsset.rootOnLoop():
+            text = text + _("\n\nA boot disk is REQUIRED to boot a "
+                            "partitionless install.")
+
+        rc = ButtonChoiceWindow (screen, _("Boot Disk"),
+                                 text, buttons, help = "insertbootdisk")
 
         if rc == string.lower (_("Skip")):
 	    disp.skipStep("makebootdisk")
