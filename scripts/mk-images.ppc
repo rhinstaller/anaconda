@@ -27,7 +27,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $USBMODULES $ISOMODULES"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $USBMODS $ISOMODULES"
 
 	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
 	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
@@ -69,7 +69,7 @@ EOF
 	makeinitrd --initrdto $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODS $USBMODULES $ISOMODULES $ISERIESMODULES"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODS $USBMODS $ISOMODULES $ISERIESMODULES"
 
 	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/iSeries/vmlinux
 	cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
@@ -84,7 +84,7 @@ EOF
     # makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.image.gz \
     #            --initrdsize 8192 \
     #            --loaderbin loader \
-    #            --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODS $USBMODULES $ISOMODULES"
+    #            --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODS $USBMODS $ISOMODULES"
     fi
 }
 
