@@ -10,9 +10,9 @@ def pcmciaPcicType(test = 0):
 
     result = iutil.execWithCapture(loc, [ loc ])
 
-    if (not string.find("result", "TCIC-2 probe: not found")):
+    if (string.find(result, "TCIC-2 probe: not found") != -1):
 	return None
-    elif (not string.find("result", "TCIC-2")):
+    elif (string.find(result, "TCIC-2") != -1):
 	return "tcic"
 
     return "i82365"
