@@ -398,10 +398,8 @@ class WaitWindow:
         box.set_border_width(10)
         box.add(label)
         box.set_shadow_type(gtk.SHADOW_NONE)
-        frame = gtk.Frame ()
-        frame.set_shadow_type(gtk.SHADOW_OUT)
-        frame.add (box)
-	self.window.add(frame)
+        self.window.add(box)
+        addFrame(self.window)
 	self.window.show_all()
         rootPushBusyCursor()
             
@@ -425,11 +423,8 @@ class ProgressWindow:
         self.total = total
 	self.progress = gtk.ProgressBar ()
         box.pack_start (self.progress, gtk.TRUE)
-        
-        frame = gtk.Frame ()
-        frame.set_shadow_type (gtk.SHADOW_OUT)
-        frame.add (box)
-	self.window.add (frame)
+
+        addFrame(self.window)
 	self.window.show_all ()
         rootPushBusyCursor()
 
