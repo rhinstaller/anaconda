@@ -80,7 +80,7 @@ class UsersWindow:
                        'mailnull', 'rpm', 'ident', 'rpc', 'rpcuser', 'radvd', 'xfs', 'gdm', 'apache',
                        'squid']
 
-        userid = Entry (8, user["id"], scroll=0)
+        username = Entry (8, user["id"], scroll=0)
         currentid = user["id"]
         pass1 = Entry (10, user["password"], password = 1)
         pass2 = Entry (10, user["password"], password = 1)
@@ -88,7 +88,7 @@ class UsersWindow:
 
         if flags.reconfig:
             flag = FLAGS_SET
-            userid.setFlags(FLAG_DISABLED, flag)
+            username.setFlags(FLAG_DISABLED, flag)
             pass1.setFlags(FLAG_DISABLED, flag)
             pass2.setFlags(FLAG_DISABLED, flag)
             fullname.setFlags(FLAG_DISABLED, flag)
@@ -102,7 +102,7 @@ class UsersWindow:
 
         while 1:
             (rc, ent) = EntryWindow (self.screen, title, text,
-			 [ (_("User ID"), userid),
+			 [ (_("User Name"), username),
 			   (_("Password"), pass1),
 			   (_("Password (confirm)"), pass2),
 			   (_("Full Name"), fullname) ],
@@ -113,20 +113,20 @@ class UsersWindow:
                 return INSTALL_BACK
             
 	    if not len(pass1.value()) and not len(pass2.value()) and \
-	       not len(userid.value()) and not len(fullname.value()):
+	       not len(username.value()) and not len(fullname.value()):
                 return INSTALL_OK
 
-            if (not len(userid.value()) or not iutil.validUser(userid.value())):
-		ButtonChoiceWindow(self.screen, _("Bad User ID"),
-                                   _("User IDs must be less than 8 "
+            if (not len(username.value()) or not iutil.validUser(username.value())):
+		ButtonChoiceWindow(self.screen, _("Bad User Name"),
+                                   _("User names must be less than 8 "
                                      "characters and contain only characters "
                                      "A-Z, a-z, and 0-9."),
                                    buttons = [ TEXT_OK_BUTTON ], width = 50)
 		continue
                 
-	    if not userid.value ():
-		ButtonChoiceWindow(self.screen, _("Missing User ID"),
-                                   _("You must provide a user ID"),
+	    if not username.value ():
+		ButtonChoiceWindow(self.screen, _("Missing User Name"),
+                                   _("You must provide a user name"),
                                    buttons = [ TEXT_OK_BUTTON ], width = 50)
 		continue
 	    if len (pass1.value ()) < 6:
@@ -146,22 +146,22 @@ class UsersWindow:
 		pass2.set ("")
 		continue
 
-	    if userid.value() == "root":
+	    if username.value() == "root":
                 ButtonChoiceWindow(self.screen, _("User Exists"),
 		       _("The root user is already configured. You don't "
 		         "need to add this user here."),
 			 buttons = [ TEXT_OK_BUTTON ], width = 50)
                 continue
 
-	    if userid.value() in systemUsers :
+	    if username.value() in systemUsers :
                 ButtonChoiceWindow(self.screen, _("User Exists"),
 		       _("This system user is already configured. You don't "
 		         "need to add this user here."),
 			 buttons = [ TEXT_OK_BUTTON ], width = 50)
                 continue
 
-            if self.users.has_key (userid.value ()) and  \
-				   userid.value () != currentid:
+            if self.users.has_key (username.value ()) and  \
+				   username.value () != currentid:
                 ButtonChoiceWindow(self.screen, _("User Exists"),
 		       _("This user id already exists.  Choose another."),
 			 buttons = [ TEXT_OK_BUTTON], width = 50)
@@ -169,7 +169,7 @@ class UsersWindow:
 
             # XXX FIXME - more data validity checks
             
-            user["id"] = userid.value ()
+            user["id"] = username.value ()
             user["name"] = fullname.value ()
             user["password"] = pass1.value ()
             break
