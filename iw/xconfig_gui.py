@@ -64,16 +64,6 @@ class XCustomWindow (InstallWindow):
 	
     def getNext (self):
 	
-#
-# XXXX - old code from pre rhpl-based backend
-#
-#
-#         newmodes = {}
-#         newmodes[self.selectedDepth] = []
-#         newmodes[self.selectedDepth].append (self.selectedRes)
-#
-#         self.xconfig.setManualModes(newmodes)
-
         self.xsetup.xhwstate.set_colordepth(self.selectedDepth)
 	self.xsetup.xhwstate.set_resolution(self.selectedRes)
 
@@ -92,25 +82,6 @@ class XCustomWindow (InstallWindow):
 	log("Somehow X test was attempted")
 	return
     
-#
-# XXXX - old code from pre rhpl-based backend
-#
-#
-#        newmodes = {}
-#        newmodes[self.selectedDepth] = []
-#        newmodes[self.selectedDepth].append (self.selectedRes)
-#
-#        manmodes = self.xconfig.getManualModes()
-#        self.xconfig.setManualModes(newmodes)
-#
-#        try:
-#            self.xconfig.test (root=self.instPath)
-#        except RuntimeError:
-#            ### test failed window
-#            pass
-#
-#        self.xconfig.setManualModes(manmodes)
-
     def numCompare (self, first, second):
         if first > second:
             return 1
@@ -119,35 +90,44 @@ class XCustomWindow (InstallWindow):
         return 0
 
     def depth_cb (self, widget, data):
-        depth = self.depth_combo.list.child_position (data)
-        if self.selectedDepth == self.bit_depth[depth]:
+	print "in depth_cb"
+	self.ignore_res_cb = 1
+        loc = self.depth_combo.list.child_position (data)
+	print "seldepth, loc, avail[loc] = ",self.selectedDepth, loc, self.avail_depth[loc]
+        if self.selectedDepth == self.avail_depth[loc]:
+	    self.ignore_res_cb = 0
             return
-        self.selectedDepth = self.bit_depth[depth]
+        self.selectedDepth = self.avail_depth[loc]
 	self.xsetup.xhwstate.set_colordepth(self.selectedDepth)
 
 	# now we set color depth, read out what modes are now supported
 	self.selectedRes = self.xsetup.xhwstate.get_resolution()
-	newmodes = self.xsetup.xhwstate.available_resolutions()
-        self.res_combo.set_popdown_strings(newmodes)
-        if self.selectedRes in newmodes:
-            self.res_combo.list.select_item(newmodes.index(self.selectedRes))
+	self.avail_res = self.xsetup.xhwstate.available_resolutions()
+        self.res_combo.set_popdown_strings(self.avail_res)
+        if self.selectedRes in self.avail_res:
+            self.res_combo.list.select_item(self.avail_res.index(self.selectedRes))
+	else:
+	    self.selectedRes = self.avail_res[-1]
+	    
+	self.currentRes = self.avail_res.index(self.selectedRes)
+	self.ignore_res_cb = 0
 
-#
-# XXX - old pre-rhpl backend code
-#
-#        curres = self.selectedRes
-#        newmodes = self.xsetup.xhwstate.availableModes()[self.selectedDepth]
-#        self.res_combo.set_popdown_strings(newmodes)
-#        if curres in newmodes:
-#            self.res_combo.list.select_item(newmodes.index(curres))
-        
     def res_cb (self, widget, data):
+	print "in res_cb"
+
+	if self.ignore_res_cb:
+	    print "ignored"
+	    return
+	
         newres = self.res_combo.list.child_position (data)
+	print "curres, newres = ", self.currentRes, newres
         if self.currentRes == newres:
             return
         
         self.currentRes = self.res_combo.list.child_position (data)
-        self.selectedRes = self.res_list[self.currentRes]
+        self.selectedRes = self.avail_res[self.currentRes]
+	self.xsetup.xhwstate.set_resolution(self.selectedRes)
+	print "curres, selectedres = ", self.currentRes, self.selectedRes
         self.swap_monitor (self.currentRes)
 
     def load_monitor_preview_pixmap(self, file):
@@ -252,31 +232,21 @@ class XCustomWindow (InstallWindow):
         hbox1.pack_start(frame1, gtk.TRUE, gtk.FALSE, 0)
 
         # determine video modes available for this card/monitor combo
-#
-# old pre-rhpl backend code
-#
-#        available = self.xsetup.xhwstate.availableModes()
-#        availableDepths = []
-#        for adepth in available.keys():
-#            if len(available[adepth]) > 0:
-#                availableDepths.append(adepth)
-#        availableDepths.sort(self.numCompare)
+	self.avail_depth = self.xsetup.xhwstate.available_color_depths()
 
-        availableRes = self.xsetup.xhwstate.available_resolutions()
-	availableDepths = self.xsetup.xhwstate.available_color_depths()
-
-        depth_list = [(_("256 Colors (8 Bit)")),
+        self.depth_list = [(_("256 Colors (8 Bit)")),
 		      (_("High Color (16 Bit)")),
 		      (_("True Color (24 Bit)"))]
         self.bit_depth = [8, 16, 24]
-        self.avail_depths = depth_list[:len(availableDepths)]
-        self.res_list = ["640x480", "800x600", "1024x768", "1152x864",
-			 "1280x960", "1280x1024", "1400x1050", "1600x1200",
-			 "1920x1440", "2048x1536"]
+        self.avail_res = self.xsetup.xhwstate.available_resolutions()
 
         self.depth_combo = gtk.Combo ()
 	self.depth_combo.entry.set_property("editable", gtk.FALSE)
-        self.depth_combo.set_popdown_strings (self.avail_depths)
+
+	tmpstrlst = []
+	for d in self.avail_depth:
+	    tmpstrlst.append(self.depth_list[self.bit_depth.index(d)])
+        self.depth_combo.set_popdown_strings (tmpstrlst)
 
         frame1.add (self.depth_combo)
         frame1.get_label_widget().set_mnemonic_widget(self.depth_combo.entry)
@@ -289,77 +259,29 @@ class XCustomWindow (InstallWindow):
         self.res_combo = gtk.Combo ()
         self.res_combo.entry.set_property("editable", gtk.FALSE)
 
-# new rhpl-based code
-
         self.selectedDepth = self.xsetup.xhwstate.get_colordepth()
         self.selectedRes   = self.xsetup.xhwstate.get_resolution()
-        self.res_combo.set_popdown_strings (availableRes)
+        self.res_combo.set_popdown_strings (self.avail_res)
 
         frame2.add (self.res_combo)
         frame2.get_label_widget().set_mnemonic_widget(self.res_combo.entry)
 
-# XXX - old pre-rhpl based backend code
-#        # determine current selection, or if none exists, pick reasonable
-#        # defaults.
-#        #
-#
-#        # getManualModes() should return a dictionary with one key (depth),
-#        #                  which has a single corresponding resolution
-#        #
-#        manualmodes = self.xsetup.getManualModes()
-#        if manualmodes:
-#            self.selectedDepth = manualmodes.keys()[0]
-#            self.selectedRes = manualmodes[self.selectedDepth][0]
-#        else:
-#            self.selectedDepth = None
-#            self.selectedRes = None
-#
-#
-#         # if selected depth not acceptable then force it to be at least 8bpp
-#         if self.selectedDepth and self.selectedDepth < 8:
-#             self.selectedDepth = 8
-#
-#         if not self.selectedDepth or not self.selectedRes:
-#             if len(available) == 1:
-#                 self.res_combo.set_popdown_strings (available[8])
-#                 self.selectedDepth = 8
-#                 self.selectedRes = available[self.selectedDepth][0]
-#             elif len(available) >= 2:
-#                 #--If they can do 16 bit color, default to 16 bit at 1024x768
-#                 self.depth_combo.list.select_item (1)
-#                 self.selectedDepth = 16
-#            
-#                 self.res_combo.set_popdown_strings (available[16])
-#
-#                 if "1024x768" in available[16]:
-#                     self.selectedRes = "1024x768"
-#                 elif "800x600" in available[16]:
-#                     self.selectedRes = "800x600"
-#                 else:
-#                     self.selectedRes = "640x480"
-#         else:
-#             self.res_combo.set_popdown_strings (available[self.selectedDepth])
         # apply current configuration to UI
-        count = 0
-        for depth in self.bit_depth:
-            if depth == self.selectedDepth:
-                self.depth_combo.list.select_item (count)
-                break
-            count = count + 1
+	if self.selectedDepth not in self.avail_depth:
+	    self.selectedDepth = self.avail_depth[-1]
 
-        count = 0
-        self.currentRes = 0
-        for res in self.res_list:
-            if res == self.selectedRes:
-                self.res_combo.list.select_item (count)
-                self.currentRes = count
-                break
-            count = count + 1
+	self.currentDepth = self.avail_depth.index(self.selectedDepth)
+	self.depth_combo.list.select_item (self.currentDepth)
 
-        location = availableRes.index(self.selectedRes)
-        self.swap_monitor(location)
+	if self.selectedRes not in self.avail_res:
+	    self.selectedRes = self.avail_res[-1]
+	    
+	self.currentRes = self.avail_res.index(self.selectedRes)
+	self.res_combo.list.select_item (self.currentRes)
+        self.swap_monitor(self.currentRes)
 
         self.depth_combo.list.connect ("select-child", self.depth_cb)
+	self.ignore_res_cb = 0
         self.res_combo.list.connect ("select-child", self.res_cb)
 
         self.box.pack_start (hbox1, gtk.FALSE)
@@ -884,9 +806,12 @@ class XConfigWindow (InstallWindow):
 
         vidram = self.videocard.possible_ram_sizes()[index]
 
+	# lots of duplication here complicated by factor we have a
+	# videocard object as part of instdata and in xhwstate!!
+	# need to consolidate
         self.videocard.primaryCard().setVideoRam(str(vidram))
+	self.xsetup.xhwstate.set_videocard_ram(vidram)
         self.xsetup.xhwstate.set_videocard_card(self.videocard.primaryCard())
-
         return None
 
     def skipToggled (self, widget, *args):
