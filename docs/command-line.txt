@@ -6,11 +6,13 @@ Boot time command args:
 
 expert          Turns on special features:
                     - allows partitioning of removable media
-                    - others?
+		    - prompts for driver disk
 
 noshell         Do not put a shell on tty2 during install.
 
 lowres          Force GUI installer to run at 640x480.
+
+resolution=<mode> Run installer in mode specified, '1024x768' for example.
 
 nofb            Do not use frame buffer for GUI install.
 
@@ -63,8 +65,3 @@ ks=<url>        Kickstart via HTTP.
 ks=hd:<dev>     Kickstart via harddrive (dev = 'hda1', for example)
 
 ks=file:<path>  Kickstart from a file (path = 'fd0/ks.cfg')
-
-
-
-
-

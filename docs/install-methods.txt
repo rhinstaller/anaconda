@@ -33,8 +33,9 @@ Current Installation Methods:
 
   Update Options: 
       - floppy.
-      - 'updates.img' file in '/RedHat/base' or '/RHupdates' directory 
-         of CD #1 image.
+      - 'updates.img' file in '/RedHat/base' directory of CD #1 image.
+      - updated python sources or modules in 'RHupdates/' directory of 
+	CD #1 image are used in preference to those in original.
 
 - NFS (from a fully exploded tree)
 ----------------------------------
