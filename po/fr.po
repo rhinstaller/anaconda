@@ -301,7 +301,6 @@ msgid "Bootdisk"
 msgstr "Disquette d'amorçage"
 
 #: ../text.py:441
-#, fuzzy
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -567,9 +566,8 @@ msgstr "Installation terminée"
 
 #: ../text.py:964 ../text.py:967 ../text.py:970 ../textw/silo.py:24
 #: ../textw/silo.py:62 ../textw/silo.py:153
-#, fuzzy
 msgid "SILO Configuration"
-msgstr "Configuration de LILO"
+msgstr "Configuration de SILO"
 
 #: ../text.py:975
 msgid "Examine System"
@@ -588,9 +586,8 @@ msgid "Upgrade Complete"
 msgstr "Mise à jour terminée"
 
 #: ../text.py:1009
-#, fuzzy
 msgid "Cancelled"
-msgstr "Annuler"
+msgstr "Annulé"
 
 #: ../text.py:1010
 msgid "I can't go to the previous step from here. You will have to try again."
@@ -1041,28 +1038,24 @@ msgid "Manually partition"
 msgstr "Partitionnement manuel"
 
 #: ../iw/silo.py:18
-#, fuzzy
 msgid "Silo Configuration"
-msgstr "Configuration de LILO"
+msgstr "Configuration de Silo"
 
 #: ../iw/silo.py:155
-#, fuzzy
 msgid "Install SILO boot record on:"
-msgstr "Installation du bloc de démarrage de LILO sur :"
+msgstr "Installation du bloc de démarrage de SILO sur :"
 
 #: ../iw/silo.py:170
-#, fuzzy
 msgid "Create PROM alias"
-msgstr "Création d'une disquette d'amorçage"
+msgstr ""
 
 #: ../iw/silo.py:182
 msgid "Set default PROM boot device to linux"
 msgstr ""
 
 #: ../iw/silo.py:209
-#, fuzzy
 msgid "Do not install SILO"
-msgstr "Ne pas installer LILO"
+msgstr "Ne pas installer SILO"
 
 #: ../iw/timezone.py:154
 msgid "View:"
@@ -1073,7 +1066,6 @@ msgid "System clock uses UTC"
 msgstr "L'horloge système utilise l'échelle UTC"
 
 #: ../iw/timezone.py:211
-#, fuzzy
 msgid "Use Daylight Saving Time (US only)"
 msgstr "Utiliser l'heure d'été"
 
