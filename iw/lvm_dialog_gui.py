@@ -415,32 +415,6 @@ class VolumeGroupEditor:
                 preexist = 0
 
 	    # test mount point
-#
-# XXX done in sanitycheckrequest
-#
-#	    if fsystem.isMountable():
-#		err = sanityCheckMountPoint(mntpt, fsystem, preexist)
-#	    else:
-#		mntpt = None
-#		err = None
-#	
-#	    if err:
-#		self.intf.messageWindow(_("Bad mount point"), err)
-#		continue
-
-	    # see if mount point is used already
-#
-# existing requests are checked by sanitycheckrequest
-#
-#	    used = 0
-#	    if fsystem.isMountable():
-#		if not logrequest or mntpt != logrequest.mountpoint:
-#		    # check in existing requests
-#		    curreq = self.partitions.getRequestByMountPoint(mntpt)
-#		    if curreq:
-#			used = 1
-#
-
             # check in pending logical volume requests
 	    # these may not have been put in master list of requests
 	    # yet if we have not hit 'OK' for the volume group creation
@@ -497,9 +471,6 @@ class VolumeGroupEditor:
 		continue
 
 	    # create potential request
-#	    request = LogicalVolumeRequestSpec(fsystem, mountpoint = mntpt,
-#					       lvname = lvname, size = size,
-#					       format = 1)
 	    request = copy.copy(logrequest)
 	    pesize = self.peOptionMenu.get_active().get_data("value")
 	    size = lvm.clampLVSizeRequest(size, pesize)
