@@ -74,6 +74,7 @@ class InstallData:
         self.rootParts = None
         self.upgradeSwapInfo = None
         self.upgradeDeps = ""
+        self.upgradeInfoFound = None
         self.configFileData = self.tmpData
         self.firstboot = FIRSTBOOT_DEFAULT
 
