@@ -1413,6 +1413,8 @@ int main(int argc, char ** argv) {
             *argptr++ = "--expert";
         if (!FL_SELINUX(flags))
             *argptr++ = "--noselinux";
+        else if (FL_SELINUX(flags))
+            *argptr++ = "--selinux";
         
         if (FL_KICKSTART(flags)) {
             *argptr++ = "--kickstart";

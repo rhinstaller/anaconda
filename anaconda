@@ -512,6 +512,8 @@ for n in args:
 	runres_override = 1
     elif (str == '--noselinux'):
         flags.selinux = 0
+    elif (str == '--selinux'):
+        flags.selinux = 1
     elif (str == "--skipddc"):	
 	skipddc = 1
     elif (str == "--autostep"):
