@@ -266,6 +266,21 @@ class Fstab:
         else:
             return []
 
+    def formattablePartitions(self):
+	l = []
+	for item in self.mountList():
+	    (mount, dev, fstype, format, size) = item
+
+            # dont format protected partitions
+            for n in self.getprotectedList():
+                if n == dev:
+                    continue
+                
+            if fstype == "ext2" or (fstype == "vfat" and mount == "/boot/efi"):
+		l.append(item)
+
+	return l
+
     def driveList(self):
 	drives = isys.hardDriveDict().keys()
 	drives.sort (isys.compareDrives)
@@ -522,6 +537,7 @@ class Fstab:
                         break;
                 if founddev != 0:
                     continue
+
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2":
 		label = createLabel(labels, mntpoint)
@@ -557,7 +573,17 @@ class Fstab:
                                         args, stdout = messageFile, 
 					stderr = messageFile, searchPath = 1)
 		w.pop()
-	    elif fsystem == "vfat":
+	    elif fsystem == "vfat" and mntpoint == "/boot/efi":
+                args = [ "mkdosfs", '/tmp/' + device ]
+
+		w = self.waitWindow(_("Formatting"),
+			      _("Formatting %s filesystem...") % (mntpoint,))
+
+                iutil.execWithRedirect ("/usr/sbin/mkdosfs",
+                                        args, stdout = messageFile, 
+					stderr = messageFile, searchPath = 1)
+		w.pop()
+	    elif fsystem == "vfat" and mntpoint == "/":
 		# do a magical loopback mount -- whee!
 		isys.mount(device, "/mnt/loophost", fstype = "vfat")
 		
@@ -623,10 +649,11 @@ class Fstab:
 
 		isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
 		isys.mount("loop1", instPath)
-	    elif fsystem == "ext2":
+	    elif fsystem == "ext2" or \
+			(fsystem == "vfat" and mntpoint == "/boot/efi"):
 		try:
 		    iutil.mkdirChain(instPath + mntpoint)
-		    isys.mount(device, instPath + mntpoint)
+		    isys.mount(device, instPath + mntpoint, fstype = fsystem)
 		except SystemError, (errno, msg):
 		    self.messageWindow(_("Error"), 
 			_("Error mounting %s: %s") % (device, msg))
