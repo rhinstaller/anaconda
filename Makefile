@@ -88,6 +88,11 @@ install:
 	strip $(DESTDIR)/$(PYTHONLIBDIR)/*.so
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
+CVSTAG=anaconda-$(subst .,_,$(VERSION)-$(RELEASE))
+tag:
+	@cvs tag -cR $(CVSTAG)
+	@echo "Tagged as $(CVSTAG)"
+
 archive: create-archive
 
 src: create-archive
