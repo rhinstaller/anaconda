@@ -509,7 +509,7 @@ class ToDo:
                 continue
             # all valid fstab entries have 6 fields
             if len (fields) == 6:
-                if fields and fields[2] == "ext2" or fields[2] == "swap" \
+                if fields and (fields[2] == "ext2" or fields[2] == "swap") \
                    and fields[3] == "defaults":
                     fstab[fields[1]] = (fields[0][5:], fields[2], 0)
         return fstab
