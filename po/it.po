@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anacondapo $Revision$\n"
-"POT-Creation-Date: 2001-03-10 09:38-0500\n"
+"POT-Creation-Date: 2001-03-14 11:37-0500\n"
 "PO-Revision-Date: 2001-01-29 17:00+1\n"
 "Last-Translator: Bettina De Monti <bdemonti@redhat.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -57,15 +57,16 @@ msgstr ""
 "partizioni da formattare (RACCOMANDATO)."
 
 #: ../fstab.py:76 ../harddrive.py:235 ../iw/rootpartition_gui.py:81
-#: ../iw/rootpartition_gui.py:97
+#: ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:144
+#: ../iw/upgrade_swap_gui.py:153 ../iw/upgrade_swap_gui.py:160
 msgid "Warning"
 msgstr "Attenzione"
 
 #: ../fstab.py:320 ../fstab.py:517 ../fstab.py:618 ../fstab.py:829
 #: ../harddrive.py:173 ../image.py:64 ../image.py:141
 #: ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259
-#: ../loader/devices.c:266 ../loader/devices.c:433 ../loader/devices.c:478
-#: ../loader/devices.c:498 ../loader/lang.c:99 ../loader/loader.c:520
+#: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
+#: ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520
 #: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:966
 #: ../loader/loader.c:1021 ../loader/loader.c:1191 ../loader/loader.c:1196
 #: ../loader/loader.c:1278 ../loader/loader.c:2129 ../loader/loader.c:2159
@@ -73,8 +74,8 @@ msgstr "Attenzione"
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:89
-#: ../textw/upgrade_text.py:95 ../textw/upgrade_text.py:145 ../todo.py:1162
-#: ../todo.py:1175 ../todo.py:1495 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/upgrade_text.py:95 ../textw/upgrade_text.py:145 ../todo.py:1199
+#: ../todo.py:1212 ../todo.py:1532 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Errore"
 
@@ -92,23 +93,20 @@ msgstr ""
 "sistema.\n"
 
 #: ../fstab.py:492
-#, fuzzy
 msgid "Swap Space"
-msgstr "Spazio di swap"
+msgstr ""
 
 #: ../fstab.py:493
-#, fuzzy
 msgid "Creating swap space..."
-msgstr "Formattazione swap /dev/%s..."
+msgstr ""
 
 #: ../fstab.py:507 ../fstab.py:771 ../fstab.py:1230
 msgid "Formatting"
 msgstr "Formattazione in corso"
 
 #: ../fstab.py:508
-#, fuzzy
 msgid "Formatting swap space..."
-msgstr "Formattazione swap /dev/%s..."
+msgstr ""
 
 #: ../fstab.py:517
 msgid "Error creating swap on device "
@@ -119,7 +117,7 @@ msgstr "Errore durante la creazione dell'area di swap"
 msgid "Error unmounting %s: %s"
 msgstr "Errore di unmounting %s: %s"
 
-#: ../fstab.py:672 ../todo.py:702
+#: ../fstab.py:672 ../todo.py:740
 msgid "Creating"
 msgstr "Creazione in corso"
 
@@ -174,11 +172,11 @@ msgstr ""
 "Inserire un dischetto nel drive. Il contenuto del dischetto sarà\n"
 "cancellato."
 
-#: ../gui.py:421 ../gui.py:789
+#: ../gui.py:417 ../gui.py:785
 msgid "Next"
 msgstr "Avanti"
 
-#: ../gui.py:422 ../gui.py:788 ../libfdisk/newtfsedit.c:1477
+#: ../gui.py:418 ../gui.py:784 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
 #: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
@@ -198,8 +196,8 @@ msgstr "Avanti"
 #: ../textw/packages_text.py:55 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/packages_text.py:353
 #: ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65
-#: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:219
-#: ../textw/partitioning_text.py:258 ../textw/partitioning_text.py:341
+#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:220
+#: ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342
 #: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:52
 #: ../textw/upgrade_text.py:148 ../textw/upgrade_text.py:166
@@ -211,59 +209,59 @@ msgstr "Avanti"
 msgid "Back"
 msgstr "Indietro"
 
-#: ../gui.py:423 ../gui.py:542 ../gui.py:791
+#: ../gui.py:419 ../gui.py:538 ../gui.py:787
 msgid "Release Notes"
 msgstr "Release Note"
 
-#: ../gui.py:424 ../gui.py:794
+#: ../gui.py:420 ../gui.py:790
 msgid "Show Help"
 msgstr "Mostra Help"
 
-#: ../gui.py:425 ../gui.py:793
+#: ../gui.py:421 ../gui.py:789
 msgid "Hide Help"
 msgstr "Nascondi Help"
 
-#: ../gui.py:426 ../gui.py:792
+#: ../gui.py:422 ../gui.py:788
 msgid "Finish"
 msgstr "Fine"
 
-#: ../gui.py:429 ../gui.py:824
+#: ../gui.py:425 ../gui.py:820
 msgid "Online Help"
 msgstr "Help Online"
 
-#: ../gui.py:430 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../text.py:69 ../text.py:945 ../text.py:978
+#: ../gui.py:426 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../text.py:69 ../text.py:968
 msgid "Language Selection"
 msgstr "Selezione delle lingue di supporto"
 
-#: ../gui.py:537 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
+#: ../gui.py:533 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
 #: ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr "Chiudi"
 
-#: ../gui.py:573
+#: ../gui.py:569
 msgid "Unable to load file!"
 msgstr "Impossibile caricare file!"
 
-#: ../gui.py:712
+#: ../gui.py:708
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux Installer"
 
-#: ../gui.py:716
+#: ../gui.py:712
 msgid "Red Hat Linux Install Shell"
 msgstr "Red Hat Linux Install Shell"
 
-#: ../gui.py:727
+#: ../gui.py:723
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Red Hat Linux Installer su %s"
 
-#: ../gui.py:728
+#: ../gui.py:724
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Red Hat Linux Install Shell su %s"
 
-#: ../gui.py:873
+#: ../gui.py:869
 msgid "Install Window"
 msgstr "Finestra di installazione"
 
@@ -311,8 +309,8 @@ msgstr "Il CDROM non può essere montato."
 
 #: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:237
 #: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:335
-#: ../loader/devices.c:433 ../loader/devices.c:478 ../loader/devices.c:498
-#: ../loader/devices.c:530 ../loader/kickstart.c:58 ../loader/kickstart.c:68
+#: ../loader/devices.c:435 ../loader/devices.c:480 ../loader/devices.c:500
+#: ../loader/devices.c:532 ../loader/kickstart.c:58 ../loader/kickstart.c:68
 #: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294
 #: ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520
 #: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:907
@@ -329,7 +327,7 @@ msgstr "Il CDROM non può essere montato."
 #: ../text.py:228 ../text.py:311 ../text.py:354 ../text.py:372 ../text.py:414
 #: ../text.py:443 ../text.py:529 ../text.py:541 ../text.py:570 ../text.py:591
 #: ../text.py:761 ../text.py:815 ../text.py:841 ../text.py:867 ../text.py:875
-#: ../text.py:890 ../text.py:1141 ../textw/bootdisk_text.py:52
+#: ../text.py:890 ../text.py:1127 ../textw/bootdisk_text.py:52
 #: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
 #: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
 #: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
@@ -338,9 +336,9 @@ msgstr "Il CDROM non può essere montato."
 #: ../textw/network_text.py:102 ../textw/network_text.py:123
 #: ../textw/network_text.py:161 ../textw/packages_text.py:55
 #: ../textw/packages_text.py:89 ../textw/packages_text.py:236
-#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:258
-#: ../textw/partitioning_text.py:341 ../textw/partitioning_text.py:352
-#: ../textw/partitioning_text.py:360 ../textw/partitioning_text.py:367
+#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:259
+#: ../textw/partitioning_text.py:342 ../textw/partitioning_text.py:353
+#: ../textw/partitioning_text.py:361 ../textw/partitioning_text.py:368
 #: ../textw/silo_text.py:25 ../textw/silo_text.py:99
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:51
 #: ../textw/upgrade_text.py:166 ../textw/userauth_text.py:30
@@ -450,7 +448,7 @@ msgstr "Il sistema è stato montato sotto /mnt/sysimage directory."
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
 #: ../text.py:199 ../text.py:456 ../textw/lilo_text.py:123
 #: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
-#: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:420
+#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:421
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
 #: ../textw/silo_text.py:205 ../textw/upgrade_text.py:119
 #: ../textw/upgrade_text.py:183
@@ -465,7 +463,7 @@ msgstr "Quale lingua si desidera utilizzare durante l'installazione?"
 msgid "Select All"
 msgstr "Seleziona tutto"
 
-#: ../iw/language_support_gui.py:208 ../text.py:135
+#: ../iw/language_support_gui.py:209 ../text.py:135
 msgid "Reset"
 msgstr "Reimposta"
 
@@ -474,7 +472,7 @@ msgid "Choose the languages to be installed:"
 msgstr "Scegliere le lingue da installare:"
 
 # ../comps/comps-master:151
-#: ../text.py:141 ../text.py:1044
+#: ../text.py:141 ../text.py:1030
 msgid "Language Support"
 msgstr "Lingua di supporto"
 
@@ -494,7 +492,7 @@ msgstr "Lingua di default"
 msgid "Choose the default language: "
 msgstr "Selezione della lingua di default:"
 
-#: ../text.py:226 ../text.py:947 ../text.py:984
+#: ../text.py:226 ../text.py:945 ../text.py:970
 msgid "Keyboard Selection"
 msgstr "Selezione del tipo di tastiera"
 
@@ -506,7 +504,7 @@ msgstr "Quale modello di tastiera è collegato al computer?"
 msgid "Upgrade Existing Installation"
 msgstr "Aggiornamento di un'installazione esistente"
 
-#: ../text.py:309 ../text.py:987
+#: ../text.py:309 ../text.py:973
 msgid "Installation Type"
 msgstr "Tipo di installazione"
 
@@ -557,7 +555,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
-#: ../loader/devices.c:530 ../loader/loader.c:2222 ../loader/pcmcia.c:104
+#: ../loader/devices.c:532 ../loader/loader.c:2222 ../loader/pcmcia.c:104
 #: ../text.py:372 ../text.py:375 ../text.py:761 ../text.py:762 ../text.py:875
 #: ../text.py:877 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
@@ -768,183 +766,182 @@ msgid ""
 msgstr " <Tab> fra elementi | <Space> seleziona | <F12> schermo successivo"
 
 #: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:943
-#: ../text.py:986
+#: ../text.py:972
 msgid "Welcome"
 msgstr "Benvenuti"
 
-#: ../text.py:949 ../text.py:1035
+#: ../text.py:947 ../text.py:1021
 msgid "Hostname Setup"
 msgstr "Configurazione dell'hostnmae"
 
-#: ../text.py:951 ../text.py:1032
+#: ../text.py:949 ../text.py:1018
 msgid "Network Setup"
 msgstr "Configurazione della rete"
 
-#: ../iw/firewall_gui.py:12 ../text.py:953 ../text.py:1037
+#: ../iw/firewall_gui.py:12 ../text.py:951 ../text.py:1023
 #: ../textw/firewall_text.py:11
 msgid "Firewall Configuration"
 msgstr "Configurazione del firewall"
 
-#: ../text.py:961 ../text.py:1049
+#: ../text.py:953 ../text.py:1032
+msgid "Language Default"
+msgstr "Selezione della lingua di default"
+
+#: ../text.py:955 ../text.py:1035
 msgid "Time Zone Setup"
 msgstr "Configurazione del fuso orario"
 
-#: ../text.py:963 ../text.py:1051 ../textw/userauth_text.py:9
+#: ../text.py:957 ../text.py:1037 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "Password di root"
 
-#: ../text.py:965 ../text.py:1053 ../textw/userauth_text.py:172
+#: ../text.py:959 ../text.py:1039 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "Impostazione dell' account utente"
 
-#: ../text.py:967 ../text.py:1055
+#: ../text.py:961 ../text.py:1041
 msgid "Authentication"
 msgstr "Autenticazione"
 
-#: ../text.py:973
+#: ../text.py:963
 msgid "Configuration Complete"
 msgstr "Configurazione completata"
 
-#: ../text.py:995 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../text.py:981 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "Configurazione di SILO"
 
-#: ../text.py:1001 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
+#: ../text.py:987 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
 #: ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "Configurazione di LILO"
 
-#: ../text.py:1008
+#: ../text.py:994
 msgid "Automatic Partition"
 msgstr "Partizionamento automatico"
 
 #: ../iw/lilo_gui.py:230 ../iw/lilo_gui.py:393 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../text.py:1010 ../text.py:1014
-#: ../textw/upgrade_text.py:40
+#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:99 ../text.py:996
+#: ../text.py:1000 ../textw/upgrade_text.py:40
 msgid "Partition"
 msgstr "Partizione"
 
-#: ../text.py:1012
+#: ../text.py:998
 msgid "Manually Partition"
 msgstr "Partizionamento manuale"
 
-#: ../text.py:1016 ../textw/partitioning_text.py:333
+#: ../text.py:1002 ../textw/partitioning_text.py:334
 msgid "Root Filesystem Size"
 msgstr "Grandezza filesystem di root"
 
-#: ../text.py:1018
+#: ../text.py:1004
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:1020 ../textw/partitioning_text.py:390
-#: ../textw/partitioning_text.py:410
+#: ../text.py:1006 ../textw/partitioning_text.py:391
+#: ../textw/partitioning_text.py:411
 msgid "Boot Partition Warning"
 msgstr "Avviso partizione di avvio"
 
-#: ../text.py:1022
+#: ../text.py:1008
 msgid "Filesystem Formatting"
 msgstr "Formattazione del filesystem"
 
-#: ../iw/mouse_gui.py:56 ../text.py:1039 ../text.py:1041
+#: ../iw/mouse_gui.py:56 ../text.py:1025 ../text.py:1027
 msgid "Mouse Configuration"
 msgstr "Configurazione del mouse"
 
-#: ../text.py:1046
-msgid "Language Default"
-msgstr "Selezione della lingua di default"
-
-#: ../text.py:1057
+#: ../text.py:1043
 msgid "Package Groups"
 msgstr "Gruppi di pacchetti"
 
-#: ../text.py:1059 ../text.py:1088
+#: ../text.py:1045 ../text.py:1074
 msgid "Individual Packages"
 msgstr "Pacchetti individuali"
 
-#: ../text.py:1061 ../text.py:1089 ../textw/packages_text.py:304
+#: ../text.py:1047 ../text.py:1075 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Dipendenze fra pacchetti"
 
-#: ../iw/xconfig_gui.py:846 ../text.py:1063 ../text.py:1071
+#: ../iw/xconfig_gui.py:846 ../text.py:1049 ../text.py:1057
 msgid "X Configuration"
 msgstr "Configurazione di X"
 
-#: ../text.py:1065
+#: ../text.py:1051
 msgid "Installation Begins"
 msgstr "Avvio dell'installazione"
 
-#: ../text.py:1067
+#: ../text.py:1053
 msgid "Install System"
 msgstr "Installazione del sistema"
 
-#: ../text.py:1068 ../text.py:1070 ../text.py:1094 ../text.py:1096
+#: ../text.py:1054 ../text.py:1056 ../text.py:1080 ../text.py:1082
 msgid "Boot Disk"
 msgstr "Dischetto di avvio"
 
-#: ../text.py:1073
+#: ../text.py:1059
 msgid "Installation Complete"
 msgstr "Installazione completa"
 
-#: ../text.py:1078
+#: ../text.py:1064
 msgid "Examine System"
 msgstr "Esamina sistema"
 
-#: ../text.py:1079
-#, fuzzy
+#: ../text.py:1065
 msgid "System Swap Space"
-msgstr "Spazio di swap"
+msgstr ""
 
-#: ../text.py:1086
+#: ../text.py:1072
 msgid "Customize Upgrade"
 msgstr "Personalizza l'aggiornamento"
 
-#: ../text.py:1091
+#: ../text.py:1077
 msgid "Upgrade Begins"
 msgstr "Avvio dell'aggiornamento"
 
-#: ../text.py:1093
+#: ../text.py:1079
 msgid "Upgrade System"
 msgstr "Aggiornamento del sistema"
 
-#: ../text.py:1097
+#: ../text.py:1083
 msgid "Upgrade Complete"
 msgstr "Aggiornamento completato"
 
-#: ../text.py:1138
+#: ../text.py:1124
 msgid "Cancelled"
 msgstr "Cancellato"
 
-#: ../text.py:1139
+#: ../text.py:1125
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Non è possibile tornare al passo precedente. Provare nuovamente."
 
-#: ../todo.py:702
+#: ../todo.py:740
 msgid "Creating boot disk..."
 msgstr "Creazione del dischetto di avvio..."
 
-#: ../todo.py:721
+#: ../todo.py:759
 msgid "Reading"
 msgstr "Lettura in corso"
 
-#: ../todo.py:722
+#: ../todo.py:760
 msgid "Reading package information..."
 msgstr "Lettura delle informazioni sui pacchetti..."
 
-#: ../todo.py:999
+#: ../todo.py:1041
 msgid "Dependency Check"
 msgstr "Controllo delle dipendenze"
 
-#: ../todo.py:1000
+#: ../todo.py:1042
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Controllo delle dipendenze dei pacchetti da installare..."
 
-#: ../todo.py:1025 ../todo.py:1069 ../todo.py:1075 ../todo.py:1092
-#: ../todo.py:1225
+#: ../todo.py:1067 ../todo.py:1111 ../todo.py:1117 ../todo.py:1134
+#: ../todo.py:1262
 msgid "no suggestion"
 msgstr "nessun suggerimento"
 
-#: ../todo.py:1110
+#: ../todo.py:1152
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -953,7 +950,7 @@ msgstr ""
 "stati smontati correttamente. Vi consigliamo di risolvere questo problema e "
 "successivamente di aggiornare il sistema."
 
-#: ../todo.py:1125
+#: ../todo.py:1167
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -965,31 +962,31 @@ msgstr ""
 "l'aggiornamento.\n"
 "\n"
 
-#: ../todo.py:1147
+#: ../todo.py:1184
 msgid "Finding"
 msgstr "Ricerca..."
 
-#: ../todo.py:1148
+#: ../todo.py:1185
 msgid "Finding packages to upgrade..."
 msgstr "Ricerca dei pacchetti da aggiornare..."
 
-#: ../todo.py:1163
+#: ../todo.py:1200
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Ricostruzione del database RPM fallita. Potrebbe non esserci spazio?"
 
-#: ../todo.py:1176
+#: ../todo.py:1213
 msgid "An error occured when finding the packages to upgrade."
 msgstr "E' avvenuto un errore cercando i pacchetti da aggiornare."
 
-#: ../todo.py:1461
+#: ../todo.py:1498
 msgid "Processing"
 msgstr "Elaborazione in corso"
 
-#: ../todo.py:1462
+#: ../todo.py:1499
 msgid "Preparing to install..."
 msgstr "Preparazione dell'installazione..."
 
-#: ../todo.py:1496
+#: ../todo.py:1533
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -999,17 +996,17 @@ msgstr ""
 "pacchetto danneggiato o a un supporto difettoso. Premete <return> per "
 "ritentare."
 
-#: ../todo.py:1748
+#: ../todo.py:1785
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Aggiornamento %s.\n"
 
-#: ../todo.py:1750
+#: ../todo.py:1787
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installazione %s.\n"
 
-#: ../todo.py:1795
+#: ../todo.py:1832
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1019,16 +1016,16 @@ msgstr ""
 "necessario avere più spazio libero sui seguenti filesystem:\n"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:3132 ../textw/upgrade_text.py:39 ../todo.py:1798
-#: ../todo.py:1816
+#: ../iw/upgrade_swap_gui.py:99 ../libfdisk/gnomefsedit.c:3132
+#: ../textw/upgrade_text.py:39 ../todo.py:1835 ../todo.py:1853
 msgid "Mount Point"
 msgstr "Mount Point"
 
-#: ../todo.py:1798
+#: ../todo.py:1835
 msgid "Space Needed"
 msgstr "Spazio necessario"
 
-#: ../todo.py:1813
+#: ../todo.py:1850
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1038,23 +1035,23 @@ msgstr ""
 "necessario avere più spazio libero sui seguenti filesystem:\n"
 "\n"
 
-#: ../todo.py:1816
+#: ../todo.py:1853
 msgid "Nodes Needed"
 msgstr "Nodi necessario"
 
-#: ../todo.py:1822
+#: ../todo.py:1859
 msgid "Disk Space"
 msgstr "Spazio su disco"
 
-#: ../todo.py:1857
+#: ../todo.py:1894
 msgid "Post Install"
 msgstr "Post installazione"
 
-#: ../todo.py:1858
+#: ../todo.py:1895
 msgid "Performing post install configuration..."
 msgstr "Configurazione post installazione..."
 
-#: ../todo.py:1996
+#: ../todo.py:2033
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1072,7 +1069,7 @@ msgstr ""
 "Errore riscontrato:\n"
 "\n"
 
-#: ../todo.py:2002
+#: ../todo.py:2039
 msgid "Bootloader Errors"
 msgstr "Errore Bootloader"
 
@@ -1481,15 +1478,15 @@ msgstr "Scegliere le partizioni da formattare"
 msgid "Check for bad blocks while formatting"
 msgstr "Controllo dei blocchi danneggiati durante la formattazione"
 
-#: ../iw/installpath_gui.py:97
+#: ../iw/installpath_gui.py:98
 msgid "Install Type"
 msgstr "Tipo di installazione"
 
-#: ../iw/installpath_gui.py:179
+#: ../iw/installpath_gui.py:180
 msgid "Install"
 msgstr "Installazione"
 
-#: ../iw/installpath_gui.py:181
+#: ../iw/installpath_gui.py:182
 msgid "Upgrade"
 msgstr "Aggiornamento"
 
@@ -1530,14 +1527,18 @@ msgid "Choose the default language:   "
 msgstr "Selezione della lingua di default:"
 
 #: ../iw/language_support_gui.py:155
+msgid "Currently installed languages:"
+msgstr ""
+
+#: ../iw/language_support_gui.py:157
 msgid "Choose the languages to install:"
 msgstr "Selezione delle lingue di supporto:"
 
-#: ../iw/language_support_gui.py:202
+#: ../iw/language_support_gui.py:203
 msgid "Select all"
 msgstr "Seleziona tutto"
 
-#: ../iw/language_support_gui.py:222
+#: ../iw/language_support_gui.py:223
 msgid "Select as default"
 msgstr "Seleziona come default"
 
@@ -1817,11 +1818,11 @@ msgstr "Rimanente"
 msgid "Disk Druid"
 msgstr "Disk Druid"
 
-#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:214
+#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:215
 msgid "Low Memory"
 msgstr "Poca memoria"
 
-#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:215
+#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:216
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1857,7 +1858,7 @@ msgstr ""
 "partizione di avvio."
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
-#: ../textw/partitioning_text.py:411
+#: ../textw/partitioning_text.py:412
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit. It appears that this systems BIOS supports booting "
@@ -1876,7 +1877,7 @@ msgstr ""
 "caratteristica delle schede madri recenti, non è sempre affidabile. Con un "
 "dischetto di avvio si ha la certezza di poter avviare il sistema."
 
-#: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:334
+#: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:335
 #, c-format
 msgid ""
 "You've chosen to put your root filesystem in a file on an already-existing "
@@ -1896,25 +1897,23 @@ msgstr "Grandezza del filesystem root:"
 msgid "Swap space size:"
 msgstr "Grandezza dello swap:"
 
-#: ../iw/rootpartition_gui.py:324 ../iw/rootpartition_gui.py:375
-#: ../textw/partitioning_text.py:149
+#: ../iw/rootpartition_gui.py:324 ../textw/partitioning_text.py:149
 msgid "Automatic Partitioning"
 msgstr "Partizionamento automatico"
 
-#: ../iw/rootpartition_gui.py:377 ../textw/partitioning_text.py:150
+#: ../iw/rootpartition_gui.py:375
+msgid "Disk Partitioning"
+msgstr ""
+
+#: ../iw/rootpartition_gui.py:377
 #, c-format
 msgid ""
-"%s\n"
+"Please select the type of disk partitioning you would like to use.\n"
 "\n"
-"If you don't want to do this, you can continue with this install by "
-"partitioning manually, or you can go back and perform a fully customized "
-"installation."
+"Automatic partitioning will erase %s\n"
+"\n"
+"Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
-"%s\n"
-"\n"
-"Se non volete utilizzare il partizionamento automatico, potete attivare il "
-"partizionamento manuale, oppure tornate alle schermate precedenti e "
-"scegliete un'installazione di tipo personalizzato."
 
 #: ../iw/rootpartition_gui.py:383
 msgid "Automatic Partitioning Failed"
@@ -1967,7 +1966,7 @@ msgstr "Partizionamento manuale con fdisk [per esperti]"
 msgid "Boot Partition Location Warning"
 msgstr "Avviso posizione partizione di avvio"
 
-#: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:391
+#: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:392
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -2001,8 +2000,8 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:845
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
-#: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:219
-#: ../textw/partitioning_text.py:402 ../textw/upgrade_text.py:199
+#: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220
+#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:199
 msgid "Yes"
 msgstr "Sì"
 
@@ -2016,7 +2015,7 @@ msgstr "Sì"
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:231 ../loader/net.c:845 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
-#: ../textw/partitioning_text.py:402 ../textw/upgrade_text.py:199
+#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:199
 #: ../textw/upgrade_text.py:205
 msgid "No"
 msgstr "No"
@@ -2064,6 +2063,62 @@ msgstr "Località"
 #: ../iw/timezone_gui.py:230
 msgid "UTC Offset"
 msgstr "Offset UTC"
+
+#: ../iw/upgrade_swap_gui.py:17
+msgid "Upgrade Swap Partition"
+msgstr ""
+
+#: ../iw/upgrade_swap_gui.py:66 ../textw/upgrade_text.py:22
+#, c-format
+msgid ""
+"The 2.4 kernel needs significantly more swap than older kernels, as much as "
+"twice as much swap space as RAM on the system. You currently have %dMB of "
+"swap configured, but you may create additional swap space on one of your "
+"file systems now."
+msgstr ""
+
+#: ../iw/upgrade_swap_gui.py:80
+msgid "I want to create a swap file"
+msgstr ""
+
+#: ../iw/upgrade_swap_gui.py:94
+msgid "Select the partition to put the swap file on:"
+msgstr ""
+
+#: ../iw/upgrade_swap_gui.py:99
+msgid "Free Space (MB)"
+msgstr ""
+
+#: ../iw/upgrade_swap_gui.py:114
+#, c-format
+msgid ""
+"It is recommended that your swap file be at least %d MB.  Please enter a "
+"size for the swap file:"
+msgstr ""
+
+#: ../iw/upgrade_swap_gui.py:127 ../textw/upgrade_text.py:58
+msgid "Swap file size (MB):"
+msgstr ""
+
+#: ../iw/upgrade_swap_gui.py:135
+msgid "I don't want to create a swap file"
+msgstr ""
+
+#: ../iw/upgrade_swap_gui.py:145
+msgid ""
+"It is stongly recommended that you create a swap file.  Failure to do so "
+"could cause the installer to abort abnormally.  Are you sure that you wish "
+"to continue?"
+msgstr ""
+
+#: ../iw/upgrade_swap_gui.py:154
+msgid "The swap file must be between 0 and 2000 MB in size."
+msgstr ""
+
+#: ../iw/upgrade_swap_gui.py:161 ../textw/upgrade_text.py:96
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
+msgstr ""
 
 #: ../iw/welcome_gui.py:81
 msgid "Would you like to configure your system?"
@@ -2513,15 +2568,25 @@ msgstr ""
 msgid "Done"
 msgstr "Eseguito"
 
-#: ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:156
+#: ../textw/partitioning_text.py:150
+#, c-format
+msgid ""
+"Automatic partitioning will erase %s\n"
+"\n"
+"If you don't want to do this, you can continue with this install by "
+"partitioning manually, or you can go back and perform a fully customized "
+"installation."
+msgstr ""
+
+#: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:157
 msgid "Continue"
 msgstr "Continua"
 
-#: ../textw/partitioning_text.py:154
+#: ../textw/partitioning_text.py:155
 msgid "Manually partition"
 msgstr "Partizionamento manuale"
 
-#: ../textw/partitioning_text.py:235
+#: ../textw/partitioning_text.py:236
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -2533,32 +2598,32 @@ msgstr ""
 "/home o /usr/local se sono già stati configurati durante una precedente "
 "installazione."
 
-#: ../textw/partitioning_text.py:255
+#: ../textw/partitioning_text.py:256
 msgid "Check for bad blocks during format"
 msgstr "Controllo dei blocchi danneggiati durante la formattazione"
 
-#: ../textw/partitioning_text.py:260
+#: ../textw/partitioning_text.py:261
 msgid "Choose Partitions to Format"
 msgstr "Scegliere le partizioni da formattare"
 
-#: ../textw/partitioning_text.py:339
+#: ../textw/partitioning_text.py:340
 msgid "Root filesystem size"
 msgstr "Dimensioni del filesystem root"
 
-#: ../textw/partitioning_text.py:340
+#: ../textw/partitioning_text.py:341
 msgid "Swap space"
 msgstr "Spazio di swap"
 
-#: ../textw/partitioning_text.py:350 ../textw/partitioning_text.py:356
-#: ../textw/partitioning_text.py:363
+#: ../textw/partitioning_text.py:351 ../textw/partitioning_text.py:357
+#: ../textw/partitioning_text.py:364
 msgid "Bad Size"
 msgstr "Dimensioni sbagliate"
 
-#: ../textw/partitioning_text.py:351
+#: ../textw/partitioning_text.py:352
 msgid "The size you enter must be a number."
 msgstr "Le dimensioni devono corrispondere a un numero."
 
-#: ../textw/partitioning_text.py:357
+#: ../textw/partitioning_text.py:358
 #, c-format
 msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
@@ -2567,7 +2632,7 @@ msgstr ""
 "La dimensione totale deve essere inferiore alla quantità di spazio "
 "disponibile, che è di %d megabyte."
 
-#: ../textw/partitioning_text.py:364
+#: ../textw/partitioning_text.py:365
 msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
@@ -2593,43 +2658,20 @@ msgstr "Qual è il vostro fuso orario?"
 msgid "Hardware clock set to GMT?"
 msgstr "Hardware clock impostato su GMT?"
 
-#: ../textw/upgrade_text.py:22
-#, c-format
-msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system. You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
+#: ../textw/upgrade_text.py:40
+msgid "Free Space"
 msgstr ""
 
-#: ../textw/upgrade_text.py:40
-#, fuzzy
-msgid "Free Space"
-msgstr "Spazio su disco"
-
 #: ../textw/upgrade_text.py:55
-#, fuzzy
 msgid "Suggested size (MB):"
-msgstr "Dimensioni (MB):"
-
-#: ../textw/upgrade_text.py:58
-#, fuzzy
-msgid "Swap file size (MB):"
-msgstr "Grandezza dello swap:"
+msgstr ""
 
 #: ../textw/upgrade_text.py:66
-#, fuzzy
 msgid "Add Swap"
-msgstr "Swap"
+msgstr ""
 
 #: ../textw/upgrade_text.py:90
-#, fuzzy
 msgid "The value you entered is not a valid number."
-msgstr "Le dimensioni devono corrispondere a un numero."
-
-#: ../textw/upgrade_text.py:96
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
 #: ../textw/upgrade_text.py:116
@@ -2817,11 +2859,9 @@ msgstr "Utilizza connessioni TLS"
 msgid "Custom System"
 msgstr "Personalizzata"
 
-#: ../installclasses/custom.py:22 ../installclasses/workstation.py:30
-msgid ""
-"You are about to erase any preexisting Linux installations on your system."
+#: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
+msgid "any preexisting Linux installations on your system."
 msgstr ""
-"State per cancellare le installazioni Linux esistenti sul vostro sistema."
 
 # ../comps/comps-master:151
 #: ../installclasses/laptop.py:7
@@ -2833,12 +2873,8 @@ msgid "Server System"
 msgstr "Server"
 
 #: ../installclasses/server.py:38
-msgid ""
-"You are about to erase ALL DATA on your hard drive to make room for your "
-"Linux installation."
+msgid "ALL DATA on your hard drive to make room for your Linux installation."
 msgstr ""
-"La creazione di spazio per l'installazione di Linux cancellarà TUTTI I DATI "
-"del vostro hard disk."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
@@ -3719,7 +3755,7 @@ msgstr ""
 msgid "Module Parameters"
 msgstr "Parametri dei moduli"
 
-#: ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:356
+#: ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:358
 #: ../loader/loader.c:289 ../loader/loader.c:350 ../loader/loader.c:366
 msgid "Devices"
 msgstr "Dispositivi"
@@ -3756,34 +3792,34 @@ msgstr ""
 msgid "Specify module parameters"
 msgstr "Specificare i parametri dei moduli"
 
-#: ../loader/devices.c:433
+#: ../loader/devices.c:435
 #, c-format
 msgid "Failed to insert %s module."
 msgstr "Errore durante il caricamento del modulo %s."
 
-#: ../loader/devices.c:479
+#: ../loader/devices.c:481
 #, c-format
 msgid "Failed to mount driver disk: %s."
 msgstr "Mount fallito del dischetto dei driver : %s"
 
-#: ../loader/devices.c:499
+#: ../loader/devices.c:501
 msgid "The wrong diskette was inserted."
 msgstr "E' stato inserito il dischetto errato."
 
-#: ../loader/devices.c:511 ../loader/loader.c:453 ../loader/loader.c:455
+#: ../loader/devices.c:513 ../loader/loader.c:453 ../loader/loader.c:455
 msgid "Loading"
 msgstr "Caricamento"
 
-#: ../loader/devices.c:511 ../loader/windows.c:47
+#: ../loader/devices.c:513 ../loader/windows.c:47
 #, c-format
 msgid "Loading %s driver..."
 msgstr "Caricamento driver %s..."
 
-#: ../loader/devices.c:530
+#: ../loader/devices.c:532
 msgid "Driver Disk"
 msgstr "Dischetto dei driver"
 
-#: ../loader/devices.c:531
+#: ../loader/devices.c:533
 #, c-format
 msgid "Please insert the %s driver disk now."
 msgstr "Inserire il dischetto dei driver %s."
