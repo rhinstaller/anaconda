@@ -507,7 +507,7 @@ class ToDo:
         arch = iutil.getArch ()
 
         if arch == "alpha":
-            if keys.has_key ('/boot'):
+            if '/boot' in keys:
                 kernelPart = '/boot'
             else:
                 kernelPart = '/'
