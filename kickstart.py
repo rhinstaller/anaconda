@@ -43,6 +43,8 @@ class Script:
 	os.unlink(path)
 
 class KickstartBase(BaseInstallClass):
+    name = "kickstart"
+    
     def postAction(self, rootPath, serial):
 	for script in self.postScripts:
 	    script.run(rootPath, serial)

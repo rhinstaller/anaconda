@@ -803,7 +803,12 @@ def doClearPartAction(partitions, diskset):
             deletePart(diskset, delete)
             continue
     
-def doAutoPartition(dir, diskset, partitions, intf):
+def doAutoPartition(dir, diskset, partitions, intf, instClass):
+    if instClass.name and instClass.name == "kickstart":
+        isKickstart = 1
+    else:
+        isKickstart = 0
+        
     if dir == DISPATCH_BACK:
         diskset.refreshDevices()
         partitions.setFromDisk(diskset)
@@ -845,15 +850,25 @@ def doAutoPartition(dir, diskset, partitions, intf):
     try:
         doPartitioning(diskset, partitions, doRefresh = 0)
     except PartitioningWarning, msg:
-        intf.messageWindow(_("Warnings During Automatic Partitioning"),
+        if not isKickstart:
+            intf.messageWindow(_("Warnings During Automatic Partitioning"),
                            _("Following warnings occurred during automatic "
                            "partitioning:\n\n%s") % (msg.value))
+        else:
+            log("WARNING: %s" % (msg.value))
     except PartitioningError, msg:
         # restore drives to original state
         diskset.refreshDevices()
         partitions.setFromDisk(diskset)
+        if not isKickstart:
+            extra = ""
+        else:
+            extra = "\n\nPress OK to reboot your system."
         intf.messageWindow(_("Error Partitioning"),
-               _("Could not allocate requested partitions: \n\n%s.") % (msg.value))
+               _("Could not allocate requested partitions: \n\n%s.%s") % (msg.value, extra))
+
+        if isKickstart:
+            sys.exit(0)
 
 
 def queryAutoPartitionOK(intf, diskset, partitions):
