@@ -37,7 +37,7 @@ makeBootImages() {
 
 	pushd $TOPDESTPATH/ppc/chrp
 	cp $IMGPATH/usr/share/ppc64-utils/zImage.lds $TOPDESTPATH/ppc/chrp/zImage.lds
-	$IMGPATH/usr/bin/mkzimage $KERNELROOT/boot/vmlinuz-partial* $TOPDESTPATH/images/netboot.img $TOPDESTPATH/ppc/chrp/ramdisk.image.gz 
+	$IMGPATH/usr/bin/mkzimage $KERNELROOT/boot/vmlinuz-partial* $TOPDESTPATH/images/pseries/netboot.img $TOPDESTPATH/ppc/chrp/ramdisk.image.gz 
 	rm -f $TOPDESTPATH/ppc/chrp/zImage.lds
 	popd
 
@@ -49,10 +49,10 @@ makeBootImages() {
 
 	# FIXME: this assumes the file gets there by magic
 	cp $TOPDESTPATH/boot_image $TOPDESTPATH/isopath/boot_image
-	mkisofs -generic-boot $TOPDESTPATH/isopath/boot_image -A "$PRODUCT $VERSION" -V "PBOOT" -J -R -T -allow-multidot -l -o $TOPDESTPATH/images/boot.iso $TOPDESTPATH/isopath
+	mkisofs -generic-boot $TOPDESTPATH/isopath/boot_image -A "$PRODUCT $VERSION" -V "PBOOT" -J -R -T -allow-multidot -l -o $TOPDESTPATH/images/pseries/boot.iso $TOPDESTPATH/isopath
 	rm -rf $TOPDESTPATH/isopath/
 	
-	cat > $TOPDESTPATH/images/README <<EOF
+	cat > $TOPDESTPATH/images/pseries/README <<EOF
 The files in this directory are for use in booting a pSeries 
 machine.  They are as follows:
 boot.iso - A bootable CD-ROM image for starting an installation on pSeries
@@ -76,14 +76,31 @@ EOF
 	$IMGPATH/usr/sbin/addSystemMap $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux $TOPDESTPATH/ppc/iSeries/vmlinux.sm
 	$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux.sm $TOPDESTPATH/ppc/iSeries/boot.img
 	rm -f $TOPDESTPATH/ppc/iSeries/vmlinux.sm
+    elif [ "$KERNELARCH" = "ppc" ]; then
+        echo "Building ppc initrd"
+        makeinitrd --initrdto $TOPDESTPATH/images/ppcmac/ramdisk.image.gz \
+            --initrdsize 8192 \
+            --loaderbin loader \
+            --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES"
+
+	# FIXME: this will overwrite some of the pseries stuff
+        mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc
+        cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/vmlinux
+        cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
+        cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
+        cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc
+        $IMGPATH/usr/lib/yaboot/addnote $TOPDESTPATH/ppc/yaboot
+
+        # we also want to make a boot.iso here 
+        mkdir -p $TOPDESTPATH/isopath/ppc $TOPDESTPATH/isopath/etc
+        cp $TOPDESTPATH/etc/* $TOPDESTPATH/isopath/etc/
+        cp $TOPDESTPATH/ppc/* $TOPDESTPATH/isopath/ppc/
+
+	# need a proper mkisofs command for mac
+#        mkisofs -generic-boot $TOPDESTPATH/isopath/boot_image -A "$PRODUCT $VERSION" -V "PBOOT" -J -R -T -allow-multidot -l -o $TOPDESTPATH/images/boot.iso $TOPDESTPATH/isopath
+        rm -rf $TOPDESTPATH/isopath/
     else
-	echo "Unknown kernel arch: $KERNELARCH"
-    # mac?
-    # echo "Building Mac initrd"
-    # makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.image.gz \
-    #            --initrdsize 8192 \
-    #            --loaderbin loader \
-    #            --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODS $ISOMODULES"
+        echo "Unknown kernel arch: $KERNELARCH"
     fi
 }
 

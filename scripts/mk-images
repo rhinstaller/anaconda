@@ -874,7 +874,7 @@ fi
 # Find the kernel, unpack it, and verify it
 vertag="BOOT"
 if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
-    arches="ppc64pseries ppc64iseries"
+    arches="ppc64pseries ppc64iseries ppc"
 elif [ "$BUILDARCH" = "i386" ]; then
     arches="i386 i586"
 else
@@ -886,9 +886,14 @@ for KERNELARCH in $arches; do
     kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
     mkdir -p $KERNELROOT/lib/modules/misc
     if [ ! -f "$kpackage" ]; then
-	echo "kernel-$kernelvers does not exist -- using kernel package"
+	echo "kernel-$kernelvers does not exist for $KERNELARCH -- using kernel package"
 	kpackage=$($LATEST $KERNELPATH kernel)
 	kernelvers=""
+    fi
+
+    if [ ! -f "$kpackage" ]; then
+	echo "kernel doesn't exist for $KERNELARCH.  skipping arch"
+	continue
     fi
 
     ppackage=$($LATEST $KERNELPATH hwdata)
