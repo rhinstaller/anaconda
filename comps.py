@@ -807,3 +807,73 @@ class ComponentSet:
         
 	self.packages = hdlist
 	self.readCompsFile(file, self.packages)
+
+
+# this is a temporary way to set order of packages
+def orderPackageGroups(curgroups):
+    compsOrder = [
+    "Base X Support",
+    "Printing Support",
+    "GNOME Desktop Environment",
+    "KDE Desktop Environment",
+    "Authoring and Publishing",
+    "Games and Entertainment",
+    "GNOME Games and Entertainment",
+    "KDE Games and Entertainment",
+    "X Based Games and Entertainment",
+    "Messaging and Web Tools",
+    "GNOME Messaging and Web Tools",
+    "KDE Messaging and Web Tools",
+    "Multimedia Software",
+    "GNOME Multimedia Software",
+    "KDE Multimedia Software",
+    "Office/Productivity Software",
+    "GNOME Office/Productivity Software",
+    "KDE Office/Productivity Software",
+    "Emacs",
+    "Kernel Development",
+    "Software Development",
+    "GNOME Software Development",
+    "KDE Software Development",
+    "X Software Development",
+    "Multimedia Software Development",
+    "Utilities",
+    "Workstation Tools",
+    "Dialup Networking Support",
+    "NFS File Server",
+    "Web Server",
+    "FTP Server",
+    "Windows File Server",
+    "DNS Name Server",
+    "SQL Database Server",
+    "Network Servers",
+    "News Server",
+    ]
+
+    ignorelst = []
+    retval = []
+    while 1:
+	bestfit = len(compsOrder)+1
+	bestgrp = None
+	for grp in curgroups:
+            if grp.name in ignorelst:
+		continue
+	    if grp.name in compsOrder:
+		if compsOrder.index(grp.name) < bestfit:
+		    bestfit = compsOrder.index(grp.name)
+		    bestgrp = grp
+
+	if bestgrp is None:
+	    for grp in curgroups:
+		if grp.name not in ignorelst:
+		    bestgrp = grp
+		    break
+
+	if bestgrp is None:
+	    break
+
+	ignorelst.append(bestgrp.name)
+	retval.append(bestgrp)
+
+    return retval
+
