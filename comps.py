@@ -510,7 +510,7 @@ class ComponentSet:
         groups.sort()
 
         # be leet and construct an everything group
-        everything = rhpl.Group(self.compsxml)
+        everything = rhpl.comps.Group(self.compsxml)
         everything.name = _("Everything")
         everything.id = "everything"
         for pkg in packages.keys():
