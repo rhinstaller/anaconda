@@ -1673,7 +1673,10 @@ class RAIDDevice(Device):
         self.numDisks = len(members) - spares
         self.isSetup = existing
         self.doLabel = None
-        self.chunksize = chunksize
+        if chunksize is not None:
+            self.chunksize = chunksize
+        else:
+            self.chunksize = 64
 
         if len(members) < spares:
             raise RuntimeError, ("you requiested more spare devices "
