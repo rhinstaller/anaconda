@@ -260,7 +260,6 @@ class KickstartBase(BaseInstallClass):
         else:
             location = validLocations.index(location)
 
-        # FIXME: upgrade mode not implemented yet on HEAD
         if upgrade and not id.upgrade.get():
             raise RuntimeError, "Selected upgrade mode for bootloader but not doing an upgrade"
 
@@ -270,8 +269,7 @@ class KickstartBase(BaseInstallClass):
                 
         self.setBootloader(id, useLilo, location, linear, forceLBA,
                            password, md5pass, appendLine)
-        # FIXME: uncomment when upgrade boot loader stuff is merged
-#        self.skipSteps.append("upgbootloader")
+        self.skipSteps.append("upgbootloader")
         self.skipSteps.append("bootloader")
         self.skipSteps.append("bootloaderadvanced")
 

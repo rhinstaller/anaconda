@@ -78,6 +78,7 @@ installSteps = [
                                              "intf", "instPath", "dir")),
     ("upgrademigfind", upgradeMigrateFind, ("dispatch", "id.fsset")),
     ("upgrademigratefs",  ("id.fsset",)),
+    ("upgbootloader", ("dispatch", "id.bootloader")),
     ("bootloadersetup", bootloaderSetupChoices, ("dispatch", "id.bootloader",
                                                  "id.fsset", "id.diskset",
                                                  "dir")),

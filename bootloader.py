@@ -78,6 +78,21 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     if bl.defaultDevice == -1:
         return
 
+    # now make the upgrade stuff work for kickstart too. ick.
+    if bl.kickstart == 1 and bl.doUpgradeOnly == 1:
+        import checkbootloader
+        (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(instRoot)
+        
+        bl.doUpgradeonly = 1
+        if bootType == "GRUB":
+            bl.useGrubVal = 1
+            bl.setDevice(theDev)
+        elif bootType == "LILO":
+            bl.useGrubVal = 0
+            bl.setDevice(theDev)            
+        else:
+            bl.doUpgradeOnly = 0    
+
     w = intf.waitWindow(_("Bootloader"), _("Installing bootloader..."))
 
     kernelList = []
