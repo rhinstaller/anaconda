@@ -454,6 +454,9 @@ for p in $DEST $DESTGR; do
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
 	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/lib
 
+	mv $p/usr/lib/anaconda-runtime/collage $p/usr/bin
+	(cd $p/usr/bin; ./collage | $p/usr/lib/anaconda-runtime/mkcollagelinks ./collage)
+
 	find $p -type d | xargs chmod 755
 
 	if [ -f $p/bin/bash ]; then
@@ -552,15 +555,13 @@ echo "Compressing ramdisk install images..."
 		gzip -9 > slang-newt.cgz
 	rm -f libnewt* libslang*
 
-	mv $DEST/usr/lib/anaconda-runtime/anaconda-stub $DEST/usr/bin/anaconda
-
-	rm -rf $DEST/usr/lib/anaconda-runtime
-
 	cd $DEST/usr/bin
 	echo python1.5 | cpio --quiet -H crc -o | gzip -9 > python1.5.cgz
 	rm -f python python1.5
 	ln -s python1.5 python
+
 	mv anaconda anaconda.real
+	mv $DEST/usr/lib/anaconda-runtime/anaconda-stub anaconda
 
 	cd $DEST/lib
 	ls    libcom* libcrypt* libdl* libe2p* libext2* libm* libnss* libnsl* \
@@ -576,6 +577,8 @@ echo "Compressing ramdisk install images..."
 	cd $DEST/usr/sbin
 	ls [a-r]* | cpio --quiet -H crc -o | gzip -9 > sbin.cgz
 	rm -f [a-r]*
+
+	rm -rf $DEST/usr/lib/anaconda-runtime
 
 if [ -n "$NEEDGR" ]; then
     cd $ORIGDIR
