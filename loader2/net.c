@@ -788,6 +788,7 @@ int chooseNetworkInterface(struct knownDevices * kd,
         return LOADER_NOOP;
 
     devices[deviceNums] = NULL;
+    deviceNames[deviceNums] = NULL;
 
     /* ASSERT: we should *ALWAYS* have a network device when we get here */
     if (!deviceNums) {
