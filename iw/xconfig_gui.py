@@ -30,7 +30,8 @@ class XCustomWindow (InstallWindow):
         self.selectedDepth = ""
         self.selectedRes = ""
 #        self.newDesktop = "GNOME"
-
+        self.newDesktop = ""
+        
     def getNext (self):
         newmodes = {}
         newmodes[self.selectedDepth] = []
