@@ -115,7 +115,7 @@ rm -rf $BUILDINSTDIR/usr
 echo "Going to run buildinstall again"
 # run it again for the second half
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release \"$RELEASESTR\" --product \"$PRODUCTSTR\""
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release '\"$RELEASESTR\"' --product '\"$PRODUCTSTR\"'"
 else
     $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release \"$RELEASESTR\" --product \"$PRODUCTSTR\"
 fi
