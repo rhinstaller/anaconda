@@ -249,7 +249,7 @@ class InstallTimeLanguage:
 	self.langList = []
 
         self.tempDefault = ""
-        
+
 	for line in lines:
 	    string.strip(line)
 	    l = string.split(line)
@@ -1090,7 +1090,7 @@ class ToDo:
 		self.fstab.setLoopbackSwapSize(-1)
 
 	    checkLinks = [ '/etc', '/var', '/var/lib', '/var/lib/rpm',
-			   '/boot' ]
+			   '/boot', '/tmp', '/var/tmp' ]
 	    badLinks = []
 	    for n in checkLinks:
 		if not os.path.islink(self.instPath + n): continue
