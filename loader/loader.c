@@ -2682,7 +2682,9 @@ int main(int argc, char ** argv) {
 	    flags |= LOADER_FLAGS_SERIAL;
     }
 
-    if (!FL_TESTING(flags)) {
+    /* don't start modules.conf if continuing as there could be modules 
+       already loaded from a driver disk */
+    if ((!FL_TESTING(flags)) && !continuing) {
         int fd;
 
 	fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT, 0666);
