@@ -136,7 +136,8 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
     
     if partition == None:
         intf.messageWindow(_("Unable To Delete"),
-                           _("You must first select a partition to delete."))
+                           _("You must first select a partition to delete."),
+			   custom_icon="error")
         return 0
 
     if iutil.getArch() == "s390" and type(partition) != type("RAID"):
@@ -149,7 +150,8 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
         device = partition
     elif partition.type & parted.PARTITION_FREESPACE:
         intf.messageWindow(_("Unable To Delete"),
-                           _("You cannot delete free space."))
+                           _("You cannot delete free space."),
+			   custom_icon="error")
         return 0
     else:
         device = partedUtils.get_partition_name(partition)
@@ -160,7 +162,8 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
             intf.messageWindow(_("Unable To Delete"),
                                _("You cannot delete this "
                                  "partition, as it is an extended partition "
-                                 "which contains %s") %(ret))
+                                 "which contains %s") %(ret),
+			       custom_icon="error")
         return 0
 
     # see if device is in our partition requests, remove
@@ -173,7 +176,7 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
 	state = isNotChangable(request, requestlist)
 	if state is not None:
             if not quiet:
-                intf.messageWindow(_("Unable To Delete"), state % ("delete",))
+                intf.messageWindow(_("Unable To Delete"), state % ("delete",), custom_icon="error")
 	    return (None, None)
 
         if confirm and not confirmDeleteRequest(intf, request):
@@ -219,7 +222,7 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
 	rc = intf.messageWindow(_("Confirm Delete"),
 				_("You are about to delete all partitions on "
 				  "the device '/dev/%s'.") % (device,),
-				type="custom",
+				type="custom", custom_icon="warning",
 				custom_buttons=[_("Cancel"), _("_Delete")])
 
 	if not rc:
@@ -254,7 +257,8 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
     if outlist != "" and not quiet:
         intf.messageWindow(_("Notice"),
                            _("The following partitions were not deleted "
-                             "because they are in use:\n\n%s") % outlist)
+                             "because they are in use:\n\n%s") % outlist,
+			   custom_icon="warning")
 
     return 1
 
@@ -269,7 +273,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
     
     if part == None:
         intf.messageWindow(_("Unable To Edit"),
-                           _("You must select a partition to edit"))
+                           _("You must select a partition to edit"), custom_icon="error")
 
         return (None, None)
 
@@ -281,7 +285,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
 	if request:
 	    state = isNotChangable(request, requestlist)
 	    if state is not None:
-		intf.messageWindow(_("Unable To Edit"), state % ("edit",))
+		intf.messageWindow(_("Unable To Edit"), state % ("edit",), custom_icon="error")
 		return (None, None)
 
 	if request.type == REQUEST_RAID:
@@ -314,7 +318,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
         intf.messageWindow(_("Unable To Edit"),
                            _("You cannot edit this "
                              "partition, as it is an extended partition "
-                             "which contains %s") %(ret))
+                             "which contains %s") %(ret), custom_icon="error")
         return 0
 
     name = partedUtils.get_partition_name(part)
@@ -322,7 +326,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
     if request:
 	state = isNotChangable(request, requestlist)
 	if state is not None:
-	    intf.messageWindow(_("Unable To Edit"), state % ("edit",))
+	    intf.messageWindow(_("Unable To Edit"), state % ("edit",), custom_icon="error")
 	    return (None, None)
 	
         return ("PARTITION", request)
@@ -350,7 +354,8 @@ def checkForSwapNoMatch(intf, diskset, partitions):
                                       "partition.\n\n"
                                       "Would you like to format this "
                                       "partition as a swap partition?")
-                                    % (request.device), type = "yesno")
+                                    % (request.device), type = "yesno",
+				    custom_icon="question")
             if rc == 1:
                 request.format = 1
                 request.fstype = fsset.fileSystemTypeGet("swap")
@@ -376,7 +381,7 @@ def queryNoFormatPreExisting(intf):
 #            "the partition ?")
 
 #    rc = intf.messageWindow(_("Format?"), txt, type = "yesno", default = "no")
-    rc = intf.messageWindow(_("Format?"), txt, type = "custom", custom_buttons=[_("Cancel"), _("Do _Not Format")])
+    rc = intf.messageWindow(_("Format?"), txt, type = "custom", custom_buttons=[_("Cancel"), _("Do _Not Format")], custom_icon="warning")
     return rc
 
 def partitionSanityErrors(intf, errors):
@@ -390,7 +395,8 @@ def partitionSanityErrors(intf, errors):
                                   "scheme. "
                                   "These errors must be corrected prior "
                                   "to continuing with your install of "
-                                  "%s.\n\n%s") %(errorstr, productName))    
+                                  "%s.\n\n%s") %(errorstr, productName),
+				custom_icon="error")
     return rc
 
 def partitionSanityWarnings(intf, warnings):
@@ -404,7 +410,7 @@ def partitionSanityWarnings(intf, warnings):
                                        "\n\nWould you like to continue with "
                                        "your requested partitioning "
                                        "scheme?") % (warningstr),
-                                     type="yesno")
+                                     type="yesno", custom_icon="warning")
     return rc
 
 
@@ -424,7 +430,7 @@ def partitionPreExistFormatWarnings(intf, warnings):
             commentstr = commentstr + "/dev/%s %s %s\n" % (dev,type,mntpt)
         rc = intf.messageWindow(_("Format Warning"), "%s\n\n%s\n\n%s" %
                                 (labelstr1, labelstr2, commentstr),
-                                type="yesno")
+                                type="yesno", custom_icon="warning")
     return rc
 
 def getPreExistFormatWarnings(partitions, diskset):
@@ -486,7 +492,8 @@ def confirmDeleteRequest(intf, request):
 	    errmsg = _("The partition you selected will be deleted.")
 
     rc = intf.messageWindow(_("Confirm Delete"), errmsg, type="custom",
-				custom_buttons=[_("Cancel"), _("_Delete")])
+				custom_buttons=[_("Cancel"), _("_Delete")],
+			    custom_icon="question")
 
     return rc
 
@@ -495,6 +502,6 @@ def confirmResetPartitionState(intf):
     rc = intf.messageWindow(_("Confirm Reset"),
                             _("Are you sure you want to reset the "
                               "partition table to its original state?"),
-                            type="yesno")
+                            type="yesno", custom_icon="question")
     return rc
 
