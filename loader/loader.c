@@ -375,9 +375,9 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
-    if (isysReadModuleInfo(testing ? "/boot/module-info" : 
-    			   "/modules/module-info")) {
-        fprintf(stderr, "failed to read /boot/module-info");
+    arg = testing ? "/boot/module-info" : "/modules/module-info";
+    if (isysReadModuleInfo(arg)) {
+        fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
 	exit(1);
     }
