@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-23 17:50+0530\n"
+"PO-Revision-Date: 2004-07-26 18:23+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -444,6 +444,12 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
+"આપોઆપ પાર્ટીશન પસંદ કરેલ સ્થાપનના પ્રકારને આધારિત પાર્ટીશનો સુયોજિત "
+"કરે છે. તમે પાર્ટીશનો જ્યારે બની જાય ત્યારે કસ્ટમાઈઝ પણ કરી શકો છો.\n"
+"\n"
+"ડિસ્ક પાર્ટીશન કરવાનું સાધન, ડિસ્ક ડ્રુડ, તમને ઈન્ટરેક્ટીવ પર્યાવરણમાં પાર્ટીશન "
+"બનાવવાની પરવાનગી આપે છે. તમે ફાઈલ સિસ્ટમ પ્રકારો, માઉન્ટ પોઈન્ટ, "
+"પાર્ટીશન માપો અને વધુ પણ સુયોજિત કરી શકો છો."
 
 #: ../autopart.py:1494
 msgid ""
@@ -1018,7 +1024,7 @@ msgstr ""
 
 #: ../gui.py:746
 msgid "default:LTR"
-msgstr ""
+msgstr "default:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1824,6 +1830,13 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
+"તમે પહેલાના હયાત પાર્ટીશનો સ્થાપન માટે બંધારણ ઘડ્યા વગર વાપરવાનું "
+"પસંદ કરેલ છે. અમે એવો આગ્રહ રાખીએ છીએ કે તમે પહેલાની ઓપરેટીંગ "
+"સિસ્ટમનું સ્થાપન લિનક્સના આ સ્થાપનને માટે સમસ્યા ઊભી નહિં કરે તે માટે "
+"બંધારણ ફરીથી ઘડી લો. તેમછતાં પણ, જો તમે આ પાર્ટીશન અમુક ફાઈલો "
+"કે જે તમે રાખવા માંગતા હોય, જેમકે ઘર ડિરેક્ટરીઓ સમાવે અને પછી આ પાર્ટીશન "
+"સાથે બંધારણ ઘડ્યા વગર ચલાવી શકો છો."
+"રાાપન"
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
@@ -2884,23 +2897,23 @@ msgstr "ઉન્નત બુટલોડર વિકલ્પો રુપર
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
-msgstr ""
+msgstr "ના પર બુટલોડર રેકોર્ડ સ્થાપિત કરો:"
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
-msgstr ""
+msgstr "ડ્રાઈવનો ક્રમ બદલો (_C)"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Unable to Change Drive Order for LILO"
-msgstr ""
+msgstr "LILO માટે ડ્રાઈવનો ક્રમ બદલવા માટે અસમર્થ"
 
 #: ../iw/bootlocwidget.py:85
 msgid "We do not support changing the drive order for use with LILO."
-msgstr ""
+msgstr "અમે LILO સાથે વાપરીને ડ્રાઈવનો ક્રમ બદલવા માટે આધાર આપતા નથી."
 
 #: ../iw/bootlocwidget.py:92
 msgid "Edit Drive Order"
-msgstr ""
+msgstr "ડ્રાઈવના ક્રમમાં ફેરફાર કરો"
 
 #: ../iw/bootlocwidget.py:97
 msgid ""
@@ -2911,25 +2924,31 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
+"BIOS દ્વારા વપરાતા ક્રમ પ્રમાણે જ ડ્રાઈવો ગોઠવો. ડ્રાઈવોનો ક્રમ બદલવાનું"
+"ઉપયોગી થઈ શકે જ્યારે તમારી પાસે SCSI એડેપ્ટર અથવા બંને SCSI "
+"અને IDE એડેપ્ટરો હોય અને SCSI ઉપકરણમાંથી બુટ કરવાનું પસંદ કરો.\n"
+"\n"
+"ડ્રાઈવનો ક્રમ બદલવાનું તમારા સ્થાપન કે જ્યાં કાર્યક્રમો સ્થિત થયેલ હોય "
+"અને Master Boot Record (MBR) સ્થિત કરે તે બદલાઈ જાય."
 
 #: ../iw/confirm_gui.py:57
 msgid "About to Install"
-msgstr ""
+msgstr "સ્થાપન વિશે"
 
 #: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:95 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:61
 msgid "Reboot?"
-msgstr ""
+msgstr "રીબુટ?"
 
 #: ../iw/confirm_gui.py:66 ../iw/confirm_gui.py:96 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:62
 msgid "The system will be rebooted now."
-msgstr ""
+msgstr "સિસ્ટમ હવે રીબુટ થશે."
 
 #: ../iw/confirm_gui.py:79
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr ""
+msgstr "%s નું સ્થાપન આગળ વધારવા માટે આગળ વધો પર ક્લિક કરો."
 
 #: ../iw/confirm_gui.py:80
 #, python-format
@@ -2940,30 +2959,35 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
+"તમારી સિસ્ટમ રીબુટ કર્યા પછી સ્થાપનની પૂરેપુરી જાણકારી ફાઈલ '%s'"
+"માં જોવા મળે છે.\n"
+"\n"
+"કિકસ્ટાર્ટ ફાઈલ કે જે સ્થાપનના વિકલ્પોને સમાવે છે તે ફાઈલ '%s' માં "
+"તમારી સિસ્ટમ રીબુટ કર્યા પછી જોવા મળે છે."
 
 #: ../iw/confirm_gui.py:87
 msgid "About to Upgrade"
-msgstr ""
+msgstr "સુધારા વિશે"
 
 #: ../iw/confirm_gui.py:108
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr ""
+msgstr "%s નો સુધારો કરવા માટે આગળ વધો પર ક્લિક કરો."
 
 #: ../iw/confirm_gui.py:109
 #, python-format
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr ""
+msgstr "સુધારાની પૂરેપુરી વિગત સિસ્ટમ રીબુટ કર્યા પછી ફાઈલ '%s' માં જોવા મળે છે."
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
-msgstr ""
+msgstr "ધન્યવાદ"
 
 #: ../iw/congrats_gui.py:29
 msgid "Reboo_t"
-msgstr ""
+msgstr "રીબુટ (_t)"
 
 #: ../iw/congrats_gui.py:56
 msgid ""
@@ -2971,6 +2995,10 @@ msgid ""
 "installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"કોઈપણ સ્થાપનનું માધ્યમ (ડિસ્ક અથવા CD-ROM) કે જે સ્થાપન દરમ્યાન "
+"વપરાયેલ હોય તે દૂર કરો અને તમારી સિસ્ટમ રીબુટ કરવા માટે \"રીબુટ\"  "
+"બટન પર ક્લિક કરો.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:62
 #, python-format
@@ -2979,6 +3007,9 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"ધન્યવાદ, સ્થાપન પૂર્ણ થયું.\n"
+"\n"
+"%s%s"
 
 #: ../iw/congrats_gui.py:64
 msgid ""
@@ -2996,42 +3027,55 @@ msgid ""
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
 msgstr ""
+"ઈરાટા વિશે વધુ જાણકારી માટે (સુધારાઓ અને ભૂલો પૂરી કરો), મુલાકાત લો:\n"
+"\thttp://www.redhat.com/errata/\n"
+"\n"
+"રેડ હેટ નેટવર્ક દ્વારા આપોઆપ સુધારા વિશે વધુ જાણકારી માટે, મુલાકાત લો:\n"
+"\thttp://rhn.redhat.com/\n"
+"\n"
+"તમારી સિસ્ટમ વાપરવા અને રુપરેખાંકિત કરવા વિશે વધુ જાણકારી માટે, મુલાકાત લો:\n"
+"\thttp://www.redhat.com/docs/\n"
+"\thttp://www.redhat.com/apps/support/\n"
+"\n"
+"આધાર માટે ઉત્પાદનની નોંધણી કરાવવા માટે, મુલાકાત લો:\n"
+"\thttp://www.redhat.com/apps/activate/\n"
+"\n"
 
 #: ../iw/dependencies_gui.py:21
 msgid "Unresolved Dependencies"
-msgstr ""
+msgstr "નહિં ઉકેલાયેલ આધારભૂતો"
 
 #: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:252
 #: ../iw/package_gui.py:495 ../iw/package_gui.py:672
 #: ../textw/packages_text.py:26 ../textw/packages_text.py:351
 #, python-format
 msgid "Total install size: %s"
-msgstr ""
+msgstr "કુલ સ્થાપનનું માપ: %s"
 
 #: ../iw/dependencies_gui.py:74 ../iw/progress_gui.py:351
 #: ../iw/progress_gui.py:601 ../textw/packages_text.py:382
 msgid "Package"
-msgstr ""
+msgstr "પેકેજ"
 
 #: ../iw/dependencies_gui.py:76 ../textw/packages_text.py:382
 msgid "Requirement"
-msgstr ""
+msgstr "જરુરિયાત"
 
 #: ../iw/dependencies_gui.py:90
 msgid "_Install packages to satisfy dependencies"
-msgstr ""
+msgstr "આધારપણુ સંતોષ મેળવવા માટે પેકેજો સ્થાપિત કરો (_I)"
 
 #: ../iw/dependencies_gui.py:93
 msgid "_Do not install packages that have dependencies"
-msgstr ""
+msgstr "પેકેજો કે જે બીજા પર આધારિત હોય તેવા સ્થાપિત કરો નહિં (_D)"
 
 #: ../iw/dependencies_gui.py:97
 msgid "I_gnore package dependencies"
-msgstr ""
+msgstr "પેકેજોનું આધારપણું અવગણો (_g)"
 
 #: ../iw/desktop_choice_gui.py:25 ../textw/desktop_choice_text.py:24
 msgid "Package Defaults"
-msgstr ""
+msgstr "પેકેજોના મૂળભુતો"
 
 #: ../iw/desktop_choice_gui.py:51
 msgid ""
@@ -3039,6 +3083,8 @@ msgid ""
 "selection, including:\n"
 "\n"
 msgstr ""
+"મૂળભુત સ્થાપન પર્યાવરણ જરુરી પસંદ થયેલ પેકેજો સમાવે છે, ની સાથે:\n"
+"\n"
 
 #: ../iw/desktop_choice_gui.py:53
 #, python-format
@@ -3052,41 +3098,51 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
+"\n"
+"\n"
+"સ્થાપન પછી, વધારાના સોફ્ટવેર 'system-config-packages' સાધન દ્વારા "
+"ઉમેરી અથવા દૂર કરી શકાશે.\n"
+"\n"
+"જો તમે %s થી પરિચીત થઈ ગયા હોય, તો તમારી પાસે અમુક ચોક્કસ પેકેજો"
+"સ્થાપિત કરી શકો છો અથવા સ્થાપન દૂર કરી શકો છો. નીચે દર્શાવેલ"
+"બોક્સ ચેક કરીને તમારું સ્થાપન કસ્ટમાઈઝ કરો."
 
 #: ../iw/desktop_choice_gui.py:65
 msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
 msgstr ""
+"જો તમે મૂળભુત પેકેજ સેટ સ્થાપિત થયેલ કરવા માંગતા હોય તો તમે નીચે કસ્ટમાઈઝ "
+"પસંદ કરી શકો છો."
 
 #: ../iw/desktop_choice_gui.py:73
 msgid "_Install default software packages"
-msgstr ""
+msgstr "મૂળભુત સોફ્ટવેર પેકેજો સ્થાપિત કરો (_I)"
 
 #: ../iw/desktop_choice_gui.py:74
 msgid "_Customize software packages to be installed"
-msgstr ""
+msgstr "સ્થાપિત કરવા માટે સોફ્ટવેર પેકેજો કસ્ટમાઈઝ કરો (_C)"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
-msgstr ""
+msgstr "ડ્રાઈવ"
 
 #: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:602
 #: ../iw/progress_gui.py:685 ../textw/partition_text.py:1130
 msgid "Size"
-msgstr ""
+msgstr "માપ"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Model"
-msgstr ""
+msgstr "મોડેલ"
 
 #: ../iw/examine_gui.py:32
 msgid "Upgrade Examine"
-msgstr ""
+msgstr "પરીક્ષા સુધારો"
 
 #: ../iw/examine_gui.py:59
 msgid "_Upgrade an existing installation"
-msgstr ""
+msgstr "વર્તમાન સ્થાપન સુધારો (_U)"
 
 #: ../iw/examine_gui.py:61
 #, python-format
@@ -3094,11 +3150,14 @@ msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
 msgstr ""
+"આ વિકલ્પ ત્યારે જ પસંદ કરો જ્યારે તમે તમારી વર્તમાન %s સિસ્ટમ સુધારવા "
+"માંગતા હોય. આ વિકલ્પ તમારી વર્તમાન માહિતી તમારી ડ્રાઈવ પર સાચવી "
+"રાખે છે."
 
 #: ../iw/examine_gui.py:67
 #, python-format
 msgid "_Install %s"
-msgstr ""
+msgstr "%s સ્થાપિત કરો (_I)"
 
 #: ../iw/examine_gui.py:69
 msgid ""
