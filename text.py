@@ -777,6 +777,17 @@ class InstallInterface:
     def messageWindow(self, title, text):
 	ButtonChoiceWindow(self.screen, _(title), _(text),
                            buttons = [ _("OK") ])
+
+    def dumpWindow(self):
+	rc = ButtonChoiceWindow(self.screen, _("Save Crash Dump"),
+	    _("Please insert a floppy now. All contents of the disk "
+	      "will be erased, so please choose your diskette carefully."),
+	    [ _("OK"), _("Cancel") ])
+
+        if rc == string.lower (_("Cancel")):
+	    return 1
+
+	return 0
     
     def exceptionWindow(self, title, text):
 	ugh = _("An internal error occured in the installation program. "

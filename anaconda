@@ -33,7 +33,7 @@ if len(sys.argv) > 1:
 
 import traceback
 import string
-from pickle import Pickler
+from cPickle import Pickler
 
 import isys
 import iutil
@@ -419,7 +419,6 @@ todo = ToDo(intf, method, rootPath, installSystem = installPackages,
 	    extraModules = extraModules)
 
 try:
-    raise ValueError, "something went wrong"
     intf.run(todo, test = test)
 except SystemExit, code:
     intf.shutdown()
@@ -429,13 +428,43 @@ except:
     list = traceback.format_exception (type, value, tb)
     text = joinfields (list, "")
     rc = intf.exceptionWindow (_("Exception Occurred"), text)
-    intf.__del__ ()
     if rc == 1:
+	intf.__del__ ()
         print text
         import pdb
         pdb.post_mortem (tb)
-    elif rc == 2:
-	out = open("anacdump.txt", "w")
+    elif not rc:
+	intf.__del__ ()
+	os._exit(1)
+
+    while 1:
+	rc = intf.dumpWindow()
+	if rc:
+	    intf.__del__ ()
+	    os._exit(1)
+
+	todo.setFdDevice()
+	device = todo.fdDevice[5:]
+	file = "/tmp/floppy"
+	isys.makeDevInode(device, file)
+	try:
+	    fd = os.open(file, os.O_RDONLY)
+	except:
+	    continue
+
+	os.close(fd)
+
+	args = [ "mkdosfs", '/tmp/floppy' ]
+
+	cmd = "/usr/sbin/mkdosfs"
+	if os.access("/sbin/mkdosfs", os.X_OK):
+	    cmd = "/sbin/mkdosfs"
+
+	iutil.execWithRedirect (cmd, args, 
+			        stdout = '/dev/tty5', stderr = '/dev/tty5')
+	isys.mount(device, "/mnt/crash", fstype = "vfat")
+
+	out = open("/mnt/crash/anacdump.txt", "w")
 	p = Pickler(out)
 
 	out.write(text)
@@ -446,6 +475,9 @@ except:
 	p.dump(todo)
 
 	out.close()
-    os._exit (1)
+	isys.umount("/mnt/crash")
+
+	intf.__del__ ()
+	os._exit (1)
 
 del intf
