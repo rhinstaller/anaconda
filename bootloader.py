@@ -394,7 +394,7 @@ class x86BootloaderInfo(bootloaderInfo):
             f.write ("# NOTICE:  You have a /boot partition.  This means that\n")
             f.write ("#          all kernel paths are relative to /boot/\n")
 
-	bootDev = bootDev.device.getDevice()
+	bootDev = bootDev.device.getDevice(asBoot = 1)
 
         f.write('default=0\n')
         f.write('timeout=30\n')
@@ -434,15 +434,20 @@ class x86BootloaderInfo(bootloaderInfo):
         else:
             forcelba = ""
 
+        grubTarget = bl.getDevice()
+        # XXX wouldn't it be nice if grub really understood raid? :)
+        if grubTarget[:2] == "md":
+            device = fsset.getEntryByDeviceName(grubTarget).device.members[0]
+            (grubTarget, None) = getDiskPart(device)
+
 	part = grubbyPartitionName(bootDev)
 	prefix = "%s/%s" % (grubbyPartitionName(bootDev), grubPath)
 	cmd = "root %s\ninstall %s%s/i386-redhat/stage1 d %s %s/i386-redhat/stage2 p %s%s/grub.conf" % \
-	    (part, forcelba, grubPath, grubbyPartitionName(bl.getDevice()),
+	    (part, forcelba, grubPath, grubbyPartitionName(grubTarget),
              grubPath, part, grubPath)
 
-	log("GRUB command %s", cmd)
-
 	if not justConfigFile:
+            log("GRUB command %s", cmd)
 	    p = os.pipe()
 	    os.write(p[1], cmd + '\n')
 	    os.close(p[1])
@@ -454,7 +459,7 @@ class x86BootloaderInfo(bootloaderInfo):
 				    root = instRoot)
 	    os.close(p[0])
 
-	return None
+	return ""
 
     def getBootloaderConfig(self, instRoot, fsset, bl, langs, kernelList,
                             chainList, defaultDev):
@@ -504,12 +509,12 @@ class x86BootloaderInfo(bootloaderInfo):
         
     def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
 		  defaultDev, justConfig):
-        str = self.writeGrub(instRoot, fsset, bl, langs, kernelList, 
-                             chainList, defaultDev,
-                             justConfig | (not self.useGrubVal))
         str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
                              chainList, defaultDev,
                              justConfig | (self.useGrubVal))
+        str = self.writeGrub(instRoot, fsset, bl, langs, kernelList, 
+                             chainList, defaultDev,
+                             justConfig | (not self.useGrubVal))
 
     def getArgList(self):
         args = bootloaderInfo.getArgList(self)
@@ -625,13 +630,8 @@ def makeInitrd (kernelTag, instRoot):
 
     return initrd
 
-def grubbyDiskName(name):
-    drives = isys.hardDriveDict().keys()
-    drives.sort (isys.compareDrives)
-
-    return "hd%d" % drives.index(name)
-
-def grubbyPartitionName(dev):
+# return (disk, partition number) eg ('hda', 1)
+def getDiskPart(dev):
     cut = len(dev)
     if dev[-2] in string.digits:
 	cut = -2
@@ -649,6 +649,20 @@ def grubbyPartitionName(dev):
 
     if cut < 0:
         partNum = int(dev[cut:]) - 1
+    else:
+        partNum = None
+
+    return (name, partNum)
+
+def grubbyDiskName(name):
+    drives = isys.hardDriveDict().keys()
+    drives.sort (isys.compareDrives)
+
+    return "hd%d" % drives.index(name)
+
+def grubbyPartitionName(dev):
+    (name, partNum) = getDiskPart(dev)
+    if partNum != None:
         return "(%s,%d)" % (grubbyDiskName(name), partNum)
     else:
         return "(%s)" %(grubbyDiskName(name))

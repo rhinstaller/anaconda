@@ -904,7 +904,7 @@ class Device:
     def getComment (self):
         return ""
 
-    def getDevice (self):
+    def getDevice (self, asBoot = 0):
         return self.device
 
     def setupDevice (self, chroot='/', devPrefix='/tmp'):
@@ -1006,6 +1006,12 @@ class RAIDDevice(Device):
             self.isSetup = 1
         return node
 
+    def getDevice (self, asBoot = 0):
+        if not asBoot:
+            return self.device
+        else:
+            return self.members[0]
+
     def solidify(self):
         return
         
@@ -1031,7 +1037,7 @@ class PartedPartitionDevice(PartitionDevice):
         PartitionDevice.__init__(self, None)
         self.partition = partition
 
-    def getDevice(self):
+    def getDevice(self, asBoot = 0):
         if not self.partition:
             return self.device
         
