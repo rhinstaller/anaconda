@@ -544,7 +544,7 @@ usr/X11R6/share/Xconfigurator/pixmaps/*
 usr/bin/chattr*
 usr/bin/fc-cache
 usr/bin/gtk-query*
-usr/bin/gdk-pixbuf-query-loaders
+usr/bin/gdk-pixbuf-query-loaders*
 usr/bin/head
 usr/bin/lsattr*
 usr/bin/maketilo
@@ -887,30 +887,54 @@ fi
 
 echo "Getting pango modules"
 if [ -n "$NEEDGR" ]; then
+    # sick sick sick hack for pango-querymodules being -32 or -64
+    mv $DESTGR/usr/bin/pango-querymodules* $DESTGR/usr/bin/pango-querymodules
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
     	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules 2> $DESTGR/etc/pango/pango.modules"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
     fi
     rm -f $DESTGR/usr/bin/pango-querymodules
+    # more sick hackery since it doesn't fall back to this like owen thought
+    cat > $DESTGR/etc/pango/pangorc <<EOF
+[Pango]
+ModuleFiles=/etc/pango/pango.modules
+EOF
 fi
+
+host=`rpm --nodigest --nosignature -qp --qf "%{POSTIN}\n" $PACKAGEDIR/gtk2*.$ARCH.rpm |grep update-gdk-pixbuf |awk {'print $2;'}`
+
+case "$host" in
+  *linux) canonhost="$host-gnu"
+  ;;
+  *) canonhost=$host
+  ;;
+esac
+ 
+# autoconf uses powerpc not ppc
+HOSTTRIPLET=`echo $canonhost | sed "s/^ppc/powerpc/"`
+
+
+mkdir -p $DESTGR/etc/gtk-2.0/$HOSTTRIPLET
 
 echo "Getting gtk2 input method modules"
 if [ -n "$NEEDGR" ]; then
+    mv $DESTGR/usr/bin/gtk-query-immodules-2.0* $DESTGR/usr/bin/gtk-query-immodules-2.0
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 2> $DESTGR/etc/gtk-2.0/gtk.immodules"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 2> $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gtk.immodules"
     else
-	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/gtk.immodules
+	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gtk.immodules
     fi
     rm -f $DESTGR/usr/bin/gtk-query-immodules-2.0
 fi
 
 echo "Getting gtk2 gdk-pixbuf loaders"
 if [ -n "$NEEDGR" ]; then
+    mv $DESTGR/usr/bin/gdk-pixbuf-query-loaders* $DESTGR/usr/bin/gdk-pixbuf-query-loaders
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders 2> $DESTGR/etc/gtk-2.0/gdk-pixbuf.loaders"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders 2> $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders"
     else
-	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/gdk-pixbuf.loaders
+	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders
     fi
     rm -f $DESTGR/usr/bin/gdk-pixbuf-query-loaders
 fi
