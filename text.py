@@ -690,6 +690,36 @@ class FinishedWindow:
                                  [ _("OK") ])
         return INSTALL_OK
 
+class BootdiskWindow:
+    def __call__ (self, screen, todo):
+        if not todo.bootdisk:
+            return INSTALL_NOOP
+
+        rc = ButtonChoiceWindow (screen, _("Bootdisk"),
+                                 _("Insert a blank floppy in the first floppy drive. "
+                                   "All data on this disk will be erased during creation "
+                                   "of the boot disk."),
+                                 [ _("OK"), _("Skip") ])                
+        if rc == string.lower (_("Skip")):
+            return INSTALL_OK
+            
+        while 1:
+            try:
+                todo.makeBootdisk ()
+            except:
+                rc = ButtonChoiceWindow (screen, _("Error"),
+                                    _("An error occured while making the boot disk. "
+                                      "Please make sure that there is a formatted floppy "
+                                      "in the first floppy drive."),
+                                      [ _("OK"), _("Skip")] )
+                if rc == string.lower (_("Skip")):
+                    break
+                continue
+            else:
+                break
+            
+        return INSTALL_OK
+
 class InstallProgressWindow:
     def completePackage(self, header):
         def formatTime(amt):
@@ -901,6 +931,7 @@ class InstallInterface:
             [_("LILO Configuration"), LiloWindow, (self.screen, todo)],
             [_("Installation Begins"), BeginInstallWindow, (self.screen, todo)],
             [_("Install System"), InstallWindow, (self.screen, todo)],
+            [_("Bootdisk"), BootdiskWindow, (self.screen, todo)],
             [_("Installation Complete"), FinishedWindow, (self.screen,)]
             ]
 

@@ -13,6 +13,9 @@ def smpAvailable():
 def chroot (path):
     return _isys.chroot (path)
 
+def checkBoot (path):
+    return _isys.checkBoot (path)
+
 def probePciDevices():
     # probes all probeable buses and returns a list of 
     # ( driver, major, minor, description, args ) tuples, where args is a

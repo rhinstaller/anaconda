@@ -395,7 +395,8 @@ class ToDo:
         self.bootdisk = 0
         self.liloDevice = None
         self.upgrade = 0
-
+	self.lilo = LiloConfiguration()
+        
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
 
@@ -521,16 +522,18 @@ class ToDo:
 
     def makeBootdisk (self):
         self.makeInitrd ()
-        w = self.intf.waitWindow ("Creating", "Creating boot disk")
-        iutil.execWithRedirect("/sbin/mkbootdisk",
-                              [ "/sbin/mkbootdisk",
-                                "--noprompt",
-                                "--device",
-                                "/dev/fd0",
-                                self.kernelVersion ],
-                              stdout = None, stderr = None, searchPath = 1,
-                              root = self.instPath)
+        w = self.intf.waitWindow ("Creating", "Creating boot disk...")
+        rc = iutil.execWithRedirect("/sbin/mkbootdisk",
+                                    [ "/sbin/mkbootdisk",
+                                      "--noprompt",
+                                      "--device",
+                                      "/dev/fd0",
+                                      self.kernelVersion ],
+                                    stdout = None, stderr = None, searchPath = 1,
+                                    root = self.instPath)
         w.pop()
+        if rc:
+            raise ToDoError, "boot disk creation failed"
 
     def installLilo (self):
 	if not self.liloDevice: return
@@ -541,12 +544,12 @@ class ToDo:
             
         self.makeInitrd ()
 
-	l = LiloConfiguration()
-	l.addEntry("boot", '/dev/' + self.liloDevice)
-	l.addEntry("map", "/boot/map")
-	l.addEntry("install", "/boot/boot.b")
-	l.addEntry("prompt")
-	l.addEntry("timeout", "50")
+	self.lilo.addEntry("boot", '/dev/' + self.liloDevice)
+	self.lilo.addEntry("map", "/boot/map")
+	self.lilo.addEntry("install", "/boot/boot.b")
+	self.lilo.addEntry("prompt")
+	self.lilo.addEntry("timeout", "50")
+	self.lilo.addEntry("default", "linux")        
 
 	sl = LiloConfiguration()
 	sl.addEntry("label", "linux")
@@ -561,8 +564,21 @@ class ToDo:
 
 	kernelFile = "/boot/vmlinuz-" + kernelVersion
 	    
-	l.addImage(kernelFile, sl)
-	l.write(self.instPath + "/etc/lilo.conf")
+	self.lilo.addImage(kernelFile, sl)
+	self.lilo.write(self.instPath + "/etc/lilo.conf")
+
+        for (type, name, config) in self.lilo.images:
+            # remove entries for missing kernels (upgrade)
+            if type == "image":
+                if not os.access (self.instPath + name, os.R_OK):
+                    self.lilo.delEntry (name)
+            # remove entries for unbootable partitions
+            if type == "other":
+                device = name[5:]
+                isys.makeDevInode(device, '/tmp/' + device)
+                if not isys.checkBoot ('/tmp/' + device):
+                    self.lilo.delEntry (name)
+                os.remove ('/tmp/' + device)
 
 	iutil.execWithRedirect(self.instPath + '/sbin/lilo' , [ "lilo", 
 				"-r", self.instPath ], stdout = None)
@@ -836,7 +852,7 @@ class ToDo:
         del p
 
         w = self.intf.waitWindow("Post Install", 
-                                 "Performing post install configuration")
+                                 "Performing post install configuration...")
 
         if not self.upgrade:
             self.writeFstab ()
@@ -847,7 +863,6 @@ class ToDo:
             self.writeRootPassword ()
             self.setupAuthentication ()
             self.copyConfModules ()
-        self.makeBootdisk ()
 	self.installLilo ()
         
         w.pop ()

@@ -30,6 +30,7 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
 #endif
 static PyObject * createProbedList(PyObject * s, PyObject * args);
 static PyObject * doChroot(PyObject * s, PyObject * args);
+static PyObject * doCheckBoot(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "findmoduleinfo", (PyCFunction) doFindModInfo, METH_VARARGS, NULL },
@@ -47,6 +48,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
 #endif
     { "chroot", (PyCFunction) doChroot, METH_VARARGS, NULL },
+    { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -335,6 +337,41 @@ static PyObject * doChroot(PyObject * s, PyObject * args) {
     }
     Py_INCREF(Py_None);
     return Py_None;
+}
+
+#define BOOT_SIGNATURE	0xaa55	/* boot signature */
+#define BOOT_SIG_OFFSET	510	/* boot signature offset */
+
+static PyObject * doCheckBoot (PyObject * s, PyObject * args) {
+    char * path;
+    int fd, size;
+    unsigned short magic;
+    PyObject * ret;
+
+    /* code from LILO */
+    
+    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
+
+    if ((fd = open (path, O_RDONLY)) < 0) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    if (lseek(fd,(long) BOOT_SIG_OFFSET, 0) < 0) {
+	close (fd);
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+    
+    if ((size = read(fd,(char *) &magic, 2)) != 2) {
+	close (fd);
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    close (fd);
+    
+    return Py_BuildValue("i", magic == BOOT_SIGNATURE);
 }
 
 static PyObject * smpAvailable(PyObject * s, PyObject * args) {

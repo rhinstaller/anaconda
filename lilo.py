@@ -16,8 +16,8 @@ class LiloConfiguration:
 		    s = s + "=" + self.items[n]
 	    s = s + '\n'
 	for image in self.images:
-	    (name, cl) = image
-	    s = s + "image=" + name + "\n"
+	    (type, name, cl) = image
+	    s = s + "\n%s=%s\n" % (type, name)
 	    s = s + cl.__repr__(1)
 	return s
 
@@ -29,8 +29,14 @@ class LiloConfiguration:
 	else:
 	    self.items[item] = None
 
-    def addImage(self, name, config):
-	self.images.append((name, config))
+    def addImage (self, type, name, config):
+	self.images.append((type, name, config))
+
+    def delImage (self, name):
+        for entry in self.images:
+            type, label, config = entry
+            if label == name:
+                self.images.remove (entry)
 
     def write(self, file):
 	f = open(file, "w")
@@ -42,7 +48,7 @@ class LiloConfiguration:
 	f = open(file, "r")
 	image = None
 	for l in f.readlines():
-	    l = l[:len(l) - 1]
+	    l = l[:-1]
 	    orig = l
 	    while (l and l[0] == ' ' or l[0] == '\t'):
 		l = l[1:]
@@ -53,9 +59,13 @@ class LiloConfiguration:
 	    if (len(fields) == 2):
 		if (fields[0] == "image"):
 		    image = LiloConfiguration()
-		    self.addImage(fields[1], image)
+		    self.addImage(fields[0], fields[1], image)
 		    args = None
-		else:
+		elif (fields[0] == "other"):
+		    image = LiloConfiguration()
+		    self.addImage(fields[0], fields[1], image)
+		    args = None
+                else:
 		    args = (fields[0], fields[1])
 	    else:
 		args = (l,)
@@ -69,5 +79,18 @@ class LiloConfiguration:
 
     def __init__(self):
 	self.order = []
-	self.images = []		# more (name, LiloConfiguration) pair
+	self.images = []		# more (type, name, LiloConfiguration) pair
 	self.items = {}
+
+if __name__ == "__main__":
+    config = LiloConfiguration ()
+    config.read ('lilo.conf')
+    print config
+    config.delImage ('/boot/vmlinuz-2.2.5-15')
+    print '----------------------------------'
+    print config
+    config.delImage ('/dev/hda3')
+    print '----------------------------------'    
+    print config
+    
+

@@ -37,6 +37,6 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 	    os.execv(command, argv)
 
 	sys.exit(1)
-    status = os.waitpid(childpid, 0)
-    
+    (pid, status) = os.waitpid(childpid, 0)
 
+    return status
