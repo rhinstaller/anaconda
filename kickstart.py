@@ -575,26 +575,30 @@ class KickstartBase(BaseInstallClass):
 	groups = []
         excludedPackages = []
 	for n in open(file).readlines():
+	    print "n = ", n
 	    args = isys.parseArgv(n)
-
+	    print "args = ", args
+	    
 	    # don't eliminate white space or comments from scripts
-	    if where != "pre" and where != "post":
+	    if where not in ["pre", "post", "traceback"]:
 		if not args or args[0][0] == '#': continue
 
-	    if args and (args[0] == "%post" or args[0] == "%pre"):
+	    if args and (args[0] in ["%pre", "%post", "%traceback"]):
 		if ((where =="pre" and parsePre) or
-                    (where == "post" and not parsePre)):
+		    (where in ["post", "traceback"] and not parsePre)):
 		    s = Script(script, scriptInterp, scriptChroot)
 		    if where == "pre":
                         self.preScripts.append(s)
-		    else:
+		    elif where == "post":
 			self.postScripts.append(s)
+		    else:
+			self.tracebackScripts.append(s)
 
 		where = args[0][1:]
 		args = isys.parseArgv(n)
 
 		scriptInterp = "/bin/sh"
-		if where == "pre":
+		if where == "pre" or where == "traceback":
 		    scriptChroot = 0
 		else:
 		    scriptChroot = 1
@@ -622,12 +626,14 @@ class KickstartBase(BaseInstallClass):
                     where = self.readKickstart(id, args[1], where = where)
             elif args and args[0] == "%packages":
 		if ((where =="pre" and parsePre) or
-                    (where == "post" and not parsePre)):
+		    (where in ["post", "traceback"] and not parsePre)):
 		    s = Script(script, scriptInterp, scriptChroot)
 		    if where == "pre":
-			self.preScripts.append(s)
-		    else:
+                        self.preScripts.append(s)
+		    elif where == "post":
 			self.postScripts.append(s)
+		    else:
+			self.tracebackScripts.append(s)
 
                 # if we're parsing the %pre, we don't need to continue
                 if parsePre:
@@ -672,7 +678,7 @@ class KickstartBase(BaseInstallClass):
 		elif where == "commands":
 		    if handlers[args[0]]:
 			handlers[args[0]](id, args[1:])
-		elif where == "pre" or where == "post":
+		elif where in ["pre", "post", "traceback"]:
 		    script = script + n
 		else:
 		    raise SyntaxError, "I'm lost in kickstart"
@@ -694,12 +700,14 @@ class KickstartBase(BaseInstallClass):
 			#raise RuntimeError, "Clearpart and --onpart on non-primary partition %s not allowed" % dev
                 
 	if ((where =="pre" and parsePre) or
-            (where == "post" and not parsePre)):
+	    (where in ["post", "traceback"] and not parsePre)):
 	    s = Script(script, scriptInterp, scriptChroot)
 	    if where == "pre":
 		self.preScripts.append(s)
-	    else:
+	    elif where == "post":
 		self.postScripts.append(s)
+	    else:
+		self.tracebackScripts.append(s)
 
         return where
 
@@ -1142,6 +1150,7 @@ class KickstartBase(BaseInstallClass):
 	self.setEarlySwapOn(1)
 	self.postScripts = []
 	self.preScripts = []
+	self.tracebackScripts = []
 
 	self.installType = "install"
         self.id = id
@@ -1157,6 +1166,11 @@ class KickstartBase(BaseInstallClass):
 
         # now read the kickstart file for real
 	self.readKickstart(id, self.file)            
+
+    def runTracebackScripts(self):
+	log("Running kickstart %%traceback script(s)")
+	for script in self.tracebackScripts:
+	    script.run("/", self.serial)
 
     # Note that this assumes setGroupSelection() is called after
     # setPackageSelection()
@@ -1216,6 +1230,7 @@ class KickstartBase(BaseInstallClass):
                 comps.packages[n].unselect()
             else:
                 log("%s does not exist, can't exclude" %(n,))
+
 
     def __init__(self, file, serial):
 	self.serial = serial
@@ -1355,5 +1370,4 @@ def pullRemainingKickstartConfig(ksfile):
 	url.close()
 	
     return None
-    
     
