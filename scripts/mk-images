@@ -504,7 +504,7 @@ EOF
     rm -rf $MBD_TMPIMAGE $MBD_BOOTTREE
 
     if [ -n "$PADSIZE" ]; then
-	padfile $MBD_FSIMAGE $PADSIZE"
+	padfile $MBD_FSIMAGE $PADSIZE
     fi
 
     if [ -n "$EXTRAINITRDPATH" ]; then
