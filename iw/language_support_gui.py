@@ -32,8 +32,8 @@ class LanguageSupportWindow (InstallWindow):
                 selected = self.languageList.get_text (row, 1)
                 self.supportedLangs.append (selected)
 
-	curidx = self.deflangoption.get_history()
-	self.defaultLang = self.deflangvalues[curidx]
+	curidx = self.deflang_optionmenu.get_history()
+	self.defaultLang = self.deflang_values[curidx]
         self.langs.setSupported (self.supportedLangs)
         self.langs.setDefault (self.defaultLang)
 
@@ -54,18 +54,18 @@ class LanguageSupportWindow (InstallWindow):
 		oldidx = row
 		break
 
-	self.rebuild_option_menu()
+	self.rebuild_optionmenu()
 
 	# if no default lang now restore
 	# this can happen if they clicked on the only remaining selected
 	# language.  If we dont reset to previous default lang selected
 	# the UI is confusing because there is no default lang and no
 	# langauges supported
-	if self.defaultLang != olddef:
+	if self.defaultLang is None or self.defaultLang == "":
             self.languageList.set_active(oldidx, gtk.TRUE)
-	    self.rebuild_option_menu()
-
-    def rebuild_option_menu(self):
+	    self.rebuild_optionmenu()
+	    
+    def rebuild_optionmenu(self):
         list = []
 
 	for row in range(self.maxrows):
@@ -79,35 +79,34 @@ class LanguageSupportWindow (InstallWindow):
 	else:
 	    self.ics.setNextEnabled (gtk.TRUE)
 
-	curidx = self.deflangoption.get_history()
+	curidx = self.deflang_optionmenu.get_history()
 	if curidx >= 0:
-	    self.defaultLang = self.deflangvalues[curidx]
+	    self.defaultLang = self.deflang_values[curidx]
 	else:
 	    self.defaultLang = None
-	    
+
 	if self.defaultLang is not None and self.defaultLang in list:
 	    index = list.index(self.defaultLang)
 	else:
 	    index = 0
 	    self.defaultLang = list[0]
-	    
+
 	self.createDefaultLangMenu(list)
-	self.deflangoption.set_history(index)
-	
+	self.deflang_optionmenu.set_history(index)
 
     def select_all (self, data):
         self.ics.setNextEnabled (gtk.TRUE)
         for row in range(self.maxrows):
             self.languageList.set_active(row, gtk.TRUE)
 
-	self.rebuild_option_menu()
+	self.rebuild_optionmenu()
 
     def select_default (self, data):
         self.ics.setNextEnabled (gtk.TRUE)
 
-	curidx = self.deflangoption.get_history()
+	curidx = self.deflang_optionmenu.get_history()
 	if curidx >= 0:
-	    deflang = self.deflangvalues[curidx]
+	    deflang = self.deflang_values[curidx]
 
 	    for row in range(self.maxrows):
 		if self.languageList.get_text(row, 1) == deflang:
@@ -115,7 +114,7 @@ class LanguageSupportWindow (InstallWindow):
 		else:
 		    self.languageList.set_active(row, gtk.FALSE)
 
-	    self.rebuild_option_menu()
+	    self.rebuild_optionmenu()
 
     def reset (self, data):
         self.ics.setNextEnabled (gtk.TRUE)
@@ -132,7 +131,7 @@ class LanguageSupportWindow (InstallWindow):
 
 	self.defaultLang = self.oldDefaultLang
 	self.createDefaultLangMenu(list)
-	self.deflangoption.set_history(self.deflangvalues.index(self.defaultLang))
+	self.deflang_optionmenu.set_history(self.deflang_values.index(self.defaultLang))
 
     def setCurrent(self, currentDefault, recenter=1):
         parent = None
@@ -151,13 +150,13 @@ class LanguageSupportWindow (InstallWindow):
             row = row + 1
 
     def createDefaultLangMenu(self, supported):
-	if self.deflangoption is None:
-	    self.deflangoption = gtk.OptionMenu()
+	if self.deflang_optionmenu is None:
+	    self.deflang_optionmenu = gtk.OptionMenu()
 
-	if self.deflangoptionmenu is not None:
-	    self.deflangoption.remove_menu()
+	if self.deflang_menu is not None:
+	    self.deflang_optionmenu.remove_menu()
 	    
-	self.deflangoptionmenu = gtk.Menu()
+	self.deflang_menu = gtk.Menu()
 
 	sel = None
         curidx = 0
@@ -166,7 +165,7 @@ class LanguageSupportWindow (InstallWindow):
 	    if locale == self.defaultLang or (locale in supported):
 		item = gtk.MenuItem(locale)
 		item.show()
-		self.deflangoptionmenu.add(item)
+		self.deflang_menu.add(item)
 
 		if locale == self.defaultLang:
 		    sel = curidx
@@ -175,12 +174,12 @@ class LanguageSupportWindow (InstallWindow):
 
 		values.append(locale)
 
-	self.deflangoption.set_menu(self.deflangoptionmenu)
+	self.deflang_optionmenu.set_menu(self.deflang_menu)
 
 	if sel is not None:
-	    self.deflangoption.set_history(sel)
+	    self.deflang_optionmenu.set_history(sel)
 
-	self.deflangvalues = values
+	self.deflang_values = values
 
     # LanguageSupportWindow tag="langsupport"
     def getScreen (self, langs):
@@ -204,14 +203,14 @@ class LanguageSupportWindow (InstallWindow):
         
 	# create option menu of default langs
         label = gui.MnemonicLabel(_("Select the _default language for the system:   "))
-	self.deflangoption = None
-	self.deflangoptionmenu = None
-	self.deflangvalues = None
+	self.deflang_optionmenu = None
+	self.deflang_menu = None
+	self.deflang_values = None
 	self.createDefaultLangMenu(self.supportedLangs)
-        label.set_mnemonic_widget(self.deflangoption)
+        label.set_mnemonic_widget(self.deflang_optionmenu)
 
         hbox.pack_start (label, gtk.FALSE, 20)
-        hbox.pack_start (self.deflangoption, gtk.FALSE, 20)
+        hbox.pack_start (self.deflang_optionmenu, gtk.FALSE, 20)
         vbox.pack_start (hbox, gtk.FALSE, 50)
 
         sep = gtk.HSeparator ()
