@@ -174,8 +174,6 @@ def findIsoImages(path, messageWindow):
     arch = iutil.getArch()
     discImages = {}
 
-    print "need to look at", files
-
     for file in files:
 	what = path + '/' + file
 	if not isys.isIsoImage(what): continue
@@ -262,7 +260,6 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	# images the same way -- we use loop3 for everything
 
 	self.discImages = findIsoImages(tree, messageWindow)
-	print "found", self.discImages, "in tree", tree
 	self.mountImage(1)
 
 	ImageInstallMethod.__init__(self, self.mntPoint)
