@@ -1626,12 +1626,17 @@ class ToDo:
 
 	    for n in kernelVersions:
 		fromFile = "%s/lib/modules/%s/%s.o" % (self.instPath, n, name)
-		to = "%s/lib/modules/%s/kernel/drivers%s/%s.o" % \
-			(self.instPath, n, subdir, name)
+		toDir = "%s/lib/modules/%s/kernel/drivers/%s" % \
+			(self.instPath, n, subdir)
+		to = "%s/%s.o" % (toDir, name)
 
-		if (os.access(fromFile, os.R_OK)):
-		    log("copying %s to %s" % (fromFile, to))
+		if (os.access(fromFile, os.R_OK) and 
+			os.access(toDir, os.X_OK)):
+		    log("moving %s to %s" % (fromFile, to))
 		    os.rename(fromFile, to)
+
+		    # the file might not have been owned by root in the cgz
+		    os.chown(to, 0, 0)
 		else:
 		    log("missing DD module %s (this may be okay)" % 
 				fromFile)
