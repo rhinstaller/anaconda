@@ -227,7 +227,7 @@ else  # ctc0, escon0, iucv0
 				echo $"Linux guest:"
 			   read IUCV
 		  done
-		  if [ "${IUCV:0:5}" = "iucv=" ]; then
+		  if [ "${IUCV:0:5}" != "iucv=" ]; then
 				IUCV="iucv=$IUCV"
 		  fi
 	 fi
