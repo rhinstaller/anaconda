@@ -59,7 +59,7 @@ stepToClasses = {
     "languagesupport" : ("language_text", ("LanguageSupportWindow",
                                            "LanguageDefaultWindow")),
     "timezone" : ("timezone_text", "TimezoneWindow"),
-    "accounts" : ("userauth_text", ("RootPasswordWindow", "UsersWindow")),
+    "accounts" : ("userauth_text", "RootPasswordWindow"),
     "authentication" : ("userauth_text", ("AuthConfigWindow")),
     "desktopchoice": ("desktop_choice_text", "DesktopChoiceWindow"),
     "package-selection"  : ("packages_text", "PackageGroupWindow"),
