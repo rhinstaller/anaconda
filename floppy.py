@@ -5,6 +5,8 @@ from log import log
 import re
 import os
 from flags import flags
+import dispatch
+import rpm
 
 def probeFloppyDevice():
     fdDevice = "fd0"
