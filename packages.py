@@ -870,7 +870,10 @@ def doPostInstall(method, id, intf, instPath):
 	    if arch == "i386":
 		pcmcia.createPcmciaConfig(
 			instPath + "/etc/sysconfig/pcmcia")
-		       
+
+	    if arch == "s390":
+		copyOCOModules(instPath)
+
 	    w.set(3)
 
 	    # blah.  If we're on a serial mouse, and we have X, we need to
@@ -903,63 +906,68 @@ def doPostInstall(method, id, intf, instPath):
 		# we need to unmount usbdevfs before mounting it
 		usbWasMounted = iutil.isUSBDevFSMounted()
 		if usbWasMounted:
-                    isys.umount('/proc/bus/usb', removeDir = 0)
+		    isys.umount('/proc/bus/usb', removeDir = 0)
 
 		    # see if unmount suceeded, if not pretent it isnt mounted
 		    # because we're screwed anywyas if system is going to
 		    # lock up
 		    if iutil.isUSBDevFSMounted():
-			usbWasMounted = 0
-		    
-                unmountUSB = 0
-                try:
-                    isys.mount('/usbdevfs', instPath+'/proc/bus/usb', 'usbdevfs')
-                    unmountUSB = 1
-                except:
-                    log("Mount of /proc/bus/usb in chroot failed")
-                    pass
+		        usbWasMounted = 0
 
+		unmountUSB = 0
+		try:
+		    isys.mount('/usbdevfs', instPath+'/proc/bus/usb', 'usbdevfs')
+		    unmountUSB = 1
+		except:
+		    log("Mount of /proc/bus/usb in chroot failed")
+		    pass
 
-                argv = [ "/usr/sbin/kudzu", "-q" ]
-                devnull = os.open("/dev/null", os.O_RDWR)
-                iutil.execWithRedirect(argv[0], argv, root = instPath,
-                                       stdout = devnull)
-                # turn it back on            
-                if mousedev:
-                    try:
-                        os.rename ("/dev/disablemouse", mousedev)
-                    except OSError:
-                        pass
-                    try:
-                        xmouse.reopen()
-                    except RuntimeError:
-                        pass
+		argv = [ "/usr/sbin/kudzu", "-q" ]
+		devnull = os.open("/dev/null", os.O_RDWR)
+		iutil.execWithRedirect(argv[0], argv, root = instPath,
+		                       stdout = devnull)
+		# turn it back on            
+		if mousedev:
+		    try:
+		        os.rename ("/dev/disablemouse", mousedev)
+		    except OSError:
+		        pass
+		    try:
+		        xmouse.reopen()
+		    except RuntimeError:
+		        pass
 
-                if unmountUSB:
-                    isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
+		if unmountUSB:
+		    isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
 
-		if usbWasMounted:
-                    isys.mount('/usbdevfs', '/proc/bus/usb', 'usbdevfs')
+	    else:         # S390
+		securetty = open(instPath + '/etc/securetty','a+')
+		securetty.write("console\n")
+		securetty.close()
+		usbWasMounted = 0
 
-	w.set(4)
+	    if usbWasMounted:
+		isys.mount('/usbdevfs', '/proc/bus/usb', 'usbdevfs')
+
+	    w.set(4)
 
         if upgrade and id.dbpath is not None:
 	    # move the rebuilt db into place.
 	    try:
-		iutil.rmrf (instPath + "/var/lib/rpm.rpmsave")
+		    iutil.rmrf (instPath + "/var/lib/rpm.rpmsave")
 	    except OSError:
-		pass
-            try:
-                os.rename (instPath + "/var/lib/rpm",
-                           instPath + "/var/lib/rpm.rpmsave")
-            except OSError:
-                # XXX hack..., if the above move failed, we'll just stash it in
-                # a (hopefully) unique location. (#50339)
-                os.rename (instPath + "/var/lib/rpm",
-                           instPath + "/var/lib/rpm.rpmsave-%s" %
-                           (str(int(time.time())),))
-            os.rename (instPath + id.dbpath,
-		       instPath + "/var/lib/rpm")
+		    pass
+	    try:
+		    os.rename (instPath + "/var/lib/rpm",
+		    instPath + "/var/lib/rpm.rpmsave")
+	    except OSError:
+		    # XXX hack..., if the above move failed, we'll just stash it in
+		    # a (hopefully) unique location. (#50339)
+		    os.rename (instPath + "/var/lib/rpm",
+		               instPath + "/var/lib/rpm.rpmsave-%s" %
+		               (str(int(time.time())),))
+	    os.rename (instPath + id.dbpath,
+	               instPath + "/var/lib/rpm")
 
 	    # XXX - rpm 4.0.2 %post braindeadness support
 	    try:
@@ -1103,6 +1111,10 @@ def copyExtraModules(instPath, comps, extraModules):
 
             recreateInitrd(n, instPath)
 
+def copyOCOModules(instPath):
+    command = ("[ -d /OCO ] && cp -a /OCO/* %s/lib/modules" % (instPath))
+    log("running: '%s'" % (command, ))
+    os.system(command)
 
 #Recreate initrd for use when driver disks add modules
 def recreateInitrd (kernelTag, instRoot):
@@ -1205,3 +1217,5 @@ def selectLanguageSupportGroups(comps, langSupport):
                         elif comp.depsDict.has_key(req):
                             comp.addDependencyPackage(pkg)
     comps.updateSelections()
+
+# vim:ts=8:sw=8
