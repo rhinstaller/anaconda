@@ -15,6 +15,7 @@
 #
 
 import re
+import string
 import gettext
 import gtk
 import gobject
@@ -28,6 +29,9 @@ ip_fields = ['entry1', 'entry2', 'entry3', 'entry4']
 
 # Includes an error message, and the widget with problems
 class IPError(Exception):
+    pass
+
+class IPMissing(Exception):
     pass
 
 class IPEditor:
@@ -86,6 +90,16 @@ class IPEditor:
 
     def dehydrate (self):
         widget = None
+	# test if empty
+	empty = 1
+	for e in ['entry1', 'entry2', 'entry3', 'entry4']:
+	    if len(string.strip(self.entrys[e].get_text())) > 0:
+		empty = 0
+		break
+
+	if empty:
+	    raise IPMissing, (_("IP Address is missing"), widget)
+	    
         try:
             widget = self.entrys['entry1']
             if int(widget.get_text()) > 255:
