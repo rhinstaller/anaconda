@@ -908,7 +908,7 @@ int main(int argc, char ** argv) {
     /* JKFIXME: this is kind of a different way to handle pcmcia... I think
      * it's more correct, although it will require a little bit of kudzu
      * hacking */
-    pcmciaInitialize(modLoaded, modDeps, modInfo, flags);
+    /*pcmciaInitialize(modLoaded, modDeps, modInfo, flags);*/
 
     kdFindIdeList(&kd, 0);
     kdFindScsiList(&kd, 0);

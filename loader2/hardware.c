@@ -150,6 +150,10 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
     char ** modList;
     char modules[1024];
     
+    /* we always want to try to find out about pcmcia controllers even
+     * if using noprobe */
+    cardbusControllerInitialize(modLoaded, modDeps, modInfo, flags);
+
     if (FL_NOPROBE(flags)) return 0;
     
     if (!access("/proc/bus/pci/devices", R_OK) ||
