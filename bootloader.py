@@ -224,7 +224,10 @@ class x86BootloaderInfo:
 	lilo.addEntry("message", message, replace = 0)
 
         if not lilo.testEntry('lba32') and not lilo.testEntry('linear'):
-	    lilo.addEntry("linear", replace = 0)
+            if self.linear:
+                lilo.addEntry("linear", replace = 0)
+            else:
+                lilo.addEntry("nolinear", replace = 0)
 
         rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
 	if not rootDev:
@@ -327,6 +330,7 @@ class x86BootloaderInfo:
 	self.images = BootImages()
 	self.useGrubVal = 1		    # use lilo otherwise
 	self.device = None
+        self.useLinear = 1    # only used for kickstart compatibility
 
 def availableBootDevices(diskSet, fsset):
     devs = []
@@ -411,6 +415,7 @@ def makeInitrd (kernelTag, instRoot):
 def grubbyDiskName(name):
     drives = isys.hardDriveDict().keys()
     drives.sort (isys.compareDrives)
+    print name
 
     return "hd%d" % drives.index(name)
 
