@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.7
+Version: 10.0.3.8
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 30 2004 Paul Nasrat <pnasrat@redhat.com> - 10.0.3.8-1
+- Fix missing rpm.ts (#133045)
+
 * Wed Sep 29 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.7-1
 - Don't ask about mouse type on remote X display (#133902)
 - Label swap filesystems (#127892)
