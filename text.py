@@ -350,6 +350,9 @@ class InstallInterface:
 	else:
 	    self.screen.pushHelpLine(_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
 
+    def setScreen(self, screen):
+        self.screen = screen
+        
     def shutdown(self):
 	self.screen.finish()
 	self.screen = None
