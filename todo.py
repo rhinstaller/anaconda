@@ -76,8 +76,8 @@ class Network:
         self.domains = []
         self.readData = 0
 	self.isConfigured = 0
-#        self.hostname = "localhost.localdomain"
-        self.hostname = "test123.test.redhat.com"
+        self.hostname = "localhost.localdomain"
+
         try:
             f = open ("/tmp/netinfo", "r")
         except:
