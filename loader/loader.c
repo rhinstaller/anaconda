@@ -2829,7 +2829,7 @@ DB
         if (fd >= 0) {
 #define LD_SO_CONF_STR "/lib/\n/mnt/runtime/lib\n/usr/lib\n/usr/X11R6/lib\n"
 	  const char *buf = LD_SO_CONF_STR;
-	  write(buf, LD_SO_CONF_STR, sizeof(LD_SO_CONF_STR));
+	  write(fd, buf, sizeof(LD_SO_CONF_STR));
 	  close(fd);
 	}
 	system("/sbin/ldconfig 2>/dev/null >/dev/null");
