@@ -1592,7 +1592,7 @@ def queryAutoPartitionOK(intf, diskset, partitions):
     elif type == CLEARPART_TYPE_NONE:
         return 1
     else:
-        raise ValueError, "Invalid clear part type in doClearPartAction"
+        raise ValueError, "Invalid clear part type in queryAutoPartitionOK"
 
     drvstr = "\n\n"
     if drives == None:
