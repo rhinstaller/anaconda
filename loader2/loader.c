@@ -910,6 +910,19 @@ static void migrate_runtime_directory(char * dirname) {
 }
 
 
+static int hasGraphicalOverride(char *extraArgs[]) {
+    int i;
+
+    if (getenv("DISPLAY"))
+        return 1;
+
+    for (i = 0; extraArgs[i] != NULL; i++) {
+        if (strncasecmp(extraArgs[i], "--vnc", 5))
+            return 1;
+    }
+    return 0;
+}
+
 int main(int argc, char ** argv) {
     int flags = 0;
     struct stat sb;
@@ -997,7 +1010,7 @@ int main(int argc, char ** argv) {
     extraArgs[0] = NULL;
     flags = parseCmdLineFlags(flags, &loaderData, cmdLine, extraArgs);
 
-    if (FL_SERIAL(flags) && !getenv("DISPLAY"))
+    if (FL_SERIAL(flags) && !hasGraphicalOverride(extraArgs))
         flags |= LOADER_FLAGS_TEXT;
 
     setupRamfs();
