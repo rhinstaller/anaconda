@@ -1,3 +1,9 @@
+2005-01-19  Chris Lumens  <clumens@redhat.com>
+
+	* iw/partition_gui.py (PartitionWindow.refresh):  Only repopulate the
+	partition display screen if we were successful in adding the request.
+	(corner case - #137119).
+
 2005-01-11  Jeremy Katz  <katzj@redhat.com>
 
 	* packages.py (readPackages): Ensure that the Core group exists in
