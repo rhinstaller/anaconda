@@ -361,7 +361,7 @@ and RPMs. Set to 1 to turn on."""
             for disc in self.src_list:
                 if self.getSize("%s-disc%s" % (self.dist_dir, disc), blocksize=1) > self.target_size:
                     if len(self.src_list) < 2:
-                        self.logfile.append("Overflowing %s on disc%d" % (srpm_list[i][1], self.src_list[0]))
+                        self.logfile.append("Overflowing %s on disc%d" % (srpm_list[i][1], disc))
                         break
                     else:
                         discsize = self.getSize("%s-disc%d" % (self.dist_dir, srpm_disc_list[i]))
