@@ -2,7 +2,7 @@
 # define destination locations
 #
 VERSION = 9.0.2
-RELEASE = 6.RHEL
+RELEASE = 7.RHEL
 TIMESTAMP := $(shell date "+.%Y%m%d%H%M%S")
 SNAPRELEASE := $(RELEASE)$(TIMESTAMP)
 
