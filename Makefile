@@ -90,6 +90,7 @@ install: all
 
 create-archive:
 	@rm -rf /tmp/anaconda
+	@rm -rf /tmp/anaconda-reconfig-$(VERSION)
 	@echo "WARNING WARNING WARNING: Pulling HEAD off - need to do tagging instead!"
 	@cd /tmp ; cvs -Q -d $(CVSROOT) export -D "0 days ago"  anaconda || echo "Um... export aborted."
 	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" < anaconda.spec.in > anaconda-reconfig.spec
