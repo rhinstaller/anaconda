@@ -56,7 +56,7 @@ ifeq (i386, $(ARCH))
 COPTS += -DUSE_LOGDEV
 endif
 
-ifneq (,$(filter s390,$(ARCH)))
+ifneq (,$(filter s390 s390x,$(ARCH)))
 BINS += loader
 COPTS += -DUSE_LOGDEV
 S390FILES =  linuxrc.s390
