@@ -33,10 +33,7 @@ def D_(x):
 class InstallPathWindow (InstallWindow):		
 
     installTypes = installclass.availableClasses()
-    if iutil.getArch() == "s390":
-        htmlTag = "instpath-s390"
-    else:
-        htmlTag = "instpath"
+    htmlTag = "instpath"
     windowTitle = N_("Installation Type")
 
     def getNext(self):
