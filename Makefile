@@ -1,6 +1,6 @@
 SUBDIRS = rpmmodule isys balkan loader
-
-DESTDIR = ../../../RedHat/instimage/usr/bin
+TOPDIR = ../../..
+DESTDIR = $TOPDIR/RedHat/instimage/usr/bin
 
 all: subdirs
 
@@ -12,7 +12,7 @@ clean:
 
 subdirs:
 	for d in $(SUBDIRS); do \
-	(cd $$d; $(MAKE)) \
+	(cd $$d; $(MAKE) TOPDIR=../$(TOPDIR)) \
 	  || case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac;\
         done && test -z "$$fail"
 

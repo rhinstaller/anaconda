@@ -1,3 +1,4 @@
+DESTDIR = $TOPDIR/RedHat/instimage/usr/lib/python1.5/site-packages
 
 CFLAGS += -I/usr/include/rpm -I/usr/include/python1.5 -g
 
@@ -10,3 +11,6 @@ rpmmodule.so: rpmmodule.o
 
 clean:
 	rm -f *.o $(TARGET)
+
+install: all
+	cp $(TARGET) $(DESTDIR)
