@@ -159,7 +159,7 @@ class FirewallWindow:
 
 
 #                    rc2 = ""
-                    if rc2 == TEXT_OK_CHECK:
+                    if rc2 == TEXT_OK_CHECK or result2 == TEXT_F12_CHECK:
 
                         #- Do some sanity checking on port list
                         portstring = string.strip(self.other.value())
