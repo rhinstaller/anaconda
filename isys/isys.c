@@ -578,7 +578,7 @@ static PyObject * doReadModInfo(PyObject * s, PyObject * args) {
     if (!modInfoList)
 	modInfoList = isysNewModuleInfoSet();
 
-    if (isysReadModuleInfo(fn, modInfoList, MI_LOCATION_NONE, NULL)) {
+    if (isysReadModuleInfo(fn, modInfoList, NULL)) {
 	PyErr_SetFromErrno(PyExc_IOError);
 	return NULL;
     }

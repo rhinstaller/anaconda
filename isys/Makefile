@@ -6,7 +6,7 @@ CFLAGS = -I/usr/include/python1.5 -I.. -g -Wall
 OBJECTS = nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o uncpio.o \
 	  lang.o
-SOURCES = $(patsubst %.o,%.c,$(OBJECTS))
+SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 STATICOBJS = otherinsmod.o
 STATICLIBS = /usr/lib/python1.5/site-packages/kudzumodule.so
 LOADLIBES = -lbz2 -lresolv -lz -lpci -lpopt -L../pump -lpump -lext2fs
@@ -19,7 +19,7 @@ endif
 
 ifeq ($(ARCH),sparc)
 PYMODULES += _silo.so
-SOURCSE += silo.c
+SOURCES += silo.c
 endif
 
 ifeq (.depend,$(wildcard .depend))
