@@ -576,6 +576,11 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 			_("What type of keyboard do you have?"),
 		        40, 5, 5, 8, kbds, &num, _("OK"), _("Back"), NULL);
 	if (rc == 2) return LOADER_BACK;
+
+	/* num needs to index the right keyboard infoTable */
+	for (i = 0; i < hdr.numEntries; i++)
+	    if (!strcmp(kbds[num], infoTable[i].name)) break;
+	num = i;
     }
 
     rc = 0;
