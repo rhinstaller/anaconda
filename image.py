@@ -42,8 +42,12 @@ class ImageInstallMethod(InstallMethod):
 	return groupSetFromCompsFile(fname, hdlist)
 
     def getFilename(self, h, timer):
+        if h[1000005] is not None and self.updatesCopied == 1:
+            log ("going to use cached package for %s" %(h[1000000],))
+            return "/var/spool/anaconda-updates/" + h[1000000]
         if self.currentIso is not None and self.currentIso != h[1000002]:
             log("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentIso, h[1000002], h['name'], h['version'], h['release'], h['arch']))
+            
         self.currentIso = h[1000002]
         if h[1000005] is not None:
             path = "/RedHat/Updates/"
@@ -134,6 +138,9 @@ class CdromInstallMethod(ImageInstallMethod):
 	isys.lochangefd("/tmp/loop", self.loopbackFile)
 
     def getFilename(self, h, timer):
+        if h[1000005] is not None and self.updatesCopied == 1:
+            log ("going to use cached package for %s" %(h[1000000],))
+            return "/var/spool/anaconda-updates/" + h[1000000]
         if h[1000002] == None:
             log ("header for %s has no disc location tag, assuming it's"
                  "on the current CD", h[1000000])
@@ -320,6 +327,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	self.messageWindow = messageWindow
 	self.progressWindow = progressWindow
         self.loopbackFile = None
+        self.needUpdateCache = 1        
 
         # figure out which disc is in.  if we fail for any reason,
         # assume it's just disc1.

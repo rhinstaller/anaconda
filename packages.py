@@ -648,7 +648,8 @@ def doPreInstall(method, id, intf, instPath, dir):
             # FIXME: making the /var/lib/rpm symlink here is a hack to
             # workaround db->close() errors from rpm
             iutil.mkdirChain("/var/lib")
-            for path in ("/var/tmp", "/var/lib/rpm"):
+            iutil.mkdirChain("/var/spool")            
+            for path in ("/var/tmp", "/var/lib/rpm","/var/spool/anaconda-updates"):
                 if os.path.exists(path) and not os.path.islink(path):
                     iutil.rmrf(path)
                 if not os.path.islink(path):
@@ -679,6 +680,14 @@ def doPreInstall(method, id, intf, instPath, dir):
     f = open(instPath + "/etc/mtab", "w+")
     f.write(id.fsset.mtab())
     f.close()
+
+    # we need to cache packages that are "updates" if we're doing a cd
+    # install.  we write them to under /var since that's where up2date
+    # will end up putting updates
+    try:
+        method.cacheUpdates(instPath, id.grpset.hdrlist, intf)
+    except Exception, e:
+        log("Problem caching updates: %s" %(e,))
      
 #    delay writing migrate adjusted fstab till later, in case
 #    rpm transaction set determines they don't have enough space to upgrade

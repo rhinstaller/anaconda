@@ -14,8 +14,12 @@
 import os
 import string
 from hdrlist import groupSetFromCompsFile
+import isys
+import iutil
+import shutil
 
 from rhpl.log import log
+from rhpl.translate import _
 
 class FileCopyException(Exception):
     def __init__(self, s = ""):
@@ -92,6 +96,41 @@ class InstallMethod:
     def systemMounted(self, fstab, mntPoint):
 	pass
 
+    def cacheUpdates(self, chroot, hdlist, intf):
+        if self.needUpdateCache == 0:
+            return
+        log("going to cache updates")
+        size = 0
+        num = 0
+        for h in hdlist.values():
+            if h.isSelected() and h[1000005] is not None:
+                log("%s is selected, size is %s" %(h.nevra(), h[1000001]))
+                size += h[1000001] # FILESIZE_TAG
+                num += 1
+        # make sure it looks like we have space + a fudge factor
+        if not size > isys.fsSpaceAvailable("/var") + 50:
+            log("only %s free on var and want %s, not caching updates" %(isys.fsSpaceAvailable, size))
+            return
+        if num == 0:
+            return
+
+        if intf:
+            win = intf.progressWindow(_("Copying Files"),
+                                      _("Transferring updated packages"), num)
+        iutil.mkdirChain(chroot + "/var/spool/anaconda-updates")
+        num = 0
+        for h in hdlist.values():
+            if h.isSelected() and h[1000005] is not None:
+                path = "/RedHat/Updates/"
+                shutil.copy(self.tree + path + h[1000000],
+                            "%s/var/spool/anaconda-updates/%s" % (chroot, h[1000000]))
+                num += 1
+                if intf:
+                    win.set(num)
+        if intf:
+            win.pop()
+        self.updatesCopied = 1
+
     def filesDone(self):
 	pass
 
@@ -100,6 +139,8 @@ class InstallMethod:
 
     def __init__(self, rootpath):
         self.rootPath = rootpath
+        self.needUpdateCache = 0
+        self.updatesCopied = 0
 	pass
 
     def getSourcePath(self):
