@@ -54,7 +54,7 @@ def startMiniWM(root='/'):
 	sys.exit (1)
 
     return childpid
-	
+
 # startup vnc X server
 def startVNCServer(vncpassword=None, root='/'):
     
@@ -77,7 +77,7 @@ def startVNCServer(vncpassword=None, root='/'):
 
 	# write password again
 	os.write(fd, passwd + "\n")
-	
+
 	# write out a 'n\n' to answer question about creating a view only pw
 	os.read(fd, 1000)
 	os.read(fd, 1000)
@@ -96,47 +96,9 @@ def startVNCServer(vncpassword=None, root='/'):
 	
     dup_log(_("Starting VNC..."))
 
-    vncpid = os.fork()
-
-    if not vncpid:
-	args = [ root + "/usr/bin/Xvnc", ":1", "-nevershared",
-		 "-depth", "16", "-geometry", "800x600", "-dontdisconnect"]
-
-	# set passwd if necessary
-	if vncpassword is not None:
-	    try:
-		rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
-	    except:
-		dup_log("Unknown expection setting vnc password.")
-		rc = 1
-
-	    if rc:
-		dup_log(_("Unable to set vnc password - using no password!"))
-		dup_log(_("Make sure your password is at least 6 characters in length."))
-	    else:
-		args = args + ["-rfbauth", "/tmp/vncpasswd_file"]
-			     
-	tmplogFile = "/tmp/vncserver.log"
-	try:
-	    err = os.open(tmplogFile, os.O_RDWR | os.O_CREAT)
-	    if err < 0:
-		sys.stderr.write("error opening %s\n", tmplogFile)
-	    else:
-		os.dup2(err, 2)
-		os.close(err)
-	except:
-	    # oh well
-	    pass
-
-	os.execv(args[0], args)
-	sys.exit (1)
-
-    if vncpassword is None:
-	dup_log(_("\n\nWARNING!!! VNC server running with NO PASSWORD!"))
-	dup_log(_("You can use the vncpassword=<password> boot option"))
-	dup_log(_("if you would like to secure the server.\n\n"))
-	
-    connxinfo = ''
+    # figure out host info
+    connxinfo = None
+    srvname = None
     try:
 	import network
 
@@ -161,6 +123,56 @@ def startVNCServer(vncpassword=None, root='/'):
 
     except:
 	log("Unable to determine VNC server network info")
+	
+    # figure out product info
+    if srvname is not None:
+	desktopname = _("%s %s installation on host %s") % (product.productName, product.productVersion, srvname)
+    else:
+	desktopname = _("%s %s installation") % (product.productName, product.productVersion)
+
+    vncpid = os.fork()
+
+    if not vncpid:
+	args = [ root + "/usr/bin/Xvnc", ":1", "-nevershared",
+		 "-depth", "16", "-geometry", "800x600",
+		 "DisconnectClients=false", "desktop=%s" % (desktopname,)]
+
+	# set passwd if necessary
+	if vncpassword is not None:
+	    try:
+		rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
+	    except:
+		dup_log("Unknown expection setting vnc password.")
+		rc = 1
+
+	    if rc:
+		dup_log(_("Unable to set vnc password - using no password!"))
+		dup_log(_("Make sure your password is at least 6 characters in length."))
+	    else:
+		args = args + ["-rfbauth", "/tmp/vncpasswd_file"]
+	else:
+	    # needed if no password specified
+	    args = args + ["SecurityTypes=None",]
+			     
+	tmplogFile = "/tmp/vncserver.log"
+	try:
+	    err = os.open(tmplogFile, os.O_RDWR | os.O_CREAT)
+	    if err < 0:
+		sys.stderr.write("error opening %s\n", tmplogFile)
+	    else:
+		os.dup2(err, 2)
+		os.close(err)
+	except:
+	    # oh well
+	    pass
+
+	os.execv(args[0], args)
+	sys.exit (1)
+
+    if vncpassword is None:
+	dup_log(_("\n\nWARNING!!! VNC server running with NO PASSWORD!"))
+	dup_log(_("You can use the vncpassword=<password> boot option"))
+	dup_log(_("if you would like to secure the server.\n\n"))
 	
     dup_log(_("The VNC server now running."))
     if connxinfo is not None:
@@ -210,7 +222,7 @@ def doStartupX11Actions():
 	except:
 	    sys.stderr.write("X SERVER STARTED, THEN FAILED");
 	    raise RuntimeError, "X server failed to start"
-    
+
 def doShutdownX11Actions():
     global miniwm_pid
     
@@ -273,6 +285,9 @@ try:
     import updates_disk_hook
 except ImportError:
     pass
+
+# pull this in to get product name and versioning
+import product
 
 # do this early to keep our import footprint as small as possible
 # Python passed my path as argv[0]!
