@@ -60,10 +60,10 @@ static void setTextMode(struct loaderData_s * loaderData, int argc,
 
 struct ksCommandNames ksTable[] = {
     { KS_CMD_NFS, "nfs", setKickstartNfs },
-    { KS_CMD_CDROM, "cdrom", NULL },
-    { KS_CMD_HD, "harddrive", NULL },
+    { KS_CMD_CDROM, "cdrom", setKickstartCD },
+    { KS_CMD_HD, "harddrive", setKickstartHD },
     { KS_CMD_TEXT, "text", setTextMode },
-    { KS_CMD_URL, "url", NULL },
+    { KS_CMD_URL, "url", setKickstartUrl },
     { KS_CMD_NETWORK, "network", setKickstartNetwork },
     { KS_CMD_KEYBOARD, "keyboard", setKickstartKeyboard },
     { KS_CMD_LANG, "lang", setKickstartLanguage },
