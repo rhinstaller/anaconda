@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Tullio Dovera <tdovera@redhat.it>, 2000.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Install 6.2\n"
 "POT-Creation-Date: 2000-03-01 17:24-0500\n"
-"PO-Revision-Date: 2000-02-17 18:41-0500\n"
-"Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
-"Language-Team: German <LL@li.org>\n"
+"PO-Revision-Date: 2000-03-09 10:20+1\n"
+"Last-Translator: Tullio Dovera <tdovera@redhat.it>\n"
+"Language-Team: ITALIAN <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -58,12 +58,12 @@ msgstr "Formattazione filesystem %s ..."
 
 #: ../fstab.py:419
 msgid "Loopback"
-msgstr ""
+msgstr "Loopback"
 
 #: ../fstab.py:420
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr ""
+msgstr "Creazione filesystem loopback sul dispositivo /dev/%s..."
 
 #: ../fstab.py:463
 #, c-format
@@ -353,7 +353,6 @@ msgstr ""
 "web http://www.redhat.it. Grazie per aver scelto Red Hat Linux !"
 
 #: ../text.py:358
-#, fuzzy
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -1456,9 +1455,8 @@ msgstr ""
 "Se la configurazione non e' corretta, selezionate il vostro tipo di hardware."
 
 #: ../iw/xconfig.py:372
-#, fuzzy
 msgid "Autoprobe results:"
-msgstr "Risultati della rilevazione di X"
+msgstr "Risultati della rilevazione:"
 
 #: ../iw/xconfig.py:432
 msgid "Use Graphical Login"
@@ -1656,15 +1654,16 @@ msgid "User ID"
 msgstr "Utente ID"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "Bad User ID"
-msgstr "Utente ID"
+msgstr "Bad User ID"
 
 #: ../textw/userauth.py:92
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
 msgstr ""
+"User ID deve essere di almeno 8 caratteri contenenti solamente i caratteri "
+"A-Z, a-z, e 0-9."
 
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
@@ -2739,7 +2738,6 @@ msgid "Retrieving"
 msgstr "Retrieving"
 
 #: ../loader/urls.c:151
-#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -2754,7 +2752,6 @@ msgstr ""
 "     Red Hat Linux per la vostra architecture\n"
 
 #: ../loader/urls.c:160
-#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -2762,7 +2759,7 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
-" Prego inserire le seguenti informazioni:\n"
+"Inserite le seguenti informazioni:\n"
 "\n"
 "   o il nome simbolico o il numero IP del vostro web server\n"
 "   o la directory sul server contenente\n"
