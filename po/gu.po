@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-22 14:11+0530\n"
+"PO-Revision-Date: 2004-07-22 17:06+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -317,10 +317,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"%s માટે %s લોજિકલ વોલ્યુમ સ્થિત કરી શકાતા નથી.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../autopart.py:1333 ../autopart.py:1381
 msgid "Automatic Partitioning Errors"
-msgstr ""
+msgstr "આપોઆપ પાર્ટીશન કરતાં ભૂલો"
 
 #: ../autopart.py:1334
 #, python-format
@@ -331,10 +334,15 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"તમારા પાર્ટીશનો સાથે નીચેની ભૂલો ઉદ્ભવી છે:\n"
+"\n"
+"%s\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા બરાબર બટન દબાવો."
 
 #: ../autopart.py:1344
 msgid "Warnings During Automatic Partitioning"
-msgstr ""
+msgstr "આપોઆપ પાર્ટીશન કરતી વખતે આવતી ચેતવણીઓ"
 
 #: ../autopart.py:1345
 #, python-format
@@ -343,6 +351,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"આપોઆપ પાર્ટીશન કરતી વખતે નીચેની ભૂલો ઉદ્ભવી છે:\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1358 ../autopart.py:1375
 msgid ""
@@ -350,11 +361,14 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../autopart.py:1359 ../iw/partition_gui.py:1002
 #: ../textw/partition_text.py:223
 msgid "Error Partitioning"
-msgstr ""
+msgstr "પાર્ટીશન કરતી વખતે ભૂલ"
 
 #: ../autopart.py:1360
 #, python-format
@@ -363,6 +377,9 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
+"મંજૂર કરેલ પાર્ટીશનો શોધી શકાયા નથી: \n"
+"\n"
+"%s.%s"
 
 #: ../autopart.py:1377
 msgid ""
@@ -373,6 +390,12 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
+"\n"
+"\n"
+"તમે વિવિધ આપોઆપ પાર્ટીશન માટેનો વિકલ્પ પસંદ કરી શકો છો, અથવા"
+"જાતે પાર્ટીશન કરવા માટે પાછા જાવ પર ક્લિક કરી શકો છો.\n"
+"\n"
+"ચાલુ રાખવા માટે બરાબર બટન દબાવો."
 
 #: ../autopart.py:1382
 #, python-format
@@ -384,14 +407,20 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
+"તમારા પાર્ટીશનો સાથે નીચેની ભૂલો ઉદ્ભવી:\n"
+"\n"
+"%s\n"
+"\n"
+"આ ત્યારે જ બને જ્યારે ત્યાં તમારી હાર્ડ ડ્રાઈવ પર સ્થાપન માટે પૂરતી "
+"જગ્યા નહિં હોય.%s"
 
 #: ../autopart.py:1393
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "સુધારી નહિં શકાય તેવી ભૂલ"
 
 #: ../autopart.py:1394
 msgid "Your system will now be rebooted."
-msgstr ""
+msgstr "તમારી સિસ્ટમ હવે રીબુટ થશે."
 
 #: ../autopart.py:1477 ../bootloader.py:155 ../gui.py:989 ../image.py:466
 #: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:812
@@ -404,7 +433,7 @@ msgstr ""
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:227
 #: ../textw/upgrade_text.py:177 ../loader2/loader.c:379
 msgid "Warning"
-msgstr ""
+msgstr "ચેતવણી"
 
 #: ../autopart.py:1483
 msgid ""
@@ -421,18 +450,21 @@ msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
+"આપોઆપ પાર્ટીશન કરવાનું સ્થાપનના કાર્યક્રમ દ્વારા સુયોજિત કરી "
+"શકાય છે, તમારે તમારી હાર્ડ ડ્રાઈવની જગ્યા કેવી રીતે વાપરવાની તે "
+"પસંદ કરવું જ પડશે."
 
 #: ../autopart.py:1499
 msgid "Remove all partitions on this system"
-msgstr ""
+msgstr "આ સિસ્ટમ પરના બધા પાર્ટીશનો દૂર કરો"
 
 #: ../autopart.py:1500
 msgid "Remove all Linux partitions on this system"
-msgstr ""
+msgstr "આ સિસ્ટમ પરના બધા લિનક્સ પાર્ટીશનો દૂર કરો"
 
 #: ../autopart.py:1501
 msgid "Keep all partitions and use existing free space"
-msgstr ""
+msgstr "બધા પાર્ટીશનો સાચવી રાખો અને વર્તમાન ખાલી જગ્યા વાપરો"
 
 #: ../autopart.py:1503
 #, python-format
@@ -441,6 +473,10 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"તમે નીચેની ડ્રાઈવોમાં બધા પાર્ટીશનો (બધી માહિતી) દૂર કરવાનું પસંદ "
+"કરેલ છે:%"
+"s\n"
+"શું તમે ચોક્કસ છો કે તમે આમ કરવા માંગો છો?"
 
 #: ../autopart.py:1507
 #, python-format
@@ -449,58 +485,63 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"તમે નીચેની ડ્રાઈવ પરના બધા લિનક્સ પાર્ટીશનો (અને તેના પરની બધી માહિતી) "
+"દૂર કરવાનું પસંદ કરેલ છે:%s\n"
+"શું તમે ચોક્કસ છો કે તમે આમ કરવા માંગો છો?"
 
 #: ../bootloader.py:108
 msgid "Bootloader"
-msgstr ""
+msgstr "બુટલોડર"
 
 #: ../bootloader.py:108
 msgid "Installing bootloader..."
-msgstr ""
+msgstr "બુટલોડર સ્થાપિત કરી રહ્યા છીએ..."
 
 #: ../bootloader.py:156
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
+"તમારી સિસ્ટમ પર કોઈ કર્નલ પેકેજો સ્થાપિત થયેલ નથી. તમારુ બુટ "
+"લોડર રુપરેખાંકન બદલાયેલ નથી."
 
 #: ../cmdline.py:42 ../iw/progress_gui.py:472 ../iw/progress_gui.py:673
 msgid "Completed"
-msgstr ""
+msgstr "સમાપ્ત"
 
 #: ../cmdline.py:47
 msgid "In progress...   "
-msgstr ""
+msgstr "પ્રગતિના પંથે છે..."
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr ""
+msgstr "આદેશ વાક્ય સ્થિતિમાં કોઈ પ્રશ્ન નથી!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
+msgstr "ભાગ પાડેલા અપવાદો આદેશ વાક્ય સ્થિતિમાં નિયંત્રિત કરી શકાશે નહિં!"
 
 #: ../cmdline.py:131
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "પૂર્ણ થયું [%d/%d]"
 
 #: ../cmdline.py:137
 #, python-format
 msgid "Installing %s-%s-%s... "
-msgstr ""
+msgstr "સ્થાપિત કરી રહ્યા છીએ %s-%s-%s... "
 
 #: ../comps.py:767 ../comps.py:795 ../hdrlist.py:779
 msgid "Everything"
-msgstr ""
+msgstr "દરેક વસ્તુ"
 
 #: ../comps.py:936 ../comps.py:1001
 msgid "no suggestion"
-msgstr ""
+msgstr "કોઈ સૂચન નથી"
 
 #: ../comps.py:1098 ../hdrlist.py:1006
 msgid "Miscellaneous"
-msgstr ""
+msgstr "મિશ્રિત"
 
 #: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:953
 msgid ""
@@ -508,12 +549,16 @@ msgid ""
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
+"આ જૂથ બધા ઉપ્લબ્ધ પેકેજો સમાવે છે. નોંધ કરો કે ત્યાં ઘણા પેકેજો કે જે "
+"માત્ર એક પેકેજ જૂથમાં છે આ પાના પર."
 
 #: ../comps.py:1118 ../hdrlist.py:957
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
 msgstr ""
+"આ જૂથ ન્યુનતમ શક્ય પેકેજોનો સમૂહ મેળવવામાં પસંદ કરો. નાના રાઉટર/ફાયરવોલ "
+"બોક્સ બનાવવા માટે ઉપયોગી છે, ઉદાહરણ."
 
 #: ../constants.py:72
 msgid ""
@@ -522,6 +567,9 @@ msgid ""
 "file a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
 msgstr ""
+"અનિયંત્રિત અપવાદ ઉદ્ભવ્યો. આ મોટે ભાગે બગ છે. મહેરબાની કરીને "
+"આ અપવાદનું પૂરેપુરુ લખાણ નકલ કરો અથવા બગાડ ફ્લોપીમાં સંગ્રહ "
+"કરો અને પછી વિગતવાર બગનો અહેવાલ એનાકોન્ડાની સામે આપો http://bugzilla.redhat.com/bugzilla/"
 
 #: ../constants.py:79
 msgid ""
@@ -529,50 +577,57 @@ msgid ""
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
+"અનિયંત્રિત અપવાદ ઉદ્ભવ્યો. આ મોટે ભાગે બગ છે. મહેરબાની કરીને "
+"આ અપવાદનું પૂરેપુરુ લખાણ નકલ કરો અને પછી વિગતવાર બગનો "
+"અહેવાલ એનાકોન્ડાની સામે આપો http://bugzilla.redhat.com/bugzilla/"
 
 #: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
-msgstr ""
+msgstr "અપવાદ ઉદ્ભવ્યો"
 
 #: ../exception.py:295
 msgid "Dump Written"
-msgstr ""
+msgstr "ડમ્પ લખાઈ ગયું"
 
 #: ../exception.py:296
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
+"તમારી સિસ્ટમની સ્થિતિ સફળતાપૂર્વક ફ્લોપીમાં લખાઈ ગઈ. તમારી સિસ્ટમ "
+"હવે ફરીથી સુયોજિત થશે."
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "દૂરસ્થ પ્રવેશ (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "વેબ સર્વર (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "ફાઈલ પરિવહન (FTP)"
 
 #: ../firewall.py:58
 msgid "Mail Server (SMTP)"
-msgstr ""
+msgstr "મેઈલ સર્વર (SMTP)"
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
-msgstr ""
+msgstr "બુટ ફ્લોપી બનાવવામાં સમર્થ નથી"
 
 #: ../floppy.py:104
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
+"તમારા મશીન માટે કર્નલ મોડ્યુલનું માપ જરુરી છે તેને બુટ ડિસ્ક કે જે "
+"ફ્લોપી ડિસ્કમાં બેસે છે તે બનાવવાનું અશક્ય કરે છે."
 
 #: ../floppy.py:113
 msgid "Insert a floppy disk"
-msgstr ""
+msgstr "ફ્લોપી ડિસ્ક નાંખો"
 
 #: ../floppy.py:114
 msgid ""
@@ -581,14 +636,18 @@ msgid ""
 "\n"
 "All data will be ERASED during creation of the boot disk."
 msgstr ""
+"મહેરબાની કરીને ફ્લોપી ડ્રાઈવમાંથી કોઈપણ ડિસ્ક કાઢી નાખો, અને"
+"ફ્લોપી ડિસ્ક નાંખો કે જે બુટ ડિસ્ક સમાવે છે.\n"
+"\n"
+"બુટ ડિસ્ક બનાવતી વખતે બધી માહિતી ભૂંસાઈ જશે."
 
 #: ../floppy.py:118
 msgid "_Cancel"
-msgstr ""
+msgstr "નકારો (_C)"
 
 #: ../floppy.py:118
 msgid "_Make boot disk"
-msgstr ""
+msgstr "બુટ ડિસ્ક બનાવો (_M)"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
 #: ../fsset.py:592 ../fsset.py:1267 ../fsset.py:1286 ../fsset.py:1337
@@ -615,27 +674,31 @@ msgstr ""
 #: ../loader2/urlinstall.c:149 ../loader2/urls.c:171 ../loader2/urls.c:181
 #: ../loader2/urls.c:189 ../loader2/urls.c:319 ../loader2/urls.c:324
 msgid "Error"
-msgstr ""
+msgstr "ભૂલ"
 
 #: ../floppy.py:130 ../floppy.py:155
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
 msgstr ""
+"બુટ ડિસ્ક બનાવતી વખતે ભૂલ ઉદ્ભવી. મહેરબાની કરીને ખાતરી કરો કે "
+"ત્યાં ફ્લોપી ડ્રાઈવમાં ફ્લોપી ડિસ્ક છે કે નહિં."
 
 #: ../floppy.py:141
 msgid "Creating"
-msgstr ""
+msgstr "બનાવી રહ્યા છીએ"
 
 #: ../floppy.py:141
 msgid "Creating boot disk..."
-msgstr ""
+msgstr "બુટ ડિસ્ક બનાવી રહ્યા છીએ..."
 
 #: ../floppy.py:170
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
 msgstr ""
+"બુટ ડિસ્ક ચકાસતી વખતે ભૂલ ઉદ્ભવી. મહેરબાની કરીને ખાતરી કરો કે "
+"તમારા ફ્લોપી ડ્રાઈવમાં સારી ફ્લોપી છે કે નહિં."
 
 #: ../floppy.py:201
 msgid ""
@@ -643,15 +706,18 @@ msgid ""
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
 msgstr ""
+"તમારી બુટ ફ્લોપી અયોગ્ય જણાઈ રહી છે. તે ખરાબ ફ્લોપી જેવી દેખાઈ "
+"રહી છે. મહેરબાની કરીને ખાતરી કરો કે પ્રથમ ફ્લોપી ડ્રાઈવમાં સારી "
+"ફ્લોપી છે કે નહિં."
 
 #: ../fsset.py:178
 msgid "Checking for Bad Blocks"
-msgstr ""
+msgstr "ખરાબ બ્લોકો માટે ચકાસણી કરી રહ્યા છીએ"
 
 #: ../fsset.py:179
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr ""
+msgstr "/dev/%s પર ખરાબ બ્લોકો માટે ચકાસણી કરી રહ્યા છીએ..."
 
 #: ../fsset.py:593
 #, python-format
@@ -661,26 +727,30 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
+"%s માંથી ext3 માં રુપાંતર કરતી વખતે ભૂલ ઉદ્ભવી. જો જરુરી હોય તો "
+"આ ફાઈલ સિસ્ટમમાં ફેરવ્યા સિવાય ચાલુ રાખી શકો છો.\n"
+"\n"
+"શું તમે %s માંથી ફેરવ્યા સિવાય ચાલુ રાખવા માંગો છો?"
 
 #: ../fsset.py:1182
 msgid "RAID Device"
-msgstr ""
+msgstr "RAID ઉપકરણ"
 
 #: ../fsset.py:1186 ../fsset.py:1192
 msgid "Apple Bootstrap"
-msgstr ""
+msgstr "ઓપલ બુટસ્ટ્રેપ"
 
 #: ../fsset.py:1197 ../partitions.py:807
 msgid "PPC PReP Boot"
-msgstr ""
+msgstr "PPC PReP Boot"
 
 #: ../fsset.py:1200 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
-msgstr ""
+msgstr "બુટ પાર્ટીશનનો પ્રથમ સેક્ટર"
 
 #: ../fsset.py:1201 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
-msgstr ""
+msgstr "માસ્ટર બુટ રેકોર્ડ (MBR)"
 
 #: ../fsset.py:1268
 #, python-format
@@ -690,6 +760,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"ઉપકરણ %s પર સ્વેપ શરુ કરવાનો પ્રયત્ન કરતાં ભૂલ ઉદ્ભવી. આ"
+"સમસ્યા ગંભીર છે, સ્થાપન ચાલુ રાખી શકાતું નથી.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે એન્ટર કી દબાવો."
 
 #: ../fsset.py:1287
 #, python-format
@@ -700,6 +774,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"ઉપકરણ %s માટે સ્વેપ સક્રિય કરતાં ભૂલ ઉદ્ભવી: %s\n"
+"\n"
+"આ મોટે ભાગે એટલે આ સ્વેપ પાર્ટીશન હજુ સુધી પ્રારંભ થયો નથી.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../fsset.py:1338
 #, python-format
@@ -709,6 +788,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
+"ઉપકરણ /dev/%s પર ખરાબ બ્લોકો મળી આવ્યા. અમે તમને આ ઉપકરણ"
+"વાપરવા માટેની સલાહ આપીશું નહિં.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../fsset.py:1349
 #, python-format
@@ -718,6 +801,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"%s પર ખરાબ બ્લોકો શોધવામાં ભૂલ ઉદ્ભવી. આ સમસ્યા ગંભીર છે, "
+"અને સ્થાપન ચાલુ રાખી શકાતું નથી.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../fsset.py:1384
 #, python-format
@@ -727,6 +814,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"%s ને ફોર્મેટ કરતી વખતી ભૂલ ઉદ્ભવી. આ સમસ્યા ગંભીર છે, "
+"અને સ્થાપન ચાલુ રાખી શકાતું નથી.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../fsset.py:1434
 #, python-format
@@ -736,10 +827,14 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"%s નું રુપાંતર કરતી વખતે ભૂલ ઉદ્ભવી. આ સમસ્યા ગંભીર છે, "
+"અને સ્થાપન ચાલુ રાખી શકાતું નથી.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../fsset.py:1455 ../fsset.py:1464
 msgid "Invalid mount point"
-msgstr ""
+msgstr "અયોગ્ય માઉન્ટ બિંદુ"
 
 #: ../fsset.py:1456
 #, python-format
@@ -749,6 +844,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"%s બનાવતી વખતે ભૂલ ઉદ્ભવી. આ પથના અમુક ભાગો એ ડિરેક્ટરી નથી. "
+"આ મોટી ભૂલ છે અને સ્થાપન ચાલુ રાખી શકાતું નથી.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../fsset.py:1465
 #, python-format
@@ -758,6 +857,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"%s બનાવતી વખતે ભૂલ ઉદ્ભવી: %s. આ મોટી ભૂલ છે અને સ્થાપન ચાલુ "
+"રાખી શકાતું નથી.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../fsset.py:1478
 #, python-format
@@ -768,10 +871,15 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"%s ને %s તરીકે માઉન્ટ કરવામાં ભૂલ આવી: %s\n"
+"\n"
+"આ ખૂબ સારી છે એટલે કે આ પાર્ટીશન ફોર્મેટ થઈ ગયેલ છે.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../fsset.py:2117
 msgid "Duplicate Labels"
-msgstr ""
+msgstr "નકલી લેબલો"
 
 #: ../fsset.py:2118
 #, python-format
@@ -781,30 +889,34 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"તમારી સિસ્ટમમાં ઘણા બધા ઉપકરણો %s લેબલવાળા છે. ઉપકરણો માટેના"
+"લેબલ તમારી સિસ્ટમ માટે અનન્ય હોવા જોઈએ તેને યોગ્ય રીતે કામ કરવા માટે.\n"
+"\n"
+"મહેરબાની કરીને આ સમસ્યા દૂર કરો અને સ્થાપનની પ્રક્રિયા ફરીથી શરુ કરો."
 
 #: ../fsset.py:2125 ../gui.py:643 ../gui.py:1102 ../image.py:96
 #: ../image.py:476 ../packages.py:1485 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
-msgstr ""
+msgstr "રીબુટ (_R)"
 
 #: ../fsset.py:2378
 msgid "Formatting"
-msgstr ""
+msgstr "બંધારણ ઘડી રહ્યા છીએ"
 
 #: ../fsset.py:2379
 #, python-format
 msgid "Formatting %s file system..."
-msgstr ""
+msgstr "%s ફાઈલ સિસ્ટમ ફોર્મેટ કરી રહ્યા છીએ..."
 
 #: ../gui.py:106
 msgid "An error occurred copying the screenshots over."
-msgstr ""
+msgstr "સ્ક્રીનશોટની નકલ કરતાં ભૂલ ઉદ્ભવી હતી."
 
 #: ../gui.py:118
 msgid "Screenshots Copied"
-msgstr ""
+msgstr "સ્ક્રીનશોટની નકલ કરાઈ ગઈ"
 
 #: ../gui.py:119
 msgid ""
@@ -814,29 +926,36 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
+"સ્ક્રીનશોટ આ ડિરેક્ટરીમાં સંગ્રહાઈ ગયો:\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
+"તમે જ્યારે રીબુટ કરો અને રુટ તરીકે પ્રવેશો ત્યારે તેને વાપરી શકો છો."
 
 #: ../gui.py:163
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "સ્ક્રીનશોટ સંગ્રહી રહ્યા છીએ"
 
 #: ../gui.py:164
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr ""
+msgstr "'%s' નામવાળો સ્ક્રીનશોટ સંગ્રહાઈ ગયો."
 
 #: ../gui.py:167
 msgid "Error Saving Screenshot"
-msgstr ""
+msgstr "સ્ક્રીનશોટ સંગ્રહવામાં ભૂલ આવી"
 
 #: ../gui.py:168
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
+"સ્ક્રીનશોટ સંગ્રહવામાં ભૂલ ઉદ્ભવી. જો આ પેકેજના સ્થાપન દરમ્યાન ઉદ્ભવે, "
+"તમારે એની સફળતા માટે ઘણી વખત વાપરવાનો પ્રયત્ન કરવો જોઈએ."
 
 #: ../gui.py:236 ../text.py:334
 msgid "Fix"
-msgstr ""
+msgstr "સુધારો"
 
 #: ../gui.py:237 ../rescue.py:176 ../text.py:335 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
@@ -844,7 +963,7 @@ msgstr ""
 #: ../loader2/driverdisk.c:517 ../loader2/hdinstall.c:326
 #: ../loader2/loader.c:379
 msgid "Yes"
-msgstr ""
+msgstr "હા"
 
 #: ../gui.py:238 ../rescue.py:176 ../rescue.py:178 ../text.py:336
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
@@ -853,15 +972,15 @@ msgstr ""
 #: ../loader2/driverdisk.c:506 ../loader2/driverdisk.c:517
 #: ../loader2/loader.c:379
 msgid "No"
-msgstr ""
+msgstr "ના"
 
 #: ../gui.py:240 ../text.py:338 ../loader2/net.c:218 ../loader2/net.c:549
 msgid "Retry"
-msgstr ""
+msgstr "ફરીથી પ્રયાસ કરો"
 
 #: ../gui.py:241 ../text.py:339
 msgid "Ignore"
-msgstr ""
+msgstr "અવગણો"
 
 #: ../gui.py:242 ../gui.py:557 ../partIntfHelpers.py:232
 #: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:297
@@ -872,7 +991,7 @@ msgstr ""
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:262
 #: ../loader2/loader.c:337
 msgid "Cancel"
-msgstr ""
+msgstr "નકારો"
 
 #: ../gui.py:638 ../text.py:283
 #, python-format
@@ -881,16 +1000,21 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"જ્યારે તમારુ કિકસ્ટાર્ટ રુપરેખાંકન ચકાસતી વખતે ભૂલ મળી આવી:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
 msgid "Error Parsing Kickstart Config"
-msgstr ""
+msgstr "કિકસ્ટાર્ટ રુપરેખા ચકાસતી વખતે ભૂલ"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
+"મહેરબાની કરીને ફ્લોપી નાંખો. ડિસ્કના બધા સમાવિષ્ટો ભૂંસાઈ જશે, અાથી "
+"મહેરબાની કરીને તમારી ડિસ્ક સંભાળીને પસંદ કરો."
 
 #: ../gui.py:746
 msgid "default:LTR"
@@ -898,15 +1022,15 @@ msgstr ""
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
-msgstr ""
+msgstr "આવૃત્તિ નોંધો ખોવાયેલ છે.\n"
 
 #: ../gui.py:990
 msgid "The release notes are missing."
-msgstr ""
+msgstr "આવૃત્તિ નોંધો ખોવાયેલ છે."
 
 #: ../gui.py:1090
 msgid "Error!"
-msgstr ""
+msgstr "ભૂલ!"
 
 #: ../gui.py:1091
 #, python-format
@@ -915,66 +1039,69 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
+"સ્થાપક ઈન્ટરફેસ ભાગ લાવતી વખતે ભૂલ ઉદ્ભવી હતી.\n"
+"\n"
+"className = %s"
 
 #: ../gui.py:1095 ../packages.py:187 ../packages.py:596 ../packages.py:1479
 msgid "_Exit"
-msgstr ""
+msgstr "બહાર નીકળો (_E)"
 
 #: ../gui.py:1096
 msgid "_Retry"
-msgstr ""
+msgstr "ફરીથી પ્રયત્ન કરો (_R)"
 
 #: ../gui.py:1098 ../packages.py:1482
 msgid "Rebooting System"
-msgstr ""
+msgstr "સિસ્ટમ રીબુટ કરી રહ્યા છીએ"
 
 #: ../gui.py:1099 ../packages.py:1483
 msgid "Your system will now be rebooted..."
-msgstr ""
+msgstr "તમારી સિસ્ટમ હવે રીબુટ થશે..."
 
 #: ../gui.py:1190 ../packages.py:1485 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:120
 msgid "_Back"
-msgstr ""
+msgstr "પાછા જાવ (_B)"
 
 #: ../gui.py:1192
 msgid "_Next"
-msgstr ""
+msgstr "આગળ વધો (_N)"
 
 #: ../gui.py:1194
 msgid "_Release Notes"
-msgstr ""
+msgstr "આવૃત્તિ નોંધો (_R)"
 
 #: ../gui.py:1196
 msgid "Show _Help"
-msgstr ""
+msgstr "મદદ બતાવો (_H)"
 
 #: ../gui.py:1198
 msgid "Hide _Help"
-msgstr ""
+msgstr "મદદ છુપાવો (_H)"
 
 #: ../gui.py:1200
 msgid "_Debug"
-msgstr ""
+msgstr "ભૂલ શોધો (_D)"
 
 #: ../gui.py:1282
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "%s સ્થાપક"
 
 #: ../gui.py:1297
 #, python-format
 msgid "%s Installer on %s"
-msgstr ""
+msgstr "%s પર %s સ્થાપક"
 
 #: ../gui.py:1325
 msgid "Unable to load title bar"
-msgstr ""
+msgstr "શીર્ષક પટ્ટી લાવવામાં અસમર્થ"
 
 #: ../gui.py:1432
 msgid "Install Window"
-msgstr ""
+msgstr "વિન્ડો સ્થાપિત કરો"
 
 #: ../harddrive.py:166 ../image.py:524
 #, python-format
@@ -984,10 +1111,14 @@ msgid ""
 "%s\n"
 "The system will now reboot."
 msgstr ""
+"નીચેની ISO ઈમેજો ખોવાયેલ છે કે જે સ્થાપન માટે જરુરી છે:\n"
+"\n"
+"%s\n"
+"સિસ્ટમ હવે રીબુટ થશે."
 
 #: ../image.py:87
 msgid "Required Install Media"
-msgstr ""
+msgstr "જરુરી સ્થાપન માધ્યમ"
 
 #: ../image.py:88
 #, python-format
@@ -998,11 +1129,16 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
+"તમે સ્થાપન માટે પસંદ સોફ્ટવેરને નીચેની CD ઓ જરુરી છે:\n"
+"\n"
+"%s\n"
+"મહેરબાની કરીને સ્થાપન પહેલા આ તૈયાર રાખો. જો તમારે સ્થાપન અડધેથી"
+"અટકાવવું હોય અને રીબુટ કરવું હોય તો મહેરબાની કરીને \"રીબુટ\" પસંદ કરો."
 
 #: ../image.py:96 ../image.py:477 ../kickstart.py:1386 ../kickstart.py:1414
 #: ../iw/partition_gui.py:1016
 msgid "_Continue"
-msgstr ""
+msgstr "ચાલુ રાખો (_C)"
 
 #: ../image.py:155
 #, python-format
@@ -1010,50 +1146,55 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
+"CD માઉન્ટ કાઢી નાખતાં ભૂલ ઉદ્ભવી. મહેરબાની કરીને ખાતરી કરો કે તમે "
+"%s tty2 પર વાપરી તો રહ્યા નથી ને અને ફરીથી પ્રયાસ કરવા માટે "
+"બરાબર બટન પર ક્લિક કરો."
 
 #: ../image.py:188
 msgid "Copying File"
-msgstr ""
+msgstr "ફાઈલ નકલ કરી રહ્યા છીએ"
 
 #: ../image.py:189
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "સ્થાપન માટેની ઈમેજ હાર્ડ ડ્રાઈવ પર મોકલી રહ્યા છીએ..."
 
 #: ../image.py:193
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
+"સ્થાપન માટેની ઈમેજ તમારી હાર્ડ ડ્રાઈવ પર મોકલતાં ભૂલ ઉદ્ભવી. તમે કદાચ "
+"ડિસ્કની જગ્યા કરતાં વધારે વાપરી રહ્યા હશો."
 
 #: ../image.py:283
 msgid "Change CDROM"
-msgstr ""
+msgstr "CDROM બદલો"
 
 #: ../image.py:284
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr ""
+msgstr "મહેરબાની કરીને %s ડિસ્ક દાખલ કરો %d ચાલુ રાખવા માટે."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
-msgstr ""
+msgstr "ખોટી CDROM"
 
 #: ../image.py:321
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr ""
+msgstr "આ યોગ્ય %s CDROM નથી."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "CDROM ચલાવવા માટે અસમર્થ."
 
 #: ../installclass.py:59
 msgid "Install on System"
-msgstr ""
+msgstr "સિસ્ટમ પર સ્થાપિત કરો"
 
 #: ../kickstart.py:1378
 msgid "Missing Package"
-msgstr ""
+msgstr "ખોવાયેલ પેકેજ"
 
 #: ../kickstart.py:1379
 #, python-format
@@ -1061,14 +1202,17 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"જો તમે એમ સ્પષ્ટ કરેલ હોય કે પેકેજ '%s' સ્થાપિત થવું જોઈએ. આ પેકેજ"
+"અસ્તિત્વમાં નથી. શું તમે ચાલુ રાખવા માંગો છો અથવા સ્થાપન અડધેથી "
+"અટકાવવા માંગો છો?"
 
 #: ../kickstart.py:1385 ../kickstart.py:1413
 msgid "_Abort"
-msgstr ""
+msgstr "અડધેથી બંધ કરી રહ્યા છીએ (_A)"
 
 #: ../kickstart.py:1405
 msgid "Missing Group"
-msgstr ""
+msgstr "ખોવાયેલ જૂથ"
 
 #: ../kickstart.py:1406
 #, python-format
@@ -1076,22 +1220,27 @@ msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"તમે સ્પષ્ટ કરેલ છે કે જૂથ '%s' સ્થાપિત થયેલ હોવું જોઈએ.  આ જૂથ અસ્તિત્વમાં"
+"નથી. શું તમે ચાલુ રાખવા માંગો છો અથવા સ્થાપન અડધેથી "
+"અટકાવવા માંગો છો?"
 
 #: ../network.py:41
 msgid "Hostname must be 64 or less characters in length."
-msgstr ""
+msgstr "યજમાનનું નામ ૬૪ અથવા તેનાથી ઓછા અક્ષરો જેટલું હોવું જોઈએ."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
 msgstr ""
+"યજમાનનું નામ યોગ્ય અક્ષરો કે જે a-z' અથવા 'A-Z' ના વિસ્તારમાં હોય "
+"તેનાથી શરુ થવું જોઈએ."
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
+msgstr "યજમાનનું નામ માત્ર 'a-z', 'A-Z', '-', અથવા '.' અક્ષરો ધરાવતું હોવું જોઈએ."
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "સુધારા સાથે પ્રક્રિયા કરવી છે?"
 
 #: ../packages.py:47 ../iw/package_gui.py:42
 msgid ""
