@@ -108,7 +108,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 procps rpm XFree86 Xconfigurator anaconda tzdata
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
-	 busybox-anaconda rpm-python booty hdparm lvm beecrypt
+	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
 	 rhpl pyxf86config libxml2 libxml2-python glib2
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
  	 xfsprogs xfsdump dmapi libacl libattr attr acl"
@@ -228,6 +228,7 @@ $LIBDIR/libblkid*
 $LIBDIR/libc*
 $LIBDIR/libcom_err*
 $LIBDIR/libcrypt*
+$LIBDIR/libdevmapper*
 $LIBDIR/libdl*
 $LIBDIR/libe2p*
 $LIBDIR/libext2fs*
@@ -263,19 +264,7 @@ sbin/hdparm
 sbin/hwclock
 sbin/jfs_tune
 sbin/ldconfig
-sbin/lvchange
-sbin/lvcreate
-sbin/lvdisplay
-sbin/lvextend
-sbin/lvmchange
-sbin/lvmcreate_initrd
-sbin/lvmdiskscan
-sbin/lvmsadc
-sbin/lvmsar
-sbin/lvreduce
-sbin/lvremove
-sbin/lvrename
-sbin/lvscan
+sbin/lvm
 sbin/mdadm
 sbin/mkdosfs
 sbin/mke2fs
@@ -290,12 +279,6 @@ sbin/mkraid
 sbin/mkswap
 sbin/parted
 sbin/pdisk
-sbin/pvchange
-sbin/pvcreate
-sbin/pvdata
-sbin/pvdisplay
-sbin/pvmove
-sbin/pvscan
 sbin/probe
 sbin/resize2fs
 sbin/sfdisk
@@ -306,22 +289,6 @@ sbin/xfs_repair
 usr/sbin/xfs_db
 usr/sbin/xfs_check
 usr/sbin/xfs_copy
-sbin/vgcfgbackup
-sbin/vgcfgrestore
-sbin/vgchange
-sbin/vgck
-sbin/vgcreate
-sbin/vgdisplay
-sbin/vgexport
-sbin/vgextend
-sbin/vgimport
-sbin/vgmerge
-sbin/vgmknodes
-sbin/vgreduce
-sbin/vgremove
-sbin/vgrename
-sbin/vgscan
-sbin/vgsplit
 usr/X11R6/share/Xconfigurator/MonitorsDB
 usr/bin/python
 usr/bin/python?.?
