@@ -161,18 +161,19 @@ class InstallProgressWindow (InstallWindow):
                 shortlang = string.split(os.environ['LANG'], '_')[0]
             except:
                 shortlang = ''
+        else:
+            shortlang = ''
                 
+        pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/%s/*.png" % shortlang)
+        pixmaps2 = glob.glob("pixmaps/rnotes/%s/*.png" % shortlang)
 
-	    pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/%s/*.png" % shortlang)
-	    pixmaps2 = glob.glob("pixmaps/rnotes/%s/*.png" % shortlang)
-
-            if len(pixmaps1) > 0 or len(pixmaps2) > 0:
-                if len(pixmaps1) < len(pixmaps2):
-                    files = pixmaps2
-                else:
-                    files = pixmaps1
+        if len(pixmaps1) > 0 or len(pixmaps2) > 0:
+            if len(pixmaps1) < len(pixmaps2):
+                files = pixmaps2
             else:
-                files = ["progress_first.png"]
+                files = pixmaps1
+        else:
+            files = ["progress_first.png"]
 
         #--Need to merge with if statement above...don't show ads in lowres
         if intf.runres != '800x600':
