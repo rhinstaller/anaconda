@@ -168,6 +168,7 @@ class HardDriveInstallMethod(InstallMethod):
 
 	# Make sure all of the correct CD images are available
 	for h in hl.values():
+            import sys
 	    if not self.discImages.has_key(h[1000002]):
 		self.messageWindow(_("Error"),
 			_("Missing CD #%d, which is required for the "
