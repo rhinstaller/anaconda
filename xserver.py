@@ -86,7 +86,11 @@ def startX(resolution):
     x.probe ()
 #    print "Probed X server is " , x.server
     probedServer = x.server
-    x.server = "XF86_FBDev"
+
+    #--Run fb_check() and see if framebuffer works on this card
+    if fb_check() == 0:
+        print "fb_check returned with value", fb_check()
+        x.server = "XF86_FBDev"
 
     if x.server:
         serverPath = '/usr/X11R6/bin/' + x.server
@@ -98,7 +102,6 @@ def startX(resolution):
           print "Unknown card, falling back to VGA16"
           x.server = "XF86_VGA16"
           serverPath = '/usr/X11R6/bin/XF86_VGA16'
-    
 
     if not os.access (serverPath, os.X_OK):    #--If framebuffer server isn't there...try original probed server
         x.server = probedServer
@@ -126,6 +129,23 @@ def startX(resolution):
 
     return (mouse, x)
 
+def fb_check ():
+    result = None
+    cards = kudzu.probe (kudzu.CLASS_VIDEO,
+                         kudzu.BUS_UNSPEC,
+                         kudzu.PROBE_ALL);
+   
+    for card in cards: 
+        (junk, man, junk2) = card
+
+    print man
+
+    if man[:13] == "Card:NeoMagic":
+        print "NeoMagic card found..."
+	return 1
+    else:
+        print "We can use framebuffer"
+	return 0
 
 def testx(mouse, x):
     print "going to test the x server"
