@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.33\n"
+"Project-Id-Version: install 1.40\n"
 "POT-Creation-Date: 2000-01-10 18:18-0500\n"
-"PO-Revision-Date: 2000-01-12 13:14+0000\n"
+"PO-Revision-Date: 2000-01-12 13:30+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -1376,27 +1376,24 @@ msgid "Test this configuration"
 msgstr "Prófa þessar stillingar"
 
 #: ../iw/xconfig.py:112
-#, fuzzy
 msgid "Monitor Configuration"
-msgstr "Stillingar Lilo"
+msgstr "Stillingar skjás"
 
 #: ../iw/xconfig.py:215
-#, fuzzy
 msgid "Horizontal Sync"
-msgstr "Lárétt tíðnisvið"
+msgstr "Lárétt samhæfing"
 
 #: ../iw/xconfig.py:224
 msgid "Vertical Sync"
-msgstr ""
+msgstr "Lóðrétt samhæfing"
 
 #: ../iw/xconfig.py:314
-#, fuzzy
 msgid ""
 "You video ram size can not be autodetected.  Choose your video ram size from "
 "the choices below:"
 msgstr ""
-"Ekki tókst að finna skjáinn þinn sjálfvirkt. Vinsamlegast veldu hann úr "
-"listanum:"
+"Ekki var hægt að finna magn skjáminnis sjálfvirkt. Veldu magn skjáminnis úr "
+"listanum að neðan:"
 
 #: ../iw/xconfig.py:325
 msgid ""
@@ -1415,6 +1412,8 @@ msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
+"Ef útkoma leitarinnar passar ekki við vélbúnaðinn þinn, veldu réttar "
+"stillingar hér:"
 
 #: ../iw/xconfig.py:383
 msgid "Use Graphical Login"
@@ -1535,23 +1534,26 @@ msgid ""
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
 msgstr ""
+"Þú hefur valið að setja rótina í skrá sem er í DOS eða windows disksneið sem "
+"er þegar til staðar. Hversu stóra, í megabætum talið, viltu hafa skrána og "
+"hversu mikið diskminni villtu hafa? Bæði saman verða að vera minna en %d "
+"megabæti að stærð."
 
 #: ../textw/partitioning.py:258
 msgid "Root filesystem size"
-msgstr ""
+msgstr "Stærð rótarskráarkerfis"
 
 #: ../textw/partitioning.py:259
 msgid "Swap space"
-msgstr ""
+msgstr "Diskminni"
 
 #: ../textw/partitioning.py:268 ../textw/partitioning.py:274
-#, fuzzy
 msgid "Bad Size"
-msgstr "Stærð"
+msgstr "Ólögleg stærð"
 
 #: ../textw/partitioning.py:269
 msgid "The size you enter must be a number."
-msgstr ""
+msgstr "þú verður að slá inn tölu."
 
 #: ../textw/partitioning.py:275
 #, c-format
@@ -1559,6 +1561,8 @@ msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
 "which is %d megabytes."
 msgstr ""
+"Samanlögð stærð disksneiða verður að vera minni en laust diskpláss á disknum "
+"sem er %d megabæti."
 
 #: ../textw/silo.py:62
 msgid "Create PROM alias `linux'"
@@ -1623,14 +1627,12 @@ msgid "User ID"
 msgstr "Notandanafn"
 
 #: ../textw/userauth.py:90
-#, fuzzy
 msgid "Missing User ID"
-msgstr "Notandanafn"
+msgstr "Notandanafn vantar"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "You must provide a user ID"
-msgstr "Þú verður að gefa upp heiti þjóns."
+msgstr "Þú verður að gefa upp notandanafn"
 
 #: ../textw/userauth.py:96
 msgid "The password must be at least 6 characters long."
@@ -2113,13 +2115,12 @@ msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Ræsisneiðar (/boot) mega einungis nota RAID-1"
 
 #: ../libfdisk/gnomefsedit.c:1953
-#, fuzzy
 msgid "Illegal RAID mountpoint"
-msgstr "Óleyfileg RAID tegund fyrir /boot"
+msgstr "Óleyfilegur tengipunktur fyrir RAID"
 
 #: ../libfdisk/gnomefsedit.c:1955
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr ""
+msgstr "RAID disksneiðar geta ekki verið rót (/) á Ölfum."
 
 #: ../libfdisk/gnomefsedit.c:2038
 #, c-format
@@ -2678,14 +2679,14 @@ msgid "Would you like to set up networking?"
 msgstr "Viltu setja upp net?"
 
 #: ../loader/urls.c:71
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Gat ekki lesið möppuna %s: %s"
+msgstr "Gat ekki stimplað inn í %s: %s"
 
 #: ../loader/urls.c:80 ../loader/urls.c:87
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Gat ekki lesið möppuna %s: %s"
+msgstr "Gat ekki lesið %s: %s"
 
 #: ../loader/urls.c:92
 msgid "Retrieving"
