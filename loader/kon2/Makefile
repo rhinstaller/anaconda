@@ -9,7 +9,7 @@ LIB     = $(shell pwd)/lib/libgon.a
 
 MFLAGS = INCDIR=$(INCDIR) LIB=$(LIB)
 
-CC = diet gcc
+CC = $(DIET) gcc
 MAKE := $(MAKE) "CC=$(CC)"
 
 ifdef	MINI_KON

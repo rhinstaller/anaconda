@@ -133,7 +133,7 @@ tr/%.tr: ../po/%.po loader.po
 
 dirs:
 	for n in . $(DIRS); do \
-	    [ "$$n" = "." ] || make -C $$n ;\
+	    [ "$$n" = "." ] || make "DIET=$(DIET)" -C $$n ;\
 	done
 
 install: all
