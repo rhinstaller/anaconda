@@ -53,7 +53,7 @@ class AccountWindow (InstallWindow):
 	    self.userAccountMatch.search(accountName) and
 	    len(accountName) <= 8) and accountName != "root":
 	    valid = 1
-	    self.userPwLabel.set_text("User password accepted.")
+	    self.userPwLabel.set_text(_("User password accepted."))
 	else:
 	    if not accountName:
 		self.userPwLabel.set_text("")
