@@ -62,7 +62,10 @@ class Fstab:
         if partitions == None:
             return ddruid
 
-	for (mntpoint, size, maxsize, grow, device, fsopts) in partitions:
+	for (mntpoint, sizespec, locspec, typespec, fsopts) in partitions:
+            device = locspec
+            (size, maxsize, grow) = sizespec
+
 	    type = 0x83
 	    if (mntpoint == "swap"):
 		mntpoint = "Swap%04d-auto" % swapCount
@@ -83,7 +86,7 @@ class Fstab:
 
         if success == 1:
             # configure kickstart requested ext2 filesystem options
-            for (mntpoint, size, maxsize, grow,  device, fsopts) in partitions:
+            for (mntpoint, sizespce, locspec, typespec, fsopts) in partitions:
                 if fsopts != None:
                     self.setfsOptions (mntpoint, fsopts)
             

@@ -455,7 +455,7 @@ class Kickstart(BaseInstallClass):
            else:
                self.addToFstab(extra[0], onPart)
 	else:
-	    self.addNewPartition(extra[0], size, maxSize, grow, device, fsopts)
+	    self.addNewPartition(extra[0], (size, maxSize, grow), (device), (0,0), fsopts)
 
     def __init__(self, file, serial):
 	BaseInstallClass.__init__(self)
