@@ -46,9 +46,21 @@ class TimezoneMap(gtk.VBox):
         # set up the map canvas
         self.canvas = gnome.canvas.Canvas()
         root = self.canvas.root()
-        pixbuf = gtk.gdk.pixbuf_new_from_file(map)
+        tpixbuf = gtk.gdk.pixbuf_new_from_file(map)
+
+        # make it fit on screen for 640x480
+        wid = tpixbuf.get_width()
+        ht  = tpixbuf.get_height()
+        if gtk.gdk.screen_width() <= 640 and wid > 375:
+            newwid = 375
+            newht = int((float(newwid)/float(wid))*float(ht))
+            pixbuf = tpixbuf.scale_simple(newwid, newht, gtk.gdk.INTERP_BILINEAR)
+        else:
+            pixbuf = tpixbuf
+                                
         self.mapWidth = pixbuf.get_width()
         self.mapHeight = pixbuf.get_height()
+
         root.add(gnome.canvas.CanvasPixbuf, x=0, y=0, pixbuf=pixbuf)
         x1, y1, x2, y2 = root.get_bounds()
         self.canvas.set_scroll_region(x1, y1, x2, y2)

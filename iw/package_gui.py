@@ -1098,7 +1098,13 @@ class PackageSelectionWindow (InstallWindow):
 		    label=gtk.Label("")
 		    label.set_alignment (0.0, 0.0)
 		    label.set_line_wrap(gtk.TRUE)
-		    label.set_size_request(350, -1)
+
+                    if  gtk.gdk.screen_width() > 640:
+                        wraplen = 350
+                    else:
+                        wraplen = 250
+
+		    label.set_size_request(wraplen, -1)
 		    label.set_markup("%s" % (_(descr),))
                     detailbox.pack_start(label, gtk.TRUE)
                 topbox.pack_start(detailbox)
