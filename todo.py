@@ -1,8 +1,11 @@
 import rpm, os
 import iutil, isys
 from lilo import LiloConfiguration
-if iutil.getArch () == "sparc":
+arch = iutil.getArch ()
+if arch == "sparc":
     from silo import SiloInstall
+else if arch == "alpha":
+    from milo import MiloInstall
 import string
 import socket
 import crypt
@@ -293,10 +296,11 @@ class ToDo:
         self.bootdisk = 0
 	self.liloImages = {}
         self.liloDevice = None
-	if iutil.getArch() == "sparc":
-	    self.silo = SiloInstall(self)
-	else:
-	    self.silo = None
+        arch = iutil.getArch ()
+	if arch == "sparc":
+	    self.silo = SiloInstall (self)
+        elif arch == "alpha":
+            self.milo = MiloInstall (self)
 	self.timezone = None
         self.upgrade = 0
 	self.ddruidAlreadySaved = 0
@@ -1503,11 +1507,15 @@ class ToDo:
 	    devnull = os.open("/dev/null", os.O_RDWR)
 	    iutil.execWithRedirect(argv[0], argv, root = self.instPath,
 				   stdout = devnull)
-        if arch != "alpha":
-            if self.silo:
-                self.silo.installSilo ()
-            else:
-                self.installLilo ()
+        
+        if arch == "sparc":
+            self.silo.installSilo ()
+        else if arch == "i386":
+            self.installLilo ()
+        else if arch == "alpha":
+            self.milo.write ()
+        else:
+            raise RuntimeError, "What kind of machine is this, anyway?!"
 
 	if self.instClass.postScript:
 	    scriptRoot = "/"
