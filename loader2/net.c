@@ -566,7 +566,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
     int i;
     struct device ** devices;
 
-    devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, 0);
+    devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
     if (!devices)
         return 0;
 
@@ -788,7 +788,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
     int foundDev = 0;
     struct device ** devs;
 
-    devs = probeDevices(CLASS_NETWORK, BUS_UNSPEC, 0);
+    devs = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
     if (!devs) {
         logMessage("no network devices in choose network device!");
         return LOADER_ERROR;

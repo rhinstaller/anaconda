@@ -362,7 +362,7 @@ static void checkForHardDrives(int * flagsPtr) {
     int i;
     struct device ** devices;
     
-    devices = probeDevices(CLASS_HD, BUS_UNSPEC, 0);
+    devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_LOADED);
     if (devices)
         return;
 
@@ -515,7 +515,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         else if (!strcasecmp(argv[i], "kssendmac"))
             flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
         else if (!strncasecmp(argv[i], "debug=", 6))
-            setLogLevel(strtol(argv[i] + 6, (char **)NULL, 10));
+                  setLogLevel(strtol(argv[i] + 6, (char **)NULL, 10));
         else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
             loaderData->netDev = strdup(argv[i] + 9);
             loaderData->netDev_set = 1;
@@ -633,7 +633,7 @@ static void checkForRam(int flags) {
 static int haveDeviceOfType(int type, moduleList modLoaded) {
     struct device ** devices;
 
-    devices = probeDevices(type, BUS_UNSPEC, 0);
+    devices = probeDevices(type, BUS_UNSPEC, PROBE_LOADED);
     if (devices) {
         int i;
         for (i = 0; devices[i]; i++) {
