@@ -22,7 +22,34 @@ class XF86Config:
         self.monID = None
         self.devID = None
         self.probed = 0
-    
+        self.modes = { "8" :  ["640x480"],
+                       "16" : ["640x480"],
+                       "32" : ["640x480"], }
+
+    def filterModesByMemory (self):
+        if not self.vidRam:
+            return
+        if string.atoi(self.vidRam) >= 4096:
+            self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
+            self.modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
+            self.modes["32"] = ["640x480", "800x600", "1024x768", "1152x864"]
+        elif string.atoi(self.vidRam) >= 2048:
+            self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
+            self.modes["16"] = ["640x480", "800x600", "1024x768", "1152x864"]
+            self.modes["32"] = ["640x480", "800x600"]
+        elif string.atoi(self.vidRam) >= 2048:
+            self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864"]
+            self.modes["16"] = ["640x480", "800x600"]
+            self.modes["32"] = ["640x480"]
+        elif string.atoi(self.vidRam) >= 512:
+            self.modes["8"] = ["640x480", "800x600"]
+            self.modes["16"] = ["640x480"]
+            self.modes["32"] = []
+        elif string.atoi(self.vidRam) >= 256:
+            self.modes["8"] = ["640x480"]
+            self.modes["16"] = []
+            self.modes["32"] = []
+
     def cards (self, thecard = None):
         cards = {}
         db = open ('/usr/X11R6/lib/X11/Cards')
@@ -114,7 +141,8 @@ class XF86Config:
                 self.monEisa = line[9:]
 
             if line and line[:6] == "\tName:":
-                self.monName = line[7:]
+                if not self.monName or len (self.monName) < len (line[7:]):
+                    self.monName = line[7:]
 
             if line and line[:15] == "\tTiming ranges:":
                 ranges = string.split (line, ',')
@@ -621,14 +649,17 @@ EndSection
     Monitor     "%(MONITOR)s"
 """ % info
 #    for depth in self.depths:
-        for depth in [ '32', '24', '16', '8']:
+        for depth in self.modes.keys ():
             section = section + """
     Subsection "Display"
         Depth       %s
-        Modes       "640x480" 
+        Modes       """ % depth
+            for res in self.modes[depth]:
+                section = section + '"' + res + '" '
+            section = section + """
         ViewPort    0 0
     EndSubsection
-""" % (depth,)
+"""
         section = section + "EndSection\n"
         return section
 
@@ -642,4 +673,7 @@ if __name__ == "__main__":
     print x.mouseSection ()
     print x.monitorSection ()
     print x.deviceSection ()
+    x.modes["8"] = [ "640x480" ]
+    x.modes["16"] = [ "640x480" ]
+    x.modes["32"] = [ "640x480" ]
     print x.screenSection ()
