@@ -102,12 +102,17 @@ class InstallData:
     def setXSetup(self, xsetup):
         self.xsetup = xsetup
 
+    # expects 0/1
+    def setHeadless(self, isHeadless):
+        self.isHeadless = isHeadless
+
     def write(self, instPath):
         self.langSupport.write (instPath)
-        if self.mouse is not None:
+
+        if not self.isHeadless:
             self.mouse.write(instPath)
+            self.keyboard.write (instPath)
             
-        self.keyboard.write (instPath)
         self.network.write (instPath)
         self.timezone.write (instPath)
         self.auth.write (instPath)
@@ -127,10 +132,9 @@ class InstallData:
 
 	self.instLanguage.writeKS(f)
 	self.langSupport.writeKS(f)
-	self.keyboard.writeKS(f)
-        if self.mouse is not None:
+        if not self.isHeadless:
+            self.keyboard.writeKS(f)
             self.mouse.writeKS(f)
-        if self.xsetup is not None:
             self.xsetup.writeKS(f, self.desktop)
 	self.network.writeKS(f)
 	self.rootPassword.writeKS(f, self.auth)
@@ -227,6 +231,7 @@ class InstallData:
         self.monitor = None
         self.videocard = None
         self.xsetup = None
+        self.isHeadless = 0
 	self.extraModules = extraModules
 	self.floppyDevice = floppyDevice
 	self.fsset = fsset.FileSystemSet()

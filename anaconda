@@ -261,7 +261,8 @@ try:
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
-            'autostep', 'resolution=', 'skipddc', 'vnc', 'cmdline'])
+            'autostep', 'resolution=', 'skipddc', 'vnc', 'cmdline',
+            'headless'])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
@@ -298,14 +299,11 @@ logFile = None			# may be a file object or a file name
 # should we ever try to probe for X stuff?  this will give us a convenient
 # out eventually to circumvent all probing and just fall back to text mode
 # on hardware where we break things if we probe
-doXProbe = 1
+isHeadless = 0
 
 # probing for hardware on an s390 seems silly...
 if iutil.getArch() == "s390":
-    doXProbe = 0
-# probing for hardware is equally silly on iSeries
-if iutil.getPPCMachine() == "iSeries":
-    doXProbe = 0
+    isHeadless = 1
 
 #
 # xcfg       - xserver info (?)
@@ -394,6 +392,8 @@ for n in args:
         display_mode = 'c'
     elif (str == '--kbdtype'):
         kbdtype = arg
+    elif (str == '--headless'):
+        isHeadless = 1
     elif (str == '--vnc'):
 	flags.usevnc = 1
 
@@ -453,7 +453,7 @@ import isys
 import instdata
 import floppy
 
-if doXProbe:
+if not isHeadless:
     import xsetup
     import rhpl.xhwstate as xhwstate
 import rhpl.keyboard as keyboard
@@ -565,7 +565,7 @@ if os.environ.has_key('DISPLAY') and display_mode == 'g':
 else:
     x_already_set = 0
 
-if doXProbe:
+if not isHeadless:
     #
     # Probe what is available for X and setup a hardware state
     #
@@ -576,13 +576,21 @@ if doXProbe:
 
     (videohw, monitorhw, mousehw) = xserver.probeHW(skipDDCProbe=skipddcprobe,
                                                     skipMouseProbe = skipmouseprobe)
-
-    # setup a X hw state for use later with configuration.  
-    try:
-        xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
-    except Exception, e:
-        print _("Unable to instantiate a X hardware state object.")
-        xcfg = None
+    # if the len(videocards) is zero, then let's assume we're isHeadless
+    if len(videohw.videocards) == 0:
+        print _("No video hardware found, assuming headless")
+        videohw = None
+        monitorhw = None
+        mousehw = None
+        isHeadless = 1
+    else:
+        # setup a X hw state for use later with configuration.  
+        try:
+            xcfg = xhwstate.XF86HardwareState(defcard=videohw,
+                                              defmon=monitorhw)
+        except Exception, e:
+            print _("Unable to instantiate a X hardware state object.")
+            xcfg = None
 else:
     videohw = None
     monitorhw = None
@@ -613,7 +621,7 @@ if (display_mode == 'g' and method and
     display_mode = 't'
     time.sleep(2)
 
-if doXProbe:
+if not isHeadless:
     # if no mouse we force text mode
     mousedev = mousehw.get()
     if display_mode == 'g' and mousedev[0] == "No - mouse":
@@ -813,7 +821,7 @@ if monitorhw:
 #
 # not sure what to do here - somehow we didnt detect anything
 #
-if xcfg is None and doXProbe:
+if xcfg is None and not isHeadless:
     try:
 	xcfg = xhwstate.XF86HardwareState()
     except Exception, e:
@@ -838,6 +846,11 @@ if lang:
 if keymap:
     dispatch.skipStep("keyboard", permanent = 1)
     instClass.setKeyboard(id, keymap)
+
+# set up the headless case
+if isHeadless == 1:
+    id.setHeadless(isHeadless)
+    instClass.setAsHeadless(isHeadless)
 
 instClass.setSteps(dispatch)
 
