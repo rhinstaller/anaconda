@@ -85,7 +85,7 @@ def mount(device, location, fstype = "ext2", readOnly = 0):
     location = os.path.normpath(location)
 
     if device != "/proc":
-	devName = "/dev/%s" % device
+	devName = "/tmp/%s" % device
 	makeDevInode(device, devName)
 	device = devName
 
