@@ -284,7 +284,7 @@ class SiloWindow (InstallWindow):
 	self.typeLabel.set_alignment(0.0, 0.0)
 	tempBox.pack_start(self.deviceLabel, FALSE)
 	tempBox.pack_start(self.typeLabel, FALSE)
-	self.defaultCheck = GtkCheckButton("Default boot image")
+	self.defaultCheck = GtkCheckButton(_("Default boot image"))
 	self.defaultCheck.connect("toggled", self.defaultUpdated)
 
 	# Alliteration!
