@@ -33,7 +33,7 @@ depends:
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
-#	install -m755 -s genhdlist $(DESTDIR)/usr/bin
+	install -m755 -s genhdlist $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 trimpcitable $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 -s moddeps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 filtermoddeps $(DESTDIR)/$(RUNTIMEDIR)
