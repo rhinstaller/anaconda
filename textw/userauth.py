@@ -62,7 +62,7 @@ class UsersWindow:
 	if (not cancelText):
 	    cancelText = _("Cancel")
 
-        userid = Entry (8, user["id"])
+        userid = Entry (9, user["id"])
         currentid = user["id"]
         fullname = Entry (20, user["name"], scroll = 1)
         pass1 = Entry (10, user["password"], hidden = 1)
