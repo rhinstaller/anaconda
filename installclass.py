@@ -234,7 +234,6 @@ class Workstation(InstallClass):
 	self.setHostname("localhost.localdomain")
 	self.addToSkipList("lilo")
 	self.addToSkipList("authentication")
-	self.addToSkipList("bootdisk")
 	self.addToSkipList("partition")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("format")
@@ -271,7 +270,6 @@ class Server(InstallClass):
 	self.addToSkipList("lilo")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")
-	self.addToSkipList("bootdisk")
 	self.addToSkipList("partition")
 	self.addToSkipList("format")
 
