@@ -508,6 +508,7 @@ Section "Device"
         Driver       "%(cardDriver)s"
         VendorName   "%(cardVendor)s"
         BoardName     "%(cardBoardName)s"
+%(videoRam)s        
         #BusID
 EndSection
 
@@ -616,8 +617,8 @@ class XF86Config:
             modes["32"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
             return modes
         elif string.atoi(self.vidRam) >= 4096:
-            modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
-            modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
+            modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
+            modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
             modes["32"] = ["640x480", "800x600", "1024x768", "1152x864"]
             return modes
         elif string.atoi(self.vidRam) >= 2048:
@@ -1035,7 +1036,10 @@ Section "Screen"
     Monitor     "%(monitorID)s"
 """ % tmp
                 if maxdepth > 0:
-                    screens = screens + "    DefaultColorDepth %d\n" % maxdepth
+                    if maxdepth > 16:
+                        screens = screens + "    DefaultColorDepth 16\n"
+                    else:
+                        screens = screens + "    DefaultColorDepth %d\n" % maxdepth
                         
                 for depth in self.modes.keys ():
                     if not self.modes[depth]: continue
@@ -1149,10 +1153,14 @@ Section "Screen"
                  "XkbVariant"   : self.keyVariant,
                  "XkbOptions"   : self.keyOptions,
                  "defaultDepth" : "",
-                 "emulate3"     : emulate3 }
+                 "emulate3"     : emulate3,
+                 "videoRam"     : "" }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
         if maxdepth > 0:
-            data["defaultDepth"] = "\n\tDefaultDepth\t%d" % maxdepth
+            if maxdepth > 16:
+                data["defaultDepth"] = "\n\tDefaultDepth\t16"
+            else:
+                data["defaultDepth"] = "\n\tDefaultDepth\t%d" % maxdepth
 	if test:
 	    data["pex5Mod"] = ""
 	if iutil.getArch() == "sparc":
@@ -1170,6 +1178,8 @@ Section "Screen"
 """				
         if self.vidCards[self.primary].has_key ("DRIVER"):
             data["cardDriver"] = self.vidCards[self.primary]["DRIVER"]
+            if data["cardDriver"] == "i810":
+                data["videoRam"] = "\tVideoRam %s\n" % self.vidRam
         else:
             raise RuntimeError, "Don't know which XFree86-4.0 video driver to use!"
 	return XF86Config_4_template % data
