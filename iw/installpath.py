@@ -32,14 +32,16 @@ class InstallPathWindow (InstallWindow):
         ics.setTitle (_("Install Path"))
         ics.setNextEnabled (1)
 
-        self.commonSteps = [ LanguageWindow,
+        self.commonSteps = [ LanguageWindow, 
                              KeyboardWindow,
                              MouseWindow,
                              WelcomeWindow,
                              InstallPathWindow
                              ]
 
-        self.installSteps = [ InstallTypeWindow,
+        self.installSteps = [ AccountWindow, PartitionWindow,
+			      LiloWindow,
+			      InstallTypeWindow,
                               TimezoneWindow,
 	                      NetworkWindow,
                               PartitionWindow,

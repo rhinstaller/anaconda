@@ -1,8 +1,11 @@
 from gtk import *
 from iw import *
 from gui import _
+import re
 
 class AccountWindow (InstallWindow):
+
+    userAccountMatch = re.compile("([A-Za-z])([A-Za-z0-9])*")
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
@@ -18,7 +21,7 @@ class AccountWindow (InstallWindow):
         self.todo.rootpassword.set (self.pw.get_text ())
         return None
 
-    def passwordsMatch (self, *args):
+    def rootPasswordsMatch (self, *args):
         pw = self.pw.get_text ()
         confirm = self.confirm.get_text ()
 
@@ -27,7 +30,77 @@ class AccountWindow (InstallWindow):
         else:
             self.ics.setNextEnabled (FALSE)
 
+    def userOkay(self, *args):
+	accountName = self.accountName.get_text()
+	password1 = self.userPass1.get_text()
+	password2 = self.userPass2.get_text()
+
+	print (accountName, password1, password2)
+
+	if (password1 and password1 == password2 and
+	    self.userAccountMatch.search(accountName) and
+	    len(accountName) <= 8):
+	    valid = 1
+	else:
+	    valid = 0
+
+        print "editingUser", self.editingUser
+	if (self.editingUser != None):
+	    self.edit.set_sensitive(valid)
+	    self.add.set_sensitive(0)
+	else:
+	    self.edit.set_sensitive(0)
+	    self.add.set_sensitive(valid)
+
+    def userSelected(self, *args):
+	index = self.userList.selection
+	if (not index): return
+	index = index[0]
+	accountName = self.userList.get_text(index, 0)
+	(fullName, password) = self.users[accountName]
+
+	self.editingUser = index
+	self.accountName.set_text(accountName)
+	self.userPass1.set_text(password)
+	self.userPass2.set_text(password)
+	self.fullName.set_text(fullName)
+
+    def addUser(self, widget, *args):
+	accountName = self.accountName.get_text()
+	password = self.userPass1.get_text()
+	fullName = self.fullName.get_text()
+
+        if (self.editingUser != None):
+	    index = self.editingUser
+	    self.userList.set_text(index, 0, accountName)
+	    self.userList.set_text(index, 1, fullName)
+	else:
+	    index = self.userList.append((accountName, fullName))
+	    
+	self.users[accountName] = (fullName, password)
+	self.newUser()
+
+    def deleteUser(self, *args):
+	index = self.userList.selection
+	if (not index): return
+	index = index[0]
+	accountName = self.userList.get_text(index, 0)
+
+	del self.users[accountName]
+	self.userList.remove(index)
+	self.newUser()
+
+    def newUser(self, *args):
+	self.editingUser = None 
+	self.accountName.set_text("")
+	self.userPass1.set_text("")
+	self.userPass2.set_text("")
+	self.fullName.set_text("")
+
     def getScreen (self):
+	self.users = {}
+	self.editingUser = None
+
         box = GtkVBox ()
         forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
@@ -36,12 +109,12 @@ class AccountWindow (InstallWindow):
         table.attach (GtkLabel (_("Confirm: ")), 0, 1, 1, 2)
         self.pw = GtkEntry (8)
         self.pw.connect ("activate", forward)
-        self.pw.connect ("changed", self.passwordsMatch)
+        self.pw.connect ("changed", self.rootPasswordsMatch)
         self.pw.set_visibility (FALSE)
         self.confirm = GtkEntry (8)
         self.confirm.connect ("activate", forward)
         self.confirm.set_visibility (FALSE)
-        self.confirm.connect ("changed", self.passwordsMatch)
+        self.confirm.connect ("changed", self.rootPasswordsMatch)
         table.attach (self.pw, 1, 2, 0, 1)
         table.attach (self.confirm, 1, 2, 1, 2)
 
@@ -53,48 +126,60 @@ class AccountWindow (InstallWindow):
         table.set_row_spacings(5)
         table.set_col_spacings(5)
 
-        entrytable = GtkTable (3, 4)
+        entrytable = GtkTable (4, 4)
         entrytable.set_row_spacings(10)
         entrytable.set_col_spacings(10)
 
-        username = GtkEntry (8)
-        username.connect ("activate", forward)
+        self.accountName = GtkEntry (8)
+        self.accountName.connect ("activate", forward)
+        self.accountName.connect ("changed", self.userOkay)
+        self.accountName.set_usize (50, -1)
 
-        username.set_usize (50, -1)
-        fullname = GtkEntry ()
-        fullname.connect ("activate", forward)
-        pass1 = GtkEntry (10)
-        pass1.connect ("activate", forward)
-        pass2 = GtkEntry (10)
-        pass2.connect ("activate", forward)
-        pass1.set_visibility (FALSE)
-        pass2.set_visibility (FALSE)
-        pass1.set_usize (50, -1)
-        pass2.set_usize (50, -1)
+        self.fullName = GtkEntry ()
+        self.fullName.connect ("activate", self.addUser)
+        self.userPass1 = GtkEntry (10)
+        self.userPass1.connect ("activate", forward)
+        self.userPass1.connect ("changed", self.userOkay)
+        self.userPass2 = GtkEntry (10)
+        self.userPass2.connect ("activate", forward)
+        self.userPass2.connect ("changed", self.userOkay)
+        self.userPass1.set_visibility (FALSE)
+        self.userPass2.set_visibility (FALSE)
+        self.userPass1.set_usize (50, -1)
+        self.userPass2.set_usize (50, -1)
         
-        entrytable.attach (GtkLabel (_("User Name")), 0, 1, 0, 1)        
-        entrytable.attach (username,                  1, 2, 0, 1)
+        entrytable.attach (GtkLabel (_("Account Name")), 0, 1, 0, 1)        
+        entrytable.attach (self.accountName,                  1, 2, 0, 1)
         entrytable.attach (GtkLabel (_("Password")),  0, 1, 1, 2)                
-        entrytable.attach (pass1,                     1, 2, 1, 2)
+        entrytable.attach (self.userPass1,                     1, 2, 1, 2)
         entrytable.attach (GtkLabel (_("Password (confirm)")),   2, 3, 1, 2)                
-        entrytable.attach (pass2,                     3, 4, 1, 2)
+        entrytable.attach (self.userPass2,                     3, 4, 1, 2)
         
         entrytable.attach (GtkLabel (_("Full Name")), 0, 1, 2, 3)        
-        entrytable.attach (fullname,                  1, 4, 2, 3)
+        entrytable.attach (self.fullName,                  1, 4, 2, 3)
 
-        table.attach (entrytable, 0, 3, 0, 1,
+        table.attach (entrytable, 0, 4, 0, 1,
                       xoptions = EXPAND | FILL,
                       yoptions = EXPAND | FILL)
         
-        add = GtkButton (_("Add"))
-        edit = GtkButton (_("Edit"))
+        self.add = GtkButton (_("Add"))
+	self.add.connect("clicked", self.addUser)
+        self.edit = GtkButton (_("Edit"))
+	self.edit.connect("clicked", self.addUser)
         delete = GtkButton (_("Delete"))
+	delete.connect("clicked", self.deleteUser)
+        new = GtkButton (_("New"))
+	new.connect("clicked", self.newUser)
 
-        table.attach (add,    0, 1, 1, 2, xoptions = FILL)
-        table.attach (edit,   1, 2, 1, 2, xoptions = FILL)
+        table.attach (self.add,    0, 1, 1, 2, xoptions = FILL)
+        table.attach (self.edit,   1, 2, 1, 2, xoptions = FILL)
         table.attach (delete, 2, 3, 1, 2, xoptions = FILL)
+        table.attach (new, 3, 4, 1, 2, xoptions = FILL)
         box.pack_start (table, FALSE)
-        userlist = GtkCList (2, (_("User ID"), _("Full Name")))
-        box.pack_start (userlist, TRUE)
-        
+        self.userList = GtkCList (2, (_("Account Name"), _("Full Name")))
+	self.userList.connect("select_row", self.userSelected)
+        box.pack_start (self.userList, TRUE)
+
+	self.userOkay()
+
         return box

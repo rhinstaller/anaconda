@@ -65,11 +65,8 @@ class LiloWindow (InstallWindow):
 
 	index = self.imageList.selection[0]
 
-	print "old default", self.default
-
 	if self.defaultCheck.get_active():
 	    if self.default != None:
-		print "off:", self.default
 		self.imageList.set_text(self.default, 0, "")
 
 	    self.imageList.set_pixmap(index, 0, self.checkMark)
@@ -77,8 +74,6 @@ class LiloWindow (InstallWindow):
 	else:
 	    self.imageList.set_text(index, 0, "")
 	    self.default = None
-
-	print "new default", self.default
 
     def labelSelected(self, *args):
 	index = self.imageList.selection[0]
@@ -92,8 +87,6 @@ class LiloWindow (InstallWindow):
 
 	self.typeLabel.set_text(_("Type") + ":" + self.typeName(type))
 	self.labelEntry.set_text(label)
-
-	print (index, self.default)
 
         self.ignoreSignals = 1
 	if index == self.default:
