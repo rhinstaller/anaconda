@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.77\n"
+"Project-Id-Version: install 1.82\n"
 "POT-Creation-Date: 2001-01-19 10:09-0500\n"
 "PO-Revision-Date: 2001-01-23 02:06+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
@@ -1882,6 +1882,16 @@ msgid ""
 "\n"
 "Are you sure you want to proceed?"
 msgstr ""
+"Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) uppfyrir "
+"1023 cylindra þakið og BIOS vélarinnar þinnar virðist ekki ráða við að ræsa "
+"stýrikerfi fyrir ofan þetta þak. Ef þú heldur áfram mun kerfið að öllum "
+"lýkindum ekki geta ræst Linux.\n"
+"\n"
+"Ef þú kýst að halda áfram er EINDREGIÐ mælt með því að þú útbúir "
+"ræsidiskling þegar þér býðst tækifærið. Þannig er tryggt að þú getir ræst "
+"upp Linux eftir að uppsetningu lýkur.\n"
+"\n"
+"Ertu viss um að þú viljir halda áfram?"
 
 #: ../iw/rootpartition_gui.py:412 ../textw/partitioning_text.py:386
 msgid ""
@@ -1893,6 +1903,14 @@ msgid ""
 "as this is a new feature in recent motherboards and is not always reliable. "
 "Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
+"Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) uppfyrir "
+"1023 cylindra þakið en BIOS vélarinnar þinnar virðist ráða við að ræsa "
+"stýrikerfi fyrir ofan þetta þak.\n"
+"\n"
+"Það er EINDREGIÐ mælt með því að þú útbúir ræsidiskling þegar þér býðst "
+"tækifæri til því þessi eiginleiki nýrra móðurborða er ekki alltaf "
+"áreiðanlegur. Að búa til ræsidiskling tryggir að þú hafir leið til að ræsa "
+"upp linux að uppsetningu lokinni."
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -2195,6 +2213,10 @@ msgid ""
 "protocols explicitly through the firewall. Specify additional ports in the "
 "form 'service:protocol', such as 'imap:tcp'. "
 msgstr ""
+"Þú getur sérsniðið eldvegginn á tvo vegu. Þú getur valið að leyfa allar "
+"tengingar frá tilteknum netkortum eða að leyfa tilteknum prótokollum "
+"eingungu að komast í gegnum eldvegginn. Þú getur tiltekið auka port á "
+"sniðinu 'þjónusta:prótókollur' eins og til dæmis 'imap:tcp'."
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -2962,10 +2984,15 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Það er mælt með að hafa rótardisksneiðina (/) að minnsta kosti %ld Megabæti. "
+"Þú ert að reyna að búa hana til sem %ld Megabæti sem getur valdið því að "
+"uppsetningin tekst ekki.\n"
+"\n"
+"Ertu viss um að þú viljir gera þetta?"
 
 #: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/newtfsedit.c:739
 msgid "Warning: Root FS Size"
-msgstr ""
+msgstr "Aðvörun: Stærð rótarskráarkerfisins"
 
 #: ../libfdisk/gnomefsedit.c:1291
 msgid "No Drives Specified"
@@ -3346,7 +3373,7 @@ msgstr "Núverandi disksneiðar"
 
 #: ../libfdisk/newtfsedit.c:1464
 msgid "   Mount Point          Device     Requested   Actual         Type"
-msgstr ""
+msgstr " Tengipunktur          Tæki       Umbeðið     Reynd          Gerð"
 
 #: ../libfdisk/newtfsedit.c:1488
 msgid ""
@@ -4070,7 +4097,7 @@ msgstr "Suður Ameríka"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Indian Rim"
-msgstr ""
+msgstr "Indland"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
