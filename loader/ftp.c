@@ -431,7 +431,7 @@ int httpGetFileDesc(char * hostname, int port, char * remotename) {
     }
 
     buf = alloca(strlen(remotename) + strlen(hostname) + 25);
-    sprintf(buf, "GET %s HTTP/1.0\t\nHost: %s\r\n\r\n", remotename, hostname);
+    sprintf(buf, "GET %s HTTP/1.0\r\nHost: %s\r\n\r\n", remotename, hostname);
     write(sock, buf, strlen(buf));
 
     /* This is fun; read the response a character at a time until we:
