@@ -123,7 +123,7 @@ loader-local-kon: loader-local-kon.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -L ../stubs -lz -lresolv -lnewt -lslang -lpci
+        -L ../stubs -lz -lresolv -lnewt -lslang -lpci \
 	./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
 
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
@@ -136,7 +136,7 @@ loader-network-kon: loader-net-kon.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
+        -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci \
 	./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
 
 loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
