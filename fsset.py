@@ -240,7 +240,7 @@ class raidMemberDummyFileSystem(FileSystemType):
         self.name = "software raid component"
 
     def isSupported(self):
-        # XXX look at /proc/mdset ?
+        # XXX look at /proc/mdstat ?
         return 1
 
     def formatDevice(self, entry, progress, message, chroot='/'):
