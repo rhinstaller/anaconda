@@ -15,8 +15,10 @@
 
 import string
 from types import *
-from packages import readPackages, checkDependencies, doInstall, handleX11Packages
-from packages import writeConfiguration, writeXConfiguration, writeKSConfiguration, turnOnFilesystems, queryUpgradeContinue
+from packages import readPackages, checkDependencies, doInstall
+from packages import handleX11Packages, writeConfiguration, writeXConfiguration
+from packages import writeKSConfiguration, turnOnFilesystems
+from packages import queryUpgradeContinue
 from iutil import makeBootdisk
 from bootloader import partitioningComplete, writeBootloader
 from flags import flags
@@ -38,61 +40,54 @@ DISPATCH_NOOP = None
 # in the second case, the function is called directly from the dispatcher
 
 installSteps = [
-		 ( "language", ("intf", "id.instLanguage") ),
-		 ( "keyboard", ("id.instLanguage", "id.keyboard") ),
-		 ( "mouse", ("id.mouse", ) ),
-		 ( "welcome", () ),
-		 ( "reconfigwelcome", () ),
-		 ( "reconfigkeyboard", ("id.instLanguage", "id.keyboard" ) ),
-		 ( "installtype", ("dispatch", "id", "method", 
-				   "intf") ),
-                 ( "partition", ("id.fsset", "id.diskset", "id.partrequests",
-                                 "intf")),
-		 ( "partitiondone", partitioningComplete, 
-				 ("dispatch", "id.bootloader",
-				  "id.fsset", "id.diskset" ) ),
-		 ( "bootloader", ("dispatch", "id.bootloader", 
-				  "id.fsset", "id.diskset") ),
-		 ( "network", ("id.network",) ),
-		 ( "firewall", ("id.network", "id.firewall") ),
-		 ( "languagesupport", ("id.langSupport", ) ),
-		 ( "timezone", ("id.instLanguage", "id.timezone", ) ),
-		 ( "accounts", ("id.rootPassword", "id.accounts", ) ),
-		 ( "authentication", ("id.auth", ) ),
-		 ( "readcomps", readPackages, ("intf", "method", "id" )),
-                 ( "upgradecontinue", queryUpgradeContinue, ("intf", "dir",
-                                                             "dispatch")),
-		 ( "package-selection", ("id.comps", "dispatch") ),
-		 ( "indivpackage", ("id.comps", "id.hdList", ) ),
-		 ( "handleX11pkgs", handleX11Packages, 
-			    ("dir", "intf", "dispatch", "id", "instPath" )),
-		 ( "videocard", ("dispatch", "id.xconfig", "id.videocard")),
-		 ( "checkdeps", checkDependencies, 
-			    ("dir", "intf", "dispatch", "id", "instPath" )),
-		 ( "dependencies", ("id.comps", "id.dependencies",) ),
-		 ( "confirminstall", () ),
-		 ( "confirmupgrade", () ),
-		 ( "install", ("dir", "intf", "id", ) ),
-		 ( "enablefilesystems", turnOnFilesystems, 
-                   ( "dir", "id.fsset", "id.diskset",
-                     "id.upgrade", "instPath") ),
-		 ( "installpackages", doInstall, 
-		    ( "method", "id", "intf", "instPath" )),
-		 ( "writeconfig", writeConfiguration, 
-			    ("id", "instPath" )),
-		 ( "instbootloader", writeBootloader,
-			    ("intf", "instPath", "id.fsset", 
-			      "id.bootloader", "id.langSupport", "id.comps") ),
-		 ( "monitor", ("id.xconfig", "id.monitor") ),
-		 ( "xcustom", ("id.xconfig", "id.monitor", "id.videocard",
-                               "id.desktop", "id.comps") ),
-                 ( "writexconfig", writeXConfiguration, ("id", "instPath")),
-                 ( "writeksconfig", writeKSConfiguration, ("id", "instPath")),
-		 ( "bootdisk", ("dir", "dispatch") ),
-		 ( "makebootdisk", makeBootdisk, ("intf",) ),
-		 ( "complete", () ),
-		 ( "reconfigcomplete", () )
-	       ]
+    ( "language", ("intf", "id.instLanguage") ),
+    ( "keyboard", ("id.instLanguage", "id.keyboard") ),
+    ( "mouse", ("id.mouse", ) ),
+    ( "welcome", () ),
+    ( "reconfigwelcome", () ),
+    ( "reconfigkeyboard", ("id.instLanguage", "id.keyboard" ) ),
+    ( "installtype", ("dispatch", "id", "method", "intf") ),
+    ( "partition", ("id.fsset", "id.diskset", "id.partrequests", "intf")),
+    ( "partitiondone", partitioningComplete, ("dispatch", "id.bootloader",
+                                              "id.fsset", "id.diskset" ) ),
+    ( "bootloader", ("dispatch", "id.bootloader", "id.fsset", "id.diskset") ),
+    ( "network", ("id.network",) ),
+    ( "firewall", ("id.network", "id.firewall") ),
+    ( "languagesupport", ("id.langSupport", ) ),
+    ( "timezone", ("id.instLanguage", "id.timezone", ) ),
+    ( "accounts", ("id.rootPassword", "id.accounts", ) ),
+    ( "authentication", ("id.auth", ) ),
+    ( "readcomps", readPackages, ("intf", "method", "id" )),
+    ( "upgradecontinue", queryUpgradeContinue, ("intf", "dir", "dispatch")),
+    ( "package-selection", ("id.comps", "dispatch") ),
+    ( "indivpackage", ("id.comps", "id.hdList", ) ),
+    ( "handleX11pkgs", handleX11Packages, ("dir", "intf", "dispatch",
+                                           "id", "instPath" )),
+    ( "videocard", ("dispatch", "id.xconfig", "id.videocard")),
+    ( "checkdeps", checkDependencies, ("dir", "intf", "dispatch",
+                                       "id", "instPath" )),
+    ( "dependencies", ("id.comps", "id.dependencies",) ),
+    ( "confirminstall", () ),
+    ( "confirmupgrade", () ),
+    ( "install", ("dir", "intf", "id", ) ),
+    ( "enablefilesystems", turnOnFilesystems, ( "dir", "id.fsset",
+                                                "id.diskset", "id.upgrade",
+                                                "instPath") ),
+    ( "installpackages", doInstall, ( "method", "id", "intf", "instPath" )),
+    ( "writeconfig", writeConfiguration, ("id", "instPath" )),
+    ( "instbootloader", writeBootloader, ("intf", "instPath", "id.fsset", 
+                                          "id.bootloader", "id.langSupport",
+                                          "id.comps") ),
+    ( "monitor", ("id.xconfig", "id.monitor") ),
+    ( "xcustom", ("id.xconfig", "id.monitor", "id.videocard",
+                  "id.desktop", "id.comps") ),
+    ( "writexconfig", writeXConfiguration, ("id", "instPath")),
+    ( "writeksconfig", writeKSConfiguration, ("id", "instPath")),
+    ( "bootdisk", ("dir", "dispatch") ),
+    ( "makebootdisk", makeBootdisk, ("intf",) ),
+    ( "complete", () ),
+    ( "reconfigcomplete", () )
+    ]
 
 class Dispatcher:
 
