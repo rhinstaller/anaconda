@@ -893,6 +893,10 @@ int kickstartNetworkUp(struct knownDevices * kd,
         break;
     } while (1);
 
+    /* we don't want to end up asking about interface more than once
+     * if we're in a kickstart-ish case (#100724) */
+    loaderData->netDev_set = 1;
+
     /* JKFIXME: this is kind of crufty, we depend on the fact that the
      * ip is set and then just get the network up.  we should probably
      * add a way to do asking about static here and not be such a hack */
