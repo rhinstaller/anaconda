@@ -25,6 +25,7 @@ import raid
 import string
 import partRequests
 import urllib2
+import lvm
 
 from rhpl.translate import _
 from rhpl.log import log
@@ -854,10 +855,12 @@ class KickstartBase(BaseInstallClass):
                                                         
 
     def defineVolumeGroup(self, id, args):
-        (args, extra) = isys.getopt(args, '', ['noformat','useexisting'])
+        (args, extra) = isys.getopt(args, '', ['noformat','useexisting',
+                                               'pesize='])
 
         preexist = 0
         format = 1
+        pesize = 4096
 
         vgname = extra[0]
 
@@ -866,6 +869,8 @@ class KickstartBase(BaseInstallClass):
 	    if str == '--noformat' or str == '--useexisting':
                 preexist = 1
                 format = 0
+            elif str == "--pesize":
+                pesize = int(arg)
 
         pvs = []
         # get the unique ids of each of the physical volumes
@@ -877,6 +882,9 @@ class KickstartBase(BaseInstallClass):
         if len(pvs) == 0 and not preexist:
             raise ValueError, "Volume group defined without any physical volumes"
 
+        if pesize not in lvm.getPossiblePhysicalExtents(floor=1024):
+            raise ValueError, "Volume group specified invalid pesize: %d" %(pesize,)
+
         # get a sort of hackish id
         uniqueID = self.ksID
         self.ksVGMapping[extra[0]] = uniqueID
@@ -885,7 +893,8 @@ class KickstartBase(BaseInstallClass):
         request = partRequests.VolumeGroupRequestSpec(vgname = vgname,
                                                       physvols = pvs,
                                                       preexist = preexist,
-                                                      format = format)
+                                                      format = format,
+                                                      pesize = pesize)
         request.uniqueID = uniqueID
         self.addPartRequest(id.partitions, request)
 
