@@ -425,12 +425,12 @@ class ToDo:
         for mntpoint in keys:
             (device, fsystem, format) = self.mounts[mntpoint]
             isys.makeDevInode(device, '/tmp/' + device)
-            try:
-                os.mkdir (self.instPath + mntpoint)
-            except:
-                pass
             if fsystem != "swap":
-                isys.mount( '/tmp/' + device, self.instPath + mntpoint)
+		try:
+		    os.mkdir (self.instPath + mntpoint)
+		except:
+		    pass
+		    isys.mount( '/tmp/' + device, self.instPath + mntpoint)
 	    os.remove( '/tmp/' + device);
 
     def makeFilesystems(self):
@@ -629,8 +629,9 @@ class ToDo:
 	self.kernelPackage = self.hdList['kernel']
 
 	if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
-	    self.hdList['kernel-smp'].selected = 1
+	    self.kernelPackage.selected = 0
 	    self.kernelPackage = self.hdList['kernel-smp']
+	    self.kernelPackage.selected = 1
             
         self.kernelVersion = "%s-%s" % (self.kernelPackage[rpm.RPMTAG_VERSION],
                                         self.kernelPackage[rpm.RPMTAG_RELEASE])
@@ -643,6 +644,7 @@ class ToDo:
             device = dev.get ("device")
             f = open (self.instPath + "/etc/sysconfig/network-scripts/ifcfg-" + device, "w")
             f.write (str (dev))
+            f.write ("ONBOOT=yes\n")
             f.close ()
 
         # /etc/sysconfig/network
