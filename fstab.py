@@ -1205,7 +1205,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
     w = windowCreator(_("Formatting"),
 		  _("Formatting %s filesystem...") % (mntpoint,), 100)
 
-    fd = os.open(messageFile, os.O_RDWR)
+    fd = os.open(messageFile, os.O_RDWR | os.O_CREAT | os.O_APPEND)
     p = os.pipe()
     childpid = os.fork()
     if (not childpid):
