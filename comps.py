@@ -279,12 +279,9 @@ class Component:
                      "included by component %s", name, self.name)
             self.set[name].select(forInclude = 1, toplevel = 0)
 
-        for name in self.metapkgs.keys():
-            if not self.set.has_key(name):
-                log ("warning, unknown toplevel component %s "
-                     "included by component %s", name, self.name)
-            if self.metapkgs[name] == 1:
-                self.set[name].select(forInclude = 1, toplevel = 0)
+        for comp in self.metapkgs.keys():
+            if self.metapkgs[comp][1] == 1:
+                comp.select(forInclude = 1, toplevel = 0)
 
         if toplevel:
             self.set.updateSelections()
@@ -330,12 +327,9 @@ class Component:
                      "included by component %s", name, self.name)
             self.set[name].unselect(forInclude = 1, toplevel = 0)
 
-        for name in self.metapkgs.keys():
-            if not self.set.has_key(name):
-                log ("warning, unknown toplevel component %s "
-                     "included by component %s", name, self.name)
-            if self.metapkgs[name] == 1:
-                self.set[name].unselect(forInclude = 1, toplevel = 0)
+        for comp in self.metapkgs.keys():
+            if self.metapkgs[comp][1] == 1:
+                comp.unselect(forInclude = 1, toplevel = 0)
 
         if toplevel:
             self.set.updateSelections()
@@ -367,31 +361,44 @@ class Component:
             self.depsDict[p] = 0
 
     def selectOptionalPackage(self, p):
-        if p not in self.newpkgDict.keys():
-            log("%s not in pkgDict for component %s" % (p.name, self.name))
-        else:
-	    # dont ref count more than once
-	    if p in self.pkgDict.keys():
-		log("%s already enabled in pkgDict for component %s" % (p.name, self.name))
-		return
+        if isinstance(p, Package):
+            if p not in self.newpkgDict.keys():
+                log("%s not in pkgDict for component %s" % (p.name, self.name))
+            else:
+                # dont ref count more than once
+                if p in self.pkgDict.keys():
+                    log("%s already enabled in pkgDict for component %s" % (p.name, self.name))
+                    return
 
-            self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 1)
-            p.registerComponent(self)
-            self.pkgDict[p] = None
-            self.updateDependencyCountForAddition(p)
-            self.set.updateSelections()            
+                self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 1)
+                p.registerComponent(self)
+                self.pkgDict[p] = None
+                self.updateDependencyCountForAddition(p)
+        elif isinstance(p, Component):
+            print "selecting component"
+            p.select(forInclude = 1, toplevel = 0)
+            self.metapkgs[p] = (PKGTYPE_OPTIONAL, 1)
+        else:
+            log("don't know how to select %s" %(p,))
+        self.set.updateSelections()
 
     def unselectOptionalPackage(self, p):
-        if p not in self.pkgDict.keys():
-            log("%s not in pkgDict for component %s" % (p.name, self.name))
+        if isinstance(p, Package):        
+            if p not in self.pkgDict.keys():
+                log("%s not in pkgDict for component %s" % (p.name, self.name))
+            else:
+                self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 0)
+                p.unregisterComponent(self)
+                if self.pkgDict.has_key(p):
+                    del self.pkgDict[p]
+                self.updateDependencyCountForRemoval(p)
+        elif isinstance(p, Component):
+            p.unselect(forInclude = 1, toplevel = 0)
+            self.metapkgs[p] = (PKGTYPE_OPTIONAL, 0)
         else:
-            self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 0)
-            p.unregisterComponent(self)
-            if self.pkgDict.has_key(p):
-                del self.pkgDict[p]
-            self.updateDependencyCountForRemoval(p)
-            self.set.updateSelections()
-
+            log("don't know how to unselect %s" %(p,))
+        self.set.updateSelections()
+        
     def updateDependencyCountForAddition(self, p):
         pkgs = [ p ]
         checked = []
@@ -704,9 +711,9 @@ class ComponentSet:
                         %(group.name, id))
                     continue
                 if group.metapkgs[id][0] == u'default':
-                    comp.addMetaPkg(self.compsById[id].name, isDefault = 1)
+                    comp.addMetaPkg(self.compsById[id], isDefault = 1)
                 else:
-                    comp.addMetaPkg(self.compsById[id].name, isDefault = 0)
+                    comp.addMetaPkg(self.compsById[id], isDefault = 0)
 
 ##         everything = Component(self, N_("Everything"), 0, 0)
 ##         for package in packages.keys ():
