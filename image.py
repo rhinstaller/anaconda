@@ -421,6 +421,9 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	# Make sure all of the correct CD images are available
 	missing_images = []
 	for h in hl.values():
+	    if h[1000002] is None:
+		continue
+	    
 	    if not self.discImages.has_key(h[1000002]):
 		if h[1000002] not in missing_images:
 		    missing_images.append(h[1000002])
