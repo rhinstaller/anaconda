@@ -7,7 +7,6 @@
 #include "Python.h"
 
 #include "imount.h"
-#include "../pump/pump.h"
 #include "isys.h"
 #include "pci/pciprobe.h"
 #include "probe.h"
@@ -26,7 +25,9 @@ static PyObject * getModuleList(PyObject * s, PyObject * args);
 static PyObject * makeDevInode(PyObject * s, PyObject * args);
 static PyObject * doPciProbe(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
+#if 0
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
+#endif
 static PyObject * createProbedList(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
@@ -41,7 +42,9 @@ static PyMethodDef isysModuleMethods[] = {
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
+#if 0
     { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
+#endif
     { NULL }
 } ;
 
@@ -338,10 +341,10 @@ void init_isys(void) {
 static void emptyDestructor(PyObject * s) {
 }
 
+#if 0
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     char * dev, * ip, * netmask, * broadcast, * network;
     int * isPtp, rc;
-    struct pumpNetIntf device;
     
     if (!PyArg_ParseTuple(args, "sssssd", &dev, &ip, &netmask, &broadcast,
 			  &network, &isPtp)) return NULL;
@@ -362,6 +365,7 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     Py_INCREF(Py_None);
     return Py_None;
 }
+#endif
 
 static PyObject * probedListGetAttr(probedListObject * o, char * name) {
     return Py_FindMethod(probedListObjectMethods, (PyObject * ) o, name);
