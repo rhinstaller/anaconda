@@ -12,8 +12,20 @@ class CongratulationWindow (InstallWindow):
         ics.setPrevEnabled (0)
         ics.setNextButton (STOCK_PIXMAP_QUIT, _("Exit"))
         ics.setNextEnabled (1)
+        ics.setHelpEnabled (FALSE)
 
     def getScreen (self):
+        hbox = GtkHBox (TRUE, 5)
+        
+        im = self.ics.readPixmap ("done.png")
+        if im:
+            im.render ()
+            pix = im.make_pixmap ()
+            a = GtkAlignment ()
+            a.add (pix)
+            a.set (0.5, 0.5, 1.0, 1.0)
+            hbox.pack_start (a, FALSE)
+
         label = GtkLabel(_("Congratulations, installation is complete.\n\n"
                          "Remove the boot media and "
                          "press return to reboot. For information on fixes which are "
@@ -27,4 +39,6 @@ class CongratulationWindow (InstallWindow):
         box = GtkVBox (FALSE, 10)
         box.pack_start (label, TRUE, TRUE, 0)
 
-        return box
+        hbox.pack_start (box)
+
+        return hbox
