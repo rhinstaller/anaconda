@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-05-27 10:17+0100\n"
+"PO-Revision-Date: 2004-06-11 09:57+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1037,14 +1037,14 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: ../gui.py:638 ../text.py:283
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
 "\n"
 "%s"
 msgstr ""
-"Foi encontrado o seguinte erro ao processar a sua configuração de "
-"'kickstart'\n"
+"Foi encontrado o seguinte erro ao processar a sua configuração de 'kickstart':\n"
+"\n"
 "%s"
 
 #: ../gui.py:640 ../text.py:285
@@ -1214,9 +1214,9 @@ msgid "Change CDROM"
 msgstr "Mudar CDROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Por favor insira o disco %d para continuar."
+msgstr "Por favor insira o %s disco %d para continuar."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1229,7 +1229,7 @@ msgstr "Este não é o CDROM %s correcto."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Não foi possível aceder ao CDROM."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -2525,42 +2525,38 @@ msgid "Connecting..."
 msgstr "A efectuar a ligação..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Não é possível carregar ficheiro!"
+msgstr "Não Foi Possível Iniciar o X"
 
 #: ../vnc.py:37
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr ""
+msgstr "Não foi possível iniciar o X no seu computador.  Deseja iniciar o VNC para se ligar a este computador a partir de outro computador e realizar uma instalação gráfica ou continuar com uma instalação em modo texto?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Usar o modo de texto"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "A iniciar o VNC..."
+msgstr "Iniciar o VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Configuração do SILO"
+msgstr "Configuração do VNC"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Senha de 'Root'"
+msgstr "Sem senha"
 
 #: ../vnc.py:62
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
+msgstr "Uma senha impede que pessoas não autorizadas se liguem e sigam a evolução da instalação.  Por favor indique uma senha para a instalação"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2583,9 +2579,8 @@ msgid "Password Length"
 msgstr "Tamanho da Senha"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "A senha deve ter pelo menos 6 caracteres."
+msgstr "A senha deve ter pelo menos seis caracteres."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2628,7 +2623,7 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
+msgstr "A conta 'root' é utilizada para administrar o sistema.  Indique uma senha para o utilizador 'root'."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3295,7 +3290,7 @@ msgstr "Activar a 'fir_ewall'"
 
 #: ../iw/firewall_gui.py:179
 msgid "Allow others on the internet to access these services."
-msgstr ""
+msgstr "Permitir a outras pessoas na internet o acesso a estes serviços."
 
 #: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
@@ -3303,21 +3298,19 @@ msgstr "Permitir a _entrada:"
 
 #: ../iw/firewall_gui.py:203
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Ligação Remota (SSH)"
 
 #: ../iw/firewall_gui.py:205
-#, fuzzy
 msgid "Web Server"
-msgstr "_Servidor"
+msgstr "Servidor Web"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "E-mail (SMTP)"
+msgstr "Servidor de E-mail (SMTP)"
 
 #: ../iw/firewall_gui.py:209
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Transferência de Ficheiros (FTP)"
 
 #: ../iw/firewall_gui.py:215
 msgid "Other _ports:"
@@ -6862,37 +6855,29 @@ msgstr "Localização da Disquete de Controladores"
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
-msgstr ""
-"Tem vários dispositivos que podem servidor de origem para um disco de "
-"controladores. Qual é que deseja actualizar?"
+msgstr "Tem vários dispositivos que podem ter o disco de controladores. Qual é que deseja actualizar?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
-msgstr ""
-"Tem vários dispositivos que podem servidor de origem para um disco de "
-"controladores. Qual é que deseja actualizar?"
+msgstr "Tem várias partições neste dispositivo que podem ter a imagem do disco de controladores. Qual é que deseja actualizar?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Não foi possível montar disquete de actualizações"
+msgstr "Não foi possível montar partição."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Escolha o controlador"
+msgstr "Seleccione a imagem de disco de controladores"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Seleccione o ficheiro que é a sua imagem de disco de controladores."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Não foi possível montar disquete de controladores."
+msgstr "Não foi possível carregar o disco de controloadores do ficheiro."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -8428,24 +8413,3 @@ msgstr "Galês"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "Não foi possível montar o CDROM."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Indique a senha do 'root' (administrador) deste sistema."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "'Firewall' personali_zada"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "Quais os serviços que poderão passar através da 'firewall'?"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr ""
-#~ "Se desejar permitir todo o tráfego de um dispositivo, seleccione-o em "
-#~ "baixo."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "Dispositivos de _confiança:"
