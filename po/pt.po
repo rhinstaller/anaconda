@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-15 10:29-0400\n"
-"PO-Revision-Date: 2004-04-15 16:39+0100\n"
+"PO-Revision-Date: 2004-04-29 14:45+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -439,7 +439,7 @@ msgstr ""
 "\n"
 "\n"
 "Pode escolher uma opção de particionamento automático diferente ou então "
-"carregar em 'Anterior' para seleccionar o particionamento manual.\n"
+"carregar em 'Regressar' para seleccionar o particionamento manual.\n"
 "\n"
 "Carregue em 'OK' para continuar."
 
@@ -1083,11 +1083,11 @@ msgstr "O seu computador vai agora ser reiniciado..."
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:203
 msgid "_Back"
-msgstr "A_nterior"
+msgstr "Re_gressar"
 
 #: ../gui.py:1182
 msgid "_Next"
-msgstr "Próxi_mo"
+msgstr "Ava_nçar"
 
 #: ../gui.py:1184
 msgid "_Release Notes"
@@ -2940,9 +2940,7 @@ msgstr "Carregue em próximo para começar a actualizar o %s."
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr ""
-"Poder-se-á encontrar um registo completo da actualização no ficheiro '%s' "
-"depois de reiniciar o seu sistema."
+msgstr "Poderá encontrar um registo completo da actualização no ficheiro '%s' depois de reiniciar o seu sistema."
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
@@ -3215,9 +3213,7 @@ msgstr "Aviso: Valor Inválido"
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
-msgstr ""
-"Uma 'firewall' poderá ajudar a prevenir o acesso não autorizado ao seu "
-"computador a partir do exterior. Deseja activar uma 'firewall'?"
+msgstr "Uma 'firewall' pode ajudar a impedir o acesso não autorizado ao seu computador, a partir do exterior. Deseja activar a 'firewall'?"
 
 #: ../iw/firewall_gui.py:169
 msgid "N_o firewall"
@@ -3870,13 +3866,7 @@ msgid ""
 "additional operating systems, which are not automatically detected, click "
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
-msgstr ""
-"Pode configurar o gestor de arranque para arrancar outros sistemas "
-"operativos. Isto permitir-lhe-á seleccionar um sistema operativo a arrancar "
-"na sua lista. Para adicionar mais sistemas operativos, se não forem "
-"detectados automaticamente, carregue em 'Adicionar'. Para alterar o sistema "
-"operativo que é arrancado por omissão, carregue em 'Por omissão' no sistema "
-"operativo desejado."
+msgstr "Pode configurar o gestor de arranque para arrancar outros sistemas operativos. Isto permite-lhe seleccionar de uma lista qual o sistema operativo a iniciar. Para adicionar mais sistemas operativos, se não foram detectados automaticamente, carregue em 'Adicionar'. Para alterar o sistema operativo que é arrancado por omissão carregue em 'Por omissão' no sistema operativo desejado."
 
 #: ../iw/osbootwidget.py:66 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:283 ../textw/silo_text.py:207
@@ -5246,10 +5236,7 @@ msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
-msgstr ""
-"Uma senha no gestor de arranque impede que os utilizadores passem opções "
-"arbitrárias ao kernel. Para uma segurança mais elevada, recomendamos que "
-"insira uma senha, mas isto não é necessário para utilizadores mais casuais."
+msgstr "Uma senha no gestor de arranque impede que os utilizadores passem opções arbitrárias ao kernel. Para uma segurança mais elevada recomendamos que insira uma senha, mas tal não é necessário para utilizações mais casuais."
 
 #: ../textw/bootloader_text.py:404
 msgid "Use a GRUB Password"
@@ -5360,7 +5347,7 @@ msgstr ""
 #: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
-msgstr "Anterior"
+msgstr "Regressar"
 
 #: ../textw/confirm_text.py:48
 msgid "Upgrade to begin"
@@ -5402,7 +5389,7 @@ msgstr "Escolha a unidade onde quer correr o fdisk ou o dasdfmt"
 
 #: ../textw/fdasd_text.py:32
 msgid "Next"
-msgstr "Próximo"
+msgstr "Avançar"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
@@ -8303,6 +8290,3 @@ msgstr "Galês"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "Farsi"
-#~ msgstr "Farsi"

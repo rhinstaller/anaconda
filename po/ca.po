@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-15 10:29-0400\n"
-"PO-Revision-Date: 2004-04-15 17:36+0200\n"
+"PO-Revision-Date: 2004-05-03 16:17+0200\n"
 "Last-Translator: Josep Puigdemont <baldrick@terra.es>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -401,7 +401,7 @@ msgstr ""
 "\n"
 "\n"
 "Podeu seleccionar una opció de particionament diferent, o fer clic a "
-"'Endarrere' per seleccionar la partició manual.\n"
+"'Anterior' per seleccionar la partició manual.\n"
 "\n"
 "Premeu 'D'acord' per continuar."
 
@@ -980,7 +980,7 @@ msgstr "Intenta de nou"
 
 #: ../gui.py:240 ../text.py:328
 msgid "Ignore"
-msgstr "Ignora"
+msgstr "Omet"
 
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
 #: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
@@ -1002,11 +1002,11 @@ msgstr ""
 
 #: ../gui.py:810 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
-msgstr "No hi ha quant el llançament.\n"
+msgstr "No hi ha quant al llançament.\n"
 
 #: ../gui.py:980
 msgid "The release notes are missing."
-msgstr "No hi ha les notes quant el llançament."
+msgstr "No hi ha les notes quant al llançament."
 
 #: ../gui.py:1080
 msgid "Error!"
@@ -1044,7 +1044,7 @@ msgstr "S'arrencarà de nou el sistema..."
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:203
 msgid "_Back"
-msgstr "_Endarrere"
+msgstr "_Anterior"
 
 #: ../gui.py:1182
 msgid "_Next"
@@ -1052,7 +1052,7 @@ msgstr "Següe_nt"
 
 #: ../gui.py:1184
 msgid "_Release Notes"
-msgstr "N_otes quant el llançament"
+msgstr "N_otes quant al llançament"
 
 #: ../gui.py:1186
 msgid "Show _Help"
@@ -1060,7 +1060,7 @@ msgstr "Mostra l'_ajuda"
 
 #: ../gui.py:1188
 msgid "Hide _Help"
-msgstr "Amaga l'_ajuda"
+msgstr "Oculta l'_ajuda"
 
 #: ../gui.py:1190
 msgid "_Debug"
@@ -1128,12 +1128,12 @@ msgid ""
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 "S'ha produït un error en desmuntar el CD. Assegureu-vos que no esteu "
-"accedint a %s des de la la línia d'ordres a tty2 i feu clic a D'acord per "
+"accedint a %s des de la la línia d'ordres a tty2, i feu clic a D'acord per "
 "reintentar."
 
 #: ../image.py:164
 msgid "Copying File"
-msgstr "S'està copiant fitxer"
+msgstr "S'està copiant el fitxer"
 
 #: ../image.py:165
 msgid "Transferring install image to hard drive..."
@@ -1307,9 +1307,9 @@ msgid ""
 "Press <return> to try again."
 msgstr ""
 "No s'ha pogut obrir el paquet %s-%s-%s. Això pot ser degut a l'absència "
-"d'algun fitxer o paquet corrumput. Si esteu instal·lant des d'un CD això "
-"normalment vol dir que el medi del CD està corromput, o que el dispositiu "
-"del CD no pot llegir el medi.\n"
+"d'algun fitxer, o a un paquet corrumput. Si esteu instal·lant des d'un CD "
+"això normalment vol dir que el medi del CD està corromput, o que el "
+"dispositiu del CD no pot llegir el medi.\n"
 "\n"
 "Premeu <Retorn> i torneu-ho a intentar."
 
@@ -1567,8 +1567,8 @@ msgstr ""
 "inicialitzar-lo per poder-hi crear noves particions, causant-ne la pèrdua de "
 "totes les dades.\n"
 "\n"
-"Aquesta operació ignorarà qualsevol opció d'instal·lació prèvia referent a "
-"quins dispositius ignorar.\n"
+"Aquesta operació ometrà qualsevol opció d'instal·lació prèvia referent a "
+"quins dispositius ometre.\n"
 "\n"
 "Voleu inicialitzar aquest dispositiu, esborrant-ne totes les dades?"
 
@@ -2423,7 +2423,7 @@ msgstr ""
 "Aquest sistema sembla tenir instal·lats paquets de tercers que s'encavalquen "
 "amb paquets inclosos a %s. Donat aquest fet, si continueu amb el procés "
 "d'actualització pot ser que deixin de funcionar degudament o causin "
-"inestabilitat al sistema. Llegiu les notes quant el llançament per a més "
+"inestabilitat al sistema. Llegiu les notes quant al llançament per a més "
 "informació.\n"
 "\n"
 "Voleu continuar amb l'actualització?"
@@ -2750,7 +2750,7 @@ msgstr "Configuració del carregador de l'arrencada"
 
 #: ../iw/bootloader_main_gui.py:75
 msgid "Change Boot Loader"
-msgstr "Canvieu de carregador de l'arrencada"
+msgstr "Canvieu de carregador"
 
 #: ../iw/bootloader_main_gui.py:93
 msgid ""
@@ -2803,7 +2803,7 @@ msgstr "No s'instal·larà cap carregador de l'arrencada."
 
 #: ../iw/bootloader_main_gui.py:227
 msgid "_Change boot loader"
-msgstr "_Canvieu de carregador de l'arrencada"
+msgstr "_Canvieu de carregador"
 
 #: ../iw/bootloader_main_gui.py:255
 msgid "Configure advanced boot loader _options"
@@ -3632,7 +3632,7 @@ msgstr "_Model"
 
 #: ../iw/mouse_gui.py:235
 msgid "_Emulate 3 buttons"
-msgstr "_Emulació de 3 botons"
+msgstr "_Emula 3 botons"
 
 #: ../iw/mouse_gui.py:250
 msgid "Select the appropriate mouse for the system."
@@ -3794,7 +3794,7 @@ msgstr "Dispositius de xarxa"
 
 #: ../iw/network_gui.py:498
 msgid "Set the hostname:"
-msgstr "Especifiqueu el nom de l'ordinador:"
+msgstr "Defineix el nom de l'ordinador:"
 
 #: ../iw/network_gui.py:502
 msgid "_automatically via DHCP"
@@ -3806,7 +3806,7 @@ msgstr "_manualment"
 
 #: ../iw/network_gui.py:514
 msgid "(ex. \"host.domain.com\")"
-msgstr "(per ex. \"nom.ordinador.domini.com\")"
+msgstr "(p.ex. \"ordinador.domini.com\")"
 
 #: ../iw/network_gui.py:521 ../loader2/net.c:647
 msgid "Hostname"
@@ -4616,7 +4616,7 @@ msgstr "Unitats"
 
 #: ../iw/release_notes_viewer_gui.py:142
 msgid "Release Notes"
-msgstr "Informació quant el llançament"
+msgstr "Informació quant al llançament"
 
 #: ../iw/release_notes_viewer_gui.py:146
 msgid "Unable to load file!"
@@ -4672,7 +4672,7 @@ msgstr "Imatge d'arrencada predeterminada"
 
 #: ../iw/timezone_gui.py:28 ../textw/timezone_text.py:102
 msgid "Time Zone Selection"
-msgstr "Selecció de la zona horària"
+msgstr "Selecció del fus horari"
 
 #: ../iw/timezone_gui.py:67 ../textw/timezone_text.py:96
 msgid "System clock uses _UTC"
@@ -4680,7 +4680,7 @@ msgstr "El rellotge del sistema usa _UTC"
 
 #: ../iw/timezone_gui.py:75
 msgid "Please select the nearest city in your timezone:"
-msgstr "Seleccioneu la ciutat més propera a la vostra zona horària:"
+msgstr "Seleccioneu la ciutat més propera el vostre fus horari:"
 
 #: ../iw/timezone_map_gui.py:126
 msgid "_Location"
@@ -4982,8 +4982,8 @@ msgid ""
 "button."
 msgstr ""
 "Heu d'escollir una targeta de video abans de continuar amb la configuració "
-"d'X. Si voleu ignorar completament la configuració d'X escolliu el botó "
-"'Omet la configuració d'X'."
+"d'X. Si voleu ometre completament la configuració d'X escolliu el botó 'Omet "
+"la configuració d'X'."
 
 #: ../iw/xconfig_gui.py:974 ../textw/xconfig_text.py:637
 msgid ""
@@ -5721,7 +5721,7 @@ msgstr "No instal·lis els paquets que tinguin dependències"
 
 #: ../textw/packages_text.py:399
 msgid "Ignore package dependencies"
-msgstr "Ignora les dependències del paquet"
+msgstr "Omet les dependències del paquet"
 
 #: ../textw/partition_text.py:39
 msgid "Must specify a value"
@@ -6550,7 +6550,7 @@ msgstr "Línia chandev"
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr "_Personalitzat"
+msgstr "_Personalitzada"
 
 #: ../installclasses/custom.py:13
 msgid ""

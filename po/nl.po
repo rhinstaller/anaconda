@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-15 10:29-0400\n"
-"PO-Revision-Date: 2004-04-15 17:24+0200\n"
+"PO-Revision-Date: 2004-04-29 11:25+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -2542,7 +2542,7 @@ msgstr ""
 # Voor het systeem hier weggelaten, het wekt alleem maar verwarring
 #: ../iw/account_gui.py:87
 msgid "Enter the root (administrator) password for the system."
-msgstr "Voer het root-wachtwoord (van de systeembeheerder) in."
+msgstr "Het root-wachtwoord (van de systeembeheerder) invoeren."
 
 #: ../iw/account_gui.py:103
 msgid "Root _Password: "
@@ -2680,7 +2680,7 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "Bootloader-wachtwoord _gebruiken"
+msgstr "_Bootloader-wachtwoord gebruiken"
 
 #: ../iw/blpasswidget.py:76
 msgid "Change _password"
@@ -2799,7 +2799,7 @@ msgstr "_Algemene kernel-parameters"
 #: ../textw/bootloader_text.py:125 ../textw/bootloader_text.py:184
 #: ../textw/bootloader_text.py:307 ../textw/bootloader_text.py:399
 msgid "Boot Loader Configuration"
-msgstr "Bootloader Configuratie"
+msgstr "Bootloader configureren"
 
 #: ../iw/bootloader_main_gui.py:75
 msgid "Change Boot Loader"
@@ -3226,9 +3226,7 @@ msgstr "Waarschuwing: foutief teken"
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
-msgstr ""
-"Een firewall kan helpen tegen ongeautoriseerde toegang tot uw computer vanaf "
-"de buitenwereld.  Wilt u een firewall aanzetten?"
+msgstr "Een firewall kan beschermen tegen ongeautoriseerde toegang tot uw computer door de buitenwereld.  Wilt u een firewall aanzetten?"
 
 #: ../iw/firewall_gui.py:169
 msgid "N_o firewall"
@@ -3257,9 +3255,7 @@ msgstr "Andere _poorten:"
 
 #: ../iw/firewall_gui.py:232
 msgid "If you would like to allow all traffic from a device, select it below."
-msgstr ""
-"Als u alle verkeer van een apparaat wilt toestaan, selecteert u deze "
-"hieronder."
+msgstr "Indien u alle verkeer van een apparaat wilt toestaan, selecteert u deze hieronder."
 
 #: ../iw/firewall_gui.py:241
 msgid "_Trusted devices:"
@@ -3311,7 +3307,7 @@ msgstr "Extra Taalondersteuning"
 
 #: ../iw/language_support_gui.py:205
 msgid "Select the _default language for the system:   "
-msgstr "Kies de _standaardtaal voor dit systeem:   "
+msgstr "_Kies de standaardtaal voor dit systeem:   "
 
 #: ../iw/language_support_gui.py:219
 msgid "Select _additional languages to install on the system:"
@@ -3685,6 +3681,7 @@ msgstr "/dev/ttyS2 (COM3 onder DOS)"
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 onder DOS)"
 
+# apparaat?
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:159
 msgid "_Device"
 msgstr "_Device"
@@ -3818,7 +3815,7 @@ msgstr "Configureren via _DHCP"
 
 #: ../iw/network_gui.py:219
 msgid "_Activate on boot"
-msgstr "_Aktief bij opstarten"
+msgstr "_Actief bij opstarten"
 
 #: ../iw/network_gui.py:228
 msgid "_IP Address"
@@ -3839,7 +3836,7 @@ msgstr "%s configureren"
 
 #: ../iw/network_gui.py:424
 msgid "Active on Boot"
-msgstr "Aktief bij opstarten"
+msgstr "Actief bij opstarten"
 
 #: ../iw/network_gui.py:426 ../iw/osbootwidget.py:66
 #: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
@@ -3847,7 +3844,7 @@ msgstr "Aktief bij opstarten"
 #: ../textw/mouse_text.py:38 ../textw/partition_text.py:1126
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
-msgstr "Device"
+msgstr "Apparaat"
 
 #: ../iw/network_gui.py:428
 msgid "IP/Netmask"
@@ -3861,9 +3858,10 @@ msgstr "Netwerkapparaten"
 msgid "Set the hostname:"
 msgstr "Computernaam instellen:"
 
+# a wordt al gebruikt voor _Aanpassen
 #: ../iw/network_gui.py:502
 msgid "_automatically via DHCP"
-msgstr "_automatisch via DHCP"
+msgstr "a_utomatisch via DHCP"
 
 #: ../iw/network_gui.py:508
 msgid "_manually"
@@ -3888,13 +3886,7 @@ msgid ""
 "additional operating systems, which are not automatically detected, click "
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
-msgstr ""
-"U kunt met een bootloader ook andere besturingssystemen opstarten. U kunt de "
-"bootloader zo instellen dat het een keuzelijst toont met alle "
-"besturingssystemen. Om nu besturingssystemen toe te voegen die niet "
-"automatisch werden gedetecteerd, klikt u op 'Toevoegen'. Het "
-"besturingssysteem dat standaard moet worden opgestart kiest u met "
-"'Standaard' bij het gewenste besturingssysteem."
+msgstr "U kunt met een bootloader ook andere besturingssystemen opstarten. Zo kunt u de bootloader zo instellen dat het een keuzelijst toont met alle besturingssystemen. Om nu besturingssystemen toe te voegen die niet automatisch werden gedetecteerd, klikt u op 'Toevoegen'. Het besturingssysteem dat standaard moet worden opgestart geeft u een vinkje in de kolom 'Standaard'."
 
 #: ../iw/osbootwidget.py:66 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:283 ../textw/silo_text.py:207
@@ -3947,7 +3939,7 @@ msgstr "Dit label is reeds in gebruik bij een ander opstart-item."
 
 #: ../iw/osbootwidget.py:271
 msgid "Duplicate Device"
-msgstr "Duplicaat device"
+msgstr "Duplicaat apparaat"
 
 #: ../iw/osbootwidget.py:272
 msgid "This device is already being used for another boot entry."
@@ -5280,11 +5272,7 @@ msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
-msgstr ""
-"Een bootloader-wachtwoord weerhoudt gebruikers ervan om willekeurige opties "
-"aan de kernel mee te geven.  Voor de beste beveiliging raden we dan ook aan "
-"om een wachtwoord in te stellen. Voor normaal gebruik is dit echter niet "
-"noodzakelijk."
+msgstr "Een bootloader-wachtwoord weerhoudt gewone gebruikers ervan om willekeurige opties aan de kernel mee te geven.  Voor de beste beveiliging raden we dan ook aan om een wachtwoord in te stellen. Voor normaal gebruik is dit echter niet noodzakelijk."
 
 #: ../textw/bootloader_text.py:404
 msgid "Use a GRUB Password"
@@ -8636,13 +8624,6 @@ msgstr "Zulu"
 #~ msgid "You must go back and use fdasd to initialize this partition"
 #~ msgstr ""
 #~ "U moet teruggaan en fdasd gebruiken om deze partitie te initialiseren."
-
-#~ msgid ""
-#~ "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-"
-#~ "OK        "
-#~ msgstr ""
-#~ "    F1-Hulp         F3-Bewerken   F4-Verwijderen    F5-Reseten    F12-"
-#~ "OK        "
 
 #~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
 #~ msgstr ""

@@ -7,6 +7,7 @@
 # translation of es.po to
 # translation of es.po to
 # translation of es.po to
+# translation of es.po to
 # translation of es.po to Español
 # Copyright (C) 2000,2003,2004 Free Software Foundation, Inc.
 # Tullio Dovera <tdovera@redhat.it>, 2000.
@@ -21,7 +22,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-15 10:29-0400\n"
-"PO-Revision-Date: 2004-04-16 11:04+1000\n"
+"PO-Revision-Date: 2004-04-20 11:48+1000\n"
 "Last-Translator: Yelitza Louze <ylouze@redhat.com>\n"
 "Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -845,8 +846,8 @@ msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
-"El estado de su sistema se ha grabado con éxito en el disco. Su sistema "
-"reinicializará ahora. "
+"El estado de su sistema se ha grabado con éxito en el disco. Se "
+"reiniciará su sistema ahora. "
 
 # ../loader/loader.c:2316
 # ../loader/loader.c:2316
@@ -1164,7 +1165,7 @@ msgstr ""
 "Se ha producido un error grave en la búsqueda de bloques dañados en %s. "
 "Constituye un problema serio que impide continuar con la instalación.\n"
 "\n"
-"Pulse <Intro> para arrancar su sistema."
+"Pulse <Intro> para reiniciar su sistema."
 
 # ../fsset.py:799
 # ../fsset.py:836
@@ -1180,7 +1181,7 @@ msgstr ""
 "Se ha producido un error grave al intentar formatear %s. El problema es "
 "serio y la instalación no se puede llevar a cabo.\n"
 "\n"
-"Pulse <Intro> para arrancar su sistema."
+"Pulse <Intro> para reiniciar su sistema."
 
 # ../fsset.py:828
 # ../fsset.py:870
@@ -4175,7 +4176,7 @@ msgstr "Su sistema será reiniciado ahora."
 #: ../iw/confirm_gui.py:79
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Haga click en Siguiente para empezar la instalación de %s."
+msgstr "Pulse en Siguiente para empezar la instalación de %s."
 
 #: ../iw/confirm_gui.py:80
 #, python-format
@@ -4187,10 +4188,10 @@ msgid ""
 "in the file '%s' after rebooting the system."
 msgstr ""
 "El registro completo de la instalación puede encontrarse en el archivo '%s' "
-"después de haber rearrancado su sistema.\n"
+"luego de reiniciar su sistema.\n"
 "\n"
-"Podrá encontrar un archivo kickstart que contenga las opciones de "
-"instalación seleccionadas en el archivo '%s' tras haber rearrancado el "
+"Podrá encontrar un archivo kickstart con las opciones de "
+"instalación seleccionadas en el archivo '%s' luego de reiniciar el "
 "sistema."
 
 # ../iw/confirm_gui.py:67
@@ -4206,7 +4207,7 @@ msgstr "Sobre la actualización"
 #: ../iw/confirm_gui.py:108
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Haga click en Siguiente para empezar la actualización de %s."
+msgstr "Pulse en Siguiente para empezar la actualización de %s."
 
 #: ../iw/confirm_gui.py:109
 #, python-format
@@ -5546,7 +5547,7 @@ msgstr ""
 "Puede configurar el gestor de arranque para reiniciar otros sistemas "
 "operativos. Le permitirá seleccionar un sistema operativo de la lista a "
 "arrancar. Para añadir sistemas operativos adicionales, que no han sido "
-"detectados automáticamente, haga click en 'Añadir'. Para cambiar el sistema "
+"detectados automáticamente, pulse en 'Añadir'. Para cambiar el sistema "
 "operativo que ha arrancado por defecto, seleccione 'Predeterminado' para el "
 "sistema operativo que desee."
 

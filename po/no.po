@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: install 7.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-15 10:29-0400\n"
-"PO-Revision-Date: 2004-04-15 19:00+0200\n"
+"PO-Revision-Date: 2004-04-25 18:41+0200\n"
 "Last-Translator: Trond Varslot <varslot@math.ntnu.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -555,9 +555,7 @@ msgstr ""
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
-msgstr ""
-"Velg denne gruppen for å få det minst mulige pakkesettet. Nyttig ved "
-"installasjon av eksempelvis små ruter-/brannveggmaskiner."
+msgstr "Velg denne gruppen for å få det minst mulige pakkesettet. Nyttig ved installasjon av eksempelvis små rutere/brannmurer."
 
 #: ../constants.py:72
 msgid ""
@@ -2750,7 +2748,7 @@ msgstr "_Ikke installer oppstartslaster"
 #: ../iw/bootloader_main_gui.py:170
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr "Oppstartslasteren %s vil bli installert på /dev%s."
+msgstr "Oppstartslasteren %s vil bli installert på /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:175
 msgid "No boot loader will be installed."
@@ -3073,11 +3071,11 @@ msgstr "Velg disk som skal partisjoneres med fdisk:"
 
 #: ../iw/firewall_gui.py:25 ../textw/firewall_text.py:28
 msgid "Firewall"
-msgstr "Brannvegg"
+msgstr "Brannmur"
 
 #: ../iw/firewall_gui.py:35 ../textw/firewall_text.py:195
 msgid "Warning - No Firewall"
-msgstr "Advarsel - Ingen brannvegg"
+msgstr "Advarsel - Ingen brannmur"
 
 #: ../iw/firewall_gui.py:36 ../textw/firewall_text.py:196
 msgid ""
@@ -3085,15 +3083,11 @@ msgid ""
 "network, it is recommended that a firewall be configured to help prevent "
 "unauthorized access.  However, you have selected not to configure a "
 "firewall.  Choose \"Proceed\" to continue without a firewall."
-msgstr ""
-"Hvis dette systemet er knyttet direkte til Internett eller er på et stort "
-"offentlig nettverk anbefales det å konfigurere en brannvegg for å hindre "
-"uautorisert tilgang. Det ser likevel ut til at du ikke har valgt å "
-"konfigurere en brannvegg. Velg «Fortsett» for å gå videre uten en brannvegg."
+msgstr "Hvis dette systemet er knyttet direkte til Internett eller er på et stort offentlig nettverk anbefales det å konfigurere en brannmur for å hindre uautorisert tilgang. Det ser likevel ut til at du ikke har valgt å konfigurere en brannmur. Velg «Fortsett» for å gå videre uten en brannmur."
 
 #: ../iw/firewall_gui.py:43
 msgid "_Configure Firewall"
-msgstr "_Konfigurer brannvegg"
+msgstr "_Konfigurer brannmur"
 
 #: ../iw/firewall_gui.py:43 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:203
@@ -3121,29 +3115,27 @@ msgstr "Advarsel: ugyldig tegn"
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
-msgstr ""
-"En brannvegg kan hjelpe å avverge uautorisert tilgang til din datamaskin fra "
-"utsiden. Vil du aktivere en brannvegg?"
+msgstr "En brannmur kan hjelpe å avverge uautorisert tilgang til din datamaskin fra utsiden. Vil du aktivere en brannmur?"
 
 #: ../iw/firewall_gui.py:169
 msgid "N_o firewall"
-msgstr "I_ngen brannvegg"
+msgstr "I_ngen brannmur"
 
 #: ../iw/firewall_gui.py:171
 msgid "_Enable firewall"
-msgstr "_Aktiver brannvegg"
+msgstr "_Aktiver brannmur"
 
 #: ../iw/firewall_gui.py:173
 msgid "_Custom firewall"
-msgstr "_Tilpasset brannvegg"
+msgstr "_Tilpasset brannmur"
 
 #: ../iw/firewall_gui.py:191
 msgid "What services should be allowed to pass through the firewall?"
-msgstr "Hvilke tjenester skal tillates å slippe gjennom brannveggen?"
+msgstr "Hvilke tjenester skal tillates å slippe gjennom brannmuren?"
 
 #: ../iw/firewall_gui.py:199
 msgid "_Allow incoming:"
-msgstr "Till_at innkommende:"
+msgstr "Till_at inngående:"
 
 #: ../iw/firewall_gui.py:224
 msgid "Other _ports:"
@@ -3742,7 +3734,7 @@ msgstr "Nettverksenheter"
 
 #: ../iw/network_gui.py:498
 msgid "Set the hostname:"
-msgstr "Set vertsnavnet:"
+msgstr "Sett vertsnavnet:"
 
 #: ../iw/network_gui.py:502
 msgid "_automatically via DHCP"
@@ -3784,7 +3776,7 @@ msgstr ""
 #: ../textw/xconfig_text.py:547 ../textw/xconfig_text.py:548
 #: ../textw/xconfig_text.py:567 ../textw/xconfig_text.py:568
 msgid "Default"
-msgstr "Standard"
+msgstr "Forvalg"
 
 #: ../iw/osbootwidget.py:66
 msgid "Label"
@@ -4582,7 +4574,7 @@ msgstr "Opprett PROM-alias"
 
 #: ../iw/silo_gui.py:212
 msgid "Set default PROM boot device to linux"
-msgstr "Sett standard PROM oppstartsenhet til linux"
+msgstr "Sett forvalgt PROM-oppstartsenhet til linux"
 
 #: ../iw/silo_gui.py:216
 msgid "Kernel parameters"
@@ -4608,7 +4600,7 @@ msgstr "Oppstartsnavn"
 
 #: ../iw/silo_gui.py:294
 msgid "Default boot image"
-msgstr "Sett standard oppstartsfil"
+msgstr "Sett forvalgt oppstartsfil"
 
 #: ../iw/timezone_gui.py:28 ../textw/timezone_text.py:102
 msgid "Time Zone Selection"
@@ -4815,7 +4807,7 @@ msgstr "_Skjermoppløsning:"
 
 #: ../iw/xconfig_gui.py:338
 msgid "Please choose your default desktop environment:"
-msgstr "Vennligst velg ditt standard skrivebordsmiljø:"
+msgstr "Vennligst velg forvalgt skrivebordsmiljø:"
 
 #: ../iw/xconfig_gui.py:340
 msgid "Your desktop environment is:"
@@ -5342,11 +5334,11 @@ msgstr "Tilpass"
 
 #: ../textw/firewall_text.py:47
 msgid "Enable firewall"
-msgstr "Aktiver brannvegg"
+msgstr "Aktiver brannmur"
 
 #: ../textw/firewall_text.py:50
 msgid "No firewall"
-msgstr "Ingen brannvegg"
+msgstr "Ingen brannmur"
 
 #: ../textw/firewall_text.py:69
 msgid "Trusted Devices:"
@@ -5354,7 +5346,7 @@ msgstr "Enheter vi stoler på:"
 
 #: ../textw/firewall_text.py:79
 msgid "Allow incoming:"
-msgstr "Tillat innkommende:"
+msgstr "Tillat inngående:"
 
 #: ../textw/firewall_text.py:84
 msgid "SSH"
@@ -5388,11 +5380,11 @@ msgstr "Ugyldig valg"
 
 #: ../textw/firewall_text.py:123
 msgid "You cannot customize a disabled firewall."
-msgstr "Du kan ikke tilpasse en deaktivert brannvegg."
+msgstr "Du kan ikke tilpasse en deaktivert brannmur."
 
 #: ../textw/firewall_text.py:128
 msgid "Firewall Configuration - Customize"
-msgstr "Konfigurasjon av brannvegg - Tilpass"
+msgstr "Konfigurasjon av brannmur - Tilpass"
 
 #: ../textw/firewall_text.py:130
 msgid ""
@@ -5400,11 +5392,7 @@ msgid ""
 "all traffic from certain network interfaces. Second, you can allow certain "
 "protocols explicitly through the firewall. In a comma separated list, "
 "specify additional ports in the form 'service:protocol' such as 'imap:tcp'. "
-msgstr ""
-"Du kan tilpasse din brannvegg på to måter. Du kan velge å tillate all "
-"trafikk fra enkelte nettverksgrensesnitt. Videre kan du tillate visse "
-"protokoller eksplisitt gjennom brannveggen. Du kan spesifisere flere porter "
-"på formen 'tjeneste:protokoll' i en komma-separert liste, f.eks. 'imap:tcp'."
+msgstr "Du kan tilpasse din brannmur på to måter. Du kan velge å tillate all trafikk fra enkelte nettverksgrensesnitt. Videre kan du tillate visse protokoller eksplisitt gjennom brannmuren. Du kan spesifisere flere porter på formen 'tjeneste:protokoll' i en komma-separert liste, f.eks. 'imap:tcp'."
 
 #: ../textw/firewall_text.py:186
 #, python-format
@@ -5467,11 +5455,11 @@ msgstr "Du må velge minst ett språk for installasjon."
 
 #: ../textw/language_text.py:189
 msgid "Default Language"
-msgstr "Standardspråk"
+msgstr "Forvalgt språk"
 
 #: ../textw/language_text.py:190
 msgid "Choose the default language for this system: "
-msgstr "Velg standardspråk for dette systemet: "
+msgstr "Velg forvalgt språk for dette systemet: "
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
@@ -5928,7 +5916,7 @@ msgstr "Lag PROM-alias `linux'"
 
 #: ../textw/silo_text.py:78
 msgid "Set default PROM boot device"
-msgstr "Sett standard PROM oppstartsenhet"
+msgstr "Sett forvalgt PROM-oppstartsenhet"
 
 #: ../textw/silo_text.py:114
 msgid "Where do you want to install the bootloader?"
@@ -6291,7 +6279,7 @@ msgstr "Oppløsning:"
 
 #: ../textw/xconfig_text.py:155
 msgid "Default Desktop:"
-msgstr "Standard skrivebord:"
+msgstr "Forvlagt skrivebord:"
 
 #: ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
 msgid "GNOME"
@@ -6303,7 +6291,7 @@ msgstr "KDE"
 
 #: ../textw/xconfig_text.py:176
 msgid "Default Login:"
-msgstr "Standard pålogging:"
+msgstr "Forvalgt innlogging:"
 
 #: ../textw/xconfig_text.py:178
 msgid "Graphical"
@@ -7205,7 +7193,7 @@ msgstr "Nettmaske:"
 
 #: ../loader2/net.c:389
 msgid "Default gateway (IP):"
-msgstr "Standard gateway (IP):"
+msgstr "Forvalgt gateway (IP):"
 
 #: ../loader2/net.c:392
 msgid "Primary nameserver:"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-15 10:29-0400\n"
-"PO-Revision-Date: 2004-03-18 23:13+0100\n"
+"PO-Revision-Date: 2004-04-21 22:43+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -174,7 +174,7 @@ msgstr ""
 #: ../anaconda:865
 #, c-format
 msgid "Detected mouse type: %s"
-msgstr "Upptäckte mustyp: %s"
+msgstr "Detekterad mustyp: %s"
 
 #: ../anaconda:869
 #, c-format
@@ -3189,7 +3189,6 @@ msgid "_Trusted devices:"
 msgstr "_Pålitliga enheter:"
 
 #: ../iw/firewall_gui.py:279
-#, fuzzy
 msgid "_Security Enhanced Linux (SELinux) Extensions:"
 msgstr "_Tillägg för säkerhetsförbättrat Linux (SELinux):"
 
@@ -3806,10 +3805,10 @@ msgid ""
 "the desired operating system."
 msgstr ""
 "Du kan konfigurera startprogrammet att starta andra operativsystem. Det "
-"låter dig välja ett operativsystem att starta från listan. För att lägga "
-"till ytterligare operativsystem, som inte upptäcks automatiskt, klickar du "
-"på \"Lägg till\". För att ändra det operativsystem som startas som standard "
-"väljer du \"Standard\" bredvid det önskade operativsystemet."
+"kommer att låta dig välja ett operativsystem att starta från listan. För att "
+"lägga till ytterligare operativsystem, som inte detekterats automatiskt, "
+"klickar du på \"Lägg till\". För att ändra det operativsystem som startas "
+"som standard väljer du \"Standard\" bredvid det önskade operativsystemet."
 
 #: ../iw/osbootwidget.py:66 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:283 ../textw/silo_text.py:207
@@ -4682,7 +4681,7 @@ msgstr "Detta kommer att uppdatera ditt nuvarande startprogram."
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
-"Installationsprogrammet har upptäckt startprogrammet %s som är installerat "
+"Installationsprogrammet har detekterat startprogrammet %s som är installerat "
 "på %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4694,7 +4693,7 @@ msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
-"Installationsprogrammet kan inte upptäcka det startprogram som för "
+"Installationsprogrammet kan inte detektera det startprogram som för "
 "tillfället används på ditt system."
 
 #: ../iw/upgrade_bootloader_gui.py:89
@@ -4905,7 +4904,7 @@ msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
-"I de flesta fall kan bildskärmen upptäckas automatiskt. Om de upptäckta "
+"I de flesta fall kan bildskärmen detekteras automatiskt. Om de detekterade "
 "inställningarna inte är de rätta för bildskärmen bör du välja rätt "
 "inställningar."
 
@@ -4975,8 +4974,8 @@ msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"Storleken på ditt grafikminne kan inte upptäckas automatiskt. Välj storleken "
-"på ditt grafikminne från alternativen nedan:"
+"Storleken på ditt grafikminne kan inte detekteras automatiskt. Välj "
+"storleken på ditt grafikminne från alternativen nedan:"
 
 #: ../iw/xconfig_gui.py:990
 msgid ""
@@ -4984,7 +4983,7 @@ msgid ""
 "detected settings are not correct for the hardware, select the right "
 "settings."
 msgstr ""
-"I de flesta fall kan din grafikhårdvara upptäckas automatiskt. Om de "
+"I de flesta fall kan din grafikhårdvara detekteras automatiskt. Om de "
 "detekterade inställningarna inte stämmer för hårdvaran bör du välja rätt "
 "inställningar."
 
@@ -6021,7 +6020,7 @@ msgstr "Ledigt utrymme"
 
 #: ../textw/upgrade_text.py:127
 msgid "RAM detected (MB):"
-msgstr "Upptäckt arbetsminne (MB):"
+msgstr "Detekterat arbetsminne (MB):"
 
 #: ../textw/upgrade_text.py:130
 msgid "Suggested size (MB):"
@@ -6463,7 +6462,7 @@ msgid ""
 "the selection to the card the installer detected in your system."
 msgstr ""
 "Välj det grafikkort som finns i ditt system. Använd \"%s\" för att "
-"återställa valet till det grafikkort som installationsprogrammet upptäckte "
+"återställa valet till det grafikkort som installationsprogrammet detekterade "
 "på ditt system."
 
 #: ../textw/xconfig_text.py:562
@@ -6477,7 +6476,7 @@ msgid ""
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
 "Välj mängden grafikminne som finns på ditt grafikkort. Använd \"%s\" för att "
-"återställa valet till den mängd som installationsprogrammet upptäckte på "
+"återställa valet till den mängd som installationsprogrammet detekterade på "
 "ditt kort."
 
 #: ../textw/xconfig_text.py:629
@@ -7350,11 +7349,11 @@ msgstr "Kan inte hämta installationsavbilden."
 
 #: ../loader2/urlinstall.c:272
 msgid "Media Detected"
-msgstr "Medium upptäcktes"
+msgstr "Medium detekterades"
 
 #: ../loader2/urlinstall.c:273
 msgid "Local installation media detected..."
-msgstr "Lokalt installationsmedium upptäcktes..."
+msgstr "Lokalt installationsmedium detekterades..."
 
 #: ../loader2/urlinstall.c:432
 #, c-format
@@ -8100,12 +8099,11 @@ msgstr "Zaporizjzja, Ö Lugansk"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "Bengali"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Catalan"
-msgstr "Italienska"
+msgstr "Katalanska"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
@@ -8180,9 +8178,8 @@ msgid "Norwegian"
 msgstr "Norska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Persian"
-msgstr "Serbiska"
+msgstr "Persiska"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8218,7 +8215,7 @@ msgstr "Ukrainska"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "Kymriska"
 
 #. generated from lang-table
 msgid "Zulu"
@@ -8984,7 +8981,7 @@ msgstr "Zulu"
 #~ "mouse information. You may also use text mode installation which does not "
 #~ "require a mouse."
 #~ msgstr ""
-#~ "Din mus kunde inte upptäckas automatiskt. För att kunna fortsätta "
+#~ "Din mus kunde inte detekteras automatiskt. För att kunna fortsätta "
 #~ "installationen i grafikläge måste du fortsätta till nästa skärm och ange "
 #~ "information om din mus. Du kan också använda textlägesinstallationen, som "
 #~ "inte kräver någon mus."
@@ -10243,7 +10240,7 @@ msgstr "Zulu"
 #~ "install and fdisk (instead of Disk Druid) for machines with BSD "
 #~ "Disklabels."
 #~ msgstr ""
-#~ "En disk med en BSD-hårddisketikett har upptäcks. Red Hat-installationen "
+#~ "En disk med en BSD-hårddisketikett har hittats. Red Hat-installationen "
 #~ "stöder endast BSD-etiketter i skrivskyddat läge, så du måste använda en "
 #~ "anpassad installation och fdisk (istället för Disk Druid) för maskiner "
 #~ "med BSD-etiketter."
@@ -10260,7 +10257,7 @@ msgstr "Zulu"
 #~ "partitioned.  This can be corrected by specifying the drive geometry on "
 #~ "the kernel command line when booting the installer."
 #~ msgstr ""
-#~ "Detta inträffar på grund av att diskgeometrin som upptäcktes av kärnan "
+#~ "Detta inträffar på grund av att diskgeometrin som detekterades av kärnan "
 #~ "som används i installationsprogrammet skiljer sig från den diskgeometri "
 #~ "som användes när disken partitionerades. Detta kan korrigeras genom att "
 #~ "ange diskgeometrin på kommandoraden vid starten av "
