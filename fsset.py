@@ -171,12 +171,23 @@ class reiserfsFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
         self.partedFileSystemType = parted.file_system_type_get("reiserfs")
-        self.formattable = 0
+        self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
         self.name = "reiserfs"
+
+        # XXX probably wrong
         self.maxSize = 4 * 1024 * 1024
-        self.supported = 0
+
+
+    def formatDevice(self, entry, progress, message, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+
+        # XXX need to actually capture mkreiserfs output
+        rc = iutil.execWithRedirect ("/sbin/mkreiserfs",
+                                     ["mkreiserfs", devicePath],
+                                     stdout = None, stderr = None,
+                                     searchPath = 1)
     
 fileSystemTypeRegister(reiserfsFileSystem())
 
