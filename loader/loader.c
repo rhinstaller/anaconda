@@ -2280,9 +2280,15 @@ int main(int argc, char ** argv) {
     }
 #endif
 
+#ifdef __ia64__	
+    kdFindIdeList(&kd, 0);
+    kdFindScsiList(&kd, 0);
+    kdFindNetList(&kd, 0);
+#else
     kdFindIdeList(&kd, CODE_PCMCIA);
     kdFindScsiList(&kd, CODE_PCMCIA);
     kdFindNetList(&kd, CODE_PCMCIA);
+#fi
 
     if (!continuing) {
 	if (((access("/proc/bus/pci/devices", X_OK) &&
