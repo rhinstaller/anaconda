@@ -490,7 +490,7 @@ class Fstab:
 		    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,owner', 0, 0))
                 else:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 0, 0))
-	f.write (format % (fdDevice, "/mnt/floppy", 'ext2', 'noauto,owner', 0, 0))
+	f.write (format % (fdDevice, "/mnt/floppy", 'auto', 'noauto,owner', 0, 0))
 	f.write (format % ("none", "/proc", 'proc', 'defaults', 0, 0))
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
 
