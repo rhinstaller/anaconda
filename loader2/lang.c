@@ -107,13 +107,12 @@ static void loadLanguageList(int flags) {
         lineNum++;
         languages = realloc(languages, sizeof(*languages) * (numLanguages + 1));
         if (sscanf(line, "%s %s %s %s %s %s %s\n", name, key, font, 
-                   code, keyboard, timezone, instlang) != 8) {
+                   code, keyboard, timezone, instlang) != 7) {
             logMessage("bad line %d in lang-table", lineNum);
         } else {
             languages[numLanguages].lang = strdup(name);
             languages[numLanguages].key = strdup(key);
             languages[numLanguages].font = strdup(font);
-            languages[numLanguages].map = strdup(map);
             languages[numLanguages].lc_all = strdup(code);
             languages[numLanguages].keyboard = strdup(keyboard);
             languages[numLanguages++].instlang = strdup(instlang);
