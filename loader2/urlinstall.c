@@ -42,7 +42,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
     int rc;
     char * newFile = NULL;
 
-    fd = urlinstStartTransfer(ui, file, NULL, 1);
+    fd = urlinstStartTransfer(ui, file, NULL, 1, flags);
 
     if (fd == -2) return 1;
 
@@ -52,7 +52,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
         newFile = alloca(strlen(device) + 20);
         sprintf(newFile, "disc1/%s", file);
 
-        fd = urlinstStartTransfer(ui, newFile, NULL, 1);
+        fd = urlinstStartTransfer(ui, newFile, NULL, 1, flags);
 
         if (fd == -2) return 1;
         if (fd < 0) {
@@ -68,7 +68,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 
     rc = copyFileAndLoopbackMount(fd, dest, flags, device, mntpoint);
 
-    urlinstFinishTransfer(ui, fd);
+    urlinstFinishTransfer(ui, fd, flags);
 
     if (newFile) {
         newFile = malloc(strlen(ui->prefix ) + 20);
@@ -343,7 +343,7 @@ int getFileFromUrl(char * url, char * dest, struct knownDevices * kd,
 	}
     }
 
-    fd = urlinstStartTransfer(&ui, file, ehdrs, 1);
+    fd = urlinstStartTransfer(&ui, file, ehdrs, 1, flags);
     if (fd < 0) {
         logMessage("failed to retrieve http://%s/%s/%s", ui.address, ui.prefix, file);
         return 1;
@@ -356,7 +356,7 @@ int getFileFromUrl(char * url, char * dest, struct knownDevices * kd,
         return 1;
     }
 
-    urlinstFinishTransfer(&ui, fd);
+    urlinstFinishTransfer(&ui, fd, flags);
 
     return 0;
 }
