@@ -341,18 +341,21 @@ class VolumeGroupEditor:
         maintable.set_col_spacings(5)
         row = 0
 
-	maintable.attach(createAlignedLabel(_("Mount point:")), 0, 1, row,row+1)
+        lbl = createAlignedLabel(_("_Mount Point:"))
+	maintable.attach(lbl, 0, 1, row,row+1)
         mountCombo = createMountPointCombo(logrequest, excludeMountPoints=["/boot"])
+        lbl.set_mnemonic_widget(mountCombo.entry)
         maintable.attach(mountCombo, 1, 2, row, row + 1)
         row = row + 1
 
         if not logrequest or not logrequest.getPreExisting():
-            maintable.attach(createAlignedLabel(_("Filesystem Type:")),
-                             0, 1, row, row + 1)
+            lbl = createAlignedLabel(_("_Filesystem Type:"))
+            maintable.attach(lbl, 0, 1, row, row + 1)
             (newfstype, newfstypeMenu) = createFSTypeMenu(logrequest.fstype,
                                                           fstypechangeCB,
                                                           mountCombo,
                                                           ignorefs = ["software RAID", "physical volume (LVM)", "vfat"])
+            lbl.set_mnemonic_widget(newfstype)
         else:
             maintable.attach(createAlignedLabel(_("Original Filesystem Type:")),
                              0, 1, row, row + 1)
@@ -362,28 +365,35 @@ class VolumeGroupEditor:
                 newfstype = gtk.Label(_("Unknown"))
 	maintable.attach(newfstype, 1, 2, row, row + 1)
 	row = row+1
-			 
-        maintable.attach(createAlignedLabel(_("Logical Volume Name:")), 0, 1, row, row + 1)
+
 
         if not logrequest or not logrequest.getPreExisting():
-            lvnameEntry = gtk.Entry(16)            
+            lbl = createAlignedLabel(_("_Logical Volume Name:"))
+            lvnameEntry = gtk.Entry(16)
+            lbl.set_mnemonic_widget(lvnameEntry)
             if logrequest and logrequest.logicalVolumeName:
                 lvnameEntry.set_text(logrequest.logicalVolumeName)
             else:
                 lvnameEntry.set_text(lvm.createSuggestedLVName(self.logvolreqs))
         else:
+            lbl = createAlignedLabel(_("Logical Volume Name:"))
             lvnameEntry = gtk.Label(logrequest.logicalVolumeName)
             
+        maintable.attach(lbl, 0, 1, row, row + 1)
         maintable.attach(lvnameEntry, 1, 2, row, row + 1)
         row = row + 1
 
-        maintable.attach(createAlignedLabel(_("Size (MB):")), 0, 1, row, row+1)
         if not logrequest or not logrequest.getPreExisting():
+            lbl = createAlignedLabel(_("_Size (MB):"))
             sizeEntry = gtk.Entry(16)
+            lbl.set_mnemonic_widget(sizeEntry)
             if logrequest:
                 sizeEntry.set_text("%g" % (logrequest.getActualSize(self.partitions, self.diskset),))
         else:
+            lbl = createAlignedLabel(_("Size (MB):"))
             sizeEntry = gtk.Label(str(logrequest.size))
+            
+        maintable.attach(lbl, 0, 1, row, row+1)
         maintable.attach(sizeEntry, 1, 2, row, row + 1)
         row = row + 1
 
@@ -873,33 +883,37 @@ class VolumeGroupEditor:
         row = 0
 
         # volume group name
-	maintable.attach(createAlignedLabel(_("Volume Group Name:")), 0, 1,
-					    row, row + 1, gtk.EXPAND|gtk.FILL,
-					    gtk.SHRINK)
         if not origvgrequest.getPreExisting():
+            lbl = createAlignedLabel(_("_Volume Group Name:"))
             self.volnameEntry = gtk.Entry(16)
+            lbl.set_mnemonic_widget(self.volnameEntry)
             if not self.isNew:
                 self.volnameEntry.set_text(self.origvgrequest.volumeGroupName)
             else:
                 self.volnameEntry.set_text(lvm.createSuggestedVGName(self.partitions))
         else:
+            lbl = createAlignedLabel(_("Volume Group Name:"))
             self.volnameEntry = gtk.Label(self.origvgrequest.volumeGroupName)
 	    
+	maintable.attach(lbl, 0, 1, row, row + 1,
+                         gtk.EXPAND|gtk.FILL, gtk.SHRINK)
         maintable.attach(self.volnameEntry, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	row = row + 1
 
-        maintable.attach(createAlignedLabel(_("Physical Extent:")), 0, 1, row,
-			 row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
-
         if not origvgrequest.getPreExisting():
+            lbl = createAlignedLabel(_("_Physical Extent:"))
             (self.peOption, self.peOptionMenu) = self.createPEOptionMenu(self.origvgrequest.pesize)
+            lbl.set_mnemonic_widget(self.peOption)
         else:
             # FIXME: this is a nice hack -- if we create the option menu, but
             # don't display it, getting the value always returns what we init'd
             # it to
+            lbl = createAlignedLabel(_("Physical Extent:"))
             (self.peOption, self.peOptionMenu) = self.createPEOptionMenu(self.origvgrequest.pesize)            
             self.peOption = gtk.Label(self.prettyFormatPESize(origvgrequest.pesize))
 
+        maintable.attach(lbl, 0, 1, row, row + 1,
+                         gtk.EXPAND|gtk.FILL, gtk.SHRINK)
         maintable.attach(self.peOption, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
         row = row + 1
 
@@ -907,8 +921,9 @@ class VolumeGroupEditor:
         if origvgrequest.getPreExisting():
             self.lvmlist.set_sensitive(gtk.FALSE)
         self.lvmlist.set_size_request(275, 80)
-        maintable.attach(createAlignedLabel(_("Physical Volumes to Use:")), 0, 1,
-			 row, row + 1)
+        lbl = createAlignedLabel(_("Physical Volumes to _Use:"))
+        lbl.set_mnemonic_widget(self.lvmlist)
+        maintable.attach(lbl, 0, 1, row, row + 1)
         maintable.attach(sw, 1, 2, row, row + 1)
         row = row + 1
 
