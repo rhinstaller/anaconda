@@ -130,14 +130,11 @@ class HeaderList:
                 preordered = 0
         return preordered
 
-
     def __init__(self, hdlist, compatPackages = None, noscore = 0):
         self.hdlist = hdlist
 	self.packages = {}
 	newCompat = []
 	for h in hdlist:
-            if h[1000003] == None:
-                self.preordered = 0
 	    name = h[rpm.RPMTAG_NAME]
             if noscore:
                 self.packages[name] = Package(h)
