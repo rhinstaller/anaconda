@@ -115,8 +115,8 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis,
 
 		nextModule = NULL;
 		for (i = 0; i < mis->numModules; i++) {
-		    if (!strcmp(mis->mods[i]->name, start)) {
-			nextModule = mis->mods[i];
+		    if (!strcmp(mis->moduleList[i].moduleName, start)) {
+			nextModule = mis->moduleList + i;
 			break;
 		    }
 		}
