@@ -225,6 +225,9 @@ class Partitions:
             pvs = os.listdir("/proc/lvm/VGs/%s/PVs/" % (vg,))
             pvids = []
             for pv in pvs:
+                # XXX I hate the lvm code.  it puts cciss_c0d0p2 for
+                # things like cciss/c0d0p2 so we need to substitute. ick.
+                pv = pv.replace("_", "/")
                 req = self.getRequestByDeviceName(pv)
                 if not req:
                     log("Volume group %s using non-existent partition %s"
