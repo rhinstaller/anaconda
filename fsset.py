@@ -1377,6 +1377,7 @@ class FileSystemSet:
             if not entry.fsystem.isMountable():
 		continue
             try:
+                log("trying to mount %s on %s" %(entry.device.getDevice(), entry.mountpoint))
                 entry.mount(instPath, readOnly = readOnly)
                 self.mountcount = self.mountcount + 1
             except OSError, (num, msg):
@@ -1469,10 +1470,14 @@ class FileSystemSet:
             # XXX - multifsify, virtualize isdirty per fstype
 	    if entry.fsystem.getName() != "ext2": continue
 	    if entry.getFormat(): continue
+            if isinstance(entry.device.getDevice(), BindMountDevice): continue
 
-	    if isys.ext2IsDirty(entry.device.getDevice()):
-		log("%s is a dirty ext2 partition" % entry.device.getDevice())
-                ret.append(entry.device.getDevice())
+            try:
+                if isys.ext2IsDirty(entry.device.getDevice()):
+                    log("%s is a dirty ext2 partition" % entry.device.getDevice())
+                    ret.append(entry.device.getDevice())
+            except Exception, e:
+                log("got an exception checking %s for being dirty, hoping it's not" %(entry.device.getDevice(),))
 
 	return ret
 
