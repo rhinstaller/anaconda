@@ -373,23 +373,32 @@ class PackageSelectionWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        self.todo = ics.getToDo ()
         ics.setTitle (_("Package Group Selection"))
         ics.setNextEnabled (1)
         ics.readHTML ("sel-group")
         self.selectIndividualPackages = FALSE
-        
-##         ics.setHTML ("<HTML><BODY>Next you must select which package groups to install."
-##                      "</BODY></HTML>")
 
     def getNext (self):
 	if not self.__dict__.has_key ("individualPackages"):
 	    return None
 
-        if self.individualPackages.get_active ():
+        # turn on each package group in order (msw's code requires this)
+        for (button, comp) in self.checkButtons:
+            if button.get_active ():
+                comp.select (1)
+            else:
+                comp.unselect (0)
+        del self.checkButtons
+
+        gotoIndividualPackages = self.individualPackages.get_active ()
+        del self.individualPackages
+        
+        if gotoIndividualPackages:
             self.selectIndividualPackages = TRUE
             return IndividualPackageSelectionWindow
-
+        else:
+            self.selectIndividualPackages = FALSE
+          
         return None
 
     def getScreen (self):
@@ -403,7 +412,8 @@ class PackageSelectionWindow (InstallWindow):
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
         box = GtkVBox (FALSE, 0)
-        
+
+	self.checkButtons = []        
         for comp in self.todo.comps:
             if not comp.hidden:
                 pixname = string.replace (comp.name, ' ', '-')
@@ -427,16 +437,9 @@ class PackageSelectionWindow (InstallWindow):
                     checkButton.add (hbox)
                 else:
                     checkButton = GtkCheckButton (comp.name)
+
                 checkButton.set_active (comp.selected)
-
-                def toggled (widget, comp):
-                  if widget.get_active ():
-                    comp.select (1)
-                  else:
-                    comp.unselect (0)
-                    
-                checkButton.connect ("toggled", toggled, comp)
-
+                self.checkButtons.append ((checkButton, comp))
                 box.pack_start (checkButton)
 
         sw.add_with_viewport (box)
