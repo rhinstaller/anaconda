@@ -22,7 +22,7 @@ class FinishedWindow:
   if (iutil.getArch() != "s390" and iutil.getArch() != "s390x"):
 
     def __call__ (self, screen):
-        screen.pushHelpLine (string.center(_("<Return> to reboot"),
+        screen.pushHelpLine (string.center(_("<Enter> to reboot"),
                                            screen.width))
 
 	rc = ButtonChoiceWindow (screen, _("Complete"), 
@@ -45,7 +45,7 @@ class FinishedWindow:
   else:
 
     def __call__ (self, screen):
-	screen.pushHelpLine (string.center(_("<Return> to continue"),
+	screen.pushHelpLine (string.center(_("<Enter> to continue"),
 				screen.width))
 	rc = ButtonChoiceWindow (screen, _("Complete"),
 		_("Congratulations, package installation is complete.\n\n"
@@ -59,7 +59,7 @@ class FinishedWindow:
 
 class ReconfigFinishedWindow:
     def __call__ (self, screen):
-        screen.pushHelpLine (string.center(_("<Return> to exit"),
+        screen.pushHelpLine (string.center(_("<Enter> to exit"),
                                            screen.width))
 
         rc = ButtonChoiceWindow (screen, _("Complete"), 
