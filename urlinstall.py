@@ -49,7 +49,7 @@ def urlretrieve(location, file):
 	try:
 	    clen = url.info()['content-length']
 	except Exception, e:
-            logMessage("exception %s getting content-length" %(e,))
+            log("exception %s getting content-length" %(e,))
 	    clen = 0
 
 	if clen < 1:
@@ -135,22 +135,42 @@ class UrlInstallMethod(InstallMethod):
         tries = 0
 
         while tries < 5:
+	    hdurl = self.baseUrl + "/RedHat/base/hdlist"
             try:
-                url = urllib2.urlopen(self.baseUrl + "/RedHat/base/hdlist")
+                url = urllib2.urlopen(hdurl)
+	    except urllib2.HTTPError, e:
+		log("HTTPError: %s occurred getting %s", hdurl, e)
+	    except urllib2.URLError, e:
+		log("URLError: %s occurred getting %s", hdurl, e)
             except IOError, (errnum, msg):
 		log("IOError %s occurred getting %s: %s",
-			errnum, self.baseUrl + "/RedHat/base/hdlist", msg)
-                time.sleep(5)
-            else:
-                break
+			errnum, hdurl, msg)
+	    else:
+		# sanity check result - sometimes FTP doesnt
+		# catch a file is missing
+		try:
+		    clen = url.info()['content-length']
+		except Exception, e:
+		    log("readHeaders(): exception %s getting content-length" %(e,))
+		    clen = 0
+
+		if clen < 1:
+		    log("File %s not found.", hdurl)
+		else:
+		    break
+
+	    time.sleep(5)
             tries = tries + 1
 
         if tries >= 5:
             raise FileCopyException
                 
 	raw = url.read(16)
+	if raw is None or len(raw) < 1:
+	    raise TypeError, "header list is empty!"
+	
 	hl = []
-	while (raw):
+	while (raw and len(raw)>0):
 	    info = struct.unpack("iiii", raw)
 	    magic1 = socket.ntohl(info[0]) & 0xffffffff
 	    if (magic1 != 0x8eade801 or info[1]):
