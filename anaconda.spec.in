@@ -1,17 +1,19 @@
 %define variant @@VARIANT@@
 
 %if "%{variant}" == "ws"
-%define as 0
-%define ws 1
+%define _as_var 0
+%define _ws_var 1
 %define reltag .WS
-%elif "%{variant}" == "as"
-%define as 1
-%define ws 0
+%else
+%if "%{variant}" == "as"
+%define _as_var 0
+%define _ws_var 1
 %define reltag .AS
 %else
-%define as 0
-%define ws 0
-%define reltag 
+%define _as_var 0
+%define _ws_var 0
+%define reltag %{nil}
+%endif
 %endif
 
 
@@ -51,9 +53,9 @@ already installed systems.
 %setup -q
 
 %build
-%if %{ws}
+%if %{_ws_var}
 sed 's/PRODUCTNAME=.*/PRODUCTNAME="Red Hat Linux Advanced Workstation"/' < Makefile.inc > Makefile.inc.product
-%elif %{as}
+%elif %{_as_var}
 sed 's/PRODUCTNAME=.*/PRODUCTNAME="Red Hat Linux Advanced Server"/' < Makefile.inc > Makefile.inc.product
 %endif
 [ -f Makefile.inc.product ] && mv Makefile.inc.product Makefile.inc
@@ -62,11 +64,11 @@ make depend
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 # make this into the appropriate product
-%if %{ws}
+%if %{_ws_var}
 sed '/class InstallClass(BaseInstallClass):/{G;s/$/    hidden=1/;}' < installclasses/server.py > installclasses/workstation.py.hidden
 mv installclasses/workstation.py.hidden installclasses/workstation.py
 echo "helptag         ws" >> anaconda.conf
-%elif %{as}
+%elif %{_as_var}
 sed '/class InstallClass(BaseInstallClass):/{G;s/$/    hidden=1/;}' < installclasses/server.py > installclasses/server.py.hidden
 mv installclasses/server.py.hidden installclasses/server.py
 echo "helptag         as" >> anaconda.conf
