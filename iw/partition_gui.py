@@ -684,20 +684,27 @@ class PartitionWindow(InstallWindow):
 
         # allowable drives
         if origrequest.type == REQUEST_NEW:
-            maintable.attach(createAlignedLabel(_("Allowable Drives:")),
-                             0, 1, row, row + 1)
+            if not newbycyl:
+                maintable.attach(createAlignedLabel(_("Allowable Drives:")),
+                                 0, 1, row, row + 1)
 
-            driveclist = createAllowedDrivesClist(self.diskset.disks.keys(),
-                                                  origrequest.drive)
+                driveclist = createAllowedDrivesClist(self.diskset.disks.keys(),
+                                                      origrequest.drive)
 
-            maintable.attach(driveclist, 1, 2, row, row + 1)
+                maintable.attach(driveclist, 1, 2, row, row + 1)
+            else:
+                maintable.attach(createAlignedLabel(_("Drive:")),
+                                 0, 1, row, row + 1)
+                maintable.attach(createAlignedLabel(origrequest.drive[0]),
+                                 1, 2, row, row + 1)
+
             row = row + 1
 
-        # Size specification
-        maintable.attach(createAlignedLabel(_("Size (MB):")),
-                         0, 1, row, row + 1)
         if origrequest.type == REQUEST_NEW:
             if not newbycyl:
+                # Size specification
+                maintable.attach(createAlignedLabel(_("Size (MB):")),
+                                 0, 1, row, row + 1)
                 sizeAdj = GtkAdjustment (value = 1, lower = 1,
                                          upper = MAX_PART_SIZE, step_incr = 1)
                 sizespin = GtkSpinButton(sizeAdj, digits = 0)
@@ -705,11 +712,31 @@ class PartitionWindow(InstallWindow):
                 if origrequest.size:
                     sizespin.set_value(origrequest.size)
 
+                maintable.attach(sizespin, 1, 2, row, row + 1)
             else:
-                # XXX put part by cyl code here
-                pass
+                # XXX need to add partition by size and
+                #     wire in limits between start and end
+                maintable.attach(createAlignedLabel(_("Start Cylinder:")),
+                                 0, 1, row, row + 1)
 
-            maintable.attach(sizespin, 1, 2, row, row + 1)
+                maxcyl = self.diskset.disks[origrequest.drive[0]].dev.cylinders
+                cylAdj = GtkAdjustment (value = origrequest.start,
+                                        lower = origrequest.start,
+                                        upper = maxcyl,
+                                        step_incr = 1)
+                startcylspin = GtkSpinButton(cylAdj, digits = 0)
+                maintable.attach(startcylspin, 1, 2, row, row + 1)
+                row = row + 1
+                
+                endcylAdj = GtkAdjustment (value = origrequest.end,
+                                        lower = origrequest.start,
+                                        upper = maxcyl,
+                                        step_incr = 1)
+                maintable.attach(createAlignedLabel(_("End Cylinder:")),
+                                 0, 1, row, row + 1)
+                endcylspin = GtkSpinButton(endcylAdj, digits = 0)
+                maintable.attach(endcylspin, 1, 2, row, row + 1)
+
         else:
             sizelabel = GtkLabel("%d" % (origrequest.size))
             maintable.attach(sizelabel, 1, 2, row, row + 1)
@@ -743,7 +770,7 @@ class PartitionWindow(InstallWindow):
             sizeoptiontable = None
 
         # create only as primary
-        if origrequest.type == REQUEST_NEW and not newbycyl:
+        if origrequest.type == REQUEST_NEW:
             primonlycheckbutton = GtkCheckButton(_("Force to be a primary partition"))
             primonlycheckbutton.set_active(0)
             if origrequest.primary:
@@ -763,10 +790,26 @@ class PartitionWindow(InstallWindow):
             if rc == 1:
                 dialog.close()
                 return
+            elif rc == -1:
+                raise ValueError,"Error while running edit partition request dialog."
 
             if origrequest.type == REQUEST_NEW:
                 # read out UI into a partition specification
                 filesystem = fstypeoptionMenu.get_active().get_data("type")
+
+                request = copy.copy(origrequest)
+                request.fstype = filesystem
+                request.format = TRUE
+                
+                if request.fstype.isMountable():
+                    request.mountpoint = mountCombo.entry.get_text()
+                else:
+                    request.mountpoint = None
+                    
+                if primonlycheckbutton.get_active():
+                    primonly = TRUE
+                else:
+                    primonly = None
 
                 if not newbycyl:
                     if fixedrb.get_active():
@@ -786,28 +829,22 @@ class PartitionWindow(InstallWindow):
                         for i in driveclist.selection:
                             allowdrives.append(self.diskset.disks.keys()[i])
 
-                    if primonlycheckbutton.get_active():
-                        primonly = TRUE
-                    else:
-                        primonly = None
-                    request = copy.copy(origrequest)
-                    request.fstype = filesystem
                     request.size = sizespin.get_value_as_int()
-                    if request.fstype.isMountable():
-                        request.mountpoint = mountCombo.entry.get_text()
-                    else:
-                        request.mountpoint = None
                     request.drive = allowdrives
-                    request.format = TRUE
                     request.grow = grow
                     request.primary = primonly
                     request.maxSize = maxsize
                 else:
-                    # put code for partitioning by cyl here
-                    pass
+                    request.start = startcylspin.get_value_as_int()
+                    request.end = endcylspin.get_value_as_int()
 
-                print "new requests:"
-                print request
+                    if request.end <= request.start:
+                        self.intf.messageWindow(_("Error With Request"),
+                                                "The end cylinder must be "
+                                                "greater than the start "
+                                                "cylinder.")
+
+                        continue
 
                 err = sanityCheckPartitionRequest(self.partitions, request)
                 if err:
@@ -842,11 +879,9 @@ class PartitionWindow(InstallWindow):
 
             self.partitions.addRequest(request)
             if self.refresh():
-                print "request failed, backing out and trying again"
                 self.partitions = backpart
                 self.refresh()
             else:
-                print "request suceeded"
                 break
 
         dialog.close()
@@ -937,7 +972,7 @@ class PartitionWindow(InstallWindow):
 
         if partition == None:
             dialog = GnomeWarningDialog(_("You must first select an existing "
-                                          "partition to edit."),
+                                          "partition or free space to edit."),
                                         parent=self.parent)
             dialog.set_position(WIN_POS_CENTER)            
             dialog.run()
@@ -951,13 +986,17 @@ class PartitionWindow(InstallWindow):
             else:
                 raise ValueError, "Editting a non-existenent partition"
         elif partition.type & parted.PARTITION_FREESPACE:
-            dialog = GnomeWarningDialog (_("You may only add partitions to "
-                                           "free spaces.  You can only add "
-                                           "new partitions within them."),
-                                         parent=self.parent)
-            dialog.set_position(WIN_POS_CENTER)            
-            dialog.run()
+
+            # create new request of size 1M
+            request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW,
+                           start = start_sector_to_cyl(partition.geom.disk.dev,
+                                                       partition.geom.start),
+                           end = end_sector_to_cyl(partition.geom.disk.dev,
+                                                   partition.geom.end),
+                           drive = [get_partition_drive(partition)])
+            self.editPartitionRequest(request)
             return
+        
         elif partition.type & parted.PARTITION_EXTENDED:
             return
 
@@ -978,7 +1017,7 @@ class PartitionWindow(InstallWindow):
 
     def editRaidDevice(self, raidrequest):
         #
-        # start of editPartitionRequest
+        # start of editRaidDevice
         #
         dialog = GnomeDialog(_("Make Raid Device"))
         dialog.set_parent(self.parent)
@@ -1091,7 +1130,6 @@ class PartitionWindow(InstallWindow):
 
             filesystem = fstypeoptionMenu.get_active().get_data("type")
             request.fstype = filesystem
-            print "in editraid, fs = ",filesystem.getName()
 
             if request.fstype.isMountable():
                 request.mountpoint = mountCombo.entry.get_text()
@@ -1111,8 +1149,6 @@ class PartitionWindow(InstallWindow):
             else:
                 request.format = 0
 
-            print request
-
             err = sanityCheckRaidRequest(self.partitions, request)
             if err:
                 self.intf.messageWindow(_("Error With Request"),
@@ -1126,15 +1162,14 @@ class PartitionWindow(InstallWindow):
             try:
                 self.partitions.removeRequest(raidrequest)
             except:
-                print "failed to remove request"
+                pass
+
             self.partitions.addRequest(request)
             
             if self.refresh():
-                print "request failed, backing out and trying again"
                 self.partitions = backpart
                 self.refresh()
             else:
-                print "request suceeded"
                 break
 
         dialog.close()
