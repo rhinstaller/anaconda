@@ -20,6 +20,6 @@ int ftpGetFile(int sock, char * remotename, int dest);
 int ftpGetFileDesc(int sock, char * remotename);
 int ftpGetFileDone(int sock);
 
-int httpGetFileDesc(char * hostname, int port, char * remotename);
+int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHeaders);
 
 #endif

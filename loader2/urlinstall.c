@@ -42,7 +42,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
     int rc;
     char * newFile = NULL;
 
-    fd = urlinstStartTransfer(ui, file, 1);
+    fd = urlinstStartTransfer(ui, file, NULL, 1);
 
     if (fd == -2) return 1;
 
@@ -52,7 +52,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
         newFile = alloca(strlen(device) + 20);
         sprintf(newFile, "disc1/%s", file);
 
-        fd = urlinstStartTransfer(ui, newFile, 1);
+        fd = urlinstStartTransfer(ui, newFile, NULL, 1);
 
         if (fd == -2) return 1;
         if (fd < 0) {
@@ -304,6 +304,7 @@ int kickstartFromUrl(char * url, struct knownDevices * kd,
     char * host = NULL, * file = NULL, * chptr = NULL;
     int fd, rc;
     struct networkDeviceConfig netCfg;
+    char *ehdrs;
 
     if (kickstartNetworkUp(kd, loaderData, &netCfg, flags)) {
         logMessage("unable to bring up network");
@@ -331,7 +332,39 @@ int kickstartFromUrl(char * url, struct knownDevices * kd,
         ui.prefix = strdup(host);
     }
 
-    fd = urlinstStartTransfer(&ui, file, 1);
+    ehdrs = NULL;
+    if (proto == URL_METHOD_HTTP && FL_KICKSTART_SEND_MAC(flags)) {
+	/* find all ethernet devices and make a header entry for each one */
+	int i, hdrlen;
+	char *dev, *mac, tmpstr[128];
+
+	hdrlen = 0;
+	for (i = 0; i < kd->numKnown; i++) {
+	    if (kd->known[i].class != CLASS_NETWORK)
+		continue;
+	    
+	    dev = kd->known[i].name;
+	    mac = getMacAddr(dev);
+
+	    if (mac) {
+		snprintf(tmpstr, sizeof(tmpstr), "X-RHN-Provisioning-MAC-%d: %s %s\r\n", i, dev, mac);
+		free(mac);
+
+		if (!ehdrs) {
+		    hdrlen = 128;
+		    ehdrs = (char *) malloc(hdrlen);
+		    *ehdrs = '\0';
+		} else if ( strlen(tmpstr) + strlen(ehdrs) +2 > hdrlen) {
+		    hdrlen += 128;
+		    ehdrs = (char *) realloc(ehdrs, hdrlen);
+		}
+
+		strcat(ehdrs, tmpstr);
+	    }
+	}
+    }
+	
+    fd = urlinstStartTransfer(&ui, file, ehdrs, 1);
     if (fd < 0) {
         logMessage("failed to retrieve http://%s/%s/%s", ui.address, ui.prefix, file);
         return 1;
