@@ -875,6 +875,10 @@ class Partitions:
         self.useAutopartitioning = 1
         self.useFdisk = 0
 
+        # autopartitioning info becomes kickstart partition requests
+        # and its useful to be able to differentiate between the two
+        self.isKickstart = 0
+
         if diskset:
             self.setFromDisk(diskset)
 

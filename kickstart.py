@@ -776,9 +776,9 @@ class KickstartBase(BaseInstallClass):
             request.badblocks = badblocks
         if onPart:
             request.device = onPart
-        
-        
+
         id.partitions.autoPartitionRequests.append(request)
+        id.partitions.isKickstart = 1
 
         self.skipSteps.append("partition")
         self.skipSteps.append("partitionmethod")
