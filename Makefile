@@ -1,5 +1,7 @@
 include Makefile.inc
 
+VERSION = 6.2.0
+
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
@@ -65,9 +67,12 @@ install-hd: all
 	fi
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
+	mkdir -p $(DESTDIR)/etc/rc.d/init.d
+
 	cp -a anaconda $(DESTDIR)/usr/bin
 	cp -a *.py $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
+	cp -a reconfig.init $(DESTDIR)/etc/rc.d/init.d
 	for d in $(SUBDIRSHD); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
 
 install: all
@@ -83,3 +88,15 @@ install: all
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
 
+create-archive:
+	@rm -rf /tmp/anaconda
+	echo "WARNING WARNING WARNING: Pulling HEAD off - need to do tagging instead!"
+	@cd /tmp ; cvs -Q -d $(CVSROOT) export -D "0 days ago"  anaconda || echo "Um... export aborted."
+	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" < anaconda.spec.in > kudzu.spec
+	@mv /tmp/anaconda /tmp/anaconda-reconfig-$(VERSION)
+	@cd /tmp ; tar -czSpf anaconda-reconfig-$(VERSION).tar.gz anaconda-reconfig-$(VERSION)
+	@rm -rf /tmp/anaconda-reconfig-$(VERSION)
+	@cp /tmp/anaconda-reconfig-$(VERSION).tar.gz .
+	@rm -f /tmp/anaconda-reconfig-$(VERSION).tar.gz
+	@echo ""
+	@echo "The final archive is in anaconda-$(VERSION).tar.gz"

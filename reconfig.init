@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# reconfig		This scripts runs the system reconfig program
+#
+# chkconfig: 345 05 95
+# description: 	If /etc/reconfigSys exists, run the reconfiguration
+#		program and remove /etc/reconfigSys when done.
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+RETVAL=$?
+
+case "$1" in
+ start)
+        if [ -f /etc/reconfigSys ]; then
+	    echo -n "Running system reconfiguration tool"
+	    /usr/sbin/anaconda-reconfig
+	    rm /etc/reconfigSys
+	fi
+
+	# We don't want to run this on random runlevel changes.
+	touch /var/lock/subsys/reconfig
+
+	;;
+ stop)
+ 	rm -f /var/lock/subsys/kudzu
+ 	;;
+ *)
+ 	echo "Usage: reconfig {start|stop}"
+	exit 1
+	;;
+esac
+
+exit $RETVAL
