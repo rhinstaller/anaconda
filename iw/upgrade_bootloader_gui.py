@@ -73,14 +73,14 @@ class UpgradeBootloaderWindow (InstallWindow):
             current = _("The installer has detected the %s boot loader "
                         "currently installed on %s.") % (self.type,
                                                          self.bootDev)
-            self.update_label = GtkLabel(N_("%s  %s") % (updatestr,
+            self.update_label = GtkLabel("%s  %s" % (updatestr,
                                          _("This is the recommended option.")))
             self.update_radio.set_active(FALSE)
             update = 1
         else:
             current = _("The installer is unable to detect the boot loader "
                         "currently in use on your system.")
-            self.update_label = GtkLabel(N_("%s") % (updatestr,))
+            self.update_label = GtkLabel("%s" % (updatestr,))
             self.update_radio.set_sensitive(FALSE)
             self.update_label.set_sensitive(FALSE)
             update = 0
