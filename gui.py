@@ -196,7 +196,8 @@ def addFrame(dialog, title=None):
 	    eventBox.connect("motion-notify-event", titleBarMotionEventCB,data)
 	    titleBox = gtk.HBox(gtk.FALSE, 5)
 	    eventBox.add(titleBox)
-	    eventBox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse ("#4C57a6"))
+	    eventBox.modify_bg(gtk.STATE_NORMAL,
+                               eventBox.rc_get_style().bg[gtk.STATE_SELECTED])
 	    titlelbl = gtk.Label("")
 	    titlelbl.set_markup("<b>"+_(title)+"</b>")
 	    titlelbl.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse ("white"))
@@ -480,6 +481,49 @@ class InstallInterface:
         self.icw = InstallControlWindow (self, self.dispatch, lang)
         self.icw.run (self.runres, configFileData)
 
+class TextViewBrowser(gtk.TextView):
+    def __init__(self):
+        self.hadj = None
+        self.vadj = None
+
+        gtk.TextView.__init__(self)
+        self.set_property('editable', gtk.FALSE)
+        self.set_property('cursor_visible', gtk.FALSE)
+        self.set_left_margin(10)
+        self.set_wrap_mode(gtk.WRAP_WORD)
+        self.connect('move-cursor', self.moveCursor)
+        self.connect('set-scroll-adjustments', self.cacheAdjustments)
+
+    def swallowFocus(self, *args):
+        self.emit_stop_by_name('focus-in-event')        
+        
+    def cacheAdjustments(self, view, hadj, vadj):
+        self.hadj = hadj
+        self.vadj = vadj
+
+    def moveCursor(self, view, step, count, extend_selection):
+        if step == gtk.MOVEMENT_DISPLAY_LINES:
+            if count == -1 and self.vadj != None:
+                self.vadj.value = max(self.vadj.value - self.vadj.step_increment,
+                                      self.vadj.lower)
+                self.vadj.value_changed()
+            elif count == 1 and self.vadj != None:
+                self.vadj.value = min(self.vadj.value + self.vadj.step_increment - 1,
+                                      self.vadj.upper - self.vadj.page_increment - 1)
+                self.vadj.value_changed()
+        elif step == gtk.MOVEMENT_PAGES:
+            if count == -1 and self.vadj != None:
+                self.vadj.value = max(self.vadj.value - self.vadj.page_increment,
+                                      self.vadj.lower)
+                self.vadj.value_changed()
+            elif count == 1 and self.vadj != None:
+                self.vadj.value = min(self.vadj.value + self.vadj.page_increment - 1,
+                                      self.vadj.upper - self.vadj.page_increment - 1)
+                self.vadj.value_changed()
+
+        self.emit_stop_by_name ('move-cursor')
+
+    
 class InstallControlWindow:
     def setLanguage (self, locale):
         #gtk_set_locale ()
@@ -605,11 +649,8 @@ class InstallControlWindow:
         self.textWin.set_position (gtk.WIN_POS_CENTER)
 
         if self.releaseNotesBuffer:
-            text = gtk.TextView()
+            text = TextViewBrowser()
             text.set_buffer(self.releaseNotesBuffer)
-            text.set_property("editable", gtk.FALSE)
-            text.set_property("cursor_visible", gtk.TRUE)
-            text.set_wrap_mode(gtk.WRAP_WORD)
             
             sw = gtk.ScrolledWindow()
             sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_ALWAYS)
@@ -944,11 +985,7 @@ class InstallControlWindow:
 
         vbox.pack_end (self.hbox, gtk.FALSE)
 
-        self.help = gtk.TextView()
-        self.help.set_property("editable", gtk.FALSE)
-        self.help.set_property("cursor_visible", gtk.TRUE)
-        self.help.set_left_margin(10)
-        self.help.set_wrap_mode(gtk.WRAP_WORD)
+        self.help = TextViewBrowser()
 
         self.displayHelp = gtk.TRUE
         self.helpState = gtk.TRUE
