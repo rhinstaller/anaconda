@@ -1,11 +1,29 @@
 #!/bin/bash
 
-if [ ! -d $1/RedHat/RPMS ]; then
-    echo $1 is not a Red Hat image >&2
-    exit 1
-fi
+COMPNAME=dist-7.0
 
-p=`cd $1; /bin/pwd`
+while [ $# -gt 0 ]; do
+    case $1 in
+	--pkgorder)
+	    PKGORDER=$2
+	    shift; shift
+	    ;;
+	--comp)
+	    COMPNAME=$2
+	    shift; shift
+	    ;;
+	*)
+	    if [ -n "$DIR" -o ! -d $1/RedHat/RPMS ]; then
+		echo "Usage: buildinstall [--comp <component>] [--pkgorder <file>] <root>" >&2
+		exit 1
+	    fi
+	    DIR=$1
+	    shift
+	    ;;
+    esac
+done
+
+p=`cd $DIR; /bin/pwd`
 
 BUILDINSTDIR=$p/buildinstall.tree.$$
 
@@ -46,20 +64,20 @@ if [ $BUILDARCH = "sparc" ]; then
 fi
 
 set -x
-if [ -x $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder ]; then
+if [ -n "$PKGORDER" -a -x $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder ]; then
     echo "Getting package order..."
     if [ -x /usr/bin/runroot ]; then
-	runroot dist-7.0 --onlyone --arch $BUILDARCH \
-	    "cd $p/RedHat/instimage/usr/lib/anaconda-runtime; PYTHONPATH=$p/RedHat/instimage/usr/lib/anaconda ./pkgorder $p $BUILDARCH" > /tmp/pkgorder
+	runroot $COMPNAME --onlyone --arch $BUILDARCH \
+	    "PYTHONPATH=$p/RedHat/instimage/usr/lib/anaconda $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH" > $PKGORDER
     else
-	cd $p/RedHat/instimage/usr/lib/anaconda-runtime; PYTHONPATH=$p/RedHat/instimage/usr/lib/anaconda ./pkgorder $p $BUILDARCH
+	PYTHONPATH=$p/RedHat/instimage/usr/lib/anaconda $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH > $PKGORDER
     fi
 fi
 
 exit 0
 
 if [ -x /usr/bin/runroot ]; then
-    runroot dist-7.0 --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $p/RedHat/RPMS $p $p/image-template $BUILDARCH"
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $p/RedHat/RPMS $p $p/image-template $BUILDARCH"
 else
     $MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH
 fi
