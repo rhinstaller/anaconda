@@ -3,6 +3,8 @@
 #
 # Erik Troan <ewt@redhat.com>
 # Matt Wilson <msw@redhat.com>
+# Jeremy Katzj <katzj@redhat.com>
+# Michael Fulbright <msf@redhat.com>
 #
 # Copyright 1999-2002 Red Hat, Inc.
 #
