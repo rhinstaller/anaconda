@@ -380,6 +380,24 @@ class NetworkWindow:
             return INSTALL_BACK
         return INSTALL_OK
 
+class HostnameWindow:
+    def __call__(self, screen, todo):
+        entry = Entry (24)
+        if todo.network.hostname != "localhost.localdomain":
+            entry.set (todo.network.hostname)
+        rc, values = EntryWindow(screen, _("Hostname Configuration"),
+             _("The hostname is the name of your computer.  If your "
+               "computer is attached to a network, this may be "
+               "assigned by your network administrator."),
+             [(_("Hostname"), entry)], buttons = [ _("OK"), _("Back")])
+
+        if rc == string.lower (_("Back")):
+            return INSTALL_BACK
+
+        todo.network.hostname = entry.value ()
+        
+        return INSTALL_OK
+
 class PartitionWindow:
     def __call__(self, screen, todo):
 	if (not todo.setupFilesystems): return INSTALL_NOOP
@@ -392,11 +410,12 @@ class PartitionWindow:
             drives = todo.drives.available ().keys ()
             drives.sort ()
             todo.ddruid = fsedit(0, drives, fstab)
-        (dir, ) = todo.ddruid.edit ()
+        dir = todo.ddruid.edit ()
         for partition, mount, fstype, size in todo.ddruid.getFstab ():
             todo.addMount(partition, mount, fstype)
-
+                
         return dir
+
 
 class FormatWindow:
     def __call__(self, screen, todo):
@@ -654,21 +673,17 @@ class LiloWindow:
 
         # XXX fixme restore state
         (rc, sel) = ListboxChoiceWindow (screen, _("LILO Configuration"),
-			 _("Where do you want to install the bootloader?"),
-			 locations,
-			 buttons = [ _("OK"), _("Skip"), _("Back") ])
+                                         _("Where do you want to install the bootloader?"),
+                                         locations,
+                                         buttons = [ _("OK"), _("Back") ])
+
+        if sel == 0:
+            todo.setLiloLocation(boothd)
+        else:
+            todo.setLiloLocation(bootpart)
 
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
-
-        if rc == string.lower (_("Skip")):
-	    todo.setLiloLocation(None)
-	else:
-	    if sel == 0:
-		todo.setLiloLocation(boothd)
-	    else:
-		todo.setLiloLocation(bootpart)
-
         return INSTALL_OK
 
 class BeginInstallWindow:
@@ -912,7 +927,7 @@ class InstallInterface:
         self.screen.drawRootText (0, 0, self.welcomeText)
         self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
 #	self.screen.suspendCallback(killSelf, self.screen)
-	self.screen.suspendCallback(debugSelf, self.screen)
+#	self.screen.suspendCallback(debugSelf, self.screen)
         self.individual = Flag(0)
         self.step = 0
         self.dir = 1
@@ -930,6 +945,7 @@ class InstallInterface:
         
         self.installSteps = [
             [_("Network Setup"), NetworkWindow, (self.screen, todo)],
+            [_("Hostname Setup"), HostnameWindow, (self.screen, todo)],
             [_("Partition"), PartitionWindow, (self.screen, todo)],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo)],
             [_("Package Groups"), PackageGroupWindow, (self.screen, todo, self.individual)],
