@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
-"POT-Creation-Date: 2001-08-06 22:01-0400\n"
-"PO-Revision-Date: 2001-08-05 22:24+0200\n"
+"POT-Creation-Date: 2001-08-06 18:21-0400\n"
+"PO-Revision-Date: 2001-08-07 11:18+0200\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -68,11 +68,10 @@ msgstr ""
 "tekstmodus."
 
 #: ../anaconda:420
-#, fuzzy
 msgid "Using mouse type: "
-msgstr "Søker etter mustype:   "
+msgstr "Bruker mustype: "
 
-#: ../autopart.py:732
+#: ../autopart.py:729
 #, c-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
@@ -81,11 +80,11 @@ msgstr ""
 "Oppstartspartisjon %s møter muligens ikke oppstartsbegrensningene for din "
 "arkitektur. Det er sterkt anbefalt å opprette en oppstartsdiskett."
 
-#: ../autopart.py:846
+#: ../autopart.py:843
 msgid "Requested Partition Does Not Exist"
 msgstr "Forespurt partisjon eksisterer ikke"
 
-#: ../autopart.py:847
+#: ../autopart.py:844
 #, c-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -96,11 +95,11 @@ msgstr ""
 "\n"
 "Trykk OK for å starte systemet på nytt."
 
-#: ../autopart.py:880
+#: ../autopart.py:877
 msgid "Partition Request Sanity Check Errors"
 msgstr "Feil under sjekk av partisjonsforespørsel"
 
-#: ../autopart.py:881
+#: ../autopart.py:878
 #, c-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -115,11 +114,11 @@ msgstr ""
 "\n"
 "Trykk OK for å starte systemet på nytt."
 
-#: ../autopart.py:890
+#: ../autopart.py:887
 msgid "Warnings During Automatic Partitioning"
 msgstr "Advarsler under automatisk partisjonering"
 
-#: ../autopart.py:891
+#: ../autopart.py:888
 #, c-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -130,12 +129,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:903 ../iw/partition_gui.py:1245
-#: ../textw/partition_text.py:163
+#: ../autopart.py:900 ../iw/partition_gui.py:1245
+#: ../textw/partition_text.py:149
 msgid "Error Partitioning"
 msgstr "Feil under partisjonering"
 
-#: ../autopart.py:904
+#: ../autopart.py:901
 #, c-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -146,18 +145,18 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:938 ../harddrive.py:233 ../iw/bootloader_gui.py:58
+#: ../autopart.py:935 ../harddrive.py:233 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1250
 #: ../iw/partition_gui.py:1573 ../iw/upgrade_swap_gui.py:169
 #: ../iw/upgrade_swap_gui.py:177 ../iw/upgrade_swap_gui.py:184
 #: ../partitioning.py:1331 ../textw/bootloader_text.py:128
-#: ../textw/bootloader_text.py:424 ../textw/partition_text.py:167
+#: ../textw/bootloader_text.py:424 ../textw/partition_text.py:153
 #: ../textw/upgrade_text.py:172 ../upgrade.py:235 ../upgrade.py:328
 #: ../upgrade.py:345
 msgid "Warning"
 msgstr "Advarsel"
 
-#: ../autopart.py:944
+#: ../autopart.py:941
 msgid ""
 "Automatic Partitioning sets up your partitioning based on your installation "
 "type. You also can customize the resulting partitions to meet your needs.\n"
@@ -181,7 +180,7 @@ msgstr ""
 "av Red Hat. Selv om dette kan være noe vanskeligere i bruk, finnes det "
 "tilfeller hvor fdisk er å foretrekke."
 
-#: ../autopart.py:960
+#: ../autopart.py:957
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
@@ -189,19 +188,19 @@ msgstr ""
 "Før automatisk partisjonering utføres av installasjonsprogrammet må du velge "
 "hvordan plassen på harddiskene skal brukes."
 
-#: ../autopart.py:965
+#: ../autopart.py:962
 msgid "Remove all partitions on this system"
 msgstr "Fjern alle partisjoner på dette systemet"
 
-#: ../autopart.py:966
+#: ../autopart.py:963
 msgid "Remove all Linux Partitions on this system"
 msgstr "Fjern alle Linux-partisjoner på dette systemet"
 
-#: ../autopart.py:967
+#: ../autopart.py:964
 msgid "Keep all partitions and use existing free space"
 msgstr "Behold alle partisjoner og bruk eksisterende ledig plass"
 
-#: ../autopart.py:969
+#: ../autopart.py:966
 #, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
@@ -216,7 +215,7 @@ msgstr ""
 "\n"
 "Er du sikker på at du vil gjøre dette?"
 
-#: ../autopart.py:974
+#: ../autopart.py:971
 #, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
@@ -1330,7 +1329,7 @@ msgstr ""
 #: ../upgrade.py:236
 #, c-format
 msgid "%s not found"
-msgstr ""
+msgstr "%s ikke funnet"
 
 #: ../upgrade.py:256
 msgid "Finding"
@@ -1355,7 +1354,7 @@ msgid ""
 "continuing the upgrade process may cause them to stop functioning properly "
 "or may cause other system instability.  Do you wish to continue the upgrade "
 "process?"
-msgstr ""
+msgstr "Dette systemet ser ut til å ha tredjeparts-pakker installert som overlapper med pakker inkludert i Red Hat Linux. Da disse pakkene overlapper er det mulig at du vil oppleve at disse ikke fungerer eller at systemet blir ustabilt hvis du fortsetter med oppgraderingen. Vil du fortsette med oppgraderingsprosessen?"
 
 #: ../upgrade.py:346
 msgid ""
@@ -1363,7 +1362,7 @@ msgid ""
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
 "leave the system in an unusable state.  Do you wish to continue the upgrade "
 "process?"
-msgstr ""
+msgstr "Dette systemet har ikke filen /etc/redhat-release. Det er mulig at dette ikke er et Red Hat Linux system. Hvis du fortsetter oppgraderingen kan du risikere at systemet ender som ubrukelig. Vil du fortsette oppgraderingsprosessen?"
 
 #: ../videocard.py:396
 msgid "Unknown Card"
@@ -1497,7 +1496,7 @@ msgid "Add"
 msgstr "Legg til"
 
 #: ../iw/account_gui.py:332 ../textw/bootloader_text.py:274
-#: ../textw/fdisk_text.py:40 ../textw/partition_text.py:975
+#: ../textw/fdisk_text.py:40 ../textw/partition_text.py:961
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:211
 msgid "Edit"
@@ -1823,7 +1822,6 @@ msgid "Congratulations"
 msgstr "Gratulerer"
 
 #: ../iw/congrats_gui.py:33
-#, fuzzy
 msgid ""
 "Congratulations, your Red Hat Linux installation is complete.\n"
 "\n"
@@ -2182,9 +2180,9 @@ msgid "Select individual packages"
 msgstr "Velg individuelle pakker"
 
 #: ../iw/partition_gui.py:313 ../iw/partition_gui.py:334
-#: ../iw/partition_gui.py:336 ../textw/partition_text.py:186
-#: ../textw/partition_text.py:188 ../textw/partition_text.py:190
-#: ../textw/partition_text.py:215
+#: ../iw/partition_gui.py:336 ../textw/partition_text.py:172
+#: ../textw/partition_text.py:174 ../textw/partition_text.py:176
+#: ../textw/partition_text.py:201
 msgid "<Not Applicable>"
 msgstr "<Ikke brukbar>"
 
@@ -2225,21 +2223,21 @@ msgstr "Advarsler fra partisjonering"
 msgid "Format Warnings"
 msgstr "Formateringsadvarsler"
 
-#: ../iw/partition_gui.py:642 ../textw/partition_text.py:75
-#: ../textw/partition_text.py:114
+#: ../iw/partition_gui.py:642 ../textw/partition_text.py:61
+#: ../textw/partition_text.py:100
 msgid "Free space"
 msgstr "Ledig plass"
 
-#: ../iw/partition_gui.py:644 ../textw/partition_text.py:77
+#: ../iw/partition_gui.py:644 ../textw/partition_text.py:63
 msgid "Extended"
 msgstr "Utvidet"
 
-#: ../iw/partition_gui.py:646 ../textw/partition_text.py:79
+#: ../iw/partition_gui.py:646 ../textw/partition_text.py:65
 msgid "software RAID"
 msgstr "programvare RAID"
 
 #: ../iw/partition_gui.py:664 ../iw/partition_gui.py:722
-#: ../textw/partition_text.py:93 ../textw/partition_text.py:145
+#: ../textw/partition_text.py:79 ../textw/partition_text.py:131
 msgid "None"
 msgstr "Ingen"
 
@@ -2247,7 +2245,7 @@ msgstr "Ingen"
 msgid "Free"
 msgstr "Ledig"
 
-#: ../iw/partition_gui.py:724 ../textw/partition_text.py:147
+#: ../iw/partition_gui.py:724 ../textw/partition_text.py:133
 #, c-format
 msgid "RAID Device %s"
 msgstr "RAID-enhet %s"
@@ -2268,16 +2266,16 @@ msgstr "Fyll all plass opp til (MB):"
 msgid "Fill to maximum allowable size"
 msgstr "Fyll opp til maksimal tillatt størrelse"
 
-#: ../iw/partition_gui.py:836 ../textw/partition_text.py:540
+#: ../iw/partition_gui.py:836 ../textw/partition_text.py:525
 msgid "Add Partition"
 msgstr "Legg til partisjon"
 
 #: ../iw/partition_gui.py:853 ../iw/partition_gui.py:1315
-#: ../textw/partition_text.py:205
+#: ../textw/partition_text.py:191
 msgid "Mount Point:"
 msgstr "Monteringspunkt:"
 
-#: ../iw/partition_gui.py:861 ../textw/partition_text.py:596
+#: ../iw/partition_gui.py:861 ../textw/partition_text.py:581
 msgid "Filesystem Type:"
 msgstr "Filsystemtype:"
 
@@ -2289,7 +2287,7 @@ msgstr "Opprinnelig filsystemtype:"
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: ../iw/partition_gui.py:890 ../textw/partition_text.py:260
+#: ../iw/partition_gui.py:890 ../textw/partition_text.py:246
 msgid "Allowable Drives:"
 msgstr "Tillatte stasjoner:"
 
@@ -2302,16 +2300,16 @@ msgid "Original Filesystem Label:"
 msgstr "Opprinnelig etikett for filsystem:"
 
 #: ../iw/partition_gui.py:921 ../iw/partition_gui.py:956
-#: ../textw/partition_text.py:282 ../textw/partition_text.py:365
-#: ../textw/partition_text.py:612
+#: ../textw/partition_text.py:268 ../textw/partition_text.py:351
+#: ../textw/partition_text.py:597
 msgid "Size (MB):"
 msgstr "Størrelse (MB):"
 
-#: ../iw/partition_gui.py:934 ../textw/partition_text.py:345
+#: ../iw/partition_gui.py:934 ../textw/partition_text.py:331
 msgid "Start Cylinder:"
 msgstr "Startsylinder:"
 
-#: ../iw/partition_gui.py:950 ../textw/partition_text.py:358
+#: ../iw/partition_gui.py:950 ../textw/partition_text.py:344
 msgid "End Cylinder:"
 msgstr "Sluttsylinder:"
 
@@ -2319,7 +2317,7 @@ msgstr "Sluttsylinder:"
 msgid "How would you like to prepare the filesystem on this partition?"
 msgstr "Hvordan ønsker du å forberede filsystemet på denne partisjonen?"
 
-#: ../iw/partition_gui.py:981 ../textw/partition_text.py:448
+#: ../iw/partition_gui.py:981 ../textw/partition_text.py:434
 msgid "Leave unchanged (preserve data)"
 msgstr "La den være (ta vare på data)"
 
@@ -2335,32 +2333,32 @@ msgstr "Migrer partisjon til:"
 msgid "Check for bad blocks?"
 msgstr "Sjekk etter dårlige blokker?"
 
-#: ../iw/partition_gui.py:1058 ../textw/partition_text.py:582
+#: ../iw/partition_gui.py:1058 ../textw/partition_text.py:567
 msgid "Force to be a primary partition"
 msgstr "Tving til å være en primærpartisjon"
 
-#: ../iw/partition_gui.py:1065 ../textw/partition_text.py:446
-#: ../textw/partition_text.py:585
+#: ../iw/partition_gui.py:1065 ../textw/partition_text.py:432
+#: ../textw/partition_text.py:570
 msgid "Check for bad blocks"
 msgstr "Sjekk etter dårlige blokker"
 
 #: ../iw/partition_gui.py:1136 ../iw/partition_gui.py:1145
 #: ../iw/partition_gui.py:1183 ../iw/partition_gui.py:1445
-#: ../textw/partition_text.py:748 ../textw/partition_text.py:765
-#: ../textw/partition_text.py:890
+#: ../textw/partition_text.py:739 ../textw/partition_text.py:756
+#: ../textw/partition_text.py:876
 msgid "Error With Request"
 msgstr "Feil med forespørsel"
 
-#: ../iw/partition_gui.py:1246 ../textw/partition_text.py:164
+#: ../iw/partition_gui.py:1246 ../textw/partition_text.py:150
 #, c-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Kunne ikke allokere forespurte partisjoner: %s."
 
-#: ../iw/partition_gui.py:1252 ../textw/partition_text.py:168
+#: ../iw/partition_gui.py:1252 ../textw/partition_text.py:154
 msgid "Modify Partition"
 msgstr "Rediger partisjon"
 
-#: ../iw/partition_gui.py:1253 ../textw/partition_text.py:168
+#: ../iw/partition_gui.py:1253 ../textw/partition_text.py:154
 msgid "Add anyway"
 msgstr "Legg til likevel"
 
@@ -2369,23 +2367,23 @@ msgstr "Legg til likevel"
 msgid "Warning: %s."
 msgstr "Advarsel: %s."
 
-#: ../iw/partition_gui.py:1290 ../textw/partition_text.py:795
+#: ../iw/partition_gui.py:1290 ../textw/partition_text.py:786
 msgid "Make RAID Device"
 msgstr "Lag RAID-enhet"
 
-#: ../iw/partition_gui.py:1308 ../textw/partition_text.py:819
+#: ../iw/partition_gui.py:1308 ../textw/partition_text.py:810
 msgid "At least two software RAID partitions are needed."
 msgstr "Minst to partisjoner med programvare-RAID kreves."
 
-#: ../iw/partition_gui.py:1322 ../textw/partition_text.py:226
+#: ../iw/partition_gui.py:1322 ../textw/partition_text.py:212
 msgid "Filesystem type:"
 msgstr "Filsystemtype:"
 
-#: ../iw/partition_gui.py:1334 ../textw/partition_text.py:382
+#: ../iw/partition_gui.py:1334 ../textw/partition_text.py:368
 msgid "RAID Level:"
 msgstr "RAID-nivå:"
 
-#: ../iw/partition_gui.py:1369 ../textw/partition_text.py:400
+#: ../iw/partition_gui.py:1369 ../textw/partition_text.py:386
 msgid "RAID Members:"
 msgstr "RAID-medlemmer:"
 
@@ -2393,7 +2391,7 @@ msgstr "RAID-medlemmer:"
 msgid "Number of spares:"
 msgstr "Antall reservedisker:"
 
-#: ../iw/partition_gui.py:1387 ../textw/partition_text.py:831
+#: ../iw/partition_gui.py:1387 ../textw/partition_text.py:822
 msgid "Format partition?"
 msgstr "Formater partisjon?"
 
@@ -2429,7 +2427,7 @@ msgstr "Slutt"
 msgid "Format"
 msgstr "Formater"
 
-#: ../iw/partition_gui.py:1555 ../textw/partition_text.py:1051
+#: ../iw/partition_gui.py:1555 ../textw/partition_text.py:1037
 msgid "Automatic Partitioning"
 msgstr "Automatisk partisjonering"
 
@@ -2442,7 +2440,7 @@ msgstr "Du må velge minst en stasjon du skal installere Red Hat Linux på."
 msgid "I want to have automatic partitioning:"
 msgstr "Jeg vil bruke automatisk partisjonering:"
 
-#: ../iw/partition_gui.py:1644 ../textw/partition_text.py:1074
+#: ../iw/partition_gui.py:1644 ../textw/partition_text.py:1060
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hvilke stasjoner vil du bruke for denne installasjonen?"
 
@@ -2951,7 +2949,6 @@ msgid "Complete"
 msgstr "Ferdig"
 
 #: ../textw/complete_text.py:29
-#, fuzzy
 msgid ""
 "Congratulations, your Red Hat Linux installation is complete.\n"
 "\n"
@@ -2969,14 +2966,11 @@ msgid ""
 msgstr ""
 "Gratulerer, din Red Hat Linux installasjon er fullført.\n"
 "\n"
-"Fjern alle CD-ROMer eller disketter du brukte under installasjonen og trykk "
-"<Linjeskift> for å starte på nytt.\n"
+"Fjern alle disketter du brukte under installasjonen og trykk <Linjeskift> for å starte på nytt.\n"
 "\n"
-"For informasjon om errata (oppdateringer og feilrettinger), besøk http://www."
-"redhat.com/errata.\n"
+"For informasjon om errata (oppdateringer og feilrettinger), besøk http://www.redhat.com/errata.\n"
 "\n"
-"Informasjon om bruk av systemet er tilgjengelig i Red Hat Linux "
-"brukerhåndbøkene som finnes på http://www.redhat.com/support/manuals."
+"Informasjon om bruk av systemet er tilgjengelig i Red Hat Linux brukerhåndbøkene som finnes på http://www.redhat.com/support/manuals."
 
 #: ../textw/complete_text.py:48
 msgid "<Enter> to continue"
@@ -3255,138 +3249,143 @@ msgstr ""
 "Noen av pakkene du har valgt å installere trenger pakker som ikke er valgt. "
 "Hvis du bare velger Ok vil alle de nødvendige pakkene bli installert."
 
-#: ../textw/partition_text.py:35
-#, fuzzy
-msgid "Must specify a value"
-msgstr "Størrelse må spesifiseres."
-
-#: ../textw/partition_text.py:38
-msgid "Requested value is not an integer"
-msgstr ""
-
-#: ../textw/partition_text.py:40
-msgid "Requested value is too large"
-msgstr ""
-
-#: ../textw/partition_text.py:167
+#: ../textw/partition_text.py:153
 #, c-format
 msgid "Warning: %s"
 msgstr "Advarsel: %s"
 
-#: ../textw/partition_text.py:316
+#: ../textw/partition_text.py:302
 msgid "Fixed Size:"
 msgstr "Fast størrelse:"
 
-#: ../textw/partition_text.py:318
+#: ../textw/partition_text.py:304
 msgid "Fill maximum size of (MB):"
 msgstr "Fyll maksimal størrelse på (MB):"
 
-#: ../textw/partition_text.py:322
+#: ../textw/partition_text.py:308
 msgid "Fill all available space:"
 msgstr "Fyll all tilgjengelig plass:"
 
-#: ../textw/partition_text.py:419
+#: ../textw/partition_text.py:405
 msgid "Number of spares?"
 msgstr "Antall reservedisker?"
 
-#: ../textw/partition_text.py:437 ../textw/partition_text.py:640
+#: ../textw/partition_text.py:423 ../textw/partition_text.py:625
 msgid "Filesystem Options"
 msgstr "Alternativer for filsystem"
 
-#: ../textw/partition_text.py:440
+#: ../textw/partition_text.py:426
 msgid ""
 "Please choose how you would like to prepare the filesystem on this partition."
 msgstr ""
 "Vennligst velg hvordan du ønsker å forberede filsystemet på denne "
 "partisjonen."
 
-#: ../textw/partition_text.py:457
+#: ../textw/partition_text.py:443
 msgid "Format as:"
 msgstr "Formater som:"
 
-#: ../textw/partition_text.py:477
+#: ../textw/partition_text.py:462
 msgid "Migrate to:"
 msgstr "Migrer til:"
 
-#: ../textw/partition_text.py:606
+#: ../textw/partition_text.py:591
 msgid "Filesystem Label:"
 msgstr "Etikett for filsystem:"
 
-#: ../textw/partition_text.py:617
+#: ../textw/partition_text.py:602
 msgid "Filesystem Option:"
 msgstr "Alternativer for filsystem:"
 
-#: ../textw/partition_text.py:620 ../textw/partition_text.py:660
+#: ../textw/partition_text.py:605 ../textw/partition_text.py:645
 #, c-format
 msgid "Format as %s"
 msgstr "Formater som %s"
 
-#: ../textw/partition_text.py:622 ../textw/partition_text.py:662
+#: ../textw/partition_text.py:607 ../textw/partition_text.py:647
 #, c-format
 msgid "Migrate to %s"
 msgstr "Migrer til %s"
 
-#: ../textw/partition_text.py:624 ../textw/partition_text.py:664
+#: ../textw/partition_text.py:609 ../textw/partition_text.py:649
 msgid "Leave unchanged"
 msgstr "La være"
 
-#: ../textw/partition_text.py:689 ../textw/partition_text.py:738
-#, fuzzy
-msgid "Invalid Entry for Partition Size"
-msgstr "Ugyldig informasjon"
+#: ../textw/partition_text.py:674
+msgid "Must Specify Size"
+msgstr "Størrelse må spesifiseres."
 
-#: ../textw/partition_text.py:701
-#, fuzzy
-msgid "Invalid Entry for Maximum Size"
+#: ../textw/partition_text.py:675
+msgid "Must specify a base size for the partition."
+msgstr "Størrelse må spesifiseres for partisjonen."
+
+#: ../textw/partition_text.py:687
+msgid "Specify Maximum Size"
 msgstr "Spesifisér maksimumsstørrelse"
 
-#: ../textw/partition_text.py:720
-msgid "Invalid Entry for Starting Cylinder"
-msgstr ""
+#: ../textw/partition_text.py:688
+msgid "Please specify a maximum size for the partition."
+msgstr "Spesifisér en maksimumsstørrelse for partisjonen."
 
-#: ../textw/partition_text.py:730
-msgid "Invalid Entry for End Cylinder"
-msgstr ""
+#: ../textw/partition_text.py:707
+msgid "Specify Start"
+msgstr "Spesifisér start"
 
-#: ../textw/partition_text.py:818
+#: ../textw/partition_text.py:708
+msgid "Please specify a starting cylinder for the partition."
+msgstr "Spesifisér en startsylinder for denne partisjonen."
+
+#: ../textw/partition_text.py:718
+msgid "Specify End"
+msgstr "Spesifisér slutt"
+
+#: ../textw/partition_text.py:719
+msgid "Please specify the end cylinder for the partition."
+msgstr "Spesifisér en sluttsylinder for denne partisjonen."
+
+#: ../textw/partition_text.py:727
+msgid "Specify Size"
+msgstr "Spesifisér størrelse."
+
+#: ../textw/partition_text.py:728
+msgid "Please specify the  size for the partition."
+msgstr "Spesifiser en størrelse for partisjonen."
+
+#: ../textw/partition_text.py:809
 msgid "No RAID partitions"
 msgstr "Ingen RAID-partisjoner"
 
-#: ../textw/partition_text.py:869
-msgid "Invalid Entry for Raid Spares"
-msgstr ""
-
-#: ../textw/partition_text.py:882
+#: ../textw/partition_text.py:868
 msgid "Too many spares"
 msgstr "For mange reservedisker"
 
-#: ../textw/partition_text.py:883
+#: ../textw/partition_text.py:869
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Maksimalt antall reservedisker med for en RAID0-array er 0."
 
-#: ../textw/partition_text.py:965
+#: ../textw/partition_text.py:951
 msgid "Partitioning"
 msgstr "Partisjonering"
 
-#: ../textw/partition_text.py:975
+#: ../textw/partition_text.py:961
 msgid "New"
 msgstr "Ny"
 
-#: ../textw/partition_text.py:975
+#: ../textw/partition_text.py:961
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:978
+#: ../textw/partition_text.py:964
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
 "    F1-Hjelp    F2-Ny     F3-Rediger F4-Slett    F5-Nullstill F12-Ok       "
 
-#: ../textw/partition_text.py:1005
+#: ../textw/partition_text.py:991
 msgid "No Root Partition"
 msgstr "Ingen rotpartisjon"
 
-#: ../textw/partition_text.py:1006
+#: ../textw/partition_text.py:992
 msgid "Must have a / partition to install on."
 msgstr "Må ha en \"/\"-partisjon å installere på."
 
@@ -5415,30 +5414,6 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-#~ msgid "Must specify a base size for the partition."
-#~ msgstr "Størrelse må spesifiseres for partisjonen."
-
-#~ msgid "Please specify a maximum size for the partition."
-#~ msgstr "Spesifisér en maksimumsstørrelse for partisjonen."
-
-#~ msgid "Specify Start"
-#~ msgstr "Spesifisér start"
-
-#~ msgid "Please specify a starting cylinder for the partition."
-#~ msgstr "Spesifisér en startsylinder for denne partisjonen."
-
-#~ msgid "Specify End"
-#~ msgstr "Spesifisér slutt"
-
-#~ msgid "Please specify the end cylinder for the partition."
-#~ msgstr "Spesifisér en sluttsylinder for denne partisjonen."
-
-#~ msgid "Specify Size"
-#~ msgstr "Spesifisér størrelse."
-
-#~ msgid "Please specify the  size for the partition."
-#~ msgstr "Spesifiser en størrelse for partisjonen."
 
 #~ msgid "partitioning did not meet requirements"
 #~ msgstr "partisjonering tilfredsstilte ikke kravene"
