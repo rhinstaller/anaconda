@@ -45,7 +45,7 @@ class ToDo:
     def installSystem(self):
 	# make sure we have the header list and comps file
 	self.headerList()
-	comps = self.compsList()
+	self.compsList()
 
 	self.makeFilesystems()
 	self.mountFilesystems()
@@ -57,11 +57,11 @@ class ToDo:
 	db = rpm.opendb(1, self.instPath)
 	ts = rpm.TransactionSet(self.instPath, db)
 
-	for p in comps.selected():
+	for p in self.hdList.selected():
 	    ts.add(p.h, (p.h, self.method))
 
 	ts.order()
-	#p = self.intf.packageProgessWindow()
+	p = self.intf.packageProgessWindow()
 	#ts.run(0, 0, instCallback, p)
 
 	self.installLilo()
@@ -83,7 +83,11 @@ class ToDo:
 	sl.addEntry("root", "/dev/hda8")
 	sl.addEntry("read-only")
 
-	l.addImage("/boot/vmlinuz-2.2.2", sl)
+	kernelFile = '/boot/vmlinuz-' +  \
+		str(self.kernelPackage[rpm.RPMTAG_VERSION]) + "-" + \
+		str(self.kernelPackage[rpm.RPMTAG_RELEASE])
+	    
+	l.addImage(kernelFile, sl)
 	l.write(self.instPath + "/etc/lilo.conf")
 
     def addMount(self, device, location, reformat = 1):
@@ -109,10 +113,12 @@ class ToDo:
 	    self.headerList()
 	    self.comps = self.method.readComps(self.hdList)
 	self.comps['Base'].select(1)
+	self.kernelPackage = self.hdList['kernel']
 
 	if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
 	    self.hdList['kernel'].selected = 0
 	    self.hdList['kernel-smp'].selected = 1
+	    self.kernelPackage = self.hdList['kernel-smp']
 
 	return self.comps
 
