@@ -45,8 +45,11 @@ class TimezoneWindow:
 	self.updateClock()
 
     def updateClock(self):
-	os.environ['TZ'] = self.l.current()
-	self.label.setText(self.currentTime())
+	if os.access("/usr/share/zoneinfo/" + self.l.current(), os.R_OK):
+	    os.environ['TZ'] = self.l.current()
+	    self.label.setText(self.currentTime())
+	else:
+	    self.label.setText("")
 
     def currentTime(self):
 	return "Current time: " + strftime("%X %Z", localtime(time()))
@@ -89,7 +92,7 @@ class TimezoneWindow:
 	while result == "TIMER":
 	    result = self.g.run()
 	    if result == "TIMER":
-		self.label.setText(self.currentTime())
+		self.updateClock()
 
 	screen.popWindow()
 
