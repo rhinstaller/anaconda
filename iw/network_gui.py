@@ -503,7 +503,7 @@ class NetworkWindow(InstallWindow):
         devlistSW.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         devlistSW.set_shadow_type(gtk.SHADOW_IN)
         devlistSW.add(self.devlist)
-	devlistSW.set_size_request(-1, 150)
+	devlistSW.set_size_request(-1, 100)
 	devhbox.pack_start(devlistSW, gtk.FALSE, padding=10)
 
         buttonbar = gtk.VButtonBox()
