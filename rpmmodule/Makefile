@@ -24,6 +24,6 @@ rpmmodule.so: rpmmodule.o upgrade.o hash.o
 clean:
 	rm -f *.o $(TARGET) *~
 
-install: all
+install: $(TARGET)
 	install -d $(PYTHON)
 	install -m 755  $(TARGET) $(PYTHON)
