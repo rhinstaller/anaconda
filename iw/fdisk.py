@@ -51,6 +51,11 @@ class FDiskWindow (InstallWindow):
 
 
     def getScreen (self):
+        from installpath import InstallPathWindow
+        if ((not InstallPathWindow.fdisk) or
+            (not InstallPathWindow.fdisk.get_active ())):
+               return None
+
         self.windowContainer = GtkVBox (FALSE)
         self.buttonBox = GtkVBox (FALSE, 5)
         self.buttonBox.set_border_width (5)
