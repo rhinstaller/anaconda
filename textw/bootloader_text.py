@@ -119,6 +119,7 @@ class BootloaderAppendWindow:
             button = buttons.buttonPressed(result)
 
             if button == TEXT_BACK_CHECK:
+                screen.popWindow()
                 return INSTALL_BACK
 
             if cb.selected() and not bl.forceLBA32:
@@ -136,6 +137,7 @@ class BootloaderAppendWindow:
             bl.args.set(entry.value())
             bl.setForceLBA(cb.selected())
 
+            screen.popWindow()
             return INSTALL_OK
 
 class BootloaderWindow:
@@ -173,7 +175,9 @@ class BootloaderImagesWindow:
         i=0
         while i < len(label):
             cur = label[i]
-            if cur == ' ' or cur == '#' or cur == '$' or cur == '=':
+            if cur == '#' or cur == '$' or cur == '=':
+                return 0
+            elif cur == ' ' and not self.bl.useGrub():
                 return 0
             i = i + 1
 
@@ -246,6 +250,7 @@ class BootloaderImagesWindow:
 
 	images = bl.images.getImages()
 	default = bl.images.getDefault()
+        self.bl = bl
 
 	listboxLabel = Label("%-10s  %-25s %-7s %-10s" % 
 		( _("Device"), _("Partition type"), _("Default"), _("Boot label")))
@@ -291,10 +296,12 @@ class BootloaderImagesWindow:
 
 	    if (result == "edit" or result == listbox):
 		item = listbox.current()
-		(label, type) = images[item]
+		(label, longlabel, type) = images[item]
+                if bl.useGrub():
+                    label = longlabel
 
 		label = self.editItem(screen, item, label, allowNone = (rootdev != item and item != default))
-		images[item] = (label, type)
+		images[item] = (label, label, type)
 		if (default == item and not label):
 		    default = ""
 		listbox.replace(self.formatDevice(type, label, item, default), item)
@@ -302,10 +309,15 @@ class BootloaderImagesWindow:
 	    elif result == "F2":
 #	    elif result == " ":
 		item = listbox.current()
-		(label, type) = images[item]
+		(label, longlabel, type) = images[item]
+                if bl.useGrub():
+                    label = longlabel
+                
 		if (label):
 		    if (default):
-			(oldLabel, oldType) = images[default]
+			(oldLabel, oldLong, oldType) = images[default]
+                        if bl.useGrub():
+                            oldLabel = oldLong
 			listbox.replace(self.formatDevice(oldType, oldLabel, default, 
 					""), default)
 		    default = item
@@ -327,7 +339,7 @@ class BootloaderImagesWindow:
 
 	return INSTALL_OK
 
-class bootloaderPassword:
+class BootloaderPassword:
     def usepasscb(self, *args):
         flag = FLAGS_RESET
         if not self.checkbox.selected():
@@ -335,7 +347,7 @@ class bootloaderPassword:
         self.entry1.setFlags(FLAG_DISABLED, flag)
         self.entry2.setFlags(FLAG_DISABLED, flag)        
     
-    def __call__(self, screen, dispatch, bl, fsset, diskSet):    
+    def __call__(self, screen, bl):
         if not bl.useGrub():
             return INSTALL_NOOP
 
