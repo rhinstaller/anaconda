@@ -210,6 +210,9 @@ class Fstab:
 
     def addExistingRaidDevice(self, raidDevice, mntPoint, fsystem, deviceList):
         self.existingRaid.append(raidDevice, mntPoint, fsystem, deviceList)
+
+    def existingRaidList(self):
+	return self.existingRaid
 	
     def raidList(self):
         (devices, raid) = self.ddruid.partitionList()
