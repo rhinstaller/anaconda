@@ -9,6 +9,7 @@
 
 #include <errno.h>
 #include <fcntl.h>
+#include <fnmatch.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,7 +37,7 @@
 /* We need to maintain our oun file pointer to allow padding */
 struct ourfd {
     gzFile fd;
-    int pos;
+    size_t pos;
 };
 
 struct hardLink {
@@ -99,30 +100,18 @@ static inline void padinfd(struct ourfd * fd, int modulo) {
     ourread(fd, buf, amount);
 }
 
-static inline off_t safewrite(int fd, void * vbuf, size_t amount) {
-    int rc = 0;
-    char * buf = vbuf;
-
-    while (amount && (rc = write(fd, buf, amount)) < amount && rc > 0) {
-	buf += rc;
-	amount -= rc;
-    }
-
-    if (rc < 0) return rc;
-
-    return 0; 
-}
-
-static inline int padoutfd(int fd, size_t * where, int modulo) {
-    static int buf[10] = { '\0', '\0', '\0', '\0', '\0', 
-			   '\0', '\0', '\0', '\0', '\0' };
+static inline int padoutfd(struct ourfd * fd, size_t * where, int modulo) {
+    /*static int buf[10] = { '\0', '\0', '\0', '\0', '\0', 
+			   '\0', '\0', '\0', '\0', '\0' };*/
     int amount;
-    
+    static int buf[512];
+
     amount = (modulo - *where % modulo) % modulo;
     *where += amount;
 
-    if (safewrite(fd, buf, amount)) 
+    if (gzwrite(fd->fd, buf, amount) != amount)
 	return CPIOERR_WRITE_FAILED;
+
     return 0;
 }
 
@@ -150,7 +139,8 @@ static int strntoul(const char * str, char ** endptr, int base, int num) {
 	sprintf(space, "%8.8lx", (unsigned long) (val)); \
 	memcpy(phys, space, 8);
 
-static int getNextHeader(struct ourfd * fd, struct cpioHeader * chPtr) {
+static int getNextHeader(struct ourfd * fd, struct cpioHeader * chPtr,
+			 struct cpioCrcPhysicalHeader * physHeaderPtr) {
     struct cpioCrcPhysicalHeader physHeader;
     int nameSize;
     char * end;
@@ -158,6 +148,9 @@ static int getNextHeader(struct ourfd * fd, struct cpioHeader * chPtr) {
 
     if (ourread(fd, &physHeader, PHYS_HDR_SIZE) != PHYS_HDR_SIZE) 
 	return CPIOERR_READ_FAILED;
+
+    if (physHeaderPtr)
+	memcpy(physHeaderPtr, &physHeader, PHYS_HDR_SIZE);
 
     if (strncmp(CPIO_CRC_MAGIC, physHeader.magic, strlen(CPIO_CRC_MAGIC)) &&
 	strncmp(CPIO_NEWC_MAGIC, physHeader.magic, strlen(CPIO_NEWC_MAGIC)))
@@ -490,7 +483,7 @@ int myCpioInstallArchive(gzFile stream, struct cpioFileMapping * mappings,
     *failedFile = NULL;
 
     do {
-	if ((rc = getNextHeader(&fd, &ch))) {
+	if ((rc = getNextHeader(&fd, &ch, NULL))) {
 	    fprintf(stderr, _("error %d reading header: %s\n"), rc, strerror(errno));
 	    return CPIOERR_BAD_HEADER;
 	}
@@ -647,259 +640,6 @@ int myCpioInstallArchive(gzFile stream, struct cpioFileMapping * mappings,
     return rc;
 }
 
-static int writeFile(int fd, struct stat sb, struct cpioFileMapping * map, 
-		     size_t * sizeptr, int writeData) {
-    struct cpioCrcPhysicalHeader hdr;
-    char buf[8192], symbuf[2048];
-    dev_t num;
-    int datafd;
-    size_t size, amount = 0;
-    int rc, olderrno;
-
-    if (!(map->mapFlags & CPIO_MAP_PATH))
-	map->archivePath = map->fsPath;
-    if (map->mapFlags & CPIO_MAP_MODE)
-	sb.st_mode = (sb.st_mode & S_IFMT) | map->finalMode;
-    if (map->mapFlags & CPIO_MAP_UID)
-	sb.st_uid = map->finalUid;
-    if (map->mapFlags & CPIO_MAP_GID)
-	sb.st_gid = map->finalGid;
-
-    if (!writeData || S_ISDIR(sb.st_mode)) {
-	sb.st_size = 0;
-    } else if (S_ISLNK(sb.st_mode)) {
-	/* While linux puts the size of a symlink in the st_size field,
-	   I don't think that's a specified standard */
-
-	amount = readlink(map->fsPath, symbuf, sizeof(symbuf));
-	if (amount <= 0) {
-	    return CPIOERR_READLINK_FAILED;
-	}
-
-	sb.st_size = amount;
-    }
-
-    memcpy(hdr.magic, CPIO_NEWC_MAGIC, sizeof(hdr.magic));
-    SET_NUM_FIELD(hdr.inode, sb.st_ino, buf);
-    SET_NUM_FIELD(hdr.mode, sb.st_mode, buf);
-    SET_NUM_FIELD(hdr.uid, sb.st_uid, buf);
-    SET_NUM_FIELD(hdr.gid, sb.st_gid, buf);
-    SET_NUM_FIELD(hdr.nlink, sb.st_nlink, buf);
-    SET_NUM_FIELD(hdr.mtime, sb.st_mtime, buf);
-    SET_NUM_FIELD(hdr.filesize, sb.st_size, buf);
-
-    num = major(sb.st_dev); SET_NUM_FIELD(hdr.devMajor, num, buf);
-    num = minor(sb.st_dev); SET_NUM_FIELD(hdr.devMinor, num, buf);
-    num = major(sb.st_rdev); SET_NUM_FIELD(hdr.rdevMajor, num, buf);
-    num = minor(sb.st_rdev); SET_NUM_FIELD(hdr.rdevMinor, num, buf);
-
-    num = strlen(map->archivePath) + 1; SET_NUM_FIELD(hdr.namesize, num, buf);
-    memcpy(hdr.checksum, "00000000", 8);
-
-    if ((rc = safewrite(fd, &hdr, PHYS_HDR_SIZE)))
-	return rc;
-    if ((rc = safewrite(fd, map->archivePath, num)))
-	return rc;
-    size = PHYS_HDR_SIZE + num;
-    if ((rc = padoutfd(fd, &size, 4)))
-	return rc;
-	
-    if (writeData && S_ISREG(sb.st_mode)) {
-	/* FIXME: we should use mmap here if it's available */
-	if ((datafd = open(map->fsPath, O_RDONLY)) < 0)
-	    return CPIOERR_OPEN_FAILED;
-
-	size += sb.st_size;
-
-	while (sb.st_size) {
-	    amount = read(datafd, buf, 
-		     sb.st_size > sizeof(buf) ? sizeof(buf) : sb.st_size);
-	    if (amount <= 0) {
-		olderrno = errno;
-		close(datafd);
-		errno = olderrno;
-		return CPIOERR_READ_FAILED;
-	    }
-
-	    if ((rc = safewrite(fd, buf, amount))) {
-		olderrno = errno;
-		close(datafd);
-		errno = olderrno;
-		return rc;
-	    }
-
-	    sb.st_size -= amount;
-	}
-
-	close(datafd);
-    } else if (writeData && S_ISLNK(sb.st_mode)) {
-	if ((rc = safewrite(fd, symbuf, amount)))
-	    return rc;
-	size += amount;
-    }
-
-    /* this is a noop for most file types */
-    if ((rc = padoutfd(fd, &size, 4)))
-	return rc;
-
-    *sizeptr = size;
-
-    return 0;
-}
-
-static int writeLinkedFile(int fd, struct hardLink * hlink, 
-			   struct cpioFileMapping * mappings,
-			   cpioCallback cb, void * cbData,
-			   size_t * sizeptr,
-			   char ** failedFile) {
-    int i, rc;
-    size_t size;
-    struct cpioCallbackInfo cbinfo;
-
-    *sizeptr = 0;
-
-    for (i = hlink->nlink - 1; i > hlink->linksLeft; i--) {
-	if ((rc = writeFile(fd, hlink->sb, mappings + hlink->fileMaps[i], 
-			    &size, 0))) {
-	    if (failedFile) *failedFile = 
-		    mappings[hlink->fileMaps[i]].fsPath;
-	    return rc;
-	}
-
-	*sizeptr += size;
-
-	if (cb) {
-	    cbinfo.file = mappings[i].archivePath;
-	    cb(&cbinfo, cbData);
-	}
-    }
-
-    if ((rc = writeFile(fd, hlink->sb, 
-			mappings + hlink->fileMaps[hlink->linksLeft], 
-			&size, 1))) {
-	if (failedFile) 
-	    *failedFile = mappings[hlink->fileMaps[hlink->linksLeft]].fsPath;
-	return rc;
-    }
-
-    *sizeptr += size;
-
-    if (cb) {
-	cbinfo.file = mappings[i].archivePath;
-	cb(&cbinfo, cbData);
-    }
-
-    return 0;
-}
-
-int myCpioBuildArchive(int fd, struct cpioFileMapping * mappings, 
-		     int numMappings, cpioCallback cb, void * cbData,
-		     unsigned int * archiveSize, char ** failedFile) {
-    size_t size, totalsize = 0;
-    int rc;
-    int i;
-    struct cpioCallbackInfo cbinfo;
-    struct cpioCrcPhysicalHeader hdr;
-    struct stat sb;
-    struct hardLink hlinkList = { NULL };
-    struct hardLink * hlink, * parent;
-
-    hlinkList.next = NULL;
-
-    for (i = 0; i < numMappings; i++) {
-	if (mappings[i].mapFlags & CPIO_FOLLOW_SYMLINKS)
-	    rc = stat(mappings[i].fsPath, &sb);
-	else
-	    rc = lstat(mappings[i].fsPath, &sb);
-
-	if (rc) {
-	    if (failedFile) *failedFile = mappings[i].fsPath;
-	    return CPIOERR_STAT_FAILED;
-	}
-
-	if (!S_ISDIR(sb.st_mode) && sb.st_nlink > 1) {
-	    hlink = hlinkList.next;
-	    while (hlink && 
-		   (hlink->dev != sb.st_dev || hlink->inode != sb.st_ino))
-		hlink = hlink->next;
-	    if (!hlink) {
-		hlink = malloc(sizeof(*hlink));
-		hlink->next = hlinkList.next;
-		hlinkList.next = hlink;
-		hlink->sb = sb;
-		hlink->dev = sb.st_dev;
-		hlink->inode = sb.st_ino;
-		hlink->nlink = sb.st_nlink;
-		hlink->linksLeft = sb.st_nlink;
-		hlink->fileMaps = malloc(sizeof(*hlink->fileMaps) * 
-						sb.st_nlink);
-	    }
-
-	    hlink->fileMaps[--hlink->linksLeft] = i;
-
-	    if (!hlink->linksLeft) {
-		if ((rc = writeLinkedFile(fd, hlink, mappings, cb, cbData,
-			 		  &size, failedFile)))
-		    return rc;
-
-		totalsize += size;
-
-		free(hlink->fileMaps);
-
-		parent = &hlinkList;
-		while (parent->next != hlink) parent = parent->next;
-		parent->next = parent->next->next;
-		free(hlink);
-	    }
-	} else {
-	    if ((rc = writeFile(fd, sb, mappings + i, &size, 1))) {
-		if (failedFile) *failedFile = mappings[i].fsPath;
-		return rc;
-	    }
-
-	    if (cb) {
-		cbinfo.file = mappings[i].archivePath;
-		cb(&cbinfo, cbData);
-	    }
-
-	    totalsize += size;
-	}
-    }    
-
-    hlink = hlinkList.next;
-    while (hlink) {
-	if ((rc = writeLinkedFile(fd, hlink, mappings, cb, cbData,
-				  &size, failedFile)))
-	    return rc;
-	free(hlink->fileMaps);
-	parent = hlink;
-	hlink = hlink->next;
-	free(parent);
-
-	totalsize += size;
-    }
-
-    memset(&hdr, '0', sizeof(hdr));
-    memcpy(hdr.magic, CPIO_NEWC_MAGIC, sizeof(hdr.magic));
-    memcpy(hdr.nlink, "00000001", 8);
-    memcpy(hdr.namesize, "0000000b", 8);
-    if ((rc = safewrite(fd, &hdr, PHYS_HDR_SIZE)))
-	return rc;
-    if ((rc = safewrite(fd, "TRAILER!!!", 11)))
-	return rc;
-    totalsize += PHYS_HDR_SIZE + 11;
-
-    /* GNU cpio pads to 512 bytes here, but we don't. I'm not sure if
-       it matters or not */
-    
-    if ((rc = padoutfd(fd, &totalsize, 4)))
-	return rc;
-
-    if (archiveSize) *archiveSize = totalsize;
-
-    return 0;
-}
-
 const char * myCpioStrerror(int rc)
 {
     static char msg[256];
@@ -949,4 +689,90 @@ const char * myCpioStrerror(int rc)
 	if (l > 0) strncat(msg, strerror(myerrno), l);
     }
     return msg;
+}
+
+int copyFile(struct ourfd * inFd, struct ourfd * outFd, 
+	     struct cpioHeader * chp, struct cpioCrcPhysicalHeader * pHdr) {
+    char buf[8192];
+    int amount;
+    size_t size = chp->size;
+
+    printf("copying %s\n", chp->path);
+
+    amount = strlen(chp->path) + 1;
+    memcpy(pHdr->magic, CPIO_NEWC_MAGIC, sizeof(pHdr->magic));
+    gzwrite(outFd->fd, pHdr, PHYS_HDR_SIZE);
+    gzwrite(outFd->fd, chp->path, amount);
+
+    outFd->pos += PHYS_HDR_SIZE + amount;
+
+    padoutfd(outFd, &outFd->pos, 4);
+
+    while (size) {
+	amount = ourread(inFd, buf, size > sizeof(buf) ? sizeof(buf) : size);
+	gzwrite(outFd->fd, buf, amount);
+	size -= amount;
+    }
+
+    outFd->pos += chp->size;
+
+    padoutfd(outFd, &outFd->pos, 4);
+
+    return 0;
+}
+
+int myCpioFilterArchive(gzFile inStream, gzFile outStream, char ** patterns) {
+    struct ourfd inFd, outFd;
+    char ** aPattern;
+    struct cpioHeader ch;
+    int rc;
+    struct cpioCrcPhysicalHeader pHeader;
+
+    inFd.fd = inStream;
+    inFd.pos = 0;
+    outFd.fd = outStream;
+    outFd.pos = 0;
+
+    do {
+	if ((rc = getNextHeader(&inFd, &ch, &pHeader))) {
+	    fprintf(stderr, _("error %d reading header: %s\n"), rc, 
+		    strerror(errno));
+	    return CPIOERR_BAD_HEADER;
+	}
+
+	if (!strcmp(ch.path, TRAILER)) {
+	    free(ch.path);
+	    break;
+	}
+
+	for (aPattern = patterns; *aPattern; aPattern++)
+	    if (!fnmatch(*aPattern, ch.path, FNM_PATHNAME | FNM_PERIOD))
+		break;
+
+	if (!*aPattern)
+	    eatBytes(&inFd, ch.size);
+	else
+	    copyFile(&inFd, &outFd, &ch, &pHeader);
+
+	padinfd(&inFd, 4);
+
+	free(ch.path);
+    } while (1 && !rc);
+
+    memset(&pHeader, '0', sizeof(pHeader));
+    memcpy(pHeader.magic, CPIO_NEWC_MAGIC, sizeof(pHeader.magic));
+    memcpy(pHeader.nlink, "00000001", 8);
+    memcpy(pHeader.namesize, "0000000b", 8);
+    gzwrite(outFd.fd, &pHeader, PHYS_HDR_SIZE);
+    gzwrite(outFd.fd, "TRAILER!!!", 11);
+
+    outFd.pos += PHYS_HDR_SIZE + 11;
+
+    if ((rc = padoutfd(&outFd, &outFd.pos, 4)))
+	return rc;
+
+    if ((rc = padoutfd(&outFd, &outFd.pos, 512)))
+	return rc;
+
+    return 0;
 }

@@ -27,3 +27,5 @@ int installCpioFile(gzFile fd, char * cpioName, char * outName, int inWin) {
 
     return 0;
 }
+
+int myCpioFilterArchive(int infd, int outfd, char ** pattern);

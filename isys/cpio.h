@@ -70,9 +70,7 @@ typedef void (*cpioCallback)(struct cpioCallbackInfo * filespec, void * data);
 int myCpioInstallArchive(gzFile stream, struct cpioFileMapping * mappings, 
 		       int numMappings, cpioCallback cb, void * cbData,
 		       const char ** failedFile);
-int myCpioBuildArchive(int fd, struct cpioFileMapping * mappings, 
-		     int numMappings, cpioCallback cb, void * cbData,
-		     unsigned int * archiveSize, char ** failedFile);
+int myCpioFilterArchive(gzFile inStream, gzFile outStream, char ** pattern);
 
 /* This is designed to be qsort/bsearch compatible */
 int myCpioFileMapCmp(const void * a, const void * b);
