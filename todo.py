@@ -378,7 +378,7 @@ class ToDo:
 
         keys = self.mounts.keys ()
 	keys.sort()
-	for mntpoint in self.mounts:
+	for mntpoint in self.mounts.keys ():
 	    (device, fsystem, format) = self.mounts[mntpoint]
 	    if not format: continue
 	    w = self.intf.waitWindow("Formatting", 
