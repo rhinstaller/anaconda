@@ -202,6 +202,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                               struct loaderData_s * loaderData, 
                               int flags) {
     struct in_addr addr;
+    char * c;
 
     /* set to 1 to get ks network struct logged */
 #if 0
@@ -254,10 +255,22 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
     }
 
-    if (loaderData->dns && (inet_aton(loaderData->dns, &addr))) {
-        cfg->dev.dnsServers[0] = addr;
-        cfg->dev.numDns = 1;
-        cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
+    if (loaderData->dns) {
+        char * buf;
+        buf = strdup(loaderData->dns);
+
+        /* Scan the dns parameter for multiple comma-separated IP addresses */
+         c = strtok(buf, ",");  
+         while ((cfg->dev.numDns < MAX_DNS_SERVERS) && (c != NULL) && 
+                (inet_aton(c,&addr))) {
+             cfg->dev.dnsServers[cfg->dev.numDns] = addr;
+             cfg->dev.numDns++;
+             logMessage("adding %s", inet_ntoa(addr));
+             c = strtok(NULL, ",");
+         }
+         logMessage("dnsservers is %s", loaderData->dns);
+         if (cfg->dev.numDns)
+             cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
     }
 
     if (loaderData->hostname) {
@@ -477,6 +490,12 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
        newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
    }
 #endif   /* s390 */
+
+    /* preserve extra dns servers for the sake of being nice */
+    for (i = newCfg.dev.numDns; i < cfg->dev.numDns; i++) {
+        newCfg.dev.dnsServers[i] = cfg->dev.dnsServers[i];
+    }
+    newCfg.dev.numDns = cfg->dev.numDns;
 
     cfg->isDynamic = newCfg.isDynamic;
     memcpy(&cfg->dev,&newCfg.dev,sizeof(newCfg.dev));
