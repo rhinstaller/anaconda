@@ -467,7 +467,7 @@ class XconfiguratorWindow:
 	    f.write ("%s %d\n" % (todo.x.server, todo._cardindex))
         f.close ()
 
-	args = ["xconfigurator", "--continue"],
+	args = ["xconfigurator", "--continue"]
 	if todo.expert:
 	    args = args + [ '--noddcprobe' ]
 
