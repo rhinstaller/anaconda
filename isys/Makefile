@@ -8,7 +8,7 @@ OBJECTS = nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o \
 	  lang.o
 STATICOBJS = otherinsmod.o
 STATICLIBS = /usr/lib/python1.5/site-packages/kudzumodule.so
-LOADLIBES = -lbz2 -lresolv -lz -lpci -lpopt -L../pump -lpump
+LOADLIBES = -lbz2 -lresolv -lz -lpci -lpopt -L../pump -lpump -lext2fs
 PYMODULES = _isys.so
 SUBDIRS = 
 

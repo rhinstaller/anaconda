@@ -239,3 +239,9 @@ def pumpNetDevice(device):
     # returns None on failure, "" if no nameserver is found, nameserver IP
     # otherwise
     return _isys.pumpnetdevice(device)
+
+def readExt2Label(device):
+    makeDevInode(device, "/tmp/disk")
+    label = _isys.e2fslabel("/tmp/disk");
+    os.unlink("/tmp/disk")
+    return label

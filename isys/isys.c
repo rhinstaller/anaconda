@@ -1,4 +1,7 @@
+#include <stdio.h>
 #include <errno.h>
+#include <linux/ext2_fs.h>
+#include <ext2fs/ext2fs.h>
 #include <fcntl.h>
 #include <popt.h>
 /* Need to tell loop.h what the actual dev_t type is. */
@@ -67,8 +70,10 @@ static PyObject * doResetResolv(PyObject * s, PyObject * args);
 static PyObject * doSetResolvRetry(PyObject * s, PyObject * args);
 static PyObject * doLoadFont(PyObject * s, PyObject * args);
 static PyObject * doLoadKeymap(PyObject * s, PyObject * args);
+static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
+    { "e2fslabel", (PyCFunction) doReadE2fsLabel, METH_VARARGS, NULL },
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
     { "raidstop", (PyCFunction) doRaidStop, METH_VARARGS, NULL },
     { "raidstart", (PyCFunction) doRaidStart, METH_VARARGS, NULL },
@@ -1133,4 +1138,28 @@ static PyObject * doSetResolvRetry(PyObject * s, PyObject * args) {
 
     Py_INCREF(Py_None);
     return Py_None;
+}
+
+static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args) {
+    char * device;
+    ext2_filsys fsys;
+    char buf[50];
+    int rc;
+
+    if (!PyArg_ParseTuple(args, "s", &device)) return NULL;
+
+    rc = ext2fs_open(device, EXT2_FLAG_FORCE, 0, 0, unix_io_manager,
+		     &fsys);
+    if (rc) {
+	Py_INCREF(Py_None);
+	return Py_None;
+    }
+
+    memset(buf, 0, sizeof(buf));
+    strncpy(buf, fsys->super->s_volume_name, 
+	    sizeof(fsys->super->s_volume_name));
+
+    ext2fs_close(fsys);
+
+    return Py_BuildValue("s", buf); 
 }
