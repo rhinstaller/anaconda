@@ -787,6 +787,7 @@ static char * setupCdrom(struct installMethod * method,
     int i;
     int rc;
     int hasCdrom = 0;
+    char * buf;
 
     do {
 	for (i = 0; i < kd->numKnown; i++) {
@@ -801,8 +802,11 @@ static char * setupCdrom(struct installMethod * method,
 		if (!needRedHatCD || 
 		    !access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
 		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
-				       "/mnt/runtime", "loop0"))
-			return "cdrom://mnt/source/.";
+				       "/mnt/runtime", "loop0")) {
+			buf = malloc(200);
+			sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
+			return buf;
+		    }
 		}
 		umount("/mnt/source");
 	    }
@@ -823,12 +827,9 @@ static char * setupCdrom(struct installMethod * method,
 	}
     } while (1);
 
-    /* FIXME: For GUI installs to other host (with display=)
-       we need to set up networking.  */
-    if (getenv("DISPLAY"))
-	flags |= LOADER_FLAGS_TEXT;
-    
-    return "cdrom://mnt/source/.";
+    abort();
+
+    return NULL;
 }
 
 static char * mountCdromImage(struct installMethod * method,
@@ -1200,7 +1201,7 @@ static char * doMountImage(char * location,
 
     /* This is a check for NFS or CD-ROM rooted installs */
     if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", X_OK))
-	return "cdrom://mnt/source/.";
+	return "cdrom://unknown/mnt/source/.";
     
 #if defined (INCLUDE_LOCAL) || defined (__sparc__) || defined (__alpha__)
 # if defined (__sparc__) || defined (__alpha__)
