@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2000-07-31 14:21-0400\n"
-"PO-Revision-Date: 2000-06-27 00:11+0200\n"
+"PO-Revision-Date: 2000-08-03 18:52+0200\n"
 "Last-Translator: László Németh <nemeth@qwertynet.hu>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -10,9 +10,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: ../comps.py:441
-#, fuzzy
 msgid "Everything"
-msgstr "Keresés"
+msgstr "Minden"
 
 #: ../exception.py:13 ../text.py:788
 msgid "Exception Occurred"
@@ -91,6 +90,8 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
+"Most helyezzen be egy floppyt. A lemez teljes tartalma törlésre kerül, ehhez "
+"tartsa magát."
 
 #: ../gui.py:361 ../gui.py:601
 msgid "Next"
@@ -536,7 +537,7 @@ msgstr "Nincsen súgó ehhez a teleptéshez."
 
 #: ../text.py:802
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "Crash Dump mentése"
 
 #: ../text.py:813
 msgid ""
@@ -546,10 +547,14 @@ msgid ""
 "will help Red Hat in fixing the problem.\n"
 "\n"
 msgstr ""
+"A telepítõ programban belsõ hiba lépett fel. Kérem jelezze ezt a hibát a Red "
+"Hat-nek (a bugzilla.redhat.com web lapon keresztül) amint módja van rá. A "
+"hibát leíró információ floppy lemezre menthetõ, ez a Red Hat segítségére "
+"lesz a hiba kijavításában.\n"
 
 #: ../text.py:820 ../text.py:823
 msgid "Save"
-msgstr ""
+msgstr "Mentés"
 
 #: ../text.py:820 ../text.py:821
 msgid "Debug"
@@ -560,7 +565,6 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:837
-#, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
@@ -761,14 +765,12 @@ msgstr ""
 "tisztán állítsa le a rendszert, a frissítés megkezdéséhez."
 
 #: ../todo.py:906
-#, fuzzy
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"A Linux rendszer egy vagy több partíciója nem lett tisztán unmountolva. "
-"Kérem indítsa el a Linux rendszerét, ellenõriztesse a filerendszereket, majd "
-"tisztán állítsa le a rendszert, a frissítés megkezdéséhez."
+"A Linux rendszer egy vagy több /etc/fstab-ban felsorolt partíciója nem "
+"mountolható. Javítsa ki ezt a hibát, és próbálkozzon újra a frissítéssel."
 
 #: ../todo.py:932
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
@@ -859,9 +861,8 @@ msgid "Vertical frequency range"
 msgstr "Függõleges eltérítési frekvencia-tartomány"
 
 #: ../xserver.py:26
-#, fuzzy
 msgid "Mouse Not Detected"
-msgstr "Egér kiválasztás"
+msgstr "Egér nem detektálható"
 
 #: ../xserver.py:27
 msgid ""
@@ -870,10 +871,14 @@ msgid ""
 "information. You may also use text mode installation which does not require "
 "a mouse."
 msgstr ""
+"Az egér nem lett automatikusan detektálva. A grafikus telpítés folytatásához "
+"lépjen a következõ képernyõre, és adja meg az egérrel kapcsolatos "
+"információkat. Választhatja a szöveges üzemmódú telepítést is, amelyhez "
+"nincs szükség egérre."
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
-msgstr ""
+msgstr "Szöveges mód használata"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -896,9 +901,8 @@ msgid "Root passwords do not match."
 msgstr "Root jelszók nem egyeznek."
 
 #: ../iw/account_gui.py:56
-#, fuzzy
 msgid "User password accepted."
-msgstr "Root jelszó elfogadva."
+msgstr "Felhasználói jelszó elfogadva."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -992,36 +996,32 @@ msgid "NIS Server: "
 msgstr "NIS szerver: "
 
 #: ../iw/auth_gui.py:118 ../textw/userauth_text.py:332
-#, fuzzy
 msgid "Enable LDAP"
-msgstr "NIS engedélyezése"
+msgstr "LDAP engedélyezése"
 
 #: ../iw/auth_gui.py:121 ../textw/userauth_text.py:338
-#, fuzzy
 msgid "LDAP Server:"
-msgstr "NIS szerver:"
+msgstr "LDAP szerver:"
 
 #: ../iw/auth_gui.py:123 ../textw/userauth_text.py:340
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "LDAP Base DN:"
 
 #: ../iw/auth_gui.py:150 ../textw/userauth_text.py:357
-#, fuzzy
 msgid "Enable Kerberos"
-msgstr "Dead keys engedélyezése"
+msgstr "Kerberos engedélyezése"
 
 #: ../iw/auth_gui.py:154 ../textw/userauth_text.py:364
 msgid "Realm:"
-msgstr ""
+msgstr "Realm:"
 
 #: ../iw/auth_gui.py:156 ../textw/userauth_text.py:366
 msgid "KDC:"
-msgstr ""
+msgstr "KDC:"
 
 #: ../iw/auth_gui.py:158 ../textw/userauth_text.py:368
-#, fuzzy
 msgid "Admin Server:"
-msgstr "NIS szerver:"
+msgstr "Admin szerver:"
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
@@ -1135,9 +1135,8 @@ msgstr ""
 " Ez a rendszer nem frissíthetõ!"
 
 #: ../iw/examine_gui.py:44
-#, fuzzy
 msgid "Please select the device containing the root filesystem: "
-msgstr "A(z) %s könyvtárnak a root file-rendszeren kell lenni."
+msgstr "Válassza ki a root filerendszert tartalmazó eszközt: "
 
 #: ../iw/examine_gui.py:72
 msgid "Customize packages to be upgraded"
@@ -1616,9 +1615,8 @@ msgid "Skip X Configuration"
 msgstr "X beállítás kihagyása"
 
 #: ../iw/xconfig_gui.py:491
-#, fuzzy
 msgid "Default Desktop:"
-msgstr "Alapértelmezés"
+msgstr "Alapértelmezett felület:"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
@@ -1703,9 +1701,8 @@ msgid "Boot label may not be empty."
 msgstr "A boot címke nem lehet üres."
 
 #: ../textw/lilo_text.py:150
-#, fuzzy
 msgid "Boot label contains illegal characters."
-msgstr "A boot címke nem tartalmazhat szóközt."
+msgstr "A boot címke hibás karaktereket tartalmaz."
 
 #: ../textw/lilo_text.py:206
 msgid ""
@@ -1736,9 +1733,8 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM1 DOS alatt)"
 
 #: ../textw/mouse_text.py:26
-#, fuzzy
 msgid "What device is your mouse located on?"
-msgstr "Melyik eszközön található az egere? %s %i"
+msgstr "Melyik eszközön található az egere?"
 
 #: ../textw/mouse_text.py:47
 msgid "Which model mouse is attached to this computer?"
@@ -2088,7 +2084,7 @@ msgstr "Szerver kérése broadcast-tal"
 
 #: ../libfdisk/fsedit.c:448
 msgid "partitioning did not meet requirements"
-msgstr ""
+msgstr "a partícionálás nem felel meg a követelményeknek"
 
 #: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
 #: ../libfdisk/fsedit.c:988 ../libfdisk/fsedit.c:1015
@@ -2405,18 +2401,16 @@ msgstr ""
 "mérete %ld Megabyte."
 
 #: ../libfdisk/gnomefsedit.c:1265
-#, fuzzy
 msgid "No Drives Specified"
-msgstr "Nem találtam meghajtókat"
+msgstr "Nincsenek meghajtók kijelölve"
 
 #: ../libfdisk/gnomefsedit.c:1266 ../libfdisk/gnomefsedit.c:1283
 msgid "Close"
 msgstr "Bezár"
 
 #: ../libfdisk/gnomefsedit.c:1267
-#, fuzzy
 msgid "You must constrain this partition to at least one drive."
-msgstr "A telepítés folytatásához ki kell jelölnie egy swap-partíciót."
+msgstr "Ezt a partíciót legalább egy meghajtóhoz hozzá kell rendelnie."
 
 #: ../libfdisk/gnomefsedit.c:1275 ../libfdisk/gnomefsedit.c:1282
 msgid "No RAID Drive Constraint"
@@ -2753,9 +2747,8 @@ msgid "Swap Partition"
 msgstr "Swap partíció"
 
 #: ../libfdisk/newtfsedit.c:208
-#, fuzzy
 msgid "Raid Partition"
-msgstr "Partíció-szerkesztés"
+msgstr "Raid partíció"
 
 #: ../libfdisk/newtfsedit.c:363
 msgid "Edit New Partition"
@@ -2812,16 +2805,16 @@ msgid "You must assign a swap partition for the install to proceed."
 msgstr "A telepítés folytatásához ki kell jelölnie egy swap-partíciót."
 
 #: ../libfdisk/newtfsedit.c:1617
-#, fuzzy
 msgid "No /boot/efi Partition"
-msgstr "Nincs root-partíció"
+msgstr "Nincs /boot/efi partíció"
 
 #: ../libfdisk/newtfsedit.c:1619
-#, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
-msgstr "A telepítés folytatásához ki kell jelölnie egy swap-partíciót."
+msgstr ""
+"A telepítés folytatásához a /boot/efi mount-pontot hozzá kell rendelnie egy "
+"FAT stílusú elsõdleges partícióhoz."
 
 #: ../libfdisk/newtfsedit.c:1640
 msgid ""
@@ -2924,9 +2917,9 @@ msgid "Failed to insert %s module."
 msgstr "Hiba a %s modul beillesztésénél."
 
 #: ../loader/devices.c:456
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Nem sikerült mount-olni a driver lemezt."
+msgstr "Nem sikerült mount-olni a driver lemezt: %s"
 
 #: ../loader/devices.c:476
 msgid "The wrong diskette was inserted."
@@ -3439,9 +3432,8 @@ msgid "Custom System"
 msgstr "Egyedi rendszer"
 
 #: ../installclasses/server.py:8
-#, fuzzy
 msgid "Server System"
-msgstr "Rendszer frissítés"
+msgstr "Szerver rendszer"
 
 #: ../installclasses/server.py:34
 msgid ""
@@ -3488,15 +3480,14 @@ msgstr "Játékok"
 msgid "Multimedia Support"
 msgstr "Multimédia támogatás"
 
-#, fuzzy
 msgid "Laptop Support"
-msgstr "Nyomtató támogatás"
+msgstr "Laptop támogatás"
 
 msgid "Networked Workstation"
 msgstr "Hálózatos munkaállomás"
 
 msgid "Dialup Workstation"
-msgstr "KDE munkaállomás"
+msgstr "Telefonos munkaállomás"
 
 msgid "News Server"
 msgstr "News szerver"
@@ -3539,9 +3530,3 @@ msgstr "Kernel fejlesztés"
 
 msgid "Utilities"
 msgstr "Segédeszközök"
-
-#~ msgid "Error copying timezone (from %s): %s"
-#~ msgstr "Hiba az idõzóna másolásánál (%s-bõl): %s"
-
-#~ msgid "Clustering"
-#~ msgstr "Clustering"
