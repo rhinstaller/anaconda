@@ -26,6 +26,12 @@ class AccountWindow (InstallWindow):
     htmlTag = ("accts")
 
     def getNext (self):
+        def passwordError():
+            self.pw.set_text("")
+            self.confirm.set_text("")
+            self.pw.grab_focus()            
+            raise gui.StayOnScreen
+            
 	if not self.__dict__.has_key("pw"): return None
 
         pw = self.pw.get_text()
@@ -37,21 +43,21 @@ class AccountWindow (InstallWindow):
                                       "and confirm it by typing it a second "
                                       "time to continue."),
                                     custom_icon="error")
-            raise gui.StayOnScreen
+            passwordError()
 
         if pw != confirm:
             self.intf.messageWindow(_("Error with Password"),
                                     _("The passwords you entered were "
                                       "different.  Please try again."),
                                     custom_icon="error")
-            raise gui.StayOnScreen
+            passwordError()
 
         if len(pw) < 6:
             self.intf.messageWindow(_("Error with Password"),
                                     _("The root password must be at least "
                                       "six characters long."),
                                     custom_icon="error")
-            raise gui.StayOnScreen
+            passwordError()
         
         allowed = string.digits + string.ascii_letters + string.punctuation + " "
         for letter in pw:
@@ -61,7 +67,7 @@ class AccountWindow (InstallWindow):
                                           "non-ascii characters which are "
                                           "not allowed for use in password."),
                                         custom_icon="error")
-                raise gui.StayOnScreen
+                passwordError()
 
         self.rootPw.set (self.pw.get_text ())
         return None
