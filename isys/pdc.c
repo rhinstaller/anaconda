@@ -90,7 +90,7 @@ struct promise_raid_conf {
 };
 
 
-static unsigned long calc_pdcblock_offset (int fd) {
+static unsigned long long calc_pdcblock_offset (int fd) {
 	unsigned long lba = 0;
 	struct hd_big_geometry g;
 	long sectors;
@@ -128,11 +128,11 @@ static int read_disk_sb (int fd, unsigned char *buffer,int bufsize)
 	 * Calculate the position of the superblock,
 	 * it's at first sector of the last cylinder
 	 */
-	sb_offset = calc_pdcblock_offset(fd) * 512;
-	if (sb_offset == -1)
+	sb_offset = calc_pdcblock_offset(fd);
+	if (sb_offset == ((unsigned long long) -1))
 	    return -1;
-	
-	lseek64(fd, sb_offset, SEEK_SET);
+
+	lseek64(fd, sb_offset * 512, SEEK_SET);
 	read (fd, buffer, bufsize);
 
 	ret = 0;
