@@ -165,6 +165,18 @@ def readPackages(intf, method, id):
                                  "due to a missing file or bad media.  "
                                  "Press <return> to try again."))
             continue
+
+    while iutil.getArch() == "ia64":
+        try:
+            method.mergeFullHeaders(hdrlist)
+            break
+        except FileCopyException:
+            method.unmountCD()
+            intf.messageWindow(_("Error"),
+                               _("Unable to merge header list.  This may be "
+                                 "due to a missing file or bad media.  "
+                                 "Press <return> to try again."))
+        
     id.grpset = grpset
 
     if doselect:
