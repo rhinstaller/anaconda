@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-03 14:34-0500\n"
-"PO-Revision-Date: 2005-01-15 21:39+0100\n"
+"PO-Revision-Date: 2005-03-05 13:21+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -207,15 +207,12 @@ msgid "Could not allocate partitions"
 msgstr "Nemohu alokovat oddíly"
 
 #: ../autopart.py:1022
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
-msgstr ""
-"Zaváděcí oddíl %s není na BSD disk label. SRM nebude moci zavést systém z "
-"tohoto oddílu. Použijte oddíl, který je na BSD disk label nebo změňte disk "
-"label tohoto zařízení na BSD."
+msgstr "Zaváděcí oddíl %s není na BSD disk label. SRM nebude moci zavést systém z tohoto oddílu. Použijte oddíl, který je na BSD disk label, nebo změňte disk label tohoto zařízení na BSD."
 
 #: ../autopart.py:1024
 #, python-format
@@ -1200,20 +1197,17 @@ msgstr "Typ instalace"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Chyba skriptu"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Při instalaci %s došlo k chybě. Chyba mohla být způsobena chybou "
-"instalačního média, nedostatkem místa na disku nebo problémem s hardware. "
-"Chyba je fatální a instalace bude proto ukončena. Zkontrolujte prosím "
-"instalační médium a zkuste instalovat znovu.\n"
+"Při spouštění skriptu došlo k chybě. Výstup můžete zkontrolovat v %s. Toto je fatální chyba a vaše instalace bude přerušena.\n"
 "\n"
 "Stiskněte tlačítko OK pro restart systému."
 
@@ -2030,9 +2024,8 @@ msgstr ""
 "MB."
 
 #: ../partitions.py:823
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Musíte vytvořit zaváděcí oddíl PPC PReP."
+msgstr "Musíte vytvořit zaváděcí oddíl Apple."
 
 #: ../partitions.py:845
 msgid "You must create a PPC PReP Boot partition."
@@ -3060,14 +3053,11 @@ msgid "Congratulations"
 msgstr "Gratulujeme"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media  used during the installation process and "
 "press the \"Reboot\" button to reboot your system.\n"
 "\n"
-msgstr ""
-"Vyjměte všechna instalační média (diskety nebo CD-ROM) používaná při "
-"instalaci a restartujte svůj systém stisknutím tlačítka \"Restartovat\"..\n"
+msgstr "Vyjměte všechna instalační média používaná při instalaci a restartujte svůj systém stisknutím tlačítka \"Restartovat\".\n"
 
 #: ../iw/congrats_gui.py:65
 #, python-format
@@ -5362,14 +5352,11 @@ msgid "<Enter> to exit"
 msgstr "<Enter> pro ukončení"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
-msgstr ""
-"Vyjměte všechna instalační média (diskety nebo CD-ROM) používaná při "
-"instalaci a restartujte svůj systém stisknutím Enter.\n"
+msgstr "Vyjměte všechna instalační média používaná při instalaci a restartujte svůj systém stisknutím <Enter>.\n"
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to reboot"
