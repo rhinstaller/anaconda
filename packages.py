@@ -966,3 +966,7 @@ def betaNagScreen(intf, dir):
 		sys.exit(0)
 	else:
 	    break
+
+# FIXME: this is really a poor way to do this
+def packageGroupSelectHack(instClass, id):
+    instClass.selectDependentHiddenGroups(id)
