@@ -37,14 +37,6 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
     if dir == DISPATCH_BACK:
         return
 
-    # do not give option to change bootloader if partitionless case
-    if fsset.rootOnLoop():
-        bl.setUseGrub(0)
-        dispatch.skipStep("bootloader")
-        dispatch.skipStep("bootloaderpassword")
-	dispatch.skipStep("instbootloader")
-        return
-    
     choices = fsset.bootloaderChoices(diskSet, bl)
     if not choices:
 	dispatch.skipStep("instbootloader")

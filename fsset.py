@@ -900,13 +900,6 @@ class FileSystemSet:
 
         f.close()
         
-    def rootOnLoop (self):
-        for entry in self.entries:
-            if (entry.mountpoint == '/'
-                and entry.device.getName() == "LoopbackDevice"):
-                return 1
-        return 0
-
     # return the "boot" devicce
     def getBootDev(self):
 	mntDict = {}
@@ -1245,13 +1238,6 @@ class FileSystemSet:
 
     def hasDirtyFilesystems(self, mountpoint):
         ret = []
-	if self.rootOnLoop():
-            entry = self.getEntryByMountPoint('/')
-            mountLoopbackRoot(entry.device.host[5:], skipMount = 1,
-                              mountpoint = mountpoint)
-	    dirty = isys.ext2IsDirty("loop1")
-	    unmountLoopbackRoot(skipMount = 1, mountpoint = mountpoint)
-	    if dirty: return [ "loop" ]
 
 	for entry in self.entries:
             # XXX - multifsify, virtualize isdirty per fstype
@@ -1896,23 +1882,6 @@ def allocateLoopback(file):
         return dev
     return None
 
-_loopbackRootDevice = None
-def mountLoopbackRoot(device, skipMount=0, mountpoint="/mnt/sysimage"):
-    global _loopbackRootDevice
-    isys.mount(device, '/mnt/loophost', fstype = "vfat")
-    _loopbackRootDevice = allocateLoopback("/mnt/loophost/redhat.img")
-    if not skipMount:
-        isys.mount(_loopbackRootDevice, mountpoint)
-    
-def unmountLoopbackRoot(skipMount=0, mountpoint="/mnt/sysimage"):
-    global _loopbackRootDevice
-    if not skipMount:
-        isys.umount(mountpoint)
-    path = '/tmp/' + _loopbackRootDevice
-    isys.makeDevInode(_loopbackRootDevice, path)
-    isys.unlosetup(path)
-    isys.umount('/mnt/loophost')
-
 def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
     if windowCreator:
         w = windowCreator(_("Formatting"),
@@ -1999,7 +1968,6 @@ if __name__ == "__main__":
     fsset = readFstab("fstab")
 
     print fsset.fstab()
-    print fsset.rootOnLoop()
     
     sys.exit(0)
     fsset = FileSystemSet()

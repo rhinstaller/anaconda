@@ -67,20 +67,14 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     diskset.openDevices()
     diskset.startAllRaid()
 
-    if rootFs == "vfat":
-	mountLoopbackRoot(root, mountpoint = instPath)
-    else:
-	isys.mount(root, instPath, rootFs)
+    isys.mount(root, instPath, rootFs)
 
     oldfsset.reset()
     newfsset = fsset.readFstab(instPath + '/etc/fstab')
     for entry in newfsset.entries:
         oldfsset.add(entry)
 
-    if rootFs == "vfat":
-	unmountLoopbackRoot(mountpoint = instPath)
-    else:
-	isys.umount(instPath)        
+    isys.umount(instPath)        
 
     dirtyDevs = oldfsset.hasDirtyFilesystems(instPath)
     if not allowDirty and dirtyDevs != []:
@@ -147,24 +141,14 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
 
     fsList = []
 
-    if id.fsset.rootOnLoop():
-	space = isys.pathSpaceAvailable("/mnt/loophost")
-
-        for entry in id.fsset.entries:
-            if entry.mountpoint != '/' or space <= 16:
+    for entry in id.fsset.entries:
+        if entry.fsystem.getName() in fsset.getUsableLinuxFs():
+            if flags.setupFilesystems and not entry.isMounted():
                 continue
-            
-	    info = (entry.mountpoint, entry.device.getDevice(), space)
-	    fsList.append(info)
-    else:
-        for entry in id.fsset.entries:
-            if entry.fsystem.getName() in fsset.getUsableLinuxFs():
-                if flags.setupFilesystems and not entry.isMounted():
-                    continue
-                space = isys.pathSpaceAvailable(instPath + entry.mountpoint)
-                if space > 16:
-                    info = (entry.mountpoint, entry.device.getDevice(), space)
-                    fsList.append(info)
+            space = isys.pathSpaceAvailable(instPath + entry.mountpoint)
+            if space > 16:
+                info = (entry.mountpoint, entry.device.getDevice(), space)
+                fsList.append(info)
 
     suggestion = mem * 2 - swap
     if (swap + mem + suggestion) < 192:
@@ -189,9 +173,6 @@ def swapfileExists(swapname):
 def createSwapFile(instPath, theFsset, mntPoint, size):
     fstabPath = instPath + "/etc/fstab"
     prefix = ""
-    if theFsset.rootOnLoop():
-	instPath = "/mnt/loophost"
-	prefix = "/initrd/loopfs"
 
     if mntPoint != "/":
         file = mntPoint + "/SWAP"

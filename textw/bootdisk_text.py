@@ -19,10 +19,6 @@ from constants import *
 
 class BootDiskWindow:
     def __call__(self, screen, dir, disp, fsset):
-	if fsset.rootOnLoop():
-            disp.skipStep("makebootdisk", skip=0)
-	    return INSTALL_NOOP
-
 	buttons = [ _("Yes"), _("No") ]
 	text =  _("A custom boot disk provides a way of booting into your "
 		  "Linux system without depending on the normal boot loader. "
@@ -62,10 +58,7 @@ class BootDiskWindow:
 
 class MakeBootDiskWindow:
     def __call__ (self, screen, dir, disp, fsset):
-	if fsset.rootOnLoop():
-            buttons = [ _("OK") ]
-	else:
-            buttons = [ _("OK"), _("Skip") ]
+        buttons = [ _("OK"), _("Skip") ]
 
 	# This is a bit gross. This lets the first bootdisk screen skip
 	# this one if the user doesn't want to see it.
@@ -79,10 +72,6 @@ class MakeBootDiskWindow:
                  "floppy drive and insert a blank "
                  "diskette. All data will be ERASED "
                  "during creation of the boot disk.") % (productName,)
-
-        if fsset.rootOnLoop():
-            text = text + _("\n\nA boot disk is REQUIRED to boot a "
-                            "partitionless install.")
 
         rc = ButtonChoiceWindow (screen, _("Boot Disk"),
                                  text, buttons, help="insertbootdisk")
