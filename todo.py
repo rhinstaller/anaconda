@@ -760,6 +760,8 @@ class ToDo:
                 self.makeFilesystems ()
             self.mountFilesystems ()
 
+        self.method.targetFstab (self.mounts)
+
 	if not self.installSystem: 
 	    return
 
@@ -825,6 +827,8 @@ class ToDo:
         # XXX FIXME FIXME: -1 IGNORES all problems
         ts.run(0, -1, instCallback, p)
 
+        self.method.filesDone ()
+        
 	del syslog
         del p
 
