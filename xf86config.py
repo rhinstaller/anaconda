@@ -1089,6 +1089,8 @@ Section "Screen"
         return XF86Config_template % info
         
     def Version4Config(self, test=0):
+        if not self.vidCards:
+            raise RuntimeError, "No known video cards"
         screens = ""
         maxdepth = -1
         for depth in self.modes.keys ():
