@@ -91,12 +91,7 @@ class TimezoneWindow:
 	self.l.setCurrent(default)
 #	self.l.setCallback(self.updateClock)
         
-        # avoid breaking string freeze while still making it so that
-        # we have the same string as in gui
-        txt = _("System clock uses _UTC")
-        txt = txt.replace("_", "")
-        
-	self.c = Checkbox(txt, isOn = asUtc)
+	self.c = Checkbox("System clock uses UTC", isOn = asUtc)
 #	self.c.setCallback(self.updateSysClock)
 
 	self.g = GridFormHelp(screen, _("Time Zone Selection"), "timezone",
