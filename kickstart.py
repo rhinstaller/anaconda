@@ -388,7 +388,7 @@ class KickstartBase(BaseInstallClass):
 	    if where != "pre" and where != "post":
 		if not args or args[0][0] == '#': continue
 
-	    if args[0] == "%post" or args[0] == "%pre":
+	    if args and (args[0] == "%post" or args[0] == "%pre"):
 		if where =="pre" or where == "post":
 		    s = Script(script, scriptInterp, scriptChroot)
 		    if where == "pre":
@@ -420,7 +420,7 @@ class KickstartBase(BaseInstallClass):
 		    elif str == "--interpreter":
 			scriptInterp = arg
 
-	    elif args[0] == "%packages":
+	    elif args and args[0] == "%packages":
 		if where =="pre" or where == "post":
 		    s = Script(script, scriptInterp, scriptChroot)
 		    if where == "pre":
