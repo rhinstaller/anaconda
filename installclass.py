@@ -175,7 +175,9 @@ class Workstation(InstallClass):
 	self.addToSkipList("network")
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
-	#self.addToSkipList("partition")
+	self.addToSkipList("partition")
+	self.addToSkipList("package-selection")
+	self.addToSkipList("format")
 
 	self.partitions.append(('/boot', 16, 16, 0))
 	self.partitions.append(('/', 500, 500, 1))
