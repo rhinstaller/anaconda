@@ -132,7 +132,7 @@ class Mouse (SimpleConfigFile):
                 try:
                     f = open ('/dev/psaux')
                     f.write ('1')
-                    f.close
+                    f.close()
                 except:
                     pass
 
