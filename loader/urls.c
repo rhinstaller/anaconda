@@ -105,7 +105,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     newtComponent answer, text, cb = NULL;
     char * site, * dir;
     char * reflowedText = NULL;
-    int width, height;
+    int width, height, len;
     newtGrid entryGrid, buttons, grid;
 
     if (ui->address) {
@@ -225,8 +225,9 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     ui->prefix = strdup(dir);
 
     if (ui->urlprefix) free(ui->urlprefix);
-    ui->urlprefix = malloc(sizeof(char) * (strlen(ui->address) +
-					  strlen(ui->prefix) + 10));
+    len = strlen(ui->address);
+    if (len < 15) len = 15;
+    ui->urlprefix = malloc(sizeof(char) * (len + strlen(ui->prefix) + 10));
 
     if (*doSecondarySetup != '*') {
 	if (ui->login)
