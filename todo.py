@@ -720,6 +720,7 @@ class ToDo:
             fields = string.split (line)
             if fields and fields[2] == "ext2" or fields[2] == "swap":
                 fstab[fields[0][4:]] = (fields[1], fields[2], 0)
+        return fstab
 
     def upgradeFindPackages (self, root):
 	self.getHeaderList()
