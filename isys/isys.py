@@ -355,3 +355,38 @@ def getGeometry(device):
 
 def fbinfo():
     return _isys.fbinfo()
+
+def ideCdRwList():
+    if not os.access("/proc/sys/dev/cdrom/info", os.R_OK): return None
+
+    f = open("/proc/sys/dev/cdrom/info", "r")
+    lines = f.readlines()
+    f.close()
+
+    driveList = []
+    finalDict = {}
+
+    for line in lines:
+	line = string.split(line, ':', 1)
+
+	if (line and line[0] == "drive name"):
+	    line = string.split(line[1])
+	    # no CDROM drives
+	    if not line:  return
+
+	    for device in line:
+		if device[0:2] == 'sr':
+		    device = "scd" + device[2:]
+		driveList.append(device)
+	elif ((line and line[0] == "Can write CD-R") or
+	      (line and line[0] == "Can write CD-RW")):
+	    line = string.split(line[1])
+	    field = 0
+	    for ability in line:
+		if ability == "1":
+		    finalDict[driveList[field]] = 1
+		field = field + 1
+
+    l = finalDict.keys()
+    l.sort()
+    return l
