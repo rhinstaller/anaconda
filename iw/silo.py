@@ -141,7 +141,7 @@ class SiloWindow (InstallWindow):
         self.ignoreSignals = 0
 
     def getScreen (self):
-	self.images = self.todo.silo.getSiloImages(self.todo.fstab)
+	(self.images, default) = self.todo.silo.getSiloImages(self.todo.fstab)
         self.ignoreSignals = 0
 
 	(mount, dev, fstype, format, size) = self.todo.fstab.mountList()[0]
@@ -255,7 +255,7 @@ class SiloWindow (InstallWindow):
 	    (label, type) = self.images[n]
 	    self.imageList.append(("", "/dev/" + n, self.typeName(type), 
 				    label))
-	    if (label == "linux"):
+	    if (label == defaultLabel):
 		self.default = count
 		self.imageList.set_pixmap(count, 0, self.checkMark)
 	    count = count + 1
