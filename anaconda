@@ -436,6 +436,12 @@ if iutil.getArch() != "s390" and iutil.getArch() != "s390x":
         else:
             sys.stdout.write(_("Using mouse type: "))
             sys.stdout.write(mousehw.shortDescription()+'\n')
+else: # s390 checks
+    if display_mode == 'g' and not os.environ.has_key('DISPLAY'):
+        print _("DISPLAY variable not set. Starting text mode!")
+        display_mode = 't'
+        time.sleep(2)
+
 
 #
 # startup X server is we're not already running under an X session
