@@ -24,6 +24,7 @@ class InstallMethod:
 	    s = string.split(line)
 	    if s == "/tmp/" + self.device:
 		self.tree = s[1] + "/"
+		return
 	
 	isys.makeDevInode(self.device, '/tmp/' + self.device)
 	isys.mount('/tmp/' + self.device, "/tmp/hdimage", 
