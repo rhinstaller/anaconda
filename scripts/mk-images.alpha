@@ -22,7 +22,7 @@ makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.img \
 makebootdisk --bootdisksize 1440 --kernelto $TOPDESTPATH/kernels/vmlinux.gz \
 	     --imagename generic.img
 
-makemainmodules "$SECSTAGE"
+makemainmodules "$SECSTAGE $SCSIMODULES"
 makeinstimage --size1 3700 --size2 3600 "netstg" "$SECSTAGE $SCSIMODULES"
 makeinstimage --size1 3700 --size2 3600 "hdstg" "$SECSTAGE $NETMODULES"
 makemainimage "stage2"
