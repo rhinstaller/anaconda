@@ -1208,7 +1208,7 @@ class PartitionWindow(InstallWindow):
         createRAIDpart.set_active(1)
         doRAIDclone.set_sensitive(0)
         createRAIDdev.set_sensitive(0)
-        if len(availraidparts) > 0 :
+        if len(availraidparts) > 0 and len(self.diskset.disks.keys()) > 1:
             doRAIDclone.set_sensitive(1)
 
         if len(availraidparts) > 1:
@@ -1248,8 +1248,11 @@ class PartitionWindow(InstallWindow):
             while 1:
                 rc = cloneDialog.run()
 
+		if rc:
+		    self.refresh()
+		    
                 cloneDialog.destroy()
-                return
+		return
 
 	    
     def viewButtonCB(self, widget):
