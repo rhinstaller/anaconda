@@ -1004,7 +1004,7 @@ int main(int argc, char ** argv) {
      * kind of weird. */
     if (loaderData.ksFile) {
         logMessage("getting kickstart file");
-        getKickstartFile(&loaderData, &flags);
+        getKickstartFile(&kd, &loaderData, &flags);
         if (FL_KICKSTART(flags) && 
             (ksReadCommands(loaderData.ksFile) != LOADER_ERROR)) {
             setupKickstart(&loaderData, &flags);

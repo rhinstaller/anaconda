@@ -167,7 +167,8 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 }
 
 void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg, 
-                              struct loaderData_s * loaderData) {
+                              struct loaderData_s * loaderData, 
+                              int flags) {
     struct in_addr addr;
 
     if (loaderData->ipinfo_set == 0) {
@@ -181,6 +182,8 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             /* JKFIXME: this soooo doesn't belong here.  and it needs to
              * be broken out into a function too */
             logMessage("sending dhcp request through device %s", loaderData->netDev);
+
+            startNewt(flags);
             winStatus(50, 3, _("Dynamic IP"), 
                       _("Sending request for IP information for %s"), 
                       loaderData->netDev, 0);
@@ -224,8 +227,6 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     }
 
     cfg->noDns = loaderData->noDns;
-
-    logMessage("we set up ip information via kickstart");
 }
 
 int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
@@ -238,9 +239,9 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     char dhcpChoice;
     char * chptr;
 
-    /* JKFIXME: this is horribly inconsistent -- all of the other loaderData
-     * gets acted on even if I'm not in kickstart... */
-    if (FL_KICKSTART(flags) && !FL_TESTING(flags) && cfg->preset) {
+    /* JKFIXME: we really need a way to override this and be able to change
+     * our netowrk config */
+    if (!FL_TESTING(flags) && cfg->preset) {
         logMessage("doing kickstart... setting it up");
         configureNetwork(cfg);
         findHostAndDomain(cfg, flags);
@@ -605,7 +606,6 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { 0, 0, 0, 0, 0 }
     };
     
-    logMessage("kickstartNetwork");
     optCon = poptGetContext(NULL, argc, (const char **) argv, 
                             ksOptions, 0);    
     while ((rc = poptGetNextOpt(optCon)) >= 0) {
@@ -725,4 +725,52 @@ int chooseNetworkInterface(struct knownDevices * kd,
     loaderData->netDev = devices[deviceNum];
 
     return LOADER_OK;
+}
+
+/* JKFIXME: bad name.  this function brings up networking early on a 
+ * kickstart install so that we can do things like grab the ks.cfg from
+ * the network */
+int kickstartNetworkUp(struct knownDevices * kd, 
+                       struct loaderData_s * loaderData,
+                       int flags) {
+    int rc;
+    struct networkDeviceConfig netCfg;
+
+    initLoopback();
+
+    do {
+        /* this is smart and does the right thing based on whether or not
+         * we have ksdevice= specified */
+        rc = chooseNetworkInterface(kd, loaderData, flags);
+        
+        if (rc == LOADER_ERROR) {
+            /* JKFIXME: ask for a driver disk */
+            logMessage("no network drivers for doing kickstart");
+            return -1;
+        } else if (rc == LOADER_BACK) {
+            return -1;
+        }
+        break;
+    } while (1);
+
+    /* JKFIXME: this is kind of crufty, we depend on the fact that the
+     * ip is set and then just get the network up.  we should probably
+     * add a way to do asking about static here and not be such a hack */
+    if (!loaderData->ip) {
+        loaderData->ip = strdup("dhcp");
+    } 
+    loaderData->ipinfo_set = 1;
+
+    memset(&netCfg, 0, sizeof(netCfg));
+    netCfg.isDynamic = 1;
+
+    setupNetworkDeviceConfig(&netCfg, loaderData, flags);
+
+    rc = readNetConfig(loaderData->netDev, &netCfg, flags);
+    if (rc) {
+        logMessage("unable to setup networking");
+        return -1;
+    }
+
+    return 0;
 }

@@ -92,7 +92,7 @@ char * mountNfsImage(struct installMethod * method,
     memset(&netDev, 0, sizeof(netDev));
     netDev.isDynamic = 1;
 
-    setupNetworkDeviceConfig(&netDev, loaderData);
+    setupNetworkDeviceConfig(&netDev, loaderData, flags);
 
     /* JKFIXME: ASSERT -- we have a network device when we get here */
     while (stage != NFS_STAGE_DONE) {

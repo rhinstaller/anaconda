@@ -41,6 +41,7 @@
 
 #include "../isys/imount.h"
 #include "../isys/isys.h"
+#include "../isys/probe.h"
 
 struct ksCommandNames {
     int code;
@@ -251,20 +252,17 @@ int kickstartFromFloppy(int flags) {
     return 0;
 }
 
-void getKickstartFile(struct loaderData_s * loaderData, int * flagsPtr) {
+void getKickstartFile(struct knownDevices * kd, 
+                      struct loaderData_s * loaderData, int * flagsPtr) {
     char * c = loaderData->ksFile;
+    int flags = *flagsPtr;
 
     loaderData->ksFile = NULL;
 
-    if (!strncmp(c, "ks=http://", 10)) {
-        /*        if (kickstartFromUrl(c + 3, flags))
+    if (!strncmp(c, "ks=http://", 10) || !strncmp(c, "ks=ftp://", 9)) {
+        if (kickstartFromUrl(c + 3, kd, loaderData, flags))
             return;
-            loaderData->ksFile = strdup("/tmp/ks.cfg");*/
-        logMessage("grabbing kickstart from http currently unsupported");
-        return;
-    } else if (!strncmp(c, "ks=ftp://", 9)) {
-        logMessage("grabbing kickstart from ftp currently unsupported");
-        return;
+        loaderData->ksFile = strdup("/tmp/ks.cfg");
     } else if (!strncmp(c, "ks=cdrom:", 9)) {
         logMessage("grabbing kickstart from cdrom currently unsupported");
         return;

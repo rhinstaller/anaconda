@@ -45,4 +45,8 @@ struct nfsInstallData {
 void setKickstartNfs(struct loaderData_s * loaderData, int argc,
                      char ** argv, int * flagsPtr);
 
+/* JKFIXME: url stuff */
+int kickstartFromUrl(char * url, struct knownDevices * kd,
+                     struct loaderData_s * loaderData, int flags);
+
 #endif

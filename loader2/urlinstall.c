@@ -149,7 +149,7 @@ char * mountUrlImage(struct installMethod * method,
                      moduleDeps * modDeps, int flags) {
     int rc;
     char * url;
-    char * devName;
+    char * devName = NULL;
     static struct networkDeviceConfig netDev;
     struct iurlinfo ui;
     char needsSecondary = ' ';
@@ -175,10 +175,11 @@ char * mountUrlImage(struct installMethod * method,
         switch(stage) {
         case URL_STAGE_IFACE:
             logMessage("going to pick interface");
-            rc = chooseNetworkInterface(kd, &devName, flags);
+            rc = chooseNetworkInterface(kd, loaderData, flags);
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) return NULL;
-            
+
+            devName = loaderData->netDev;
             stage = URL_STAGE_IP;
             dir = 1;
             break;
@@ -255,4 +256,81 @@ char * mountUrlImage(struct installMethod * method,
     writeNetInfo("/tmp/netinfo", &netDev, kd);
 
     return url;
+}
+
+int kickstartFromUrl(char * url, struct knownDevices * kd,
+                     struct loaderData_s * loaderData, int flags) {
+    struct iurlinfo ui;
+    enum urlprotocol_t proto = 
+        !strncmp(url, "ftp://", 6) ? URL_METHOD_FTP : URL_METHOD_HTTP;
+    char * host = NULL, * file = NULL, * chptr = NULL;
+    int fd, rc;
+
+
+    if (kickstartNetworkUp(kd, loaderData, flags)) {
+        logMessage("unable to bring up network");
+        return 1;
+    }
+
+    memset(&ui, 0, sizeof(ui));
+    ui.protocol = proto;
+
+    switch(proto) {
+    case URL_METHOD_HTTP:
+        host = url + 7;
+        break;
+    case URL_METHOD_FTP:
+        host = url + 6;
+        logMessage("ftp kickstart source not supported yet");
+        return 1;
+    }
+
+    /* JKFIXME: need to add this; abstract out the functionality
+     * so that we can use it for all types */
+    if (host[strlen(host) - 1] == '/') {
+        logMessage("directory syntax not supported yet");
+        return 1;
+        /* host[strlen(host) - 1] = '\0';
+           file = malloc(30);
+           sprintf(file, "%s-kickstart", inet_ntoa(netDev.dev.ip));*/
+    } else {
+        file = strrchr(host, '/');
+        if (!file) {
+            file = host;
+            host = "/";
+        } else {
+            *file++ = '\0';
+        }
+    }
+
+    logMessage("ks location: http://%s/%s", host, file);
+
+    chptr = strchr(host, '/');
+    if (chptr == NULL) {
+        ui.address = strdup(host);
+        ui.prefix = strdup("/");
+    } else {
+        *chptr = '\0';
+        ui.address = strdup(host);
+        host = chptr;
+        *host = '/';
+        ui.prefix = strdup(host);
+    }
+
+    fd = urlinstStartTransfer(&ui, file, 1);
+    if (fd < 0) {
+        logMessage("failed to retrieve http://%s/%s/%s", ui.address, ui.prefix, file);
+        return 1;
+    }
+           
+    rc = copyFileFd(fd, "/tmp/ks.cfg");
+    if (rc) {
+        unlink ("/tmp/ks.cfg");
+        logMessage("failed to copy ks.cfg to /tmp/ks.cfg");
+        return 1;
+    }
+
+    urlinstFinishTransfer(&ui, fd);
+
+    return 0;
 }
