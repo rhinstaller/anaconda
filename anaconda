@@ -1,9 +1,14 @@
 #!/usr/bin/python
 
-import sys, getopt, os
+import sys, os
 import gettext
 import traceback
 import string
+
+if (os.path.exists('isys')):
+    sys.path.append('isys')
+
+import isys
 
 setverPath = None
 
@@ -11,10 +16,12 @@ gettext.bindtextdomain("anaconda", "/usr/share/locale")
 gettext.textdomain("anaconda")
 _ = gettext.gettext
 
-(args, extra) = getopt.getopt(sys.argv[1:], 'GTtdr:fm:', 
+(args, extra) = isys.getOpt(sys.argv[1:], 'GTtdr:fm:', 
           [ 'gui', 'text', 'test', 'debug', 'method=', 'rootpath=', 
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
 	    'expert'])
+
+print "got args", args
 
 # remove the arguments - gnome_init doesn't understand them
 for arg in sys.argv[1:]:
@@ -74,7 +81,6 @@ if (not test and not localInstall and os.getpid() > 50):
 
 if (os.path.exists('rpmmodule')):
     sys.path.append('rpmmodule')
-    sys.path.append('isys')
     sys.path.append('libfdisk')
     sys.path.append('balkan')
     sys.path.append('kudzu')

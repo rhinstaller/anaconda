@@ -2,13 +2,12 @@ import isys
 from installclass import InstallClass
 from installclass import FSEDIT_CLEAR_LINUX
 from installclass import FSEDIT_CLEAR_ALL
-import getopt
 import sys
 
 class Kickstart(InstallClass):
 
     def doRootPw(self, args):
-	(args, extra) = getopt.getopt(args, '', [ 'iscrypted=' ])
+	(args, extra) = isys.getopt(args, '', [ 'iscrypted=' ])
 
 	isCrypted = 0
 	for n in args:
@@ -20,7 +19,7 @@ class Kickstart(InstallClass):
 	self.addToSkipList("accounts")
 
     def doAuthconfig(self, args):
-	(args, extra) = getopt.getopt(args, '',
+	(args, extra) = isys.getopt(args, '',
 		[ 'enablenis', 'nisdomain=', 'nisserver=', 'useshadow',
 		  'enablemd5' ])
 
@@ -51,7 +50,7 @@ class Kickstart(InstallClass):
 	self.addToSkipList("authentication")
 
     def doLilo	(self, args):
-	(args, extra) = getopt.getopt(args, '',
+	(args, extra) = isys.getopt(args, '',
 		[ 'append=', 'location=', 'linear' ])
 
 	appendLine = None
@@ -77,7 +76,7 @@ class Kickstart(InstallClass):
 	self.addToSkipList("lilo")
 
     def doTimezone(self, args):
-	(args, extra) = getopt.getopt(args, '',
+	(args, extra) = isys.getopt(args, '',
 		[ 'utc' ])
 
 	isUtc = 0
@@ -98,7 +97,7 @@ class Kickstart(InstallClass):
 	self.installType = "upgrade"
 
     def doNetwork(self, args):
-	(args, extra) = getopt.getopt(args, '',
+	(args, extra) = isys.getopt(args, '',
 		[ 'bootproto', 'ip', 'netmask', 'gateway', 'nameserver' ])
 	bootProto = "dhcp"
 	ip = None
@@ -167,7 +166,7 @@ class Kickstart(InstallClass):
 	grow = 0
 	maxSize = 0
 
-	(args, extra) = getopt.getopt(args, '', [ 'size=', 'maxsize=', 
+	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
 					'grow' ])
 
 	for n in args:
@@ -182,6 +181,7 @@ class Kickstart(InstallClass):
 	self.partitions.append((extra[0], size, maxSize, grow))
 
         self.addToSkipList("partition")
+        self.addToSkipList("format")
 
     def __init__(self, file):
 	InstallClass.__init__(self)
