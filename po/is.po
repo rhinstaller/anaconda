@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 1.130\n"
-"POT-Creation-Date: 2003-02-20 22:29-0500\n"
+"POT-Creation-Date: 2003-02-24 19:53-0500\n"
 "PO-Revision-Date: 2002-10-07 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
@@ -117,7 +117,7 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 "Ræsisneiðin %s tilheyrir ekki disk sem hefur nægjanlegt laust pláss fremst "
-"fyrir ræsistjórann.  Gaktu úr skugga um að það eru  að minnsta kosti 5MB "
+"fyrir ræsistjórann.  Gakktu úr skugga um að það eru  að minnsta kosti 5MB "
 "laus fremst á disknum sem hefur /boot skráarkerfið"
 
 #: ../autopart.py:985
@@ -241,7 +241,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Þetta getir átt sér stað ef það er ekki nóg pláss á diskunum þínum fyrir "
+"Þetta getur átt sér stað ef það er ekki nóg pláss á diskunum þínum fyrir "
 "uppsetninguna. Þú getur valið um aðra sjálfvirka sneiðingu eða smellt á 'Til "
 "baka' hnappinn og sneitt diskana handvirkt.\n"
 "\n"
@@ -249,7 +249,7 @@ msgstr ""
 
 #: ../autopart.py:1405 ../bootloader.py:123 ../image.py:386
 #: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:303
-#: ../upgrade.py:438 ../upgrade.py:458 ../upgrade.py:500
+#: ../upgrade.py:439 ../upgrade.py:459 ../upgrade.py:500
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
@@ -353,7 +353,7 @@ msgid ""
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
-"Þessi hópur inniheldur alla pakkana sem koma með dreyfingunni. Athugaðu að "
+"Þessi hópur inniheldur alla pakkana sem koma með dreifingunni. Athugaðu að "
 "þetta eru talsvert fleiri pakkar en eru í hinum pakkahópunum á þessari síðu."
 
 #: ../comps.py:1101
@@ -444,8 +444,8 @@ msgstr "_Búa til ræsidiskling"
 #: ../harddrive.py:217 ../image.py:76 ../image.py:113 ../image.py:249
 #: ../packages.py:140 ../packages.py:154 ../packages.py:341 ../packages.py:513
 #: ../packages.py:586 ../partedUtils.py:531 ../partIntfHelpers.py:147
-#: ../partIntfHelpers.py:332 ../upgrade.py:333 ../upgrade.py:358
-#: ../upgrade.py:384 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
+#: ../partIntfHelpers.py:332 ../upgrade.py:334 ../upgrade.py:359
+#: ../upgrade.py:385 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1068
 #: ../textw/partition_text.py:1079 ../textw/upgrade_text.py:165
@@ -875,7 +875,7 @@ msgid ""
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 "Villa kom upp við aftengingu geisladisksins. VInsamlegast gakktu úr skugga "
-"um að þú ert ekki að nota %s í skélinni á tty2 og veldu svo Í lagi til að "
+"um að þú sért ekki að nota %s í skélinni á tty2 og veldu svo Í lagi til að "
 "reyna aftur."
 
 #: ../image.py:110
@@ -920,11 +920,11 @@ msgstr "Ekki var hægt að tengja geisladiskinn."
 msgid "Install on System"
 msgstr "Setja upp á kerfi"
 
-#: ../kickstart.py:1170
+#: ../kickstart.py:1168
 msgid "Missing Package"
 msgstr "Vantar pakka"
 
-#: ../kickstart.py:1171
+#: ../kickstart.py:1169
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -933,19 +933,19 @@ msgstr ""
 "Þú hefur tekið fram að setja skuli upp pakkann '%s'. Þessi pakki er ekki "
 "til. Viltu halda áfram eða hætta uppsetningu?"
 
-#: ../kickstart.py:1177 ../kickstart.py:1203
+#: ../kickstart.py:1175 ../kickstart.py:1201
 msgid "_Abort"
 msgstr "Hætta _við"
 
-#: ../kickstart.py:1178 ../kickstart.py:1204 ../iw/partition_gui.py:997
+#: ../kickstart.py:1176 ../kickstart.py:1202 ../iw/partition_gui.py:997
 msgid "_Continue"
 msgstr "_Halda áfram"
 
-#: ../kickstart.py:1196
+#: ../kickstart.py:1194
 msgid "Missing Group"
 msgstr "Pakkahóp vantar"
 
-#: ../kickstart.py:1197
+#: ../kickstart.py:1195
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1050,7 +1050,7 @@ msgid ""
 "Press the OK button to reboot your system."
 msgstr ""
 "Það kom upp villa við uppsetningu %s. Þetta gæti orsakast af skemmdum disk, "
-"ekki nógu diskplássi og/eða vélbúnaðarbilunar. Þetta er banvæn villa og því "
+"ekki nógu diskplássi og/eða vélbúnaðarbilun. Þetta er banvæn villa og því "
 "mun uppsetningin ekki halda áfram.  Vinsamlegast láttu yfirfara diskinn og "
 "reyndu aftur.\n"
 "\n"
@@ -1064,7 +1064,7 @@ msgid ""
 msgstr ""
 "Þú ert að reyna að setja upp á vél sem er ekki studd af þessari útgáfu af %s."
 
-#: ../packages.py:587 ../upgrade.py:334
+#: ../packages.py:587 ../upgrade.py:335
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1336,7 +1336,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:101
 msgid "Please specify a mount point for this partition."
-msgstr "Vinsamlegast gefðu upp tengipunkt fyrir þess disksneið."
+msgstr "Vinsamlegast gefðu upp tengipunkt fyrir þessa disksneið."
 
 #: ../partIntfHelpers.py:109
 msgid "This partition is holding the data for the hard drive install."
@@ -1349,7 +1349,7 @@ msgstr "Þessi disksneið er hluti af RAID tækinu /dev/md%s."
 
 #: ../partIntfHelpers.py:118
 msgid "This partition is part of a RAID device."
-msgstr "Þessi disksneið er hluti af RAID tækin."
+msgstr "Þessi disksneið er hluti af RAID tæki."
 
 #: ../partIntfHelpers.py:123
 #, python-format
@@ -1469,7 +1469,7 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"Disksneiðin /dev/%s er af gerðinni 0x82 (Linux diskminni) er virðist ekki "
+"Disksneiðin /dev/%s er af gerðinni 0x82 (Linux diskminni) en virðist ekki "
 "vera forsniðin sem slík.\n"
 "\n"
 "Viltu forsníða þessa disksneið sem diskminnissneið?"
@@ -1808,7 +1808,7 @@ msgstr ""
 "Björgunarumhverfið mun nú reyna að finna Red Hat Linux kerfið þitt og tengja "
 "það undir möppuna %s. Þú getur gert þær breytingar sem þú þarft í þeirri "
 "möppu.  Ef þú vilt halda áfram veldu þá 'Halda áfram'. Þú getur einnig kosið "
-"að tengja diskinn annig að einungis er hægt að lesa hann með 'Einungis "
+"að tengja diskinn þannig að einungis er hægt að lesa hann með 'Einungis "
 "lestur' hnappnum.\n"
 "\n"
 "Ef þetta bregst á einhvern hátt getur þú valið 'Sleppa' og þessu þrepi "
@@ -1994,7 +1994,7 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"Eftirfarandi Linux skráarkerfi voru ekki aftengt á réttan máta. Viltu tengja "
+"Eftirfarandi Linux skráarkerfi voru ekki aftengd á réttan máta. Viltu tengja "
 "þau þrátt fyrir það?\n"
 "%s"
 
@@ -2044,8 +2044,8 @@ msgid ""
 "\n"
 msgstr ""
 "Eftirfarandi eru raunverulegar möppur en eiga að vera tákntengi og munu vera "
-"til vandræðna við uppfærsluna. Vinsamlegast breyttu þeim aftur í tákntengi "
-"og reyndu svo að uppfæra aftur.\n"
+"til vandræða við uppfærsluna. Vinsamlegast breyttu þeim aftur í tákntengi og "
+"reyndu svo að uppfæra aftur.\n"
 "\n"
 
 #: ../upgrade.py:298
@@ -2057,15 +2057,15 @@ msgstr "Ógilar möppur"
 msgid "%s not found"
 msgstr "%s fannst ekki"
 
-#: ../upgrade.py:346
+#: ../upgrade.py:347
 msgid "Finding"
 msgstr "Leita"
 
-#: ../upgrade.py:347
+#: ../upgrade.py:348
 msgid "Finding packages to upgrade..."
 msgstr "Leita að pökkum sem þarf að uppfæra..."
 
-#: ../upgrade.py:359
+#: ../upgrade.py:360
 msgid ""
 "The installation program is unable to upgrade systems with a pre-rpm 4.x "
 "database. Please install the errata rpm packages for your release as "
@@ -2075,11 +2075,11 @@ msgstr ""
 "útgáfur af rpm en 4.x. Vinsamlegast settu inn rpm uppfærslurnar fyrir "
 "núverandi stýrikerfi og reyndu svo að uppfæra aftur."
 
-#: ../upgrade.py:385
+#: ../upgrade.py:386
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "Það kom upp villa þegar leitað var að pökkum til uppfærslu."
 
-#: ../upgrade.py:439
+#: ../upgrade.py:440
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -2089,10 +2089,10 @@ msgid ""
 msgstr ""
 "Þessi vél virðist hafa pakka frá þriðja aðila uppsetta sem skarast á við "
 "pakkana sem fylgja Red Hat Linux.  Þar sem pakkarnir skarast getur "
-"uppfærslan ollið því að þeir hætti að virka eða valdið öðrum vandræðum. "
+"uppfærslan valdið því að þeir hætti að virka eða valdið öðrum vandræðum. "
 "Viltu halda áfram með uppfærsluna ?"
 
-#: ../upgrade.py:459
+#: ../upgrade.py:460
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -2101,7 +2101,7 @@ msgid ""
 msgstr ""
 "Þessi vél hefur ekki skrána /etc/redhat-release. Það er mögulegt að þetta sé "
 "því ekki Red Hat Linux vél. Ef þú heldur áfram með uppfærsluna getur það "
-"ollið því að véæin verður ónothæf. Viltu halda áfram með uppfærsluna ?"
+"valdið því að vélin verður ónothæf. Viltu halda áfram með uppfærsluna ?"
 
 #: ../upgrade.py:501
 #, python-format
@@ -2484,7 +2484,7 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the %s file after rebooting the system."
 msgstr ""
-"Annáll um þessa uppsetningu verður að finna í %s eftir endurræsinguna.\n"
+"Annál um þessa uppsetningu verður að finna í %s eftir endurræsinguna.\n"
 "\n"
 "Hraðuppsetningarskrá sem lýsir þessari uppsetningu verður í %s eftir "
 "endurræsinguna."
@@ -2641,10 +2641,10 @@ msgstr ""
 "\tTól til hugbúnaðarþróunar\n"
 "\tKerfisstjórnunartól\n"
 "\n"
-"Eftir að uppsetningu lýkur mða bæta við fleiri pökkum eða taka út pakka með "
+"Eftir að uppsetningu lýkur má bæta við fleiri pökkum eða taka út pakka með "
 "'redhat-config-packages' tólinu.\n"
 "\n"
-"Ef þú er vanur að nota %s getur þú velið pakka sem þú vilt setja inn eða "
+"Ef þú er vanur að nota %s getur þú valið pakka sem þú vilt setja inn eða "
 "ekki setja inn með því að haka við í boxið hér að neðan."
 
 #: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:11
@@ -2653,7 +2653,7 @@ msgstr "Skjáborð"
 
 #: ../iw/desktop_choice_gui.py:76
 msgid "Personal Desktop Defaults"
-msgstr "Sjálfgefnir eiginleikar skjáborðrs"
+msgstr "Sjálfgefnir eiginleikar skjáborðs"
 
 #: ../iw/desktop_choice_gui.py:81
 #, python-format
@@ -2687,7 +2687,7 @@ msgstr ""
 "\tHljóð og myndtól\n"
 "\tLeiki\n"
 "\n"
-"Eftir að uppsetningu lýkur mða bæta við fleiri pökkum eða taka út pakka með "
+"Eftir að uppsetningu lýkur má bæta við fleiri pökkum eða taka út pakka með "
 "'redhat-config-packages' tólinu.\n"
 "\n"
 "Ef þú er vanur að nota %s getur þú velið pakka sem þú vilt setja inn eða "
@@ -2924,7 +2924,7 @@ msgstr ""
 "sýndardiska sem þegar eru til í heiltölu margfeldi af stærð "
 "raundiskabútanna.\n"
 "\n"
-"Þessi breyting á sér stað umleið."
+"Þessi breyting á sér stað um leið."
 
 #: ../iw/lvm_dialog_gui.py:127 ../iw/lvm_dialog_gui.py:186
 #: ../iw/network_gui.py:154 ../iw/network_gui.py:158 ../iw/network_gui.py:181
@@ -3136,11 +3136,11 @@ msgstr "Heiti í notkun"
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
-"Heiti sýndardiskhópsins \"%s\" er þegar í notkun. Vinsamlegast veldi annað."
+"Heiti sýndardiskhópsins \"%s\" er þegar í notkun. Vinsamlegast veldu annað."
 
 #: ../iw/lvm_dialog_gui.py:921
 msgid "Not enough physical volumes"
-msgstr "Ekki næjanlega margir raundiskar"
+msgstr "Ekki nægjanlega margir raundiskar"
 
 #: ../iw/lvm_dialog_gui.py:922
 msgid ""
@@ -3150,7 +3150,7 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
-"Þú þarft að minnsta kosti eitt ónotaðann raundisk til að búa til LVM "
+"Þú þarft að minnsta kosti einn ónotaðann raundisk til að búa til LVM "
 "sýndardiskahóp.\n"
 "\n"
 "Búðu til disksneið eða RAID tæki af gerðinni \"physical volume (LVM)\" og "
@@ -3253,7 +3253,7 @@ msgstr "_Tegund"
 
 #: ../iw/mouse_gui.py:234
 msgid "_Emulate 3 buttons"
-msgstr "_Herma eftir þrem hnöppum"
+msgstr "_Herma eftir þremur hnöppum"
 
 #: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
@@ -3306,7 +3306,7 @@ msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Þú hefur ekki gefið upp vélarheiti. Þetta gæti ollið þér vandræðum síðar."
+"Þú hefur ekki gefið upp vélarheiti. Þetta gæti valdið þér vandræðum síðar."
 
 #: ../iw/network_gui.py:158
 #, python-format
@@ -3314,7 +3314,7 @@ msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
-"Þú hefur ekki gefið neitt upp í sviðinu \"%s\".  Þetta gæti ollið þér "
+"Þú hefur ekki gefið neitt upp í sviðinu \"%s\".  Þetta gæti valdið þér "
 "vandræðum síðar."
 
 #: ../iw/network_gui.py:162
@@ -3830,7 +3830,7 @@ msgid ""
 "\n"
 msgstr ""
 "RAID gerir þér kleyft að sameina marga diska í eitt stærra RAID tæki. RAID "
-"tæki má svo nota til að fá fram aukinn hraða og meiri gagnaöryggi miðað við "
+"tæki má svo nota til að fá fram aukinn hraða og meira gagnaöryggi miðað við "
 "eitt stakt drif. Eg þig langar að lesa meira um RAID tæki getur þú lesið %s "
 "handbókina.\n"
 "\n"
@@ -4369,8 +4369,8 @@ msgid ""
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "Þessi útgáfa af %s styður ext3 \"journalling\" skráarkerfið. Það hefur marga "
-"eiginleika umfram ext2 sem er staðlaða skráarkerfið sem hefur verið í %"
-"shingað til. Það er einnig hægt að breyta disksneiðum sem eru forsniðnar sem "
+"eiginleika umfram ext2 sem er staðlaða skráarkerfið sem hefur verið í %s "
+"hingað til. Það er einnig hægt að breyta disksneiðum sem eru forsniðnar sem "
 "ext2 í ext3 án þess að tapa gögnum.\n"
 "\n"
 "Hvaða disksneiðum viltu breyta ?"
@@ -4443,7 +4443,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Stærð diskminnisskráarinnar verur að vera á milli 1 og 2000 MB."
+msgstr "Stærð diskminnisskráarinnar verður að vera á milli 1 og 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
 msgid ""
@@ -4893,7 +4893,7 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"Einkatölvo og vinnustöðvaruppsetningarnar  gera þér kleyft að flakka um "
+"Einkatölvu og vinnustöðvaruppsetningarnar  gera þér kleyft að flakka um "
 "internetið, senda og taka við pósti og búa til og breyta skjölum á %s "
 "vélinni þinni.\n"
 "\n"
@@ -5110,7 +5110,7 @@ msgstr "Hvernig mús er tengd þessari vél?"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr "Herma eftir þrem hnöppum?"
+msgstr "Herma eftir þremur hnöppum?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
@@ -5743,7 +5743,7 @@ msgid ""
 "have at least one non-root account for normal work, but multi-user systems "
 "can have any number of accounts set up."
 msgstr ""
-"Hvaða aðra notanda viltu hafa á þessari vél? Þú ættir að hafa að minnsta "
+"Hvaða aðra notendur viltu hafa á þessari vél? Þú ættir að hafa að minnsta "
 "kosti einn notandaaðgang, sem er ekki rót fyrir dagleg störf. "
 "Fjölnotandavélar geta haft ótakmarkaðan fjölda notenda."
 
@@ -5842,9 +5842,9 @@ msgid ""
 msgstr ""
 "Velkomin(n) í %s!\n"
 "\n"
-"Uppsetningin er útskýrð í smáatriðum í %s uppsetningarhandbókinni bókinni "
-"sem er fáanleg frá Red Hat Inc. Ef þú hefur aðgang að þessari bók ættir þú "
-"að lesa um uppsetninguna áður en þú heldur áfram.\n"
+"Uppsetningin er útskýrð í smáatriðum í %s uppsetningarhandbókinni sem er "
+"fáanleg frá Red Hat Inc. Ef þú hefur aðgang að þessari bók ættir þú að lesa "
+"um uppsetninguna áður en þú heldur áfram.\n"
 "\n"
 "Ef þú hefur keypt opinbert eintak %s mundu þá að skrá það á vefsíðu okkar á "
 "http://www.redhat.com."
@@ -6186,7 +6186,7 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:359
 msgid "CD Not Found"
-msgstr "Geisladiskur fanst ekki"
+msgstr "Geisladiskur fannst ekki"
 
 #: ../loader2/cdinstall.c:430
 msgid "Cannot find kickstart file on CDROM."
@@ -6202,7 +6202,7 @@ msgstr "Les rekladiskinn..."
 
 #: ../loader2/driverdisk.c:206
 msgid "Driver Disk Source"
-msgstr "Staðsetning rekladisk"
+msgstr "Staðsetning rekladisks"
 
 #: ../loader2/driverdisk.c:207
 msgid ""
@@ -6499,7 +6499,7 @@ msgstr "Veldu rekil"
 
 #: ../loader2/loader.c:723
 msgid "Use a driver disk"
-msgstr "Nota rekladisklin?"
+msgstr "Nota rekladiskling"
 
 #: ../loader2/loader.c:724
 msgid ""
@@ -6592,7 +6592,7 @@ msgid ""
 msgstr ""
 "VILLA.\n"
 "\n"
-"Engin gátsumma til staðar. Get ekki yfirfarið diskmynndina."
+"Engin gátsumma til staðar. Get ekki yfirfarið diskmyndina."
 
 #: ../loader2/mediacheck.c:341
 msgid "Media Check Result"
@@ -7588,15 +7588,5 @@ msgstr "Spánska"
 msgid "Swedish"
 msgstr "Sænska"
 
-#. generated from lang-table
-msgid "Turkish"
-msgstr ""
-
-#~ msgid "Slovenian"
-#~ msgstr "Slóveska"
-
-#~ msgid "Ukrainian"
-#~ msgstr "Úkraínska"
-
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr "Ekki tókst að endurbyggja RPM gagnagrunninn. Er nægilegt diskrými?"
+#~ msgid "Turkish"
+#~ msgstr "Tyrkneska"
