@@ -6,6 +6,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include <stdio.h>
+
 #include "isys.h"
 
 struct moduleInfo * isysGetModuleList(moduleInfoSet mis, 
@@ -70,9 +72,12 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis, void * ident) {
  
     fstat(fd, &sb);
     buf = alloca(sb.st_size + 1);
-    read(fd, buf, sb.st_size);
+    i = read(fd, buf, sb.st_size);
     buf[sb.st_size] = '\0';
     close(fd);
+
+    if (i != sb.st_size)
+	return -1;
 
     nextModule = NULL;
     modulesAlloced = mis->numModules;
@@ -103,8 +108,9 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis, void * ident) {
 	if (*start != '\n' && *start && *start != '#') {
 	    if (!isIndented) {
 		if (nextModule && nextModule->moduleName &&
-		    nextModule == (mis->moduleList + mis->numModules)) 
-			mis->numModules++;
+		    nextModule == (mis->moduleList + mis->numModules)) {
+			mis->numModules++; 
+		}
 
 		if (mis->numModules == modulesAlloced) {
 		    modulesAlloced += 5;
@@ -193,8 +199,9 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis, void * ident) {
 	start = next;
     }
 
-    if (nextModule && nextModule->moduleName) nextModule++;
-    mis->numModules = (nextModule - mis->moduleList);
+    /* do we need to add in this last module? */
+    if ((nextModule - mis->moduleList) == mis->numModules)
+	mis->numModules++;
 
     return 0;
 }
