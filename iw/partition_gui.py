@@ -314,12 +314,12 @@ class DiskTreeModel(gtk.TreeStore):
     
     # format: column header, type, x alignment, hide?, visibleKey
     titles = ((N_("Device"), gobject.TYPE_STRING, 0.0, 0, 0),
+              (N_("Mount Point"), gobject.TYPE_STRING, 0.0, 0, isLeaf),
+              (N_("Type"), gobject.TYPE_STRING, 0.0, 0, 0),
+              (N_("Format"), gobject.TYPE_BOOLEAN, 0.0, 0, isFormattable),
+              (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, isLeaf),
               (N_("Start"), gobject.TYPE_STRING, 1.0, 0, 1),
               (N_("End"), gobject.TYPE_STRING, 1.0, 0, 1),
-              (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, isLeaf),
-              (N_("Type"), gobject.TYPE_STRING, 0.0, 0, 0),
-              (N_("Mount Point"), gobject.TYPE_STRING, 0.0, 0, isLeaf),
-              (N_("Format"), gobject.TYPE_BOOLEAN, 0.0, 0, isFormattable),
               # the following must be the last two
               ("IsLeaf", gobject.TYPE_BOOLEAN, 0.0, 1, 0),
               ("IsFormattable", gobject.TYPE_BOOLEAN, 0.0, 1, 0),
@@ -709,8 +709,8 @@ class PartitionWindow(InstallWindow):
         if type == "ok":
             win.add_button('gtk-ok', 1)
         elif type == "yesno":
-            win.add_button('gtk-yes', 1)
             win.add_button('gtk-no', 2)
+            win.add_button('gtk-yes', 1)
 
         image = gtk.Image()
         image.set_from_stock('gtk-dialog-warning', gtk.ICON_SIZE_DIALOG)
@@ -833,8 +833,8 @@ class PartitionWindow(InstallWindow):
 # XXX this breaks when we try to refresh tree after a refresh
 #
 # XXX - this breaks self.refresh calls!!!	
-#	    lvmparent = self.tree.append(None)
-#	    self.tree[lvmparent]['Device'] = _("LVM Physical Volumes")
+	    lvmparent = self.tree.append(None)
+	    self.tree[lvmparent]['Device'] = _("LVM Volume Groups")
             lvmparent = None
             for vgname in lvmrequests.keys():
                 vgparent = self.tree.append(lvmparent)
@@ -1108,8 +1108,8 @@ class PartitionWindow(InstallWindow):
 
         dialog = gtk.Dialog(_("Add Partition"), self.parent)
         gui.addFrame(dialog)
-        dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
+        dialog.add_button('gtk-ok', 1)
         dialog.set_position(gtk.WIN_POS_CENTER)
         
         maintable = gtk.Table()
@@ -1621,8 +1621,8 @@ class PartitionWindow(InstallWindow):
 
         dialog = gtk.Dialog(_("Make RAID Device"), self.parent)
         gui.addFrame(dialog)
-        dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
+        dialog.add_button('gtk-ok', 1)
         dialog.set_position(gtk.WIN_POS_CENTER)
         
         maintable = gtk.Table()
@@ -1805,8 +1805,8 @@ class PartitionWindow(InstallWindow):
     def editLogicalVolume(self, logrequest, isNew = 0):
         dialog = gtk.Dialog(_("Make Logical Volume"), self.parent)
         gui.addFrame(dialog)
-        dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
+        dialog.add_button('gtk-ok', 1)
         dialog.set_position(gtk.WIN_POS_CENTER)
 
         maintable = gtk.Table()
@@ -2011,8 +2011,9 @@ class PartitionWindow(InstallWindow):
 
         dialog = gtk.Dialog(_("Make LVM Device"), self.parent)
         gui.addFrame(dialog)
-        dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
+        dialog.add_button('gtk-ok', 1)
+
         dialog.set_position(gtk.WIN_POS_CENTER)
 
         maintable = gtk.Table()
@@ -2135,7 +2136,7 @@ class PartitionWindow(InstallWindow):
 
 	    neededSpaceMB = 0
 	    for lv in self.logvolreqs:
-		neededSpaceMB = neededSpaceMB + lv.requestSize
+		neededSpaceMB = neededSpaceMB + lv.size
 
 	    print "Required size for logical volumes is %g MB" % (neededSpaceMB,)
 
@@ -2194,7 +2195,7 @@ class PartitionWindow(InstallWindow):
             self.partitions.addRequest(lv)
 
 #        for req in self.partitions.requests:
-#            print req
+#            log("%s" % (req,))
 
 	# XXX - probably shouldn't do this here - trying to force refresh of ui
 #        self.diskStripeGraph.shutDown()
