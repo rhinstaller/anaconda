@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-02-09 15:55-0500\n"
-"PO-Revision-Date: 2001-02-06 04:14+0100\n"
+"PO-Revision-Date: 2001-02-12 00:05+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2921,7 +2921,6 @@ msgid "Root partition"
 msgstr "Rotpartition"
 
 #: ../libfdisk/gnomefsedit.c:756
-#, fuzzy
 msgid ""
 "The growth of the root (/) RAID array appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -2929,10 +2928,10 @@ msgid ""
 msgstr ""
 "Växten av rot-RAID-kedjan (/) verkar ha gått fel på grund av "
 "1024-cylindersbootgränsen. Om detta är fallet kan att lägga till en "
-"/boot-partition tillåta att rotpartitionen växer så att den fyller disken."
+"/boot-partition (50 MB duger) tillåta att rotpartitionen växer så att den "
+"fyller disken."
 
 #: ../libfdisk/gnomefsedit.c:788
-#, fuzzy
 msgid ""
 "The growth of the root (/) partition appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -2940,7 +2939,8 @@ msgid ""
 msgstr ""
 "Växten av rotpartitionen (/) verkar ha gått fel på grund av "
 "1024-cylindersbootgränsen. Om detta är fallet kan att lägga till en "
-"/boot-partition tillåta att rotpartitionen växer så att den fyller disken."
+"/boot-partition (50 MB duger) tillåta att rotpartitionen växer så att den "
+"fyller disken."
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
@@ -3871,6 +3871,8 @@ msgstr "Läser anaconda-uppdateringar..."
 #: ../loader/loader.c:2469
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr ""
+"Du har inte tillräckligt med minne för att kunna installera Red Hat på denna "
+"maskin."
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
