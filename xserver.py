@@ -240,30 +240,3 @@ def testx(x):
 	    sys.exit(0)
 
 	sys.exit(-1)
-
-
-#
-# to start X server using existing XF86Config file (reconfig mode use only)
-#
-def start_existing_X():
-
-    os.environ['DISPLAY'] = ':1'
-
-    server = os.fork()
-    serverPath = "/etc/X11/X"
-
-    # override fontpath because xfs is not running yet!
-    if (not server):
-        print "Starting X using existing XF86Config"
-	args = [serverPath, ':1', 'vt7', '-s', '1440', '-terminate', '-dpms',
-                '-v']
-	args.append("-fp")
-	args.append("/usr/X11R6/lib/X11/fonts/misc/,"
-                    "/usr/X11R6/lib/X11/fonts/75dpi/,"
-                    "/usr/X11R6/lib/X11/fonts/100dpi/,"
-                    "/usr/X11R6/lib/X11/fonts/korean/,"
-                    "/usr/X11R6/lib/X11/fonts/cyrillic/,"
-                    "/usr/share/fonts/ISO8859-2/misc/,"
-                    "/usr/share/fonts/ISO8859-2/75dpi/,"
-                    "/usr/share/fonts/ISO8859-2/100dpi/,"
-                    "/usr/share/fonts/KOI8-R/misc/,"
