@@ -146,7 +146,7 @@ class NetworkWindow (InstallWindow):
                 options = [_("IP Address"), _("Netmask"), _("Network"), _("Broadcast")]
                 ipTable = GtkTable (2, len (options))
 
-		forward = lambda widget, box=box: devbox.focus (DIR_TAB_FORWARD)
+		forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
                 for t in range (len (options)):
                     label = GtkLabel ("%s:" % (options[t],))
@@ -154,7 +154,7 @@ class NetworkWindow (InstallWindow):
                     ipTable.attach (label, 0, 1, t, t+1, FILL, 0, 10)
                     entry = GtkEntry (15)
 #                    entry.set_usize (gdk_char_width (entry.get_style ().font, '0')*15, -1)
-                    entry.set_usize (5 * 15, -1)
+                    entry.set_usize (7 * 15, -1)
                     entry.connect ("activate", forward)
                     options[t] = entry
                     ipTable.attach (entry, 1, 2, t, t+1, 0, 0)
