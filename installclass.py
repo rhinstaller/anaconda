@@ -362,11 +362,15 @@ def availableClasses(showHidden=0):
 	name = None
 	cmd = "import %s\nif %s.__dict__.has_key('InstallClass'): obj = %s.InstallClass\n" % (mainName, mainName, mainName)
 	exec(cmd)
-	if obj: 
+	if obj:
 	    if obj.__dict__.has_key('sortPriority'):
 		sortOrder = obj.sortPriority
 	    else:
 		sortOrder = 0
+
+	    if obj.__dict__.has_key('arch'):
+                if obj.arch != iutil.getArch ():
+                    obj.hidden = 1
                 
             if obj.hidden == 0 or showHidden == 1:
                 list.append(((obj.name, obj, obj.pixmap), sortOrder))

@@ -8,6 +8,7 @@ class InstallClass(workstation.InstallClass):
     pixmap = "laptop-support.png"
 
     sortPriority = 5000
+    arch = 'i386'
 
     if pcmcia.hasPcmcia():
 	default = 1
