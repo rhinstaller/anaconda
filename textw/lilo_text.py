@@ -228,7 +228,7 @@ class LiloImagesWindow:
 	    if (buttons.buttonPressed(result)):
 		result = buttons.buttonPressed(result)
 
-	    if (result == string.lower(_("Edit")) or result == listbox):
+	    if (result == "edit" or result == listbox):
 		item = listbox.current()
 		(label, type) = images[item]
 
