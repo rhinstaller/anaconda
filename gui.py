@@ -20,6 +20,7 @@ import isys
 import sys
 import parted
 import gtk
+import htmlbuffer
 from translate import _, N_
 from language import expandLangs
 from splashscreen import splashScreenPop
@@ -374,7 +375,6 @@ class InstallControlWindow:
 
         self.reloadRcQueued = 1
 
-##         self.html.set_font_charset (locale)
 	self.updateStockButtons()
         self.helpFrame.set_label (_("Online Help"))
         self.installFrame.set_label (_("Language Selection"))
@@ -419,15 +419,21 @@ class InstallControlWindow:
                                gtk.FILL | gtk.EXPAND,
                                gtk.FILL | gtk.EXPAND)
             self.bin.add (self.table)
-            # fix to set the bgcolor to white (xmhtml sucks)
-##             self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
-##             self.html.source (self.currentWindow.getICS().getHTML(self.langSearchPath))        
+            self.refreshHelp()
             self.hideHelpButton.show ()
             self.showHelpButton.set_state (gtk.STATE_NORMAL)
             self.hbox.pack_start (self.hideHelpButton, gtk.FALSE)
             self.hbox.reorder_child (self.hideHelpButton, 0)
             self.hideHelpButton.grab_focus()
             self.displayHelp = gtk.TRUE
+
+    def refreshHelp(self):
+        buffer = htmlbuffer.HTMLBuffer()
+        ics = self.currentWindow.getICS()
+        buffer.feed(ics.getHTML(self.langSearchPath))
+        self.help.set_buffer(buffer.get_buffer())
+#       iter = self.help.get_iter_at_offset(0)
+#       self.help.scroll_to_iter(iter, 0.0, gtk.FALSE, 0.0, 0.0)
 
     def close (self, *args):
         self.textWin.destroy()
@@ -541,20 +547,19 @@ class InstallControlWindow:
 
         self.update (ics)
 
-        self.installFrame.set_label (ics.getTitle ())
-        self.installFrame.add (new_screen)
-        self.installFrame.show_all ()
+        self.installFrame.set_label(ics.getTitle ())
+        self.installFrame.add(new_screen)
+        self.installFrame.show_all()
 
 	self.handle = gtk.idle_add(self.handleRenderCallback)
 
         if self.reloadRcQueued:
-            self.window.reset_rc_styles ()
+            self.window.reset_rc_styles()
             self.reloadRcQueued = 0
 
-##         if self.displayHelp:
-##             self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
-##             self.html.source (ics.getHTML(self.langSearchPath))
-
+        if self.displayHelp:
+            self.refreshHelp()
+            
     def destroyCurrentWindow(self):
         children = self.installFrame.children ()
         if children:
@@ -751,9 +756,12 @@ class InstallControlWindow:
 
         vbox.pack_end (self.hbox, gtk.FALSE)
 
-##         self.html = gtk.XmHTML()
-##         self.html.set_allow_body_colors(gtk.TRUE)
-##         self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
+        self.help = gtk.TextView()
+        self.help.set_property("editable", gtk.FALSE)
+        self.help.set_property("cursor_visible", gtk.FALSE)
+        self.help.set_left_margin(10)
+        self.help.set_wrap_mode(gtk.WRAP_WORD)
+
         self.displayHelp = gtk.TRUE
         self.helpState = gtk.TRUE
 
@@ -762,7 +770,10 @@ class InstallControlWindow:
         self.box.set_spacing(0)
 
         self.box.pack_start (gtk.HSeparator (), gtk.FALSE)
-##         self.box.pack_start (self.html, gtk.TRUE)
+        sw = gtk.ScrolledWindow()
+        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        sw.add(self.help)
+        self.box.pack_start(sw, gtk.TRUE)
         
         self.helpFrame.add (self.box)
 
