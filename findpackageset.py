@@ -39,10 +39,10 @@ def findpackageset(hdlist, dbPath='/'):
         h = mi.next()
         while h:
             val = rpm.versionCompare(h, pkg)
-            if (val == 1):
+            if (val > 0):
 #                dEBUG("found older version of %(name)s" % h)
                 pass
-            elif (val == -1):
+            elif (val < 0):
 #                dEBUG("found newer version of %(name)s" % h)
                 # check if we already have this package in our dictionary
                 addNewPackageToUpgSet(pkgDict, pkg)
