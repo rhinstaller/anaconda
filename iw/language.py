@@ -24,6 +24,7 @@ class LanguageWindow (InstallWindow):
             self.icw.setLanguage (self.languages[lang])
         
     def getScreen (self):
+        self.running = 0
         mainBox = GtkVBox (FALSE, 10)
         label = GtkLabel (self.question)
         label.set_alignment (0.5, 0.5)
@@ -37,7 +38,6 @@ class LanguageWindow (InstallWindow):
         for locale in language_keys[1:]:
             row = self.language.append ((locale,))
 
-        print self.todo.language.get ()
         default = self.languages.values ().index (self.todo.language.get ())
         if default > 0:
             self.language.select_row (default - 1, 0)

@@ -119,7 +119,6 @@ class InstallProgressWindow (InstallWindow):
         if self.frobnicatingClist: return
         
         self.frobnicatingClist = 1
-        print widget.get_allocation ()
         width = widget.get_allocation ()[2] - 50
         for x in range (4):
             widget.set_column_width (x, width / 4)
