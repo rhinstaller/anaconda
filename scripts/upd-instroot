@@ -96,7 +96,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm404-python anaconda-help booty
-         hdparm lvm jfsutils librpm404 rhpl"
+         hdparm lvm jfsutils librpm404 rhpl slang"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils lilo"
@@ -486,6 +486,7 @@ usr/X11R6/lib/X11/fonts/misc/9x*
 usr/X11R6/lib/X11/fonts/misc/cursor*
 usr/X11R6/lib/X11/fonts/misc/fonts*
 usr/X11R6/lib/X11/fonts/misc/gb*
+usr/X11R6/lib/X11/fonts/misc/hangl*
 usr/X11R6/lib/X11/fonts/misc/jis*
 usr/X11R6/lib/X11/fonts/misc/k14*
 usr/X11R6/lib/X11/fonts/misc/olcursor*
