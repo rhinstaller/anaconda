@@ -407,9 +407,11 @@ class KickstartBase(BaseInstallClass):
         self.setKeyboard(id, args[0])
 	self.skipSteps.append("keyboard")
 
-    def doZeroMbr(self, args):
-	if args[0] == "yes":
-	    self.setZeroMbr(1)
+    def doZeroMbr(self, id, args):
+        # XXX fix me
+        pass
+##  	if args[0] == "yes":
+## 	    self.setZeroMbr(1)
 
     def doMouse(self, id, args):
 	(args, extra) = isys.getopt(args, '', [ 'device=', 'emulthree' ])
