@@ -210,19 +210,27 @@ class CdromInstallMethod(ImageInstallMethod):
                 self.unmountCD()
 
 	    done = 0
+            thepass = 0
 
 	    cdlist = []
 	    for (dev, something, descript) in \
 		    kudzu.probe(kudzu.CLASS_CDROM, kudzu.BUS_UNSPEC, 0):
                 cdlist.append(dev)
 
-	    for dev in cdlist:
-		try:
-		    if not isys.mount(dev, "/mnt/source", fstype = "iso9660", 
-			       readOnly = 1):
-			if os.access("/mnt/source/.discinfo", os.R_OK):
-			    f = open("/mnt/source/.discinfo")
-			    newStamp = f.readline().strip()
+            while 1:
+                found = 0
+                for dev in cdlist:
+                    try:
+                        if isys.mount(self.device, "/mnt/source", 
+                                      fstype = "iso9660", readOnly = 1):
+                            time.sleep(3)
+                            isys.mount(self.device, "/mnt/source", 
+                                       fstype = "iso9660", readOnly = 1)
+                        
+                        if os.access("/mnt/source/.discinfo", os.R_OK):
+                            found = 1
+                            f = open("/mnt/source/.discinfo")
+                            newStamp = f.readline().strip()
                             try:
                                 descr = f.readline().strip()
                             except:
@@ -235,69 +243,34 @@ class CdromInstallMethod(ImageInstallMethod):
                                 discNum = getDiscNums(f.readline().strip())
                             except:
                                 discNum = [ 0 ]
-			    f.close()
-			    if (newStamp == timestamp and
+                            f.close()
+                            if (newStamp == timestamp and
                                 arch == _arch and
                                 needed in discNum):
-				done = 1
+                                done = 1
                                 self.currentDisc = discNum
 
-			if not done:
-			    isys.umount("/mnt/source")
-		except:
-		    pass
+                            if not done:
+                                isys.umount("/mnt/source")
+                    except:
+                        pass
 
-		if done:
-		    break
+                    if done:
+                        break
 
-	    if not done:
-		isys.ejectCdrom(self.device)
+                if not done:
+                    isys.umount("/mnt/source")
+                    isys.ejectCdrom(self.device)
 
-	    while not done:
-		self.messageWindow(_("Change CDROM"), 
-		    _("Please insert disc %d to continue.") % needed)
-
-		try:
-		    if isys.mount(self.device, "/mnt/source", 
-				  fstype = "iso9660", readOnly = 1):
-			time.sleep(3)
-			isys.mount(self.device, "/mnt/source", 
-				   fstype = "iso9660", readOnly = 1)
-		    
-
-                    if os.access("/mnt/source/.discinfo", os.R_OK):
-                        f = open("/mnt/source/.discinfo")
-			newStamp = f.readline().strip()
-                        try:
-                            descr = f.readline().strip()
-                        except:
-                            descr = None
-                        try:
-                            arch = f.readline().strip()
-                        except:
-                            arch = None
-                        try:
-                            discNum = getDiscNums(f.readline().strip())
-                        except:
-                            discNum = [ 0 ]
-			f.close()
-                        if (newStamp == timestamp and
-                            arch == _arch and
-                            needed in discNum):
-			    done = 1
-                            self.currentDisc = discNum
-                            # make /tmp/cdrom again so cd gets ejected
-                            isys.makeDevInode(self.device, "/tmp/cdrom")
-
-		    if not done:
-			self.messageWindow(_("Wrong CDROM"),
-				_("That's not the correct %s CDROM.")
-                                           % (productName,))
-			isys.umount("/mnt/source")
-			isys.ejectCdrom(self.device)
-		except:
-		    self.messageWindow(_("Error"), 
-			    _("The CDROM could not be mounted."))
+                if found and thepass >= 1:
+                    self.messageWindow(_("Wrong CDROM"),
+                                       _("That's not the correct %s CDROM.")
+                                       % (productName,))
+                else:
+                    self.messageWindow(_("Change CDROM"), 
+                                       _("Please insert disc %d to continue.")
+                                       % needed)
+                thepass += 1
 
 	    timer.start()
 
