@@ -18,5 +18,8 @@ install: all
 	mkdir -p $(DESTDIR)/usr/bin
 #	install -m755 -s genhdlist $(DESTDIR)/usr/bin
 
+#
+# removed genhdlist from clean line so it will be distributed on CDROM image
+#
 clean:	
-	rm -f modlist genhdlist moddeps snarffont *.o 
+	rm -f modlist moddeps snarffont *.o 
