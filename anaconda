@@ -590,6 +590,7 @@ log.handler = anaconda_log
 #
 if ksfile is not None:
     from kickstart import pullRemainingKickstartConfig, KSAppendException
+    from kickstart import parseKickstartVNC
 
     try:
 	rc=pullRemainingKickstartConfig(ksfile)
@@ -601,6 +602,23 @@ if ksfile is not None:
     if rc is not None:
 	dup_log(_("Error pulling second part of kickstart config: %s!") % (rc,))
 	sys.exit(1)
+
+    # now see if they enabled vnc via the kickstart file. Note that command
+    # line options for password, connect host and port override values in
+    # kickstart file
+    (ksusevnc, ksvncpasswd, ksvnchost, ksvncport) = parseKickstartVNC(ksfile)
+
+    if ksusevnc:
+	flags.usevnc = 1
+
+	if vncpassword == None:
+	    vncpassword = ksvncpasswd
+
+	if vncconnecthost == None:
+	    vncconnecthost = ksvnchost
+
+	if vncconnectport == None:
+	    vncconnectport = ksvncport
 
 #
 # Determine install method - GUI or TUI
