@@ -27,7 +27,7 @@ moddeps: moddeps.o
 
 genhdlist: genhdlist.c
 	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c -lrpm -lrpmio \
-	-lbz2 -lz -lpopt -ldb-3.0 -ldb1
+	-lbz2 -lz -lpopt -ldb-3.1 -ldb1
 
 depends:
 
