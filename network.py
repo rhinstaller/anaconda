@@ -114,7 +114,7 @@ class NetworkDevice(SimpleConfigFile):
 		s = s + key + "=" + 'no' + "\n"
             # make sure we include autoneg in the ethtool line
             elif key == 'ETHTOOL_OPTS' and self.info[key].find("autoneg")== -1:
-                s = s + key + "=" + "autoneg off " + self.info[key] + "\n"
+                s = s + key + """="autoneg off %s"\n""" % self.info[key] 
 	    else:
 		s = s + key + "=" + self.info[key] + "\n"
 
