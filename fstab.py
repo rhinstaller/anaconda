@@ -489,14 +489,20 @@ class Fstab:
 		if swaps.has_key(file): continue
 		
 		if not os.access(file, os.R_OK):
-		    isys.ddfile(file, size, (progressWindow, _("Swap Space"),
-				      _("Creating swap space...")))
+		    if type(size) == type(1):
+			isys.ddfile(file, size, (progressWindow, 
+					  _("Swap Space"),
+					  _("Creating swap space...")))
 
-		    iutil.execWithRedirect ("/usr/sbin/mkswap", 
-				  [ "mkswap", '-v1', file ],
-				     stdout = None, stderr = None)
+			iutil.execWithRedirect ("/usr/sbin/mkswap", 
+				      [ "mkswap", '-v1', file ],
+					 stdout = None, stderr = None)
 
-		    formatThisSwap = 1
+			formatThisSwap = 1
+		    else:
+			log("swap file %s is in the fstab, but does not exist",
+			    file)
+			continue
 		    
 	    else:
 		file = '/tmp/swap/' + device
@@ -515,7 +521,6 @@ class Fstab:
 
 		if rc:
 		    self.messageWindow(_("Error"), _("Error creating swap on device ") + file)
-		    raise ValueError
 		else:
 		    isys.swapon (file)
 	    else:
