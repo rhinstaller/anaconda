@@ -1,6 +1,6 @@
 CFLAGS = -Wall
 
-pciprobe: pciprobe.c 
+libpciprobe.a: libpciprobe.a(pciprobe.o)
 
 pciprobe.c: driverlist.h
 
