@@ -88,7 +88,7 @@ mkdir -p $DESTGR
 PACKAGES="glibc glibc-common setup openssl python newt libtermcap zlib
 	 ash kon2 e2fsprogs util-linux raidtools popt mount procps rpm
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
-	 kudzu db3 rpm-python bzip2 dosfstools pciutils"
+	 kudzu db3 rpm-python bzip2 dosfstools pciutils reiserfs-utils"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
@@ -114,7 +114,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            XFree86-cyrillic-fonts XFree86 Xconfigurator pygnome pygtk
            pygtk-libglade pygnome-libglade pygnome-applet
            pygnome-capplet gdk-pixbuf XFree86-KOI8-R
-           XFree86-KOI8-R-75dpi-fonts pciutils pam"
+           XFree86-KOI8-R-75dpi-fonts pciutils pam reiserfs-utils"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -188,6 +188,7 @@ sbin/mkdosfs
 sbin/mke2fs
 sbin/mkfs.ext2
 sbin/mkfs.msdos
+sbin/mkreiserfs
 sbin/mkraid
 sbin/mkswap
 sbin/probe
@@ -268,6 +269,7 @@ lib/libutil*
 sbin/depmod
 sbin/e2fsck
 sbin/e2label
+sbin/reiserfsck
 sbin/fsck
 sbin/fsck.ext2
 sbin/fsck.ext3
