@@ -356,6 +356,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/modules
     mkdir -p $MBD_DIR/sbin
     mkdir -p $MBD_DIR/dev/pts
+    mkdir -p $MBD_DIR/dev/input
     mkdir -p $MBD_DIR/etc
     mkdir -p $MBD_DIR/proc
     mkdir -p $MBD_DIR/tmp
@@ -438,6 +439,7 @@ EOF
 	$MBD_DIR ptyp0 c 2 0 644 root:root
 	$MBD_DIR ttyp0 c 3 0 644 root:root
 	$MBD_DIR agpgart c 10 175 664 root:root
+	$MBD_DIR input/mice c 13 63 664 root:root
 EOF
     ln -s fb0 $MBD_DIR/dev/fb
 
