@@ -782,7 +782,6 @@ class KickstartBase(BaseInstallClass):
                 type = CLEARPART_TYPE_NONE
             
         self.setClearParts(id, type, drives, initAll = initAll)
-        self.skipSteps.append("autopartition")
 
     # this adds a partition to the autopartition list replacing anything
     # else with this mountpoint so that you can use autopart and override /
@@ -808,6 +807,8 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("partitionmethod")
         self.skipSteps.append("partitionmethodsetup")
         self.skipSteps.append("fdisk")
+        self.skipSteps.append("autopartition")
+        
 
     def defineLogicalVolume(self, id, args):
         (args, extra) = isys.getopt(args, '', [ 'vgname=',
@@ -1211,6 +1212,7 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("partitionmethod")
         self.skipSteps.append("partitionmethodsetup")
         self.skipSteps.append("fdisk")
+        self.skipSteps.append("autopartition")
 
     def setSteps(self, dispatch):
         if self.installType == "upgrade":
@@ -1238,6 +1240,7 @@ class KickstartBase(BaseInstallClass):
             dispatch.skipStep("partitionmethod")
             dispatch.skipStep("partitionmethodsetup")
             dispatch.skipStep("fdisk")
+            dispatch.skipStep("autopartition")
 	    dispatch.skipStep("bootdisk")
 
 	    # because these steps depend on the monitor being probed
