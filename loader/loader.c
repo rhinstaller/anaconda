@@ -580,14 +580,14 @@ static char * mountHardDrive(struct installMethod * method,
 		    } else {
 			for (j = 0; j < table.maxNumPartitions; j++) {
 			    switch (table.parts[j].type) {
-			    #ifdef __sparc__
+#ifdef __sparc__
 			      case BALKAN_PART_UFS:
 				if (!ufsloaded) {
 				    ufsloaded = 1;
-				    mlLoadModule("ufs", NULL, modLoaded, *modDeps, NULL, modInfo, flags);
+				    mlLoadModule("ufs", NULL, modLoaded, *modDepsPtr, NULL, modInfo, flags);
 				}
 				/* FALLTHROUGH */
-			    #endif
+#endif
 			      case BALKAN_PART_DOS:
 			      case BALKAN_PART_EXT2:
 				sprintf(partitions[numPartitions].name, 
@@ -1688,9 +1688,9 @@ int kickstartFromHardDrive(char * location,
     char * fullFn;
 
     mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
-    #ifdef __sparc__
+#ifdef __sparc__
     mlLoadModule("ufs", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
-    #endif
+#endif
 
     fileName = strchr(source, '/');
     *fileName = '\0';
@@ -1886,9 +1886,10 @@ void loadUfs(struct knownDevices *kd, moduleList modLoaded,
 		} else {
 		    for (j = 0; j < table.maxNumPartitions; j++) {
 			if (table.parts[j].type == BALKAN_PART_UFS) {
-			    if (!ufsloaded)
-				mlLoadModule("ufs", NULL, modLoaded, *modDeps, NULL, NULL, flags);
-			    ufsloaded = 1;
+			    if (!ufsloaded) {
+				mlLoadModule("ufs", NULL, modLoaded, *modDepsPtr, NULL, modInfo, flags);
+				ufsloaded = 1;
+			    }
 			}
 		    }
 		}
