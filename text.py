@@ -740,7 +740,8 @@ class InstallProgressWindow:
 
     def __init__(self, screen, total, totalSize):
 	self.screen = screen
-
+        toplevel = GridForm(self.screen, _("Package Installation"), 1, 5)
+        
         name = _("Name   : ")
         size = _("Size   : ")
         sum =  _("Summary: ")
