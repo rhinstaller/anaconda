@@ -12,6 +12,7 @@
 import os, sys
 import string
 import re
+import language
 
 
 defaultTerritory = {}
@@ -85,6 +86,11 @@ charFont["ISO-8859-9"] =  "lat5-sun16"
 charFont["ISO-8859-15"] =  "lat0-sun16"
 charFont["UTF-8"] = "latarcyrheb-sun16"
 
+prefNotUtf8 = {}
+prefNotUtf8["ja_JP"] = "eucJP"
+prefNotUtf8["ko_KR"] = "eucKR"
+prefNotUtf8["zh_CN"] = "GB18030"
+prefNotUtf8["zh_TW"] = "Big5"
 
 
 f = os.popen("locale -a", "r")
@@ -108,12 +114,9 @@ for line in lines:
     lang = lang.replace("eucjp", "eucJP")
     lang = lang.replace("euckr", "eucKR")
     lang = lang.replace("gb18030", "GB18030")
-    lang = re.sub("^zh_CN$", "zh_CN.GB2312", lang)
+    lang = re.sub("^zh_CN$", "zh_CN.GB18030", lang)
     lang = re.sub("^zh_TW$", "zh_TW.Big5", lang)
     lang = lang.replace("utf8", "UTF-8")
-
-    # major hack... chop off iso885915 to make it shorter
-    lang = re.sub(".iso885915$", "", lang)
 
     # we don't want @euro locales for utf8
     lang = lang.replace("UTF-8@euro", "UTF-8")
@@ -121,9 +124,6 @@ for line in lines:
     # someone put nb_NO in locale.alias.  yuck.  We don't want
     # to offer that
     if lang.startswith("nb_") or lang.startswith("iw_"):
-        continue
-    if lang in ["zh_TW.euctw", "zh_TW.UTF-8", "ja_JP.UTF-8", "ko_KR.UTF-8",
-                "zh_TW.UTF-8"]:
         continue
 
     f = os.popen("LANG=%s locale language territory charmap" %(lang,), "r")
@@ -136,10 +136,6 @@ for line in lines:
     territory = territory[:-1].strip()
     charmap = charmap[:-1].strip()
     
-    # we don't want utf-8
-#   if charmap == "UTF-8":
-#       continue
-
     # some languages names are the same as their iso id
     if name == lang[:2]:
         continue
@@ -149,9 +145,15 @@ for line in lines:
     else:
         fullName = "%s (%s)" %(name, territory)
 
-
     if nameList.has_key(fullName):
-        if len(lang) < len(nameList[fullName]):
+        # we want the en_US form
+        nick = language.expandLangs(nameList[fullName])[-2]
+        if (prefNotUtf8.has_key(nick) and
+            (charmap != prefNotUtf8[nick])):
+            continue
+        elif charmap != "UTF-8":
+            continue
+        elif len(lang) < len(nameList[fullName]):
             continue
     nameList[fullName] = lang
     langList[lang] = fullName
