@@ -220,6 +220,8 @@ class bootloaderInfo:
 	    lilo.addImage (sl)
 
 	for (label, longlabel, device) in chainList:
+            if ((not label) or (label == "")):
+                continue
 	    try:
 		(fsType, sl) = lilo.getImage(label)
 		lilo.delImage(label)
@@ -432,6 +434,8 @@ class x86BootloaderInfo(bootloaderInfo):
 		f.write('\tinitrd %sinitrd%s.img\n' % (cfPath, kernelTag))
 
 	for (label, longlabel, device) in chainList:
+            if ((not longlabel) or (longlabel == "")):
+                continue
 	    f.write('title %s\n' % (longlabel))
 	    f.write('\trootnoverify %s\n' % grubbyPartitionName(device))
             f.write('\tmakeactive\n')
