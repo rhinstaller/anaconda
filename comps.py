@@ -247,6 +247,10 @@ class Component:
     def packages(self):
 	return self.pkgDict.keys()
 
+    # return dictionary of packages in component with full info from xml comps
+    def packagesFullInfo(self):
+	return self.newpkgDict
+    
     def includesPackage(self, pkg, includeDeps = 0):
         if not self.pkgDict.has_key(pkg):
             return 0
@@ -346,6 +350,11 @@ class Component:
         if p not in self.newpkgDict.keys():
             log("%s not in pkgDict for component %s" % (p.name, self.name))
         else:
+	    # dont ref count more than once
+	    if p in self.pkgDict.keys():
+		log("%s already enabled in pkgDict for component %s" % (p.name, self.name))
+		return
+
             self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 1)
             p.registerComponent(self)
             self.pkgDict[p] = None
@@ -425,7 +434,11 @@ class Component:
                         if self.depsDict[dep] == 0:
                             self.set.packages[dep].unregisterComponent(self)
                             # remove it from the pkgDict
-                            del self.pkgDict[self.set.packages[dep]]
+                            if self.pkgDict.has_key(self.set.packages[dep]):
+                                del self.pkgDict[self.set.packages[dep]]
+                            else:
+                                log("tried to remove %s and failed" %(self.set.packages[dep],))
+                            del self.depsDict[dep]
                     else:
                         log("WARNING: trying to reduce refcount on dep %s in group %s without being in deps dict" % (dep, self.name))
                     pkgs.append(self.set.packages[dep])
@@ -471,7 +484,7 @@ class Component:
                     %(self.name, pkg))
                 continue
             (type, name) = compgroup.packages[pkg]
-            if type == u'default':
+            if type == u'mandatory':
                 pkgtype = PKGTYPE_MANDATORY
             elif type == u'default':
                 pkgtype = PKGTYPE_DEFAULT
@@ -639,7 +652,7 @@ class ComponentSet:
         for pkg in packages.keys():
             if ExcludePackages.has_key(packages[pkg]['name']):
                 continue
-            everything.packages[pkg] = (None, pkg)
+            everything.packages[pkg] = (u'mandatory', pkg)
         self.compsxml.groups['Everything'] = everything
         groups.append('Everything')
 
@@ -916,6 +929,7 @@ def orderPackageGroups(curgroups):
 					 "Text Based Applications"],
 		       "Servers" : [ "Server Configuration Tools",
 				     "Web Server",
+                                     "Mail Server",
 				     "Windows File Server",
 				     "NFS File Server",
 				     "DNS Name Server",
@@ -969,3 +983,6 @@ def orderPackageGroups(curgroups):
 		    
     return (retlist, retdict)
 
+def getCompGroupDescription(compname):
+    return ("This is the group %s. Its got stuff in it that you probably want."
+	    " If not you can turn off the optional stuff.  Anyhow, enjoy %s!") % (compname, compname)
