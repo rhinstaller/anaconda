@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.9
+Version: 10.1.1.10
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Dec 14 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.10-1
+- Add support for specifying biosdisk in the driverdisk kickstart 
+  directive, patch from Rez Kabir (#142738)
+- Fix LVM on RAID1 (nasrat, #141781)
+- Better error handling of a few cases (#142273)
+- Fixes for bits of SX8 handling
+
 * Wed Dec  8 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.9-1
 - Fix traceback with partial volume groups (#142304)
 
