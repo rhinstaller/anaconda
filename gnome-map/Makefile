@@ -6,7 +6,7 @@ LDFLAGS=`gnome-config --libs gnomeui`
 install: timezonemapmodule.so
 	cp -a timezonemapmodule.so $(DESTDIR)/usr/lib/python1.5/site-packages
 	mkdir -p $(DESTDIR)/usr/share/anaconda
-	cp -a map480.so $(DESTDIR)/usr/share/anaconda
+	cp -a map480.png $(DESTDIR)/usr/share/anaconda
 
 gglobe-canvas: gglobe-canvas.c gnome-map.o gnome-canvas-dot.o gglobe-canvas.o gnome-map.h timezones.o timezones.h
 	gcc -O2 -g -o gglobe-canvas gnome-map.o timezones.o gnome-canvas-dot.o gglobe-canvas.o $(LDFLAGS)
