@@ -7,7 +7,7 @@ from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 from fsset import *
 
 class InstallClass(BaseInstallClass):
-    name = N_("Workstation")
+    name = N_("Personal Workstation")
     pixmap = "workstation.png"
     description = N_("Perfect for workstations or laptops, select this "
 		     "installation type to install a graphical desktop "
