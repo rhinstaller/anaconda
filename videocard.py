@@ -500,7 +500,12 @@ class VideoCardInfo:
 		self.primaryCard().getCardData()["VENDOR"] = cardManf
 	    if prval.has_key('videoram'):
 		self.primaryCard().setVideoRam(prval['videoram'])
-
+            # FIXME: this is an ia64 specific hack -- we can't ddcprobe
+            # there but the hardware is new enough to have 8 meg cards
+            # even on the big surs and lions
+            elif iutil.getArch() == "ia64":
+		self.primaryCard().setVideoRam("8192")
+                
         # try to get frame buffer information if we don't know video ram
         if not self.primaryCard().getVideoRam() and self.primaryCard().getDevice():
             try:
