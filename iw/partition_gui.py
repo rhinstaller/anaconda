@@ -201,9 +201,6 @@ class DiskStripe:
         slice.select()
 
         # update selection of the tree
-
-	print "selectSlice: updateTree = ", updateTree
-	print "selectSlice: partition = ", partition
         if updateTree:
             self.tree.selectPartition(partition)
         self.selected = slice
