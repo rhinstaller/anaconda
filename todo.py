@@ -95,8 +95,6 @@ class Network:
             self.readData = 1
     
     def available (self):
-        if self.netdevices:
-            return self.netdevices
         f = open ("/proc/net/dev")
         lines = f.readlines()
         f.close ()
