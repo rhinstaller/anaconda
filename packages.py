@@ -841,6 +841,11 @@ def doInstall(method, id, intf, instPath):
 		prob = "%-15s %d\n" % (mount, need)
 		probs = probs + prob
 
+        if len(probs) == 0:
+            probs = ("ERROR: NO!  An unexpected problem has occurred with "
+                     "your transaction set.  Please see tty3 for more "
+                     "information")
+
 	intf.messageWindow (_("Disk Space"), probs)
 
         ts.closeDB()
