@@ -91,10 +91,10 @@ rm -rf $DEST $DESTGR
 mkdir -p $DEST
 mkdir -p $DESTGR
 
-PACKAGES="glibc glibc-common setup openssl python newt libtermcap zlib
+PACKAGES="glibc glibc-common setup openssl python2 newt libtermcap zlib
 	 ash kon2 e2fsprogs util-linux raidtools popt mount procps rpm
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
-	 kudzu db3 rpm-python bzip2 bzip2-libs dosfstools pciutils 
+	 kudzu db3 rpm-python2.2 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda"
 
 if [ $ARCH = i386 ]; then
@@ -111,17 +111,16 @@ fi
 
 PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            XFree86-S3 XFree86-SVGA XFree86-75dpi-fonts
-           XFree86-ISO8859-2-75dpi-fonts glib gtk+ gtk-engines
-           XFree86-ISO8859-9-75dpi-fonts esound audiofile gnome-libs
+           XFree86-ISO8859-2-75dpi-fonts glib2 gtk2
+           XFree86-ISO8859-9-75dpi-fonts esound audiofile libgnome
            XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
            XFree86-xfs e2fsprogs fileutils glibc glibc-common rsh less
            ftp readline gzip popt specspo util-linux rpm rpm-devel
            open grep net-tools traceroute tar procps textutils sed
-           ncurses bash cpio mt-st iputils sh-utils
-           XFree86-cyrillic-fonts XFree86 Xconfigurator pygnome pygtk
-           pygtk-libglade pygnome-libglade pygnome-applet
-           pygnome-capplet gdk-pixbuf XFree86-KOI8-R
-           XFree86-KOI8-R-75dpi-fonts pciutils pam reiserfs-utils"
+           ncurses bash cpio mt-st iputils sh-utils XFree86-cyrillic-fonts
+           XFree86 Xconfigurator gnome-python2 pygtk2 gdk-pixbuf 
+           XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pciutils pam 
+           reiserfs-utils atk pango"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -230,9 +229,9 @@ usr/lib/librpmio*.so*
 usr/lib/libslang*
 usr/lib/libz.*
 usr/lib/python*
-usr/lib/python1.5/site-packages/*kudzu*
-usr/lib/python1.5/site-packages/rpmmodule.so
-usr/lib/python1.5/site-packages/partedmodule.so
+usr/lib/python2.2/site-packages/*kudzu*
+usr/lib/python2.2/site-packages/rpmmodule.so
+usr/lib/python2.2/site-packages/partedmodule.so
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
@@ -640,26 +639,25 @@ fi
 echo "Patching python library..."
 
 # always use passive mode for ftp installs
-cd $DEST/usr/lib/python1.5
+cd $DEST/usr/lib/python2.2
 patch -p0 > /dev/null <<EOF
---- urllib.py.orig	Thu May 18 18:40:49 2000
-+++ urllib.py	Thu May 18 18:41:35 2000
-@@ -354,6 +354,7 @@
+--- urllib.py.orig	Thu Oct 25 17:05:06 2001
++++ urllib.py	Thu Oct 25 17:05:34 2001
+@@ -453,6 +453,7 @@
          path, attrs = splitattr(path)
          path = unquote(path)
-         dirs = string.splitfields(path, '/')
-+	dirs[0] = '/' + dirs[0]
+         dirs = path.split('/')
++        dirs[0] = '/' + dirs[0]
          dirs, file = dirs[:-1], dirs[-1]
          if dirs and not dirs[0]: dirs = dirs[1:]
-         key = (user, host, port, string.joinfields(dirs, '/'))
-@@ -563,6 +564,7 @@
+         if dirs and not dirs[0]: dirs[0] = '/'
+@@ -707,6 +708,7 @@
          self.ftp = ftplib.FTP()
          self.ftp.connect(self.host, self.port)
          self.ftp.login(self.user, self.passwd)
-+	self.ftp.set_pasv (1)
++        self.ftp.set_pasv(1)
          for dir in self.dirs:
              self.ftp.cwd(dir)
-     def retrfile(self, file, type):
 EOF
 cd -
 
