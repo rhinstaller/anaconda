@@ -139,6 +139,8 @@ int kdFindIdeList(struct knownDevices * devices, int code) {
 		    device.class = CLASS_CDROM;
 		else if (!strcmp(path, "disk"))
 		    device.class = CLASS_HD;
+		else if (!strcmp(path, "floppy"))
+		    device.class = CLASS_FLOPPY;
 
 		if (device.class != CLASS_UNSPEC) {
 		    device.name = strdup(ent->d_name);

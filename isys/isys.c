@@ -864,6 +864,7 @@ static PyObject * probedListSubscript(probedListObject * o, int item) {
       case CLASS_MOUSE:
       case CLASS_MODEM:
       case CLASS_FLOPPY:
+	class = "floppy"; break;
       case CLASS_SCANNER:
       case CLASS_RAID:
       case CLASS_PRINTER:
