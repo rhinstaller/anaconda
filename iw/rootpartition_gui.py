@@ -121,12 +121,16 @@ class LoopSizeWindow(InstallWindow):
         label.set_line_wrap (TRUE)
         vbox.pack_start (label, FALSE, FALSE)
 
+	upper = avail
+	if avail > 2000:
+	    upper = 2000
+
         # XXX lower is 150
-        self.sizeAdj = GtkAdjustment (value = size, lower = 150, upper = avail, step_incr = 1)
+        self.sizeAdj = GtkAdjustment (value = size, lower = 150, upper = upper, step_incr = 1)
         self.sizeSpin = GtkSpinButton (self.sizeAdj, digits = 0)
         self.sizeSpin.set_usize (100, -1)
 
-        self.swapAdj = GtkAdjustment (value = swapSize, lower = 16, upper = avail, step_incr = 1)
+        self.swapAdj = GtkAdjustment (value = swapSize, lower = 16, upper = upper, step_incr = 1)
         self.swapSpin = GtkSpinButton (self.swapAdj, digits = 0)
         self.swapSpin.set_usize (100, -1)
 
