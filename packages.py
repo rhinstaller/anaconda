@@ -597,10 +597,11 @@ def setupTimezone(timezone, upgrade, instPath, dir):
 
 def doPreInstall(method, id, intf, instPath, dir):
     if dir == DISPATCH_BACK:
-        try:
-            isys.umount(instPath + "/selinux")
-        except:
-            pass
+        for d in ("/selinux", "/dev"):
+            try:
+                isys.umount(instPath + d)
+            except Exception, e:
+                log("unable to unmount %s: %s" %(d, e))
         return
 
     arch = iutil.getArch ()
