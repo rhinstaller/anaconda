@@ -1,15 +1,16 @@
 # Anaconda Bahasa Melayu (Malay) (ms)
-# Jika takut risiko, Jangan bicara tentang Perjuangan
-# Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002
-# Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2003,2004
+# Jika takut risiko, Jangan bicara tentang Perjuangan, tetapi ramai jugak yang berjuang eh.?
+# 1. Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002
+# 2. Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2003,2004
+# 3. Mohd Nawawi Mohamad Jamili <nawawi@ronggeng.net>, 2004
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-06-22 16:38+0800\n"
-"Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
+"PO-Revision-Date: 2004-06-23 23:02+0800\n"
+"Last-Translator: Mohd Nawawi Mohamad Jamili <nawawi@ronggeng.net>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -990,17 +991,17 @@ msgstr "Batal"
 
 #: ../gui.py:638 ../text.py:283
 #, python-format
-#, fuzzy
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
 "\n"
 "%s"
-msgstr "ralat"
+msgstr "Beberapa ralat telah dijumpai semasa melaksana konfigurasi kickstart"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Ralat"
+msgstr "Ralat semasa melaksana konfig Kickstart"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1166,9 +1167,8 @@ msgid "Change CDROM"
 msgstr "Tukar CDROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "s kepada."
+msgstr "Sila masukkan %s disk %d untuk sambung"
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1180,9 +1180,8 @@ msgid "That's not the correct %s CDROM."
 msgstr "Ianya bukan CDROM %s yang betul."
 
 #: ../image.py:327
-#, fuzzy
 msgid "Unable to access the CDROM."
-msgstr "kepada."
+msgstr "Tidak boleh untuk akses ke CDROM"
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -2442,45 +2441,42 @@ msgid "Connecting..."
 msgstr "Menyambung..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "kepada Mula"
+msgstr "Gagal untuk memulakan X"
 
 #: ../vnc.py:37
-#, fuzzy
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr "kepada mula on kepada mula kepada kepada daripada dan atau?"
+msgstr "X gagal untuk dilaksanakan pada mesin anda. Adakah anda ingin untuk melaksanakan VNC dengan "
+"menyambungkan komputer ini kepada komputer lain dan menggunakan paparan grafik semasa install atau sambung dengan "
+"menggunakan mod paparan teks install?"
 
 #: ../vnc.py:44 ../vnc.py:47
-#, fuzzy
 msgid "Use text mode"
-msgstr "Guna"
+msgstr "Sila guna mod teks"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Mula"
+msgstr "Memulakan VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Konfigurasi Silo"
+msgstr "Konfigurasi VNC"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Tidak"
+msgstr "Tiada katalaluan"
 
 #: ../vnc.py:62
-#, fuzzy
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr "A dan kepada for"
+msgstr "katalaluan akan menghalang pengguna yang tidak memberi katalaluan dari membuat "
+"sambungan dan melihat proses installasi anda. Tolong taip katalaluan untuk digunakan semasa "
+"installasi dijalankan"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2544,7 +2540,6 @@ msgstr ""
 "untuk digunakan dalam katalaluan."
 
 #: ../iw/account_gui.py:93
-#, fuzzy
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
