@@ -979,7 +979,7 @@ class PackageSelectionWindow (InstallWindow):
 		pixname = string.lower(comp.id) + ".png"
 		fn = self.ics.findPixmap("comps/"+pixname)
 		if not fn:
-		    print "could not load pix ",pixname
+		    log("could not load pix: %s " %(pixname,))
 		    pix = None
 		else:
 		    rawpix = gtk.gdk.pixbuf_new_from_file(fn)
