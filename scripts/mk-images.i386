@@ -116,6 +116,15 @@ rm -f $TOPDESTPATH/images/initrd-pcmcia.img
 BOOTLANG="ja_JP"
 BOOTDIR="ja"
 
+# hack hack hack - we are *out* of space
+NETWORKMODULES="$COMMONMODULES 3c509 3c59x 3c90x 8390 ac3200 at1700 de4x5
+	       de600 de620 depca e1000 eepro100 hp-plus hp hp100
+	       ne ne2k-pci ni52 old_tulip pcnet32 rtl8139 tlan tulip
+	       via-rhine 
+               nfs vfat"
+
+
+
 makebootdisk --bootdisksize 1440 \
 	     --imagename ja/boot.img \
 	     --initrdflags '--japanese
