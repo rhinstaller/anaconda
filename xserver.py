@@ -58,7 +58,11 @@ def mouseWindow(mouse):
     screen.finish()
     return 1
     
-def startX():
+def startX(resolution):
+#    print "Inside startX"
+#    print resolution
+#    time.sleep (5)
+
     global serverPath
     global mode
     
@@ -76,9 +80,11 @@ def startX():
         print "Found a", Xtype
         time.sleep(2)
 
-    x = XF86Config (mouse)
+    x = XF86Config (mouse, resolution)
+    x.res = resolution
+    
     x.probe ()
-    print "Probed X server is " , x.server
+#    print "Probed X server is " , x.server
     probedServer = x.server
     x.server = "XF86_FBDev"
 
@@ -110,6 +116,7 @@ def startX():
         
         testx(mouse, x)
     except:
+        print "Can't open /dev/fb0"
         try:            
             x.server = probedServer
             testx(mouse, x)
@@ -142,7 +149,7 @@ def testx(mouse, x):
                 raise RuntimeError, "X server failed to start"
             try:
                 os.stat ("/tmp/.X11-unix/X1")
-                print
+#                print
                 break
             except OSError:
                 pass
