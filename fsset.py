@@ -381,15 +381,7 @@ class FATFileSystem(FileSystemType):
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
         if rc:
-            if self.messageWindow:
-                self.messageWindow(_("Error"),
-                                   _("An error occurred trying to "
-                                     "format %s.  This problem is "
-                                     "serious, and the install cannot "
-                                     "continue.\n\n"
-                                     "Press Enter to reboot your system.")
-                                   % (entry.device.getDevice(),))
-                sys.exit(0)
+            raise SystemError
         
 fileSystemTypeRegister(FATFileSystem())
 
