@@ -29,8 +29,6 @@ import raid
 import partedUtils
 import partRequests
 
-from partitioning import requestSize
-
 from rhpl.translate import _
 from rhpl.log import log
 
@@ -505,14 +503,14 @@ class Partitions:
                             "which is required for installation of %s "
                             "to continue.") % (productName,))
 
-        if slash and requestSize(slash, diskset) < 250:
+        if slash and slash.getActualSize(self, diskset) < 250:
             warnings.append(_("Your root partition is less than 250 "
                               "megabytes which is usually too small to "
                               "install %s.") % (productName,))
 
         if iutil.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")
-            if not bootreq or requestSize(bootreq, diskset) < 50:
+            if not bootreq or bootreq.getActualSize(self, diskset) < 50:
                 errors.append(_("You must create a /boot/efi partition of "
                                 "type FAT and a size of 50 megabytes."))
 
@@ -520,7 +518,7 @@ class Partitions:
             req = self.getRequestByMountPoint(mount)
             if not req:
                 continue
-            if requestSize(req, diskset) < size:
+            if req.getActualSize(self, diskset) < size:
                 warnings.append(_("Your %s partition is less than %s "
                                   "megabytes which is lower than recommended "
                                   "for a normal %s install.")
@@ -531,7 +529,7 @@ class Partitions:
         for request in self.requests:
             if request.fstype and request.fstype.getName() == "swap":
                 foundSwap = foundSwap + 1
-                swapSize = swapSize + requestSize(request, diskset)
+                swapSize = swapSize + request.getActualSize(self, diskset)
             if baseChecks:
                 rc = request.doSizeSanityCheck()
                 if rc:

@@ -840,7 +840,7 @@ class PartitionWindow(InstallWindow):
                 vgparent = self.tree.append(lvmparent)
 		self.tree[vgparent]['Device'] = _("LVM: %s") % (vgname,)
 		vgrequest = self.partitions.getRequestByVolumeGroupName(vgname)
-		rsize = requestSize(vgrequest, self.diskset)
+		rsize = vgrequest.getActualSize(self.partitions, self.diskset)
 		print "volume group %s size is %g" % (vgname, rsize)
 		self.tree[vgparent]['Start'] = ""
 		self.tree[vgparent]['End'] = ""
@@ -2128,8 +2128,9 @@ class PartitionWindow(InstallWindow):
 		    pv.append(id)
 
 		    part = get_partition_by_name(self.diskset.disks, partname)
-		    availSpaceMB = availSpaceMB + requestSize(pvreq,
-							      self.diskset)
+		    availSpaceMB = (availSpaceMB +
+                                    pvreq.getActualSize(self.partitions,
+                                                        self.diskset))
 		next = model.iter_next(iter)
 
 	    print "Total size of volume group is %g MB" % (availSpaceMB,)

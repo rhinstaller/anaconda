@@ -740,10 +740,8 @@ def processPartitioning(diskset, requests, newParts):
         if request.type == REQUEST_LV and not request.device:
             request.device = str(request.uniqueID)
 
-        if request.type == REQUEST_RAID:
-            request.size = get_raid_device_size(request, requests, diskset) / 1024 / 1024
-	elif request.type == REQUEST_VG:
-	    request.size = get_lvm_volume_group_size(request, requests, diskset) / 1024 / 1024
+        if request.type == REQUEST_RAID or request.type == REQUEST_VG:
+            request.size = request.getActualSize(requests, diskset)
         if not request.device:
 #            return PARTITION_FAIL
             raise PartitioningError, "Unsatisfied partition request\n%s" %(request)
@@ -945,18 +943,15 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             partitions.addRequest(req)
 
     # sanity checks for the auto partitioning requests; mostly only useful
-    # for kickstart as our installclass defaults SHOULD be sane 
-    (errors, warnings) = partitions.sanityCheckAllRequests(diskset, 1)
-    if warnings:
-        for warning in warnings:
-            log("WARNING: %s" % (warning))
-    if errors:
-        errortxt = string.join(errors, '\n')
-        intf.messageWindow(_("Partition Request Sanity Check Errors"),
-                           _("The following errors occurred with your "
-                             "partitioning:\n\n%s\n\n"
-                             "Press OK to reboot your system.") % (errortxt))
-        sys.exit(0)
+    # for kickstart as our installclass defaults SHOULD be sane
+    for req in partitions.requests:
+        errors = req.sanityCheckRequest(partitions)
+        if errors:
+            intf.messageWindow(_("Partition Request Sanity Check Errors"),
+                               _("The following errors occurred with your "
+                                 "partitioning:\n\n%s\n\n"
+                                 "Press OK to reboot your system.") %
+                               (errors))
 
     try:
         doPartitioning(diskset, partitions, doRefresh = 0)
@@ -983,6 +978,19 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
 
         if isKickstart:
             sys.exit(0)
+
+    # now do a full check of the requests
+    (errors, warnings) = partitions.sanityCheckAllRequests(diskset)
+    if warnings:
+        for warning in warnings:
+            log("WARNING: %s" % (warning))
+    if errors:
+        errortxt = string.join(errors, '\n')
+        intf.messageWindow(_("Partition Request Sanity Check Errors"),
+                           _("The following errors occurred with your "
+                             "partitioning:\n\n%s\n\n"
+                             "Press OK to reboot your system.") % (errortxt))
+        sys.exit(0)
 
 def autoCreatePartitionRequests(autoreq):
     """Return a list of requests created with a shorthand notation.

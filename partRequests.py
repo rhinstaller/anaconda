@@ -97,6 +97,13 @@ class RequestSpec:
                 "fstype": fsname, "format": self.format, "bb": self.badblocks,
                 "dev": self.device, "migrate": self.migrate})
         return str
+
+    def getActualSize(self, partitions, diskset):
+        """Return the actual size allocated for the request in megabytes."""
+
+        sys.stderr.write("WARNING: Abstract RequestSpec.getActualSize() called\n")
+        import traceback
+        traceback.print_stack()
         
     def getDevice(self, partitions):
         """Return a device to solidify."""
@@ -174,8 +181,8 @@ class RequestSpec:
         if partitions and partitions.requests:
             for request in partitions.requests:
                 if request.mountpoint == mntpt:
-                    if (not self.device
-                        or request.device != self.device):
+                    if (not self.uniqueID or
+                        request.uniqueID != self.uniqueID):
                         return _("The mount point %s is already in use, "
                                  "please choose a different mount point."
                                  %(mntpt))
@@ -354,6 +361,14 @@ class PartitionSpec(RequestSpec):
         dev = fsset.PartitionDevice(self.device)
         return dev
 
+    def getActualSize(self, partitions, diskset):
+        """Return the actual size allocated for the request in megabytes."""
+        part = partedUtils.get_partition_by_name(diskset.disks, self.device)
+        if not part:
+            # XXX kickstart might still call this before allocating the partitions
+            raise RuntimeError, "Checking the size of a partition which hasn't been allocated yet"
+        return partedUtils.getPartSizeMB(part)
+
     def doSizeSanityCheck(self):
         """Sanity check that the size of the partition is sane."""
         if not self.fstype:
@@ -492,6 +507,37 @@ class RaidRequestSpec(RequestSpec):
                                spares = self.raidspares)
         return dev
 
+    def getActualSize(self, partitions, diskset):
+        """Return the actual size allocated for the request in megabytes."""
+
+        # this seems like a check which should never fail...
+        if not self.raidmembers or self.raidlevel:
+            return 0
+        nummembers = len(self.raidmembers) - self.raidspares
+        smallest = None
+        sum = 0
+        for member in self.raidmembers:
+            req = partitions.getRequestByID(member)
+            partsize = req.getActualSize(partitions, diskset)
+
+            if raid.isRaid0(self.raidlevel):
+                sum = sum + partsize
+            else:
+                if not smallest:
+                    smallest = partsize
+                elif partsize < smallest:
+                    smallest = partsize
+
+        if raid.isRaid0(self.raidlevel):
+            return sum
+        elif raid.isRaid1(self.raidlevel):
+            return smallest
+        elif raid.isRaid5(self.raidlevel):
+            return (nummembers-1) * smallest
+        else:
+            raise ValueError, "Invalid raidlevel in RaidRequest.getActualSize"
+        
+
     # do RAID specific sanity checks; this is an internal function
     def sanityCheckRaid(self, partitions):
         if not self.raidmembers or not self.raidlevel:
@@ -567,6 +613,21 @@ class VolumeGroupRequestSpec(RequestSpec):
         dev = fsset.VolumeGroupDevice(self.volumeGroupName, pvs)
         return dev
 
+    def getActualSize(self, partitions, diskset):
+        """Return the actual size allocated for the request in megabytes."""
+
+        # this seems like a bogus check too...
+        if self.physicalVolumes is None:
+            return 0
+
+        totalspace = 0
+        for pvid in self.physicalVolumes:
+            pvreq = partitions.getRequestByID(pvid)
+            size = pvreq.getActualSize(partitions, diskset)
+            totalspace = totalspace + size
+
+        return totalspace
+
 class LogicalVolumeRequestSpec(RequestSpec):
     """Request to represent logical volume devices."""
     
@@ -611,3 +672,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
         dev = fsset.LogicalVolumeDevice(vgname, self.size,
                                         self.logicalVolumeName)
         return dev
+
+    def getActualSize(self, partitions, diskset):
+        """Return the actual size allocated for the request in megabytes."""
+
