@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-22 00:10+0200\n"
+"PO-Revision-Date: 2004-07-22 03:36+0200\n"
 "Last-Translator: Tom Berner <tom@man.lodz.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -214,6 +214,10 @@ msgid ""
 "boot from this paritition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
+"Partycja startowa %s nie należy do dysku wykorzystującego chemat BSD "
+"tworzenia partycji. SRM nie będzie mógł wystartować systemu z tej partycji. "
+"Wykorzystaj partycje należącą do dysku korzystającego ze schematu "
+"partycji BSD lub zmień schemat partycji na tym dysku."
 
 #: ../autopart.py:1006
 #, python-format
@@ -240,6 +244,8 @@ msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
 msgstr ""
+"Partycja startowa nie jest zlokalizowana odpowiednio wcześnie na dysku. "
+"OpenFirmware nie będzie potrafił wystartować systemu."
 
 #: ../autopart.py:1017
 #, python-format
@@ -300,10 +306,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Nie można zlokalizować grupy wolumenów %s dla %s.\n"
+"\n"
+"Wciśnij 'OK' aby zrestartować system."
 
 #: ../autopart.py:1300
 msgid "Requested Logical Volume Does Not Exist"
-msgstr ""
+msgstr "Żadany Logczny Wolumen Nie Istnieje"
 
 #: ../autopart.py:1301
 #, python-format
@@ -312,6 +321,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Nie można zlokalizować logiczego wolumenu %s dla %s.\n"
+"\n"
+"Wciśnij 'OK' aby zrestartować system."
 
 #: ../autopart.py:1333 ../autopart.py:1381
 msgid "Automatic Partitioning Errors"
@@ -488,11 +500,11 @@ msgstr ""
 
 #: ../bootloader.py:108
 msgid "Bootloader"
-msgstr "Program rozruchowy (bootloader)"
+msgstr "Program Startujący (bootloader)"
 
 #: ../bootloader.py:108
 msgid "Installing bootloader..."
-msgstr "Instalacja programu rozruchowego (bootloadera)..."
+msgstr "Instalacja programu startującego (bootloadera)..."
 
 #: ../bootloader.py:156
 msgid ""
@@ -508,15 +520,15 @@ msgstr "Zakończone"
 
 #: ../cmdline.py:47
 msgid "In progress...   "
-msgstr "W trakcie..."
+msgstr "W trakcie wykonywania..."
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr ""
+msgstr "Nie można korzystać ze znaku zapytania w trybie wiersza poleceń!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
+msgstr "Częściowych wyjątków nie mozna obsłużyć w trybie wiersza poleceń!"
 
 #: ../cmdline.py:131
 #, python-format
@@ -526,7 +538,7 @@ msgstr "Zakończono [%d/%d]"
 #: ../cmdline.py:137
 #, python-format
 msgid "Installing %s-%s-%s... "
-msgstr "Instalacja %s-%s-%s..."
+msgstr "Instaluje %s-%s-%s..."
 
 #: ../comps.py:767 ../comps.py:795 ../hdrlist.py:779
 msgid "Everything"
@@ -599,15 +611,15 @@ msgstr ""
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Zdalne Logowanie (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Serwer WWW (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Transfer Plików (FTP)"
 
 #: ../firewall.py:58
 msgid "Mail Server (SMTP)"
@@ -888,6 +900,10 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"Kilka urządzeń w Twoim systemie posiada etykiete %s. Wszystkie "
+"etykiety urządzeń muszą być unikalne aby system mógł poprawnie działać.\n"
+"\n"
+"Prosze rozwiązać problem i ponowić proces instalacji."
 
 #: ../fsset.py:2125 ../gui.py:643 ../gui.py:1102 ../image.py:96
 #: ../image.py:476 ../packages.py:1485 ../iw/confirm_gui.py:68
@@ -996,6 +1012,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Znaleziono następujące błędy analizując plik konfiguracyjny "
+"programu kikstart:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
 msgid "Error Parsing Kickstart Config"
@@ -1105,6 +1125,10 @@ msgid ""
 "%s\n"
 "The system will now reboot."
 msgstr ""
+"Brakuje następujących, wymaganych do instalacji obrazów ISO:\n"
+"\n"
+"%s\n"
+"System zostanie zrestartowany."
 
 #: ../image.py:87
 msgid "Required Install Media"
@@ -1119,11 +1143,16 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
+"Oprogramowanie które wybrałeś wymaga następujących płyt CD:\n"
+"\n"
+"%s\n"
+"Prosze je przygotować przed przejściem do dalszego etapu instalacji. "
+"Jeśli chcesz przerwać instalacjie i zrestartować system wybierz \"Restart\"."
 
 #: ../image.py:96 ../image.py:477 ../kickstart.py:1386 ../kickstart.py:1414
 #: ../iw/partition_gui.py:1016
 msgid "_Continue"
-msgstr "_Kontynuuj"
+msgstr "_Dalej"
 
 #: ../image.py:155
 #, python-format
@@ -1170,7 +1199,7 @@ msgstr "To nie jest poprawny %s CDROM."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Brak dostępu do CD-ROM'u"
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1475,6 +1504,16 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
+"Dziękujemy za pobranie tego wydania testowego %s.\n"
+"\n "
+"Nie jest to wydanie oficjalne i nie powinno być stosowane na "
+"serwerach produkcyjnych.  Celem tego wydania jest zebranie "
+"uwag od testerów i nie jest ono odpowiednie do codziennej pracy.\n"
+"\n"
+"Wszelkie uwagi prosze zgłaszać korzystając z:\n"
+"   http://bugzilla.redhat.com/bugzilla\n"
+"\n"
+"zanznaczając w zgłoszeniu '%s'.\n"
 
 #: ../packages.py:1479
 msgid "_Install anyway"
@@ -1948,7 +1987,7 @@ msgstr "Musisz utworzyć partycję /boot/efi typu FATo wielkości 50 MB."
 
 #: ../partitions.py:796
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "Musisz stworzyć partycje startową PPC PReP"
 
 #: ../partitions.py:804 ../partitions.py:815
 #, python-format
@@ -2123,6 +2162,15 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
+"Środowisko ratownicze spóbuje znaleźć teraz twoją instalacje Linux'a "
+"i zamontuje ją w katalogu %s.  Będziesz mógł wtedy dokonąc wszelkich "
+"niezbędnych zmian w swoim systemie.  Jęsli chcesz kontynuować wybierz "
+"'Dalej'.  Możesz również zamontować swój system w trybie tylko do odczytu, "
+"zamiast w trybie pełnego dostępu, wybierając 'Tylko Odczyt'.\n"
+"\n"
+"Jeśli z jakiegoś powodu ten proces ię nie powiedzie, możesz wybrać 'Pomiń' "
+"i krok ten zostanie pominięty a Ty przejdziesz od razu do trybu poleceń powłoki.\n"
+"\n"
 
 #: ../rescue.py:267 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
 #: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:463
@@ -2131,7 +2179,7 @@ msgstr "Kontynuuj"
 
 #: ../rescue.py:267 ../rescue.py:276
 msgid "Read-Only"
-msgstr "Tylko do odczytu"
+msgstr "Tylko Odczyt"
 
 #: ../rescue.py:267 ../rescue.py:269 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:254
@@ -2387,6 +2435,10 @@ msgid ""
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
+"Architektura wydania %s które aktualizujesz wydaje się być architekturą %s, "
+"która nie odpowiada poprzednio zainstalowanej architekturze %s.  "
+"Prawdopodobnie aktualizacja nie powiedzie się.  Jesteś pewien że chcesz "
+"kontynuowac proces aktualizacji?"
 
 #: ../upgrade.py:475
 #, python-format
@@ -2399,6 +2451,13 @@ msgid ""
 "\n"
 "Do you wish to continue the upgrade process?"
 msgstr ""
+"Wygląda że system posiada zainstalowane pakiety innych producentów, "
+"pokrywające się z pakietami zawartymi w %s. ponieważ pakiety pokrywają się, "
+"kontynuacja aktualizacji grozi zaprzestaniem działania tych pakietów "
+"lub inną niestabilnością systemu. Prosze przeczytać notkę o wydaniu w celu "
+"uzyskanie dokładniejszych informacji.\n"
+"\n"
+"Czy chcesz kontynuować proces aktualizacji?"
 
 #: ../upgrade.py:498
 #, python-format
@@ -2435,10 +2494,13 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"X nie mogły wystartować.  Czy chcesz uruchomić VNC aby połączyć się "
+"z tym komputerem z innego i wykonać instalacje w trybie graficznym, "
+"czy kontynujuesz dalej instalacje w trybie tekstowym?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Użyj trybu tekstowego"
 
 #: ../vnc.py:45
 msgid "Start VNC"
@@ -2458,6 +2520,9 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"Hasło zabezpieczy przed nieautoryzowanymi podłączeniami i monitoringiem "
+"postępów twojej instalacji.  Prosze wprowadzić hasło, które będzie wykorzystane "
+"do instalacji"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2501,6 +2566,8 @@ msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
+"Musisz wprowadzić hasło roota i potwierdzić je wprowadzając ponownie "
+"aby kontynuować."
 
 #: ../iw/account_gui.py:50
 msgid "The passwords you entered were different.  Please try again."
@@ -2523,6 +2590,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"Konto root jest wykorzystywane do administracji systemem.  Wprowadź "
+"hasło dla użytkownika root."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -2646,6 +2715,9 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
+"Wprowadź hasło dla programu startującego a potem je potwierdź.  "
+"(Zauważ że mapowanie klawiszy w BIOS, może być inne niż to do "
+"którego przywykłeś.)"
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
@@ -2814,7 +2886,7 @@ msgstr "Instalacja boot loadera na:"
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
-msgstr ""
+msgstr "_Zmień Kolejność Dysków"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Unable to Change Drive Order for LILO"
@@ -2846,7 +2918,7 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:57
 msgid "About to Install"
-msgstr ""
+msgstr "Zaraz rozpocznie się Instalacja"
 
 #: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:95 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:61
@@ -2910,6 +2982,9 @@ msgid ""
 "installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Usuń wszystkie nośniki (dyskietki lub CD-ROMy) wykorzystywane w trakcie "
+"instalacji z komputera i wciśnij \"Restart\" aby zrestartować system.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:62
 #, python-format
@@ -2996,6 +3071,9 @@ msgid ""
 "selection, including:\n"
 "\n"
 msgstr ""
+"Domyślnie instalowane środowisko zawiera rekomendowane przez nas "
+"pakiety, w tym:\n"
+"\n"
 
 #: ../iw/desktop_choice_gui.py:53
 #, python-format
@@ -3009,6 +3087,12 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
+"\n"
+"\n"
+"Po instalacji dodatkowe oprogramowanie może być dodane lub usunięte "
+"przy pomocy programu 'system-config-packages'.\n"
+"Jeśli jesteś zaznajomiony z %s, możesz wskazać pakiety, które chcesz "
+"zainstalować lub nie. Wybierz je poniżej dostosowując swoją instalacje."
 
 #: ../iw/desktop_choice_gui.py:65
 msgid ""
@@ -3066,6 +3150,9 @@ msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
 msgstr ""
+"Wybierz tę opcje jeśli chcesz zainstalowac system od nowa. Istniejące "
+"oprogramowanie i dane mogą zostać nadpisane w zależności od "
+"ustawienia konfiguracji."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3088,6 +3175,8 @@ msgid ""
 "Formatting the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
 msgstr ""
+"Formatowanie wskazanego urządzenia DASD skasuje cała zawartość "
+"urządzenia Czy na pewno chcesz formatować wybrane urządzenie DASD?"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
@@ -3112,6 +3201,10 @@ msgid ""
 "unauthorized access.  However, you have selected not to configure a "
 "firewall.  Choose \"Proceed\" to continue without a firewall."
 msgstr ""
+"Jeśli system jest podłączony do Internetu lub innej dużej sieci publicznej, "
+"zalecana jest konfiguracja firewall'a w celu ochrony przed nieautoryzowanym "
+"dostępem.  Jednakże zdecydowałeś się nie konfigurować firewall'a.  Wybierz "
+"\"Dalej\" aby kontynuować bez firewall'a."
 
 #: ../iw/firewall_gui.py:43
 msgid "_Configure Firewall"
@@ -3127,6 +3220,8 @@ msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
+"Firewall pomaga w ochronie przed nieautoryzowanym dostępem do twojego "
+"komputera z zewnątrz.  Czy chciałbyś włączyć firewall'a?"
 
 #: ../iw/firewall_gui.py:88
 msgid "N_o firewall"
@@ -3141,6 +3236,8 @@ msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
 msgstr ""
+"Firewall pozwala na określenie do których usług sieciowych, kto ma dostęp "
+"z zewnątrz.  Jakie usługi udostępnić?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3149,6 +3246,10 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
+"Security Enhanced Linux (SELinux) dostarcza dokładniejszych metod "
+"kontroli dostępu niż tradycyjny system Linuksowy.  Mozna go ustawić "
+"w stan wyłączony, stan ostrzeżeń o zdarzeniach, które byłyby zabronione "
+"lub w stan pełnej aktywności."
 
 #: ../iw/firewall_gui.py:155
 msgid "Enable _SELinux?:"
@@ -3156,7 +3257,7 @@ msgstr "Włączyć _SELinux?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
-msgstr ""
+msgstr "Wyłączony"
 
 #: ../iw/firewall_gui.py:161
 msgid "Warn"
@@ -3164,7 +3265,7 @@ msgstr "Ostrzegaj"
 
 #: ../iw/firewall_gui.py:161 ../textw/firewall_text.py:173
 msgid "Active"
-msgstr ""
+msgstr "Włączony"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3712,11 +3813,11 @@ msgstr "_Point to Point (IP)"
 
 #: ../iw/network_gui.py:238
 msgid "_ESSID"
-msgstr ""
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr ""
+msgstr "_Klucz Szyfrujący"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -4872,6 +4973,8 @@ msgid ""
 "You have not selected a monitor type.  It is recommended you choose the "
 "closest matching model in order to have the highest possible display quality."
 msgstr ""
+"Nie wskazałeś typu monitora.  Zalecane jest abyś wskazał najbardziej "
+"zbliżony model aby osiągnąć jak najlepszą jakość obrazu."
 
 #: ../iw/xconfig_gui.py:445
 msgid "_Choose monitor type"
@@ -4934,7 +5037,7 @@ msgid ""
 msgstr ""
 "Musisz wybrać kartę graficzną przed kontynuowaniem konfiguracji X Window. "
 "Jeśli chcesz całkiem pominąć konfigurację X Window, wybierz przycisk 'Pomiń "
-"Konfigurację X Window'."
+"Konfigurację X'."
 
 #: ../iw/xconfig_gui.py:974 ../textw/xconfig_text.py:637
 msgid ""
@@ -4942,6 +5045,9 @@ msgid ""
 "System.  If you do not want to setup the X Window System, choose 'Skip X "
 "Configuration' below."
 msgstr ""
+"Twój system zostanie skonfigurowany tak aby korzystał ze sterownika "
+"karty graficznej dla systemu X Window.  Jeśli nie chcesz korzystać z konfiguracji "
+"X Window, wybierz 'Pomiń Konfiguracje X' poniżej."
 
 #: ../iw/xconfig_gui.py:983
 msgid ""
@@ -4966,7 +5072,7 @@ msgstr "RAM karty _graficznej:"
 
 #: ../iw/xconfig_gui.py:1107
 msgid "_Skip X configuration"
-msgstr "_Pomiń konfigurację X-Window"
+msgstr "_Pomiń Konfigurację X"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -4974,7 +5080,7 @@ msgstr "Konfiguracja z/IPL Boot Loadera"
 
 #: ../iw/zipl_gui.py:75
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr ""
+msgstr "Program startujący z/IPL zostanie zainstalowany w twoim systemie."
 
 #: ../iw/zipl_gui.py:77
 msgid ""
@@ -4992,6 +5098,18 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
+"Program startujący z/IPL zostanie teraz zainstalowany.\n"
+"\n"
+"Partycją root będzie ta którą wybrałeś poprzednio przy konfiguracji "
+"partycji.\n"
+"\n"
+"Jądro domyślne będzie wykorzystane do startu komputera.\n"
+"\n"
+"Jeśli później będziesz chciał dokonać zmian, możesz dowolnie "
+"zmieniać plik konfiguracyjny /etc/zipl.conf.\n"
+"\n"
+"Możesz teraz wprowadzić dodatkowe parametry jądra jakie są  "
+"wymagane przez twój komputer, bądź konfiguracje."
 
 #: ../iw/zipl_gui.py:104 ../textw/zipl_text.py:60
 msgid "Kernel Parameters"
@@ -5175,6 +5293,9 @@ msgid ""
 "installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
+"Usuń wszystkie nośniki (dyskietki lub CD-ROMy) wykorzystywane w trakcie "
+"instalacji z komputera i wciśnij  aby zresta<Enter>rtować system.\n"
+"\n"
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to reboot"
@@ -5216,7 +5337,7 @@ msgstr "Restart"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
-msgstr ""
+msgstr "Rozpoczynam instalacji"
 
 #: ../textw/confirm_text.py:23
 #, python-format
@@ -5244,7 +5365,7 @@ msgstr "Powrót"
 
 #: ../textw/confirm_text.py:48
 msgid "Upgrade to begin"
-msgstr "Rozpoczęcie aktualizacji systemu"
+msgstr "Rozpoczynam aktualizacje"
 
 #: ../textw/confirm_text.py:49
 #, python-format
@@ -5265,6 +5386,12 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
+"The default installation environment includes our recommended package "
+"selection.  Po instalacji dodatkowe oprogramowanie może być dodane "
+"lub usunięte przy pomocy programu 'system-config-packages'.\n"
+"\n"
+"Jednakże %s dostarczany jest z o wile większą ilością aplikacji i jeśli chcesz "
+"możeć dostosować liste wybranego oprogramowania do swoich potrzeb."
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
@@ -5355,7 +5482,7 @@ msgstr "Dostosowywanie Konfiguracji Firewall'a"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "Security Enhanced Linux"
 
 #: ../textw/firewall_text.py:161
 msgid ""
@@ -5363,14 +5490,17 @@ msgid ""
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
+"Security Enhanced Linux (SELinux) dostarcza ściślejszej kontroli dostępu "
+"zwiększając tym samym bezpieczeństwo systemu.  W jaki sposób chciałbyś "
+"skorzystać z tego wsparcia?"
 
 #: ../textw/firewall_text.py:169
 msgid "Disable SELinux"
-msgstr ""
+msgstr "Wyłącz SELinux"
 
 #: ../textw/firewall_text.py:171
 msgid "Warn on violations"
-msgstr ""
+msgstr "Ostrzegaj o wykroczeniach"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -5451,11 +5581,11 @@ msgstr "Punkt-Punt (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:186
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:187
 msgid "Encryption Key"
-msgstr ""
+msgstr "Klucz Szyfrujący"
 
 #: ../textw/network_text.py:88
 #, python-format
@@ -5510,7 +5640,7 @@ msgstr "Inne Ustawienia Sieci"
 
 #: ../textw/network_text.py:351
 msgid "automatically via DHCP"
-msgstr "automatycznie via DHCP"
+msgstr "automatycznie przez DHCP"
 
 #: ../textw/network_text.py:355
 msgid "manually"
@@ -5527,6 +5657,10 @@ msgid ""
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
+"Jeśli twój system jest częścią dużej sieci gdzie nazwy hostów przydzielane są "
+"przez DHCP, wybierz automatycznie przez DHCP. W innym przypadku, "
+"wybierz ręcznie i wprowadź nazwe hosta. Jeśli jej nie wprowadzisz twój system "
+"otrzyma nazwe 'localhost'."
 
 #: ../textw/network_text.py:403 ../textw/network_text.py:409
 msgid "Invalid Hostname"
@@ -6349,7 +6483,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:629
 msgid "Skip X Configuration"
-msgstr "Pomiń konfigurację X-Window"
+msgstr "Pomiń Konfigurację X"
 
 #: ../textw/xconfig_text.py:631
 msgid "Video Card Configuration"
@@ -6377,6 +6511,9 @@ msgid ""
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
+"Program startujący z/IPL zostanie zainstalowany po zakończeniu instalacji. "
+"Możesz teraz wprowdzić dodatkowe parametry jądra i chandev, których "
+"wymaga twój komputer lub konfiguracja."
 
 #: ../textw/zipl_text.py:56
 msgid "z/IPL Configuration"
@@ -6421,6 +6558,13 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tPowłoka Pulpitu (GNOME)\n"
+"\tPakiet Biurowy (OpenOffice.org)\n"
+"\tPrzeglądarka WWW (Mozilla) \n"
+"\tPoczta (Evolution)\n"
+"\tWysyłanie Komunikatów\n"
+"\tAplikacje Obsługi Dzwięku i Video\n"
+"\tGry\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6460,6 +6604,15 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\tPowłoka Pulpitu (GNOME)\n"
+"\tPakiet Biurowy (OpenOffice.org)\n"
+"\tPrzeglądarka WWW (Mozilla) \n"
+"\tPoczta (Evolution)\n"
+"\tWysyłanie Komunikatów\n"
+"\tAplikacje Obsługi Dzwięku i Video\n"
+"\tGry\n"
+"\tNarzędzia Programistyczne\n"
+"\tNarzędzia Administracyjne\n"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
@@ -6580,7 +6733,7 @@ msgstr "Wybierz obraz dyskietki ze sterownikam"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Wybierz plik który jest obrazem dyskietki ze sterownikami."
 
 #: ../loader2/driverdisk.c:369
 msgid "Failed to load driver disk from file."
@@ -6762,7 +6915,7 @@ msgstr "Urządzenie %s nie zawiera obrazów CDROM %s."
 #: ../loader2/hdinstall.c:464
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "Błędny argument w komendzie HD programu kickstart %s: %s"
+msgstr "Błędny argument komendy HD programu kickstart %s: %s"
 
 #: ../loader2/hdinstall.c:514
 msgid "Cannot find kickstart file on hard drive."
@@ -6798,7 +6951,7 @@ msgstr "Nie mogę znaleźć ks.cfg na dyskietce startowej."
 #: ../loader2/kickstart.c:402
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Błędny argument w komendzie shutdown programu kickstart %s: %s"
+msgstr "Błędny argument komendy shutdown programu kickstart %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -7079,6 +7232,10 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s jest bezprzewodową kartą sieciową.  Prosze wskazać ESSID "
+"oraz klucz szyfrujący aby uzyskać dostęp do sieci bezprzewodowej.  "
+"Jeśli klucz nie jest wymagany prosze jego pole zostawić puste a instalacja "
+"będzie kontynuowana."
 
 #: ../loader2/net.c:190
 msgid "Wireless Settings"
@@ -7337,7 +7494,7 @@ msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "Alagoas, Sergipe"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7351,7 +7508,7 @@ msgstr "Czas Alaski - Alaska Panhandle"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "Czas Alaski - Alaska  Panhandle Neck"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7364,11 +7521,11 @@ msgstr "Wyspy Aleuckie"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr ""
+msgstr "Amapa, E Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "Stacja Amundsen-Scot, Biegun Południowy"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
@@ -7384,15 +7541,15 @@ msgstr "Czas Atlantycki - E Labrador"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
+msgstr "Czas Atlantycki - Nowa Szkocja (większość lokalizacji), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
+msgstr "Czas Atlantycki - Nowa Szkocja - lokalizacje bez DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -7404,15 +7561,15 @@ msgstr "Bahia"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr ""
+msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr "Wyspy Kanary"
+msgstr "Wyspy Kanaryjskie"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "Stacja Casey, Bailey Peninsula"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
@@ -7428,11 +7585,11 @@ msgstr "Krym środkowy"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "Czas Środkowy Centralny - Saskatchewan - Środkowyzachód"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "Czas Środkowy Centralny - Saskatchewan - większość lokalizacji"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7441,39 +7598,39 @@ msgstr "Czas Centralny"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "Czas Centralny - Campeche, Yucatan"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "Czas Centralny - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "Czas Centralny - Manitoba & west Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
-msgstr ""
+msgstr "Czas Centralny- Michigan - granica Wisconsin"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "Czas Centralny - większość lokalizacji"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr ""
+msgstr "Czas Centralny - Północna Dakota - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr " Czas Centralny - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "Czas Centralny - Rainy River & Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "Czas Centralny - zachodni Nunavut"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
@@ -7485,23 +7642,23 @@ msgstr "Wyspy Chatham"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "Stacja Davis, Wzgórza Vestfold"
 
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar"
-msgstr ""
+msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Dumont-d'Urville Base, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "Wschodnia Amazonia"
 
 #. generated from zone.tab
 msgid "E Argentina (BA, DF, SC, TF)"
-msgstr ""
+msgstr "Wschodnia Argentyna (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
@@ -7509,43 +7666,43 @@ msgstr "Chiny wschodnie - Pekin, Guangdong, Szanghaj itd."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "wschodnie wybrzeże, północ Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "wschodnia Rep. Dem. Kongo"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr ""
+msgstr "Wyspa Wielkanocna i Sala y Gomez"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
-msgstr ""
+msgstr "Czas Standardowy Wschodni - centralny Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr ""
+msgstr "Czas Standardowy Wschodni - wschodni Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr ""
+msgstr "Czas Standardowy Wschodni - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr ""
+msgstr "Czas Standardowy Wschodni - Indiana - większość lokalizacji"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr ""
+msgstr "Czas Standardowy Wschodni - Indiana - Starke County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "Czas Standardowy Wschodni - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "Czas Standardowy Wschodni - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -7553,35 +7710,35 @@ msgstr "Czas Wschodni"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "Czas Wschodni - Kentucky - obszar Louisville"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Czas Wschodni- Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Czas Wschodni- Michigan - większość lokalizacji"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr ""
+msgstr "Czas Wschodni - Ontario - większość lokalizacji "
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
+msgstr "Czas Wschodni- Ontario i Quebec -lokalizacje bez DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr ""
+msgstr "Czas Wschodni - Quebec - większość lokalizacji"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Czas Wschodni - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
+msgstr "wschodnie i południowe Borneo, Celebes, Bali, Nusa Tengarra, zachodni Timor"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -7609,11 +7766,11 @@ msgstr "Hawaje"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr ""
+msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "Irian Jaya i the Moluccas"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
@@ -7663,19 +7820,19 @@ msgstr "Wyspy Marquesas"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
 #. generated from zone.tab
 msgid "Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Stacja Mawson, Zatoka Holme "
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "Stacja McMurdo, Wyspa Ross"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
@@ -7763,52 +7920,52 @@ msgstr "większość lokalizacji (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,S
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "Czas Standardowy Górski - Arizona"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
+msgstr "Czas Standardowy Górski - Dawson Creek i Fort Saint John, Brytyjska Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "Czas Standardowy Górski  - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr "Czas Mountain"
+msgstr "Czas Górski"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
+msgstr "Czas Górski - Alberta, wschodnia Kolumbia Brytyjska i zachodnie Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "Czas Górski - środkowe Pólnocnozachodnie Terytoria"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr "Czas Mountain - Chihuahua"
+msgstr "Czas Górski - Chihuahua"
 
 #  generated from zone.tab
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr "Czas Mountain - Navajo"
+msgstr "Czas Górski - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "Czas Górski - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "Czas Górski - południowee Idaho i wschodni Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "Czas Górski - zachodnie  Północnozachodnie Terytoria"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr ""
+msgstr "PółnocnoWschodnia Brazylia (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
@@ -7816,11 +7973,11 @@ msgstr "Wyspa Newfoundland"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "Nowa Południowa Walia - większość lokalizacji"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr ""
+msgstr "Nowa Południowa Walia - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
@@ -7843,19 +8000,19 @@ msgstr "Czas Pacyfiku"
 #  generated from zone.tab
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "Czas Pacyfiku - północny Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "Czas Pacyfiku południowy Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "Czas Pacyfiku - zachodnia Kolumbia Brytyjska"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Stacja Palmer, Wyspa Anvers"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
@@ -7863,7 +8020,7 @@ msgstr "Peninsular Malezja"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7885,23 +8042,23 @@ msgstr "Queensland - większość lokalizacji"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr ""
+msgstr "Stacja Rothera , Wysspa Adelaide"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "Ruś"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -7928,7 +8085,7 @@ msgstr "Południowo_Zachodni Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "Południowa i PołudniowoWschodnia Brazylia (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7951,7 +8108,7 @@ msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr ""
+msgstr "Tybet i większość Xinjiang Uyghur"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7968,7 +8125,7 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Stacja Wostok, Biegun Południowy"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7977,7 +8134,7 @@ msgstr "Wyspa Wake"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "Zachodnia Amazonia"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7986,15 +8143,15 @@ msgstr "Zachodnie i Centralne Borneo"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "zachodnia Rep. Dem. Kongo"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr "Australia"
+msgstr "Zachodnia Australia"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
-msgstr "Kazakhstan"
+msgstr "Zachodni Kazachstan"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -8002,10 +8159,11 @@ msgstr "Uzbekistan"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "Zachodnia Para, Rondonia"
 
 #  generated from zone.tab
 #. generated from zone.tab
+#, fuzzy
 msgid "Yap"
 msgstr "Yap"
 
@@ -8016,11 +8174,11 @@ msgstr "Zaporoże, wsch. Lugańsk"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arabski"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "Bengalski"
 
 #  generated from lang-table
 #. generated from lang-table
@@ -8030,7 +8188,7 @@ msgstr "Kataloński"
 #  generated from lang-table
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "Chiński (uproszczony)"
+msgstr "Chiński (Uproszczony)"
 
 #  generated from lang-table
 #. generated from lang-table
@@ -8060,7 +8218,7 @@ msgstr "Angielski"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "Estoński"
 
 #  generated from lang-table
 #. generated from lang-table
@@ -8081,7 +8239,7 @@ msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Węgierski"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -8104,11 +8262,11 @@ msgstr "Koreański"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedoński"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "Malezyjski"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -8129,7 +8287,7 @@ msgstr "Portugalski(Brazylijski)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Pańdżabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8160,17 +8318,17 @@ msgstr "Turecki"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukraiński"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Wietnamski"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "Walijski"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "Zulu"
 
