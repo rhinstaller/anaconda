@@ -507,7 +507,7 @@ class AdvancedBootloaderWindow (InstallWindow):
         table.set_col_spacings(5)
 
         table.attach(gtk.Label(_("Label")), 0, 1, 1, 2, gtk.FILL, 0, 10)
-        labelEntry = gtk.Entry(16)
+        labelEntry = gtk.Entry(32)
         table.attach(labelEntry, 1, 2, 1, 2, gtk.FILL, 0, 10)
         if oldLabel:
             labelEntry.set_text(oldLabel)
