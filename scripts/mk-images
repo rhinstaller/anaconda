@@ -437,6 +437,7 @@ EOF
 	$MBD_DIR kbd c 11 0 644 root:root
 	$MBD_DIR ptyp0 c 2 0 644 root:root
 	$MBD_DIR ttyp0 c 3 0 644 root:root
+	$MBD_DIR agpgart c 10 175 664 root:root
 EOF
     ln -s fb0 $MBD_DIR/dev/fb
 
