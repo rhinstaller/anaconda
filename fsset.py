@@ -1332,8 +1332,9 @@ class FileSystemSetEntry:
             self.origfsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
                                    readOnly = readOnly)
         else:
-            self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint,
-                                                  readOnly = readOnly)
+            self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
+                               readOnly = readOnly)
+
         self.mountcount = self.mountcount + 1
 
     def umount(self, chroot='/'):
