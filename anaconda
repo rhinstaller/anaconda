@@ -554,6 +554,7 @@ if (display_mode == 'g'):
             print "GUI installer startup failed, falling back to text mode."
             log("GUI installer startup failed, falling back to text mode.")
             display_mode = 't'
+	    del os.environ['DISPLAY']
             time.sleep(2)            
             from text import InstallInterface
 
