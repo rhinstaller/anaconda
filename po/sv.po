@@ -1,5 +1,5 @@
 # Swedish messages for the Red Hat Anaconda installation framework.
-# Copyright 2000, 2001, 2002 Christian Rose <menthos@menthos.com>.
+# Copyright 2000, 2001, 2002, 2003 Christian Rose <menthos@menthos.com>.
 #
 # $Id$
 #
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-12-18 00:10-0500\n"
-"PO-Revision-Date: 2002-12-11 02:39+0100\n"
+"PO-Revision-Date: 2003-01-05 00:46+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -659,15 +659,12 @@ msgid "Formatting %s file system..."
 msgstr "Formaterar %s-filsystem..."
 
 #: ../gui.py:104
-#, fuzzy
 msgid "An error occurred copying the screenshots over."
-msgstr ""
-"Ett fel inträffade vid konvertering av värdet som angavs för \"%s\":\n"
-"%s"
+msgstr "Ett fel inträffade vid kopiering av skärmdumparna."
 
 #: ../gui.py:116
 msgid "Screenshots Copied"
-msgstr ""
+msgstr "Skärmdumpar kopierade"
 
 #: ../gui.py:117
 msgid ""
@@ -677,25 +674,41 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
+"Skärmdumparna har sparats i katalogen:\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
+"Du kan komma åt dessa när du startar om och loggar in som root."
 
 #: ../gui.py:161
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "Sparar skärmdump"
 
 #: ../gui.py:162
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr ""
+msgstr "En skärmdump med namnet \"%s\" har sparats."
 
 #: ../gui.py:165
 msgid "Error Saving Screenshot"
-msgstr ""
+msgstr "Fel vid sparande av skärmdump"
 
 #: ../gui.py:166
 msgid ""
 "An error occurred while saving the screenshot.  If this occurredduring "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
+"Ett fel inträffade vid sparande av skärmdumpen. Om detta inträffade under "
+"installation av paket kan du behöva försöka flera gånger för att det ska "
+"lyckas."
+
+msgid ""
+"An error occurred while saving the screenshot.  If this occurred during "
+"package installation, you may need to try several times for it to succeed."
+msgstr ""
+"Ett fel inträffade vid sparande av skärmdumpen. Om detta inträffade under "
+"installation av paket kan du behöva försöka flera gånger för att det ska "
+"lyckas."
 
 #: ../gui.py:234 ../text.py:311
 msgid "Fix"
@@ -1026,6 +1039,7 @@ msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
 msgstr ""
+"Du försöker installera på en maskin som inte stöds av denna version av %s."
 
 #: ../packages.py:574
 msgid ""
@@ -1217,7 +1231,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Vänta medan enhet %s formateras...\n"
 
 #: ../partedUtils.py:694
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
@@ -1230,7 +1244,10 @@ msgstr ""
 "Partitionstabellen på enhet %s är oläsbar. För att skapa nya partitioner "
 "måste den initieras, vilket kommer att förstöra ALL DATA på denna enhet.\n"
 "\n"
-"Vill du initiera denna enhet?"
+"Denna åtgärd kommer att åsidosätta alla tidigare val under installationen "
+"om vilka enheter som ska ignoreras.\n"
+"\n"
+"Vill du initiera denna enhet och ta bort ALL DATA?"
 
 #: ../partedUtils.py:810 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
@@ -2201,7 +2218,7 @@ msgstr "_Använd ett lösenord för startprogrammet"
 
 #: ../iw/blpasswidget.py:76
 msgid "Change _password"
-msgstr "Byt _lösenord"
+msgstr "Byt l_ösenord"
 
 #: ../iw/blpasswidget.py:99
 msgid "Enter Boot Loader Password"
@@ -2240,12 +2257,11 @@ msgstr ""
 "Vill du fortsätta med detta lösenord?"
 
 #: ../iw/bootdisk_gui.py:23
-#, fuzzy
 msgid "Boot Diskette Creation"
 msgstr "Skapande av startdiskett"
 
 #: ../iw/bootdisk_gui.py:54
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
 "A boot diskette allows you to boot your system in the event your bootloader "
@@ -2262,12 +2278,10 @@ msgstr ""
 "Det rekommenderas varmt att du skapar en startdiskett.\n"
 
 #: ../iw/bootdisk_gui.py:70
-#, fuzzy
 msgid "_Yes, I would like to create a boot diskette"
 msgstr "_Ja, jag vill skapa en startdiskett"
 
 #: ../iw/bootdisk_gui.py:73
-#, fuzzy
 msgid "No, I _do not want to create a boot diskette"
 msgstr "N_ej, jag vill inte skapa en startdiskett"
 
@@ -2460,15 +2474,16 @@ msgid "Congratulations"
 msgstr "Gratulerar"
 
 #: ../iw/congrats_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you created a boot diskette during this installation as your primary "
 "means of booting %s, insert it before rebooting your newly installed "
 "system.\n"
 "\n"
 msgstr ""
-"Om du skapade en startdiskett för att starta systemet bör du sätta i denna "
-"innan du startar om.\n"
+"Om du skapade en startdiskett under denna installation som det "
+"huvudsakliga sättet att starta %s, bör du sätta i denna "
+"innan du startar om ditt nyinstallerade system.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:62
@@ -2556,7 +2571,7 @@ msgid "Workstation"
 msgstr "Arbetsstation"
 
 #: ../iw/desktop_choice_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default workstation environment includes our recommendations for new "
 "users, including:\n"
@@ -2592,7 +2607,7 @@ msgstr ""
 "\tAdministrationsverktyg\n"
 "\n"
 "Efter installationen kan ytterligare programvara läggas till eller tas bort "
-"genom användning av verktyget \"redhat-config-package\".\n"
+"genom användning av verktyget \"redhat-config-packages\".\n"
 "\n"
 "Om du är bekant med %s kanske du har vissa specifika paket som du vill "
 "installera eller undvika att installera. Kryssa i rutan nedan för att "
@@ -2607,7 +2622,7 @@ msgid "Personal Desktop Defaults"
 msgstr "Standardalternativ för personligt skrivbord"
 
 #: ../iw/desktop_choice_gui.py:81
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default personal desktop environment includes our recommendations for "
 "new users, including:\n"
@@ -2639,7 +2654,7 @@ msgstr ""
 "\tSpel\n"
 "\n"
 "Efter installationen kan ytterligare programvara läggas till eller tas bort "
-"genom användning av verktyget \"redhat-config-package\".\n"
+"genom användning av verktyget \"redhat-config-packages\".\n"
 "\n"
 "Om du är bekant med %s kanske du har vissa specifika paket som du vill "
 "installera eller undvika att installera. Kryssa i rutan nedan för att "
@@ -2679,8 +2694,10 @@ msgid "Upgrade Examine"
 msgstr "Granskning av uppgradering"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy
 msgid "Upgrade an existing installation"
+msgstr "Uppgradera en befintlig installation"
+
+msgid "Upgrade existing installation"
 msgstr "Uppgradera befintlig installation"
 
 #: ../iw/examine_gui.py:60
@@ -2688,11 +2705,21 @@ msgid ""
 "Choose this option if you would like to upgrade your existing Red Hat Linux "
 "system.  This option will preserve the existing data on your drives."
 msgstr ""
+"Välj detta alternativ om du vill uppgradera ditt befintliga Red Hat "
+"Linux-system. Detta alternativ kommer att bevara befintlig data på dina "
+"hårddiskar."
+
+msgid ""
+"Choose this option if you would like to upgrade your existing %s "
+"system.  This option will preserve the existing data on your drives."
+msgstr ""
+"Välj detta alternativ om du vill uppgradera ditt befintliga %s-system. Detta "
+"alternativ kommer att bevara befintlig data på dina hårddiskar."
 
 #: ../iw/examine_gui.py:64
 #, python-format
 msgid "Perform a fresh install of %s"
-msgstr ""
+msgstr "Utför en nyinstallation av %s"
 
 #: ../iw/examine_gui.py:66
 msgid ""
@@ -2700,20 +2727,21 @@ msgid ""
 "you choose to partition your system the existing data on your drives may or "
 "may not be preserved."
 msgstr ""
+"Välj detta alternativ för att installera ditt system från grunden. Beroende "
+"på hur du väljer att partitionera ditt system kommer befintlig data på dina "
+"hårddiskar att bevaras eller inte bevaras."
 
 #: ../iw/examine_gui.py:110
 msgid "_Customize packages to be upgraded"
 msgstr "_Välj paket att uppgradera"
 
 #: ../iw/examine_gui.py:123 ../iw/pixmapRadioButtonGroup_gui.py:194
-#, fuzzy
 msgid "The following Red Hat product will be upgraded:"
-msgstr "Följande program kommer att installeras:"
+msgstr "Följande Red Hat-produkt kommer att uppgraderas:"
 
 #: ../iw/examine_gui.py:130
-#, fuzzy
 msgid "Unknown Linux system"
-msgstr "Okänd värd"
+msgstr "Okänt Linux-system"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
@@ -3851,7 +3879,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1384
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr "Dölj RAID-enhetsmedlemmar/LVM-volym_gruppmedlemmar"
+msgstr "Dölj RAID-enhetsmedlemmar/LVM-volym_gruppsmedlemmar"
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:236
@@ -4582,7 +4610,7 @@ msgid "Kernel Parameters"
 msgstr "Parametrar till kärnan"
 
 #: ../textw/bootdisk_text.py:24
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
 "A boot diskette allows you to boot your system in the event your bootloader "
@@ -4601,7 +4629,6 @@ msgstr ""
 "Vill du skapa en startdiskett?"
 
 #: ../textw/bootdisk_text.py:31
-#, fuzzy
 msgid "Boot Diskette"
 msgstr "Startdiskett"
 
@@ -5541,6 +5568,10 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
+"En eller flera Linux-installationer har hittats på ditt system.\n"
+"\n"
+"Välj en att uppgradera, eller välj \"Installera om system\" för att "
+"installera ditt system från grunden."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
@@ -6852,12 +6883,11 @@ msgstr "Cd hittades inte"
 
 #: ../loader2/cdinstall.c:424
 msgid "Cannot find kickstart file on CDROM."
-msgstr ""
+msgstr "Kan inte hitta kickstartfil på cdrom-skiva."
 
 #: ../loader2/driverdisk.c:90
-#, fuzzy
 msgid "Reading driver disk..."
-msgstr "Läser drivrutinsdisketten"
+msgstr "Läser drivrutinsdisketten..."
 
 #: ../loader2/driverdisk.c:195
 msgid "Driver Disk Source"
@@ -6900,14 +6930,12 @@ msgstr ""
 "drivrutinsdiskett?"
 
 #: ../loader2/driverdisk.c:337
-#, fuzzy
 msgid "More Driver Disks?"
-msgstr "Drivrutinsdiskett"
+msgstr "Fler drivrutinsdisketter?"
 
 #: ../loader2/driverdisk.c:338
-#, fuzzy
 msgid "Do you wish to load any more driver disks?"
-msgstr "Har du en drivrutinsdiskett?"
+msgstr "Vill du läsa in fler drivrutinsdisketter?"
 
 #: ../loader2/driverselect.c:59
 #, c-format
@@ -6948,9 +6976,8 @@ msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Felaktigt argument till HD-kickstartmetodkommandot %s: %s"
 
 #: ../loader2/hdinstall.c:555
-#, fuzzy
 msgid "Cannot find kickstart file on hard drive."
-msgstr "Överför installationsavbilden till hårddisken..."
+msgstr "Kan inte hitta kickstartfil på hårddisken."
 
 #: ../loader2/kickstart.c:98
 #, c-format
@@ -7011,18 +7038,16 @@ msgstr ""
 "drivrutinsdiskett?"
 
 #: ../loader2/loader.c:789
-#, fuzzy
 msgid "The following devices have been found on your system."
-msgstr "Följande enheter har hittats i ditt system:"
+msgstr "Följande enheter har hittats i ditt system."
 
 #: ../loader2/loader.c:791
-#, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
-"Inga särskilda drivrutiner för ditt system har lästs in. Vill du läsa in "
-"några nu?"
+"Inga enhetsdrivrutiner för ditt system har lästs in. Vill du läsa in några "
+"nu?"
 
 #: ../loader2/net.c:189
 #, c-format
@@ -7690,7 +7715,7 @@ msgstr "västra Dem. Rep. Kongo"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr "Västra Australien"
+msgstr "Västaustralien"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
@@ -8574,7 +8599,7 @@ msgstr "Ukrainska"
 #~ msgstr "Kartbredd (i pixlar)"
 
 #~ msgid "Enable antialias"
-#~ msgstr "Använd antialiasing"
+#~ msgstr "Använd kantutjämning"
 
 #~ msgid "World"
 #~ msgstr "Världen"

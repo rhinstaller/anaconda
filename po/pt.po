@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-12-18 00:10-0500\n"
-"PO-Revision-Date: 2002-11-07 12:43+0000\n"
+"PO-Revision-Date: 2002-12-29 04:24+0000\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -710,15 +710,12 @@ msgid "Formatting %s file system..."
 msgstr "A formatar o sistema de ficheiros %s..."
 
 #: ../gui.py:104
-#, fuzzy
 msgid "An error occurred copying the screenshots over."
-msgstr ""
-"Ocorreu um erro ao converter o valor introduzido para o \"%s\":\n"
-"%s"
+msgstr "Ocorreu um erro ao copiar as capturas de ecrã."
 
 #: ../gui.py:116
 msgid "Screenshots Copied"
-msgstr ""
+msgstr "Capturas de Ecrã Copiadas"
 
 #: ../gui.py:117
 msgid ""
@@ -728,25 +725,30 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
+"As capturas de ecrã foram gravadas na directorias:\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
+"Pode aceder-lhes quando reiniciar o sistema e se ligar como root."
 
 #: ../gui.py:161
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "A Capturar o Ecrã"
 
 #: ../gui.py:162
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr ""
+msgstr "Foi gravada uma captura do ecrã com o nome '%s'."
 
 #: ../gui.py:165
 msgid "Error Saving Screenshot"
-msgstr ""
+msgstr "Erro ao Gravar Captura de Ecrã"
 
 #: ../gui.py:166
 msgid ""
 "An error occurred while saving the screenshot.  If this occurredduring "
 "package installation, you may need to try several times for it to succeed."
-msgstr ""
+msgstr "Ocorreu um erro ao gravar a captura de ecrã.  Se isto ocorreu durante a instalação de pacotes pode ter que tentar várias vezes até ter sucesso."
 
 #: ../gui.py:234 ../text.py:311
 msgid "Fix"
@@ -1078,7 +1080,7 @@ msgstr ""
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
-msgstr ""
+msgstr "Esta a tentar efectuar a instalação numa máquina que não é suportada por esta versão do %s."
 
 #: ../packages.py:574
 msgid ""
@@ -1268,7 +1270,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Por favor aguarde enquanto é formatada a unidade %s...\n"
 
 #: ../partedUtils.py:694
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
@@ -1278,9 +1280,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Não foi possível ler a tabela de partições do dispositivo %s. Para criar "
-"novas partições ela precisa ser inicializada, o que causará a perda de TODOS "
-"OS DADOS neste disco."
+"Não foi possível ler a tabela de partições do dispositivo %s. Para criar novas partições ela precisa ser inicializada, o que causará a perda de TODOS OS DADOS neste disco.\n"
+"\n"
+"Esta operação sobrepõe quaisquer escolhas de prévias de quais unidades de armazenamento ignorar.\n"
+"\n"
+"Quer inicializar esta unidade, apagando TODOS OS DADOS?"
 
 #: ../partedUtils.py:810 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
@@ -2298,12 +2302,11 @@ msgstr ""
 "Quer continuar esta senha?"
 
 #: ../iw/bootdisk_gui.py:23
-#, fuzzy
 msgid "Boot Diskette Creation"
 msgstr "Criação da Disquete de Arranque"
 
 #: ../iw/bootdisk_gui.py:54
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
 "A boot diskette allows you to boot your system in the event your bootloader "
@@ -2312,23 +2315,17 @@ msgid ""
 "\n"
 "It is highly recommended you create a boot diskette.\n"
 msgstr ""
-"A disquete de arranque permite-lhe arrancar o seu sistema %s a partir de uma "
-"disquete. Permite-lhe também iniciar o sistema se a configuração do seu "
-"gestor de arranque deixar de funcionar, se optou por não instalar um gestor "
-"de arranque, ou ainda se o seu gestor de arranque legado não suportar o "
-"Linux.\n"
+"A disquete de arranque permite-lhe arrancar o seu sistema %s a partir de uma disquete. Permite-lhe também iniciar o sistema se a configuração do seu gestor de arranque deixar de funcionar, se optou por não instalar um gestor de arranque, ou ainda se o seu gestor de arranque legado não suportar o Linux.\n"
 "\n"
-"Recomenda-se fortemente que o utilizador crie uma disquete de arranque.\n"
+"Recomenda-se fortemente que crie uma disquete de arranque.\n"
 
 #: ../iw/bootdisk_gui.py:70
-#, fuzzy
 msgid "_Yes, I would like to create a boot diskette"
 msgstr "_Sim, quero criar uma disquete de arranque"
 
 #: ../iw/bootdisk_gui.py:73
-#, fuzzy
 msgid "No, I _do not want to create a boot diskette"
-msgstr "Não quero criar uma disquete de arranque"
+msgstr "Não quero criar uma _disquete de arranque"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
@@ -2520,16 +2517,13 @@ msgid "Congratulations"
 msgstr "Parabéns"
 
 #: ../iw/congrats_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you created a boot diskette during this installation as your primary "
 "means of booting %s, insert it before rebooting your newly installed "
 "system.\n"
 "\n"
-msgstr ""
-"Se criou uma disquete de arranque para o seu sistema, insira-a antes de "
-"reiniciar.\n"
-"\n"
+msgstr "Se criou uma disquete de arranque durante a instalação para utilizar como modo primário de iniciar o %s, insira-a antes de reiniciar o sistema.\n\n"
 
 #: ../iw/congrats_gui.py:62
 #, python-format
@@ -2618,7 +2612,7 @@ msgid "Workstation"
 msgstr "Estação de trabalho"
 
 #: ../iw/desktop_choice_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default workstation environment includes our recommendations for new "
 "users, including:\n"
@@ -2640,25 +2634,21 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"O ambiente da estação de trabalho por omissão inclui as nossas recomendações "
-"para os utilizadores novos, o que inclui:\n"
+"O ambiente da estação de trabalho por omissão inclui as nossas recomendações para os utilizadores novos, o que inclui:\n"
 "\n"
 "\tAmbiente de trabalho gráfico (GNOME)\n"
 "\tPacote de escritório (OpenOffice)\n"
 "\tNavegador Web (Mozilla) \n"
-"\tEmail (Evolution)\n"
+"\tE-mail (Evolution)\n"
 "\tMensageiro\n"
 "\tAplicações de som e vídeo\n"
 "\tJogos\n"
-"        Ferramentas de Desenvolvimento de 'Software'\n"
+"        Ferramentas de Desenvolvimento de Software\n"
 "        Ferramentas de Administração\n"
 "\n"
-"Depois da instalação, o 'software' adicional pode ser adicionado ou removido "
-"com o pacote 'redhat-config-package'.\n"
+"Depois da instalação, pode adicionar ou remover programas utilizando a ferramenta 'redhat-config-package'.\n"
 "\n"
-"Se estiver familiarizado com o %s, poderá ter alguns pacotes específicos que "
-"queira instalar ou não. Escolha a opção em baixo para personalizar a sua "
-"instalação."
+"Se estiver familiarizado com o %s, poderá ter alguns pacotes específicos que queira instalar ou não. Escolha a opção em baixo para personalizar a sua instalação."
 
 #: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:11
 msgid "Personal Desktop"
@@ -2669,7 +2659,7 @@ msgid "Personal Desktop Defaults"
 msgstr "Valores por Omissão do Ambiente de Trabalho Pessoal"
 
 #: ../iw/desktop_choice_gui.py:81
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default personal desktop environment includes our recommendations for "
 "new users, including:\n"
@@ -2689,8 +2679,7 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"O ambiente da estação de trabalho por omissão inclui as nossas recomendações "
-"para os utilizadores novos, o que inclui:\n"
+"O ambiente da estação de trabalho por omissão inclui as nossas recomendações para os utilizadores novos, o que inclui:\n"
 "\n"
 "\tAmbiente de trabalho gráfico (GNOME)\n"
 "\tPacote de escritório (OpenOffice)\n"
@@ -2700,12 +2689,9 @@ msgstr ""
 "\tAplicações de som e vídeo\n"
 "\tJogos\n"
 "\n"
-"Depois da instalação, o 'software' adicional pode ser adicionado ou removido "
-"com o pacote 'redhat-config-package'.\n"
+"Depois da instalação, pode adicionar ou remover programas utilizando a ferramenta 'redhat-config-package'.\n"
 "\n"
-"Se estiver familiarizado com o %s, poderá ter alguns pacotes específicos que "
-"queira instalar ou não. Escolha a opção em baixo para personalizar a sua "
-"instalação."
+"Se estiver familiarizado com o %s, poderá ter alguns pacotes específicos que queira instalar ou não. Escolha a opção em baixo para personalizar a sua instalação."
 
 #: ../iw/desktop_choice_gui.py:98
 msgid ""
@@ -2741,27 +2727,26 @@ msgid "Upgrade Examine"
 msgstr "Examinar Actualização"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy
 msgid "Upgrade an existing installation"
-msgstr "Actualizar sistema existente"
+msgstr "Actualizar uma instalação existente"
 
 #: ../iw/examine_gui.py:60
 msgid ""
 "Choose this option if you would like to upgrade your existing Red Hat Linux "
 "system.  This option will preserve the existing data on your drives."
-msgstr ""
+msgstr "Escolha esta opção se quer actualizar o seu sistema Red Hat Linux actual.  Esta opção preserva os dados presentes nas unidades de armazenamento."
 
 #: ../iw/examine_gui.py:64
 #, python-format
 msgid "Perform a fresh install of %s"
-msgstr ""
+msgstr "Efectuar uma instalação completamente nova do %s"
 
 #: ../iw/examine_gui.py:66
 msgid ""
 "Choose this option to install your system from scratch.  Depending on how "
 "you choose to partition your system the existing data on your drives may or "
 "may not be preserved."
-msgstr ""
+msgstr "Escolha esta opção apra instalar o seu sistema de raíz.  Dependendo da forma como escolhe particionar o seu sistema os dados actuais nas suas unidades de armazenamento podem ou não ser preservados."
 
 #: ../iw/examine_gui.py:110
 msgid "_Customize packages to be upgraded"
@@ -2769,12 +2754,11 @@ msgstr "Personalizar pa_cotes a actualizar"
 
 #: ../iw/examine_gui.py:123 ../iw/pixmapRadioButtonGroup_gui.py:194
 msgid "The following Red Hat product will be upgraded:"
-msgstr ""
+msgstr "Vai ser actualizado o seguinte producto Red Hat:"
 
 #: ../iw/examine_gui.py:130
-#, fuzzy
 msgid "Unknown Linux system"
-msgstr "Servidor desconhecido"
+msgstr "Sistema Linux desconhecido"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
@@ -4656,7 +4640,7 @@ msgid "Kernel Parameters"
 msgstr "Parâmetros do Kernel"
 
 #: ../textw/bootdisk_text.py:24
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
 "A boot diskette allows you to boot your system in the event your bootloader "
@@ -4666,16 +4650,13 @@ msgid ""
 "\n"
 "Would you like to create a boot diskette?"
 msgstr ""
-"A disquete de arranque permite-lhe arrancar o seu sistema %s a partir de uma "
-"disquete. Permite-lhe também iniciar o sistema se a configuração do seu "
-"gestor de arranque deixar de funcionar.\n"
+"A disquete de arranque permite-lhe arrancar o seu sistema %s a partir de uma disquete. Permite-lhe também iniciar o sistema se a configuração do seu gestor de arranque deixar de funcionar.\n"
 "\n"
-"Recomenda-se fortemente que o utilizador crie uma disquete de arranque.\n"
+"Recomenda-se fortemente que crie uma disquete de arranque.\n"
 "\n"
 "Deseja criar uma disquete de arranque?"
 
 #: ../textw/bootdisk_text.py:31
-#, fuzzy
 msgid "Boot Diskette"
 msgstr "Disquete de Arranque"
 
@@ -5612,6 +5593,9 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
+"Foram encontradas no seu sistema uma ou mais instalações de Linux.\n"
+"\n"
+"Por favor escolha qual delas actualizar, ou escolha 'Reinstalar Sistema' para instalar o sistema de raíz."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
@@ -6930,12 +6914,11 @@ msgstr "CD Não Encontrado"
 
 #: ../loader2/cdinstall.c:424
 msgid "Cannot find kickstart file on CDROM."
-msgstr ""
+msgstr "Não foi possível encontrar o ficheiro de kickstart no CDROM."
 
 #: ../loader2/driverdisk.c:90
-#, fuzzy
 msgid "Reading driver disk..."
-msgstr "A ler a disquete de controladores"
+msgstr "A ler a disquete de controladores..."
 
 #: ../loader2/driverdisk.c:195
 msgid "Driver Disk Source"
@@ -6979,14 +6962,12 @@ msgstr ""
 "continuar mesmo assim ou utilizar outra disquete de controladores?"
 
 #: ../loader2/driverdisk.c:337
-#, fuzzy
 msgid "More Driver Disks?"
-msgstr "Disquete de Controladores"
+msgstr "Mais Disquetes de Controladores?"
 
 #: ../loader2/driverdisk.c:338
-#, fuzzy
 msgid "Do you wish to load any more driver disks?"
-msgstr "Tem uma disquete com controladores?"
+msgstr "Quer carregar mais alguma disquete com controladores?"
 
 #: ../loader2/driverselect.c:59
 #, c-format
@@ -7026,9 +7007,8 @@ msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Argumento inválido para o método HD do kickstart %s: %s"
 
 #: ../loader2/hdinstall.c:555
-#, fuzzy
 msgid "Cannot find kickstart file on hard drive."
-msgstr "A transferir a imagem de instalação para o disco rígido..."
+msgstr "Não foi possível encontrar o ficheiro de kickstart no disco rígido."
 
 #: ../loader2/kickstart.c:98
 #, c-format
@@ -7090,18 +7070,14 @@ msgstr ""
 "uma disquete de controladores?"
 
 #: ../loader2/loader.c:789
-#, fuzzy
 msgid "The following devices have been found on your system."
-msgstr "Os seguintes dispositivos foram encontrados no seu sistema:"
+msgstr "Os seguintes dispositivos foram encontrados no seu sistema."
 
 #: ../loader2/loader.c:791
-#, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Não tem carregado qualquer controlador especial carregado para o seu "
-"computador. Quer carregar algum agora?"
+msgstr "Não foi carregado qualquer controlador de dispositivo para o seu computador. Quer carregar algum agora?"
 
 #: ../loader2/net.c:189
 #, c-format
@@ -7871,58 +7847,3 @@ msgstr "Sueco"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ucraniano"
-
-#~ msgid "Mouse Not Detected"
-#~ msgstr "Rato Não Detectado"
-
-#~ msgid ""
-#~ "Your mouse was not automatically detected.  To proceed in the graphical "
-#~ "installation mode, please proceed to the next screen and provide your "
-#~ "mouse information. You may also use text mode installation which does not "
-#~ "require a mouse."
-#~ msgstr ""
-#~ "O seu rato não foi automaticamente detectado. Para continuar no modo de "
-#~ "instalação gráfico, continue para o próximo ecrã e insira as informações "
-#~ "acerca do seu rato. Pode também efectuar a instalação em modo texto, a "
-#~ "qual não necessita de rato."
-
-#~ msgid "Use text mode"
-#~ msgstr "Utilizar modo texto"
-
-#~ msgid "Attempting to start native X server"
-#~ msgstr "A tentar iniciar servidor X nativo"
-
-#~ msgid "Attempting to start VESA driver X server"
-#~ msgstr "A tentar iniciar o servidor X do controlador VESA"
-
-#~ msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-#~ msgstr ""
-#~ "A aguardar o arranque do servidor X... registo situado em /tmp/X.log\n"
-
-#~ msgid " X server started successfully."
-#~ msgstr " O servidor X arrancou."
-
-#~ msgid ""
-#~ "The following root partitions have been found on your system.  FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr "Foram encontradas no seu computador as seguinte partições raíz."
-
-#~ msgid ""
-#~ "The following root partitions have been found on your system. FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr "Foram encontradas no seu computador as seguinte partições raíz."
-
-#~ msgid "Resolution requested %s is not supported."
-#~ msgstr "A resolução pedida %s não é suportada."
-
-#~ msgid "Falling back to %s."
-#~ msgstr "A utilizar %s."
-
-#~ msgid "To avoid this you may need to specify the videocard and "
-#~ msgstr "Para evitar isto pode ter que inserir a configuração da"
-
-#~ msgid "monitor specs on the xconfig ks directive if they were "
-#~ msgstr "placa gráfica e do monitor na linha xconfig do ks,"
-
-#~ msgid "not probed correctly."
-#~ msgstr "no caso de eles não terem sido detectados correctamente."

@@ -657,15 +657,12 @@ msgid "Formatting %s file system..."
 msgstr "Forsníð %s skráakerfið..."
 
 #: ../gui.py:104
-#, fuzzy
 msgid "An error occurred copying the screenshots over."
-msgstr ""
-"Villa kom upp við að umbreyta gildinu í \"%s\":\n"
-"%s"
+msgstr "Villa kom upp við að afrita skjáskotin."
 
 #: ../gui.py:116
 msgid "Screenshots Copied"
-msgstr ""
+msgstr "Skjáskotin afrituð."
 
 #: ../gui.py:117
 msgid ""
@@ -675,25 +672,32 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
+"Skjáskotunum hefur verið vistað í möppuna:\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
+"Þú getur litið á þau þegar vélin hefur endurræst."
 
 #: ../gui.py:161
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "Vista skjáskot"
 
 #: ../gui.py:162
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr ""
+msgstr "Skjáskot vistað í skrána '%s'."
 
 #: ../gui.py:165
 msgid "Error Saving Screenshot"
-msgstr ""
+msgstr "Villa við að vista skjáskoti"
 
 #: ../gui.py:166
 msgid ""
 "An error occurred while saving the screenshot.  If this occurredduring "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
+"Villa kom upp við að vista skjáskotinu. Ef þetta átti sér stað meðan verið "
+"var að setja inn pakka gætir þú þurft að reyna nokkrum sinnum áður en það tekst."
 
 #: ../gui.py:234 ../text.py:311
 msgid "Fix"
@@ -1020,6 +1024,7 @@ msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
 msgstr ""
+"Þú ert að reyna að setja upp á vél sem er ekki studd af þessari útgáfu af %s."
 
 #: ../packages.py:574
 msgid ""
@@ -1031,7 +1036,7 @@ msgstr ""
 
 #: ../packages.py:693
 msgid "Setting up RPM transaction..."
-msgstr "Set upp RPM færslu..."
+msgstr "Set upp RPM færslugrunn..."
 
 #: ../packages.py:732
 #, python-format
@@ -1210,7 +1215,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Vinsamlegast bíðið meðan drifið %s er forsniðið...\n"
 
 #: ../partedUtils.py:694
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
@@ -1224,7 +1229,9 @@ msgstr ""
 "nýjar disksneiðar þarf að frumstilla hana, sem veldur því að ÖLL GÖGN á "
 "disknum tapast.\n"
 "\n"
-"Viltu frumstilla þennan disk?"
+"þessi aðgerð breytir fyrra vali um hvaða diska á að hunsa.\n"
+"\n"
+"Viltu frumstilla þennan disk og eyða á honum ÖLLUM GÖGNUM?"
 
 #: ../partedUtils.py:810 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
@@ -2219,12 +2226,11 @@ msgstr ""
 "Viltu halda áfram og nota þetta lykilorð?"
 
 #: ../iw/bootdisk_gui.py:23
-#, fuzzy
 msgid "Boot Diskette Creation"
 msgstr "Búa til ræsidiskling"
 
 #: ../iw/bootdisk_gui.py:54
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
 "A boot diskette allows you to boot your system in the event your bootloader "
@@ -2233,21 +2239,19 @@ msgid ""
 "\n"
 "It is highly recommended you create a boot diskette.\n"
 msgstr ""
-"Ræsidisklingur gerir þér kleyft að ræsa %s vélina þína ef disklingi ef "
+"Ræsidisklingur gerir þér kleyft að ræsa %s vélina þína af disklingi ef "
 "stillingar ræsistjórans hætta að virka, þú kýst að setja ekki upp ræsistjóra "
 "eða ef þú notar ræsistjóra frá þriðja aðila sem styður ekki Linux.\n"
 "\n"
 "Við mælum eindregið með að þú búir til ræsidisk.\n"
 
 #: ../iw/bootdisk_gui.py:70
-#, fuzzy
 msgid "_Yes, I would like to create a boot diskette"
 msgstr "_Já, ég vil búa til ræsidiskling"
 
 #: ../iw/bootdisk_gui.py:73
-#, fuzzy
 msgid "No, I _do not want to create a boot diskette"
-msgstr "Nei, ég vil ekki búa til ræsidiskling"
+msgstr "_Nei, ég vil ekki búa til ræsidiskling"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
@@ -2433,15 +2437,15 @@ msgid "Congratulations"
 msgstr "Til hamingju"
 
 #: ../iw/congrats_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you created a boot diskette during this installation as your primary "
 "means of booting %s, insert it before rebooting your newly installed "
 "system.\n"
 "\n"
 msgstr ""
-"Ef þú bjóst til ræsidiskling til að ræsa vélina settu hann í núna áður en þú "
-"endurræsir.\n"
+"Ef þú bjóst til ræsidiskling til að ræsa %s og settir ekki upp "
+"ræsistjóra, settu hann í núna áður en þú endurræsir.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:62
@@ -2529,7 +2533,7 @@ msgid "Workstation"
 msgstr "Vinnustöð"
 
 #: ../iw/desktop_choice_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default workstation environment includes our recommendations for new "
 "users, including:\n"
@@ -2561,9 +2565,11 @@ msgstr ""
 "\tInstant messaging\n"
 "\tHljóð og myndtól\n"
 "\tLeiki\n"
-"\tTól til hugbúnaðarþróunar\tKerfisstjórnunartól\n"
+"\tTól til hugbúnaðarþróunar\n"
+"\tKerfisstjórnunartól\n"
+"\n"
 "Eftir að uppsetningu lýkur mða bæta við fleiri pökkum eða taka út pakka með "
-"'redhat-config-package' tólinu.\n"
+"'redhat-config-packages' tólinu.\n"
 "\n"
 "Ef þú er vanur að nota %s getur þú velið pakka sem þú vilt setja inn eða "
 "ekki setja inn með því að haka við í boxið hér að neðan."
@@ -2577,7 +2583,7 @@ msgid "Personal Desktop Defaults"
 msgstr "Sjálfgefnir eiginleikar skjáborðrs"
 
 #: ../iw/desktop_choice_gui.py:81
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default personal desktop environment includes our recommendations for "
 "new users, including:\n"
@@ -2609,7 +2615,7 @@ msgstr ""
 "\tLeiki\n"
 "\n"
 "Eftir að uppsetningu lýkur mða bæta við fleiri pökkum eða taka út pakka með "
-"'redhat-config-package' tólinu.\n"
+"'redhat-config-packages' tólinu.\n"
 "\n"
 "Ef þú er vanur að nota %s getur þú velið pakka sem þú vilt setja inn eða "
 "ekki setja inn með því að haka við í boxið hér að neðan."
@@ -2648,20 +2654,21 @@ msgid "Upgrade Examine"
 msgstr "Skoða uppfærslu"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy
 msgid "Upgrade an existing installation"
-msgstr "Uppfæra núverandi kerfi"
+msgstr "Uppfæra núverandi uppsetningu"
 
 #: ../iw/examine_gui.py:60
 msgid ""
 "Choose this option if you would like to upgrade your existing Red Hat Linux "
 "system.  This option will preserve the existing data on your drives."
 msgstr ""
+"Veldu þennan möguleika ef þú vilt uppfæra Red Hat Linux uppsetninguna þína. "
+"Þessi möguleiki mun varðveita öll gögn á hörðu diskunum þínum."
 
 #: ../iw/examine_gui.py:64
 #, python-format
 msgid "Perform a fresh install of %s"
-msgstr ""
+msgstr "Setja upp %s"
 
 #: ../iw/examine_gui.py:66
 msgid ""
@@ -2669,6 +2676,9 @@ msgid ""
 "you choose to partition your system the existing data on your drives may or "
 "may not be preserved."
 msgstr ""
+"Veldu þennan möguleika til að setja upp kerfið upp á nýtt. Það fer eftir "
+"því hvernig þú sneiðir niður diskinn hvort gögnin sem þegar eru á "
+"þeim verða til staðar eða ekki."
 
 #: ../iw/examine_gui.py:110
 msgid "_Customize packages to be upgraded"
@@ -2676,12 +2686,11 @@ msgstr "_Velja pakka sem á að uppfæra"
 
 #: ../iw/examine_gui.py:123 ../iw/pixmapRadioButtonGroup_gui.py:194
 msgid "The following Red Hat product will be upgraded:"
-msgstr ""
+msgstr "Eftirfarandi Red Hat vörur verða uppfærðar:"
 
 #: ../iw/examine_gui.py:130
-#, fuzzy
 msgid "Unknown Linux system"
-msgstr "Óþekkt vél"
+msgstr "Óþekkt Linuxkerfi"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
@@ -4538,7 +4547,7 @@ msgid "Kernel Parameters"
 msgstr "Viðföng kjarnans"
 
 #: ../textw/bootdisk_text.py:24
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
 "A boot diskette allows you to boot your system in the event your bootloader "
@@ -4557,7 +4566,6 @@ msgstr ""
 "Viltu búa til ræsidiskling?"
 
 #: ../textw/bootdisk_text.py:31
-#, fuzzy
 msgid "Boot Diskette"
 msgstr "Ræsidisklingur"
 
@@ -5495,6 +5503,10 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
+"Ein eða fleiri Linux uppsetning hefur fundist í vélinni þinni.\n"
+"\n"
+"Vinsamlegast veldu eitt til að uppfæra eða veldu 'Setja upp aftur' til \n"
+"að setja upp kerfið uppá nýtt."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
@@ -6798,12 +6810,11 @@ msgstr "Geisladiskur fanst ekki"
 
 #: ../loader2/cdinstall.c:424
 msgid "Cannot find kickstart file on CDROM."
-msgstr ""
+msgstr "Gat ekki fundið hraðuppsetningarskrá á geisladisknum."
 
 #: ../loader2/driverdisk.c:90
-#, fuzzy
 msgid "Reading driver disk..."
-msgstr "Les rekladiskinn."
+msgstr "Les rekladiskinn..."
 
 #: ../loader2/driverdisk.c:195
 msgid "Driver Disk Source"
@@ -6845,14 +6856,12 @@ msgstr ""
 "handvirkt, halda áfram eða lesa inn annann rekladisk?"
 
 #: ../loader2/driverdisk.c:337
-#, fuzzy
 msgid "More Driver Disks?"
-msgstr "Rekladisklingur"
+msgstr "Fleiri rekladisklinga?"
 
 #: ../loader2/driverdisk.c:338
-#, fuzzy
 msgid "Do you wish to load any more driver disks?"
-msgstr "Ertu með rekladiskling?"
+msgstr "Viltu lesa inn fleiri rekladisklinga?"
 
 #: ../loader2/driverselect.c:59
 #, c-format
@@ -6893,9 +6902,8 @@ msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Óleyfilegt viðfang við HD skipun hraðuppsetningar %s: %s"
 
 #: ../loader2/hdinstall.c:555
-#, fuzzy
 msgid "Cannot find kickstart file on hard drive."
-msgstr "Flyt uppsetningarskrár á harða diskinn..."
+msgstr "Gat ekki fundið hraðuppsetningarskrá á harða disknum."
 
 #: ../loader2/kickstart.c:98
 #, c-format
@@ -6954,18 +6962,15 @@ msgstr ""
 "velja rekil handvirkt eða nota rekladiskling?"
 
 #: ../loader2/loader.c:789
-#, fuzzy
 msgid "The following devices have been found on your system."
-msgstr "Eftirfarandi tæki hafa fundist í vélinni þinni:"
+msgstr "Eftirfarandi tæki hafa fundist í vélinni þinni."
 
 #: ../loader2/loader.c:791
-#, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
-"Það eru engir sérstakir tækjareklar í notkun fyrir vélina þína. Viltu lesa "
-"einhverja inn núna?"
+"Það eru engir sérstakir tækjareklar í notkun. Viltu lesa einhverja inn núna?"
 
 #: ../loader2/net.c:189
 #, c-format
@@ -7732,44 +7737,3 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
-
-#~ msgid "Mouse Not Detected"
-#~ msgstr "Engin mús fannst"
-
-#~ msgid ""
-#~ "Your mouse was not automatically detected.  To proceed in the graphical "
-#~ "installation mode, please proceed to the next screen and provide your "
-#~ "mouse information. You may also use text mode installation which does not "
-#~ "require a mouse."
-#~ msgstr ""
-#~ "Ekki tókst að finna músina sjálfvirkt. Til þess að halda uppsetningunni "
-#~ "áfram í myndrænum ham þarftu að fara áfram á næsta skjá og gefa upp "
-#~ "upplýsingar um músina.  Þú getur einnig notað uppsetninguna í textaham "
-#~ "sem þarfnast ekki músar."
-
-#~ msgid "Use text mode"
-#~ msgstr "Nota textaham"
-
-#~ msgid "Attempting to start native X server"
-#~ msgstr "Reyni að ræsa X þjóninn"
-
-#~ msgid "Attempting to start VESA driver X server"
-#~ msgstr "Reyni að ræsa VESA X þjóninn"
-
-#~ msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-#~ msgstr "Bíð eftir að X þjónninn ræsi... annállinn er í /tmp/X.log\n"
-
-#~ msgid " X server started successfully."
-#~ msgstr " X þjónninn ræsti vandræðalaust."
-
-#~ msgid ""
-#~ "The following root partitions have been found on your system.  FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr ""
-#~ "Eftirfarandi rótarsneiðar hafa fundist í vélinni þinni. LAGAMIG: bla"
-
-#~ msgid ""
-#~ "The following root partitions have been found on your system. FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr ""
-#~ "Eftirfarandi rótarsneiðar hafa fundist í vélinni þinni. LAGAMIG: blabla"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2002-12-18 00:10-0500\n"
-"PO-Revision-Date: 2002-12-12 21:50+0100\n"
+"PO-Revision-Date: 2002-12-20 12:24+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -652,15 +652,12 @@ msgid "Formatting %s file system..."
 msgstr "Formátuji souborový systém %s..."
 
 #: ../gui.py:104
-#, fuzzy
 msgid "An error occurred copying the screenshots over."
-msgstr ""
-"Při konverzi hodnoty zadané pro \"%s\" došlo k chybě:\n"
-"%s"
+msgstr "Při kopírování snímků obrazovky došlo k chybě."
 
 #: ../gui.py:116
 msgid "Screenshots Copied"
-msgstr ""
+msgstr "Snímek obrazovky zkopírován"
 
 #: ../gui.py:117
 msgid ""
@@ -670,25 +667,32 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
+"Snímky obrazovky byly uloženy do adresáře\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
+"Najdete je tam, až restartujete a přihlásíte se jako root."
 
 #: ../gui.py:161
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "Ukládám snímek obrazovky"
 
 #: ../gui.py:162
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr ""
+msgstr "Snímek obrazovky pojmenovaný '%s' byl uložen."
 
 #: ../gui.py:165
 msgid "Error Saving Screenshot"
-msgstr ""
+msgstr "Chyba při ukládání snímku obrazovky"
 
 #: ../gui.py:166
 msgid ""
 "An error occurred while saving the screenshot.  If this occurredduring "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
+"Při ukládání snímku obrazovku došlo k chybě. Jestliže k ní došlo v průběhu "
+"instalace balíčků, možná to budete muset zkusit několikrát."
 
 #: ../gui.py:234 ../text.py:311
 msgid "Fix"
@@ -1018,6 +1022,7 @@ msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
 msgstr ""
+"Pokoušíte se instalovat na stroj, který není podporovaný touto verzí %s."
 
 #: ../packages.py:574
 msgid ""
@@ -1208,7 +1213,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Prosím čekejte, formátuje se disk %s...\n"
 
 #: ../partedUtils.py:694
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
@@ -1219,10 +1224,12 @@ msgid ""
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
 "Tabulka oddílů na zařízení %s je nečitelná. Aby mohly být vytvořeny nové "
-"oddíly, musí být tabulka oddílů reinicializována, což znamená ztrátu VŠECH "
-"DAT na tomto disku.\n"
+"oddíly, musí být tabulka oddílů inicializována, což znamená ztrátu VŠECH DAT "
+"na tomto disku.\n"
 "\n"
-"Chcete reinicializovat tento disk?"
+"Tato operace nebere ohled na dřívější volby disků, které ignorovat.\n"
+"\n"
+"Chcete inicializovat tento disk a smazat VŠECHNA DATA?"
 
 #: ../partedUtils.py:810 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
@@ -2214,12 +2221,11 @@ msgstr ""
 "Chcete pokračovat s tímto heslem?"
 
 #: ../iw/bootdisk_gui.py:23
-#, fuzzy
 msgid "Boot Diskette Creation"
 msgstr "Vytvoření zaváděcí diskety"
 
 #: ../iw/bootdisk_gui.py:54
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
 "A boot diskette allows you to boot your system in the event your bootloader "
@@ -2228,20 +2234,18 @@ msgid ""
 "\n"
 "It is highly recommended you create a boot diskette.\n"
 msgstr ""
-"Zaváděcí disketa vám umožňuje zavést váš systém %s z diskety, když nastavení "
-"zavaděče systému přestane fungovat, pokud se rozhodnete nenainstalovat "
-"zavaděč systému, nebo pokud váš zavaděč systému třetí strany nepodporuje "
-"Linux\n"
+"Zaváděcí disketa vám umožňuje zavést váš systém %s z diskety. Zaváděcí "
+"disketa vám umožňuje zavést váš systém, když nastavení zavaděče systému "
+"přestane fungovat, pokud se rozhodnete nenainstalovat zavaděč systému, nebo "
+"pokud váš zavaděč systému třetí strany nepodporuje Linux\n"
 "\n"
 "Doporučuje se vytvořit zaváděcí disketu.\n"
 
 #: ../iw/bootdisk_gui.py:70
-#, fuzzy
 msgid "_Yes, I would like to create a boot diskette"
 msgstr "_Ano, chci vytvořit zaváděcí disketu"
 
 #: ../iw/bootdisk_gui.py:73
-#, fuzzy
 msgid "No, I _do not want to create a boot diskette"
 msgstr "_Ne, nechci vytvořit zaváděcí disketu"
 
@@ -2428,15 +2432,16 @@ msgid "Congratulations"
 msgstr "Gratulujeme"
 
 #: ../iw/congrats_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you created a boot diskette during this installation as your primary "
 "means of booting %s, insert it before rebooting your newly installed "
 "system.\n"
 "\n"
 msgstr ""
-"Pokud jste vytvořili disketu, pomocí které budete zavádět systém, vložte ji "
-"do mechaniky před restartem.\n"
+"Pokud jste při této instalaci vytvořili zaváděcí disketu jako váš primární "
+"způsob zavádění %s, vložte ji do mechaniky před restartem nově "
+"nainstalovaného systému.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:62
@@ -2525,7 +2530,7 @@ msgid "Workstation"
 msgstr "Pracovní stanice"
 
 #: ../iw/desktop_choice_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default workstation environment includes our recommendations for new "
 "users, including:\n"
@@ -2561,7 +2566,7 @@ msgstr ""
 "\tNástroje pro administraci\n"
 "\n"
 "Po instalaci lze přidat nebo odebrat software nástrojem 'redhat-config-"
-"package'.\n"
+"packages'.\n"
 "\n"
 "Pokud znáte %s, možná budete chtít nainstalovat nebo se vyhnout instalaci "
 "konkrétních balíčků. Pro upravení vaší instalace zaškrtněte volbu níže."
@@ -2575,7 +2580,7 @@ msgid "Personal Desktop Defaults"
 msgstr "Implicitní pro osobní systém"
 
 #: ../iw/desktop_choice_gui.py:81
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default personal desktop environment includes our recommendations for "
 "new users, including:\n"
@@ -2607,7 +2612,7 @@ msgstr ""
 "\tHry\n"
 "\n"
 "Po instalaci lze přidat nebo odebrat software nástrojem 'redhat-config-"
-"package'.\n"
+"packages'.\n"
 "Pokud znáte %s, možná budete chtít nainstalovat nebo se vyhnout instalaci "
 "konkrétních balíčků. Pro upravení vaší instalace zaškrtněte volbu níže."
 
@@ -2645,20 +2650,21 @@ msgid "Upgrade Examine"
 msgstr "Kontrola aktualizace"
 
 #: ../iw/examine_gui.py:58
-#, fuzzy
 msgid "Upgrade an existing installation"
-msgstr "Aktualizace systému"
+msgstr "Aktualizovat existující instalaci"
 
 #: ../iw/examine_gui.py:60
 msgid ""
 "Choose this option if you would like to upgrade your existing Red Hat Linux "
 "system.  This option will preserve the existing data on your drives."
 msgstr ""
+"Zvote tuto možnost, jestliže chcete akutalizovat váš existující systém Red "
+"Hat Linux. Tato možnost zachová existující data na vašich discích."
 
 #: ../iw/examine_gui.py:64
 #, python-format
 msgid "Perform a fresh install of %s"
-msgstr ""
+msgstr "Provést novou instalaci %s"
 
 #: ../iw/examine_gui.py:66
 msgid ""
@@ -2666,20 +2672,21 @@ msgid ""
 "you choose to partition your system the existing data on your drives may or "
 "may not be preserved."
 msgstr ""
+"Zvolte tuto možnost pro novou instalaci vašeho systému. Podle toho, jak se "
+"rozhodnete vytvořit oddíly, budou nebo nebudou zachována data na vašich "
+"disích."
 
 #: ../iw/examine_gui.py:110
 msgid "_Customize packages to be upgraded"
 msgstr "_Vybrat balíčky pro aktualizaci"
 
 #: ../iw/examine_gui.py:123 ../iw/pixmapRadioButtonGroup_gui.py:194
-#, fuzzy
 msgid "The following Red Hat product will be upgraded:"
-msgstr "Bude nainstalován následující software:"
+msgstr "Bude aktualizován následující produkt Red Hat:"
 
 #: ../iw/examine_gui.py:130
-#, fuzzy
 msgid "Unknown Linux system"
-msgstr "Neznámý počítač"
+msgstr "Neznámý systém Linux"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
@@ -4537,7 +4544,7 @@ msgid "Kernel Parameters"
 msgstr "Parametry jádra"
 
 #: ../textw/bootdisk_text.py:24
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
 "A boot diskette allows you to boot your system in the event your bootloader "
@@ -4547,17 +4554,17 @@ msgid ""
 "\n"
 "Would you like to create a boot diskette?"
 msgstr ""
-"Zaváděcí disketa umožňuje zavést váš systém %s z diskety, když vaše "
-"konfigurace zavaděče systému přestane fungovat.\n"
+"Zaváděcí disketa umožňuje zavést váš systém %s z diskety. Zaváděcí disketa "
+"vám umožňuje zavást systém, když vaše konfigurace zavaděče systému přestane "
+"fungovat.\n"
 "\n"
 "Doporučuje se vytvořit zaváděcí disketu.\n"
 "\n"
 "Chcete vytvořit zaváděcí disketu?"
 
 #: ../textw/bootdisk_text.py:31
-#, fuzzy
 msgid "Boot Diskette"
-msgstr "Zaváděcí disk"
+msgstr "Zaváděcí disketa"
 
 #: ../textw/bootloader_text.py:30
 msgid "Which boot loader would you like to use?"
@@ -5492,6 +5499,11 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
+"Na vašem systému byla nalezena jedna nebo více existujících instalací "
+"Linuxu.\n"
+"\n"
+"Pro aktualizaci prosím jednu zvolte, nebo nainstalujte nový systém zvolením "
+"'Reinstalovat sytém'."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
@@ -6787,12 +6799,11 @@ msgstr "CD nalezeno"
 
 #: ../loader2/cdinstall.c:424
 msgid "Cannot find kickstart file on CDROM."
-msgstr ""
+msgstr "Nemohu najít soubor kickstart na CDROM."
 
 #: ../loader2/driverdisk.c:90
-#, fuzzy
 msgid "Reading driver disk..."
-msgstr "Čtu disketu s ovladači"
+msgstr "Čtu disketu s ovladači..."
 
 #: ../loader2/driverdisk.c:195
 msgid "Driver Disk Source"
@@ -6835,14 +6846,12 @@ msgstr ""
 "s ovladači?"
 
 #: ../loader2/driverdisk.c:337
-#, fuzzy
 msgid "More Driver Disks?"
-msgstr "Disketa s ovladači"
+msgstr "Více disket s ovladači?"
 
 #: ../loader2/driverdisk.c:338
-#, fuzzy
 msgid "Do you wish to load any more driver disks?"
-msgstr "Máte disketu s ovladači?"
+msgstr "Chcete načíst více disket s ovladači?"
 
 #: ../loader2/driverselect.c:59
 #, c-format
@@ -6882,9 +6891,8 @@ msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Chybný argument kickstart příkazu metody HD %s: %s"
 
 #: ../loader2/hdinstall.c:555
-#, fuzzy
 msgid "Cannot find kickstart file on hard drive."
-msgstr "Přenáším instalační obraz na pevný disk..."
+msgstr "Nemohu najít soubor kickstart na pevném disku."
 
 #: ../loader2/kickstart.c:98
 #, c-format
@@ -6943,18 +6951,15 @@ msgstr ""
 "ručně vybrat váš ovladač nebo použít disketu s ovladači?"
 
 #: ../loader2/loader.c:789
-#, fuzzy
 msgid "The following devices have been found on your system."
-msgstr "V počítači byly nalezeny následující zařízení:"
+msgstr "Ve vašem systému byla nalezena následující zařízení."
 
 #: ../loader2/loader.c:791
-#, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
-"Žádné speciální ovladače zařízení pro váš systém nejsou zavedeny. Chcete "
-"nějaké zavést?"
+"Pro váš systém nebyly zavedeny žádné ovladače zařízení. Chcete nějaké zavést?"
 
 #: ../loader2/net.c:189
 #, c-format
@@ -7749,20 +7754,6 @@ msgstr "Ukrajinština"
 #~ msgid " X server started successfully."
 #~ msgstr " X server byl úspěšně spuštěn."
 
-#~ msgid ""
-#~ "The following root partitions have been found on your system.  FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr ""
-#~ "Na vašem systému byly nalezeny následující kořenové oddíly. FIXME: "
-#~ "POTŘEBUJI ZDE LEPŠÍ TEXT."
-
-#~ msgid ""
-#~ "The following root partitions have been found on your system. FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr ""
-#~ "Na vašem systému byly nalezeny následující kořenové oddíly. FIXME: "
-#~ "POTŘEBUJI ZDE LEPŠÍ TEXT."
-
 #~ msgid "Unable to probe"
 #~ msgstr "Nemohu detekovat"
 
@@ -7792,30 +7783,11 @@ msgstr "Ukrajinština"
 #~ "Proměnná DISPLAY není nastavena. Spouštím textovou verzi instalačního "
 #~ "programu!"
 
-#~ msgid ""
-#~ "You don't have any Linux partitions.\n"
-#~ "You can't upgrade this sytem!"
-#~ msgstr ""
-#~ "Neexistují žádné linuxové oddíly.\n"
-#~ "Tento systém nelze aktualizovat!"
-
-#~ msgid "Please select the device containing the root filesystem: "
-#~ msgstr "Zvolte prosím zařízení, které obsahuje kořenový systém souborů: "
-
-#~ msgid "Upgrading the %s installation on partition /dev/%s"
-#~ msgstr "Aktualizace distribuce %s instalace na oddílu /dev/%s"
-
 #~ msgid "Manually partition with _fdisk (experts only)"
 #~ msgstr "Ruční vytvoření oddílů pomocí programu _fdisk (pouze experti)"
 
 #~ msgid "   _Test Setting   "
 #~ msgstr "   _Otestovat nastavení   "
-
-#~ msgid "You don't have any Linux partitions. You can't upgrade this system!"
-#~ msgstr "Neexistují žádné linuxové oddíly. Tento systém nelze aktualizovat!"
-
-#~ msgid "Upgrade Partition"
-#~ msgstr "Aktualizovat oddíl"
 
 #~ msgid "No password"
 #~ msgstr "Bez hesla"
@@ -7850,19 +7822,6 @@ msgstr "Ukrajinština"
 #~ msgid "Partition Request Sanity Check Errors"
 #~ msgstr "Chyby při kontrole rozdělení disků"
 
-#~ msgid "Install"
-#~ msgstr "Instalace"
-
-#~ msgid ""
-#~ "Additional accounts can be created for other users of this system. Such "
-#~ "accounts could be for a personal login account, or for other non-"
-#~ "administrative users who need to use this system. Use the <Add> button to "
-#~ "enter additional user accounts."
-#~ msgstr ""
-#~ "V systému mohou být vytvořeny doplňující uživatelské účty. Může to být "
-#~ "pro osobní přihlašovací účet, nebo pro jiné uživatele, kteří potřebují "
-#~ "používat tento počítač. Pro přidání uživatele stiskněte tlačítko Přidat."
-
 #~ msgid "Which _model mouse is attached to the computer?"
 #~ msgstr "Jaký _model myši je připojen k tomuto počítači?"
 
@@ -7889,9 +7848,6 @@ msgstr "Ukrajinština"
 #~ "You cannot remove this partition, as it is an extended partition which "
 #~ "contains %s"
 #~ msgstr "Nelze odstranit tento extended oddíl, protože obsahuje %s"
-
-#~ msgid "Unable to Edit"
-#~ msgstr "Nemohu změnit"
 
 #~ msgid ""
 #~ "You have chosen to format a pre-existing partition.  This will destroy "
@@ -7992,9 +7948,6 @@ msgstr "Ukrajinština"
 #~ msgid "%s  %s"
 #~ msgstr "%s  %s"
 
-#~ msgid "Exiting anaconda now"
-#~ msgstr "Ukončuji Anacondu"
-
 #~ msgid "Would you like to configure your system?"
 #~ msgstr "Chcete nastavit svůj systém?"
 
@@ -8033,9 +7986,6 @@ msgstr "Ukrajinština"
 #~ msgid "<Enter> to exit"
 #~ msgstr "<Enter> pro ukončení"
 
-#~ msgid "Bad User ID"
-#~ msgstr "Špatné uživatelské ID"
-
 #~ msgid ""
 #~ "Welcome to %s!\n"
 #~ "\n"
@@ -8056,12 +8006,6 @@ msgstr "Ukrajinština"
 
 #~ msgid "Other CDROM"
 #~ msgstr "Jiná CD-ROM"
-
-#~ msgid "Map Image to display"
-#~ msgstr "Výběr mapy"
-
-#~ msgid "Width of map (in pixels)"
-#~ msgstr "Šiřka mapy (v pixelech)"
 
 #~ msgid "Enable antialias"
 #~ msgstr "Povolit antialiasing"
