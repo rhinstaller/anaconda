@@ -206,8 +206,8 @@ class ProgressWindow:
 class ExceptionWindow:
     def __init__ (self, text):
         win = gtk.Dialog("Exception Occured", mainWindow, gtk.DIALOG_MODAL)
-        win.add_button("Debug", 0)
-        win.add_button("Save to floppy", 1)
+        win.add_button("_Debug", 0)
+        win.add_button("_Save to floppy", 1)
         win.add_button('gtk-ok', 2)
         buffer = gtk.TextBuffer(None)
         buffer.set_text(text)
