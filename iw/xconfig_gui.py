@@ -899,6 +899,7 @@ class MonitorWindow (InstallWindow):
         sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
         box.pack_start (sw, TRUE, TRUE)
 
+
         # Sync adjustments
         syncbox = GtkHBox (FALSE, 5)
         syncbox.set_border_width (2)
@@ -907,7 +908,7 @@ class MonitorWindow (InstallWindow):
         hbox = GtkHBox (FALSE, 5)
         hbox.set_border_width (2)
         self.hEntry.set_usize (20, -1)
-        hbox.pack_start (self.hEntry)
+#        hbox.pack_start (self.hEntry)
         hbox.pack_start (GtkLabel ("kHz"), FALSE, FALSE)
         frame.add (hbox)
         syncbox.pack_start (frame)
@@ -916,7 +917,7 @@ class MonitorWindow (InstallWindow):
         hbox = GtkHBox (FALSE, 5)
         hbox.set_border_width (2)
         self.vEntry.set_usize (20, -1)
-        hbox.pack_start (self.vEntry)
+#        hbox.pack_start (self.vEntry)
         hbox.pack_start (GtkLabel ("Hz"), FALSE, FALSE)
         frame.add (hbox)
         syncbox.pack_start (frame)
@@ -926,11 +927,49 @@ class MonitorWindow (InstallWindow):
 
         self.reset = GtkButton (_("Restore original values"))
         self.reset.connect ("clicked", self.resetCb)
-        syncbox.pack_start (self.reset, FALSE, 25)
+        align = GtkAlignment
+
+        align = GtkAlignment (1, 0.5)
+        align.add (self.reset)
+        
+#        syncbox.pack_start (self.reset, FALSE, 25)
+
+#        box.pack_start (syncbox, FALSE, FALSE)
+
+        self.synctable = GtkTable(2, 4, FALSE)
+        hlabel = GtkLabel (_("Horizontal Sync:"))
+        hlabel.set_alignment (0, 0.5)
+        vlabel = GtkLabel (_("Vertical Sync:"))
+        vlabel.set_alignment (0, 0.5)
+        
+        self.hEntry.set_usize (80, 0)
+        self.vEntry.set_usize (80, 0)
+        
+        hz = GtkLabel (_("Hz"))
+        hz.set_alignment (0, 0.5)
+
+        khz = GtkLabel (_("kHz"))
+        khz.set_alignment (0, 0.5)
+
+
+        
+        self.synctable.attach(hlabel, 0, 1, 0, 1, SHRINK, FILL, 5)
+        self.synctable.attach(self.hEntry, 1, 2, 0, 1, SHRINK)
+        self.synctable.attach(hz, 2, 3, 0, 1, FILL, FILL, 5)
+        
+        self.synctable.attach(vlabel, 0, 1, 1, 2, SHRINK, FILL, 5)
+        self.synctable.attach(self.vEntry, 1, 2, 1, 2, SHRINK)
+        self.synctable.attach(khz, 2, 3, 1, 2, FILL, FILL, 5)
+
+#        self.synctable.attach(self.reset, 3, 4, 1, 2, SHRINK, FILL, 50)
+        self.synctable.attach(align, 3, 4, 1, 2)
+        
+        box.pack_start (self.synctable, FALSE, FALSE)
 
 
 
-        box.pack_start (syncbox, FALSE, FALSE)
+
+
         
         return box
 
