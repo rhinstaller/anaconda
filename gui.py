@@ -1301,29 +1301,10 @@ class InstallControlWindow:
         self.window.set_border_width(0)
         vbox = gtk.VBox (gtk.FALSE, 10)
 
-        image = self.configFileData["TitleBar"]
-
-        pixbuf = None
         # Create header at the top of the installer
         if runres != '640x480':
-            for dir in ("/usr/share/anaconda/",
-                        "",
-                        "/tmp/updates"):
-                try:
-                    pixbuf = gtk.gdk.pixbuf_new_from_file(dir + image)
-                    break
-                except RuntimeError:
-                    pass
-                
-            if pixbuf:
-                (pixmap, mask) = pixbuf.render_pixmap_and_mask()
-                pixbuf.render_to_drawable(pixmap, gtk.gdk.GC(pixmap),
-                                          0, 0, 0, 0,
-                                          pixbuf.get_width(),
-                                          pixbuf.get_height(),
-                                          gtk.gdk.RGB_DITHER_MAX, 0, 0)
-                p = gtk.Image()
-                p.set_from_pixmap(pixmap, mask)
+            p = readPixmapDithered("anaconda_header.png")
+            if p is not None:
                 a = gtk.Alignment()
                 a.set(0.5, 0.5, 1.0, 1.0)
                 a.add(p)
