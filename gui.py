@@ -485,6 +485,7 @@ class InstallControlWindow:
 
     def releaseClicked (self, widget):
         self.textWin = GtkWindow ()
+        self.textWin.set_modal (TRUE)
         closeButton = GtkButton ("Close")
         closeButton.connect ("clicked", self.textWin.hide)
 
