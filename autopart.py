@@ -744,7 +744,7 @@ def doClearPartAction(partitions, diskset):
         disk = diskset.disks[drive]
         part = disk.next_partition()
         while part:
-            if (part.type & parted.PARTITION_FREESPACE) or (part.type & parted.PARTITION_METADATA):
+            if not part.is_active() or (part.type == parted.PARTITION_EXTENDED):
                 part = disk.next_partition(part)
                 continue
             if part.fs_type:
@@ -753,6 +753,10 @@ def doClearPartAction(partitions, diskset):
                 ptype = None
             if (linuxOnly == 0) or (ptype and (ptype.isLinuxNativeFS())):
                 old = partitions.getRequestByDeviceName(get_partition_name(part))
+                if old.type == REQUEST_PROTECTED:
+                    part = disk.next_partition(part)
+                    continue
+
                 partitions.removeRequest(old)
 
                 drive = get_partition_drive(part)
