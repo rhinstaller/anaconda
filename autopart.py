@@ -107,6 +107,12 @@ class partlist:
 
         return retval
 
+    def reset(self):
+        for part in self.parts:
+            self.parts.remove(part)
+            del part
+        self.parts = []
+
 
 # first step of partitioning voodoo
 # partitions with a specific start and end cylinder requested are
@@ -304,7 +310,6 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             request.device = fsset.PartedPartitionDevice(newp).getDevice()
             drive = newp.geom.disk.dev.path[5:]
             request.currentDrive = drive
-
             newParts.parts.append(newp)
             free = findFreespace(diskset)
 
@@ -574,12 +579,10 @@ def processPartitioning(diskset, requests, newParts):
     # the disks.  We'll start again from there.
     for part in newParts.parts:
         disk = part.geom.disk
-        if part.type & parted.PARTITION_LOGICAL:
-            del part
-            continue
+#        disk = diskset.disks[get_partition_drive(part)]
         disk.delete_partition(part)
-        del part
-    newParts.parts = []
+
+    newParts.reset()
 
     for request in requests.requests:
         if request.type == REQUEST_NEW:
@@ -656,12 +659,10 @@ def doPartitioning(diskset, requests, doRefresh = 1):
 
     if ret == PARTITION_FAIL:
         raise PartitioningError, "Partitioning failed: %s" %(msg)
-
+            
     ret = growParts(diskset, requests, newParts)
 
-    for part in newParts.parts:
-        newParts.parts.remove(part)
-        del part
+    newParts.reset()
 
     if ret != PARTITION_SUCCESS:
         raise PartitioningError, "Growing partitions failed"
