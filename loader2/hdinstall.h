@@ -16,5 +16,6 @@ char * mountHardDrive(struct installMethod * method,
                       struct loaderData_s * loaderData,
                       moduleInfoSet modInfo, moduleList modLoaded,
                       moduleDeps * modDepsPtr, int flags);
+int kickstartFromHD(char *kssrc, int flags);
 
 #endif

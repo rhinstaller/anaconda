@@ -28,6 +28,7 @@
 
 #include "driverdisk.h"
 #include "hdinstall.h"
+#include "kickstart.h"
 #include "loader.h"
 #include "loadermisc.h"
 #include "log.h"
@@ -517,6 +518,48 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
 
     logMessage("results of hd ks, partition is %s, dir is %s", partition, dir);
 }
+
+int kickstartFromHD(char *kssrc, int flags) {
+    int rc;
+    char *p, *q, *tmpstr, *ksdev, *kspath;
+
+    logMessage("getting kickstart file from harddrive");
+
+    /* format is ks=hd:[device]:/path/to/ks.cfg */
+    /* split of pieces */
+    tmpstr = strdup(kssrc);
+    p = strchr(tmpstr, ':');
+    if (p)
+	q = strchr(p+1, ':');
+    
+    /* no second colon, assume its the old format of ks=hd:[device]/path/to/ks.cfg */
+    /* this format is bad however because some devices have '/' in them! */
+    if (!q)
+	q = strchr(p+1, '/');
+
+    if (!p || !q) {
+	logMessage("Format of command line is ks=hd:[device]:/path/to/ks.cfg");
+	free(tmpstr);
+	return 1;
+    }
+
+    *q = '\0';
+    ksdev = p+1;
+    kspath = q+1;
+
+    logMessage("Loading ks from device %s on path %s", ksdev, kspath);
+    if ((rc=getKickstartFromBlockDevice(ksdev, kspath))) {
+	if (rc == 3) {
+	    startNewt(flags);
+	    newtWinMessage(_("Error"), _("OK"),
+			   _("Cannot find kickstart file on hard drive."));
+	}
+	return 1;
+    }
+
+    return 0;
+}
+
 
 #endif
 

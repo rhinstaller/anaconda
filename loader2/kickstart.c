@@ -208,9 +208,10 @@ int ksGetCommand(int cmd, char ** last, int * argc, char *** argv) {
     return 1;
 }
 
-int kickstartFromFloppy(int flags) {
+int kickstartFromFloppy(char *kssrc, int flags) {
     struct device ** devices;
-    int i;
+    char *p, *kspath;
+    int i, rc;
 
     logMessage("doing kickstart from floppy");
     devices = probeDevices(CLASS_FLOPPY, BUS_MISC | BUS_IDE | BUS_SCSI, 
@@ -232,30 +233,66 @@ int kickstartFromFloppy(int flags) {
         return 1;
     }
 
-    if (devMakeInode(devices[i]->device, "/tmp/floppy"))
-        return 1;
+    /* format is ks=floppy:[/path/to/ks.cfg] */
+    kspath = "";
+    p = strchr(kssrc, ':');
+    if (p)
+	kspath = p + 1;
 
-    if ((doPwMount("/tmp/floppy", "/tmp/ks", "vfat", 1, 0, NULL, NULL)) && 
-        doPwMount("/tmp/floppy", "/tmp/ks", "ext2", 1, 0, NULL, NULL)) {
-        logMessage("failed to mount floppy: %s", strerror(errno));
-        return 1;
+    if (!p || strlen(kspath) < 1)
+	kspath = "/ks.cfg";
+
+    if ((rc=getKickstartFromBlockDevice(devices[i]->device, kspath))) {
+	if (rc == 3) {
+	    startNewt(flags);
+	    newtWinMessage(_("Error"), _("OK"),
+			   _("Cannot find ks.cfg on boot floppy."));
+	}
+	return 1;
     }
-    
-    if (access("/tmp/ks/ks.cfg", R_OK)) {
-        startNewt(flags);
-        newtWinMessage(_("Error"), _("OK"),
-                       _("Cannot find ks.cfg on boot floppy."));
-        return 1;
-    }
-
-    copyFile("/tmp/ks/ks.cfg", "/tmp/ks.cfg");
-    umount("/tmp/ks");
-    unlink("/tmp/floppy");
-
-    logMessage("kickstart file copied to /tmp/ks.cfg");
 
     return 0;
 }
+
+
+/* given a device name (w/o '/dev' on it), try to get ks file */
+/* Error codes: 
+      1 - could not create device node
+      2 - could not mount device as ext2, vfat, or iso9660
+      3 - kickstart file named path not there
+*/
+int getKickstartFromBlockDevice(char *device, char *path) {
+    int rc;
+    char ksfile[4096];
+
+    logMessage("getKickstartFromBlockDevice(%s, %s)", device, path);
+
+    if (devMakeInode(device, "/tmp/kssrcdev"))
+        return 1;
+
+    if ((doPwMount("/tmp/kssrcdev", "/tmp/ks", "vfat", 1, 0, NULL, NULL)) && 
+        doPwMount("/tmp/kssrcdev", "/tmp/ks", "ext2", 1, 0, NULL, NULL) && 
+        doPwMount("/tmp/kssrcdev", "/tmp/ks", "iso9660", 1, 0, NULL, NULL)) {
+        logMessage("failed to mount /dev/%s: %s", device, strerror(errno));
+        return 2;
+    }
+
+    snprintf(ksfile, sizeof(ksfile), "/tmp/ks/%s", path);
+    logMessage("Searching for ks file on path %s", ksfile);
+    
+    if (access(ksfile, R_OK)) {
+	rc = 3;
+    } else {
+	copyFile(ksfile, "/tmp/ks.cfg");
+	rc = 0;
+	logMessage("kickstart file copied to /tmp/ks.cfg");
+    }    
+
+    umount("/tmp/ks");
+    unlink("/tmp/kssrcdev");
+    return rc;
+}
+
 
 void getKickstartFile(struct knownDevices * kd, 
                       struct loaderData_s * loaderData, int * flagsPtr) {
@@ -268,20 +305,22 @@ void getKickstartFile(struct knownDevices * kd,
         if (kickstartFromUrl(c + 3, kd, loaderData, flags))
             return;
         loaderData->ksFile = strdup("/tmp/ks.cfg");
-    } else if (!strncmp(c, "ks=cdrom:", 9)) {
-        logMessage("grabbing kickstart from cdrom currently unsupported");
-        return;
     } else if (!strncmp(c, "ks=nfs:", 7)) {
         if (kickstartFromNfs(c + 7, kd, loaderData, flags))
             return;
         loaderData->ksFile = strdup("/tmp/ks.cfg");
     } else if (!strncmp(c, "ks=floppy", 9)) {
-        if (kickstartFromFloppy(*flagsPtr)) 
+        if (kickstartFromFloppy(c, *flagsPtr)) 
             return;
         loaderData->ksFile = strdup("/tmp/ks.cfg");
     } else if (!strncmp(c, "ks=hd:", 6)) {
-        logMessage("grabbing kickstart from hd currently unsupported");
-        return;
+        if (kickstartFromHD(c, *flagsPtr)) 
+            return;
+        loaderData->ksFile = strdup("/tmp/ks.cfg");
+    } else if (!strncmp(c, "ks=cdrom", 8)) {
+        if (kickstartFromCD(c, kd, *flagsPtr)) 
+            return;
+        loaderData->ksFile = strdup("/tmp/ks.cfg");
     } else if (!strncmp(c, "ks=file:", 8)) {
         loaderData->ksFile = c + 8;
     } else if (!strcmp(c, "ks")) {

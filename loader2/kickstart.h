@@ -20,5 +20,5 @@ int ksHasCommand(int cmd);
 void getKickstartFile(struct knownDevices * kd,
                       struct loaderData_s * loaderData, int * flagsPtr);
 void setupKickstart(struct loaderData_s * loaderData, int * flagsPtr);
-
+int getKickstartFromBlockDevice(char *device, char *path);
 #endif
