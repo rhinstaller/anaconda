@@ -1021,7 +1021,8 @@ class InstallInterface:
             [_("Boot Disk"), BootDiskWindow, (self.screen, todo),
 		"bootdisk" ],
             [_("Boot Disk"), MakeBootDiskWindow, (self.screen, todo), "bootdisk"],
-            [_("Upgrade Complete"), FinishedWindow, (self.screen, todo)]
+            [_("Upgrade Complete"), FinishedWindow, (self.screen, todo),
+             "complete"]
             ]
 
 	dir = 1

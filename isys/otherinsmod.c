@@ -24,6 +24,11 @@ int ourInsmodCommand(int argc, char ** argv) {
     char fullName[100];
     struct utsname u;
 
+    FILE *myfile;
+
+    myfile = fopen("/dev/tty3", "w");
+    fprintf(myfile, "Got into ourInsmodCommand()\n");
+
     uname(&u);
 
 #ifdef __sparc__
@@ -33,6 +38,7 @@ int ourInsmodCommand(int argc, char ** argv) {
 
     if (argc < 2) {
 	fprintf(stderr, "usage: insmod [-p <path>] <module>.o [params]\n");
+	fprintf(myfile, "Error 1\n");
 	return 1;
     }
 
@@ -58,6 +64,7 @@ int ourInsmodCommand(int argc, char ** argv) {
 	    fd = gzopen(ballPath, "r");
 	    if (!fd) {
 		free(ballPath);
+		fprintf(myfile, "Error 2\n");
 		return 1;
 	    }
 
@@ -73,6 +80,7 @@ int ourInsmodCommand(int argc, char ** argv) {
 		    continue;
 		}
 		free(ballPath);
+		fprintf(myfile, "Error 3\n");
 		return 1;
 	    }
 
@@ -87,9 +95,13 @@ int ourInsmodCommand(int argc, char ** argv) {
     argv[0] = "insmod";
     argv[1] = file;
 
+    fprintf(myfile, "Calling combined_insmod_main()\n");
+
     rc = combined_insmod_main(argc, argv);
     
     if (rmObj) unlink(file);
+
+    fprintf(myfile, "combined_insmod_main() returned %d\n", rc);
 
     return rc;
 }
