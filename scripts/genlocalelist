@@ -79,6 +79,7 @@ while (<FILE>) {
     $lang=$_;
     $lang =~ s/eucjp/eucJP/;
     $lang =~ s/euckr/eucKR/;
+    $lang =~ s/gb18030/GB18030/;
     $lang =~ s/^zh_CN$/zh_CN.GB2312/;
     $lang =~ s/^zh_TW$/zh_TW.Big5/;
 
