@@ -256,7 +256,7 @@ class UpgradeExamineWindow:
                 scroll = 0
 
 	    partList = []
-	    for drive in parts:
+	    for (drive, fs) in parts:
 		partList.append(drive)
 
             (button, choice) = \
