@@ -49,7 +49,7 @@ msgstr "Partiþie"
 #: ../text.py:73
 #, c-format
 msgid "What device is your mouse located on? %s %i"
-msgstr ""
+msgstr "Unde este conectat mouse-ul? %s %i"
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
@@ -84,11 +84,11 @@ msgstr "Înapoi"
 
 #: ../text.py:92
 msgid "Which model mouse is attached to this computer?"
-msgstr ""
+msgstr "Ce tip de mouse este conectat la acest calculator?"
 
 #: ../text.py:101
 msgid "Emulate 3 Buttons?"
-msgstr ""
+msgstr "Emulare 3 butoane?"
 
 #: ../text.py:103
 msgid "Mouse Selection"
@@ -100,7 +100,7 @@ msgstr "Tip tastaturã"
 
 #: ../text.py:140
 msgid "Which model keyboard is attached to this computer?"
-msgstr ""
+msgstr "Ce tip de tastaturã este conectatã la acest calculator?"
 
 #: ../text.py:160
 msgid "Install GNOME Workstation"
@@ -203,7 +203,7 @@ msgstr ""
 
 #: ../text.py:315
 msgid "Use bootp/dhcp"
-msgstr ""
+msgstr "Foloseºte bootp/dhcp"
 
 #: ../text.py:320
 msgid "IP address:"
@@ -241,7 +241,7 @@ msgstr "Configurare Nume Host"
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
-msgstr ""
+msgstr "Introduceþi numele de host al acestui calculator. Dacã acest calculator este ataºat unei reþele, numele de host este asignat de cãtre administratorul de reþea."
 
 #: ../iw/network.py:180 ../text.py:394
 msgid "Hostname"
@@ -279,7 +279,7 @@ msgstr "Rrezultate autodetecþie X11"
 
 #: ../text.py:446 ../text.py:465
 msgid "Unlisted Card"
-msgstr ""
+msgstr "Placã nelistatã"
 
 #: ../text.py:454
 msgid "Video Card Selection"
@@ -339,7 +339,7 @@ msgstr ""
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
-msgstr ""
+msgstr "Introduceþi o dischetã nouã în prima unitate de floppy-disk. Datele de pe aceastã dischetã vor fi ºterse în timpul creãrii discului de boot."
 
 #: ../text.py:554 ../text.py:555 ../text.py:566 ../text.py:567
 msgid "Skip"
@@ -349,7 +349,7 @@ msgstr "Urmãtoarea etapã"
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
-msgstr ""
+msgstr "S-a detectat o eroare la crearea discului de boot. Asiguraþi-vã cã in prima unitate de floppy-disk existã o dischetã formatatã."
 
 #: ../text.py:625
 msgid "Package Installation"
@@ -373,15 +373,15 @@ msgstr "Pachet"
 
 #: ../text.py:656
 msgid "       Bytes"
-msgstr ""
+msgstr "       Bytes"
 
 #: ../text.py:657
 msgid "        Time"
-msgstr ""
+msgstr "        Timp"
 
 #: ../text.py:659
 msgid "Total    :"
-msgstr ""
+msgstr "Total    :"
 
 #: ../text.py:666
 msgid "Completed:   "
@@ -389,27 +389,27 @@ msgstr "Completat:   "
 
 #: ../text.py:676
 msgid "Remaining:  "
-msgstr ""
+msgstr "Mai rãmîne:  "
 
 #: ../text.py:746
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "Care este zona de timp în care sînteþi situat?"
 
 #: ../text.py:754
 msgid "Hardware clock set to GMT?"
-msgstr ""
+msgstr "Ceasul system setat pentru GMT?"
 
 #: ../iw/timezone.py:29 ../text.py:756
 msgid "Time Zone Selection"
-msgstr ""
+msgstr "Selectare Zona de Timp"
 
 #: ../text.py:791 ../text.py:792
 msgid "Debug"
-msgstr ""
+msgstr "Debug"
 
 #: ../text.py:804
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
-msgstr ""
+msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
 #: ../text.py:806
 msgid ""
@@ -419,7 +419,7 @@ msgstr "  <Tab>/<Alt-Tab> între elemente  | <Space> selecteazã | <F12> urmãtorul
 
 #: ../text.py:822
 msgid "Welcome"
-msgstr ""
+msgstr "Bun venit"
 
 #: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:828 ../text.py:834
 msgid "Partition"
@@ -435,7 +435,7 @@ msgstr "Partiþionare automatã"
 
 #: ../text.py:836
 msgid "Swap"
-msgstr ""
+msgstr "Swap"
 
 #: ../text.py:838
 msgid "Filesystem Formatting"
@@ -459,7 +459,7 @@ msgstr "Configurare Mouse"
 
 #: ../text.py:854
 msgid "Time Zone Setup"
-msgstr ""
+msgstr "Setare Zona de Timp"
 
 #: ../text.py:856
 msgid "Root Password"
@@ -467,7 +467,7 @@ msgstr "Parola de root:"
 
 #: ../text.py:858
 msgid "User Account Setup"
-msgstr ""
+msgstr "Setare Conturi Utilizator"
 
 #: ../text.py:860
 msgid "Authentication"
@@ -507,11 +507,11 @@ msgstr "Instalare terminatã"
 
 #: ../text.py:883
 msgid "Examine System"
-msgstr ""
+msgstr "Analizare System"
 
 #: ../text.py:884
 msgid "Customize Upgrade"
-msgstr ""
+msgstr "Actualizare Personalizatã"
 
 #: ../text.py:886
 msgid "Upgrade System"
@@ -523,23 +523,23 @@ msgstr "Actualizare Terminatã"
 
 #: ../gui.py:306
 msgid "Red Hat Linux Installer"
-msgstr ""
+msgstr "Program de Instalare Red Hat Linux"
 
 #: ../gui.py:315
 msgid "Finish"
-msgstr ""
+msgstr "Finalizare"
 
 #: ../gui.py:316
 msgid "Hide Help"
-msgstr ""
+msgstr "Ascunde Detalii"
 
 #: ../gui.py:317
 msgid "Show Help"
-msgstr ""
+msgstr "Aratã Detalii"
 
 #: ../gui.py:338
 msgid "Online Help"
-msgstr ""
+msgstr "Detalii instalare"
 
 #: ../iw/account.py:14
 msgid "Account Configuration"
@@ -567,7 +567,7 @@ msgstr "Parola (din nou)"
 
 #: ../iw/account.py:171 ../iw/account.py:192
 msgid "Full Name"
-msgstr ""
+msgstr "Nume Complet"
 
 #: ../iw/account.py:178 ../libfdisk/newtfsedit.c:1303
 msgid "Add"
@@ -585,7 +585,7 @@ msgstr "ªtergere"
 
 #: ../iw/account.py:184
 msgid "New"
-msgstr ""
+msgstr "Nou"
 
 #: ../iw/auth.py:11
 msgid "Authentication Configuration"
@@ -593,7 +593,7 @@ msgstr "Configurare Metode de Autentificare"
 
 #: ../iw/auth.py:50
 msgid "Enable MD5 passwords"
-msgstr ""
+msgstr "Folosire parole MD5"
 
 #: ../iw/auth.py:51
 msgid "Enable shadow passwords"
@@ -601,19 +601,19 @@ msgstr "Activeazã shadow passwords"
 
 #: ../iw/auth.py:53
 msgid "Enable NIS"
-msgstr ""
+msgstr "Utilizare NIS"
 
 #: ../iw/auth.py:54
 msgid "Use broadcast to find NIS server"
-msgstr ""
+msgstr "Folosire broadcast pentru gãsirea unui server NIS"
 
 #: ../iw/auth.py:66
 msgid "NIS Domain: "
-msgstr ""
+msgstr "Domeniu NIS: "
 
 #: ../iw/auth.py:68
 msgid "NIS Server: "
-msgstr "NIS Server:"
+msgstr "Server NIS: "
 
 #: ../iw/bootdisk.py:10
 msgid "Bootdisk Creation"
@@ -621,7 +621,7 @@ msgstr "Creare Disc de Boot"
 
 #: ../iw/bootdisk.py:51
 msgid "Skip boot disk creation"
-msgstr ""
+msgstr "Fãrã Boot Disc"
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -706,15 +706,15 @@ msgstr "Configurare Tastaturã"
 
 #: ../iw/keyboard.py:27
 msgid "Model"
-msgstr ""
+msgstr "Model"
 
 #: ../iw/keyboard.py:39
 msgid "Layout"
-msgstr ""
+msgstr "Aranjament taste"
 
 #: ../iw/keyboard.py:53
 msgid "Variant"
-msgstr ""
+msgstr "Variantã"
 
 #: ../iw/language.py:14
 msgid "What language should be used during the installation process?"
@@ -726,7 +726,7 @@ msgstr "Configurare LILO"
 
 #: ../iw/lilo.py:99 ../iw/lilo.py:198
 msgid "Type"
-msgstr ""
+msgstr "Tip"
 
 #: ../iw/lilo.py:128
 msgid "Install LILO boot record on:"
@@ -754,7 +754,7 @@ msgstr "Creare disc boot"
 
 #: ../iw/lilo.py:163
 msgid "Do not install LILO"
-msgstr ""
+msgstr "Fãrã instalare LILO"
 
 #: ../iw/lilo.py:174
 msgid "Default"
@@ -774,7 +774,7 @@ msgstr "Configurare folosind DHCP"
 
 #: ../iw/network.py:133
 msgid "Activate on boot"
-msgstr ""
+msgstr "Activare la iniþializarea sistemului"
 
 #: ../iw/network.py:142
 msgid "IP Address"
@@ -786,39 +786,39 @@ msgstr "Netmask"
 
 #: ../iw/network.py:142
 msgid "Network"
-msgstr ""
+msgstr "Network"
 
 #: ../iw/network.py:142
 msgid "Broadcast"
-msgstr ""
+msgstr "Broadcast"
 
 #: ../iw/network.py:181
 msgid "Gateway"
-msgstr ""
+msgstr "Gateway"
 
 #: ../iw/network.py:181
 msgid "Primary DNS"
-msgstr ""
+msgstr "Server DNS primar"
 
 #: ../iw/network.py:181
 msgid "Secondary DNS"
-msgstr ""
+msgstr "Server DNS secundar"
 
 #: ../iw/network.py:181
 msgid "Ternary DNS"
-msgstr ""
+msgstr "Server DNS terþiar"
 
 #: ../iw/package.py:20
 msgid "Individual Package Selection"
-msgstr ""
+msgstr "Selectare Individualã Aplicaþii"
 
 #: ../iw/package.py:178
 msgid "Up"
-msgstr ""
+msgstr "Precedent"
 
 #: ../iw/package.py:324
 msgid "Name: "
-msgstr ""
+msgstr "Nume:"
 
 #: ../iw/package.py:329
 msgid "Package Details"
@@ -834,7 +834,7 @@ msgstr "Selectaþi Aplicaþiile pentru Instalare"
 
 #: ../iw/package.py:377
 msgid "Package Group Selection"
-msgstr ""
+msgstr "Selectare Grupuri Aplicaþii"
 
 #: ../iw/package.py:445
 msgid "Select individual packages"
@@ -862,7 +862,7 @@ msgstr "Aplicaþii"
 
 #: ../iw/progress.py:149
 msgid "Time"
-msgstr ""
+msgstr "Timp"
 
 #: ../iw/progress.py:154
 msgid "Total"
@@ -878,7 +878,7 @@ msgstr "Rãmas"
 
 #: ../iw/rootpartition.py:12
 msgid "Confirm Partitioning Selection"
-msgstr ""
+msgstr "Confirmare Schemã de Partiþionare"
 
 #: ../iw/rootpartition.py:27
 msgid "Root Partition Selection"
@@ -897,106 +897,100 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
+"%s\n"
+"\n"
+"Dacã nu asta este ceea ce doriþi, puteþi continua aceastã sesiune de instalare prin selectarea partiþionãrii manuale, sau puteþi sã selectaþi ecranul precedent ºi sã selectaþi o instalare personalizatã"
 
 #: ../iw/rootpartition.py:136
-#, fuzzy
 msgid "Remove data"
-msgstr "lpd în reþea"
+msgstr "ªtergere date"
 
 #: ../iw/rootpartition.py:139
-#, fuzzy
 msgid "Manually partition"
-msgstr "Repartitionare"
+msgstr "Partiþionare manualã"
 
 #: ../iw/timezone.py:110
 msgid "View:"
-msgstr ""
+msgstr "Aratã:"
 
 #: ../iw/timezone.py:140
 msgid "Use Daylight Saving Time"
-msgstr ""
+msgstr "În aceastã zonã de timp se foloseºte ora de varã"
 
 #: ../iw/timezone.py:147
-#, fuzzy
 msgid "Location"
-msgstr "Workstation"
+msgstr "Locaþie"
 
 #: ../iw/timezone.py:148
 msgid "UTC Offset"
-msgstr ""
+msgstr "Differenþa pînã la zona 0 (GMT)"
 
 #: ../iw/timezone.py:152
 msgid "System clock uses UTC"
-msgstr ""
+msgstr "Ceasul sistem este setat pentru GMT"
 
 #: ../iw/welcome.py:11
-#, fuzzy
 msgid "Welcome to Red Hat Linux!"
-msgstr "Welcome to Red Hat Linux"
+msgstr "Bun venit la Red Hat Linux!"
 
 #: ../iw/xconfig.py:9
 msgid "Video Card"
-msgstr ""
+msgstr "Placã video"
 
 #: ../iw/xconfig.py:10
 msgid "Monitor"
-msgstr ""
+msgstr "Monitor"
 
 #: ../iw/xconfig.py:11
 msgid "Video Ram"
-msgstr ""
+msgstr "Memorie Video"
 
 #: ../iw/xconfig.py:12
 msgid "Horizontal Frequency Range"
-msgstr ""
+msgstr "Plaja Frecvenþelor Orizontale"
 
 #: ../iw/xconfig.py:13
 msgid "Vertical Frequency Range"
-msgstr ""
+msgstr "Plaja Frecvenþelor Verticale"
 
 #: ../iw/xconfig.py:14
 msgid "Test failed"
-msgstr ""
+msgstr "Testul a eºuat"
 
 #: ../iw/xconfig.py:22 ../iw/xconfig.py:198
-#, fuzzy
 msgid "Customize X Configuration"
-msgstr "Configurare SCSI"
+msgstr "Personalizare configuraþie X Windows"
 
 #: ../iw/xconfig.py:63
-#, fuzzy
 msgid "Bits per Pixel"
-msgstr "Biþi per pixel:"
+msgstr "Biþi per pixel"
 
 #: ../iw/xconfig.py:73 ../iw/xconfig.py:194
-#, fuzzy
 msgid "Test this configuration"
-msgstr "Configurare SCSI"
+msgstr "Testeazã aceastã configuraþie"
 
 #: ../iw/xconfig.py:149
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
-msgstr ""
+msgstr "În cele mai multe cazuri placa video si monitorul pot fi autodetectatã pentru determinarea setãrilor optime în folosire."
 
 #: ../iw/xconfig.py:157
-#, fuzzy
 msgid "Autoprobe results:"
-msgstr "Autodetecþie"
+msgstr "Rezultatele autodetecþiei:"
 
 #: ../iw/xconfig.py:171
 msgid ""
 "Your monitor could not be autodetected. Please choose it from the list below:"
-msgstr ""
+msgstr "Acest monitor nu a putut fi autodetectat. Selectaþi monitorul ataºat acestui calculator din lista de mai jos:"
 
 #: ../iw/xconfig.py:201
 msgid "Use Graphical Login"
-msgstr ""
+msgstr "Porneºte automat modul grafic"
 
 #: ../iw/xconfig.py:203
-#, fuzzy
 msgid "Skip X Configuration"
-msgstr "Configurare SCSI"
+msgstr "Fãrã configurare X Windows"
 
 #: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
 #: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
@@ -1167,14 +1161,12 @@ msgid "Fdisk Error"
 msgstr "Eroare fdisk"
 
 #: ../libfdisk/gnomefsedit.c:517 ../libfdisk/gnomefsedit.c:686
-#, fuzzy
 msgid "<Swap Partition>"
-msgstr "Partiþie Swap"
+msgstr "<Partiþie Swap>"
 
 #: ../libfdisk/gnomefsedit.c:525 ../libfdisk/gnomefsedit.c:688
-#, fuzzy
 msgid "<RAID Partition>"
-msgstr "Partiþia de Root"
+msgstr "<Partiþie RAID>"
 
 #: ../libfdisk/gnomefsedit.c:580 ../libfdisk/newtfsedit.c:697
 msgid "Delete Partition"
@@ -1198,18 +1190,16 @@ msgid "Cancel"
 msgstr "Abandon"
 
 #: ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
-#, fuzzy
 msgid "Mount Point:"
-msgstr "Mount Point"
+msgstr "Mount Point:"
 
 #: ../libfdisk/gnomefsedit.c:701
-#, fuzzy
 msgid "Size (Megs):"
-msgstr "Mãrime :"
+msgstr "Mãrime (MB):"
 
 #: ../libfdisk/gnomefsedit.c:732
 msgid "Grow to fill disk?"
-msgstr ""
+msgstr "Mãrire automatã pentru a umple discul?"
 
 #: ../libfdisk/gnomefsedit.c:751 ../libfdisk/newtfsedit.c:335
 msgid "Allocation Status:"
@@ -1228,13 +1218,12 @@ msgid "Failure Reason:"
 msgstr "Cauzã eroare:"
 
 #: ../libfdisk/gnomefsedit.c:784 ../libfdisk/gnomefsedit.c:1654
-#, fuzzy
 msgid "Partition Type:"
-msgstr "Tip partiþie"
+msgstr "Tip Partiþie:"
 
 #: ../libfdisk/gnomefsedit.c:851
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "Discuri Permise:"
 
 #: ../libfdisk/gnomefsedit.c:956 ../libfdisk/gnomefsedit.c:1846
 #: ../libfdisk/newtfsedit.c:486
@@ -1267,7 +1256,6 @@ msgid "Size Error"
 msgstr "Eroare mãrime"
 
 #: ../libfdisk/gnomefsedit.c:1027 ../libfdisk/newtfsedit.c:546
-#, fuzzy
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -1292,34 +1280,32 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1079 ../libfdisk/gnomefsedit.c:1086
 msgid "No RAID Drive Constraint"
-msgstr ""
+msgstr "Limitãri Disc RAID Inexistente"
 
 #: ../libfdisk/gnomefsedit.c:1081
-#, fuzzy
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
-"Nu aþi selectat un director de montare pentru aceastã partiþie. Sînteþi "
-"sigur cã aceasta este ceea ce doriþi?"
+"Aþi configurat o partiþie RAID fãrã a o limita la un singur hard disc.\n"
+"Sînteþi sigur cã doriþi sã faceþi acest lucru?"
 
 #: ../libfdisk/gnomefsedit.c:1087
-#, fuzzy
 msgid "Close"
-msgstr "ªterge"
+msgstr "Închide"
 
 #: ../libfdisk/gnomefsedit.c:1088
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
-msgstr ""
+msgstr "Aþi configurat o partiþie de RAID fãrã a impune limitãri la un singur disc. Selectaþi un disc pentru a folosi ca limitã a sistemului RAID."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
 #: ../libfdisk/gnomefsedit.c:1267
 msgid "RAID Entry Incomplete"
-msgstr ""
+msgstr "Configurare RAID incompletã"
 
 #: ../libfdisk/gnomefsedit.c:1268
 #, c-format
@@ -1327,7 +1313,7 @@ msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
-msgstr ""
+msgstr "Partiþia RAID /dev/%s conþine partiþii care nu sînt alocate. Partiþia RAID /dev/%s va fi decompusã în partiþiile care o compun. Recompuneþi partiþia RAID folosind numai partiþii care au fost alocate."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1361 ../libfdisk/gnomefsedit.c:1380
@@ -1347,87 +1333,77 @@ msgstr ""
 "împreunã cu motivul pentru care nu au fost alocate."
 
 #: ../libfdisk/gnomefsedit.c:1640
-#, fuzzy
 msgid "<Swap Partition"
-msgstr "Partiþie Swap"
+msgstr "<Partiþie Swap"
 
 #: ../libfdisk/gnomefsedit.c:1698
 msgid "RAID Device: /dev/"
-msgstr ""
+msgstr "Partiþia RAID: /dev/"
 
 #: ../libfdisk/gnomefsedit.c:1721
 msgid "RAID Type:"
-msgstr ""
+msgstr "Tip RAID:"
 
 #: ../libfdisk/gnomefsedit.c:1758
-#, fuzzy
 msgid "Partitions For RAID Array:"
-msgstr "Partiþii care vor fi Formatate"
+msgstr "Partiþii pentru systemul RAID:"
 
 #: ../libfdisk/gnomefsedit.c:1847
-#, fuzzy
 msgid "You have not selected a mount point. A mount point is required."
-msgstr ""
-"Nu aþi selectat un director de montare pentru aceastã partiþie. Sînteþi "
-"sigur cã aceasta este ceea ce doriþi?"
+msgstr "Nu aþi selectat un director de montare pentru aceastã partiþie. Este necesar sã selectaþi un director de montare."
 
 #: ../libfdisk/gnomefsedit.c:1855
-#, fuzzy
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
-msgstr ""
-"Directorul de montare specificat este o cale ilegalã sau este deja utilizat. "
-"Selectaþi un director de activare valid."
+msgstr "Directorul de montare specificat este deja utilizat. Selectaþi un director de montare valid."
 
 #: ../libfdisk/gnomefsedit.c:1868
 msgid "Booting From RAID Warning"
-msgstr ""
+msgstr "Avertisment pentru startarea de pe o partiþie RAID"
 
 #: ../libfdisk/gnomefsedit.c:1869
 msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
-msgstr ""
+msgstr "Aþi selectat aceastã partiþie de RAID ca partiþia de boot. Asiguraþi-vã ca toate partiþiile de disc constituente sînt la rindul lor bootabile."
 
 #: ../libfdisk/gnomefsedit.c:1879
-#, fuzzy
 msgid "No RAID Device"
-msgstr "Partiþie"
+msgstr "System RAID inexistent"
 
 #: ../libfdisk/gnomefsedit.c:1880
 msgid "You need to selected a RAID device."
-msgstr ""
+msgstr "Trebuie sã selectaþi o partiþie de RAID"
 
 #: ../libfdisk/gnomefsedit.c:1886
 msgid "Used Raid Device"
-msgstr ""
+msgstr "Partiþie de RAID folositã"
 
 #: ../libfdisk/gnomefsedit.c:1887
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
-msgstr ""
+msgstr "Partiþia RAID \"/dev/%s\" este configuratã deja pentru un sistem RAID. Selectaþi o altã partiþie."
 
 #: ../libfdisk/gnomefsedit.c:1900
-#, fuzzy
 msgid "Not Enough Partitions"
-msgstr "Partiþia root nedefinita"
+msgstr "Nu existã suficiente partiþii"
 
 #: ../libfdisk/gnomefsedit.c:1902
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
-msgstr ""
+msgstr "Nu aþi configurat suficiente partiþii pentru tipul de sistem RAID pe care l-aþi selectat."
 
 #: ../libfdisk/gnomefsedit.c:1909
 msgid "Illegal /boot RAID Type"
-msgstr ""
+msgstr "Partiþia /boot are tip RAID invalid."
 
 #: ../libfdisk/gnomefsedit.c:1911
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr ""
+msgstr "Partiþiile de boot (/boot) sînt permise numai pe sisteme RAID-1"
 
 #: ../libfdisk/gnomefsedit.c:2012
 #, c-format
@@ -1435,35 +1411,32 @@ msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
-msgstr ""
+msgstr "Partiþia %s din acest RAID sistem este o partiþie configuratã înainte de instalare. Directorul de montare este setat pentru /boot. Sînteþi sigur cã este posibil sã se iniþializeze sistemul de pe aceastã partiþie?"
 
 #: ../libfdisk/gnomefsedit.c:2019
-#, fuzzy
 msgid "Use Pre-existing Partition?"
-msgstr "ªtergere partiþie"
+msgstr "Folosiþi partiþia existentã?"
 
 #: ../libfdisk/gnomefsedit.c:2128
-#, fuzzy
 msgid "Auto-Partition"
-msgstr "Editare partiþie"
+msgstr "Partiþionare Automatã"
 
 #: ../libfdisk/gnomefsedit.c:2135
 msgid "Using Existing Disk Space"
-msgstr ""
+msgstr "Folosire spaþiu disc existent"
 
 #: ../libfdisk/gnomefsedit.c:2154
-#, fuzzy
 msgid "Remove Linux partitions"
-msgstr "Redimensionare partitii"
+msgstr "ªterge Partiþiile Linux"
 
 #: ../libfdisk/gnomefsedit.c:2165
 msgid "Use existing free space"
-msgstr ""
+msgstr "Folosire spaþiu liber"
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2177
 msgid "Intended Use"
-msgstr ""
+msgstr "Folosit pentru"
 
 #: ../libfdisk/gnomefsedit.c:2216
 msgid "Workstation"
@@ -1471,12 +1444,11 @@ msgstr "Workstation"
 
 #: ../libfdisk/gnomefsedit.c:2290
 msgid "Delete RAID Device?"
-msgstr ""
+msgstr "ªterge partiþia RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2291
-#, fuzzy
 msgid "Are you sure you want to remove this RAID device?"
-msgstr "Sînteþi sigur cã doriþi sã ºtergeþi aceastã partiþie?"
+msgstr "Sînteþi sigur cã doriþi sã ºtergeþi aceastã partiþie RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2342 ../libfdisk/newtfsedit.c:1585
 msgid "Reset Partition Table"
@@ -1488,85 +1460,68 @@ msgstr "Restauraþi conþinutul original al tabelei de partiþii ? "
 
 #: ../libfdisk/gnomefsedit.c:2380 ../libfdisk/gnomefsedit.c:2431
 msgid "<Swap>"
-msgstr ""
+msgstr "<Swap>"
 
 #: ../libfdisk/gnomefsedit.c:2382
 msgid "<RAID>"
-msgstr ""
+msgstr "<RAID>"
 
 #: ../libfdisk/gnomefsedit.c:2384
 msgid "<not set>"
-msgstr ""
+msgstr "<nesetat>"
 
 #: ../libfdisk/gnomefsedit.c:2941
-#, fuzzy
 msgid "Unallocated Partitions Exist..."
-msgstr "Partiþii nealocate"
+msgstr "Existã Partiþii Nealocate..."
 
 #: ../libfdisk/gnomefsedit.c:2952
-#, fuzzy
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
-msgstr ""
-"O partiþie de tip Linux Native (ext2) trebuie asignatã partiþiei de root (/) "
-"înainte ca procesul de instalare sã continue."
+msgstr "O partiþie de tip Linux Native (ext2) sau RAID trebuie asignatã partiþiei de root (/) înainte ca procesul de instalare sã continue."
 
 #: ../libfdisk/gnomefsedit.c:2966 ../libfdisk/gnomefsedit.c:2979
-#, fuzzy
 msgid ""
 "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
 "or a RAID-1 partition for the install to proceed."
-msgstr ""
-"O partiþie de tip Linux Native (ext2) trebuie asignatã partiþiei de root (/) "
-"înainte ca procesul de instalare sã continue."
+msgstr "O partiþie de tip Linux Native (ext2) sau RAID-1 trebuie asignatã partiþiei de boot (/boot) înainte ca procesul de instalare sã continue."
 
 #: ../libfdisk/gnomefsedit.c:2994
-#, fuzzy
 msgid ""
 "Because you have assigned the root partition (/) to a RAID device, you must "
 "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
 "RAID-1 partition for the install to proceed."
-msgstr ""
-"O partiþie de tip Linux Native (ext2) trebuie asignatã partiþiei de root (/) "
-"înainte ca procesul de instalare sã continue."
+msgstr "Întrucît aþi asignat partiþia de root (/) unui sistem RAID, trebuie sã asignaþi o directorul de boot (/boot) unei partiþii de tip Linux native (ext2) sau unui alt sistem de tip RAID-1 Inainte ca procesul de instalare sã poatã continua."
 
 #: ../libfdisk/gnomefsedit.c:3067
-#, fuzzy
 msgid "Partitions"
-msgstr "Repartitionare"
+msgstr "Partiþii"
 
 #: ../libfdisk/gnomefsedit.c:3111
-#, fuzzy
 msgid "_Add..."
-msgstr "Adãugare"
+msgstr "_Adãugare..."
 
 #: ../libfdisk/gnomefsedit.c:3123
-#, fuzzy
 msgid "_Edit..."
-msgstr "Editare"
+msgstr "_Editare..."
 
 #: ../libfdisk/gnomefsedit.c:3124
-#, fuzzy
 msgid "_Delete"
-msgstr "ªtergere"
+msgstr "_ªtergere..."
 
 #: ../libfdisk/gnomefsedit.c:3125
 msgid "_Reset"
-msgstr ""
+msgstr "_Resetare"
 
 #: ../libfdisk/gnomefsedit.c:3154
-#, fuzzy
 msgid "_Make RAID Device"
-msgstr "Partiþie"
+msgstr "_Creazã o partiþie RAID"
 
 #: ../libfdisk/gnomefsedit.c:3163
-#, fuzzy
 msgid "Auto Partition"
-msgstr "Editare partiþie"
+msgstr "Partiþionare automatã"
 
 #: ../libfdisk/gnomefsedit.c:3176
-#, fuzzy
 msgid "Drive Summary"
 msgstr "Raport disc"
 
@@ -1611,10 +1566,9 @@ msgid ""
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
-"Existã partiþii nealocate pe disc. Dacã iesiþi acum acestea nu vor fi scrise "
-"pe disc.\n"
+"Existã partiþii nealocate pe disc. Dacã iesiþi acum acestea nu vor fi scrise pe disc.\n"
 "\n"
-"Sinteti sigur ca doriti a iesiti din program?"
+"Sînteti sigur cã doriþi sã ieºiþi din program?"
 
 #: ../libfdisk/newtfsedit.c:1500
 msgid "Save Changes"
@@ -1644,10 +1598,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgid "Password (again):"
 #~ msgstr "Parola (din nou):"
 
-#, fuzzy
-#~ msgid "Password Length"
-#~ msgstr "Parolele sînt diferite"
-
 #~ msgid "The root password must be at least 6 characters long."
 #~ msgstr "Parola de root trebuie sã fie de cel putin ºase caractere lungime"
 
@@ -1658,38 +1608,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgstr ""
 #~ "Parolele pe care le-aþi introdus sînt diferite (probabil dintr-o eroare de "
 #~ "tastare). Încercaþi din nou."
-
-#, fuzzy
-#~ msgid "Edit User"
-#~ msgstr "Editare"
-
-#, fuzzy
-#~ msgid "Add User"
-#~ msgstr "Adãugare imprimantã"
-
-#, fuzzy
-#~ msgid "User ID"
-#~ msgstr "Utilizator:"
-
-#, fuzzy
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Parola de root trebuie sã fie de cel putin ºase caractere lungime"
-
-#, fuzzy
-#~ msgid "User name"
-#~ msgstr "Nume cont:"
-
-#, fuzzy
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Parola de root:"
-
-#, fuzzy
-#~ msgid "NIS Domain:"
-#~ msgstr "Nume domeniu:"
-
-#, fuzzy
-#~ msgid "NIS Server:"
-#~ msgstr "Server:"
 
 #~ msgid "Disk Setup"
 #~ msgstr "Setare Disc"
@@ -1746,10 +1664,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgid "Check for bad blocks during format"
 #~ msgstr "Verificare blocuri defecte la formatare"
 
-#, fuzzy
-#~ msgid "Choose Partitions to Format"
-#~ msgstr "Alegaþi partiþiile care vor fi formatate"
-
 #~ msgid ""
 #~ "Some of the packages you have selected to install require packages you have "
 #~ "not selected. If you just select Ok all of those required packages will be "
@@ -1803,14 +1717,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 
 #~ msgid "There is not enough disk space for this type of installation."
 #~ msgstr "Spaþiul pe disc este insuficient pentru acest tip de instalare."
-
-#, fuzzy
-#~ msgid "There is not enough disk space for the chosen partitioning."
-#~ msgstr "Spaþiul pe disc este insuficient pentru acest tip de instalare."
-
-#, fuzzy
-#~ msgid "Skip LILO install"
-#~ msgstr "Instalare SILO"
 
 #~ msgid "No BOOTP reply received"
 #~ msgstr "Nu s-a recepþionat nici un rãspuns de la serverul BOOTP"
