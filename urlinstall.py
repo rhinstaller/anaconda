@@ -35,7 +35,7 @@ FILENAME = 1000000
 DISCNUM  = 1000002
 
 def urlretrieve(location, file):
-    """Downloads from location and saves to file."
+    """Downloads from location and saves to file."""
 
     url = urllib2.urlopen(location)
     f = open(file, 'w+')
@@ -171,4 +171,3 @@ class UrlInstallMethod(InstallMethod):
 	else:
 	    self.multiDiscs = 0
 	    self.pkgUrl = self.baseUrl
-	    
