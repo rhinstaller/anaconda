@@ -53,17 +53,24 @@ class Script:
 	else:
 	    messages = "/dev/tty3"
 
-	iutil.execWithRedirect (self.interp, [self.interp, "/tmp/ks-script" ], 
-		stdout = messages, stderr = messages, root = scriptRoot)
-				
+	rc = iutil.execWithRedirect(self.interp,
+				    [self.interp,"/tmp/ks-script"],
+				    stdout = messages, stderr = messages,
+				    root = scriptRoot)
+
+	if rc != 0:
+	    log("WARNING - Error code %s encountered running a kickstart %%pre/%%post script", rc)
+
 	os.unlink(path)
 
 class KickstartBase(BaseInstallClass):
     name = "kickstart"
     
     def postAction(self, rootPath, serial):
+	log("Running kickstart %%post script(s)")
 	for script in self.postScripts:
 	    script.run(rootPath, serial)
+	log("All kickstart %%post script(s) have been run")
 
     def doRootPw(self, id, args):
 	(args, extra) = isys.getopt(args, '', [ 'iscrypted' ])
@@ -1102,8 +1109,10 @@ class KickstartBase(BaseInstallClass):
         # parse the %pre
 	self.readKickstart(id, self.file, parsePre = 1)
 
+	log("Running kickstart %%pre script(s)")
 	for script in self.preScripts:
 	    script.run("/", self.serial)
+	log("All kickstart %%pre script(s) have been run")
 
         # now read the kickstart file for real
 	self.readKickstart(id, self.file)            
