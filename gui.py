@@ -261,9 +261,20 @@ class InstallControlWindow (Thread):
                 elif name == "next": buttons[name].connect ("clicked", self.nextClicked)
                 buttons[name].show ()
 
-        self.buttonBox.foreach (lambda x, b=self.buttonBox: b.remove (x))
-        self.buttonBox.pack_start (buttons["prev"])
-        self.buttonBox.pack_start (buttons["next"])
+        children = self.buttonBox.children ()
+        if not buttons["prev"] in children:
+            self.buttonBox.remove (children[0])
+            self.buttonBox.pack_start (buttons["prev"])
+        if not buttons["next"] in children:
+            self.buttonBox.remove (children[1])
+            self.buttonBox.pack_end (buttons["next"])
+
+# old flickery button changing code
+#        if not (buttons["prev"] in children and buttons["next"] in children):
+#            self.buttonBox.foreach (lambda x, b=self.buttonBox: b.remove (x))
+#            self.buttonBox.pack_start (buttons["prev"])
+#            self.buttonBox.pack_start (buttons["next"])
+
         buttons["prev"].set_sensitive (ics.getPrevEnabled ())
         buttons["next"].set_sensitive (ics.getNextEnabled ())
 
