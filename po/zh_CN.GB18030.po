@@ -1,22 +1,25 @@
+# anaconda zh_CN.GB2312.po
+# Copyright (C) 2001, Red Hat, Inc.
+# Sarah Smith <sarahs@Redhat.com>, 2002.
+#
 #: ../gettext_rh.py:340
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.130\n"
+"Project-Id-Version: anaconda 7.3\n"
 "POT-Creation-Date: 2002-04-16 18:52-0400\n"
-"PO-Revision-Date: 2002-04-15 18:04-0400\n"
-"Last-Translator: Richard Allen <ra@hp.is>\n"
-"Language-Team: is <kde-isl@mmedia.is>\n"
+"PO-Revision-Date: 2002-04-16 10:46GMT+10:00\n"
+"Last-Translator: Sarah Smith <sarahs@redhat.com>\n"
+"Language-Team: Simplified Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Type: text/plain; charset=GBK\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
 
 #: ../anaconda:319
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
-msgstr ""
-"Şağ er ekki nægjanlegt vinnsluminni í vélinni til ağ nota myndræna "
-"uppsetningarforritiğ. Fer í textaham."
+msgstr "ÄãÃ»ÓĞ×ã¹»µÄ RAM À´Ê¹ÓÃÍ¼ĞÎ»¯°²×°³ÌĞò£¬¿ªÊ¼Ê¹ÓÃÎÄ±¾·½Ê½°²×°¡£"
 
 #: ../anaconda:338 ../gui.py:110 ../mouse.py:283 ../rescue.py:35
 #: ../rescue.py:142 ../rescue.py:165 ../rescue.py:174 ../rescue.py:190
@@ -53,62 +56,59 @@ msgstr ""
 #: ../loader/urls.c:198 ../loader/urls.c:268 ../loader/urls.c:273
 #: ../loader/urls.c:279 ../loader/urls.c:419
 msgid "OK"
-msgstr "Í lagi"
+msgstr "È·¶¨"
 
 #: ../anaconda:381
 msgid "Probing for video card:   "
-msgstr "Leita ağ skjákorti:   "
+msgstr "Ì½²âÊÓÆµ¿¨£º   "
 
 #: ../anaconda:389
 msgid "Unable to probe\n"
-msgstr "Get ekki leitağ\n"
+msgstr "ÎŞ·¨Ì½²â\n"
 
 #: ../anaconda:391
 msgid "Probing for monitor type: "
-msgstr "Leita ağ skjá: "
+msgstr "Ì½²âÏÔÊ¾Æ÷µÄÀàĞÍ£º"
 
 #: ../anaconda:398
 msgid "Probing for mouse type:   "
-msgstr "Leita ağ tegund músar:   "
+msgstr "Ì½²âÊó±êµÄÀàĞÍ£º   "
 
 #: ../anaconda:402
 msgid "Skipping mouse probe.\n"
-msgstr "Sleppi músarleit.\n"
+msgstr "Ìø¹ıÊó±êÌ½²â¡£\n"
 
 #: ../anaconda:417
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
-msgstr ""
-"Ekki er hægt ağ nota myndrænu notendaskilin í %s uppsetningu. Fer í textaham."
+msgstr "%s °²×°²»Ö§³ÖÍ¼ĞÎ·½Ê½°²×°£¬¿ªÊ¼ÎÄ±¾·½Ê½°²×°¡£"
 
 #: ../anaconda:427
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
-msgstr ""
-"Engin mús fannst. Mús er nauğsynleg fyrir myndræna uppsetningu. Fer í "
-"textaham."
+msgstr "Ã»ÓĞ·¢ÏÖÍ¼ĞÎ·½Ê½°²×°ËùĞèµÄÊó±ê£¬¿ªÊ¼ÎÄ±¾·½Ê½°²×°¡£"
 
 #: ../anaconda:432
 msgid "Using mouse type: "
-msgstr "Nota şessa músartegund: "
+msgstr "Ê¹ÓÃÊó±êÀàĞÍ£º"
 
 #: ../autopart.py:713
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr "Gat ekki búiğ til disksneiğina sem \"primary\" disksneiğ"
+msgstr "ÎŞ·¨½«»ùÓÚÖùÃæµÄÇøÓò²¦ÎªÖ÷·ÖÇø¡£"
 
 #: ../autopart.py:716
 msgid "Could not allocate partitions as primary partitions"
-msgstr "Gat ekki búiğ til umbeğnar disksneiğar sem \"primary\" disksneiğar"
+msgstr "ÎŞ·¨½«ÕâĞ©·ÖÇø²¦ÎªÖ÷·ÖÇø"
 
 #: ../autopart.py:719
 msgid "Could not allocate cylinder-based partitions"
-msgstr "Gat ekki búiğ til umbeğnar disksneiğar"
+msgstr "ÎŞ·¨²¦¸ø»ùÓÚÖùÃæµÄ·ÖÇø"
 
 #: ../autopart.py:722
 msgid "Could not allocate partitions"
-msgstr "Gat ekki búiğ til disksneiğar"
+msgstr "ÎŞ·¨²¦·¢·ÖÇø"
 
 #: ../autopart.py:769
 #, python-format
@@ -116,12 +116,11 @@ msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
-"Ræsidisksneiğin %s uppfyllir líklega ekki ræsikröfur vélarinnar şinnar.  Viğ "
-"mælum eindregiğ meğ ağ şú útbúir ræsidiskling."
+"Òıµ¼·ÖÇø %s ¿ÉÄÜÃ»ÓĞÂú×ãÄãµÄÌåÏµµÄÒıµ¼ÖÆÔ¼²ÎÊı£¬´óÁ¦Ìá³«Äã´´½¨Ò»ÕÅÒıµ¼ÈíÅÌ¡£"
 
 #: ../autopart.py:901
 msgid "Requested Partition Does Not Exist"
-msgstr "Disksneiğin er ekki til"
+msgstr "ËùÉêÇëµÄ·ÖÇø²»´æÔÚ"
 
 #: ../autopart.py:902
 #, python-format
@@ -130,13 +129,13 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Gat ekki fundiğ disksneiğina %s til ağ nota sem %s.\n"
+"ÕÒ²»µ½ %s ·ÖÇøÒÔ±ã %s¡£\n"
 "\n"
-"Veldu Í lagi til ağ endurræsa."
+"°´È·¶¨¼üÀ´ÖØĞÂÒıµ¼ÏµÍ³¡£"
 
 #: ../autopart.py:935
 msgid "Partition Request Sanity Check Errors"
-msgstr "Disksneiğavillur"
+msgstr "·ÖÇøÉêÇëµÄÍêÕûĞÔ²éÑé³ö´í"
 
 #: ../autopart.py:936
 #, python-format
@@ -147,15 +146,15 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Eftirfarandi villur komu upp viğ disksneiğingu:\n"
+"·ÖÇøÊ±·¢ÉúÁËÏÂÁĞ´íÎó£º\n"
 "\n"
 "%s\n"
 "\n"
-"Veldu Í lagi til ağ endurræsa."
+"Çë°´È·¶¨¼üÖØĞÂÒıµ¼ÏµÍ³¡£"
 
 #: ../autopart.py:945
 msgid "Warnings During Automatic Partitioning"
-msgstr "Ağvaranir viğ sjálfvirka disksneiğingu"
+msgstr "½øĞĞ×Ô¶¯·ÖÇøÊ±³öÏÖ¾¯¸æ"
 
 #: ../autopart.py:946
 #, python-format
@@ -164,14 +163,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Eftirfarandi ağvaranir komu upp viğ sjálfvirka disksneiğingu:\n"
+"×Ô¶¯·ÖÇøÊ±·¢ÉúÁËÏÂÁĞ¾¯¸æ£º\n"
 "\n"
 "%s"
 
 #: ../autopart.py:959 ../iw/partition_gui.py:1291
 #: ../textw/partition_text.py:164
 msgid "Error Partitioning"
-msgstr "Villa viğ disksneiğingu"
+msgstr "·ÖÇø³ö´í"
 
 #: ../autopart.py:960
 #, python-format
@@ -180,7 +179,7 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
-"Gat ekki búiğ til umbeğnar disksneiğar: \n"
+"ÎŞ·¨²¦·¢ËùÉêÇëµÄ·ÖÇø£º\n"
 "\n"
 "%s.%s"
 
@@ -194,7 +193,7 @@ msgstr ""
 #: ../textw/partition_text.py:168 ../textw/upgrade_text.py:174
 #: ../loader/loader.c:3478
 msgid "Warning"
-msgstr "Ağvörun"
+msgstr "¾¯¸æ"
 
 #: ../autopart.py:1002
 msgid ""
@@ -208,35 +207,31 @@ msgid ""
 "fdisk is the traditional, text-based partitioning tool offered by Red Hat. "
 "Although it is not as easy to use, there are cases where fdisk is preferred."
 msgstr ""
-"Sjálfvirk disksneiğing setur upp diskinn şinn eftir şeirri "
-"uppsetningarağferğ sem şú hefur valiğ. \n"
+"×Ô¶¯·ÖÇøÊÇ¸ù¾İÄãµÄ°²×°ÀàĞÍÀ´½¨Á¢·ÖÇø¡£ÄãÒ²¿ÉÒÔ×Ô¼º¶¨ÖÆ·ÖÇøÒÔÂú×ãÄãµÄĞèÒª¡£ \n"
 "\n"
-"Handvirka sneiğingatóliğ Diskadrúídinn gerir şér kleyft ağ sneiğa diskinn í "
-"gagnvirku umhverfi. Şú getur einnig stillt tegundir skráarkerfa, "
-"tengipunkta, stærğir og fleira í şessu handhæga og einfalda tóli.\n"
+"Disk Druid ÊÇÊÖ¹¤·ÖÇøµÄ¹¤¾ß¡£ËüÔÊĞíÄãÔÚ»¥¶¯µÄ»·¾³ÖĞ½¨Á¢·ÖÇø¡£Äã¿ÉÒÔÓÃÕâÖÖ¼òµ¥"
+"È´¹¦ÄÜÇ¿´óµÄ½çÃæÀ´ÉèÁ¢ÎÄ¼şÏµÍ³¡¢¹ÒÔØµãµÈ¡£ \n"
 "\n"
-"fdisk er hefğbundiğ tól meğ textaskilum sem er öflugast sneiğingatóla. Şó "
-"şağ sé ekki auğveldast í notkun eru tilfelli şar sem fdisk er nauğsynlegt."
+"fdisk ÊÇ Red Hat Ìá¹©µÄÎÄ±¾Ê½µÄ´«Í³·ÖÇø¹¤¾ß¡£ËäÈ»ËüÊ¹ÓÃÆğÀ´²»ÄÇÃ´·½±ã£¬µ«ÔÚÓĞ"
+"Ğ©Çé¿öÏÂ fdisk ÊÇ½Ï¼ÑÑ¡Ôñ¡£"
 
 #: ../autopart.py:1018
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
-msgstr ""
-"Áğur en unnt er ağ sneiğa diskinn sjálfvirkt şarft şú ağ gefa upp hvernig şú "
-"vilt ağ diskurinn şinn sé nıttur."
+msgstr "ÔÚ°²×°³ÌĞò½¨Á¢×Ô¶¯·ÖÇøÖ®Ç°£¬Äã±ØĞëÑ¡ÔñÒªÈçºÎÊ¹ÓÃÓ²ÅÌ¿Õ¼ä¡£"
 
 #: ../autopart.py:1023
 msgid "Remove all partitions on this system"
-msgstr "Fjarlægja allar disksneiğar á şessari vél"
+msgstr "É¾³ıÏµÍ³ÄÚµÄËùÓĞ·ÖÇø"
 
 #: ../autopart.py:1024
 msgid "Remove all Linux Partitions on this system"
-msgstr "Fjarlægja allar Linux disksneiğar á şessari vél"
+msgstr "É¾³ıÏµÍ³ÄÚËùÓĞµÄ Linux ·ÖÇø"
 
 #: ../autopart.py:1025
 msgid "Keep all partitions and use existing free space"
-msgstr "Fjarlægja engar sneiğar og nota einungis laust pláss"
+msgstr "±£´æËùÓĞµÄ·ÖÇø£¬Ê¹ÓÃÏÖÓĞµÄ¿ÕÏĞ¿Õ¼ä"
 
 #: ../autopart.py:1027
 #, python-format
@@ -247,11 +242,10 @@ msgid ""
 "drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"AĞVÖRUN!!\tAĞVÖRUN!!\n"
+"¾¯¸æ£¡£¡\t¾¯¸æ£¡£¡\n"
 "\n"
-"Şú hefur kosiğ ağ eyğa öllum disksneiğum (ÖLLUM GÖGNUM) á eftirtöldum drifum:"
-"%s\n"
-"Ertu viss um ağ şú viljir gera şetta?"
+"ÄãÒÑÑ¡ÔñÁËÒªÔÚÏÂÁĞÇı¶¯Æ÷ÄÚÉ¾³ıËùÓĞ·ÖÇø(¼°ÆäËùÓĞÊı¾İ)£º %s\n"
+"ÊÇ·ñÈ·ĞÅÒªÖ´ĞĞ´Ë²Ù×÷£¿"
 
 #: ../autopart.py:1032
 #, python-format
@@ -262,51 +256,46 @@ msgid ""
 "the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"AĞVÖRUN!!\tAĞVÖRUN!!\n"
+"¾¯¸æ£¡£¡\t¾¯¸æ£¡£¡\n"
 "\n"
-"Şú hefur kosiğ ağ eyğa öllum Linux disksneiğum (og ÖLLUM GÖGNUM á şeim) á "
-"eftirtöldum drifum:%s\n"
-"Ertu viss um ağ şú viljir gera şetta?"
+"ÄãÒÑÑ¡ÔñÁËÒªÔÚÒÔÏÂÇı¶¯Æ÷ÄÚÉ¾³ıËùÓĞ Linux ·ÖÇø(¼°ÆäËùÓĞÊı¾İ)£º%s\n"
+"ÊÇ·ñÈ·ĞÅÒªÖ´ĞĞ´Ë²Ù×÷£¿"
 
 #: ../bootloader.py:287
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"Engir kjarnapakkar voru settir inn á vélina şína. Stillingum ræsistjóra "
-"verğur ekki breytt."
+msgstr "ÄãµÄÏµÍ³ÉÏÃ»ÓĞ°²×°ÈÎºÎÄÚºËÈí¼ş°ü¡£Òıµ¼×°ÔØ³ÌĞòµÄÅäÖÃ²»±ä¡£"
 
 #: ../bootloader.py:866
 msgid "Bootloader"
-msgstr "Ræsistjóri"
+msgstr "Òıµ¼×°ÔØ³ÌĞò"
 
 #: ../bootloader.py:866
 msgid "Installing bootloader..."
-msgstr "Set upp ræsistjórann..."
+msgstr "ÕıÔÚ°²×°Òıµ¼×°ÔØ³ÌĞò¡­¡­"
 
 #: ../comps.py:563
 msgid "Everything"
-msgstr "Allt"
+msgstr "È«²¿"
 
 #: ../comps.py:682 ../comps.py:748 ../upgrade.py:546
 msgid "no suggestion"
-msgstr "engin tillaga"
+msgstr "Ã»ÓĞ½¨Òé"
 
 #: ../exception.py:163 ../text.py:239
 msgid "Exception Occurred"
-msgstr "Óeğlilegt ástand"
+msgstr "·¢ÉúÁËÒâÍâ"
 
 #: ../exception.py:230
 msgid "Dump Written"
-msgstr "Dump ritağ"
+msgstr "ÒÑĞ´Íê×ª´¢ĞÅÏ¢"
 
 #: ../exception.py:231
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
-"Stağa vélarinnar şinnar hefur veriğ vistuğ á diskling. Vélin şín mun nú "
-"endurræsa."
+msgstr "ÄãµÄÏµÍ³×´Ì¬ÒÑ±»³É¹¦µØĞ´ÈëÈíÅÌ£¬ÏµÍ³½«±»ÖØÉè¡£"
 
 #: ../floppy.py:62 ../floppy.py:91 ../fsset.py:522 ../fsset.py:946
 #: ../fsset.py:965 ../fsset.py:1010 ../fsset.py:1032 ../fsset.py:1079
@@ -327,32 +316,30 @@ msgstr ""
 #: ../loader/urls.c:91 ../loader/urls.c:99 ../loader/urls.c:268
 #: ../loader/urls.c:273
 msgid "Error"
-msgstr "Villa"
+msgstr "´íÎó"
 
 #: ../floppy.py:63 ../floppy.py:92
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
-msgstr ""
-"Villa kom upp şegar reynt var ağ búa til ræsidisklinginn. Vinsamlegast "
-"gakktu úr skugga um ağ forsniğinn disklingur sé í fyrsta disklingadrifinu."
+msgstr "ÖÆ×÷Òıµ¼ÅÌÊ±³öÏÖ´íÎó¡£ ÇëÈ·±£µÚÒ»¸öÈíÅÌÇı¶¯Æ÷ÖĞµÄÈíÅÌÒÑ±»¸ñÊ½»¯¡£"
 
 #: ../floppy.py:78
 msgid "Creating"
-msgstr "Bı til"
+msgstr "ÕıÔÚ´´½¨"
 
 #: ../floppy.py:78
 msgid "Creating boot disk..."
-msgstr "Bı til ræsidiskling..."
+msgstr "ÕıÔÚ´´½¨Òıµ¼ÅÌ¡­¡­"
 
 #: ../fsset.py:161
 msgid "Checking for Bad Blocks"
-msgstr "Leita ağ skemmdum blokkum"
+msgstr "ÕıÔÚ¼ì²é´ÅÅÌ»µ¿é"
 
 #: ../fsset.py:162
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "Leita ağ skemmdum blokkum á /dev/%s..."
+msgstr "ÕıÔÚ¼ì²é/dev/%sÉÏµÄ´ÅÅÌ»µ¿é¡­¡­"
 
 #: ../fsset.py:523
 #, python-format
@@ -362,18 +349,18 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
-"Villa kom upp şegar reynt var ağ breyta %s í ext3. Şağ er hægt ağ halda "
-"áfram án şess ağ breyta şessu skráarkerfi ef şú vilt.\n"
+"ÔÚ½« %s ÒÆÖ²µ½ ext3 Ê±³öÏÖ´íÎó¡£Èç¹ûÄãÏëÒªµÄ»°£¬ÓĞ¿ÉÄÜ²»ĞèÒÆÖ²ÎÄ¼şÏµÍ³Ò²¿ÉÒÔ"
+"¼ÌĞø¡£\n"
 "\n"
-"Viltu halda áfram án şess ağ breyta %s?"
+"ÄãÏë²»ÒÆÖ² %s ¶ø¼ÌĞøÂğ£¿"
 
 #: ../fsset.py:880 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
-msgstr "Ağalræsifærsluna (MBR)"
+msgstr "Ö÷Òıµ¼¼ÇÂ¼(MBR)"
 
 #: ../fsset.py:881 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
-msgstr "Fyrsta geira ræsidisksneiğar"
+msgstr "Òıµ¼·ÖÇøµÄµÚÒ»¸öÉÈÇø"
 
 #: ../fsset.py:947
 #, python-format
@@ -383,10 +370,9 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Villa kom upp şegar reynt var ağ forsníğa diskminni á %s.   Şetta er "
-"alvarlegt vandamál sem veldur şví ağ uppsetningin getur ekki haldiğ áfram.\n"
+"ÔÚ³õÊ¼»¯ %s Éè±¸ÉÏµÄ½»»»ÇøÊ±³ö´í¡£ÎÊÌâÑÏÖØ£¬°²×°ÎŞ·¨¼ÌĞø¡£\n"
 "\n"
-"Sláğu á enter til ağ endurræsa vélina."
+"Çë°´»Ø³µ¼üÖØĞÂÒıµ¼ÏµÍ³¡£"
 
 #: ../fsset.py:966
 #, python-format
@@ -397,11 +383,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Villa kom upp şegar reynt var ağ virkja diskminni á tæki %s: %s\n"
+"ÆôÓÃ½»»»Éè±¸ %s Ê±³ö´í£º %s\n"
 "\n"
-"Şetta şığir líklega ağ diskminnissneiğin hefur ekki veriğ forsniğin.\n"
+"×î¿ÉÄÜµÄÔ­ÒòÊÇ½»»»·ÖÇø»¹Ã»ÓĞ±»³õÊ¼»¯¡£\n"
 "\n"
-"Veldu Í lagi til ağ endurræsa vélina."
+"Çë°´È·¶¨¼üÀ´ÖØĞÂÒıµ¼ÏµÍ³¡£"
 
 #: ../fsset.py:1011
 #, python-format
@@ -411,10 +397,9 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Villa kom upp viğ leit ağ skemdum blokkum á %s.   Şetta er alvarlegt "
-"vandamál sem veldur şví ağ uppsetningin getur ekki haldiğ áfram.\n"
+"ÔÚ%sÉÏËÑÑ°»µ¿éÊ±³ö´í¡£ÎÊÌâÑÏÖØ£¬°²×°ÎŞ·¨¼ÌĞø¡£\n"
 "\n"
-"Sláğu á enter til ağ endurræsa vélina."
+"Çë°´»Ø³µ¼üÀ´ÖØĞÂÒıµ¼ÏµÍ³¡£"
 
 #: ../fsset.py:1033
 #, python-format
@@ -424,10 +409,9 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Villa kom upp şegar reynt var ağ forsníğa %s.   Şetta er alvarlegt vandamál "
-"sem veldur şví ağ uppsetningin getur ekki haldiğ áfram.\n"
+"¸ñÊ½»¯ %s Ê±³ö´í¡£ÎÊÌâÑÏÖØ£¬°²×°ÎŞ·¨¼ÌĞø¡£\n"
 "\n"
-"Sláğu á enter til ağ endurræsa vélina."
+"Çë°´»Ø³µ¼üÀ´ÖØĞÂÒıµ¼ÏµÍ³¡£"
 
 #: ../fsset.py:1080
 #, python-format
@@ -437,14 +421,13 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Villa kom upp şegar reynt var ağ breyta %s.   Şetta er alvarlegt vandamál "
-"sem veldur şví ağ uppsetningin getur ekki haldiğ áfram.\n"
+"ÔÚÒÆÖ² %s Ê±³ö´í¡£ÎÊÌâÑÏÖØ£¬°²×°ÎŞ·¨¼ÌĞø¡£\n"
 "\n"
-"Sláğu á enter til ağ endurræsa vélina."
+"Çë°´»Ø³µ¼üÀ´ÖØĞÂÒıµ¼ÏµÍ³¡£"
 
 #: ../fsset.py:1100 ../fsset.py:1109
 msgid "Invalid mount point"
-msgstr "Óleyfilegur tengipunktur"
+msgstr "¹ÒÔØµãÎŞĞ§"
 
 #: ../fsset.py:1101
 #, python-format
@@ -454,11 +437,9 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Villa kom upp şegar reynt var ağ búa %s til. Eitthvağ í slóğinni er ekki "
-"mappa. Şetta er alvarlegt vandamál sem veldur şví ağ uppsetningin getur ekki "
-"haldiğ áfram.\n"
+"ÔÚ´´½¨ %s Ê±³ö´í¡£Õâ¸öÂ·¾¶µÄÓĞĞ©ÔªËØ²»ÊÇÄ¿Â¼¡£ÖÂÃü´íÎó£¬°²×°ÎŞ·¨¼ÌĞø¡£\n"
 "\n"
-"Sláğu á enter til ağ endurræsa vélina."
+"Çë°´»Ø³µ¼üÀ´ÖØĞÂÒıµ¼ÏµÍ³¡£"
 
 #: ../fsset.py:1110
 #, python-format
@@ -468,10 +449,9 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Villa kom upp şegar reynt var ağ búa %s: %s til.  Şetta er alvarlegt "
-"vandamál sem veldur şví ağ uppsetningin getur ekki haldiğ áfram.\n"
+"ÔÚ´´½¨ %s Ê±³ö´í£º %s¡£ ÖÂÃü´íÎó£¬°²×°ÎŞ·¨¼ÌĞø¡£\n"
 "\n"
-"Sláğu á enter til ağ endurræsa vélina."
+"Çë°´»Ø³µ¼üÀ´ÖØĞÂÒıµ¼ÏµÍ³¡£"
 
 #: ../fsset.py:1123
 #, python-format
@@ -482,24 +462,24 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Villa kom upp şegar reynt var ağ tengja tæki %s á %s: %s\n"
+"½« %sÉè±¸¹ÒÔØ³É %s Ê±³ö´í£º%s\n"
 "\n"
-"Şetta şığir líklega ağ disksneiğin hefur ekki veriğ forsniğin.\n"
+"×î¿ÉÄÜµÄÔ­ÒòÊÇÕâ¸ö·ÖÇø»¹Ã»ÓĞ±»¸ñÊ½»¯¡£\n"
 "\n"
-"Veldu Í lagi til ağ endurræsa vélina."
+"Çë°´È·¶¨¼üÀ´ÖØĞÂÒıµ¼ÏµÍ³¡£"
 
 #: ../fsset.py:1719
 msgid "Formatting"
-msgstr "Forsníğ"
+msgstr "ÕıÔÚ¸ñÊ½»¯"
 
 #: ../fsset.py:1720
 #, python-format
 msgid "Formatting %s filesystem..."
-msgstr "Forsníğ %s skráakerfiğ..."
+msgstr "ÕıÔÚ¸ñÊ½»¯ %s ÎÄ¼şÏµÍ³¡­¡­"
 
 #: ../gui.py:107 ../text.py:300
 msgid "Fix"
-msgstr "Laga"
+msgstr "ĞŞÀí"
 
 #: ../gui.py:108 ../text.py:301 ../iw/partition_gui.py:508
 #: ../iw/partition_gui.py:665 ../iw/partition_gui.py:730
@@ -508,7 +488,7 @@ msgstr "Laga"
 #: ../textw/upgrade_text.py:254 ../loader/devices.c:232
 #: ../loader/loader.c:1026 ../loader/loader.c:3478 ../loader/net.c:897
 msgid "Yes"
-msgstr "Já"
+msgstr "ÊÇ"
 
 #: ../gui.py:109 ../text.py:302 ../iw/partition_gui.py:509
 #: ../iw/partition_gui.py:667 ../iw/partition_gui.py:732
@@ -518,15 +498,15 @@ msgstr "Já"
 #: ../textw/upgrade_text.py:261 ../loader/devices.c:233
 #: ../loader/loader.c:3478 ../loader/net.c:897
 msgid "No"
-msgstr "Nei"
+msgstr "·ñ"
 
 #: ../gui.py:111 ../text.py:304 ../loader/net.c:274 ../loader/net.c:400
 msgid "Retry"
-msgstr "Reyna aftur"
+msgstr "ÖØÊÔ"
 
 #: ../gui.py:112 ../text.py:305
 msgid "Ignore"
-msgstr "Hunsa"
+msgstr "ºöÂÔ"
 
 #: ../gui.py:113 ../text.py:117 ../text.py:118 ../text.py:270 ../text.py:272
 #: ../text.py:306 ../iw/account_gui.py:151 ../iw/account_gui.py:162
@@ -537,7 +517,7 @@ msgstr "Hunsa"
 #: ../textw/welcome_text.py:54 ../loader/devices.c:240 ../loader/loader.c:2816
 #: ../loader/modules.c:442 ../loader/pcmcia.c:104
 msgid "Cancel"
-msgstr "Hætta viğ"
+msgstr "È¡Ïû"
 
 #: ../gui.py:195 ../text.py:278
 msgid ""
@@ -546,42 +526,39 @@ msgid ""
 "a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
 msgstr ""
-"Óeğlilegt ástand hefur komiğ upp. Orsökin er líklegast villa í "
-"uppsetningarforritinu. Vinsamlegast afritağu allan textann hérna eğa vistağu "
-"hann á diskling og sendu inn villutilkynningu um anaconda á http://bugzilla."
-"redhat.com/bugzilla"
+"³öÏÖÁËÒ»¸öÎ´½â¾öµÄÀıÍâ¡£Õâ¼«¿ÉÄÜÊÇÒ»¸ö³ÌĞò´íÎó¡£Çë½«´ËÀıÍâµÄÍêÕûÔ­ÎÄ¸´ÖÆÏÂ"
+"À´£¬»òÕß½«ËüµÄ±ÀÀ£×éºÏÂë´æ´¢µ½Ò»¸öÈíÅÌ£¬È»ºóÏò http://bugzilla.redhat.com/"
+"bugzilla/ Ìá½»Ò»·İÏêÏ¸µÄ anaconda ´íÎó»ã±¨¡£"
 
 #: ../gui.py:316 ../text.py:268
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
-msgstr ""
-"Vinsamlegast settu diskling í drifiğ. Öllu innihaldi disklingsins verğur "
-"eytt svo veldu disklinginn vel."
+msgstr "ÏÖÔÚÇë²åÈëÈíÅÌ¡£ÈíÅÌÉÏËùÓĞÄÚÈİ½«»á±»Ä¨µô£¬ËùÒÔÇë×ĞÏ¸Ñ¡ÔñÈíÅÌ¡£"
 
 #: ../gui.py:396 ../gui.py:776
 msgid "Online Help"
-msgstr "Hjálp"
+msgstr "ÔÚÏß°ïÖú"
 
 #: ../gui.py:397 ../iw/language_gui.py:20 ../textw/language_text.py:38
 msgid "Language Selection"
-msgstr "Veljiğ tungumál"
+msgstr "Ñ¡ÔñÓïÑÔ"
 
 #: ../gui.py:455 ../iw/firewall_gui.py:135
 msgid "Close"
-msgstr "Loka"
+msgstr "¹Ø±Õ"
 
 #: ../gui.py:460 ../gui.py:636
 msgid "Release Notes"
-msgstr "Útgáfuupplısingar"
+msgstr "·¢ĞĞ×¢¼Ç"
 
 #: ../gui.py:492
 msgid "Unable to load file!"
-msgstr "Get ekki lesiğ skrá!"
+msgstr "ÎŞ·¨ÔØÈëÎÄ¼ş£¡"
 
 #: ../gui.py:526
 msgid "Release notes are missing.\n"
-msgstr "Útgáfuupplısingarnar vantar.\n"
+msgstr "È±ÉÙ·¢ĞĞ×¢¼Ç¡£\n"
 
 #: ../gui.py:632 ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
@@ -593,91 +570,89 @@ msgstr "Útgáfuupplısingarnar vantar.\n"
 #: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
 #: ../loader/urls.c:198 ../loader/urls.c:419
 msgid "Back"
-msgstr "Til baka"
+msgstr "ÉÏÒ»²½"
 
 #: ../gui.py:634
 msgid "Next"
-msgstr "Áfram"
+msgstr "ÏÂÒ»²½"
 
 #: ../gui.py:638
 msgid "Show Help"
-msgstr "Sına hjálp"
+msgstr "ÏÔÊ¾°ïÖú"
 
 #: ../gui.py:640
 msgid "Hide Help"
-msgstr "Fela hjálp"
+msgstr "Òş²Ø°ïÖú"
 
 #: ../gui.py:682
 #, python-format
 msgid "%s Installer"
-msgstr "%s uppsetningarforrit"
+msgstr "%s °²×°³ÌĞò"
 
 #: ../gui.py:697
 #, python-format
 msgid "%s Installer on %s"
-msgstr "%s uppsetningarforrit á %s"
+msgstr " %s °²×°³ÌĞòÓÃÓÚ %s µÄ"
 
 #: ../gui.py:735
 msgid "Unable to load title bar"
-msgstr "Get ekki lesiğ titilröndina"
+msgstr "ÎŞ·¨ÔØÈë±êÌâÀ¸"
 
 #: ../gui.py:824
 msgid "Install Window"
-msgstr "Uppsetningargluggi"
+msgstr "°²×°´°¿Ú"
 
 #: ../harddrive.py:173
 #, python-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr "Geisladisk nr. %d vantar, en hann er nauğsynlegur til uppsetningar."
+msgstr "È±ÉÙ°²×°ÓÃ¹âÅÌ#%d¡£"
 
 #: ../image.py:60
 msgid "Copying File"
-msgstr "Afrita skrá"
+msgstr "ÕıÔÚ¸´ÖÆÎÄ¼ş"
 
 #: ../image.py:61
 msgid "Transferring install image to hard drive..."
-msgstr "Flyt uppsetningarskrár á harğa diskinn..."
+msgstr "ÕıÔÚ½«°²×°Ó³Ïñ×ªÒÆµ½Ó²ÅÌ¡­¡­"
 
 #: ../image.py:64
 msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr ""
-"Villa kom upp viğ ağ flytja uppsetningarskrár á harğa diskinn. Hann er "
-"líklega fullur."
+msgstr "½«°²×°Ó³Ïñ×ªÒÆµ½Ó²ÅÌÊ±³ö´í£¬ºÜ¿ÉÄÜÊÇ´ÅÅÌ¿Õ¼ä²»¹»¡£"
 
 #: ../image.py:120
 msgid "Change CDROM"
-msgstr "Skipta um geisladisk"
+msgstr "¸ü»»¹âÅÌ"
 
 #: ../image.py:121
 #, python-format
 msgid "Please insert disc %d to continue."
-msgstr "Vinsamlegast settu inn disk %d til ağ halda áfram."
+msgstr "Çë²åÈë¹âÅÌ#%dÔÙ¼ÌĞø¡£"
 
 #: ../image.py:140
 msgid "Wrong CDROM"
-msgstr "Rangur geisladiskur"
+msgstr "¹âÅÌ²»¶Ô"
 
 #: ../image.py:141
 msgid "That's not the correct Red Hat CDROM."
-msgstr "Şetta er ekki rétti RedHat geisladiskurinn."
+msgstr "Õâ²»ÊÇÕıÈ·µÄ Red Hat ¹âÅÌ¡£"
 
 #: ../image.py:146
 msgid "The CDROM could not be mounted."
-msgstr "Ekki var hægt ağ tengja geisladiskinn."
+msgstr "Õâ¸ö¹âÅÌÎŞ·¨±»¹ÒÔØ¡£"
 
 #: ../installclass.py:28
 msgid "Install"
-msgstr "Setja upp"
+msgstr "°²×°"
 
 #: ../monitor.py:155 ../mouse.py:183 ../videocard.py:152
 msgid "Unable to probe"
-msgstr "Get ekki leitağ"
+msgstr "ÎŞ·¨Ì½²â"
 
 #: ../mouse.py:276 ../xserver.py:44
 msgid "Mouse Not Detected"
-msgstr "Engin mús fannst"
+msgstr "Ã»ÓĞ¼ì²âµ½Êó±ê"
 
 #: ../mouse.py:277 ../xserver.py:45
 msgid ""
@@ -686,18 +661,16 @@ msgid ""
 "information. You may also use text mode installation which does not require "
 "a mouse."
 msgstr ""
-"Ekki tókst ağ finna músina sjálfvirkt. Til şess ağ halda uppsetningunni "
-"áfram í myndrænum ham şarftu ağ fara áfram á næsta skjá og gefa upp "
-"upplısingar um músina.  Şú getur einnig notağ uppsetninguna í textaham sem "
-"şarfnast ekki músar."
+"ÄãµÄÊó±êÃ»ÓĞ±»×Ô¶¯¼ì²âµ½¡£ÈôÒªÔÚÍ¼ĞÎ»¯°²×°Ä£Ê½ÖĞ¼ÌĞø£¬Çëµ½ÏÂÒ»¸öÆÁÄ»È¥Ìá¹©Äã"
+"µÄÊó±êĞÅÏ¢¡£ÄãÒ²¿ÉÒÔÊ¹ÓÃ²»ĞèÊó±êµÄÎÄ±¾°²×°Ä£Ê½¡£"
 
 #: ../mouse.py:283 ../mouse.py:284 ../xserver.py:51 ../xserver.py:52
 msgid "Use text mode"
-msgstr "Nota textaham"
+msgstr "Ê¹ÓÃÎÄ±¾Ä£Ê½"
 
 #: ../packages.py:38 ../iw/package_gui.py:30
 msgid "Proceed with upgrade?"
-msgstr "Halda áfram meğ uppfærslu?"
+msgstr "¼ÌĞøÉı¼¶Âğ£¿"
 
 #: ../packages.py:39 ../iw/package_gui.py:31
 msgid ""
@@ -705,37 +678,36 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
-"Skráarkerfi Linux uppsetningarinnar sem şú hefur kosiğ ağ uppfæra hafa şegar "
-"veriğ tengd. Şú getur ekki fariğ til baka aftur fyrir şennan stağ. \n"
+"ÄãËùÑ¡ÔñÒªÉı¼¶µÄÎÄ¼şÏµÍ³ÒÑ¾­±»¹ÒÔØ£¬¹ıÁË´Ë²½±ã²»ÄÜ·µ»Ø¡£\n"
 "\n"
 
 #: ../packages.py:43 ../iw/package_gui.py:35
 msgid "Would you like to continue with the upgrade?"
-msgstr "Viltu halda áfram meğ uppfærsluna?"
+msgstr "ÊÇ·ñÒª¼ÌĞøÉı¼¶£¿"
 
 #: ../packages.py:100
 msgid "Reading"
-msgstr "Les"
+msgstr "ÕıÔÚ¶ÁÈ¡"
 
 #: ../packages.py:100
 msgid "Reading package information..."
-msgstr "Les upplısingar um pakkana..."
+msgstr "ÕıÔÚ¶ÁÈ¡Èí¼ş°üĞÅÏ¢¡­¡­"
 
 #: ../packages.py:157
 msgid "Dependency Check"
-msgstr "Athuga pakkaskilyrği"
+msgstr "ÒÀÀµ¹ØÏµ¼ì²é"
 
 #: ../packages.py:158
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "Athuga skilyrği pakkanna sem voru valdir til uppsetningar..."
+msgstr "ÔÚËùÑ¡¶¨Òª°²×°µÄÈí¼ş°üÖĞ¼ì²éÒÀÀµ¹ØÏµ¡­¡­"
 
 #: ../packages.py:223 ../packages.py:538
 msgid "Processing"
-msgstr "Vinnsla"
+msgstr "ÕıÔÚ´¦Àí"
 
 #: ../packages.py:224
 msgid "Preparing to install..."
-msgstr "Undirbı uppsetningu..."
+msgstr "ÕıÔÚ½øĞĞ°²×°×¼±¸¡­¡­"
 
 #: ../packages.py:264
 #, python-format
@@ -743,12 +715,11 @@ msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
-"Ekki er hægt ağ opna skrána %s. Şetta orsakast af skrá sem vantar, skemmdum "
-"pakka eğa ónıtum diski. Sláğu á <return> til ağ reyna aftur."
+"ÎŞ·¨´ò¿ªÎÄ¼ş£º %s. ÕâÊÇÓÉÓÚÎÄ¼şÒÅÊ§¡¢»µ¿é£¬»òÕßÊÇ½éÖÊ²»¶Ô¡£Çë°´»Ø³µ¼üÖØÊÔ¡£"
 
 #: ../packages.py:286
 msgid "Error Installing Package"
-msgstr "Villa viğ ağ setja inn pakka"
+msgstr "°²×°Èí¼ş°ü³ö´í"
 
 #: ../packages.py:287
 #, python-format
@@ -760,16 +731,14 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Şağ kom upp villa viğ uppsetningu %s. Şetta gæti orsakast af skemmdum disk, "
-"ekki nógu diskplássi og/eğa vélbúnağarbilunar. Şetta er banvæn villa og şví "
-"mun uppsetningin ekki halda áfram.  Vinsamlegast láttu yfirfara diskinn og "
-"reyndu aftur.\n"
+"°²×° %s Ê±³ö´í¡£Õâ¿ÉÄÜÒâÎ¶×Å½éÖÊÊ§°Ü£¬È±·¦¿Õ¼ä£¬ÒÔ¼°/»òÕßÓ²¼şÎÊÌâ¡£ÕâÊÇÒ»¸öÖÂ"
+"Ãü´íÎó£¬°²×°½«»áÖĞÖ¹¡£ÇëĞ£ÑéÄãµÄ½éÖÊºóÔÙÖØĞÂ°²×°¡£\n"
 "\n"
-"Veldu Í lagi hnappinn til ağ endurræsa."
+"Çë°´È·¶¨¼üÀ´ÖØĞÂÒıµ¼ÄãµÄÏµÍ³¡£"
 
 #: ../packages.py:539
 msgid "Setting up RPM transaction..."
-msgstr "Set upp RPM færslu..."
+msgstr "ÕıÔÚ½¨Á¢ RPM ´«Êä¡­¡­"
 
 #: ../packages.py:576
 #, python-format
@@ -777,7 +746,7 @@ msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr ""
-"Uppfæri %s pakkana\n"
+"ÕıÔÚÉı¼¶ %s Èí¼ş°ü\n"
 "\n"
 
 #: ../packages.py:578
@@ -786,18 +755,18 @@ msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr ""
-"Set inn %s pakkana\n"
+"ÕıÔÚ°²×° %s Èí¼ş°ü\n"
 "\n"
 
 #: ../packages.py:585
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
-msgstr "Uppfæri %s-%s-%s.\n"
+msgstr "ÕıÔÚÉı¼¶ %s-%s-%s¡£\n"
 
 #: ../packages.py:587
 #, python-format
 msgid "Installing %s-%s-%s.\n"
-msgstr "Set inn %s-%s-%s.\n"
+msgstr "ÕıÔÚ°²×° %s-%s-%s¡£\n"
 
 #: ../packages.py:603
 #, python-format
@@ -811,18 +780,18 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Eftirfarandi pakkar voru valdir sjálfvirkt\n"
-"til uppsetningar:\n"
+"ÏÂÁĞÒª°²×°µÄÈí¼ş°üÒÑ×Ô¶¯±»Ñ¡£º\n"
+"\n"
 "%s\n"
 "\n"
 
 #: ../packages.py:609
 msgid "Install Starting"
-msgstr "Uppsetning ağ hefjast"
+msgstr "Õı¿ªÊ¼°²×°"
 
 #: ../packages.py:610
 msgid "Starting install process, this may take several minutes..."
-msgstr "Ræsi uppsetningarferliğ. Şetta gæti tekiğ nokkrar mínútur..."
+msgstr "ÕıÔÚ¿ªÆô°²×°½ø³Ì£¬¿ÉÄÜ»á»¨¼¸·ÖÖÓÊ±¼ä¡­¡­"
 
 #: ../packages.py:655
 msgid ""
@@ -830,19 +799,19 @@ msgid ""
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
-"Şú virğist ekki hafa nægjanlegt diskrımi til ağ setja upp şá pakka sem şú "
-"valdir. Şú şarft meira pláss í eftirtöldum skráarkerfum:\n"
+"´ÅÅÌ¿Õ¼ä²»×ã£¬ÎŞ·¨°²×°ÒÑÑ¡¶¨µÄÈí¼ş°ü¡£ÄãĞèÒª¸ü¶àµÄ´ÅÅÌ¿Õ¼ä²ÅÄÜ°²×°ÒÔÏÂÎÄ¼şÏµ"
+"Í³£º\n"
 "\n"
 
 #: ../packages.py:659 ../packages.py:679 ../iw/partition_gui.py:1562
 #: ../iw/upgrade_swap_gui.py:123 ../textw/partition_text.py:986
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
-msgstr "Tengipunktur"
+msgstr "¹ÒÔØµã"
 
 #: ../packages.py:660
 msgid "Space Needed"
-msgstr "Şarfnast diskrımis"
+msgstr "ËùĞè¿Õ¼ä"
 
 #: ../packages.py:675
 msgid ""
@@ -850,17 +819,17 @@ msgid ""
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
-"Şú virğist ekki hafa nóg af lausum skrám til ağ setja upp şá pakka sem şú "
-"valdir. Şú şarft fleiri lausar skrár (inóğur) í eftirtöldum skráarkerfum:\n"
+"ÎÄ¼ş½áµã²»×ã£¬ÎŞ·¨°²×°ÒÑÑ¡¶¨µÄÈí¼ş°ü¡£ ÄãĞèÒª¸ü¶àµÄÎÄ¼ş½áµã²ÅÄÜ°²×°ÒÔÏÂÎÄ¼şÏµ"
+"Í³£º\n"
 "\n"
 
 #: ../packages.py:680
 msgid "Nodes Needed"
-msgstr "Vantar inóğur"
+msgstr "ËùĞè½áµã"
 
 #: ../packages.py:686
 msgid "Disk Space"
-msgstr "Diskpláss"
+msgstr "´ÅÅÌ¿Õ¼ä"
 
 #: ../packages.py:707
 msgid ""
@@ -870,90 +839,86 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Eftirfarandi pakkar voru til stağar í şessari útgáfu en EKKI uppfærğir:\n"
+"ÏÂÁĞÈí¼ş°üÔÚ´Ë°æ±¾ÒÑ±»Ìá¹©È´Ã»ÓĞÉı¼¶£º\n"
 
 #: ../packages.py:724
 msgid "Post Install"
-msgstr "Eftir uppsetningu"
+msgstr "°²×°ºó"
 
 #: ../packages.py:725
 msgid "Performing post install configuration..."
-msgstr "Breyta stillingum eftir uppsetningu..."
+msgstr "ÕıÔÚÖ´ĞĞ°²×°ºóÅäÖÃ¡­¡­"
 
 #: ../partitioning.py:171
 msgid "Foreign"
-msgstr "Ókunnugt"
+msgstr "ÍâÀ´"
 
 #: ../partitioning.py:355
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Tengipunkturinn er óleyfilegur. Heiti tengipunkta verğa ağ byrja á '/' en "
-"mega ekki enda á '/' og verğa ağ innihalda ağeins prentanlega stafi og engin "
-"orğabil."
+"¹ÒÔØµãÎŞĞ§¡£¹ÒÔØµã±ØĞëÒÔ¡°/¡±¿ªÊ¼£¬µ«²»ÄÜÒÔ¡°/¡±ÖÕÖ¹£¬²¢ÇÒ½ö¿ÉÊ¹ÓÃ¿ÉÓ¡×Ö·û£¬"
+"²»ÄÜ°üº¬¿Õ¸ñ¡£"
 
 #: ../partitioning.py:363
 msgid "Please specify a mount point for this partition."
-msgstr "Vinsamlegast gefğu upp tengipunkt fyrir şess disksneiğ."
+msgstr "ÇëÎª´Ë·ÖÇøÖ¸¶¨Ò»¸ö¹ÒÔØµã¡£"
 
 #: ../partitioning.py:382
 #, python-format
 msgid ""
 "The mount point %s is already in use, please choose a different mount point."
-msgstr ""
-"Tengipunkturinn %s er şegar í notkun. Vinsamlegast veldu annan tengipunkt."
+msgstr "¹ÒÔØµã%sÒÑ±»Ê¹ÓÃ£¬ÇëÁíÑ¡Ò»¸ö¡£"
 
 #: ../partitioning.py:439
 msgid ""
 "This mount point is invalid.  This directory must be on the / filesystem."
-msgstr ""
-"Şessi tengipunktur er ógildur. Mappan verğur ağ vera á rótarskráakerfinu."
+msgstr "Õâ¸ö¹ÒÔØµãÎŞĞ§£¬´ËÄ¿Â¼±ØĞëÎ»ÓÚ¸ùÎÄ¼şÏµÍ³ÉÏ¡£"
 
 #: ../partitioning.py:444
 msgid "This mount point must be on a linux filesystem."
-msgstr "Şessi tengipunktur verğur ağ vera á linux skráarkerfi."
+msgstr "Õâ¸ö¹ÒÔØµã±ØĞëÎ»ÓÚ Linux ÎÄ¼şÏµÍ³ÉÏ¡£"
 
 #: ../partitioning.py:457
 #, python-format
 msgid ""
 "The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
 "MB."
-msgstr "Stærğ disksneiğarinnar %s (%s MB) er stærri en hámarksstærğin %s MB."
+msgstr "%s·ÖÇøµÄ´óĞ¡(%sMB)ÒÑ³¬¹ıÁË×î´óÖµ %sMB¡£"
 
 #: ../partitioning.py:464
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
-"Stærğ umbeğinnar disksneiğar (%s MB) er stærri en hámarksstærğin %s MB."
+msgstr "ËùÉêÇë·ÖÇøµÄ´óĞ¡(%sMB)³¬¹ı×î´óÖµ %sMB¡£"
 
 #: ../partitioning.py:469
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "Stærğ umbeğinnar disksneiğar er neikvæğ! (%s MB)"
+msgstr "ËùÉêÇëµÄ·ÖÇø´óĞ¡ÊÇ¸ºÊı£¡(%sMB)"
 
 #: ../partitioning.py:473
 msgid "Partitions can't start below the first cylinder."
-msgstr "Disksneiğar geta ekki byrjağ fyrir neğan fyrsta cylinder."
+msgstr "·ÖÇø²»ÄÜ´ÓµÚÒ»¸öÖùÃæÒÔÏÂ¿ªÊ¼¡£"
 
 #: ../partitioning.py:476
 msgid "Partitions can't end on a negative cylinder."
-msgstr "Disksneiğar geta ekki endağ á neikvæğum cylinder."
+msgstr "·ÖÇø²»ÄÜÖÕÓÚ¸ºÖùÃæ¡£"
 
 #: ../partitioning.py:509
 msgid "No members in RAID request, or not RAID level specified."
-msgstr "Engir diskar í RAID tækinu eğa ekkert RAID stig var gefiğ upp."
+msgstr "Ã»ÓĞ RAID ³ÉÔ±£¬»òÕß²»ÊÇ RAID ¼¶±ğÖ¸¶¨µÄ¡£"
 
 #: ../partitioning.py:527 ../partitioning.py:617
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Ræsisneiğar mega einungis vera á RAID1 tækjum."
+msgstr "¿ÉÒıµ¼·ÖÇø(/boot)½öÔÊĞíÖ¸¶¨ÔÚ RAID-1 ÉÏ¡£"
 
 #: ../partitioning.py:531
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr "RAID tæki af gerğinni %s şarfnast amk. %s diska."
+msgstr "%s ÀàĞÍµÄ RAID Éè±¸ÖÁÉÙĞèÒª %s ¸ö³ÉÔ±¡£"
 
 #: ../partitioning.py:537
 #, python-format
@@ -961,66 +926,55 @@ msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
-"Şetta RAID tæki getur haft mest %s varadrif. Til ağ bæta viğ varadrifum şarf "
-"ağ bæta fleiri drifum viğ şetta RAID tæki."
+"Õâ¸ö RAID Éè±¸ÖÁ¶à¿ÉÓĞ %s ¸ö±¸¼ş¡£ÒªÔö¼Ó±¸¼ş£¬ÄãĞèÒªÔö¼Ó RAID Éè±¸µÄ³ÉÔ±¡£"
 
 #: ../partitioning.py:578
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"Şú hefur ekki skilgreint rótarsneiğ (/) sem er nauğsynleg svo uppsetning %s "
-"geti haldiğ áfram."
+msgstr "Äã»¹Ã»ÓĞÖ¸¶¨¼ÌĞø°²×° %s ËùĞèµÄ¸ù·ÖÇø(/)¡£"
 
 #: ../partitioning.py:581
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
-"Rótarsneiğin şín er minni en 250 megabæti sem er yfirleitt of lítiğ fyrir %s."
+msgstr "ÄãµÄ¸ù·ÖÇøĞ¡ÓÚ 250 MB£¬¿Õ¼äÌ«Ğ¡£¬²»ÄÜ°²×° %s¡£"
 
 #: ../partitioning.py:586
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Şú verğur ağ búa til /boot/efi sneiğ af gerğinni FAT sem er 50 megabæti."
+msgstr "Äã±ØĞë´´½¨Ò»¸ö /boot/efl ·ÖÇø£¬ÀàĞÍÎª FAT£¬´óĞ¡Îª 50MB¡£"
 
 #: ../partitioning.py:594
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
-msgstr ""
-"%s disksneiğin er minni en %s megabæti sem er minna en mælt er meğ fyrir "
-"venjulega %s uppsetningu."
+msgstr "ÄãµÄ %s ·ÖÇøĞ¡ÓÚ %s MB£¬±ÈÕı³£°²×° %s µÄ½¨ÒéÖµ»¹Ğ¡¡£"
 
 #: ../partitioning.py:621
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
-"Şú hefur ekki skilgreint diskminnissneiğ. Şó şağ sé ekki algerlega "
-"nauğsynlegt mun şağ bæta afköst til muna í flestum tilfellum."
+"Äã»¹Ã»ÓĞÖ¸¶¨Ò»¸ö½»»»·ÖÇø¡£ËäÈ»ÔÚ´ó¶àÇé¿öÏÂÕâ²¢·Ç±Ø²»¿ÉÉÙ£¬µ«ÈôÓĞÒ»¸ö½»»»·ÖÇø"
+"µÄ»°£¬ÏµÍ³ĞÔÄÜ»áÏÔÖøÌá¸ß¡£"
 
 #: ../partitioning.py:625
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr ""
-"Şú hefur skilgreint fleiri en 32 diskminnissneiğar. Kjarninn í %s styğur "
-"einungis 32 diskminnissneiğar."
+msgstr "ÄãÖ¸¶¨µÄ½»»»Éè±¸ÒÑ³¬¹ı32¸ö¡£%s µÄÄÚºËÖ»Ö§³Ö32¸ö½»»»Éè±¸¡£"
 
 #: ../partitioning.py:634
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr ""
-"Şú hefur skilgreint minna diskminnispláss (%dM) en minniğ í vélinni (%dM). "
-"Şetta getur haft neikvæğ áhrif á afköst vélarinnar."
+msgstr "Äã·ÖÅäµÄ½»»»¿Õ¼ä(%d)MĞ¡ÓÚÏµÍ³ÄÚµÄ¿ÉÓÃ RAM(%dM)£¬Õâ¿ÉÄÜ»áÓ°ÏìĞÔÄÜ¡£"
 
 #: ../partitioning.py:707
 #, python-format
@@ -1031,16 +985,15 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"Disksneiğataflan á tæki %s er af gerğ sem ekki passar fyrir vélbúnağ şinn. "
-"Til şess ağ hægt sé ağ nota diskinn fyrir şessa uppsetningu af %s şarf ağ "
-"frumstilla disksneiğatöfluna, sem veldur şví ağ ÖLL GÖGN á disknum tapast.\n"
+"Éè±¸ /dev/%s ÉÏµÄ·ÖÇø±íÓëÄãµÄÌåÏµÓĞÒì¡£ÈôÒªÊ¹ÓÃ´Ë´ÅÅÌ°²×° %s £¬ËüÒ»¶¨Òª±»ÖØĞÂ"
+"³õÊ¼»¯£¬´Ó¶øµ¼ÖÂËùÓĞÊı¾İ¶ªÊ§¡£\n"
 "\n"
-"Viltu frumstilla töfluna?"
+"ÄãÏë³õÊ¼»¯Õâ¸öÇı¶¯Æ÷Âğ£¿"
 
 #: ../partitioning.py:1336
 #, python-format
 msgid "Error mounting filesystem on %s: %s"
-msgstr "Villa viğ tengingu skráakerfis á %s: %s"
+msgstr "ÔÚ %s ÉÏ¹ÒÔØÎÄ¼şÏµÍ³Ê±³öÏÖ´íÎó£º %s"
 
 #: ../partitioning.py:1456
 #, python-format
@@ -1050,23 +1003,22 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"Disksneiğataflan á tæki %s er ólæsileg.  Til şess ağ hægt sé ağ búa til "
-"nıjar disksneiğar şarf ağ frumstilla hana, sem veldur şví ağ ÖLL GÖGN á "
-"disknum tapast.\n"
+"Éè±¸ %s ÉÏµÄ·ÖÇø±íÒÑËğ»µ¡£´´½¨ĞÂ·ÖÇøÊ±±ØĞë¶ÔÆäÖ´ĞĞ³õÊ¼»¯£¬ÕâÑù»áµ¼ÖÂ´ËÇı¶¯Æ÷"
+"ÖĞµÄËùÓĞÊı¾İ¶ªÊ§¡£\n"
 "\n"
-"Viltu frumstilla şennan disk?"
+"ÄãÏëÒª³õÊ¼»¯Õâ¸öÇı¶¯Æ÷Âğ£¿"
 
 #: ../partitioning.py:1544
 msgid "No Drives Found"
-msgstr "Engin drif fundust"
+msgstr "Î´ÕÒµ½ÈÎºÎÇı¶¯Æ÷"
 
 #: ../partitioning.py:1545
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
 msgstr ""
-"Şağ kom upp villa. Engin tæki fundust sem unnt er ağ búa til nı skráakerfi "
-"á. Vinsamlegast skoğağu vélbúnağinn og athugağu hverju sætir."
+"³öÏÖ´íÎó¡ª¡ªÎ´ÕÒµ½ÓÃÓÚ´´½¨ĞÂÎÄ¼şÏµÍ³µÄÓĞĞ§Éè±¸¡£Çë¼ì²éÄãµÄÓ²¼şÒÔÕÒµ½ÎÊÌâµÄÆğ"
+"Òò¡£"
 
 #: ../partitioning.py:1633
 msgid ""
@@ -1074,9 +1026,9 @@ msgid ""
 "\n"
 "Are you sure?"
 msgstr ""
-"Şú ert viğ şağ ağ eyğa RAID tæki.\n"
+"Äã¼´½«É¾³ıÒ»¸ö RAID Éè±¸¡£\n"
 "\n"
-"Ertu viss?"
+"ÄãÈ·¶¨Âğ£¿"
 
 #: ../partitioning.py:1636
 #, python-format
@@ -1085,111 +1037,102 @@ msgid ""
 "\n"
 "Are you sure?"
 msgstr ""
-"Şú ert viğ şağ ağ eyğa /dev/%s disksneiğinni.\n"
+"¼´½«É¾³ı/dev/%s·ÖÇø¡£\n"
 "\n"
-"Ertu viss?"
+"ÄãÈ·¶¨Âğ£¿"
 
 #: ../partitioning.py:1640
 msgid "Are you sure you want to delete this partition?"
-msgstr "Ertu viss um ağ şú viljir eyğa şessari disksneiğ?"
+msgstr "ÊÇ·ñÈ·ĞÅÒªÉ¾³ı´Ë·ÖÇø£¿"
 
 #: ../partitioning.py:1642
 msgid "Confirm Delete"
-msgstr "Stağfesta eyğingu"
+msgstr "È·ÈÏÉ¾³ı"
 
 #: ../partitioning.py:1646
 msgid "Confirm Reset"
-msgstr "Stağfesta frumstillingu"
+msgstr "È·ÈÏÖØÉè"
 
 #: ../partitioning.py:1647
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
-msgstr "Ertu viss um ağ şú viljir frumstilla disksneiğatöfluna ?"
+msgstr "ÊÇ·ñÈ·ĞÅÒª½«·ÖÇø±í»¹Ô­ÖÁÆä×î³õ×´Ì¬£¿"
 
 #: ../partitioning.py:1671
 msgid "the partition in use by the installer."
-msgstr "disksneiğin er í notkun af uppsetningarforritinu."
+msgstr "°²×°³ÌĞòÔÚÊ¹ÓÃ´Ë·ÖÇø¡£"
 
 #: ../partitioning.py:1674
 msgid "a partition which is a member of a RAID array."
-msgstr "disksneiğ sem er í RAID tæki."
+msgstr "´Ë·ÖÇøÊÇ RAID ³ÉÔ±Ö®Ò»¡£"
 
 #: ../partitioning.py:1683 ../partitioning.py:1689 ../partitioning.py:1697
 #: ../partitioning.py:1708 ../partitioning.py:1715
 msgid "Unable To Remove"
-msgstr "Get ekki fjarlægt"
+msgstr "ÎŞ·¨É¾³ı"
 
 #: ../partitioning.py:1684
 msgid "You must first select a partition to remove."
-msgstr "Şú verğur ağ velja disksneiğ sem á ağ fjarlægja."
+msgstr "Äã±ØĞëÊ×ÏÈÑ¡ÔñÒ»¸öÒªÉ¾³ıµÄ·ÖÇø¡£"
 
 #: ../partitioning.py:1690
 msgid "You cannot remove free space."
-msgstr "Şú getur ekki fjarlægt laust pláss."
+msgstr "Äã²»ÄÜÉ¾³ı¿ÕÏĞ¿Õ¼ä¡£"
 
 #: ../partitioning.py:1698
 #, python-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Şú getur ekki fjarlægt şessa sneiğ şar sem hún er \"extended\" disksneiğ sem "
-"inniheldur %s"
+msgstr "Äã²»ÄÜÉ¾³ı´Ë·ÖÇø£¬ÒòÎªÕâÊÇÒ»¸ö°üº¬ %s µÄÀ©Õ¹·ÖÇø¡£"
 
 #: ../partitioning.py:1709
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
-msgstr ""
-"Şú getur ekki fjarlægt şessa disksneiğ şví hún inniheldur gögnin fyrir "
-"uppsetningu frá hörğum disk."
+msgstr "Äã²»ÄÜÉ¾³ı´Ë·ÖÇø£¬ÒòÎª´Ë·ÖÇøº¬ÓĞÓ²ÅÌ°²×°µÄĞÅÏ¢¡£"
 
 #: ../partitioning.py:1716
 msgid "You cannot remove this partition, as it is part of a RAID device."
-msgstr "Şú getur ekki fjarlægt şessa sneiğ şar sem hún er hluti af RAID tæki."
+msgstr "Äã²»ÄÜÉ¾³ı´Ë·ÖÇø£¬ÒòÎªÕâÊÇ RAID Éè±¸µÄÒ»²¿·Ö¡£"
 
 #: ../partitioning.py:1747 ../partitioning.py:1769
 msgid "Unable To Edit"
-msgstr "Get ekki breytt skrá"
+msgstr "ÎŞ·¨±à¼­"
 
 #: ../partitioning.py:1748
 msgid "You must select a partition to edit"
-msgstr "Şú verğur ağ velja disksneiğ til ağ breyta"
+msgstr "Äã±ØĞëÑ¡ÔñÒ»¸ö·ÖÇøÀ´±à¼­"
 
 #: ../partitioning.py:1770
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Şú getur ekki breytt şessari disksneiğ şví hún er \"extended\" disksneiğ sem "
-"inniheldur %s"
+msgstr "Äã²»ÄÜ±à¼­Õâ¸ö·ÖÇø£¬ÒòÎªÕâÊÇÒ»¸ö°üº¬ %s µÄÀ©Õ¹·ÖÇø¡£"
 
 #: ../partitioning.py:1778
 msgid "Unable to Edit"
-msgstr "Get ekki breytt skrá"
+msgstr "ÎŞ·¨±à¼­"
 
 #: ../partitioning.py:1779
 msgid "You cannot edit this partition as it is part of a RAID device"
-msgstr ""
-"Şú getur ekki breytt şessari disksneiğ şar sem hún er hluti af RAID tæki"
+msgstr "Äã²»ÄÜ±à¼­´Ë·ÖÇø£¬ÒòÎªËüÊÇ RAID Éè±¸µÄÒ»²¿·Ö¡£"
 
 #: ../partitioning.py:1791
 msgid "Installation cannot continue."
-msgstr "Uppsetningin getur ekki haldiğ áfram."
+msgstr "°²×°ÎŞ·¨¼ÌĞø¡£"
 
 #: ../partitioning.py:1792
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr ""
-"Şessir rofar viğ disksneiğingu hafa şegar veriğ virkjağir. Şú getur ekki "
-"lengur fariğ til baka í disksısluskjáinn. Viltu halda uppsetningunni áfram?"
+msgstr "ÄãÑ¡ÔñµÄ·ÖÇøÑ¡ÏîÒÑ±»¼¤»î£¬ÔÙ²»ÄÜ·µ»Øµ½´ÅÅÌ±à¼­ÆÁÄ»£¬ÄãÏë¼ÌĞø°²×°Âğ£¿"
 
 #: ../partitioning.py:1815
 msgid "Low Memory"
-msgstr "Of lítiğ minni"
+msgstr "ÄÚ´æ²»×ã"
 
 #: ../partitioning.py:1816
 msgid ""
@@ -1197,13 +1140,12 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
-"Şar sem şú ert ekki meğ mjög mikiğ minni í şessari vél şarf ağ setja af stağ "
-"diskminni núna. Til ağ şağ sé hægt şarf ağ vista disksneiğatöfluna á diskinn "
-"strax. Er şağ í lagi?"
+"ÒòÎª±¾»úÄÚ´æ²»×ã£¬Äã±ØĞëÁ¢¼´´ò¿ª½»»»¿Õ¼ä¡£ÒªÖ´ĞĞ´Ë²Ù×÷£¬±ØĞë½«ĞÂ·ÖÇø±íÁ¢¼´Ğ´"
+"Èë´ÅÅÌ¡£ÊÇ·ñÖ´ĞĞ£¿"
 
 #: ../partitioning.py:1837
 msgid "Format as Swap?"
-msgstr "Forsniğa sem diskminni?"
+msgstr "¸ñÊ½»¯³É½»»»Çø£¿"
 
 #: ../partitioning.py:1838
 #, python-format
@@ -1213,14 +1155,14 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"Disksneiğin /dev/%s er af gerğinni 0x82 (Linux diskminni) er virğist ekki "
-"vera forsniğin sem slík.\n"
+"/dev/%s ÖĞÓĞÒ»¸öÀàĞÍÎª0x82µÄ·ÖÇø(Linux ½»»»Çø)£¬µ«ËüËÆºõ»¹Ã»ÓĞ±»¸ñÊ½»¯³ÉLinux"
+"½»»»·ÖÇø¡£\n"
 "\n"
-"Viltu forsníğa şessa disksneiğ sem diskminnissneiğ?"
+"ÄãÏë°ÑÕâÒ»·ÖÇø¸ñÊ½»¯³É½»»»·ÖÇøÂğ£¿"
 
 #: ../partitioning.py:1857 ../partitioning.py:1875
 msgid "Format?"
-msgstr "Forsníğa?"
+msgstr "¸ñÊ½»¯£¿"
 
 #: ../partitioning.py:1858
 msgid ""
@@ -1229,10 +1171,9 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Şú hefur kosiğ ağ forsníğa disksneiğ sem şegar var til. Şağ mun eyğa öllum "
-"gögnum sem eru á henni.\n"
+"ÄãÒÑÑ¡ÔñÁËÒª¸ñÊ½»¯ÒÑ´æ·ÖÇø¡£Õâ½«ÆÆ»µ·ÖÇøÉÏÔ­ÓĞµÄÊı¾İ¡£\n"
 "\n"
-"Ertu viss um ağ şú viljir gera şetta?"
+"ÊÇ·ñÈ·¶¨ÒªÖ´ĞĞ´Ë²Ù×÷£¿"
 
 #: ../partitioning.py:1866
 msgid ""
@@ -1244,17 +1185,15 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Şú hefur valiğ ağ forsníğa ekki disksneiğ sem var şegar til sem nota á sem "
-"kerfisdisksneiğ. Nema şú hafir sérstaka şörf fyrir ağ verğveita gögnin á "
-"şessari disksneiğ mælum viğ eindregiğ meğ ağ şú forsníğir şessa disksneiğ "
-"til ağ tryggja ağ gögnin sem fyrir eru á henni flækjist ekki fyrir nıju "
-"uppsetningunni.\n"
+"ÄãÒÑÑ¡ÔñÁËÒª²»¸ñÊ½»¯ÏÈÇ°´æÔÚµÄÒ»¸ö¹ÒÔØÔÚÏµÍ³Ä¿Â¼ÏÂµÄ·ÖÇø¡£³ı·ÇÄãÓĞ±£´æ¸Ã·ÖÇø"
+"Êı¾İµÄÌØ±ğĞèÒª£¬¼«Á¦½¨ÒéÄã¸ñÊ½»¯´Ë·ÖÇøÒÔÈ·±£´ÓÇ°´æÔÚÓÚ¸Ã·ÖÇøµÄÊı¾İ²»»áÆÆ»µ±¾"
+"´Î°²×°¡£\n"
 "\n"
-"Ertu viss um ağ şú viljir gera şetta?"
+"ÄãÈ·ĞÅÒªÕâÑù×öÂğ£¿"
 
 #: ../partitioning.py:1882
 msgid "Error with Partitioning"
-msgstr "Villa viğ disksneiğingu"
+msgstr "·ÖÇø³ö´í"
 
 #: ../partitioning.py:1883
 #, python-format
@@ -1264,14 +1203,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Alvarlegar villur komu upp meğ disksneiğarnar sem şú skilgreindir. Şessar "
-"villur verğur ağ lagfæra áğur en uppsetningin á %s getur haldiğ áfram.\n"
+"ÄãÉêÇëµÄ·ÖÇø·½°¸·¢ÉúÁËÏÂÁĞÑÏÖØ´íÎó¡£ÔÚ¼ÌĞø°²×° %s Ç°Ò»¶¨ÒªÏÈ¸üÕıÕâĞ©´íÎó¡£\n"
 "\n"
 "%s"
 
 #: ../partitioning.py:1896
 msgid "Partitioning Warning"
-msgstr "Disksneiğaağvörun"
+msgstr "·ÖÇø¾¯¸æ"
 
 #: ../partitioning.py:1897
 #, python-format
@@ -1282,42 +1220,35 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
-"Eftirfarandi ağvaranir eru til stağar meğ disksneiğarnar sem şú "
-"skilgreindir.\n"
+"ÄãÉêÇëµÄ·ÖÇø·½°¸·¢ÉúÁËÏÂÁĞ¾¯¸æ¡£\n"
 "\n"
 "%s\n"
 "\n"
-"Viltu halda áfram meğ şessar disksneiğar?"
+"È·ĞÅÒª¼ÌĞøÂğ£¿"
 
 #: ../partitioning.py:1909 ../iw/partition_gui.py:586
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"Eftirfarandi disksneiğar sem voru til fyrir hefur şú kosiğ ağ forsníğa og "
-"eyğa á öllum gögnum."
+msgstr "ÏÂÁĞÏÈÇ°ÒÑ´æÔÚµÄ·ÖÇø½«±»¸ñÊ½»¯£¬ÕıÔÚÆÆ»µËùÓĞÊı¾İ¡£"
 
 #: ../partitioning.py:1912 ../iw/partition_gui.py:589
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
-msgstr ""
-"Veldu 'Já' til ağ halda áfram og forsníğa şessar sneiğar eğa 'Nei' til ağ "
-"fara til baka og breyta şessum stillingum."
+msgstr "Ñ¡Ôñ¡°ÊÇ¡±À´¼ÌĞø¸ñÊ½»¯ÕâĞ©·ÖÇø£¬»ò¡°·ñ¡±À´·µ»ØĞŞ¸ÄÕâĞ©ÉèÖÃ¡£"
 
 #: ../partitioning.py:1918
 msgid "Format Warning"
-msgstr "Forsniğsağvörun"
+msgstr "¸ñÊ½»¯¾¯¸æ"
 
 #: ../rescue.py:69 ../rescue.py:112 ../rescue.py:206
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
-"Vinsamlegast hættu í skelinni şegar şú ert búin(n) og şá mun vélin endurræsa "
-"sig."
+msgstr "½áÊøºóÇëÍË³ö shell£¬ÄãµÄÏµÍ³½«»á±»ÖØĞÂÒıµ¼¡£"
 
 #: ../rescue.py:96 ../rescue.py:160 ../rescue.py:168 ../rescue.py:185
 msgid "Rescue"
-msgstr "Bjarga"
+msgstr "¾ÈÔ®"
 
 #: ../rescue.py:97
 msgid ""
@@ -1331,43 +1262,40 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"Björgunarumhverfiğ mun nú reyna ağ finna Red Hat Linux kerfiğ şitt og tengja "
-"şağ undir möppuna /mnt/sysimage. Şú getur gert şær breytingar sem şú şarft í "
-"şeirri möppu.  Ef şú vilt halda áfram veldu şá 'Halda áfram'. Şú getur "
-"einnig kosiğ ağ tengja diskinn annig ağ einungis er hægt ağ lesa hann meğ "
-"'Einungis lestur' hnappnum.\n"
-"\n"
-"Ef şetta bregst á einhvern hátt getur şú valiğ 'Sleppa' og şessu şrepi "
-"verğur şá sleppt og şú lendir í skel.\n"
+"¾ÈÔ®»·¾³»áÊÔÍ¼ËÑÑ°Ëù°²×°µÄ Red Hat Linux£¬²¢½«Ö®¹ÒÔØµ½ /mnt/sysimage Ä¿Â¼ÏÂ£¬"
+"È»ºó Äã±ã¿ÉÒÔ°´ÕÕĞèÇó½øĞĞ¸ü¸Ä¡£ÄãÈôÏëÖ´ĞĞÕâÒ»²½Öè£¬ÇëÑ¡Ôñ¡°¼ÌĞø¡±¼ü¡£ÄãÒ²¿ÉÒÔ"
+"Ñ¡Ôñ¡°Ö»¶Á¡±£¬½«ÎÄ¼şÏµÍ³¹ÒÔØ³É¡°Ö»¶Á¡±×´Ì¬¶ø²»ÊÇ¡°¶ÁĞ´¡±×´Ì¬¡£\n"
+"Èç¹ûÓÉÓÚÄ³ÖÖÔ­Òò£¬ÕâÒ»²½ÖèÊ§°Ü£¬Äã¿ÉÒÔÑ¡Ôñ¡°Ìø¹ı¡±¼ü£¬È»ºóÄã»áÖ±½Ó½øÈëÃüÁî×´"
+"Ì¬¡£\n"
 "\n"
 
 #: ../rescue.py:107 ../loader/loader.c:1227 ../loader/loader.c:1235
 msgid "Continue"
-msgstr "Halda áfram"
+msgstr "¼ÌĞø"
 
 #: ../rescue.py:107 ../rescue.py:116
 msgid "Read-Only"
-msgstr "Einungis lestur"
+msgstr "Ö»¶Á"
 
 #: ../rescue.py:107 ../rescue.py:109 ../textw/bootdisk_text.py:68
 #: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:120 ../loader/loader.c:916 ../loader/loader.c:1293
 #: ../loader/loader.c:1295
 msgid "Skip"
-msgstr "Sleppa"
+msgstr "Ìø¹ı"
 
 #: ../rescue.py:139
 msgid "System to Rescue"
-msgstr "Kerfi sem á ağ bjarga"
+msgstr "ÒªÔ®¾ÈµÄÏµÍ³"
 
 #: ../rescue.py:140 ../textw/upgrade_text.py:211
 msgid "What partition holds the root partition of your installation?"
-msgstr "Á hvağa disksneiğ er rót skráarkerfisins?"
+msgstr "ÄÄ¸ö·ÖÇø°üº¬°²×°µÄ¸ù·ÖÇø£¿"
 
 #: ../rescue.py:142 ../rescue.py:146 ../iw/congrats_gui.py:29
 #: ../iw/congrats_gui.py:87
 msgid "Exit"
-msgstr "Hætta"
+msgstr "ÍË³ö"
 
 #: ../rescue.py:161
 msgid ""
@@ -1375,10 +1303,8 @@ msgid ""
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Vélin şín er meğ skráarkerfi sem ekki voru aftengd á réttann hátt sem şú "
-"kaust ağ tengja ekki. Sláğu á 'Return' hnappinn til ağ komast í skél og "
-"lagfæra (meğ fsck) og tengja skráarkerfin. Vélin mun endurræsa sig şegar şú "
-"hættir í skélinni."
+"ÏµÍ³ÖĞ´æÔÚÄãÑ¡ÔñÒª²»¹ÒÔØµÄÓĞÎÊÌâµÄÎÄ¼şÏµÍ³£¬°´»Ø³µ¼ü½øÈë shell£¬Äã±ã¿ÉÒÔÖ´ĞĞ "
+"fsck ÃüÁî£¬È»ºó¹ÒÔØ·ÖÇø¡£µ±ÄãÍË³ö shell ºó£¬ÏµÍ³»á×Ô¶¯±»ÖØĞÂÒıµ¼¡£"
 
 #: ../rescue.py:169
 msgid ""
@@ -1391,14 +1317,13 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Diskurinn şinn er tengdur undir /mnt/sysimage.\n"
+"ÄãµÄÏµÍ³ÒÑ±»¹ÒÔØÔÚ /mnt/sysimage Ö®ÏÂ¡£\n"
 "\n"
-"Sláğu á <return> til ağ komast í skel. Ef şú vilt nota diskinn sem "
-"rótarskráarkerfi keyrğu şá eftirfarandi skipun:\n"
+"Çë°´»Ø³µ¼ü½øÈë shell¡£ÈôÏëÈÃÄãµÄÏµÍ³³ÉÎª¸ù»·¾³£¬Ö´ĞĞÏÂÒ»ÃüÁî£º\n"
 "\n"
-"\tchroot /mnt/sysimage\n"
+"\tchroot  /mnt/sysimage\n"
 "\n"
-"Vélin mun endurræsa sig sjálfvirkt şegar şú hættir í skelinni."
+"µ±ÄãÍË³öshellºó£¬ÏµÍ³½«»á±»×Ô¶¯ÖØĞÂÒıµ¼¡£"
 
 #: ../rescue.py:186
 msgid ""
@@ -1408,47 +1333,45 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"Villa kom upp şegar reynt var ağ tengja sum eğa öll skráarkerfi á vélinni "
-"şinni. Sum şeirra gætu şó veriğ tengd undir /mnt/sysimage.\n"
+"ÔÚ¹ÒÔØÄãµÄÏµÍ³Ê±³ö´í¡£Ä³Ğ©·ÖÇø¿ÉÄÜÒÑ¾­±»¹ÒÔØÔÚ /mnt/sysimage Ö®ÏÂ¡£\n"
 "\n"
-"Sláğu á <return> til ağ komast í skel. Vélin mun endurræsa sig sjálfvirkt "
-"şegar şú hættir í skelinni."
+"Çë°´»Ø³µ¼ü½øÈë shell£¬µ±ÄãÍË³ö shell Ê±£¬ÏµÍ³½«»á×Ô¶¯±»ÖØĞÂÒıµ¼¡£"
 
 #: ../rescue.py:192
 msgid "Rescue Mode"
-msgstr "Björgunarhamur"
+msgstr "¾ÈÔ®Ä£Ê½"
 
 #: ../rescue.py:193
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"Şú ert ekki meğ neinar Linux disksneiğar. Sláğu á <return> til ağ komast í "
-"skel. Vélin mun endurræsa sig sjálfvirkt şegar şú hættir í skelinni."
+"ÄãÃ»ÓĞÈÎºÎ Linux ·ÖÇø£¬Çë°´»Ø³µ¼ü½øÈëshell¡£µ±ÄãÍË³ö shell Ê±£¬ÏµÍ³½«»á±»×Ô¶¯"
+"ÖØĞÂÒıµ¼¡£"
 
 #: ../rescue.py:203
 msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr "Diskurinn şinn er tengdur undir /mnt/sysimage möppunni."
+msgstr "ÄãµÄÏµÍ³ÊÇ¹ÒÔØÔÚ /mnt/sysimage Ä¿Â¼Ö®ÏÂ¡£"
 
 #: ../text.py:195
 msgid "Help not available"
-msgstr "Hjálp ekki tiltæk"
+msgstr "ÎŞ°ïÖúĞÅÏ¢"
 
 #: ../text.py:196
 msgid "No help is available for this step of the install."
-msgstr "Engin hjálp er tiltæk fyrir şetta şrep uppsetningarinnar."
+msgstr "ÕâÒ»°²×°²½ÖèÃ»ÓĞ°ïÖúĞÅÏ¢¡£"
 
 #: ../text.py:267
 msgid "Save Crash Dump"
-msgstr "Vista \"Crash Dump\""
+msgstr "½«±ÀÀ£×éºÏÂë´æÅÌ"
 
 #: ../text.py:286 ../text.py:289
 msgid "Save"
-msgstr "Vista"
+msgstr "´æÅÌ"
 
 #: ../text.py:286 ../text.py:287
 msgid "Debug"
-msgstr "Aflúsun"
+msgstr "µ÷ÊÔ"
 
 #: ../text.py:321
 #, python-format
@@ -1458,37 +1381,34 @@ msgstr "%s (C) 2002 Red Hat, Inc."
 #: ../text.py:324
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> hjálp  |  <Tab> milli atriğa   |   <Bilslá> velur   | <F12> næsti skjár"
+msgstr "<F1>ÇóÖú | <Tab> Ñ¡Ïî¼äÇĞ»»   |  <Space> Ñ¡Ôñ   |  <F12> ÏÂÒ»ÆÁÄ» "
 
 #: ../text.py:326
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> milli atriğa      | <Bilslá> velur  | <F12> næsti skjár "
+msgstr "<Tab>/<Alt-Tab> Ñ¡Ïî¼äÇĞ»»   |  <Space> Ñ¡Ôñ   |  <F12> ÏÂÒ»ÆÁÄ»"
 
 #: ../text.py:420
 msgid "Cancelled"
-msgstr "Hætt viğ"
+msgstr "ÒÑÈ¡Ïû"
 
 #: ../text.py:421
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Şú kemst ekki í fyrra şrep uppsetningar héğan. Şú şarft ağ byrja upp á nıtt."
+msgstr "ÎŞ·¨´Ó´Ë´¦·µ»ØÉÏÒ»²½£¬ÄãÖ»ÄÜÖØÊÔ¡£"
 
 #: ../upgrade.py:43
 msgid "Searching"
-msgstr "Leita"
+msgstr "ÕıÔÚËÑÑ°"
 
 #: ../upgrade.py:44
 #, python-format
 msgid "Searching for %s installations..."
-msgstr "Leita ağ %s uppsetningum..."
+msgstr "ÕıÔÚËÑÑ° %s °²×°¡­¡­"
 
 #: ../upgrade.py:77 ../upgrade.py:84
 msgid "Dirty Filesystems"
-msgstr "Óhrein skráarkerfi"
+msgstr "ÓĞÎÊÌâµÄÎÄ¼şÏµÍ³"
 
 #: ../upgrade.py:78
 msgid ""
@@ -1496,29 +1416,27 @@ msgid ""
 "cleanly. Please boot your Linux installation, let the filesystems be "
 "checked, and shut down cleanly to upgrade."
 msgstr ""
-"Eitt eğa fleiri af Linux skráarkerfunum şínum var ekki aftengt á réttan "
-"máta. Vinsamlegast ræstu upp Linux kerfiğ şitt, láttu yfirfara skráarkerfin "
-"og keyrğu svo vélina rétt niğur til ağ uppfæra."
+"ÄãµÄ Linux ÏµÍ³ÓĞÒ»¸ö»ò¶à¸öÎÄ¼şÏµÍ³Ã»ÓĞ±»ÍêÕûµÄĞ¶ÔØÏÂÀ´¡£ÇëÒıµ¼ Linux °²×°³Ì"
+"Ğò£¬²éÑéÎÄ¼şÏµÍ³£¬Õı³£¹Ø»úºóÔÙ½øĞĞÏµÍ³Éı¼¶¡£"
 
 #: ../upgrade.py:85
 msgid ""
 "One or more filesystems for your Linux system was not unmounted cleanly.  "
 "Would you like to mount them anyway?"
 msgstr ""
-"Eitt eğa fleiri af Linux skráarkerfunum şínum var ekki aftengt á réttan "
-"máta. Viltu tengja şau şrátt fyrir şağ ?"
+"ÄãµÄ Linux ÏµÍ³ÓĞÒ»¸ö»ò¶à¸öÎÄ¼şÏµÍ³Ã»ÓĞ±»ÍêÕûµÄĞ¶ÔØÏÂÀ´£¬ÄãÈÔÒª¹ÒÔØËüÃÇÂğ£¿"
 
 #: ../upgrade.py:225 ../upgrade.py:231
 msgid "Mount failed"
-msgstr "Tenging mistókst"
+msgstr "¹ÒÔØÊ§°Ü"
 
 #: ../upgrade.py:226
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Ekki tókst ağ tengja eitt eğa fleiri af skráarkerfunum í /etc/fstab á "
-"vélinni şinni. Vinsamlegast lagfærğu şetta og reyndu svo ağ uppfæra aftur."
+"ÄãµÄ Linux ÏµÍ³Àï£¬ÔÚ /etc/fstab ÉÏÁĞ³öµÄÎÄ¼şÏµÍ³ÖĞÖÁÉÙÓĞÒ»¸öÎŞ·¨¹ÒÔØ£¬Çë½â¾ö"
+"ÕâÒ»ÎÊÌâºóÔÙÉı¼¶¡£"
 
 #: ../upgrade.py:232
 msgid ""
@@ -1526,8 +1444,8 @@ msgid ""
 "are inconsistent and cannot be mounted.  Please fix this problem and try to "
 "upgrade again."
 msgstr ""
-"Ekki tókst ağ tengja eitt eğa fleiri af skráarkerfunum í /etc/fstab á "
-"vélinni şinni. Vinsamlegast lagfærğu şetta og reyndu svo ağ uppfæra aftur."
+"ÄãµÄ Linux ÏµÍ³Àï /etc/fstab ÉÏÁĞ³öµÄÎÄ¼şÏµÍ³¼ä·¢ÉúÃ¬¶Ü¶øÎŞ·¨±»¹ÒÔØ£¬Çë½â¾öÕâ"
+"Ò»ÎÊÌâºóÔÙÉı¼¶¡£"
 
 #: ../upgrade.py:248
 msgid ""
@@ -1536,31 +1454,30 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
-"Eftirfarandi skrár eru tákntengi meğ fullum slóğum sem viğ styğjum ekki á "
-"meğan á uppfærslu stendur. Vinsamlegast breyttu şeim í hlekki sem ekki eru "
-"meğ \"Absolute\" slóğ heldur \"Relative\" og reyndu uppfærsluna aftur.\n"
+"ÏÂÁĞÎÄ¼şÊÇ¾ø¶Ô·ûºÅÁ´½Ó£¬ÔÚÉı¼¶ÖĞÎÒÃÇ²»Ö§³Ö¡£Çë½«ËüÃÇ¸Ä³ÉÏà¶Ô·ûºÅÁ´½á£¬È»ºóÖØ"
+"ĞÂ¿ªÊ¼Éı¼¶¡£\n"
 "\n"
 
 #: ../upgrade.py:259
 #, python-format
 msgid "%s not found"
-msgstr "%s fannst ekki"
+msgstr "Ã»ÓĞ·¢ÏÖ %s"
 
 #: ../upgrade.py:281
 msgid "Finding"
-msgstr "Leita"
+msgstr "ÕıÔÚ²éÕÒ"
 
 #: ../upgrade.py:282
 msgid "Finding packages to upgrade..."
-msgstr "Leita ağ pökkum sem şarf ağ uppfæra..."
+msgstr "ÕıÔÚ²éÕÒÒªÉı¼¶µÄÈí¼ş°ü¡­¡­"
 
 #: ../upgrade.py:312
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr "Ekki tókst ağ endurbyggja RPM gagnagrunninn. Er nægilegt diskrımi?"
+msgstr "ÖØ½¨ RPM Êı¾İ¿âÊ§°Ü¡£ÊÇ·ñ´ÅÅÌ¿Õ¼äÒÑÂú£¿"
 
 #: ../upgrade.py:324
 msgid "An error occured when finding the packages to upgrade."
-msgstr "Şağ kom upp villa şegar leitağ var ağ pökkum til uppfærslu."
+msgstr "ÔÚ²éÕÒÒªÉı¼¶µÄÈí¼ş°üÊ±³ö´í¡£"
 
 #: ../upgrade.py:379
 msgid ""
@@ -1570,10 +1487,8 @@ msgid ""
 "or may cause other system instability.  Do you wish to continue the upgrade "
 "process?"
 msgstr ""
-"Şessi vél virğist hafa pakka frá şriğja ağila uppsetta sem skarast á viğ "
-"pakkana sem fylgja Red Hat Linux.  Şar sem pakkarnir skarast getur "
-"uppfærslan olliğ şví ağ şeir hætti ağ virka eğa valdiğ öğrum vandræğum. "
-"Viltu halda áfram meğ uppfærsluna ?"
+"Õâ¸öÏµÍ³ÄÚËÆºõ´æÔÚµÚÈı·½Èí¼ş°ü£¬Óë Red Hat Linux ËùÌá¹©µÄÈí¼ş°üÖØ¸´¡£ÒòÎªÈí¼ş"
+"°üÖØ¸´£¬¼ÌĞøÉı¼¶¿ÉÄÜ»áµ¼ÖÂ¹¦ÄÜ²»Õı³£»òÏµÍ³²»ÎÈ¶¨¡£ÄãÏë¼ÌĞøÉı¼¶Âğ£¿"
 
 #: ../upgrade.py:398
 msgid ""
@@ -1582,152 +1497,151 @@ msgid ""
 "leave the system in an unusable state.  Do you wish to continue the upgrade "
 "process?"
 msgstr ""
-"Şessi vél hefur ekki skrána /etc/redhat-release. Şağ er mögulegt ağ şetta sé "
-"şví ekki Red Hat Linux vél. Ef şú heldur áfram meğ uppfærsluna getur şağ "
-"olliğ şví ağ véæin verğur ónothæf. Viltu halda áfram meğ uppfærsluna ?"
+"Õâ¸öÏµÍ³Ã»ÓĞ /etc/redhat-release ÕâÒ»ÎÄ¼ş£¬ºÜ¿ÉÄÜÕâ²»ÊÇ Red Hat Linux ÏµÍ³£¬"
+"Èô¼ÌĞøÉı¼¶¿ÉÄÜ»áµ¼ÖÂÏµÍ³´¦ÓÚ²»ÎÈ¶¨×´Ì¬¡£ÄãÏë¼ÌĞøÉı¼¶Âğ£¿"
 
 #: ../videocard.py:483
 msgid "Unknown Card"
-msgstr "Óşekkt kort"
+msgstr "Î´Öª¿¨"
 
 #: ../xf86config.py:881 ../textw/xconfig_text.py:488
 msgid "Video Card"
-msgstr "Skjákort"
+msgstr "ÊÓÆµ¿¨"
 
 #: ../xf86config.py:883
 msgid "Video Ram"
-msgstr "Skjáminni"
+msgstr "ÊÓÆµÄÚ´æ"
 
 #: ../xf86config.py:886
 msgid "X server"
-msgstr "X şjónn"
+msgstr "X ·şÎñÆ÷"
 
 #: ../xf86config.py:889
 msgid "Unable to detect video card"
-msgstr "Finn ekki skjákort"
+msgstr "ÎŞ·¨¼ì²âµ½ÊÓÆµ¿¨"
 
 #: ../xserver.py:101
 msgid "Attempting to start framebuffer based X server"
-msgstr "Reyni ağ ræsa 'framebuffer' X şjón"
+msgstr "×¼±¸Æô¶¯»ùÓÚÏÔÊ¾»º³åÇøµÄ X ·şÎñÆ÷"
 
 #: ../xserver.py:109
 msgid "Attempting to start native X server"
-msgstr "Reyni ağ ræsa X şjóninn"
+msgstr "×¼±¸Æô¶¯±¾µØ X ·şÎñÆ÷"
 
 #: ../xserver.py:117
 msgid "Attempting to start VGA16 X server"
-msgstr "Reyni ağ ræsa VGA16 X şjón"
+msgstr "×¼±¸Æô¶¯ VGA16 X ·şÎñÆ÷"
 
 #: ../xserver.py:170
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr "Bíğ eftir ağ X şjónninn ræsi... annállinn er í /tmp/X.log\n"
+msgstr "µÈ´ı X ·şÎñÆ÷Æô¶¯¡­¡­ÈÕÖ¾´æ·ÅÔÚ /tmp/X.log¡£\n"
 
 #: ../xserver.py:197
 msgid " X server started successfully."
-msgstr " X şjónninn ræsti vandræğalaust."
+msgstr "X ·şÎñÆ÷ÒÑ±»³É¹¦Æô¶¯¡£"
 
 #: ../iw/account_gui.py:26
 msgid "Account Configuration"
-msgstr "Stillingar notanda"
+msgstr "ÕÊºÅÅäÖÃ"
 
 #: ../iw/account_gui.py:49
 msgid "Root password accepted."
-msgstr "Rótarlykilorğ móttekiğ."
+msgstr "¸ù¿ÚÁî±»½ÓÊÜ¡£"
 
 #: ../iw/account_gui.py:54
 msgid "Root password is too short."
-msgstr "Rótarlykilorğiğ er of stutt."
+msgstr "¸ù¿ÚÁîÌ«¶Ì¡£"
 
 #: ../iw/account_gui.py:56
 msgid "Root passwords do not match."
-msgstr "Lykilorğin stemma ekki."
+msgstr "¸ù¿ÚÁî²»·û¡£"
 
 #: ../iw/account_gui.py:68
 msgid "User password accepted."
-msgstr "Lykilorğ notanda móttekiğ."
+msgstr "ÓÃ»§¿ÚÁî±»½ÓÊÜ¡£"
 
 #: ../iw/account_gui.py:75
 msgid "Root account can not be added here."
-msgstr "Şağ er ekki hægt ağ búa til rótarnotandann hér."
+msgstr "²»ÄÜÔÚ´ËÌí¼Ó¸ùÕÊºÅ¡£"
 
 #: ../iw/account_gui.py:77
 msgid "Please enter user password."
-msgstr "Vinsamlegast sláğu inn ağgangsorğ notandans."
+msgstr "ÇëÊäÈëÓÃ»§¿ÚÁî¡£"
 
 #: ../iw/account_gui.py:79
 msgid "User password is too short."
-msgstr "Lykilorğiğ er of stutt."
+msgstr "ÓÃ»§¿ÚÁîÌ«¶Ì¡£"
 
 #: ../iw/account_gui.py:81
 msgid "User passwords do not match."
-msgstr "Lykilorğin stemma ekki."
+msgstr "ÓÃ»§¿ÚÁî²»·û¡£"
 
 #: ../iw/account_gui.py:148
 msgid "Add a New User"
-msgstr "Bæta viğ nıjum notanda"
+msgstr "Ìí¼ÓĞÂÓÃ»§"
 
 #: ../iw/account_gui.py:158 ../textw/userauth_text.py:92
 msgid "Edit User"
-msgstr "Breyta notanda"
+msgstr "±à¼­ÓÃ»§"
 
 #: ../iw/account_gui.py:183
 msgid "User Name:"
-msgstr "Notandanafn:"
+msgstr "ÓÃ»§Ãû£º"
 
 #: ../iw/account_gui.py:185
 msgid "Full Name:"
-msgstr "Fullt nafn:"
+msgstr "È«³Æ£º"
 
 #: ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 #: ../textw/userauth_text.py:37 ../loader/urls.c:389
 msgid "Password:"
-msgstr "Lykilorğ:"
+msgstr "¿ÚÁî£º"
 
 #: ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
 #: ../textw/bootloader_text.py:397
 msgid "Confirm:"
-msgstr "Stağfesta:"
+msgstr "È·ÈÏ£º"
 
 #: ../iw/account_gui.py:192
 msgid "Please enter user name"
-msgstr "Vinsamlegast sláğu notandanafn"
+msgstr "ÇëÊäÈëÓÃ»§Ãû"
 
 #: ../iw/account_gui.py:273
 msgid "Enter the password for the root user (administrator) of this system."
-msgstr "Sláğu inn rótarlykilorğiğ fyrir kerfisstjóra şessarar vélar."
+msgstr "ÇëÊäÈë´ËÏµÍ³µÄ¸ùÓÃ»§(¹ÜÀíÔ±)µÄ¿ÚÁî¡£"
 
 #: ../iw/account_gui.py:289
 msgid "Root Password: "
-msgstr "Rótarlykilorğ: "
+msgstr "¸ù¿ÚÁî£º "
 
 #: ../iw/account_gui.py:292
 msgid "Confirm: "
-msgstr "Stağfesta: "
+msgstr "È·ÈÏ£º "
 
 #: ../iw/account_gui.py:326
 msgid "Account Name"
-msgstr "Notandanafn"
+msgstr "ÕÊºÅÃû"
 
 #: ../iw/account_gui.py:326 ../textw/userauth_text.py:103
 #: ../textw/userauth_text.py:204
 msgid "Full Name"
-msgstr "Fullt nafn"
+msgstr "È«³Æ"
 
 #: ../iw/account_gui.py:333 ../textw/userauth_text.py:218
 msgid "Add"
-msgstr "Bæta viğ"
+msgstr "Ìí¼Ó"
 
 #: ../iw/account_gui.py:335 ../textw/bootloader_text.py:281
 #: ../textw/fdisk_text.py:41 ../textw/partition_text.py:990
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
 msgid "Edit"
-msgstr "Breyta"
+msgstr "±à¼­"
 
 #: ../iw/account_gui.py:338 ../textw/partition_text.py:990
 #: ../textw/userauth_text.py:218
 msgid "Delete"
-msgstr "Eyğa"
+msgstr "É¾³ı"
 
 #: ../iw/account_gui.py:358
 msgid ""
@@ -1736,82 +1650,80 @@ msgid ""
 "administrative users who need to use this system. Use the <Add> button to "
 "enter additional user accounts."
 msgstr ""
-"Hægt er ağ búa til fleiri ağganga fyrir ağra notendur şessarar vélar. Slíkir "
-"ağgangar gætu til dæmis veriğ fyrir vini eğa fjölskyldu eğa hvağa notanda "
-"sem er sem er ekki kerfisstjórnunarnotandi.  Notağu <Bæta viğ> hnappinn til "
-"ağ bæta viğ notendum."
+"¿ÉÒÔÎªÏµÍ³ÄÚµÄÆäËûÓÃ»§ÁíÍâ´´½¨ÕÊºÅ¡£´ËÀàÕÊºÅ¿ÉÒÔÊÇË½ÈËµÇÂ¼ÕÊºÅ£¬Ò²¿ÉÒÔÊÇĞèÒª"
+"Ê¹ÓÃ´ËÏµÍ³µÄ·Ç¹ÜÀíĞÔµÄÕÊºÅ¡£ÓÃÌí¼Ó¼üÊäÈëÃ¿Ò»¸öÓÃ»§ÕÊºÅ¡£"
 
 #: ../iw/auth_gui.py:21 ../textw/userauth_text.py:319
 msgid "Authentication Configuration"
-msgstr "Stillingar auğkenningar"
+msgstr "ÑéÖ¤ÅäÖÃ"
 
 #: ../iw/auth_gui.py:97
 msgid "Enable MD5 passwords"
-msgstr "Nota MD5 lykilorğ"
+msgstr "ÆôÓÃ MD5 ¿ÚÁî"
 
 #: ../iw/auth_gui.py:98
 msgid "Enable shadow passwords"
-msgstr "Nota falin lykilorğ"
+msgstr "ÆôÓÃÆÁ±Î¿ÚÁî"
 
 #: ../iw/auth_gui.py:101 ../textw/userauth_text.py:328
 msgid "Enable NIS"
-msgstr "Nota NIS"
+msgstr "ÆôÓÃ NIS"
 
 #: ../iw/auth_gui.py:102
 msgid "Use broadcast to find NIS server"
-msgstr "Kalla eftir NIS şjóni"
+msgstr "Ê¹ÓÃ¹ã²¥²éÕÒ NIS ·şÎñÆ÷"
 
 #: ../iw/auth_gui.py:114
 msgid "NIS Domain: "
-msgstr "NIS lén: "
+msgstr "NIS Óò£º "
 
 #: ../iw/auth_gui.py:116
 msgid "NIS Server: "
-msgstr "NIS şjónn: "
+msgstr "NIS ·şÎñÆ÷£º "
 
 #: ../iw/auth_gui.py:139 ../textw/userauth_text.py:362
 msgid "Enable LDAP"
-msgstr "Nota LDAP"
+msgstr "ÆôÓÃ LDAP"
 
 #: ../iw/auth_gui.py:142
 msgid "Use TLS lookups"
-msgstr "Nota TLS uppflettingar"
+msgstr "Ê¹ÓÃ TLS ²éÔÄ"
 
 #: ../iw/auth_gui.py:143 ../textw/userauth_text.py:368
 msgid "LDAP Server:"
-msgstr "LDAP şjónn:"
+msgstr "LDAP ·şÎñÆ÷£º"
 
 #: ../iw/auth_gui.py:145 ../textw/userauth_text.py:370
 msgid "LDAP Base DN:"
-msgstr "LDAP grunn DN:"
+msgstr "LDAP »ù´¡ DN£º"
 
 #: ../iw/auth_gui.py:172 ../textw/userauth_text.py:391
 msgid "Enable Kerberos"
-msgstr "Nota Kerberos"
+msgstr "ÆôÓÃ Kerberos"
 
 #: ../iw/auth_gui.py:176 ../textw/userauth_text.py:398
 msgid "Realm:"
-msgstr "Lén:"
+msgstr "ÁìÓò£º"
 
 #: ../iw/auth_gui.py:178 ../textw/userauth_text.py:400
 msgid "KDC:"
-msgstr "KDC:"
+msgstr "KDC£º"
 
 #: ../iw/auth_gui.py:180 ../textw/userauth_text.py:402
 msgid "Admin Server:"
-msgstr "Stjórnşjónn:"
+msgstr "¹ÜÀí·şÎñÆ÷£º"
 
 #: ../iw/auth_gui.py:208
 msgid "Enable SMB Authentication"
-msgstr "Nota SMB auğkenningu"
+msgstr "ÆôÓÃ SMB ÑéÖ¤"
 
 #: ../iw/auth_gui.py:211
 msgid "SMB Server:"
-msgstr "SMB şjónn:"
+msgstr "SMB ·şÎñÆ÷£º"
 
 #: ../iw/auth_gui.py:213
 msgid "SMB Workgroup:"
-msgstr "SMB vinnuhópur:"
+msgstr "SMB ¹¤×÷×é£º"
 
 #: ../iw/auth_gui.py:240
 msgid "NIS"
@@ -1831,7 +1743,7 @@ msgstr "SMB"
 
 #: ../iw/bootdisk_gui.py:23
 msgid "Boot Disk Creation"
-msgstr "Búa til ræsidiskling"
+msgstr "Òıµ¼ÅÌ´´½¨"
 
 #: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
 #, python-format
@@ -1841,11 +1753,10 @@ msgid ""
 "Please remove any diskettes from the floppy drive and insert a blank "
 "diskette. All data will be ERASED during creation of the boot disk."
 msgstr ""
-"Ræsidisklingurinn gerir şér kleyft ağ ræsa %s vélina upp frá "
-"disklingadrifi. \n"
+"Òıµ¼ÅÌÔÊĞíÄã´ÓÈíÅÌÖĞÆô¶¯ %s ÏµÍ³¡£\n"
 "\n"
-"Vinsamlegast taktu burt disklinga úr drifunum og settu inn tóman diskling. "
-"Öllum gögnum á disklingnum verğur EYTT şegar ræsidisklingurinn er búinn til."
+"Çë½«ÈíÅÌÇı¶¯Æ÷ÖĞÈíÅÌÈ¡³ö£¬È»ºó²åÈëÒ»ÕÅ¿ÕÅÌ¡£ÔÚ´´½¨Òıµ¼ÅÌ¹ı³ÌÖĞ£¬´ËÅÌÉÏËùÓĞĞÅ"
+"Ï¢½«»á±»Ä¨µô¡£"
 
 #: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:84
 msgid ""
@@ -1855,17 +1766,17 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Ræsidisklingur er NAUĞSYNLEGUR fyrir sneiğlausa uppsetningu."
+"ĞèÒªÒıµ¼ÅÌÀ´Æô¶¯ÎŞ·ÖÇø°²×°¡£"
 
 #: ../iw/bootdisk_gui.py:69
 msgid "Skip boot disk creation"
-msgstr "Sleppa ræsidiskling"
+msgstr "Ìø¹ı´´½¨Òıµ¼ÅÌ"
 
 #: ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 #: ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
 #: ../textw/bootloader_text.py:290 ../textw/bootloader_text.py:379
 msgid "Boot Loader Configuration"
-msgstr "Stillingar ræsistjóra"
+msgstr "Òıµ¼×°ÔØ³ÌĞòÅäÖÃ"
 
 #: ../iw/bootloader_gui.py:59 ../textw/bootloader_text.py:134
 msgid ""
@@ -1875,36 +1786,34 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Ef şú neyğir ræsistjórann til ağ nota LBA32 ham şegar BIOS vélarinnar styğur "
-"şağ ekki getur şağ leitt til şess ağ vélin geti ekki ræst. Viğ mælum "
-"eindregiğ meğ ağ şú útbúir ræsidiskling síğar şegar şér er boğiğ upp á ağ "
-"gera şağ.\n"
+"µ± BIOS ²»Ö§³ÖÄãµÄÒıµ¼×°ÔØ³ÌĞòÊ±£¬ÈôÇ¿ÖÆÊ¹ÓÃ LBA32 ¿ÉÄÜ»áµ¼ÖÂÄãµÄ»úÆ÷ÎŞ·¨±»Òı"
+"µ¼¡£ÔÚÉÔºóµÄ°²×°¹ı³ÌÖĞ£¬ÎÒÃÇ¼«Á¦ÍÆ¼öÄã´´½¨Ò»ÕÅÒıµ¼ÅÌ¡£\n"
 "\n"
-"Viltu halda áfram og nota LBA32?"
+"ÄãÏë¼ÌĞø½øĞĞ¶øÇ¿ÖÆ½øÈë LBA32 ×´Ì¬Âğ£¿"
 
 #: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:435
 #: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:123
 #: ../textw/upgrade_text.py:109
 msgid "Partition"
-msgstr "Disksneiğ"
+msgstr "·ÖÇø"
 
 #: ../iw/bootloader_gui.py:248 ../iw/bootloader_gui.py:436
 #: ../iw/partition_gui.py:1562 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 #: ../textw/partition_text.py:986
 msgid "Type"
-msgstr "Tegund"
+msgstr "ÀàĞÍ"
 
 #: ../iw/bootloader_gui.py:308
 msgid "Install Boot Loader record on:"
-msgstr "Setja ræsifærsluna á:"
+msgstr "Òıµ¼¼ÇÂ¼°²×°Î»ÖÃ£º"
 
 #: ../iw/bootloader_gui.py:329
 msgid "Kernel Parameters"
-msgstr "Viğföng kjarnans"
+msgstr "ÄÚºË²ÎÊı"
 
 #: ../iw/bootloader_gui.py:340 ../textw/bootloader_text.py:111
 msgid "Force use of LBA32 (not normally required)"
-msgstr "Krefjast LBA32-hams (oftast óşarft)"
+msgstr "Ç¿ÖÆÊ¹ÓÃ LBA32 (Í¨³£²»ĞèÒª)"
 
 #: ../iw/bootloader_gui.py:349
 msgid ""
@@ -1912,9 +1821,8 @@ msgid ""
 "default boot loader. However, if you do not wish to overwrite your current "
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
-"Vinsamlegast veldu şann ræsistjóra sem şú vilt nota. GRUB er sjálfgefni "
-"ræsistjórinn. Viljir şú ekki rita yfir núverandi ræsistjóra skaltu velja "
-"hnappinn \"Ekki setja upp ræsistjóra\".  "
+"ÇëÑ¡ÔñËùĞèÒıµ¼×°ÔØ³ÌĞò¡£ËäÈ» GRUB ÊÇÏµÍ³Ä¬ÈÏµÄÒıµ¼×°ÔØ³ÌĞò£¬ÄãÈô²»Ïë¸²¸ÇÄãÄ¿"
+"Ç°Ê¹ÓÃµÄÒıµ¼×°ÔØ³ÌĞò£¬ÔòÑ¡Ôñ¡°²»Òª°²×°Òıµ¼×°ÔØ³ÌĞò¡£¡±¡­¡­"
 
 #: ../iw/bootloader_gui.py:356 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:266 ../textw/silo_text.py:207
@@ -1922,7 +1830,7 @@ msgstr ""
 #: ../textw/xconfig_text.py:492 ../textw/xconfig_text.py:493
 #: ../textw/xconfig_text.py:512 ../textw/xconfig_text.py:513
 msgid "Default"
-msgstr "Sjálfgefiğ"
+msgstr "Ä¬ÈÏ"
 
 #: ../iw/bootloader_gui.py:356 ../iw/mouse_gui.py:159
 #: ../iw/partition_gui.py:1561 ../iw/silo_gui.py:263
@@ -1930,39 +1838,39 @@ msgstr "Sjálfgefiğ"
 #: ../textw/mouse_text.py:38 ../textw/partition_text.py:986
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
-msgstr "Tæki"
+msgstr "Éè±¸"
 
 #: ../iw/bootloader_gui.py:357 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:266 ../textw/silo_text.py:207
 msgid "Partition type"
-msgstr "Tegund sneiğar"
+msgstr "·ÖÇøÀàĞÍ"
 
 #: ../iw/bootloader_gui.py:357 ../iw/bootloader_gui.py:446
 #: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:197
 #: ../textw/bootloader_text.py:266 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
-msgstr "Ræsimerki"
+msgstr "Òıµ¼¾í±ê"
 
 #: ../iw/bootloader_gui.py:361
 msgid "Use GRUB as the boot loader"
-msgstr "Nota GRUB ræsistjórann"
+msgstr "ÒÔ GRUB ÎªÒıµ¼×°ÔØ³ÌĞò"
 
 #: ../iw/bootloader_gui.py:362
 msgid "Use LILO as the boot loader"
-msgstr "Nota LILO ræsistjórann"
+msgstr "ÒÔ LILOÎªÒıµ¼×°ÔØ³ÌĞò"
 
 #: ../iw/bootloader_gui.py:363
 msgid "Do not install a boot loader"
-msgstr "Ekki setja upp ræsistjóra"
+msgstr "²»Òª°²×°Òıµ¼×°ÔØ³ÌĞò"
 
 #: ../iw/bootloader_gui.py:443 ../iw/silo_gui.py:294
 msgid "Default boot image"
-msgstr "Sjálfgefin ræsimynd"
+msgstr "Ä¬ÈÏÒıµ¼Ó³Ïñ"
 
 #: ../iw/bootloaderpassword_gui.py:24
 msgid "Boot Loader Password Configuration"
-msgstr "lykilorğastillingar ræsistjóra"
+msgstr "Òıµ¼×°ÔØ³ÌĞò¿ÚÁîÅäÖÃ"
 
 #: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:437
 msgid ""
@@ -1971,22 +1879,21 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Lykilorğ ræsistjórans er styttra en sex stafir. Viğ mælum meğ ağ şú notir "
-"lengra lykilorğ.\n"
+"ÄãµÄÒıµ¼×°ÔØ³ÌĞò¿ÚÁîĞ¡ÓÚÁù¸ö×Ö·û£¬½¨ÒéÊ¹ÓÃÒ»¸ö½Ï³¤µÄ¿ÚÁî¡£\n"
 "\n"
-"Viltu halda áfram og nota şetta lykilorğ?"
+"ÄãÏë¼ÌĞøÊ¹ÓÃÕâÒ»¿ÚÁîÂğ£¿"
 
 #: ../iw/bootloaderpassword_gui.py:54
 msgid "Password accepted."
-msgstr "Lykilorğ móttekiğ."
+msgstr "¿ÚÁî±»½ÓÊÜ¡£"
 
 #: ../iw/bootloaderpassword_gui.py:59
 msgid "Password is too short."
-msgstr "Lykilorğiğ er of stutt."
+msgstr "¿ÚÁîÌ«¶Ì¡£"
 
 #: ../iw/bootloaderpassword_gui.py:61
 msgid "Passwords do not match."
-msgstr "Lykilorğin stemma ekki."
+msgstr "¿ÚÁî²»·û¡£"
 
 #: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:374
 msgid ""
@@ -1994,26 +1901,25 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"Ræsistjóralykilorğ varnar notendum frá şví ağ gefa kjarnanum einhver "
-"viğföng. Viğ mælum meğ ağ şetta sé notağ til ağ auka öryggi. Şetta er şó "
-"ekki nauğsynlegt fyrir almenna notkun."
+"Òıµ¼×°ÔØ³ÌĞò¿ÚÁî¿ÉÒÔ·ÀÖ¹ÓÃ»§½«ÈÎÒâÑ¡Ïî´«ËÍµ½ÄÚºË¡£Îª°²È«Æğ¼û£¬ÎÒÃÇ½¨ÒéÄãÉèÁ¢"
+"Ò»¸ö¿ÚÁî£¬µ«ÊÇÕâ¶ÔÒ»°ãµÄÓÃ»§À´Ëµ²¢·Ç±Ø²»¿ÉÉÙ¡£"
 
 #: ../iw/bootloaderpassword_gui.py:84
 msgid "Use a GRUB Password?"
-msgstr "Nota GRUB lykilorğ?"
+msgstr "Ê¹ÓÃ GRUB ¿ÚÁîÂğ£¿"
 
 #: ../iw/bootloaderpassword_gui.py:109
 msgid "Please enter password"
-msgstr "Vinsamlegast sláğu inn lykilorğ"
+msgstr "ÇëÊäÈë¿ÚÁî"
 
 #: ../iw/confirm_gui.py:55
 msgid "About to Install"
-msgstr "Uppsetning ağ hefjast"
+msgstr "¼´½«°²×°"
 
 #: ../iw/confirm_gui.py:60
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Veldu áfram-örina til ağ byrja uppsetningu %s."
+msgstr "µã»÷¡°ÏÂÒ»²½¡±ÒÔ¿ªÊ¼°²×° %s¡£"
 
 #: ../iw/confirm_gui.py:61
 msgid ""
@@ -2022,30 +1928,30 @@ msgid ""
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
-"Eftir ağ uppsetningunni lıkur verğur til annáll sem heitir /root/install."
-"log. Honum ættir şú ağ halda til haga. Kickstart skrá verğur búin til fyrir "
-"şig í /root/anaconda-ks.cfg eftir şví sem şú hefur valiğ hér."
+"ÖØĞÂÒıµ¼ºó£¬ÍêÕûµÄ°²×°ÈÕÖ¾½«»á±£´æÔÚ /root/install.log ÖĞ¡£Äã¿ÉÄÜĞèÒª±£Áô´ËÎÄ"
+"¼ş¹©ÒÔºó²Î¿¼¡£´ËÍâ£¬·´³åÆô¶¯ÎÄ¼ş /root/anaconda-ks.cfg ÖĞ½«»á´æÓĞÄãËùÓĞµÄ°²×°"
+"Ñ¡Ôñ¡£"
 
 #: ../iw/confirm_gui.py:68
 msgid "About to Upgrade"
-msgstr "Uppfærsla ağ hefjast"
+msgstr "¼´½«Éı¼¶"
 
 #: ../iw/confirm_gui.py:73
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Veldu áfram-örina til ağ byrja uppsetningu %s.."
+msgstr "µã»÷¡°ÏÂÒ»²½¡±ÒÔ¿ªÊ¼Éı¼¶ %s¡£"
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
 "A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"Eftir ağ uppfærslunni lıkur verğur til annáll sem heitir /root/upgrade.log. "
-"Honum ættir şú ağ halda til haga."
+"ÖØĞÂÒıµ¼ºó£¬ÍêÕûµÄ°²×°ÈÕÖ¾½«»á±£´æÔÚ /root/upgrade.log ÖĞ¡£ Äã¿ÉÄÜĞèÒª±£Áô´Ë"
+"ÎÄ¼ş¹©ÒÔºó²Î¿¼¡£"
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
 msgid "Congratulations"
-msgstr "Til hamingju"
+msgstr "×£ºØÄã"
 
 #: ../iw/congrats_gui.py:48 ../textw/complete_text.py:30
 #, python-format
@@ -2054,8 +1960,8 @@ msgid ""
 "you press <Enter> to reboot.\n"
 "\n"
 msgstr ""
-"Ef şú bjóst til ræsidiskling til ağ ræsa %s settu hann í núna áğur en şú "
-"slærğ á <Enter> til ağ endurræsa.\n"
+"Èç¹ûÄãÒÑ´´½¨ÁËÒ»ÕÅÓÃÒÔÒıµ¼ÄãµÄ %s ÏµÍ³µÄÒıµ¼ÅÌ£¬Çë²åÈëºóÔÙ°´»Ø³µ¼üÒÔÖØĞÂÒı"
+"µ¼¡£\n"
 "\n"
 
 #: ../iw/congrats_gui.py:56
@@ -2072,17 +1978,14 @@ msgid ""
 "Information on using and configuring your system is available in the %s "
 "manuals at http://www.redhat.com/docs."
 msgstr ""
-"Til hamingju, uppsetningu %s er lokiğ.\n"
+"×£ºØÄã£¡%s °²×°ÒÑÍê³É¡£\n"
 "\n"
-"Fjarlægğu disklinga og geisladiska úr drifunum sem şú notağir í "
-"uppsetningunni og sláğu á <Enter> til ağ endurræsa vélina. \n"
+"È¡³öÔÚ°²×°¹ı³ÌÖĞÊ¹ÓÃµÄËùÓĞÈíÅÌ£¬È»ºó°´»Ø³µ¼üÖØĞÂÒıµ¼ÏµÍ³¡£ \n"
 "\n"
-"%sÁ http://www.redhat.com/errata má finna uppfærslur, viğbætur og/eğa "
-"lagfæringar á göllum sem gætu veriğ til stağar í şessari útgáfu "
-"stırikerfisins.\n"
-"\n"
-"Frekari upplısingar um hvernig á ağ stilla vélina eftir uppsetninguna er ağ "
-"finna í %s handbókunum á http://www.redhat.com/docs."
+"%sÓĞ¹ØÎª´Ë°æ±¾Ìá¹©µÄĞ£ÕıĞÅÏ¢(¸üĞÂ¼°¸Ä´í)£¬Çë²éÔÄ http://www.redhat.com/"
+"errata ÉÏµÄ¿±Îó±í¡£\n"
+"ÓĞ¹ØÊ¹ÓÃ¼°ÅäÖÃÏµÍ³µÄĞÅÏ¢Ôò¿Éµ½ http://www.redhat.com/docs ÍøÒ³ÉÏ %s ÓÃ»§ÊÖ²á"
+"ÖĞ²éÔÄ¡£"
 
 #: ../iw/congrats_gui.py:104
 #, python-format
@@ -2095,70 +1998,68 @@ msgid ""
 "Information on using and configuring your system is available in the %s "
 "manuals at http://www.redhat.com/docs."
 msgstr ""
-"Til hamingju, uppsetningu er lokiğ.\n"
+"×£ºØÄã£¡ÅäÖÃÒÑÍê³É¡£\n"
 "\n"
-"Á http://www.redhat.com/errata má finna uppfærslur, viğbætur og/eğa "
-"lagfæringar á göllum sem gætu veriğ til stağar í şessari útgáfu af Red Hat "
-"Linux.\n"
-"\n"
-"Frekari upplısingar um hvernig á ağ stilla vélina eftir uppsetninguna er ağ "
-"finna í %s handbókunum á http://www.redhat.com/docs."
+"ÓĞ¹ØÎª´Ë°æ±¾Ìá¹©µÄĞ£ÕıĞÅÏ¢(¸üĞÂ¼°¸Ä´í)£¬Çë²éÔÄ http://www.redhat.com/errata "
+"ÉÏµÄ¿±Îó±í¡£\n"
+"ÓĞ¹ØÊ¹ÓÃ¼°ÅäÖÃÏµÍ³µÄĞÅÏ¢Ôò¿Éµ½ http://www.redhat.com/docs ÍøÒ³ÉÏ %sÓÃ»§ÊÖ²áÖĞ"
+"²éÔÄ¡£"
 
 #: ../iw/dependencies_gui.py:20
 msgid "Unresolved Dependencies"
-msgstr "Óuppfyllt pakkaskilyrği"
+msgstr "Î´½â¾öµÄÒÀÀµ¹ØÏµ"
 
 #: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:519
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
-msgstr "Samanlögğ stærğ uppsetningar: %s"
+msgstr "×Ü°²×°´óĞ¡£º %s"
 
 #: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:425
 #: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
-msgstr "Pakki"
+msgstr "Èí¼ş°ü"
 
 #: ../iw/dependencies_gui.py:66 ../textw/packages_text.py:301
 msgid "Requirement"
-msgstr "Şarfnast"
+msgstr "ÒªÇó"
 
 #: ../iw/dependencies_gui.py:83 ../textw/packages_text.py:316
 msgid "Install packages to satisfy dependencies"
-msgstr "Setja inn pakka til ağ uppfylla şarfir annarra pakka"
+msgstr "°²×°Èí¼ş°üÒÔÂú×ãÒÀÀµ¹ØÏµ"
 
 #: ../iw/dependencies_gui.py:86 ../textw/packages_text.py:317
 msgid "Do not install packages that have dependencies"
-msgstr "Ekki setja inn pakka sem şarfnast annara pakka"
+msgstr "²»Òª°²×°ĞèÂú×ãÒÀÀµ¹ØÏµµÄÈí¼ş°ü"
 
 #: ../iw/dependencies_gui.py:90 ../textw/packages_text.py:318
 msgid "Ignore package dependencies"
-msgstr "Hunsa pakkaskilyrği"
+msgstr "ºöÂÔÈí¼ş°üÒÀÀµ¹ØÏµ"
 
 #: ../iw/examine_gui.py:24
 msgid "Upgrade Examine"
-msgstr "Skoğa uppfærslu"
+msgstr "Éı¼¶¼ì²é"
 
 #: ../iw/examine_gui.py:51
 msgid ""
 "You don't have any Linux partitions.\n"
 "You can't upgrade this sytem!"
 msgstr ""
-"Şú ert ekki meğ neinar Linux disksneiğar.\n"
-"Şú getur ekki uppfært şessa vél!"
+"Ã»ÓĞÈÎºÎ Linux ·ÖÇø¡£\n"
+"ÎŞ·¨Éı¼¶±¾ÏµÍ³£¡"
 
 #: ../iw/examine_gui.py:61
 msgid "Please select the device containing the root filesystem: "
-msgstr "Vinsamlegast veldu tækiğ sem inniheldur rótarskráarkerfiğ: "
+msgstr "ÇëÑ¡Ôñ°üº¬¸ùÎÄ¼şÏµÍ³µÄÉè±¸£º"
 
 #: ../iw/examine_gui.py:89 ../textw/upgrade_text.py:225
 #, python-format
 msgid "Upgrading the %s installation on partition /dev/%s"
-msgstr "Uppfæri %s kerfiğ á disksneiğ /dev/%s"
+msgstr "/dev/%s ·ÖÇøÕıÔÚÉı¼¶ %s¡­¡­"
 
 #: ../iw/examine_gui.py:95
 msgid "Customize packages to be upgraded"
-msgstr "Velja pakka sem á ağ uppfæra"
+msgstr "¶¨ÖÆÒªÉı¼¶µÄÈí¼ş°ü"
 
 #: ../iw/fdisk_gui.py:26 ../textw/partmethod_text.py:28
 msgid "fdisk"
@@ -2166,703 +2067,701 @@ msgstr "fdisk"
 
 #: ../iw/fdisk_gui.py:94
 msgid "Select drive to run fdisk on"
-msgstr "Veldu disk til ağ keyra fdisk á"
+msgstr "Ñ¡ÔñÒªÔËĞĞ fdisk ÃüÁîµÄÇı¶¯Æ÷"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:25
 msgid "Firewall Configuration"
-msgstr "Stillingar eldveggjar"
+msgstr "·À»ğÇ½ÅäÖÃ"
 
 #: ../iw/firewall_gui.py:129
 msgid "Warning: "
-msgstr "Ağvörun: "
+msgstr "¾¯¸æ£º"
 
 #: ../iw/firewall_gui.py:129
 msgid " is an invalid port."
-msgstr " er ógild gátt."
+msgstr "²»ÊÇÒ»¸öÓĞĞ§µÄ¶Ë¿Ú¡£"
 
 #: ../iw/firewall_gui.py:132
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr "Sniğiğ er 'gátt:prótókollur'. Til dæmis '1234:udp'"
+msgstr "ÕıÈ·µÄ¸ñÊ½Ó¦¸ÃÊÇ£º¡°¶Ë¿Ú£ºĞ­Òé¡±¡£ÀıÈç£º¡°1234£ºudp¡±"
 
 #: ../iw/firewall_gui.py:219
 msgid "Please choose your security level:  "
-msgstr "Vinsamlegast veldu öryggisstig:  "
+msgstr "ÇëÑ¡ÔñÄãµÄ°²È«¼¶±ğ£º"
 
 #: ../iw/firewall_gui.py:228 ../textw/firewall_text.py:47
 msgid "High"
-msgstr "Hátt"
+msgstr "¸ß¼¶"
 
 #: ../iw/firewall_gui.py:229 ../textw/firewall_text.py:50
 msgid "Medium"
-msgstr "Miğlungs"
+msgstr "ÖĞ¼¶"
 
 #: ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 msgid "No firewall"
-msgstr "Enginn eldveggur"
+msgstr "ÎŞ·À»ğÇ½"
 
 #: ../iw/firewall_gui.py:246
 msgid "Use default firewall rules"
-msgstr "Nota sjálfgefnar eldveggjarreglur"
+msgstr "Ê¹ÓÃÄ¬ÈÏµÄ·À»ğÇ½¹æÔò"
 
 #: ../iw/firewall_gui.py:247 ../textw/firewall_text.py:23
 msgid "Customize"
-msgstr "Sérsníğa"
+msgstr "¶¨ÖÆ"
 
 #: ../iw/firewall_gui.py:260
 msgid "Trusted devices:"
-msgstr "Tæki sem er treyst:"
+msgstr "ĞÅÈÎµÄÉè±¸£º"
 
 #: ../iw/firewall_gui.py:285 ../textw/firewall_text.py:84
 msgid "Allow incoming:"
-msgstr "Leyfa tengingar inn:"
+msgstr "ÔÊĞí½ÓÊÕ£º"
 
 #: ../iw/firewall_gui.py:314
 msgid "Other ports:"
-msgstr "Önnur port:"
+msgstr "ÆäËü¶Ë¿Ú£º"
 
 #: ../iw/format_gui.py:25
 msgid "Choose partitions to Format"
-msgstr "Velja disksneiğar sem á ağ forsníğa"
+msgstr "Ñ¡ÔñÒª¸ñÊ½»¯µÄ·ÖÇø"
 
 #: ../iw/installpath_gui.py:35 ../textw/installpath_text.py:42
 msgid "Installation Type"
-msgstr "Tegund uppsetningar"
+msgstr "°²×°ÀàĞÍ"
 
 #: ../iw/keyboard_gui.py:26
 msgid "Keyboard Configuration"
-msgstr "Stillingar lyklaborğs"
+msgstr "¼üÅÌÅäÖÃ"
 
 #: ../iw/keyboard_gui.py:103
 msgid "Which model keyboard is attached to the computer?"
-msgstr "Hvernig lyklaborğ er tengt şessari vél?"
+msgstr "Óë´Ë¼ÆËã»úÁ¬½ÓµÄ¼üÅÌÊôÓÚºÎÖÖĞÍºÅ£¿"
 
 #: ../iw/keyboard_gui.py:112
 msgid "Model"
-msgstr "Tegund"
+msgstr "ĞÍºÅ"
 
 #: ../iw/keyboard_gui.py:132
 msgid "Layout"
-msgstr "Vörpun"
+msgstr "²¼¾Ö"
 
 #: ../iw/keyboard_gui.py:152
 msgid "Dead Keys"
-msgstr "Broddstafir"
+msgstr "ËÀ¼ü"
 
 #: ../iw/keyboard_gui.py:162
 msgid "Enable dead keys"
-msgstr "Nota broddstafi"
+msgstr "ÆôÓÃËÀ¼ü"
 
 #: ../iw/keyboard_gui.py:163
 msgid "Disable dead keys"
-msgstr "Ekki nota broddstafi"
+msgstr "½ûÓÃËÀ¼ü"
 
 #: ../iw/keyboard_gui.py:176
 msgid "Test your selection here:"
-msgstr "Prófağu valiğ hér:"
+msgstr "ÔÚ´Ë´¦²âÊÔÄãµÄÑ¡Ôñ£º"
 
 #: ../iw/language_gui.py:49 ../textw/language_text.py:39 ../loader/lang.c:306
 msgid "What language would you like to use during the installation process?"
-msgstr "Hvağa tungumál viltu nota meğan á uppsetningu stendur?"
+msgstr "ÄãÒªÔÚ°²×°¹ı³ÌÖĞÊ¹ÓÃºÎÖÖÓïÑÔ£¿"
 
 #: ../iw/language_support_gui.py:23
 msgid "Additional Language Support"
-msgstr "Tungumálastuğningur"
+msgstr "ÆäËüÓïÑÔÖ§³Ö"
 
 #: ../iw/language_support_gui.py:143
 msgid "Choose the default language for this system:   "
-msgstr "Veldu sjálfgefna tungumáliğ:   "
+msgstr "Ñ¡ÔñÏµÍ³Ä¬ÈÏÓïÑÔ£º"
 
 #: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
-msgstr "Uppsett tungumál:"
+msgstr "Ä¿Ç°ÒÑ°²×°µÄÓïÑÔ£º"
 
 #: ../iw/language_support_gui.py:157
 msgid "Choose additional languages you would like to use on this system:"
-msgstr "Hvağa viğbótartungumál viltu nota á şessari vél:"
+msgstr "Ñ¡ÔñÄãÏëÔÚ´ËÏµÍ³ÉÏÊ¹ÓÃµÄÆäËüÓïÑÔ£º"
 
 #: ../iw/language_support_gui.py:206
 msgid "Select all"
-msgstr "Velja öll"
+msgstr "È«²¿Ñ¡Ôñ"
 
 #: ../iw/language_support_gui.py:212 ../textw/language_text.py:120
 msgid "Reset"
-msgstr "Endurstilla"
+msgstr "ÖØÉè"
 
 #: ../iw/language_support_gui.py:226
 msgid "Select as default"
-msgstr "Velja sem sjálfgefiğ"
+msgstr "Ñ¡³ÉÄ¬ÈÏ"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
-msgstr "Stillingar músar"
+msgstr "Êó±êÅäÖÃ"
 
 #: ../iw/mouse_gui.py:148 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr "/dev/ttyS0 (COM1 í DOS)"
+msgstr "/dev/ttyS0(DOS ÏÂµÄ COM1)"
 
 #: ../iw/mouse_gui.py:149 ../textw/mouse_text.py:21
 msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr "/dev/ttyS1 (COM2 í DOS)"
+msgstr "/dev/ttyS1(DOS ÏÂµÄ COM2)"
 
 #: ../iw/mouse_gui.py:150 ../textw/mouse_text.py:22
 msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr "/dev/ttyS2 (COM3 í DOS)"
+msgstr "/dev/ttyS2(DOS ÏÂµÄ COM3)"
 
 #: ../iw/mouse_gui.py:151 ../textw/mouse_text.py:23
 msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr "/dev/ttyS3 (COM4 í DOS)"
+msgstr "/dev/ttyS3(DOS ÏÂµÄ COM4)"
 
 #: ../iw/mouse_gui.py:153
 msgid "Emulate 3 Buttons"
-msgstr "Herma eftir şrem hnöppum"
+msgstr "Ä£Äâ 3 ¼üÊó±ê"
 
 #: ../iw/mouse_gui.py:159
 msgid "Port"
-msgstr "Gátt"
+msgstr "¶Ë¿Ú"
 
 #: ../iw/mouse_gui.py:229
 msgid "Which model mouse is attached to the computer?"
-msgstr "Hvernig mús er tengd şessari vél?"
+msgstr "Óë´Ë¼ÆËã»úÁ¬½ÓµÄÊó±êÊÇºÎÖÖĞÍºÅ£¿"
 
 #: ../iw/network_gui.py:21
 msgid "Network Configuration"
-msgstr "Stillingar nets"
+msgstr "ÍøÂçÅäÖÃ"
 
 #: ../iw/network_gui.py:177
 msgid "Configure using DHCP"
-msgstr "Stilla meğ DHCP"
+msgstr "Ê¹ÓÃ DHCP ½øĞĞÅäÖÃ"
 
 #: ../iw/network_gui.py:183 ../textw/network_text.py:73
 msgid "Activate on boot"
-msgstr "Virkja viğ ræsingu"
+msgstr "Òıµ¼Ê±¼¤»î"
 
 #: ../iw/network_gui.py:194
 msgid "IP Address"
-msgstr "IP vistfang"
+msgstr "IP ±àºÅ"
 
 #: ../iw/network_gui.py:195 ../loader/net.c:814
 msgid "Netmask"
-msgstr "Netmöskvi"
+msgstr "×ÓÍøÑÚÂë"
 
 #: ../iw/network_gui.py:196 ../loader/loader.c:316
 msgid "Network"
-msgstr "Net"
+msgstr "ÍøÂç"
 
 #: ../iw/network_gui.py:197
 msgid "Broadcast"
-msgstr "Uppkall"
+msgstr "¹ã²¥"
 
 #: ../iw/network_gui.py:251 ../textw/network_text.py:207 ../loader/net.c:622
 #: ../loader/net.c:816
 msgid "Hostname"
-msgstr "Vélarheiti"
+msgstr "Ö÷»úÃû"
 
 #: ../iw/network_gui.py:251
 msgid "Gateway"
-msgstr "Gátt"
+msgstr "Íø¹Ø"
 
 #: ../iw/network_gui.py:251
 msgid "Primary DNS"
-msgstr "Ağalnafnaşjónn"
+msgstr "Ö÷ DNS"
 
 #: ../iw/network_gui.py:252
 msgid "Secondary DNS"
-msgstr "Annar nafnaşjónn"
+msgstr "´Î DNS"
 
 #: ../iw/network_gui.py:252
 msgid "Tertiary DNS"
-msgstr "Şriğji nafnaşjónn"
+msgstr "µÚÈı DNS"
 
 #: ../iw/package_gui.py:41 ../textw/packages_text.py:237
 msgid "Individual Package Selection"
-msgstr "Val einstakra pakka"
+msgstr "Ñ¡Ôñµ¥¸öÈí¼ş°ü"
 
 #: ../iw/package_gui.py:275
 msgid "Total install size: "
-msgstr "Samanlögğ stærğ uppsetningar: "
+msgstr "×Ü°²×°´óĞ¡£º"
 
 #: ../iw/package_gui.py:411
 msgid "Tree View"
-msgstr "Trjáarhamur"
+msgstr "Ê÷ĞÎÊÓÍ¼"
 
 #: ../iw/package_gui.py:413
 msgid "Flat View"
-msgstr "Flatur hamur"
+msgstr "Æ½ÃæÊÓÍ¼"
 
 #: ../iw/package_gui.py:427 ../iw/partition_gui.py:1562
 msgid "Size (MB)"
-msgstr "Stærğ (MB)"
+msgstr "´óĞ¡(MB)"
 
 #: ../iw/package_gui.py:458
 msgid "Total size: "
-msgstr "Heildarstærğ: "
+msgstr "ºÏ¼Æ£º"
 
 #: ../iw/package_gui.py:461
 msgid "Select all in group"
-msgstr "Velja allt í hópnum"
+msgstr "Ñ¡ÔñÈ«×é"
 
 #: ../iw/package_gui.py:465
 msgid "Unselect all in group"
-msgstr "Afvelja allt í hópnum"
+msgstr "È¡ÏûÑ¡ÔñÈ«×é"
 
 #: ../iw/package_gui.py:498 ../textw/packages_text.py:57
 msgid "Package Group Selection"
-msgstr "Velja pakkahópa"
+msgstr "Ñ¡ÔñÈí¼ş°ü×é"
 
 #: ../iw/package_gui.py:582 ../textw/packages_text.py:50
 msgid "Select individual packages"
-msgstr "Velja hvern pakka fyrir sig"
+msgstr "Ñ¡Ôñµ¥¸öÈí¼ş°ü"
 
 #: ../iw/partition_gui.py:323 ../iw/partition_gui.py:344
 #: ../iw/partition_gui.py:346 ../textw/partition_text.py:187
 #: ../textw/partition_text.py:189 ../textw/partition_text.py:191
 #: ../textw/partition_text.py:216
 msgid "<Not Applicable>"
-msgstr "<Á ekki viğ>"
+msgstr "<²»ÊÊÓÃ>"
 
 #: ../iw/partition_gui.py:493 ../textw/fdisk_text.py:39
 msgid "Disk Setup"
-msgstr "Stillingar diska"
+msgstr "´ÅÅÌÉèÖÃ"
 
 #: ../iw/partition_gui.py:553
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
-msgstr "Alvarlegar villur komu upp meğ disksneiğarnar sem şú skilgreindir."
+msgstr "ÄãËùÉêÇëµÄ·ÖÇø·½°¸´æÔÚÏÂÁĞÑÏÖØ´íÎó¡£"
 
 #: ../iw/partition_gui.py:556
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
-"Şessar villur verğur ağ lagfæra áğur en uppsetningin á %s getur haldiğ áfram."
+msgstr "ÔÚ¼ÌĞø°²×° %s Ö®Ç°£¬ÄãÒ»¶¨ÒªÏÈ¸üÕıÕâĞ©´íÎó¡£"
 
 #: ../iw/partition_gui.py:563
 msgid "Partitioning Errors"
-msgstr "Disksneiğingavillur"
+msgstr "·ÖÇø´íÎó"
 
 #: ../iw/partition_gui.py:569
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
-"Eftirfarandi ağvaranir eru til stağar meğ disksneiğarnar sem şú skilgreindir."
+msgstr "ÄãËùÉêÇëµÄ·ÖÇø·½°¸ÖĞ³öÏÖÁËÏÂÁĞ¾¯¸æ¡£"
 
 #: ../iw/partition_gui.py:571
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr "Viltu halda áfram og nota şessa disksneiğar?"
+msgstr "ÊÇ·ñÒª¼ÌĞøÖ´ĞĞÄãËùÉêÇëµÄ·ÖÇø·½°¸£¿"
 
 #: ../iw/partition_gui.py:577
 msgid "Partitioning Warnings"
-msgstr "Disksneiğingaağvaranir"
+msgstr "·ÖÇø¾¯¸æ"
 
 #: ../iw/partition_gui.py:599
 msgid "Format Warnings"
-msgstr "Forsniğsağvaranir"
+msgstr "¸ñÊ½»¯¾¯¸æ"
 
 #: ../iw/partition_gui.py:652 ../textw/partition_text.py:75
 #: ../textw/partition_text.py:114
 msgid "Free space"
-msgstr "Laust pláss"
+msgstr "¿ÕÏĞ¿Õ¼ä"
 
 #: ../iw/partition_gui.py:654 ../textw/partition_text.py:77
 msgid "Extended"
-msgstr "Extended"
+msgstr "À©Õ¹·ÖÇø"
 
 #: ../iw/partition_gui.py:656 ../textw/partition_text.py:79
 msgid "software RAID"
-msgstr "hugbúnağar RAID"
+msgstr "Èí¼ş RAID"
 
 #: ../iw/partition_gui.py:674 ../iw/partition_gui.py:734
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:145
 msgid "None"
-msgstr "Ekkert"
+msgstr "ÎŞ"
 
 #: ../iw/partition_gui.py:676
 msgid "Free"
-msgstr "Laust"
+msgstr "¿ÕÏĞ"
 
 #: ../iw/partition_gui.py:736 ../textw/partition_text.py:147
 #, python-format
 msgid "RAID Device %s"
-msgstr "RAID tæki %s"
+msgstr "RAID Éè±¸ %s"
 
 #: ../iw/partition_gui.py:815
 msgid "Additional Size Options"
-msgstr "Frekari stærğarrofar"
+msgstr "ÆäËü´óĞ¡Ñ¡Ïî"
 
 #: ../iw/partition_gui.py:820
 msgid "Fixed size"
-msgstr "Föst stærğ"
+msgstr "¹Ì¶¨´óĞ¡"
 
 #: ../iw/partition_gui.py:821
 msgid "Fill all space up to (MB):"
-msgstr "Nota allt pláss upp ağ (MB):"
+msgstr "Ö¸¶¨¿Õ¼ä´óĞ¡(MB)£º"
 
 #: ../iw/partition_gui.py:829
 msgid "Fill to maximum allowable size"
-msgstr "Stækka upp í mestu leyfilegu stærğ"
+msgstr "Ê¹ÓÃÈ«²¿¿ÉÓÃ¿Õ¼ä"
 
 #: ../iw/partition_gui.py:858 ../textw/partition_text.py:542
 msgid "Add Partition"
-msgstr "Bæta viğ disksneiğ"
+msgstr "Ôö¼Ó·ÖÇø"
 
 #: ../iw/partition_gui.py:875 ../iw/partition_gui.py:1366
 #: ../textw/partition_text.py:206
 msgid "Mount Point:"
-msgstr "Tengipunktur:"
+msgstr "¹ÒÔØµã£º"
 
 #: ../iw/partition_gui.py:883 ../textw/partition_text.py:605
 msgid "Filesystem Type:"
-msgstr "Tegund skráarkerfis:"
+msgstr "ÎÄ¼şÏµÍ³ÀàĞÍ£º"
 
 #: ../iw/partition_gui.py:891
 msgid "Original Filesystem Type:"
-msgstr "Upprunaleg tegund skráarkerfis:"
+msgstr "×î³õÎÄ¼şÏµÍ³ÀàĞÍ£º"
 
 #: ../iw/partition_gui.py:900
 msgid "Unknown"
-msgstr "Óşekkt"
+msgstr "Î´Öª"
 
 #: ../iw/partition_gui.py:912 ../textw/partition_text.py:261
 msgid "Allowable Drives:"
-msgstr "Leyfileg drif:"
+msgstr "ÔÊĞíµÄÇı¶¯Æ÷£º"
 
 #: ../iw/partition_gui.py:923
 msgid "Drive:"
-msgstr "Drif:"
+msgstr "Çı¶¯Æ÷£º"
 
 #: ../iw/partition_gui.py:932
 msgid "Original Filesystem Label:"
-msgstr "Upprunaleg merking skráarkerfisins:"
+msgstr "Ô­±¾µÄÎÄ¼şÏµÍ³±êÇ©£º"
 
 #: ../iw/partition_gui.py:943 ../iw/partition_gui.py:958
 #: ../iw/partition_gui.py:994 ../textw/partition_text.py:283
 #: ../textw/partition_text.py:366 ../textw/partition_text.py:621
 msgid "Size (MB):"
-msgstr "Stærğ (MB):"
+msgstr "´óĞ¡(MB)£º"
 
 #: ../iw/partition_gui.py:963 ../textw/partition_text.py:346
 msgid "Start Cylinder:"
-msgstr "Fyrsti geiri:"
+msgstr "ÆğÊ¼ÖùÃæ£º"
 
 #: ../iw/partition_gui.py:979 ../textw/partition_text.py:359
 msgid "End Cylinder:"
-msgstr "Síğasti geiri:"
+msgstr "ÖÕÖ¹ÖùÃæ£º"
 
 #: ../iw/partition_gui.py:1010
 msgid "How would you like to prepare the filesystem on this partition?"
-msgstr "Hvernig viltu undirbúa skráarkerfiğ á şessari disksneiğ?"
+msgstr "ÄãÏëÈçºÎÔÚ´Ë·ÖÇøÉÏ×¼±¸ÎÄ¼şÏµÍ³ÄØ£¿"
 
 #: ../iw/partition_gui.py:1019 ../textw/partition_text.py:449
 msgid "Leave unchanged (preserve data)"
-msgstr "Láta kyrra (varğveita gögn)"
+msgstr "±£³Ö²»±ä(±£ÁôĞÅÏ¢)"
 
 #: ../iw/partition_gui.py:1024
 msgid "Format partition as:"
-msgstr "Forsníğa disksneiğina sem:"
+msgstr "½«·ÖÇø¸ñÊ½»¯³É£º"
 
 #: ../iw/partition_gui.py:1044
 msgid "Migrate partition to:"
-msgstr "Breyta disksneiğinni í:"
+msgstr "½«·ÖÇøÒÆÖ²ÖÁ£º"
 
 #: ../iw/partition_gui.py:1068
 msgid "Check for bad blocks?"
-msgstr "Leita ağ skemmdum blokkum?"
+msgstr "Òª¼ì²é´ÅÅÌ»µ¿éÂğ£¿"
 
 #: ../iw/partition_gui.py:1101 ../textw/partition_text.py:584
 msgid "Force to be a primary partition"
-msgstr "Gera ağ primary disksneiğ"
+msgstr "Ç¿ÖÆÎªÖ÷·ÖÇø"
 
 #: ../iw/partition_gui.py:1108 ../textw/partition_text.py:447
 #: ../textw/partition_text.py:587
 msgid "Check for bad blocks"
-msgstr "Leita ağ skemmdum blokkum"
+msgstr "¼ì²é´ÅÅÌ»µ¿é"
 
 #: ../iw/partition_gui.py:1178 ../iw/partition_gui.py:1187
 #: ../iw/partition_gui.py:1225 ../iw/partition_gui.py:1496
 #: ../textw/partition_text.py:751 ../textw/partition_text.py:773
 #: ../textw/partition_text.py:902
 msgid "Error With Request"
-msgstr "Villa"
+msgstr "ÇëÇó´íÎó"
 
 #: ../iw/partition_gui.py:1292 ../textw/partition_text.py:165
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr "Gat ekki búiğ til umbeğnar disksneiğar: %s."
+msgstr "ÎŞ·¨·ÖÅäËùÉêÇë·ÖÇø£º %s"
 
 #: ../iw/partition_gui.py:1298 ../textw/partition_text.py:169
 msgid "Modify Partition"
-msgstr "Breyta disksneiğ"
+msgstr "ĞŞ¸Ä·ÖÇø"
 
 #: ../iw/partition_gui.py:1299 ../textw/partition_text.py:169
 msgid "Add anyway"
-msgstr "Bæta samt viğ"
+msgstr "Ìí¼Ó"
 
 #: ../iw/partition_gui.py:1303
 #, python-format
 msgid "Warning: %s."
-msgstr "Ağvörun: %s."
+msgstr "¾¯¸æ£º %s"
 
 #: ../iw/partition_gui.py:1340 ../textw/partition_text.py:807
 msgid "Make RAID Device"
-msgstr "Búa til RAID tæki"
+msgstr "´´½¨ RAID Éè±¸"
 
 #: ../iw/partition_gui.py:1358 ../textw/partition_text.py:831
 msgid "At least two software RAID partitions are needed."
-msgstr "Şú şarft ağ minnsta kosti tvær RAID disksneiğar."
+msgstr "ÖÁÉÙĞèÒªÁ½¸öÈí¼ş RAID ·ÖÇø¡£"
 
 #: ../iw/partition_gui.py:1373 ../textw/partition_text.py:227
 msgid "Filesystem type:"
-msgstr "Tegund skráarkerfis:"
+msgstr "ÎÄ¼şÏµÍ³ÀàĞÍ£º"
 
 #: ../iw/partition_gui.py:1385 ../textw/partition_text.py:383
 msgid "RAID Level:"
-msgstr "RAID tegund:"
+msgstr "RAID ¼¶±ğ£º"
 
 #: ../iw/partition_gui.py:1420 ../textw/partition_text.py:401
 msgid "RAID Members:"
-msgstr "RAID drif:"
+msgstr "RAID ³ÉÔ±£º"
 
 #: ../iw/partition_gui.py:1431
 msgid "Number of spares:"
-msgstr "Fjöldi varadrifa:"
+msgstr "±¸¼şÊıÄ¿£º"
 
 #: ../iw/partition_gui.py:1438 ../textw/partition_text.py:843
 msgid "Format partition?"
-msgstr "Forsníğa disksneiğina?"
+msgstr "¸ñÊ½»¯·ÖÇøÂğ£¿"
 
 #: ../iw/partition_gui.py:1542
 msgid "_New"
-msgstr "_Nır"
+msgstr "ĞÂ½¨(_N)"
 
 #: ../iw/partition_gui.py:1543
 msgid "_Edit"
-msgstr "_Breyta"
+msgstr "±à¼­(_E)"
 
 #: ../iw/partition_gui.py:1544
 msgid "_Delete"
-msgstr "_Eyğa"
+msgstr "É¾³ı(_D)"
 
 #: ../iw/partition_gui.py:1545
 msgid "_Reset"
-msgstr "En_durstilla"
+msgstr "ÖØÉè(_R)"
 
 #: ../iw/partition_gui.py:1546
 msgid "Make _RAID"
-msgstr "Búa til _RAID"
+msgstr ""
+"´´½¨\n"
+"RAID(_R)"
 
 #: ../iw/partition_gui.py:1561 ../textw/partition_text.py:986
 msgid "Start"
-msgstr "Byrjun"
+msgstr "¿ªÊ¼"
 
 #: ../iw/partition_gui.py:1561 ../textw/partition_text.py:986
 msgid "End"
-msgstr "Endir"
+msgstr "½áÊø"
 
 #: ../iw/partition_gui.py:1562
 msgid "Format"
-msgstr "Forsníğa"
+msgstr "¸ñÊ½»¯"
 
 #: ../iw/partition_gui.py:1607 ../textw/partition_text.py:1066
 msgid "Automatic Partitioning"
-msgstr "Sjálfvirk disksneiğing"
+msgstr "×Ô¶¯·ÖÇø"
 
 #: ../iw/partition_gui.py:1626
 #, python-format
 msgid "You need to select at least one drive to have %s installed onto."
-msgstr "Şú verğur ağ velja amk. eitt drif til ağ setja %s upp á."
+msgstr "ÄãÖÁÉÙÒªÔÚÒ»¸öÇı¶¯Æ÷ÉÏ°²×° %s"
 
 #: ../iw/partition_gui.py:1666
 msgid "I want to have automatic partitioning:"
-msgstr "Ég vil sneiğa diskinn sjálfvirkt:"
+msgstr "ÎÒÏë×Ô¶¯·ÖÇø"
 
 #: ../iw/partition_gui.py:1697 ../textw/partition_text.py:1089
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr "Hvağa harğa diska viltu nota fyrir Linux?"
+msgstr "±¾´Î°²×°£¬ÄãÏëÊ¹ÓÃÄÄĞ©Çı¶¯Æ÷£¿"
 
 #: ../iw/partition_gui.py:1719
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
-msgstr "Endurskoğa (leyfir şér ağ skoğa og breyta sjálfvirku disksneiğingunni)"
+msgstr "ÆÀÉó(ÔÊĞíÄã²é¿´»ò¸Ä±ä×Ô¶¯·ÖÇøµÄ½á¹û)"
 
 #: ../iw/partmethod_gui.py:24 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr "Stillingar disksneiğingar"
+msgstr "´ÅÅÌ·ÖÇøÉèÖÃ"
 
 #: ../iw/partmethod_gui.py:59
 msgid "Have the installer automatically partition for you"
-msgstr "Láta uppsetningarforritiğ sneiğa diskinn sjálfvirkt"
+msgstr "ÈÃ°²×°³ÌĞò×Ô¶¯ÎªÄã·ÖÇø"
 
 #: ../iw/partmethod_gui.py:62
 msgid "Manually partition with Disk Druid"
-msgstr "Sneiğa handvirkt meğ Diska Drúídanum"
+msgstr "ÓÃ Disk Druid ÊÖ¹¤·ÖÇø"
 
 #: ../iw/partmethod_gui.py:65
 msgid "Manually partition with fdisk [experts only]"
-msgstr "Sneiğa handvirkt meğ fdisk [fyrir sérfræğinga]"
+msgstr "ÓÃ fdisk ³ÌĞòÊÖ¹¤·ÖÇø¡²Ö»ÏŞ×¨¼Ò¡³"
 
 #: ../iw/progress_gui.py:28
 msgid "Installing Packages"
-msgstr "Set inn pakka"
+msgstr "ÕıÔÚ°²×°Èí¼ş°ü"
 
 #: ../iw/progress_gui.py:119
 #, python-format
 msgid "%s KBytes"
-msgstr "%s KBæti"
+msgstr "%s KB"
 
 #: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 #: ../textw/partition_text.py:986
 msgid "Size"
-msgstr "Stærğ"
+msgstr "´óĞ¡"
 
 #: ../iw/progress_gui.py:193
 msgid "Summary"
-msgstr "Lısing"
+msgstr "ÕªÒª"
 
 #: ../iw/progress_gui.py:223
 msgid "Package Progress: "
-msgstr "Framvinda pakka:  "
+msgstr "Èí¼ş°ü°²×°½ø³Ì£º"
 
 #: ../iw/progress_gui.py:228
 msgid "Total Progress:   "
-msgstr "Heildarframvinda: "
+msgstr "×Ü½ø³Ì£º"
 
 #: ../iw/progress_gui.py:245
 msgid "Status"
-msgstr "Stağa"
+msgstr "×´Ì¬"
 
 #: ../iw/progress_gui.py:245
 msgid "Packages"
-msgstr "Pakkar"
+msgstr "Èí¼ş°ü"
 
 #: ../iw/progress_gui.py:245
 msgid "Time"
-msgstr "Tími"
+msgstr "Ê±¼ä"
 
 #: ../iw/progress_gui.py:255
 msgid "Total"
-msgstr "Alls"
+msgstr "ºÏ¼Æ"
 
 #: ../iw/progress_gui.py:256
 msgid "Completed"
-msgstr "Lokiğ"
+msgstr "ÒÑÍê³É"
 
 #: ../iw/progress_gui.py:257
 msgid "Remaining"
-msgstr "Eftir"
+msgstr "Ê£Óà"
 
 #: ../iw/silo_gui.py:28
 msgid "Silo Configuration"
-msgstr "Stillingar Silo"
+msgstr "Silo ÅäÖÃ"
 
 #: ../iw/silo_gui.py:172
 msgid "Install SILO boot record on:"
-msgstr "Setja SILO ræsifærsluna á:"
+msgstr "SILO Òıµ¼¼ÇÂ¼°²×°Î»ÖÃ£º"
 
 #: ../iw/silo_gui.py:189
 msgid "Create PROM alias"
-msgstr "Búa til auknefni í PROM"
+msgstr "´´½¨ PROM ±ğÃû"
 
 #: ../iw/silo_gui.py:212
 msgid "Set default PROM boot device to linux"
-msgstr "Stilli PROM til ağ ræsa upp linux"
+msgstr "½« Linux ÉèÖÃÎª PROM Ä¬ÈÏµÄÒıµ¼Éè±¸"
 
 #: ../iw/silo_gui.py:216
 msgid "Kernel parameters"
-msgstr "Viğföng kjarnans"
+msgstr "ÄÚºË²ÎÊı"
 
 #: ../iw/silo_gui.py:234
 msgid "Create boot disk"
-msgstr "Búa til ræsidiskling"
+msgstr "´´½¨Òıµ¼ÅÌ"
 
 #: ../iw/silo_gui.py:244
 msgid "Do not install SILO"
-msgstr "Ekki setja upp SILO"
+msgstr "²»°²×° SILO"
 
 #: ../iw/timezone_gui.py:44 ../textw/timezone_text.py:95
 msgid "Time Zone Selection"
-msgstr "Val tímabeltis"
+msgstr "Ñ¡ÔñÊ±Çø"
 
 #: ../iw/timezone_gui.py:187
 msgid "View:"
-msgstr "Skoğa:"
+msgstr "ÊÓÍ¼£º"
 
 #: ../iw/timezone_gui.py:195 ../iw/timezone_gui.py:196
 msgid "System clock uses UTC"
-msgstr "Klukkan í vélinni er á UTC"
+msgstr "ÏµÍ³Ê±ÖÓÊ¹ÓÃ UTC"
 
 #: ../iw/timezone_gui.py:242
 msgid "Use Daylight Saving Time (US only)"
-msgstr "Nota sumartíma/vetrartíma"
+msgstr "Ê¹ÓÃÏÄÁîÊ±(½öÏŞÓÚÃÀ¹ú)"
 
 #: ../iw/timezone_gui.py:256
 msgid "Location"
-msgstr "Stağsetning"
+msgstr "Î»ÖÃ"
 
 #: ../iw/timezone_gui.py:257
 msgid "UTC Offset"
-msgstr "Frávik frá UTC"
+msgstr "UTC Æ«ÒÆ"
 
 #: ../iw/upgrade_bootloader_gui.py:29 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Uppfæra stillingar ræsistjóra"
+msgstr "Éı¼¶Òıµ¼×°ÔØ³ÌĞòÅäÖÃ"
 
 #: ../iw/upgrade_bootloader_gui.py:69 ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr "Uppfæra stillingar ræsistjóra"
+msgstr "¸üĞÂÒıµ¼×°ÔØ³ÌĞòÅäÖÃ"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
-msgstr "Şetta mun uppfæra núverandi ræsistjóra."
+msgstr "Õâ½«»á¸üĞÂÄãÄ¿Ç°µÄÒıµ¼×°ÔØ³ÌĞò¡£"
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
-msgstr "Uppsetningarforritiğ hefur fundiğ %s ræsistjórann á %s."
+msgstr "°²×°³ÌĞò¼ì²âµ½ %s Òıµ¼°²×°³ÌĞòÄ¿Ç°°²×°ÔÚ %s ÉÏ¡£"
 
 #: ../iw/upgrade_bootloader_gui.py:77
 msgid "This is the recommended option."
-msgstr "Mælt er meğ şessu."
+msgstr "ÕâÊÇÒ»¸öÍÆ¼öµÄÑ¡Ïî¡£"
 
 #: ../iw/upgrade_bootloader_gui.py:81 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"Uppsetningarforritiğ finnur ekki ræsistjórann sem er núna í notkun á vélinni "
-"şinni."
+msgstr "°²×°³ÌĞòÎŞ·¨ÔÚÄãµÄÏµÍ³ÉÏ¼ì²âµ½Ä¿Ç°Ê¹ÓÃµÄÒıµ¼°²×°³ÌĞò¡£"
 
 #: ../iw/upgrade_bootloader_gui.py:90 ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr "Búa til nıjar ræsistjórastillingar"
+msgstr "´´½¨ĞÂµÄÒıµ¼×°ÔØ³ÌĞòÅäÖÃ"
 
 #: ../iw/upgrade_bootloader_gui.py:92
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
-"Şetta gerir şér kleyft ağ velja nıjar ræsistjórastillingar. Ef şú vilt "
-"skipta um ræsistjóra ættir şú ağ velja şetta."
+"Õâ½«»á´´½¨Ò»¸öĞÂµÄÒıµ¼°²×°³ÌĞòÅäÖÃ¡£Èç¹ûÄãÏëÔÚÒıµ¼°²×°³ÌĞò¼äÇĞ»»£¬ÇëÑ¡Ôñ´ËÑ¡"
+"Ïî¡£"
 
 #: ../iw/upgrade_bootloader_gui.py:99 ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
-msgstr "sleppa uppfærslu ræsistjóra"
+msgstr "Ìø¹ıÒıµ¼×°ÔØ³ÌĞòµÄ¸üĞÂ"
 
 #: ../iw/upgrade_bootloader_gui.py:100
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
-"Şetta veldur engum breytingum á ræsistjóranum. Ef şú ert ağ nota ræsistjóra "
-"frá şriğja ağila, şá ættir şú ağ velja şetta."
+"Õâ½«²»»á¶ÔÄãµÄÒıµ¼°²×°³ÌĞò×öÈÎºÎ¸Ä±ä¡£Èç¹ûÄãÊ¹ÓÃµÚÈı·½Òıµ¼°²×°³ÌĞò£¬ÇëÑ¡Ôñ´Ë"
+"Ñ¡Ïî¡£"
 
 #: ../iw/upgrade_bootloader_gui.py:112
 msgid "What would you like to do?"
-msgstr "Hvağ viltu gera?"
+msgstr "ÄãÏëÔõÃ´°ìÄØ£¿"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:31
 msgid "Migrate Filesystems"
-msgstr "Breyta skráarkerfum"
+msgstr "ÒÆÖ²ÎÄ¼şÏµÍ³"
 
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:33
 #, python-format
@@ -2874,16 +2773,14 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Şessi útgáfa af %s styğur ext3 \"journalling\" skráarkerfiğ. Ext3 hefur "
-"marga eiginleika umfram ext2 sem er stağlağa skráarkerfiğ sem hefur veriğ í %"
-"s hingağ til. Şağ er einnig hægt ağ breyta disksneiğum sem eru forsniğnar "
-"sem ext2 í ext3 án şess ağ tapa gögnum.\n"
+"%s µÄ´Ë´Î·¢ĞĞ°æÖ§³Ö ext3 ÎÄ¼şÏµÍ³£¬ÕâÔÚºÜ¶à·½Ãæ¶¼ÓÅÓÚ %s ÖĞ´«Í³¸½´øµÄ ext2 ÎÄ"
+"¼şÏµÍ³¡£ÔÚ½« ext2 ¸ñÊ½»¯¹ıµÄ·ÖÇøÒÆÖ²µ½ ext3 Ê±¿ÉÄÜ²»»á¶ªÊ§Êı¾İ¡£\n"
 "\n"
-"Hvağa disksneiğum viltu breyta ?"
+"ÄãÏëÒÆÖ²ÄÄĞ©·ÖÇøÄØ£¿"
 
 #: ../iw/upgrade_swap_gui.py:30
 msgid "Upgrade Swap Partition"
-msgstr "Uppfæra diskminnissneiğ"
+msgstr "Éı¼¶½»»»·ÖÇø"
 
 #: ../iw/upgrade_swap_gui.py:90
 #, python-format
@@ -2893,10 +2790,8 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"Linux 2.4 kjarninn şarfnast talvert meira diskminnis en endri kjarnar. Magn "
-"diskminnis ætti nú ağ vera allt ağ tvöfalt vinnsluminni vélarinnar ağ stærğ."
-"Şú er núna meğ %dMB af diskminni skilgreint og getur búiğ til viğbótar "
-"diskminni á einhverju af skráarkerfunum şínum núna."
+"2.4 ÄÚºËËùĞè½»»»ÇøÒª±È¾É°æÄÚºË´óµÃ¶à£¬´óÖÁÄãÏµÍ³ RAM µÄÁ½±¶¡£ÄãÄ¿Ç°ÅäÖÃÁË %d "
+"MB ½»»»Çø£¬µ«ÏÖÔÚÄã¿ÉÒÔÔÚÈÎºÎÒ»¸öÎÄ¼şÏµÍ³ÖĞ´´½¨¶îÍâµÄ½»»»Çø¡£"
 
 #: ../iw/upgrade_swap_gui.py:97
 #, python-format
@@ -2907,36 +2802,34 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Uppsetningarforritiğ hefur fundiğ %s MB af vinnsluminni.\n"
+"°²×°³ÌĞò¼ì²âµ½ %s MB RAM¡£\n"
 
 #: ../iw/upgrade_swap_gui.py:109
 msgid "I want to create a swap file"
-msgstr "Ég vil búa til diskminnisskrá"
+msgstr "ÎÒÏë´´½¨Ò»¸ö½»»»ÎÄ¼ş"
 
 #: ../iw/upgrade_swap_gui.py:118
 msgid "Select the partition to put the swap file on:"
-msgstr "Veldu disksneiğina til ağ setja diskminnisskrá á:"
+msgstr "Ñ¡Ôñ´æ·Å½»»»ÎÄ¼şµÄ·ÖÇø£º"
 
 #: ../iw/upgrade_swap_gui.py:123
 msgid "Free Space (MB)"
-msgstr "Laust pláss (MB)"
+msgstr "¿ÕÏĞ´ÅÅÌ¿Õ¼ä(MB)"
 
 #: ../iw/upgrade_swap_gui.py:138
 #, python-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
-msgstr ""
-"Mælt er meğ ağ diskminnisskráin sé ağ minnsta kosti %d MB.  Vinsamlegast "
-"sláğu inn stærğ diskminnisskráarinnar:"
+msgstr "ÍÆ¼öÄã½«½»»»ÎÄ¼şÖÁÉÙ¶¨Îª %d MB¡£ÇëÊäÈë½»»»ÎÄ¼şµÄ´óĞ¡£º"
 
 #: ../iw/upgrade_swap_gui.py:153 ../textw/upgrade_text.py:130
 msgid "Swap file size (MB):"
-msgstr "Stærğ diskminnisskráar (MB):"
+msgstr "½»»»ÎÄ¼ş´óĞ¡(MB)£º"
 
 #: ../iw/upgrade_swap_gui.py:162
 msgid "I don't want to create a swap file"
-msgstr "Ég vil ekki búa til diskminnisskrá"
+msgstr "ÎÒ²»Ïë´´½¨½»»»ÎÄ¼ş"
 
 #: ../iw/upgrade_swap_gui.py:172
 msgid ""
@@ -2944,73 +2837,72 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
-"Viğ mælum sterklega meğ ağ şú búir til diskminnisskrá. Ef şú gerir şağ ekki "
-"getur uppsetningaforritiğ hruniğ.  Ertu viss um ağ şú viljir halda áfram ?"
+"Ç¿ÁÒ½¨ÒéÄã´´½¨Ò»¸ö½»»»ÎÄ¼ş£¬·ñÔò»áµ¼ÖÂ°²×°³ÌĞò·ÇÕı³£ÖĞÖ¹¡£ÄãÈ·ĞÅÒª¼ÌĞøÃ´£¿"
 
 #: ../iw/upgrade_swap_gui.py:180 ../textw/upgrade_text.py:175
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Stærğ diskminnisskráarinnar verur ağ vera á milli 1 og 2000 MB."
+msgstr "½»»»ÎÄ¼şµÄ´óĞ¡±ØĞëÔÚ 1MB µ½ 2000MB Ö®¼ä¡£"
 
 #: ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:170
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"Şağ er ekki nægjanlegt laust pláss á disknum sem şú valdir fyrir "
-"diskminnissneiğina."
+msgstr "ÄãËùÑ¡µÄ½»»»·ÖÇøÔÚ´ËÉè±¸ÉÏ¿Õ¼ä²»¹»¡£"
 
 #: ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
 msgid "Welcome"
-msgstr "Velkomin(n)"
+msgstr "»¶Ó­"
 
 #: ../iw/welcome_gui.py:62
 msgid "Exiting anaconda now"
-msgstr "Anaconda hættir nú"
+msgstr "ÏÖÔÚÕıÍË³ö anaconda"
 
 #: ../iw/welcome_gui.py:89
 msgid "Would you like to configure your system?"
-msgstr "Viltu stilla kerfiğ şitt?"
+msgstr "ÄãÏëÒªÅäÖÃÄãµÄÏµÍ³Âğ£¿"
 
 #: ../iw/xconfig_gui.py:32
 msgid "Customize Graphics Configuration"
-msgstr "Sérsníğa grafískar stillingar"
+msgstr "¶¨ÖÆÍ¼ĞÎÅäÖÃ"
 
 #: ../iw/xconfig_gui.py:197 ../textw/xconfig_text.py:183
 msgid "Color Depth:"
-msgstr "Litadıpt:"
+msgstr "É«²ÊÉî¶È£º"
 
 #: ../iw/xconfig_gui.py:202 ../textw/xconfig_text.py:100
 msgid "256 Colors (8 Bit)"
-msgstr "256 litir (8 bita)"
+msgstr "256É«(8 Î»)"
 
 #: ../iw/xconfig_gui.py:202 ../textw/xconfig_text.py:100
 msgid "High Color (16 Bit)"
-msgstr "Mjög margir litir (16 bita)"
+msgstr "¸ßÉ«(16 Î»)"
 
 #: ../iw/xconfig_gui.py:202 ../textw/xconfig_text.py:100
 msgid "True Color (24 Bit)"
-msgstr "Allir litirnir (24 bita)"
+msgstr "ÕæÉ«(24 Î»)"
 
 #: ../iw/xconfig_gui.py:211
 msgid "Screen Resolution:"
-msgstr "Upplausn skjás:"
+msgstr "ÆÁÄ»·Ö±æÂÊ£º"
 
 #: ../iw/xconfig_gui.py:305
 msgid "   Test Setting   "
-msgstr " Prófa stillingar "
+msgstr "   ²âÊÔÉèÖÃ   "
 
 #: ../iw/xconfig_gui.py:328
 msgid "Please choose your default desktop environment:"
-msgstr "Vinsamlegast veldu sjálfgefiğ skjáborğsumhverfi:"
+msgstr "ÇëÑ¡ÔñÄãÄ¬ÈÏµÄ×ÀÃæ»·¾³£º"
 
 #: ../iw/xconfig_gui.py:330
 msgid "Your desktop environment is:"
-msgstr "Sjálfgefiğ skjáborğsumhverfi er:"
+msgstr "ÄãµÄ×ÀÃæ»·¾³ÊÇ£º"
 
+# ../comps/comps-master:259
 #: ../iw/xconfig_gui.py:345 ../textw/xconfig_text.py:204
 #: ../textw/xconfig_text.py:213
 msgid "GNOME"
 msgstr "GNOME"
 
+# ../comps/comps-master:315
 #: ../iw/xconfig_gui.py:347 ../textw/xconfig_text.py:206
 #: ../textw/xconfig_text.py:215
 msgid "KDE"
@@ -3018,71 +2910,71 @@ msgstr "KDE"
 
 #: ../iw/xconfig_gui.py:376
 msgid "Please choose your login type:"
-msgstr "Vinsamlega veldu tegund kveğju:"
+msgstr "ÇëÑ¡ÔñÄãµÄµÇÂ¼ÀàĞÍ£º"
 
 #: ../iw/xconfig_gui.py:383 ../textw/xconfig_text.py:224
 msgid "Text"
-msgstr "Texti"
+msgstr "ÎÄ±¾"
 
 #: ../iw/xconfig_gui.py:384 ../textw/xconfig_text.py:222
 msgid "Graphical"
-msgstr "Myndræn"
+msgstr "Í¼ĞÎ»¯"
 
 #: ../iw/xconfig_gui.py:401 ../textw/xconfig_text.py:392
 msgid "Monitor Configuration"
-msgstr "Stillingar skjás"
+msgstr "ÏÔÊ¾Æ÷ÅäÖÃ"
 
 #: ../iw/xconfig_gui.py:564 ../iw/xconfig_gui.py:891
 msgid "Generic"
-msgstr "Almennur"
+msgstr "Í¨ÓÃ"
 
 #: ../iw/xconfig_gui.py:601
 msgid "DDC Probed Monitor"
-msgstr "Skjár fundinn meğ DDC"
+msgstr "DDC Ì½²â¹ıµÄÏÔÊ¾Æ÷"
 
 #: ../iw/xconfig_gui.py:603
 msgid "Unprobed Monitor"
-msgstr "Unprobed skjár"
+msgstr "Î´Ì½²â¹ıµÄÏÔÊ¾Æ÷"
 
 #: ../iw/xconfig_gui.py:650 ../iw/xconfig_gui.py:1007
 msgid "Restore original values"
-msgstr "Endurheimta fyrri gildi"
+msgstr "»Ö¸´Ô­Öµ"
 
 #: ../iw/xconfig_gui.py:658
 msgid "Horizontal Sync:"
-msgstr "Lárétt samhæfing:"
+msgstr "Ë®Æ½ÆµÂÊ·¶Î§£º"
 
 #: ../iw/xconfig_gui.py:660
 msgid "Vertical Sync:"
-msgstr "Lóğrétt samhæfing:"
+msgstr "´¹Ö±ÆµÂÊ·¶Î§£º"
 
 #: ../iw/xconfig_gui.py:666
 msgid "kHz"
-msgstr "kHz"
+msgstr "Ç§ºÕ×È"
 
 #: ../iw/xconfig_gui.py:669
 msgid "Hz"
-msgstr "Hz"
+msgstr "ºÕ×È"
 
 #: ../iw/xconfig_gui.py:687
 msgid "Graphical Interface (X) Configuration"
-msgstr "Myndræn (X) stilling"
+msgstr "Í¼ĞÎ»¯½çÃæ(X)ÅäÖÃ"
 
 #: ../iw/xconfig_gui.py:723
 msgid "Unknown server"
-msgstr "Óşekktur şjónn"
+msgstr "Î´Öª·şÎñÆ÷"
 
 #: ../iw/xconfig_gui.py:724
 msgid ""
 "This video card has no suitable X server in the database.  You will need to "
 "choose a different card or choose the 'Skip X Configuration' button."
 msgstr ""
-"Şetta skjákort hefur engann X rekil sem hentar şví í gagnagrunninum. Şú "
-"şarft ağ velja annağ kort eğa nota 'Sleppa ağ stilla X' hnappinn."
+"´ËÊÓÆµ¿¨ÔÚÊı¾İ¿âÖĞÃ»ÓĞÏàÅäµÄ X ·şÎñÆ÷¡£ÄãĞèÒªÑ¡ÔñÒ»ÕÅ²»Í¬µÄ¿¨£¬»òÑ¡Ôñ¡°Ìø¹ı "
+"X ÅäÖÃ¡±°´Å¥¡£"
 
 #: ../iw/xconfig_gui.py:731 ../textw/xconfig_text.py:620
 msgid "Unspecified video card"
-msgstr "Ótilgreint skjákort"
+msgstr "Î´Ö¸¶¨µÄÊÓÆµ¿¨"
 
 #: ../iw/xconfig_gui.py:732 ../textw/xconfig_text.py:621
 msgid ""
@@ -3090,44 +2982,38 @@ msgid ""
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
 "button."
 msgstr ""
-"Şú şarft ağ velja skjákort áğur en hægt er ağ stilla X gluggakerfiğ. Ef şú "
-"vilt sleppa şví ağ stilla X getur şú valiğ 'Sleppa ağ stilla X' hnappinn."
+"Èç¹ûÄãÏë¼ÌĞøÅäÖÃ X£¬ÄãĞèÒªÌôÑ¡Ò»ÖÖÊÓÆµ¿¨¡£Èç¹ûÄãÏëÌø¹ı X ÅäÖÃµÄÕû¸ö¹ı³Ì£¬ÔòÑ¡"
+"Ôñ¡°Ìø¹ı X ÅäÖÃ¡±¼ü¡£"
 
 #: ../iw/xconfig_gui.py:852
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
-msgstr ""
-"Ekki var hægt ağ finna magn skjáminnis sjálfvirkt. Veldu magn skjáminnis úr "
-"listanum ağ neğan:"
+msgstr "ÎŞ·¨×Ô¶¯¼ì²âµ½ÄãµÄÊÓÆµÄÚ´æ´óĞ¡£¬ÇëÔÚÒÔÏÂÁĞ±íÖĞÑ¡Ôñ£º"
 
 #: ../iw/xconfig_gui.py:860
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
-msgstr ""
-"Í flestum tilfellum er hægt ağ leita sjálfvirkt eftir bestu stillingunum "
-"fyrir skjáinn şinn."
+msgstr "ÏµÍ³Í¨³£¿ÉÒÔÌ½²âÊÓÆµÓ²¼ş£¬ÒÔ×Ô¶¯È·¶¨ÊÊÓÃÓÚÏÔÊ¾Æ÷µÄ×î¼ÑÉèÖÃ¡£"
 
 #: ../iw/xconfig_gui.py:866
 msgid ""
 "If the probed settings do not match your hardware, select the correct "
 "hardware settings below:"
-msgstr ""
-"Ef útkoma leitarinnar passar ekki viğ vélbúnağinn şinn, veldu réttar "
-"stillingar hér:"
+msgstr "Èç¹ûÌ½²â¹ıµÄÉèÖÃÓëÄãµÄÓ²¼ş²»·û£¬Çë´ÓÒÔÏÂÑ¡ÔñÕıÈ·µÄÓ²¼şÉèÖÃ£º"
 
 #: ../iw/xconfig_gui.py:896
 msgid "Other"
-msgstr "Önnur"
+msgstr "ÆäËü"
 
 #: ../iw/xconfig_gui.py:985
 msgid "Video card RAM: "
-msgstr "Vinnsluminni skjákorts: "
+msgstr "ÊÓÆµ¿¨ RAM£º"
 
 #: ../iw/xconfig_gui.py:1011 ../textw/xconfig_text.py:578
 msgid "Skip X Configuration"
-msgstr "Sleppa ağ stilla X"
+msgstr "Ìø¹ı X ÅäÖÃ"
 
 #: ../textw/bootdisk_text.py:27
 msgid ""
@@ -3140,38 +3026,36 @@ msgid ""
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"Sérsmíğağur ræsidisklingur gerir şér kleyft ağ ræsa Linux án şess ağ nota "
-"venjulegann ræsistjóra. Şetta kemur ağ gagni ef şú vilt ekki setja upp Lilo "
-"á vélinni eğa ef annağ stırikerfi hefur fjarlægt Lilo eğa Lilo virkar ekki "
-"meğ vélbúnağarstillingum şínum. Ræsidiskling má einnig nota meğ Red Hat "
-"'rescue' disklingnum svo hægt sé ağ bjarga vélinni ef alvarleg vandamál koma "
-"upp.\n"
+"¶¨ÖÆµÄÒıµ¼ÅÌ¿ÉÒÔ°ÑÄãÒıµ¼ÖÁ Linux ÏµÍ³£¬¶øÎŞĞèÒÀÀµÓÚÕı³£µÄÒıµ¼×°ÔØ³ÌĞò¡£Èç¹ûÄã"
+"²»ÏëÔÚÏµÍ³ÖĞ°²×° lilo£¬»òÊÇÁíÒ»¸ö²Ù×÷ÏµÍ³ÒÑÉ¾³ı lilo£¬»òÊÇ lilo ÎŞ·¨ÓëÄãµÄÓ²"
+"¼şÅäÖÃÅäºÏ¹¤×÷£¬´ËÒıµ¼ÅÌ½«¶ÔÄã´óÓĞñÔÒæ¡£¶¨ÖÆÒıµ¼ÅÌ»¹¿ÉÒÔÓë Red Hat ¾ÈÔ®Ó³ÏñÅä"
+"ºÏ¹¤×÷£¬ÔÚ³öÏÖÑÏÖØÏµÍ³¹ÊÕÏÊ±¸üÈİÒ×µØ»Ö¸´Õı³£ÔËĞĞ¡£\n"
 "\n"
-"Viltu búa til ræsidiskling fyrir vélina şína?"
+"ÊÇ·ñÎªÄãµÄÏµÍ³´´½¨Ò»ÕÅÒıµ¼ÅÌ£¿"
 
 #: ../textw/bootdisk_text.py:51 ../textw/bootdisk_text.py:87
 msgid "Boot Disk"
-msgstr "Ræsidisklingur"
+msgstr "Òıµ¼ÅÌ"
 
 #: ../textw/bootloader_text.py:29
 msgid "Which boot loader would you like to use?"
-msgstr "Hvağa ræsistjóra viltu nota?"
+msgstr "ÄãÏëÓÃÄÄÒ»¸öÒıµ¼×°ÔØ³ÌĞòÄØ£¿"
 
 #: ../textw/bootloader_text.py:45
 msgid "Use GRUB Boot Loader"
-msgstr "Nota GRUB ræsistjórann"
+msgstr "Ê¹ÓÃ GRUB Òıµ¼×°ÔØ³ÌĞò"
 
 #: ../textw/bootloader_text.py:46
 msgid "Use LILO Boot Loader"
-msgstr "Nota LILO ræsistjórann"
+msgstr "Ê¹ÓÃ LILO Òıµ¼×°ÔØ³ÌĞò"
 
 #: ../textw/bootloader_text.py:47
 msgid "No Boot Loader"
-msgstr "Engan ræsistjóra"
+msgstr "ÎŞÒıµ¼×°ÔØ³ÌĞò"
 
 #: ../textw/bootloader_text.py:68
 msgid "Skip Boot Loader"
-msgstr "sleppa ræsistjóra"
+msgstr "Ìø¹ıÒıµ¼×°ÔØ³ÌĞò"
 
 #: ../textw/bootloader_text.py:69
 msgid ""
@@ -3182,11 +3066,11 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Şú hefur kosiğ ağ setja ekki upp ræsistjóra. Viğ mælum eindregiğ meğ ağ "
-"ræsistjóri sé uppsettur nema şú hafir einhverjar sérşarfir. Ræsistjóri er "
-"nauğsynlegur til şess ağ ræsa upp Linux beint af harğa disknum şínum. \n"
+"ÄãÑ¡ÔñÁËÒª²»°²×°Òıµ¼×°ÔØ³ÌĞò¡£³ı·ÇÄãÁíÓĞ¸ß¼¶ĞèÇó£¬Ç¿ÁÒ½¨ÒéÄã°²×°Ò»¸öÒıµ¼×°ÔØ"
+"³ÌĞò¡£ÈôÒª´ÓÓ²ÅÌÉÏÖ±½Ó°ÑÄãµÄÏµÍ³ÖØĞÂÆô¶¯µ½ Linux£¬Òıµ¼×°ÔØ³ÌĞòÍ¨³£ÊÇ±Ø±¸Ö®"
+"Îï¡£\n"
 "\n"
-"Ertu viss um ağ şú viljir sleppa uppsetningu ræsistjóra?"
+"ÄãÈ·ĞÅÒªÌø¹ı°²×°Òıµ¼×°ÔØ³ÌĞòÕâÒ»²½ÖèÂğ£¿"
 
 #: ../textw/bootloader_text.py:102 ../textw/silo_text.py:25
 msgid ""
@@ -3195,34 +3079,33 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-"Á sumum vélum er nauğsynlegt ağ gefa kjarnanum sérstök viğföng viğ ræsingu "
-"svo vélin virki rétt. Ef vélin şín er ein af şessum vélum sláğu şá inn "
-"viğföngin núna. Ef şú ert ekki viss hafğu şetta autt."
+"ÔÚÒıµ¼¹ı³ÌÖĞ£¬Ä³Ğ©ÏµÍ³ĞèÒª½«ÌØÊâÑ¡Ïî´«µİÖÁÄÚºË²ÅÄÜÕı³£ÔËĞĞ¡£Èç¹ûĞèÒª½«Òıµ¼Ñ¡"
+"Ïî´«µİÖÁÄÚºË£¬ÇëÏÖÔÚÊäÈëÕâĞ©Ñ¡Ïî£»Èç¹û²»ĞèÒª»òÎŞ·¨È·¶¨£¬Çë½«´ËÏîÁôÎª¿Õ°×¡£"
 
 #: ../textw/bootloader_text.py:169
 msgid "Where do you want to install the boot loader?"
-msgstr "Hvar viltu setja upp ræsistjórann?"
+msgstr "ÄãÏëÔÚºÎ´¦°²×°Òıµ¼×°ÔØ³ÌĞò£¿"
 
 #: ../textw/bootloader_text.py:201 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
-msgstr "Hreinsa"
+msgstr "Çå³ı"
 
 #: ../textw/bootloader_text.py:209
 msgid "Edit Boot Label Please"
-msgstr "Vinsamlegast breyttu ræsimerkinu"
+msgstr "Çë±à¼­Òıµ¼¾í±ê"
 
 #: ../textw/bootloader_text.py:227 ../textw/bootloader_text.py:232
 msgid "Invalid Boot Label"
-msgstr "Ógilt ræsimerki"
+msgstr "Òıµ¼¾í±êÎŞĞ§"
 
 #: ../textw/bootloader_text.py:228
 msgid "Boot label may not be empty."
-msgstr "Ræsimerkiğ má ekki vera tómt."
+msgstr "Òıµ¼¾í±ê²»ÄÜ¿Õ°×"
 
 #: ../textw/bootloader_text.py:233
 msgid "Boot label contains illegal characters."
-msgstr "Heiti ræsamerkis inniheldur ólöglegt tákn."
+msgstr "Òıµ¼¾í±ê°üº¬²»ºÏ·¨×Ö·û"
 
 #: ../textw/bootloader_text.py:285 ../textw/silo_text.py:219
 msgid ""
@@ -3230,48 +3113,46 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
-"Ræsistjórinn sem fylgir Red Hat getur einnig ræst upp önnur stırikerfi. Şú "
-"şarft ağ ağ merkja viğ şær sneiğar sem şú vilt geta ræst upp af og hvağa "
-"heiti şær eiga ağ fá."
+"Red Hat Ê¹ÓÃµÄÒıµ¼¹ÜÀí³ÌĞòÒ²¿ÉÒÔÒıµ¼ÆäËü²Ù×÷ÏµÍ³¡£Äã±ØĞëÊäÈëÏ£ÍûÄÜ¹»Òıµ¼µÄ·Ö"
+"Çø£¬ÒÔ¼°ÓÃÓÚÆäÖĞÃ¿Ò»¸ö·ÖÇøµÄ±êÇ©¡£"
 
 #: ../textw/bootloader_text.py:298
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-" <Bilslá> velur hnapp | <F2> velur sjálfgefna ræsifærslu | <F12> Næsti skjár>"
+msgstr " <Space> Ñ¡Ôñ°´Å¥ | <F2> Ñ¡ÔñÄ¬ÈÏµÄÒıµ¼ÏîÄ¿ | <F12> ÏÂÒ»ÆÁ"
 
 #: ../textw/bootloader_text.py:384
 msgid "Use a GRUB Password"
-msgstr "Nota GRUB lykilorğ"
+msgstr "Ê¹ÓÃ GRUB ¿ÚÁî"
 
 #: ../textw/bootloader_text.py:396
 msgid "Boot Loader Password:"
-msgstr "Ræsistjóralykilorğ:"
+msgstr "Òıµ¼×°ÔØ³ÌĞò¿ÚÁî£º "
 
 #: ../textw/bootloader_text.py:426
 msgid "Passwords Do Not Match"
-msgstr "Lykilorğin stemma ekki"
+msgstr "¿ÚÁî²»·û"
 
 #: ../textw/bootloader_text.py:427
 msgid "Passwords do not match"
-msgstr "Lykilorğin stemma ekki"
+msgstr "¿ÚÁî²»·û"
 
 #: ../textw/bootloader_text.py:431
 msgid "Password Too Short"
-msgstr "Lykilorğiğ er of stutt"
+msgstr "¿ÚÁîÌ«¶Ì"
 
 #: ../textw/bootloader_text.py:432
 msgid "Boot loader password is too short"
-msgstr "Ræsistjóralykilorğiğ er of stutt"
+msgstr "Òıµ¼×°ÔØ³ÌĞò¿ÚÁîÌ«¶Ì"
 
 #: ../textw/complete_text.py:26
 msgid "<Enter> to reboot"
-msgstr "<Enter> til ağ endurræsa"
+msgstr "°´»Ø³µ¼üÖØĞÂÒıµ¼"
 
 #: ../textw/complete_text.py:36 ../textw/complete_text.py:57
 #: ../textw/complete_text.py:72
 msgid "Complete"
-msgstr "Lokiğ"
+msgstr "Íê³É"
 
 #: ../textw/complete_text.py:37
 #, python-format
@@ -3287,21 +3168,18 @@ msgid ""
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/docs."
 msgstr ""
-"Til hamingju, uppsetningu %s er lokiğ.\n"
+"×£ºØÄã£¡%s °²×°ÒÑÍê³É¡£\n"
 "\n"
-"Fjarlægğu disklinga og geisladiska úr drifunum sem şú notağir í "
-"uppsetningunni og sláğu á <Enter> til ağ endurræsa vélina. \n"
+"È¡³öÒıµ¼ÅÌ£¬È»ºó°´»Ø³µ¼üÖØĞÂÒıµ¼ÏµÍ³¡£ \n"
 "\n"
-"%sÁ http://www.redhat.com/errata má finna uppfærslur, viğbætur og/eğa "
-"lagfæringar á göllum sem gætu veriğ til stağar í şessari útgáfu af "
-"stırikerfinu.\n"
-"\n"
-"Frekari upplısingar um hvernig á ağ stilla vélina eftir uppsetninguna er ağ "
-"finna í Red Hat Linux handbókunum á http://www.redhat.com/docs."
+"%sÓĞ¹ØÎª´Ë Red Hat Linux °æ±¾Ìá¹©µÄĞ£ÕıĞÅÏ¢(¸üĞÂ¼°¸Ä´í)£¬Çë²éÔÄ http://www."
+"redhat.com/errata ÉÏµÄ¿±Îó±í¡£\n"
+"ÓĞ¹ØÊ¹ÓÃ¼°ÅäÖÃÏµÍ³µÄĞÅÏ¢Ôò¿Éµ½ http://www.redhat.com/docs ÍøÒ³ÉÏ  Red Hat "
+"Linux ÓÃ»§ÊÖ²áÖĞ²éÔÄ¡£"
 
 #: ../textw/complete_text.py:55
 msgid "<Enter> to continue"
-msgstr "<Enter> til ağ halda áfram"
+msgstr "°´»Ø³µ¼üÀ´¼ÌĞø"
 
 #: ../textw/complete_text.py:58
 #, python-format
@@ -3313,18 +3191,18 @@ msgid ""
 "Information on configuring and using your Red Hat Linux system is contained "
 "in the %s manuals."
 msgstr ""
-"Til hamingju, uppsetningu pakka er lokiğ.\n"
+"×£ºØÄã£¬Èí¼ş°ü°²×°ÒÑÍê³É¡£\n"
 "\n"
-"Sláğu á return til ağ halda áfram.\n"
+"Çë°´»Ø³µ¼üÒÔ¼ÌĞø¡£\n"
 "\n"
-"Upplısingar um hvernig stilla skuli kerfiğ og nota şağ eru í %s handbókunum."
+"¹ØÓÚÅäÖÃ¼°Ê¹ÓÃ Red Hat Liunx ÏµÍ³µÄĞÅÏ¢°üÀ¨ÔÚ %s ÊÖ²áÖĞ¡£"
 
 #: ../textw/complete_text.py:69
 msgid "<Enter> to exit"
-msgstr "<Enter> til ağ hætta"
+msgstr "°´»Ø³µ¼üÍË³ö"
 
 #: ../textw/complete_text.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -3334,34 +3212,32 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs."
 msgstr ""
-"Til hamingju, uppsetningu er lokiğ.\n"
+"×£ºØÄã£¡ÅäÖÃÒÑÍê³É¡£\n"
 "\n"
-"Á http://www.redhat.com/errata má finna uppfærslur, viğbætur og/eğa "
-"lagfæringar á göllum sem gætu veriğ til stağar í şessari útgáfu af "
-"stırikerfinu.\n"
-"\n"
-"Frekari upplısingar um hvernig á ağ stilla vélina eftir uppsetninguna er ağ "
-"finna í Red Hat Linux handbókunum á http://www.redhat.com/docs."
+"ÓĞ¹ØÎª´Ë°æ±¾Ìá¹©µÄĞ£ÕıĞÅÏ¢(¸üĞÂ¼°¸Ä´í)£¬Çë²éÔÄ http://www.redhat.com/errata "
+"ÉÏµÄ¿±Îó±í¡£\n"
+"ÓĞ¹ØÊ¹ÓÃ¼°ÅäÖÃÏµÍ³µÄĞÅÏ¢Ôò¿Éµ½ http://www.redhat.com/docs ÍøÒ³ÉÏ %sÓÃ»§ÊÖ²áÖĞ"
+"²éÔÄ¡£"
 
 #: ../textw/confirm_text.py:20
 msgid "Installation to begin"
-msgstr "Uppsetning ağ hefjast"
+msgstr "¼´½«¿ªÊ¼°²×°"
 
 #: ../textw/confirm_text.py:21
 msgid ""
 "A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"Eftir ağ uppsetningunni lıkur verğur til annáll sem heitir /root/install."
-"log. Honum ættir şú ağ halda til haga."
+"ÖØĞÂÒıµ¼ÏµÍ³ºó£¬Ò»·İÍêÕûµÄ°²×°ÈÕÖ¾½«»á±£´æÔÚ /root/install.log ¡£Äã¿ÉÄÜĞèÒª±£"
+"Áô´ËÎÄ¼ş¹©ÒÔºó²Î¿¼¡£"
 
 #: ../textw/confirm_text.py:32
 msgid "Upgrade to begin"
-msgstr "Uppfærsla ağ byrja"
+msgstr "Éı¼¶¿ªÊ¼"
 
 #: ../textw/fdisk_text.py:40
 msgid "Choose a disk to run fdisk on"
-msgstr "Veldu disk til ağ keyra fdisk á"
+msgstr "Ñ¡ÔñÒªÔËĞĞ fdisk ÃüÁîµÄ´ÅÅÌ"
 
 #: ../textw/firewall_text.py:27
 msgid ""
@@ -3370,19 +3246,17 @@ msgid ""
 "as telnet or printing), but allows other connections. No firewall allows all "
 "connections and is not recommended. "
 msgstr ""
-"Eldveggur ver vélina gegn óæskilegum nettengingum. Hátt öryggisstig stöğvar "
-"allar tengingar sem eru á leiğ inn. Miğlungsöryggi lokar á tengingar á ımsar "
-"kerfisşjónustur (eins og til dæmis telnet og prentun) en leyfir ağrar "
-"tengingar. Ef enginn eldveggur er valinn er öllum tengingum hleypt inn og "
-"şağ er ekki mælt meğ şví."
+"·À»ğÇ½¿ÉÒÔµÖÓùÎ´¾­ÊÚÈ¨µÄÍøÂçÇÖ·¸¡£¸ß¶È°²È«¶ÂÈûËùÓĞ½øÈëµÄ·ÃÎÊ£»ÖĞ¶È°²È«Ö»¶ÂÈû"
+"¶ÔÏµÍ³·şÎñµÄ·ÃÎÊ(Èç telnet »ò´òÓ¡)£¬µ«ÔÊĞíÆäËüÁ¬½Ó£»ÎŞ·À»ğÇ½ÔÊĞíËùÓĞµÄÁ¬½Ó£¬"
+"ÕâÊÇÎÒÃÇ²»Ìá³«µÄ¡£"
 
 #: ../textw/firewall_text.py:43
 msgid "Security Level:"
-msgstr "Öryggisstig:"
+msgstr "°²È«¼¶±ğ£º"
 
 #: ../textw/firewall_text.py:72
 msgid "Trusted Devices:"
-msgstr "Tæki sem er treyst, şegar í notkun:"
+msgstr "ĞÅÈÎµÄÉè±¸£º"
 
 #: ../textw/firewall_text.py:89
 msgid "DHCP"
@@ -3402,7 +3276,7 @@ msgstr "WWW (HTTP)"
 
 #: ../textw/firewall_text.py:97
 msgid "Mail (SMTP)"
-msgstr "Póstur (SMTP)"
+msgstr "ÓÊ¼ş(SMTP)"
 
 #: ../textw/firewall_text.py:99 ../loader/loader.c:1662
 msgid "FTP"
@@ -3410,20 +3284,20 @@ msgstr "FTP"
 
 #: ../textw/firewall_text.py:103
 msgid "Other ports"
-msgstr "Önnur port"
+msgstr "ÆäËü¶Ë¿Ú"
 
 #: ../textw/firewall_text.py:129 ../textw/firewall_text.py:193
 #: ../textw/language_text.py:157
 msgid "Invalid Choice"
-msgstr "Ógilt val"
+msgstr "Ñ¡ÔñÎŞĞ§"
 
 #: ../textw/firewall_text.py:130
 msgid "You cannot customize a disabled firewall."
-msgstr "Şú getur ekki sérsniğiğ eldvegg sem er ekki virkur."
+msgstr "Äã²»ÄÜ¶¨ÖÆÒÑ±»½ûÓÃµÄ·À»ğÇ½¡£"
 
 #: ../textw/firewall_text.py:135
 msgid "Firewall Configuration - Customize"
-msgstr "Stillingar eldveggs - Sérsníğa"
+msgstr "·À»ğÇ½ÅäÖÃ¡ª¡ª¶¨ÖÆ"
 
 #: ../textw/firewall_text.py:137
 msgid ""
@@ -3432,151 +3306,150 @@ msgid ""
 "protocols explicitly through the firewall. In a comma separated list, "
 "specify additional ports in the form 'service:protocol' such as 'imap:tcp'. "
 msgstr ""
-"Şú getur sérsniğiğ eldvegginn á tvo vegu. Şú getur valiğ ağ leyfa allar "
-"tengingar frá tilteknum netkortum eğa ağ leyfa tilteknum prótokollum "
-"eingungu ağ komast í gegnum eldvegginn. Şú getur tiltekiğ auka port á "
-"sniğinu 'şjónusta:prótókollur' eins og til dæmis 'imap:tcp'."
+"Äã¿ÉÒÔÓÃÁ½ÖÖ°ì·¨À´¶¨ÖÆ·À»ğÇ½¡£Ê×ÏÈ£¬Äã¿ÉÒÔÑ¡ÔñÔÊĞíÓëÄ³Ğ©ÍøÂç½Ó¿Ú¼äµÄËùÓĞ½»"
+"Í¨£»Æä´Î£¬Äã¿ÉÒÔÍ¨¹ı·À»ğÇ½Ã÷È·±êÃ÷ËùÔÊĞíµÄĞ­Òé£¬ÔÚÒÔ¶ººÅ·Ö¿ªµÄÁĞ±íÖĞÓÃ¡°·ş"
+"Îñ£ºĞ­Òé¡±µÄĞÎÊ½Ö¸¶¨¶îÍâµÄ¶Ë¿Ú£¬Èç£º¡°imap£ºtcp¡±"
 
 #: ../textw/firewall_text.py:194
 #, python-format
 msgid "Warning: %s is not a valid port."
-msgstr "Ağvörun: %s er ekki gild gátt."
+msgstr "¾¯¸æ£º %s ²»ÊÇÒ»¸öÓĞĞ§µÄ¶Ë¿Ú¡£"
 
 #: ../textw/installpath_text.py:43
 msgid "What type of system would you like to install?"
-msgstr "Hverskonar kerfi viltu setja upp?"
+msgstr "ÄãÒª°²×°ºÎÖÖÀàĞÍµÄÏµÍ³£¿"
 
 #: ../textw/keyboard_text.py:35
 msgid "Keyboard Selection"
-msgstr "Stillingar lyklaborğs"
+msgstr "Ñ¡Ôñ¼üÅÌ"
 
 #: ../textw/keyboard_text.py:36
 msgid "Which model keyboard is attached to this computer?"
-msgstr "Hvernig lyklaborğ er tengt şessari vél?"
+msgstr "Óë´Ë¼ÆËã»úÁ¬½ÓµÄ¼üÅÌÊôÓÚºÎÖÖĞÍºÅ£¿"
 
 #: ../textw/language_text.py:120
 msgid "Select All"
-msgstr "Velja öll"
+msgstr "È«²¿Ñ¡Ôñ"
 
 #: ../textw/language_text.py:122
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr "Veldu şau viğbótartungumál sem şú vilt nota á şessari vél:"
+msgstr "Ñ¡ÔñÄãÏëÔÚÕâ¸öÏµÍ³ÖĞÊ¹ÓÃµÄÆäËüÓïÑÔ£º"
 
 #: ../textw/language_text.py:126
 msgid "Language Support"
-msgstr "Tungumálastuğningur"
+msgstr "ÓïÑÔÖ§³Ö"
 
 #: ../textw/language_text.py:158
 msgid "You must select at least one language to install."
-msgstr "Şú verğur ağ velja ağ minnsta kosti eitt tungumál til ağ setja inn."
+msgstr "ÄãÖÁÉÙÒª°²×°Ò»ÖÖÓïÑÔ"
 
 #: ../textw/language_text.py:186
 msgid "Default Language"
-msgstr "Sjálfgefiğ tungumál"
+msgstr "Ä¬ÈÏÓïÑÔ"
 
 #: ../textw/language_text.py:187
 msgid "Choose the default language for this system: "
-msgstr "Veldu sjálfgefna tungumáliğ fyrir şessa vél: "
+msgstr "Îª´ËÏµÍ³Ñ¡ÔñÄ¬ÈÏÓïÑÔ£º"
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
-msgstr "Viğ hvağa tæki er músin tengd?"
+msgstr "ÄãµÄÊó±êÎ»ÓÚÄÄ¸öÉè±¸ÉÏ£¿"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
-msgstr "Hvernig mús er tengd şessari vél?"
+msgstr "Óë´Ë¼ÆËã»úÁ¬½ÓµÄÊó±êÊôÓÚºÎÖÖĞÍºÅ£¿"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr "Herma eftir şrem hnöppum?"
+msgstr "ÊÇ·ñÄ£Äâ 3 ¼üÊó±ê£¿"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
-msgstr "Stillingar músar"
+msgstr "Ñ¡ÔñÊó±ê"
 
 #: ../textw/network_text.py:67
 #, python-format
 msgid "Network Device: %s"
-msgstr "Netkort: %s"
+msgstr "ÍøÂçÉè±¸£º %s"
 
 #: ../textw/network_text.py:70
 msgid "Use bootp/dhcp"
-msgstr "Nota bootp/dhcp"
+msgstr "Ê¹ÓÃ bootp/dhcp"
 
 #: ../textw/network_text.py:77 ../loader/net.c:305
 msgid "IP address:"
-msgstr "IP vistfang:"
+msgstr "IP ±àºÅ£º"
 
 #: ../textw/network_text.py:78 ../loader/net.c:308
 msgid "Netmask:"
-msgstr "Netmöskvi:"
+msgstr "×ÓÍøÑÚÂë£º"
 
 #: ../textw/network_text.py:79 ../loader/net.c:311
 msgid "Default gateway (IP):"
-msgstr "Sjálfgefin gátt (IP):"
+msgstr "Ä¬ÈÏÍø¹Ø(IP)£º"
 
 #: ../textw/network_text.py:81 ../loader/net.c:314
 msgid "Primary nameserver:"
-msgstr "Ağalnafnaşjónn:"
+msgstr "Ö÷ÒªÃû³Æ·şÎñÆ÷£º"
 
 #: ../textw/network_text.py:83
 msgid "Secondary nameserver:"
-msgstr "Annar nafnaşjónn:"
+msgstr "´ÎÒªÃû³Æ·şÎñÆ÷£º"
 
 #: ../textw/network_text.py:85
 msgid "Tertiary nameserver:"
-msgstr "Şriğji nafnaşjónn:"
+msgstr "µÚÈıÃû³Æ·şÎñÆ÷£º"
 
 #: ../textw/network_text.py:114
 #, python-format
 msgid "Network Configuration for %s"
-msgstr "Stillingar nets %s"
+msgstr "%s µÄÍøÂçÅäÖÃ"
 
 #: ../textw/network_text.py:137
 msgid "Invalid information"
-msgstr "Ógildar upplısingar"
+msgstr "ÎŞĞ§ĞÅÏ¢"
 
 #: ../textw/network_text.py:138
 msgid "You must enter valid IP information to continue"
-msgstr "Şú verğur ağ gefa upp gildar IP stillingar"
+msgstr "Äã±ØĞëÊäÈëÓĞĞ§µÄ IP ĞÅÏ¢²ÅÄÜ¼ÌĞø°²×°"
 
 #: ../textw/network_text.py:203
 msgid "Hostname Configuration"
-msgstr "Stillingar vélarheitis"
+msgstr "Ö÷»úÃûÅäÖÃ"
 
 #: ../textw/network_text.py:204
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
-"Vélarheiti er heiti vélarinnar á neti.  Ef tölvan şín er nettengd er heitinu "
-"úthlutağ af netstjóra şínum."
+"Ö÷»úÃû¾ÍÊÇÄãµÄ¼ÆËã»úÃû³Æ¡£Èç¹ûÄãµÄ¼ÆËã»úÒÑ¾­Á¬Íø£¬Ôò´ËÃû³Æ¿ÉÄÜÒÑÓÉÍøÂç¹ÜÀíÔ±"
+"Ö¸¶¨¡£"
 
 #: ../textw/packages_text.py:91
 msgid "Package :"
-msgstr "Pakki   :"
+msgstr "Èí¼ş°ü£º"
 
 #: ../textw/packages_text.py:96
 msgid "Size    :"
-msgstr "Stærğ   :"
+msgstr "´óĞ¡£º"
 
 #: ../textw/packages_text.py:97
 #, python-format
 msgid "%.1f KBytes"
-msgstr "%.1f Kbæti"
+msgstr "%.1f KB"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
-msgstr "Heildarstærğ"
+msgstr "ºÏ¼Æ"
 
 #: ../textw/packages_text.py:245
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr "  <Bilslá>,<+>,<-> velur       |   <F1> hjálp  |   <F2> pakkalısingar"
+msgstr "  <Space>,<+>,<-> Ñ¡Ôñ   |   <F1> °ïÖú   |   <F2> Èí¼ş°üÃèÊö"
 
 #: ../textw/packages_text.py:293
 msgid "Package Dependencies"
-msgstr "Pakkaskilyrği"
+msgstr "Èí¼ş°üÒÀÀµ¹ØÏµ"
 
 #: ../textw/packages_text.py:295
 msgid ""
@@ -3584,123 +3457,120 @@ msgid ""
 "not selected. If you just select OK all of those required packages will be "
 "installed."
 msgstr ""
-"Sumir pakkanna sem şú valdir til uppsetningar şarfnast annara pakka sem şú "
-"valdir ekki. Ef şú velur 'Í lagi' mun öllum şessum pökkum sem uppá vantar "
-"verğa bætt viğ."
+"Ä³Ğ©ÄãÒÑ¾­Ñ¡ÔñµÄÈí¼ş°ü£¬±ØĞëÓëÄ³Ğ©ÄãÎ´Ñ¡ÔñµÄÈí¼ş°üÍ¬Ê±°²×°£»Èç¹ûÑ¡Ôñ¡°È·"
+"¶¨¡±£¬ÏµÍ³½«°²×°ËùÓĞ±ØĞèµÄÈí¼ş°ü¡£"
 
 #: ../textw/partition_text.py:35
 msgid "Must specify a value"
-msgstr "Şú verğur ağ gefa upp gildi"
+msgstr "±ØĞëÖ¸¶¨Ò»¸öÖµ"
 
 #: ../textw/partition_text.py:38
 msgid "Requested value is not an integer"
-msgstr "Umbeğiğ gildi er ekki heiltala"
+msgstr "ÉêÇëÖµ²»ÊÇÕûÊı"
 
 #: ../textw/partition_text.py:40
 msgid "Requested value is too large"
-msgstr "Umbeğiğ gildi er of stórt"
+msgstr "ÉêÇëÖµÌ«´ó"
 
 #: ../textw/partition_text.py:168
 #, python-format
 msgid "Warning: %s"
-msgstr "Ağvörun: %s"
+msgstr "¾¯¸æ£º %s"
 
 #: ../textw/partition_text.py:317
 msgid "Fixed Size:"
-msgstr "Föst stærğ:"
+msgstr "¹Ì¶¨´óĞ¡£º"
 
 #: ../textw/partition_text.py:319
 msgid "Fill maximum size of (MB):"
-msgstr "Nota hámarksstærğina (MB):"
+msgstr "Ê¹ÓÃÈ«²¿¿Õ¼ä(MB)£º"
 
 #: ../textw/partition_text.py:323
 msgid "Fill all available space:"
-msgstr "Nota allt tiltækt pláss:"
+msgstr "Ê¹ÓÃÈ«²¿¿ÉÓÃ¿Õ¼ä£º"
 
 #: ../textw/partition_text.py:420
 msgid "Number of spares?"
-msgstr "Fjöldi varadrifa?"
+msgstr "±¸¼şÊıÁ¿£¿"
 
 #: ../textw/partition_text.py:438 ../textw/partition_text.py:643
 msgid "Filesystem Options"
-msgstr "Rofar skráarkerfis"
+msgstr "ÎÄ¼şÏµÍ³Ñ¡Ïî"
 
 #: ../textw/partition_text.py:441
 msgid ""
 "Please choose how you would like to prepare the filesystem on this partition."
-msgstr ""
-"Vinsamlegast veldu hvernig şú vilt undirbúa skráarkerfiğ fyrir şessa "
-"disksneiğ."
+msgstr "ÇëÑ¡ÔñÄãÏëÈçºÎÔÚ´Ë·ÖÇø×¼±¸ÎÄ¼şÏµÍ³¡£"
 
 #: ../textw/partition_text.py:458
 msgid "Format as:"
-msgstr "Forsníğa sem:"
+msgstr "¸ñÊ½»¯³É£º"
 
 #: ../textw/partition_text.py:478
 msgid "Migrate to:"
-msgstr "Breyta í:"
+msgstr "ÒÆÖ²µ½£º"
 
 #: ../textw/partition_text.py:615
 msgid "Filesystem Label:"
-msgstr "Merking skráarkerfis:"
+msgstr "ÎÄ¼şÏµÍ³±êÇ©£º"
 
 #: ../textw/partition_text.py:626
 msgid "Filesystem Option:"
-msgstr "Rofi skráarkerfis:"
+msgstr "ÎÄ¼şÏµÍ³Ñ¡Ïî£º"
 
 #: ../textw/partition_text.py:629 ../textw/partition_text.py:663
 #, python-format
 msgid "Format as %s"
-msgstr "Forsniğa sem %s"
+msgstr "¸ñÊ½»¯³É %s"
 
 #: ../textw/partition_text.py:631 ../textw/partition_text.py:665
 #, python-format
 msgid "Migrate to %s"
-msgstr "Breyta í %s"
+msgstr "ÒÆÖ²µ½ %s"
 
 #: ../textw/partition_text.py:633 ../textw/partition_text.py:667
 msgid "Leave unchanged"
-msgstr "Láta ósnert"
+msgstr "±£Áô²»±ä"
 
 #: ../textw/partition_text.py:692 ../textw/partition_text.py:741
 msgid "Invalid Entry for Partition Size"
-msgstr "Ógild stærğ disksneiğar"
+msgstr "·ÖÇø´óĞ¡ÏîÄ¿ÎŞĞ§"
 
 #: ../textw/partition_text.py:704
 msgid "Invalid Entry for Maximum Size"
-msgstr "Ógild hámarksstærğ"
+msgstr "×î´óÖµÏîÄ¿ÎŞĞ§"
 
 #: ../textw/partition_text.py:723
 msgid "Invalid Entry for Starting Cylinder"
-msgstr "Fyrsti geiri er ógildur"
+msgstr "ÆğÊ¼ÖùÃæÏîÄ¿ÎŞĞ§"
 
 #: ../textw/partition_text.py:733
 msgid "Invalid Entry for End Cylinder"
-msgstr "Síğasti geiri er ógildur"
+msgstr "ÖÕÖ¹ÖùÃæÏîÄ¿ÎŞĞ§"
 
 #: ../textw/partition_text.py:830
 msgid "No RAID partitions"
-msgstr "Engar RAID disksneiğar"
+msgstr "ÎŞ RAID ·ÖÇø"
 
 #: ../textw/partition_text.py:881
 msgid "Invalid Entry for RAID Spares"
-msgstr "Ógild færsla fyrir RAID varadrif"
+msgstr "RAID ±¸¼şÏîÄ¿ÎŞĞ§"
 
 #: ../textw/partition_text.py:894
 msgid "Too many spares"
-msgstr "Of mörg varadrif"
+msgstr "±¸¼şÌ«¶à"
 
 #: ../textw/partition_text.py:895
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr "Hámarksfjöldi varadiska í RAID0 drifi er 0."
+msgstr "RAID0 ×éµÄ±¸¼ş×î¶àÎª 0¡£"
 
 #: ../textw/partition_text.py:980
 msgid "Partitioning"
-msgstr "Disksneiğing"
+msgstr "ÕıÔÚ·ÖÇø"
 
 #: ../textw/partition_text.py:990
 msgid "New"
-msgstr "Nır"
+msgstr "ĞÂ½¨"
 
 #: ../textw/partition_text.py:990
 msgid "RAID"
@@ -3710,92 +3580,92 @@ msgstr "RAID"
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
-"    F1-Hjálp    F2-Nır    F3-Breyta   F4-Eyğa   F5-Frumstilla  F12-Í lagi    "
+"   F1-°ïÖú       F2-ĞÂ½¨      F3-±à¼­   F4-É¾³ı    F5-ÖØÉè    F12-È·¶¨    "
 
 #: ../textw/partition_text.py:1020
 msgid "No Root Partition"
-msgstr "Engin rótarsneiğ"
+msgstr "ÎŞ¸ù·ÖÇø"
 
 #: ../textw/partition_text.py:1021
 msgid "Must have a / partition to install on."
-msgstr "Şú verğur ağ hafa / disksneiğ til ağ setja upp á."
+msgstr "°²×°±ØĞëÓĞÒ»¸ö¸ù·ÖÇø(/)¡£"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
-msgstr "Sjálfvirk disksneiğing"
+msgstr "×Ô¶¯·ÖÇø"
 
 #: ../textw/partmethod_text.py:27
 msgid "Disk Druid"
-msgstr "Diska Drúídi"
+msgstr "Disk Druid"
 
 #: ../textw/progress_text.py:79
 msgid "Package Installation"
-msgstr "Uppsetning pakka"
+msgstr "°²×°Èí¼ş°ü"
 
 #: ../textw/progress_text.py:81
 msgid " Name   : "
-msgstr " Heiti  : "
+msgstr " Ãû³Æ   £º"
 
 #: ../textw/progress_text.py:82
 msgid " Size   : "
-msgstr " Stærğ  : "
+msgstr " ´óĞ¡   £º"
 
 #: ../textw/progress_text.py:83
 msgid " Summary: "
-msgstr " Lısing : "
+msgstr " ÕªÒª£º"
 
 #: ../textw/progress_text.py:109
 msgid "    Packages"
-msgstr "    Pakkar"
+msgstr "     Èí¼ş°ü"
 
 #: ../textw/progress_text.py:110
 msgid "       Bytes"
-msgstr "       Bæti"
+msgstr "         ×Ö½Ú"
 
 #: ../textw/progress_text.py:111
 msgid "        Time"
-msgstr "        Tími"
+msgstr "         Ê±¼ä"
 
 #: ../textw/progress_text.py:113
 msgid "Total    :"
-msgstr "Alls     :"
+msgstr "ºÏ¼Æ     £º"
 
 #: ../textw/progress_text.py:120
 msgid "Completed:   "
-msgstr "Lokiğ    :   "
+msgstr "ÒÑÍê³É£º   "
 
 #: ../textw/progress_text.py:130
 msgid "Remaining:  "
-msgstr "Eftir    :  "
+msgstr "Ê£Óà£º  "
 
 #: ../textw/silo_text.py:39 ../textw/silo_text.py:112
 #: ../textw/silo_text.py:224
 msgid "SILO Configuration"
-msgstr "Stillingar SILO"
+msgstr "SILO ÅäÖÃ"
 
 #: ../textw/silo_text.py:77
 msgid "Create PROM alias `linux'"
-msgstr "Búa til auknefniğ `linux' í PROM"
+msgstr "´´½¨ PROM ±ğÃû¡°linux¡±"
 
 #: ../textw/silo_text.py:78
 msgid "Set default PROM boot device"
-msgstr "Stilli sjálfgefna ræsitækiğ í PROM"
+msgstr "ÉèÖÃÄ¬ÈÏ PROM Òıµ¼Éè±¸"
 
 #: ../textw/silo_text.py:114
 msgid "Where do you want to install the bootloader?"
-msgstr "Hvar viltu setja upp ræsistjórann?"
+msgstr "ÄãÏëÔÚºÎ´¦°²×°Òıµ¼×°ÔØ³ÌĞò£¿"
 
 #: ../textw/silo_text.py:155
 msgid "Edit Boot Label"
-msgstr "Breyta ræsimerki"
+msgstr "±à¼­Òıµ¼¾í±ê"
 
 #: ../textw/timezone_text.py:77
 msgid "What time zone are you located in?"
-msgstr "Í hvağa tímabelti ertu?"
+msgstr "ÄãÎ»ÓÚÄÄÒ»¸öÊ±Çø£¿"
 
 #: ../textw/timezone_text.py:92
 msgid "Hardware clock set to GMT?"
-msgstr "Vélbúnağarklukkan stillt á GMT?"
+msgstr "ÊÇ·ñ½«Ó²¼şÊ±ÖÓÉèÖÃÎª GMT£¿"
 
 #: ../textw/upgrade_text.py:91
 #, python-format
@@ -3805,46 +3675,44 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"Linux 2.4 kjarninn şarfnast meira diskminnis en eldri kjarnar. Magn "
-"diskminnis ætti nú ağ vera allt ağ tvöfalt vinnsluminni vélarinnar ağ stærğ."
-"Şú er núna meğ %dMB af diskminni skilgreint og getur búiğ til viğbótar "
-"diskminni á einhverju af skráarkerfunum şínum núna."
+"2.4 ÄÚºËËùĞè½»»»ÇøÒª±È¾É°æÄÚºË´óµÃ¶à£¬´óÖÁÄãÏµÍ³ RAM µÄÁ½±¶¡£ÄãÄ¿Ç°ÅäÖÃÁË %"
+"dMB ½»»»Çø£¬µ«ÏÖÔÚÄã¿ÉÒÔÔÚÈÎºÎÒ»¸öÎÄ¼şÏµÍ³ÖĞ ´´½¨¶îÍâ½»»»Çø¡£"
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
-msgstr "Laust pláss"
+msgstr "¿ÕÏĞ¿Õ¼ä"
 
 #: ../textw/upgrade_text.py:124
 msgid "RAM detected (MB):"
-msgstr "Vinnsluminni (MB):"
+msgstr "¼ì²âµ½µÄ RAM(MB)£º"
 
 #: ../textw/upgrade_text.py:127
 msgid "Suggested size (MB):"
-msgstr "Stærğartillaga (MB):"
+msgstr "½¨Òé´óĞ¡(MB)£º"
 
 #: ../textw/upgrade_text.py:138
 msgid "Add Swap"
-msgstr "Bæta viğ diskminni"
+msgstr "Ìí¼Ó½»»»Çø"
 
 #: ../textw/upgrade_text.py:163
 msgid "The value you entered is not a valid number."
-msgstr "Şağ sem şú slóst inn er ekki gild tala."
+msgstr "ÄãËùÊäÈëµÄÖµ²»ÊÇÒ»¸öÓĞĞ§µÄÊı×Ö¡£"
 
 #: ../textw/upgrade_text.py:193
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr "Şú ert ekki meğ neinar Linux disksneiğar. Şağ er ekki hægt ağ uppfæra!"
+msgstr "Ã»ÓĞÈÎºÎ Linux ·ÖÇø£¬ÎŞ·¨Éı¼¶±¾ÏµÍ³£¡"
 
 #: ../textw/upgrade_text.py:210
 msgid "System to Upgrade"
-msgstr "Kerfi sem á ağ uppfæra"
+msgstr "ÒªÉı¼¶µÄÏµÍ³"
 
 #: ../textw/upgrade_text.py:224
 msgid "Upgrade Partition"
-msgstr "Uppfæra disksneiğ"
+msgstr "Éı¼¶·ÖÇø"
 
 #: ../textw/upgrade_text.py:246
 msgid "Customize Packages to Upgrade"
-msgstr "Velja pakka sem skal uppfæra"
+msgstr "¶¨ÖÆÒªÉı¼¶µÄÈí¼ş°ü"
 
 #: ../textw/upgrade_text.py:247
 msgid ""
@@ -3852,13 +3720,12 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
-"Pakkarnir sem şegar eru á vélinni og ağrir pakkar sem şeim eru háğir til ağ "
-"uppfylla skilyrği şeirra hafa veriğ valdir til uppsetningar. Viltu skoğa "
-"listann og kannski breyta honum?"
+"ÄãÏëÒª°²×°µÄÈí¼ş°ü£¬ÒÔ¼°ĞèÂú×ãÆäÒÀÀµ¹ØÏµµÄÆäËüÈí¼ş°ü£¬¶¼ÒÑ±»ÏµÍ³Ñ¡¶¨Òª°²×°¡£ "
+"ÊÇ·ñÒª¶¨ÖÆÉı¼¶µÄÈí¼ş°ü¼¯£¿"
 
 #: ../textw/userauth_text.py:22
 msgid "Root Password"
-msgstr "Rótarlykilorğ"
+msgstr "¸ù¿ÚÁî"
 
 #: ../textw/userauth_text.py:24
 msgid ""
@@ -3866,84 +3733,79 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"Veldu rótarlykilorğ. Şú verğur ağ slá şağ inn tvisvar til ağ tryggja ağ şú "
-"vitir örugglega hvağ şağ er og şú hafir ekki slegiğ şağ rangt inn. Mundu ağ "
-"rótarlykilorğiğ er mjög mikilvægur şáttur í öryggi vélarinnar!"
+"Éè¶¨Ò»¸ö¸ù¿ÚÁî¡£Äã±ØĞë¼üÈëÁ½´Î£¬ÒÔÈ·±£ÎŞ¼üÈë´íÎó¡£Çë¼Ç×¡£¬ ¸ù¿ÚÁîÊÇÈ·±£ÏµÍ³°²"
+"È«µÄÒ»¸öÖØÒª×é³É²¿·Ö£¡"
 
 #: ../textw/userauth_text.py:38
 msgid "Password (confirm):"
-msgstr "Lykilorğ (stağfesta):"
+msgstr "¿ÚÁî(È·ÈÏ)£º"
 
 #: ../textw/userauth_text.py:54 ../textw/userauth_text.py:128
 msgid "Password Length"
-msgstr "Lengd lykilorğs"
+msgstr "¿ÚÁî³¤¶È"
 
 #: ../textw/userauth_text.py:55
 msgid "The root password must be at least 6 characters long."
-msgstr "Rótarlykilorğiğ verğur ağ vera a.m.k. 6 stafir ağ lengd."
+msgstr "¸ù¿ÚÁî×îÉÙÓ¦°üº¬ 6 ¸ö×Ö·û¡£"
 
 #: ../textw/userauth_text.py:59 ../textw/userauth_text.py:136
 msgid "Password Mismatch"
-msgstr "Lykilorğ stemmir ekki"
+msgstr "¿ÚÁî²»·û"
 
 #: ../textw/userauth_text.py:60 ../textw/userauth_text.py:137
 msgid "The passwords you entered were different. Please try again."
-msgstr "Lykilorğin sem şú slóst inn eru ekki eins. Reyndu aftur."
+msgstr "ÊäÈëµÄ¿ÚÁî²»·û£¬ÇëÔÙ´ÎÊäÈë¡£"
 
 #: ../textw/userauth_text.py:95
 msgid "Add User"
-msgstr "Bæta viğ notanda"
+msgstr "Ìí¼ÓÓÃ»§"
 
 #: ../textw/userauth_text.py:100
 msgid "User Name"
-msgstr "Notandanafn"
+msgstr "ÓÃ»§Ãû"
 
 #: ../textw/userauth_text.py:101
 msgid "Password"
-msgstr "Lykilorğ"
+msgstr "¿ÚÁî"
 
 #: ../textw/userauth_text.py:102
 msgid "Password (confirm)"
-msgstr "Lykilorğ (aftur)"
+msgstr "¿ÚÁî(È·ÈÏ)"
 
 #: ../textw/userauth_text.py:115
 msgid "Bad User ID"
-msgstr "Ólöglegt notandanafn"
+msgstr "ÓÃ»§ ID ²»¶Ô"
 
 #: ../textw/userauth_text.py:116
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, a-"
 "z, and 0-9."
-msgstr ""
-"Notandanöfn verğa ağ vera minna en 8 stafir ağ lengd og mega einungis \n"
-"innihalda stafina A-Z, a-z og 0-9."
+msgstr "ÓÃ»§ ID ±ØĞëĞ¡ÓÚ 8 ¸ö×Ö·û£¬¶øÇÒÖ»ÄÜ°üº¬×Ö·û£ºA-Z¡¢a-z£¬ÒÔ¼° 0-9¡£"
 
 #: ../textw/userauth_text.py:123
 msgid "Missing User ID"
-msgstr "Notandanafn vantar"
+msgstr "È±ÉÙÓÃ»§ ID"
 
 #: ../textw/userauth_text.py:124
 msgid "You must provide a user ID"
-msgstr "Şú verğur ağ gefa upp notandanafn"
+msgstr "Äã±ØĞëÌá¹©Ò»¸öÓÃ»§ ID"
 
 #: ../textw/userauth_text.py:129
 msgid "The password must be at least 6 characters long."
-msgstr "Lykilorğiğ verğur ağ vera a.m.k. 6 stafir ağ lengd."
+msgstr "¿ÚÁî×îÉÙÓ¦°üº¬ 6 ¸ö×Ö·û¡£"
 
 #: ../textw/userauth_text.py:145 ../textw/userauth_text.py:153
 msgid "User Exists"
-msgstr "Notandinn er şegar til"
+msgstr "ÓÃ»§ÒÑ´æÔÚ"
 
 #: ../textw/userauth_text.py:146
 msgid ""
 "The root user is already configured. You don't need to add this user here."
-msgstr ""
-"Şegar er búiğ ağ skilgreina rótarnotandann. Şú şarft ekki ağ bæta honum viğ "
-"hér."
+msgstr "¸ùÓÃ»§ÒÑ±»ÅäÖÃ£¬ÄãÎŞĞèÔÚ´ËÌí¼ÓÕâ¸öÓÃ»§¡£"
 
 #: ../textw/userauth_text.py:154
 msgid "This user id already exists.  Choose another."
-msgstr "Şessi notandi er şegar til. Veldu annağ notandanafn."
+msgstr "´ËÓÃ»§ ID ÒÑ´æÔÚ£¬ÇëÑ¡ÔñÁíÒ»¸öÓÃ»§¡£"
 
 #: ../textw/userauth_text.py:181
 msgid ""
@@ -3951,13 +3813,12 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
-"Şú ættir alltaf ağ nota ağgang venjulegs notanda şegar şú ert ağ vinna á "
-"vélinni. Meğ şví ağ nota rótarağganginn sem minnst minnkar şú hættuna á ağ "
-"valda skemmdum á grunnstillingum vélarinnar."
+"¶ÔÓÚÏµÍ³µÄ´ó¶àÊı»î¶¯£¬¾ùÓ¦Ê¹ÓÃÕı³£ÓÃ»§ÕÊºÅ¡£Ö»Òª²»ËæÒâÊ¹ÓÃ¸ùÕÊºÅ£¬¾Í¿ÉÒÔ¼õÉÙ"
+"ÆÆ»µÏµÍ³ÅäÖÃµÄ»ú»á¡£"
 
 #: ../textw/userauth_text.py:192
 msgid "User Account Setup"
-msgstr "Búa til notanda"
+msgstr "ÉèÖÃÓÃ»§ÕÊºÅ"
 
 #: ../textw/userauth_text.py:194
 msgid ""
@@ -3965,49 +3826,48 @@ msgid ""
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
-"Hvağa notandi viltu vera á şessari vél? Şú ættir ağ hafa ağ minnsta kosti "
-"einn notandaağgang, sem er ekki rót fyrir dagleg störf. Fjölnotandavélar "
-"geta haft ótakmarkağan fjölda notenda."
+"ÄãÒªÔÚÏµÍ³ÉÏÊ¹ÓÃÄÄÒ»¸öÓÃ»§ÕÊºÅ£¿ÄãÖÁÉÙÓ¦¾ßÓĞÒ»¸ö·Ç¸ùÕÊºÅÒÔÓÃÓÚÈÕ³£¹¤×÷£¬¶àÓÃ"
+"»§ÏµÍ³Ôò¿ÉÒÔ¾ßÓĞÈÎÒâÊıÁ¿µÄÕÊºÅÉèÖÃ¡£"
 
 #: ../textw/userauth_text.py:204
 msgid "User name"
-msgstr "Notandanafn"
+msgstr "ÓÃ»§Ãû"
 
 #: ../textw/userauth_text.py:231
 msgid "Enter the information for the user."
-msgstr "Sláğu inn upplısingar um şennan notanda."
+msgstr "ÊäÈëÓÃ»§ĞÅÏ¢¡£"
 
 #: ../textw/userauth_text.py:249
 msgid "Change the information for this user."
-msgstr "Breyta upplısingum şessa notanda."
+msgstr "¸ü¸Ä´ËÓÃ»§µÄĞÅÏ¢¡£"
 
 #: ../textw/userauth_text.py:321
 msgid "Use Shadow Passwords"
-msgstr "Nota falin lykilorğ"
+msgstr "Ê¹ÓÃÆÁ±Î¿ÚÁî"
 
 #: ../textw/userauth_text.py:323
 msgid "Enable MD5 Passwords"
-msgstr "Nota MD5 lykilorğ"
+msgstr "ÆôÓÃ MD5 ¿ÚÁî"
 
 #: ../textw/userauth_text.py:334
 msgid "NIS Domain:"
-msgstr "NIS lén:"
+msgstr "NIS Óò£º"
 
 #: ../textw/userauth_text.py:336
 msgid "NIS Server:"
-msgstr "NIS şjónn:"
+msgstr "NIS ·şÎñÆ÷£º"
 
 #: ../textw/userauth_text.py:338
 msgid "or use:"
-msgstr "eğa nota:"
+msgstr "»òÊ¹ÓÃ£º"
 
 #: ../textw/userauth_text.py:341
 msgid "Request server via broadcast"
-msgstr "Kalla eftir şjóni"
+msgstr "Í¨¹ı¹ã²¥ÇëÇó·şÎñÆ÷"
 
 #: ../textw/userauth_text.py:380
 msgid "Use TLS connections"
-msgstr "Nota TLS tengingar"
+msgstr "Ê¹ÓÃ TLS Á¬½Ó"
 
 #: ../textw/welcome_text.py:22 ../textw/welcome_text.py:42
 #, python-format
@@ -4026,14 +3886,14 @@ msgid ""
 "If you have purchased Official %s, be sure to register your purchase through "
 "our web site, http://www.redhat.com/."
 msgstr ""
-"Velkomin(n) í %s!\n"
+"»¶Ó­Ê¹ÓÃ %s£¡\n"
 "\n"
-"Uppsetningin er útskırğ í smáatriğum í %s uppsetningarhandbókinni bókinni "
-"sem er fáanleg frá Red Hat Inc. Ef şú hefur ağgang ağ şessari bók ættir şú "
-"ağ lesa um uppsetninguna áğur en şú heldur áfram.\n"
+"¿É´Ó Red Hat, Inc ¹«Ë¾»ñÈ¡µÄÕıÊ½°æ %s °²×°Ö¸ÄÏÖĞÏêÏ¸ËµÃ÷ÁË´Ë°²×°¹ı³Ì¡£Èç¹ûÄã"
+"ÓĞ´ËÊÖ²á£¬ÔòÓ¦¸ÃÔÚ¼ÌĞøÖ®Ç°ÏÈÔÄ¶Á°²×°²¿·Ö¡£\n"
 "\n"
-"Ef şú hefur keypt opinbert eintak %s mundu şá ağ skrá şağ á vefsíğu okkar á "
-"http://www.redhat.com."
+"\n"
+"Èç¹ûÄã¹ºÂòÁË %s ÕıÊ½°æ£¬ÇëÎñ±ØÍ¨¹ıÎÒÃÇµÄ Web Õ¾µã( http://www.redhat.com/)µÇ"
+"¼Ç´Ë²úÆ·¡£"
 
 #: ../textw/welcome_text.py:43
 #, python-format
@@ -4045,78 +3905,74 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
-"Velkomin(n) í %s!\n"
+"»¶Ó­Ê¹ÓÃ %s £¡\n"
 "\n"
-"Şú ert kominn í breytingarham, sem leyfir şér ağ sérsníğa uppsetningu "
-"vélarinnar ağ breyttum ağstæğum. \n"
+"ÄãÒÑ½øÈëÁËÖØĞÂÅäÖÃÄ£Ê½¡£Õâ½«ÔÊĞíÄãÎª¼ÆËã»úÅäÖÃÕ¾µãÌØÓĞµÄÑ¡Ïî¡£\n"
 "\n"
-"Ef şú vilt hætta án şess ağ gera neinar breytingar veldu şá Hætta viğ "
-"hnappinn ağ neğan."
+"ÈôÒªÍË³ö¶ø²»×öÈÎºÎ¸Ä±ä£¬ÇëÑ¡ÔñÏÂÃæµÄÈ¡Ïû¼ü¡£"
 
 #: ../textw/xconfig_text.py:24
 msgid "Color Depth"
-msgstr "Litadıpt"
+msgstr "É«²ÊÉî¶È"
 
 #: ../textw/xconfig_text.py:25
 msgid "Please select the color depth you would like to use:"
-msgstr "Vinsamlegast veldu şá litadıpt sem şú vilt nota:"
+msgstr "ÇëÑ¡ÔñÄãÏëÊ¹ÓÃµÄÉ«²ÊÉî¶È£º"
 
 #: ../textw/xconfig_text.py:43
 msgid "Resolution"
-msgstr "Upplausn"
+msgstr "·Ö±æÂÊ"
 
 #: ../textw/xconfig_text.py:44
 msgid "Please select the resolution you would like to use:"
-msgstr "Vinsamlegast veldu şá upplausn sem şú villt nota:"
+msgstr "ÇëÑ¡ÔñÄãÏëÊ¹ÓÃµÄ·Ö±æÂÊ£º"
 
 #: ../textw/xconfig_text.py:171 ../textw/xconfig_text.py:180
 #: ../loader/loader.c:916 ../loader/loader.c:1206 ../loader/loader.c:1209
 #: ../loader/loader.c:1227 ../loader/loader.c:1235
 msgid "Test"
-msgstr "Prófa"
+msgstr "²âÊÔ"
 
 #: ../textw/xconfig_text.py:174
 msgid "X Customization"
-msgstr "Stillingar X"
+msgstr "X ÅäÖÃ"
 
 #: ../textw/xconfig_text.py:177
 #, python-format
 msgid ""
 "Select the color depth and video mode you want to use for your system. Use "
 "the '%s' button to test the video mode."
-msgstr ""
-"Veldu litadıptina og upplausnina sem şú villt nota á vélinni şinni. Notağu '%"
-"s' hnappinn til ağ prófa."
+msgstr "ÇëÑ¡ÔñÄãÏëÔÚÏµÍ³ÄÚÊ¹ÓÃµÄÉ«²ÊÉî¶È¼°ÊÓÆµÄ£Ê½¡£ÓÃ¡°%s¡±¼üÀ´²âÊÔÊÓÆµÄ£Ê½¡£"
 
 #: ../textw/xconfig_text.py:187 ../textw/xconfig_text.py:194
 #: ../textw/xconfig_text.py:403 ../textw/xconfig_text.py:414
 #: ../textw/xconfig_text.py:597 ../textw/xconfig_text.py:604
 msgid "Change"
-msgstr "Breyta"
+msgstr "¸Ä±ä"
 
 #: ../textw/xconfig_text.py:190
 msgid "Resolution:"
-msgstr "Upplausn:"
+msgstr "·Ö±æÂÊ£º"
 
 #: ../textw/xconfig_text.py:200
 msgid "Default Desktop:"
-msgstr "Sjálfgefiğ skjáborğ:"
+msgstr "Ä¬ÈÏ×ÀÃæ£º"
 
 #: ../textw/xconfig_text.py:220
 msgid "Default Login:"
-msgstr "Sjálfgefin kveğja:"
+msgstr "Ä¬ÈÏµÇÂ¼£º"
 
 #: ../textw/xconfig_text.py:271
 msgid "Monitor"
-msgstr "Skjár"
+msgstr "ÏÔÊ¾Æ÷"
 
 #: ../textw/xconfig_text.py:272
 msgid "Please select the monitor attached to your system."
-msgstr "Vinsamlegast veldu skjáinn sem er tengdur vélinni şinni."
+msgstr "ÇëÑ¡ÔñÓëÄãµÄÏµÍ³½ÓÁ¬µÄÏÔÊ¾Æ÷¡£"
 
 #: ../textw/xconfig_text.py:289
 msgid "Monitor Sync Rates"
-msgstr "Tíğnisviğ skjás"
+msgstr "ÏÔÊ¾Æ÷ÆµÂÊ"
 
 #: ../textw/xconfig_text.py:294
 msgid ""
@@ -4125,30 +3981,29 @@ msgid ""
 "NOTE - it is not usually necessary to edit sync rates manually, and care "
 "should be taken to make sure the values entered are accurate."
 msgstr ""
-"Vinsamlegast sláğu inn tíğnisviğ skjásins şíns. \n"
+"ÇëÊäÈëÄãµÄÏÔÊ¾Æ÷ÆµÂÊ¡£\n"
 "\n"
-"ATH - Şağ er venjulega ekki nauğsynlegt ağ breyta tíğnisviğunum handvirkt og "
-"gætt skal ağ şví ağ hafa şau rétt fyrir skjáinn şinn."
+"×¢¼Ç£ºÍ¨³£ÄãÃ»ÓĞ±ØÒªÊÖ¹¤±à¼­ÆµÂÊ¡£±à¼­Ê±ÇĞÎğĞ¡ĞÄ£¬ÒÔÈ·±£ÊäÈëÖµÕıÈ·¡£"
 
 #: ../textw/xconfig_text.py:299
 msgid "HSync Rate: "
-msgstr "HSync tíğni: "
+msgstr "Ë®Æ½ÆµÂÊ£º"
 
 #: ../textw/xconfig_text.py:304
 msgid "VSync Rate: "
-msgstr "VSync tíğni: "
+msgstr "´¹Ö±ÆµÂÊ£º"
 
 #: ../textw/xconfig_text.py:328
 msgid "horizontal"
-msgstr "Lárétt"
+msgstr "Ë®Æ½"
 
 #: ../textw/xconfig_text.py:331
 msgid "vertical"
-msgstr "Lóğrétt"
+msgstr "´¹Ö±"
 
 #: ../textw/xconfig_text.py:340
 msgid "Invalid Sync Rates"
-msgstr "Ógild tíğnisviğ"
+msgstr "ÆµÂÊÎŞĞ§"
 
 #: ../textw/xconfig_text.py:341
 #, python-format
@@ -4163,40 +4018,37 @@ msgid ""
 "    50.1-90.2                a range of numbers\n"
 "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
 msgstr ""
-"Tíğnisviğiğ %s er ógilt:\n"
+"%s ÆµÂÊÎŞĞ§£º\n"
 "\n"
-"      %s\n"
+"%s \n"
+"ÓĞĞ§µÄÆµÂÊ¸ñÊ½ÈçÏÂ£º\n"
 "\n"
-"Gilt tíğnisviğ er á forminu:\n"
-"\n"
-"      31.5                   stök tala\n"
-"    50.1-90.2                sviğ talna\n"
-"31.5,35.0,39.3-40.0          listi af tölum/sviğum\n"
+"     31.5                      Ò»¸öÊı×Ö\n"
+"     50.1-90.2             Ò»¸öÊı×Ö·¶Î§\n"
+"31.5, 35.0, 39.3-40.0       Ò»ÏµÁĞÊı×Ö/·¶Î§\n"
 
 #: ../textw/xconfig_text.py:395
 #, python-format
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
-msgstr ""
-"Veldu skjáinn sem er á vélinni şinni.  Notağu '%s' hnappinn til ağ "
-"endurstilla gildin sem sjálfvirka leitin fann."
+msgstr "ÇëÑ¡ÔñÏµÍ³ÏÔÊ¾Æ÷¡£ÓÃ¡°%s¡±¼ü½«Æä»¹Ô­ÎªÌ½²âÖµ¡£"
 
 #: ../textw/xconfig_text.py:399
 msgid "Monitor:"
-msgstr "Skjár:"
+msgstr "ÏÔÊ¾Æ÷£º"
 
 #: ../textw/xconfig_text.py:406
 msgid "HSync Rate:"
-msgstr "HSync tíğni:"
+msgstr "Ë®Æ½ÆµÂÊ£º"
 
 #: ../textw/xconfig_text.py:416
 msgid "VSync Rate:"
-msgstr "VSync tíğni:"
+msgstr "´¹Ö±ÆµÂÊ£º"
 
 #: ../textw/xconfig_text.py:435
 msgid "You cannot go back from this step."
-msgstr "Şú getur ekki fariğ til baka úr şessu şrepi."
+msgstr "ÄãÎŞ·¨´ÓÕâÒ»²½Öè·µ»Ø¡£"
 
 #: ../textw/xconfig_text.py:489
 #, python-format
@@ -4204,12 +4056,12 @@ msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
 msgstr ""
-"Vinsamlegast veldu skjákortiğ sem er í vélinni şinni. Notağu '%s' hnappinn "
-"til ağ endurstilla gildin sem sjálfvirka leitin fann."
+"ÇëÑ¡ÔñÏµÍ³ÊÓÆµ¿¨¡£ÓÃ¡°%s¡±¼ü½«Ñ¡Ôñ»¹Ô­ÖÁ°²×°³ÌĞòÔÚÄãµÄÏµÍ³ÖĞËù¼ì²âµ½µÄÊÓÆµ"
+"¿¨¡£"
 
 #: ../textw/xconfig_text.py:507
 msgid "Video RAM"
-msgstr "Skjáminni"
+msgstr "ÊÓÆµ RAM"
 
 #: ../textw/xconfig_text.py:508
 #, python-format
@@ -4217,72 +4069,71 @@ msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
-"Vinsamlegast veldu şağ magn skjáminnis sem er til stağar á skjákortinu şínu. "
-"Notağu '%s' hnappinn til ağ endurstilla gildin sem sjálfvirka leitin fann."
+"ÇëÑ¡ÔñÄãµÄÊÓÆµÄÚ´æÊıÁ¿¡£ÓÃ¡°% s¡±¼ü½«Ñ¡Ôñ»¹Ô­ÖÁ°²×°³ÌĞòËùÌ½²âµ½µÄÊıÁ¿¡£"
 
 #: ../textw/xconfig_text.py:581
 msgid "Video Card Configuration"
-msgstr "Stillingar skjákorts"
+msgstr "ÊÓÆµ¿¨ÅäÖÃ"
 
 #: ../textw/xconfig_text.py:584
 msgid "Select the video card and video RAM for your system."
-msgstr "Veldu skjákortiğ og skjáminniğ sem şağ hefur."
+msgstr "Ñ¡ÔñÏµÍ³µÄÊÓÆµ¿¨¼°ÊÓÆµÄÚ´æ¡£"
 
 #: ../textw/xconfig_text.py:587
 msgid "Video Card:"
-msgstr "Skjákort:"
+msgstr "ÊÓÆµ¿¨£º"
 
 #: ../textw/xconfig_text.py:592
 msgid "Unknown card"
-msgstr "Óşekkt kort"
+msgstr "Î´Öª¿¨"
 
 #: ../textw/xconfig_text.py:600
 msgid "Video RAM:"
-msgstr "Vinnsluminni skjákorts:"
+msgstr "ÊÓÆµÄÚ´æ£º"
 
 #: ../installclasses/custom.py:12
 msgid "Custom"
-msgstr "Sérsniğiğ"
+msgstr "¶¨ÖÆ"
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
-msgstr "Fartölvu"
+msgstr "±ãĞ¯µçÄÔ"
 
 #: ../installclasses/server.py:9
 msgid "Server"
-msgstr "Şjón"
+msgstr "·şÎñÆ÷"
 
 #: ../installclasses/upgradeclass.py:8
 msgid "Upgrade Existing System"
-msgstr "Uppfæra núverandi kerfi"
+msgstr "Éı¼¶ÏÖÓĞÏµÍ³"
 
 #: ../installclasses/upgradeclass.py:12
 msgid "Upgrade"
-msgstr "Uppfæra"
+msgstr "Éı¼¶"
 
 #: ../installclasses/workstation.py:9
 msgid "Workstation"
-msgstr "Vinnustöğ"
+msgstr "¹¤×÷Õ¾"
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
-msgstr "Annağ geisladrif"
+msgstr "ÆäËü¹âÅÌ"
 
 #: ../loader/cdrom.c:32
 msgid "CDROM type"
-msgstr "Tegund geisladrifs"
+msgstr "¹âÅÌÀàĞÍ"
 
 #: ../loader/cdrom.c:32
 msgid "What type of CDROM do you have?"
-msgstr "Hvernig geisladrif er í vélinni şinni?"
+msgstr "ÄãÅä±¸ÁËºÎÖÖÀàĞÍµÄ¹âÅÌ£¿"
 
 #: ../loader/cdrom.c:89
 msgid "Initializing CDROM..."
-msgstr "Frumstilli geisladrifiğ..."
+msgstr "³õÊ¼»¯¹âÅÌ¡­¡­"
 
 #: ../loader/devices.c:79
 msgid "Miscellaneous"
-msgstr "İmislegt"
+msgstr "ÆäËü"
 
 #: ../loader/devices.c:88
 msgid ""
@@ -4290,111 +4141,106 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
-"Şessi kjarnarekill getur tekiğ viğ viğföngum sem hafa áhrif á hvernig hann "
-"vinnur. Ef şú veist ekki hvağa viğföng á ağ nota getur şú sleppt şessum skjá "
-"meğ şví ağ velja \"Í lagi\" hnappinn."
+"´ËÄ£¿é¿É½ÓÊÜÓ°ÏìÆä²Ù×÷µÄ²ÎÊı¡£Èç¹û²»ÖªµÀÒªÌá¹©ÄÄĞ©²ÎÊı£¬ÏÖÔÚ°´¡°È·¶¨¡±°´Å¥¼´"
+"¿ÉÌø¹ı´ËÆÁÄ»¡£"
 
 #: ../loader/devices.c:93
 msgid "Module Parameters"
-msgstr "Viğföng kjarnarekla"
+msgstr "Ä£¿é²ÎÊı"
 
 #: ../loader/devices.c:232 ../loader/devices.c:239 ../loader/devices.c:357
 #: ../loader/loader.c:329 ../loader/loader.c:390 ../loader/loader.c:406
 msgid "Devices"
-msgstr "Tæki"
+msgstr "Éè±¸"
 
 #: ../loader/devices.c:234
 msgid "Do you have a driver disk?"
-msgstr "Ertu meğ rekladiskling?"
+msgstr "ÄãÓĞÇı¶¯³ÌĞòÅÌÂğ£¿"
 
 #: ../loader/devices.c:241
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr ""
-"Settu rekladisklinginn í drifiğ og veldu \"Í lagi\" til ağ halda áfram."
+msgstr "²åÈëÇı¶¯³ÌĞòÅÌ²¢°´¡°È·¶¨¡±¼ÌĞø¡£"
 
 #: ../loader/devices.c:259
 msgid "Failed to mount driver disk."
-msgstr "Gat ekki tengt rekladisklinginn."
+msgstr "¹ÒÔØÇı¶¯³ÌĞòÅÌÊ§°Ü¡£"
 
 #: ../loader/devices.c:266
 #, c-format
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of %"
 "s."
-msgstr ""
-"Disklingurinn sem şú settir í drifiğ er ekki gildur rekladisklingur fyrir "
-"şessa útgáfu af %s."
+msgstr "Äã²åÈëµÄÈíÅÌ²¢·ÇÓÃÓÚ´Ë %s °æ±¾µÄÓĞĞ§Çı¶¯³ÌĞòÈíÅÌ¡£"
 
 #: ../loader/devices.c:326
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
-"Hvağa rekil viltu reyna?. Ef rekillinn sem şú şarft er ekki á şessum lista "
-"og şú ert meğ sérstakann rekladiskling veldu şá F2."
+"Ó¦ÊÔÓÃºÎÖÖÇı¶¯³ÌĞò£¿Èç¹û´Ë±íÖĞÎ´°üº¬ËùĞèµÄÇı¶¯³ÌĞò£¬²¢ÇÒÄãÁíÍâ±¸ÓĞÇı¶¯³ÌĞòÈí"
+"ÅÌ£¬Çë°´ F2 ¼ü¡£"
 
 #: ../loader/devices.c:335
 msgid "Specify module parameters"
-msgstr "Gefğu upp viğföng kjarnarekla"
+msgstr "Ö¸¶¨Ä£¿é²ÎÊı"
 
 #: ../loader/devices.c:429
 #, c-format
 msgid "Failed to insert %s module."
-msgstr "Gat ekki lesiğ inn eininguna %s."
+msgstr "²åÈë %s Ä£¿éÊ§°Ü"
 
 #: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
 msgid "Kickstart Error"
-msgstr "Kickstart villa"
+msgstr "·´³åÆô¶¯´íÎó"
 
 #: ../loader/kickstart.c:60
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
-msgstr "Villa viğ opnun: hrağuppsetningarskrá %s: %s"
+msgstr "´ò¿ª·´³åÆô¶¯ÎÄ¼ş %s Ê±³öÏÖ´íÎó£º%s"
 
 #: ../loader/kickstart.c:70
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "Villa viğ lestur hrağuppsetningarskráar %s: %s"
+msgstr "¶ÁÈ¡·´³åÆô¶¯ÎÄ¼ş %s µÄÄÚÈİÊ±³öÏÖ´íÎó£º%s"
 
 #: ../loader/kickstart.c:109
 #, c-format
 msgid "Error on line %d of kickstart file %s."
-msgstr "Villa í línu %d í hrağuppsetningarskrá %s."
+msgstr "·´³åÆô¶¯ÎÄ¼ş %d µÄµÚ %s ĞĞ³öÏÖ´íÎó¡£"
 
 #: ../loader/lang.c:41 ../loader/loader.c:197
 #, c-format
 msgid "Welcome to %s"
-msgstr "Velkomin(n) í %s"
+msgstr "»¶Ó­Ê¹ÓÃ %s"
 
 #: ../loader/lang.c:42 ../loader/loader.c:203
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> milli atriğa      | <Bilslá> velur  | <F12> næsti skjár "
+msgstr "<Tab>/<Alt-Tab> Ñ¡Ïî¼äÇĞ»»   |  <Space> Ñ¡Ôñ   |  <F12> ÏÂÒ»ÆÁÄ» "
 
 #: ../loader/lang.c:305
 msgid "Choose a Language"
-msgstr "Veldu tungumál"
+msgstr "Ñ¡ÔñÒ»ÖÖÓïÑÔ"
 
 #: ../loader/lang.c:632
 msgid "Keyboard Type"
-msgstr "Stillingar lyklaborğs"
+msgstr "¼üÅÌÀàĞÍ"
 
 #: ../loader/lang.c:633
 msgid "What type of keyboard do you have?"
-msgstr "Hvernig lyklaborğ ertu meğ?"
+msgstr "ÄãÊ¹ÓÃºÎÖÖÀàĞÍµÄ¼üÅÌ£¿"
 
 #: ../loader/loader.c:135
 msgid "Local CDROM"
-msgstr "Geisladrif"
+msgstr "±¾µØ¹âÅÌ"
 
 #: ../loader/loader.c:138
 msgid "NFS image"
-msgstr "NFS svæği"
+msgstr "NFS Ó³Ïñ"
 
 #: ../loader/loader.c:143
 msgid "Hard drive"
-msgstr "Harğir diskar"
+msgstr "Ó²ÅÌÇı¶¯Æ÷"
 
 #: ../loader/loader.c:316
 msgid "SCSI"
@@ -4402,40 +4248,36 @@ msgstr "SCSI"
 
 #: ../loader/loader.c:330
 msgid "What kind of device would you like to add"
-msgstr "Hverskonar tæki viltu bæta viğ"
+msgstr "ÄãÒªÌí¼ÓºÎÖÖÉè±¸"
 
 #: ../loader/loader.c:379
 msgid "The following devices have been found on your system:"
-msgstr "Eftirfarandi tæki hafa fundist í vélinni şinni:"
+msgstr "ÔÚÏµÍ³ÖĞ·¢ÏÖÒÔÏÂÉè±¸£º"
 
 #: ../loader/loader.c:381 ../loader/loader.c:406
 msgid "Done"
-msgstr "Búiğ"
+msgstr "Íê³É"
 
 #: ../loader/loader.c:381 ../loader/loader.c:406
 msgid "Add Device"
-msgstr "Bæta viğ tæki"
+msgstr "Ìí¼ÓÉè±¸"
 
 #: ../loader/loader.c:407
 msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
-msgstr ""
-"Şağ eru engir sérstakir tækjareklar í notkun fyrir vélina şína. Viltu lesa "
-"einhverja inn núna?"
+msgstr "Ã»ÓĞÎªÄãµÄÏµÍ³×°ÔØÈÎºÎÌØÊâÉè±¸Çı¶¯³ÌĞò¡£ÏÖÔÚÊÇ·ñĞèÒª×°ÔØ£¿"
 
 #: ../loader/loader.c:491 ../loader/loader.c:896 ../loader/loader.c:2754
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Gat ekki lesiğ möppuna %s: %s"
+msgstr "¶ÁÈ¡Ä¿Â¼ %s Ê§°Ü£º%s"
 
 #: ../loader/loader.c:597
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
-msgstr ""
-"Villa kom upp şegar reynt var ağ lesa uppsetningarforritiğ úr ISO diskmynd. "
-"Vinsamlegast athugağu diskmyndirnar og reyndu aftur."
+msgstr "´Ó ISO Ó³ÏñÖĞ¶ÁÈ¡°²×°Ê±³ö´í¡£Çë¼ì²éÄãµÄ ISO Ó³ÏñºóÖØÊÔ¡£"
 
 #: ../loader/loader.c:913
 #, c-format
@@ -4444,25 +4286,23 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
-"Viltu yfirfara diskmyndina:\n"
+"ÊÇ·ñÒª½øĞĞ ISO Ó³ÏñµÄ²éÑéÖµ¼ì²é£¿\n"
 "\n"
 "   %s?"
 
 #: ../loader/loader.c:916
 msgid "Checksum Test"
-msgstr "Gátsummupróf"
+msgstr "²éÑéÖµ¼ì²é"
 
 #: ../loader/loader.c:1026
 msgid "Hard Drives"
-msgstr "Harğir diskar"
+msgstr "Ó²ÅÌÇı¶¯Æ÷"
 
 #: ../loader/loader.c:1027
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"Şú virğist ekki vera meğ neina harğa diska í vélinni! Viltu stilla önnur "
-"tæki?"
+msgstr "ÄãµÄÏµÍ³ËÆºõÎ´Åä±¸ÈÎºÎÓ²ÅÌÇı¶¯Æ÷£¡ÊÇ·ñÒªÅäÖÃ¸½¼ÓÉè±¸£¿"
 
 #: ../loader/loader.c:1072
 #, c-format
@@ -4471,30 +4311,29 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Hvağa disksneiğ og mappa á şeirri sneiğ inniheldur diskmyndirnar (iso9660) "
-"af %s? Ef şú sérğ ekki diskinn í listanum ıttu şá á F2 til ağ bæta viğ "
-"tækjum."
+"ÄÄÒ»¸ö·ÖÇøÒÔ¼°·ÖÇøÉÏµÄÄÄÒ»¸öÄ¿Â¼ÏÂ´æÓĞ %s µÄ¹âÅÌ(iso9660)Ó³Ïñ£¿ Èç¹ûÄãËùÓÃµÄ"
+"´ÅÅÌÇı¶¯Æ÷ÔÚ´ËÃ»ÓĞ±»ÁĞ³ö£¬°´ F2 ¼üÀ´ÅäÖÃ¸½¼ÓµÄÉè±¸¡£"
 
 #: ../loader/loader.c:1088
 msgid "Directory holding images:"
-msgstr "Mappa sem inniheldur diskmyndirnar:"
+msgstr "°üº¬Ó³ÏñµÄÄ¿Â¼£º"
 
 #: ../loader/loader.c:1108
 msgid "Select Partition"
-msgstr "Veldu disksneiğ"
+msgstr "Ñ¡Ôñ·ÖÇø"
 
 #: ../loader/loader.c:1156
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr "Tæki %s virğist ekki innihalda Red Hat diskmyndir."
+msgstr "Éè±¸ %s ËÆºõ²»°üº¬ Red Hat ¹âÅÌÓ³Ïñ¡£"
 
 #: ../loader/loader.c:1206 ../loader/loader.c:1227 ../loader/mediacheck.c:209
 msgid "Media Check"
-msgstr "Yfirfara disk"
+msgstr "¼ì²é½éÖÊ"
 
 #: ../loader/loader.c:1206 ../loader/loader.c:1210
 msgid "Eject CD"
-msgstr "Henda út disk"
+msgstr "µ¯³ö¹âÅÌ"
 
 #: ../loader/loader.c:1207
 #, c-format
@@ -4502,8 +4341,7 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
-"Veldu \"%s\" til ağ yfirfara diskinn sem er núna í drifinu eğa \"%s\" til ağ "
-"henda honum út og yfirfara annann disk."
+"Ñ¡Ôñ¡°%s¡±À´²âÊÔÄ¿Ç°Çı¶¯Æ÷ÄÚµÄ¹âÅÌ£¬»ò¡°%s¡±À´µ¯³ö¹âÅÌ£¬È»ºóÁí²åÒ»ÕÅÀ´²âÊÔ¡£"
 
 #: ../loader/loader.c:1228
 #, c-format
@@ -4515,11 +4353,10 @@ msgid ""
 "To begin the installation process insert CD #1 into the drive and press \"%s"
 "\"."
 msgstr ""
-"Ef şú vilt yfirfara fleiri diska, settu næsta disk í núna og veldu \"%s\". "
-"Şú şarft ekki ağ yfirfara şá alla alltaf en viğ mælum şó meğ ağ şú gerir şağ "
-"amk. einusinni.\n"
+"Èç¹ûÄãÏë²âÊÔÆäËü½éÖÊ£¬²åÈëÏÂÒ»¸ö¹âÅÌ£¬È»ºó°´¡°%s¡±¡£Äã²»Ğè²âÊÔËùÓĞµÄ¹âÅÌ£¬µ«"
+"ÎÒÃÇÍÆ¼öÄãÖÁÉÙÓ¦½«ËüÃÇ²âÊÔÒ»´Î¡£\n"
 "\n"
-"Til ağ hefja uppsetninguna, settu disk #1 í drifiğ og veldu \"%s\"."
+"Òª¿ªÊ¼°²×°£¬ÇëÔÚÇı¶¯Æ÷ÄÚ²åÈë¹âÅÌ#1£¬È»ºó°´¡°%s¡±¡£"
 
 #: ../loader/loader.c:1249 ../loader/loader.c:1363
 #, c-format
@@ -4527,12 +4364,11 @@ msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"%s geisladiskurinn fannst ekki í neinu gf geisladrifunum şínum. Vinsamlegast "
-"settu %s geisladiskinn í viğeigandi drif og veldu %s til ağ reyna aftur."
+"ÔÚÄãËùÓĞ¹âÅÌÇı¶¯Æ÷ÖĞ¾ùÎŞ·¨ÕÒµ½ %s ¹âÅÌ¡£Çë²åÈë %s ¹âÅÌ£¬È»ºó°´ %s À´ÖØÊÔ¡£"
 
 #: ../loader/loader.c:1292
 msgid "CD Found"
-msgstr "Geisladiskur fundinn"
+msgstr "ÕÒµ½¹âÅÌ"
 
 #: ../loader/loader.c:1294
 #, c-format
@@ -4541,34 +4377,32 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"Ef şú vilt yfirfara diskmyndina áğur en uppsetningin hefst, veldu %s.\n"
+"°²×°Ç°Òª¿ªÊ¼²âÊÔ¹âÅÌ½éÖÊ£¬Çë°´ %s\n"
 "\n"
-"Veldu %s til ağ sleppa yfirferğinni og hefja uppsetninguna."
+"Ñ¡Ôñ %s À´Ìø¹ı½éÖÊ²âÊÔ²¢¿ªÊ¼°²×°¡£"
 
 #: ../loader/loader.c:1459
 msgid "Networking Device"
-msgstr "Netkort"
+msgstr "ÍøÂçÉè±¸"
 
 #: ../loader/loader.c:1460
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr ""
-"Şú hefur fleiri en eitt netkort í vélinni şinni. Hvert şeirra viltu nota viğ "
-"uppsetninguna?"
+msgstr "ÄãµÄÏµÍ³ÉÏÓĞ¶àÖÖÍøÂçÉè±¸¡£ÄãÏëÍ¨¹ıÄÄÒ»¸öÉè±¸À´°²×°£¿"
 
 #: ../loader/loader.c:1577
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr "Şetta skráakerfi virğist ekki innihalda Red Hat uppsetningartré."
+msgstr "´ËÄ¿Â¼ËÆºõ²»°üº¬ Red Hat °²×°Ê÷¡£"
 
 #: ../loader/loader.c:1582
 msgid "That directory could not be mounted from the server"
-msgstr "Ekki tókst ağ tengja şetta skráakerfi frá şjóninum"
+msgstr "ÎŞ·¨´Ó·şÎñÆ÷ÖĞ¹ÒÔØ´ËÄ¿Â¼"
 
 #: ../loader/loader.c:1624
 #, c-format
 msgid "File %s/%s not found on server."
-msgstr "Skráin %s/%s fannst ekki á şjóninum."
+msgstr "ÔÚ·şÎñÆ÷ÉÏÃ»ÓĞ·¢ÏÖÎÄ¼ş %s/%s"
 
 #: ../loader/loader.c:1662
 msgid "HTTP"
@@ -4576,67 +4410,63 @@ msgstr "HTTP"
 
 #: ../loader/loader.c:1663
 msgid "Unable to retrieve the first install image"
-msgstr "Get ekki sótt fyrstu uppsetningardiskmyndina"
+msgstr "ÎŞ·¨¼ìË÷µÚÒ»¸ö°²×°Ó³Ïñ"
 
 #: ../loader/loader.c:1694
 msgid "FTP and HTTP installs require 20MB or more of system memory."
-msgstr ""
-"FTP og HTTP uppsetningarağferğirnar şarfnast 20MB eğa meira af vinnsluminni."
+msgstr "°²×° FTP ºÍ HTTP ÖÁÉÙĞèÒª 20MB ÏµÍ³ÄÚ´æ¡£"
 
 #: ../loader/loader.c:1957
 msgid "Rescue Method"
-msgstr "Gerğ neyğardisklings"
+msgstr "¾ÈÔ®·½·¨"
 
 #: ../loader/loader.c:1958
 msgid "Installation Method"
-msgstr "Tegund uppsetningar"
+msgstr "°²×°·½·¨"
 
 #: ../loader/loader.c:1960
 msgid "What type of media contains the rescue image?"
-msgstr "Á hverskonar miğli er neyğardisklingurinn?"
+msgstr "ÄÄÒ»Àà½éÖÊ°üº¬¾ÈÔ®Ó³Ïñ£¿"
 
 #: ../loader/loader.c:1962
 msgid "What type of media contains the packages to be installed?"
-msgstr "Hverskonar kerfi viltu setja upp?"
+msgstr "ÄÄÒ»Àà½éÖÊ°üº¬Òª°²×°µÄÈí¼ş°ü£¿"
 
 #: ../loader/loader.c:2724
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr "Gat ekki fundiğ ks.cfg á ræsidisklingnum."
+msgstr "ÎŞ·¨ÔÚÒıµ¼ÈíÅÌÖĞÕÒµ½ ks.cfg¡£"
 
 #: ../loader/loader.c:2816
 msgid "Updates Disk"
-msgstr "Uppfærsludiskur"
+msgstr "¸üĞÂÅÌ"
 
 #: ../loader/loader.c:2817
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr ""
-"Settu uppfærsludisklinginn í drifiğ og veldu \"Í lagi\" til ağ halda áfram."
+msgstr "²åÈë¸üĞÂÅÌ£¬È»ºó°´¡°È·¶¨¡±¼ÌĞø¡£"
 
 #: ../loader/loader.c:2822
 #, c-format
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of %"
 "s."
-msgstr ""
-"Disklingurinn sem şú settir í drifiğ er ekki gildur uppfærsludisklingur "
-"fyrir şessa útgáfu af %s."
+msgstr "Äã²åÈëµÄÈíÅÌ²¢·ÇÓÃÓÚ´Ë°æ±¾ %s µÄÓĞĞ§¸üĞÂÅÌ¡£"
 
 #: ../loader/loader.c:2832
 msgid "Failed to mount floppy disk."
-msgstr "Gat ekki tengt disklinginn."
+msgstr "¹ÒÔØÈíÅÌÊ§°Ü¡£"
 
 #: ../loader/loader.c:2837
 msgid "Updates"
-msgstr "Uppfærslur"
+msgstr "¸üĞÂ"
 
 #: ../loader/loader.c:2837
 msgid "Reading anaconda updates..."
-msgstr "Les inn uppfærslur fyrir anaconda..."
+msgstr "ÕıÔÚ¶ÁÈ¡ anaconda ¸üĞÂ¡­¡­"
 
 #: ../loader/loader.c:3051
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr "Şağ er ekki nægjanlegt vinnsluminni í vélinni til ağ setja upp %s."
+msgstr "ÔÚ±¾»úÉÏ°²×° %s ËùĞèÄÚ´æ²»¹»¡£"
 
 #: ../loader/loader.c:3087
 msgid ""
@@ -4644,9 +4474,8 @@ msgid ""
 "boot disk which you are using.  This shouldn't happen, and I'm rebooting "
 "your system now."
 msgstr ""
-"Seinna şrep uppsetningarforritsins passar ekki viğ ræsidisklinginn sem şú "
-"notağir. Şetta ætti ekki ağ eiga sér stağ og şví mun vélin şín ræsa upp ağ "
-"nıju núna."
+"ÄãÒÑÑ¡¶¨µÄ°²×°µÚ¶ş½×¶ÎÓëÄãµÄÒıµ¼ÅÌ²»·û¡£¡­¡­ÕâÊÇ²»¸Ã·¢ÉúµÄ£¬ÎÒÏÖÔÚÒªÖØĞÂÒıµ¼"
+"ÄãµÄÏµÍ³¡£"
 
 #: ../loader/loader.c:3479
 msgid ""
@@ -4654,34 +4483,32 @@ msgid ""
 "drivers for the installation to succeed. Would you like to select drivers "
 "now?"
 msgstr ""
-"Engir harğir diskar fundust. Şú şarft líklega ağ velja rekla fyrir diskana "
-"handvirkt svo uppsetningin geti haldiğ áfram. Viltu velja şá núna ?"
+"Ã»ÓĞ·¢ÏÖÓ²ÅÌÇı¶¯Æ÷¡£Äã¿ÉÄÜĞèÒªÊÖ¹¤Ñ¡ÔñÉè±¸Çı¶¯³ÌĞòÒÔÈ·±£°²×°³É¹¦¡£ÄãÏÖÔÚÏëÑ¡"
+"ÔñÇı¶¯³ÌĞòÂğ£¿"
 
 #: ../loader/loader.c:3644
 msgid "Running anaconda - please wait...\n"
-msgstr "Keyri anaconda - Vinsamlegast bíğiğ...\n"
+msgstr "ÕıÔÚÔËĞĞ anaconda - ÇëÉÔºò¡­¡­\n"
 
 #: ../loader/mediacheck.c:193
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr ""
-"Get ekki lesiğ gátsummu diskmyndarinnar. Şetta şığir ağ diskurinn var "
-"líklega búinn til án hennar."
+msgstr "ÎŞ·¨´ÓÖ÷¾í±êÖĞ¶Á³ö´ÅÅÌ²éÑéÖµ¡£Õâ¿ÉÄÜÊÇÒòÎª´´½¨´ÅÅÌÊ±Ã»ÓĞÌí¼Ó²éÑéÖµ¡£"
 
 #: ../loader/mediacheck.c:201
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr "Fer yfir \"%s\"..."
+msgstr "ÕıÔÚ¼ì²é¡°%s¡±¡­¡­"
 
 #: ../loader/mediacheck.c:203
 msgid "Checking media now..."
-msgstr "Fer yfir diskmyndina..."
+msgstr "ÕıÔÚ¼ì²é½éÖÊ¡­¡­"
 
 #: ../loader/mediacheck.c:248
 #, c-format
 msgid "Unable to find install image %s"
-msgstr "Get ekki sótt uppsetningardiskmyndina %s"
+msgstr "ÕÒ²»µ½°²×°Ó³Ïñ %s"
 
 #: ../loader/mediacheck.c:261
 msgid ""
@@ -4689,9 +4516,9 @@ msgid ""
 "\n"
 "It is not recommended to use this media."
 msgstr ""
-"EKKI Í LAGI.\n"
+"Ê§°Ü¡£\n"
 "\n"
-"Viğ mælum meğ ağ şú notir şetta ekki."
+"½¨ÒéÄã²»ÒªÊ¹ÓÃ´Ë½éÖÊ¡£"
 
 #: ../loader/mediacheck.c:263
 msgid ""
@@ -4699,9 +4526,9 @@ msgid ""
 "\n"
 "It is OK to install from this media."
 msgstr ""
-"Í LAGI.\n"
+"Í¨¹ı¡£\n"
 "\n"
-"Şağ er í lagi ağ setja upp frá şessu."
+"¿ÉÒÔ´ÓÕâ¸ö½éÖÊ°²×°¡£"
 
 #: ../loader/mediacheck.c:265
 msgid ""
@@ -4709,13 +4536,13 @@ msgid ""
 "\n"
 "No checksum information available, unable to verify media."
 msgstr ""
-"VILLA.\n"
+"²»ÊÊÓÃ¡£\n"
 "\n"
-"Engin gátsumma til stağar. Get ekki yfirfariğ diskmynndina."
+"Ã»ÓĞ¿ÉÓÃµÄ²éÑéÖµ£¬ÎŞ·¨Ğ£Ñé½éÖÊ¡£"
 
 #: ../loader/mediacheck.c:267
 msgid "Media Check Result"
-msgstr "Niğurstöğur yfirferğar á diskmynd"
+msgstr "½éÖÊ¼ì²é½á¹û"
 
 #: ../loader/mediacheck.c:271
 #, c-format
@@ -4725,7 +4552,7 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
-"af diskmynd:\n"
+"Ó³Ïñ£º\n"
 "\n"
 "%s\n"
 "\n"
@@ -4733,34 +4560,34 @@ msgstr ""
 #: ../loader/mediacheck.c:275
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr "Yfirferğ diskmyndar %s er lokiğ og niğurstağan er: %s\n"
+msgstr "%s½éÖÊ¼ì²éÍê±Ï£¬½á¹ûÊÇ£º%s\n"
 
 #: ../loader/modules.c:390
 #, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Gat ekki tengt rekladisklinginn: %s."
+msgstr "¹ÒÔØÇı¶¯³ÌĞòÅÌ %s Ê§°Ü¡£"
 
 #: ../loader/modules.c:410
 msgid "The wrong diskette was inserted."
-msgstr "Réttur disklingur fór ekki inn."
+msgstr "Ëù²åÈëµÄÈíÅÌ²»ÕıÈ·¡£"
 
 #: ../loader/modules.c:423
 msgid "Loading"
-msgstr "Les inn"
+msgstr "ÕıÔÚ×°ÔØ"
 
 #: ../loader/modules.c:423 ../loader/windows.c:47
 #, c-format
 msgid "Loading %s driver..."
-msgstr "Les inn %s rekilinn..."
+msgstr "ÕıÔÚ×°ÔØ %s Çı¶¯³ÌĞò¡­¡­"
 
 #: ../loader/modules.c:442
 msgid "Driver Disk"
-msgstr "Rekladisklingur"
+msgstr "Çı¶¯³ÌĞòÅÌ"
 
 #: ../loader/modules.c:443
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr "Vinsamlegast settu %s rekladiskinn í núna."
+msgstr "ÏÖÔÚÇë²åÈë %s Çı¶¯³ÌĞòÅÌ¡£"
 
 #: ../loader/net.c:62
 #, c-format
@@ -4771,31 +4598,31 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
-"Vinsamlegast sláğu inn eftirfarandi upplısingar:\n"
+"ÇëÊäÈëÒÔÏÂĞÅÏ¢£º\n"
 "\n"
-"    o heiti eğa IP vistfang %s şjónsins\n"
-"    o nafn möppu á şjóninum sem inniheldur\n"
-"      %s fyrir vélina şína\n"
+"     o %s ·şÎñÆ÷µÄÃû³Æ»ò IP ±àºÅ\n"
+"     o ¸Ã·şÎñÆ÷ÉÏ°üº¬ÊÊÓÃÓÚÄãµÄÌåÏµµÄ %s µÄÄ¿Â¼\n"
+"     \n"
 
 #: ../loader/net.c:176
 msgid "NFS server name:"
-msgstr "NFS şjónn:"
+msgstr "NFS ·şÎñÆ÷Ãû³Æ£º"
 
 #: ../loader/net.c:179 ../loader/urls.c:226
 msgid "Red Hat directory:"
-msgstr "Red Hat mappan:"
+msgstr "Red Hat Ä¿Â¼£º"
 
 #: ../loader/net.c:185
 msgid "NFS Setup"
-msgstr "NFS Stillingar"
+msgstr "NFS ÉèÖÃ"
 
 #: ../loader/net.c:259
 msgid "Nameserver IP"
-msgstr "IP vistfang nafnaşjóns"
+msgstr "Ãû³Æ·şÎñÆ÷ IP"
 
 #: ../loader/net.c:263 ../loader/net.c:812
 msgid "Nameserver"
-msgstr "Nafnaşjónn"
+msgstr "Ãû³Æ·şÎñÆ÷"
 
 #: ../loader/net.c:264
 msgid ""
@@ -4804,95 +4631,92 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
-"Beiğninni um lausbundnar IP stillingar var svarağ en şağ innihélt ekki "
-"upplısingar um nafnaşjóna. Ef şú veist hver nafnaşjónninn şinn er máttu slá "
-"şağ inn hérna. Ef şú veist şağ ekki máttu skilja şetta eftir autt og "
-"uppsetningin mun halda áfram."
+"ÄãµÄ¶¯Ì¬ IP ÇëÇó·µ»ØÁË IP ÅäÖÃĞÅÏ¢£¬µ«´ËĞÅÏ¢È´Ã»ÓĞ°üÀ¨ DNS Ãû³Æ·şÎñÆ÷¡£ÄãÈôÖª"
+"µÀÄãµÄÃû³Æ·şÎñÆ÷ÊÇÊ²Ã´£¬ÏÖÔÚ¾ÍÇëÊäÈë¡£Èç¹ûÄã²»ÖªµÀÕâÒ»ĞÅÏ¢£¬¿É½«´Ë¸ñÁôÎª¿Õ"
+"°×£¬°²×°½«»á¼ÌĞø¡£"
 
 #: ../loader/net.c:274
 msgid "Invalid IP Information"
-msgstr "Ógildar IP upplısingar"
+msgstr "IP ĞÅÏ¢ÎŞĞ§"
 
 #: ../loader/net.c:275
 msgid "You entered an invalid IP address."
-msgstr "Şú gafst upp ógilt IP vistfang."
+msgstr "ÄãÊäÈëµÄ IP ±àºÅÎŞĞ§¡£"
 
 #: ../loader/net.c:299
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
-"Sláğu inn IP uppsetningu şessarar vélar. Hver færsla á ağ vera IP-tala rituğ "
-"sem tölur meğ punkt á milli (dæmi 1.2.3.4)."
+"ÇëÊäÈë±¾»úµÄ IP ÅäÖÃ¡£Ã¿Ïî¾ùÓ¦ÒÔµãÊ½Ê®½øÖÆÊäÈëÎª IP ±àºÅ(ÀıÈç£º1.2.3.4)¡£"
 
 #: ../loader/net.c:341
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr "Nota lausbundnar IP stillingar (BOOTP/DHCP)"
+msgstr "Ê¹ÓÃ¶¯Ì¬ IP ÅäÖÃ(BOOTP/DHCP)"
 
 #: ../loader/net.c:369
 msgid "Configure TCP/IP"
-msgstr "Stillingar TCP/IP"
+msgstr "ÅäÖÃ TCP/IP"
 
 #: ../loader/net.c:400
 msgid "Missing Information"
-msgstr "Upplısingar vantar"
+msgstr "È±ÉÙĞÅÏ¢"
 
 #: ../loader/net.c:401
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "Şú verğur ağ gefa upp fullgilt IP vistfang og netmöskva."
+msgstr "±ØĞëÊäÈëÓĞĞ§µÄ IP ±àºÅºÍ×ÓÍøÑÚÂë¡£"
 
 #: ../loader/net.c:409 ../loader/net.c:746
 msgid "Dynamic IP"
-msgstr "Lausbundiğ IP"
+msgstr "¶¯Ì¬ IP"
 
 #: ../loader/net.c:410 ../loader/net.c:747
 msgid "Sending request for IP information..."
-msgstr "Sendi beiğni um IP stillingar..."
+msgstr "ÕıÔÚ·¢ËÍ IP ĞÅÏ¢ÇëÇó¡­¡­"
 
 #: ../loader/net.c:623
 msgid "Determining host name and domain..."
-msgstr "Reyni ağ ákvarğa vélarheiti og netlén..."
+msgstr "ÕıÔÚÈ·¶¨Ö÷»úµÄÃû³ÆºÍÓò¡­¡­"
 
 #: ../loader/net.c:730 ../loader/net.c:763
 msgid "kickstart"
-msgstr "hrağuppsetning"
+msgstr "·´³åÆô¶¯"
 
 #: ../loader/net.c:731
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr "óleyfilegt viğfang viğ netskipun hrağuppsetningar %s: %s"
+msgstr "·´³åÆô¶¯ÍøÂçÃüÁî %s µÄ±äÁ¿´íÎó£º%s"
 
 #: ../loader/net.c:764
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "Óleyfileg ''bootproto' %s í netskipun hrağuppsetningar"
+msgstr "ÍøÂçÃüÁîÖĞÖ¸¶¨µÄÒıµ¼Ğ­Òé %s ²»¶Ô"
 
 #: ../loader/net.c:806
 msgid "Boot protocol to use"
-msgstr "Ræsimáti"
+msgstr "ÒªÊ¹ÓÃµÄÒıµ¼Ğ­Òé"
 
 #: ../loader/net.c:808
 msgid "Network gateway"
-msgstr "Gátt nets"
+msgstr "ÍøÂçÍø¹Ø"
 
 #: ../loader/net.c:810
 msgid "IP address"
-msgstr "IP vistfang"
+msgstr "IP ±àºÅ"
 
 #: ../loader/net.c:819
 msgid "Domain name"
-msgstr "Lén"
+msgstr "ÓòÃû"
 
 #: ../loader/net.c:822
 msgid "Network device"
-msgstr "Netkort"
+msgstr "ÍøÂçÉè±¸"
 
 #: ../loader/net.c:894
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> milli atriğa      | <Bilslá> velur  | <F12> næsti skjár "
+msgstr "<Tab>/<Alt-Tab> Ñ¡Ïî¼äÇĞ»»   |  <Space> Ñ¡Ôñ   |  <F12> ÏÂÒ»ÆÁÄ»"
 
 #: ../loader/net.c:895
 #, c-format
@@ -4901,19 +4725,19 @@ msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
 #: ../loader/net.c:897
 msgid "Network configuration"
-msgstr "Stillingar nets"
+msgstr "ÍøÂçÅäÖÃ"
 
 #: ../loader/net.c:898
 msgid "Would you like to set up networking?"
-msgstr "Viltu setja upp net?"
+msgstr "ÊÇ·ñÒªÉèÖÃÁªÍø£¿"
 
 #: ../loader/pcmcia.c:35
 msgid "PC Card"
-msgstr "PC kort"
+msgstr "PC ¿¨"
 
 #: ../loader/pcmcia.c:36
 msgid "Initializing PC Card Devices..."
-msgstr "Frumstilli tækin í PC kortum..."
+msgstr "ÕıÔÚ³õÊ¼»¯ PC ¿¨Éè±¸¡­¡­"
 
 #: ../loader/pcmcia.c:104
 msgid "PCMCIA"
@@ -4921,160 +4745,158 @@ msgstr "PCMCIA"
 
 #: ../loader/pcmcia.c:105
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-msgstr "Vinsamlegast settu PCMCIA rekladiskinn í disklingadrifiğ núna."
+msgstr "ÏÖÔÚÇëÔÚÈíÅÌÇı¶¯Æ÷ÖĞ²åÈë PCMCIA Çı¶¯³ÌĞòÅÌ¡£"
 
 #: ../loader/pcmcia.c:114
 msgid "Failed to mount disk."
-msgstr "Gat ekki tengt disklinginn."
+msgstr "¹ÒÔØ´ÅÅÌÊ§°Ü¡£"
 
 #: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-msgstr "Şessi disklingur virğist ekki vera Red Hat PCMCIA rekladiskur."
+msgstr "´ËÈíÅÌËÆºõ²»ÊÇ Red Hat PCMCIA Çı¶¯³ÌĞòÅÌ¡£"
 
 #: ../loader/telnetd.c:64
 msgid "Waiting for telnet connection..."
-msgstr "Bíğ eftir telnet tengingu..."
+msgstr "ÕıÔÚµÈ´ı telnet Á¬½Ó¡­¡­"
 
 #: ../loader/telnetd.c:106
 msgid "Running anaconda via telnet..."
-msgstr "Keyri anaconda gegnum telnet..."
+msgstr "Í¨¹ı telnet ÔËĞĞ anaconda ¡­¡­"
 
 #: ../loader/urls.c:82
 #, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Gat ekki stimplağ inn í %s: %s"
+msgstr "µÇÂ¼ %s Ê§°Ü£º%s"
 
 #: ../loader/urls.c:92 ../loader/urls.c:100
 #, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Gat ekki lesiğ %s: %s"
+msgstr "¼ìË÷ %s Ê§°Ü£º%s"
 
 #: ../loader/urls.c:105
 msgid "Retrieving"
-msgstr "Sæki"
+msgstr "ÕıÔÚ¼ìË÷"
 
 #: ../loader/urls.c:222
 msgid "FTP site name:"
-msgstr "FTP şjónn:"
+msgstr "FTP Õ¾µãÃû£º"
 
 #: ../loader/urls.c:223
 msgid "Web site name:"
-msgstr "Vefşjónn:"
+msgstr "Web Õ¾µãÃû£º"
 
 #: ../loader/urls.c:241
 msgid "Use non-anonymous ftp"
-msgstr "Nota auğkennt ftp"
+msgstr "Ê¹ÓÃ·ÇÄäÃû FTP"
 
 #: ../loader/urls.c:246
 msgid "Use proxy server"
-msgstr "Nota vefsel"
+msgstr "Ê¹ÓÃ´úÀí·şÎñÆ÷"
 
 #: ../loader/urls.c:258
 msgid "FTP Setup"
-msgstr "FTP stillingar"
+msgstr "FTP ÉèÖÃ"
 
 #: ../loader/urls.c:259
 msgid "HTTP Setup"
-msgstr "HTTP stillingar"
+msgstr "HTTP ÉèÖÃ"
 
 #: ../loader/urls.c:269
 msgid "You must enter a server name."
-msgstr "Şú verğur ağ gefa upp heiti şjóns."
+msgstr "Äã±ØĞëÊäÈë·şÎñÆ÷Ãû³Æ¡£"
 
 #: ../loader/urls.c:274
 msgid "You must enter a directory."
-msgstr "Şú verğur ağ nefna möppu."
+msgstr "Äã±ØĞëÊäÈëÄ¿Â¼¡£"
 
 #: ../loader/urls.c:279
 msgid "Unknown Host"
-msgstr "Óşekkt vél"
+msgstr "Î´ÖªÖ÷»ú"
 
 #: ../loader/urls.c:280
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s er ekki gilt heiti vélar."
+msgstr "%s ²»ÊÇÓĞĞ§µÄÖ÷»úÃû¡£"
 
 #: ../loader/urls.c:360
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
-msgstr ""
-"Ef şú ert ekki ağ nota nafnlaust ftp sláğu şá inn notandaheiti og lykilorğ "
-"ağ neğan."
+msgstr "Èç¹ûÕıÔÚÊ¹ÓÃ·ÇÄäÃû FTP£¬ÇëÔÚÏÂÃæÊäÈëÒªÊ¹ÓÃµÄÕÊºÅÃûºÍ¿ÚÁî¡£"
 
 #: ../loader/urls.c:365
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr "Ef şú vilt nota vefsel şarftu ağ gefa upp heiti şess hér."
+msgstr "Èç¹ûÕıÔÚÊ¹ÓÃ HTTP ´úÀí·şÎñÆ÷£¬ÇëÊäÈëÒªÊ¹ÓÃµÄ HTTP ´úÀí·şÎñÆ÷Ãû³Æ¡£"
 
 #: ../loader/urls.c:386
 msgid "Account name:"
-msgstr "Notandanafn:"
+msgstr "ÕÊºÅÃû£º"
 
 #: ../loader/urls.c:395
 msgid "FTP Proxy:"
-msgstr "FTP sel:"
+msgstr "FTP ´úÀí£º"
 
 #: ../loader/urls.c:396
 msgid "HTTP Proxy:"
-msgstr "HTTP sel:"
+msgstr "HTTP ´úÀí£º"
 
 #: ../loader/urls.c:400
 msgid "FTP Proxy Port:"
-msgstr "Gátt FTP sels:"
+msgstr "FTP ´úÀí¶Ë¿Ú£º"
 
 #: ../loader/urls.c:401
 msgid "HTTP Proxy Port:"
-msgstr "Gátt HTTP sels:"
+msgstr "HTTP ´úÀí¶Ë¿Ú£º"
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
-msgstr "Les inn SCSI rekil"
+msgstr "ÕıÔÚÔØÈë SCSI Çı¶¯³ÌĞò"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr "Mynd til ağ birta"
+msgstr "Ó³ÉäÓ³ÏñÒÔÏÔÊ¾"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr "Breidd korts (í myndeiningum)"
+msgstr "Ó³Éä±í¿í¶È(ÒÔÏñËØÎªµ¥Î»)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
-msgstr "Virkja \"antialias\""
+msgstr "ÆôÓÃ antialias"
 
 #: ../gnome-map/gglobe-canvas.c:100 ../gnome-map/timezonemapmodule.c:70
 msgid "World"
-msgstr "Heimur"
+msgstr "ÊÀ½ç"
 
 #: ../gnome-map/gglobe-canvas.c:101 ../gnome-map/timezonemapmodule.c:71
 msgid "North America"
-msgstr "Norğur Ameríka"
+msgstr "±±ÃÀÖŞ"
 
 #: ../gnome-map/gglobe-canvas.c:102 ../gnome-map/timezonemapmodule.c:72
 msgid "South America"
-msgstr "Suğur Ameríka"
+msgstr "ÄÏÃÀÖŞ"
 
 #: ../gnome-map/gglobe-canvas.c:103 ../gnome-map/timezonemapmodule.c:73
 msgid "Indian Rim"
-msgstr "Indland"
+msgstr "Ó¡¶ÈÑóÑØ°¶"
 
 #: ../gnome-map/gglobe-canvas.c:104 ../gnome-map/timezonemapmodule.c:74
 msgid "Europe"
-msgstr "Evrópa"
+msgstr "Å·ÖŞ"
 
 #: ../gnome-map/gglobe-canvas.c:105 ../gnome-map/timezonemapmodule.c:75
 msgid "Africa"
-msgstr "Afríka"
+msgstr "·ÇÖŞ"
 
 #: ../gnome-map/gglobe-canvas.c:106 ../gnome-map/timezonemapmodule.c:76
 msgid "Asia"
-msgstr "Asía"
+msgstr "ÑÇÖŞ"
 
 #: ../gnome-map/gglobe-canvas.c:714 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr "Get ekki lesiğ tímabeltisgögn"
+msgstr "ÎŞ·¨ÔØÈëÊ±ÇøÊı¾İ"
 
 #: ../gnome-map/gglobe-canvas.c:720 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
@@ -5082,88 +4904,101 @@ msgstr "gglobe-canvas"
 
 #: ../gnome-map/gglobe-canvas.c:765
 msgid "View: "
-msgstr "Skoğa: "
+msgstr "ÊÓÍ¼£º"
 
+# ../comps/comps-master:3
 msgid "Base"
-msgstr "Grunnur"
+msgstr "»ù´¡"
 
 msgid "Printing Support"
-msgstr "Prentarastuğningur"
+msgstr "´òÓ¡Ö§³Ö"
 
 msgid "Classic X Window System"
-msgstr "Hefğbundiğ X gluggakerfi"
+msgstr "¾­µä X ´°¿ÚÏµÍ³"
 
 msgid "X Window System"
-msgstr "X gluggakerfiğ"
+msgstr "X ´°¿ÚÏµÍ³"
 
+# ../comps/comps-master:446
 msgid "Laptop Support"
-msgstr "Kjöltutölvustuğningur"
+msgstr "±ãĞ¯µçÄÔÖ§³Ö"
 
+# ../comps/comps-master:410
 msgid "Sound and Multimedia Support"
-msgstr "Hljóğ og margmiğlunarstuğningur"
+msgstr "ÉùÒô¼°¶àÃ½ÌåÖ§³Ö"
 
 msgid "Network Support"
-msgstr "Netstuğningur"
+msgstr "ÍøÂçÖ§³Ö"
 
 msgid "Dialup Support"
-msgstr "Upphringistuğningur"
+msgstr "²¦ºÅÖ§³Ö"
 
+# ../comps/comps-master:577
 msgid "Messaging and Web Tools"
-msgstr "Samskipta og veftól"
+msgstr "ÊÕ·¢ÏûÏ¢¼°ÆäËü Web ¹¤¾ß"
 
+# ../comps/comps-master:612
 msgid "Graphics and Image Manipulation"
-msgstr "Umsısla meğ grafík"
+msgstr "Í¼ĞÎ¼°Í¼Ïñ´¦Àí"
 
 msgid "News Server"
-msgstr "Fréttaşjónn"
+msgstr "ĞÂÎÅ·şÎñÆ÷"
 
 msgid "NFS File Server"
-msgstr "NFS şjónn"
+msgstr "NIS ÎÄ¼ş·şÎñÆ÷"
 
 msgid "Windows File Server"
-msgstr "Skráarşjónn fyrir Windows"
+msgstr "Windows ÎÄ¼ş·şÎñÆ÷"
 
+# ../comps/comps-master:531
 msgid "Anonymous FTP Server"
-msgstr "Şjónn fyrir nafnlaust FTP"
+msgstr "ÄäÃû FTP ·şÎñÆ÷"
 
 msgid "SQL Database Server"
-msgstr "SQL gagnagrunnsşjónn"
+msgstr "SQL Êı¾İ¿â·şÎñÆ÷"
 
 msgid "Web Server"
-msgstr "Vefşjónn"
+msgstr "Web ·şÎñÆ÷"
 
+# ../comps/comps-master:719
 msgid "Router / Firewall"
-msgstr "Beinir / Eldveggur"
+msgstr "Â·ÓÉÆ÷/·À»ğÇ½"
 
 msgid "DNS Name Server"
-msgstr "DNS nafnaşjónn"
+msgstr "DNS Ãû³Æ·şÎñÆ÷"
 
 msgid "Network Managed Workstation"
-msgstr "Vinnustöğ stırğ af neti"
+msgstr "ÓÉÍøÂç¹ÜÀíµÄ¹¤×÷Õ¾"
 
+# ../comps/comps-master:753
 msgid "Authoring and Publishing"
-msgstr "Umbrot og ritstörf"
+msgstr "ÊÚÈ¨¼°³ö°æ"
 
+# ../comps/comps-master:597
 msgid "Emacs"
-msgstr "Emacs"
+msgstr "Emacs ±à¼­Æ÷"
 
+# ../comps/comps-master:738
 msgid "Utilities"
-msgstr "Tól"
+msgstr "ÎŞ±êÌâ"
 
+# ../comps/comps-master:839
 msgid "Legacy Application Support"
-msgstr "Stuğningur fyrir gömul forrit"
+msgstr "Ô­ÓĞµÄÈí¼şÖ§³Ö"
 
 msgid "Software Development"
-msgstr "Hugbúnağarşróun"
+msgstr "Èí¼ş¿ª·¢"
 
 msgid "Kernel Development"
-msgstr "Kjarnaşróun"
+msgstr "ÄÚºË¿ª·¢"
 
+# ../comps/comps-master:1055
 msgid "Windows Compatibility / Interoperability"
-msgstr "Windows samhæfni"
+msgstr "Windows ¼æÈİĞÔ/»¥×÷ĞÔ"
 
+# ../comps/comps-master:1073
 msgid "Games and Entertainment"
-msgstr "Leikir og önnur skemmtun"
+msgstr "ÓÎÏ·¼°ÓéÀÖ"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -5175,19 +5010,19 @@ msgstr "Alagoas, Sergipe"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr "Alaska tími"
+msgstr "Alaska Time"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr "Alaska tími - Alaska panhandle"
+msgstr "Alaska Time - Alaska panhandle"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr "Alaska tími - Alaska panhandle neck"
+msgstr "Alaska Time - Alaska panhandle neck"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr "Alaska tími - vestur Alaska"
+msgstr "Alaska Time - west Alaska"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
@@ -5199,7 +5034,7 @@ msgstr "Amapa, E Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr "Amundsen-Scott Station, suğurskautiğ"
+msgstr "Amundsen-Scott Station, South Pole"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
@@ -5221,11 +5056,12 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr "Atlantic Time - Nova Scotia - stağir sem fóru ekki eftir DST 1966-1971"
+msgstr ""
+"Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
+msgstr "Atyrau (Atirau, Gur'yev)£¬Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -5253,7 +5089,7 @@ msgstr "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr "Central Crimea"
+msgstr "central Crimea"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
@@ -5261,7 +5097,7 @@ msgstr "Central Standard Time - Saskatchewan - midwest"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr "Central Standard Time - Saskatchewan - flestir stağir"
+msgstr "Central Standard Time - Saskatchewan - most locations"
 
 #. generated from zone.tab
 msgid "Central Time"
@@ -5361,7 +5197,7 @@ msgstr "Eastern Standard Time - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr "Eastern Standard Time - Indiana - flestir stağir"
+msgstr "Eastern Standard Time - Indiana - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
@@ -5389,17 +5225,17 @@ msgstr "Eastern Time - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr "Eastern Time - Michigan - flestir stağir"
+msgstr "Eastern Time - Michigan - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - most locations"
-msgstr "Eastern Time - Ontario & Quebec - flestir stağir"
+msgstr "Eastern Time - Ontario & Quebec - most locations"
 
 #. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
-"Eastern Time - Ontario & Quebec - stağir sem fóru ekki eftir DST 1967-1973"
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -5503,7 +5339,7 @@ msgstr "Midway Islands"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr "Moscow+00 - vestur Rússland"
+msgstr "Moscow+00 - west Russia"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
@@ -5604,9 +5440,8 @@ msgid "Mountain Time - west Northwest Territories"
 msgstr "Mountain Time - west Northwest Territories"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-msgstr "E Argentina (BA, DF, SC, TF)"
+msgstr "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
@@ -5674,7 +5509,7 @@ msgstr "Queensland - Holiday Islands"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr "Queensland - flestir stağir"
+msgstr "Queensland - most locations"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
@@ -5718,7 +5553,7 @@ msgstr "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr "Svalbarği"
+msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
@@ -5761,9 +5596,8 @@ msgid "W Amazonas"
 msgstr "W Amazonas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr "E Argentina (BA, DF, SC, TF)"
+msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -5799,77 +5633,96 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "Chinese(Simplified)"
+msgstr "ÖĞÎÄ(¼òÌå)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "Chinese(Traditional)"
+msgstr "ÖĞÎÄ(·±Ìå)"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr "Tékkneska"
+msgstr "½İ¿ËÓï"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr "Danska"
+msgstr "µ¤ÂóÓï"
 
 #. generated from lang-table
 msgid "English"
-msgstr "Enska"
+msgstr "Ó¢Óï"
 
 #. generated from lang-table
 msgid "French"
-msgstr "Franska"
+msgstr "·¨Óï"
 
 #. generated from lang-table
 msgid "German"
-msgstr "Şıska"
+msgstr "µÂÓï"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr "Íslenska"
+msgstr "±ùµºÓï"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr "Ítalska"
+msgstr "Òâ´óÀûÓï"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr "Japanska"
+msgstr "ÈÕÓï"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr "Kóreska"
+msgstr "º«Óï"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr "Norska"
+msgstr "Å²ÍşÓï"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr "Postúgalska"
+msgstr "ÆÏÌÑÑÀÓï"
 
 #. generated from lang-table
 #, fuzzy
 msgid "Romanian"
-msgstr "Eftir"
+msgstr "Ê£Óà"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr "Rússneska"
+msgstr "¶íÓï"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr "Slóveska"
+msgstr "Ë¹ÂåÎÄÄáÑÇÓï"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr "Spánska"
+msgstr "Î÷°àÑÀÓï"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr "Sænska"
+msgstr "ÈğµäÓï"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr "Úkraínska"
+msgstr "ÎÚ¿ËÀ¼Óï"
+
+#~ msgid "%s  %s"
+#~ msgstr "%s  %s"
+
+#~ msgid ""
+#~ "Please enter the following information:\n"
+#~ "\n"
+#~ "    o the name or IP number of your NFS server\n"
+#~ "    o the directory on that server containing\n"
+#~ "      %s for your architecture"
+#~ msgstr ""
+#~ "ÇëÊäÈëÒÔÏÂĞÅÏ¢£º\n"
+#~ "\n"
+#~ "    o NFS ·şÎñÆ÷µÄÃû³Æ»ò IP ±àºÅ\n"
+#~ "    o ¸Ã·şÎñÆ÷ÉÏ°üº¬ÊÊÓÃÓÚÄãµÄÌåÏµµÄ %sµÄÄ¿Â¼\n"
+#~ "       "
+
+#~ msgid "Portuguese(Brasilian) pt"
+#~ msgstr "ÆÏÌÑÑÀÓï(°ÍÎ÷)pt"
