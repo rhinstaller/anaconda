@@ -40,10 +40,10 @@ class InstallPathWindow (InstallWindow):
 		     LiloWindow,
 		     NetworkWindow,
 		     TimezoneWindow,
+		     AccountWindow,
 		     AuthWindow,
 		     PackageSelectionWindow,
 		     UnresolvedDependenciesWindow,
-		     AccountWindow,
 		     InstallProgressWindow,
 		     BootdiskWindow,
 		     CongratulationWindow
