@@ -118,7 +118,7 @@ class InstallData:
 	self.langSupport.writeKS(f)
 	self.keyboard.writeKS(f)
         self.mouse.writeKS(f)
-        self.xconfig.writeKS(f)
+        self.xconfig.writeKS(f, self.desktop)
 	self.network.writeKS(f)
 	self.rootPassword.writeKS(f, self.auth)
 	self.firewall.writeKS(f)
