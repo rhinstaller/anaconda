@@ -80,10 +80,16 @@ export HOME
 PYTHONPATH=/tmp/updates
 export PYTHONPATH
 
+# remount root fs rw
+mount /dev/root /  -o remount,rw
+
 # limit output on x3270 console
 mount -t proc none /proc
 mount -t devpts /dev/pts /dev/pts
 echo "1 4 1 1" > /proc/sys/kernel/printk
+
+# make /tmp/ramfs
+mount -t ramfs none /tmp
 
 mkdir /OCO
 mount -t ext2 /dev/ram /OCO >/dev/null 2>&1
@@ -254,6 +260,7 @@ fi
 # configure network-interface
 KERNELVERSION=`cat /proc/version | awk '{ print $3 }'`
 if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
+	insmod fsm$LO
 	insmod ctc$LO $CTC
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 	route add -host $IPADDR dev $DEVICE 2>/dev/null
