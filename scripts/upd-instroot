@@ -88,7 +88,7 @@ rm -rf $DEST $DESTGR
 mkdir -p $DEST
 mkdir -p $DESTGR
 
-PACKAGES="glibc setup python newt libtermcap zlib ash
+PACKAGES="glibc setup openssl python newt libtermcap zlib ash
 	 e2fsprogs util-linux raidtools locale-ja popt mount procps
 	 rpm XFree86 Xconfigurator anaconda anaconda-runtime
 	 kudzu-devel kudzu db3 rpm-python bzip2 dosfstools pciutils"
@@ -191,6 +191,7 @@ usr/lib/anaconda-runtime/*
 usr/lib/anaconda/*
 usr/lib/anaconda/installclasses/*
 usr/lib/anaconda/textw/*
+usr/lib/libssl*
 usr/lib/libbz2*
 usr/lib/libdb.so.2
 usr/lib/libdb.so.3
