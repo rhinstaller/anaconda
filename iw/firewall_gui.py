@@ -202,7 +202,7 @@ class FirewallWindow (InstallWindow):
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
 
-        label = GtkLabel (_("Dude, Please choose your security level:  "))
+        label = GtkLabel (_("Please choose your security level:  "))
         label.set_alignment (0.0, 0.5)
 
         label.set_line_wrap (TRUE)
