@@ -1242,7 +1242,8 @@ def betaNagScreen(intf, dir):
     while 1:
 	rc = intf.messageWindow( _("Technology Preview"),
 				 _("Thank you for downloading this "
-				   "Red Hat AMD64 technology preview.\n\n"
+				   "Red Hat technology preview for the AMD64 "
+                                   "platform.\n\n"
 				   "This is not a supported product.\n\n"
                                    "The purpose of this release is to collect "
                                    "feedback from users.  "
@@ -1250,8 +1251,8 @@ def betaNagScreen(intf, dir):
 				   "    http://bugzilla.redhat.com/bugzilla/\n"
 				   "and file a report against 'Red Hat Linux' "
 				   "version 'GinGin64'.\n\n"
-                                   "To discuss your experiences with this AMD64 "
-                                   "technology preview, please subscribe to the "
+                                   "To discuss Red Hat technology on the AMD64 "
+                                   "platform, please subscribe to the "
                                    "amd64-list@redhat.com mailing list.\n"),
                                  
 				   type="custom", custom_icon="warning",
