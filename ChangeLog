@@ -1,4 +1,11 @@
 2004-09-22  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/net.c (chooseNetworkInterface): Support using
+	ksdevice=macaddr instead of ksdevice=link or ksdevice=ethX.
+	Should sanitize the mac address to handle most sane formats (#130605).
+
+	* isys/getmacaddr.c (sanitizeMacAddr): Add function.
+	* isys/getmacaddr.h (sanitizeMacAddr): Add prototype
+
 	* isys/nfsmount.c: don't sig11 if nfs server isn't running (#131746)
 
