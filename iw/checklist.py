@@ -13,9 +13,6 @@ class CheckList (GtkCList):
         #for i in range(columns):
         #    self.set_column_auto_resize (i, 1)
 
-        def debug_cb (widget):
-            print widget
-            
         self.connect ("realize", self._realize_cb)
 #        self.connect ("button_press_event", self._button_press_cb)
 #        self.connect ("key_press_event", self._key_press_cb)

@@ -252,7 +252,7 @@ def inet_calcGateway (bc):
     if isinstance (bc, type ("")):
         bcaddr = inet_aton (bc)
     else:
-        bcaddr = ip
+        bcaddr = bc
 
     return inet_ntoa (bcaddr - 1)
 
