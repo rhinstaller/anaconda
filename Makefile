@@ -64,6 +64,7 @@ install:
 	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
+	cp -a raid*stub $(DESTDIR)/$(PYTHONLIBDIR)
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
 archive: create-archive
