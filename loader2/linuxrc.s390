@@ -52,7 +52,7 @@ startinetd()
 	/sbin/sshd
 	if [ -z "$RUNKS" ]; then
 	  echo 
-	  echo $"Please connect now to $IPADDR to start the installation."
+	  echo $"Connect now to $IPADDR to start the installation."
 	  read
   	  while : ; do
 			/bin/sh --login
@@ -107,18 +107,18 @@ LO=""
 # Parse configuration
 # Check for missing parameters, prompt for them if necessary
 while [ -z "$HOSTNAME" -o "$HOSTNAME" = "(none)" ]; do
-	echo $"Please enter the FQDN of your new Linux guest (e.g. s390.redhat.com):"
+	echo $"Enter the FQDN of your new Linux guest (e.g. s390.redhat.com):"
 	read HOSTNAME
 done
 while [ -z "$NETTYPE" ]; do
-	echo $"Please enter which kind of network device do you intend to use"
+	echo $"Enter which kind of network device do you intend to use"
    echo " (e.g. ctc, escon, iucv, eth, hsi, tr):"
 	read NETTYPE
 done
 DEVICE=${NETTYPE}0
 if [ ":$NETTYPE" != ":iucv" ]; then   # iucv is the only interface without chandev config
    while [ -z "$CHANDEV" ]; do
-		echo $"Please enter parameters you need to pass to the channel device layer."
+		echo $"Enter parameters you need to pass to the channel device layer."
 		echo $"This includes the I/O ports of your ctc, escon, qeth, hsi and lcs devices."
 		echo $"Additional parameters for QETH devices such as the portname"
 		echo $"should be entered at the next prompt, not here !"
@@ -130,7 +130,7 @@ if [ ":$NETTYPE" != ":iucv" ]; then   # iucv is the only interface without chand
 	if [ "$?" = "0" ]; then
 		if [ -z "$QETHPARM" ]; then
 			echo $"Each OSA-Express feature in QDIO mode must be associated with a port name"
-			echo $"Please enter additional parameters for your QETH device"
+			echo $"Enter additional parameters for your QETH device"
 			echo $"(e.g. \"add_parms,0x10,{lo_devno,hi_devno},portname:port_name\")"
 			echo $"Press enter if you don't want to enter additional parameters"
 			read QETHPARM
@@ -142,7 +142,7 @@ if [ ":$NETTYPE" != ":iucv" ]; then   # iucv is the only interface without chand
    echo "$CHANDEV" |grep -q "hsi"
 	if [ "$?" = "0" ]; then
 		if [ -z "$QETHPARM" ]; then
-			echo $"Please enter additional parameters for your HSI device"
+			echo $"Enter additional parameters for your HSI device"
 			echo $"(e.g. \"add_parms,0x10,{lo_devno,hi_devno},portname:port_name\")"
 			echo $"Press enter if you don't want to enter additional parameters"
 			read QETHPARM
@@ -153,7 +153,7 @@ if [ ":$NETTYPE" != ":iucv" ]; then   # iucv is the only interface without chand
 	[ -n "$CHANDEV" ]  && echo "reprobe" >/proc/chandev
 fi
 while [ -z "$IPADDR" ]; do
-  echo $"Please enter the IP address of your new Linux guest:"
+  echo $"Enter the IP address of your new Linux guest:"
   read IPADDR
 done
 while [ -z "$NETWORK" ]; do
@@ -170,7 +170,7 @@ if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ] || [ ":$NETTYPE" = ":hsi"
 		  read BROADCAST
 	 done
 	 while [ -z "$GATEWAY" ]; do
-		  echo $"Please enter your default gateway:"
+		  echo $"Enter your default gateway:"
 		  read GATEWAY
 	 done
     if echo "$CHANDEV" |grep -q "lcs"; then
@@ -247,7 +247,7 @@ fi
 route add default gw $GATEWAY dev $DEVICE 2>/dev/null
 
 if [ -z "$DNS" ]; then
-	echo $"Please enter your DNS server(s), separated by colons (:):"
+	echo $"Enter your DNS server(s), separated by colons (:):"
 	read DNS
 fi
 if [ -z "$DNS" ]; then
@@ -256,7 +256,7 @@ if [ -z "$DNS" ]; then
 fi
 
 if [ -n "$DNS" -a -z "$SEARCHDNS" ]; then
-	echo $"Please enter your DNS search domain(s) (if any), separated by colons (:):"
+	echo $"Enter your DNS search domain(s) (if any), separated by colons (:):"
 	read SEARCHDNS
 fi
 
