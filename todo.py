@@ -1147,7 +1147,7 @@ class ToDo:
         inittab.close ()
 
     def migrateXinetd(self):
-        if not os.access (self.instPath + "/usr/sbin/inetdconvert"):
+        if not os.access (self.instPath + "/usr/sbin/inetdconvert", X_OK):
             log("did not find %s" % self.instPath + "/usr/sbin/inetdconvert")
 
         argv = [ "/usr/sbin/inetdconvert", "--convertremaining",
