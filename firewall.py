@@ -2,8 +2,9 @@
 # firewall.py - firewall install data and installation
 #
 # Bill Nottingham <notting@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2003 Red Hat, Inc.
+# Copyright 2004 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -19,19 +20,42 @@ import string
 from flags import flags
 
 from rhpl.log import log
+from rhpl.translate import _, N_
+
+class Service:
+    def __init__ (self, key, name, ports):
+        self.key = key
+        self.name = name
+        self.allowed = 0
+
+        if type(ports) == type(""):
+            self.ports = [ ports ]
+        else:
+            self.ports = ports
+
+
+    def set_enabled(self, val):
+        self.allowed = val
+
+    def get_enabled(self):
+        return self.allowed
+
+    def get_name(self):
+        return self.name
+
+    def get_ports(self):
+        return self.ports
 
 class Firewall:
     def __init__ (self):
 	self.enabled = 1
-	self.ssh = 0
-	self.telnet = 0
-	self.smtp = 0
-	self.http = 0
-	self.ftp = 0
-	self.portlist = ""
-	self.ports = []
-	self.trustdevs = []
-        self.selinux = ""
+        self.trusteddevs = []
+	self.portlist = []
+        self.services = [ Service("ssh", N_("Remote Login (SSH)"), "22:tcp"),
+                          Service("http", N_("Web Server (HTTP, HTTPS)"), "80:tcp"),
+                          Service("ftp", N_("File Transfer (FTP)"), "21:tcp"),
+
+                          Service("smtp", N_("Mail Server (SMTP)"), "25:tcp") ]
 
     def writeKS(self, f):
 	f.write("firewall")
@@ -53,33 +77,17 @@ class Firewall:
             args.append("--disabled")
             return args
         
-	if self.portlist:
-	    ports = string.split(self.portlist,',')
-	    for port in ports:
-		port = string.strip(port)
-                try:
-                    if not string.index(port,':'):
-                        port = '%s:tcp' % port
-                except:
-                    pass
-		self.ports.append(port)
-	for port in self.ports:
-	    args = args + [ "--port=%s" %(port,) ]
-	if self.smtp:
-	    args = args + [ "--port=smtp:tcp" ]
-	if self.http:
-	    args = args + [ "--port=http:tcp" ]
-	if self.ftp:
-	    args = args + [ "--port=ftp:tcp" ]
-	if self.ssh:
-	    args = args + [ "--port=ssh:tcp" ]
-	if self.telnet:
-	    args = args + [ "--port=telnet:tcp" ]
-        if self.selinux:
-            args = args + [ "--selinux=%s" % self.selinux ]
-	for dev in self.trustdevs:
-	    args = args + [ "--trust=%s" %(dev,) ]
+        for service in self.services:
+            if service.get_enabled():
+                for p in service.get_ports():
+                    args = args + [ "--port=%s" %(p,) ]
 
+        for dev in self.trustdevs:
+            args = args + [ "--trust=%s" %(dev,) ]
+
+	for port in self.portlist:
+	    args = args + [ "--port=%s" %(port,) ]
+                
 	return args
 
     def write (self, instPath):

@@ -1,7 +1,7 @@
 #
 # kickstart.py: kickstart install support
 #
-# Copyright 1999-2003 Red Hat, Inc.
+# Copyright 1999-2004 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -122,27 +122,22 @@ class KickstartBase(BaseInstallClass):
                   'enable', 'port=', 'high', 'medium', 'disabled', 'disable',
                   'trust=' ])
 		  
-	ssh = 0
-	telnet = 0
-	smtp = 0
-	http = 0
-	ftp = 0
 	enable = -1
 	trusts = []
-	ports = ""
+	ports = []
 	
 	for n in args:
 	    (str, arg) = n
 	    if str == '--ssh':
-		ssh = 1
+                ports.append("22:tcp")
 	    elif str == '--telnet':
-		telnet = 1
+                ports.append("23:tcp")
 	    elif str == '--smtp':
-		smtp = 1
+                ports.append("25:tcp")
 	    elif str == '--http':
-		http = 1
+                ports.extend(["80:tcp", "443:tcp"]
 	    elif str == '--ftp':
-		ftp = 1
+                ports.append("21:tcp")
 	    elif str == '--high' or str == '--medium':
                 log("used deprecated firewall option: %s" %(str[2:],))
 		enable = 1
@@ -153,13 +148,14 @@ class KickstartBase(BaseInstallClass):
 	    elif str == '--trust':
 		trusts.append(arg)
 	    elif str == '--port':
-		if ports:
-		    ports = '%s,%s' % (ports, arg)
-		else:
-		    ports = arg
+                theports = arg.split(",")
+                for p in theports:
+                    p = p.strip()
+                    if p.find(":") == -1:
+                        p = "%s:tcp" %(p,)
+                    ports.append(p)
 	    
-	self.setFirewall(id, enable, trusts, ports, ssh, telnet,
-			smtp, http, ftp)
+	self.setFirewall(id, enable, trusts, ports)
 
     def doSELinux(self, id, args):
 	(args, extra) = isys.getopt(args, '',

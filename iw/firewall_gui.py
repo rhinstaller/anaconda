@@ -1,7 +1,7 @@
 #
 # firewall_gui.py: firewall setup screen
 #
-# Copyright 2001-2003 Red Hat, Inc.
+# Copyright 2001-2004 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -49,85 +49,10 @@ class FirewallWindow (InstallWindow):
             self.firewall.enabled = 1
             
             count = 0
-            for service in self.knownPorts.keys():
+            for service in self.firewall.services:
                 val = self.incoming.get_active(count)
-                if service == "SSH":
-                    self.firewall.ssh = val
-                elif service == "Telnet":
-                    self.firewall.telnet = val
-                elif service == "WWW (HTTP)":
-                    self.firewall.http = val
-                elif service == "Mail (SMTP)":
-                    self.firewall.smtp = val
-                elif service == "FTP":
-                    self.firewall.ftp = val                    
+                service.set_enabled(val)
                 count = count + 1
-
-            portstring = string.strip(self.ports.get_text())
-            portlist = ""
-            bad_token_found = 0
-            bad_token = ""
-            if portstring != "":
-                tokens = string.split(portstring, ',')
-                for token in tokens:
-                    try:
-                        #- if there's a colon in the token, it's valid
-                        if string.index(token,':'):         
-                            parts = string.split(token, ':')
-                            try:
-                                portnum = string.atoi(parts[0])
-                            except:
-                                portnum = None
-
-                            if len(parts) > 2: # more than one colon
-                                bad_token_found = 1
-                                bad_token = token
-                            elif portnum is not None and (portnum < 1 or portnum > 65535):
-                                bad_token_found = 1
-                                bad_token = token
-                            else:
-                                # udp and tcp are the only valid protos
-                                if parts[1] == 'tcp' or parts[1] == 'udp':
-                                    if portlist == "":
-                                        portlist = token
-                                    else:
-                                        portlist = portlist + ',' + token
-                                else: # found protocol !tcp && !udp
-                                    bad_token_found = 1
-                                    bad_token = token
-                                    pass
-                    except:
-                        if token != "":
-                            try:
-                                try:
-                                    portnum = string.atoi(token)
-                                except:
-                                    portnum = None
-
-                                if portnum is not None and (portnum < 1 or portnum > 65535):
-                                    bad_token_found = 1
-                                    bad_token = token
-                                else:
-                                    if portlist == "":
-                                        portlist = token + ":tcp"
-                                    else:
-                                        portlist = portlist + ',' + token + ':tcp'
-                            except:
-                                bad_token_found = 1
-                                bad_token = token
-            else:
-                pass
-
-            if bad_token_found == 1: # raise a warning
-                text = _("Invalid port given: %s.  The proper format is "
-                         "'port:protocol', where port is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n\nFor example, "
-                         "'1234:udp'") % (bad_token,)
-                
-                self.intf.messageWindow(_("Warning: Bad Token"),
-                                        text, type="warning")
-                raise gui.StayOnScreen
-            else:                           # all the port data looks good
-                self.firewall.portlist = portlist
 
     def activate_firewall (self, widget):
         if self.disabled_radio.get_active ():
@@ -149,7 +74,10 @@ class FirewallWindow (InstallWindow):
         box = gtk.VBox (gtk.FALSE, 5)
         box.set_border_width (5)
 
-        label = gui.WrappingLabel (_("A firewall can help prevent unauthorized access to your computer from the outside world.  Would you like to enable a firewall?"))
+        label = gui.WrappingLabel (_("A firewall can help prevent "
+                                     "unauthorized access to your computer "
+                                     "from the outside world.  Would you like "
+                                     "to enable a firewall?"))
         label.set_alignment (0.0, 0)
 	label.set_size_request(450, -1)        
 
@@ -176,19 +104,18 @@ class FirewallWindow (InstallWindow):
         box.pack_start (self.table, gtk.FALSE, 5)
 
         y = 0
-        label = gtk.Label (_("Allow others on the internet to access "
-                             "these services."))
-	label.set_size_request(450, -1)
+        label = gui.WrappingLabel (_("With a firewall, you may wish to "
+                                     "allow access to specific services on "
+                                     "your computer from others.  "
+                                     "Allow access to which services?"))
+	label.set_size_request(400, -1)
         label.set_alignment(0.0, 0.0)
         self.table.attach(label, 0, 2, y, y + 1, gtk.EXPAND | gtk.FILL, gtk.FILL, 5, 5)
 
         y = y + 1
         hbox = gtk.HBox(gtk.FALSE, 10)        
-        self.label2 = gui.MnemonicLabel (_("_Allow incoming:"))
-        self.label2.set_alignment (0.2, 0.0)
         self.incoming = checklist.CheckList(1)
 	self.incoming.set_size_request(-1, 125)
-        self.label2.set_mnemonic_widget(self.incoming)
 
         incomingSW = gtk.ScrolledWindow()
         incomingSW.set_border_width(5)
@@ -196,42 +123,18 @@ class FirewallWindow (InstallWindow):
         incomingSW.set_shadow_type(gtk.SHADOW_IN)
         incomingSW.add(self.incoming)
         
-#        self.table.attach (self.label2, 0, 1, y, y + 1, gtk.FILL, gtk.FILL, 5, 5)
+        for serv in self.firewall.services:
+            self.incoming.append_row ( (_(serv.get_name()), serv),
+                                       serv.get_enabled() )
+
         self.table.attach (incomingSW, 0, 2, y, y + 1, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
-
-        self.knownPorts = {"SSH": (self.firewall.ssh,
-                                   N_("Remote Login (SSH)")),
-                           "WWW (HTTP)": (self.firewall.http,
-                                          N_("Web Server")),
-                           "Mail (SMTP)": (self.firewall.smtp,
-                                           N_("Mail Server (SMTP)")),
-                           "FTP": (self.firewall.ftp,
-                                   N_("File Transfer (FTP)"))}
-
-        for (key, (val, disp))   in self.knownPorts.items():
-            self.incoming.append_row ((disp, key), val)
-
-        y = y + 1
-        self.label3 = gui.MnemonicLabel (_("Other _ports:"))
-        self.ports = gtk.Entry ()
-        self.label3.set_mnemonic_widget(self.ports)
-
-        self.table.attach (self.label3, 0, 1, y, y + 1, gtk.FILL, gtk.FILL, 5, 5)
-        self.table.attach (self.ports, 1, 2, y, y + 1, gtk.EXPAND|gtk.FILL, gtk.FILL, 10, 5)
-
-        y = y + 1
 
         if self.firewall.enabled == 0:
             self.disabled_radio.set_active (gtk.TRUE)
         else:
             self.enabled_radio.set_active(gtk.TRUE)
             
-        if self.firewall.portlist != "":
-            self.ports.set_text (self.firewall.portlist)
-
         self.activate_firewall(None)
-
-        box.pack_start (gtk.HSeparator(), gtk.FALSE)
 
         label = gtk.Label(_("_Security Enhanced Linux (SELinux) Extensions:"))
         label.set_use_underline(gtk.TRUE)
@@ -255,6 +158,7 @@ class FirewallWindow (InstallWindow):
             hbox.set_sensitive(gtk.FALSE)
 
         if (SELINUX_DEFAULT == 1) or flags.selinux:
+            box.pack_start (gtk.HSeparator(), gtk.FALSE)
             box.pack_start(hbox, gtk.FALSE)
 
         return box

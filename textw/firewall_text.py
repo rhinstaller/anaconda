@@ -2,8 +2,9 @@
 # firewall_text.py: text mode firewall setup
 #
 # Bill Nottingham <notting@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001-2003 Red Hat, Inc.
+# Copyright 2001-2004 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -40,10 +41,6 @@ class FirewallWindow:
 	
 	typeGrid = Grid(2,1)
 
-# 	label = Label(_("Security Level:"))
-# 	smallGrid.setField (label, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
-	
-	
 	self.enabled = SingleRadioButton(_("Enable firewall"), None, firewall.enabled)
 	self.enabled.setCallback(self.radiocb, (firewall, self.enabled))
 	typeGrid.setField (self.enabled, 0, 0, (0, 0, 1, 0), anchorLeft = 1)
@@ -54,55 +51,22 @@ class FirewallWindow:
 	smallGrid.setField (typeGrid, 0, 0, (1, 0, 0, 1), anchorLeft = 1, growx = 1)
 	
 	currentRow = 1
-	devices = network.available().keys()
-
-	if (devices):
-	    devices.sort()
-	    cols = len(devices)
-	    if cols > 4:
-		rows = cols % 4
-		cols = 4
-	    else:
-		rows = 1
-		
-            if devices != []:
-                bigGrid.setField (Label(_("Trusted Devices:")), 0,
-				  currentRow, (0, 0, 0, 1), anchorLeft = 1)
-
-		devicelist = CheckboxTree(height=3, scroll=1)
-                bigGrid.setField (devicelist, 1, currentRow,
-				  (1, 0, 0, 1), anchorLeft = 1)
-		currentRow = currentRow + 1
-		for dev in devices:
-                    devicelist.append(dev, selected = (dev in firewall.trustdevs))
-		    
 	bigGrid.setField (Label(_("Allow incoming:")), 0, currentRow, (0, 0, 0, 0),
 		anchorTop = 1)
 	    
-	self.portGrid = Grid(3,2)
-	    
-	self.ssh = Checkbox (_("SSH"), firewall.ssh)
-	self.portGrid.setField (self.ssh, 1, 0, (0, 0, 1, 0), anchorLeft = 1)
-	self.telnet = Checkbox (_("Telnet"), firewall.telnet)
-	self.portGrid.setField (self.telnet, 2, 0, (0, 0, 1, 0), anchorLeft = 1)
-	self.http = Checkbox (_("WWW (HTTP)"), firewall.http)
-	self.portGrid.setField (self.http, 0, 1, (0, 0, 1, 0), anchorLeft = 1)
-	self.smtp = Checkbox (_("Mail (SMTP)"), firewall.smtp)
-	self.portGrid.setField (self.smtp, 1, 1, (0, 0, 1, 0), anchorLeft = 1)
-	self.ftp = Checkbox (_("FTP"), firewall.ftp)
-	self.portGrid.setField (self.ftp, 2, 1, (0, 0, 1, 0), anchorLeft = 1)
+	self.portGrid = Grid(1, len(firewall.services))
+        # list of Service, Checkbox tuples
+        self.portboxes = []
+        count = 0
+        for serv in firewall.services:
+            s = Checkbox(_(serv.get_name()), serv.get_enabled())
+            self.portboxes.append((serv, s))
+            self.portGrid.setField (s, 0, count, (0, 0, 1, 0), anchorLeft = 1)
+            count += 1
 	
-	oGrid = Grid(2,1)
-	oGrid.setField (Label(_("Other ports")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
-	self.other = Entry (25, firewall.portlist)
-	oGrid.setField (self.other, 1, 0, (0, 0, 1, 0), anchorLeft = 1, growx = 1)
 	bigGrid.setField (self.portGrid, 1, currentRow, (1, 0, 0, 0), anchorLeft = 1)
 	bigGrid.setField (Label(""), 0, currentRow + 1, (0, 0, 0, 1), anchorLeft = 1)
-	bigGrid.setField (oGrid, 1, currentRow + 1, (1, 0, 0, 1), anchorLeft = 1)
 	
-	self.portboxes = ( self.ssh, self.telnet, self.http, self.smtp, self.ftp,
-		self.other )
-		
 	toplevel.add(smallGrid, 0, 1, (0, 0, 0, 0), anchorLeft = 1)
 	if self.disabled.selected():
 	    self.radiocb((firewall, self.disabled))
@@ -125,14 +89,11 @@ class FirewallWindow:
 		else:
 		    popbb = ButtonBar (screen, (TEXT_OK_BUTTON,))
 	
-		    poplevel = GridFormHelp (screen, _("Firewall Configuration - Customize"),
+		    poplevel = GridFormHelp (screen, _("Customize Firewall Configuration"),
 				"securitycustom", 1, 5)
-		    text = _("You can customize your firewall in two ways. "
-		    	"First, you can select to allow all traffic from "
-			"certain network interfaces. Second, you can allow "
-		 	"certain protocols explicitly through the firewall. "
-		 	"In a comma separated list, specify additional ports in the form "
-                        "'service:protocol' such as 'imap:tcp'. ")
+		    text = _("With a firewall, you may wish to allow access "
+                             "to specific services on your computer from "
+                             "others.  Allow access to which services?")
 	
 		    poplevel.add (TextboxReflowed(65, text), 0, 0, (0, 0, 0, 1))	 
 	
@@ -141,53 +102,9 @@ class FirewallWindow:
 		    
 
 		    result2 = poplevel.run()
-#                    screen.popWindow()
                     rc2 = popbb.buttonPressed(result2)
 
-
-#                    rc2 = ""
                     if rc2 == TEXT_OK_CHECK or result2 == TEXT_F12_CHECK:
-
-                        #- Do some sanity checking on port list
-                        portstring = string.strip(self.other.value())
-                        portlist = ""
-                        bad_token_found = 0
-                        bad_token = ""
-                        if portstring != "":
-                            tokens = string.split(portstring, ',')
-                            for token in tokens:
-                                try:
-                                    if string.index(token,':'):         #- if there's a colon in the token, it's valid
-                                        parts = string.split(token, ':')
-                                        if len(parts) > 2:              #- We've found more than one colon.  Break loop and raise an error.
-                                            bad_token_found = 1
-                                            bad_token = token
-                                        else:
-                                            if parts[1] == 'tcp' or parts[1] == 'udp':  #-upd and tcp are the only valid protocols
-                                                if portlist == "":
-                                                    portlist = token
-                                                else:
-                                                    portlist = portlist + ',' + token
-                                            else:                        #- Found a protocol other than tcp or udp.  Break loop
-                                                bad_token_found = 1
-                                                bad_token = token
-                                                pass
-                                except:
-                                    if token != "":
-                                        if portlist == "":
-                                            portlist = token + ":tcp"
-                                        else:
-                                            portlist = portlist + ',' + token + ':tcp'
-                                    else:
-                                        pass
-
-                        if bad_token_found == 1:
-                            self.intf.messageWindow(_("Invalid Choice"),
-                                                    _("Warning: %s is not a "
-                                                      "valid port.") %(token,))
-                            screen.popWindow()
-                        else:
-                            firewall.portlist = portlist
                             screen.popWindow()
 	
 	    if rc == TEXT_OK_CHECK or result == TEXT_F12_CHECK:
@@ -211,17 +128,8 @@ class FirewallWindow:
                 
         screen.popWindow()
 
-        firewall.trustdevs = []
-        if devices != []:
-            for dev in devicelist.getSelection():
-                firewall.trustdevs.append(dev)
-
-#	firewall.portlist = self.other.value()
-	firewall.ssh = self.ssh.selected()
-	firewall.telnet = self.telnet.selected()
-	firewall.http = self.http.selected()
-	firewall.smtp = self.smtp.selected()
-	firewall.ftp = self.ftp.selected()
+        for (s, cb) in self.portboxes:
+            s.set_enabled(cb.selected())
 	if self.disabled.selected():
 	    firewall.enabled = 0
 	else:

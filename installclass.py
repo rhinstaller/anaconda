@@ -4,7 +4,7 @@
 # The interface to BaseInstallClass is *public* -- ISVs/OEMs can customize the
 # install by creating a new derived type of this class.
 #
-# Copyright 1999-2002 Red Hat, Inc.
+# Copyright 1999-2004 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -347,17 +347,28 @@ class BaseInstallClass:
     def setSELinux(self, id, sel):
         id.security.setSELinux(sel)
 
-    def setFirewall(self, id, enable = 1, trusts = [], ports = "",
-		    ssh = 0, telnet = 0, smtp = 0, http = 0, ftp = 0):
+    def setFirewall(self, id, enable = 1, trusts = [], ports = []):
 	id.firewall.enabled = enable
 	id.firewall.trustdevs = trusts
-	id.firewall.portlist = ports
-	id.firewall.ssh = ssh
-	id.firewall.telnet = telnet
-	id.firewall.smtp = smtp
-	id.firewall.http = http
-	id.firewall.ftp = ftp
+        # this is a little ugly, but we want to let setting a service
+        # like --ssh enable the service in case they're doing an interactive
+        # kickstart install
+        for port in ports:
+            found = 0
+            for s in id.firewall.services:
+                p = s.get_ports()
+                # don't worry about the ones that are more than one,
+                # this is really for legacy use only
+                if len(p) > 1:
+                    continue
+                if p[0] == port:
+                    s.set_enabled(1)
+                    found = 1
+                    break
 
+            if not found:
+                id.firewall.portlist.append(port)
+        
     def setMiscXSettings(self, id, depth = None, resolution = None,
                          desktop = None, runlevel = None):
 
