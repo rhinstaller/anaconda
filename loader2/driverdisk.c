@@ -239,6 +239,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
            DEV_DONE } stage = DEV_DEVICE;
     int rc, num = 0;
     int dir = 1;
+    int found = 0, before = 0;
 
     while (stage != DEV_DONE) {
         switch(stage) {
@@ -419,8 +420,10 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
             break;
         }
         case DEV_LOAD: {
-            int found = 0, before = 0;
             struct device ** devices;
+
+	    before = 0;
+	    found = 0;
 
             devices = probeDevices(class, BUS_UNSPEC, PROBE_LOADED);
             if (devices)
@@ -445,8 +448,11 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                 unlink("/tmp/drivers");
                 umount("/tmp/dpart");
             }
+        }
 
-        case DEV_PROBE:
+        case DEV_PROBE: {
+            struct device ** devices;
+
             /* if they didn't specify that we should probe, then we should
              * just fall out */
             if (noprobe) {
@@ -474,7 +480,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                                   "like to manually select the driver, "
                                   "continue anyway, or load another "
                                   "driver disk?"));
-            
+           
             if (rc == 2) {
                 /* if they choose to continue, just go ahead and continue */
                 stage = DEV_DONE;
@@ -494,8 +500,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
 
             break;
         }
-                           
-
+                          
         case DEV_DONE:
             break;
         }

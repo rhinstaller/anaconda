@@ -1,3 +1,8 @@
+2005-03-01  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/driverdisk.c:  Fix nested case statements in a switch to
+	silence a gcc4 warning.
+
 2005-02-28  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
