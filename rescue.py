@@ -4,6 +4,7 @@ from text import WaitWindow, OkCancelWindow
 from translate import _
 import raid
 import os
+from log import log
 
 class RescueInterface:
 
@@ -25,6 +26,8 @@ def runRescue(serial):
     from fstab import NewtFstab
 
     fstab = None
+
+    log.open (serial, 0, 0)
 
     try:
 	fstab = NewtFstab(1, serial, 0, 0, None, None, None, 0, [], 0, 0,
@@ -70,6 +73,7 @@ def runRescue(serial):
 	else:
 	    root = parts[choice]
 
+    rootmounted = 0
     if root:
 	try:
 	    upgrade.mountRootPartition(root, fstab, '/mnt/sysimage', 
@@ -79,6 +83,7 @@ def runRescue(serial):
 		  "Press <return> to get a shell. The system will reboot "
 		  "automatically when you exit from the shell."),
 		  [_("OK")] )
+            rootmounted = 1
 	except SystemError, msg:
 	    ButtonChoiceWindow(screen, _("Rescue").
 		_("An error occured trying to mount some or all of your "
@@ -98,8 +103,9 @@ def runRescue(serial):
     for file in [ "services", "protocols", "group" ]:
        os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
 
-    print
-    print _("Your system is mounted under the /mnt/sysimage directory.")
-    print
+    if rootmounted:
+        print
+        print _("Your system is mounted under the /mnt/sysimage directory.")
+        print
 
     os.execv("/bin/sh", [ "-/bin/sh" ])
