@@ -88,10 +88,6 @@ while (<FILE>) {
     ("nb_" eq substr($lang, 0, 3)) && next;
     ("zh_TW.euctw" eq $lang) && next;
 
-    # iso885915 and english don't get along very well with X right now
-    ("en_US.iso885915" eq $lang) && next;
-    ("en_GB.iso885915" eq $lang) && next;
-
     open(INFO, "LANG=$lang locale language territory charmap|");
     $name = <INFO>;
     $territory = <INFO>;
