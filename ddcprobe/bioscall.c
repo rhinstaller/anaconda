@@ -103,6 +103,38 @@ void do_vm86(struct vm86_struct *vm, char *memory, unsigned stop_eip) {
 				vm->regs.eip++;
 				break;
 			}
+			case 0xfa: { /* cli */
+				vm->regs.eflags &= ~(0x0200);
+				vm->regs.eip++;
+				break;
+			}
+			case 0xfb: { /* sti */
+				vm->regs.eflags |= ~(0x0200);
+				vm->regs.eip++;
+				break;
+			}
+			case 0x9c: { /* pushf */
+				vm->regs.esp -= 2;
+				*(u_int16_t*) &memory[vm->regs.ss * 16 +
+						      vm->regs.esp]
+						    = vm->regs.eflags & 0xffff;
+				vm->regs.eip++;
+				break;
+			}
+			case 0x9d: { /* popf */
+				vm->regs.esp += 2;
+				vm->regs.eflags &= 0xffff0000;
+				vm->regs.eflags |= 
+				*(u_int16_t*) &memory[vm->regs.ss * 16 +
+						      vm->regs.esp];
+				vm->regs.eip++;
+				break;
+			}
+			case 0xf0: { /* lock prefix */
+				/* ignore it */
+				vm->regs.eip++;
+				break;
+			}
 			case 0x66: {
 				/* 32-bit extension prefix.  Valid, even in
 				   v86 mode.  Weird. */
@@ -133,15 +165,33 @@ void do_vm86(struct vm86_struct *vm, char *memory, unsigned stop_eip) {
 				vm->regs.esp -= 2;
 				*(u_int16_t*) &memory[vm->regs.ss * 16 +
 						      vm->regs.esp]
-						    = vm->regs.ebp;
+						    = vm->regs.ebp & 0xffff;
 				vm->regs.eip++;
 				break;
 			}
 			case 0x5d: { /* pop bp */
-				vm->regs.ebp = *(u_int16_t*)
+				vm->regs.ebp &= 0xffff0000;
+				vm->regs.ebp |= *(u_int16_t*)
 					&memory[vm->regs.ss*16 + vm->regs.esp];
 				vm->regs.esp += 2;
 				vm->regs.eip++;
+				break;
+			}
+			case 0xc3: { /* ret near, just pop ip */
+				vm->regs.eip &= 0xffff0000;
+				vm->regs.eip |= *(u_int16_t*)
+					&memory[vm->regs.ss*16 + vm->regs.esp];
+				vm->regs.esp += 2;
+				break;
+			}
+			case 0xcb: { /* ret far, pop both ip and cs */
+				vm->regs.eip &= 0xffff0000;
+				vm->regs.eip |= *(u_int16_t*)
+					&memory[vm->regs.ss*16 + vm->regs.esp];
+				vm->regs.esp += 2;
+				vm->regs.cs = *(u_int16_t*)
+					&memory[vm->regs.ss*16 + vm->regs.esp];
+				vm->regs.esp += 2;
 				break;
 			}
 			default: {
@@ -173,8 +223,8 @@ unsigned char *vm86_ram_alloc()
 	unsigned char *memory;
 	int fd;
 
-	/* Grab address 0 for this process. */
-	memory = mmap(0, 0x100000, PROT_READ | PROT_EXEC | PROT_WRITE,
+	/* Grab address 0 for this process.  mmap() 1 megabyte + 64k HMA */
+	memory = mmap(0, 0x110000, PROT_READ | PROT_EXEC | PROT_WRITE,
 		      MAP_PRIVATE | MAP_FIXED | MAP_ANON, -1, 0x00000);
 	if(memory == MAP_FAILED) {
 		perror("error mmap()ing memory for the BIOS");
@@ -187,7 +237,7 @@ unsigned char *vm86_ram_alloc()
 		perror("reading kernel memory");
 		return MAP_FAILED;
 	}
-	read(fd, memory, 0x100000);
+	read(fd, memory, 0x110000);
 	close(fd);
 
 	return memory;
@@ -195,7 +245,7 @@ unsigned char *vm86_ram_alloc()
 
 void vm86_ram_free(unsigned char *ram)
 {
-	munmap(ram, 0x100000);
+	munmap(ram, 0x110000);
 }
 
 void bioscall(unsigned char int_no, struct vm86_regs *regs, unsigned char *mem)
@@ -206,6 +256,7 @@ void bioscall(unsigned char int_no, struct vm86_regs *regs, unsigned char *mem)
 	memcpy(&vm.regs, regs, sizeof(vm.regs));
 	vm.regs.cs  = BIOSCALL_START_SEG;
 	vm.regs.eip = BIOSCALL_START_OFS;
+	vm.flags = VM_MASK | IOPL_MASK;
 	memcpy(&mem[BIOSCALL_START_SEG * 16 + BIOSCALL_START_OFS], call,
 	       sizeof(call));
 	do_vm86(&vm, mem, BIOSCALL_START_OFS + sizeof(call));
