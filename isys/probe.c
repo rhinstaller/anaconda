@@ -60,14 +60,21 @@ int kdFindNetList(struct knownDevices * devices) {
     char buf[1024];
     char * start, * end;
     struct kddevice newDevice;
+    int s;
 
     if ((fd = open("/proc/net/dev", O_RDONLY)) < 0) {
 	fprintf(stderr, "failed to open /proc/net/dev!\n");
 	return 1;
     }
 
-    read(fd, buf, sizeof(buf));
+    s = read(fd, buf, sizeof(buf));
     close(fd);
+    if (s < 0) {
+	fprintf(stderr, "error reading /proc/net/dev!\n");
+	return 1;
+    }
+
+    buf[s] = '\0';
 
     /* skip the first two lines */
     start = strchr(buf, '\n');
