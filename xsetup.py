@@ -38,10 +38,7 @@ class XSetup:
 	#
 	# always turn dri on
 	#
-        if iutil.getArch() == "ia64":
-            self.xhwstate.set_dri_enabled(0)
-        else:
-            self.xhwstate.set_dri_enabled(1)
+	self.xhwstate.set_dri_enabled(1)
 
 	#
 	# XXX - cleanup monitor name to not include 'DDC Probed Monitor'
