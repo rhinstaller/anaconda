@@ -206,7 +206,19 @@ class Fstab:
         self.ddruid.setReadOnly(readOnly)
 
     def savePartitions(self):
-	self.ddruid.save()
+	try:
+	    self.ddruid.save()
+	except SystemError:
+	    # We can't reread the partition table for some reason. Display
+	    # an error message and reboot
+	    self.messageWindow(_("Error"), 
+                    _("The kernel is unable to read your new partitioning "
+                    "information, probably because you modified extended "
+                    "partitions. While this is not critical, you must "
+                    "reboot your machine before proceeding. Insert the "
+                    "Red Hat boot disk now and press \"Ok\" to reboot "
+                    "your system.\n"))
+	    sys.exit(0)
 
     def runDruid(self):
 	rc = self.ddruid.edit()
