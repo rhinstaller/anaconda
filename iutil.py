@@ -8,7 +8,6 @@ def setMemoryOverhead(amount):
     global memoryOverhead
 
     memoryOverhead = amount
-    print memoryOverhead
 
 def getArch ():
     arch = os.uname ()[4]
@@ -184,7 +183,6 @@ def memInstalled(corrected = 1):
     except:
         mem = 2097151
 
-    print corrected, memoryOverhead
     if corrected:
 	mem = mem - memoryOverhead
 
