@@ -581,11 +581,13 @@ def setPreexistParts(diskset, requests, newParts):
                 request.device = get_partition_name(part)
                 if request.fstype:
                     if request.fstype.getName() != request.origfstype.getName():
-                        set_partition_file_system_type(part, request.fstype)
                         if request.fstype.getName() == "software RAID":
                             part.set_flag(parted.PARTITION_RAID, 1)
                         else:
                             part.set_flag(parted.PARTITION_RAID, 0)
+
+                        set_partition_file_system_type(part, request.fstype)
+                            
                 break
             part = disk.next_partition(part)
 
