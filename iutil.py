@@ -1,5 +1,5 @@
 
-import types, os, sys, isys, select
+import types, os, sys, isys, select, string
 
 def getArch ():
     arch = os.uname ()[4]
@@ -99,3 +99,11 @@ def copyFile(source, to):
 	
     os.close(f)
     os.close(t)
+
+def memInstalled():
+    f = open("/proc/meminfo", "r")
+    mem = f.readlines()[1]
+    del f
+
+    fields = string.split(mem)
+    return int(fields[1]) / 1024

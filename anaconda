@@ -9,6 +9,7 @@ if (os.path.exists('isys')):
     sys.path.append('isys')
 
 import isys
+import iutil
 
 setverPath = None
 
@@ -97,6 +98,9 @@ from todo import ToDo
 import isys
 from installclass import CustomInstall
 from kickstart import Kickstart
+
+if (iutil.memInstalled() < 30000):
+    mode = 't'
 
 if (mode == 'g' and not os.environ.has_key('DISPLAY')):
     import xserver
