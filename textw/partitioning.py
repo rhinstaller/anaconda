@@ -139,7 +139,17 @@ class AutoPartitionWindow:
             # if druid wasn't running, must have been in autopartition mode
             # clear fstab cache so we don't get junk from attempted
             # autopartitioning
-            clearcache = not self.todo.fstab.getRunDruid()
+            #
+            # msf - this is not working becaue setRunDruid is not
+            #       called before we get here, unlike in the GUI case
+            #
+            #       Set clearcache - may need to be 1 to
+            #       avoid autopartitioning attempt above from
+            #       polluting manual partitioning with invalid
+            #       fstab entries
+            #
+#           clearcache = not todo.fstab.getRunDruid()
+            clearcache = 1
 	    todo.fstab.setRunDruid(1)
 	    todo.fstab.rescanPartitions(clearcache)
 	    todo.instClass.removeFromSkipList("format")
