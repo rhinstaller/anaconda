@@ -29,9 +29,10 @@ class Firewall:
 	self.ftp = 0
 	self.portlist = ""
 	self.ports = []
-	self.policy = 0
+	self.policy = 1
 	self.dhcp = 0
 	self.trustdevs = []
+        self.custom = 1
 
     def writeKS(self, f):
 	f.write("firewall")

@@ -16,22 +16,22 @@ class FirewallWindow (InstallWindow):
         if not self.__dict__.has_key("radio3"):
             return None
 
-        if self.radio3.get_active ():
+        if self.sec_none_radio.get_active ():
             self.firewall.enabled = 0
             self.firewall.policy = 1
         else:
 
-            if self.radio1.get_active ():
+            if self.sec_high_radio.get_active ():
                 self.firewall.policy = 0
                 self.firewall.enabled = 1
-            elif self.radio2.get_active ():
+            elif self.sec_med_radio.get_active ():
                 self.firewall.policy = 1
                 self.firewall.enabled = 1
 
-            if self.radio4.get_active ():
+            if self.default_radio.get_active ():
                 self.firewallState = 0
 
-            if self.radio5.get_active ():
+            if self.custom_radio.get_active ():
                 self.firewallState = 1
                 count = 0
                 self.firewall.trustdevs = []
@@ -130,11 +130,11 @@ class FirewallWindow (InstallWindow):
         
 
     def activate_firewall (self, widget):
-        if self.radio3.get_active ():            
-            active = not (self.radio3.get_active())
+        if self.sec_none_radio.get_active ():            
+            active = not (self.sec_none_radio.get_active())
 
-            self.radio4.set_sensitive (active)
-            self.radio5.set_sensitive (active)        
+            self.default_radio.set_sensitive (active)
+            self.custom_radio.set_sensitive (active)        
             self.trusted.set_sensitive(active)
             self.incoming.set_sensitive(active)
             self.ports.set_sensitive(active)
@@ -142,24 +142,24 @@ class FirewallWindow (InstallWindow):
             self.label2.set_sensitive(active)
             self.label3.set_sensitive(active)
         else:
-            self.radio4.set_sensitive (TRUE)
-            self.radio5.set_sensitive (TRUE) 
+            self.default_radio.set_sensitive (TRUE)
+            self.custom_radio.set_sensitive (TRUE) 
 
-            if self.radio5.get_active ():
-                self.trusted.set_sensitive(self.radio5.get_active())
-                self.incoming.set_sensitive(self.radio5.get_active())
-                self.ports.set_sensitive(self.radio5.get_active())
-                self.label1.set_sensitive(self.radio5.get_active())
-                self.label2.set_sensitive(self.radio5.get_active())
-                self.label3.set_sensitive(self.radio5.get_active())
+            if self.custom_radio.get_active ():
+                self.trusted.set_sensitive(self.custom_radio.get_active())
+                self.incoming.set_sensitive(self.custom_radio.get_active())
+                self.ports.set_sensitive(self.custom_radio.get_active())
+                self.label1.set_sensitive(self.custom_radio.get_active())
+                self.label2.set_sensitive(self.custom_radio.get_active())
+                self.label3.set_sensitive(self.custom_radio.get_active())
 
             else:
-                self.trusted.set_sensitive(self.radio5.get_active())
-                self.incoming.set_sensitive(self.radio5.get_active())
-                self.ports.set_sensitive(self.radio5.get_active())
-                self.label1.set_sensitive(self.radio5.get_active())
-                self.label2.set_sensitive(self.radio5.get_active())
-                self.label3.set_sensitive(self.radio5.get_active())
+                self.trusted.set_sensitive(self.custom_radio.get_active())
+                self.incoming.set_sensitive(self.custom_radio.get_active())
+                self.ports.set_sensitive(self.custom_radio.get_active())
+                self.label1.set_sensitive(self.custom_radio.get_active())
+                self.label2.set_sensitive(self.custom_radio.get_active())
+                self.label3.set_sensitive(self.custom_radio.get_active())
 
     def trusted_select_row(self, clist, event):
         try:
@@ -211,14 +211,14 @@ class FirewallWindow (InstallWindow):
 
         hbox = GtkHBox (FALSE)
 
-        self.radio1 = GtkRadioButton (None, (_("High")))
-        self.radio2 = GtkRadioButton (self.radio1, (_("Medium")))
-        self.radio3 = GtkRadioButton (self.radio1, (_("No firewall")))
-        self.radio3.connect ("clicked", self.activate_firewall)
+        self.sec_high_radio = GtkRadioButton (None, (_("High")))
+        self.sec_med_radio = GtkRadioButton (self.sec_high_radio, (_("Medium")))
+        self.sec_none_radio = GtkRadioButton (self.sec_high_radio, (_("No firewall")))
+        self.sec_none_radio.connect ("clicked", self.activate_firewall)
 
-        hbox.pack_start (self.radio1)
-        hbox.pack_start (self.radio2)
-        hbox.pack_start (self.radio3)
+        hbox.pack_start (self.sec_high_radio)
+        hbox.pack_start (self.sec_med_radio)
+        hbox.pack_start (self.sec_none_radio)
 
         a = GtkAlignment ()
         a.add (hbox)
@@ -229,15 +229,15 @@ class FirewallWindow (InstallWindow):
         hsep = GtkHSeparator ()
         box.pack_start (hsep, FALSE)
 
-        self.radio4 = GtkRadioButton (None, (_("Use default firewall rules")))
-        self.radio5 = GtkRadioButton (self.radio4, (_("Customize")))
-        self.radio4.set_active (TRUE)
+        self.default_radio = GtkRadioButton (None, (_("Use default firewall rules")))
+        self.custom_radio = GtkRadioButton (self.default_radio, (_("Customize")))
+        self.default_radio.set_active (TRUE)
 
-        self.radio4.connect ("clicked", self.activate_firewall)
-        self.radio5.connect ("clicked", self.activate_firewall)
+        self.default_radio.connect ("clicked", self.activate_firewall)
+        self.custom_radio.connect ("clicked", self.activate_firewall)
         
-        box.pack_start (self.radio4, FALSE)
-        box.pack_start (self.radio5, FALSE)
+        box.pack_start (self.default_radio, FALSE)
+        box.pack_start (self.custom_radio, FALSE)
 
         table = GtkTable (2, 3)
         box.pack_start (table)
@@ -304,25 +304,25 @@ class FirewallWindow (InstallWindow):
         table.attach (self.ports, 1, 2, 2, 3, EXPAND|FILL, FILL, 5, 5)
 
         if self.firewall.enabled == 0:
-            self.radio3.set_active (TRUE)
+            self.sec_none_radio.set_active (TRUE)
         elif self.firewall.policy == 0:
-            self.radio1.set_active (TRUE)
+            self.sec_high_radio.set_active (TRUE)
         elif self.firewall.policy == 1:
-            self.radio2.set_active (TRUE)
+            self.sec_med_radio.set_active (TRUE)
 
         if self.firewall.portlist != "":
             self.ports.set_text (self.firewall.portlist)
 
-	# XXX
-        #if self.firewallState == 1:
-	self.radio5.set_active(TRUE)
-        #else:
-            #self.trusted.set_sensitive(FALSE)
-            #self.incoming.set_sensitive(FALSE)
-            #self.ports.set_sensitive(FALSE)
-            #self.label1.set_sensitive(FALSE)
-            #self.label2.set_sensitive(FALSE)
-            #self.label3.set_sensitive(FALSE)
+        if self.firewall.custom == 1:
+            self.custom_radio.set_active(TRUE)
+        else:
+            self.trusted.set_sensitive(FALSE)
+            self.incoming.set_sensitive(FALSE)
+            self.ports.set_sensitive(FALSE)
+            self.label1.set_sensitive(FALSE)
+            self.label2.set_sensitive(FALSE)
+            self.label3.set_sensitive(FALSE)
 
         return box
+
 
