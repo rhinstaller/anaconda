@@ -1169,7 +1169,7 @@ def copyExtraModules(instPath, grpset, extraModules):
 
 	for (n, tag) in kernelVersions:
 	    fromFile = "%s/lib/modules/%s/%s.o" % (instPath, n, name)
-	    toDir = "%s/lib/modules/%s/update" % \
+	    toDir = "%s/lib/modules/%s/updates" % \
 		    (instPath, n)
 	    to = "%s/%s.o" % (toDir, name)
 
