@@ -590,6 +590,13 @@ class PartitionWindow:
             fsoptLbl = None
 
         else:
+
+            # set some defaults
+            format = origrequest.format
+            migrate = origrequest.migrate
+            newfstype = origrequest.fstype
+            badblocks = origrequest.badblocks
+
             subgrid = Grid(2, 4)
             # filesystem type selection
             srow = 0
@@ -625,12 +632,6 @@ class PartitionWindow:
             subgrid.setField(fsoptLbl, 1, srow, (0,0,0,1), anchorLeft = 1)
             
             poplevel.add(subgrid, 0, row, (0,1,0,0))
-
-            # set some defaults
-            format = origrequest.format
-            migrate = origrequest.migrate
-            newfstype = origrequest.fstype
-            badblocks = origrequest.badblocks
 
         row = row + 1
         if origrequest.type == REQUEST_NEW:
