@@ -927,11 +927,8 @@ static PyObject * hdrSubscript(hdrObject * s, PyObject * item) {
 	tag = PyInt_AsLong(item);
     } else if (PyString_Check(item)) {
 	str = PyString_AsString(item);
-	printf ("CHECK %d\n", strcasecmp("VERSION", "version"));
-	for (i = 0; i < rpmTagTableSize; i++) {
-	    printf ("get header %s <-> %s\n", rpmTagTable[i].name + 7, str);
+	for (i = 0; i < rpmTagTableSize; i++)
 	    if (!strcasecmp(rpmTagTable[i].name + 7, str)) break;
-	}
 	if (i < rpmTagTableSize) tag = rpmTagTable[i].val;
         if (tag == -1) {
             /* if we still don't have the tag, go looking for the header
