@@ -88,7 +88,7 @@ int lsmodCommand(int argc, char ** argv) {
 
 int mountCommand(int argc, char ** argv) {
     char * dev, * dir;
-    char * fs;
+    char * fs, * buf;
 
     if (argc < 2) {
 	return catFile("/proc/mounts");
@@ -111,11 +111,15 @@ int mountCommand(int argc, char ** argv) {
 	fs = argv[2];
 	dev = argv[3];
 	dir = argv[4];
-
     }
 
-    if (!strncmp(dev, "/dev/", 5) && access(dev, X_OK)) 
+    if (!strncmp(dev, "/dev/", 5) && access(dev, X_OK)) {
 	dev += 5;
+	buf = alloca(strlen(dev) + 10);
+	sprintf(buf, "/tmp/%s", dev);
+	devMakeInode(dev, buf);
+	dev = buf;
+    }
 
     if (doPwMount(dev, dir, fs, 0, 1, NULL, NULL))
 	return 1;
