@@ -1,5 +1,8 @@
 2004-10-15  Jeremy Katz  <katzj@redhat.com>
 
+	* urlinstall.py: Replace "%" in urls with "%%" to avoid format
+	string problems (#135929)
+
 	* rescue.py (runRescue): bind mount /dev (#135860)
 
 	* lang-table: Set Dutch and Danish keyboards by default (#135839)

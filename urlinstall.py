@@ -116,7 +116,7 @@ class UrlInstallMethod(InstallMethod):
                 rc=urlretrieve(fullPath, file, callback=callback)
             except IOError, (errnum, msg):
 		log("IOError %s occurred getting %s: %s"
-                    %(errnum, fullPath, str(msg)))
+                    %(errnum, fullPath.replace("%", "%%"), str(msg)))
 
 		if not retry:
 		    raise FileCopyException
@@ -156,7 +156,7 @@ class UrlInstallMethod(InstallMethod):
                 urlretrieve(fullPath, file)
             except IOError, (errnum, msg):
 		log("IOError %s occurred getting %s: %s",
-			errnum, fullPath, str(msg))
+			errnum, fullPath.replace("%", "%%"), str(msg))
                 time.sleep(5)
             else:
                 break
