@@ -500,7 +500,6 @@ static char * setupHardDrive(char * device, char * type, char * dir,
 	if ((fd = open(path, O_RDONLY)) < 0) {
 	    logMessage("cannot open %s", path);
 	    umount("/tmp/hdimage");
-	    free(path);
 	    return NULL;
 	} 
 
