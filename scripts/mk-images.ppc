@@ -17,17 +17,25 @@ prepareBootImage() {
     mkdir -p $TOPDESTPATH/images
 }
 
+echo "kernelvers is $kernelvers"
 # pseries
+echo "Building pSeries initrd"
 makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
            --initrdsize 8192 \
            --loaderbin loader \
-           --modules "nfs fat vfat $NETMODULES $SCSIMODULES"
+           --modules "nfs fat vfat $NETMODULES $SCSIMODULES $ISOMODULES"
+
+mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
+cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
+cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
+cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
 
 # mac
-makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.image.gz \
-           --initrdsize 8192 \
-           --loaderbin loader \
-           --modules "$NETMODULES $SCSIMODULES $ISOMODULES"
+# echo "Building Mac initrd"
+# makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.image.gz \
+#            --initrdsize 8192 \
+#            --loaderbin loader \
+#            --modules "$NETMODULES $SCSIMODULES $ISOMODULES"
 
 makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
 makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"
