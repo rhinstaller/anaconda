@@ -1,6 +1,6 @@
 CFLAGS=-Wall -O -g -fpic# -DDEBUG
 
-TARGETS=eddmodule.so libedd.a(edd.o, lrmi.o)
+TARGETS=eddmodule.so libedd.a(edd.o lrmi.o)
 
 all: $(TARGETS)
 
