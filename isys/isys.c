@@ -42,8 +42,6 @@
 #include "probe.h"
 #include "smp.h"
 #include "lang.h"
-#include "../balkan/byteswap.h"
-#include "../balkan/balkan.h"
 
 #ifndef CDROMEJECT
 #define CDROMEJECT 0x5309
@@ -728,7 +726,6 @@ static int ideFilter(struct kddevice * dev) {
     char where[50];
     int fd;
     int rc;
-    struct partitionTable table;
     int i;
 
     sprintf(where, "/tmp/%s", dev->name);
@@ -738,10 +735,16 @@ static int ideFilter(struct kddevice * dev) {
     rc = pdc_dev_running_raid(fd);
 
     /* no pdc magic, so include this device */
-    if (rc != 1)
+    if (rc != 1) {
 	close(fd);
 	return 1;
+    }
 
+    /* JKFIXME: this needs to be fixed better */
+    /* ewww, this used balkan.  just ignore pdc devices with pdc magic now */
+    return 0;
+
+#if 0
     /* it's a pdc device w/o a valid partition table, skip it (probably
        raid 5) */
     if (balkanReadTable(fd, &table)) {
@@ -764,6 +767,7 @@ static int ideFilter(struct kddevice * dev) {
        filesystems */
 
     return 1;
+#endif
 }
 #endif
 
