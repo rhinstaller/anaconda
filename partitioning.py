@@ -453,7 +453,7 @@ def sanityCheckPartitionRequest(reqpartitions, newrequest):
     return None
 
 # return error string is something not right about raid request
-def sanityCheckRaidRequest(reqpartitions, newraid):
+def sanityCheckRaidRequest(reqpartitions, newraid, doPartitionCheck = 1):
     if not newraid.raidmembers or not newraid.raidlevel:
         return _("No members in RAID request, or not RAID level specified.")
 
@@ -463,9 +463,10 @@ def sanityCheckRaidRequest(reqpartitions, newraid):
 ##         if part.get_flag(parted.PARTITION_RAID) != 1:
 ##             return _("Some members of RAID request are not RAID partitions.")
 
-    rc = sanityCheckPartitionRequest(reqpartitions, newraid)
-    if rc:
-        return rc
+    if doPartitionCheck:
+        rc = sanityCheckPartitionRequest(reqpartitions, newraid)
+        if rc:
+            return rc
 
     # XXX fix this code to look to see if there is a bootable partition
     bootreq = reqpartitions.getBootableRequest()
@@ -527,7 +528,7 @@ def sanityCheckAllRequests(requests, baseChecks = 0):
             if rc:
                 errors.append(rc)
             if request.type == REQUEST_RAID:
-                rc = sanityCheckRaidRequest(requests, request)
+                rc = sanityCheckRaidRequest(requests, request, 0)
                 if rc:
                     errors.append(rc)
         
