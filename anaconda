@@ -2,11 +2,12 @@
 
 import sys, getopt, os
 
-(args, extra) = getopt.getopt(sys.argv[1:], 'gTt', [ 'gui', 'text', 'test', 'force' ])
+(args, extra) = getopt.getopt(sys.argv[1:], 'gTtd', [ 'gui', 'text', 'test', 'force', 'debug' ])
 
 mode = None
 test = 0
 force = 0
+debug = 0
 
 for n in args:
     (str, arg) = n
@@ -16,8 +17,14 @@ for n in args:
 	mode = 't'
     elif (str == '-t' or str == '--test'):
 	test = 1
+    elif (str == '-d' or str == '--debug'):
+	debug = 1
     elif (str == '--force'):
 	force = 1
+
+if (debug):
+    import pdb
+    pdb.set_trace()
 
 if (not test and os.getpid() > 10 and not force):
     print "you're running me on a live system! that's incredibly stupid."
@@ -46,9 +53,9 @@ if (mode == 'g' and not os.environ.has_key('DISPLAY')):
 	sys.exit(0)
 
 if (mode == 'g'):
-    from gui import InstallMethod
+    from gui import InstallInterface
 elif (mode == 't'):
-    from text import InstallMethod
+    from text import InstallInterface
 else:
     print "No mode was specified"
     sys.exit(1)
