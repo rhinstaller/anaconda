@@ -82,7 +82,7 @@ def startX():
         print "PCI probe for video cards failed.  Falling back to", serverPath
     else:
         (device, driver, descr) = cards[0]
-        if driver[0:4] == "Card:":
+        if driver[0:5] == "Card:":
             card = findCardInDB (driver[5:])
             if card.has_key ("SERVER"):
                 serverPath = '/usr/X11R6/bin/XF86_' + card["SERVER"]
@@ -91,7 +91,7 @@ def startX():
                        "Falling back to VGA16")
                 serverPath = '/usr/X11R6/bin/XF86_VGA16'                       
         else:
-            if driver[0:6] == "Server:":
+            if driver[0:7] == "Server:":
                 serverPath = '/usr/X11R6/bin/XF86_' + driver[7:]
 
     isys.makeDevInode(mouseDev, "/tmp/" + mouseDev)
