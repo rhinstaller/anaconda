@@ -1,0 +1,87 @@
+#!/usr/bin/perl
+
+# This table is used to eliminate things like French (France)
+$defaultTerritory{"Albanian"} = "Albania";
+$defaultTerritory{"Belarusian"} = "Belarus";
+$defaultTerritory{"Bulgarian"} = "Bulgaria";
+$defaultTerritory{"Croatian"} = "Croatia";
+$defaultTerritory{"Czech"} = "Czech Republic";
+$defaultTerritory{"Danish"} = "Denmark";
+$defaultTerritory{"Estonian"} = "Estonia";
+$defaultTerritory{"Finnish"} = "Finland";
+$defaultTerritory{"French"} = "France";
+$defaultTerritory{"German"} = "Germany";
+$defaultTerritory{"Greek"} = "Greece";
+$defaultTerritory{"Hungarian"} = "Hungary";
+$defaultTerritory{"Icelandic"} = "Iceland";
+$defaultTerritory{"Indonesian"} = "Indonesia";
+$defaultTerritory{"Italian"} = "Italy";
+$defaultTerritory{"Irish"} = "Ireland";
+$defaultTerritory{"Japanese"} = "Japan";
+$defaultTerritory{"Lithuanian"} = "Lithuania";
+$defaultTerritory{"Macedonian"} = "Macedonia";
+$defaultTerritory{"Norwegian"} = "Norway";
+$defaultTerritory{"Polish"} = "Poland";
+$defaultTerritory{"Portuguese"} = "Portugal";
+$defaultTerritory{"Romanian"} = "Romania";
+$defaultTerritory{"Russian"} = "Russia";
+$defaultTerritory{"Slovak"} = "Slovak";
+$defaultTerritory{"Slovenian"} = "Slovenian";
+$defaultTerritory{"Ukrainian"} = "Ukraine";
+$defaultTerritory{"Vietnamese"} = "Vietnam";
+$defaultTerritory{"Spanish"} = "Spain";
+$defaultTerritory{"Swedish"} = "Sweden";
+$defaultTerritory{"Turkish"} = "Turkey";
+$defaultTerritory{"Thai"} = "Thailand";
+
+open(FILE, "locale -a|");
+
+while (<FILE>) {
+    chop;
+
+    # limit to items of the form xx_.*
+    /^[a-zA-Z][a-zA-Z]_/ || next;
+
+    $lang=$_;
+
+    open(INFO, "LANG=$lang locale -c language -c territory|");
+    <INFO>;
+    $name = <INFO>;
+    <INFO>;
+    $territory = <INFO>;
+    close(INFO);
+
+    chop $name;
+    chop $territory;
+
+    # Some languages name's are the same as their ISO id's!
+    ($name eq substr($lang, 0, 2)) && next;
+
+    if ($defaultTerritory{$name} eq "$territory") {
+	$fullName = $name;
+    } else {
+	$fullName = "$name ($territory)";
+    }
+
+    if ($langList{$lang}) {
+	# this is a hack
+	if (length($langList{$lang}) < length($fullName)) {
+	    $langList{$lang} = $fullName;
+	}
+    } else {
+	$langList{$lang} = $fullName;
+    }
+}
+
+close(FILE);
+
+for $key (keys %langList) {
+    $nameList{$langList{$key}} = $key;
+}
+
+@names = sort(keys %nameList);
+
+for $name (@names) {
+    print "$nameList{$name} $name\n";
+}
+

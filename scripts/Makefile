@@ -9,6 +9,7 @@ install:
 	install -m 755 scrubtree $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 pythondeps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 pkgorder $(DESTDIR)/$(RUNTIMEDIR)
+	install -m 755 genlocalelist $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 check-repository.py $(DESTDIR)/$(RUNTIMEDIR)
 
 depend:
