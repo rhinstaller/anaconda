@@ -586,14 +586,7 @@ class XF86Config:
         self.vidRam = None
         self.monEisa = None
         self.monName = None
-#        self.monHoriz = "31.5"
-#        self.monVert = "60"
-
-#        self.res = ""
         self.res = resolution
-
-        self.monHoriz = "31.5-48.5"
-        self.monVert = "50-70"
 
 	self.monSect = ""
         self.monID = "Unprobed Monitor"
@@ -604,19 +597,14 @@ class XF86Config:
 	self.primary = 0
         self.manualModes = {}
 
-#        print "Inside XF86Config"
-#        print self.res
-#        time.sleep(3)
-
         if self.res == "640x480":
             self.modes = { "8" :  ["640x480"] }
+            self.monHoriz = "31.5-35.5"
+            self.monVert = "50-61"
         else:
             self.modes = { "16" :  ["800x600"] }
-
-
-#        print "self.modes"
-#        print self.modes
-#        time.sleep(3)
+            self.monHoriz = "31.5-48.5"
+            self.monVert = "50-70"
 
 	self.device = None
         self.keyRules = "xfree86"
