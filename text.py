@@ -166,15 +166,14 @@ class InstallInterface:
             for lang in self.langSearchPath:
                 fn = "/usr/share/anaconda/help/%s/s1-help-screens-%s.txt" \
                      % (lang, key)
+# uncomment to test help text installed in local directory instead            
+                fn = "./text-help/%s/s1-help-screens-%s.txt" % (lang, key)
                 try:
                     f = open (fn)
                 except IOError, msg:
                     continue
                 break
                     
-# uncomment to test help text installed in local directory instead            
-#	    fn = "./text-help/%s/s1-help-screens-%s.txt" \
-#			% (lang, key)
 
             if not f:
 		if firstTime:	

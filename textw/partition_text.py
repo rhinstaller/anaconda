@@ -808,7 +808,7 @@ class PartitionWindow:
         self.diskset.openDevices()
         self.partitions = partitions
 
-        self.g = GridFormHelp(screen, _("Partitioning"), "partitioning", 1, 5)
+        self.g = GridFormHelp(screen, _("Partitioning"), "partition", 1, 5)
 
         self.lb = CListbox(height=10, cols=6,
                            col_widths=[17,5,5,7,10,12],
@@ -866,7 +866,8 @@ class AutoPartitionWindow:
         if not partitions.useAutopartitioning:
             return INSTALL_NOOP
         
-        self.g = GridFormHelp(screen, _("Automatic Partitioning"), "autopartitioning", 1, 6)
+        self.g = GridFormHelp(screen, _("Automatic Partitioning"), "autopart",
+                              1, 6)
 
         # listbox for types of removal
         subgrid = Grid(1, 2)

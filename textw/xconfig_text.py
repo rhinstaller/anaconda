@@ -245,7 +245,7 @@ class MonitorWindow:
                             _("Please select the monitor attached to your "
                             "system.") , self.monitorsnames,
                             [ TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON],
-                            scroll = 1, height = 7, help = "monitorsel",
+                            scroll = 1, height = 7, help = "monitor",
                             default = self.selectedMonitor)
 
         if button != TEXT_CANCEL_CHECK:
@@ -531,7 +531,7 @@ class XConfigWindowCard:
                                      TEXT_BACK_BUTTON))
 
             toplevel = GridFormHelp (screen, _("Video Card Configuration"),
-                                     "videocardconfig", 1, 5)
+                                     "videocard", 1, 5)
 
             text = _("Select the video card and video RAM for your system.")
 

@@ -243,7 +243,7 @@ class BootloaderImagesWindow:
 		      "what partitions you would like to be able to boot " 
 		      "and what label you want to use for each of them."))
 
-	g = GridFormHelp(screen, _("Bootloader Configuration"), 
+	g = GridFormHelp(screen, _("Boot Loader Configuration"), 
 			 "bootloaderlabels", 1, 4)
 	g.add(text, 0, 0, anchorLeft = 1)
 	g.add(listboxLabel, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
