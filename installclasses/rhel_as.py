@@ -1,27 +1,23 @@
 from installclass import BaseInstallClass
-from rhpl.translate import N_
+from rhpl.translate import N_, _
 from constants import *
 import os
 import iutil
 
 # custom installs are easy :-)
 class InstallClass(BaseInstallClass):
-    name = N_("Red Hat Enterprise Linux WS")
-    pixmap = "workstation.png"
-    description = N_("Red Hat Enterprise Linux WS")
+    name = N_("Red Hat Enterprise Linux AS")
+    pixmap = "server.png"
+    description = N_("Red Hat Enterprise Linux AS")
     sortPriority = 100
-    showLoginChoice = 0
+    showLoginChoice = 1
     hidden = 1
 
     pkgstext = _("\tDesktop shell (GNOME)\n"
-                 "\tOffice suite (OpenOffice)\n"
-                 "\tWeb browser (Mozilla) \n"
-                 "\tEmail (Evolution)\n"
-                 "\tInstant messaging\n"
-                 "\tSound and video applications\n"
-                 "\tGames\n"
-                 "\tSoftware Development Tools\n"
-                 "\tAdministration Tools\n")
+                 "\tAdministration Tools\n"
+                 "\tServer Configuration Tools\n"
+                 "\tWeb Server\n"
+                 "\tWindows File Server (SMB)\n")
 
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch);
@@ -32,14 +28,14 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.__init__(self, grpset)
 
         grpset.unselectAll()
-        grpset.selectGroup("workstation-common", asMeta = 1)
-        grpset.selectGroup("gnome-desktop")        
-        grpset.selectGroup("development-tools")
+        grpset.selectGroup("server", asMeta = 1)
+        grpset.selectGroup("base-x")
+        grpset.selectGroup("gnome-desktop")
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)
         BaseInstallClass.setDefaultPartitioning(self, id.partitions,
-                                                CLEARPART_TYPE_LINUX)
+                                                CLEARPART_TYPE_ALL)
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)

@@ -1,5 +1,5 @@
 import personal_desktop
-from rhpl.translate import N_
+from rhpl.translate import N_, _
 import os
 
 class InstallClass(personal_desktop.InstallClass):
