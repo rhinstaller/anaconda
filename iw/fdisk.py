@@ -26,6 +26,11 @@ class FDiskWindow (InstallWindow):
 
     def getNext(self):
         from gnomepyfsedit import fsedit
+        from installpath import InstallPathWindow
+        if ((not InstallPathWindow.fdisk) or
+            (not InstallPathWindow.fdisk.get_active ())):
+               return None
+
 	drives = self.todo.drives.available ().keys ()
 	drives.sort (isys.compareDrives)
 
