@@ -70,7 +70,7 @@ class SiloInstall:
     def setSiloImages(self, images):
 	self.siloImages = images
 
-    def getLiloImages(self, fstab):
+    def getSiloImages(self, fstab):
         (drives, raid) = fstab.raidList()
 
 	# rearrange the fstab so it's indexed by device
