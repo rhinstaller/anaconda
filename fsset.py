@@ -974,11 +974,13 @@ class FileSystemSet:
 
         # then set up the logical volumes
         for entry in self.entries:
-            if type(entry.device) == type(LogicalVolumeDevice):
+            if isinstance(entry.device, LogicalVolumeDevice):
                 # logical volumes can't mount by label
                 entry.doLabel = None
                 entry.device.setupDevice(chroot)
-                
+
+        
+
 
     def makeFilesystems (self, chroot='/'):
         formatted = []
@@ -1081,11 +1083,20 @@ class FileSystemSet:
 
         # XXX hack to make the device node exist for the root fs if
         # it's a logical volume so that mkinitrd can create the initrd.
-        root = fsset.getEntryByMountPoint("/")
-        if type(root.device) == type(LogicalVolumeDevice):
+        root = self.getEntryByMountPoint("/")
+        if isinstance(root.device, LogicalVolumeDevice):
+            # now make sure all of the device nodes exist.  *sigh*
+            rc = iutil.execWithRedirect("/usr/sbin/vgmknodes",
+                                        ["vgmknodes", "-v"],
+                                        stdout = "/tmp/lvmout",
+                                        stderr = "/tmp/lvmout",
+                                        searchPath = 1)
+            
             rootDev = root.device.getDevice()
-            os.makedirs(rootDev[:string.rfind(rootDev, "/")])
+            os.makedirs(instPath + rootDev[:string.rfind(rootDev, "/")])
             iutil.copyDeviceNode(rootDev, instPath + rootDev)
+
+#        raise RuntimeError
 
     def filesystemSpace(self, chroot='/'):
 	space = []
@@ -1391,7 +1402,7 @@ class VolumeGroupDevice(Device):
                 dev = "%s%d" % (drive, part)
                 path = "/dev/%s" % (dev,)
                 _isys.mkdevinode(dev, path)
-        
+
         if not self.isSetup:
             rc = iutil.execWithRedirect("/usr/sbin/vgscan",
                                         ["vgscan", "-v"],
