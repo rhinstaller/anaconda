@@ -1,8 +1,14 @@
-02-25-2002
+04-01-2003
 ----------
 
-Description of Anaconda Install Methods (and ways of updating it)
------------------------------------------------------------------
+Contents
+--------
+
+ 1) Description of install methods
+ 2) Extra notes on install methods
+
+1)Description of Anaconda Install Methods (and ways of updating it)
+-------------------------------------------------------------------
 
 Notes:
 ------------
@@ -80,19 +86,8 @@ Current Installation Methods:
       - floppy
       - 'updates.img' file in '/RedHat/base' directory in ISO image for CD #1.
 
-Hard Drive from fully exploded tree (kickstart only)
-----------------------------------------------------
-
-  Summary:
-      Similar to NFS method - user specifies a top-level directory and
-      all files are sought under there.
-
-  Update Options:
-      - floppy.
-      - 'updates.img' file in '/RedHat/base' directory.
-
-Hard Drive from ISOs (non-kickstart only)
------------------------------------------
+Hard Drive from ISOs
+--------------------
 
   Summary:
       Similar to NFS ISO-based method - loopback mounts ISOs in directory
@@ -102,4 +97,30 @@ Hard Drive from ISOs (non-kickstart only)
       - floppy.
       - 'updates.img' file in '/RedHat/base' directory of ISO image for CD #1.
   
+
+2)Extra Notes:
+--------------
+
+   By default NFS, harddrive, and CDROM-based installs are graphical, unless
+the 'text' option is passed on the boot command line.
+
+   FTP and HTTP are text-based, unless 'graphical' is passed on the command
+line.  For a graphical FTP or HTTP install to occur, one of the following
+must be true:
+
+   - the file 'RedHat/base/stage2.img' must exist on the install server. In
+     this case this file is downloaded int RAM, taking about 64MB to store.
+     It is recommended to only use this option on machines with more than
+     192MB of RAM.
+
+ or:
+ 
+   - the rescue CD is in the CD drive, in which case the stage2.img file
+     will be mounted from the rescue CD.  The packages will still be 
+     downloaded from the FTP/HTTP server.  No additional memory is required
+     because the second stage of the installer is mounted from the CD.
+
+   You can also specify 'graphical' or 'text' as kickstart directives in
+the kickstart config file you use, and this has the same affect as if you
+put the directive on the boot command line.
 
