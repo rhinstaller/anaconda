@@ -269,7 +269,7 @@ class BaseInstallClass:
 
         id.auth.enableCache = enableCache
 
-    def setNetwork(self, id, bootProto, ip, netmask, device = None):
+    def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None):
 	if bootProto:
 	    devices = id.network.available ()
 	    if (devices and bootProto):

@@ -31,6 +31,7 @@
 
 #include "../isys/dns.h"
 #include "../isys/isys.h"
+#include "../isys/net.h"
 
 #include "lang.h"
 #include "loader.h"
@@ -290,6 +291,43 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     if (loaderData->ptpaddr && (inet_aton(loaderData->ptpaddr, &addr))) {
         cfg->dev.ptpaddr = addr;
         cfg->dev.set |= PUMP_INTFINFO_HAS_PTPADDR;
+    }
+
+    if (loaderData->ethtool) {
+        char * option, * buf;
+        ethtool_duplex duplex = ETHTOOL_DUPLEX_UNSPEC;
+        ethtool_speed speed = ETHTOOL_SPEED_UNSPEC;
+
+        buf = strdup(loaderData->ethtool);
+        option = strtok(buf, " ");
+        while (option) {
+            if (option[strlen(option) - 1] == '\"')
+                option[strlen(option) - 1] = '\0';
+            if (option[0] == '\"')
+                option++;
+            if (!strncmp(option, "duplex=", 7)) {
+                if (!strncmp(option + 7, "full", 4)) 
+                    duplex = ETHTOOL_DUPLEX_FULL;
+                else if (!strncmp(option + 7, "half", 4))
+                    duplex = ETHTOOL_DUPLEX_HALF;
+                else
+                    logMessage("Unknown duplex setting: %s", option + 7);
+            } else if (!strncmp("speed=", option, 6)) {
+                if (!strncmp(option + 6, "1000", 4))
+                    speed = ETHTOOL_SPEED_1000;
+                else if (!strncmp(option + 6, "100", 3))
+                    speed = ETHTOOL_SPEED_100;
+                else if (!strncmp(option + 6, "10", 4))
+                    speed = ETHTOOL_SPEED_10;
+                else
+                    logMessage("Unknown speed setting: %s", option + 6);
+            } else {
+                logMessage("Unknown ethtool setting: %s", option);
+            }
+            option = strtok(NULL, " ");
+        }
+            setEthtoolSettings(loaderData->netDev, speed, duplex);
+        free(buf);
     }
 
     cfg->noDns = loaderData->noDns;
@@ -619,7 +657,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
 void setKickstartNetwork(struct knownDevices * kd, 
                          struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr) {
-    char * arg, * bootProto = NULL, * device = NULL;;
+    char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL;
     int noDns = 0, rc;
     poptContext optCon;
 
@@ -632,6 +670,7 @@ void setKickstartNetwork(struct knownDevices * kd,
         { "netmask", '\0', POPT_ARG_STRING, NULL, 'm' },
         { "nodns", '\0', POPT_ARG_NONE, &noDns, 0 },
         { "hostname", '\0', POPT_ARG_STRING, NULL, 'h'},
+        { "ethtool", '\0', POPT_ARG_STRING, &ethtool, 0 },
         { 0, 0, 0, 0, 0 }
     };
     
@@ -660,7 +699,7 @@ void setKickstartNetwork(struct knownDevices * kd,
             break;
         }
     }
-
+    
     if (rc < -1) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to kickstart network command %s: %s"),
@@ -693,6 +732,13 @@ void setKickstartNetwork(struct knownDevices * kd,
     if (device) {
         loaderData->netDev = strdup(device);
         loaderData->netDev_set = 1;
+    }
+
+    if (ethtool) {
+        if (loaderData->ethtool)
+            free(loaderData->ethtool);
+        loaderData->ethtool = strdup(ethtool);
+        free(ethtool);
     }
 
     if (noDns) {
