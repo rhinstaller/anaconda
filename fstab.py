@@ -102,7 +102,7 @@ class Fstab:
             success = 1
 
         except self.fserror, msg:
-            log("Kickstart autopartitioning failed because following errors:")
+            log("Autopartitioning failed because following errors:")
             for i in string.split(msg, '\n'):
                 if len(i) > 0:
                     log (i)
