@@ -58,6 +58,55 @@ int pkgListAlloced = 0;
 char ** depOrder = NULL;
 hashTable requireTable;
 
+/* Acts like fgets() except allocates buffer internally.
+ * Responsibility of consumer to free() buffer.
+ */
+char * _fgets(FILE *fptr) {
+    long oPos, ePos;
+    int  c;
+    long size;
+    char * buf;
+
+    /* Get original file position and save aside */
+    if((oPos = ftell(fptr)) == -1) {
+        perror("Could not get file position:");
+        return NULL;
+    }
+
+    /* "Seek" to next EOL or EOF */
+    while((c = fgetc(fptr)) != '\n' && c != EOF);
+
+    /* Get current file position  */
+    if((ePos = ftell(fptr)) == -1) {
+        perror("Could not get file position:");
+        return NULL;
+    }
+
+    /* Calculate size of buffer and allocate */
+    size = ePos - oPos;
+    if(size == 0) return NULL; /* Nothing to do (probably EOF after EOL) */
+    buf = (char *) malloc(sizeof(buf)*size + 1);
+    if(buf == NULL) {
+	perror("Could not allocate buffer for _fgets():");
+	return NULL;
+    }
+
+    /* Seek to beggining and read in buffer */
+    if(fseek(fptr, oPos, SEEK_SET) == -1) {
+	perror("Could not seek to string begining in _fgets():");
+	free(buf);
+	return NULL;
+    }
+    if(fread(buf, size, 1, fptr) != 1) {
+	perror("Could not read string into buffer in _fgets():");
+	free(buf);
+	return NULL;
+    }
+    buf[size - 1] = '\0';
+
+    return buf;
+}
+
 /* make sure its <package>-<version>-<release> */
 int sanityCheckDepOrderLine(char *line) {
     char *r, *v;
@@ -464,24 +513,19 @@ int main(int argc, const char ** argv) {
 	FILE *f;
 	int nalloced = 0;
 	int numpkgs = 0;
-	int len = 0;
-	char b[256];
+	char *b;
 	
 	if (!(f = fopen(depOrderFile, "r"))) {
 	    fprintf (stderr, "Unable to read %s\n", depOrderFile);
 	    usage();
 	}
-	
-	while ((fgets(b, sizeof(b) - 1, f))) {
+
+	while ((b = _fgets(f))) {	
 	    if (numpkgs == nalloced) {
 		depOrder = realloc (depOrder, sizeof (char *) * (nalloced + 6));
 		memset (depOrder + numpkgs, '\0', sizeof (char *) * 6);
 		nalloced += 5;
 	    }
-
-	    len = strlen(b);
-	    /* chop */
-	    b[--len] = '\0';
 
 	    /* sanity check */
 	    /* should have the format of a <package name>-<version>-<release> */
@@ -491,8 +535,7 @@ int main(int argc, const char ** argv) {
 		exit(1);
 	    }
 
-	    depOrder[numpkgs] = malloc (len + 1);
-	    strcpy (depOrder[numpkgs], b);
+	    depOrder[numpkgs] = b;
 	    numpkgs++;
 	}
         depOrder[numpkgs] = NULL;  /* end with a null */
