@@ -114,7 +114,8 @@ def dumpException(out, text, tb, dispatch):
         out.write("\n")
     
     # these have C objects in them which can't dump
-    dispatch.id.grpset = None
+    if dispatch.id.grpset is not None and dispatch.id.grpset.__dict__.has_key("hdrlist"):
+        dispatch.id.grpset.hdrlist = None
 
     # we don't need to know passwords
     dispatch.id.rootPassword = None
@@ -164,6 +165,11 @@ def handleException(dispatch, intf, (type, value, tb)):
 
     list = traceback.format_exception (type, value, tb)
     text = joinfields (list, "")
+
+    out = open("/tmp/anacdump.txt", "w")
+    dumpException (out, text, tb, dispatch)
+    out.close()
+
     rc = intf.exceptionWindow (_("Exception Occurred"), text)
     if rc == 1:
 	intf.__del__ ()
@@ -173,13 +179,6 @@ def handleException(dispatch, intf, (type, value, tb)):
         os.kill(os.getpid(), signal.SIGKILL)
     elif not rc:
 	intf.__del__ ()
-        os.kill(os.getpid(), signal.SIGKILL)
-
-    if not flags.setupFilesystems:
-        out = open("/tmp/anacdump.txt", "w")
-        dumpException (out, text, tb, dispatch)
-        out.close()
-        intf.__del__ ()
         os.kill(os.getpid(), signal.SIGKILL)
 
     while 1:
@@ -219,9 +218,7 @@ def handleException(dispatch, intf, (type, value, tb)):
         except SystemError:
             continue
 
-	out = open("/tmp/crash/anacdump.txt", "w")
-        dumpException (out, text, tb, dispatch)
-        out.close()
+        iutil.copyFile("/tmp/anacdump.txt", "/tmp/crash/anacdump.txt")
 
         # write out any syslog information as well
         try:
