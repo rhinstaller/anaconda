@@ -796,9 +796,21 @@ class VolumeGroupEditor:
 
 	self.totalSpaceLabel.set_text("%10.2f MB" % (tspace,))
 	self.usedSpaceLabel.set_text("%10.2f MB" % (uspace,))
-	self.usedPercentLabel.set_text("(%4.1f %%)" % ((100.0*uspace)/tspace,))
+
+	if tspace > 0:
+	    usedpercent = (100.0*uspace)/tspace
+	else:
+	    usedpercent = 0.0
+	    
+	self.usedPercentLabel.set_text("(%4.1f %%)" % (usedpercent,))
+
 	self.freeSpaceLabel.set_text("%10.2f MB" % (fspace,))
-	self.freePercentLabel.set_text("(%4.1f %%)" % ((100.0*fspace)/tspace,))
+	if tspace > 0:
+	    freepercent = (100.0*fspace)/tspace
+	else:
+	    freepercent = 0.0
+
+	self.freePercentLabel.set_text("(%4.1f %%)" % (freepercent,))
 
 #
 # run the VG editor we created
