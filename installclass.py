@@ -221,7 +221,6 @@ class Workstation(InstallClass):
 	InstallClass.__init__(self)
 	self.setHostname("localhost.localdomain")
 	self.addToSkipList("lilo")
-	self.addToSkipList("network")
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
 	self.addToSkipList("partition")
