@@ -29,6 +29,10 @@ while [ $# -gt 0 ]; do
 	    PRODUCTSTR=$2
 	    shift; shift
 	    ;;
+	--debug)
+	    DEBUGSTR="--debug"
+	    shift
+	    ;;
 	*)
 	    if [ -n "$DIR" -o ! -d $1/RedHat/RPMS ]; then
 		usage
@@ -54,6 +58,8 @@ fi
 if [ -z "$RELEASESTR" ]; then
     usage
 fi
+
+echo "Running buildinstall..."
 
 p=`cd $DIR; /bin/pwd`
 
@@ -90,14 +96,9 @@ MK_IMAGES=$BUILDINSTDIR/mk-images
 
 echo "Building images..."
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "$UPD_INSTROOT --comp $COMPNAME $p/RedHat/RPMS $TREEDIR/image-template $TREEDIR/instimage"
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "$UPD_INSTROOT $DEBUGSTR --comp $COMPNAME $p/RedHat/RPMS $TREEDIR/image-template $TREEDIR/instimage"
 else
-    $UPD_INSTROOT --comp $COMPNAME $p/RedHat/RPMS $TREEDIR/image-template $TREEDIR/instimage
-fi
-
-# XXX hack - msw
-if [ $BUILDARCH = "sparc" ]; then
-    BUILDARCH=sparc64
+    $UPD_INSTROOT $DEBUGSTR --comp $COMPNAME $p/RedHat/RPMS $TREEDIR/image-template $TREEDIR/instimage
 fi
 
 if [ -n "$PKGORDER" ]; then
@@ -112,9 +113,9 @@ fi
 
 echo "Making images..."
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $p/RedHat/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH '\"$PRODUCTSTR\"' $VERSION"
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $DEBUGSTR $p/RedHat/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH '\"$PRODUCTSTR\"' $VERSION"
 else
-    $MK_IMAGES $p/RedHat/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION
+    $MK_IMAGES $DEBUGSTR $p/RedHat/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION
 fi
 
 MK_STAMP=./makestamp.py

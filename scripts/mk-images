@@ -8,6 +8,11 @@ usage () {
     exit 0
 }
 
+DEBUG=""
+if [ "$1" == "--debug" ]; then
+    DEBUG="--debug"
+fi
+
 if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" -o -z "$7" ]; then usage; fi
 
 PRODUCT=$6
@@ -121,7 +126,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
 	   echo "Found keymap override, using it"
 	   cp $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BUILDARCH $KEYMAPS
        else
-	   echo "Running: GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
+	   echo "Running: $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
 	   $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
 	   if [ $? != 0 ]; then
 	       echo "Unable to create keymaps and thus can't create initrd."
@@ -220,7 +225,7 @@ intcopymodules () {
     for n in $1; do
 	m=$(findmodule $n)
 	if [ -z "$m" ]; then
-            echo "Module $n not found in kernel rpm" >&2
+            [ -n $DEBUG] && echo "Module $n not found in kernel rpm" >&2
         else 
 	    echo $n >> $MODULESUSED
 	    for o in $m ; do 
@@ -482,7 +487,6 @@ EOF
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
     install -m 644 $IMGPATH/usr/share/terminfo/l/linux $MBD_DIR/etc/terminfo/l/linux
     install -m 644 $IMGPATH/usr/share/terminfo/x/xterm $MBD_DIR/etc/terminfo/x/xterm
-    install -m 644 $IMGPATH/usr/share/terminfo/x/xterm-color $MBD_DIR/etc/terminfo/x/xterm-color
     install -m 644 $IMGPATH/usr/share/terminfo/v/vt100 $MBD_DIR/etc/terminfo/v/vt100
     makeproductfile $MBD_DIR
 
@@ -924,3 +928,4 @@ find $KERNELBASE/*/lib/modules/ > $CACHE
 makeSecondStage
 rm -rf $KERNELBASE
 
+cd $TOPDIR
