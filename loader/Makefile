@@ -105,6 +105,7 @@ install: all
 	    install -s -m 755 $$n $(DESTDIR)/$(RUNTIMEDIR)/loader; \
 	done
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
+	install -m 644 kon-loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
 
 loader: loader.o $(OBJS) $(NETOBJS)
