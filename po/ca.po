@@ -1,19 +1,31 @@
 # Catalan translations for anaconda package.
-# Copyright (C) 2003, 2004 Free Software Foundation
+# Copyright (C) 2003, 2004, 2005 Free Software Foundation
 # This file is distributed under the same license as the anaconda package.
 # Jordi Jover <jordijn@softcatala.org>, 2003.
 # Mireia Farrús <mifarrus@softcatala.org>, 2003.
 # Jordi Mas <jmas@softcatala.org>, 2003.
-# Josep Puigdemont <josep@imatge-sintetica.com>, 2003, 2004, 2005.
+# Josep Puigdemont <josep.puigdemont@gmail.com>, 2003, 2004, 2005.
 # Xavier Conde Rueda <xaviconde@eresmas.com>, 2004.
+#
+# This file is translated according to the glossary and style guide of
+#   Softcatalà. If you plan to modify this file, please read first the page
+#   of the Catalan translation team for the Fedora project at:
+#   http://www.softcatala.org/projectes/fedora/
+#   and contact the previous translator
+#
+# Aquest fitxer s'ha de traduir d'acord amb el recull de termes i la guia
+#   d'estil de Softcatalà. Si voleu modificar aquest fitxer, llegiu si
+#   us plau la pàgina de catalanització del projecte Fedora a:
+#   http://www.softcatala.org/projectes/fedora/
+#   i contacteu l'anterior traductor/a.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-03-12 00:36+0100\n"
-"Last-Translator: Josep Puigdemont <josep@imatge-sintetica.com>\n"
+"PO-Revision-Date: 2005-04-01 17:18+0200\n"
+"Last-Translator: Josep Puigdemont <josepi.puigdemont@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -148,7 +160,7 @@ msgstr "Error desconegut"
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr ""
-"Hi ha hagut un error en extreure la segona part del fitxer d'arrencada "
+"S'ha produït un error en extreure la segona part del fitxer d'arrencada "
 "ràpida: %s"
 
 #: ../anaconda:744
@@ -553,7 +565,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "S'està instal·lant %s-%s-%s... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -562,10 +574,10 @@ msgstr ""
 "S'ha produït una excepció no gestionada. Això és molt probablement un error "
 "de programació. Feu una còpia completa del text d'aquesta excepció o guardeu "
 "l'abocament de l'error en un disquet, després informeu de l'error produït a "
-"l'anaconda a http://bugzilla.redhat.com/bugzilla/"
+"l'anaconda a %s"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
@@ -573,8 +585,7 @@ msgid ""
 msgstr ""
 "S'ha produït una excepció no gestionada. Això és molt probablement un error "
 "de programació. Feu una còpia completa del text d'aquesta excepció i "
-"informeu de l'error produït a l'anaconda a http://bugzilla.redhat.com/"
-"bugzilla/"
+"informeu de l'error produït a l'anaconda a %s"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -1026,7 +1037,6 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
 msgstr "S'ha produït una excepció"
 
@@ -1036,7 +1046,7 @@ msgstr "_Depura"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "De_sa a un disquet"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1577,7 +1587,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Avís! Aquest programari no és estable"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1593,13 +1603,13 @@ msgid ""
 msgstr ""
 "Gràcies per haver descarregat aquesta versió de prova de %s.\n"
 "\n"
-"Aquesta no és la versió definitiva de la versió final, i no se'n recomana "
-"l'ús en sistemes de producció. La finalitat d'aquesta versió és recollir "
-"opinions dels qui la proven, pel que no està pensat per al seu ús diari.\n"
+"Aquesta no és la versió final del producte, i no se'n recomana l'ús en "
+"sistemes de producció. La finalitat d'aquesta versió és recollir opinions "
+"dels qui la proven, així doncs, no està pensada per al seu ús diari.\n"
 "\n"
 "Si voleu fer arribar les vostres opinions, visiteu:\n"
 "\n"
-"   http://bugzilla.redhat.com/bugzilla\n"
+"   %s\n"
 "\n"
 "i feu un informe sobre '%s'.\n"
 
@@ -3131,7 +3141,6 @@ msgid "Congratulations"
 msgstr "Felicitats"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
@@ -5081,13 +5090,13 @@ msgid "Unknown video card"
 msgstr "Targeta de vídeo desconeguda"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
 msgstr ""
 "S'ha produït un error en seleccionar la targeta de vídeo %s. Informeu "
-"d'aquest error a bugzilla.redhat.com."
+"d'aquest error a %s."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -6142,9 +6151,8 @@ msgid "What time zone are you located in?"
 msgstr "En quin fus horari esteu?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "El rellotge del sistema usa _UTC"
+msgstr "El rellotge del sistema usa UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -8393,12 +8401,11 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Àrab"
+msgstr "Amhàric"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8481,9 +8488,8 @@ msgid "Icelandic"
 msgstr "Islandès"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Macedoni"
+msgstr "Indonesi"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8510,9 +8516,8 @@ msgid "Norwegian"
 msgstr "Noruec"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Northern Territory"
+msgstr "Sotho del nord"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8539,9 +8544,8 @@ msgid "Russian"
 msgstr "Rus"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "Eslovè"
+msgstr "Eslovac"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8560,9 +8564,8 @@ msgid "Tamil"
 msgstr "Tàmil"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Tàmil"
+msgstr "Thai"
 
 #. generated from lang-table
 msgid "Turkish"
