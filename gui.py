@@ -7,6 +7,7 @@ from _gtk import gtk_set_locale
 import GdkImlib
 from GDK import *
 import time
+import glob
 
 im = None
 splashwindow = None
@@ -497,88 +498,48 @@ class InstallControlWindow:
         table = GtkTable(3, 3, FALSE)
 
 
+        #--Find and render the borders for the release notes window
+        #--Necessary because we're not running a window manager
+        pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/border_*")
+        pixmaps2 = glob.glob("pixmaps/border_*")
 
-        try:
-            im = GdkImlib.Image ("pixmaps/border_top_left.png")
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
-                a = GtkAlignment ()
-                a.add (pix)
+        if len(pixmaps1) < len(pixmaps2):
+            files = pixmaps2
+        else:
+            files = pixmaps1
+
+        for file in files:
+            im = GdkImlib.Image (file)
+            im.render ()
+            pix = im.make_pixmap ()
+            a = GtkAlignment ()
+            a.add (pix)
+
+            if string.find (file, "border_top_left.png") > 0:                
                 a.set (0, 0, 1.0, 1.0)
                 table.attach (a, 0, 1, 0, 1, SHRINK, FILL)
-
-            im = GdkImlib.Image ("pixmaps/border_top.png")
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
-                a = GtkAlignment ()
-                a.add (pix)
+            elif string.find (file, "border_top.png") > 0:
                 a.set (0, 0, 1.0, 1.0)
                 table.attach (a, 1, 2, 0, 1, SHRINK, FILL)
-
-            im = GdkImlib.Image ("pixmaps/border_top_right.png")
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
-                a = GtkAlignment ()
-                a.add (pix)
+            elif string.find (file, "border_top_right.png") > 0:
                 a.set (0, 0, 1.0, 1.0)
                 table.attach (a, 2, 3, 0, 1, SHRINK, FILL)
-
-            im = GdkImlib.Image ("pixmaps/border_left.png")
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
-                a = GtkAlignment ()
-                a.add (pix)
+            elif string.find (file, "border_left.png") > 0:
                 a.set (0, 0, 1.0, 1.0)
                 table.attach (a, 0, 1, 1, 2, SHRINK, FILL)
-
-            im = GdkImlib.Image ("pixmaps/border_right.png")
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
-                a = GtkAlignment ()
-                a.add (pix)
+            elif string.find (file, "border_right.png") > 0:
                 a.set (0, 0, 1.0, 1.0)
                 table.attach (a, 2, 3, 1, 2, SHRINK, FILL)
-
-            im = GdkImlib.Image ("pixmaps/border_bottom_left.png")
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
-                a = GtkAlignment ()
-                a.add (pix)
+            elif string.find (file, "border_bottom_left.png") > 0:
                 a.set (0, 0, 1.0, 1.0)
                 table.attach (a, 0, 1, 2, 3, SHRINK, FILL)
-
-            im = GdkImlib.Image ("pixmaps/border_bottom.png")
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
-                a = GtkAlignment ()
-                a.add (pix)
+            elif string.find (file, "border_bottom.png") > 0:
                 a.set (0, 0, 1.0, 1.0)
                 table.attach (a, 1, 2, 2, 3, SHRINK, FILL)
-
-            im = GdkImlib.Image ("pixmaps/border_bottom_right.png")
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
-                a = GtkAlignment ()
-                a.add (pix)
+            elif string.find (file, "border_bottom_right.png") > 0:
                 a.set (0, 0, 1.0, 1.0)
                 table.attach (a, 2, 3, 2, 3, SHRINK, FILL)
-
-
-        except:
-            print "Unable to load left_border.png"
-
-
-
-
-
+        #--End of table border creation
 
         vbox1 = GtkVBox ()        
         vbox1.set_border_width (10)
