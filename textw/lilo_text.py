@@ -228,7 +228,8 @@ class LiloImagesWindow:
 	    if (result == string.lower(_("Edit")) or result == listbox):
 		item = listbox.current()
 		(label, type) = images[item]
-		label = self.editItem(screen, item, label, allowNone = (rootdev != item))
+
+		label = self.editItem(screen, item, label, allowNone = (rootdev != item and item != default))
 		images[item] = (label, type)
 		if (default == item and not label):
 		    default = ""
