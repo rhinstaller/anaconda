@@ -305,6 +305,7 @@ def turnOnFilesystems(dir, thefsset, diskset, upgrade, instPath):
             thefsset.mountFilesystems (instPath)
 
 def doInstall(method, id, intf, instPath):
+    id.fsset.verify()
     if flags.test:
 	return
 
@@ -686,6 +687,7 @@ def doInstall(method, id, intf, instPath):
 
     w.pop ()
 
+    id.fsset.verify()
     sys.stdout.flush()
 
 def migrateXinetd(instPath, instLog):

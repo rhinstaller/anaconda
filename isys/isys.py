@@ -423,3 +423,6 @@ def ideCdRwList():
 	if dev[0:2] == 'hd': newList.append(dev)
 
     return newList
+
+printObject = _isys.printObject
+

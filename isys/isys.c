@@ -93,6 +93,7 @@ static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doisIsoImage(PyObject * s, PyObject * args);
 static PyObject * dogetGeometry(PyObject * s, PyObject * args);
 static PyObject * getFramebufferInfo(PyObject * s, PyObject * args);
+static PyObject * printObject(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -142,6 +143,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
     { "getGeometry", (PyCFunction) dogetGeometry, METH_VARARGS, NULL},
     { "fbinfo", (PyCFunction) getFramebufferInfo, METH_VARARGS, NULL},
+    { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1528,3 +1530,15 @@ static PyObject * getFramebufferInfo(PyObject * s, PyObject * args) {
     return Py_BuildValue("(iii)", fb.xres, fb.yres, fb.bits_per_pixel);
 }
 
+static PyObject * printObject (PyObject * o, PyObject * args) {
+    PyObject * obj;
+    char buf[256];
+
+    if (!PyArg_ParseTuple(args, "O", &obj))
+	return NULL;
+    
+    snprintf(buf, 256, "<%s object at %lx>", obj->ob_type->tp_name,
+	     (long) obj);
+
+    return PyString_FromString(buf);
+}

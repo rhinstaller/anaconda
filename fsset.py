@@ -389,12 +389,22 @@ class FileSystemSet:
                                  fileSystemTypeGet("devpts"), "gid=5,mode=620")
         self.add(pts)
 
+    def verify (self):
+        for entry in self.entries:
+            if type(entry.__dict__) != type({}):
+                raise RuntimeError, "fsset internals inconsistent"
+
     def add (self, entry):
         # remove any existing duplicate entries
         for existing in self.entries:
             if (existing.device.getDevice() == entry.device.getDevice()
                 and existing.mountpoint == entry.mountpoint):
                 self.remove(existing)
+        # XXX debuggin'
+        log ("fsset at %s\n"
+             "adding entry for %s\n"
+             "entry object %s, class __dict__ is %s",
+             self, entry.mountpoint, entry, isys.printObject(entry.__dict__))
         self.entries.append(entry)
         self.entries.sort (mountCompare)
 
@@ -696,9 +706,6 @@ class Device:
         self.fsoptions = {}
         self.label = None
         self.isSetup = 0
-
-    def __repr__(self):
-        return self.device
 
     def getComment (self):
         return ""
