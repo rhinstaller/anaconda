@@ -133,7 +133,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            anaconda-images anaconda-help hdparm XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
            redhat-config-keyboard Xft fontconfig expat redhat-artwork
-           ttfonts-ja ttfonts-zh_CN ttfonts-zh_TW"
+           ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -497,6 +497,7 @@ usr/X11R6/lib/modules/*
 usr/X11R6/share/Xconfigurator/pixmaps/*
 usr/bin/chattr*
 usr/bin/ftp
+usr/bin/fc-cache
 usr/bin/gtk-query*
 usr/bin/head
 usr/bin/less
@@ -588,6 +589,7 @@ usr/sbin/ddcprobe
 usr/sbin/gnome-pty-helper
 usr/sbin/traceroute
 usr/share/anaconda/*
+usr/share/fonts/bitmap-fonts/fangsongti*
 usr/share/fonts/default/Type1/n019003l*
 usr/share/fonts/default/Type1/n019004l*
 usr/share/fonts/default/Type1/n019023l*
@@ -598,7 +600,6 @@ usr/share/fonts/default/Type1/n021023l*
 usr/share/fonts/default/Type1/n021024l*
 usr/share/fonts/ko/TrueType/dotum.ttf
 usr/share/fonts/ja/TrueType/kochi-gothic.ttf
-usr/share/fonts/zh_CN/TrueType/gbsn00lp.ttf
 usr/share/fonts/zh_TW/TrueType/bsmi00lp.ttf
 usr/share/locale/*
 usr/share/pixmaps/gnome-default-dlg.png
@@ -741,6 +742,13 @@ if [ -n "$NEEDGR" ]; then
     rm -f $DESTGR/usr/bin/gtk-query-immodules-2.0
 fi
 
+# make the changes we want to fonts.conf for anaconda (#65913)
+if [ -n "$NEEDGR" ]; then
+    echo -n "Munging fonts.conf"
+    sed s/AR\ PL\ SungtiL\ GB/Fangsong\ ti/g $DESTGR/etc/fonts/fonts.conf > $DESTGR/etc/fonts/fonts.conf.foo
+    mv $DESTGR/etc/fonts/fonts.conf.foo $DESTGR/etc/fonts/fonts.conf
+fi
+
 # minislang can pretend to be utf8 slang for us
 for p in $DEST $DESTGR; do
     ln -sf ./libslang.so.1 $p/usr/lib/libslang-utf8.so.1
@@ -825,6 +833,18 @@ if [ -d $DEST/usr/share/locale ]; then
 	mv -f $i.gz $i
     done
 fi
+
+echo "Creating fontconfig cache"
+if [ -n "$NEEDGR" ]; then
+    if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
+    	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/fc-cache -v"
+    else
+	/usr/sbin/chroot $DESTGR /usr/bin/fc-cache -v
+    fi
+    rm -f $DESTGR/usr/bin/fc-cache
+fi
+
 
 if [ $ARCH = "alpha" ]; then
     rm -rf $DEST/usr/share/locale
