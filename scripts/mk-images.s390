@@ -37,17 +37,28 @@ prepareBootImage() {
 IDEMODS=""
 SCSIMODS=""
 
-#SECSTAGE="raid0 raid1 raid5 ext3 $IDEMODS $SCSIMODS "
 SECSTAGE="$IDEMODS $SCSIMODS ext3"
 
 COMMONMODULES="loop cramfs dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod tape390"
 LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs ctc netiucv"
 
-makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
+echo "In mk-images.s390: kernelvers is $kernelvers"
+if [ "$kernelvers" = "BOOT" ]; then
+    makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
 	   --initrdsize 8192 \
 	   --loaderbin loader \
 	   --modules "$NETWORKMODULES"
+    cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
+fi
+
+if [ "$kernelvers" = "BOOTtape" ]; then
+    makeinitrd --initrdto $TOPDESTPATH/images/tapeinrd.img \
+	   --initrdsize 8192 \
+	   --loaderbin loader \
+	   --modules "$NETWORKMODULES"
+    cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/tapekrnl.img
+fi
 
 for I in `find $BOOTDISKDIR -type d`; do
     BOOTLANG=`basename $I`
@@ -64,8 +75,6 @@ done
 #	 --imagename $BOOTDIR/kernel.img #\
 #	 #--initrd $TOPDESTPATH//autoboot/initrd.img
 
-#makedriverdisk --padsize 1440 "Supplemental Drivers" "drivers" "+scsi +net"
-
 unset BOOTLANG
 unset BOOTDIR
 
@@ -75,4 +84,3 @@ makeinstimage "netstg" "=scsi $SECSTAGE"
 
 #makeinstimage "hdstg" "=net $SECSTAGE"
 makemainimage "stage2" "cramfs"
-#makemainimage "stage2" "ext2"

@@ -44,7 +44,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
 	LATEST=findPackage
     fi
 
-    rm -rf $IMAGEPATH
+    #rm -rf $IMAGEPATH
     rm -rf $FULLMODPATH
     rm -rf $FINALFULLMODPATH
     rm -rf $KERNELROOT
@@ -535,10 +535,6 @@ Welcome to the Red Hat Linux install environment (v0.34) for S/390.
 Now run 'rhsetup' or 'loader' to install Red Hat Linux.
  
 EOF
-       #cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $MBD_DIR/lib/modules/misc
-       #if [ -d $IMGPATH/lib/modules/ibm-2.4*/kernel/drivers/net ]; then
-       #   cp -f $IMGPATH/lib/modules/ibm-2.4*/kernel/drivers/net/* $MBD_DIR/lib/modules/misc
-       #fi
     else
        ln -s /usr/bin/sh $MBD_DIR/sbin/sh
        ln -s /sbin/init $MBD_DIR/linuxrc
@@ -913,16 +909,21 @@ makedriverdisk () {
 }
 
 # Find the kernel, unpack it, and verify it
-    kpackage=$($LATEST $KERNELPATH kernel-BOOT)
-    vertag=BOOT
+vertag="BOOT"
+if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+vertag="BOOT BOOTtape"
+fi
+for kernelvers in $vertag; do
+    kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
+    mkdir -p $KERNELROOT/lib/modules/misc
     if [ ! -f "$kpackage" ]; then
 	if [ "$BUILDARCH" = "ia64" ]; then
 	    # XXX remove me post beta
-	    echo 'kernel-BOOT does not exist -- using kernel-smp package on ia64'
+	    echo 'kernel-$kernelvers does not exist -- using kernel-smp package on ia64'
 	    kpackage=$($LATEST $KERNELPATH kernel-smp)
 	    vertag="smp"
 	else
-	    echo 'kernel-BOOT does not exist -- using kernel package'
+	    echo 'kernel-$kernelvers does not exist -- using kernel package'
 	    kpackage=$($LATEST $KERNELPATH kernel)
 	    vertag=""
 	fi
@@ -933,7 +934,7 @@ makedriverdisk () {
 	ppackage=""
     fi
 
-    version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${vertag}
+    version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kernelvers}
     echo "unpacking $kpackage"
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
@@ -964,6 +965,7 @@ makedriverdisk () {
     rundepmod "$allmods" $MODDEPS
     rm -f $MODDEPS.foo
 
-. $TOPDIR/mk-images.${BUILDARCH}
+    . $TOPDIR/mk-images.${BUILDARCH}
 
-rm -rf $KERNELROOT
+    rm -rf $KERNELROOT
+done
