@@ -33,7 +33,7 @@ sys.path.append('/usr/lib/anaconda')
 
 from comps import ComponentSet, HeaderList
 import os
-import rpm404 as rpm
+import rpm
 
 FILENAME = 1000000
 

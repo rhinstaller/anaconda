@@ -21,7 +21,7 @@ import signal
 import traceback
 import iutil
 import types
-import rpm404 as rpm
+import rpm
 from string import joinfields
 from cPickle import Pickler
 from rhpl.translate import _

@@ -12,7 +12,7 @@
 #
 
 import string
-import rpm404 as rpm
+import rpm
 import os
 import gui
 import sys

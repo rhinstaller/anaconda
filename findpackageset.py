@@ -1,4 +1,4 @@
-import rpm404 as rpm
+import rpm
 
 def dEBUG(str):
     print str

@@ -101,8 +101,8 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 ash kon2 e2fsprogs util-linux raidtools popt mount procps rpm
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
-	 reiserfs-utils parted busybox-anaconda rpm404-python anaconda-help booty
-         hdparm lvm librpm404 rhpl libxml2 libxml2-python rdate"
+	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help booty
+         hdparm lvm rhpl libxml2 libxml2-python rdate"
 
 if [ $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES libgcc libstdc++"
@@ -133,7 +133,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            XFree86-ISO8859-9-75dpi-fonts esound audiofile libgnome
            XFree86-100dpi-fonts fonts-ISO8859-2 fonts-ISO8859-9
            XFree86-xfs e2fsprogs fileutils glibc glibc-common rsh less
-           ftp readline gzip popt specspo util-linux rpm librpm404
+           ftp readline gzip popt specspo util-linux rpm 
            open grep net-tools traceroute tar procps textutils sed
            ncurses bash cpio mt-st iputils sh-utils
            XFree86 Xconfigurator gnome-python2 pygtk2 gdk-pixbuf 
@@ -303,9 +303,9 @@ usr/$LIBDIR/libdb1*
 usr/$LIBDIR/libnewt*
 usr/$LIBDIR/libparted*
 usr/$LIBDIR/libpopt*
-usr/$LIBDIR/librpm-*4.0.4.so*
-usr/$LIBDIR/librpmdb*4.0.4.so*
-usr/$LIBDIR/librpmio*4.0.4.so*
+usr/$LIBDIR/librpm-*4.1.so*
+usr/$LIBDIR/librpmdb*4.1.so*
+usr/$LIBDIR/librpmio*4.1.so*
 usr/$LIBDIR/libslang*
 usr/$LIBDIR/libstdc++*
 usr/$LIBDIR/libxml2.so*

@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import rpm404 as rpm
+import rpm
 import gui
 import string
 import sys

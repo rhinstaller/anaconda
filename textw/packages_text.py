@@ -11,7 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import rpm404 as rpm
+import rpm
 from snack import *
 from constants_text import *
 from rhpl.translate import _
