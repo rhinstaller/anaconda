@@ -103,8 +103,8 @@ if not os.path.isdir(srcDir):
 
 disc1Dir = distDir + "-disc1"
 disc2Dir = distDir + "-disc2"
-disc1SrcDir = distDir + "-srpms1"
-disc2SrcDir = distDir + "-srpms2"
+disc1SrcDir = distDir + "-disc3"
+disc2SrcDir = distDir + "-disc4"
 
 id = 0
 
@@ -171,10 +171,10 @@ moveFiles("%s/RedHat/RPMS" % disc1Dir,
 
 print "Creating first source disc..."
 os.system("cp -al %s/. %s" % (srcDir, disc1SrcDir))
-stamp(disc1SrcDir, "disc1src", arch, startedAt)
+stamp(disc1SrcDir, "disc3", arch, startedAt)
 
 print "Creating second source disc..."
-stamp(disc2SrcDir, "disc2src", arch, startedAt)
+stamp(disc2SrcDir, "disc4", arch, startedAt)
 
 srcPkgList = os.listdir("%s/SRPMS" % disc1SrcDir)
 srcPkgList.sort()
