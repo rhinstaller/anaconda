@@ -37,7 +37,7 @@ LATEUSBMODS="mousedev"
 
 SECSTAGE="vfat raid0 raid1 raid5 $LATEUSBMODS"
 
-COMMONMODULES="vfat $USBMODS"
+COMMONMODULES="vfat $USBMODS agpgart"
 LOCALMODULES="$COMMONMODULES AM53C974 ips DAC960 megaraid ncr53c8xx cpqarray
 	     aacraid aic7xxx BusLogic qlogicisp advansys eata_dma initio"
 NETWORKMODULES="$COMMONMODULES 3c509 3c59x 3c90x 8390 ac3200 at1700 de4x5
