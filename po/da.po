@@ -2,13 +2,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2001-03-14 11:37-0500\n"
-"PO-Revision-Date: 2001-03-10 22:44GMT\n"
+"PO-Revision-Date: 2001-03-14 21:46GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.8\n"
+"X-Generator: KBabel 0.8.1\n"
 
 #: ../comps.py:490
 msgid "Everything"
@@ -1520,7 +1520,7 @@ msgstr "Vælg et sprog"
 
 #: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
-msgstr ""
+msgstr "Installerede sprog:"
 
 #: ../iw/language_support_gui.py:157
 msgid "Choose the languages to install:"
@@ -1893,9 +1893,8 @@ msgid "Automatic Partitioning"
 msgstr "Automatisk partitionering"
 
 #: ../iw/rootpartition_gui.py:375
-#, fuzzy
 msgid "Disk Partitioning"
-msgstr "Manuel partitionering"
+msgstr "Diskpartitionering"
 
 #: ../iw/rootpartition_gui.py:377
 #, c-format
@@ -1906,6 +1905,11 @@ msgid ""
 "\n"
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
+"Vælg venligst den type disk partitionering, du vil benytte.\n"
+"\n"
+"Automatisk partitionering vil slette %s\n"
+"\n"
+"Ved at vælge manuel partitionering, vil du kunne oprette partitionerne selv."
 
 #: ../iw/rootpartition_gui.py:383
 msgid "Automatic Partitioning Failed"
@@ -2057,9 +2061,8 @@ msgid "UTC Offset"
 msgstr "GMT forskydning"
 
 #: ../iw/upgrade_swap_gui.py:17
-#, fuzzy
 msgid "Upgrade Swap Partition"
-msgstr "Opgrader patition"
+msgstr "Opgradér Swappartitionen"
 
 #: ../iw/upgrade_swap_gui.py:66 ../textw/upgrade_text.py:22
 #, c-format
@@ -2075,16 +2078,15 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:80
 msgid "I want to create a swap file"
-msgstr ""
+msgstr "Jeg vil oprette en swapfil"
 
 #: ../iw/upgrade_swap_gui.py:94
 msgid "Select the partition to put the swap file on:"
-msgstr ""
+msgstr "Vælg den til den partition, swapfilen skal placeret på:"
 
 #: ../iw/upgrade_swap_gui.py:99
-#, fuzzy
 msgid "Free Space (MB)"
-msgstr "Ledig plads"
+msgstr "Ledig plads (Mb)"
 
 #: ../iw/upgrade_swap_gui.py:114
 #, c-format
@@ -2092,6 +2094,8 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
+"Det anbefalse, at din swapfil er mindst %d Mb. Angiv venligst ønsket "
+"størrelse på swapfilen:"
 
 #: ../iw/upgrade_swap_gui.py:127 ../textw/upgrade_text.py:58
 msgid "Swap file size (MB):"
@@ -2099,7 +2103,7 @@ msgstr "Swapområdestørrelse (Mb):"
 
 #: ../iw/upgrade_swap_gui.py:135
 msgid "I don't want to create a swap file"
-msgstr ""
+msgstr "Jeg vil ikke oprette en swapfil"
 
 #: ../iw/upgrade_swap_gui.py:145
 msgid ""
@@ -2107,10 +2111,13 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
+"Det anbefales kraftigt, at du opretter en swapfil. I modsat fald, kan "
+"installationsprogrammet blive afbrudt uventet. Er du sikker på, at du ønsker "
+"at fortsætte?"
 
 #: ../iw/upgrade_swap_gui.py:154
 msgid "The swap file must be between 0 and 2000 MB in size."
-msgstr ""
+msgstr "Swapfilen skal være mellem 0 og 2000Mb stor."
 
 #: ../iw/upgrade_swap_gui.py:161 ../textw/upgrade_text.py:96
 msgid ""
@@ -2561,7 +2568,7 @@ msgid "Done"
 msgstr "Færdig"
 
 #: ../textw/partitioning_text.py:150
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Automatic partitioning will erase %s\n"
 "\n"
@@ -2569,11 +2576,11 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
-"%s\n"
+"Automatisk partitionering vil slette %s\n"
 "\n"
-"Hvis du ikke vil gøre dette, kan du fortsætte installationen ved at oprette "
-"partitionerne manuelt, eller du kan gå tilbage og lave en manuel, "
-"brugerdefineret installation."
+"Hvis du ikke vil gøre dette, kan du fortsætte installationen ved at "
+"partitioneremanuelt, eller du kan gå tilbage og udføre en fuldstændig "
+"brugerbestemt installation."
 
 #: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:157
 msgid "Continue"
@@ -2860,10 +2867,8 @@ msgid "Custom System"
 msgstr "Egendefineret system"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-#, fuzzy
 msgid "any preexisting Linux installations on your system."
-msgstr ""
-"Du er ved at slette alle eksisterende Linux-installationer på dit system."
+msgstr "nogen allerede eksisterende Linux-installationer på dit system."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -2874,11 +2879,9 @@ msgid "Server System"
 msgstr "Server System"
 
 #: ../installclasses/server.py:38
-#, fuzzy
 msgid "ALL DATA on your hard drive to make room for your Linux installation."
 msgstr ""
-"Du er ved at slette ALLE DATA på din harddisk for at få plads til din "
-"Linux-installation."
+"ALLE DATA på din harddisk for at give plads til din Linux-installation."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
@@ -4475,11 +4478,11 @@ msgstr "Tilbehør"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "Alagoas, Sergipe"
 
 #. generated from zone.tab
 msgid "Alaska Time"
@@ -4534,7 +4537,7 @@ msgstr "Azorerne"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Hovd, Uvs"
-msgstr ""
+msgstr "Bayan-Olgiy, Hovd, Uvs"
 
 #. generated from zone.tab
 msgid "Borneo & Celebes"
@@ -4550,7 +4553,7 @@ msgstr "Casey Station, Bailey-halvøen"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
-msgstr ""
+msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -4761,11 +4764,11 @@ msgstr "Jujuy (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -4785,7 +4788,7 @@ msgstr "Marquesasøerne"
 
 #. generated from zone.tab
 msgid "Mato Grosso, Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso, Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
@@ -4797,7 +4800,7 @@ msgstr "McMurdo-stationen, Ross-øen"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
@@ -4966,7 +4969,7 @@ msgstr "Malaysia-halvøen"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
@@ -4974,7 +4977,7 @@ msgstr "Fønixøerne"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
@@ -5039,11 +5042,11 @@ msgstr "Tocantinerne"
 
 #. generated from zone.tab
 msgid "Transdniestria"
-msgstr ""
+msgstr "Transdniestria"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr ""
+msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -5051,7 +5054,7 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "Wake Island"
 
 #. generated from zone.tab
 msgid "W Amazonas"
@@ -5083,7 +5086,7 @@ msgstr "Vestpara, Rondonien"
 
 #. generated from zone.tab
 msgid "Yap"
-msgstr ""
+msgstr "Yap"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
