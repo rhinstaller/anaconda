@@ -131,7 +131,6 @@ EOF
          pam_limits.so; do
        cp -f $IMGPATH/$LIBDIR/security/$i $MBD_DIR/$LIBDIR/security
     done
-    cp -f $IMGPATH/$LIBDIR/libpam_misc.so* $IMGPATH/$LIBDIR/libpam.so* $MBD_DIR/$LIBDIR
     for i in sshd other; do 
        cp -f $IMGPATH/etc/pam.d/$i $MBD_DIR/etc/pam.d
     done
@@ -284,6 +283,7 @@ EOF
     echo "telnet          23/tcp" > $MBD_DIR/etc/services 
     echo "tcp     6       TCP" > $MBD_DIR/etc/protocols
     cp -df $IMGPATH/$LIBDIR/libpam.so* $MBD_DIR/$LIBDIR
+    cp -df $IMGPATH/$LIBDIR/libpam_misc.so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libdl.so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libdl-*.so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libnsl.so* $MBD_DIR/$LIBDIR
