@@ -411,7 +411,7 @@ def doPreInstall(method, id, intf, instPath, dir):
 		select(id.hdList, 'kernel-vrdr')
 	    if (string.find(os.uname()[2], "tape") > -1):
 		select(id.hdList, 'kernel-tape')
-	elif isys.smpAvailable():
+	elif isys.smpAvailable() or isys.htavailable():
             select(id.hdList, 'kernel-smp')
 
 	if (id.hdList.has_key('kernel-bigmem')):
