@@ -42,9 +42,10 @@ makeBootImages() {
 	cp $TOPDESTPATH/ppc/chrp/* $TOPDESTPATH/isopath/ppc/chrp
 	cp $TOPDESTPATH/ppc/bootinfo.txt $TOPDESTPATH/isopath/ppc/bootinfo.txt
 
-	# FIXME: still need the magic boot_image file
-	# mkisofs -generic-boot $TOPDESTPATH/isopath/boot_image -V "PBOOT" -J -R -v -T -allow-multidot -l -o $TOPDESTPATH/images/boot.iso $TOPDESTPATH/isopath
-	# rm -rf $TOPDESTPATH/isopath/
+	# FIXME: this assumes the file gets there by magic
+	cp $TOPDESTPATH/boot_image $TOPDESTPATH/isopath/boot_image
+	mkisofs -generic-boot $TOPDESTPATH/isopath/boot_image -A "$PRODUCT $VERSION" -V "PBOOT" -J -R -v -T -allow-multidot -l -o $TOPDESTPATH/images/boot.iso $TOPDESTPATH/isopath
+	rm -rf $TOPDESTPATH/isopath/
     elif [ "$kernelvers" = "iseries" ]; then
 	mkdir -p $TOPDESTPATH/ppc/iSeries
 
