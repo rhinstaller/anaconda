@@ -491,22 +491,24 @@ class MouseWindow:
 
 class BootDiskWindow:
     def run(self, screen, todo):
-        rc = newtWinTernary(_("Bootdisk"), _("Yes"), _("No"), _("Back"),
-                            _("A custom bootdisk provides a way of booting into your "
-                              "Linux system without depending on the normal bootloader. "
-                              "This is useful if you don't want to install lilo on your "
-                              "system, another operating system removes lilo, or lilo "
-                              "doesn't work with your hardware configuration. A custom "
-                              "bootdisk can also be used with the Red Hat rescue image, "
-                              "making it much easier to recover from severe system "
-                              "failures.\n\n"
-                              "Would you like to create a bootdisk for your system?"));
+        rc = ButtonChoiceWindow(screen, _("Bootdisk"), 
+                                _("A custom bootdisk provides a way of booting into your "
+                                  "Linux system without depending on the normal bootloader. "
+                                  "This is useful if you don't want to install lilo on your "
+                                  "system, another operating system removes lilo, or lilo "
+                                  "doesn't work with your hardware configuration. A custom "
+                                  "bootdisk can also be used with the Red Hat rescue image, "
+                                  "making it much easier to recover from severe system "
+                                  "failures.\n\n"
+                                  "Would you like to create a bootdisk for your system?"),
+                                buttons = [ _("Yes"), _("No"), _("Back") ])
+                                
 
         if rc == string.lower (_("Yes")):
-            self.todo.bootdisk = 1
+            todo.bootdisk = 1
         
         if rc == string.lower (_("No")):
-            self.todo.bootdisk = 0
+            todo.bootdisk = 0
 
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
