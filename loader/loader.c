@@ -550,13 +550,11 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 		errno = 0;
 		continue;
 	    }
-else
 
 	    if (mountLoopback(filespec, "/tmp/loopimage", "loop0")) {
 		errno = 0;
 		continue;
 	    }
-else
 
 	    rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop1",
 				 "/mnt/runtime");
