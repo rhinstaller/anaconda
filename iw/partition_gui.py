@@ -2272,7 +2272,6 @@ class PartitionWindow(InstallWindow):
 	vpaned.add1(frame)
 
         box = gtk.VBox(gtk.FALSE, 5)
-        box.pack_start(frame, gtk.TRUE, gtk.TRUE)
         box.pack_start(buttonBox, gtk.FALSE)
         sw = gtk.ScrolledWindow()
         sw.add(self.treeView)
