@@ -217,14 +217,6 @@ int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path) {
     return 0;
 }
 
-static void removeExtractedModule(char * path) {
-    char * fn = alloca(strlen(path) + 20);
-
-    sprintf(fn, "%s/modules.cgz", path);
-    unlink(fn);
-    rmdir(path);
-}
-
 /* this leaks memory if their is a loop in the modules. oh well. */
 char ** tsortModules(moduleList modLoaded, moduleDeps ml, char ** args, 
 			    int depth, char *** listPtr, int * listSizePtr) {
@@ -383,9 +375,6 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
 	}
 
 	modLoaded->mods[modLoaded->numModules++].args = newArgs;
-    } else {
-	if (path) removeExtractedModule(path);
-	free(path);
     }
 
     return rc;
