@@ -741,13 +741,6 @@ rm -f $DESTGR/locales $DESTGR/locales.list
 rm -rf $DESTGR/usr/X11R6/lib/modules/dri
 rm -f $DESTGR/usr/X11R6/lib/modules/extensions/lib{GLcore,glx,pex5}*
 
-# moving comps-extras images in to where anaconda expects them
-echo "Moving comps-extras pixmaps to where anaconda expects them"
-if [ -n "$NEEDGR" ]; then
-    mkdir -p $DESTGR/usr/share/anaconda/pixmaps/comps
-    mv $DESTGR/usr/share/pixmaps/comps/* $DESTGR/usr/share/anaconda/pixmaps/comps/
-fi
-
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
     /usr/X11R6/bin/mkfontdir -p /usr/X11R6/lib/X11/fonts/encodings/ -e $DESTGR/usr/X11R6/lib/X11/fonts/encodings $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-9/*
