@@ -940,7 +940,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                 req.fstype = request.fstype
         else:
             req = copy.copy(request)
-            if not req.drive:
+            if req.type == REQUEST_NEW and not req.drive:
                 req.drive = drives
             partitions.addRequest(req)
 
