@@ -275,7 +275,9 @@ else:
 #
 # startup X server is we're not already running under an X session
 #
+startXServer = 0
 if (display_mode == 'g' and not os.environ.has_key('DISPLAY')):
+    startXServer = 1
     import xserver
     try:
         if (reconfigOnly == 0):
@@ -305,6 +307,10 @@ if (display_mode == 'g'):
         try:
             from gui import InstallInterface
         except:
+            # if we're not going to really go into GUI mode, we need to get back
+            # to vc1 where the text install is going to pop up.
+            if startXServer:
+                isys.vtActivate (1)
             print "GUI installer startup failed, falling back to text mode."
             display_mode = 't'
             from text import InstallInterface
