@@ -447,24 +447,61 @@ class MonitorWindow (InstallWindow):
 #        self.temp = self.todo.x.monID
 #        print "Inisde __init__"
 
-    def selectCb (self, tree, node, column):
-        monitor = tree.node_get_row_data (node)
-#        print monitor
-        if not monitor:
-            self.ics.setNextEnabled (FALSE)
-            if self.hEntry and self.vEntry:
-                self.hEntry.set_text ("")
-                self.vEntry.set_text ("")
-                self.hEntry.set_editable (FALSE)
-                self.vEntry.set_editable (FALSE)
-        else:
-            self.ics.setNextEnabled (TRUE)
-            self.vEntry.set_text (monitor[2])
-            self.hEntry.set_text (monitor[3])
-            self.hEntry.set_editable (TRUE)
-            self.vEntry.set_editable (TRUE)
-            self.monitor = monitor
-            self.todo.x.state = monitor[0]
+    def selectCb (self, ctree, node, column):
+        try:
+#            print "inside selectCb"
+            parent, monitor = self.ctree.node_get_row_data (node)
+#            print "monitor", monitor
+#            print "self.stateName", self.stateName            
+#            print "self.todo.x.state", self.todo.x.state
+
+
+            if self.stateName == monitor:
+#                print "They're equal"
+                pass
+            elif self.todo.x.state == monitor[0]:
+#                print "They're equal 2"
+                self.currentNode = node
+                pass
+            else:
+#                print "They're not equal"
+                self.currentNode = node
+
+                #            parent, monitor = self.ctree.node_get_row_data (self.originalNode)
+                old_parent, temp = self.ctree.node_get_row_data (self.currentNode)
+
+#                print "self.stateName", self.stateName
+                
+                #            print node
+
+                #        current_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
+
+                #        print monitor
+                if not monitor:
+                    self.ics.setNextEnabled (FALSE)
+                    if self.hEntry and self.vEntry:
+                        self.hEntry.set_text ("")
+                        self.vEntry.set_text ("")
+                        self.hEntry.set_editable (FALSE)
+                        self.vEntry.set_editable (FALSE)
+                else:
+                    self.ics.setNextEnabled (TRUE)
+#                    print monitor[2]
+#                    print monitor[3]
+
+                    self.vEntry.set_text (monitor[2])
+                    self.hEntry.set_text (monitor[3])
+                    self.hEntry.set_editable (TRUE)
+                    self.vEntry.set_editable (TRUE)
+                    self.monitor = monitor
+                    self.todo.x.state = monitor[0]
+
+            self.stateName = monitor
+
+        except:
+#            print "Except"
+            pass
+
 
     def getNext (self):
         if self.monitor:
@@ -475,10 +512,10 @@ class MonitorWindow (InstallWindow):
             self.todo.monitorHsyncState = self.hEntry.get_text ()
             self.todo.monitorVsyncState = self.vEntry.get_text ()
 
-        print "getNext"
-        print self.todo.monitorOriginalName
-        print self.todo.monitorOriginalName
-        print self.todo.isDDC
+#        print "getNext"
+#        print self.todo.monitorOriginalName
+#        print self.todo.monitorOriginalName
+#        print self.todo.isDDC
         
         if self.skipme:
             return None
@@ -491,49 +528,44 @@ class MonitorWindow (InstallWindow):
         return None
 
     def moveto (self, ctree, area, node):
+#        print "inside moveto"
         self.ctree.node_moveto (node, 0, 0.5, 0.0)
         self.selectCb (self.ctree, node, -1)
 
     def resetCb (self, data):
-        print "reset"
-        print self.originalNode
-        print self.todo.monitorOriginalName
-        print self.todo.monitorOriginalNode
-        
-        self.hEntry.set_text (self.todo.monitorHsync)
-        self.vEntry.set_text (self.todo.monitorVsync)
+        try:
+            parent, monitor = self.ctree.node_get_row_data (self.originalNode)
+            old_parent, temp = self.ctree.node_get_row_data (self.currentNode)
 
-        self.ctree.freeze ()
-        self.ctree.expand (self.parent)
-        self.ctree.select(self.originalNode)
-        self.ctree.node_moveto (self.originalNode, 0, 0.5, 0.0)
-        self.ctree.thaw ()
+#            print "reset"
+#            print self.originalNode
+#            print self.todo.monitorOriginalName
+#            print self.todo.monitorOriginalNode
+#            print parent, monitor
+#            print temp
+            
+            self.hEntry.set_text (self.todo.monitorHsync)
+            self.vEntry.set_text (self.todo.monitorVsync)
 
-#        self.selectCb (self.ctree, self.originalNode, -1)
-
-#        self.ctree.freeze()
-#        node = self.originalNode
-
-#        self.selected_node = node
-
-#        self.ctree.select(node)
-#        parent_node, cardname = self.ctree.node_get_row_data(node)                        
-#        self.ctree.expand(parent_node)
-#        self.ctree.node_moveto(node, 0, 0.5, 0)
-#        self.ctree.thaw()
+            self.ctree.freeze ()
 
 
+            #--If new selection and old selection have the same parent, don't collapse or expand anything
+            if parent != old_parent:
+                self.ctree.expand (parent)
+                self.ctree.collapse (old_parent)
 
+            self.ctree.select(self.originalNode)
+            self.ctree.node_moveto (self.originalNode, 0, 0.5, 0.0)
+            self.ctree.thaw ()
 
-
-
-
-
-
-
-#        self.moveto (self.ctree, self.originalNode)
-
-
+        except:
+#            print "Except"
+            old_parent, temp = self.ctree.node_get_row_data (self.currentNode)
+            self.ctree.freeze ()
+            self.ctree.collapse (old_parent)
+            self.ctree.thaw ()
+            pass
 
     def getScreen (self):
 
@@ -553,7 +585,8 @@ class MonitorWindow (InstallWindow):
         if self.todo.x.skip == 1:
             return
 
-
+        self.stateName = ""
+        
         box = GtkVBox (FALSE, 5)
 
         monitors = self.todo.x.monitors ()
@@ -565,7 +598,7 @@ class MonitorWindow (InstallWindow):
         self.ctree.set_selection_mode (SELECTION_BROWSE)
         self.ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
         self.ctree.set_line_style(CTREE_LINES_NONE)
-        self.ctree.connect ("tree_select_row", self.selectCb)
+
 
         self.monitor_p, self.monitor_b = create_pixmap_from_xpm_d (self.ctree, None, xpms_gui.MONITOR_XPM)
 
@@ -576,51 +609,62 @@ class MonitorWindow (InstallWindow):
 
         # If the user has not changed monitor setting before, set the state info to the probed value
         if self.todo.x.state == "":
-            print "if"
+#            print "if"
             self.todo.x.state = self.todo.x.monID
-            print self.todo.x.state
+#            print self.todo.x.state
             self.todo.monitorOriginalName = self.todo.x.monID
-            print self.todo.monitorOriginalName
+#            print self.todo.monitorOriginalName
         else:
-            print "Inside else"
-            print self.todo.monitorOriginalName
-            print self.todo.monitorOriginalNode
+#            print "Inside else"
+#            print self.todo.monitorOriginalName
+#            print self.todo.monitorOriginalNode
 #            if self.todo.isDDC == "TRUE"
-            
+            pass
+
+#        print "ORIGINAL MONITOR NAME IS ", self.todo.monitorOriginalName
+
 
         select = None
         for man in keys:
-            parent = self.ctree.insert_node (None, None, (man,), 2, self.monitor_p, self.monitor_b, self.monitor_p,
-                                        self.monitor_b, is_leaf = FALSE)
+            parent = self.ctree.insert_node (None, None, (man,), 2, self.monitor_p, self.monitor_b,
+                                                  self.monitor_p, self.monitor_b, is_leaf = FALSE)
 
             models = monitors[man]
             models.sort()
             for monitor in models:
                 node = self.ctree.insert_node (parent, None, (monitor[0],), 2)
-                self.ctree.node_set_row_data (node, monitor)
+                self.ctree.node_set_row_data (node, (parent, monitor))
 #                if monitor[0] == self.todo.x.monID:
-                if monitor[0] == self.todo.x.state:
+
+                if monitor[0] == self.todo.monitorOriginalName:
+                    self.originalNode = node
+                    select = node
+                    selParent = parent              
+
+                elif monitor[0] == self.todo.x.state:
+#                    print "Here"
                     select = node
                     selParent = parent
 
                     
                     if monitor[0] == self.todo.monitorOriginalName:
-                        print monitor[0], " = ", self.todo.monitorOriginalName
-                        self.todo.monitorOriginalNode =  self.ctree.node_get_row_data(node)
+#                        print monitor[0], " = ", self.todo.monitorOriginalName
+                        tmp, self.todo.monitorOriginalNode =  self.ctree.node_get_row_data(node)
                         self.originalNode = node
 
+
         if self.todo.isDDC == "TRUE":
-            print "isDDC is TRUE"
+#            print "isDDC is TRUE"
             
-            self.parent = self.ctree.insert_node (None, None, ("DDC Probed Monitor",),
+            parent = self.ctree.insert_node (None, None, ("DDC Probed Monitor",),
                      2, self.monitor_p, self.monitor_b, self.monitor_p, self.monitor_b, is_leaf = FALSE)
 
-            self.originalNode = self.ctree.insert_node (self.parent, None, (self.todo.monitorOriginalName,), 2)
+            self.originalNode = self.ctree.insert_node (parent, None, (self.todo.monitorOriginalName,), 2)
             
             monitor = (self.todo.monitorOriginalName, self.todo.monitorOriginalName, self.todo.monitorVsync,
                        self.todo.monitorHsync)
 
-            self.ctree.node_set_row_data (node, monitor)
+            self.ctree.node_set_row_data (node, (parent, monitor))
 #            print self.originalNode
 
             
@@ -629,28 +673,30 @@ class MonitorWindow (InstallWindow):
         # Add a category for a DDC probed monitor that isn't in MonitorDB
 #        if not select and self.todo.x.monID != "Generic Monitor":
         if not select and self.todo.x.monID != "Generic Monitor":
-            print "in here"
-            self.parent = self.ctree.insert_node (None, None, ("DDC Probed Monitor",),
+#            print "in here"
+            parent = self.ctree.insert_node (None, None, ("DDC Probed Monitor",),
                      2, self.monitor_p, self.monitor_b, self.monitor_p, self.monitor_b, is_leaf = FALSE)
 
 #            node = self.ctree.insert_node (self.parent, None, (self.todo.x.monID,), 2)
 #            monitor = (self.todo.x.monID, self.todo.x.monID, self.todo.x.monVert,
 #                       self.todo.x.monHoriz)
 
-            node = self.ctree.insert_node (self.parent, None, (self.todo.x.state,), 2)
-            print self.todo.x.state
+            node = self.ctree.insert_node (parent, None, (self.todo.x.state,), 2)
+#            print self.todo.x.state
 
             monitor = (self.todo.x.state, self.todo.x.state, self.todo.x.monVert,
                        self.todo.x.monHoriz)
 
 
-            self.ctree.node_set_row_data (node, monitor)
+            self.ctree.node_set_row_data (node, (parent, monitor))
+
+             
             select = node
-            selParent = self.parent
-            self.todo.monitorOriginalNode = self.ctree.node_get_row_data(node)
+            selParent = parent
+            tmp, self.todo.monitorOriginalNode = self.ctree.node_get_row_data(node)
             self.todo.isDDC = "TRUE"
 
-            print "self.todo.monitorOriginalNode", self.todo.monitorOriginalNode
+#            print "self.todo.monitorOriginalNode", self.todo.monitorOriginalNode
 
 #            if monitor[0] == self.todo.monitorOriginalName:
 #                print monitor[0], " = ", self.todo.monitorOriginalName
@@ -658,6 +704,26 @@ class MonitorWindow (InstallWindow):
             self.originalNode = node      
 
 
+        self.ctree.connect ("tree_select_row", self.selectCb)
+
+
+
+
+        if self.todo.monitorHsync == "":
+#            print "if"
+            self.hEntry.set_text (self.todo.x.monHoriz)
+            self.vEntry.set_text (self.todo.x.monVert)
+            self.todo.monitorHsync = self.todo.x.monHoriz
+            self.todo.monitorVsync = self.todo.x.monVert
+
+        else:
+#            print "else"
+#            print "Trying to set rates"
+#            print self.todo.monitorHsyncState
+#            print self.todo.monitorVsyncState
+
+            self.hEntry.set_text (self.todo.monitorHsyncState)
+            self.vEntry.set_text (self.todo.monitorVsyncState) 
 
 
         if select:
@@ -667,14 +733,6 @@ class MonitorWindow (InstallWindow):
             self.ctree.connect ("draw", self.moveto, select)
 
 
-        if self.todo.monitorHsync == "":
-            self.hEntry.set_text (self.todo.x.monHoriz)
-            self.vEntry.set_text (self.todo.x.monVert)
-            self.todo.monitorHsync = self.todo.x.monHoriz
-            self.todo.monitorVsync = self.todo.x.monVert
-        else:
-            self.hEntry.set_text (self.todo.monitorHsyncState)
-            self.vEntry.set_text (self.todo.monitorVsyncState) 
 
         sw = GtkScrolledWindow ()
         sw.add (self.ctree)
@@ -706,9 +764,6 @@ class MonitorWindow (InstallWindow):
         self.reset = GtkButton (_("Restore original values"))
         self.reset.connect ("clicked", self.resetCb)
         syncbox.pack_start (self.reset, FALSE, 25)
-
-
-
 
 
         box.pack_start (syncbox, FALSE, FALSE)
