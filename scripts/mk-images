@@ -684,7 +684,7 @@ makemainimage () {
         rmdir $mmi_mntpoint
     elif [ $type = "cramfs" ]; then
         mkcramfs $IMGPATH $mmi_tmpimage
-        SIZE=$(expr `cat $PS_FILE | wc -c` / 1024)
+        SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
     fi
     
     if [ "$BUILDARCH" = "ia64" ]; then
