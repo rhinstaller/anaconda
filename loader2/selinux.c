@@ -82,7 +82,7 @@ int loadpolicy() {
     if (!(pid = fork())) {
         setenv("LD_LIBRARY_PATH", LIBPATH, 1);
         execl("/usr/sbin/load_policy", 
-              "/usr/sbin/load_policy", fn, NULL);
+              "/usr/sbin/load_policy", "-q", fn, NULL);
         logMessage("exec of load_policy failed: %s", strerror(errno));
         exit(1);
     }
