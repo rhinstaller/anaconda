@@ -441,6 +441,9 @@ class RaidCloneDialog:
     def getInterestingRequestsForDrive(self, drive):
         allrequests = self.partitions.getRequestsByDevice(self.diskset, drive)
 
+	if len(allrequests) == 0:
+	    return allrequests
+
         # remove extended partitions
         requests = []
         for req in allrequests:
@@ -466,7 +469,7 @@ class RaidCloneDialog:
                     "'software RAID' on this drive before it can be cloned.")
         if not requests or len(requests) == 0:
             self.intf.messageWindow(_("Source Drive Error"), errmsg1)
-            return 0
+            return 1
 
         for req in requests:
             if not req.fstype or req.fstype.getName() != "software RAID":
@@ -477,7 +480,7 @@ class RaidCloneDialog:
                                           "These "
                                           "partitions will have to removed "
                                           "before this drive can be cloned. "))
-                return 0
+                return 1
 
         for req in requests:
             if not req.drive or req.drive[0] != self.sourceDrive or len(req.drive) > 1:
@@ -490,7 +493,7 @@ class RaidCloneDialog:
                                           "drive "
                                           "before this drive can be cloned. ")
                                         %(self.sourceDrive,))
-                return 0
+                return 1
 
         for req in requests:
             if self.partitions.isRaidMember(req):
@@ -502,22 +505,22 @@ class RaidCloneDialog:
                                           "These partitions will have to "
                                           "removed before this drive "
                                           "can be cloned."))
-                return 0
+                return 1
 
-        return 1
+        return 0
 
     def sanityCheckTargetDrives(self):
         if self.targetDrives is None or len(self.targetDrives) < 1:
                 self.intf.messageWindow(_("Target Drive Error"),
                                         _("Please select the target drives "
                                           "for the clone operation."))
-                return 0
+                return 1
 
         if self.sourceDrive in self.targetDrives:
                 self.intf.messageWindow(_("Target Drive Error"),
                                         _("The source drive /dev/%s cannot be "
                                           "selected as a target drive as well.") % (self.sourceDrive,))
-                return 0
+                return 1
 
         for drive in self.targetDrives:
             requests = self.getInterestingRequestsForDrive(drive)
@@ -530,12 +533,41 @@ class RaidCloneDialog:
                                               "be removed for the following "
                                               "reason:\n\n\"%s\"\n\n"
                                               "This partition must be removed "
-                                              "(if possible) before "
+                                              "before "
                                               "this drive can be a target.") %
                                             (drive, rc % (_("delete"),)))
-                    return 0
+                    return 1
 
-        return 1
+        return 0
+
+
+    def cloneDrive(self):
+	# first create list of interesting partitions on the source drive
+        requests = self.getInterestingRequestsForDrive(self.sourceDrive)
+
+	# no requests to clone, bail out
+	if len(requests) == 0:
+	    print "no requests to clone on sourcedrive"
+	    return 0
+
+	# now try to clear the target drives
+	for device in self.targetDrives:
+	    print "deleting parts on ",device
+	    rc = doDeletePartitionsByDevice(self.intf, self.partitions,
+					    self.diskset, device,
+					    confirm=0, quiet=1)
+	    print "result of delete = ",rc
+
+
+	# now clone!
+	for req in requests:
+	    for drive in self.targetDrives:
+		newreq = copy.copy(req)
+		newreq.drive = [drive]
+		self.partitions.addRequest(newreq)
+		
+	return 0
+	
 
     def targetSelectFunc(self, model, path, iter):
         self.targetDrives.append(model.get_value(iter,0))
@@ -563,9 +595,8 @@ class RaidCloneDialog:
             self.sourceDrive = model.get_value(iter, 0)
 
             # sanity check it
-            if not self.sanityCheckSourceDrive():
+            if self.sanityCheckSourceDrive():
                 continue
-
             
             # now get target drive(s)
             self.targetDrives = []
@@ -573,14 +604,38 @@ class RaidCloneDialog:
             selection.selected_foreach(self.targetSelectFunc)
 
             # sanity check it
-            if not self.sanityCheckTargetDrives():
+            if self.sanityCheckTargetDrives():
                 continue
-            
 
-	    # everything ok, break out
-	    break
+	    # now give them last chance to bail
+	    msgtxt = _("The drive /dev/%s will now be cloned to the "
+		       "following drives:\n\n" % (self.sourceDrive,))
+	    for drive in self.targetDrives:
+		msgtxt = msgtxt + "\t" + "/dev/%s" % (drive,)
 
-	return None
+	    msgtxt = msgtxt + _("\n\nWARNING! ALL DATA ON THE TARGET DRIVES "
+				"WILL BE DESTROYED.")
+	    
+	    rc = self.intf.messageWindow(_("Final Warning"),
+					 msgtxt,
+					 custom_buttons = ["gtk-cancel", _("Clone Drives")])
+	    if not rc:
+		return 0
+
+	    # try to clone now
+	    ret = self.cloneDrive()
+
+	    if ret:
+		self.intf.messageWindow(_("Error"),
+					_("There was an error clearing the "
+					  "target drives.  Cloning failed."))
+		return 0
+
+	    # if everything ok, break out
+	    if not ret:
+		break
+
+	return 1
 
     def destroy(self):
 	if self.dialog:
