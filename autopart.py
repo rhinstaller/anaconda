@@ -953,7 +953,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                                    _("Unable to locate partition %s to use "
                                      "for %s.\n\n"
                                      "Press 'OK' to reboot your system.")
-                                   % (request.device, request.mountpoint))
+                                   % (request.device, request.mountpoint),
+				   custom_icon='error')
                 sys.exit(0)
 
             # now go through and set things from the request to the
@@ -984,7 +985,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                                _("The following errors occurred with your "
                                  "partitioning:\n\n%s\n\n"
                                  "Press 'OK' to reboot your system.") %
-                               (errors,))
+                               (errors,), custom_icon='error')
 
     try:
         doPartitioning(diskset, partitions, doRefresh = 0)
@@ -992,7 +993,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
         if not isKickstart:
             intf.messageWindow(_("Warnings During Automatic Partitioning"),
                            _("Following warnings occurred during automatic "
-                           "partitioning:\n\n%s") % (msg.value,))
+                           "partitioning:\n\n%s") % (msg.value,),
+			       custom_icon='warning')
         else:
             log("WARNING: %s" % (msg.value))
     except PartitioningError, msg:
@@ -1006,7 +1008,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             extra = _("\n\nPress 'OK' to reboot your system.")
         intf.messageWindow(_("Error Partitioning"),
                _("Could not allocate requested partitions: \n\n"
-                 "%s.%s") % (msg.value, extra))
+                 "%s.%s") % (msg.value, extra), custom_icon='error')
         
 
         if isKickstart:
@@ -1028,7 +1030,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
 			     "You can choose a different automatic "
 			     "partitioning option, or click 'Back' "
 			     "to select manual partitioning.\n\n"
-                             "Press 'OK' to continue.") % (errortxt))
+                             "Press 'OK' to continue.") % (errortxt),
+			   custom_icon='error')
 	return DISPATCH_BACK
 
 def autoCreatePartitionRequests(autoreq):
