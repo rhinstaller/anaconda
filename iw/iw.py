@@ -1,6 +1,7 @@
 class InstallWindow:
     def __init__ (self,ics):
         self.ics = ics
+	self.todo = ics.getToDo ()
 
     def getNext (self):
 	return None

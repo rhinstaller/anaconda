@@ -6,6 +6,11 @@ from iw.welcome import *
 from iw.progress import *
 from iw.package import *
 from iw.network import *
+from iw.account import *
+from iw.rootpartition import *
+from iw.auth import *
+from iw.mouse import *
+from iw.keyboard import *
 import sys
 import GdkImlib
 
@@ -42,88 +47,6 @@ class NetworkConfigWindow:
         hbox.pack_start (optionmenu, TRUE)
         vbox.pack_start (hbox, FALSE, padding=10)
         return vbox
-
-class PartitionWindow:
-    def back(self, win):
-        self.rc = -1
-	mainquit()
-
-    def next(self, win):
-	self.rc = 0
-        mainquit()
-
-    def __init__(self):
-        self.rc = 0
-
-    def run(self, todo):
-	if (not todo.setupFilesystems): return -2
-
-        window = GtkWindow()
-        window.set_border_width(10)
-        window.set_title("Choose a partition")
-
-        label = GtkLabel("What partition would you like to use for your root "
-                         "partition?")
-        label.set_line_wrap (TRUE)
-
-        hbox = GtkHBox (FALSE, 10)
-
-        device = 'hda'
-
-        buttons = {}
-        buttons[0] = None;
-	numext2 = 0
-
-        try:
-    	    isys.makeDevInode(device, '/tmp/' + device)
-            table = _balkan.readTable('/tmp/' + device)
-    	    if len(table) - 1 > 0:
-        	partbox = GtkVBox (FALSE, 5)
-                for i in range(0, len(table) - 1):
-                    (type, start, size) = table[i]
-                    if (type == 0x83 and size):
-                        buttons[numext2] = GtkRadioButton(buttons[0],
-                                        '/dev/%s%d' % (device, i + 1))
-                        partbox.pack_start(buttons[numext2], FALSE, FALSE, 0)
-                        numext2 = numext2 + 1
-            hbox.pack_start(partbox, FALSE, FALSE, 0)
-            hbox.pack_start(label, FALSE, FALSE, 0)
-        except:
-            label = GtkLabel("Unable to read partition information")
-            hbox.pack_start(label, TRUE, TRUE, 0)
-            print "unable to read partitions"
- 
-        buttonbox = GtkHButtonBox()
-        buttonbox.set_spacing(5)
-        buttonbox.set_layout(BUTTONBOX_END)
-        button = GtkButton("<- Back")
-        button.connect("clicked", self.back)
-        buttonbox.add(button)
-        button = GtkButton("Next ->")
-        button.connect("clicked", self.next)
-        buttonbox.add(button)
-
-        vbox = GtkVBox (FALSE, 10)
-        vbox.pack_start(hbox, TRUE, TRUE, 0)
-        vbox.pack_start(buttonbox, FALSE, FALSE, 0)
-
-        window.add(vbox)
-        window.set_position(WIN_POS_CENTER)
-        window.show_all()
-
-        sleep (20);
-
-
-	rootpart = ""
-        for i in range(0, numext2):
-            if buttons[i].active:
-                rootpart = "%s%d" % (device, i + 1)
-
-	todo.addMount(rootpart, '/')
-
-        window.destroy()
-
-        return self.rc
 
 class WaitWindow:
     def __init__(self, title, text):
@@ -171,19 +94,13 @@ class InstallInterface:
         traceback.print_exception (type, value, tb)
 
     def run (self, todo):
-        sys.setcheckinterval (0)
         start_new_thread (GtkMainThread ().run, ())
         
-        steps = [
-            ["Welcome", WelcomeWindow, ()],
-            ["Partition", PartitionWindow, (todo,)]
-        ]
+        steps = [WelcomeWindow, LanguageWindow, MouseWindow, KeyboardWindow, NetworkWindow, PartitionWindow,
+                 PackageSelectionWindow, AuthWindow, AccountWindow, InstallProgressWindow]
 
-        steps = [WelcomeWindow, LanguageWindow, NetworkWindow,
-                 PackageSelectionWindow, InstallProgressWindow]
-
-        windows = [WelcomeWindow, LanguageWindow, NetworkWindow,
-                   PackageSelectionWindow, IndividualPackageSelectionWindow,
+        windows = [WelcomeWindow, LanguageWindow, MouseWindow, KeyboardWindow, NetworkWindow, PartitionWindow,
+                   PackageSelectionWindow, AuthWindow, AccountWindow, IndividualPackageSelectionWindow,
                    InstallProgressWindow]
                  
         icw = InstallControlWindow (self, steps, windows, todo)
@@ -238,6 +155,7 @@ class InstallControlWindow:
             self.bin.remove (self.installFrame)
             self.table.attach (self.installFrame, 1, 3, 0, 1)
             self.bin.add (self.table)
+            self.html.source (self.currentScreen.getICS ().getHTML ())
 
             self.hideHelpButton.show ()
             self.showHelpButton.set_state (STATE_NORMAL)
@@ -411,6 +329,7 @@ class InstallControlState:
         return self.title
 
     def setPrevEnabled (self, value):
+        if value == self.prevEnabled: return
         self.prevEnabled = value
         self.cw.update (self)
 
@@ -420,6 +339,7 @@ class InstallControlState:
         return FALSE
     
     def setNextEnabled (self, value):
+        if value == self.nextEnabled: return
         self.nextEnabled = value
         self.cw.update (self)
 
