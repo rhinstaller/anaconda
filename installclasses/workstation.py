@@ -29,7 +29,7 @@ class InstallClass(BaseInstallClass):
 	self.setClearParts(FSEDIT_CLEAR_LINUX, 
 #	    warningText = N_("You are about to erase any preexisting Linux "
 #			     "installations on your system."))
-	    warningText = N_("any preexisting Linux "
+	    warningText = N_("Automatic partitioning will erase any preexisting Linux "
 			     "installations on your system."))
 
         # 2.4 kernel requires more swap, so base amount we try to get
