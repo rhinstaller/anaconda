@@ -206,7 +206,7 @@ def summitavailable():
     return _isys.summitavailable()
 
 def chroot (path):
-    return _isys.chroot (path)
+    return os.chroot (path)
 
 def checkBoot (path):
     return _isys.checkBoot (path)

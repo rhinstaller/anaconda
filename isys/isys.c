@@ -66,7 +66,6 @@ static PyObject * smpAvailable(PyObject * s, PyObject * args);
 static PyObject * htAvailable(PyObject * s, PyObject * args);
 static PyObject * summitAvailable(PyObject * s, PyObject * args);
 static PyObject * createProbedList(PyObject * s, PyObject * args);
-static PyObject * doChroot(PyObject * s, PyObject * args);
 static PyObject * doCheckBoot(PyObject * s, PyObject * args);
 static PyObject * doCheckUFS(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
@@ -138,7 +137,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
     { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
     { "pumpnetdevice", (PyCFunction) doPumpNetDevice, METH_VARARGS, NULL },
-    { "chroot", (PyCFunction) doChroot, METH_VARARGS, NULL },
     { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
     { "checkUFS", (PyCFunction) doCheckUFS, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
@@ -668,19 +666,6 @@ static PyObject * doMount(PyObject * s, PyObject * args) {
 
     if (rc) return NULL;
 
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doChroot(PyObject * s, PyObject * args) {
-    char * path;
-
-    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
-
-    if (chroot (path)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
     Py_INCREF(Py_None);
     return Py_None;
 }
