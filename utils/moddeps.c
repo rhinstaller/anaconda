@@ -38,7 +38,7 @@ int main(int argc, char ** argv) {
     }
 
     ml = mlNewDeps();
-    if (mlLoadDeps(ml, modDepsFile)) {
+    if (mlLoadDeps(&ml, modDepsFile)) {
         fprintf(stderr, "Failed to read %s\n", modDepsFile);
 	exit(1);
     }

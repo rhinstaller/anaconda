@@ -15,6 +15,7 @@ int main(int argc, char ** argv) {
     int rc, i;
     int showModInfo = 0;
     int ignoreMissing = 0;
+    moduleInfoSet mis;
     struct moduleInfo * mi;
     struct poptOption optionTable[] = {
     	    { "ignore-missing", 'I', POPT_ARG_NONE, &ignoreMissing, 0,
@@ -36,7 +37,8 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
-    if (isysReadModuleInfo(modInfoFile)) {
+    mis = isysNewModuleInfoSet();
+    if (isysReadModuleInfo(modInfoFile, mis)) {
         fprintf(stderr, "Failed to read %s\n", modInfoFile);
 	exit(1);
     }
@@ -44,7 +46,7 @@ int main(int argc, char ** argv) {
     if (showModInfo) {
         printf("Version 0\n");
 	while ((mod = poptGetArg(optCon))) {
-	    mi = isysFindModuleInfo(mod);
+	    mi = isysFindModuleInfo(mis, mod);
 	    if (mi) {
 	    	printf("%s\n", mi->moduleName);
 		switch (mi->major) {
@@ -95,7 +97,7 @@ int main(int argc, char ** argv) {
 		exit(1);
 	    }
 
-	    list = isysGetModuleList(major);
+	    list = isysGetModuleList(mis, major);
 	    for (m = list; m && m->moduleName; m++)
 		printf("%s\n", m->moduleName);
 	    free(list);
