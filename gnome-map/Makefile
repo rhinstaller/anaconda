@@ -13,7 +13,7 @@ gglobe-canvas: gglobe-canvas.c gnome-map.o gnome-canvas-dot.o gglobe-canvas.o gn
 
 
 timezonemapmodule.so: gnome-map.o gnome-canvas-dot.o timezonemapmodule.o gnome-map.h timezones.o timezones.h
-	gcc -o timezonemapmodule.so -shared gnome-map.o gnome-canvas-dot.o timezonemapmodule.o timezones.o $(LDFLAGS)
+	gcc -g -o timezonemapmodule.so -shared gnome-map.o gnome-canvas-dot.o timezonemapmodule.o timezones.o $(LDFLAGS)
 
 clean:
 	rm -f *.so *.o *~

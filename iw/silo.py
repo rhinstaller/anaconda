@@ -46,6 +46,7 @@ class SiloWindow (InstallWindow):
             else:
                 self.todo.setLiloLocation ("partition")
 
+	self.todo.liloAppend = self.appendEntry.get_text()
 	self.todo.setLiloImages(self.images)
 
 	linuxAlias = 0
@@ -195,6 +196,8 @@ class SiloWindow (InstallWindow):
 	label = GtkLabel(_("Kernel parameters") + ":")
 	label.set_alignment(0.0, 0.5)
 	self.appendEntry = GtkEntry(15)
+	if self.todo.liloAppend:
+	    self.appendEntry.set_text(self.todo.liloAppend)
 	box = GtkHBox(FALSE, 5)
 	box.pack_start(label)
 	box.pack_start(self.appendEntry)

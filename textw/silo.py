@@ -18,6 +18,10 @@ class SiloAppendWindow:
 		       "aren't sure, leave this blank."))
 
 	entry = Entry(48, scroll = 1, returnExit = 1)
+
+	if todo.liloAppend:
+	    entry.set(todo.liloAppend)
+
 	buttons = ButtonBar(screen, [(_("OK"), "ok"), (_("Skip"), "skip"),  
 			     (_("Back"), "back") ] )
 
@@ -37,6 +41,11 @@ class SiloAppendWindow:
 	    todo.liloDevice = None
 	else:
 	    todo.skipLilo = 0
+
+	if entry.value():
+	    todo.liloAppend = string.strip(entry.value())
+	else:
+	    todo.liloAppend = None
 
 	return INSTALL_OK
 

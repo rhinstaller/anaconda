@@ -298,6 +298,9 @@ class SiloInstall:
 	    if os.access (todo.instPath + initrd, os.R_OK):
 		sl.addEntry("initrd", initrdFile)
 
+            if self.todo.liloAppend:
+                sl.addEntry("append", self.todo.liloAppend)
+
 	    silo.addImage ("image", kernelFile, sl)
 
 	for (label, device) in otherList:
