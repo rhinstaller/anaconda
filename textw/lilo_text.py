@@ -15,7 +15,7 @@ class LiloAppendWindow:
     def __call__(self, screen, todo):
 	if not todo.fstab.setupFilesystems or todo.fstab.rootOnLoop():
 	    todo.skipLilo = 1
-	    #return INSTALL_NOOP
+	    return INSTALL_NOOP
 
 	t = TextboxReflowed(53,
 		     _("A few systems will need to pass special options "
@@ -80,6 +80,8 @@ class LiloAppendWindow:
 class LiloWindow:
     def __call__(self, screen, todo):
         if not todo.setupFilesystems: return INSTALL_NOOP
+	if todo.skipLilo: return INSTALL_NOOP
+
 	(mount, dev, fstype, format, size) = todo.fstab.mountList()[0]
 	if mount != '/': return INSTALL_NOOP
 	if todo.skipLilo: return INSTALL_NOOP
