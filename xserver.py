@@ -154,7 +154,7 @@ def fb_check ():
         if man[:13] == "Card:NeoMagic":
             return 1
         else:
-	return 0
+            return 0
     else:
         return 0
 
