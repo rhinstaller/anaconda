@@ -76,6 +76,7 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     int fd;
 
     sprintf(file, "%s/rhdd-6.1", mntpt);
+    stat(file, &sb);
     title = malloc(sb.st_size + 1);
 
     fd = open(file, O_RDONLY);
