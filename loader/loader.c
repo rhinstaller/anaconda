@@ -170,6 +170,43 @@ static void ipCallback(newtComponent co, void * dptr) {
     }
 }
 
+static int nfsGetSetup(char ** hostptr, char ** dirptr) {
+    struct newtWinEntry entries[3];
+    char * newServer = *hostptr ? strdup(*hostptr) : NULL;
+    char * newDir = *dirptr ? strdup(*dirptr) : NULL;
+    int rc;
+
+    entries[0].text = _("NFS server name:");
+    entries[0].value = &newServer;
+    entries[0].flags = NEWT_FLAG_SCROLL;
+    entries[1].text = _("Red Hat directory:");
+    entries[1].value = &newDir;
+    entries[1].flags = NEWT_FLAG_SCROLL;
+    entries[2].text = NULL;
+    entries[2].value = NULL;
+    
+    rc = newtWinEntries(_("NFS Setup"), 
+		_("Please enter the following information:\n"
+		  "\n"
+		  "    o the name or IP number of your NFS server\n"
+		  "    o the directory on that server containing\n"
+		  "      Red Hat Linux for your architecture"), 60, 5, 15,
+		24, entries, _("Ok"), _("Back"), NULL);
+
+    if (rc == 2) {
+	if (newServer) free(newServer);
+	if (newDir) free(newDir);
+	return LOADER_BACK;
+    }
+
+    if (*hostptr) free(*hostptr);
+    if (*dirptr) free(*dirptr);
+    *hostptr = newServer;
+    *dirptr = newDir;
+
+    return 0;
+}
+
 int readNetConfig(char * device, struct intfInfo * dev) {
     newtComponent text, f, okay, back, answer;
     newtGrid grid, subgrid, buttons;
@@ -269,6 +306,7 @@ int readNetConfig(char * device, struct intfInfo * dev) {
     }
 
     strcpy(dev->device, device);
+    dev->isPtp = dev->isUp = 0;
 
     newtPopWindow();
 
@@ -401,12 +439,14 @@ static int mountCdromImage(char * location, struct knownDevices * kd,
     return LOADER_BACK;
 }
 
-static int mountNfsImage(char * location, struct knownDevices * kd,
+static int ensureNetDevice(struct knownDevices * kd,
     		         moduleInfoSet modInfo, moduleList modLoaded,
-		         moduleDeps modDeps, int flags) {
-    struct intfInfo netDev;
+		         moduleDeps modDeps, int flags, char ** devNamePtr) {
+    int i, rc;
     char * devName = NULL;
-    int i;
+
+    /* Once we find an ethernet card, we're done. Perhaps we should
+       let them specify multiple ones here?? */
 
     for (i = 0; i < kd->numKnown; i++) {
 	if (kd->known[i].class == DEVICE_NET) {
@@ -415,14 +455,12 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
 	}
     }
 
-    logMessage("in mountNfsImage devName is %s", devName);
-
+    /* It seems like expert mode should do something here? */
     if (!devName) {
-	devDeviceMenu(DRIVER_NET, modInfo, modLoaded, modDeps, flags);
+	rc = devDeviceMenu(DRIVER_NET, modInfo, modLoaded, modDeps, flags);
+	if (rc) return rc;
 	kdFindNetList(kd);
     }
-
-    logMessage("in mountNfsImage (2) devName is %s", devName);
 
     if (!devName) {
 	for (i = 0; i < kd->numKnown; i++) {
@@ -433,24 +471,45 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
 	}
     }
 
-    if (!devName) {
-        newtWinMessage(_("Error"), _("Ok"),
-    		_("No networking devices exist on this system!"));
-	return LOADER_BACK;
-    }
+    if (!devName) return LOADER_ERROR;
 
-    readNetConfig("eth0", &netDev);
-    netDev.isPtp = netDev.isUp = 0;
+    *devNamePtr = devName;
+
+    return 0;
+}
+
+static int mountNfsImage(char * location, struct knownDevices * kd,
+    		         moduleInfoSet modInfo, moduleList modLoaded,
+		         moduleDeps modDeps, int flags) {
+    struct intfInfo netDev;
+    char * devName;
+    int i;
+    char * host = NULL;
+    char * dir = NULL;
+    char * fullPath;
+
+    i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
+    if (i) return i;
+
+    readNetConfig(devName, &netDev);
+    nfsGetSetup(&host, &dir);
     
-    configureNetDevice(&netDev);
-    addDefaultRoute(&netDev);
-
     if (!FL_TESTING(flags)) {
+	configureNetDevice(&netDev);
+	addDefaultRoute(&netDev);
+
 	mlLoadModule("nfs", modLoaded, modDeps, flags);
 
-	doPwMount("207.175.42.68:/mnt/test/msw/i386",
-		  "/mnt/source", "nfs", 1, 0, NULL, NULL);
+	fullPath = alloca(strlen(host) + strlen(dir) + 2);
+	sprintf(fullPath, "%s:%s", host, dir);
+
+	logMessage("mounting nfs path %s", fullPath);
+
+	doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL);
     }		  
+
+    free(host);
+    free(dir);
 
     return 0;
 }
@@ -544,7 +603,6 @@ int main(int argc, char ** argv) {
     moduleList modLoaded;
     char * cmdLine = NULL;
     moduleDeps modDeps;
-    int local = 0;
     int i, rc;
     int flags = 0;
     int testing = 0;
