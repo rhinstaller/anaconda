@@ -224,6 +224,11 @@ int main(int argc, const char ** argv) {
     if (doNumber)
 	cdNum = 1;
 
+    if (args > 1 && !doNumber) {
+	fprintf(stderr, "error: building hdlist for multiple trees without numbers\n");
+	exit(1);
+    }
+
     while (args[0]) {
 	if (onePass(outfd, args[0], cdNum))
 	    return 1;
