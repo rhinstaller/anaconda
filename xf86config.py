@@ -489,6 +489,8 @@ Section "Module"
         Load  "pex5"
         Load  "record"
         Load  "xie"
+        Load  "freetype"
+        Load  "Type1"
 EndSection
 
 Section "InputDevice"
