@@ -1,3 +1,12 @@
+2005-04-05  Peter Jones  <pjones@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
+	* scripts/upd-instroot: pull libc, libm, libpthreads, and librt from
+	/lib/obsolete/linuxthreads/ if it's there, unless called with --nptl .
+	This flag may not come before --debug, and must come before --comps .
+	Hopefully we can revert this soon :/
+
 2005-04-05  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
