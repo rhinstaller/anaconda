@@ -94,7 +94,7 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     struct stat sb;
     static int disknum = 0;
     int version = 1;
-    int fd;
+    int fd, ret;
 
     /* check for both versions */
     sprintf(file, "%s/rhdd", mntpt);
@@ -110,7 +110,7 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     title = malloc(sb.st_size + 1);
 
     fd = open(file, O_RDONLY);
-    read(fd, title, sb.st_size);
+    ret = read(fd, title, sb.st_size);
     if (title[sb.st_size - 1] == '\n')
         sb.st_size--;
     title[sb.st_size] = '\0';
