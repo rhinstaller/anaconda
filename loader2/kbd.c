@@ -107,29 +107,6 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 	return LOADER_ERROR;
     }
 
-    /* JKFIXME: this actually looks how I want most of the kickstart loader
-     * stuff to look.  but since I've not stubbed kickstart in yet, 
-     * let's not include it yet */
-#if 0
-    if (FL_KICKSTART(flags)) {
-	if (!ksGetCommand(KS_CMD_KEYBOARD, NULL, &argc, &argv)) {
-	    if (argc < 2) {
-		logMessage("no argument passed to keyboard "
-				"kickstart command");
-	    } else {
-		for (i = 0; i < hdr.numEntries; i++) 
-		    if (!strcmp(infoTable[i].name, argv[1])) break;
-		if (i < hdr.numEntries)
-		    num = i;
-		else 
-		    newtWinMessage("Kickstart Error", "OK", "Bad keymap "
-				   "name %s passed to kickstart command.",
-				   argv[1]);
-	    }
-	}
-    }
-#endif
-    
     if (num == -1 ) {
 	kbds = alloca(sizeof(*kbds) * (hdr.numEntries + 1));
 	for (i = 0; i < hdr.numEntries; i++)  {
