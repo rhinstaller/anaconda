@@ -608,6 +608,7 @@ class KickstartBase(BaseInstallClass):
 		     "deviceprobe"	: None			,
 		     "driverdisk"	: None			,
 		     "firewall"		: self.doFirewall	,
+                     "selinux"          : self.doSELinux        ,
 		     "harddrive"	: None			,
 		     "install"		: None          	,
 		     "keyboard"		: self.doKeyboard	,
