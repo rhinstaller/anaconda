@@ -65,40 +65,6 @@ copymodules () {
     intcopymodules "$1" "$2 ../../../RedHat/instimage/modules"
 }
 
-makedriverdisk () {
-    diskname=$1
-    modlist=$(resdeps $2)
-
-    rm -rf $diskname
-    mkdir -p $diskname/modules
-    intcopymodules "$modlist" $diskname/modules
-
-    pushd $diskname/modules
-
-    # create the module-info file
-    $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
-	$(ls *.o | sed 's/\.o$//') > ../modinfo
-
-    PARIDE="aten bpck comm dstr epat epia fit2 fit3 friq frpw kbic ktti on20 on26"
-    /sbin/depmod -m $KERNELROOT/boot/System.map-$version -i -e *.o | \
-          grep ':.*o' | \
-          sed -e 's/\.o//g' \
-              -e 's/: parport$/: parport_pc/g' \
-              -e 's/^\(parport_pc: parport\)_pc$/\1/' \
-              -e "s/^pcd:.*/pcd: $PARIDE/" > ../modules.dep
-
-    # create the pcitable
-    $TRIMPCITABLE *.o < $PCITABLE > ../pcitable
-    touch ../rhdd-6.1
-
-    mkdir $version
-    mv *.o $version
-
-    find $version -type f | cpio -H crc -o | gzip -9 > ../modules.cgz
-    cd ..
-    rm -rf modules
-    popd 
-}
 
 if [ -z "$1" ]; then
     usage

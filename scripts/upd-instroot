@@ -93,7 +93,8 @@ mkdir -p $DESTGR
 
 PACKAGES="glibc ldconfig setup python newt libtermcap zlib ash e2fsprogs
 	  util-linux raidtools locale-ja popt mount procps rpm XFree86
-	  Xconfigurator anaconda anaconda-runtime kudzu-devel kudzu"
+	  Xconfigurator anaconda anaconda-runtime kudzu-devel kudzu db3
+	  rpm-python"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
@@ -108,7 +109,7 @@ PACKAGESGR="XFree86-libs XFree86-SVGA imlib libpng libtiff libjpeg
       XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
       e2fsprogs fileutils glibc rsh less ftp readline gzip
       popt specspo util-linux
-      rpm rpm-devel rpm-python open grep net-tools traceroute 
+      rpm rpm-devel open grep net-tools traceroute 
       tar procps textutils sed ncurses bash cpio mt-st iputils sh-utils
       XFree86-cyrillic-fonts XFree86 xpm Xconfigurator pygnome pygtk
       pygtk-libglade pygnome-libglade pygnome-applet pygnome-capplet"
@@ -141,7 +142,9 @@ lib/libm*
 lib/libcrypt*
 lib/libdl*
 lib/libdb.so.2
+lib/libdb.so.3
 lib/libdb1*
+lib/libdb-*
 lib/libnsl*
 lib/libnss_files*
 lib/libnss_dns*
@@ -178,6 +181,7 @@ usr/lib/anaconda-runtime/*
 usr/sbin/anaconda
 usr/lib/python1.5/site-packages/kudzumodule.so
 usr/share/kudzu/pcitable
+usr/lib/python1.5/site-packages/rpmmodule.so
 EOF
 
 KEEPFILEGR=/tmp/keepfilegr.$$
@@ -410,8 +414,10 @@ rpm2cpio $GLIBC | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo usr/share/zo
 rm -rf $TZDIR
 
 # XXX kludge, fix me
-rm -f $DEST/usr/lib/python1.5/site-packages/rpmmodule.so
-rm -f $DESTGR/usr/lib/python1.5/site-packages/rpmmodule.so
+#rm -f $DEST/usr/lib/python1.5/site-packages/rpmmodule.so
+#rm -f $DESTGR/usr/lib/python1.5/site-packages/rpmmodule.so
+rm -f $DEST/usr/lib/anaconda/rpmmodule.so
+rm -f $DESTGR/usr/lib/anaconda/rpmmodule.so
 
 if [ $ARCH = sparc ]; then
     rm -f $DESTGR/usr/X11R6/bin/XF86_VGA16
@@ -429,7 +435,6 @@ rm -f $KEEPFILE $KEEPFILEGR
 echo -n "Scrubbing trees..."
 for p in $DEST $DESTGR; do
 	echo -n -e "\rScrubbing trees..." "$p"
-	rm -f $p/usr/lib/anaconda/lang-table
 	ln -s ../lib/anaconda/raidstart-stub $p/usr/bin/raidstart
 	ln -s ../lib/anaconda/raidstop-stub $p/usr/bin/raidstop
 

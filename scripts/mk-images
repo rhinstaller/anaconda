@@ -1,0 +1,343 @@
+#!/bin/bash
+
+usage () {
+    echo "usage: mk-images <kernelpath> <imagepath> <fullmodpath>"
+    exit 0
+}
+
+if [ -z "$1" -o -z "$2" -o -z "$3" ]; then usage; fi
+
+# Set, verify, and create paths
+    KERNELPATH=$1
+    IMAGEPATH=$2
+    FULLMODPATH=$3
+    KERNELROOT=/tmp/updboot.kernel
+    MODDEPS=$KERNELROOT/moddeps
+    ARCH=$(uname -m | sed 's/i.86/i386/')
+
+    rm -rf $IMAGEPATH
+    rm -rf $FULLMODPATH
+    mkdir -p $IMAGEPATH
+    mkdir -p $FULLMODPATH
+    rm -rf $KERNELROOT
+    mkdir -p $KERNELROOT
+
+# Stuff that we need
+    TRIMPCITABLE=$FULLMODPATH/../usr/lib/anaconda-runtime/trimpcitable
+    GETMODDEPS=$FULLMODPATH/../usr/lib/anaconda-runtime/moddeps
+    MODLIST=$FULLMODPATH/../usr/lib/anaconda-runtime/modlist
+    MODINFO=$FULLMODPATH/../usr/lib/anaconda-runtime/loader/module-info
+    FILTERMODDEPS=$FULLMODPATH/../usr/lib/anaconda-runtime/filtermoddeps
+    LOADERBINDIR=$FULLMODPATH/../usr/lib/anaconda-runtime/loader
+    BOOTDISKDIR=$FULLMODPATH/../usr/lib/anaconda-runtime/boot
+    LANGTABLE=$FULLMODPATH/../usr/lib/anaconda/lang-table
+    PCITABLE=$FULLMODPATH/../usr/share/kudzu/pcitable
+    CACHE=$KERNELROOT/lib/modules/.cache
+
+    dieLater=
+    for n in $TRIMPCITABLE $PCITABLE $GETMODDEPS $MODINFO $FILTERMODDEPS \
+	     $LANGTABLE; do
+	if [ ! -f $n ]; then
+	    echo "$n doesn't exist"
+	    dieLater=1
+	fi
+    done
+
+    for n in $BOOTDISKDIR; do
+	if [ ! -d $n ]; then
+	    echo "$n doesn't exist"
+	    dieLater=1
+	fi
+    done
+
+    if [ -n "$dieLater" ]; then exit 1; fi
+
+findmodule () {
+    if [ ! -f $CACHE ]; then
+        find $KERNELROOT/lib/modules > $CACHE
+    fi
+    
+    grep "/$1\.o" $CACHE
+}
+
+rundepmod () {
+    what=$1
+    final=$2
+
+    exclpattern="tc90x|FPT|BusLogic|Pci2000|Pci2220i"
+    
+    depmod -e -i -m $KERNELROOT/boot/System.map-$version \
+	    $what > $final.foo 2>&1 | 
+	    egrep -v "modprobe: (${exclpattern}) multiply defined"
+
+    PARIDE="aten bpck comm dstr epat epia fit2 fit3 friq frpw kbic ktti on20 on26"
+    cat $final.foo | sed -e 's/\.o//g' \
+	  -e 's/: parport$/: parport_pc/g' \
+	  -e 's/^\(parport_pc: parport\)_pc$/\1/' \
+	  -e "s/^pcd:.*/pcd: $PARIDE/" | $FILTERMODDEPS > $final 
+    rm -f $final.foo
+}
+
+intcopymodules () {
+    for n in $1; do
+	m=$(findmodule $n)
+	if [ -z "$m" ]; then
+            echo "Module $n not found in kernel rpm"
+        else 
+	    for dir in $2; do
+	        if ! cp $m $dir ; then
+		    echo "Failed to copy $m to $dir (for module $n)"
+	        fi
+	    done
+        fi
+    done
+}
+
+resdeps () {
+    list=`$GETMODDEPS -m $MODDEPS $*`
+    items=$(for n in $* $list; do echo $n; done | sort -u)
+    echo $items
+}
+
+expandModuleSet() {
+    SET=""
+    for name in $1; do
+        if [ $(echo $name | cut -c1) = '+' ]; then
+	    NAME=$(echo $name | cut -c2-)
+	    SET="$SET $($MODLIST --modinfo-file $MODINFO $NAME)"
+	else
+	    SET="$SET $name"
+	fi
+    done
+
+    echo $SET
+}
+
+makemoduleball() {
+    unset MMB_DD
+    MMB_MODINFO="module-info"
+
+    if [ $1 = "--dd" ]; then
+        MMB_DD=1
+	MMB_MODINFO="modinfo"
+	shift
+    fi
+
+    MMB_DIR=$1
+    MMB_MODULESET=$(resdeps $2)
+
+    rm -rf $MMB_DIR/modules $MMB_DIR/modules.cgz $MMB_DIR/modules.dep \
+	   $MMB_DIR/pcitable $MMB_DIR/$MMB_MODINFO
+    mkdir -p $MMB_DIR/modules
+
+    intcopymodules "$MMB_MODULESET" $MMB_DIR/modules
+
+    pushd $MMB_DIR/modules > /dev/null
+
+    $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
+	$MMB_MODULESET > ../$MMB_MODINFO
+
+    rundepmod "*.o" ../modules.dep
+
+    # create the pcitable
+    $TRIMPCITABLE *.o < $PCITABLE > ../pcitable
+
+    if [ -n "$MMB_DD"]; then
+	touch rhdd-6.1
+    fi
+
+    mkdir $version
+    mv *.o $version
+
+    find $version -type f | cpio --quiet -H crc -o | gzip -9 > ../modules.cgz
+    cd ..
+    rm -rf modules
+    popd  > /dev/null
+}
+
+makebootdisk() {
+    MBD_FILENAME=$IMAGEPATH/$1
+    LOADERBIN=$2
+    MODSET=`expandModuleSet "$3"`
+    MBD_DIR=/tmp/makebootdisk.dir
+    MBD_FSIMAGE=/tmp/makebootdisk.initrdimage
+    MBD_MNTPOINT=/tmp/makebootdisk.mount
+    MBD_TMPIMAGE=/tmp/makebootdisk.image
+    MBD_BOOTTREE=/tmp/makebootdisk.tree
+    INITBIN=init
+
+    rm -rf $MBD_DIR MBD_FSIMAGE
+    mkdir -p $MBD_DIR/modules
+    mkdir -p $MBD_DIR/sbin
+    mkdir -p $MBD_DIR/dev/pts
+    mkdir -p $MBD_DIR/etc
+    mkdir -p $MBD_DIR/proc
+    mkdir -p $MBD_DIR/tmp
+    mkdir -p $MBD_DIR/etc/terminfo/l
+
+    makemoduleball $MBD_DIR/modules "$MODSET"
+
+    cat > $MBD_DIR/etc/passwd << EOF
+    root::0:0:root:/:/bin/bash
+EOF
+
+    # FIXME
+    #cp -a keymaps/keymaps.gz initrd/etc
+    #cp -a fonts.cgz initrd/etc
+
+    install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
+    install -s -m 755 $LOADERBINDIR/$INITBIN $MBD_DIR/sbin
+    install -m 644 $LANGTABLE $MBD_DIR/etc
+    install -m 644 $LANGTABLE $LOADERBINDIR/loader.tr $MBD_DIR/etc
+    install -m 644 /usr/share/terminfo/l/linux $MBD_DIR/etc/terminfo/l/linux
+
+    for n in insmod rmmod modprobe; do
+	ln -s loader $MBD_DIR/sbin/$n
+    done
+
+    ln -s /usr/bin/sh $MBD_DIR/sbin/sh
+    ln -s /sbin/init $MBD_DIR/linuxrc
+    ln -s /proc/mounts $MBD_DIR/etc/mtab
+    ln -s sbin $MBD_DIR/bin
+
+    # FIXME: keymaps?
+    # FIXME: fonts?
+
+    awk '{ printf("mknod %s/dev/%s %s %s %s\n", $1, $2, $3, $4, $5);
+	   printf("chmod %s %s/dev/%s\n", $6, $1, $2);
+	   printf("chown %s %s/dev/%s\n", $7, $1, $2); 
+	 }' <<EOF | sh
+	$MBD_DIR console c 5 1 600 root:root
+	$MBD_DIR ttyS0 c 4 64 600 root:root
+	$MBD_DIR ttyS1 c 4 65 600 root:root
+	$MBD_DIR ttyS2 c 4 66 600 root:root
+	$MBD_DIR ttyS3 c 4 67 600 root:root
+	$MBD_DIR psaux c 10 1 644 root:root
+	$MBD_DIR null c 1 3 666 root:root
+	$MBD_DIR zero c 1 5 666 root:root
+	$MBD_DIR md0 b 9 0 644 root:root
+	$MBD_DIR mem c 1 1 600 root:root
+	$MBD_DIR ram b 1 1 640 root:root
+	$MBD_DIR ptmx c 5 2 666 root:root
+	$MBD_DIR tty0 c 4 0 600 root:tty
+	$MBD_DIR tty1 c 4 1 600 root:tty
+	$MBD_DIR tty2 c 4 2 600 root:tty
+	$MBD_DIR tty3 c 4 3 600 root:tty
+	$MBD_DIR tty4 c 4 4 600 root:tty
+	$MBD_DIR tty5 c 4 5 600 root:tty
+	$MBD_DIR tty6 c 4 6 600 root:tty
+	$MBD_DIR tty7 c 4 7 600 root:tty
+EOF
+
+cat > $MBD_DIR/.profile <<EOF
+PATH=/bin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/mnt/sbin:/mnt/usr/sbin:/mnt/bin:/mnt/usr/bin
+export PATH
+EOF
+
+    if [ $ARCH = "i386" ]; then
+	INITRDSIZE=2000
+	FLOPPYSIZE=1440
+	SYSLINUX=../../trees/syslinux-1.45
+    else
+	echo "I don't know how big to make the image!" >&2
+	exit 1
+    fi
+
+    rm -f $MBD_FSIMAGE
+    dd if=/dev/zero of=$MBD_FSIMAGE bs=1k count=$INITRDSIZE 2> /dev/null
+    echo y | mke2fs -i 8096 -q $MBD_FSIMAGE $INITRDSIZE > /dev/null 2>/dev/null
+
+    rm -rf $MBD_MNTPOINT
+    mkdir $MBD_MNTPOINT
+    mount -o loop -t ext2 $MBD_FSIMAGE $MBD_MNTPOINT
+    (cd $MBD_DIR; find . | cpio --quiet -p $MBD_MNTPOINT)
+    df $MBD_MNTPOINT | tail +2
+    umount $MBD_MNTPOINT
+
+    mv -f $MBD_FSIMAGE $MBD_FSIMAGE.uncompressed
+    gzip -9 < $MBD_FSIMAGE.uncompressed > $MBD_FSIMAGE
+    rm -rf $MBD_FSIMAGE.uncompressed $MBD_DIR
+
+    rm -f $MBD_TMPIMAGE $MBD_BOOTTREE
+    dd if=/dev/zero bs=1k count=$FLOPPYSIZE of=/$MBD_TMPIMAGE
+
+    # Create the bootdisk image as $MBD_TMPIMAGE, mount it, copy
+    # $MBD_FSIMAGE (the initrd) to it, add a kernel, umount it. It should be
+    # left as $MBD_TMPIMAGE, with no side affects.
+    if [ $ARCH = "i386" ]; then
+	gunzip < ../../trees/syslinux-1.45/img1440k.gz | 
+	    dd of=$MBD_TMPIMAGE conv=notrunc > /dev/null 2> /dev/null
+	../../trees/syslinux-1.45/syslinux $MBD_TMPIMAGE
+	mkdir -p $MBD_BOOTTREE
+	mount -o loop -t msdos $MBD_TMPIMAGE $MBD_BOOTTREE
+
+	(cd $BOOTDISKDIR; find . ! -name "*.msg" -maxdepth 1 ! -type d | cpio --quiet -p $MBD_BOOTTREE)
+
+	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
+	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
+	cp $BOOTDISKDIR/*.msg $MBD_BOOTTREE
+	df $MBD_BOOTTREE | tail +2
+	umount $MBD_BOOTTREE
+    else
+	echo "I don't know how big to make the image!" >&2
+	exit 1
+    fi
+    
+    rmdir $MBD_BOOTTREE 
+    rm -f $MBD_FILENAME
+    mv -f $MBD_TMPIMAGE $MBD_FILENAME
+    rm -rf $MBD_TMPIMAGE
+}
+
+makedriverdisk () {
+    diskname=$1
+    modlist=$2
+    diskpath=/tmp/makedriverdisk.$$/$diskname
+
+    rm -rf $diskpath
+    mkdir -p $diskpath
+
+    makemoduleball $diskpath "$modlist"
+
+    size=$(expr 20 + $(du -sk $diskpath | awk '{print $1}'))
+    if [ $size -lt 57 ]; then
+	size=64
+    fi
+
+    dd if=/dev/zero of=/tmp/$diskname.img bs=1k count=$size 2> /dev/null
+    echo y | mke2fs /tmp/$diskname.img  > /dev/null 2>/dev/null
+    mkdir -p /tmp/mkdd.$$
+    mount -o loop /tmp/$diskname.img /tmp/mkdd.$$
+    (cd $diskpath; tar cSpf - .) | (cd /tmp/mkdd.$$; tar xSpf -)
+    umount /tmp/mkdd.$$
+    rm -rf /tmp/mkdd.$$
+
+    cp /tmp/${diskname}.img $IMAGEPATH/${diskname}.img
+    rm /tmp/${diskname}.img
+    rm -rf $diskpath
+}
+
+# Find the kernel, unpack it, and verify it
+    kpackage=$(latest --arch $ARCH $KERNELPATH kernel-BOOT)
+    ppackage=$(latest --arch $ARCH $KERNELPATH kernel-pcmcia-cs)
+    version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)BOOT
+
+    rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
+    rpm2cpio $ppackage | (cd $KERNELROOT; cpio --quiet -iumd etc/pcmcia/*)
+
+    if [ ! -d "$KERNELROOT/lib/modules/$version/scsi" ]; then
+	echo "$1 is not a valid modules directory" 2>&1
+	usage
+    fi
+
+    if [ ! -f "$KERNELROOT/boot/vmlinuz-$version" ]; then
+	echo "$KERNELROOT/boot/vmlinuz-$version does not exist"
+	usage
+    fi
+
+    rundepmod "$KERNELROOT/lib/modules/$version/*/*.o" $MODDEPS
+    rm -f $MODDEPS.foo
+
+. mk-images.${ARCH}
+
+rm -rf $KERNELROOT

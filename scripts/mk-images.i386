@@ -1,0 +1,7 @@
+
+makebootdisk boot.img loader-local "+scsi vfat"
+makebootdisk bootnet.img loader-network "+net"
+
+makedriverdisk "gdth" "gdth"
+#makedriverdisk "eata_dma" "eata_dma"
+#makedriverdisk "paride" "parport_pc parport pcd paride aten bpck comm dstr epat fit2 fit3 friq frpw kbic ktti on20 on26 epia ppa imm"
