@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
-"POT-Creation-Date: 2001-01-29 11:10-0500\n"
+"POT-Creation-Date: 2001-02-05 12:49-0500\n"
 "PO-Revision-Date: 2001-01-31 23:35GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: dansk <dansk@klid.dk>\n"
@@ -14,7 +14,7 @@ msgstr ""
 msgid "Everything"
 msgstr "Altsammen"
 
-#: ../exception.py:13 ../text.py:914
+#: ../exception.py:13 ../text.py:938
 msgid "Exception Occurred"
 msgstr "Undtagelse hændte"
 
@@ -55,23 +55,23 @@ msgstr ""
 msgid "Warning"
 msgstr "Advarsel"
 
-#: ../fstab.py:321 ../fstab.py:515 ../fstab.py:615 ../fstab.py:819
+#: ../fstab.py:320 ../fstab.py:514 ../fstab.py:614 ../fstab.py:823
 #: ../harddrive.py:168 ../image.py:61 ../image.py:138
-#: ../libfdisk/newtfsedit.c:1740 ../loader/devices.c:236
-#: ../loader/devices.c:243 ../loader/devices.c:410 ../loader/devices.c:455
-#: ../loader/devices.c:475 ../loader/lang.c:99 ../loader/loader.c:515
-#: ../loader/loader.c:525 ../loader/loader.c:579 ../loader/loader.c:906
-#: ../loader/loader.c:961 ../loader/loader.c:1131 ../loader/loader.c:1136
-#: ../loader/loader.c:1273 ../loader/loader.c:2142 ../loader/loader.c:2188
-#: ../loader/loader.c:2266 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
+#: ../libfdisk/newtfsedit.c:1740 ../loader/devices.c:259
+#: ../loader/devices.c:266 ../loader/devices.c:433 ../loader/devices.c:478
+#: ../loader/devices.c:498 ../loader/lang.c:99 ../loader/loader.c:518
+#: ../loader/loader.c:528 ../loader/loader.c:582 ../loader/loader.c:909
+#: ../loader/loader.c:964 ../loader/loader.c:1134 ../loader/loader.c:1139
+#: ../loader/loader.c:1276 ../loader/loader.c:2146 ../loader/loader.c:2176
+#: ../loader/loader.c:2254 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94
-#: ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:346
-#: ../textw/bootdisk_text.py:69 ../todo.py:1130 ../todo.py:1143
-#: ../todo.py:1520 ../upgrade.py:22 ../upgrade.py:50 ../upgrade.py:68
+#: ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:369
+#: ../textw/bootdisk_text.py:69 ../todo.py:1131 ../todo.py:1144
+#: ../todo.py:1514 ../upgrade.py:22 ../upgrade.py:50
 msgid "Error"
 msgstr "Fejl"
 
-#: ../fstab.py:322
+#: ../fstab.py:321
 msgid ""
 "The kernel is unable to read your new partitioning information, probably "
 "because you modified extended partitions. While this is not critical, you "
@@ -83,47 +83,47 @@ msgstr ""
 "genstarte din maskine før du fortsætter. Indsæt Red Hat opstartsdisketten nu "
 "og tryk 'Ok' for at genstarte.\n"
 
-#: ../fstab.py:504 ../fstab.py:768 ../fstab.py:1205
+#: ../fstab.py:503 ../fstab.py:772 ../fstab.py:1210
 msgid "Formatting"
 msgstr "Formaterer"
 
-#: ../fstab.py:505
+#: ../fstab.py:504
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
 msgstr "Formaterer swapplads på /dev/%s..."
 
-#: ../fstab.py:515
+#: ../fstab.py:514
 msgid "Error creating swap on device "
 msgstr "Kunne ikke oprette swap på enhed "
 
-#: ../fstab.py:616
+#: ../fstab.py:615
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr "Kunne ikke afmontere %s: %s"
 
-#: ../fstab.py:662 ../todo.py:696
+#: ../fstab.py:666 ../todo.py:696
 msgid "Creating"
 msgstr "Opretter"
 
-#: ../fstab.py:662
+#: ../fstab.py:666
 msgid "Creating RAID devices..."
 msgstr "Opretter RAID-enheder..."
 
-#: ../fstab.py:703
+#: ../fstab.py:707
 msgid "Loopback"
 msgstr "Loopback"
 
-#: ../fstab.py:704
+#: ../fstab.py:708
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "Opretter loopback-filsystem på enhed /dev/%s..."
 
-#: ../fstab.py:769 ../fstab.py:1206
+#: ../fstab.py:773 ../fstab.py:1211
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formaterer %s filsystem..."
 
-#: ../fstab.py:820
+#: ../fstab.py:824
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -149,7 +149,7 @@ msgstr ""
 "venligst den fulde tekst fra denne hændelse og udfyld en fejlrapport på "
 "http://bugzilla.redhat.com/bugzilla"
 
-#: ../gui.py:309 ../text.py:932
+#: ../gui.py:309 ../text.py:956
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -163,16 +163,16 @@ msgstr "Næste"
 
 #: ../gui.py:408 ../gui.py:770 ../libfdisk/newtfsedit.c:1474
 #: ../libfdisk/newtfsedit.c:1482 ../loader/cdrom.c:34 ../loader/devices.c:93
-#: ../loader/devices.c:215 ../loader/devices.c:312 ../loader/lang.c:582
-#: ../loader/loader.c:288 ../loader/loader.c:810 ../loader/loader.c:847
-#: ../loader/loader.c:961 ../loader/loader.c:1053 ../loader/loader.c:1505
-#: ../loader/net.c:164 ../loader/net.c:251 ../loader/net.c:336
+#: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:582
+#: ../loader/loader.c:289 ../loader/loader.c:813 ../loader/loader.c:850
+#: ../loader/loader.c:964 ../loader/loader.c:1056 ../loader/loader.c:1508
+#: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
 #: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:99 ../text.py:61
-#: ../text.py:72 ../text.py:142 ../text.py:187 ../text.py:194 ../text.py:216
-#: ../text.py:219 ../text.py:294 ../text.py:349 ../text.py:367 ../text.py:370
-#: ../text.py:389 ../text.py:392 ../text.py:414 ../text.py:417 ../text.py:474
-#: ../text.py:477 ../text.py:502 ../text.py:506 ../text.py:515 ../text.py:588
-#: ../text.py:590 ../text.py:600 ../text.py:602 ../textw/bootdisk_text.py:30
+#: ../text.py:72 ../text.py:146 ../text.py:205 ../text.py:212 ../text.py:234
+#: ../text.py:237 ../text.py:317 ../text.py:372 ../text.py:390 ../text.py:393
+#: ../text.py:412 ../text.py:415 ../text.py:437 ../text.py:440 ../text.py:497
+#: ../text.py:500 ../text.py:526 ../text.py:530 ../text.py:539 ../text.py:612
+#: ../text.py:614 ../text.py:624 ../text.py:626 ../textw/bootdisk_text.py:30
 #: ../textw/firewall_text.py:9 ../textw/lilo_text.py:34
 #: ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
 #: ../textw/lilo_text.py:209 ../textw/mouse_text.py:27
@@ -208,12 +208,12 @@ msgid "Online Help"
 msgstr "Online-hjælp"
 
 #: ../gui.py:415 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../text.py:66 ../text.py:1004 ../text.py:1037
+#: ../text.py:66 ../text.py:1028 ../text.py:1061
 msgid "Language Selection"
 msgstr "Sprogvalg"
 
-#: ../gui.py:517 ../iw/firewall_gui.py:145 ../libfdisk/gnomefsedit.c:1292
-#: ../libfdisk/gnomefsedit.c:1309
+#: ../gui.py:517 ../iw/firewall_gui.py:145 ../libfdisk/gnomefsedit.c:1387
+#: ../libfdisk/gnomefsedit.c:1404
 msgid "Close"
 msgstr "Luk"
 
@@ -289,26 +289,26 @@ msgstr "Dette er ikke den korrekte Red Hat-cd-rom"
 msgid "The CDROM could not be mounted."
 msgstr "cd-rom'en kunne ikke monteres."
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:214
-#: ../loader/devices.c:236 ../loader/devices.c:243 ../loader/devices.c:312
-#: ../loader/devices.c:410 ../loader/devices.c:455 ../loader/devices.c:475
-#: ../loader/devices.c:507 ../loader/kickstart.c:58 ../loader/kickstart.c:68
+#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:237
+#: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:335
+#: ../loader/devices.c:433 ../loader/devices.c:478 ../loader/devices.c:498
+#: ../loader/devices.c:530 ../loader/kickstart.c:58 ../loader/kickstart.c:68
 #: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:293
-#: ../loader/lang.c:582 ../loader/loader.c:288 ../loader/loader.c:515
-#: ../loader/loader.c:525 ../loader/loader.c:579 ../loader/loader.c:847
-#: ../loader/loader.c:906 ../loader/loader.c:961 ../loader/loader.c:1053
-#: ../loader/loader.c:1131 ../loader/loader.c:1136 ../loader/loader.c:1233
-#: ../loader/loader.c:1242 ../loader/loader.c:1273 ../loader/loader.c:1505
-#: ../loader/loader.c:2142 ../loader/loader.c:2188 ../loader/loader.c:2251
-#: ../loader/loader.c:2266 ../loader/net.c:164 ../loader/net.c:251
-#: ../loader/net.c:336 ../loader/net.c:645 ../loader/net.c:678
+#: ../loader/lang.c:582 ../loader/loader.c:289 ../loader/loader.c:518
+#: ../loader/loader.c:528 ../loader/loader.c:582 ../loader/loader.c:850
+#: ../loader/loader.c:909 ../loader/loader.c:964 ../loader/loader.c:1056
+#: ../loader/loader.c:1134 ../loader/loader.c:1139 ../loader/loader.c:1236
+#: ../loader/loader.c:1245 ../loader/loader.c:1276 ../loader/loader.c:1508
+#: ../loader/loader.c:2146 ../loader/loader.c:2176 ../loader/loader.c:2239
+#: ../loader/loader.c:2254 ../loader/net.c:185 ../loader/net.c:272
+#: ../loader/net.c:357 ../loader/net.c:668 ../loader/net.c:701
 #: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../loader/urls.c:375 ../rescue.py:17 ../rescue.py:67 ../rescue.py:85
-#: ../rescue.py:93 ../text.py:142 ../text.py:216 ../text.py:294 ../text.py:367
-#: ../text.py:414 ../text.py:432 ../text.py:474 ../text.py:502 ../text.py:588
-#: ../text.py:600 ../text.py:629 ../text.py:650 ../text.py:820 ../text.py:874
-#: ../text.py:900 ../text.py:926 ../text.py:934 ../text.py:949 ../text.py:1191
+#: ../rescue.py:93 ../text.py:146 ../text.py:234 ../text.py:317 ../text.py:390
+#: ../text.py:437 ../text.py:455 ../text.py:497 ../text.py:526 ../text.py:612
+#: ../text.py:624 ../text.py:653 ../text.py:674 ../text.py:844 ../text.py:898
+#: ../text.py:924 ../text.py:950 ../text.py:958 ../text.py:973 ../text.py:1215
 #: ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54
 #: ../textw/firewall_text.py:9 ../textw/firewall_text.py:122
 #: ../textw/firewall_text.py:124 ../textw/firewall_text.py:187
@@ -343,7 +343,7 @@ msgstr "FEJL: ukendt fejl opstået ved læsning af partitionstabeller.\n"
 msgid "System to Rescue"
 msgstr "System som skal reddes"
 
-#: ../rescue.py:65 ../text.py:365
+#: ../rescue.py:65 ../text.py:388
 msgid "What partition holds the root partition of your installation?"
 msgstr "Hvilken partition indeholder din installations rodpartition?"
 
@@ -400,23 +400,24 @@ msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr "Dit system er monteret i kataloget /mnt/sysimage"
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924
-#: ../libfdisk/fsedit.c:931 ../libfdisk/fsedit.c:940 ../libfdisk/fsedit.c:971
-#: ../libfdisk/fsedit.c:984 ../libfdisk/fsedit.c:994 ../libfdisk/fsedit.c:1023
-#: ../libfdisk/fsedit.c:1033 ../libfdisk/fsedit.c:1050
-#: ../libfdisk/fsedit.c:1458 ../libfdisk/gnomefsedit.c:783
-#: ../libfdisk/gnomefsedit.c:818 ../libfdisk/gnomefsedit.c:1166
-#: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:1237
-#: ../libfdisk/gnomefsedit.c:1256 ../libfdisk/gnomefsedit.c:1430
-#: ../libfdisk/gnomefsedit.c:1505 ../libfdisk/gnomefsedit.c:1555
-#: ../libfdisk/gnomefsedit.c:1620 ../libfdisk/gnomefsedit.c:1638
-#: ../libfdisk/gnomefsedit.c:1916 ../libfdisk/gnomefsedit.c:1925
-#: ../libfdisk/gnomefsedit.c:2171 ../libfdisk/gnomefsedit.c:2179
-#: ../libfdisk/gnomefsedit.c:2223 ../libfdisk/gnomefsedit.c:2233
-#: ../libfdisk/gnomefsedit.c:2240 ../libfdisk/gnomefsedit.c:2255
-#: ../libfdisk/gnomefsedit.c:2265 ../libfdisk/gnomefsedit.c:2275
-#: ../libfdisk/gnomefsedit.c:2314 ../libfdisk/gnomefsedit.c:2445
-#: ../libfdisk/gnomefsedit.c:2487 ../libfdisk/newtfsedit.c:170
+#: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:918 ../libfdisk/fsedit.c:925
+#: ../libfdisk/fsedit.c:932 ../libfdisk/fsedit.c:941 ../libfdisk/fsedit.c:968
+#: ../libfdisk/fsedit.c:981 ../libfdisk/fsedit.c:991 ../libfdisk/fsedit.c:1020
+#: ../libfdisk/fsedit.c:1030 ../libfdisk/fsedit.c:1047
+#: ../libfdisk/fsedit.c:1464 ../libfdisk/gnomefsedit.c:755
+#: ../libfdisk/gnomefsedit.c:787 ../libfdisk/gnomefsedit.c:878
+#: ../libfdisk/gnomefsedit.c:913 ../libfdisk/gnomefsedit.c:1261
+#: ../libfdisk/gnomefsedit.c:1298 ../libfdisk/gnomefsedit.c:1332
+#: ../libfdisk/gnomefsedit.c:1351 ../libfdisk/gnomefsedit.c:1525
+#: ../libfdisk/gnomefsedit.c:1600 ../libfdisk/gnomefsedit.c:1650
+#: ../libfdisk/gnomefsedit.c:1718 ../libfdisk/gnomefsedit.c:1736
+#: ../libfdisk/gnomefsedit.c:2014 ../libfdisk/gnomefsedit.c:2023
+#: ../libfdisk/gnomefsedit.c:2269 ../libfdisk/gnomefsedit.c:2277
+#: ../libfdisk/gnomefsedit.c:2321 ../libfdisk/gnomefsedit.c:2331
+#: ../libfdisk/gnomefsedit.c:2338 ../libfdisk/gnomefsedit.c:2353
+#: ../libfdisk/gnomefsedit.c:2363 ../libfdisk/gnomefsedit.c:2373
+#: ../libfdisk/gnomefsedit.c:2412 ../libfdisk/gnomefsedit.c:2543
+#: ../libfdisk/gnomefsedit.c:2585 ../libfdisk/newtfsedit.c:170
 #: ../libfdisk/newtfsedit.c:346 ../libfdisk/newtfsedit.c:574
 #: ../libfdisk/newtfsedit.c:636 ../libfdisk/newtfsedit.c:669
 #: ../libfdisk/newtfsedit.c:695 ../libfdisk/newtfsedit.c:714
@@ -425,7 +426,7 @@ msgstr "Dit system er monteret i kataloget /mnt/sysimage"
 #: ../libfdisk/newtfsedit.c:1628 ../libfdisk/newtfsedit.c:1656
 #: ../libfdisk/newtfsedit.c:1740 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
-#: ../text.py:187 ../text.py:515 ../textw/lilo_text.py:123
+#: ../text.py:205 ../text.py:539 ../textw/lilo_text.py:123
 #: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
 #: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:420
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
@@ -437,55 +438,64 @@ msgstr "Ok"
 msgid "What language would you like to use during the installation process?"
 msgstr "Hvilket sprog ønsker du at benytte under installationsprocessen?"
 
-#: ../text.py:144
+#: ../text.py:146
+#, fuzzy
+msgid "Select All"
+msgstr "Vælg alt"
+
+#: ../iw/language_support_gui.py:199 ../text.py:146
+msgid "Reset"
+msgstr "Nulstil"
+
+#: ../text.py:148
 msgid "Choose the languages to be installed:"
 msgstr "Vælg de sprogunderstøttelser der skal installeres:"
 
-#: ../text.py:148 ../text.py:1100
+#: ../text.py:152 ../text.py:1124
 msgid "Language Support"
 msgstr "Understøttelse af sprog"
 
-#: ../text.py:189
+#: ../text.py:207
 msgid "Default Language"
 msgstr "Standard-sprog"
 
-#: ../text.py:190
+#: ../text.py:208
 msgid "Choose the default language: "
 msgstr "Vælg et standard-sprog"
 
-#: ../text.py:214 ../text.py:1006 ../text.py:1043
+#: ../text.py:232 ../text.py:1030 ../text.py:1067
 msgid "Keyboard Selection"
 msgstr "Tastaturvalg"
 
-#: ../text.py:215
+#: ../text.py:233
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Hvilken tastaturtype er forbundet til denne maskine?"
 
-#: ../text.py:270
+#: ../text.py:293
 msgid "Upgrade Existing Installation"
 msgstr "Opgradér eksisterende installation"
 
-#: ../text.py:292 ../text.py:1046
+#: ../text.py:315 ../text.py:1070
 msgid "Installation Type"
 msgstr "Installationstype"
 
-#: ../text.py:293
+#: ../text.py:316
 msgid "What type of system would you like to install?"
 msgstr "Hvilken type system ønsker du at installere?"
 
-#: ../text.py:347
+#: ../text.py:370
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Du har ingen Linux-partitioner. Du kan ikke opgradere dette system!"
 
-#: ../text.py:364
+#: ../text.py:387
 msgid "System to Upgrade"
 msgstr "System som skal opgraderes"
 
-#: ../text.py:381
+#: ../text.py:404
 msgid "Customize Packages to Upgrade"
 msgstr "Vælg selv pakker som skal opgraderes"
 
-#: ../text.py:382
+#: ../text.py:405
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -496,39 +506,39 @@ msgstr ""
 "ændre i sammensætningen af pakker som vil blive opgraderet?"
 
 #: ../iw/rootpartition_gui.py:503 ../iw/welcome_gui.py:89
-#: ../libfdisk/fsedit.c:948 ../libfdisk/gnomefsedit.c:733
-#: ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:1280
-#: ../libfdisk/gnomefsedit.c:1302 ../libfdisk/gnomefsedit.c:2368
-#: ../libfdisk/gnomefsedit.c:2655 ../libfdisk/gnomefsedit.c:2710
+#: ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:828
+#: ../libfdisk/gnomefsedit.c:1236 ../libfdisk/gnomefsedit.c:1375
+#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:2466
+#: ../libfdisk/gnomefsedit.c:2753 ../libfdisk/gnomefsedit.c:2808
 #: ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739
 #: ../libfdisk/newtfsedit.c:871 ../libfdisk/newtfsedit.c:1677
 #: ../libfdisk/newtfsedit.c:1695 ../libfdisk/newtfsedit.c:1782
-#: ../loader/devices.c:207 ../loader/loader.c:810 ../loader/net.c:812
-#: ../text.py:389 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
+#: ../loader/devices.c:230 ../loader/loader.c:813 ../loader/net.c:835
+#: ../text.py:412 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:219
 #: ../textw/partitioning_text.py:402
 msgid "Yes"
 msgstr "Ja"
 
 #: ../iw/rootpartition_gui.py:505 ../iw/welcome_gui.py:92
-#: ../libfdisk/fsedit.c:948 ../libfdisk/gnomefsedit.c:733
-#: ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:1280
-#: ../libfdisk/gnomefsedit.c:1302 ../libfdisk/gnomefsedit.c:2368
-#: ../libfdisk/gnomefsedit.c:2655 ../libfdisk/gnomefsedit.c:2710
+#: ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:828
+#: ../libfdisk/gnomefsedit.c:1236 ../libfdisk/gnomefsedit.c:1375
+#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:2466
+#: ../libfdisk/gnomefsedit.c:2753 ../libfdisk/gnomefsedit.c:2808
 #: ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739
 #: ../libfdisk/newtfsedit.c:871 ../libfdisk/newtfsedit.c:1677
 #: ../libfdisk/newtfsedit.c:1695 ../libfdisk/newtfsedit.c:1782
-#: ../loader/devices.c:208 ../loader/net.c:812 ../text.py:389 ../text.py:395
+#: ../loader/devices.c:231 ../loader/net.c:835 ../text.py:412 ../text.py:418
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:402
 msgid "No"
 msgstr "Nej"
 
-#: ../text.py:405 ../text.py:424
+#: ../text.py:428 ../text.py:447
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:406
+#: ../text.py:429
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -549,7 +559,7 @@ msgstr ""
 "Har du købt den officielle Red Hat Linux, husk da at registrere dit køb "
 "gennem vores webside, http://www.redhat.com/."
 
-#: ../text.py:425
+#: ../text.py:448
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -565,45 +575,45 @@ msgstr ""
 "\n"
 "Tryk på Annullér knappen for afslutte uden at ændre din opsætning."
 
-#: ../libfdisk/gnomefsedit.c:818 ../libfdisk/gnomefsedit.c:1925
-#: ../libfdisk/gnomefsedit.c:2487 ../libfdisk/newtfsedit.c:575
-#: ../libfdisk/newtfsedit.c:1695 ../loader/devices.c:215
-#: ../loader/devices.c:507 ../loader/loader.c:2251 ../loader/pcmcia.c:104
-#: ../text.py:432 ../text.py:435 ../text.py:820 ../text.py:821 ../text.py:934
-#: ../text.py:936 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
+#: ../libfdisk/gnomefsedit.c:913 ../libfdisk/gnomefsedit.c:2023
+#: ../libfdisk/gnomefsedit.c:2585 ../libfdisk/newtfsedit.c:575
+#: ../libfdisk/newtfsedit.c:1695 ../loader/devices.c:238
+#: ../loader/devices.c:530 ../loader/loader.c:2239 ../loader/pcmcia.c:104
+#: ../text.py:455 ../text.py:458 ../text.py:844 ../text.py:845 ../text.py:958
+#: ../text.py:960 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "Annullér"
 
-#: ../text.py:472
+#: ../text.py:495
 msgid "X probe results"
 msgstr "Resultat af X-test"
 
-#: ../text.py:492 ../text.py:511
+#: ../text.py:515 ../text.py:535
 msgid "Unlisted Card"
 msgstr "Unævnt kort"
 
-#: ../text.py:499
+#: ../text.py:523
 msgid "Video Card Selection"
 msgstr "Valg af grafikkort"
 
-#: ../text.py:500
+#: ../text.py:524
 msgid "Which video card do you have?"
 msgstr "Hvilket grafikkort har du?"
 
-#: ../text.py:513
+#: ../text.py:537
 msgid "X Server Selection"
 msgstr "Valg af X Server"
 
-#: ../text.py:513
+#: ../text.py:537
 msgid "Choose a server"
 msgstr "Vælg en værtsmaskine"
 
-#: ../text.py:584
+#: ../text.py:608
 msgid "Installation to begin"
 msgstr "Installation begynder"
 
-#: ../iw/confirm_gui.py:45 ../text.py:585
+#: ../iw/confirm_gui.py:45 ../text.py:609
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -611,11 +621,11 @@ msgstr ""
 "En komplet log af din installation vil befinde sig i /tmp/install.log efter "
 "du har genstartet dit system. Du kan beholde denne fil for senere reference."
 
-#: ../text.py:596
+#: ../text.py:620
 msgid "Upgrade to begin"
 msgstr "Opgradér system"
 
-#: ../iw/confirm_gui.py:41 ../text.py:597
+#: ../iw/confirm_gui.py:41 ../text.py:621
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -623,7 +633,7 @@ msgstr ""
 "En komplet log af din installation vil befinde sig i /tmp/install.log efter "
 "du har genstartet dit system. Du kan beholde denne fil til senere reference."
 
-#: ../text.py:616
+#: ../text.py:640
 msgid ""
 "                              <Return> to reboot                             "
 " "
@@ -631,11 +641,11 @@ msgstr ""
 "                              <Return> for at genstarte                      "
 "        "
 
-#: ../text.py:618 ../text.py:641
+#: ../text.py:642 ../text.py:665
 msgid "Complete"
 msgstr "Færdig"
 
-#: ../iw/congrats_gui.py:34 ../text.py:619
+#: ../iw/congrats_gui.py:34 ../text.py:643
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -657,7 +667,7 @@ msgstr ""
 "Information om konfiguration og brug af dit Redhat Linux system finder du i "
 "Red Hat Linux manualerne."
 
-#: ../text.py:637
+#: ../text.py:661
 msgid ""
 "                                <Return> to exit                             "
 " "
@@ -665,7 +675,7 @@ msgstr ""
 "                                <Return> for at afslutte                     "
 "         "
 
-#: ../text.py:642
+#: ../text.py:666
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -683,59 +693,59 @@ msgstr ""
 "Information om yderligere konfiguration af dit system kan du finde på "
 "http://www.redhat.com/support/manuals/"
 
-#: ../text.py:709
+#: ../text.py:733
 msgid "Package Installation"
 msgstr "Pakkeinstallation"
 
-#: ../text.py:711
+#: ../text.py:735
 msgid "Name   : "
 msgstr "Navn     : "
 
-#: ../text.py:712
+#: ../text.py:736
 msgid "Size   : "
 msgstr "Størrelse: "
 
-#: ../text.py:713
+#: ../text.py:737
 msgid "Summary: "
 msgstr "Resumé   : "
 
-#: ../text.py:739
+#: ../text.py:763
 msgid "    Packages"
 msgstr "      Pakker"
 
-#: ../text.py:740
+#: ../text.py:764
 msgid "       Bytes"
 msgstr "        Byte"
 
-#: ../text.py:741
+#: ../text.py:765
 msgid "        Time"
 msgstr "         Tid"
 
-#: ../text.py:743
+#: ../text.py:767
 msgid "Total    :"
 msgstr "Total    :"
 
-#: ../text.py:750
+#: ../text.py:774
 msgid "Completed:   "
 msgstr "Færdig   :   "
 
-#: ../text.py:760
+#: ../text.py:784
 msgid "Remaining:  "
 msgstr "Tilbage  :  "
 
-#: ../text.py:872
+#: ../text.py:896
 msgid "Help not available"
 msgstr "Ingen hjælp tilgængelig"
 
-#: ../text.py:873
+#: ../text.py:897
 msgid "No help is available for this install."
 msgstr "Ingen hjælp er tilgængelig for denne installation."
 
-#: ../text.py:931
+#: ../text.py:955
 msgid "Save Crash Dump"
 msgstr "Gem krash-information"
 
-#: ../text.py:942
+#: ../text.py:966
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -749,178 +759,178 @@ msgstr ""
 "Red Hat skal rette fejlen.\n"
 "\n"
 
-#: ../text.py:949 ../text.py:952
+#: ../text.py:973 ../text.py:976
 msgid "Save"
 msgstr "Gem"
 
-#: ../text.py:949 ../text.py:950
+#: ../text.py:973 ../text.py:974
 msgid "Debug"
 msgstr "Fejlfind"
 
-#: ../text.py:960
+#: ../text.py:984
 msgid " "
 msgstr " "
 
-#: ../text.py:964
+#: ../text.py:988
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
-#: ../text.py:967
+#: ../text.py:991
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> for hjælp | <Tab> imellem punkter | <Mellemrum> vælg | <F12> næste side"
 
-#: ../text.py:969
+#: ../text.py:993
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> imellem punkter  | <Mellemrum> vælger  |  <F12> næste side"
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1002
-#: ../text.py:1045
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1026
+#: ../text.py:1069
 msgid "Welcome"
 msgstr "Velkommen"
 
-#: ../text.py:1008 ../text.py:1091
+#: ../text.py:1032 ../text.py:1115
 msgid "Hostname Setup"
 msgstr "Opsætning af værtsnavn"
 
-#: ../text.py:1010 ../text.py:1088
+#: ../text.py:1034 ../text.py:1112
 msgid "Network Setup"
 msgstr "Opsætning af Netværk"
 
-#: ../iw/firewall_gui.py:12 ../text.py:1012 ../text.py:1093
+#: ../iw/firewall_gui.py:12 ../text.py:1036 ../text.py:1117
 #: ../textw/firewall_text.py:11
 msgid "Firewall Configuration"
 msgstr "Konfiguration af brandmur (firewall)"
 
-#: ../text.py:1020 ../text.py:1105
+#: ../text.py:1044 ../text.py:1129
 msgid "Time Zone Setup"
 msgstr "Tidszoneopsætning"
 
-#: ../text.py:1022 ../text.py:1107 ../textw/userauth_text.py:9
+#: ../text.py:1046 ../text.py:1131 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "'root'-adgangskode"
 
-#: ../text.py:1024 ../text.py:1109 ../textw/userauth_text.py:172
+#: ../text.py:1048 ../text.py:1133 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "Brugerkontiopsætning"
 
-#: ../text.py:1026 ../text.py:1111
+#: ../text.py:1050 ../text.py:1135
 msgid "Authentication"
 msgstr "Godkendelse"
 
-#: ../text.py:1032
+#: ../text.py:1056
 msgid "Configuration Complete"
 msgstr "Konfiguration er komplet"
 
-#: ../text.py:1054 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../text.py:1078 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "SILO-konfiguration"
 
-#: ../text.py:1060 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
+#: ../text.py:1084 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
 #: ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "LILO-konfiguration"
 
-#: ../text.py:1064
+#: ../text.py:1088
 msgid "Automatic Partition"
 msgstr "Automatisk partitionering"
 
 #: ../iw/lilo_gui.py:205 ../iw/lilo_gui.py:364 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../text.py:1066 ../text.py:1070
+#: ../iw/silo_gui.py:280 ../text.py:1090 ../text.py:1094
 msgid "Partition"
 msgstr "Partition"
 
-#: ../text.py:1068
+#: ../text.py:1092
 msgid "Manually Partition"
 msgstr "Manuel partitionering"
 
-#: ../text.py:1072 ../textw/partitioning_text.py:333
+#: ../text.py:1096 ../textw/partitioning_text.py:333
 msgid "Root Filesystem Size"
 msgstr "Rodfilsystemstørrelse"
 
-#: ../text.py:1074
+#: ../text.py:1098
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:1076 ../textw/partitioning_text.py:390
+#: ../text.py:1100 ../textw/partitioning_text.py:390
 #: ../textw/partitioning_text.py:410
 msgid "Boot Partition Warning"
 msgstr "Automatisk partitionering"
 
-#: ../text.py:1078
+#: ../text.py:1102
 msgid "Filesystem Formatting"
 msgstr "Filsystemsformatering"
 
-#: ../iw/mouse_gui.py:56 ../text.py:1095 ../text.py:1097
+#: ../iw/mouse_gui.py:56 ../text.py:1119 ../text.py:1121
 msgid "Mouse Configuration"
 msgstr "Musekonfiguration"
 
-#: ../text.py:1102
+#: ../text.py:1126
 msgid "Language Default"
 msgstr "Sprogvalg"
 
-#: ../text.py:1113
+#: ../text.py:1137
 msgid "Package Groups"
 msgstr "Pakkegrupper"
 
-#: ../text.py:1115 ../text.py:1143
+#: ../text.py:1139 ../text.py:1167
 msgid "Individual Packages"
 msgstr "Individuelle pakker"
 
-#: ../text.py:1117 ../textw/packages_text.py:304
+#: ../text.py:1141 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Pakkeafhængigheder"
 
-#: ../iw/xconfig_gui.py:1007 ../text.py:1119 ../text.py:1127
+#: ../iw/xconfig_gui.py:895 ../text.py:1143 ../text.py:1151
 msgid "X Configuration"
 msgstr "X-konfiguration"
 
-#: ../text.py:1121
+#: ../text.py:1145
 msgid "Installation Begins"
 msgstr "Installationen begynder"
 
-#: ../text.py:1123
+#: ../text.py:1147
 msgid "Install System"
 msgstr "Installér system"
 
-#: ../text.py:1124 ../text.py:1126 ../text.py:1147 ../text.py:1149
+#: ../text.py:1148 ../text.py:1150 ../text.py:1171 ../text.py:1173
 msgid "Boot Disk"
 msgstr "Opstartsdiskette"
 
-#: ../text.py:1129
+#: ../text.py:1153
 msgid "Installation Complete"
 msgstr "Installationen er færdig"
 
-#: ../text.py:1134
+#: ../text.py:1158
 msgid "Examine System"
 msgstr "Undersøg system"
 
-#: ../text.py:1141
+#: ../text.py:1165
 msgid "Customize Upgrade"
 msgstr "Manuel opgradering"
 
-#: ../text.py:1144
+#: ../text.py:1168
 msgid "Upgrade Begins"
 msgstr "Opgraderingsundersøgelse"
 
-#: ../text.py:1146
+#: ../text.py:1170
 msgid "Upgrade System"
 msgstr "Opgradér system"
 
-#: ../text.py:1150
+#: ../text.py:1174
 msgid "Upgrade Complete"
 msgstr "Opgradering er færdig"
 
-#: ../text.py:1188
+#: ../text.py:1212
 msgid "Cancelled"
 msgstr "Annulleret"
 
-#: ../text.py:1189
+#: ../text.py:1213
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Jeg kan ikke gå til forrige trin herfra. Du må prøve igen."
 
@@ -945,11 +955,11 @@ msgid "Checking dependencies in packages selected for installation..."
 msgstr "Tjekker afhængigheder i pakkerne som er valgt til installering....."
 
 #: ../todo.py:1003 ../todo.py:1045 ../todo.py:1051 ../todo.py:1068
-#: ../todo.py:1193
+#: ../todo.py:1194
 msgid "no suggestion"
 msgstr "ingen forslag"
 
-#: ../todo.py:1083
+#: ../todo.py:1084
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -957,7 +967,7 @@ msgstr ""
 "Et eller flere af de filsystemer der står i din /etc/fstab kunne ikke "
 "monteres.Fjern venligst dette problem, og prøv opgraderingen igen."
 
-#: ../todo.py:1101
+#: ../todo.py:1102
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -969,31 +979,31 @@ msgstr ""
 "opgraderingen.\n"
 "\n"
 
-#: ../todo.py:1115
+#: ../todo.py:1116
 msgid "Finding"
 msgstr "Finder"
 
-#: ../todo.py:1116
+#: ../todo.py:1117
 msgid "Finding packages to upgrade..."
 msgstr "Finder pakker som skal opgraderes..."
 
-#: ../todo.py:1131
+#: ../todo.py:1132
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Genopbygning af RPM-database mislykkedes. Har du nok ledig diskplads?"
 
-#: ../todo.py:1144
+#: ../todo.py:1145
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Der skete en fejl under søgning efter pakker som skal opgraderes."
 
-#: ../todo.py:1486
+#: ../todo.py:1480
 msgid "Processing"
 msgstr "Behandler"
 
-#: ../todo.py:1487
+#: ../todo.py:1481
 msgid "Preparing to install..."
 msgstr "Forbereder installation..."
 
-#: ../todo.py:1521
+#: ../todo.py:1515
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -1002,17 +1012,17 @@ msgstr ""
 "Filen %s kan ikke åbnes. Dette skyldes en manglende fil, en defekt "
 "pakke,eller defekt medie. Tryk <return> for at prøve igen."
 
-#: ../todo.py:1764
+#: ../todo.py:1758
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Opgraderer %s.\n"
 
-#: ../todo.py:1766
+#: ../todo.py:1760
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerer %s.\n"
 
-#: ../todo.py:1811
+#: ../todo.py:1805
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1022,15 +1032,15 @@ msgstr ""
 "valgt. Du har brug for mere plads på følgende filsystemer:\n"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:3033 ../todo.py:1814 ../todo.py:1830
+#: ../libfdisk/gnomefsedit.c:3131 ../todo.py:1808 ../todo.py:1824
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../todo.py:1814
+#: ../todo.py:1808
 msgid "Space Needed"
 msgstr "Nødvendig plads"
 
-#: ../todo.py:1827
+#: ../todo.py:1821
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1040,19 +1050,19 @@ msgstr ""
 "valgt. Du har brug for mere plads på følgende filsystemer:\n"
 "\n"
 
-#: ../todo.py:1830
+#: ../todo.py:1824
 msgid "Nodes Needed"
 msgstr "Nødvendig plads"
 
-#: ../todo.py:1836
+#: ../todo.py:1830
 msgid "Disk Space"
 msgstr "Diskplads"
 
-#: ../todo.py:1871
+#: ../todo.py:1865
 msgid "Post Install"
 msgstr "Efter installation"
 
-#: ../todo.py:1872
+#: ../todo.py:1866
 msgid "Performing post install configuration..."
 msgstr "Konfigurerer systemet efter installation..."
 
@@ -1069,11 +1079,7 @@ msgstr "Søger efter Red Hat Linux-installationer..."
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "Fejl under montering af ext2-filsystem på %s: %s"
 
-#: ../upgrade.py:69
-msgid "Partitionless upgrades are NOT supported in this beta"
-msgstr "Partitionsløse opgraderinger understøttes IKKE i denne beta"
-
-#: ../upgrade.py:101
+#: ../upgrade.py:97
 msgid ""
 "One or more of the filesystems for your Linux system was not unmounted "
 "cleanly. Please boot your Linux installation, let the filesystems be "
@@ -1517,10 +1523,6 @@ msgstr "Vælg hvilke sprog[understøttelser] der skal installeres"
 msgid "Select all"
 msgstr "Vælg alt"
 
-#: ../iw/language_support_gui.py:199
-msgid "Reset"
-msgstr "Nulstil"
-
 #: ../iw/language_support_gui.py:213
 msgid "Select as default"
 msgstr "Vælg som standard"
@@ -1530,7 +1532,7 @@ msgid "Lilo Configuration"
 msgstr "Lilo-konfiguration"
 
 #: ../iw/lilo_gui.py:208 ../iw/lilo_gui.py:365 ../iw/silo_gui.py:132
-#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3037
+#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3135
 msgid "Type"
 msgstr "Type"
 
@@ -1570,7 +1572,7 @@ msgid "Default"
 msgstr "Standard"
 
 #: ../iw/lilo_gui.py:337 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
-#: ../libfdisk/gnomefsedit.c:3034 ../textw/lilo_text.py:118
+#: ../libfdisk/gnomefsedit.c:3132 ../textw/lilo_text.py:118
 #: ../textw/lilo_text.py:199 ../textw/mouse_text.py:25
 #: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
@@ -1631,11 +1633,11 @@ msgstr "Aktivér ved opstart"
 msgid "IP Address"
 msgstr "IP-adresse"
 
-#: ../iw/network_gui.py:186 ../loader/net.c:729
+#: ../iw/network_gui.py:186 ../loader/net.c:752
 msgid "Netmask"
 msgstr "Netmaske"
 
-#: ../iw/network_gui.py:187 ../loader/loader.c:273
+#: ../iw/network_gui.py:187 ../loader/loader.c:274
 msgid "Network"
 msgstr "Netværk"
 
@@ -1643,24 +1645,24 @@ msgstr "Netværk"
 msgid "Broadcast"
 msgstr "Rundkastning"
 
-#: ../iw/network_gui.py:232 ../loader/net.c:533 ../loader/net.c:731
+#: ../iw/network_gui.py:233 ../loader/net.c:556 ../loader/net.c:754
 #: ../textw/network_text.py:161
 msgid "Hostname"
 msgstr "Værtsnavn"
 
-#: ../iw/network_gui.py:233
+#: ../iw/network_gui.py:234
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/network_gui.py:233
+#: ../iw/network_gui.py:234
 msgid "Primary DNS"
 msgstr "Primær DNS"
 
-#: ../iw/network_gui.py:233
+#: ../iw/network_gui.py:234
 msgid "Secondary DNS"
 msgstr "Sekundær DNS"
 
-#: ../iw/network_gui.py:233
+#: ../iw/network_gui.py:234
 msgid "Ternary DNS"
 msgstr "Tertiær DNS"
 
@@ -2064,35 +2066,27 @@ msgstr "Antal bit pr. pixel"
 msgid "Monitor Configuration"
 msgstr "Skærmkonfiguration"
 
-#: ../iw/xconfig_gui.py:931
-msgid "Horizontal Sync"
-msgstr "Vandret synkron."
-
-#: ../iw/xconfig_gui.py:940
-msgid "Vertical Sync"
-msgstr "Lodret synkron."
-
-#: ../iw/xconfig_gui.py:952 ../iw/xconfig_gui.py:1763
+#: ../iw/xconfig_gui.py:849 ../iw/xconfig_gui.py:1651
 msgid "Restore original values"
 msgstr "Gendan originale værdier"
 
-#: ../iw/xconfig_gui.py:964
+#: ../iw/xconfig_gui.py:857
 msgid "Horizontal Sync:"
 msgstr "Vandret synkron:"
 
-#: ../iw/xconfig_gui.py:966
+#: ../iw/xconfig_gui.py:859
 msgid "Vertical Sync:"
 msgstr "Lodret synkron:"
 
-#: ../iw/xconfig_gui.py:972
-msgid "Hz"
-msgstr "Hz"
-
-#: ../iw/xconfig_gui.py:975
+#: ../iw/xconfig_gui.py:865
 msgid "kHz"
 msgstr "kHz"
 
-#: ../iw/xconfig_gui.py:1165
+#: ../iw/xconfig_gui.py:868
+msgid "Hz"
+msgstr "Hz"
+
+#: ../iw/xconfig_gui.py:1053
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -2100,7 +2094,7 @@ msgstr ""
 "Kan ikke identificere mængden af hukommelse på grafikkortet. Vælg mængden af "
 "video-hukommelse fra listen herunder:"
 
-#: ../iw/xconfig_gui.py:1176 ../iw/xconfig_gui.py:1197
+#: ../iw/xconfig_gui.py:1064 ../iw/xconfig_gui.py:1085
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -2108,7 +2102,7 @@ msgstr ""
 "I de fleste tilfælde kan dit grafikgrej undersøges for automatisk at finde "
 "de optimale indstillinger til skærmen."
 
-#: ../iw/xconfig_gui.py:1185
+#: ../iw/xconfig_gui.py:1073
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
@@ -2116,15 +2110,15 @@ msgstr ""
 "Hvis de fundne indstillinger ikke passer til din maskine, så vælg de "
 "korrekte indstillinger herunder:"
 
-#: ../iw/xconfig_gui.py:1206
+#: ../iw/xconfig_gui.py:1094
 msgid "Autoprobe results:"
 msgstr "X-testresultater:"
 
-#: ../iw/xconfig_gui.py:1692
+#: ../iw/xconfig_gui.py:1580
 msgid "Video card RAM: "
 msgstr "Grafikkorthukommelse"
 
-#: ../iw/xconfig_gui.py:1767
+#: ../iw/xconfig_gui.py:1655
 msgid "Skip X Configuration"
 msgstr "Undlad X-konfiguration"
 
@@ -2218,7 +2212,7 @@ msgstr "Web (HTTP)"
 msgid "Mail (SMTP)"
 msgstr "Post (SMTP)"
 
-#: ../loader/loader.c:1233 ../loader/loader.c:1242
+#: ../loader/loader.c:1236 ../loader/loader.c:1245
 #: ../textw/firewall_text.py:90
 msgid "FTP"
 msgstr "FTP"
@@ -2323,19 +2317,19 @@ msgstr "Musevalg"
 msgid "Use bootp/dhcp"
 msgstr "Benyt bootp/dhcp"
 
-#: ../loader/net.c:286 ../textw/network_text.py:71
+#: ../loader/net.c:307 ../textw/network_text.py:71
 msgid "IP address:"
 msgstr "IP-adresse:"
 
-#: ../loader/net.c:289 ../textw/network_text.py:72
+#: ../loader/net.c:310 ../textw/network_text.py:72
 msgid "Netmask:"
 msgstr "Netmaske:"
 
-#: ../loader/net.c:292 ../textw/network_text.py:73
+#: ../loader/net.c:313 ../textw/network_text.py:73
 msgid "Default gateway (IP):"
 msgstr "Standard-gateway (IP):"
 
-#: ../loader/net.c:295 ../textw/network_text.py:74
+#: ../loader/net.c:316 ../textw/network_text.py:74
 msgid "Primary nameserver:"
 msgstr "Primær navnetjener:"
 
@@ -2430,7 +2424,7 @@ msgstr ""
 "bare til Linux. Vi anbefaler at du placerer den partition på én af de to "
 "første harddiske på dit system så du kan starte Linux ved hjælp af LILO."
 
-#: ../loader/loader.c:338 ../loader/loader.c:363
+#: ../loader/loader.c:339 ../loader/loader.c:364
 #: ../textw/partitioning_text.py:64
 msgid "Done"
 msgstr "Færdig"
@@ -2687,26 +2681,26 @@ msgstr ""
 "Du er ved at slette ALLE DATA på din harddisk for at få plads til din "
 "Linux-installation."
 
-#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2575
+#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2673
 msgid "Workstation"
 msgstr "Arbejdsstation"
 
-#: ../libfdisk/fsedit.c:399
+#: ../libfdisk/fsedit.c:400
 msgid "partitioning did not meet requirements"
 msgstr "partitionering opfyldte ikke kravene"
 
-#: ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924 ../libfdisk/fsedit.c:931
-#: ../libfdisk/fsedit.c:940 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:984
-#: ../libfdisk/fsedit.c:994
+#: ../libfdisk/fsedit.c:918 ../libfdisk/fsedit.c:925 ../libfdisk/fsedit.c:932
+#: ../libfdisk/fsedit.c:941 ../libfdisk/fsedit.c:968 ../libfdisk/fsedit.c:981
+#: ../libfdisk/fsedit.c:991
 msgid "Bad Mount Point"
 msgstr "Ugyldigt monteringspunkt"
 
-#: ../libfdisk/fsedit.c:918
+#: ../libfdisk/fsedit.c:919
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "%s kataloget skal ligge på rodfilsystemet."
 
-#: ../libfdisk/fsedit.c:925
+#: ../libfdisk/fsedit.c:926
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2717,7 +2711,7 @@ msgstr ""
 "\n"
 "Monteringspunkter skal begynde med en /."
 
-#: ../libfdisk/fsedit.c:932
+#: ../libfdisk/fsedit.c:933
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2728,7 +2722,7 @@ msgstr ""
 "\n"
 "Monteringspunkter må ikke slutte med en /."
 
-#: ../libfdisk/fsedit.c:941
+#: ../libfdisk/fsedit.c:942
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2739,25 +2733,15 @@ msgstr ""
 "\n"
 "Monteringspunkter må kun indeholde udskrivbare tegn."
 
-#. "You've asked to put your root (/) filesystem on a DOS-style "
-#. "FAT partition. You can do this, but you may not use any "
-#. "other filesystems for your Linux system. Additionally, there "
-#. "will be a speed penalty for not using Linux-native partitions."
-#.
-#: ../libfdisk/fsedit.c:955
+#: ../libfdisk/fsedit.c:950
 msgid ""
-"\n"
-"WARNING: Partitionless installs are known to often fail in this BETA release "
-"so do NOT report errors if you choose to do this.\n"
-" Do you want to continue?"
+"You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
+"You can do this, but you may not use any other filesystems for your Linux "
+"system. Additionally, there will be a speed penalty for not using "
+"Linux-native partitions. Do you want to continue?"
 msgstr ""
-"\n"
-"ADVARSEL: Det er en kendt fejl at partitionsløse installationer ofte "
-"mislykkes med denne BETA, så rapportér IKKE fejl, hvis du vælger at gøre "
-"dette.\n"
-" Vil du alligevel fortsætte?"
 
-#: ../libfdisk/fsedit.c:972
+#: ../libfdisk/fsedit.c:969
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2768,12 +2752,12 @@ msgstr ""
 "\n"
 "Systempartitioner skal ligge på ægte Linux-partitioner(Linux Native)."
 
-#: ../libfdisk/fsedit.c:985
+#: ../libfdisk/fsedit.c:982
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
 msgstr "På denne platform skal /boot ligge på et DOS-kompatibelt filsystem %x."
 
-#: ../libfdisk/fsedit.c:995
+#: ../libfdisk/fsedit.c:992
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2784,11 +2768,11 @@ msgstr ""
 "\n"
 "/usr skal ligge på en ægte Linux-partition eller et NFS-volumen."
 
-#: ../libfdisk/fsedit.c:1023
+#: ../libfdisk/fsedit.c:1020
 msgid "Too Many Drives"
 msgstr "For mange drev"
 
-#: ../libfdisk/fsedit.c:1024
+#: ../libfdisk/fsedit.c:1021
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
@@ -2798,11 +2782,11 @@ msgstr ""
 "standardprogrammet 'fdisk' til at opsætte dine drev og giv venligst besked "
 "til Red Hat Software om at du fik denne besked."
 
-#: ../libfdisk/fsedit.c:1033
+#: ../libfdisk/fsedit.c:1030
 msgid "Error Creating Device Nodes"
 msgstr "Fejl ved oprettelse af enheds-'nodes'"
 
-#: ../libfdisk/fsedit.c:1034
+#: ../libfdisk/fsedit.c:1031
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
 "drives in your system.  This may be because you have run out of disk space "
@@ -2812,11 +2796,11 @@ msgstr ""
 "system. Dette er måske fordi du er løbet tør for diskplads på /tmp "
 "partitionen."
 
-#: ../libfdisk/fsedit.c:1050
+#: ../libfdisk/fsedit.c:1047
 msgid "No Drives Found"
 msgstr "Ingen drev fundet"
 
-#: ../libfdisk/fsedit.c:1051
+#: ../libfdisk/fsedit.c:1048
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -2825,7 +2809,7 @@ msgstr ""
 "filsystemer kunne oprettes. Tjek venligst din maskine for at finde grunden "
 "til dette problem."
 
-#: ../libfdisk/fsedit.c:1379 ../libfdisk/fsedit.c:1442
+#: ../libfdisk/fsedit.c:1376 ../libfdisk/fsedit.c:1439
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
@@ -2834,7 +2818,17 @@ msgstr ""
 "En fejl opstod under læsning af partitionstabellen for blok-enheden %s. "
 "Fejlen var"
 
-#: ../libfdisk/fsedit.c:1419
+#: ../libfdisk/fsedit.c:1379 ../libfdisk/fsedit.c:1451 ../loader/net.c:277
+#: ../loader/net.c:402
+msgid "Retry"
+msgstr "Prøv igen"
+
+#: ../libfdisk/fsedit.c:1379 ../libfdisk/fsedit.c:1422
+#: ../libfdisk/fsedit.c:1444 ../libfdisk/fsedit.c:1451
+msgid "Skip Drive"
+msgstr "Spring drev over"
+
+#: ../libfdisk/fsedit.c:1416
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -2843,27 +2837,19 @@ msgstr ""
 "Partitionstabellen på enheden %s er ødelagt. For at oprette nye partitioner "
 "skal den klargøres, hvilket vil medføre tab af ALLE DATA på dette drev."
 
-#: ../libfdisk/fsedit.c:1424
+#: ../libfdisk/fsedit.c:1421
 msgid "Bad Partition Table"
 msgstr "Ugyldig partitionstabel"
 
-#: ../libfdisk/fsedit.c:1425
+#: ../libfdisk/fsedit.c:1422
 msgid "Initialize"
 msgstr "klargør"
 
-#: ../libfdisk/fsedit.c:1425 ../libfdisk/fsedit.c:1446
-msgid "Skip Drive"
-msgstr "Spring drev over"
-
-#: ../libfdisk/fsedit.c:1446 ../loader/net.c:256 ../loader/net.c:381
-msgid "Retry"
-msgstr "Prøv igen"
-
-#: ../libfdisk/fsedit.c:1458
+#: ../libfdisk/fsedit.c:1464
 msgid "BSD Disklabel"
 msgstr "BSD-disknavn"
 
-#: ../libfdisk/fsedit.c:1458
+#: ../libfdisk/fsedit.c:1464
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -2874,37 +2860,70 @@ msgstr ""
 "manuel installation og 'fdisk' (i stedet for Diskdruiden) for maskiner med "
 "BSD-disknavne."
 
-#: ../libfdisk/fsedit.c:1488
+#: ../libfdisk/fsedit.c:1494 ../libfdisk/fsedit.c:1517
 #, c-format
 msgid "System error %d"
 msgstr "Systemfejl %d"
 
-#: ../libfdisk/fsedit.c:1497 ../libfdisk/fsedit.c:1499
+#: ../libfdisk/fsedit.c:1503 ../libfdisk/fsedit.c:1505
+#: ../libfdisk/fsedit.c:1532
 msgid "Fdisk Error"
 msgstr "Fdisk-fejl"
 
-#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:856
-#: ../libfdisk/gnomefsedit.c:1951
+#: ../libfdisk/fsedit.c:1527
+msgid ""
+"This occurs because the drive geometry detected by the kernel used by the "
+"installer is different than the drive geometry used when the drive was "
+"partitioned.  This can be corrected by specifying the drive geometry on the "
+"kernel command line when booting the installer."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:951
+#: ../libfdisk/gnomefsedit.c:2049
 msgid "<Swap Partition>"
 msgstr "<Swappartition>"
 
-#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:858
+#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:953
 msgid "<RAID Partition>"
 msgstr "<RAID-partition>"
 
-#: ../libfdisk/gnomefsedit.c:733 ../libfdisk/newtfsedit.c:871
+#: ../libfdisk/gnomefsedit.c:744
+#, c-format
+msgid "Couldnt find partition named %s\n"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:754 ../libfdisk/gnomefsedit.c:786
+#, fuzzy
+msgid "Root partition"
+msgstr "Ingen rodpartition"
+
+#: ../libfdisk/gnomefsedit.c:756
+msgid ""
+"The growth of the root (/) RAID array appears to have been stunted by the "
+"1024 cylinder boot limit. If this is the case then adding a /boot partition "
+"may allow the root partition to grow to fill the disk."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:788
+msgid ""
+"The growth of the root (/) partition appears to have been stunted by the "
+"1024 cylinder boot limit. If this is the case then adding a /boot partition "
+"may allow the root partition to grow to fill the disk."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:871
 msgid "Delete Partition"
 msgstr "Slet partition"
 
-#: ../libfdisk/gnomefsedit.c:734 ../libfdisk/newtfsedit.c:872
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:872
 msgid "Are you sure you want to delete this partition?"
 msgstr "Er du sikker på at du vil slette denne partition?"
 
-#: ../libfdisk/gnomefsedit.c:783 ../libfdisk/newtfsedit.c:346
+#: ../libfdisk/gnomefsedit.c:878 ../libfdisk/newtfsedit.c:346
 msgid "Cannot Edit Partitions"
 msgstr "Kan ikke ændre partitioner"
 
-#: ../libfdisk/gnomefsedit.c:784 ../libfdisk/newtfsedit.c:347
+#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:347
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
@@ -2912,56 +2931,56 @@ msgstr ""
 "Du har defineret '/' filsystemet på en ikke-ext2 partition, så du kan ikke "
 "redigere andre partitioner."
 
-#: ../libfdisk/gnomefsedit.c:802 ../libfdisk/gnomefsedit.c:808
-#: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:814
+#: ../libfdisk/gnomefsedit.c:897 ../libfdisk/gnomefsedit.c:903
+#: ../libfdisk/gnomefsedit.c:907 ../libfdisk/gnomefsedit.c:909
 #: ../libfdisk/newtfsedit.c:370 ../libfdisk/newtfsedit.c:376
 #: ../libfdisk/newtfsedit.c:380 ../libfdisk/newtfsedit.c:382
 msgid "Edit Partition"
 msgstr "Redigér partition"
 
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1934
+#: ../libfdisk/gnomefsedit.c:924 ../libfdisk/gnomefsedit.c:2032
 #: ../libfdisk/newtfsedit.c:391
 msgid "Mount Point:"
 msgstr "Monteringspunkt:"
 
-#: ../libfdisk/gnomefsedit.c:871 ../libfdisk/newtfsedit.c:410
+#: ../libfdisk/gnomefsedit.c:966 ../libfdisk/newtfsedit.c:410
 msgid "Size (Megs):"
 msgstr "Størrelse (Mb):"
 
-#: ../libfdisk/gnomefsedit.c:903
+#: ../libfdisk/gnomefsedit.c:998
 msgid "Use remaining space?"
 msgstr "Brug resterende plads?"
 
-#: ../libfdisk/gnomefsedit.c:922 ../libfdisk/newtfsedit.c:442
+#: ../libfdisk/gnomefsedit.c:1017 ../libfdisk/newtfsedit.c:442
 msgid "Allocation Status:"
 msgstr "Tildelingsstatus:"
 
-#: ../libfdisk/gnomefsedit.c:926 ../libfdisk/newtfsedit.c:444
+#: ../libfdisk/gnomefsedit.c:1021 ../libfdisk/newtfsedit.c:444
 msgid "Successful"
 msgstr "Succes"
 
-#: ../libfdisk/gnomefsedit.c:929 ../libfdisk/newtfsedit.c:446
+#: ../libfdisk/gnomefsedit.c:1024 ../libfdisk/newtfsedit.c:446
 msgid "Failed"
 msgstr "Fiasko"
 
-#: ../libfdisk/gnomefsedit.c:941 ../libfdisk/newtfsedit.c:451
+#: ../libfdisk/gnomefsedit.c:1036 ../libfdisk/newtfsedit.c:451
 msgid "Failure Reason:"
 msgstr "Årsag til fejl:"
 
-#: ../libfdisk/gnomefsedit.c:955 ../libfdisk/gnomefsedit.c:1972
+#: ../libfdisk/gnomefsedit.c:1050 ../libfdisk/gnomefsedit.c:2070
 msgid "Partition Type:"
 msgstr "Partitionstype:"
 
-#: ../libfdisk/gnomefsedit.c:1038 ../libfdisk/newtfsedit.c:521
+#: ../libfdisk/gnomefsedit.c:1133 ../libfdisk/newtfsedit.c:521
 msgid "Allowable Drives:"
 msgstr "Tilladte drev:"
 
-#: ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:2171
+#: ../libfdisk/gnomefsedit.c:1236 ../libfdisk/gnomefsedit.c:2269
 #: ../libfdisk/newtfsedit.c:612
 msgid "No Mount Point"
 msgstr "Intet monteringspunkt"
 
-#: ../libfdisk/gnomefsedit.c:1142 ../libfdisk/newtfsedit.c:613
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/newtfsedit.c:613
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
@@ -2969,13 +2988,13 @@ msgstr ""
 "Du har ikke valgt et monteringspunkt for denne partition. Er du sikker på at "
 "du vil gøre dette?"
 
-#: ../libfdisk/gnomefsedit.c:1166 ../libfdisk/gnomefsedit.c:1203
-#: ../libfdisk/gnomefsedit.c:2179 ../libfdisk/newtfsedit.c:636
+#: ../libfdisk/gnomefsedit.c:1261 ../libfdisk/gnomefsedit.c:1298
+#: ../libfdisk/gnomefsedit.c:2277 ../libfdisk/newtfsedit.c:636
 #: ../libfdisk/newtfsedit.c:669
 msgid "Mount Point Error"
 msgstr "Fejl ved monteringspunkt"
 
-#: ../libfdisk/gnomefsedit.c:1167 ../libfdisk/newtfsedit.c:637
+#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/newtfsedit.c:637
 msgid ""
 "You have tried to assign the '/' mount point to a FAT-style partition.  You "
 "cannot do this now because mount points have been assigned to ext2 "
@@ -2987,7 +3006,7 @@ msgstr ""
 "til ext2-partitioner. Fjern disse monteringspunkter, så vil du kunne tildele "
 "'/' til denne partition."
 
-#: ../libfdisk/gnomefsedit.c:1204 ../libfdisk/newtfsedit.c:670
+#: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/newtfsedit.c:670
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
@@ -2995,11 +3014,11 @@ msgstr ""
 "Det ønskede monteringspunkt er enten en ugyldig sti eller er allerede i "
 "brug. Vælg venligst et gyldigt monteringspunkt."
 
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/newtfsedit.c:695
+#: ../libfdisk/gnomefsedit.c:1332 ../libfdisk/newtfsedit.c:695
 msgid "Size Error"
 msgstr "Størrelsesfejl"
 
-#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:696
+#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:696
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -3007,12 +3026,12 @@ msgstr ""
 "Den ønskede størrelse er ugyldig. Sørg for at størrelsen er større end nul "
 "(0) og er angivet som heltal i 10-talssystemet."
 
-#: ../libfdisk/gnomefsedit.c:1256 ../libfdisk/gnomefsedit.c:2314
+#: ../libfdisk/gnomefsedit.c:1351 ../libfdisk/gnomefsedit.c:2412
 #: ../libfdisk/newtfsedit.c:714
 msgid "Swap Size Error"
 msgstr "Fejl ved swapstørrelse"
 
-#: ../libfdisk/gnomefsedit.c:1257 ../libfdisk/gnomefsedit.c:2315
+#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
 #: ../libfdisk/newtfsedit.c:715
 #, c-format
 msgid ""
@@ -3022,7 +3041,7 @@ msgstr ""
 "Du har oprettet en swappartition der er for stor. Den maksimalt tilladte "
 "størrelse på en swappartition er %ld megabyte."
 
-#: ../libfdisk/gnomefsedit.c:1271 ../libfdisk/newtfsedit.c:731
+#: ../libfdisk/gnomefsedit.c:1366 ../libfdisk/newtfsedit.c:731
 #, c-format
 msgid ""
 "It is recommended that the root (/) partition have a minimum size of %ld "
@@ -3037,23 +3056,23 @@ msgstr ""
 "\n"
 "Er du sikker på du vil gøre dette?"
 
-#: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/newtfsedit.c:739
+#: ../libfdisk/gnomefsedit.c:1374 ../libfdisk/newtfsedit.c:739
 msgid "Warning: Root FS Size"
 msgstr "Advarsel: Størrelse på rodfilsystem"
 
-#: ../libfdisk/gnomefsedit.c:1291
+#: ../libfdisk/gnomefsedit.c:1386
 msgid "No Drives Specified"
 msgstr "Ingen drev specificeret"
 
-#: ../libfdisk/gnomefsedit.c:1293
+#: ../libfdisk/gnomefsedit.c:1388
 msgid "You must constrain this partition to at least one drive."
 msgstr "Du skal begrænse denne partition til kun ét drev."
 
-#: ../libfdisk/gnomefsedit.c:1301 ../libfdisk/gnomefsedit.c:1308
+#: ../libfdisk/gnomefsedit.c:1396 ../libfdisk/gnomefsedit.c:1403
 msgid "No RAID Drive Constraint"
 msgstr "Ingen RAID-drevbegrænsning"
 
-#: ../libfdisk/gnomefsedit.c:1303
+#: ../libfdisk/gnomefsedit.c:1398
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
@@ -3063,7 +3082,7 @@ msgstr ""
 "enkelt diskdrev.\n"
 "Er du sikker på at du vil gøre det?"
 
-#: ../libfdisk/gnomefsedit.c:1310
+#: ../libfdisk/gnomefsedit.c:1405
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
@@ -3071,11 +3090,11 @@ msgstr ""
 "Du har konfigureret en RAID-partition uden at begrænse partitionen til et "
 "enkelt drev. Vælg venligst det drev som du vil begrænse denne partition til."
 
-#: ../libfdisk/gnomefsedit.c:1430 ../libfdisk/newtfsedit.c:845
+#: ../libfdisk/gnomefsedit.c:1525 ../libfdisk/newtfsedit.c:845
 msgid "Cannot Add Partitions"
 msgstr "Kan ikke tilføje partitioner"
 
-#: ../libfdisk/gnomefsedit.c:1431 ../libfdisk/newtfsedit.c:846
+#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:846
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -3085,11 +3104,11 @@ msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1505
+#: ../libfdisk/gnomefsedit.c:1600
 msgid "RAID Entry Incomplete"
 msgstr "RAID-indgang ufuldstændig"
 
-#: ../libfdisk/gnomefsedit.c:1506
+#: ../libfdisk/gnomefsedit.c:1601
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -3100,11 +3119,11 @@ msgstr ""
 "RAID-enheden /dev/%s vil nu blive opdelt i sine del-partitioner. Genopbyg "
 "venligst RAID-enheden med allokerede partitioner."
 
-#: ../libfdisk/gnomefsedit.c:1555
+#: ../libfdisk/gnomefsedit.c:1650
 msgid "Cannot Remove /boot"
 msgstr "Kan ikke fjerne /boot"
 
-#: ../libfdisk/gnomefsedit.c:1556
+#: ../libfdisk/gnomefsedit.c:1651
 msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
@@ -3113,12 +3132,12 @@ msgstr ""
 "til en ikke-RAID enhed først."
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1620 ../libfdisk/gnomefsedit.c:1639
+#: ../libfdisk/gnomefsedit.c:1718 ../libfdisk/gnomefsedit.c:1737
 #: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1676
 msgid "Unallocated Partitions"
 msgstr "Ubrugte partitioner"
 
-#: ../libfdisk/gnomefsedit.c:1624 ../libfdisk/gnomefsedit.c:1634
+#: ../libfdisk/gnomefsedit.c:1722 ../libfdisk/gnomefsedit.c:1732
 #: ../libfdisk/newtfsedit.c:142
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
@@ -3129,11 +3148,11 @@ msgstr ""
 "partitioner. De ubrugte partition(er) er vist herunder sammen med årsagen "
 "til at de ikke er blevet brugt."
 
-#: ../libfdisk/gnomefsedit.c:1916
+#: ../libfdisk/gnomefsedit.c:2014
 msgid "Cannot Edit Raid"
 msgstr "Kan ikke ændre RAID"
 
-#: ../libfdisk/gnomefsedit.c:1917
+#: ../libfdisk/gnomefsedit.c:2015
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
@@ -3141,23 +3160,23 @@ msgstr ""
 "Du har defineret '/' filsystemet på en ikke-ext2 partition, så du kan ikke "
 "redigere RAID-enheder."
 
-#: ../libfdisk/gnomefsedit.c:2017
+#: ../libfdisk/gnomefsedit.c:2115
 msgid "RAID Device: /dev/"
 msgstr "RAID-enhed: /dev/"
 
-#: ../libfdisk/gnomefsedit.c:2040
+#: ../libfdisk/gnomefsedit.c:2138
 msgid "RAID Type:"
 msgstr "RAID-type:"
 
-#: ../libfdisk/gnomefsedit.c:2077
+#: ../libfdisk/gnomefsedit.c:2175
 msgid "Partitions For RAID Array:"
 msgstr "Partitioner for RAID-array:"
 
-#: ../libfdisk/gnomefsedit.c:2172
+#: ../libfdisk/gnomefsedit.c:2270
 msgid "You have not selected a mount point. A mount point is required."
 msgstr "Du har ikke valgt et monteringspunkt. Et monteringspunkt er påkrævet."
 
-#: ../libfdisk/gnomefsedit.c:2180
+#: ../libfdisk/gnomefsedit.c:2278
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
@@ -3165,7 +3184,7 @@ msgstr ""
 "Monteringspunktet er allerede i brug. Vælg venligst et gyldigt "
 "monteringspunkt."
 
-#: ../libfdisk/gnomefsedit.c:2216
+#: ../libfdisk/gnomefsedit.c:2314
 msgid ""
 "The bootable raid device can only include partitions from the first two "
 "drives on your system.\n"
@@ -3177,23 +3196,23 @@ msgstr ""
 "\n"
 "Disse drev er: "
 
-#: ../libfdisk/gnomefsedit.c:2223
+#: ../libfdisk/gnomefsedit.c:2321
 msgid "Booting From RAID Warning"
 msgstr "Opstart fra RAID-advarsel"
 
-#: ../libfdisk/gnomefsedit.c:2233
+#: ../libfdisk/gnomefsedit.c:2331
 msgid "No RAID Device"
 msgstr "Ingen RAID-enhed"
 
-#: ../libfdisk/gnomefsedit.c:2234
+#: ../libfdisk/gnomefsedit.c:2332
 msgid "You need to selected a RAID device."
 msgstr "Du skal vælge en RAID-enhed."
 
-#: ../libfdisk/gnomefsedit.c:2240
+#: ../libfdisk/gnomefsedit.c:2338
 msgid "Used Raid Device"
 msgstr "Anvendt RAID-enhed"
 
-#: ../libfdisk/gnomefsedit.c:2241
+#: ../libfdisk/gnomefsedit.c:2339
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
@@ -3202,30 +3221,30 @@ msgstr ""
 "RAID-enheden \"/dev/%s\" er allerede konfigureret som en RAID-enhed. Vælg "
 "venligst en anden."
 
-#: ../libfdisk/gnomefsedit.c:2254
+#: ../libfdisk/gnomefsedit.c:2352
 msgid "Not Enough Partitions"
 msgstr "Ikke nok partitioner"
 
-#: ../libfdisk/gnomefsedit.c:2256
+#: ../libfdisk/gnomefsedit.c:2354
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
 "Du har ikke konfigureret nok partitioner for den RAID-type du har valgt."
 
-#: ../libfdisk/gnomefsedit.c:2264
+#: ../libfdisk/gnomefsedit.c:2362
 msgid "Illegal /boot RAID Type"
 msgstr "Ugyldig /boot RAID-type"
 
-#: ../libfdisk/gnomefsedit.c:2266
+#: ../libfdisk/gnomefsedit.c:2364
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Opstartspartitioner (/boot) er kun tilladte på RAID-1."
 
-#: ../libfdisk/gnomefsedit.c:2274
+#: ../libfdisk/gnomefsedit.c:2372
 msgid "Illegal RAID mountpoint"
 msgstr "Ugyldigt RAID-monteringspunkt"
 
-#: ../libfdisk/gnomefsedit.c:2276
+#: ../libfdisk/gnomefsedit.c:2374
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
@@ -3233,7 +3252,7 @@ msgstr ""
 "RAID-partitioner kan ikke monteres som root (/) på Alpha.Hvis der ikke er en "
 "/boot partition (non-RAID) også"
 
-#: ../libfdisk/gnomefsedit.c:2360
+#: ../libfdisk/gnomefsedit.c:2458
 #, c-format
 msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
@@ -3244,15 +3263,15 @@ msgstr ""
 "RAID-enhed. Monteringspunktet er sat til /boot. Er du sikker på at det er "
 "muligt at lave systemopstart fra denne partition?"
 
-#: ../libfdisk/gnomefsedit.c:2367
+#: ../libfdisk/gnomefsedit.c:2465
 msgid "Use Pre-existing Partition?"
 msgstr "Brug alleredeeksisterende partition?"
 
-#: ../libfdisk/gnomefsedit.c:2445
+#: ../libfdisk/gnomefsedit.c:2543
 msgid "Cannot Add RAID Devices"
 msgstr "Ingen RAID-enhed"
 
-#: ../libfdisk/gnomefsedit.c:2446
+#: ../libfdisk/gnomefsedit.c:2544
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
@@ -3260,96 +3279,96 @@ msgstr ""
 "Du har defineret '/' filsystemet på en ikke-ext2 partition, så du kan ikke "
 "tilføje RAID-enheder."
 
-#: ../libfdisk/gnomefsedit.c:2487
+#: ../libfdisk/gnomefsedit.c:2585
 msgid "Auto-Partition"
 msgstr "Auto-partition"
 
-#: ../libfdisk/gnomefsedit.c:2494
+#: ../libfdisk/gnomefsedit.c:2592
 msgid "Using Existing Disk Space"
 msgstr "Bruger eksisterende diskplads"
 
-#: ../libfdisk/gnomefsedit.c:2513
+#: ../libfdisk/gnomefsedit.c:2611
 msgid "Remove Linux partitions"
 msgstr "Fjern Linux-partitioner"
 
-#: ../libfdisk/gnomefsedit.c:2524
+#: ../libfdisk/gnomefsedit.c:2622
 msgid "Use existing free space"
 msgstr "Brug eksisterende ledig plads"
 
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2536
+#: ../libfdisk/gnomefsedit.c:2634
 msgid "Intended Use"
 msgstr "Forventet brug"
 
-#: ../libfdisk/gnomefsedit.c:2555 ../libfdisk/gnomefsedit.c:2575
+#: ../libfdisk/gnomefsedit.c:2653 ../libfdisk/gnomefsedit.c:2673
 msgid "Server"
 msgstr "Server"
 
-#: ../libfdisk/gnomefsedit.c:2655
+#: ../libfdisk/gnomefsedit.c:2753
 msgid "Delete RAID Device?"
 msgstr "Slet RAID-enhed?"
 
-#: ../libfdisk/gnomefsedit.c:2656
+#: ../libfdisk/gnomefsedit.c:2754
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Er du sikker på at du vil fjerne denne RAID-enhed?"
 
-#: ../libfdisk/gnomefsedit.c:2709 ../libfdisk/newtfsedit.c:1781
+#: ../libfdisk/gnomefsedit.c:2807 ../libfdisk/newtfsedit.c:1781
 msgid "Reset Partition Table"
 msgstr "Gendan partitionstabel"
 
-#: ../libfdisk/gnomefsedit.c:2711 ../libfdisk/newtfsedit.c:1783
+#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:1783
 msgid "Reset partition table to original contents? "
 msgstr "Gendan partitionstabel med det oprindelige indhold?"
 
-#: ../libfdisk/gnomefsedit.c:2747 ../libfdisk/gnomefsedit.c:2798
+#: ../libfdisk/gnomefsedit.c:2845 ../libfdisk/gnomefsedit.c:2896
 msgid "<Swap>"
 msgstr "<Swap>"
 
-#: ../libfdisk/gnomefsedit.c:2749
+#: ../libfdisk/gnomefsedit.c:2847
 msgid "<RAID>"
 msgstr "<RAID>"
 
-#: ../libfdisk/gnomefsedit.c:2751
+#: ../libfdisk/gnomefsedit.c:2849
 msgid "<not set>"
 msgstr "<ikke sat>"
 
-#: ../libfdisk/gnomefsedit.c:3035
+#: ../libfdisk/gnomefsedit.c:3133
 msgid "Requested"
 msgstr "Anmodet"
 
-#: ../libfdisk/gnomefsedit.c:3036
+#: ../libfdisk/gnomefsedit.c:3134
 msgid "Actual"
 msgstr "Faktisk"
 
-#: ../libfdisk/gnomefsedit.c:3209
+#: ../libfdisk/gnomefsedit.c:3307
 msgid "Drive"
 msgstr "Drev"
 
-#: ../libfdisk/gnomefsedit.c:3210
+#: ../libfdisk/gnomefsedit.c:3308
 msgid "Geom [C/H/S]"
 msgstr "Geometri [C/H/S]"
 
-#: ../libfdisk/gnomefsedit.c:3211
+#: ../libfdisk/gnomefsedit.c:3309
 msgid "Total (M)"
 msgstr "Total (M)"
 
-#: ../libfdisk/gnomefsedit.c:3212
+#: ../libfdisk/gnomefsedit.c:3310
 msgid "Free (M)"
 msgstr "Fri (M)"
 
-#: ../libfdisk/gnomefsedit.c:3213
+#: ../libfdisk/gnomefsedit.c:3311
 msgid "Used (M)"
 msgstr "Brugt (M)"
 
-#: ../libfdisk/gnomefsedit.c:3214
+#: ../libfdisk/gnomefsedit.c:3312
 msgid "Used (%)"
 msgstr "Brugt (%)"
 
-#: ../libfdisk/gnomefsedit.c:3462
+#: ../libfdisk/gnomefsedit.c:3560
 msgid "Unallocated Partitions Exist..."
 msgstr "Ikke-tildelte partitioner eksisterer..."
 
-#: ../libfdisk/gnomefsedit.c:3468 ../libfdisk/gnomefsedit.c:3486
+#: ../libfdisk/gnomefsedit.c:3566 ../libfdisk/gnomefsedit.c:3584
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
@@ -3357,36 +3376,36 @@ msgstr ""
 "Du skal tildele en rodpartition (/) til en ægte Linux-partition (ext2) eller "
 "en RAID-partition før installationen kan gå videre."
 
-#: ../libfdisk/gnomefsedit.c:3557
+#: ../libfdisk/gnomefsedit.c:3655
 msgid "Partitions"
 msgstr "Partitioner"
 
-#: ../libfdisk/gnomefsedit.c:3587
+#: ../libfdisk/gnomefsedit.c:3685
 msgid "_Add..."
 msgstr "_Tilføj..."
 
-#: ../libfdisk/gnomefsedit.c:3594
+#: ../libfdisk/gnomefsedit.c:3692
 msgid "_Edit..."
 msgstr "_Redigér..."
 
-#: ../libfdisk/gnomefsedit.c:3595
+#: ../libfdisk/gnomefsedit.c:3693
 msgid "_Reset"
 msgstr "_Nulstil"
 
-#: ../libfdisk/gnomefsedit.c:3600
+#: ../libfdisk/gnomefsedit.c:3698
 msgid "_Delete"
 msgstr "_Slet"
 
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3613
+#: ../libfdisk/gnomefsedit.c:3711
 msgid "_Make RAID Device"
 msgstr "_Opret RAID-enhed"
 
-#: ../libfdisk/gnomefsedit.c:3623
+#: ../libfdisk/gnomefsedit.c:3721
 msgid "Auto Partition"
 msgstr "Autopartition"
 
-#: ../libfdisk/gnomefsedit.c:3632
+#: ../libfdisk/gnomefsedit.c:3730
 msgid "Drive Summary"
 msgstr "Drevresumé"
 
@@ -3525,24 +3544,24 @@ msgstr ""
 msgid "Module Parameters"
 msgstr "Modulparametre"
 
-#: ../loader/devices.c:207 ../loader/devices.c:214 ../loader/devices.c:333
-#: ../loader/loader.c:286 ../loader/loader.c:347 ../loader/loader.c:363
+#: ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:356
+#: ../loader/loader.c:287 ../loader/loader.c:348 ../loader/loader.c:364
 msgid "Devices"
 msgstr "Enheder"
 
-#: ../loader/devices.c:209
+#: ../loader/devices.c:232
 msgid "Do you have a driver disk?"
 msgstr "Har du en driverdiskette?"
 
-#: ../loader/devices.c:216
+#: ../loader/devices.c:239
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Indsæt din driverdiskette og tryk \"Ok\" for at fortsætte."
 
-#: ../loader/devices.c:237
+#: ../loader/devices.c:260
 msgid "Failed to mount driver disk."
 msgstr "Kunne ikke montere driverdiskette."
 
-#: ../loader/devices.c:244
+#: ../loader/devices.c:267
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
@@ -3550,7 +3569,7 @@ msgstr ""
 "Disketten du indsatte er ikke en gyldig driverdiskette til denne udgave af "
 "Red Hat Linux."
 
-#: ../loader/devices.c:304
+#: ../loader/devices.c:327
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
@@ -3558,38 +3577,38 @@ msgstr ""
 "Hvilken driver skal jeg prøve? Hvis driveren du behøver ikke findes på denne "
 "liste og du har en separat driverdiskette, tryk på F2."
 
-#: ../loader/devices.c:313
+#: ../loader/devices.c:336
 msgid "Specify module parameters"
 msgstr "Angiv modulparametre"
 
-#: ../loader/devices.c:410
+#: ../loader/devices.c:433
 #, c-format
 msgid "Failed to insert %s module."
 msgstr "Kunne ikke indsætte %s-modul."
 
-#: ../loader/devices.c:456
+#: ../loader/devices.c:479
 #, c-format
 msgid "Failed to mount driver disk: %s."
 msgstr "Kunne ikke montere driverdisketten: %s."
 
-#: ../loader/devices.c:476
+#: ../loader/devices.c:499
 msgid "The wrong diskette was inserted."
 msgstr "Den forkerte diskette blev indsat"
 
-#: ../loader/devices.c:488 ../loader/loader.c:450 ../loader/loader.c:452
+#: ../loader/devices.c:511 ../loader/loader.c:451 ../loader/loader.c:453
 msgid "Loading"
 msgstr "Indlæser"
 
-#: ../loader/devices.c:488 ../loader/windows.c:47
+#: ../loader/devices.c:511 ../loader/windows.c:47
 #, c-format
 msgid "Loading %s driver..."
 msgstr "Indlæser %s ramdisk..."
 
-#: ../loader/devices.c:507
+#: ../loader/devices.c:530
 msgid "Driver Disk"
 msgstr "Driverdiskette"
 
-#: ../loader/devices.c:508
+#: ../loader/devices.c:531
 #, c-format
 msgid "Please insert the %s driver disk now."
 msgstr "Venligst indsæt %s driverdisketten nu."
@@ -3617,11 +3636,11 @@ msgstr "Fejl på linje %d i kickstartsfilen %s."
 msgid "Choose a Language"
 msgstr "Vælg et sprog"
 
-#: ../loader/lang.c:341 ../loader/loader.c:153
+#: ../loader/lang.c:341 ../loader/loader.c:154
 msgid "Welcome to Red Hat Linux"
 msgstr "Velkommen til Red Hat Linux"
 
-#: ../loader/lang.c:342 ../loader/loader.c:155
+#: ../loader/lang.c:342 ../loader/loader.c:156
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -3647,23 +3666,23 @@ msgstr "NFS-billede"
 msgid "Hard drive"
 msgstr "Harddisk"
 
-#: ../loader/loader.c:273
+#: ../loader/loader.c:274
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:287
+#: ../loader/loader.c:288
 msgid "What kind of device would you like to add"
 msgstr "Hvilken slags enhed vil du gerne tilføje"
 
-#: ../loader/loader.c:336
+#: ../loader/loader.c:337
 msgid "I have found the following devices in your system:"
 msgstr "Jeg har fundet følgende enheder på dit system:"
 
-#: ../loader/loader.c:338 ../loader/loader.c:363
+#: ../loader/loader.c:339 ../loader/loader.c:364
 msgid "Add Device"
 msgstr "Tilføj enhed"
 
-#: ../loader/loader.c:364
+#: ../loader/loader.c:365
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -3671,25 +3690,25 @@ msgstr ""
 "Jeg har ikke indlæst nogle specialenhedsdrivere for dit system. Vil du gerne "
 "have nogle indlæst nu?"
 
-#: ../loader/loader.c:505
+#: ../loader/loader.c:508
 #, c-format
 msgid "Loading %s ramdisk..."
 msgstr "Indlæser %s ramdisk..."
 
-#: ../loader/loader.c:515
+#: ../loader/loader.c:518
 msgid "Error loading ramdisk."
 msgstr "Fejl ved indlæsning af ramdisk."
 
-#: ../loader/loader.c:580 ../loader/loader.c:2189
+#: ../loader/loader.c:583 ../loader/loader.c:2177
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Kunne ikke læse katalog %s: %s"
 
-#: ../loader/loader.c:810
+#: ../loader/loader.c:813
 msgid "Hard Drives"
 msgstr "Harddiske"
 
-#: ../loader/loader.c:811
+#: ../loader/loader.c:814
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -3697,7 +3716,7 @@ msgstr ""
 "Du ser ikke ud til at have nogen harddiske på dit system! Vil du gerne "
 "konfigurere yderligere enheder?"
 
-#: ../loader/loader.c:825
+#: ../loader/loader.c:828
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
@@ -3707,20 +3726,20 @@ msgstr ""
 "RedHat/RPMS og RedHat/base katalogerne? Hvis du ikke kan se det diskdrev du "
 "bruger her, tryk på F2 for at konfigurere yderligere enheder."
 
-#: ../loader/loader.c:839
+#: ../loader/loader.c:842
 msgid "Directory holding images:"
 msgstr "Katalog indeholdende Red Hat:"
 
-#: ../loader/loader.c:859
+#: ../loader/loader.c:862
 msgid "Select Partition"
 msgstr "Vælg partition"
 
-#: ../loader/loader.c:907
+#: ../loader/loader.c:910
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Enheden %s ser ikke ud til at indeholde et Red Hat-installationstræ."
 
-#: ../loader/loader.c:962
+#: ../loader/loader.c:965
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -3728,11 +3747,11 @@ msgstr ""
 "Jeg kunne ikke finde en Red Hat Linux-cd-rom i nogen af dine cd-rom-drev. "
 "Indsæt venligst Red Hat-cd'en og tryk på \"Ok\" for at prøve igen."
 
-#: ../loader/loader.c:1049
+#: ../loader/loader.c:1052
 msgid "Networking Device"
 msgstr "Netværksenhed"
 
-#: ../loader/loader.c:1050
+#: ../loader/loader.c:1053
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -3740,59 +3759,59 @@ msgstr ""
 "Du har flere netværksenheder på dette system. Hvilken vil du gerne bruge til "
 "at installere fra?"
 
-#: ../loader/loader.c:1132
+#: ../loader/loader.c:1135
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Det katalog ser ikke ud til at indeholde et Red Hat installationstræ."
 
-#: ../loader/loader.c:1137
+#: ../loader/loader.c:1140
 msgid "I could not mount that directory from the server"
 msgstr "Jeg kunne ikke montere dette katalog fra tjener"
 
-#: ../loader/loader.c:1233 ../loader/loader.c:1242
+#: ../loader/loader.c:1236 ../loader/loader.c:1245
 msgid "HTTP"
 msgstr "Http"
 
-#: ../loader/loader.c:1234
+#: ../loader/loader.c:1237
 msgid "Unable to retrieve the first install image"
 msgstr "Kunne ikke hente det første trins ramdisk"
 
-#: ../loader/loader.c:1243
+#: ../loader/loader.c:1246
 msgid "Unable to retrieve the second install image"
 msgstr "Kunne ikke hente det andet trins ramdisk"
 
-#: ../loader/loader.c:1273
+#: ../loader/loader.c:1276
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr "FTP og HTTP installation kræver mindst 20MB ram."
 
-#: ../loader/loader.c:1497
+#: ../loader/loader.c:1500
 msgid "Rescue Method"
 msgstr "Redningsmetode"
 
-#: ../loader/loader.c:1498
+#: ../loader/loader.c:1501
 msgid "Installation Method"
 msgstr "Installationsmetode"
 
-#: ../loader/loader.c:1500
+#: ../loader/loader.c:1503
 msgid "What type of media contains the rescue image?"
 msgstr "Hvilken type medium befinder rednings-billedet sig på?"
 
-#: ../loader/loader.c:1502
+#: ../loader/loader.c:1505
 msgid "What type of media contains the packages to be installed?"
 msgstr "Hvilken type medium befinder pakkerne, som skal installeres, sig på?"
 
-#: ../loader/loader.c:2143
+#: ../loader/loader.c:2147
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Kan ikke finde ks.cfg på opstartsdiskette."
 
-#: ../loader/loader.c:2251
+#: ../loader/loader.c:2239
 msgid "Updates Disk"
 msgstr "Opdateringsdiskette"
 
-#: ../loader/loader.c:2252
+#: ../loader/loader.c:2240
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Indsæt din opdateringsdiskette og tast \"Ok\" for at fortsætte."
 
-#: ../loader/loader.c:2257
+#: ../loader/loader.c:2245
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
@@ -3800,34 +3819,34 @@ msgstr ""
 "Disketten du indsatte er ikke en gyldig driverdiskette til denne udgave af "
 "Red Hat Linux."
 
-#: ../loader/loader.c:2267
+#: ../loader/loader.c:2255
 msgid "Failed to mount floppy disk."
 msgstr "Kunne ikke montere diskette."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2272
+#: ../loader/loader.c:2260
 msgid "Updates"
 msgstr "Opdateringer"
 
-#: ../loader/loader.c:2272
+#: ../loader/loader.c:2260
 msgid "Reading anaconda updates..."
 msgstr "Læser anaconda-opdateringer..."
 
-#: ../loader/net.c:149
+#: ../loader/net.c:170
 msgid "NFS server name:"
 msgstr "NFS-tjener navn:"
 
-#: ../loader/net.c:152 ../loader/urls.c:191
+#: ../loader/net.c:173 ../loader/urls.c:191
 msgid "Red Hat directory:"
 msgstr "Red Hat-katalog:"
 
-#: ../loader/net.c:158
+#: ../loader/net.c:179
 msgid "NFS Setup"
 msgstr "NFS-opsætning"
 
-#: ../loader/net.c:159
+#: ../loader/net.c:180
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -3841,15 +3860,15 @@ msgstr ""
 "    o navnet på kataloget til den tjener der indeholder\n"
 "      Red Hat Linux til din arkitektur (i386/alpha/..)"
 
-#: ../loader/net.c:241
+#: ../loader/net.c:262
 msgid "Nameserver IP"
 msgstr "Navnetjener- IP"
 
-#: ../loader/net.c:245 ../loader/net.c:727
+#: ../loader/net.c:266 ../loader/net.c:750
 msgid "Nameserver"
 msgstr "Navnetjener"
 
-#: ../loader/net.c:246
+#: ../loader/net.c:267
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -3861,15 +3880,15 @@ msgstr ""
 "er, så skriv det nu. Hvis du ikke har denne information kan du lade dette "
 "felt være blankt, og installationen vil fortsætte."
 
-#: ../loader/net.c:256
+#: ../loader/net.c:277
 msgid "Invalid IP Information"
 msgstr "Ugyldig IP-information"
 
-#: ../loader/net.c:257
+#: ../loader/net.c:278
 msgid "You entered an invalid IP address."
 msgstr "Du skrev en ugyldig IP-adresse."
 
-#: ../loader/net.c:280
+#: ../loader/net.c:301
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -3877,85 +3896,85 @@ msgstr ""
 "Indtast venligst IP-konfiguration for denne maskine. Hver linie bør "
 "indtastes som en IP-adresse i punktdecimalformat (for eksempel: 1.2.3.4)..."
 
-#: ../loader/net.c:322
+#: ../loader/net.c:343
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Brug dynamisk IP-konfiguration (BOOTP/DHCP)"
 
-#: ../loader/net.c:350
+#: ../loader/net.c:371
 msgid "Configure TCP/IP"
 msgstr "Konfigurér TCP/IP"
 
-#: ../loader/net.c:381
+#: ../loader/net.c:402
 msgid "Missing Information"
 msgstr "Manglende information"
 
-#: ../loader/net.c:382
+#: ../loader/net.c:403
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Du skal indtaste både en gyldig IP-adresse og en netmaske."
 
-#: ../loader/net.c:390 ../loader/net.c:661
+#: ../loader/net.c:411 ../loader/net.c:684
 msgid "Dynamic IP"
 msgstr "Dynamisk IP"
 
-#: ../loader/net.c:391 ../loader/net.c:662
+#: ../loader/net.c:412 ../loader/net.c:685
 msgid "Sending request for IP information..."
 msgstr "Sender forespørgsel efter IP-information..."
 
-#: ../loader/net.c:534
+#: ../loader/net.c:557
 msgid "Determining host name and domain..."
 msgstr "Afgør værtsnavn og domæne..."
 
-#: ../loader/net.c:645 ../loader/net.c:678
+#: ../loader/net.c:668 ../loader/net.c:701
 msgid "kickstart"
 msgstr "kickstart"
 
-#: ../loader/net.c:646
+#: ../loader/net.c:669
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "ugyldigt argument til 'kickstart' netværkskommando %s: %s"
 
-#: ../loader/net.c:679
+#: ../loader/net.c:702
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Ugyldig bootproto %s angivet i netværkskommando"
 
-#: ../loader/net.c:721
+#: ../loader/net.c:744
 msgid "Boot protocol to use"
 msgstr "Opstartsprotokol"
 
-#: ../loader/net.c:723
+#: ../loader/net.c:746
 msgid "Network gateway"
 msgstr "Netværkets gateway"
 
-#: ../loader/net.c:725
+#: ../loader/net.c:748
 msgid "IP address"
 msgstr "IP-adresse"
 
-#: ../loader/net.c:734
+#: ../loader/net.c:757
 msgid "Domain name"
 msgstr "Domænenavn"
 
-#: ../loader/net.c:737
+#: ../loader/net.c:760
 msgid "Network device"
 msgstr "Netværksenhed"
 
-#: ../loader/net.c:809
+#: ../loader/net.c:832
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
 " <Tab>/<Alt-Tab> mellem elementer  |  <Mellemrum> Vælger  |  <F12> næste side"
 
-#: ../loader/net.c:810
+#: ../loader/net.c:833
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
-#: ../loader/net.c:812
+#: ../loader/net.c:835
 msgid "Network configuration"
 msgstr "Netværkskonfiguration"
 
-#: ../loader/net.c:813
+#: ../loader/net.c:836
 msgid "Would you like to set up networking?"
 msgstr "Ønsker du at opsætte netværk?"
 
@@ -4238,3 +4257,24 @@ msgstr "Kerneudvikling"
 
 msgid "Utilities"
 msgstr "Tilbehør"
+
+#~ msgid "Partitionless upgrades are NOT supported in this beta"
+#~ msgstr "Partitionsløse opgraderinger understøttes IKKE i denne beta"
+
+#~ msgid "Horizontal Sync"
+#~ msgstr "Vandret synkron."
+
+#~ msgid "Vertical Sync"
+#~ msgstr "Lodret synkron."
+
+#~ msgid ""
+#~ "\n"
+#~ "WARNING: Partitionless installs are known to often fail in this BETA release "
+#~ "so do NOT report errors if you choose to do this.\n"
+#~ " Do you want to continue?"
+#~ msgstr ""
+#~ "\n"
+#~ "ADVARSEL: Det er en kendt fejl at partitionsløse installationer ofte "
+#~ "mislykkes med denne BETA, så rapportér IKKE fejl, hvis du vælger at gøre "
+#~ "dette.\n"
+#~ " Vil du alligevel fortsætte?"

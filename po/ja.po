@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-02-04 07:26-0500\n"
+"POT-Creation-Date: 2001-02-05 12:49-0500\n"
 "PO-Revision-Date: 2001-02-04 07:47-05:00\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,10 @@ msgid ""
 "\n"
 "\n"
 "Press OK to continue, or Cancel to go back and select these partitions to be formatted (RECOMMENDED)."
-msgstr "\n\n続けるには [OK] を押してください。しかし、[キャンセル] を押して戻って、これらのパーティションをフォーマットするように選択することをお勧めします。"
+msgstr ""
+"\n"
+"\n"
+"続けるには [OK] を押してください。しかし、[キャンセル] を押して戻って、これらのパーティションをフォーマットするように選択することをお勧めします。"
 
 #: ../fstab.py:74 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97
 msgid "Warning"
@@ -156,10 +159,6 @@ msgstr "リリースノート"
 #: ../gui.py:553
 msgid "Unable to load file!"
 msgstr "ファイルを読み込めません!"
-
-#: ../gui.py:633
-msgid "label"
-msgstr "ラベル"
 
 #: ../gui.py:694
 msgid "Red Hat Linux Installer"
@@ -1495,8 +1494,7 @@ msgstr ""
 "\n"
 "先に進むならば、後で尋ねられたときに起動フロッピーを作成することを強く推奨します。そうするとインストール後にシステムを起動する手段が確保されます。\n"
 "\n"
-"先に進むには [OK] を押してください。前に戻ってブートパーティションの"
-"再設定を行うには [キャンセル] を押してください。"
+"先に進むには [OK] を押してください。前に戻ってブートパーティションの再設定を行うには [キャンセル] を押してください。"
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485 ../textw/partitioning_text.py:411
 msgid ""
@@ -3554,6 +3552,9 @@ msgstr "カーネル開発"
 # ../comps/comps-master:741
 msgid "Utilities"
 msgstr "ユーティリティ"
+
+#~ msgid "label"
+#~ msgstr "ラベル"
 
 #~ msgid "Security level:"
 #~ msgstr "セキュリティレベル:"
