@@ -165,13 +165,17 @@ fi
 # Parse configuration
 # Check for missing parameters, prompt for them if necessary
 while [ -z "$NETTYPE" ]; do
-	echo $"Which kind of network device do you intend to use"
-   echo $"  (e.g. ctc, escon, iucv, eth, hsi, lcs, tr)."
+   echo $"Which kind of network device do you intend to use"
+   echo $"  (e.g. ctc, escon, iucv, eth, hsi, lcs)."
    echo $"Enter 'eth' for OSA-Express Fast Ethernet, Gigabit Ethernet"
    echo $"  (including 1000Base-T), High Speed Token Ring, and ATM "
    echo $"  (running Ethernet LAN emulation) features in QDIO mode."
    echo $"Enter 'hsi' for Guest LANs using virtual HiperSockets or"
    echo $"  HiperSockets."
+   echo $"Enter 'lcs' for OSA­2 Ethernet/Token Ring, OSA-Express Fast Ethernet in"
+   echo $"  non-QDIO mode, OSA-Express High Speed Token Ring in non-QDIO mode and"
+   echo $"  Gigabit Ethernet in non-QDIO mode."
+
 	read NETTYPE
 done
 DEVICE=${NETTYPE}0
@@ -202,7 +206,7 @@ if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw con
       DIRNAME="qeth"
    elif [ "$NETTYPE" = "ctc" -o "$NETTYPE" = "escon" ]; then
       DIRNAME="ctc"
-   elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
+   elif [ "$NETTYPE" = "lcs" ]; then
       DIRNAME="lcs"
    fi
       
@@ -221,7 +225,7 @@ while [ -z "$NETWORK" ]; do
   echo $"Enter the network address of the new Linux guest:"
   read NETWORK
 done
-if [ "$NETTYPE" = "eth" ] || [ "$NETTYPE" = "tr" ] || [ "$NETTYPE" = "hsi" ] || [ "$NETTYPE" = "lcs" ]; then
+if [ "$NETTYPE" = "eth" ] || [ "$NETTYPE" = "hsi" ] || [ "$NETTYPE" = "lcs" ]; then
 	 while [ -z "$NETMASK" ]; do
 		  echo $"Enter the netmask for the new Linux guest (e.g. 255.255.255.0):"
 		  read NETMASK
@@ -283,11 +287,12 @@ elif [ ":$NETTYPE" = ":iucv" ]; then
 	sysecho /sys/bus/iucv/drivers/netiucv/connection $PEERID
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
    echo "alias $DEVICE netiucv" >> /tmp/modprobe.conf
-elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
+elif [ "$NETTYPE" = "lcs" ]; then
    insmod ccwgroup$LO
 	insmod cu3088$LO
 	insmod lcs$LO
    setupdevice
+   DEVICE=`cat /sys/devices/lcs/${SUBCHANNELS//,*/}/if_name`
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
    echo "alias $DEVICE lcs" >> /tmp/modprobe.conf
