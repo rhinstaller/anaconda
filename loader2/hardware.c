@@ -303,8 +303,10 @@ void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
 
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
               moduleInfoSet modInfo, int flags) {
+#if 0
     struct device ** devices;
     int fd, i;
+#endif
 
     mlLoadModuleSet("cdrom:ide-cd", modLoaded, modDeps, modInfo, flags);
 
