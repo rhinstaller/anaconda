@@ -18,8 +18,8 @@ class RootPasswordWindow:
 	pw = todo.rootpassword.getPure()
 	if not pw: pw = ""
 
-        entry1 = Entry (24, hidden = 1, text = pw)
-        entry2 = Entry (24, hidden = 1, text = pw)
+        entry1 = Entry (24, password = 1, text = pw)
+        entry2 = Entry (24, password = 1, text = pw)
         passgrid = Grid (2, 2)
         passgrid.setField (Label (_("Password:")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
         passgrid.setField (Label (_("Password (again):")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
@@ -65,8 +65,8 @@ class UsersWindow:
         userid = Entry (9, user["id"])
         currentid = user["id"]
         fullname = Entry (20, user["name"], scroll = 1)
-        pass1 = Entry (10, user["password"], hidden = 1)
-        pass2 = Entry (10, user["password"], hidden = 1)
+        pass1 = Entry (10, user["password"], password = 1)
+        pass2 = Entry (10, user["password"], password = 1)
 
 	if edit:
 	    title = _("Edit User")
