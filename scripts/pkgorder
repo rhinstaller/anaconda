@@ -125,7 +125,7 @@ def runTsAndOutput(pkglist):
 if os.environ.has_key("PKGORDER_DEBUG"):
     rpm.setVerbosity(rpm.RPMLOG_DEBUG)
 
-if len(sys.argv) != 3:
+if len(sys.argv) < 3:
     print "pkgorder <toppath> <arch>"
     sys.exit(1)
 
@@ -181,12 +181,18 @@ tier1langs = ("en:en_US:de:de_DE:es:es_ES:fr:fr_FR:it:it_IT:ja:ja_JP:"
 
 grpids = grpset.groups.keys()
 grpids.sort()
-    
-# FIXME: this is a hack to get things we want to be first on the CDs earlier
-# in a more perfect world, we'd read the installclasses to do this
-complist = ["core", "base", "text-internet", "web-server",
-            "smb-server", "printing", "dialup", "server-cfg",
-            "admin-tools"]
+
+# allow passing in an initial group list on the command line
+if len(sys.argv) > 3:
+    complist = sys.argv[3:]
+else:
+    complist = []
+# then we add the things we have hard-coded.  this is kind of ugly and in
+# a perfect world, we could figure it out automagically, but oh well
+for g in ("core", "base", "text-internet", "web-server",
+          "smb-server", "printing", "dialup", "server-cfg",
+          "admin-tools"):
+    if g not in complist: complist.append(g)
 # now let's pull in all of workstation common
 if grpset.groups.has_key("workstation-common"):
     comp = grpset.groups["workstation-common"]
@@ -195,10 +201,10 @@ if grpset.groups.has_key("workstation-common"):
         if name not in complist:
             complist.append(name)
 # a couple more that make sense to have early
-complist.extend(["gnome-desktop", "emacs", "development-tools",
-                 "development-libs", "x-software-development",
-                 "gnome-software-development", "kde-desktop",
-                 "kde-software-development"])
+for g in ("gnome-desktop", "emacs", "development-tools", "development-libs",
+          "x-software-development", "gnome-software-development",
+          "kde-desktop", "kde-software-development"):
+    if g not in complist: complist.append(g)
         
 latelangs = []
 for id in grpids:
