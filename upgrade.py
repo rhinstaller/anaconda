@@ -231,6 +231,13 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 	    intf.messageWindow(("Absolute Symlinks"), message)
 	    sys.exit(0)
     else:
+        if not os.access (instPath + "/etc/fstab", os.R_OK):
+            rc = intf.messageWindow(_("Warning"),
+                                    _("%s not found")
+                                    % (instPath + "/etc/fstab",),
+                                  type="ok")
+            return DISPATCH_BACK
+            
 	newfsset = fsset.readFstab(instPath + '/etc/fstab')
         for entry in newfsset.entries:
             oldfsset.add(entry)
@@ -310,6 +317,41 @@ def upgradeFindPackages (intf, method, id, instPath):
 
     # open up the database to check dependencies
     db = rpm.opendb (0, instPath)
+
+    i = db.match()
+    h = i.next()
+    while h:
+        release = h[rpm.RPMTAG_RELEASE]
+        if (string.find(h[rpm.RPMTAG_RELEASE], "helix") > -1
+            or string.find(h[rpm.RPMTAG_RELEASE], "ximian") > -1
+            or string.find(h[rpm.RPMTAG_RELEASE], "eazel") > -1):
+            rc = intf.messageWindow(_("Warning"),
+                                    _("This system appears to have third "
+                                      "party packages installed that "
+                                      "overlap with packages included in "
+                                      "Red Hat Linux. Because these packages "
+                                      "overlap, continuing the upgrade "
+                                      "process may cause them to stop "
+                                      "functioning properly or may cause "
+                                      "other system instability.  Do you "
+                                      "wish to continue the upgrade process?"),
+                                    type="yesno")
+            if rc == 0:
+                sys.exit(0)
+            break
+        h = i.next()
+
+    if not os.access (instPath + "/etc/redhat-release", os.R_OK):
+        rc = intf.messageWindow(_("Warning"),
+                                _("This system does not have an "
+                                  "/etc/redhat-release file.  It is possible "
+                                  "that this is not a Red Hat Linux system. "
+                                  "Continuing with the upgrade process may "
+                                  "leave the system in an unusable state.  Do "
+                                  "you wish to continue the upgrade process?"),
+                                  type="yesno")
+        if rc == 0:
+            sys.exit(0)
 
     # check the installed system to see if the packages just
     # are not newer in this release.
