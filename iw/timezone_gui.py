@@ -60,7 +60,6 @@ class TimezoneWindow(InstallWindow):
     def getNext(self):
         newzone = self.tz.getCurrent().tz
         self.timezone.setTimezoneInfo(newzone, self.systemUTC.get_active())
-        print self.timezone.getTimezoneInfo()
         return None
 
     def copy_toggled(self, cb1, cb2):
