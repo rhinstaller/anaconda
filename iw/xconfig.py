@@ -318,22 +318,6 @@ class XConfigWindow (InstallWindow):
             label.set_alignment (0.0, 0.5)
             label.set_usize (400, -1)
             box.pack_start (label, FALSE)
-            table = GtkTable()
-            group = None
-            count = 0
-            for size in ("256k", "512k", "1024k", "2048k", "4096k",
-                         "8192k", "16384k"):
-                button = GtkRadioButton (group, size)
-                button.connect ('clicked', self.memory_cb, size)
-                if size[:-1] == self.todo.x.vidRam:
-                    button.set_active (1)
-                if not group:
-                    group = button
-                table.attach (button, count % 3, (count % 3) + 1,
-                              count / 3, (count / 3) + 1)
-                count = count + 1
-                
-            box.pack_start (table, FALSE)
         else:
             # but we can on everything else
             self.autoBox = GtkVBox (FALSE, 5)
@@ -359,6 +343,31 @@ class XConfigWindow (InstallWindow):
             result.set_justify (JUSTIFY_LEFT)
             self.autoBox.pack_start (result, FALSE)
             box.pack_start (self.autoBox, FALSE)
+
+            label = GtkLabel (_("If the probed settings do not match your hardware "
+                                "select the correct setting below:"))
+            label.set_justify (JUSTIFY_LEFT)
+            label.set_line_wrap (TRUE)        
+            label.set_alignment (0.0, 0.5)
+            label.set_usize (400, -1)
+            self.autoBox.pack_start (label, FALSE)
+
+        # Memory configuration table
+        table = GtkTable()
+        group = None
+        count = 0
+        for size in ("256k", "512k", "1024k", "2048k", "4096k",
+                     "8192k", "16384k"):
+            button = GtkRadioButton (group, size)
+            button.connect ('clicked', self.memory_cb, size)
+            if size[:-1] == self.todo.x.vidRam:
+                button.set_active (1)
+            if not group:
+                group = button
+            table.attach (button, count % 3, (count % 3) + 1,
+                          count / 3, (count / 3) + 1)
+            count = count + 1
+        box.pack_start (table, FALSE)
 
 	if not self.sunServer:
 	    test = GtkAlignment ()
