@@ -54,7 +54,10 @@ report:
 	done
 
 clean:
-	rm -f *mo $(NLSPACKAGE).pot
+	rm -f *mo
+
+reallyclean: clean
+	rm -f $(NLSPACKAGE).pot
 
 distclean: clean
 	rm -f .depend Makefile
