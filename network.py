@@ -200,11 +200,11 @@ class Network:
 		f.write(" --bootproto static --ip %s --netmask %s --gateway %s" % 
 		   (dev.get('ipaddr'), dev.get('netmask'), self.gateway))
 
-	    if dev.get('nameserver'):
-		f.write(" --nameserver %s" % dev.get('nameserver'))
+            if self.primaryNS:
+		f.write(" --nameserver %s" % self.primaryNS)
 
 	    if self.hostname and self.hostname != "localhost.localdomain":
-		f.write(" --hostname %s" % dev.get('hostname'))
+		f.write(" --hostname %s" % self.hostname)
 
 	    f.write("\n");
 
