@@ -772,7 +772,7 @@ msgstr ""
 "Натисніть <Enter> для перевантаження системи."
 
 #: ../fsset.py:1355
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -783,7 +783,7 @@ msgid ""
 msgstr ""
 "Помилка при підключенні пристрою підкачки %s: %s\n"
 "\n"
-"Найбільш ймовірна причина - розділ не було ініціалізовано.\n"
+"Файл /etc/fstab у розділі, що оновлюється, не містить опису робочого пристрою підкачки.\n"
 "\n"
 "Натисніть \"Гаразд\" для перевантаження системи."
 
@@ -897,10 +897,9 @@ msgstr ""
 "\n"
 "Швидше за все цей розділ не було відформатовано.\n"
 "\n"
-"Натисніть Гаразд для перевантаження системи."
+"Натисніть \"Гаразд\" для перевантаження системи."
 
 #: ../fsset.py:1575
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -908,11 +907,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Помилка підключення пристрою %s як %s: %s\n"
+"Помилка підключення кореневого (/) запису.\n"
 "\n"
-"Швидше за все цей розділ не було відформатовано.\n"
+"Швидше за все файл fstab - некоректний.\n"
 "\n"
-"Натисніть Гаразд для перевантаження системи."
+"Натисніть \"Гаразд\" для перевантаження системи."
 
 #: ../fsset.py:2214
 msgid "Duplicate Labels"
@@ -1295,6 +1294,8 @@ msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
 msgstr ""
+"У файлі comps у вашому дереві встановлення відсутні необхідні групи.  "
+"Перевірте, що дерево встановлення сформовано правильно."
 
 #: ../packages.py:197 ../packages.py:629
 #, python-format
@@ -1336,15 +1337,17 @@ msgstr ""
 "Натисніть <Enter> для повторної спроби."
 
 #: ../packages.py:441
-#, fuzzy
 msgid "Re_boot"
-msgstr "Перезавантаження"
+msgstr "_Перезавантаження"
 
 #: ../packages.py:445
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
+"Якщо ви виконаєте перезавантаження зараз, ваша система буде знаходитися у "
+"неузгодженому стані, та, швидше за все, потребуватиме перевстановлення. "
+"Продовжити?"
 
 #: ../packages.py:459
 msgid "Installing..."
@@ -2503,14 +2506,13 @@ msgstr ""
 "стану. Продовжити процес поновлення?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Архітектура випуску %s, який ви встановлюєте - %s, що не відповідає "
-"архітектурі раніше встановленої системи %s. Ймовірність успішного оновлення "
-"невелика. Ви дійсно бажаєте продовжити оновлення?"
+"Схоже, ви оновлюєте систему, яка занадто застара для того, "
+"щоб бути оновленою до цієї версії %s. Ви дійсно бажаєте продовжити оновлення?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2866,7 +2868,6 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Додаткові параметри завантажувача"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
@@ -2875,8 +2876,6 @@ msgid ""
 msgstr ""
 "Примусове використання завантажувачем режиму LBA32, якщо він не "
 "підтримується BIOS, може призвести до нездатності системи завантажитись.  "
-"Наполегливо рекомендується створити завантажувальну дискету, на відповідному "
-"етапі встановлення.\n"
 "\n"
 "Ви дійсно хочете увімкнути режим LBA32?"
 
@@ -2911,7 +2910,6 @@ msgid "Change Boot Loader"
 msgstr "Змінити завантажувач"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -3902,9 +3900,8 @@ msgid "Encryption _Key"
 msgstr "_Ключ шифрування"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Hardware address:"
-msgstr "Адреса IP:"
+msgstr "Апаратна адреса:"
 
 #: ../iw/network_gui.py:291
 #, python-format
@@ -5666,7 +5663,7 @@ msgstr "Опис: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Апаратна адреса: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -6695,7 +6692,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6707,7 +6703,7 @@ msgid ""
 msgstr ""
 "\tРобоче середовище (GNOME)\n"
 "\tОфісний пакет (OpenOffice)\n"
-"\tВеб-браузер (Mozilla) \n"
+"\tВеб-браузер\n"
 "\tЕлектронна пошта (Evolution)\n"
 "\tМиттєві повідомлення\n"
 "\tЗвук та відео\n"
@@ -6744,7 +6740,6 @@ msgid "Red Hat Enterprise Linux WS"
 msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6758,7 +6753,7 @@ msgid ""
 msgstr ""
 "\tРобоче середовище (GNOME)\n"
 "\tОфісний пакет (OpenOffice)\n"
-"\tВеб-браузер (Mozilla) \n"
+"\tВеб-браузер \n"
 "\tЕлектронна пошта (Evolution)\n"
 "\tМиттєві повідомлення\n"
 "\tЗвук та відео\n"
@@ -7144,9 +7139,9 @@ msgid "Welcome to %s"
 msgstr "Ласкаво просимо до %s"
 
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Ласкаво просимо до %s"
+msgstr "Ласкаво просимо до %s - режим відновлення"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:138
 msgid ""
@@ -7339,7 +7334,7 @@ msgid ""
 "\n"
 "It is OK to install from this media."
 msgstr ""
-"ПРОЙДЕНО.\n"
+"БЕЗ ПОМИЛОК.\n"
 "\n"
 "Перевірка цього носія успішно завершена."
 
@@ -7675,14 +7670,12 @@ msgid "Account name:"
 msgstr "Назва облікового запису:"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "Налаштовування FTP"
+msgstr "Подальше налаштовування FTP"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "Налаштовування HTTP"
+msgstr "Подальше налаштовування HTTP"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
