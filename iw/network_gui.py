@@ -17,7 +17,7 @@ import string
 import gtk
 import gobject
 from iw_gui import *
-from isys import *
+import isys
 import gui
 from rhpl.translate import _, N_
 import network
@@ -228,12 +228,18 @@ class NetworkWindow(InstallWindow):
 	options = [(_("_IP Address"), "ipaddr"),
 		   (_("Net_mask"),    "netmask")]
 
+        devopts = []
+
         if (network.isPtpDev(dev)):
 	    newopt = (_("_Point to Point (IP)"), "remip")
 	    options.append(newopt)
+
+        if (isys.isWireless(dev)):
+            newopt = [(_("_ESSID"), "essid"),
+                      (_("Encryption _Key"), "wepkey")]
+            devopts.extend(newopt)
             
         ipTable = gtk.Table(len(options), 2)
-        iptable = None
 	DHCPcb.connect("toggled", self.DHCPtoggled, (self.devices[dev], ipTable))
 	# go ahead and set up DHCP on the first device
 	DHCPcb.set_active(bootproto == 'DHCP')
@@ -252,6 +258,23 @@ class NetworkWindow(InstallWindow):
 
 	devbox.pack_start(ipTable, gtk.FALSE, gtk.FALSE, 6)
         devbox.set_border_width(6)
+
+        deventrys = {}
+        devTable = gtk.Table(len(devopts), 2)
+	for t in range(len(devopts)):
+	    label = gtk.Label("%s:" %(devopts[t][0],))
+	    label.set_alignment(0.0, 0.5)
+	    label.set_property("use-underline", gtk.TRUE)
+	    devTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
+
+	    entry = gtk.Entry()
+            entry.set_text(self.devices[dev].get(devopts[t][1]))
+	    deventrys[t] = entry
+	    label.set_mnemonic_widget(entry)
+	    devTable.attach(entry, 1, 2, t, t+1, 0, gtk.FILL|gtk.EXPAND)
+
+        if len(devopts) > 0:
+            devbox.pack_start(devTable, gtk.FALSE, gtk.FALSE, 6)
 
 	framelab = _("Configure %s") % (dev,)
 	descr = self.devices[dev].get("desc")
@@ -309,7 +332,7 @@ class NetworkWindow(InstallWindow):
 		    continue
 
 		try:
-                    (net, bc) = inet_calcNetBroad (tmpvals[0], tmpvals[1])
+                    (net, bc) = isys.inet_calcNetBroad (tmpvals[0], tmpvals[1])
 		except:
 		    self.handleBroadCastError()
 		    valsgood = 0
@@ -326,6 +349,10 @@ class NetworkWindow(InstallWindow):
 	    self.devices[dev].set(('ONBOOT', onboot))
 	    model.set_value(iter, 0, onboot == 'yes')
 	    model.set_value(iter, 2, self.createIPRepr(self.devices[dev]))
+
+            for t in range(len(devopts)):
+                self.devices[dev].set((devopts[t][1], deventrys[t].get_text()))
+
 	    editWin.destroy()
 
 	    self.setIPTableSensitivity()

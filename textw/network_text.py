@@ -39,7 +39,7 @@ class NetworkDeviceWindow:
         else:
             sense = FLAGS_RESET
 
-        for n in self.entries.values():
+        for n in self.dhcpentries.values():
             n.setFlags (FLAG_DISABLED, sense)
 
     def calcNM(self):
@@ -65,11 +65,16 @@ class NetworkDeviceWindow:
         if not boot:
             boot = "dhcp"
 
-	options = [(_("IP Address"), "ipaddr"),
-		   (_("Netmask"),    "netmask")]
+	options = [(_("IP Address"), "ipaddr", 1),
+		   (_("Netmask"),    "netmask", 1)]
         if (isPtpDev(dev.info["DEVICE"])):
-	    newopt = (_("Point to Point (IP)"), "remip")
+	    newopt = (_("Point to Point (IP)"), "remip", 1)
 	    options.append(newopt)
+
+        if isys.isWireless(dev.info["DEVICE"]):
+            wireopt = [(_("ESSID"), "essid", 0),
+                       (_("Encryption Key"), "key", 0)]
+            options.extend(wireopt)
 
 	descr = dev.get("desc")
 	if descr is not None and len(descr) > 0:
@@ -112,7 +117,8 @@ class NetworkDeviceWindow:
 
 	row = currow
         self.entries = {}
-        for (name, opt) in options:
+        self.dhcpentries = {}
+        for (name, opt, dhcpdep) in options:
             botgrid.setField(Label(name), 0, row, anchorLeft = 1)
 
             entry = Entry (16)
@@ -120,6 +126,8 @@ class NetworkDeviceWindow:
             botgrid.setField(entry, 1, row, padding = (1, 0, 0, 0))
 
             self.entries[opt] = entry
+            if dhcpdep:
+                self.dhcpentries[opt] = entry
             row = row + 1
 
         self.dhcpCb.setCallback(self.setsensitive)
@@ -170,13 +178,16 @@ class NetworkDeviceWindow:
                         bc = ""
 
                 dev.set(("bootproto", "static"))
-
-                for val in self.entries.keys():
-                    if self.entries[val].value():
-                        dev.set((val, self.entries[val].value()))
-                        
                 if bc and net:
                     dev.set(("broadcast", bc), ("network", net))
+
+            for val in self.entries.keys():
+                if ((self.dhcpCb.selected() != 0) and
+                    self.dhcpentries.has_key(val)):
+                    continue
+                if self.entries[val].value():
+                    dev.set((val, self.entries[val].value()))
+                        
 
             break
 
