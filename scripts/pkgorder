@@ -46,6 +46,10 @@ def selectComp(comp):
     if comp.parent:
         selectComp(comp.parent)
 
+# set PKGORDER_DEBUG to get rpm debugging
+if os.environ.has_key("PKGORDER_DEBUG"):
+    rpm.setVerbosity(rpm.RPMLOG_DEBUG)
+
 if len(sys.argv) != 3:
     print "pkgorder <toppath> <arch>"
     sys.exit(1)
@@ -65,6 +69,7 @@ disc2Dir = distDir + "-disc2"
 f = distDir + "/RedHat/base/hdlist"
 try:
     hdlist = comps.HeaderListFromFile(f, noscore = 1)
+    hdlist.mergeFullHeaders(distDir + "/RedHat/base/hdlist2")    
 except rpm.error:
     print "Failed to read header list", f
     sys.exit(1)
@@ -165,14 +170,17 @@ for item in list:
 testpath = '/tmp/pkgorder-' + str (os.getpid ())
 os.system ("mkdir -p " + testpath + "/var/lib/rpm")
 
-db = rpm.opendb(1, testpath)
-
-ts = rpm.TransactionSet(testpath, db)
+ts = rpm.TransactionSet(testpath)
+ts.setVSFlags(~rpm.RPMVSF_NORSA|~rpm.RPMVSF_NODSA)
+ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5|~rpm.RPMTRANS_FLAG_CHAINSAW)
 for h in pkgOrder:
     #print "in:", h[1000000]
-    ts.add(h, h, 'i')
+    ts.addInstall(h, h, 'i')
 pkgOrder = []
 
+# we have to run ts.check() before ts.order() now to set up the
+# alIndex.  
+ts.check()
 ts.order()
 
 # Get the order back out...
@@ -180,6 +188,7 @@ try:
     pkgOrder = ts.getKeys()
 except AttributeError:
     print "you don't have the latest RPM!"
+    sys.exit(1)
 
 # print the results.
 for p in pkgOrder:
