@@ -58,7 +58,7 @@ class UpgradeMigrateFSWindow (InstallWindow):
                  "formatted partitions to ext3 without data loss.\n\n"
                  "Which of these partitions would you like to migrate?")
         
-	label = GtkLabel (_text))
+	label = GtkLabel (_(text))
         label.set_alignment (0.5, 0.0)
         label.set_usize(400, -1)
         label.set_line_wrap (TRUE)
