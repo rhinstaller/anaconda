@@ -318,6 +318,10 @@ makemoduleball() {
 
     # create the modules.usbmap
     $TRIMUSBMAP $(find . -name *.ko -exec basename {} \;) < $USBMAPS > ../modules.usbmap
+    # remove a zero-byte modules.usbmap
+    if [ "$(ls -s ../modules.usbmap |cut -f 1 -d ' ')" = "0" ]; then
+	rm -f ../modules.usbmap
+    fi
 
     if [ -n "$MMB_DD" ]; then
 	echo $MMB_DD > $MMB_DIR/rhdd
