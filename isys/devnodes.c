@@ -177,9 +177,6 @@ int devMakeInode(char * devName, char * path) {
 	} else if (devName[5] && isdigit(devName[5])) {
             minor += devName[5] - '0';
 	}
-
-	if (devName[5] && isdigit(devName[5]) )
-		minor += devName[5] - '0';
     } else if (!strncmp(devName, "mnd", 4)) {
 	/* IBM MiniDisk Drives */
 	type = S_IFBLK;
