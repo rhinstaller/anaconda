@@ -60,13 +60,13 @@ endif
 ifeq (s390, $(ARCH))
 BINS += loader
 OBJS += stubs.o
-S390FILES = module-info.s390 load_anaconda
+S390FILES = load_anaconda
 endif
 
 ifeq (s390x, $(ARCH))
 BINS += loader
 OBJS += stubs.o
-S390FILES = module-info.s390 load_anaconda
+S390FILES = load_anaconda
 endif
 
 ifeq (sparc, $(ARCH))
