@@ -941,7 +941,11 @@ class PartitionWindow(InstallWindow):
                 self.partitions.removeRequest(request)
                 if request.type == REQUEST_PREEXIST:
                     # get the drive
-                    drive = partition.geom.disk.dev.path[5:]
+                    drive = get_partition_drive(partition)
+
+                    if partition.type & parted.PARTITION_EXTENDED:
+                        deleteAllLogicalPartitions(partition, self.partitions)
+                    
                     delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
                     self.partitions.addDelete(delete)
             else: # shouldn't happen
