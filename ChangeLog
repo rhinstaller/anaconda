@@ -1,6 +1,12 @@
+2005-01-31  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (KickstartBase.doBootloader):  Don't install a
+	bootloader if --location=none is provided in the kickstart config
+	file (#146448).
+
 2005-01-26  Chris Lumens  <clumens@redhat.com>
 
-	* gui.py:   Fixed deprecation warnings for gtk.idle_add,
+	* gui.py:  Fixed deprecation warnings for gtk.idle_add,
 	gtk.idle_remove, gtk.timeout_add, gtk.timeout_remove.
 	* iw/installpath_gui.py:  Fixed deprecation warning for
 	ics.readPixmap.
