@@ -6,7 +6,6 @@
 #include <newt.h>
 #include <stdlib.h>
 #include <string.h>
-#include <pump.h>
 
 #ifdef __STANDALONE__
 #include <netdb.h>
@@ -21,6 +20,7 @@
 #define LOADER_ERROR -1;
 
 #include "net.h"
+#include "pump.h"
 
 #else
 
