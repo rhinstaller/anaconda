@@ -545,7 +545,12 @@ def requestSize(req, diskset):
     else:
         part = get_partition_by_name(diskset.disks, req.device)
         if not part:
-            thissize = req.size
+            # XXX hack for kickstart which ends up calling this
+            # before allocating the partitions
+            if req.size:
+                thissize = req.size
+            else:
+                thissize = 0
         else:
             thissize = getPartSizeMB(part)
     return thissize
