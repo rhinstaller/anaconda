@@ -18,8 +18,9 @@ gzFile gunzip_dopen(int fd) {
     void * oldsig;
     pid_t child;
     gzFile str;
+    int ret;
 
-    pipe(p);
+    ret = pipe(p);
 
     oldsig = signal(SIGCLD, SIG_DFL);
 
@@ -65,8 +66,9 @@ gzFile gzip_dopen(int fd) {
     void * oldsig;
     pid_t child;
     gzFile str;
+    int ret;
 
-    pipe(p);
+    ret = pipe(p);
 
     oldsig = signal(SIGCLD, SIG_IGN);
 
