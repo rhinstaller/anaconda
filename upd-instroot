@@ -115,6 +115,7 @@ KEEPFILEGR=/tmp/keepfilegr.$$
 cp $KEEPFILE $KEEPFILEGR
 cat >> $KEEPFILEGR <<EOF
 bin/bash
+bin/cat
 bin/cp
 bin/cpio
 bin/dd
