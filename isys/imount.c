@@ -8,6 +8,7 @@
 #include <unistd.h>
 
 #include "imount.h"
+#include "sundries.h"
 
 #define _(foo) foo
 
@@ -19,7 +20,7 @@ int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
     int isnfs = 0;
     char * mount_opt = NULL;
     long int flag;
-    char * chptr;
+    char * chptr __attribute__ ((unused));
     
     if (!strcmp(fs, "nfs")) isnfs = 1;
 
@@ -71,7 +72,7 @@ int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
 	    /*logMessage("calling nfsmount(%s, %s, &flags, &extra_opts, &mount_opt)",
 			buf, where);*/
 
-	    if (nfsmount(buf, where, &flags, &extra_opts, &mount_opt)) {
+	    if (nfsmount(buf, where, &flags, &extra_opts, &mount_opt, 0)) {
 		/*logMessage("\tnfsmount returned non-zero");*/
 		/*fprintf(stderr, "nfs mount failed: %s\n",
 			nfs_error());*/
