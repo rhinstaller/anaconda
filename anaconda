@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
 import sys, getopt, os
+import lang
+
+_=lang.gettext 
 
 # fixme - first stage install passes --method
 (args, extra) = getopt.getopt(sys.argv[1:], 'p:gTtdr:f', 
@@ -37,7 +40,7 @@ if (debug):
     pdb.set_trace()
 
 if (not test and not localInstall and os.getpid() > 50):
-    print "you're running me on a live system! that's incredibly stupid."
+    print _("you're running me on a live system! that's incredibly stupid.")
     sys.exit(1)
 
 if (os.path.exists('rpmmodule')):
@@ -60,11 +63,19 @@ from todo import ToDo
 import isys
 
 if (mode == 'g' and not os.environ.has_key('DISPLAY')):
-    os.environ['DISPLAY'] = ':0'
+    os.environ['DISPLAY'] = ':1'
+    serverPath = None
+
+    try:
+        f = open('/dev/fb0', 'r')
+	f.close()
+        serverPath = '/usr/X11R6/bin/XF86_FBDev'
+    except:
+	serverPath = '/usr/X11R6/bin/XF86_VGA16'
+
     server = os.fork()
     if (not server):
-	os.execv('/usr/X11R6/bin/XF86_VGA16', ['/usr/X11R6/bin/XF86_VGA16',
-                 '-xf86config',
+	os.execv(serverPath, [serverPath, ':1', '-xf86config', 
                  imagepath + '/RedHat/instimage/etc/X11/XF86Config'])
     child = os.fork()
     if (child):
