@@ -99,3 +99,7 @@ class InstallMethod:
 
     def getSourcePath(self):
         pass
+
+    def unmountCD(self):
+        pass
+

@@ -92,7 +92,12 @@ class OldHardDriveInstallMethod(InstallMethod):
 	self.mountMedia()
 	    
     def filesDone(self):
-	self.umountMedia()
+        # we're trying to unmount the source image at the end.  if it
+        # fails, we'll reboot soon enough anyway
+        try:
+            self.umountMedia()
+        except:
+            log("unable to unmount media")
 
     def protectedPartitions(self):
         rc = []
@@ -218,7 +223,12 @@ class HardDriveInstallMethod(InstallMethod):
 	self.umountMedia()
 
     def filesDone(self):
-	self.umountMedia()
+        # we're trying to unmount the source image at the end.  if it
+        # fails, we'll reboot soon enough anyway
+        try:
+            self.umountMedia()
+        except:
+            log("unable to unmount media")
 
     def protectedPartitions(self):
         rc = []

@@ -51,9 +51,6 @@ class ImageInstallMethod(InstallMethod):
         
         return path
 
-    def unmountCD(self):
-        pass
-
     def __init__(self, tree, rootPath):
 	InstallMethod.__init__(self, rootPath)
 	self.tree = tree
@@ -239,7 +236,13 @@ class CdromInstallMethod(ImageInstallMethod):
         os.remove(fullName)
 
     def filesDone(self):
-        isys.umount("/mnt/source")
+        # we're trying to unmount the CD here.  if it fails, oh well,
+        # they'll reboot soon enough I guess :)
+        try:
+            isys.umount("/mnt/source")
+        except:
+            log("unable to unmount source in filesDone")
+        
         if not self.loopbackFile: return
 
 	try:
@@ -376,7 +379,13 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	self.imageMounted = cdNum
 
     def filesDone(self):
-	self.umountImage()
+        # if we can't unmount the cd image, we really don't care much
+        # let them go along and don't complain
+        try:
+            self.umountImage()
+        except:
+            log("unable to unmount iimage in filesDone")
+            pass
 
     def __init__(self, tree, messageWindow, rootPath):
 	self.imageMounted = None
