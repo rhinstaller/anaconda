@@ -8,4 +8,4 @@ fi
 
 setfont latarcyrheb-sun16
 ../utils/snarffont > screenfont-$ARCH
-gzip -9 screenfont-$ARCH
+gzip -9 -f screenfont-$ARCH
