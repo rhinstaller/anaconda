@@ -428,23 +428,12 @@ class BaseInstallClass:
 		 log(_("monitor specs on the xconfig ks directive if they were "))
 		 log(_("not probed correctly."))
 		 resolution = fbres
+		 
+	    xcfg.set_resolution(resolution)
         else:
-            if len(availableDepths) == 1:
-                depth = 8
-            elif len(availableDepths) >= 2:
-                depth = 16
+	    # pick something sane
+	    xcfg.choose_sane_default()
 
-	    xcfg.set_colordepth(depth)
-	    availableRes = xcfg.available_resolutions()
-
-	    if "1024x768" in availableRes:
-                resolution = "1024x768"
-            elif "800x600" in availableRes:
-                resolution = "800x600" 
-            else:
-                resolution = "640x480"
-
-	xcfg.set_resolution(resolution)
 	xsetup = xsetup.XSetup(xcfg)
         id.setXSetup(xsetup)
 
