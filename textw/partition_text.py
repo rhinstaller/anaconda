@@ -825,7 +825,13 @@ class AutoPartitionWindow:
         typebox.append(_("Remove all Linux partitions"), CLEARPART_TYPE_LINUX)
         typebox.append(_("Remove all partitions"), CLEARPART_TYPE_ALL)
         typebox.append(_("Remove no partitions"), CLEARPART_TYPE_NONE)
-        typebox.setCurrent(id.autoClearPartType)
+        if id.autoClearPartType == CLEARPART_TYPE_LINUX:
+            typebox.setCurrent(0)
+        elif id.autoClearPartType == CLEARPART_TYPE_ALL:
+            typebox.setCurrent(1)
+        else
+            typebox.setCurrent(2)
+            
         self.g.add(typebox, 0, 2, (0,1,0,0))
 
         # list of drives to select which to clear
