@@ -70,7 +70,7 @@ char * translateString(char * str) {
 }
 
 struct langInfo {
-    char * lang, * key, * font, * map, * lc_all;
+    char * lang, * key, * font, * map, * lc_all, * keyboard;
 } ;
 
 static struct langInfo * languages = NULL;
@@ -81,7 +81,8 @@ static void loadLanguageList(int flags) {
 		    "/etc/lang-table";
     FILE * f;
     char line[256];
-    char name[256], key[256], sun[256], console[256], code[256];
+    char name[256], key[256], sun[256], console[256], code[256],
+	 keyboard[256], timezone[256];
     int lineNum = 0;
 
     f = fopen(file, "r");
@@ -94,8 +95,8 @@ static void loadLanguageList(int flags) {
     while (fgets(line, sizeof(line), f)) {
 	lineNum++;
 	languages = realloc(languages, sizeof(*languages) * (numLanguages + 1));
-	if (sscanf(line, "%s %s %s %s %s\n", name, key, sun, console,
-					     code) != 5) {
+	if (sscanf(line, "%s %s %s %s %s %s %s\n", name, key, sun, console,
+					     code, keyboard, timezone) != 7) {
 	    logMessage("bad line %d in lang-table", lineNum);
 	} else {
 	    languages[numLanguages].lang = strdup(name);
@@ -103,6 +104,7 @@ static void loadLanguageList(int flags) {
 	    languages[numLanguages].font = strdup(sun);
 	    languages[numLanguages].map	= strdup(console);
 	    languages[numLanguages].lc_all = strdup(code);
+	    languages[numLanguages].keyboard = strdup(keyboard);
 	    numLanguages++;
 	}
     }
@@ -330,22 +332,6 @@ int chooseLanguage(char ** lang, int flags) {
     return 0;
 }
 
-struct defaultKeyboardByLang {
-    char * lang, * keyboard;
-} defaultKeyboards[] = {
-    { "de", "de-latin1" }, 
-    { "cs", "cz-lat2" },
-    { "fi", "fi-latin1" },
-    { "hu", "hu" },
-    { "is", "is-latin1" },
-    { "it", "it" },
-    { "no", "no-latin1" },   
-    { "ru", "ru" },
-    { "se", "se-latin1" },
-    { "tr", "trq" },
-    { "ja", "jp106" },
-    { NULL, NULL } };
-
 #ifdef __sparc__
 struct defaultKeyboardByLang
 defaultSunKeyboards[] = {
@@ -427,6 +413,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     int i;
     char * defkbd = keymap ? *keymap : NULL;
     struct defaultKeyboardByLang * kbdEntry;
+    char *lang;
 
 #ifdef __sparc__
 #define KBDTYPE_SUN            0
@@ -473,17 +460,26 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
         }
     }
 #endif
-    
-    if (!defkbd && getenv("LANG")) {
-	kbdEntry = defaultKeyboards;
+
+    if (!languages) loadLanguageList(flags);
+
+    lang = getenv("LANG");
+    if (!defkbd && lang) {
+	for (i = 0; i < numLanguages; i++) {
+	    if (!strncmp(languages[i].key, lang, 2)) {
+		defkbd = languages[i].keyboard;
+		break;
+	    }
+	}
+
 #ifdef __sparc__
 	if (kbdtype == KBDTYPE_SUN)
 	    kbdEntry = defaultSunKeyboards;
-#endif	
 	while (kbdEntry->lang && 
 	       strcmp(kbdEntry->lang, getenv("LANG")))
 	     kbdEntry++;
 	if (kbdEntry->keyboard) defkbd = kbdEntry->keyboard;
+#endif
     }
     if (!defkbd)
 #ifdef __sparc__
