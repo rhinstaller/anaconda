@@ -639,7 +639,12 @@ class KickstartBase(BaseInstallClass):
 
             mountpoint = extra[0]
 
-        raidmems = extra[1:]
+        raidmems = []
+        # get the unique ids of each of the raid members
+        for member in extra[1:]:
+            if member not in self.ksRaidMapping.keys():
+                raise RuntimeError, "Tried to use an undefined partition in RAID specification"
+            raidmems.append(self.ksRaidMapping[member])
 
         # XXX this shouldn't have to happen =\
         if isRaid0(level):
@@ -676,6 +681,7 @@ class KickstartBase(BaseInstallClass):
         fstype = None
         mountpoint = None
         uniqueID = None
+        thisRaidID = None
         start = None
         end = None
         badblocks = None
@@ -739,14 +745,13 @@ class KickstartBase(BaseInstallClass):
             elif extra[0][:5] == "raid.":
                 filesystem = fileSystemTypeGet("software RAID")
 
-                # cheap hack.  unique id needs to be an int
-                theID = ""
-                for char in extra[0][5:]:
-                    if char not in string.digits:
-                        continue
-                    theID = theID + char
-                if len(theID) > 0:
-                    uniqueID = int(theID)
+                if self.ksRaidMapping.has_key(extra[0]):
+                    raise RuntimeError, "Defined RAID partition %s multiple times" % (extra[0],)
+
+                # XXX use the hackish raid unique ID
+                thisRaidID = self.raidID
+                self.ksRaidMapping[extra[0]] = thisRaidID
+                self.raidID = self.raidID + 1
             elif extra[0:9] == "/boot/efi":
                 filesystem = fileSystemTypeGet("vfat")
                 mountpoint = extra[0]
@@ -784,6 +789,8 @@ class KickstartBase(BaseInstallClass):
             request.format = 0
         if id:
             request.uniqueID = uniqueID
+        if thisRaidID:
+            request.uniqueID = thisRaidID
         if badblocks:
             request.badblocks = badblocks
         if onPart:
@@ -881,6 +888,9 @@ class KickstartBase(BaseInstallClass):
 	self.file = file
 	self.skipSteps = []
         self.interactive = 0
+        self.ksRaidMapping = {}
+        # XXX hack to give us a starting point for RAID unique IDs.  ugh.
+        self.raidID = 100000 
 	BaseInstallClass.__init__(self, 0)
 
 def Kickstart(file, serial):
