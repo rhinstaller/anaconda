@@ -3,6 +3,7 @@ from iw_gui import *
 import string
 import rpm
 import time
+import os
 from threading import *
 from translate import _
 import sys
@@ -151,12 +152,19 @@ class InstallProgressWindow (InstallWindow):
             
     def getScreen (self):
         import glob
-        pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/progress_*")
-        pixmaps2 = glob.glob("pixmaps/progress_*")
-        if len(pixmaps1) < len(pixmaps2):
-            files = pixmaps2
-        else:
-            files = pixmaps1
+
+	files = []
+	if (not os.environ.has_key('LANG') or 
+	    not os.environ['LANG'] or
+	    os.environ['LANG'] == 'en_US'):
+
+	    pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/progress_*")
+	    pixmaps2 = glob.glob("pixmaps/progress_*")
+	    if len(pixmaps1) < len(pixmaps2):
+		files = pixmaps2
+	    else:
+		files = pixmaps1
+
         pixmaps = []
         for pixmap in files:
             if string.find (pixmap, "progress_first.png") < 0:
