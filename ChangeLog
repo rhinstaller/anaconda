@@ -1,5 +1,9 @@
 2004-09-22  Jeremy Katz  <katzj@redhat.com>
 
+	* bootdisk/i386/syslinux.cfg: 
+	* bootdisk/x86_64/syslinux.cfg:
+	Add localboot option (#120687).
+
 	* scripts/mk-images.ia64: 
 	* scripts/mk-images.x86_64
 	Remove spurious fi
