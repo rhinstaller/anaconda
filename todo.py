@@ -1056,6 +1056,12 @@ class ToDo:
 	if (self.hdList.has_key('kernel')):
 	    self.hdList['kernel'].selected = 1
 
+        # if NIS is configured, install ypbind and dependencies:
+        if self.auth.useNIS:
+            self.hdList['ypbind'].selected = 1
+            self.hdList['yp-tools'].selected = 1
+            self.hdList['portmap'].selected = 1
+
         if self.x.server:
             self.selectPackage ('XFree86-' + self.x.server)
 
