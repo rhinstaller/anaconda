@@ -506,7 +506,7 @@ class BaseInstallClass:
         partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
         
 
-    def setInstallData(self, id):
+    def setInstallData(self, id, intf = None):
 	id.reset()
 	id.instClass = self
 

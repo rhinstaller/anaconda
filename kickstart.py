@@ -33,6 +33,27 @@ from rhpl.log import log
 KS_MISSING_PROMPT = 0
 KS_MISSING_IGNORE = 1
 
+class KickstartError(Exception):
+    def __init__(self, val = ""):
+        self.value = val
+
+    def __str__ (self):
+        return self.value
+
+class KickstartValueError(KickstartError):
+    def __init__(self, val = ""):
+        self.value = val
+
+    def __str__ (self):
+        return self.value
+
+class KSAppendException(KickstartError):
+    def __init__(self, s=""):
+	self.str = s
+
+    def __str__(self):
+	return self.str
+
 class Script:
     def __repr__(self):
 	str = ("(s: '%s' i: %s c: %d)") %  \
@@ -90,7 +111,7 @@ class KickstartBase(BaseInstallClass):
 		isCrypted = 1
                 
 	if len(extra) != 1:
-	    raise ValueError, "a single argument is expected to rootPw"
+	    raise KickstartValueError, "a single argument is expected to rootPw"
 
 	self.setRootPassword(id, extra[0], isCrypted = isCrypted)
 	self.skipSteps.append("accounts")
@@ -300,14 +321,14 @@ class KickstartBase(BaseInstallClass):
                 driveorder = string.split(arg, ',')
 
         if location not in validLocations:
-            raise ValueError, "mbr, partition, or none expected for bootloader command"
+            raise KickstartValueError, "mbr, partition, or none expected for bootloader command"
         if location == "none":
             location = None
         elif location == "partition":
             location = "boot"
 
         if upgrade and not id.upgrade.get():
-            raise RuntimeError, "Selected upgrade mode for bootloader but not doing an upgrade"
+            raise KickstartError, "Selected upgrade mode for bootloader but not doing an upgrade"
 
         if upgrade:
             id.bootloader.kickstart = 1
@@ -383,7 +404,7 @@ class KickstartBase(BaseInstallClass):
 		  'startxonboot', 'noprobe', 'defaultdesktop=' ])
 
 	if extra:
-	    raise ValueError, "unexpected arguments to xconfig command"
+	    raise KickstartValueError, "unexpected arguments to xconfig command"
 
 	server = None
 	card = None
@@ -438,7 +459,7 @@ class KickstartBase(BaseInstallClass):
                                     [ 'monitor=', 'hsync=', 'vsync=' ])
 
 	if extra:
-	    raise ValueError, "unexpected arguments to monitor command"
+	    raise KickstartValueError, "unexpected arguments to monitor command"
 
 	monitor = None
 	hsync = None
@@ -694,7 +715,7 @@ class KickstartBase(BaseInstallClass):
 
             elif args and args[0] == "%include" and not parsePre:
                 if len(args) < 2:
-                    raise RuntimeError, "Invalid %include line"
+                    raise KickstartError, "Invalid %include line"
                 else:
                     # read in the included file and set our where appropriately
                     where = self.readKickstart(id, args[1], where = where)
@@ -759,11 +780,11 @@ class KickstartBase(BaseInstallClass):
                             handlers[args[0]](id, args[1:])
                     else:
 			# unrecognized command
-			raise SyntaxError, "Unrecognized ks command: %s\nOn the line: %s" % (args[0], n)
+			raise KickstartError, "Unrecognized ks command: %s\nOn the line: %s" % (args[0], n)
 		elif where in ["pre", "post", "traceback"]:
 		    script = script + n
 		else:
-		    raise SyntaxError, "I'm lost in kickstart"
+		    raise KickstartError, "I'm lost in kickstart"
 
         self.groupList.extend(groups)
         self.packageList.extend(packages)
@@ -907,26 +928,26 @@ class KickstartBase(BaseInstallClass):
 
 	# sanity check mountpoint
 	if mountpoint is not None and mountpoint[0] != '/':
-	    raise RuntimeError, "The mount point \"%s\" is not valid." % (mountpoint,)
+	    raise KickstartError, "The mount point \"%s\" is not valid." % (mountpoint,)
 
         if not vgname:
-            raise RuntimeError, "Must specify the volume group for the logical volume to be in"
+            raise KickstartError, "Must specify the volume group for the logical volume to be in"
         if not size and not percent and not preexist:
-            raise RuntimeError, "Must specify the size of a logical volume"
+            raise KickstartError, "Must specify the size of a logical volume"
         if percent and percent <= 0 or percent > 100:
-            raise ValueError, "Logical Volume percentage must be between 0 and 100 percent"
+            raise KickstartValueError, "Logical Volume percentage must be between 0 and 100 percent"
 
         if not name:
-            raise RuntimeError, "Must specify a logical volume name"
+            raise KickstartError, "Must specify a logical volume name"
 
         vgid = self.ksVGMapping[vgname]
 	for areq in id.partitions.autoPartitionRequests:
 	    if areq.type == REQUEST_LV:
 		if areq.volumeGroup == vgid and areq.logicalVolumeName == name:
-		    raise ValueError, "Logical volume name %s already used in volume group %s" % (name,vgname)
+		    raise KickstartValueError, "Logical volume name %s already used in volume group %s" % (name,vgname)
 
         if not self.ksVGMapping.has_key(vgname):
-            raise ValueError, "Logical volume specifies a non-existent volume group"
+            raise KickstartValueError, "Logical volume specifies a non-existent volume group"
 
         request = partRequests.LogicalVolumeRequestSpec(filesystem,
                                                         format = format,
@@ -963,14 +984,14 @@ class KickstartBase(BaseInstallClass):
         # get the unique ids of each of the physical volumes
         for pv in extra[1:]:
             if pv not in self.ksPVMapping.keys():
-                raise RuntimeError, "Tried to use an undefined partition in Volume Group specification"
+                raise KickstartError, "Tried to use an undefined partition in Volume Group specification"
             pvs.append(self.ksPVMapping[pv])
 
         if len(pvs) == 0 and not preexist:
-            raise ValueError, "Volume group defined without any physical volumes"
+            raise KickstartError, "Volume group defined without any physical volumes"
 
         if pesize not in lvm.getPossiblePhysicalExtents(floor=1024):
-            raise ValueError, "Volume group specified invalid pesize: %d" %(pesize,)
+            raise KickstartError, "Volume group specified invalid pesize: %d" %(pesize,)
 
         # get a sort of hackish id
         uniqueID = self.ksID
@@ -1025,7 +1046,7 @@ class KickstartBase(BaseInstallClass):
             mountpoint = None
 
             if self.ksPVMapping.has_key(extra[0]):
-                raise RuntimeError, "Defined PV partition %s multiple times" % (extra[0],)
+                raise KickstartError, "Defined PV partition %s multiple times" % (extra[0],)
 
             # get a sort of hackish id
             uniqueID = self.ksID
@@ -1041,15 +1062,15 @@ class KickstartBase(BaseInstallClass):
 
 	# sanity check mountpoint
 	if mountpoint is not None and mountpoint[0] != '/':
-	    raise RuntimeError, "The mount point \"%s\" is not valid." % (mountpoint,)
+	    raise KickstartError, "The mount point \"%s\" is not valid." % (mountpoint,)
 
         raidmems = []
         # get the unique ids of each of the raid members
         for member in extra[1:]:
             if member not in self.ksRaidMapping.keys():
-                raise RuntimeError, "Tried to use an undefined partition in RAID specification"
+                raise KickstartError, "Tried to use an undefined partition in RAID specification"
 	    if member in self.ksUsedMembers:
-                raise RuntimeError, "Tried to use the RAID member %s in two or more RAID specifications" % (member,)
+                raise KickstartError, "Tried to use the RAID member %s in two or more RAID specifications" % (member,)
 		
             raidmems.append(self.ksRaidMapping[member])
 	    self.ksUsedMembers.append(member)
@@ -1063,9 +1084,9 @@ class KickstartBase(BaseInstallClass):
             level = "RAID5"
 
         if not level and preexist == 0:
-            raise ValueError, "RAID Partition defined without RAID level"
+            raise KickstartValueError, "RAID Partition defined without RAID level"
         if len(raidmems) == 0 and preexist == 0:
-            raise ValueError, "RAID Partition defined without any RAID members"
+            raise KickstartValueError, "RAID Partition defined without any RAID members"
 
         request = partRequests.RaidRequestSpec(filesystem,
                                                mountpoint = mountpoint,
@@ -1147,7 +1168,7 @@ class KickstartBase(BaseInstallClass):
                 recommended = 1
 
 	if len(extra) != 1:
-	    raise ValueError, "partition command requires one anonymous argument"
+	    raise KickstartValueError, "partition command requires one anonymous argument"
 
         if extra[0] == 'swap':
             filesystem = fileSystemTypeGet('swap')
@@ -1167,7 +1188,7 @@ class KickstartBase(BaseInstallClass):
             filesystem = fileSystemTypeGet("software RAID")
             
             if self.ksRaidMapping.has_key(extra[0]):
-                raise RuntimeError, "Defined RAID partition %s multiple times" % (extra[0],)
+                raise KickstartError, "Defined RAID partition %s multiple times" % (extra[0],)
             
             # get a sort of hackish id
             uniqueID = self.ksID
@@ -1177,7 +1198,7 @@ class KickstartBase(BaseInstallClass):
             filesystem = fileSystemTypeGet("physical volume (LVM)")
 
             if self.ksPVMapping.has_key(extra[0]):
-                raise RuntimeError, "Defined PV partition %s multiple times" % (extra[0],)
+                raise KickstartError, "Defined PV partition %s multiple times" % (extra[0],)
 
             # get a sort of hackish id
             uniqueID = self.ksID
@@ -1196,11 +1217,11 @@ class KickstartBase(BaseInstallClass):
                 mountpoint = extra[0]
 
         if (not size) and (not start and not end) and (not onPart):
-            raise ValueError, "partition command requires a size specification"
+            raise KickstartValueError, "partition command requires a size specification"
         if start and not disk:
-            raise ValueError, "partition command with start cylinder requires a drive specification"
+            raise KickstartValueError, "partition command with start cylinder requires a drive specification"
         if disk and disk not in isys.hardDriveDict().keys():
-            raise ValueError, "specified disk %s in partition command which does not exist" %(disk,)
+            raise KickstartValueError, "specified disk %s in partition command which does not exist" %(disk,)
         
         # XXX bytes per inode is the only per fs option at the moment
         # and we can assume that it works like this since it only works
@@ -1236,7 +1257,7 @@ class KickstartBase(BaseInstallClass):
             request.device = onPart
             for areq in id.partitions.autoPartitionRequests:
                 if areq.device is not None and areq.device == onPart:
-		    raise ValueError, "Partition %s already used" %(onPart,)
+		    raise KickstartValueError, "Partition %s already used" %(onPart,)
 
         self.addPartRequest(id.partitions, request)
         id.partitions.isKickstart = 1
@@ -1300,7 +1321,7 @@ class KickstartBase(BaseInstallClass):
         for n in self.showSteps:
             dispatch.skipStep(n, skip = 0)
 
-    def setInstallData(self, id):
+    def setInstallData(self, id, intf = None):
 	BaseInstallClass.setInstallData(self, id)
 
 	self.setEarlySwapOn(1)
@@ -1313,7 +1334,10 @@ class KickstartBase(BaseInstallClass):
         self.id.firstboot = FIRSTBOOT_SKIP
 
         # parse the %pre
-	self.readKickstart(id, self.file, parsePre = 1)
+        try:
+            self.readKickstart(id, self.file, parsePre = 1)
+        except KickstartError, e:
+            raise KickstartError, e
 
 	log("Running kickstart %%pre script(s)")
 	for script in self.preScripts:
@@ -1321,7 +1345,14 @@ class KickstartBase(BaseInstallClass):
 	log("All kickstart %%pre script(s) have been run")
 
         # now read the kickstart file for real
-	self.readKickstart(id, self.file)            
+        try:
+            self.readKickstart(id, self.file)
+        except KickstartError, e:
+            log("Exception parsing ks.cfg: %s" %(e,))
+            if intf is None:
+                raise KickstartError, e
+            else:
+                intf.kickstartErrorWindow(e.__str__())
 
     def runTracebackScripts(self):
 	log("Running kickstart %%traceback script(s)")
@@ -1478,13 +1509,13 @@ def parseKickstartVNC(ksfile):
 		try:
 		    vncpasswd = args[idx+1]
 		except:
-		    raise RuntimeError, "Missing argument to vnc --password option"
+		    raise KickstartError, "Missing argument to vnc --password option"
 		idx += 2
 	    elif args[idx] == "--connect":
 		try:
 		    connectspec = args[idx+1]
 		except:
-		    raise RuntimeError, "Missing argument to vnc --connect option"
+		    raise KickstartError, "Missing argument to vnc --connect option"
 		cargs = string.split(connectspec, ":")
 		vnchost = cargs[0]
 		if len(cargs) > 1:
@@ -1493,7 +1524,7 @@ def parseKickstartVNC(ksfile):
 		    
 		idx += 2
 	    else:
-		raise RuntimeError, "Unknown vnc option %s" % (args[idx],)
+		raise KickstartError, "Unknown vnc option %s" % (args[idx],)
 
 	usevnc = 1
 	break
@@ -1512,13 +1543,6 @@ def parseKickstartVNC(ksfile):
 # use %ksappend to pull via https anything private (like passwords, etc) in
 # the second stage.
 #
-class KSAppendException:
-    def __init__(self, s=""):
-	self.str = s
-
-    def __str__(self):
-	return self.str
-	
 def pullRemainingKickstartConfig(ksfile):
     try:
 	f = open(ksfile, "r")

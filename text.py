@@ -279,6 +279,17 @@ class InstallInterface:
 	else:
 	    return OkCancelWindow(self.screen, title, text)
 
+    def kickstartErrorWindow(self, text):
+        s = _("The following error was found while parsing your "
+              "kickstart configuration:n\n%s") %(text,)
+        self.messageWindow(_("Error Parsing Kickstart Config"),
+                           s,
+                           type = "custom",
+                           custom_buttons = [("_Reboot")],
+                           custom_icon="error")
+                           
+    
+
     def dumpWindow(self):
 	rc = ButtonChoiceWindow(self.screen, _("Save Crash Dump"),
 	    _("Please insert a floppy now. All contents of the disk "
