@@ -103,10 +103,10 @@ rm -rf $DEST $DESTGR
 mkdir -p $DEST
 mkdir -p $DESTGR
 
-PACKAGES="glibc ldconfig setup python newt libtermcap zlib ash e2fsprogs
-	  util-linux raidtools locale-ja popt mount procps rpm XFree86
-	  Xconfigurator anaconda anaconda-runtime kudzu-devel kudzu db3
-	  rpm-python syslinux"
+PACKAGES="glibc ldconfig setup python newt libtermcap zlib ash
+	 e2fsprogs util-linux raidtools locale-ja popt mount procps
+	 rpm XFree86 Xconfigurator anaconda anaconda-runtime
+	 kudzu-devel kudzu db1 db2 db3 rpm-python syslinux"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
