@@ -47,7 +47,7 @@ startinetd()
 }
 
 
-echo "Starting the S390 initrd to configure networking. Version is 0.30."
+echo "Starting the S390 initrd to configure networking. Version is 0.32."
 
 PATH="/bin:/sbin:/usr/bin:/usr/sbin"
 export PATH
@@ -167,7 +167,7 @@ else
 		if [ -f /lib/lcs.o ]; then
 			insmod -f /lib/lcs.o $LCS
 		else
-			echo "no lcs module found"
+			echo "error: no lcs module found"
 		fi
 	else
 		if [ ":$QETH" = ":auto" ]; then
@@ -179,7 +179,7 @@ else
 			insmod -f /lib/qdio.o
 			insmod -f /lib/qeth.o $QETH
 		else
-			echo "The qdio and the qeth are needed for this"
+			echo "error: The qdio and the qeth are needed for this"
 			echo "They cannot be found in /lib, skipping..."
 		fi
 	fi
@@ -231,6 +231,7 @@ CTC="$CTC"
 DTZ="$DTZ"
 ROOTPW="$ROOTPW"
 CROOTPW="$CROOTPW"
+export CHANDEV
 export HNAME DEVICE NETTYPE IPADDR GATEWAY MTU INTERACTIVE
 export NETWORKIP NETMASK BROADCAST INSTALL DNS SEARCHDNS FORCEDASDFORMAT
 export RPMSERVER MOUNTS SWAP DASD LCS QETH IUCV DTZ ROOTPW CROOTPW

@@ -2,6 +2,7 @@
  *  DASD setup                                                               *
  *  (c) 2000-2001 Bernhard Rosenkraenzer <bero@redhat.com>                   *
  *  Copyright (C) 2001 Florian La Roche <laroche@redhat.com>                 *
+ *  Copyright (C) 2001 Karsten Hopp <karsten@redhat.de>                      *
  *****************************************************************************/
 
 #include <newt.h>
@@ -9,20 +10,24 @@
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
-#include <fcntl.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include "common.h"
 
 #define MAX_DASD	26
 #define DASD_FMT	"dasd%c"
-#define DEV_DASD_FMT	"/dev/" DASD_FMT
 
+#define DEV_DASD_FMT	"/dev/" DASD_FMT
+#define FDASD		"/sbin/fdasd"
+#define PROCDASDDEV	"/proc/dasd/devices"
+#define DASDFMT		"/sbin/dasdfmt"
 int
 main (int argc, char **argv)
 {
-	newtComponent form, tb, ok, cancel, ret, cb[MAX_DASD];
+	newtComponent form, yesnoform, cdl, ldl, tb, tb2, ok, cancel, ret, cb[MAX_DASD];
 	int format[MAX_DASD], have_dasd[MAX_DASD];
-	int w, h, i, dasds = 0;
+	int w, h, i, j, dasds = 0;
+	FILE *f, *g;
 	char dasd[sizeof (DEV_DASD_FMT) + 1], tmp[4096], error[4096];
 
 	for (i = 0; i < MAX_DASD; i++) {
@@ -44,12 +49,11 @@ main (int argc, char **argv)
 		newtFinished ();
 		exit (EXIT_FAILURE);
 	}
-
 	newtCenteredWindow (w - 22, h - 6, "DASD initialization");
 	form = newtForm (NULL, NULL, 0);
 	tb = newtTextbox (1, 0, w - 23, 2, NEWT_FLAG_WRAP);
 	newtTextboxSetText (tb, "Please choose which DASDs you would like to "
-		"format.\nAll data on those DASDs will be lost.");
+		"format.");
 	newtFormAddComponent (form, tb);
 	for (i = 0; i < MAX_DASD; i++) {
 		if (! have_dasd[i])
@@ -79,7 +83,6 @@ main (int argc, char **argv)
 
 	for (i = 0; i < MAX_DASD; i++) {
 		int format_dasd, err = 0;
-		FILE *f;
 		char proc[256];
 
 		if (! format[i])
@@ -89,8 +92,7 @@ main (int argc, char **argv)
 		newtCenteredWindow (48, 2, "DASD initialization");
 		form = newtForm (NULL, NULL, 0);
 		tb = newtTextbox (1, 0, 46, 2, NEWT_FLAG_WRAP);
-		sprintf (tmp, "Currently formatting DASD %s...\n"
-			"This can take several minutes - Please wait.", dasd);
+		sprintf (tmp, "Checking DASD %s...", dasd);
 		newtTextboxSetText (tb, tmp);
 		newtFormAddComponent (form, tb);
 		newtDrawForm (form);
@@ -98,7 +100,7 @@ main (int argc, char **argv)
 
 		/* Check if we need to run dasdfmt... */
 		sprintf (tmp, DASD_FMT ":active", 'a' + i);
-		f = fopen ("/proc/dasd/devices", "r");
+		f = fopen (PROCDASDDEV, "r");
 		format_dasd = (f && !ferror (f));
 		while (format_dasd && !feof (f)) {
 			fgets (proc, sizeof proc, f);
@@ -107,15 +109,100 @@ main (int argc, char **argv)
 		}
 		if (f)
 			fclose (f);
-
-		if (format_dasd) {
-			sprintf (tmp, "/sbin/dasdfmt -b 4096 -y -f %s", dasd);
-			if ((err = system (tmp))) {
-				sprintf (error,
+		
+		sprintf(tmp, "%s %s >/dev/null 2>&1", FDASD, dasd);
+		f = popen(tmp, "w");
+		fprintf(f, "q\n");
+		if (pclose(f)) {	/* not formatted in z/OS compatible */
+					/* disk layout                      */
+			sprintf(tmp, 
+			"DASD %s is currently formatted with the Linux disk layout (LDL).\n\n"
+			"The preferred disk layout for Red Hat Linux for S/390 "
+			"is the zOS compatible layout (CDL).\n\n"
+			"In which layout shall it be reformatted now ?" , dasd);
+			yesnoform = newtForm (NULL, NULL, 0);
+			newtCenteredWindow (w - 22, h - 6, "DASD initialization");
+			tb2 = newtTextbox (1, 0, 46, 9, NEWT_FLAG_WRAP);
+			newtTextboxSetText (tb2, tmp);
+			newtFormAddComponent (yesnoform, tb2);
+			cdl = newtButton((w - 22) / 2 - 15, h - 10, "CDL");
+			ldl = newtButton((w - 22) / 2 + 5, h - 10, "LDL");
+			newtFormAddComponents(yesnoform, cdl, ldl, NULL);
+			newtDrawForm (yesnoform);
+			ret = newtRunForm(yesnoform);
+			newtFormDestroy(yesnoform);
+			newtPopWindow();
+			newtCenteredWindow (48, 2, "DASD initialization");
+			if (ret == ldl) {  /* User selected LDL format */
+				/* It is already formatted, should we enable this to be sure ?
+				 * It take quite long to format, so I'd rather skip it
+				 */
+				/*
+				sprintf (tmp, "Formatting DASD %s in LDL mode.\n"
+					"This can take several minutes - Please wait.", dasd);
+				newtTextboxSetText (tb, tmp);
+				newtDrawForm (form);
+				newtRefresh ();
+				sprintf (tmp, "%s -d ldl -b 4096 -y -f %s >/dev/null 2>&1", DASDFMT, dasd);
+				if ((err = system (tmp))) { 
+					sprintf (error,
+						"Error %d while trying to run\n%s:\n%s",
+						err, tmp, strerror (errno));
+					newtWinMessage ("Error", "Ok", error);
+					continue;
+				}
+				*/
+			} else {   /* User selected CDL format */
+				sprintf (tmp, "Formatting DASD %s in CDL mode.\n"
+					"This can take several minutes - Please wait.", dasd);
+				newtTextboxSetText (tb, tmp);
+				newtDrawForm (form);
+				newtRefresh ();
+				sprintf (tmp, "%s -d cdl -b 4096 -y -f %s >/dev/null 2>&1", DASDFMT, dasd);
+				if ((err = system (tmp))) {
+					sprintf (error,
+						"Error %d while trying to run\n%s:\n%s",
+						err, tmp, strerror (errno));
+					newtWinMessage ("Error", "Ok", error);
+					continue;
+				} else {
+					sprintf (tmp, "Making a partition on DASD %s...\n",
+						dasd);
+					newtTextboxSetText (tb, tmp);
+					newtDrawForm (form);
+					newtRefresh ();
+					sprintf(tmp, "%s -s -a %s >/dev/null 2>&1", FDASD, dasd);
+					if ((err = system (tmp))) {
+						sprintf (error,
+						"Error %d while trying to run\n%s:\n%s",
+						err, tmp, strerror (errno));
+						newtWinMessage ("Error", "Ok", error);
+						continue;
+					}
+				}
+			}
+		} else {        /* zOS compatible disk layout */
+			sprintf(tmp, "%s1", dasd);
+			if (((g = fopen(tmp, "r")) == NULL) || ((j = fgetc(g)) == EOF)) {
+				sprintf(tmp, "DASD %s is already in zOS compatible disk layout.\n"
+					"but no partitions were found. Adding a new partition...",
+					dasd);
+				newtWinMessage ("Partition missing", "Ok", tmp);
+				fclose(g);
+				sprintf(tmp, "%s -s -a %s >/dev/null 2>&1", FDASD, dasd);
+				if ((err = system (tmp))) {
+					sprintf (error,
 					"Error %d while trying to run\n%s:\n%s",
 					err, tmp, strerror (errno));
-				newtWinMessage ("Error", "Ok", error);
-				format_dasd = 0;
+					newtWinMessage ("Error", "Ok", error);
+					continue;
+				}
+			} else {
+				sprintf(tmp, "DASD %s is already in zOS compatible disk layout.\n"
+					"low-level formatting is not required on this DASD.",
+					dasd);
+				newtWinMessage ("Already formatted", "Ok", tmp);
+				if(g) fclose(g);
 			}
 		}
 		if (err == 0) {
@@ -123,14 +210,17 @@ main (int argc, char **argv)
 				"This can take a while - Please wait.",
 				"ext2", dasd);
 			newtTextboxSetText (tb, tmp);
+			newtDrawForm (form);
 			newtRefresh ();
 			sprintf (tmp, "/sbin/mke2fs -b 4096 %s1 >>"
 				"/tmp/mke2fs.log 2>&1", dasd);
 			err = system (tmp);
 			if (err != 0) {
 				sprintf (error,
-					"Error %u while trying to run\n%s:\n%s",
-					err, tmp, strerror (errno));
+					"Error %u while trying to run\n%s:\n"
+					"Perhaps you need to low-level format the DASD ?"
+					"Try dasdfmt -d cdl -b 4096 -y -f %s",
+					err, tmp, dasd);
 				newtWinMessage ("Error", "Ok", error);
 				newtPopWindow ();
 				newtFinished ();
