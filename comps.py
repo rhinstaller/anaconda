@@ -290,13 +290,13 @@ class ComponentSet:
     def totalSize(self):
 	total = 0
 	for pkg in self.packages.list():
-	    total = total + (pkg['size'] / 1024)
+	    total = total + (pkg[rpm.RPMTAG_SIZE] / 1024)
 	return total
 
     def size(self):
 	size = 0
 	for pkg in self.packages.list():
-	    if pkg.isSelected(): size = size + (pkg['size'] / 1024)
+	    if pkg.isSelected(): size = size + (pkg[rpm.RPMTAG_SIZE] / 1024)
 
 	return size / 1024
 
@@ -440,10 +440,10 @@ class ComponentSet:
 
         everything = Component(_("Everything"), 0, 0)
         for package in packages.keys ():
-	    if (packages[package]['name'] != 'kernel' and
-	        	packages[package]['name'] != 'kernel-BOOT' and
-	        	packages[package]['name'] != 'kernel-smp' and
-		  not XFreeServerPackages.has_key(packages[package]['name'])):
+	    if (packages[package][rpm.RPMTAG_NAME] != 'kernel' and
+	        	packages[package][rpm.RPMTAG_NAME] != 'kernel-BOOT' and
+	        	packages[package][rpm.RPMTAG_NAME] != 'kernel-smp' and
+		  not XFreeServerPackages.has_key(packages[package][rpm.RPMTAG_NAME])):
 		everything.addPackage (packages[package])
         self.comps.append (everything)
         self.compsDict["Everything"] = everything

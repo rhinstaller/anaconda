@@ -305,7 +305,8 @@ class SiloInstall:
 	kernelList.append((label, hdList['kernel'], ""))
 
 	for (label, kernel, tag) in kernelList:
-	    kernelTag = "-%s-%s%s" % (kernel['version'], kernel['release'], tag)
+	    kernelTag = "-%s-%s%s" % (kernel[rpm.RPMTAG_VERSION],
+                                      kernel[rpm.RPMTAG_RELEASE], tag)
 	    initrd = self.makeInitrd (kernelTag, instRoot)
 	    if rootDev == bootpart:
 		kernelFile = "/boot/vmlinuz" + kernelTag

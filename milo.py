@@ -93,7 +93,8 @@ class MiloInstall:
                 extra=""
                 if os.access (self.todo.instPath + initrd, os.R_OK):
                     extra=" initrd=%s/%s" % (kernelprefix, initrd)
-                version = "%s-%s" % (kernel['version'], kernel['release'])
+                version = "%s-%s" % (kernel[rpm.RPMTAG_VERSION],
+                                     kernel[rpm.RPMTAG_RELEASE])
                 f.write ("%d:%d%svmlinuz-%s%s root=/dev/%s%s\n" %
                          (lines, partition, kernelprefix,
                           version, tag, rootDevice, extra))
@@ -145,7 +146,8 @@ class MiloInstall:
             if (self.todo.hdList.has_key(package) and
                 self.todo.hdList[package].selected):
                 kernel = self.todo.hdList[package]
-                version = "%s-%s" % (kernel['version'], kernel['release'])
+                version = "%s-%s" % (kernel[rpm.RPMTAG_VERSION],
+                                     kernel[rpm.RPMTAG_RELEASE])
                 # if this is UP and we have a kernel (the smp kernel),
                 # then call it linux-up
                 if not tag and kernels:

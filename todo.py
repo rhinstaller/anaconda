@@ -496,7 +496,8 @@ class ToDo:
 	os.close(fd)
 
 	kernel = self.hdList['kernel']
-        kernelTag = "-%s-%s" % (kernel['version'], kernel['release'])
+        kernelTag = "-%s-%s" % (kernel[rpm.RPMTAG_VERSION],
+                                kernel[rpm.RPMTAG_RELEASE])
 
         w = self.intf.waitWindow (_("Creating"), _("Creating boot disk..."))
         rc = iutil.execWithRedirect("/sbin/mkbootdisk",
@@ -1274,12 +1275,12 @@ class ToDo:
 	
 	if (self.hdList.has_key('kernel-smp') and 
 	    self.hdList['kernel-smp'].selected):
-	    version = (self.hdList['kernel-smp']['version'] + "-" +
-		       self.hdList['kernel-smp']['release'] + "smp")
+	    version = (self.hdList['kernel-smp'][rpm.RPMTAG_VERSION] + "-" +
+		       self.hdList['kernel-smp'][rpm.RPMTAG_RELEASE] + "smp")
 	    kernelVersions.append(version)
 
-	version = (self.hdList['kernel']['version'] + "-" +
-		   self.hdList['kernel']['release'])
+	version = (self.hdList['kernel'][rpm.RPMTAG_VERSION] + "-" +
+		   self.hdList['kernel'][rpm.RPMTAG_RELEASE])
 	kernelVersions.append(version)
 
         for (path, subdir, name) in self.extraModules:
@@ -1311,12 +1312,12 @@ class ToDo:
 	
 	if (self.hdList.has_key('kernel-smp') and 
 	    self.hdList['kernel-smp'].selected):
-	    version = (self.hdList['kernel-smp']['version'] + "-" +
-		       self.hdList['kernel-smp']['release'] + "smp")
+	    version = (self.hdList['kernel-smp'][rpm.RPMTAG_VERSION] + "-" +
+		       self.hdList['kernel-smp'][rpm.RPMTAG_RELEASE] + "smp")
 	    kernelVersions.append(version)
 
-	version = (self.hdList['kernel']['version'] + "-" +
-		   self.hdList['kernel']['release'])
+	version = (self.hdList['kernel'][rpm.RPMTAG_VERSION] + "-" +
+		   self.hdList['kernel'][rpm.RPMTAG_RELEASE])
 	kernelVersions.append(version)
 
         for version in kernelVersions:
@@ -1350,9 +1351,9 @@ class ToDo:
 	    return -1
 	elif one > two:
 	    return 1
-	elif string.lower(first['name']) < string.lower(second['name']):
+	elif string.lower(first[rpm.RPMTAG_NAME]) < string.lower(second[rpm.RPMTAG_NAME]):
 	    return -1
-	elif string.lower(first['name']) > string.lower(second['name']):
+	elif string.lower(first[rpm.RPMTAG_NAME]) > string.lower(second[rpm.RPMTAG_NAME]):
 	    return 1
 
 	return 0
@@ -1469,7 +1470,7 @@ class ToDo:
 	l = []
 
 	for p in self.hdList.selected():
-            if p.h['name'] != 'locale-ja':
+            if p.h[rpm.RPMTAG_NAME] != 'locale-ja':
                 l.append(p)
 	l.sort(self.sortPackages)
 
@@ -1481,7 +1482,7 @@ class ToDo:
 	for p in l:
             ts.add(p.h, p.h, how)
             total = total + 1
-            totalSize = totalSize + (p['size'] / 1024 )
+            totalSize = totalSize + (p[rpm.RPMTAG_SIZE] / 1024 )
 
 	ts.order()
 
