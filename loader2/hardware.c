@@ -310,7 +310,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
                moduleInfoSet modInfo, int flags,
                struct knownDevices * kd) {
-    mlLoadModuleSet("sd_mod:sr_mod", modLoaded, modDeps, modInfo, flags);
+    mlLoadModuleSet("scsi_mod:sd_mod:sr_mod", modLoaded, modDeps, modInfo, flags);
 }
 
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
@@ -319,7 +319,7 @@ void ideSetup(moduleList modLoaded, moduleDeps modDeps,
     struct device ** devices;
     int fd, i;
 
-    mlLoadModuleSet("ide-cd", modLoaded, modDeps, modInfo, flags);
+    mlLoadModuleSet("cdrom:ide-cd", modLoaded, modDeps, modInfo, flags);
 
     /* FIXME: having dma on for CD devices seems to break media check
      * as well as causing other problems for people.  To avoid having

@@ -243,7 +243,7 @@ char * getProductPath(void) {
 void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
                        moduleInfoSet modInfo, int flags) {
     if (!FL_NOFB(flags))
-	mlLoadModuleSet("vga16fb", modLoaded, modDeps, modInfo, flags);
+	mlLoadModuleSet("vgastate:vga16fb", modLoaded, modDeps, modInfo, flags);
     /* enable UTF-8 console */
     printf("\033%%G");
     fflush(stdout);
@@ -1163,7 +1163,7 @@ int main(int argc, char ** argv) {
     if (isVioConsole())
 	setenv("TERM", "vt100", 1);
     
-    mlLoadModuleSet("cramfs:vfat:sunrpc:lockd:nfs:loop:isofs:floppy", modLoaded, modDeps, 
+    mlLoadModuleSet("cramfs:fat:vfat:sunrpc:lockd:nfs:loop:isofs:floppy", modLoaded, modDeps, 
                     modInfo, flags);
 
     /* now let's do some initial hardware-type setup */
@@ -1282,7 +1282,7 @@ int main(int argc, char ** argv) {
     /* look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
-    mlLoadModuleSetLocation("md:raid0:raid1:raid5:msdos:ext3:reiserfs:jfs:xfs:lvm-mod",
+    mlLoadModuleSetLocation("md:raid0:raid1:raid5:fat:msdos:ext3:reiserfs:jfs:xfs:lvm-mod",
 			    modLoaded, modDeps, modInfo, flags, 
 			    secondStageModuleLocation);
 
