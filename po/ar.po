@@ -3,19 +3,20 @@
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Ossama M. Khayat <okhayat@yahoo.com>, 2004.
+# Youcef Rabah Rahal <rahal@arabeyes.org>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-05-01 17:21+0300\n"
-"Last-Translator: Ossama M. Khayat <okhayat@yahoo.com>\n"
+"PO-Revision-Date: 2004-06-19 22:23+0200\n"
+"Last-Translator: Youcef Rabah Rahal <rahal@arabeyes.org>\n"
 "Language-Team: Arabic <support@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.3\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -148,8 +149,7 @@ msgstr "خطأ في قراءة الجزء الثّاني من تهيئة kicksta
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
-msgstr ""
-"لا يوجد لديك ذاكرة مؤقّتة كافية لتستخدم المُثبّت الرسوميّ. جاري بدء الوضع النّصّي."
+msgstr "لا يوجد لديك ذاكرة مؤقّتة كافية لتستخدم المُثبّت الرسوميّ. جاري بدء الوضع النّصّي."
 
 #: ../anaconda:782
 msgid "Install class forcing text mode installation"
@@ -171,8 +171,7 @@ msgstr "التثبيت الرّسومي غير متوفّر... جاري بدء �
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
-msgstr ""
-"لم يتم العثور على ماوس. التّثبيت الرّسوميّ يتطلّب وجود واحدة. بدء الوضع النّصّي."
+msgstr "لم يتم العثور على ماوس. التّثبيت الرّسوميّ يتطلّب وجود واحدة. بدء الوضع النّصّي."
 
 #: ../anaconda:869
 #, c-format
@@ -227,8 +226,7 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
-"تجزيء الإقلاع %s ليس تجزيء VFAT.  لن يستطيع EFI الإقلاع من هذا التّجزيء."
+msgstr "تجزيء الإقلاع %s ليس تجزيء VFAT.  لن يستطيع EFI الإقلاع من هذا التّجزيء."
 
 #: ../autopart.py:1010
 msgid ""
@@ -252,8 +250,7 @@ msgstr ""
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
-"إضافة هذا التجزيء لن تترك مساحة قرص كافية للكتل المنطقيّة المُعنيّة مسبقاً في %s."
+msgstr "إضافة هذا التجزيء لن تترك مساحة قرص كافية للكتل المنطقيّة المُعنيّة مسبقاً في %s."
 
 #: ../autopart.py:1208
 msgid "Requested Partition Does Not Exist"
@@ -587,8 +584,7 @@ msgstr "كتبت النّفاية"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
-"تمّت كتابة حالة نظامك بنجاح إلى القرص المرن. سوف يتمّ الآن إعادة تشغيل نظامك."
+msgstr "تمّت كتابة حالة نظامك بنجاح إلى القرص المرن. سوف يتمّ الآن إعادة تشغيل نظامك."
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -971,11 +967,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"وجد الخطأ التّالي عند تحليل تهيئة kickstart الخاصّة بك:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "خطأ في فتح ملف kickstart %s: %s"
+msgstr "خطأ عند تحليل ملفّ Kickstart Config"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -986,9 +984,8 @@ msgstr ""
 "بحذر."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "افتراضي"
+msgstr "افتراض: من اليسار إلى اليمين (LTR)"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1140,9 +1137,9 @@ msgid "Change CDROM"
 msgstr "بدّل القرص المدمج"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "رجاءً أدخل القرص %d لتستمر."
+msgstr "أدخل من فضلك قرص %s رقم %d للمتابعة.."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1155,7 +1152,7 @@ msgstr "ليس هذا هو قرص %s الصّحيح."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "لم أتمكّن من التّوصّل إلى القرص المدمج."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1804,8 +1801,7 @@ msgstr "تمّ تحديد التجزيءات الموجودة مسبقاً لل�
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
-msgstr ""
-"اختر 'نعم' لتستمرّ وتنسّق هذه التّجزيءات، أو 'لا' لتعود و تغيّر هذه الإعدادات."
+msgstr "اختر 'نعم' لتستمرّ وتنسّق هذه التّجزيءات، أو 'لا' لتعود و تغيّر هذه الإعدادات."
 
 #: ../partIntfHelpers.py:456
 msgid "Format Warning"
@@ -1845,8 +1841,7 @@ msgid "Confirm Reset"
 msgstr "أكّد الاستعادة"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "هل أنت متأكّد أنّك تريد استعادة جدول التّجزئة إلى وضعه الأصلي؟"
 
 #: ../partitioning.py:77
@@ -1891,8 +1886,7 @@ msgid ""
 msgstr "التجزيء الجذريّ أقل من 250 ميجابايت والذي هو عادة قليل جداً لتثبيت %s."
 
 #: ../partitions.py:768
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "يجب عليك إنشاء تجزيء /boot/efi من نوع FAT وبحجم 50 ميجابايت"
 
 #: ../partitions.py:791
@@ -1904,8 +1898,7 @@ msgstr "يجب عليك إنشاء تجزيء إقلاع PPC PReP."
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
-msgstr ""
-"التّجزيء %s أقلّ حجماً من %s ميجابايت والذي هو أقلّ من المستحسن لتثبيت %s طبيعي."
+msgstr "التّجزيء %s أقلّ حجماً من %s ميجابايت والذي هو أقلّ من المستحسن لتثبيت %s طبيعي."
 
 #: ../partitions.py:839 ../partRequests.py:651
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1955,8 +1948,7 @@ msgstr "تجزيء عضو في جموعة كتل LVM."
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "مكان التّجهيز غير صالح.  يجب أن يكون الدّليل %s على نظام الملفّات /."
 
 #: ../partRequests.py:236
@@ -1991,8 +1983,7 @@ msgstr "حجم التّجزيء %s (%10.2f ميجابايت)  يفوق الحج�
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
-"حجم التجزيء المطلوب (size = %s ميجابايت) يفوق الحجم الأقصى من %s ميجابايت."
+msgstr "حجم التجزيء المطلوب (size = %s ميجابايت) يفوق الحجم الأقصى من %s ميجابايت."
 
 #: ../partRequests.py:470
 #, python-format
@@ -2194,17 +2185,14 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:365
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> للمساعدة | <Tab> بين العناصر | <Space> يحدّد | <F12> الشّاشة التّالية"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> للمساعدة | <Tab> بين العناصر | <Space> يحدّد | <F12> الشّاشة التّالية"
 
 #: ../text.py:367
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> بين العناصر   |  <Space> يحدّد   |  <F12> الشّاشة التّالية"
+msgstr "  <Tab>/<Alt-Tab> بين العناصر   |  <Space> يحدّد   |  <F12> الشّاشة التّالية"
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -2384,42 +2372,38 @@ msgid "Connecting..."
 msgstr "جاري الاتّصال..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "لم يمكن تحميل الملف!"
+msgstr "لم أتمكّن من بدأ X"
 
 #: ../vnc.py:37
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr ""
+msgstr "لم يتمكّن X من البدأ على جهازك. هل تودّ بدأ VNC للاتّصال على هذا الحاسوب انطلاقا من حاسوب آخر و القيام بتثبيت تخطيطي أو تودّ المتابعة بثبيت على النّمط النّصّي ؟"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "إستعمل النّمط النّصي"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "جاري تشغيل VNC..."
+msgstr "إبدأ VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "تهيئة silo"
+msgstr "تهيئة VNC"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "كلمة مرور المستخدم root"
+msgstr "ليست هناك كلمة مرور"
 
 #: ../vnc.py:62
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
+msgstr "كلمة المرور وقاية من اتّصال المستمعين غير المسموح لهم و مراقبتهم لتقدّم تثبيتك. أدخل من فضلك كلمة مرور تستعمل للتّثبيت"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2442,9 +2426,8 @@ msgid "Password Length"
 msgstr "طول كلمة المرور"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "كلمة المرور يجب أن تكون بطول 6 أحرف على الأقلّ."
+msgstr "يجب أن يكون طول كلمة المرور 6 رموز على الأقلّ."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2463,8 +2446,7 @@ msgstr "خطأ في كلمة المرور"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr ""
-"يجب أن تدخل كلمة مرور المستخدم root وتؤكّدها بكتابتها مرّة ثانية كي تستمرّ."
+msgstr "يجب أن تدخل كلمة مرور المستخدم root وتؤكّدها بكتابتها مرّة ثانية كي تستمرّ."
 
 #: ../iw/account_gui.py:50
 msgid "The passwords you entered were different.  Please try again."
@@ -2486,7 +2468,7 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
+msgstr "الحساب الجذري مستعمل لإدارة النّظام. أدخل كلمة مرور للمستخدم الجذري."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -2984,8 +2966,7 @@ msgstr ""
 msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
-msgstr ""
-"إن أردت أن تغيّر مجموعة الحزم الافتراضيّة لتثبيتها يمكنك اختيار تخصيصها أدناه."
+msgstr "إن أردت أن تغيّر مجموعة الحزم الافتراضيّة لتثبيتها يمكنك اختيار تخصيصها أدناه."
 
 #: ../iw/desktop_choice_gui.py:73
 msgid "_Install default software packages"
@@ -3133,7 +3114,7 @@ msgstr "_مكّن الجداري النّاريّ"
 
 #: ../iw/firewall_gui.py:179
 msgid "Allow others on the internet to access these services."
-msgstr ""
+msgstr "إسمح لآخرين على الإنترنت بالتّوصّل لهذه الخدمات."
 
 #: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
@@ -3141,21 +3122,19 @@ msgstr "ا_سمح بالوارد:"
 
 #: ../iw/firewall_gui.py:203
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "الدّخول عن بعد (SSH)"
 
 #: ../iw/firewall_gui.py:205
-#, fuzzy
 msgid "Web Server"
-msgstr "_خادم"
+msgstr "خادم الويب"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "بريد (SMTP)"
+msgstr "خادم البريد (SMTP)"
 
 #: ../iw/firewall_gui.py:209
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "نقل الملفّات (FTP)"
 
 #: ../iw/firewall_gui.py:215
 msgid "Other _ports:"
@@ -3631,16 +3610,14 @@ msgstr "خطأ في البيانات"
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
-msgstr ""
-"لم تقم بتحديد اسم مضيف.  اعتماداً على بيئة شبكتك قد يسبّب هذا مشاكل لاحقاً."
+msgstr "لم تقم بتحديد اسم مضيف.  اعتماداً على بيئة شبكتك قد يسبّب هذا مشاكل لاحقاً."
 
 #: ../iw/network_gui.py:160
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr ""
-"لم تحدّد قيمة الحقل \"%s\".  اعتماداً على بيئة شبكتك قد يسبّب هذا مشاكل لاحقاً."
+msgstr "لم تحدّد قيمة الحقل \"%s\".  اعتماداً على بيئة شبكتك قد يسبّب هذا مشاكل لاحقاً."
 
 #: ../iw/network_gui.py:164 ../textw/network_text.py:399
 #, python-format
@@ -3838,8 +3815,7 @@ msgstr "لا يمكن الحذف"
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"الإقلاع المستهدف لا يمكنك حذفه بسبب أنّه للنّظام %s الذي أنت على وشك تثبيته."
+msgstr "الإقلاع المستهدف لا يمكنك حذفه بسبب أنّه للنّظام %s الذي أنت على وشك تثبيته."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
@@ -4026,14 +4002,12 @@ msgid "Partitioning"
 msgstr "التّجزئة"
 
 #: ../iw/partition_gui.py:639
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "توجد الأخطاء الحرجة التّالية بخريطة التّجزئة التي طلبتها."
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "يجب تصحيح هذه الأخطاء قبل الاستمرار بتثبيت %s."
 
 #: ../iw/partition_gui.py:648
@@ -4651,8 +4625,7 @@ msgstr "سوف يُطوّر هذا محمّل الإقلاع الحاليّ."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "اكتشف المُثبّت مُحمّل الإقلاع %s المثبّت حاليّاً على %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4783,8 +4756,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "يجب أن يكون حجم ملفّ الذّاكرة البديلة بين 1 و 2000 ميجابايت."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "ليس هناك مساحة كافية على الجهاز الذي اخترته لتجزيء الذّاكرة البديلة."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -5111,8 +5083,7 @@ msgstr ""
 "الذي تريد استخدامه لكلّ منها."
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <مسافة> تُحدّد الزّر | <F2> تختار مُدخل الإقلاع الافتراضي | <F12> الشّاشة "
 "التّالية>"
@@ -5587,8 +5558,7 @@ msgid "Select individual packages"
 msgstr "اختر الحزم فرديّاً"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<مسافة>،<+>،<-> الاختيار   |   <F2> تفاصيل المجموعة   |   <F12> الشّاشة "
 "التّالية"
@@ -5615,8 +5585,7 @@ msgid "Total size"
 msgstr "الحجم الكلّي"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <مسافة>,<+>,<-> الاختيار   |   <F1> مساعدة   |   <F2> وَصْف الحزمة"
 
 #: ../textw/packages_text.py:374
@@ -5839,8 +5808,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1140
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-مساعدة     F2-جديد      F3-عدّل   F4-احذف    F5-أعد للأصل    F12-"
 "موافق        "
@@ -6084,13 +6052,11 @@ msgid "User Exists"
 msgstr "المستخدم موجود مسبقاً"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr "المستخدم root مهيّءٌ مسبقاً. لا تحتاج إلى إضافة هذا المستخدم هنا."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr "المستخدم system مُهيّءٌ مسبقاً. لا تحتاج إلى إضافة هذا المستخدم هنا."
 
 #: ../textw/userauth_text.py:171
@@ -6344,8 +6310,7 @@ msgstr "معدّل التّزامن العمودي (VSync): "
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
-msgstr ""
-"رجاء اختر الشّاشة لنظامك.  استخدم الزّرّ '%s' لاستعادة القيم المستكشفة أصلاً."
+msgstr "رجاء اختر الشّاشة لنظامك.  استخدم الزّرّ '%s' لاستعادة القيم المستكشفة أصلاً."
 
 #: ../textw/xconfig_text.py:423
 msgid "Monitor:"
@@ -6621,35 +6586,29 @@ msgstr "مصدر قرص برنامج التّعريف"
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
-msgstr ""
-"لديك عدّة أجهزة يمكن أن تخدم كمصادر قرص برنامج التّعريف. أيّها تودّ استخدامه؟"
+msgstr "لديك عدّة أجهزة يمكن أن تخدم كمصادر قرص برنامج التّعريف. أيّها تودّ استخدامه؟"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
-msgstr ""
-"لديك عدّة أجهزة يمكن أن تخدم كمصادر قرص برنامج التّعريف. أيّها تودّ استخدامه؟"
+msgstr "توجد عدّة تجزئات على هذا الجهاز قابلة على احتواء صورة القرص القائد. أيّا منها تريد الاستعمال ؟امه؟"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "فشل تجهيز قرص التّحديثات"
+msgstr "فشلت في تركيب التّجزئة.ت"
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "اختر برنامج تعريف"
+msgstr "إختر صورة قرص القائد"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "إختر الملفّ الممثّل لصورة القرص القائد الخاصّة بك."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "فشل تجهيز قرص برنامج التّعريف"
+msgstr "فشلت في تحميل قرص القائد من الملفّ.ف"
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -6749,8 +6708,7 @@ msgstr "حمّل قرص برنامج التّعريف"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"لم يُعثر على برامج تعريف لإضافتها يدويّاً.  هل تودّ استخدام قرص برنامج تعريف؟"
+msgstr "لم يُعثر على برامج تعريف لإضافتها يدويّاً.  هل تودّ استخدام قرص برنامج تعريف؟"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -6785,8 +6743,7 @@ msgstr "شجرة تثبيت %s في ذلك الدّليل لا يبدو مطاب
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
-msgstr ""
-"حدث خطأ خلال قراءة التّثبيت من صور ISO. رجاء تحقّق من صور ISO وحاول مجدّداً."
+msgstr "حدث خطأ خلال قراءة التّثبيت من صور ISO. رجاء تحقّق من صور ISO وحاول مجدّداً."
 
 #: ../loader2/hdinstall.c:327
 msgid ""
@@ -6859,8 +6816,7 @@ msgid "Welcome to %s"
 msgstr "أهلاً بكم إلى %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:174
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> بين العناصر  | <Space> يحدّد | <F12> الشّاشة التّالية "
 
 #: ../loader2/lang.c:372
@@ -6983,9 +6939,9 @@ msgid "Add Device"
 msgstr "أضف جهازاً"
 
 #: ../loader2/loader.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "تمّ تشغيل المُحمّل مسبقاً.  جاري تشغيل الصّدفة."
+msgstr "تمّ تشغيل المُحمّل مسبّقاً. يجري بدأ الصّدفة.\n"
 
 #: ../loader2/loader.c:1478
 #, c-format
@@ -7122,20 +7078,19 @@ msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr ""
+msgstr "%s مكيّف شبكة لاسلكي. إعطي من فضلك الـESSID و مفتاح التّرميز الضّروريين للإتّصال بشبكتك اللّاسلكية. في حالة عدم الحاجة إلى مفتاح، أترك هذا الحقل فارغا و سيواصل التّثبيت."
 
 #: ../loader2/net.c:183
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../loader2/net.c:184
 msgid "Encryption Key"
-msgstr ""
+msgstr "مفتاح التّرميز"
 
 #: ../loader2/net.c:187
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "إعدادات متفرّقة"
+msgstr "إعدادات اللّاسلكي"
 
 #: ../loader2/net.c:200
 msgid "Nameserver IP"
@@ -7425,8 +7380,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "التّوقيت الأطلنطي - إي لابرادور"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "التّوقيت الأطلنطي - نوفا سكوتيا (معظم الأماكن)، NB، غرب لابرادر، شرق كيبك و "
 "PEI"
@@ -7612,8 +7566,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "التّوقيت الشّرقي - أونتاريو - معظم المواقع"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "التّوقيت الشّرقي - أونتاريو وكيبيك - الأماكن التي لم تشهد DST 1967-1973"
 
 #. generated from zone.tab
@@ -7797,8 +7750,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "توقيت الجبل القياسي - أريزونا"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "توقيت الجبل القياسي - جَدْوَل داوسون وقلعة ساينت جون، كولومبيا البريطانيّة"
 
 #. generated from zone.tab
@@ -8171,3 +8123,4 @@ msgstr "الزولو"
 
 #~ msgid "_Trusted devices:"
 #~ msgstr "الأجهزة ال_موثوقة:"
+
