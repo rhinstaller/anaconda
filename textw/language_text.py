@@ -77,6 +77,12 @@ class LanguageWindow:
 
 class LanguageSupportWindow:
     def __call__(self, screen, language):
+
+        # in reconfig skip
+        if flags.reconfig:
+            ButtonChoiceWindow(screen, "test", "nooping langsupport")
+            return INSTALL_NOOP
+        
 	# should already be sorted
 
         ct = CheckboxTree(height = 8, scroll = 1)
