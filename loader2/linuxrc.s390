@@ -240,9 +240,9 @@ fi
 
 # configure network-interface
 if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
+   insmod ccwgroup$LO
 	insmod cu3088$LO
 	insmod fsm$LO
-   insmod ccwgroup$LO
 	insmod ctc$LO
    setupdevice
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
