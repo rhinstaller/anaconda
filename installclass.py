@@ -150,6 +150,9 @@ class InstallClass:
     def getMakeBootdisk(self):
 	return self.makeBootdisk
 
+    def setMakeBootdisk(self, state):
+	self.makeBootdisk = state 
+
     def setNetwork(self, bootproto, ip, netmask, gateway, nameserver):
 	self.bootProto = bootproto
 	self.ip = ip
@@ -238,6 +241,7 @@ class Workstation(InstallClass):
 	    self.addToSkipList("lilo")
 	self.addToSkipList("authentication")
 	self.addToSkipList("package-selection")
+	self.setMakeBootdisk(1)
 
 	if os.uname ()[4] != 'sparc64':
 	    self.addNewPartition('/boot', 16, 16, 0, None)
@@ -272,6 +276,7 @@ class Server(InstallClass):
 	    self.addToSkipList("lilo")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")
+	self.setMakeBootdisk(1)
 
 	if os.uname ()[4] != 'sparc64':
 	    self.addNewPartition('/boot', 16, 16, 0, None)
