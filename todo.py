@@ -1145,6 +1145,17 @@ class ToDo:
                 line = string.join (fields, ':')
             inittab.write (line)
         inittab.close ()
+
+    def migrateXinetd(self):
+        if not os.access (self.instPath + "/usr/sbin/inetdconvert"):
+            log("did not find %s" % self.instPath + "/usr/sbin/inetdconvert")
+
+        argv = [ "/usr/sbin/inetdconvert", "--convertremaining" ]
+        log("found inetdconvert, executing %s" % argv)
+        devnull = os.open("/dev/null", os.O_RDWR)
+        iutil.execWithRedirect(argv[0], argv, root = self.instPath,
+                               stdout = devnull)
+
         
     def instCallback(self, what, amount, total, h, intf):
         if (what == rpm.RPMCALLBACK_TRANS_START):
@@ -1547,6 +1558,10 @@ class ToDo:
                     xmouse.reopen()
                 except RuntimeError:
                     pass
+
+        # needed for prior systems which were not xinetd based
+        if self.upgrade:
+            self.migrateXinetd()
         
         # XXX make me "not test mode"
         if self.setupFilesystems:
