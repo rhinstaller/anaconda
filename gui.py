@@ -97,13 +97,15 @@ class InstallInterface:
         gtkThread = GtkMainThread ()
         gtkThread.start ()
         
-        steps = [WelcomeWindow, LanguageWindow, InstallTypeWindow, MouseWindow, 
+        steps = [WelcomeWindow, LanguageWindow, #InstallTypeWindow, 
+		 MouseWindow, 
 	         KeyboardWindow, NetworkWindow, #AutoPartitionWindow, 
 		 PartitionWindow, 
                  FormatWindow, PackageSelectionWindow, UnresolvedDependenciesWindow, LiloWindow, AuthWindow,
 	         AccountWindow, InstallProgressWindow, CongratulationWindow]
 
-        windows = [WelcomeWindow, LanguageWindow, InstallTypeWindow, MouseWindow, 
+        windows = [WelcomeWindow, LanguageWindow, #InstallTypeWindow, 
+		   MouseWindow, 
 	           KeyboardWindow, NetworkWindow, #AutoPartitionWindow,
                    PartitionWindow, FormatWindow, PackageSelectionWindow, UnresolvedDependenciesWindow, 
 		   LiloWindow, AuthWindow, AccountWindow, IndividualPackageSelectionWindow, 
