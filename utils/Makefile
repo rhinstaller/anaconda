@@ -29,7 +29,7 @@ modules.o: ../loader/modules.c
 
 moddeps: moddeps.o modules.o
 	$(CC) $(LDFLAGS) -o moddeps moddeps.o modules.o \
-            $(LOADLIBES) \
+            $(LOADLIBES) -lresolv \
 	    -lmodutils -lmodutilobj -lmodutilutil  \
 	    -lpopt -lgunzip -L../isys/gzlib -lbz2
 
