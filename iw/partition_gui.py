@@ -1598,7 +1598,7 @@ class AutoPartitionWindow(InstallWindow):
         box = GtkVBox (FALSE)
         box.set_border_width (5)
 
-        label = GtkLabel(AUTOPART_DISK_CHOICE_DESCR_TEXT)
+        label = GtkLabel(_(AUTOPART_DISK_CHOICE_DESCR_TEXT))
 
         label.set_line_wrap(1)
         label.set_alignment(0.0, 0.0)
@@ -1613,13 +1613,13 @@ class AutoPartitionWindow(InstallWindow):
         
         radioBox = GtkVBox (FALSE)
         self.clearLinuxRB = GtkRadioButton(
-            None, CLEARPART_TYPE_LINUX_DESCR_TEXT)
+            None, _(CLEARPART_TYPE_LINUX_DESCR_TEXT))
 	radioBox.pack_start(self.clearLinuxRB, FALSE, FALSE)
         self.clearAllRB = GtkRadioButton(
-            self.clearLinuxRB, CLEARPART_TYPE_ALL_DESCR_TEXT)
+            self.clearLinuxRB, _(CLEARPART_TYPE_ALL_DESCR_TEXT))
 	radioBox.pack_start(self.clearAllRB, FALSE, FALSE)
         self.clearNoneRB = GtkRadioButton(
-            self.clearLinuxRB, CLEARPART_TYPE_NONE_DESCR_TEXT)
+            self.clearLinuxRB, _(CLEARPART_TYPE_NONE_DESCR_TEXT))
 	radioBox.pack_start(self.clearNoneRB, FALSE, FALSE)
 
         if type == CLEARPART_TYPE_LINUX:
@@ -1645,7 +1645,7 @@ class AutoPartitionWindow(InstallWindow):
         self.driveclist = createAllowedDrivesClist(diskset.disks,
                                                    cleardrives)
         # XXX bad use of usize
-        self.driveclist.set_usize(300, -1)
+        self.driveclist.set_usize(300, 80)
 
 	align = GtkAlignment()
 	align.add(self.driveclist)
@@ -1655,9 +1655,14 @@ class AutoPartitionWindow(InstallWindow):
 
         box.pack_start(drivesbox, FALSE, FALSE)
 
-        self.inspect = GtkCheckButton(_("Review (allows you to see and "
-                                        "change the automatic partitioning "
-                                        "results)"))
+        self.inspect = GtkCheckButton()
+        label = GtkLabel(_("Review (allows you to see and "
+                  "change the automatic partitioning results)"))
+        label.set_alignment(0.0, 1.0)
+        label.set_line_wrap(TRUE)
+        label.set_usize(400, -1)
+        
+        self.inspect.add(label)
 
         self.inspect.set_active(not dispatch.stepInSkipList("partition"))
         
