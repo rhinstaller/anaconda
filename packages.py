@@ -169,21 +169,26 @@ def handleX11Packages(dir, intf, disp, id, instPath):
         return
         
     # skip X setup if it is not being installed
-    if (not id.comps.packages.has_key('XFree86') or
-        not id.comps.packages['XFree86'].selected):
-        disp.skipStep("videocard")
-        disp.skipStep("monitor")
-        disp.skipStep("xcustom")
-        disp.skipStep("writexconfig")
-        id.xsetup.skipx = 1
-    elif disp.stepInSkipList("videocard"):
-        # if X is being installed, but videocard step skipped
-        # need to turn it back on
-        disp.skipStep("videocard", skip=0)
-        disp.skipStep("monitor", skip=0)
-        disp.skipStep("xcustom", skip=0)
-        disp.skipStep("writexconfig", skip=0)
-        id.xsetup.skipx = 0
+    #
+    # uncomment this block if you want X configuration to be presented
+    #
+# START BLOCK
+#     if (not id.comps.packages.has_key('XFree86') or
+#         not id.comps.packages['XFree86'].selected):
+#         disp.skipStep("videocard")
+#         disp.skipStep("monitor")
+#         disp.skipStep("xcustom")
+#         disp.skipStep("writexconfig")
+#         id.xsetup.skipx = 1
+#     elif disp.stepInSkipList("videocard"):
+#         # if X is being installed, but videocard step skipped
+#         # need to turn it back on
+#         disp.skipStep("videocard", skip=0)
+#         disp.skipStep("monitor", skip=0)
+#         disp.skipStep("xcustom", skip=0)
+#         disp.skipStep("writexconfig", skip=0)
+#         id.xsetup.skipx = 0
+# END BLOCK
 
     # set default runlevel based on packages
     gnomeSelected = (id.comps.packages.has_key('gnome-session')
