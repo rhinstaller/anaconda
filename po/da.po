@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2000-08-14 16:58-0400\n"
-"PO-Revision-Date: 2000-06-29 06:17+01:00\n"
+"PO-Revision-Date: 2000-08-19 06:17+01:00\n"
 "Last-Translator: KC and BL and KS <dansk@klid.dk>\n"
 "Language-Team: Danish/Dansk <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +38,10 @@ msgid ""
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
 msgstr ""
+"Kerne er ikke i stand til at læse din nye partitionsinformation, nok fordi "
+"du har ændret udvidede partitioner. Selvom dette ikke er kritisk, skal du "
+"genstarte din maskine før du fortsætter. Indsæt Red Hat opstartsdisketten nu "
+"og tryk 'Ok' for at genstarte dit system\n"
 
 #: ../fstab.py:393 ../fstab.py:620 ../fstab.py:630 ../fstab.py:654
 msgid "Formatting"
@@ -190,6 +194,8 @@ msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
+"En fejl opstod ved overførsel af installationsbilledet til din harddisk. Du "
+"er nok løbet tør for diskplads."
 
 #: ../image.py:78
 msgid "Change CDROM"
@@ -363,7 +369,6 @@ msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
 #: ../text.py:308
-#, fuzzy
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -382,7 +387,7 @@ msgstr ""
 "fortsætter.\n"
 "\n"
 "Har du købt den officielle Red Hat Linux, husk da at registrere dit køb "
-"gennem vores webside, http://www.redhat.com/"
+"gennem vores webside, http://www.redhat.com/."
 
 #: ../text.py:327
 msgid ""
@@ -2183,7 +2188,6 @@ msgstr ""
 "Monteringspunkter må kun indeholde udskrivbare tegn."
 
 #: ../libfdisk/fsedit.c:999
-#, fuzzy
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
@@ -2829,7 +2833,6 @@ msgid "Current Disk Partitions"
 msgstr "Nuværende drevpartitioner"
 
 #: ../libfdisk/newtfsedit.c:1452
-#, fuzzy
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr "    F1-Hjælp   F2-Tilføj   F3-Redigér   F4-Fjern   F5-Nulstil  F12-Ok "
