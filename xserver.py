@@ -86,17 +86,6 @@ def startX(resolution, nofbmode, video, monitor, mouse, keyboard):
     os.environ['DISPLAY'] = ':1'
     serverPath = None
 
-    #--see if framebuffer works on this card
-#
-# we're removing fb support
-#
-#    fbavail = isys.fbinfo()
-#
-#    if fbavail:
-#        attempt = 'FB'
-#    else:
-#        attempt = 'PROBED'
-
     attempt = 'PROBED'
 
     failed = 1
@@ -104,17 +93,6 @@ def startX(resolution, nofbmode, video, monitor, mouse, keyboard):
     while next_attempt != 'END':
         card = None
 
-# 
-# we're removing framebuffer support
-#	
-#        if attempt == 'FB':
-#            if fbavail and nofbmode == 0:
-#                print _("Attempting to start framebuffer based X server")
-#                card = FrameBufferCard()
-#            else:
-#                card = None
-#
-#            next_attempt = 'PROBED'
         if attempt == 'PROBED':
             if video.primaryCard():
                 print _("Attempting to start native X server")
@@ -132,13 +110,16 @@ def startX(resolution, nofbmode, video, monitor, mouse, keyboard):
 		    card = None
             else:
                 card = None
-            next_attempt = 'VGA16'
-        elif attempt == 'VGA16':
-            # if no xserver then try falling back to VGA16 in no fb
-            card = VGA16Card()
-            
-            print _("Attempting to start VGA16 X server")
             next_attempt = 'END'
+#
+# Disabling VGA16 - does bad things with Xft currently
+#
+#        elif attempt == 'VGA16':
+            # if no xserver then try falling back to VGA16 in no fb
+#            card = VGA16Card()
+#            
+#            print _("Attempting to start VGA16 X server")
+#            next_attempt = 'END'
         else:
             print "Got off end somehow!"
             break
@@ -157,8 +138,6 @@ def startX(resolution, nofbmode, video, monitor, mouse, keyboard):
             
                 except (RuntimeError, IOError):
                     pass
-
-#	time.sleep(5)
 
         attempt = next_attempt
         
