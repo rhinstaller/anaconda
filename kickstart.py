@@ -43,8 +43,25 @@ class Script:
 class KickstartBase(BaseInstallClass):
 
     def mergeFstabEntries(self, todo):
+        # this is pretty bad - needs complete rewrite of how we handle
+        # --onpart specified partitions.
+        #
+        # we DO NOT want to add raid type partitions at this point
+        # because they are not going to be mounted on final system
+        # HOWEVER, they are in the install class fstab because we need
+        # them there to map from existing partitions to the 'raid.xx'
+        # name we use in the ks.cfg to designate components of a raid
+        # device which also have a --onpart directive.
+        raidFilter = {}
+        for (mntPoint, raidDev, level, devices) in self.raidList:
+            for dev in devices:
+                raidFilter[dev] = 1
+        
 	for (mntpoint, (dev, fstype, reformat)) in self.fstab:
-	    todo.fstab.addMount(dev, mntpoint, fstype, reformat)
+            if raidFilter and raidFilter.has_key(mntpoint):
+                continue
+            else:
+                todo.fstab.addMount(dev, mntpoint, fstype, reformat)
 
     def postAction(self, rootPath, serial):
 	for script in self.postScripts:
