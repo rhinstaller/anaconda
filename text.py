@@ -498,10 +498,6 @@ class XConfigWindow:
             if rc == string.lower (_("Back")):
                 return INSTALL_BACK
 
-	    # 6.1 sparc hack - remove once supported
-	    if todo.x.server == "3DLabs":
-		todo.x.server = None
-
 	    todo._cardindex = -1
             return INSTALL_OK
 
