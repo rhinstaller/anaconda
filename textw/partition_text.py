@@ -159,9 +159,9 @@ class PartitionWindow:
 
 
     def fstypeSet(self, obj):
-        (listbox, entry) = obj
+        (current, entry) = obj
         flag = FLAGS_RESET
-        if not listbox.current().isMountable():
+        if not current.isMountable():
             if entry.value() != _("<Not Applicable>"):
                 self.oldMount = entry.value()
             entry.set(_("<Not Applicable>"))
@@ -174,6 +174,9 @@ class PartitionWindow:
 
         entry.setFlags(FLAG_DISABLED, flag)
 
+    def fstypeSetCB(self, obj):
+        (listbox, entry) = obj
+        self.fstypeSet(listbox.current(), entry)
 
     # make the entry for the mount point and it's label
     def makeMountEntry(self, request):
@@ -193,14 +196,21 @@ class PartitionWindow:
         
 
     # make the list of available filesystems and it's label
-    def makeFsList(self, request):
+    def makeFsList(self, request, usecallback=1, uselabel=1, usetypes=None):
         subgrid = Grid(1, 2)
+        row = 0
         # filesystem type selection
-        typeLbl = Label(_("Filesystem type:"))
-        subgrid.setField(typeLbl, 0, 0)
+        if uselabel:
+            typeLbl = Label(_("Filesystem type:"))
+            subgrid.setField(typeLbl, 0, row)
+            row = row + 1
+            
         fstype = Listbox(height=2, scroll=1)
         types = fileSystemTypeGetTypes()
-        names = types.keys()
+        if usetypes:
+            names = usetypes
+        else:
+            names = types.keys()
         names.sort()
         for name in names:
             if not fileSystemTypeGet(name).isSupported():
@@ -208,10 +218,11 @@ class PartitionWindow:
 
             if fileSystemTypeGet(name).isFormattable():
                 fstype.append(name, types[name])
-        if request.fstype:
+        if request.fstype and request.fstype.getName() in names:
             fstype.setCurrent(request.fstype)
-        subgrid.setField(fstype, 0, 1)
-        fstype.setCallback(self.fstypeSet, (fstype, self.mount))
+        subgrid.setField(fstype, 0, row)
+        if usecallback:
+            fstype.setCallback(self.fstypeSetCB, (fstype, self.mount))
         return (fstype, subgrid)
 
 
@@ -384,10 +395,90 @@ class PartitionWindow:
             entry.set("0")
         subgrid.setField(entry, 0, 0, (0,0,1,0))
         return (entry, subgrid)
-    
+
+    def fsOptionsDialog(self, origrequest, format, migrate, newfstype):
+
+        poplevel = GridFormHelp(self.screen, _("Filesystem Options"),
+                                "fsoption", 1, 6)
+        row = 0
+        poplevel.add(TextboxReflowed(40, _("Please choose how you would "
+                                           "like to prepare the filesystem "
+                                           "on this partition.")), 0, 0)
+        row = row + 1
+        subgrid = Grid(2, 5)
+        srow = 0
+        noformatrb = SingleRadioButton(_("Do not format"), None, not format and not migrate)
+        subgrid.setField(noformatrb, 0, srow, (0,0,0,1),anchorLeft = 1)
+        
+        if origrequest.fstype and origrequest.fstype.isFormattable():
+            srow = srow + 1
+            if format:
+                forflag = 1
+            else:
+                forflag = 0
+            formatrb = SingleRadioButton(_("Format as:"), noformatrb, forflag)
+            subgrid.setField(formatrb, 0, srow, (0,0,0,1), anchorLeft = 1)
+
+            (fortype, forgrid) = self.makeFsList(origrequest, usecallback = 0,
+                                                 uselabel = 0)
+            if newfstype and newfstype.getName() in fileSystemTypeGetTypes().keys():
+                fortype.setCurrent(newfstype)
+            subgrid.setField(forgrid, 1, srow, (0,0,0,1))
+        else:
+            formatrb = None
+
+        if origrequest.origfstype and origrequest.origfstype.isMigratable():
+            srow = srow + 1
+            if migrate:
+                migflag = 1
+            else:
+                migflag = 0
+            migraterb = SingleRadioButton(_("Migrate to:"), formatrb, migflag)
+            subgrid.setField(migraterb, 0, srow, (0,0,0,1), anchorLeft = 1)
+            
+            migtypes = origrequest.origfstype.getMigratableFSTargets()
+
+            (migtype, miggrid) = self.makeFsList(origrequest, usecallback = 0,
+                                                 uselabel = 0,
+                                                 usetypes = migtypes)
+                                                 
+            if newfstype and newfstype.getName() in migtypes:
+                migtype.setCurrent(newfstype)
+            subgrid.setField(miggrid, 1, srow, (0,0,0,1))
+        else:
+            migraterb = None
+            
+        poplevel.add(subgrid, 0, row, (0,1,0,1))
+
+        row = row + 1
+        popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON))
+        poplevel.add(popbb, 0, row, (0,0,0,0), growx = 1)        
+
+        while 1:
+            res = poplevel.run()
+
+            if popbb.buttonPressed(res) == 'cancel':
+                self.screen.popWindow()
+                return (format, migrate, newfstype)
+
+            if noformatrb.selected():
+                format = 0
+                migrate = 0
+                newfstype = origrequest.origfstype
+            elif formatrb and formatrb.selected():
+                format = 1
+                migrate = 0
+                newfstype = fortype.current()
+            elif migraterb and migraterb.selected():
+                format = 0
+                migrate = 1
+                newfstype = migtype.current()
+
+            self.screen.popWindow()
+            return (format, migrate, newfstype)
         
     def editPartitionRequest(self, origrequest):
-        poplevel = GridFormHelp(self.screen, _("Add partition"), "addpart", 1, 6)
+        poplevel = GridFormHelp(self.screen,_("Add Partition"),"addpart", 1, 6)
 
         # mount point entry
         row = 0
@@ -444,20 +535,15 @@ class PartitionWindow:
             subgrid.setField(size, 1, 1, (0,1,0,0), anchorRight = 1)
             poplevel.add(subgrid, 0, row, (0,1,0,0))
 
-            if origrequest.fstype and origrequest.fstype.isFormattable():
-                row = row + 1
-                # XXX make use a label and checkbox to look like spares
-                format = Checkbox(_("Format partition?"))
-                poplevel.add(format, 0, row, (0,1,0,0))
-            else:
-                format = None
-
-            
+            format = origrequest.format
+            migrate = origrequest.migrate
+            newfstype = origrequest.fstype
 
         row = row + 1
-        popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,TEXT_CANCEL_BUTTON))
+        popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,
+                                        (_("Filesystem Options"), "fsopts"),
+                                        TEXT_CANCEL_BUTTON))
         poplevel.add(popbb, 0, row, (0,1,0,0), growx = 1)        
-
 
         while 1:
             res = poplevel.run()
@@ -466,6 +552,12 @@ class PartitionWindow:
             if popbb.buttonPressed(res) == 'cancel':
                 self.screen.popWindow()
                 return
+
+            if popbb.buttonPressed(res) == 'fsopts':
+                (format, migrate, newfstype) = self.fsOptionsDialog(origrequest, format, migrate, newfstype)
+                self.fstypeSet((newfstype, self.mount))
+                type.setText(newfstype.getName())
+                continue
 
             if origrequest.type == REQUEST_NEW:
                 filesystem = fstype.current()
@@ -530,10 +622,9 @@ class PartitionWindow:
                 if origrequest.fstype.isMountable():
                     origrequest.mountpoint = self.mount.value()
 
-                if format:
-                    origrequest.format = format.selected()
-                else:
-                    origrequest.format = 0
+                origrequest.format = format
+                origrequest.migrate = migrate
+                origrequest.fstype = newfstype
 
                 err = sanityCheckPartitionRequest(self.partitions, origrequest)
                 if err:
