@@ -283,19 +283,17 @@ class InstallCallback:
                 fn = self.method.getFilename(h, self.pkgTimer)
 #		log("Opening rpm %s", fn)
 		try:
-                    ret = checksig(fn)
-#                    log("return of checksig for %s is %s" %(fn, ret))
-                    if ret != 0:
-                        raise SystemError                    
 		    self.rpmFD = os.open(fn, os.O_RDONLY)
-		    # Make sure this package seems valid
-		    try:
-			(hdr, isSource) = rpm.headerFromPackage(self.rpmFD)
-			os.lseek(self.rpmFD, 0, 0)
-                        
+
+                    # Make sure this package seems valid
+                    try:
+                        hdr = self.ts.hdrFromFdno(self.rpmFD)
+                        os.lseek(self.rpmFD, 0, 0)
+                    
                         # if we don't have a valid package, throw an error
                         if not hdr:
                             raise SystemError
+
 		    except:
 			try:
 			    os.close(self.rpmFD)
@@ -357,7 +355,7 @@ class InstallCallback:
 	self.progress.processEvents()
 
     def __init__(self, messageWindow, progress, pkgTimer, method,
-		 progressWindowClass, instLog, modeText):
+		 progressWindowClass, instLog, modeText, ts):
 	self.messageWindow = messageWindow
 	self.progress = progress
 	self.pkgTimer = pkgTimer
@@ -368,6 +366,7 @@ class InstallCallback:
 	self.modeText = modeText
 	self.beenCalled = 0
 	self.initWindow = None
+        self.ts = ts
 
 def sortPackages(first, second):
     # install packages in cd order (cd tag is 1000002)
@@ -625,8 +624,10 @@ def doInstall(method, id, intf, instPath):
     import whiteout
     
     upgrade = id.upgrade.get()
-    db = rpm.opendb(1, instPath)
-    ts = rpm.TransactionSet(instPath, db)
+    ts = rpm.TransactionSet(instPath)
+
+    ts.setVSFlags(~rpm.RPMVSF_NORSA|~rpm.RPMVSF_NODSA)
+    ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5|rpm.RPMTRANS_FLAG_CHAINSAW)
 
     total = 0
     totalSize = 0
@@ -694,14 +695,15 @@ def doInstall(method, id, intf, instPath):
 	modeText = _("Installing %s-%s-%s.\n")
 
     errors = rpmErrorClass(instLog)
-    oldError = rpm.errorSetCallback (errors.cb)
+#    oldError = rpm.errorSetCallback (errors.cb)
     pkgTimer = timer.Timer(start = 0)
 
     id.instProgress.setSizes(total, totalSize)
     id.instProgress.processEvents()
 
     cb = InstallCallback(intf.messageWindow, id.instProgress, pkgTimer,
-			 method, intf.progressWindow, instLog, modeText)
+			 method, intf.progressWindow, instLog, modeText,
+                         ts)
 
     # write out migrate adjusted fstab so kernel RPM can get initrd right
     if upgrade:
@@ -716,10 +718,8 @@ def doInstall(method, id, intf, instPath):
     cb.initWindow = intf.waitWindow(_("Install Starting"),
 				    _("Starting install process, this may take several minutes..."))
 
-    problems = ts.run(0, ~rpm.RPMPROB_FILTER_DISKSPACE, cb.cb, 0)
-
-    # force test mode install
-    # problems = ts.run(rpm.RPMTRANS_FLAG_TEST, ~0, self.instCallback, 0)
+    ts.setProbFilter(~rpm.RPMPROB_FILTER_DISKSPACE)
+    problems = ts.run(cb.cb, 0)
 
     if problems:
 
@@ -793,20 +793,18 @@ def doInstall(method, id, intf, instPath):
 	intf.messageWindow (_("Disk Space"), probs)
 
 	del ts
-	del db
 	instLog.close()
 	syslog.stop()
 
 	method.systemUnmounted ()
 
-	rpm.errorSetCallback (oldError)
+#	rpm.errorSetCallback (oldError)
 	return DISPATCH_BACK
 
     # This should close the RPM database so that you can
     # do RPM ops in the chroot in a %post ks script
     del ts
-    del db
-    rpm.errorSetCallback (oldError)
+#    rpm.errorSetCallback (oldError)
     
     method.filesDone ()
     
