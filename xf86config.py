@@ -859,7 +859,7 @@ class XF86Config:
         # intellimouse into IMPS/2 mode (if we did, we'll
         # loose the mouse cursor in the install)
 
-        if len (self.server) >= 7 and self.server[-7:]:
+        if self.server == "XFree86":
             config = self.Version4Config
         else:
             config = self.Version3Config
