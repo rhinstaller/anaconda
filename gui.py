@@ -609,7 +609,7 @@ class InstallControlWindow:
 	self.currentWindow = None
 
     def update (self, ics):
-        self.installFrame.set_label (_(ics.getTitle ()))
+        self.installFrame.set_label (ics.getTitle ())
 
 	prevButton = self.prevButtonStock
 	nextButton = self.nextButtonStock
