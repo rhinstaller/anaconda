@@ -96,7 +96,7 @@ cd /tmp/modules
 find ${version}* -type f | cpio --quiet -H crc -o | gzip -9 > modules.cgz
 rm -rf ${version}*
 echo "$name driver disk" > rhdd-6.1
-grep "$name" /usr/share/kudzu/pcitable > pcitable
+grep "$name" /usr/share/hwdata/pcitable > pcitable
 touch modules.dep
 
 /usr/lib/anaconda-runtime/modlist -m -f /usr/lib/anaconda-runtime/loader/module-info $name | sed 's/	"/	"Updated /' > modinfo 

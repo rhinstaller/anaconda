@@ -94,7 +94,7 @@ mkdir -p $DESTGR
 PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 ash kon2 e2fsprogs util-linux raidtools popt mount procps rpm
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
-	 kudzu db3 rpm-python2.2 bzip2 bzip2-libs dosfstools pciutils 
+	 kudzu hwdata db3 rpm-python2.2 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help booty
          hdparm lvm"
 
@@ -300,8 +300,8 @@ usr/share/anaconda/locale-list
 usr/share/anaconda/anaconda.conf
 usr/share/terminfo/l/linux
 usr/share/doc/kon2*/terminfo.kon
-usr/share/kudzu/pcitable
-usr/share/pci.ids
+usr/share/hwdata/pcitable
+usr/share/hwdata/pci.ids
 EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
@@ -870,6 +870,6 @@ if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
 
    if [ -n "$NEEDGR" ]; then
     cd $ORIGDIR
-    $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
+    $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/hwdata/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
    fi
 fi
