@@ -71,7 +71,11 @@ class CdromInstallMethod(ImageInstallMethod):
                                      "%s from the shell on tty2 "
                                      "and then click OK to retry.")
                                    % ("/mnt/source",))
-                
+
+    def ejectCD(self):
+        if len(self.currentDisc) > 0:
+            self.unmountCD()
+        isys.ejectCdrom(self.device)
 
     def systemUnmounted(self):
 	if self.loopbackFile:
@@ -81,14 +85,6 @@ class CdromInstallMethod(ImageInstallMethod):
 	    self.loopbackFile = None
 
     def systemMounted(self, fsset, chroot, selected):
-	changeloop=0
-	for p in selected:
-	    if p[1000002] and p[1000002] > 1:
-		changeloop=1
-		break
-	if changeloop == 0:
-	    return
-
 	self.loopbackFile = "%s%s%s" % (chroot,
                                         fsset.filesystemSpace(chroot)[0][0],
                                         "/rhinstall-stage2.img")
@@ -190,7 +186,7 @@ class CdromInstallMethod(ImageInstallMethod):
 		    break
 
 	    if not done:
-		isys.ejectCdrom(self.device)
+		isys.ejectCdrom("/tmp/cdrom")
 
 	    while not done:
 		self.messageWindow(_("Change CDROM"), 

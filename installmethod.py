@@ -107,3 +107,12 @@ class InstallMethod:
     def unmountCD(self):
         pass
 
+    def ejectCD(self):
+        pass
+
+
+# this handles any cleanup needed for the method.  it occurs *very* late
+# (ie immediately before the congratulations screen).  main use right now
+# is ejecting the cdrom
+def doMethodComplete(method):
+    method.ejectCD()

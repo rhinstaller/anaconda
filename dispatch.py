@@ -36,6 +36,7 @@ from upgrade import upgradeFindPackages, upgradeMountFilesystems
 from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
 from upgrade import findRootParts
 from network import networkDeviceCheck
+from installmethod import doMethodComplete
 
 # These are all of the install steps, in order. Note that upgrade and
 # install steps are the same thing! Upgrades skip install steps, while
@@ -139,6 +140,7 @@ installSteps = [
     ("writexconfig", writeXConfiguration, ("id", "instPath")),
     ("writeksconfig", writeKSConfiguration, ("id", "instPath")),
     ("dopostaction", doPostAction, ("id", "instPath")),
+    ("methodcomplete", doMethodComplete, ("method",)),
     ("complete", ()),
     ]
 
