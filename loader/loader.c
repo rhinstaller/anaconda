@@ -440,12 +440,9 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 	    	if (modList[i]->major == DRIVER_SCSI) {
 		    startNewt(flags);
 
-		    scsiWindow(modList[i]->moduleName);
 		    mlLoadModule(modList[i]->moduleName, 
 				 modLoaded, modDeps, 
 				 NULL, modInfo, flags);
-		    sleep(1);
-		    newtPopWindow();
 		}
 	    }
 

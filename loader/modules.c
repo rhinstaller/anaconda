@@ -22,6 +22,7 @@
 #include "misc.h"
 #include "modules.h"
 #include "devices.h"
+#include "windows.h"
 
 struct moduleDependency_s {
     char * name;
@@ -300,6 +301,7 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
     int ethDevices = -1;
     pid_t child;
     int status;
+    int popWindow = 0;
 
     if (mlModuleInList(modName, modLoaded))
 	return 0;
@@ -307,6 +309,11 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
     if (modInfo && (mi = isysFindModuleInfo(modInfo, modName))) {
 	if (mi->major == DRIVER_NET && mi->minor == DRIVER_MINOR_ETHERNET) {
 	    ethDevices = ethCount();
+	}
+
+	if (mi->major == DRIVER_SCSI) {
+	    scsiWindow(modName);
+	    popWindow = 1;
 	}
     }
 
@@ -373,6 +380,11 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
 	}
 
 	modLoaded->mods[modLoaded->numModules++].args = newArgs;
+    }
+
+    if (popWindow) {
+	sleep(1);
+	newtPopWindow();
     }
 
     return rc;
