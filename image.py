@@ -128,7 +128,13 @@ class CdromInstallMethod(ImageInstallMethod):
 	    cdlist = []
 	    for (dev, something, descript) in \
 		    kudzu.probe(kudzu.CLASS_CDROM, kudzu.BUS_UNSPEC, 0):
-		if dev != self.device:
+		#
+		# this is broken but late to fix
+		# we never bump self.device to another device when
+		# we swap CDs, so we never revisit original CD device
+		# this way we go back to it if we're looking for something
+		# other than the first CD image
+		if dev != self.device and needed > 1:
 		    cdlist.append(dev)
 
 	    for dev in cdlist:
