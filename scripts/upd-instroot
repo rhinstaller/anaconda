@@ -719,6 +719,7 @@ cat $DESTGR/usr/lib/anaconda/lang-table* | awk '
 { print $5;
   print gensub(/\..*$/,"","",$5);
   print gensub(/_.*$/,"","",$5);
+  print gensub(/-/,"","",tolower($5));
   if (split ($5, a, "\.") > 1) {
     print gensub(/\..*$/,tolower("." a[2]),"",$5);
   };
