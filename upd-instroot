@@ -366,7 +366,10 @@ done
 rm -f $KEEPFILE $KEEPFILEGR
 
 make install-hd DESTDIR=$DEST > /dev/null
-rm -rf $DEST/usr/share/locale
+# XXX only for japanese
+mv $DEST/usr/share/locale/ja $DEST/usr/share
+rm -rf $DEST/usr/share/locale/*
+mv $DEST/usr/share/ja $DEST/usr/share/locale
 make install DESTDIR=$DESTGR > /dev/null
 
 for p in $DESTGR $DEST; do
@@ -406,14 +409,14 @@ for p in $DESTGR $DEST; do
 	(cd /usr/share/zoneinfo; find . -type f -or -type l | 
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
 		gzip -9) > $p/usr/lib/timezones.gz
-
-	if [ -d $p/usr/share/locale ]; then
-	    for i in `find $p/usr/share/locale -name anaconda.mo`; do
-		gzip -9 $i
-		mv -f $i.gz $i
-	    done
-	fi
 done
+
+if [ -d $DEST/usr/share/locale ]; then
+    for i in `find $DEST/usr/share/locale -name anaconda.mo`; do
+	gzip -9 $i
+	mv -f $i.gz $i
+    done
+fi
 
 # always use passive mode for ftp installs
 cd $DEST/usr/lib/python1.5
