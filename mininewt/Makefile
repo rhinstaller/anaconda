@@ -87,7 +87,7 @@ newt.lo: newt.c Makefile
 install: $(LIBNEWT) $(LIBNEWTSH) _snackmodule.so
 	install -s -m 755 $(LIBNEWTSH) $(DESTDIR)/$(RUNTIMEDIR)/$(LIBNEWTSONAME)
 	for ver in $(PYTHONVERS) ; do \
-	   install -s -m 755 $$ver/_snackmodule.so $(DESTDIR)/$(RUNTIMEDIR)
+	   install -s -m 755 $$ver/_snackmodule.so $(DESTDIR)/$(RUNTIMEDIR) ; \
 	done
 
 ifeq (.depend,$(wildcard .depend))
