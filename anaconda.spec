@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.14
+Version: 10.2.0.15
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -70,6 +70,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Feb  2 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.15-1
+- Fix some bugs in the reduce-font changes
+- Fix urlgrabber import
+- Remove langsupport screen, base additional language support off of groups 
+  selected
+
 * Wed Feb  2 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.14-1
 - Fix deprecation warnings for pygtk 2.5 (clumens)
 - Fix bootloader --location=none (clumens, #146448)
