@@ -8,7 +8,12 @@ class LanguageWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         ics.setTitle (_("Language Selection"))
-        ics.setPrevEnabled (0)
+
+        if self.todo.reconfigOnly:
+            ics.setPrevEnabled (1)
+        else:
+            ics.setPrevEnabled (0)
+
         ics.setNextEnabled (1)
         ics.readHTML ("lang")
         self.ics = ics

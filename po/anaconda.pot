@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-01-07 16:32-0500\n"
+"POT-Creation-Date: 2000-01-07 18:28-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,11 +62,11 @@ msgstr ""
 msgid "Error mounting %s: %s"
 msgstr ""
 
-#: ../gui.py:269 ../gui.py:515
+#: ../gui.py:270 ../gui.py:516
 msgid "Next"
 msgstr ""
 
-#: ../gui.py:270 ../gui.py:514 ../libfdisk/newtfsedit.c:1292
+#: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292
 #: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
 #: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:536
 #: ../loader/loader.c:251 ../loader/loader.c:599 ../loader/loader.c:635
@@ -89,41 +89,41 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: ../gui.py:271 ../gui.py:519
+#: ../gui.py:272 ../gui.py:520
 msgid "Show Help"
 msgstr ""
 
-#: ../gui.py:272 ../gui.py:518
+#: ../gui.py:273 ../gui.py:519
 msgid "Hide Help"
 msgstr ""
 
-#: ../gui.py:273 ../gui.py:517
+#: ../gui.py:274 ../gui.py:518
 msgid "Finish"
 msgstr ""
 
-#: ../gui.py:276 ../gui.py:540
+#: ../gui.py:277 ../gui.py:541
 msgid "Online Help"
 msgstr ""
 
-#: ../gui.py:277 ../iw/language.py:10 ../text.py:60 ../text.py:967
+#: ../gui.py:278 ../iw/language.py:10 ../text.py:60 ../text.py:967
 #: ../text.py:996
 msgid "Language Selection"
 msgstr ""
 
-#: ../gui.py:481
+#: ../gui.py:482
 msgid "Red Hat Linux Installer"
 msgstr ""
 
-#: ../gui.py:485
+#: ../gui.py:486
 msgid "Red Hat Linux Install Shell"
 msgstr ""
 
-#: ../gui.py:496
+#: ../gui.py:497
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr ""
 
-#: ../gui.py:497
+#: ../gui.py:498
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr ""
@@ -292,7 +292,7 @@ msgid ""
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:696 ../libfdisk/gnomefsedit.c:602
+#: ../iw/welcome.py:71 ../libfdisk/fsedit.c:696 ../libfdisk/gnomefsedit.c:602
 #: ../libfdisk/gnomefsedit.c:1003 ../libfdisk/gnomefsedit.c:1109
 #: ../libfdisk/gnomefsedit.c:2046 ../libfdisk/gnomefsedit.c:2316
 #: ../libfdisk/gnomefsedit.c:2369 ../libfdisk/newtfsedit.c:499
@@ -303,7 +303,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:696 ../libfdisk/gnomefsedit.c:602
+#: ../iw/welcome.py:74 ../libfdisk/fsedit.c:696 ../libfdisk/gnomefsedit.c:602
 #: ../libfdisk/gnomefsedit.c:1003 ../libfdisk/gnomefsedit.c:1109
 #: ../libfdisk/gnomefsedit.c:2046 ../libfdisk/gnomefsedit.c:2316
 #: ../libfdisk/gnomefsedit.c:2369 ../libfdisk/newtfsedit.c:499
@@ -550,7 +550,7 @@ msgid ""
 "screen"
 msgstr ""
 
-#: ../iw/welcome.py:10 ../text.py:965 ../text.py:1000
+#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:965 ../text.py:1000
 msgid "Welcome"
 msgstr ""
 
@@ -1019,7 +1019,7 @@ msgstr ""
 msgid "Test your selection here:"
 msgstr ""
 
-#: ../iw/language.py:16 ../loader/lang.c:267
+#: ../iw/language.py:21 ../loader/lang.c:267
 msgid "What language should be used during the installation process?"
 msgstr ""
 
@@ -1270,6 +1270,10 @@ msgstr ""
 
 #: ../iw/timezone.py:215
 msgid "UTC Offset"
+msgstr ""
+
+#: ../iw/welcome.py:60
+msgid "Do you want to configure your system?"
 msgstr ""
 
 #: ../iw/xconfig.py:13

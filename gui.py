@@ -215,7 +215,8 @@ class InstallInterface:
                 commonSteps = [ ( LanguageWindow, "language" ), 
                                 ]
             else:
-                commonSteps = [ ( LanguageWindow, "language" ), 
+                commonSteps = [ ( ReconfigWelcomeWindow, "reconfig"),
+                                ( LanguageWindow, "language" ), 
                                 ( KeyboardWindow, "keyboard" ),
                                 ]
 
