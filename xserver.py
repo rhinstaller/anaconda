@@ -3,6 +3,7 @@ import string
 import kudzu
 import isys
 import sys
+import time
 from xf86config import *
 
 def startX():
@@ -95,12 +96,19 @@ EndSection
         print "starting", serverPath
         os.execv(serverPath, [serverPath, ':1', '-xf86config', 
                  '/tmp/XF86Config', 'vt7'])
+
+    # give time for the server to fail (if it is going to fail...)
+    time.sleep (1)
+    pid, status = waitpid (server, os.NOHANG)
+    if status:
+        raise RuntimeError, "X server failed to start"
+        
     child = os.fork()
     if (child):
         try:
-            pid, status = os.waitpid(server, 0)
+            pid, status = os.waitpid(child, 0)
         except:
             sys.exit (-1)
-        sys.exit(status)
+        sys.exit((status >> 8) & 0xf)
 
     return ((mouseProtocol, mouseEmulate, mouseDev), x)
