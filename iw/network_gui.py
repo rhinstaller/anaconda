@@ -15,6 +15,7 @@
 
 import string
 import gtk
+import gobject
 from iw_gui import *
 from isys import *
 import gui
@@ -208,6 +209,7 @@ class NetworkWindow(InstallWindow):
 	
 	# create contents
 	devbox = gtk.VBox()
+
 	align = gtk.Alignment()
 	DHCPcb = gtk.CheckButton(_("Configure using _DHCP"))
 
@@ -251,7 +253,14 @@ class NetworkWindow(InstallWindow):
 
 	devbox.pack_start(ipTable, gtk.FALSE, gtk.FALSE, 5)
 
-	frame = gtk.Frame(_("Configure %s" % (dev,)))
+	framelab = _("Configure %s" % (dev,))
+
+	descr = self.devices[dev].get("desc")
+	if descr is not None and len(descr) > 0:
+	    framelab += " - " + descr[:70]
+	
+	frame = gtk.Frame(framelab)
+	frame.set_border_width(5)
 	frame.add(devbox)
 	editWin.vbox.pack_start(frame, padding=5)
         editWin.set_position(gtk.WIN_POS_CENTER)
@@ -374,8 +383,11 @@ class NetworkWindow(InstallWindow):
 	devnames = self.devices.keys()
 	devnames.sort()
 
-	self.ethdevices = NetworkDeviceCheckList(2, clickCB=self.onbootToggleCB)
-
+	store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
+			  gobject.TYPE_STRING,
+			  gobject.TYPE_STRING)
+	
+	self.ethdevices = NetworkDeviceCheckList(2, store, clickCB=self.onbootToggleCB)
         num = 0
         for device in devnames:
 	    onboot = self.devices[device].get("ONBOOT")
@@ -391,7 +403,19 @@ class NetworkWindow(InstallWindow):
 		
 	    ip = self.createIPRepr(self.devices[device])
 
-	    self.ethdevices.append_row((device, ip), active)
+# only if we want descriptions in the master device list
+# currently too wide, but might be able to do it with a tooltip on
+# each row once I figure out how
+# would require adding extra text field to end of store above as well
+#
+#	    descr = self.devices[device].get("desc")
+#	    if descr is None:
+#		descr = ""
+#		
+#	    self.ethdevices.append_row((device, ip, descr), active)
+#
+# use this for now
+        self.ethdevices.append_row((device, ip), active)
 
 	self.ethdevices.set_column_title(0, (_("Active on Boot")))
         self.ethdevices.set_column_sizing (0, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
@@ -399,6 +423,8 @@ class NetworkWindow(InstallWindow):
         self.ethdevices.set_column_sizing (1, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
 	self.ethdevices.set_column_title(2, (_("IP/Netmask")))
         self.ethdevices.set_column_sizing (2, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+#	self.ethdevices.set_column_title(3, (_("Description")))
+#        self.ethdevices.set_column_sizing (3, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
         self.ethdevices.set_headers_visible(gtk.TRUE)
 
 	self.ignoreEvents = 1
@@ -598,7 +624,8 @@ class NetworkDeviceCheckList(checklist.CheckList):
 	if self.clickCB:
 	    rc = self.clickCB(data, row)
     
-    def __init__(self, columns, clickCB=None):
-	checklist.CheckList.__init__(self, columns=columns)
+    def __init__(self, columns, store, clickCB=None):
+	checklist.CheckList.__init__(self, columns=columns,
+				     custom_store=store)
 
 	self.clickCB = clickCB
