@@ -100,7 +100,7 @@ mkdir -p $DESTGR
 PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 libtermcap zlib ash e2fsprogs util-linux raidtools popt
 	 procps rpm XFree86 Xconfigurator anaconda
-	 anaconda-runtime kudzu hwdata bzip2
+	 anaconda-runtime kudzu hwdata bzip2 beecrypt
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm
 	 rhpl pyxf86config libxml2 libxml2-python glib2
@@ -316,6 +316,7 @@ usr/kerberos/$LIBDIR/libcom_err.so*
 usr/kerberos/$LIBDIR/libgssapi_krb5.so*
 usr/$LIBDIR/gconv/ISO8859-1.so
 usr/$LIBDIR/gconv/gconv-modules
+usr/$LIBDIR/libbeecrypt*
 usr/$LIBDIR/libglib*
 usr/$LIBDIR/libgmodule*
 usr/$LIBDIR/libgobject*
