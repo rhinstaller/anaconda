@@ -123,11 +123,11 @@ class ProgressWindow:
         label = GtkLabel (_(text))
         label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)
-        box.pack_start (label)
+        box.pack_start (label, FALSE)
         
         self.total = total
 	self.progress = GtkProgressBar ()
-        box.pack_start (self.progress)
+        box.pack_start (self.progress, TRUE)
         
         frame = GtkFrame ()
         frame.set_shadow_type (SHADOW_OUT)
