@@ -1,3 +1,18 @@
+#
+# upgrade.py - Existing install probe and upgrade procedure
+#
+# Matt Wilsonm <msw@redhat.com>
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
 import isys
 import _balkan
 import os

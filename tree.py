@@ -1,3 +1,20 @@
+#
+# tree.py - functions to build trees from lists
+#
+# Paul Fisher <rao@gnu.org>
+#
+# Copyright 1999 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
+# Uh.  Don't ask me what this does.  It's Paul's fault.
+
 def build_tree (x):
     if (x == ()): return ()
     if (len (x) == 1): return (x[0],)

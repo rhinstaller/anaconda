@@ -1,3 +1,20 @@
+#
+# network.py - network configuration install data
+#
+# Matt Wilson <ewt@redhat.com>
+# Erik Troan <ewt@redhat.com>
+# Mike Fulbright <msf@redhat.com>
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
 from simpleconfig import SimpleConfigFile
 import string
 import isys

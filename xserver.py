@@ -1,3 +1,19 @@
+#
+# xserver.py - initial xserver startup for GUI mode.
+#
+# Matt Wilson <msw@redhat.com>
+# Brent Fox <bfox@redhat.com>
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
 import os
 import string
 import kudzu

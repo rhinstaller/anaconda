@@ -1,4 +1,17 @@
-# Install method for disk image installs (CD & NFS)
+#
+# urlinstall.py - URL based install source method
+#
+# Erik Troan <ewt@redhat.com>
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
 
 from comps import ComponentSet, HeaderList
 from installmethod import InstallMethod
@@ -11,7 +24,8 @@ import struct
 import socket
 from log import log
 
-# we import these explicitly because urllib loads them dynamically, which stinks
+# we import these explicitly because urllib loads them dynamically, which
+# stinks -- and we need to have them imported for the --traceonly option
 import ftplib
 import httplib
 import StringIO
