@@ -235,7 +235,6 @@ static int mountCdromImage(char * location, struct knownDevices * kd,
     int hasCdrom = 0;
 
     do {
-    /*
 	for (i = 0; i < kd->numKnown; i++) {
 	    if (kd->known[i].class != DEVICE_CDROM) continue;
 
@@ -251,7 +250,6 @@ static int mountCdromImage(char * location, struct knownDevices * kd,
 		umount("/mnt/source");
 	    }
 	}
-	*/
 
 	if (hasCdrom) {
 	    rc = newtWinChoice(_("Error"), _("Ok"), _("Back"), 
