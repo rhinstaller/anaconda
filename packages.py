@@ -734,8 +734,15 @@ def doPostInstall(method, id, intf, instPath):
 		iutil.rmrf (instPath + "/var/lib/rpm.rpmsave")
 	    except OSError:
 		pass
-	    os.rename (instPath + "/var/lib/rpm",
-		       instPath + "/var/lib/rpm.rpmsave")
+            try:
+                os.rename (instPath + "/var/lib/rpm",
+                           instPath + "/var/lib/rpm.rpmsave")
+            except OSError:
+                # XXX hack..., if the above move failed, we'll just stash it in
+                # a (hopefully) unique location. (#50339)
+                os.rename (instPath + "/var/lib/rpm",
+                           instPath + "/var/lib/rpm.rpmsave-%s", %
+                           (str(int(time.time())),))
 	    os.rename (instPath + id.dbpath,
 		       instPath + "/var/lib/rpm")
 
