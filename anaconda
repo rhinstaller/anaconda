@@ -52,7 +52,7 @@ if len(sys.argv) > 1:
         from syslogd import Syslogd
         root = sys.argv[2]
         output = sys.argv[3]
-        syslog = Syslogd (root, open (output, "w+"))
+        syslog = Syslogd (root, open (output, "a"))
 	# this never returns
 
 import signal, traceback, string, isys, iutil, time
