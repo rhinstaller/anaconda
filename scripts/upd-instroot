@@ -413,14 +413,14 @@ usr/sbin/sshd
 usr/sbin/glibc_post_upgrade
 usr/sbin/in.telnetd
 usr/sbin/xinetd
-sbin/cmsfslst
-sbin/cmsfscat
+usr/sbin/cmsfslst
+usr/sbin/cmsfscat
 sbin/busybox.anaconda
 sbin/ifconfig
 sbin/route
 sbin/portmap
-sbin/fdasd
-sbin/dasdfmt
+usr/sbin/fdasd
+usr/sbin/dasdfmt
 sbin/swapon
 sbin/swapoff
 sbin/mkswap
@@ -821,8 +821,8 @@ expandPackageSet "$RPMS" $DEST $KEEPFILE
 
 (cd $DEST; tar cSpf - .) | (cd $DESTGR; tar xSpf -)
 
-expandPackageSet "$RPMSGR" $DESTGR $KEEPFILEGR
 echo "Expanding graphical packages..."
+expandPackageSet "$RPMSGR" $DESTGR $KEEPFILEGR
 
 echo "retrieving timezones"
 TZDIR=/tmp/glibc-timezone-$$
