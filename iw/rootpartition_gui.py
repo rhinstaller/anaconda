@@ -115,13 +115,17 @@ class LoopSizeWindow(InstallWindow):
             rootsize = totalmax - swapsize
             
         if rootsize < 0:
-            rootsize = self.sizeAdj.minimum
+            rootsize = self.sizeAdj.lower
                 
+        # set adjustment, trigger clipping and read new value
+        self.sizeAdj.set_value(rootsize)
+        rootsize = self.sizeAdj.value
+
+        # if still too big try smallest swap and loopback size possible
         if rootsize + swapsize > totalmax:
-            swapsize = self.swapAdj.minimum
+            swapsize = self.swapAdj.lower
                     
         self.swapAdj.set_value(swapsize)
-        self.sizeAdj.set_value(rootsize)
 
     def getScreen (self):
         # XXX error check mount that this check tries
