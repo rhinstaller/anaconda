@@ -17,8 +17,11 @@ class BootdiskWindow (InstallWindow):
         self.bootdisk = None
 
     def getNext (self):
-        if self.bootdisk and self.bootdisk.get_active (): return None
+        if self.bootdisk:
+            return None
         
+        if self.bootdisk.get_active ():
+            return None
 
         threads_leave ()
         try:
