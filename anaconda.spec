@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.5.3
+Version: 9.1.5.4
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Feb 28 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.5.4-1.RHEL
+- Perform ethtool setup in more places (#145422)
+
 * Sat Feb 19 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.5.3-1.RHEL
 - Add forcedeth support (#148868
 - Add 3w-9xxx (katzj, #128651)
