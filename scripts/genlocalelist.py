@@ -146,7 +146,6 @@ for line in lines:
     if nameList.has_key(fullName):
         # we want the en_US form
         nick = language.expandLangs(nameList[fullName])[-2]
-#	print nick, charmap,
 #	if prefNotUtf8.has_key(nick):
 #		print prefNotUtf8[nick]
 #	else:
@@ -159,6 +158,9 @@ for line in lines:
             continue
         elif len(lang) < len(nameList[fullName]):
             continue
+    elif charmap != "UTF-8": # this doesn't handle the prefNotUtf8 stuff
+        continue
+            
     nameList[fullName] = lang
     langList[lang] = fullName
     charmapList[lang] = charmap
