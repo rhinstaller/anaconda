@@ -11,9 +11,9 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-16 15:44+0300\n"
+"PO-Revision-Date: 2004-07-16 16:21+0300\n"
 "Last-Translator: Onur Gungor <onurgu@boun.edu.tr>\n"
-"Language-Team: Turkish <fedora-trans-list>\n"
+"Language-Team: Turkish <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -190,7 +190,7 @@ msgstr "Kullanılan fare türü: %s"
 
 #: ../autopart.py:933
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr "Silindir bazlı disk bölümleri birincil bölümler olarak kullanılamaz."
+msgstr "Silindir bazlı disk bölümleri birincil bölümler olarak ayıramazsınız."
 
 #: ../autopart.py:936
 msgid "Could not allocate partitions as primary partitions"
@@ -603,15 +603,15 @@ msgstr "Sisteminizin durumu diskete kaydedildi. Sistem şimdi yeniden başlatıl
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Uzaktan Oturum (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Web Sunucusu (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Dosya Transferi (FTP)"
 
 #: ../firewall.py:58
 msgid "Mail Server (SMTP)"
@@ -1181,7 +1181,7 @@ msgstr "CDROM'u değiştir"
 #: ../image.py:284
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Lütfen %d. %s diskini yerleştirin."
+msgstr "Lütfen %s CD %d'i yerleştirin."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1538,7 +1538,7 @@ msgstr ""
 "Bu DASD'nin LDL olarak yeniden biçimlenmesini ister misiniz?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1553,14 +1553,12 @@ msgstr ""
 "Bu sürücünün ilklendirilmesini istiyor musunuz?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Yoksay"
+msgstr "_Disk sürücüyü yoksay"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Biçimle"
+msgstr "_Sürücüyü Biçimle"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -2476,42 +2474,38 @@ msgid "Connecting..."
 msgstr "Bağlanıyor..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Dosya yüklenemedi!"
+msgstr "X sunucusu başlatılamıyor"
 
 #: ../vnc.py:37
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr ""
+msgstr "X bilgisayarınızda başlayamadı. Başka bir bilgisayardan VNC'yi başlatıp bu bilgisayara bağlanmayı ve grafik arayüzlü kurulumla veya metin tabanlı kurulumla devam etmeyi ister misiniz?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Metin kullan"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "VNC Başlatılıyor..."
+msgstr "VNC'yi başlat"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Silo Yapılandırması"
+msgstr "VNC Yapılandırması"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Root Parolası"
+msgstr "Şifre Yok"
 
 #: ../vnc.py:62
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
+msgstr "Şifre kullanımı yetkisiz dinleyicilerin kurulum sürecinize bağlanmalarını ve izlemelerini önleyecektir. Lütfen kurulumda kullanılmak üzere bir şifre girin"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2534,9 +2528,8 @@ msgid "Password Length"
 msgstr "Parola Uzunluğu"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "root parolası en az 6 karakter uzunluğunda olmalı."
+msgstr "Parola en az altı karakter uzunluğunda olmalı."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2577,7 +2570,7 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
+msgstr "root hesabı sistemi yönetmek için kullanılır. root kullanıcısı için bir parola girin."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
