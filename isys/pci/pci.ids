@@ -125,6 +125,7 @@
 	0022  DECchip 21150
 	0024  DECchip 21152
 	0025  DECchip 21153
+	0026  DECchip 21154
 1012  Micronics Computers Inc
 1013  Cirrus Logic
 	0038  GD 7548
@@ -142,6 +143,8 @@
 	1200  GD 7542 [Nordic]
 	1202  GD 7543 [Viking]
 	1204  GD 7541 [Nordic Light]
+	6001  CS 4610
+	6003  CS 4614
 1014  IBM
 	000a  Fire Coral
 	0018  TR
@@ -180,9 +183,12 @@
 1021  OKI Electric Industry Co. Ltd.
 1022  Advanced Micro Devices
 	2000  79c970 [PCnet LANCE]
+	2001  79c978 [HomePNA]
 	2020  53c974 [PCscsi]
 	2040  79c974
 1023  Trident Microsystems
+	2000  4DWave DX
+	2001  4DWave NX
 	9320  TGUI 9320
 	9397  Cyber9397
 	9420  TGUI 9420
@@ -209,16 +215,18 @@
 	0000  HYDRA
 	0010  ASPEN
 102b  Matrox Graphics, Inc.
-	0518  2085PX [Atlas MGA-2]
+	0010  MGA-I [Impression]
+	0518  MGA-II [Athena]
 	0519  MGA 2064W [Millennium]
 	051a  MGA 1064SG [Mystique]
 	051b  MGA 2164W [Millennium II]
+	051e  MGA 1064SG AGP [Mystique AGP]
 	051f  MGA 2164W AGP [Millennium II AGP]
 	0520  MGA G200 PCI
-	0521  MGA G200 AGP [Millennium G200 AGP]
+	0521  MGA G200 AGP [Millennium AGP]
 	0d10  MGA Ultima/Impression
-	1000  MGA G100 [Millennium multi monitor]
-	1001  MGA G100 [Millennium AGP]
+	1000  MGA G100 [Productiva]
+	1001  MGA G100 [Productiva AGP]
 102c  Chips and Technologies
 	00b8  64310
 	00d8  65545
@@ -299,6 +307,7 @@
 1046  IPC Corporation, Ltd.
 1047  Genoa Systems Corp
 1048  Elsa AG
+	1000  QuickStep 1000pro
 1049  Fountain Technologies, Inc.
 104a  SGS Thomson Microelectronics
 	0008  STG 2000X
@@ -331,14 +340,27 @@
 1054  Hitachi, Ltd
 1055  EFAR Microsystems
 1056  ICL
+# Motorola made a mistake and used this value, please duplicate Moto
+# entries here -- Cort
+1507  Motorola Computer Group
+	0001  MPC105 [Eagle]
+	0002  MPC106 [Grackle]
+	4801  Raven
+	4802  Falcon
+	4803  Hawk
+	4806  CPX8216
 1057  Motorola Computer Group
 	0001  MPC105 [Eagle]
 	0002  MPC106 [Grackle]
 	4801  Raven
+	4802  Falcon
+	4803  Hawk
+	4806  CPX8216
 1058  Electronics & Telecommunications RSH
 1059  Teknor Industrial Computers Inc
 105a  Promise Technology, Inc.
 	4d33  20246
+	4d38  20262
 	5300  DC5300
 105b  Foxconn International, Inc.
 105c  Wipro Infotech Limited
@@ -389,7 +411,10 @@
 	0002  Grand Central I/O
 	0003  Control Video
 	0004  PlanB Video-In
+	0007  O'Hare I/O
 	000e  Hydra Mac I/O
+	0010  Heathrow Mac I/O
+	0017  Paddington Mac I/O
 106c  Hyundai Electronics America
 106d  Sequent Computer Systems
 106e  DFI, Inc
@@ -399,6 +424,9 @@
 1072  GIT Co Ltd
 1073  Yamaha Corporation
 	0002  YGV615 [RPA3 3D-Graphics Controller]
+	0003  YMF-740
+	0004  YMF-724
+	000D  YMF-724F
 1074  NexGen Microsystems
 	4e78  82c501
 1075  Advanced Integrations Research
@@ -571,6 +599,7 @@
 	5229  M5229
 	5235  M5225
 	5237  M5237
+	5243  M5243
 	5247  M5247
 	7101  M7101
 10ba  Mitsubishi Electric Corp.
@@ -635,7 +664,6 @@
 	5026  IMS5026/27/28
 	8849  8849
 	9128  IMS9129
-# FIXME: This should probably be ID 80e1
 10e1  Tekram Technology Co.,Ltd.
 	690c  690c
 	dc29  DC290
@@ -920,7 +948,9 @@
 	0601  601
 	060a  ToPIC95
 	060f  ToPIC97
-	0701  Lucent DSP1645 [Mars]
+	0701  FIR Port
+# This is apparently incorrect. Does anyone know the correct ID?
+#	0701  Lucent DSP1645 [Mars]
 117b  L G Electronics, Inc.
 117c  Atto Technology
 117d  Becton & Dickinson
@@ -1151,6 +1181,8 @@
 122b  LG Industrial Systems Co., Ltd
 122c  Sican GmbH
 122d  Aztech System Ltd
+	1206  368DSP
+	50dc  3328
 122e  Xyratex
 122f  Andrew Corporation
 1230  Fishcamp Engineering
@@ -1176,6 +1208,7 @@
 1243  Delphax
 1244  AVM Audiovisuelles MKTG & Computer System GmbH
 	0700  B1 ISDN
+	0a00  A1 ISDN [Fritz]
 1245  A.P.D., S.A.
 1246  Dipix Technologies, Inc.
 1247  Xylon Research, Inc.
@@ -1368,6 +1401,7 @@
 12ea  Zuken
 12eb  Aureal Semiconductor
 	0001  Vortex 1
+	0002  Vortex 2
 12ec  3A International, Inc.
 12ed  Optivision Inc.
 12ee  Orange Micro
@@ -1621,6 +1655,7 @@
 13f4  Troika Design Inc
 13f5  Kansai Electric Co. Ltd
 13f6  C-Media Electronics Inc
+	0100  CMI8338
 13f7  Wildfire Communications
 13f8  Ad Lib Multimedia Inc
 13f9  NTT Advanced Technology Corp.
@@ -1683,6 +1718,8 @@
 1433  Eltec Elektronik GmbH
 1435  Real Time Devices US Inc.
 1436  CIS Technology Inc
+14b9  Aironet
+	0001  PC4800
 1668  Action Tec Electronics Inc
 1b13  Jaton Corp
 1c1c  Symphony
@@ -1761,6 +1798,7 @@
 	0010  WDOG1 [PCI-Watchdog 1]
 	0011  PWDOG2 [Watchdog2/PCI]
 8086  Intel Corporation
+	0039  21145
 	0482  82375EB
 	0483  82424ZX [Saturn]
 	0484  82378IB [SIO ISA Bridge]
@@ -1885,3 +1923,80 @@ edd8  ARK Logic Inc
 	a099  2000PV [Stingray]
 	a0a1  2000MT
 	a0a9  2000MI
+
+# List of known device classes and subclasses
+
+C 00  Unclassified device
+	0000  Non-VGA unclassified device
+	0001  VGA compatible unclassified device
+C 01  Mass storage controller
+	0000  SCSI storage controller
+	0001  IDE interface
+	0002  Floppy disk controller
+	0003  IPI bus controller
+	0004  RAID bus controller
+	0080  Unknown mass storage controller
+C 02  Network controller
+	0000  Ethernet controller
+	0001  Token ring network controller
+	0002  FDDI network controller
+	0003  ATM network controller
+	0080  Network controller
+C 03  Display controller
+	0000  VGA compatible controller
+	0001  XGA compatible controller
+	0080  Display controller
+C 04  Multimedia controller
+	0000  Multimedia video controller
+	0001  Multimedia audio controller
+	0080  Multimedia controller
+C 05  Memory controller
+	0000  RAM memory
+	0001  FLASH memory
+	0080  Memory
+C 06  Bridge
+	0000  Host bridge
+	0001  ISA bridge
+	0002  EISA bridge
+	0003  MicroChannel bridge
+	0004  PCI bridge
+	0005  PCMCIA bridge
+	0006  NuBus bridge
+	0007  CardBus bridge
+	0080  Bridge
+C 07  Communication controller
+	0000  Serial controller
+	0001  Parallel controller
+	0080  Communication controller
+C 08  Generic system peripheral
+	0000  PIC
+	0001  DMA controller
+	0002  Timer
+	0003  RTC
+	0080  System peripheral
+C 09  Input device controller
+	0000  Keyboard controller
+	0001  Digitizer Pen
+	0002  Mouse controller
+	0080  Input device controller
+C 0A  Docking station
+	0000  Generic Docking Station
+	0080  Docking Station
+C 0B  Processor
+	0000  386
+	0001  486
+	0002  Pentium
+	0010  Alpha
+	0020  Power PC
+	0040  Co-processor
+C 0C  Serial bus controller
+	0000  FireWire (IEEE 1394)
+	0001  ACCESS Bus
+	0002  SSA
+	0003  USB Controller
+	0004  Fiber Channel
+C 0E  Intelligent controller
+	0000  I2O
+
+S 10b4  STB Systems Inc
+	273e  Velocity 4400
