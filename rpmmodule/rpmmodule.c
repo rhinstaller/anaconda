@@ -44,6 +44,8 @@ static PyObject * rpmHeaderFromFD(PyObject * self, PyObject * args);
 static PyObject * findUpgradeSet(PyObject * self, PyObject * args);
 static PyObject * errorSetCallback (PyObject * self, PyObject * args);
 static PyObject * errorString (PyObject * self, PyObject * args);
+static PyObject * versionCompare (PyObject * self, PyObject * args);
+static PyObject * rebuildDB (PyObject * self, PyObject * args);
 
 static PyObject * rpmtransCreate(PyObject * self, PyObject * args);
 static PyObject * rpmtransAdd(rpmtransObject * s, PyObject * args);
@@ -64,10 +66,12 @@ static PyMethodDef rpmModuleMethods[] = {
     { "headerFromPackage", (PyCFunction) rpmHeaderFromPackage, METH_VARARGS, NULL },
     { "headerLoad", (PyCFunction) hdrLoad, METH_VARARGS, NULL },
     { "opendb", (PyCFunction) rpmOpenDB, METH_VARARGS, NULL },
+    { "rebuilddb", (PyCFunction) rebuildDB, METH_VARARGS, NULL },
     { "readHeaderListFromFD", (PyCFunction) rpmHeaderFromFD, METH_VARARGS, NULL },    
     { "readHeaderListFromFile", (PyCFunction) rpmHeaderFromFile, METH_VARARGS, NULL },
     { "errorSetCallback", (PyCFunction) errorSetCallback, METH_VARARGS, NULL },
     { "errorString", (PyCFunction) errorString, METH_VARARGS, NULL },
+    { "versionCompare", (PyCFunction) versionCompare, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -424,6 +428,14 @@ static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args) {
     return o;
 }
 
+static PyObject * rebuildDB (PyObject * self, PyObject * args) {
+    char * root = "";
+
+    if (!PyArg_ParseTuple(args, "s", &root)) return NULL;
+
+    return Py_BuildValue("i", rpmdbRebuild(root));
+}
+
 static PyObject * rpmReadHeaders (FD_t fd) {
     PyObject * list;
     Header header;
@@ -565,6 +577,14 @@ static PyObject * errorSetCallback (PyObject * self, PyObject * args) {
 
 static PyObject * errorString (PyObject * self, PyObject * args) {
     return PyString_FromString(rpmErrorString ());
+}
+
+static PyObject * versionCompare (PyObject * self, PyObject * args) {
+    hdrObject * h1, * h2;
+    
+    if (!PyArg_ParseTuple(args, "O!O!", &hdrType, &h1, &hdrType, &h2)) return NULL;
+
+    return Py_BuildValue("i", rpmVersionCompare(h1->h, h2->h));
 }
 
 static PyObject * rpmHeaderFromPackage(PyObject * self, PyObject * args) {
