@@ -401,6 +401,7 @@ class ToDo:
         self.liloDevice = None
         self.upgrade = 0
 	self.lilo = LiloConfiguration()
+	self.initrdsMade = {}
         
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -520,19 +521,23 @@ class ToDo:
 	f.write(str (self.keyboard))
 	f.close()
 
-    def makeInitrd (self):
-        if not self.__dict__.has_key ("madeinitrd"):
-            initrd = "/boot/initrd-%s.img" % (self.kernelVersion,)
-            
+    def makeInitrd (self, kernelTag):
+	initrd = "/boot/initrd%s.img" % (kernelTag, )
+	if not self.initrdsMade.has_key(initrd):
             iutil.execWithRedirect("/sbin/mkinitrd",
                                   [ "/sbin/mkinitrd",
                                     initrd,
-                                    self.kernelVersion ],
+                                    kernelTag[1:] ],
                                   stdout = None, stderr = None, searchPath = 1,
                                   root = self.instPath)
-            self.madeinitrd = 1
+	    self.initrdsMade[kernelTag] = 1
+	return initrd
 
     def makeBootdisk (self):
+	kernel = self.hdList['kernel']
+        kernelTag = "%s-%s-%s" % (kernel['name'][6:], kernel['version'],
+                                  kernel['release'])
+
         self.makeInitrd ()
         w = self.intf.waitWindow ("Creating", "Creating boot disk...")
         rc = iutil.execWithRedirect("/sbin/mkbootdisk",
@@ -540,9 +545,9 @@ class ToDo:
                                       "--noprompt",
                                       "--device",
                                       "/dev/fd0",
-                                      self.kernelVersion ],
-                                    stdout = None, stderr = None, searchPath = 1,
-                                    root = self.instPath)
+                                      kernelTag[1:] ],
+                                    stdout = None, stderr = None, 
+				    searchPath = 1, root = self.instPath)
         w.pop()
         if rc:
             raise ToDoError, "boot disk creation failed"
@@ -553,12 +558,6 @@ class ToDo:
             self.lilo.read (self.instPath + '/etc/lilo.conf')
         elif not self.liloDevice: return
 
-        kernelVersion = "%s-%s" % (self.kernelPackage[rpm.RPMTAG_VERSION],
-                                   self.kernelPackage[rpm.RPMTAG_RELEASE])
-        initrd = "/boot/initrd-%s.img" % (kernelVersion,)
-            
-        self.makeInitrd ()
-
         if self.liloDevice:
             self.lilo.addEntry("boot", '/dev/' + self.liloDevice)
 	self.lilo.addEntry("map", "/boot/map")
@@ -567,20 +566,37 @@ class ToDo:
 	self.lilo.addEntry("timeout", "50")
 	self.lilo.addEntry("default", "linux")        
 
-	sl = LiloConfiguration()
-	sl.addEntry("label", "linux")
-        if os.access (self.instPath + initrd, os.R_OK):
-            sl.addEntry("initrd", initrd)
-
         if not self.mounts.has_key ('/'):
             return
-        (dev, type, size) = self.mounts['/']
-        sl.addEntry("root", '/dev/' + dev)
-	sl.addEntry("read-only")
+        (rootDev, type, size) = self.mounts['/']
 
-	kernelFile = "/boot/vmlinuz-" + kernelVersion
-	    
-	self.lilo.addImage ("image", kernelFile, sl)
+	sl = LiloConfiguration()
+
+	label = "linux"
+	kernelList = []
+	if (self.hdList.has_key('kernel-smp') and
+	    	self.hdList['kernel-smp'].selected):
+	    kernelList.append((label, self.hdList['kernel-smp']))
+	    label = "linux-up"
+	kernelList.append((label, self.hdList['kernel']))
+
+	for (label, kernel) in kernelList:
+	    kernelTag = "%s-%s-%s" % (kernel['name'][6:], kernel['version'],
+				      kernel['release'])
+		
+	    initrd = self.makeInitrd (kernelTag)
+
+	    sl.addEntry("label", label)
+	    if os.access (self.instPath + initrd, os.R_OK):
+		sl.addEntry("initrd", initrd)
+
+	    sl.addEntry("read-only")
+
+	    sl.addEntry("root", '/dev/' + rootDev)
+
+	    kernelFile = "/boot/vmlinuz" + kernelTag
+		
+	    self.lilo.addImage ("image", kernelFile, sl)
 
         for (type, name, config) in self.lilo.images:
             # remove entries for missing kernels (upgrade)
@@ -627,16 +643,10 @@ class ToDo:
 		if comp.selected:
 		    comp.select (1)
 	self.comps['Base'].select(1)
-	self.kernelPackage = self.hdList['kernel']
 
 	if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
-	    self.kernelPackage.selected = 0
-	    self.kernelPackage = self.hdList['kernel-smp']
-	    self.kernelPackage.selected = 1
+	    self.hdList['kernel-smp'].selected = 1
             
-        self.kernelVersion = "%s-%s" % (self.kernelPackage[rpm.RPMTAG_VERSION],
-                                        self.kernelPackage[rpm.RPMTAG_RELEASE])
-
 	return self.comps
 
     def writeNetworkConfig (self):
