@@ -411,7 +411,7 @@ class UpgradeExamineWindow:
             # upgradeonly mode, so don't display this window either
             if not todo.instClass.skipStep('confirm-upgrade'):
                 rc = ButtonChoiceWindow (screen, _("Upgrade Partition"),
-                                         _("Going to upgrade partition /dev/") + drive,
+                                         _("The Red Hat Linux OS installed on partition /dev/%s will now be upgraded.") + drive,
                                          buttons = [ _("Ok"), _("Back") ])
                 if rc  == string.lower (_("Back")):
                     return INSTALL_BACK
