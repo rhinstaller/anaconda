@@ -709,6 +709,8 @@ class PartitionWindow(InstallWindow):
         raidrequests = self.partitions.getRaidRequests()
         if raidrequests:
             for request in raidrequests:
+		text = [""] * self.numCols
+
                 if request and request.mountpoint:
                     text[self.titleSlot["Mount Point"]] = request.mountpoint
                 
