@@ -1211,6 +1211,11 @@ int main(int argc, char ** argv) {
                         modInfo, &kd, flags);
     }
 
+    if (!access("/dd.img", R_OK)) {
+        logMessage("found /dd.img, loading drivers");
+        getDDFromSource(&kd, &loaderData, "path:/dd.img", flags);
+    }
+    
     /* this allows us to do an early load of modules specified on the
      * command line to allow automating the load order of modules so that
      * eg, certain scsi controllers are definitely first.
