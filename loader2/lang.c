@@ -324,5 +324,4 @@ void setKickstartLanguage(struct loaderData_s * loaderData, int argc,
 
     loaderData->lang = argv[1];
     loaderData->lang_set = 1;
-
 }

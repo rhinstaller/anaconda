@@ -184,7 +184,8 @@ void stopNewt(void) {
 
 void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
                        moduleInfoSet modInfo, int flags) {
-    mlLoadModuleSet("vga16fb", modLoaded, modDeps, modInfo, flags);
+    if (!FL_NOFB(flags))
+	mlLoadModuleSet("vga16fb", modLoaded, modDeps, modInfo, flags);
     /* enable UTF-8 console */
     printf("\033%%G");
     fflush(stdout);
@@ -387,6 +388,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOPASS;
         else if (!strcasecmp(argv[i], "serial")) 
             flags |= LOADER_FLAGS_SERIAL;
+        else if (!strcasecmp(argv[i], "nofb"))
+            flags |= LOADER_FLAGS_NOFB;
         else if (!strncasecmp(argv[i], "debug=", 6))
             setLogLevel(strtol(argv[i] + 6, (char **)NULL, 10));
         else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
