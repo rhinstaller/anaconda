@@ -42,9 +42,9 @@ def inet_aton (addr):
     quad = string.splitfields (addr, ".")
     try: 
         rc = ((string.atoi (quad[0]) << 24) +
-               (string.atoi (quad[1]) << 16) +
-               (string.atoi (quad[2]) << 8) +
-               string.atoi (quad[3]))
+              (string.atoi (quad[1]) << 16) +
+              (string.atoi (quad[2]) << 8) +
+              string.atoi (quad[3]))
     except IndexError:
         raise ValueError
     return rc
@@ -72,9 +72,9 @@ def inet_calcNetBroad (ip, nm):
         ipaddr = ip
 
     if isinstance (nm, type ("")):
-        ipaddr = inet_aton (ip)
+        nmaddr = inet_aton (nm)
     else:
-        ipaddr = ip
+        nmaddr = nm
 
     netaddr = ipaddr & nmaddr
     bcaddr = netaddr | (~nmaddr);
