@@ -309,6 +309,7 @@ int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
 
 	    if (answer != add)
 		break;
+
 	    addDeviceManually(modInfo, modLoaded, modDeps, kd, flags);
 	} else {
 	    rc = newtWinChoice(_("Devices"), _("Done"), _("Add Device"), 
@@ -346,8 +347,8 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		    printf("%s\n", modList[i]->moduleName);
 		} else {
 		    if (modList[i]->major == DRIVER_NET) {
-			mlLoadModule(modList[i]->moduleName, NULL, modLoaded, 
-				     modDeps, NULL, flags);
+			mlLoadModule(modList[i]->moduleName, modList[i]->path, 
+				     modLoaded, modDeps, NULL, flags);
 		    }
 		}
 	    }
@@ -357,8 +358,8 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		    startNewt(flags);
 
 		    scsiWindow(modList[i]->moduleName);
-		    mlLoadModule(modList[i]->moduleName, NULL, modLoaded, 
-			         modDeps, NULL, flags);
+		    mlLoadModule(modList[i]->moduleName, modList[i]->path, 
+				 modLoaded, modDeps, NULL, flags);
 		    sleep(1);
 		    newtPopWindow();
 		}
@@ -1367,9 +1368,14 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 
     for (i = 0; i < argc; i++) {
         if (!strcasecmp(argv[i], "expert"))
-	    flags |= LOADER_FLAGS_EXPERT | LOADER_FLAGS_NOPROBE;
+	    flags |= LOADER_FLAGS_EXPERT | LOADER_FLAGS_NOPROBE |
+		     LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "text"))
 	    flags |= LOADER_FLAGS_TEXT;
+        else if (!strcasecmp(argv[i], "dd"))
+	    flags |= LOADER_FLAGS_MODDISK;
+        else if (!strcasecmp(argv[i], "driverdisk"))
+	    flags |= LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "rescue"))
 	    flags |= LOADER_FLAGS_RESCUE;
         else if (!strcasecmp(argv[i], "ks=floppy"))
@@ -1456,10 +1462,11 @@ int kickstartFromFloppy(char * location, moduleList modLoaded,
 void readExtraModInfo(moduleInfoSet modInfo) {
     int num = 0;
     char fileName[80];
-    char dirName[80];
+    char * dirName;
 
     sprintf(fileName, "/tmp/DD-%d/modinfo", num);
     while (!access(fileName, R_OK)) {
+	dirName = malloc(50);
 	sprintf(dirName, "/tmp/DD-%d", num);
 
 	isysReadModuleInfo(fileName, modInfo, dirName);
@@ -1575,6 +1582,12 @@ int main(int argc, char ** argv) {
     kdFindScsiList(&kd);
     kdFindNetList(&kd);
 
+    if ((access("/proc/pci", X_OK) || FL_MODDISK(flags)) 
+	    && !ksFile) {
+	startNewt(flags);
+        devLoadDriverDisk(modInfo, modLoaded, modDeps, flags, 1);
+    }
+
     busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
     if (probeOnly) exit(0);
 
@@ -1633,7 +1646,7 @@ int main(int argc, char ** argv) {
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
-    if ((access("/proc/pci", X_OK) || FL_EXPERT(flags)) && !ksFile) {
+    if ((access("/proc/pci", X_OK) || FL_NOPROBE(flags)) && !ksFile) {
 	manualDeviceCheck(modInfo, modLoaded, modDeps, &kd, flags);
     }
 
