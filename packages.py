@@ -1252,7 +1252,7 @@ def setFileCons(instPath):
         # blah, to work in a chroot, we need to actually be inside so the
         # regexes will work
         child = os.fork()
-        if (child):
+        if (not child):
             os.chroot(instPath)
             for f in files:
                 if not os.access("%s" %(f,), os.R_OK):
