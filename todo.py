@@ -861,8 +861,11 @@ class ToDo:
                     # 2 is ext2 in balkan speek
                     if size and type == 2:
                         dev = drive + str (i + 1)
-                        isys.makeDevInode(dev, '/tmp/' + dev)                    
-                        isys.mount('/tmp/' + dev, '/mnt/sysimage')
+                        isys.makeDevInode(dev, '/tmp/' + dev)
+                        try:
+                            isys.mount('/tmp/' + dev, '/mnt/sysimage')
+                        except SystemError, (errno, msg):
+                            self.intf.messageWindow(_("Error"), _("Error mounting %s: %s") % (device, msg))
                         if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
                             rootparts.append (dev)
                         isys.umount('/mnt/sysimage')
