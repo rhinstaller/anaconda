@@ -147,7 +147,9 @@ class TimezoneWindow (InstallWindow):
 
         for menu_item in views.get_menu ().children ():
             menu_item.connect ("activate", self.view_change)
-            
+
+	# fix for current map weirdness in dr mike's code.
+	views.get_menu ().children ()[0].activate ()
 
         label = GtkLabel (_("View:"))
         hbox = GtkHBox (FALSE, 5)
