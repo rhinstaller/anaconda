@@ -453,7 +453,11 @@ class Group:
 
         self.packages = {}
         for (pkg, (type, name)) in xmlgrp.packages.items():
-            pkgnevra = hdrlist.getBestNevra(pkg, prefArch = pref)
+            if hdrlist.pkgs.has_key(pkg):
+                pkgnevra = pkg
+            else:
+                pkgnevra = hdrlist.getBestNevra(pkg, prefArch = pref)
+                
             if pkgnevra is None:
                 log("%s references package %s which doesn't exist"
                     %(self.id, pkg))
@@ -739,10 +743,26 @@ class GroupSet:
         everything.name = N_("Everything")
         everything.id = "everything"
         everything.description = EVERYTHING_DESCRIPTION
+
+        multiarch = rhpl.arch.getMultiArchInfo()
+        if multiarch is not None:
+            (comp, best, biarch) = multiarch
         for pkgname in hdrlist.pkgnames.keys():
             if EverythingExclude.has_key(pkgname):
                 continue
-            everything.packages[pkgname] = (u'mandatory', pkgname)
+            
+            mainnevra = hdrlist.getBestNevra(pkgname, prefArch = None)
+            if mainnevra is None:
+                continue
+            
+            everything.packages[mainnevra] = (u"mandatory", mainnevra)
+            if multiarch is not None:
+                # get the main and the biarch version of this package
+                # for everything group
+                secnevra = hdrlist.getBestNevra(pkgname, prefArch = biarch)
+                if mainnevra != secnevra and secnevra is not None:
+                    everything.packages[secnevra] = (u"mandatory", secnevra)
+
         self.compsxml.groups["Everything"] = everything
         self.groups["everything"] = Group(self, everything)
 
