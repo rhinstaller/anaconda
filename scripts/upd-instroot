@@ -803,6 +803,11 @@ echo "retrieving timezones"
 TZDIR=/tmp/glibc-timezone-$$
 mkdir -p $TZDIR/usr/share/zoneinfo
 rpm2cpio $TZDATA | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo ./usr/share/zoneinfo ./usr/share/zoneinfo/* usr/share/zoneinfo/*)
+if [ $? != 0 ]; then
+    echo "ERROR: Unable to expand timezone data ($TZDATA)"
+    echo "Aborting instroot creation..."
+    exit 1
+fi
 (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DEST; tar xSpf -)
 (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DESTGR; tar xSpf -)
 
