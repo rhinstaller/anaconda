@@ -9,7 +9,7 @@ class BootDiskWindow:
 	if todo.fstab.rootOnLoop():
 	    return INSTALL_NOOP
 
-	buttons = [ _("Yes"), _("No"), _("Back") ]
+	buttons = [ _("Yes"), _("No") ]
 	text =  _("A custom boot disk provides a way of booting into your "
 		  "Linux system without depending on the normal bootloader. "
 		  "This is useful if you don't want to install lilo on your "
@@ -41,8 +41,6 @@ class BootDiskWindow:
 	if rc == string.lower (_("No")):
 	    todo.bootdisk = 0
 
-	if rc == string.lower (_("Back")):
-	    return INSTALL_BACK
 	return INSTALL_OK
 
 class MakeBootDiskWindow:
