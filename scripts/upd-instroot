@@ -112,7 +112,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 rhpl pyxf86config libxml2 libxml2-python glib2
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
  	 xfsprogs xfsdump dmapi libacl libattr attr acl 
-         policy policycoreutils pyparted"
+         policy policycoreutils pyparted xorg-x11"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -127,7 +127,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
               sed net-tools xinetd openssl openssh openssh-server coreutils
               login initscripts XFree86-xauth bash portmap pam 
               telnet-server login mount grep modutils gawk 
-              XFree86-libs strace"
+              XFree86-libs strace xorg-x11-xauth xorg-x11-libs"
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
@@ -159,7 +159,12 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts 
            comps-extras XFree86-libs-data convertdb1
            vnc-server libjpeg tcp_wrappers system-config-date
-           xfsprogs xfsdump dmapi attr acl policy policycoreutils"
+           xfsprogs xfsdump dmapi attr acl policy policycoreutils
+           xorg-x11-libs xorg-x11-ISO8859-2-75dpi-fonts
+           xorg-x11-ISO8859-9-75dpi-fonts xorg-x11-100dpi-fonts
+           xorg-x11-xfs xorg-x11 xorg-x11-KOI8-R xorg-x11-KOI8-R-75dpi-fonts
+           xorg-x11-base-fonts xorg-x11-ISO8859-15-75dpi-fonts
+           xorg-x11-libs-data xorg-x11-xfs "
 
 #
 # stuff ONLY included for rescue mode
