@@ -16,9 +16,8 @@ class LiloConfigFile:
 		if self.items[n]:
 		    s = s + "=" + self.items[n]
 	    s = s + '\n'
-	for image in self.images:
-	    (fsType, name, cl) = image
-	    s = s + "\n%s=%s\n" % (fsType, name)
+	for cl in self.images:
+	    s = s + "\n%s=%s\n" % (cl.imageType, cl.path)
 	    s = s + cl.__repr__(1)
 	return s
 
@@ -36,25 +35,33 @@ class LiloConfigFile:
     def getEntry(self, item):
 	return self.items[item]
 
-    def getImage(self, name):
-        for (fsType, label, config) in self.images:
-            if label == name:
-		return (fsType, config)
-	raise IndexError, "unknown image %s" % (name,)
+    def getImage(self, label):
+        for config in self.images:
+	    if config.getEntry('label') == label:
+		return (config.imageType, config)
 
-    def addImage (self, fsType, name, config):
-	self.images.append((fsType, name, config))
+	raise IndexError, "unknown image %s" % (label,)
 
-    def delImage (self, name):
-        for entry in self.images:
-            fsType, label, config = entry
-            if label == name:
-                self.images.remove (entry)
+    def addImage (self, config):
+	# make sure the config has a valid label
+	config.getEntry('label')
+	if not config.path or not config.imageType:
+	    raise ValueError, "subconfig missing path or image type"
+
+	self.images.append(config)
+
+    def delImage (self, label):
+        for config in self.images:
+	    if config.getEntry('label') == label:
+                self.images.remove (config)
+		return
+
+	raise IndexError, "unknown image %s" % (label,)
 
     def listImages (self):
 	l = []
-        for (fsType, label, config) in self.images:
-	    l.append(label)
+        for config in self.images:
+	    l.append(config.getEntry('label'))
 	return l
 
     def write(self, file, perms = 0644):
@@ -76,13 +83,10 @@ class LiloConfigFile:
 		continue
 	    fields = string.split(l, '=', 1)
 	    if (len(fields) == 2):
-		if (fields[0] == "image"):
-		    image = LiloConfigFile()
-		    self.addImage(fields[0], fields[1], image)
-		    args = None
-		elif (fields[0] == "other"):
-		    image = LiloConfigFile()
-		    self.addImage(fields[0], fields[1], image)
+		if (fields[0] == "image" or fields[0] == "other"):
+		    if image: self.addImage(image)
+		    image = LiloConfigFile(imageType = fields[0], 
+					   path = fields[1])
 		    args = None
                 else:
 		    args = (fields[0], fields[1])
@@ -93,12 +97,16 @@ class LiloConfigFile:
 		apply(image.addEntry, args)
 	    elif args:
 		apply(self.addEntry, args)
+
+	if image: self.addImage(image)
 	    
 	f.close()
 
-    def __init__(self):
+    def __init__(self, imageType = None, path = None):
+	self.imageType = imageType
+	self.path = path
 	self.order = []
-	self.images = []		# more (fsType, name, LiloConfigFile) pair
+	self.images = []
 	self.items = {}
 
 class LiloConfiguration:
@@ -217,7 +225,7 @@ class LiloConfiguration:
 	perms = 0644
         if os.access (instRoot + '/etc/lilo.conf', os.R_OK):
 	    perms = os.stat(instRoot + '/etc/lilo.conf')[0] & 0777
-	    #lilo.read (instRoot + '/etc/lilo.conf')
+	    lilo.read (instRoot + '/etc/lilo.conf')
 	    os.rename(instRoot + '/etc/lilo.conf',
 		      instRoot + '/etc/lilo.conf.rpmsave')
 
@@ -226,14 +234,12 @@ class LiloConfiguration:
 	# to the already-configured (and valid) lilo images by the lilo
 	# label, as we can normally only get them by filename which isn't
 	# easily done.
-	imagesByLabel = {}
-	for image in lilo.listImages():
-	    (fsType, sl) = lilo.getImage(image)
+	for label in lilo.listImages():
+	    (fsType, sl) = lilo.getImage(label)
 	    if fsType == "other": continue
-	    if not os.access(instRoot + image, os.R_OK):
+
+	    if not os.access(instRoot + label.getPath(), os.R_OK):
 		lilo.delImage(image)
-	    else:
-		imagesByLabel[sl.getEntry('label')] = image
 
 	bootpart = fstab.getBootDevice()
 	boothd = fstab.getMbrDevice()
@@ -297,14 +303,14 @@ class LiloConfiguration:
 	kernelList.append((label, hdList['kernel'], ""))
 
 	for (label, kernel, tag) in kernelList:
-	    if imagesByLabel.has_key(label):
-		(fsType, sl) = lilo.getImage(imagesByLabel[label])
-		lilo.delImage(imagesByLabel[label])
-	    else:
-		sl = LiloConfigFile()
-
 	    kernelTag = "-%s-%s%s" % (kernel['version'], kernel['release'], tag)
 	    kernelFile = "/boot/vmlinuz" + kernelTag
+
+	    try:
+		(fsType, sl) = lilo.getImage(label)
+		lilo.delImage(label)
+	    except IndexError, msg:
+		sl = LiloConfigFile(imageType = "image", path = kernelFile)
 
 	    initrd = self.makeInitrd (kernelTag, instRoot)
 
@@ -318,14 +324,14 @@ class LiloConfiguration:
 	    if self.liloAppend:
 		sl.addEntry('append', '"%s"' % (self.liloAppend,))
 		
-	    lilo.addImage ("image", kernelFile, sl)
+	    lilo.addImage (sl)
 
 	for (label, device) in otherList:
 	    try:
 		(fsType, sl) = lilo.getImage(device)
 		lilo.delImage(device)
 	    except IndexError:
-		sl = LiloConfigFile()
+		sl = LiloConfigFile(imageType = "other", path = device)
 
 	    sl.addEntry("label", label)
 	    lilo.addImage ("other", device, sl)
@@ -380,18 +386,15 @@ class LiloConfiguration:
         else:
             self.edd = 0
 
-
 if __name__ == "__main__":
     config = LiloConfigFile ()
     config.read ('/etc/lilo.conf')
     print config
     print "image list", config.listImages()
-    config.delImage ('/boot/vmlinuz-2.2.5-15')
+    config.delImage ('linux')
     print '----------------------------------'
     config = LiloConfigFile ()
     config.read ('/etc/lilo.conf')
     print config
     print '----------------------------------'    
-    print config.getImage('/boot/vmlinuz-2.2.5-15')
-    
-
+    print config.getImage('linux')
