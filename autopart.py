@@ -1081,9 +1081,18 @@ def doClearPartAction(partitions, diskset):
                 ptype = partedUtils.get_partition_file_system_type(part)
             else:
                 ptype = None
+            # we want to do the clearing if
+            # 1) clearAll is set
+            # 2) there's a fsystem on the partition and it's a "native" fs
+            # 3) there's not fsystem but the numeric id of partition is native
+            # 4) the ptable doesn't support numeric ids, but it appears to be
+            #    a RAID or LVM device (#107319)
             if ((linuxOnly == 0) or (ptype and ptype.isLinuxNativeFS()) or 
                 (not ptype and
-                 partedUtils.isLinuxNativeByNumtype(part.native_type))):
+                 partedUtils.isLinuxNativeByNumtype(part.native_type)) or 
+                ((part.native_type == -1) and # the ptable doesn't have types
+                 ((part.is_flag_available(parted.PARTITION_RAID) and part.get_flag(parted.PARTITION_RAID)) or  # this is a RAID
+                  (part.is_flag_available(parted.PARTITION_LVM) and part.get_flag(parted.PARTITION_LVM))))): # or an LVM
                 old = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
                 if old.getProtected():
                     part = disk.next_partition(part)
