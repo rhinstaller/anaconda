@@ -23,7 +23,7 @@ class UpgradeExamineWindow (InstallWindow):
         
         if self.individualPackages.get_active ():
             # XXX fix me
-            from package import IndividualPackageSelectionWindow
+            from package_gui import IndividualPackageSelectionWindow
             return IndividualPackageSelectionWindow
         return None
 
