@@ -67,6 +67,44 @@ struct intfconfig_s {
     char * ip, * nm, * gw, * ns;
 };
 
+static void spawnShell(void) {
+    pid_t pid;
+    int fd;
+
+    if (!testing) {
+	fd = open("/dev/tty2", O_RDWR);
+	if (fd < 0) {
+	    logMessage("cannot open /dev/tty2 -- no shell will be provided");
+	    return;
+	} else if (access("/bin/sh",  X_OK))  {
+	    logMessage("cannot open shell - /usr/bin/sh doesn't exist");
+	    return;
+	}
+
+	if (!(pid = fork())) {
+	    dup2(fd, 0);
+	    dup2(fd, 1);
+	    dup2(fd, 2);
+
+	    close(fd);
+	    setsid();
+	    if (ioctl(0, TIOCSCTTY, NULL)) {
+		perror("could not set new controlling tty");
+	    }
+
+	    execl("/bin/sh", "-/bin/sh", NULL);
+	    logMessage("exec of /bin/sh failed: %s", strerror(errno));
+	}
+
+	close(fd);
+
+	return pid;
+    }
+
+    return -1;
+}
+
+
 static void ipCallback(newtComponent co, void * dptr) {
     struct intfconfig_s * data = dptr;
     struct in_addr ipaddr, nmaddr, addr;
@@ -199,6 +237,8 @@ int readNetConfig(char * device, struct intfInfo * dev) {
     *((int32 *) &dev->network) = 
 	    *((int32 *) &dev->ip) &
 	    *((int32 *) &dev->netmask);
+
+    strcpy(dev->device, device);
 
     return 0;
 }
@@ -558,7 +598,8 @@ int main(int argc, char ** argv) {
 	} else if (modList) {
 	    for (i = 0; modList[i]; i++) {
 	    	if (modList[i]->major == DRIVER_NET) {
-		    mlLoadModule(modList[i], modLoaded, modDeps, testing);
+		    mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
+				 testing);
 		}
 	    }
 
@@ -573,7 +614,8 @@ int main(int argc, char ** argv) {
 
 		    winStatus(40, 3, _("Loading SCSI driver"), 
 		    	      "Loading %s driver...", modList[i]->moduleName);
-		    mlLoadModule(modList[i], modLoaded, modDeps, testing);
+		    mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
+				 testing);
 		    newtPopWindow();
 		}
 	    }
@@ -609,18 +651,25 @@ int main(int argc, char ** argv) {
 	    printf("\n");
     }
 
+    printf("name: %s\n", netDev.device);
     printf("ip: %s\n", inet_ntoa(netDev.ip));
     printf("netmask: %s\n", inet_ntoa(netDev.netmask));
     printf("broadcast: %s\n", inet_ntoa(netDev.broadcast));
     printf("network: %s\n", inet_ntoa(netDev.network));
+    netDev.isPtp = netDev.isUp = 0;
 
     configureNetDevice(&netDev);
+
+    mlLoadModule("nfs", modLoaded, modDeps, 
+		 testing);
 
     doPwMount("207.175.42.68:/mnt/test/msw/i386",
     	      "/mnt/source", "nfs", 1, 0, NULL, NULL);
  
     symlink("mnt/source/RedHat/instimage/usr", "/usr");
     symlink("mnt/source/RedHat/instimage/lib", "/lib");
+
+    spawnShell();
 
     argptr = anacondaArgs;
     *argptr++ = "/usr/bin/anaconda";
