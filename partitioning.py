@@ -348,11 +348,13 @@ def sanityCheckMountPoint(mntpt, fstype, reqtype):
         else:
             if mntpt[0] != '/' or (len(mntpt) > 1 and mntpt[-1:] == '/'):
                 passed = 0
+	    elif string.find(mntpt, ' ') > -1:
+		passed = 0
                 
         if not passed:
             return _("The mount point is invalid.  Mount points must start "
                      "with '/' and cannot end with '/', and must contain "
-                     "printable characters.")
+                     "printable characters and no spaces.")
         else:
             return None
     else:
