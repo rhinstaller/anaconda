@@ -43,6 +43,9 @@ class KeyboardWindow:
         kbd.set (keyboards[choice])
 	kbd.beenset = 1
 
+	if (xconfig != (None, None)):
+            apply(xconfig.setKeyboard, kbd.getXKB())
+
 	if flags.reconfig:
 	    iutil.execWithRedirect ("/bin/loadkeys",
 				    ["/bin/loadkeys", keyboards[choice]],
