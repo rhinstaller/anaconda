@@ -556,9 +556,6 @@ if ksfile is not None:
 # if display_mode wasnt set by command line parameters then set default
 #
 
-log("Display mode = %s", display_mode)
-log("Method = %s", method)
-
 if display_mode is None:
     if (method and
 	method.startswith('ftp://') or
@@ -632,6 +629,9 @@ if traceOnly:
                 print bar[3]
         
     sys.exit(0)
+
+log("Display mode = %s", display_mode)
+log("Method = %s", method)
 
 #
 # override display mode if machine cannot nicely run X
