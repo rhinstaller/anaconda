@@ -15,6 +15,7 @@ import rpm
 from snack import *
 from constants_text import *
 from rhpl.translate import _
+from hdrlist import orderPackageGroups
 
 class PackageGroupWindow:
 
@@ -43,9 +44,17 @@ class PackageGroupWindow:
 	origSelection = grpset.getSelectionState()
 
         ct = CheckboxTree(height = 8, scroll = 1)
-        for group in grpset.groups.values():
-            if not group.hidden:
-                ct.append(group.name, group, group.isSelected(justManual = 1))
+
+        (parlist, pardict) = orderPackageGroups(grpset)
+        for par in parlist:
+            for grp in pardict[par]:
+                if grp.hidden:
+                    if grp.id != "base":
+                        continue
+                    else:
+                        if not instClass.showMinimal:
+                            continue
+                ct.append(grp.name, grp, grp.isSelected(justManual = 1))
 
         cb = Checkbox (_("Select individual packages"), 
 			    not dispatch.stepInSkipList("indivpackage"))
