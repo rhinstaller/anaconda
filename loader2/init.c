@@ -23,6 +23,7 @@
 #endif 
 #else
 #include <ctype.h>
+#include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <net/if.h>
@@ -51,9 +52,6 @@
 #endif
 
 #include <linux/cdrom.h>
-
-#define KICK_FLOPPY     1
-#define KICK_BOOTP	2
 
 #ifndef MS_REMOUNT
 #define MS_REMOUNT      32
@@ -371,20 +369,80 @@ void ejectCdrom(void) {
   }
 }
 
+/* Recursive -- copied (and tweaked)from loader2/method.c */ 
+int copyDirectory(char * from, char * to) {
+    DIR * dir;
+    struct dirent * ent;
+    int fd, outfd;
+    char buf[4096];
+    int i;
+    struct stat sb;
+    char filespec[256];
+    char filespec2[256];
+    char link[1024];
+
+    mkdir(to, 0755);
+
+    if (!(dir = opendir(from))) {
+        printf("Failed to read directory %s: %s", from, strerror(errno));
+        return 1;
+    }
+
+    errno = 0;
+    while ((ent = readdir(dir))) {
+        if (ent->d_name[0] == '.') continue;
+
+        sprintf(filespec, "%s/%s", from, ent->d_name);
+        sprintf(filespec2, "%s/%s", to, ent->d_name);
+
+        lstat(filespec, &sb);
+
+        if (S_ISDIR(sb.st_mode)) {
+            if (copyDirectory(filespec, filespec2)) return 1;
+        } else if (S_ISLNK(sb.st_mode)) {
+            i = readlink(filespec, link, sizeof(link) - 1);
+            link[i] = '\0';
+            if (symlink(link, filespec2)) {
+                printf("failed to symlink %s to %s: %s", filespec2, 
+                       link, strerror(errno));
+            }
+        } else {
+            fd = open(filespec, O_RDONLY);
+            if (fd == -1) {
+                printf("failed to open %s: %s", filespec, strerror(errno));
+                return 1;
+            } 
+            outfd = open(filespec2, O_RDWR | O_TRUNC | O_CREAT, 0644);
+            if (outfd == -1) {
+                printf("failed to create %s: %s", filespec2, strerror(errno));
+            } else {
+                fchmod(outfd, sb.st_mode & 07777);
+
+                while ((i = read(fd, buf, sizeof(buf))) > 0)
+                    write(outfd, buf, i);
+                close(outfd);
+            }
+
+            close(fd);
+        }
+
+        errno = 0;
+    }
+
+    closedir(dir);
+
+    return 0;
+}
+
+
 int main(int argc, char **argv) {
     pid_t installpid, childpid;
     int waitStatus;
     int fd;
-    int nfsRoot = 0;
-    int roRoot = 0;
-    int cdRoot = 0;
     int doReboot = 0;
     int doShutdown =0;
     int isSerial = 0;
     int noKill = 0;
-#ifdef __alpha__
-    char * kernel;
-#endif
     char * argvc[15];
     char ** argvp = argvc;
     char twelve = 12;
@@ -505,59 +563,26 @@ int main(int argc, char **argv) {
 	setdomainname("", 0);
     }
 
-    printf("checking for NFS root filesystem...");
-    if (hasNetConfiged()) {
-	printf("yes\n");
-	roRoot = nfsRoot = 1;
-    } else {
-	printf("no\n");
+    printf("trying to remount root filesystem read write... ");
+    if (mount("/", "/", "ext2", MS_REMOUNT | MS_MGC_VAL, NULL)) {
+        fatal_error(1);
     }
+    printf("done\n");
+        
+    /* we want our /tmp to be ramfs, but we also want to let people hack
+     * their initrds to add things like a ks.cfg, so this has to be a little
+     * tricky */
+    if (!testing) {
+        rename("/tmp", "/oldtmp");
+        mkdir("/tmp", 0755);
 
-    if (!nfsRoot) {
-	printf("trying to remount root filesystem read write... ");
-	if (mount("/", "/", "ext2", MS_REMOUNT | MS_MGC_VAL, NULL)) {
-	    printf("failed (but that's okay)\n");
-	
-	    roRoot = 1;
-	} else {
-	    printf("done\n");
+        printf("mounting /tmp as ramfs... ");
+        if (mount("none", "/tmp", "ramfs", 0, NULL))
+            fatal_error(1);
+        printf("done\n");
 
-	    /* 2.0.18 (at least) lets us remount a CD r/w!! */
-	    printf("checking for writeable /tmp... ");
-	    fd = open("/tmp/tmp", O_WRONLY | O_CREAT, 0644);
-	    if (fd < 0) {
-		printf("no (probably a CD rooted install)\n");
-		roRoot = 1;
-	    } else {
-		close(fd);
-		unlink("/tmp/tmp");
-		printf("yes\n");
-	    }
-	}
-    }
-
-    /* JKFIXME: bah, I don't like this but it has to stay like this until
-     * ramfs doesn't suck */
-#if !defined(__s390__) && !defined(__s390x__)
-#define RAMDISK_DEVICE "/dev/ram"
-#else
-#define RAMDISK_DEVICE "/dev/ram2"
-#endif
-
-    if (!testing && roRoot) {
-	printf("creating 300k of ramdisk space... ");
-	if (doMke2fs(RAMDISK_DEVICE, "300"))
-	    fatal_error(0);
-
-	printf("done\n");
-	
-	printf("mounting /tmp from ramdisk... ");
-	if (mount(RAMDISK_DEVICE, "/tmp", "ext2", 0, NULL))
-	    fatal_error(1);
-
-	printf("done\n");
-
-	if (!nfsRoot) cdRoot = 1;
+        copyDirectory("/oldtmp", "/tmp");
+        unlink("/oldtmp");
     }
 
     /* Now we have some /tmp space set up, and /etc and /dev point to
