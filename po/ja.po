@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-13 14:23-0500\n"
-"PO-Revision-Date: 2004-10-29 10:30+1000\n"
-"Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
-"Language-Team: Japanese <kdeveloper@kde.gr.jp>\n"
+"PO-Revision-Date: 2005-01-14 10:07+0900\n"
+"Last-Translator: Hirofumi Saito <hi_saito@yk.rim.or.jp>\n"
+"Language-Team: Japanese<fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -781,7 +781,7 @@ msgstr ""
 "[Enter] を押してシステムを再起動して下さい。"
 
 #: ../fsset.py:1355
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -792,10 +792,10 @@ msgid ""
 msgstr ""
 "スワップデバイス %s を有効にしている最中にエラー発生: %s\n"
 "\n"
-"これは大抵の場合、スワップパーティションが初期化されていないことを意味しま"
-"す\n"
+"アップグレードしたパーティション用の /etc/fstab が有効なスワップを参照して"
+"いません。\n"
 "\n"
-"[OK] を押してシステムを再起動して下さい。"
+"OK を押してシステムを再起動してください。"
 
 #: ../fsset.py:1366
 #, python-format
@@ -911,7 +911,6 @@ msgstr ""
 "「OK」を押してシステムを再起動して下さい。"
 
 #: ../fsset.py:1575
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -919,11 +918,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"デバイス %s を %s としてマウントする際にエラー発生:%s\n"
+"/ エントリーを検索中にエラー発生。\n"
 "\n"
-"大抵の場合はこのパーティションがフォーマットされていないことを意味します。\n"
+"大抵の場合は、fstab が正しくないことを意味します。\n"
 "\n"
-"「OK」を押してシステムを再起動して下さい。"
+"OK を押してシステムを再起動してください。"
 
 #: ../fsset.py:2214
 msgid "Duplicate Labels"
@@ -1304,7 +1303,8 @@ msgstr ""
 msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
-msgstr ""
+msgstr "インストールツリーのコンプファイルには重大なグループがありません。イン"
+"ストールツリーが正しく作成されているか確認してください。"
 
 #: ../packages.py:197 ../packages.py:629
 #, python-format
@@ -1347,7 +1347,6 @@ msgstr ""
 "<return>を押してやり直して下さい。"
 
 #: ../packages.py:441
-#, fuzzy
 msgid "Re_boot"
 msgstr "再起動"
 
@@ -1356,6 +1355,8 @@ msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
+"リブートをすれば、システムはほとんど再インストールを必要とするような矛盾し"
+"た状態を残してしまします。続けますか?"
 
 #: ../packages.py:459
 msgid "Installing..."
@@ -2864,7 +2865,6 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "高度なブートローダー設定"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
@@ -2872,8 +2872,7 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 "BIOS が未サポートでブートできない場合はブートローダーの LBA32 を強制的に使用"
-"します。なお、後でインストール中に尋ねられる際にブートディスクをつくることを"
-"強くお勧めします。\n"
+"します。\n"
 "\n"
 "LBA32 モードを強制し、続けますか?"
 
@@ -2908,7 +2907,6 @@ msgid "Change Boot Loader"
 msgstr "ブートローダーを変更"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -2917,11 +2915,12 @@ msgid ""
 "\n"
 "Would you like to continue and not install a boot loader?"
 msgstr ""
-"あなたはブートローダーをインストールしないように選択しましたが、何らかの理由"
-"がない限り、ブートローダーをインストールすることを強く推奨します。ブートロー"
-"ダーはハードディスクからLinuxを直接起動するほとんどの場合に必要となります。\n"
+"あなたはどのブートローダーもインストールしないように選択しましたが、何らか"
+"の理由がない限り、ブートローダーをインストールすることを強く推奨します。"
+"ブートローダーはハードディスクから Linux を直接起動するほとんどの場合に必要"
+"となります。\n"
 "\n"
-"本当にブートローダーインストールを省略しますか?"
+"ブートローダーをインストールしないで続けますか?"
 
 #: ../iw/bootloader_main_gui.py:97
 msgid "C_ontinue with no boot loader"
@@ -3902,9 +3901,8 @@ msgid "Encryption _Key"
 msgstr "暗号鍵(_K)"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Hardware address:"
-msgstr "IP アドレス:"
+msgstr "ハードウェアアドレス:"
 
 #: ../iw/network_gui.py:291
 #, python-format
@@ -5684,7 +5682,7 @@ msgstr "説明: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "ハードウェアアドレス: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -7151,9 +7149,9 @@ msgid "Welcome to %s"
 msgstr "%sへようこそ"
 
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "%sへようこそ"
+msgstr "%s へようこそ - レスキューモード"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:138
 msgid ""
@@ -7679,14 +7677,12 @@ msgid "Account name:"
 msgstr "アカウント名:"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "FTP の設定"
+msgstr "FTP の追加設定"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "HTTP の設定"
+msgstr "HTTP の追加設定"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
