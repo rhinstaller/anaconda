@@ -427,7 +427,7 @@ class Partitions:
         """Find and return a list of all of the unused minors for use in RAID."""
         raidMinors = range(0,32)
         for request in self.requests:
-            if isinstance(request, partRequests.RaidRequestSpec):
+            if isinstance(request, partRequests.RaidRequestSpec) and request.raidminor in raidMinors:
                 raidMinors.remove(request.raidminor)
                 
         return raidMinors
