@@ -168,9 +168,10 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
                               ui->password ? ui->password : "rhinstall@", 
                               NULL, -1);
         if (ui->ftpPort < 0) {
-            newtWinMessage(_("Error"), _("OK"), 
-                _("Failed to log into %s: %s"), ui->address, 
-                ftpStrerror(ui->ftpPort));
+            if (!silentErrors)
+                newtWinMessage(_("Error"), _("OK"), 
+                               _("Failed to log into %s: %s"), ui->address, 
+                               ftpStrerror(ui->ftpPort));
             return -2;
         }
 
