@@ -43,6 +43,7 @@ makebootdisk --kernelto $TOPDESTPATH/images/pxeboot/vmlinuz  \
 		  	    vfat"'
 
 makebootdisk --imagename pcmcia.img \
+	     --bootdisksize 1440 \
 	     --initrdflags '--pcmcia \
 		     	    --initrdsize 2000 \
 			    --loaderbin loader-pcmcia \
