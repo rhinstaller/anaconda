@@ -123,7 +123,7 @@ if [ $ARCH != ia64 ]; then
 fi
 
 if [ $ARCH = sparc ]; then
-    PACKAGESGR="$PACKAGESGR XFree86-Sun tilo silo"
+    PACKAGESGR="$PACKAGESGR XFree86-3DLabs XFree86-Mach64 tilo silo"
 fi
 
 if [ $ARCH = i386 ]; then
