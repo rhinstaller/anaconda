@@ -2,6 +2,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <asm/types.h>
 #include <linux/cdrom.h>
 #include <linux/hdreg.h>
 #include <stdio.h>
