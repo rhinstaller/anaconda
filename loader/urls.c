@@ -264,6 +264,15 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     ui->address = strdup(site);
 
     if (ui->prefix) free(ui->prefix);
+
+    /* add a slash at the start of the dir if it is missing */
+    if (*dir != '/') {
+	char *buf = malloc(strlen(dir) + 2);
+	buf[0] = '/';
+	buf[1] = '\0';
+	strcat (buf, dir);
+    }
+	
     ui->prefix = strdup(dir);
 
     /* Get rid of trailing /'s */
