@@ -25,7 +25,6 @@ import pcmcia
 import dispatch
 from log import log
 from flags import flags
-import fcntl, FCNTL
 
 def queryUpgradeContinue(intf, dir, dispatch):
     if dir == dispatch.DISPATCH_BACK:
@@ -214,7 +213,6 @@ class InstallCallback:
 	    while self.rpmFD < 0:
 		try:
 		    self.rpmFD = os.open(fn, os.O_RDONLY)
-                    fcntl.fcntl(self.rpmFD, FCNTL.F_SETFD, FCNTL.FD_CLOEXEC)
 		    # Make sure this package seems valid
 		    try:
 			(h, isSource) = rpm.headerFromPackage(self.rpmFD)
