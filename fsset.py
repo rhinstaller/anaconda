@@ -495,8 +495,8 @@ class extFileSystem(FileSystemType):
             raise SystemError
 
     # this is only for ext3 filesystems, but migration is a method
-    # of the ext2 fstype
-    def removeForcedFsck(self, entry, message, chroot='/'):
+    # of the ext2 fstype, so it needs to be here.  FIXME should be moved
+    def setExt3Options(self, entry, message, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
 
         # if no journal, don't turn off the fsck
@@ -504,7 +504,8 @@ class extFileSystem(FileSystemType):
             return
 
         rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
-                                    ["tunefs", "-c0", "-i0", devicePath],
+                                    ["tunefs", "-c0", "-i0",
+                                     "-Odir_index", devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
 
@@ -555,7 +556,7 @@ class ext2FileSystem(extFileSystem):
                     sys.exit(0)
             entry.fsystem = entry.origfsystem
         else:
-            extFileSystem.removeForcedFsck(self, entry, message, chroot)
+            extFileSystem.setExt3Options(self, entry, message, chroot)
 
 
 fileSystemTypeRegister(ext2FileSystem())
@@ -569,7 +570,7 @@ class ext3FileSystem(extFileSystem):
 
     def formatDevice(self, entry, progress, chroot='/'):
         extFileSystem.formatDevice(self, entry, progress, chroot)
-        extFileSystem.removeForcedFsck(self, entry, progress, chroot)
+        extFileSystem.setExt3Options(self, entry, progress, chroot)
 
 fileSystemTypeRegister(ext3FileSystem())
 
