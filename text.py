@@ -454,7 +454,7 @@ class BootDiskWindow:
 		  "failures.\n\n"
 		  "Would you like to create a boot disk for your system?")
 
-	if todo.silo:
+	if iutil.getArch () == "sparc":
 	    floppy = todo.silo.hasUsableFloppy()
 	    if floppy == 0:
 		todo.bootdisk = 0
