@@ -91,26 +91,26 @@ int simpleStringCmp(const void * a, const void * b) {
 char * sdupprintf(const char *format, ...) {
     char *buf = NULL;
     char c;
-    va_list ap1, ap2;
+    va_list args;
     size_t size = 0;
 
-    va_start(ap1, format);
-    va_copy(ap2, ap1);
+    va_start(args, format);
     
     /* XXX requires C99 vsnprintf behavior */
-    size = vsnprintf(&c, 1, format, ap1) + 1;
+    size = vsnprintf(&c, 1, format, args) + 1;
     if (size == -1) {
 	printf("ERROR: vsnprintf behavior is not C99\n");
 	abort();
     }
 
-    va_end(ap1);
+    va_end(args);
+    va_start(args, format);
 
     buf = malloc(size);
     if (buf == NULL)
 	return NULL;
-    vsnprintf(buf, size, format, ap2);
-    va_end (ap2);
+    vsnprintf(buf, size, format, args);
+    va_end (args);
 
     return buf;
 }
