@@ -651,9 +651,6 @@ class InstallControlWindow:
     def updateStockButtons(self):
 	for (icon, item, text, action) in self.stockButtons:
 	    button = self.__dict__[item]
-            foo = _(text)
-            print text, foo
-            print "len", len(foo)
             button.label.set_text_with_mnemonic(_(text))
             button.queue_resize()
 

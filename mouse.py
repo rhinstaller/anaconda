@@ -14,87 +14,85 @@
 import kudzu
 from simpleconfig import SimpleConfigFile
 import os
-from translate import _
+from translate import _, N_
 
 class Mouse (SimpleConfigFile):
     mice = {
         # (gpm protocol, X protocol, device, emulate3, shortname)
-	"ALPS - GlidePoint (PS/2)" :
-		("ps/2", "GlidePointPS/2", "psaux", 1, "alpsps/2"),
-	"ASCII - MieMouse (serial)" :
-		("ms3", "IntelliMouse", "ttyS", 0, "ascii"),
-	"ASCII - MieMouse (PS/2)" : 
-		("ps/2", "NetMousePS/2", "psaux", 1, "asciips/2"),
-	"ATI - Bus Mouse" :
-		("Busmouse", "BusMouse", "atibm", 1, "atibm"),
-	"Generic - 2 Button Mouse (serial)" :
-		("Microsoft", "Microsoft", "ttyS", 1, "generic"),
-	"Generic - 3 Button Mouse (serial)" :
-		("Microsoft", "Microsoft", "ttyS", 0, "generic3"),
-	"Generic - 2 Button Mouse (PS/2)" :
-		("ps/2", "PS/2", "psaux", 1, "genericps/2"),
-	"Generic - 3 Button Mouse (PS/2)" :
-		("ps/2", "PS/2", "psaux", 0, "generic3ps/2"),
-	"Generic - 2 Button Mouse (USB)" :
-		("imps2", "IMPS/2", "input/mice", 1, "genericusb"),
-	"Generic - 3 Button Mouse (USB)" :
-		("imps2", "IMPS/2", "input/mice", 0, "generic3usb"),
-	"Genius - NetMouse (serial)" :
-	       ("ms3", "IntelliMouse", "ttyS", 1, "geniusnm"),
-	"Genius - NetMouse (PS/2)" :
-		("netmouse", "NetMousePS/2", "psaux", 1, "geniusnmps/2"),
-	"Genius - NetMouse Pro (PS/2)" :
-		("netmouse", "NetMousePS/2", "psaux", 1, "geniusprops/2"),
-	"Genius - NetScroll (PS/2)" :
-		("netmouse", "NetScrollPS/2", "psaux", 1, "geniusscrollps/2"),
-	"Kensington - Thinking Mouse (serial)" :
-		("Microsoft", "ThinkingMouse", "ttyS", 1, "thinking"),
-	"Kensington - Thinking Mouse (PS/2)" :
-		("ps/2", "ThinkingMousePS/2", "psaux", 1, "thinkingps/2"),
-	"Logitech - C7 Mouse (serial, old C7 type)" :
-		("Logitech", "Logitech", "ttyS", 0, "logitech"),
-	"Logitech - CC Series (serial)" :
-		("logim", "MouseMan", "ttyS", 0, "logitechcc"),
-	"Logitech - Bus Mouse" :
-		("Busmouse", "BusMouse", "logibm", 0, "logibm"),
-	"Logitech - MouseMan/FirstMouse (serial)" :
-		("MouseMan", "MouseMan", "ttyS", 0, "logimman"),
-	"Logitech - MouseMan/FirstMouse (PS/2)" :
-		("ps/2", "PS/2", "psaux", 0, "logimmanps/2"),
-	"Logitech - MouseMan+/FirstMouse+ (serial)" :
-		("pnp", "IntelliMouse", "ttyS", 0, "logimman+"),
-	"Logitech - MouseMan+/FirstMouse+ (PS/2)" :
-		("ps/2", "MouseManPlusPS/2", "psaux", 0, "logimman+ps/2"),
-	"Logitech - MouseMan Wheel (USB)" :
-		("ps/2", "IMPS/2", "input/mice", 0, "logimmusb"),
-	"Microsoft - Compatible Mouse (serial)" :
-		("Microsoft",    "Microsoft", "ttyS", 1, "microsoft"),
-	"Microsoft - Rev 2.1A or higher (serial)" :
-		("pnp", "Auto", "ttyS", 1, "msnew"),
-	"Microsoft - IntelliMouse (serial)" :
-		("ms3", "IntelliMouse", "ttyS", 0, "msintelli"),
-	"Microsoft - IntelliMouse (PS/2)" :
-		("imps2", "IMPS/2", "psaux", 0, "msintellips/2"),
-
-	"Microsoft - IntelliMouse (USB)" :
-		("ps/2", "IMPS/2", "input/mice", 0, "msintelliusb"),
+        N_("ALPS - GlidePoint (PS/2)"):
+        ("ps/2", "GlidePointPS/2", "psaux", 1, "alpsps/2"),
+	N_("ASCII - MieMouse (serial)"):
+        ("ms3", "IntelliMouse", "ttyS", 0, "ascii"),
+	N_("ASCII - MieMouse (PS/2)"):
+        ("ps/2", "NetMousePS/2", "psaux", 1, "asciips/2"),
+	N_("ATI - Bus Mouse"):
+        ("Busmouse", "BusMouse", "atibm", 1, "atibm"),
+	N_("Generic - 2 Button Mouse (serial)"):
+        ("Microsoft", "Microsoft", "ttyS", 1, "generic"),
+	N_("Generic - 3 Button Mouse (serial)"):
+        ("Microsoft", "Microsoft", "ttyS", 0, "generic3"),
+	N_("Generic - 2 Button Mouse (PS/2)"):
+        ("ps/2", "PS/2", "psaux", 1, "genericps/2"),
+	N_("Generic - 3 Button Mouse (PS/2)"):
+        ("ps/2", "PS/2", "psaux", 0, "generic3ps/2"),
+	N_("Generic - 2 Button Mouse (USB)"):
+        ("imps2", "IMPS/2", "input/mice", 1, "genericusb"),
+	N_("Generic - 3 Button Mouse (USB)"):
+        ("imps2", "IMPS/2", "input/mice", 0, "generic3usb"),
+	N_("Genius - NetMouse (serial)"):
+        ("ms3", "IntelliMouse", "ttyS", 1, "geniusnm"),
+	N_("Genius - NetMouse (PS/2)"):
+        ("netmouse", "NetMousePS/2", "psaux", 1, "geniusnmps/2"),
+	N_("Genius - NetMouse Pro (PS/2)"):
+        ("netmouse", "NetMousePS/2", "psaux", 1, "geniusprops/2"),
+	N_("Genius - NetScroll (PS/2)"):
+        ("netmouse", "NetScrollPS/2", "psaux", 1, "geniusscrollps/2"),
+	N_("Kensington - Thinking Mouse (serial)"):
+        ("Microsoft", "ThinkingMouse", "ttyS", 1, "thinking"),
+	N_("Kensington - Thinking Mouse (PS/2)"):
+        ("ps/2", "ThinkingMousePS/2", "psaux", 1, "thinkingps/2"),
+	N_("Logitech - C7 Mouse (serial, old C7 type)"):
+        ("Logitech", "Logitech", "ttyS", 0, "logitech"),
+	N_("Logitech - CC Series (serial)"):
+        ("logim", "MouseMan", "ttyS", 0, "logitechcc"),
+	N_("Logitech - Bus Mouse"):
+        ("Busmouse", "BusMouse", "logibm", 0, "logibm"),
+	N_("Logitech - MouseMan/FirstMouse (serial)"):
+        ("MouseMan", "MouseMan", "ttyS", 0, "logimman"),
+	N_("Logitech - MouseMan/FirstMouse (PS/2)"):
+        ("ps/2", "PS/2", "psaux", 0, "logimmanps/2"),
+	N_("Logitech - MouseMan+/FirstMouse+ (serial)"):
+        ("pnp", "IntelliMouse", "ttyS", 0, "logimman+"),
+        N_("Logitech - MouseMan+/FirstMouse+ (PS/2)"):
+        ("ps/2", "MouseManPlusPS/2", "psaux", 0, "logimman+ps/2"),
+	N_("Logitech - MouseMan Wheel (USB)"):
+        ("ps/2", "IMPS/2", "input/mice", 0, "logimmusb"),
+	N_("Microsoft - Compatible Mouse (serial)"):
+        ("Microsoft", "Microsoft", "ttyS", 1, "microsoft"),
+	N_("Microsoft - Rev 2.1A or higher (serial)"):
+        ("pnp", "Auto", "ttyS", 1, "msnew"),
+	N_("Microsoft - IntelliMouse (serial)"):
+        ("ms3", "IntelliMouse", "ttyS", 0, "msintelli"),
+	N_("Microsoft - IntelliMouse (PS/2)"):
+        ("imps2", "IMPS/2", "psaux", 0, "msintellips/2"),
         
+	N_("Microsoft - IntelliMouse (USB)"):
+        ("ps/2", "IMPS/2", "input/mice", 0, "msintelliusb"),
         
-	"Microsoft - Bus Mouse" :
-		("Busmouse", "BusMouse", "inportbm", 1, "msbm"),
-	"Mouse Systems - Mouse (serial)" :
-		("MouseSystems", "MouseSystems", "ttyS", 1, "mousesystems"), 
-	"MM - Series (serial)" :
-		("MMSeries", "MMSeries", "ttyS", 1, "mmseries"),
-	"MM - HitTablet (serial)" :
-		("MMHitTab", "MMHittab", "ttyS", 1, "mmhittab"),
+	N_("Microsoft - Bus Mouse"):
+        ("Busmouse", "BusMouse", "inportbm", 1, "msbm"),
+	N_("Mouse Systems - Mouse (serial)"):
+        ("MouseSystems", "MouseSystems", "ttyS", 1, "mousesystems"), 
+	N_("MM - Series (serial)"):
+        ("MMSeries", "MMSeries", "ttyS", 1, "mmseries"),
+	N_("MM - HitTablet (serial)"):
+        ("MMHitTab", "MMHittab", "ttyS", 1, "mmhittab"),
 #        "None - None" :
 #                ("none", "none", "null", 0, "none"),
-	"Sun - Mouse":
-		("sun", "sun", "sunmouse", 0, "sun"),
+	N_("Sun - Mouse"): ("sun", "sun", "sunmouse", 0, "sun"),
 	}
-
-
+    
+    
     def mouseToMouse(self):
         types = {}
         for mouse in self.mice.keys():

@@ -11,226 +11,253 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import tree
 import gtk
 import string
+import gobject
 from iw_gui import *
 from re import *
 from translate import _, N_
 from flags import flags
 
-class MouseWindow (InstallWindow):
-
+class MouseWindow(InstallWindow):
     windowTitle = N_("Mouse Configuration")
     htmlTag = "mouse"
 
-    def reduce_leafs (self, a):
-        if a == (): return a
-        if len (a) > 1 and isinstance (a[1], type (())) and len (a[1]) == 1:
-            return ("%s - %s" % (a[0], a[1][0]),) + self.reduce_leafs (a[2:])
-        return (a[0],) + self.reduce_leafs (a[1:])
+    def getNext(self):
+        self.mouse.set(self.currentMouse, self.emulate3.get_active())
 
-    def build_ctree (self, list, cur_parent = None, prev_node = None):
-        if (list == ()): return
-        
-        if (len (list) > 1 and isinstance (list[1], type (()))): 
-	    leaf = gtk.FALSE
+        mouse = self.availableMice[self.currentMouse]
+        gpm, xdev, device, emulate, shortname = mouse
+
+        if device == "ttyS":
+            self.mouse.setDevice(self.serialDevice)
         else:
-	    leaf = gtk.TRUE
-    
-        if isinstance (list[0], type (())):
-            self.build_ctree (list[0], prev_node, None)
-            self.build_ctree (list[1:], cur_parent, None)
-        else:
-            index = string.find (list[0], " - ")
-            if index != -1:
-                list_item = list[0][0:index] + list[0][index+2:]
-            else:
-                list_item = list[0]
-            node = self.ctree.insert_node (cur_parent, None, (list_item,), 2, is_leaf=leaf)
-            self.ctree.node_set_row_data (node, list[0])
-            self.build_ctree (list[1:], cur_parent, node)
-
-    def selectMouse (self, ctreeNode, mouseNode):
-        if len (ctreeNode) == 0 or len (mouseNode) == 0: return
-        
-        nodeLabel = self.ctree.get_node_info (ctreeNode[0])[0]
-        if nodeLabel == mouseNode[0]:
-            if len (mouseNode) == 1:
-                self.ctree.select (ctreeNode[0])
-                return
-            else:
-                self.ctree.expand (ctreeNode[0])
-                self.selectMouse (ctreeNode[0].children, mouseNode[1:])
-        else:
-            self.selectMouse (ctreeNode[1:], mouseNode)
-
-    def getCurrentKey (self):
-        if not len (self.ctree.selection): return
-        name = ""
-        node = self.ctree.selection[0]
-        while node:
-            name = self.ctree.node_get_row_data (node) + name
-            node = node.parent
-            if node:
-                name = " - " + name
-
-	if self.locList.selection:
-	    self.serialDevice = self.locList.get_text (self.locList.selection[0], 0)
-	# otherwise, just leave the old selection in place
-
-        return name
-
-    def getNext (self):
-	if not self.__dict__.has_key("availableMice"): return
-	cur = self.getCurrentKey()
-	(gpm, xdev, device, emulate, shortname) = self.availableMice[cur]
-        self.mouse.set (cur, self.emulate3.get_active ())
+            self.mouse.setDevice(device)
 
 	if self.flags.setupFilesystems:
-	    if (device == "ttyS"):
-		self.mouse.setDevice(self.serialDevice)
-	    else:
-		self.mouse.setDevice(device)
-
-	    self.mouse.setXProtocol ()
+	    self.mouse.setXProtocol()
 
         return None
     
-    def selectDeviceType(self, *args):
-	self.ics.setNextEnabled (gtk.TRUE)
+    def selectDeviceType(self, selection, *args):
+        if self.ignoreEvents:
+            return
+        rc = selection.get_selected()
+        if rc:
+            model, iter = rc
+            self.serialDevice = model.get_value(iter, 1)
+            self.ics.setNextEnabled(gtk.TRUE)
+        else:
+            self.serialDevice = None
 
-    def selectMouseType (self, widget, node, *args):
-        if not node.is_leaf:
-	    self.locList.unselect_all ()
-	    self.locList.set_sensitive (gtk.FALSE)
-            self.emulate3.set_sensitive (gtk.FALSE)
-            self.ics.setNextEnabled (gtk.FALSE)
+    def selectMouseType(self, selection, *args):
+        if self.ignoreEvents:
+            return
+        rc = selection.get_selected()
+        if rc is None:
+            return
+        model, iter = rc
+
+        if model.iter_has_child(iter):
+	    self.devview.get_selection().unselect_all()
+	    self.devview.set_sensitive(gtk.FALSE)
+            self.emulate3.set_sensitive(gtk.FALSE)
+            self.ics.setNextEnabled(gtk.FALSE)
 	    return
 
-	cur = self.getCurrentKey()
-	if (not self.availableMice.has_key(cur)):
-            self.ics.setNextEnabled (gtk.FALSE)
-	    return
+	cur = model.get_value(iter, 1)
 
-        self.emulate3.set_sensitive (gtk.TRUE)
+        self.emulate3.set_sensitive(gtk.TRUE)
 	(gpm, xdev, device, emulate, shortname) = self.availableMice[cur]
-        self.emulate3.set_active (emulate)
-	if device == "ttyS":
-	    if (self.serialDevice):
-		self.locList.select_row(int(self.serialDevice[4]), 1)
-		self.ics.setNextEnabled (gtk.TRUE)
-	    else:
-		self.locList.unselect_all()
-		self.ics.setNextEnabled (gtk.FALSE)
 
-	    self.locList.set_sensitive (gtk.TRUE)
-	else:
-	    self.locList.unselect_all()
-	    self.locList.set_sensitive(gtk.FALSE)
-	    self.ics.setNextEnabled (gtk.TRUE)
+        if device == "ttyS":
+            self.setCurrent(self.serialDevice, cur, emulate, recenter=0)
+        else:
+            self.setCurrent(device, cur, emulate, recenter=0)
 
+    def setupDeviceList(self):
+	deviceList = ((_("/dev/ttyS0 (COM1 under DOS)"), "ttyS0" ),
+                      (_("/dev/ttyS1 (COM2 under DOS)"), "ttyS1" ),
+                      (_("/dev/ttyS2 (COM3 under DOS)"), "ttyS2" ),
+                      (_("/dev/ttyS3 (COM4 under DOS)"), "ttyS3" ))
+        
+        self.devstore = gtk.ListStore(gobject.TYPE_STRING,
+                                      gobject.TYPE_STRING)
+	for descrip, dev in deviceList:
+            iter = self.devstore.append()
+            self.devstore.set_value(iter, 0, descrip)
+            self.devstore.set_value(iter, 1, dev)
+        self.devstore.set_sort_column_id(0, gtk.SORT_ASCENDING)
+        self.devview = gtk.TreeView(self.devstore)
+        col = gtk.TreeViewColumn(_("Device"), gtk.CellRendererText(), text=0)
+        self.devview.append_column(col)
+        col = gtk.TreeViewColumn(_("Port"), gtk.CellRendererText(), text=1)
+        self.devview.append_column(col)
+        selection = self.devview.get_selection()
+        selection.connect("changed", self.selectDeviceType)
+
+    def setupMice(self):
+        self.mousestore = gtk.TreeStore(gobject.TYPE_STRING,
+                                        gobject.TYPE_STRING)
+        # go though and find all the makes that have more than 1 mouse
+        toplevels = {}
+        for key, value in self.availableMice.items():
+            make = string.split(_(key), ' - ')[0]
+            if toplevels.has_key(make):
+                toplevels[make] = toplevels[make] + 1
+            else:
+                toplevels[make] = 1
+
+        # for each toplevel that has more than one mouse, make a parent
+        # node for it.
+        for make, count in toplevels.items():
+            if count > 1:
+                parent = self.mousestore.append(None)
+                self.mousestore.set_value(parent, 0, make)
+                toplevels[make] = parent
+            else:
+                del toplevels[make]
+                
+        # now go and add each child node
+        for key, value in self.availableMice.items():
+            fields = string.split(_(key), ' - ')
+            make = fields[0]
+            model = fields[1]
+            parent = toplevels.get(make)
+            iter = self.mousestore.append(parent)
+            # if there is a parent, put only the model in the tree
+            if parent:
+                self.mousestore.set_value(iter, 0, model)
+            else:
+                # otherwise, put the full device there.
+                self.mousestore.set_value(iter, 0, "%s %s" % tuple(fields))
+            self.mousestore.set_value(iter, 1, key)
+
+        self.mousestore.set_sort_column_id(0, gtk.SORT_ASCENDING)
+        self.mouseview = gtk.TreeView(self.mousestore)
+        self.mouseview.set_property("headers-visible", gtk.FALSE)
+        col = gtk.TreeViewColumn(None, gtk.CellRendererText(), text=0)
+        self.mouseview.append_column(col)
+        selection = self.mouseview.get_selection()
+        selection.connect("changed", self.selectMouseType)
+
+    def setCurrent(self, currentDev, currentMouse, emulate3, recenter=1):
+        self.ignoreEvents = 1
+        self.currentMouse = currentMouse
+
+        parent = None
+        iter = self.mousestore.get_iter_root()
+        next = 1
+        # iterate over the list, looking for the current mouse selection
+        while next:
+            # if this is a parent node, get the first child and iter over them
+            if self.mousestore.iter_has_child(iter):
+                parent = iter
+                iter = self.mousestore.iter_children(parent)
+                continue
+            # if it's not a parent node and the mouse matches, select it.
+            elif self.mousestore.get_value(iter, 1) == currentMouse:
+                path = self.mousestore.get_path(parent)
+                self.mouseview.expand_row(path, gtk.TRUE)
+                selection = self.mouseview.get_selection()
+                selection.unselect_all()
+                selection.select_iter(iter)
+                path = self.mousestore.get_path(iter)
+                col = self.mouseview.get_column(0)
+                self.mouseview.set_cursor(path, col, gtk.FALSE)
+                if recenter:
+                    self.mouseview.scroll_to_cell(path, col, gtk.TRUE,
+                                                  0.5, 0.5)
+                break
+            # get the next row.
+            next = self.mousestore.iter_next(iter)
+            # if there isn't a next row and we had a parent, go to the node
+            # after the parent we've just gotten the children of.
+            if not next and parent:
+                next = self.mousestore.iter_next(parent)
+                iter = parent
+
+        # set up the device list if we have a serial port
+	if currentDev and currentDev.startswith('ttyS'):
+	    self.serialDevice = currentDev
+            selection = self.devview.get_selection()
+            path = (int(self.serialDevice[4]),)
+            selection.select_path(path)
+            col = self.devview.get_column(0)
+            self.devview.set_cursor(path, col, gtk.FALSE)
+            if recenter:
+                self.devview.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
+            self.ics.setNextEnabled(gtk.TRUE)
+            self.devview.set_sensitive(gtk.TRUE)
+	elif currentDev:
+	    self.devview.get_selection().unselect_all();
+            self.devview.set_sensitive(gtk.FALSE)
+            self.ics.setNextEnabled(gtk.TRUE)
+        else:
+            # otherwise disable the list
+	    self.devview.get_selection().unselect_all();
+	    self.serialDevice = None
+            self.ics.setNextEnabled(gtk.FALSE)
+            self.devview.set_sensitive(gtk.TRUE)
+            
+        self.emulate3.set_active(emulate3)
+        self.ignoreEvents = 0
+        
     # MouseWindow tag="mouse"
-    def getScreen (self, mouse):
+    def getScreen(self, mouse):
 	self.mouse = mouse
 	self.flags = flags
 
+        self.ignoreEvents = 0
+
 	self.availableMice = mouse.available()
-        sorted_mice_keys = self.availableMice.keys()
-        sorted_mice_keys.sort ()
+        self.serialDevice = None
 
-        currentDev = mouse.getDevice ()
-	(currentMouse, emulate3) = mouse.get ()
-
-	deviceList = [ (_("/dev/ttyS0 (COM1 under DOS)"), "ttyS0" ),
-    		       (_("/dev/ttyS1 (COM2 under DOS)"), "ttyS1" ),
-		       (_("/dev/ttyS2 (COM3 under DOS)"), "ttyS2" ),
-		       (_("/dev/ttyS3 (COM4 under DOS)"), "ttyS3" ) ]
-
-        self.emulate3 = gtk.CheckButton (_("Emulate 3 Buttons"))
-        box = gtk.VBox (gtk.FALSE)
+        currentDev = mouse.getDevice()
+	currentMouse, emulate3 = mouse.get()
         
-        sw = gtk.ScrolledWindow ()
-        sw.set_border_width (5)
-        sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.locList = gtk.CList (2, (_("Port"), _("Device")))
-        self.locList.set_selection_mode (gtk.SELECTION_SINGLE)
+        # populate the big widgets with the available selections
+        self.setupMice()
+        self.setupDeviceList()
+        self.emulate3 = gtk.CheckButton(_("Emulate 3 Buttons"))
+        self.setCurrent(currentDev, currentMouse, emulate3)
 
-	for (descrip, dev) in deviceList:
-	    self.locList.append((dev, descrip))
+        # set up the box for this screen
+        box = gtk.VBox(gtk.FALSE)
 
-        self.locList.columns_autosize ()
-        self.locList.set_column_resizeable (0, gtk.FALSE)
-        self.locList.column_title_passive (0)
-        self.locList.column_title_passive (1)
-        self.locList.set_border_width (5)
-
-        sw = gtk.ScrolledWindow ()
-        sw.set_border_width (5)
-        sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.ctree = gtk.CTree (1, 0)
-
-        groups = ()
-        for x in sorted_mice_keys:
-            groups = tree.merge (groups, string.split (x, " - ", 1))
-        groups = self.reduce_leafs (groups)
-
-        self.build_ctree (groups)
-        self.ctree.set_selection_mode (gtk.SELECTION_BROWSE)
-        self.ctree.columns_autosize ()
-        self.ctree.connect ("tree_select_row", self.selectMouseType)
-        self.locList.connect ("select_row", self.selectDeviceType)
-	self.locList.set_sensitive(gtk.FALSE)
-
-        self.ctree.set_expander_style(gtk.CTREE_EXPANDER_TRIANGLE)
-        self.ctree.set_line_style(gtk.CTREE_LINES_NONE)
-
-        sw.add (self.ctree)
-	
-	if (currentDev and currentDev[0:4] == "ttyS"):
-	    self.serialDevice = currentDev
-	    self.locList.select_row(int(self.serialDevice[4]), 1)
-	else:
-	    self.locList.unselect_all();
-	    self.serialDevice = None
-
-	splitv = string.split (currentMouse, " - ", 1)
-	nodes = self.ctree.base_nodes ()
-        # do a simple search on the root nodes, since leaf reduction creates
-        # a special case
-        found = 0
-	for x in nodes:
-            if self.ctree.get_node_info (x)[0] == "%s %s" % tuple (splitv):
-                found = 1
-                self.ctree.select (x)
-                break
-        if not found:
-            self.selectMouse (nodes, splitv)
-
-        self.emulate3.set_active (emulate3)
-
-        align = gtk.Alignment ()
-        align.add (self.emulate3)
-        align.set_border_width (5)
-
+        # top header, includes graphic and instructions
         hbox = gtk.HBox(gtk.FALSE, 5)
-
-        pix = self.ics.readPixmap ("gnome-mouse.png")
+        pix = self.ics.readPixmap("gnome-mouse.png")
         if pix:
-            a = gtk.Alignment ()
-            a.add (pix)
-            a.set (0.0, 0.0, 0.0, 0.0)
-            hbox.pack_start (a, gtk.FALSE)
-
-        label = gtk.Label (_("Which model mouse is attached to the computer?"))
-        label.set_line_wrap (gtk.TRUE)
+            a = gtk.Alignment()
+            a.add(pix)
+            a.set(0.0, 0.0, 0.0, 0.0)
+            hbox.pack_start(a, gtk.FALSE)
+        label = gtk.Label(_("Which model mouse is attached to the computer?"))
+        label.set_line_wrap(gtk.TRUE)
         label.set_usize(350, -1)
         hbox.pack_start(label, gtk.FALSE)
         box.pack_start(hbox, gtk.FALSE)
-            
-        box.pack_start (sw)
-        box.pack_start (self.locList, gtk.FALSE)
-        box.pack_start (align, gtk.FALSE)
+
+        # next is the mouse tree
+        sw = gtk.ScrolledWindow()
+        sw.set_border_width(5)
+        sw.set_shadow_type(gtk.SHADOW_IN)
+        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        sw.add(self.mouseview)
+        box.pack_start(sw)
+        
+        # then the port list
+        frame = gtk.Frame()
+        frame.set_shadow_type(gtk.SHADOW_IN)
+        frame.add(self.devview)
+        box.pack_start(frame, gtk.FALSE)
+
+        # finally the emulate 3 buttons
+        align = gtk.Alignment()
+        align.add(self.emulate3)
+        align.set_border_width(5)
+        box.pack_start(align, gtk.FALSE)
 
         return box
 
