@@ -4,6 +4,7 @@ cat = gettext.Catalog ("anaconda", "/usr/share/locale")
 _ = cat.gettext
 
 from gtk import *
+from gtk import _root_window
 from GDK import *
 from gnome.ui import *
 from gnome.xmhtml import *
@@ -270,12 +271,10 @@ class InstallControlWindow (Thread):
 
         threads_enter ()
         self.window = GtkWindow ()
-        ### XXX Fix to set_default_size in gtk 1.2.5
-        self.window.set_usize (640, 480)
-        self.window.realize ()
-        xwin = self.window.get_window ()
+
+        self.window.set_default_size (640, 480)
         cursor = cursor_new (LEFT_PTR)
-        xwin.set_cursor (cursor)
+        _root_window ().set_cursor (cursor)
 
         self.window.set_border_width (10)
         self.window.set_title (_("Red Hat Linux Installer"))
