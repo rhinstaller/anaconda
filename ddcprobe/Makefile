@@ -35,7 +35,7 @@ $(prefix)/lib/libvbe.a:
 	install -m 644 libvbe.a $(prefix)/lib/libvbe.a
 
 clean:
-	$(RM) $(TARGETS) *.o core
+	$(RM) $(TARGETS) *.o .depend core
 
 depend:
 	$(CPP) -M $(CFLAGS) *.c > .depend
