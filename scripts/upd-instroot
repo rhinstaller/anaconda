@@ -22,6 +22,12 @@ if [ ! -d $1 ]; then
 	LATEST="latest --arch $ARCH"
 fi
 
+if [ $ARCH = x86_64 ]; then
+    LIBDIR=lib64
+else
+    LIBDIR=lib
+fi
+
 PACKAGEDIR=$1
 
 if [ -z "$ARCH" ]; then
@@ -98,7 +104,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 reiserfs-utils parted busybox-anaconda rpm404-python anaconda-help booty
          hdparm lvm librpm404 rhpl libxml2 libxml2-python rdate"
 
-if [ $ARCH = i386 ]; then
+if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
 fi
 
@@ -149,7 +155,7 @@ if [ $ARCH = sparc ]; then
     PACKAGESGR="$PACKAGESGR XFree86-3DLabs XFree86-Mach64 tilo silo"
 fi
 
-if [ $ARCH = i386 ]; then
+if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGESGR="$PACKAGESGR XFree86-3DLabs XFree86-8514 XFree86-AGX
 	       XFree86-FBDev XFree86-I128 XFree86-Mach32
 	       XFree86-Mach64 XFree86-Mach8 XFree86-Mono XFree86-P9000
@@ -184,30 +190,30 @@ etc/nsswitch.conf
 etc/passwd
 etc/protocols
 etc/services
-lib/ld-*
-lib/libc*
-lib/libcom_err*
-lib/libcrypt*
-lib/libdb-*
-lib/libdb-3.0
-lib/libdb.so.2
-lib/libdb.so.3
-lib/libdb1*
-lib/libdl*
-lib/libe2p*
-lib/libext2fs*
-lib/liblvm-10.so*
-lib/libm[-.]*
-lib/libnsl*
-lib/libnss_dns*
-lib/libnss_files*
-lib/libpthread*
-lib/libresolv*
-lib/librt[-.]*
-lib/libss*
-lib/libtermcap*
-lib/libutil*
-lib/libuuid*
+$LIBDIR/ld-*
+$LIBDIR/libc*
+$LIBDIR/libcom_err*
+$LIBDIR/libcrypt*
+$LIBDIR/libdb-*
+$LIBDIR/libdb-3.0
+$LIBDIR/libdb.so.2
+$LIBDIR/libdb.so.3
+$LIBDIR/libdb1*
+$LIBDIR/libdl*
+$LIBDIR/libe2p*
+$LIBDIR/libext2fs*
+$LIBDIR/liblvm-10.so*
+$LIBDIR/libm[-.]*
+$LIBDIR/libnsl*
+$LIBDIR/libnss_dns*
+$LIBDIR/libnss_files*
+$LIBDIR/libpthread*
+$LIBDIR/libresolv*
+$LIBDIR/librt[-.]*
+$LIBDIR/libss*
+$LIBDIR/libtermcap*
+$LIBDIR/libutil*
+$LIBDIR/libuuid*
 sbin/badblocks
 sbin/clock
 sbin/debugfs
@@ -277,33 +283,33 @@ usr/lib/anaconda/*
 usr/lib/anaconda/installclasses/*
 usr/lib/anaconda/textw/*
 usr/lib/booty/*
-usr/lib/gconv/ISO8859-1.so
-usr/lib/gconv/gconv-modules
-usr/lib/libssl*
-usr/lib/libcrypto*
-usr/lib/libbz2*
-usr/lib/libdb.so.2
-usr/lib/libdb.so.3
-usr/lib/libdb1*
-usr/lib/libnewt*
-usr/lib/libparted*
-usr/lib/libpopt*
-usr/lib/librpm-*4.0.4.so*
-usr/lib/librpmdb*4.0.4.so*
-usr/lib/librpmio*4.0.4.so*
-usr/lib/libslang*
-usr/lib/libxml2.so*
-usr/lib/libz.*
-usr/lib/python2.2/*
-usr/lib/python2.2/site-packages/libxml2*
-usr/lib/python2.2/site-packages/*vte*
-usr/lib/python2.2/site-packages/*kudzu*
-usr/lib/python2.2/site-packages/rpmmodule.so
-usr/lib/python2.2/site-packages/partedmodule.so
-usr/lib/python2.2/site-packages/rhpl
-usr/lib/rpm/macros
-usr/lib/rpm/rpmpopt
-usr/lib/rpm/rpmrc
+usr/$LIBDIR/gconv/ISO8859-1.so
+usr/$LIBDIR/gconv/gconv-modules
+usr/$LIBDIR/libssl*
+usr/$LIBDIR/libcrypto*
+usr/$LIBDIR/libbz2*
+usr/$LIBDIR/libdb.so.2
+usr/$LIBDIR/libdb.so.3
+usr/$LIBDIR/libdb1*
+usr/$LIBDIR/libnewt*
+usr/$LIBDIR/libparted*
+usr/$LIBDIR/libpopt*
+usr/$LIBDIR/librpm-*4.0.4.so*
+usr/$LIBDIR/librpmdb*4.0.4.so*
+usr/$LIBDIR/librpmio*4.0.4.so*
+usr/$LIBDIR/libslang*
+usr/$LIBDIR/libxml2.so*
+usr/$LIBDIR/libz.*
+usr/$LIBDIR/python2.2/*
+usr/$LIBDIR/python2.2/site-packages/libxml2*
+usr/$LIBDIR/python2.2/site-packages/*vte*
+usr/$LIBDIR/python2.2/site-packages/*kudzu*
+usr/$LIBDIR/python2.2/site-packages/rpmmodule.so
+usr/$LIBDIR/python2.2/site-packages/partedmodule.so
+usr/$LIBDIR/python2.2/site-packages/rhpl
+usr/$LIBDIR/rpm/macros
+usr/$LIBDIR/rpm/rpmpopt
+usr/$LIBDIR/rpm/rpmrc
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/sbin/anaconda
 usr/sbin/ddcprobe
@@ -370,24 +376,24 @@ bin/sort
 bin/mount
 bin/umount
 bin/rpm
-lib/libpam.so*
-lib/libdl.so*
-lib/libdl-*.so*
-usr/lib/libz.so*
-lib/libnsl.so*
-lib/libnsl-*.so*
-lib/libnss*
-lib/libutil.so*
-lib/libutil-*.so*
-lib/libcrypt*
-lib/libc.so*
-lib/libc-*so*
-lib/ld.so*
-lib/ld-*.so*
-lib/libresolv.so*
-lib/libresolv-*.so*
-lib/libvtoc*.so*
-lib/modules/ibm*
+$LIBDIR/libpam.so*
+$LIBDIR/libdl.so*
+$LIBDIR/libdl-*.so*
+usr/$LIBDIR/libz.so*
+$LIBDIR/libnsl.so*
+$LIBDIR/libnsl-*.so*
+$LIBDIR/libnss*
+$LIBDIR/libutil.so*
+$LIBDIR/libutil-*.so*
+$LIBDIR/libcrypt*
+$LIBDIR/libc.so*
+$LIBDIR/libc-*so*
+$LIBDIR/ld.so*
+$LIBDIR/ld-*.so*
+$LIBDIR/libresolv.so*
+$LIBDIR/libresolv-*.so*
+$LIBDIR/libvtoc*.so*
+$LIBDIR/modules/ibm*
 etc/inetd.conf
 etc/ssh/*
 etc/motd
@@ -434,9 +440,9 @@ etc/im_palette.pal
 etc/imrc
 etc/pango/*
 etc/fonts/*
-lib/libnss_dns*
-lib/libpam*
-lib/libproc*
+$LIBDIR/libnss_dns*
+$LIBDIR/libpam*
+$LIBDIR/libproc*
 sbin/depmod
 sbin/debugfs
 sbin/e2fsck
@@ -540,51 +546,51 @@ usr/bin/tail
 usr/bin/tilo
 usr/bin/uniq
 usr/lib/anaconda/iw
-usr/lib/gconv/*
-usr/lib/gdk-pixbuf/loaders/*png*
-usr/lib/gdk-pixbuf/loaders/*la*
-usr/lib/gdkimlib*
-usr/lib/gtk-2.0/*/engines/libbluecurve.so
-usr/lib/gtk-2.0/*/loaders/*png*
-usr/lib/gtk-2.0/*/loaders/*la*
-usr/lib/gtk-2.0/immodules/
-usr/lib/libImlib*
-usr/lib/libXft*
-usr/lib/libart*
-usr/lib/libatk*
-usr/lib/libaudio*
-usr/lib/libesd*
-usr/lib/libexpat*
-usr/lib/libfontconfig*
-usr/lib/libfreetype*
-usr/lib/libgdk*
-usr/lib/libglib*
-usr/lib/libgmodule*
-usr/lib/libgnome*
-usr/lib/libgnomesupport*
-usr/lib/libgnomeui*
-usr/lib/libgnorba*
-usr/lib/libgnorbagtk*
-usr/lib/libgobject*
-usr/lib/libgthread*
-usr/lib/libgtk*
-usr/lib/libgtkxmhtml*
-usr/lib/libimlib-png*
-usr/lib/libimlib-pnm*
-usr/lib/libimlib-xpm*
-usr/lib/libjpeg*
-usr/lib/libncurses*
-usr/lib/libpango*
-usr/lib/libpng.so.3*
-usr/lib/libpng12*
-usr/lib/libreadline*
-usr/lib/libthread*
-usr/lib/libtiff*
-usr/lib/libvte*
-usr/lib/locale/*
-usr/lib/pango/*
-usr/lib/python2.2/site-packages/gtk*/gtk/*
-usr/lib/rpm/rpmpopt
+usr/$LIBDIR/gconv/*
+usr/$LIBDIR/gdk-pixbuf/loaders/*png*
+usr/$LIBDIR/gdk-pixbuf/loaders/*la*
+usr/$LIBDIR/gdkimlib*
+usr/$LIBDIR/gtk-2.0/*/engines/libbluecurve.so
+usr/$LIBDIR/gtk-2.0/*/loaders/*png*
+usr/$LIBDIR/gtk-2.0/*/loaders/*la*
+usr/$LIBDIR/gtk-2.0/immodules/
+usr/$LIBDIR/libImlib*
+usr/$LIBDIR/libXft*
+usr/$LIBDIR/libart*
+usr/$LIBDIR/libatk*
+usr/$LIBDIR/libaudio*
+usr/$LIBDIR/libesd*
+usr/$LIBDIR/libexpat*
+usr/$LIBDIR/libfontconfig*
+usr/$LIBDIR/libfreetype*
+usr/$LIBDIR/libgdk*
+usr/$LIBDIR/libglib*
+usr/$LIBDIR/libgmodule*
+usr/$LIBDIR/libgnome*
+usr/$LIBDIR/libgnomesupport*
+usr/$LIBDIR/libgnomeui*
+usr/$LIBDIR/libgnorba*
+usr/$LIBDIR/libgnorbagtk*
+usr/$LIBDIR/libgobject*
+usr/$LIBDIR/libgthread*
+usr/$LIBDIR/libgtk*
+usr/$LIBDIR/libgtkxmhtml*
+usr/$LIBDIR/libimlib-png*
+usr/$LIBDIR/libimlib-pnm*
+usr/$LIBDIR/libimlib-xpm*
+usr/$LIBDIR/libjpeg*
+usr/$LIBDIR/libncurses*
+usr/$LIBDIR/libpango*
+usr/$LIBDIR/libpng.so.3*
+usr/$LIBDIR/libpng12*
+usr/$LIBDIR/libreadline*
+usr/$LIBDIR/libthread*
+usr/$LIBDIR/libtiff*
+usr/$LIBDIR/libvte*
+usr/$LIBDIR/locale/*
+usr/$LIBDIR/pango/*
+usr/$LIBDIR/python2.2/site-packages/gtk*/gtk/*
+usr/$LIBDIR/rpm/rpmpopt
 usr/lib/syslinux/*
 usr/sbin/chroot
 usr/sbin/ddcprobe
@@ -761,7 +767,7 @@ fi
 
 # minislang can pretend to be utf8 slang for us
 for p in $DEST $DESTGR; do
-    ln -sf ./libslang.so.1 $p/usr/lib/libslang-utf8.so.1
+    ln -sf ./libslang.so.1 $p/usr/$LIBDIR/libslang-utf8.so.1
 done
 
 rm -f $KEEPFILE $KEEPFILEGR
@@ -816,9 +822,9 @@ for p in $DEST $DESTGR; do
 	rm -rf $p/boot $p/home $p/root $p/tmp
 
 	find $p -name "*.a" | grep -v "usr/X11R6/lib/modules" | xargs rm -rf
-	find $p -name "lib*.la" |grep -v "usr/lib/gtk-2.0" | xargs rm -rf
+	find $p -name "lib*.la" |grep -v "usr/$LIBDIR/gtk-2.0" | xargs rm -rf
 	for f in newt popt rpm rpmio; do
-	    rm -f $p/usr/lib/lib$f.so
+	    rm -f $p/usr/$LIBDIR/lib$f.so
 	done
 
 	if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
@@ -827,7 +833,7 @@ for p in $DEST $DESTGR; do
 
 	(cd /usr/share/zoneinfo; find . -type f -or -type l | 
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
-		gzip -9) > $p/usr/lib/timezones.gz
+		gzip -9) > $p/usr/$LIBDIR/timezones.gz
 
 	if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
 	    REALPATH=`(cd $p; /bin/pwd | sed 's,/md1/,/,g')`
@@ -860,13 +866,13 @@ fi
 
 if [ $ARCH = "alpha" ]; then
     rm -rf $DEST/usr/share/locale
-    rm -rf $DEST/usr/lib/locale
+    rm -rf $DEST/usr/$LIBDIR/locale
 fi
 
 echo "Patching python library..."
 
 # always use passive mode for ftp installs
-cd $DEST/usr/lib/python2.2
+cd $DEST/usr/$LIBDIR/python2.2
 patch -p0 > /dev/null <<EOF
 --- urllib.py.orig	Thu Oct 25 17:05:06 2001
 +++ urllib.py	Thu Oct 25 17:05:34 2001
