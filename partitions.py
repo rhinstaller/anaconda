@@ -235,7 +235,7 @@ class Partitions:
                                                        vgname = vg,
                                                        physvols = pvids,
                                                        pesize = pesize,
-                                                       preexist = 1.
+                                                       preexist = 1,
                                                        preexist_size = preexist_size)
             vgid = self.addRequest(spec)
 

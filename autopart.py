@@ -89,7 +89,8 @@ def bootAlphaCheckRequirements(part, diskset):
         if free.type & parted.PARTITION_FREESPACE:
             break
         free = disk.next_partition(free)
-    if not free or free.geom.start != 1L or getPartSizeMB(free) < 1:
+    if (not free or free.geom.start != 1L or
+        partedUtils.getPartSizeMB(free) < 1):
         return BOOTALPHA_NO_RESERVED_SPACE
 
     return PARTITION_SUCCESS
@@ -963,7 +964,7 @@ def doPartitioning(diskset, requests, doRefresh = 1):
     elif ret == BOOTALPHA_NO_RESERVED_SPACE:
         raise PartitioningWarning, _("Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot") %(requests.getBootableRequest().mountpoint)
     elif ret == BOOTEFI_NOT_VFAT:
-        raise PartioningError, _("Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition.") %(requests.getBootableRequest().mountpoint,)
+        raise PartitioningError, _("Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition.") %(requests.getBootableRequest().mountpoint,)
     elif ret != PARTITION_SUCCESS:
         # more specific message?
         raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest().mountpoint)

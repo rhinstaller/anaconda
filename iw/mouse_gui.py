@@ -20,8 +20,6 @@ from re import *
 from rhpl.translate import _, N_
 from flags import flags
 
-from gui import setupTreeViewFixupIdleHandler
-
 class MouseWindow(InstallWindow):
     windowTitle = N_("Mouse Configuration")
     htmlTag = "mouse"
@@ -262,7 +260,7 @@ class MouseWindow(InstallWindow):
         box.pack_start(sw)
         label.set_mnemonic_widget(self.mouseview)
 
-	setupTreeViewFixupIdleHandler(self.mouseview, self.mousestore)
+	gui.setupTreeViewFixupIdleHandler(self.mouseview, self.mousestore)
 
         # then the port list
         serial_sw = gtk.ScrolledWindow()
