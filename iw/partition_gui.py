@@ -45,7 +45,9 @@ class DiskStripeSlice:
         if event.type == GDK.BUTTON_PRESS:
             if event.button == 1:
                 self.parent.selectSlice(self.partition, 1)
-
+        elif event.type == GDK._2BUTTON_PRESS:
+            self.editCb(self.ctree)
+                
         return TRUE
 
     def shutDown(self):
@@ -121,10 +123,12 @@ class DiskStripeSlice:
                       clip_width=xlength-1, clip_height=yheight-1)
         self.hideOrShowText()
         
-    def __init__(self, parent, partition):
+    def __init__(self, parent, partition, ctree, editCb):
         self.text = None
         self.partition = partition
         self.parent = parent
+        self.ctree = ctree
+        self.editCb = editCb
         pgroup = parent.getGroup()
 
         self.group = pgroup.add("group")
@@ -135,7 +139,7 @@ class DiskStripeSlice:
         self.update()
 
 class DiskStripe:
-    def __init__(self, drive, disk, group, ctree, canvas):
+    def __init__(self, drive, disk, group, ctree, canvas, editCb):
         self.disk = disk
         self.group = group
         self.tree = ctree
@@ -143,6 +147,7 @@ class DiskStripe:
         self.canvas = canvas
         self.slices = []
         self.hash = {}
+        self.editCb = editCb
         self.selected = None
         group.add ("rect", x1=0.0, y1=10.0, x2=CANVAS_WIDTH,
                    y2=STRIPE_HEIGHT, fill_color='green',
@@ -197,16 +202,17 @@ class DiskStripe:
         self.selected = None
     
     def add (self, partition):
-        stripe = DiskStripeSlice(self, partition)
+        stripe = DiskStripeSlice(self, partition, self.tree, self.editCb)
         self.slices.append(stripe)
         self.hash[partition] = stripe
 
 class DiskStripeGraph:
-    def __init__(self, ctree):
+    def __init__(self, ctree, editCb):
         self.canvas = GnomeCanvas()
         self.diskStripes = []
         self.textlabels = []
         self.ctree = ctree
+        self.editCb = editCb
         self.next_ypos = 0.0
 
     def __del__(self):
@@ -259,7 +265,7 @@ class DiskStripeGraph:
         self.textlabels.append(text)
 
         group = self.canvas.root().add("group", x=0, y=yoff+textheight)
-        stripe = DiskStripe (drive, disk, group, self.ctree, self.canvas)
+        stripe = DiskStripe (drive, disk, group, self.ctree, self.canvas, self.editCb)
         self.diskStripes.append(stripe)
         self.next_ypos = self.next_ypos + STRIPE_HEIGHT+textheight+10
         return stripe
@@ -568,6 +574,11 @@ class PartitionWindow(InstallWindow):
         canvas = self.diskStripeGraph.getCanvas()
         apply(canvas.set_scroll_region, canvas.root().get_bounds())
         self.tree.columns_autosize()
+
+    def treeSelectClistRowCb(self, list, row, column, event, tree):
+        if event:
+            if event.type == GDK._2BUTTON_PRESS:
+                self.editCb(tree)
 
     def treeSelectCb(self, tree, node, column):
         partition = tree.node_get_row_data (node)
@@ -1218,9 +1229,6 @@ class PartitionWindow(InstallWindow):
         
         self.diskset.openDevices()
         self.partitions = partitions
-
-#        for part in self.partitions.requests:
-#            print part
         
         # XXX PartitionRequests() should already exist and
         # if upgrade or going back, have info filled in
@@ -1258,10 +1266,11 @@ class PartitionWindow(InstallWindow):
         self.tree.set_column_justification(1, JUSTIFY_RIGHT)
         self.tree.set_column_justification(2, JUSTIFY_RIGHT)
         self.tree.set_column_justification(3, JUSTIFY_RIGHT)
+        self.tree.connect ("select_row", self.treeSelectClistRowCb, self.tree)
         self.tree.connect ("tree_select_row", self.treeSelectCb)
 
         # set up the canvas
-        self.diskStripeGraph = DiskStripeGraph(self.tree)
+        self.diskStripeGraph = DiskStripeGraph(self.tree, self.editCb)
         
         # do the initial population of the tree and the graph
         self.populate (initial = 1)
