@@ -736,7 +736,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
         else:
             fsname = "None"
 
-        if self.size:
+        if self.size is not None:
             size = self.size
         else:
             size = "%s%%" %(self.percent,)
