@@ -102,7 +102,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help booty
-         hdparm lvm rhpl libxml2 libxml2-python rdate libelf"
+         hdparm lvm rhpl pyxf86config libxml2 libxml2-python rdate libelf"
 
 if [ $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES libgcc libstdc++"
@@ -320,6 +320,8 @@ usr/$LIBDIR/python2.2/site-packages/*vte*
 usr/$LIBDIR/python2.2/site-packages/*kudzu*
 usr/$LIBDIR/python2.2/site-packages/rpmmodule.so
 usr/$LIBDIR/python2.2/site-packages/partedmodule.so
+usr/$LIBDIR/python2.2/site-packages/ixf86configmodule.so
+usr/$LIBDIR/python2.2/site-packages/xf86config.py
 usr/$LIBDIR/python2.2/site-packages/rhpl
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
