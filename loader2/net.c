@@ -798,7 +798,7 @@ int kickstartNetworkUp(struct knownDevices * kd,
     setupNetworkDeviceConfig(netCfgPtr, loaderData, flags);
 
     rc = readNetConfig(loaderData->netDev, netCfgPtr, flags);
-    if (rc) {
+    if ((rc == LOADER_BACK) || (rc == LOADER_ERROR)) {
         logMessage("unable to setup networking");
         return -1;
     }
