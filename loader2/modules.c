@@ -620,7 +620,7 @@ int mlLoadModuleSetLocation(const char * modNames,
 }
 
 static int writeModulesConf(moduleList list, int fd) {
-    int i;
+    int i, ret;
     struct loadedModuleInfo * lm;
     int ethNum;
     int scsiNum = scsiCount();
@@ -656,7 +656,7 @@ static int writeModulesConf(moduleList list, int fd) {
 
                 strcat(buf, lm->name);
                 strcat(buf, "\n");
-                write(fd, buf, strlen(buf));
+                ret = write(fd, buf, strlen(buf));
                 lm->written = 1;
 
                 break;
@@ -688,7 +688,7 @@ static int writeModulesConf(moduleList list, int fd) {
 
                 strcat(buf, lm->name);
                 strcat(buf, "\n");
-                write(fd, buf, strlen(buf));
+                ret = write(fd, buf, strlen(buf));
                 lm->written = 1;
 
                 break;
@@ -707,7 +707,7 @@ static int writeModulesConf(moduleList list, int fd) {
                 strcat(buf, *arg);
             }
             strcat(buf, "\n");
-            write(fd, buf, strlen(buf));
+            ret = write(fd, buf, strlen(buf));
             lm->written = 1;
         }
     }
@@ -719,7 +719,7 @@ static int writeModulesConf(moduleList list, int fd) {
  * format is sd%c  adapter
  */
 void writeScsiDisks(moduleList list) {
-    int i, fd, num;
+    int i, fd, num, ret;
     struct loadedModuleInfo * lm;
     char buf[512];
 
@@ -745,7 +745,7 @@ void writeScsiDisks(moduleList list) {
                 sprintf(buf, "sd%c%c\t%s\n", 'a' + one - 1, 
                         'a' + two, lm->name);
             }
-            write(fd, buf, strlen(buf));
+            ret = write(fd, buf, strlen(buf));
         }
     }
      
@@ -758,6 +758,7 @@ char * getModuleLocation(int version) {
     static char * arch = NULL;
     const char * archfile = "/etc/arch";
     char * ret;
+    int rc;
 
     uname(&u);
 
@@ -769,7 +770,7 @@ char * getModuleLocation(int version) {
         arch = malloc(sb.st_size + 1);
 
         fd = open(archfile, O_RDONLY);
-        read(fd, arch, sb.st_size);
+        rc = read(fd, arch, sb.st_size);
         if (arch[sb.st_size -1 ] == '\n')
             sb.st_size--;
         arch[sb.st_size] = '\0';
