@@ -306,6 +306,12 @@ class rpmErrorClass:
 	self.f = f
 
 def doMigrateFilesystems(dir, thefsset, diskset, upgrade, instPath):
+    if dir == DISPATCH_BACK:
+        return DISPATCH_NOOP
+
+    if thefsset.haveMigratedFilesystems():
+        return DISPATCH_NOOP
+    
     thefsset.migrateFilesystems (instPath)
     
 

@@ -25,19 +25,25 @@ class FinishedWindow:
         screen.pushHelpLine (string.center(_("<Enter> to reboot"),
                                            screen.width))
 
+        if iutil.getArch() != "ia64":
+            bootstr = _("If you created a boot disk to use to boot your "
+                        "Red Hat Linux system, insert it before you "
+                        "press <Enter> to reboot.\n\n")
+        else:
+            bootstr = ""
+
 	rc = ButtonChoiceWindow (screen, _("Complete"), 
              _("Congratulations, your Red Hat Linux installation is "
                "complete.\n\n"
                "Remove any floppy diskettes you used during the "
                "installation process and press <Enter> to reboot your system. "
                "\n\n"
-               "If you created a boot disk to use to boot your Red Hat Linux "
-               "system, insert it before you press <Enter> to reboot.\n\n"
+               "%s"
                "For information on errata (updates and bug fixes), visit "
                "http://www.redhat.com/errata.\n\n"
                "Information on using your "
                "system is available in the Red Hat Linux manuals at "
-               "http://www.redhat.com/support/manuals."),
+               "http://www.redhat.com/support/manuals.") % bootstr,
 		[ _("OK") ], help = "finished", width=60)
 
         return INSTALL_OK

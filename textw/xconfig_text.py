@@ -414,8 +414,12 @@ class MonitorWindow:
 	    rc = bb.buttonPressed (result)
 
 	    if rc == TEXT_BACK_CHECK:
-		screen.popWindow()
-		return INSTALL_BACK
+                # XXX - dont let them go back to make boot disk screen
+                ButtonChoiceWindow(screen, _("Error"),
+                                   _("You cannot go back from this "
+                                     "step."),
+                           buttons = [ TEXT_OK_BUTTON ])
+                continue
             elif rc == TEXT_OK_CHECK or result == TEXT_F12_CHECK:
                 screen.popWindow()
                 break

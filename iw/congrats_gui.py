@@ -15,6 +15,7 @@ from gtk import *
 from gnome.ui import *
 from iw_gui import *
 from translate import _, N_
+import iutil
 
 class CongratulationWindow (InstallWindow):		
 
@@ -42,19 +43,26 @@ class CongratulationWindow (InstallWindow):
             a.set (0.5, 0.5, 1.0, 1.0)
             hbox.pack_start (a, FALSE)
 
+        if iutil.getArch() != "ia64":
+            bootstr = _("If you created a boot disk to use to boot your "
+                        "Red Hat Linux system, insert it before you "
+                        "press <Enter> to reboot.\n\n")
+        else:
+            bootstr = ""
+            
+
 	label = GtkLabel(
              _("Congratulations, your Red Hat Linux installation is "
                "complete.\n\n"
                "Remove any floppy diskettes you used during the "
                "installation process and press <Enter> to reboot your system. "
                "\n\n"
-               "If you created a boot disk to use to boot your Red Hat Linux "
-               "system, insert it before you press <Enter> to reboot.\n\n"
+               "%s"
                "For information on errata (updates and bug fixes), visit "
                "http://www.redhat.com/errata.\n\n"
                "Information on using and configuring your "
                "system is available in the Red Hat Linux manuals "
-               "at http://www.redhat.com/support/manuals."),
+               "at http://www.redhat.com/support/manuals.") % bootstr,
              )
                 
         label.set_line_wrap (TRUE)

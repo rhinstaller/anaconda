@@ -484,6 +484,7 @@ class FileSystemSet:
         self.progressWindow = None
         self.waitWindow = None
         self.mountcount = 0
+        self.migratedfs = 0
         self.reset()
 
     def isActive(self):
@@ -590,11 +591,17 @@ class FileSystemSet:
         f.close ()
 
     def restoreMigratedFstab(self, prefix):
+        if not self.migratedfs:
+            return
+
         fname = prefix + "/etc/fstab"
         if os.access(fname + ".rpmsave", os.R_OK):
             os.rename(fname + ".rpmsave", fname)
 
     def migratewrite(self, prefix):
+        if not self.migratedfs:
+            return
+        
         fname = prefix + "/etc/fstab"
         f = open (fname, "r")
         lines = f.readlines()
@@ -823,8 +830,13 @@ class FileSystemSet:
                 # should be OK, we'll still use the device name to mount.
                 pass
 
+    def haveMigratedFilesystems(self):
+        return self.migratedfs
 
     def migrateFilesystems (self, chroot='/'):
+        if self.migratedfs:
+            return
+        
         for entry in self.entries:
             if not entry.origfsystem:
                 continue
@@ -844,6 +856,8 @@ class FileSystemSet:
                                          "Press Enter to reboot your system.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
+
+        self.migratedfs = 1
 
     def mountFilesystems(self, instPath = '/', raiseErrors = 0, readOnly = 0):
 	for entry in self.entries:

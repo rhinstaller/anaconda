@@ -382,6 +382,9 @@ class MonitorWindow (InstallWindow):
     def __init__ (self, ics):
         InstallWindow.__init__ (self, ics)
         self.ics.setNextEnabled (FALSE)
+
+        # XXX - do not want to go backwards into "Make Bootdisk" screen ever
+        self.ics.setPrevEnabled (FALSE)
         
     def selectCb (self, ctree, node, column):
 
