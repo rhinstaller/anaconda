@@ -233,7 +233,7 @@ class XCustomWindow (InstallWindow):
             hsep = GtkHSeparator ()
             box.pack_start (hsep)
 
-            frame3 = GtkFrame (_("Please Choose Your Default Desktop Environment:"))
+            frame3 = GtkFrame (_("Please choose your default desktop environment:"))
             frame3.set_shadow_type (SHADOW_NONE)
             hbox3.pack_start (frame3, TRUE, FALSE, 10)
 
@@ -272,7 +272,7 @@ class XCustomWindow (InstallWindow):
         box.pack_start (hsep)
 
 #        self.xdm = GtkCheckButton (_("Please Choose Your Login Type"))
-        frame4 = GtkFrame (_("Please Choose Your Login Type:"))
+        frame4 = GtkFrame (_("Please choose your login type:"))
         frame4.set_shadow_type (SHADOW_NONE)
         hbox4.pack_start (frame4, TRUE, FALSE, 10)
         
