@@ -10,7 +10,7 @@ class InstallClass(BaseInstallClass):
     pixmap = "server.png"
     description = N_("Red Hat Enterprise Linux AS")
     sortPriority = 100
-    showLoginChoice = 0
+    showLoginChoice = 1
     hidden = 1
 
     pkgstext = _("\tDesktop shell (GNOME)\n"
