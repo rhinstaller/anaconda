@@ -558,6 +558,8 @@ static char * setupHardDrive(char * device, char * type, char * dir,
 	    if (rc) umount("/mnt/runtime");
 	}
 
+	umount("/tmp/hdimage");
+
 	if (rc) return NULL;
     }
 
