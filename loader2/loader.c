@@ -436,8 +436,8 @@ static void readNetInfo(int flags, struct loaderData_s ** ld) {
            if (strstr(vname, "MTU")) {
                loaderData->mtu = atoi(vparm);
            }
-           if (strstr(vname, "REMIP")) {
-               loaderData->ptpaddr = strdup(vparm);
+           if (strstr(vname, "PEERID")) {
+               loaderData->peerid = strdup(vparm);
            }
            if (strstr(vname, "SUBCHANNELS")) {
                loaderData->subchannels = strdup(vparm);

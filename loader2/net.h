@@ -20,8 +20,7 @@ struct networkDeviceConfig {
     /* s390 settings */
     int mtu;
     int is_qeth;
-    struct in_addr ptpaddr;
-    char *subchannels, *portname;
+    char *subchannels, *portname, *peerid;
 };
 
 int readNetConfig(char * device, struct networkDeviceConfig * dev, 

@@ -369,8 +369,8 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         cfg->mtu = loaderData->mtu;
     }
 
-    if (loaderData->ptpaddr && (inet_aton(loaderData->ptpaddr, &addr))) {
-        cfg->ptpaddr = addr;
+    if (loaderData->peerid) {
+        cfg->peerid = strdup(loaderData->peerid);
     }
 
     if (loaderData->subchannels) {
@@ -728,8 +728,8 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
         fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
     if (dev->mtu)
         fprintf(f, "MTU=%d\n", dev->mtu);
-    if (dev->ptpaddr.s_addr)
-        fprintf(f, "REMIP=%s\n", inet_ntoa(dev->ptpaddr));
+    if (dev->peerid)
+        fprintf(f, "PEERID=%s\n", dev->peerid);
     if (dev->subchannels)
         fprintf(f, "SUBCHANNELS=%s\n", dev->subchannels);
     if (dev->portname)
