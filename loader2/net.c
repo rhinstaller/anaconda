@@ -784,6 +784,11 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
         writeResolvConf(dev);
     }
 
+    if (dev->dev.numDns == 0) {
+        logMessage("no DNS servers, can't look up hostname");
+        return 1;
+    }
+
     if (!(dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)) {
         if (!FL_CMDLINE(flags))
             winStatus(50, 3, _("Hostname"), 
