@@ -272,7 +272,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
-                chptr = doDhcp(cfg, loaderData->netCls);
+                chptr = doDhcp(loaderData->netDev, cfg, loaderData->netCls);
             } else {
                 chptr = NULL;
             }
@@ -542,7 +542,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
                           _("Sending request for IP information for %s..."), 
                           device, 0);
                 waitForLink(device);
-                chptr = doDhcp(&newCfg, dhcpclass);
+                chptr = doDhcp(device, &newCfg, dhcpclass);
                 newtPopWindow();
             } else {
                 chptr = NULL;
@@ -607,6 +607,7 @@ static int setupWireless(struct networkDeviceConfig *dev) {
      * up */
     if (!is_wireless_interface(dev->dev.device))
         return 0;
+
     if (dev->essid) {
         logMessage("setting essid for %s to %s", dev->dev.device, dev->essid);
         if (set_essid(dev->dev.device, dev->essid) < 0) {
@@ -629,9 +630,11 @@ char * setupInterface(struct networkDeviceConfig *dev) {
     return pumpSetupInterface(&dev->dev);
 }
 
-char * doDhcp(struct networkDeviceConfig *dev, char * dhcpclass) {
+char * doDhcp(char * ifname, 
+              struct networkDeviceConfig *dev, char * dhcpclass) {
     setupWireless(dev);
-    return pumpDhcpClassRun(dev->dev.device, 0, 0, NULL, 
+    logMessage("running dhcp for %s", ifname);
+    return pumpDhcpClassRun(ifname, 0, 0, NULL, 
                             dhcpclass ? dhcpclass : "anaconda", 
                             &dev->dev, NULL);
     

@@ -45,6 +45,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
                        int flags);
 
 char * setupInterface(struct networkDeviceConfig *dev);
-char * doDhcp(struct networkDeviceConfig *dev, char * dhcpclass);
+char * doDhcp(char * ifname, 
+              struct networkDeviceConfig *dev, char * dhcpclass);
 
 #endif
