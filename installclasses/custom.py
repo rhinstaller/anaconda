@@ -9,7 +9,7 @@ from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 class InstallClass(BaseInstallClass):
     name = N_("Custom")
     pixmap = "custom.png"
-    showMinimal = 0
+    showMinimal = 1
     description = N_("Select this installation type to gain complete "
 		     "control over the installation process, including "
 		     "software package selection and authentication "
