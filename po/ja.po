@@ -8,13 +8,14 @@
 # Yoshinari Takaoka <mumumu@mx.edit.ne.jp>, 2004.
 # Tadashi Jokagi <fedora@elf.no-ip.org>, 2004.
 # Naoki Shigematsu <sigematu@linuxml.net>, 2004.
+# Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004.
 msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-16 12:06-0400\n"
-"PO-Revision-Date: 2004-09-02 15:09+0900\n"
-"Last-Translator: Tadashi Jokagi <fedora@elf.no-ip.org>\n"
+"PO-Revision-Date: 2004-09-17 23:59+0900\n"
+"Last-Translator: Hirofumi Saito <hi_saito@yk.rim.or.jp>\n"
 "Language-Team: Japanese <i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2557,17 +2558,16 @@ msgid "DDC Probed Monitor"
 msgstr "DDC 検出モニター"
 
 #: ../zfcp.py:27
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
 msgstr ""
-"zSeries マシンはファイバーチャンネル(FCP)によって業界基準 SCSI デバイスにアク"
-"セスすることができます。各装置のために 5 つのパラメーターを提供する必要があり"
-"ます:16 ビットの装置番号、16 ビットのSCSI ID、64 ビットの世界的なポート番号"
-"(WWPN)、16ビットのSCSI LUNおよび64ビットのFCP LUN。"
+"zSeries マシンはファイバーチャンネル (FCP) によって業界基準 SCSI デバイスに"
+"アクセスすることができます。各装置のために 5 つのパラメーターを提供する必要"
+"があります: 16 ビットの装置番号、16 ビットの SCSI ID、64 ビットの世界的なポ"
+"ート番号 (WWPN)、16 ビットの SCSI LUN および 64 ビットの FCP LUN です。"
 
 #: ../zfcp.py:29
 msgid "Device number"
@@ -3299,14 +3299,11 @@ msgid "_Enable firewall"
 msgstr "ファイアウォールを有効にする(_E)"
 
 #: ../iw/firewall_gui.py:109
-#, fuzzy
 msgid ""
 "You can use a firewall to allow access to specific services on your computer "
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
-msgstr ""
-"ファイアウォールを使う場合、別のコンピュータから特定のサービスへアクセスを許"
-"可することができます。どのサービスへのアクセスを許可しますか?"
+msgstr "ファイアウォールを使う場合、別のコンピュータから特定のサービスへアクセスを許可することができます。どのサービスへのアクセスを許可しますか?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -6015,7 +6012,6 @@ msgid "No Volume Groups"
 msgstr "ボリュームグループがありません"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups in which to create a logical volume"
 msgstr "論理的なボリュームを中へ作成するボリュームグループはありません。"
 
@@ -8344,9 +8340,8 @@ msgid "Bengali"
 msgstr "ベンガル語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bengali(India)"
-msgstr "ベンガル語"
+msgstr "ベンガル語 (インド)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -8358,11 +8353,11 @@ msgstr "カタロニア語"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "中国語(簡体)"
+msgstr "中国語 (簡体)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "中国語(繁体)"
+msgstr "中国語 (繁体)"
 
 #. generated from lang-table
 msgid "Croatian"
@@ -8401,8 +8396,9 @@ msgid "German"
 msgstr "ドイツ語"
 
 #. generated from lang-table
+#, fuzzy
 msgid "Gujarati"
-msgstr ""
+msgstr "グジャラート語"
 
 #. generated from lang-table
 msgid "Hindi"
