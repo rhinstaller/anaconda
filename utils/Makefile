@@ -45,7 +45,7 @@ install: all
 # removed genhdlist from clean line so it will be distributed on CDROM image
 #
 clean:	
-	rm -f modlist moddeps snarffont *.o 
+	rm -f modlist moddeps snarffont genhdlist mapshdr readmap *.o 
 
 depend:
 	$(CPP) -M $(CFLAGS) *.c > .depend
