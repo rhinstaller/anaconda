@@ -137,26 +137,22 @@ def dumpException(out, text, tb, dispatch):
     except:
         pass
 
-    if dispatch.id.comps:
+    if dispatch.id.grpset:
         out.write("\n\nPackage Group selection status:\n")
-        for comp in dispatch.id.comps:
+        for comp in dispatch.id.grpset:
             out.write("%s: %s\n" % (comp.name,
                                     comp.isSelected(justManual = 1)))
 
-    if dispatch.id.hdList:
+    if dispatch.id.grpset and dispatch.id.grpset.hdrlist:
         out.write("\n\nIndividual package selection status:\n")
-        pkgList = dispatch.id.hdList.keys()
+        pkgList = dispatch.id.grpset.hdrlist.pkgs.keys()
         pkgList.sort()
         for pkg in pkgList:
-            p = dispatch.id.hdList[pkg]
+            p = dispatch.id.grpset.hdrlist.pkgs[pkg]
             out.write("%s: %s, " % (p[rpm.RPMTAG_NAME],
                                     p.isSelected()))
         out.write("\n")
     
-    # these have C objects in them which can't dump
-#    dispatch.id.hdList = None
-#    dispatch.id.comps = None
-
     # we don't need to know passwords
 #    dispatch.id.rootPassword = None
 #    dispatch.id.accounts = None
