@@ -195,7 +195,7 @@ fi
 for I in $PACKAGES; do
     for J in `ls $SRC/$I*`; do
 	if [ "$I" != "rpm-devel" ]; then
-            if ! echo $J | grep devel > /dev/null; then
+            if ! echo $J | egrep "(devel|sparcv9)" > /dev/null; then
 	        RPMS="$RPMS $J"
             fi
         else
