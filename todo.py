@@ -448,6 +448,7 @@ class ToDo:
                                        [ "mkswap", '/tmp/' + device ],
                                        stdout = None, stderr = None,
                                        searchPath = 1)
+                isys.swapon ('/tmp/' + device)
             else:
                 pass
 

@@ -16,6 +16,9 @@ def chroot (path):
 def checkBoot (path):
     return _isys.checkBoot (path)
 
+def swapon (path):
+    return _isys.swapon (path)
+
 def probePciDevices():
     # probes all probeable buses and returns a list of 
     # ( driver, major, minor, description, args ) tuples, where args is a

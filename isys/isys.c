@@ -31,6 +31,7 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
 static PyObject * createProbedList(PyObject * s, PyObject * args);
 static PyObject * doChroot(PyObject * s, PyObject * args);
 static PyObject * doCheckBoot(PyObject * s, PyObject * args);
+static PyObject * doSwapon(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "findmoduleinfo", (PyCFunction) doFindModInfo, METH_VARARGS, NULL },
@@ -49,6 +50,7 @@ static PyMethodDef isysModuleMethods[] = {
 #endif
     { "chroot", (PyCFunction) doChroot, METH_VARARGS, NULL },
     { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
+    { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -372,6 +374,20 @@ static PyObject * doCheckBoot (PyObject * s, PyObject * args) {
     close (fd);
     
     return Py_BuildValue("i", magic == BOOT_SIGNATURE);
+}
+
+static PyObject * doSwapon (PyObject * s, PyObject * args) {
+    char * path;
+
+    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
+
+    if (swapon (path, 0)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+    
+    Py_INCREF(Py_None);
+    return Py_None;
 }
 
 static PyObject * smpAvailable(PyObject * s, PyObject * args) {

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-08-19 18:03-0400\n"
+"POT-Creation-Date: 1999-08-20 14:34-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ../text.py:26 ../text.py:884
+#: ../text.py:26 ../text.py:914
 msgid "Language Selection"
 msgstr ""
 
@@ -25,11 +25,12 @@ msgstr ""
 #: ../text.py:29 ../text.py:48 ../text.py:96 ../text.py:149 ../text.py:165
 #: ../text.py:170 ../text.py:188 ../text.py:210 ../text.py:336 ../text.py:356
 #: ../text.py:423 ../text.py:460 ../text.py:525 ../text.py:576 ../text.py:598
-#: ../text.py:653 ../text.py:670 ../text.py:690 ../text.py:852 ../text.py:858
+#: ../text.py:653 ../text.py:670 ../text.py:690 ../text.py:702 ../text.py:714
+#: ../text.py:882 ../text.py:888
 msgid "OK"
 msgstr ""
 
-#: ../text.py:46 ../text.py:885
+#: ../text.py:46 ../text.py:915
 msgid "Keyboard Selection"
 msgstr ""
 
@@ -46,7 +47,7 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: ../text.py:58 ../text.py:887
+#: ../text.py:58 ../text.py:917
 msgid "Installation Path"
 msgstr ""
 
@@ -64,7 +65,7 @@ msgstr ""
 msgid "Upgrade"
 msgstr ""
 
-#: ../text.py:79
+#: ../text.py:79 ../text.py:710
 msgid "Error"
 msgstr ""
 
@@ -99,7 +100,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: ../text.py:132 ../text.py:899
+#: ../text.py:132 ../text.py:929
 msgid "Root Password"
 msgstr ""
 
@@ -238,7 +239,7 @@ msgstr ""
 msgid "Package Group Selection"
 msgstr ""
 
-#: ../text.py:554 ../text.py:896
+#: ../text.py:554 ../text.py:926
 msgid "Package Dependencies"
 msgstr ""
 
@@ -269,7 +270,7 @@ msgstr ""
 msgid "Which model mouse is attached to this computer?"
 msgstr ""
 
-#: ../text.py:608
+#: ../text.py:608 ../text.py:698 ../text.py:934
 msgid "Bootdisk"
 msgstr ""
 
@@ -285,7 +286,7 @@ msgid ""
 "Would you like to create a bootdisk for your system?"
 msgstr ""
 
-#: ../text.py:650 ../text.py:901
+#: ../text.py:650 ../text.py:931
 msgid "LILO Configuration"
 msgstr ""
 
@@ -319,120 +320,136 @@ msgid ""
 "chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
 
-#: ../text.py:743
-msgid "Package Installation"
+#: ../text.py:699
+msgid ""
+"Insert a blank floppy in the first floppy drive. All data on this disk will "
+"be erased during creation of the boot disk."
 msgstr ""
 
-#: ../text.py:745
-msgid "Name   : "
+#: ../text.py:702 ../text.py:703 ../text.py:714 ../text.py:715
+msgid "Skip"
 msgstr ""
 
-#: ../text.py:746
-msgid "Size   : "
-msgstr ""
-
-#: ../text.py:747
-msgid "Summary: "
+#: ../text.py:711
+msgid ""
+"An error occured while making the boot disk. Please make sure that there is "
+"a formatted floppy in the first floppy drive."
 msgstr ""
 
 #: ../text.py:773
-msgid "    Packages"
-msgstr ""
-
-#: ../text.py:774
-msgid "       Bytes"
+msgid "Package Installation"
 msgstr ""
 
 #: ../text.py:775
-msgid "        Time"
+msgid "Name   : "
+msgstr ""
+
+#: ../text.py:776
+msgid "Size   : "
 msgstr ""
 
 #: ../text.py:777
+msgid "Summary: "
+msgstr ""
+
+#: ../text.py:803
+msgid "    Packages"
+msgstr ""
+
+#: ../text.py:804
+msgid "       Bytes"
+msgstr ""
+
+#: ../text.py:805
+msgid "        Time"
+msgstr ""
+
+#: ../text.py:807
 msgid "Total    :"
 msgstr ""
 
-#: ../text.py:784
+#: ../text.py:814
 msgid "Completed:   "
 msgstr ""
 
-#: ../text.py:794
+#: ../text.py:824
 msgid "Remaining:  "
 msgstr ""
 
-#: ../text.py:858 ../text.py:859
+#: ../text.py:888 ../text.py:889
 msgid "Debug"
 msgstr ""
 
-#: ../text.py:871
+#: ../text.py:901
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr ""
 
-#: ../text.py:873
+#: ../text.py:903
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 
-#: ../text.py:886
+#: ../text.py:916
 msgid "Welcome"
 msgstr ""
 
-#: ../text.py:891
+#: ../text.py:921
 msgid "Network Setup"
 msgstr ""
 
-#: ../text.py:892
+#: ../text.py:922
 msgid "Partition"
 msgstr ""
 
-#: ../text.py:893
+#: ../text.py:923
 msgid "Filesystem Formatting"
 msgstr ""
 
-#: ../text.py:894
+#: ../text.py:924
 msgid "Package Groups"
 msgstr ""
 
-#: ../text.py:895 ../text.py:910
+#: ../text.py:925 ../text.py:941
 msgid "Individual Packages"
 msgstr ""
 
-#: ../text.py:897
+#: ../text.py:927
 msgid "Mouse Configuration"
 msgstr ""
 
-#: ../text.py:898
+#: ../text.py:928
 msgid "Authentication"
 msgstr ""
 
-#: ../text.py:900
+#: ../text.py:930
 msgid "Boot Disk"
 msgstr ""
 
-#: ../text.py:902
+#: ../text.py:932
 msgid "Installation Begins"
 msgstr ""
 
-#: ../text.py:903
+#: ../text.py:933
 msgid "Install System"
 msgstr ""
 
-#: ../text.py:904
+#: ../text.py:935
 msgid "Installation Complete"
 msgstr ""
 
-#: ../text.py:908
+#: ../text.py:939
 msgid "Examine System"
 msgstr ""
 
-#: ../text.py:909
+#: ../text.py:940
 msgid "Customize Upgrade"
 msgstr ""
 
-#: ../text.py:911
+#: ../text.py:942
 msgid "Upgrade System"
 msgstr ""
 
-#: ../text.py:912
+#: ../text.py:943
 msgid "Upgrade Complete"
 msgstr ""
