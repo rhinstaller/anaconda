@@ -1452,8 +1452,12 @@ int main(int argc, char ** argv) {
     
     if (!FL_TESTING(flags)) {
         int pid, status, rc;
+        char * buf;
 
-        char *buf = sdupprintf(_("Running anaconda, the %s system installer - please wait...\n"), getProductName());
+        if (FL_RESCUE(flags))
+            buf = sdupprintf(_("Running anaconda, the %s rescue mode - please wait...\n"), getProductName());
+        else
+            buf = sdupprintf(_("Running anaconda, the %s system installer - please wait...\n"), getProductName());
         printf("%s", buf);
 
         if (!(pid = fork())) {
