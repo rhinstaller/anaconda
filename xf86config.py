@@ -343,6 +343,23 @@ Section "Monitor"
     Modeline "1280x1024"  181.75 1280 1312 1440 1696
                                  1024 1031 1046 1072 -HSync -VSync
 
+# -- 1400x1050 --
+# 1400x1050 @ 60Hz, 65.8 kHz hsync
+    Modeline 1400x1050  129   1400 1464 1656 1960
+                              1050 1051 1054 1100 +HSync +VSync
+
+# 1400x1050 @ 70Hz, 76.8 kHz hsync
+    Modeline 1400x1050  151   1400 1464 1656 1960
+                              1050 1051 1054 1100 +HSync +VSync
+
+# 1400x1050 @ 75Hz, 82.3 kHz hsync
+    Modeline 1400x1050  162   1400 1464 1656 1960
+                              1050 1051 1054 1100 +HSync +VSync
+
+# 1400x1050 @ 85Hz, 93.2 kHz hsync
+    Modeline 1400x1050  184   1400 1464 1656 1960
+                              1050 1051 1054 1100 +HSync +VSync
+
 # -- 1600x1200 --
 # 1600x1200 @ 60Hz, 75.00 kHz hsync
     Modeline "1600x1200"  162   1600 1664 1856 2160
