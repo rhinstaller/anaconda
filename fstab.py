@@ -68,14 +68,23 @@ class Fstab:
 
 	    attempt.append((mntpoint, size, maxsize, type, grow, -1, device))
 
+        success = 0
+
 	try:
 	    ddruid.attempt (attempt, "Junk Argument", clearParts)
-
-            return ddruid
+            success = 1
 	except:
 	    pass
 
-	return None
+        if success == 1:
+            # configure kickstart requested ext2 filesystem options
+            for (mntpoint, size, maxsize, grow,  device, fsopts) in partitions:
+                if fsopts != None:
+                    self.fstab.setfsOptions (mntpoint, fsopts)
+            
+            return ddruid
+        else:
+            return None
 
     def getMbrDevice(self):
 	return self.driveList()[0]
