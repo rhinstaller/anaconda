@@ -45,9 +45,9 @@ class ZFCP:
 
     def hextest(self, hex):
         try:
-            string.atoi(hex, 16)  # Bug in python, atoi is
-            return 0                    # supposed to find out the base
-        except:                         # on its own
+            int(hex, 16)
+            return 0
+        except:
             return -1
 
     def checkValidDevice(self, id):
@@ -78,7 +78,7 @@ class ZFCP:
     def sanitizeDeviceInput(self, dev):
         if dev is None or dev == "":
             return None
-        dev = string.lower(dev)
+        dev = dev.lower()
         bus = dev[:string.rfind(dev, ".") + 1]
         dev = dev[string.rfind(dev, ".") + 1:]
         dev = "0" * (4 - len(dev)) + dev
@@ -90,7 +90,7 @@ class ZFCP:
     def sanitizeHexInput(self, id):
         if id is None or id == "":
             return None
-        id = string.lower(id)
+        id = id.lower()
         if id[:2] != "0x":
             return "0x" + id
         return id
@@ -100,7 +100,7 @@ class ZFCP:
     def sanitizeFCPLInput(self, lun):
         if lun is None or lun == "":
             return None
-        lun = string.lower(lun)
+        lun = lun.lower()
         if lun[:2] == "0x":
             lun = lun[2:]
         lun = "0x" + "0" * (4 - len(lun)) + lun
@@ -244,7 +244,7 @@ class ZFCP:
             f.close()
             for line in lines:
                 invalid = 0
-                line = string.lower(string.strip(line))
+                line = string.strip(line).lower()
                 fcpconf = string.split(line)
                 if len(fcpconf) != 5 or fcpconf[0][:1] == "#":
                     continue
