@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "POT-Creation-Date: 2003-08-11 19:06-0400\n"
-"PO-Revision-Date: 2003-09-02 18:31+1000\n"
+"PO-Revision-Date: 2003-09-11 17:29+1000\n"
 "Last-Translator: David Barzilay <barzilay@redhat.com>\n"
 "Language-Team: Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -2617,15 +2617,15 @@ msgstr ""
 "recomendável a criação de um disquete de inicialização quando chegar ao "
 "final da instalação.\n"
 "\n"
-"Deseja continuar e ativar o modo LBA32?"
+"Deseja continuar e forçar o modo LBA32?"
 
 #: ../iw/bootloader_advanced_gui.py:51
 msgid "Force LBA32"
-msgstr "Ativar modo LBA32"
+msgstr "Forçar LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:72
 msgid "_Force LBA32 (not normally required)"
-msgstr "_Ativar modo LBA32 (normalmente não é necessário)"
+msgstr "_Forçar LBA32 (normalmente desnecessária)"
 
 #: ../iw/bootloader_advanced_gui.py:76
 msgid ""
@@ -2647,7 +2647,7 @@ msgstr "Configuração do Gestor de Início"
 
 #: ../iw/bootloader_main_gui.py:74
 msgid "Change Boot Loader"
-msgstr "Trocar Gestor de Início"
+msgstr "Alterar Gestor de Início"
 
 #: ../iw/bootloader_main_gui.py:92
 msgid ""
@@ -2699,7 +2699,7 @@ msgstr "Nenhum gestor de início será instalado."
 
 #: ../iw/bootloader_main_gui.py:226
 msgid "_Change boot loader"
-msgstr "Mudar o _gestor de início"
+msgstr "Alterar o _gestor de início"
 
 #: ../iw/bootloader_main_gui.py:254
 msgid "Configure advanced boot loader _options"
@@ -2711,11 +2711,11 @@ msgstr "Instalar registro do gestor de início em:"
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
-msgstr "Mudar a _Ordem dos Discos"
+msgstr "Alterar _Ordem dos Discos"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Unable to Change Drive Order for LILO"
-msgstr "Impossível Alterar a Ordem dos Discos para o LILO"
+msgstr "Impossível Alterar Ordem dos Discos para o LILO"
 
 #: ../iw/bootlocwidget.py:85
 msgid "We do not support changing the drive order for use with LILO."
@@ -4988,7 +4988,7 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
-"O gestor de início usado pelo Red Hat também pode carregar outros sistemas "
+"O gerenciador boot usado pelo Red Hat também pode carregar outros sistemas "
 "operacionais. Aponte quais partições residem outros sistemas equais nomes "
 "deseja usar para sua inicialização."
 
