@@ -15,6 +15,7 @@ from snack import *
 from constants_text import *
 from rhpl.translate import _
 from flags import flags
+from rhpl.log import log
 import string
 import iutil
 # XXX
@@ -162,6 +163,7 @@ class BootloaderLocationWindow:
 
         format = "/dev/%-11s %s" 
         locations = []
+        devices = []
 	default = 0
 
         keys = choices.keys()
@@ -170,7 +172,8 @@ class BootloaderLocationWindow:
             (device, desc) = choices[key]
 	    if device == bl.getDevice():
 		default = len(locations)
-	    locations.append (format % (device, _(desc)))
+            locations.append (format % (device, _(desc)))
+            devices.append(device)
 
         (rc, sel) = ListboxChoiceWindow (screen, _("Boot Loader Configuration"),
 			 _("Where do you want to install the boot loader?"),
@@ -181,8 +184,7 @@ class BootloaderLocationWindow:
         if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        # XXX this is obviously not right :)
-	bl.setDevice(choices[choices.keys()[0]][0])
+	bl.setDevice(devices[sel])
 
         return INSTALL_OK
 
