@@ -53,7 +53,7 @@ def scanForRaid(drives):
     raidList = []
     for key in raidSets.keys():
 	(level, totalDisks, mdMinor, devices) = raidSets[key]
-	if len(devices) != totalDisks:
+	if len(devices) < totalDisks:
 	    str = "missing components of raid device md%d" % (mdMinor,)
 	    raise SystemError, str
 	raidList.append((mdMinor, devices))
