@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sndconfig 3.0\n"
 "POT-Creation-Date: 2000-02-17 18:41-0500\n"
-"PO-Revision-Date: 199-04-10 12:00+EST\n"
+"PO-Revision-Date: 2000-02-21 19:27-05:00\n"
 "Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Eroare la deactivarea %s: %s"
 
 #: ../fstab.py:349 ../todo.py:419
 msgid "Creating"
-msgstr ""
+msgstr "Creare"
 
 #: ../fstab.py:349
 msgid "Creating RAID devices..."
@@ -56,12 +56,12 @@ msgstr "Se iniþializeazã %s cu un sistem ext2..."
 
 #: ../fstab.py:417
 msgid "Loopback"
-msgstr ""
+msgstr "Loopback"
 
 #: ../fstab.py:418
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr ""
+msgstr "Creare sistem de fiºiere pe /dev/%s (loopback)..."
 
 #: ../fstab.py:461
 #, c-format
@@ -137,7 +137,7 @@ msgstr "Shell de Instalare Red Hat Linux pe %s"
 #: ../installclass.py:252
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
-msgstr ""
+msgstr "Sînteþi  pe cale sã ºtergeþi orice instalare anterioara de Linux de pe acest sistem"
 
 #: ../installclass.py:289
 msgid ""
@@ -362,6 +362,11 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
+"Bine aþi venit în Red Hat Linux!\n"
+"\n"
+"Acum vã aflaþi în modul de reconfigurare, care vã va permite sã vã configuraþi opþiunile specifice pentru acest calculator.\n"
+"\n"
+"Pentru a ieºi din acest program fãrã a schimba nimic selectaþi butonul de Abandon de mai jos."
 
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
@@ -447,7 +452,7 @@ msgid ""
 "\n"
 "On SMCC made Ultra machines floppy booting probably does not work\n"
 "\n"
-msgstr ""
+msgstr "\nPe maºinile UltraSPARC fabricate de SMCC încãrcarea de pe floppy nu este posibilã\n\n"
 
 #: ../text.py:540 ../text.py:753
 msgid "Bootdisk"
@@ -768,7 +773,7 @@ msgstr "Cãutare"
 
 #: ../todo.py:644
 msgid "Searching for Red Hat Linux installations..."
-msgstr ""
+msgstr "Se încearcã detectarea instalãrilor precedente de Linux..."
 
 #: ../todo.py:655 ../todo.py:686
 #, c-format
@@ -794,7 +799,7 @@ msgstr "Pregãtire pentru instalare..."
 #: ../todo.py:1134
 #, c-format
 msgid "Upgrading %s.\n"
-msgstr ""
+msgstr "Actualizare pachet %s.\n"
 
 #: ../todo.py:1136
 #, c-format
@@ -854,7 +859,7 @@ msgstr "Monitor"
 
 #: ../xf86config.py:272
 msgid "Plug and Play Monitor"
-msgstr ""
+msgstr "Monitor Plug and Play"
 
 #: ../xf86config.py:274
 msgid "Horizontal frequency range"
@@ -1092,15 +1097,15 @@ msgstr "Aranjament taste"
 
 #: ../iw/keyboard.py:94
 msgid "Dead Keys"
-msgstr ""
+msgstr "Taste din setul Extins"
 
 #: ../iw/keyboard.py:103
 msgid "Enable dead keys"
-msgstr ""
+msgstr "Activeazã tastele din setul extins (specific X Windows)"
 
 #: ../iw/keyboard.py:104
 msgid "Disable dead keys"
-msgstr ""
+msgstr "Dezactiveazã tastele din setul extins X Windows"
 
 #: ../iw/keyboard.py:113
 msgid "Test your selection here:"
@@ -1305,7 +1310,7 @@ msgid ""
 "DOS or Windows filesystem. How large, in megabytes, should would you like "
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
-msgstr ""
+msgstr "Aþi ales sã vã instalaþi sistemul de directoare de bazã pe o partiþie DOS ori Windows existantã. Cît de mult, în megabytes, doriþi sã rezervaþi pentru root filesystem ºi care este dimensiunea doritã pentru memoria suplimentarã (swap)? Totalul lor nu trebuie sã depãºeascã %d megabytes în mãrime. "
 
 #: ../iw/rootpartition.py:135
 msgid "Root filesystem size:"
@@ -1446,12 +1451,11 @@ msgstr ""
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
-msgstr ""
+msgstr "Dacã rezultatele autodetecþiei nu corespund caracteristicilor hardware ale acestui calculator vã rugãm sã corectaþi configuraþia prin setãrile de mai jos:"
 
 #: ../iw/xconfig.py:372
-#, fuzzy
 msgid "Autoprobe results:"
-msgstr "Rrezultate autodetecþie X11"
+msgstr "Rrezultatele autodetecþiei"
 
 #: ../iw/xconfig.py:432
 msgid "Use Graphical Login"
@@ -1588,7 +1592,7 @@ msgstr "Mãrimea introdusã trebuie sã fie un numãr."
 msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
 "which is %d megabytes."
-msgstr ""
+msgstr "Mãrimea totalã trebuie sã fie mai micã decît spaþiul disponibil pe disc, care este de %d megabytes."
 
 #: ../textw/silo.py:65
 msgid "Create PROM alias `linux'"
@@ -1656,15 +1660,14 @@ msgid "User ID"
 msgstr "ID Utilizator"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "Bad User ID"
-msgstr "ID Utilizator"
+msgstr "ID Utilizator Invalid"
 
 #: ../textw/userauth.py:92
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
-msgstr ""
+msgstr "Identificatorul de utilizator trebuie sã fie de lungime maximã 8 caractere, ºi sã fie alcãtuit numai din caracterele A-Z, a-z ºi 0-9."
 
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
@@ -1794,7 +1797,7 @@ msgid ""
 "You can do this, but you may not use any other filesystems for your Linux "
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
-msgstr ""
+msgstr "Aþi ales sã configuraþi sisteml de directoare de bazã (/) pe o partiþie DOS de tip FAT. Aceastã setare este validã, dar nu veþi putea folosi nici o altã partiþie sau sistem de fiºiere pentru Linux, fiind limitaþi la aceastã partiþie DOS. În plus, existã o serioasã penalizare la vitezã pentru nefolosirea unui sistem de fiºiere ºi partiþii native Linux. Doriþi sã continuaþi?"
 
 #: ../libfdisk/fsedit.c:790
 #, c-format
@@ -2165,7 +2168,7 @@ msgstr "Partiþia RAID nu poate fi montatã în directorul specificat."
 
 #: ../libfdisk/gnomefsedit.c:2079
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr ""
+msgstr "Partiþiile RAID nu pot fi montate sub directorul rãdãcinã pe maºinile Alpha."
 
 #: ../libfdisk/gnomefsedit.c:2162
 #, c-format
@@ -2595,11 +2598,11 @@ msgstr "Introduceþi discheta cu drivere ºi selectaþi \"OK\" pentru a continua."
 #. this at some point.
 #: ../loader/loader.c:1815
 msgid "Updates"
-msgstr ""
+msgstr "Actualizãri"
 
 #: ../loader/loader.c:1815
 msgid "Reading anaconda updates..."
-msgstr ""
+msgstr "Se încarcã actualizãrile pentru Anaconda..."
 
 #: ../loader/loader.c:1969
 msgid "PC Card"
@@ -2808,12 +2811,12 @@ msgstr "Trebuie introdus un director."
 
 #: ../loader/urls.c:234
 msgid "Unknown Host"
-msgstr ""
+msgstr "Adresã calculator necunoscutã"
 
 #: ../loader/urls.c:235
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr ""
+msgstr "%s nu este un nume de host valid."
 
 #: ../loader/urls.c:307
 msgid ""
