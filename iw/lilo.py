@@ -31,12 +31,12 @@ class LiloWindow (InstallWindow):
             self.todo.bootdisk = 0
 
 	if self.lilo.get_active ():
-	    liloDevice = None
+	    self.todo.lilo.setDevice(None)
 	elif self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
 	    if self.mbr.get_active ():
-		liloDevice = "mbr"
+		self.todo.lilo.setDevice("mbr")
 	    else:
-		liloDevice = "partition"
+		self.todo.lilo.setDevice("partition")
 
 	images = {}
 	default = None
@@ -54,7 +54,6 @@ class LiloWindow (InstallWindow):
 	if not default:
 	    default = linuxDevice
 
-	self.todo.lilo.setDevice(liloDevice)
 	self.todo.lilo.setLiloImages(images)
 	self.todo.lilo.setLinear(self.linearCheck.get_active())
 	self.todo.lilo.setAppend(self.appendEntry.get_text())
