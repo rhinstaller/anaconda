@@ -19,6 +19,10 @@ class UpgradeSwapWindow (InstallWindow):
         ics.readHTML ("upswapfile")
 
     def getNext (self):
+        #-If the user doesn't need to add swap, we don't do anything
+        if not self.neededSwap:
+            return None
+        
         mnt, part, size = self.clist.get_row_data(self.row)
         val = int(self.entry.get_text())
         size = int(size)
@@ -59,6 +63,7 @@ class UpgradeSwapWindow (InstallWindow):
         self.row = row
     
     def getScreen (self):
+        self.neededSwap = 0
         rc = upgrade.swapSuggestion(self.todo.instPath, self.todo.fstab)
 	if not rc:
             threads_leave()
@@ -66,6 +71,7 @@ class UpgradeSwapWindow (InstallWindow):
             threads_enter()
 	    return None
 
+        self.neededSwap = 1
         self.row = 0
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
