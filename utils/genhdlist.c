@@ -102,7 +102,7 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
 		headerWrite(outfd, h, HEADER_MAGIC_YES);
 		headerFree(h);
 	    }
-	    fdio->close(fd);
+	    Fclose(fd);
 	}
 
 	errno = 0;
@@ -176,7 +176,7 @@ int main(int argc, const char ** argv) {
 	args++;
     }
 
-    fdio->close(outfd);
+    Fclose(outfd);
 
     poptFreeContext(optCon);
 

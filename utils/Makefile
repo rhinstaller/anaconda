@@ -29,7 +29,7 @@ moddeps: moddeps.o
 	    ../isys/modutils/obj/libobj.a -lrpm -lbz2 -lz -lpopt
 
 genhdlist: genhdlist.c
-	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2 -lz -lpopt -ldb
+	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2 -lz -lpopt -ldb-3.0
 
 depends:
 
