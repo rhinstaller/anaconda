@@ -481,10 +481,12 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
     flags |= LOADER_FLAGS_GRAPHICAL;
 
     for (i=0; i < argc; i++) {
-        if (!strcasecmp(argv[i], "expert"))
-            flags |= (LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK | 
-                      LOADER_FLAGS_ASKMETHOD);
-        else if (!strcasecmp(argv[i], "askmethod"))
+        if (!strcasecmp(argv[i], "expert")) {
+            flags |= LOADER_FLAGS_EXPERT;
+            logMessage("expert got used, ignoring");
+            /*            flags |= (LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK | 
+                          LOADER_FLAGS_ASKMETHOD);*/
+        } else if (!strcasecmp(argv[i], "askmethod"))
             flags |= LOADER_FLAGS_ASKMETHOD;
         else if (!strcasecmp(argv[i], "noshell"))
             flags |= LOADER_FLAGS_NOSHELL;
