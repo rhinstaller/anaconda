@@ -34,6 +34,12 @@ doshutdown()
 	 exit 0
 }
 
+doreboot()
+{
+	 exec /sbin/shutdown -r
+	 exit 0
+}
+
 startinetd()
 {
 	echo
@@ -370,8 +376,10 @@ fi
 echo "loader" >> /.bash_history
 
 echo -n $$ > /var/run/init.pid
-# shutdown on SIGUSR1
+# shutdown (halt) on SIGUSR1
 trap doshutdown SIGUSR1
+# reboot on SIGUSR2
+trap doreboot SIGUSR2
 
 startinetd
 
