@@ -49,14 +49,8 @@ vncpassword=<password>  Enable a password for the vnc connection. This will
 
                 Requires 'vnc' option to be specified as well.
 
-vncconnecthost=<host>   Once installation is up and running, connect to
-                the vnc client named <host>.
-
-                Requires 'vnc' option to be specified as well.
-
-vncconnectport=<port>   Once installation is up and running, connect to
-                the vnc client on port <port>.  Requires that
-                vncconnecthost= option is also specified.
+vncconnect=<host>[:<port>]   Once installation is up and running, connect to
+                the vnc client named <host>, and optionally use port <port>.
 
                 Requires 'vnc' option to be specified as well.
 
