@@ -867,7 +867,7 @@ class InstallInterface:
 
             if not f:
 		if firstTime:	
-		    return self.helpWindow(screen, "helponhelp", self.todo, firstTime = 0)
+		    return self.helpWindow(screen, "helponhelp", firstTime = 0)
 		else:
 		    ButtonChoiceWindow(screen, _("Help not available"), 
 				_("No help is available for this install."),
