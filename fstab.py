@@ -358,7 +358,6 @@ class Fstab:
 		continue
 	    elif fsystem == "vfat" and mntpoint == "/":
 		# do a magical loopback mount -- whee!
-		print "trying loopback magic"
 		iutil.mkdirChain("/mnt/loophost")
 		isys.makeDevInode(device, '/tmp/' + device)
 		isys.mount('/tmp/' + device, "/mnt/loophost", fstype = "vfat")
