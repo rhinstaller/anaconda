@@ -116,7 +116,10 @@ class HeaderList:
         self.hdlist = hdlist
 	self.packages = {}
 	newCompat = []
+        self.preordered = 1
 	for h in hdlist:
+            if h[1000003] == None:
+                self.preordered = 0
 	    name = h[rpm.RPMTAG_NAME]
             if noscore:
                 self.packages[name] = Package(h)

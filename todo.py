@@ -1618,8 +1618,8 @@ class ToDo:
             total = total + 1
             totalSize = totalSize + (p[rpm.RPMTAG_SIZE] / 1024 )
 
-        # XXX I've inserted them in order already.
-        # ts.order()
+        if not self.hdList.preordered:
+            ts.order()
 
         if self.upgrade:
             logname = '/tmp/upgrade.log'
