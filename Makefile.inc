@@ -32,7 +32,3 @@ ifeq (ppc, $(ARCH))
 USEDIET=1
 endif
 
-# define product name to be imported into the loader and anywhere else
-# that needs the proper name of the product
-PRODUCTNAME="Red Hat Linux"
-
