@@ -193,6 +193,16 @@ class XF86Config:
 
     def write (self, path):
         config = open (path, 'w')
+        config.write (self.preludeSection ())
+        config.write (self.inputSection ())
+        config.write (self.mouseSection ())
+        config.write (self.monitorSection ())
+        config.write (self.deviceSection ())
+        config.write (self.screenSection ())
+        config.close ()
+
+    def test (self):
+        config = open ('/tmp/XF86Config.test', 'w')
         config.write (
 """
 Section "Files"
@@ -203,8 +213,10 @@ Section "Files"
     FontPath	"/usr/X11R6/lib/X11/fonts/75dpi/"
     FontPath	"/usr/X11R6/lib/X11/fonts/100dpi/"
 EndSection
+
+Section "ServerFlags"
+EndSection
 """)
-        config.write (self.preludeSection ())
         config.write (self.inputSection ())
         config.write (
 """
@@ -215,15 +227,11 @@ Section "Pointer"
     Emulate3Timeout    50
 EndSection
 """ % self.mouse)
-
         config.write (self.monitorSection ())
         config.write (self.deviceSection ())
         config.write (self.screenSection ())
         config.close ()
 
-    def test (self):
-        self.write ('/tmp/XF86Config.test')
-        
         serverPath = "/usr/X11R6/bin/XF86_" + self.server
 
         server = os.fork()
