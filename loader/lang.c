@@ -70,6 +70,12 @@ struct langInfo {
     char * lang, * key, * font, * map, * lc_all;
 } ;
 
+#ifdef INCLUDE_KON
+static const struct langInfo languages[] = {
+        { "English",	"en",	NULL,		NULL,		"en_US" },
+	{ "Japanese",	"ja",	NULL,		NULL,		"ja_JP" },
+};
+#else
 /* FONT LIST STARTS */
 static const struct langInfo languages[] = {
         { "Czech", 	"cs", 	"lat2-sun16", 	"iso02",	"cs_CZ" },
@@ -90,6 +96,7 @@ static const struct langInfo languages[] = {
 	{ "Ukrainian",  "uk",   "Cyr_a8x16",	"koi2alt",	"ru_RU.KOI8-R" },
 };
 /* FONT LIST ENDS */
+#endif
 const int numLanguages = sizeof(languages) / sizeof(struct langInfo);
 
 void loadLanguage (char * file, int flags) {
@@ -222,6 +229,9 @@ void setLanguage (char * key) {
 	    setenv("LANG", languages[i].key, 1);
 	    setenv("LC_ALL", languages[i].lc_all, 1);
 	    setenv("LINGUAS", languages[i].key, 1);
+	    loadLanguage (NULL, 0);
+	    if (languages[i].font)
+		loadFont(languages[i].font, 0);
 	    break;
 	}
     }
