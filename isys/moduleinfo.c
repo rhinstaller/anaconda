@@ -8,17 +8,20 @@
 
 #include "isys.h"
 
-struct moduleInfo * moduleList = NULL;
-int numModules = 0;
+struct moduleInfoSet_s {
+    struct moduleInfo * moduleList;
+    int numModules;
+};
 
-struct moduleInfo * isysGetModuleList(enum driverMajor major) {
+struct moduleInfo * isysGetModuleList(moduleInfoSet mis, 
+				      enum driverMajor major) {
     struct moduleInfo * miList, * next;
     int i;
 
-    next = miList = malloc(sizeof(*miList) * numModules + 1);
-    for (i = 0; i < numModules; i++) {
-	if (moduleList[i].major == major || major == DRIVER_NONE) {
-	    *next = moduleList[i];
+    next = miList = malloc(sizeof(*miList) * mis->numModules + 1);
+    for (i = 0; i < mis->numModules; i++) {
+	if (mis->moduleList[i].major == major || major == DRIVER_NONE) {
+	    *next = mis->moduleList[i];
 	    next++;
 	}
     }
@@ -35,17 +38,22 @@ struct moduleInfo * isysGetModuleList(enum driverMajor major) {
     return miList;
 }
 
-struct moduleInfo * isysFindModuleInfo(const char * moduleName) {
+struct moduleInfo * isysFindModuleInfo(moduleInfoSet mis, 
+				       const char * moduleName) {
     int i;
 
-    for (i = 0; i < numModules; i++)
-	if (!strcmp(moduleName, moduleList[i].moduleName))
-	    return moduleList + i;
+    for (i = 0; i < mis->numModules; i++)
+	if (!strcmp(moduleName, mis->moduleList[i].moduleName))
+	    return mis->moduleList + i;
 
     return NULL;
 }
 
-int isysReadModuleInfo(const char * filename) {
+moduleInfoSet isysNewModuleInfoSet(void) {
+    return calloc(sizeof(struct moduleInfoSet_s), 1);
+}
+
+int isysReadModuleInfo(const char * filename, moduleInfoSet mis) {
     int fd, isIndented;
     char * buf, * start, * next, * chptr;
     struct stat sb;
@@ -62,8 +70,8 @@ int isysReadModuleInfo(const char * filename) {
     buf[sb.st_size] = '\0';
     close(fd);
 
-    nextModule = moduleList;
-    modulesAlloced = numModules;
+    nextModule = mis->moduleList;
+    modulesAlloced = mis->numModules;
 
     if (strncmp(buf, "Version 0\n", 10)) return -1;
 
@@ -90,14 +98,14 @@ int isysReadModuleInfo(const char * filename) {
 
 	if (*start != '\n' && *start && *start != '#') {
 	    if (!isIndented) {
-		if (nextModule && nextModule->moduleName) numModules++;
+		if (nextModule && nextModule->moduleName) mis->numModules++;
 
-		if (numModules == modulesAlloced) {
+		if (mis->numModules == modulesAlloced) {
 		    modulesAlloced += 5;
-		    moduleList = realloc(moduleList,
-			modulesAlloced * sizeof(*moduleList));
+		    mis->moduleList = realloc(mis->moduleList,
+			modulesAlloced * sizeof(*mis->moduleList));
 		}
-		nextModule = moduleList + numModules;
+		nextModule = mis->moduleList + mis->numModules;
 		nextModule->moduleName = strdup(start);
 		nextModule->major = DRIVER_NONE;
 		nextModule->minor = DRIVER_MINOR_NONE;
@@ -127,7 +135,6 @@ int isysReadModuleInfo(const char * filename) {
 		chptr = start + strlen(start) - 1;
 		if (*start == '"' && *chptr == '"') {
 		    start++;
-		    chptr--;
 		    *chptr = '\0';
 		    nextModule->description = strdup(start);
 		}
@@ -161,8 +168,29 @@ int isysReadModuleInfo(const char * filename) {
 	start = next;
     }
 
-    if (nextModule && nextModule->moduleName) numModules++;
-    numModules = nextModule - moduleList;
+    if (nextModule && nextModule->moduleName) mis->numModules++;
+    mis->numModules = nextModule - mis->moduleList;
 
     return 0;
+}
+
+void isysFreeModuleInfoSet(moduleInfoSet mis) {
+    int i, j;
+
+    for (i = 0; i < mis->numModules; i++) {
+        if (mis->moduleList[i].moduleName) 
+	    free(mis->moduleList[i].moduleName);
+
+        if (mis->moduleList[i].description) 
+	    free(mis->moduleList[i].description);
+
+	for (j = 0; i < mis->moduleList[i].numArgs; j++) {
+	    if (mis->moduleList[i].args[j].arg) 
+		free(mis->moduleList[i].args[j].arg) ;
+	    if (mis->moduleList[i].args[j].description) 
+		free(mis->moduleList[i].args[j].description) ;
+	}
+    }
+
+    free(mis);
 }

@@ -12,6 +12,9 @@
 #include "pci/pciprobe.h"
 #include "smp.h"
 
+/* FIXME: this is such a hack -- moduleInfoList ought to be a proper object */
+moduleInfoSet modInfoList;
+
 static PyObject * doFindModInfo(PyObject * s, PyObject * args);
 static PyObject * doInsmod(PyObject * s, PyObject * args);
 static PyObject * doMount(PyObject * s, PyObject * args);
@@ -100,7 +103,7 @@ static PyObject * getModuleList(PyObject * s, PyObject * args) {
 	return NULL;
     }
 
-    modules = isysGetModuleList(major);
+    modules = isysGetModuleList(modInfoList, major);
     if (!modules) {
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -187,7 +190,7 @@ static PyObject * doFindModInfo(PyObject * s, PyObject * args) {
 
     if (!PyArg_ParseTuple(args, "s", &mod)) return NULL;
 
-    mi = isysFindModuleInfo(mod);
+    mi = isysFindModuleInfo(modInfoList, mod);
     if (!mi) {
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -201,7 +204,7 @@ static PyObject * doReadModInfo(PyObject * s, PyObject * args) {
 
     if (!PyArg_ParseTuple(args, "s", &fn)) return NULL;
 
-    if (isysReadModuleInfo(fn)) {
+    if (isysReadModuleInfo(fn, modInfoList)) {
 	PyErr_SetFromErrno(PyExc_IOError);
 	return NULL;
     }
@@ -277,6 +280,8 @@ static PyObject * smpAvailable(PyObject * s, PyObject * args) {
 }
 
 void init_isys(void) {
+    modInfoList = isysNewModuleInfoSet();
+
     Py_InitModule("_isys", isysModuleMethods);
 }
 

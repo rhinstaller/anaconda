@@ -20,11 +20,17 @@ struct moduleInfo {
     struct moduleArg * args;
 };
 
-int isysReadModuleInfo(const char * filename);
-struct moduleInfo * isysFindModuleInfo(const char * moduleName);
+typedef struct moduleInfoSet_s * moduleInfoSet;
+
+moduleInfoSet isysNewModuleInfoSet(void);
+void isysFreeModuleInfoSet(moduleInfoSet mis);
+int isysReadModuleInfo(const char * filename, moduleInfoSet mis);
+struct moduleInfo * isysFindModuleInfo(moduleInfoSet mis, 
+				       const char * moduleName);
 
 /* NULL moduleName indicates the end of the list; the list must be freed() */
-struct moduleInfo * isysGetModuleList(enum driverMajor major);
+struct moduleInfo * isysGetModuleList(moduleInfoSet mis, 
+				      enum driverMajor major);
 
 /* returns -2 for errno, -1 for unknown device */
 int devMakeInode(char * devName, char * path);
