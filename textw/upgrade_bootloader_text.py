@@ -44,7 +44,7 @@ class UpgradeBootloaderWindow:
             else:
                 nobl = 0
         
-        if self.type != None:
+        if self.type != None and self.bootDev != None:
             t = TextboxReflowed(53,
                                 _("The installer has detected the %s boot "
                                   "loader currently installed on %s.")
