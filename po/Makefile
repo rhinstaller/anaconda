@@ -17,7 +17,7 @@ POTFILES = ../*.py ../iw/*.py ../textw/*.py \
            ../libfdisk/*.c ../loader/*.c ../installclasses/*.py \
 	   ../comps/comps-master
 
-all: $(NLSPACKAGE).pot $(FMTCATALOGS)
+all: $(FMTCATALOGS)
 
 $(NLSPACKAGE).pot: $(POTFILES)
 	xgettext --default-domain=$(NLSPACKAGE) \
