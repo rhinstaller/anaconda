@@ -842,15 +842,17 @@ class ToDo:
 	if not todo.users: return
 
 	for (account, name, password) in todo.users:
+	    print "creating account for", account
+
 	    argv = [ "/usr/sbin/useradd", account ]
 	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath)
 
-	    argv = [ "/usr/bin/chfn", "-f", name]
+	    argv = [ "/usr/bin/chfn", "-f", name, account]
 	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath)
         
-	    argv = [ "/usr/bin/passwd", "--stdin", password + "\n" ]
-	    p = os.pipe
-	    os.write(p[1], password)
+	    argv = [ "/usr/bin/passwd", "--stdin", account ]
+	    p = os.pipe()
+	    os.write(p[1], password + "\n")
 	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath, 
 				   stdin = p[0])
 	    os.close(p[0])
