@@ -1,5 +1,15 @@
 2004-09-27  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/driverdisk.c: 
+	Don't try to mount as ext3 (we don't have the module).
+	If we haven't mounted a partition, don't fail the driver 
+	disk load (#133036)
+
+	* loader2/hardware.c: we need to always do our busprobe (fixes
+	nonet, etc)
+
+	* loader2/loader.c: noprobe ==> nousb and nofirewire
+
 	* kickstart.py: Allow name.arch syntax for selecting a package in
 	%packages (#124456)
 

@@ -325,14 +325,14 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
             num = umount("/tmp/dpart");
             if (num == -1) { 
                 logMessage("error unmounting: %s", strerror(errno));
-                if (errno != EINVAL)
+                if ((errno != EINVAL) && (errno != ENOENT))
                     exit(1);
             }
 
             logMessage("trying to mount %s as partition", part);
             devMakeInode(part + 5, "/tmp/ddpart");
             if (doPwMount("/tmp/ddpart", "/tmp/dpart", "vfat", 1, 0, NULL, NULL, 0, 0)) {
-                if (doPwMount("/tmp/ddpart", "/tmp/dpart", "ext3", 1, 0, NULL, NULL, 0, 0)) {
+                if (doPwMount("/tmp/ddpart", "/tmp/dpart", "ext2", 1, 0, NULL, NULL, 0, 0)) {
                     if (doPwMount("/tmp/ddpart", "/tmp/dpart", "iso9660", 1, 0, NULL, NULL, 0, 0)) {
                         newtWinMessage(_("Error"), _("OK"),
                                        _("Failed to mount partition."));
