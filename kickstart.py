@@ -1058,7 +1058,8 @@ class KickstartBase(BaseInstallClass):
             dispatch.skipStep("betanag")
             dispatch.skipStep("installtype")
         else:
-            BaseInstallClass.setSteps(self, dispatch)            
+            BaseInstallClass.setSteps(self, dispatch)
+            dispatch.skipStep("findrootparts")
 
         if self.interactive or flags.autostep:
             dispatch.skipStep("installtype")

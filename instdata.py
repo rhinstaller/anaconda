@@ -71,6 +71,7 @@ class InstallData:
         self.handleDeps = CHECK_DEPS
         self.dbpath = None
         self.upgradeRoot = None
+        self.rootParts = None
         self.upgradeSwapInfo = None
         self.upgradeDeps = ""
         self.configFileData = self.tmpData

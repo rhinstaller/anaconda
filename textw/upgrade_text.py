@@ -20,6 +20,8 @@ from snack import *
 from fsset import *
 from flags import flags
 from constants import *
+import upgradeclass
+UpgradeClass = upgradeclass.InstallClass
 
 from rhpl.log import log
 from rhpl.translate import _
@@ -186,64 +188,54 @@ class UpgradeSwapWindow:
 	
 class UpgradeExamineWindow:
     def __call__ (self, screen, dispatch, intf, id, chroot):
-        self.parts = upgrade.findExistingRoots(intf, id, chroot)
-        parts = id.upgradeRoot
+        parts = id.rootParts
 
-        if not parts:
-            ButtonChoiceWindow(screen, _("Error"),
-                               _("You don't have any Linux partitions. You "
-                                 "can't upgrade this system!"),
-                               [ TEXT_BACK_BUTTON ], width = 50)
+        height = min(len(parts), 11) + 1
+        if height == 12:
+            scroll = 1
+        else:
+            scroll = 0
+        partList = []
+        for (drive, fs, desc) in parts:
+            partList.append("/dev/%s (%s)" %(drive, desc))
+        partList.append("Don't Upgrade")
+
+        (button, choice) =  ListboxChoiceWindow(screen, _("System to Upgrade"),
+                            _("The following root partitions have been found "
+                              "on your system. FIXME: I NEED BETTER TEXT "
+                              "HERE."), partList,
+                                                [ TEXT_OK_BUTTON,
+                                                  TEXT_BACK_BUTTON ],
+                                                width = 30, scroll = scroll,
+                                                height = height,
+                                                help = "upgraderoot")
+
+        if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
-        
-        if len (parts) > 1:
-            height = min (len (parts), 12)
-            if height == 12:
-                scroll = 1
-            else:
-                scroll = 0
-
-	    partList = []
-	    for (drive, fs) in parts:
-		partList.append(drive)
-
-            (button, choice) = \
-                ListboxChoiceWindow(screen, _("System to Upgrade"),
-                                    _("What partition holds the root partition "
-                                      "of your installation?"), partList, 
-                                    [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ], width = 30,
-                                    scroll = scroll, height = height,
-				    help = "multipleroot")
-            if button == TEXT_BACK_CHECK:
-                return INSTALL_BACK
+        else:
+            if choice >= len(parts):
+                root = None
             else:
                 root = parts[choice]
+
+        if root is not None:
+            c = UpgradeClass(flags.expert)
+            c.setSteps(dispatch)
+            c.setInstallData(id)
+
+            id.upgradeRoot = [root]
+            id.rootParts = parts
+            dispatch.skipStep("installtype", skip = 1)
         else:
-            root = parts[0]
-            (drive, fs) = root
+            dispatch.skipStep("installtype", skip = 0)
+            id.upgradeRoot = None
 
-            rc = ButtonChoiceWindow (screen, _("Upgrade Partition"),
-                                     _("Upgrading the %s "
-                                       "installation on partition "
-                                       "/dev/%s") % (productName, drive,),
-                                     buttons = [ TEXT_OK_BUTTON,
-                                                 TEXT_BACK_BUTTON ])
-            if rc == TEXT_BACK_CHECK:
-                return INSTALL_BACK
-                
-        id.upgradeRoot = [root]
-
-        # if root is on vfat we want to always display boot floppy screen
-        # otherwise they can't boot!
-        # This check is required for upgradeonly installclass to work so
-        # we only show boot floppy screen in partitonless install case
-        # XXX WRONG PLACE TO DO THIS
-        #if root[1] == "vfat":
-        #    todo.instClass.removeFromSkipList("bootdisk")
         return INSTALL_OK
 
 class CustomizeUpgradeWindow:
     def __call__ (self, screen, dispatch, intf, id, chroot):
+        if id.upgradeRoot is None:
+            return INSTALL_NOOP
         rc = ButtonChoiceWindow (screen, _("Customize Packages to Upgrade"),
                                  _("The packages you have installed, "
                                    "and any other packages which are "

@@ -332,7 +332,15 @@ def sniffFilesystemType(device):
     # FIXME:  we don't look for reiserfs, jfs, or vfat
 
     return None
-        
+
+def getRedHatReleaseString(mountpoint):
+    if os.access(mountpoint + "/etc/redhat-release", os.R_OK):
+        f = open(mountpoint + "/etc/redhat-release", "r")
+        lines = f.readlines()
+        f.close()
+        # return the first line with the newline at the end stripped
+        return lines[0][:-1]
+    return ""
 
 class DiskSet:
     """The disks in the system."""
@@ -405,7 +413,8 @@ class DiskSet:
 
             if found:
                 if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                    rootparts.append ((dev, fs))
+                    rootparts.append ((dev, fs,
+                                       getRedHatReleaseString(mountpoint)))
                 isys.umount(mountpoint)
 
         # now, look for candidate lvm roots
@@ -433,7 +442,8 @@ class DiskSet:
 
                 if found:
                     if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                        rootparts.append ((dev, fs))
+                        rootparts.append ((dev, fs,
+                                           getRedHatReleaseString(mountpoint)))
                     isys.umount(mountpoint)
 
         lvm.vgdeactivate()
@@ -467,7 +477,8 @@ class DiskSet:
                         part = disk.next_partition(part)
 			continue
 		    if os.access (mountpoint + '/etc/fstab', os.R_OK):
-			rootparts.append ((node, part.fs_type.name))
+			rootparts.append ((node, part.fs_type.name,
+                                           getRedHatReleaseString(mountpoint)))
 		    isys.umount(mountpoint)
                 elif part.fs_type and (part.fs_type.name == "FAT"):
                     node = get_partition_name(part)
@@ -481,7 +492,7 @@ class DiskSet:
 			continue
                         
 		    if os.access(mountpoint + '/redhat.img', os.R_OK):
-                        rootparts.append((node, "vfat"))
+                        rootparts.append((node, "vfat", ""))
 
 		    isys.umount(mountpoint)
                     

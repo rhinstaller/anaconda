@@ -86,6 +86,7 @@ class BaseInstallClass:
 		 "keyboard",
 		 "mouse",
 		 "welcome",
+                 "findrootparts",
 		 "betanag",
 		 "installtype",
                  "partitionmethod",
