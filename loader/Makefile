@@ -107,6 +107,8 @@ install: all
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 kon-loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
+	install -m 644 kon.cfg $(DESTDIR)/$(RUNTIMEDIR)/loader
+	install -m 644 minikon.fnt $(DESTDIR)/$(RUNTIMEDIR)/loader
 
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
