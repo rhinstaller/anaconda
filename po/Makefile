@@ -72,7 +72,9 @@ install:	all
 		$(PREFIX)/$(INSTALLNLSDIR)/$$l/LC_MESSAGES/$(NLSPACKAGE).mo; \
 	done
 
-missing: Makefile
+.PHONY: missing
+
+missing:
 	mkdir -p missing; \
 	for n in $(CATALOGS); do \
 	    msghack -w 999999 --missing $$n > missing/$$n-; \
