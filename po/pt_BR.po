@@ -7,15 +7,16 @@
 # David Barzilay <barzilay@redhat.com>, 2003,2004.
 # Djeizon Barros <djeizon@gmx.net>, 2003.
 # Hugo Cisneiros <hugo@devin.com.br>, 2003.
-# Daniel Brooke Peig <daniel@brookepeig.com>, 2004
+# Daniel Brooke Peig <daniel@brookepeig.com>, 2004.
+# Pedro Fernandes Macedo <webmaster@margo.bijoux.nom.br>, 2004.
 msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-04-20 16:05+1000\n"
-"Last-Translator: David Barzilay <barzilay@redhat.com>\n"
-"Language-Team: Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
+"PO-Revision-Date: 2004-07-07 01:08-0300\n"
+"Last-Translator: Pedro Fernandes Macedo <webmaster@margo.bijoux.nom.br>\n"
+"Language-Team: Brazilian Portuguese <fedora-trans-pt_BR@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -65,7 +66,7 @@ msgstr ""
 "X-Spell-Extra: GMT DST EUA UTC PEI Eastern\n"
 "X-Spell-Extra: BA GO DF MG ES RJ SP PR SC RS TF CB CC MZ NB LP LR JY CE\n"
 "X-Spell-Extra: SJ SL SA CH CN CT TM NQ RN FM NE ER MN SF\n"
-"X-Generator: KBabel 1.0\n"
+"X-Generator: KBabel 1.3.1\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -121,13 +122,11 @@ msgstr "Desistindo de conectar após 50 tentativas!\n"
 #: ../anaconda:198
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Por favor conecte seu cliente vnc manualmente a %s para iniciar a instalação."
+msgstr "Por favor conecte seu cliente vnc manualmente a %s para iniciar a instalação."
 
 #: ../anaconda:200
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Por favor conecte seu cliente vnc manualmente para iniciar a instalação."
+msgstr "Por favor conecte seu cliente vnc manualmente para iniciar a instalação."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
@@ -659,20 +658,19 @@ msgstr ""
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Login Remoto (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Servidor Web (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Transferência de Arquivos (FTP)"
 
 #: ../firewall.py:58
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "E-mail (SMTP)"
+msgstr "Servidor de E-mail (SMTP)"
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -1063,11 +1061,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"O seguinte erro foi encontrado ao processar a sua configuração de kickstart:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Erro ao abrir o arquivo kickstart %s: %s"
+msgstr "Erro ao interpretar o arquivo Kickstart"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1078,9 +1078,8 @@ msgstr ""
 "então escolha cuidadosamente o disquete."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Padrão"
+msgstr "Padrão:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1234,9 +1233,9 @@ msgid "Change CDROM"
 msgstr "Trocar CDROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Por favor insira o disco %d para continuar."
+msgstr "Por favor insira o disco %s %d para continuar."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1249,7 +1248,7 @@ msgstr "Este não é o CDROM %s correto."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Não conseguiu acessar o CDROM"
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1291,13 +1290,11 @@ msgstr "O nome da máquina deve ter no máximo 64 caracteres."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"O nome da máquina deve começar com caracteres no intervalo 'a-z' ou 'A-Z'"
+msgstr "O nome da máquina deve começar com caracteres no intervalo 'a-z' ou 'A-Z'"
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"Os nomes das máquinas só podem conter os caracteres 'a-z', 'A-Z', '-' ou '.'"
+msgstr "Os nomes das máquinas só podem conter os caracteres 'a-z', 'A-Z', '-' ou '.'"
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
@@ -1471,8 +1468,7 @@ msgstr "Iniciando Instalação"
 
 #: ../packages.py:917
 msgid "Starting install process, this may take several minutes..."
-msgstr ""
-"Iniciando o processo de instalação, isto poderá demorar vários minutos..."
+msgstr "Iniciando o processo de instalação, isto poderá demorar vários minutos..."
 
 #: ../packages.py:957
 msgid ""
@@ -1598,7 +1594,7 @@ msgstr ""
 "Você deseja reformatar este DASD usando o formato CDL?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1608,19 +1604,17 @@ msgid ""
 msgstr ""
 "A tabela de partições do dispositivo /dev/%s é do tipo incompatível %s para "
 "a sua arquitetura.  Para utilizar este disco na instalação do %s, este "
-"deverá ser reformatado causando a perda de TODOS OS DADOS nele contidos.\n"
+"deverá ser reinicializado causando a perda de TODOS OS DADOS nele contidos.\n"
 "\n"
 "Deseja incializar e formatar este disco?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Ignorar"
+msgstr "Ignorar drive"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Formatar"
+msgstr "_Formatar drive"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -1637,7 +1631,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Formatando o disco %s, por favor aguarde...\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1648,9 +1642,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Não foi possível ler a tabela de partições do dispositivo %s. Para criar "
+"Não foi possível ler a tabela de partições do dispositivo %s (%s). Para criar "
 "novas partições ela precisa ser inicializada, causando a perda de TODOS OS "
-"DADOS neste disco. Esta operação ignora a escolha de instalação sobre qual "
+"DADOS neste disco. \n"
+"\n"
+"Esta operação ignora a escolha de instalação sobre qual "
 "disco não deve ser apagado.\n"
 "\n"
 "Você deseja inicializar este disco, apagando TODO OS DADOS?"
@@ -1805,8 +1801,7 @@ msgstr "Confirmar Remoção"
 #: ../partIntfHelpers.py:229
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"Você está prestes a apagar todas as partições do dispositivo '/dev/%s'."
+msgstr "Você está prestes a apagar todas as partições do dispositivo '/dev/%s'."
 
 #: ../partIntfHelpers.py:232 ../partIntfHelpers.py:520
 #: ../iw/lvm_dialog_gui.py:733 ../iw/lvm_dialog_gui.py:1087
@@ -1990,8 +1985,7 @@ msgid "Confirm Reset"
 msgstr "Confirmar Restauração"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Tem certeza que deseja restaurar a tabela de partições para o estado "
 "original?"
@@ -2043,10 +2037,8 @@ msgstr ""
 "para instalar %s."
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Você deve criar uma partição /boot/efi do tipo FAT e com o tamanho de 50 MB."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Você deve criar uma partição /boot/efi do tipo FAT e com o tamanho de 50 MB."
 
 #: ../partitions.py:796
 msgid "You must create a PPC PReP Boot partition."
@@ -2111,8 +2103,7 @@ msgstr "uma partição pertencente a um Grupo de Volumes LVM."
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Este ponto de montagem é inválido. O diretório %s deve estar no sistema de "
 "arquivos /."
@@ -2145,8 +2136,7 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"O tamanho da partição %s (%10.2f MB) excede o tamanho máximo de %10.2f MB."
+msgstr "O tamanho da partição %s (%10.2f MB) excede o tamanho máximo de %10.2f MB."
 
 #: ../partRequests.py:465
 #, python-format
@@ -2217,8 +2207,7 @@ msgstr ""
 
 #: ../rescue.py:237 ../rescue.py:272 ../rescue.py:426
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
-"Quando terminar, saia da janela de comandos e o seu sistema será reiniciado."
+msgstr "Quando terminar, saia da janela de comandos e o seu sistema será reiniciado."
 
 #: ../rescue.py:256 ../rescue.py:325 ../rescue.py:333 ../rescue.py:404
 msgid "Rescue"
@@ -2368,10 +2357,8 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:365
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> ajuda | <Tab> alterna seleção | <Espaço> selecionar | <F12> continuar"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> ajuda | <Tab> alterna seleção | <Espaço> selecionar | <F12> continuar"
 
 #: ../text.py:367
 msgid ""
@@ -2568,9 +2555,8 @@ msgid "Connecting..."
 msgstr "Connectando..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Não foi possível carregar o arquivo!"
+msgstr "Não foi possível carregar o servidor gráfico!"
 
 #: ../vnc.py:37
 msgid ""
@@ -2578,25 +2564,25 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"Não foi possível carregar o servidor gráfico. Você gostaria de iniciar o VNC "
+"para conectar a este computador a partir de outro computador e executar uma instalação "
+"gráfica ou continuar com a instalação em modo texto?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
 msgstr "Utilizar modo texto"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Iniciando VNC..."
+msgstr "Iniciar VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Configuração do Silo"
+msgstr "Configuração do VNC"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Senha do Administrador (root)"
+msgstr "Sem senha"
 
 #: ../vnc.py:62
 msgid ""
@@ -2604,6 +2590,9 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"Uma senha previne acessos não autorizados observando e monitorando "
+"o progresso de sua instalação.  Por favor , entre com uma senha para ser usada "
+"para a instalação"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2626,7 +2615,6 @@ msgid "Password Length"
 msgstr "Tamanho da Senha"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
 msgstr "A senha deve ter pelo menos 6 caracteres."
 
@@ -2672,6 +2660,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"A conta de root é usada pada administrar o sistema.  Digite uma senha para "
+"o usuário root."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3319,6 +3309,8 @@ msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
 msgstr ""
+"Com um firewall, você pode querer permitir acesso a serviços específicos no seu "
+"computador a terceiros. Permitir acesso a quais serviços?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3327,11 +3319,14 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
+"Security Enhanced Linux (SELinux) provê controles de segurança mais específicos "
+"do que os disponíveis em um sistema Linux tradicional. Ele pode ser configurado em "
+"um estado desativado , um estado em que apenas avisa sobre coisas que seriam negadas "
+"ou um estado totalmente ativo."
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "Desabilitar SELinux"
+msgstr "Habilitar SELinux?"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3568,8 +3563,7 @@ msgstr "Nome de volume lógico inválido"
 #: ../iw/lvm_dialog_gui.py:567
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"O nome do volume lógico \"%s\" já está em uso. Por favor escolha outro."
+msgstr "O nome do volume lógico \"%s\" já está em uso. Por favor escolha outro."
 
 #: ../iw/lvm_dialog_gui.py:581
 #, python-format
@@ -3607,8 +3601,7 @@ msgstr "Não há slots livres"
 #: ../iw/lvm_dialog_gui.py:696
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
-"Você não pode criar mais do que %s volumes lógicos por grupo de volumes."
+msgstr "Você não pode criar mais do que %s volumes lógicos por grupo de volumes."
 
 #: ../iw/lvm_dialog_gui.py:702
 msgid "No free space"
@@ -3640,8 +3633,7 @@ msgstr "Nome já utilizado"
 #: ../iw/lvm_dialog_gui.py:877
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"O nome do grupo de volumes \"%s\" já está em uso. Por favor escolha outro."
+msgstr "O nome do grupo de volumes \"%s\" já está em uso. Por favor escolha outro."
 
 #: ../iw/lvm_dialog_gui.py:921
 msgid "Not enough physical volumes"
@@ -3892,13 +3884,12 @@ msgid "_Point to Point (IP)"
 msgstr "_Ponto a Ponto (IP)"
 
 #: ../iw/network_gui.py:238
-#, fuzzy
 msgid "_ESSID"
-msgstr "SCSI"
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr ""
+msgstr "Chave Criptográfica"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -4219,16 +4210,14 @@ msgid "Partitioning"
 msgstr "Particionamento"
 
 #: ../iw/partition_gui.py:639
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "Existem os seguintes erros críticos com o esquema de particionamento "
 "selecionado."
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Estes erros precisam ser corrigidos antes de continuar com a instalação do %"
 "s."
@@ -4385,8 +4374,7 @@ msgstr "Não foi Possível Criar o Editor de Clonagem de Discos"
 
 #: ../iw/partition_gui.py:1315
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Por alguma razão, não foi possível criar o editor de clonagem de discos."
+msgstr "Por alguma razão, não foi possível criar o editor de clonagem de discos."
 
 #: ../iw/partition_gui.py:1359
 msgid "Ne_w"
@@ -4862,8 +4850,7 @@ msgstr "Isto atualizará seu gestor de início."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "O instalador detectou o gestor de início %s instalado em %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4999,8 +4986,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "O arquivo de memória virtual deve ter entre 1 e 2000 MB de tamanho."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Não há espaço suficiente na unidade que você selecionou para a partição de "
 "memória virtual."
@@ -5341,8 +5327,7 @@ msgstr ""
 "nomes deseja usar para sua inicialização."
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Espaço> seleciona botão | <F2> seleciona inicialização padrão | <F12> "
 "continuar"
@@ -5584,9 +5569,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "Você não pode personalizar um firewall desabilitado."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Personalizar Configuração Gráfica"
+msgstr "Personalizar Configuração do Firewall"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5688,13 +5672,12 @@ msgid "Point to Point (IP)"
 msgstr "Ponto a Ponto (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:186
-#, fuzzy
 msgid "ESSID"
-msgstr "SCSI"
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:187
 msgid "Encryption Key"
-msgstr ""
+msgstr "Chave Criptográfica"
 
 #: ../textw/network_text.py:88
 #, python-format
@@ -5784,8 +5767,7 @@ msgid "Select individual packages"
 msgstr "Selecionar pacotes individuais"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Espaço>,<+>,<-> seleção   |   <F2> Detalhes do Grupo   |   <F12> próxima "
 "tela"
@@ -5812,10 +5794,8 @@ msgid "Total size"
 msgstr "Tamanho total"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Espaço>,<+>,<-> seleção   |   <F1> ajuda   |   <F2> descrição do pacote"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Espaço>,<+>,<-> seleção   |   <F1> ajuda   |   <F2> descrição do pacote"
 
 #: ../textw/packages_text.py:374
 msgid "Package Dependencies"
@@ -6040,8 +6020,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1140
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Ajuda     F2-Novo      F3-Editar   F4-Apagar    F5-Restaurar    F12-"
 "OK        "
@@ -6289,16 +6268,12 @@ msgid "User Exists"
 msgstr "Este Usuário Já Existe"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr ""
-"O usuário Administrador já está configurado. Não é necessário adicioná-lo."
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "O usuário Administrador já está configurado. Não é necessário adicioná-lo."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
-msgstr ""
-"Este usuário do sistema já está configurado. Não é necessário adicioná-lo."
+msgid "This system user is already configured. You don't need to add this user here."
+msgstr "Este usuário do sistema já está configurado. Não é necessário adicioná-lo."
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
@@ -6845,38 +6820,33 @@ msgstr ""
 "drivers. Qual você deseja utilizar?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Você tem vários dispositivos que podem servir de origem para um disco de "
-"drivers. Qual você deseja utilizar?"
+"Você tem várias partições neste dispositivo que podem conter a imagem do "
+"disco de drivers. Qual você deseja usar?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Não foi possível montar disco."
+msgstr "Não foi possível montar a partição."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Selecione o driver"
+msgstr "Selecione a imagem do disco de drivers"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Selecione o arquivo que é a sua imagem do disco de driver"
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Não foi possível montar o disco de drivers."
+msgstr "Não foi possível montar o disco de drivers a partir do arquivo."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Insira um disco de drivers em /dev/%s e pressione \"OK\" para continuar."
+msgstr "Insira um disco de drivers em /dev/%s e pressione \"OK\" para continuar."
 
 #: ../loader2/driverdisk.c:381
 msgid "Insert Driver Disk"
@@ -7085,9 +7055,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Não foi possível encontrar ks.cfg no disquete de inicialização."
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Argumento inválido no comando do método kickstart do HD %s: %s"
+msgstr "Argumento inválido para desligar o método kickstard com o comando %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -7095,10 +7065,8 @@ msgid "Welcome to %s"
 msgstr "Bem-vindo ao %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:176
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> alterna seleção  | <Espaço> seleciona | <F12> continuar "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> alterna seleção  | <Espaço> seleciona | <F12> continuar "
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
@@ -7228,9 +7196,9 @@ msgid "Add Device"
 msgstr "Adicionar Dispositivo"
 
 #: ../loader2/loader.c:1136
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "carregador já foi executado.  Iniciando janela de comandos."
+msgstr "carregador já foi executado.  Iniciando janela de comandos.\n"
 
 #: ../loader2/loader.c:1484
 #, c-format
@@ -7240,8 +7208,7 @@ msgstr "Executando Anaconda, o modo de recuperação %s - por favor aguarde...\n
 #: ../loader2/loader.c:1486
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"Executando Anaconda, o instalador do sistema %s - por favor aguarde...\n"
+msgstr "Executando Anaconda, o instalador do sistema %s - por favor aguarde...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -7345,8 +7312,7 @@ msgstr "Teste de Consistência"
 #: ../loader2/modules.c:920
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
-"Argumento inválido no comando do método kickstart do dispositivo %s: %s"
+msgstr "Argumento inválido no comando do método kickstart do dispositivo %s: %s"
 
 #: ../loader2/net.c:46
 #, c-format
@@ -7370,11 +7336,13 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s é um adaptador de rede sem fio. Por favor , defina o ESSID e a chave criptográfica "
+"necessária para acessar a sua rede sem fio. Se nenhuma chave é necessária , deixe este "
+"campo em branco e a instalação irá continuar."
 
 #: ../loader2/net.c:190
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Outras Configurações"
+msgstr "Configurações da Rede Sem Fio"
 
 #: ../loader2/net.c:203
 msgid "Nameserver IP"
@@ -7612,8 +7580,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"Se você estiver utilizando um servidor proxy de HTTP insira o seu nome."
+msgstr "Se você estiver utilizando um servidor proxy de HTTP insira o seu nome."
 
 #: ../loader2/urls.c:431
 msgid "Account name:"
@@ -7672,16 +7639,14 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Hora do Atlântico - Labrador Leste"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Hora do Atlântico - Nova Escócia (maioria das localidades), NB, Labrador "
 "Oeste, Quebec Leste & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Hora do Atlântico - Nova Escócia - locais não regidos pelo DST 1966-1971"
+msgstr "Hora do Atlântico - Nova Escócia - locais não regidos pelo DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -7860,8 +7825,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Hora Oriental - Ontario & Quebec - maioria das localidades"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Hora Oriental - Ontario & Quebec - locais regidos pelo DST 1966-1971"
 
 #. generated from zone.tab
@@ -8038,18 +8002,15 @@ msgstr "maioria das localidades"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
-"maioria das localidades (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "maioria das localidades (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Hora Padrão da Montanha - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Hora Padrão da Montanha - Dawson Creek & Forte Saint John, Columbia Britânica"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Hora Padrão da Montanha - Dawson Creek & Forte Saint John, Columbia Britânica"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8091,8 +8052,7 @@ msgstr "Hora da Montanha - oeste dos Territórios Noroeste"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr ""
-"Nordeste do Brasil (Maranhão, Piauí, Ceará, Rio Grande do Norte, Paraná)"
+msgstr "Nordeste do Brasil (Maranhão, Piauí, Ceará, Rio Grande do Norte, Paraná)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
@@ -8287,7 +8247,7 @@ msgstr "Zaporozh'ye, Lugansk Leste"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arábico"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -8342,9 +8302,8 @@ msgid "German"
 msgstr "Alemão"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Procurando"
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8368,7 +8327,7 @@ msgstr "Coreano"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedônio"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8392,7 +8351,7 @@ msgstr "Português(Brasil)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8411,9 +8370,8 @@ msgid "Swedish"
 msgstr "Sueco"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmânia"
+msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8425,7 +8383,7 @@ msgstr "Ucraniano"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamita"
 
 #. generated from lang-table
 msgid "Welsh"
@@ -8435,612 +8393,3 @@ msgstr "Galês"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "A porta indicada é inválida: %s.  O formato correto é 'porta:protocolo', "
-#~ "onde porta está entre 1 e 65535, e o protocolo pode ser 'tcp' ou 'udp'.\n"
-#~ "\n"
-#~ "Por exemplo, '1234:udp'"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "Aviso: Valor Inválido"
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "Permitir _entrada:"
-
-#, fuzzy
-#~ msgid "Web Server"
-#~ msgstr "_Servidor"
-
-#~ msgid "Other _ports:"
-#~ msgstr "Outras _portas:"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "Extensões do _Security Enhanced Linux (SELinux):"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "Dispositivos Confiáveis:"
-
-#~ msgid "SSH"
-#~ msgstr "SSH"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "WWW (HTTP)"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "E-mail (SMTP)"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Other ports"
-#~ msgstr "Outras portas"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "Configuração do Firewall - Personalizar"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "Você pode personalizar seu firewall de duas maneiras. Primeiro, você pode "
-#~ "permitir todo o tráfego de certas interfaces de rede. Em segundo lugar, "
-#~ "você pode permitir a passagem de certos protocolos através do firewall. "
-#~ "Especifique portas adicionais no formato 'serviço:protocolo' ('imap:tcp', "
-#~ "por exemplo), separadas por vírgulas. "
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "Aviso: %s não é uma porta válida."
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "Não foi possível montar o CDROM."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Insira a senha do administrador para o sistema."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "_Personalizar firewall"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "Quais serviços devem ter a passagem permitida pelo firewall?"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr ""
-#~ "Se você deseja permitir todo o tráfego de um dispositivo, selecione-o "
-#~ "abaixo."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "Dispositivos _confiáveis:"
-
-#~ msgid "Workstation Defaults"
-#~ msgstr "Estação de Trabalho Padrão"
-
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ "This installation process is outlined in detail in the Official %s "
-#~ "Installation Guide available from Red Hat, Inc. If you have access to "
-#~ "this manual, you should read the installation section before continuing.\n"
-#~ "\n"
-#~ "If you have purchased Official %s, be sure to register your purchase "
-#~ "through our web site, http://www.redhat.com/."
-#~ msgstr ""
-#~ "Bem-vindo a %s!\n"
-#~ "\n"
-#~ "Este processo de instalação está detalhado no Guia de Oficial de "
-#~ "Instalação do %s disponível através da Red Hat, Inc. Se você tiver acesso "
-#~ "a este manual, deve ler a seção sobre instalação antes de continuar.\n"
-#~ "\n"
-#~ "Se você comprou uma versão oficial do %s, não esqueça de registrar sua "
-#~ "compra através do nosso site, http://www.redhat.com."
-
-#~ msgid ""
-#~ "If you created a boot diskette during this installation as your primary "
-#~ "means of booting %s, insert it before rebooting your newly installed "
-#~ "system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Se você criou um disquete de inicialização durante esta instalação com o "
-#~ "objetivo de iniciar %s,insira-o antes de reiniciar seu sistema recém-"
-#~ "instalado.\n"
-#~ "\n"
-
-#~ msgid "Online Help"
-#~ msgstr "Ajuda online"
-
-#~ msgid "_Install BETA"
-#~ msgstr "_Instalar BETA"
-
-#~ msgid "Set hostname"
-#~ msgstr "Definir Nome da máquina"
-
-#~ msgid "Welcome"
-#~ msgstr "Bem-vindo"
-
-#~ msgid "Hardware clock set to GMT?"
-#~ msgstr "Relógio do hardware configurado para o horário GMT?"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "WARNING!!! VNC server running with NO PASSWORD!"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "ATENÇÃO!!! Servidor VNC rodando SEM SENHA!"
-
-#~ msgid "You can use the vncpasswd=<password> boot option"
-#~ msgstr "Você pode usar a opção boot vncpasswd=<password>"
-
-#~ msgid ""
-#~ "if you would like to secure the server.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "se você quiser proteger o servidor.\n"
-#~ "\n"
-
-#~ msgid "Enter a boot loader password and then confirm it."
-#~ msgstr "Insira uma senha para o gestor de início e confirme-a em seguida."
-
-#~ msgid ""
-#~ "The default workstation environment includes our recommendations for new "
-#~ "users, including:\n"
-#~ "\n"
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'redhat-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "O ambiente padrão da estação de trabalho inclui nossas recomendações para "
-#~ "novos usuários, dentre elas:\n"
-#~ "\n"
-#~ "\tAmbiente de trabalho gráfico (GNOME)\n"
-#~ "\tPacote Office (OpenOffice)\n"
-#~ "\tNavegador da Web (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tMensagens Instantâneas\n"
-#~ "\tAplicações de som e vídeo\n"
-#~ "\tJogos\n"
-#~ "\tFerramentas de Desenvolvimento de Software\n"
-#~ "\tFerramentas de Administração\n"
-#~ "\n"
-#~ "Após a instalação, outros softwares podem ser adicionados ou removidos "
-#~ "utilizando a ferramenta 'redhat-config-packages'.\n"
-#~ "\n"
-#~ "Se você estiver familiarizado com %s, poderá ter alguns pacotes "
-#~ "específicos que deseje instalar ou não. Escolha a opção abaixo para "
-#~ "personalizar sua instalação."
-
-#~ msgid "Personal Desktop Defaults"
-#~ msgstr "Área de Trabalho Pessoal Padrão"
-
-#~ msgid "Firewall Configuration"
-#~ msgstr "Configuração do Firewall"
-
-#~ msgid "Select a security level for the system:  "
-#~ msgstr "Escolha o nível de segurança para o sistema: "
-
-#~ msgid "Hi_gh"
-#~ msgstr "Al_to"
-
-#~ msgid "_Medium"
-#~ msgstr "_Médio"
-
-#~ msgid "Use _default firewall rules"
-#~ msgstr "Usar regras de bloqueio pa_drão"
-
-#~ msgid "_Customize"
-#~ msgstr "_Personalizar"
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System , choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Seu sistema será configurado para usar o driver de memória digital (frame "
-#~ "buffer) para o Sistema X Window.  Se você não quer configurar o Sistema X "
-#~ "Window, escolha a opção 'Pular a Configuração do X' abaixo."
-
-#~ msgid ""
-#~ "A firewall protects against unauthorized network intrusions. High "
-#~ "security blocks all incoming accesses. Medium blocks access to system "
-#~ "services (such as telnet or printing), but allows other connections. No "
-#~ "firewall allows all connections and is not recommended. "
-#~ msgstr ""
-#~ "Um bloqueio (firewall) protege o seu computador de invasões não "
-#~ "autorizadas através da rede. Alta segurança bloqueia todos os acessos. "
-#~ "Segurança média bloqueia acesso aos serviços do sistema (tais como telnet "
-#~ "ou impressão), mas permite outras conexões. Sem bloqueio permite todas as "
-#~ "conexões e não é recomendado."
-
-#~ msgid "Security Level:"
-#~ msgstr "Nível de Segurança:"
-
-#~ msgid "High"
-#~ msgstr "Alto"
-
-#~ msgid "Medium"
-#~ msgstr "Médio"
-
-#~ msgid "DHCP"
-#~ msgstr "DHCP"
-
-#~ msgid "VNC server now running - please connect to install..."
-#~ msgstr "O servidor VNC está rodando - por favor conecte para instalar..."
-
-#~ msgid "Generic"
-#~ msgstr "Genérico"
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Seu sistema será configurado para usar o driver de memória digital (frame "
-#~ "buffer) para o Sistema X Window.  Se você não quer configurar o Sistema X "
-#~ "Window, escolha a opção 'Pular a Configuração do X' abaixo."
-
-#~ msgid "DASD partitions can only be deleted with fdasd"
-#~ msgstr "As partições DASD só podem ser apagadas com o fdasd"
-
-#~ msgid "You must go back and use fdasd to inititalize this partition"
-#~ msgstr ""
-#~ "Você deve retornar e utilizar o fdasd para inicializar esta partição"
-
-#~ msgid "Root password accepted."
-#~ msgstr "Senha do administrador aceita."
-
-#~ msgid "Root password is too short."
-#~ msgstr "A senha do administrador é muito curta."
-
-#~ msgid "Root passwords do not match."
-#~ msgstr "As senhas do administrador não conferem."
-
-#~ msgid "_Accept the current package list"
-#~ msgstr "_Aceitar atual lista de pacotes"
-
-#~ msgid ""
-#~ "Choose this option to install your system from scratch.  Depending on how "
-#~ "you choose to partition your system the existing data on your drives may "
-#~ "or may not be preserved."
-#~ msgstr ""
-#~ "Selecione esta opção para efetuar uma instalação limpa do sistema. "
-#~ "Dependendo de como você escolher particionar seu sistema, os dados "
-#~ "existentes em seus discos serão preservados ou não."
-
-#~ msgid "_Customize packages to be upgraded"
-#~ msgstr "Escolher pa_cotes para a atualização"
-
-#~ msgid "Check for _bad blocks"
-#~ msgstr "Verificar _blocos defeituosos"
-
-#~ msgid "_Reset"
-#~ msgstr "_Restaurar"
-
-#~ msgid "Make _RAID"
-#~ msgstr "Criar _RAID"
-
-#~ msgid "Location"
-#~ msgstr "Localização"
-
-#~ msgid "Use _daylight saving time (US only)"
-#~ msgstr "Use horário _de verão  (só para EUA)"
-
-#~ msgid "UTC Offset"
-#~ msgstr "Diferença UTC"
-
-#~ msgid ""
-#~ "If you created a boot disk to use to boot your %s system, insert it "
-#~ "before you press <Enter> to reboot.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Se você criou um disco de inicialização para carregar seu sistema %s, "
-#~ "insira-o antes de pressionar <Enter> para reiniciar.\n"
-#~ "\n"
-
-#~ msgid "Use bootp/dhcp"
-#~ msgstr "Utilizar bootp/dhcp"
-
-#~ msgid "Secondary nameserver:"
-#~ msgstr "Nome secundário do servidor:"
-
-#~ msgid "Tertiary nameserver:"
-#~ msgstr "Nome terciário do servidor:"
-
-#~ msgid "Point to Point (IP):"
-#~ msgstr "Ponto a Ponto (IP):"
-
-#~ msgid ""
-#~ "The hostname is the name of your computer.  If your computer is attached "
-#~ "to a network, this may be assigned by your network administrator."
-#~ msgstr ""
-#~ "O nome da máquina é o nome do seu computador.  Se o seu computador está "
-#~ "ligado à uma rede, este pode ter sido atribuído pelo seu administrador de "
-#~ "rede."
-
-#~ msgid "You must go back and use fdasd to initialize this partition"
-#~ msgstr "Você deve voltar e utilizar fdasd para inicializar esta partição"
-
-#~ msgid ""
-#~ "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-"
-#~ "OK        "
-#~ msgstr ""
-#~ "    F1-Ajuda                F3-Editar   F4-Apagar    F5-Restaurar    F12-"
-#~ "OK        "
-
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr ""
-#~ "Falha na reconstrução da base de dados RPM. Falta de espaço no disco?"
-
-#~ msgid "T_ext"
-#~ msgstr "T_exto"
-
-#~ msgid "CDROM type"
-#~ msgstr "Tipo de CDROM"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "Que tipo de CDROM você possui?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "Inicializando CDROM..."
-
-#~ msgid ""
-#~ "This module can take parameters which affects its operation. If you don't "
-#~ "know what parameters to supply, just skip this screen by pressing the \"OK"
-#~ "\" button now."
-#~ msgstr ""
-#~ "Este módulo pode receber parâmetros que afetam a sua operação. Se você "
-#~ "não sabe que parâmetros deve fornecer, pule esta tela e cliqueno botão "
-#~ "\"OK\" agora."
-
-#~ msgid "Module Parameters"
-#~ msgstr "Parâmetros do Módulo"
-
-#~ msgid "Insert your driver disk and press \"OK\" to continue."
-#~ msgstr "Insira o 'driver disk' e clique em \"OK\" para continuar."
-
-#~ msgid ""
-#~ "The floppy disk you inserted is not a valid driver disk for this release "
-#~ "of %s."
-#~ msgstr ""
-#~ "O disquete que você inseriu não é um 'driver disk' válido para esta "
-#~ "versãodo %s."
-
-#~ msgid ""
-#~ "Which driver should I try?. If the driver you need does not appear in "
-#~ "this list, and you have a separate driver disk, please press F2."
-#~ msgstr ""
-#~ "Que 'driver' devo tentar utilizar? Se o 'driver' que você precisa não "
-#~ "aparece nesta lista e, se você tiver uma 'driver disk' adicional, "
-#~ "porfavor pressione F2."
-
-#~ msgid "Specify module parameters"
-#~ msgstr "Especifique parâmetros do módulo"
-
-#~ msgid "Failed to insert %s module."
-#~ msgstr "Não foi possível inserir o módulo %s"
-
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Erro ao abrir arquivo de kickstart %s: %s"
-
-#~ msgid "What kind of device would you like to add"
-#~ msgstr "Que tipo de dispositivo quer adicionar"
-
-#~ msgid "The following devices have been found on your system:"
-#~ msgstr "Os seguintes dispositivos foram encontrados no seu sistema:"
-
-#~ msgid ""
-#~ "No special device drivers have been loaded for your system. Would you "
-#~ "like to load any now?"
-#~ msgstr ""
-#~ "Nenhum dispositivo de 'driver' especial foi carregado para o seu sistema. "
-#~ "Você deseja carregar algum agora?"
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "Esse diretório não parece conter a árvore de instalação do Red Hat."
-
-#~ msgid "That directory could not be mounted from the server"
-#~ msgstr "Não foi possível montar esse diretório a partir do servidor"
-
-#~ msgid "File %s/%s not found on server."
-#~ msgstr "Arquivo %s/%s não encontrado no servidor."
-
-#~ msgid "HTTP"
-#~ msgstr "HTTP"
-
-#~ msgid "Unable to retrieve the first install image"
-#~ msgstr "Não foi possível recuperar a primeira imagem de instalação"
-
-#~ msgid "FTP and HTTP installs require 20MB or more of system memory."
-#~ msgstr "Instalações FTP ou HTTP necessitam de 20MB ou mais de memória."
-
-#~ msgid "Insert your updates disk and press \"OK\" to continue."
-#~ msgstr ""
-#~ "Insira o disquete com as atualizações e pressione \"OK\" para continuar."
-
-#~ msgid ""
-#~ "The floppy disk you inserted is not a valid update disk for this release "
-#~ "of %s."
-#~ msgstr ""
-#~ "O disquete que você inseriu não é um disquete de atualizações válido para "
-#~ "esta versão do %s."
-
-#~ msgid "Failed to mount floppy disk."
-#~ msgstr "A montagem do disquete falhou."
-
-#~ msgid ""
-#~ "The second stage of the install which you have selected does not match "
-#~ "the boot disk which you are using.  This shouldn't happen, and I'm "
-#~ "rebooting your system now."
-#~ msgstr ""
-#~ "A segunda fase da instalação que você selecionou não condiz com o "
-#~ "disquete'boot' sendo utilizado.  Isto não deveria acontecer; o sistema "
-#~ "será reiniciadoagora."
-
-#~ msgid ""
-#~ "No hard drives have been found. You probably need to manually choose "
-#~ "device drivers for the installation to succeed. Would you like to select "
-#~ "drivers now?"
-#~ msgstr ""
-#~ "Nenhum disco rígido foi encontrado. Você provavelmente necessita "
-#~ "selecionar manualmente os 'drivers' dos dispositivos para continuar a "
-#~ "instalação. Vocêdeseja selecionar os 'drivers' agora?"
-
-#~ msgid ""
-#~ "FAIL.\n"
-#~ "\n"
-#~ "It is not recommended to use this media."
-#~ msgstr ""
-#~ "FALHA.\n"
-#~ "\n"
-#~ "Não é recomendável utilizar esta mídia."
-
-#~ msgid "Failed to mount driver disk: %s."
-#~ msgstr "Falha na montagem do 'driver': %s."
-
-#~ msgid "The wrong diskette was inserted."
-#~ msgstr "O disquete errado foi inserido."
-
-#~ msgid "Please insert the %s driver disk now."
-#~ msgstr "Por favor insira o 'driver disk' %s agora."
-
-#~ msgid "Sending request for IP information..."
-#~ msgstr "Enviando pedido de informações sobre IP..."
-
-#~ msgid "kickstart"
-#~ msgstr "kickstart"
-
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "argumento inválido para o comando de rede 'kickstart' %s: %s"
-
-#~ msgid "Boot protocol to use"
-#~ msgstr "Protocolo 'boot' a ser utilizado"
-
-#~ msgid "Network gateway"
-#~ msgstr "'Gateway' da Rede"
-
-#~ msgid "IP address"
-#~ msgstr "Endereço IP"
-
-#~ msgid "Domain name"
-#~ msgstr "Nome do domínio"
-
-#~ msgid "Network device"
-#~ msgstr "Dispositivo de rede"
-
-#~ msgid "No DNS lookups"
-#~ msgstr "Sem pesquisas DNS"
-
-#~ msgid ""
-#~ " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
-#~ "screen"
-#~ msgstr ""
-#~ " <Tab>/<Alt-Tab> entre elementos   |   <Espaço> seleciona  |   <F12> "
-#~ "próxima tela"
-
-#~ msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-#~ msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
-
-#~ msgid "Network configuration"
-#~ msgstr "Configuração da rede"
-
-#~ msgid "Would you like to set up networking?"
-#~ msgstr "Você deseja configurar a rede?"
-
-#~ msgid "PC Card"
-#~ msgstr "Cartão PC"
-
-#~ msgid "Initializing PC Card Devices..."
-#~ msgstr "Inicializando dispositivos do cartão PC..."
-
-#~ msgid "PCMCIA"
-#~ msgstr "PCMCIA"
-
-#~ msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-#~ msgstr "Por favor insira seu disquete PCMCIA no leitor 'floppy' agora."
-
-#~ msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-#~ msgstr "Esse disquete não se parece com um PCMCIA 'driver disk' do Red Hat."
-
-#~ msgid "Use proxy server"
-#~ msgstr "Utilizar servidor proxy"
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "Proxy do FTP:"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "Proxy do HTTP:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "Porta do Proxy FTP:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "Porta do Proxy HTTP:"
-
-#~ msgid ""
-#~ "Your mouse was not automatically detected.  To proceed in the graphical "
-#~ "installation mode, please proceed to the next screen and provide your "
-#~ "mouse information. You may also use text mode installation which does not "
-#~ "require a mouse."
-#~ msgstr ""
-#~ "O seu mouse não foi automaticamente detectado.  Para continuair no modo "
-#~ "de instalação gráfico, por favor prossiga para a próxima tela e insira as "
-#~ "informações do seu mouse. Você também pode efetuar a instalação em modo "
-#~ "texto, que nãorequer mouse."
-
-#~ msgid "Attempting to start VESA driver X server"
-#~ msgstr "Tentando iniciar o servidor X do driver VESA"
-
-#~ msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-#~ msgstr ""
-#~ "Aguardando o servidor X iniciar...registro localizado em /tmp/X.log\n"
-
-#~ msgid " X server started successfully."
-#~ msgstr " Servidor X iniciado com sucesso."
-
-#~ msgid ""
-#~ "The following root partitions have been found on your system.  FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr ""
-#~ "Foram encontradas as seguintes partições 'root' em seu sistema.  FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-
-#~ msgid ""
-#~ "The following root partitions have been found on your system. FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr "Foram encontradas no seu computador as seguinte partições raíz."
-
-#~ msgid "Resolution requested %s is not supported."
-#~ msgstr "A resolução pedida %s não é suportada."
-
-#~ msgid "Falling back to %s."
-#~ msgstr "A utilizar %s."
-
-#~ msgid "To avoid this you may need to specify the videocard and "
-#~ msgstr "Para evitar isto pode ter que inserir a configuração da"
-
-#~ msgid "monitor specs on the xconfig ks directive if they were "
-#~ msgstr "placa gráfica e do monitor na linha xconfig do ks,"
-
-#~ msgid "not probed correctly."
-#~ msgstr "no caso de eles não terem sido detectados correctamente."
