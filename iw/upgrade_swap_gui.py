@@ -71,10 +71,9 @@ class UpgradeSwapWindow (InstallWindow):
     def clist_cb(self, clist, row, col, data):
         self.row = row
     
-    def getScreen (self, dispatch, intf, fsset, diskset, instPath):
+    def getScreen (self, dispatch, intf, fsset, instPath):
         self.neededSwap = 0
         self.fsset = fsset
-        self.diskset = diskset
         self.dispatch = dispatch
         self.instPath = instPath
         self.intf = intf

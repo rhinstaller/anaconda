@@ -10,9 +10,6 @@ import iutil
 from package_gui import queryUpgradeContinue
 import gui
 
-if iutil.getArch() == 'i386':
-    import edd
-
 class LiloWindow (InstallWindow):
     foo = GdkImlib.create_image_from_xpm (CHECKBOX_ON_XPM)
     foo.render()

@@ -97,6 +97,7 @@ class BaseInstallClass:
 		 "welcome",
 		 "installtype",
                  "partitionmethod",
+                 "partitionobjinit",
                  "partitionmethodsetup",
                  "autopartition",
                  "autopartitionexecute",

@@ -40,6 +40,8 @@ stepToClasses = {
     "fdisk" : ("fdisk_text", "fdiskPartitionWindow" ),
     "partitionmethod" : ("partmethod_text", ("PartitionMethod") ),
     "partition": ("partition_text", ("PartitionWindow") ),
+    "findinstall" : ( "upgrade_text", "UpgradeExamineWindow" ),
+    "addswap" : ( "upgrade_text", "UpgradeSwapWindow" ),
     "bootloader" : ("lilo_text", ("LiloAppendWindow",
 				  "LiloWindow",
 				  "LiloImagesWindow" ) ),
@@ -61,7 +63,6 @@ stepToClasses = {
     "install" : ( "progress_text", "setupForInstall" ),
     "bootdisk" : ( "bootdisk_text", ( "BootDiskWindow",
                                       "MakeBootDiskWindow" ) ),
-#    "finishxconfig" : ( "xconfig_text", "XconfiguratorWindow" ),
     "complete" : ( "complete_text", "FinishedWindow" ),
     "reconfigcomplete" : ( "complete_text", "ReconfigFinishedWindow" ),
 }

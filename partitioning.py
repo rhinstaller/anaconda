@@ -823,6 +823,11 @@ class DiskSet:
                 part = disk.next_partition(part)
         return rc
 
+def partitionObjectsInitialize(id):
+    # read in drive info
+    id.diskset = DiskSet()
+    id.partrequests = PartitionRequests(id.diskset)
+
 def partitionMethodSetup(id, dispatch):
 
     # turn on/off step based on 3 paths:
@@ -833,10 +838,6 @@ def partitionMethodSetup(id, dispatch):
     dispatch.skipStep("autopartition", skip = not id.useAutopartitioning)
     dispatch.skipStep("autopartitionexecute",skip = not id.useAutopartitioning)
     dispatch.skipStep("fdisk", skip = not id.useFdisk)
-        
-    # read in drive info
-    id.diskset = DiskSet()
-    id.partrequests = PartitionRequests(id.diskset)
 
     protected = dispatch.method.protectedPartitions()
     if protected:

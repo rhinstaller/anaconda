@@ -22,6 +22,7 @@ class InstallClass(BaseInstallClass):
 		    "welcome",
 		    "installtype",
 		    "findinstall",
+                    "partitionobjinit",
                     "partitiondone",
 		    "addswap",
                     "upgradecontinue",

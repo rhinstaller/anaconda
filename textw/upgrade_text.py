@@ -8,29 +8,9 @@ from constants_text import *
 import upgrade
 
 class UpgradeSwapWindow:
-    def __call__ (self, dir, screen, todo):
-	if dir == -1:
-            # msf dont go back!
-            rc = ButtonChoiceWindow(screen, _("Proceed with upgrade?"),
-                            _("The filesystems of the Linux installation "
-                              "you have chosen to upgrade have already been "
-                              "mounted. You cannot go back past this point. "
-                              "\n\n") +
-                              _("If you would like to exit the upgrade select "
-                              "Exit, or choose Ok to continue with the "
-                              "upgrade."),
-                               [ TEXT_OK_BUTTON, _("Exit") ], width = 50)
-
-            if rc == TEXT_OK_CHECK:
-                return INSTALL_OK
-            else:
-                import sys
-                sys.exit(0)
-           
-
-	rc = upgrade.swapSuggestion(todo.instPath, todo.fstab)
+    def __call__ (self, screen, dispatch, intf, fsset, instPath):
+	rc = upgrade.swapSuggestion(instPath, fsset)
 	if not rc:
-	    todo.upgradeFindPackages ()
 	    return INSTALL_OK
 
 	(fsList, suggSize, suggMntPoint) = rc
@@ -96,7 +76,6 @@ class UpgradeSwapWindow:
 		return INSTALL_BACK
 	    elif result == "skip":
 		screen.popWindow()
-		todo.upgradeFindPackages ()
 		return INSTALL_OK
 
 	    val = amount.value()
@@ -119,34 +98,18 @@ class UpgradeSwapWindow:
 		else:
 		    screen.popWindow()
                     if todo.setupFilesystems:
+                        # XXX fix me
+                        return INSTALL_OK
                         upgrade.createSwapFile(todo.instPath, todo.fstab,
                                                mnt, val)
-		    todo.upgradeFindPackages ()
 		    return INSTALL_OK
 
 	raise ValueError
 	
 class UpgradeExamineWindow:
-    def __call__ (self, dir, screen, todo):
-	if dir == -1:
-            # msf dont go back!
-            rc = ButtonChoiceWindow(screen, _("Proceed with upgrade?"),
-                            _("The filesystems of the Linux installation "
-                              "you have chosen to upgrade have already been "
-                              "mounted. You cannot go back past this point. "
-                              "\n\n") +
-                              _("If you would like to exit the upgrade select "
-                              "Exit, or choose Ok to continue with the "
-                              "upgrade."),
-                               [ TEXT_OK_BUTTON, _("Exit") ], width = 50)
-
-            if rc == TEXT_OK_CHECK:
-                return INSTALL_OK
-            else:
-                import sys
-                sys.exit(0)
-
-        parts = todo.upgradeFindRoot ()
+    def __call__ (self, screen, dispatch, intf, id, chroot):
+        self.parts = upgrade.findExistingRoots(intf, id, chroot)
+        parts = upgrade.findExistingRoots (intf, id, chroot)
 
         if not parts:
             ButtonChoiceWindow(screen, _("Error"),
@@ -181,27 +144,29 @@ class UpgradeExamineWindow:
             root = parts[0]
             (drive, fs) = root
 
-            # terrible hack - need to fix in future
-            # if we're skipping confirm upgrade window, we must be in
-            # upgradeonly mode, so don't display this window either
-            if not todo.instClass.skipStep('confirm-upgrade'):
-                rc = ButtonChoiceWindow (screen, _("Upgrade Partition"),
-                   _("Upgrading the Red Hat Linux installation on partition /dev/%s") % (drive,),
-                                         buttons = [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
-                if rc == TEXT_BACK_CHECK:
-                    return INSTALL_BACK
+            rc = ButtonChoiceWindow (screen, _("Upgrade Partition"),
+                                     _("Upgrading the Red Hat Linux "
+                                       "installation on partition "
+                                       "/dev/%s") % (drive,),
+                                     buttons = [ TEXT_OK_BUTTON,
+                                                 TEXT_BACK_BUTTON ])
+            if rc == TEXT_BACK_CHECK:
+                return INSTALL_BACK
+                
+        upgrade.upgradeMountFilesystems (intf, root, id.fsset, chroot)
 
-        todo.upgradeMountFilesystems (root)
 
         # if root is on vfat we want to always display boot floppy screen
         # otherwise they can't boot!
         # This check is required for upgradeonly installclass to work so
         # we only show boot floppy screen in partitonless install case
-        if root[1] == "vfat":
-            todo.instClass.removeFromSkipList("bootdisk")
+        # XXX WRONG PLACE TO DO THIS
+        #if root[1] == "vfat":
+        #    todo.instClass.removeFromSkipList("bootdisk")
+        return INSTALL_OK
 
 class CustomizeUpgradeWindow:
-    def __call__ (self, screen, todo, indiv):
+    def __call__ (self, screen, dispatch):
         rc = ButtonChoiceWindow (screen, _("Customize Packages to Upgrade"),
                                  _("The packages you have installed, "
                                    "and any other packages which are "
@@ -210,8 +175,9 @@ class CustomizeUpgradeWindow:
                                    "for installation. Would you like "
                                    "to customize the set of packages "
                                    "that will be upgraded?"),
-                                 buttons = [ _("Yes"), _("No"), TEXT_BACK_BUTTON],
-				help = "custupgrade")
+                                 buttons = [ _("Yes"), _("No"),
+                                             TEXT_BACK_BUTTON],
+                                 help = "custupgrade")
 
         if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK

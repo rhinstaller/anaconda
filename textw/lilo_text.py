@@ -5,8 +5,9 @@ from translate import _
 from flags import flags
 import string
 import iutil
-if iutil.getArch() == 'i386':
-    import edd
+# XXX
+#if iutil.getArch() == 'i386':
+#    import edd
     
 #cat = gettext.Catalog ("anaconda", "/usr/share/locale")
 #_ = cat.gettext
@@ -32,8 +33,9 @@ class LiloAppendWindow:
 	grid = GridFormHelp(screen, _("Bootloader Configuration"), "kernelopts", 1, 4)
 	grid.add(t, 0, 0, padding = (0, 0, 0, 1))
 
-	if not edd.detect():
-	    grid.add(cb, 0, 1, padding = (0, 0, 0, 1))
+# XXX
+#	if not edd.detect():
+#	    grid.add(cb, 0, 1, padding = (0, 0, 0, 1))
 
 	grid.add(entry, 0, 2, padding = (0, 0, 0, 1))
 	grid.add(buttons, 0, 3, growx = 1)
