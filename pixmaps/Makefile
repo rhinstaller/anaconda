@@ -15,3 +15,5 @@ install:
 	done
 
 depend:
+
+clean:
