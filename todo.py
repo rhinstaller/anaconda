@@ -305,6 +305,7 @@ class ToDo:
 	self.lilo = LiloConfiguration ()
 	self.initrdsMade = {}
 	self.liloImages = {}
+        self.initlevel = 3
 	if (not instClass):
 	    raise TypeError, "installation class expected"
 	self.setClass(instClass)
@@ -939,7 +940,19 @@ class ToDo:
 	    count = count + 1
 
 	    os.symlink(device, self.instPath + "/dev/" + cdname)
-        
+
+    def setDefaultRunlevel (self):
+        inittab = open (self.instPath + '/etc/inittab', 'r')
+        lines = inittab.readlines ()
+        inittab.close ()
+        for line in lines:
+            if len (line) > 3 and line[:3] == "id:":
+                line[4] = str (self.initlevel)
+                break
+        inittab = open (self.instPath + '/etc/inittab', 'w')
+        inittab.write (string.join (lines), '\n')
+        inittab.close ()
+
     def doInstall(self):
 	# make sure we have the header list and comps file
 	self.getHeaderList()
@@ -1069,7 +1082,7 @@ class ToDo:
                 self.x.write (self.instPath + "/etc/X11/XF86Config")
                 os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
                             self.instPath + "/etc/X11/X")
-                # XXX fixup inittab
+            self.setDefaultRunlevel ()
             
 	self.installLilo ()
 

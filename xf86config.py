@@ -159,6 +159,7 @@ class XF86Config:
 
             if line and line[:8] == "EISA ID:":
                 self.monEisa = line[9:]
+                self.monID = line[9:]
 
             if line and line[:6] == "\tName:":
                 if not self.monName or len (self.monName) < len (line[7:]):

@@ -102,6 +102,13 @@ class XConfigWindow (InstallWindow):
 
         if self.custom.get_active () and not self.skip.get_active ():
             return XCustomWindow
+        if not self.skip.get_active ():
+            if self.xdm.get_active ():
+                self.todo.initlevel = 5
+            else:
+                self.todo.initlevel = 3
+        else:
+            self.todo.initlevel = 3
         return None
 
     def setNext (self):
@@ -158,9 +165,9 @@ class XConfigWindow (InstallWindow):
         result.set_justify (JUSTIFY_LEFT)
         self.autoBox.pack_start (result, FALSE)
 
-        self.todo.x.monName = None
         self.monlist = None
-        if not self.todo.x.monName:
+        print "id", self.todo.x.monID
+        if not self.todo.x.monID:
             label = GtkLabel (_("Your monitor could not be "
                                 "autodetected. Please choose it "
                                 "from the list below:"))
@@ -191,11 +198,14 @@ class XConfigWindow (InstallWindow):
         self.custom = GtkCheckButton (_("Customize X Configuration"))
         self.custom.connect ("toggled", self.customToggled) 
 
+        self.xdm = GtkCheckButton (_("Use Graphical Login"))
+
         self.skip = GtkCheckButton (_("Skip X Configuration"))
         self.skip.connect ("toggled", self.skipToggled) 
 
         self.autoBox.pack_start (test, FALSE)
         self.autoBox.pack_start (self.custom, FALSE)
+        self.autoBox.pack_start (self.xdm, FALSE)
 
         box.pack_start (self.autoBox, FALSE)        
         box.pack_start (self.skip, FALSE)
