@@ -271,8 +271,7 @@ class x86BootloaderInfo:
 	if rootDev == defaultDev:
 	    lilo.addEntry("default", kernelList[0][0])
 	else:
-            # XXX this is wrong, otherList not defined here!!!
-	    lilo.addEntry("default", otherList[0][0])
+	    lilo.addEntry("default", chainList[0][0])
 
 	for (label, version) in kernelList:
 	    kernelTag = "-" + version
