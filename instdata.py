@@ -26,7 +26,7 @@ import partedUtils
 from flags import *
 from constants import *
 
-import rhpl.kbd
+from rhpl.kbd import Keyboard
 from rhpl.simpleconfig import SimpleConfigFile
 
 class Boolean:
@@ -155,7 +155,7 @@ class InstallData:
 
     def __init__(self, extraModules, floppyDevice, configFileData):
 	self.instLanguage = language.InstallTimeLanguage()
-	self.keyboard = kbd.Keyboard()
+	self.keyboard = Keyboard()
         self.tmpData = configFileData
 
         self.configFileData = None
