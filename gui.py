@@ -231,7 +231,6 @@ class InstallInterface:
             else:
                 commonSteps = [ ( LanguageWindow, "language" ), 
                                 ( KeyboardWindow, "keyboard" ),
-                                ( MouseWindow, "mouse" ),
                                 ]
 
             commonSteps = commonSteps + [
@@ -239,7 +238,6 @@ class InstallInterface:
 		     ( TimezoneWindow, "timezone" ),
 		     ( AccountWindow, "accounts" ),
 		     ( AuthWindow, "authentication" ),
-                     ( XConfigWindow, "xconfig" ),
 		     ( CongratulationWindow, "complete" )
 		   ]
 

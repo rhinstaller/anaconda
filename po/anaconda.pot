@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-11-17 18:26-0500\n"
+"POT-Creation-Date: 1999-11-29 15:14-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:533
 #: ../loader/loader.c:251 ../loader/loader.c:599 ../loader/loader.c:635
 #: ../loader/loader.c:738 ../loader/loader.c:1106 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:323 ../text.py:88
+#: ../loader/net.c:284 ../loader/urls.c:125 ../loader/urls.c:337 ../text.py:88
 #: ../text.py:89 ../text.py:108 ../text.py:131 ../text.py:161 ../text.py:164
 #: ../text.py:206 ../text.py:235 ../text.py:249 ../text.py:251 ../text.py:270
 #: ../text.py:272 ../text.py:294 ../text.py:296 ../text.py:385 ../text.py:436
@@ -101,10 +101,10 @@ msgstr ""
 #: ../loader/loader.c:467 ../loader/loader.c:477 ../loader/loader.c:635
 #: ../loader/loader.c:693 ../loader/loader.c:738 ../loader/loader.c:876
 #: ../loader/loader.c:881 ../loader/loader.c:967 ../loader/loader.c:1106
-#: ../loader/loader.c:1614 ../loader/loader.c:1660 ../loader/loader.c:1721
-#: ../loader/loader.c:1729 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:557 ../loader/urls.c:124 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../loader/urls.c:323 ../text.py:53 ../text.py:108
+#: ../loader/loader.c:1614 ../loader/loader.c:1660 ../loader/loader.c:1723
+#: ../loader/loader.c:1731 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:557 ../loader/urls.c:125 ../loader/urls.c:202
+#: ../loader/urls.c:207 ../loader/urls.c:337 ../text.py:53 ../text.py:108
 #: ../text.py:161 ../text.py:206 ../text.py:249 ../text.py:294 ../text.py:385
 #: ../text.py:405 ../text.py:436 ../text.py:509 ../text.py:537 ../text.py:607
 #: ../text.py:631 ../text.py:645 ../text.py:658 ../text.py:670 ../text.py:900
@@ -161,10 +161,10 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:557 ../libfdisk/newtfsedit.c:575
 #: ../libfdisk/newtfsedit.c:1291 ../libfdisk/newtfsedit.c:1299
 #: ../libfdisk/newtfsedit.c:1424 ../libfdisk/newtfsedit.c:1445
-#: ../libfdisk/newtfsedit.c:1539 ../text.py:88 ../text.py:549
-#: ../textw/constants.py:10 ../textw/lilo.py:95 ../textw/lilo.py:108
-#: ../textw/lilo.py:158 ../textw/silo.py:123 ../textw/silo.py:136
-#: ../textw/silo.py:184
+#: ../libfdisk/newtfsedit.c:1539 ../loader/urls.c:213 ../text.py:88
+#: ../text.py:549 ../textw/constants.py:10 ../textw/lilo.py:95
+#: ../textw/lilo.py:108 ../textw/lilo.py:158 ../textw/silo.py:123
+#: ../textw/silo.py:136 ../textw/silo.py:184
 msgid "Ok"
 msgstr ""
 
@@ -220,9 +220,9 @@ msgstr ""
 #: ../loader/devices.c:183 ../loader/loader.c:467 ../loader/loader.c:477
 #: ../loader/loader.c:693 ../loader/loader.c:738 ../loader/loader.c:876
 #: ../loader/loader.c:881 ../loader/loader.c:1614 ../loader/loader.c:1660
-#: ../loader/loader.c:1729 ../loader/urls.c:201 ../loader/urls.c:206
-#: ../text.py:232 ../text.py:666 ../todo.py:365 ../todo.py:505 ../todo.py:1075
-#: ../todo.py:1406
+#: ../loader/loader.c:1731 ../loader/urls.c:202 ../loader/urls.c:207
+#: ../text.py:232 ../text.py:666 ../todo.py:366 ../todo.py:506 ../todo.py:1081
+#: ../todo.py:1419
 msgid "Error"
 msgstr ""
 
@@ -625,124 +625,124 @@ msgstr ""
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
-#: ../todo.py:366
+#: ../todo.py:367
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr ""
 
-#: ../todo.py:506
+#: ../todo.py:507
 #, c-format
 msgid "Error mounting %s: %s"
 msgstr ""
 
-#: ../todo.py:525 ../todo.py:723
+#: ../todo.py:526 ../todo.py:724
 msgid "Creating"
 msgstr ""
 
-#: ../todo.py:526
+#: ../todo.py:527
 msgid "Creating RAID devices..."
 msgstr ""
 
-#: ../todo.py:575 ../todo.py:588
+#: ../todo.py:576 ../todo.py:589
 msgid "Formatting"
 msgstr ""
 
-#: ../todo.py:576 ../todo.py:589
+#: ../todo.py:577 ../todo.py:590
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr ""
 
-#: ../todo.py:723
+#: ../todo.py:724
 msgid "Creating boot disk..."
 msgstr ""
 
-#: ../todo.py:868
+#: ../todo.py:869
 msgid "Reading"
 msgstr ""
 
-#: ../todo.py:869
+#: ../todo.py:870
 msgid "Reading package information..."
 msgstr ""
 
-#: ../todo.py:1032 ../todo.py:1042
+#: ../todo.py:1038 ../todo.py:1048
 msgid "no suggestion"
 msgstr ""
 
-#: ../todo.py:1048
+#: ../todo.py:1054
 msgid "Searching"
 msgstr ""
 
-#: ../todo.py:1049
+#: ../todo.py:1055
 msgid "Searching for Red Hat Linux installations..."
 msgstr ""
 
-#: ../todo.py:1076
+#: ../todo.py:1082
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr ""
 
-#: ../todo.py:1095
+#: ../todo.py:1101
 msgid "Finding"
 msgstr ""
 
-#: ../todo.py:1096
+#: ../todo.py:1102
 msgid "Finding packages to upgrade..."
 msgstr ""
 
-#: ../todo.py:1285
+#: ../todo.py:1299
 msgid "Processing"
 msgstr ""
 
-#: ../todo.py:1286
+#: ../todo.py:1300
 msgid "Preparing to install..."
 msgstr ""
 
-#: ../todo.py:1401
+#: ../todo.py:1414
 msgid "Rebuilding"
 msgstr ""
 
-#: ../todo.py:1402
+#: ../todo.py:1415
 msgid "Rebuilding RPM database..."
 msgstr ""
 
-#: ../todo.py:1407
+#: ../todo.py:1420
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 
-#: ../todo.py:1457
+#: ../todo.py:1470
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr ""
 
-#: ../todo.py:1459
+#: ../todo.py:1472
 #, c-format
 msgid "Installing %s.\n"
 msgstr ""
 
-#: ../todo.py:1480
+#: ../todo.py:1493
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../todo.py:1483
+#: ../todo.py:1496
 msgid "Mount Point"
 msgstr ""
 
-#: ../todo.py:1483
+#: ../todo.py:1496
 msgid "Space Needed"
 msgstr ""
 
-#: ../todo.py:1497
+#: ../todo.py:1510
 msgid "Disk Space"
 msgstr ""
 
-#: ../todo.py:1520
+#: ../todo.py:1533
 msgid "Post Install"
 msgstr ""
 
-#: ../todo.py:1521
+#: ../todo.py:1534
 msgid "Performing post install configuration..."
 msgstr ""
 
@@ -1305,7 +1305,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:679 ../libfdisk/gnomefsedit.c:1648
 #: ../libfdisk/gnomefsedit.c:2147 ../libfdisk/newtfsedit.c:462
 #: ../libfdisk/newtfsedit.c:1495 ../loader/devices.c:168
-#: ../loader/loader.c:1721 ../textw/lilo.py:95 ../textw/lilo.py:113
+#: ../loader/loader.c:1723 ../textw/lilo.py:95 ../textw/lilo.py:113
 #: ../textw/silo.py:123 ../textw/silo.py:141 ../textw/userauth.py:62
 msgid "Cancel"
 msgstr ""
@@ -1388,7 +1388,7 @@ msgid ""
 "critical part of system security!"
 msgstr ""
 
-#: ../loader/urls.c:299 ../textw/userauth.py:23
+#: ../loader/urls.c:313 ../textw/userauth.py:23
 msgid "Password:"
 msgstr ""
 
@@ -2022,7 +2022,7 @@ msgid "Module Parameters"
 msgstr ""
 
 #: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:249
-#: ../loader/loader.c:308 ../loader/loader.c:324 ../loader/loader.c:1721
+#: ../loader/loader.c:308 ../loader/loader.c:324 ../loader/loader.c:1723
 msgid "Devices"
 msgstr ""
 
@@ -2030,7 +2030,7 @@ msgstr ""
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr ""
 
-#: ../loader/devices.c:179 ../loader/loader.c:1730
+#: ../loader/devices.c:179 ../loader/loader.c:1732
 msgid "Failed to mount floppy disk."
 msgstr ""
 
@@ -2217,26 +2217,26 @@ msgstr ""
 msgid "Failed to read directory %s: %s"
 msgstr ""
 
-#: ../loader/loader.c:1722
+#: ../loader/loader.c:1724
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
-#: ../loader/loader.c:1735
+#: ../loader/loader.c:1737
 msgid "Updates"
 msgstr ""
 
-#: ../loader/loader.c:1735
+#: ../loader/loader.c:1737
 msgid "Reading anaconda updates..."
 msgstr ""
 
-#: ../loader/loader.c:1888
+#: ../loader/loader.c:1890
 msgid "PC Card"
 msgstr ""
 
-#: ../loader/loader.c:1888
+#: ../loader/loader.c:1890
 msgid "Initializing PC Card Devices..."
 msgstr ""
 
@@ -2244,7 +2244,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr ""
 
-#: ../loader/net.c:150 ../loader/urls.c:160
+#: ../loader/net.c:150 ../loader/urls.c:161
 msgid "Red Hat directory:"
 msgstr ""
 
@@ -2351,7 +2351,7 @@ msgstr ""
 msgid "Retrieving"
 msgstr ""
 
-#: ../loader/urls.c:129
+#: ../loader/urls.c:130
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -2360,7 +2360,7 @@ msgid ""
 "      Red Hat Linux for your architecure\n"
 msgstr ""
 
-#: ../loader/urls.c:138
+#: ../loader/urls.c:139
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -2369,68 +2369,77 @@ msgid ""
 "      Red Hat Linux for your architecure\n"
 msgstr ""
 
-#: ../loader/urls.c:156
+#: ../loader/urls.c:157
 msgid "FTP site name:"
 msgstr ""
 
-#: ../loader/urls.c:157
+#: ../loader/urls.c:158
 msgid "Web site name:"
 msgstr ""
 
-#: ../loader/urls.c:176
+#: ../loader/urls.c:177
 msgid "Use non-anonymous ftp or a proxy server"
 msgstr ""
 
-#: ../loader/urls.c:180
+#: ../loader/urls.c:181
 msgid "Use proxy server"
 msgstr ""
 
-#: ../loader/urls.c:191
+#: ../loader/urls.c:192
 msgid "FTP Setup"
 msgstr ""
 
-#: ../loader/urls.c:192
+#: ../loader/urls.c:193
 msgid "HTTP Setup"
 msgstr ""
 
-#: ../loader/urls.c:202
+#: ../loader/urls.c:203
 msgid "You must enter a server name."
 msgstr ""
 
-#: ../loader/urls.c:207
+#: ../loader/urls.c:208
 msgid "You must enter a directory."
 msgstr ""
 
-#: ../loader/urls.c:269
+#: ../loader/urls.c:213
+msgid "Unknown Host"
+msgstr ""
+
+#: ../loader/urls.c:214
+#, c-format
+msgid "%s is not a valid hostname."
+msgstr ""
+
+#: ../loader/urls.c:283
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below. If you are using an FTP proxy enter the name of the FTP "
 "proxy server to use."
 msgstr ""
 
-#: ../loader/urls.c:275
+#: ../loader/urls.c:289
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
 
-#: ../loader/urls.c:296
+#: ../loader/urls.c:310
 msgid "Account name:"
 msgstr ""
 
-#: ../loader/urls.c:304
+#: ../loader/urls.c:318
 msgid "FTP Proxy:"
 msgstr ""
 
-#: ../loader/urls.c:305
+#: ../loader/urls.c:319
 msgid "HTTP Proxy:"
 msgstr ""
 
-#: ../loader/urls.c:309
+#: ../loader/urls.c:323
 msgid "FTP Proxy Port:"
 msgstr ""
 
-#: ../loader/urls.c:310
+#: ../loader/urls.c:324
 msgid "HTTP Proxy Port:"
 msgstr ""
 

@@ -297,3 +297,5 @@ class ReconfigStation(InstallClass):
 	self.addToSkipList("partition")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("format")
+        self.addToSkipList("mouse")
+        self.addToSkipList("xconfig")
