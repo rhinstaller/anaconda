@@ -1,0 +1,44 @@
+from iw import *
+from gtk import *
+
+class UnresolvedDependenciesWindow (InstallWindow):
+
+    def __init__ (self, ics):
+	InstallWindow.__init__ (self, ics)
+        ics.setTitle ("Unresolved Dependencies")
+        ics.setNextEnabled (1)
+        print "hello world"
+
+    def getNext (self):
+        if self.dependCB.get_active ():
+            self.todo.selectDeps (deps)
+        return None
+    
+    def getScreen (self):
+        deps = self.todo.verifyDeps ()
+        if not deps:
+            return None
+
+        sw = GtkScrolledWindow ()
+        sw.set_border_width (5)
+        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+
+        list = GtkCList (2, ("Package", "Requirement"))
+        list.freeze ()
+        for (name, suggest) in deps:
+            list.append ((name, suggest))
+        list.thaw ()
+        sw.add (list)
+
+        self.dependCB = GtkCheckButton ("Install packages to satisfy dependencies")
+        self.dependCB.set_active (TRUE)
+        align = GtkAlignment (0.5, 0.5)
+        align.add (self.dependCB)
+
+        box = GtkVBox (FALSE, 5)
+        box.pack_start (sw, TRUE)
+        box.pack_start (align, FALSE)
+
+        return box
+
+

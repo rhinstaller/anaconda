@@ -392,7 +392,7 @@ class PackageSelectionWindow (InstallWindow):
 
                 def toggled (widget, comp):
                   if widget.get_active ():
-                    comp.select (0)
+                    comp.select (1)
                   else:
                     comp.unselect (0)
                     
