@@ -511,13 +511,17 @@ int main(int argc, char **argv) {
 
 #if !defined(__s390__) && !defined(__s390x__)
 
-#ifdef __powerpc__
-    /* ppc has some weird consoles.  so, let's be smart and
-     * check if the consoles exist */
-    char *consoles[] = { "/dev/hvc0", /* hvc for JS20 */
-                         "/dev/hvsi0", "/dev/hvsi1", 
-                         "/dev/hvsi2", /* hvsi for POWER5 */
-                         NULL };
+    /* handle weird consoles */
+#if defined(__powerpc__)
+    char * consoles[] = { "/dev/hvc0", /* hvc for JS20 */
+                          "/dev/hvsi0", "/dev/hvsi1",
+                          "/dev/hvsi2", /* hvsi for POWER5 */
+                          NULL };
+#elif defined (__ia64__)
+    char * consoles[] = { "/dev/ttySG0", NULL };
+#else
+    char * consoles[] = { NULL };
+#endif
     for (i = 0; consoles[i] != NULL; i++) {
         if ((fd = open(consoles[i], O_RDWR)) >= 0) {
             printf("anaconda installer init version %s using %s as console\n",
@@ -526,7 +530,6 @@ int main(int argc, char **argv) {
             break;
         }
     }
-#endif
 
     if ((fd < 0) && (ioctl (0, TIOCLINUX, &twelve) < 0)) {
 	isSerial = 2;
