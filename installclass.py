@@ -10,7 +10,7 @@ FSEDIT_CLEAR_LINUX  = (1 << 1)
 FSEDIT_CLEAR_ALL    = (1 << 2)
 FSEDIT_USE_EXISTING = (1 << 3)
 
-import gettext
+import gettext, os
 from xf86config import XF86Config
 
 cat = gettext.Catalog ("anaconda", "/usr/share/locale")
@@ -239,7 +239,8 @@ class Workstation(InstallClass):
 	self.addToSkipList("package-selection")
 	self.addToSkipList("format")
 
-	self.partitions.append(('/boot', 16, 16, 0))
+	if os.uname ()[4] != 'sparc64':
+	    self.partitions.append(('/boot', 16, 16, 0))
 	self.partitions.append(('/', 500, 500, 1))
 	self.partitions.append(('swap', 64, 64, 0))
 	self.setClearParts(FSEDIT_CLEAR_LINUX, 
@@ -273,7 +274,8 @@ class Server(InstallClass):
 	self.addToSkipList("partition")
 	self.addToSkipList("format")
 
-	self.partitions.append(('/boot', 16, 16, 0))
+	if os.uname ()[4] != 'sparc64':
+	    self.partitions.append(('/boot', 16, 16, 0))
 	self.partitions.append(('/', 256, 256, 0))
 	self.partitions.append(('/usr', 512, 512, 1))
 	self.partitions.append(('/var', 256, 256, 0))

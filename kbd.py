@@ -202,7 +202,7 @@ class Keyboard (SimpleConfigFile):
             return self.info["KEYTABLE"]
         else:
 	    if self.type == "Sun":
-		for map in Keyboard.console2xsun:
+		for map in Keyboard.console2xsun.keys():
 		    if Keyboard.console2xsun[map] == self.layout:
 			return map
 		return "sunkeymap"
