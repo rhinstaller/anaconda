@@ -401,13 +401,15 @@ class Fstab:
 	f = open (prefix + "/etc/fstab", "w")
 	for (mntpoint, dev, fs, reformat, size) in self.mountList():
 	    iutil.mkdirChain(prefix + mntpoint)
-	    if (mntpoint == '/'):
+	    if mntpoint == '/':
 		f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 1))
 	    else:
-                if (fs == "ext2"):
+                if fs == "ext2":
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 2))
                 elif fs == "iso9660":
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,owner,ro', 0, 0))
+		elif fs == "auto" and (dev == "zip" or dev == "jaz"):
+		    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,ownder', 0, 0))
                 else:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 0, 0))
 	f.write (format % (fdDevice, "/mnt/floppy", 'ext2', 'noauto,owner', 0, 0))

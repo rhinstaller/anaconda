@@ -1041,6 +1041,30 @@ class ToDo:
 	    mntpoint = "/mnt/" + cdname
 	    self.fstab.addMount(cdname, mntpoint, "iso9660")
 
+    def createRemovable(self, rType):
+	self.log ("making %s drive links (if any)", % rType)
+	list = isys.floppyDriveList()
+	list = list + isys.hardDriveList()
+	count = 0
+	for device in list:
+	    (device, descript) = device
+	    if string.find(string.upper(descript), 
+			   string.upper(rType)) != -1 or 
+	    self.log ("found %s disk, creating link", rType)
+	    try:
+		os.stat(self.instPath + "/dev/%s" % rType)
+		self.log ("link exists, removing")
+		os.unlink(self.instPath + "/dev/%s" % rType)
+	    except OSError:
+		pass
+	    # the 4th partition of zip/jaz disks is the one that usually
+	    # contains the DOS filesystem.  We'll guess at using that
+	    # one, it is a sane default.
+	    device = device + "4";
+	    os.symlink(device, self.instPath + "/dev/%s" % rType)
+	    mntpoint = "/mnt/%s" % rType
+	    self.fstab.addMount(rType, mntpoint, "auto")
+
     def setDefaultRunlevel (self):
         inittab = open (self.instPath + '/etc/inittab', 'r')
         lines = inittab.readlines ()
@@ -1299,6 +1323,8 @@ class ToDo:
 
         if not self.upgrade:
 	    self.createCdrom()
+	    self.createRemovable("zip")
+	    self.createRemovable("jaz")
 	    self.copyExtraModules()
 	    self.setFdDevice()
             self.fstab.write (self.instPath, fdDevice = self.fdDevice)
