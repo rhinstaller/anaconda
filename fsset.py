@@ -1813,13 +1813,23 @@ def readFstab (path):
         fsset.add(entry)
     return fsset
 
-def isValidExt2(device):
-    file = '/tmp/' + device
-    isys.makeDevInode(device, file)
+def getDevFD(device):
     try:
-	fd = os.open(file, os.O_RDONLY)
+        fd = os.open(device, os.O_RDONLY)
     except:
-	return 0
+        file = '/tmp/' + device
+        isys.makeDevInode(device, file)
+        try:
+            fd = os.open(file, os.O_RDONLY)
+        except:
+            return -1
+    return fd
+
+
+def isValidExt2(device):
+    fd = getDevFD(device)
+    if fd == -1:
+        return 0
 
     buf = os.read(fd, 2048)
     os.close(fd)
@@ -1833,11 +1843,8 @@ def isValidExt2(device):
     return 0
 
 def isValidXFS(device):
-    file = '/tmp/' + device
-    isys.makeDevInode(device, file)
-    try:
-        fd = os.open(file, os.O_RDONLY)
-    except:
+    fd = getDevFD(device)
+    if fd == -1:
         return 0
     
     buf = os.read(fd, 4)
@@ -1860,9 +1867,15 @@ def getFStoTry(device):
         rc.append("xfs")
 
     if isValidExt2(device):
-        if isys.ext2HasJournal(device):
+        if os.access(device, os.O_RDONLY):
+            create = 0
+        else:
+            create = 1
+        if isys.ext2HasJournal(device, makeDevNode = create):
             rc.append("ext3")
         rc.append("ext2")
+
+    # FIXME: need to check for swap
 
     # XXX check for reiserfs signature, jfs signature, and others ?
     return rc

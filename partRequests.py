@@ -576,13 +576,16 @@ class VolumeGroupRequestSpec(RequestSpec):
     """Request to represent volume group devices."""
     
     def __init__(self, fstype =None, format = None,
-                 vgname = None, physvols = None):
+                 vgname = None, physvols = None,
+                 pesize = 4096, preexist = 0):
         """Create a new VolumeGroupRequestSpec object.
 
         fstype is the fsset filesystem type.
         format is whether or not the volume group should be created.
         vgname is the name of the volume group.
         physvols is a list of the ids for the physical volumes in the vg.
+        pesize is the size of a physical extent in kilobytes.
+        preexist is whether the volume group is preexisting.
         """
 
         if not fstype:
@@ -592,6 +595,8 @@ class VolumeGroupRequestSpec(RequestSpec):
 
         self.volumeGroupName = vgname
         self.physicalVolumes = physvols
+        self.pesize = pesize
+        self.preexist = preexist
 
     def __str__(self):
         physvols = []
@@ -600,9 +605,11 @@ class VolumeGroupRequestSpec(RequestSpec):
                 physvols.append(i)
                 
         str = ("VG Request -- name: %(vgname)s  uniqueID: %(id)s\n"
-               "  format: %(format)s  physvols: %(physvol)s" %
+               "  format: %(format)s pesize: %(pesize)s  \n"
+               "  physvols: %(physvol)s" %
                {"vgname": self.volumeGroupName, "id": self.uniqueID,
-                "format": self.format, "physvol": physvols})
+                "format": self.format, "physvol": physvols,
+                "pesize": self.pesize})
         return str
     
     def getDevice(self, partitions):
@@ -632,7 +639,8 @@ class LogicalVolumeRequestSpec(RequestSpec):
     """Request to represent logical volume devices."""
     
     def __init__(self, fstype, format = None, mountpoint = None,
-                 size = None, volgroup = None, lvname = None):
+                 size = None, volgroup = None, lvname = None,
+                 preexist = 0):
         """Create a new VolumeGroupRequestSpec object.
 
         fstype is the fsset filesystem type.
@@ -641,10 +649,12 @@ class LogicalVolumeRequestSpec(RequestSpec):
         size is the size of the request in MB.
         volgroup is the request ID of the volume group.
         lvname is the name of the logical volume.
+        preexist is whether the logical volume previously existed or not.
         """
 
         RequestSpec.__init__(self, fstype = fstype, format = format,
-                             mountpoint = mountpoint, size = size)
+                             mountpoint = mountpoint, size = size,
+                             preexist = preexist)
         self.type = REQUEST_LV
 
         self.logicalVolumeName = lvname
