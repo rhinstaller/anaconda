@@ -1107,10 +1107,10 @@ Section "Device"
                 if len(modes) > 0 and string.atoi(depth) > maxdepth:
                     maxdepth = string.atoi(depth)
 
-            if monitor.getFBMonitorSection():
-                monitorname = "Probed Monitor"
-            else:
-                monitorname = monitor.getMonitorID()
+#            if monitor.getFBMonitorSection():
+#                monitorname = "Probed Monitor"
+
+            monitorname = monitor.getMonitorID()
 
             for driver in [ "svga", "accel" ]:
                 tmp["driver"] = driver
