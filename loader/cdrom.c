@@ -44,7 +44,7 @@ static int setupCDdevicePanel(int * type) {
 }
 
 int setupCDdevice(struct knownDevices * kd, moduleInfoSet modInfo, 
-		  moduleList modLoaded, moduleDeps modDeps, int flags) {
+		  moduleList modLoaded, moduleDeps * modDepsPtr, int flags) {
     int type = 0, rc = 0;
     int i;
     int done = 0;
@@ -56,7 +56,7 @@ int setupCDdevice(struct knownDevices * kd, moduleInfoSet modInfo,
 
 	switch (type) {
 	  case CD_SCSI:
-	    rc = devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDeps, 
+	    rc = devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDepsPtr, 
 	    		       flags, NULL);
 	    if (!rc) {
 		kdFindScsiList(kd);
@@ -67,7 +67,7 @@ int setupCDdevice(struct knownDevices * kd, moduleInfoSet modInfo,
 	    break;
 
 	  case CD_OTHER:
-	    rc = devDeviceMenu(DRIVER_CDROM, modInfo, modLoaded, modDeps, 
+	    rc = devDeviceMenu(DRIVER_CDROM, modInfo, modLoaded, modDepsPtr, 
 	    		       flags, &devName);
 	    if (!rc) {
 		for (i = 0; transTable[i].modname; i++) {

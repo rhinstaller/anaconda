@@ -120,46 +120,47 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
     return 0;
 }
 
-int devCopyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
+int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
 		      moduleDeps *modDepsPtr, int flags, char * mntPoint) {
-    char * files[] = { "pcitable", "modules.cgz", "modinfo", "modules.dep", 
-			NULL };
-    char * dirName;
-    char ** file;
     int badDisk = 0;
-    static int diskNum = 0;
-    char from[200], to[200];
+    char from[200];
+    struct stat sb;
+    char * diskName;
+    int fd;
+    char * fileCheck[] = { "rhdd-6.1", "modinfo", "modules.dep", "pcitable",
+			    NULL };
+    char ** fnPtr;
+
+    for (fnPtr = fileCheck; *fnPtr; fnPtr++) {
+	sprintf(from, "%s/%s", mntPoint, *fnPtr);
+	if (access(from, R_OK)) {
+	    logMessage("cannot find %s; bad driver disk", from);
+	    badDisk = 1;
+	}
+    }
 
     sprintf(from, "%s/rhdd-6.1", mntPoint);
-    if (access(from, R_OK))
+    stat(from, &sb);
+    if (!sb.st_size)
 	badDisk = 1;
 
-    dirName = malloc(80);
-    sprintf(dirName, "/tmp/DD-%d", diskNum);
-    mkdir(dirName, 0755);
-    for (file = files; *file; file++) {
-	sprintf(from, "%s/%s", mntPoint, *file);
-	sprintf(to, "%s/%s", dirName, *file);
+    if (badDisk) return 1;
 
-	if (copyFile(from, to))
-	    badDisk = 1;
-    }
+    diskName = malloc(sb.st_size + 1);
+    fd = open(from, O_RDONLY);
+    read(fd, diskName, sb.st_size);
+    if (diskName[sb.st_size - 1] == '\n')
+	sb.st_size--;
+    diskName[sb.st_size] = '\0';
+    close(fd);
 
-    umount("/tmp/drivers");
+    sprintf(from, "%s/modinfo", mntPoint);
+    fd = isysReadModuleInfo(from, modInfo, diskName);
 
-    if (badDisk) {
-	return 1;
-    }
-
-    sprintf(from, "%s/modinfo", dirName);
-    isysReadModuleInfo(from, modInfo, dirName);
-    sprintf(from, "%s/modules.dep", dirName);
+    sprintf(from, "%s/modules.dep", mntPoint);
     mlLoadDeps(modDepsPtr, from);
-    sprintf(from, "%s/pcitable", dirName);
-    badDisk = pciReadDrivers(from);
-    logMessage("read %s, rc %d", from, badDisk);
-
-    diskNum++;
+    sprintf(from, "%s/pcitable", mntPoint);
+    pciReadDrivers(from);
 
     return 0;
 }
@@ -177,6 +178,7 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 	    if (rc == 2) return LOADER_BACK;
 	}
 
+	ejectFloppy();
 	rc = newtWinChoice(_("Devices"), _("OK"), 
 		cancelNotBack ? _("Cancel") : _("Back"),
 		_("Insert your driver disk and press \"OK\" to continue."));
@@ -191,15 +193,17 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 	if (doPwMount("/tmp/fd0", "/tmp/drivers", "vfat", 1, 0, NULL, NULL))
 	    if (doPwMount("/tmp/fd0", "/tmp/drivers", "ext2", 1, 0, NULL, NULL))
 		newtWinMessage(_("Error"), _("OK"), 
-			       _("Failed to mount floppy disk."));
+			       _("Failed to mount driver disk."));
 
-	if (devCopyDriverDisk(modInfo, modLoaded, modDepsPtr, 
+	if (devInitDriverDisk(modInfo, modLoaded, modDepsPtr, 
 			      flags, "/tmp/drivers"))
 	    newtWinMessage(_("Error"), _("OK"),
 		_("The floppy disk you inserted is not a valid driver disk "
 		  "for this release of Red Hat Linux."));
 	else
 	    done = 1;
+
+	umount("/tmp/drivers");
     } while (!done);
 
     return 0;
@@ -219,7 +223,7 @@ static int sortDrivers(const void * a, const void * b) {
 }
 
 static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
-		      moduleList modLoaded, moduleDeps modDeps, 
+		      moduleList modLoaded, moduleDeps * modDepsPtr, 
 		      struct moduleInfo * suggestion,
 		      struct moduleInfo ** modp, int * specifyParams,
 		      int flags) {
@@ -229,21 +233,22 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
     char specifyParameters = *specifyParams ? '*' : ' ';
     struct newtExitStruct es;
     struct sortModuleList * sortedOrder;
-    int numSorted = 0;
-
-    sortedOrder = alloca(sizeof(*sortedOrder) * modInfo->numModules);
-
-    for (i = 0; i < modInfo->numModules; i++) {
-	if (modInfo->moduleList[i].major == type && 
-	    !mlModuleInList(modInfo->moduleList[i].moduleName, modLoaded)) {
-	    sortedOrder[numSorted].index = i;
-	    sortedOrder[numSorted++].modInfo = modInfo;
-	}
-    }	
-
-    qsort(sortedOrder, numSorted, sizeof(*sortedOrder), sortDrivers);
+    int numSorted;
 
     do {
+	sortedOrder = malloc(sizeof(*sortedOrder) * modInfo->numModules);
+	numSorted = 0;
+
+	for (i = 0; i < modInfo->numModules; i++) {
+	    if (modInfo->moduleList[i].major == type && 
+		!mlModuleInList(modInfo->moduleList[i].moduleName, modLoaded)) {
+		sortedOrder[numSorted].index = i;
+		sortedOrder[numSorted++].modInfo = modInfo;
+	    }
+	}	
+
+	qsort(sortedOrder, numSorted, sizeof(*sortedOrder), sortDrivers);
+
 	if (FL_MODDISK(flags)) {
 	    text = newtTextboxReflowed(-1, -1, _("Which driver should I try?. "
 		    "If the driver you need does not appear in this list, and "
@@ -290,10 +295,12 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 	newtFormDestroy(form);
 	newtPopWindow();
 
+	free(sortedOrder);
+
 	if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
 	    return LOADER_BACK;
 	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
-	    devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 0);
+	    devLoadDriverDisk(modInfo, modLoaded, modDepsPtr, flags, 0);
 	    continue;
 	} else {
 	    break;
@@ -307,7 +314,7 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 }
 
 int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo, 
-		  moduleList modLoaded, moduleDeps modDeps, int flags,
+		  moduleList modLoaded, moduleDeps * modDepsPtr, int flags,
 		  char ** moduleName) {
     struct moduleInfo * mod = NULL;
     enum { S_MODULE, S_ARGS, S_DONE } stage = S_MODULE;
@@ -318,8 +325,8 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
     while (stage != S_DONE) {
     	switch (stage) {
 	  case S_MODULE:
-	    if ((rc = pickModule(modInfo, type, modLoaded, modDeps, mod, &mod, 
-				 &specifyArgs, flags)))
+	    if ((rc = pickModule(modInfo, type, modLoaded, modDepsPtr, mod, 
+				 &mod, &specifyArgs, flags)))
 		return LOADER_BACK;
 	    stage = S_ARGS;
 	    break;
@@ -343,8 +350,8 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 	scsiWindow(mod->moduleName);
 	sleep(1);
     }
-    rc = mlLoadModule(mod->moduleName, mod->path, modLoaded, modDeps, args,
-		      modInfo, flags);
+    rc = mlLoadModule(mod->moduleName, mod->locationID, modLoaded, *modDepsPtr, 
+			args, modInfo, flags);
     if (mod->major == DRIVER_SCSI) newtPopWindow();
 
     if (args) {

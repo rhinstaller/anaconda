@@ -32,3 +32,5 @@
 #define FL_UPDATES(a)	    ((a) & LOADER_FLAGS_UPDATES)
 #define FL_KSFILE(a)	    ((a) & LOADER_FLAGS_KSFILE)
 #define FL_KSCDROM(a)	    ((a) & LOADER_FLAGS_KSCDROM)
+
+void ejectFloppy(void);

@@ -73,28 +73,28 @@ struct installMethod {
     char * (*mountImage)(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps modDeps, int flags);
+		      moduleDeps * modDepsPtr, int flags);
 };
 
 #ifdef INCLUDE_LOCAL
 static char * mountCdromImage(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps modDeps, int flags);
+		      moduleDeps * modDepsPtr, int flags);
 static char * mountHardDrive(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps modDeps, int flags);
+		      moduleDeps * modDepsPtr, int flags);
 #endif
 #ifdef INCLUDE_NETWORK
 static char * mountNfsImage(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps modDeps, int flags);
+		      moduleDeps * modDepsPtr, int flags);
 static char * mountUrlImage(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps modDeps, int flags);
+		      moduleDeps * modDepsPtr, int flags);
 #endif
 
 static struct installMethod installMethods[] = {
@@ -114,6 +114,18 @@ static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
 static int newtRunning = 0;
 int continuing = 0;
+
+void ejectFloppy(void) {
+#if defined(__sparc__) || defined(__ia64__)
+    int fd;
+
+    logMessage("ejecting floppy");
+
+    fd = open("/dev/fd0", O_RDONLY);
+    ioctl(fd, FDEJCET, 1);
+    close(fd);
+#endif
+}
 
 void doSuspend(void) {
     newtFinished();
@@ -236,7 +248,8 @@ static int detectHardware(moduleInfoSet modInfo,
 }
 
 int addDeviceManually(moduleInfoSet modInfo, moduleList modLoaded, 
-		      moduleDeps modDeps, struct knownDevices * kd, int flags) {
+		      moduleDeps * modDepsPtr, struct knownDevices * kd, 
+		      int flags) {
     char * pristineItems[] = { N_("SCSI"), N_("Network") };
     char * items[3];
     int i, rc;
@@ -260,14 +273,15 @@ int addDeviceManually(moduleInfoSet modInfo, moduleList modLoaded,
 	else
 	    type = DRIVER_SCSI;
 
-	rc = devDeviceMenu(type, modInfo, modLoaded, modDeps, flags, NULL);
+	rc = devDeviceMenu(type, modInfo, modLoaded, modDepsPtr, flags, NULL);
     } while (rc);
 
     return 0;
 }
 
 int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded, 
-		      moduleDeps modDeps, struct knownDevices * kd, int flags) {
+		      moduleDeps * modDepsPtr, struct knownDevices * kd, 
+		      int flags) {
     int i, rc;
     char buf[2000];
     struct moduleInfo * mi;
@@ -323,7 +337,7 @@ int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
 	    if (answer != add)
 		break;
 
-	    addDeviceManually(modInfo, modLoaded, modDeps, kd, flags);
+	    addDeviceManually(modInfo, modLoaded, modDepsPtr, kd, flags);
 	} else {
 	    rc = newtWinChoice(_("Devices"), _("Done"), _("Add Device"), 
 		    _("I don't have any special device drivers loaded for "
@@ -331,7 +345,7 @@ int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
 	    if (rc != 2)
 		break;
 
-	    addDeviceManually(modInfo, modLoaded, modDeps, kd, flags);
+	    addDeviceManually(modInfo, modLoaded, modDepsPtr, kd, flags);
 	}
     } 
 
@@ -360,7 +374,8 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		    printf("%s\n", modList[i]->moduleName);
 		} else {
 		    if (modList[i]->major == DRIVER_NET) {
-			mlLoadModule(modList[i]->moduleName, modList[i]->path, 
+			mlLoadModule(modList[i]->moduleName, 
+				     modList[i]->locationID, 
 				     modLoaded, modDeps, NULL, modInfo, flags);
 		    }
 		}
@@ -371,8 +386,9 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		    startNewt(flags);
 
 		    scsiWindow(modList[i]->moduleName);
-		    mlLoadModule(modList[i]->moduleName, modList[i]->path, 
-				 modLoaded, modDeps, NULL, modInfo, flags);
+		    mlLoadModule(modList[i]->moduleName, 
+				 modList[i]->locationID, modLoaded, modDeps, 
+				 NULL, modInfo, flags);
 		    sleep(1);
 		    newtPopWindow();
 		}
@@ -540,7 +556,7 @@ static char * setupHardDrive(char * device, char * type, char * dir,
 static char * mountHardDrive(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps modDeps, int flags) {
+		      moduleDeps * modDepsPtr, int flags) {
     int rc;
     int fd;
     int i, j;
@@ -562,7 +578,7 @@ static char * mountHardDrive(struct installMethod * method,
     static int ufsloaded;
     #endif
 
-    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, modInfo, flags);
 
     while (!done) {
 	numPartitions = 0;
@@ -580,7 +596,7 @@ static char * mountHardDrive(struct installMethod * method,
 			      case BALKAN_PART_UFS:
 				if (!ufsloaded) {
 				    ufsloaded = 1;
-				    mlLoadModule("ufs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+				    mlLoadModule("ufs", NULL, modLoaded, *modDeps, NULL, modInfo, flags);
 				}
 				/* FALLTHROUGH */
 			    #endif
@@ -611,7 +627,7 @@ static char * mountHardDrive(struct installMethod * method,
 			      "additional devices?"));
 	    if (rc == 2) return NULL;
 
-	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDeps, flags, 
+	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDepsPtr, flags, 
 			  NULL);
 	    kdFindScsiList(kd);
 
@@ -680,7 +696,7 @@ static char * mountHardDrive(struct installMethod * method,
 	if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
 	    return NULL;
 	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
-	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDeps, flags, 
+	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDepsPtr, flags, 
 			  NULL);
 	    kdFindScsiList(kd);
 	    continue;
@@ -720,7 +736,7 @@ static char * mountHardDrive(struct installMethod * method,
 static char * setupCdrom(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps modDeps, int flags, int probeQuickly,
+		      moduleDeps * modDepsPtr, int flags, int probeQuickly,
 		      int needRedHatCD) {
     int i;
     int rc;
@@ -757,7 +773,7 @@ static char * setupCdrom(struct installMethod * method,
 			  "the Red Hat CD and press \"OK\" to retry."));
 	    if (rc == 2) return NULL;
 	} else {
-	    rc = setupCDdevice(kd, modInfo, modLoaded, modDeps, flags);
+	    rc = setupCDdevice(kd, modInfo, modLoaded, modDepsPtr, flags);
 	    if (rc == LOADER_BACK) return NULL;
 	}
     } while (1);
@@ -773,18 +789,19 @@ static char * setupCdrom(struct installMethod * method,
 static char * mountCdromImage(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps modDeps, int flags) {
-    return setupCdrom(method, location, kd, modInfo, modLoaded, modDeps,
+		      moduleDeps * modDepsPtr, int flags) {
+    return setupCdrom(method, location, kd, modInfo, modLoaded, modDepsPtr,
 		      flags, 0, 1);
 }
 
 int kickstartFromCdrom(char * ksFile, char * fromFile, 
 		       struct knownDevices * kd, 
     		       moduleInfoSet modInfo, moduleList modLoaded,
-		       moduleDeps modDeps, int flags) {
+		       moduleDeps * modDepsPtr, int flags) {
     char * fullFn;
 
-    if (!setupCdrom(NULL, NULL, kd, modInfo, modLoaded, modDeps, flags, 1, 0)) {
+    if (!setupCdrom(NULL, NULL, kd, modInfo, modLoaded, modDepsPtr, 
+		    flags, 1, 0)) {
 	logMessage("kickstart failed to find CD device");
 	return 1;
     }
@@ -803,7 +820,8 @@ int kickstartFromCdrom(char * ksFile, char * fromFile,
 
 static int ensureNetDevice(struct knownDevices * kd,
     		         moduleInfoSet modInfo, moduleList modLoaded,
-		         moduleDeps modDeps, int flags, char ** devNamePtr) {
+		         moduleDeps * modDepsPtr, int flags, 
+			 char ** devNamePtr) {
     int i, rc;
     char * devName = NULL;
 
@@ -819,7 +837,7 @@ static int ensureNetDevice(struct knownDevices * kd,
 
     /* It seems like expert mode should do something here? */
     if (!devName) {
-	rc = devDeviceMenu(DRIVER_NET, modInfo, modLoaded, modDeps, flags,
+	rc = devDeviceMenu(DRIVER_NET, modInfo, modLoaded, modDepsPtr, flags,
 			   NULL);
 	if (rc) return rc;
 	kdFindNetList(kd);
@@ -853,7 +871,7 @@ static int ensureNetDevice(struct knownDevices * kd,
 static char * mountNfsImage(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		         moduleInfoSet modInfo, moduleList modLoaded,
-		         moduleDeps modDeps, int flags) {
+		         moduleDeps * modDepsPtr, int flags) {
     static struct networkDeviceConfig netDev;
     char * devName;
     int i, rc;
@@ -866,7 +884,7 @@ static char * mountNfsImage(struct installMethod * method,
 
     memset(&netDev, 0, sizeof(netDev));
 
-    i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
+    i = ensureNetDevice(kd, modInfo, modLoaded, modDepsPtr, flags, &devName);
     if (i) return NULL;
 
     while (stage != NFS_STAGE_DONE) {
@@ -893,7 +911,8 @@ static char * mountNfsImage(struct installMethod * method,
 		break;
 	    }
 
-	    mlLoadModule("nfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+	    mlLoadModule("nfs", NULL, modLoaded, *modDepsPtr, NULL, modInfo, 
+			 flags);
 	    fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	    sprintf(fullPath, "%s:%s", host, dir);
 
@@ -943,7 +962,7 @@ static char * mountNfsImage(struct installMethod * method,
 static char * mountUrlImage(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps modDeps, int flags) {
+		      moduleDeps * modDepsPtr, int flags) {
     int i, rc;
     int stage = URL_STAGE_IP;
     char * devName;
@@ -958,7 +977,7 @@ static char * mountUrlImage(struct installMethod * method,
 
     initLoopback();
 
-    i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
+    i = ensureNetDevice(kd, modInfo, modLoaded, modDepsPtr, flags, &devName);
     if (i) return NULL;
 
     memset(&ui, 0, sizeof(ui));
@@ -1058,7 +1077,7 @@ static char * doMountImage(char * location,
 			   struct knownDevices * kd,
 			   moduleInfoSet modInfo,
 			   moduleList modLoaded,
-			   moduleDeps modDeps,
+			   moduleDeps * modDepsPtr,
 			   char ** lang,
 			   char ** keymap,
 			   char ** kbdtype,
@@ -1137,7 +1156,7 @@ static char * doMountImage(char * location,
        Red Hat CD. If there is one there, just die happy */
     if (!networkAvailable && !FL_EXPERT(flags)) {
 # endif
-	url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps,
+	url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDepsPtr,
 			 flags, 1, 1);
 	if (url) return url;
     }
@@ -1203,7 +1222,7 @@ static char * doMountImage(char * location,
 	case STEP_URL:
 	    url = installMethods[validMethods[methodNum]].mountImage(
 		   installMethods + validMethods[methodNum], location,
-    		   kd, modInfo, modLoaded, modDeps, flags);
+    		   kd, modInfo, modLoaded, modDepsPtr, flags);
 	    if (!url) {
 		step = STEP_METHOD;
                 dir = -1;
@@ -1222,7 +1241,7 @@ static char * doMountImage(char * location,
 }
 
 static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo, 
-			    moduleList modLoaded, moduleDeps modDeps, 
+			    moduleList modLoaded, moduleDeps * modDepsPtr, 
 			    int flags) {
     char ** ksArgv = NULL;
     int ksArgc, rc;
@@ -1269,14 +1288,15 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	    } 
 
 	    if (!strcmp(fsType, "vfat"))
-		mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+		mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, 
+			     modInfo, flags);
 
 	    if (doPwMount(fs, "/tmp/drivers", fsType, 1, 0, NULL, NULL)) {
 		logMessage("failed to mount %s", fs);
 		break;
 	    } 
 
-	    if (devCopyDriverDisk(modInfo, modLoaded, &modDeps, flags,
+	    if (devInitDriverDisk(modInfo, modLoaded, modDepsPtr, flags,
 				  "/tmp/drivers")) {
 		logMessage("driver information missing!");
 	    }
@@ -1316,7 +1336,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	else
 	    optv = NULL;
 
-	rc = mlLoadModule(device, mi->path, modLoaded, modDeps, 
+	rc = mlLoadModule(device, mi->locationID, modLoaded, * modDepsPtr, 
 			  optv, modInfo, flags);
 	if (optv) free(optv);
 
@@ -1335,7 +1355,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 static char * setupKickstart(char * location, struct knownDevices * kd,
     		             moduleInfoSet modInfo,
 			     moduleList modLoaded,
-		             moduleDeps modDeps, int * flagsPtr) {
+		             moduleDeps * modDepsPtr, int * flagsPtr) {
     char ** ksArgv;
     char * device = NULL;
     int ksArgc;
@@ -1376,7 +1396,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     };
 #endif
 
-    kickstartDevices(kd, modInfo, modLoaded, modDeps, flags);
+    kickstartDevices(kd, modInfo, modLoaded, modDepsPtr, flags);
 
     if (0) {
 #ifdef INCLUDE_NETWORK
@@ -1452,7 +1472,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 
 #ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS) {
-	mlLoadModule("nfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+	mlLoadModule("nfs", NULL, modLoaded, *modDepsPtr, NULL, modInfo, flags);
 	fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	sprintf(fullPath, "%s:%s", host, dir);
 
@@ -1470,8 +1490,8 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 
 #ifdef INCLUDE_LOCAL
     if (ksType == KS_CMD_CDROM) {
-	imageUrl = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps, 
-			  flags, 1, 1);
+	imageUrl = setupCdrom(NULL, location, kd, modInfo, modLoaded, 
+			  modDepsPtr, flags, 1, 1);
     } else if (ksType == KS_CMD_HD) {
 	char * fsType;
 	logMessage("partname is %s", partname);
@@ -1519,7 +1539,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     } 
 #endif
 
-    kickstartDevices(kd, modInfo, modLoaded, modDeps, flags);
+    kickstartDevices(kd, modInfo, modLoaded, modDepsPtr, flags);
 
     return imageUrl;
 }
@@ -1598,8 +1618,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 }
 
 #ifdef INCLUDE_NETWORK
-int kickstartFromNfs(char * location, moduleList modLoaded, moduleDeps modDeps, 
-		     int flags, char * ksSource) {
+int kickstartFromNfs(char * location, moduleList modLoaded, 
+		     moduleDeps * modDepsPtr, int flags, char * ksSource) {
     struct networkDeviceConfig netDev;
     char * file, * fullFn;
     char * ksPath;
@@ -1650,7 +1670,7 @@ int kickstartFromNfs(char * location, moduleList modLoaded, moduleDeps modDeps,
 
     logMessage("ks server: %s file: %s", ksPath, file);
 
-    mlLoadModule("nfs", NULL, modLoaded, modDeps, NULL, NULL, flags);
+    mlLoadModule("nfs", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
 
     if (doPwMount(ksPath, "/tmp/nfskd", "nfs", 1, 0, NULL, NULL)) {
 	logMessage("failed to mount %s", ksPath);
@@ -1668,15 +1688,15 @@ int kickstartFromNfs(char * location, moduleList modLoaded, moduleDeps modDeps,
 #endif
 
 int kickstartFromHardDrive(char * location, 
-			   moduleList modLoaded, moduleDeps modDeps, 
+			   moduleList modLoaded, moduleDeps * modDepsPtr, 
 			   char * source, int flags) {
     char * device;
     char * fileName;
     char * fullFn;
 
-    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, NULL, flags);
+    mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
     #ifdef __sparc__
-    mlLoadModule("ufs", NULL, modLoaded, modDeps, NULL, NULL, flags);
+    mlLoadModule("ufs", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
     #endif
 
     fileName = strchr(source, '/');
@@ -1706,8 +1726,8 @@ int kickstartFromHardDrive(char * location,
 }
 
 int kickstartFromFloppy(char * location, moduleList modLoaded,
-			moduleDeps modDeps, int flags) {
-    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, NULL, flags);
+			moduleDeps * modDepsPtr, int flags) {
+    mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
 
     if (devMakeInode("fd0", "/tmp/fd0"))
 	return 1;
@@ -1820,7 +1840,7 @@ int copyDirectory(char * from, char * to) {
 }
 
 void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
-	         moduleDeps modDeps, int flags) {
+	         moduleDeps * modDepsPtr, int flags) {
     int done = 0;
     int rc;
 
@@ -1858,7 +1878,7 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
 /* Don't load the large ufs module if it will not be needed
    to save some memory on lowmem SPARCs. */
 void loadUfs(struct knownDevices *kd, moduleList modLoaded,
-	     moduleDeps modDeps, int flags) {
+	     moduleDeps * modDepsPtr, int flags) {
     int i, j, fd, rc;
     struct partitionTable table;
     int ufsloaded = 0;
@@ -1874,7 +1894,7 @@ void loadUfs(struct knownDevices *kd, moduleList modLoaded,
 		    for (j = 0; j < table.maxNumPartitions; j++) {
 			if (table.parts[j].type == BALKAN_PART_UFS) {
 			    if (!ufsloaded)
-				mlLoadModule("ufs", NULL, modLoaded, modDeps, NULL, NULL, flags);
+				mlLoadModule("ufs", NULL, modLoaded, *modDeps, NULL, NULL, flags);
 			    ufsloaded = 1;
 			}
 		    }
@@ -1887,7 +1907,7 @@ void loadUfs(struct knownDevices *kd, moduleList modLoaded,
     }
 }
 #else
-#define loadUfs(kd,modLoaded,modDeps,flags) do { } while (0)
+#define loadUfs(kd,modLoaded,modDepsPtr,flags) do { } while (0)
 #endif
 
 int main(int argc, char ** argv) {
@@ -1974,6 +1994,7 @@ int main(int argc, char ** argv) {
 
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = isysNewModuleInfoSet();
+
     if (isysReadModuleInfo(arg, modInfo, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
@@ -1990,7 +2011,7 @@ int main(int argc, char ** argv) {
     if (FL_KSFLOPPY(flags)) {
 	startNewt(flags);
 	ksFile = "/tmp/ks.cfg";
-	kickstartFromFloppy(ksFile, modLoaded, modDeps, flags);
+	kickstartFromFloppy(ksFile, modLoaded, &modDeps, flags);
 	flags |= LOADER_FLAGS_KICKSTART;
     }
 
@@ -2004,7 +2025,7 @@ int main(int argc, char ** argv) {
 
     if (!continuing) {
 	winStatus(40, 3, _("PC Card"), _("Initializing PC Card Devices..."));
-	startPcmcia(modLoaded, modDeps, modInfo, flags);
+	startPcmcia(modLoaded, &modDeps, modInfo, flags);
 	newtPopWindow();
     }
 #endif
@@ -2026,7 +2047,7 @@ int main(int argc, char ** argv) {
     }
     if (FL_KSHD(flags)) {
 	ksFile = "/tmp/ks.cfg";
-	kickstartFromHardDrive(ksFile, modLoaded, modDeps, ksSource, flags);
+	kickstartFromHardDrive(ksFile, modLoaded, &modDeps, ksSource, flags);
 	flags |= LOADER_FLAGS_KICKSTART;
     } else if (FL_KSFILE(flags)) {
 	ksFile = ksSource;
@@ -2036,7 +2057,7 @@ int main(int argc, char ** argv) {
 #ifdef INCLUDE_LOCAL
     if (FL_KSCDROM(flags)) {
 	ksFile = "/tmp/ks.cfg";
-	kickstartFromCdrom(ksFile, ksSource, &kd, modInfo, modLoaded, modDeps,
+	kickstartFromCdrom(ksFile, ksSource, &kd, modInfo, modLoaded, &modDeps,
 			   flags);
 	flags |= LOADER_FLAGS_KICKSTART;
     }
@@ -2046,19 +2067,19 @@ int main(int argc, char ** argv) {
     if (FL_KICKSTART(flags) && !ksFile) {
 	ksFile = "/tmp/ks.cfg";
 	startNewt(flags);
-	kickstartFromNfs(ksFile, modLoaded, modDeps, flags, ksSource);
+	kickstartFromNfs(ksFile, modLoaded, &modDeps, flags, ksSource);
     }
 #endif
 
     if (ksFile) {
 	startNewt(flags);
 	ksReadCommands(ksFile);
-	url = setupKickstart("/mnt/source", &kd, modInfo, modLoaded, modDeps, 
+	url = setupKickstart("/mnt/source", &kd, modInfo, modLoaded, &modDeps, 
 			     &flags);
     }
 
     if (!url) {
-	url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, modDeps,
+	url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, &modDeps,
 			   &lang, &keymap, &kbdtype,
 			   flags);
     }
@@ -2108,7 +2129,7 @@ int main(int argc, char ** argv) {
     /* merge in any new pci ids */
     pciReadDrivers("/modules/pcitable");
 
-    modInfo = isysNewModuleInfoSet();
+    /*modInfo = isysNewModuleInfoSet();*/
     if (isysReadModuleInfo(arg, modInfo, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
@@ -2122,13 +2143,13 @@ int main(int argc, char ** argv) {
     if (((access("/proc/bus/pci/devices", X_OK) &&
 	  access("/proc/openprom", X_OK)) || 
 	  FL_ISA(flags) || FL_NOPROBE(flags)) && !ksFile) {
-	manualDeviceCheck(modInfo, modLoaded, modDeps, &kd, flags);
+	manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);
     }
 
     if (FL_UPDATES(flags))
-        loadUpdates(&kd, modLoaded, modDeps, flags);
+        loadUpdates(&kd, modLoaded, &modDeps, flags);
 
-    loadUfs(&kd, modLoaded, modDeps, flags);
+    loadUfs(&kd, modLoaded, &modDeps, flags);
 
     if (!FL_TESTING(flags)) {
         int fd;
