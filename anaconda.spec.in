@@ -10,7 +10,6 @@ BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.1.52, pciutils-devel, bzip2-
 %ifarch i386
 BuildRequires: dietlibc
 %endif
-Prereq: chkconfig /etc/init.d
 Requires: rpm-python >= 4.2-0.61, rhpl > 0.63, parted >= 1.6.3-7, booty, kudzu
 Requires: pyparted
 Url: http://rhlinux.redhat.com/anaconda/
@@ -77,6 +76,10 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
+
+* Fri Apr 30 2004 Jeremy Katz <katzj@redhat.com>
+- Update description, remove prereq on stuff that was only needed 
+  for reconfig mode 
 
 * Tue Feb 24 2004 Jeremy Katz <katzj@redhat.com>
 - buildrequire libselinux-devel
