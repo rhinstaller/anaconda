@@ -144,8 +144,8 @@ class FirewallWindow:
 		    	"First, you can select to allow all traffic from "
 			"certain network interfaces. Second, you can allow "
 		 	"certain protocols explicitly through the firewall. "
-		 	"Specify additional ports in the form 'service:protocol', "
-		 	"such as 'imap:tcp'. ")
+		 	"In a comma separated list, specify additional ports in the form "
+                        "'service:protocol' such as 'imap:tcp'. ")
 	
 		    poplevel.add (TextboxReflowed(65, text), 0, 0, (0, 0, 0, 1))	 
 	
