@@ -9,9 +9,13 @@ OBJECTS = nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o \
 STATICOBJS = otherinsmod.o
 STATICLIBS = ../kudzu/kudzumodule.so
 LOADLIBES = -lbz2 -lresolv -lz -lpci -lpopt -L../pump -lpump
-SUBDIRS = modutils pci
 #PYTHONLIBDIR = $(DESTDIR)/Pusr/lib/python1.5/site-packages
 PYMODULES = _isys.so
+SUBDIRS = pci
+
+ifneq ($(ARCH),ia64)
+SUBDIRS += modutils
+endif
 
 ifeq ($(ARCH),sparc)
 PYMODULES += _silo.so
