@@ -60,7 +60,7 @@ distclean: clean
 
 depend:
 
-install:	all
+install:	$(FMTCARALOGS) all 
 	mkdir -p $(PREFIX)/$(INSTALLNLSDIR)
 	for n in $(FMTCATALOGS); do \
 	    l=`basename $$n .mo`; \
