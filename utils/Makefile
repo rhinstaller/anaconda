@@ -6,7 +6,7 @@ ARCH := $(patsubst sparc%,sparc,$(ARCH))
 ISYSLIB=isys
 
 LOADLIBES =  -L../isys -l$(ISYSLIB) -lpopt
-CFLAGS = -Wall -g -I.. -I/usr/include/rpm -I../loader
+CFLAGS = -Wall -g -I.. -I/usr/include/rpm-4.0.4 -I../loader
 LDFLAGS = -g -static
 MODDEPS = moddeps
 
@@ -18,7 +18,7 @@ endif
 
 everything: $(TARGET)
 
-all:	modlist $(MODDEPS) snarffont mapshdr readmap checkisomd5 implantisomd5
+all:	modlist $(MODDEPS) snarffont mapshdr readmap checkisomd5 implantisomd5 genhdlist
 
 modlist:    modlist.o 
 
@@ -42,7 +42,7 @@ checkisomd5: checkisomd5.c md5.o
 	gcc -O -g -o checkisomd5 -DTESTING checkisomd5.c md5.o -lm
 
 genhdlist: genhdlist.c hash.c
-	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c hash.c -lrpm -lrpmdb -lrpmio \
+	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c hash.c -lrpm-4.0.4 -lrpmdb-4.0.4 -lrpmio-4.0.4 \
 	-lbz2 -lz -lpopt 
 
 depends:
@@ -50,7 +50,7 @@ depends:
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
-#	install -m755 -s genhdlist $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 -s genhdlist $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 trimpcitable $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 -s moddeps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 filtermoddeps $(DESTDIR)/$(RUNTIMEDIR)
@@ -59,9 +59,6 @@ install: all
 	install -m755 -s checkisomd5 $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 -s implantisomd5 $(DESTDIR)/$(RUNTIMEDIR)
 
-#
-# removed genhdlist from clean line so it will be distributed on CDROM image
-#
 clean:	
 	rm -f modlist moddeps snarffont genhdlist mapshdr readmap *.o 
 	rm -f implantisomd5 checkisomd5
