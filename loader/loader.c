@@ -2452,6 +2452,8 @@ static void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
 static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo, int flags,
 			      struct knownDevices * kd) {
+
+#if 0
     startNewt(flags);
 
     winStatus(40, 3, _("IDE"), _("Initializing IDE modules..."));
@@ -2466,6 +2468,7 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
     newtPopWindow();
 
     kdFindIdeList(kd, CODE_PCMCIA);
+#endif
 }
 
 int main(int argc, char ** argv) {
@@ -2776,6 +2779,7 @@ int main(int argc, char ** argv) {
     mlLoadModule("raid5", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("ext3", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("ipchains", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
 
