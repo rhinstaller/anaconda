@@ -30,7 +30,7 @@ if len(sys.argv) > 1:
         syslog = Syslogd (root, open (output, "w+"))
 	# this never returns
 
-import signal, traceback, string, isys, iutil
+import signal, traceback, string, isys, iutil, time
 from log import log
 from translate import _
 from exception import handleException
@@ -271,8 +271,11 @@ iutil.setMemoryOverhead(overhead)
 #
 if (not flags.test):
     if (iutil.memInstalled() < isys.MIN_GUI_RAM):
-        print _("You do not have enough RAM to use the graphical installer.  Starting text mode.")
+        print _("You do not have enough RAM to use the graphical installer.  "
+                "Starting text mode.")
 	display_mode = 't'
+        time.sleep(2)
+        
 
 if iutil.memInstalled() < isys.MIN_RAM:
     from snack import *
@@ -343,6 +346,14 @@ if 1:
     else:
 	sys.stdout.write(_("Skipping mouse probe.\n"))
 
+if (method and ((len (method) >= 6 and method[:6] == "ftp://")
+    or (len (method) >= 7 and method[:7] == "http://")
+    or (len (method) >= 5 and method[:5] == "hd://"))):
+    print _("Graphical installation not available for %s installs.  "
+            "Starting text mode.") % (string.split(method, ':')[0],)
+    display_mode = 't'
+    time.sleep(2)
+
 #
 # startup X server is we're not already running under an X session
 #
@@ -357,11 +368,13 @@ if display_mode == 'g':
             if os.access("/etc/X11/XF86Config", os.R_OK):
                 xcfg = xserver.start_existing_X ()
             else:
-                xcfg = xserver.startX (runres, nofbmode, videohw, monitorhw, mousehw)
+                xcfg = xserver.startX (runres, nofbmode, videohw, monitorhw,
+                                       mousehw)
             
         except RuntimeError:
             print " X startup failed, falling back to text mode"
             display_mode = 't'
+            time.sleep(2)            
     else:
         xcfg = xf86config.XF86Config(videohw, monitorhw, mousehw, runres)
 else:
@@ -389,19 +402,15 @@ if (display_mode == 'g'):
         try:
             from gui import InstallInterface
         except:
-            # if we're not going to really go into GUI mode, we need to get back
-            # to vc1 where the text install is going to pop up.
+            # if we're not going to really go into GUI mode, we need to get
+            # back to vc1 where the text install is going to pop up.
             if startXServer:
                 isys.vtActivate (1)
             print "GUI installer startup failed, falling back to text mode."
+            time.sleep(2)            
             from text import InstallInterface
 
 if (display_mode == 't'):
-    if (method and ((len (method) >= 6 and method[:6] == "ftp://")
-        or (len (method) >= 7 and method[:7] == "http://")
-	or (len (method) >= 5 and method[:5] == "hd://"))):
-        print _("Graphical installation not available for %s installs.  "
-                "Starting text mode.") % (string.split(method, ':')[0],)
     from text import InstallInterface
     from text import stepToClasses
 
