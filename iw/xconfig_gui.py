@@ -462,6 +462,7 @@ class MonitorWindow (InstallWindow):
             elif self.todo.x.state == monitor[0]:
 #                print "They're equal 2"
                 self.currentNode = node
+                self.ics.setNextEnabled (TRUE)
                 pass
             else:
 #                print "They're not equal"
@@ -478,6 +479,7 @@ class MonitorWindow (InstallWindow):
 
                 #        print monitor
                 if not monitor:
+#                    print "Inside if not monitor"
                     self.ics.setNextEnabled (FALSE)
                     if self.hEntry and self.vEntry:
                         self.hEntry.set_text ("")
@@ -485,6 +487,7 @@ class MonitorWindow (InstallWindow):
                         self.hEntry.set_editable (FALSE)
                         self.vEntry.set_editable (FALSE)
                 else:
+#                    print "Inside else"
                     self.ics.setNextEnabled (TRUE)
 #                    print monitor[2]
 #                    print monitor[3]
