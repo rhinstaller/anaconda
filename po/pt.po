@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-06-11 09:57+0100\n"
+"PO-Revision-Date: 2004-07-01 14:57+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -660,7 +660,7 @@ msgstr "Ligação Remota (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Servidor Web (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
@@ -1614,14 +1614,12 @@ msgstr ""
 "Quer inicializar este disco?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Ignorar"
+msgstr "_Ignorar a unidade"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Formatar"
+msgstr "_Formatar a unidade"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -3342,9 +3340,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "Desactivar o SELinux"
+msgstr "Acrivar o _SELinux?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3905,14 +3902,12 @@ msgid "_Point to Point (IP)"
 msgstr "_Ponto a Ponto (IP)"
 
 #: ../iw/network_gui.py:238
-#, fuzzy
 msgid "_ESSID"
-msgstr "ESSID"
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
-#, fuzzy
 msgid "Encryption _Key"
-msgstr "Chave de Cifragem"
+msgstr "_Chave de Cifragem"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -5598,9 +5593,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "Não pode personalizar uma \"firewall\" inactiva."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Personalizar Configuração Gráfica"
+msgstr "Personalizar Configuração da 'Firewall'"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -7092,9 +7086,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Não foi possível encontrar o ficheiro ks.cfg na disquete de arranque."
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Argumento inválido para o método 'HD' do 'kickstart' %s: %s"
+msgstr "Argumento inválido para o método 'shutdown' do 'kickstart' %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -8296,7 +8290,7 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Árabe"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -8351,9 +8345,8 @@ msgid "German"
 msgstr "Alemão"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "A procurar"
+msgstr "Hindu"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8377,7 +8370,7 @@ msgstr "Coreano"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedónio"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8401,7 +8394,7 @@ msgstr "Português(Brasileiro)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8420,9 +8413,8 @@ msgid "Swedish"
 msgstr "Sueco"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmânia"
+msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8434,7 +8426,7 @@ msgstr "Ucraniano"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamês"
 
 #. generated from lang-table
 msgid "Welsh"
@@ -8465,9 +8457,6 @@ msgstr "Zulu"
 #~ msgid "_Allow incoming:"
 #~ msgstr "Permitir a _entrada:"
 
-#~ msgid "Web Server"
-#~ msgstr "Servidor Web"
-
 #~ msgid "Other _ports:"
 #~ msgstr "Outros _portos:"
 
@@ -8476,24 +8465,6 @@ msgstr "Zulu"
 
 #~ msgid "Trusted Devices:"
 #~ msgstr "Dispositivos de confiança:"
-
-#~ msgid "SSH"
-#~ msgstr "SSH"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "WWW (HTTP)"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "E-mail (SMTP)"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Other ports"
-#~ msgstr "Outros portos"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "Configuração da 'Firewall' - Personalizar"
 
 #~ msgid ""
 #~ "You can customize your firewall in two ways. First, you can select to "
