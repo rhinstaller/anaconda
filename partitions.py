@@ -140,6 +140,8 @@ class Partitions:
         mdList = diskset.mdList
         for raidDev in mdList:
             (theDev, devices, level, numActive) = raidDev
+
+            level = "RAID%s" %(level,)
             
             # is minor always mdN ?
             minor = int(theDev[2:])
