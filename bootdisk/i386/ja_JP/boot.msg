@@ -1,11 +1,11 @@
 
  
-                09Welcome to 0cRed Hat09 Linux 6.2J!07
+                09Welcome to 0cRed Hat09 Linux 7.0J!07
 
- o  To install or upgrade a system running 0cRed Hat07 Linux 2.0 
+ o  To install or upgrade a system running 0cRed Hat07 Linux 3.0.3 
     or later in graphical mode, press the 0f<ENTER>07 key.
 
- o  To install or upgrade a system running 0cRed Hat07 Linux 2.0 
+ o  To install or upgrade a system running 0cRed Hat07 Linux 3.0.3 
     or later in text mode, type: 0ftext <ENTER>07.
 
  o  To enable expert mode, type: 0fexpert <ENTER>07.  Press 05<F3>07 for

@@ -1,12 +1,12 @@
 
 
-                 090cRed Hat09 Linux 6.2 vous souhaite la bienvenue !07
+                 090cRed Hat09 Linux 7.0 vous souhaite la bienvenue !07
 
 o  Pour une nouvelle installation, ou pour mettre … jour un systŠme 0cRed Hat07
-   Linux 2.0 ou sup‚rieur en mode graphique, tapez 0f<Entr‚e>07.
+   Linux 3.0.3 ou sup‚rieur en mode graphique, tapez 0f<Entr‚e>07.
 
 o  Pour une nouvelle installation, ou pour mettre … jour un systŠme 0cRed Hat07
-   Linux 2.0 ou sup‚rieur en mode texte, tapez : 0ftext <Entr‚e>07.
+   Linux 3.0.3 ou sup‚rieur en mode texte, tapez : 0ftext <Entr‚e>07.
 
 o  Pour activer le mode expert, tapez : 0fexpert <Entr‚e>07. Pressez 05<F3>07 pour
    obtenir des informations sur ce mode.
