@@ -134,13 +134,15 @@ class NetworkWindow(InstallWindow):
 	dev.set(("ONBOOT", onboot))
 
     def setHostOptionsSensitivity(self):
-	if not self.anyUsingDHCP():
-	    self.hostnameManual.set_active(1)
+        # figure out if they have overridden using dhcp for hostname
+	if self.anyUsingDHCP():
+	    if self.hostname != "localhost.localdomain" and self.network.overrideDHCPhostname:
+		self.hostnameManual.set_active(1)
+		self.hostnameManual.set_sensitive(1)
+	    else:
+		self.hostnameUseDHCP.set_active(1)
 	else:
-	    self.hostnameUseDHCP.set_active(1)
-	    
-        self.hostnameUseDHCP.set_sensitive(self.anyUsingDHCP())
-
+	    self.hostnameManual.set_active(1)
 
     def setIPTableSensitivity(self):
 	numactive = self.getNumberActiveDevices()
@@ -468,9 +470,11 @@ class NetworkWindow(InstallWindow):
 	return self.ethdevices
 
     def hostnameUseDHCPCB(self, widget, data):
+	self.network.overrideDHCPhostname = 0
 	self.hostnameEntry.set_sensitive(not widget.get_active())
 
     def hostnameManualCB(self, widget, data):
+	self.network.overrideDHCPhostname = 1
 	if widget.get_active():
 	    self.hostnameEntry.grab_focus()
 
@@ -553,16 +557,8 @@ class NetworkWindow(InstallWindow):
 	box.pack_start(frame, gtk.FALSE, gtk.FALSE)
 
 
-        # figure out if they have overridden using dhcp for hostname
-	if self.anyUsingDHCP():
-	    if self.hostname != "localhost.localdomain" and self.network.overrideDHCPhostname:
-		self.hostnameManual.set_active(1)
-		self.hostnameManual.set_sensitive(1)
-	    else:
-		self.hostnameUseDHCP.set_active(1)
-	else:
-	    self.hostnameManual.set_active(1)
-
+        self.setHostOptionsSensitivity()
+        
         #
 	# this is the iptable used for DNS, et. al
 	self.ipTable = gtk.Table(len(global_options), 2)
