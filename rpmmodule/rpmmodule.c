@@ -893,8 +893,8 @@ static PyObject * rpmtransAdd(rpmtransObject * s, PyObject * args) {
     } else if (how && !strcmp(how, "u"))
     	isUpgrade = 1;
 
-    if (how && strcmp(how, "a"))
-	rpmtransAvailablePackage(s->ts, h, key);
+    if (how && !strcmp(how, "a"))
+	rpmtransAvailablePackage(s->ts, h->h, key);
     else
 	rpmtransAddPackage(s->ts, h->h, NULL, key, isUpgrade, NULL);
 
