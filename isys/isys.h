@@ -20,6 +20,11 @@ struct moduleInfo {
     struct moduleArg * args;
 };
 
+struct moduleInfoSet_s {
+    struct moduleInfo * moduleList;
+    int numModules;
+};
+
 typedef struct moduleInfoSet_s * moduleInfoSet;
 
 moduleInfoSet isysNewModuleInfoSet(void);

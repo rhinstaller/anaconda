@@ -8,11 +8,6 @@
 
 #include "isys.h"
 
-struct moduleInfoSet_s {
-    struct moduleInfo * moduleList;
-    int numModules;
-};
-
 struct moduleInfo * isysGetModuleList(moduleInfoSet mis, 
 				      enum driverMajor major) {
     struct moduleInfo * miList, * next;
