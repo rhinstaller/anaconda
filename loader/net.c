@@ -453,7 +453,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
     int i;
 
     for (i = 0; i < kd->numKnown; i++)
-	if (!strcmp(kd->known[i].name, fn)) break;
+	if (!strcmp(kd->known[i].name, dev->dev.device)) break;
 
     if (!(f = fopen(fn, "w"))) return -1;
 
