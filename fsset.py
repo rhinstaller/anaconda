@@ -1484,7 +1484,8 @@ class RAIDDevice(Device):
                                                     devPrefix=devPrefix)
             iutil.execWithRedirect ("/usr/sbin/mkraid", 
                                     ('mkraid', '--really-force',
-                                     '--configfile', '--dangerous-no-resync',
+                                     '--dangerous-no-resync',
+                                     '--configfile', 
                                      raidtab, node),
                                     stderr="/dev/tty5", stdout="/dev/tty5")
             raid.register_raid_device(self.device, self.members[:],
