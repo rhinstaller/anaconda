@@ -1,3 +1,8 @@
+2004-10-26  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/modules.c: Fix off by one, been on -HEAD for a while
+	(#137182)
+
 2004-10-21  Bill Nottingham <notting@redhat.com>
 
 	* scripts/mk-images: re-add pci.ids bits. Use trimpciids to

@@ -731,7 +731,7 @@ char * getModuleLocation(int version) {
     }
 
     if (version == 1) {
-        ret = malloc(strlen(u.release) + strlen(arch) + 1);
+        ret = malloc(strlen(u.release) + strlen(arch) + 2);
         sprintf(ret, "%s/%s", u.release, arch);
         return ret;
     } else {
