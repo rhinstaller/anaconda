@@ -88,10 +88,10 @@ class XF86Config:
 
         if thecard:
             card = cards[thecard]
-            if card.has_key ("SEE"):
-                return cards[card["SEE"]]
-
-            return cards[thecard]
+            # XXX set a max depth here to avoid infinite loops
+            while card.has_key ("SEE"):
+                card = cards[card["SEE"]]
+            return card
         return cards
 
     def monitors (self, lines = None):
@@ -761,8 +761,9 @@ Section "Screen"
 if __name__ == "__main__":
     sys.path.append ("kudzu")
     x = XF86Config ()
-
-    x.probe ()
+    print x.cards ("ATI Mach64 3D RAGE II")
+#    x.probe ()
+    sys.exit (0)
     print x.preludeSection ()
     print x.inputSection ()
     print x.mouseSection ()
