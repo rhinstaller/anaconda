@@ -547,7 +547,7 @@ class Fstab:
 	    if fsType == "swap": continue
 
 	    if not self.fsCache.has_key((device, mntpoint)):
-		self.fsCache[(device, mntpoint)] = (0, )
+		self.fsCache[(device, mntpoint)] = (1, )
 	    (doFormat,) = self.fsCache[(device, mntpoint)]
 	    fstab.append((mntpoint, device, fsType, doFormat, size ))
 
