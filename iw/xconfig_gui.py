@@ -406,7 +406,7 @@ class XConfigWindow (InstallWindow):
             group = None
             count = 0
             for size in ("256k", "512k", "1024k", "2048k", "4096k",
-                         "8192k", "16384k"):
+                         "8192k", "16384k", "32768k"):
                 button = GtkRadioButton (group, size)
                 button.connect ('clicked', self.memory_cb, size)
                 if size[:-1] == self.todo.x.vidRam:
