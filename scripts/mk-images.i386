@@ -181,10 +181,6 @@ echo "Building drvnet.img"
 makedriverdisk --padsize 1440 "Supplemental Network Drivers" "drvnet" "+net"
 [ $? = 0 ] || exit 1
 
-echo "Building oldcdrom.img"
-makedriverdisk --padsize 1440 "Supplemental CDROM controllers" "oldcdrom" "parport_pc parport +cdrom"
-[ $? = 0 ] || exit 1
-
 echo "Building pcmciadd.img"
 makedriverdisk --padsize 1440 "PCMCIA Driver Diskette" "pcmciadd" "$PCMCIAMODULES"
 [ $? = 0 ] || exit 1
