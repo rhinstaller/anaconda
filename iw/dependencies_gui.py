@@ -11,6 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import gobject
 import gtk
 from iw_gui import *
 from translate import _, N_
@@ -63,13 +64,19 @@ class UnresolvedDependenciesWindow (InstallWindow):
         sw.set_border_width (5)
         sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
-        list = gtk.CList (2, (_("Package"), _("Requirement")))
-        list.freeze ()
+	store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
         for (name, suggest) in self.deps:
-            list.append ((name, suggest))
-        list.set_column_width(0, 160)
-        list.thaw ()
-        sw.add (list)
+	    iter = store.append()
+	    store.set_value(iter, 0, name)
+	    store.set_value(iter, 1, suggest)
+
+	view = gtk.TreeView(store)
+	col = gtk.TreeViewColumn(_("Package"), gtk.CellRendererText(), text=0)
+	view.append_column(col)
+	col = gtk.TreeViewColumn(_("Requirement"), gtk.CellRendererText(),
+				 text=1)
+	view.append_column(col)
+        sw.add (view)
 
 	# assume things will be selected -- that matches our default
 	self.origSelection = self.comps.getSelectionState()
