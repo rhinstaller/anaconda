@@ -738,11 +738,11 @@ class ToDo:
 		"--policy", self.firewall.policy ]
 	if self.firewall.dhcp:
 	    args.append ("--dhcp")
-	if portlist:
-	    ports = string.split(portlist,',')
+	if self.firewall.portlist:
+	    ports = string.split(self.firewall.portlist,',')
 	    for port in ports:
 		port = string.strip(port)
-		if not port.index(':'):
+		if not string.index(port,':'):
 		    port = '%s:tcp' % port
 		self.firewall.ports.append(port)
 	for port in self.firewall.ports:
@@ -759,7 +759,9 @@ class ToDo:
 	    args.append ("--telnet")
 	for dev in self.firewall.trustdevs:
 	    args.append ("--trust", dev)
-	#iutil.execWithRedirect(args[0], args, root = self.instPath,
+	if self.firewall.enabled > 0:
+	    pass
+	#  iutil.execWithRedirect(args[0], args, root = self.instPath,
 	#		       stdout = None, stderr = None)
 
     def setupAuthentication (self):
@@ -1165,11 +1167,26 @@ class ToDo:
 	todo.instClass = instClass
 	todo.hostname = todo.instClass.getHostname()
 	todo.updateInstClassComps()
+	( enable, policy, trusts, ports, dhcp, ssh,
+	  telnet, smtp, http, ftp ) = todo.instClass.getFirewall()
+	  
+	todo.firewall.enabled = enable
+	todo.firewall.policy = policy
+	todo.firewall.trustdevs = trusts
+	todo.firewall.portlist = ports
+	todo.firewall.dhcp = dhcp
+	todo.firewall.ssh = ssh
+	todo.firewall.telnet = telnet
+	todo.firewall.smtp = smtp
+	todo.firewall.http = http
+	todo.firewall.ftp = ftp
+	
 	( useShadow, useMd5,
           useNIS, nisDomain, nisBroadcast, nisServer,
           useLdap, useLdapauth, ldapServer, ldapBasedn,
           useKrb5, krb5Realm, krb5Kdc, krb5Admin,
           useHesiod, hesiodLhs, hesiodRhs) = todo.instClass.getAuthentication()
+	  
         todo.auth.useShadow = useShadow
         todo.auth.useMD5 = useMd5
         todo.auth.useNIS = useNIS
@@ -1530,6 +1547,7 @@ class ToDo:
         self.writeKeyboard ()
         self.writeNetworkConfig ()
         self.setupAuthentication ()
+	self.setupFirewall ()
         self.writeRootPassword ()
         self.createAccounts ()
 

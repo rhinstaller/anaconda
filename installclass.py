@@ -103,7 +103,7 @@ class BaseInstallClass:
 
     def addToSkipList(self, type):
 	# this throws an exception if there is a problem
-	[ "lilo", "mouse", "network", "authentication", "complete", "complete",
+	[ "lilo", "mouse", "network", "firewall", "authentication", "complete", "complete",
 	  "package-selection", "bootdisk", "partition", "format", "timezone",
 	  "accounts", "dependencies", "language", "keyboard", "xconfig",
 	  "welcome", "custom-upgrade", "installtype", "mouse", 
@@ -115,7 +115,16 @@ class BaseInstallClass:
 
     def getHostname(self):
 	return self.hostname
-
+    
+    def setFirewall(self, enable = -1, policy = 0, trusts = [], ports = "",
+		    dhcp = 0, ssh = 0, telnet = 0, smtp = 0, http = 0,
+		    ftp = 0):
+	self.firewall = (enable, policy, trusts, ports, dhcp, ssh, telnet,
+			 smtp, http, ftp)
+    
+    def getFirewall(self):
+	return self.firewall
+    
     def setAuthentication(self, useShadow, useMd5,
                           useNIS = 0, nisDomain = "",  nisBroadcast = 0,
                           nisServer = "",
@@ -244,6 +253,7 @@ class BaseInstallClass:
 	self.packages = None
 	self.makeBootdisk = 0
 	self.timezone = None
+	self.setFirewall()
 	self.setAuthentication(1, 1, 0)
 	self.rootPassword = None
 	self.rootPasswordCrypted = 0

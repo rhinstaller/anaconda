@@ -60,7 +60,51 @@ class KickstartBase(BaseInstallClass):
 
 	BaseInstallClass.doRootPw(self, extra[0], isCrypted = isCrypted)
 	self.addToSkipList("accounts")
-
+	
+    def doFirewall(self, args):
+	(args, extra) = isys.getopt(args, '',
+		[ 'dhcp', 'ssh', 'telnet', 'smtp', 'http', 'ftp',
+		  'port=', 'policy=', 'trust=' ])
+		  
+	dhcp = 0
+	ssh = 0
+	telnet = 0
+	smtp = 0
+	http = 0
+	ftp = 0
+	policy = 0
+	enable = 1
+	trusts = []
+	ports = None
+	
+	for n in args:
+	    (str, arg) = n
+	    if str == '--dhcp':
+		dhcp = 1
+	    elif str == '--ssh':
+		ssh = 1
+	    elif str == '--telnet':
+		telnet = 1
+	    elif str == '--smtp':
+		smtp = 1
+	    elif str == '--http':
+		http = 1
+	    elif str == '--ftp':
+		ftp = 1
+	    elif str == '--policy':
+		policy = arg
+	    elif str == '--trust':
+		trusts.append(arg)
+	    elif str == '--port':
+		if ports:
+		    ports = '%s %s' % (ports, arg)
+		else:
+		    ports = arg
+	    
+	self.setFirewall(enable, policy, trusts, ports, dhcp, ssh, telnet,
+			smtp, http, ftp)
+	self.addToSkipList("firewall")
+	    
     def doAuthconfig(self, args):
 	(args, extra) = isys.getopt(args, '',
                 [ 'useshadow',
@@ -353,6 +397,7 @@ class KickstartBase(BaseInstallClass):
 		     "device"		: None			,
 		     "deviceprobe"	: None			,
 		     "driverdisk"	: None			,
+		     "firewall"		: self.doFirewall	,
 		     "harddrive"	: None			,
 		     "install"		: self.doInstall	,
 		     "keyboard"		: self.doKeyboard	,
