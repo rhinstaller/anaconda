@@ -84,7 +84,12 @@ class InstSyslog:
         if self.pid == -1:
             raise RuntimeError, "syslogd not running"
         os.kill (self.pid, 15)
-        os.waitpid (self.pid, 0)
+	
+        try:
+	    os.waitpid (self.pid, 0)
+        except OSError, (num, msg):
+            log("exception from waitpid in syslogd::stop: %s %s" % (num, msg))
+
         self.pid = -1
 
 syslog = InstSyslog()
