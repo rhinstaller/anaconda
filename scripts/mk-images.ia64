@@ -11,14 +11,13 @@ prepareBootImage() {
 	dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_TMPIMAGE 2>/dev/null
 	mkdosfs -C $MBD_TMPIMAGE $BOOTDISKSIZE >/dev/null
 	mount -o loop -t vfat $MBD_TMPIMAGE $MBD_BOOTTREE
-	mkdir -p $MBD_BOOTTREE/efi/boot
-	cp $MBD_FSIMAGE $MBD_BOOTTREE/efi/boot/initrd.img
+	mkdir -p $MBD_BOOTTREE/EFI/boot
+	cp $MBD_FSIMAGE $MBD_BOOTTREE/EFI/boot/initrd.img
 
-	cp -a $BOOTDISKDIR/* $MBD_BOOTTREE/
-	mkdir -p $MBD_BOOTTREE/efi/EFI/boot
-	cp $KERNELROOT/boot/efi/EFI/redhat/vmlinuz-* $MBD_BOOTTREE/efi/EFI/boot/vmlinuz
-	cp $MBD_BOOTTREE/elilo.efi $MBD_BOOTTREE/efi/EFI/boot/bootia64.efi
-	cat > $MBD_BOOTTREE/efi/EFI/boot/elilo.conf << EOF
+	cp -a $BOOTDISKDIR/* $MBD_BOOTTREE/EFI/boot/
+	cp $KERNELROOT/boot/EFI/redhat/vmlinuz-* $MBD_BOOTTREE/EFI/boot/vmlinuz
+	cp $MBD_BOOTTREE/EFI/boot/elilo.efi $MBD_BOOTTREE/EFI/boot/bootia64.efi
+	cat > $MBD_BOOTTREE/EFI/boot/elilo.conf << EOF
 prompt	
 timeout=50
 
@@ -30,7 +29,7 @@ image=vmlinuz
 EOF
 
 	# make a copy in the root of the image
-	cp $MBD_BOOTTREE/efi/EFI/boot/* $MBD_BOOTTREE/
+	cp $MBD_BOOTTREE/EFI/boot/* $MBD_BOOTTREE/
 }
 
 makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
