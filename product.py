@@ -26,7 +26,7 @@ if path is None:
 else:
     f = open(path, "r")
     lines = f.readlines()
-    if len(lines) < 3:
+    if len(lines) < 4:
         productName = "anaconda"
         productVersion = "bluesky"
 	productPath = "RedHat"
