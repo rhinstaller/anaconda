@@ -176,7 +176,7 @@ class x86BootloaderInfo:
 
 	for (label, version) in kernelList:
 	    kernelTag = "-" + version
-	    kernelFile = "%svmlinuz%s" (cfPath, kernelTag)
+	    kernelFile = "%svmlinuz%s" % (cfPath, kernelTag)
 
 	    initrd = makeInitrd (kernelTag, instRoot)
 
