@@ -96,7 +96,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu db3 rpm-python2.2 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help booty
-         hdparm"
+         hdparm lvm"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs lilo"
@@ -193,6 +193,7 @@ lib/libdb1*
 lib/libdl*
 lib/libe2p*
 lib/libext2fs*
+lib/liblvm-10.so*
 lib/libm[-.]*
 lib/libnsl*
 lib/libnss_dns*
@@ -207,12 +208,26 @@ lib/libuuid*
 sbin/badblocks
 sbin/clock
 sbin/debugfs
+sbin/e2fsadm
 sbin/e2label
 sbin/fdisk
 sbin/hdparm
 sbin/hwclock
 sbin/ldconfig
 sbin/lilo
+sbin/lvchange
+sbin/lvcreate
+sbin/lvdisplay
+sbin/lvextend
+sbin/lvmchange
+sbin/lvmcreate_initrd
+sbin/lvmdiskscan
+sbin/lvmsadc
+sbin/lvmsar
+sbin/lvreduce
+sbin/lvremove
+sbin/lvrename
+sbin/lvscan
 sbin/mkdosfs
 sbin/mke2fs
 sbin/busybox.anaconda
@@ -223,8 +238,30 @@ sbin/mkreiserfs
 sbin/mkraid
 sbin/mkswap
 sbin/parted
+sbin/pvchange
+sbin/pvcreate
+sbin/pvdata
+sbin/pvdisplay
+sbin/pvmove
+sbin/pvscan
 sbin/probe
 sbin/tune2fs
+sbin/vgcfgbackup
+sbin/vgcfgrestore
+sbin/vgchange
+sbin/vgck
+sbin/vgcreate
+sbin/vgdisplay
+sbin/vgexport
+sbin/vgextend
+sbin/vgimport
+sbin/vgmerge
+sbin/vgmknodes
+sbin/vgreduce
+sbin/vgremove
+sbin/vgrename
+sbin/vgscan
+sbin/vgsplit
 usr/X11R6/lib/X11/Cards
 usr/X11R6/share/Xconfigurator/MonitorsDB
 usr/bin/python
