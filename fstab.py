@@ -45,6 +45,7 @@ def isValidExt2(device):
 
 class Fstab:
     def attemptPartitioning(self, partitions, prefstab, clearParts):
+        
 	attempt = []
 	swapCount = 0
 
@@ -94,10 +95,17 @@ class Fstab:
 
         success = 0
 
+#        self.messageWindow(_("Ready?"), _("About to try to autopartition"))
+
 	try:
-	    ddruid.attempt (attempt, "Junk Argument", clearParts)
+	    rc = ddruid.attempt (attempt, "Junk Argument", clearParts)
             success = 1
-	except:
+
+        except self.fserror, msg:
+            log("Kickstart autopartitioning failed because following errors:")
+            for i in string.split(msg, '\n'):
+                if len(i) > 0:
+                    log (i)
 	    pass
 
         if success == 1:
@@ -836,11 +844,12 @@ class Fstab:
     def setRunDruid(self, state):
 	self.shouldRunDruid = state
 
-    def __init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
+    def __init__(self, fsedit, fserror, setupFilesystems, serial, zeroMbr, 
 		 readOnly, waitWindow, messageWindow, progressWindow,
 		 ignoreRemovable, protected, expert):
 
 	self.fsedit = fsedit
+        self.fserror = fserror
 	self.fsCache = {}
         self.clearfsOptions()
         self.protectList = protected
@@ -897,10 +906,11 @@ class GuiFstab(Fstab):
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow,
 		 messageWindow, progressWindow, ignoreRemovable,
                  protected, expert):
-	from gnomepyfsedit import fsedit        
+	from gnomepyfsedit import fsedit
+        from gnomepyfsedit import fserror
 	from gtk import *
 
-	Fstab.__init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
+	Fstab.__init__(self, fsedit, fserror, setupFilesystems, serial, zeroMbr, 
 		       readOnly, waitWindow, messageWindow, 
 		       progressWindow, ignoreRemovable, protected, expert)
 
@@ -914,9 +924,11 @@ class NewtFstab(Fstab):
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly,
                  waitWindow, messageWindow, progressWindow,
                  ignoreRemovable, protected, expert):
-	from newtpyfsedit import fsedit        
+	from newtpyfsedit import fsedit
+        from newtpyfsedit import fserror
+        
 
-	Fstab.__init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
+	Fstab.__init__(self, fsedit, fserror, setupFilesystems, serial, zeroMbr, 
 		       readOnly, waitWindow, messageWindow, progressWindow, 
 		       ignoreRemovable, protected, expert)
 
