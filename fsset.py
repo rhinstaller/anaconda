@@ -1436,6 +1436,19 @@ class Device:
     def getName(self):
         return self.__class__.__name__
 
+class DevDevice(Device):
+    """Device with a device node rooted in /dev that we just always use
+       the pre-created device node for."""
+    def __init__(self, dev):
+        Device.__init__(self)
+        self.device = dev
+
+    def getDevice(self):
+        return "/dev/%s" %(self.device,)
+
+    def setupDevice(self, chroot='/', devPrefix='/dev'):
+        return self.getDevice()
+
 class RAIDDevice(Device):
     # XXX usedMajors does not take in account any EXISTING md device
     #     on the system for installs.  We need to examine all partitions
@@ -1749,9 +1762,9 @@ def makeDevice(dev):
                                 spares=len(devices) - numActive,
                                 existing=1)
         except KeyError:
-            device = PartitionDevice(dev)
+            device = DevDevice(dev)
     else:
-        device = PartitionDevice(dev)
+        device = DevDevice(dev)        
     return device
 
 # XXX fix RAID
