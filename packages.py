@@ -1055,10 +1055,6 @@ def doInstall(method, id, intf, instPath):
     except Exception, e:
         log("failed to unlink /var/lib/rpm: %s" %(e,))
 
-    if id.grpset.hdrlist.has_key("rhgb") and id.grpset.hdrlist["rhgb"].isSelected():
-        log("rhgb installed, adding to boot loader config")
-        id.bootloader.args.append("rhgb quiet")
-
     instLog.close ()
 
     id.instProgress = None
@@ -1194,6 +1190,10 @@ def doPostInstall(method, id, intf, instPath):
             # needed for prior to 2.6 so that mice have some chance
             # of working afterwards. FIXME: this is a hack
             migrateMouseConfig(instPath, instLogName)
+
+        if id.grpset.hdrlist.has_key("rhgb") and id.grpset.hdrlist["rhgb"].isSelected():
+            log("rhgb installed, adding to boot loader config")
+            id.bootloader.args.append("rhgb quiet")
 
         w.set(5)
 

@@ -1,3 +1,8 @@
+2004-10-12  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py (doPostInstall): Add rhgb in post-install, not
+	doInstall (from msw on anaconda-devel-list)
+
 2004-10-12  Bill Nottingham  <notting@redhat.com>
 
 	* loader2/module-info: add ahci, sx8
