@@ -68,10 +68,12 @@ class BootloaderWindow (InstallWindow):
         # set the bootloader type
         if self.none_radio.get_active():
             self.dispatch.skipStep("instbootloader")
+            self.dispatch.skipStep("bootloaderadvanced")            
             return
         else:
             self.bl.setUseGrub(self.grub_radio.get_active())
             self.dispatch.skipStep("instbootloader", skip = 0)
+            self.dispatch.skipStep("bootloaderadvanced", skip = 0)            
         
         if self.useFbcb.get_active():
             (res, depth) = self.fbMode

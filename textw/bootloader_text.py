@@ -80,12 +80,15 @@ class BootloaderChoiceWindow:
                 if rc == "no":
                     continue
                 dispatch.skipStep("instbootloader", skip = (rc == "yes"))
+                dispatch.skipStep("bootloaderadvanced", skip = (rc == "yes"))
             elif blradio.getSelection() == "lilo":
                 bl.setUseGrub(0)
-                dispatch.skipStep("instbootloader", 0)            
+                dispatch.skipStep("instbootloader", 0)
+                dispatch.skipStep("bootloaderadvanced", 0)
             else:
                 bl.setUseGrub(1)
                 dispatch.skipStep("instbootloader", 0)
+                dispatch.skipStep("bootloaderadvanced", 0)                
 
             screen.popWindow()
             return INSTALL_OK
@@ -369,6 +372,7 @@ class BootloaderPasswordWindow:
         self.entry2.setFlags(FLAG_DISABLED, flag)        
         
     def __call__(self, screen, dispatch, bl, fsset, diskSet):
+	if dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
         if not bl.useGrub():
             return INSTALL_NOOP
 
