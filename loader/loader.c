@@ -2711,7 +2711,7 @@ int main(int argc, char ** argv) {
     if (!FL_TESTING(flags)) {
         int fd;
 
-	fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT, 0666);
+	fd = open("/tmp/modules.conf", O_WRONLY | O_APPEND | O_CREAT, 0666);
 	if (fd < 0) {
 	    logMessage("error creating /tmp/modules.conf: %s\n", 
 	    	       strerror(errno));
@@ -3027,11 +3027,10 @@ int main(int argc, char ** argv) {
     loadUfs(&kd, modLoaded, &modDeps, flags);
 
 
-#if !defined (__s390__) && !defined (__s390x__)
     if (!FL_TESTING(flags)) {
         int fd;
 
-	fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT, 0666);
+	fd = open("/tmp/modules.conf", O_WRONLY | O_APPEND | O_CREAT, 0666);
 	if (fd < 0) {
 	    logMessage("error creating /tmp/modules.conf: %s\n", 
 	    	       strerror(errno));
@@ -3048,6 +3047,7 @@ int main(int argc, char ** argv) {
     }
 
 
+#if !defined (__s390__) && !defined (__s390x__)
     /* We must look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 #endif
@@ -3055,8 +3055,10 @@ int main(int argc, char ** argv) {
     mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid5", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+#if !defined (__s390__) && !defined (__s390x__)
     mlLoadModule("msdos", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+#endif
     mlLoadModule("ext3", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("reiserfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 

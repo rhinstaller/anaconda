@@ -291,6 +291,7 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
     return LOADER_OK;
 }
 
+
 int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     newtComponent text, f, okay, back, answer, dhcpCheckbox;
     newtGrid grid, subgrid, buttons;
