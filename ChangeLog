@@ -1,3 +1,8 @@
+2004-11-08  Karsten Hopp  <karsten@redhat.com>
+	* loader2/linuxrc.s390: Don't ask for input if PORTNAME or CTCPROT
+	are already set. Use defaults if RUNKS is set for kickstart
+	installations
+
 2004-11-07  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

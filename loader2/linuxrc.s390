@@ -256,11 +256,16 @@ if [ "$NETTYPE" = "qeth" ] || [ "$NETTYPE" = "lcs" ]; then
 		  echo $"Enter your default gateway:"
 		  read GATEWAY
 	 done
-	 if [ ":$NETTYPE" = ":lcs" ]; then
-			echo $"Enter the relative port number of your LCS device"
-			echo $"(required for OSA-Express ATM cards only):"
-			read PORTNAME
-	 fi
+    if [ ":$NETTYPE" = ":lcs" ]; then
+        if [ -n "$RUNKS" -a -z "$PORTNAME" ]; then
+           PORTNAME=0
+        fi
+        while [ -z "$PORTNAME" ]; do
+           echo $"Enter the relative port number of your LCS device"
+           echo $"(required for OSA-Express ATM cards only):"
+           read PORTNAME
+        done
+    fi
 else  # ctc0, iucv0
     if [ -z "$NETMASK" ]; then
         # If the user did not supply netmask, we add the right one.
@@ -276,29 +281,35 @@ else  # ctc0, iucv0
         if [ -z "$MTU" ]; then
 		      MTU="1500"
         fi
-		  validprot=0
-        while [ "$validprot" = "0" ]; do
-           echo $"Select which protocol should be used for the CTC interface"
-           echo $"0 for compatibility with p.e. VM TCP service machine (default)"
-           echo $"1 for enhanced package checking for Linux peers"
-           echo $"3 for compatibility with OS/390 or z/OS peers"
-           read CTCPROT
-           case "x$CTCPROT" in
-           x|x0)
+        if [ -z "$RUNKS" ]; then
+           if [ -n "$CTCPROT" ]; then
               validprot=1
-              unset CTCPROT
-              ;;
-           x1|x3)
-              validprot=1
-              ;;
-           x2)
-              echo $"CTC tty's are not usable for this installation"
-              ;;
-           *)
-              echo $"Invalid selection"
-              ;;
-           esac
-        done
+           else
+              validprot=0
+           fi
+           while [ "$validprot" = "0" ]; do
+              echo $"Select which protocol should be used for the CTC interface"
+              echo $"0 for compatibility with p.e. VM TCP service machine (default)"
+              echo $"1 for enhanced package checking for Linux peers"
+              echo $"3 for compatibility with OS/390 or z/OS peers"
+              read CTCPROT
+              case "x$CTCPROT" in
+              x|x0)
+                 validprot=1
+                 unset CTCPROT
+                 ;;
+              x1|x3)
+                 validprot=1
+                 ;;
+              x2)
+                 echo $"CTC tty's are not usable for this installation"
+                 ;;
+              *)
+                 echo $"Invalid selection"
+                 ;;
+              esac
+           done
+	    fi
 	 fi
 	 if [ ":$NETTYPE" = ":iucv" ]; then
 		  while [ -z "$PEERID" ]; do
