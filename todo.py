@@ -1,4 +1,5 @@
-import rpm, os
+import rpm
+import os
 rpm.addMacro("_i18ndomains", "redhat-dist");
 
 import iutil, isys
@@ -28,6 +29,7 @@ import timer
 import fstab
 import time
 import gettext_rh
+import os.path
 from translate import _
 from log import log
 
@@ -974,6 +976,25 @@ class ToDo:
 
 	    if os.access("/mnt/loophost/rh-swap.img", os.R_OK):
 		self.fstab.setLoopbackSwapSize(-1)
+
+	    checkLinks = [ '/etc', '/var', '/var/lib', '/var/lib/rpm',
+			   '/boot' ]
+	    badLinks = []
+	    for n in checkLinks:
+		if not os.path.islink(self.instPath + n): continue
+		l = os.readlink(self.instPath + n)
+		if l[0] == '/':
+		    badLinks.append(n)
+
+	    if badLinks:
+		message = _("The following files are absolute symbolic " 
+			    "links, which we do not support during an " 
+			    "upgrade. Please change them to relative "
+			    "symbolic links and restart the upgrade.\n\n")
+		for n in badLinks:
+		    message = message + '\t' + n + '\n'
+		self.intf.messageWindow(("Absolute Symlinks"), message)
+		sys.exit(0)
 
 	    self.fstab.turnOnSwap(formatSwap = 0)
 
