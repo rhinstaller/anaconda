@@ -9,6 +9,8 @@ touch $p/etc/ld.so.conf
 (cd $p; chroot $p usr/sbin/ldconfig )
 rm -f $p/usr/sbin/ldconfig $p/etc/ld.so.conf
 
+(cd $p/usr/bin; ./collage | $p/usr/lib/anaconda-runtime/mkcollagelinks ./collage)
+
 for l in `find $p -type f -perm +100 | grep -v "usr/X11R6/lib/modules" | xargs file | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
     $STRIP $l -R .comment -R .note `objdump -h $l | \
 	sed -n 's/^.*\(\.gnu\.warning\.[^ ]*\) .*$/-R \1/p'`
