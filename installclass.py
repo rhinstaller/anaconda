@@ -161,7 +161,7 @@ class BaseInstallClass:
         # 'noupgrade' can be used on the command line to force not looking
         # for partitions to upgrade.  useful in some cases...
         cmdline = open("/proc/cmdline", "r").read()
-        if cmdline.find("upgrade") == -1:
+        if cmdline.find("upgrade") == -1 and 0:
             dispatch.skipStep("findrootparts")
 
     # called from anaconda so that we can skip steps in the headless case
@@ -333,7 +333,7 @@ class BaseInstallClass:
 
         # XXX they could have sensitive hardware, but we need this info =\
         videohw = videocard.VideoCardInfo()
-        if videohw:
+        if videohw and iutil.getArch() != "ppc": # XXX hack for ppc
             id.setVideoCard(videohw)
             
         if (not noProbe):
@@ -342,7 +342,7 @@ class BaseInstallClass:
             if monitorhw:
                 id.setMonitor(monitorhw)
 
-        if id.videocard and not id.videocard.primaryCard().getXServer():
+        if id.videocard and not id.videocard.primaryCard().getXServer() and iutil.getArch() != "ppc": # XXX hack for ppc
             if (card != None):
                 vc = id.videocard.locateVidcardByName(card)
             elif (server != None):
