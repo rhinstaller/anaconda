@@ -427,7 +427,7 @@ int mlWriteConfModules(moduleList list, int fd) {
 			      strcat(buf2, "\nalias ");
 			  }
 			  strcat(buf, buf2);
-			  if(!strstr(lm->name, "iucv")
+			  if(!strstr(lm->name, "iucv"))
 			     iucvNum++;
 		      }
 			  
@@ -458,7 +458,7 @@ int mlWriteConfModules(moduleList list, int fd) {
 	    write(fd, buf, strlen(buf));
 	}
     }
-    if (iucvNum) {  # only one device supported at boot-time
+    if (iucvNum) {
 	iucvopt = getenv("IUCV");
 	if (iucvopt && *iucvopt) {
 	    sprintf(buf, "options netiucv %s\n", iucvopt);
