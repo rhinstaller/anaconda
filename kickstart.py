@@ -151,7 +151,7 @@ class Kickstart(InstallClass):
 	    clear = FSEDIT_CLEAR_LINUX
 	elif args[0] == '--all':
 	    clear = FSEDIT_CLEAR_ALL
-	self.setClearPart(clear)
+	self.setClearParts(clear)
 
     def definePartition(self, args):
 	# we just set up the desired partitions -- magic in our base class 

@@ -35,7 +35,6 @@ class PartitionWindow (InstallWindow):
 	self.todo.ddruid.next ()
         
 	if not self.skippedScreen:
-
 	    win = self.todo.ddruid.getConfirm ()
 	    if win:
 		print "confirm"
@@ -55,22 +54,11 @@ class PartitionWindow (InstallWindow):
         self.ics.setNextEnabled (value)
 
     def getScreen (self):   
-        from gnomepyfsedit import fsedit
-
 	if self.skippedScreen:
 	    # if we skipped it once, skip it again
 	    return None
 
-        if not self.todo.ddruid:
-            drives = self.todo.drives.available ().keys ()
-            drives.sort ()
-            self.todo.ddruid = \
-                fsedit(1, drives, [])
-	    self.todo.ddruid.next()
-            self.todo.ddruid.setCallback (self.enableCallback, self)
-
-	self.todo.instClass.finishPartitioning(self.todo.ddruid)
-	if (self.todo.instClass.skipPartitioning): 
+	if self.todo.getSkipPartitioning():
 	    self.skippedScreen = 1
 	    return None
 
@@ -79,3 +67,73 @@ class PartitionWindow (InstallWindow):
         self.todo.ddruid.edit ()
         
         return self.bin
+
+class AutoPartitionWindow(InstallWindow):
+    def __init__ (self, ics):
+	InstallWindow.__init__ (self, ics)
+
+        self.todo = ics.getToDo ()
+        ics.setTitle (_("Automatic Partitioning"))
+        ics.setHTML ("<HTML><BODY>Confirm automatic partitioning"
+                     "</BODY></HTML>")
+	ics.setNextEnabled (TRUE)
+
+    def getNext(self):
+        from gnomepyfsedit import fsedit
+
+	if (self.__dict__.has_key("manuallyPartition") and   
+		self.manuallyPartition.get_active()):
+            drives = self.todo.drives.available ().keys ()
+            drives.sort ()
+            self.todo.ddruid = fsedit(0, drives, self.fstab)
+	    self.todo.manuallyPartition()
+	    
+	return None
+
+    def getScreen (self):   
+        from gnomepyfsedit import fsedit
+
+	todo = self.todo
+
+        self.fstab = []
+        for mntpoint, (dev, fstype, reformat) in todo.mounts.items ():
+            self.fstab.append ((dev, mntpoint))
+
+        if not todo.ddruid:
+            drives = todo.drives.available ().keys ()
+            drives.sort ()
+            todo.ddruid = fsedit(0, drives, self.fstab)
+	    todo.instClass.finishPartitioning(todo.ddruid)
+
+	if not todo.getPartitionWarningText(): 
+	    return None
+
+	label = GtkLabel(
+	    _("%s\n\nIf you don't want to do this, you can continue with "
+	      "this install by partitioning manually, or you can go back "
+	      "and perform a fully customized installation.") % 
+		    (todo.getPartitionWarningText(), ))
+	label.set_line_wrap(TRUE)
+	label.set_alignment(0.0, 0.0)
+	label.set_usize(400, -1)
+
+        box = GtkVBox (FALSE)
+	box.pack_start(label, FALSE)
+
+        radioBox = GtkVBox (FALSE)
+	self.continueChoice = GtkRadioButton (None, _("Remove data"))
+	radioBox.pack_start(self.continueChoice, FALSE)
+	self.manuallyPartition = GtkRadioButton(
+		self.continueChoice, _("Manually partition"))
+	radioBox.pack_start(self.manuallyPartition, FALSE)
+
+	align = GtkAlignment()
+	align.add(radioBox)
+	align.set(0.5, 0.5, 0.0, 0.0)
+
+	box.pack_start(align, TRUE, TRUE)
+
+	return box
+
+
+

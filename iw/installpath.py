@@ -31,12 +31,13 @@ SERVER = 5
 
 class InstallPathWindow (InstallWindow):		
 
-    installTypes = ((CUSTOM, _("Custom")),
-                    (WORKSTATION_GNOME, _("GNOME Workstation")),
+    installTypes = ((WORKSTATION_GNOME, _("GNOME Workstation")),
                     (WORKSTATION_KDE, _("KDE Workstation")),
-                    (SERVER, _("Server")))
+                    (SERVER, _("Server")),
+                    (CUSTOM, _("Custom")))
 
-    installSteps = [ ( PartitionWindow, "partition" ),
+    installSteps = [ ( AutoPartitionWindow, "partition" ),
+		     ( PartitionWindow, "partition" ),
 		     ( FormatWindow, "format" ),
 		     ( LiloWindow, "lilo" ),
 		     ( NetworkWindow, "network" ),
@@ -126,7 +127,7 @@ class InstallPathWindow (InstallWindow):
 	    default = None
 	else:
 	    instClass = self.todo.getClass()
-	    default = CUSTOM
+	    default = WORKSTATION_GNOME
 	    installButton.set_active(1)
 	    if isinstance(instClass, installclass.GNOMEWorkstation):
 		default = WORKSTATION_GNOME

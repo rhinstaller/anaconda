@@ -4,9 +4,16 @@
 # The interface to InstallClass is *public* -- ISVs/OEMs can customize the
 # install by creating a new derived type of this class.
 
-FSEDIT_CLEAR_LINUX  = (1 << 0)
+# putting these here is a bit of a hack, but we can't switch between
+# newtfsedit and gnomefsedit right now, so we have to put up with this
+FSEDIT_CLEAR_LINUX  = (1 << 1)
 FSEDIT_CLEAR_ALL    = (1 << 2)
 FSEDIT_USE_EXISTING = (1 << 3)
+
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 class InstallClass:
 
@@ -35,6 +42,7 @@ class InstallClass:
 	    # life's a female dog <shrug> -- we should log something though
 	    # <double-shrug>
 	    self.skipPartitioning = 0
+	    self.clearPartText = None
 	    pass
 
 	return 0
@@ -49,8 +57,9 @@ class InstallClass:
 
 	self.lilo = (location, linear, appendLine)
 
-    def setClearPart(self, clear):
+    def setClearParts(self, clear, warningText = None):
 	self.clearParts = clear
+	self.clearPartText = warningText
 
     def getLiloInformation(self):
 	return self.lilo
@@ -60,6 +69,13 @@ class InstallClass:
 
     def getTimezoneInfo(self):
 	return self.timezone
+
+    def removeFromSkipList(self, type):
+	if type == "partition":
+	    self.skipPartitioning = 0
+	else:
+	    if self.skipSteps.has_key(type):
+		del self.skipSteps[type]
 
     def addToSkipList(self, type):
 	# this throws an exception if there is a problem
@@ -139,7 +155,9 @@ class InstallClass:
 	self.nameserver = ""
 	self.partitions = []
 	self.skipPartitioning = 0
-	self.clearPart = 0
+	self.clearParts = 0
+	self.clearText = None
+	self.clearPartText = None
 
 # custom installs are easy :-)
 class CustomInstall(InstallClass):
@@ -157,11 +175,20 @@ class Workstation(InstallClass):
 	self.addToSkipList("network")
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
+	self.addToSkipList("partition")
+
+	self.partitions.append(('/boot', 16, 0, -1))
+	self.partitions.append(('/', 500, 1, -1))
+	self.partitions.append(('swap', 64, 1, -1))
+	self.setClearParts(FSEDIT_CLEAR_LINUX, 
+	    warningText = _("You are about to erase any preexisting Linux "
+			    "installations on your system."))
 
 class GNOMEWorkstation(Workstation):
 
     def __init__(self):
 	Workstation.__init__(self)
+
 	self.setGroups(["Base"])
 	self.addToSkipList("package-selection")
 
@@ -181,4 +208,14 @@ class Server(InstallClass):
 	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
+	self.addToSkipList("partition")
 
+	self.partitions.append(('/boot', 16, 0, -1))
+	self.partitions.append(('/', 256, 0, -1))
+	self.partitions.append(('/usr', 512, 1, -1))
+	self.partitions.append(('/var', 256, 1, -1))
+	self.partitions.append(('/home', 512, 1, -1))
+	self.partitions.append(('swap', 64, 1, -1))
+	self.setClearParts(FSEDIT_CLEAR_ALL, 
+	    warningText = _("You are about to erase ALL DATA on your hard " + \
+			    "drive to make room for your Linux installation."))

@@ -16,6 +16,7 @@ INSTALL_NOOP = -2
 
 cat = gettext.Catalog ("anaconda", "/usr/share/locale")
 _ = cat.gettext
+basicButtons = ((_("Ok"), "ok"), (_("Back"), "back"))
 
 class LanguageWindow:
     def __call__(self, screen, todo):
@@ -673,10 +674,8 @@ class HostnameWindow:
         
         return INSTALL_OK
 
-class PartitionWindow:
+class AutoPartitionWindow:
     def __call__(self, screen, todo):
-	#if (not todo.setupFilesystems): return INSTALL_NOOP
-
         fstab = []
         for mntpoint, (dev, fstype, reformat) in todo.mounts.items ():
             fstab.append ((dev, mntpoint))
@@ -686,9 +685,29 @@ class PartitionWindow:
             drives.sort ()
             todo.ddruid = fsedit(0, drives, fstab)
 
-	dir = INSTALL_NOOP
 	todo.instClass.finishPartitioning(todo.ddruid)
-	if not todo.instClass.skipPartitioning:
+
+	if not todo.getPartitionWarningText(): 
+	    return INSTALL_NOOP
+
+	(rc, choice) = ListboxChoiceWindow(screen, _("Automatic Partitioning"),
+	    _("%s\n\nIf you don't want to do this, you can continue with "
+	      "this install by partitioning manually, or you can go back "
+	      "and perform a fully customized installation.") % 
+		    (todo.getPartitionWarningText(), ),
+	    [_("Continue"), _("Manually partition")], 
+	    buttons = basicButtons, default = _("Continue"))
+
+	if (rc == "back"): return INSTALL_BACK
+
+        if (choice == 1):
+            todo.ddruid = fsedit(0, drives, fstab)
+	    todo.manuallyPartition()
+
+class PartitionWindow:
+    def __call__(self, screen, todo):
+	dir = INSTALL_NOOP
+	if not todo.getSkipPartitioning():
 	    dir = todo.ddruid.edit ()
 
 	for partition, mount, fstype, size in todo.ddruid.getFstab ():
@@ -1508,6 +1527,8 @@ class InstallInterface:
             ]
         
         self.installSteps = [
+            [_("Automatic Partition"), AutoPartitionWindow, 
+		    (self.screen, todo), "partition" ],
             [_("Partition"), PartitionWindow, (self.screen, todo),
 		    "partition" ],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo),

@@ -899,6 +899,17 @@ class ToDo:
 	    if (netmask):
 		dev.set (("netmask", netmask))
 
+    def getSkipPartitioning(self):
+	return self.instClass.skipPartitioning
+
+    def getPartitionWarningText(self):
+	return self.instClass.clearPartText
+
+    def manuallyPartition(self):
+	self.instClass.skipPartitioning = 0
+	self.instClass.clearPartText = None
+	self.instClass.removeFromSkipList("partition")
+
     # List of (accountName, fullName, password) tupes
     def setUserList(todo, users):
 	todo.users = users
