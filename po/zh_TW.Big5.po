@@ -1,9 +1,14 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2002 Red Hat, Inc.
+# This file is distributed under the same license as the anaconda package.
+# Ben Wu <hpwu@redhat.com>, 2002.
+#
 #: ../gettext_rh.py:340
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 7.1\n"
+"Project-Id-Version: anaconda 7.3\n"
 "POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2002-03-06 17:01GMT+10:00\n"
+"PO-Revision-Date: 2002-03-25 09:14GMT+10:00\n"
 "Last-Translator: Ben Wu <hpwu@redhat.com>\n"
 "Language-Team: Traditional Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -518,8 +523,8 @@ msgid ""
 "a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
 msgstr ""
-"一個例外狀況發生. 這極可能是一隻臭蟲. 請複製一份完整的文字敘述以及檔案,並回報"
-"給 http://bugzilla.redhat.com/bugzilla"
+"一個例外狀況發生. 這極可能是一個程式錯誤. 請複製一份完整的文字敘述以及檔案,並"
+"回報給 http://bugzilla.redhat.com/bugzilla/"
 
 #: ../gui.py:316 ../text.py:268
 msgid ""
@@ -537,9 +542,8 @@ msgid "Language Selection"
 msgstr "選擇語言"
 
 #: ../gui.py:454 ../iw/firewall_gui.py:135
-#, fuzzy
 msgid "Close"
-msgstr "清除"
+msgstr "關閉"
 
 #: ../gui.py:459 ../gui.py:632
 msgid "Release Notes"
@@ -566,29 +570,26 @@ msgid "Back"
 msgstr "上一步"
 
 #: ../gui.py:630
-#, fuzzy
 msgid "Next"
-msgstr "下一步(_N)"
+msgstr "下一步"
 
 #: ../gui.py:634
-#, fuzzy
 msgid "Show Help"
-msgstr "顯示求助訊息（_H）"
+msgstr "顯示求助訊息"
 
 #: ../gui.py:636
-#, fuzzy
 msgid "Hide Help"
-msgstr "隱藏求助訊息（_H）"
+msgstr "隱藏求助訊息"
 
 #: ../gui.py:678
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer"
-msgstr "最後階段安裝"
+msgstr "%s 系統安裝程式"
 
 #: ../gui.py:693
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer on %s"
-msgstr "Red Hat Linux %s 系統安裝程式"
+msgstr "%s 系統安裝程式在 %s"
 
 #: ../gui.py:731
 msgid "Unable to load title bar"
@@ -714,9 +715,8 @@ msgstr ""
 "檔案 %s 無法開啟. 可能是由於遺失檔案或是套件或媒體損毀. 請按 <return> 重試."
 
 #: ../packages.py:280
-#, fuzzy
 msgid "Error Installing Package"
-msgstr "正在安裝套件"
+msgstr "安裝套件發生錯誤"
 
 #: ../packages.py:281
 #, python-format
@@ -728,6 +728,10 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"安裝 %s 發生錯誤. 這是由於媒體故障,磁碟空間不足亦或硬體問題. 這是嚴重錯誤並且"
+"安裝程式將中斷. 請檢查您的媒體然後再安裝一次.\n"
+"\n"
+"按下 確定 鍵以重新啟動系統."
 
 #: ../packages.py:530
 msgid "Setting up RPM transaction..."
@@ -779,13 +783,12 @@ msgstr ""
 "\n"
 
 #: ../packages.py:600
-#, fuzzy
 msgid "Install Starting"
-msgstr "安裝類型"
+msgstr "安裝開始"
 
 #: ../packages.py:601
 msgid "Starting install process, this may take several minutes..."
-msgstr ""
+msgstr "開始安裝程序, 這要花上幾分鐘..."
 
 #: ../packages.py:646
 msgid ""
@@ -924,18 +927,18 @@ msgstr ""
 "增成員至磁碟陣列裝置中."
 
 #: ../partitioning.py:578
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr "您還沒指定 root 分割區 (/), 為了讓安裝程式繼續, 您必須先指定."
+msgstr "您還沒指定 root 分割區 (/), 為了讓 %s 安裝程式繼續, 您必須先指定."
 
 #: ../partitioning.py:581
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr "您的 root 分割區小於 250 MB, 空間太小,不足以安裝 Red Hat Linux."
+msgstr "您的 root 分割區小於 250 MB, 空間太小,不足以安裝 %s."
 
 #: ../partitioning.py:586
 msgid ""
@@ -943,11 +946,11 @@ msgid ""
 msgstr "您必須建立一個 FAT 類型的 /boot/efi 分割區,大小為 50 MB."
 
 #: ../partitioning.py:594
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
-msgstr "你的 %s 分割區小於 %s MB, 比正常安裝的建議值還要小."
+msgstr "你的 %s 分割區小於 %s MB, 比正常安裝 %s 的建議值還要小."
 
 #: ../partitioning.py:621
 msgid ""
@@ -958,11 +961,11 @@ msgstr ""
 "大的改善."
 
 #: ../partitioning.py:625
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr "您指定了超過 32 個 swap 裝置. Red Hat Linux 的核心只支援到 32 個."
+msgstr "您指定了超過 32 個 swap 裝置. %s 的核心只支援到 32 個."
 
 #: ../partitioning.py:634
 #, python-format
@@ -973,7 +976,7 @@ msgstr ""
 "您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM). 這可能會影響效能."
 
 #: ../partitioning.py:707
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type for your "
 "architecture.  To use this disk for installation of %s, it must be re-"
@@ -981,8 +984,8 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"磁碟 %s 上的磁碟分割表為無法讀取的 %s 格式，要建立新分割區必須先初始化磁碟，"
-"這將會造成磁碟上所有資料的流失。\n"
+"磁碟裝置 /dev/%s 上的磁碟分割表為無法讀取的格式，要使用這個磁碟來安裝 %s, 必"
+"須先初始化磁碟，這將會造成磁碟上所有資料的流失。\n"
 "\n"
 "您想要初始化磁碟嗎? "
 
@@ -1182,20 +1185,25 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
+"您已選取不要格式化一個已經掛載在系統目錄下的既存分割區. 除非您有特別需求想保"
+"留這分割區上的資料, 否則強烈建議您格式化該分割區以確保之前的檔案不會毀損新安"
+"裝的系統.\n"
+"\n"
+"您確定不要格式化嗎？"
 
 #: ../partitioning.py:1894
 msgid "Error with Partitioning"
 msgstr "磁碟分割錯誤"
 
 #: ../partitioning.py:1895
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
 "These errors must be corrected prior to continuing with your install of %s.\n"
 "\n"
 "%s"
 msgstr ""
-"您的磁碟分割發生下列嚴重錯誤. 這些錯誤必須在您繼續安裝前先更正.\n"
+"您的磁碟分割發生下列嚴重錯誤. 這些錯誤必須在您繼續安裝 %s 前先更正.\n"
 "\n"
 "%s"
 
@@ -1243,7 +1251,6 @@ msgid "Rescue"
 msgstr "救援"
 
 #: ../rescue.py:100
-#, fuzzy
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory /mnt/sysimage.  You can then "
@@ -1255,10 +1262,11 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"緊急救援環境會自動幫您找 Red Hat Linux 安裝的地方並幫您掛載在 %s 目錄上. 您可"
-"以視需求做任何的變更. 若您想要執行這個步驟, 請選擇 'Continue'.\n"
+"緊急救援環境會自動幫您找 Red Hat Linux 安裝的地方並幫您掛載在 /mnt/sysimage "
+"目錄下. 您可以視需求做任何的變更. 若您想要執行這個步驟, 請選擇 '繼續'. 您也可"
+"以選取 '只可讀取' 來掛載您的檔案系統成只能讀取而不是可以讀寫.\n"
 "\n"
-"若有其他原因造成執行失敗, 您可以選擇 'Skip'. 系統將會直接進入命令列狀態.\n"
+"若有其他原因造成執行失敗, 您可以選擇 '跳過'. 系統將會直接進入命令列狀態.\n"
 "\n"
 
 #: ../rescue.py:110 ../loader/loader.c:1227 ../loader/loader.c:1235
@@ -1266,9 +1274,8 @@ msgid "Continue"
 msgstr "繼續"
 
 #: ../rescue.py:110 ../rescue.py:119
-#, fuzzy
 msgid "Read-Only"
-msgstr "讀取"
+msgstr "只可讀取"
 
 #: ../rescue.py:110 ../rescue.py:112 ../textw/bootdisk_text.py:68
 #: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
@@ -1291,17 +1298,15 @@ msgid "Exit"
 msgstr "離開"
 
 #: ../rescue.py:164
-#, fuzzy
 msgid ""
 "Your system had dirty filesystems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"您沒有任何的 Linux 分割區.按 return 鍵以取得 shell. 當您退出 shell 後,系統將"
-"自動重新啟動."
+"您選擇要掛載在系統的分割區有問題. 按 return 鍵以取得 shell, 您可以執行 fsck "
+"然後掛載分割區. 當您退出 shell 後,系統將自動重新啟動."
 
 #: ../rescue.py:172
-#, fuzzy
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -1312,16 +1317,15 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"您的系統被掛載在 %s.\n"
+"您的系統被掛載在 /mnt/sysimage.\n"
 "\n"
 "請按 <return> 進入 shell. 若您想使您的系統成為 root 環境, 請執行下列指令:\n"
 "\n"
-"\tchroot %s\n"
+"\tchroot /mnt/sysimage\n"
 "\n"
 "當您退出 shell 時系統將會自動重新啟動."
 
 #: ../rescue.py:189
-#, fuzzy
 msgid ""
 "An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under /mnt/sysimage.\n"
@@ -1329,7 +1333,7 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"在掛載您的系統時發生錯誤. 有些分割區可能已經掛載於 %s.\n"
+"在掛載您的系統時發生錯誤. 有些分割區可能已經掛載於 /mnt/sysimage.\n"
 "\n"
 "請按 <return> 取得 shell. 當您退出 shell 時系統將會自動重新啟動."
 
@@ -1346,9 +1350,8 @@ msgstr ""
 "自動重新啟動."
 
 #: ../rescue.py:206
-#, fuzzy
 msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr "您的系統掛載在 %s 目錄下."
+msgstr "您的系統掛載在 /mnt/sysimage 目錄下."
 
 #: ../text.py:195
 msgid "Help not available"
@@ -1371,9 +1374,9 @@ msgid "Debug"
 msgstr "除錯程式"
 
 #: ../text.py:321
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2002 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
+msgstr "%s (C) 2002 Red Hat, Inc."
 
 #: ../text.py:324
 msgid ""
@@ -1401,9 +1404,9 @@ msgid "Searching"
 msgstr "尋找中"
 
 #: ../upgrade.py:44
-#, fuzzy, python-format
+#, python-format
 msgid "Searching for %s installations..."
-msgstr "正在尋找 Linux 安裝程式..."
+msgstr "正在尋找 %s 安裝程式..."
 
 #: ../upgrade.py:77 ../upgrade.py:84
 msgid "Dirty Filesystems"
@@ -1419,13 +1422,11 @@ msgstr ""
 "並且讓安裝程式自動檢查檔案系統,再來正常關機以進行系統升級."
 
 #: ../upgrade.py:85
-#, fuzzy
 msgid ""
 "One or more filesystems for your Linux system was not unmounted cleanly.  "
 "Would you like to mount them anyway?"
 msgstr ""
-"在你的Linux系統上有一個以上的檔案系統沒有完整的卸載. 請重新開機繼續安裝程式,"
-"並且讓安裝程式自動檢查檔案系統,再來正常關機以進行系統升級."
+"在你的Linux系統上有一個以上的檔案系統沒有完整的卸載. 您還是想要掛載它們嗎？"
 
 #: ../upgrade.py:225 ../upgrade.py:231
 msgid "Mount failed"
@@ -1745,14 +1746,14 @@ msgid "Boot Disk Creation"
 msgstr "建立開機磁片"
 
 #: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot disk allows you to boot your %s system from a floppy diskette.\n"
 "\n"
 "Please remove any diskettes from the floppy drive and insert a blank "
 "diskette. All data will be ERASED during creation of the boot disk."
 msgstr ""
-"開機磁片允許您從軟碟啟動您的系統.\n"
+"開機磁片允許您從軟碟啟動您的 %s 系統.\n"
 "\n"
 "請放入一片空白的磁碟於軟碟機中. 在建立開機片時,磁碟片中的資料將會被刪除."
 
@@ -1851,14 +1852,12 @@ msgid "Boot label"
 msgstr "識別標籤"
 
 #: ../iw/bootloader_gui.py:361
-#, fuzzy
 msgid "Use GRUB as the boot loader"
-msgstr "使用 GRUB （_G） 為開機管理程式"
+msgstr "使用 GRUB 為開機管理程式"
 
 #: ../iw/bootloader_gui.py:362
-#, fuzzy
 msgid "Use LILO as the boot loader"
-msgstr "使用 LILO (_L) 為開機管理程式"
+msgstr "使用 LILO 為開機管理程式"
 
 #: ../iw/bootloader_gui.py:363
 msgid "Do not install a boot loader"
@@ -1869,9 +1868,8 @@ msgid "Default boot image"
 msgstr "設成預設"
 
 #: ../iw/bootloaderpassword_gui.py:24
-#, fuzzy
 msgid "Boot Loader Password Configuration"
-msgstr "開機管理程式設定"
+msgstr "開機管理程式密碼設定"
 
 #: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:437
 msgid ""
@@ -1885,19 +1883,16 @@ msgstr ""
 "您想要繼續使用這個密碼嗎?"
 
 #: ../iw/bootloaderpassword_gui.py:54
-#, fuzzy
 msgid "Password accepted."
-msgstr "使用者密碼確認無誤."
+msgstr "密碼確認無誤."
 
 #: ../iw/bootloaderpassword_gui.py:59
-#, fuzzy
 msgid "Password is too short."
-msgstr "使用者密碼太短."
+msgstr "密碼太短."
 
 #: ../iw/bootloaderpassword_gui.py:61
-#, fuzzy
 msgid "Passwords do not match."
-msgstr "密碼不符"
+msgstr "密碼不符."
 
 #: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:374
 msgid ""
@@ -1909,23 +1904,21 @@ msgstr ""
 "但您不一定要設定."
 
 #: ../iw/bootloaderpassword_gui.py:84
-#, fuzzy
 msgid "Use a GRUB Password?"
-msgstr "使用 GRUB 密碼"
+msgstr "使用 GRUB 密碼？"
 
 #: ../iw/bootloaderpassword_gui.py:109
-#, fuzzy
 msgid "Please enter password"
-msgstr "請輸入使用者的密碼."
+msgstr "請輸入密碼"
 
 #: ../iw/confirm_gui.py:55
 msgid "About to Install"
 msgstr "即將開始安裝"
 
 #: ../iw/confirm_gui.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "Click next to begin installation of %s."
-msgstr "按下一步開始安裝 Linux."
+msgstr "按下一步開始安裝 %s."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
@@ -1943,9 +1936,9 @@ msgid "About to Upgrade"
 msgstr "即將開始升級"
 
 #: ../iw/confirm_gui.py:73
-#, fuzzy, python-format
+#, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "按下一步開始升級."
+msgstr "按下一步開始升級 %s."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
@@ -1960,17 +1953,18 @@ msgid "Congratulations"
 msgstr "恭喜您"
 
 #: ../iw/congrats_gui.py:48 ../textw/complete_text.py:30
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you created a boot disk to use to boot your %s system, insert it before "
 "you press <Enter> to reboot.\n"
 "\n"
 msgstr ""
-"如果您建立了開機磁片,請在您按下 <Enter> 鍵重新啟動之前先放入.\n"
+"如果您建立了開機磁片來啟動您的 %s 系統, 請在您按下 <Enter> 鍵重新啟動之前先放"
+"入.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:56
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -1983,17 +1977,17 @@ msgid ""
 "Information on using and configuring your system is available in the %s "
 "manuals at http://www.redhat.com/docs."
 msgstr ""
-"恭喜您, 系統已安裝完畢. \n"
+"恭喜您, %s 系統已安裝完畢. \n"
 "\n"
 "請移除安裝時所使用的軟碟片並按 <Enter> 重新啟動您的系統.\n"
 "\n"
 "%s想了解關於這一版已知的問題及相關修正, 請參考 http://www.redhat.com/"
 "errata.\n"
 "\n"
-"系統使用及設定的相關資訊, 您可以在 http://www.redhat.com/docs 取得."
+"系統使用及設定的相關資訊, 您可以在 http://www.redhat.com/docs 取得 %s 手冊."
 
 #: ../iw/congrats_gui.py:104
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -2007,7 +2001,7 @@ msgstr ""
 "\n"
 "想了解關於這一版已知的問題及相關修正, 請參考 http://www.redhat.com/errata.\n"
 "\n"
-"系統使用及設定的相關資訊, 您可以在 http://www.redhat.com/docs 取得."
+"系統使用及設定的相關資訊, 您可以在 http://www.redhat.com/docs 取得 %s 手冊."
 
 #: ../iw/dependencies_gui.py:20
 msgid "Unresolved Dependencies"
@@ -2057,9 +2051,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "請選擇包含 root (即/)檔案系統的磁碟:"
 
 #: ../iw/examine_gui.py:89 ../textw/upgrade_text.py:225
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading the %s installation on partition /dev/%s"
-msgstr "升級 Linux 系統於分割區 /dev/%s"
+msgstr "升級 %s 系統於分割區 /dev/%s"
 
 #: ../iw/examine_gui.py:95
 msgid "Customize packages to be upgraded"
@@ -2078,19 +2072,16 @@ msgid "Firewall Configuration"
 msgstr "防火牆設定"
 
 #: ../iw/firewall_gui.py:129
-#, fuzzy
 msgid "Warning: "
-msgstr "警告: %s"
+msgstr "警告: "
 
 #: ../iw/firewall_gui.py:129
-#, fuzzy
 msgid " is an invalid port."
-msgstr "警告: %s 不是一個有效的連接埠."
+msgstr " 不是一個有效的連接埠."
 
 #: ../iw/firewall_gui.py:132
-#, fuzzy
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr "無效的埠號: %s. 適當格式為 'port:protocol'. 例如,'1234:udp'"
+msgstr "適當格式為 'port:protocol'. 例如,'1234:udp'"
 
 #: ../iw/firewall_gui.py:219
 msgid "Please choose your security level:  "
@@ -2130,7 +2121,7 @@ msgstr "其他埠:"
 
 #: ../iw/format_gui.py:25
 msgid "Choose partitions to Format"
-msgstr ""
+msgstr "選取要格式化的分割區"
 
 #: ../iw/installpath_gui.py:35 ../textw/installpath_text.py:42
 msgid "Installation Type"
@@ -2182,7 +2173,7 @@ msgstr "選擇系統預設語言:   "
 
 #: ../iw/language_support_gui.py:153
 msgid "Currently installed languages:"
-msgstr ""
+msgstr "目前已安裝的語言："
 
 #: ../iw/language_support_gui.py:155
 msgid "Choose additional languages you would like to use on this system:"
@@ -2278,18 +2269,16 @@ msgid "Secondary DNS"
 msgstr "次要 DNS"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Tertiary DNS"
-msgstr "第二次要 DNS"
+msgstr "第三個 DNS"
 
 #: ../iw/package_gui.py:41 ../textw/packages_text.py:237
 msgid "Individual Package Selection"
 msgstr "選擇個別套件"
 
 #: ../iw/package_gui.py:280
-#, fuzzy
 msgid "Total install size: "
-msgstr "總安裝大小: %s"
+msgstr "總安裝大小: "
 
 #: ../iw/package_gui.py:416
 msgid "Tree View"
@@ -2340,10 +2329,10 @@ msgid ""
 msgstr "您的磁碟分割發生下列錯誤."
 
 #: ../iw/partition_gui.py:556
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
-msgstr "在您繼續安裝 Linux 之前必須先更正這些錯誤."
+msgstr "在您繼續安裝 %s 之前必須先更正這些錯誤."
 
 #: ../iw/partition_gui.py:563
 msgid "Partitioning Errors"
@@ -2574,9 +2563,9 @@ msgid "Automatic Partitioning"
 msgstr "自動分割磁碟"
 
 #: ../iw/partition_gui.py:1626
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one drive to have %s installed onto."
-msgstr "您至少需選擇一台磁碟機以便安裝 Linux 系統."
+msgstr "您至少需選擇一台磁碟機以便安裝 %s 系統."
 
 #: ../iw/partition_gui.py:1666
 msgid "I want to have automatic partitioning:"
@@ -2691,7 +2680,7 @@ msgstr "選擇時區"
 
 #: ../iw/timezone_gui.py:187
 msgid "View:"
-msgstr ""
+msgstr "檢視："
 
 #: ../iw/timezone_gui.py:195 ../iw/timezone_gui.py:196
 msgid "System clock uses UTC"
@@ -2710,51 +2699,52 @@ msgid "UTC Offset"
 msgstr "UTC 時差"
 
 #: ../iw/upgrade_bootloader_gui.py:29 ../textw/upgrade_bootloader_text.py:72
-#, fuzzy
 msgid "Upgrade Boot Loader Configuration"
-msgstr "開機管理程式設定"
+msgstr "升級開機管理程式"
 
 #: ../iw/upgrade_bootloader_gui.py:69 ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 #, fuzzy
 msgid "Update boot loader configuration"
-msgstr "開機管理程式設定"
+msgstr "升級開機管理程式"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
-msgstr ""
+msgstr "這將會更新您目前的開機管理程式."
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
+msgstr "安裝程式偵測到 %s 開機管理程式已安裝在 %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 #, python-format
 msgid "%s  %s"
-msgstr ""
+msgstr "%s  %s"
 
 #: ../iw/upgrade_bootloader_gui.py:77
 msgid "This is the recommended option."
-msgstr ""
+msgstr "這是建議選項."
 
 #: ../iw/upgrade_bootloader_gui.py:81 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
+msgstr "安裝程式偵測不到目前在您系統使用的開機管理程式."
 
 #: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
 #, fuzzy
 msgid "Create new boot loader configuration"
-msgstr "建立開機磁片"
+msgstr "自訂新的開機管理程式設定"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
+"這將會讓您建立一個新的開機管理程式設定. 如果您希望轉換不同的開機管理程式,您應"
+"該選取這個."
 
 #: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
 #, fuzzy
@@ -2766,18 +2756,18 @@ msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
+"這將不會改變開機管理程式設定.  如果您使用第三者的開機管理程式,您應該選取這個."
 
 #: ../iw/upgrade_bootloader_gui.py:111
-#, fuzzy
 msgid "What would you like to do?"
-msgstr "您想要新增什麼裝置"
+msgstr "您想要怎麼做？"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:31
 msgid "Migrate Filesystems"
 msgstr "轉換檔案系統"
 
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journalling filesystem.  It has several "
 "benefits over the ext2 filesystem traditionally shipped in %s.  It is "
@@ -2786,8 +2776,8 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"這個版本的 Red Hat Linux 支援 ext3 日誌式檔案系統. 比之前傳統的 ext2 檔案系統"
-"有許多新的功能. 您可以直接從 ext2 轉換到 ext3 檔案系統而不流失資料.\n"
+"這個版本的 %s 支援 ext3 日誌式檔案系統. 比之前 %s 所附傳統的 ext2 檔案系統有"
+"許多新的功能. 您可以直接從 ext2 轉換到 ext3 檔案系統而不流失資料.\n"
 "\n"
 "您想要轉換哪些分割區?"
 
@@ -2868,12 +2858,11 @@ msgstr "歡迎"
 
 #: ../iw/welcome_gui.py:62
 msgid "Exiting anaconda now"
-msgstr ""
+msgstr "正在離開 anaconda"
 
 #: ../iw/welcome_gui.py:89
-#, fuzzy
 msgid "Would you like to configure your system?"
-msgstr "您想要繼續升級系統嗎?"
+msgstr "您想要設定系統組態嗎?"
 
 #: ../iw/xconfig_gui.py:32
 msgid "Customize Graphics Configuration"
@@ -2974,15 +2963,16 @@ msgid "Graphical Interface (X) Configuration"
 msgstr "圖形介面 (X) 設定"
 
 #: ../iw/xconfig_gui.py:723
-#, fuzzy
 msgid "Unknown server"
-msgstr "未知的主機名稱"
+msgstr "未知的伺服器"
 
 #: ../iw/xconfig_gui.py:724
 msgid ""
 "This video card has no suitable X server in the database.  You will need to "
 "choose a different card or choose the 'Skip X Configuration' button."
 msgstr ""
+"在資料庫中找不到這張顯示卡適用的 X server. 您必須選擇另一張卡或選擇 '跳過 X "
+"組態設定' 鍵."
 
 #: ../iw/xconfig_gui.py:731 ../textw/xconfig_text.py:620
 msgid "Unspecified video card"
@@ -3016,9 +3006,8 @@ msgid ""
 msgstr "如果偵測到的設定值跟您的硬體不符合,請依照下表選取正確的設定值:"
 
 #: ../iw/xconfig_gui.py:896
-#, fuzzy
 msgid "Other"
-msgstr "其他連接埠"
+msgstr "其他"
 
 #: ../iw/xconfig_gui.py:985
 msgid "Video card RAM: "
@@ -3134,7 +3123,7 @@ msgstr ""
 #: ../textw/bootloader_text.py:298
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
+msgstr " <Space> 選取按鈕 | <F2> 選取預設開機登錄 | <F12> 下一個畫面>"
 
 #: ../textw/bootloader_text.py:384
 msgid "Use a GRUB Password"
@@ -3170,7 +3159,7 @@ msgid "Complete"
 msgstr "安裝完成"
 
 #: ../textw/complete_text.py:37
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -3183,7 +3172,7 @@ msgid ""
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/docs."
 msgstr ""
-"恭喜您, 系統已安裝完畢. \n"
+"恭喜您, %s 系統已安裝完畢. \n"
 "\n"
 "請移除安裝時所使用的軟碟片並按 <Enter> 重新啟動您的系統.\n"
 "\n"
@@ -3193,9 +3182,8 @@ msgstr ""
 "系統使用及設定的相關資訊, 您可以在 http://www.redhat.com/docs 取得."
 
 #: ../textw/complete_text.py:55
-#, fuzzy
 msgid "<Enter> to continue"
-msgstr "<Enter> 重新啟動"
+msgstr "按 <Enter> 鍵繼續"
 
 #: ../textw/complete_text.py:58
 #, python-format
@@ -3207,14 +3195,18 @@ msgid ""
 "Information on configuring and using your Red Hat Linux system is contained "
 "in the %s manuals."
 msgstr ""
+"恭喜您, 套件已安裝完畢. \n"
+"\n"
+"按下 <return> 鍵繼續.\n"
+"\n"
+"Red Hat Linux 系統使用及設定的相關資訊, 您可以在 %s 手冊取得."
 
 #: ../textw/complete_text.py:69
-#, fuzzy
 msgid "<Enter> to exit"
-msgstr "<Enter> 重新啟動"
+msgstr "按 <Enter> 鍵離開"
 
 #: ../textw/complete_text.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -3224,11 +3216,11 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs."
 msgstr ""
-"恭喜您, 系統已安裝完畢. \n"
+"恭喜您, 系統組態已設定完畢. \n"
 "\n"
 "想了解關於這一版已知的問題及相關修正, 請參考 http://www.redhat.com/errata.\n"
 "\n"
-"系統使用及設定的相關資訊, 您可以在 http://www.redhat.com/docs 取得."
+"系統使用及設定的相關資訊, 您可以在 http://www.redhat.com/docs 取得 %s 手冊."
 
 #: ../textw/confirm_text.py:20
 msgid "Installation to begin"
@@ -3382,9 +3374,9 @@ msgid "Mouse Selection"
 msgstr "選擇滑鼠"
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "Network Device: %s"
-msgstr "網路裝置"
+msgstr "網路裝置： %s"
 
 #: ../textw/network_text.py:70
 msgid "Use bootp/dhcp"
@@ -3411,14 +3403,13 @@ msgid "Secondary nameserver:"
 msgstr "第二個名稱伺服器位址:"
 
 #: ../textw/network_text.py:85
-#, fuzzy
 msgid "Tertiary nameserver:"
-msgstr "第三個名稱伺服器位址:"
+msgstr "第三個名稱伺服器:"
 
 #: ../textw/network_text.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Network Configuration for %s"
-msgstr "網路設定"
+msgstr "%s 的網路組態設定"
 
 #: ../textw/network_text.py:137
 msgid "Invalid information"
@@ -3787,26 +3778,22 @@ msgid "Password (confirm)"
 msgstr "密碼確認"
 
 #: ../textw/userauth_text.py:115
-#, fuzzy
 msgid "Bad User ID"
-msgstr "不當的使用者名稱:"
+msgstr "不當的使用者 ID"
 
 #: ../textw/userauth_text.py:116
-#, fuzzy
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, a-"
 "z, and 0-9."
-msgstr "使用者名稱只能包含 A-Z,a-z,0-9之間的有效字元."
+msgstr "使用者 ID 必須少於 8 個字元, 而且只能包含 A-Z,a-z,0-9之間的有效字元."
 
 #: ../textw/userauth_text.py:123
-#, fuzzy
 msgid "Missing User ID"
-msgstr "未填使用者名稱"
+msgstr "未填使用者 ID"
 
 #: ../textw/userauth_text.py:124
-#, fuzzy
 msgid "You must provide a user ID"
-msgstr "您必須輸入一個使用者名稱"
+msgstr "您必須輸入一個使用者 ID"
 
 #: ../textw/userauth_text.py:129
 msgid "The password must be at least 6 characters long."
@@ -3890,10 +3877,10 @@ msgstr "使用 TLS 連結"
 #: ../textw/welcome_text.py:22 ../textw/welcome_text.py:42
 #, python-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../textw/welcome_text.py:23
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -3904,13 +3891,12 @@ msgid ""
 "If you have purchased Official %s, be sure to register your purchase through "
 "our web site, http://www.redhat.com/."
 msgstr ""
-"歡迎使用 Red Hat Linux!\n"
+"歡迎使用 %s!\n"
 "\n"
-"在 Red Hat 出版的 Red Hat Linux 安裝手冊中有詳細的安裝說明, 如果您有這本手"
+"在 Red Hat, Inc 出版的 Official %s 安裝手冊中有詳細的安裝說明, 如果您有這本手"
 "冊, 建議您在繼續安裝之前仔細閱讀 安裝步驟 這一節.\n"
 "\n"
-"假如您購買了 Official Red Hat Linux ，請來我們的網站註冊您的產品, http://www."
-"redhat.com/."
+"假如您購買了 Official %s，請來我們的網站註冊您的產品, http://www.redhat.com/."
 
 #: ../textw/welcome_text.py:43
 #, python-format
@@ -3922,6 +3908,11 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
+"歡迎使用 %s!\n"
+"\n"
+"您已經進入重新組態設定模式, 您將可以為您的電腦設定 site-specific 的選項.\n"
+"\n"
+"欲離開而不改變任何設定, 請按以下的取消按鈕."
 
 #: ../textw/xconfig_text.py:24
 msgid "Color Depth"
@@ -4060,9 +4051,8 @@ msgid "VSync Rate:"
 msgstr "垂直更新頻率:"
 
 #: ../textw/xconfig_text.py:435
-#, fuzzy
 msgid "You cannot go back from this step."
-msgstr "您無法移除剩餘空間."
+msgstr "您無法回到上一步."
 
 #: ../textw/xconfig_text.py:489
 #, python-format
@@ -4178,11 +4168,11 @@ msgid "Failed to mount driver disk."
 msgstr "無法掛載額外驅動程式磁片"
 
 #: ../loader/devices.c:266
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of %"
 "s."
-msgstr "您置入的磁碟片不是有效的驅動程式磁片,這一版的 Red Hat Linux 無法辨識."
+msgstr "您置入的磁碟片不是有效的驅動程式磁片,這一版的 %s 無法辨識."
 
 #: ../loader/devices.c:326
 msgid ""
@@ -4218,12 +4208,12 @@ msgstr "讀取 kickstart 檔案 %s 內容時發生錯誤: %s"
 #: ../loader/kickstart.c:109
 #, c-format
 msgid "Error on line %d of kickstart file %s."
-msgstr "kickstart 檔案 %d 在第 %s 行發生錯誤."
+msgstr "kickstart 檔案 %2$s 在第 %1$d 行發生錯誤."
 
 #: ../loader/lang.c:41 ../loader/loader.c:195
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s"
-msgstr "歡迎"
+msgstr "歡迎使用 %s"
 
 #: ../loader/lang.c:42 ../loader/loader.c:201
 msgid ""
@@ -4263,9 +4253,8 @@ msgid "What kind of device would you like to add"
 msgstr "您想要新增什麼裝置"
 
 #: ../loader/loader.c:377
-#, fuzzy
 msgid "The following devices have been found on your system:"
-msgstr "我已經在您的系統上找到下列裝置"
+msgstr "已經在您的系統上找到下列裝置："
 
 #: ../loader/loader.c:379 ../loader/loader.c:404
 msgid "Done"
@@ -4276,11 +4265,10 @@ msgid "Add Device"
 msgstr "新增裝置"
 
 #: ../loader/loader.c:405
-#, fuzzy
 msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
-msgstr "我並沒有為您的系統載入任何特殊的裝置驅動程式, 您想要現在載入嗎?"
+msgstr "並沒有為您的系統載入任何特殊的裝置驅動程式, 您想要現在載入嗎?"
 
 #: ../loader/loader.c:489 ../loader/loader.c:896 ../loader/loader.c:2749
 #, c-format
@@ -4294,16 +4282,19 @@ msgid ""
 msgstr "讀取 ISO 影像檔時發生錯誤. 請檢查您的 ISO 影像檔然後再試一次."
 
 #: ../loader/loader.c:913
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
 "\n"
 "   %s?"
-msgstr "您想要對 %s ISO 影像檔執行完整性測試嗎?"
+msgstr ""
+"您想要對 ISO 影像檔執行 Checksum 測試嗎：\n"
+"\n"
+"   %s?"
 
 #: ../loader/loader.c:916
 msgid "Checksum Test"
-msgstr ""
+msgstr "Checksum 測試"
 
 #: ../loader/loader.c:1026
 msgid "Hard Drives"
@@ -4316,14 +4307,14 @@ msgid ""
 msgstr "您的系統似乎沒有硬碟! 您想要設定其他裝置嗎?"
 
 #: ../loader/loader.c:1072
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"該分割區的哪一個目錄上存放有 RedHat/RPMS 及 RedHat/base 這兩個目錄呢?如果您在"
-"這份清單上看不到你所使用的磁碟機,請按 F2 設定額外的裝置"
+"在該分割區上那一個分割區與目錄含有 %s 的 CD (iso9660) 影像檔? 如果您在這裡沒"
+"有看到您使用中的硬碟, 按下 F2 來設定其他裝置."
 
 #: ../loader/loader.c:1088
 msgid "Directory holding images:"
@@ -4344,7 +4335,7 @@ msgstr "媒體測試"
 
 #: ../loader/loader.c:1209 ../loader/loader.c:1213
 msgid "Eject CD"
-msgstr ""
+msgstr "退出光碟片"
 
 #: ../loader/loader.c:1210
 #, c-format
@@ -4352,6 +4343,8 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
+"選取 \"%s\" 來測試光碟機裡的光碟片, 或選取 \"%s\" 退出光碟片並放入另一片以作"
+"測試."
 
 #: ../loader/loader.c:1228
 #, c-format
@@ -4363,15 +4356,17 @@ msgid ""
 "To begin the installation process insert CD #1 into the drive and press \"%s"
 "\"."
 msgstr ""
+"假如您想測試其他的媒體, 放入下一片光碟片然後按下 \"%s\". 您並不需要測試所有的"
+"光碟片, 不過建議您至少做一次.\n"
+"\n"
+"欲開始安裝程序, 放入第一片光碟然後按下 \"%s\"."
 
 #: ../loader/loader.c:1249 ../loader/loader.c:1363
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
-msgstr ""
-"我在您的光碟機中找不到 Red Hat Linux 光碟片,請置入 Red Hat Linux 的光碟並按確"
-"定,重試一次. "
+msgstr "%s 光碟片在您的光碟機中找不到. 請置入 %s 光碟片, 並按下 %s 重試."
 
 #: ../loader/loader.c:1292
 msgid "CD Found"
@@ -4384,6 +4379,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
+"安裝前欲開始測試光碟媒體, 請按下 %s.\n"
+"\n"
+"選取 %s 略過媒體測試並開始安裝程式."
 
 #: ../loader/loader.c:1459
 msgid "Networking Device"
@@ -4400,9 +4398,8 @@ msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "該目錄並沒有相關的安裝套件"
 
 #: ../loader/loader.c:1581
-#, fuzzy
 msgid "That directory could not be mounted from the server"
-msgstr "無法從該伺服器取得目錄"
+msgstr "無法從該伺服器掛載這個目錄"
 
 #: ../loader/loader.c:1623
 #, c-format
@@ -4450,11 +4447,11 @@ msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "請放入您的升級磁片並按 確定 繼續."
 
 #: ../loader/loader.c:2817
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of %"
 "s."
-msgstr "您放入的磁碟片不是有效的驅動程式磁片."
+msgstr "您放入的軟碟片不是 %s 版本的有效更新磁片."
 
 #: ../loader/loader.c:2827
 msgid "Failed to mount floppy disk."
@@ -4469,9 +4466,9 @@ msgid "Reading anaconda updates..."
 msgstr "讀取 anaconda 升級程式..."
 
 #: ../loader/loader.c:3046
-#, fuzzy, c-format
+#, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr "本機器沒有足夠的記憶體可供安裝 Linux."
+msgstr "本機器沒有足夠的記憶體可供 %s  安裝."
 
 #: ../loader/loader.c:3082
 msgid ""
@@ -4479,6 +4476,8 @@ msgid ""
 "boot disk which you are using.  This shouldn't happen, and I'm rebooting "
 "your system now."
 msgstr ""
+"您選取的第二階段安裝不符合您所使用的開機磁片. 這不應該發生, 現在正重新啟動您"
+"的系統."
 
 #: ../loader/loader.c:3457
 msgid ""
@@ -4501,9 +4500,9 @@ msgstr ""
 "無法從主卷冊描述中讀取磁碟數值. 這也許表示在建立此磁碟時沒有加上數值資訊."
 
 #: ../loader/mediacheck.c:201
-#, fuzzy, c-format
+#, c-format
 msgid "Checking \"%s\"..."
-msgstr "檢查媒體中..."
+msgstr "檢查 \"%s\"..."
 
 #: ../loader/mediacheck.c:203
 msgid "Checking media now..."
@@ -4556,11 +4555,15 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"影像檔:\n"
+"\n"
+"%s\n"
+"\n"
 
 #: ../loader/mediacheck.c:275
-#, fuzzy, c-format
+#, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr "媒體檢查已完成, 檢查結果是: %s "
+msgstr "%s 媒體檢查已完成, 檢查結果是: %s\n"
 
 #: ../loader/modules.c:390
 #, c-format
@@ -4598,7 +4601,7 @@ msgid "Red Hat directory:"
 msgstr "Red Hat Linux 所在目錄:"
 
 #: ../loader/net.c:179
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4607,8 +4610,10 @@ msgid ""
 "      %s for your architecture"
 msgstr ""
 "請輸入下列資訊\n"
+"\n"
 "    o 您的 NFS 伺服器 IP 或主機名稱\n"
-"    o 符合您硬體平台的 Linux 套件所在目錄"
+"    o 該伺服器所有的目錄\n"
+"      %s 您的主機架構"
 
 #: ../loader/net.c:184
 msgid "NFS Setup"
@@ -4776,7 +4781,7 @@ msgid "Retrieving"
 msgstr "正在取得資訊"
 
 #: ../loader/urls.c:183
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4786,8 +4791,9 @@ msgid ""
 msgstr ""
 "請輸入下列資訊:\n"
 "\n"
-"    o FTP 伺服器的名稱或 IP 位址\n"
-"    o 該伺服器上存放符合您硬體平台的 Linux 套件所在目錄\n"
+"    o %s 伺服器的名稱或 IP 位址\n"
+"    o 該伺服器所有的目錄\n"
+"      %s 您的主機架構\n"
 
 #: ../loader/urls.c:226
 msgid "FTP site name:"
@@ -4868,56 +4874,55 @@ msgstr "載入 SCSI 驅動程式"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr ""
+msgstr "映射影像以顯示"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr ""
+msgstr "圖形的寬度 (像素)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
-msgstr ""
+msgstr "啟用反灰階處理"
 
 #: ../gnome-map/gglobe-canvas.c:100 ../gnome-map/timezonemapmodule.c:70
 msgid "World"
-msgstr ""
+msgstr "世界"
 
 #: ../gnome-map/gglobe-canvas.c:101 ../gnome-map/timezonemapmodule.c:71
 msgid "North America"
-msgstr ""
+msgstr "North America"
 
 #: ../gnome-map/gglobe-canvas.c:102 ../gnome-map/timezonemapmodule.c:72
-#, fuzzy
 msgid "South America"
-msgstr "South Australia"
+msgstr "South America"
 
 #: ../gnome-map/gglobe-canvas.c:103 ../gnome-map/timezonemapmodule.c:73
 msgid "Indian Rim"
-msgstr ""
+msgstr "Indian Rim"
 
 #: ../gnome-map/gglobe-canvas.c:104 ../gnome-map/timezonemapmodule.c:74
 msgid "Europe"
-msgstr ""
+msgstr "Europe"
 
 #: ../gnome-map/gglobe-canvas.c:105 ../gnome-map/timezonemapmodule.c:75
 msgid "Africa"
-msgstr ""
+msgstr "Africa"
 
 #: ../gnome-map/gglobe-canvas.c:106 ../gnome-map/timezonemapmodule.c:76
 msgid "Asia"
-msgstr ""
+msgstr "Asia"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr ""
+msgstr "無法載入時區資料"
 
 #: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
-msgstr ""
+msgstr "gglobe-canvas"
 
 #: ../gnome-map/gglobe-canvas.c:764
 msgid "View: "
-msgstr ""
+msgstr "檢視："
 
 msgid "Base"
 msgstr "基本套件"
@@ -5159,7 +5164,7 @@ msgstr "Davis Station, Vestfold Hills"
 #. generated from zone.tab
 #, fuzzy
 msgid "Dornod, Sukhbaatar"
-msgstr "Dornod, Sukhbaatar (unsure about this)"
+msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
@@ -5578,7 +5583,7 @@ msgstr ""
 #. generated from zone.tab
 #, fuzzy
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr "Tibet & Xinjiang"
+msgstr "西藏與新疆"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -5646,12 +5651,16 @@ msgid ""
 "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
 "GB2312            us              Asia/Shanghai"
 msgstr ""
+"簡體中文    zh_CN.GB2312    無    無            zh_CN.GB2312            "
+"us              亞洲/上海"
 
 #. generated from lang-table
 msgid ""
 "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
 "Big5              us              Asia/Taipei"
 msgstr ""
+"繁體中文   zh_TW.Big5      無    無            zh_TW.Big5              "
+"us              亞洲/台北"
 
 #. generated from lang-table
 msgid "Czech"
@@ -5695,11 +5704,11 @@ msgstr "Norwegian"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "Portuguese"
 
 #. generated from lang-table
 msgid "Portuguese(Brasilian) pt"
-msgstr ""
+msgstr "Portuguese(Brasilian) pt"
 
 #. generated from lang-table
 msgid "Russian"
@@ -5721,15 +5730,17 @@ msgstr "Swedish"
 msgid "Ukrainian"
 msgstr "Ukrainian"
 
-#, fuzzy
-#~ msgid "Customize new boot loader configuration"
-#~ msgstr "開機管理程式設定"
+#~ msgid "Update current settings"
+#~ msgstr "更新目前的設定"
+
+#~ msgid "Do nothing"
+#~ msgstr "保留設定"
 
 #~ msgid "China coast"
-#~ msgstr "China coast"
+#~ msgstr "中國沿岸"
 
 #~ msgid "China mountains"
-#~ msgstr "China mountains"
+#~ msgstr "中國山區"
 
 #~ msgid "Eastern Turkestan"
 #~ msgstr "Eastern Turkestan"
@@ -5751,579 +5762,3 @@ msgstr "Ukrainian"
 
 #~ msgid "west Kazakhstan"
 #~ msgstr "west Kazakhstan"
-
-#~ msgid "What language should be used during the installation process?"
-#~ msgstr "在安裝過程中您想要使用何種語言?"
-
-#, fuzzy
-#~ msgid "Welcome to "
-#~ msgstr "歡迎"
-
-#~ msgid "DISPLAY variable not set. Starting text mode!"
-#~ msgstr "顯示器參數未設定. 進入文字模式安裝."
-
-#~ msgid "RAID Device"
-#~ msgstr "磁碟陣列裝置"
-
-#~ msgid "_Back"
-#~ msgstr "上一步（_B)"
-
-#~ msgid "_Abort installation"
-#~ msgstr "結束安裝程式"
-
-#~ msgid "_Release Notes"
-#~ msgstr "發行公告（_R）"
-
-#~ msgid ""
-#~ "Warning: Are you sure that you wish to exit the Red Hat Linux "
-#~ "installation?"
-#~ msgstr "警告：您確定要結束安裝 Red Hat Linux 系統嗎？"
-
-#~ msgid "Red Hat Linux Installer"
-#~ msgstr "Red Hat Linux 系統安裝程式"
-
-#~ msgid "ALPS - GlidePoint (PS/2)"
-#~ msgstr "ALPS - GlidePoint (PS/2)"
-
-#~ msgid "ASCII - MieMouse (serial)"
-#~ msgstr "ASCII - MieMouse (序列埠）"
-
-#~ msgid "ASCII - MieMouse (PS/2)"
-#~ msgstr "ASCII - MieMouse (PS/2)"
-
-#~ msgid "ATI - Bus Mouse"
-#~ msgstr "ATI - 匯流排滑鼠"
-
-#~ msgid "Generic - 2 Button Mouse (serial)"
-#~ msgstr "Generic - 兩鍵式滑鼠（序列埠）"
-
-#~ msgid "Generic - 3 Button Mouse (serial)"
-#~ msgstr "Generic - 三鍵式滑鼠（序列埠）"
-
-#~ msgid "Generic - 2 Button Mouse (PS/2)"
-#~ msgstr "Generic - 兩鍵式滑鼠（PS/2）"
-
-#~ msgid "Generic - 3 Button Mouse (PS/2)"
-#~ msgstr "Generic - 三鍵式滑鼠（PS/2）"
-
-#~ msgid "Generic - 2 Button Mouse (USB)"
-#~ msgstr "Generic - 兩鍵式滑鼠（USB）"
-
-#~ msgid "Generic - 3 Button Mouse (USB)"
-#~ msgstr "Generic - 三鍵式滑鼠（USB）"
-
-#~ msgid "Genius - NetMouse (serial)"
-#~ msgstr "Genius - NetMouse (序列埠)"
-
-#~ msgid "Genius - NetMouse (PS/2)"
-#~ msgstr "Genius - NetMouse (PS/2)"
-
-#~ msgid "Genius - NetMouse Pro (PS/2)"
-#~ msgstr "Genius - NetMouse Pro (PS/2)"
-
-#~ msgid "Genius - NetScroll (PS/2)"
-#~ msgstr "Genius - NetScroll (PS/2)"
-
-#~ msgid "Kensington - Thinking Mouse (serial)"
-#~ msgstr "Kensington - Thinking Mouse (序列埠)"
-
-#~ msgid "Kensington - Thinking Mouse (PS/2)"
-#~ msgstr "Kensington - Thinking Mouse (PS/2)"
-
-#~ msgid "Logitech - C7 Mouse (serial, old C7 type)"
-#~ msgstr "Logitech - C7 Mouse (序列埠，舊式C7)"
-
-#~ msgid "Logitech - CC Series (serial)"
-#~ msgstr "Logitech - CC 系列 (序列埠)"
-
-#~ msgid "Logitech - Bus Mouse"
-#~ msgstr "Logitech - 匯流排滑鼠"
-
-#~ msgid "Logitech - MouseMan/FirstMouse (serial)"
-#~ msgstr "Logitech - MouseMan/FirstMouse (序列埠)"
-
-#~ msgid "Logitech - MouseMan/FirstMouse (PS/2)"
-#~ msgstr "Logitech - MouseMan/FirstMouse (PS/2)"
-
-#~ msgid "Logitech - MouseMan+/FirstMouse+ (serial)"
-#~ msgstr "Logitech - MouseMan+/FirstMouse+ (序列埠)"
-
-#~ msgid "Logitech - MouseMan+/FirstMouse+ (PS/2)"
-#~ msgstr "Logitech - MouseMan+/FirstMouse+ (PS/2)"
-
-#~ msgid "Logitech - MouseMan Wheel (USB)"
-#~ msgstr "Logitech - MouseMan Wheel (USB)"
-
-#~ msgid "Microsoft - Compatible Mouse (serial)"
-#~ msgstr "Microsoft - 相容性滑鼠 （序列埠）"
-
-#~ msgid "Microsoft - Rev 2.1A or higher (serial)"
-#~ msgstr "Microsoft - Rev 2.1A 或更新 (序列埠)"
-
-#~ msgid "Microsoft - IntelliMouse (serial)"
-#~ msgstr "Microsoft - IntelliMouse (序列埠)"
-
-#~ msgid "Microsoft - IntelliMouse (PS/2)"
-#~ msgstr "Microsoft - IntelliMouse (PS/2)"
-
-#~ msgid "Microsoft - IntelliMouse (USB)"
-#~ msgstr "Microsoft - IntelliMouse (USB)"
-
-#~ msgid "Microsoft - Bus Mouse"
-#~ msgstr "Microsoft - 匯流排滑鼠"
-
-#~ msgid "Mouse Systems - Mouse (serial)"
-#~ msgstr "Mouse Systems - Mouse (序列埠)"
-
-#~ msgid "MM - Series (serial)"
-#~ msgstr "MM - 系列 (序列埠)"
-
-#~ msgid "MM - HitTablet (serial)"
-#~ msgstr "MM - HitTablet (序列埠)"
-
-#~ msgid "Sun - Mouse"
-#~ msgstr "Sun - Mouse"
-
-#~ msgid "Initializing"
-#~ msgstr "正在初始化..."
-
-#~ msgid "Please wait while formatting drive %s...\n"
-#~ msgstr "格式化 %s 磁碟中，請等候...\n"
-
-#~ msgid "Please enter a volume group name."
-#~ msgstr "請輸入磁區群組名稱。"
-
-#~ msgid "Volume Group Names must be less than 128 characters"
-#~ msgstr "磁區群組名稱必須少於128個字元"
-
-#~ msgid "Error - the volume group name %s is not valid."
-#~ msgstr "錯誤 - 磁區群組名稱 %s 無效"
-
-#~ msgid ""
-#~ "Error - the volume group name contains illegal characters  or spaces."
-#~ msgstr "錯誤 - 磁區群組名稱包含不合語法的字元或空白."
-
-#~ msgid "Please enter a logical volume name."
-#~ msgstr "請輸入邏輯磁區名稱。"
-
-#~ msgid "Logical Volume Names must be less than 128 characters"
-#~ msgstr "邏輯磁區名稱必須少於128個字元"
-
-#~ msgid "Error - the logical volume name %s is not valid."
-#~ msgstr "錯誤 - 邏輯磁區名稱 %s 無效。"
-
-#~ msgid ""
-#~ "Error - the logical volume name contains illegal characters or spaces."
-#~ msgstr "錯誤 - 邏輯磁區名稱包含不合語法的字元或空白。"
-
-#~ msgid "DASD partitions can only be deleted with fdasd"
-#~ msgstr "只能使用 fdasd 程式將 DASD 磁區移除"
-
-#~ msgid ""
-#~ "Removing logical volumes from the treeview is not currently supported."
-#~ msgstr "目前沒有支援從樹狀結構中移除邏輯磁區"
-
-#~ msgid ""
-#~ "You cannot remove this partition, as it is part of a LVM volume group."
-#~ msgstr "這個分割區是 LVM 磁碟群組的一部份, 您無法移除它."
-
-#~ msgid "You must go back and use fdasd to inititalize this partition"
-#~ msgstr "您必須回上一步並且使用 fdasd 來初始化這個磁區"
-
-#~ msgid ""
-#~ "You have chosen to use a pre-existing partition for this installation "
-#~ "without formatting it. Red Hat recommends that you format this partition "
-#~ "to make sure files from a previous operating system installation do not "
-#~ "cause problems with this installation of Linux. However, if this "
-#~ "partition contains files that you need to keep, such as a users home "
-#~ "directories, then you should continue without formatting this "
-#~ "partition. \n"
-#~ "\n"
-#~ "Are you sure you want to continue without formattingthe partition ?"
-#~ msgstr ""
-#~ "您已選取使用不格式化先前已存在的磁區用來安裝. Red Hat 建議您格式化這個磁區"
-#~ "以 確定先前安裝的作業系統檔案不會造成此次 Linux 安裝的問題. 不過, 假如這個"
-#~ "磁區包含了 您想保留的檔案, 譬如使用者的 home 目錄, 那您可選擇繼續而不格式"
-#~ "化這個磁區. \n"
-#~ "\n"
-#~ "您確定要繼續而不格式化這個磁區嗎？"
-
-#~ msgid "Bootable partitions cannot be on a logical volume."
-#~ msgstr "啟動分割區(/boot)不允許建立在邏輯裝置上."
-
-#~ msgid "System accounts can not be added here."
-#~ msgstr "不能加入系統管理員的帳號."
-
-#~ msgid "Select framebuffer resolution"
-#~ msgstr "螢幕解析度"
-
-#~ msgid ""
-#~ "Please select the resolution and bit depth that you would prefer to use "
-#~ "as your framebuffer settings."
-#~ msgstr "請選擇您要的螢幕解析度."
-
-#~ msgid "Bit Depth"
-#~ msgstr "彩度"
-
-#~ msgid "%d"
-#~ msgstr "%d"
-
-#~ msgid "No Framebuffer"
-#~ msgstr "缺少 Framebuffer"
-
-#~ msgid "Enter Boot Loader Password"
-#~ msgstr "開機管理程式密碼:"
-
-#~ msgid "Passwords don't match"
-#~ msgstr "密碼不符"
-
-#~ msgid "No password"
-#~ msgstr "不設定密碼"
-
-#~ msgid "Change password"
-#~ msgstr "更改密碼"
-
-#~ msgid ""
-#~ "The following affect options passed to the kernel on boot.  FIXME."
-#~ "Obviously there needs to be more explanatory text here and throughout and "
-#~ "better spacing"
-#~ msgstr ""
-#~ "以下的因素在開機時傳送至核心. FIXME. 很顯然的這裡和全部都需要更多解釋的文"
-#~ "字, 加上更好的空白分列處理"
-
-#~ msgid "Use Framebuffer Mode"
-#~ msgstr "使用 Framebuffer 模式"
-
-#~ msgid "Use a Boot Loader Password"
-#~ msgstr "使用開機管理程式密碼"
-
-#~ msgid "Set Password"
-#~ msgstr "設定密碼"
-
-#~ msgid "Force LBA32"
-#~ msgstr "強制 LBA32"
-
-#~ msgid "General kernel parameters"
-#~ msgstr "一般核心參數"
-
-#~ msgid "Image"
-#~ msgstr "影像檔"
-
-#~ msgid ""
-#~ "The label is what is displayed in the boot loader to choose to boot this "
-#~ "operating system.  The device is the device which it boots from."
-#~ msgstr ""
-#~ "這個標籤會顯示在開機管理程式中以便您選取來啟動此作業系統. 這個裝置就是它用"
-#~ "來啟動的裝置."
-
-#~ msgid "Label"
-#~ msgstr "標籤"
-
-#~ msgid "Default Boot Target"
-#~ msgstr "設成預設開機"
-
-#~ msgid "You must specify a label for the entry"
-#~ msgstr "您必須選擇一個分割區識別標籤來編輯"
-
-#~ msgid "Boot label contains illegal characters"
-#~ msgstr "開機識別標籤包含不合語法的字元."
-
-#~ msgid "Duplicate Label"
-#~ msgstr "複製識別標籤"
-
-#~ msgid "This label is already in use for another boot entry."
-#~ msgstr "這個識別標籤已經被另一個開機項目所使用."
-
-#~ msgid "Duplicate Device"
-#~ msgstr "複製裝置"
-
-#~ msgid "This device is already being used for another boot entry."
-#~ msgstr "這個裝置已經被另一個開機項目所使用."
-
-#~ msgid "Cannot Delete"
-#~ msgstr "無法刪除"
-
-#~ msgid ""
-#~ "You cannot remove the system being installed from the bootloader options."
-#~ msgstr "您無法移除在開機管理程式中已安裝的系統."
-
-#~ msgid "Insert some text about booting other operating systems"
-#~ msgstr "輸入一些有關其他作業系統的文字"
-
-#~ msgid "_Add"
-#~ msgstr "加入（_A)"
-
-#~ msgid "Blah, this is the BIOS drive order, more information, etc"
-#~ msgstr "嗯, 這是 BIOS 裝置的狀況, 更多資訊, 等等"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "選擇要執行 fdasd 的磁碟機"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "警告: Bad Token "
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "點對點 （IP）"
-
-#~ msgid "All Packages"
-#~ msgstr "所有套件"
-
-#~ msgid "LVM: %s"
-#~ msgstr "LVM: %s"
-
-#~ msgid "LVM Volume Group"
-#~ msgstr "LVM 空間群組"
-
-#~ msgid "The end cylinder must be greater than the start cylinder."
-#~ msgstr "末端的磁柱號碼必須大於起始的磁柱號碼"
-
-#~ msgid "_Modify Partition"
-#~ msgstr "調整分割區(_M)"
-
-#~ msgid "_Continue"
-#~ msgstr "繼續(_C)"
-
-#~ msgid "Make Logical Volume"
-#~ msgstr "建立邏輯磁區"
-
-#~ msgid "Mount point:"
-#~ msgstr "檔案系統掛載點: "
-
-#~ msgid "Filesystem:"
-#~ msgstr "檔案系統類型: "
-
-#~ msgid "ext3"
-#~ msgstr "ext3"
-
-#~ msgid "Logical Volume Name:"
-#~ msgstr "邏輯磁區名稱:"
-
-#~ msgid "Illegal size"
-#~ msgstr "無效的磁區大小"
-
-#~ msgid "The requested size as entered is not a valid number greater than 0."
-#~ msgstr "您輸入的磁區大小是大於零的無效數字."
-
-#~ msgid "Bad mount point"
-#~ msgstr "不當的掛載點"
-
-#~ msgid "Mount point in use"
-#~ msgstr "掛載點已被使用"
-
-#~ msgid "The mount point %s is in use, please pick another."
-#~ msgstr "您所要求的掛載點 %s 正在被使用中, 請另外指定一個."
-
-#~ msgid "Illegal Logical Volume Name"
-#~ msgstr "無效的邏輯磁區名稱"
-
-#~ msgid "Illegal logical volume name"
-#~ msgstr "無效的邏輯磁區名稱"
-
-#~ msgid "The logical volume name %s is already in use. Please pick another."
-#~ msgstr "您所輸入的邏輯磁區名稱 %s 已經被使用, 請另外指定一個."
-
-#~ msgid "Are you sure you want to remove the logical volume %s?"
-#~ msgstr "您確定要刪除 %s 邏輯磁區嗎?"
-
-#~ msgid "Not enough physical volumes"
-#~ msgstr "實體磁區空間不足"
-
-#~ msgid "At least one LVM partition is needed."
-#~ msgstr "最少需要一個以上的 LVM 分割區."
-
-#~ msgid "Make LVM Device"
-#~ msgstr "建立 LVM 裝置"
-
-#~ msgid "Volume Group Name:"
-#~ msgstr "磁區群組名稱:"
-
-#~ msgid "Physical Volumes to Use:"
-#~ msgstr "欲使用的實體磁區:"
-
-#~ msgid "Logical Volume Name"
-#~ msgstr "邏輯磁區名稱"
-
-#~ msgid "Logical Volumes"
-#~ msgstr "邏輯磁區"
-
-#~ msgid "Not enough space"
-#~ msgstr "空間不足"
-
-#~ msgid ""
-#~ "The logical volumes you have configured require %g MB, but the volume "
-#~ "group only has %g MB.  Please either make the volume group larger or make "
-#~ "the logical volume(s) smaller."
-#~ msgstr ""
-#~ "您設定的邏輯磁區需要 %g MB, 但這個磁區群組只有 %g MB.  請加大磁區群組的空"
-#~ "間或是縮小 邏輯磁區的大小."
-
-#~ msgid "Invalid Volume Group Name"
-#~ msgstr "無效的磁區群組名稱"
-
-#~ msgid "Name in use"
-#~ msgstr "名稱已被使用"
-
-#~ msgid "The volume group name %s is already in use. Please pick another."
-#~ msgstr "您所要求的磁區群組名稱 %s 已經被使用了,請另外指定一個."
-
-#~ msgid "_LVM"
-#~ msgstr "LVM(_L)"
-
-#~ msgid "Unknown video card"
-#~ msgstr "不知名的顯示卡"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to bugzilla.redhat.com."
-#~ msgstr ""
-#~ "選取顯示卡 %s 過程中發生錯誤. 請回報此錯誤到 http://bugzilla.redhat.com"
-
-#~ msgid "z/IPL Boot Loader Configuration"
-#~ msgstr "z/IPL 開機管理程式設定"
-
-#~ msgid ""
-#~ "The z/IPL Boot Loader will now be installed on your system.\n"
-#~ "\n"
-#~ "The root partition will be the one you selected previously in the "
-#~ "partition setup.\n"
-#~ "\n"
-#~ "The kernel used to start the machine will be the one to be installed by "
-#~ "default.\n"
-#~ "\n"
-#~ "If you wish to make changes later after the installation feel free to "
-#~ "change the /etc/zipl.conf configuration file.\n"
-#~ "\n"
-#~ "You can now enter any additional kernel parameters which your machine or "
-#~ "your setup may require."
-#~ msgstr ""
-#~ "z/IPL 開機管理程式即將安裝在系統上.\n"
-#~ "\n"
-#~ "root 分割區就是您在磁碟分割設定中所選的.\n"
-#~ "\n"
-#~ "用來啟動系統的核心將是預設安裝的.\n"
-#~ "\n"
-#~ "如果在安裝後想做任何的變更, 可以去更改 /etc/zipl.conf 設定檔.\n"
-#~ "\n"
-#~ "現在您可以輸入任何因應系統或設定所需的核心參數."
-
-#~ msgid ""
-#~ "Remove any floppy diskettes you used during the installation process and "
-#~ "press <Enter> to reboot your system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "取出在安裝過程中使用的軟碟片並且按下 <Enter> 鍵重新開機.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Congratulations, your Red Hat Linux installation is complete.\n"
-#~ "\n"
-#~ "%s%sFor information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using your system is available in the Red Hat Linux "
-#~ "manuals at http://www.redhat.com/support/manuals."
-#~ msgstr ""
-#~ "恭喜您, 系統已安裝完畢 \n"
-#~ "\n"
-#~ "%s%s 想了解關於這一版已知的問題及相關修正, 請參考 http://www.redhat.com/"
-#~ "errata\n"
-#~ "\n"
-#~ "系統使用的相關資訊, 您可以在 http://www.redhat.com/support/manuals 取得."
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "請選擇要執行 fdasd 或 dasdfmt 的磁碟機"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "編輯分割區"
-
-#~ msgid "Format DASD"
-#~ msgstr "格式化 DASD"
-
-#~ msgid "An error occured while running %s on drive %s."
-#~ msgstr "在磁碟機 %s 執行 %s 時發現了一個錯誤."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "執行 dasdfmt 會刪除\n"
-#~ "磁碟機 %s 上的所有資料.\n"
-#~ "\n"
-#~ "這是您想要的嗎?"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "發生錯誤 - 找不到可用的磁碟機來建立新的檔案系統. 請檢查您的硬體以找出問題"
-#~ "發生的原因或使用 dasdfmt.\n"
-#~ "\n"
-#~ "回到 fdasd 畫面?"
-
-#~ msgid "Point to Point (IP):"
-#~ msgstr "點對點(IP):"
-
-#~ msgid "You must go back and use fdasd to initialize this partition"
-#~ msgstr "您必須回到上一步並使用 fdasd 來初始化這個分割區"
-
-#~ msgid ""
-#~ "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-"
-#~ "OK        "
-#~ msgstr ""
-#~ "    F1-求助                 F3-編輯   F4-刪除   F5-重置     F12-確"
-#~ "定          "
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr "系統使用者 root 已經設定完成. 你不需要在這裡增加這個使用者."
-
-#~ msgid "Red Hat Linux"
-#~ msgstr "Red Hat Linux"
-
-#~ msgid "z/IPL Configuration"
-#~ msgstr "z/IPL 設定"
-
-#~ msgid "Welcome to Red Hat Linux"
-#~ msgstr "歡迎使用 Red Hat Linux"
-
-#~ msgid "Integrity Check"
-#~ msgstr "完整性測試"
-
-#~ msgid ""
-#~ "Please insert any additional media you would like to test and press %s.\n"
-#~ "\n"
-#~ "Otherwise insert CD #1 into your drive and press %s to continue."
-#~ msgstr ""
-#~ "請插入任何您想測試的媒體然後按下 %s.\n"
-#~ "\n"
-#~ "不然請放入第一片安裝光碟然後按下 %s 以繼續."
-
-#~ msgid ""
-#~ "We will now test your media before installing.\n"
-#~ "\n"
-#~ "Choose 'Skip' if you would like to skip this test."
-#~ msgstr ""
-#~ "我們現在要做安裝前的媒體測試.\n"
-#~ "\n"
-#~ "選擇 '跳過' 假如您想跳過這項測試."
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your web server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "請輸入下列資訊:\n"
-#~ "\n"
-#~ "    o web 伺服器的名稱或IP位址\n"
-#~ "    o 該伺服器上存放符合您硬體平台的 Linux 套件所在的目錄\n"

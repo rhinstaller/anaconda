@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2002-03-10 21:50+0100\n"
+"PO-Revision-Date: 2002-03-24 21:25+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -754,9 +754,8 @@ msgstr ""
 "paket, eller felaktigt medium. Tryck på <Retur> för att försöka igen."
 
 #: ../packages.py:280
-#, fuzzy
 msgid "Error Installing Package"
-msgstr "Installerar paket"
+msgstr "Fel vid installation av paket"
 
 #: ../packages.py:281
 #, python-format
@@ -768,6 +767,12 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"Det uppstod ett fel vid installationen av %s. Detta kan bero på ett "
+"mediafel, brist på hårddiskutrymme, och/eller hårdvaruproblem. Detta är ett "
+"ödesdigert fel och din installation kommer att avbrytas. Verifiera mediumet "
+"och försök att installera igen.\n"
+"\n"
+"Tryck på OK-knappen för att starta om ditt system."
 
 #: ../packages.py:530
 msgid "Setting up RPM transaction..."
@@ -2385,7 +2390,6 @@ msgid "Secondary DNS"
 msgstr "Sekundär DNS"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Tertiary DNS"
 msgstr "Tertiär DNS"
 
@@ -2820,51 +2824,56 @@ msgid "UTC Offset"
 msgstr "Avstånd till UTC"
 
 #: ../iw/upgrade_bootloader_gui.py:29 ../textw/upgrade_bootloader_text.py:72
-#, fuzzy
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Konfiguration av startprogram"
+msgstr "Uppgradera konfiguration av startprogram"
 
 #: ../iw/upgrade_bootloader_gui.py:69 ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 #, fuzzy
 msgid "Update boot loader configuration"
-msgstr "Konfiguration av startprogram"
+msgstr "Uppgradera konfiguration av startprogram"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
-msgstr ""
+msgstr "Detta kommer att uppdatera ditt nuvarande startprogram."
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
+"Installationsprogrammet har upptäckt startprogrammet %s som är installerat "
+"på %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 #, python-format
 msgid "%s  %s"
-msgstr ""
+msgstr "%s  %s"
 
 #: ../iw/upgrade_bootloader_gui.py:77
 msgid "This is the recommended option."
-msgstr ""
+msgstr "Detta är det rekommenderade alternativet."
 
 #: ../iw/upgrade_bootloader_gui.py:81 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
+"Installationsprogrammet kan inte upptäcka det startprogram som för "
+"tillfället används på ditt system."
 
 #: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
 #, fuzzy
 msgid "Create new boot loader configuration"
-msgstr "Skapa startdiskett"
+msgstr "Anpassa konfiguration av nytt startprogram"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
+"Detta kommer att låta dig skapa en ny startprogramskonfiguration. Om du vill "
+"byta startprogram bör du välja detta."
 
 #: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
 #, fuzzy
@@ -2876,11 +2885,12 @@ msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
+"Detta kommer inte att göra några ändringar i din startprogramskonfiguration. "
+"Om du använder ett startprogram från en tredje part bör du välja detta."
 
 #: ../iw/upgrade_bootloader_gui.py:111
-#, fuzzy
 msgid "What would you like to do?"
-msgstr "Vilken typ av enhet vill du lägga till"
+msgstr "Vad vill du göra?"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:31
 msgid "Migrate Filesystems"
@@ -3263,6 +3273,7 @@ msgstr ""
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
+" <Blanksteg> väljer knapp | <F2> välj standardstartpost | <F12> nästa skärm>"
 
 #: ../textw/bootloader_text.py:384
 msgid "Use a GRUB Password"
@@ -3548,7 +3559,6 @@ msgid "Secondary nameserver:"
 msgstr "Sekundär namnserver:"
 
 #: ../textw/network_text.py:85
-#, fuzzy
 msgid "Tertiary nameserver:"
 msgstr "Tertiär namnserver:"
 
@@ -4059,7 +4069,7 @@ msgstr ""
 "webbplats, http://www.redhat.com/."
 
 #: ../textw/welcome_text.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -4070,8 +4080,8 @@ msgid ""
 msgstr ""
 "Välkommen till %s!\n"
 "\n"
-"Du har kommit in i omkonfigurationsläget, som kommer att låta dig göra "
-"lokala inställningar av din dator.\n"
+"Du har kommit in i omkonfigurationsläget, som kommer att låta dig "
+"konfigurera lokala inställningar av din dator.\n"
 "\n"
 "Använd knappen Avbryt nedan för att avsluta utan att ändra dina "
 "inställningar."
@@ -4387,9 +4397,9 @@ msgid "Error on line %d of kickstart file %s."
 msgstr "Fel på rad %d i kickstart-fil %s."
 
 #: ../loader/lang.c:41 ../loader/loader.c:195
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s"
-msgstr "Välkommen till "
+msgstr "Välkommen till %s"
 
 #: ../loader/lang.c:42 ../loader/loader.c:201
 msgid ""
@@ -4548,11 +4558,13 @@ msgstr ""
 "trycker \"%s\"."
 
 #: ../loader/loader.c:1249 ../loader/loader.c:1363
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
-msgstr "-cd:n kunde inte hittas i någon av dina cdromenheter. Sätt i "
+msgstr ""
+"%s-cd:n kunde inte hittas i någon av dina cdromenheter. Sätt i %s-cd:n och "
+"tryck %s för att försöka igen."
 
 #: ../loader/loader.c:1292
 msgid "CD Found"
@@ -4978,7 +4990,7 @@ msgid "Retrieving"
 msgstr "Hämtar"
 
 #: ../loader/urls.c:183
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4988,9 +5000,9 @@ msgid ""
 msgstr ""
 "Ange följande information:\n"
 "\n"
-"    o din webbservers namn eller IP-nummer\n"
+"    o din %s-servers namn eller IP-nummer\n"
 "    o katalogen på denna server som innehåller\n"
-"      %s för din arkitektur"
+"      %s för din arkitektur\n"
 
 #: ../loader/urls.c:226
 msgid "FTP site name:"
@@ -5360,7 +5372,6 @@ msgid "Davis Station, Vestfold Hills"
 msgstr "Davis-stationen, Vestfold Hills"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Dornod, Sukhbaatar"
 msgstr "Dornod, Sukhbaatar"
 
@@ -5591,7 +5602,6 @@ msgid "Moscow+07 - Sakhalin Island"
 msgstr "Moskva+07 - Sachalin"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+08 - Magadan"
 msgstr "Moskva+08 - Magadan"
 
@@ -5779,7 +5789,7 @@ msgstr "Thule / Pituffik"
 #. generated from zone.tab
 #, fuzzy
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr "Tibet och det mesta i Xinjiang Uyghur"
+msgstr "Tibet och Xinjiang"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -5824,7 +5834,7 @@ msgstr "Västra Australien"
 #. generated from zone.tab
 #, fuzzy
 msgid "West Kazakhstan"
-msgstr "västra Kazakstan"
+msgstr "östra Kazakstan"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -5899,12 +5909,10 @@ msgid "Norwegian"
 msgstr "Norska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese"
 msgstr "Portugisiska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese(Brasilian) pt"
 msgstr "Brasiliansk portugisiska"
 
@@ -5928,9 +5936,11 @@ msgstr "Svenska"
 msgid "Ukrainian"
 msgstr "Ukrainska"
 
-#, fuzzy
-#~ msgid "Customize new boot loader configuration"
-#~ msgstr "Konfiguration av startprogram"
+#~ msgid "Update current settings"
+#~ msgstr "Uppdatera aktuella inställningar"
+
+#~ msgid "Do nothing"
+#~ msgstr "Gör ingenting"
 
 #~ msgid "China coast"
 #~ msgstr "Kina, kusten"
@@ -5938,8 +5948,14 @@ msgstr "Ukrainska"
 #~ msgid "China mountains"
 #~ msgstr "Kina, bergen"
 
+#~ msgid "Dornod, Sukhbaatar (unsure about this)"
+#~ msgstr "Dornod, Sukhbaatar (osäker på detta)"
+
 #~ msgid "Eastern Turkestan"
 #~ msgstr "Östturkestan"
+
+#~ msgid "Moscow+08 - Magadan & Sakhalin"
+#~ msgstr "Moskva+08 - Magadan och Sachalin"
 
 #~ msgid "central Kazakhstan"
 #~ msgstr "mellersta Kazakstan"
@@ -5961,9 +5977,6 @@ msgstr "Ukrainska"
 
 #~ msgid "What language should be used during the installation process?"
 #~ msgstr "Vilket språk ska användas under installationen?"
-
-#~ msgid "Welcome to "
-#~ msgstr "Välkommen till "
 
 # Bugg. Borde rapporteras.
 #~ msgid ""

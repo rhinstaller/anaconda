@@ -1,18 +1,18 @@
 #
-# 번 역 자: 류종훈(redhat4u@netian.com)
-# 홈페이지: http://my.netian.com/~redhat4u
+# 번 역 자: Michelle Kim 김지은 (mkim@redhat.com)
 #
 #: ../gettext_rh.py:340
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 7.2\n"
+"Project-Id-Version: anaconda 7.3\n"
 "POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2001-08-24 08:30+0900\n"
-"Last-Translator: Jong-Hoon Ryu <redhat4u@netian.com>\n"
-"Language-Team: GNU Translation project <ko@li.org>\n"
+"PO-Revision-Date: 2002-03-25 09:38GMT+10.00\n"
+"Last-Translator: Michelle Kim <mkim@brisbane.redhat.com>\n"
+"Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=EUC-KR\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Type: text/plain; charset=euc-kr\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
 
 #: ../anaconda:313
 msgid ""
@@ -127,13 +127,13 @@ msgid "Requested Partition Does Not Exist"
 msgstr "요청하신 파티션이 존재하지 않습니다"
 
 #: ../autopart.py:902
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"%2$s (을)를 위한 %1$s 공간을 찾을 수 없습니다.\n"
+"%s (을)를 위한 %s 공간을 찾을 수 없습니다.\n"
 "\n"
 "[확인] 버튼을 누르시면, 시스템을 재부팅 합니다."
 
@@ -221,7 +221,7 @@ msgstr ""
 "\n"
 "fdisk는 Red Hat에서 제공하는 전통적인 텍스트-화면의 수동 디스크 공간 분할 도"
 "구 입니다. 사용하기에는 쉽지 않지만, 때로는 fdisk로 디스크 공간을 설정해야할 "
-"경우가 발생합니다."
+"경우가 발생합니다. "
 
 #: ../autopart.py:1018
 msgid ""
@@ -278,8 +278,8 @@ msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
-"커널 패키지를 여러분의 시스템에 설치하지 않았습니다.  기존의 부트 로더 설정"
-"을 그대로 유지합니다."
+"시스템에 아무런 커널 패키지도 설치되지 않았습니다.  여러분의 부트 로더 설정"
+"은 바뀌지 않을 것입니다."
 
 #: ../bootloader.py:853
 msgid "Bootloader"
@@ -613,14 +613,14 @@ msgid "Hide Help"
 msgstr "도움말 숨김"
 
 #: ../gui.py:678
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer"
-msgstr "설치 후 설정"
+msgstr "%s 설정 프로그램"
 
 #: ../gui.py:693
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer on %s"
-msgstr "%s 의 Red Hat 리눅스 설치 프로그램"
+msgstr "%s 의 %s 설치 프로그램"
 
 #: ../gui.py:731
 msgid "Unable to load title bar"
@@ -752,9 +752,8 @@ msgstr ""
 "습니다. 다시 확인해 보시려면, [ENTER] 키를 누르십시요."
 
 #: ../packages.py:280
-#, fuzzy
 msgid "Error Installing Package"
-msgstr "패키지 설치"
+msgstr "패키지 설치 오류"
 
 #: ../packages.py:281
 #, python-format
@@ -766,34 +765,44 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"%s (을)를 설치하는 도중 오류가 발생되었습니다. 미디어 실패, 디스켓 공간 부족"
+"이나 하드워어 문제들로 비롯된 것일 수 있습니다. 이것은 매우 심각한 오류이므"
+"로 설치를 계쏙 진행할 수 없습니다. 미디어를 확인하시고 설치를 다시 시도해 주"
+"십시오.\n"
+"\n"
+"OK 버튼을 누르시면, 시스템을 재부팅 합니다."
 
 #: ../packages.py:530
 msgid "Setting up RPM transaction..."
 msgstr "RPM 사용을 위한 설정을 하고 있습니다..."
 
 #: ../packages.py:567
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
-msgstr "%s (을)를 업그레이드 합니다.\n"
+msgstr ""
+"%s 패키지를 업그레이드 합니다.\n"
+"\n"
 
 #: ../packages.py:569
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
-msgstr "패키지 설치"
+msgstr ""
+"%s 패키지를 설치합니다\n"
+"\n"
 
 #: ../packages.py:576
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s-%s-%s.\n"
-msgstr "%s (을)를 업그레이드 합니다.\n"
+msgstr "%s -%s-%s.(을)를 업그레이드 합니다.\n"
 
 #: ../packages.py:578
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.\n"
-msgstr "%s (을)를 설치합니다.\n"
+msgstr "%s-%s-%s (을)를 설치합니다.\n"
 
 #: ../packages.py:594
 #, python-format
@@ -805,15 +814,20 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"다음의 패키지가 설치를 위해 자동적으로\n"
+"선택되었습니다:\n"
+"%s\n"
+"\n"
 
 #: ../packages.py:600
-#, fuzzy
 msgid "Install Starting"
-msgstr "설치 유형"
+msgstr "설치 시작"
 
 #: ../packages.py:601
 msgid "Starting install process, this may take several minutes..."
-msgstr ""
+msgstr "설치를 시작합니다, 몇분 소요될 수 도 있습니다..."
 
 #: ../packages.py:646
 msgid ""
@@ -859,6 +873,9 @@ msgid ""
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
+"\n"
+"\n"
+"다음 패키지는 이번 버전에서 사용가능하지만 업그레이되지는 않았습니다:\n"
 
 #: ../packages.py:715
 msgid "Post Install"
@@ -873,13 +890,12 @@ msgid "Foreign"
 msgstr "외부(Foreign)"
 
 #: ../partitioning.py:355
-#, fuzzy
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters and no spaces."
 msgstr ""
 "마운트할 지점이 올바르지 않습니다.  마운트할 지점은 반드시 '/' 로 시작해야 하"
-"고 '/' 로 끝나서는 안되며, 반드시 출력 가능한 문자로만 지정해 주셔야 합니다."
+"고 '/' 로 끝나서는 안되며, 반드시 출력 가능한 문자로만 지정해 주셔야 합니다. "
 
 #: ../partitioning.py:363
 msgid "Please specify a mount point for this partition."
@@ -955,22 +971,22 @@ msgstr ""
 "(spare)이 필요하시다면, RAID 장치에 요소(member)를 추가해 주십시요."
 
 #: ../partitioning.py:578
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
-"루트(/) 파티션을 지정하지 않으셨습니다. Red Hat 리눅스를 설치하시려면, 반드"
-"시 지정해 주셔야 합니다."
+"루트(/) 파티션을 지정하지 않으셨습니다. %s 설치를 계속하시려면, 반드시 지정"
+"해 주셔야 합니다."
 
 #: ../partitioning.py:581
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
-"현재 설정된 루트(/) 파티션의 용량이 250 MB 보다 적습니다. Red Hat 리눅스를 설"
-"치하기에는 설정된 용량이 너무 적습니다."
+"현재 설정된 루트(/) 파티션의 용량이 250 MB 보다 적습니다. %s.를 설치하기에는 "
+"설정된 용량이 너무 적습니다."
 
 #: ../partitioning.py:586
 msgid ""
@@ -980,13 +996,13 @@ msgstr ""
 "다."
 
 #: ../partitioning.py:594
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"여러분이 설정하신 %s 파티션의 용량이 %s MB 보다 적습니다. 이 용량은 Red Hat "
-"리눅스를 설치하는데 필요한 기본 용량보다 적습니다."
+"여러분이 설정하신 %s 파티션의 용량이 %s MB 보다 적습니다. 이 용량은 %s를 설치"
+"하는데 필요한 기본 용량보다 적습니다."
 
 #: ../partitioning.py:621
 msgid ""
@@ -998,25 +1014,25 @@ msgstr ""
 "다."
 
 #: ../partitioning.py:625
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"여러분은 32개 이상의 스왑 장치를 지정하셨습니다.  Red Hat 리눅스의 커널에서"
-"는 32개 까지의 스왑 장치만을 지원합니다."
+"여러분은 32개 이상의 스왑 장치를 지정하셨습니다.  %s의 커널에서는 32개 까지"
+"의 스왑 장치만을 지원합니다. "
 
 #: ../partitioning.py:634
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"여러분 시스템 상의 램 용량(%2$dMB) 보다 적은 스왑 공간(%1$dMB)을 지정하셨습니"
+"여러분 시스템 상의 램 용량(%dMB) 보다 적은 스왑 공간(%dMB)을 지정하셨습니"
 "다.  이와같은 설정은 오히려 성능을 감소시킬 수 있습니다."
 
 #: ../partitioning.py:707
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type for your "
 "architecture.  To use this disk for installation of %s, it must be re-"
@@ -1024,11 +1040,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"/dev/%s 장치의 파티션 정보가 여러분의 칩 구조 방식 유형과 맞지 않습니다.  "
-"Red Hat 리눅스를 설치하기 위해 이 드라이브를 사용하시려면, 반드시 드라이브를 "
-"초기화해야 합니다. 단, 초기화로 인해 드라이브 안의 모든 자료는 삭제됩니다.\n"
+"/dev/%s 장치의 파티션 정보가 여러분의 칩 구조 방식 유형과 맞지 않습니다.  %s"
+"를 설치하기 위해 이 드라이브를 사용하시려면, 반드시 드라이브를 초기화해야 합"
+"니다. 단, 초기화로 인해 드라이브 안의 모든 자료는 삭제됩니다.\n"
 "\n"
-"이 드라이브를 초기화 하시겠습니까?"
+"이 드라이브를 초기화 하시겠습니까? "
 
 #: ../partitioning.py:1333
 #, python-format
@@ -1247,7 +1263,7 @@ msgid "Error with Partitioning"
 msgstr "파티션 설정의 오류"
 
 #: ../partitioning.py:1895
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
 "These errors must be corrected prior to continuing with your install of %s.\n"
@@ -1255,10 +1271,10 @@ msgid ""
 "%s"
 msgstr ""
 "여러분이 요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니"
-"다. Red Hat 리눅스를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 "
-"주시기 바랍니다.\n"
+"다. %s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시기 바랍"
+"니다.\n"
 "\n"
-"%s"
+"%s "
 
 #: ../partitioning.py:1908
 msgid "Partitioning Warning"
@@ -1307,7 +1323,6 @@ msgid "Rescue"
 msgstr "복구"
 
 #: ../rescue.py:100
-#, fuzzy
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory /mnt/sysimage.  You can then "
@@ -1319,7 +1334,7 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"복구 환경은 기존에 설치되어 있는 Red Hat 리눅스 시스템을 검색하여 '/mnt/"
+"복구 환경은 기존에 설치되어 있는 Red Hat Linux 시스템을 검색하여 '/mnt/"
 "sysimage' 디렉토리에 마운트시킬 것입니다.  이 디렉토리를 통해 시스템의 복구 "
 "작업을 하실 수 있습니다.  이러한 복구 작업을 원하시면, [진행] 버튼을 눌러주십"
 "시요.\n"
@@ -1333,9 +1348,8 @@ msgid "Continue"
 msgstr "진행"
 
 #: ../rescue.py:110 ../rescue.py:119
-#, fuzzy
 msgid "Read-Only"
-msgstr "읽는 중"
+msgstr "읽는 전용"
 
 #: ../rescue.py:110 ../rescue.py:112 ../textw/bootdisk_text.py:68
 #: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
@@ -1358,14 +1372,14 @@ msgid "Exit"
 msgstr "종료"
 
 #: ../rescue.py:164
-#, fuzzy
 msgid ""
 "Your system had dirty filesystems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"리눅스 파티션이 존재하지 않습니다. 쉘로 나가시려면, [ENTER] 키를 누르십시요. "
-"쉘에서 빠져 나가시면, 시스템은 자동으로 재부팅 됩니다."
+"마운트하지 않기로 결정하신 파일 시스템에 오류가 있습니다. fsck와 파티션을 마"
+"운트 할 수 있는 쉘로 나가시려면, [ENTER] 키를 누르십시요. 쉘에서 빠져 나가시"
+"면, 시스템은 자동으로 재부팅 됩니다."
 
 #: ../rescue.py:172
 msgid ""
@@ -1438,9 +1452,9 @@ msgid "Debug"
 msgstr "디버그"
 
 #: ../text.py:321
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2002 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
+msgstr "%s (C) 2002 Red Hat, Inc."
 
 #: ../text.py:324
 msgid ""
@@ -1468,9 +1482,9 @@ msgid "Searching"
 msgstr "검색 중"
 
 #: ../upgrade.py:44
-#, fuzzy, python-format
+#, python-format
 msgid "Searching for %s installations..."
-msgstr "Red Hat 리눅스 설치에 필요한 사항을 검색하고 있습니다..."
+msgstr "%s 설치에 필요한 사항을 검색하고 있습니다... "
 
 #: ../upgrade.py:77 ../upgrade.py:84
 msgid "Dirty Filesystems"
@@ -1487,14 +1501,12 @@ msgstr ""
 "모든 사항을 완전히 종료하신 후에 다시 업그레이드 하시기 바랍니다."
 
 #: ../upgrade.py:85
-#, fuzzy
 msgid ""
 "One or more filesystems for your Linux system was not unmounted cleanly.  "
 "Would you like to mount them anyway?"
 msgstr ""
-"여러분 시스템의 파일시스템 중 일부분이 완전히 언마운트 되지 않았습니다. 기존"
-"의 리눅스 시스템으로 부팅하여 파일시스템이 자동 점검될 수 있도록 하신 다음, "
-"모든 사항을 완전히 종료하신 후에 다시 업그레이드 하시기 바랍니다."
+"여러분 Linux 시스템의 파일 시스템 중 일부분이 완전히 언마운트 되지 않았습니"
+"다. 그래도 마운트 할까요?"
 
 #: ../upgrade.py:225 ../upgrade.py:231
 msgid "Mount failed"
@@ -1509,14 +1521,14 @@ msgstr ""
 "할 수 없습니다. 이 문제를 해결하신 후에 다시 업그레이드 하시기 바랍니다."
 
 #: ../upgrade.py:232
-#, fuzzy
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab of your Linux system "
 "are inconsistent and cannot be mounted.  Please fix this problem and try to "
 "upgrade again."
 msgstr ""
-"여러분 시스템의 '/etc/fstab' 파일에 나열되어 있는 파일시스템 중 일부를 마운트"
-"할 수 없습니다. 이 문제를 해결하신 후에 다시 업그레이드 하시기 바랍니다."
+"여러분 Linux 시스템의 '/etc/fstab' 파일에 나열되어 있는 파일시스템 중 일부를 "
+"마운트할 수 없습니다. 이 문제를 해결하신 후에 다시 업그레이드 하시기 바랍니"
+"다."
 
 #: ../upgrade.py:248
 msgid ""
@@ -1561,10 +1573,10 @@ msgid ""
 "or may cause other system instability.  Do you wish to continue the upgrade "
 "process?"
 msgstr ""
-"이 시스템에는 Red Hat 리눅스에 포함되어 있는 패키지와 중복되는 써드 파티 패키"
-"지가 설치되어 있는 것 같습니다. 이러한 패키지가 중복해서 업그레이드 설치가 "
-"될 경우에는 그 패키지의 기능이 완전히 멈춰버리거나, 시스템의 다른 부분이 불안"
-"정할 수 있습니다.  업그레이드 설치를 계속 진행하시겠습니까?"
+"이 시스템에는 %s에 포함되어 있는 패키지와 중복되는 써드 파티 패키지가 설치되"
+"어 있는 것 같습니다. 이러한 패키지가 중복해서 업그레이드 설치가 될 경우에는 "
+"그 패키지의 기능이 완전히 멈춰버리거나, 시스템의 다른 부분이 불안정할 수 있습"
+"니다.  업그레이드 설치를 계속 진행하시겠습니까?"
 
 #: ../upgrade.py:398
 msgid ""
@@ -1785,7 +1797,7 @@ msgstr "Kerberos 사용"
 
 #: ../iw/auth_gui.py:176 ../textw/userauth_text.py:398
 msgid "Realm:"
-msgstr "Realm:"
+msgstr "구성영역:"
 
 #: ../iw/auth_gui.py:178 ../textw/userauth_text.py:400
 msgid "KDC:"
@@ -1828,19 +1840,19 @@ msgid "Boot Disk Creation"
 msgstr "부팅 디스켓 제작"
 
 #: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot disk allows you to boot your %s system from a floppy diskette.\n"
 "\n"
 "Please remove any diskettes from the floppy drive and insert a blank "
 "diskette. All data will be ERASED during creation of the boot disk."
 msgstr ""
-"부팅 디스켓은 플로피 디스켓을 통해 여러분의 Red Hat 리눅스 시스템으로 부팅할 "
-"수 있도록 합니다.\n"
+"부팅 디스켓은 플로피 디스켓을 통해 여러분의 %s 시스템으로 부팅할 수 있도록 합"
+"니다.\n"
 "\n"
 "플로피 드라이브 안에 있는 디스켓을 제거해 주시고, 새 디스켓을 넣어주십시요. "
 "부팅 디스켓을 생성하는 동안 디스켓 안의 모든 자료는 삭제되므로 주의하시기 바"
-"랍니다."
+"랍니다. "
 
 #: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:84
 msgid ""
@@ -1907,9 +1919,9 @@ msgid ""
 "default boot loader. However, if you do not wish to overwrite your current "
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
-"시스템에서 사용될 부트로더를 선택해 주십시요.  Red Hat 리눅스의 기본 부트로더"
-"는 'GRUB' 입니다. 현재 시스템에서 사용되고 있는 부트로더를 그대로 사용하시려"
-"면, \"부트로더를 설치하지 않음\" 항목을 선택하십시요."
+"시스템에서 사용될 부트로더를 선택해 주십시요.  %s의 기본 부트로더는 'GRUB' 입"
+"니다. 현재 시스템에서 사용되고 있는 부트로더를 그대로 사용하시려면, \"부트로"
+"더를 설치하지 않음\" 항목을 선택하십시요."
 
 #: ../iw/bootloader_gui.py:356 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:266 ../textw/silo_text.py:207
@@ -2006,9 +2018,9 @@ msgid "About to Install"
 msgstr "설치 시작"
 
 #: ../iw/confirm_gui.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Red Hat 리눅스를 설치하시려면, [다음] 버튼을 클릭하십시요."
+msgstr "%s를 설치하시려면, [다음] 버튼을 클릭하십시요. "
 
 #: ../iw/confirm_gui.py:61
 msgid ""
@@ -2026,9 +2038,9 @@ msgid "About to Upgrade"
 msgstr "업그레이드 시작"
 
 #: ../iw/confirm_gui.py:73
-#, fuzzy, python-format
+#, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Red Hat 리눅스를 업그레이드 하시려면, [다음] 버튼을 클릭하십시요."
+msgstr "%s를 업그레이드 하시려면, [다음] 버튼을 클릭하십시요. "
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
@@ -2043,18 +2055,18 @@ msgid "Congratulations"
 msgstr "축하합니다"
 
 #: ../iw/congrats_gui.py:48 ../textw/complete_text.py:30
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you created a boot disk to use to boot your %s system, insert it before "
 "you press <Enter> to reboot.\n"
 "\n"
 msgstr ""
-"Red Hat 리눅스 시스템으로 부팅하기 위한 부팅 디스켓을 만드셨다면, [ENTER] 키"
-"를 눌러 재부팅 하시기 전에 부팅 디스켓을 플로피 드라이브에 넣어주십시요.\n"
+"%s 시스템으로 부팅하기 위한 부팅 디스켓을 만드셨다면, [ENTER] 키를 눌러 재부"
+"팅 하시기 전에 부팅 디스켓을 플로피 드라이브에 넣어주십시요.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:56
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -2067,7 +2079,7 @@ msgid ""
 "Information on using and configuring your system is available in the %s "
 "manuals at http://www.redhat.com/docs."
 msgstr ""
-"축하합니다, Red Hat 리눅스 설치가 완료되었습니다.\n"
+"축하합니다, %s 설치가 완료되었습니다.\n"
 "\n"
 "[ENTER] 키를 눌러 시스템을 재부팅 하시기 전에 설치 과정에서 사용된 플로피 디"
 "스켓을 시스템에서 제거해 주십시요. \n"
@@ -2075,11 +2087,11 @@ msgstr ""
 "%s Errata (업데이트 및 버그 수정) 에 관한 사항은 http://www.redhat.com/"
 "errata 를 통해 확인하실 수 있습니다.\n"
 "\n"
-"Red Hat 리눅스 시스템 사용 및 설정에 관한 설명서는 http://www.redhat.com/"
-"support/manuals 를 참고해 주시기 바랍니다."
+"%s 시스템 사용 및 설정에 관한 설명서는 http://www.redhat.com/docs 를 참고해 "
+"주시기 바랍니다."
 
 #: ../iw/congrats_gui.py:104
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -2094,8 +2106,8 @@ msgstr ""
 "Errata (업데이트 및 버그 수정) 에 관한 사항은 http://www.redhat.com/errata "
 "를 통해 확인하실 수 있습니다.\n"
 "\n"
-"Red Hat 리눅스 시스템 사용 및 설정에 관한 설명서는 http://www.redhat.com/"
-"support/manuals 를 참고해 주시기 바랍니다."
+"%s 시스템 사용 및 설정에 관한 설명서는 http://www.redhat.com/docs 를 참고해 "
+"주시기 바랍니다."
 
 #: ../iw/dependencies_gui.py:20
 msgid "Unresolved Dependencies"
@@ -2145,13 +2157,13 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "루트 파일시스템이 있는 장치를 선택해 주십시요: "
 
 #: ../iw/examine_gui.py:89 ../textw/upgrade_text.py:225
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading the %s installation on partition /dev/%s"
-msgstr "/dev/%s 파티션에 있는 Red Hat 리눅스 시스템을 업그레이드 하고 있습니다"
+msgstr "/dev/%s 파티션에 있는 %s 시스템을 업그레이드 하고 있습니다 "
 
 #: ../iw/examine_gui.py:95
 msgid "Customize packages to be upgraded"
-msgstr "업그레이드할 패키지 선택"
+msgstr "업그레이드할 패키지 사용자 설정"
 
 #: ../iw/fdisk_gui.py:26 ../textw/partmethod_text.py:28
 msgid "fdisk"
@@ -2363,7 +2375,6 @@ msgid "Secondary DNS"
 msgstr "2차 DNS"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Tertiary DNS"
 msgstr "3차 DNS"
 
@@ -2426,12 +2437,12 @@ msgstr ""
 "다."
 
 #: ../iw/partition_gui.py:556
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
-"Red Hat 리눅스를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시"
-"기 바랍니다."
+"%s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시기 바랍니"
+"다. "
 
 #: ../iw/partition_gui.py:563
 msgid "Partitioning Errors"
@@ -2663,10 +2674,9 @@ msgid "Automatic Partitioning"
 msgstr "자동 파티션 설정"
 
 #: ../iw/partition_gui.py:1626
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one drive to have %s installed onto."
-msgstr ""
-"Red Hat 리눅스 설치를 위해 최소한 하나의 드라이브는 선택해 주셔야 합니다."
+msgstr "%s 설치를 위해 최소한 하나의 드라이브는 선택해 주셔야 합니다. "
 
 #: ../iw/partition_gui.py:1666
 msgid "I want to have automatic partitioning:"
@@ -2800,51 +2810,53 @@ msgid "UTC Offset"
 msgstr "UTC와의 시차"
 
 #: ../iw/upgrade_bootloader_gui.py:29 ../textw/upgrade_bootloader_text.py:72
-#, fuzzy
 msgid "Upgrade Boot Loader Configuration"
-msgstr "부트로더 설정"
+msgstr "부트로더 설정 업그레이드"
 
 #: ../iw/upgrade_bootloader_gui.py:69 ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 #, fuzzy
 msgid "Update boot loader configuration"
-msgstr "부트로더 설정"
+msgstr "부트로더 설정 업그레이드"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
-msgstr ""
+msgstr "이것은 현재의 부트 로더를 업데이트 시킬 것입니다."
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
+msgstr "설치 프로그램이 현재 %s에 설치되어 있는 %s부트 로더를 발견했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 #, python-format
 msgid "%s  %s"
-msgstr ""
+msgstr "%s  %s"
 
 #: ../iw/upgrade_bootloader_gui.py:77
 msgid "This is the recommended option."
-msgstr ""
+msgstr "이 옵션을 사용하시길 권장합니다."
 
 #: ../iw/upgrade_bootloader_gui.py:81 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
+"설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
 #, fuzzy
 msgid "Create new boot loader configuration"
-msgstr "부팅 디스켓 제작"
+msgstr "새로운 부트로더 사용자 설정"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
+"이것은 새로운 부트로더 설정을 작성할 것입니다. 만일 부트 로더를 교환하길 원하"
+"시면, 이것을 선택하십시오."
 
 #: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
 #, fuzzy
@@ -2856,18 +2868,19 @@ msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
+"부트로더 설정에 아무런 변화도 주지 않습니다. 만일 3차 부트로더를 사용하신다"
+"면, 이것을 선택하십시오."
 
 #: ../iw/upgrade_bootloader_gui.py:111
-#, fuzzy
 msgid "What would you like to do?"
-msgstr "추가할 장치의 종류를 선택해 주십시요"
+msgstr "추가할 장치의 종류를 선택해 주십시요?"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:31
 msgid "Migrate Filesystems"
 msgstr "파일시스템 이전"
 
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journalling filesystem.  It has several "
 "benefits over the ext2 filesystem traditionally shipped in %s.  It is "
@@ -2876,12 +2889,12 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"이번 Red Hat 리눅스 버전 부터는 ext3 저널링 파일시스템을 제공합니다.  이것은 "
-"이전의 Red Hat 리눅스에 포함되어 있던 ext2 파일시스템을 사용하는 것 보다 더 "
-"많은 잇점이 있습니다.  여기서는 기존의 ext2 파티션을 어떠한 자료도 손실하지 "
-"않고 ext3 로 이전할 수 있습니다.\n"
+"이번 %s 버전 부터는 ext3 저널링 파일시스템을 제공합니다.  이것은 이전의 %s에 "
+"포함되어 있던 ext2 파일시스템을 사용하는 것 보다 더 많은 잇점이 있습니다.  여"
+"기서는 기존의 ext2 파티션을 어떠한 자료도 손실하지 않고 ext3 로 이전할 수 있"
+"습니다.\n"
 "\n"
-"이전할 파티션을 선택해 주십시요"
+"이전할 파티션을 선택해 주십시요 "
 
 #: ../iw/upgrade_swap_gui.py:30
 msgid "Upgrade Swap Partition"
@@ -3070,15 +3083,16 @@ msgid "Graphical Interface (X) Configuration"
 msgstr "그래픽 환경 (X 윈도우) 설정"
 
 #: ../iw/xconfig_gui.py:723
-#, fuzzy
 msgid "Unknown server"
-msgstr "알 수 없는 호스트"
+msgstr "알 수 없는 서버"
 
 #: ../iw/xconfig_gui.py:724
 msgid ""
 "This video card has no suitable X server in the database.  You will need to "
 "choose a different card or choose the 'Skip X Configuration' button."
 msgstr ""
+"이 비디오 카드에는 데이타 베이스에 사용할 알맞은 X 서버가 존재하지 않습니다. "
+"다른 카드를 선택하시거나 'Skip X Configuration' 버튼을 눌러주십시오."
 
 #: ../iw/xconfig_gui.py:731 ../textw/xconfig_text.py:620
 msgid "Unspecified video card"
@@ -3239,6 +3253,8 @@ msgstr ""
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
+" <Space> 는 버튼 선택 | <F2> 는 기본 부트 엔트리 선택 | <F12> 는 다음 화면으"
+"로 가기>"
 
 #: ../textw/bootloader_text.py:384
 msgid "Use a GRUB Password"
@@ -3274,7 +3290,7 @@ msgid "Complete"
 msgstr "완료"
 
 #: ../textw/complete_text.py:37
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -3287,7 +3303,7 @@ msgid ""
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/docs."
 msgstr ""
-"축하합니다, Red Hat 리눅스 설치가 완료되었습니다.\n"
+"축하합니다, %s 설치가 완료되었습니다.\n"
 "\n"
 "[ENTER] 키를 눌러 시스템을 재부팅 하시기 전에 설치 과정에서 사용된 플로피 디"
 "스켓을 시스템에서 제거해 주십시요. \n"
@@ -3295,15 +3311,15 @@ msgstr ""
 "%s Errata (업데이트 및 버그 수정) 에 관한 사항은 http://www.redhat.com/"
 "errata 를 통해 확인하실 수 있습니다.\n"
 "\n"
-"Red Hat 리눅스 시스템 사용에 관한 설명서는 http://www.redhat.com/support/"
-"manuals 를 참고해 주시기 바랍니다."
+"여러분의 시스템 사용에 관한 Red Hat Linux 설명서는 http://www.redhat.com/"
+"docs 를 참고해 주시기 바랍니다."
 
 #: ../textw/complete_text.py:55
 msgid "<Enter> to continue"
 msgstr "계속 진행하시려면, [ENTER] 키를 누르십시요"
 
 #: ../textw/complete_text.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, package installation is complete.\n"
 "\n"
@@ -3316,15 +3332,15 @@ msgstr ""
 "\n"
 "계속 진행하시려면, [ENTER] 키를 누르십시요.\n"
 "\n"
-"Red Hat 리눅스 설정 및 사용에 관한 내용은 Red Hat 리눅스 사용 설명서를 참고"
-"해 주시기 바랍니다."
+"%s 설정 및 사용에 관한 내용은 Red Hat Linux  사용 설명서를 참고해 주시기 바랍"
+"니다."
 
 #: ../textw/complete_text.py:69
 msgid "<Enter> to exit"
 msgstr "종료하시려면, [ENTER] 키를 누르십시요"
 
 #: ../textw/complete_text.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -3339,8 +3355,8 @@ msgstr ""
 "Errata (업데이트 및 버그 수정) 에 관한 사항은 http://www.redhat.com/errata "
 "를 통해 확인하실 수 있습니다.\n"
 "\n"
-"Red Hat 리눅스 시스템 사용에 관한 설명서는 http://www.redhat.com/support/"
-"manuals 를 참고해 주시기 바랍니다."
+"%s 시스템 사용에 관한 설명서는 http://www.redhat.com/docs를 참고해 주시기 바"
+"랍니다."
 
 #: ../textw/confirm_text.py:20
 msgid "Installation to begin"
@@ -3495,9 +3511,9 @@ msgid "Mouse Selection"
 msgstr "마우스 선택"
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "Network Device: %s"
-msgstr "네트웍 장치"
+msgstr "네트웍 장치:%s"
 
 #: ../textw/network_text.py:70
 msgid "Use bootp/dhcp"
@@ -3524,14 +3540,13 @@ msgid "Secondary nameserver:"
 msgstr "2차 DNS:"
 
 #: ../textw/network_text.py:85
-#, fuzzy
 msgid "Tertiary nameserver:"
-msgstr "3차 DNS:"
+msgstr "3차 이름서버:"
 
 #: ../textw/network_text.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Network Configuration for %s"
-msgstr "네트웍 설정"
+msgstr "%s를 위한 네트웍 설정"
 
 #: ../textw/network_text.py:137
 msgid "Invalid information"
@@ -3845,7 +3860,7 @@ msgstr "파티션 업그레이드"
 
 #: ../textw/upgrade_text.py:246
 msgid "Customize Packages to Upgrade"
-msgstr "업그레이드할 패키지 선택"
+msgstr "업그레이드할 패키지 사용자 설정"
 
 #: ../textw/upgrade_text.py:247
 msgid ""
@@ -3871,9 +3886,8 @@ msgstr ""
 "어 매우 중요한 부분입니다!"
 
 #: ../textw/userauth_text.py:38
-#, fuzzy
 msgid "Password (confirm):"
-msgstr "패스워드 (확인)"
+msgstr "패스워드 (확인):"
 
 #: ../textw/userauth_text.py:54 ../textw/userauth_text.py:128
 msgid "Password Length"
@@ -3896,9 +3910,8 @@ msgid "Add User"
 msgstr "사용자 추가"
 
 #: ../textw/userauth_text.py:100
-#, fuzzy
 msgid "User Name"
-msgstr "사용자 명(ID):"
+msgstr "사용자 명"
 
 #: ../textw/userauth_text.py:101
 msgid "Password"
@@ -4014,10 +4027,10 @@ msgstr "TLS 접속 사용"
 #: ../textw/welcome_text.py:22 ../textw/welcome_text.py:42
 #, python-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../textw/welcome_text.py:23
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -4028,17 +4041,17 @@ msgid ""
 "If you have purchased Official %s, be sure to register your purchase through "
 "our web site, http://www.redhat.com/."
 msgstr ""
-"Red Hat 리눅스를 선택해 주셔서 감사합니다!\n"
+"%s를 선택해 주셔서 감사합니다!\n"
 "\n"
-"설치 과정에 관한 자세한 내용은 저희 Red Hat 리눅스 사에서 제공하는 공식 레드"
-"햇 리눅스 설치 안내서를 참고해 주십시요. 현재 설치 안내서를 통해 설치를 하고 "
-"계실 경우에는 설치 관련 부분을 먼저 읽어보시기 바랍니다.\n"
+"설치 과정에 관한 자세한 내용은 저희 Red Hat 사에서 제공하는 공식 %s설치 안내"
+"서를 참고해 주십시요. 현재 설치 안내서를 통해 설치를 하고 계실 경우에는 설치 "
+"관련 부분을 먼저 읽어보시기 바랍니다.\n"
 "\n"
-"여러분이 공식 Red Hat 리눅스 제품을 구입하셨다면, 반드시 저희 웹 사이트 "
-"http://www.redhat.com/ 를 방문하여 사용자 등록을 해주시기 바랍니다."
+"여러분이 공식 %s 제품을 구입하셨다면, 반드시 저희 웹 사이트 http://www."
+"redhat.com/ 를 방문하여 사용자 등록을 해주시기 바랍니다."
 
 #: ../textw/welcome_text.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -4047,12 +4060,13 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
-"Red Hat 리눅스를 선택해 주셔서 감사합니다!\n"
+"%s를 선택해 주셔서 감사합니다!\n"
 "\n"
 "여러분의 시스템에 특정-부분의 항목(site-specific options) 을 설정할 수 있는 "
 "재 설정 모드 입니다.\n"
 "\n"
-"설정 내용을 변경하지 않고 종료하시려면, 화면 아래의 [취소] 버튼을 누르십시요."
+"설정 내용을 변경하지 않고 종료하시려면, 화면 아래의 [취소] 버튼을 누르십시"
+"요. "
 
 #: ../textw/xconfig_text.py:24
 msgid "Color Depth"
@@ -4320,7 +4334,7 @@ msgstr "드라이버 디스켓을 마운트하는데 실패했습니다."
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of %"
 "s."
-msgstr "이 디스켓은 이번 Red Hat 리눅스 버전의 드라이버 디스켓이 아닙니다."
+msgstr "이 디스켓은 이번 %s 버전의 드라이버 디스켓이 아닙니다."
 
 #: ../loader/devices.c:326
 msgid ""
@@ -4357,12 +4371,12 @@ msgstr "킥스타트 파일 %s 의 내용을 읽는 도중 오류가 발생되었습니다: %s"
 #: ../loader/kickstart.c:109
 #, c-format
 msgid "Error on line %d of kickstart file %s."
-msgstr "킥스타트 파일 %2$s 의 %1$d 번째 줄에서 오류가 발생되었습니다."
+msgstr "%d번째 줄 %s 킥스타트 파일에서 오류가 발생되었습니다."
 
 #: ../loader/lang.c:41 ../loader/loader.c:195
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s"
-msgstr "환영합니다"
+msgstr "%s에 오신것을 환영합니다 "
 
 #: ../loader/lang.c:42 ../loader/loader.c:201
 msgid ""
@@ -4403,9 +4417,8 @@ msgid "What kind of device would you like to add"
 msgstr "추가할 장치의 종류를 선택해 주십시요"
 
 #: ../loader/loader.c:377
-#, fuzzy
 msgid "The following devices have been found on your system:"
-msgstr "여러분의 시스템에서 다음의 장치를 찾았습니다:"
+msgstr "여러분의 시스템에서 다음의 장치를 찾았습니다: "
 
 #: ../loader/loader.c:379 ../loader/loader.c:404
 msgid "Done"
@@ -4416,13 +4429,12 @@ msgid "Add Device"
 msgstr "장치 추가"
 
 #: ../loader/loader.c:405
-#, fuzzy
 msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
 msgstr ""
 "여러분의 시스템에 어떠한 장치 드라이버도 로딩되지 않았습니다. 지금 장치를 로"
-"딩하시겠습니까?"
+"딩하시겠습니까? "
 
 #: ../loader/loader.c:489 ../loader/loader.c:896 ../loader/loader.c:2749
 #, c-format
@@ -4434,6 +4446,8 @@ msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
+"ISO 이미지들에서 설치를 읽어오는데 에러가 발생했습니다. ISO 이미지들을  확인"
+"하시고 다시 시도해 주십시오."
 
 #: ../loader/loader.c:913
 #, c-format
@@ -4442,10 +4456,13 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"ISO 이미지의 첵섬 테스트를 실행하시겠습니까:\n"
+"\n"
+"   %s?"
 
 #: ../loader/loader.c:916
 msgid "Checksum Test"
-msgstr ""
+msgstr "첵섬 테스트"
 
 #: ../loader/loader.c:1026
 msgid "Hard Drives"
@@ -4460,15 +4477,15 @@ msgstr ""
 "겠습니까?"
 
 #: ../loader/loader.c:1072
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Red Hat 리눅스 CD (iso9660) 이미지가 있는 파티션이나 디렉토리를 지정해 주십시"
-"요. 이곳에 나열된 드라이브 목록 중 여러분이 사용하고 계신 드라이브를 찾을 수 "
-"없으시다면, [F2] 키를 눌러 추가할 장치를 설정하시기 바랍니다."
+"어느 파티션이나 디랙토리에 %s를 위한 CD (iso9660) 이미지가 있습니까? 만일 여"
+"기에 작성된 목록에 여러분이 사용하시는 디스크 드라이브를 찾을 수 없다면,  F2"
+"키를 눌러서 추가 장치 설정을 선택해주십시오."
 
 #: ../loader/loader.c:1088
 msgid "Directory holding images:"
@@ -4485,11 +4502,11 @@ msgstr "%s 장치에는 Red Hat CD 이미지가 없는 것 같습니다."
 
 #: ../loader/loader.c:1209 ../loader/loader.c:1227 ../loader/mediacheck.c:209
 msgid "Media Check"
-msgstr ""
+msgstr "미디어 체크"
 
 #: ../loader/loader.c:1209 ../loader/loader.c:1213
 msgid "Eject CD"
-msgstr ""
+msgstr "CD 꺼내기"
 
 #: ../loader/loader.c:1210
 #, c-format
@@ -4497,6 +4514,8 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
+"\"%s\"를 선택하여 현재 드라이브 상에 있는 CD를 테스트 하시거나 \"%s\"를 선택"
+"하여 그 CD를 꺼내고 다른 것을 테스트하기 위해 집어 넣으십시오."
 
 #: ../loader/loader.c:1228
 #, c-format
@@ -4508,20 +4527,23 @@ msgid ""
 "To begin the installation process insert CD #1 into the drive and press \"%s"
 "\"."
 msgstr ""
+"추가 미디어를 테스트하고 싶으시면, 다음 CD를 넣고 \"%s\"를 누르십시오. 비록 "
+"한번 정도는 권장하겠지만 CD들을 모두 다 테스트할 필요는 없습니다.\n"
+"\n"
+"설치를 시작하시려면 CD 1을  드라이브에 넣고 \"%s\"를 눌러주십시오. "
 
 #: ../loader/loader.c:1249 ../loader/loader.c:1363
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"여러분의 CDROM 드라이브에서 Red Hat 리눅스 CD를 찾을 수 없습니다. Red Hat CD"
-"를 넣으신 후에 [확인] 버튼을 눌러주십시요."
+"여러분의 CDROM 드라이브에서 %s CD를 찾을 수 없습니다.%s CD를 넣고 %s를 눌러 "
+"다시 시도해 주십시오."
 
 #: ../loader/loader.c:1292
-#, fuzzy
 msgid "CD Found"
-msgstr "드라이브를 찾을 수 없음"
+msgstr "드라이브를 찾았습니다"
 
 #: ../loader/loader.c:1294
 #, c-format
@@ -4530,6 +4552,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
+"설치 전에 CD 미디어 테스트를 시작하시 려면 %s를 눌러주십시오.\n"
+"\n"
+"%s를 선택하여 미디어 테스트를 건너뀌고 설치를 시작합니다."
 
 #: ../loader/loader.c:1459
 msgid "Networking Device"
@@ -4545,13 +4570,11 @@ msgstr ""
 
 #: ../loader/loader.c:1576
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr ""
-"해당 디렉토리에서 Red Hat 리눅스 설치에 관련된 파일을 찾을 수 없습니다."
+msgstr "해당 디렉토리에서 %s 설치에 관련된 파일을 찾을 수 없습니다."
 
 #: ../loader/loader.c:1581
-#, fuzzy
 msgid "That directory could not be mounted from the server"
-msgstr "서버의 해당 디렉토리를 마운트할 수 없습니다"
+msgstr "서버의 해당 디렉토리를 마운트할 수 없습니다 "
 
 #: ../loader/loader.c:1623
 #, c-format
@@ -4600,11 +4623,11 @@ msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "업데이트 디스켓을 넣으신 후, [확인] 버튼을 눌러주십시요."
 
 #: ../loader/loader.c:2817
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of %"
 "s."
-msgstr "이 디스켓은 이번 Red Hat 리눅스 버전의 업데이트 디스켓이 아닙니다."
+msgstr "이 디스켓은 이번 %s 버전의 업데이트 디스켓이 아닙니다."
 
 #: ../loader/loader.c:2827
 msgid "Failed to mount floppy disk."
@@ -4619,9 +4642,9 @@ msgid "Reading anaconda updates..."
 msgstr "anaconda의 업데이트 사항을 읽고 있습니다..."
 
 #: ../loader/loader.c:3046
-#, fuzzy, c-format
+#, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr "현재 이 시스템의 램 용량으로는 Red Hat 리눅스를 설치하실 수 없습니다."
+msgstr "현재 이 시스템의 램 용량으로는 %s를 설치하실 수 없습니다."
 
 #: ../loader/loader.c:3082
 msgid ""
@@ -4629,6 +4652,8 @@ msgid ""
 "boot disk which you are using.  This shouldn't happen, and I'm rebooting "
 "your system now."
 msgstr ""
+"선택하신 설치 두번째 단계는 사용하고 계신 부트 디스크와 맞지가 않습니다.  오"
+"류입니다. 시스템을 다시 부팅합니다."
 
 #: ../loader/loader.c:3457
 msgid ""
@@ -4636,6 +4661,8 @@ msgid ""
 "drivers for the installation to succeed. Would you like to select drivers "
 "now?"
 msgstr ""
+"하드 드라이브를 찾을 수가 없습니다. 설치를 성공적으로 끝마치기 위해서 직접 장"
+"치 드라이버를 선택하셔야 합니다. 드라이버를 지금 선택하시겠습니까?"
 
 #: ../loader/loader.c:3617
 msgid "Running anaconda - please wait...\n"
@@ -4646,20 +4673,22 @@ msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
+"원시 볼륨 서술자로부터 티스크 첵섬을 읽어들이는데 실패했습니다.  아마 이것은 "
+"첵섬을 추가하지 않은채로 디스크를 작성했기 때문입니다."
 
 #: ../loader/mediacheck.c:201
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr ""
+msgstr "\"%s\"를 확인 중..."
 
 #: ../loader/mediacheck.c:203
 msgid "Checking media now..."
-msgstr ""
+msgstr "현재 미디어를 확인중입니다..."
 
 #: ../loader/mediacheck.c:248
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find install image %s"
-msgstr "첫번째 설치 이미지를 읽어올 수 없습니다"
+msgstr "%s 설치 이미지를 읽어올 수 없습니다"
 
 #: ../loader/mediacheck.c:261
 msgid ""
@@ -4667,6 +4696,9 @@ msgid ""
 "\n"
 "It is not recommended to use this media."
 msgstr ""
+"실패\n"
+"\n"
+"이 미디어의 사용을 추천하지 않습니다."
 
 #: ../loader/mediacheck.c:263
 msgid ""
@@ -4674,6 +4706,9 @@ msgid ""
 "\n"
 "It is OK to install from this media."
 msgstr ""
+"통과.\n"
+"\n"
+"이 미디어에서 설치하셔도 OK"
 
 #: ../loader/mediacheck.c:265
 msgid ""
@@ -4681,10 +4716,13 @@ msgid ""
 "\n"
 "No checksum information available, unable to verify media."
 msgstr ""
+"NA.\n"
+"\n"
+"첵섬 정보 없음, 미디어 확인 불가능"
 
 #: ../loader/mediacheck.c:267
 msgid "Media Check Result"
-msgstr ""
+msgstr "미디어 확인 결과"
 
 #: ../loader/mediacheck.c:271
 #, c-format
@@ -4694,11 +4732,15 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"이미지:\n"
+"\n"
+"%s\n"
+"\n"
 
 #: ../loader/mediacheck.c:275
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr ""
+msgstr "미디어 확인 %s이 끝났습니다. 결과는 : %s 입니다\n"
 
 #: ../loader/modules.c:390
 #, c-format
@@ -4736,7 +4778,7 @@ msgid "Red Hat directory:"
 msgstr "Red Hat 디렉토리:"
 
 #: ../loader/net.c:179
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4746,9 +4788,9 @@ msgid ""
 msgstr ""
 "다음의 사항을 입력해 주십시요:\n"
 "\n"
-"    o NFS 서버의 이름 또는 IP 주소\n"
-"    o 사용하실 아키텍쳐의 Red Hat 리눅스가 있는\n"
-"      디렉토리"
+"    o 이름 또는 NFS 서버의 IP 주소\n"
+"    o 여러분 시스템 체계에 맞는 %s를 포함한\n"
+"       서버가 있는 디렉토리"
 
 #: ../loader/net.c:184
 msgid "NFS Setup"
@@ -4894,17 +4936,15 @@ msgstr "디스켓을 마운트하는데 실패했습니다."
 
 #: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-msgstr ""
-"이 디스켓은 Red Hat 리눅스용 PCMCIA 드라이버 디스켓이 아닌 것 같습니다."
+msgstr "이 디스켓은 %s용 PCMCIA 드라이버 디스켓이 아닌 것 같습니다."
 
 #: ../loader/telnetd.c:64
 msgid "Waiting for telnet connection..."
-msgstr ""
+msgstr "텔넷 접속을 기다리고 있습니다..."
 
 #: ../loader/telnetd.c:106
-#, fuzzy
 msgid "Running anaconda via telnet..."
-msgstr "anaconda 실행 중 - 잠시만 기다려 주십시요...\n"
+msgstr "텔넷을 통해 anaconda를 실행중..."
 
 #: ../loader/urls.c:81
 #, c-format
@@ -4921,7 +4961,7 @@ msgid "Retrieving"
 msgstr "읽는 중"
 
 #: ../loader/urls.c:183
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4931,9 +4971,9 @@ msgid ""
 msgstr ""
 "다음의 사항을 입력해 주십시요:\n"
 "\n"
-"    o 웹 서버의 이름 또는 IP 주소\n"
-"    o 사용하실 아키텍쳐의 Red Hat 리눅스가 있는\n"
-"      디렉토리\n"
+"    o 웹 %s서버의 이름 또는 IP 주소\n"
+"    o 여러분 시스템에 맞는 %s를 포함한\n"
+"     서버가 있는 디렉토리\n"
 
 #: ../loader/urls.c:226
 msgid "FTP site name:"
@@ -5307,7 +5347,7 @@ msgstr "Davis Station, Vestfold Hills"
 #. generated from zone.tab
 #, fuzzy
 msgid "Dornod, Sukhbaatar"
-msgstr "Dornod, Sukhbaatar (unsure about this)"
+msgstr "Dornod, Sukhbaatar "
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
@@ -5771,7 +5811,7 @@ msgstr "Western Australia"
 #. generated from zone.tab
 #, fuzzy
 msgid "West Kazakhstan"
-msgstr "east Kazakhstan"
+msgstr "동부 카자흐스탄"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -5794,21 +5834,24 @@ msgid ""
 "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
 "GB2312            us              Asia/Shanghai"
 msgstr ""
+"중국어(Simplified)    zh_CN.GB2312    None    None            zh_CN."
+"GB2312            us              아시아/샹하이"
 
 #. generated from lang-table
 msgid ""
 "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
 "Big5              us              Asia/Taipei"
 msgstr ""
+"중국어(Traditional)   zh_TW.Big5      None    None            zh_TW."
+"Big5              us              아시아/타이페이"
 
 #. generated from lang-table
 msgid "Czech"
 msgstr "체코어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Danish"
-msgstr "스페인어"
+msgstr "덴마크어"
 
 #. generated from lang-table
 msgid "English"
@@ -5843,13 +5886,12 @@ msgid "Norwegian"
 msgstr "노르웨이어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese"
-msgstr "사용할 서버:"
+msgstr "포루투칼어"
 
 #. generated from lang-table
 msgid "Portuguese(Brasilian) pt"
-msgstr ""
+msgstr "포루투칼어(브리질) pt"
 
 #. generated from lang-table
 msgid "Russian"
@@ -5869,11 +5911,13 @@ msgstr "스웨덴어"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "우크라니아어"
 
-#, fuzzy
-#~ msgid "Customize new boot loader configuration"
-#~ msgstr "부트로더 설정"
+#~ msgid "Update current settings"
+#~ msgstr "현재 설정 업데이트"
+
+#~ msgid "Do nothing"
+#~ msgstr "아무것도 하지않음"
 
 #~ msgid "China coast"
 #~ msgstr "China coast"
@@ -5885,7 +5929,7 @@ msgstr ""
 #~ msgstr "Eastern Turkestan"
 
 #~ msgid "central Kazakhstan"
-#~ msgstr "central Kazakhstan"
+#~ msgstr "중부 카자흐스탄"
 
 #~ msgid "east Greenland"
 #~ msgstr "east Greenland"
@@ -5900,54 +5944,4 @@ msgstr ""
 #~ msgstr "southwest Greenland"
 
 #~ msgid "west Kazakhstan"
-#~ msgstr "west Kazakhstan"
-
-#~ msgid "What language should be used during the installation process?"
-#~ msgstr "설치 과정에서 사용하실 언어를 선택해 주십시요"
-
-#, fuzzy
-#~ msgid "Welcome to "
-#~ msgstr "환영합니다"
-
-#, fuzzy
-#~ msgid ""
-#~ "? If you don't see the disk drive you're using listed here, press F2 to "
-#~ "configure additional devices."
-#~ msgstr ""
-#~ "여러분의 시스템에서 하드 드라이브를 찾을 수 없습니다! 추가할 장치를 설정하"
-#~ "시겠습니까?"
-
-#, fuzzy
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      "
-#~ msgstr ""
-#~ "다음의 사항을 입력해 주십시요:\n"
-#~ "\n"
-#~ "    o FTP 서버의 이름 또는 IP 주소\n"
-#~ "    o 사용하실 아키텍쳐의 Red Hat 리눅스가 있는\n"
-#~ "      디렉토리\n"
-
-#~ msgid "Red Hat Linux Installer"
-#~ msgstr "Red Hat 리눅스 설치 프로그램"
-
-#~ msgid "Password (again):"
-#~ msgstr "패스워드 (확인):"
-
-#~ msgid "User ID"
-#~ msgstr "사용자 ID"
-
-#~ msgid "Red Hat Linux"
-#~ msgstr "Red Hat 리눅스"
-
-#~ msgid "Welcome to Red Hat Linux"
-#~ msgstr "Red Hat 리눅스"
-
-#~ msgid "Chinese(Simplified)"
-#~ msgstr "중국어(간체)"
-
-#~ msgid "Chinese(Traditional)"
-#~ msgstr "중국어(번체)"
+#~ msgstr "서부 카자흐스탄"

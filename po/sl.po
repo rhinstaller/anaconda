@@ -1,21 +1,20 @@
 # SLOVENIAN TRANSLATION OF ANACONDA.
-# Copyright (C) 2001 Free Software Foundation, Inc.
-# Roman Maurer <roman.maurer@amis.net>, 2001.
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# Roman Maurer <roman.maurer@amis.net>, 2002.
 # $Id$
 # $Source$
 #
 #: ../gettext_rh.py:340
 msgid ""
 msgstr ""
-"Project-Id-Version: install 7.2\n"
+"Project-Id-Version: install 7.3\n"
 "POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2001-08-24 07:55+0200\n"
+"PO-Revision-Date: 2002-03-24 23:30+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@amis.net>\n"
-"Language-Team: Slovenian <sl@li.org>\n"
+"Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.8\n"
 
 #: ../anaconda:313
 msgid ""
@@ -614,14 +613,14 @@ msgid "Hide Help"
 msgstr "Skrijmo pomoè"
 
 #: ../gui.py:678
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer"
-msgstr "Po namestitvi"
+msgstr "Namestitev %s"
 
 #: ../gui.py:693
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer on %s"
-msgstr "Namestitveni program Red Hat Linuxa na %s"
+msgstr "Namestitev %s v %s"
 
 #: ../gui.py:731
 msgid "Unable to load title bar"
@@ -753,9 +752,8 @@ msgstr ""
 "paketa ali nosilca. Pritisnite <Enter> za vnovièen poskus."
 
 #: ../packages.py:280
-#, fuzzy
 msgid "Error Installing Package"
-msgstr "Name¹èamo pakete"
+msgstr "Napaka pri name¹èanju paketa"
 
 #: ../packages.py:281
 #, python-format
@@ -767,34 +765,44 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"Pri name¹èanju %s je pri¹lo do napake.  To lahko pomeni pokvarjen nosilec, "
+"pomanjkanje prostora v disku in/ali strojne te¾ave. To je usodna napaka in "
+"va¹a namestitev bo prekinjena. Prosimo, preverite nosilec podatkov in "
+"poskusite znova.\n"
+"\n"
+"Pritisnite gumb V redu za vnovièen zagon sistema."
 
 #: ../packages.py:530
 msgid "Setting up RPM transaction..."
 msgstr "Vzpostavljam prenos RPM..."
 
 #: ../packages.py:567
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
-msgstr "Nadgrajujem %s.\n"
+msgstr ""
+"Nadgrajujem pakete %s.\n"
+"\n"
 
 #: ../packages.py:569
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
-msgstr "Name¹èamo pakete"
+msgstr ""
+"Name¹èajo se paketi %s\n"
+"\n"
 
 #: ../packages.py:576
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s-%s-%s.\n"
-msgstr "Nadgrajujem %s.\n"
+msgstr "Nadgrajuje se %s-%s-%s.\n"
 
 #: ../packages.py:578
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.\n"
-msgstr "Name¹èam %s.\n"
+msgstr "Name¹èa se %s-%s-%s.\n"
 
 #: ../packages.py:594
 #, python-format
@@ -806,15 +814,20 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"Naslednji paketi so bili samodejno izbrani\n"
+"za namestitev:\n"
+"%s\n"
+"\n"
 
 #: ../packages.py:600
-#, fuzzy
 msgid "Install Starting"
-msgstr "Vrsta namestitve"
+msgstr "Namestitev se zaèenja"
 
 #: ../packages.py:601
 msgid "Starting install process, this may take several minutes..."
-msgstr ""
+msgstr "Namestitveni proces se zaganja; to lahko traja nekaj minut..."
 
 #: ../packages.py:646
 msgid ""
@@ -860,6 +873,9 @@ msgid ""
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
+"\n"
+"\n"
+"Naslednji paketi so na voljo v tej razlièici, a NISO bili nadgrajeni:\n"
 
 #: ../packages.py:715
 msgid "Post Install"
@@ -874,13 +890,13 @@ msgid "Foreign"
 msgstr "Tuje"
 
 #: ../partitioning.py:355
-#, fuzzy
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters and no spaces."
 msgstr ""
 "Toèka priklopa ni dobra. Toèke priklopa se morajo zaèeti z znakom ,/` in se "
-"z njim ne smejo konèati, vsebujejo pa lahko le izpisljive znake."
+"z njim ne smejo konèati, vsebujejo pa lahko le izpisljive znake brez "
+"presledkov."
 
 #: ../partitioning.py:363
 msgid "Please specify a mount point for this partition."
@@ -956,22 +972,22 @@ msgstr ""
 "morate dodati èlane v napravo RAID."
 
 #: ../partitioning.py:578
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
 "Niste doloèili korenskega razdelka (/), ki je obvezen za nadaljevanje "
-"namestitve Red Hat Linuxa."
+"namestitve sistema %s."
 
 #: ../partitioning.py:581
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
 "Va¹ korenski razdelek je manj¹i od 250 megabajtov, kar je obièajno premalo "
-"za namestitev Red Hat Linuxa."
+"za namestitev sistema %s."
 
 #: ../partitioning.py:586
 msgid ""
@@ -980,13 +996,13 @@ msgstr ""
 "Ustvariti morate razdelek /boot/efi vrste FAT in velikosti 50 megabajtov."
 
 #: ../partitioning.py:594
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
 "Va¹ razdelek %s je manj¹i od %s megabajtov, kar je manj od priporoèene "
-"velikosti za obièajno namestitev Red Hat Linuxa."
+"velikosti za obièajno namestitev sistema %s."
 
 #: ../partitioning.py:621
 msgid ""
@@ -997,13 +1013,13 @@ msgstr ""
 "veèini namestitev znatno izbolj¹a odzivnost sistema."
 
 #: ../partitioning.py:625
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"Doloèili ste veè kot 32 izmenjevalnih naprav.  Jedro Red Hat Linux podpira "
-"le do 32 izmenjevalnih naprav."
+"Doloèili ste veè kot 32 izmenjevalnih naprav.  Jedro %s podpira le do 32 "
+"izmenjevalnih naprav."
 
 #: ../partitioning.py:634
 #, python-format
@@ -1015,7 +1031,7 @@ msgstr ""
 "dostopnega pomnilnika RAM (%dM). To lahko slabo vpliva na odzivnost."
 
 #: ../partitioning.py:707
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type for your "
 "architecture.  To use this disk for installation of %s, it must be re-"
@@ -1024,7 +1040,7 @@ msgid ""
 "Would you like to initialize this drive?"
 msgstr ""
 "Razdelitvena tabela naprave /dev/%s je neprièakovane vrste za to "
-"arhitekturo.  Èe ¾elite v tem disku namestiti Red Hat Linux, ga morate znova "
+"arhitekturo.  Èe ¾elite v tem disku namestiti %s, ga morate znova "
 "inicializirati, kar bo povzroèilo izgubo VSEH PODATKOV na tem pogonu.\n"
 "\n"
 "Ali ¾elite ta pogon inicializirati?"
@@ -1249,15 +1265,15 @@ msgid "Error with Partitioning"
 msgstr "Napaka pri razdeljevanju"
 
 #: ../partitioning.py:1895
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
 "These errors must be corrected prior to continuing with your install of %s.\n"
 "\n"
 "%s"
 msgstr ""
-"Pri va¹i razdelitveni shemi se pojavljajo naslednje kritiène napake.Te "
-"napake morate popraviti preden nadaljujete namestitev Red Hat Linuxa.\n"
+"Pri va¹i razdelitveni shemi se pojavljajo naslednje kritiène napake. Te "
+"napake morate popraviti preden nadaljujete namestitev sistema %s.\n"
 "\n"
 "%s"
 
@@ -1309,7 +1325,6 @@ msgid "Rescue"
 msgstr "Re¹uj"
 
 #: ../rescue.py:100
-#, fuzzy
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory /mnt/sysimage.  You can then "
@@ -1323,7 +1338,9 @@ msgid ""
 msgstr ""
 "Re¹evalno okolje bo zdaj sku¹alo najti va¹o namestitev Red Hat Linuxa in jo "
 "priklopiti pod imenik /mnt/sysimage.  Potem lahko spreminjate sistem, kot je "
-"treba.  Èe ¾elite nadaljevati s tem korakom, izberite ,Nadaljuj`.\n"
+"treba.  Èe ¾elite nadaljevati s tem korakom, izberite ,Nadaljuj`. Èe ¾elite, "
+"lahko priklopite svoje datoteène sisteme le za branje, namesto za branje in "
+"pisanje, tako da izberete ,Le branje`.\n"
 "\n"
 "Èe zaradi nekega razloga ta postopek spodleti, lahko izberete ,Preskoèi` in "
 "ta korak bo preskoèen tako, da boste lahko ¹li neposredno v ukazno lupino.\n"
@@ -1334,9 +1351,8 @@ msgid "Continue"
 msgstr "Nadaljuj"
 
 #: ../rescue.py:110 ../rescue.py:119
-#, fuzzy
 msgid "Read-Only"
-msgstr "Branje"
+msgstr "Le branje"
 
 #: ../rescue.py:110 ../rescue.py:112 ../textw/bootdisk_text.py:68
 #: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
@@ -1359,14 +1375,15 @@ msgid "Exit"
 msgstr "Izhod"
 
 #: ../rescue.py:164
-#, fuzzy
 msgid ""
 "Your system had dirty filesystems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Nimate razdelitev Linuxa. Pritisnite Enter, da dobite ukazno lupino. Ko "
-"boste zapustili lupino, se bo sistem samodejno vnoviè zagnal."
+"Va¹ sistem ima umazane datoteène sisteme, za katere ste izbrali, da naj se "
+"ne priklopijo.  Pritisnite Enter, da dobite ukazno lupino in priklopite "
+"svoje razdelke. Ko boste zapustili lupino, se bo sistem samodejno vnoviè "
+"zagnal."
 
 #: ../rescue.py:172
 msgid ""
@@ -1439,9 +1456,9 @@ msgid "Debug"
 msgstr "Razhro¹èimo"
 
 #: ../text.py:321
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2002 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
+msgstr "%s (C) 2002 Red Hat, Inc."
 
 #: ../text.py:324
 msgid ""
@@ -1469,9 +1486,9 @@ msgid "Searching"
 msgstr "Iskanje"
 
 #: ../upgrade.py:44
-#, fuzzy, python-format
+#, python-format
 msgid "Searching for %s installations..."
-msgstr "I¹èemo namestitve Red Hat Linuxa..."
+msgstr "I¹èemo namestitve sistema %s..."
 
 #: ../upgrade.py:77 ../upgrade.py:84
 msgid "Dirty Filesystems"
@@ -1488,14 +1505,12 @@ msgstr ""
 "preverijo, in zaustavite sistem na èisti naèin, èe ¾elite sistem nadgraditi."
 
 #: ../upgrade.py:85
-#, fuzzy
 msgid ""
 "One or more filesystems for your Linux system was not unmounted cleanly.  "
 "Would you like to mount them anyway?"
 msgstr ""
-"Eden ali veè datoteènih sistemov za Linux ni bil pravilno odklopljen. "
-"Prosimo, za¾enite va¹o namestitev Linuxa, pustite, da se datoteèni sistemi "
-"preverijo, in zaustavite sistem na èisti naèin, èe ¾elite sistem nadgraditi."
+"Eden ali veè datoteènih sistemov za Linux ni bil pravilno odklopljen.  Bi "
+"jih radi kljub temu priklopili?"
 
 #: ../upgrade.py:225 ../upgrade.py:231
 msgid "Mount failed"
@@ -1511,7 +1526,6 @@ msgstr ""
 "nadgraditi sistem."
 
 #: ../upgrade.py:232
-#, fuzzy
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab of your Linux system "
 "are inconsistent and cannot be mounted.  Please fix this problem and try to "
@@ -1829,15 +1843,14 @@ msgid "Boot Disk Creation"
 msgstr "Izdelava zagonske diskete"
 
 #: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot disk allows you to boot your %s system from a floppy diskette.\n"
 "\n"
 "Please remove any diskettes from the floppy drive and insert a blank "
 "diskette. All data will be ERASED during creation of the boot disk."
 msgstr ""
-"Zagonska disketa vam omogoèa, da zaganjate svoj sistem Red Hat Linux z "
-"diskete.\n"
+"Zagonska disketa vam omogoèa, da zaganjate svoj sistem %s z diskete.\n"
 "\n"
 "Prosimo, odstranite vse diskete iz disketnika in vstavite prazno disketo. "
 "Vsi podatki na njej bodo med izdelavo zagonske diskete IZBRISANI."
@@ -2006,9 +2019,9 @@ msgid "About to Install"
 msgstr "Zaèetek namestitve"
 
 #: ../iw/confirm_gui.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Kliknite naprej za zaèetek namestitve Red Hat Linuxa."
+msgstr "Kliknite naprej za zaèetek namestitve sistema %s."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
@@ -2027,9 +2040,9 @@ msgid "About to Upgrade"
 msgstr "Nadgraditev sistema"
 
 #: ../iw/confirm_gui.py:73
-#, fuzzy, python-format
+#, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Kliknite naprej za zaèetek namestitve Red Hat Linuxa."
+msgstr "Kliknite naprej za zaèetek nadgradnje sistema %s."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
@@ -2045,18 +2058,18 @@ msgid "Congratulations"
 msgstr "Èestitke"
 
 #: ../iw/congrats_gui.py:48 ../textw/complete_text.py:30
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you created a boot disk to use to boot your %s system, insert it before "
 "you press <Enter> to reboot.\n"
 "\n"
 msgstr ""
-"Èe za zaganjanje Red Hat Linuxa naredili zagonsko disketo, jo vstavite, "
+"Èe ste za zaganjanje sistema %s naredili zagonsko disketo, jo vstavite, "
 "preden pritisnete <Enter> za vnovièen zagon.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:56
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -2069,19 +2082,19 @@ msgid ""
 "Information on using and configuring your system is available in the %s "
 "manuals at http://www.redhat.com/docs."
 msgstr ""
-"Èestitamo, va¹a namestitev Red Hat Linuxa je konèana.\n"
+"Èestitamo, va¹a namestitev sistema %s je konèana.\n"
 "\n"
 "Odstranite vse diskete, ki ste jih uporabljali med postopkom name¹èanja in "
 "pritisnite <Enter> za vnovièen zagon va¹ega sistema.\n"
 "\n"
-"%sZa informacije o popravkih ter osve¾itvah te razlièice Red Hat Linuxa, "
-"obi¹èite http://www.redhat.com/errata.\n"
+"%sZa informacije o popravkih (osve¾itvah in odpravah te¾av) obi¹èite http://"
+"www.redhat.com/errata.\n"
 "\n"
-"Informacije o uporabi in prikrojitvi sistema lahko najdete v priroènikih za "
-"Red Hat Linux na http://www.redhat.com/support/manuals."
+"Informacije o uporabi in prikrojitvi sistema lahko najdete v priroènikih za %"
+"s na http://www.redhat.com/docs."
 
 #: ../iw/congrats_gui.py:104
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -2093,11 +2106,11 @@ msgid ""
 msgstr ""
 "Èestitamo, prikrojitev je konèana.\n"
 "\n"
-"Za informacije o popravkih ter osve¾itvah te razlièice Red Hat Linuxa, "
-"obi¹èite http://www.redhat.com/errata.\n"
+"Za informacije o popravkih ter osve¾itvah obi¹èite http://www.redhat.com/"
+"errata.\n"
 "\n"
-"Informacije o uporabi in prikrojitvi sistema lahko najdete v priroènikih za "
-"Red Hat Linux na http://www.redhat.com/support/manuals."
+"Informacije o uporabi in prikrojitvi sistema lahko najdete v priroènikih za %"
+"s na http://www.redhat.com/docs."
 
 #: ../iw/dependencies_gui.py:20
 msgid "Unresolved Dependencies"
@@ -2147,9 +2160,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Imenik %s mora biti v korenskem datoteènem sistemu"
 
 #: ../iw/examine_gui.py:89 ../textw/upgrade_text.py:225
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading the %s installation on partition /dev/%s"
-msgstr "Nadgrajuje se namestitev Red Hat Linuxa na razdelku /dev/%s"
+msgstr "Nadgrajuje se namestitev sistema %s na razdelku /dev/%s"
 
 #: ../iw/examine_gui.py:95
 msgid "Customize packages to be upgraded"
@@ -2365,7 +2378,6 @@ msgid "Secondary DNS"
 msgstr "Sekundarni DNS"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Tertiary DNS"
 msgstr "Terciarni DNS"
 
@@ -2426,11 +2438,11 @@ msgid ""
 msgstr "Pri va¹i razdelitveni shemi se pojavljajo naslednje kritiène napake."
 
 #: ../iw/partition_gui.py:556
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
-"Te napake morate popraviti, preden nadaljujete z name¹èanjem Red Hat Linuxa."
+"Te napake morate popraviti, preden nadaljujete z name¹èanjem sistema %s."
 
 #: ../iw/partition_gui.py:563
 msgid "Partitioning Errors"
@@ -2661,10 +2673,9 @@ msgid "Automatic Partitioning"
 msgstr "Samodejna razdelitev"
 
 #: ../iw/partition_gui.py:1626
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one drive to have %s installed onto."
-msgstr ""
-"Izbrati morate vsaj en pogon, v katerega ¾elite namestiti Red Hat Linux."
+msgstr "Izbrati morate vsaj en pogon, v katerega ¾elite namestiti %s."
 
 #: ../iw/partition_gui.py:1666
 msgid "I want to have automatic partitioning:"
@@ -2799,51 +2810,54 @@ msgid "UTC Offset"
 msgstr "Popravek UTC"
 
 #: ../iw/upgrade_bootloader_gui.py:29 ../textw/upgrade_bootloader_text.py:72
-#, fuzzy
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Prikrojitev zagonskega nalagalnika"
+msgstr "Nadgradi nastavitev zagonskega nalagalnika"
 
 #: ../iw/upgrade_bootloader_gui.py:69 ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 #, fuzzy
 msgid "Update boot loader configuration"
-msgstr "Prikrojitev zagonskega nalagalnika"
+msgstr "Nadgradi nastavitev zagonskega nalagalnika"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
-msgstr ""
+msgstr "To bo osve¾ilo va¹ trenutni zagonski nalagalnik."
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
+msgstr "Namestitev je zaznala zagonski nalagalnik %s, trenutno name¹èen v %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 #, python-format
 msgid "%s  %s"
-msgstr ""
+msgstr "%s  %s"
 
 #: ../iw/upgrade_bootloader_gui.py:77
 msgid "This is the recommended option."
-msgstr ""
+msgstr "To je priporoèena izbira."
 
 #: ../iw/upgrade_bootloader_gui.py:81 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
+"Namestitev ne more zaznati zagonskega nalagalnika, ki ga va¹ sistem trenutno "
+"uporablja."
 
 #: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
 #, fuzzy
 msgid "Create new boot loader configuration"
-msgstr "Izdelava zagonske diskete"
+msgstr "Prikroji nastavitev novega zagonskega nalagalnika"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
+"To vam bo omogoèilo narediti novo nastavitev zagonskega nalagalnika.  Èe "
+"¾elite preklapljati med zagonskimi nalagalniki, bi morali izbrati to."
 
 #: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
 #, fuzzy
@@ -2855,18 +2869,19 @@ msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
+"To ne bo spremenilo nièesar v va¹ih nastavitvah za zagonski nalagalnik.  Èe "
+"uporabljate nek tretji nalagalnik, bi morali izbrati to."
 
 #: ../iw/upgrade_bootloader_gui.py:111
-#, fuzzy
 msgid "What would you like to do?"
-msgstr "Kak¹no napravo bi radi dodali?"
+msgstr "Kaj bi radi storili?"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:31
 msgid "Migrate Filesystems"
 msgstr "Prenesi datoteène sisteme"
 
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journalling filesystem.  It has several "
 "benefits over the ext2 filesystem traditionally shipped in %s.  It is "
@@ -2875,10 +2890,10 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Ta izdaja Red Hat Linuxa podpira dnevni¹ki datoteèni sistem (angl. "
-"journalling filesystem) ext3.  Pred datoteènim sistemom ext2, ki "
-"tradicionalno prihaja z Red Hat Linuxom, ima precej odlik. Razdelke, "
-"formatirane za ext2, je mogoèe prenesti v ext3 brez izgube podatkov.\n"
+"Ta izdaja sistema %s podpira dnevni¹ki datoteèni sistem (angl. journalling "
+"filesystem) ext3.  Pred datoteènim sistemom ext2, ki tradicionalno prihaja s "
+"sistemom %s, ima precej odlik. Razdelke, formatirane za ext2, je mogoèe "
+"prenesti v ext3 brez izgube podatkov.\n"
 "\n"
 "Katere od teh razdelkov bi radi prenesli?"
 
@@ -3070,15 +3085,16 @@ msgid "Graphical Interface (X) Configuration"
 msgstr "Prikrojitev grafiènega vmesnika (X)"
 
 #: ../iw/xconfig_gui.py:723
-#, fuzzy
 msgid "Unknown server"
-msgstr "Neznan gostitelj"
+msgstr "Neznan stre¾nik"
 
 #: ../iw/xconfig_gui.py:724
 msgid ""
 "This video card has no suitable X server in the database.  You will need to "
 "choose a different card or choose the 'Skip X Configuration' button."
 msgstr ""
+"V zbirki podatkov ni primernega stre¾nika X za to grafièno kartico. Izbrati "
+"boste morali drugo kartico ali pa izbrati gumb ,Preskok prikrojitve X`."
 
 #: ../iw/xconfig_gui.py:731 ../textw/xconfig_text.py:620
 msgid "Unspecified video card"
@@ -3091,8 +3107,8 @@ msgid ""
 "button."
 msgstr ""
 "Preden se prikrojitev X lahko nadaljuje, morate izbrati grafièno kartico.  "
-"Èe ¾elite popolnoma preskoèiti prikrojitev X, izberite gumb ,Preskoèi "
-"prikrojitev X`."
+"Èe ¾elite popolnoma preskoèiti prikrojitev X, izberite gumb ,Preskok "
+"prikrojitve X`."
 
 #: ../iw/xconfig_gui.py:852
 msgid ""
@@ -3241,6 +3257,7 @@ msgstr ""
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
+" <presl> izberi gumb | <F2> izberi privzeti vnos zagona | <F12> nasl. zaslon>"
 
 #: ../textw/bootloader_text.py:384
 msgid "Use a GRUB Password"
@@ -3276,7 +3293,7 @@ msgid "Complete"
 msgstr "Opravljeno"
 
 #: ../textw/complete_text.py:37
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -3289,23 +3306,23 @@ msgid ""
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/docs."
 msgstr ""
-"Èestitamo, va¹a namestitev Red Hat Linuxa je konèana.\n"
+"Èestitamo, va¹a namestitev sistema %s je konèana.\n"
 "\n"
 "Odstranite vse diskete, ki ste jih uporabljali med postopkom name¹èanja in "
 "pritisnite <Enter> za vnovièen zagon va¹ega sistema.\n"
 "\n"
-"%sZa informacije o popravkih ter osve¾itvah te razlièice Red Hat Linuxa, "
-"obi¹èite http://www.redhat.com/errata.\n"
+"%sZa informacije o popravkih ter osve¾itvah obi¹èite http://www.redhat.com/"
+"errata.\n"
 "\n"
 "Informacije o uporabi in prikrojitvi sistema lahko najdete v priroènikih za "
-"Red Hat Linux na http://www.redhat.com/support/manuals."
+"Red Hat Linux na http://www.redhat.com/docs."
 
 #: ../textw/complete_text.py:55
 msgid "<Enter> to continue"
 msgstr "<Enter> za vnovièen zagon"
 
 #: ../textw/complete_text.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, package installation is complete.\n"
 "\n"
@@ -3318,15 +3335,15 @@ msgstr ""
 "\n"
 "Pritisnite <Enter> za nadaljevanje.\n"
 "\n"
-"Informacije o uporabi in prikrojitvi sistema lahko najdete v priroènikih za "
-"Red Hat Linux."
+"Informacije o uporabi in prikrojitvi sistema Red Hat Linux najdete v "
+"priroènikih za %s."
 
 #: ../textw/complete_text.py:69
 msgid "<Enter> to exit"
 msgstr "<Enter> za izhod"
 
 #: ../textw/complete_text.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -3338,11 +3355,11 @@ msgid ""
 msgstr ""
 "Èestitamo, prikrojitev je konèana.\n"
 "\n"
-"Za informacije o popravkih ter osve¾itvah te razlièice Red Hat Linuxa, "
-"obi¹èite http://www.redhat.com/errata.\n"
+"Za informacije o popravkih ter osve¾itvah obi¹èite http://www.redhat.com/"
+"errata.\n"
 "\n"
-"Informacije o uporabi sistema lahko najdete v priroènikih za Red Hat Linux "
-"na http://www.redhat.com/support/manuals."
+"Informacije o uporabi sistema lahko najdete v priroènikih za %s na http://"
+"www.redhat.com/docs."
 
 #: ../textw/confirm_text.py:20
 msgid "Installation to begin"
@@ -3497,9 +3514,9 @@ msgid "Mouse Selection"
 msgstr "Izbira mi¹ke"
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "Network Device: %s"
-msgstr "Omre¾na naprava"
+msgstr "Omre¾na naprava: %s"
 
 #: ../textw/network_text.py:70
 msgid "Use bootp/dhcp"
@@ -3526,14 +3543,13 @@ msgid "Secondary nameserver:"
 msgstr "Sekundarni imenski stre¾nik:"
 
 #: ../textw/network_text.py:85
-#, fuzzy
 msgid "Tertiary nameserver:"
 msgstr "Terciarni imenski stre¾nik:"
 
 #: ../textw/network_text.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Network Configuration for %s"
-msgstr "Mre¾ne nastavitve"
+msgstr "Mre¾ne nastavitve za %s"
 
 #: ../textw/network_text.py:137
 msgid "Invalid information"
@@ -3874,9 +3890,8 @@ msgstr ""
 "sistema!"
 
 #: ../textw/userauth_text.py:38
-#, fuzzy
 msgid "Password (confirm):"
-msgstr "Geslo (potrditev)"
+msgstr "Geslo (potrditev):"
 
 #: ../textw/userauth_text.py:54 ../textw/userauth_text.py:128
 msgid "Password Length"
@@ -3899,9 +3914,8 @@ msgid "Add User"
 msgstr "Dodajmo uporabnika"
 
 #: ../textw/userauth_text.py:100
-#, fuzzy
 msgid "User Name"
-msgstr "Uporabni¹ko ime:"
+msgstr "Uporabni¹ko ime"
 
 #: ../textw/userauth_text.py:101
 msgid "Password"
@@ -4016,10 +4030,10 @@ msgstr "Uporabi povezave TLS"
 #: ../textw/welcome_text.py:22 ../textw/welcome_text.py:42
 #, python-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../textw/welcome_text.py:23
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -4030,18 +4044,18 @@ msgid ""
 "If you have purchased Official %s, be sure to register your purchase through "
 "our web site, http://www.redhat.com/."
 msgstr ""
-"Dobrodo¹li v Red Hat Linuxu!\n"
+"Dobrodo¹li v sistemu %s!\n"
 "\n"
 "Ta naèin namestitve je podrobno razlo¾en v vodniku za namestitev sistema "
-"Official Red Hat Linux, ki jo lahko dobite pri podjetju Red Hat, Inc.  Èe "
-"imate dostop do tega priroènika, naj bi ¹e pred nadaljevanjem prebrali "
-"razdelek o namestitvi.\n"
+"Official %s, ki ga lahko dobite pri podjetju Red Hat, Inc.  Èe imate dostop "
+"do tega priroènika, naj bi ¹e pred nadaljevanjem prebrali razdelek o "
+"namestitvi.\n"
 "\n"
-"Èe ste kupili Official Red Hat Linux, registrirajte va¹ izvod v na¹em "
-"spleti¹èu, http://www.redhat.com/."
+"Èe ste kupili Official %s, registrirajte va¹ izvod v na¹em spleti¹èu, http://"
+"www.redhat.com/."
 
 #: ../textw/welcome_text.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -4050,7 +4064,7 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
-"Dobrodo¹li v Red Hat Linuxu!\n"
+"Dobrodo¹li v sistemu %s!\n"
 "\n"
 "Vstopili ste v naèin ponovne nastavitve, ki vam bo omogoèil nastavitev "
 "lokalnih izbir za va¹ raèunalnik.\n"
@@ -4322,13 +4336,13 @@ msgid "Failed to mount driver disk."
 msgstr "Diskete ni moè priklopiti."
 
 #: ../loader/devices.c:266
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of %"
 "s."
 msgstr ""
 "Disketa, ki ste jo vstavili, ni veljavna disketa z gonilnikom za to izdajo "
-"Red Hat Linuxa."
+"sistema %s."
 
 #: ../loader/devices.c:326
 msgid ""
@@ -4367,9 +4381,9 @@ msgid "Error on line %d of kickstart file %s."
 msgstr "Napaka v vrstici %d datoteke za hitri zagon %s."
 
 #: ../loader/lang.c:41 ../loader/loader.c:195
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s"
-msgstr "Dobrodo¹li"
+msgstr "Dobrodo¹li v %s"
 
 #: ../loader/lang.c:42 ../loader/loader.c:201
 msgid ""
@@ -4410,9 +4424,8 @@ msgid "What kind of device would you like to add"
 msgstr "Kak¹no napravo bi radi dodali?"
 
 #: ../loader/loader.c:377
-#, fuzzy
 msgid "The following devices have been found on your system:"
-msgstr "V sistemu so bile najdene naslednje naprave:"
+msgstr "V va¹em sistemu so bile najdene naslednje naprave:"
 
 #: ../loader/loader.c:379 ../loader/loader.c:404
 msgid "Done"
@@ -4423,7 +4436,6 @@ msgid "Add Device"
 msgstr "Dodajmo napravo"
 
 #: ../loader/loader.c:405
-#, fuzzy
 msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
@@ -4441,6 +4453,8 @@ msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
+"Med branjem namestitve s slik ISO je pri¹lo do napake. Prosimo, preverite "
+"svoje slike ISO in poskusite znova."
 
 #: ../loader/loader.c:913
 #, c-format
@@ -4449,10 +4463,13 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"Ali bi radi izvedli preskus s kontrolno vsoto slike ISO:\n"
+"\n"
+"   %s?"
 
 #: ../loader/loader.c:916
 msgid "Checksum Test"
-msgstr ""
+msgstr "Preskus s kontrolno vsoto"
 
 #: ../loader/loader.c:1026
 msgid "Hard Drives"
@@ -4467,15 +4484,15 @@ msgstr ""
 "naprave?"
 
 #: ../loader/loader.c:1072
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Na kateri razdelitvi in v katerem imeniku se nahajajo slike CD (iso9660) za "
-"Red Hat Linux? Èe ne vidite diskovnega pogona, ki ste ga tukaj navedli, "
-"pritisnite F2 za nastavitev dodatnih naprav."
+"Na kateri razdelitvi in v katerem imeniku se nahajajo slike CD (iso9660) za %"
+"s? Èe ne vidite diskovnega pogona, ki ste ga tukaj navedli, pritisnite F2 za "
+"nastavitev dodatnih naprav."
 
 #: ../loader/loader.c:1088
 msgid "Directory holding images:"
@@ -4492,11 +4509,11 @@ msgstr "Videti je, da naprava %s ne vsebuje slik zgo¹èenk Red Hata."
 
 #: ../loader/loader.c:1209 ../loader/loader.c:1227 ../loader/mediacheck.c:209
 msgid "Media Check"
-msgstr ""
+msgstr "Preskus nosilca"
 
 #: ../loader/loader.c:1209 ../loader/loader.c:1213
 msgid "Eject CD"
-msgstr ""
+msgstr "Izvrzi CD"
 
 #: ../loader/loader.c:1210
 #, c-format
@@ -4504,6 +4521,8 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
+"Izberite \"%s\" za preskus CD-ja, ki je trenutno v pogonu, ali \"%s\", da "
+"izvr¾ete CD in vstavite drugega za preskus."
 
 #: ../loader/loader.c:1228
 #, c-format
@@ -4515,20 +4534,25 @@ msgid ""
 "To begin the installation process insert CD #1 into the drive and press \"%s"
 "\"."
 msgstr ""
+"Èe bi radi presku¹ali dodatne nosilce, vstavite naslednji CD in pritisnite "
+"\"%s\".  Vseh CD-jev vam ni treba presku¹ati, èeprav je priporoèeno, da to "
+"storite vsaj enkrat.\n"
+"\n"
+"Za zaèetek namestitvenega postopka vstavite CD #1 v pogon in pritisnite \"%s"
+"\"."
 
 #: ../loader/loader.c:1249 ../loader/loader.c:1363
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"CD-ROM-a z Red Hat Linuxom ne najdem v nobenem od va¹ih pogonov CD-ROM. "
-"Prosim vstavite CD Red Hata in pritisnite \"V redu\" za ponoven poskus."
+"CD-ja %s ni moè najti v nobenem od va¹ih pogonov CD-ROM. Prosimo, vstavite "
+"CD %s in pritisnite %s za vnovièen poskus."
 
 #: ../loader/loader.c:1292
-#, fuzzy
 msgid "CD Found"
-msgstr "Noben pogon ni bil najden"
+msgstr "CD najden"
 
 #: ../loader/loader.c:1294
 #, c-format
@@ -4537,6 +4561,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
+"Za zaèetek presku¹anja nosilca CD pred namestitvijo pritisnite %s.\n"
+"\n"
+"Pritisnite %s za preskok preskusa nosilca in zaèetek namestitve."
 
 #: ../loader/loader.c:1459
 msgid "Networking Device"
@@ -4553,9 +4580,8 @@ msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Ni videti, da bi ta imenik vseboval namestitveno drevo Red Hat."
 
 #: ../loader/loader.c:1581
-#, fuzzy
 msgid "That directory could not be mounted from the server"
-msgstr "Priklop imenika v stre¾nik ni uspel"
+msgstr "Tega imenika ni bilo moè priklopiti s stre¾nika"
 
 #: ../loader/loader.c:1623
 #, c-format
@@ -4603,13 +4629,13 @@ msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Vstavite disketo s popravki in pritisnite \"V redu\" za nadaljevanje"
 
 #: ../loader/loader.c:2817
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of %"
 "s."
 msgstr ""
 "Disketa, ki ste jo vstavili, ni veljavna disketa za nadgradnjo na to izdajo "
-"Red Hat Linuxa."
+"sistema %s"
 
 #: ../loader/loader.c:2827
 msgid "Failed to mount floppy disk."
@@ -4624,10 +4650,9 @@ msgid "Reading anaconda updates..."
 msgstr "Beremo popravke anaconda..."
 
 #: ../loader/loader.c:3046
-#, fuzzy, c-format
+#, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
-"V tem stroju nimate dovolj pomnilnika, da bi namestili distribucijo Red Hat."
+msgstr "Nimate dovolj pomnilnika za namestitev sistema %s v ta stroj."
 
 #: ../loader/loader.c:3082
 msgid ""
@@ -4635,6 +4660,9 @@ msgid ""
 "boot disk which you are using.  This shouldn't happen, and I'm rebooting "
 "your system now."
 msgstr ""
+"Druga stopnja namestitve, ki ste jo izbrali, ne ustreza zagonski disketi, ki "
+"jo uporabljate.  To se ne bi smelo zgoditi; zdaj se bo va¹ sistem znova "
+"zagnal."
 
 #: ../loader/loader.c:3457
 msgid ""
@@ -4642,6 +4670,8 @@ msgid ""
 "drivers for the installation to succeed. Would you like to select drivers "
 "now?"
 msgstr ""
+"Trdih diskov ni bilo moè najti. Verjetno morate roèno doloèiti gonilnike "
+"naprav, da se bo namestitev uspe¹no konèala. Bi zdaj radi izbrali gonilnike?"
 
 #: ../loader/loader.c:3617
 msgid "Running anaconda - please wait...\n"
@@ -4652,20 +4682,23 @@ msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
+"Kontrolne vsote diska s primarnega deskriptorja diska ni bilo moè prebrati. "
+"To verjetno pomeni, da je bil disk ustvarjen, ne da bi se dodala kontrolna "
+"vsota."
 
 #: ../loader/mediacheck.c:201
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr ""
+msgstr "Preverja se \"%s\"..."
 
 #: ../loader/mediacheck.c:203
 msgid "Checking media now..."
-msgstr ""
+msgstr "Zdaj se preverja nosilec..."
 
 #: ../loader/mediacheck.c:248
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find install image %s"
-msgstr "Ne moremo nalo¾iti drugostopenjskega pomnilni¹kega diska: %s"
+msgstr "Ni moè najti namestitvene slike %s"
 
 #: ../loader/mediacheck.c:261
 msgid ""
@@ -4673,6 +4706,9 @@ msgid ""
 "\n"
 "It is not recommended to use this media."
 msgstr ""
+"SPODLETELO.\n"
+"\n"
+"Ta nosilec ni priporoèljivo uporabljati."
 
 #: ../loader/mediacheck.c:263
 msgid ""
@@ -4680,6 +4716,9 @@ msgid ""
 "\n"
 "It is OK to install from this media."
 msgstr ""
+"V REDU.\n"
+"\n"
+"S tega nosilca lahko name¹èate."
 
 #: ../loader/mediacheck.c:265
 msgid ""
@@ -4687,10 +4726,13 @@ msgid ""
 "\n"
 "No checksum information available, unable to verify media."
 msgstr ""
+"NEZNANO.\n"
+"\n"
+"Kontrolna vsota ni na voljo, nosilca ni moè preveriti."
 
 #: ../loader/mediacheck.c:267
 msgid "Media Check Result"
-msgstr ""
+msgstr "Rezultat preverjanja nosilca"
 
 #: ../loader/mediacheck.c:271
 #, c-format
@@ -4700,11 +4742,15 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"slike:\n"
+"\n"
+"%s\n"
+"\n"
 
 #: ../loader/mediacheck.c:275
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr ""
+msgstr "Preverjanje nosilca %s je konèano in rezultat je: %s\n"
 
 #: ../loader/modules.c:390
 #, c-format
@@ -4742,7 +4788,7 @@ msgid "Red Hat directory:"
 msgstr "Imenik z Red Hat:"
 
 #: ../loader/net.c:179
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4753,8 +4799,8 @@ msgstr ""
 "Prosimo èe podate naslednje informacije:\n"
 "\n"
 "    o ime ali ¹tevilko IP stre¾nika NFS\n"
-"    o imenik na stre¾niku, ki vsebuje Red Hat Linux\n"
-"      za va¹o arhitekturo"
+"    o imenik na stre¾niku, ki vsebuje\n"
+"      %s za va¹o arhitekturo"
 
 #: ../loader/net.c:184
 msgid "NFS Setup"
@@ -4904,12 +4950,11 @@ msgstr "Ni videti, da bi bila ta disketa disketa Red Hata z gonilniki PCMCIA."
 
 #: ../loader/telnetd.c:64
 msgid "Waiting for telnet connection..."
-msgstr ""
+msgstr "Èaka se povezava prek telneta..."
 
 #: ../loader/telnetd.c:106
-#, fuzzy
 msgid "Running anaconda via telnet..."
-msgstr "Anaconda teèe - prosimo, poèakajte ...\n"
+msgstr "Anaconda se poganja prek telneta..."
 
 #: ../loader/urls.c:81
 #, c-format
@@ -4926,7 +4971,7 @@ msgid "Retrieving"
 msgstr "Obnavljamo"
 
 #: ../loader/urls.c:183
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4936,9 +4981,9 @@ msgid ""
 msgstr ""
 "Prosimo, vnesite naslednje informacije:\n"
 "\n"
-"    o ime ali ¹tevilko IP spletnega stre¾nika\n"
+"    o ime ali ¹tevilko IP spletnega stre¾nika za %s\n"
 "    o imenik v tem stre¾niku, ki vsebuje\n"
-"      Red Hat Linux za va¹o arhitekturo\n"
+"      %s za va¹o arhitekturo\n"
 
 #: ../loader/urls.c:226
 msgid "FTP site name:"
@@ -5194,7 +5239,7 @@ msgstr "Postaja Amundsen-Scott, Ju¾ni teèaj"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -5218,7 +5263,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -5242,7 +5287,7 @@ msgstr "Katamarka (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr ""
+msgstr "osrednja Kitajska - Gansu, Guizhou, Seèuan, Yunnan, itd."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -5281,9 +5326,8 @@ msgid "Central Time - most locations"
 msgstr "Srednjeameri¹ki èas - veèina krajev"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Oliver County"
-msgstr "Srednjeameri¹ki èas - veèina krajev"
+msgstr "Srednjeameri¹ki èas - Severna Dakota - okro¾je Oliver"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
@@ -5312,7 +5356,7 @@ msgstr "Postaja Davis, Vestfold Hills"
 #. generated from zone.tab
 #, fuzzy
 msgid "Dornod, Sukhbaatar"
-msgstr "Dornod, Sukhbaatar (o tem nismo preprièani)"
+msgstr "Dornod, ©ukbatar (ni zagotovo)"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
@@ -5328,11 +5372,11 @@ msgstr "V. Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "vzhodna Kitajska - Peking, Guangdong, ©anghaj, itd."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "vzhodna obala, severno od Scoresbysunda"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
@@ -5429,7 +5473,7 @@ msgstr "Havaji"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr ""
+msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -5536,14 +5580,13 @@ msgid "Moscow+07 - Amur River"
 msgstr "Moskva+07 - reka Amur"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+07 - Sakhalin Island"
-msgstr "Moskva+08 - Magadan & Sahalin"
+msgstr "Moskva+07 - otok Sahalin"
 
 #. generated from zone.tab
 #, fuzzy
 msgid "Moscow+08 - Magadan"
-msgstr "Moskva+08 - Magadan & Sahalin"
+msgstr "Moskva+08 - Magadan in Sahalin"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
@@ -5674,7 +5717,7 @@ msgstr "Queensland - veèina krajev"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -5690,7 +5733,7 @@ msgstr "Sabah in Sarawak"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
@@ -5706,7 +5749,7 @@ msgstr "jugozahodni Mali"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr ""
+msgstr "jugozahodni Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
@@ -5726,7 +5769,7 @@ msgstr "Tasmanija"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 #, fuzzy
@@ -5735,7 +5778,7 @@ msgstr "Tibet in Xinjiang"
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr "Tocantins"
+msgstr "Tokantini"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
@@ -5799,21 +5842,24 @@ msgid ""
 "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
 "GB2312            us              Asia/Shanghai"
 msgstr ""
+"Kitajsko(poenostavljeno)    zh_CN.GB2312    Niè    Niè            zh_CN."
+"GB2312            us              Azija/©anghaj"
 
 #. generated from lang-table
 msgid ""
 "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
 "Big5              us              Asia/Taipei"
 msgstr ""
+"Kitajsko(tradicionalno)   zh_TW.Big5      Niè    Niè            zh_TW."
+"Big5              us              Azija/Taipei"
 
 #. generated from lang-table
 msgid "Czech"
 msgstr "èe¹èina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Danish"
-msgstr "¹pan¹èina"
+msgstr "dan¹èina"
 
 #. generated from lang-table
 msgid "English"
@@ -5848,13 +5894,12 @@ msgid "Norwegian"
 msgstr "norve¹èina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese"
-msgstr "ali pa uporabite:"
+msgstr "portugal¹èina"
 
 #. generated from lang-table
 msgid "Portuguese(Brasilian) pt"
-msgstr ""
+msgstr "portugal¹èina(brazilska) pt"
 
 #. generated from lang-table
 msgid "Russian"
@@ -5874,11 +5919,13 @@ msgstr "¹ved¹èina"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "ukrajin¹èina"
 
-#, fuzzy
-#~ msgid "Customize new boot loader configuration"
-#~ msgstr "Prikrojitev zagonskega nalagalnika"
+#~ msgid "Update current settings"
+#~ msgstr "Osve¾i trenutne nastavitve"
+
+#~ msgid "Do nothing"
+#~ msgstr "Ne stori niè"
 
 #~ msgid "China coast"
 #~ msgstr "Kitajska obala"
@@ -5910,19 +5957,13 @@ msgstr ""
 #~ msgid "What language should be used during the installation process?"
 #~ msgstr "Kateri jezik boste uporabljali med namestitvenim postopkom?"
 
-#, fuzzy
-#~ msgid "Welcome to "
-#~ msgstr "Dobrodo¹li"
-
-#, fuzzy
 #~ msgid ""
 #~ "? If you don't see the disk drive you're using listed here, press F2 to "
 #~ "configure additional devices."
 #~ msgstr ""
-#~ "Ni videti, da bi imeli na sistemu trde diske!  Bi radi nastavili dodatne "
-#~ "naprave?"
+#~ "? Èe na tem spisku ne vidite gonilnika za disk, ki ga uporabljate, "
+#~ "pritisnite F2 za prikrojitev dodatnih naprav."
 
-#, fuzzy
 #~ msgid ""
 #~ "Please enter the following information:\n"
 #~ "\n"
@@ -5934,7 +5975,7 @@ msgstr ""
 #~ "\n"
 #~ "    o ime ali ¹tevilko IP stre¾nika FTP\n"
 #~ "    o imenik v tem stre¾niku, ki vsebuje\n"
-#~ "      Red Hat Linux za va¹o arhitekturo\n"
+#~ "      "
 
 #~ msgid "Red Hat Linux Installer"
 #~ msgstr "Namestitveni program Red Hat Linuxa"
@@ -5956,3 +5997,30 @@ msgstr ""
 
 #~ msgid "Chinese(Traditional)"
 #~ msgstr "kitaj¹èina (tradicionalna)"
+
+#~ msgid ""
+#~ "What partition and directory on that partition hold the CD (iso9660) "
+#~ "images for "
+#~ msgstr ""
+#~ "Kateri razdelek in imenik v tem razdelku vsebuje slike CD-ja (iso9660) za "
+
+#~ msgid "The "
+#~ msgstr " "
+
+#~ msgid " CD and press %s to retry."
+#~ msgstr " CD in pritisnite %s za vnovièen poskus."
+
+#~ msgid "."
+#~ msgstr "."
+
+#~ msgid " on this machine."
+#~ msgstr " v ta stroj."
+
+#~ msgid " for your architecture"
+#~ msgstr " za va¹o arhitekturo"
+
+#~ msgid " for your architecture\n"
+#~ msgstr " za va¹o arhitekturo\n"
+
+#~ msgid " for your architecure\n"
+#~ msgstr " za va¹o arhitekturo\n"
