@@ -780,6 +780,7 @@ static PyObject * rpmtransCreate(PyObject * self, PyObject * args) {
 
     o = (void *) PyObject_NEW(rpmtransObject, &rpmtransType);
 
+    Py_INCREF(db);
     o->dbo = db;
     o->ts = rpmtransCreateSet(db ? db->db : NULL, rootPath);
     o->keyList = PyList_New(0);
@@ -801,11 +802,11 @@ static PyObject * rpmtransGetAttr(rpmtransObject * o, char * name) {
 }
 
 static int rpmtransSetAttr(rpmtransObject * o, char * name,
-				  PyObject * val) {
+			   PyObject * val) {
     int i;
 
     if (!strcmp(name, "scriptFd")) {
-	if (!PyArg_Parse(val, "d", &i)) return 0;
+	if (!PyArg_Parse(val, "i", &i)) return 0;
 	if (i < 0) {
 	    PyErr_SetString(PyExc_TypeError, "bad file descriptor");
 	    return -1;
