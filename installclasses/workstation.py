@@ -15,7 +15,6 @@ class Workstation(BaseInstallClass):
 	self.addToSkipList("package-selection")
 	self.setMakeBootdisk(1)
 
-(size, maxsize, grow, device)
 	if os.uname ()[4] != 'sparc64':
 	    self.addNewPartition('/boot', (16, -1, 0), (None,-1,0), (0,0))
 	self.addNewPartition('/', (700, -1, 1), (None, -1, 0), (0,0))
