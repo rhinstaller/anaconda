@@ -2,6 +2,7 @@ from lilo import LiloConfiguration
 import iutil
 import isys
 import string
+import os
 
 def onMILO ():
     try:
