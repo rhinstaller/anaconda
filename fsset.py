@@ -114,7 +114,7 @@ class FileSystemType:
         isys.mount(device, mountpoint, fstype = self.getName(), 
                    readOnly = readOnly)
 
-    def umount(self, path):
+    def umount(self, device, path):
         isys.umount(path, removeDir = 0)
 
     def getName(self):
