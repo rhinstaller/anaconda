@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
-"POT-Creation-Date: 2002-04-15 17:42-0400\n"
+"POT-Creation-Date: 2002-04-16 18:52-0400\n"
 "PO-Revision-Date: 2002-04-06 23:24EET\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -728,7 +728,7 @@ msgstr "Проверка зависимостей"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Проверяются зависимости выбранных для установки пакетов..."
 
-#: ../packages.py:223 ../packages.py:536
+#: ../packages.py:223 ../packages.py:538
 msgid "Processing"
 msgstr "Обработка"
 
@@ -745,11 +745,11 @@ msgstr ""
 "Невозможно открыть файл %s из-за отсутствия файла, дефекта пакета или "
 "носителя. Нажмите <Enter>, чтобы повторить попытку."
 
-#: ../packages.py:284
+#: ../packages.py:286
 msgid "Error Installing Package"
 msgstr "Ошибка установки пакета"
 
-#: ../packages.py:285
+#: ../packages.py:287
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -766,11 +766,11 @@ msgstr ""
 "\n"
 "Нажмите OK для перезагрузки вашей системы."
 
-#: ../packages.py:537
+#: ../packages.py:539
 msgid "Setting up RPM transaction..."
 msgstr "Устанавливаются транзакции RPM..."
 
-#: ../packages.py:574
+#: ../packages.py:576
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -779,7 +779,7 @@ msgstr ""
 "Обновление %s пакетов\n"
 "\n"
 
-#: ../packages.py:576
+#: ../packages.py:578
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -788,17 +788,17 @@ msgstr ""
 "Установка %s пакетов\n"
 "\n"
 
-#: ../packages.py:583
+#: ../packages.py:585
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Обновление %s-%s-%s.\n"
 
-#: ../packages.py:585
+#: ../packages.py:587
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Установка %s-%s-%s.\n"
 
-#: ../packages.py:601
+#: ../packages.py:603
 #, python-format
 msgid ""
 "\n"
@@ -815,15 +815,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:607
+#: ../packages.py:609
 msgid "Install Starting"
 msgstr "Запуск установки"
 
-#: ../packages.py:608
+#: ../packages.py:610
 msgid "Starting install process, this may take several minutes..."
 msgstr "Запуск процесса установки, это может занять несколько минут..."
 
-#: ../packages.py:653
+#: ../packages.py:655
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -833,17 +833,17 @@ msgstr ""
 "Вам необходимо больше места на следующих файловых системах:\n"
 "\n"
 
-#: ../packages.py:657 ../packages.py:677 ../iw/partition_gui.py:1562
+#: ../packages.py:659 ../packages.py:679 ../iw/partition_gui.py:1562
 #: ../iw/upgrade_swap_gui.py:123 ../textw/partition_text.py:986
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "Точка монтирования"
 
-#: ../packages.py:658
+#: ../packages.py:660
 msgid "Space Needed"
 msgstr "Мало места"
 
-#: ../packages.py:673
+#: ../packages.py:675
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -853,15 +853,15 @@ msgstr ""
 "вами пакетов. Вам необходимо больше места на следующих файловых системах:\n"
 "\n"
 
-#: ../packages.py:678
+#: ../packages.py:680
 msgid "Nodes Needed"
 msgstr "Недостаточно дескрипторов файлов"
 
-#: ../packages.py:684
+#: ../packages.py:686
 msgid "Disk Space"
 msgstr "Дисковое пространство"
 
-#: ../packages.py:705
+#: ../packages.py:707
 msgid ""
 "\n"
 "\n"
@@ -871,11 +871,11 @@ msgstr ""
 "\n"
 "Следующие пакеты были доступны для этой версии, но НЕ были обновлены:\n"
 
-#: ../packages.py:722
+#: ../packages.py:724
 msgid "Post Install"
 msgstr "Настройка после установки"
 
-#: ../packages.py:723
+#: ../packages.py:725
 msgid "Performing post install configuration..."
 msgstr "Выполняется настройка после установки..."
 
@@ -2117,7 +2117,7 @@ msgid "Total install size: %s"
 msgstr "Полный размер: %s"
 
 #: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:425
-#: ../iw/progress_gui.py:195 ../textw/packages_text.py:301
+#: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Пакет"
 
@@ -2270,28 +2270,28 @@ msgstr "Какой язык должен использоваться в процессе установки?"
 msgid "Additional Language Support"
 msgstr "Поддержка дополнительных языков"
 
-#: ../iw/language_support_gui.py:141
+#: ../iw/language_support_gui.py:143
 msgid "Choose the default language for this system:   "
 msgstr "Выберите основной язык для этой системы:   "
 
-#: ../iw/language_support_gui.py:153
+#: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
 msgstr "Установленные в настоящее время языки:"
 
-#: ../iw/language_support_gui.py:155
+#: ../iw/language_support_gui.py:157
 msgid "Choose additional languages you would like to use on this system:"
 msgstr ""
 "Выберите дополнительные языки, которые будут использоваться в этой системе:"
 
-#: ../iw/language_support_gui.py:204
+#: ../iw/language_support_gui.py:206
 msgid "Select all"
 msgstr "Выбрать все"
 
-#: ../iw/language_support_gui.py:210 ../textw/language_text.py:120
+#: ../iw/language_support_gui.py:212 ../textw/language_text.py:120
 msgid "Reset"
 msgstr "Сбросить изменения"
 
-#: ../iw/language_support_gui.py:224
+#: ../iw/language_support_gui.py:226
 msgid "Select as default"
 msgstr "Сделать основным"
 
@@ -2711,44 +2711,44 @@ msgstr "Установка пакетов"
 msgid "%s KBytes"
 msgstr "%s КБайт"
 
-#: ../iw/progress_gui.py:196 ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 #: ../textw/partition_text.py:986
 msgid "Size"
 msgstr "Размер"
 
-#: ../iw/progress_gui.py:197
+#: ../iw/progress_gui.py:193
 msgid "Summary"
 msgstr "Сведения"
 
-#: ../iw/progress_gui.py:227
+#: ../iw/progress_gui.py:223
 msgid "Package Progress: "
 msgstr "Пакетов: "
 
-#: ../iw/progress_gui.py:232
+#: ../iw/progress_gui.py:228
 msgid "Total Progress:   "
 msgstr "Всего:"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Status"
 msgstr "Состояние"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Packages"
 msgstr "Пакетов"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Time"
 msgstr "Время"
 
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:255
 msgid "Total"
 msgstr "Всего"
 
-#: ../iw/progress_gui.py:260
+#: ../iw/progress_gui.py:256
 msgid "Completed"
 msgstr "Готово"
 
-#: ../iw/progress_gui.py:261
+#: ../iw/progress_gui.py:257
 msgid "Remaining"
 msgstr "Осталось"
 
@@ -5067,15 +5067,15 @@ msgstr "Африка"
 msgid "Asia"
 msgstr "Азия"
 
-#: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
+#: ../gnome-map/gglobe-canvas.c:714 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
 msgstr "Невозможно загрузить данные о часовых поясах"
 
-#: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
+#: ../gnome-map/gglobe-canvas.c:720 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
 msgstr "gglobe-canvas"
 
-#: ../gnome-map/gglobe-canvas.c:764
+#: ../gnome-map/gglobe-canvas.c:765
 msgid "View: "
 msgstr "Просмотр:"
 
@@ -5557,10 +5557,6 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Москва+10 - Берингово море"
 
 #. generated from zone.tab
-msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Стандартное горное время - Аризона"
 
@@ -5605,6 +5601,10 @@ msgstr "Mountain Time - south Idaho & east Oregon"
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
 msgstr "Mountain Time - west Northwest Territories"
+
+#. generated from zone.tab
+msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+msgstr "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
@@ -5759,6 +5759,10 @@ msgid "W Amazonas"
 msgstr "W Amazonas"
 
 #. generated from zone.tab
+msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+
+#. generated from zone.tab
 msgid "west & central Borneo"
 msgstr "west & central Borneo"
 
@@ -5843,6 +5847,11 @@ msgid "Portuguese"
 msgstr "Португальский"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Romanian"
+msgstr "Осталось"
+
+#. generated from lang-table
 msgid "Russian"
 msgstr "Русский"
 
@@ -5862,6 +5871,21 @@ msgstr "Шведский"
 msgid "Ukrainian"
 msgstr "Украинский"
 
+#, fuzzy
+#~ msgid ""
+#~ "Chinese(Simplified)    zh_CN.GB18030    None    None            zh_CN."
+#~ "GB18030            us              Asia/Shanghai"
+#~ msgstr ""
+#~ "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
+#~ "GB2312            us              Asia/Shanghai"
+
+#~ msgid ""
+#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
+#~ "Big5              us              Asia/Taipei"
+#~ msgstr ""
+#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
+#~ "Big5              us              Asia/Taipei"
+
 #~ msgid "%s  %s"
 #~ msgstr "%s  %s"
 
@@ -5877,26 +5901,6 @@ msgstr "Украинский"
 #~ "    o имя или адрес IP вашего сервера NFS\n"
 #~ "    o каталог на этом сервере, в котором содержится\n"
 #~ "      %s для этой архитектуры"
-
-#~ msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-#~ msgstr "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-
-#~ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-#~ msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-
-#~ msgid ""
-#~ "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
-#~ "GB2312            us              Asia/Shanghai"
-#~ msgstr ""
-#~ "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
-#~ "GB2312            us              Asia/Shanghai"
-
-#~ msgid ""
-#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
-#~ "Big5              us              Asia/Taipei"
-#~ msgstr ""
-#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
-#~ "Big5              us              Asia/Taipei"
 
 #~ msgid "Portuguese(Brasilian) pt"
 #~ msgstr "Португальский(Бразильский) pt"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ID-rhinstall 1.4\n"
-"POT-Creation-Date: 2002-04-15 17:42-0400\n"
+"POT-Creation-Date: 2002-04-16 18:52-0400\n"
 "PO-Revision-Date: 1998-09-22 13:40+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@ldp.linux.or.id>\n"
 "Language-Team: LDP Indonesia <http://ldp.linux.or.id>\n"
@@ -668,7 +668,7 @@ msgstr ""
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 
-#: ../packages.py:223 ../packages.py:536
+#: ../packages.py:223 ../packages.py:538
 msgid "Processing"
 msgstr "Mulai diproses"
 
@@ -684,12 +684,12 @@ msgid ""
 "or bad media. Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:284
+#: ../packages.py:286
 #, fuzzy
 msgid "Error Installing Package"
 msgstr "Instalasi paket"
 
-#: ../packages.py:285
+#: ../packages.py:287
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -700,35 +700,35 @@ msgid ""
 "Press the OK button to reboot your system."
 msgstr ""
 
-#: ../packages.py:537
+#: ../packages.py:539
 msgid "Setting up RPM transaction..."
 msgstr ""
 
-#: ../packages.py:574
+#: ../packages.py:576
 #, fuzzy, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr "Upgrade Paket"
 
-#: ../packages.py:576
+#: ../packages.py:578
 #, fuzzy, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr "Instalasi paket"
 
-#: ../packages.py:583
+#: ../packages.py:585
 #, fuzzy, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Sedang mengupgrade %s.\n"
 
-#: ../packages.py:585
+#: ../packages.py:587
 #, fuzzy, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Instalasi %s.\n"
 
-#: ../packages.py:601
+#: ../packages.py:603
 #, python-format
 msgid ""
 "\n"
@@ -739,16 +739,16 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../packages.py:607
+#: ../packages.py:609
 #, fuzzy
 msgid "Install Starting"
 msgstr "Instalasi Mulai"
 
-#: ../packages.py:608
+#: ../packages.py:610
 msgid "Starting install process, this may take several minutes..."
 msgstr ""
 
-#: ../packages.py:653
+#: ../packages.py:655
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -758,18 +758,18 @@ msgstr ""
 "Anda pilih. Coba tambahkan lagi space di filesystem ini:\n"
 "\n"
 
-#: ../packages.py:657 ../packages.py:677 ../iw/partition_gui.py:1562
+#: ../packages.py:659 ../packages.py:679 ../iw/partition_gui.py:1562
 #: ../iw/upgrade_swap_gui.py:123 ../textw/partition_text.py:986
 #: ../textw/upgrade_text.py:108
 #, fuzzy
 msgid "Mount Point"
 msgstr "Lokasi Mount"
 
-#: ../packages.py:658
+#: ../packages.py:660
 msgid "Space Needed"
 msgstr "Spasi yg dibutuhkan"
 
-#: ../packages.py:673
+#: ../packages.py:675
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -780,28 +780,28 @@ msgstr ""
 "Anda pilih. Coba tambahkan lagi space di filesystem ini:\n"
 "\n"
 
-#: ../packages.py:678
+#: ../packages.py:680
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Spasi yg dibutuhkan"
 
-#: ../packages.py:684
+#: ../packages.py:686
 msgid "Disk Space"
 msgstr "Space disk"
 
-#: ../packages.py:705
+#: ../packages.py:707
 msgid ""
 "\n"
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
 
-#: ../packages.py:722
+#: ../packages.py:724
 #, fuzzy
 msgid "Post Install"
 msgstr "Install Tahap Akhir"
 
-#: ../packages.py:723
+#: ../packages.py:725
 #, fuzzy
 msgid "Performing post install configuration..."
 msgstr "Lakukan konfigurasi install tahap akhir.."
@@ -1959,7 +1959,7 @@ msgid "Total install size: %s"
 msgstr "saya gagal membuka %s: %s"
 
 #: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:425
-#: ../iw/progress_gui.py:195 ../textw/packages_text.py:301
+#: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Nama Paket"
 
@@ -2122,31 +2122,31 @@ msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 msgid "Additional Language Support"
 msgstr "Server Printer:"
 
-#: ../iw/language_support_gui.py:141
+#: ../iw/language_support_gui.py:143
 #, fuzzy
 msgid "Choose the default language for this system:   "
 msgstr "Pilih bahasanya:"
 
-#: ../iw/language_support_gui.py:153
+#: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
 msgstr ""
 
-#: ../iw/language_support_gui.py:155
+#: ../iw/language_support_gui.py:157
 #, fuzzy
 msgid "Choose additional languages you would like to use on this system:"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
-#: ../iw/language_support_gui.py:204
+#: ../iw/language_support_gui.py:206
 #, fuzzy
 msgid "Select all"
 msgstr "Pilih Kelompok Paket"
 
-#: ../iw/language_support_gui.py:210 ../textw/language_text.py:120
+#: ../iw/language_support_gui.py:212 ../textw/language_text.py:120
 #, fuzzy
 msgid "Reset"
 msgstr "_Reset"
 
-#: ../iw/language_support_gui.py:224
+#: ../iw/language_support_gui.py:226
 msgid "Select as default"
 msgstr ""
 
@@ -2602,46 +2602,46 @@ msgstr "Instalasi paket"
 msgid "%s KBytes"
 msgstr ""
 
-#: ../iw/progress_gui.py:196 ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 #: ../textw/partition_text.py:986
 msgid "Size"
 msgstr "Ukuran"
 
-#: ../iw/progress_gui.py:197
+#: ../iw/progress_gui.py:193
 msgid "Summary"
 msgstr "Keterangan"
 
-#: ../iw/progress_gui.py:227
+#: ../iw/progress_gui.py:223
 #, fuzzy
 msgid "Package Progress: "
 msgstr "Grup Paket"
 
-#: ../iw/progress_gui.py:232
+#: ../iw/progress_gui.py:228
 #, fuzzy
 msgid "Total Progress:   "
 msgstr "Total    :"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Status"
 msgstr "Status"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Packages"
 msgstr "Nama Paket"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Time"
 msgstr "Waktu"
 
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:255
 msgid "Total"
 msgstr "Total"
 
-#: ../iw/progress_gui.py:260
+#: ../iw/progress_gui.py:256
 msgid "Completed"
 msgstr "Selesai"
 
-#: ../iw/progress_gui.py:261
+#: ../iw/progress_gui.py:257
 msgid "Remaining"
 msgstr "Sisa waktu"
 
@@ -4957,15 +4957,15 @@ msgstr ""
 msgid "Asia"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
+#: ../gnome-map/gglobe-canvas.c:714 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
+#: ../gnome-map/gglobe-canvas.c:720 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:764
+#: ../gnome-map/gglobe-canvas.c:765
 #, fuzzy
 msgid "View: "
 msgstr "Lihat:"
@@ -5469,10 +5469,6 @@ msgid "Moscow+10 - Bering Sea"
 msgstr ""
 
 #. generated from zone.tab
-msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr ""
 
@@ -5515,6 +5511,10 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
+msgstr ""
+
+#. generated from zone.tab
+msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 msgstr ""
 
 #. generated from zone.tab
@@ -5672,6 +5672,10 @@ msgid "W Amazonas"
 msgstr ""
 
 #. generated from zone.tab
+msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+msgstr ""
+
+#. generated from zone.tab
 msgid "west & central Borneo"
 msgstr ""
 
@@ -5758,6 +5762,11 @@ msgstr ""
 #, fuzzy
 msgid "Portuguese"
 msgstr "atau gunakan:"
+
+#. generated from lang-table
+#, fuzzy
+msgid "Romanian"
+msgstr "Sisa waktu"
 
 #. generated from lang-table
 msgid "Russian"
@@ -5852,10 +5861,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Hungarian"
 #~ msgstr "Varian"
-
-#, fuzzy
-#~ msgid "Romanian"
-#~ msgstr "Sisa waktu"
 
 #, fuzzy
 #~ msgid "Serbian"

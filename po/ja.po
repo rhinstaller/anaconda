@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
-"POT-Creation-Date: 2002-04-15 17:42-0400\n"
+"POT-Creation-Date: 2002-04-16 18:52-0400\n"
 "PO-Revision-Date: 2002-04-15 18:05-0400\n"
 "Last-Translator: James Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -732,7 +732,7 @@ msgstr "依存関係チェック"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "インストール対象パッケージの依存関係をチェック中..."
 
-#: ../packages.py:223 ../packages.py:536
+#: ../packages.py:223 ../packages.py:538
 msgid "Processing"
 msgstr "処理中"
 
@@ -749,11 +749,11 @@ msgstr ""
 "ファイル %s を開けません。原因はファイルの欠落、パッケージ、またはメディアの"
 "不良です。<return> を押してやり直して下さい"
 
-#: ../packages.py:284
+#: ../packages.py:286
 msgid "Error Installing Package"
 msgstr "パッケージのインストール中のエラー"
 
-#: ../packages.py:285
+#: ../packages.py:287
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -769,11 +769,11 @@ msgstr ""
 " \n"
 "OKボタンを押してシステムを再起動します。"
 
-#: ../packages.py:537
+#: ../packages.py:539
 msgid "Setting up RPM transaction..."
 msgstr "RPMトランザクションを設定中..."
 
-#: ../packages.py:574
+#: ../packages.py:576
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -782,7 +782,7 @@ msgstr ""
 "%s パッケージのアップグレード\n"
 "\n"
 
-#: ../packages.py:576
+#: ../packages.py:578
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -791,17 +791,17 @@ msgstr ""
 "%s パッケージのインストール\n"
 "\n"
 
-#: ../packages.py:583
+#: ../packages.py:585
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "%s %s%sアップグレード\n"
 
-#: ../packages.py:585
+#: ../packages.py:587
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "%s %s %s インストール\n"
 
-#: ../packages.py:601
+#: ../packages.py:603
 #, python-format
 msgid ""
 "\n"
@@ -817,15 +817,15 @@ msgstr ""
 "インストール用に選択されていました。 %s\n"
 "\n"
 
-#: ../packages.py:607
+#: ../packages.py:609
 msgid "Install Starting"
 msgstr "インストール.スタート"
 
-#: ../packages.py:608
+#: ../packages.py:610
 msgid "Starting install process, this may take several minutes..."
 msgstr "インストールプロセスのスタート、数分かかることがあります。"
 
-#: ../packages.py:653
+#: ../packages.py:655
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -835,17 +835,17 @@ msgstr ""
 "ファイルシステム上に空き領域が必要です:\n"
 "\n"
 
-#: ../packages.py:657 ../packages.py:677 ../iw/partition_gui.py:1562
+#: ../packages.py:659 ../packages.py:679 ../iw/partition_gui.py:1562
 #: ../iw/upgrade_swap_gui.py:123 ../textw/partition_text.py:986
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "マウントポイント"
 
-#: ../packages.py:658
+#: ../packages.py:660
 msgid "Space Needed"
 msgstr "領域不足"
 
-#: ../packages.py:673
+#: ../packages.py:675
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -855,15 +855,15 @@ msgstr ""
 "次のファイルシステム上により多くのファイルノードが必要です:\n"
 "\n"
 
-#: ../packages.py:678
+#: ../packages.py:680
 msgid "Nodes Needed"
 msgstr "ノード数不足"
 
-#: ../packages.py:684
+#: ../packages.py:686
 msgid "Disk Space"
 msgstr "ディスク容量"
 
-#: ../packages.py:705
+#: ../packages.py:707
 msgid ""
 "\n"
 "\n"
@@ -873,11 +873,11 @@ msgstr ""
 "\n"
 "次のパッケージはこのバージョンで入手可能でした。未アップグレードです。\n"
 
-#: ../packages.py:722
+#: ../packages.py:724
 msgid "Post Install"
 msgstr "インストール後の設定"
 
-#: ../packages.py:723
+#: ../packages.py:725
 msgid "Performing post install configuration..."
 msgstr "インストール後の設定を実行中..."
 
@@ -2097,7 +2097,7 @@ msgid "Total install size: %s"
 msgstr "インストール合計容量： %s"
 
 #: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:425
-#: ../iw/progress_gui.py:195 ../textw/packages_text.py:301
+#: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "パッケージ"
 
@@ -2251,27 +2251,27 @@ msgstr "インストール時に使用する言語を選択して下さい"
 msgid "Additional Language Support"
 msgstr "追加言語サポート"
 
-#: ../iw/language_support_gui.py:141
+#: ../iw/language_support_gui.py:143
 msgid "Choose the default language for this system:   "
 msgstr "システム標準の言語を選択して下さい:  "
 
-#: ../iw/language_support_gui.py:153
+#: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
 msgstr "現在のインストール済み言語:"
 
-#: ../iw/language_support_gui.py:155
+#: ../iw/language_support_gui.py:157
 msgid "Choose additional languages you would like to use on this system:"
 msgstr "システムに追加する言語を選択して下さい:"
 
-#: ../iw/language_support_gui.py:204
+#: ../iw/language_support_gui.py:206
 msgid "Select all"
 msgstr "すべて選択"
 
-#: ../iw/language_support_gui.py:210 ../textw/language_text.py:120
+#: ../iw/language_support_gui.py:212 ../textw/language_text.py:120
 msgid "Reset"
 msgstr "リセット"
 
-#: ../iw/language_support_gui.py:224
+#: ../iw/language_support_gui.py:226
 msgid "Select as default"
 msgstr "デフォルトとして選択"
 
@@ -2690,44 +2690,44 @@ msgstr "パッケージのインストール"
 msgid "%s KBytes"
 msgstr "%s K バイト"
 
-#: ../iw/progress_gui.py:196 ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 #: ../textw/partition_text.py:986
 msgid "Size"
 msgstr "容量"
 
-#: ../iw/progress_gui.py:197
+#: ../iw/progress_gui.py:193
 msgid "Summary"
 msgstr "説明"
 
-#: ../iw/progress_gui.py:227
+#: ../iw/progress_gui.py:223
 msgid "Package Progress: "
 msgstr "パッケージ進捗状況"
 
-#: ../iw/progress_gui.py:232
+#: ../iw/progress_gui.py:228
 msgid "Total Progress:   "
 msgstr "進捗状況総計:   "
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Status"
 msgstr "状態"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Packages"
 msgstr "パッケージ"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Time"
 msgstr "時間"
 
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:255
 msgid "Total"
 msgstr "合計"
 
-#: ../iw/progress_gui.py:260
+#: ../iw/progress_gui.py:256
 msgid "Completed"
 msgstr "完了"
 
-#: ../iw/progress_gui.py:261
+#: ../iw/progress_gui.py:257
 msgid "Remaining"
 msgstr "残り"
 
@@ -5050,15 +5050,15 @@ msgstr "アフリカ"
 msgid "Asia"
 msgstr "アジア"
 
-#: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
+#: ../gnome-map/gglobe-canvas.c:714 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
 msgstr "タイムゾーンデータを読み込めません"
 
-#: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
+#: ../gnome-map/gglobe-canvas.c:720 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
 msgstr "gglobe-canvas"
 
-#: ../gnome-map/gglobe-canvas.c:764
+#: ../gnome-map/gglobe-canvas.c:765
 msgid "View: "
 msgstr "表示:"
 
@@ -5570,10 +5570,6 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "モスクワ+10 - ベーリング海"
 
 #. generated from zone.tab
-msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "米国山岳標準時 - アリゾナ"
 
@@ -5619,6 +5615,11 @@ msgstr "Mountatin Time - 南アイダホ、東オレゴン"
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
 msgstr "米国山岳標準時 - 西北西地方"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+msgstr "東アルゼンチン (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
@@ -5776,6 +5777,11 @@ msgid "W Amazonas"
 msgstr "西アマゾン"
 
 #. generated from zone.tab
+#, fuzzy
+msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+msgstr "東アルゼンチン (BA, DF, SC, TF)"
+
+#. generated from zone.tab
 msgid "west & central Borneo"
 msgstr "西、中央ボルネオ"
 
@@ -5858,6 +5864,11 @@ msgstr "ノルウェー語"
 #. generated from lang-table
 msgid "Portuguese"
 msgstr "ポルトガル語"
+
+#. generated from lang-table
+#, fuzzy
+msgid "Romanian"
+msgstr "残り"
 
 #. generated from lang-table
 msgid "Russian"

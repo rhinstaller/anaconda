@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"POT-Creation-Date: 2002-04-15 17:42-0400\n"
+"POT-Creation-Date: 2002-04-16 18:52-0400\n"
 "PO-Revision-Date: 2002-04-15 18:09-0400\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -737,7 +737,7 @@ msgstr "Beroendekontroll"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kontrollerar beroenden hos de paket som valts för installation..."
 
-#: ../packages.py:223 ../packages.py:536
+#: ../packages.py:223 ../packages.py:538
 msgid "Processing"
 msgstr "Bearbetar"
 
@@ -754,11 +754,11 @@ msgstr ""
 "Filen %s kan inte öppnas. Detta kan bero på att filen saknas, ett felaktigt "
 "paket, eller felaktigt medium. Tryck på <Retur> för att försöka igen."
 
-#: ../packages.py:284
+#: ../packages.py:286
 msgid "Error Installing Package"
 msgstr "Fel vid installation av paket"
 
-#: ../packages.py:285
+#: ../packages.py:287
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -775,11 +775,11 @@ msgstr ""
 "\n"
 "Tryck på OK-knappen för att starta om ditt system."
 
-#: ../packages.py:537
+#: ../packages.py:539
 msgid "Setting up RPM transaction..."
 msgstr "Ställer in RPM-transaktion..."
 
-#: ../packages.py:574
+#: ../packages.py:576
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -788,7 +788,7 @@ msgstr ""
 "Uppgraderar %s paket\n"
 "\n"
 
-#: ../packages.py:576
+#: ../packages.py:578
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -797,17 +797,17 @@ msgstr ""
 "Installerar %s paket\n"
 "\n"
 
-#: ../packages.py:583
+#: ../packages.py:585
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Uppgraderar %s-%s-%s.\n"
 
-#: ../packages.py:585
+#: ../packages.py:587
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Installerar %s-%s-%s.\n"
 
-#: ../packages.py:601
+#: ../packages.py:603
 #, python-format
 msgid ""
 "\n"
@@ -824,15 +824,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:607
+#: ../packages.py:609
 msgid "Install Starting"
 msgstr "Installationen startar"
 
-#: ../packages.py:608
+#: ../packages.py:610
 msgid "Starting install process, this may take several minutes..."
 msgstr "Startar installationsprocessen, detta kan ta flera minuter..."
 
-#: ../packages.py:653
+#: ../packages.py:655
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -842,17 +842,17 @@ msgstr ""
 "du har valt. Du behöver mer utrymme på följande filsystem:\n"
 "\n"
 
-#: ../packages.py:657 ../packages.py:677 ../iw/partition_gui.py:1562
+#: ../packages.py:659 ../packages.py:679 ../iw/partition_gui.py:1562
 #: ../iw/upgrade_swap_gui.py:123 ../textw/partition_text.py:986
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../packages.py:658
+#: ../packages.py:660
 msgid "Space Needed"
 msgstr "Nödvändigt utrymme"
 
-#: ../packages.py:673
+#: ../packages.py:675
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -862,15 +862,15 @@ msgstr ""
 "har valt. Du behöver fler filnoder på följande filsystem:\n"
 "\n"
 
-#: ../packages.py:678
+#: ../packages.py:680
 msgid "Nodes Needed"
 msgstr "Noder som behövs"
 
-#: ../packages.py:684
+#: ../packages.py:686
 msgid "Disk Space"
 msgstr "Diskutrymme"
 
-#: ../packages.py:705
+#: ../packages.py:707
 msgid ""
 "\n"
 "\n"
@@ -880,11 +880,11 @@ msgstr ""
 "\n"
 "Följande paket är tillgängliga i denna version men uppgraderades INTE:\n"
 
-#: ../packages.py:722
+#: ../packages.py:724
 msgid "Post Install"
 msgstr "Postinstallation"
 
-#: ../packages.py:723
+#: ../packages.py:725
 msgid "Performing post install configuration..."
 msgstr "Utför postinstallationskonfiguration..."
 
@@ -2136,7 +2136,7 @@ msgid "Total install size: %s"
 msgstr "Total installationsstorlek: %s"
 
 #: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:425
-#: ../iw/progress_gui.py:195 ../textw/packages_text.py:301
+#: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Paket"
 
@@ -2289,27 +2289,27 @@ msgstr "Vilket språk vill du använda under installationen?"
 msgid "Additional Language Support"
 msgstr "Ytterligare språkstöd"
 
-#: ../iw/language_support_gui.py:141
+#: ../iw/language_support_gui.py:143
 msgid "Choose the default language for this system:   "
 msgstr "Välj standardspråket för detta system:   "
 
-#: ../iw/language_support_gui.py:153
+#: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
 msgstr "Nuvarande installerade språk:"
 
-#: ../iw/language_support_gui.py:155
+#: ../iw/language_support_gui.py:157
 msgid "Choose additional languages you would like to use on this system:"
 msgstr "Välj ytterligare språk som du vill använda på systemet:"
 
-#: ../iw/language_support_gui.py:204
+#: ../iw/language_support_gui.py:206
 msgid "Select all"
 msgstr "Välj alla"
 
-#: ../iw/language_support_gui.py:210 ../textw/language_text.py:120
+#: ../iw/language_support_gui.py:212 ../textw/language_text.py:120
 msgid "Reset"
 msgstr "Återställ"
 
-#: ../iw/language_support_gui.py:224
+#: ../iw/language_support_gui.py:226
 msgid "Select as default"
 msgstr "Välj som standard"
 
@@ -2731,44 +2731,44 @@ msgstr "Installerar paket"
 msgid "%s KBytes"
 msgstr "%s kilobyte"
 
-#: ../iw/progress_gui.py:196 ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 #: ../textw/partition_text.py:986
 msgid "Size"
 msgstr "Storlek"
 
-#: ../iw/progress_gui.py:197
+#: ../iw/progress_gui.py:193
 msgid "Summary"
 msgstr "Sammanfattning"
 
-#: ../iw/progress_gui.py:227
+#: ../iw/progress_gui.py:223
 msgid "Package Progress: "
 msgstr "Paketförlopp: "
 
-#: ../iw/progress_gui.py:232
+#: ../iw/progress_gui.py:228
 msgid "Total Progress:   "
 msgstr "Totalt förlopp:   "
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Status"
 msgstr "Status"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Packages"
 msgstr "Paket"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Time"
 msgstr "Tid"
 
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:255
 msgid "Total"
 msgstr "Totalt"
 
-#: ../iw/progress_gui.py:260
+#: ../iw/progress_gui.py:256
 msgid "Completed"
 msgstr "Färdigt"
 
-#: ../iw/progress_gui.py:261
+#: ../iw/progress_gui.py:257
 msgid "Remaining"
 msgstr "Återstår"
 
@@ -5103,15 +5103,15 @@ msgstr "Afrika"
 msgid "Asia"
 msgstr "Asien"
 
-#: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
+#: ../gnome-map/gglobe-canvas.c:714 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
 msgstr "Kan inte läsa in tidszonsdata"
 
-#: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
+#: ../gnome-map/gglobe-canvas.c:720 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
 msgstr "gglobe-canvas"
 
-#: ../gnome-map/gglobe-canvas.c:764
+#: ../gnome-map/gglobe-canvas.c:765
 msgid "View: "
 msgstr "Visa: "
 
@@ -5592,10 +5592,6 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moskva+10 - Berings hav"
 
 #. generated from zone.tab
-msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Normal bergstid - Arizona"
 
@@ -5639,6 +5635,10 @@ msgstr "Bergstid - södra Idaho och östra Oregon"
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
 msgstr "Bergstid - västra Nordvästterritorierna"
+
+#. generated from zone.tab
+msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+msgstr "NÖ Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
@@ -5793,6 +5793,10 @@ msgid "W Amazonas"
 msgstr "V Amazonas"
 
 #. generated from zone.tab
+msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+msgstr "V Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+
+#. generated from zone.tab
 msgid "west & central Borneo"
 msgstr "västra och mellersta Borneo"
 
@@ -5877,6 +5881,10 @@ msgid "Portuguese"
 msgstr "Portugisiska"
 
 #. generated from lang-table
+msgid "Romanian"
+msgstr "Rumänska"
+
+#. generated from lang-table
 msgid "Russian"
 msgstr "Ryska"
 
@@ -5895,12 +5903,6 @@ msgstr "Svenska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainska"
-
-#~ msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-#~ msgstr "NÖ Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-
-#~ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-#~ msgstr "V Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #~ msgid "Portuguese(Brasilian) pt"
 #~ msgstr "Brasiliansk portugisiska"
@@ -6670,9 +6672,6 @@ msgstr "Ukrainska"
 
 #~ msgid "Hungarian"
 #~ msgstr "Ungerska"
-
-#~ msgid "Romanian"
-#~ msgstr "Rumänska"
 
 #~ msgid "Serbian"
 #~ msgstr "Serbiska"

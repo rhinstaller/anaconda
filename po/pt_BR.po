@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Installer 6.2\n"
-"POT-Creation-Date: 2002-04-15 17:42-0400\n"
+"POT-Creation-Date: 2002-04-16 18:52-0400\n"
 "PO-Revision-Date: 2000-03-01 17:24-0500\n"
 "Last-Translator: Thiago Vinhas de Moraes <thiago@vinhas.com.br>\n"
 "Language-Team: Brazilian Portuguese <tvinhas@sources.redhat.com>\n"
@@ -762,7 +762,7 @@ msgstr "Checagem de Dependências"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Checando dependencias nos pacotes selecionados para a instalação..."
 
-#: ../packages.py:223 ../packages.py:536
+#: ../packages.py:223 ../packages.py:538
 msgid "Processing"
 msgstr "Processando"
 
@@ -781,12 +781,12 @@ msgstr ""
 "um pacote com problemas, ou mídia ruim. Pressione <enter> para tentar "
 "novamente."
 
-#: ../packages.py:284
+#: ../packages.py:286
 #, fuzzy
 msgid "Error Installing Package"
 msgstr "Instalando"
 
-#: ../packages.py:285
+#: ../packages.py:287
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -797,35 +797,35 @@ msgid ""
 "Press the OK button to reboot your system."
 msgstr ""
 
-#: ../packages.py:537
+#: ../packages.py:539
 msgid "Setting up RPM transaction..."
 msgstr "Configurando transação do RPM"
 
-#: ../packages.py:574
+#: ../packages.py:576
 #, fuzzy, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr "Atualizar Pacotes"
 
-#: ../packages.py:576
+#: ../packages.py:578
 #, fuzzy, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr "Instalando"
 
-#: ../packages.py:583
+#: ../packages.py:585
 #, fuzzy, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Atualizando %s.\n"
 
-#: ../packages.py:585
+#: ../packages.py:587
 #, fuzzy, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Instalando %s."
 
-#: ../packages.py:601
+#: ../packages.py:603
 #, python-format
 msgid ""
 "\n"
@@ -836,16 +836,16 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../packages.py:607
+#: ../packages.py:609
 #, fuzzy
 msgid "Install Starting"
 msgstr "Passos da Instalação"
 
-#: ../packages.py:608
+#: ../packages.py:610
 msgid "Starting install process, this may take several minutes..."
 msgstr ""
 
-#: ../packages.py:653
+#: ../packages.py:655
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -854,46 +854,46 @@ msgstr ""
 "Você parece não ter espaço em disco suficiente para instalar os pacotes que "
 "você selecionou. Você precisa de mais espaço nas seguintes partições:\n"
 
-#: ../packages.py:657 ../packages.py:677 ../iw/partition_gui.py:1562
+#: ../packages.py:659 ../packages.py:679 ../iw/partition_gui.py:1562
 #: ../iw/upgrade_swap_gui.py:123 ../textw/partition_text.py:986
 #: ../textw/upgrade_text.py:108
 #, fuzzy
 msgid "Mount Point"
 msgstr "Ponto de Montagem"
 
-#: ../packages.py:658
+#: ../packages.py:660
 msgid "Space Needed"
 msgstr "Espaço Necessário"
 
-#: ../packages.py:673
+#: ../packages.py:675
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../packages.py:678
+#: ../packages.py:680
 msgid "Nodes Needed"
 msgstr ""
 
-#: ../packages.py:684
+#: ../packages.py:686
 #, fuzzy
 msgid "Disk Space"
 msgstr "Espaço no Disco"
 
-#: ../packages.py:705
+#: ../packages.py:707
 msgid ""
 "\n"
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
 
-#: ../packages.py:722
+#: ../packages.py:724
 #, fuzzy
 msgid "Post Install"
 msgstr "Pós-Instalação"
 
-#: ../packages.py:723
+#: ../packages.py:725
 #, fuzzy
 msgid "Performing post install configuration..."
 msgstr "Executando configurações pós-instalação..."
@@ -2088,7 +2088,7 @@ msgid "Total install size: %s"
 msgstr "Instalação RPM de %s falhou: %s"
 
 #: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:425
-#: ../iw/progress_gui.py:195 ../textw/packages_text.py:301
+#: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Pacote"
 
@@ -2258,30 +2258,30 @@ msgstr "Que pacotes devem ser instalados?"
 msgid "Additional Language Support"
 msgstr "Driver Impressora:"
 
-#: ../iw/language_support_gui.py:141
+#: ../iw/language_support_gui.py:143
 #, fuzzy
 msgid "Choose the default language for this system:   "
 msgstr "Escolha um grupo para examinar:"
 
-#: ../iw/language_support_gui.py:153
+#: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
 msgstr ""
 
-#: ../iw/language_support_gui.py:155
+#: ../iw/language_support_gui.py:157
 #, fuzzy
 msgid "Choose additional languages you would like to use on this system:"
 msgstr "Que pacotes devem ser instalados?"
 
-#: ../iw/language_support_gui.py:204
+#: ../iw/language_support_gui.py:206
 #, fuzzy
 msgid "Select all"
 msgstr "Selecione Grupo"
 
-#: ../iw/language_support_gui.py:210 ../textw/language_text.py:120
+#: ../iw/language_support_gui.py:212 ../textw/language_text.py:120
 msgid "Reset"
 msgstr ""
 
-#: ../iw/language_support_gui.py:224
+#: ../iw/language_support_gui.py:226
 msgid "Select as default"
 msgstr ""
 
@@ -2741,50 +2741,50 @@ msgstr "Instalando"
 msgid "%s KBytes"
 msgstr ""
 
-#: ../iw/progress_gui.py:196 ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 #: ../textw/partition_text.py:986
 #, fuzzy
 msgid "Size"
 msgstr "Tamanho:"
 
-#: ../iw/progress_gui.py:197
+#: ../iw/progress_gui.py:193
 #, fuzzy
 msgid "Summary"
 msgstr "(sem sumário)"
 
-#: ../iw/progress_gui.py:227
+#: ../iw/progress_gui.py:223
 #, fuzzy
 msgid "Package Progress: "
 msgstr "Pacote"
 
-#: ../iw/progress_gui.py:232
+#: ../iw/progress_gui.py:228
 msgid "Total Progress:   "
 msgstr ""
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 #, fuzzy
 msgid "Status"
 msgstr "Status da Instalação"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 #, fuzzy
 msgid "Packages"
 msgstr "Pacote"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Time"
 msgstr ""
 
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:255
 msgid "Total"
 msgstr ""
 
-#: ../iw/progress_gui.py:260
+#: ../iw/progress_gui.py:256
 #, fuzzy
 msgid "Completed"
 msgstr "Instalação Finalizada com Sucesso"
 
-#: ../iw/progress_gui.py:261
+#: ../iw/progress_gui.py:257
 #, fuzzy
 msgid "Remaining"
 msgstr "Buscando"
@@ -5124,15 +5124,15 @@ msgstr ""
 msgid "Asia"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
+#: ../gnome-map/gglobe-canvas.c:714 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
+#: ../gnome-map/gglobe-canvas.c:720 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:764
+#: ../gnome-map/gglobe-canvas.c:765
 #, fuzzy
 msgid "View: "
 msgstr "Tamanho:"
@@ -5636,10 +5636,6 @@ msgid "Moscow+10 - Bering Sea"
 msgstr ""
 
 #. generated from zone.tab
-msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr ""
 
@@ -5682,6 +5678,10 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
+msgstr ""
+
+#. generated from zone.tab
+msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 msgstr ""
 
 #. generated from zone.tab
@@ -5838,6 +5838,10 @@ msgid "W Amazonas"
 msgstr ""
 
 #. generated from zone.tab
+msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+msgstr ""
+
+#. generated from zone.tab
 msgid "west & central Borneo"
 msgstr ""
 
@@ -5921,6 +5925,11 @@ msgstr ""
 #. generated from lang-table
 msgid "Portuguese"
 msgstr ""
+
+#. generated from lang-table
+#, fuzzy
+msgid "Romanian"
+msgstr "Buscando"
 
 #. generated from lang-table
 msgid "Russian"
@@ -6011,10 +6020,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "I have found the following devices in your system:"
 #~ msgstr "O dispositivo não foi encontrado em seu sistema!"
-
-#, fuzzy
-#~ msgid "Romanian"
-#~ msgstr "Buscando"
 
 #, fuzzy
 #~ msgid "Serbian"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.3\n"
-"POT-Creation-Date: 2002-04-15 17:42-0400\n"
+"POT-Creation-Date: 2002-04-16 18:52-0400\n"
 "PO-Revision-Date: 2002-04-16 10:46GMT+10:00\n"
 "Last-Translator: Sarah Smith <sarahs@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
@@ -701,7 +701,7 @@ msgstr "依赖关系检查"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "在所选定要安装的软件包中检查依赖关系……"
 
-#: ../packages.py:223 ../packages.py:536
+#: ../packages.py:223 ../packages.py:538
 msgid "Processing"
 msgstr "正在处理"
 
@@ -717,11 +717,11 @@ msgid ""
 msgstr ""
 "无法打开文件： %s. 这是由于文件遗失、坏块，或者是介质不对。请按回车键重试。"
 
-#: ../packages.py:284
+#: ../packages.py:286
 msgid "Error Installing Package"
 msgstr "安装软件包出错"
 
-#: ../packages.py:285
+#: ../packages.py:287
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -736,11 +736,11 @@ msgstr ""
 "\n"
 "请按确定键来重新引导你的系统。"
 
-#: ../packages.py:537
+#: ../packages.py:539
 msgid "Setting up RPM transaction..."
 msgstr "正在建立 RPM 传输……"
 
-#: ../packages.py:574
+#: ../packages.py:576
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -749,7 +749,7 @@ msgstr ""
 "正在升级 %s 软件包\n"
 "\n"
 
-#: ../packages.py:576
+#: ../packages.py:578
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -758,17 +758,17 @@ msgstr ""
 "正在安装 %s 软件包\n"
 "\n"
 
-#: ../packages.py:583
+#: ../packages.py:585
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "正在升级 %s-%s-%s。\n"
 
-#: ../packages.py:585
+#: ../packages.py:587
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "正在安装 %s-%s-%s。\n"
 
-#: ../packages.py:601
+#: ../packages.py:603
 #, python-format
 msgid ""
 "\n"
@@ -785,15 +785,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:607
+#: ../packages.py:609
 msgid "Install Starting"
 msgstr "正开始安装"
 
-#: ../packages.py:608
+#: ../packages.py:610
 msgid "Starting install process, this may take several minutes..."
 msgstr "正在开启安装进程，可能会花几分钟时间……"
 
-#: ../packages.py:653
+#: ../packages.py:655
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -803,17 +803,17 @@ msgstr ""
 "统：\n"
 "\n"
 
-#: ../packages.py:657 ../packages.py:677 ../iw/partition_gui.py:1562
+#: ../packages.py:659 ../packages.py:679 ../iw/partition_gui.py:1562
 #: ../iw/upgrade_swap_gui.py:123 ../textw/partition_text.py:986
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "挂载点"
 
-#: ../packages.py:658
+#: ../packages.py:660
 msgid "Space Needed"
 msgstr "所需空间"
 
-#: ../packages.py:673
+#: ../packages.py:675
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -823,15 +823,15 @@ msgstr ""
 "统：\n"
 "\n"
 
-#: ../packages.py:678
+#: ../packages.py:680
 msgid "Nodes Needed"
 msgstr "所需结点"
 
-#: ../packages.py:684
+#: ../packages.py:686
 msgid "Disk Space"
 msgstr "磁盘空间"
 
-#: ../packages.py:705
+#: ../packages.py:707
 msgid ""
 "\n"
 "\n"
@@ -841,11 +841,11 @@ msgstr ""
 "\n"
 "下列软件包在此版本已被提供却没有升级：\n"
 
-#: ../packages.py:722
+#: ../packages.py:724
 msgid "Post Install"
 msgstr "安装后"
 
-#: ../packages.py:723
+#: ../packages.py:725
 msgid "Performing post install configuration..."
 msgstr "正在执行安装后配置……"
 
@@ -2016,7 +2016,7 @@ msgid "Total install size: %s"
 msgstr "总安装大小： %s"
 
 #: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:425
-#: ../iw/progress_gui.py:195 ../textw/packages_text.py:301
+#: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "软件包"
 
@@ -2169,27 +2169,27 @@ msgstr "你要在安装过程中使用何种语言？"
 msgid "Additional Language Support"
 msgstr "其它语言支持"
 
-#: ../iw/language_support_gui.py:141
+#: ../iw/language_support_gui.py:143
 msgid "Choose the default language for this system:   "
 msgstr "选择系统默认语言："
 
-#: ../iw/language_support_gui.py:153
+#: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
 msgstr "目前已安装的语言："
 
-#: ../iw/language_support_gui.py:155
+#: ../iw/language_support_gui.py:157
 msgid "Choose additional languages you would like to use on this system:"
 msgstr "选择你想在此系统上使用的其它语言："
 
-#: ../iw/language_support_gui.py:204
+#: ../iw/language_support_gui.py:206
 msgid "Select all"
 msgstr "全部选择"
 
-#: ../iw/language_support_gui.py:210 ../textw/language_text.py:120
+#: ../iw/language_support_gui.py:212 ../textw/language_text.py:120
 msgid "Reset"
 msgstr "重设"
 
-#: ../iw/language_support_gui.py:224
+#: ../iw/language_support_gui.py:226
 msgid "Select as default"
 msgstr "选成默认"
 
@@ -2609,44 +2609,44 @@ msgstr "正在安装软件包"
 msgid "%s KBytes"
 msgstr "%s KB"
 
-#: ../iw/progress_gui.py:196 ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 #: ../textw/partition_text.py:986
 msgid "Size"
 msgstr "大小"
 
-#: ../iw/progress_gui.py:197
+#: ../iw/progress_gui.py:193
 msgid "Summary"
 msgstr "摘要"
 
-#: ../iw/progress_gui.py:227
+#: ../iw/progress_gui.py:223
 msgid "Package Progress: "
 msgstr "软件包安装进程："
 
-#: ../iw/progress_gui.py:232
+#: ../iw/progress_gui.py:228
 msgid "Total Progress:   "
 msgstr "总进程："
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Status"
 msgstr "状态"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Packages"
 msgstr "软件包"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Time"
 msgstr "时间"
 
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:255
 msgid "Total"
 msgstr "合计"
 
-#: ../iw/progress_gui.py:260
+#: ../iw/progress_gui.py:256
 msgid "Completed"
 msgstr "已完成"
 
-#: ../iw/progress_gui.py:261
+#: ../iw/progress_gui.py:257
 msgid "Remaining"
 msgstr "剩余"
 
@@ -4894,15 +4894,15 @@ msgstr "非洲"
 msgid "Asia"
 msgstr "亚洲"
 
-#: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
+#: ../gnome-map/gglobe-canvas.c:714 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
 msgstr "无法载入时区数据"
 
-#: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
+#: ../gnome-map/gglobe-canvas.c:720 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
 msgstr "gglobe-canvas"
 
-#: ../gnome-map/gglobe-canvas.c:764
+#: ../gnome-map/gglobe-canvas.c:765
 msgid "View: "
 msgstr "视图："
 
@@ -5394,10 +5394,6 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moscow+10 - Bering Sea"
 
 #. generated from zone.tab
-msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
@@ -5442,6 +5438,10 @@ msgstr "Mountain Time - south Idaho & east Oregon"
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
 msgstr "Mountain Time - west Northwest Territories"
+
+#. generated from zone.tab
+msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+msgstr "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
@@ -5596,6 +5596,10 @@ msgid "W Amazonas"
 msgstr "W Amazonas"
 
 #. generated from zone.tab
+msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+
+#. generated from zone.tab
 msgid "west & central Borneo"
 msgstr "west & central Borneo"
 
@@ -5680,6 +5684,11 @@ msgid "Portuguese"
 msgstr "葡萄牙语"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Romanian"
+msgstr "剩余"
+
+#. generated from lang-table
 msgid "Russian"
 msgstr "俄语"
 
@@ -5714,12 +5723,6 @@ msgstr "乌克兰语"
 #~ "    o NFS 服务器的名称或 IP 编号\n"
 #~ "    o 该服务器上包含适用于你的体系的 %s的目录\n"
 #~ "       "
-
-#~ msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-#~ msgstr "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-
-#~ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-#~ msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #~ msgid "Portuguese(Brasilian) pt"
 #~ msgstr "葡萄牙语(巴西)pt"

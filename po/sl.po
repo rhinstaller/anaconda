@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.3\n"
-"POT-Creation-Date: 2002-04-15 17:42-0400\n"
+"POT-Creation-Date: 2002-04-16 18:52-0400\n"
 "PO-Revision-Date: 2002-04-02 07:20+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@amis.net>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
@@ -735,7 +735,7 @@ msgstr "Preverjanje odvisnosti"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Preverjam odvisnosti v paketih, izbranih za namestitev..."
 
-#: ../packages.py:223 ../packages.py:536
+#: ../packages.py:223 ../packages.py:538
 msgid "Processing"
 msgstr "Obdelujemo"
 
@@ -752,11 +752,11 @@ msgstr ""
 "Datoteke %s ni moè odpreti. To je lahko zato, ker manjka ali zaradi slabega "
 "paketa ali nosilca. Pritisnite <Enter> za vnovièen poskus."
 
-#: ../packages.py:284
+#: ../packages.py:286
 msgid "Error Installing Package"
 msgstr "Napaka pri name¹èanju paketa"
 
-#: ../packages.py:285
+#: ../packages.py:287
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -773,11 +773,11 @@ msgstr ""
 "\n"
 "Pritisnite gumb V redu za vnovièen zagon sistema."
 
-#: ../packages.py:537
+#: ../packages.py:539
 msgid "Setting up RPM transaction..."
 msgstr "Vzpostavljam prenos RPM..."
 
-#: ../packages.py:574
+#: ../packages.py:576
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -786,7 +786,7 @@ msgstr ""
 "Nadgrajujem pakete %s.\n"
 "\n"
 
-#: ../packages.py:576
+#: ../packages.py:578
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -795,17 +795,17 @@ msgstr ""
 "Name¹èajo se paketi %s\n"
 "\n"
 
-#: ../packages.py:583
+#: ../packages.py:585
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Nadgrajuje se %s-%s-%s.\n"
 
-#: ../packages.py:585
+#: ../packages.py:587
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Name¹èa se %s-%s-%s.\n"
 
-#: ../packages.py:601
+#: ../packages.py:603
 #, python-format
 msgid ""
 "\n"
@@ -822,15 +822,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:607
+#: ../packages.py:609
 msgid "Install Starting"
 msgstr "Namestitev se zaèenja"
 
-#: ../packages.py:608
+#: ../packages.py:610
 msgid "Starting install process, this may take several minutes..."
 msgstr "Namestitveni proces se zaganja; to lahko traja nekaj minut..."
 
-#: ../packages.py:653
+#: ../packages.py:655
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -840,17 +840,17 @@ msgstr ""
 "Potrebujete veè prostora na naslednjem datoteènem sistemu:\n"
 "\n"
 
-#: ../packages.py:657 ../packages.py:677 ../iw/partition_gui.py:1562
+#: ../packages.py:659 ../packages.py:679 ../iw/partition_gui.py:1562
 #: ../iw/upgrade_swap_gui.py:123 ../textw/partition_text.py:986
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "Toèka priklopa"
 
-#: ../packages.py:658
+#: ../packages.py:660
 msgid "Space Needed"
 msgstr "Potreben prostor"
 
-#: ../packages.py:673
+#: ../packages.py:675
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -860,15 +860,15 @@ msgstr ""
 "Potrebujete veè datoteènih vozlov na naslednjih datoteènih sistemih:\n"
 "\n"
 
-#: ../packages.py:678
+#: ../packages.py:680
 msgid "Nodes Needed"
 msgstr "Potrebni vozli"
 
-#: ../packages.py:684
+#: ../packages.py:686
 msgid "Disk Space"
 msgstr "Prostor na disku"
 
-#: ../packages.py:705
+#: ../packages.py:707
 msgid ""
 "\n"
 "\n"
@@ -878,11 +878,11 @@ msgstr ""
 "\n"
 "Naslednji paketi so na voljo v tej razlièici, a NISO bili nadgrajeni:\n"
 
-#: ../packages.py:722
+#: ../packages.py:724
 msgid "Post Install"
 msgstr "Po namestitvi"
 
-#: ../packages.py:723
+#: ../packages.py:725
 msgid "Performing post install configuration..."
 msgstr "Izvajamo nastavitve po namestitvi..."
 
@@ -2124,7 +2124,7 @@ msgid "Total install size: %s"
 msgstr "Skupna velikost namestitve: %s"
 
 #: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:425
-#: ../iw/progress_gui.py:195 ../textw/packages_text.py:301
+#: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Paket"
 
@@ -2277,27 +2277,27 @@ msgstr "Kateri jezik bi radi uporabljali med namestitvenim postopkom?"
 msgid "Additional Language Support"
 msgstr "Podpora dodatnih jezikov"
 
-#: ../iw/language_support_gui.py:141
+#: ../iw/language_support_gui.py:143
 msgid "Choose the default language for this system:   "
 msgstr "Izberite privzeti jezik za ta sistem:   "
 
-#: ../iw/language_support_gui.py:153
+#: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
 msgstr "Trenutno name¹èeni jeziki:"
 
-#: ../iw/language_support_gui.py:155
+#: ../iw/language_support_gui.py:157
 msgid "Choose additional languages you would like to use on this system:"
 msgstr "Izberite dodatne jezike, ki bi jih radi uporabljali v tem sistemu:"
 
-#: ../iw/language_support_gui.py:204
+#: ../iw/language_support_gui.py:206
 msgid "Select all"
 msgstr "Izberite vse"
 
-#: ../iw/language_support_gui.py:210 ../textw/language_text.py:120
+#: ../iw/language_support_gui.py:212 ../textw/language_text.py:120
 msgid "Reset"
 msgstr "Resetiraj"
 
-#: ../iw/language_support_gui.py:224
+#: ../iw/language_support_gui.py:226
 msgid "Select as default"
 msgstr "Izberi kot privzeto"
 
@@ -2717,44 +2717,44 @@ msgstr "Name¹èamo pakete"
 msgid "%s KBytes"
 msgstr "%s kbajtov"
 
-#: ../iw/progress_gui.py:196 ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 #: ../textw/partition_text.py:986
 msgid "Size"
 msgstr "Velikost"
 
-#: ../iw/progress_gui.py:197
+#: ../iw/progress_gui.py:193
 msgid "Summary"
 msgstr "Povzetek"
 
-#: ../iw/progress_gui.py:227
+#: ../iw/progress_gui.py:223
 msgid "Package Progress: "
 msgstr "Napredek paketa: "
 
-#: ../iw/progress_gui.py:232
+#: ../iw/progress_gui.py:228
 msgid "Total Progress:   "
 msgstr "Skupni napredek:  "
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Status"
 msgstr "Stanje"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Packages"
 msgstr "Paketi"
 
-#: ../iw/progress_gui.py:249
+#: ../iw/progress_gui.py:245
 msgid "Time"
 msgstr "Èas"
 
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:255
 msgid "Total"
 msgstr "Skupno"
 
-#: ../iw/progress_gui.py:260
+#: ../iw/progress_gui.py:256
 msgid "Completed"
 msgstr "Opravljeno"
 
-#: ../iw/progress_gui.py:261
+#: ../iw/progress_gui.py:257
 msgid "Remaining"
 msgstr "Preostanek"
 
@@ -5083,15 +5083,15 @@ msgstr "Afrika"
 msgid "Asia"
 msgstr "Azija"
 
-#: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
+#: ../gnome-map/gglobe-canvas.c:714 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
 msgstr "Podatkov o èasovnih obmoèjih ni moè nalo¾iti"
 
-#: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
+#: ../gnome-map/gglobe-canvas.c:720 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
 msgstr "gglobe-canvas"
 
-#: ../gnome-map/gglobe-canvas.c:764
+#: ../gnome-map/gglobe-canvas.c:765
 msgid "View: "
 msgstr "Pogled: "
 
@@ -5573,10 +5573,6 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moskva+10 - Beringovo morje"
 
 #. generated from zone.tab
-msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Standardni gorski èas - Arizona"
 
@@ -5622,6 +5618,10 @@ msgstr "Gorski èas - ju¾ni Idaho in vzhodni Oregon"
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
 msgstr "Gorski èas - zahodna Severozahodna podroèja"
+
+#. generated from zone.tab
+msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+msgstr "SV Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
@@ -5776,6 +5776,10 @@ msgid "W Amazonas"
 msgstr "Z Amazonka"
 
 #. generated from zone.tab
+msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+msgstr "Z Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+
+#. generated from zone.tab
 msgid "west & central Borneo"
 msgstr "zahodni in osrednji Borneo"
 
@@ -5860,6 +5864,11 @@ msgid "Portuguese"
 msgstr "portugal¹èina"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Romanian"
+msgstr "Preostanek"
+
+#. generated from lang-table
 msgid "Russian"
 msgstr "ru¹èina"
 
@@ -5879,6 +5888,21 @@ msgstr "¹ved¹èina"
 msgid "Ukrainian"
 msgstr "ukrajin¹èina"
 
+#, fuzzy
+#~ msgid ""
+#~ "Chinese(Simplified)    zh_CN.GB18030    None    None            zh_CN."
+#~ "GB18030            us              Asia/Shanghai"
+#~ msgstr ""
+#~ "Kitajsko(poenostavljeno)    zh_CN.GB2312    Niè    Niè            zh_CN."
+#~ "GB2312            us              Azija/©anghaj"
+
+#~ msgid ""
+#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
+#~ "Big5              us              Asia/Taipei"
+#~ msgstr ""
+#~ "Kitajsko(tradicionalno)   zh_TW.Big5      Niè    Niè            zh_TW."
+#~ "Big5              us              Azija/Taipei"
+
 #~ msgid "%s  %s"
 #~ msgstr "%s  %s"
 
@@ -5894,26 +5918,6 @@ msgstr "ukrajin¹èina"
 #~ "    o ime ali ¹tevilko IP stre¾nika NFS\n"
 #~ "    o imenik na stre¾niku, ki vsebuje\n"
 #~ "      %s za va¹o arhitekturo"
-
-#~ msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-#~ msgstr "SV Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-
-#~ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-#~ msgstr "Z Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-
-#~ msgid ""
-#~ "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
-#~ "GB2312            us              Asia/Shanghai"
-#~ msgstr ""
-#~ "Kitajsko(poenostavljeno)    zh_CN.GB2312    Niè    Niè            zh_CN."
-#~ "GB2312            us              Azija/©anghaj"
-
-#~ msgid ""
-#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
-#~ "Big5              us              Asia/Taipei"
-#~ msgstr ""
-#~ "Kitajsko(tradicionalno)   zh_TW.Big5      Niè    Niè            zh_TW."
-#~ "Big5              us              Azija/Taipei"
 
 #~ msgid "Portuguese(Brasilian) pt"
 #~ msgstr "portugal¹èina(brazilska) pt"
