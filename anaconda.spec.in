@@ -50,9 +50,10 @@ fi
 
 %config /etc/rc.d/init.d/reconfig
 
+%define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
 
 %changelog
-* Thu Mar 02 2000 Erik Troan <ewt@redhat.com>
+* %{date} Cristian Gafton <gafton@redhat.com>
 - built new version from CVS
 
 * Thu Feb 03 2000 Michael Fulbright <drmike@redhat.com>
