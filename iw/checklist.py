@@ -31,7 +31,7 @@ class CheckList (gtk.TreeView):
         self.checkboxrenderer = gtk.CellRendererToggle()
         column = gtk.TreeViewColumn('', self.checkboxrenderer, active=0)
         column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-        column.set_fixed_width(50)
+        column.set_fixed_width(20)
         column.set_clickable(gtk.TRUE)
         self.checkboxrenderer.connect ("toggled", self.toggled_item)        
         self.append_column(column)
