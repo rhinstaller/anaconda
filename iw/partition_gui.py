@@ -1045,7 +1045,10 @@ class PartitionWindow(InstallWindow):
                 maintable.attach(migfstype, 1, 2, row, row + 1)
                 row = row + 1
 
-                migraterb.connect("toggled", formatOptionCB, (migfstype, migfstypeMenu, mountCombo))
+                migraterb.connect("toggled", formatOptionCB, (migfstype,
+                                                              migfstypeMenu,
+                                                              mountCombo,
+                                                              ofstype))
                 
             else:
                 migraterb = None
@@ -1290,6 +1293,7 @@ class PartitionWindow(InstallWindow):
             dialog.show_all()
             rc = dialog.run()
             dialog.close()
+            
             if rc != 1:
                 rc = -1
             else:
