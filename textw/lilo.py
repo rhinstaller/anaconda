@@ -137,14 +137,8 @@ class LiloImagesWindow:
 
 	default = ""
 
-	foundDos = 0
 	for n in sortedKeys:
 	    (label, type) = images[n]
-	    if (type == 1):
-		if (foundDos): continue
-		foundDos = 1
-		label = "dos"
-		images[n] = (label, type)
 	    listbox.append(self.formatDevice(type, label, n, default), n)
 
 	buttons = ButtonBar(screen, [ (_("Ok"), "ok"), (_("Edit"), "edit"), 

@@ -423,6 +423,7 @@ class ToDo:
 	    oldImages[dev] = self.liloImages[dev]
 
 	self.liloImages = {}
+        foundDos = 0
 	for (dev, devName, type) in drives:
 	    # ext2 partitions get listed if 
 	    #	    1) they're /
@@ -436,6 +437,10 @@ class ToDo:
 		    self.liloImages[dev] = ("", type)
 		else:
 		    self.liloImages[dev] = oldImages[dev]
+            if type == 1:
+		if foundDos: continue
+		foundDos = 1
+		self.liloImages[dev] = ("dos", type)
 
 	return self.liloImages
 
