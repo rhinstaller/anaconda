@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-05 10:20+0200\n"
+"PO-Revision-Date: 2004-07-22 16:45+0200\n"
 "Last-Translator: Blagoja Gjakovski <blgj@freemail.com.mk>\n"
 "Language-Team: Macedonian <info@slobodensoftver.org.mk>\n"
 "MIME-Version: 1.0\n"
@@ -1889,7 +1889,7 @@ msgstr "Стартувачките партиции не можат да бид�
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
-msgstr ""
+msgstr "Не одредивте swap партиција.  Иако не се бара строго во сите случаи, значително ќе го подобри извршувањето на повеќето инсталации."
 
 #: ../partitions.py:869
 #, python-format
@@ -1903,7 +1903,7 @@ msgstr "Одредивте повеќе од 32 swap уреди.  Кернело
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr ""
+msgstr "Доделивте помалку swap простор (%dM) отколку што има на располагање RAM (%dM) на вашиот систем.  Ова може негативно да влијае на извршувањето."
 
 #: ../partitions.py:1167
 msgid "the partition in use by the installer."
@@ -1927,7 +1927,7 @@ msgstr "Оваа монтирачка папка е невалидна.  Дир�
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr ""
+msgstr "Монтирачката папка %s не може да се употреби.  Мора да биде симболичка врска за правилна системска операција.  Ве молиме одберете поинаква монтирачка папка."
 
 #: ../partRequests.py:243
 msgid "This mount point must be on a linux file system."
@@ -1969,7 +1969,7 @@ msgstr "Партициите не може да завршат на негати
 
 #: ../partRequests.py:643
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "Нема членови во RAID барањето, или нема назначено RAID ниво."
 
 #: ../partRequests.py:655
 #, python-format
@@ -1981,7 +1981,7 @@ msgstr "RAID уред од видот %s бара најмалку %s члено
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
-msgstr ""
+msgstr "Овој RAID уред може да има максимум %s резервни дискови. За повеќе резервни дискови ќе треба да додадете членови на RAID уредот."
 
 #: ../rescue.py:123
 msgid "Starting Interface"
@@ -2010,7 +2010,7 @@ msgstr "Не можам од овде да одам на претходниот 
 
 #: ../rescue.py:237 ../rescue.py:272 ../rescue.py:426
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
+msgstr "Кога ќе завршите ве молам излезете од командно-линискиот интерфејс и системот ќе се рестартира."
 
 #: ../rescue.py:256 ../rescue.py:325 ../rescue.py:333 ../rescue.py:404
 msgid "Rescue"
@@ -2029,6 +2029,10 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
+"Околината за спасување на системот сега ќе се обиде да ја најде вашата Linux инсталација и ќе ја монтира под директориумот %s.  Тогаш ќе можете да направите било какви барани промени на вашиот систем.  Ако сакате да продолжите со овој чекор одберете 'Продолжи'.  Може исто така да одберете да ги монтирате вашите датотечни системи само за читање наместо читај-пишувај преку одбирање на 'Само за читање'.\n"
+"\n"
+"Ако од некоја причина овој процес не успее може да одберете 'Прескокнете' и овој чекор ќе биде прескокнат а вие ќе одите директно во командно-линискиот интерфејс.\n"
+"\n"
 
 #: ../rescue.py:267 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
 #: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:463
@@ -2063,6 +2067,8 @@ msgid ""
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
+"Вашиот систем има погрешни датотечни системи кои одбравте да не ги монтирате.  Притиснете Enter за да добиете командна линија за да ја извршите командата fsck и да ги монтирате вашите партиции.  "
+"Системот ќе се рестартира автоматски кога ќе излезете од командно-линискиот интерфејс."
 
 #: ../rescue.py:334
 #, python-format
@@ -2076,6 +2082,13 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
+"Вашиот систем е монтиран под %s.\n"
+"\n"
+"Притиснете <return> за да добиете командна линија. Ако сакате да го направите вашиот систем да биде како root средина, стартувајте ја командата:\n"
+"\n"
+"\tchroot %s\n"
+"\n"
+"Системот ќе се рестартира автоматски кога ќе излезете од командно-линискиот интерфејс."
 
 #: ../rescue.py:405
 #, python-format
@@ -2095,7 +2108,7 @@ msgstr "Режим за спасување"
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
-msgstr ""
+msgstr "Немате Linux партиции. Притиснете Enter за да добиете командна линија. Системот ќе се рестартира автоматски кога ќе излезете од командно-линискиот интерфејс."
 
 #: ../rescue.py:423
 #, python-format
@@ -2166,6 +2179,8 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
+"Следните датотечни системи за вашиот Linux систем не се правилно демонтирани.  Ве молам стартувајте ја вашата Linux инсталација, дозволете датотечниот систем да биде проверен и правилно исклучен за да се надогради.\n"
+"%s"
 
 #: ../upgrade.py:124
 #, python-format
@@ -2185,14 +2200,14 @@ msgstr "Неуспешно монтирање"
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr ""
+msgstr "Еден или повеќе од листата на датотечни системи во /etc/fstab на вашиот Linux систем не може да се монтираат. Ве молам поправете го овој броблем и обидете се да го надоградите повторно."
 
 #: ../upgrade.py:265
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
-msgstr ""
+msgstr "Еден или повеќе од листата на датотечни системи во /etc/fstab на вашиот Linux систем не се доследни и не може да бидат монтирани.  Ве молам поправете го овој броблем и обидете се да го надоградите повторно."
 
 #: ../upgrade.py:282
 msgid ""
@@ -2330,7 +2345,7 @@ msgstr "Не соодветна лозинка"
 
 #: ../vnc.py:94 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
+msgstr "Лозинките што ги внесовте се поинакви. Ве молам обидете се повторно."
 
 #: ../vnc.py:99 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
 msgid "Password Length"
@@ -2371,7 +2386,7 @@ msgstr "Администраторската (root) лозинка мора да
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
-msgstr ""
+msgstr "Бараната лозинка содржи не-ascii карактери кои не се дозволени да се користат во лозинка."
 
 #: ../iw/account_gui.py:93
 msgid ""
@@ -2381,27 +2396,27 @@ msgstr ""
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
-msgstr ""
+msgstr "Root лозинка: "
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr ""
+msgstr "Потврди: "
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:337
 msgid "Authentication Configuration"
-msgstr ""
+msgstr "Конфигурација на автентичноста"
 
 #: ../iw/auth_gui.py:98
 msgid "Enable _MD5 passwords"
-msgstr ""
+msgstr "Овозможи MD5 лозинки"
 
 #: ../iw/auth_gui.py:99
 msgid "Enable shado_w passwords"
-msgstr ""
+msgstr "Овозможи shadow лозинки"
 
 #: ../iw/auth_gui.py:102
 msgid "Enable N_IS"
-msgstr ""
+msgstr "Овозможи NIS"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
@@ -4459,15 +4474,15 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:51
 msgid "Customize Graphical Configuration"
-msgstr ""
+msgstr "Прилагоди графичка конфигурација"
 
 #: ../iw/xconfig_gui.py:251
 msgid "_Color Depth:"
-msgstr ""
+msgstr "Длабочина на боја:"
 
 #: ../iw/xconfig_gui.py:260 ../textw/xconfig_text.py:106
 msgid "256 Colors (8 Bit)"
-msgstr ""
+msgstr "256 бои (8 бита)"
 
 #: ../iw/xconfig_gui.py:261 ../textw/xconfig_text.py:107
 msgid "High Color (16 Bit)"
@@ -4479,7 +4494,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:282
 msgid "_Screen Resolution:"
-msgstr ""
+msgstr "Резолуција на екран:"
 
 #: ../iw/xconfig_gui.py:338
 msgid "Please choose your default desktop environment:"
@@ -4869,7 +4884,7 @@ msgstr ""
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
-msgstr ""
+msgstr "Прилагоди избор на софтвер"
 
 #: ../textw/fdasd_text.py:31
 msgid "Choose a disk to run fdasd or dasdfmt on"
@@ -4881,11 +4896,11 @@ msgstr "Следно"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
-msgstr ""
+msgstr "Уреди партиции"
 
 #: ../textw/fdasd_text.py:33
 msgid "Format DASD"
-msgstr ""
+msgstr "Форматирај DASD"
 
 #: ../textw/fdasd_text.py:50 ../textw/fdisk_text.py:39
 msgid "Disk Setup"
@@ -4916,19 +4931,19 @@ msgstr ""
 
 #: ../textw/fdisk_text.py:40
 msgid "Choose a disk to run fdisk on"
-msgstr ""
+msgstr "Одберете диск на кој че се стартува fdisk"
 
 #: ../textw/firewall_text.py:27
 msgid "Customize"
-msgstr ""
+msgstr "Прилагоди"
 
 #: ../textw/firewall_text.py:44
 msgid "Enable firewall"
-msgstr ""
+msgstr "Овозможи firewall"
 
 #: ../textw/firewall_text.py:47
 msgid "No firewall"
-msgstr ""
+msgstr "Нема firewall"
 
 #: ../textw/firewall_text.py:54
 msgid "Allow incoming:"
@@ -4944,7 +4959,7 @@ msgstr ""
 
 #: ../textw/firewall_text.py:92
 msgid "Customize Firewall Configuration"
-msgstr ""
+msgstr "Прилагоди конфигурација на firewall"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5535,7 +5550,7 @@ msgstr ""
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
-msgstr ""
+msgstr "Прилагоди пакети за надградба"
 
 #: ../textw/upgrade_text.py:246
 msgid ""
@@ -5546,7 +5561,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:29
 msgid "Root Password"
-msgstr ""
+msgstr "Root лозинка"
 
 #: ../textw/userauth_text.py:31
 msgid ""
@@ -5557,56 +5572,56 @@ msgstr ""
 
 #: ../textw/userauth_text.py:62
 msgid "The root password must be at least 6 characters long."
-msgstr ""
+msgstr "Root лозинката мора да е најмалку 6 карактери."
 
 #: ../textw/userauth_text.py:102
 msgid "Edit User"
-msgstr ""
+msgstr "Уреди го корисникот"
 
 #: ../textw/userauth_text.py:105
 msgid "Add User"
-msgstr ""
+msgstr "Додади корисник"
 
 #: ../textw/userauth_text.py:110
 msgid "User Name"
-msgstr ""
+msgstr "Корисничко име"
 
 #: ../textw/userauth_text.py:111
 msgid "Password"
-msgstr ""
+msgstr "Лозинка"
 
 #: ../textw/userauth_text.py:112
 msgid "Password (confirm)"
-msgstr ""
+msgstr "Лозинка (потврда)"
 
 #: ../textw/userauth_text.py:113 ../textw/userauth_text.py:222
 msgid "Full Name"
-msgstr ""
+msgstr "Целосно име"
 
 #: ../textw/userauth_text.py:125
 msgid "Bad User Name"
-msgstr ""
+msgstr "Погрешно корисничко име"
 
 #: ../textw/userauth_text.py:126
 msgid "User names must contain only characters A-Z, a-z, and 0-9."
-msgstr ""
+msgstr "Корисничките имиња мора да ги содржат исклучиво A-Z, a-z, и 0-9 карактерите."
 
 #: ../textw/userauth_text.py:133
 msgid "Missing User Name"
-msgstr ""
+msgstr "Недостасува корисничко име"
 
 #: ../textw/userauth_text.py:134
 msgid "You must provide a user name"
-msgstr ""
+msgstr "Мора да обезбедите корисничко име"
 
 #: ../textw/userauth_text.py:139
 msgid "The password must be at least 6 characters long."
-msgstr ""
+msgstr "Лозинката мора да е најмалку 6 карактери."
 
 #: ../textw/userauth_text.py:155 ../textw/userauth_text.py:162
 #: ../textw/userauth_text.py:170
 msgid "User Exists"
-msgstr ""
+msgstr "Корисникот постои"
 
 #: ../textw/userauth_text.py:156
 msgid "The root user is already configured. You don't need to add this user here."
@@ -5618,7 +5633,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
-msgstr ""
+msgstr "Веќе постои оваа корисничка идентификација.  Одбери друга."
 
 #: ../textw/userauth_text.py:198
 msgid ""
@@ -5629,7 +5644,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:209
 msgid "User Account Setup"
-msgstr ""
+msgstr "Поставки за корисникот"
 
 #: ../textw/userauth_text.py:211
 msgid ""
@@ -5640,43 +5655,43 @@ msgstr ""
 
 #: ../textw/userauth_text.py:222
 msgid "User name"
-msgstr ""
+msgstr "Корисничко име"
 
 #: ../textw/userauth_text.py:236
 msgid "Add"
-msgstr ""
+msgstr "Додади"
 
 #: ../textw/userauth_text.py:249
 msgid "Enter the information for the user."
-msgstr ""
+msgstr "Внеси информација за корисникот."
 
 #: ../textw/userauth_text.py:267
 msgid "Change the information for this user."
-msgstr ""
+msgstr "Промени ја информацијата за овој корисник."
 
 #: ../textw/userauth_text.py:339
 msgid "Use Shadow Passwords"
-msgstr ""
+msgstr "Користи shadow лозинки"
 
 #: ../textw/userauth_text.py:341
 msgid "Enable MD5 Passwords"
-msgstr ""
+msgstr "Овозможи MD5 лозинки"
 
 #: ../textw/userauth_text.py:346
 msgid "Enable NIS"
-msgstr ""
+msgstr "Овозможи NIS"
 
 #: ../textw/userauth_text.py:352
 msgid "NIS Domain:"
-msgstr ""
+msgstr "NIS домен:"
 
 #: ../textw/userauth_text.py:354
 msgid "NIS Server:"
-msgstr ""
+msgstr "NIS сервер:"
 
 #: ../textw/userauth_text.py:356
 msgid "or use:"
-msgstr ""
+msgstr "или употреби:"
 
 #: ../textw/userauth_text.py:359
 msgid "Request server via broadcast"
@@ -5684,40 +5699,40 @@ msgstr ""
 
 #: ../textw/userauth_text.py:380
 msgid "Enable LDAP"
-msgstr ""
+msgstr "Овозможи LDAP"
 
 #: ../textw/userauth_text.py:386
 msgid "LDAP Server:"
-msgstr ""
+msgstr "LDAP сервер:"
 
 #: ../textw/userauth_text.py:388
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "LDAP основен DN:"
 
 #: ../textw/userauth_text.py:398
 msgid "Use TLS connections"
-msgstr ""
+msgstr "Употреби TLS поврзувања"
 
 #: ../textw/userauth_text.py:409
 msgid "Enable Kerberos"
-msgstr ""
+msgstr "Овозможи Kerberos"
 
 #: ../textw/userauth_text.py:416
 msgid "Realm:"
-msgstr ""
+msgstr "Област:"
 
 #: ../textw/userauth_text.py:418
 msgid "KDC:"
-msgstr ""
+msgstr "KDC:"
 
 #: ../textw/userauth_text.py:420
 msgid "Admin Server:"
-msgstr ""
+msgstr "Администраторски сервер:"
 
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../textw/welcome_text.py:23
 #, python-format
@@ -5725,56 +5740,58 @@ msgid ""
 "Welcome to %s!\n"
 "\n"
 msgstr ""
+"Добредојдовте во %s!\n"
+"\n"
 
 #: ../textw/xconfig_text.py:35
 msgid "Color Depth"
-msgstr ""
+msgstr "Длабочина на боја"
 
 #: ../textw/xconfig_text.py:36
 msgid "Please select the color depth you would like to use:"
-msgstr ""
+msgstr "Ве молам одберете ја длабочината на бојата што сакате да ја користите:"
 
 #: ../textw/xconfig_text.py:59
 msgid "Resolution"
-msgstr ""
+msgstr "Резолуција"
 
 #: ../textw/xconfig_text.py:60
 msgid "Please select the resolution you would like to use:"
-msgstr ""
+msgstr "Ве молам одберете ја резолуцијата што сакате да ја користите:"
 
 #: ../textw/xconfig_text.py:131
 msgid "X Customization"
-msgstr ""
+msgstr "Прилагодување на X"
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr ""
+msgstr "Одберете ја длабочината на боја и видео режим што сакате да ги користите на вашиот систем. "
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
-msgstr ""
+msgstr "Длабочина на боја:"
 
 #: ../textw/xconfig_text.py:142 ../textw/xconfig_text.py:149
 #: ../textw/xconfig_text.py:427 ../textw/xconfig_text.py:438
 #: ../textw/xconfig_text.py:657 ../textw/xconfig_text.py:664
 msgid "Change"
-msgstr ""
+msgstr "Промени"
 
 #: ../textw/xconfig_text.py:145
 msgid "Resolution:"
-msgstr ""
+msgstr "Резолуција:"
 
 #: ../textw/xconfig_text.py:155
 msgid "Default Desktop:"
-msgstr ""
+msgstr "Вообичаенa работна површина:"
 
 #: ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #: ../textw/xconfig_text.py:161 ../textw/xconfig_text.py:170
 msgid "KDE"
-msgstr ""
+msgstr "KDE"
 
 #: ../textw/xconfig_text.py:176
 msgid "Default Login:"
@@ -5782,27 +5799,27 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:178
 msgid "Graphical"
-msgstr ""
+msgstr "Графичко"
 
 #: ../textw/xconfig_text.py:180
 msgid "Text"
-msgstr ""
+msgstr "Текст"
 
 #: ../textw/xconfig_text.py:228
 msgid "Monitor"
-msgstr ""
+msgstr "Монитор"
 
 #: ../textw/xconfig_text.py:229
 msgid "Please select the monitor attached to your system."
-msgstr ""
+msgstr "Ве молам одберете го мониторот приклучен на вашиот систем."
 
 #: ../textw/xconfig_text.py:254
 msgid "horizontal"
-msgstr ""
+msgstr "хоризонтално"
 
 #: ../textw/xconfig_text.py:257
 msgid "vertical"
-msgstr ""
+msgstr "вертикално"
 
 #: ../textw/xconfig_text.py:261
 msgid "Invalid Sync Rates"
@@ -5851,7 +5868,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:423
 msgid "Monitor:"
-msgstr ""
+msgstr "Монитор:"
 
 #: ../textw/xconfig_text.py:430
 msgid "HSync Rate:"
@@ -5863,15 +5880,15 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:473
 msgid "Choose monitor type"
-msgstr ""
+msgstr "Одберете вид на монитор"
 
 #: ../textw/xconfig_text.py:473
 msgid "Proceed"
-msgstr ""
+msgstr "Изврши"
 
 #: ../textw/xconfig_text.py:543
 msgid "Video Card"
-msgstr ""
+msgstr "Видео картичка"
 
 #: ../textw/xconfig_text.py:544
 #, python-format
@@ -5882,7 +5899,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:562
 msgid "Video RAM"
-msgstr ""
+msgstr "Видео RAM"
 
 #: ../textw/xconfig_text.py:563
 #, python-format
@@ -5893,11 +5910,11 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:629
 msgid "Skip X Configuration"
-msgstr ""
+msgstr "Прескокни конфигурација на X"
 
 #: ../textw/xconfig_text.py:631
 msgid "Video Card Configuration"
-msgstr ""
+msgstr "Конфигурација на видео картичка"
 
 #: ../textw/xconfig_text.py:645
 msgid "Select the video card and video RAM for your system."
@@ -5905,15 +5922,15 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:647
 msgid "Video Card:"
-msgstr ""
+msgstr "Видео картичка:"
 
 #: ../textw/xconfig_text.py:652
 msgid "Unknown card"
-msgstr ""
+msgstr "Непозната картичка"
 
 #: ../textw/xconfig_text.py:660
 msgid "Video RAM:"
-msgstr ""
+msgstr "Видео RAM:"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -5924,7 +5941,7 @@ msgstr ""
 
 #: ../textw/zipl_text.py:56
 msgid "z/IPL Configuration"
-msgstr ""
+msgstr "Конфигурација на z/IPL"
 
 #: ../textw/zipl_text.py:64 ../textw/zipl_text.py:68
 msgid "Chandev line "
@@ -5932,7 +5949,7 @@ msgstr ""
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr ""
+msgstr "Прилагодено"
 
 #: ../installclasses/custom.py:13
 msgid ""
@@ -5942,7 +5959,7 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr ""
+msgstr "Лична работна површина"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -5964,7 +5981,7 @@ msgstr ""
 
 #: ../installclasses/server.py:11
 msgid "_Server"
-msgstr ""
+msgstr "Сервер"
 
 #: ../installclasses/server.py:13
 msgid ""
@@ -5975,7 +5992,7 @@ msgstr ""
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
-msgstr ""
+msgstr "Работна станица"
 
 #: ../installclasses/workstation.py:10
 msgid ""
@@ -5999,17 +6016,17 @@ msgstr ""
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
 msgid "Media Check"
-msgstr ""
+msgstr "Проверка на медиумот"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
 #: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
 #: ../loader2/method.c:406
 msgid "Test"
-msgstr ""
+msgstr "Тест"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
 msgid "Eject CD"
-msgstr ""
+msgstr "Извади CD"
 
 #: ../loader2/cdinstall.c:89
 #, c-format
@@ -6038,7 +6055,7 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:253
 msgid "CD Found"
-msgstr ""
+msgstr "Пронајдено е CD"
 
 #: ../loader2/cdinstall.c:255
 #, c-format
@@ -6057,7 +6074,7 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:381
 msgid "CD Not Found"
-msgstr ""
+msgstr "Не е пронајдено CD"
 
 #: ../loader2/cdinstall.c:448
 msgid "Cannot find kickstart file on CDROM."
@@ -6065,7 +6082,7 @@ msgstr ""
 
 #: ../loader2/driverdisk.c:122 ../loader2/firewire.c:50
 msgid "Loading"
-msgstr ""
+msgstr "Вчитување"
 
 #: ../loader2/driverdisk.c:122
 msgid "Reading driver disk..."
@@ -6118,7 +6135,7 @@ msgstr ""
 
 #: ../loader2/driverdisk.c:462
 msgid "Manually choose"
-msgstr ""
+msgstr "Изберете рачно"
 
 #: ../loader2/driverdisk.c:463
 msgid "Load another disk"
@@ -6249,7 +6266,7 @@ msgstr ""
 
 #: ../loader2/hdinstall.c:392
 msgid "Select Partition"
-msgstr ""
+msgstr "Одбери партиција"
 
 #: ../loader2/hdinstall.c:432
 #, c-format
@@ -6267,11 +6284,11 @@ msgstr ""
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
-msgstr ""
+msgstr "Вид на тастатура"
 
 #: ../loader2/kbd.c:124
 msgid "What type of keyboard do you have?"
-msgstr ""
+msgstr "Каков вид на тастатура имате?"
 
 #: ../loader2/kickstart.c:119
 #, c-format
@@ -6300,7 +6317,7 @@ msgstr ""
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
 msgid "Welcome to %s"
-msgstr ""
+msgstr "Добредојдовте во %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:176
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
@@ -6308,15 +6325,15 @@ msgstr ""
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
-msgstr ""
+msgstr "Одберете јазик"
 
 #: ../loader2/loader.c:105
 msgid "Local CDROM"
-msgstr ""
+msgstr "Локален CDROM"
 
 #: ../loader2/loader.c:107
 msgid "Hard drive"
-msgstr ""
+msgstr "Тврд диск"
 
 #: ../loader2/loader.c:108
 msgid "NFS image"
@@ -6367,11 +6384,11 @@ msgstr ""
 
 #: ../loader2/loader.c:822
 msgid "Rescue Method"
-msgstr ""
+msgstr "Метода за спасување"
 
 #: ../loader2/loader.c:823
 msgid "Installation Method"
-msgstr ""
+msgstr "Метода за инсталирање"
 
 #: ../loader2/loader.c:825
 msgid "What type of media contains the rescue image?"
@@ -6415,11 +6432,11 @@ msgstr ""
 
 #: ../loader2/loader.c:1020
 msgid "Done"
-msgstr ""
+msgstr "Извршено"
 
 #: ../loader2/loader.c:1021
 msgid "Add Device"
-msgstr ""
+msgstr "Додади уред"
 
 #: ../loader2/loader.c:1136
 #, c-format
@@ -6445,12 +6462,12 @@ msgstr ""
 #: ../loader2/mediacheck.c:264
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr ""
+msgstr "Проверувам \"%s\"..."
 
 #: ../loader2/mediacheck.c:266
 #, c-format
 msgid "Checking media now..."
-msgstr ""
+msgstr "Сега ги проверувам медиумите..."
 
 #: ../loader2/mediacheck.c:312
 #, c-format
@@ -6513,7 +6530,7 @@ msgstr ""
 
 #: ../loader2/method.c:406
 msgid "Checksum Test"
-msgstr ""
+msgstr "Тест за проверка на податоците"
 
 #: ../loader2/modules.c:920
 #, c-format
@@ -6568,7 +6585,7 @@ msgstr ""
 
 #: ../loader2/net.c:282 ../loader2/net.c:558
 msgid "Dynamic IP"
-msgstr ""
+msgstr "Динамичка IP"
 
 #: ../loader2/net.c:283 ../loader2/net.c:559
 #, c-format
@@ -6583,7 +6600,7 @@ msgstr ""
 
 #: ../loader2/net.c:454
 msgid "IP address:"
-msgstr ""
+msgstr "IP адреса:"
 
 #: ../loader2/net.c:457
 msgid "Netmask:"
