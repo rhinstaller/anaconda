@@ -59,3 +59,4 @@
 
 #define CODE_PCMCIA	1
 
+void setFloppyDevice(int flags);

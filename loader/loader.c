@@ -2432,12 +2432,15 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 		  NULL, NULL))
 	logMessage("failed to mount device usbdevfs: %s", strerror(errno));
 
+    /* sleep so we make sure usb devices get properly initialized */
+    sleep(2);
+
     mlLoadModule("hid", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("keybdev", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
     if (FL_NOUSBSTORAGE(flags)) return 0;
     mlLoadModule("usb-storage", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-
+    sleep(1);
     return 0;
 }
 
@@ -2808,7 +2811,10 @@ int main(int argc, char ** argv) {
 		"/modules/pcitable");
 
 #ifndef __sparc__
-	unlink("/modules/modules.cgz");
+	/* we need to keep stage1 modules around to reload usb-storage.
+	   increases our memory footprint a little :( */
+	mkdir("/modules/stage1", 0755);
+	rename("/modules/modules.cgz", "/modules/stage1/modules.cgz");
 
 	symlink("../mnt/runtime/modules/modules.cgz",
 		"/modules/modules.cgz");
