@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.8
+Version: 10.2.0.9
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -70,6 +70,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan  5 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.9-1
+- Fix some typos (#143257, #144006)
+- Fix from Matthew Miller for multiple dns servers (#84409)
+- Fix formatting of fcp disks (#144199)
+- Include a README for x86_64 images (clumens, #143366)
+- Make an x86_64 rescue image (clumens, #143366)
+- Add libXfixes for new gtk2
+
 * Thu Dec 23 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.8-1
 - Use tmpfs not ramfs for /dev
 - Blacklist "root" as a VG name (#142785)
