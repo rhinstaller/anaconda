@@ -98,10 +98,13 @@ else:
     sys.exit(1)
 
 if traceOnly:
+    # prints a list of all the modules imported
     import pdb
     import image
     import harddrive
     import urlinstall
+    import mimetools
+    import mimetypes
     for module in sys.__dict__['modules'].keys ():
         if module not in [ "__builtin__", "__main__" ]:
             foo = repr (sys.__dict__['modules'][module])
