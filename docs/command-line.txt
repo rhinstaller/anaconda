@@ -32,6 +32,10 @@ noparport       Do not attempt to load support for parallel ports
 
 noprobe         Do not attempt to detect hw, prompts user instead.
 
+nonet           Do not auto-probe network devices
+
+nostorage       Do not auto-probe storage devices (SCSI, IDE, RAID)
+
 nopcmcia        Ignore PCMCIA controller in system.
 
 skipddc		Skips DDC probe of monitor, may help if its handing system.
