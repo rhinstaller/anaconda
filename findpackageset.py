@@ -14,91 +14,133 @@ def addNewPackageToUpgSet(pkgDict, pkg):
        in our dictionary.  If not, add this one.  If there is, see if
        this one is 'newer' or has a 'better' arch."""
     name = pkg[rpm.RPMTAG_NAME]
-    if not pkgDict.has_key(name):
+    arch = pkg[rpm.RPMTAG_ARCH]
+    if not pkgDict.has_key((name, arch)):
         # nope
-        pkgDict[name] = pkg
+        pkgDict[(name,arch)] = pkg
     else:
         # first check version
-        val = rpm.versionCompare(pkgDict[name], pkg)
+        val = rpm.versionCompare(pkgDict[(name,arch)], pkg)
         if val < 0:
             # we're newer, add this one
-            pkgDict[name] = pkg
-        elif val == 0:
-            # same version, so check the architecture
-            newscore = rpm.archscore(pkg[rpm.RPMTAG_ARCH])
-            oldscore = pkgDict[name][rpm.RPMTAG_ARCH]
-            if newscore and newscore < oldscore:
-                # if the score is less, we're "better"
-                pkgDict[name] = pkg
+            pkgDict[(name,arch)] = pkg
 
-    
+def comparePackageForUpgrade(updDict, h, pkg):
+            val = rpm.versionCompare(h, pkg)
+            if (val > 0):
+                dEBUG("found older version of %(name)s %(arch)s" % h)
+                pass
+            elif (val < 0):
+                dEBUG("found newer version of %(name)s %(arch)s" % h)
+                # check if we already have this package in our dictionary
+                addNewPackageToUpgSet(updDict, pkg)
+            else:
+                dEBUG("found same verison of %(name)s %(arch)s" % h)
+                pass
 
-def findpackageset(hdrlist, dbPath='/'):
-    ts = rpm.TransactionSet(dbPath)
-    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA|rpm.RPMVSF_NOMD5))
-
-    pkgDict = {}
-
+def findBestArch(arch, archlist):
+    bestarch = arch
+    for availarch in archlist:
+        newscore = rpm.archscore(availarch)
+        oldscore = rpm.archscore(bestarch)
+        if newscore and newscore < oldscore:
+            bestarch = availarch
+    return bestarch
+        
+def getAvailPackages(hdrlist):     
     # go through and figure out which packages in the header list are
     # actually applicable for our architecture
     pkgDict = {}
+    nameDict = {}
     for h in hdrlist:
         score1 = rpm.archscore(h[rpm.RPMTAG_ARCH])
         if (score1):
             name = h[rpm.RPMTAG_NAME]
-            if pkgDict.has_key(name):
-                score2 = rpm.archscore(pkgDict[name][rpm.RPMTAG_ARCH])
-                if (score1 < score2):
-                    pkgDict[name] = h
+            arch = h[rpm.RPMTAG_ARCH]
+            pkgDict[(name,arch)] = h
+            if nameDict.has_key(name):
+                nameDict[name].append(arch)
             else:
-                pkgDict[name] = h
-    hdlist = pkgDict.values()
-    
+                nameDict[name] = [ arch ]
+    return (pkgDict, nameDict)
+
+def getInstalledPackages(dbPath='/'):
     pkgDict = {}
+    nameDict = {}
+    ts = rpm.TransactionSet(dbPath)
+    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA|rpm.RPMVSF_NOMD5))
+    mi = ts.dbMatch()
+    for h in mi:
+        name = h[rpm.RPMTAG_NAME]
+        arch = h[rpm.RPMTAG_ARCH]
+        pkgDict[(name,arch)] = h
+        if nameDict.has_key(name):
+            nameDict[name].append(arch)
+        else:
+            nameDict[name] = [ arch ]
+    return (pkgDict, nameDict)
+
+def findpackageset(hdrlist, dbPath='/'):
+    instDict = {}
+    availDict = {}
+    updDict = {}
+
+    # dicts for name : [archlist]
+    availNames = {}
+    instNames = {}
+
+    (availDict, availNames)  = getAvailPackages(hdrlist)
+    (instDict, instNames) =  getInstalledPackages(dbPath=dbPath)
+
+    hdlist = availDict.values()
+    
     # loop through packages and find ones which are a newer
     # version than what we have
-    for pkg in hdlist:
-        mi = ts.dbMatch('name', pkg[rpm.RPMTAG_NAME])
-        for h in mi:
-            val = rpm.versionCompare(h, pkg)
-            if (val > 0):
-#                dEBUG("found older version of %(name)s" % h)
-                pass
-            elif (val < 0):
-#                dEBUG("found newer version of %(name)s" % h)
-                # check if we already have this package in our dictionary
-                addNewPackageToUpgSet(pkgDict, pkg)
-            else:
-#                dEBUG("found same verison of %(name)s" % h)
-                pass
-            
+    for ( name, arch ) in instDict.keys():
+        if ( name, arch ) in availDict.keys():
+            # Exact arch upgrade
+            h = instDict[(name, arch)]
+            pkg = availDict[(name,arch)] 
+            comparePackageForUpgrade(updDict, h, pkg)
+        else:
+            # See if we have a better arch than that installed
+            if name in availNames.keys():
+                bestarch = findBestArch(arch, availNames)
+                if availDict.has_key((name,bestarch)):
+                    h = instDict[(name,arch)]
+                    pkg = availDict[(name,bestarch)]
+                    comparePackageForUpgrade(updDict, h, pkg)
+                    
     # handle obsoletes
     for pkg in hdlist:
-        if pkg[rpm.RPMTAG_NAME] in pkgDict.keys():
-#            dEBUG("%(name)s is already selected" % pkg)
+        if (pkg[rpm.RPMTAG_NAME],pkg[rpm.RPMTAG_ARCH]) in updDict.keys():
+#            dEBUG("%(name)s %(arch)s is already selected" % pkg)
             continue
 
         if pkg[rpm.RPMTAG_OBSOLETENAME] is not None:
+            name = pkg[rpm.RPMTAG_NAME]
+            arch = pkg[rpm.RPMTAG_ARCH]
             for obs,obsver in zip(pkg[rpm.RPMTAG_OBSOLETENAME],pkg[rpm.RPMTAG_OBSOLETEVERSION]):
                 mi = ts.dbMatch('name', obs)
                 oevr = strToVersion(obsver)
                 for h in mi:
                     if not obsver:
 #                    unversioned obsoletes win
-                        addNewPackageToUpgSet(pkgDict, pkg)
+                        addNewPackageToUpgSet(updDict, pkg)
+#                    dEBUG("adding %(name)s to the upgrade set for obsoletes" % pkg)
                         break
                     else:
-#                    dEBUG("adding %(name)s to the upgrade set for obsoletes" % pkg)
                         if h[rpm.RPMTAG_EPOCH] is None:
                             epoch = '0'
                         else:
                             epoch = str(h[rpm.RPMTAG_EPOCH])
                         val = rpm.labelCompare(oevr,(epoch,h[rpm.RPMTAG_VERSION],h[rpm.RPMTAG_RELEASE]))
                         if val > 0:
-                            addNewPackageToUpgSet(pkgDict, pkg)
+#                    dEBUG("adding %(name)s %(version)s to the upgrade set for obsoletes" % pkg)
+                            updDict[(name,arch)] = pkg 
                             break
 
-    return pkgDict.values()
+    return updDict.values()
 
 def strToVersion(str):
     """Parse a string such as in obsoleteversion into evr.
