@@ -835,7 +835,10 @@ class PartitionWindow(InstallWindow):
 		    parreq = self.partitions.getRaidMemberParent(request)
 		    if parreq:
 			if self.show_uneditable:
-			    mddevice = "/dev/md%d" % (parreq.raidminor,)
+			    try:
+				mddevice = "/dev/md%d" % (parreq.raidminor,)
+			    except:
+				mddevice = "Auto"
 			    self.tree[iter]['Mount Point'] = mddevice
 			else:
 			    self.tree.appendToHiddenPartitionsList(part)
