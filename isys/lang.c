@@ -82,6 +82,7 @@ int loadKeymap(gzFile stream) {
     int count = 0;
     int magic;
     short keymap[NR_KEYS];
+    struct stat sb;
 
 #if defined (__s390__) || defined (__s390x__)
     return 0;
