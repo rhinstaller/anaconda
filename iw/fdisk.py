@@ -53,8 +53,14 @@ class FDiskWindow (InstallWindow):
         
 	isys.makeDevInode(drive, '/tmp/' + drive)
 
+
         if zvt.forkpty() == 0:
-            os.execv (path, (path, '/tmp/' + drive))
+            lang = self.ics.getICW().locale
+            env = os.environ
+            if lang[:2] == "ja":
+                env["LC_ALL"] = "C"
+                env["LANG"] = "C"
+            os.execve (path, (path, '/tmp/' + drive), env)
         zvt.show ()
 
         self.windowContainer.remove (self.buttonBox)
