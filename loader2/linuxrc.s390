@@ -51,6 +51,7 @@ startinetd()
 		echo
 		echo $"Please connect now to $IPADDR and start 'loader' from this shell."
       ls -l /bin/sh | grep -q bash && /bin/sh --login || /bin/sh -l
+		[ $? = 0 ] || break
 	done
 }
 
