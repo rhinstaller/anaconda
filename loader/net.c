@@ -141,12 +141,7 @@ static void ipCallback(newtComponent co, void * dptr) {
 	if (strlen(data->ip) && !strlen(data->nm)) {
 	    if (inet_aton(data->ip, &ipaddr)) {
 		ipaddr.s_addr = ntohl(ipaddr.s_addr);
-		if (((ipaddr.s_addr & 0xFF000000) >> 24) <= 127)
-		    ascii = "255.0.0.0";
-		else if (((ipaddr.s_addr & 0xFF000000) >> 24) <= 191)
-		    ascii = "255.255.0.0";
-		else 
-		    ascii = "255.255.255.0";
+		ascii = "255.255.255.0";
 		newtEntrySet(data->nmEntry, ascii, 1);
 	    }
 	}
@@ -213,12 +208,7 @@ static void fillInIpInfo(struct networkDeviceConfig * cfg) {
     if (!(cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)) {
 	i = (int32 *) &cfg->dev.ip;
 
-	if (((*i & 0xFF000000) >> 24) <= 127)
-	    nm = "255.0.0.0";
-	else if (((*i & 0xFF000000) >> 24) <= 191)
-	    nm = "255.255.0.0";
-	else 
-	    nm = "255.255.255.0";
+	nm = "255.255.255.0";
 
 	inet_aton(nm, &cfg->dev.netmask);
 	cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
