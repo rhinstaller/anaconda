@@ -1728,22 +1728,20 @@ msgid "Unallocated Partitions Exist..."
 msgstr "Существуют нераспределенные разделы..."
 
 #: ../libfdisk/gnomefsedit.c:2952
-#, fuzzy
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
-"Для продолжения установки необходимо назначить корневому (/) разделу тип "
-"Linux Native (ext2)."
+"Вы должны назначить назначить корневой (/) раздел на раздел Linux native "
+"(ext2) или раздел RAID для продолжения инсталляции."
 
 #: ../libfdisk/gnomefsedit.c:2966 ../libfdisk/gnomefsedit.c:2979
-#, fuzzy
 msgid ""
 "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
 "or a RAID-1 partition for the install to proceed."
 msgstr ""
-"Для продолжения установки необходимо назначить корневому (/) разделу тип "
-"Linux Native (ext2)."
+"Вы должны назначить загрузочный (/boot) раздел на раздел Linux native "
+"(ext2)или раздел RAID-1 для продолжения инсталляции."
 
 #: ../libfdisk/gnomefsedit.c:2994
 msgid ""
@@ -1751,8 +1749,9 @@ msgid ""
 "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
 "RAID-1 partition for the install to proceed."
 msgstr ""
-"Для продолжения установки необходимо назначить корневому (/) разделу тип "
-"Linux Native (ext2)."
+"Поскольку вы назначили корневой раздел (/) на устройство RAID, вы должны "
+"также назначть загрузочный раздел (boot) на раздел Linux native (ext2) или "
+"на раздел RAID-1 для продолжения инсталляции."
 
 #: ../libfdisk/gnomefsedit.c:3067
 msgid "Partitions"
@@ -1887,7 +1886,6 @@ msgid "Devices"
 msgstr "Устройства"
 
 #: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
-#, fuzzy
 msgid "Kickstart Error"
 msgstr "Ошибка Kickstart"
 
@@ -2156,7 +2154,6 @@ msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
 #: ../loader/net.c:698
-#, fuzzy
 msgid "Network configuration"
 msgstr "Конфигурация сети"
 
