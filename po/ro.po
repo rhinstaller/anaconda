@@ -3,13 +3,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sndconfig 3.0\n"
-"POT-Creation-Date: 2000-06-30 14:48-0400\n"
+"POT-Creation-Date: 2000-07-15 15:36-0400\n"
 "PO-Revision-Date: 2000-02-21 19:27-05:00\n"
 "Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8-bit\n"
+
+#: ../comps.py:441
+#, fuzzy
+msgid "Everything"
+msgstr "Cãutare"
+
+#: ../exception.py:13 ../text.py:768
+msgid "Exception Occurred"
+msgstr ""
 
 #: ../fstab.py:363 ../fstab.py:576 ../fstab.py:586 ../fstab.py:610
 msgid "Formatting"
@@ -20,16 +29,16 @@ msgstr "Formatare sistem fiºiere"
 msgid "Formatting swap space on /dev/%s..."
 msgstr "Formatare spaþiu pentru memoria swap în partiþia /dev/%s..."
 
-#: ../fstab.py:374 ../fstab.py:459 ../fstab.py:665 ../image.py:66
-#: ../libfdisk/newtfsedit.c:1694 ../loader/devices.c:229
-#: ../loader/devices.c:236 ../loader/devices.c:394 ../loader/devices.c:439
-#: ../loader/devices.c:459 ../loader/lang.c:90 ../loader/loader.c:501
-#: ../loader/loader.c:511 ../loader/loader.c:749 ../loader/loader.c:846
-#: ../loader/loader.c:1016 ../loader/loader.c:1021 ../loader/loader.c:1942
-#: ../loader/loader.c:1988 ../loader/loader.c:2059 ../loader/urls.c:72
+#: ../fstab.py:374 ../fstab.py:459 ../fstab.py:665 ../image.py:73
+#: ../libfdisk/newtfsedit.c:1701 ../loader/devices.c:232
+#: ../loader/devices.c:239 ../loader/devices.c:397 ../loader/devices.c:442
+#: ../loader/devices.c:462 ../loader/lang.c:90 ../loader/loader.c:504
+#: ../loader/loader.c:514 ../loader/loader.c:752 ../loader/loader.c:852
+#: ../loader/loader.c:1022 ../loader/loader.c:1027 ../loader/loader.c:1958
+#: ../loader/loader.c:2004 ../loader/loader.c:2075 ../loader/urls.c:72
 #: ../loader/urls.c:81 ../loader/urls.c:88 ../loader/urls.c:227
 #: ../loader/urls.c:232 ../text.py:234 ../textw/bootdisk_text.py:69
-#: ../todo.py:788 ../todo.py:816 ../todo.py:869
+#: ../todo.py:811 ../todo.py:839 ../todo.py:892
 msgid "Error"
 msgstr "Eroare"
 
@@ -42,7 +51,7 @@ msgstr "Eroare la activarea memoriei swap pe partiþia "
 msgid "Error unmounting %s: %s"
 msgstr "Eroare la deactivarea %s: %s"
 
-#: ../fstab.py:506 ../todo.py:488
+#: ../fstab.py:506 ../todo.py:495
 msgid "Creating"
 msgstr "Creare"
 
@@ -69,22 +78,28 @@ msgstr "Creare sistem de fiºiere pe /dev/%s (loopback)..."
 msgid "Error mounting %s: %s"
 msgstr "Eroare la activarea %s: %s"
 
-#: ../gui.py:139
+#: ../gui.py:142
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report at "
 "http://bugzilla.redhat.com/bugzilla"
 msgstr ""
 
-#: ../gui.py:329 ../gui.py:569
+#: ../gui.py:271 ../text.py:783
+msgid ""
+"Please insert a floppy now. All contents of the disk will be erased, so "
+"please choose your diskette carefully."
+msgstr ""
+
+#: ../gui.py:361 ../gui.py:601
 msgid "Next"
 msgstr "Înainte"
 
-#: ../gui.py:330 ../gui.py:568 ../libfdisk/newtfsedit.c:1431
-#: ../libfdisk/newtfsedit.c:1439 ../loader/cdrom.c:34 ../loader/devices.c:87
-#: ../loader/devices.c:209 ../loader/devices.c:296 ../loader/lang.c:569
-#: ../loader/loader.c:274 ../loader/loader.c:653 ../loader/loader.c:690
-#: ../loader/loader.c:846 ../loader/loader.c:938 ../loader/loader.c:1324
+#: ../gui.py:362 ../gui.py:600 ../libfdisk/newtfsedit.c:1438
+#: ../libfdisk/newtfsedit.c:1446 ../loader/cdrom.c:34 ../loader/devices.c:89
+#: ../loader/devices.c:211 ../loader/devices.c:299 ../loader/lang.c:569
+#: ../loader/loader.c:277 ../loader/loader.c:656 ../loader/loader.c:693
+#: ../loader/loader.c:852 ../loader/loader.c:944 ../loader/loader.c:1330
 #: ../loader/net.c:164 ../loader/net.c:249 ../loader/net.c:334
 #: ../loader/urls.c:149 ../loader/urls.c:370 ../text.py:57 ../text.py:68
 #: ../text.py:109 ../text.py:112 ../text.py:182 ../text.py:237 ../text.py:255
@@ -100,7 +115,7 @@ msgstr "Înainte"
 #: ../textw/packages_text.py:54 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/packages_text.py:353
 #: ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65
-#: ../textw/partitioning_text.py:257 ../textw/partitioning_text.py:307
+#: ../textw/partitioning_text.py:257 ../textw/partitioning_text.py:309
 #: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
 #: ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:165 ../textw/userauth_text.py:196
@@ -108,106 +123,106 @@ msgstr "Înainte"
 msgid "Back"
 msgstr "Înapoi"
 
-#: ../gui.py:331 ../gui.py:573
+#: ../gui.py:363 ../gui.py:605
 msgid "Show Help"
 msgstr "Explicaþii >>>"
 
-#: ../gui.py:332 ../gui.py:572
+#: ../gui.py:364 ../gui.py:604
 msgid "Hide Help"
 msgstr "<<< Explicaþii"
 
-#: ../gui.py:333 ../gui.py:571
+#: ../gui.py:365 ../gui.py:603
 msgid "Finish"
 msgstr "Finalizare"
 
-#: ../gui.py:336 ../gui.py:599
+#: ../gui.py:368 ../gui.py:631
 msgid "Online Help"
 msgstr "Detalii instalare"
 
-#: ../gui.py:337 ../iw/language_gui.py:10 ../text.py:62 ../text.py:852
+#: ../gui.py:369 ../iw/language_gui.py:10 ../text.py:62 ../text.py:852
 #: ../text.py:881
 msgid "Language Selection"
 msgstr "Selecþie limbã de instalare"
 
-#: ../gui.py:535
+#: ../gui.py:567
 msgid "Red Hat Linux Installer"
 msgstr "Program de Instalare Red Hat Linux"
 
-#: ../gui.py:539
+#: ../gui.py:571
 msgid "Red Hat Linux Install Shell"
 msgstr "Shell Instalare Red Hat Linux"
 
-#: ../gui.py:550
+#: ../gui.py:582
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Program de Instalare Red Hat Linux pe %s"
 
-#: ../gui.py:551
+#: ../gui.py:583
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Shell de Instalare Red Hat Linux pe %s"
 
-#: ../gui.py:646
+#: ../gui.py:678
 #, fuzzy
 msgid "Install Window"
 msgstr "Instalare"
 
-#: ../image.py:33
+#: ../image.py:40
 msgid "Copying File"
 msgstr ""
 
-#: ../image.py:34
+#: ../image.py:41
 msgid "Transferring install image to hard drive..."
 msgstr ""
 
-#: ../image.py:51
+#: ../image.py:58
 #, fuzzy
 msgid "Change CDROM"
 msgstr "Alt tip de CDROM"
 
-#: ../image.py:52
+#: ../image.py:59
 #, c-format
 msgid "Please insert disc %d to continue."
 msgstr ""
 
-#: ../image.py:61
+#: ../image.py:68
 #, fuzzy
 msgid "Wrong CDROM"
 msgstr "Alt tip de CDROM"
 
-#: ../image.py:62
+#: ../image.py:69
 msgid "That's not the correct Red Hat CDROM."
 msgstr ""
 
-#: ../image.py:67
+#: ../image.py:74
 msgid "The CDROM could not be mounted."
 msgstr ""
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:978
-#: ../libfdisk/fsedit.c:987 ../libfdisk/fsedit.c:1014
-#: ../libfdisk/fsedit.c:1027 ../libfdisk/fsedit.c:1037
-#: ../libfdisk/fsedit.c:1066 ../libfdisk/fsedit.c:1076
-#: ../libfdisk/fsedit.c:1093 ../libfdisk/fsedit.c:1502
-#: ../libfdisk/gnomefsedit.c:780 ../libfdisk/gnomefsedit.c:815
-#: ../libfdisk/gnomefsedit.c:1163 ../libfdisk/gnomefsedit.c:1200
-#: ../libfdisk/gnomefsedit.c:1234 ../libfdisk/gnomefsedit.c:1253
-#: ../libfdisk/gnomefsedit.c:1407 ../libfdisk/gnomefsedit.c:1482
-#: ../libfdisk/gnomefsedit.c:1582 ../libfdisk/gnomefsedit.c:1600
-#: ../libfdisk/gnomefsedit.c:1880 ../libfdisk/gnomefsedit.c:1889
-#: ../libfdisk/gnomefsedit.c:2127 ../libfdisk/gnomefsedit.c:2135
-#: ../libfdisk/gnomefsedit.c:2179 ../libfdisk/gnomefsedit.c:2189
-#: ../libfdisk/gnomefsedit.c:2196 ../libfdisk/gnomefsedit.c:2211
-#: ../libfdisk/gnomefsedit.c:2220 ../libfdisk/gnomefsedit.c:2229
-#: ../libfdisk/gnomefsedit.c:2268 ../libfdisk/gnomefsedit.c:2397
-#: ../libfdisk/gnomefsedit.c:2439 ../libfdisk/newtfsedit.c:168
-#: ../libfdisk/newtfsedit.c:337 ../libfdisk/newtfsedit.c:565
-#: ../libfdisk/newtfsedit.c:627 ../libfdisk/newtfsedit.c:660
-#: ../libfdisk/newtfsedit.c:686 ../libfdisk/newtfsedit.c:705
-#: ../libfdisk/newtfsedit.c:803 ../libfdisk/newtfsedit.c:1431
-#: ../libfdisk/newtfsedit.c:1439 ../libfdisk/newtfsedit.c:1564
-#: ../libfdisk/newtfsedit.c:1585 ../libfdisk/newtfsedit.c:1611
-#: ../libfdisk/newtfsedit.c:1694 ../loader/urls.c:72 ../loader/urls.c:81
+#: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
+#: ../libfdisk/fsedit.c:988 ../libfdisk/fsedit.c:1015
+#: ../libfdisk/fsedit.c:1028 ../libfdisk/fsedit.c:1038
+#: ../libfdisk/fsedit.c:1067 ../libfdisk/fsedit.c:1077
+#: ../libfdisk/fsedit.c:1094 ../libfdisk/fsedit.c:1503
+#: ../libfdisk/gnomefsedit.c:777 ../libfdisk/gnomefsedit.c:812
+#: ../libfdisk/gnomefsedit.c:1160 ../libfdisk/gnomefsedit.c:1197
+#: ../libfdisk/gnomefsedit.c:1231 ../libfdisk/gnomefsedit.c:1250
+#: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/gnomefsedit.c:1479
+#: ../libfdisk/gnomefsedit.c:1579 ../libfdisk/gnomefsedit.c:1597
+#: ../libfdisk/gnomefsedit.c:1877 ../libfdisk/gnomefsedit.c:1886
+#: ../libfdisk/gnomefsedit.c:2124 ../libfdisk/gnomefsedit.c:2132
+#: ../libfdisk/gnomefsedit.c:2176 ../libfdisk/gnomefsedit.c:2186
+#: ../libfdisk/gnomefsedit.c:2193 ../libfdisk/gnomefsedit.c:2208
+#: ../libfdisk/gnomefsedit.c:2217 ../libfdisk/gnomefsedit.c:2226
+#: ../libfdisk/gnomefsedit.c:2265 ../libfdisk/gnomefsedit.c:2394
+#: ../libfdisk/gnomefsedit.c:2436 ../libfdisk/newtfsedit.c:168
+#: ../libfdisk/newtfsedit.c:344 ../libfdisk/newtfsedit.c:572
+#: ../libfdisk/newtfsedit.c:634 ../libfdisk/newtfsedit.c:667
+#: ../libfdisk/newtfsedit.c:693 ../libfdisk/newtfsedit.c:712
+#: ../libfdisk/newtfsedit.c:810 ../libfdisk/newtfsedit.c:1438
+#: ../libfdisk/newtfsedit.c:1446 ../libfdisk/newtfsedit.c:1571
+#: ../libfdisk/newtfsedit.c:1592 ../libfdisk/newtfsedit.c:1618
+#: ../libfdisk/newtfsedit.c:1701 ../loader/urls.c:72 ../loader/urls.c:81
 #: ../loader/urls.c:88 ../loader/urls.c:238 ../text.py:57 ../text.py:59
 #: ../text.py:404 ../textw/constants_text.py:10 ../textw/lilo_text.py:117
 #: ../textw/lilo_text.py:202 ../textw/mouse_text.py:27
@@ -229,17 +244,17 @@ msgstr "Tip tastaturã"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Ce tip de tastaturã este conectatã la acest calculator?"
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:86 ../loader/devices.c:208
-#: ../loader/devices.c:229 ../loader/devices.c:236 ../loader/devices.c:296
-#: ../loader/devices.c:394 ../loader/devices.c:439 ../loader/devices.c:459
-#: ../loader/devices.c:487 ../loader/kickstart.c:57 ../loader/kickstart.c:67
-#: ../loader/kickstart.c:106 ../loader/lang.c:90 ../loader/lang.c:282
-#: ../loader/lang.c:569 ../loader/loader.c:274 ../loader/loader.c:501
-#: ../loader/loader.c:511 ../loader/loader.c:690 ../loader/loader.c:749
-#: ../loader/loader.c:846 ../loader/loader.c:938 ../loader/loader.c:1016
-#: ../loader/loader.c:1021 ../loader/loader.c:1065 ../loader/loader.c:1074
-#: ../loader/loader.c:1324 ../loader/loader.c:1942 ../loader/loader.c:1988
-#: ../loader/loader.c:2051 ../loader/loader.c:2059 ../loader/net.c:164
+#: ../loader/cdrom.c:34 ../loader/devices.c:88 ../loader/devices.c:210
+#: ../loader/devices.c:232 ../loader/devices.c:239 ../loader/devices.c:299
+#: ../loader/devices.c:397 ../loader/devices.c:442 ../loader/devices.c:462
+#: ../loader/devices.c:490 ../loader/kickstart.c:58 ../loader/kickstart.c:68
+#: ../loader/kickstart.c:107 ../loader/lang.c:90 ../loader/lang.c:282
+#: ../loader/lang.c:569 ../loader/loader.c:277 ../loader/loader.c:504
+#: ../loader/loader.c:514 ../loader/loader.c:693 ../loader/loader.c:752
+#: ../loader/loader.c:852 ../loader/loader.c:944 ../loader/loader.c:1022
+#: ../loader/loader.c:1027 ../loader/loader.c:1071 ../loader/loader.c:1080
+#: ../loader/loader.c:1330 ../loader/loader.c:1958 ../loader/loader.c:2004
+#: ../loader/loader.c:2067 ../loader/loader.c:2075 ../loader/net.c:164
 #: ../loader/net.c:249 ../loader/net.c:334 ../loader/net.c:643
 #: ../loader/net.c:676 ../loader/urls.c:149 ../loader/urls.c:227
 #: ../loader/urls.c:232 ../loader/urls.c:370 ../text.py:109 ../text.py:182
@@ -253,8 +268,8 @@ msgstr "Ce tip de tastaturã este conectatã la acest calculator?"
 #: ../textw/network_text.py:141 ../textw/packages_text.py:54
 #: ../textw/packages_text.py:88 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/partitioning_text.py:257
-#: ../textw/partitioning_text.py:307 ../textw/partitioning_text.py:318
-#: ../textw/partitioning_text.py:326 ../textw/partitioning_text.py:333
+#: ../textw/partitioning_text.py:309 ../textw/partitioning_text.py:320
+#: ../textw/partitioning_text.py:328 ../textw/partitioning_text.py:335
 #: ../textw/silo_text.py:25 ../textw/silo_text.py:99
 #: ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:44 ../textw/userauth_text.py:49
@@ -305,26 +320,26 @@ msgstr ""
 "satisfacerea dependinþelor acestora au fost selectate pentru instalare. "
 "Doriþi sã modificaþi setul de pachete care vor fi actualizate?"
 
-#: ../iw/welcome_gui.py:88 ../libfdisk/fsedit.c:995
-#: ../libfdisk/gnomefsedit.c:730 ../libfdisk/gnomefsedit.c:1138
-#: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/gnomefsedit.c:2321
-#: ../libfdisk/gnomefsedit.c:2603 ../libfdisk/gnomefsedit.c:2656
-#: ../libfdisk/newtfsedit.c:603 ../libfdisk/newtfsedit.c:829
-#: ../libfdisk/newtfsedit.c:1632 ../libfdisk/newtfsedit.c:1650
-#: ../libfdisk/newtfsedit.c:1735 ../loader/devices.c:201
-#: ../loader/loader.c:653 ../loader/net.c:810 ../text.py:277
+#: ../iw/welcome_gui.py:88 ../libfdisk/fsedit.c:996
+#: ../libfdisk/gnomefsedit.c:727 ../libfdisk/gnomefsedit.c:1135
+#: ../libfdisk/gnomefsedit.c:1276 ../libfdisk/gnomefsedit.c:2318
+#: ../libfdisk/gnomefsedit.c:2600 ../libfdisk/gnomefsedit.c:2653
+#: ../libfdisk/newtfsedit.c:610 ../libfdisk/newtfsedit.c:836
+#: ../libfdisk/newtfsedit.c:1639 ../libfdisk/newtfsedit.c:1657
+#: ../libfdisk/newtfsedit.c:1742 ../loader/devices.c:203
+#: ../loader/loader.c:656 ../loader/net.c:810 ../text.py:277
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:218
 msgid "Yes"
 msgstr "Da"
 
-#: ../iw/welcome_gui.py:91 ../libfdisk/fsedit.c:995
-#: ../libfdisk/gnomefsedit.c:730 ../libfdisk/gnomefsedit.c:1138
-#: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/gnomefsedit.c:2321
-#: ../libfdisk/gnomefsedit.c:2603 ../libfdisk/gnomefsedit.c:2656
-#: ../libfdisk/newtfsedit.c:603 ../libfdisk/newtfsedit.c:829
-#: ../libfdisk/newtfsedit.c:1632 ../libfdisk/newtfsedit.c:1650
-#: ../libfdisk/newtfsedit.c:1735 ../loader/devices.c:202 ../loader/net.c:810
+#: ../iw/welcome_gui.py:91 ../libfdisk/fsedit.c:996
+#: ../libfdisk/gnomefsedit.c:727 ../libfdisk/gnomefsedit.c:1135
+#: ../libfdisk/gnomefsedit.c:1276 ../libfdisk/gnomefsedit.c:2318
+#: ../libfdisk/gnomefsedit.c:2600 ../libfdisk/gnomefsedit.c:2653
+#: ../libfdisk/newtfsedit.c:610 ../libfdisk/newtfsedit.c:836
+#: ../libfdisk/newtfsedit.c:1639 ../libfdisk/newtfsedit.c:1657
+#: ../libfdisk/newtfsedit.c:1742 ../loader/devices.c:204 ../loader/net.c:810
 #: ../text.py:277 ../text.py:283 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
 #: ../textw/partitioning_text.py:218
@@ -373,10 +388,10 @@ msgstr ""
 "Pentru a ieºi din acest program fãrã a schimba nimic selectaþi butonul de "
 "Abandon de mai jos."
 
-#: ../libfdisk/gnomefsedit.c:815 ../libfdisk/gnomefsedit.c:1889
-#: ../libfdisk/gnomefsedit.c:2439 ../libfdisk/newtfsedit.c:566
-#: ../libfdisk/newtfsedit.c:1650 ../loader/devices.c:209
-#: ../loader/devices.c:487 ../loader/loader.c:2051 ../text.py:320
+#: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:1886
+#: ../libfdisk/gnomefsedit.c:2436 ../libfdisk/newtfsedit.c:573
+#: ../libfdisk/newtfsedit.c:1657 ../loader/devices.c:211
+#: ../loader/devices.c:490 ../loader/loader.c:2067 ../text.py:320
 #: ../text.py:323 ../text.py:785 ../text.py:787 ../textw/lilo_text.py:118
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:154
 #: ../textw/userauth_text.py:63
@@ -530,26 +545,16 @@ msgstr ""
 msgid "No help is available for this install."
 msgstr ""
 
-#: ../text.py:768
-msgid "Exception Occurred"
-msgstr ""
-
 #: ../text.py:782
 msgid "Save Crash Dump"
 msgstr ""
 
-#: ../text.py:783
-msgid ""
-"Please insert a floppy now. All contents of the disk will be erased, so "
-"please choose your diskette carefully."
-msgstr ""
-
 #: ../text.py:793
 msgid ""
-"An internal error occured in the installation program. Please report this "
+"An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
 "possible. The information on this failure may be saved to a floppy disk, and "
-"will help Red hat in fixing the problem.\n"
+"will help Red Hat in fixing the problem.\n"
 "\n"
 msgstr ""
 
@@ -624,7 +629,7 @@ msgstr "Configurare SILO"
 msgid "LILO Configuration"
 msgstr "Configurare LILO"
 
-#: ../iw/lilo_gui.py:184 ../iw/lilo_gui.py:312 ../iw/silo_gui.py:127
+#: ../iw/lilo_gui.py:188 ../iw/lilo_gui.py:316 ../iw/silo_gui.py:127
 #: ../iw/silo_gui.py:279 ../text.py:904 ../text.py:910
 msgid "Partition"
 msgstr "Partiþionare"
@@ -637,7 +642,7 @@ msgstr "Partiþionare manualã"
 msgid "Automatic Partition"
 msgstr "Partiþionare automatã"
 
-#: ../text.py:912 ../textw/partitioning_text.py:299
+#: ../text.py:912 ../textw/partitioning_text.py:301
 msgid "Root Filesystem Size"
 msgstr "Marime Root Filesystem"
 
@@ -665,7 +670,7 @@ msgstr "Selectaþi Aplicaþiile Dorite"
 msgid "Package Dependencies"
 msgstr "Dependinþe Nerezolvate"
 
-#: ../iw/xconfig_gui.py:250 ../text.py:946 ../text.py:954
+#: ../iw/xconfig_gui.py:252 ../text.py:946 ../text.py:954
 msgid "X Configuration"
 msgstr "Configurare X Windows"
 
@@ -714,88 +719,88 @@ msgstr "Abandonat"
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Nu se poate sãri la o etapã anterioarã de aici. Încercaþi din nou."
 
-#: ../todo.py:488
+#: ../todo.py:495
 msgid "Creating boot disk..."
 msgstr "Creare disk boot..."
 
-#: ../todo.py:507
+#: ../todo.py:514
 msgid "Reading"
 msgstr "Citire"
 
-#: ../todo.py:508
+#: ../todo.py:515
 msgid "Reading package information..."
 msgstr "Se încarcã informaþiile despre pachete..."
 
-#: ../todo.py:695
+#: ../todo.py:702
 msgid "Dependency Check"
 msgstr ""
 
-#: ../todo.py:696
+#: ../todo.py:703
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 
-#: ../todo.py:723 ../todo.py:746 ../todo.py:752 ../todo.py:769
+#: ../todo.py:730 ../todo.py:769 ../todo.py:775 ../todo.py:792
 msgid "no suggestion"
 msgstr "nici o sugestie"
 
-#: ../todo.py:777
+#: ../todo.py:800
 msgid "Searching"
 msgstr "Cãutare"
 
-#: ../todo.py:778
+#: ../todo.py:801
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Se încearcã detectarea instalãrilor precedente de Linux..."
 
-#: ../todo.py:789 ../todo.py:817
+#: ../todo.py:812 ../todo.py:840
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "Eroare la activarea filesuystem de tip ext2 pe %s: %s"
 
-#: ../todo.py:827
+#: ../todo.py:850
 msgid "Finding"
 msgstr "Incãrcare"
 
-#: ../todo.py:828
+#: ../todo.py:851
 msgid "Finding packages to upgrade..."
 msgstr "Determinare pachete pentru actualizare..."
 
-#: ../todo.py:839
+#: ../todo.py:862
 msgid ""
 "One or more of the filesystems for your Linux system was not unmounted "
 "cleanly. Please boot your Linux installation, let the filesystems be "
 "checked, and shut down cleanly to upgrade."
 msgstr ""
 
-#: ../todo.py:849
+#: ../todo.py:872
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
 
-#: ../todo.py:870
+#: ../todo.py:893
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Reconstructia bazei de date RPM a esuat. Aveti destul spatiu pe hard disc?"
 
-#: ../todo.py:1168
+#: ../todo.py:1215
 msgid "Processing"
 msgstr "Procesare"
 
-#: ../todo.py:1169
+#: ../todo.py:1216
 msgid "Preparing to install..."
 msgstr "Pregãtire pentru instalare..."
 
-#: ../todo.py:1422
+#: ../todo.py:1470
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Actualizare pachet %s.\n"
 
-#: ../todo.py:1424
+#: ../todo.py:1472
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Instalare %s.\n"
 
-#: ../todo.py:1445
+#: ../todo.py:1493
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -806,55 +811,55 @@ msgstr ""
 "urmatoarele sisteme de fisiere:\n"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:2978 ../todo.py:1448
+#: ../libfdisk/gnomefsedit.c:2975 ../todo.py:1496
 msgid "Mount Point"
 msgstr "Mount Point"
 
-#: ../todo.py:1448
+#: ../todo.py:1496
 msgid "Space Needed"
 msgstr "Spaþiu necesar"
 
-#: ../todo.py:1461
+#: ../todo.py:1509
 msgid "Disk Space"
 msgstr "Spaþiu pe Disc"
 
-#: ../todo.py:1485
+#: ../todo.py:1542
 msgid "Post Install"
 msgstr "Post Instalare"
 
-#: ../todo.py:1486
+#: ../todo.py:1543
 msgid "Performing post install configuration..."
 msgstr "Se ruleazã procesul de configurare post-instalare..."
 
-#: ../iw/xconfig_gui.py:10 ../xf86config.py:831
+#: ../iw/xconfig_gui.py:10 ../xf86config.py:833
 msgid "Video Card"
 msgstr "Placã video"
 
-#: ../iw/xconfig_gui.py:12 ../xf86config.py:833
+#: ../iw/xconfig_gui.py:12 ../xf86config.py:835
 msgid "Video Ram"
 msgstr "Memorie Video"
 
-#: ../xf86config.py:835
+#: ../xf86config.py:837
 msgid "X server"
 msgstr "X Server"
 
-#: ../xf86config.py:837
+#: ../xf86config.py:839
 msgid "Unable to detect video card"
 msgstr "Nu s-a putut detecta placa video"
 
-#: ../iw/xconfig_gui.py:11 ../xf86config.py:844 ../xf86config.py:846
+#: ../iw/xconfig_gui.py:11 ../xf86config.py:846 ../xf86config.py:848
 msgid "Monitor"
 msgstr "Monitor"
 
-#: ../xf86config.py:846
+#: ../xf86config.py:848
 msgid "Plug and Play Monitor"
 msgstr "Monitor Plug and Play"
 
-#: ../xf86config.py:848
+#: ../xf86config.py:850
 msgid "Horizontal frequency range"
 msgstr "Domeniul frecvenþelor orizontale"
 
-#: ../xf86config.py:850
+#: ../xf86config.py:852
 msgid "Vertical frequency range"
 msgstr "Domeniul frecvenþelor verticale"
 
@@ -939,20 +944,20 @@ msgstr "Parola (din nou)"
 msgid "Full Name"
 msgstr "Nume Complet"
 
-#: ../iw/account_gui.py:270 ../libfdisk/newtfsedit.c:1437
+#: ../iw/account_gui.py:270 ../libfdisk/newtfsedit.c:1444
 #: ../textw/userauth_text.py:195
 msgid "Add"
 msgstr "Adãugare"
 
-#: ../iw/account_gui.py:272 ../libfdisk/newtfsedit.c:1430
-#: ../libfdisk/newtfsedit.c:1438 ../textw/lilo_text.py:202
+#: ../iw/account_gui.py:272 ../libfdisk/newtfsedit.c:1437
+#: ../libfdisk/newtfsedit.c:1445 ../textw/lilo_text.py:202
 #: ../textw/lilo_text.py:228 ../textw/partitioning_text.py:64
 #: ../textw/silo_text.py:205 ../textw/silo_text.py:227
 #: ../textw/userauth_text.py:196
 msgid "Edit"
 msgstr "Editare"
 
-#: ../iw/account_gui.py:274 ../libfdisk/newtfsedit.c:1438
+#: ../iw/account_gui.py:274 ../libfdisk/newtfsedit.c:1445
 #: ../textw/userauth_text.py:195
 msgid "Delete"
 msgstr "ªtergere"
@@ -1103,7 +1108,7 @@ msgstr "Dependinþe nerezolvate"
 msgid "Total install size: %s"
 msgstr ""
 
-#: ../iw/dependencies_gui.py:68 ../iw/progress_gui.py:154
+#: ../iw/dependencies_gui.py:68 ../iw/progress_gui.py:161
 #: ../textw/packages_text.py:312
 msgid "Package"
 msgstr "Pachet"
@@ -1211,57 +1216,57 @@ msgstr "Ce limbã trebuie folositã în timpul rulãrii programului de instalare?"
 msgid "Lilo Configuration"
 msgstr "Configurare LILO"
 
-#: ../iw/lilo_gui.py:187 ../iw/lilo_gui.py:313 ../iw/silo_gui.py:132
-#: ../iw/silo_gui.py:280 ../libfdisk/gnomefsedit.c:2982
+#: ../iw/lilo_gui.py:191 ../iw/lilo_gui.py:317 ../iw/silo_gui.py:132
+#: ../iw/silo_gui.py:280 ../libfdisk/gnomefsedit.c:2979
 msgid "Type"
 msgstr "Tip"
 
-#: ../iw/lilo_gui.py:231
+#: ../iw/lilo_gui.py:235
 msgid "Install LILO boot record on:"
 msgstr "Unde doriþi sã fie instalat LILO:"
 
-#: ../iw/lilo_gui.py:238 ../iw/silo_gui.py:172 ../textw/silo_text.py:64
+#: ../iw/lilo_gui.py:242 ../iw/silo_gui.py:172 ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../iw/lilo_gui.py:242 ../iw/silo_gui.py:175 ../textw/silo_text.py:65
+#: ../iw/lilo_gui.py:246 ../iw/silo_gui.py:175 ../textw/silo_text.py:65
 msgid "First sector of boot partition"
 msgstr "Primul sector al partiþiei active"
 
-#: ../iw/lilo_gui.py:246 ../textw/lilo_text.py:24
+#: ../iw/lilo_gui.py:250 ../textw/lilo_text.py:24
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Folosiþi modul de acces linear (pentru unele discuri SCSI)"
 
-#: ../iw/lilo_gui.py:256 ../iw/silo_gui.py:207
+#: ../iw/lilo_gui.py:260 ../iw/silo_gui.py:207
 msgid "Kernel parameters"
 msgstr "Parametri pentru Kernel"
 
-#: ../iw/lilo_gui.py:273 ../iw/silo_gui.py:225
+#: ../iw/lilo_gui.py:277 ../iw/silo_gui.py:225
 msgid "Create boot disk"
 msgstr "Creare disc boot"
 
-#: ../iw/lilo_gui.py:277
+#: ../iw/lilo_gui.py:281
 msgid "Do not install LILO"
 msgstr "Fãrã instalare LILO"
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
+#: ../iw/lilo_gui.py:292 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
 #: ../textw/silo_text.py:196
 msgid "Default"
 msgstr "Implicit"
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:256 ../libfdisk/gnomefsedit.c:2979
+#: ../iw/lilo_gui.py:292 ../iw/silo_gui.py:256 ../libfdisk/gnomefsedit.c:2976
 #: ../textw/lilo_text.py:112 ../textw/lilo_text.py:193
 #: ../textw/mouse_text.py:25 ../textw/silo_text.py:131
 #: ../textw/silo_text.py:196
 msgid "Device"
 msgstr "Partiþie"
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
+#: ../iw/lilo_gui.py:292 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
 #: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "Tip partiþie"
 
-#: ../iw/lilo_gui.py:288 ../iw/lilo_gui.py:324 ../iw/silo_gui.py:256
+#: ../iw/lilo_gui.py:292 ../iw/lilo_gui.py:328 ../iw/silo_gui.py:256
 #: ../iw/silo_gui.py:291 ../textw/lilo_text.py:113 ../textw/lilo_text.py:193
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
@@ -1291,7 +1296,7 @@ msgstr "Adresã IP"
 msgid "Netmask"
 msgstr "Netmask"
 
-#: ../iw/network_gui.py:164 ../loader/loader.c:259
+#: ../iw/network_gui.py:164 ../loader/loader.c:262
 msgid "Network"
 msgstr "Network"
 
@@ -1357,39 +1362,39 @@ msgstr "Selectare Grupuri Aplicaþii"
 msgid "Select individual packages"
 msgstr "Selectaþi pachetele individuale"
 
-#: ../iw/progress_gui.py:29
+#: ../iw/progress_gui.py:35
 msgid "Installing Packages"
 msgstr "Instalare Aplicaþii"
 
-#: ../iw/progress_gui.py:155 ../iw/progress_gui.py:190
+#: ../iw/progress_gui.py:162 ../iw/progress_gui.py:197
 msgid "Size"
 msgstr "Mãrime"
 
-#: ../iw/progress_gui.py:156
+#: ../iw/progress_gui.py:163
 msgid "Summary"
 msgstr "Descriere"
 
-#: ../iw/progress_gui.py:190
+#: ../iw/progress_gui.py:197
 msgid "Status"
 msgstr "Progres Instalare"
 
-#: ../iw/progress_gui.py:190
+#: ../iw/progress_gui.py:197
 msgid "Packages"
 msgstr "Aplicaþii"
 
-#: ../iw/progress_gui.py:190
+#: ../iw/progress_gui.py:197
 msgid "Time"
 msgstr "Timp"
 
-#: ../iw/progress_gui.py:195
+#: ../iw/progress_gui.py:202
 msgid "Total"
 msgstr "Total"
 
-#: ../iw/progress_gui.py:196
+#: ../iw/progress_gui.py:203
 msgid "Completed"
 msgstr "Terminat"
 
-#: ../iw/progress_gui.py:197
+#: ../iw/progress_gui.py:204
 msgid "Remaining"
 msgstr "Rãmas"
 
@@ -1417,7 +1422,7 @@ msgstr ""
 "tabela de partiþii sã fie scrisã pe disk în acest moment. Doriþi ca noua "
 "tabelã de partiþii sã fie scrisã?"
 
-#: ../iw/rootpartition_gui.py:120 ../textw/partitioning_text.py:300
+#: ../iw/rootpartition_gui.py:120 ../textw/partitioning_text.py:302
 #, c-format
 msgid ""
 "You've chosen to put your root filesystem in a file on an already-existing "
@@ -1560,7 +1565,7 @@ msgstr "Plaja Frecvenþelor Verticale"
 msgid "Test failed"
 msgstr "Testul a eºuat"
 
-#: ../iw/xconfig_gui.py:23 ../iw/xconfig_gui.py:434
+#: ../iw/xconfig_gui.py:23 ../iw/xconfig_gui.py:436
 msgid "Customize X Configuration"
 msgstr "Personalizare configuraþie X Windows"
 
@@ -1568,7 +1573,7 @@ msgstr "Personalizare configuraþie X Windows"
 msgid "Bits per Pixel"
 msgstr "Biþi per pixel"
 
-#: ../iw/xconfig_gui.py:97 ../iw/xconfig_gui.py:429
+#: ../iw/xconfig_gui.py:97 ../iw/xconfig_gui.py:431
 msgid "Test this configuration"
 msgstr "Testeazã aceastã configuraþie"
 
@@ -1576,15 +1581,15 @@ msgstr "Testeazã aceastã configuraþie"
 msgid "Monitor Configuration"
 msgstr "Configurare Monitoare"
 
-#: ../iw/xconfig_gui.py:216
+#: ../iw/xconfig_gui.py:218
 msgid "Horizontal Sync"
 msgstr "Domeniul Frecvenþelor Orizontale"
 
-#: ../iw/xconfig_gui.py:225
+#: ../iw/xconfig_gui.py:227
 msgid "Vertical Sync"
 msgstr "Domeniul Frecvenþelor Verticale"
 
-#: ../iw/xconfig_gui.py:337
+#: ../iw/xconfig_gui.py:339
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -1592,7 +1597,7 @@ msgstr ""
 "Mãrimea memoriei video pentru aceastã placã nu poate fi detectatã în mod "
 "automat. Selectaþi mãrimea memoriei video din opþiunile de mai jos:"
 
-#: ../iw/xconfig_gui.py:348 ../iw/xconfig_gui.py:369
+#: ../iw/xconfig_gui.py:350 ../iw/xconfig_gui.py:371
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -1600,7 +1605,7 @@ msgstr ""
 "În cele mai multe cazuri placa video si monitorul pot fi autodetectatã "
 "pentru determinarea setãrilor optime în folosire."
 
-#: ../iw/xconfig_gui.py:357
+#: ../iw/xconfig_gui.py:359
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
@@ -1609,19 +1614,19 @@ msgstr ""
 "acestui calculator vã rugãm sã corectaþi configuraþia prin setãrile de mai "
 "jos:"
 
-#: ../iw/xconfig_gui.py:378
+#: ../iw/xconfig_gui.py:380
 msgid "Autoprobe results:"
 msgstr "Rrezultatele autodetecþiei"
 
-#: ../iw/xconfig_gui.py:438
+#: ../iw/xconfig_gui.py:440
 msgid "Use Graphical Login"
 msgstr "Porneºte automat modul grafic"
 
-#: ../iw/xconfig_gui.py:439
+#: ../iw/xconfig_gui.py:441
 msgid "Skip X Configuration"
 msgstr "Fãrã configurare X Windows"
 
-#: ../iw/xconfig_gui.py:486
+#: ../iw/xconfig_gui.py:488
 #, fuzzy
 msgid "Default Desktop:"
 msgstr "Implicit"
@@ -1868,7 +1873,7 @@ msgstr ""
 "unul din primele douã hard discuri din sistemul dumneavoastrã pentru a putea "
 "folosi LILO pentru lansarea sistemului Linux."
 
-#: ../loader/loader.c:324 ../loader/loader.c:349
+#: ../loader/loader.c:327 ../loader/loader.c:352
 #: ../textw/partitioning_text.py:64
 msgid "Done"
 msgstr "Gata"
@@ -1901,24 +1906,24 @@ msgstr "Verificare blocuri defecte la formatare"
 msgid "Choose Partitions to Format"
 msgstr "Alegaþi Partiþiile pentru Formatare"
 
-#: ../textw/partitioning_text.py:305
+#: ../textw/partitioning_text.py:307
 msgid "Root filesystem size"
 msgstr "Marimea Root filesystem"
 
-#: ../textw/partitioning_text.py:306
+#: ../textw/partitioning_text.py:308
 msgid "Swap space"
 msgstr "Memoria swap"
 
-#: ../textw/partitioning_text.py:316 ../textw/partitioning_text.py:322
-#: ../textw/partitioning_text.py:329
+#: ../textw/partitioning_text.py:318 ../textw/partitioning_text.py:324
+#: ../textw/partitioning_text.py:331
 msgid "Bad Size"
 msgstr "Mãrime Invalidã"
 
-#: ../textw/partitioning_text.py:317
+#: ../textw/partitioning_text.py:319
 msgid "The size you enter must be a number."
 msgstr "Mãrimea introdusã trebuie sã fie un numãr."
 
-#: ../textw/partitioning_text.py:323
+#: ../textw/partitioning_text.py:325
 #, c-format
 msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
@@ -1927,7 +1932,7 @@ msgstr ""
 "Mãrimea totalã trebuie sã fie mai micã decît spaþiul disponibil pe disc, "
 "care este de %d megabytes."
 
-#: ../textw/partitioning_text.py:330
+#: ../textw/partitioning_text.py:332
 msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
@@ -2109,22 +2114,22 @@ msgstr "sau folosiþi:"
 msgid "Request server via broadcast"
 msgstr "Detectare server prin broadcast"
 
-#: ../libfdisk/fsedit.c:447
+#: ../libfdisk/fsedit.c:448
 msgid "partitioning did not meet requirements"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:978
-#: ../libfdisk/fsedit.c:987 ../libfdisk/fsedit.c:1014
-#: ../libfdisk/fsedit.c:1027 ../libfdisk/fsedit.c:1037
+#: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
+#: ../libfdisk/fsedit.c:988 ../libfdisk/fsedit.c:1015
+#: ../libfdisk/fsedit.c:1028 ../libfdisk/fsedit.c:1038
 msgid "Bad Mount Point"
 msgstr "Director montare invalid"
 
-#: ../libfdisk/fsedit.c:965
+#: ../libfdisk/fsedit.c:966
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "Directorul %s trebuie sã fie pe root filesystem."
 
-#: ../libfdisk/fsedit.c:972
+#: ../libfdisk/fsedit.c:973
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2135,7 +2140,7 @@ msgstr ""
 "\n"
 "Directoarele încep cu caracterul /."
 
-#: ../libfdisk/fsedit.c:979
+#: ../libfdisk/fsedit.c:980
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2146,7 +2151,7 @@ msgstr ""
 "\n"
 "Directoarele nu se pot termina în caracterul /."
 
-#: ../libfdisk/fsedit.c:988
+#: ../libfdisk/fsedit.c:989
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2157,7 +2162,7 @@ msgstr ""
 "\n"
 "Directoarele trebuie sã conþinã numai caractere printabile."
 
-#: ../libfdisk/fsedit.c:996
+#: ../libfdisk/fsedit.c:997
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
@@ -2171,7 +2176,7 @@ msgstr ""
 "nefolosirea unui sistem de fiºiere ºi partiþii native Linux. Doriþi sã "
 "continuaþi?"
 
-#: ../libfdisk/fsedit.c:1015
+#: ../libfdisk/fsedit.c:1016
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2183,12 +2188,12 @@ msgstr ""
 "Partiþiile de sistem trebuie sa fie montate în directoare pe partiþii de tip "
 "Linux Native."
 
-#: ../libfdisk/fsedit.c:1028
+#: ../libfdisk/fsedit.c:1029
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1038
+#: ../libfdisk/fsedit.c:1039
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2200,11 +2205,11 @@ msgstr ""
 "Directorul /usr trebuie sa fie pe o partiþie de tip Linux Native sau montat "
 "prin NFS."
 
-#: ../libfdisk/fsedit.c:1066
+#: ../libfdisk/fsedit.c:1067
 msgid "Too Many Drives"
 msgstr "Prea multe discuri"
 
-#: ../libfdisk/fsedit.c:1067
+#: ../libfdisk/fsedit.c:1068
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
@@ -2214,23 +2219,23 @@ msgstr ""
 "rugãm sã folositi programul fdisk standard pentru a partiþiona discurile "
 "dumneavoastrã ºi notificaþi Red Hat Software cã aþi vãzut acest mesaj."
 
-#: ../libfdisk/fsedit.c:1076
+#: ../libfdisk/fsedit.c:1077
 #, fuzzy
 msgid "Error Creating Device Nodes"
 msgstr "Eroare la activarea memoriei swap pe partiþia "
 
-#: ../libfdisk/fsedit.c:1077
+#: ../libfdisk/fsedit.c:1078
 msgid ""
 "An error has occurred why trying to create device nodes for the hard drives "
 "in your system.  This may be because you have run out of disk space on the "
 "/tmp partition."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1093
+#: ../libfdisk/fsedit.c:1094
 msgid "No Drives Found"
 msgstr "Nu s-a identificat nici un disc"
 
-#: ../libfdisk/fsedit.c:1094
+#: ../libfdisk/fsedit.c:1095
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -2239,7 +2244,7 @@ msgstr ""
 "partitii ºi sisteme de fiºiere care sã conþinã Red Hat Linux. Verificaþi "
 "hardware-ul pentru posibile cauze ale acestei probleme."
 
-#: ../libfdisk/fsedit.c:1407 ../libfdisk/fsedit.c:1486
+#: ../libfdisk/fsedit.c:1408 ../libfdisk/fsedit.c:1487
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
@@ -2247,7 +2252,7 @@ msgid ""
 msgstr ""
 "Eroare la citirea tabelei de partiþii de pe discul %s. Mesajul de eroare este"
 
-#: ../libfdisk/fsedit.c:1463
+#: ../libfdisk/fsedit.c:1464
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -2257,27 +2262,27 @@ msgstr ""
 "aceasta trebuie initializatã, ceea ce va conduce la pierderea TUTUROR "
 "informaþiilor de pe acest disc."
 
-#: ../libfdisk/fsedit.c:1468
+#: ../libfdisk/fsedit.c:1469
 msgid "Bad Partition Table"
 msgstr "Tabela de Partiþii Invalidã"
 
-#: ../libfdisk/fsedit.c:1469
+#: ../libfdisk/fsedit.c:1470
 msgid "Initialize"
 msgstr "Iniþializare"
 
-#: ../libfdisk/fsedit.c:1469 ../libfdisk/fsedit.c:1490
+#: ../libfdisk/fsedit.c:1470 ../libfdisk/fsedit.c:1491
 msgid "Skip Drive"
 msgstr "Urmãtorul disc"
 
-#: ../libfdisk/fsedit.c:1490 ../loader/net.c:254 ../loader/net.c:379
+#: ../libfdisk/fsedit.c:1491 ../loader/net.c:254 ../loader/net.c:379
 msgid "Retry"
 msgstr "Încearcã din nou"
 
-#: ../libfdisk/fsedit.c:1502
+#: ../libfdisk/fsedit.c:1503
 msgid "BSD Disklabel"
 msgstr "BSD Disklabel"
 
-#: ../libfdisk/fsedit.c:1502
+#: ../libfdisk/fsedit.c:1503
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -2288,93 +2293,93 @@ msgstr ""
 "de instalare Custom ºi utilitarul fdisk (în loc de Disk Druid) pentru "
 "calculatoarele care au BSD disklabel instalat."
 
-#: ../libfdisk/fsedit.c:1532
+#: ../libfdisk/fsedit.c:1533
 #, c-format
 msgid "System error %d"
 msgstr "Eroare sistem %d"
 
-#: ../libfdisk/fsedit.c:1541 ../libfdisk/fsedit.c:1543
+#: ../libfdisk/fsedit.c:1542 ../libfdisk/fsedit.c:1544
 msgid "Fdisk Error"
 msgstr "Eroare fdisk"
 
-#: ../libfdisk/gnomefsedit.c:553 ../libfdisk/gnomefsedit.c:853
+#: ../libfdisk/gnomefsedit.c:550 ../libfdisk/gnomefsedit.c:850
 msgid "<Swap Partition>"
 msgstr "<Partiþie Swap>"
 
-#: ../libfdisk/gnomefsedit.c:561 ../libfdisk/gnomefsedit.c:855
+#: ../libfdisk/gnomefsedit.c:558 ../libfdisk/gnomefsedit.c:852
 msgid "<RAID Partition>"
 msgstr "<Partiþie RAID>"
 
-#: ../libfdisk/gnomefsedit.c:730 ../libfdisk/newtfsedit.c:829
+#: ../libfdisk/gnomefsedit.c:727 ../libfdisk/newtfsedit.c:836
 msgid "Delete Partition"
 msgstr "ªtergere partiþie"
 
-#: ../libfdisk/gnomefsedit.c:731 ../libfdisk/newtfsedit.c:830
+#: ../libfdisk/gnomefsedit.c:728 ../libfdisk/newtfsedit.c:837
 msgid "Are you sure you want to delete this partition?"
 msgstr "Sînteþi sigur cã doriþi sã ºtergeþi aceastã partiþie?"
 
-#: ../libfdisk/gnomefsedit.c:780 ../libfdisk/newtfsedit.c:337
+#: ../libfdisk/gnomefsedit.c:777 ../libfdisk/newtfsedit.c:344
 #, fuzzy
 msgid "Cannot Edit Partitions"
 msgstr "Editare partiþie"
 
-#: ../libfdisk/gnomefsedit.c:781 ../libfdisk/newtfsedit.c:338
+#: ../libfdisk/gnomefsedit.c:778 ../libfdisk/newtfsedit.c:345
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:799 ../libfdisk/gnomefsedit.c:805
-#: ../libfdisk/gnomefsedit.c:809 ../libfdisk/gnomefsedit.c:811
-#: ../libfdisk/newtfsedit.c:361 ../libfdisk/newtfsedit.c:367
-#: ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:373
+#: ../libfdisk/gnomefsedit.c:796 ../libfdisk/gnomefsedit.c:802
+#: ../libfdisk/gnomefsedit.c:806 ../libfdisk/gnomefsedit.c:808
+#: ../libfdisk/newtfsedit.c:368 ../libfdisk/newtfsedit.c:374
+#: ../libfdisk/newtfsedit.c:378 ../libfdisk/newtfsedit.c:380
 msgid "Edit Partition"
 msgstr "Editare partiþie"
 
-#: ../libfdisk/gnomefsedit.c:826 ../libfdisk/gnomefsedit.c:1898
-#: ../libfdisk/newtfsedit.c:382
+#: ../libfdisk/gnomefsedit.c:823 ../libfdisk/gnomefsedit.c:1895
+#: ../libfdisk/newtfsedit.c:389
 msgid "Mount Point:"
 msgstr "Mount Point:"
 
-#: ../libfdisk/gnomefsedit.c:868 ../libfdisk/newtfsedit.c:401
+#: ../libfdisk/gnomefsedit.c:865 ../libfdisk/newtfsedit.c:408
 msgid "Size (Megs):"
 msgstr "Mãrime (MB):"
 
-#: ../libfdisk/gnomefsedit.c:900
+#: ../libfdisk/gnomefsedit.c:897
 #, fuzzy
 msgid "Use remaining space?"
 msgstr "Folosire spaþiu liber"
 
-#: ../libfdisk/gnomefsedit.c:919 ../libfdisk/newtfsedit.c:433
+#: ../libfdisk/gnomefsedit.c:916 ../libfdisk/newtfsedit.c:440
 msgid "Allocation Status:"
 msgstr "Stare Alocare:"
 
-#: ../libfdisk/gnomefsedit.c:923 ../libfdisk/newtfsedit.c:435
+#: ../libfdisk/gnomefsedit.c:920 ../libfdisk/newtfsedit.c:442
 msgid "Successful"
 msgstr "Succes"
 
-#: ../libfdisk/gnomefsedit.c:926 ../libfdisk/newtfsedit.c:437
+#: ../libfdisk/gnomefsedit.c:923 ../libfdisk/newtfsedit.c:444
 msgid "Failed"
 msgstr "Eroare"
 
-#: ../libfdisk/gnomefsedit.c:938 ../libfdisk/newtfsedit.c:442
+#: ../libfdisk/gnomefsedit.c:935 ../libfdisk/newtfsedit.c:449
 msgid "Failure Reason:"
 msgstr "Cauzã eroare:"
 
-#: ../libfdisk/gnomefsedit.c:952 ../libfdisk/gnomefsedit.c:1932
+#: ../libfdisk/gnomefsedit.c:949 ../libfdisk/gnomefsedit.c:1929
 msgid "Partition Type:"
 msgstr "Tip Partiþie:"
 
-#: ../libfdisk/gnomefsedit.c:1035 ../libfdisk/newtfsedit.c:512
+#: ../libfdisk/gnomefsedit.c:1032 ../libfdisk/newtfsedit.c:519
 msgid "Allowable Drives:"
 msgstr "Discuri Permise:"
 
-#: ../libfdisk/gnomefsedit.c:1138 ../libfdisk/gnomefsedit.c:2127
-#: ../libfdisk/newtfsedit.c:603
+#: ../libfdisk/gnomefsedit.c:1135 ../libfdisk/gnomefsedit.c:2124
+#: ../libfdisk/newtfsedit.c:610
 msgid "No Mount Point"
 msgstr "Director de montare nespecificat"
 
-#: ../libfdisk/gnomefsedit.c:1139 ../libfdisk/newtfsedit.c:604
+#: ../libfdisk/gnomefsedit.c:1136 ../libfdisk/newtfsedit.c:611
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
@@ -2382,13 +2387,13 @@ msgstr ""
 "Nu aþi selectat un director de montare pentru aceastã partiþie. Sînteþi "
 "sigur cã aceasta este ceea ce doriþi?"
 
-#: ../libfdisk/gnomefsedit.c:1163 ../libfdisk/gnomefsedit.c:1200
-#: ../libfdisk/gnomefsedit.c:2135 ../libfdisk/newtfsedit.c:627
-#: ../libfdisk/newtfsedit.c:660
+#: ../libfdisk/gnomefsedit.c:1160 ../libfdisk/gnomefsedit.c:1197
+#: ../libfdisk/gnomefsedit.c:2132 ../libfdisk/newtfsedit.c:634
+#: ../libfdisk/newtfsedit.c:667
 msgid "Mount Point Error"
 msgstr "Eroare - Director de montare"
 
-#: ../libfdisk/gnomefsedit.c:1164 ../libfdisk/newtfsedit.c:628
+#: ../libfdisk/gnomefsedit.c:1161 ../libfdisk/newtfsedit.c:635
 msgid ""
 "You have tried to assign the '/' mount point to a FAT-style partition.  You "
 "cannot do this now because mount points have been assigned to ext2 "
@@ -2396,7 +2401,7 @@ msgid ""
 "assign '/' to this partition."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1201 ../libfdisk/newtfsedit.c:661
+#: ../libfdisk/gnomefsedit.c:1198 ../libfdisk/newtfsedit.c:668
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
@@ -2404,11 +2409,11 @@ msgstr ""
 "Directorul de montare specificat este o cale ilegalã sau este deja utilizat. "
 "Selectaþi un director de activare valid."
 
-#: ../libfdisk/gnomefsedit.c:1234 ../libfdisk/newtfsedit.c:686
+#: ../libfdisk/gnomefsedit.c:1231 ../libfdisk/newtfsedit.c:693
 msgid "Size Error"
 msgstr "Eroare mãrime"
 
-#: ../libfdisk/gnomefsedit.c:1235 ../libfdisk/newtfsedit.c:687
+#: ../libfdisk/gnomefsedit.c:1232 ../libfdisk/newtfsedit.c:694
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -2416,13 +2421,13 @@ msgstr ""
 "Mãrimea cerutã este invalidã. Mãrimea trebuie sa fie mai mare decît zero (0) "
 "ºi este un numãr natural specificat în baza 10."
 
-#: ../libfdisk/gnomefsedit.c:1253 ../libfdisk/gnomefsedit.c:2268
-#: ../libfdisk/newtfsedit.c:705
+#: ../libfdisk/gnomefsedit.c:1250 ../libfdisk/gnomefsedit.c:2265
+#: ../libfdisk/newtfsedit.c:712
 msgid "Swap Size Error"
 msgstr "Eroare mãrime swap"
 
-#: ../libfdisk/gnomefsedit.c:1254 ../libfdisk/gnomefsedit.c:2269
-#: ../libfdisk/newtfsedit.c:706
+#: ../libfdisk/gnomefsedit.c:1251 ../libfdisk/gnomefsedit.c:2266
+#: ../libfdisk/newtfsedit.c:713
 #, c-format
 msgid ""
 "You have created a swap partition which is too large. The maximum size of a "
@@ -2431,27 +2436,27 @@ msgstr ""
 "Mãrimea cerutã pentru swap este prea mare. Dimensiunea maximã a unei "
 "partiþii de swap este de %ld MB."
 
-#: ../libfdisk/gnomefsedit.c:1268
+#: ../libfdisk/gnomefsedit.c:1265
 #, fuzzy
 msgid "No Drives Specified"
 msgstr "Nu s-a identificat nici un disc"
 
-#: ../libfdisk/gnomefsedit.c:1269 ../libfdisk/gnomefsedit.c:1286
+#: ../libfdisk/gnomefsedit.c:1266 ../libfdisk/gnomefsedit.c:1283
 msgid "Close"
 msgstr "Închide"
 
-#: ../libfdisk/gnomefsedit.c:1270
+#: ../libfdisk/gnomefsedit.c:1267
 #, fuzzy
 msgid "You must constrain this partition to at least one drive."
 msgstr ""
 "Trebuie sã selectaþi o partiþie de swap înainte ca procesul de instalare sã "
 "poatã continua."
 
-#: ../libfdisk/gnomefsedit.c:1278 ../libfdisk/gnomefsedit.c:1285
+#: ../libfdisk/gnomefsedit.c:1275 ../libfdisk/gnomefsedit.c:1282
 msgid "No RAID Drive Constraint"
 msgstr "Limitãri Disc RAID Inexistente"
 
-#: ../libfdisk/gnomefsedit.c:1280
+#: ../libfdisk/gnomefsedit.c:1277
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
@@ -2460,7 +2465,7 @@ msgstr ""
 "Aþi configurat o partiþie RAID fãrã a o limita la un singur hard disc.\n"
 "Sînteþi sigur cã doriþi sã faceþi acest lucru?"
 
-#: ../libfdisk/gnomefsedit.c:1287
+#: ../libfdisk/gnomefsedit.c:1284
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
@@ -2468,12 +2473,12 @@ msgstr ""
 "Aþi configurat o partiþie de RAID fãrã a impune limitãri la un singur disc. "
 "Selectaþi un disc pentru a folosi ca limitã a sistemului RAID."
 
-#: ../libfdisk/gnomefsedit.c:1407 ../libfdisk/newtfsedit.c:803
+#: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/newtfsedit.c:810
 #, fuzzy
 msgid "Cannot Add Partitions"
 msgstr "Partiþii nealocate"
 
-#: ../libfdisk/gnomefsedit.c:1408 ../libfdisk/newtfsedit.c:804
+#: ../libfdisk/gnomefsedit.c:1405 ../libfdisk/newtfsedit.c:811
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -2481,11 +2486,11 @@ msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1482
+#: ../libfdisk/gnomefsedit.c:1479
 msgid "RAID Entry Incomplete"
 msgstr "Configurare RAID incompletã"
 
-#: ../libfdisk/gnomefsedit.c:1483
+#: ../libfdisk/gnomefsedit.c:1480
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -2497,12 +2502,12 @@ msgstr ""
 "RAID folosind numai partiþii care au fost alocate."
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1582 ../libfdisk/gnomefsedit.c:1601
-#: ../libfdisk/newtfsedit.c:136 ../libfdisk/newtfsedit.c:1631
+#: ../libfdisk/gnomefsedit.c:1579 ../libfdisk/gnomefsedit.c:1598
+#: ../libfdisk/newtfsedit.c:136 ../libfdisk/newtfsedit.c:1638
 msgid "Unallocated Partitions"
 msgstr "Partiþii nealocate"
 
-#: ../libfdisk/gnomefsedit.c:1586 ../libfdisk/gnomefsedit.c:1596
+#: ../libfdisk/gnomefsedit.c:1583 ../libfdisk/gnomefsedit.c:1593
 #: ../libfdisk/newtfsedit.c:140
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
@@ -2513,39 +2518,39 @@ msgstr ""
 "selectate pentru instalare. Partiþiile nealocate sînt afiºate mai jos, "
 "împreunã cu motivul pentru care nu au fost alocate."
 
-#: ../libfdisk/gnomefsedit.c:1880
+#: ../libfdisk/gnomefsedit.c:1877
 msgid "Cannot Edit Raid"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1881
+#: ../libfdisk/gnomefsedit.c:1878
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1918
+#: ../libfdisk/gnomefsedit.c:1915
 msgid "<Swap Partition"
 msgstr "<Partiþie Swap"
 
-#: ../libfdisk/gnomefsedit.c:1977
+#: ../libfdisk/gnomefsedit.c:1974
 msgid "RAID Device: /dev/"
 msgstr "Partiþia RAID: /dev/"
 
-#: ../libfdisk/gnomefsedit.c:2000
+#: ../libfdisk/gnomefsedit.c:1997
 msgid "RAID Type:"
 msgstr "Tip RAID:"
 
-#: ../libfdisk/gnomefsedit.c:2037
+#: ../libfdisk/gnomefsedit.c:2034
 msgid "Partitions For RAID Array:"
 msgstr "Partiþii pentru systemul RAID:"
 
-#: ../libfdisk/gnomefsedit.c:2128
+#: ../libfdisk/gnomefsedit.c:2125
 msgid "You have not selected a mount point. A mount point is required."
 msgstr ""
 "Nu aþi selectat un director de montare pentru aceastã partiþie. Este necesar "
 "sã selectaþi un director de montare."
 
-#: ../libfdisk/gnomefsedit.c:2136
+#: ../libfdisk/gnomefsedit.c:2133
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
@@ -2553,7 +2558,7 @@ msgstr ""
 "Directorul de montare specificat este deja utilizat. Selectaþi un director "
 "de montare valid."
 
-#: ../libfdisk/gnomefsedit.c:2172
+#: ../libfdisk/gnomefsedit.c:2169
 msgid ""
 "The bootable raid device can only include partitions from the first two "
 "drives on your system.\n"
@@ -2561,23 +2566,23 @@ msgid ""
 "These drives are: "
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2179
+#: ../libfdisk/gnomefsedit.c:2176
 msgid "Booting From RAID Warning"
 msgstr "Avertisment pentru startarea de pe o partiþie RAID"
 
-#: ../libfdisk/gnomefsedit.c:2189
+#: ../libfdisk/gnomefsedit.c:2186
 msgid "No RAID Device"
 msgstr "System RAID inexistent"
 
-#: ../libfdisk/gnomefsedit.c:2190
+#: ../libfdisk/gnomefsedit.c:2187
 msgid "You need to selected a RAID device."
 msgstr "Trebuie sã selectaþi o partiþie de RAID"
 
-#: ../libfdisk/gnomefsedit.c:2196
+#: ../libfdisk/gnomefsedit.c:2193
 msgid "Used Raid Device"
 msgstr "Partiþie de RAID folositã"
 
-#: ../libfdisk/gnomefsedit.c:2197
+#: ../libfdisk/gnomefsedit.c:2194
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
@@ -2586,11 +2591,11 @@ msgstr ""
 "Partiþia RAID \"/dev/%s\" este configuratã deja pentru un sistem RAID. "
 "Selectaþi o altã partiþie."
 
-#: ../libfdisk/gnomefsedit.c:2210
+#: ../libfdisk/gnomefsedit.c:2207
 msgid "Not Enough Partitions"
 msgstr "Nu existã suficiente partiþii"
 
-#: ../libfdisk/gnomefsedit.c:2212
+#: ../libfdisk/gnomefsedit.c:2209
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
@@ -2598,24 +2603,24 @@ msgstr ""
 "Nu aþi configurat suficiente partiþii pentru tipul de sistem RAID pe care "
 "l-aþi selectat."
 
-#: ../libfdisk/gnomefsedit.c:2219
+#: ../libfdisk/gnomefsedit.c:2216
 msgid "Illegal /boot RAID Type"
 msgstr "Partiþia /boot are tip RAID invalid."
 
-#: ../libfdisk/gnomefsedit.c:2221
+#: ../libfdisk/gnomefsedit.c:2218
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Partiþiile de boot (/boot) sînt permise numai pe sisteme RAID-1"
 
-#: ../libfdisk/gnomefsedit.c:2228
+#: ../libfdisk/gnomefsedit.c:2225
 msgid "Illegal RAID mountpoint"
 msgstr "Partiþia RAID nu poate fi montatã în directorul specificat."
 
-#: ../libfdisk/gnomefsedit.c:2230
+#: ../libfdisk/gnomefsedit.c:2227
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
 msgstr ""
 "Partiþiile RAID nu pot fi montate sub directorul rãdãcinã pe maºinile Alpha."
 
-#: ../libfdisk/gnomefsedit.c:2313
+#: ../libfdisk/gnomefsedit.c:2310
 #, c-format
 msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
@@ -2626,117 +2631,117 @@ msgstr ""
 "instalare. Directorul de montare este setat pentru /boot. Sînteþi sigur cã "
 "este posibil sã se iniþializeze sistemul de pe aceastã partiþie?"
 
-#: ../libfdisk/gnomefsedit.c:2320
+#: ../libfdisk/gnomefsedit.c:2317
 msgid "Use Pre-existing Partition?"
 msgstr "Folosiþi partiþia existentã?"
 
-#: ../libfdisk/gnomefsedit.c:2397
+#: ../libfdisk/gnomefsedit.c:2394
 #, fuzzy
 msgid "Cannot Add RAID Devices"
 msgstr "System RAID inexistent"
 
-#: ../libfdisk/gnomefsedit.c:2398
+#: ../libfdisk/gnomefsedit.c:2395
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2439
+#: ../libfdisk/gnomefsedit.c:2436
 msgid "Auto-Partition"
 msgstr "Partiþionare Automatã"
 
-#: ../libfdisk/gnomefsedit.c:2446
+#: ../libfdisk/gnomefsedit.c:2443
 msgid "Using Existing Disk Space"
 msgstr "Folosire spaþiu disc existent"
 
-#: ../libfdisk/gnomefsedit.c:2465
+#: ../libfdisk/gnomefsedit.c:2462
 msgid "Remove Linux partitions"
 msgstr "ªterge Partiþiile Linux"
 
-#: ../libfdisk/gnomefsedit.c:2476
+#: ../libfdisk/gnomefsedit.c:2473
 msgid "Use existing free space"
 msgstr "Folosire spaþiu liber"
 
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2488
+#: ../libfdisk/gnomefsedit.c:2485
 msgid "Intended Use"
 msgstr "Folosit pentru"
 
-#: ../libfdisk/gnomefsedit.c:2507 ../libfdisk/gnomefsedit.c:2527
+#: ../libfdisk/gnomefsedit.c:2504 ../libfdisk/gnomefsedit.c:2524
 msgid "Server"
 msgstr "Server"
 
-#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2527
+#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2524
 msgid "Workstation"
 msgstr "Workstation"
 
-#: ../libfdisk/gnomefsedit.c:2603
+#: ../libfdisk/gnomefsedit.c:2600
 msgid "Delete RAID Device?"
 msgstr "ªterge partiþia RAID?"
 
-#: ../libfdisk/gnomefsedit.c:2604
+#: ../libfdisk/gnomefsedit.c:2601
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Sînteþi sigur cã doriþi sã ºtergeþi aceastã partiþie RAID?"
 
-#: ../libfdisk/gnomefsedit.c:2655 ../libfdisk/newtfsedit.c:1734
+#: ../libfdisk/gnomefsedit.c:2652 ../libfdisk/newtfsedit.c:1741
 msgid "Reset Partition Table"
 msgstr "Resetare Tabela de partiþii"
 
-#: ../libfdisk/gnomefsedit.c:2657 ../libfdisk/newtfsedit.c:1736
+#: ../libfdisk/gnomefsedit.c:2654 ../libfdisk/newtfsedit.c:1743
 msgid "Reset partition table to original contents? "
 msgstr "Restauraþi conþinutul original al tabelei de partiþii ? "
 
-#: ../libfdisk/gnomefsedit.c:2693 ../libfdisk/gnomefsedit.c:2744
+#: ../libfdisk/gnomefsedit.c:2690 ../libfdisk/gnomefsedit.c:2741
 msgid "<Swap>"
 msgstr "<Swap>"
 
-#: ../libfdisk/gnomefsedit.c:2695
+#: ../libfdisk/gnomefsedit.c:2692
 msgid "<RAID>"
 msgstr "<RAID>"
 
-#: ../libfdisk/gnomefsedit.c:2697
+#: ../libfdisk/gnomefsedit.c:2694
 msgid "<not set>"
 msgstr "<nesetat>"
 
-#: ../libfdisk/gnomefsedit.c:2980
+#: ../libfdisk/gnomefsedit.c:2977
 msgid "Requested"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2981
+#: ../libfdisk/gnomefsedit.c:2978
 msgid "Actual"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3154
+#: ../libfdisk/gnomefsedit.c:3151
 #, fuzzy
 msgid "Drive"
 msgstr "Urmãtorul disc"
 
-#: ../libfdisk/gnomefsedit.c:3155
+#: ../libfdisk/gnomefsedit.c:3152
 msgid "Geom [C/H/S]"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3156
+#: ../libfdisk/gnomefsedit.c:3153
 #, fuzzy
 msgid "Total (M)"
 msgstr "Total"
 
-#: ../libfdisk/gnomefsedit.c:3157
+#: ../libfdisk/gnomefsedit.c:3154
 msgid "Free (M)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3158
+#: ../libfdisk/gnomefsedit.c:3155
 msgid "Used (M)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3159
+#: ../libfdisk/gnomefsedit.c:3156
 msgid "Used (%)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3395
+#: ../libfdisk/gnomefsedit.c:3392
 msgid "Unallocated Partitions Exist..."
 msgstr "Existã Partiþii Nealocate..."
 
-#: ../libfdisk/gnomefsedit.c:3401 ../libfdisk/gnomefsedit.c:3415
+#: ../libfdisk/gnomefsedit.c:3398 ../libfdisk/gnomefsedit.c:3412
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
@@ -2744,90 +2749,90 @@ msgstr ""
 "O partiþie de tip Linux Native (ext2) sau RAID trebuie asignatã partiþiei de "
 "root (/) înainte ca procesul de instalare sã continue."
 
-#: ../libfdisk/gnomefsedit.c:3486
+#: ../libfdisk/gnomefsedit.c:3483
 msgid "Partitions"
 msgstr "Partiþii"
 
-#: ../libfdisk/gnomefsedit.c:3516
+#: ../libfdisk/gnomefsedit.c:3513
 msgid "_Add..."
 msgstr "_Adãugare..."
 
-#: ../libfdisk/gnomefsedit.c:3523
+#: ../libfdisk/gnomefsedit.c:3520
 msgid "_Edit..."
 msgstr "_Editare..."
 
-#: ../libfdisk/gnomefsedit.c:3524
+#: ../libfdisk/gnomefsedit.c:3521
 msgid "_Reset"
 msgstr "_Resetare"
 
-#: ../libfdisk/gnomefsedit.c:3529
+#: ../libfdisk/gnomefsedit.c:3526
 msgid "_Delete"
 msgstr "_ªtergere..."
 
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3542
+#: ../libfdisk/gnomefsedit.c:3539
 msgid "_Make RAID Device"
 msgstr "_Creazã o partiþie RAID"
 
-#: ../libfdisk/gnomefsedit.c:3552
+#: ../libfdisk/gnomefsedit.c:3549
 msgid "Auto Partition"
 msgstr "Partiþionare automatã"
 
-#: ../libfdisk/gnomefsedit.c:3561
+#: ../libfdisk/gnomefsedit.c:3558
 msgid "Drive Summary"
 msgstr "Raport disc"
 
-#: ../libfdisk/newtfsedit.c:195
+#: ../libfdisk/newtfsedit.c:202
 msgid "Swap Partition"
 msgstr "Partiþie Swap"
 
-#: ../libfdisk/newtfsedit.c:201
+#: ../libfdisk/newtfsedit.c:208
 #, fuzzy
 msgid "Raid Partition"
 msgstr "Editare partiþie"
 
-#: ../libfdisk/newtfsedit.c:356
+#: ../libfdisk/newtfsedit.c:363
 #, fuzzy
 msgid "Edit New Partition"
 msgstr "Editare partiþie"
 
-#: ../libfdisk/newtfsedit.c:421
+#: ../libfdisk/newtfsedit.c:428
 #, fuzzy
 msgid "Use remaining space?:"
 msgstr "Folosire spaþiu liber"
 
-#: ../libfdisk/newtfsedit.c:465
+#: ../libfdisk/newtfsedit.c:472
 #, fuzzy
 msgid "Type:"
 msgstr "Tip"
 
-#: ../libfdisk/newtfsedit.c:479
+#: ../libfdisk/newtfsedit.c:486
 #, fuzzy
 msgid "Unknown"
 msgstr "Adresã calculator necunoscutã"
 
-#: ../libfdisk/newtfsedit.c:1415
+#: ../libfdisk/newtfsedit.c:1422
 msgid "Current Disk Partitions"
 msgstr "Partitii curente pe disc"
 
-#: ../libfdisk/newtfsedit.c:1445
+#: ../libfdisk/newtfsedit.c:1452
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1448
+#: ../libfdisk/newtfsedit.c:1455
 msgid "Drive Summaries"
 msgstr "Raport disc"
 
-#: ../libfdisk/newtfsedit.c:1450
+#: ../libfdisk/newtfsedit.c:1457
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1564
+#: ../libfdisk/newtfsedit.c:1571
 msgid "No Root Partition"
 msgstr "Partiþia root nedefinita"
 
-#: ../libfdisk/newtfsedit.c:1565
+#: ../libfdisk/newtfsedit.c:1572
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
@@ -2835,22 +2840,22 @@ msgstr ""
 "O partiþie de tip Linux Native (ext2) trebuie asignatã partiþiei de root (/) "
 "înainte ca procesul de instalare sã continue."
 
-#: ../libfdisk/newtfsedit.c:1584
+#: ../libfdisk/newtfsedit.c:1591
 msgid "No Swap Partition"
 msgstr "Nu s-a definit nici o partiþie de swap"
 
-#: ../libfdisk/newtfsedit.c:1586
+#: ../libfdisk/newtfsedit.c:1593
 msgid "You must assign a swap partition for the install to proceed."
 msgstr ""
 "Trebuie sã selectaþi o partiþie de swap înainte ca procesul de instalare sã "
 "poatã continua."
 
-#: ../libfdisk/newtfsedit.c:1610
+#: ../libfdisk/newtfsedit.c:1617
 #, fuzzy
 msgid "No /boot/efi Partition"
 msgstr "Partiþia root nedefinita"
 
-#: ../libfdisk/newtfsedit.c:1612
+#: ../libfdisk/newtfsedit.c:1619
 #, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
@@ -2859,7 +2864,7 @@ msgstr ""
 "Trebuie sã selectaþi o partiþie de swap înainte ca procesul de instalare sã "
 "poatã continua."
 
-#: ../libfdisk/newtfsedit.c:1633
+#: ../libfdisk/newtfsedit.c:1640
 msgid ""
 "There are unallocated partitions left. If you quit now they will not be "
 "written to the disk.\n"
@@ -2871,15 +2876,15 @@ msgstr ""
 "\n"
 "Sînteti sigur cã doriþi sã ieºiþi din program?"
 
-#: ../libfdisk/newtfsedit.c:1649
+#: ../libfdisk/newtfsedit.c:1656
 msgid "Save Changes"
 msgstr "Salvare"
 
-#: ../libfdisk/newtfsedit.c:1651
+#: ../libfdisk/newtfsedit.c:1658
 msgid "Save changes to partition table(s)?"
 msgstr "Salvaþi schimbãrile în tabela de partiþii?"
 
-#: ../libfdisk/newtfsedit.c:1695
+#: ../libfdisk/newtfsedit.c:1702
 msgid "You may only delete NFS mounts."
 msgstr "Puteþi ºterge numai NFS mounts."
 
@@ -2899,11 +2904,11 @@ msgstr "Ce tip de CDROM aveþi?"
 msgid "Initializing CDROM..."
 msgstr "Initializare CDROM..."
 
-#: ../loader/devices.c:71
+#: ../loader/devices.c:73
 msgid "Miscellaneous"
 msgstr "Alte Opþiuni"
 
-#: ../loader/devices.c:80
+#: ../loader/devices.c:82
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
@@ -2913,29 +2918,29 @@ msgstr ""
 "nu ºtiþi ce parametri trebuie specificaþi pentru acest driver, selectaþi "
 "\"OK\" ºi treceþi la urmãtorul ecran."
 
-#: ../loader/devices.c:85
+#: ../loader/devices.c:87
 msgid "Module Parameters"
 msgstr "Parametri Driver"
 
-#: ../loader/devices.c:201 ../loader/devices.c:208 ../loader/devices.c:317
-#: ../loader/loader.c:272 ../loader/loader.c:333 ../loader/loader.c:349
+#: ../loader/devices.c:203 ../loader/devices.c:210 ../loader/devices.c:320
+#: ../loader/loader.c:275 ../loader/loader.c:336 ../loader/loader.c:352
 msgid "Devices"
 msgstr "Devices"
 
-#: ../loader/devices.c:203
+#: ../loader/devices.c:205
 msgid "Do you have a driver disk?"
 msgstr ""
 
-#: ../loader/devices.c:210
+#: ../loader/devices.c:212
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Introduceþi discheta cu drivere ºi selectaþi \"OK\" pentru a continua."
 
-#: ../loader/devices.c:230 ../loader/devices.c:440
+#: ../loader/devices.c:233
 #, fuzzy
 msgid "Failed to mount driver disk."
 msgstr "Discheta nu are un sistem de fiºiere suportat"
 
-#: ../loader/devices.c:237
+#: ../loader/devices.c:240
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
@@ -2943,7 +2948,7 @@ msgstr ""
 "Discheta introdusã nu este o dischetã de drivere validã pentru aceastã "
 "versiune de Red Hat Linux."
 
-#: ../loader/devices.c:288
+#: ../loader/devices.c:291
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
@@ -2952,44 +2957,49 @@ msgstr ""
 "mai jos ºi aveþi o dischetã de drivere separatã, selectaþi F2 pentru a "
 "continua"
 
-#: ../loader/devices.c:297
+#: ../loader/devices.c:300
 msgid "Specify module parameters"
 msgstr "Introduceþi parametri pentru driver"
 
-#: ../loader/devices.c:394
+#: ../loader/devices.c:397
 #, fuzzy, c-format
 msgid "Failed to insert %s module."
 msgstr "Nu se poate autentifica în %s: %s"
 
-#: ../loader/devices.c:460
+#: ../loader/devices.c:443
+#, fuzzy, c-format
+msgid "Failed to mount driver disk: %s."
+msgstr "Discheta nu are un sistem de fiºiere suportat"
+
+#: ../loader/devices.c:463
 msgid "The wrong diskette was inserted."
 msgstr ""
 
-#: ../loader/devices.c:487
+#: ../loader/devices.c:490
 #, fuzzy
 msgid "Driver Disk"
 msgstr "Raport disc"
 
-#: ../loader/devices.c:488
+#: ../loader/devices.c:491
 #, c-format
 msgid "Please insert the %s driver disk now."
 msgstr ""
 
-#: ../loader/kickstart.c:57 ../loader/kickstart.c:67 ../loader/kickstart.c:106
+#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
 msgstr "Eroare KickStart"
 
-#: ../loader/kickstart.c:58
+#: ../loader/kickstart.c:59
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
 msgstr "Eroare la deschiderea fiºierului kickstart %s: %s"
 
-#: ../loader/kickstart.c:68
+#: ../loader/kickstart.c:69
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Eroare la citirea conþinutului fiºierului kickstart %s: %s"
 
-#: ../loader/kickstart.c:107
+#: ../loader/kickstart.c:108
 #, c-format
 msgid "Error on line %d of kickstart file %s."
 msgstr "Eroare la linia %d a fiºierului kickstart %s."
@@ -2998,11 +3008,11 @@ msgstr "Eroare la linia %d a fiºierului kickstart %s."
 msgid "Choose a Language"
 msgstr "Limbã program instalare"
 
-#: ../loader/lang.c:329 ../loader/loader.c:145
+#: ../loader/lang.c:329 ../loader/loader.c:146
 msgid "Welcome to Red Hat Linux"
 msgstr "Bun venit în Red Hat Linux!"
 
-#: ../loader/lang.c:330 ../loader/loader.c:147
+#: ../loader/lang.c:330 ../loader/loader.c:148
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -3017,35 +3027,35 @@ msgstr "Tip Tastaturã"
 msgid "What type of keyboard do you have?"
 msgstr "Ce model de tastaturã este conectatã la acest calculator?"
 
-#: ../loader/loader.c:120
+#: ../loader/loader.c:121
 msgid "Local CDROM"
 msgstr "Unitate CDROM"
 
-#: ../loader/loader.c:123
+#: ../loader/loader.c:124
 msgid "NFS image"
 msgstr "Director NFS"
 
-#: ../loader/loader.c:128
+#: ../loader/loader.c:129
 msgid "Hard drive"
 msgstr "Hard Disc"
 
-#: ../loader/loader.c:259
+#: ../loader/loader.c:262
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:273
+#: ../loader/loader.c:276
 msgid "What kind of device would you like to add"
 msgstr "Ce tip de periferic doriþi sã adãugaþi?"
 
-#: ../loader/loader.c:322
+#: ../loader/loader.c:325
 msgid "I have found the following devices in your system:"
 msgstr "Am gãsit urmãtoarele extensii în acest calculator:"
 
-#: ../loader/loader.c:324 ../loader/loader.c:349
+#: ../loader/loader.c:327 ../loader/loader.c:352
 msgid "Add Device"
 msgstr "Adaugã Periferic"
 
-#: ../loader/loader.c:350
+#: ../loader/loader.c:353
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -3054,24 +3064,24 @@ msgstr ""
 "În caz cã acest lucru este necesar, doriþi sã încãrcaþi aceste drivere în "
 "acest moment?"
 
-#: ../loader/loader.c:436 ../loader/loader.c:438
+#: ../loader/loader.c:439 ../loader/loader.c:441
 msgid "Loading"
 msgstr "Încãrcare"
 
-#: ../loader/loader.c:491
+#: ../loader/loader.c:494
 #, fuzzy, c-format
 msgid "Loading %s ramdisk..."
 msgstr "Încãrcare ramdisk pentru etapa a doua..."
 
-#: ../loader/loader.c:501
+#: ../loader/loader.c:504
 msgid "Error loading ramdisk."
 msgstr "Eroare la încãrcarea ramdisk-ului"
 
-#: ../loader/loader.c:653
+#: ../loader/loader.c:656
 msgid "Hard Drives"
 msgstr "Hard Discuri"
 
-#: ../loader/loader.c:654
+#: ../loader/loader.c:657
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -3079,7 +3089,7 @@ msgstr ""
 "Nu am putut detecta nici un hard disk în acest calculator! Doriþi sã "
 "configuraþi alte periferice?"
 
-#: ../loader/loader.c:668
+#: ../loader/loader.c:671
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
@@ -3089,20 +3099,20 @@ msgstr ""
 "ºi RedHat/base? Dacã hard diskul dorit nu se regãseºte în lista de mai jos, "
 "apãsaþi F2 pentru a configura periferice adiþionale."
 
-#: ../loader/loader.c:682
+#: ../loader/loader.c:685
 msgid "Directory holding Red Hat:"
 msgstr "Directorul conþinînd Red Hat:"
 
-#: ../loader/loader.c:702
+#: ../loader/loader.c:705
 msgid "Select Partition"
 msgstr "Selectaþi o Partitie"
 
-#: ../loader/loader.c:750
+#: ../loader/loader.c:753
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Partiþia %s nu conþine o versiune de instalare a Red Hat Linux."
 
-#: ../loader/loader.c:847
+#: ../loader/loader.c:853
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -3111,98 +3121,98 @@ msgstr ""
 "CD din acest sistem. Încãrcaþi CD-ul cu Red Hat Linux în unitatea CDROM ºi "
 "selectaþi \"OK\" pentru a reîncerca."
 
-#: ../loader/loader.c:934
+#: ../loader/loader.c:940
 #, fuzzy
 msgid "Networking Device"
 msgstr "Placã de reþea"
 
-#: ../loader/loader.c:935
+#: ../loader/loader.c:941
 #, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr "Ce tip de system doriþi sã instalaþi?"
 
-#: ../loader/loader.c:1017
+#: ../loader/loader.c:1023
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Directorul specificat nu conþine distribuþia Red Hat Linux"
 
-#: ../loader/loader.c:1022
+#: ../loader/loader.c:1028
 msgid "I could not mount that directory from the server"
 msgstr "Nu s-a putut citi directorul specificat de pe server"
 
-#: ../loader/loader.c:1065 ../loader/loader.c:1074
+#: ../loader/loader.c:1071 ../loader/loader.c:1080
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader/loader.c:1065 ../loader/loader.c:1074
+#: ../loader/loader.c:1071 ../loader/loader.c:1080
 msgid "HTTP"
 msgstr ""
 
-#: ../loader/loader.c:1066
+#: ../loader/loader.c:1072
 #, fuzzy
 msgid "Unable to retrieve the first install image"
 msgstr "Nu s-a putut obþine ramdisk-ul pentru etapa a doua"
 
-#: ../loader/loader.c:1075
+#: ../loader/loader.c:1081
 #, fuzzy
 msgid "Unable to retrieve the second install image"
 msgstr "Nu s-a putut obþine ramdisk-ul pentru etapa a doua"
 
-#: ../loader/loader.c:1316
+#: ../loader/loader.c:1322
 msgid "Rescue Method"
 msgstr "Metodã de Salvare"
 
-#: ../loader/loader.c:1317
+#: ../loader/loader.c:1323
 msgid "Installation Method"
 msgstr "Metodã de Instalare"
 
-#: ../loader/loader.c:1319
+#: ../loader/loader.c:1325
 msgid "What type of media contains the rescue image?"
 msgstr "Unde se gãseºte imaginea de restaurare?"
 
-#: ../loader/loader.c:1321
+#: ../loader/loader.c:1327
 msgid "What type of media contains the packages to be installed?"
 msgstr "Unde sînt aflate aplicaþiile pentru instalare?"
 
-#: ../loader/loader.c:1943
+#: ../loader/loader.c:1959
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Fiºierul ks.cfg nu existã pe discheta de boot."
 
-#: ../loader/loader.c:1989
+#: ../loader/loader.c:2005
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Nu se poate citi directorul %s: %s"
 
-#: ../loader/loader.c:2051
+#: ../loader/loader.c:2067
 #, fuzzy
 msgid "Updates Disk"
 msgstr "Actualizãri"
 
-#: ../loader/loader.c:2052
+#: ../loader/loader.c:2068
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Introduceþi discheta cu drivere ºi selectaþi \"OK\" pentru a continua."
 
-#: ../loader/loader.c:2060
+#: ../loader/loader.c:2076
 msgid "Failed to mount floppy disk."
 msgstr "Discheta nu are un sistem de fiºiere suportat"
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2065
+#: ../loader/loader.c:2081
 msgid "Updates"
 msgstr "Actualizãri"
 
-#: ../loader/loader.c:2065
+#: ../loader/loader.c:2081
 msgid "Reading anaconda updates..."
 msgstr "Se încarcã actualizãrile pentru Anaconda..."
 
-#: ../loader/loader.c:2277
+#: ../loader/loader.c:2337
 msgid "PC Card"
 msgstr "PC Card"
 
-#: ../loader/loader.c:2277
+#: ../loader/loader.c:2337
 msgid "Initializing PC Card Devices..."
 msgstr "Se iniþializeazã perifericele de tip PC Card..."
 

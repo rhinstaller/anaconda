@@ -5,13 +5,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ID-rhinstall 1.4\n"
-"POT-Creation-Date: 2000-06-30 14:48-0400\n"
+"POT-Creation-Date: 2000-07-15 15:36-0400\n"
 "PO-Revision-Date: 1998-09-22 13:40+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@ldp.linux.or.id>\n"
 "Language-Team: LDP Indonesia <http://ldp.linux.or.id>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain\n"
 "Content-Transfer-Encoding: ISO-8859-1\n"
+
+#: ../comps.py:441
+#, fuzzy
+msgid "Everything"
+msgstr "Saya sedang mencari"
+
+#: ../exception.py:13 ../text.py:768
+msgid "Exception Occurred"
+msgstr ""
 
 #: ../fstab.py:363 ../fstab.py:576 ../fstab.py:586 ../fstab.py:610
 #, fuzzy
@@ -23,16 +32,16 @@ msgstr "Saya sedang memformat "
 msgid "Formatting swap space on /dev/%s..."
 msgstr "Saya sedang memformat area swap di device %s..."
 
-#: ../fstab.py:374 ../fstab.py:459 ../fstab.py:665 ../image.py:66
-#: ../libfdisk/newtfsedit.c:1694 ../loader/devices.c:229
-#: ../loader/devices.c:236 ../loader/devices.c:394 ../loader/devices.c:439
-#: ../loader/devices.c:459 ../loader/lang.c:90 ../loader/loader.c:501
-#: ../loader/loader.c:511 ../loader/loader.c:749 ../loader/loader.c:846
-#: ../loader/loader.c:1016 ../loader/loader.c:1021 ../loader/loader.c:1942
-#: ../loader/loader.c:1988 ../loader/loader.c:2059 ../loader/urls.c:72
+#: ../fstab.py:374 ../fstab.py:459 ../fstab.py:665 ../image.py:73
+#: ../libfdisk/newtfsedit.c:1701 ../loader/devices.c:232
+#: ../loader/devices.c:239 ../loader/devices.c:397 ../loader/devices.c:442
+#: ../loader/devices.c:462 ../loader/lang.c:90 ../loader/loader.c:504
+#: ../loader/loader.c:514 ../loader/loader.c:752 ../loader/loader.c:852
+#: ../loader/loader.c:1022 ../loader/loader.c:1027 ../loader/loader.c:1958
+#: ../loader/loader.c:2004 ../loader/loader.c:2075 ../loader/urls.c:72
 #: ../loader/urls.c:81 ../loader/urls.c:88 ../loader/urls.c:227
 #: ../loader/urls.c:232 ../text.py:234 ../textw/bootdisk_text.py:69
-#: ../todo.py:788 ../todo.py:816 ../todo.py:869
+#: ../todo.py:811 ../todo.py:839 ../todo.py:892
 msgid "Error"
 msgstr "Error"
 
@@ -46,7 +55,7 @@ msgstr "Saya sedang memformat area swap di device %s..."
 msgid "Error unmounting %s: %s"
 msgstr "tidak bisa unmount %s: %s"
 
-#: ../fstab.py:506 ../todo.py:488
+#: ../fstab.py:506 ../todo.py:495
 msgid "Creating"
 msgstr "Saya sedang membuat"
 
@@ -74,22 +83,28 @@ msgstr ""
 msgid "Error mounting %s: %s"
 msgstr "tidak bisa mount %s: %s"
 
-#: ../gui.py:139
+#: ../gui.py:142
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report at "
 "http://bugzilla.redhat.com/bugzilla"
 msgstr ""
 
-#: ../gui.py:329 ../gui.py:569
+#: ../gui.py:271 ../text.py:783
+msgid ""
+"Please insert a floppy now. All contents of the disk will be erased, so "
+"please choose your diskette carefully."
+msgstr ""
+
+#: ../gui.py:361 ../gui.py:601
 msgid "Next"
 msgstr "Lanjutkan"
 
-#: ../gui.py:330 ../gui.py:568 ../libfdisk/newtfsedit.c:1431
-#: ../libfdisk/newtfsedit.c:1439 ../loader/cdrom.c:34 ../loader/devices.c:87
-#: ../loader/devices.c:209 ../loader/devices.c:296 ../loader/lang.c:569
-#: ../loader/loader.c:274 ../loader/loader.c:653 ../loader/loader.c:690
-#: ../loader/loader.c:846 ../loader/loader.c:938 ../loader/loader.c:1324
+#: ../gui.py:362 ../gui.py:600 ../libfdisk/newtfsedit.c:1438
+#: ../libfdisk/newtfsedit.c:1446 ../loader/cdrom.c:34 ../loader/devices.c:89
+#: ../loader/devices.c:211 ../loader/devices.c:299 ../loader/lang.c:569
+#: ../loader/loader.c:277 ../loader/loader.c:656 ../loader/loader.c:693
+#: ../loader/loader.c:852 ../loader/loader.c:944 ../loader/loader.c:1330
 #: ../loader/net.c:164 ../loader/net.c:249 ../loader/net.c:334
 #: ../loader/urls.c:149 ../loader/urls.c:370 ../text.py:57 ../text.py:68
 #: ../text.py:109 ../text.py:112 ../text.py:182 ../text.py:237 ../text.py:255
@@ -105,7 +120,7 @@ msgstr "Lanjutkan"
 #: ../textw/packages_text.py:54 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/packages_text.py:353
 #: ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65
-#: ../textw/partitioning_text.py:257 ../textw/partitioning_text.py:307
+#: ../textw/partitioning_text.py:257 ../textw/partitioning_text.py:309
 #: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
 #: ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:165 ../textw/userauth_text.py:196
@@ -113,109 +128,109 @@ msgstr "Lanjutkan"
 msgid "Back"
 msgstr "Kembali"
 
-#: ../gui.py:331 ../gui.py:573
+#: ../gui.py:363 ../gui.py:605
 msgid "Show Help"
 msgstr "Lihat Help"
 
-#: ../gui.py:332 ../gui.py:572
+#: ../gui.py:364 ../gui.py:604
 msgid "Hide Help"
 msgstr "Sembunyikan help"
 
-#: ../gui.py:333 ../gui.py:571
+#: ../gui.py:365 ../gui.py:603
 msgid "Finish"
 msgstr "Selesai"
 
-#: ../gui.py:336 ../gui.py:599
+#: ../gui.py:368 ../gui.py:631
 msgid "Online Help"
 msgstr "Help online"
 
-#: ../gui.py:337 ../iw/language_gui.py:10 ../text.py:62 ../text.py:852
+#: ../gui.py:369 ../iw/language_gui.py:10 ../text.py:62 ../text.py:852
 #: ../text.py:881
 msgid "Language Selection"
 msgstr "Pilih Bahasa"
 
-#: ../gui.py:535
+#: ../gui.py:567
 msgid "Red Hat Linux Installer"
 msgstr "Installer Red Hat Linux"
 
-#: ../gui.py:539
+#: ../gui.py:571
 msgid "Red Hat Linux Install Shell"
 msgstr "Shell Install Red Hat Linux"
 
-#: ../gui.py:550
+#: ../gui.py:582
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Installer Red Hat Linux untuk %s"
 
-#: ../gui.py:551
+#: ../gui.py:583
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Shell Install Red Hat Linux untuk %s"
 
-#: ../gui.py:646
+#: ../gui.py:678
 #, fuzzy
 msgid "Install Window"
 msgstr "Log instalasi"
 
-#: ../image.py:33
+#: ../image.py:40
 msgid "Copying File"
 msgstr ""
 
-#: ../image.py:34
+#: ../image.py:41
 #, fuzzy
 msgid "Transferring install image to hard drive..."
 msgstr "Mencari hard disk..."
 
-#: ../image.py:51
+#: ../image.py:58
 #, fuzzy
 msgid "Change CDROM"
 msgstr "CDROM lain"
 
-#: ../image.py:52
+#: ../image.py:59
 #, c-format
 msgid "Please insert disc %d to continue."
 msgstr ""
 
-#: ../image.py:61
+#: ../image.py:68
 #, fuzzy
 msgid "Wrong CDROM"
 msgstr "CDROM lain"
 
-#: ../image.py:62
+#: ../image.py:69
 #, fuzzy
 msgid "That's not the correct Red Hat CDROM."
 msgstr "CDROM ini tidak berisi Red Hat"
 
-#: ../image.py:67
+#: ../image.py:74
 #, fuzzy
 msgid "The CDROM could not be mounted."
 msgstr "Partisi %s tidak dapat dialokasikan."
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:978
-#: ../libfdisk/fsedit.c:987 ../libfdisk/fsedit.c:1014
-#: ../libfdisk/fsedit.c:1027 ../libfdisk/fsedit.c:1037
-#: ../libfdisk/fsedit.c:1066 ../libfdisk/fsedit.c:1076
-#: ../libfdisk/fsedit.c:1093 ../libfdisk/fsedit.c:1502
-#: ../libfdisk/gnomefsedit.c:780 ../libfdisk/gnomefsedit.c:815
-#: ../libfdisk/gnomefsedit.c:1163 ../libfdisk/gnomefsedit.c:1200
-#: ../libfdisk/gnomefsedit.c:1234 ../libfdisk/gnomefsedit.c:1253
-#: ../libfdisk/gnomefsedit.c:1407 ../libfdisk/gnomefsedit.c:1482
-#: ../libfdisk/gnomefsedit.c:1582 ../libfdisk/gnomefsedit.c:1600
-#: ../libfdisk/gnomefsedit.c:1880 ../libfdisk/gnomefsedit.c:1889
-#: ../libfdisk/gnomefsedit.c:2127 ../libfdisk/gnomefsedit.c:2135
-#: ../libfdisk/gnomefsedit.c:2179 ../libfdisk/gnomefsedit.c:2189
-#: ../libfdisk/gnomefsedit.c:2196 ../libfdisk/gnomefsedit.c:2211
-#: ../libfdisk/gnomefsedit.c:2220 ../libfdisk/gnomefsedit.c:2229
-#: ../libfdisk/gnomefsedit.c:2268 ../libfdisk/gnomefsedit.c:2397
-#: ../libfdisk/gnomefsedit.c:2439 ../libfdisk/newtfsedit.c:168
-#: ../libfdisk/newtfsedit.c:337 ../libfdisk/newtfsedit.c:565
-#: ../libfdisk/newtfsedit.c:627 ../libfdisk/newtfsedit.c:660
-#: ../libfdisk/newtfsedit.c:686 ../libfdisk/newtfsedit.c:705
-#: ../libfdisk/newtfsedit.c:803 ../libfdisk/newtfsedit.c:1431
-#: ../libfdisk/newtfsedit.c:1439 ../libfdisk/newtfsedit.c:1564
-#: ../libfdisk/newtfsedit.c:1585 ../libfdisk/newtfsedit.c:1611
-#: ../libfdisk/newtfsedit.c:1694 ../loader/urls.c:72 ../loader/urls.c:81
+#: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
+#: ../libfdisk/fsedit.c:988 ../libfdisk/fsedit.c:1015
+#: ../libfdisk/fsedit.c:1028 ../libfdisk/fsedit.c:1038
+#: ../libfdisk/fsedit.c:1067 ../libfdisk/fsedit.c:1077
+#: ../libfdisk/fsedit.c:1094 ../libfdisk/fsedit.c:1503
+#: ../libfdisk/gnomefsedit.c:777 ../libfdisk/gnomefsedit.c:812
+#: ../libfdisk/gnomefsedit.c:1160 ../libfdisk/gnomefsedit.c:1197
+#: ../libfdisk/gnomefsedit.c:1231 ../libfdisk/gnomefsedit.c:1250
+#: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/gnomefsedit.c:1479
+#: ../libfdisk/gnomefsedit.c:1579 ../libfdisk/gnomefsedit.c:1597
+#: ../libfdisk/gnomefsedit.c:1877 ../libfdisk/gnomefsedit.c:1886
+#: ../libfdisk/gnomefsedit.c:2124 ../libfdisk/gnomefsedit.c:2132
+#: ../libfdisk/gnomefsedit.c:2176 ../libfdisk/gnomefsedit.c:2186
+#: ../libfdisk/gnomefsedit.c:2193 ../libfdisk/gnomefsedit.c:2208
+#: ../libfdisk/gnomefsedit.c:2217 ../libfdisk/gnomefsedit.c:2226
+#: ../libfdisk/gnomefsedit.c:2265 ../libfdisk/gnomefsedit.c:2394
+#: ../libfdisk/gnomefsedit.c:2436 ../libfdisk/newtfsedit.c:168
+#: ../libfdisk/newtfsedit.c:344 ../libfdisk/newtfsedit.c:572
+#: ../libfdisk/newtfsedit.c:634 ../libfdisk/newtfsedit.c:667
+#: ../libfdisk/newtfsedit.c:693 ../libfdisk/newtfsedit.c:712
+#: ../libfdisk/newtfsedit.c:810 ../libfdisk/newtfsedit.c:1438
+#: ../libfdisk/newtfsedit.c:1446 ../libfdisk/newtfsedit.c:1571
+#: ../libfdisk/newtfsedit.c:1592 ../libfdisk/newtfsedit.c:1618
+#: ../libfdisk/newtfsedit.c:1701 ../loader/urls.c:72 ../loader/urls.c:81
 #: ../loader/urls.c:88 ../loader/urls.c:238 ../text.py:57 ../text.py:59
 #: ../text.py:404 ../textw/constants_text.py:10 ../textw/lilo_text.py:117
 #: ../textw/lilo_text.py:202 ../textw/mouse_text.py:27
@@ -236,17 +251,17 @@ msgstr "Pilih Keyboard"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Keyboard mana yang disambung ke komputer ini?"
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:86 ../loader/devices.c:208
-#: ../loader/devices.c:229 ../loader/devices.c:236 ../loader/devices.c:296
-#: ../loader/devices.c:394 ../loader/devices.c:439 ../loader/devices.c:459
-#: ../loader/devices.c:487 ../loader/kickstart.c:57 ../loader/kickstart.c:67
-#: ../loader/kickstart.c:106 ../loader/lang.c:90 ../loader/lang.c:282
-#: ../loader/lang.c:569 ../loader/loader.c:274 ../loader/loader.c:501
-#: ../loader/loader.c:511 ../loader/loader.c:690 ../loader/loader.c:749
-#: ../loader/loader.c:846 ../loader/loader.c:938 ../loader/loader.c:1016
-#: ../loader/loader.c:1021 ../loader/loader.c:1065 ../loader/loader.c:1074
-#: ../loader/loader.c:1324 ../loader/loader.c:1942 ../loader/loader.c:1988
-#: ../loader/loader.c:2051 ../loader/loader.c:2059 ../loader/net.c:164
+#: ../loader/cdrom.c:34 ../loader/devices.c:88 ../loader/devices.c:210
+#: ../loader/devices.c:232 ../loader/devices.c:239 ../loader/devices.c:299
+#: ../loader/devices.c:397 ../loader/devices.c:442 ../loader/devices.c:462
+#: ../loader/devices.c:490 ../loader/kickstart.c:58 ../loader/kickstart.c:68
+#: ../loader/kickstart.c:107 ../loader/lang.c:90 ../loader/lang.c:282
+#: ../loader/lang.c:569 ../loader/loader.c:277 ../loader/loader.c:504
+#: ../loader/loader.c:514 ../loader/loader.c:693 ../loader/loader.c:752
+#: ../loader/loader.c:852 ../loader/loader.c:944 ../loader/loader.c:1022
+#: ../loader/loader.c:1027 ../loader/loader.c:1071 ../loader/loader.c:1080
+#: ../loader/loader.c:1330 ../loader/loader.c:1958 ../loader/loader.c:2004
+#: ../loader/loader.c:2067 ../loader/loader.c:2075 ../loader/net.c:164
 #: ../loader/net.c:249 ../loader/net.c:334 ../loader/net.c:643
 #: ../loader/net.c:676 ../loader/urls.c:149 ../loader/urls.c:227
 #: ../loader/urls.c:232 ../loader/urls.c:370 ../text.py:109 ../text.py:182
@@ -260,8 +275,8 @@ msgstr "Keyboard mana yang disambung ke komputer ini?"
 #: ../textw/network_text.py:141 ../textw/packages_text.py:54
 #: ../textw/packages_text.py:88 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/partitioning_text.py:257
-#: ../textw/partitioning_text.py:307 ../textw/partitioning_text.py:318
-#: ../textw/partitioning_text.py:326 ../textw/partitioning_text.py:333
+#: ../textw/partitioning_text.py:309 ../textw/partitioning_text.py:320
+#: ../textw/partitioning_text.py:328 ../textw/partitioning_text.py:335
 #: ../textw/silo_text.py:25 ../textw/silo_text.py:99
 #: ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:44 ../textw/userauth_text.py:49
@@ -310,26 +325,26 @@ msgstr ""
 "Paket yang teelah diinstal dan paket lain yang juga harus diinstall telah "
 "dipilih. Apakah sekarang Anda ingin memilih paket yang hendak diupgrade ?"
 
-#: ../iw/welcome_gui.py:88 ../libfdisk/fsedit.c:995
-#: ../libfdisk/gnomefsedit.c:730 ../libfdisk/gnomefsedit.c:1138
-#: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/gnomefsedit.c:2321
-#: ../libfdisk/gnomefsedit.c:2603 ../libfdisk/gnomefsedit.c:2656
-#: ../libfdisk/newtfsedit.c:603 ../libfdisk/newtfsedit.c:829
-#: ../libfdisk/newtfsedit.c:1632 ../libfdisk/newtfsedit.c:1650
-#: ../libfdisk/newtfsedit.c:1735 ../loader/devices.c:201
-#: ../loader/loader.c:653 ../loader/net.c:810 ../text.py:277
+#: ../iw/welcome_gui.py:88 ../libfdisk/fsedit.c:996
+#: ../libfdisk/gnomefsedit.c:727 ../libfdisk/gnomefsedit.c:1135
+#: ../libfdisk/gnomefsedit.c:1276 ../libfdisk/gnomefsedit.c:2318
+#: ../libfdisk/gnomefsedit.c:2600 ../libfdisk/gnomefsedit.c:2653
+#: ../libfdisk/newtfsedit.c:610 ../libfdisk/newtfsedit.c:836
+#: ../libfdisk/newtfsedit.c:1639 ../libfdisk/newtfsedit.c:1657
+#: ../libfdisk/newtfsedit.c:1742 ../loader/devices.c:203
+#: ../loader/loader.c:656 ../loader/net.c:810 ../text.py:277
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:218
 msgid "Yes"
 msgstr "YA"
 
-#: ../iw/welcome_gui.py:91 ../libfdisk/fsedit.c:995
-#: ../libfdisk/gnomefsedit.c:730 ../libfdisk/gnomefsedit.c:1138
-#: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/gnomefsedit.c:2321
-#: ../libfdisk/gnomefsedit.c:2603 ../libfdisk/gnomefsedit.c:2656
-#: ../libfdisk/newtfsedit.c:603 ../libfdisk/newtfsedit.c:829
-#: ../libfdisk/newtfsedit.c:1632 ../libfdisk/newtfsedit.c:1650
-#: ../libfdisk/newtfsedit.c:1735 ../loader/devices.c:202 ../loader/net.c:810
+#: ../iw/welcome_gui.py:91 ../libfdisk/fsedit.c:996
+#: ../libfdisk/gnomefsedit.c:727 ../libfdisk/gnomefsedit.c:1135
+#: ../libfdisk/gnomefsedit.c:1276 ../libfdisk/gnomefsedit.c:2318
+#: ../libfdisk/gnomefsedit.c:2600 ../libfdisk/gnomefsedit.c:2653
+#: ../libfdisk/newtfsedit.c:610 ../libfdisk/newtfsedit.c:836
+#: ../libfdisk/newtfsedit.c:1639 ../libfdisk/newtfsedit.c:1657
+#: ../libfdisk/newtfsedit.c:1742 ../loader/devices.c:204 ../loader/net.c:810
 #: ../text.py:277 ../text.py:283 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
 #: ../textw/partitioning_text.py:218
@@ -371,10 +386,10 @@ msgid ""
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:815 ../libfdisk/gnomefsedit.c:1889
-#: ../libfdisk/gnomefsedit.c:2439 ../libfdisk/newtfsedit.c:566
-#: ../libfdisk/newtfsedit.c:1650 ../loader/devices.c:209
-#: ../loader/devices.c:487 ../loader/loader.c:2051 ../text.py:320
+#: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:1886
+#: ../libfdisk/gnomefsedit.c:2436 ../libfdisk/newtfsedit.c:573
+#: ../libfdisk/newtfsedit.c:1657 ../loader/devices.c:211
+#: ../loader/devices.c:490 ../loader/loader.c:2067 ../text.py:320
 #: ../text.py:323 ../text.py:785 ../text.py:787 ../textw/lilo_text.py:118
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:154
 #: ../textw/userauth_text.py:63
@@ -526,26 +541,16 @@ msgstr "(tidak ada yg tersedia)"
 msgid "No help is available for this install."
 msgstr ""
 
-#: ../text.py:768
-msgid "Exception Occurred"
-msgstr ""
-
 #: ../text.py:782
 msgid "Save Crash Dump"
 msgstr ""
 
-#: ../text.py:783
-msgid ""
-"Please insert a floppy now. All contents of the disk will be erased, so "
-"please choose your diskette carefully."
-msgstr ""
-
 #: ../text.py:793
 msgid ""
-"An internal error occured in the installation program. Please report this "
+"An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
 "possible. The information on this failure may be saved to a floppy disk, and "
-"will help Red hat in fixing the problem.\n"
+"will help Red Hat in fixing the problem.\n"
 "\n"
 msgstr ""
 
@@ -620,7 +625,7 @@ msgstr "Konfigurasi LILO"
 msgid "LILO Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../iw/lilo_gui.py:184 ../iw/lilo_gui.py:312 ../iw/silo_gui.py:127
+#: ../iw/lilo_gui.py:188 ../iw/lilo_gui.py:316 ../iw/silo_gui.py:127
 #: ../iw/silo_gui.py:279 ../text.py:904 ../text.py:910
 msgid "Partition"
 msgstr "Partisi"
@@ -633,7 +638,7 @@ msgstr "Partisi manual"
 msgid "Automatic Partition"
 msgstr "Partisi Otomatis"
 
-#: ../text.py:912 ../textw/partitioning_text.py:299
+#: ../text.py:912 ../textw/partitioning_text.py:301
 #, fuzzy
 msgid "Root Filesystem Size"
 msgstr "Ukuran sistem yang diinstal:"
@@ -662,7 +667,7 @@ msgstr "Pilih beberapa paket"
 msgid "Package Dependencies"
 msgstr "Ketergantungan paket"
 
-#: ../iw/xconfig_gui.py:250 ../text.py:946 ../text.py:954
+#: ../iw/xconfig_gui.py:252 ../text.py:946 ../text.py:954
 msgid "X Configuration"
 msgstr "Konfigurasi X"
 
@@ -712,93 +717,93 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Saya tidak dapat kembali ke tahap sebelumnya. Anda harus mengulangi lagi."
 
-#: ../todo.py:488
+#: ../todo.py:495
 #, fuzzy
 msgid "Creating boot disk..."
 msgstr "Membuat bootdisk..."
 
-#: ../todo.py:507
+#: ../todo.py:514
 #, fuzzy
 msgid "Reading"
 msgstr "Saya sedang membaca"
 
-#: ../todo.py:508
+#: ../todo.py:515
 #, fuzzy
 msgid "Reading package information..."
 msgstr "Saya sedang membaca informasi paket..."
 
-#: ../todo.py:695
+#: ../todo.py:702
 msgid "Dependency Check"
 msgstr ""
 
-#: ../todo.py:696
+#: ../todo.py:703
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 
-#: ../todo.py:723 ../todo.py:746 ../todo.py:752 ../todo.py:769
+#: ../todo.py:730 ../todo.py:769 ../todo.py:775 ../todo.py:792
 msgid "no suggestion"
 msgstr "tidak tahu"
 
-#: ../todo.py:777
+#: ../todo.py:800
 #, fuzzy
 msgid "Searching"
 msgstr "Saya sedang mencari"
 
-#: ../todo.py:778
+#: ../todo.py:801
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Saya sedang mencari instalasi Red Hat Linux..."
 
-#: ../todo.py:789 ../todo.py:817
+#: ../todo.py:812 ../todo.py:840
 #, fuzzy, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "Error saat memount filesistem ext2 %s: %s"
 
-#: ../todo.py:827
+#: ../todo.py:850
 #, fuzzy
 msgid "Finding"
 msgstr "Ketemu"
 
-#: ../todo.py:828
+#: ../todo.py:851
 msgid "Finding packages to upgrade..."
 msgstr "Mencari paket yang hendak diupgrade..."
 
-#: ../todo.py:839
+#: ../todo.py:862
 msgid ""
 "One or more of the filesystems for your Linux system was not unmounted "
 "cleanly. Please boot your Linux installation, let the filesystems be "
 "checked, and shut down cleanly to upgrade."
 msgstr ""
 
-#: ../todo.py:849
+#: ../todo.py:872
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
 
-#: ../todo.py:870
+#: ../todo.py:893
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Gagal dalam pembuatan database RPM. Mungkin spasi disk habis?"
 
-#: ../todo.py:1168
+#: ../todo.py:1215
 msgid "Processing"
 msgstr "Mulai diproses"
 
-#: ../todo.py:1169
+#: ../todo.py:1216
 #, fuzzy
 msgid "Preparing to install..."
 msgstr "Mengecek file yang hendak diinstall"
 
-#: ../todo.py:1422
+#: ../todo.py:1470
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Sedang mengupgrade %s.\n"
 
-#: ../todo.py:1424
+#: ../todo.py:1472
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Instalasi %s.\n"
 
-#: ../todo.py:1445
+#: ../todo.py:1493
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -808,61 +813,61 @@ msgstr ""
 "Anda pilih. Coba tambahkan lagi space di filesystem ini:\n"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:2978 ../todo.py:1448
+#: ../libfdisk/gnomefsedit.c:2975 ../todo.py:1496
 #, fuzzy
 msgid "Mount Point"
 msgstr "Lokasi Mount"
 
-#: ../todo.py:1448
+#: ../todo.py:1496
 msgid "Space Needed"
 msgstr "Spasi yg dibutuhkan"
 
-#: ../todo.py:1461
+#: ../todo.py:1509
 msgid "Disk Space"
 msgstr "Space disk"
 
-#: ../todo.py:1485
+#: ../todo.py:1542
 #, fuzzy
 msgid "Post Install"
 msgstr "Install Tahap Akhir"
 
-#: ../todo.py:1486
+#: ../todo.py:1543
 #, fuzzy
 msgid "Performing post install configuration..."
 msgstr "Lakukan konfigurasi install tahap akhir.."
 
-#: ../iw/xconfig_gui.py:10 ../xf86config.py:831
+#: ../iw/xconfig_gui.py:10 ../xf86config.py:833
 msgid "Video Card"
 msgstr "Card Video"
 
-#: ../iw/xconfig_gui.py:12 ../xf86config.py:833
+#: ../iw/xconfig_gui.py:12 ../xf86config.py:835
 msgid "Video Ram"
 msgstr "Video Ram"
 
-#: ../xf86config.py:835
+#: ../xf86config.py:837
 #, fuzzy
 msgid "X server"
 msgstr "Server X"
 
-#: ../xf86config.py:837
+#: ../xf86config.py:839
 #, fuzzy
 msgid "Unable to detect video card"
 msgstr "Saya gagal mendeteksi video card"
 
-#: ../iw/xconfig_gui.py:11 ../xf86config.py:844 ../xf86config.py:846
+#: ../iw/xconfig_gui.py:11 ../xf86config.py:846 ../xf86config.py:848
 msgid "Monitor"
 msgstr "Monitor"
 
-#: ../xf86config.py:846
+#: ../xf86config.py:848
 msgid "Plug and Play Monitor"
 msgstr "Monitor Plug and Play"
 
-#: ../xf86config.py:848
+#: ../xf86config.py:850
 #, fuzzy
 msgid "Horizontal frequency range"
 msgstr "Jangkauan Frekuensi Horizontal"
 
-#: ../xf86config.py:850
+#: ../xf86config.py:852
 #, fuzzy
 msgid "Vertical frequency range"
 msgstr "Jangkauan Frekuensi Vertikal"
@@ -950,20 +955,20 @@ msgstr "Password (lagi)"
 msgid "Full Name"
 msgstr "Nama Lengkap"
 
-#: ../iw/account_gui.py:270 ../libfdisk/newtfsedit.c:1437
+#: ../iw/account_gui.py:270 ../libfdisk/newtfsedit.c:1444
 #: ../textw/userauth_text.py:195
 msgid "Add"
 msgstr "Tambah"
 
-#: ../iw/account_gui.py:272 ../libfdisk/newtfsedit.c:1430
-#: ../libfdisk/newtfsedit.c:1438 ../textw/lilo_text.py:202
+#: ../iw/account_gui.py:272 ../libfdisk/newtfsedit.c:1437
+#: ../libfdisk/newtfsedit.c:1445 ../textw/lilo_text.py:202
 #: ../textw/lilo_text.py:228 ../textw/partitioning_text.py:64
 #: ../textw/silo_text.py:205 ../textw/silo_text.py:227
 #: ../textw/userauth_text.py:196
 msgid "Edit"
 msgstr "Edit"
 
-#: ../iw/account_gui.py:274 ../libfdisk/newtfsedit.c:1438
+#: ../iw/account_gui.py:274 ../libfdisk/newtfsedit.c:1445
 #: ../textw/userauth_text.py:195
 msgid "Delete"
 msgstr "Hapus"
@@ -1113,7 +1118,7 @@ msgstr "Ketergantungan paket tidak diketahui"
 msgid "Total install size: %s"
 msgstr "saya gagal membuka %s: %s"
 
-#: ../iw/dependencies_gui.py:68 ../iw/progress_gui.py:154
+#: ../iw/dependencies_gui.py:68 ../iw/progress_gui.py:161
 #: ../textw/packages_text.py:312
 msgid "Package"
 msgstr "Nama Paket"
@@ -1221,57 +1226,57 @@ msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 msgid "Lilo Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../iw/lilo_gui.py:187 ../iw/lilo_gui.py:313 ../iw/silo_gui.py:132
-#: ../iw/silo_gui.py:280 ../libfdisk/gnomefsedit.c:2982
+#: ../iw/lilo_gui.py:191 ../iw/lilo_gui.py:317 ../iw/silo_gui.py:132
+#: ../iw/silo_gui.py:280 ../libfdisk/gnomefsedit.c:2979
 msgid "Type"
 msgstr "Tipe"
 
-#: ../iw/lilo_gui.py:231
+#: ../iw/lilo_gui.py:235
 msgid "Install LILO boot record on:"
 msgstr "Install boot record LILO di:"
 
-#: ../iw/lilo_gui.py:238 ../iw/silo_gui.py:172 ../textw/silo_text.py:64
+#: ../iw/lilo_gui.py:242 ../iw/silo_gui.py:172 ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../iw/lilo_gui.py:242 ../iw/silo_gui.py:175 ../textw/silo_text.py:65
+#: ../iw/lilo_gui.py:246 ../iw/silo_gui.py:175 ../textw/silo_text.py:65
 msgid "First sector of boot partition"
 msgstr "Partisi pertama dari partisi boot"
 
-#: ../iw/lilo_gui.py:246 ../textw/lilo_text.py:24
+#: ../iw/lilo_gui.py:250 ../textw/lilo_text.py:24
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Gunakan mode linear (untuk beberapa drive SCSI)"
 
-#: ../iw/lilo_gui.py:256 ../iw/silo_gui.py:207
+#: ../iw/lilo_gui.py:260 ../iw/silo_gui.py:207
 msgid "Kernel parameters"
 msgstr "Parameter Kernel"
 
-#: ../iw/lilo_gui.py:273 ../iw/silo_gui.py:225
+#: ../iw/lilo_gui.py:277 ../iw/silo_gui.py:225
 msgid "Create boot disk"
 msgstr "Buat bootdisk"
 
-#: ../iw/lilo_gui.py:277
+#: ../iw/lilo_gui.py:281
 msgid "Do not install LILO"
 msgstr "Jangan install LILO"
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
+#: ../iw/lilo_gui.py:292 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
 #: ../textw/silo_text.py:196
 msgid "Default"
 msgstr "Default"
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:256 ../libfdisk/gnomefsedit.c:2979
+#: ../iw/lilo_gui.py:292 ../iw/silo_gui.py:256 ../libfdisk/gnomefsedit.c:2976
 #: ../textw/lilo_text.py:112 ../textw/lilo_text.py:193
 #: ../textw/mouse_text.py:25 ../textw/silo_text.py:131
 #: ../textw/silo_text.py:196
 msgid "Device"
 msgstr "Perangkat"
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
+#: ../iw/lilo_gui.py:292 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
 #: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "Tipe partisi"
 
-#: ../iw/lilo_gui.py:288 ../iw/lilo_gui.py:324 ../iw/silo_gui.py:256
+#: ../iw/lilo_gui.py:292 ../iw/lilo_gui.py:328 ../iw/silo_gui.py:256
 #: ../iw/silo_gui.py:291 ../textw/lilo_text.py:113 ../textw/lilo_text.py:193
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
@@ -1301,7 +1306,7 @@ msgstr "Alamat IP"
 msgid "Netmask"
 msgstr "Netmask"
 
-#: ../iw/network_gui.py:164 ../loader/loader.c:259
+#: ../iw/network_gui.py:164 ../loader/loader.c:262
 msgid "Network"
 msgstr "Network"
 
@@ -1367,39 +1372,39 @@ msgstr "Pilihan Grup Paket"
 msgid "Select individual packages"
 msgstr "Pilih beberapa paket"
 
-#: ../iw/progress_gui.py:29
+#: ../iw/progress_gui.py:35
 msgid "Installing Packages"
 msgstr "Instalasi paket"
 
-#: ../iw/progress_gui.py:155 ../iw/progress_gui.py:190
+#: ../iw/progress_gui.py:162 ../iw/progress_gui.py:197
 msgid "Size"
 msgstr "Ukuran"
 
-#: ../iw/progress_gui.py:156
+#: ../iw/progress_gui.py:163
 msgid "Summary"
 msgstr "Keterangan"
 
-#: ../iw/progress_gui.py:190
+#: ../iw/progress_gui.py:197
 msgid "Status"
 msgstr "Status"
 
-#: ../iw/progress_gui.py:190
+#: ../iw/progress_gui.py:197
 msgid "Packages"
 msgstr "Nama Paket"
 
-#: ../iw/progress_gui.py:190
+#: ../iw/progress_gui.py:197
 msgid "Time"
 msgstr "Waktu"
 
-#: ../iw/progress_gui.py:195
+#: ../iw/progress_gui.py:202
 msgid "Total"
 msgstr "Total"
 
-#: ../iw/progress_gui.py:196
+#: ../iw/progress_gui.py:203
 msgid "Completed"
 msgstr "Selesai"
 
-#: ../iw/progress_gui.py:197
+#: ../iw/progress_gui.py:204
 msgid "Remaining"
 msgstr "Sisa waktu"
 
@@ -1425,7 +1430,7 @@ msgstr ""
 "perlu mengaktifkan swap secepatnya. Tetapi proses ini harus menuliskan "
 "partisi yang baru ke disk secepatnya. Ok ?"
 
-#: ../iw/rootpartition_gui.py:120 ../textw/partitioning_text.py:300
+#: ../iw/rootpartition_gui.py:120 ../textw/partitioning_text.py:302
 #, c-format
 msgid ""
 "You've chosen to put your root filesystem in a file on an already-existing "
@@ -1566,7 +1571,7 @@ msgstr "Jangkauan Frekuensi Vertikal"
 msgid "Test failed"
 msgstr "Test Gagal"
 
-#: ../iw/xconfig_gui.py:23 ../iw/xconfig_gui.py:434
+#: ../iw/xconfig_gui.py:23 ../iw/xconfig_gui.py:436
 msgid "Customize X Configuration"
 msgstr "Konfigurasi X Custom"
 
@@ -1574,7 +1579,7 @@ msgstr "Konfigurasi X Custom"
 msgid "Bits per Pixel"
 msgstr "Bits per pixel"
 
-#: ../iw/xconfig_gui.py:97 ../iw/xconfig_gui.py:429
+#: ../iw/xconfig_gui.py:97 ../iw/xconfig_gui.py:431
 msgid "Test this configuration"
 msgstr "Test Konfigurasi ini"
 
@@ -1583,23 +1588,23 @@ msgstr "Test Konfigurasi ini"
 msgid "Monitor Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../iw/xconfig_gui.py:216
+#: ../iw/xconfig_gui.py:218
 #, fuzzy
 msgid "Horizontal Sync"
 msgstr "Jangkauan Frekuensi Horizontal"
 
-#: ../iw/xconfig_gui.py:225
+#: ../iw/xconfig_gui.py:227
 msgid "Vertical Sync"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:337
+#: ../iw/xconfig_gui.py:339
 #, fuzzy
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr "Monitor Anda tidak bisa dideteksi, silahkan pilih di daftar:"
 
-#: ../iw/xconfig_gui.py:348 ../iw/xconfig_gui.py:369
+#: ../iw/xconfig_gui.py:350 ../iw/xconfig_gui.py:371
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -1607,25 +1612,25 @@ msgstr ""
 "Biasanya hardware video akan dideteksi otomatis untuk menentukan setting "
 "terbaik untuk sistem Anda."
 
-#: ../iw/xconfig_gui.py:357
+#: ../iw/xconfig_gui.py:359
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:378
+#: ../iw/xconfig_gui.py:380
 msgid "Autoprobe results:"
 msgstr "Hasil Deteksi:"
 
-#: ../iw/xconfig_gui.py:438
+#: ../iw/xconfig_gui.py:440
 msgid "Use Graphical Login"
 msgstr "Gunakan login grafikal"
 
-#: ../iw/xconfig_gui.py:439
+#: ../iw/xconfig_gui.py:441
 msgid "Skip X Configuration"
 msgstr "Tidak Konfigurasikan X"
 
-#: ../iw/xconfig_gui.py:486
+#: ../iw/xconfig_gui.py:488
 #, fuzzy
 msgid "Default Desktop:"
 msgstr "Default"
@@ -1864,7 +1869,7 @@ msgstr ""
 "membuat partisi tersebut di salah satu dari dua hard disk pertama di sistem "
 "agar Anda dapat langsung memboot ke Linux dengan LILO."
 
-#: ../loader/loader.c:324 ../loader/loader.c:349
+#: ../loader/loader.c:327 ../loader/loader.c:352
 #: ../textw/partitioning_text.py:64
 msgid "Done"
 msgstr "Selesai"
@@ -1896,35 +1901,35 @@ msgstr "Mengecek bad blok pada saat format"
 msgid "Choose Partitions to Format"
 msgstr "Pilih partisi yang hendak diformat"
 
-#: ../textw/partitioning_text.py:305
+#: ../textw/partitioning_text.py:307
 #, fuzzy
 msgid "Root filesystem size"
 msgstr "Setup filesystem"
 
-#: ../textw/partitioning_text.py:306
+#: ../textw/partitioning_text.py:308
 #, fuzzy
 msgid "Swap space"
 msgstr "Tidak ada area swap"
 
-#: ../textw/partitioning_text.py:316 ../textw/partitioning_text.py:322
-#: ../textw/partitioning_text.py:329
+#: ../textw/partitioning_text.py:318 ../textw/partitioning_text.py:324
+#: ../textw/partitioning_text.py:331
 #, fuzzy
 msgid "Bad Size"
 msgstr "Ukuran"
 
-#: ../textw/partitioning_text.py:317
+#: ../textw/partitioning_text.py:319
 #, fuzzy
 msgid "The size you enter must be a number."
 msgstr "error: %sport haruslah angka\n"
 
-#: ../textw/partitioning_text.py:323
+#: ../textw/partitioning_text.py:325
 #, c-format
 msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
 "which is %d megabytes."
 msgstr ""
 
-#: ../textw/partitioning_text.py:330
+#: ../textw/partitioning_text.py:332
 msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
@@ -2100,22 +2105,22 @@ msgstr "atau gunakan:"
 msgid "Request server via broadcast"
 msgstr "Ambil server pakai broadcast"
 
-#: ../libfdisk/fsedit.c:447
+#: ../libfdisk/fsedit.c:448
 msgid "partitioning did not meet requirements"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:978
-#: ../libfdisk/fsedit.c:987 ../libfdisk/fsedit.c:1014
-#: ../libfdisk/fsedit.c:1027 ../libfdisk/fsedit.c:1037
+#: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
+#: ../libfdisk/fsedit.c:988 ../libfdisk/fsedit.c:1015
+#: ../libfdisk/fsedit.c:1028 ../libfdisk/fsedit.c:1038
 msgid "Bad Mount Point"
 msgstr "Lokasi mount tidak dapat digunakan"
 
-#: ../libfdisk/fsedit.c:965
+#: ../libfdisk/fsedit.c:966
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "Direktori %s harus ada di filesystem root"
 
-#: ../libfdisk/fsedit.c:972
+#: ../libfdisk/fsedit.c:973
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2126,7 +2131,7 @@ msgstr ""
 "\n"
 "Lokasi mount harus dimulai dengan karakter slash (/)."
 
-#: ../libfdisk/fsedit.c:979
+#: ../libfdisk/fsedit.c:980
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2137,7 +2142,7 @@ msgstr ""
 "\n"
 "Lokasi mount tidak boleh diakhiri dengan karakter slash (/)."
 
-#: ../libfdisk/fsedit.c:988
+#: ../libfdisk/fsedit.c:989
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2148,7 +2153,7 @@ msgstr ""
 "\n"
 "Lokasi mount harus berupa nama dengan karakter biasa."
 
-#: ../libfdisk/fsedit.c:996
+#: ../libfdisk/fsedit.c:997
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
@@ -2156,7 +2161,7 @@ msgid ""
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1015
+#: ../libfdisk/fsedit.c:1016
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2167,12 +2172,12 @@ msgstr ""
 "\n"
 "Partisi sistem harus berupa partisi Linux Native."
 
-#: ../libfdisk/fsedit.c:1028
+#: ../libfdisk/fsedit.c:1029
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1038
+#: ../libfdisk/fsedit.c:1039
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2183,11 +2188,11 @@ msgstr ""
 "\n"
 "Partisi /usr harus ada di partisi Linux Native atau volume NFS."
 
-#: ../libfdisk/fsedit.c:1066
+#: ../libfdisk/fsedit.c:1067
 msgid "Too Many Drives"
 msgstr "Drive terlalu banyak"
 
-#: ../libfdisk/fsedit.c:1067
+#: ../libfdisk/fsedit.c:1068
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
@@ -2197,23 +2202,23 @@ msgstr ""
 "program fdisk untuk mensetup drive ini, dan beritahukan ke Red Hat Software "
 "bahwa Anda membaca pesan ini sekarang."
 
-#: ../libfdisk/fsedit.c:1076
+#: ../libfdisk/fsedit.c:1077
 #, fuzzy
 msgid "Error Creating Device Nodes"
 msgstr "Saya sedang memformat area swap di device %s..."
 
-#: ../libfdisk/fsedit.c:1077
+#: ../libfdisk/fsedit.c:1078
 msgid ""
 "An error has occurred why trying to create device nodes for the hard drives "
 "in your system.  This may be because you have run out of disk space on the "
 "/tmp partition."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1093
+#: ../libfdisk/fsedit.c:1094
 msgid "No Drives Found"
 msgstr "Tidak ditemukan drive apa pun"
 
-#: ../libfdisk/fsedit.c:1094
+#: ../libfdisk/fsedit.c:1095
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -2221,14 +2226,14 @@ msgstr ""
 "Ada error - saya tidak bisa menemukan device untuk membuat filesystem. "
 "Segera periksa hardware Anda."
 
-#: ../libfdisk/fsedit.c:1407 ../libfdisk/fsedit.c:1486
+#: ../libfdisk/fsedit.c:1408 ../libfdisk/fsedit.c:1487
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr "Ada error sewaktu membaca tabel partisi pada device blok %s, yaitu "
 
-#: ../libfdisk/fsedit.c:1463
+#: ../libfdisk/fsedit.c:1464
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -2237,27 +2242,27 @@ msgstr ""
 "Tabel partisi di device %s rusak. Untuk membuat partisi baru maka harus "
 "diformat dulu, dengan resiko SEMUA DATA HILANG di drive ini."
 
-#: ../libfdisk/fsedit.c:1468
+#: ../libfdisk/fsedit.c:1469
 msgid "Bad Partition Table"
 msgstr "Tabel Partisi Rusak"
 
-#: ../libfdisk/fsedit.c:1469
+#: ../libfdisk/fsedit.c:1470
 msgid "Initialize"
 msgstr "Inisialisasi"
 
-#: ../libfdisk/fsedit.c:1469 ../libfdisk/fsedit.c:1490
+#: ../libfdisk/fsedit.c:1470 ../libfdisk/fsedit.c:1491
 msgid "Skip Drive"
 msgstr "Lewati drive"
 
-#: ../libfdisk/fsedit.c:1490 ../loader/net.c:254 ../loader/net.c:379
+#: ../libfdisk/fsedit.c:1491 ../loader/net.c:254 ../loader/net.c:379
 msgid "Retry"
 msgstr "Ulangi lagi"
 
-#: ../libfdisk/fsedit.c:1502
+#: ../libfdisk/fsedit.c:1503
 msgid "BSD Disklabel"
 msgstr "Disklabel BSD"
 
-#: ../libfdisk/fsedit.c:1502
+#: ../libfdisk/fsedit.c:1503
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -2268,106 +2273,106 @@ msgstr ""
 "instalasi khusus dan fdisk (jangan Disk Druid) untuk mesin dengan disklabel "
 "BSD."
 
-#: ../libfdisk/fsedit.c:1532
+#: ../libfdisk/fsedit.c:1533
 #, c-format
 msgid "System error %d"
 msgstr "Error system %d"
 
-#: ../libfdisk/fsedit.c:1541 ../libfdisk/fsedit.c:1543
+#: ../libfdisk/fsedit.c:1542 ../libfdisk/fsedit.c:1544
 msgid "Fdisk Error"
 msgstr "Error Fdisk"
 
-#: ../libfdisk/gnomefsedit.c:553 ../libfdisk/gnomefsedit.c:853
+#: ../libfdisk/gnomefsedit.c:550 ../libfdisk/gnomefsedit.c:850
 msgid "<Swap Partition>"
 msgstr "<Partisi swap>"
 
-#: ../libfdisk/gnomefsedit.c:561 ../libfdisk/gnomefsedit.c:855
+#: ../libfdisk/gnomefsedit.c:558 ../libfdisk/gnomefsedit.c:852
 msgid "<RAID Partition>"
 msgstr "<Partisi RAID>"
 
-#: ../libfdisk/gnomefsedit.c:730 ../libfdisk/newtfsedit.c:829
+#: ../libfdisk/gnomefsedit.c:727 ../libfdisk/newtfsedit.c:836
 msgid "Delete Partition"
 msgstr "Hapus Partisi"
 
-#: ../libfdisk/gnomefsedit.c:731 ../libfdisk/newtfsedit.c:830
+#: ../libfdisk/gnomefsedit.c:728 ../libfdisk/newtfsedit.c:837
 msgid "Are you sure you want to delete this partition?"
 msgstr "Benar ingin menghapus partisi ini?"
 
-#: ../libfdisk/gnomefsedit.c:780 ../libfdisk/newtfsedit.c:337
+#: ../libfdisk/gnomefsedit.c:777 ../libfdisk/newtfsedit.c:344
 #, fuzzy
 msgid "Cannot Edit Partitions"
 msgstr "Edit Partisi"
 
-#: ../libfdisk/gnomefsedit.c:781 ../libfdisk/newtfsedit.c:338
+#: ../libfdisk/gnomefsedit.c:778 ../libfdisk/newtfsedit.c:345
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:799 ../libfdisk/gnomefsedit.c:805
-#: ../libfdisk/gnomefsedit.c:809 ../libfdisk/gnomefsedit.c:811
-#: ../libfdisk/newtfsedit.c:361 ../libfdisk/newtfsedit.c:367
-#: ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:373
+#: ../libfdisk/gnomefsedit.c:796 ../libfdisk/gnomefsedit.c:802
+#: ../libfdisk/gnomefsedit.c:806 ../libfdisk/gnomefsedit.c:808
+#: ../libfdisk/newtfsedit.c:368 ../libfdisk/newtfsedit.c:374
+#: ../libfdisk/newtfsedit.c:378 ../libfdisk/newtfsedit.c:380
 msgid "Edit Partition"
 msgstr "Edit Partisi"
 
-#: ../libfdisk/gnomefsedit.c:826 ../libfdisk/gnomefsedit.c:1898
-#: ../libfdisk/newtfsedit.c:382
+#: ../libfdisk/gnomefsedit.c:823 ../libfdisk/gnomefsedit.c:1895
+#: ../libfdisk/newtfsedit.c:389
 msgid "Mount Point:"
 msgstr "Lokasi Mount:"
 
-#: ../libfdisk/gnomefsedit.c:868 ../libfdisk/newtfsedit.c:401
+#: ../libfdisk/gnomefsedit.c:865 ../libfdisk/newtfsedit.c:408
 msgid "Size (Megs):"
 msgstr "Ukuran (Mega):"
 
-#: ../libfdisk/gnomefsedit.c:900
+#: ../libfdisk/gnomefsedit.c:897
 #, fuzzy
 msgid "Use remaining space?"
 msgstr "Gunakan space yang ada"
 
-#: ../libfdisk/gnomefsedit.c:919 ../libfdisk/newtfsedit.c:433
+#: ../libfdisk/gnomefsedit.c:916 ../libfdisk/newtfsedit.c:440
 msgid "Allocation Status:"
 msgstr "Status Alokasi:"
 
-#: ../libfdisk/gnomefsedit.c:923 ../libfdisk/newtfsedit.c:435
+#: ../libfdisk/gnomefsedit.c:920 ../libfdisk/newtfsedit.c:442
 msgid "Successful"
 msgstr "Sukses"
 
-#: ../libfdisk/gnomefsedit.c:926 ../libfdisk/newtfsedit.c:437
+#: ../libfdisk/gnomefsedit.c:923 ../libfdisk/newtfsedit.c:444
 msgid "Failed"
 msgstr "Gagal"
 
-#: ../libfdisk/gnomefsedit.c:938 ../libfdisk/newtfsedit.c:442
+#: ../libfdisk/gnomefsedit.c:935 ../libfdisk/newtfsedit.c:449
 msgid "Failure Reason:"
 msgstr "Sebab kegagalan:"
 
-#: ../libfdisk/gnomefsedit.c:952 ../libfdisk/gnomefsedit.c:1932
+#: ../libfdisk/gnomefsedit.c:949 ../libfdisk/gnomefsedit.c:1929
 msgid "Partition Type:"
 msgstr "Tipe partisi:"
 
-#: ../libfdisk/gnomefsedit.c:1035 ../libfdisk/newtfsedit.c:512
+#: ../libfdisk/gnomefsedit.c:1032 ../libfdisk/newtfsedit.c:519
 msgid "Allowable Drives:"
 msgstr "Drive yang digunakan:"
 
-#: ../libfdisk/gnomefsedit.c:1138 ../libfdisk/gnomefsedit.c:2127
-#: ../libfdisk/newtfsedit.c:603
+#: ../libfdisk/gnomefsedit.c:1135 ../libfdisk/gnomefsedit.c:2124
+#: ../libfdisk/newtfsedit.c:610
 msgid "No Mount Point"
 msgstr "Lokasi Mount Tidak Ada"
 
-#: ../libfdisk/gnomefsedit.c:1139 ../libfdisk/newtfsedit.c:604
+#: ../libfdisk/gnomefsedit.c:1136 ../libfdisk/newtfsedit.c:611
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr ""
 "Anda belum memilih lokasi mount untuk partisi ini. Benar ingin melanjutkan?"
 
-#: ../libfdisk/gnomefsedit.c:1163 ../libfdisk/gnomefsedit.c:1200
-#: ../libfdisk/gnomefsedit.c:2135 ../libfdisk/newtfsedit.c:627
-#: ../libfdisk/newtfsedit.c:660
+#: ../libfdisk/gnomefsedit.c:1160 ../libfdisk/gnomefsedit.c:1197
+#: ../libfdisk/gnomefsedit.c:2132 ../libfdisk/newtfsedit.c:634
+#: ../libfdisk/newtfsedit.c:667
 msgid "Mount Point Error"
 msgstr "Lokasi Mount Salah"
 
-#: ../libfdisk/gnomefsedit.c:1164 ../libfdisk/newtfsedit.c:628
+#: ../libfdisk/gnomefsedit.c:1161 ../libfdisk/newtfsedit.c:635
 msgid ""
 "You have tried to assign the '/' mount point to a FAT-style partition.  You "
 "cannot do this now because mount points have been assigned to ext2 "
@@ -2375,17 +2380,17 @@ msgid ""
 "assign '/' to this partition."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1201 ../libfdisk/newtfsedit.c:661
+#: ../libfdisk/gnomefsedit.c:1198 ../libfdisk/newtfsedit.c:668
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
 msgstr "Lokasi mount tidak sah atau sudah digunakan. Silahkan ulangi lagi."
 
-#: ../libfdisk/gnomefsedit.c:1234 ../libfdisk/newtfsedit.c:686
+#: ../libfdisk/gnomefsedit.c:1231 ../libfdisk/newtfsedit.c:693
 msgid "Size Error"
 msgstr "Ukuran Salah"
 
-#: ../libfdisk/gnomefsedit.c:1235 ../libfdisk/newtfsedit.c:687
+#: ../libfdisk/gnomefsedit.c:1232 ../libfdisk/newtfsedit.c:694
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -2393,38 +2398,38 @@ msgstr ""
 "Ukuran partisi salah, ukuran haruslah lebih besar atau sama dengan nol (0), "
 "dan dituliksan dalam format bilangan bulat desimal (basis 10)."
 
-#: ../libfdisk/gnomefsedit.c:1253 ../libfdisk/gnomefsedit.c:2268
-#: ../libfdisk/newtfsedit.c:705
+#: ../libfdisk/gnomefsedit.c:1250 ../libfdisk/gnomefsedit.c:2265
+#: ../libfdisk/newtfsedit.c:712
 msgid "Swap Size Error"
 msgstr "Ukuran Swap Salah"
 
-#: ../libfdisk/gnomefsedit.c:1254 ../libfdisk/gnomefsedit.c:2269
-#: ../libfdisk/newtfsedit.c:706
+#: ../libfdisk/gnomefsedit.c:1251 ../libfdisk/gnomefsedit.c:2266
+#: ../libfdisk/newtfsedit.c:713
 #, c-format
 msgid ""
 "You have created a swap partition which is too large. The maximum size of a "
 "swap partition is %ld Megabytes."
 msgstr "Partisi swap yang Anda buat terlalu besar (maksimum %ld MB)."
 
-#: ../libfdisk/gnomefsedit.c:1268
+#: ../libfdisk/gnomefsedit.c:1265
 #, fuzzy
 msgid "No Drives Specified"
 msgstr "Tidak ditemukan drive apa pun"
 
-#: ../libfdisk/gnomefsedit.c:1269 ../libfdisk/gnomefsedit.c:1286
+#: ../libfdisk/gnomefsedit.c:1266 ../libfdisk/gnomefsedit.c:1283
 msgid "Close"
 msgstr "Tutup"
 
-#: ../libfdisk/gnomefsedit.c:1270
+#: ../libfdisk/gnomefsedit.c:1267
 #, fuzzy
 msgid "You must constrain this partition to at least one drive."
 msgstr "Anda harus membuat partisi swap."
 
-#: ../libfdisk/gnomefsedit.c:1278 ../libfdisk/gnomefsedit.c:1285
+#: ../libfdisk/gnomefsedit.c:1275 ../libfdisk/gnomefsedit.c:1282
 msgid "No RAID Drive Constraint"
 msgstr "Tidak ada drive RAID"
 
-#: ../libfdisk/gnomefsedit.c:1280
+#: ../libfdisk/gnomefsedit.c:1277
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
@@ -2433,7 +2438,7 @@ msgstr ""
 "Anda mengkonfigurasikan partisi RAID tanpa melakukan constraining di drive.\n"
 "Bener maunya seperti ini?"
 
-#: ../libfdisk/gnomefsedit.c:1287
+#: ../libfdisk/gnomefsedit.c:1284
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
@@ -2441,12 +2446,12 @@ msgstr ""
 "Anda mengkonfigurasikan partisi RAID tanpa melakukan constraining di drive. "
 "Silahkan pilih drive yang hendak di constrain"
 
-#: ../libfdisk/gnomefsedit.c:1407 ../libfdisk/newtfsedit.c:803
+#: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/newtfsedit.c:810
 #, fuzzy
 msgid "Cannot Add Partitions"
 msgstr "Partisi belum dialokasikan"
 
-#: ../libfdisk/gnomefsedit.c:1408 ../libfdisk/newtfsedit.c:804
+#: ../libfdisk/gnomefsedit.c:1405 ../libfdisk/newtfsedit.c:811
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -2454,11 +2459,11 @@ msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1482
+#: ../libfdisk/gnomefsedit.c:1479
 msgid "RAID Entry Incomplete"
 msgstr "Entry RAID tidak komplit"
 
-#: ../libfdisk/gnomefsedit.c:1483
+#: ../libfdisk/gnomefsedit.c:1480
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -2470,12 +2475,12 @@ msgstr ""
 "komposisikan ulang device dgn partisi yang telah dialokasikan."
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1582 ../libfdisk/gnomefsedit.c:1601
-#: ../libfdisk/newtfsedit.c:136 ../libfdisk/newtfsedit.c:1631
+#: ../libfdisk/gnomefsedit.c:1579 ../libfdisk/gnomefsedit.c:1598
+#: ../libfdisk/newtfsedit.c:136 ../libfdisk/newtfsedit.c:1638
 msgid "Unallocated Partitions"
 msgstr "Partisi belum dialokasikan"
 
-#: ../libfdisk/gnomefsedit.c:1586 ../libfdisk/gnomefsedit.c:1596
+#: ../libfdisk/gnomefsedit.c:1583 ../libfdisk/gnomefsedit.c:1593
 #: ../libfdisk/newtfsedit.c:140
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
@@ -2483,43 +2488,43 @@ msgid ""
 "with the reason they were not allocated."
 msgstr "Ada partisi yang belum dialokasikan di daftar berikut."
 
-#: ../libfdisk/gnomefsedit.c:1880
+#: ../libfdisk/gnomefsedit.c:1877
 msgid "Cannot Edit Raid"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1881
+#: ../libfdisk/gnomefsedit.c:1878
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1918
+#: ../libfdisk/gnomefsedit.c:1915
 msgid "<Swap Partition"
 msgstr "<Partisi swap>"
 
-#: ../libfdisk/gnomefsedit.c:1977
+#: ../libfdisk/gnomefsedit.c:1974
 msgid "RAID Device: /dev/"
 msgstr "Device RAID: /dev/"
 
-#: ../libfdisk/gnomefsedit.c:2000
+#: ../libfdisk/gnomefsedit.c:1997
 msgid "RAID Type:"
 msgstr "Tipe RAID:"
 
-#: ../libfdisk/gnomefsedit.c:2037
+#: ../libfdisk/gnomefsedit.c:2034
 msgid "Partitions For RAID Array:"
 msgstr "Partisi array RAID"
 
-#: ../libfdisk/gnomefsedit.c:2128
+#: ../libfdisk/gnomefsedit.c:2125
 msgid "You have not selected a mount point. A mount point is required."
 msgstr "Anda belum memilih lokasi mount untuk partisi ini. Saya perlu ini."
 
-#: ../libfdisk/gnomefsedit.c:2136
+#: ../libfdisk/gnomefsedit.c:2133
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr "Lokasi mount tidak sah atau sudah digunakan. Silahkan ulangi lagi."
 
-#: ../libfdisk/gnomefsedit.c:2172
+#: ../libfdisk/gnomefsedit.c:2169
 msgid ""
 "The bootable raid device can only include partitions from the first two "
 "drives on your system.\n"
@@ -2527,23 +2532,23 @@ msgid ""
 "These drives are: "
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2179
+#: ../libfdisk/gnomefsedit.c:2176
 msgid "Booting From RAID Warning"
 msgstr "Warning boot dari RAID"
 
-#: ../libfdisk/gnomefsedit.c:2189
+#: ../libfdisk/gnomefsedit.c:2186
 msgid "No RAID Device"
 msgstr "Tidak ada device RAID"
 
-#: ../libfdisk/gnomefsedit.c:2190
+#: ../libfdisk/gnomefsedit.c:2187
 msgid "You need to selected a RAID device."
 msgstr "Anda harus pilih device RAID"
 
-#: ../libfdisk/gnomefsedit.c:2196
+#: ../libfdisk/gnomefsedit.c:2193
 msgid "Used Raid Device"
 msgstr "gunakan device RAID"
 
-#: ../libfdisk/gnomefsedit.c:2197
+#: ../libfdisk/gnomefsedit.c:2194
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
@@ -2552,35 +2557,35 @@ msgstr ""
 "Device RAID \"/dev/%s\" sudah dikonfigurasikan sebagai raid. Pilih yang lain "
 "lagi."
 
-#: ../libfdisk/gnomefsedit.c:2210
+#: ../libfdisk/gnomefsedit.c:2207
 msgid "Not Enough Partitions"
 msgstr "Partisi tidak cukup"
 
-#: ../libfdisk/gnomefsedit.c:2212
+#: ../libfdisk/gnomefsedit.c:2209
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
 "Anda belum mengkonfigurasikan partisi untuk tipe RAID yang telah Anda pilih."
 
-#: ../libfdisk/gnomefsedit.c:2219
+#: ../libfdisk/gnomefsedit.c:2216
 msgid "Illegal /boot RAID Type"
 msgstr "Tipe /boot RAID tidak bisa dipakai"
 
-#: ../libfdisk/gnomefsedit.c:2221
+#: ../libfdisk/gnomefsedit.c:2218
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Partisi boot (/boot) hanya boleh untuk RAID-1 saja."
 
-#: ../libfdisk/gnomefsedit.c:2228
+#: ../libfdisk/gnomefsedit.c:2225
 #, fuzzy
 msgid "Illegal RAID mountpoint"
 msgstr "Tipe /boot RAID tidak bisa dipakai"
 
-#: ../libfdisk/gnomefsedit.c:2230
+#: ../libfdisk/gnomefsedit.c:2227
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2313
+#: ../libfdisk/gnomefsedit.c:2310
 #, c-format
 msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
@@ -2590,117 +2595,117 @@ msgstr ""
 "Partisi %s adalah partisi yang sudah ada di device RAID ini. Mount point "
 "diset ke /boot. Apakah benar partisi ini bisa melakukan boot?"
 
-#: ../libfdisk/gnomefsedit.c:2320
+#: ../libfdisk/gnomefsedit.c:2317
 msgid "Use Pre-existing Partition?"
 msgstr "Gunakan partisi yang ada?"
 
-#: ../libfdisk/gnomefsedit.c:2397
+#: ../libfdisk/gnomefsedit.c:2394
 #, fuzzy
 msgid "Cannot Add RAID Devices"
 msgstr "Tidak ada device RAID"
 
-#: ../libfdisk/gnomefsedit.c:2398
+#: ../libfdisk/gnomefsedit.c:2395
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2439
+#: ../libfdisk/gnomefsedit.c:2436
 msgid "Auto-Partition"
 msgstr "Partisi Otomatis"
 
-#: ../libfdisk/gnomefsedit.c:2446
+#: ../libfdisk/gnomefsedit.c:2443
 msgid "Using Existing Disk Space"
 msgstr "Gunakan sisa space disk yang ada"
 
-#: ../libfdisk/gnomefsedit.c:2465
+#: ../libfdisk/gnomefsedit.c:2462
 msgid "Remove Linux partitions"
 msgstr "Hapus partisi Linux"
 
-#: ../libfdisk/gnomefsedit.c:2476
+#: ../libfdisk/gnomefsedit.c:2473
 msgid "Use existing free space"
 msgstr "Gunakan space yang ada"
 
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2488
+#: ../libfdisk/gnomefsedit.c:2485
 msgid "Intended Use"
 msgstr "Penggunaan sistem"
 
-#: ../libfdisk/gnomefsedit.c:2507 ../libfdisk/gnomefsedit.c:2527
+#: ../libfdisk/gnomefsedit.c:2504 ../libfdisk/gnomefsedit.c:2524
 msgid "Server"
 msgstr "Server"
 
-#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2527
+#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2524
 msgid "Workstation"
 msgstr "Workstation"
 
-#: ../libfdisk/gnomefsedit.c:2603
+#: ../libfdisk/gnomefsedit.c:2600
 msgid "Delete RAID Device?"
 msgstr "Hapus device RAID ?"
 
-#: ../libfdisk/gnomefsedit.c:2604
+#: ../libfdisk/gnomefsedit.c:2601
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Benar ingin menghapus device RAID ini?"
 
-#: ../libfdisk/gnomefsedit.c:2655 ../libfdisk/newtfsedit.c:1734
+#: ../libfdisk/gnomefsedit.c:2652 ../libfdisk/newtfsedit.c:1741
 msgid "Reset Partition Table"
 msgstr "Reset Tabel Partisi"
 
-#: ../libfdisk/gnomefsedit.c:2657 ../libfdisk/newtfsedit.c:1736
+#: ../libfdisk/gnomefsedit.c:2654 ../libfdisk/newtfsedit.c:1743
 msgid "Reset partition table to original contents? "
 msgstr "Tabel partisi hendak direset ke aslinya?"
 
-#: ../libfdisk/gnomefsedit.c:2693 ../libfdisk/gnomefsedit.c:2744
+#: ../libfdisk/gnomefsedit.c:2690 ../libfdisk/gnomefsedit.c:2741
 msgid "<Swap>"
 msgstr "<Swap>"
 
-#: ../libfdisk/gnomefsedit.c:2695
+#: ../libfdisk/gnomefsedit.c:2692
 msgid "<RAID>"
 msgstr "<RAID>"
 
-#: ../libfdisk/gnomefsedit.c:2697
+#: ../libfdisk/gnomefsedit.c:2694
 msgid "<not set>"
 msgstr "<tidak diset>"
 
-#: ../libfdisk/gnomefsedit.c:2980
+#: ../libfdisk/gnomefsedit.c:2977
 msgid "Requested"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2981
+#: ../libfdisk/gnomefsedit.c:2978
 msgid "Actual"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3154
+#: ../libfdisk/gnomefsedit.c:3151
 #, fuzzy
 msgid "Drive"
 msgstr "Lewati drive"
 
-#: ../libfdisk/gnomefsedit.c:3155
+#: ../libfdisk/gnomefsedit.c:3152
 msgid "Geom [C/H/S]"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3156
+#: ../libfdisk/gnomefsedit.c:3153
 #, fuzzy
 msgid "Total (M)"
 msgstr "Total"
 
-#: ../libfdisk/gnomefsedit.c:3157
+#: ../libfdisk/gnomefsedit.c:3154
 msgid "Free (M)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3158
+#: ../libfdisk/gnomefsedit.c:3155
 msgid "Used (M)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3159
+#: ../libfdisk/gnomefsedit.c:3156
 msgid "Used (%)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3395
+#: ../libfdisk/gnomefsedit.c:3392
 msgid "Unallocated Partitions Exist..."
 msgstr "Ada partisi yang belum dialokasikan..."
 
-#: ../libfdisk/gnomefsedit.c:3401 ../libfdisk/gnomefsedit.c:3415
+#: ../libfdisk/gnomefsedit.c:3398 ../libfdisk/gnomefsedit.c:3412
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
@@ -2708,115 +2713,115 @@ msgstr ""
 "Anda harus membuat partisi root (/) ke partisi Linux Native (ext2) atau "
 "partisi RAID untuk instal."
 
-#: ../libfdisk/gnomefsedit.c:3486
+#: ../libfdisk/gnomefsedit.c:3483
 msgid "Partitions"
 msgstr "Partisi"
 
-#: ../libfdisk/gnomefsedit.c:3516
+#: ../libfdisk/gnomefsedit.c:3513
 msgid "_Add..."
 msgstr "_Tambah..."
 
-#: ../libfdisk/gnomefsedit.c:3523
+#: ../libfdisk/gnomefsedit.c:3520
 msgid "_Edit..."
 msgstr "_Edit..."
 
-#: ../libfdisk/gnomefsedit.c:3524
+#: ../libfdisk/gnomefsedit.c:3521
 msgid "_Reset"
 msgstr "_Reset"
 
-#: ../libfdisk/gnomefsedit.c:3529
+#: ../libfdisk/gnomefsedit.c:3526
 msgid "_Delete"
 msgstr "_Hapus"
 
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3542
+#: ../libfdisk/gnomefsedit.c:3539
 msgid "_Make RAID Device"
 msgstr "_Buat Perangkat RAID"
 
-#: ../libfdisk/gnomefsedit.c:3552
+#: ../libfdisk/gnomefsedit.c:3549
 msgid "Auto Partition"
 msgstr "Partisi Otomatis"
 
-#: ../libfdisk/gnomefsedit.c:3561
+#: ../libfdisk/gnomefsedit.c:3558
 msgid "Drive Summary"
 msgstr "Keterangan Drive"
 
-#: ../libfdisk/newtfsedit.c:195
+#: ../libfdisk/newtfsedit.c:202
 msgid "Swap Partition"
 msgstr "Partisi swap"
 
-#: ../libfdisk/newtfsedit.c:201
+#: ../libfdisk/newtfsedit.c:208
 #, fuzzy
 msgid "Raid Partition"
 msgstr "Edit Partisi"
 
-#: ../libfdisk/newtfsedit.c:356
+#: ../libfdisk/newtfsedit.c:363
 #, fuzzy
 msgid "Edit New Partition"
 msgstr "Edit Partisi"
 
-#: ../libfdisk/newtfsedit.c:421
+#: ../libfdisk/newtfsedit.c:428
 #, fuzzy
 msgid "Use remaining space?:"
 msgstr "Gunakan space yang ada"
 
-#: ../libfdisk/newtfsedit.c:465
+#: ../libfdisk/newtfsedit.c:472
 #, fuzzy
 msgid "Type:"
 msgstr "Tipe"
 
-#: ../libfdisk/newtfsedit.c:479
+#: ../libfdisk/newtfsedit.c:486
 msgid "Unknown"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1415
+#: ../libfdisk/newtfsedit.c:1422
 msgid "Current Disk Partitions"
 msgstr "Partisi Disk yang ada"
 
-#: ../libfdisk/newtfsedit.c:1445
+#: ../libfdisk/newtfsedit.c:1452
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1448
+#: ../libfdisk/newtfsedit.c:1455
 msgid "Drive Summaries"
 msgstr "Keterangan Drive"
 
-#: ../libfdisk/newtfsedit.c:1450
+#: ../libfdisk/newtfsedit.c:1457
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1564
+#: ../libfdisk/newtfsedit.c:1571
 msgid "No Root Partition"
 msgstr "Partisi root takada"
 
-#: ../libfdisk/newtfsedit.c:1565
+#: ../libfdisk/newtfsedit.c:1572
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
 msgstr "Anda harus membuat partisi root (/) ke partisi Linux Native (ext2)."
 
-#: ../libfdisk/newtfsedit.c:1584
+#: ../libfdisk/newtfsedit.c:1591
 msgid "No Swap Partition"
 msgstr "Partisi swap tidak ada"
 
-#: ../libfdisk/newtfsedit.c:1586
+#: ../libfdisk/newtfsedit.c:1593
 msgid "You must assign a swap partition for the install to proceed."
 msgstr "Anda harus membuat partisi swap."
 
-#: ../libfdisk/newtfsedit.c:1610
+#: ../libfdisk/newtfsedit.c:1617
 #, fuzzy
 msgid "No /boot/efi Partition"
 msgstr "Partisi root takada"
 
-#: ../libfdisk/newtfsedit.c:1612
+#: ../libfdisk/newtfsedit.c:1619
 #, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr "Anda harus membuat partisi swap."
 
-#: ../libfdisk/newtfsedit.c:1633
+#: ../libfdisk/newtfsedit.c:1640
 msgid ""
 "There are unallocated partitions left. If you quit now they will not be "
 "written to the disk.\n"
@@ -2828,15 +2833,15 @@ msgstr ""
 "\n"
 "Benar ingin keluar?"
 
-#: ../libfdisk/newtfsedit.c:1649
+#: ../libfdisk/newtfsedit.c:1656
 msgid "Save Changes"
 msgstr "Simpan"
 
-#: ../libfdisk/newtfsedit.c:1651
+#: ../libfdisk/newtfsedit.c:1658
 msgid "Save changes to partition table(s)?"
 msgstr "Simpan tabel partisi?"
 
-#: ../libfdisk/newtfsedit.c:1695
+#: ../libfdisk/newtfsedit.c:1702
 msgid "You may only delete NFS mounts."
 msgstr "Anda hanya boleh menghapus mount NFS"
 
@@ -2856,11 +2861,11 @@ msgstr "CDROM jenis apa yang Anda punya?"
 msgid "Initializing CDROM..."
 msgstr "Inisialisasi CDROM..."
 
-#: ../loader/devices.c:71
+#: ../loader/devices.c:73
 msgid "Miscellaneous"
 msgstr "Lain-lain"
 
-#: ../loader/devices.c:80
+#: ../loader/devices.c:82
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
@@ -2869,30 +2874,30 @@ msgstr ""
 "Module ini bisa menggunakan parameter khusus. Bila Anda tidak tahu "
 "parameternya apa, lewati saja layar ini, tekan tombol \"OK\" sekarang."
 
-#: ../loader/devices.c:85
+#: ../loader/devices.c:87
 msgid "Module Parameters"
 msgstr "Parameter Modul"
 
-#: ../loader/devices.c:201 ../loader/devices.c:208 ../loader/devices.c:317
-#: ../loader/loader.c:272 ../loader/loader.c:333 ../loader/loader.c:349
+#: ../loader/devices.c:203 ../loader/devices.c:210 ../loader/devices.c:320
+#: ../loader/loader.c:275 ../loader/loader.c:336 ../loader/loader.c:352
 msgid "Devices"
 msgstr "Perangkat"
 
-#: ../loader/devices.c:203
+#: ../loader/devices.c:205
 #, fuzzy
 msgid "Do you have a driver disk?"
 msgstr "Apakah Anda memiliki adapter SCSI?"
 
-#: ../loader/devices.c:210
+#: ../loader/devices.c:212
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Masukkan driver disk dan kemudian tekan \"OK\"."
 
-#: ../loader/devices.c:230 ../loader/devices.c:440
+#: ../loader/devices.c:233
 #, fuzzy
 msgid "Failed to mount driver disk."
 msgstr "Saya gagal memount floppy disk."
 
-#: ../loader/devices.c:237
+#: ../loader/devices.c:240
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
@@ -2900,7 +2905,7 @@ msgstr ""
 "Disket yang Anda masukkan tadi tidak berisi disk driver untuk Linux Red Hat "
 "ini."
 
-#: ../loader/devices.c:288
+#: ../loader/devices.c:291
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
@@ -2908,43 +2913,48 @@ msgstr ""
 "Driver mana yang hendak dicoba? Bila drivernya tidak ada di daftar, dan Anda "
 "memiliki disk driver lain, silahkan tekan F2."
 
-#: ../loader/devices.c:297
+#: ../loader/devices.c:300
 msgid "Specify module parameters"
 msgstr "Tuliskan Parameter module"
 
-#: ../loader/devices.c:394
+#: ../loader/devices.c:397
 #, fuzzy, c-format
 msgid "Failed to insert %s module."
 msgstr "saya gagal membuat %s"
 
-#: ../loader/devices.c:460
+#: ../loader/devices.c:443
+#, fuzzy, c-format
+msgid "Failed to mount driver disk: %s."
+msgstr "Saya gagal memount floppy disk."
+
+#: ../loader/devices.c:463
 msgid "The wrong diskette was inserted."
 msgstr ""
 
-#: ../loader/devices.c:487
+#: ../loader/devices.c:490
 msgid "Driver Disk"
 msgstr "Disket Driver"
 
-#: ../loader/devices.c:488
+#: ../loader/devices.c:491
 #, c-format
 msgid "Please insert the %s driver disk now."
 msgstr ""
 
-#: ../loader/kickstart.c:57 ../loader/kickstart.c:67 ../loader/kickstart.c:106
+#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
 msgstr "Errok Kickstart"
 
-#: ../loader/kickstart.c:58
+#: ../loader/kickstart.c:59
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
 msgstr "Error membuka file kickstart %s: %s"
 
-#: ../loader/kickstart.c:68
+#: ../loader/kickstart.c:69
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Error saat membaca isi file kickstart %s: %s"
 
-#: ../loader/kickstart.c:107
+#: ../loader/kickstart.c:108
 #, c-format
 msgid "Error on line %d of kickstart file %s."
 msgstr "Error pada baris %d di file kickstart %s."
@@ -2953,11 +2963,11 @@ msgstr "Error pada baris %d di file kickstart %s."
 msgid "Choose a Language"
 msgstr "Pilih bahasanya:"
 
-#: ../loader/lang.c:329 ../loader/loader.c:145
+#: ../loader/lang.c:329 ../loader/loader.c:146
 msgid "Welcome to Red Hat Linux"
 msgstr "Selamat Datang di Linux Red Hat!"
 
-#: ../loader/lang.c:330 ../loader/loader.c:147
+#: ../loader/lang.c:330 ../loader/loader.c:148
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -2971,35 +2981,35 @@ msgstr "Tipe Keyboard"
 msgid "What type of keyboard do you have?"
 msgstr "Keyboard mana yang Anda punya?"
 
-#: ../loader/loader.c:120
+#: ../loader/loader.c:121
 msgid "Local CDROM"
 msgstr "CDROM lokal"
 
-#: ../loader/loader.c:123
+#: ../loader/loader.c:124
 msgid "NFS image"
 msgstr "Image NFS"
 
-#: ../loader/loader.c:128
+#: ../loader/loader.c:129
 msgid "Hard drive"
 msgstr "Hard Disk"
 
-#: ../loader/loader.c:259
+#: ../loader/loader.c:262
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:273
+#: ../loader/loader.c:276
 msgid "What kind of device would you like to add"
 msgstr "Perangkat apa yang hendak dimasukkan ?"
 
-#: ../loader/loader.c:322
+#: ../loader/loader.c:325
 msgid "I have found the following devices in your system:"
 msgstr "Saya menemukan perangkat berikut ini di sistem:"
 
-#: ../loader/loader.c:324 ../loader/loader.c:349
+#: ../loader/loader.c:327 ../loader/loader.c:352
 msgid "Add Device"
 msgstr "Tambah Perangkat"
 
-#: ../loader/loader.c:350
+#: ../loader/loader.c:353
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -3007,24 +3017,24 @@ msgstr ""
 "Sekarang belum ada device driver yang diload untuk sistem ini. Mau meloadnya "
 "sekarang ?"
 
-#: ../loader/loader.c:436 ../loader/loader.c:438
+#: ../loader/loader.c:439 ../loader/loader.c:441
 msgid "Loading"
 msgstr "Sedang Meload"
 
-#: ../loader/loader.c:491
+#: ../loader/loader.c:494
 #, fuzzy, c-format
 msgid "Loading %s ramdisk..."
 msgstr "Sedang mengambil ramdisk tahap kedua..."
 
-#: ../loader/loader.c:501
+#: ../loader/loader.c:504
 msgid "Error loading ramdisk."
 msgstr "Error saat membaca ramdisk."
 
-#: ../loader/loader.c:653
+#: ../loader/loader.c:656
 msgid "Hard Drives"
 msgstr "Hard Disk"
 
-#: ../loader/loader.c:654
+#: ../loader/loader.c:657
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -3032,7 +3042,7 @@ msgstr ""
 "Sekarang belum ada hard disk di sistem Anda lho! Apakah ingin "
 "mengkonfigurasikan perangkat tambahan lain?"
 
-#: ../loader/loader.c:668
+#: ../loader/loader.c:671
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
@@ -3043,20 +3053,20 @@ msgstr ""
 "RedHatnya tidak kelihatan di sini, silahkan pencet F2 untuk tambah device "
 "lagi."
 
-#: ../loader/loader.c:682
+#: ../loader/loader.c:685
 msgid "Directory holding Red Hat:"
 msgstr "Direktori yang berisi Red Hat:"
 
-#: ../loader/loader.c:702
+#: ../loader/loader.c:705
 msgid "Select Partition"
 msgstr "Pilih Partisinya"
 
-#: ../loader/loader.c:750
+#: ../loader/loader.c:753
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Device %s kelihatannya tidak berisi instalasi Red Hat tuh."
 
-#: ../loader/loader.c:847
+#: ../loader/loader.c:853
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -3064,98 +3074,98 @@ msgstr ""
 "Saya tidak dapat menemukan CDROM Red Hat LInux di drive CD Anda nih. "
 "Silahkan masukkan CDnya dan tekan \"OK\" untuk mengulangi."
 
-#: ../loader/loader.c:934
+#: ../loader/loader.c:940
 #, fuzzy
 msgid "Networking Device"
 msgstr "Device Network"
 
-#: ../loader/loader.c:935
+#: ../loader/loader.c:941
 #, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr "Sistem macam mana yang hendak diinstal ?"
 
-#: ../loader/loader.c:1017
+#: ../loader/loader.c:1023
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Direktori ini tidak memiliki tree Red Hat"
 
-#: ../loader/loader.c:1022
+#: ../loader/loader.c:1028
 msgid "I could not mount that directory from the server"
 msgstr "Saya tak dapat memount direktori tersebut dari server"
 
-#: ../loader/loader.c:1065 ../loader/loader.c:1074
+#: ../loader/loader.c:1071 ../loader/loader.c:1080
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader/loader.c:1065 ../loader/loader.c:1074
+#: ../loader/loader.c:1071 ../loader/loader.c:1080
 msgid "HTTP"
 msgstr ""
 
-#: ../loader/loader.c:1066
+#: ../loader/loader.c:1072
 #, fuzzy
 msgid "Unable to retrieve the first install image"
 msgstr "Saya gagal mengambil ramdisk tahap kedua"
 
-#: ../loader/loader.c:1075
+#: ../loader/loader.c:1081
 #, fuzzy
 msgid "Unable to retrieve the second install image"
 msgstr "Saya gagal mengambil ramdisk tahap kedua"
 
-#: ../loader/loader.c:1316
+#: ../loader/loader.c:1322
 msgid "Rescue Method"
 msgstr "Metode Rescue"
 
-#: ../loader/loader.c:1317
+#: ../loader/loader.c:1323
 msgid "Installation Method"
 msgstr "Metode Instalasi"
 
-#: ../loader/loader.c:1319
+#: ../loader/loader.c:1325
 msgid "What type of media contains the rescue image?"
 msgstr "Tipe media yang berisi image rescue itu apa?"
 
-#: ../loader/loader.c:1321
+#: ../loader/loader.c:1327
 msgid "What type of media contains the packages to be installed?"
 msgstr "Media macam mana yang berisi paket yang hendak diinstal ?"
 
-#: ../loader/loader.c:1943
+#: ../loader/loader.c:1959
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Saya tak dapat menemukan ks.cfg di floppy."
 
-#: ../loader/loader.c:1989
+#: ../loader/loader.c:2005
 #, fuzzy, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "saya gagal membuat %s"
 
-#: ../loader/loader.c:2051
+#: ../loader/loader.c:2067
 msgid "Updates Disk"
 msgstr ""
 
-#: ../loader/loader.c:2052
+#: ../loader/loader.c:2068
 #, fuzzy
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Masukkan driver disk dan kemudian tekan \"OK\"."
 
-#: ../loader/loader.c:2060
+#: ../loader/loader.c:2076
 msgid "Failed to mount floppy disk."
 msgstr "Saya gagal memount floppy disk."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2065
+#: ../loader/loader.c:2081
 msgid "Updates"
 msgstr ""
 
-#: ../loader/loader.c:2065
+#: ../loader/loader.c:2081
 msgid "Reading anaconda updates..."
 msgstr ""
 
-#: ../loader/loader.c:2277
+#: ../loader/loader.c:2337
 msgid "PC Card"
 msgstr "Card PC"
 
-#: ../loader/loader.c:2277
+#: ../loader/loader.c:2337
 msgid "Initializing PC Card Devices..."
 msgstr "Inisialisasi PC Card..."
 
