@@ -596,7 +596,7 @@ class Fstab:
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2":
 		label = createLabel(labels, mntpoint)
-                args = [ "mke2fs", '/tmp/' + device, '-L', label ]
+                args = [ "/usr/sbin/mke2fs", '/tmp/' + device, '-L', label ]
                 # FORCE the partition that MILO has to read
                 # to have 1024 block size.  It's the only
                 # thing that our milo seems to read.
@@ -621,13 +621,8 @@ class Fstab:
                 if fsopts:
                     args.extend(fsopts)
 
-		w = self.waitWindow(_("Formatting"),
-			      _("Formatting %s filesystem...") % (mntpoint,))
-
-                iutil.execWithRedirect ("/usr/sbin/mke2fs",
-                                        args, stdout = messageFile, 
-					stderr = messageFile, searchPath = 1)
-		w.pop()
+		ext2FormatFilesystem(args, messageFile, self.progressWindow, 
+				     mntpoint)
 	    elif fsystem == "vfat" and mntpoint == "/boot/efi":
                 args = [ "mkdosfs", '/tmp/' + device ]
 
@@ -655,13 +650,9 @@ class Fstab:
 		else:
 		    messageFile = "/dev/tty5"
 
-		w = self.waitWindow(_("Formatting"),
-			      _("Formatting %s filesystem...") % (mntpoint,))
-
-                iutil.execWithRedirect ("/usr/sbin/mke2fs", 
-					[ "mke2fs", "/tmp/loop1" ],
-                                        stdout = messageFile, 
-					stderr = messageFile, searchPath = 1)
+		ext2FormatFilesystem([ "/usr/sbin/mke2fs", "/tmp/loop1" ], 
+				     messageFile, self.progressWindow, 
+				     mntpoint)
 
 		# don't leave this setup, or we'll get confused later
 		isys.unlosetup("/tmp/loop1")
@@ -1075,3 +1066,46 @@ def unmountLoopbackRoot(skipMount = 0):
     isys.makeDevInode("loop1", '/tmp/' + "loop1")
     isys.unlosetup("/tmp/loop1")
     isys.umount('/mnt/loophost')        
+
+def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
+    w = windowCreator(_("Formatting"),
+		  _("Formatting %s filesystem...") % (mntpoint,), 100)
+
+    fd = os.open(messageFile, os.O_RDWR)
+    p = os.pipe()
+    childpid = os.fork()
+    if (not childpid):
+	    os.close(p[0])
+	    os.dup2(p[1], 1)
+	    os.dup2(fd, 2)
+	    os.close(p[1])
+	    os.close(fd)
+	    os.execv(argList[0], argList)
+	    log("failed to exec %s", argList)
+	    sys.exit(1)
+			    
+    os.close(p[1])
+
+    s = 'a'
+    while s and s != '\b':
+	    s = os.read(p[0], 1)
+	    os.write(fd, s)
+
+    num = ''
+    while s:
+	    s = os.read(p[0], 1)
+	    os.write(fd, s)
+	    isys.sync()
+
+	    if s != '\b':
+		    num = num + s
+	    else:
+		    if num:
+			    l = string.split(num, '/')
+			    w.set((int(l[0]) * 100) / int(l[1]))
+		    num = ''
+
+    (pid, status) = os.waitpid(childpid, 0)
+    os.close(fd)
+
+    w.pop()
