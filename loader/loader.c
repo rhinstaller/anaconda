@@ -2783,7 +2783,6 @@ int main(int argc, char ** argv) {
     mlLoadModule("raid5", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("ext3", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("ipchains", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
 
