@@ -114,7 +114,7 @@ class NetworkWindow:
                 dev.unset ("ipaddr", "netmask", "network", "broadcast")
             else:
                 try:
-                    (network, broadcast) = isys.inet_calcNetBroad (self.ip.value (), self.nm.value ())
+                    (net, bc) = isys.inet_calcNetBroad (self.ip.value (), self.nm.value ())
                 except:
                     ButtonChoiceWindow(screen, _("Invalid information"),
                                        _("You must enter valid IP information to continue"),
@@ -123,7 +123,7 @@ class NetworkWindow:
 
                 dev.set (("bootproto", "static"))
                 dev.set (("ipaddr", self.ip.value ()), ("netmask", self.nm.value ()),
-                         ("network", network), ("broadcast", broadcast))
+                         ("network", net), ("broadcast", bc))
                 network.gateway = self.gw.value ()
                 network.primaryNS = self.ns.value ()
                 network.secondaryNS = self.ns2.value()
