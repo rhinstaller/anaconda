@@ -106,8 +106,8 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
     """
     
     if partition == None:
-        intf.messageWindow(_("Unable To Remove"),
-                           _("You must first select a partition to remove."))
+        intf.messageWindow(_("Unable To Delete"),
+                           _("You must first select a partition to delete."))
         return 0
 
     if iutil.getArch() == "s390" and type(partition) != type("RAID"):
@@ -119,16 +119,16 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
     if type(partition) == type("RAID"):
         device = partition
     elif partition.type & parted.PARTITION_FREESPACE:
-        intf.messageWindow(_("Unable To Remove"),
-                           _("You cannot remove free space."))
+        intf.messageWindow(_("Unable To Delete"),
+                           _("You cannot delete free space."))
         return 0
     else:
         device = partedUtils.get_partition_name(partition)
 
     ret = requestlist.containsImmutablePart(partition)
     if ret:
-        intf.messageWindow(_("Unable To Remove"),
-                           _("You cannot remove this "
+        intf.messageWindow(_("Unable To Delete"),
+                           _("You cannot delete this "
                              "partition, as it is an extended partition "
                              "which contains %s") %(ret))
         return 0
@@ -141,28 +141,28 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
 	    
     if request:
         if request.getProtected():
-            intf.messageWindow(_("Unable To Remove"),
-                               _("You cannot remove this "
+            intf.messageWindow(_("Unable To Delete"),
+                               _("You cannot delete this "
                                  "partition, as it is holding the data for "
                                  "the hard drive install."))
             return 0
 
         if requestlist.isRaidMember(request):
-            intf.messageWindow(_("Unable To Remove"),
-                               _("You cannot remove this "
+            intf.messageWindow(_("Unable To Delete"),
+                               _("You cannot delete this "
                                  "partition, as it is part of a RAID device."))
             return 0
 
 	if request.type == REQUEST_LV:
 	    # temporary message
-            intf.messageWindow(_("Unable To Remove"),
-                               _("Removing logical volumes from the "
+            intf.messageWindow(_("Unable To Delete"),
+                               _("Deleting logical volumes from the "
 				 "treeview is not currently supported."))
 	    return 0
 
         if requestlist.isLVMVolumeGroupMember(request):
-            intf.messageWindow(_("Unable To Remove"),
-			       _("You cannot remove this "
+            intf.messageWindow(_("Unable To Delete"),
+			       _("You cannot delete this "
 				 "partition, as it is part of a LVM "
  				 "volume group."))
             return 0
@@ -382,17 +382,18 @@ def getPreExistFormatWarnings(partitions, diskset):
 def confirmDeleteRequest(intf, request):
     """Confirm the deletion of a request."""
     if request.device:
-        if request.type == REQUEST_RAID:
-            errmsg = _("You are about to delete a RAID device.\n\n"
-                       "Are you sure?")
+	if request.type == REQUEST_VG:
+            errmsg = _("You are about to delete the volume group \"%s\"" % (request.volumeGroupName,))
+	elif request.type == REQUEST_RAID:
+            errmsg = _("You are about to delete a RAID device.")
         else:
-            errmsg = _("You are about to delete the /dev/%s partition.\n\n"
-                       "Are you sure?" % (request.device,))
-            
+            errmsg = _("You are about to delete the /dev/%s partition." % (request.device,))
+	rc = intf.messageWindow(_("Confirm Delete"), errmsg, type="custom",
+				    custom_buttons=["gtk-cancel", _("Delete")])
     else:
         errmsg = _("Are you sure you want to delete this partition?")
+	rc = intf.messageWindow(_("Confirm Delete"), errmsg, type="yesno")
 
-    rc = intf.messageWindow(_("Confirm Delete"), errmsg, type="yesno")
     return rc
 
 def confirmResetPartitionState(intf):
