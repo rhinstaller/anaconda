@@ -463,6 +463,8 @@ class FormatWindow:
             (dev, fstype, format) = todo.mounts[mount]
             todo.mounts[mount] = (dev, fstype, 1)
 
+        todo.badBlockCheck = cb.selected ()
+
         rc = bb.buttonPressed (result)
 
         if rc == "back":

@@ -394,6 +394,7 @@ class ToDo:
         self.auth = Authentication ()
         self.ddruid = None;
         self.drives = Drives ()
+        self.badBlockCheck = 0
         self.log = LogFile ()
         self.bootdisk = 0
         self.liloDevice = None
@@ -451,8 +452,11 @@ class ToDo:
 			"Formatting %s filesystem..." % (mntpoint,))
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2":
+                args = [ "mke2fs", '/tmp/' + device ]
+                if self.badBlockCheck:
+                    args.append ("-c")
                 iutil.execWithRedirect ("/usr/sbin/mke2fs",
-                                        [ "mke2fs", '/tmp/' + device ],
+                                        args,
                                         stdout = None, stderr = None,
                                         searchPath = 1)
             elif fsystem == "swap":
