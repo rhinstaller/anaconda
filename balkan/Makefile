@@ -1,4 +1,4 @@
-DESTDIR = $(TOPDIR)/RedHat/instimage/usr/lib/python1.5/site-packages
+PYTHONLIBDIR = $(DESTDIR)/usr/lib/python1.5/site-packages
 
 OBJECTS = rw.o dos.o
 
@@ -20,4 +20,4 @@ clean:
 dos.o: dos.h
 
 install: all
-	cp _balkanmodule.so $(DESTDIR)
+	#cp _balkanmodule.so $(PYTHONLIBDIR)
