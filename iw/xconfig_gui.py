@@ -65,7 +65,7 @@ class XCustomWindow (InstallWindow):
         self.xconfig.setManualModes(newmodes)
 
         try:
-            self.xconfig.test (root="/mnt/sysimage/")
+            self.xconfig.test (root=self.instPath)
         except RuntimeError:
             ### test failed window
             pass
@@ -162,12 +162,15 @@ class XCustomWindow (InstallWindow):
         self.display_desktop_pixmap(desktop)
 
     # XCustomWindow tag="xcustom"
-    def getScreen (self, xconfig, monitor, videocard, desktop, comps):
+    def getScreen (self, xconfig, monitor, videocard, desktop, comps,
+                   instPath):
 
         self.xconfig = xconfig
         self.monitor = monitor
         self.videocard = videocard
         self.desktop = desktop
+
+        self.instPath = instPath
 
         # create toplevel packing structure
         self.box = gtk.VBox (gtk.FALSE)

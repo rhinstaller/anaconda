@@ -129,7 +129,7 @@ installSteps = [
     ("videocard", ("dispatch", "id.xconfig", "id.videocard", "intf")),
     ("monitor", ("id.xconfig", "id.monitor")),
     ("xcustom", ("id.xconfig", "id.monitor", "id.videocard",
-                 "id.desktop", "id.comps")),
+                 "id.desktop", "id.comps", "instPath")),
     ("writexconfig", writeXConfiguration, ("id", "instPath")),
     ("writeksconfig", writeKSConfiguration, ("id", "instPath")),
     ("complete", ()),

@@ -63,7 +63,7 @@ class XCustomWindow:
         self.xconfig.setManualModes(newmodes)
 
         try:
-            self.xconfig.test (root="/mnt/sysimage")
+            self.xconfig.test (root=self.instPath)
         except RuntimeError:
             ### test failed window
             pass
@@ -88,7 +88,8 @@ class XCustomWindow:
             print "Invalid widget in xconfig_text::desktopCB"
 
 
-    def __call__(self, screen, xconfig, monitor, videocard, desktop, comps):
+    def __call__(self, screen, xconfig, monitor, videocard, desktop, comps,
+                 instPath):
 
         def numCompare (first, second):
             first = string.atoi (first)
@@ -100,6 +101,7 @@ class XCustomWindow:
             return 0
 
         self.xconfig = xconfig
+        self.instPath = instPath
 
         depth_list = [(_("256 Colors (8 Bit)")), (_("High Color (16 Bit)")), (_("True Color (24 Bit)"))]
         self.bit_depth = ["8", "16", "32"]
