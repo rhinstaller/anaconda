@@ -118,6 +118,13 @@ class UsersWindow:
 		pass2.set ("")
 		continue
 
+	    if userid.value() == "root":
+                ButtonChoiceWindow(self.screen, _("User Exists"),
+		       _("The root user is already configured. You don't "
+		         "need to add this user here."),
+			 buttons = [ _("OK") ], width = 50)
+                continue
+
             if self.users.has_key (userid.value ()) and  \
 				   userid.value () != currentid:
                 ButtonChoiceWindow(self.screen, _("User Exists"),
