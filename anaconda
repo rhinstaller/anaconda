@@ -213,6 +213,9 @@ if (not flags.test and os.getpid() > 90 and flags.setupFilesystems):
 	"You're running me on a live system! that's incredibly stupid.\n")
     sys.exit(1)
 
+import configFileData
+configFileData = configFileData.configFileData()
+
 import isys
 import instdata
 import videocard
@@ -378,7 +381,7 @@ if (display_mode == 'g'):
 
     # display splash screen
     from gui import display_splash_screen
-    display_splash_screen()
+    display_splash_screen(configFileData)
 
     if nofallback:
         from gui import InstallInterface
@@ -428,9 +431,9 @@ if xmode:
         sys.exit (0)
 
 if display_mode == "t":
-    intf = InstallInterface ()
+    intf = InstallInterface (configFileData = configFileData)
 else:
-    intf = InstallInterface (runres = runres, nofbmode = nofbmode)
+    intf = InstallInterface (runres = runres, nofbmode = nofbmode, configFileData = configFileData)
 
 # imports after setting up the path
 if method:
