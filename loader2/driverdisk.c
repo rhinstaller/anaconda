@@ -43,6 +43,7 @@
 
 #include "../isys/isys.h"
 #include "../isys/imount.h"
+#include "../isys/eddsupport.h"
 
 static char * driverDiskFiles[] = { "modinfo", "modules.dep", "pcitable",
                                     "modules.cgz", NULL };
@@ -596,12 +597,17 @@ void useKickstartDD(struct loaderData_s * loaderData,
     char * fstype = NULL;
     char * dev = NULL;
     char * src = NULL;
+
+    char * biospart = NULL, * p = NULL; 
+    int usebiosdev = 0;
+
     poptContext optCon;
     int rc;
     int flags = *flagsPtr;
     struct poptOption ksDDOptions[] = {
         { "type", '\0', POPT_ARG_STRING, &fstype, 0 },
         { "source", '\0', POPT_ARG_STRING, &src, 0 },
+        { "biospart", '\0', POPT_ARG_NONE, &usebiosdev, 0 },
         { 0, 0, 0, 0, 0 }
     };
     
@@ -620,6 +626,23 @@ void useKickstartDD(struct loaderData_s * loaderData,
     if (!dev && !src) {
         logMessage("bad arguments to kickstart driver disk command");
         return;
+    }
+
+    if (usebiosdev != 0) {
+        p = strchr(dev,'p');
+        if (!p){
+            logMessage("Bad argument for biospart");
+            return;
+        }
+        *p = '\0';
+        
+        biospart = getBiosDisk(dev);
+        if (biospart == NULL) {
+            logMessage("Unable to locate BIOS dev %s",dev);
+            return;
+        }
+        dev = malloc(strlen(biospart) + strlen(p + 1) + 2);
+        sprintf(dev, "%s%s", biospart, p + 1);
     }
 
     if (dev) {
