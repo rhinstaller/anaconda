@@ -817,25 +817,22 @@ class PartitionWindow(InstallWindow):
             maintable.attach(noformatrb, 0, 2, row, row + 1)
             row = row + 1
 
-            if ofstype.isFormattable():
-                formatrb = GtkRadioButton (label=_("Format partition as:"),
-                                           group = noformatrb)
-                formatrb.set_active(0)
-                if origrequest.format:
-                    formatrb.set_active(1)
-                elif origrequest.format == None and not origrequest.migrate:
-                    formatrb.set_active(isFormatOnByDefault(origrequest))
-                    
-                maintable.attach(formatrb, 0, 1, row, row + 1)
-                (fstype, fstypeMenu) = createFSTypeMenu(ofstype,fstypechangeCB,
-                                                        mountCombo)
-                fstype.set_sensitive(formatrb.get_active())
-                maintable.attach(fstype, 1, 2, row, row + 1)
-                row = row + 1
-                
-                formatrb.connect("toggled", formatOptionCB, fstype)
-            else:
-                formatrb = None
+            formatrb = GtkRadioButton (label=_("Format partition as:"),
+                                       group = noformatrb)
+            formatrb.set_active(0)
+            if origrequest.format:
+                formatrb.set_active(1)
+            elif origrequest.format == None and not origrequest.migrate:
+                formatrb.set_active(isFormatOnByDefault(origrequest))
+
+            maintable.attach(formatrb, 0, 1, row, row + 1)
+            (fstype, fstypeMenu) = createFSTypeMenu(ofstype,fstypechangeCB,
+                                                    mountCombo)
+            fstype.set_sensitive(formatrb.get_active())
+            maintable.attach(fstype, 1, 2, row, row + 1)
+            row = row + 1
+
+            formatrb.connect("toggled", formatOptionCB, fstype)
 
             if origrequest.origfstype.isMigratable():
                 migraterb = GtkRadioButton (label=_("Migrate partition to:"),

@@ -218,7 +218,8 @@ class PartitionWindow:
 
             if fileSystemTypeGet(name).isFormattable():
                 fstype.append(name, types[name])
-        if request.fstype and request.fstype.getName() in names:
+        if request.fstype and request.fstype.getName() in names and \
+           request.fstype.isFormattable():
             fstype.setCurrent(request.fstype)
         subgrid.setField(fstype, 0, row)
         if usecallback:
@@ -411,22 +412,20 @@ class PartitionWindow:
                                        None, not format and not migrate)
         subgrid.setField(noformatrb, 0, srow, (0,0,0,1),anchorLeft = 1)
         
-        if origrequest.fstype and origrequest.fstype.isFormattable():
-            srow = srow + 1
-            if format:
-                forflag = 1
-            else:
-                forflag = 0
-            formatrb = SingleRadioButton(_("Format as:"), noformatrb, forflag)
-            subgrid.setField(formatrb, 0, srow, (0,0,0,1), anchorLeft = 1)
-
-            (fortype, forgrid) = self.makeFsList(origrequest, usecallback = 0,
-                                                 uselabel = 0)
-            if newfstype and newfstype.getName() in fileSystemTypeGetTypes().keys():
-                fortype.setCurrent(newfstype)
-            subgrid.setField(forgrid, 1, srow, (0,0,0,1))
+        srow = srow + 1
+        if format:
+            forflag = 1
         else:
-            formatrb = None
+            forflag = 0
+        formatrb = SingleRadioButton(_("Format as:"), noformatrb, forflag)
+        subgrid.setField(formatrb, 0, srow, (0,0,0,1), anchorLeft = 1)
+
+        (fortype, forgrid) = self.makeFsList(origrequest, usecallback = 0,
+                                             uselabel = 0)
+        if newfstype and newfstype.isFormattable() and \
+           newfstype.getName() in fileSystemTypeGetTypes().keys():
+            fortype.setCurrent(newfstype)
+        subgrid.setField(forgrid, 1, srow, (0,0,0,1))
 
         if origrequest.origfstype and origrequest.origfstype.isMigratable():
             srow = srow + 1

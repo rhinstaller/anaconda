@@ -666,7 +666,7 @@ class Partitions:
                         # XXX this is a hack
                         format = 1
                 else:
-                    ptype = None
+                    ptype = fsset.fileSystemTypeGet("foreign")
                     
                 start = part.geom.start
                 end = part.geom.end
@@ -1177,11 +1177,6 @@ def doEditPartitionByRequest(intf, requestlist, part):
                                 drive = [ get_partition_drive(part) ])
 
         return ("PARTITION", request)
-    elif (part.fs_type == None) or (part.fs_type and not part.fs_type.name):
-        intf.messageWindow( _("Filesystem Missing"),
-                           _("You cannot edit partitions "
-                           "without a filesystem type."))
-        return (None, None)
     elif part.type & parted.PARTITION_EXTENDED:
         return (None, None)
 
