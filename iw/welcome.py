@@ -1,5 +1,4 @@
 from gtk import *
-from GTK import *
 from iw import *
 from gui import _
 
