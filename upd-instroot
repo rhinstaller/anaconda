@@ -76,7 +76,6 @@ sbin/mkswap
 sbin/probe
 sbin/fdisk
 sbin/mkraid
-sbin/raidstart
 etc/nsswitch.conf
 lib/ld-*
 lib/libc*
@@ -363,6 +362,8 @@ make install DESTDIR=$DESTGR > /dev/null
 
 for p in $DESTGR $DEST; do
 	rm $p/usr/lib/anaconda/lang-table
+	ln -s ../lib/anaconda/raidstart-stub $p/usr/bin/raidstart
+	ln -s ../lib/anaconda/raidstop-stub $p/usr/bin/raidstop
 
 	find $p -type d | xargs chmod 755
 

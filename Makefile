@@ -86,6 +86,8 @@ install: all
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a anaconda $(DESTDIR)/usr/bin
+	cp -a raidstart-stub $(DESTDIR)/$(PYTHONLIBDIR)
+	cp -a raidstop-stub $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYHTONLIBDIR) $(PYFILES)

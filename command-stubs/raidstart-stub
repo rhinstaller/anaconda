@@ -1,0 +1,38 @@
+#!/usr/bin/python
+
+import os
+import sys
+
+# for testing
+if (os.path.exists('rpmmodule')):
+    sys.path.append('rpmmodule')
+    sys.path.append('libfdisk')
+    sys.path.append('balkan')
+    sys.path.append('kudzu')
+    sys.path.append('gnome-map')
+    sys.path.append('isys')
+
+sys.path.append('/usr/lib/anaconda')
+
+import raid
+import isys
+from sys import argv
+
+if len(argv) != 2 or argv[1][:7] != "/dev/md":
+    print "usage: raidstart /dev/md[minornum]"
+    sys.exit(1)
+
+targMinor = int(argv[1][7:])
+
+drives = isys.hardDriveDict().keys()
+drives.sort (isys.compareDrives)
+
+raidDevices = raid.scanForRaid(drives)
+for (minor, devices) in raidDevices:
+    if targMinor == minor:
+    	devName = "md%d" % (minor,)
+	isys.raidstart(devName, devices[0])
+	sys.exit(0)
+
+print "could not find devices associated with raid device md%d" % targMinor
+sys.exit(1)
