@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar 28 2005 XXX <XXX@redhat.com> - XXX-XXX
+- Adjust pcmcia module loading for new in-kernel ds 
+
 * Fri Mar 25 2005 Bill Nottingham <notting@redhat.com> - 10.2.0.33-1
 - fix typo in partedUtils.py
 
