@@ -544,7 +544,7 @@ class PackageSelectionWindow (InstallWindow):
                 else:
                     checkButton = GtkCheckButton (comp.name)
 
-                checkButton.set_active (comp.isSelected())
+                checkButton.set_active (comp.isSelected(justManual = 1))
                 checkButton.connect('toggled', self.componentToggled, comp)
                 self.checkButtons.append ((checkButton, comp))
                 box.pack_start (checkButton)
