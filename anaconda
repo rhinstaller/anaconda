@@ -949,7 +949,7 @@ configFile = configFileData.configFileData()
 configFileData = configFile.getConfigData()
 
 # setup links required for all install types
-for i in ( "services", "protocol", "nsswitch.conf", "joe", "security"):
+for i in ( "services", "protocol", "nsswitch.conf", "joe", "selinux"):
     try:
         os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
     except:
