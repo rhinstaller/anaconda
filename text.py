@@ -26,6 +26,7 @@ from textw.userauth import RootPasswordWindow
 from textw.userauth import UsersWindow
 from textw.userauth import AuthConfigWindow
 from textw.partitioning import PartitionMethod
+from textw.partitioning import LoopSizeWindow
 from textw.partitioning import ManualPartitionWindow
 from textw.partitioning import AutoPartitionWindow
 from textw.partitioning import PartitionWindow
@@ -990,6 +991,8 @@ class InstallInterface:
             [_("Automatic Partition"), AutoPartitionWindow, 
 		    (self.screen, todo), "partition" ],
             [_("Partition"), PartitionWindow, (self.screen, todo),
+		    "partition" ],
+            [_("Root Filesystem Size"), LoopSizeWindow, (self.screen, todo),
 		    "partition" ],
             [_("Swap"), TurnOnSwapWindow, (self.screen, todo),
 		    "partition" ],
