@@ -830,6 +830,8 @@ class ToDo:
 	(where, linear, append) = todo.instClass.getLiloInformation()
 	todo.liloDevice = where
 	todo.users = []
+	if todo.instClass.rootPassword:
+	    todo.rootpassword.set(todo.instClass.rootPassword)
 
     # List of (accountName, fullName, password) tupes
     def setUserList(todo, users):
