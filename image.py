@@ -159,7 +159,7 @@ class CdromInstallMethod(ImageInstallMethod):
 		try:
 		    if not isys.mount(dev, "/mnt/source", fstype = "iso9660", 
 			       readOnly = 1):
-			if os.access("/mnt/source/.discinfo", os.O_RDONLY):
+			if os.access("/mnt/source/.discinfo", os.R_OK):
 			    f = open("/mnt/source/.discinfo")
 			    newStamp = f.readline().strip()
                             try:
@@ -204,7 +204,7 @@ class CdromInstallMethod(ImageInstallMethod):
 				   fstype = "iso9660", readOnly = 1)
 		    
 
-                    if os.access("/mnt/source/.discinfo", os.O_RDONLY):
+                    if os.access("/mnt/source/.discinfo", os.R_OK):
                         f = open("/mnt/source/.discinfo")
 			newStamp = f.readline().strip()
                         try:
@@ -294,7 +294,7 @@ class CdromInstallMethod(ImageInstallMethod):
 
         # figure out which disc is in.  if we fail for any reason,
         # assume it's just disc1.
-        if os.access("/mnt/source/.discinfo", os.O_RDONLY):
+        if os.access("/mnt/source/.discinfo", os.R_OK):
             try:
                 f = open("/mnt/source/.discinfo")
                 self.timestamp = f.readline().strip()
