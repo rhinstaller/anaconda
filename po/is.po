@@ -340,6 +340,8 @@ msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
 msgstr ""
+"Veldu þennan hóp til að setja upp lágmarks uppsetningu. Hún er gagnleg til "
+"að setja upp litla eldveggi eða beina."
 
 #: ../exception.py:167 ../text.py:236
 msgid "Exception Occurred"
@@ -1120,36 +1122,26 @@ msgid "Please specify a mount point for this partition."
 msgstr "Vinsamlegast gefðu upp tengipunkt fyrir þess disksneið."
 
 #: ../partIntfHelpers.py:104
-#, fuzzy
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Þú getur ekki %s þessa disksneið því hún inniheldur gögnin fyrir uppsetningu "
-"frá hörðum disk."
+msgstr "Þessi disksneið inniheldur gögnin fyrir uppsetningu frá hörðum disk."
 
 #: ../partIntfHelpers.py:110
-#, fuzzy, python-format
+#, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr ""
-"Þú getur ekki %%s þessari disksneið þar sem hún er hluti af RAID tækinu /dev/"
-"md%s."
+msgstr "Þessi disksneið er hluti af RAID tækinu /dev/md%s."
 
 #: ../partIntfHelpers.py:113
-#, fuzzy
 msgid "This partition is part of a RAID device."
-msgstr "Þú getur ekki %s þessari disksneið þar sem hún er hluti af RAID tæki."
+msgstr "Þessi disksneið er hluti af RAID tækin."
 
 #: ../partIntfHelpers.py:118
-#, fuzzy, python-format
+#, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr ""
-"Þú getur ekki %%s þessa sneið þar sem hún er hluti af LVM sýndardiskhópnum '%"
-"s'."
+msgstr "Þessi disksneið er hluti af LVM sýndardiskhópnum '%s'."
 
 #: ../partIntfHelpers.py:121
-#, fuzzy
 msgid "This partition is part of a LVM volume group."
-msgstr ""
-"Þú getur ekki %s þessa sneið þar sem hún er hluti af LVM sýndardiskhóp."
+msgstr "Þessi disksneið er hluti af LVM sýndardiskhóp."
 
 #: ../partIntfHelpers.py:136 ../partIntfHelpers.py:150
 #: ../partIntfHelpers.py:160 ../partIntfHelpers.py:177
@@ -1178,11 +1170,12 @@ msgstr ""
 "inniheldur %s"
 
 #: ../partIntfHelpers.py:178
-#, fuzzy
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
-msgstr "Þú ert við það að eyða /dev/%s disksneiðinni."
+msgstr ""
+"Þú getur ekki eytt þessari disksneið:\n"
+"\n"
 
 #: ../partIntfHelpers.py:222 ../partIntfHelpers.py:522
 #: ../iw/lvm_dialog_gui.py:682
@@ -1226,11 +1219,12 @@ msgid "You must select a partition to edit"
 msgstr "Þú verður að velja disksneið til að breyta"
 
 #: ../partIntfHelpers.py:314 ../partIntfHelpers.py:357
-#, fuzzy
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
-msgstr "Þú ert við það að eyða /dev/%s disksneiðinni."
+msgstr ""
+"Þú getur ekki breytt þessari disksneið:\n"
+"\n"
 
 #: ../partIntfHelpers.py:328
 msgid "You must go back and use fdasd to inititalize this partition"
@@ -2437,7 +2431,7 @@ msgid "Workstation"
 msgstr "Vinnustöð"
 
 #: ../iw/desktop_choice_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default workstation environment includes our recommendations for new "
 "users, including:\n"
@@ -2459,7 +2453,7 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"Sjálfgefna vinnustöðvaruppsetningir inniheldur það sem við mælum með fyrir "
+"Sjálfgefna vinnustöðvaruppsetningin inniheldur það sem við mælum með fyrir "
 "nýja notendur, og innifelur amk:\n"
 "\n"
 "\tMyndrænt vinnuumhverfi (GNOME)\n"
@@ -2467,8 +2461,10 @@ msgstr ""
 "\tVefrápara (Mozilla) \n"
 "\tPóstforrit (Evolution)\n"
 "\tInstant messaging\n"
-"\tHlóð og myndtól\n"
+"\tHljóð og myndtól\n"
 "\tLeiki\n"
+"\tTól til hugbúnaðarþróunar"
+"\tKerfisstjórnunartól"
 "\n"
 "Eftir að uppsetningu lýkur mða bæta við fleiri pökkum eða taka út pakka með "
 "'redhat-config-package' tólinu.\n"
@@ -2481,12 +2477,11 @@ msgid "Personal Desktop"
 msgstr "Skjáborð"
 
 #: ../iw/desktop_choice_gui.py:76
-#, fuzzy
 msgid "Personal Desktop Defaults"
-msgstr "Skjáborð"
+msgstr "Sjálfgefnir eiginleikar skjáborðrs"
 
 #: ../iw/desktop_choice_gui.py:81
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default personal desktop environment includes our recommendations for "
 "new users, including:\n"
@@ -2506,7 +2501,7 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"Sjálfgefna vinnustöðvaruppsetningir inniheldur það sem við mælum með fyrir "
+"Sjálfgefna einkatölvuuppsetningin inniheldur það sem við mælum með fyrir "
 "nýja notendur, og innifelur amk:\n"
 "\n"
 "\tMyndrænt vinnuumhverfi (GNOME)\n"
@@ -2514,7 +2509,7 @@ msgstr ""
 "\tVefrápara (Mozilla) \n"
 "\tPóstforrit (Evolution)\n"
 "\tInstant messaging\n"
-"\tHlóð og myndtól\n"
+"\tHljóð og myndtól\n"
 "\tLeiki\n"
 "\n"
 "Eftir að uppsetningu lýkur mða bæta við fleiri pökkum eða taka út pakka með "
@@ -2528,6 +2523,8 @@ msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
 msgstr ""
+"Ef þú vilt breyta sjálfgefnum pökkunum sem verða uppsettir getur þú sérsniðið "
+"þá hér fyrir neðan."
 
 #: ../iw/desktop_choice_gui.py:106
 msgid "_Accept the current package list"
@@ -3329,7 +3326,7 @@ msgstr "Velja pakkahópa"
 
 #: ../iw/package_gui.py:692
 msgid "Minimal"
-msgstr ""
+msgstr "Lágmarks"
 
 #: ../iw/package_gui.py:764
 #, python-format
@@ -3568,18 +3565,16 @@ msgid "Software RAID is NOT supported on this platform."
 msgstr "RAID er ekki stutt á þessum vélbúnaði."
 
 #: ../iw/partition_gui.py:1153
-#, fuzzy
 msgid "No RAID minor device numbers available"
-msgstr "Engin RAID tæki tiltæk"
+msgstr "Engar RAID 'minor' tækjaskrár tiltækar"
 
 #: ../iw/partition_gui.py:1154
-#, fuzzy
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr ""
-"Það er ekki hægt að búa til RAID tæki því allar tiltækar RAID sneiðar eru í "
-"notkun."
+"Það er ekki hægt að búa til RAID tæki því allar tiltækar RAID 'minor' "
+"tækjaskrár eru í notkun."
 
 #: ../iw/partition_gui.py:1168
 msgid "RAID Options"
@@ -4668,7 +4663,7 @@ msgstr ""
 "Honum ættir þú að halda til haga."
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The Personal Desktop and Workstation options install a default set of "
 "applications that will allow you to browse the Internet, send and receive "
@@ -4678,8 +4673,9 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"Þessi forrit gera þér kleyft að flakka um internetið, senda og taka við "
-"pósti og búa til og breyta skjölum á %s vélinni þinni.\n"
+"Einkatölvo og vinnustöðvaruppsetningarnar  gera þér kleyft að flakka um "
+"internetið, senda og taka við pósti og búa til og breyta skjölum á %s "
+"vélinni þinni.\n"
 "\n"
 "Með %s fylgir hinsvegar miklu meira af hugbúnaði og þó getur sérsniðið hvaða "
 "hugbúnað þú vilt nota."
@@ -5880,14 +5876,12 @@ msgid "Upgrade"
 msgstr "Uppfæra"
 
 #: ../installclasses/workstation.py:8
-#, fuzzy
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system adminstration. "
 msgstr ""
 "Þessi valkostur setur upp myndræn notandaskil með tólum til "
-"hugbúnaðarþróunar og kerfisstjórnun. Þetta er gott val fyrir forritara og "
-"kerfisstjóra."
+"hugbúnaðarþróunar og kerfisstjórnun."
 
 #: ../loader/cdrom.c:31
 msgid "CDROM type"
@@ -6279,9 +6273,9 @@ msgstr ""
 "handvirkt svo uppsetningin geti haldið áfram. Viltu velja þá núna ?"
 
 #: ../loader/loader.c:3693
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Keyri anaconda kerfisuppsetningatólið - Vinsamlegast bíðið...\n"
+msgstr "Keyri anaconda, %s kerfisuppsetningatólið - Vinsamlegast bíðið...\n"
 
 #: ../loader/mediacheck.c:193
 msgid ""
