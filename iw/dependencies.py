@@ -11,12 +11,12 @@ class UnresolvedDependenciesWindow (InstallWindow):
 
     def getNext (self):
         if self.dependCB.get_active ():
-            self.todo.selectDeps (deps)
+            self.todo.selectDeps (self.deps)
         return None
     
     def getScreen (self):
-        deps = self.todo.verifyDeps ()
-        if not deps:
+        self.deps = self.todo.verifyDeps ()
+        if not self.deps:
             return None
 
         sw = GtkScrolledWindow ()
@@ -25,7 +25,7 @@ class UnresolvedDependenciesWindow (InstallWindow):
 
         list = GtkCList (2, ("Package", "Requirement"))
         list.freeze ()
-        for (name, suggest) in deps:
+        for (name, suggest) in self.deps:
             list.append ((name, suggest))
         list.thaw ()
         sw.add (list)
