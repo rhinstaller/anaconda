@@ -27,6 +27,7 @@
 #define LOADER_FLAGS_RESCUE_NOMOUNT     (1 << 21)
 #define LOADER_FLAGS_TELNETD	        (1 << 22)
 #define LOADER_FLAGS_NOPASS	        (1 << 23)
+#define LOADER_FLAGS_KSHTTP             (1 << 24)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -52,6 +53,7 @@
 #define FL_RESCUE_NOMOUNT(a) ((a) & LOADER_FLAGS_RESCUE_NOMOUNT)
 #define FL_TELNETD(a)	    ((a) & LOADER_FLAGS_TELNETD)
 #define FL_NOPASS(a)	    ((a) & LOADER_FLAGS_NOPASS)
+#define FL_KSHTTP(a)        ((a) & LOADER_FLAGS_KSHTTP)
 
 #define CODE_PCMCIA	1
 

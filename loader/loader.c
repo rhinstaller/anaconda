@@ -1952,6 +1952,9 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
         } else if (!strncasecmp(argv[i], "ks=nfs:", 7)) {
 	    flags |= LOADER_FLAGS_KSNFS;
 	    *ksSource = argv[i] + 7;
+	} else if (!strncasecmp(argv[i], "ks=http://", 10)) {
+            flags |= LOADER_FLAGS_KSHTTP;
+	    *ksSource = argv[i] + 10;
         } else if (!strcasecmp(argv[i], "ks=floppy"))
 	    flags |= LOADER_FLAGS_KSFLOPPY;
 	else if (!strncasecmp(argv[i], "display=", 8))
@@ -2051,6 +2054,92 @@ int kickstartFromNfs(struct knownDevices * kd, char * location,
     copyFile(fullFn, location);
 
     umount("/tmp/nfskd");
+
+    return 0;
+}
+
+int kickstartFromHttp(struct knownDevices * kd, char * location, 
+		     moduleInfoSet modInfo, moduleList modLoaded, 
+		     moduleDeps * modDepsPtr, int flags, char * ksSource,
+		     char * ksDevice) {
+    struct networkDeviceConfig netDev;
+    struct iurlinfo ui;
+    char * file;
+    char * ksPath;
+    char * devName;
+    char * chptr;
+    int fd, rc;
+
+    memset(&ui, 0, sizeof(ui));
+
+    if (!ksDevice) {
+        if (ensureNetDevice(kd, modInfo, modLoaded, modDepsPtr, flags, 
+                            &devName))
+            return 1;
+    } else {
+        devName = ksDevice;
+    }
+
+    if (kickstartNetwork(&devName, &netDev, "dhcp", flags)) {
+        logMessage("no dhcp response received");
+        return 1;
+    }
+
+    writeNetInfo("/tmp/netinfo", &netDev, kd);
+
+    logMessage("source was %s", ksSource);
+
+    if (ksSource) {
+        ksPath = alloca(strlen(ksSource) + 1);
+        strcpy(ksPath, ksSource);
+    } else {
+        logMessage("no location specified");
+        return 1;
+    }
+
+    if (ksPath[strlen(ksPath) - 1] == '/') {
+        ksPath[strlen(ksPath) - 1] = '\0';
+        file = malloc(30);
+        sprintf(file, "%s-kickstart", inet_ntoa(netDev.dev.ip));
+    } else {
+        file = strrchr(ksPath, '/');
+        if (!file) {
+	    file = ksPath;
+	    ksPath = "/";
+        } else {
+	    *file++ = '\0';
+        }
+    }
+
+    logMessage("ks location: http:/%s/%s", ksPath, file);
+
+    ui.protocol = URL_METHOD_HTTP;
+    chptr = strchr(ksPath, '/');
+    if (chptr == NULL) {
+        ui.address = strdup(ksPath);
+        ui.prefix = strdup("/");
+    } else {
+        *chptr = '\0';
+        ui.address = strdup(ksPath);
+        ksPath = chptr;
+        *ksPath = '/';
+        ui.prefix = strdup(ksPath);
+    }
+
+    fd = urlinstStartTransfer(&ui, file, 1);
+    if (fd < 0) {
+        logMessage("failed to retrieve http:/%s/%s", ksPath, file);
+        return 1;
+    }
+
+    rc = copyFileFd(fd, "/tmp/ks.cfg");
+    if (rc) {
+        unlink("/tmp/ks.cfg");
+        logMessage("failed to copy ks.cfg to /tmp/ks.cfg");
+        return 1;
+    }
+
+    urlinstFinishTransfer(&ui, fd);
 
     return 0;
 }
@@ -2643,6 +2732,13 @@ int main(int argc, char ** argv) {
 	startNewt(flags);
 	if (!kickstartFromNfs(&kd, ksFile, modInfo, modLoaded, &modDeps, flags, 
 			      ksSource, ksNetDevice))
+	    flags |= LOADER_FLAGS_KICKSTART;
+    }
+    if (FL_KSHTTP(flags)) {
+        ksFile = "/tmp/ks.cfg";
+	startNewt(flags);
+	if (!kickstartFromHttp(&kd, ksFile, modInfo, modLoaded, &modDeps, flags,
+                               ksSource, ksNetDevice))
 	    flags |= LOADER_FLAGS_KICKSTART;
     }
 #endif
