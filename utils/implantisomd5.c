@@ -169,7 +169,7 @@ int main(int argc, char **argv) {
     i = lseek(isofd, pvd_offset + APPDATA_OFFSET, SEEK_SET);
     if (i<0) {
 	printf("seek failed\n");
-	perror();
+	perror("");
 	exit(1);
     }
 
@@ -183,5 +183,5 @@ int main(int argc, char **argv) {
     close(isofd);
 
     printf("Done!\n");
-    exit(0)
+    exit(0);
 }
