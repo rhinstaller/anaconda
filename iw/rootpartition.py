@@ -93,9 +93,9 @@ class PartitionWindow (InstallWindow):
 	    self.todo.addMount(device, mount, type)
 
 	    if mount == "/":
-		rootPartition = partition
+		rootPartition = device
 	    elif mount == "/boot":
-		bootPartition = partition
+		bootPartition = device
 
 	if (bootPartition):
 	    liloBoot = bootPartition
