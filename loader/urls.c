@@ -203,7 +203,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 
     switch (protocol) {
     case URL_METHOD_FTP:
-	cb = newtCheckbox(3, 11, _("Use non-anonymous ftp or a proxy server"),
+	cb = newtCheckbox(3, 11, _("Use non-anonymous ftp"),
 			  *doSecondarySetup, NULL, doSecondarySetup);
 	break;
 #ifdef NO_PROXY
@@ -314,8 +314,7 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
     if (protocol == URL_METHOD_FTP) {
 	reflowedText = newtReflowText(
 	_("If you are using non anonymous ftp, enter the account name and "
-	  "password you wish to use below. If you are using an FTP proxy "
-	  "enter the name of the FTP proxy server to use."),
+	  "password you wish to use below."),
 	47, 5, 5, &width, &height);
     } else {
 	reflowedText = newtReflowText(
