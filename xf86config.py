@@ -714,7 +714,7 @@ class XF86Config:
         # all the straight servers
         for server in [ "3DLabs", "8514", "FBDev", "I128",
                         "Mach8", "Mach32", "Mach64", "Mono",
-                        "P9000", "S3", "S3V", "SVGA", "W32" ]:
+                        "P9000", "S3", "S3V", "SVGA", "W32", "VGA16" ]:
             cards["Generic " + server] = { "SERVER" : server,
                                            "NAME"   : "Generic " + server }
         
