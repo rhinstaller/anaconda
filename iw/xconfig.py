@@ -167,8 +167,20 @@ class XConfigWindow (InstallWindow):
             self.didTest = 1
             
     def getScreen (self):
-	if not self.todo.hdList.packages.has_key('XFree86') or \
-	   not self.todo.hdList.packages['XFree86'].selected: return None
+        #
+        # if in unconfigOnly mode we query existing rpm db
+        # if X not installed, just skip this step
+        #
+        if self.todo.unconfigOnly:
+            import rpm
+            db = rpm.opendb()
+            rc = db.findbyname ("XFree86")
+            if len(rc) == 0:
+                return None
+            
+        else:            
+            if not self.todo.hdList.packages.has_key('XFree86') or \
+               not self.todo.hdList.packages['XFree86'].selected: return None
 
         self.todo.x.probe ()
 
