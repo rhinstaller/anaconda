@@ -209,7 +209,8 @@ class LiloConfiguration:
 	    return 
 
 	if not self.liloImages:
-	    self.setLiloImages(self.getLiloImages(fstab))
+	    (images, default) = self.getLiloImages(fstab)
+	    self.setLiloImages(images)
 
         # on upgrade read in the lilo config file
 	lilo = LiloConfigFile ()
