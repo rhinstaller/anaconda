@@ -272,6 +272,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 for part in free[drive]:
 #                    print "Trying partition", printFreespaceitem(part)
                     partSize = getPartSizeMB(part)
+#		    print "partSize %s  request %s" % (partSize, request.requestSize)
                     if partSize >= request.requestSize and partSize > largestPart[0]:
                         if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
                             largestPart = (partSize, part)
@@ -509,6 +510,7 @@ def growParts(diskset, requests, newParts):
 #                print request
 #                print "percent, growby, maxsect, free", percent, growby, maxsect,freeSize[drive], startSize, lastFreeSize
 #                print "max is ",maxsect
+
                 imposedMax = 0
                 if request.maxSize:
                     # round down a cylinder, see comment below
@@ -545,6 +547,7 @@ def growParts(diskset, requests, newParts):
 #                    printNewRequestsCyl(diskset, newRequest)
 
                     # XXX need to request in sectors preferably, more accurate
+#		    print "trying cur=%s" % cur
                     request.requestSize = (cur*sector_size)/1024.0/1024.0
 
                     # try adding
@@ -563,13 +566,10 @@ def growParts(diskset, requests, newParts):
 #                    print min, max, diff, cylsectors
 #                    print diskset.diskState()
 
-                    if diff < cylsectors:
-                        cur = max
-                    else:
-                        cur = max - (diff / 2)
+                    cur = max - (diff / 2)
 
                     inner_iter = inner_iter + 1
-##                     print "sizes",min,max,diff,lastDiff
+#                    print "sizes at end of loop - cur: %s min:%s max:%s diff:%s lastDiff:%s" % (cur,min,max,diff,lastDiff)
 
 #                freeSize[drive] = freeSize[drive] - (min - startSize)
 #                print "shrinking freeSize to ",freeSize[drive], lastFreeSize
