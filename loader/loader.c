@@ -1669,6 +1669,36 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
     return 0;
 }
 
+static char * getLoginName(char * login, struct iurlinfo ui) {
+    int i;
+
+    i = 0;
+    /* password w/o login isn't usefull */
+    if (ui.login && strlen(ui.login)) {
+	i += strlen(ui.login) + 5;
+	if (strlen(ui.password))
+	    i += 3*strlen(ui.password) + 5;
+
+	if (ui.login || ui.password) {
+	    login = alloca(i);
+	    strcpy(login, ui.login);
+	    if (ui.password) {
+		char * chptr;
+		char code[4];
+
+		strcat(login, ":");
+		for (chptr = ui.password; *chptr; chptr++) {
+		    sprintf(code, "%%%2x", *chptr);
+		    strcat(login, code);
+		}
+		strcat(login, "@");
+	    }
+	}
+    }
+
+    return login;
+}
+
 #define URL_STAGE_IP			1
 #define URL_STAGE_MAIN			2
 #define URL_STAGE_SECOND		3
@@ -1700,7 +1730,6 @@ static char * mountUrlImage(struct installMethod * method,
     }
 
     initLoopback();
-
     i = ensureNetDevice(kd, modInfo, modLoaded, modDepsPtr, flags, &devName);
     if (i) return NULL;
 
@@ -1765,30 +1794,8 @@ static char * mountUrlImage(struct installMethod * method,
         }
     }
 
-    i = 0;
     login = "";
-    /* password w/o login isn't usefull */
-    if (ui.login && strlen(ui.login)) {
-	i += strlen(ui.login) + 5;
-	if (strlen(ui.password))
-	    i += 3*strlen(ui.password) + 5;
-
-	if (ui.login || ui.password) {
-	    login = alloca(i);
-	    strcpy(login, ui.login);
-	    if (ui.password) {
-		char * chptr;
-		char code[4];
-
-		strcat(login, ":");
-		for (chptr = ui.password; *chptr; chptr++) {
-		    sprintf(code, "%%%2x", *chptr);
-		    strcat(login, code);
-		}
-		strcat(login, "@");
-	    }
-	}
-    }
+    login = getLoginName(login, ui);
 
     if (!strcmp(ui.prefix, "/"))
 	finalPrefix = "/.";
@@ -2303,6 +2310,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 
     } else if (ksType == KS_CMD_URL) {
         char * finalPrefix;
+	char * login;
 	memset(&ui, 0, sizeof(ui));
 
 	imageUrl = strdup(url);
@@ -2359,11 +2367,13 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	else
 	    finalPrefix = ui.prefix;
 
-	url = malloc(strlen(finalPrefix) + 25 + strlen(ui.address) + strlen(ui.login));
+	login = "";
+	login = getLoginName(login, ui);
+
+	url = malloc(strlen(finalPrefix) + 25 + strlen(ui.address) + strlen(login));
 	sprintf(url, "%s://%s%s/%s", 
 		ui.protocol == URL_METHOD_FTP ? "ftp" : "http",
-		ui.login, ui.address, finalPrefix);
-
+		login, ui.address, finalPrefix);
     }
 #endif
 
