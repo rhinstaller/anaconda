@@ -1,6 +1,7 @@
 #
 # users.py - user account install data
 #
+# Matt Wilson <msw@redhat.com>
 # Brent Fox <bfox@redhat.com>
 #
 # Copyright 2001 Red Hat, Inc.
