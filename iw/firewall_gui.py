@@ -142,7 +142,7 @@ class FirewallWindow (InstallWindow):
 
         l = gui.WrappingLabel(_("Security Enhanced Linux (SELinux) "
                                 "provides finer-grained "
-                                "security controls than are available "
+                                "security controls than those available "
                                 "in a traditional Linux system.  It can "
                                 "be set up in a disabled state, a state "
                                 "which only warns about things which would "
