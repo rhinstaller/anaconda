@@ -198,7 +198,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
 # get the list of the "best" drives to try to use...
 # if currentdrive is set, use that, else use the drive list, or use
 # all the drives
-def getDriveList(request, diskset, bootrequest = 0):
+def getDriveList(request, diskset):
     if request.currentDrive:
         drives = request.currentDrive
     elif request.drive:
@@ -210,9 +210,6 @@ def getDriveList(request, diskset, bootrequest = 0):
         drives = [ drives ]
 
     drives.sort()
-    # XXX boot drive being first drive works now, but perhaps not always =\
-    if bootrequest:
-        drives = [ drives[0] ]
 
     return drives
     
@@ -231,13 +228,15 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
         if primOnly and not request.primary:
             continue
         if request == bootreq:
-            drives = getDriveList(request, diskset, 1)
+            drives = getDriveList(request, diskset)
+            numDrives = 0 # allocate bootable requests first
         else:
             drives = getDriveList(request, diskset)
-        if not todo.has_key(len(drives)):
-            todo[len(drives)] = [ request ]
+            numDrives = len(drives)
+        if not todo.has_key(numDrives):
+            todo[numDrives] = [ request ]
         else:
-            todo[len(drives)].append(request)
+            todo[numDrives].append(request)
 
     number = todo.keys()
     number.sort()
@@ -252,9 +251,14 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 isBoot = 0
                 
             largestPart = (0, None)
-            drives = getDriveList(request, diskset, isBoot)
+            drives = getDriveList(request, diskset)
 #            print "Trying drives to find best free space out of", free
             for drive in drives:
+                # this request is bootable and we've found a large enough
+                # partition already, so we don't need to keep trying other
+                # drives.  this keeps us on the first possible drive
+                if isBoot and largestPart[1]:
+                    break
 #                print "Trying drive", drive
                 disk = diskset.disks[drive]
 
