@@ -92,6 +92,9 @@ tag:
 
 archive: create-archive
 
+beehive-srpm: src
+	@mv anaconda-$(VERSION)-$(RELEASE).src.rpm src.rpm
+
 src: create-archive
 	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2
 
