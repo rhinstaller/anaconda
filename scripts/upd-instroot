@@ -61,6 +61,7 @@ prunePackageList() {
 	for PKG in $PACKAGES; do
 	    PATTERN="${PATTERN:+${PATTERN}|}(^$PKG )"
 	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
+	    echo "pkg is $PKG, pattern is $PATTERN, packagefiles is $PACKAGEFILES"
 	done
 
 	# gtk+, enough said
