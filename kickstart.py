@@ -542,8 +542,8 @@ class KickstartBase(BaseInstallClass):
 	if extra:
 	    mouseType = extra[0]
 
-	if mouseType != "none":
-            self.setMouse(id, mouseType, device, emulThree)
+## 	if mouseType != "none":
+##             self.setMouse(id, mouseType, device, emulThree)
 
         self.skipSteps.append("mouse")
 

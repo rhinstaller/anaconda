@@ -112,7 +112,6 @@ class InstallData:
         self.langSupport.write (instPath)
 
         if not self.isHeadless:
-            self.mouse.write(instPath)
             self.keyboard.write (instPath)
             
         self.timezone.write (instPath)
@@ -168,7 +167,6 @@ class InstallData:
 	self.langSupport.writeKS(f)
         if not self.isHeadless:
             self.keyboard.writeKS(f)
-            self.mouse.writeKS(f)
             self.xsetup.writeKS(f, self.desktop)
 	self.network.writeKS(f)
 	self.rootPassword.writeKS(f, self.auth)

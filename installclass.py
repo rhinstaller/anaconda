@@ -111,7 +111,6 @@ class BaseInstallClass:
 	dispatch.setStepList(
 		 "language",
 		 "keyboard",
-		 "mouse",
 		 "checkmonitorok",
 		 "monitor",
 		 "setsanex",
@@ -194,7 +193,7 @@ class BaseInstallClass:
             pass
         else:
 	    dispatch.skipStep("keyboard", permanent = 1)
-	    dispatch.skipStep("mouse", permanent = 1)
+#	    dispatch.skipStep("mouse", permanent = 1)
 	    dispatch.skipStep("handleX11pkgs", permanent = 1)
 	    dispatch.skipStep("videocard", permanent = 1)
 	    dispatch.skipStep("monitor", permanent = 1)

@@ -58,7 +58,6 @@ installSteps = [
     ("betanag", betaNagScreen, ("intf", "dir")),
     ("language", ("intf", "id.instLanguage")),
     ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard")),
-    ("mouse", ("id.mouse",)),
     ("checkmonitorok", checkMonitorOK, ("id.monitor", "dispatch")),
     ("monitor", ("id.xsetup", "id.monitor", "intf")),
     ("setsanex", setSaneXSettings, ("id.xsetup",)),
