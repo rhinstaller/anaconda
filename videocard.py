@@ -5,7 +5,7 @@
 # Brent Fox <bfox@redhat.com>
 # Mike Fulbright <msf@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -37,6 +37,23 @@ def Video_cardsDBLookup(thecard):
 
     return card
 
+
+def ddcprobe_for_ram():
+    rc={}
+    try:
+	probe = string.split (iutil.execWithCapture ("/usr/sbin/ddcprobe", ['ddcprobe']), '\n')
+	for line in probe:
+	    if line and line[:9] == "OEM Name:":
+		cardManf = string.strip (line[10:])
+		rc['vendor'] = cardManf
+	    if line and line[:16] == "Memory installed":
+		memory = string.split (line, '=')
+		rc['videoram'] = string.strip (memory[2][:-2])
+    except:
+	log("ddcprobe failed")
+	rc = None
+
+    return rc
 
 class VideoCard:
 #
@@ -274,6 +291,21 @@ class VideoCardInfo:
         #--Valid bit depths--
         return ["8", "16", "24", "32"]
 
+    # returns list of modes we know card can do
+    # returns None if no restrictions
+    def getSupportedModes(self):
+	vc = self.primaryCard()
+	if not vc:
+	    return None
+
+	carddata = vc.getCardData()
+	if carddata.has_key('DRIVER') and carddata['DRIVER'] == 'vesa':
+	    return ['640x480', '800x600', '1024x768']
+	else:
+	    return None
+	    
+	return None
+
     def manufacturerDB(self):
         return ["3DLabs",
                 "ABit", "AOpen", "ASUS", "ATI", "Actix", "Ark Logic", "Avance Logic",
@@ -371,6 +403,11 @@ class VideoCardInfo:
                              kudzu.BUS_UNSPEC,
                              kudzu.PROBE_ALL);
 
+        if not skipDDCProbe:
+	    prval = ddcprobe_for_ram()
+	else:
+	    prval = None
+
         # just use first video card we recognize
         # store as a list of class VideoCard
         self.videocards = []
@@ -424,13 +461,31 @@ class VideoCardInfo:
                 
         if len(self.videocards) == 0:
             # insert a best guess at a card
-            vc = VideoCard()
-            vc.setDescription(_("Unknown Card"))
+	    if prval and prval.has_key('videoram'):
+		try:
+		    card = 'VESA driver (generic)'
+		    vc = VideoCard()
+		    vc.setVideoRam(prval['videoram'])
+		    info = Video_cardslist[card]
+		    vc.setProbedCard(card)
+		    vc.setDevice(None)
+		    vc.setDescription(card)
+		    vc.setCardData(info)
+		    vc.setDevID(info["NAME"])
+		    vc.setXServer('XFree86')
+		except:
+		    vc = None
+	    else:
+		vc = None
+		
+	    if not vc:
+		vc = VideoCard()
+		vc.setDescription(_("Unknown Card"))
+		
             self.videocards.append(vc)
             self.orig_videocards = copy.deepcopy(self.videocards)
             self.primary = 0
             self.orig_primary = self.primary
-
             return
 
         # default primary card to be the first card found
@@ -438,20 +493,13 @@ class VideoCardInfo:
 
         # VESA probe for videoram, etc.
         # for now assume fb corresponds to primary video card
-        if not skipDDCProbe:
-            try:
-                probe = string.split (iutil.execWithCapture ("/usr/sbin/ddcprobe", ['ddcprobe']), '\n')
-                for line in probe:
-                    if line and line[:9] == "OEM Name:":
-                        cardManf = string.strip (line[10:])
-                        self.primaryCard().setCardManf(cardManf)
-                        self.primaryCard().getCardData()["VENDOR"] = cardManf
-                    if line and line[:16] == "Memory installed":
-                        memory = string.split (line, '=')
-                        self.primaryCard().setVideoRam(string.strip (memory[2][:-2]))
-            except:
-                log("ddcprobe failed")
-                pass
+	if prval:
+	    if prval.has_key('vendor'):
+		cardManf = prval['vendor']
+		self.primaryCard().setCardManf(cardManf)
+		self.primaryCard().getCardData()["VENDOR"] = cardManf
+	    if prval.has_key('videoram'):
+		self.primaryCard().setVideoRam(prval['videoram'])
 
         # try to get frame buffer information if we don't know video ram
         if not self.primaryCard().getVideoRam() and self.primaryCard().getDevice():
@@ -500,7 +548,6 @@ class VideoCardInfo:
     # this will only find the first instance of any card
     def locateVidcardByName (self, card):
         for vc in self.videocards:
-            print vc.getDescription()
             if (vc.getDescription() == card):
                 return vc
         raise RuntimeError, "Could not find valid video card driver"
