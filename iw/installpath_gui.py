@@ -16,6 +16,7 @@ from lilo_gui import *
 from silo_gui import *
 from examine_gui import *
 from bootdisk_gui import *
+from firewall_gui import *
 from timezone_gui import *
 from xconfig_gui import *
 from fdisk_gui import *
@@ -55,6 +56,7 @@ class InstallPathWindow (InstallWindow):
 		     ( FormatWindow, "format" ),
 		     ( BootloaderWindow, BootloaderSkipname ),
 		     ( NetworkWindow, "network" ),
+                     ( FirewallWindow, "firewall" ),
 		     ( TimezoneWindow, "timezone" ),
 		     ( AccountWindow, "accounts" ),
 		     ( AuthWindow, "authentication" ),
