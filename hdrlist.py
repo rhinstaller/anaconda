@@ -376,7 +376,7 @@ class HeaderList:
         pkg = self.getBestNevra(item)
 
         if pkg is None:
-            raise KeyError, "No such package"
+            raise KeyError, "No such package %s" %(item,)
 
         return self.pkgs[pkg]
 
