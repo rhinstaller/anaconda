@@ -146,7 +146,7 @@ class MouseWindow(InstallWindow):
         self.currentMouse = currentMouse
 
         parent = None
-        iter = self.mousestore.get_iter_root()
+        iter = self.mousestore.get_iter_first()
         next = 1
         # iterate over the list, looking for the current mouse selection
         while next:

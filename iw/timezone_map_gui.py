@@ -162,7 +162,7 @@ class TimezoneMap(gtk.VBox):
         if skipList:
             return
 
-        iter = self.listStore.get_iter_root()
+        iter = self.listStore.get_iter_first()
         next = 1
         while next:
             if self.listStore.get_value(iter, self.columns.ENTRY) == self.currentEntry:

@@ -152,7 +152,7 @@ class RaidEditor:
 
 	    raidmembers = []
 	    model = self.raidlist.get_model()
-	    iter = model.get_iter_root()
+	    iter = model.get_iter_first()
 	    next = 1
 	    while next:
 		val   = model.get_value(iter, 0)

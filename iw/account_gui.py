@@ -38,7 +38,7 @@ class AccountWindow (InstallWindow):
             self.accounts.setUserList(accounts)
             return None
 
-	iter = self.userstore.get_iter_root()
+	iter = self.userstore.get_iter_first()
 	next = iter
 	while next:
 	    accounts.append((self.userstore.get_value(iter, 0),
@@ -324,7 +324,7 @@ class AccountWindow (InstallWindow):
 
 	self.passwords = {}
 
-        # XXX hack because store.get_iter_root ALWAYS returns a
+        # XXX hack because store.get_iter_first ALWAYS returns a
         # GtkTreeIter so we can't just iterate over them and find the empty one
         self.users = 0
 

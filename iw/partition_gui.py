@@ -367,7 +367,7 @@ class DiskTreeModel(gtk.TreeStore):
 
     def selectPartition(self, partition):
         pyobject = self.titleSlot['PyObject']
-        iter = self.get_iter_root()
+        iter = self.get_iter_first()
         next = 1
 	parentstack = []
 	parent = None
@@ -1060,7 +1060,7 @@ class AutoPartitionWindow(InstallWindow):
 
         allowdrives = []
 	model = self.drivelist.get_model()
-	iter = model.get_iter_root()
+	iter = model.get_iter_first()
 	next = 1
 	while next:
 	    val   = model.get_value(iter, 0)

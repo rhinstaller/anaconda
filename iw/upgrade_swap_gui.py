@@ -159,7 +159,7 @@ class UpgradeSwapWindow (InstallWindow):
         a.add(sw)
         self.swapbox.pack_start(a, gtk.FALSE, gtk.TRUE, 10)
 
-	rootiter = self.store.get_iter_root()
+	rootiter = self.store.get_iter_first()
 	sel = self.view.get_selection()
 	sel.select_iter(rootiter)
 

@@ -36,7 +36,7 @@ class NetworkWindow(InstallWindow):
 
     def getNext(self):
 
-        iter = self.ethdevices.store.get_iter_root()
+        iter = self.ethdevices.store.get_iter_first()
 	next = 1
 	noneonboot = 1
 	while next:
@@ -93,7 +93,7 @@ class NetworkWindow(InstallWindow):
 	    self.network.secondaryNS = None
 	    self.network.ternaryNS = None
 
-        iter = self.ethdevices.store.get_iter_root()
+        iter = self.ethdevices.store.get_iter_first()
 	next = 1
 	while next:
 	    model = self.ethdevices.store
@@ -360,7 +360,7 @@ class NetworkWindow(InstallWindow):
         self.ethdevices.set_headers_visible(gtk.TRUE)
 
 	self.ignoreEvents = 1
-	iter = self.ethdevices.store.get_iter_root()
+	iter = self.ethdevices.store.get_iter_first()
 	selection = self.ethdevices.get_selection()
 	selection.set_mode(gtk.SELECTION_BROWSE)
 	selection.select_iter(iter)

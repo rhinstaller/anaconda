@@ -84,7 +84,7 @@ class LanguageWindow (InstallWindow):
         self.listView.set_property("headers-visible", gtk.FALSE)
 
         current = instLang.getCurrent()
-        iter = self.listStore.get_iter_root()
+        iter = self.listStore.get_iter_first()
         next = 1
         while next:
             if self.listStore.get_value(iter, 1) == current:
