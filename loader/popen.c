@@ -45,7 +45,7 @@ FILE * popen(const char * command, const char * type) {
 	}
 
 	args[argc] = NULL;
-	
+
 	execv("/sbin/insmod", args);
 	exit(1);
     }
@@ -65,7 +65,6 @@ int pclose(FILE * stream) {
 
     if (stream != lastRequest.f) return -1;
 
-    close(fileno(stream));
     fclose(stream);
     
     waitpid(lastRequest.child, &status, 0);
