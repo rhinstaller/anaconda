@@ -189,24 +189,36 @@ class InstallProgressWindow (InstallWindow):
                 fillopts = EXPAND|FILL
             else:
                 fillopts = FILL
+
             table.attach (label, 0, 1, i, i+1, FILL, fillopts)
             label = GtkLabel ()
             label.set_alignment (0, 0)
             label.set_line_wrap (TRUE)
             if key == "summary":
                 label.set_text ("\n\n")
-#                label.set_usize(-1, 35)
-                label.set_usize(-1, 1)
+                label.set_usize(450, 35)
+#                label.set_usize(-1, 1)
             self.curPackage[key] = label
             table.attach (label, 1, 2, i, i+1, FILL, fillopts)
             i = i + 1
 
+
         vbox = GtkVBox (FALSE, 10)
-        vbox.pack_start (table)
+        vbox.pack_start (table, FALSE, FALSE)
 
 	self.progress = GtkProgressBar ()
         self.totalProgress = GtkProgressBar ()
-        vbox.pack_start (self.progress, FALSE)
+
+        progressTable = GtkTable (2, 2, FALSE)
+        label = GtkLabel (_("Package Progress: "))
+        label.set_alignment (0, 0)
+        progressTable.attach (label, 0, 1, 0, 1, SHRINK)
+        progressTable.attach (self.progress, 1, 2, 0, 1)
+
+        label = GtkLabel (_("Total Progress:   "))
+        label.set_alignment (0, 0)
+        progressTable.attach (label, 0, 1, 1, 2, SHRINK)
+        progressTable.attach (self.totalProgress, 1, 2, 1, 2)
 
         self.status =  {
             "total" :     { "packages" : (0, 1),
@@ -241,10 +253,11 @@ class InstallProgressWindow (InstallWindow):
 #        align.add (clist)
 #        vbox.pack_start (align, FALSE)
         hbox = GtkHBox (FALSE, 5)
+        
+        vbox.pack_start (progressTable, FALSE)
         hbox.pack_start (clist, TRUE)
         vbox.pack_start (hbox, FALSE)
-        vbox.pack_start (self.totalProgress, FALSE)
-
+        
         im = self.ics.readPixmap ("progress_first.png")
         
         if im:
@@ -256,11 +269,11 @@ class InstallProgressWindow (InstallWindow):
             style = box.get_style ().copy ()
             style.bg[STATE_NORMAL] = style.white
             box.set_style (style)
-            self.adpix.set_alignment (0, 0)
+#            self.adpix.set_alignment (0, 0)
             box.add (self.adpix)
             self.adbox = box
             frame.add (box)
-            vbox.pack_start (frame, FALSE);
+            vbox.pack_start (frame);
 
 	self.ics.getInstallInterface ().setPackageProgressWindow (self)
         ii = self.ics.getInstallInterface ()
@@ -270,4 +283,7 @@ class InstallProgressWindow (InstallWindow):
 
 	vbox.set_border_width (5)
 	return vbox
+
+
+
 
