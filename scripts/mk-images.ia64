@@ -13,9 +13,9 @@ prepareBootImage() {
 	mount -o loop -t vfat $MBD_TMPIMAGE $MBD_BOOTTREE
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 
-	cp -a $IMGPATH/boot/efi/* $MBD_BOOTTREE/
+	cp -a $BOOTDISKDIR/* $MBD_BOOTTREE/
 	cp $KERNELROOT/boot/efi/vmlinux-* $MBD_BOOTTREE/vmlinux
-	echo > $MBD_BOOTTREE/elilo.conf << EOF
+	cat > $MBD_BOOTTREE/elilo.conf << EOF
 timeout=5
 
 image=vmlinux
