@@ -569,8 +569,6 @@ def doInstall(method, id, intf, instPath):
     
     method.filesDone ()
     
-    del p
-
     if upgrade:
 	instLog.write ("\n\nThe following packages were available on the "
                        "CD but NOT upgraded:\n")
