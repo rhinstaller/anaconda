@@ -197,7 +197,8 @@ class NetworkWindow(InstallWindow):
                        (_("Broadcast"),  "broadcast")]
 
             if len(i) >= 3 and i[:3] == 'ctc':
-                options.append((_("Point to Point (IP)"), "remip"))
+                newopt = (_("Point to Point (IP)"), "remip")
+                options.append(newopt)
             
             ipTable = GtkTable(len(options), 2)
             # this is the iptable used for DNS, et. al
@@ -229,18 +230,18 @@ class NetworkWindow(InstallWindow):
             for t in range(len(options)):
                 if t == 0 or t == 1:
                     options[t].connect("changed", self.calcNWBC,
-                                       (devs[i],) + tuple(options))
+                                       (devs[i],) + tuple(options[0:4]))
 
             options[0].ipCalcNMHandler = None
             
-            self.focusOutNM(None, None, (devs[i],) + tuple(options))
+            self.focusOutNM(None, None, (devs[i],) + tuple(options[0:4]))
 
             # add event handlers for the main IP widget to calcuate the netmask
             options[0].connect("focus_in_event", self.focusInIP,
                                (options[0], options[1]))
             options[0].connect("focus_out_event", self.focusOutIP, options[0])
             options[1].connect("focus_out_event", self.focusOutNM,
-                               (devs[i],) + tuple(options))
+                               (devs[i],) + tuple(options[0:4]))
             options[2].connect("focus_out_event", self.focusOutNW, devs[i])
             options[3].connect("focus_out_event", self.focusOutBC, devs[i])
 
