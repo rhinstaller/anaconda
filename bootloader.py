@@ -324,6 +324,46 @@ class bootloaderInfo:
         self.doUpgradeOnly = 0
         self.kickstart = 0
 
+        if flags.serial != 0:
+            # now look at /proc/cmdline to pull any serial console
+            # args
+            f = open("/proc/cmdline", "r")
+            cmdline = f.read()[:-1]
+            f.close()
+
+            options = ""
+            device = None
+            cmdlineargs = cmdline.split(" ")
+            for arg in cmdlineargs:
+                # found a console argument
+                if arg.startswith("console="):
+                    (foo, console) = arg.split("=")
+                    # the options are everything after the comma
+                    comma = console.find(",")
+                    if comma != -1:
+                        options = console[comma:]
+                        device = console[:comma]
+                    else:
+                        options = ""
+                        device = console
+
+            if device is None:
+                self.serialDevice = "ttyS0"
+                self.serialOptions = ""
+            else:
+                self.serialDevice = device
+                # don't keep the comma in the options
+                self.serialOptions = options[1:]
+
+            self.args.append("console=%s%s" %(self.serialDevice, options))
+
+            self.serial = 1
+        else:
+            self.serial = 0
+            self.serialDevice = None
+            self.serialOptions = None
+        
+
 class ia64BootloaderInfo(bootloaderInfo):
     # XXX wouldn't it be nice to have a real interface to use efibootmgr from?
     def removeOldEfiEntries(self, instRoot):
