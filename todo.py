@@ -1713,9 +1713,11 @@ class ToDo:
                         pass
 
                 log("Mounting /proc/bus/usb in install path")
+                unmountUSB = 0
                 try:
                     isys.mount('/usbdevfs', self.instPath+'/proc/bus/usb', 'usbdevfs')
                     log("Mount of USB succeeded")
+                    unmountUSB = 1
                 except:
                     log("Mount of USB failed")
                     pass
@@ -1735,8 +1737,8 @@ class ToDo:
                         xmouse.reopen()
                     except RuntimeError:
                         pass
-
-		isys.umount(self.instPath + '/proc/bus/usb', removeDir = 0)
+                if unmountUSB:
+                    isys.umount(self.instPath + '/proc/bus/usb', removeDir = 0)
 
 	    w.set(4);
 
