@@ -2414,6 +2414,7 @@ void setFloppyDevice(int flags) {
     logMessage("system floppy device is %s", floppyDevice);
 }
 
+#if !defined (__s390__) && !defined (__s390x__)
 static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 			 moduleInfoSet modInfo, int flags) {
     struct device ** devices;
@@ -2450,7 +2451,9 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     return 0;
 }
+#endif
 
+#if !defined (__s390__) && !defined (__s390x__)
 /* This forces a pause between initializing usb and trusting the /proc 
    stuff */
 static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
@@ -2468,6 +2471,7 @@ static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 	}
     }
 }
+#endif
 
 
 static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
