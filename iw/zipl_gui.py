@@ -101,8 +101,8 @@ class ZiplWindow (InstallWindow):
         label = GtkLabel(_("Kernel Parameters") + ":")
         label.set_alignment(0.0, 0.5)
         self.appendEntry = GtkEntry()
-#        if bl.args and bl.args.get():
-#            self.appendEntry.set_text(bl.args.get())
+        if bl.args and bl.args.get():
+            self.appendEntry.set_text(bl.args.get())
         hbox = GtkHBox(FALSE, 5)
         hbox.pack_start(label, FALSE)
         hbox.pack_start(self.appendEntry)

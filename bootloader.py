@@ -74,11 +74,11 @@ class KernelArguments:
 
     def __init__(self):
 	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-            str = ""
+            self.args = ""
             if os.environ.has_key("DASD"):
-                str = "dasd=" + os.environ["DASD"]
+                self.args = "dasd=" + os.environ["DASD"]
             if os.environ.has_key("CHANDEV"):
-                self.args = "chandev=" + os.environ["CHANDEV"]                
+                self.args = self.args + " chandev=" + os.environ["CHANDEV"]
         else:
             cdrw = isys.ideCdRwList()
             str = ""
@@ -833,7 +833,7 @@ class s390BootloaderInfo(bootloaderInfo):
 	return str
 
     def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
-		  defaultDev, justConfig):
+		  defaultDev, justConfig, intf):
         str = self.writeZilo(instRoot, fsset, bl, langs, kernelList, 
                              chainList, defaultDev,
                              justConfig | (self.useZiplVal))

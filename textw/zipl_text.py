@@ -41,8 +41,8 @@ class ZiplWindow:
 
 	entry = Entry(48, scroll = 1, returnExit = 1)
 
-#        if bl.args and bl.args.get():
-#            entry.set(bl.args.get())
+        if bl.args and bl.args.get():
+            entry.set(bl.args.get())
 
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON,
 			     TEXT_BACK_BUTTON ] )
@@ -62,9 +62,9 @@ class ZiplWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-#	if entry.value():
-#            bl.args.set(string.strip(entry.value()))
-#	else:
-#            bl.args.set(string.strip(None))
+	if entry.value():
+            bl.args.set(string.strip(entry.value()))
+	else:
+            bl.args.set("")
 
 	return INSTALL_OK

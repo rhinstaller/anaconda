@@ -131,7 +131,7 @@ class BaseInstallClass:
             dispatch.skipStep("fdisk", permanent = 1)
             #dispatch.skipStep("partition", permanent = 1)
             #dispatch.skipStep("partitiondone", permanent = 1)
-            dispatch.skipStep("bootloadersetup", permanent = 1)
+            #dispatch.skipStep("bootloadersetup", permanent = 1)
             #dispatch.skipStep("bootloader",  permanent = 1)
             dispatch.skipStep("bootloaderpassword",  permanent = 1)
 
