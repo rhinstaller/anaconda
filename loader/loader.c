@@ -465,7 +465,6 @@ static char * mountHardDrive(char * location, struct knownDevices * kd,
 
     /* XXX load scsi devices here */
 
-
     /*mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);*/
 
     for (i = 0; i < kd->numKnown; i++) {
@@ -544,7 +543,7 @@ static char * mountHardDrive(char * location, struct knownDevices * kd,
 	answer = newtRunForm(form);
 	part = newtListboxGetCurrent(listbox);
 
-	if (dir && *dir)
+	if (*dir)
 	    dir = strdup(dir);
 	else
 	    dir = NULL;
@@ -577,7 +576,6 @@ static char * mountHardDrive(char * location, struct knownDevices * kd,
 	    path = malloc(50 + (dir ? strlen(dir) : 2));
 	    sprintf(path, "/tmp/hdimage/%s/RedHat/base/stage2.img", 
 			dir ? dir : "");
-	    if (dir) free(dir);
 	    if ((fd = open(path, O_RDONLY)) < 0) {
 		logMessage("cannot open %s", path);
 		newtWinMessage(_("Error"), _("Ok"), 
@@ -594,9 +592,9 @@ static char * mountHardDrive(char * location, struct knownDevices * kd,
 	    close(fd);
 	    if (rc) continue;
 
-	    url = malloc(50);
-	    sprintf(url, "hd://%s/.", part->name + 5);
-
+	    url = malloc(50 + strlen(dir));
+	    sprintf(url, "hd://%s/%s", part->name + 5, dir ? dir : ".");
+	    if (dir) free(dir);
 	}
 
 	done = 1; 
@@ -856,7 +854,7 @@ static char * doMountImage(char * location, struct knownDevices * kd,
     int networkAvailable = 0;
     int localAvailable = 0;
     void * class;
-    char * url;
+    char * url = NULL;
 
     if ((class = isysGetModuleList(modInfo, DRIVER_NET))) {
 	networkAvailable = 1;
