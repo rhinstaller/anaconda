@@ -663,9 +663,9 @@ class KickstartBase(BaseInstallClass):
 		else:
 		    raise SyntaxError, "I'm lost in kickstart"
 
-	self.groupList = groups
-	self.packageList = packages
-        self.excludedList = excludedPackages
+        self.groupList.extend(groups)
+        self.packageList.extend(packages)
+        self.excludedList.extend(excludedPackages)
 
         # test to see if they specified to clear partitions and also
         # tried to --onpart on a logical partition
@@ -1143,12 +1143,15 @@ class KickstartBase(BaseInstallClass):
 	self.skipSteps = []
         self.showSteps = []
         self.interactive = 0
+        self.packageList = []
+        self.groupList = []
+        self.excludedList = []
         self.ksRaidMapping = {}
         self.ksPVMapping = {}
         self.ksVGMapping = {}
         # XXX hack to give us a starting point for RAID, LVM, etc unique IDs.
         self.ksID = 100000 
-	BaseInstallClass.__init__(self, 0)
+        BaseInstallClass.__init__(self, 0)
 
 def Kickstart(file, serial):
 
