@@ -248,11 +248,26 @@ class Authentication:
     def __init__ (self):
         self.useShadow = 1
         self.useMD5 = 1
-        self.useNIS = 0
-        self.domain = ""
-        self.useBroadcast = 1
-        self.server = ""
 
+        self.useNIS = 0
+        self.nisDomain = ""
+        self.nisuseBroadcast = 1
+        self.nisServer = ""
+
+        self.useLdap = 0
+        self.useLdapauth = 0
+        self.ldapServer = ""
+        self.ldapBasedn = ""
+
+        self.useKrb5 = 0
+        self.krb5Realm = ""
+        self.krb5Kdc = ""
+        self.krb5Admin = ""
+
+        self.useHesiod = 0
+        self.hesiodDlhs = ""
+        self.hesiodRhs = ""
+ 
 class InstSyslog:
     def __init__ (self, root, log):
         self.pid = os.fork ()
@@ -566,13 +581,42 @@ class ToDo:
             args.append ("--useshadow")
         if self.auth.useMD5:
             args.append ("--enablemd5")
+
         if self.auth.useNIS:
             args.append ("--enablenis")
             args.append ("--nisdomain")
-            args.append (self.auth.domain)
-            if not self.auth.useBroadcast:
+            args.append (self.auth.nisDomain)
+            if not self.auth.nisuseBroadcast:
                 args.append ("--nisserver")
-                args.append (self.auth.server)
+                args.append (self.auth.nisServer)
+
+        if self.auth.useLdap:
+            args.append ("--enableldap")
+        if self.auth.useLdapauth:
+            args.append ("--enableldapauth")
+        if self.auth.useLdap or self.auth.useLdapauth:
+            args.append ("--ldapserver")
+            args.append (self.auth.ldapServer)
+            args.append ("--ldapbasedn")
+            args.append (self.auth.ldapBasedn)
+
+        if self.auth.useKrb5:
+            args.append ("--enablekrb5")
+            args.append ("--krb5realm")
+            args.append (self.auth.krb5Realm)
+            args.append ("--krb5kdc")
+            args.append (self.auth.krb5Kdc)
+            args.append ("--krb5adminserver")
+            args.append (self.auth.krb5Admin)
+
+        if self.auth.useHesiod:
+            args.append ("--enablehesiod")
+            args.append ("--hesiodlhs")
+            args.append (self.auth.hesiodLhs)
+            args.append ("--hesiodrhs")
+            args.append (self.auth.hesiodRhs)
+
+        log ("running authentication cmd |%s|" % args)
         iutil.execWithRedirect(args[0], args,
                               stdout = None, stderr = None, searchPath = 1,
                               root = self.instPath)
@@ -826,14 +870,29 @@ class ToDo:
 	todo.instClass = instClass
 	todo.hostname = todo.instClass.getHostname()
 	todo.updateInstClassComps()
-	( useShadow, useMd5, useNIS, nisDomain, nisBroadcast,
-		      nisServer) = todo.instClass.getAuthentication()
+	( useShadow, useMd5,
+          useNIS, nisDomain, nisBroadcast, nisServer,
+          useLdap, useLdapauth, ldapServer, ldapBasedn,
+          useKrb5, krb5Realm, krb5Kdc, krb5Admin,
+          useHesiod, hesiodLhs, hesiodRhs) = todo.instClass.getAuthentication()
         todo.auth.useShadow = useShadow
         todo.auth.useMD5 = useMd5
         todo.auth.useNIS = useNIS
-        todo.auth.domain = nisDomain
-        todo.auth.useBroadcast = nisBroadcast
-        todo.auth.server = nisServer
+        todo.auth.nisDomain = nisDomain
+        todo.auth.nisuseBroadcast = nisBroadcast
+        todo.auth.nisServer = nisServer
+        todo.auth.useLdap = useLdap
+        todo.auth.useLdapauth = useLdapauth
+        todo.auth.ldapServer = ldapServer
+        todo.auth.ldapBasedn = ldapBasedn
+        todo.auth.useKrb5 = useKrb5
+        todo.auth.krb5Realm = krb5Realm
+        todo.auth.krb5Kdc = krb5Kdc
+        todo.auth.krb5Admin = krb5Admin
+        todo.auth.useHesiod = useHesiod
+        todo.auth.hesiodLhs = hesiodLhs
+        todo.auth.hesiodRhs = hesiodRhs
+
 	todo.timezone = instClass.getTimezoneInfo()
 	todo.bootdisk = todo.instClass.getMakeBootdisk()
 	todo.zeroMbr = todo.instClass.zeroMbr

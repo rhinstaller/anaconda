@@ -251,7 +251,7 @@ class UsersWindow:
         return dir
 
 class AuthConfigWindow:
-    def setsensitive (self):
+    def nissetsensitive (self):
         server = FLAGS_RESET
         flag = FLAGS_RESET
         if self.broadcast.selected ():
@@ -260,56 +260,151 @@ class AuthConfigWindow:
             flag = FLAGS_SET
             server = FLAGS_SET
 
-        self.domain.setFlags (FLAG_DISABLED, flag)
+        self.nisDomain.setFlags (FLAG_DISABLED, flag)
         self.broadcast.setFlags (FLAG_DISABLED, flag)
-        self.server.setFlags (FLAG_DISABLED, server)
+        self.nisServer.setFlags (FLAG_DISABLED, server)
+
+    def ldapsetsensitive (self):
+        # handle other forms here...
+        server = FLAGS_RESET
+        if not self.ldap.selected():
+            server = FLAGS_SET
+
+        self.ldapServer.setFlags (FLAG_DISABLED, server)
+        self.ldapBasedn.setFlags (FLAG_DISABLED, server)
+
+    def krb5setsensitive (self):
+        # handle other forms here...
+        server = FLAGS_RESET
+        if not self.krb5.selected():
+            server = FLAGS_SET
+
+        self.krb5Realm.setFlags (FLAG_DISABLED, server)
+        self.krb5Kdc.setFlags (FLAG_DISABLED, server)
+        self.krb5Admin.setFlags (FLAG_DISABLED, server)
 
     def __call__(self, screen, todo):
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 
         toplevel = GridFormHelp (screen, _("Authentication Configuration"), 
-				 "authconfig", 1, 5)
+				 "authconfig", 1, 10)
         self.shadow = Checkbox (_("Use Shadow Passwords"), todo.auth.useShadow)
-        toplevel.add (self.shadow, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
+        toplevel.add (self.shadow, 0, 0, (0, 0, 0, 0), anchorLeft = 1)
         self.md5 = Checkbox (_("Enable MD5 Passwords"), todo.auth.useMD5)
         toplevel.add (self.md5, 0, 1, (0, 0, 0, 1), anchorLeft = 1)
+
+        # nis support
+        subgrid = Grid (3, 3)
         self.nis = Checkbox (_("Enable NIS"), todo.auth.useNIS)
-        toplevel.add (self.nis, 0, 2, anchorLeft = 1)
+        subgrid.setField (self.nis, 0, 0)
 
-        subgrid = Grid (2, 3)
-
+        subgrid.setField (Label (""), 0, 1)
+        subgrid.setField (Label (""), 0, 2)
+        
         subgrid.setField (Label (_("NIS Domain:")),
-                          0, 0, (0, 0, 1, 0), anchorRight = 1)
+                          1, 0, (5, 0, 1, 0), anchorRight = 1)
         subgrid.setField (Label (_("NIS Server:")),
-                          0, 1, (0, 0, 1, 0), anchorRight = 1)
+                          1, 1, (5, 0, 1, 0), anchorRight = 1)
         subgrid.setField (Label (_("or use:")),
-                          0, 2, (0, 0, 1, 0), anchorRight = 1)
+                          1, 2, (5, 0, 1, 0), anchorRight = 1)
 
         text = _("Request server via broadcast")
-        self.domain = Entry (len (text) + 4)
-        self.domain.set (todo.auth.domain)
-        self.broadcast = Checkbox (text, todo.auth.useBroadcast)
-        self.server = Entry (len (text) + 4)
-        self.server.set (todo.auth.server)
-        subgrid.setField (self.domain, 1, 0, anchorLeft = 1)
-        subgrid.setField (self.broadcast, 1, 1, anchorLeft = 1)
-        subgrid.setField (self.server, 1, 2, anchorLeft = 1)
-        toplevel.add (subgrid, 0, 3, (2, 0, 0, 1))
-        toplevel.add (bb, 0, 4, growx = 1)
+        entrywid = len(text) + 4
+        
+        self.nisDomain = Entry (entrywid)
+        self.nisDomain.set (todo.auth.nisDomain)
+        self.broadcast = Checkbox (text, todo.auth.nisuseBroadcast)
+        self.nisServer = Entry (entrywid)
+        self.nisServer.set (todo.auth.nisServer)
+        subgrid.setField (self.nisDomain, 2, 0, anchorLeft = 1)
+        subgrid.setField (self.broadcast, 2, 1, anchorLeft = 1)
+        subgrid.setField (self.nisServer, 2, 2, anchorLeft = 1)
 
-        self.nis.setCallback (self.setsensitive)
-        self.broadcast.setCallback (self.setsensitive)
+        toplevel.add (subgrid, 0, 2, (0, 0, 0, 1))
 
-        self.setsensitive ()
+        # set up callbacks
+        self.nis.setCallback (self.nissetsensitive)
+        self.broadcast.setCallback (self.nissetsensitive)
+        
+        # ldap support next
+        subgrid2 = Grid (3, 3)
+
+        self.ldap = Checkbox (_("Enable LDAP"), todo.auth.useLdap)
+        subgrid2.setField(self.ldap, 0, 0)
+
+        subgrid2.setField (Label (""), 0, 1)
+        subgrid2.setField (Label (""), 0, 2)
+        
+        subgrid2.setField (Label (_("LDAP Server:")),
+                           1, 0, (2, 0, 1, 0), anchorRight = 1)
+        subgrid2.setField (Label (_("LDAP Base DN:")),
+                           1, 1, (2, 0, 1, 0), anchorRight = 1)
+        self.ldapServer = Entry (entrywid)
+        self.ldapServer.set (todo.auth.ldapServer)
+        self.ldapBasedn = Entry (entrywid)
+        self.ldapBasedn.set (todo.auth.ldapBasedn)
+        subgrid2.setField (self.ldapServer, 2, 0, anchorLeft = 1)
+        subgrid2.setField (self.ldapBasedn, 2, 1, anchorLeft = 1)
+
+        toplevel.add (subgrid2, 0, 3, (0, 0, 0, 0))
+
+        # set up callbacks
+        self.ldap.setCallback (self.ldapsetsensitive)
+        
+        # kerberos last support next
+        subgrid3 = Grid (3, 4)
+
+        self.krb5 = Checkbox (_("Enable Kerberos"), todo.auth.useKrb5)
+        subgrid3.setField(self.krb5, 0, 0)
+
+        subgrid3.setField (Label (""), 0, 1)
+        subgrid3.setField (Label (""), 0, 2)
+        subgrid3.setField (Label (""), 0, 3)
+        
+        subgrid3.setField (Label (_("Realm:")),
+                           1, 0, (-2, 0, 1, 0), anchorRight = 1)
+        subgrid3.setField (Label (_("KDC:")),
+                           1, 1, (-2, 0, 1, 0), anchorRight = 1)
+        subgrid3.setField (Label (_("Admin Server:")),
+                           1, 2, (-2, 0, 1, 0), anchorRight = 1)
+        self.krb5Realm = Entry (entrywid)
+        self.krb5Realm.set (todo.auth.krb5Realm)
+        self.krb5Kdc = Entry (entrywid)
+        self.krb5Kdc.set (todo.auth.krb5Kdc)
+        self.krb5Admin = Entry (entrywid)
+        self.krb5Admin.set (todo.auth.krb5Admin)
+        subgrid3.setField (self.krb5Realm, 2, 0, anchorLeft = 1)
+        subgrid3.setField (self.krb5Kdc, 2, 1, anchorLeft = 1)
+        subgrid3.setField (self.krb5Admin, 2, 2, anchorLeft = 1)
+
+        self.krb5.setCallback (self.krb5setsensitive)
+        
+        toplevel.add (subgrid3, 0, 4, (0, 0, 0, 0))
+
+        # put button box at bottom
+        toplevel.add (bb, 0, 5, growx = 1)
+
+        # enable entire form now
+        self.nissetsensitive ()
+        self.ldapsetsensitive ()
+        self.krb5setsensitive ()
 
         result = toplevel.runOnce ()
-
+        
         todo.auth.useMD5 = self.md5.value ()
         todo.auth.useShadow = self.shadow.value ()
         todo.auth.useNIS = self.nis.selected ()
-        todo.auth.domain = self.domain.value ()
-        todo.auth.useBroadcast = self.broadcast.selected ()
-        todo.auth.server = self.server.value ()
+        todo.auth.nisDomain = self.nisDomain.value ()
+        todo.auth.nisuseBroadcast = self.broadcast.selected ()
+        todo.auth.nisServer = self.nisServer.value ()
+        todo.auth.useLdap = self.ldap.selected ()
+        todo.auth.useLdapauth = todo.auth.useLdap
+        todo.auth.ldapServer = self.ldapServer.value()
+        todo.auth.ldapBasedn = self.ldapBasedn.value()
+        todo.auth.useKrb5 = self.krb5.selected()
+        todo.auth.krb5Realm = self.krb5Realm.value()
+        todo.auth.krb5Kdc = self.krb5Kdc.value()
+        todo.auth.krb5Admin = self.krb5Admin.value()
                 
         rc = bb.buttonPressed (result)
 

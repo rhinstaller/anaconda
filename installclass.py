@@ -112,10 +112,20 @@ class BaseInstallClass:
     def getHostname(self):
 	return self.hostname
 
-    def setAuthentication(self, useShadow, useMd5, useNIS = 0, nisDomain = "",
-			  nisBroadcast = 0, nisServer = ""):
-	self.auth = ( useShadow, useMd5, useNIS, nisDomain, nisBroadcast,
-		      nisServer)
+    def setAuthentication(self, useShadow, useMd5,
+                          useNIS = 0, nisDomain = "",  nisBroadcast = 0,
+                          nisServer = "",
+                          useLdap = 0, useLdapauth = 0, ldapServer = "",
+                          ldapBasedn = "",
+                          useKrb5 = 0, krb5Realm = "", krb5Kdc = "",
+                          krb5Admin = "",
+                          useHesiod = 0, hesiodlhs = "", hesiodrhs = ""):
+        
+	self.auth = ( useShadow, useMd5,
+                      useNIS, nisDomain, nisBroadcast, nisServer,
+                      useLdap, useLdapauth, ldapServer, ldapBasedn,
+                      useKrb5, krb5Realm, krb5Kdc, krb5Admin,
+                      useHesiod, hesiodlhs, hesiodrhs)
 
     def getAuthentication(self):
 	return self.auth

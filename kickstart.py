@@ -63,15 +63,35 @@ class KickstartBase(BaseInstallClass):
 
     def doAuthconfig(self, args):
 	(args, extra) = isys.getopt(args, '',
-		[ 'enablenis', 'nisdomain=', 'nisserver=', 'useshadow',
-		  'enablemd5' ])
+                [ 'useshadow',
+		  'enablemd5',
+                  'enablenis', 'nisdomain=', 'nisserver=',
+                  'enableldap', 'enableldapauth', 'ldapserver=', 'ldapbasedn=',
+                  'enablekrb5', 'krb5realm=', 'krb5kdc=', 'krb5adminserver=',
+                  'enablehesiod', 'hesiodlhs=', 'hesiodrhs='  ])
+
+	useShadow = 0
+
+	useMd5 = 0
 
 	useNis = 0
-	useShadow = 0
-	useMd5 = 0
 	nisServer = None
 	nisDomain = None
 	nisBroadcast = 0
+
+        useLdap = 0
+        useLdapauth = 0
+        ldapServer = None
+        ldapBasedn = None
+
+        useKrb5 = 0
+        krb5Realm = None
+        krb5Kdc = None
+        krb5Admin = None
+
+        useHesiod = 0
+        hesiodDlhs = None
+        hesiodRhs = None
 	
 	for n in args:
 	    (str, arg) = n
@@ -85,11 +105,37 @@ class KickstartBase(BaseInstallClass):
 		nisServer = arg
 	    elif (str == '--nisdomain'):
 		nisDomain = arg
+            elif (str == '--enableldap'):
+                useLdap = 1
+            elif (str == '--enableldapauth'):
+                useLdapauth = 1
+            elif (str == '--ldapserver'):
+                ldapSever = arg
+            elif (str == '--ldapbasedn'):
+                ldapBasedn = arg
+            elif (str == '--enablekrb5'):
+                useKrb5 = 1
+            elif (str == '--krb5realm'):
+                krb5Realm = arg
+            elif (str == '--krb5kdc'):
+                krb5Kdc = arg
+            elif (str == '--krb5adminserver'):
+                krb5Admin = arg
+            elif (str == '--enablehesdiod'):
+                useHesiod = 1
+            elif (str == '--hesiodlhs'):
+                hesiodLhs = arg
+            elif (str == '--hesiodrhs'):
+                hesiodRhs = arg
 
 	if useNis and not nisServer: nisBroadcast = 1
 	    
-	self.setAuthentication(useShadow, useMd5, useNis, nisDomain,
-			       nisBroadcast, nisServer)
+	self.setAuthentication(useShadow, useMd5,
+                               useNis, nisDomain, nisBroadcast, nisServer,
+                               useLdap, useLdapauth, ldapServer, ldapBasedn,
+                               useKrb5, krb5Realm, krb5Kdc, krb5Admin,
+                               useHesiod, hesiodlhs, hesiodrhs )
+        
 	self.addToSkipList("authentication")
 
     def doLilo	(self, args):
