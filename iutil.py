@@ -311,7 +311,7 @@ def defaultZone():
         if l[4] == os.environ["LANG"]:
             return l[6]
     
-    return "America/New_York"
+    return "US/Eastern"
 
 def defaultKeyboard():
     if os.access("lang-table", os.R_OK):
