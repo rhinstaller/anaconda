@@ -153,7 +153,6 @@ loader: loader.o $(OBJS) $(NETOBJS)
 
 loader-local: loader-local.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-        -L /home/ewt/rpmdir/BUILD/kudzu-0.99.23 \
 	-lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
 	$(MODULELINKAGE) $(GUNZIP) \
         -L ../stubs -lz -lnewt $(SLANGLIB) $(LOADERLIBS)
