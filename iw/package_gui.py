@@ -11,10 +11,10 @@ import string
 import sys
 import xpms_gui
 from translate import _
-#import checkbutton_xpms
 import checklist
 import time
 from threading import *
+
 
 class IndividualPackageSelectionWindow (InstallWindow):
 
@@ -95,8 +95,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
             self.bubblesort(args, col)
             min = 0
             max = self.maxrows - 1
-#            self.mergesort (min, max)            
-#            self.quicksort (min, max, col)
             self.sortType = "Size"
 
         elif col == 1:
@@ -106,60 +104,12 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         self.packageList.thaw () 
 
-    def quicksort (self, lo, hi, col):
-
-        if lo >= hi:
-            return
-        
-        total = lo + hi
-        mid = total / 2   
-
-        i = lo
-        j = hi
-
-#        a = self.packageList.get_text(i, col)
-#        b = self.packageList.get_text(j, col)
-        x = self.packageList.get_text(mid, col)
-
-        while i < j:
-            print "Inside first while"
-            print "I=", i, "   J=", j, "  Mid=", mid
-
-            while self.packageList.get_text(i, col) < x:
-                print "Inside second while", "  I=", i
-                i = i + 1
-
-            while self.packageList.get_text(j, col) > x:
-                print "Inside third while", "  J=", j
-                j = j - 1
-
-            if i < j:
-                print "About to swap i & j  ",
-                print "I=", i, "   J=", j
-                self.packageList.swap_rows(i, j)
-                i = i + 1
-                j = j - 1
-                break
-
-            self.packageList.swap_rows(i, mid)
-            
-#            if i > j:
-#                break
-
-        if lo < j:
-            self.quicksort(lo, j, 2)
-        if i < hi:
-            self.quicksort(i, hi, 2)
-
-
 
     def bubblesort (self, args, col):
         count = 0
-#        print "self.rownum = ", self.rownum
 
         #--For empty groups, don't sort.  Just return.
         if self.rownum == 0:
-#        if self.rownum:
             return
 
         for i in range(self.rownum):
@@ -177,27 +127,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
                 if curr < next:
                     self.packageList.swap_rows(currow, nextrow)
                     count = count + 1
-#                    print count
                     self.packageList._update_row(currow)
                     self.packageList._update_row(nextrow)
-
-#        print count, " swaps for BubbleSort"
-
-#    def merge (self, min, max):
-#        mid = total / 2
-#        tempList = self.packageList
-        
-#        for i in range(mid):
-
-#    def mergesort (self, min, max):
-#        if min < max:
-#            total = min + max
-#            mid = total / 2
-#            print "Min=", min, " Max=", max, " Mid=", mid
-#            self.mergesort (min, mid)
-#            self.mergesort (mid + 1, max)
-#            self.merge (min, max)
-
 
 
     def select_all (self, rownum):
@@ -292,10 +223,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
 #        return 0
 
 
-
-#    def toggle_row (self, data):
-#        print "Row toggled " , data
-
     def select (self, ctree, node, *args):
         self.clear_package_desc ()
         self.packageList.freeze ()
@@ -310,7 +237,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
                 
 
         try:
-#            self.packageList.column_titles_active ()
             # drop the leading slash off the package namespace
             for header in self.flat_groups[ctree.node_get_row_data (node)[1:]]:
                 dirName = header[rpm.RPMTAG_NAME] 
@@ -353,7 +279,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
     def updateSize(self):
         self.totalSizeLabel.set_text("Total install size: "+ str(self.todo.comps.sizeStr()))
-#        pass
 
     def getScreen (self):
         threads_leave ()
@@ -378,8 +303,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         groups = {}
 
         # go through all the headers and grok out the group names, placing
-        # packages in lists in the groups dictionary.
-        
+        # packages in lists in the groups dictionary.        
         for key in self.todo.hdList.packages.keys():
             header = self.todo.hdList.packages[key]
             if not groups.has_key (header[rpm.RPMTAG_GROUP]):
@@ -431,19 +355,13 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         self.packageList = checklist.CheckList(2)
 
-#        pix, msk = create_pixmap_from_xpm (self.packageList, None, "iw/checkbox.xpm")
-#        self.pixmap = GtkPixmap(pix, msk)
-        
         self.sortType = "Package"
-
-#        self.packageList.set_column_widget (0, self.pixmap)
         self.packageList.set_column_title (1, ("Package"))
         self.packageList.set_column_auto_resize (1, TRUE)
         self.packageList.set_column_title (2, ("Size (MB)"))
         self.packageList.set_column_auto_resize (2, TRUE)
         self.packageList.column_titles_show ()
 
-#        self.packageList.column_title_active (0)
         self.packageList.set_column_min_width(0, 16)
         self.packageList.column_title_active (1)
         self.packageList.column_title_active (2)
@@ -468,12 +386,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
         descVBox.pack_start (GtkHSeparator (), FALSE, padding=2)
 
         hbox = GtkHButtonBox ()
-#        hbox.set_layout(BUTTONBOX_SPREAD)
 
         self.totalSizeLabel = GtkLabel("Total size: ")
-#        self.totalSize = GtkLabel("")
         hbox.pack_start(self.totalSizeLabel, FALSE, FALSE, 0)
-#        hbox.pack_start(self.totalSize, FALSE, FALSE, 0)
 
         selectAllButton = GtkButton("Select all in directory")
         hbox.pack_start(selectAllButton, FALSE)
@@ -482,7 +397,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
         unselectAllButton = GtkButton("Unselect all in directory")
         hbox.pack_start(unselectAllButton, FALSE)
         unselectAllButton.connect('clicked', self.unselect_all)        
-
 
         descVBox.pack_start (hbox, FALSE)
 
@@ -518,11 +432,15 @@ class ErrorWindow:
         info.set_line_wrap (TRUE)
         info.set_usize (400, -1)
 
+
+        exit = GtkButton ("Ok")
+        exit.connect ("clicked", self.quit)
+
 #        hbox = GtkHBox (FALSE)
 
 #        hbox.pack_start (sw, TRUE)
         win.vbox.pack_start (info, FALSE)            
-#        win.vbox.pack_start (hbox, TRUE)
+        win.vbox.pack_start (exit, TRUE)
         win.set_usize (500, 300)
         win.set_position (WIN_POS_CENTER)
         win.show_all ()
@@ -542,6 +460,7 @@ class ErrorWindow:
         self.rc = button
         if self.mutex:
             self.mutex.set ()
+        sys.exit (0)
 
 
 class PackageSelectionWindow (InstallWindow):
@@ -606,6 +525,8 @@ class PackageSelectionWindow (InstallWindow):
         if self.files == "FALSE":
 #            self.raiseDialog ()
             win = ErrorWindow ()
+#            win = self.ExceptionWindow ("Halloooooooooooo")
+
 #            threads_enter ()
         else:
             self.origSelection = self.todo.comps.getSelectionState()
