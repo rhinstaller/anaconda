@@ -16,6 +16,7 @@
 from snack import *
 from constants_text import *
 from rhpl.translate import _
+from rhpl.log import log
 
 class FirewallWindow:
     def __call__(self, screen, intf, network, firewall, security):
@@ -235,4 +236,51 @@ class FirewallWindow:
 	    firewall.enabled = 1
 	else:
 	    raise RuntimeError, "never reached"
+
+
+
+class SELinuxWindow:
+    def __call__(self, screen, intf, network, firewall, security):
+        self.intf = intf
+
+        toplevel = GridFormHelp (screen, _("Security Enhanced Linux"),
+                                 "selinux", 1, 5)
+        text = _("Security Enhanced Linux (SELinux) provides stricter access "
+                 "controls to improve the security of your system.  How would "
+                 "you like this support enabled?")
+
+        toplevel.add(TextboxReflowed(50, text), 0, 0, (0,0,0,1))
+
+
+        grid = Grid(3, 1)
+	disable = SingleRadioButton(_("Disable SELinux"), None, (security.getSELinux() == 0))
+        toplevel.add(disable, 0, 1, (0,0,0,0))
+	warn = SingleRadioButton(_("Warn on violations"), disable, (security.getSELinux() == 1))
+        toplevel.add(warn, 0, 2, (0,0,0,0))
+	enable = SingleRadioButton(_("Active"), warn, (security.getSELinux() == 2))
+        toplevel.add(enable, 0, 3, (0,0,0,1))
+
+        bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+        toplevel.add(bb, 0, 4, (0, 0, 0, 0), growx = 1)
+
+        while 1:
+            result = toplevel.run()
+
+            rc = bb.buttonPressed (result)
+
+            if rc == TEXT_BACK_CHECK:
+                screen.popWindow()
+                return INSTALL_BACK
+
+            break
+
+        if enable.selected():
+            security.setSELinux(2)
+        elif warn.selected():
+            security.setSELinux(1)
+        elif disable.selected():
+            security.setSELinux(0)
+            
+        screen.popWindow()
+        return INSTALL_OK
 
