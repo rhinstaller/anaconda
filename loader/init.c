@@ -41,9 +41,10 @@
 #include <sys/reboot.h>
 #include <termios.h>
 
-
 #define syslog klogctl
 #endif
+
+#include <linux/cdrom.h>
 
 #define KICK_FLOPPY     1
 #define KICK_BOOTP	2
@@ -402,11 +403,44 @@ void unmountFilesystems(void) {
 	/* don't need to unmount /tmp.  it is busy anyway. */
 	if (!testing && strncmp(filesystems[i].name, "/tmp", 4)) {
 	    if (umount(filesystems[i].name) < 0) {
-		/* FIXME printf(" failed: %s", strerror(errno));*/
-		printstr(" umount failed");
+		printf(" umount failed (%d)", errno);
 	    }
 	}
 	printf("\n");
+    }
+}
+
+void disableSwap(void) {
+    int fd;
+    char buf[4096];
+    int i;
+    char * start;
+    char * chptr;
+
+    if ((fd = open("/proc/swaps", O_RDONLY, 0)) < 0) return;
+
+    i = read(fd, buf, sizeof(buf) - 1);
+    close(fd);
+    if (i < 0) return;
+    buf[i] = '\0';
+
+    start = buf;
+    while (*start) {
+	while (*start != '\n' && *start) start++;
+	if (!*start) return;
+
+	start++;
+	if (*start != '/') return;
+	chptr = start;
+	while (*chptr && *chptr != ' ') chptr++;
+	if (!(*chptr)) return;
+	*chptr = '\0';
+	printf("\t%s", start);
+	if (swapoff(start)) 
+	    printf(" failed (%d)", errno);
+	printf("\n");
+
+	start = chptr + 1;
     }
 }
 
@@ -617,8 +651,20 @@ int main(int argc, char **argv) {
 	printf("done\n");
     }
 
+    printf("disabling swap...\n");
+    disableSwap();
+
     printf("unmounting filesystems...\n"); 
     unmountFilesystems();
+
+    /* If /dev/cdrom exists, eject it */
+    if ((fd = open("/dev/cdrom", O_RDONLY | O_NONBLOCK, 0)) >= 0) {
+	printf("ejecting cdrom\n");
+	if (ioctl(fd, CDROMEJECT, 0)) {
+	    printf("eject failed\n");
+	}
+	close(fd);
+    }
 
     if (doReboot) {
 	printf("rebooting system\n");

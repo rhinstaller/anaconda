@@ -48,6 +48,7 @@ static inline _syscall2(int,setdomainname,const char *,name,int,len)
 static inline _syscall1(int,umount,const char *,dir)
 static inline _syscall1(int,unlink,const char *,fn)
 static inline _syscall1(int,close,int,fd)
+static inline _syscall1(int,swapoff,const char *,fn)
 static inline _syscall0(int,getpid)
 static inline _syscall0(int,sync)
 #ifdef __sparc__
