@@ -360,6 +360,10 @@ class BaseInstallClass:
             id.desktop.setDefaultRunLevel(3)
 
         xcfg = XF86Config(id.videocard.primaryCard(), id.monitor, id.mouse)
+	xkb = id.keyboard.getXKB()
+	if xkb:
+            apply(xcfg.setKeyboard, xkb)
+        
 
         available = xcfg.availableModes()
         
