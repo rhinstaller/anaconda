@@ -1099,23 +1099,31 @@ class InstallControlWindow:
         if self.currentWindow is None:
             return
 
-        if self.displayHelp:
-            self.mainxml.get_widget("showHelpButton").hide()
-            self.mainxml.get_widget("hideHelpButton").show()
-            self.mainxml.get_widget("hideHelpButton").grab_focus()            
+        ics = self.currentWindow.getICS()
+
+        # This became more complicated than I'd like.  The problem is that
+        # displaying the help box and enabling the help buttons are
+        # independent of each other.  The congrats screen has no help box
+        # or button, while the progress screen has help but no buttons.
+        # So it takes a couple variables to sort all this out.
+        if ics.getHelpEnabled() and self.displayHelp:
+            if ics.getHelpButtonEnabled():
+                self.mainxml.get_widget("showHelpButton").hide()
+                self.mainxml.get_widget("hideHelpButton").show()
+                self.mainxml.get_widget("hideHelpButton").grab_focus()
 
             self.mainxml.get_widget("help").show_all()
             self.mainxml.get_widget("mainTable").set_homogeneous(True)
         else:
-            self.mainxml.get_widget("hideHelpButton").hide()
-            self.mainxml.get_widget("showHelpButton").show()
-            self.mainxml.get_widget("showHelpButton").grab_focus()
+            if ics.getHelpButtonEnabled():
+                self.mainxml.get_widget("showHelpButton").show()
+                self.mainxml.get_widget("hideHelpButton").hide()
+                self.mainxml.get_widget("showHelpButton").grab_focus()
 
             self.mainxml.get_widget("help").hide_all()
             self.mainxml.get_widget("mainTable").set_homogeneous(False)
         
         buffer = htmlbuffer.HTMLBuffer()
-        ics = self.currentWindow.getICS()
         buffer.feed(ics.getHTML(self.langSearchPath))
         textbuffer = buffer.get_buffer()
         self.help.set_buffer(textbuffer)
@@ -1215,8 +1223,8 @@ class InstallControlWindow:
     def update (self, ics):
         self.mainxml.get_widget("backButton").set_sensitive(ics.getPrevEnabled())
         self.mainxml.get_widget("nextButton").set_sensitive(ics.getNextEnabled())
-        self.mainxml.get_widget("hideHelpButton").set_sensitive(ics.getHelpEnabled())
-        self.mainxml.get_widget("showHelpButton").set_sensitive(ics.getHelpEnabled())
+        self.mainxml.get_widget("hideHelpButton").set_sensitive(ics.getHelpButtonEnabled())
+        self.mainxml.get_widget("showHelpButton").set_sensitive(ics.getHelpButtonEnabled())
 
         if ics.getHelpEnabled() == False and self.displayHelp:
             self.refreshHelp()
@@ -1328,6 +1336,7 @@ class InstallControlState:
         self.html = ""
         self.htmlFile = None
         self.helpEnabled = True
+	self.helpButtonEnabled = True
         self.grabNext = False
 
     def setTitle (self, title):
@@ -1354,12 +1363,11 @@ class InstallControlState:
         return self.nextEnabled
 
     def setHelpButtonEnabled (self, value):
-        if value == self.helpEnabled: return
-        self.helpEnabled = value
+        self.helpButtonEnabled = value
         self.cw.update (self)
 
     def getHelpButtonEnabled (self):
-        return self.helpEnabled
+        return self.helpButtonEnabled
 
     def findPixmap(self, file):
         warnings.warn("ics.findPixmap is deprecated, use gui.findPixmap instead", DeprecationWarning, stacklevel=2)

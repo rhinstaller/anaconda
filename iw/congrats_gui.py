@@ -56,7 +56,7 @@ class CongratulationWindow (InstallWindow):
         if iutil.getArch() == "s390":
             floppystr = ""
         else:
-            floppystr = _("Remove any installation media  "
+            floppystr = _("Remove any installation media "
                           "used during the installation process "
                           "and press the \"Reboot\" button to reboot your "
                           "system."

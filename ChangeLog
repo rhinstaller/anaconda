@@ -1,3 +1,10 @@
+2005-03-16  Chris Lumens  <clumens@redhat.com>
+
+	* iw/congrats_gui.py:  Kill the big empty box on the congrats screen
+	to fix word wrap (#149526).
+	* ui/anaconda.glade:  Don't constrain the button bar so much so the
+	buttons can grow a bit for wordy translations (#151208).
+
 2005-03-16  Jeremy Katz  <katzj@redhat.com>
 
 	* packages.py (betaNagScreen): Fix beta nag translation.
