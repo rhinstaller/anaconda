@@ -32,6 +32,7 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args);
 
 void initrpm(void);
 static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args);
+static PyObject * archScore(PyObject * self, PyObject * args);
 static PyObject * rpmHeaderFromPackage(PyObject * self, PyObject * args);
 static PyObject * rpmHeaderFromList(PyObject * self, PyObject * args);
 
@@ -45,6 +46,7 @@ static PyObject * rpmtransOrder(rpmtransObject * s, PyObject * args);
 
 static PyMethodDef rpmModuleMethods[] = {
     { "opendb", (PyCFunction) rpmOpenDB, METH_VARARGS, NULL },
+    { "archscore", (PyCFunction) archScore, METH_VARARGS, NULL },
     { "headerFromPackage", (PyCFunction) rpmHeaderFromPackage, METH_VARARGS, NULL },
     { "readHeaderList", (PyCFunction) rpmHeaderFromList, METH_VARARGS, NULL },
     { "TransactionSet", (PyCFunction) rpmtransCreate, METH_VARARGS, NULL },
@@ -947,4 +949,16 @@ static PyObject * rpmtransRun(rpmtransObject * s, PyObject * args) {
     rpmProblemSetFree(probs);
 
     return list;
+}
+
+static PyObject * archScore(PyObject * self, PyObject * args) {
+    char * arch;
+    int score;
+
+    if (!PyArg_ParseTuple(args, "s", &arch))
+	return NULL;
+
+    score = rpmMachineScore(RPM_MACHTABLE_INSTARCH, arch);
+
+    return Py_BuildValue("i", score);
 }
