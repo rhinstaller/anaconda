@@ -1010,7 +1010,7 @@ class KickstartBase(BaseInstallClass):
         if grow:
             request.grow = 1
         if maxSize:
-            request.maxSize = maxSize
+            request.maxSizeMB = maxSize
         if disk:
             request.drive = [ disk ]
         if primOnly:
