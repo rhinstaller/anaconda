@@ -116,9 +116,9 @@ class BootImages:
 	for (dev, type) in devs:
 	    if not self.images.has_key(dev):
                 if type == "FAT":
-                    self.images[dev] = ("DOS", type)
+                    self.images[dev] = ("DOS", "DOS", type)
                 else:
-                    self.images[dev] = (None, type)
+                    self.images[dev] = (None, None, type)
 
 	if not self.images.has_key(self.default):
 	    entry = fsset.getEntryByMountPoint('/')
