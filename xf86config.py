@@ -127,9 +127,9 @@ Section "Keyboard"
 #    XkbOptions  "ctrl:nocaps"
      XkbRules    "%(XkbRules)s"
      XkbModel    "%(XkbModel)s"
-     XkbLayout   "%(XkbLayout)s"
-     XkbVariant  "%(XkbVariant)s"
-     XkbOptions  "%(XkbOptions)s"
+     XkbLayout   "%(XkbLayout)s"     
+     %(enableVariant)sXkbVariant  "%(XkbVariant)s"
+     %(enableOptions)sXkbOptions  "%(XkbOptions)s"
 EndSection
 
 # **********************************************************************
@@ -481,8 +481,8 @@ Section "InputDevice"
 	Option	"XkbRules"	"%(XkbRules)s"
 	Option	"XkbModel"	"%(XkbModel)s"
 	Option	"XkbLayout"	"%(XkbLayout)s"
-	Option	"XkbVariant"	"%(XkbVariant)s"
-	Option	"XkbOptions"	"%(XkbOptions)s"
+	%(enableVariant)sOption	"XkbVariant"	"%(XkbVariant)s"
+	%(enableOptions)sOption	"XkbOptions"	"%(XkbOptions)s"
 EndSection
 
 Section "InputDevice"
@@ -1078,13 +1078,19 @@ Section "Screen"
                  "XkbModel"           : self.keyModel,
                  "XkbLayout"          : self.keyLayout,
                  "XkbVariant"         : self.keyVariant,
+                 "enableVariant"      : "#",
                  "XkbOptions"         : self.keyOptions,
+                 "enableOptions"      : "#",
                  "monitorID"	      : self.monID,
                  "monitorHoriz"       : self.monHoriz,
                  "monitorVert"        : self.monVert,
                  "fbProbedMonitor"    : self.monSect,
                  "files"              : self.files,
                  }
+        if self.keyVariant:
+            info["enableVariant"] = ""
+        if self.keyOptions:
+            info["enableOptions"] = ""
         if self.mouse.get()[1]:
             info["emulate3"] = "    Emulate3Buttons\n    Emulate3Timeout    50"
         else:
@@ -1154,13 +1160,19 @@ Section "Screen"
                  "XkbModel"     : self.keyModel,
                  "XkbLayout"    : self.keyLayout,
                  "XkbVariant"   : self.keyVariant,
+                 "enableVariant": "#",
                  "XkbOptions"   : self.keyOptions,
+                 "enableOptions": "#",
                  "defaultDepth" : "",
                  "emulate3"     : emulate3,
                  "videoRam"     : "" }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
         # see if 16 bpp is available, and if it should be the
         # default depth
+        if self.keyVariant:
+            info["enableVariant"] = ""
+        if self.keyOptions:
+            info["enableOptions"] = ""
         if maxdepth > 0:
             if maxdepth > 16 and '16' in self.modes.keys() and self.modes['16']:
                 data["defaultDepth"] = "\n\tDefaultDepth\t16"
