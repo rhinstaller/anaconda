@@ -4,7 +4,8 @@
 disc2dirs = [ "preview" ]
 
 # These files appear on all binary CDs
-jointfiles = [ "beta_eula.txt", "RPM-GPG-KEY", "README", "autorun" ]
+jointfiles = [ "beta_eula.txt", "RPM-GPG-KEY", "README", "autorun",
+               "GPL", "EULA"]
 
 targetSize = 650 * 1024.0 * 1024.0
 
@@ -36,6 +37,16 @@ def moveFiles(srcDir, destDir, files):
 	except:
 		print "in moveFiles, src was %s, dest was %s" % (src, dest)
 		raise RuntimeError
+
+def linkFile(srcDir, destDir, file):
+    for file in jointfiles:
+        src = "%s/%s" % (srcDir, file)
+        dest = "%s/%s" %(destDir, file)
+        try:
+            os.link(src, dest)
+        except OSError, (errno, msg):
+            pass
+#            print "**** WARNING linking %s to %s: %s" % (src, dest, msg)
 
 def excessFiles(path, fileList, maxSize):
     total = 0
@@ -177,12 +188,7 @@ print "Creating disc2..."
 stamp(disc2Dir, releasestr, "disc2", arch, startedAt)
 
 for file in jointfiles:
-    src = "%s/%s" % (disc1Dir, file)
-    dest = "%s/%s" %(disc2Dir, file)
-    try:
-	os.link(src, dest)
-    except OSError, (errno, msg):
-	print "**** WARNING linking %s to %s: %s" % (src, dest, msg)
+    linkFile(disc1Dir, disc2Dir, file)
 
 disc2pkgs = excessFiles(distDir + "/RedHat/RPMS", binPkgList, 
 			targetSize - disc1used - fudgeFactor)
@@ -196,12 +202,7 @@ print "Creating disc3..."
 stamp(disc3Dir, releasestr, "disc3", arch, startedAt)
 
 for file in jointfiles:
-    src = "%s/%s" % (disc1Dir, file)
-    dest = "%s/%s" %(disc3Dir, file)
-    try:
-	os.link(src, dest)
-    except OSError, (errno, msg):
-	print "**** WARNING linking %s to %s: %s" % (src, dest, msg)
+    linkFile(disc1Dir, disc2Dir, file)
 
 disc3pkgs = excessFiles(distDir + "/RedHat/RPMS", binPkgList, 
 			targetSize + disc1Size - disc1used - fudgeFactor)
