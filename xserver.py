@@ -77,14 +77,14 @@ def startX(resolution):
             raise RuntimeError, "failed to get a mouse for X startup"
     else:
         (Xtype, Xtmp) = mouse.get()
-        print "Found a", Xtype
+#        print "Found a", Xtype
 #        time.sleep(2)
 
     x = XF86Config (mouse, resolution)
     x.res = resolution
     
     x.probe ()
-    print "Probed X server is " , x.server
+#    print "Probed X server is " , x.server
 
 #    import time
 #    time.sleep(4)
@@ -93,7 +93,7 @@ def startX(resolution):
 
     #--Run fb_check() and see if framebuffer works on this card
     if fb_check() == 0:
-        print "fb_check returned with value", fb_check()
+#        print "fb_check returned with value", fb_check()
         x.server = "XF86_FBDev"
 
     if x.server:
@@ -103,18 +103,18 @@ def startX(resolution):
     elif iutil.getArch() == "sparc":
   	raise RuntimeError, "Unknown card"
     else:
-          print "Unknown card, falling back to VGA16"
+#          print "Unknown card, falling back to VGA16"
           x.server = "XF86_VGA16"
           serverPath = '/usr/X11R6/bin/XF86_VGA16'
 
     if not os.access (serverPath, os.X_OK):    #--If framebuffer server isn't there...try original probed server
         x.server = probedServer
-        print "Frame buffer didn't work...trying ", x.server
+#        print "Frame buffer didn't work...trying ", x.server
         serverPath = '/usr/X11R6/bin/' + x.server
 
         
         if not os.access (serverPath, os.X_OK):  #--If original server isn't there...send them to text mode
-            print serverPath, "missing.  Falling back to text mode"
+#            print serverPath, "missing.  Falling back to text mode"
             raise RuntimeError, "No X server binaries found to run"
 
     try:        
@@ -123,7 +123,7 @@ def startX(resolution):
 
         testx(mouse, x)
     except (RuntimeError, IOError):
-        print "Can't open /dev/fb0"
+#        print "Can't open /dev/fb0"
     
 	x.server = probedServer
 
@@ -147,13 +147,9 @@ def fb_check ():
     for card in cards: 
         (junk, man, junk2) = card
 
-    print man
-
     if man[:13] == "Card:NeoMagic":
-        print "NeoMagic card found..."
 	return 1
     else:
-        print "We can use framebuffer"
 	return 0
 
 def testx(mouse, x):
@@ -184,7 +180,7 @@ def testx(mouse, x):
 
     count = 0
 
-    sys.stdout.write("Waiting for X server to start")
+    sys.stdout.write("Waiting for X server to start...log located in /tmp/X.log\n")
     sys.stdout.flush()
     while count < 60:
 	sys.stdout.write(".")
