@@ -66,6 +66,8 @@ class PartitionWindow:
                 elif part.fs_type:
                     if request and request.fstype != None:
                         ptype = request.fstype.getName()
+                        if ptype == "foreign":
+                            ptype = map_foreign_to_fsname(part.native_type)
                     else:
                         ptype = part.fs_type.name
                 else:
@@ -201,7 +203,8 @@ class PartitionWindow:
         
 
     # make the list of available filesystems and it's label
-    def makeFsList(self, request, usecallback=1, uselabel=1, usetypes=None):
+    def makeFsList(self, request, usecallback=1, uselabel=1, usetypes=None,
+                   ignorefs = None):
         subgrid = Grid(1, 2)
         row = 0
         # filesystem type selection
@@ -219,6 +222,9 @@ class PartitionWindow:
         names.sort()
         for name in names:
             if not fileSystemTypeGet(name).isSupported():
+                continue
+
+            if ignorefs and name in ignorefs:
                 continue
 
             if fileSystemTypeGet(name).isFormattable():
@@ -778,7 +784,7 @@ class PartitionWindow:
 
         row = row + 1
         subgrid = Grid(2, 1)
-        (fstype, fsgrid) = self.makeFsList(raidrequest)
+        (fstype, fsgrid) = self.makeFsList(raidrequest, ignorefs = ["software RAID"])
         subgrid.setField(fsgrid, 0, 0, anchorLeft = 1, anchorTop=1)
         (raidtype, raidgrid) = self.makeRaidList(raidrequest)
         subgrid.setField(raidgrid, 1, 0, (2,0,0,0), anchorRight=1, anchorTop=1)

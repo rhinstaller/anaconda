@@ -396,7 +396,8 @@ def createRaidLevelMenu(levels, reqlevel, raidlevelchangeCB, sparesb):
     return (leveloption, leveloptionmenu)
 
 # pass in callback for when fs changes because of python scope issues
-def createFSTypeMenu(fstype, fstypechangeCB, mountCombo, availablefstypes=None):
+def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
+                     availablefstypes = None, ignorefs = None):
     fstypeoption = GtkOptionMenu ()
     fstypeoptionMenu = GtkMenu ()
     types = fileSystemTypeGetTypes()
@@ -414,6 +415,9 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo, availablefstypes=None):
     i = 0
     for name in names:
         if not fileSystemTypeGet(name).isSupported():
+            continue
+
+        if ignorefs and name in ignorefs:
             continue
         
         if fileSystemTypeGet(name).isFormattable():
@@ -1295,7 +1299,8 @@ class PartitionWindow(InstallWindow):
 
         (fstypeoption, fstypeoptionMenu) = createFSTypeMenu(raidrequest.fstype,
                                                             fstypechangeCB,
-                                                            mountCombo)
+                                                            mountCombo,
+                                                            ignorefs = ["software RAID"])
         maintable.attach(fstypeoption, 1, 2, row, row + 1)
             
         row = row + 1
