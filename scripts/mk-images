@@ -19,7 +19,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     IMAGEPATH=$2
     FULLMODPATH=$3
     IMGPATH=$(echo $FULLMODPATH | sed 's,/[^/]*$,,')
-    KERNELROOT=/tmp/updboot.kernel
+    KERNELROOT=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELROOT/moddeps
     ARCH=$(uname -m | sed 's/i.86/i386/')
 
@@ -218,11 +218,11 @@ makebootdisk() {
     MBD_FILENAME=$IMAGEPATH/$1
     LOADERBIN=$2
     MODSET=`expandModuleSet "$3"`
-    MBD_DIR=/tmp/makebootdisk.dir
-    MBD_FSIMAGE=/tmp/makebootdisk.initrdimage
-    MBD_MNTPOINT=/tmp/makebootdisk.mount
-    MBD_TMPIMAGE=/tmp/makebootdisk.image
-    MBD_BOOTTREE=/tmp/makebootdisk.tree
+    MBD_DIR=/tmp/makebootdisk.dir.$$
+    MBD_FSIMAGE=/tmp/makebootdisk.initrdimage.$$
+    MBD_MNTPOINT=/tmp/makebootdisk.mount.$$
+    MBD_TMPIMAGE=/tmp/makebootdisk.image.$$
+    MBD_BOOTTREE=/tmp/makebootdisk.tree.$$
     INITBIN=init
 
     rm -rf $MBD_DIR MBD_FSIMAGE
