@@ -36,6 +36,12 @@ class LiloConfigFile:
     def getEntry(self, item):
 	return self.items[item]
 
+    def testEntry(self, item):
+        if self.items.has_key(item):
+            return 1
+        else:
+            return 0
+
     def getImage(self, label):
         for config in self.images:
 	    if config.getEntry('label') == label:
@@ -273,10 +279,13 @@ class LiloConfiguration:
 	lilo.addEntry("timeout", "50", replace = 0)
 	lilo.addEntry("message", "/boot/message", replace = 0)
         # XXX edd overrides linear, lba32/linear are mutually exclusive
-        if self.edd:
-	    lilo.addEntry("lba32", replace = 0)
-        elif self.liloLinear:
-	    lilo.addEntry("linear", replace = 0)
+        #
+        # test to see if one of these already in lilo.conf, use if so
+        if not lilo.testEntry('lba32') and not lilo.testEntry('linear'):
+            if self.edd:
+                lilo.addEntry("lba32", replace = 0)
+            elif self.liloLinear:
+                lilo.addEntry("linear", replace = 0)
 
 	smpInstalled = (hdList.has_key('kernel-smp') and 
                         hdList['kernel-smp'].selected)
