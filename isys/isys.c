@@ -1383,7 +1383,7 @@ static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args) {
 	close(fd);
 	str[i - 1] = '\0';		/* chop off trailing \n */
 
-	if (!strcmp(str, "floppy"))
+	if (!strcmp(str, "floppy") || !strcmp(str, "cdrom"))
 	    rc = 1;
 	else
 	    rc = 0;
