@@ -163,7 +163,7 @@ class FileSystemType:
         if self.isFormattable():
             raise RuntimeError, "formatDevice method not defined"
 
-    def migrateFileSystem(self, device):
+    def migrateFileSystem(self, device, message, chroot='/'):
         if self.isMigratable():
             raise RuntimeError, "migrateFileSystem method not defined"
 
