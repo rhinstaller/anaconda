@@ -343,6 +343,7 @@ class Component:
 
     def addMetaPkg(self, comp, isDefault = 0):
         self.metapkgs[comp] = (PKGTYPE_OPTIONAL, isDefault)
+        self.metadef[comp] = isDefault
 
     def addPackage(self, p, pkgtype, handleDeps = 1):
         if pkgtype == PKGTYPE_MANDATORY:
@@ -355,10 +356,12 @@ class Component:
             p.registerComponent(self)
             self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 1)
             self.pkgDict[p] = None
+            self.optDict[p] = 1
             if handleDeps == 1:            
                 self.updateDependencyCountForAddition(p)            
         elif pkgtype == PKGTYPE_OPTIONAL:
             self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 0)
+            self.optDict[p] = 2            
         else:
             log("Unable to add package %s to component %s because it has an unknown pkgtype of %d" %(p.name, self.name, pkgtype))
 
@@ -543,8 +546,10 @@ class Component:
 
         self.pkgDict = {}
         self.newpkgDict = {}
+        self.optDict = {}
         self.includes = []
         self.metapkgs = {}
+        self.metadef = {}
         self.manuallySelected = 0
         self.selectionCount = 0
         self.depsDict = {}
