@@ -10,6 +10,12 @@ ifeq (ppc, $(ARCH))
 USEDIET=1
 endif
 
+ifeq (.depend,$(wildcard .depend))
+TARGET=$(PROGS)
+else
+TARGET=depend $(PROGS)
+endif
+
 # JKFIXME: switch to use system libslang and libnewt with msw's wcwidth()
 SLANGLIB = ../minislang/libslang.a
 NEWTLIB = ../mininewt/libnewt.a
@@ -107,5 +113,18 @@ clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \
 	loader loader-pcmcia loader-local loader-network
 
-depend:
+depend: ctype.c
 	$(CPP) $(CFLAGS) -DHAVE_CONFIG_H -M $(SOURCES) > .depend
+
+install: all
+	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)/loader
+	for n in $(BINS); do \
+	    install -m 755 $$n $(DESTDIR)/$(RUNTIMEDIR)/loader; \
+	    strip $(DESTDIR)/$(RUNTIMEDIR)/loader/$$n; \
+	done
+	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
+	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
+
+ifeq (.depend,$(wildcard .depend))
+include .depend
+endif
