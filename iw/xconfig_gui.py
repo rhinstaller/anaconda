@@ -124,6 +124,8 @@ class MonitorWindow (InstallWindow):
         ics.setTitle (_("Monitor Configuration"))
         ics.readHTML ("monitor")
         self.monitor = None
+#        self.temp = self.todo.x.monID
+#        print "Inisde __init__"
 
     def selectCb (self, tree, node, column):
         monitor = tree.node_get_row_data (node)
@@ -141,6 +143,7 @@ class MonitorWindow (InstallWindow):
             self.hEntry.set_editable (TRUE)
             self.vEntry.set_editable (TRUE)
             self.monitor = monitor
+            self.todo.x.state = monitor[0]
 
     def getNext (self):
         if self.skipme:
@@ -191,6 +194,10 @@ class MonitorWindow (InstallWindow):
         self.hEntry = GtkEntry ()
         self.vEntry = GtkEntry () 
 
+        # If the user has not changed monitor setting before, set the state info to the probed value
+        if self.todo.x.state == "":
+            self.todo.x.state = self.todo.x.monID
+
         select = None
         for man in keys:
             parent = ctree.insert_node (None, None, (man,), 2, self.monitor_p, self.monitor_b, self.monitor_p,
@@ -201,19 +208,29 @@ class MonitorWindow (InstallWindow):
             for monitor in models:
                 node = ctree.insert_node (parent, None, (monitor[0],), 2)
                 ctree.node_set_row_data (node, monitor)
-                if monitor[0] == self.todo.x.monID:
+#                if monitor[0] == self.todo.x.monID:
+                if monitor[0] == self.todo.x.state:
                     select = node
                     selParent = parent
 
         # Add a category for a DDC probed monitor that isn't in MonitorDB
+#        if not select and self.todo.x.monID != "Generic Monitor":
         if not select and self.todo.x.monID != "Generic Monitor":
-
+            
             parent = ctree.insert_node (None, None, ("DDC Probed Monitor",),
                      2, self.monitor_p, self.monitor_b, self.monitor_p, self.monitor_b, is_leaf = FALSE)
 
-            node = ctree.insert_node (parent, None, (self.todo.x.monID,), 2)
-            monitor = (self.todo.x.monID, self.todo.x.monID, self.todo.x.monVert,
+#            node = ctree.insert_node (parent, None, (self.todo.x.monID,), 2)
+#            monitor = (self.todo.x.monID, self.todo.x.monID, self.todo.x.monVert,
+#                       self.todo.x.monHoriz)
+
+            node = ctree.insert_node (parent, None, (self.todo.x.state,), 2)
+            monitor = (self.todo.x.state, self.todo.x.state, self.todo.x.monVert,
                        self.todo.x.monHoriz)
+
+
+
+
             ctree.node_set_row_data (node, monitor)
             select = node
             selParent = parent
@@ -756,8 +773,8 @@ class XConfigWindow (InstallWindow):
                         select = row
             self.cardList.connect ("draw", self.moveto, select)
             sw = GtkScrolledWindow ()
-            sw.add (self.cardList)
-#            sw.add (ctree)
+#            sw.add (self.cardList)
+            sw.add (ctree)
             box.pack_start (sw, TRUE)
 
 
