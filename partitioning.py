@@ -1031,16 +1031,19 @@ class Partitions:
         n = 0
         while n < len(self.requests):
             for request in self.requests:
-                # for raid requests, we need explicit raiddevs first
-                if (request.type == self.requests[n].type and
-                    request.type == REQUEST_RAID and
-                    self.requests[n].raidminor and
-                    (not request.raidminor or
-                     request.raidminor < self.requests[n].raidminor)):
-                    tmp = self.requests[n]
-                    index = self.requests.index(request)
-                    self.requests[n] = request
-                    self.requests[index] = tmp
+                # for raid requests, the only thing that matters for sorting
+                # is the raid device since ordering by size is mostly
+                # irrelevant.  this also keeps things more consistent
+                if (request.type == REQUEST_RAID or
+                    self.requests[n].type == REQUEST_RAID):
+                    if (request.type == self.requests[n].type and
+                        (self.requests[n].raidminor != None) and
+                        ((request.raidminor is None) or
+                         request.raidminor > self.requests[n].raidminor)):
+                        tmp = self.requests[n]
+                        index = self.requests.index(request)
+                        self.requests[n] = request
+                        self.requests[index] = tmp
                 # for sized requests, we want the larger ones first
                 elif (request.size and self.requests[n].size and
                     (request.size < self.requests[n].size)):
