@@ -123,7 +123,7 @@ root::0:0:root:/:/bin/bash
 sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
 EOF
     echo "sshd:x:74:" >> $MBD_DIR/etc/group
-    mkdir -p $MBD_DIR/var/empty/sshd $MBD_DIR/etc/pam.d $MBD_DIR/lib/security \
+    mkdir -p $MBD_DIR/var/empty/sshd $MBD_DIR/etc/pam.d \
          $MBD_DIR/etc/security $MBD_DIR/$LIBDIR/security
     chmod 111 $MBD_DIR/var/empty/sshd
     for i in pam_stack.so pam_nologin.so pam_limits.so pam_console.so \
@@ -137,6 +137,7 @@ EOF
     done
     cat > $MBD_DIR/etc/pam.d/login << EOF
 #%PAM-1.0
+auth       required     pam_securetty.so
 auth       required     pam_stack.so service=system-auth
 auth       required     pam_nologin.so
 account    required     pam_stack.so service=system-auth
@@ -146,16 +147,15 @@ session    optional     pam_console.so
 EOF
     cat > $MBD_DIR/etc/pam.d/system-auth << EOF
 #%PAM-1.0
-# This file is auto-generated.
-# User changes will be destroyed the next time authconfig is run.
-auth        required      /lib/security/$ISA/pam_env.so
-auth        sufficient    /lib/security/$ISA/pam_unix.so likeauth nullok
-auth        required      /lib/security/$ISA/pam_deny.so
-account     required      /lib/security/$ISA/pam_unix.so
-password    sufficient    /lib/security/$ISA/pam_unix.so nullok use_authtok md5 shadow
-password    required      /lib/security/$ISA/pam_deny.so
-session     required      /lib/security/$ISA/pam_limits.so
-session     required      /lib/security/$ISA/pam_unix.so
+auth        required      pam_env.so
+auth        sufficient    pam_unix.so likeauth nullok
+auth        required      pam_deny.so
+account     required      pam_unix.so
+password    required      pam_cracklib.so retry=3 type=
+password    sufficient    pam_unix.so nullok use_authtok md5 shadow
+password    required      pam_deny.so
+session     required      pam_limits.so
+session     required      pam_unix.so
 EOF
     cp -f $IMGPATH/etc/security/{limits.conf,pam_env.conf} $MBD_DIR/etc/security/
     cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
@@ -247,21 +247,18 @@ EOF
     echo -n "Generating SSH1 RSA host key: "
     /usr/bin/ssh-keygen -q -t rsa1 -f $MBD_DIR/etc/ssh/ssh_host_key \
                         -C '' -N '' >&/dev/null
-    chmod 600 $MBD_DIR/etc/ssh/ssh_host_key
-    chmod 644 $MBD_DIR/etc/ssh/ssh_host_key.pub
     echo
     echo -n "Generating SSH2 RSA host key: "
     /usr/bin/ssh-keygen -q -t rsa -f $MBD_DIR/etc/ssh/ssh_host_rsa_key \
                         -C '' -N '' >&/dev/null
-    chmod 600 $MBD_DIR/etc/ssh/ssh_host_rsa_key
-    chmod 644 $MBD_DIR/etc/ssh/ssh_host_rsa_key.pub
     echo
     echo -n "Generating SSH2 DSA host key: "
     /usr/bin/ssh-keygen -q -t dsa -f $MBD_DIR/etc/ssh/ssh_host_dsa_key \
                         -C '' -N '' >&/dev/null
-    chmod 600 $MBD_DIR/etc/ssh/ssh_host_dsa_key
-    chmod 644 $MBD_DIR/etc/ssh/ssh_host_dsa_key.pub
     echo
+    (cd $MBD_DIR/etc/ssh; \
+        chmod 600 ssh_host_key ssh_host_rsa_key ssh_host_dsa_key; \
+        chmod 644 ssh_host_key.pub ssh_host_rsa_key.pub ssh_host_dsa_key.pub; )
     cat > $MBD_DIR/etc/ssh/sshd_config <<EOF
 Port 22
 HostKey /etc/ssh/ssh_host_key
@@ -281,6 +278,7 @@ RSAAuthentication yes
 PasswordAuthentication yes
 PermitEmptyPasswords yes
 EOF
+    chmod 600 $MBD_DIR/etc/ssh/sshd_config
 
     for file in ISO8859-15.so EUC-JP.so libJIS.so gconv-modules; do
        cp -f $IMGPATH/usr/$LIBDIR/gconv/$file $MBD_DIR/usr/$LIBDIR/gconv/$file
