@@ -1,5 +1,8 @@
 2004-02-03  Chris Lumens  <clumens@redhat.com>
 
+	* kickstart.py:  Support setting filesystem options via kickstart
+	through a --fsoptions flag (#97560).
+	* partRequests.py:  Likewise.
 	* isys/isys.py (mount):  Don't try to make a device node for virtual
 	filesystems like proc or shm.
 

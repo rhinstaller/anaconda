@@ -128,6 +128,7 @@ class RequestSpec:
         self.migrate = migrate
         self.origfstype = origfstype
         self.fslabel = None
+        self.fsopts = None
 
         if bytesPerInode == None:
             self.bytesPerInode = 4096
@@ -161,11 +162,11 @@ class RequestSpec:
         str = ("Generic Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
                "  device: %(dev)s  migrate: %(migrate)s\n"
-               "  bytesPerInode:  %(bytesPerInode)s" % 
+               "  bytesPerInode:  %(bytesPerInode)s  options: '%(fsopts)s'" % 
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "bb": self.badblocks,
                 "dev": self.device, "migrate": self.migrate,
-                "bytesPerInode": self.bytesPerInode})
+                "bytesPerInode": self.bytesPerInode, "options": self.fsopts})
         return str
 
     def getActualSize(self, partitions, diskset):
@@ -196,7 +197,8 @@ class RequestSpec:
 
         entry = fsset.FileSystemSetEntry(device, mountpoint, self.fstype,
                                          origfsystem=self.origfstype,
-                                         bytesPerInode=self.bytesPerInode)
+                                         bytesPerInode=self.bytesPerInode,
+                                         options=self.fsopts)
         if self.format:
             entry.setFormat(self.format)
 
@@ -441,7 +443,7 @@ class PartitionSpec(RequestSpec):
                "  size: %(size)s  grow: %(grow)s  maxsize: %(max)s\n"
                "  start: %(start)s  end: %(end)s"
                "  migrate: %(migrate)s  origfstype: %(origfs)s\n"
-               "  bytesPerInode: %(bytesPerInode)s" % 
+               "  bytesPerInode: %(bytesPerInode)s  options: '%(fsopts)s'" % 
                {"n": pre, "mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format,
                 "dev": self.device, "drive": self.drive,
@@ -449,7 +451,7 @@ class PartitionSpec(RequestSpec):
                 "grow": self.grow, "max": self.maxSizeMB,
                 "start": self.start, "end": self.end, "bb": self.badblocks,
                 "migrate": self.migrate, "origfs": oldfs,
-                "bytesPerInode": self.bytesPerInode})
+                "bytesPerInode": self.bytesPerInode, "options": self.fsopts})
         return str
 
 
@@ -894,11 +896,12 @@ class LogicalVolumeRequestSpec(RequestSpec):
         str = ("LV Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
                "  size: %(size)s  lvname: %(lvname)s  volgroup: %(vgid)s\n"
-	       "  bytesPerInode: %(bytesPerInode)s" %
+               "  bytesPerInode: %(bytesPerInode)s  options: '%(fsopts)s'" %
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "bb": self.badblocks,
                 "lvname": self.logicalVolumeName, "vgid": self.volumeGroup,
-		"size": size, "bytesPerInode": bytesPerInode})
+		"size": size, "bytesPerInode": self.bytesPerInode,
+                "options": self.fsopts})
         return str
     
     def getDevice(self, partitions):

@@ -937,7 +937,8 @@ class KickstartBase(BaseInstallClass):
 						'grow',
                                                 'recommended',
                                                 'noformat',
-                                                'useexisting'])
+                                                'useexisting',
+						'fsoptions='])
 
         mountpoint = None
         vgname = None
@@ -951,6 +952,7 @@ class KickstartBase(BaseInstallClass):
         recommended = None
         preexist = 0
         bytesPerInode = None
+        fsopts = None
 
         for n in args:
             (str, arg) = n
@@ -977,6 +979,8 @@ class KickstartBase(BaseInstallClass):
                 preexist = 1
             elif str == "--useexisting":
                 preexist = 1
+            elif str == "--fsoptions":
+                fsopts = arg
 
         if extra[0] == 'swap':
             filesystem = fileSystemTypeGet('swap')
@@ -1026,6 +1030,9 @@ class KickstartBase(BaseInstallClass):
 							maxSizeMB=maxSizeMB,
                                                         preexist = preexist,
                                                         bytesPerInode = bytesPerInode)
+
+	if fsopts:
+            request.fsopts = fsopts
 
         self.addPartRequest(id.partitions, request)
                                                         
@@ -1077,7 +1084,8 @@ class KickstartBase(BaseInstallClass):
     def defineRaid(self, id, args):
 	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=',
                                                 'spares=', 'fstype=',
-                                                'noformat', 'useexisting'] )
+                                                'noformat', 'useexisting',
+                                                'fsoptions='] )
 
         level = None
         raidDev = None
@@ -1086,6 +1094,7 @@ class KickstartBase(BaseInstallClass):
         format = 1
         uniqueID = None
         preexist = 0
+        fsopts = None
 					
 	for n in args:
 	    (str, arg) = n
@@ -1105,6 +1114,8 @@ class KickstartBase(BaseInstallClass):
                 preexist = 1
             elif str == "--fstype":
                 fstype = arg
+            elif str == "--fsoptions":
+                fsopts = arg
 
         if extra[0] == 'swap':
             filesystem = fileSystemTypeGet('swap')
@@ -1171,6 +1182,8 @@ class KickstartBase(BaseInstallClass):
             request.uniqueID = uniqueID
         if preexist and raidDev is not None:
             request.device = "md%s" %(raidDev,)
+        if fsopts:
+            request.fsopts = fsopts
 
         self.addPartRequest(id.partitions, request)
 
@@ -1201,7 +1214,8 @@ class KickstartBase(BaseInstallClass):
                                         'type=', 'fstype=', 'asprimary',
                                         'noformat', 'start=', 'end=',
                                         'badblocks', 'recommended',
-                                        'ondrive=', 'onbiosdisk=' ])
+                                        'ondrive=', 'onbiosdisk=',
+                                        'fsoptions='])
 
 	for n in args:
 	    (str, arg) = n
@@ -1241,6 +1255,8 @@ class KickstartBase(BaseInstallClass):
 		log("WARNING: --badblocks specified but is no longer supported")
             elif str == "--recommended":
                 recommended = 1
+            elif str == "--fsoptions":
+                fsopts = str
 
 	if len(extra) != 1:
 	    raise KickstartValueError, "partition command requires one anonymous argument"
@@ -1300,9 +1316,6 @@ class KickstartBase(BaseInstallClass):
             raise KickstartValueError, "partition command with start cylinder requires a drive specification"
         if disk and disk not in isys.hardDriveDict().keys():
             raise KickstartValueError, "specified disk %s in partition command which does not exist" %(disk,)
-        
-        if fsopts:
-            filesystem.extraFormatArgs.extend(fsopts)
 
         request = partRequests.PartitionSpec(filesystem,
                                              mountpoint = mountpoint,
@@ -1337,6 +1350,8 @@ class KickstartBase(BaseInstallClass):
             for areq in id.partitions.autoPartitionRequests:
                 if areq.device is not None and areq.device == onPart:
 		    raise KickstartValueError, "Partition %s already used" %(onPart,)
+        if fsopts:
+            request.fsopts = fsopts
 
         self.addPartRequest(id.partitions, request)
         id.partitions.isKickstart = 1
