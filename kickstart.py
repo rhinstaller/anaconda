@@ -563,9 +563,6 @@ class KickstartBase(BaseInstallClass):
 	self.packageList = packages
         self.excludedList = excludedPackages
 
-        # XXX this is just not really a good way to do this...
-        id.bootloader.useDefaultDevice = 1
-
         # test to see if they specified to clear partitions and also
         # tried to --onpart on a logical partition
 	#
