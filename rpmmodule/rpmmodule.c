@@ -28,13 +28,15 @@ static void hdrDealloc(hdrObject * s);
 static PyObject * hdrGetAttr(hdrObject * s, char * name);
 static PyObject * hdrSubscript(hdrObject * s, PyObject * item);
 static PyObject * hdrKeyList(hdrObject * s, PyObject * args);
+static PyObject * hdrUnload(hdrObject * s, PyObject * args);
 static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args);
 
 void initrpm(void);
 static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args);
-static PyObject * archScore(PyObject * self, PyObject * args);
+static PyObject * hdrLoad(PyObject * self, PyObject * args);
 static PyObject * rpmHeaderFromPackage(PyObject * self, PyObject * args);
 static PyObject * rpmHeaderFromFile(PyObject * self, PyObject * args);
+static PyObject * archScore(PyObject * self, PyObject * args);
 static PyObject * rpmHeaderFromFD(PyObject * self, PyObject * args);
 static PyObject * findUpgradeSet(PyObject * self, PyObject * args);
 
@@ -51,13 +53,14 @@ static int rpmtransSetAttr(rpmtransObject * o, char * name,
 /* Types */
 
 static PyMethodDef rpmModuleMethods[] = {
-    { "opendb", (PyCFunction) rpmOpenDB, METH_VARARGS, NULL },
+    { "TransactionSet", (PyCFunction) rpmtransCreate, METH_VARARGS, NULL },
     { "archscore", (PyCFunction) archScore, METH_VARARGS, NULL },
     { "findUpgradeSet", (PyCFunction) findUpgradeSet, METH_VARARGS, NULL },
     { "headerFromPackage", (PyCFunction) rpmHeaderFromPackage, METH_VARARGS, NULL },
-    { "readHeaderListFromFile", (PyCFunction) rpmHeaderFromFile, METH_VARARGS, NULL },
+    { "headerLoad", (PyCFunction) hdrLoad, METH_VARARGS, NULL },
+    { "opendb", (PyCFunction) rpmOpenDB, METH_VARARGS, NULL },
     { "readHeaderListFromFD", (PyCFunction) rpmHeaderFromFD, METH_VARARGS, NULL },    
-    { "TransactionSet", (PyCFunction) rpmtransCreate, METH_VARARGS, NULL },
+    { "readHeaderListFromFile", (PyCFunction) rpmHeaderFromFile, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -170,6 +173,7 @@ static struct PyMethodDef rpmtransMethods[] = {
 
 static struct PyMethodDef hdrMethods[] = {
 	{"keys",	(PyCFunction) hdrKeyList,	1 },
+	{"unload",	(PyCFunction) hdrUnload,	1 },
 	{"verifyFile",	(PyCFunction) hdrVerifyFile,	1 },
 	{NULL,		NULL}		/* sentinel */
 };
@@ -460,6 +464,29 @@ static PyObject * rpmHeaderFromFD(PyObject * self, PyObject * args) {
     return list;
 }
 
+
+static PyObject * hdrLoad(PyObject * self, PyObject * args) {
+    char * obj;
+    Header hdr;
+    hdrObject * h;
+    int len;
+
+    if (!PyArg_ParseTuple(args, "s#", &obj, &len)) return NULL;
+
+    hdr = headerLoad(obj);
+    if (!hdr) {
+	PyErr_SetString(pyrpmError, "bad header");
+	return NULL;
+    }
+
+    h = (hdrObject *) PyObject_NEW(PyObject, &hdrType);
+    h->h = hdr;
+    h->fileList = h->linkList = h->md5list = NULL;
+    h->uids = h->gids = h->mtimes = h->fileSizes = NULL;
+    h->modes = h->rdevs = NULL;
+    
+    return (PyObject *) h;
+}
 
 static PyObject * rpmHeaderFromFile(PyObject * self, PyObject * args) {
     char * filespec;
@@ -768,6 +795,20 @@ static PyObject * hdrKeyList(hdrObject * s, PyObject * args) {
     headerFreeIterator(iter);
 
     return list;
+}
+
+static PyObject * hdrUnload(hdrObject * s, PyObject * args) {
+    char * buf;
+    int len;
+    PyObject * rc;
+
+    len = headerSizeof(s->h, 1);
+    buf = headerUnload(s->h);
+    
+    rc = PyString_FromStringAndSize(buf, len);
+    free(buf);
+
+    return rc;
 }
 
 /* Returns a list of these tuple for each part which failed:
