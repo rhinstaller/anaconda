@@ -1336,7 +1336,15 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
 			     "to select manual partitioning.\n\n"
                              "Press 'OK' to continue.") % (errortxt),
 			   custom_icon='error')
-	return DISPATCH_BACK
+	#
+	# XXX if in kickstart we reboot
+	#
+	if isKickstart:
+	    intf.messageWindow(_("Unrecoverable Error"),
+			       _("Your system will now be rebooted."))
+	    sys.exit(0)
+	else:
+	    return DISPATCH_BACK
 
 def autoCreatePartitionRequests(autoreq):
     """Return a list of requests created with a shorthand notation.
