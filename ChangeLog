@@ -1,3 +1,8 @@
+2005-03-14  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/buildinstall (BUILDINSTALL): Fix passing --debug to
+	second buildinstall invocation (Ingo Pakleppa, #150920)
+
 2005-03-14  Paul Nasrat <pnasrat@redhat.com>
 
 	* utils/genhdlist.c: support longer package names - #146820
