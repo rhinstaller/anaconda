@@ -459,7 +459,7 @@ class ToDo:
 		isys.makeDevInode(device, '/tmp/' + device)
 
 		rt.write("raiddev		    /tmp/%s\n" % (device,))
-		rt.write("raid-level		    %d\n % (raidType,)")
+		rt.write("raid-level		    %d\n" % (raidType,))
 		rt.write("nr-raid-disks		    %d\n" % (len(makeup),))
 		rt.write("chunk-size		    64k\n")
 		rt.write("persistent-superblock	    1\n");
@@ -479,7 +479,7 @@ class ToDo:
 	    w = self.intf.waitWindow(_("Creating"),
 			  _("Creating RAID devices..."))
 
-	    for (mntpoint, device, makeup) in raid:
+	    for (mntpoint, device, raidType, makeup) in raid:
                 iutil.execWithRedirect ("/usr/sbin/mkraid", 
 			[ 'mkraid', '--really-force', '--configfile', 
 			  '/tmp/raidtab', '/tmp/' + device ])
