@@ -585,10 +585,12 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 	    if (!rc) {
 		rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop1",
 				     "/mnt/runtime");
-		newtWinMessage(_("Error"), _("OK"),
+		if (rc) {
+		  newtWinMessage(_("Error"), _("OK"),
 			_("An error occured reading the install "
 			  "from the ISO images. Please check your ISO "
 			  "images and try again."));
+		}
 	    }
 
 	    umount("/tmp/loopimage");
@@ -598,7 +600,7 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 
 	umount("/tmp/hdimage");
 
-	if (!rc) return NULL;
+	if (rc) return NULL;
     }
 
     url = malloc(50 + strlen(dirName ? dirName : ""));
