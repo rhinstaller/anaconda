@@ -571,7 +571,10 @@ log.handler=anaconda_log
 # now let's set up our selinux stuff.  whee!
 if flags.setupFilesystems:
     os.mkdir("/selinux")
-    isys.mount("/selinux", "/selinux", fstype="selinuxfs")
+    try:
+        isys.mount("/selinux", "/selinux", fstype="selinuxfs")
+    except:
+        pass
     if os.access("/selinux/load", os.W_OK):
         dup_log("Loading selinux policy...")
         args = ["/usr/sbin/load_policy",
