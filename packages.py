@@ -1038,10 +1038,10 @@ def doPostInstall(method, id, intf, instPath):
                         # suckage
                         usbWasMounted = 0
 
-	    if usbWasMounted:
-		isys.mount('/usbdevfs', '/proc/bus/usb', 'usbdevfs')
+                if usbWasMounted:
+                    isys.mount('/usbdevfs', '/proc/bus/usb', 'usbdevfs')
 
-	    w.set(4)
+            w.set(4)
 
         if upgrade and id.dbpath is not None:
             # remove the old rpmdb
