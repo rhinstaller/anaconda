@@ -129,7 +129,7 @@ char * mountNfsImage(struct installMethod * method,
             
         case NFS_STAGE_NFS:
             logMessage("going to do nfsGetSetup");
-            if (loaderData->method &&
+            if (loaderData->method && *loaderData->method &&
                 !strncmp(loaderData->method, "nfs", 3) &&
                 loaderData->methodData) {
                 host = ((struct nfsInstallData *)loaderData->methodData)->host;

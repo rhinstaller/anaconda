@@ -208,7 +208,7 @@ char * mountUrlImage(struct installMethod * method,
             dir = 1;
 
         case URL_STAGE_MAIN:
-            if (loaderData->method &&
+            if (loaderData->method && *loaderData->method &&
                 (!strncmp(loaderData->method, "ftp", 3) ||
 		 !strncmp(loaderData->method, "http", 3)) &&
                 loaderData->methodData) {
