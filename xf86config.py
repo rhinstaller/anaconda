@@ -1043,7 +1043,7 @@ class XF86Config:
 		pass
 
             os.execv(args[0], args)
-     	    os.exit (1)
+     	    sys.exit (1)
 
         if spawn:
             return serverpid
