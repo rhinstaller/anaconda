@@ -3,4 +3,4 @@ all:
 
 install: 
 	mkdir -p $(DESTDIR)/usr/share/anaconda/pixmaps
-	cp -a splash.png $(DESTDIR)/usr/share/anaconda/pixmaps
+	cp -a *.png $(DESTDIR)/usr/share/anaconda/pixmaps
