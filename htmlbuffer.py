@@ -28,7 +28,8 @@ class HTMLBuffer(HTMLParser.HTMLParser):
     entityRefMap = { 'copy': unichr(0xA9),
                      'lt': '<',
                      'gt': '>',
-                     'quot': '"'}
+                     'quot': '"',
+                     'nbsp': ' '}
     whiteSpaceNuker = re.compile(r"""\s+""", re.MULTILINE) 
     def __init__(self):
         self.buffer = gtk.TextBuffer(None)

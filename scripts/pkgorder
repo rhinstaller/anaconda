@@ -232,7 +232,7 @@ for id in complist:
     group = grpset.groups[id]
     list = []
 
-    group.select()
+    group.select(selectOptional = 1)
 
     # append what got turned on to our order.
     for p in hdlist.pkgs.values():

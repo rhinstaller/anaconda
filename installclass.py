@@ -153,7 +153,6 @@ class BaseInstallClass:
 
         if iutil.getArch() != "i386":
             dispatch.skipStep("bootdisk")
-            dispatch.skipStep("bootloader")
 
 	# see if we need to write out a rescue boot floppy
 	if iutil.getArch() == "i386":
@@ -170,8 +169,7 @@ class BaseInstallClass:
 	    if not floppyDevices:
 		dispatch.skipStep("bootdisk")
             
-        if (iutil.getArch() == "alpha" or iutil.getArch() == "ia64" or
-            iutil.getArch() == "sparc" or iutil.getArch() == "ppc"):
+        if iutil.getArch() != "i386" or iutil.getArch() != "x86_64":
             dispatch.skipStep("bootloader")
 
         # 'noupgrade' can be used on the command line to force not looking

@@ -133,6 +133,8 @@ class HardDriveInstallMethod(InstallMethod):
     # will mount the appropriate ISO image as required by CD # in header
     def getRPMFilename(self, h, timer, callback=None):
 	if self.mediaIsMounted != h[1000002]:
+            log("switching from iso %s to %s" %(self.mediaIsMounted,
+                                                h[1000002]))
 	    self.umountMedia()
 	    self.mountMedia(h[1000002])
 

@@ -39,8 +39,10 @@ class ImageInstallMethod(InstallMethod):
 	return self.tree + "/" + filename
 
     def getRPMFilename(self, h, timer, callback=None):
+        if self.currentIso is not None and self.currentIso != h[1000002]:
+            log("switching from iso %s to %s" %(self.currentIso, h[1000002]))
+        self.currentIso = h[1000002]
 	return self.getFilename("/RedHat/RPMS/" + h[1000000], callback=callback)
-
     def readHeaders(self):
         if not os.access(self.tree + "/RedHat/base/hdlist", os.R_OK):
             raise FileCopyException
@@ -66,6 +68,7 @@ class ImageInstallMethod(InstallMethod):
     def __init__(self, tree, rootPath):
 	InstallMethod.__init__(self, rootPath)
 	self.tree = tree
+        self.currentIso = None
 
 class CdromInstallMethod(ImageInstallMethod):
 
@@ -133,6 +136,7 @@ class CdromInstallMethod(ImageInstallMethod):
                  "on the current CD", h[1000000])
         elif h[1000002] not in self.currentDisc:
 	    timer.stop()
+            log("switching from iso %s to %s" %(self.currentDisc, h[1000002]))
 
             if os.access("/mnt/source/.discinfo", os.R_OK):
                 f = open("/mnt/source/.discinfo")
@@ -419,6 +423,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
     
     def getRPMFilename(self, h, timer, callback=None):
 	if self.imageMounted != h[1000002]:
+            log("switching from iso %s to %s" %(self.imageMounted, h[1000002]))
 	    self.umountImage()
 	    self.mountImage(h[1000002])
 
