@@ -186,11 +186,14 @@ class LanguageDefaultWindow:
         descriptions.sort ()
         current = todo.language.get ()
 
+        found = FALSE
         for lang in langs:
             if languages[lang] == current:
                 default = langs.index (lang)
+                found = TRUE
             else:
-                default = langs[0]
+                if found == FALSE:
+                    default = langs[0]
                 
         height = min((screen.height - 16, len(descriptions)))
         
