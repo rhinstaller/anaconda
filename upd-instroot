@@ -10,9 +10,9 @@ SRC=$1/RedHat/RPMS
 DEST=../../../RedHat/instimage
 
 PACKAGES="glibc-2 ldconfig filesystem basesystem setup fileutils
-          XFree86-libs XFree86-SVGA XFree86-FBDev glib- gtk+-
-          gnome-libs slang python-1 newt imlib-1 libpng libtiff
-          libjpeg- libtermcap-2 zlib rpm bash- pygtk- pygnome-
+          XFree86-libs XFree86-SVGA XFree86-FBDev XFree86-75dpi-fonts
+          glib- gtk+- gnome-libs slang python-1 newt imlib-1 libpng
+          libtiff libjpeg- libtermcap-2 zlib rpm bash- pygtk- pygnome-
           util-linux procps e2fsprogs-1"
 
 for I in $PACKAGES; do
