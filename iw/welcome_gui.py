@@ -50,7 +50,6 @@ class ReconfigWelcomeWindow (InstallWindow):
             import sys
 
             print "Exitting"
-            self.ics.ii.finishedTODO.set()
             sys.exit(0)
         else:
             self.beingDisplay = 0
