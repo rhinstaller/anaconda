@@ -35,9 +35,9 @@ class LogFile:
 
     def __call__ (self, format, *args):
         if args:
-            self.logFile.write (format % args)
+            self.logFile.write ("* %s\n" % (format % args))
         else:
-            self.logFile.write (format)
+            self.logFile.write ("* %s\n" % format)
 
     def getFile (self):
         return self.logFile.fileno ()
@@ -591,9 +591,24 @@ class ToDo:
                           _("Formatting %s filesystem...") % (mntpoint,))
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2" and createFs:
-                args = [ "mke2fs", '/tmp/' + device, "-s1" ]
+                args = [ "mke2fs", '/tmp/' + device, '-b', '4096', '-i', '16384' ]
+                # set up raid options for md devices.
+                if device[:2] == 'md':
+                    for (rmnt, rdevice, raidType, makeup) in raid:
+                        if rdevice == device:
+                            rtype = raidType
+                            rdisks = len (makeup)
+                    if rtype == 5:
+                        rdisks = rdisks - 1
+                        args = args + [ '-R', 'stride=%d' % (rdisks * 16) ]
+                    elif rtype == 0:
+                        args = args + [ '-R', 'stride=%d' % (rdisks * 16) ]                        
+                        
                 if self.badBlockCheck:
                     args.append ("-c")
+
+                self.log ("running mke2fs on %s with args %s\n", device, repr (args))
+                
                 iutil.execWithRedirect ("/usr/sbin/mke2fs",
                                         args,
                                         stdout = None, stderr = None,
