@@ -1472,9 +1472,13 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	    flags |= LOADER_FLAGS_RESCUE;
 	else if (!strcasecmp(argv[i], "serial"))
 	    flags |= LOADER_FLAGS_SERIAL;
-        else if (!strcasecmp(argv[i], "ks"))
+        else if (!strcasecmp(argv[i], "ks")) {
 	    flags |= LOADER_FLAGS_KICKSTART;
-        else if (!strcasecmp(argv[i], "ks=floppy"))
+	    *ksSource = NULL;
+        } else if (!strncasecmp(argv[i], "ks=nfs:", 7)) {
+	    flags |= LOADER_FLAGS_KICKSTART;
+	    *ksSource = argv[i] + 7;
+        } else if (!strcasecmp(argv[i], "ks=floppy"))
 	    flags |= LOADER_FLAGS_KSFLOPPY;
 	else if (!strncasecmp(argv[i], "display=", 8))
 	    setenv("DISPLAY", argv[i] + 8, 1);
@@ -1506,7 +1510,7 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 
 #ifdef INCLUDE_NETWORK
 int kickstartFromNfs(char * location, moduleList modLoaded, moduleDeps modDeps, 
-		     int flags) {
+		     int flags, char * ksSource) {
     struct networkDeviceConfig netDev;
     char * file, * fullFn;
     char * ksPath;
@@ -1530,10 +1534,16 @@ int kickstartFromNfs(char * location, moduleList modLoaded, moduleDeps modDeps,
 	file = netDev.dev.bootFile;
     }
 
-    ksPath = alloca(strlen(file) + 70);
-    strcpy(ksPath, inet_ntoa(netDev.dev.nextServer));
-    strcat(ksPath, ":");
-    strcat(ksPath, file);
+    if (ksSource) {
+	ksPath = alloca(strlen(ksSource) + 1);
+	strcpy(ksPath, ksSource);
+    } else {
+	ksPath = alloca(strlen(file) + 
+			strlen(inet_ntoa(netDev.dev.bootServer)) + 70);
+	strcpy(ksPath, inet_ntoa(netDev.dev.bootServer));
+	strcat(ksPath, ":");
+	strcat(ksPath, file);
+    }
 
     if (ksPath[strlen(ksPath) - 1] == '/') {
 	ksPath[strlen(ksPath) - 1] = '\0';
@@ -1927,7 +1937,7 @@ int main(int argc, char ** argv) {
     if (FL_KICKSTART(flags) && !ksFile) {
 	ksFile = "/tmp/ks.cfg";
 	startNewt(flags);
-	kickstartFromNfs(ksFile, modLoaded, modDeps, flags);
+	kickstartFromNfs(ksFile, modLoaded, modDeps, flags, ksSource);
     }
 #endif
 
