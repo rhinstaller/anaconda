@@ -709,7 +709,7 @@ class Fstab:
                     f.write (format % ( devName, mntpoint, fs, 'defaults', 1, 2))
                 elif fs == "iso9660":
                     f.write (format % ( devName, mntpoint, fs, 'noauto,owner,ro', 0, 0))
-		elif fs == "auto" and (dev == "zip" or dev == "jaz"):
+		elif fs == "auto":
 		    f.write (format % ( devName, mntpoint, fs, 'noauto,owner', 0, 0))
                 else:
                     f.write (format % ( devName, mntpoint, fs, 'defaults', 0, 0))
