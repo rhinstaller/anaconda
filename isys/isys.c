@@ -1276,9 +1276,15 @@ static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args) {
 
     /* look at byte 1, bit 7 for removable flag */
     if (!(rc = ioctl(fd, SCSI_IOCTL_SEND_COMMAND, &inq))) {
-	if (inq.cmd[1] & (1 << 7))
+	if (inq.cmd[1] & (1 << 7)) {
+	    /* XXX check the vendor, if it's DELL or HP it could be
+	       an adaptec perc RAID (aacraid) device */
+	    if ((!strncmp (inq.cmd + 16, "DELL", 4))
+		|| (!strncmp (inq.cmd + 16, "HP", 2))) {
+		rc = 0;
+	    }
 	    rc = 1;
-	else
+	} else
 	    rc = 0;
     } else {
 /*	printf ("ioctl resulted in error %d\n", rc); */
