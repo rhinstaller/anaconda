@@ -1,9 +1,12 @@
 #include <arpa/inet.h>
+#include <errno.h>
+#include <resolv.h>
 #include <net/if.h>
 #include <newt.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "isys/dns.h"
 #include "pump/pump.h"
 
 #include "lang.h"
@@ -277,6 +280,9 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
     newtPopWindow();
 
+    findHostAndDomain(cfg, flags);
+    writeResolvConf(cfg);
+
     return 0;
 }
 
@@ -308,6 +314,74 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
     }
 
     fclose(f);
+
+    return 0;
+}
+
+int writeResolvConf(struct networkDeviceConfig * net) {
+    char * filename = "/etc/resolv.conf";
+    FILE * f;
+    int i;
+
+    if (!(net->dev.set & PUMP_NETINFO_HAS_DOMAIN) && !net->dev.numDns)
+    	return LOADER_ERROR;
+
+    f = fopen(filename, "w");
+    if (!f) {
+	logMessage("Cannot create %s: %s\n", filename, strerror(errno));
+	return LOADER_ERROR;
+    }
+
+    if (net->dev.set & PUMP_NETINFO_HAS_DOMAIN)
+	fprintf(f, "search %s\n", net->dev.domain);
+
+    for (i = 0; i < net->dev.numDns; i++) 
+	fprintf(f, "nameserver %s\n", inet_ntoa(net->dev.dnsServers[i]));
+
+    fclose(f);
+
+    res_init();		/* reinit the resolver so DNS changes take affect */
+
+    return 0;
+}
+
+int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
+    char ips[50];
+    char * name, * chptr;
+
+    if (!FL_TESTING(flags)) {
+	writeResolvConf(dev);
+	strcpy(ips, inet_ntoa(dev->dev.ip));
+    }
+
+    if (!(dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)) {
+	winStatus(40, 3, _("Hostname"), 
+		  _("Determining host name and domain..."));
+	name = mygethostbyaddr(ips);
+	if (name) name = mygethostbyaddr(ips);
+	newtPopWindow();
+
+	if (!name) {
+	    logMessage("reverse name lookup failed");
+	    return 1;
+	}
+
+	logMessage("reverse name lookup worked");
+
+	dev->dev.hostname = strdup(name);
+	dev->dev.set |= PUMP_NETINFO_HAS_HOSTNAME;
+    } else {
+        name = dev->dev.hostname;
+    }
+
+    if (!(dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)) {
+	for (chptr = name; *chptr && (*chptr != '.'); chptr++) ;
+	if (*chptr == '.') {
+	    if (dev->dev.domain) free(dev->dev.domain);
+	    dev->dev.domain = strdup(chptr + 1);
+	    dev->dev.set |= PUMP_NETINFO_HAS_DOMAIN;
+	}
+    }
 
     return 0;
 }

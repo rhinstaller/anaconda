@@ -13,5 +13,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * dev,
 int configureNetwork(struct networkDeviceConfig * dev);
 int nfsGetSetup(char ** hostptr, char ** dirptr);
 int writeNetInfo(const char * fn, struct networkDeviceConfig * dev);
+int findHostAndDomain(struct networkDeviceConfig * dev, int flags);
+int writeResolvConf(struct networkDeviceConfig * net);
 
 #endif
