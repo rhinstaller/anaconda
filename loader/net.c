@@ -502,18 +502,9 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
     if (i < kd->numKnown && kd->known[i].code == CODE_PCMCIA)
 	fprintf(f, "ONBOOT=no\n");
     else
-	{
-	    /* only enable the first device we see
-	       in loader mode */
-	    if (i < 1)
 #endif
-		fprintf(f, "ONBOOT=yes\n");
-#ifndef __STANDALONE__
-	    else
-		fprintf(f, "ONBOOT=no\n");
-	}
-#endif
-    
+	fprintf(f, "ONBOOT=yes\n");
+
     if (dev->isDynamic) {
 	fprintf(f, "BOOTPROTO=dhcp\n");
     } else {
