@@ -461,7 +461,8 @@ class PartitionRequests:
                 if part.type & parted.PARTITION_METADATA:
                     part = disk.next_partition(part)
                     continue
-                
+
+                format = 0
                 if part.type & parted.PARTITION_FREESPACE:
                     ptype = None
                 elif part.type & parted.PARTITION_EXTENDED:
@@ -471,6 +472,8 @@ class PartitionRequests:
                 elif part.fs_type:
                     if part.fs_type.name == "linux-swap":
                         ptype = fileSystemTypeGet("swap")
+                        # XXX this is a hack
+                        format = 1
                     elif part.fs_type.name == "FAT":
                         ptype = fileSystemTypeGet("vfat")
                     else:
@@ -488,7 +491,7 @@ class PartitionRequests:
                 
                 spec = PartitionSpec(ptype, requesttype = REQUEST_PREEXIST,
                                      start = start, end = end, size = size,
-                                     drive = drive)
+                                     drive = drive, format = format)
                 spec.device = PartedPartitionDevice(part).getDevice()
 
                 self.addRequest(spec)
