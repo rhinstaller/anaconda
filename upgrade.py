@@ -16,7 +16,6 @@
 import isys
 import _balkan
 import os
-import raid
 import iutil
 import time
 import rpm
