@@ -41,18 +41,16 @@ class FinishedWindow:
 
         screen.pushHelpLine (string.center(bottomstr, screen.width))
 
+        txt = _("Congratulations, your %s installation is "
+                "complete.\n\n"
+                "%s%s" %(productName, floppystr, bootstr))
+        foo = _("For information on errata (updates and bug fixes), visit "
+                "http://www.redhat.com/errata/.\n\n"
+                "Information on using your "
+                "system is available in the %s manuals at "
+                "http://www.redhat.com/docs/.") %(productName,)
 
-        rc = ButtonChoiceWindow (screen, _("Complete"), 
-             _("Congratulations, your %s installation is "
-               "complete.\n\n"
-               "%s"
-               "%s"
-               "For information on errata (updates and bug fixes), visit "
-               "http://www.redhat.com/errata.\n\n"
-               "Information on using your "
-               "system is available in the %s manuals at "
-               "http://www.redhat.com/docs.") %
-                                 (productName, floppystr, bootstr, productName),
+        rc = ButtonChoiceWindow (screen, _("Complete"), txt,
                                  [ _("OK") ], help = "finished", width=60)
 
         return INSTALL_OK
