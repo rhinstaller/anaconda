@@ -160,7 +160,7 @@ while [ -z "$NETWORK" ]; do
   echo $"Enter the network address of the new Linux guest:"
   read NETWORK
 done
-if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ] || [ ":$NETTYPE" = ":hsi" ]; then
+if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ] || [ ":$NETTYPE" = ":hsi" ] || [ ":$NETTYPE" = ":lcs" ]; then
 	 while [ -z "$NETMASK" ]; do
 		  echo $"Enter the netmask for the new Linux guest (e.g. 255.255.255.0):"
 		  read NETMASK
