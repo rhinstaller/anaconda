@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-01-29 11:10-0500\n"
-"PO-Revision-Date: 2001-01-26 01:16+0100\n"
+"PO-Revision-Date: 2001-01-30 15:00+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1079,7 +1079,7 @@ msgstr "Fel vid montering av ext2-filsystem på %s: %s"
 
 #: ../upgrade.py:69
 msgid "Partitionless upgrades are NOT supported in this beta"
-msgstr ""
+msgstr "Partitionslösa uppdateringar stöds INTE i denna beta"
 
 #: ../upgrade.py:101
 msgid ""
@@ -2762,6 +2762,10 @@ msgid ""
 "so do NOT report errors if you choose to do this.\n"
 " Do you want to continue?"
 msgstr ""
+"\n"
+"VARNING: Det händer att partitionslösa installationer misslyckas i denna "
+"BETA-version, så rapportera INTE fel om du väljer att göra detta.\n"
+" Vill du fortsätta?"
 
 #: ../libfdisk/fsedit.c:972
 #, c-format
@@ -4250,14 +4254,3 @@ msgstr "Kärnutveckling"
 
 msgid "Utilities"
 msgstr "Verktyg"
-
-#~ msgid ""
-#~ "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
-#~ "You can do this, but you may not use any other filesystems for your Linux "
-#~ "system. Additionally, there will be a speed penalty for not using "
-#~ "Linux-native partitions. Do you want to continue?"
-#~ msgstr ""
-#~ "Du har valt att ditt rotfilsystem (/) ska läggas på en FAT-partition av "
-#~ "DOS-typ. Du kan göra detta, men du kan inte använda några andra filsystem "
-#~ "för ditt Linuxsystem. Dessutom innebär det en prestandaförsämring att inte "
-#~ "använda Linuxpartitioner. Vill du fortsätta?"
