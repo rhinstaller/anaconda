@@ -458,11 +458,15 @@ class InstallControlWindow:
             self.displayHelp = TRUE
 
     def releaseClicked (self, widget):
-        self.textWin = GtkWindow()
-        closeButton = GtkButton("Close")
-        closeButton.connect("clicked", self.textWin.hide)
-        vbox1 = GtkVBox()        
-        self.textWin.add(vbox1)
+        self.textWin = GtkWindow ()
+        closeButton = GtkButton ("Close")
+        closeButton.connect ("clicked", self.textWin.hide)
+
+        vbox1 = GtkVBox ()        
+        vbox1.set_border_width (10)
+        frame = GtkFrame ("Release Notes")
+        frame.add(vbox1)
+        self.textWin.add (frame)
 
         try:
             self.textWin.set_position (WIN_POS_CENTER)
@@ -504,7 +508,7 @@ class InstallControlWindow:
 
             vbox1.pack_start(closeButton, FALSE, FALSE)
 
-            self.textWin.set_border_width(10)
+            self.textWin.set_border_width(1)
             self.textWin.show_all()
 
         except:
