@@ -28,14 +28,14 @@ def addNewPackageToUpgSet(pkgDict, pkg):
 def comparePackageForUpgrade(updDict, h, pkg):
     val = rpm.versionCompare(h, pkg)
     if (val > 0):
-        dEBUG("found older version of %(name)s %(arch)s" % h)
+#        dEBUG("found older version of %(name)s %(arch)s" % h)
         pass
     elif (val < 0):
-        dEBUG("found newer version of %(name)s %(arch)s" % h)
+#        dEBUG("found newer version of %(name)s %(arch)s" % h)
         # check if we already have this package in our dictionary
         addNewPackageToUpgSet(updDict, pkg)
     else:
-        dEBUG("found same verison of %(name)s %(arch)s" % h)
+#        dEBUG("found same verison of %(name)s %(arch)s" % h)
         pass
 
 def findBestArch(arch, archlist):
@@ -108,7 +108,7 @@ def findpackageset(hdrlist, dbPath='/'):
         else:
             # See if we have a better arch than that installed
             if name in availNames.keys():
-                bestarch = findBestArch(arch, availNames)
+                bestarch = findBestArch(arch, availNames[name])
                 if availDict.has_key((name,bestarch)):
                     h = instDict[(name,arch)]
                     pkg = availDict[(name,bestarch)]
