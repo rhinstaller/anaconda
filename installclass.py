@@ -189,6 +189,7 @@ class InstallClass:
 	self.partitions = []
 	self.skipPartitioning = 0
 	self.clearParts = 0
+        self.clearType = None
 	self.clearText = None
 	self.clearPartText = None
 	self.zeroMbr = 0

@@ -26,6 +26,13 @@ def startX():
     if mouseDev == 'psaux':
         mouseProtocol = "PS/2"
 	mouseEmulate = 0
+        # kickstart some ps/2 mice.  Blame the kernel
+        try:
+            f = open ('/dev/psaux')
+            f.write ('1')
+            f.close
+        except:
+            pass
     else:
         mouseProtocol = "Microsoft"
 	mouseEmulate = 1

@@ -101,9 +101,10 @@ class AutoPartitionWindow(InstallWindow):
 
     def getScreen (self):   
         from gnomepyfsedit import fsedit
+        
         # XXX hack
-        print self.todo.instClass.clearType
-        self.ics.readHTML (self.todo.instClass.clearType)
+        if self.todo.instClass.clearType:
+            self.ics.readHTML (self.todo.instClass.clearType)
 
 	todo = self.todo
 
