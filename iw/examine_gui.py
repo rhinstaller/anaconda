@@ -13,6 +13,7 @@
 #
 
 import gtk
+import gui
 from iw_gui import *
 from package_gui import *
 from pixmapRadioButtonGroup_gui import pixmapRadioButtonGroup
@@ -57,13 +58,13 @@ class UpgradeExamineWindow (InstallWindow):
 	r = pixmapRadioButtonGroup()
 	r.addEntry(REINSTALL_STR,
                    _("_Install %s") %(productName,),
-		   pixmap=self.ics.readPixmap("install.png"),
+		   pixmap=gui.readImageFromFile("install.png"),
 		   descr=_("Choose this option to freshly install your system. "                           "Existing software and data may be overwritten "
 			   "depending on your configuration choices."))        
         
 	r.addEntry(UPGRADE_STR,
                    _("_Upgrade an existing installation"),
-		   pixmap=self.ics.readPixmap("upgrade.png"),
+		   pixmap=gui.readImageFromFile("upgrade.png"),
 		   descr=_("Choose this option if you would like "
                            "to upgrade your existing %s system.  "
                            "This option will preserve the "

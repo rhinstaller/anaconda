@@ -15,6 +15,7 @@ import string
 import iutil
 import gtk
 import gobject
+import gui
 from timezone_map_gui import TimezoneMap, ZoneTab
 from iw_gui import *
 from rhpl.translate import _, textdomain
@@ -68,7 +69,7 @@ class TimezoneWindow(InstallWindow):
         self.systemUTC.set_active(asUTC)
 
         hbox = gtk.HBox(gtk.FALSE, 5)
-        pix = self.ics.readPixmap("timezone.png")
+	pix = gui.readImageFromFile("timezone.png")
         if pix:
             hbox.pack_start(pix, gtk.FALSE)
         

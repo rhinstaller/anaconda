@@ -27,7 +27,7 @@ class ConfirmWindow (InstallWindow):
         hbox = gtk.HBox (gtk.TRUE, 5)
         box = gtk.VBox (gtk.FALSE, 5)
 
-        pix = self.ics.readPixmap ("about-to-install.png")
+        pix = gui.readImageFromFile ("about-to-install.png")
         if pix:
             a = gtk.Alignment ()
             a.add (pix)

@@ -150,7 +150,7 @@ class XCustomWindow (InstallWindow):
         if self.monitor_align:
             self.hbox.remove (self.monitor_align)
 
-        pix = self.ics.readPixmap (file)
+        pix = gui.readImageFromFile (file)
         if pix:
             self.monitor_align = gtk.Alignment ()
             self.monitor_align.add (pix)
@@ -189,9 +189,9 @@ class XCustomWindow (InstallWindow):
         self.vbox4 = gtk.VBox ()
 
         if desktop == "GNOME":
-           pix = self.ics.readPixmap("gnome.png")
+           pix = gui.readImageFromFile ("gnome.png")
         elif desktop == "KDE":
-            pix = self.ics.readPixmap("kde.png")
+            pix = gui.readImageFromFile ("kde.png")
         else:
             pix = None
 

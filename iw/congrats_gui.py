@@ -44,7 +44,7 @@ class CongratulationWindow (InstallWindow):
 
         hbox = gtk.HBox (gtk.FALSE, 5)
         
-        pix = self.ics.readPixmap ("done.png")
+        pix = gui.readImageFromFile ("done.png")
         if pix:
             a = gtk.Alignment ()
             a.add (pix)

@@ -86,7 +86,7 @@ class AccountWindow (InstallWindow):
         box.set_border_width(5)
 
         hbox = gtk.HBox()
-        pix = self.ics.readPixmap ("root-password.png")
+        pix = gui.readImageFromFile ("root-password.png")
         if pix:
             hbox.pack_start (pix, gtk.FALSE)
 

@@ -16,6 +16,7 @@ from iw_gui import *
 import gtk
 from rhpl.translate import _, N_
 from constants import *
+import gui
 
 class BootdiskWindow (InstallWindow):
 
@@ -42,7 +43,7 @@ class BootdiskWindow (InstallWindow):
 	self.dispatch = disp
 
         box = gtk.VBox (gtk.FALSE, 5)
-        pix = self.ics.readPixmap ("gnome-floppy.png")
+        pix = gui.readImageFromFile ("gnome-floppy.png")
         if pix:
             a = gtk.Alignment ()
             a.add (pix)

@@ -1,5 +1,9 @@
 2005-02-23  Chris Lumens  <clumens@redhat.com>
 
+	* iw/account_gui.py, iw/bootdisk_gui.py, iw/confirm_gui.py,
+	iw/congrats_gui.py, iw/examine_gui.py, iw/mouse_gui.py,
+	iw/silo_gui.py, iw/timezone_gui.py, iw/xconfig_gui.py:  Use
+	gui.readImageFromFile instead of deprecated ics methods.
 	* partitions.py:  Fix clampPVSize call.  Fix typo in
 	getBootableRequest.
 

@@ -18,6 +18,7 @@ from gtk import *
 from rhpl.translate import _
 from xpms_gui import SMALL_CHECK
 import gdkpixbuf
+import gui
 
 class SiloWindow (InstallWindow):
     def __init__ (self, ics):
@@ -247,7 +248,7 @@ class SiloWindow (InstallWindow):
 	optionBox.pack_start (self.silo, FALSE)
 	topBox.pack_start (optionBox)
 
-	pix = self.ics.readPixmap ("silo.png")
+	pix = gui.readImageFromFile ("silo.png")
 	if pix:
 	    a = GtkAlignment ()
 	    a.add (pix)

@@ -241,7 +241,7 @@ class MouseWindow(InstallWindow):
 
         # top header, includes graphic and instructions
         hbox = gtk.HBox(gtk.FALSE, 5)
-        pix = self.ics.readPixmap("gnome-mouse.png")
+        pix = gui.readImageFromFile ("gnome-mouse.png")
         if pix:
             a = gtk.Alignment()
             a.add(pix)
