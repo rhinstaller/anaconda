@@ -44,6 +44,7 @@ class OSBootWidget:
 				    "detected, click 'Add.' To change the operating system booted by default, "
 				    "select 'Default' by the desired operating system."))
 	label.set_alignment(0.0, 0.0)
+	label.set_size_request(350, -1)
         self.vbox.pack_start(label, gtk.FALSE)
 
         spacer = gtk.Label("")
