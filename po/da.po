@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 6.1 Install\n"
-"POT-Creation-Date: 2000-02-15 16:36-0500\n"
-"PO-Revision-Date: 2000-02-03 14:34+01:00\n"
+"POT-Creation-Date: 2000-02-16 14:35-0500\n"
+"PO-Revision-Date: 2000-02-17 02:47+01:00\n"
 "Last-Translator: Birger Langkjer <birger.langkjer@image.dk>\n"
 "Language-Team: Danish/Dansk <sslug-locate@sslug.dk>\n"
 "MIME-Version: 1.0\n"
@@ -96,7 +96,7 @@ msgstr "Næste"
 #: ../textw/timezone.py:66 ../textw/userauth.py:30 ../textw/userauth.py:154
 #: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "Back"
-msgstr ""
+msgstr "Tilbage"
 
 #: ../gui.py:279 ../gui.py:527
 msgid "Show Help"
@@ -137,21 +137,24 @@ msgstr "Red Hat Linux installerer på %s"
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Red Hat Linux installationsskal på %s"
 
-#: ../installclass.py:251
+#: ../installclass.py:252
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
+"Du er ved at slette alle eksisterende Linux installationer på dir system."
 
-#: ../installclass.py:288
+#: ../installclass.py:289
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
 msgstr ""
+"Du er ved at slette AL DATA på din harddisk for at få plads til din Linux "
+"installation."
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742
-#: ../libfdisk/fsedit.c:751 ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:788
-#: ../libfdisk/fsedit.c:817 ../libfdisk/fsedit.c:833 ../libfdisk/fsedit.c:1224
+#: ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:746 ../libfdisk/fsedit.c:753
+#: ../libfdisk/fsedit.c:762 ../libfdisk/fsedit.c:789 ../libfdisk/fsedit.c:799
+#: ../libfdisk/fsedit.c:828 ../libfdisk/fsedit.c:845 ../libfdisk/fsedit.c:1238
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1158
 #: ../libfdisk/gnomefsedit.c:1184 ../libfdisk/gnomefsedit.c:1202
 #: ../libfdisk/gnomefsedit.c:1414 ../libfdisk/gnomefsedit.c:1514
@@ -172,7 +175,7 @@ msgstr ""
 #: ../textw/lilo.py:177 ../textw/silo.py:125 ../textw/silo.py:138
 #: ../textw/silo.py:194
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: ../text.py:60
 msgid "What language would you like to use during the installation process?"
@@ -229,7 +232,7 @@ msgstr "Hvilken enhed befinder din mus sig på? %s %i"
 #: ../textw/userauth.py:107 ../textw/userauth.py:115 ../textw/userauth.py:124
 #: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../text.py:122
 msgid "Which model mouse is attached to this computer?"
@@ -305,7 +308,7 @@ msgstr ""
 "deres afhængigheder, er blevet valgt til installering. Ønsker du at ændre i "
 "sammensætningen af pakker som vil blive opgraderet?"
 
-#: ../iw/welcome.py:88 ../libfdisk/fsedit.c:761 ../libfdisk/gnomefsedit.c:713
+#: ../iw/welcome.py:88 ../libfdisk/fsedit.c:772 ../libfdisk/gnomefsedit.c:713
 #: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220
 #: ../libfdisk/gnomefsedit.c:2170 ../libfdisk/gnomefsedit.c:2440
 #: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
@@ -316,7 +319,7 @@ msgstr ""
 msgid "Yes"
 msgstr "Ja"
 
-#: ../iw/welcome.py:91 ../libfdisk/fsedit.c:761 ../libfdisk/gnomefsedit.c:713
+#: ../iw/welcome.py:91 ../libfdisk/fsedit.c:772 ../libfdisk/gnomefsedit.c:713
 #: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220
 #: ../libfdisk/gnomefsedit.c:2170 ../libfdisk/gnomefsedit.c:2440
 #: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
@@ -785,48 +788,51 @@ msgstr "Finder"
 msgid "Finding packages to upgrade..."
 msgstr "Finder pakker som skal opgraderes"
 
-#: ../todo.py:951
+#: ../todo.py:958
 msgid "Processing"
 msgstr "Behandler"
 
-#: ../todo.py:952
+#: ../todo.py:959
 msgid "Preparing to install..."
 msgstr "Gør parat til at installere..."
 
-#: ../todo.py:1121
+#: ../todo.py:1132
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Opgraderer %s.\n"
 
-#: ../todo.py:1123
+#: ../todo.py:1134
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerer %s.\n"
 
-#: ../todo.py:1144
+#: ../todo.py:1155
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
+"Du ser ikke ud til at have nok diskplads til at installere de pakker du har "
+"valgt. Du har brug for mere plads på følgende filsystemer:\n"
+"\n"
 
-#: ../todo.py:1147
+#: ../todo.py:1158
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../todo.py:1147
+#: ../todo.py:1158
 msgid "Space Needed"
 msgstr "Diskplads krævet"
 
-#: ../todo.py:1160
+#: ../todo.py:1171
 msgid "Disk Space"
 msgstr "Diskplads"
 
-#: ../todo.py:1184
+#: ../todo.py:1195
 msgid "Post Install"
 msgstr "Efterinstallation"
 
-#: ../todo.py:1185
+#: ../todo.py:1196
 msgid "Performing post install configuration..."
 msgstr "Udfører efterinstallationskonfiguration..."
 
@@ -1345,13 +1351,13 @@ msgstr "Opret PROM alias"
 
 #: ../iw/silo.py:193
 msgid "Set default PROM boot device to linux"
-msgstr ""
+msgstr "Sæt standard PROM boot-enhed til linux"
 
 #: ../iw/silo.py:225
 msgid "Do not install SILO"
 msgstr "Installér ikke SILO"
 
-#: ../iw/timezone.py:30 ../textw/timezone.py:84
+#: ../iw/timezone.py:30 ../textw/timezone.py:83
 msgid "Time Zone Selection"
 msgstr "Valg af tidszone"
 
@@ -1420,6 +1426,8 @@ msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
+"Kan ikke afgøre mængden af RAM på videokortet.  Vælg størrelsen af din video "
+"RAM fra listen herunder:"
 
 #: ../iw/xconfig.py:342 ../iw/xconfig.py:363
 msgid ""
@@ -1434,9 +1442,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/xconfig.py:372
-#, fuzzy
 msgid "Autoprobe results:"
-msgstr "X testresultater"
+msgstr "X-testresultater:"
 
 #: ../iw/xconfig.py:432
 msgid "Use Graphical Login"
@@ -1444,7 +1451,7 @@ msgstr "Brug grafisk logind"
 
 #: ../iw/xconfig.py:433
 msgid "Skip X Configuration"
-msgstr "Spring X konfigurationen over"
+msgstr "Udelad X-konfiguration"
 
 #: ../textw/lilo.py:18 ../textw/silo.py:14
 msgid ""
@@ -1554,6 +1561,8 @@ msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
 "which is %d megabytes."
 msgstr ""
+"Den totale størrelse skal være mindre end mængden af ledig plads på disken, "
+"som er %d megabyte."
 
 #: ../textw/silo.py:64
 msgid "Create PROM alias `linux'"
@@ -1567,7 +1576,7 @@ msgstr "Angiv standard PROM bootenhed"
 msgid "What time zone are you located in?"
 msgstr "Hvilken tidszone befinder du dig i?"
 
-#: ../textw/timezone.py:81
+#: ../textw/timezone.py:80
 msgid "Hardware clock set to GMT?"
 msgstr "Indbygget ur sat til GMT?"
 
@@ -1618,15 +1627,16 @@ msgid "User ID"
 msgstr "Bruger ID"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "Bad User ID"
-msgstr "Bruger ID"
+msgstr "Dårlig bruger ID"
 
 #: ../textw/userauth.py:92
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
 msgstr ""
+"Bruger ID'er skal være på mindre end 8 tegn og må kun indeholde tegnene A-Z, "
+"a-z og tallene 0-9."
 
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
@@ -1704,41 +1714,50 @@ msgstr "eller brug:"
 msgid "Request server via broadcast"
 msgstr "Spørg efter server vha. broadcast"
 
-#: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742
-#: ../libfdisk/fsedit.c:751 ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:788
+#: ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:746 ../libfdisk/fsedit.c:753
+#: ../libfdisk/fsedit.c:762 ../libfdisk/fsedit.c:789 ../libfdisk/fsedit.c:799
 msgid "Bad Mount Point"
 msgstr "Dårligt monteringspunkt"
 
-#: ../libfdisk/fsedit.c:729
+#: ../libfdisk/fsedit.c:740
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "%s mappen skal ligge på rodfilsystemet."
 
-#: ../libfdisk/fsedit.c:736
+#: ../libfdisk/fsedit.c:747
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
 "\n"
 "Mount points must begin with a leading /."
 msgstr ""
+"Monteringspunktet %s er ulovligt.\n"
+"\n"
+"Monteringspunkter skal begynde med et /."
 
-#: ../libfdisk/fsedit.c:743
+#: ../libfdisk/fsedit.c:754
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
 "\n"
 "Mount points may not end with a /."
 msgstr ""
+"Monteringspunktet %s er ulovligt.\n"
+"\n"
+"Monteringspunkter må ikke ende på et /."
 
-#: ../libfdisk/fsedit.c:752
+#: ../libfdisk/fsedit.c:763
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
 "\n"
 "Mount points may only printable characters."
 msgstr ""
+"Monteringspunktet %s er ulovligt.\n"
+"\n"
+"Monteringspunkter må kun indeholde udskrivbare tegn."
 
-#: ../libfdisk/fsedit.c:762
+#: ../libfdisk/fsedit.c:773
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
@@ -1746,7 +1765,7 @@ msgid ""
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:779
+#: ../libfdisk/fsedit.c:790
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1757,7 +1776,7 @@ msgstr ""
 "\n"
 "Systempartitioner skal ligge på indfødte Linux partitioner."
 
-#: ../libfdisk/fsedit.c:789
+#: ../libfdisk/fsedit.c:800
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1768,35 +1787,35 @@ msgstr ""
 "\n"
 "/usr skal ligge på en indfødt Linux partition eller NFS volume."
 
-#: ../libfdisk/fsedit.c:817
+#: ../libfdisk/fsedit.c:828
 msgid "Too Many Drives"
 msgstr "For mange drev"
 
-#: ../libfdisk/fsedit.c:818
+#: ../libfdisk/fsedit.c:829
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:833
+#: ../libfdisk/fsedit.c:845
 msgid "No Drives Found"
 msgstr "Ingen drev fundet"
 
-#: ../libfdisk/fsedit.c:834
+#: ../libfdisk/fsedit.c:846
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1146 ../libfdisk/fsedit.c:1208
+#: ../libfdisk/fsedit.c:1159 ../libfdisk/fsedit.c:1222
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1185
+#: ../libfdisk/fsedit.c:1199
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -1805,45 +1824,45 @@ msgstr ""
 "Partitionstabellen på enheden %s er ødelagt. For at oprette nye partitioner "
 "skal den initialiseres, hvilket vil medføre tab af ALLE DATA på dette drev."
 
-#: ../libfdisk/fsedit.c:1190
+#: ../libfdisk/fsedit.c:1204
 msgid "Bad Partition Table"
 msgstr "Dårlig partitionstabel"
 
-#: ../libfdisk/fsedit.c:1191
+#: ../libfdisk/fsedit.c:1205
 msgid "Initialize"
 msgstr "Opstart"
 
-#: ../libfdisk/fsedit.c:1191 ../libfdisk/fsedit.c:1212
+#: ../libfdisk/fsedit.c:1205 ../libfdisk/fsedit.c:1226
 msgid "Skip Drive"
 msgstr "Spring drev over"
 
-#: ../libfdisk/fsedit.c:1212 ../loader/net.c:329
+#: ../libfdisk/fsedit.c:1226 ../loader/net.c:329
 msgid "Retry"
 msgstr "Prøv igen"
 
-#: ../libfdisk/fsedit.c:1224
+#: ../libfdisk/fsedit.c:1238
 msgid "BSD Disklabel"
 msgstr "BSD disketikette"
 
-#: ../libfdisk/fsedit.c:1224
+#: ../libfdisk/fsedit.c:1238
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1254
+#: ../libfdisk/fsedit.c:1268
 #, c-format
 msgid "System error %d"
 msgstr "Systemfejl %d"
 
-#: ../libfdisk/fsedit.c:1263 ../libfdisk/fsedit.c:1265
+#: ../libfdisk/fsedit.c:1277 ../libfdisk/fsedit.c:1279
 msgid "Fdisk Error"
 msgstr "Fdisk fejl"
 
 #: ../libfdisk/gnomefsedit.c:537 ../libfdisk/gnomefsedit.c:827
 msgid "<Swap Partition>"
-msgstr "<Swap partition>"
+msgstr "<Swappartition>"
 
 #: ../libfdisk/gnomefsedit.c:545 ../libfdisk/gnomefsedit.c:829
 msgid "<RAID Partition>"
@@ -1972,7 +1991,7 @@ msgstr ""
 #. now contains unallocated partitions!
 #: ../libfdisk/gnomefsedit.c:1414
 msgid "RAID Entry Incomplete"
-msgstr ""
+msgstr "RAID indgang ufuldstændig"
 
 #: ../libfdisk/gnomefsedit.c:1415
 #, c-format
@@ -1998,7 +2017,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1799
 msgid "<Swap Partition"
-msgstr "<Swap partition"
+msgstr "<Swappartition"
 
 #: ../libfdisk/gnomefsedit.c:1857
 msgid "RAID Device: /dev/"
@@ -2285,7 +2304,7 @@ msgstr "Indsæt din driverdisk og tast \"OK\" for at fortsætte."
 
 #: ../loader/devices.c:183 ../loader/loader.c:1810
 msgid "Failed to mount floppy disk."
-msgstr ""
+msgstr "Kunne ikke montere diskette."
 
 #: ../loader/devices.c:188
 msgid ""
@@ -2415,7 +2434,7 @@ msgstr ""
 
 #: ../loader/loader.c:636
 msgid "Directory holding Red Hat:"
-msgstr ""
+msgstr "Mappe indeholdende Red Hat:"
 
 #: ../loader/loader.c:656
 msgid "Select Partition"
@@ -2438,7 +2457,7 @@ msgstr ""
 
 #: ../loader/loader.c:916
 msgid "I could not mount that directory from the server"
-msgstr ""
+msgstr "Jeg kunne ikke montere denne mappe fra serveren"
 
 #: ../loader/loader.c:1004
 msgid "FTP"
@@ -2446,7 +2465,7 @@ msgstr "FTP"
 
 #: ../loader/loader.c:1005
 msgid "Unable to retrieve the second stage ramdisk"
-msgstr ""
+msgstr "Kunne ikke hente det andet trins ramdisk"
 
 #: ../loader/loader.c:1152
 msgid "Rescue Method"
@@ -2494,7 +2513,7 @@ msgstr "PC kort"
 
 #: ../loader/loader.c:1969
 msgid "Initializing PC Card Devices..."
-msgstr "Opstarter PC kort enheder..."
+msgstr "Opstarter PC-kort enheder..."
 
 #: ../loader/net.c:147
 msgid "NFS server name:"
@@ -2516,12 +2535,19 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecture"
 msgstr ""
+"Indtast venligst følgende information:\n"
+"\n"
+"    o navn eller IP nummer på din NFS server\n"
+"    o navnet på mappen på den server der indeholder\n"
+"      Red Hat Linux for din arkitektur (i386/alpha/..)"
 
 #: ../loader/net.c:228
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
+"Indtast venligst IP konfiguration for denne maskine. Hver linie bør "
+"indtastes som en IP adresse i punktdecimal format (for eksempel: 1.2.3.4)."
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -2558,12 +2584,12 @@ msgstr "kickstart"
 #: ../loader/net.c:561
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr ""
+msgstr "dårligt argument til at kickstart netværkskommando %s: %s"
 
 #: ../loader/net.c:592
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "Dårlig bootproto %s angivet i netværkskommando"
 
 #: ../loader/net.c:628
 msgid "Boot protocol to use"
@@ -2729,16 +2755,3 @@ msgstr "HTTP proxyport:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Indlæser SCSI driver"
-
-#~ msgid "Rebuilding"
-#~ msgstr "Genbygger"
-
-#~ msgid "Rebuilding RPM database..."
-#~ msgstr "Genbygger RPM-database..."
-
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr ""
-#~ "Genbygning af RPM-databasen fejlede. Du er måske løbet tør for diskplads?"
-
-#~ msgid "Variant"
-#~ msgstr "Variant"
