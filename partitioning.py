@@ -280,7 +280,7 @@ def doMountPointLinuxFSChecks(newrequest):
             return _("This mount point is invalid.  This directory must "
                      "be on the / filesystem.")
 
-    if newrequest.fstype.getName() == "swap":
+    elif newrequest.fstype.getName() == "swap":
         if newrequest.type == REQUEST_RAID:
             swapsize = get_raid_device_size(newrequest)
         else:
