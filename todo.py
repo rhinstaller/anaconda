@@ -460,6 +460,9 @@ class ToDo:
 
 	# This absolutely, positively MUST BE LAST
 	self.setClass(instClass)
+        if iutil.getArch () == "alpha":
+            instClass.addToSkipList("lilo")
+            instClass.addToSkipList("silo")
 
     def setFdDevice(self):
 	if self.fdDevice:
@@ -675,7 +678,7 @@ class ToDo:
             if fsystem == "ext2" and createFs:
                 args = [ "mke2fs", '/tmp/' + device ]
                 if iutil.getArch () == "alpha":
-                    args.append ("-r", "0")
+                    args = args + ["-r", "0"]
                 # set up raid options for md devices.
                 if device[:2] == 'md':
                     for (rmnt, rdevice, fsType, raidType, makeup) in raid:
