@@ -1305,7 +1305,8 @@ class DiskSet:
                     # XXX check for raid superblocks on non-autoraid partitions
                     #  (#32562)
                     pass
-                elif part.fs_type in fsset.getUsableLinuxFs():
+                elif (part.fs_type and
+                      part.fs_type.name in fsset.getUsableLinuxFs()):
                     node = get_partition_name(part)
 		    try:
 			isys.mount(node, '/mnt/sysimage', part.fs_type.name)
