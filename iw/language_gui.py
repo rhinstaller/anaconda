@@ -53,6 +53,7 @@ class LanguageWindow (InstallWindow):
         for locale in language_keys:
             row = self.language.append ((locale,))
             if self.languages[locale] == self.icw.getLanguage ():
+                self.lang = locale
                 default = n
             n = n + 1
 
