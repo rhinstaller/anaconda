@@ -222,8 +222,8 @@ class NetworkWindow(InstallWindow):
 	bootcb.set_active(onboot)
 	align.add(bootcb)
 
-	devbox.pack_start(align, gtk.FALSE)
-	devbox.pack_start(gtk.HSeparator(), gtk.FALSE, padding=3)
+	devbox.pack_start(align, gtk.FALSE, padding=6)
+#	devbox.pack_start(gtk.HSeparator(), gtk.FALSE, padding=3)
 
 	options = [(_("_IP Address"), "ipaddr"),
 		   (_("Net_mask"),    "netmask")]
@@ -250,18 +250,23 @@ class NetworkWindow(InstallWindow):
 	    label.set_mnemonic_widget(entry.getFocusableWidget())
 	    ipTable.attach(entry.getWidget(), 1, 2, t, t+1, 0, gtk.FILL|gtk.EXPAND)
 
-	devbox.pack_start(ipTable, gtk.FALSE, gtk.FALSE, 5)
+	devbox.pack_start(ipTable, gtk.FALSE, gtk.FALSE, 6)
+        devbox.set_border_width(6)
 
 	framelab = _("Configure %s" % (dev,))
-
 	descr = self.devices[dev].get("desc")
 	if descr is not None and len(descr) > 0:
 	    framelab += " - " + descr[:70]
+        
+        l = gtk.Label()
+        l.set_markup("<b>%s</b>" %(framelab,))
 	
-	frame = gtk.Frame(framelab)
-	frame.set_border_width(5)
+	frame = gtk.Frame()
+        frame.set_label_widget(l)
+	frame.set_border_width(12)
 	frame.add(devbox)
-	editWin.vbox.pack_start(frame, padding=5)
+        frame.set_shadow_type(gtk.SHADOW_NONE)
+	editWin.vbox.pack_start(frame, padding=6)
         editWin.set_position(gtk.WIN_POS_CENTER)
 	editWin.show_all()
         editWin.add_button('gtk-cancel', 2)
@@ -435,45 +440,6 @@ class NetworkWindow(InstallWindow):
 
 	return self.ethdevices
 
-    def modifyHostname(self, widget):
-	if self.ignoreEvents:
-	    return
-
-        editWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
-        gui.addFrame(editWin)
-        editWin.set_modal(gtk.TRUE)
-
-	vbox = gtk.VBox()
-	hbox = gtk.HBox()
-	hbox.pack_start(gtk.Label(_("Hostname")), gtk.FALSE, gtk.FALSE)
-	hentry = gtk.Entry()
-	hbox.pack_start(hentry, gtk.FALSE, gtk.FALSE)
-	vbox.pack_start(hbox, gtk.FALSE, gtk.FALSE)
-	vbox.set_border_width(6)
-	frame = gtk.Frame(_("Set hostname"))
-	frame.add(vbox)
-	frame.set_border_width(3)
-	editWin.vbox.pack_start(frame, padding=5)
-        editWin.set_position(gtk.WIN_POS_CENTER)
-	editWin.show_all()
-        editWin.add_button('gtk-cancel', 2)
-	editWin.add_button('gtk-ok', 1)
-
-	while 1:
-	    rc=editWin.run()
-	    
-	    if rc == 2:
-		editWin.destroy()
-		return
-
-	    h = string.strip(hentry.get_text())
-	    if len(h) > 0:
-		self.hostname = h
-
-	    editWin.destroy()
-
-	    return
-
     def hostnameUseDHCPCB(self, widget, data):
 	self.hostnameEntry.set_sensitive(not widget.get_active())
 
@@ -485,7 +451,7 @@ class NetworkWindow(InstallWindow):
     def getScreen(self, network, dir, intf):
 	self.intf = intf
         box = gtk.VBox(gtk.FALSE)
-        box.set_border_width(5)
+        box.set_border_width(6)
 	self.network = network
         
         self.devices = self.network.available()
@@ -502,7 +468,7 @@ class NetworkWindow(InstallWindow):
 	self.devlist = self.setupDevices()
 
 	devlistSW = gtk.ScrolledWindow()
-        devlistSW.set_border_width(5)
+        devlistSW.set_border_width(6)
         devlistSW.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         devlistSW.set_shadow_type(gtk.SHADOW_IN)
         devlistSW.add(self.devlist)
@@ -511,15 +477,19 @@ class NetworkWindow(InstallWindow):
 
         buttonbar = gtk.VButtonBox()
         buttonbar.set_layout(gtk.BUTTONBOX_START)
-        buttonbar.set_border_width(5)
+        buttonbar.set_border_width(6)
 	edit = gtk.Button(_("_Edit"))
         edit.connect("clicked", self.editDevice)
 	buttonbar.pack_start(edit, gtk.FALSE)
 	devhbox.pack_start(buttonbar, gtk.FALSE)
 
-	devhbox.set_border_width(6)
-	frame=gtk.Frame(_("Network Devices"))
+	devhbox.set_border_width(12)
+        l = gtk.Label()
+        l.set_markup("<b>%s</b>" %(_("Network Devices"),))
+	frame=gtk.Frame()
+        frame.set_label_widget(l)
 	frame.add(devhbox)
+        frame.set_shadow_type(gtk.SHADOW_NONE)
 	box.pack_start(frame, gtk.FALSE)
 	
 	# show hostname and dns/misc network info and offer chance to modify
@@ -546,9 +516,13 @@ class NetworkWindow(InstallWindow):
 
 	hostbox.pack_start(tmphbox, gtk.FALSE, gtk.FALSE, padding=5)
 
-	hostbox.set_border_width(6)
-	frame=gtk.Frame(_("Hostname"))
+	hostbox.set_border_width(12)
+        l = gtk.Label()
+        l.set_markup("<b>%s</b>" %(_("Hostname"),))
+	frame=gtk.Frame()
+        frame.set_label_widget(l)
 	frame.add(hostbox)
+        frame.set_shadow_type(gtk.SHADOW_NONE)
 	box.pack_start(frame, gtk.FALSE, gtk.FALSE)
 
 
@@ -602,10 +576,14 @@ class NetworkWindow(InstallWindow):
 	    if self.network.ternaryNS:
 		self.globals[_("Tertiary DNS")].hydrate(self.network.ternaryNS)
 
-	self.ipTable.set_border_width(6)
+	self.ipTable.set_border_width(12)
 
-	frame=gtk.Frame(_("Miscellaneous Settings"))
+        l = gtk.Label()
+        l.set_markup("<b>%s</b>" %(_("Miscellaneous Settings"),))
+	frame=gtk.Frame()
+        frame.set_label_widget(l)
 	frame.add(self.ipTable)
+        frame.set_shadow_type(gtk.SHADOW_NONE)
 	box.pack_start(frame, gtk.FALSE, gtk.FALSE, 5)
 	box.set_border_width(6)
 
