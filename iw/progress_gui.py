@@ -125,11 +125,10 @@ class InstallProgressWindow_NEW (InstallWindow):
                 if self.pixtimer is None:
                     self.pixtimer = timer.Timer()
 
-		wrappixlist = 0
                 num = self.pixcurnum
                 if num >= len(self.pixmaps):
                     num = 0
-		    wrappixlist = 1
+		    self.wrappedpixlist = 1
 		    
                 pix = self.ics.readPixmapDithered (self.pixmaps[num], 425, 225)
                 if pix:
@@ -144,7 +143,7 @@ class InstallProgressWindow_NEW (InstallWindow):
                 self.pixcurnum = num + 1
 
 		# take screenshot if desired
-		if flags.autoscreenshot and not wrappixlist:
+		if flags.autoscreenshot and not self.wrappedpixlist:
 		    # let things settle down graphically??
 		    processEvents()
 		    time.sleep(5)
@@ -233,6 +232,7 @@ class InstallProgressWindow_NEW (InstallWindow):
         self.pixmaps = pixmaps
         self.pixtimer = None
         self.pixcurnum = 0
+	self.wrappedpixlist = 0
 
 	# Create vbox to contain components of UI
         vbox = gtk.VBox (gtk.FALSE, 10)
