@@ -558,8 +558,8 @@ echo "Compressing ramdisk install images..."
 
 	cd $DEST/usr/bin
 	echo python1.5 | cpio --quiet -H crc -o | gzip -9 > python1.5.cgz
-	rm -f python python1.5
-	ln -s python1.5 python
+	/bin/rm -f python python1.5
+	/bin/ln -s python1.5 python
 
 	mv anaconda anaconda.real
 	mv $DEST/usr/lib/anaconda-runtime/anaconda-stub anaconda
