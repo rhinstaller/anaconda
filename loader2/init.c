@@ -44,7 +44,9 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 #include <sys/reboot.h>
+#include <linux/vt.h>
 #include <termios.h>
+#include <libgen.h>
 
 #include "devt.h"
 
@@ -98,10 +100,11 @@ char * env[] = {
 int testing=0;
 void unmountFilesystems(void);
 void disableSwap(void);
-void shutDown(int noKill, int doReboot);
+void shutDown(int noKill, int doReboot, int doPowerOff);
+static int getNoKill(void);
 struct termios ts;
 
-int mystrstr(char *str1, char *str2) {
+static int mystrstr(char *str1, char *str2) {
     char *p;
     int rc=0;
 
@@ -127,7 +130,7 @@ static void printstr(char * string) {
     write(1, string, strlen(string));
 }
 
-void fatal_error(int usePerror) {
+static void fatal_error(int usePerror) {
 /* FIXME */
 #if 0
     if (usePerror) 
@@ -437,14 +440,62 @@ int copyDirectory(char * from, char * to) {
     return 0;
 }
 
-void sigintHandler(int signum)
-{
+static void termReset(void) {
+    /* change to tty1 */
+    ioctl(0, VT_ACTIVATE, 1);
     /* reset terminal */
     tcsetattr(0, TCSANOW, &ts);
     /* Shift in, default color, move down 100 lines */
     /* ^O        ^[[0m          ^[[100E */
     printf("\017\033[0m\033[100E\n");
-    shutDown(0, 1);
+}
+
+/* reboot handler */
+void sigintHandler(int signum) {
+    termReset();
+    shutDown(getNoKill(), 1, 0);
+}
+
+/* halt handler */
+void sigUsr1Handler(int signum) {
+    termReset();
+    shutDown(getNoKill(), 0, 0);
+}
+
+/* poweroff handler */
+void sigUsr2Handler(int signum) {
+    termReset();
+    shutDown(getNoKill(), 0, 1);
+}
+
+static int getNoKill(void) {
+    int fd;
+    int len;
+    char buf[1024];
+
+    /* look through /proc/cmdline for special options */
+    if ((fd = open("/proc/cmdline", O_RDONLY,0)) > 0) {
+	len = read(fd, buf, sizeof(buf) - 1);
+	close(fd);
+	if (len > 0 && mystrstr(buf, "nokill"))
+	    return 1;
+    }
+    return 0;
+}
+
+static int getInitPid(void) {
+    int fd = 0, pid = -1;
+    char * buf = malloc(10);
+
+    fd = open("/var/run/init.pid", O_RDONLY);
+    if (fd < 0) {
+        fprintf(stderr, "Unable to find pid of init!!!\n");
+        return -1;
+    }
+    read(fd, buf, 9);
+    close(fd);
+    sscanf(buf, "%d", &pid);
+    return pid;
 }
 
 int main(int argc, char **argv) {
@@ -459,8 +510,26 @@ int main(int argc, char **argv) {
     char ** argvp = argvc;
     char twelve = 12;
     int i;
-    char buf[500];
-    int len;
+
+    if (!strncmp(basename(argv[0]), "poweroff", 8)) {
+        printf("Running poweroff...\n");
+        fd = getInitPid();
+        if (fd > 0)
+            kill(fd, SIGUSR2);
+        exit(0);
+    } else if (!strncmp(basename(argv[0]), "halt", 4)) {
+        printf("Running halt...\n");
+        fd = getInitPid();
+        if (fd > 0)
+            kill(fd, SIGUSR1);
+        exit(0);
+    } else if (!strncmp(basename(argv[0]), "reboot", 6)) {
+        printf("Running reboot...\n");
+        fd = getInitPid();
+        if (fd > 0)
+            kill(fd, SIGINT);
+        exit(0);
+    }
 
 #if !defined(__s390__) && !defined(__s390x__)
     testing = (getppid() != 0) && (getppid() != 1);
@@ -509,13 +578,7 @@ int main(int argc, char **argv) {
 	}
     }
 
-    /* look through /proc/cmdline for special options */
-    if ((fd = open("/proc/cmdline", O_RDONLY,0)) > 0) {
-	len = read(fd, buf, sizeof(buf) - 1);
-	close(fd);
-	if (len > 0 && mystrstr(buf, "nokill"))
-	    noKill = 1;
-    }
+    noKill = getNoKill();
 
 #if !defined(__s390__) && !defined(__s390x__)
     if (ioctl (0, TIOCLINUX, &twelve) < 0) {
@@ -613,6 +676,18 @@ int main(int argc, char **argv) {
     if (!testing) 
 	doklog("/dev/tty4");
 
+    /* write out a pid file */
+    if ((fd = open("/var/run/init.pid", O_WRONLY|O_CREAT)) > 0) {
+        char * buf = malloc(10);
+        snprintf(buf, 9, "%d", getpid());
+        write(fd, buf, strlen(buf));
+        close(fd);
+        free(buf);
+    } else {
+        printf("unable to write init.pid (%d): %s\n", errno, strerror(errno));
+        sleep(2);
+    }
+
     /* Go into normal init mode - keep going, and then do a orderly shutdown
        when:
 
@@ -634,6 +709,10 @@ int main(int argc, char **argv) {
 	
 	exit(0);
     }
+
+    /* signal handlers for halt/poweroff */
+    signal(SIGUSR1, sigUsr1Handler);
+    signal(SIGUSR2, sigUsr2Handler);
 
     /* set up the ctrl+alt+delete handler to kill our pid, not pid 1 */
     signal(SIGINT, sigintHandler);
@@ -672,7 +751,7 @@ int main(int argc, char **argv) {
     if (testing)
         exit(0);
 
-    shutDown(noKill, doReboot);
+    shutDown(noKill, doReboot, 0);
 
     return 0;
 }

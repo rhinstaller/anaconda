@@ -41,7 +41,7 @@ void rebootHandler(int signum) {
 #endif
 }
 
-void shutDown(int noKill, int doReboot) {
+void shutDown(int noKill, int doReboot, int doPowerOff) {
     sync(); sync();
 
     if (!testing && !noKill) {
@@ -71,6 +71,9 @@ void shutDown(int noKill, int doReboot) {
 #else
 	reboot(RB_AUTOBOOT);
 #endif
+    } else if (doPowerOff)  {
+        printf("powering off system\n");
+        reboot(RB_POWER_OFF);
     } else {
 	printf("you may safely reboot your system\n");
         signal(SIGINT, rebootHandler);
@@ -108,6 +111,6 @@ int main(int argc, char ** argv) {
     dup2(fd, 2);
     close(fd);
 
-    shutDown(0, doReboot);
+    shutDown(0, doReboot, 0);
 }
 #endif
