@@ -72,7 +72,8 @@ def findExistingRoots (intf, theFstab):
     win.pop ()
     return rootparts
 
-def mountRootPartition(intf, rootInfo, theFstab, instPath, allowDirty = 0):
+def mountRootPartition(intf, rootInfo, theFstab, instPath, allowDirty = 0,
+		       raiseErrors = 0):
     (root, rootFs) = rootInfo
 
     mdList = raid.startAllRaid(theFstab.driveList())
@@ -100,4 +101,4 @@ def mountRootPartition(intf, rootInfo, theFstab, instPath, allowDirty = 0):
 	      "shut down cleanly to upgrade."))
 	sys.exit(0)
 
-    theFstab.mountFilesystems (instPath)
+    theFstab.mountFilesystems (instPath, raiseErrors = raiseErrors)

@@ -799,7 +799,7 @@ class Fstab:
 
 	return 0
 
-    def mountFilesystems(self, instPath):
+    def mountFilesystems(self, instPath, raiseErrors = 0):
 	if (not self.setupFilesystems): return 
 
 	self.startExistingRaid()
@@ -820,12 +820,13 @@ class Fstab:
 		    iutil.mkdirChain(instPath + mntpoint)
 		    isys.mount(device, instPath + mntpoint, fstype = fsystem)
 		except SystemError, (errno, msg):
+		    if raiseErrors:
+			raise SystemError, (errno, msg)
 		    self.messageWindow(_("Error"), 
 			_("Error mounting device %s as %s: %s\n\n"
                           "This most likely means this partition has "
                           "not been formatted.\n\nPress OK to reboot your "
                           "system.") % (device, mntpoint, msg))
-#		    raise SystemError, (errno, msg)
                     sys.exit(0)
 
         try:

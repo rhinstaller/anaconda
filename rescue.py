@@ -84,7 +84,7 @@ def runRescue(serial):
 		  "automatically when you exit from the shell."),
 		  [_("OK")] )
             rootmounted = 1
-	except SystemError, msg:
+	except SystemError:
 	    ButtonChoiceWindow(screen, _("Rescue").
 		_("An error occured trying to mount some or all of your "
 		  "system. Some of it may be mounted under /mnt/sysimage.\n\n"
