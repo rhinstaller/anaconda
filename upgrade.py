@@ -509,6 +509,35 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 log(text)
                 id.hdList["nautilus"].select()
 
+    # more hacks!  we can't really have anything require rhn-applet without
+    # causing lots of pain (think systems that don't want rhn crap installed)
+    # and up2date-gnome is just in the X11 group, so KDE users without GNOME
+    # get it and we really don't want to change that.  so, more ugprade
+    # hacks it is
+    if (id.hdList.has_key("rhn-applet")
+        and not id.hdList["rhn-applet"].isSelected()):
+        log("Upgrade: rhn-applet is not currently selected to be upgraded")
+        recs = None
+        recs2 = None
+        try:
+            recs = db.findbyname("gnome-core")
+            recs2 = db.findbyname("up2date-gnome")
+        except rpm.error:
+            pass
+        if recs and recs2:
+            recs = None
+            try:
+                recs = db.findbyname("rhn-applet")
+            except rpm.error:
+                pass
+            if not recs:
+                text = ("Upgrade: gnome-core and up2date-gnome are on the "
+                        "system, but rhn-applet isn't.  Selecting "
+                        "rhn-applet to be installed")
+                id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
+                log(text)
+                id.hdList["rhn-applet"].select()
+
     del db
 
     # new package dependency fixup
