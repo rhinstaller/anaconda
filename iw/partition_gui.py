@@ -893,7 +893,10 @@ class PartitionWindow(InstallWindow):
                 driveclist = createAllowedDrivesClist(self.diskset.disks,
                                                       origrequest.drive)
 
-                maintable.attach(driveclist, 1, 2, row, row + 1)
+                sw = GtkScrolledWindow()
+                sw.add(driveclist)
+                sw.set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+                maintable.attach(sw, 1, 2, row, row + 1)
             else:
                 maintable.attach(createAlignedLabel(_("Drive:")),
                                  0, 1, row, row + 1)
@@ -1647,8 +1650,12 @@ class AutoPartitionWindow(InstallWindow):
         # XXX bad use of usize
         self.driveclist.set_usize(300, 80)
 
+        sw = GtkScrolledWindow()
+        sw.add(self.driveclist)
+        sw.set_policy(POLICY_NEVER, POLICY_AUTOMATIC)
+        
 	align = GtkAlignment()
-	align.add(self.driveclist)
+	align.add(sw)
 	align.set(0.5, 0.5, 0.0, 0.0)
         
         drivesbox.pack_start(align, FALSE, FALSE)
