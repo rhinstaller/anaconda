@@ -10,7 +10,7 @@ class InstallClass(workstation.InstallClass):
     sortPriority = 5000
     arch = 'i386'
 
-    if pcmcia.hasPcmcia():
+    if pcmcia.pcicType():
 	default = 1
 
     def __init__(self, expert):
