@@ -1,0 +1,10 @@
+#!/usr/bin/python
+
+import rpm
+
+(h, isSource) = rpm.headerFromPackage('foo')
+print "from foo:", h[rpm.RPMTAG_NAME]
+
+list = rpm.readHeaderList('hdlist')
+for n in list:
+    print "from list:", n[rpm.RPMTAG_NAME]
