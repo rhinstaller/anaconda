@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-25 19:22+0200\n"
+"PO-Revision-Date: 2004-07-26 19:16+0200\n"
 "Last-Translator: Tom Berner <tom@man.lodz.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "Nie można ustalić hasła dla vnc - hasło nie zostanie użyte!"
 
 #: ../anaconda:152
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "Upewnij się, że hasło ma conajmniej 6 znaków długości."
+msgstr "Upewnij się, że hasło ma co najmniej 6 znaków długości."
 
 #: ../anaconda:175
 msgid ""
@@ -79,7 +79,7 @@ msgstr "Proszę połącz się ręcznie klientem vnc do %s, celem rozpoczęcia in
 
 #: ../anaconda:200
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "Proszę polącz ręcznie twojego klienta vnc celem rozpoczęcia instalacji."
+msgstr "Proszę połącz ręcznie twojego klienta vnc celem rozpoczęcia instalacji."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
@@ -227,7 +227,7 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 "Partycja startowa %s należy do dysku mającego na początku zbyt mało wolnego "
-"miejsca, aby można było umieścić na nim program uruchomieniowy. Zapewnij co "
+"miejsca, aby można było umieścić na nim boot loader. Zapewnij co "
 "najmniej 5MB wolnego miejsca na początku dysku zawierającego /boot"
 
 #: ../autopart.py:1008
@@ -312,7 +312,7 @@ msgstr ""
 
 #: ../autopart.py:1300
 msgid "Requested Logical Volume Does Not Exist"
-msgstr "Żadany Logczny Wolumen Nie Istnieje"
+msgstr "Żądany Logiczny Wolumen Nie Istnieje"
 
 #: ../autopart.py:1301
 #, python-format
@@ -504,7 +504,7 @@ msgstr "Bootloader"
 
 #: ../bootloader.py:108
 msgid "Installing bootloader..."
-msgstr "Instalacja programu startującego (bootloadera)..."
+msgstr "Instalacja bootloader'a..."
 
 #: ../bootloader.py:156
 msgid ""
@@ -528,7 +528,7 @@ msgstr "Nie można korzystać ze znaku zapytania w trybie wiersza poleceń!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr "Częściowych wyjątków nie mozna obsłużyć w trybie wiersza poleceń!"
+msgstr "Częściowych wyjątków nie można obsłużyć w trybie wiersza poleceń!"
 
 #: ../cmdline.py:131
 #, python-format
@@ -900,10 +900,10 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"Kilka urządzeń w Twoim systemie posiada etykiete %s. Wszystkie "
+"Kilka urządzeń w Twoim systemie posiada etykietę %s. Wszystkie "
 "etykiety urządzeń muszą być unikalne aby system mógł poprawnie działać.\n"
 "\n"
-"Prosze rozwiązać problem i ponowić proces instalacji."
+"Proszę rozwiązać problem i ponowić proces instalacji."
 
 #: ../fsset.py:2125 ../gui.py:643 ../gui.py:1102 ../image.py:96
 #: ../image.py:476 ../packages.py:1485 ../iw/confirm_gui.py:68
@@ -1027,7 +1027,7 @@ msgid ""
 "please choose your diskette carefully."
 msgstr ""
 "Włóż dyskietkę. Ponieważ cała zawartość dyskietki zostanie skasowana, "
-"uważaj abyś włożył odpowiednią dyskietke."
+"uważaj abyś włożył odpowiednią dyskietkę."
 
 #: ../gui.py:746
 msgid "default:LTR"
@@ -1146,8 +1146,8 @@ msgstr ""
 "Oprogramowanie które wybrałeś wymaga następujących płyt CD:\n"
 "\n"
 "%s\n"
-"Prosze je przygotować przed przejściem do dalszego etapu instalacji. "
-"Jeśli chcesz przerwać instalacjie i zrestartować system wybierz \"Restart\"."
+"Proszę je przygotować przed przejściem do dalszego etapu instalacji. "
+"Jeśli chcesz przerwać instalacje i zrestartować system wybierz \"Restart\"."
 
 #: ../image.py:96 ../image.py:477 ../kickstart.py:1386 ../kickstart.py:1414
 #: ../iw/partition_gui.py:1016
@@ -1237,7 +1237,7 @@ msgstr ""
 
 #: ../network.py:41
 msgid "Hostname must be 64 or less characters in length."
-msgstr "Nazwa hosta musi składać się z conajwyżej 64 znaków."
+msgstr "Nazwa hosta musi składać się z co najwyżej 64 znaków."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1245,7 +1245,7 @@ msgstr "Nazwa hosta musi rozpoczynać się od jednego ze znaków 'a-z' lub 'A-Z'
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr "Nazwy hostó mogą zawierać tylko znaki 'a-z', 'A-Z', '-', lub '.'"
+msgstr "Nazwy hostów mogą zawierać tylko znaki 'a-z', 'A-Z', '-', lub '.'"
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
@@ -1510,10 +1510,10 @@ msgstr ""
 "serwerach produkcyjnych.  Celem tego wydania jest zebranie "
 "uwag od testerów i nie jest ono odpowiednie do codziennej pracy.\n"
 "\n"
-"Wszelkie uwagi prosze zgłaszać korzystając z:\n"
+"Wszelkie uwagi proszę zgłaszać korzystając z:\n"
 "   http://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"zanznaczając w zgłoszeniu '%s'.\n"
+"zaznaczając w zgłoszeniu '%s'.\n"
 
 #: ../packages.py:1479
 msgid "_Install anyway"
@@ -1533,10 +1533,10 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Urządzenie %s jest zformatowane zgodnie ze standardem LDL zamiast z CDL. "
-"Urządzenia DASD zformatowane zgodnie z LDL nie są wspierane w trakcie "
+"Urządzenie %s jest sformatowane zgodnie ze standardem LDL zamiast z CDL. "
+"Urządzenia DASD sformatowane zgodnie z LDL nie są wspierane w trakcie "
 "instalacji %s. Jeśli chcesz wykorzystać ten dysk do instalacji, musisz go "
-"zreformatować co spowoduje utrate WSZYSTKICH DANYCH na tym dysku.\n"
+"zreformatować co spowoduje utratę WSZYSTKICH DANYCH na tym dysku.\n"
 "\n"
 "Czy chcesz zreformatować urządzenie DASD zgodnie z formatem CDL?"
 
@@ -1722,7 +1722,7 @@ msgstr "Nie można usunąć wolnego miejsca."
 
 #: ../partIntfHelpers.py:157
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr "Nie możesz usunąć partycji będącej elementem LDL zformatowanego urządzenia DASD."
+msgstr "Nie możesz usunąć partycji będącej elementem LDL sformatowanego urządzenia DASD."
 
 #: ../partIntfHelpers.py:167
 #, python-format
@@ -1773,7 +1773,7 @@ msgstr ""
 #: ../partIntfHelpers.py:307 ../partIntfHelpers.py:320
 #: ../partIntfHelpers.py:346 ../partIntfHelpers.py:357
 msgid "Unable To Edit"
-msgstr "Nie Można Wyedytować"
+msgstr "Nie Można Edytować"
 
 #: ../partIntfHelpers.py:308
 msgid "You must select a partition to edit"
@@ -1784,7 +1784,7 @@ msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr ""
-"Nie można wyedytować tej partycji:\n"
+"Nie można edytować tej partycji:\n"
 "\n"
 
 #: ../partIntfHelpers.py:347
@@ -1793,7 +1793,7 @@ msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
-"Nie możesz wyedytować tej partycji, ponieważ jest to partycja rozszerzona "
+"Nie możesz edytować tej partycji, ponieważ jest to partycja rozszerzona "
 "zawierająca %s"
 
 #: ../partIntfHelpers.py:379
@@ -1983,7 +1983,7 @@ msgstr ""
 
 #: ../partitions.py:773
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr "Musisz utworzyć partycję /boot/efi typu FATo wielkości 50 MB."
+msgstr "Musisz utworzyć partycję /boot/efi typu FAT o wielkości 50 MB."
 
 #: ../partitions.py:796
 msgid "You must create a PPC PReP Boot partition."
@@ -2123,7 +2123,7 @@ msgstr "Uruchamianie interfejsu"
 #: ../rescue.py:124
 #, python-format
 msgid "Attempting to start %s"
-msgstr "Próbuje wwwystartować %s"
+msgstr "Próbuje wystartować %s"
 
 #: ../rescue.py:174
 msgid "Setup Networking"
@@ -2162,20 +2162,20 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"Środowisko ratownicze spóbuje znaleźć teraz twoją instalacje Linux'a "
-"i zamontuje ją w katalogu %s.  Będziesz mógł wtedy dokonąc wszelkich "
-"niezbędnych zmian w swoim systemie.  Jęsli chcesz kontynuować wybierz "
+"Środowisko ratownicze spróbuje znaleźć teraz twoją instalacje Linux'a "
+"i zamontuje ją w katalogu %s.  Będziesz mógł wtedy dokonać wszelkich "
+"niezbędnych zmian w swoim systemie.  Jeśli chcesz kontynuować wybierz "
 "'Dalej'.  Możesz również zamontować swój system w trybie tylko do odczytu, "
 "zamiast w trybie pełnego dostępu, wybierając 'Tylko Odczyt'.\n"
 "\n"
-"Jeśli z jakiegoś powodu ten proces ię nie powiedzie, możesz wybrać 'Pomiń' "
+"Jeśli z jakiegoś powodu ten proces się nie powiedzie, możesz wybrać 'Pomiń' "
 "i krok ten zostanie pominięty a Ty przejdziesz od razu do trybu poleceń powłoki.\n"
 "\n"
 
 #: ../rescue.py:267 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
 #: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:463
 msgid "Continue"
-msgstr "Kontynuuj"
+msgstr "Dalej"
 
 #: ../rescue.py:267 ../rescue.py:276
 msgid "Read-Only"
@@ -2438,7 +2438,7 @@ msgstr ""
 "Architektura wydania %s które aktualizujesz wydaje się być architekturą %s, "
 "która nie odpowiada poprzednio zainstalowanej architekturze %s.  "
 "Prawdopodobnie aktualizacja nie powiedzie się.  Jesteś pewien że chcesz "
-"kontynuowac proces aktualizacji?"
+"kontynuować proces aktualizacji?"
 
 #: ../upgrade.py:475
 #, python-format
@@ -2454,7 +2454,7 @@ msgstr ""
 "Wygląda że system posiada zainstalowane pakiety innych producentów, "
 "pokrywające się z pakietami zawartymi w %s. ponieważ pakiety pokrywają się, "
 "kontynuacja aktualizacji grozi zaprzestaniem działania tych pakietów "
-"lub inną niestabilnością systemu. Prosze przeczytać notkę o wydaniu w celu "
+"lub inną niestabilnością systemu. Proszę przeczytać notkę o wydaniu w celu "
 "uzyskanie dokładniejszych informacji.\n"
 "\n"
 "Czy chcesz kontynuować proces aktualizacji?"
@@ -2496,7 +2496,7 @@ msgid ""
 msgstr ""
 "X nie mogły wystartować.  Czy chcesz uruchomić VNC aby połączyć się "
 "z tym komputerem z innego i wykonać instalacje w trybie graficznym, "
-"czy kontynujuesz dalej instalacje w trybie tekstowym?"
+"czy kontynuujesz dalej instalacje w trybie tekstowym?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
@@ -2521,7 +2521,7 @@ msgid ""
 "installation"
 msgstr ""
 "Hasło zabezpieczy przed nieautoryzowanymi podłączeniami i monitoringiem "
-"postępów twojej instalacji.  Prosze wprowadzić hasło, które będzie wykorzystane "
+"postępów twojej instalacji.  Proszę wprowadzić hasło, które będzie wykorzystane "
 "do instalacji"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
@@ -2550,7 +2550,7 @@ msgstr "Hasło musi mieć co najmniej 6 znaków."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
-msgstr "Monitor rozpoznany DDC"
+msgstr "Rozpoznano Monitor DDC"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3020,7 +3020,7 @@ msgstr ""
 "znajdują się pod adresem:\n"
 "\thttp://rhn.redhat.com/\n"
 "\n"
-"Informacje o użytkownaniu i konfiguracji systemu można znaleźć pod "
+"Informacje o użytkowaniu i konfiguracji systemu można znaleźć pod "
 "adresami:\n"
 "\thttp://www.redhat.com/docs/\n"
 "\thttp://www.redhat.com/apps/support/\n"
@@ -3150,7 +3150,7 @@ msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
 msgstr ""
-"Wybierz tę opcje jeśli chcesz zainstalowac system od nowa. Istniejące "
+"Wybierz tę opcje jeśli chcesz zainstalować system od nowa. Istniejące "
 "oprogramowanie i dane mogą zostać nadpisane w zależności od "
 "ustawienia konfiguracji."
 
@@ -3247,7 +3247,7 @@ msgid ""
 "or a fully active state."
 msgstr ""
 "Security Enhanced Linux (SELinux) dostarcza dokładniejszych metod "
-"kontroli dostępu niż tradycyjny system Linuksowy.  Mozna go ustawić "
+"kontroli dostępu niż tradycyjny system Linuksowy.  Można go ustawić "
 "w stan wyłączony, stan ostrzeżeń o zdarzeniach, które byłyby zabronione "
 "lub w stan pełnej aktywności."
 
@@ -3386,7 +3386,7 @@ msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
-"Ta zmiana wartości ekstentu fizycznego spowoduje strate znacznego "
+"Ta zmiana wartości ekstentu fizycznego spowoduje stratę znacznego "
 "obszaru na co najmniej jednym z wolumenów fizycznych w tej grupie wolumenów."
 
 #: ../iw/lvm_dialog_gui.py:205
@@ -3994,7 +3994,7 @@ msgstr "_Wybierz wszystko w grupie"
 
 #: ../iw/package_gui.py:433
 msgid "_Unselect all in group"
-msgstr "_Rezygnuj ze wszystkieg w grupie"
+msgstr "_Rezygnuj ze wszystkiego w grupie"
 
 #: ../iw/package_gui.py:470 ../textw/packages_text.py:63
 msgid "Package Group Selection"
@@ -4712,7 +4712,7 @@ msgstr "Parametry jądra"
 
 #: ../iw/silo_gui.py:234
 msgid "Create boot disk"
-msgstr "Utwórz dyskietke startową"
+msgstr "Utwórz dyskietkę startową"
 
 #: ../iw/silo_gui.py:244
 msgid "Do not install SILO"
@@ -4966,7 +4966,7 @@ msgstr "Konfiguracja monitora"
 
 #: ../iw/xconfig_gui.py:438 ../textw/xconfig_text.py:467
 msgid "Monitor Unspecified"
-msgstr "Monitor Nieokreślny"
+msgstr "Monitor Nieokreślony"
 
 #: ../iw/xconfig_gui.py:439 ../textw/xconfig_text.py:468
 msgid ""
@@ -5294,12 +5294,12 @@ msgid ""
 "\n"
 msgstr ""
 "Usuń wszystkie nośniki (dyskietki lub CD-ROMy) wykorzystywane w trakcie "
-"instalacji z komputera i wciśnij  aby zresta<Enter>rtować system.\n"
+"instalacji z komputera i wciśnij <Enter> aby zrestartować system.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to reboot"
-msgstr "Wcisnij <Enter> żeby restartować"
+msgstr "Wciśnij <Enter> żeby restartować"
 
 #: ../textw/complete_text.py:38
 #, python-format
@@ -5346,7 +5346,7 @@ msgid ""
 "system. You may want to keep this file for later reference."
 msgstr ""
 "Po restarcie kompletny zapis przebiegu Twojej instalacji będzie znajdował "
-"się w %s. Możesz zachować ten plik do późniejszego przejżenia."
+"się w %s. Możesz zachować ten plik do późniejszego przejrzenia."
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
@@ -5374,7 +5374,7 @@ msgid ""
 "You may want to keep this file for later reference."
 msgstr ""
 "Po restarcie kompletny zapis przebiegu aktualizacji systemu będzie znajdował "
-"się w %s. Możesz zachować ten plik do późniejszego przejżenia."
+"się w %s. Możesz zachować ten plik do późniejszego przejrzenia."
 
 #: ../textw/desktop_choice_text.py:27
 #, python-format
@@ -5386,12 +5386,12 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"The default installation environment includes our recommended package "
-"selection.  Po instalacji dodatkowe oprogramowanie może być dodane "
+"Domyślne instalowane środowisko zawiera rekomendowany przez nas wybór "
+"pakietów.  Po instalacji dodatkowe oprogramowanie może być dodane "
 "lub usunięte przy pomocy programu 'system-config-packages'.\n"
 "\n"
 "Jednakże %s dostarczany jest z o wile większą ilością aplikacji i jeśli chcesz "
-"możeć dostosować liste wybranego oprogramowania do swoich potrzeb."
+"możesz dostosować listę wybranego oprogramowania do swoich potrzeb."
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
@@ -5577,7 +5577,7 @@ msgstr "Maska sieci"
 
 #: ../textw/network_text.py:71
 msgid "Point to Point (IP)"
-msgstr "Punkt-Punt (IP)"
+msgstr "Punkt-Punkt (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:186
 msgid "ESSID"
@@ -5659,8 +5659,8 @@ msgid ""
 msgstr ""
 "Jeśli twój system jest częścią dużej sieci gdzie nazwy hostów przydzielane są "
 "przez DHCP, wybierz automatycznie przez DHCP. W innym przypadku, "
-"wybierz ręcznie i wprowadź nazwe hosta. Jeśli jej nie wprowadzisz twój system "
-"otrzyma nazwe 'localhost'."
+"wybierz ręcznie i wprowadź nazwę hosta. Jeśli jej nie wprowadzisz twój system "
+"otrzyma nazwę 'localhost'."
 
 #: ../textw/network_text.py:403 ../textw/network_text.py:409
 msgid "Invalid Hostname"
@@ -5672,7 +5672,7 @@ msgstr "Nie podano nazwy hosta."
 
 #: ../textw/packages_text.py:56
 msgid "Select individual packages"
-msgstr "Wybierz poszczegÃ³lne pakiety"
+msgstr "Wybierz poszczególne pakiety"
 
 #: ../textw/packages_text.py:73
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
@@ -6221,7 +6221,7 @@ msgstr "Wpisz informacje o użytkowniku."
 
 #: ../textw/userauth_text.py:267
 msgid "Change the information for this user."
-msgstr "Zmień informacje o tym uzytkowniku."
+msgstr "Zmień informacje o tym użytkowniku."
 
 #: ../textw/userauth_text.py:339
 msgid "Use Shadow Passwords"
@@ -6512,7 +6512,7 @@ msgid ""
 "which your machine or your setup may require."
 msgstr ""
 "Boot loader z/IPL zostanie zainstalowany po zakończeniu instalacji. "
-"Możesz teraz wprowdzić dodatkowe parametry jądra i chandev, których "
+"Możesz teraz wprowadzić dodatkowe parametry jądra i chandev, których "
 "wymaga twój komputer lub konfiguracja."
 
 #: ../textw/zipl_text.py:56
@@ -6563,7 +6563,7 @@ msgstr ""
 "\tPrzeglądarka WWW (Mozilla) \n"
 "\tPoczta (Evolution)\n"
 "\tWysyłanie Komunikatów\n"
-"\tAplikacje Obsługi Dzwięku i Video\n"
+"\tAplikacje Obsługi Dźwięku i Video\n"
 "\tGry\n"
 
 #: ../installclasses/server.py:11
@@ -6577,7 +6577,7 @@ msgid ""
 "and you can choose whether or not to install a graphical environment."
 msgstr ""
 "Wybierz ten typ instalacji, jeśli chcesz skonfigurować współdzielenie "
-"plików, współdzielenie drukarek i usługi WWW. Można włączyć rółnież "
+"plików, współdzielenie drukarek i usługi WWW. Można włączyć również "
 "inne usługi i wybrać, czy ma zostać zainstalowane graficzne środowisko pracy."
 
 #: ../installclasses/workstation.py:8
@@ -6609,7 +6609,7 @@ msgstr ""
 "\tPrzeglądarka WWW (Mozilla) \n"
 "\tPoczta (Evolution)\n"
 "\tWysyłanie Komunikatów\n"
-"\tAplikacje Obsługi Dzwięku i Video\n"
+"\tAplikacje Obsługi Dźwięku i Video\n"
 "\tGry\n"
 "\tNarzędzia Programistyczne\n"
 "\tNarzędzia Administracyjne\n"
@@ -6885,7 +6885,7 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Wygląda, że nie masz żadnego dysku twardego! Chcesz skonfigurowac dodatkowe "
+"Wygląda, że nie masz żadnego dysku twardego! Chcesz skonfigurować dodatkowe "
 "urządzenia?"
 
 #: ../loader2/hdinstall.c:343
@@ -7038,7 +7038,7 @@ msgstr "Metoda instalacji"
 
 #: ../loader2/loader.c:825
 msgid "What type of media contains the rescue image?"
-msgstr "Jakiego rodzaju nośnik zawiera dyskietke ratunkową?"
+msgstr "Jakiego rodzaju nośnik zawiera dyskietkę ratunkową?"
 
 #: ../loader2/loader.c:827
 msgid "What type of media contains the packages to be installed?"
@@ -7092,7 +7092,7 @@ msgstr "Dodanie urządzenia"
 #: ../loader2/loader.c:1136
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "narzędzie łądujące zostało już uruchomione.  Uruchamiam powłokę.\n"
+msgstr "loader został już uruchomiony.  Uruchamiam powłokę.\n"
 
 #: ../loader2/loader.c:1484
 #, c-format
@@ -7183,7 +7183,7 @@ msgstr ""
 #: ../loader2/mediacheck.c:349
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr "Zakończono sprawdzanie nośnika %sz wynikiem: %s\n"
+msgstr "Zakończono sprawdzanie nośnika %sis z wynikiem: %s\n"
 
 #: ../loader2/method.c:151 ../loader2/method.c:360 ../loader2/method.c:445
 #, c-format
@@ -7232,9 +7232,9 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
-"%s jest bezprzewodową kartą sieciową.  Prosze wskazać ESSID "
+"%s jest bezprzewodową kartą sieciową.  Proszę wskazać ESSID "
 "oraz klucz szyfrujący aby uzyskać dostęp do sieci bezprzewodowej.  "
-"Jeśli klucz nie jest wymagany prosze jego pole zostawić puste a instalacja "
+"Jeśli klucz nie jest wymagany proszę jego pole zostawić puste a instalacja "
 "będzie kontynuowana."
 
 #: ../loader2/net.c:190
@@ -7304,7 +7304,7 @@ msgstr "Pierwszy serwer nazw:"
 
 #: ../loader2/net.c:490
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr "Użcie dynamicznej konfiguracji IP (BOOTP/DHCP)"
+msgstr "Użycie dynamicznej konfiguracji IP (BOOTP/DHCP)"
 
 #: ../loader2/net.c:518
 msgid "Configure TCP/IP"
@@ -7477,7 +7477,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr "Jęzeli używasz proxy HTTP, podaj jego nazwę."
+msgstr "Jeżeli używasz proxy HTTP, podaj jego nazwę."
 
 #: ../loader2/urls.c:431
 msgid "Account name:"
