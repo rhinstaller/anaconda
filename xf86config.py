@@ -697,6 +697,7 @@ Section "Screen"
     Monitor     "%(MONITOR)s"
 """ % info
             for depth in self.modes.keys ():
+		if not self.modes[depth]: continue
                 section = section + """
     Subsection "Display"
         Depth       %s
