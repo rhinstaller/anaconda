@@ -76,7 +76,10 @@ class ManualPartitionWindow:
                     # XXX FIXME
                     pass
 		iutil.execWithRedirect (path, [ path, "/tmp/" + device ])
-                os.remove ('/tmp/' + device)
+                try:
+                    os.remove ('/tmp/' + device)
+                except:
+                    # XXX fixme
 		screen.resume ()
 
 	if button == "back":
