@@ -382,7 +382,8 @@ def getDasdState(dev):
     for line in lines:
         if not line.startswith(devs[dev]):
             continue
-        if line.find(" ready") != -1:
+        # 2.6 seems to return basic
+        if line.find(" basic") != -1:
             return 1
         
     return 0
