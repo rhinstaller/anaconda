@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2002-07-30 10:12-0400\n"
-"PO-Revision-Date: 2002-07-12 15:50+0200\n"
+"PO-Revision-Date: 2002-07-31 15:50+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -447,7 +447,7 @@ msgid "Master Boot Record (MBR)"
 msgstr "'Master Boot Record' (MBR)"
 
 #: ../fsset.py:1016
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -484,7 +484,7 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1093
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -497,7 +497,7 @@ msgstr ""
 "Tryk <Enter> for at starte systemet igen."
 
 #: ../fsset.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -510,14 +510,14 @@ msgstr ""
 "Tryk på retur for at genstarte systemet."
 
 #: ../fsset.py:1179
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Der opstod en fejl ved flytning af %s. Dette problem er så alvorligt, at "
+"Der opstod en fejl ved migrering af %s. Dette problem er så alvorligt, at "
 "installationen ikke kan fortsætte.\n"
 "\n"
 "Tryk på retur for at genstarte systemet."
@@ -527,21 +527,21 @@ msgid "Invalid mount point"
 msgstr "Ugyldigt monteringspunkt"
 
 #: ../fsset.py:1200
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Der opstod en fejl ved forsøg på oprettelse af %s. En delnavn i denne sti er "
+"Der opstod en fejl ved forsøg på oprettelse af %s. Et delnavn i denne sti er "
 "ikke et katalog. Dette problem er så alvorligt, at installationen ikke kan "
 "fortsætte.\n"
 "\n"
 "Tryk på retur for at genstarte systemet."
 
 #: ../fsset.py:1209
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -1082,34 +1082,26 @@ msgid "Please specify a mount point for this partition."
 msgstr "Specificér et monteringspunkt for denne partition."
 
 #: ../partIntfHelpers.py:104
-#, fuzzy
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Du kan ikke %s denne partition, da den indeholder data for harddisk-"
-"installationen."
+msgstr "Denne partition indeholder dataene for harddiskinstallationen."
 
 #: ../partIntfHelpers.py:110
-#, fuzzy, python-format
+#, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr ""
-"Du kan ikke %%s denne partition, da den er en del af RAID-enheden /dev/md%s."
+msgstr "Denne partition er en del af RAID-enheden /dev/md%s."
 
 #: ../partIntfHelpers.py:113
-#, fuzzy
 msgid "This partition is part of a RAID device."
-msgstr "Du kan ikke %s denne partition, da den er en del af en RAID-enhed."
+msgstr "Denne partition er en del af en RAID-enhed."
 
 #: ../partIntfHelpers.py:118
-#, fuzzy, python-format
+#, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr ""
-"Du kan ikke %%s denne partition, da den er en del af LVM-afsnitsgruppen '%s'."
+msgstr "Denne partition er en del af LVM-afsnitsgruppen '%s'."
 
 #: ../partIntfHelpers.py:121
-#, fuzzy
 msgid "This partition is part of a LVM volume group."
-msgstr ""
-"Du kan ikke %s denne partition, da den er en del af en LVM-afsnitsgruppe."
+msgstr "Denne partition er en del af en LVM-afsnitsgruppe."
 
 #: ../partIntfHelpers.py:136 ../partIntfHelpers.py:150
 #: ../partIntfHelpers.py:160 ../partIntfHelpers.py:177
@@ -1138,11 +1130,12 @@ msgstr ""
 "indeholder %s"
 
 #: ../partIntfHelpers.py:178
-#, fuzzy
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
-msgstr "Du er i færd med at slette partitionen /dev/%s."
+msgstr ""
+"Du kan ikke slette denne partition:\n"
+"\n"
 
 #: ../partIntfHelpers.py:222 ../partIntfHelpers.py:522
 #: ../iw/lvm_dialog_gui.py:682
@@ -1163,7 +1156,7 @@ msgstr "_Slet"
 
 #: ../partIntfHelpers.py:284
 msgid "Notice"
-msgstr ""
+msgstr "Bemærk"
 
 #: ../partIntfHelpers.py:285
 #, python-format
@@ -1183,15 +1176,16 @@ msgid "You must select a partition to edit"
 msgstr "Du skal vælge en partition for redigering"
 
 #: ../partIntfHelpers.py:314 ../partIntfHelpers.py:357
-#, fuzzy
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
-msgstr "Du er i færd med at slette partitionen /dev/%s."
+msgstr ""
+"Du kan ikke redigere denne partition:\n"
+"\n"
 
 #: ../partIntfHelpers.py:328
 msgid "You must go back and use fdasd to inititalize this partition"
-msgstr ""
+msgstr "Du skal gå tilbage og bruge fdasd for at initialisere denne partition"
 
 #: ../partIntfHelpers.py:346
 #, python-format
@@ -1204,7 +1198,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:378
 msgid "Format as Swap?"
-msgstr "Formaterér som swap?"
+msgstr "Formatér som swap?"
 
 #: ../partIntfHelpers.py:379
 #, python-format

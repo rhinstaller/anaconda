@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-07-30 10:12-0400\n"
-"PO-Revision-Date: 2002-07-28 16:15+0100\n"
+"PO-Revision-Date: 2002-07-31 13:18+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -3801,13 +3801,11 @@ msgid "Check for _bad blocks?"
 msgstr "Verificar os _blocos danificados?"
 
 #: ../iw/partition_ui_helpers_gui.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
-msgstr ""
-"As partições do tipo '%s' devem-se restringir a um único dispositivo. Isto é "
-"feito através das opções 'Drives Permitidas'."
+msgstr "As partições do tipo '%s' devem-se restringir a um único dispositivo.  Isto é feito seleccionado o dispositivo na lista de 'Unidades Permitidas'."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -5949,15 +5947,11 @@ msgstr ""
 "preferências de autenticação."
 
 #: ../installclasses/personal_desktop.py:12
-#, fuzzy
 msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
-msgstr ""
-"Perfeito para os computadores móveis ou portáteis, seleccione este tipo de "
-"instalação para criar um ambiente de trabalho gráfico ou para criar um "
-"sistema ideal para usar em casa ou no trabalho."
+msgstr "Perfeito para computadores pessoais ou portáteis, seleccione este tipo de instalação para criar um ambiente de trabalho gráfico ou para criar um sistema ideal para usar em casa ou no trabalho."
 
 #: ../installclasses/server.py:10
 msgid "Server"
@@ -7559,17 +7553,3 @@ msgstr "Sueco"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ucraniano"
-
-#~ msgid ""
-#~ "Unable to create symlink for /var/tmp.  This should only happen if there "
-#~ "were errors creating your filesystems.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Não foi possível criar uma ligação simbólica para /var/tmp. Isto só deve "
-#~ "acontecer se ocorreram erros ao criar os sistemas de ficheiros.\n"
-#~ "\n"
-#~ "Carregue no botão OK para reiniciar o seu computador."
-
-#~ msgid "Attempting to start VGA16 X server"
-#~ msgstr "A tentar iniciar servidor X VGA16"

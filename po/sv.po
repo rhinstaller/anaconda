@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-07-30 10:12-0400\n"
-"PO-Revision-Date: 2002-07-24 11:06+0200\n"
+"PO-Revision-Date: 2002-08-01 15:15+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1961,7 +1961,7 @@ msgstr "Ange rootlösenordet (administratörslösenordet) för detta system."
 
 #: ../iw/account_gui.py:364
 msgid "_Confirm: "
-msgstr "_Bekräfta: "
+msgstr "B_ekräfta: "
 
 #: ../iw/account_gui.py:406
 msgid "Account Name"
@@ -2111,7 +2111,7 @@ msgstr "_Lösenord:"
 
 #: ../iw/blpasswidget.py:118
 msgid "Con_firm:"
-msgstr "Bek_räfta:"
+msgstr "B_ekräfta:"
 
 #: ../iw/blpasswidget.py:139
 msgid "Passwords don't match"
@@ -2149,7 +2149,7 @@ msgid ""
 msgstr ""
 "Startdisketten låter dig starta ditt %s-system från en diskett. En "
 "startdiskett låter dig starta ditt system om din startprogramskonfiguration "
-"slutar fungera, om du inte väljer att installera ett startprogram, eller om "
+"slutar fungera, om du väljer att inte installera ett startprogram, eller om "
 "ditt tredjepartsstartprogram inte stöder Linux.\n"
 "\n"
 "Det rekommenderas varmt att du skapar en startdiskett.\n"
@@ -2160,7 +2160,7 @@ msgstr "_Ja, jag vill skapa en startdiskett"
 
 #: ../iw/bootdisk_gui.py:73
 msgid "No, I _do not want to create a boot disk"
-msgstr "Nej, jag _vill inte skapa en startdiskett"
+msgstr "N_ej, jag vill inte skapa en startdiskett"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
@@ -2639,7 +2639,7 @@ msgstr "_Mellan"
 
 #: ../iw/firewall_gui.py:199
 msgid "N_o firewall"
-msgstr "I_ngen brandvägg"
+msgstr "_Ingen brandvägg"
 
 #: ../iw/firewall_gui.py:215
 msgid "Use _default firewall rules"
@@ -2655,11 +2655,11 @@ msgstr "_Pålitliga enheter:"
 
 #: ../iw/firewall_gui.py:254
 msgid "_Allow incoming:"
-msgstr "Till_åt inkommande:"
+msgstr "_Tillåt inkommande:"
 
 #: ../iw/firewall_gui.py:278
 msgid "Other _ports:"
-msgstr "Andra _portar:"
+msgstr "Andra p_ortar:"
 
 #: ../iw/installpath_gui.py:36 ../textw/installpath_text.py:42
 msgid "Installation Type"
@@ -2695,7 +2695,7 @@ msgstr "Välj _ytterligare språk som du vill installera på systemet:"
 
 #: ../iw/language_support_gui.py:208
 msgid "_Select All"
-msgstr "_Välj alla"
+msgstr "V_älj alla"
 
 #: ../iw/language_support_gui.py:214
 msgid "Select Default _Only"
@@ -3037,7 +3037,7 @@ msgstr "/dev/ttyS3 (COM4 i DOS)"
 
 #: ../iw/mouse_gui.py:93 ../iw/osbootwidget.py:157
 msgid "_Device"
-msgstr "_Enhet"
+msgstr "E_nhet"
 
 #: ../iw/mouse_gui.py:138
 msgid "_Model"
@@ -3166,7 +3166,7 @@ msgstr "_IP-adress"
 
 #: ../iw/network_gui.py:225
 msgid "Net_mask"
-msgstr "Nät_mask"
+msgstr "_Nätmask"
 
 #: ../iw/network_gui.py:228
 msgid "Point to Point (IP)"
@@ -3249,11 +3249,11 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
-msgstr "E_tikett"
+msgstr "_Etikett"
 
 #: ../iw/osbootwidget.py:193
 msgid "Default Boot _Target"
-msgstr "Standardstartm_ål"
+msgstr "_Standardstartmål"
 
 #: ../iw/osbootwidget.py:222
 msgid "You must specify a label for the entry"
@@ -3731,7 +3731,7 @@ msgid "Check for _bad blocks?"
 msgstr "Sök efter s_kadade block?"
 
 #: ../iw/partition_ui_helpers_gui.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
@@ -5878,7 +5878,6 @@ msgstr ""
 "autentiseringsinställningar."
 
 #: ../installclasses/personal_desktop.py:12
-#, fuzzy
 msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
