@@ -167,6 +167,9 @@ class InstallClass:
 	return (self.bootProto, self.ip, self.netmask, self.gateway, 
 		self.nameserver)
 
+    def setEarlySwapOn(self, state = 0):
+	self.earlySwapOn = state
+
     def setLanguage(self, lang):
 	self.language = lang
 
@@ -208,6 +211,7 @@ class InstallClass:
 	self.postScript = None
 	self.postInChroot = 0
 	self.fstab = []
+	self.earlySwapOn = 0
 
 # we need to be able to differentiate between this and custom
 class DefaultInstall(InstallClass):

@@ -333,6 +333,7 @@ class Kickstart(InstallClass):
         self.addToSkipList("welcome")
         self.addToSkipList("package-selection")
         self.addToSkipList("confirm-install")
+	self.setEarlySwapOn(1)
 	self.partitions = []
 
 	self.installType = "install"

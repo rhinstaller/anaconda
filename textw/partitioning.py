@@ -154,15 +154,16 @@ class TurnOnSwapWindow:
 	if self.beenTurnedOn or (iutil.memInstalled() > 34000):
 	    return INSTALL_NOOP
 
-	rc = ButtonChoiceWindow(screen, _("Low Memory"),
-		   _("As you don't have much memory in this machine, we "
-		     "need to turn on swap space immediately. To do this "
-		     "we'll have to write your new partition table to the "
-		     "disk immediately. Is that okay?"),
-		   [ (_("Yes"), "yes"), (_("No"), "back") ], width = 50)
+        if not todo.instClass.earlySwapOn:
+	    rc = ButtonChoiceWindow(screen, _("Low Memory"),
+		       _("As you don't have much memory in this machine, we "
+			 "need to turn on swap space immediately. To do this "
+			 "we'll have to write your new partition table to the "
+			 "disk immediately. Is that okay?"),
+		       [ (_("Yes"), "yes"), (_("No"), "back") ], width = 50)
 
-	if (rc == "back"):
-	    return INSTALL_BACK
+	    if (rc == "back"):
+		return INSTALL_BACK
 
 	todo.ddruid.save ()
 	todo.makeFilesystems (createFs = 0)
