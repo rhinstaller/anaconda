@@ -354,21 +354,15 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # according to jbj
     if (os.access(instPath + "/var/lib/rpm/packages.rpm", os.R_OK) and
         not os.access(instPath + "/var/lib/rpm/Packages", os.R_OK)):
-        id.dbpath = "%s/var/lib/rpm-%s" %(instPath, rebuildTime)
-        shutil.copytree("%s/var/lib/rpm" %(instPath,), id.dbpath)
+        win.pop()
+        intf.messageWindow(_("Error"),
+                           _("The installation program is unable to upgrade "
+                             "systems with a pre-rpm 4.x database. "
+                             "Please install the errata rpm packages "
+                             "for your release as described in the release "
+                             "notes and then run the upgrade procedure."))
+        sys.exit(0)
         
-        args = [ "/usr/libexec/convertdb1",
-                 "-r", instPath, "/var/lib/rpm/packages.rpm" ]
-        rc = iutil.execWithRedirect(args[0], args,
-                                    stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
-
-        if rc:
-            win.pop()
-            intf.messageWindow(_("Error"),
-                               _("Rebuild of RPM database failed. "
-                                 "You may be out of disk space?"))
-            sys.exit(0)
     else:
         id.dbpath = None
         
