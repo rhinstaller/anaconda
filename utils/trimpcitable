@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+
+for $n (@ARGV) {
+    $mods{$n} = $n
+}
+
+while (<STDIN>) {
+    chop;
+    @a = split;
+    $mods{$a[2]} && print "$_\n";
+}
