@@ -420,7 +420,7 @@ def copyDeviceNode(src, dest):
     isys.mknod(dest, mode | type, filestat.st_rdev)
 
 # make the device-mapper control node
-def makeDMNode():
+def makeDMNode(root="/"):
     major = minor = None
 
     for (fn, devname, val) in ( ("/proc/devices", "misc", "major"),
@@ -441,8 +441,8 @@ def makeDMNode():
 #    print "major is %s, minor is %s" %(major, minor)
     if major is None or minor is None:
         return
-    mkdirChain("/dev/mapper")
-    isys.mknod("/dev/mapper/control", stat.S_IFCHR | 0600,
+    mkdirChain(root + "/dev/mapper")
+    isys.mknod(root + "/dev/mapper/control", stat.S_IFCHR | 0600,
                isys.makedev(major, minor))
 
 
