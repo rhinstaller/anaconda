@@ -135,10 +135,11 @@ def swapSuggestion(instPath, fstab):
 	    fsList.append(info)
     else:
 	for info in fstab.mountList():
-	    (mntpoint, partition) = info[0:2]
-	    space = isys.pathSpaceAvailable(instPath + mntpoint)
-	    info = (mntpoint, partition, space)
-	    fsList.append(info)
+	    (mntpoint, partition, fsystem) = info[0:3]
+	    if fsystem == "ext2":
+		space = isys.pathSpaceAvailable(instPath + mntpoint)
+		info = (mntpoint, partition, space)
+		fsList.append(info)
 
     suggestion = mem * 2 - swap
     suggSize = 0
