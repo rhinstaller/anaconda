@@ -41,9 +41,12 @@ def sanityCheckVolumeGroupName(volname):
     if volname in badNames:
 	return _("Error - the volume group name %s is not valid." % (volname,))
 
-    if string.find(volname, '/') != -1 or string.find(volname, ' ') != -1:
-	return _("Error - the volume group name contains illegal characters "
-		 " or spaces.")
+    for i in range(0, len(volname)):
+	rc = string.find(string.letters + string.digits + '.' + '_', volname[i])
+	if rc == -1:
+	    return _("Error - the volume group name contains illegal "
+		     "characters or spaces.  Acceptable characters "
+		     "are letters, digits, '.' or '_'.")
     return None
 
 def sanityCheckLogicalVolumeName(logvolname):
@@ -62,10 +65,12 @@ def sanityCheckLogicalVolumeName(logvolname):
 	return _("Error - the logical volume name %s is not "
                  "valid." % (logvolname,))
 
-    if (string.find(logvolname, '/') != -1 or
-        string.find(logvolname, ' ') != -1):
-	return _("Error - the logical volume name contains illegal "
-                 "characters or spaces.")
+    for i in range(0, len(logvolname)):
+	rc = string.find(string.letters + string.digits + '.' + '_', logvolname[i])
+	if rc == -1:
+	    return _("Error - the logical volume name contains illegal "
+		     "characters or spaces.  Acceptable characters "
+		     "are letters, digits, '.' or '_'.")
     return None
 
 def sanityCheckMountPoint(mntpt, fstype, preexisting):
