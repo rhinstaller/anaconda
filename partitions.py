@@ -194,6 +194,7 @@ class Partitions:
             lines = f.readlines()
             f.close()
             pesize = 0
+            preexist_size = None
             for line in lines:
                 fields = line.split(':',1)
                 if len(fields) < 2:
@@ -205,6 +206,13 @@ class Partitions:
                     except:
                         log("PE size for %s not a valid integer, defaulting to 4096" %(vg,))
                         pesize = 4096
+                elif fields[0].strip() == "size":
+                    preexist_size = fields[1].strip()
+                    try:
+                        preexist_size = int(preexist_size)
+                    except:
+                        log("preexisting size for %s not a valid integer, ignoring" %(vg,))
+                        preexist_size = None
 
             if not pesize:
                 log("Unable to find PE size for %s, defaulting to 4096" %(vg,))
@@ -227,7 +235,8 @@ class Partitions:
                                                        vgname = vg,
                                                        physvols = pvids,
                                                        pesize = pesize,
-                                                       preexist = 1)
+                                                       preexist = 1.
+                                                       preexist_size = preexist_size)
             vgid = self.addRequest(spec)
 
             # now we need to find out about the logical volumes

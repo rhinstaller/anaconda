@@ -643,7 +643,8 @@ class VolumeGroupRequestSpec(RequestSpec):
     
     def __init__(self, fstype =None, format = None,
                  vgname = None, physvols = None,
-                 pesize = 4096, preexist = 0):
+                 pesize = 4096, preexist = 0,
+                 preexist_size = 0):
         """Create a new VolumeGroupRequestSpec object.
 
         fstype is the fsset filesystem type.
@@ -652,6 +653,8 @@ class VolumeGroupRequestSpec(RequestSpec):
         physvols is a list of the ids for the physical volumes in the vg.
         pesize is the size of a physical extent in kilobytes.
         preexist is whether the volume group is preexisting.
+        preexist_size is the size of a preexisting VG read from /proc
+            (note that this is unclamped)
         """
 
         if not fstype:
@@ -663,6 +666,11 @@ class VolumeGroupRequestSpec(RequestSpec):
         self.physicalVolumes = physvols
         self.pesize = pesize
         self.preexist = preexist
+
+        if preexist and preexist_size:
+            self.preexist_size = preexist_size
+        else:
+            self.preexist_size = None
 
     def __str__(self):
         physvols = []
@@ -700,12 +708,17 @@ class VolumeGroupRequestSpec(RequestSpec):
         if self.physicalVolumes is None:
             return 0
 
-        totalspace = 0
-        for pvid in self.physicalVolumes:
-            pvreq = partitions.getRequestByID(pvid)
-            size = pvreq.getActualSize(partitions, diskset)
-	    size = lvm.clampPVSize(size, self.pesize)
-            totalspace = totalspace + size
+        # if we have a preexisting size, use it
+        if self.preexist and self.preexist_size:
+            totalspace = ((self.preexist_size / self.pesize) *
+                          self.preexist_size)
+        else:
+            totalspace = 0
+            for pvid in self.physicalVolumes:
+                pvreq = partitions.getRequestByID(pvid)
+                size = pvreq.getActualSize(partitions, diskset)
+                size = lvm.clampPVSize(size, self.pesize)
+                totalspace = totalspace + size
 
         return totalspace
 
