@@ -17,7 +17,7 @@
 #include "stubs.h"
 
 int isysLoadFont(void) {
-    char font[65536];
+    unsigned char font[65536];
     struct console_font_op cfo;
     unsigned short map[E_TABSZ];
     struct unimapdesc d;
