@@ -1663,6 +1663,7 @@ class InstallInterface:
             ]
 
         self.steps = self.commonSteps
+	dir = 1
 
         while self.step >= 0 and self.step < len(self.steps) and self.steps[self.step]:
 	    step = self.steps[self.step]
