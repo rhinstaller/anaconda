@@ -2533,8 +2533,8 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
-#if 0
     mlLoadModule("cramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+#if 0
     mlLoadModule("ramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 #endif
 
