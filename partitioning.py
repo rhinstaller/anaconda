@@ -1050,6 +1050,24 @@ class Partitions:
 
         return retval
 
+    def getLVMRequests(self):
+        retval = {}
+        for request in self.requests:
+            if request.type == REQUEST_VG:
+                if request.volumeGroupName not in retval.keys():
+                    retval[request.volumeGroupName] = []
+            elif request.type == REQUEST_LV:
+                vg = self.getRequestByID(request.volumeGroup)
+                if not vg:
+                    raise RuntimeError, "Have a logical volume without a volume group"
+                vgname = vg.volumeGroupName
+                if vgname in retval.keys():
+                    retval[vgname].append(request)
+                else:
+                    retval[vgname] = [ request ] 
+
+        return retval
+
     def isRaidMember(self, request):
         raiddev = self.getRaidRequests()
         if not raiddev or not request.device:
