@@ -337,7 +337,6 @@ class ToDo:
         
         self.keyboard = Keyboard ()
         self.auth = Authentication ()
-        self.desktop = Desktop ()
         self.ddruidReadOnly = 0
         self.bootdisk = 1
 
@@ -470,9 +469,10 @@ class ToDo:
 	self.mouse.makeLink(self.instPath)
 
     def writeDesktop(self):
-        self.desktop.set (self.instClass.getDesktop())
+        desktop = Desktop ()
+        desktop.set (self.instClass.getDesktop())
 	f = open(self.instPath + "/etc/sysconfig/desktop", "w")
-	f.write(str (self.desktop))
+	f.write(str (desktop))
 	f.close()
 
     def writeKeyboard(self):
