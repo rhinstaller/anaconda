@@ -243,7 +243,7 @@ class Partitions:
                     lvorigin = lvorigin)
                 self.addRequest(spec)
 
-        for origin, snapnames in snapshots.entries():
+        for origin, snapnames in snapshots.items():
             parent = self.getRequestByLogicalVolumeName(origin)
             for snapname in snapnames:
                 child = self.getRequestByLogicalVolumeName(snapname)
