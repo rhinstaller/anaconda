@@ -1,0 +1,2 @@
+void loadModule() { }
+void removeModule() { }
