@@ -938,7 +938,7 @@ class ToDo:
 
         # /etc/hosts
         f = open (self.instPath + "/etc/hosts", "w")
-        localline = "127.0.0.1\t\tlocalhost.localdomain "
+        localline = "127.0.0.1\t\tlocalhost.localdomain localhost "
         if self.network.hostname != "localhost.localdomain":
             localline = localline + self.network.hostname
         f.write (localline + "\n")
