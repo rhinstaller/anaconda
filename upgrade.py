@@ -48,7 +48,7 @@ def findExistingRoots(intf, id, chroot):
     return rootparts
 
 def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
-		       raiseErrors = 0):
+		       raiseErrors = 0, warnDirty = 0):
     (root, rootFs) = rootInfo
 
     diskset = DiskSet()
@@ -79,6 +79,13 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
 	      "installation, let the filesystems be checked, and "
 	      "shut down cleanly to upgrade."))
 	sys.exit(0)
+    elif warnDirty and oldfsset.hasDirtyFilesystems():
+        rc = intf.messageWindow(_("Dirty Filesystems"),
+                 _("One or more filesystems for your Linux system "
+                   "was not unmounted cleanly.  Would you like to mount "
+                   "them anyway?"), type = "yesno")
+        if rc == 0:
+            return -1
 
     if flags.setupFilesystems:
         oldfsset.mountFilesystems(instPath)

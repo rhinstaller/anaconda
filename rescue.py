@@ -15,6 +15,7 @@
 
 import upgrade
 from snack import *
+from constants_text import *
 from text import WaitWindow, OkCancelWindow
 from translate import _
 import sys
@@ -32,6 +33,14 @@ class RescueInterface:
 	if type == "ok":
 	    ButtonChoiceWindow(self.screen, _(title), _(text),
 			       buttons = [ _("OK") ])
+        elif type == "yesno":
+            btnlist = [TEXT_YES_BUTTON, TEXT_NO_BUTTON]
+	    rc = ButtonChoiceWindow(self.screen, _(title), _(text),
+			       buttons=btnlist)
+            if rc == "yes":
+                return 1
+            else:
+                return 0
 	else:
 	    return OkCancelWindow(self.screen, _(title), _(text))
 
@@ -138,20 +147,30 @@ def runRescue(instPath, mountroot, id):
 
     rootmounted = 0
     if root:
-	try:
+        try:
 	    fs = fsset.FileSystemSet()
-	    upgrade.mountRootPartition(intf, root, fs, instPath,
-				       allowDirty = 1)
-	    ButtonChoiceWindow(screen, _("Rescue"),
-		_("Your system has been mounted under /mnt/sysimage.\n\n"
-		  "Press <return> to get a shell. If you would like to "
-		  "make your system the root environment, run the command:\n\n"
-		  "\tchroot /mnt/sysimage\n\nThe system will reboot "
-		  "automatically when you exit from the shell."),
-		  [_("OK")] )
-            rootmounted = 1
+	    rc = upgrade.mountRootPartition(intf, root, fs, instPath,
+                                            allowDirty = 1, warnDirty = 1)
+
+            if rc == -1:
+                ButtonChoiceWindow(screen, _("Rescue"),
+                    _("Your system had dirty filesystems which you chose not "
+                      "to mount.  Press return to get a shell from which "
+                      "you can fsck and mount your partitions.  The system "
+                      "will reboot automatically when you exit from the "
+                      "shell."), [_("OK")], width = 50)
+                rootmounted = 0
+            else:
+                ButtonChoiceWindow(screen, _("Rescue"),
+		   _("Your system has been mounted under /mnt/sysimage.\n\n"
+                     "Press <return> to get a shell. If you would like to "
+                     "make your system the root environment, run the command:\n\n"
+                     "\tchroot /mnt/sysimage\n\nThe system will reboot "
+                     "automatically when you exit from the shell."),
+                                   [_("OK")] )
+                rootmounted = 1
 	except:
-	    # This looks horrible, but all it does is catch every exception,
+            # This looks horrible, but all it does is catch every exception,
 	    # and reraise those in the tuple check. This lets programming
 	    # errors raise exceptions, while any runtime error will
 	    # still result in a shell. 
