@@ -39,6 +39,10 @@ msgid ""
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
 msgstr ""
+"Ядру не удается прочитать новую информацию о разбиении диска, возможно из-за "
+"того, что вы модифицировали расширенные разделы. Для продолжения компьютер "
+"необходимо перегрузить. Вставьте загрузочный диск Red Hat и нажмите \"Ok\" "
+"для перезагрузки системы.\n"
 
 #: ../fstab.py:393 ../fstab.py:620 ../fstab.py:630 ../fstab.py:654
 msgid "Formatting"
@@ -191,6 +195,8 @@ msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
+"Произошла ошибка при переносе установочного образа на ваш жесткий диск. "
+"Наиболее вероятная причина - отсутствие места на диске."
 
 #: ../image.py:78
 msgid "Change CDROM"
@@ -2514,9 +2520,9 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
-"Устройство RAID /dev/%s содержит нераспределенные разделы. Оно будет разбито "
-"на разделы-компоненты. Пересоздайте устройство RAID с распределенными "
-"разделами."
+"Устройство RAID /dev/%s содержит нераспределенные разделы. /dev/%s будет "
+"разбито на разделы-компоненты. Пересоздайте устройство RAID с "
+"распределенными разделами."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1579 ../libfdisk/gnomefsedit.c:1598
@@ -2982,7 +2988,7 @@ msgstr "Диск драйвера"
 #: ../loader/devices.c:504
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr "Вставьте пожалуйста %d диск драйвера."
+msgstr "Вставьте пожалуйста %s диск драйвера."
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -3306,7 +3312,7 @@ msgstr "kickstart"
 #: ../loader/net.c:644
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr "неверный аргумент сетевой команды  %s: :s%"
+msgstr "неверный аргумент сетевой команды  %s: :%s"
 
 #: ../loader/net.c:677
 #, c-format
@@ -3478,61 +3484,60 @@ msgstr "Загрузка драйвера SCSI"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr ""
+msgstr "отобразить Образ на дисплей"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr ""
+msgstr "Ширина карты (в пикселях)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
-msgstr ""
+msgstr "Разрашить антиалиасинг"
 
 #: ../gnome-map/gglobe-canvas.c:100
 msgid "World"
-msgstr ""
+msgstr "Мир"
 
 #: ../gnome-map/gglobe-canvas.c:101
 msgid "North America"
-msgstr ""
+msgstr "Северная Америка"
 
 #: ../gnome-map/gglobe-canvas.c:102
 msgid "South America"
-msgstr ""
+msgstr "Южная Америка"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Pacific Rim"
-msgstr ""
+msgstr "Тихоокеанский регион"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
-msgstr ""
+msgstr "Европа"
 
 #: ../gnome-map/gglobe-canvas.c:105
 msgid "Africa"
-msgstr ""
+msgstr "Африка"
 
 #: ../gnome-map/gglobe-canvas.c:106
 msgid "Asia"
-msgstr ""
+msgstr "Азия"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr ""
+msgstr "Невозможно загрузить данные о часовых поясах"
 
 #: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
-msgstr ""
+msgstr "gglobe-canvas"
 
 #: ../gnome-map/gglobe-canvas.c:764
-#, fuzzy
 msgid "View: "
 msgstr "Просмотр:"
 
 #. pick New York City as default
 #: ../gnome-map/gglobe-canvas.c:781
 msgid "America/New_York"
-msgstr ""
+msgstr "America/New_York"
 
 msgid "Base"
 msgstr "Базовый набор"
@@ -3594,9 +3599,8 @@ msgstr "Сервер WWW"
 msgid "DNS Name Server"
 msgstr "Сервер DNS"
 
-#, fuzzy
 msgid "Postgres (SQL) Server"
-msgstr "Сервер SQL"
+msgstr "Сервер Postgres (SQL)"
 
 msgid "Network Management Workstation"
 msgstr "Станция управления сетями"
