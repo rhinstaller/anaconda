@@ -1091,10 +1091,17 @@ int main(int argc, char ** argv) {
         useRHupdates = 0;
     }
 
-    if (useRHupdates) 
+    if (useRHupdates) {
         setenv("PYTHONPATH", "/tmp/updates:/mnt/source/RHupdates", 1);
-    else
+        setenv("LD_LIBRARY_PATH", 
+               sdupprintf("/tmp/updates:/mnt/source/RHupdates:%s",
+                           getenv("LD_LIBRARY_PATH")), 1);
+    } else {
         setenv("PYTHONPATH", "/tmp/updates", 1);
+        setenv("LD_LIBRARY_PATH", 
+               sdupprintf("/tmp/updates:%s", getenv("LD_LIBRARY_PATH")), 1);
+    }
+
 
     if (!access("/mnt/runtime/usr/lib/libunicode-lite.so.1", R_OK))
         setenv("LD_PRELOAD", "/mnt/runtime/usr/lib/libunicode-lite.so.1", 1);
