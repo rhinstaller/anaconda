@@ -1477,6 +1477,16 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	    logMessage("module %s inserted successfully", device);
     }
 
+    if (ksGetCommand(KS_CMD_DEVICEPROBE, ksArgv, &ksArgc, &ksArgv)) {
+	if (ksArgc != 1) {
+	    logMessage("unexpected arguments to deviceprobe command");
+	}
+
+	logMessage("forcing device probe");
+
+	busProbe(modInfo, modLoaded, *modDepsPtr, 0, kd, flags);
+    }
+
     kdFindScsiList(kd, 0);
     kdFindNetList(kd, 0);
 
@@ -2183,9 +2193,6 @@ int main(int argc, char ** argv) {
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
 	    { 0, 0, 0, 0, 0 }
     };
-    struct device ** devices;
-
-    devices = probeDevices(CLASS_FLOPPY, BUS_IDE, PROBE_ALL);
 
     if (!strcmp(argv[0] + strlen(argv[0]) - 6, "insmod"))
 	return ourInsmodCommand(argc, argv);

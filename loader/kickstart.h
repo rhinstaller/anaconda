@@ -10,6 +10,7 @@
 #define KS_CMD_XDISPLAY	    7
 #define KS_CMD_TEXT	    8
 #define KS_CMD_DRIVERDISK   9
+#define KS_CMD_DEVICEPROBE  10
 
 int ksReadCommands(char * cmdFile);
 int ksGetCommand(int cmd, char ** last, int * argc, char *** argv);

@@ -34,6 +34,7 @@ struct ksCommandNames ksTable[] = {
     { KS_CMD_DEVICE, "device" },
     { KS_CMD_XDISPLAY, "xdisplay" },
     { KS_CMD_DRIVERDISK, "driverdisk" },
+    { KS_CMD_DEVICEPROBE, "deviceprobe" },
     { KS_CMD_NONE, NULL }
 };
 
