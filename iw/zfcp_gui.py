@@ -17,6 +17,7 @@ import gobject
 from iw_gui import *
 import gui
 from rhpl.translate import _, N_
+import copy
 
 class ZFCPWindow(InstallWindow):
 
@@ -28,6 +29,7 @@ class ZFCPWindow(InstallWindow):
 
     def getNext(self):
         self.fcp.updateConfig(self.fcpdevices, self.diskset, self.intf)
+        self.fcp.fcpdevices = self.fcpdevices
 
     def setupDevices(self):
         def sortFcpDevs(one, two):
@@ -76,7 +78,7 @@ class ZFCPWindow(InstallWindow):
         box.set_border_width(6)
         fcp.cleanFcpSysfs(fcp.fcpdevices)
         self.fcp = fcp
-        self.fcpdevices = fcp.fcpdevices
+        self.fcpdevices = copy.copy(fcp.fcpdevices)
         
         devvbox = gtk.VBox(gtk.FALSE)
 
@@ -113,7 +115,6 @@ class ZFCPWindow(InstallWindow):
         frame.set_shadow_type(gtk.SHADOW_NONE)
         box.pack_start(frame, gtk.FALSE)
         return box
-
 
     def addDevice(self, data):
         if self.ignoreEvents:
