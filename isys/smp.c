@@ -65,263 +65,298 @@ int sparcDetectSMP(void)
 #endif /* __sparc__ */
 
 #ifdef __i386__
-#define SMP_MAGIC_IDENT	(('_'<<24)|('P'<<16)|('M'<<8)|'_')
-
-struct intel_mp_floating
-{
-	char mpf_signature[4];		/* "_MP_" 			*/
-	unsigned long mpf_physptr;	/* Configuration table address	*/
-	unsigned char mpf_length;	/* Our length (paragraphs)	*/
-	unsigned char mpf_specification;/* Specification version	*/
-	unsigned char mpf_checksum;	/* Checksum (makes sum 0)	*/
-	unsigned char mpf_feature1;	/* Standard or configuration ? 	*/
-	unsigned char mpf_feature2;	/* Bit7 set for IMCR|PIC	*/
-	unsigned char mpf_feature3;	/* Unused (0)			*/
-	unsigned char mpf_feature4;	/* Unused (0)			*/
-	unsigned char mpf_feature5;	/* Unused (0)			*/
-};
-
-struct mp_config_table
-{
-	char mpc_signature[4];
-#define MPC_SIGNATURE "PCMP"
-	unsigned short mpc_length;	/* Size of table */
-	char  mpc_spec;			/* 0x01 */
-	char  mpc_checksum;
-	char  mpc_oem[8];
-	char  mpc_productid[12];
-	unsigned long mpc_oemptr;	/* 0 if not present */
-	unsigned short mpc_oemsize;	/* 0 if not present */
-	unsigned short mpc_oemcount;
-	unsigned long mpc_lapic;	/* APIC address */
-	unsigned long reserved;
-};
-
-/* Followed by entries */
-
-#define	MP_PROCESSOR	0
-#define	MP_BUS		1
-#define	MP_IOAPIC	2
-#define	MP_INTSRC	3
-#define	MP_LINTSRC	4
-
-struct mpc_config_processor
-{
-	unsigned char mpc_type;
-	unsigned char mpc_apicid;	/* Local APIC number */
-	unsigned char mpc_apicver;	/* Its versions */
-	unsigned char mpc_cpuflag;
-#define CPU_ENABLED		1	/* Processor is available */
-#define CPU_BOOTPROCESSOR	2	/* Processor is the BP */
-	unsigned long mpc_cpufeature;		
-#define CPU_STEPPING_MASK 0x0F
-#define CPU_MODEL_MASK	0xF0
-#define CPU_FAMILY_MASK	0xF00
-	unsigned long mpc_featureflag;	/* CPUID feature value */
-	unsigned long mpc_reserved[2];
-};
-
-struct mpc_config_bus
-{
-	unsigned char mpc_type;
-	unsigned char mpc_busid;
-	unsigned char mpc_bustype[6] __attribute((packed));
-};
-
-#define BUSTYPE_EISA	"EISA"
-#define BUSTYPE_ISA	"ISA"
-#define BUSTYPE_INTERN	"INTERN"	/* Internal BUS */
-#define BUSTYPE_MCA	"MCA"
-#define BUSTYPE_VL	"VL"		/* Local bus */
-#define BUSTYPE_PCI	"PCI"
-#define BUSTYPE_PCMCIA	"PCMCIA"
-
-/* We don't understand the others */
-
-struct mpc_config_ioapic
-{
-	unsigned char mpc_type;
-	unsigned char mpc_apicid;
-	unsigned char mpc_apicver;
-	unsigned char mpc_flags;
-#define MPC_APIC_USABLE		0x01
-	unsigned long mpc_apicaddr;
-};
-
-struct mpc_config_intsrc
-{
-	unsigned char mpc_type;
-	unsigned char mpc_irqtype;
-	unsigned short mpc_irqflag;
-	unsigned char mpc_srcbus;
-	unsigned char mpc_srcbusirq;
-	unsigned char mpc_dstapic;
-	unsigned char mpc_dstirq;
-};
-
-#define MP_INT_VECTORED		0
-#define MP_INT_NMI		1
-#define MP_INT_SMI		2
-#define MP_INT_EXTINT		3
-
-#define MP_IRQDIR_DEFAULT	0
-#define MP_IRQDIR_HIGH		1
-#define MP_IRQDIR_LOW		3
-
-
-struct mpc_config_intlocal
-{
-	unsigned char mpc_type;
-	unsigned char mpc_irqtype;
-	unsigned short mpc_irqflag;
-	unsigned char mpc_srcbusid;
-	unsigned char mpc_srcbusirq;
-	unsigned char mpc_destapic;	
-#define MP_APIC_ALL	0xFF
-	unsigned char mpc_destapiclint;
-};
-
-
 /*
- *	Default configurations
+ * Copyright (c) 1996, by Steve Passe
+ * All rights reserved.
  *
- *	1	2 CPU ISA 82489DX
- *	2	2 CPU EISA 82489DX no IRQ 8 or timer chaining
- *	3	2 CPU EISA 82489DX
- *	4	2 CPU MCA 82489DX
- *	5	2 CPU ISA+PCI
- *	6	2 CPU EISA+PCI
- *	7	2 CPU MCA+PCI
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. The name of the developer may NOT be used to endorse or promote products
+ *    derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ *
+ *      $Id$
  */
 
-
-static int smp_found_config=0;
-
 /*
- *	Checksum an MP configuration block.
+ * mptable.c
  */
 
-static int mpf_checksum(unsigned char *mp, int len)
-{
-	int sum=0;
-	while(len--)
-		sum+=*mp++;
-	return sum&0xFF;
-}
-
-static int do_smp_scan_config(unsigned long *bp, unsigned long length)
-{
-	struct intel_mp_floating *mpf;
+#define VMAJOR                  2
+#define VMINOR                  0
+#define VDELTA                  12
 
 /*
-	if (sizeof(*mpf)!=16)
-		logMessage("Error: MPF size\n");
-*/
+ * this will cause the raw mp table to be dumped to /tmp/mpdump
+ *
+#define RAW_DUMP
+ */
 
-	while (length>0)
-	{
-		if (*bp==SMP_MAGIC_IDENT)
-		{
-			mpf=(struct intel_mp_floating *)bp;
-			if (mpf->mpf_length==1 &&
-				!mpf_checksum((unsigned char *)bp,16) &&
-				(mpf->mpf_specification == 1
-				 || mpf->mpf_specification == 4) )
-			{
-				/*logMessage("Intel MultiProcessor Specification v1.%d\n", mpf->mpf_specification);
-				if (mpf->mpf_feature2&(1<<7))
-					logMessage("    IMCR and PIC compatibility mode.\n");
-				else
-					logMessage("    Virtual Wire compatibility mode.\n");
-*/
-				smp_found_config=1;
-				return 1;
-			}
-		}
-		bp+=4;
-		length-=16;
-	}
+#define MP_SIG                  0x5f504d5f      /* _MP_ */
+#define EXTENDED_PROCESSING_READY
+#define OEM_PROCESSING_READY_NOT
 
-	return 0;
-}
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
 
-static int smp_scan_config(int mem_fd, unsigned long base,
-			   unsigned long length)
-{
-	void *p;
-	int o;
-	
-	o=base&0xFFF;
-	base-=o;
-	length+=o;
-	
-	p=mmap(0, (length+4095)&0xFFFFF000,  PROT_READ, MAP_SHARED, 
-		mem_fd, (base&0xFFFF0000));
-	if(p==MAP_FAILED)
-	{
-		/*logMessage("SMP Probe error: mmap: %s", strerror(errno));*/
-		return 1;
-	}	
-	do_smp_scan_config(p+o, length-o);
-	munmap(p, (length+4095)&0xFFFFF000);
-	return 0;
-}
+#define LINUX 1
+#if LINUX
+typedef unsigned int vm_offset_t;
+#else
+#include <machine/types.h>
+#endif
+
+/* EBDA is @ 40:0e in real-mode terms */
+#define EBDA_POINTER            0x040e          /* location of EBDA pointer */
+
+/* CMOS 'top of mem' is @ 40:13 in real-mode terms */
+#define TOPOFMEM_POINTER        0x0413          /* BIOS: base memory size */
+
+#define DEFAULT_TOPOFMEM        0xa0000
+
+#define BIOS_BASE               0xf0000
+#define BIOS_BASE2              0xe0000
+#define BIOS_SIZE               0x10000
+#define ONE_KBYTE               1024
+
+#define GROPE_AREA1             0x80000
+#define GROPE_AREA2             0x90000
+#define GROPE_SIZE              0x10000
+
+/* MP Floating Pointer Structure */
+typedef struct MPFPS {
+    char        signature[ 4 ];
+    void*       pap;
+    u_char      length;
+    u_char      spec_rev;
+    u_char      checksum;
+    u_char      mpfb1;
+    u_char      mpfb2;
+    u_char      mpfb3;
+    u_char      mpfb4;
+    u_char      mpfb5;
+} mpfps_t;
+
+static void seekEntry( vm_offset_t addr );
+static void apic_probe( vm_offset_t* paddr, int* where );
+static void readEntry( void* entry, int size );
+
+/* global data */
+static int     pfd;            /* physical /dev/mem fd */
+static int     verbose = 0;
+static int     grope = 0;
 
 static int intelDetectSMP(void)
 {
-        int mem_fd;
-        
-	mem_fd=open("/dev/mem", O_RDONLY);
-	
-	if(mem_fd==-1)
-	{
-	        /*logMessage("Error detecting SMP: /dev/mem: %s", strerror(errno));*/
-	}
-	
-	/*
-	 * FIXME: Linux assumes you have 640K of base ram..
-	 * this continues the error...
-	 *
-	 * 1) Scan the bottom 1K for a signature
-	 * 2) Scan the top 1K of base RAM
-	 * 3) Scan the 64K of bios
-	 */
-	if (!smp_scan_config(mem_fd, 0x0, 0x400) &&
-	    !smp_scan_config(mem_fd, 639*0x400,0x400) &&
-	    !smp_scan_config(mem_fd, 0xF0000,0x10000)) {
-#if 0
+  vm_offset_t paddr;
+  int         where;
 
-		/*
-		 * If it is an SMP machine we should know now, unless the
-		 * configuration is in an EISA/MCA bus machine with an
-		 * extended bios data area. 
-		 *
-		 * there is a real-mode segmented pointer pointing to the
-		 * 4K EBDA area at 0x40E, calculate and scan it here.
-		 *
-		 * NOTE! There are Linux loaders that will corrupt the EBDA
-		 * area, and as such this kind of SMP config may be less
-		 * trustworthy, simply because the SMP table may have been
-		 * stomped on during early boot. These loaders are buggy and
-		 * should be fixed.
-		 */
-		unsigned int address;
+    /* open physical memory for access to MP structures */
+    if ( (pfd = open( "/dev/mem", O_RDONLY )) < 0 ) {
+	return 0;
+    }
 
-		address = *(unsigned short *)phys_to_virt(0x40E);
-		address<<=4;
-		smp_scan_config(mem_fd, address, 0x1000);
-		if (smp_found_config)
-			/*logMessage("WARNING: MP table in the EBDA can be UNSAFE, contact linux-smp@vger.rutgers.edu if you experience SMP problems!\n");*/
-#endif			
-	}
-/*
-	if(smp_found_config)
-		logMessage("Detected SMP capable motherboard\n");
-	else
-		logMessage("Detected non SMP capable motherboard\n");
-*/
-	return smp_found_config;
+    /* probe for MP structures */
+    apic_probe( &paddr, &where );
+    close (pfd);
+
+    if ( where <= 0 )
+	return 0;
+
+    return 1;
 }
+
+/*
+ * set PHYSICAL address of MP floating pointer structure
+ */
+#define NEXT(X)         ((X) += 4)
+static void
+apic_probe( vm_offset_t* paddr, int* where )
+{
+    /*
+     * c rewrite of apic_probe() by Jack F. Vogel
+     */
+
+    int         x;
+    u_short     segment;
+    vm_offset_t target;
+    u_int       buffer[ BIOS_SIZE / sizeof( int ) ];
+
+    if ( verbose )
+        printf( "\n" );
+
+    /* search Extended Bios Data Area, if present */
+    if ( verbose )
+        printf( " looking for EBDA pointer @ 0x%04x, ", EBDA_POINTER );
+    seekEntry( (vm_offset_t)EBDA_POINTER );
+    readEntry( &segment, 2 );
+    if ( segment ) {                /* search EBDA */
+        target = (vm_offset_t)segment << 4;
+        if ( verbose )
+            printf( "found, searching EBDA @ 0x%08x\n", target );
+        seekEntry( target );
+        readEntry( buffer, ONE_KBYTE );
+
+        for ( x = 0; x < ONE_KBYTE / sizeof ( unsigned int ); NEXT(x) ) {
+            if ( buffer[ x ] == MP_SIG ) {
+                *where = 1;
+                *paddr = (x * sizeof( unsigned int )) + target;
+                return;
+            }
+        }
+    }
+    else {
+        if ( verbose )
+            printf( "NOT found\n" );
+    }
+
+    /* read CMOS for real top of mem */
+    seekEntry( (vm_offset_t)TOPOFMEM_POINTER );
+    readEntry( &segment, 2 );
+    --segment;                                          /* less ONE_KBYTE */
+    target = segment * 1024;
+    if ( verbose )
+        printf( " searching CMOS 'top of mem' @ 0x%08x (%dK)\n",
+                target, segment );
+    seekEntry( target );
+    readEntry( buffer, ONE_KBYTE );
+
+    for ( x = 0; x < ONE_KBYTE / sizeof ( unsigned int ); NEXT(x) ) {
+        if ( buffer[ x ] == MP_SIG ) {
+            *where = 2;
+            *paddr = (x * sizeof( unsigned int )) + target;
+            return;
+        }
+    }
+
+    /* we don't necessarily believe CMOS, check base of the last 1K of 640K */
+    if ( target != (DEFAULT_TOPOFMEM - 1024)) {
+        target = (DEFAULT_TOPOFMEM - 1024);
+        if ( verbose )
+            printf( " searching default 'top of mem' @ 0x%08x (%dK)\n",
+                    target, (target / 1024) );
+        seekEntry( target );
+        readEntry( buffer, ONE_KBYTE );
+
+        for ( x = 0; x < ONE_KBYTE / sizeof ( unsigned int ); NEXT(x) ) {
+            if ( buffer[ x ] == MP_SIG ) {
+                *where = 3;
+                *paddr = (x * sizeof( unsigned int )) + target;
+                return;
+            }
+        }
+    }
+
+    /* search the BIOS */
+    if ( verbose )
+        printf( " searching BIOS @ 0x%08x\n", BIOS_BASE );
+    seekEntry( BIOS_BASE );
+    readEntry( buffer, BIOS_SIZE );
+
+    for ( x = 0; x < BIOS_SIZE / sizeof( unsigned int ); NEXT(x) ) {
+        if ( buffer[ x ] == MP_SIG ) {
+            *where = 4;
+            *paddr = (x * sizeof( unsigned int )) + BIOS_BASE;
+            return;
+        }
+    }
+
+    /* search the extended BIOS */
+    if ( verbose )
+        printf( " searching extended BIOS @ 0x%08x\n", BIOS_BASE2 );
+    seekEntry( BIOS_BASE2 );
+    readEntry( buffer, BIOS_SIZE );
+
+    for ( x = 0; x < BIOS_SIZE / sizeof( unsigned int ); NEXT(x) ) {
+        if ( buffer[ x ] == MP_SIG ) {
+            *where = 5;
+            *paddr = (x * sizeof( unsigned int )) + BIOS_BASE2;
+            return;
+        }
+    }
+
+    if ( grope ) {
+        /* search additional memory */
+        target = GROPE_AREA1;
+        if ( verbose )
+            printf( " groping memory @ 0x%08x\n", target );
+        seekEntry( target );
+        readEntry( buffer, GROPE_SIZE );
+
+        for ( x = 0; x < GROPE_SIZE / sizeof( unsigned int ); NEXT(x) ) {
+            if ( buffer[ x ] == MP_SIG ) {
+                *where = 6;
+                *paddr = (x * sizeof( unsigned int )) + GROPE_AREA1;
+                return;
+            }
+        }
+
+        target = GROPE_AREA2;
+        if ( verbose )
+            printf( " groping memory @ 0x%08x\n", target );
+        seekEntry( target );
+        readEntry( buffer, GROPE_SIZE );
+
+        for ( x = 0; x < GROPE_SIZE / sizeof( unsigned int ); NEXT(x) ) {
+            if ( buffer[ x ] == MP_SIG ) {
+                *where = 7;
+                *paddr = (x * sizeof( unsigned int )) + GROPE_AREA2;
+                return;
+            }
+        }
+    }
+
+    *where = 0;
+    *paddr = (vm_offset_t)0;
+}
+
+
+/*
+ *
+ */
+static void
+seekEntry( vm_offset_t addr )
+{
+    if ( lseek( pfd, (off_t)addr, SEEK_SET ) < 0 ) {
+        return;
+        perror( "/dev/mem seek" );
+        exit( 1 );
+    }
+}
+
+
+/*
+ *
+ */
+static void
+readEntry( void* entry, int size )
+{
+    if ( read( pfd, entry, size ) != size ) {
+        return;
+        perror( "readEntry" );
+        exit( 1 );
+    }
+}
+
+
 #endif /* __i386__ */
 
 int detectSMP(void)
