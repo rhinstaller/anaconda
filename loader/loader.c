@@ -2338,8 +2338,7 @@ void setFloppyDevice(int flags) {
     if (!foundFd0)
 	floppyDevice = strdup(devices[0]->device);
 #else	/* ia64 */
-    floppyDevice=malloc(strlen(devices[0]->device)+2);
-    sprintf(floppyDevice,"%s1",devices[0]->device);
+    floppyDevice=strdup(devices[0]->device);
 #endif
 #endif
 	

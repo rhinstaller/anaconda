@@ -485,9 +485,7 @@ class ToDo:
 	    # No IDE floppy's -- we're fine w/ /dev/fd0
 	    if not floppyDrive: return
 
-	    # on ia64, use the first partition (hack)
 	    if iutil.getArch() == "ia64":
-		floppyDrive = '%s1' % floppyDrive
 		self.fdDevice = floppyDrive
 		log("anaconda floppy device is %s", self.fdDevice)
 		return
