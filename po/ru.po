@@ -17,7 +17,6 @@ msgid "Language Selection"
 msgstr ""
 
 #: ../text.py:40
-#, fuzzy
 msgid "What language would you like to use during the installation process?"
 msgstr "Какой язык должен использоваться в процессе инсталляции?"
 
@@ -40,23 +39,23 @@ msgstr "Какой язык должен использоваться в процессе инсталляции?"
 #: ../textw/userauth.py:96 ../textw/userauth.py:104 ../textw/userauth.py:113
 #: ../textw/userauth.py:174 ../textw/userauth.py:246
 msgid "OK"
-msgstr ""
+msgstr "Ok"
 
 #: ../text.py:54
 msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS0 (COM1 в  DOS)"
 
 #: ../text.py:55
 msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS1 (COM2 в  DOS)"
 
 #: ../text.py:56
 msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS1 (COM2 в DOS)"
 
 #: ../text.py:57
 msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS1 (COM2 в DOS)"
 
 #: ../iw/lilo.py:174 ../text.py:72 ../textw/lilo.py:77 ../textw/lilo.py:135
 msgid "Device"
@@ -65,7 +64,7 @@ msgstr "Устройство"
 #: ../text.py:73
 #, c-format
 msgid "What device is your mouse located on? %s %i"
-msgstr ""
+msgstr "К какому устройству подключена ваша мышь? %s %i"
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
@@ -88,7 +87,7 @@ msgstr ""
 #: ../textw/constants.py:10 ../textw/lilo.py:82 ../textw/lilo.py:95
 #: ../textw/lilo.py:150
 msgid "Ok"
-msgstr "Ок"
+msgstr "Ok"
 
 #: ../gui.py:316 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
 #: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
@@ -113,60 +112,53 @@ msgstr "Назад"
 
 #: ../text.py:92
 msgid "Which model mouse is attached to this computer?"
-msgstr ""
+msgstr "Укажите модель мыши, подключенной к этому компьютеру"
 
 #: ../text.py:101
 msgid "Emulate 3 Buttons?"
-msgstr ""
+msgstr "Эмулировать 3 кнопки?"
 
 #: ../text.py:103
-#, fuzzy
 msgid "Mouse Selection"
-msgstr "Параметры модуля"
+msgstr "Выбор мыши"
 
 #: ../text.py:139 ../text.py:820
-#, fuzzy
 msgid "Keyboard Selection"
 msgstr "Тип клавиатуры"
 
 #: ../text.py:140
 msgid "Which model keyboard is attached to this computer?"
-msgstr ""
+msgstr "Укажите модель клавиатуры, подключенной к этому компьютеру"
 
 #: ../text.py:160
-#, fuzzy
 msgid "Install GNOME Workstation"
-msgstr "Рабочая станция"
+msgstr "Установить рабочую станцию GNOME"
 
 #: ../text.py:161
 #, fuzzy
 msgid "Install KDE Workstation"
-msgstr "Рабочая станция"
+msgstr "Установить рабочую станцию KDE"
 
 #: ../text.py:162
 #, fuzzy
 msgid "Install Server System"
-msgstr "Установка системы"
+msgstr "Установка сервера"
 
 #: ../text.py:163
-#, fuzzy
 msgid "Install Custom System"
-msgstr "Установка системы"
+msgstr "Выборочная установка системы"
 
 #: ../text.py:164
-#, fuzzy
 msgid "Upgrade Existing Installation"
-msgstr "Инсталляция LILO"
+msgstr "Обновить существующую инсталляцию"
 
 #: ../text.py:165 ../text.py:823
-#, fuzzy
 msgid "Installation Type"
-msgstr "Этапы установки"
+msgstr "Тип инсталляции"
 
 #: ../text.py:166
-#, fuzzy
 msgid "What type of system would you like to install?"
-msgstr "Выберите тип носителя, который содержит пакеты для установки:"
+msgstr "Система какого типа должна быть установлена?"
 
 #: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
 #: ../loader/loader.c:663 ../loader/loader.c:708 ../loader/loader.c:841
@@ -180,18 +172,16 @@ msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Не задан ни один раздел Linux. Обновление системы невозможно!"
 
 #: ../text.py:205
-#, fuzzy
 msgid "System to Upgrade"
-msgstr "Системная ошибка %d"
+msgstr "Система для обновлеия"
 
 #: ../text.py:206
 msgid "What partition holds the root partition of your installation?"
 msgstr "Укажите корневой раздел вашей инсталляции."
 
 #: ../text.py:221
-#, fuzzy
 msgid "Customize Packages to Upgrade"
-msgstr "Выберите пакеты для обновления"
+msgstr "Уточните пакеты для обновления"
 
 #: ../text.py:222
 msgid ""
@@ -223,12 +213,10 @@ msgid "No"
 msgstr "Нет"
 
 #: ../text.py:244
-#, fuzzy
 msgid "Red Hat Linux"
-msgstr "Добро пожаловать в Red Hat Linux"
+msgstr "Red Hat Linux"
 
 #: ../text.py:245
-#, fuzzy
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -241,16 +229,16 @@ msgid ""
 msgstr ""
 "Добро пожаловть в Red Hat Linux!\n"
 "\n"
-"Процесс установки подробно описан в Официальном руководстве по установке Red "
-"Hat Linux, доступном от Red Hat Software. Если у вас есть доступ к этому "
-"руководству, рекомендуется прочесть его перед продолжением установки.\n"
+"Процесс установки подробно описан в Официальном руководстве по инсталляции "
+"Red Hat Linux, доступном от Red Hat Software. Если у вас есть доступ к этому "
+"руководству, рекомендуется прочесть его перед продолжением инсталляции.\n"
 "\n"
 "Если вы приобрели Официальный Red Hat Linux, не забудьте зарегистрировать "
 "вашу покупку на нашем web-сайте, http://www.redhat.com."
 
 #: ../text.py:315
 msgid "Use bootp/dhcp"
-msgstr ""
+msgstr "Использовать bootp/dhcp"
 
 #: ../loader/net.c:234 ../text.py:320
 msgid "IP address:"
@@ -273,25 +261,24 @@ msgid "Network Configuration"
 msgstr "Конфигурация сети"
 
 #: ../text.py:361
-#, fuzzy
 msgid "Invalid information"
-msgstr "Отсутствует информация"
+msgstr "Неверная информация"
 
 #: ../text.py:362
-#, fuzzy
 msgid "You must enter valid IP information to continue"
-msgstr "Необходимо ввести правильный IP адрес и маску подсети."
+msgstr "Необходимо ввести правильные параметры IP для продолжения."
 
 #: ../text.py:390
-#, fuzzy
 msgid "Hostname Configuration"
-msgstr "Настройка SCSI"
+msgstr "Имя компьютера"
 
 #: ../text.py:391
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
+"Необходимо указать имя вашего компьютера. Если компьютер подключен к сети, "
+"имя компьютера может быть уже назначено вашим сетевым администратором."
 
 #: ../iw/network.py:187 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
@@ -322,38 +309,34 @@ msgstr ""
 "Хотите создать загрузочный диск сейчас?"
 
 #: ../text.py:433
-#, fuzzy
 msgid "X probe results"
-msgstr "Автопоиск"
+msgstr "Результаты проверки Х"
 
 #: ../text.py:446 ../text.py:465
 msgid "Unlisted Card"
-msgstr ""
+msgstr "Неуказанная карта"
 
 #: ../text.py:454
 #, fuzzy
 msgid "Video Card Selection"
-msgstr "Тип клавиатуры"
+msgstr "Выбор видеокарты"
 
 #: ../text.py:455
-#, fuzzy
 msgid "Which video card do you have?"
-msgstr "Укажите тип клавиатуры"
+msgstr "Укажите тип видеокарты"
 
 #: ../text.py:467
 #, fuzzy
 msgid "X Server Selection"
-msgstr "Параметры модуля"
+msgstr "Выбор Х-сервера"
 
 #: ../text.py:467
-#, fuzzy
 msgid "Choose a server"
-msgstr "Использовать proxy-сервер"
+msgstr "Выберите сервер"
 
 #: ../text.py:518
-#, fuzzy
 msgid "Installation to begin"
-msgstr "Этапы установки"
+msgstr "Начало инсталляции"
 
 #: ../text.py:519
 msgid ""
@@ -403,6 +386,8 @@ msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
+"Произошла ошибка при создании загрузочного диска. Убедитесь, что "
+"отформатированная дискета вставлена в первый дисковод."
 
 #: ../text.py:625
 #, fuzzy
@@ -702,9 +687,8 @@ msgid "NIS Domain: "
 msgstr ""
 
 #: ../iw/auth.py:68
-#, fuzzy
 msgid "NIS Server: "
-msgstr "Сервер SMB:"
+msgstr "Сервер NIS:"
 
 #: ../iw/bootdisk.py:10
 #, fuzzy
@@ -716,14 +700,12 @@ msgid "Skip boot disk creation"
 msgstr ""
 
 #: ../iw/congrats.py:11
-#, fuzzy
 msgid "Congratulations"
-msgstr "Настройка аутентификации"
+msgstr "Поздравляем!"
 
 #: ../iw/congrats.py:13
-#, fuzzy
 msgid "Exit"
-msgstr "Редактировать"
+msgstr "Выход"
 
 #: ../iw/dependencies.py:9
 msgid "Unresolved Dependencies"
@@ -747,45 +729,41 @@ msgid "Upgrade Examine"
 msgstr "Обновление"
 
 #: ../iw/examine.py:35
-#, fuzzy
 msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
-msgstr "Не задан ни один раздел Linux. Обновление системы невозможно!"
+msgstr ""
+"Нет ни одного раздела Linux.\n"
+" Обновление системы невозможно!"
 
 #: ../iw/examine.py:53
-#, fuzzy
 msgid "Customize packages to be upgraded"
-msgstr "Выберите пакеты для обновления"
+msgstr "Уточните пакеты для обновления"
 
 #: ../iw/fdisk.py:11 ../textw/partitioning.py:25
+#, fuzzy
 msgid "fdisk"
-msgstr "fdisk"
+msgstr "Загрузочный диск"
 
 #: ../iw/fdisk.py:42
-#, fuzzy
 msgid "Select drive to run fdisk on"
-msgstr "Выбор типа подключения принтера"
+msgstr ""
 
 #: ../iw/format.py:12
-#, fuzzy
 msgid "Choose partitions to Format"
 msgstr "Выбор разделов для форматирования"
 
 #: ../iw/format.py:47
-#, fuzzy
 msgid "Check for bad blocks while formatting"
 msgstr "Поск дефектных блоков при форматировании"
 
 #: ../iw/installpath.py:35
-#, fuzzy
 msgid "GNOME Workstation"
-msgstr "Рабочая станция"
+msgstr "Рабочая станция GNOME"
 
 #: ../iw/installpath.py:36
-#, fuzzy
 msgid "KDE Workstation"
-msgstr "Рабочая станция"
+msgstr "Рабочая станция KDE"
 
 #: ../iw/installpath.py:37 ../libfdisk/gnomefsedit.c:2196
 #: ../libfdisk/gnomefsedit.c:2216
@@ -797,9 +775,8 @@ msgid "Custom"
 msgstr "По выбору"
 
 #: ../iw/installpath.py:74
-#, fuzzy
 msgid "Install Type"
-msgstr "Установка системы"
+msgstr "Тип инсталляции"
 
 #: ../iw/installpath.py:142
 msgid "Install"
@@ -814,44 +791,40 @@ msgid "Use fdisk to format drives"
 msgstr ""
 
 #: ../iw/keyboard.py:11
-#, fuzzy
 msgid "Keyboard Configuration"
-msgstr "Конфигурация сети"
+msgstr "Конфигурация клавиатуры"
 
 #: ../iw/keyboard.py:35
 msgid "Model"
-msgstr ""
+msgstr "Модель"
 
 #: ../iw/keyboard.py:47
 msgid "Layout"
-msgstr ""
+msgstr "Раскладка"
 
 #: ../iw/keyboard.py:61
 msgid "Variant"
-msgstr ""
+msgstr "Вариант"
 
 #: ../iw/language.py:14 ../loader/lang.c:245
 msgid "What language should be used during the installation process?"
 msgstr "Какой язык должен использоваться в процессе инсталляции?"
 
 #: ../iw/lilo.py:18
-#, fuzzy
 msgid "Lilo Configuration"
-msgstr "Настройка SCSI"
+msgstr "Конфигурация LILO"
 
 #: ../iw/lilo.py:99 ../iw/lilo.py:198
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: ../iw/lilo.py:128
-#, fuzzy
 msgid "Install LILO boot record on:"
-msgstr "Установка начального загрузчика"
+msgstr "Установить загрузчик LILO на:"
 
 #: ../iw/lilo.py:133
-#, fuzzy
 msgid "Master Boot Record (MBR)"
-msgstr "Master Boot Record"
+msgstr "Master Boot Record (MBR)"
 
 #: ../iw/lilo.py:137
 msgid "First sector of boot partition"
@@ -862,18 +835,16 @@ msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Включить линейный режим (для некоторых дисков SCSI)"
 
 #: ../iw/lilo.py:144
-#, fuzzy
 msgid "Kernel parameters"
 msgstr "Параметры модуля"
 
 #: ../iw/lilo.py:159
-#, fuzzy
 msgid "Create boot disk"
-msgstr "Создание загрузочного диска"
+msgstr "Создать загрузочный диск"
 
 #: ../iw/lilo.py:163
 msgid "Do not install LILO"
-msgstr ""
+msgstr "Не устанавливать LILO"
 
 #: ../iw/lilo.py:174 ../textw/lilo.py:135
 msgid "Default"
@@ -886,119 +857,110 @@ msgstr "Тип раздела"
 #: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:78
 #: ../textw/lilo.py:135
 msgid "Boot label"
-msgstr "Метка"
+msgstr "Метка загрузки"
 
 #: ../iw/network.py:131
-#, fuzzy
 msgid "Configure using DHCP"
-msgstr "Настройка мыши"
+msgstr "Использовать DHCP"
 
 #: ../iw/network.py:138
 msgid "Activate on boot"
-msgstr ""
+msgstr "Активизировать при загрузке"
 
 #: ../iw/network.py:147
 #, fuzzy
 msgid "IP Address"
-msgstr "IP адрес:"
+msgstr "Адрес IP"
 
 #: ../iw/network.py:147 ../loader/net.c:615
-#, fuzzy
 msgid "Netmask"
-msgstr "Маска подсети:"
+msgstr "Маска подсети"
 
 #: ../iw/network.py:147 ../loader/loader.c:226
 msgid "Network"
-msgstr ""
+msgstr "Сеть"
 
 #: ../iw/network.py:147
 msgid "Broadcast"
-msgstr ""
+msgstr "Бродкаст"
 
 #: ../iw/network.py:188
 msgid "Gateway"
-msgstr ""
+msgstr "Шлюз"
 
 #: ../iw/network.py:188
 msgid "Primary DNS"
-msgstr ""
+msgstr "Первичный DNS"
 
 #: ../iw/network.py:188
 msgid "Secondary DNS"
-msgstr ""
+msgstr "Вторичный DNS"
 
 #: ../iw/network.py:188
 msgid "Ternary DNS"
-msgstr ""
+msgstr "Третичный DNS"
 
 #: ../iw/package.py:20
 msgid "Individual Package Selection"
-msgstr ""
+msgstr "Индивидуальный выбор пакетов"
 
 #: ../iw/package.py:178
 msgid "Up"
-msgstr ""
+msgstr "Вверх"
 
 #: ../iw/package.py:324
 msgid "Name: "
-msgstr ""
+msgstr "Имя: "
 
 #: ../iw/package.py:329
 #, fuzzy
 msgid "Package Details"
-msgstr "Пакет"
+msgstr "Описание пакета"
 
 #: ../iw/package.py:335
-#, fuzzy
 msgid "Size: "
 msgstr "Размер :"
 
 #: ../iw/package.py:341
-#, fuzzy
 msgid "Select Package For Installation"
-msgstr "Установка Silo"
+msgstr "Выбор пакетов для инсталляции"
 
 #: ../iw/package.py:377 ../textw/packages.py:24 ../textw/packages.py:89
 msgid "Package Group Selection"
-msgstr ""
+msgstr "Выбор групп пакетов"
 
 #: ../iw/package.py:445 ../textw/packages.py:20
 msgid "Select individual packages"
 msgstr "Индивидуальный выбор пакетов"
 
 #: ../iw/progress.py:26
-#, fuzzy
 msgid "Installing Packages"
-msgstr "Инсталляция"
+msgstr "Инсталляция пакетов"
 
 #: ../iw/progress.py:114 ../iw/progress.py:149
-#, fuzzy
 msgid "Size"
-msgstr "Размер :"
+msgstr "Размер"
 
 #: ../iw/progress.py:115
-#, fuzzy
 msgid "Summary"
-msgstr "(нет сведений)"
+msgstr "Сведения"
 
 #: ../iw/progress.py:149
-#, fuzzy
 msgid "Status"
-msgstr "Состояние инсталляции"
+msgstr "Состояние"
 
 #: ../iw/progress.py:149
-#, fuzzy
 msgid "Packages"
-msgstr "Пакет"
+msgstr "Пакетов"
 
 #: ../iw/progress.py:149
 msgid "Time"
-msgstr ""
+msgstr "Время"
 
 #: ../iw/progress.py:154
 #, fuzzy
 msgid "Total"
-msgstr "Локальный"
+msgstr "Всего"
 
 #: ../iw/progress.py:155
 #, fuzzy
@@ -1016,12 +978,11 @@ msgstr ""
 
 #: ../iw/rootpartition.py:27 ../textw/partitioning.py:25
 msgid "Disk Druid"
-msgstr "Disk Druid"
+msgstr ""
 
 #: ../iw/rootpartition.py:86 ../textw/partitioning.py:97
-#, fuzzy
 msgid "Automatic Partitioning"
-msgstr "Редактировать раздел"
+msgstr "Автоматическое разбиение"
 
 #: ../iw/rootpartition.py:125 ../textw/partitioning.py:98
 #, c-format
@@ -1039,7 +1000,6 @@ msgid "Remove data"
 msgstr "Удаленный lpd"
 
 #: ../iw/rootpartition.py:140 ../textw/partitioning.py:102
-#, fuzzy
 msgid "Manually partition"
 msgstr "Переразбиение"
 
@@ -1049,32 +1009,31 @@ msgstr ""
 
 #: ../iw/timezone.py:140
 msgid "Use Daylight Saving Time"
-msgstr ""
+msgstr "Использовать летнее время"
 
 #: ../iw/timezone.py:147
-#, fuzzy
 msgid "Location"
-msgstr "Рабочая станция"
+msgstr "Расположение"
 
 #: ../iw/timezone.py:148
 msgid "UTC Offset"
-msgstr ""
+msgstr "Сдвиг относительно UTC"
 
 #: ../iw/timezone.py:152
 msgid "System clock uses UTC"
-msgstr ""
+msgstr "Системные часы используют UTC"
 
 #: ../iw/xconfig.py:9
 msgid "Video Card"
-msgstr ""
+msgstr "Видеокарта"
 
 #: ../iw/xconfig.py:10
 msgid "Monitor"
-msgstr ""
+msgstr "Монитор"
 
 #: ../iw/xconfig.py:11
 msgid "Video Ram"
-msgstr ""
+msgstr "Видео ОЗУ"
 
 #: ../iw/xconfig.py:12
 msgid "Horizontal Frequency Range"
@@ -1089,19 +1048,16 @@ msgid "Test failed"
 msgstr ""
 
 #: ../iw/xconfig.py:22 ../iw/xconfig.py:198
-#, fuzzy
 msgid "Customize X Configuration"
-msgstr "Настройка SCSI"
+msgstr ""
 
 #: ../iw/xconfig.py:63
-#, fuzzy
 msgid "Bits per Pixel"
-msgstr "Глубина цвета (bpp):"
+msgstr "Бит на пиксель"
 
 #: ../iw/xconfig.py:73 ../iw/xconfig.py:194
-#, fuzzy
 msgid "Test this configuration"
-msgstr "Настройка SCSI"
+msgstr "Проверить эту конфигурацию"
 
 #: ../iw/xconfig.py:149
 msgid ""
@@ -1112,21 +1068,21 @@ msgstr ""
 #: ../iw/xconfig.py:157
 #, fuzzy
 msgid "Autoprobe results:"
-msgstr "Автопоиск"
+msgstr "Результат автоопределения:"
 
 #: ../iw/xconfig.py:171
 msgid ""
 "Your monitor could not be autodetected. Please choose it from the list below:"
 msgstr ""
+"Ваш монитор не может быть определен автоматически. Выберите его из списка:"
 
 #: ../iw/xconfig.py:201
 msgid "Use Graphical Login"
-msgstr ""
+msgstr "Использовать графический вход в систему"
 
 #: ../iw/xconfig.py:203
-#, fuzzy
 msgid "Skip X Configuration"
-msgstr "Настройка SCSI"
+msgstr "Пропустить конфигурацию Х"
 
 #: ../textw/lilo.py:12
 msgid ""
@@ -1135,15 +1091,13 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-"Некоторые системы для нормального функционирования требуют передачи "
-"параметров ядру во время загрузки. Если вам это необходимо, введите их "
-"сейчас. Если это не нужно, или вы не уверены - оставьте это поле пустым."
 
 #: ../textw/lilo.py:62
 msgid "Where do you want to install the bootloader?"
-msgstr "Куда вы хотите установить начальный загрузчик?"
+msgstr ""
 
 #: ../textw/lilo.py:82 ../textw/lilo.py:102
+#, fuzzy
 msgid "Clear"
 msgstr "Очистить"
 
@@ -1155,8 +1109,9 @@ msgid "Cancel"
 msgstr "Отмена"
 
 #: ../textw/lilo.py:90
+#, fuzzy
 msgid "Edit Boot Label"
-msgstr "Редактировать метку"
+msgstr "Метка загрузки"
 
 #: ../textw/lilo.py:153
 msgid ""
@@ -1164,9 +1119,6 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
-"Менеджер загрузки Red Hat может также загружать другие операционные системы. "
-"Укажите загрузочные разделы и метки, которые вы будете использовать при "
-"обращении к ним."
 
 #: ../textw/packages.py:117
 msgid ""
@@ -1174,13 +1126,11 @@ msgid ""
 "not selected. If you just select Ok all of those required packages will be "
 "installed."
 msgstr ""
-"Для инсталляции некоторых выбранных вами пакетов требуются другие пакеты, "
-"которые не были выбраны. Если вы просто нажмете `Ok', будут установлены все "
-"необходимые пакеты."
 
 #: ../textw/partitioning.py:17 ../textw/partitioning.py:56
+#, fuzzy
 msgid "Disk Setup"
-msgstr "Разбиение жестких дисков"
+msgstr "Настройка NFS"
 
 #: ../textw/partitioning.py:18
 msgid ""
@@ -1191,12 +1141,6 @@ msgid ""
 "\n"
 "Which tool would you like to use?"
 msgstr ""
-"Утилита Disk Druid предназначена для разбиения диска и установки точек "
-"монтирования. Она легче в использовании по сравнению с классическим fdisk, "
-"поставляемым с Linux, и более функциональна. Несмотря на это, в некоторых "
-"случаях предпочтение может быть отдано утилите fdisk.\n"
-"\n"
-"Какую утилиту вы будете использовать?"
 
 #: ../textw/partitioning.py:57
 msgid ""
@@ -1204,18 +1148,14 @@ msgid ""
 "dedicated to Linux. We suggest placing that partition on one of the first "
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
-"Для инсталляции Red Hat Linux вам необходим хотя бы один раздел в 150 MB, "
-"выделенный под Linux. Мы рекомендуем расположить этот раздел на одном из "
-"двух первых жестких дисков вашей системы, чтобы вы могли загружать Linux с "
-"помощью LILO."
 
 #: ../loader/loader.c:287 ../loader/loader.c:311 ../textw/partitioning.py:62
 msgid "Done"
-msgstr "Готово"
+msgstr ""
 
 #: ../textw/partitioning.py:102 ../textw/partitioning.py:103
 msgid "Continue"
-msgstr "Продолжить"
+msgstr ""
 
 #: ../textw/partitioning.py:130
 msgid "Low Memory"
@@ -1235,12 +1175,9 @@ msgid ""
 "format /home or /usr/local if they have already been configured during a "
 "previous install."
 msgstr ""
-"Какие разделы вы хотите отформатировать? Рекомендуется форматировать все "
-"системные разделы, включая /, /usr и /var. Такие разделы как /home или "
-"/usr/local можно не форматировать, особенно если они сконфигурированы при "
-"предыдущей установке."
 
 #: ../textw/partitioning.py:170
+#, fuzzy
 msgid "Check for bad blocks during format"
 msgstr "Поск дефектных блоков при форматировании"
 
@@ -1255,34 +1192,34 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"Выберите пароль пользователя root. Вы должны ввести его дважды, чтобы "
-"исключить ошибку при вводе. Помните, что пароль пользователя root - ключевой "
-"момент безопасности системы!"
 
 #: ../loader/urls.c:298 ../textw/userauth.py:25
+#, fuzzy
 msgid "Password:"
 msgstr "Пароль:"
 
 #: ../textw/userauth.py:26
+#, fuzzy
 msgid "Password (again):"
 msgstr "Повторите пароль:"
 
 #: ../textw/userauth.py:42 ../textw/userauth.py:93
 #, fuzzy
 msgid "Password Length"
-msgstr "Пароли не совпадают"
+msgstr "Пароль:"
 
 #: ../textw/userauth.py:43
 msgid "The root password must be at least 6 characters long."
-msgstr "Пароль пользователя root должен содержать не менее 6 символов."
+msgstr ""
 
 #: ../textw/userauth.py:47 ../textw/userauth.py:101
+#, fuzzy
 msgid "Password Mismatch"
-msgstr "Пароли не совпадают"
+msgstr "Пароль:"
 
 #: ../textw/userauth.py:48 ../textw/userauth.py:102
 msgid "The passwords you entered were different. Please try again."
-msgstr "Введенные вами пароли не совпадают. Повторите ввод."
+msgstr ""
 
 #: ../textw/userauth.py:73
 #, fuzzy
@@ -1290,19 +1227,16 @@ msgid "Edit User"
 msgstr "Редактировать"
 
 #: ../textw/userauth.py:75
-#, fuzzy
 msgid "Add User"
-msgstr "Добавить принтер"
+msgstr ""
 
 #: ../textw/userauth.py:80
-#, fuzzy
 msgid "User ID"
-msgstr "Пользователь:"
+msgstr ""
 
 #: ../textw/userauth.py:94
-#, fuzzy
 msgid "The password must be at least 6 characters long."
-msgstr "Пароль пользователя root должен содержать не менее 6 символов."
+msgstr ""
 
 #: ../textw/userauth.py:111
 msgid "User Exists"
@@ -1327,9 +1261,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/userauth.py:162
-#, fuzzy
 msgid "User name"
-msgstr "Имя пользователя:"
+msgstr ""
 
 #: ../textw/userauth.py:186
 msgid "Enter the information for the user."
@@ -1342,7 +1275,7 @@ msgstr ""
 #: ../textw/userauth.py:249
 #, fuzzy
 msgid "Use Shadow Passwords"
-msgstr "Пароль пользователя root"
+msgstr "Установка пароля пользователя root"
 
 #: ../textw/userauth.py:251
 #, fuzzy
@@ -1350,14 +1283,13 @@ msgid "Enable MD5 Passwords"
 msgstr "Установка пароля пользователя root"
 
 #: ../textw/userauth.py:258
-#, fuzzy
 msgid "NIS Domain:"
-msgstr "Имя домена:"
+msgstr ""
 
 #: ../textw/userauth.py:260
 #, fuzzy
 msgid "NIS Server:"
-msgstr "Сервер SMB:"
+msgstr "Сервер NIS:"
 
 #: ../textw/userauth.py:262
 msgid "or use:"
@@ -1533,14 +1465,12 @@ msgid "Fdisk Error"
 msgstr "Ошибка fdisk"
 
 #: ../libfdisk/gnomefsedit.c:517 ../libfdisk/gnomefsedit.c:686
-#, fuzzy
 msgid "<Swap Partition>"
-msgstr "Раздел свопинга"
+msgstr "<Раздел SWAP>"
 
 #: ../libfdisk/gnomefsedit.c:525 ../libfdisk/gnomefsedit.c:688
-#, fuzzy
 msgid "<RAID Partition>"
-msgstr "Корневой раздел"
+msgstr "<Раздел RAID>"
 
 #: ../libfdisk/gnomefsedit.c:580 ../libfdisk/newtfsedit.c:697
 msgid "Delete Partition"
@@ -1565,11 +1495,11 @@ msgstr "Точка монтирования"
 #: ../libfdisk/gnomefsedit.c:701
 #, fuzzy
 msgid "Size (Megs):"
-msgstr "Размер :"
+msgstr "Размер (Мег):"
 
 #: ../libfdisk/gnomefsedit.c:732
 msgid "Grow to fill disk?"
-msgstr ""
+msgstr "Увеличить до конца диска?"
 
 #: ../libfdisk/gnomefsedit.c:751 ../libfdisk/newtfsedit.c:335
 msgid "Allocation Status:"
@@ -1588,13 +1518,12 @@ msgid "Failure Reason:"
 msgstr "Причина сбоя:"
 
 #: ../libfdisk/gnomefsedit.c:784 ../libfdisk/gnomefsedit.c:1654
-#, fuzzy
 msgid "Partition Type:"
 msgstr "Тип раздела"
 
 #: ../libfdisk/gnomefsedit.c:851
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "Доступные устройства:"
 
 #: ../libfdisk/gnomefsedit.c:956 ../libfdisk/gnomefsedit.c:1846
 #: ../libfdisk/newtfsedit.c:486
@@ -1627,7 +1556,6 @@ msgid "Size Error"
 msgstr "Ошика размера"
 
 #: ../libfdisk/gnomefsedit.c:1027 ../libfdisk/newtfsedit.c:546
-#, fuzzy
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -1707,42 +1635,35 @@ msgstr ""
 "распределены."
 
 #: ../libfdisk/gnomefsedit.c:1640
-#, fuzzy
 msgid "<Swap Partition"
-msgstr "Раздел свопинга"
+msgstr "<Swap Partition"
 
 #: ../libfdisk/gnomefsedit.c:1698
 msgid "RAID Device: /dev/"
-msgstr ""
+msgstr "Устройство RAID: /dev/"
 
 #: ../libfdisk/gnomefsedit.c:1721
 msgid "RAID Type:"
-msgstr ""
+msgstr "Тип RAID:"
 
 #: ../libfdisk/gnomefsedit.c:1758
-#, fuzzy
 msgid "Partitions For RAID Array:"
-msgstr "Разделы для форматирования"
+msgstr "Разделы для массива RAID:"
 
 #: ../libfdisk/gnomefsedit.c:1847
-#, fuzzy
 msgid "You have not selected a mount point. A mount point is required."
-msgstr ""
-"Вы не выбрали точку монтирования для этого раздела. Оставить раздел без "
-"точки монтирования?"
+msgstr "Вы не выбрали точку монтирования. Точка монтирования необходима."
 
 #: ../libfdisk/gnomefsedit.c:1855
-#, fuzzy
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
-"Либо точка монтирования имеет неверный путь, либо она уже используется. "
-"Укажите правильную точку монтирования."
+"Точка монтирования уже используется. Укажите правильную точку монтирования."
 
 #: ../libfdisk/gnomefsedit.c:1868
 msgid "Booting From RAID Warning"
-msgstr ""
+msgstr "Предупреждение загрузки с RAID"
 
 #: ../libfdisk/gnomefsedit.c:1869
 msgid ""
@@ -1751,9 +1672,8 @@ msgid ""
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1879
-#, fuzzy
 msgid "No RAID Device"
-msgstr "Устройство"
+msgstr "Не является устройством RAID"
 
 #: ../libfdisk/gnomefsedit.c:1880
 msgid "You need to selected a RAID device."
@@ -1771,9 +1691,8 @@ msgid ""
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1900
-#, fuzzy
 msgid "Not Enough Partitions"
-msgstr "Не указан корневой раздел"
+msgstr "Не достаточно разделов"
 
 #: ../libfdisk/gnomefsedit.c:1902
 msgid ""
@@ -1783,11 +1702,11 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1909
 msgid "Illegal /boot RAID Type"
-msgstr ""
+msgstr "Неверный тип RAID для /boot"
 
 #: ../libfdisk/gnomefsedit.c:1911
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr ""
+msgstr "Загрузочные разделы (/boot) допускаются только на RAID-1."
 
 #: ../libfdisk/gnomefsedit.c:2012
 #, c-format
@@ -1798,27 +1717,24 @@ msgid ""
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2019
-#, fuzzy
 msgid "Use Pre-existing Partition?"
-msgstr "Удалить этот раздел?"
+msgstr "Использовать существующее разбиение?"
 
 #: ../libfdisk/gnomefsedit.c:2128
-#, fuzzy
 msgid "Auto-Partition"
-msgstr "Редактировать раздел"
+msgstr "Автоматическое разбиение"
 
 #: ../libfdisk/gnomefsedit.c:2135
 msgid "Using Existing Disk Space"
-msgstr ""
+msgstr "Использование существующего дискового пространства"
 
 #: ../libfdisk/gnomefsedit.c:2154
-#, fuzzy
 msgid "Remove Linux partitions"
-msgstr "Изменить размер раздела"
+msgstr "Удалить раздел Linux"
 
 #: ../libfdisk/gnomefsedit.c:2165
 msgid "Use existing free space"
-msgstr ""
+msgstr "Использовать имеющееся свободное пространство"
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2177
@@ -1831,12 +1747,11 @@ msgstr "Рабочая станция"
 
 #: ../libfdisk/gnomefsedit.c:2290
 msgid "Delete RAID Device?"
-msgstr ""
+msgstr "Удалить устройство RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2291
-#, fuzzy
 msgid "Are you sure you want to remove this RAID device?"
-msgstr "Вы уверены, что хотите удалить этот раздел?"
+msgstr "Вы уверены, что хотите удалить этот устройство RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2342 ../libfdisk/newtfsedit.c:1585
 msgid "Reset Partition Table"
@@ -1848,20 +1763,19 @@ msgstr "Вернуть начальное состояние таблицы разделов?"
 
 #: ../libfdisk/gnomefsedit.c:2380 ../libfdisk/gnomefsedit.c:2431
 msgid "<Swap>"
-msgstr ""
+msgstr "<Swap>"
 
 #: ../libfdisk/gnomefsedit.c:2382
 msgid "<RAID>"
-msgstr ""
+msgstr "<RAID>"
 
 #: ../libfdisk/gnomefsedit.c:2384
 msgid "<not set>"
-msgstr ""
+msgstr "<не установлено>"
 
 #: ../libfdisk/gnomefsedit.c:2941
-#, fuzzy
 msgid "Unallocated Partitions Exist..."
-msgstr "Нераспределенные разделы"
+msgstr "Существуют нераспределенные разделы..."
 
 #: ../libfdisk/gnomefsedit.c:2952
 #, fuzzy
@@ -1882,7 +1796,6 @@ msgstr ""
 "Linux Native (ext2)."
 
 #: ../libfdisk/gnomefsedit.c:2994
-#, fuzzy
 msgid ""
 "Because you have assigned the root partition (/) to a RAID device, you must "
 "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
@@ -1894,41 +1807,35 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:3067
 #, fuzzy
 msgid "Partitions"
-msgstr "Переразбиение"
+msgstr "Разделы"
 
 #: ../libfdisk/gnomefsedit.c:3111
-#, fuzzy
 msgid "_Add..."
-msgstr "Добавить"
+msgstr "_Add..."
 
 #: ../libfdisk/gnomefsedit.c:3123
-#, fuzzy
 msgid "_Edit..."
-msgstr "Редактировать"
+msgstr "_Edit..."
 
 #: ../libfdisk/gnomefsedit.c:3124
-#, fuzzy
 msgid "_Delete"
 msgstr "Удалить"
 
 #: ../libfdisk/gnomefsedit.c:3125
 msgid "_Reset"
-msgstr ""
+msgstr "_Reset"
 
 #: ../libfdisk/gnomefsedit.c:3154
-#, fuzzy
 msgid "_Make RAID Device"
-msgstr "Устройство"
+msgstr "_Создание устройства RAID"
 
 #: ../libfdisk/gnomefsedit.c:3163
-#, fuzzy
 msgid "Auto Partition"
-msgstr "Редактировать раздел"
+msgstr "Автоматическое разбиение"
 
 #: ../libfdisk/gnomefsedit.c:3176
-#, fuzzy
 msgid "Drive Summary"
-msgstr "Статистика диска"
+msgstr "Распределение диска"
 
 #: ../libfdisk/newtfsedit.c:142
 msgid "Swap Partition"
@@ -1984,28 +1891,28 @@ msgstr "Сохранить изменения таблиц(ы) разделов?"
 
 #: ../libfdisk/newtfsedit.c:1546
 msgid "You may only delete NFS mounts."
-msgstr "Удалять можно только NFS mounts."
+msgstr "Удалять можно только точки монтирования NFS."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
-msgstr "Другой CD-ROM"
+msgstr ""
 
 #: ../loader/cdrom.c:32
 msgid "CDROM type"
-msgstr "Тип CD-ROM"
+msgstr ""
 
 #: ../loader/cdrom.c:32
+#, fuzzy
 msgid "What type of CDROM do you have?"
-msgstr "Выберите тип привода CD-ROM:"
+msgstr "Укажите тип видеокарты"
 
 #: ../loader/cdrom.c:88
 msgid "Initializing CDROM..."
-msgstr "Инициализация CD-ROM..."
+msgstr ""
 
 #: ../loader/devices.c:45
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "Прочие параметры:"
+msgstr ""
 
 #: ../loader/devices.c:54
 #, fuzzy
@@ -2021,7 +1928,7 @@ msgstr ""
 
 #: ../loader/devices.c:120
 msgid "Which driver should I try?"
-msgstr "Какой драйвер необходимо пробовать?"
+msgstr ""
 
 #: ../loader/devices.c:135
 #, fuzzy
@@ -2035,27 +1942,29 @@ msgid "Devices"
 msgstr "Устройство"
 
 #: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+#, fuzzy
 msgid "Kickstart Error"
-msgstr "Ошибка kickstart"
+msgstr "Ошибка fdisk"
 
 #: ../loader/kickstart.c:57
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
-msgstr "Ошибка открытия файла: файл kickstart %s: %s"
+msgstr ""
 
 #: ../loader/kickstart.c:67
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "Ошибка чтения содержимого файла kickstart %s: %s"
+msgstr ""
 
 #: ../loader/kickstart.c:106
 #, c-format
 msgid "Error on line %d of kickstart file %s."
-msgstr "Ошибка в строке %d файла kickstart %s."
+msgstr ""
 
 #: ../loader/lang.c:245
+#, fuzzy
 msgid "Choose a Language"
-msgstr "Выберите язык"
+msgstr "Выберите сервер"
 
 #: ../loader/lang.c:501
 #, fuzzy
@@ -2065,7 +1974,7 @@ msgstr "Тип клавиатуры"
 #: ../loader/lang.c:502
 #, fuzzy
 msgid "What type of keyboard do you have?"
-msgstr "Выберите тип принтера:"
+msgstr "Укажите тип видеокарты"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
@@ -2076,9 +1985,8 @@ msgid "NFS image"
 msgstr ""
 
 #: ../loader/loader.c:106
-#, fuzzy
 msgid "Hard drive"
-msgstr "Жесткие диски"
+msgstr ""
 
 #: ../loader/loader.c:122
 #, fuzzy
@@ -2099,14 +2007,11 @@ msgstr ""
 #: ../loader/loader.c:238
 #, fuzzy
 msgid "What kind of device would you like to add"
-msgstr "Выберите тип носителя, который содержит пакеты для установки:"
+msgstr "Система какого типа должна быть установлена?"
 
 #: ../loader/loader.c:285
-#, fuzzy
 msgid "I have found the following devices in your system:"
 msgstr ""
-"В вашей системе обнаружены следующие типы контроллеров SCSI:\n"
-"\n"
 
 #: ../loader/loader.c:287 ../loader/loader.c:311
 #, fuzzy
@@ -2122,52 +2027,47 @@ msgstr ""
 #: ../loader/loader.c:393 ../loader/loader.c:395
 #, fuzzy
 msgid "Loading"
-msgstr "Рабочая станция"
+msgstr "Расположение"
 
 #: ../loader/loader.c:447
 msgid "Loading second stage ramdisk..."
-msgstr "Загружается виртуальный диск..."
+msgstr ""
 
 #: ../loader/loader.c:451
-#, fuzzy
 msgid "Error loading ramdisk."
-msgstr "Ошибка чтения виртуального диска второй стадии"
+msgstr ""
 
 #: ../loader/loader.c:572
+#, fuzzy
 msgid "Hard Drives"
-msgstr "Жесткие диски"
+msgstr "Слишком много дисков"
 
 #: ../loader/loader.c:573
-#, fuzzy
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Вы не указали область свопинга (swap space). Хотите продолжить или "
-"переразбить диск?"
 
 #: ../loader/loader.c:586
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
-"Укажите раздел и каталог на этом разделе, который содержит подкаталоги "
-"RedHat/RPMS и RedHat/base."
 
 #: ../loader/loader.c:600
 msgid "Directory holding Red Hat:"
-msgstr "Каталог RedHat:"
+msgstr ""
 
 #: ../loader/loader.c:620
+#, fuzzy
 msgid "Select Partition"
-msgstr "Выберите раздел"
+msgstr "Удалить этот раздел?"
 
 #: ../loader/loader.c:664
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
-msgstr "Устройство %s не содержит дерево каталогов с дистрибутивом Red Hat"
+msgstr ""
 
 #: ../loader/loader.c:709
 msgid ""
@@ -2177,28 +2077,28 @@ msgstr ""
 
 #: ../loader/loader.c:842
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr "Этот каталог не содержит инсталляционное дерево Red Hat."
+msgstr ""
 
 #: ../loader/loader.c:847
 msgid "I could not mount that directory from the server"
-msgstr "невозможно смонтировать этот каталог с сервера"
+msgstr ""
 
 #: ../loader/loader.c:932
 msgid "FTP"
 msgstr ""
 
 #: ../loader/loader.c:933
-#, fuzzy
 msgid "Unable to retrieve the second stage ramdisk"
-msgstr "Невозможно считать виртуальный диск второй стадии: %s"
+msgstr ""
 
 #: ../loader/loader.c:1057
 msgid "Rescue Method"
 msgstr ""
 
 #: ../loader/loader.c:1058
+#, fuzzy
 msgid "Installation Method"
-msgstr "Метод установки"
+msgstr "Тип инсталляции"
 
 #: ../loader/loader.c:1060
 msgid "What type of media contains the rescue image?"
@@ -2207,33 +2107,33 @@ msgstr ""
 #: ../loader/loader.c:1062
 #, fuzzy
 msgid "What type of media contains the packages to be installed?"
-msgstr "Выберите тип носителя, который содержит пакеты для установки:"
+msgstr "Система какого типа должна быть установлена?"
 
 #: ../loader/loader.c:1388
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr "Не удается найти ks.cfg на загрузочном диске."
+msgstr ""
 
 #: ../loader/loader.c:1500
 msgid "PC Card"
 msgstr ""
 
 #: ../loader/loader.c:1500
-#, fuzzy
 msgid "Initializing PC Card Devices..."
-msgstr "Инициализация CD-ROM..."
+msgstr ""
 
 #: ../loader/net.c:147
+#, fuzzy
 msgid "NFS server name:"
-msgstr "Имя сервера NFS:"
+msgstr "Сервер NIS:"
 
 #: ../loader/net.c:150 ../loader/urls.c:160
 msgid "Red Hat directory:"
-msgstr "Каталог Red Hat:"
+msgstr ""
 
 #: ../loader/net.c:156
 #, fuzzy
 msgid "NFS Setup"
-msgstr "Настройка SMB"
+msgstr "Настройка NFS"
 
 #: ../loader/net.c:157
 msgid ""
@@ -2243,64 +2143,56 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecture"
 msgstr ""
-"Пожалуйста, введите следующую информацию:\n"
-"\n"
-"    o имя или адрес IP вашего сервера NFS\n"
-"    o каталог на этом сервере, в котором содержится\n"
-"      Red Hat Linux для вашей архитектуры"
 
 #: ../loader/net.c:228
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
-"Введите конфигурацию протокола IP для этой машины. Каждый элемент должен "
-"быть введен как IP адрес в десятично-точечной записи (например 1.2.3.4)."
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr ""
 
 #: ../loader/net.c:298
+#, fuzzy
 msgid "Configure TCP/IP"
-msgstr "Настройка TCP/IP"
+msgstr "Использовать DHCP"
 
 #: ../loader/net.c:329
 #, fuzzy
 msgid "Missing Information"
-msgstr "Информация о принтере"
+msgstr "Неверная информация"
 
 #: ../loader/net.c:330
 #, fuzzy
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "Необходимо ввести правильный IP адрес и маску подсети."
+msgstr "Необходимо ввести правильные параметры IP для продолжения."
 
 #: ../loader/net.c:338 ../loader/net.c:569
 msgid "Dynamic IP"
 msgstr ""
 
 #: ../loader/net.c:339 ../loader/net.c:570
-#, fuzzy
 msgid "Sending request for IP information..."
-msgstr "Послан запрос DHCP..."
+msgstr ""
 
 #: ../loader/net.c:461
 msgid "Determining host name and domain..."
-msgstr "Определение имени компьютера и домена..."
+msgstr ""
 
 #: ../loader/net.c:559
 msgid "kickstart"
-msgstr "kickstart"
+msgstr ""
 
 #: ../loader/net.c:560
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr "неверный аргумент для сетевой команды kickstart %s: %s"
+msgstr ""
 
 #: ../loader/net.c:607
-#, fuzzy
 msgid "Boot protocol to use"
-msgstr "Протокол загрузки"
+msgstr ""
 
 #: ../loader/net.c:609
 #, fuzzy
@@ -2345,13 +2237,13 @@ msgid "Network configuration"
 msgstr "Конфигурация сети"
 
 #: ../loader/net.c:699
-#, fuzzy
 msgid "Would you like to set up networking?"
-msgstr "Не устанавливать сетевые службы"
+msgstr ""
 
 #: ../loader/urls.c:62 ../loader/urls.c:65
+#, fuzzy
 msgid "Retrieving"
-msgstr "Получение"
+msgstr "Переиндексация"
 
 #: ../loader/urls.c:129
 msgid ""
@@ -2361,11 +2253,6 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
-"Пожалуйста введите следующую информацию:\n"
-"\n"
-"    o имя или адрес IP вашего сервера FTP\n"
-"    o каталог на этом сервере, в котором содержится\n"
-"      Red Hat Linux для вашей архитектуры\n"
 
 #: ../loader/urls.c:138
 msgid ""
@@ -2375,44 +2262,39 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
-"Пожалуйста, введите следующую информацию:\n"
-"\n"
-"    o имя или адрес IP вашего web-сервера\n"
-"    o каталог на этом сервере, в котором содержится\n"
-"      Red Hat Linux для вашей архитектуры\n"
 
 #: ../loader/urls.c:156
 msgid "FTP site name:"
-msgstr "имя сервера FTP:"
+msgstr ""
 
 #: ../loader/urls.c:157
 msgid "Web site name:"
-msgstr "имя web-сервера:"
+msgstr ""
 
 #: ../loader/urls.c:176
 msgid "Use non-anonymous ftp or a proxy server"
-msgstr "Использовать авторизированый сервер ftp или прокси-сервер"
+msgstr ""
 
 #: ../loader/urls.c:180
 #, fuzzy
 msgid "Use proxy server"
-msgstr "Использовать proxy-сервер"
+msgstr "Выберите сервер"
 
 #: ../loader/urls.c:191
 msgid "FTP Setup"
-msgstr "Настройка FTP"
+msgstr ""
 
 #: ../loader/urls.c:192
 msgid "HTTP Setup"
-msgstr "Настройка HTTP"
+msgstr ""
 
 #: ../loader/urls.c:202
 msgid "You must enter a server name."
-msgstr "Вы должны указать имя сервера."
+msgstr ""
 
 #: ../loader/urls.c:207
 msgid "You must enter a directory."
-msgstr "Вы должны указать каталог."
+msgstr ""
 
 #: ../loader/urls.c:268
 msgid ""
@@ -2420,15 +2302,12 @@ msgid ""
 "wish to use below. If you are using an FTP proxy enter the name of the FTP "
 "proxy server to use."
 msgstr ""
-"Если вы используете авторизированный доступ к ftp, введите имя пользователя "
-"и пароль. Если вы используете прокси-сервер для доступа к FTP - введите имя "
-"сервера."
 
 #: ../loader/urls.c:274
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr "Если вы используете proxy-сервер HTTP, введите имя этого сервера."
+msgstr ""
 
 #: ../loader/urls.c:295
 #, fuzzy
@@ -2437,1198 +2316,24 @@ msgstr "Имя пользователя:"
 
 #: ../loader/urls.c:303
 msgid "FTP Proxy:"
-msgstr "FTP Proxy:"
+msgstr ""
 
 #: ../loader/urls.c:304
 msgid "HTTP Proxy:"
-msgstr "HTTP Proxy:"
+msgstr ""
 
 #: ../loader/urls.c:308
 msgid "FTP Proxy Port:"
-msgstr "Порт FTP Proxy:"
+msgstr ""
 
 #: ../loader/urls.c:309
 msgid "HTTP Proxy Port:"
-msgstr "Порт HTTP Proxy:"
+msgstr ""
 
 #: ../loader/windows.c:46
-#, fuzzy
 msgid "Loading SCSI driver"
-msgstr "Грузится диск модулей.."
+msgstr ""
 
 #, fuzzy
 #~ msgid "Root Partition Selection"
-#~ msgstr "Корневой раздел"
-
-#, fuzzy
-#~ msgid "Welcome to Red Hat Linux!"
-#~ msgstr "Добро пожаловать в Red Hat Linux"
-
-#~ msgid "Warning"
-#~ msgstr "Внимание!"
-
-#~ msgid "You are about to lose data! Are you sure you want to do this?"
-#~ msgstr "Все данные будут потеряны. Вы уверены что хотите сделать это?"
-
-#~ msgid "Disk Space"
-#~ msgstr "Дисковое пространство"
-
-#~ msgid "There is not enough disk space for this type of installation."
-#~ msgstr "Недостаточно места на диске для этого типа установки."
-
-#, fuzzy
-#~ msgid "There is not enough disk space for the chosen partitioning."
-#~ msgstr "Недостаточно места на диске для этого типа установки."
-
-#, fuzzy
-#~ msgid "Skip LILO install"
-#~ msgstr "Инсталляция SILO"
-
-#~ msgid "No BOOTP reply received"
-#~ msgstr "Ответ BOOTP не получен"
-
-#~ msgid "No DHCP reply received"
-#~ msgstr "Ответ DHCP не получен"
-
-#~ msgid "Base IO port:"
-#~ msgstr "Базовый порт IO:"
-
-#~ msgid "IRQ level:"
-#~ msgstr "Уровень IRQ:"
-
-#~ msgid "IO base, IRQ:"
-#~ msgstr "Адрес IO, IRQ:"
-
-#~ msgid "Use other options"
-#~ msgstr "Другие параметры"
-
-#~ msgid "Interrupt level (IRQ):"
-#~ msgstr "Уровень прерывания (IRQ):"
-
-#~ msgid "IO base, IRQ, label:"
-#~ msgstr "Адрес IO, IRQ, метка:"
-
-#~ msgid "Specify options"
-#~ msgstr "Укажите параметры"
-
-#~ msgid "mknod() failed: %s"
-#~ msgstr "ошибка mknod(): %s"
-
-#~ msgid "Load module"
-#~ msgstr "Загрузка модуля"
-
-#~ msgid "Probe"
-#~ msgstr "Проба"
-
-#~ msgid "A %s card has been found on your system."
-#~ msgstr "В вашей системе найден адаптер %s."
-
-#~ msgid "device command"
-#~ msgstr "команда устройства"
-
-#~ msgid "bad argument to kickstart device command %s: %s"
-#~ msgstr "неверный аргумент для kickstart-команды устройства %s: %s"
-
-#~ msgid "bad arguments to kickstart device command"
-#~ msgstr "неверный аргумент для kickstart-команды устройства"
-
-#~ msgid "No module exists for %s"
-#~ msgstr "Модуль для %s отсутствует"
-
-#~ msgid "I can't find the device anywhere on your system!"
-#~ msgstr "Невозможно найти устройство"
-
-#~ msgid ""
-#~ "In some cases, the %s driver needs to have extra information to work "
-#~ "properly, although it normally works fine without. Would you like to specify "
-#~ "extra options for it or allow the driver to probe your machine for the "
-#~ "information it needs? Occasionally, probing will hang a computer, but it "
-#~ "should not cause any damage."
-#~ msgstr ""
-#~ "В некоторых случаях для правильной работы драйвера %s требуется "
-#~ "дополнительная информация. Вы хотите указать дополнительные параметры, или "
-#~ "позволите драйверу попробовать определить их самостоятельно? Иногда такая "
-#~ "проверка может 'повесить' ваш компьютер, но это не может вызвать повреждений."
-
-#~ msgid ""
-#~ "In many cases, the %s driver needs to be provided with extra information on "
-#~ "your hardware. If you prefer, some common values for those parameters will "
-#~ "be tried. This process can hang a machine, although it should not cause any "
-#~ "damage."
-#~ msgstr ""
-#~ "В большинстве случаев драйвер %s требует указания дополнительной информации "
-#~ "о конфигурации оборудования. Некоторые, наиболее общие значения, могут быть "
-#~ "проверены автоматически. В результате этого компьютер может 'зависнуть', но "
-#~ "это не может его испортить."
-
-#~ msgid "Module options:"
-#~ msgstr "Опции модуля:"
-
-#~ msgid "Cannot open /proc/filesystems: %d"
-#~ msgstr "Невозможно открыть /proc/filesystems: %d"
-
-#~ msgid "Failed to open %s. No upgrade log will be kept."
-#~ msgstr "Ошибка открытия %s. Протокол обновления не будет сохранен."
-
-#~ msgid "Fatal error opening RPM database"
-#~ msgstr "Фатальная oшибка открытия базы RPM"
-
-#~ msgid "Error ordering package list: %s"
-#~ msgstr "Ошибка назначения списка пакетов: %s"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following filesystems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Похоже что у вас недостаточно места для инсталляции выбранных пакетов. "
-#~ "Необходимо дополнительное пространство на следующих файловых системах:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "Необходимо место"
-
-#~ msgid "Install anyway"
-#~ msgstr "Продолжить инсталляцию"
-
-#~ msgid "Fatal error reopening RPM database"
-#~ msgstr "Фатальная ошибка повторного открытия базы RPM"
-
-#~ msgid "Examining packages to install..."
-#~ msgstr "Поиск пакетов для инсталляции..."
-
-#~ msgid "Examining files to install..."
-#~ msgstr "Поиск файлов для инсталляции..."
-
-#~ msgid "Finding overlapping files..."
-#~ msgstr "Поиск перекрывающихся файлов..."
-
-#~ msgid "Processing"
-#~ msgstr "Обработка"
-
-#~ msgid "Removing old files..."
-#~ msgstr "Удаление старых файлов..."
-
-# ../doit.c:574
-#~ msgid "Error installing package: cannot open RPM file for %s: %s"
-#~ msgstr "Ошибка инсталляции пакета: невозможно открыть файл RPM для %s: %s"
-
-#~ msgid "Force supplemental disk"
-#~ msgstr "Перейти к загрузке диска поддержки"
-
-#~ msgid "Note"
-#~ msgstr "Замечание"
-
-#~ msgid "Insert your Red Hat CD into your CD drive now"
-#~ msgstr "Вставьте Red Hat CD в привод CD-ROM"
-
-#~ msgid "I could not mount a CD on device /dev/%s"
-#~ msgstr "Невозможно смонтировать CD в устройстве /dev/%s"
-
-#~ msgid "That CDROM device does not seem to contain a Red Hat CDROM."
-#~ msgstr "В этом приводе CD-ROM отсутствует компакт-диск Red Hat."
-
-#~ msgid "nfs command"
-#~ msgstr "команда nfs"
-
-#~ msgid "bad argument to kickstart nfs command %s: %s"
-#~ msgstr "неверный аргумент для kickstart команды nfs %s: %s"
-
-#~ msgid "nfs command incomplete"
-#~ msgstr "команда nfs не завершена"
-
-#~ msgid "PCMCIA Disk"
-#~ msgstr "PCMCIA диск"
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Невозможно подмонтировать диск. Вставьте Red Hat PCMCIA диск илинажмите "
-#~ "`Отмена' и выберите другой метод инсталляции."
-
-#~ msgid "Loading PCMCIA Support"
-#~ msgstr "Загрузка поддержки PCMCIA"
-
-#~ msgid "Supplemental Disk"
-#~ msgstr "Диск поддердки"
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Supplementary "
-#~ "Install disk, or choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Невозможно смонтировать дискету. Вставьте диск поддержки Red Hat, или "
-#~ "нажмите `Отмена' и выберите другой метод инсталляции."
-
-#~ msgid "Loading Supplemental Disk..."
-#~ msgstr "Грузится диск поддержки..."
-
-#~ msgid "Driver Disk"
-#~ msgstr "Диск драйверов"
-
-#~ msgid ""
-#~ "This install method requires a driver disk. Please remove the supplemental "
-#~ "disk currently in your drive and replace it with the Red Hat Modules disk."
-#~ msgstr ""
-#~ "Этот метод требует дополнительные драйверы. Уберите диск поддержки из "
-#~ "дисковода и замените его на Диск модулей Red Hat."
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Module disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Невозможно смонтировать дискету. Вставьте Диск модулей Red Hat или нажмите "
-#~ "`Отмена' и выберите другой метод инсталляции."
-
-#~ msgid ""
-#~ "This install method requires two additional disks. Please remove the boot "
-#~ "disk currently in your drive and replace it with the Red Hat Supplementary "
-#~ "Install disk."
-#~ msgstr ""
-#~ "Для этого метода инсталляции требуется два дополнительных диска. Уберите "
-#~ "загрузочный диск из дисковода и замените его на Диск поддержки Red Hat "
-#~ "(supplementary disk)."
-
-#~ msgid "hd command"
-#~ msgstr "команда hd"
-
-#~ msgid "bad argument to kickstart hd command %s: %s"
-#~ msgstr "неверный аргумент для kickstart команды hd %s: %s"
-
-#~ msgid "hd command incomplete"
-#~ msgstr "команда hd не завершена"
-
-#~ msgid "HD device %s not found"
-#~ msgstr "HD устроство %s не найдено"
-
-#~ msgid "Failed to create /tmp/rhimage symlink: %s"
-#~ msgstr "Невозможно создать символическую ссылку /tmp/rhimage: %s"
-
-#~ msgid "url command"
-#~ msgstr "команда url"
-
-#~ msgid "bad argument to kickstart url command %s: %s"
-#~ msgstr "неверный аргумент для kickstart команды url %s: %s"
-
-#~ msgid "url command incomplete"
-#~ msgstr "команда url не завершена"
-
-#~ msgid "Mount points must begin with a leading /."
-#~ msgstr "Точка монтирования должна начинаться с /."
-
-#~ msgid "Mount points may not end with a /."
-#~ msgstr "Точка монтирования не должна завершаться /."
-
-#~ msgid "Mount points may only printable characters."
-#~ msgstr "В точках монтирования могут быть только печатные символы."
-
-#~ msgid "System partitions must be on Linux Native partitions."
-#~ msgstr "Системные разделы должны располагаться на разделах Linux Native."
-
-#~ msgid "/usr must be on a Linux Native partition or an NFS volume."
-#~ msgstr "/usr должен быть на Linux Native или NFS разделе."
-
-#~ msgid "Edit Network Mount Point"
-#~ msgstr "Редактирование сетевой точки монтирования"
-
-#~ msgid "Making ext2 filesystem on /dev/%s..."
-#~ msgstr "Создание файловой системы ext2 на /dev/%s..."
-
-#~ msgid "Running"
-#~ msgstr "Выполнение"
-
-#~ msgid "nfs mount failed: %s"
-#~ msgstr "ошибка монтирования nfs: %s"
-
-#~ msgid "mount failed: %s"
-#~ msgstr "ошибка монтирования: %s"
-
-#~ msgid ""
-#~ "The partition table on device %s is corrupted.  To create new partitions it "
-#~ "must be initialized. You can specify \"zerombr yes\" in the kickstart file "
-#~ "to have this done automatically"
-#~ msgstr ""
-#~ "Таблица разделов на устройстве %s повреждена. Для создания новых разделов "
-#~ "устройство должно быть инициализировано. Если вы хотите, чтобы это было "
-#~ "сделано автоматически, укажите \"zerombr yes\" в файле kickstart."
-
-#~ msgid "Zero Partition Table"
-#~ msgstr "Нулевая таблица разделов"
-
-#~ msgid ""
-#~ "bad argument to kickstart zerombr command: %s.\n"
-#~ "Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
-#~ msgstr ""
-#~ "неверный аргумент команды kickstart zerombr: %s.\n"
-#~ "Допускается 'on', '1' или 'yes' для разрешения, или 'off', '0', или 'no'для "
-#~ "запрета."
-
-#~ msgid "Clear Partition Command"
-#~ msgstr "Команда очистки раздела"
-
-#~ msgid "bad argument to kickstart clearpart command %s: %s"
-#~ msgstr "неверный аргумент команды kickstart clearpart %s: %s"
-
-#~ msgid "Partition Command"
-#~ msgstr "Команда раздела"
-
-#~ msgid "bad argument to kickstart part command %s: %s"
-#~ msgstr "Неверный аргумент команды kickstart part %s: %s"
-
-#~ msgid "Option Ignored"
-#~ msgstr "Параметр проигнорирован"
-
-#~ msgid ""
-#~ "The --maxsize option for the partition %s was ignored. Check that it is "
-#~ "larger than the --size option."
-#~ msgstr ""
-#~ "Параметр --maxsize для раздела %s проигнорирован. Он должен быть меньше, чем "
-#~ "значение параметра --size."
-
-#~ msgid "The mount point %s is already in use."
-#~ msgstr "Точка монтирования %s уже используется."
-
-#~ msgid "Failed Allocation"
-#~ msgstr "Ошибка распределения"
-
-#~ msgid "The partition %s could not be allocated."
-#~ msgstr "Раздел %s не может быть распределен."
-
-#~ msgid ""
-#~ "There are partitions that can be resized nondestructively to make room for "
-#~ "your Red Hat Linux installation. Do you want to resize these partitions now?"
-#~ msgstr ""
-#~ "Имеются разделы, размер которых может быть изменен без разрушения данных, "
-#~ "чтобы освободить место для вашей инсталляции Red Hat Linux. Вы хотите "
-#~ "изменить размер разделов сейчас?"
-
-#~ msgid "Success"
-#~ msgstr "Выполнено"
-
-#~ msgid "Bad server response"
-#~ msgstr "Неверный ответ сервера"
-
-#~ msgid "Server IO error"
-#~ msgstr "Ошибка IO сервера"
-
-#~ msgid "Server timeout"
-#~ msgstr "Таймаут сервера"
-
-#~ msgid "Unable to lookup server host address"
-#~ msgstr "Невозможно определить адрес сервера"
-
-#~ msgid "Unable to lookup server host name"
-#~ msgstr "Невозможно определить имя компьютера"
-
-#~ msgid "Failed to connect to server"
-#~ msgstr "Ошибка соединения с сервером"
-
-#~ msgid "Failed to establish data connection to server"
-#~ msgstr "Невозможно установить соединение с сервером"
-
-#~ msgid "IO error to local file"
-#~ msgstr "Ошибка доступа к локальному файлу"
-
-#~ msgid "Error setting remote server to passive mode"
-#~ msgstr "Ошибка перевода удаленного сервера в пассивный режим"
-
-#~ msgid "File not found on server"
-#~ msgstr "Файл не найден на сервере"
-
-#~ msgid "Abort in progress"
-#~ msgstr "Отмена при выполнении"
-
-#~ msgid "Unknown or unexpected error"
-#~ msgstr "Неизвестная или неожиданная ошибка"
-
-#~ msgid "Whole disk"
-#~ msgstr "Весь диск"
-
-#~ msgid "Linux swap"
-#~ msgstr "Linux swap"
-
-#~ msgid "Linux native"
-#~ msgstr "Linux native"
-
-#~ msgid "DOS 12-bit FAT"
-#~ msgstr "DOS 12-bit FAT"
-
-#~ msgid "DOS 16-bit <32M"
-#~ msgstr "DOS 16-bit <32M"
-
-#~ msgid "DOS 16-bit >=32"
-#~ msgstr "DOS 16-bit >=32"
-
-#~ msgid "OS/2 HPFS"
-#~ msgstr "OS/2 HPFS"
-
-#~ msgid "Win95 FAT32"
-#~ msgstr "Win95 FAT32"
-
-#~ msgid "Scanning hard drives..."
-#~ msgstr "Сканирование жестких дисков..."
-
-#~ msgid ""
-#~ "You don't have any hard drives available! You probably forgot to configure a "
-#~ "SCSI controller."
-#~ msgstr ""
-#~ "Жесткие диски не обнаружены! Скорее всего вы забыли сконфигурировать свой "
-#~ "контроллер SCSI."
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux."
-#~ msgstr ""
-#~ "Для инсталляции Red Hat Linux вам необходим хотя бы один раздел в 150 MB, "
-#~ "выделенный под Linux."
-
-#~ msgid "Partition Disks"
-#~ msgstr "Разбиение дисков"
-
-#~ msgid "Reboot Needed"
-#~ msgstr "Необходима перезагрузка"
-
-#~ msgid ""
-#~ "The kernel is unable to read your new partitioning information, probably "
-#~ "because you modified extended partitions. While this is not critical, you "
-#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
-#~ "and press Return to reboot your system.\n"
-#~ "\n"
-#~ "If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
-#~ "empty SCSI drive can also cause this problem."
-#~ msgstr ""
-#~ "Ядро не может прочесть новую информацию о разбиении дисков, возможно вы "
-#~ "изменили разбиение расширенного раздела. Рекомендуется перезагрузить ваш "
-#~ "компьютер прежде чем продолжить. Вставьте загрузочный диск Red Hat и нажмите "
-#~ "<Enter> для перезагрузки.\n"
-#~ "\n"
-#~ "Если у вас есть накопители ZIP или JAZ, убедитесь что они пусты, диск в "
-#~ "устройстве SCSI также может быть причиной этой проблемы."
-
-#~ msgid "lilo command"
-#~ msgstr "команда lilo"
-
-#~ msgid "bad argument to kickstart lilo command %s: %s"
-#~ msgstr "неверный аргумент для kickstart команды lilo %s: %s"
-
-#~ msgid "PCMCIA Support"
-#~ msgstr "Поддержка PCMCIA"
-
-#~ msgid ""
-#~ "Do you need to use PCMCIA devices during the install? Answer no to this "
-#~ "question if only need PCMCIA support after the install. You do not need "
-#~ "install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
-#~ "with a built-in CDROM drive."
-#~ msgstr ""
-#~ "Нужна ли вам поддержка PCMCIA при инсталляции? Выберите `Нет', если "
-#~ "поддержка PCMCIA понадобится только после инсталляции. Вам не нужна "
-#~ "поддержка PCMCIA, если вы инсталлируете Red Hat Linux на лэптоп со "
-#~ "встроенным приводом CD-ROM."
-
-#~ msgid "PCMCIA Support Disk"
-#~ msgstr "Диск поддержки PCMCIA"
-
-#~ msgid ""
-#~ "PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
-#~ "currently in your drive and replace it with the Red Hat PCMCIA support disk."
-#~ msgstr ""
-#~ "Для поддержки PCMCIA требуется дополнительный диск. Уберите загрузочный диск "
-#~ "из дисковода и замените его на диск поддержки PCMCIA."
-
-#~ msgid "Starting PCMCIA services..."
-#~ msgstr "Запуск сервисов PCMCIA..."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Type <exit> to return to the install program.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Наберите <exit> для возврата в программу установки.\n"
-#~ "\n"
-
-#~ msgid "No kickstart configuration file server can be found."
-#~ msgstr "Не найден файлсервер конфигурации для kickstart."
-
-#~ msgid "I could not mount the kickstart path %s.\n"
-#~ msgstr "Невозможно смонтировать путь kickstart %s.\n"
-
-#~ msgid "I could not mount the boot floppy."
-#~ msgstr "Не удается смонтировать загрузочную дискету."
-
-#~ msgid "Error opening files for kickstart copy: %s\n"
-#~ msgstr "Ошибка открытия файла для копирования kickstart: %s\n"
-
-#~ msgid "Error copying kickstart file from floppy."
-#~ msgstr "Ошибка копирования файла kickstart с дискеты."
-
-#~ msgid "Select installation path"
-#~ msgstr "Выбор пути инсталляции"
-
-#~ msgid "Select installation class"
-#~ msgstr "Выберите класс инсталляции"
-
-#~ msgid "Setup SCSI"
-#~ msgstr "Настройка SCSI"
-
-#~ msgid "Setup filesystems"
-#~ msgstr "Настройка файловых систем"
-
-#~ msgid "Setup swap space"
-#~ msgstr "Настройка раздела подкачки"
-
-#~ msgid "Find installation files"
-#~ msgstr "Поиск файлов для установки"
-
-#~ msgid "Choose packages to install"
-#~ msgstr "Выбор пакетов для установки"
-
-#~ msgid "Configure networking"
-#~ msgstr "Настройка сети"
-
-#~ msgid "Configure timezone"
-#~ msgstr "Настройка часового пояса"
-
-#~ msgid "Configure services"
-#~ msgstr "Настройка сервисов"
-
-#~ msgid "Configure printer"
-#~ msgstr "Настройка принтера"
-
-#~ msgid "Exit install"
-#~ msgstr "Выход из инсталляции"
-
-#~ msgid "Find current installation"
-#~ msgstr "Поиск текущей инсталляции"
-
-#~ msgid "Scanning packages..."
-#~ msgstr "Сканирование пакетов..."
-
-#~ msgid "Install log"
-#~ msgstr "Протокол инсталляции"
-
-#~ msgid "Upgrade log"
-#~ msgstr "Протокол обновления"
-
-#~ msgid ""
-#~ "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
-#~ "is finished. After rebooting, please read it to ensure configuration files "
-#~ "are properly updated."
-#~ msgstr ""
-#~ "По окончании обновления его полный протокол будет находиться в "
-#~ "/tmp/upgrade.log. После перезагрузки следует убедиться что все файлы "
-#~ "конфигурации были обновлены правильно."
-
-#~ msgid "Rebuilding RPM database..."
-#~ msgstr "Переиндексация базы RPM..."
-
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr "Переиндексация базы RPM невозможна. Недостаточно места на диске?"
-
-#~ msgid "rootpw command"
-#~ msgstr "команда rootpw"
-
-#~ msgid "bad argument to kickstart rootpw command %s: %s"
-#~ msgstr "неверный аргумент для команды kickstart rootpw: %s: %s"
-
-#~ msgid "Missing password"
-#~ msgstr "Пропущен пароль"
-
-#~ msgid "Unexpected arguments"
-#~ msgstr "Неожиданные аргументы"
-
-#~ msgid "Installation Path"
-#~ msgstr "Инсталляция или обновление"
-
-#~ msgid ""
-#~ "Would you like to install a new system or upgrade a system which already "
-#~ "contains Red Hat Linux 2.0 or later?"
-#~ msgstr ""
-#~ "Вы хотите установить новую систему или обновить уже установленный Red Hat "
-#~ "Linux 2.0 или более поздний?"
-
-#~ msgid ""
-#~ "What type of machine are you installing? For maximum flexibility, choose "
-#~ "\"Custom\"."
-#~ msgstr ""
-#~ "Какой тип системы вы хотите установить? Для максимальной гибкости ответьте "
-#~ "\"По выбору\"."
-
-#~ msgid "Converting RPM database..."
-#~ msgstr "Преобразование базы RPM..."
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Поиск пакетов для обновления..."
-
-#~ msgid "Previous"
-#~ msgstr "Предыдущий"
-
-#~ msgid "Menu"
-#~ msgstr "Меню"
-
-#~ msgid ""
-#~ "An error occured during step \"%s\" of the install.\n"
-#~ "\n"
-#~ "You may retry that step, return to the previous step in the install, or see "
-#~ "a menu of installation steps which will allow you to move around in the "
-#~ "install more freely. It is not recommended to use the menu unless you are "
-#~ "already familiar with Red Hat Linux. What would you like to do?"
-#~ msgstr ""
-#~ "На этапе \"%s\" произошла ошибка.\n"
-#~ "\n"
-#~ "У вас есть возможность повторить этот этап, вернуться к предыдущему или "
-#~ "просмотреть меню этапов установки, на которые можно легко перейти с этого "
-#~ "места. Если вы не знакомы с Red Hat Linux, использовать меню не "
-#~ "рекомендуется. Что вы выберете?"
-
-#~ msgid "  Continue with install"
-#~ msgstr "  Продолжить установку"
-
-#~ msgid ""
-#~ "What step would you like to run? Steps with a * next to them have already "
-#~ "been completed."
-#~ msgstr ""
-#~ "Какой из этапов вы выберете? Этапы, отмеченные символом `*', уже завершены."
-
-#~ msgid "Cancelled"
-#~ msgstr "Отменен"
-
-#~ msgid ""
-#~ "I can't go to the previous step from here. You will have to try again."
-#~ msgstr "Возврат к предыдущему этапу невозможен. Повторите попытку."
-
-#~ msgid "Insert a blank floppy in the first drive /dev/fd0."
-#~ msgstr "Вставьте чистый диск в первый дисковод /dev/fd0."
-
-#~ msgid "file %s missing from source directory"
-#~ msgstr "file %s отсутствует в исходной директории"
-
-#~ msgid "failed to create file %s"
-#~ msgstr "ошибка создания файла %s"
-
-#~ msgid "error writing to file %s: %s"
-#~ msgstr "Ошибка передачи записи в файл %s: %s"
-
-#~ msgid "error reading from file %s: %s"
-#~ msgstr "ошибка открытия файла заголовка: %s: %s"
-
-#~ msgid "Kernel"
-#~ msgstr "Ядро"
-
-#~ msgid ""
-#~ "Please insert your boot disk in your first disk drive if it's not already "
-#~ "present."
-#~ msgstr ""
-#~ "Вставьте пожалуйста зарузочный диск в дисковод, если он там отсутствует."
-
-#~ msgid "Copying kernel from floppy..."
-#~ msgstr "Ядро копируется с дискеты..."
-
-#~ msgid "Unknown command %s on line %d of kickstart file %s."
-#~ msgstr "Неизвестная команда %s в строке %d файла kickstart %s."
-
-#~ msgid "Failed to create /mnt/tmp/ks.script: %s"
-#~ msgstr "Невозможно создать /mnt/tmp/ks.script: %s"
-
-#~ msgid "Failed to write ks post script: %s"
-#~ msgstr "Невозможно записать ks post script: %s"
-
-#~ msgid "Failed to create symlink for package source."
-#~ msgstr "Невозможно создать ссылку к источнику пакетов"
-
-#~ msgid "ftp"
-#~ msgstr "ftp"
-
-#~ msgid "I'm having trouble getting %s. Would you like to retry?"
-#~ msgstr "Проблемы при получении %s. Повторить?"
-
-#~ msgid "SILO"
-#~ msgstr "SILO"
-
-#~ msgid "LILO"
-#~ msgstr "LILO"
-
-#~ msgid "Creating initial ramdisk..."
-#~ msgstr "Создается начальный ramdisk"
-
-#~ msgid "Device:"
-#~ msgstr "Устройство:"
-
-#~ msgid "Boot label:"
-#~ msgstr "Метка:"
-
-#~ msgid "Installing boot loader..."
-#~ msgstr "Устанавливается загрузчик..."
-
-#~ msgid "Bootable Partitions"
-#~ msgstr "Загрузочные разделы"
-
-#~ msgid "Creating bootdisk..."
-#~ msgstr "Создание загрузочного диска..."
-
-#~ msgid "Formatting swap space on device %s..."
-#~ msgstr "Форматирование области свопинга на устройстве %s..."
-
-#~ msgid "No Swap Space"
-#~ msgstr "Не указана область свопинга"
-
-#~ msgid ""
-#~ "What partitions would you like to use for swap space? This will destroy any "
-#~ "information already on the partition."
-#~ msgstr ""
-#~ "Какие разделы использовать для свопинга? Вся информация на этом разделе "
-#~ "будет уничтожена."
-
-#~ msgid "Active Swap Space"
-#~ msgstr "Активирование области свопинга"
-
-#~ msgid "Could not mount automatically selected device."
-#~ msgstr "Невозможно смонтировать выбранное автоматически устройство."
-
-#~ msgid "Cannot read /mnt/etc/fstab: %s"
-#~ msgstr "Невозможно прочитать /mnt/etc/fstab: %s"
-
-#~ msgid "Bad line in /mnt/etc/fstab -- aborting"
-#~ msgstr "Неверная строка в /mnt/etc/fstab -- обработка прервана"
-
-#~ msgid "Ethernet Probe"
-#~ msgstr "Поиск сетевой карты"
-
-#~ msgid ""
-#~ "The Ethernet probe failed to find a card on your system. Press <Enter> to "
-#~ "manually configure one."
-#~ msgstr ""
-#~ "Сетевая карта не найдена. Нажмите <Enter> для выбора типа сетевой карты из "
-#~ "списка."
-
-#~ msgid "Static IP address"
-#~ msgstr "Статический IP адрес"
-
-#~ msgid "BOOTP"
-#~ msgstr "BOOTP"
-
-#~ msgid "DHCP"
-#~ msgstr "DHCP"
-
-#~ msgid "bad ip number in network command: %s"
-#~ msgstr "неверный IP адрес в сетевой команде: %s"
-
-#~ msgid "kickstart network command is missing ip address"
-#~ msgstr "В сетевой команде kickstart пропущен адрес IP"
-
-#~ msgid ""
-#~ "How should the IP information be set? If your system administrator gave you "
-#~ "an IP address, choose static IP."
-#~ msgstr ""
-#~ "Укажите способ установки адреса IP. Если ваш сетевой администратор выделил "
-#~ "вам адрес IP, выберите cтатический IP."
-
-#~ msgid "Sending BOOTP request..."
-#~ msgstr "Послан запрос BOOTP..."
-
-#~ msgid "Cannot create %s: %s\n"
-#~ msgstr "Невозможно создать %s: %s\n"
-
-#~ msgid "cannot create network device config file: %s"
-#~ msgstr "невозможно создать файл конфигурации для сетевого устройства: %s"
-
-#~ msgid "cannot open file: %s"
-#~ msgstr "невозможно открыть файл: %s"
-
-#~ msgid ""
-#~ "I cannot automatically determine the hostname. Press <Enter> to enter "
-#~ "hostname information."
-#~ msgstr ""
-#~ "Автоматическое определение имени компьютера невозможно. Нажмите <Enter> для "
-#~ "ввода имени компьютера вручную."
-
-#~ msgid ""
-#~ "Please enter your domain name, host name, and the IP addresses of any "
-#~ "additional nameservers. Your host name should be a fully-qualified host "
-#~ "name, such as mybox.mylab.myco.com. If you don't have any additional "
-#~ "nameservers, leave the nameserver entries blank."
-#~ msgstr ""
-#~ "Введите имя вашего домена, имя компьютера и адреса IPдополнительных серверов "
-#~ "имен (DNS). Имя компьютера должно быть полностью определено, например "
-#~ "mybox.mylab.myco.com. Если у вас нет дополнительных серверов имен (DNS), "
-#~ "оставьте эти поля пустыми."
-
-#~ msgid "Host name:"
-#~ msgstr "Имя компьютера:"
-
-#~ msgid "Secondary nameserver (IP):"
-#~ msgstr "Вторичный сервер имен (IP):"
-
-#~ msgid "Tertiary nameserver (IP):"
-#~ msgstr "Третичный сервер имен (IP):"
-
-#~ msgid "Configure Network"
-#~ msgstr "Настройка сети"
-
-#~ msgid "Keep the current IP configuration"
-#~ msgstr "Сохранение текущей конфигурации IP"
-
-#~ msgid "Reconfigure network now"
-#~ msgstr "Переконфигурация сети"
-
-#~ msgid "LAN networking has already been configured. Do you want to:"
-#~ msgstr "Настройки LAN уже заданы. Хотите ли вы:"
-
-#~ msgid ""
-#~ "Do you want to configure LAN (not dialup) networking for your installed "
-#~ "system?"
-#~ msgstr "Хотите ли вы настроить конфигурацию LAN (не dial-up)?"
-
-#~ msgid "Cannot open components file: %s"
-#~ msgstr "Невозможно открыть файл компонентов: %s"
-
-#~ msgid "Cannot read components file: %s"
-#~ msgstr "Невозможно прочитать файл компонентов: %s"
-
-#~ msgid "Comps file is not version 0.1 as expected"
-#~ msgstr "Файл сomps не соответствует версии 0.1"
-
-#~ msgid "bad comps file at line %d"
-#~ msgstr "Ошибка в строке %d файла компонентов"
-
-#~ msgid "comps Error"
-#~ msgstr "ошибка файла компонентов"
-
-#~ msgid "missing component name at line %d"
-#~ msgstr "пропущено имя компонента в строке %d"
-
-#~ msgid "Ignore all"
-#~ msgstr "Игнорировать все"
-
-#~ msgid "package %s at line %d does not exist"
-#~ msgstr "пакет %s в строке %d не существует"
-
-#~ msgid "Component %s does not exist.\n"
-#~ msgstr "Компонент %s не существует.\n"
-
-#~ msgid "Package %s does not exist.\n"
-#~ msgstr "Пакет %s не существует.\n"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid ""
-#~ "Would you like to have the GNOME desktop installed? It provides an easy to "
-#~ "use interface, including a drag and drop capability and an integrated help "
-#~ "system."
-#~ msgstr ""
-#~ "Вы хотите проинсталлировать GNOME? GNOME предоставляет легкий в "
-#~ "использовании интерфейс, включающий поддержку drag&drop и интегрированную "
-#~ "систему помощи."
-
-#~ msgid "no suggestion"
-#~ msgstr "Нет вариантов"
-
-#~ msgid "Everything"
-#~ msgstr "Все"
-
-#~ msgid "Choose components to install:"
-#~ msgstr "Выберите компоненты для инсталляции:"
-
-#~ msgid "Components to Install"
-#~ msgstr "Компоненты для инсталляции:"
-
-#~ msgid "error opening header file: %s"
-#~ msgstr "ошибка открытия файла заголовка: %s"
-
-#~ msgid "Installed system size:"
-#~ msgstr "Размер инсталлированной системы:"
-
-#~ msgid "Choose a group to examine"
-#~ msgstr "Выберите группу для просмотра"
-
-#~ msgid "Press F1 for a package description"
-#~ msgstr "Нажмите F1 для информации о пакете"
-
-#~ msgid "Select Group"
-#~ msgstr "Выберите группу"
-
-#~ msgid "(none available)"
-#~ msgstr "(не доступно)"
-
-#~ msgid "Package:"
-#~ msgstr "Пакет  :"
-
-#~ msgid "Upgrade Packages"
-#~ msgstr "Обновляемые пакеты"
-
-#~ msgid "<F1> will give you information on a particular printer type"
-#~ msgstr "<F1> - информация об особенностях типов принтеров"
-
-#~ msgid "Configure Printer"
-#~ msgstr "Настройка принтера"
-
-#~ msgid "<F1> will give you information on this printer driver."
-#~ msgstr "<F1> - информация о конкретном типе принтера"
-
-#~ msgid ""
-#~ "You may now configure the paper size and resolution for this printer."
-#~ msgstr "Теперь можно указать размер бумаги и разрешающую способность."
-
-#~ msgid "Paper Size"
-#~ msgstr "Размер бумаги"
-
-#~ msgid "Resolution"
-#~ msgstr "Разрешающая способность"
-
-#~ msgid "Fix stair-stepping of text?"
-#~ msgstr "Исправлять \"ступенчатую печать\"?"
-
-#~ msgid "You may now configure the color options for this printer."
-#~ msgstr "Теперь можно указать опции цветной печати."
-
-#~ msgid "You may now configure the uniprint options for this printer."
-#~ msgstr "Теперь можно указать опции цветной печати."
-
-#~ msgid "Configure Color Depth"
-#~ msgstr "Настройка глубины цвета"
-
-#~ msgid "Configure Uniprint Driver"
-#~ msgstr "Настройка драйвера Uniprint"
-
-#~ msgid ""
-#~ "What device is your printer connected to (note that /dev/lp0 is equivalent "
-#~ "to LPT1:)?"
-#~ msgstr ""
-#~ "К какому устройству подключен ваш принтер (/dev/lp0 эквивалентен LPT1:)?"
-
-#~ msgid ""
-#~ "Auto-detected ports:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Автоматичеси обнаружены порты:\n"
-#~ "\n"
-
-#~ msgid "Not "
-#~ msgstr "Нет "
-
-#~ msgid "Detected\n"
-#~ msgstr "Обнаружен\n"
-
-#~ msgid "Printer Device:"
-#~ msgstr "Порт принтера"
-
-#~ msgid "Local Printer Device"
-#~ msgstr "Локальный порт принтера"
-
-#~ msgid "Remote hostname:"
-#~ msgstr "Удаленный сервер:"
-
-#~ msgid "Remote queue:"
-#~ msgstr "Удаленная очередь:"
-
-#~ msgid "Remote lpd Printer Options"
-#~ msgstr "Опции удаленного принтера lpd"
-
-#~ msgid ""
-#~ "To use a remote lpd print queue, you need to supply the hostname of the "
-#~ "printer server and the queue name on that server which jobs should be placed "
-#~ "in."
-#~ msgstr ""
-#~ "Для настройки удаленной очереди печати вам нужно указать имя удаленного "
-#~ "сервера и имя очереди печати, в которую удаленный сервер будет помещать "
-#~ "задания."
-
-#~ msgid "Printer Server:"
-#~ msgstr "Сервер печати:"
-
-#~ msgid "Print Queue Name:"
-#~ msgstr "Имя очереди:"
-
-#~ msgid "NetWare Printer Options"
-#~ msgstr "Опции принтера NetWare"
-
-#~ msgid ""
-#~ "To print to a NetWare printer, you need to provide the NetWare print server "
-#~ "name (this is not always the same as the machines TCP/IP hostname) as well "
-#~ "as the print queue name for the printer you wish to access and any "
-#~ "applicable user name and password."
-#~ msgstr ""
-#~ "Для печати на принтер NetWare вам необходимо указать имя сервера печати "
-#~ "NetWare (не всегда совпадает с именем в сети TCP/IP) и имя очереди, "
-#~ "соответствующей выбранному принтеру, а также имя пользователя и пароль."
-
-#~ msgid "SMB server host:"
-#~ msgstr "Имя сервера SMB:"
-
-#~ msgid "SMB server IP:"
-#~ msgstr "IP сервера SMB:"
-
-#~ msgid "Share name:"
-#~ msgstr "Имя ресурса:"
-
-#~ msgid "Workgroup:"
-#~ msgstr "Рабочая группа:"
-
-#~ msgid "SMB/Windows 95/NT Printer Options"
-#~ msgstr "Опции принтера SMB/Windows 95/NT"
-
-#~ msgid ""
-#~ "To print to a SMB printer, you need to provide the SMB host name (this is "
-#~ "not always the same as the machines TCP/IP hostname) and possibly the IP "
-#~ "address of the print server, as well as the share name for the printer you "
-#~ "wish to access and any applicable user name, password, and workgroup "
-#~ "information."
-#~ msgstr ""
-#~ "Для печати на принтере LAN manager вам необходимо указать хост LAN manager "
-#~ "(не всегда совпадает с именем в сети TCP/IP) и адрес IP сервера печати, а "
-#~ "также имя ресурса, связанное с выбранным принтером, имя пользователя, пароль "
-#~ "и информацию о рабочей группе."
-
-#~ msgid "Spool directory:"
-#~ msgstr "Директория спулинга:"
-
-#~ msgid "Standard Printer Options"
-#~ msgstr "Стандартные опции принтера"
-
-#~ msgid ""
-#~ "Every print queue (which print jobs are directed to) needs a name (often lp) "
-#~ "and a spool directory associated with it. What name and directory should be "
-#~ "used for this queue?"
-#~ msgstr ""
-#~ "Каждая очередь печати, в которую помещаются задания для печати, требует "
-#~ "указания имени (обычно lp) и связанного с ней каталога спулинга. Укажите имя "
-#~ "и каталог для очереди."
-
-#~ msgid "Would you like to configure a printer?"
-#~ msgstr "Хотите ли вы сконфигурировать принтер?"
-
-#~ msgid "Would you like to add another printer?"
-#~ msgstr "Хотите добавить другой принтер?"
-
-#~ msgid "SMB/Windows 95/NT"
-#~ msgstr "SMB/Windows 95/NT"
-
-#~ msgid "NetWare"
-#~ msgstr "NetWare"
-
-#~ msgid "How is this printer connected?"
-#~ msgstr "Выберите тип соединения:"
-
-#~ msgid "Printer type:"
-#~ msgstr "Тип принтера:"
-
-#~ msgid "Queue:"
-#~ msgstr "Очередь:"
-
-#~ msgid "Printer device:"
-#~ msgstr "Устройство:"
-
-#~ msgid "Remote host:"
-#~ msgstr "Удаленный хост:"
-
-#~ msgid "Share:"
-#~ msgstr "Ресурс:"
-
-#~ msgid "Printer driver:"
-#~ msgstr "Драйвер принтера:"
-
-#~ msgid "Paper size:"
-#~ msgstr "Размер бумаги:"
-
-#~ msgid "Resolution:"
-#~ msgstr "Разрешение:"
-
-#~ msgid "Uniprint driver:"
-#~ msgstr "Драйвер uniprint:"
-
-#~ msgid ""
-#~ "Please verify that this printer information is correct:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Проверьте правильность информации о принтере:\n"
-#~ "\n"
-
-#~ msgid "Printer device"
-#~ msgstr "Порт принтера"
-
-#~ msgid "Verify Printer Configuration"
-#~ msgstr "Проверка конфигурации принтера"
-
-#~ msgid ""
-#~ "\n"
-#~ "Do you have any more SCSI adapters on your system?"
-#~ msgstr ""
-#~ "\n"
-#~ "Есть ли у вас в системе другие контроллеры SCSI?"
-
-#~ msgid "Do you have any SCSI adapters?"
-#~ msgstr "Есть ли у вас контроллеры SCSI?"
-
-#~ msgid "SMB server name  :"
-#~ msgstr "Имя сервера SMB:"
-
-#~ msgid "Share volume     :"
-#~ msgstr "Имя ресурса      :"
-
-#~ msgid "Account name     :"
-#~ msgstr "Имя пользователя :"
-
-#~ msgid "Password         :"
-#~ msgstr "Пароль           :"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your SMB server\n"
-#~ "    o the volume to share which contains\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Пожалуйста, введите следующую информацию:\n"
-#~ "\n"
-#~ "    o имя или адрес IP вашего сервера SMB\n"
-#~ "    o ресурс на этом сервере, в котором содержится\n"
-#~ "      Red Hat Linux для вашей архитектуры"
-
-#~ msgid "Password for %s@%s: "
-#~ msgstr "Пароль для %s@%s: "
-
-#~ msgid "error: %sport must be a number\n"
-#~ msgstr "Ошибка: %sport должен быть цифровой величиной\n"
-
-#~ msgid "url port must be a number\n"
-#~ msgstr "Порт в URL должен быть цифровой величиной\n"
-
-#~ msgid "logging into %s as %s, pw %s\n"
-#~ msgstr "авторизация на %s как %s, пароль %s\n"
-
-#~ msgid "failed to open %s\n"
-#~ msgstr "ошибка открытия %s\n"
-
-#~ msgid "failed to create %s\n"
-#~ msgstr "ошибка создания %s\n"
-
-#~ msgid "open of %s failed: %s\n"
-#~ msgstr "ошибка открытия %s: %s\n"
-
-#~ msgid ""
-#~ "Error transferring file %s:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Ошибка передачи файла %s:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "An error occurred reading the partition table for the block device %s.  The "
-#~ "error was:"
-#~ msgstr ""
-#~ "Произошла ошибка чтения таблицы разделов на блочном устройстве %s. Ошибка:"
-
-#~ msgid "LAN manager host:"
-#~ msgstr "Хост LAN manager:"
-
-#~ msgid "LAN manager IP:"
-#~ msgstr "LAN manager IP:"
-
-#~ msgid "LAN Manager Printer Options"
-#~ msgstr "Опции принтера LAN Manager"
-
-#~ msgid "LAN Manager"
-#~ msgstr "LAN Manager"
+#~ msgstr "Выбор корневого раздела"
