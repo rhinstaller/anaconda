@@ -27,32 +27,28 @@ CLEARPART_TYPE_LINUX = 1
 CLEARPART_TYPE_ALL   = 2
 CLEARPART_TYPE_NONE  = 3
 
+BOOT_ABOVE_1024 = 1
 
-# XXX hack but these are common strings to TUI and GUI
-PARTMETHOD_TYPE_DESCR_TEXT = N_("Automatic Partitioning sets up your "
-                               "partitioning based on your installation type. "
-                               "You also "
-                               "can customize the resulting partitions "
-                               "to meet your needs.\n\n"
-                               "The manual disk paritioning tool Disk Druid "
-                               "allows you "
-                               "to set up your partitions in an interactive "
-                               "environment. You can set the filesystem "
-                               "types, mount points, size and more in this "
-                               "easy to use, powerful interface.\n\n"
-                               "fdisk is the traditional, text based "
-                               "partitioning tool offered by Red Hat. "
-                               "Although it is not as easy to use, there are "
-                               "cases where fdisk is preferred.")
 
-AUTOPART_DISK_CHOICE_DESCR_TEXT = N_("Before automatic partitioning can be "
-                                     "set up by the installation program, you "
-                                     "must choose how to use the space on "
-                                     "hard drives.")
+# check that our "boot" partition meets necessary constraints unless
+# the request has its ignore flag set
+def bootRequestCheck(requests, diskset):
+    dev = requests.getBootableRequest()
+    if not dev or not dev.device or dev.ignoreBootConstraints:
+        return PARTITION_SUCCESS
+    part = get_partition_by_name(diskset.disks, dev.device)
+    if not part:
+        return PARTITION_SUCCESS
 
-CLEARPART_TYPE_ALL_DESCR_TEXT = N_("Remove all partitions on this system")
-CLEARPART_TYPE_LINUX_DESCR_TEXT = N_("Remove all Linux Partitions on this system")
-CLEARPART_TYPE_NONE_DESCR_TEXT = N_("Keep all partitions and use existing free space")
+    
+    if iutil.getArch() == "ia64":
+        # XXX do ia64 boot checks here after checking with bill about specifics
+        pass
+    elif iutil.getArch() == "i386":
+        if end_sector_to_cyl(part.geom.disk.dev, part.geom.end) >= 1024:
+            return BOOT_ABOVE_1024
+        
+    return PARTITION_SUCCESS
 
 def printNewRequestsCyl(diskset, newRequest):
     for req in newRequest.requests:
@@ -190,7 +186,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
 # get the list of the "best" drives to try to use...
 # if currentdrive is set, use that, else use the drive list, or use
 # all the drives
-def getDriveList(request, diskset):
+def getDriveList(request, diskset, bootrequest = 0):
     if request.currentDrive:
         drives = request.currentDrive
     elif request.drive:
@@ -201,6 +197,11 @@ def getDriveList(request, diskset):
     if not type(drives) == type([]):
         drives = [ drives ]
 
+    drives.sort()
+    # XXX boot drive being first drive works now, but perhaps not always =\
+    if bootrequest:
+        drives = [ drives[0] ]
+
     return drives
     
 
@@ -208,6 +209,7 @@ def getDriveList(request, diskset):
 # into the freespace
 def fitSized(diskset, requests, primOnly = 0, newParts = None):
     todo = {}
+    bootreq = requests.getBootableRequest()
 
     for request in requests.requests:
         if request.type != REQUEST_NEW:
@@ -216,7 +218,10 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             continue
         if primOnly and not request.primary:
             continue
-        drives = getDriveList(request, diskset)
+        if request == bootreq:
+            drives = getDriveList(request, diskset, 1)
+        else:
+            drives = getDriveList(request, diskset)
         if not todo.has_key(len(drives)):
             todo[len(drives)] = [ request ]
         else:
@@ -229,9 +234,13 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
     for num in number:
         for request in todo[num]:
 #            print "\nInserting ->",request
+            if request == bootreq:
+                isBoot = 1
+            else:
+                isBoot = 0
+                
             largestPart = (0, None)
-            drives = getDriveList(request, diskset)
-            drives.sort()
+            drives = getDriveList(request, diskset, isBoot)
 #            print "Trying drives to find best free space out of", free
             for drive in drives:
 #                print "Trying drive", drive
@@ -654,10 +663,16 @@ def doPartitioning(diskset, requests, doRefresh = 1):
         newParts.parts.remove(part)
         del part
 
+    if ret != PARTITION_SUCCESS:
+        raise PartitioningError, "Growing partitions failed"
+
+    ret = bootRequestCheck(requests, diskset)
+    
     if ret == PARTITION_SUCCESS:
         return
 
-    raise PartitioningError, "Growing partitions failed"
+    # more specific message?
+    raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest().mountpoint)
 
 # given clearpart specification execute it
 # probably want to reset diskset and partition request lists before calling
@@ -665,7 +680,7 @@ def doPartitioning(diskset, requests, doRefresh = 1):
 def doClearPartAction(partitions, diskset):
     type = partitions.autoClearPartType
     cleardrives = partitions.autoClearPartDrives
-    
+
     if type == CLEARPART_TYPE_LINUX:
         linuxOnly = 1
     elif type == CLEARPART_TYPE_ALL:
@@ -699,6 +714,7 @@ def doClearPartAction(partitions, diskset):
                 drive = get_partition_drive(part)
                 delete = DeleteSpec(drive, part.geom.start, part.geom.end)
                 partitions.addDelete(delete)
+
             part = disk.next_partition(part)
 
 
@@ -746,3 +762,30 @@ def doAutoPartition(dir, diskset, partitions, intf):
         partitions.setFromDisk(diskset)
         intf.messageWindow(_("Error Partitioning"),
                _("Could not allocated requested partitions: %s.") % (msg.value))
+
+
+# XXX hack but these are common strings to TUI and GUI
+PARTMETHOD_TYPE_DESCR_TEXT = N_("Automatic Partitioning sets up your "
+                               "partitioning based on your installation type. "
+                               "You also "
+                               "can customize the resulting partitions "
+                               "to meet your needs.\n\n"
+                               "The manual disk paritioning tool Disk Druid "
+                               "allows you "
+                               "to set up your partitions in an interactive "
+                               "environment. You can set the filesystem "
+                               "types, mount points, size and more in this "
+                               "easy to use, powerful interface.\n\n"
+                               "fdisk is the traditional, text based "
+                               "partitioning tool offered by Red Hat. "
+                               "Although it is not as easy to use, there are "
+                               "cases where fdisk is preferred.")
+
+AUTOPART_DISK_CHOICE_DESCR_TEXT = N_("Before automatic partitioning can be "
+                                     "set up by the installation program, you "
+                                     "must choose how to use the space on "
+                                     "hard drives.")
+
+CLEARPART_TYPE_ALL_DESCR_TEXT = N_("Remove all partitions on this system")
+CLEARPART_TYPE_LINUX_DESCR_TEXT = N_("Remove all Linux Partitions on this system")
+CLEARPART_TYPE_NONE_DESCR_TEXT = N_("Keep all partitions and use existing free space")

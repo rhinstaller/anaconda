@@ -24,6 +24,7 @@ import math
 import raid
 import fsset
 import os
+import iutil
 from translate import _
 from log import log
 from constants import *
@@ -50,6 +51,13 @@ while fs_type:
     fs_type = parted.file_system_type_get_next (fs_type)
 
 class PartitioningError:
+    def __init__ (self, value):
+        self.value = value
+
+    def __str__ (self):
+        return self.value
+
+class PartitioningWarning:
     def __init__ (self, value):
         self.value = value
 
@@ -455,9 +463,9 @@ class PartitionSpec:
                  size = None, grow = 0, maxSize = None,
                  mountpoint = None, origfstype = None,
                  start = None, end = None, partnum = None,
-                 drive = None, primary = None, secondary = None,
-                 format = None, migrate = None, options = None,
-                 constraint = None,
+                 drive = None, primary = None,
+                 format = None, options = None, 
+                 constraint = None, migrate = None,
                  raidmembers = None, raidlevel = None, 
                  raidspares = None):
         #
@@ -484,7 +492,6 @@ class PartitionSpec:
         self.partnum = partnum
         self.drive = drive
         self.primary = primary
-        self.secondary = secondary
         self.format = format
         self.migrate = migrate
         self.options = options
@@ -506,6 +513,9 @@ class PartitionSpec:
 
         # unique id for each request
         self.uniqueID = None
+
+        # ignore booting constraints for this request
+        self.ignoreBootConstraints = 0
 
     def __str__(self):
         if self.fstype:
@@ -680,7 +690,12 @@ class Partitions:
 
     # return name of boot mount point in current requests
     def getBootableRequest(self):
-        bootreq = self.getRequestByMountPoint("/boot")
+        bootreq = None
+        
+        if not bootreq and iutil.getArch() == "ia64":
+            bootreq = self.getRequestByMountPoint("/boot/efi")
+        if not bootreq:
+            bootreq = self.getRequestByMountPoint("/boot")
         if not bootreq:
             bootreq = self.getRequestByMountPoint("/")
             
@@ -696,6 +711,11 @@ class Partitions:
                     self.requests[n] = request
                     self.requests[index] = tmp
             n = n + 1
+        tmp = self.getBootableRequest()
+        if tmp:
+            index = self.requests.index(tmp)
+            self.requests[index] = self.requests[0]
+            self.requests[0] = tmp
 
     def copy (self):
         new = Partitions()

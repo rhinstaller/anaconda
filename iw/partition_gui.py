@@ -1023,6 +1023,29 @@ class PartitionWindow(InstallWindow):
             self.intf.messageWindow(_("Error Partitioning"),
                    _("Could not allocated requested partitions: %s.") % (msg))
             rc = -1
+        except PartitioningWarning, msg:
+            # XXX somebody other than me should make this look better
+            dialog = GnomeDialog(_("Warning"))
+            dialog.set_parent(self.parent)
+            dialog.append_button(_("Modify Partition"))
+            dialog.append_button(_("Add anyway"))
+            dialog.set_position(WIN_POS_CENTER)
+            dialog.close_hides(TRUE)
+
+            label = GtkLabel(_("Warning: %s.") %(msg))
+            label.set_line_wrap(TRUE)
+            dialog.vbox.pack_start(label)
+            dialog.show_all()
+            rc = dialog.run()
+            dialog.close()
+            if rc != 1:
+                rc = -1
+            else:
+                rc = 0
+                req = self.partitions.getBootableRequest()
+                if req:
+                    req.ignoreBootConstraints = 1
+
         self.populate()
         self.tree.thaw()
         self.checkNextConditions()

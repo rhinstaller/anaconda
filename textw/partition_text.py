@@ -141,7 +141,19 @@ class PartitionWindow:
         except PartitioningError, msg:
             self.intf.messageWindow(_("Error Partitioning"),
                    _("Could not allocated requested partitions: %s.") % (msg))
-            rc = -1            
+            rc = -1
+        except PartitioningWarning, msg:
+            rc = ButtonChoiceWindow(self.screen, _("Warning"), _("Warning: %s") %(msg),
+                                    buttons = [ (_("Modify Partition"), "modify"), (_("Add anyway"), "add") ])
+
+            if rc == "modify":
+                rc = -1
+            else:
+                rc = 0
+                req = self.partitions.getBootableRequest()
+                if req:
+                    req.ignoreBootConstraints = 1                
+                             
         self.populate()
         return rc
 
@@ -191,6 +203,9 @@ class PartitionWindow:
         names = types.keys()
         names.sort()
         for name in names:
+            if not fileSystemTypeGet(name).isSupported():
+                continue
+
             if fileSystemTypeGet(name).isFormattable():
                 fstype.append(name, types[name])
         if request.fstype:
