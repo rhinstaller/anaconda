@@ -726,6 +726,14 @@ class InstallControlWindow:
         
 	if not self.__dict__.has_key('window'): return
 
+        self.reloadRcQueued = 1
+
+        self.setLtR()
+	self.updateStockButtons()
+	self.loadReleaseNotes()
+        self.refreshHelp(recreate = 1)
+
+    def setLtR(self):
         ltrrtl = gettext.dgettext("gtk20", "default:LTR")
         if ltrrtl == "default:RTL":
             gtk.widget_set_default_direction (gtk.TEXT_DIR_RTL)
@@ -735,12 +743,6 @@ class InstallControlWindow:
             log("someone didn't translate the ltr bits right: %s" %(ltrrtl,))
             gtk.widget_set_default_direction (gtk.TEXT_DIR_LTR)            
         
-        self.reloadRcQueued = 1
-
-	self.updateStockButtons()
-	self.loadReleaseNotes()
-        self.refreshHelp(recreate = 1)
-
     def prevClicked (self, *args):
 	try:
 	    self.currentWindow.getPrev ()
@@ -1310,6 +1312,7 @@ class InstallControlWindow:
                 print _("Unable to load title bar")
 
 
+        self.setLtR()
 	self.loadReleaseNotes()
 
         vbox.set_spacing(0)
