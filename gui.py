@@ -166,7 +166,7 @@ class InstallInterface:
 
     def exceptionWindow(self, (type, value, tb)):
         import traceback
-        print_exception (type, value, tb)
+        traceback.print_exception (type, value, tb)
 
     def run (self, todo):
         sys.setcheckinterval (0)
@@ -191,7 +191,7 @@ class InstallInterface:
 	start_new_thread (icw.run, ())
 	self.mutex.acquire ()
 
-	todo.liloLocation("hda")
+	todo.setLiloLocation("hda")
 
 
 class InstallControlWindow:
