@@ -281,7 +281,7 @@ class InstallInterface:
 
     def kickstartErrorWindow(self, text):
         s = _("The following error was found while parsing your "
-              "kickstart configuration:n\n%s") %(text,)
+              "kickstart configuration:\n\n%s") %(text,)
         self.messageWindow(_("Error Parsing Kickstart Config"),
                            s,
                            type = "custom",
