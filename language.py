@@ -265,7 +265,7 @@ class Language (SimpleConfigFile):
 
     def writeKS(self, f):
 	sup = ""
-        if len(self.info["SUPPORTED"]) != len(self.allSupportedLangs):
+        if self.info["SUPPORTED"] != None:
             for n in self.getSupported():
                 sup = sup + " " + self.getLangNickByName(n)
 	
