@@ -180,11 +180,13 @@ static void readCB(void *co, long long pos) {
     newtRefresh();
 }
 
-int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosize) {
+int doMediaCheck(int isofd, char *descr, char *mediasum, char *computedsum, long long *isosize) {
     struct progressCBdata data;
     newtComponent t, f, scale, label;
     int rc;
+    int dlen;
     int llen;
+    char tmpstr[1024];
 
     if (parsepvd(isofd, mediasum, isosize) < 0) {
 	newtWinMessage(_("Error"), _("OK"),
@@ -195,15 +197,25 @@ int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosiz
 	return -1;
     }
 
-    newtCenteredWindow(35, 6, _("Media Check"));
-    t = newtTextbox(1, 1, 24, 3, NEWT_TEXTBOX_WRAP);
-    newtTextboxSetText(t, _("Checking media now..."));
-    llen = strlen(_("Checking media now..."));
+    if (descr)
+	snprintf(tmpstr, sizeof(tmpstr), _("Checking \"%s\"..."), descr);
+    else
+	snprintf(tmpstr, sizeof(tmpstr), _("Checking media now..."));
 
-    label = newtLabel(llen+2, 1, "-");
+    dlen = strlen(tmpstr);
+    if (dlen > 65)
+	dlen = 65;
+
+    newtCenteredWindow(dlen+8, 6, _("Media Check"));
+    t = newtTextbox(1, 1, dlen+4, 3, NEWT_TEXTBOX_WRAP);
+
+    newtTextboxSetText(t, tmpstr);
+    llen = strlen(tmpstr);
+
+    label = newtLabel(llen+1, 1, "-");
     f = newtForm(NULL, NULL, 0);
     newtFormAddComponent(f, t);
-    scale = newtScale(3, 3, 25, *isosize);
+    scale = newtScale(3, 3, dlen, *isosize);
     newtFormAddComponent(f, scale);
 
     newtDrawForm(f);
@@ -220,15 +232,16 @@ int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosiz
     return rc;
 }
 
-int mediaCheckFile(char *file) {
+int mediaCheckFile(char *file, char *descr) {
     int isofd;
     int rc;
     char *result;
     unsigned char mediasum[33], computedsum[33];
     char tmpstr[256];
+    char descrstr[256];
     long long isosize;
     newtComponent t, f;
-
+    
     isofd = open(file, O_RDONLY);
 
     if (isofd < 0) {
@@ -237,28 +250,34 @@ int mediaCheckFile(char *file) {
 	return -1;
     }
 
-    rc = doMediaCheck(isofd, mediasum, computedsum, &isosize);
+    rc = doMediaCheck(isofd, descr, mediasum, computedsum, &isosize);
 
     close(isofd);
 
     /*    printf("isosize = %lld\n", isosize); 
 	  printf("%s\n%s\n", mediasum, computedsum);*/
 
-    if ( rc == 0)
+    if (rc == 0)
 	result = _("FAIL.\n\nIt is not recommended to use this media.");
     else if (rc > 0)
 	result = _("PASS.\n\nIt is OK to install from this media.");
     else
 	result = _("NA.\n\nNo checksum information available, unable to verify media.");
 
-    newtCenteredWindow(60, 10, _("Media Check Result"));
-    t = newtTextbox(4, 1, 52 , 5, NEWT_TEXTBOX_WRAP);
-    snprintf(tmpstr, sizeof(tmpstr), _("The media check is complete, the "
-				       "result is: %s"), result);
+    newtCenteredWindow(60, 13, _("Media Check Result"));
+    t = newtTextbox(4, 1, 52, 8, NEWT_TEXTBOX_WRAP);
+    if (descr)
+	snprintf(descrstr, sizeof(descrstr),
+		 _("of the image:\n\n%s\n\n"), descr);
+    else
+	descrstr[0] = '\0';
+
+    snprintf(tmpstr, sizeof(tmpstr), _("The media check %sis complete, and "
+				       "the result is: %s\n"), descrstr, result);
     newtTextboxSetText(t, tmpstr);
     f = newtForm(NULL, NULL, 0);
     newtFormAddComponent(f, t);
-    newtFormAddComponent(f, newtButton(26, 6, _("OK")));
+    newtFormAddComponent(f, newtButton(26, 9, _("OK")));
 
     newtRunForm(f);
     newtFormDestroy(f);

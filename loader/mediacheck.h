@@ -2,4 +2,4 @@
 /* Copyright 2001 Red Hat, Inc.                                    */
 /* Michael Fulbright msf@redhat.com                                */
 
-int mediaCheckFile(char *file);
+int mediaCheckFile(char *file, char *descr);
