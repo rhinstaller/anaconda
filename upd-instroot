@@ -270,7 +270,6 @@ usr/bin/tac
 usr/bin/uniq
 usr/sbin/chroot
 usr/sbin/traceroute
-
 EOF
 
 # sparc needs 100dpi fonts as well, otherwise
@@ -309,6 +308,10 @@ for n in $RPMS; do
     rpm2cpio $n | (cd $DEST; cpio -E $KEEPFILE --quiet -iumd)
     rpm2cpio $n | (cd $DESTGR; cpio -E $KEEPFILEGR --quiet -iumd)
 done
+
+# XXX kludge, fix me
+rm -f $DEST/usr/lib/python1.5/site-packages/rpmmodule.so
+rm -f $DESTGR/usr/lib/python1.5/site-packages/rpmmodule.so
 
 if [ $ARCH = sparc ]; then
     rm -f $DESTGR/usr/X11R6/bin/XF86_VGA16
