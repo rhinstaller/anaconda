@@ -543,8 +543,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char * extraArgs[]) {
                 numExtraArgs = numExtraArgs + 1;
         
                 if (numExtraArgs > (MAX_EXTRA_ARGS - 2)) {
-                    logMessage("Too many command line arguments (128), "
-                               "rest will be dropped.");
+                    logMessage("Too many command line arguments (max allowed is %s), "
+                               "rest will be dropped.", MAX_EXTRA_ARGS);
                 }
             }
         }
@@ -839,8 +839,8 @@ int main(int argc, char ** argv) {
        a pty. This is handy for Japanese. */
     fstat(0, &sb);
     if (major(sb.st_rdev) != 3 && major(sb.st_rdev) != 136) {
-    if (ioctl (0, TIOCLINUX, &twelve) < 0)
-        flags |= LOADER_FLAGS_SERIAL;
+	if (ioctl (0, TIOCLINUX, &twelve) < 0)
+	    flags |= LOADER_FLAGS_SERIAL;
     }
     
 
