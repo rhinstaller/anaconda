@@ -1,0 +1,14 @@
+#!/usr/bin/python
+
+import _isys
+
+p = _isys.ProbedList()
+p.updateNet()
+p.updateIde()
+p.updateScsi()
+
+i = 0
+print "found devices:"
+while (i < len(p)):
+    print "\t", p[i]
+    i = i + 1
