@@ -566,7 +566,7 @@ class ToDo:
 
 	kernelFile = "/boot/vmlinuz-" + kernelVersion
 	    
-	self.lilo.addImage(kernelFile, sl)
+	self.lilo.addImage("image", kernelFile, sl)
 	self.lilo.write(self.instPath + "/etc/lilo.conf")
 
         for (type, name, config) in self.lilo.images:
