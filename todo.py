@@ -346,6 +346,7 @@ class ToDo:
 	self.initrdsMade = {}
         self.initlevel = 3
 	self.expert = expert
+        self.progressWindow = None
 	if (not instClass):
 	    raise TypeError, "installation class expected"
         if x:
@@ -1150,6 +1151,40 @@ class ToDo:
                 line = string.join (fields, ':')
             inittab.write (line)
         inittab.close ()
+        
+    def instCallback(self, what, amount, total, h, intf):
+        if (what == rpm.RPMCALLBACK_TRANS_START):
+            # step 6 is the bulk of the transaction set
+            # processing time
+            if amount == 6:
+                self.progressWindow = \
+                   self.intf.progressWindow (_("Processing"),
+                                             _("Preparing to install..."),
+                                             total)
+        if (what == rpm.RPMCALLBACK_TRANS_PROGRESS):
+            if self.progressWindow:
+                self.progressWindow.set (amount)
+                
+        if (what == rpm.RPMCALLBACK_TRANS_STOP and self.progressWindow):
+            self.progressWindow.pop ()
+
+        if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
+            intf.setPackage(h)
+            intf.setPackageScale(0, 1)
+            self.instLog.write (self.modeText % (h[rpm.RPMTAG_NAME],))
+            self.instLog.flush ()
+            fn = self.method.getFilename(h)
+            self.rpmFD = os.open(fn, os.O_RDONLY)
+            fn = self.method.unlinkFilename(fn)
+            return self.rpmFD
+        elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
+            intf.setPackageScale(amount, total)
+        elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
+            (h, self) = key
+            os.close (self.rpmFD)
+            intf.completePackage(h)
+        else:
+            pass
 
     def doInstall(self):
 	# make sure we have the header list and comps file
@@ -1210,7 +1245,7 @@ class ToDo:
             how = "i"
         
 	for p in self.hdList.selected():
-	    ts.add(p.h, (p.h, self), how)
+	    ts.add(p.h, p.h, how)
 	    total = total + 1
 	    totalSize = totalSize + p.h[rpm.RPMTAG_SIZE]
 
@@ -1235,30 +1270,43 @@ class ToDo:
         else:
             self.modeText = _("Installing %s.\n")
 
-        def instCallback(what, amount, total, key, intf):
-            if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
-                (h, self) = key
-                intf.setPackage(h)
-                intf.setPackageScale(0, 1)
-                self.instLog.write (self.modeText % (h[rpm.RPMTAG_NAME],))
-                self.instLog.flush ()
-                fn = self.method.getFilename(h)
-                self.rpmFD = os.open(fn, os.O_RDONLY)
-                fn = self.method.unlinkFilename(fn)
-                return self.rpmFD
-            elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
-                intf.setPackageScale(amount, total)
-            elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
-                (h, self) = key
-                os.close (self.rpmFD)
-                intf.completePackage(h)
-            else:
-                pass
-
         rpm.errorSetCallback (self.rpmError)
 
-        # XXX FIXME FIXME: -1 IGNORES all problems
-        ts.run(0, -1, instCallback, p)
+        problems = ts.run(0, ~rpm.RPMPROB_FILTER_DISKSPACE,
+                          self.instCallback, p)
+        
+        if problems:
+            needed = {}
+            size = 12
+            for (descr, (type, mount, need)) in problems:
+                idx = string.find (mount, "/mnt/sysimage")
+                if idx != -1:
+                    mount = mount[idx:]
+
+                if needed.has_key (mount) and needed[mount] < need:
+                    needed[mount] = need
+                else:
+                    needed[mount] = need
+                    
+            probs = _("You don't appear to have enough disk space to install "
+                      "the packages you've selected. You need more space on the "
+                      "following filesystems:\n\n")
+            probs = probs + ("%-15s %s\n") % (_("Mount Point"), _("Space Needed"))
+                    
+            for (mount, need) in needed.items ():
+                if need > (1024*1024):
+                    need = (need + 1024 * 1024 - 1) / (1024 * 1024)
+                    suffix = "M"
+                else:
+                    need = (need + 1023) / 1024,
+                    suffix = "k"
+
+                
+                prob = "%-15s %d %c\n" % (mount, need, suffix)
+                probs = probs + prob
+                
+            self.intf.messageWindow (_("Disk Space"), probs)
+            return 1
 
         # This should close the RPM database so that you can
         # do RPM ops in the chroot in a %post ks script
