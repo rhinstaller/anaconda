@@ -522,8 +522,6 @@ class x86BootloaderInfo(bootloaderInfo):
         
     def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
 		  defaultDev, justConfig):
-        print "kernelList", kernelList
-        print "chainList", chainList
         str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
                              chainList, defaultDev,
                              justConfig | (self.useGrubVal))
