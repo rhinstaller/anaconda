@@ -1638,6 +1638,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_UPDATES;
         else if (!strcasecmp(argv[i], "isa"))
 	    flags |= LOADER_FLAGS_ISA;
+        else if (!strcasecmp(argv[i], "mcheck"))
+	    flags |= LOADER_FLAGS_MCHECK;
         else if (!strcasecmp(argv[i], "dd"))
 	    flags |= LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "driverdisk"))
@@ -2300,6 +2302,8 @@ int main(int argc, char ** argv) {
 
 	if (FL_SERIAL(flags))
 	    *argptr++ = "--serial";
+	if (FL_MCHECK(flags))
+	    setenv("MALLOC_CHECK_", "2", 1);
 	if (FL_TEXT(flags))
 	    *argptr++ = "-T";
 	if (FL_EXPERT(flags))

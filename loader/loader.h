@@ -17,6 +17,7 @@
 #define LOADER_FLAGS_UPDATES		(1 << 11)
 #define LOADER_FLAGS_KSFILE		(1 << 12)
 #define LOADER_FLAGS_KSCDROM		(1 << 13)
+#define LOADER_FLAGS_MCHECK		(1 << 14)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -32,3 +33,4 @@
 #define FL_UPDATES(a)	    ((a) & LOADER_FLAGS_UPDATES)
 #define FL_KSFILE(a)	    ((a) & LOADER_FLAGS_KSFILE)
 #define FL_KSCDROM(a)	    ((a) & LOADER_FLAGS_KSCDROM)
+#define FL_MCHECK(a)	    ((a) & LOADER_FLAGS_MCHECK)
