@@ -138,19 +138,28 @@ class Network:
     def lookupHostname (self):
 	# can't look things up if they don't exist!
 	if not self.hostname or self.hostname == "localhost.localdomain": return None
-
+	if not self.primaryNS: return
 	if not self.isConfigured:
 	    for dev in self.netdevices.values():
 		if dev.get('bootproto') == "dhcp":
 		    self.primaryNS = isys.pumpNetDevice(dev.get('device'))
-		    break
+                    self.isConfigured = 1
+                    break
 		elif dev.get('ipaddr') and dev.get('netmask'):
-		    isys.configNetDevice(dev.get('device'),
-			    dev.get('ipaddr'), dev.get('netmask'),
-			    self.gateway)
-		    break
+                    try:
+                        isys.configNetDevice(dev.get('device'),
+                                             dev.get('ipaddr'),
+                                             dev.get('netmask'),
+                                             self.gateway)
+                        self.isConfigured = 1
+                        break
+                    except SystemError:
+                        log ("failed to configure network device %s when "
+                             "looking up host name", dev.get('device'))
 
-	if not self.primaryNS: return
+	if not self.isConfigured:
+            log ("no network devices were availabe to look up host name")
+            return None
 
 	f = open("/etc/resolv.conf", "w")
 	f.write("nameserver %s\n" % self.primaryNS)
