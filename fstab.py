@@ -586,6 +586,37 @@ class Fstab:
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
 	    if not doFormat:
                 continue
+
+	    # Handle these before we handle the protect list, as the vfat
+	    # partition itself could be in the protect list. 
+	    if fsystem == "vfat" and mntpoint == "/":
+		# do a magical loopback mount -- whee!
+		isys.mount(device, "/mnt/loophost", fstype = "vfat")
+		
+		isys.makeDevInode("loop1", '/tmp/' + "loop1")
+		isys.ddfile("/mnt/loophost/redhat.img", self.loopbackSize,
+		    (self.progressWindow, _("Loopback"),
+		      _("Creating loopback filesystem on device /dev/%s...")
+			    % device))
+
+		isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
+
+		if self.serial:
+		    messageFile = "/tmp/mke2fs.log"
+		else:
+		    messageFile = "/dev/tty5"
+
+		ext2FormatFilesystem([ "/usr/sbin/mke2fs", "/tmp/loop1" ], 
+				     messageFile, self.progressWindow, 
+				     mntpoint)
+
+		# don't leave this setup, or we'll get confused later
+		isys.unlosetup("/tmp/loop1")
+		isys.umount("/mnt/loophost")
+
+		# Next
+		continue
+
             if self.protectList:
                 founddev = 0
                 for i in self.protectList:
@@ -593,6 +624,7 @@ class Fstab:
                         founddev = 1
                         break;
                 if founddev != 0:
+		    # Next
                     continue
 
 	    isys.makeDevInode(device, '/tmp/' + device)
@@ -634,32 +666,6 @@ class Fstab:
                 iutil.execWithRedirect ("/usr/sbin/mkdosfs",
                                         args, stdout = messageFile, 
 					stderr = messageFile, searchPath = 1)
-		w.pop()
-	    elif fsystem == "vfat" and mntpoint == "/":
-		# do a magical loopback mount -- whee!
-		isys.mount(device, "/mnt/loophost", fstype = "vfat")
-		
-		isys.makeDevInode("loop1", '/tmp/' + "loop1")
-		isys.ddfile("/mnt/loophost/redhat.img", self.loopbackSize,
-		    (self.progressWindow, _("Loopback"),
-		      _("Creating loopback filesystem on device /dev/%s...")
-			    % device))
-
-		isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
-
-		if self.serial:
-		    messageFile = "/tmp/mke2fs.log"
-		else:
-		    messageFile = "/dev/tty5"
-
-		ext2FormatFilesystem([ "/usr/sbin/mke2fs", "/tmp/loop1" ], 
-				     messageFile, self.progressWindow, 
-				     mntpoint)
-
-		# don't leave this setup, or we'll get confused later
-		isys.unlosetup("/tmp/loop1")
-		isys.umount("/mnt/loophost")
-
 		w.pop()
             else:
                 pass
