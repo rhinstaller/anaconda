@@ -41,6 +41,7 @@ class FDiskWindow (InstallWindow):
 
     def button_clicked (self, widget, drive):
         zvt = ZvtTerm (80, 24)
+        zvt.set_del_key_swap(TRUE)
         zvt.connect ("child_died", self.child_died, widget)
         self.drive = drive
 
