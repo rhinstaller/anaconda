@@ -103,6 +103,12 @@ int main(int argc, char **argv)
 		exit(0);
 	}
 
+	if ((edid_info->version == 0xff && edid_info->revision == 0xff)
+	    || (edid_info->version == 0 && edid_info->revision == 0)) {
+		printf("EDID read failed, returned empty data\n");
+		exit(0);
+	}	    
+
 	printf("EDID ver. %d rev. %d.\n",
 	       edid_info->version, edid_info->revision);
 
