@@ -463,6 +463,15 @@ class Partitions:
 	    
         return retval
 
+    def getPartialLVMRequests(self):
+        """Return a list of all of the partial volume groups names."""
+        retval = []
+        for request in self.requests:
+            if isinstance(request, partRequests.PartialVolumeGroupRequestSpec):
+                retval.append(request.volumeGroupName)
+	    
+        return retval
+
     def getLVMVGRequests(self):
         """Find and return a list of all of the volume groups."""
         retval = []
@@ -575,11 +584,15 @@ class Partitions:
             return None
 
         lvmrequests = self.getLVMRequests()
-        if not lvmrequests:
-            return None
+        if lvmrequests:
+            if vgname in lvmrequests.keys():
+                return 1
 
-        if vgname in lvmrequests.keys():
-            return 1
+        lvmrequests = self.getPartialLVMRequests()
+        if lvmrequests:
+            if vgname in lvmrequests:
+                return 1
+
         return 0
 
     def getBootableRequest(self):
