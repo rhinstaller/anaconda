@@ -92,6 +92,13 @@ def betterPackageForProvides(h1, h2):
         return h1
     if h1 is None:
         return h2
+
+    # if we're already being installed, then we're clearly the superior
+    # answer
+    if h1.isSelected():
+        return h1
+    if h2.isSelected():
+        return h2
     
     # sendmail is preferred over postfix
     if h1['name'] == "sendmail" and h2['name'] == "postfix":
@@ -472,7 +479,8 @@ class Group:
                   for dep in deps:
                       if dep in checked:
                           continue
-                      if dep in pkg[rpm.RPMTAG_PROVIDENAME]:
+                      if ((pkg[rpm.RPMTAG_PROVIDENAME] is not None) and
+                          (dep in pkg[rpm.RPMTAG_PROVIDENAME])):
                           continue
                       if dep.startswith("rpmlib("):
                           continue
