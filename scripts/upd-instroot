@@ -644,7 +644,7 @@ fi
 # NOTE: hd, ftp, and http rescue mode use and image based on KEEPFILE since
 #       it has to be much smaller due to memory usage.
 #
-KEEPFILERESCUE=/tmp/keepfile.$$
+KEEPFILERESCUE=/tmp/keepfilerescue.$$
 cat > $KEEPFILERESCUE <<EOF
 bin/gunzip
 bin/gzip
