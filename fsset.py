@@ -17,6 +17,7 @@ import string
 import isys
 import iutil
 import os
+import errno
 import parted
 import sys
 import struct
@@ -121,7 +122,7 @@ class FileSystemType:
         self.defaultOptions = "defaults"
         self.migratetofs = None
         self.extraFormatArgs = []
-        
+
     def mount(self, device, mountpoint, readOnly=0):
         if not self.isMountable():
             return
@@ -747,7 +748,7 @@ class FileSystemSet:
                 try:
                     entry.mount(chroot)
                     self.mountcount = self.mountcount + 1
-                except SystemError, (errno, msg):
+                except SystemError, (num, msg):
                     if self.messageWindow:
                         self.messageWindow(_("Error"), 
                                            _("Error enabling swap device %s: "
@@ -866,9 +867,30 @@ class FileSystemSet:
             try:
                 entry.mount(instPath)
                 self.mountcount = self.mountcount + 1
-            except SystemError, (errno, msg):
+            except OSError, (num, msg):
+                if self.messageWindow:
+                    if num == errno.EEXIST:
+                        self.messageWindow(_("Invalid mount point"),
+                                           _("An error occurred when trying "
+                                             "to create %s.  Some element of "
+                                             "this path is not a directory. "
+                                             "This is a fatal error and the "
+                                             "install cannot continue.\n\n"
+                                             "Press Enter to reboot your "
+                                             "system.") % (entry.mountpoint,))
+                    else:
+                        self.messageWindow(_("Invalid mount point"),
+                                           _("An error occurred when trying "
+                                             "to create %s: %s.  This is "
+                                             "a fatal error and the install "
+                                             "cannot continue.\n\n"
+                                             "Press Enter to reboot your "
+                                             "system.") % (entry.mountpoint,
+                                                           msg))
+                sys.exit(0)
+            except SystemError, (num, msg):
                 if raiseErrors:
-                    raise SystemError, (errno, msg)
+                    raise SystemError, (num, msg)
                 if self.messageWindow:
                     self.messageWindow(_("Error"), 
                                        _("Error mounting device %s as %s: "
@@ -1143,8 +1165,8 @@ class RAIDDevice(Device):
                                     ('mkraid', '--really-force',
                                      '--configfile', raidtab, node),
                                     stderr="/dev/tty5", stdout="/dev/tty5")
-            partitioning.register_raid_device((self.device, self.members[:],
-                                               self.level, self.numDisks))
+            partitioning.register_raid_device(self.device, self.members[:],
+                                              self.level, self.numDisks)
             self.isSetup = 1
         return node
 
@@ -1474,7 +1496,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
 
     try:
         (pid, status) = os.waitpid(childpid, 0)
-    except OSError, (errno, msg):
+    except OSError, (num, msg):
         print __name__, "waitpid:", msg
     os.close(fd)
 

@@ -213,11 +213,15 @@ def get_raid_devices(requests):
             
     return raidRequests
 
-def register_raid_device(mdname, devices, level, numActive):
+def register_raid_device(mdname, newdevices, newlevel, newnumActive):
     for dev, devices, level, numActive in DiskSet.mdList:
         if mdname == dev:
-            raise ValueError, "%s is already in the mdList!" % (mdname,)
-    DiskSet.mdList.append((mdname, devices, level, numActive))
+            if (devices != newdevices or level != newlevel or
+                numActive != newnumActive):
+                raise ValueError, "%s is already in the mdList!" % (mdname,)
+            else:
+                return
+    DiskSet.mdList.append((mdname, newdevices[:], newlevel, newnumActive))
 
 def lookup_raid_device(mdname):
     for dev, devices, level, numActive in DiskSet.mdList:
