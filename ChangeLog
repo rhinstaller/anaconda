@@ -1,3 +1,9 @@
+2004-12-23  Jeremy Katz  <katzj@redhat.com>
+
+	* network.py (Network.available): Work around kudzu not being able
+	to determine which netdev is which and set hwaddrs anyway (except
+	on s390 to avoid setting it on qeth) (#143535)
+
 2004-12-21  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/init.c (createDevices): Fix silly typo breaking creation
