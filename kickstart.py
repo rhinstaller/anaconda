@@ -683,10 +683,9 @@ class KickstartBase(BaseInstallClass):
                         n = string.strip (n)
 			packages.append(n)
 		elif where == "commands":
-		    try:
-			if handlers[args[0]]:
-			    handlers[args[0]](id, args[1:])
-		    except:
+                    if handlers[args[0]]:
+                        handlers[args[0]](id, args[1:])
+                    else:
 			# unrecognized command
 			raise SyntaxError, "Unrecognized ks command: %s\nOn the line: %s" % (args[0], n)
 		elif where in ["pre", "post", "traceback"]:
