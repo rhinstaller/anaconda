@@ -1474,6 +1474,7 @@ static char * doMountImage(char * location,
 	switch (step) {
 	case STEP_LANG:
 	    chooseLanguage(lang, flags);
+	    defaultLang = 0;
 	    step = STEP_KBD;
             dir = 1;
 	    break;
