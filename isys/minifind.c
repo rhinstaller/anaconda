@@ -26,8 +26,6 @@ void insert_node(struct pathNode *n, char *path)
 // return input strip less last character
 char *stripLastChar(char *in)
 {
-  	int i;
-  
 	char *out = malloc(sizeof(char)*strlen(in));
 	snprintf(out, strlen(in) - 1, "%s", in);
 	return out; 
