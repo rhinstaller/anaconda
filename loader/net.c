@@ -571,7 +571,6 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 	}
 	if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
 	  fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));
-	}
     }
 
     if (dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)
