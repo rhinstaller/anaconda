@@ -274,8 +274,9 @@ class MessageWindow:
             self.mutex.wait ()
     
 class InstallInterface:
-    def __init__ (self, runres):
+    def __init__ (self, runres, nofbmode):
         self.runres = runres
+        self.nofbmode = nofbmode
 
     def __del__ (self):
         pass
