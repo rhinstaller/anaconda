@@ -1036,8 +1036,11 @@ Section "Screen"
     Device      "%(devID)s"
     Monitor     "%(monitorID)s"
 """ % tmp
+
+                # see if 16 bpp is available, and if it should be the
+                # default depth
                 if maxdepth > 0:
-                    if maxdepth > 16:
+                    if maxdepth > 16 and '16' in self.modes.keys() and self.modes['16']:
                         screens = screens + "    DefaultColorDepth 16\n"
                     else:
                         screens = screens + "    DefaultColorDepth %d\n" % maxdepth
@@ -1157,8 +1160,10 @@ Section "Screen"
                  "emulate3"     : emulate3,
                  "videoRam"     : "" }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
+        # see if 16 bpp is available, and if it should be the
+        # default depth
         if maxdepth > 0:
-            if maxdepth > 16:
+            if maxdepth > 16 and '16' in self.modes.keys() and self.modes['16']:
                 data["defaultDepth"] = "\n\tDefaultDepth\t16"
             else:
                 data["defaultDepth"] = "\n\tDefaultDepth\t%d" % maxdepth
