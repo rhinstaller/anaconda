@@ -181,10 +181,9 @@ makemoduleball() {
     unset MMB_DD
     MMB_MODINFO="module-info"
 
-    if [ $1 = "--dd" ]; then
-	shift
-        MMB_DD="$1"
-	shift
+    if [ "$1" = "--dd" ]; then
+        MMB_DD="$2"
+	shift; shift
 	MMB_MODINFO="modinfo"
     fi
 
@@ -344,7 +343,7 @@ EOF
     mkdir $MBD_MNTPOINT
     mount -o loop -t ext2 $MBD_FSIMAGE $MBD_MNTPOINT
     (cd $MBD_DIR; find . | cpio --quiet -p $MBD_MNTPOINT)
-    df $MBD_MNTPOINT | tail +2
+    LEFT=df $MBD_MNTPOINT | tail +2 | awk '{print $4}'
     umount $MBD_MNTPOINT
 
     mv -f $MBD_FSIMAGE $MBD_FSIMAGE.uncompressed
@@ -389,41 +388,64 @@ EOF
     rm -f $MBD_FILENAME
     mv -f $MBD_TMPIMAGE $MBD_FILENAME
     rm -rf $MBD_TMPIMAGE $MBD_FSIMAGE $MBD_MNTPOINT $MBD_BOOTTREE
+
+    echo "Wrote $MBD_FILENAME (${left}k free)"
+}
+
+makeImage () {
+    MI_FROM=$1
+    MI_SIZE=$2
+    MI_TO=$3
+    MI_TMPIMAGE=/tmp/makeimage.img.$$
+    MI_MNTPOINT=/tmp/makeimage.mnt.$$
+
+    mkdir -p $MI_MNTPOINT
+
+    dd if=/dev/zero of=$MI_TMPIMAGE bs=1k count=$MI_SIZE 2>/dev/null
+    echo y | mke2fs -i 4096 $MI_TMPIMAGE  > /dev/null 2>/dev/null
+    mount -o loop $MI_TMPIMAGE $MI_MNTPOINT
+    (cd $MI_FROM; find . | cpio --quiet -p $MI_MNTPOINT)
+
+    left=$(df $MI_MNTPOINT | tail +2)
+    left=$(echo $left | awk '{print $4'})
+
+    umount $MI_MNTPOINT
+    rmdir $MI_MNTPOINT
+
+    gzip -9 < $MI_TMPIMAGE > $MI_TO
+
+    echo "Wrote $MI_TO (${left}k of ${MI_SIZE}k free)"
 }
 
 makeinstimage () {
+    SIZE1=4096
+    SIZE2=4096
+
+    while [ $(echo $1 | cut -c1-2) = "--" ]; do
+	if [ $1 = "--size1" ]; then
+	    SIZE1=$2
+	    shift; shift
+	elif [ $1 = "--size2" ]; then
+	    SIZE2=$2
+	    shift; shift
+	fi
+    done
+
     imagename=$1
     modlist=$(expandModuleSet "$2")
-    tmpimage=/tmp/instimage.img.$$
-    mntpoint=/tmp/instimage.mnt.$$
     tmpdir=/tmp/instimage.dir.$$
 
-    rm -rf $tmpimage $mntpoint $tmpdir
+    rm -rf $tmpimage $tmpdir
     mkdir -p $mntpoint $tmpdir
 
     mkdir -p $tmpdir
     (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmpdir)
     makemoduleball $tmpdir/modules "$modlist"
 
-    if [ $ARCH = "i386" ]; then
-	SIZE=4096
-    else
-	echo "I don't know how big to make the image!" >&2
-	exit 1
-    fi
-
-    dd if=/dev/zero of=$tmpimage bs=1k count=$SIZE 2>/dev/null
-    echo y | mke2fs -i 4096 $tmpimage  > /dev/null 2>/dev/null
-    mount -o loop $tmpimage $mntpoint
-    (cd $tmpdir; find . | cpio --quiet -p $mntpoint)
-
-    umount $mntpoint
-    rmdir $mntpoint
+    makeImage $tmpdir/usr $SIZE1 $INSTIMGPATH/${imagename}2.img
+    rm -rf $tmpdir/usr
+    makeImage $tmpdir $SIZE2 $INSTIMGPATH/${imagename}1.img
     rm -rf $tmpdir
-
-    gzip -9 < $tmpimage > $INSTIMGPATH/${imagename}.img
-
-    rm $tmpimage
 }
 
 makemainimage () {
@@ -434,20 +456,23 @@ makemainimage () {
     rm -rf $mntpoint $tmpimage
     mkdir $mntpoint
 
-    size=$(du -sk $IMGPATH | awk '{print $1}')
+    SIZE=$(du -sk $IMGPATH | awk '{print $1}')
 
-    dd if=/dev/zero of=$tmpimage bs=1k count=$size 2>/dev/null
+    dd if=/dev/zero of=$tmpimage bs=1k count=$SIZE 2>/dev/null
     echo y | mke2fs -m 0 -i 4096 $tmpimage  > /dev/null 2>/dev/null
     mount -o loop $tmpimage $mntpoint
     (cd $IMGPATH; find . | cpio --quiet -p $mntpoint)
 
-    df $mntpoint
-    df -i $mntpoint
+    # Doing this on two lines keeps the df output from being broken apart
+    left=$(df $mntpoint | tail +2)
+    left=$(echo $left | awk '{print $4'})
 
     umount $mntpoint
     rmdir $mntpoint
 
     cp $tmpimage $INSTIMGPATH/${imagename}.img
+
+    echo "Wrote $INSTIMGPATH/${imagename}.img (${left}k of ${SIZE}k free)"
 
     rm $tmpimage
 }
@@ -492,6 +517,11 @@ makedriverdisk () {
     cp /tmp/${diskname}.img $IMAGEPATH/${diskname}.img
     rm /tmp/${diskname}.img
     rm -rf $diskpath
+
+    size=$(ls -l $IMAGEPATH/${diskname}.img | awk '{ print $5 }')
+    size=$(expr $size / 1024)
+
+    echo "Wrote $IMAGEPATH/${diskname}.img (${size}k)"
 }
 
 # Find the kernel, unpack it, and verify it
