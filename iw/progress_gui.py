@@ -180,6 +180,10 @@ class InstallProgressWindow (InstallWindow):
                 
         pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/%s/*.png" % shortlang)
 
+	if len(pixmaps1) <= 0:
+	    # for beta try top level w/o lang
+	    pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/*.png" % shortlang)
+
         if len(pixmaps1) > 0:
             files = pixmaps1
         else:
