@@ -343,6 +343,15 @@ def ext2IsDirty(device):
     os.unlink("/tmp/disk")
     return label
 
+def ext2HasJournal(device, makeDevNode = 1):
+    if makeDevNode:
+        makeDevInode(device, "/tmp/disk")
+        hasjournal = _isys.e2hasjournal("/tmp/disk");
+        os.unlink("/tmp/disk")
+    else:
+        hasjournal = _isys.e2hasjournal(device);
+    return hasjournal
+
 def ejectCdrom(device):
     makeDevInode(device, "/tmp/cdrom")
     fd = os.open("/tmp/cdrom", os.O_RDONLY)

@@ -438,8 +438,10 @@ def doPreInstall(method, id, intf, instPath, dir):
         if os.access("/tmp/modules.conf", os.R_OK):
             iutil.copyFile("/tmp/modules.conf", 
                            instPath + "/etc/modules.conf")
-    else:
-        id.fsset.migratewrite(instPath)
+#    delay writing migrate adjusted fstab till later, in case
+#    rpm transaction set determines they don't have enough space to upgrade
+#    else:
+#        id.fsset.migratewrite(instPath)
 
 def doInstall(method, id, intf, instPath):
     if flags.test:
@@ -519,12 +521,21 @@ def doInstall(method, id, intf, instPath):
     cb = InstallCallback(intf.messageWindow, id.instProgress, pkgTimer,
 			 method, intf.progressWindow, instLog, modeText)
 
+    # write out migrate adjusted fstab so kernel RPM can get initrd right
+    if upgrade:
+        id.fsset.migratewrite(instPath)
+
     problems = ts.run(0, ~rpm.RPMPROB_FILTER_DISKSPACE, cb.cb, 0)
 
     # force test mode install
     # problems = ts.run(rpm.RPMTRANS_FLAG_TEST, ~0, self.instCallback, 0)
 
     if problems:
+
+        # restore old fstab if we did anything for migrating
+        if upgrade:
+            id.fsset.restoreMigratedFstab(instPath)
+        
 	spaceneeded = {}
 	nodeneeded = {}
 	size = 12

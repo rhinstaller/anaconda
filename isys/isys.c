@@ -2,6 +2,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <linux/ext2_fs.h>
+#include <linux/ext3_fs.h>
 #include <ext2fs/ext2fs.h>
 #include <fcntl.h>
 #include <popt.h>
@@ -84,6 +85,7 @@ static PyObject * doLoadFont(PyObject * s, PyObject * args);
 static PyObject * doLoadKeymap(PyObject * s, PyObject * args);
 static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args);
 static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
+static PyObject * doExt2HasJournal(PyObject * s, PyObject * args);
 static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args);
 static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args);
 static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
@@ -98,6 +100,7 @@ static PyObject * printObject(PyObject * s, PyObject * args);
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
     { "e2dirty", (PyCFunction) doExt2Dirty, METH_VARARGS, NULL },
+    { "e2hasjournal", (PyCFunction) doExt2HasJournal, METH_VARARGS, NULL },
     { "e2fslabel", (PyCFunction) doReadE2fsLabel, METH_VARARGS, NULL },
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
     { "raidstop", (PyCFunction) doRaidStop, METH_VARARGS, NULL },
@@ -1304,6 +1307,26 @@ static PyObject * doExt2Dirty(PyObject * s, PyObject * args) {
     ext2fs_close(fsys);
 
     return Py_BuildValue("i", !clean); 
+}
+static PyObject * doExt2HasJournal(PyObject * s, PyObject * args) {
+    char * device;
+    ext2_filsys fsys;
+    int rc;
+    int hasjournal;
+
+    if (!PyArg_ParseTuple(args, "s", &device)) return NULL;
+    rc = ext2fs_open(device, EXT2_FLAG_FORCE, 0, 0, unix_io_manager,
+		     &fsys);
+    if (rc) {
+	Py_INCREF(Py_None);
+	return Py_None;
+    }
+
+    hasjournal = fsys->super->s_feature_compat & EXT3_FEATURE_COMPAT_HAS_JOURNAL;
+
+    ext2fs_close(fsys);
+
+    return Py_BuildValue("i", hasjournal); 
 }
 /* doIsScsiRemovable()
    Returns:

@@ -321,6 +321,11 @@ class ext2FileSystem(extFileSystem):
             raise RuntimeError, ("Trying to migrate ext2 to something other "
                                  "than ext3")
 
+        # if journal already exists skip
+        if isys.ext2HasJournal(devicePath, makeDevNode = 0):
+            log("Skipping migration of %s, has a journal already.\n" % devicePath)
+            return
+
         rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
                                     ["tunefs", "-j", devicePath ],
                                     stdout = "/dev/tty5",
@@ -583,6 +588,11 @@ class FileSystemSet:
         # touch mtab
         open (prefix + "/etc/mtab", "w+")
         f.close ()
+
+    def restoreMigratedFstab(self, prefix):
+        fname = prefix + "/etc/fstab"
+        if os.access(fname + ".rpmsave", os.R_OK):
+            os.rename(fname + ".rpmsave", fname)
 
     def migratewrite(self, prefix):
         fname = prefix + "/etc/fstab"
