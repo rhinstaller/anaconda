@@ -48,6 +48,8 @@ class HardDriveInstallMethod(InstallMethod):
 	if (self.mediaIsMounted):
 	    raise SystemError, "trying to mount already-mounted iso image!"
 
+	self.mountDirectory()
+
 	isoImage = self.isoDir + '/' + self.path + '/' + self.discImages[cdNum]
 
 	isys.makeDevInode("loop3", "/tmp/loop3")
@@ -62,8 +64,38 @@ class HardDriveInstallMethod(InstallMethod):
 	    isys.umount(self.tree)
 	    isys.makeDevInode("loop3", "/tmp/loop3")
 	    isys.unlosetup("/tmp/loop3")
+	    self.umountDirectory()
+	    self.tree = None
 	    self.mediaIsMounted = 0
 
+    # This mounts the directory containing the iso images, and places the
+    # mount point in self.isoDir. It's only used directly by __init__;
+    # everything else goes through mountMedia
+    def mountDirectory(self):
+	if (self.isoDirIsMounted):
+	    raise SystemError, "trying to mount already-mounted image!"
+	
+	f = open("/proc/mounts", "r")
+	l = f.readlines()
+	f.close()
+
+	for line in l:
+	    s = string.split(line)
+	    if s[0] == "/dev/" + self.device:
+		self.isoDir = s[1] + "/"
+		return
+	
+	isys.mount(self.device, "/tmp/isodir", fstype = self.fstype, 
+		   readOnly = 1);
+	self.isoDir = "/tmp/isodir/"
+	self.isoDirIsMounted = 1
+
+    def umountDirectory(self):
+	if self.isoDirIsMounted:
+	    isys.umount(self.isoDir)
+	    self.tree = None
+	    self.isoDirIsMounted = 0
+	
     def readCompsViaMethod(self, hdlist):
 	self.mountMedia(1)
 	fname = self.findBestFileMatch(self.tree, 'comps.xml')
@@ -137,12 +169,12 @@ class HardDriveInstallMethod(InstallMethod):
 	self.path = path
 	self.fstype = type
 	self.fnames = {}
+        self.isoDirIsMounted = 0
         self.mediaIsMounted = 0
 	self.messageWindow = messageWindow
 
-	# assumes that loader set this up properly as /tmp/isodir
-        self.isoDir = "/tmp/hdimage"
-
 	# Go ahead and poke through the directory looking for interesting
 	# iso images
+	self.mountDirectory()
 	self.discImages = findIsoImages(self.isoDir + '/' + self.path, messageWindow)
+	self.umountDirectory()
