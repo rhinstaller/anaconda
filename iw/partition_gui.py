@@ -902,7 +902,7 @@ class PartitionWindow(InstallWindow):
             if request:
                 self.partitions.removeRequest(request)
             else: # shouldn't happen
-                raise ValueError, "Deleting a non-existenent partition"
+                raise ValueError, "Deleting a non-existent partition"
         elif partition.type & parted.PARTITION_FREESPACE:
             dialog = GnomeWarningDialog(_("You cannot remove free space."),
                                         parent=self.parent)
