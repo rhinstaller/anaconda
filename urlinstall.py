@@ -42,9 +42,9 @@ class UrlInstallMethod(InstallMethod):
             try:
                 urllib.urlretrieve(self.baseUrl + "/RedHat/RPMS/" + h[FILENAME],
                                    file)
-            except IOError, msg:
-		log("IOError %d occured getting %s: %s",
-			errnum, self.baseUrl + "/RedHat/base/hdlist", str(msg))
+            except IOError, (errnum, msg):
+		log("IOError %s occured getting %s: %s",
+			errnum, self.baseUrl + "/RedHat/RPMS/" + h[FILENAME], str(msg))
                 time.sleep(5)
             else:
                 connected = 1
@@ -61,7 +61,7 @@ class UrlInstallMethod(InstallMethod):
             try:
                 url = urllib.urlopen(self.baseUrl + "/RedHat/base/hdlist")
             except IOError, (errnum, msg):
-		log("IOError %d occured getting %s: %s",
+		log("IOError %s occured getting %s: %s",
 			errnum, self.baseUrl + "/RedHat/base/hdlist", msg)
                 time.sleep(5)
             else:
