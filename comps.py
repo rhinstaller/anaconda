@@ -290,15 +290,15 @@ class ComponentSet:
     def totalSize(self):
 	total = 0
 	for pkg in self.packages.list():
-	    total = total + (pkg['size'] / 1024 / 1024)
+	    total = total + (pkg['size'] / 1024)
 	return total
 
     def size(self):
 	size = 0
 	for pkg in self.packages.list():
-	    if pkg.isSelected(): size = size + (pkg['size'] / 1024 / 1024)
+	    if pkg.isSelected(): size = size + (pkg['size'] / 1024)
 
-	return size
+	return size / 1024
 
     def keys(self):
 	return self.compsDict.keys()
