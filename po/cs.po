@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2003-02-05 01:45-0500\n"
-"PO-Revision-Date: 2003-02-03 15:33+0100\n"
-"Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
+"PO-Revision-Date: 2003-02-10 17:56+0100\n"
+"Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -241,9 +241,9 @@ msgstr ""
 "\n"
 "To se může stát, pokud na vašem pevném disku (discích) není pro instalaci "
 "dostatek místa. Můžete zvolit jinou volbu automatického vytvoření oddílů, "
-"nebo klikněte na Zpět a zvolte ruční vytvoření oddílů.\n"
+"nebo klikněte na Zpět a vytvořte oddíly ručně.\n"
 "\n"
-"Pro pokračování stiskněte OK."
+"Pro pokračování stiskněte Budiž."
 
 #: ../autopart.py:1310 ../bootloader.py:123 ../image.py:380
 #: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:301
@@ -267,12 +267,12 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"Automatické vytvoření oddílů je závislé na zvoleném typu instalace. Jeho \n"
+"Automatické vytvoření oddílů je závislé na zvoleném typu instalace. Jeho "
 "výsledek můžete dodatečně upravit.\n"
 "\n"
-"Disk Druid je nástroj na ruční vytváření oddílů. Můžete zvolit typy systémů "
-"souborů, místa připojení, velikosti a další podrobnosti v příjemném a "
-"přehledném grafickém rozhraní."
+"Disk Druid umožňuje ruční vytváření oddílů. Lze určit typy systémů souborů, "
+"místa připojení, velikosti a další podrobnosti v příjemném a přehledném "
+"grafickém rozhraní."
 
 #: ../autopart.py:1327
 msgid ""
@@ -1330,7 +1330,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:101
 msgid "Please specify a mount point for this partition."
-msgstr "Zvolte místo pro připojení tohoto oddílu."
+msgstr "Zvolte prosím místo připojení tohoto oddílu."
 
 #: ../partIntfHelpers.py:109
 msgid "This partition is holding the data for the hard drive install."
@@ -1539,8 +1539,8 @@ msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"Pro pokračování a formátování těchto oddílů zvolte Ano. Pokud zvolíte Ne, "
-"vrátíte se zpět a budete moci provést změny v nastavení."
+"Pro pokračování a formátování těchto oddílů klikněte na 'Ano'. Pokud zvolíte "
+"'Ne', vrátíte se zpět a budete moci provést změny v nastavení."
 
 #: ../partIntfHelpers.py:464
 msgid "Format Warning"
@@ -1709,9 +1709,11 @@ msgstr ""
 "Místo připojení %s nelze použít. Pro správnou funkci systému to musí být "
 "symbolický odkaz. Zvolte prosím jiné místo připojení."
 
+# Týká se jen / /boot /var /tmp /usr /home. Nemusíme uživatele strašit při
+# připojování windowsovské partition víc, než je nutné.
 #: ../partRequests.py:228
 msgid "This mount point must be on a linux file system."
-msgstr "Tento adresář pro připojení musí být na linuxovém systému souborů."
+msgstr "Toto místo připojení musí být na linuxovém systému souborů."
 
 #: ../partRequests.py:249
 #, python-format
@@ -1773,11 +1775,11 @@ msgstr "Nastavení sítě"
 
 #: ../rescue.py:140
 msgid "Do you want to start the network interfaces on this system?"
-msgstr "Chcete spustit síťová rozhraní na tomto systému?"
+msgstr "Chcete aktivovat síťová rozhraní?"
 
 #: ../rescue.py:165 ../rescue.py:200 ../rescue.py:353
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr "Po ukončení práce ukončete shell a váš systém bude restartován."
+msgstr "Po dokončení práce ukončete shell a váš systém bude restartován."
 
 #: ../rescue.py:184 ../rescue.py:253 ../rescue.py:261 ../rescue.py:332
 msgid "Rescue"
@@ -1958,7 +1960,7 @@ msgstr "Hledání"
 #: ../upgrade.py:60
 #, python-format
 msgid "Searching for %s installations..."
-msgstr "Vyhledávání systémů %s..."
+msgstr "Vyhledávám systémy %s..."
 
 #: ../upgrade.py:111 ../upgrade.py:119
 msgid "Dirty File Systems"
@@ -2141,7 +2143,7 @@ msgstr "_Heslo správce systému:"
 
 #: ../iw/account_gui.py:99
 msgid "_Confirm: "
-msgstr "_Potvrzení: "
+msgstr "Po_tvrzení: "
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:337
 msgid "Authentication Configuration"
@@ -2157,19 +2159,19 @@ msgstr "Povolit stíno_vá hesla"
 
 #: ../iw/auth_gui.py:102
 msgid "Enable N_IS"
-msgstr "Povolit _NIS"
+msgstr "Povolit N_IS"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
-msgstr "Použít _všesměrové vysílání pro nalezení NIS serveru"
+msgstr "Použít vše_směrové vysílání pro nalezení NIS serveru"
 
 #: ../iw/auth_gui.py:115
 msgid "NIS _Domain: "
-msgstr "NIS _doména: "
+msgstr "NIS d_oména: "
 
 #: ../iw/auth_gui.py:118
 msgid "NIS _Server: "
-msgstr "NIS _server:"
+msgstr "NIS s_erver:"
 
 #: ../iw/auth_gui.py:142
 msgid "Enable _LDAP"
@@ -2197,7 +2199,7 @@ msgstr "R_ealm:"
 
 #: ../iw/auth_gui.py:184
 msgid "K_DC:"
-msgstr "K_DC:"
+msgstr "KD_C:"
 
 #: ../iw/auth_gui.py:187
 msgid "_Admin Server:"
@@ -2251,7 +2253,7 @@ msgstr "Vyberte disk(y), které chcete použít pro tuto instalaci:"
 
 #: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1526
 msgid "Re_view (and modify if needed) the partitions created"
-msgstr "_Prohlédnout (a popřípadě upravit) vytvořené oddíly."
+msgstr "Pro_hlédnout (a popřípadě upravit) vytvořené oddíly"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2264,7 +2266,7 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "_Použít heslo pro zavaděč systému"
+msgstr "Použít he_slo pro zavaděč systému"
 
 #: ../iw/blpasswidget.py:76
 msgid "Change _password"
@@ -2367,11 +2369,11 @@ msgid ""
 "'General kernel parameters' field."
 msgstr ""
 "Pokud si přejete přidat k zaváděcímu příkazu implicitní volby, vložte je do "
-"pole Obecné parametry jádra."
+"pole Implicitní parametry jádra."
 
 #: ../iw/bootloader_advanced_gui.py:82
 msgid "_General kernel parameters"
-msgstr "_Obecné parametry jádra"
+msgstr "_Implicitní parametry jádra: "
 
 #: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:54
 #: ../textw/bootloader_text.py:123 ../textw/bootloader_text.py:182
@@ -2440,11 +2442,11 @@ msgstr "Nastavit pokročilé _volby zavaděče"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
-msgstr "Instalovat zavaděč na:"
+msgstr "Instalovat zavaděč do:"
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
-msgstr "_Změnit pořadí disků"
+msgstr "Z_měnit pořadí disků"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Unable to Change Drive Order for LILO"
@@ -2600,7 +2602,7 @@ msgstr "_Instalovat balíčky k vyřešení závislostí"
 
 #: ../iw/dependencies_gui.py:93
 msgid "_Do not install packages that have dependencies"
-msgstr "_Neinstalovat balíčky, které mají závislosti"
+msgstr "Neinstalovat _balíčky, které mají závislosti"
 
 #: ../iw/dependencies_gui.py:97
 msgid "I_gnore package dependencies"
@@ -2648,11 +2650,11 @@ msgstr ""
 "\tInstant messaging\n"
 "\tAplikace pro zvuk a video\n"
 "\tHry\n"
-"\tNástroje pro vývoj softwaru\n"
+"\tNástroje pro vývoj programů\n"
 "\tNástroje pro administraci\n"
 "\n"
-"Po instalaci lze přidat nebo odebrat software nástrojem 'redhat-config-"
-"packages'.\n"
+"Po instalaci lze přidat nebo odebrat balíčky s programy nástrojem 'redhat-"
+"config-packages'.\n"
 "\n"
 "Pokud znáte %s, možná budete chtít nainstalovat nebo se vyhnout instalaci "
 "konkrétních balíčků. Pro upravení vaší instalace zaškrtněte volbu níže."
@@ -2697,8 +2699,8 @@ msgstr ""
 "\tAplikace pro zvuk a video\n"
 "\tHry\n"
 "\n"
-"Po instalaci lze přidat nebo odebrat software nástrojem 'redhat-config-"
-"packages'.\n"
+"Po instalaci lze přidat nebo odebrat balíčky s programy nástrojem 'redhat-"
+"config-packages'.\n"
 "Pokud znáte %s, možná budete chtít nainstalovat nebo se vyhnout instalaci "
 "konkrétních balíčků. Pro upravení vaší instalace zaškrtněte volbu níže."
 
@@ -2712,7 +2714,7 @@ msgstr ""
 
 #: ../iw/desktop_choice_gui.py:106
 msgid "_Accept the current package list"
-msgstr "_Přijmout aktuální seznam balíčků"
+msgstr "Přijmout _aktuální seznam balíčků"
 
 #: ../iw/desktop_choice_gui.py:107
 msgid "_Customize the set of packages to be installed"
@@ -2733,11 +2735,11 @@ msgstr "Model"
 
 #: ../iw/examine_gui.py:32
 msgid "Upgrade Examine"
-msgstr "Kontrola aktualizace"
+msgstr "Aktualizace nebo Instalace"
 
 #: ../iw/examine_gui.py:59
 msgid "Perform an upgrade of an existing installation"
-msgstr "Provést aktualizaci existující instalace"
+msgstr "Aktualizace existující instalace"
 
 #: ../iw/examine_gui.py:61
 #, python-format
@@ -2751,7 +2753,7 @@ msgstr ""
 #: ../iw/examine_gui.py:67
 #, python-format
 msgid "Perform a new %s installation"
-msgstr "Provést novou instalaci %s"
+msgstr "Nová instalace distribuce %s"
 
 #: ../iw/examine_gui.py:69
 msgid ""
@@ -2842,11 +2844,11 @@ msgstr "Použít _implicitní pravidla pro firewall"
 
 #: ../iw/firewall_gui.py:216
 msgid "_Customize"
-msgstr "_Upravit"
+msgstr "_Upravit pravidla pro firewall"
 
 #: ../iw/firewall_gui.py:229
 msgid "_Trusted devices:"
-msgstr "_Bezpečná zařízení:"
+msgstr "Důvěry_hodná zařízení:"
 
 #: ../iw/firewall_gui.py:254
 msgid "_Allow incoming:"
@@ -2854,7 +2856,7 @@ msgstr "Povo_lit příchozí:"
 
 #: ../iw/firewall_gui.py:278
 msgid "Other _ports:"
-msgstr "Ostatní _porty:"
+msgstr "_Ostatní porty:"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:42
 msgid "Installation Type"
@@ -2886,7 +2888,7 @@ msgstr "Zvolte _implicitní jazyk pro tento systém:   "
 
 #: ../iw/language_support_gui.py:219
 msgid "Select _additional languages to install on the system:"
-msgstr "Zvolte další _jazyky, které chcete do systému nainstalovat:"
+msgstr "_Zvolte další jazyky, které chcete do systému nainstalovat:"
 
 #: ../iw/language_support_gui.py:254
 msgid "_Select All"
@@ -2898,7 +2900,7 @@ msgstr "Zvolit _jen implicitní"
 
 #: ../iw/language_support_gui.py:266
 msgid "Rese_t"
-msgstr "_Obnovit"
+msgstr "_Obnovit původní"
 
 #: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
 #: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
@@ -3218,7 +3220,7 @@ msgstr "Velikost (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1076 ../iw/osbootwidget.py:94
 msgid "_Add"
-msgstr "_Přidat"
+msgstr "Přid_at"
 
 #: ../iw/lvm_dialog_gui.py:1079 ../iw/network_gui.py:488
 #: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1337
@@ -3252,7 +3254,7 @@ msgstr "/dev/ttyS3 (v DOSu COM4)"
 
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:158
 msgid "_Device"
-msgstr "_Zařízení"
+msgstr "Z_ařízení"
 
 #: ../iw/mouse_gui.py:136
 msgid "_Model"
@@ -3288,7 +3290,7 @@ msgstr "_Gateway"
 
 #: ../iw/network_gui.py:29
 msgid "_Primary DNS"
-msgstr "_Primární DNS"
+msgstr "Pri_mární DNS"
 
 #: ../iw/network_gui.py:30
 msgid "_Secondary DNS"
@@ -3452,11 +3454,11 @@ msgid ""
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
 msgstr ""
-"Můžete nakonfigurovat zavaděč systému pro zavádění jiných operačních "
-"systémů. Budete moci vybrat ze seznamu operační systém, který chcete zavést. "
-"Další operační systémy, které nejsou automaticky detekovány, přidejte "
-"kliknutím na Přidat. Systém, který je implicitně zaváděn, změníte vybráním "
-"Implicitní pro vybraný operační systém."
+"Zavaděč systému lze nastavit i pro zavádění jiných operačních systémů. "
+"Vyberte si ze seznamu operační systém, který chcete zavést implicitně. Další "
+"operační systémy, které nejsou automaticky detekovány, můžete přidat pomocí "
+"tlačítka Přidat. Systém, který je implicitně zaváděn, změníte zaškrtnutím "
+"políčka Implicitní."
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:281 ../textw/silo_text.py:207
@@ -3545,7 +3547,7 @@ msgstr ""
 
 #: ../iw/package_gui.py:367
 msgid "_Tree View"
-msgstr "_Strom"
+msgstr "S_trom"
 
 #: ../iw/package_gui.py:369
 msgid "_Flat View"
@@ -3569,7 +3571,7 @@ msgstr "Vybrat všechny ze _skupiny"
 
 #: ../iw/package_gui.py:444
 msgid "_Unselect all in group"
-msgstr "Žád_né ze skupiny"
+msgstr "Žádné _ze skupiny"
 
 #: ../iw/package_gui.py:481 ../textw/packages_text.py:57
 msgid "Package Group Selection"
@@ -3592,7 +3594,7 @@ msgid ""
 "Select the optional packages to be installed:"
 msgstr ""
 "Skupina balíčků může obsahovat základní a volitelné balíčky. Základní "
-"balíčky jsou vybrány vždy, kdy je vybrána daná skupina balíčků.\n"
+"balíčky jsou vybrány vždy, když je vybrána daná skupina balíčků.\n"
 "\n"
 "Vyberte volitelné balíčky, které chcete instalovat:"
 
@@ -3622,11 +3624,11 @@ msgstr "_Pevná velikost"
 
 #: ../iw/partition_dialog_gui.py:62
 msgid "Fill all space _up to (MB):"
-msgstr "Vyplnit volné _místo do velikosti (MB):"
+msgstr "Vyplnit vo_lné místo do velikosti (MB):"
 
 #: ../iw/partition_dialog_gui.py:72
 msgid "Fill to maximum _allowable size"
-msgstr "Vyplnit _všechno volné místo"
+msgstr "Vyplnit vš_echno volné místo"
 
 #: ../iw/partition_dialog_gui.py:170
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3651,7 +3653,7 @@ msgstr "_Typ souborového systému:"
 
 #: ../iw/partition_dialog_gui.py:322
 msgid "Allowable _Drives:"
-msgstr "_Možné disky:"
+msgstr "Možné _disky:"
 
 #: ../iw/partition_dialog_gui.py:335
 msgid "Drive:"
@@ -3671,11 +3673,11 @@ msgstr "_Koncový cylindr:"
 
 #: ../iw/partition_dialog_gui.py:448
 msgid "Force to be a _primary partition"
-msgstr "Nastavit jako _primární oddíl"
+msgstr "Nastavit jako p_rimární oddíl"
 
 #: ../iw/partition_dialog_gui.py:456
 msgid "Check for _bad blocks"
-msgstr "Při formátování zjišťovat chybné _bloky"
+msgstr "Při formátování zjišťovat _chybné bloky"
 
 #: ../iw/partition_gui.py:350 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 #: ../textw/partition_text.py:1114
@@ -3699,7 +3701,7 @@ msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
-"Bod připojení/\n"
+"Místo připojení/\n"
 "RAID/svazek"
 
 #: ../iw/partition_gui.py:395
@@ -3772,7 +3774,7 @@ msgstr "Pevné disky"
 #: ../iw/partition_gui.py:853 ../textw/partition_text.py:133
 #: ../textw/partition_text.py:172
 msgid "Free space"
-msgstr "Volno"
+msgstr "Nevyužito"
 
 #: ../iw/partition_gui.py:855 ../textw/partition_text.py:135
 msgid "Extended"
@@ -3798,7 +3800,7 @@ msgstr "Varování: %s."
 
 #: ../iw/partition_gui.py:993
 msgid "_Modify Partition"
-msgstr "_Upravit oddíl"
+msgstr "_Zpět na úpravu oddílu"
 
 #: ../iw/partition_gui.py:1171 ../iw/partition_gui.py:1185
 msgid "Not supported"
@@ -3895,11 +3897,11 @@ msgstr "Vytvořit _RAID"
 
 #: ../iw/partition_gui.py:1342
 msgid "Ne_w"
-msgstr "_Nový"
+msgstr "No_vý"
 
 #: ../iw/partition_gui.py:1345
 msgid "Re_set"
-msgstr "_Obnovit"
+msgstr "O_bnovit"
 
 #: ../iw/partition_gui.py:1346
 msgid "R_AID"
@@ -3926,7 +3928,7 @@ msgstr "Jak chcete připravit systém souborů na tomto oddílu?"
 
 #: ../iw/partition_ui_helpers_gui.py:249
 msgid "Leave _unchanged (preserve data)"
-msgstr "Ponechat _beze změny (zachovat data)"
+msgstr "Ponechat beze změny (zachovat _data)"
 
 #: ../iw/partition_ui_helpers_gui.py:255
 msgid "_Format partition as:"
@@ -3938,7 +3940,7 @@ msgstr "_Migrovat na:"
 
 #: ../iw/partition_ui_helpers_gui.py:301
 msgid "Check for _bad blocks?"
-msgstr "_Zjišťovat při formátování chybné bloky?"
+msgstr "Zjišťovat při formátování chybné _bloky?"
 
 #: ../iw/partition_ui_helpers_gui.py:335
 #, python-format
@@ -4323,12 +4325,12 @@ msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
-"Vytvoření nového nastavení zavaděče systému. Tuto volbu zvolte, pokud chcete "
-"přejít na jiný zavaděč."
+"Vytvoření nového nastavení zavaděče systému. Tuto volbu použijte v případě, "
+"že chcete přejít na jiný zavaděč."
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
-msgstr "_Přeskočit aktualizaci zavaděče"
+msgstr "Pře_skočit aktualizaci zavaděče"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
@@ -4510,7 +4512,7 @@ msgid ""
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
 "Většinou lze monitor detekovat automaticky. Pokud zjištěné nastavení není "
-"správné, zvolte správné nastavení. "
+"správné, vyberte správné nastavení. "
 
 #: ../iw/xconfig_gui.py:671
 msgid "Generic"
@@ -4581,7 +4583,7 @@ msgid ""
 "settings."
 msgstr ""
 "Ve většině případů lze vaši videokartu automaticky detekovat. Pokud zjištěné "
-"nastavení není správné, zvolte správné nastavení."
+"nastavení není správné, vyberte správné nastavení."
 
 #: ../iw/xconfig_gui.py:1034
 msgid "_Video card RAM: "
@@ -4754,9 +4756,9 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"Heslo pro zavaděč systému brání uživatelům měnit volby jádra. Pro vyšší "
-"bezpečnost se doporučuje nastavit heslo, ale pro obvyklé použití to není "
-"nutné."
+"Heslo pro zavaděč systému brání uživatelům měnit parametry jádra při jeho "
+"zavedení. Pro dosažení vyššího zabezpečení doporučujeme nastavit heslo, ale "
+"pro běžné použití to není nutné."
 
 #: ../textw/bootloader_text.py:402
 msgid "Use a GRUB Password"
@@ -4886,12 +4888,12 @@ msgstr ""
 "email a vytvářet a měnit dokumenty. Možnost Pracovní stanice obsahuje i "
 "nástroje pro vývoj a administraci.\n"
 "\n"
-"%s je ale dodáván s mnohem více aplikacemi a jestliže chcete, můžete upravit "
-"výběr instalovaného softwaru."
+"%s je ale dodáván s mnohem více aplikacemi a jestliže chcete, můžete jejich "
+"výběr upravit."
 
 #: ../textw/desktop_choice_text.py:39
 msgid "Customize software selection"
-msgstr "Upravit výběr software"
+msgstr "Upravit výběr programů"
 
 #: ../textw/fdasd_text.py:31
 msgid "Choose a disk to run fdasd or dasdfmt on"
@@ -4984,7 +4986,7 @@ msgstr "Žádný firewall"
 
 #: ../textw/firewall_text.py:73
 msgid "Trusted Devices:"
-msgstr "Bezpečné porty:"
+msgstr "Důvěryhodná zařízení:"
 
 #: ../textw/firewall_text.py:85
 msgid "Allow incoming:"
@@ -5590,8 +5592,8 @@ msgstr ""
 "Na vašem systému byla nalezena jedna nebo více existujících instalací "
 "Linuxu.\n"
 "\n"
-"Pro aktualizaci prosím jednu zvolte, nebo nainstalujte nový systém zvolením "
-"'Přeinstalovat systém'."
+"Chcete-li některou z nich aktualizovat, vyberte ji. Úplně nový systém můžete "
+"nainstalovat volbou 'Přeinstalovat systém'."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
@@ -6040,7 +6042,6 @@ msgid "Video RAM:"
 msgstr "Paměť videokarty:"
 
 #: ../textw/zipl_text.py:22
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
@@ -6099,7 +6100,7 @@ msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
 msgstr ""
-"Tato možnost nainstaluje grafické prostředí s nástroji pro vývoj softwaru a "
+"Tato možnost nainstaluje grafické prostředí s nástroji pro vývoj programů a "
 "administraci systému."
 
 #: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:116
@@ -6185,33 +6186,33 @@ msgstr "Nemohu najít soubor kickstart na CDROM."
 
 #: ../loader2/driverdisk.c:90 ../loader2/firewire.c:50
 msgid "Loading"
-msgstr "Zavádění"
+msgstr "Načítání"
 
 #: ../loader2/driverdisk.c:90
 msgid "Reading driver disk..."
-msgstr "Čtu disketu s ovladači..."
+msgstr "Načítám ovladače..."
 
 #: ../loader2/driverdisk.c:195
 msgid "Driver Disk Source"
-msgstr "Zdroj diskety s ovladači"
+msgstr "Umístění ovladačů"
 
 #: ../loader2/driverdisk.c:196
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
-"Máte více zařízení, která by mohla být použita jako zdroj diskety s "
-"ovladači. Které chcete použít?"
+"V počítači je k dispozici více zařízení, která by mohla být použita pro "
+"načtení ovladačů. Vyberte zařízení, ze kterého chcete ovladače načíst."
 
 #: ../loader2/driverdisk.c:214
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
-"Vložte svou disketu s ovladači do /dev/%s a pokračujte stisknutím \"OK\"."
+"Vložte médium s ovladači do zařízení /dev/%s a pokračujte stisknutím \"OK\"."
 
 #: ../loader2/driverdisk.c:216
 msgid "Insert Driver Disk"
-msgstr "Vložte disketu s ovladači"
+msgstr "Vložení média s ovladači"
 
 #: ../loader2/driverdisk.c:228
 msgid "Failed to mount driver disk."
@@ -6367,7 +6368,7 @@ msgstr "Typ klávesnice"
 
 #: ../loader2/kbd.c:124
 msgid "What type of keyboard do you have?"
-msgstr "Jaký typ klávesnice máte?"
+msgstr "Jakou mapu kláves chcete použít?"
 
 #: ../loader2/kickstart.c:98
 #, c-format
@@ -6477,15 +6478,15 @@ msgstr "Jaký druh média obsahuje disk pro zotavení?"
 
 #: ../loader2/loader.c:693
 msgid "What type of media contains the packages to be installed?"
-msgstr "Na jakém druhu média jsou balíčky, které chcete instalovat?"
+msgstr "Kde jsou umístěny balíčky, které chcete instalovat?"
 
 #: ../loader2/loader.c:723
 msgid "No driver found"
-msgstr "Nenalezen žádný ovladač"
+msgstr "Žádný ovladač nebyl nalezen"
 
 #: ../loader2/loader.c:723
 msgid "Select driver"
-msgstr "Vyberte ovladač"
+msgstr "Vybrat ovladač"
 
 #: ../loader2/loader.c:724
 msgid "Use a driver disk"
@@ -6496,8 +6497,8 @@ msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
-"emohu najít žádná zařízení typu potřebného pro tento typ instalace. Chcete "
-"ručně vybrat váš ovladač nebo použít disketu s ovladači?"
+"Nemohu najít žádná zařízení, která jsou potřeba pro provedení tohoto typu "
+"instalace. Chcete vybrat ovladač ručně nebo chcete použít disketu s ovladači?"
 
 #: ../loader2/loader.c:818
 msgid "The following devices have been found on your system."
@@ -6618,7 +6619,7 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
-"Chcete spočítat kontrolní součet ISO obrazu:\n"
+"Chcete zkontrolovat kontrolní součty v ISO obrazu:\n"
 "\n"
 "   %s?"
 
@@ -6682,8 +6683,8 @@ msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
-"Vložte informace o nastavení IP pro tento stroj. Jednotlivé položky "
-"zadávejte jako IP adresy v desítkové notaci oddělené tečkami (např. 1.2.3.4)."
+"Vložte IP adresu a ostatní údaje pro tento počítač. Jednotlivé položky "
+"zadávejte jako desítková čísla oddělená tečkami (např. 10.2.3.4)."
 
 #: ../loader2/net.c:320
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -6691,7 +6692,7 @@ msgstr "Použít dynamické nastavení IP adresy (BOOTP/DHCP)"
 
 #: ../loader2/net.c:348
 msgid "Configure TCP/IP"
-msgstr "Nastavit TCP/IP"
+msgstr "Nastavení TCP/IP"
 
 #: ../loader2/net.c:379
 msgid "Missing Information"
@@ -6731,7 +6732,7 @@ msgstr "Jméno NFS serveru:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:276
 msgid "Red Hat directory:"
-msgstr "Adresář Red Hat:"
+msgstr "Adresář s distribucí:"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6743,17 +6744,16 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
-"Instalační strom %s v tomto adresáři zřejmě neodpovídá vašemu zaváděcímu "
-"médiu."
+"Instalační strom %s v tomto adresáři zřejmě neodpovídá zavedenému systému."
 
 #: ../loader2/nfsinstall.c:214
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr "Tento adresář zřejmě neobsahuje instalační strom %s."
+msgstr "Uvedený adresář zřejmě neobsahuje instalační strom %s."
 
 #: ../loader2/nfsinstall.c:221
 msgid "That directory could not be mounted from the server."
-msgstr "Tento adresář na serveru nelze připojit."
+msgstr "Uvedený adresář nelze připojit."
 
 #: ../loader2/nfsinstall.c:259
 #, c-format
@@ -6771,11 +6771,11 @@ msgstr "Spouštím Anacondu přes telnet..."
 #: ../loader2/urlinstall.c:59
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr "Nemohu získat %s://%s/%s/%s."
+msgstr "Nemohu přenést %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:99
 msgid "Unable to retrieve the install image."
-msgstr "Nemohu získat instalační obraz."
+msgstr "Nemohu přenést instalační obraz."
 
 #: ../loader2/urlinstall.c:368
 #, c-format
@@ -7060,7 +7060,7 @@ msgstr "Východní standardní čas - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr "Východní standardní čas - Indiana - most locations"
+msgstr "Východní standardní čas - Indiana - většina míst"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
@@ -7088,11 +7088,11 @@ msgstr "Východní čas - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr "Východní čas - Michigan - most locations"
+msgstr "Východní čas - Michigan - většina míst"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - most locations"
-msgstr "Východní čas - Ontario & Quebec - většina území"
+msgstr "Východní čas - Ontario & Quebec - většina míst"
 
 #. generated from zone.tab
 msgid ""
@@ -7559,7 +7559,6 @@ msgid "Portuguese"
 msgstr "Portugalština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese(Brazilian)"
 msgstr "Portugalština(brazilská)"
 

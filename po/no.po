@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2003-02-05 01:45-0500\n"
-"PO-Revision-Date: 2003-01-31 19:52+0100\n"
-"Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
+"PO-Revision-Date: 2003-02-10 17:23+0100\n"
+"Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -97,19 +97,24 @@ msgstr "Kunne ikke allokere partisjoner"
 
 #: ../autopart.py:981
 #, python-format
+#, fuzzy
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this paritition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
-msgstr ""
+msgstr "Oppstartspartisjonen %s ligger ikke på en disk med BSD diskbetegnelse. SRM vil ikke være istand til å starte operativsystemet fra denne partisjonen. Bruk en partisjon med BSD diskbetegnelse, eller skift betegnelse på denne disken."
 
 #: ../autopart.py:983
 #, python-format
+#, fuzzy
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
+"Oppstartspartisjonen %s ligger ikke på en disk med nok ledig plass til "
+"at oppstartslasteren kan leve der. Sørg for at det er minst "
+"5MB ledig plass på begynnelsen av disken som inneholder /boot."
 
 #: ../autopart.py:985
 #, python-format
@@ -117,6 +122,8 @@ msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
+"Oppstartspartisjonen %s er ikke en VFAT partisjon. EFI vil ikke kunne "
+"starte operativsystemet fra denne partisjonen."
 
 #: ../autopart.py:988
 #, python-format
@@ -124,7 +131,7 @@ msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
-"Oppstartspartisjon %s møter muligens ikke oppstartsbegrensningene for din "
+"Oppstartspartisjon %s oppfyller muligens ikke kravene til oppstart for din "
 "arkitektur. Det er sterkt anbefalt å opprette en oppstartsdiskett."
 
 #: ../autopart.py:1013
@@ -229,7 +236,7 @@ msgstr ""
 "%s\n"
 "\n"
 "Dette kan skje hvis det ikke er nok plass på harddisken(e) for "
-"installeringen. Du kan velge et annet partisjoneringsalternativ eller trykke "
+"installeringen. Du kan velge et annet partisjoneringsalternativ, eller trykke "
 "'Tilbake' for å velge manuell partisjonering.\n"
 "\n"
 "Press 'OK' for å fortsette."
@@ -3968,7 +3975,7 @@ msgstr "Ferdig"
 
 #: ../iw/progress_gui.py:98 ../iw/progress_gui.py:260
 msgid "Total"
-msgstr "Total"
+msgstr "Totalt"
 
 #: ../iw/progress_gui.py:104 ../iw/progress_gui.py:262
 msgid "Remaining"
@@ -4110,7 +4117,7 @@ msgstr "Feil på målstasjon"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
-msgstr "Vennligst velg målstasjonen for kloneoperasjonen."
+msgstr "Vennligst velg målstasjon for kloningen."
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
@@ -4131,7 +4138,7 @@ msgstr ""
 "\n"
 "«%s»\n"
 "\n"
-"Denne partisjonen må fjernes før denne stasjonen kan være et mål."
+"Denne partisjonen må fjernes før stasjonen kan være et mål."
 
 #: ../iw/raid_dialog_gui.py:617
 msgid "Please select a source drive."
@@ -4231,7 +4238,7 @@ msgstr "Sett standard PROM oppstartsenhet til linux"
 
 #: ../iw/silo_gui.py:216
 msgid "Kernel parameters"
-msgstr "Parametere for kjerne"
+msgstr "Parametere for kjernen"
 
 #: ../iw/silo_gui.py:234
 msgid "Create boot disk"
@@ -4300,7 +4307,7 @@ msgstr "Dette vil oppdatere din nåværende oppstartslaster."
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
-"Installeringsprogrammet har detektert at oppstartslasteren %s er installert "
+"Installeringsprogrammet har funnet ut at oppstartslasteren %s er installert "
 "på %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4324,8 +4331,8 @@ msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
-"Dette vil la deg lage en ny konfigurering for din oppstartslaster. Hvis du "
-"ønsker å bytte oppstartslaster bør du velge dette."
+"Dette vil la deg lage en ny konfigurasjon for din oppstartslaster. Hvis du "
+"ønsker å bytte oppstartslaster, bør du velge dette."
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
@@ -4336,8 +4343,8 @@ msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
-"Dette vil ikke endre din oppstartslasterkonfigurasjon. Hvis du bruker en "
-"tredjeparts oppstartslaster bør du velge dette."
+"Dette vil ikke endre konfigurasjonen av din oppstartslaster. "
+"Du bør velge dette dersom du bruker en tredjeparts oppstartslaster."
 
 #: ../iw/upgrade_bootloader_gui.py:111
 msgid "What would you like to do?"
@@ -4358,7 +4365,8 @@ msgid ""
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "Denne utgaven av %s støtter det journalførende ext3-filsystemet. Det har "
-"flere fordeler over ext2-filsystemet som tradisjonelt har vært brukt i %s. "
+"flere fordeler i forhold til ext2-filsystemet, som tradisjonelt har vært "
+"brukt i %s. "
 "Det er mulig å migrere ext2-formaterte partisjoner til ext3 uten tap av "
 "data.\n"
 "\n"
@@ -4389,7 +4397,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Installasjonsprogrammet har funnet %s MB med RAM.\n"
+"Installasjonsprogrammet har funnet %s MB RAM.\n"
 
 #: ../iw/upgrade_swap_gui.py:120
 msgid "I _want to create a swap file"
@@ -4401,7 +4409,7 @@ msgstr "Velg _partisjonen swapfilen skal legges på:"
 
 #: ../iw/upgrade_swap_gui.py:148
 msgid "Free Space (MB)"
-msgstr "Fri diskplass (MB)"
+msgstr "Ledig diskplass (MB)"
 
 #: ../iw/upgrade_swap_gui.py:166
 #, python-format
@@ -4413,7 +4421,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:181
 msgid "Swap file _size (MB):"
-msgstr "_Størrelse på swapfil(MB):"
+msgstr "_Størrelse på swapfil (MB):"
 
 #: ../iw/upgrade_swap_gui.py:191
 msgid "I _don't want to create a swap file"
@@ -4425,9 +4433,9 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
-"Det anbefales sterkt at du lager en swapfil. Hvis dette ikke gjøres, kan\n"
-"installeringsprogrammet blitt utsatt for feil under installeringen. Er du "
-"sikker\n"
+"Det anbefales sterkt at du lager en swapfil. Hvis dette ikke gjøres, kan "
+"installeringsprogrammet få problemer under installasjonen. Er du "
+"sikker "
 "på at du vil fortsette?"
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
@@ -4437,7 +4445,8 @@ msgstr "Størrelsen på swapfilen må være mellom 1 og 2000 MB."
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
-msgstr "Det er ikke nok plass på enheten du oppga for swapområdet."
+msgstr ""
+"Det er ikke nok plass for swapområdet på den enheten som du oppga."
 
 #: ../iw/welcome_gui.py:20
 msgid "Welcome"
@@ -4508,9 +4517,9 @@ msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
-"I de fleste tilfeller kan skjermen detekteres automatisk. Hvis "
-"innstillingene som finnes ikke er korrekte for skjermen må du velge de "
-"riktige innstillingene."
+"I de fleste tilfeller kan innstillinger for skjermen finnes automatisk. Hvis "
+"disse innstillingene ikke er korrekte, må du selv spesifisere "
+"de riktige innstillingene."
 
 #: ../iw/xconfig_gui.py:671
 msgid "Generic"
@@ -4572,8 +4581,8 @@ msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"Mengden videominne kunne ikke finnes av autosøk. Velg mengden videoram fra "
-"listen under:"
+"Størrelsen på skjermkortets RAM kunne ikke bestemmes automatisk. Velg "
+"størrelsen fra listen under:"
 
 #: ../iw/xconfig_gui.py:949
 msgid ""
@@ -4641,12 +4650,12 @@ msgid ""
 "Would you like to create a boot diskette?"
 msgstr ""
 "Oppstartsdisketten lar deg starte opp ditt %s-system fra en diskett. En "
-"oppstartsdisk lar deg starte systemet hvis oppstartslasterens konfigurasjon "
-"slutter å fungere.\n"
+"oppstartsdiskett lar deg starte systemet hvis oppstartslasterens "
+"konfigurasjon slutter å fungere.\n"
 "\n"
-"Det anbefales på det sterkeste at du oppretter en oppstartsdisk.\n"
+"Det anbefales på det sterkeste at du oppretter en oppstartsdiskiett.\n"
 "\n"
-"Vil du opprette en oppstartsdisk?"
+"Vil du opprette en oppstartsdiskett?"
 
 #: ../textw/bootdisk_text.py:31
 msgid "Boot Diskette"
@@ -4682,7 +4691,7 @@ msgid ""
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
 "Du har valgt å ikke installere en oppstartslaster. Det anbefales at du "
-"installerer en oppstartslaster med mindre du har et avansert behov. En "
+"installerer en oppstartslaster med mindre du har helt spesielle behov. En "
 "oppstartslaster er nesten alltid nødvendig for å starte systemet med Linux "
 "direkte fra harddisken.\n"
 "\n"
@@ -4702,7 +4711,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:117
 msgid "Force use of LBA32 (not normally required)"
-msgstr "Tvungen bruk av LBA32 (ikke vanligvis nødvendig)"
+msgstr "Tvungen bruk av LBA32 (vanligvis ikke nødvendig)"
 
 #: ../textw/bootloader_text.py:183
 msgid "Where do you want to install the boot loader?"
@@ -4744,7 +4753,7 @@ msgid ""
 msgstr ""
 "Oppstartslasteren som brukes av Red Hat kan starte andre operativsystemer "
 "også. Du må fortelle hvilke partisjoner du ønsker å starte andre systemer "
-"fra og hvilket navn du vil gi hvert av dem."
+"fra, og hvilket navn du vil gi hvert av dem."
 
 #: ../textw/bootloader_text.py:313
 msgid ""
@@ -4789,7 +4798,7 @@ msgstr "Passordet for oppstartslasteren er for kort"
 
 #: ../textw/complete_text.py:24
 msgid "<Enter> to reboot"
-msgstr "<Enter> for å starte på nytt"
+msgstr "<Linjeskift> for å starte på nytt"
 
 #: ../textw/complete_text.py:28
 #, python-format
@@ -4799,7 +4808,7 @@ msgid ""
 "\n"
 msgstr ""
 "Hvis du laget en oppstartsdiskett for oppstart av ditt %s-system, sett den i "
-"diskettstasjonen før du trykker <Enter> for omstart.\n"
+"diskettstasjonen før du trykker <Linjeskift> for omstart.\n"
 "\n"
 
 #: ../textw/complete_text.py:37
@@ -4808,8 +4817,8 @@ msgid ""
 "press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Fjern disketter du brukte under installasjonen og trykk <Linjeskift> for å "
-"starte systemet på nytt.\n"
+"Fjern disketter som ble brukt under installasjonen og trykk <Linjeskift> "
+"for å starte systemet på nytt.\n"
 
 #: ../textw/complete_text.py:43
 msgid "Complete"
@@ -4887,13 +4896,13 @@ msgid ""
 "selection of software installed if you want."
 msgstr ""
 "Alternativene Personlig skrivebord og Arbeidsstasjon installerer et forvalgt "
-"sett med applikasjoner som vil la deg lese internettsider, sende og motta e-"
-"post og opprette og redigere dokumenter på ditt %s-system. Arbeidsstasjon-"
-"valget inkluderer verktøy for programvareutvikling og systemadministrasjon i "
-"tillegg.\n"
+"sett med programmer som vil la deg lese internettsider, sende og motta e-"
+"post, og opprette og redigere dokumenter på ditt %s-system. Arbeidsstasjon-"
+"valget inkluderer i tillegg verktøy for programvareutvikling og "
+"systemadministrasjon.\n"
 "\n"
-"Likevel, %s kommer med mange flere applikasjoner, og du kan tilpasse "
-"utvalget av programvare som installeres hvis du ønsker det."
+"Men %s inneholder også mange flere programmer, og du kan tilpasse "
+"hvilke programmer som skal installeres, hvis du ønsker det."
 
 #: ../textw/desktop_choice_text.py:39
 msgid "Customize software selection"
@@ -4932,7 +4941,7 @@ msgid ""
 "\n"
 "Do you really want this?"
 msgstr ""
-"Hvis du kjører dasdfmt vil du tape \n"
+"Hvis du kjører dasdfmt vil du miste \n"
 "ALLE DATA på stasjon %s.\n"
 "\n"
 "Vil du virkelig gjøre dette?"
@@ -5182,11 +5191,11 @@ msgstr "Velg individuelle pakker"
 
 #: ../textw/packages_text.py:91
 msgid "Package :"
-msgstr "Pakke     :"
+msgstr "Pakke   :"
 
 #: ../textw/packages_text.py:96
 msgid "Size    :"
-msgstr "Størr.   :"
+msgstr "Størr.  :"
 
 #: ../textw/packages_text.py:97
 #, python-format
@@ -5230,7 +5239,7 @@ msgstr "Ignorer pakkeavhengigheter"
 
 #: ../textw/partition_text.py:39
 msgid "Must specify a value"
-msgstr "Verdi må spesifiseres"
+msgstr "En verdi må spesifiseres"
 
 #: ../textw/partition_text.py:42
 msgid "Requested value is not an integer"
@@ -5370,7 +5379,7 @@ msgstr "Ikke støttet"
 
 #: ../textw/partition_text.py:698
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr "LVM-volumgrupper kan kun redigeres i den grafiske installasjonen."
+msgstr "LVM volumgrupper kan kun redigeres i den grafiske installasjonen."
 
 #: ../textw/partition_text.py:772 ../textw/partition_text.py:821
 msgid "Invalid Entry for Partition Size"
@@ -5378,7 +5387,7 @@ msgstr "Ugyldig verdi for partisjonsstørrelse"
 
 #: ../textw/partition_text.py:784
 msgid "Invalid Entry for Maximum Size"
-msgstr "Ugyldig oppføring for maksimum størrelse"
+msgstr "Ugyldig verdi for maksimal størrelse"
 
 #: ../textw/partition_text.py:803
 msgid "Invalid Entry for Starting Cylinder"
@@ -5402,7 +5411,7 @@ msgstr "Formater partisjon?"
 
 #: ../textw/partition_text.py:999
 msgid "Invalid Entry for RAID Spares"
-msgstr "Ugyldig verdi for RAID-reservedisker"
+msgstr "Ugyldig verdi for RAID reservedisker"
 
 #: ../textw/partition_text.py:1012
 msgid "Too many spares"
@@ -5410,11 +5419,11 @@ msgstr "For mange reservedisker"
 
 #: ../textw/partition_text.py:1013
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr "Maksimalt antall reservedisker med for en RAID0-array er 0."
+msgstr "Maksimalt antall reservedisker med for et RAID0 array er 0."
 
 #: ../textw/partition_text.py:1067
 msgid "You must go back and use fdasd to initialize this partition"
-msgstr "Du må gå tilbake og bruke fdasd for å initiere denne partisjonen"
+msgstr "Du må gå tilbake og bruke fdasd for å initsiere denne partisjonen"
 
 #: ../textw/partition_text.py:1120 ../textw/partition_text.py:1127
 #: ../textw/userauth_text.py:236
@@ -5451,7 +5460,7 @@ msgstr "Må ha en \"/\"-partisjon å installere på."
 
 #: ../textw/partition_text.py:1228
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr "Hvilke stasjoner vil du bruke for denne installasjonen?"
+msgstr "Hvilke stasjoner vil du bruke til denne installasjonen?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5467,7 +5476,7 @@ msgstr "Pakkeinstallasjon"
 
 #: ../textw/progress_text.py:81
 msgid " Name   : "
-msgstr " Navn  : "
+msgstr " Navn   : "
 
 #: ../textw/progress_text.py:82
 msgid " Size   : "
@@ -5495,11 +5504,11 @@ msgstr "Total   :"
 
 #: ../textw/progress_text.py:120
 msgid "Completed:   "
-msgstr "Ferdig  :"
+msgstr "Ferdig   :   "
 
 #: ../textw/progress_text.py:130
 msgid "Remaining:  "
-msgstr "Gjenstår:   "
+msgstr "Gjenstår :  "
 
 #: ../textw/silo_text.py:39 ../textw/silo_text.py:112
 #: ../textw/silo_text.py:224
@@ -5547,26 +5556,25 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"2.4-kjernen trenger vesentlig mer swap enn eldre kjerner, så mye som\n"
-"det dobbelte av systemets RAM er anbefalt. Du har nå %d MB av swap "
-"konfigurert,\n"
-"men du kan opprette mer swap på et av dine filsystemer nå."
+"2.4-kjernen trenger vesentlig mer swap enn eldre kjerner. "
+"Det dobbelte av systemets RAM er anbefalt. Du har allerede %d MB swap "
+"konfigurert, men det er mulig å opprette mer swap på et av dine filsystem nå."
 
 #: ../textw/upgrade_text.py:112
 msgid "Free Space"
-msgstr "Fri diskplass"
+msgstr "Ledig diskplass"
 
 #: ../textw/upgrade_text.py:127
 msgid "RAM detected (MB):"
-msgstr "Gjenkjent RAM (MB):"
+msgstr "Funnet RAM (MB):"
 
 #: ../textw/upgrade_text.py:130
 msgid "Suggested size (MB):"
-msgstr "Anbefalt størrelse(MB):"
+msgstr "Anbefalt størrelse (MB):"
 
 #: ../textw/upgrade_text.py:133
 msgid "Swap file size (MB):"
-msgstr "Størrelse på swapfil(MB):"
+msgstr "Størrelse på swapfil (MB):"
 
 #: ../textw/upgrade_text.py:141
 msgid "Add Swap"
@@ -5591,14 +5599,14 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"En eller flere eksisterende Linux-installasjoner ble funnet på ditt system.\n"
+"En eller flere eksisterende Linux-installasjoner ble funnet på systemet ditt.\n"
 "\n"
-"Vennligst velg en som skal oppgraderes eller velg «Installer systemet på "
-"nytt» for å installere helt på nytt."
+"Vennligst velg hvilken som skal oppgraderes, eller velg «Installer systemet "
+"på nytt» for å installere helt på nytt."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
-msgstr "Tilpass pakker som skal oppgraderes"
+msgstr "Velg pakker som skal oppgraderes"
 
 #: ../textw/upgrade_text.py:246
 msgid ""
@@ -5606,9 +5614,9 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
-"Pakkene du har installert, og eventuelle andre pakker som er nødvendige for "
-"å tilfredsstille deres avhengigheter, er valgt for installering. Ønsker du å "
-"endre pakkesettet som skal oppgraderes?"
+"Pakkene du har installert vil nå bli oppgradert. Entuelle andre pakker " 
+"som disse er avhengige av vil bli installert. Ønsker du manuelt "
+"å bestemme hvilke pakker som skal oppgraderes?"
 
 #: ../textw/userauth_text.py:29
 msgid "Root Password"
@@ -5678,11 +5686,11 @@ msgstr "Ugyldig brukernavn"
 
 #: ../textw/userauth_text.py:126
 msgid "User names must contain only characters A-Z, a-z, and 0-9."
-msgstr "Brukernavn kan kun inneholde tegnene A-Z, a-z og 0-9."
+msgstr "Brukernavn kan bare inneholde tegnene A-Z, a-z og 0-9."
 
 #: ../textw/userauth_text.py:133
 msgid "Missing User Name"
-msgstr "Manglende brukernavn"
+msgstr "Brukernavn mangler"
 
 #: ../textw/userauth_text.py:134
 msgid "You must provide a user name"
@@ -5736,8 +5744,8 @@ msgid ""
 "can have any number of accounts set up."
 msgstr ""
 "Hvilke brukerkontoer ønsker du å ha på systemet? Du bør ha minst en konto "
-"ved siden av root for vanlig arbeid, men flerbrukersystemer kan ha mange "
-"kontoer satt opp."
+", som ikke er root, til vanlig arbeid. Et flerbrukersystem kan ha mange "
+"kontoer."
 
 #: ../textw/userauth_text.py:222
 msgid "User name"
@@ -5835,10 +5843,10 @@ msgstr ""
 "Velkommen til %s!\n"
 "\n"
 "Denne installasjonsprosessen er beskrevet i detalj i installeringsguiden\n"
-"for %s som er tilgjengelig fra Red Hat, Inc. Hvis du har tilgang til denne\n"
+"for %s, som er tilgjengelig fra Red Hat, Inc. Hvis du har tilgang til denne\n"
 "håndboken bør du lese delen om installering før du fortsetter.\n"
 "\n"
-"Hvis du har kjøpt Official %s bør du registrere kjøpet gjennom vårt "
+"Hvis du har kjøpt Official %s, bør du registrere kjøpet gjennom vårt "
 "nettsted, http://www.redhat.com/."
 
 #: ../textw/xconfig_text.py:37
@@ -5957,10 +5965,10 @@ msgid ""
 "NOTE - it is not usually necessary to edit sync rates manually, and care "
 "should be taken to make sure the values entered are accurate."
 msgstr ""
-"Vennligst skriv inn synkroniseringsfrekvenser for din skjerm.\n"
+"Vennligst skriv inn synkroniseringsfrekvenser for skjermen din.\n"
 "\n"
-"MERK - det er ikke vanligvis nødvendig p redigere synkroniseringsfrekvenser "
-"manuelt, og man bør forsikre seg om at verdiene som oppgis er korrekt."
+"MERK - det er vanligvis ikke nødvendig å redigere synkroniseringsfrekvenser "
+"manuelt, og man bør forsikre seg om at verdiene som oppgis er korrekte."
 
 #: ../textw/xconfig_text.py:288
 msgid "HSync Rate: "
@@ -6042,11 +6050,15 @@ msgid "Video RAM:"
 msgstr "Video-RAM:"
 
 #: ../textw/zipl_text.py:22
+#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
+"Oppstartslasteren z/IPL vil bli installert på systemet ditt etter at resten "
+"av installasjonen er ferdig. Du kan nå spesifisere nødvendige parametre for "
+"kjernen og chandev på ditt system."
 
 #: ../textw/zipl_text.py:47
 msgid "z/IPL Configuration"
@@ -6054,7 +6066,7 @@ msgstr "z/IPL-konfigurasjon"
 
 #: ../textw/zipl_text.py:54 ../textw/zipl_text.py:57
 msgid "Chandev line "
-msgstr ""
+msgstr "Chandev-linje "
 
 #: ../installclasses/custom.py:10
 msgid "Custom"
@@ -6075,7 +6087,7 @@ msgid ""
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
 msgstr ""
-"Perfekt for en personlig datamaskin eller en bærbar. Velg denne "
+"Perfekt for en personlig datamaskin eller en bærbar datamaskin. Velg denne "
 "installasjonstypen for å installere et grafisk skrivebordsmiljø og et system "
 "som er ideelt for hjemmebruk."
 
@@ -6172,7 +6184,7 @@ msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Fant ingen %s-CD som passer ditt oppstartsmedie. Vennligst sett inn %s-CDen "
+"Fant ingen %s-CD som passer ditt oppstartsmedium. Vennligst sett inn %s-CDen "
 "og trykk %s for å prøve på nytt"
 
 #: ../loader2/cdinstall.c:359
@@ -6316,7 +6328,7 @@ msgid ""
 "configure additional devices?"
 msgstr ""
 "Det ser ikke ut som om du har noen harddisker på systemet ditt! Ønsker du å "
-"konfigurere noen tilleggsenheter?"
+"konfigurere flere enheter?"
 
 #: ../loader2/hdinstall.c:385
 #, c-format
@@ -6327,7 +6339,7 @@ msgid ""
 msgstr ""
 "Hvilken partisjon og hvilken katalog på denne partisjonen inneholder CD-"
 "filene (iso9660) for %s? Hvis du ikke ser disken du bruker på denne listen, "
-"trykk F2 for å konfigurere tilleggsenheter."
+"trykk F2 for å konfigurere flere enheter."
 
 #: ../loader2/hdinstall.c:407
 msgid "Directory holding images:"
@@ -6340,7 +6352,7 @@ msgstr "Velg partisjon"
 #: ../loader2/hdinstall.c:474
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr "Enheten %s ser ikke ut til å inneholde et Red Hat CDROM-bilde."
+msgstr "Enheten %s ser ikke ut til å inneholde et Red Hat CD-ROM bilde."
 
 #: ../loader2/hdinstall.c:504 ../loader2/kickstart.c:97
 #: ../loader2/kickstart.c:106 ../loader2/kickstart.c:149 ../loader2/net.c:658
@@ -6531,12 +6543,12 @@ msgid ""
 "probably means the disc was created without adding the checksum."
 msgstr ""
 "Klarte ikke å lese CDens sjekksum fra primær volum-beskrivelse. Dette betyr "
-"sannsynligvis at at CDen ble laget uten å legge til sjekksum."
+"sannsynligvis at at CDen ble laget uten å legge inn sjekksum."
 
 #: ../loader2/mediacheck.c:264
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr "Kontrollerer %s..."
+msgstr "Kontrollerer \"%s\"..."
 
 #: ../loader2/mediacheck.c:266
 msgid "Checking media now..."
@@ -6557,7 +6569,7 @@ msgid ""
 msgstr ""
 "FEIL.\n"
 "\n"
-"Bildet som ble testet har feil. Dette kan være pga. en korrupt nedlasting "
+"Bildet som ble testet inneholder feil. Dette kan være pga. en korrupt nedlasting "
 "eller en dårlig CD. Hvis mulig, rens CDen og prøv igjen. Hvis denne testen "
 "fortsatt feiler bør du ikke fortsette installasjonen."
 
@@ -6569,7 +6581,7 @@ msgid ""
 msgstr ""
 "OK.\n"
 "\n"
-"Det er ok å installere fra dette mediet."
+"Det er greit å installere fra dette mediet."
 
 #: ../loader2/mediacheck.c:337
 msgid ""
@@ -6621,7 +6633,7 @@ msgstr ""
 
 #: ../loader2/method.c:413
 msgid "Checksum Test"
-msgstr "Test av sjekksum:"
+msgstr "Test av sjekksum"
 
 #: ../loader2/net.c:43
 #, c-format
@@ -6724,7 +6736,7 @@ msgid ""
 "install through?"
 msgstr ""
 "Du har flere nettverksenheter på dette systemet. Hvilken enhet skal du bruke "
-"for installasjonen?"
+"til installasjonen?"
 
 #: ../loader2/nfsinstall.c:44
 msgid "NFS server name:"
@@ -6732,7 +6744,7 @@ msgstr "Navn på NFS-tjener:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:276
 msgid "Red Hat directory:"
-msgstr "Red Hat-katalog:"
+msgstr "Red Hat katalog:"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6745,7 +6757,7 @@ msgid ""
 "media."
 msgstr ""
 "Installasjonstreet for %s i denne katalogen passer ikke med ditt "
-"oppstartsmedie."
+"oppstartsmedium."
 
 #: ../loader2/nfsinstall.c:214
 #, c-format
@@ -6849,7 +6861,7 @@ msgid ""
 "wish to use below."
 msgstr ""
 "Hvis du bruker ikke-anonym ftp, skriv inn kontonavnet og passordet du ønsker "
-"å bruke under. Hvis du bruker en FTP-proxy, skriv inn navnet til FTP-"
+"å bruke nedenfor. Hvis du bruker en FTP-proxy, skriv inn navnet til FTP-"
 "proxytjeneren som skal brukes."
 
 #: ../loader2/urls.c:399
@@ -6866,7 +6878,7 @@ msgstr "Kontonavn:"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
-msgstr "Laster SCSI-driver..."
+msgstr "Laster SCSI-driver"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -7563,12 +7575,11 @@ msgstr "Norsk"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr "Portugisisk:"
+msgstr "Portugisisk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese(Brazilian)"
-msgstr "Portugisisk (Brasil)"
+msgstr "Portugisisk (Brasiliensk)"
 
 #. generated from lang-table
 msgid "Russian"
