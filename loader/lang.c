@@ -111,11 +111,6 @@ static void loadLanguageList(int flags) {
 					     code, keyboard, timezone) != 7) {
 	    logMessage("bad line %d in lang-table", lineNum);
 	} else {
-	    /* XXX assume that if we don't have a console font for this
-	       language that it needs to have kon or some other text display
-	       engine */
-	    if (!haveKon && !strcmp (font, "None") && !strcmp (map, "None"))
-		continue;
 	    languages[numLanguages].lang = strdup(name);
 	    languages[numLanguages].key	= strdup(key);
 	    languages[numLanguages].font = strdup(font);
@@ -152,8 +147,8 @@ void loadLanguage (char * file, int flags) {
     stream = gzopen(file, "r");
 
     if (!stream) {
-	newtWinMessage("Error", "Ok", "Cannot open %s: %s. Installation will "
-			"proceed in English.", file, strerror(errno));
+	newtWinMessage("Error", "Ok", "Translation for %s is not available.  "
+		       "The Installation will proceed in English.", key);
 	return ;
     }
     
@@ -257,6 +252,10 @@ void setLanguage (char * key, int flags) {
 
     for (i = 0; i < numLanguages; i++) {
 	if (!strcmp(languages[i].key, key)) {
+	    if (!strcmp(languages[i].font, "Kon") && !haveKon)
+		break;
+	    if (!strcmp(languages[i].font, "None"))
+		break;
 	    setenv("LANG", languages[i].lc_all, 1);
 	    setenv("LANGKEY", languages[i].key, 1);
 	    setenv("LC_ALL", languages[i].lc_all, 1);
@@ -318,23 +317,26 @@ int chooseLanguage(char ** lang, int flags) {
 	return 0;
     }
 
-    setenv("LANG", languages[choice].lc_all, 1);
-    setenv("LANGKEY", languages[choice].key, 1);
-    setenv("LC_ALL", languages[choice].lc_all, 1);
-    setenv("LINGUAS", languages[choice].lc_all, 1);
-
+    /* only set the environment variables when we actually have a way
+       to display the language */
+    if ((!strcmp (languages[choice].font, "Kon") && haveKon) ||
+	(strcmp (languages[choice].font, "None"))) {
+	setenv("LANG", languages[choice].lc_all, 1);
+	setenv("LANGKEY", languages[choice].key, 1);
+	setenv("LC_ALL", languages[choice].lc_all, 1);
+	setenv("LINGUAS", languages[choice].lc_all, 1);
+    }
+    
     if (strings) {
 	free(strings), strings = NULL;
 	numStrings = allocedStrings = 0;
     }
 
-    if (haveKon)
-    {
+    if (haveKon) {
 	extern int continuing;
 	extern void stopNewt(void);
-
-	/* XXX need to do something for Korean, Chinese */
-	if (!strcmp (languages[choice].font, "None") && !continuing) {
+	
+	if (!strcmp (languages[choice].font, "Kon") && !continuing) {
 	    char * args[4];
 
 	    stopNewt();
@@ -347,8 +349,18 @@ int chooseLanguage(char ** lang, int flags) {
 	    execv(FL_TESTING(flags) ? "./loader" : "/sbin/loader", args);
 	}
     }
-    
-    loadLanguage (NULL, flags);
+
+    /* load the language only if it is displayable */
+    if ((!strcmp (languages[choice].font, "Kon") && haveKon) ||
+	(strcmp (languages[choice].font, "None"))) {
+	loadLanguage (NULL, flags);
+    } else {
+	newtWinMessage("Language Unavailable", "Ok", 
+		       "%s display is unavailable in text mode.  The "
+		       "installation will continue in English until the "
+		       "display of %s is possible", languages[choice].lang,
+		       languages[choice].lang);
+    }
     if (languages[choice].map)
 	loadFont(languages[choice].map, flags);
 

@@ -193,7 +193,6 @@ def checkDependencies(dir, intf, disp, id, instPath):
 #else:
 
 class InstallCallback:
-
     def cb(self, what, amount, total, h, (param)):
 	if (what == rpm.RPMCALLBACK_TRANS_START):
 	    # step 6 is the bulk of the transaction set

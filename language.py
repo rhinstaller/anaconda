@@ -26,6 +26,7 @@ def expandLangs(str):
 class InstallTimeLanguage:
 
     def __init__ (self):
+        self.current = "en_US"
 	if os.access("lang-table", os.R_OK):
 	    f = open("lang-table", "r")
 	elif os.access("/etc/lang-table", os.R_OK):
@@ -98,14 +99,18 @@ class InstallTimeLanguage:
 	return expandLangs(self.langNicks[self.getCurrent()]) + ['C']
 
     def getCurrent(self):
-	if os.environ.has_key('LANG'):
-	    what = os.environ['LANG']
-	else:
-	    what = 'en_US'
-	return self.getLangNameByNick(what)
+	return self.getLangNameByNick(self.current)
+
+    def setRuntimeDefaults(self, name):
+	lang = self.langNicks[name]
+        self.current = lang
+        # XXX HACK HACK, I'm using an environment variable to communicate
+        # between two classes (runtimelang and lang support)
+        os.environ["RUNTIMELANG"] = lang
 
     def setRuntimeLanguage(self, name):
-	lang = self.langNicks[name]
+        self.setRuntimeDefaults(name)
+        lang = self.langNicks[name]
 
         os.environ["LC_ALL"] = lang
         os.environ["LANG"] = lang
@@ -205,8 +210,9 @@ class Language (SimpleConfigFile):
     def getDefault (self):
 	if self.default:
 	    return self.default
-	elif os.environ.has_key('LANG'):
-	    lang = os.environ['LANG']
+        # XXX (see above comment)
+	elif os.environ.has_key('RUNTIMELANG'):
+	    lang = os.environ['RUNTIMELANG']
 	    name = self.getLangNameByNick(lang)
 	    if name not in self.getSupported():
 		# the default language needs to be in the supported list!

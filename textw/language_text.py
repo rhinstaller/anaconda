@@ -25,11 +25,6 @@ class LanguageWindow:
         languages = instLanguage.available ()
 
         haveKon = os.access ("/sbin/continue", os.X_OK)
-        if not haveKon:
-            # the slice gives us another working copy of the list
-            for lang in languages[:]:
-                if instLanguage.getFontFile(lang) == "None":
-                    languages.remove(lang)
 
         current = instLanguage.getCurrent()
 
@@ -51,8 +46,18 @@ class LanguageWindow:
 
         choice = languages[choice]
         
+        if ((not haveKon and instLanguage.getFontFile(choice) == "Kon") or
+            instLanguage.getFontFile(choice) == "None"):
+            ButtonChoiceWindow(screen, "Language Unavailable",
+                               "%s display is unavailable in text mode.  The "
+                               "installation will continue in English." % (choice,),
+                               buttons=[TEXT_OK_BUTTON])
+            instLanguage.setRuntimeDefaults(choice)
+            return INSTALL_OK
+            
         if (flags.setupFilesystems and
-                choice == "Japanese" and not isys.isPsudoTTY(0)):
+            instLanguage.getFontFile(choice) == "Kon"
+            and not isys.isPsudoTTY(0)):
             # we're not running KON yet, lets fire it up
             os.environ["ANACONDAARGS"] = (os.environ["ANACONDAARGS"] +
                                           " --lang ja_JP.eucJP")
