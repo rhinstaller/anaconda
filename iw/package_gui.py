@@ -13,6 +13,8 @@ import xpms_gui
 from translate import _
 #import checkbutton_xpms
 import checklist
+import time
+from threading import *
 
 class IndividualPackageSelectionWindow (InstallWindow):
 
@@ -505,6 +507,43 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         return vbox
 
+
+class ErrorWindow:
+    def __init__ (self):
+        win = GnomeDialog ("File not found")
+        win.connect ("clicked", self.quit)
+
+        info = GtkLabel (_("An error has occurred while retreiving hdlist or comps files.  "
+                           "The installation media or image is probably corrupt.  Installer will exit now."))
+        info.set_line_wrap (TRUE)
+        info.set_usize (400, -1)
+
+#        hbox = GtkHBox (FALSE)
+
+#        hbox.pack_start (sw, TRUE)
+        win.vbox.pack_start (info, FALSE)            
+#        win.vbox.pack_start (hbox, TRUE)
+        win.set_usize (500, 300)
+        win.set_position (WIN_POS_CENTER)
+        win.show_all ()
+        self.window = win
+        
+        thread = currentThread ()
+        if thread.getName () == "gtk_main":
+            self.mutex = None
+            self.rc = self.window.run ()
+            threads_leave()
+        else:
+            threads_leave ()
+            self.mutex = Event ()
+            self.mutex.wait ()
+        
+    def quit (self, dialog, button):
+        self.rc = button
+        if self.mutex:
+            self.mutex.set ()
+
+
 class PackageSelectionWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
@@ -514,6 +553,8 @@ class PackageSelectionWindow (InstallWindow):
         ics.readHTML ("sel-group")
         self.selectIndividualPackages = FALSE
 
+        self.files = "TRUE"
+        
     def getPrev (self):
 	self.todo.comps.setSelectionState(self.origSelection)
 
@@ -544,13 +585,33 @@ class PackageSelectionWindow (InstallWindow):
 
 	self.setSize()
 
-    def getScreen (self):
-        threads_leave ()
-        self.todo.getHeaderList ()
-        self.todo.getCompsList()
-        threads_enter ()
 
-	self.origSelection = self.todo.comps.getSelectionState()
+    def getScreen (self):
+#            threads_leave ()
+        try:
+            threads_leave ()
+            self.todo.getHeaderList ()
+            self.todo.getCompsList()
+            threads_enter ()
+
+        except:
+            print "Cannot read either header or comps or both"
+            self.files = "FALSE"
+
+        print self.files
+
+#        threads_enter ()
+
+#        threads_leave ()
+        if self.files == "FALSE":
+#            self.raiseDialog ()
+            win = ErrorWindow ()
+#            threads_enter ()
+        else:
+            self.origSelection = self.todo.comps.getSelectionState()
+#        threads_enter ()
+
+
 
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
@@ -558,7 +619,7 @@ class PackageSelectionWindow (InstallWindow):
 
         box = GtkVBox (FALSE, 0)
 
-	self.checkButtons = []
+        self.checkButtons = []
         klass = self.todo.getClass ()
         for comp in self.todo.comps:
             show = 0
@@ -595,7 +656,7 @@ class PackageSelectionWindow (InstallWindow):
                     checkButton = GtkCheckButton (comp.name)
 
                 checkButton.set_active (comp.isSelected())
-		checkButton.connect('toggled', self.componentToggled, comp)
+                checkButton.connect('toggled', self.componentToggled, comp)
                 self.checkButtons.append ((checkButton, comp))
                 box.pack_start (checkButton)
 
@@ -613,7 +674,7 @@ class PackageSelectionWindow (InstallWindow):
         hbox.pack_start (self.individualPackages, FALSE)
 
         self.sizelabel = GtkLabel ("")
-	self.setSize()
+        self.setSize()
         hbox.pack_start (self.sizelabel, TRUE)
         
         vbox = GtkVBox (FALSE, 5)
@@ -622,6 +683,10 @@ class PackageSelectionWindow (InstallWindow):
         
         return vbox
 
+
+        
+#        else:
+#            self.raiseDialog ()
 
 
 
