@@ -494,6 +494,13 @@ int main(int argc, char **argv) {
     }
     printf("done\n");
 
+    printf("mounting /sys filesystem... "); 
+    if (!testing) {
+	if (mount("/sys", "/sys", "sysfs", 0, NULL))
+	    fatal_error(1);
+    }
+    printf("done\n");
+
     /* these args are only for testing from commandline */
     for (i = 1; i < argc; i++) {
 	if (!strcmp (argv[i], "serial")) {
