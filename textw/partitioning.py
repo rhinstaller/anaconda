@@ -131,6 +131,8 @@ class AutoPartitionWindow:
 	if (rc == "back"): return INSTALL_BACK
 
         if (choice == 1):
+            drives = todo.drives.available ().keys ()
+            drives.sort (isys.compareDrives)
             todo.ddruid = fsedit(0, drives, fstab, 0, todo.ddruidReadOnly)
 	    todo.manuallyPartition()
 
