@@ -292,10 +292,11 @@ char * mountHardDrive(struct installMethod * method,
 	    loaderData->method = NULL;
 	} else {
             /* if we start with /dev, strip it (#121486) */
-            if (!strncmp(kspartition, "/dev/", 5))
-                kspartition = kspartition + 5;
+            char *kspart = kspartition;
+            if (!strncmp(kspart, "/dev/", 5))
+                kspart = kspart + 5;
 
-	    url = setupIsoImages(kspartition, ksdirectory, flags);
+	    url = setupIsoImages(kspart, ksdirectory, flags);
 	    if (!url) {
 		logMessage("unable to find %s installation images on hd",getProductName());
 		free(loaderData->method);
