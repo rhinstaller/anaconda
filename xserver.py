@@ -113,6 +113,9 @@ Section "Files"
     FontPath    "/usr/share/fonts/ISO8859-2/misc/"
     FontPath    "/usr/share/fonts/ISO8859-2/75dpi/"
     FontPath    "/usr/share/fonts/ISO8859-2/100dpi/"
+    FontPath    "/usr/share/fonts/ISO8859-9/misc/"
+    FontPath    "/usr/share/fonts/ISO8859-9/75dpi/"
+    FontPath    "/usr/share/fonts/ISO8859-9/100dpi/"
 EndSection
 
 Section "ServerFlags"
