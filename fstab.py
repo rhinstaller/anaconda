@@ -208,7 +208,7 @@ class Fstab:
 
         for (dev, devName, type, start, size, maxcyl, preexist) in drives:
             if dev == bootpart:
-                log ("maxcyl of %s is %d" % (dev, maxcyl))
+#                log ("maxcyl of %s is %d" % (dev, maxcyl))
                 return maxcyl
 
         return None
