@@ -2,8 +2,6 @@
 
 import sys, os
 
-print sys.argv
-
 # Python passed my path as argv[0]!
 # if sys.argv[0][-7:] == "syslogd":
 if sys.argv[1] == "--syslogd":
