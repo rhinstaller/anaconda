@@ -823,22 +823,24 @@ class InstallControlWindow:
         mark = textbuffer.create_mark("top", iter, gtk.FALSE)
         self.help.scroll_to_mark(mark, 0.0, gtk.FALSE, 0.0, 0.0)
 
-    def close (self, *args):
+    def relnotes_closed (self, *args):
         self.textWin.destroy()
         for (icon, name, text, func) in self.stockButtons:
             if self.__dict__.has_key(name):
-                self.__dict__[name].set_sensitive(gtk.TRUE)
+		self.__dict__[name].set_sensitive(self.relnotes_buttonstate[name])
 
     def releaseClicked (self, widget):
         self.textWin = gtk.Dialog(parent=mainWindow, flags=gtk.DIALOG_MODAL)
+	self.relnotes_buttonstate={}
         for (icon, name, text, func) in self.stockButtons:
             if self.__dict__.has_key(name):
+		self.relnotes_buttonstate[name] = self.__dict__[name].get_property("sensitive")
                 self.__dict__[name].set_sensitive(gtk.FALSE)
 
         table = gtk.Table(3, 3, gtk.FALSE)
         self.textWin.vbox.pack_start(table)
         self.textWin.add_button('gtk-close', gtk.RESPONSE_NONE)
-        self.textWin.connect("response", self.close)
+        self.textWin.connect("response", self.relnotes_closed)
         vbox1 = gtk.VBox ()        
         vbox1.set_border_width (10)
         frame = gtk.Frame (_("Release Notes"))
