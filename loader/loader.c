@@ -2565,9 +2565,7 @@ int main(int argc, char ** argv) {
     startNewt(flags);
 
     if (!continuing) {
-	winStatus(40, 3, _("PC Card"), _("Initializing PC Card Devices..."));
-	startPcmcia(modLoaded, modDeps, modInfo, flags);
-	newtPopWindow();
+	startPcmcia(floppyDevice, modLoaded, modDeps, modInfo, flags);
     }
 #endif
 
