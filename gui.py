@@ -410,7 +410,7 @@ class InstallControlWindow:
         
 	if not self.__dict__.has_key('window'): return
 
-        self.window.reset_rc_styles ()
+        self.reloadRcQueued = 1
 
         locale = self.todo.instTimeLanguage.getLangNick(lang)
         self.html.set_font_charset (locale)
@@ -424,6 +424,7 @@ class InstallControlWindow:
                                 (self.finishButton, _("Finish")) ]:
             label = button.children ()[0].children ()[0].children()[1]
             label.set_text (text)
+            button.queue_resize()
         self.helpFrame.set_label (_("Online Help"))
         self.installFrame.set_label (_("Language Selection"))
 	self.loadReleaseNotes()
@@ -632,6 +633,9 @@ class InstallControlWindow:
         self.installFrame.set_label (_(screen.getICS ().getTitle ()))
         self.installFrame.add (new_screen)
         self.installFrame.show_all ()
+        if self.reloadRcQueued:
+            self.window.reset_rc_styles ()
+            self.reloadRcQueued = 0
 
     def update (self, ics):
         if self.buildingWindows or ics != self.currentScreen.getICS ():
@@ -680,6 +684,7 @@ class InstallControlWindow:
             buttons["next"].grab_focus ()
 
     def __init__ (self, ii, steps, todo):
+        self.reloadRcQueued = 0
         self.ii = ii
         self.todo = todo
         self.steps = steps
