@@ -245,7 +245,7 @@ def writeForceConf():
     f = open("%s/lvm.conf" %(lvmroot,), "w+")
     f.write("""
 # anaconda hacked lvm.conf to avoid filtering breaking things
-devices = {
+devices {
   sysfs_scan = 0
   md_component_detection = 0
 }
