@@ -432,7 +432,7 @@ class PartitionEditor:
                 (sizeframe, self.fixedrb, self.fillmaxszrb,
                  self.fillmaxszsb) = self.createSizeOptionsFrame(self.origrequest,
 							    self.fillmaxszCB)
-                self.sizespin.connect("changed", self.sizespinchangedCB,
+                self.sizespin.connect("value-changed", self.sizespinchangedCB,
 				      self.fillmaxszsb)
 
                 maintable.attach(sizeframe, 0, 2, row, row + 1)
