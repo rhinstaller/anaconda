@@ -22,6 +22,7 @@ import parted
 import sys
 import struct
 import partitioning
+import types
 from log import log
 from translate import _, N_
 
@@ -1219,6 +1220,8 @@ class LVMDevice(Device):
 class PartitionDevice(Device):
     def __init__(self, partition):
         Device.__init__(self)
+        if type(partition) != types.StringType:
+            raise ValueError, "partition must be a string"
         self.device = partition
 
     def setupDevice(self, chroot, devPrefix='/tmp'):
