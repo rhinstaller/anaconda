@@ -243,6 +243,6 @@ for p in pkgOrder:
     pkgs.sort(archSort)
     for pnevra in pkgs:
         pkg = hdlist.pkgs[pnevra[0]]
-        print "%s-%s-%s.%s" % (pkg['name'], pkg['version'],
-                               pkg['release'], pkg['arch'])
+        print "%s-%s-%s.%s.rpm" % (pkg['name'], pkg['version'],
+                                   pkg['release'], pkg['arch'])
 

@@ -291,9 +291,11 @@ class InstallInterface:
     
     def exceptionWindow(self, title, text):
         try:
-            floppyDevices = len(kudzu.probe(kudzu.CLASS_FLOPPY,
-                                            kudzu.BUS_UNSPEC,
-                                            kudzu.PROBE_ALL))
+            floppyDevices = 0
+            for dev in kudzu.probe(kudzu.CLASS_FLOPPY, kudzu.BUS_UNSPEC,
+                                   kudzu.PROBE_ALL):
+                if not dev.detached:
+                    floppyDevices = floppyDevices + 1
         except:
             floppyDevices = 0
         if floppyDevices > 0 or DEBUG:

@@ -75,58 +75,21 @@ char * mountNfsImage(struct installMethod * method,
                      struct loaderData_s * loaderData,
                      moduleInfoSet modInfo, moduleList modLoaded,
                      moduleDeps * modDepsPtr, int flags) {
-    static struct networkDeviceConfig netDev;
-    char * devName = NULL;
     char * host = NULL;
     char * directory = NULL;
     char * fullPath = NULL;
     char * path;
     char * url = NULL;
 
-    enum { NFS_STAGE_IFACE, NFS_STAGE_IP, NFS_STAGE_NFS, 
-           NFS_STAGE_MOUNT, NFS_STAGE_DONE } stage = NFS_STAGE_IFACE;
+    enum { NFS_STAGE_NFS, NFS_STAGE_MOUNT, 
+           NFS_STAGE_DONE } stage = NFS_STAGE_NFS;
 
     int rc;
     int dir = 1;
 
-    initLoopback();
-
-    memset(&netDev, 0, sizeof(netDev));
-    netDev.isDynamic = 1;
-
-    /* JKFIXME: ASSERT -- we have a network device when we get here */
+    /* JKFIXME: ASSERT -- we have a network device setup when we get here */
     while (stage != NFS_STAGE_DONE) {
         switch (stage) {
-        case NFS_STAGE_IFACE:
-            logMessage("going to pick interface");
-            rc = chooseNetworkInterface(kd, loaderData, flags);
-
-            if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
-                ((dir == -1) && (rc == LOADER_NOOP))) return NULL;
-
-            stage = NFS_STAGE_IP;
-            dir = 1;
-            logMessage("using interface %s", loaderData->netDev);
-            devName = loaderData->netDev;
-            strcpy(netDev.dev.device, devName);
-            break;
-            
-        case NFS_STAGE_IP:
-            logMessage("going to do getNetConfig");
-
-	    /* populate netDev based on any kickstart data */
-	    setupNetworkDeviceConfig(&netDev, loaderData, flags);
-
-            rc = readNetConfig(devName, &netDev, flags);
-            if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
-                ((dir == -1) && (rc == LOADER_NOOP))) {
-                stage = NFS_STAGE_IFACE;
-                dir = -1;
-                break;
-            }
-            stage = NFS_STAGE_NFS;
-            break;
-            
         case NFS_STAGE_NFS:
             logMessage("going to do nfsGetSetup");
             if (loaderData->method && *loaderData->method &&
@@ -144,9 +107,7 @@ char * mountNfsImage(struct installMethod * method,
                     break;
                 }
             } else if (nfsGetSetup(&host, &directory) == LOADER_BACK) {
-                stage = NFS_STAGE_IP;
-                dir = -1;
-                break;
+                return NULL;
             }
              
             stage = NFS_STAGE_MOUNT;
@@ -241,7 +202,6 @@ char * mountNfsImage(struct installMethod * method,
         }
     }
 
-    writeNetInfo("/tmp/netinfo", &netDev, kd);
     free(host);
     free(directory);
 
@@ -263,6 +223,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
     logMessage("kickstartFromNfs");
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksNfsOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
+        startNewt(*flagsPtr);
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to NFS kickstart method "
                          "command %s: %s"),

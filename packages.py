@@ -321,7 +321,8 @@ class InstallCallback:
 	    self.progress.setPackageScale(0, 1)
 	    self.instLog.write (self.modeText % (h[rpm.RPMTAG_NAME],
                                                  h[rpm.RPMTAG_VERSION],
-                                                 h[rpm.RPMTAG_RELEASE]))
+                                                 h[rpm.RPMTAG_RELEASE],
+                                                 h[rpm.RPMTAG_ARCH]))
 	    self.instLog.flush ()
 
 	    self.rpmFD = -1
@@ -786,9 +787,9 @@ def doInstall(method, id, intf, instPath):
     # dup'd when we go out of scope
 
     if upgrade:
-	modeText = _("Upgrading %s-%s-%s.\n")
+	modeText = _("Upgrading %s-%s-%s.%s.\n")
     else:
-	modeText = _("Installing %s-%s-%s.\n")
+	modeText = _("Installing %s-%s-%s.%s.\n")
 
     errors = rpmErrorClass(instLog)
     pkgTimer = timer.Timer(start = 0)
@@ -1094,12 +1095,13 @@ def doPostInstall(method, id, intf, instPath):
                 h = ts.hdrFromFdno(fd)
                 os.close(fd)
                 if upgrade:
-                    text = _("Upgrading %s-%s-%s.\n")
+                    text = _("Upgrading %s-%s-%s.%s.\n")
                 else:
-                    text = _("Installing %s-%s-%s.\n")
+                    text = _("Installing %s-%s-%s.%s.\n")
                 instLog.write(text % (h['name'],
                                       h['version'],
-                                      h['release']))
+                                      h['release'],
+                                      h['arch']))
                 os.unlink(id.compspkg)
                 del ts
 

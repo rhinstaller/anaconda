@@ -227,7 +227,7 @@ static int setupLanguage(int choice, int flags) {
 
     logMessage("going to set language to %s", languages[choice].lc_all);
     /* load the language only if it is displayable.  if they're using
-     * a serial console, we hope it's smart enough */
+     * a serial console or iSeries vioconsole, we hope it's smart enough */
     if (!strcmp(languages[choice].font, "bterm") && !FL_SERIAL(flags) && 
         !isVioConsole() && startBterm(flags)) {
         if (FL_KICKSTART(flags)) return 0;
@@ -385,21 +385,7 @@ int chooseLanguage(char ** lang, int flags) {
     /* this can't happen */
     if (i == numLanguages) abort();
 
-    /* load the language only if it is displayable.  assume that if they're
-     * on a serial console or iSeries vioconsole that their terminal is
-     * smart. */
-    if (!strcmp(languages[choice].font, "bterm") && !FL_SERIAL(flags) &&
-	!isVioConsole() && startBterm(flags)) {
-	newtWinMessage("Language Unavailable", "OK", 
-		       "%s display is unavailable in text mode.  The "
-		       "installation will continue in English until the "
-		       "display of %s is possible.", languages[choice].lang,
-		       languages[choice].lang);
-	return 0;
-    }
-
-    setupLanguage(choice, flags);
-    return 0;
+    return setupLanguage(choice, flags);
 }
 
 void setKickstartLanguage(struct loaderData_s * loaderData, int argc, 

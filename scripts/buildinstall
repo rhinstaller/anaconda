@@ -119,6 +119,8 @@ if [ -x /usr/bin/runroot ]; then
 else
     $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release \"$RELEASESTR\" --product \"$PRODUCTSTR\" $DIR
 fi
+
+rm -rf $BUILDINSTDIR
 }
 
 secondRun() {
@@ -149,7 +151,6 @@ fi
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="1,2,3" --baseDir=RedHat/base --packagesDir=RedHat/RPMS --pixmapsDir=RedHat/pixmaps --outfile=$p/.discinfo
 
-rm -rf $BUILDINSTDIR
 if [ -x /usr/bin/runroot ]; then
     runroot $COMPNAME --onlyone --arch $BUILDARCH "rm -rf $TREEDIR/image-template $TREEDIR/instimage"
 else

@@ -583,5 +583,5 @@ def writeRpmPlatform(root="/"):
             rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64")):
         return
     f = open("%s/etc/rpm/macros" %(root,), 'w+')
-    f.write("_transaction_color   3\n")
+    f.write("%_transaction_color   3\n")
     f.close()

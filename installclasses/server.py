@@ -3,7 +3,6 @@ from rhpl.translate import *
 from constants import *
 import os
 import iutil
-from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 
 class InstallClass(BaseInstallClass):
 
@@ -32,19 +31,8 @@ class InstallClass(BaseInstallClass):
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)
-
-        autorequests = [ ("/", None, 1100, None, 1, 1) ]
-
-        bootreq = getAutopartitionBoot()
-        if bootreq:
-            autorequests.append(bootreq)
-        
-        (minswap, maxswap) = iutil.swapSuggestion()
-        autorequests.append((None, "swap", minswap, maxswap, 1, 1))
-
-        id.partitions.autoClearPartType = CLEARPART_TYPE_ALL
-        id.partitions.autoClearPartDrives = []
-        id.partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
+        BaseInstallClass.setDefaultPartitioning(self, id.partitions,
+                                                CLEARPART_TYPE_ALL)
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
