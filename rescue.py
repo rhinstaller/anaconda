@@ -20,6 +20,7 @@ from text import WaitWindow, OkCancelWindow, ProgressWindow
 import sys
 import os
 import isys
+import iutil
 import fsset
 
 from rhpl.log import log
