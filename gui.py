@@ -142,7 +142,7 @@ class WrappingLabel(gtk.Label):
         widgetExpander(self)
 
 def addFrame(dialog):
-    contents = dialog.children()[0]
+    contents = dialog.get_children()[0]
     dialog.remove(contents)
     frame = gtk.Frame()
     frame.set_shadow_type(gtk.SHADOW_OUT)
@@ -607,7 +607,7 @@ class InstallControlWindow:
             self.refreshHelp()
             
     def destroyCurrentWindow(self):
-        children = self.installFrame.children ()
+        children = self.installFrame.get_children ()
         if children:
             child = children[0]
             self.installFrame.remove (child)
@@ -627,7 +627,7 @@ class InstallControlWindow:
 	    nextButton.connect("clicked", self.nextClicked)
 	    nextButton.show_all()
 
-        children = self.buttonBox.children ()
+        children = self.buttonBox.get_children ()
 
         if not prevButton in children:
             self.buttonBox.remove (children[0])
