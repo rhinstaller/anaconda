@@ -8,6 +8,7 @@
  *
  * Erik Troan <ewt@redhat.com>
  * Matt Wilson <msw@redhat.com>
+ * Michael Fulbright <msf@redhat.com>
  *
  * Copyright 1997 - 2002 Red Hat, Inc.
  *
