@@ -592,8 +592,8 @@ class XF86Config:
 #        self.res = ""
         self.res = resolution
 
-        self.monHoriz = "31.5-35.2"
-        self.monVert = "50-61"
+        self.monHoriz = "31.5-48.5"
+        self.monVert = "50-70"
 
 	self.monSect = ""
         self.monID = "Unprobed Monitor"
@@ -775,6 +775,7 @@ class XF86Config:
                 card[info[0]] = string.joinfields (info[1:], ' ')
 
         if thecard:
+            print thecard
             card = cards[thecard]
             # XXX set a max depth here to avoid infinite loops
             while card.has_key ("SEE"):
