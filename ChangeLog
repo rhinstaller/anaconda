@@ -1,5 +1,8 @@
 2005-02-02  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/splittree.py: Allow not creating SRPM CDs by passing
+	--src-discs=0.  Based on a patch from Armijn Hemel (#119070)
+
 	* scripts/upd-instroot: Create reduced font for bogl at
 	upd-instroot time (#92146, #140208)
 

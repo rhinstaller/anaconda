@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright (C) 2003 Red Hat, Inc.
+# Copyright (C) 2003-2005 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -97,7 +97,6 @@ and RPMs. Set to 1 to turn on."""
         self.reverse_sort_srpms=None
         self.common_files = ['beta_eula.txt', 'EULA', 'README', 'GPL', 'RPM-GPG-KEY', 'RPM-GPG-KEY-beta', 'RPM-GPG-KEY-fedora']
         self.logfile = []
-
 
 
     def getSize(seld, path, blocksize=None):
@@ -232,10 +231,13 @@ and RPMs. Set to 1 to turn on."""
                 self.linkFiles(self.dist_dir, "%s-disc%d" %(self.dist_dir, i), self.common_files)
             self.createDiscInfo(i)
             
-        for i in range(self.src_list[0], self.src_list[-1] + 1):
-            os.makedirs("%s-disc%d/SRPMS" % (self.dist_dir, i))
-            self.linkFiles(self.dist_dir, "%s-disc%d" %(self.dist_dir, i), self.common_files)
-            self.createDiscInfo(i)
+	if (self.src_discs != 0):
+            for i in range(self.src_list[0], self.src_list[-1] + 1):
+                os.makedirs("%s-disc%d/SRPMS" % (self.dist_dir, i))
+                self.linkFiles(self.dist_dir,
+                               "%s-disc%d" %(self.dist_dir, i),
+                               self.common_files)
+                self.createDiscInfo(i)
 
                 
         
@@ -378,7 +380,8 @@ and RPMs. Set to 1 to turn on."""
         """Just runs everything"""
         self.createSplitDirs()
         self.splitRPMS()
-        self.splitSRPMS()
+	if (self.srcdiscs != 0):
+            self.splitSRPMS()
         return self.logfile
 
 
