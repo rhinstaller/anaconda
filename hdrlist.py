@@ -29,10 +29,11 @@ import language
 
 ON = 1
 MANUAL_ON = 2
+DEP_ON = 3
 OFF = -1
 MANUAL_OFF = -2
 MANUAL_NONE = 0
-ON_STATES = (ON, MANUAL_ON)
+ON_STATES = (ON, MANUAL_ON, DEP_ON)
 OFF_STATES = (OFF, MANUAL_OFF)
 
 PKGTYPE_MANDATORY = 0
@@ -194,6 +195,7 @@ class DependencyChecker:
                     nevr = name
                 log("using %s to satisfy %s" %(nevra(hdr), nevr))
                 ts.addInstall(hdr.hdr, hdr.hdr, self.how)
+                hdr.select(isDep = 1)
                 self.added.append(nevra(hdr.hdr))
 
                 return -1
@@ -221,13 +223,15 @@ class Package:
         self.dependencies.extend(deps)
         self.depsFound = 1
 
-    def select(self, isManual = 0):
+    def select(self, isManual = 0, isDep = 0):
         self.usecount = self.usecount + 1
         if isManual:
             if self.manual_state == MANUAL_NONE:
                 self.manual_state = MANUAL_ON
             elif self.manual_state == MANUAL_OFF:
                 self.manual_state = MANUAL_NONE
+        if isDep:
+            self.manual_state = DEP_ON
 
     def unselect(self, isManual = 0):
         self.usecount = self.usecount - 1
@@ -244,7 +248,7 @@ class Package:
     # if we've been manually turned on or off, follow that
     # otherwise, if the usecount is > 0, then we're selected
     def isSelected(self):
-        if self.manual_state == MANUAL_ON:
+        if self.manual_state == MANUAL_ON or self.manual_state == DEP_ON:
             return 1
         elif self.manual_state == MANUAL_OFF:
             return 0
@@ -719,7 +723,7 @@ class GroupSet:
                 return
         raise KeyError, "No such group %s" %(group,)
 
-    def unselectAll(self, unselectPkgs = 0):
+    def unselectAll(self, unselectPkgs = 1):
         for group in self.groups.values():
             if group.isSelected(justManual = 1):
                 group.unselect()
