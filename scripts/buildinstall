@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage() {
-	echo "Usage: buildinstall [--comp <component>] [--pkgorder <file>] [--version <version>] [--release <comment>] <root>" >&2
+	echo "Usage: buildinstall [--comp <component>] [--pkgorder <file>] [--version <version>] [--product <product>] [--release <comment>] <root>" >&2
 	exit 1
 }
 
