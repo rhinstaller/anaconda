@@ -36,6 +36,7 @@ static PyObject * doCheckBoot(PyObject * s, PyObject * args);
 static PyObject * doCheckUFS(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
 static PyObject * doPoptParse(PyObject * s, PyObject * args);
+static PyObject * doFbconProbe(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "findmoduleinfo", (PyCFunction) doFindModInfo, METH_VARARGS, NULL },
@@ -62,6 +63,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
     { "checkUFS", (PyCFunction) doCheckUFS, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
+    { "fbconprobe", (PyCFunction) doFbconProbe, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -735,4 +737,49 @@ static PyObject * doPoptParse(PyObject * s, PyObject * args) {
     free(argv);
 
     return list;
+}
+
+#include <linux/fb.h>
+
+static PyObject * doFbconProbe (PyObject * s, PyObject * args) {
+    char * path;
+    int fd, size;
+    PyObject * ret;
+    struct fb_fix_screeninfo fix;
+    static int vidRam[8], idx = -1;
+
+    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
+    
+    /* Cache the results, because after X is fired off
+       the device may be busy */
+    if (!strncmp (path, "/dev/fb", 7) && path[7] >= '0' &&
+    	path[7] <= '7') {
+	idx = path[7] - '0';
+	if (vidRam[idx])
+	    return Py_BuildValue("i", vidRam[idx]);
+    }
+
+    if ((fd = open (path, O_RDONLY)) < 0) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    if (ioctl(fd, FBIOGET_FSCREENINFO, &fix) < 0) {
+	close (fd);
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    close (fd);
+    /* Allow 64K from VIDRAM to be taken for other purposes */
+    size = fix.smem_len + 65536;
+    /* And round down to some multiple of 256K */
+    size = size & ~0x3ffff;
+    /* And report in KB */
+    size >>= 10;
+
+    if (idx != -1)
+	vidRam[idx] = size;
+
+    return Py_BuildValue("i", size);
 }
