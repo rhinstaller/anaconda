@@ -23,8 +23,8 @@ makeBootImages() {
     echo "Building boot images for kernel $kernelvers"
     FAKEARCH=""
 
-    if [ "$KERNELARCH" = "ppc64pseries" ]; then
-	echo "Building pSeries initrd"
+    if [ "$KERNELARCH" = "ppc64pseries" -o "$KERNELARCH" = "ppc64" ]; then
+	echo "Building $KERNELARCH initrd"
 	makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
