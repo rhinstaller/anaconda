@@ -133,7 +133,13 @@ class FirewallWindow (InstallWindow):
                 raise gui.StayOnScreen
             else:                           # all the port data looks good
                 self.firewall.portlist = portlist
-        
+
+        if self.se_option_menu.get_history() == 0:
+            self.firewall.selinux = "enforcing"
+        elif self.se_option_menu.get_history() == 1:
+            self.firewall.selinux = "permissive"            
+        elif self.se_option_menu.get_history() == 2:
+            self.firewall.selinux = "disabled"
 
     def activate_firewall (self, widget):
         if self.disabled_radio.get_active ():
@@ -158,11 +164,9 @@ class FirewallWindow (InstallWindow):
         label.set_alignment (0.0, 0)
 	label.set_size_request(450, -1)        
 
-#        label.set_line_wrap (gtk.TRUE)
-        
         box.pack_start(label, gtk.FALSE)
 
-        hbox = gtk.VBox (gtk.FALSE)
+        vbox = gtk.VBox (gtk.FALSE)
 
         self.disabled_radio = gtk.RadioButton (None, (_("N_o firewall")))
         self.enabled_radio = gtk.RadioButton (self.disabled_radio,
@@ -173,12 +177,11 @@ class FirewallWindow (InstallWindow):
         self.custom_radio.connect("clicked", self.activate_firewall)
         self.enabled_radio.connect("clicked", self.activate_firewall)
 
-        hbox.pack_start (self.disabled_radio)
-        hbox.pack_start (self.enabled_radio)
-#        hbox.pack_start (self.custom_radio)
+        vbox.pack_start (self.disabled_radio)
+        vbox.pack_start (self.enabled_radio)
 
         a = gtk.Alignment ()
-        a.add (hbox)
+        a.add (vbox)
         a.set (0.3, 0, 0.7, 1.0)
 
         box.pack_start (a, gtk.FALSE, 5)
@@ -272,6 +275,27 @@ class FirewallWindow (InstallWindow):
             self.ports.set_text (self.firewall.portlist)
 
         self.activate_firewall(None)
+
+        self.table.attach (gtk.HSeparator(), 0, 2, y, y + 1, gtk.FILL, gtk.FILL, 5, 5)
+        y = y + 1
+
+        label = gtk.Label(_("_Security Enhanced Linux (SELinux) Extentions:"))
+        label.set_use_underline(gtk.TRUE)
+        self.se_option_menu = gtk.OptionMenu()
+        label.set_mnemonic_widget(self.se_option_menu)
+        se_menu = gtk.Menu()
+
+        for i in (_("Active"), _("Warn"), _("Disabled")):
+            se_menu.add(gtk.MenuItem(i))
+
+        self.se_option_menu.set_menu(se_menu)
+        
+        hbox = gtk.HBox()
+        hbox.set_spacing(8)
+        hbox.pack_start(label, gtk.FALSE)
+        hbox.pack_start(self.se_option_menu, gtk.TRUE)
+
+        self.table.attach (hbox, 0, 2, y, y + 1, gtk.FILL, gtk.FILL, 5, 5)
 
         return box
 
