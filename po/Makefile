@@ -4,12 +4,14 @@ INSTALL_DATA= ${INSTALL} -m 644
 PREFIX=$(DESTDIR)/
 INSTALLNLSDIR=usr/share/locale
 
-MSGMERGE = msgmerge -w 9999999
+MSGMERGE = msgmerge
+LONG_MERGE = -w 9999999
 
 NLSPACKAGE = anaconda
 
-CATALOGS = $(shell ls *.po)
-FMTCATALOGS = $(patsubst %.po,%.mo,$(CATALOGS))
+LONG_PO  = ja.po ko.po zh.po
+SHORT_PO = $(filter-out $(LONG_PO), $(wildcard *.po))
+FMTCATALOGS = $(patsubst %.po,%.mo,$(SHORT_PO) $(LONG_PO))
 
 POTFILES = ../*.py ../iw/*.py ../textw/*.py \
            ../libfdisk/*.c ../loader/*.c
@@ -26,10 +28,10 @@ $(NLSPACKAGE).pot: $(POTFILES)
 	fi
 
 
-update-po: Makefile
-	$(MAKE) $(NLSPACKAGE).pot
-	catalogs='$(CATALOGS)'; \
-	for cat in $$catalogs; do \
+update-po: Makefile $(NLSPACKAGE).pot refresh-po
+
+refresh-po: Makefile
+	for cat in $(SHORT_PO); do \
 		lang=`basename $$cat .po`; \
 		if $(MSGMERGE) $$lang.po $(NLSPACKAGE).pot > $$lang.pot ; then \
 			mv -f $$lang.pot $$lang.po ; \
@@ -39,16 +41,13 @@ update-po: Makefile
 			rm -f $$lang.pot ; \
 		fi \
 	done
-
-refresh-po: Makefile
-	catalogs='$(CATALOGS)'; \
-	for cat in $$catalogs; do \
+	for cat in $(LONG_PO); do \
 		lang=`basename $$cat .po`; \
-		if $(MSGMERGE) $$lang.po $(NLSPACKAGE).pot > $$lang.pot ; then \
+		if $(MSGMERGE) $(LONG_MERGE) $$lang.po $(NLSPACKAGE).pot > $$lang.pot ; then \
 			mv -f $$lang.pot $$lang.po ; \
-			echo "$(MSGMERGE) of $$lang succeeded" ; \
+			echo "$(MSGMERGE) $(LONG_MERGE) of $$lang succeeded" ; \
 		else \
-			echo "$(MSGMERGE) of $$lang failed" ; \
+			echo "$(MSGMERGE) $(LONG_MERGE) of $$lang failed" ; \
 			rm -f $$lang.pot ; \
 		fi \
 	done
