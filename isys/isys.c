@@ -20,6 +20,7 @@
 #include <sys/stat.h>
 #include <sys/sysmacros.h>
 #include <sys/time.h>
+#include <sys/utsname.h>
 #include <sys/vfs.h>
 #include <unistd.h>
 #include <resolv.h>
@@ -1404,6 +1405,8 @@ static PyObject * dogetGeometry(PyObject * s, PyObject * args) {
     char cylinders[16], heads[16], sectors[16];
     char errstr[200];
     struct hd_geometry g;
+    long numsectors;
+    unsigned int numcylinders;
 
     if (!PyArg_ParseTuple(args, "s", &dev)) return NULL;
 
@@ -1421,7 +1424,28 @@ static PyObject * dogetGeometry(PyObject * s, PyObject * args) {
         return NULL;
     }
 
-    snprintf(cylinders, sizeof(cylinders), "%d", g.cylinders);
+
+    /* never use g.cylinders if all possible - it is truncated */
+    if (ioctl(fd, BLKGETSIZE, &numsectors) == 0) {
+	int sector_size=1;
+
+#ifdef BLKSSZGET
+	/* BLKSSZGET only works with kernel >= 2.3.3. */
+	struct utsname buf;
+
+	if (uname (&buf) == 0
+	    && strverscmp (buf.release, "2.3.3") >= 0
+	    && ioctl(fd, BLKSSZGET, &sector_size) == 0)
+	    sector_size /= 512;
+	else
+#endif
+       numcylinders = numsectors / (g.heads * g.sectors);
+       numcylinders /= sector_size;
+    } else {
+       numcylinders = g.cylinders;
+    }
+
+    snprintf(cylinders, sizeof(cylinders), "%d", numcylinders);
     snprintf(heads, sizeof(heads), "%d", g.heads);
     snprintf(sectors, sizeof(sectors), "%d", g.sectors);
     
