@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
 "POT-Creation-Date: 2001-03-14 11:37-0500\n"
-"PO-Revision-Date: 2001-03-11 08:20+0900\n"
+"PO-Revision-Date: 2001-03-15 11:22+0900\n"
 "Last-Translator: Jong-Hoon Ryu <queenrjh@chollian.net>\n"
 "Language-Team: Korean Linux Extension project <kle@kldp.org>\n"
 "MIME-Version: 1.0\n"
@@ -609,7 +609,7 @@ msgid ""
 " "
 msgstr ""
 "                   재부팅 하시려면, [엔터] 키를 누르십시요.                  "
-" "
+"  "
 
 #: ../text.py:559 ../text.py:582
 msgid "Complete"
@@ -642,7 +642,7 @@ msgid ""
 " "
 msgstr ""
 "                    종료하시려면, [엔터] 키를 누르십시요.                    "
-" "
+"  "
 
 #: ../text.py:583
 msgid ""
@@ -1515,11 +1515,11 @@ msgstr "설치 과정 동안에 사용하실 언어를 선택해 주십시요."
 
 #: ../iw/language_support_gui.py:144
 msgid "Choose the default language:   "
-msgstr "기본 언어 선택:   "
+msgstr "기본 언어 선택:  "
 
 #: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
-msgstr ""
+msgstr "현재 설치될 언어:"
 
 #: ../iw/language_support_gui.py:157
 msgid "Choose the languages to install:"
@@ -1623,19 +1623,19 @@ msgstr "기본 부트 이미지"
 
 #: ../iw/mouse_gui.py:134 ../textw/mouse_text.py:7
 msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr "/dev/ttyS0 (도스에서 COM1)"
+msgstr "/dev/ttyS0 (DOS의 COM1)"
 
 #: ../iw/mouse_gui.py:135 ../textw/mouse_text.py:8
 msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr "/dev/ttyS1 (도스에서 COM2)"
+msgstr "/dev/ttyS1 (DOS의 COM2)"
 
 #: ../iw/mouse_gui.py:136 ../textw/mouse_text.py:9
 msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr "/dev/ttyS2 (도스에서 COM3)"
+msgstr "/dev/ttyS2 (DOS의 COM3)"
 
 #: ../iw/mouse_gui.py:137 ../textw/mouse_text.py:10
 msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr "/dev/ttyS3 (도스에서 COM4)"
+msgstr "/dev/ttyS3 (DOS의 COM4)"
 
 #: ../iw/mouse_gui.py:139
 msgid "Emulate 3 Buttons"
@@ -1872,7 +1872,7 @@ msgid ""
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
 msgstr ""
-"도스 또는 윈도우즈 파일시스템을 루트 파일시스템으로 지정하셨습니다. 루트 "
+"DOS 또는 Windows 파일시스템을 루트 파일시스템으로 지정하셨습니다. 루트 "
 "파일시스템과 스왑 공간으로 사용하실 용량을 지정해 주십시요 (단위: MB). 총 "
 "용량은 %d MB 한도 내에서 지정하셔야 합니다."
 
@@ -1889,9 +1889,8 @@ msgid "Automatic Partitioning"
 msgstr "자동 파티션 설정"
 
 #: ../iw/rootpartition_gui.py:375
-#, fuzzy
 msgid "Disk Partitioning"
-msgstr "수동 파티션 설정"
+msgstr "드라이브 파티션 설정"
 
 #: ../iw/rootpartition_gui.py:377
 #, c-format
@@ -1902,6 +1901,11 @@ msgid ""
 "\n"
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
+"파티션을 설정하기 위한 유형을 선택해 주십시요.\n"
+"\n"
+"자동 파티션 설정은 %s 의 모든 자료를 삭제합니다.\n"
+"\n"
+"수동 파티션 설정을 선택하시면, 여러분이 직접 파티션을 설정하실 수 있습니다."
 
 #: ../iw/rootpartition_gui.py:383
 msgid "Automatic Partitioning Failed"
@@ -1918,8 +1922,8 @@ msgid ""
 "Red Hat Linux."
 msgstr ""
 "\n"
-"파티션을 자동으로 설정하기 위한 드라이브 공간이 부족합니다. 여러분이 직접 "
-"수동으로 파티션을 설정해 주시기 바랍니다.\n"
+"파티션을 자동으로 설정하기에는 드라이브의 공간이 부족합니다. 수동으로 "
+"여러분이 직접 파티션을 설정해 주시기 바랍니다.\n"
 "\n"
 "파티션을 설정하기 위한 방법을 선택해 주십시요."
 
@@ -2050,9 +2054,8 @@ msgid "UTC Offset"
 msgstr "UTC와의 시차"
 
 #: ../iw/upgrade_swap_gui.py:17
-#, fuzzy
 msgid "Upgrade Swap Partition"
-msgstr "파티션 업그레이드"
+msgstr "스왑 파티션 업그레이드"
 
 #: ../iw/upgrade_swap_gui.py:66 ../textw/upgrade_text.py:22
 #, c-format
@@ -2062,23 +2065,22 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"커널 2.4 부터는 이전 버전의 커널이 시스템이 가진 램 용량 이상의 스왑 공간을 "
-"사용했던 것 보다 훨씬 많은 용량의 스왑 공간을 필요로 합니다. 현재 여러분이 "
-"설정하신 스왑 용량은 %d MB 이지만, 추가로 스왑 공간을 더 생성하실 수 "
-"있습니다."
+"커널 2.4 부터는 이전 버전의 커널이 시스템에 설치되어 있는 램 용량의 두배 "
+"이상의 용량을 스왑 공간을 사용했던 것 보다 훨씬 더 많은 용량의 스왑 공간을 "
+"필요로 합니다. 현재 여러분이 설정하신 스왑 용량은 %d MB 이지만, 추가로 스왑 "
+"공간을 더 생성하실 수 있습니다."
 
 #: ../iw/upgrade_swap_gui.py:80
 msgid "I want to create a swap file"
-msgstr ""
+msgstr "스왑 파일을 생성함"
 
 #: ../iw/upgrade_swap_gui.py:94
 msgid "Select the partition to put the swap file on:"
-msgstr ""
+msgstr "스왑 파일을 생성할 파티션:"
 
 #: ../iw/upgrade_swap_gui.py:99
-#, fuzzy
 msgid "Free Space (MB)"
-msgstr "여유 공간"
+msgstr "여유 공간 (MB)"
 
 #: ../iw/upgrade_swap_gui.py:114
 #, c-format
@@ -2086,6 +2088,8 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
+"스왑 파일은 최소한 %d MB 정도의 용량은 되어야 합니다.  스왑 파일의 용량을 "
+"지정해 주십시요:"
 
 #: ../iw/upgrade_swap_gui.py:127 ../textw/upgrade_text.py:58
 msgid "Swap file size (MB):"
@@ -2093,7 +2097,7 @@ msgstr "스왑 파일 용량 (MB):"
 
 #: ../iw/upgrade_swap_gui.py:135
 msgid "I don't want to create a swap file"
-msgstr ""
+msgstr "스왑 파일을 생성하지 않음"
 
 #: ../iw/upgrade_swap_gui.py:145
 msgid ""
@@ -2101,10 +2105,13 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
+"여러분은 반드시 스왑 파일을 생성하셔야 합니다.  스왑 파일을 생성하지 않고 "
+"설치를 진행하실 경우에는 설치 프로그램이 비 정상적으로 종료될 수 있습니다.  "
+"이대로 설치를 계속 진행하시겠습니까?"
 
 #: ../iw/upgrade_swap_gui.py:154
 msgid "The swap file must be between 0 and 2000 MB in size."
-msgstr ""
+msgstr "스왑 파일은 '2 GB' 한도 내에서 지정하셔야 합니다."
 
 #: ../iw/upgrade_swap_gui.py:161 ../textw/upgrade_text.py:96
 msgid ""
@@ -2555,7 +2562,7 @@ msgid "Done"
 msgstr "완료"
 
 #: ../textw/partitioning_text.py:150
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Automatic partitioning will erase %s\n"
 "\n"
@@ -2852,7 +2859,6 @@ msgid "Custom System"
 msgstr "사용자 설정 시스템"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-#, fuzzy
 msgid "any preexisting Linux installations on your system."
 msgstr "기존에 설치되어 있는 리눅스 시스템을 삭제합니다."
 
@@ -2865,7 +2871,6 @@ msgid "Server System"
 msgstr "서버 시스템"
 
 #: ../installclasses/server.py:38
-#, fuzzy
 msgid "ALL DATA on your hard drive to make room for your Linux installation."
 msgstr "리눅스를 설치하기 위해 하드 드라이브 상의 모든 자료를 삭제합니다."
 
@@ -2928,7 +2933,7 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
-"루트(/) 파일시스템을 도스-형식의 'FAT' 파티션에 지정하셨습니다. 이와같이 "
+"루트(/) 파일시스템을 DOS-형식의 'FAT' 파티션에 지정하셨습니다. 이와같이 "
 "지정하실 수는 있지만, 그대신 다른 파일시스템은 사용하실 수 없게 됩니다. "
 "또한, 리눅스 파티션을 사용하지 않는 관계로 속도가 현저히 저하됩니다. 그래도 "
 "사용하시겠습니까?"
@@ -2947,8 +2952,7 @@ msgstr ""
 #: ../libfdisk/fsedit.c:985
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-msgstr ""
-"이 플랫폼에서는, '/boot' 가 도스-호환 파일시스템 %x 에 위치해야 합니다."
+msgstr "이 플랫폼에서는, '/boot' 가 DOS-호환 파일시스템 %x 에 위치해야 합니다."
 
 #: ../libfdisk/fsedit.c:995
 #, c-format
@@ -4395,13 +4399,13 @@ msgid "Printer Support"
 msgstr "프린터 지원"
 
 msgid "X Window System"
-msgstr "X 윈도우즈 시스템"
+msgstr "X 윈도우 시스템"
 
 msgid "Mail/WWW/News Tools"
 msgstr "메일/WWW/뉴스 프로그램"
 
 msgid "DOS/Windows Connectivity"
-msgstr "도스/윈도우즈 연결"
+msgstr "DOS/Windows 연결"
 
 msgid "Graphics Manipulation"
 msgstr "그래픽 작업"
