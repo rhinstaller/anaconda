@@ -108,7 +108,7 @@ findPackage() {
     for n in $dir/$name*{${BUILDARCH},noarch}.rpm; do
 	thisName=$(rpm --qf '%{NAME}' -qp $n)
 	if [ -z "$thisName" ]; then
-	    return
+	    continue
 	fi
 	if [ $thisName = $name ]; then
 	    echo $n
@@ -798,7 +798,7 @@ for kernelvers in $vertag; do
 	vertag=""
     fi
 
-    ppackage=$($LATEST $KERNELPATH kernel-pcmcia-cs)
+    ppackage=$($LATEST $KERNELPATH hwdata)
     if [ ! -f "$ppackage" ]; then
 	ppackage=""
     fi
@@ -824,7 +824,7 @@ for kernelvers in $vertag; do
     if [ -f $KERNELROOT/etc/pcmcia/config ]; then
 	# This gets everything mentioned in /etc/pcmcia/config.  We probably
 	# want to do some module-info stuff here too
-	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config | sed 's/\.o//g') | sort -u)
+	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*(network|scsi).*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config | sed 's/\.o//g') | sort -u)
     fi
 
     allmods=$(find $KERNELROOT/lib/modules/$version -name *.o)
