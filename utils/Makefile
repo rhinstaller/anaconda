@@ -44,7 +44,7 @@ depends:
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 genhdlist $(DESTDIR)/$(RUNTIMEDIR)
+#	install -m755 genhdlist $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 trimpcitable $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 moddeps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 filtermoddeps $(DESTDIR)/$(RUNTIMEDIR)
