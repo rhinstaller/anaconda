@@ -324,7 +324,7 @@ class ComponentSet:
             return 1
 
         # XXX preserve backwards compatible behavior
-        if self.allLangs:
+        if self.allLangs and "lang" in tags:
             tags.remove ("lang")
 
 	if os.environ.has_key('LINGUAS'):
