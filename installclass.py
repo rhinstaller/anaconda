@@ -128,7 +128,7 @@ class BaseInstallClass:
             #dispatch.skipStep("partitionmethodsetup", permanent = 1)
             dispatch.skipStep("autopartition", permanent = 1)
             dispatch.skipStep("autopartitionexecute", permanent = 1)
-            #dispatch.skipStep("fdisk", permanent = 1)
+            dispatch.skipStep("fdisk", permanent = 1)
             #dispatch.skipStep("partition", permanent = 1)
             #dispatch.skipStep("partitiondone", permanent = 1)
             #dispatch.skipStep("bootloadersetup", permanent = 1)
