@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.30
+Version: 10.2.0.31
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar 23 2005 Chris Lumens <clumens@redhat.com> 10.2.0.31-1
+- Add libgcc for images.
+- Rewrite language handling.
+- Fix readImageFromFile deprecation warning (katzj).
+- Don't hide groups which just have metapkgs (katzj, #149182).
+- Load SELinux booleans (katzj, #151896).
+
 * Tue Mar 22 2005 Chris Lumens <clumens@redhat.com> 10.2.0.30-1
 - Try harder on the libstdc++ include.
 - Fix /etc/resolv.conf fir interactive kickstart installs (#151472).
