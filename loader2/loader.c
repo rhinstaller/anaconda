@@ -842,27 +842,8 @@ int main(int argc, char ** argv) {
 	if (ioctl (0, TIOCLINUX, &twelve) < 0)
 	    flags |= LOADER_FLAGS_SERIAL;
     }
-    
 
-    if (!(FL_TESTING(flags))) {
-        int fd;
-
-        fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT, 0666);
-        if (fd < 0) {
-            logMessage("error creating /tmp/modules.conf: %s\n",
-                       strerror(errno));
-        } else {
-            /* HACK */
-#ifdef __sparc__
-            write(fd, "alias parport_lowlevel parport_ax\n", 34);
-#else
-            write(fd, "alias parport_lowlevel parport_pc\n", 34);
-#endif
-            close(fd);
-        }
-    }            
-
-
+    /* now we parse command line options */
     optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
 
     if ((rc = poptGetNextOpt(optCon)) < -1) {
