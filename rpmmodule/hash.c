@@ -83,7 +83,7 @@ void htHashStats(struct hash_table *t)
     printf("Avergage Depth: %f\n", (double)t->entries / (double)t->size);
 }
 
-static unsigned int htHashString(const char *s)
+static unsigned int htHashString(char *s)
 {
     unsigned int res = 0;
 
@@ -93,7 +93,7 @@ static unsigned int htHashString(const char *s)
     return res;
 }
 
-static char *in_table_aux(struct hash_table *t, int hash, const char *s)
+static char *in_table_aux(struct hash_table *t, int hash, char *s)
 {
     int x;
 
@@ -108,7 +108,7 @@ static char *in_table_aux(struct hash_table *t, int hash, const char *s)
     return NULL;
 }
 
-char *htInTable(struct hash_table *t, const char *s)
+char *htInTable(struct hash_table *t, char *s)
 {
     int hash;
 
@@ -116,7 +116,7 @@ char *htInTable(struct hash_table *t, const char *s)
     return in_table_aux(t, hash, s);
 }
 
-void htAddToTable(struct hash_table *t, const char *s)
+void htAddToTable(struct hash_table *t, char *s)
 {
     int hash;
 
