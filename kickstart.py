@@ -174,6 +174,10 @@ class KickstartBase(BaseInstallClass):
                 sel = 2
 
         self.setSELinux(id, sel)
+
+    # FIXME KH add ZFCP support
+    def doZFCP(self, id, args):
+        return
 	    
     def doAuthconfig(self, id, args):
 	(args, extra) = isys.getopt(args, '',
