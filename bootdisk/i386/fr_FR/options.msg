@@ -15,4 +15,6 @@
  -  To prompt for the install method being used on a CD-ROM install, 
     type linux askmethod <ENTER>.
 
+ -  If you have an installer update disk, type: linux updates <ENTER>.
+
 02[F1-Main] [F2-Options] [F3-General] [F4-Kernel] [F5-Rescue]07
