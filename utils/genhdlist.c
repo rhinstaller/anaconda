@@ -194,7 +194,7 @@ int doOnePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum,
               int doSplit, int isUpdates) {
     FD_t fd;
     struct dirent * ent;
-    char * subdir = alloca(strlen(dirName) + 20);
+    char * subdir = dirName;
     int errno;
     Header h, nh, h2;
     int rc;
@@ -213,8 +213,6 @@ int doOnePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum,
     rpmtsSetVSFlags(ts, ~RPMVSF_NOHDRCHK);
     rpmtsCloseDB(ts);
     
-    sprintf(subdir, "%s/RedHat/RPMS", dirName);
-
     dir = opendir(subdir);
     if (!dir) {
 	fprintf(stderr,"error opening directory %s: %s\n", subdir,
