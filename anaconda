@@ -480,20 +480,21 @@ except:
     xsetup_failed = 1
     xcfg = None
 
-if not xsetup_failed:
-    if not os.environ.has_key('DISPLAY') and display_mode == 'g':
-	import xserver
+if display_mode == 'g':
+    if not xsetup_failed:
+	if not os.environ.has_key('DISPLAY'):
+	    import xserver
 
-	try:
-	    testxcfg = xserver.startX(runres, videohw, monitorhw, mousehw, kbd)
-	except RuntimeError:
-	    testxcfg = None
-	    xsetup_failed = 1
+	    try:
+		testxcfg = xserver.startX(runres, videohw, monitorhw, mousehw, kbd)
+	    except RuntimeError:
+		testxcfg = None
+		xsetup_failed = 1
 
-if xsetup_failed:
-    dup_log(" X startup failed, falling back to text mode")
-    display_mode = 't'
-    time.sleep(2)
+    if xsetup_failed:
+	dup_log(" X startup failed, falling back to text mode")
+	display_mode = 't'
+	time.sleep(2)
 
 #
 # read in anaconda configuration file
@@ -643,7 +644,16 @@ if videohw:
 if monitorhw:
     id.setMonitor(monitorhw)
 
-if xcfg:
+#
+# not sure what to do here - somehow we didnt detect anything
+#
+if xcfg is None:
+    try:
+	xcfg = XF86HardwareState()
+    except:
+	xcfg = None
+
+if xcfg is not None:
     xsetup = xsetup.XSetup(xcfg)
     id.setXSetup(xsetup)
 
