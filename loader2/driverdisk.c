@@ -444,9 +444,10 @@ void getDDFromSource(struct knownDevices * kd,
     /* FIXME: this is a hack so that you can load a driver disk from, eg, 
      * scsi cdrom drives */
     } else if (!strncmp(src, "cdrom", 5)) {
-        return loadDriverDisks(CLASS_UNSPEC, loaderData->modLoaded, 
-                               loaderData->modDepsPtr, loaderData->modInfo,
-                               kd, flags);
+        loadDriverDisks(CLASS_UNSPEC, loaderData->modLoaded, 
+                        loaderData->modDepsPtr, loaderData->modInfo,
+                        kd, flags);
+        return;
     } else {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Unknown driver disk kickstart source: %s"), src);
