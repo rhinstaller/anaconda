@@ -438,6 +438,7 @@ class ToDo:
         self.initState = ""
         self.dhcpState = ""
         self.langState = 0
+        self.firewallState = 0
 
         # If reconfig mode, don't probe floppy
         #print self.reconfigOnly
