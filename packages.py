@@ -713,7 +713,7 @@ def doInstall(method, id, intf, instPath):
 
 	w.set(6)
 
-	self.instClass.postAction(instPath, flags.serial)
+	id.instClass.postAction(instPath, flags.serial)
 
 	w.set(7)
 
