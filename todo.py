@@ -507,7 +507,7 @@ class ToDo:
                                       "--device",
                                       "/dev/" + self.fdDevice,
                                       kernelTag[1:] ],
-                                    stdout = None, stderr = None, 
+                                    stdout = None, stderr = None,
 				    searchPath = 1, root = self.instPath)
         w.pop()
         if rc:
@@ -1440,6 +1440,11 @@ class ToDo:
             rpm.addMacro ("_dbapi", "3")
             # flag this so we only do it once.
             self.dbpath = None
+
+	    # An old mtab can cause confusion (esp if loop devices are
+	    # in it)
+	    f = open(self.instPath + "/etc/mtab", "w+")
+	    f.close()
 
         self.method.systemMounted (self.fstab, self.instPath, self.hdList.selected())
 
