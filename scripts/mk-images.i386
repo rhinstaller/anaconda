@@ -61,8 +61,8 @@ COMMONMODULES="vfat $USBMODS"
 LOCALMODULES="$COMMONMODULES BusLogic aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci 
-	       eepro100 tulip pcnet32 8139too natsemi"
-#	       sis900 e100 hp100"
+	       eepro100 tulip pcnet32 8139too"
+#	       sis900 e100 hp100 natsemi"
 
 PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
 
