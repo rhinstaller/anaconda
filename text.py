@@ -641,8 +641,10 @@ class XConfigWindow:
 	else:
 	    card = carddb[cards[choice]]
 
-	    if card.has_key ("SEE"):
-		card = carddb[card["SEE"]]
+            depth = 0
+            while depth < 16 and card.has_key ("SEE"):
+                card = carddb[card["SEE"]]
+                depth = depth + 1
 
 	    todo.x.setVidcard (card)
 	
