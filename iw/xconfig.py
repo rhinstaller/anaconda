@@ -94,7 +94,7 @@ class XConfigWindow (InstallWindow):
         self.didTest = 0
 
     def getNext (self):
-        if self.custom.get_active ():
+        if self.custom.get_active () and not self.skip.get_active ():
             return XCustomWindow
         return None
 
@@ -168,5 +168,7 @@ class XConfigWindow (InstallWindow):
 
         box.pack_start (self.autoBox, FALSE)        
         box.pack_start (self.skip, FALSE)
+
+        self.skip.set_active (self.todo.x.skip)
 
         return box
