@@ -464,7 +464,7 @@ def makeDriveDeviceNodes():
             num = 15
 
         if (drive.startswith("cciss") or drive.startswith("ida") or
-            drive.startswith("rd")):
+            drive.startswith("rd") or drive.startswith("sx8")):
             sep = "p"
         else:
             sep = ""
