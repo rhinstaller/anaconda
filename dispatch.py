@@ -152,7 +152,7 @@ installSteps = [
                  "id.desktop", "id.grpset", "id.instClass", "instPath")),
     ("writexconfig", writeXConfiguration, ("id", "instPath")),
     ("writeksconfig", writeKSConfiguration, ("id", "instPath")),
-    ("setfilecon", setFileCons, ("instPath",)),
+    ("setfilecon", setFileCons, ("instPath","id.partitions")),
     ("dopostaction", doPostAction, ("id", "instPath")),
     ("methodcomplete", doMethodComplete, ("method",)),
     ("complete", ()),

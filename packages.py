@@ -1244,7 +1244,9 @@ def doPostInstall(method, id, intf, instPath):
 
 # FIXME: this is a huge gross hack.  hard coded list of files
 # created by anaconda so that we can not be killed by selinux
-def setFileCons(instPath):
+def setFileCons(instPath, partitions):
+    import partRequests
+    
     if flags.selinux:
         log("setting SELinux contexts for anaconda created files")
 
@@ -1255,8 +1257,13 @@ def setFileCons(instPath):
                  "/var/log/wtmp", "/var/run/utmp",
                  "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab"]
 
+        vgs = []
+        for entry in partitions.requests:
+            if isinstance(entry, partRequests.VolumeGroupRequestSpec):
+                vgs.append("/dev/%s" %(entry.volumeGroupName,))
+
         # ugh, this is ugly
-        for dir in ("/var/lib/rpm", "/etc/lvm", "/dev/mapper"):
+        for dir in ["/var/lib/rpm", "/etc/lvm", "/dev/mapper"] + vgs:
             def addpath(x): return dir + "/" + x
 
             if not os.path.isdir(instPath + dir):
