@@ -19,9 +19,29 @@ import iutil
 import os
 import string
 import raid
+import struct
 
 def _(str):
     return str
+
+def isValidExt2(device):
+    file = '/tmp/' + device
+    isys.makeDevInode(device, file)
+    try:
+	fd = os.open(file, os.O_RDONLY)
+    except:
+	return 0
+
+    buf = os.read(fd, 2048)
+    os.close(fd)
+
+    if len(buf) != 2048:
+	return 0
+
+    if struct.unpack("H", buf[1080:1082]) == (0xef53,):
+	return 1
+
+    return 0
 
 class Fstab:
     def attemptPartitioning(self, partitions, clearParts):
@@ -509,7 +529,10 @@ class Fstab:
 	    if fsystem == "swap": continue
 
 	    if not self.fsCache.has_key((partition, mount)):
-		self.fsCache[(partition, mount)] = (0, )
+		if mount == '/home' and isValidExt2(partition):
+		    self.fsCache[(partition, mount)] = (0, )
+		else:
+		    self.fsCache[(partition, mount)] = (1, )
 	    (doFormat,) = self.fsCache[(partition, mount)]
 	    fstab.append((mount, partition, fsystem, doFormat, size ))
 
@@ -648,6 +671,6 @@ def readFstab (path, fstab):
 
         if fields[0][0:7] == "/dev/md":
 	    fstab.addExistingRaidDevice(fields[0][5:], fields[1], 
-					fields[2], raidByDev[mdDev])
+				    fields[2], raidByDev[int(fields[0][7:])])
 	else:
 	    fstab.addMount(fields[0][5:], fields[1], fields[2])
