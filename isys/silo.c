@@ -267,7 +267,7 @@ scan_walk_callback(int node) {
 		if (prop[0] == 'a')
 		    sprintf (prop, "/ata@%d,0/cmdk@%d,0", hd[disk].hi, hd[disk].lo);
 		else
-		    sprintf (prop, "/disk@%d", hd[disk].hi * 2 + hd[disk].lo);
+		    sprintf (prop, "/disk@%d,0", hd[disk].hi * 2 + hd[disk].lo);
 		break;
 	    case SDSK_TYPE_SD:
 		for (nextnode = prom_getchild(node); nextnode; nextnode = prom_getsibling(nextnode)) {
