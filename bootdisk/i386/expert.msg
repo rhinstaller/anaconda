@@ -5,7 +5,7 @@
 The default method of installing 0cRed Hat07 Linux uses autoprobing to
 automatically detect the hardware in your system.  Although most
 systems may be autoprobed without difficulties, in certain cases there
-can be problems.  It's possible to overcome these problems by using
+can be problems.  It may be possible to overcome these problems by using
 expert mode.
 
 To start the installation using expert mode, type 0fexpert <ENTER>07.
