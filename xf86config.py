@@ -93,6 +93,21 @@ class XF86Config:
 
     def cards (self, thecard = None):
         cards = {}
+        # all the straight servers
+        cards["3DLabs"] = { "SERVER" : "3DLabs" }
+        cards["8514"]   = { "SERVER" : "8514" }
+        cards["FBDev"]  = { "SERVER" : "FBDev" } 
+        cards["I128"]   = { "SERVER" : "I128" }
+        cards["Mach8"]  = { "SERVER" : "Mach8" }
+        cards["Mach64"] = { "SERVER" : "Mach64" }
+        cards["Mach32"] = { "SERVER" : "Mach32" }
+        cards["Mono"]   = { "SERVER" : "Mono" }
+        cards["P9000"]  = { "SERVER" : "P9000" }
+        cards["S3"]     = { "SERVER" : "S3" }
+        cards["S3V"]    = { "SERVER" : "S3V" }
+        cards["SVGA"]   = { "SERVER" : "SVGA" }        
+        cards["W32"]    = { "SERVER" : "W32" }
+        
         db = open ('/usr/X11R6/lib/X11/Cards')
         lines = db.readlines ()
         db.close ()
@@ -810,8 +825,11 @@ Section "Device"
         info = { "DEVICE"  : self.devID,
                  "MONITOR" : monID }
 
+        maxdepth = -1
         for (depth, modes) in self.modes.items ():
             modes.sort (self.areaCompare)
+            if string.atoi(depth) > maxdepth:
+                maxdepth = string.atoi(depth)
         
         section = """
 # **********************************************************************
@@ -861,6 +879,8 @@ Section "Screen"
     Device      "%(DEVICE)s"
     Monitor     "%(MONITOR)s"
 """ % info
+                if maxdepth > 0:
+                    section = section + "    DefaultColorDepth %d\n" % maxdepth
                 for depth in self.modes.keys ():
                     if not self.modes[depth]: continue
                     section = section + """
