@@ -1,3 +1,4 @@
+import kudzu
 import _isys
 import string
 

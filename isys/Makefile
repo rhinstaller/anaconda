@@ -4,7 +4,7 @@ CFLAGS = -I/usr/include/python1.5 -I.. -g
 OBJECTS = nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o
 STATICOBJS = otherinsmod.o
-STATICLIBS = ../kudzu/libkudzu.a
+STATICLIBS = ../kudzu/kudzumodule.so
 LOADLIBES = -lrpm -lbz2 -lresolv -lz -lpci -lpopt
 SUBDIRS = modutils pci
 PYTHONLIBDIR = $(DESTDIR)/usr/lib/python1.5/site-packages
