@@ -31,7 +31,13 @@ fileSystemTypes = {}
 availRaidLevels = ['RAID0', 'RAID1', 'RAID5']
 
 def fileSystemTypeGetDefault():
-    return fileSystemTypeGet('ext3')
+    if fileSystemTypeGet('ext3').isSupported():
+        return fileSystemTypeGet('ext3')
+    elif fileSystemTypeGet('ext2').isSupported():
+        return fileSystemTypeGet('ext2')
+    else:
+        raise ValueError, "You have neither ext3 or ext2 support in your kernel!"
+
 
 def fileSystemTypeGet(key):
     return fileSystemTypes[key]
