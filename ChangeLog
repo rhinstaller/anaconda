@@ -1,5 +1,13 @@
 2004-11-04  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/modules.c (lateModuleSort): Implement an additional sort
+	to move drivers to the end of our list of drivers to load.  This
+	is handy for, eg, fibre channel so that it doesn't end up at the
+	front of the list so that people don't get confused with sda being
+	their FC disk.  Also, put ibmvscsic in the list due to #137920
+
+	* loader2/module-info: More qlogic fibre channel adapters
+
 	* upgrade.py (upgradeFindPackages): Key iiimf-le-canna off of
 	kinput2-canna-wnn6 instead of just kinput2 (#129218)
 

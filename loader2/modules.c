@@ -361,6 +361,52 @@ static int loadModule(const char * modName, struct extractedModule * path,
     return rc;
 }
 
+/* 
+ * This takes the list of modules we're going to load and sorts 
+ * some to be at the end on an arbitrary criteria (eg, fiberchannel).
+ * This should help the problems where people's FC controller ends up being
+ * sda and they then can't boot or otherwise have things being strange.
+ * And yes, this is a hack.  *sigh*
+ */
+static char ** lateModuleSort(char **allmods, int num) {
+    int i, j, k, l;
+    char ** modList;
+    /* the qlogic drivers are usually for fibrechannel according to coughlan
+     * as is lpfc.  ibmvscsic needs to be sure to be loaded after ipr on
+     * power5 due to bug #137920 */
+    char * lateList[] = { "qla2100", "qla2200", "qla2300", "qla2322", 
+                          "qla6312", "qla6322", 
+                          "lpfc", "ibmvscsic", NULL };
+    char ** lateMods;
+
+    modList = alloca(sizeof(*modList) * (num + 1));
+
+    lateMods = alloca(sizeof(*lateMods) * 10);
+    lateMods = memset(lateMods, 0, 10);
+
+    i = j = k = l = 0;
+
+    for (; allmods[i]; i++) {
+        int late = 0;
+        for (j = 0; lateList[j]; j++) {
+            if (!strcmp(allmods[i], lateList[j])) {
+                lateMods[l++] = allmods[i];
+                late = 1;
+                break;
+            }
+        }
+        if (!late)
+            modList[k++] = allmods[i];
+    }
+
+    for (i = 0; i < l; i++) {
+        modList[k++] = lateMods[i];
+    }
+    modList[k] = NULL;
+
+    return modList;
+}
+
 /* handle loading a set of modules including their dependencies.  also has
  * a nasty evil hack for handling usb-storage removal/reloading for scsi
  * device ordering. */
@@ -422,6 +468,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
         logMessage("ERROR: loop in module dependencies; not inserting");
         return 1;
     }
+    list = lateModuleSort(list, i);
 
     for (i = 0; list[i]; i++) {
         strcat(items, " ");
