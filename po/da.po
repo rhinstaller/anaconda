@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2001-03-28 17:32-0500\n"
-"PO-Revision-Date: 2001-03-28 23:22GMT\n"
+"PO-Revision-Date: 2001-03-29 11:39GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -1420,9 +1420,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Vælg enheden som indeholder rodfilsystemet: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, fuzzy, c-format
+#, c-format
 msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
-msgstr "Opgraderer Red Hat Linux-installationen på partition /dev/"
+msgstr "Opgraderer Red Hat Linux-installationen på partition /dev/%s"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -2426,9 +2426,8 @@ msgstr ""
 "eller er i tvivl, så lad dette felt stå tomt."
 
 #: ../textw/lilo_text.py:52
-#, fuzzy
 msgid "Skip LILO"
-msgstr "Spring over"
+msgstr "Spring over LILO"
 
 #: ../textw/lilo_text.py:53
 msgid ""
@@ -2439,6 +2438,11 @@ msgid ""
 "\n"
 "Are you sure you want to skip LILO installation?"
 msgstr ""
+"Du har valgt ikke at installere LILO. Det anbefales kraftigt, at du "
+"installerer LILO medmindre du har avancerede behov. LILO er næsten altid "
+"påkrævet for at genstarte dit system med Linux direkte fra harddisken.\n"
+"\n"
+"Er du sikker på, at du vil springe installationen af LILO over?"
 
 #: ../textw/lilo_text.py:106 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
@@ -3135,7 +3139,6 @@ msgstr ""
 "installationsprogrammet."
 
 #: ../libfdisk/fsedit.c:1564
-#, fuzzy
 msgid ""
 "This error has occurred because there is a logical partition on the drive "
 "which has a partition type of zero (0).  A partition type of zero means that "
@@ -3144,11 +3147,12 @@ msgid ""
 "supported by the anaconda installer.  You may be able to set the partition "
 "type correctly using your other operating system's partitioning program."
 msgstr ""
-"Dette sker, fordi er er en logisk partition på drevet, som har "
-"partitionstype nul (0). Dette understøttes ikke af "
-"anaconda-installationsprogrammet. Denne logiske partition blev sandsynligvis "
-"oprettet af et andet operativsystems partitioneringsprogram, så du kan "
-"muligvis rette problemet med dette."
+"Denne fejl er sket, fordi er er en logisk partition på drevet, som har "
+"partitionstype nul (0). Partitionstype nul betyder, at partitioneringen af "
+"drevet ikke er endeligt defineret, og kan være forårsaget af et andet "
+"operativsystems partitioneringsprogram. Denne tilstand kan ikke håndteres af "
+"anaconda-installationsprogrammet. Du kan muligvis sætte partitionstypen "
+"korrekt med dit andet operativsystems partitioneringsprogram."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
@@ -4610,7 +4614,7 @@ msgstr "Kanarieøerne"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr "Casey Station, Bailey-halvøen"
+msgstr "Casey-stationen, Bailey-halvøen"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
@@ -4985,9 +4989,8 @@ msgid "New South Wales - most locations"
 msgstr "New South Wales - de fleste steder"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Broken Hill"
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
@@ -5112,7 +5115,7 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Vostok-stationen, Magnetisk sydpol"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -5233,6 +5236,3 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-#~ msgid "Transdniestria"
-#~ msgstr "Transdniestria"
