@@ -403,11 +403,6 @@ for n in args:
 	    vncpassword=None
 	    pass
 
-# s390s don't have ttys
-if iutil.getArch() == "s390":
-    logFile = "/tmp/anaconda-s390.log"
-    #display_mode = 't'
-
 #
 # must specify install, rescue mode
 #
