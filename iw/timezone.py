@@ -95,6 +95,10 @@ class TimezoneWindow (InstallWindow):
         else:
             self.ics.setNextEnabled (TRUE)
 
+    def setcurrent (self, widget, area):
+        self.tz.setcurrent (self.default)
+        widget.disconnect (self.id)
+        
     def getScreen (self):
         try:
             f = open ("/usr/share/anaconda/pixmaps/map480.png")
@@ -125,8 +129,8 @@ class TimezoneWindow (InstallWindow):
         if (string.find (self.default, "UTC") != -1):
             self.default = "America/New_York"
 
-        self.list.connect ("draw", lambda widget, area, self=self: 
-                           self.tz.setcurrent (self.default))
+        self.id = self.list.connect ("draw", self.setcurrent)
+
         self.nb.connect ("realize", lambda widget, self=self:
                          self.nb.set_page (self.old_page))
 
