@@ -187,8 +187,8 @@ int vbe_get_edid_supported()
 	memset(&regs, 0, sizeof(regs));
 	regs.eax = 0x4f15;
 	regs.ebx = 0x0000;
-	regs.es = 0x0000;
-	regs.edi = 0x0000;
+	regs.es = 0x3000;
+	regs.edi = 0x3000;
 
 	/* Do it. */
 	iopl(3);
