@@ -132,7 +132,8 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            libgnomecanvas libart_lgpl vte
            anaconda-images anaconda-help hdparm XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
-           redhat-config-keyboard Xft fontconfig expat redhat-artwork"
+           redhat-config-keyboard Xft fontconfig expat redhat-artwork
+           ttfonts-ja ttfonts-zh_CN ttfonts-zh_TW"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -472,25 +473,12 @@ usr/X11R6/bin/Xtest
 usr/X11R6/bin/setxkbmap
 usr/X11R6/bin/xsetroot
 usr/X11R6/lib/X11/XKeysymDB
-usr/X11R6/lib/X11/fonts/75dpi/cour*ISO8859*
-usr/X11R6/lib/X11/fonts/75dpi/fonts*ISO8859*
-usr/X11R6/lib/X11/fonts/75dpi/helv*ISO8859*
-usr/X11R6/lib/X11/fonts/75dpi/tim*ISO8859*
-usr/X11R6/lib/X11/fonts/encodings/large/big5*
-usr/X11R6/lib/X11/fonts/korean/gulim*
-usr/X11R6/lib/X11/fonts/korean/font*
-usr/X11R6/lib/X11/fonts/misc/12x*
-usr/X11R6/lib/X11/fonts/misc/6x*
-usr/X11R6/lib/X11/fonts/misc/7x*
-usr/X11R6/lib/X11/fonts/misc/8x*
-usr/X11R6/lib/X11/fonts/misc/9x*
-usr/X11R6/lib/X11/fonts/misc/cursor*
+usr/X11R6/lib/X11/fonts/misc/6x13*
 usr/X11R6/lib/X11/fonts/misc/fonts*
-usr/X11R6/lib/X11/fonts/misc/gb*
-usr/X11R6/lib/X11/fonts/misc/jis*
-usr/X11R6/lib/X11/fonts/misc/k14*
+usr/X11R6/lib/X11/fonts/misc/cursor*
 usr/X11R6/lib/X11/fonts/misc/olcursor*
-usr/X11R6/lib/X11/fonts/misc/taipei*
+usr/X11R6/lib/X11/fonts/Type1/l047013t*
+usr/X11R6/lib/X11/fonts/Type1/*
 usr/X11R6/lib/X11/locale/*
 usr/X11R6/lib/X11/rgb*
 usr/X11R6/lib/X11/xkb/*
@@ -599,22 +587,18 @@ usr/sbin/ddcprobe
 usr/sbin/gnome-pty-helper
 usr/sbin/traceroute
 usr/share/anaconda/*
-usr/share/fonts/ISO8859-2/75dpi/cour*
-usr/share/fonts/ISO8859-2/75dpi/fonts*
-usr/share/fonts/ISO8859-2/75dpi/helv*
-usr/share/fonts/ISO8859-2/75dpi/tim*
-usr/share/fonts/ISO8859-2/misc/6x*
-usr/share/fonts/ISO8859-2/misc/9x*
-usr/share/fonts/ISO8859-2/misc/fonts*
-usr/share/fonts/ISO8859-9/75dpi/fonts*
-usr/share/fonts/ISO8859-9/75dpi/tr*cour*
-usr/share/fonts/ISO8859-9/75dpi/tr*helv*
-usr/share/fonts/ISO8859-9/75dpi/tr*tim*
-usr/share/fonts/ISO8859-9/misc/fonts*
-usr/share/fonts/ISO8859-9/misc/tr*6x*
-usr/share/fonts/ISO8859-9/misc/tr*9x*
-usr/share/fonts/KOI8-R/75dpi/*
-usr/share/fonts/KOI8-R/misc/*
+usr/share/fonts/default/Type1/n019003l*
+usr/share/fonts/default/Type1/n019004l*
+usr/share/fonts/default/Type1/n019023l*
+usr/share/fonts/default/Type1/n019024l*
+usr/share/fonts/default/Type1/n021003l*
+usr/share/fonts/default/Type1/n021004l*
+usr/share/fonts/default/Type1/n021023l*
+usr/share/fonts/default/Type1/n021024l*
+usr/share/fonts/ko/TrueType/dotum.ttf
+usr/share/fonts/ja/TrueType/kochi-gothic.ttf
+usr/share/fonts/zh_CN/TrueType/gkai00mp.ttf
+usr/share/fonts/zh_TW/TrueType/bsmi00lp.ttf
 usr/share/locale/*
 usr/share/pixmaps/gnome-default-dlg.png
 usr/share/pixmaps/gnome-error.png
