@@ -303,7 +303,7 @@ class XCustomWindow (InstallWindow):
 
         if not self.cantprobe:
             test = gtk.Alignment (.9, 0, 0, 0)
-            button = gtk.Button (_("   Test Setting   "))
+            button = gtk.Button (_("   Test _Setting   "))
             button.connect ("clicked", self.testPressed)
             test.add (button)
             self.box.pack_start (test, gtk.FALSE)
@@ -343,9 +343,9 @@ class XCustomWindow (InstallWindow):
             if gnomeSelected and kdeSelected:
                 vbox3 = gtk.VBox()
                 
-                gnome_radio = gtk.RadioButton (None, (_("GNOME")))
+                gnome_radio = gtk.RadioButton (None, (_("GNO_ME")))
                 vbox3.pack_start (gnome_radio, gtk.TRUE, gtk.FALSE, 2)
-                kde_radio = gtk.RadioButton(gnome_radio, (_("KDE")))            
+                kde_radio = gtk.RadioButton(gnome_radio, (_("_KDE")))            
                 vbox3.pack_start (kde_radio, gtk.TRUE, gtk.FALSE, 2)
 
                 self.hbox4.pack_start (vbox3)
@@ -381,8 +381,8 @@ class XCustomWindow (InstallWindow):
         self.hbox5 = gtk.HBox (gtk.TRUE, 2)
         frame4.add (self.hbox5)
 
-        self.text = gtk.RadioButton (None, (_("Text")))
-        self.graphical = gtk.RadioButton (self.text, (_("Graphical")))
+        self.text = gtk.RadioButton (None, (_("_Text")))
+        self.graphical = gtk.RadioButton (self.text, (_("_Graphical")))
 
         self.runLevel = self.desktop.getDefaultRunLevel()
 
@@ -684,7 +684,7 @@ class MonitorWindow (InstallWindow):
         self.hEntry.connect ("changed", self.changedCb, (self.hEntry, self.vEntry))
         self.vEntry.connect ("changed", self.changedCb, (self.vEntry, self.hEntry))
 
-        self.reset = gtk.Button (_("Restore original values"))
+        self.reset = gtk.Button (_("Restore _original values"))
         self.reset.connect ("clicked", self.resetCb)
         align = gtk.Alignment
 
@@ -692,10 +692,12 @@ class MonitorWindow (InstallWindow):
         align.add (self.reset)
         
         synctable = gtk.Table(2, 4, gtk.FALSE)
-        hlabel = gtk.Label (_("Horizontal Sync:"))
+        hlabel = gui.MnemonicLabel (_("Hori_zontal Sync:"))
         hlabel.set_alignment (0, 0.5)
-        vlabel = gtk.Label (_("Vertical Sync:"))
+        hlabel.set_mnemonic_widget(self.hEntry)
+        vlabel = gui.MnemonicLabel (_("_Vertical Sync:"))
         vlabel.set_alignment (0, 0.5)
+        vlabel.set_mnemonic_widget(self.vEntry)
         
         self.hEntry.set_size_request (80, -1)
         self.vEntry.set_size_request (80, -1)
@@ -1034,11 +1036,11 @@ class XConfigWindow (InstallWindow):
         self.ramOption.set_menu (self.ramMenu)
         box.pack_start (hbox, gtk.FALSE)
 
-        restore = gtk.Button (_("Restore original values"))
+        restore = gtk.Button (_("Restore _original values"))
         restore.connect ("clicked", self.restorePressed)
         hbox.pack_start(restore, gtk.FALSE, 25)
         
-        self.skip = gtk.CheckButton (_("Skip X Configuration"))
+        self.skip = gtk.CheckButton (_("_Skip X Configuration"))
         self.skip.connect ("toggled", self.skipToggled) 
         
         hbox = gtk.HBox (gtk.TRUE, 5)
