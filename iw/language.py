@@ -18,8 +18,6 @@ class LanguageWindow (InstallWindow):
         ics.readHTML ("lang")
         self.ics = ics
         self.icw = ics.getICW ()
-        self.question = (_("What language should be used during the "
-                         "installation process?"))
         self.languages = self.todo.language.available ()
         self.running = 0
         self.lang = None
@@ -38,7 +36,8 @@ class LanguageWindow (InstallWindow):
     def getScreen (self):
         self.running = 0
         mainBox = GtkVBox (FALSE, 10)
-        label = GtkLabel (self.question)
+        label = GtkLabel (_("What language should be used during the "
+                         "installation process?"))
         label.set_alignment (0.5, 0.5)
         label.set_line_wrap (TRUE)
         
