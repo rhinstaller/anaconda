@@ -227,6 +227,8 @@ class MonitorInfo:
                                                    monitor[0].horizSyncMax)
                         monVert = "%d-%d" % (monitor[0].vertRefreshMin,
                                                   monitor[0].vertRefreshMax)
+
+		    monName = ""
 		    if monitor[0].desc != None:
 			monName = monitor[0].desc
 
