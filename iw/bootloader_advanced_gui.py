@@ -42,9 +42,7 @@ class AdvancedBootloaderWindow(InstallWindow):
             rc = self.intf.messageWindow(_("Warning"),
                     _("Forcing the use of LBA32 for your bootloader when "
                       "not supported by the BIOS can cause your machine "
-                      "to be unable to boot.  We highly recommend you "
-                      "create a boot disk when asked later in the "
-                      "install process.\n\n"
+                      "to be unable to boot.\n\n"
                       "Would you like to continue and force LBA32 mode?"),
                                          type = "custom",
                                          custom_buttons = [_("Cancel"),
