@@ -2781,6 +2781,7 @@ int main(int argc, char ** argv) {
     mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid5", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("msdos", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("ext3", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
