@@ -20,8 +20,8 @@ PYFILES = $(wildcard *.py)
 all: subdirs _xkb.so $(CATALOGS)
 
 _xkb.so: xkb.c
-	gcc -o _xkb.o -fPIC -I/usr/include/python1.5 -c xkb.c
-	gcc -o _xkb.so -shared _xkb.o /usr/X11R6/lib/libxkbfile.a 
+	gcc -Wall -o _xkb.o -fPIC -I/usr/include/python1.5 `gtk-config --cflags gtk` -c xkb.c 
+	gcc -o _xkb.so -shared _xkb.o /usr/X11R6/lib/libxkbfile.a `gtk-config --libs gtk`
 
 clean: 
 	for d in $(ALLSUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d clean; done
