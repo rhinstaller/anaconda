@@ -352,12 +352,12 @@ class Keyboard (SimpleConfigFile):
 
 class Authentication:
     def __init__ (self):
-        self.domain = ""
-        self.useBroadcast = 0
-        self.server = ""
-        self.useNis = 0
         self.useShadow = 1
         self.useMD5 = 1
+        self.useNIS = 0
+        self.domain = ""
+        self.useBroadcast = 1
+        self.server = ""
 
 class Drives:
     def available (self):
@@ -478,7 +478,7 @@ class ToDo:
         kernelVersion = str(self.kernelPackage[rpm.RPMTAG_VERSION]) + \
                         str(self.kernelPackage[rpm.RPMTAG_RELEASE])
 
-        util.execWithRedirect("/sbin/mkinitrd", [ kernelversion ],
+        util.execWithRedirect("/sbin/mkinitrd", [ kernelVersion ],
                               stdout = None, stderr = None, searchPath = 1,
                               root = self.instPath)
 
@@ -492,6 +492,8 @@ class ToDo:
 	sl = LiloConfiguration()
 	sl.addEntry("label", "linux")
 
+        if not self.mounts.has_key ('/'):
+            return
         (dev, type, size) = self.mounts['/']
         sl.addEntry("root", '/dev/' + dev)
 	sl.addEntry("read-only")
@@ -581,13 +583,32 @@ class ToDo:
         f.writelines (lines)
         f.close ()
 
+    def setupAuthentication (self):
+        args = [ "--kickstart" ]
+        if self.auth.useShadow:
+            args.append ("--useshadow")
+        if self.auth.useMD5:
+            args.append ("--enablemd5")
+        if self.auth.useNIS:
+            args.append ("--enablenis")
+            args.append ("--nisdomain")
+            args.append (self.auth.domain)
+            if not self.auth.useBroadcast:
+                args.append ("--nisserver")
+                args.append (self.auth.server)
+        util.execWithRedirect("/usr/sbin/authconfig",
+                              args,
+                              stdout = None, stderr = None, searchPath = 1,
+                              root = self.instPath)
+
     def copyConfModules (self):
         try:
             inf = open ("/tmp/conf.modules", "r")
         except:
             pass
-        out = open (self.instPath + "/etc/conf.modules", "w")
-        out.write (inf.read ())
+        else:
+            out = open (self.instPath + "/etc/conf.modules", "w")
+            out.write (inf.read ())
 
     def doInstall(self, intf):
 	# make sure we have the header list and comps file
@@ -672,6 +693,7 @@ class ToDo:
         self.writeKeyboard ()
         self.writeNetworkConfig ()
         self.writeRootPassword ()
+        self.setupAuthentication ()
         self.copyConfModules ()
 	self.installLilo ()
         

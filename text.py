@@ -119,6 +119,72 @@ class WelcomeWindow:
 
         return INSTALL_OK
 
+class AuthConfigWindow:
+    def run(self, screen, todo):
+        def setsensitive (self):
+            server = FLAGS_RESET
+            flag = FLAGS_RESET
+            if self.broadcast.selected ():
+                server = FLAGS_SET
+            if not self.nis.selected ():
+                flag = FLAGS_SET
+                server = FLAGS_SET
+            
+            self.domain.setFlags (FLAG_DISABLED, flag)
+            self.broadcast.setFlags (FLAG_DISABLED, flag)
+            self.server.setFlags (FLAG_DISABLED, server)
+        
+        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+
+        toplevel = GridForm (screen, _("Authentication Configuration"), 1, 5)
+        self.shadow = Checkbox (_("Use Shadow Passwords"), todo.auth.useShadow)
+        toplevel.add (self.shadow, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
+        self.md5 = Checkbox (_("Enable MD5 Passwords"), todo.auth.useMD5)
+        toplevel.add (self.md5, 0, 1, (0, 0, 0, 1), anchorLeft = 1)
+        self.nis = Checkbox (_("Enable NIS"), todo.auth.useNIS)
+        toplevel.add (self.nis, 0, 2, anchorLeft = 1)
+
+        subgrid = Grid (2, 3)
+
+        subgrid.setField (Label (_("NIS Domain:")),
+                          0, 0, (0, 0, 1, 0), anchorRight = 1)
+        subgrid.setField (Label (_("NIS Server:")),
+                          0, 1, (0, 0, 1, 0), anchorRight = 1)
+        subgrid.setField (Label (_("or use:")),
+                          0, 2, (0, 0, 1, 0), anchorRight = 1)
+
+        text = _("Request server via broadcast")
+        self.domain = Entry (len (text) + 4)
+        self.domain.set (todo.auth.domain)
+        self.broadcast = Checkbox (text, todo.auth.useBroadcast)
+        self.server = Entry (len (text) + 4)
+        self.server.set (todo.auth.server)
+        subgrid.setField (self.domain, 1, 0, anchorLeft = 1)
+        subgrid.setField (self.broadcast, 1, 1, anchorLeft = 1)
+        subgrid.setField (self.server, 1, 2, anchorLeft = 1)
+        toplevel.add (subgrid, 0, 3, (2, 0, 0, 1))
+        toplevel.add (bb, 0, 4, growx = 1)
+
+        self.nis.setCallback (setsensitive, self)
+        self.broadcast.setCallback (setsensitive, self)
+
+        setsensitive (self)
+
+        result = toplevel.runOnce ()
+
+        todo.auth.useMD5 = self.md5.value ()
+        todo.auth.shadow = self.shadow.value ()
+        todo.auth.useNIS = self.nis.selected ()
+        todo.auth.domain = self.domain.value ()
+        todo.auth.useBroadcast = self.broadcast.selected ()
+        todo.auth.server = self.server.value ()
+                
+        rc = bb.buttonPressed (result)
+
+        if rc == "back":
+            return INSTALL_BACK
+        return INSTALL_OK
+
 class NetworkWindow:
             
     def run(self, screen, todo):
@@ -158,6 +224,8 @@ class NetworkWindow:
                     self.ns.set (ns)
 
         devices = todo.network.available ()
+        if not devices.items () == 0:
+            return INSTALL_NOOP
         dev = devices[devices.keys ()[0]]
 
         firstg = Grid (1, 1)
@@ -567,6 +635,7 @@ class InstallInterface:
             [_("Package Groups"), PackageGroupWindow, (self.screen, todo, individual)],
             [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, individual)],
             [_("Mouse Configuration"), MouseWindow, (self.screen, todo)],
+            [_("Authentication"), AuthConfigWindow, (self.screen, todo)],
             [_("Root Password"), RootPasswordWindow, (self.screen, todo)],
             [_("Installation Begins"), BeginInstallWindow, (self.screen, todo)],
         ]

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-08-07 13:14-0400\n"
+"POT-Creation-Date: 1999-08-08 18:23-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ../text.py:26 ../text.py:561
+#: ../text.py:26 ../text.py:630
 msgid "Language Selection"
 msgstr ""
 
@@ -22,12 +22,12 @@ msgstr ""
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
-#: ../text.py:29 ../text.py:48 ../text.py:115 ../text.py:355 ../text.py:370
-#: ../text.py:538
+#: ../text.py:29 ../text.py:48 ../text.py:115 ../text.py:424 ../text.py:439
+#: ../text.py:607
 msgid "Ok"
 msgstr ""
 
-#: ../text.py:46 ../text.py:562
+#: ../text.py:46 ../text.py:631
 msgid "Keyboard Selection"
 msgstr ""
 
@@ -36,12 +36,12 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr ""
 
 #: ../text.py:48 ../text.py:51 ../text.py:76 ../text.py:115 ../text.py:117
-#: ../text.py:196 ../text.py:258 ../text.py:322 ../text.py:355 ../text.py:358
-#: ../text.py:370 ../text.py:371
+#: ../text.py:137 ../text.py:264 ../text.py:327 ../text.py:391 ../text.py:424
+#: ../text.py:427 ../text.py:439 ../text.py:440
 msgid "Back"
 msgstr ""
 
-#: ../text.py:59 ../text.py:569
+#: ../text.py:59 ../text.py:639
 msgid "Root Password"
 msgstr ""
 
@@ -60,8 +60,8 @@ msgstr ""
 msgid "Password (again):"
 msgstr ""
 
-#: ../text.py:76 ../text.py:92 ../text.py:97 ../text.py:196 ../text.py:258
-#: ../text.py:322
+#: ../text.py:76 ../text.py:92 ../text.py:97 ../text.py:137 ../text.py:264
+#: ../text.py:327 ../text.py:391
 msgid "OK"
 msgstr ""
 
@@ -97,130 +97,166 @@ msgid ""
 "purchase through our web site, http://www.redhat.com/."
 msgstr ""
 
-#: ../text.py:168
+#: ../text.py:139
+msgid "Authentication Configuration"
+msgstr ""
+
+#: ../text.py:140
+msgid "Use Shadow Passwords"
+msgstr ""
+
+#: ../text.py:142
+msgid "Enable MD5 Passwords"
+msgstr ""
+
+#: ../text.py:144
+msgid "Enable NIS"
+msgstr ""
+
+#: ../text.py:149
+msgid "NIS Domain:"
+msgstr ""
+
+#: ../text.py:151
+msgid "NIS Server:"
+msgstr ""
+
+#: ../text.py:153
+msgid "or use:"
+msgstr ""
+
+#: ../text.py:156
+msgid "Request server via broadcast"
+msgstr ""
+
+#: ../text.py:236
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../text.py:173
+#: ../text.py:241
 msgid "IP address:"
 msgstr ""
 
-#: ../text.py:174
+#: ../text.py:242
 msgid "Netmask:"
 msgstr ""
 
-#: ../text.py:175
+#: ../text.py:243
 msgid "Default gateway (IP):"
 msgstr ""
 
-#: ../text.py:176
+#: ../text.py:244
 msgid "Primary nameserver:"
 msgstr ""
 
-#: ../text.py:198
+#: ../text.py:266
 msgid "Network Configuration"
 msgstr ""
 
-#: ../text.py:256
+#: ../text.py:325
 msgid "Select individual packages"
 msgstr ""
 
-#: ../text.py:260 ../text.py:324
+#: ../text.py:329 ../text.py:393
 msgid "Package Group Selection"
 msgstr ""
 
-#: ../text.py:353
+#: ../text.py:422
 msgid "Mouse Selection"
 msgstr ""
 
-#: ../text.py:354
+#: ../text.py:423
 msgid "Which model mouse is attached to this computer?"
 msgstr ""
 
-#: ../text.py:366
+#: ../text.py:435
 msgid "Installation to begin"
 msgstr ""
 
-#: ../text.py:367
+#: ../text.py:436
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 
-#: ../text.py:424 ../text.py:425 ../text.py:431 ../text.py:432
+#: ../text.py:493 ../text.py:494 ../text.py:500 ../text.py:501
 msgid "Package Installation"
 msgstr ""
 
-#: ../text.py:434
+#: ../text.py:503
 msgid "Name   : "
 msgstr ""
 
-#: ../text.py:435
+#: ../text.py:504
 msgid "Size   : "
 msgstr ""
 
-#: ../text.py:436
+#: ../text.py:505
 msgid "Summary: "
 msgstr ""
 
-#: ../text.py:462
+#: ../text.py:531
 msgid "    Packages"
 msgstr ""
 
-#: ../text.py:463
+#: ../text.py:532
 msgid "       Bytes"
 msgstr ""
 
-#: ../text.py:464
+#: ../text.py:533
 msgid "        Time"
 msgstr ""
 
-#: ../text.py:466
+#: ../text.py:535
 msgid "Total    :"
 msgstr ""
 
-#: ../text.py:473
+#: ../text.py:542
 msgid "Completed:   "
 msgstr ""
 
-#: ../text.py:483
+#: ../text.py:552
 msgid "Remaining:  "
 msgstr ""
 
-#: ../text.py:550
+#: ../text.py:619
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr ""
 
-#: ../text.py:552
+#: ../text.py:621
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 
-#: ../text.py:563
+#: ../text.py:632
 msgid "Welcome"
 msgstr ""
 
-#: ../text.py:564
+#: ../text.py:633
 msgid "Partition"
 msgstr ""
 
-#: ../text.py:565
+#: ../text.py:634
 msgid "Network Setup"
 msgstr ""
 
-#: ../text.py:566
+#: ../text.py:635
 msgid "Package Groups"
 msgstr ""
 
-#: ../text.py:567
+#: ../text.py:636
 msgid "Individual Packages"
 msgstr ""
 
-#: ../text.py:568
+#: ../text.py:637
 msgid "Mouse Configuration"
 msgstr ""
 
-#: ../text.py:570
+#: ../text.py:638
+msgid "Authentication"
+msgstr ""
+
+#: ../text.py:640
 msgid "Installation Begins"
 msgstr ""

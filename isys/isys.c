@@ -29,6 +29,7 @@ static PyObject * smpAvailable(PyObject * s, PyObject * args);
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
 #endif
 static PyObject * createProbedList(PyObject * s, PyObject * args);
+static PyObject * doChroot(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "findmoduleinfo", (PyCFunction) doFindModInfo, METH_VARARGS, NULL },
@@ -45,6 +46,7 @@ static PyMethodDef isysModuleMethods[] = {
 #if 0
     { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
 #endif
+    { "chroot", (PyCFunction) doChroot, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -69,13 +71,13 @@ static PyMethodDef probedListObjectMethods[] = {
 };
 
 static PySequenceMethods probedListAsSequence = {
-	probedListLength,		/* length */
-	0,				/* concat */
-	0,				/* repeat */
-	probedListSubscript,		/* item */
-	0,				/* slice */
-	0,				/* assign item */
-	0,				/* assign slice */
+	probedListLength,		    /* length */
+	0,		     		    /* concat */
+	0,				    /* repeat */
+	(intargfunc) probedListSubscript,   /* item */
+	0,			 	    /* slice */
+	0,				    /* assign item */
+	0,				    /* assign slice */
 };
 
 static PyTypeObject probedListType = {
@@ -318,6 +320,19 @@ static PyObject * doMount(PyObject * s, PyObject * args) {
     else if (rc)
 	PyErr_SetString(PyExc_SystemError, "mount failed");
 
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doChroot(PyObject * s, PyObject * args) {
+    char * path;
+
+    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
+
+    if (chroot (path)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
     Py_INCREF(Py_None);
     return Py_None;
 }

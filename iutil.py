@@ -1,5 +1,5 @@
 
-import types, os, sys
+import types, os, sys, isys
 
 def getfd(filespec, readOnly = 0):
     if type(filespec) == types.IntType:
@@ -20,7 +20,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 
     childpid = os.fork()
     if (not childpid):
-        os.chroot (root)
+        isys.chroot (root)
 	if stdin != 0:
 	    os.dup2(stdin, 0)
 	    os.close(stdin)

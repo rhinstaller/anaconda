@@ -10,6 +10,9 @@ def umount(what):
 def smpAvailable():
     return _isys.smpavailable()
 
+def chroot (path):
+    return _isys.chroot (path)
+
 def probePciDevices():
     # probes all probeable buses and returns a list of 
     # ( driver, major, minor, description, args ) tuples, where args is a
