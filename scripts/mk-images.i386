@@ -49,7 +49,7 @@ LATEUSBMODS="mousedev"
 IDEMODS=""
 SCSIMODS="sd_mod sr_mod"
 
-SECSTAGE="msdos vfat raid0 raid1 raid5 ext3 jbd $IDEMODS $SCSIMODS $LATEUSBMODS"
+SECSTAGE="msdos vfat raid0 raid1 raid5 ext3 $IDEMODS $SCSIMODS $LATEUSBMODS"
 
 COMMONMODULES="vfat $USBMODS agpgart cramfs ramfs"
 LOCALMODULES="$COMMONMODULES BusLogic aic7xxx megaraid ncr53c8xx 
