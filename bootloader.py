@@ -506,6 +506,11 @@ class x86BootloaderInfo(bootloaderInfo):
 
 	f.close()
         os.chmod(instRoot + "/boot/grub/grub.conf", self.perms)
+
+        # make a symlink for menu.lst since it's the default config file name
+        if os.access (instRoot + "/boot/grub/menu.lst", os.R_OK):
+	    os.rename(instRoot + "/boot/grub/menu.lst",
+		      instRoot + "/boot/grub/menu.lst.rpmsave")
         os.symlink("./grub.conf", instRoot + "/boot/grub/menu.lst")
 
         if not os.access(instRoot + "/boot/grub/device.map", os.R_OK):
