@@ -1,6 +1,5 @@
-ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.4
+Version: 10.2.0.0
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +73,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Nov  7 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.0-1
+- Switch to python 2.4
+- Clean up warning on network screen from pygtk
+- Parse pxelinux IPAPPEND for loader network info, patch 
+  from Bastien Nocera (#134054)
+- Clean up handling of binaries busybox should override
+- Do misc package selection earlier so we know all the CDs needed 
+  when confirming the install (#122017)
+- Mark some strings for translation (#137197)
+- Don't reference boot disks in boot loader screen (#135851)
+- Add hardware address information to network screen (#131814)
+- Fix exception handling in label reading
+
 * Thu Nov  4 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.4-1
 - Fix traceback with CJK upgrades (#137345)
 - Allow 128 bit WEP keys (#137447)
