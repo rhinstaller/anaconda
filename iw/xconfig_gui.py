@@ -1787,7 +1787,7 @@ class XConfigWindow (InstallWindow):
             restore = GtkButton (_("Restore original values"))
             restore.connect ("clicked", self.restorePressed)
 #            buttonBox.pack_start (restore)
-            hbox.pack_start(restore, FALSE, 25)
+#            hbox.pack_start(restore, FALSE, 25)
 
 
 
