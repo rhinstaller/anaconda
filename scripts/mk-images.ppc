@@ -101,7 +101,7 @@ EOF
         cp $TOPDESTPATH/ppc/mac/* $TOPDESTPATH/isopath/ppc/mac/
 
         # Create the boot.iso
-	mkisofs -quiet -o $TOPDESTPATH/images/mac/boot.iso -part -hfs -T -r -l -J -A "$PRODUCT $VERSION" -sysid PPC -V "PBOOT" -volset "$VERSION" -volset-size 2 -volset-seqno 1 -hfs-volid "$VERSION" -hfs-bless "$TOPDESTPATH/isopath/ppc/mac" -map $BOOTDISKDIR/mapping -magic $BOOTDISKDIR/magic -no-desktop -allow-multidot $TOPDESTPATH/isopath
+	mkisofs -quiet -o $TOPDESTPATH/images/mac/boot.iso -part -hfs -T -r -l -J -A "$PRODUCT $VERSION" -sysid PPC -V "PBOOT" -volset "$VERSION" -volset-size 1 -volset-seqno 1 -hfs-volid "$VERSION" -hfs-bless "$TOPDESTPATH/isopath/ppc/mac" -map $BOOTDISKDIR/mapping -magic $BOOTDISKDIR/magic -no-desktop -allow-multidot $TOPDESTPATH/isopath
         rm -rf $TOPDESTPATH/isopath/
     else
         echo "Unknown kernel arch: $KERNELARCH"
