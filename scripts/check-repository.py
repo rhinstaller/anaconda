@@ -35,8 +35,6 @@ from comps import ComponentSet, HeaderList
 import os
 import rpm
 
-import todo
-
 FILENAME = 1000000
 
 class CheckRepository:
