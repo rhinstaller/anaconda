@@ -87,6 +87,13 @@ def handleException( id, intf, (type, value, tb)):
 	    out.write("\n<failed>\n")
 
 	out.close()
+
+        # write out any syslog information as well
+        try:
+            iutil.copyFile("/tmp/syslog", "/tmp/crash")
+        except:
+            pass
+        
 	isys.umount("/tmp/crash")
 
 	intf.messageWindow(_("Dump Written"),
