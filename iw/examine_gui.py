@@ -12,9 +12,9 @@ class UpgradeExamineWindow (InstallWindow):
 
     def toggled (self, widget, newPart):
         if widget.get_active ():
-	    for (part, someFilesystem) in self.parts:
+	    for part in self.parts:
 		if part == newPart:
-		    self.root = (part, someFilesystem)
+		    self.root = part
 
     def getNext (self):
         threads_leave ()
@@ -36,27 +36,36 @@ class UpgradeExamineWindow (InstallWindow):
         if not self.parts:
             box.pack_start (GtkLabel (_("You don't have any Linux partitions.\n You can't upgrade this sytem!")),
                             FALSE)
+            self.ics.setNextEnabled (FALSE)
             return box
 
-        vbox = GtkVBox (FALSE, 5)
+        vbox = GtkVBox (FALSE, 10)
+	vbox.set_border_width (8)
 
         if self.parts and len (self.parts) > 1:
-            box.pack_start (GtkLabel (_("Please select the device which "
-                                        "contains the root filesystem to be "
-                                        "upgraded.")), FALSE)
+	    label = GtkLabel (_("Please select the device containing the root filesystem: "))
+	    label.set_alignment(0.0, 0.5)
+	    box.pack_start(label, FALSE)
+
+	    table = GtkTable(2, 6)
+	    table.set_border_width (10)
+            box.pack_start (table, FALSE)
+	    box.pack_start (GtkHSeparator ())
+	    spacer = GtkLabel("")
+	    spacer.set_usize(15, 1)
+	    table.attach(spacer, 0, 1, 2, 4, FALSE)
+
             self.ics.setNextEnabled (TRUE)
             self.root = self.parts[0]
             group = None
+	    row = 1
             for part in self.parts:
                 group = GtkRadioButton (group, part)
                 group.connect ("toggled", self.toggled, part)
-                box.pack_start (group, FALSE)
+		table.attach(group, 1, 2, row, row+1)
+		row = row + 1
 
-            sw = GtkScrolledWindow ()
-            sw.set_border_width (5)
-            sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
-            sw.add_with_viewport (box)
-            vbox.pack_start (sw, TRUE)
+	    vbox.pack_start (box, FALSE)
         else:
             # if there is only one partition, go on.
             self.ics.setNextEnabled (TRUE)
@@ -64,7 +73,7 @@ class UpgradeExamineWindow (InstallWindow):
             
         self.individualPackages = GtkCheckButton (_("Customize packages to be upgraded"))
         self.individualPackages.set_active (FALSE)
-        align = GtkAlignment (0.5, 0.5)
+        align = GtkAlignment (0.0, 0.5)
         align.add (self.individualPackages)
 
         vbox.pack_start (align, FALSE)

@@ -106,7 +106,7 @@ class AutoPartitionWindow:
 
         # if harddrive install and installing from a logical partition,
         # do not offer autopartitioning
-        if iutil.getArch() == 'i386':
+        if iutil.getArch() == 'i386' and todo.instClass.getClearParts() != 0:
             pp = todo.method.protectedPartitions()
             if pp:
                 for p in pp:
