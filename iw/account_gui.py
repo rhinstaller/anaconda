@@ -28,6 +28,17 @@ class AccountWindow (InstallWindow):
     def getNext (self):
 	if not self.__dict__.has_key("pw"): return None
 
+        pw = self.pw.get_text()
+        allowed = string.digits + string.ascii_letters + string.punctuation
+        for letter in pw:
+            if letter not in allowed:
+                self.intf.messageWindow(_("Error with Password"),
+                                        _("Requested password contains "
+                                          "non-ascii characters which are "
+                                          "not allowed for use in password."),
+                                        custom_icon="error")
+                raise gui.StayOnScreen
+
         self.rootPw.set (self.pw.get_text ())
         return None
 
@@ -52,8 +63,9 @@ class AccountWindow (InstallWindow):
         self.pw.grab_focus ()
 
     # AccountWindow tag="accts"
-    def getScreen (self, rootPw):
+    def getScreen (self, intf, rootPw):
 	self.rootPw = rootPw
+        self.intf = intf
 
 	self.passwords = {}
 

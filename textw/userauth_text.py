@@ -17,8 +17,15 @@ from rhpl.translate import _
 import iutil
 from flags import flags
 
+def has_bad_chars(pw):
+    allowed = string.digits + string.ascii_letters + string.punctuation
+    for letter in pw:
+        if letter not in allowed:
+            return 1
+    return 0
+
 class RootPasswordWindow:
-    def __call__ (self, screen, rootPw):
+    def __call__ (self, screen, intf, rootPw):
         toplevel = GridFormHelp (screen, _("Root Password"), "rootpw", 1, 3)
 
         toplevel.add (TextboxReflowed(37, _("Pick a root password. You must "
@@ -59,6 +66,11 @@ class RootPasswordWindow:
                 ButtonChoiceWindow(screen, _("Password Mismatch"),
 		       _("The passwords you entered were different. Please "
 			 "try again."),
+		       buttons = [ TEXT_OK_BUTTON ], width = 50)
+            elif has_bad_chars(entry1.value()):
+                ButtonChoiceWindow(screen, _("Error with Password"),
+		       _("Requested password contains non-ascii characters "
+                         "which are not allowed for use in password."),
 		       buttons = [ TEXT_OK_BUTTON ], width = 50)
             else:
                 break
