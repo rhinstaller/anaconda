@@ -707,7 +707,7 @@ if (display_mode == 'g'):
         for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
                    "fb.modes"):
             try:
-                if os.path.exists("/mnt/runtime/etc/%s" %(i,))
+                if os.path.exists("/mnt/runtime/etc/%s" %(i,)):
                     os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
             except:
                 pass

@@ -87,7 +87,7 @@ class InstSyslog:
             raise RuntimeError, "syslogd not running"
         try:
             os.kill (self.pid, 15)
-        except OSError, (num, msg:
+        except OSError, (num, msg):
             log("killing syslogd failed: %s %s" %(num, msg))
 	
         try:
