@@ -40,6 +40,7 @@ def dumpClass(instance, fd, level=0, parentkey=""):
 		    "id.hdList",		    
 		    "id.keyboard.modelDict",
 		    "intf.icw.buff",
+		    "intf.icw.releaseNotesContents",
 		    "intf.icw.stockButtons",
 		    "id.instLanguage.nativeLangNames",
 		    "id.instLanguage.runtimeLangs",
