@@ -1420,7 +1420,7 @@ int main(int argc, char ** argv) {
             else if (mi->major == DRIVER_SCSI)
                 where = "scsi";
             else
-                continue;
+                where = "other";
             
             *argptr++ = "--module";
             *argptr = alloca(80);
