@@ -58,7 +58,7 @@ install:
 
 	cp -a reconfig.init $(DESTDIR)/etc/rc.d/init.d/reconfig
 	install -m 755 anaconda $(DESTDIR)/usr/sbin/anaconda
-	install -m 755 anaconda-stub $(DESTDIR)/usr/sbin/anaconda-stub
+	install -m 755 anaconda-stub $(DESTDIR)/$(RUNTIMEDIR)
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
