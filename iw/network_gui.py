@@ -195,7 +195,8 @@ class NetworkWindow(InstallWindow):
 	onboot = model.get_value(iter, 0)
 
 	# create dialog box
-        editWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
+        editWin = gtk.Dialog(_("Edit Interface %s") % (dev,),
+			     flags=gtk.DIALOG_MODAL)
         gui.addFrame(editWin)
         editWin.set_modal(gtk.TRUE)
 #        editWin.set_size_request(350, 200)

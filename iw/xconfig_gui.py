@@ -30,8 +30,6 @@ from rhpl.videocard import Videocard_blacklist
 
 from desktop import ENABLE_DESKTOP_CHOICE
 
-from gui import setupTreeViewFixupIdleHandler
-
 ddc_monitor_string = _("DDC Probed Monitor")
 unprobed_monitor_string = _("Unprobed Monitor")
 
@@ -718,9 +716,6 @@ class MonitorWindow (InstallWindow):
         
         box.pack_start (synctable, gtk.FALSE, gtk.FALSE)
 
-	# ok hack to see if we can get scroll_to_cell to work
-	setupTreeViewFixupIdleHandler(self.monitorview, self.monitorstore)
-
         return box
 
 class XConfigWindow (InstallWindow):
@@ -1062,9 +1057,5 @@ class XConfigWindow (InstallWindow):
 	self.currentMem = self.videocard.primaryCard(useProbed=0).getVideoRam()
 	self.probedMem = self.videocard.primaryCard(useProbed=1).getVideoRam()
 	self.setCurrent(self.currentCard, self.currentMem)
-
-	# ok hack to see if we can get scroll_to_cell to work
-	setupTreeViewFixupIdleHandler(self.cardview, self.cardstore)
-
 
         return self.topbox

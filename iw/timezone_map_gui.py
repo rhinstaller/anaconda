@@ -20,8 +20,6 @@ import re
 import math
 from rhpl.translate import _
 
-from gui import setupTreeViewFixupIdleHandler
-
 class Enum:
     def __init__(self, *args):
         i = 0
@@ -118,9 +116,6 @@ class TimezoneMap(gtk.VBox):
         self.pack_start(sw, gtk.TRUE, gtk.TRUE)
 
         self.setCurrent(self.currentEntry)
-
-	# ok hack to see if we can get scroll_to_cell to work
-	setupTreeViewFixupIdleHandler(self.listView, self.listStore)
 
     def getCurrent(self):
         return self.currentEntry
