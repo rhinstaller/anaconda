@@ -155,12 +155,13 @@ class Kickstart(InstallClass):
 	# nodns is only used by the loader
 	(args, extra) = isys.getopt(args, '',
 		[ 'bootproto=', 'ip=', 'netmask=', 'gateway=', 'nameserver=',
-		  'nodns'])
+		  'nodns', 'hostname='])
 	bootProto = "dhcp"
 	ip = None
 	netmask = ""
 	gateway = ""
 	nameserver = ""
+	hostname = ""
 	for n in args:
 	    (str, arg) = n
 	    if str == "--bootproto":
@@ -173,7 +174,11 @@ class Kickstart(InstallClass):
 		gateway = arg
 	    elif str == "--nameserver":
 		nameserver = arg
+	    elif str == "--hostname":
+		hostname = arg
 	self.setNetwork(bootProto, ip, netmask, gateway, nameserver)
+	if hostname != "":
+	    self.setHostname(hostname)
 
     def doLang(self, args):
         self.setLanguage(args[0])
