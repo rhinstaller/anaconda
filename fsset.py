@@ -659,6 +659,7 @@ class RAIDDevice(Device):
             return [ '-R', 'stride=%d' % ((self.numDisks - 1) * 16) ]
         elif self.level == 0:
             return [ '-R', 'stride=%d' % (self.numDisks * 16) ]
+        return []
 
     def raidTab (self, devPrefix='/dev'):
         entry = ""
