@@ -519,7 +519,7 @@ class ComponentSet:
 	    if (comp == None):
 		(default, l) = split(l, None, 1)
 		hidden = 0
-		if (l[0:6] == "--hide"):
+                if (l.startswith('--hide')):
 		    hidden = 1
 		    (foo, l) = split(l, None, 1)
                 (l, trash) = split(l, '{', 1)
