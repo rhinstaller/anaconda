@@ -317,6 +317,30 @@ class Fstab:
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
             if fsystem == "swap":
 		continue
+	    elif fsystem == "vfat" and mntpoint == "/":
+		# do a magical loopback mount -- whee!
+		print "trying loopback magic"
+		iutil.mkdirChain("/mnt/loophost")
+		isys.makeDevInode(device, '/tmp/' + device)
+		isys.mount('/tmp/' + device, "/mnt/loophost", fstype = "vfat")
+		os.remove( '/tmp/' + device);
+		
+		isys.makeDevInode("loop0", '/tmp/' + "loop0")
+		isys.ddfile("/mnt/loophost/something", 200)
+		isys.losetup("/tmp/loop0", "/mnt/loophost/something")
+
+		if self.serial:
+		    messageFile = "/tmp/mke2fs.log"
+		else:
+		    messageFile = "/dev/tty5"
+
+                iutil.execWithRedirect ("/usr/sbin/mke2fs", 
+					[ "mke2fs", "/tmp/loop0" ],
+                                        stdout = messageFile, 
+					stderr = messageFile, searchPath = 1)
+
+		isys.mount('/tmp/loop0', instPath)
+		os.remove('/tmp/loop0')
 	    elif fsystem == "ext2":
 		try:
 		    iutil.mkdirChain(instPath + mntpoint)
