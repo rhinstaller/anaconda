@@ -995,7 +995,8 @@ class KickstartBase(BaseInstallClass):
             elif str == "--end":
                 end = int(arg)
             elif str == "--badblocks":
-                badblocks = 1
+                # no longer support badblocks checking
+		log("WARNING: --badblocks specified but is no longer supported")
             elif str == "--recommended":
                 recommended = 1
 
