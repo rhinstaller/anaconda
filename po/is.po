@@ -6,67 +6,67 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 1.45\n"
-"POT-Creation-Date: 2000-01-18 14:58-0500\n"
-"PO-Revision-Date: 2000-01-20 14:26+0000\n"
+"POT-Creation-Date: 2000-01-20 18:40-0500\n"
+"PO-Revision-Date: 2000-01-25 16:40+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../fstab.py:204 ../fstab.py:359
+#: ../fstab.py:224 ../fstab.py:379
 msgid "Formatting"
 msgstr "Forsníð"
 
-#: ../fstab.py:205
+#: ../fstab.py:225
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
 msgstr "Forsníð diskminni á /dev/%s..."
 
-#: ../fstab.py:215 ../fstab.py:292 ../fstab.py:425
+#: ../fstab.py:235 ../fstab.py:312 ../fstab.py:445
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
-#: ../loader/devices.c:183 ../loader/loader.c:467 ../loader/loader.c:477
-#: ../loader/loader.c:693 ../loader/loader.c:738 ../loader/loader.c:876
-#: ../loader/loader.c:881 ../loader/loader.c:1633 ../loader/loader.c:1679
-#: ../loader/loader.c:1750 ../loader/urls.c:70 ../loader/urls.c:79
+#: ../loader/devices.c:183 ../loader/loader.c:471 ../loader/loader.c:481
+#: ../loader/loader.c:696 ../loader/loader.c:743 ../loader/loader.c:881
+#: ../loader/loader.c:886 ../loader/loader.c:1638 ../loader/loader.c:1684
+#: ../loader/loader.c:1755 ../loader/urls.c:70 ../loader/urls.c:79
 #: ../loader/urls.c:86 ../loader/urls.c:223 ../loader/urls.c:228
-#: ../text.py:275 ../text.py:758 ../todo.py:335 ../todo.py:841 ../todo.py:872
-#: ../todo.py:1241
+#: ../text.py:280 ../text.py:763 ../todo.py:335 ../todo.py:852 ../todo.py:883
+#: ../todo.py:1252
 msgid "Error"
 msgstr "Villa"
 
-#: ../fstab.py:215
+#: ../fstab.py:235
 msgid "Error creating swap on device "
 msgstr "Villa við frumstillingu diskminnis "
 
-#: ../fstab.py:293
+#: ../fstab.py:313
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr "Villa við aftengingu %s: %s"
 
-#: ../fstab.py:315 ../todo.py:482
+#: ../fstab.py:335 ../todo.py:492
 msgid "Creating"
 msgstr "Bý til"
 
-#: ../fstab.py:315
+#: ../fstab.py:335
 msgid "Creating RAID devices..."
 msgstr "Bý til RAID tæki..."
 
-#: ../fstab.py:360
+#: ../fstab.py:380
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Forsníð %s skráakerfið..."
 
-#: ../fstab.py:382
+#: ../fstab.py:402
 msgid "Loopback"
 msgstr "'Loopback'"
 
-#: ../fstab.py:383
+#: ../fstab.py:403
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "Bý til 'loopback' skráakerfi á tæki /dev/%s..."
 
-#: ../fstab.py:426
+#: ../fstab.py:446
 #, c-format
 msgid "Error mounting %s: %s"
 msgstr "Villa við tengingu %s: %s"
@@ -78,15 +78,15 @@ msgstr "Næsta"
 #: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292
 #: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
 #: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:536
-#: ../loader/loader.c:251 ../loader/loader.c:599 ../loader/loader.c:635
-#: ../loader/loader.c:738 ../loader/loader.c:1110 ../loader/net.c:162
+#: ../loader/loader.c:255 ../loader/loader.c:603 ../loader/loader.c:639
+#: ../loader/loader.c:743 ../loader/loader.c:1115 ../loader/net.c:162
 #: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:54
 #: ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143
-#: ../text.py:173 ../text.py:176 ../text.py:222 ../text.py:278 ../text.py:292
-#: ../text.py:294 ../text.py:313 ../text.py:315 ../text.py:337 ../text.py:339
-#: ../text.py:446 ../text.py:497 ../text.py:499 ../text.py:512 ../text.py:530
-#: ../text.py:543 ../text.py:580 ../text.py:582 ../text.py:608 ../text.py:611
-#: ../text.py:620 ../text.py:678 ../text.py:679 ../textw/constants.py:10
+#: ../text.py:173 ../text.py:176 ../text.py:229 ../text.py:283 ../text.py:297
+#: ../text.py:299 ../text.py:318 ../text.py:320 ../text.py:342 ../text.py:344
+#: ../text.py:451 ../text.py:502 ../text.py:504 ../text.py:517 ../text.py:535
+#: ../text.py:548 ../text.py:585 ../text.py:587 ../text.py:613 ../text.py:616
+#: ../text.py:625 ../text.py:683 ../text.py:684 ../textw/constants.py:10
 #: ../textw/lilo.py:31 ../textw/lilo.py:86 ../textw/lilo.py:93
 #: ../textw/lilo.py:168 ../textw/packages.py:20 ../textw/packages.py:85
 #: ../textw/packages.py:136 ../textw/packages.py:145
@@ -114,8 +114,8 @@ msgstr "Ljúka"
 msgid "Online Help"
 msgstr "Innbyggð hjálp"
 
-#: ../gui.py:278 ../iw/language.py:10 ../text.py:59 ../text.py:998
-#: ../text.py:1027
+#: ../gui.py:278 ../iw/language.py:10 ../text.py:59 ../text.py:1003
+#: ../text.py:1032
 msgid "Language Selection"
 msgstr "Veljið tungumál"
 
@@ -172,7 +172,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1447 ../libfdisk/newtfsedit.c:1541
 #: ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86
 #: ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100
-#: ../text.py:620 ../textw/constants.py:10 ../textw/lilo.py:104
+#: ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:104
 #: ../textw/lilo.py:117 ../textw/lilo.py:167 ../textw/silo.py:124
 #: ../textw/silo.py:137 ../textw/silo.py:185
 msgid "Ok"
@@ -211,18 +211,18 @@ msgstr "Við hvaða tæki er músin tengd? %s %i"
 #: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167
 #: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader/lang.c:269 ../loader/lang.c:536 ../loader/loader.c:251
-#: ../loader/loader.c:467 ../loader/loader.c:477 ../loader/loader.c:635
-#: ../loader/loader.c:693 ../loader/loader.c:738 ../loader/loader.c:876
-#: ../loader/loader.c:881 ../loader/loader.c:966 ../loader/loader.c:1110
-#: ../loader/loader.c:1633 ../loader/loader.c:1679 ../loader/loader.c:1742
-#: ../loader/loader.c:1750 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:557 ../loader/net.c:588 ../loader/urls.c:146
+#: ../loader/lang.c:269 ../loader/lang.c:536 ../loader/loader.c:255
+#: ../loader/loader.c:471 ../loader/loader.c:481 ../loader/loader.c:639
+#: ../loader/loader.c:696 ../loader/loader.c:743 ../loader/loader.c:881
+#: ../loader/loader.c:886 ../loader/loader.c:971 ../loader/loader.c:1115
+#: ../loader/loader.c:1638 ../loader/loader.c:1684 ../loader/loader.c:1747
+#: ../loader/loader.c:1755 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:558 ../loader/net.c:589 ../loader/urls.c:146
 #: ../loader/urls.c:223 ../loader/urls.c:228 ../loader/urls.c:361
-#: ../text.py:120 ../text.py:173 ../text.py:222 ../text.py:292 ../text.py:337
-#: ../text.py:354 ../text.py:446 ../text.py:466 ../text.py:497 ../text.py:580
-#: ../text.py:608 ../text.py:678 ../text.py:703 ../text.py:717 ../text.py:737
-#: ../text.py:750 ../text.py:762 ../text.py:957 ../text.py:961 ../text.py:1158
+#: ../text.py:120 ../text.py:173 ../text.py:229 ../text.py:297 ../text.py:342
+#: ../text.py:359 ../text.py:451 ../text.py:471 ../text.py:502 ../text.py:585
+#: ../text.py:613 ../text.py:683 ../text.py:708 ../text.py:722 ../text.py:742
+#: ../text.py:755 ../text.py:767 ../text.py:962 ../text.py:966 ../text.py:1163
 #: ../textw/lilo.py:30 ../textw/lilo.py:86 ../textw/packages.py:20
 #: ../textw/packages.py:85 ../textw/packages.py:136
 #: ../textw/partitioning.py:211 ../textw/partitioning.py:260
@@ -247,7 +247,7 @@ msgstr "Herma eftir þrem hnöppum?"
 msgid "Mouse Selection"
 msgstr "Stillingar músar"
 
-#: ../text.py:171 ../text.py:1000 ../text.py:1029
+#: ../text.py:171 ../text.py:1005 ../text.py:1034
 msgid "Keyboard Selection"
 msgstr "Stillingar lyklaborðs"
 
@@ -255,51 +255,51 @@ msgstr "Stillingar lyklaborðs"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Hvernig lyklaborð er tengt þessari vél?"
 
-#: ../text.py:215
+#: ../text.py:222
 msgid "Install GNOME Workstation"
 msgstr "Setja upp GNOME vinnustöð"
 
-#: ../text.py:216
+#: ../text.py:223
 msgid "Install KDE Workstation"
 msgstr "Setja upp KDE vinnustöð"
 
-#: ../text.py:217
+#: ../text.py:224
 msgid "Install Server System"
 msgstr "Setja upp miðlara(þjón)"
 
-#: ../text.py:218
+#: ../text.py:225
 msgid "Install Custom System"
 msgstr "Setja upp sérsniðið kerfi"
 
-#: ../text.py:219
+#: ../text.py:226
 msgid "Upgrade Existing Installation"
 msgstr "Uppfæra núverandi kerfi"
 
-#: ../text.py:220 ../text.py:1032
+#: ../text.py:227 ../text.py:1037
 msgid "Installation Type"
 msgstr "Tegund uppsetningar"
 
-#: ../text.py:221
+#: ../text.py:228
 msgid "What type of system would you like to install?"
 msgstr "Hverskonar kerfi viltu setja upp?"
 
-#: ../text.py:276
+#: ../text.py:281
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Þú ert ekki með neinar Linux disksneiðar. Það er ekki hægt að uppfæra!"
 
-#: ../text.py:289
+#: ../text.py:294
 msgid "System to Upgrade"
 msgstr "Kerfi sem á að uppfæra"
 
-#: ../text.py:290
+#: ../text.py:295
 msgid "What partition holds the root partition of your installation?"
 msgstr "Á hvaða disksneið er rót skráakerfis þíns?"
 
-#: ../text.py:305
+#: ../text.py:310
 msgid "Customize Packages to Upgrade"
 msgstr "Velja pakka sem skal uppfæra"
 
-#: ../text.py:306
+#: ../text.py:311
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -315,8 +315,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2369 ../libfdisk/newtfsedit.c:499
 #: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
-#: ../loader/loader.c:599 ../loader/net.c:711 ../text.py:313 ../text.py:512
-#: ../text.py:530 ../text.py:537 ../textw/partitioning.py:172
+#: ../loader/loader.c:603 ../loader/net.c:712 ../text.py:318 ../text.py:517
+#: ../text.py:535 ../text.py:542 ../textw/partitioning.py:172
 msgid "Yes"
 msgstr "Já"
 
@@ -326,16 +326,16 @@ msgstr "Já"
 #: ../libfdisk/gnomefsedit.c:2369 ../libfdisk/newtfsedit.c:499
 #: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
-#: ../loader/net.c:711 ../text.py:313 ../text.py:318 ../text.py:512
-#: ../text.py:530 ../text.py:540 ../textw/partitioning.py:172
+#: ../loader/net.c:712 ../text.py:318 ../text.py:323 ../text.py:517
+#: ../text.py:535 ../text.py:545 ../textw/partitioning.py:172
 msgid "No"
 msgstr "Nei"
 
-#: ../text.py:328 ../text.py:346
+#: ../text.py:333 ../text.py:351
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:329
+#: ../text.py:334
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -355,7 +355,7 @@ msgstr ""
 "Ef þú hefur keypt opinbera Red Hat Linux mundu þá að skrá eintakið þitt á "
 "vefsíðunni okkar á http://www.redhat.com."
 
-#: ../text.py:347
+#: ../text.py:352
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -375,49 +375,49 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:677 ../libfdisk/gnomefsedit.c:1646
 #: ../libfdisk/gnomefsedit.c:2154 ../libfdisk/newtfsedit.c:463
 #: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168
-#: ../loader/loader.c:1742 ../text.py:354 ../text.py:356 ../textw/lilo.py:104
+#: ../loader/loader.c:1747 ../text.py:359 ../text.py:361 ../textw/lilo.py:104
 #: ../textw/lilo.py:122 ../textw/silo.py:124 ../textw/silo.py:142
 #: ../textw/userauth.py:62
 msgid "Cancel"
 msgstr "Hætta við"
 
-#: ../text.py:418
+#: ../text.py:423
 msgid "Use bootp/dhcp"
 msgstr "Nota bootp/dhcp"
 
-#: ../loader/net.c:234 ../text.py:423
+#: ../loader/net.c:234 ../text.py:428
 msgid "IP address:"
 msgstr "IP vistfang:"
 
-#: ../loader/net.c:237 ../text.py:424
+#: ../loader/net.c:237 ../text.py:429
 msgid "Netmask:"
 msgstr "Netmöskvi:"
 
-#: ../loader/net.c:240 ../text.py:425
+#: ../loader/net.c:240 ../text.py:430
 msgid "Default gateway (IP):"
 msgstr "Sjálfgefin gátt (IP):"
 
-#: ../loader/net.c:243 ../text.py:426
+#: ../loader/net.c:243 ../text.py:431
 msgid "Primary nameserver:"
 msgstr "Aðalnafnaþjónn:"
 
-#: ../iw/network.py:11 ../text.py:448
+#: ../iw/network.py:11 ../text.py:453
 msgid "Network Configuration"
 msgstr "Stillingar nets"
 
-#: ../text.py:464
+#: ../text.py:469
 msgid "Invalid information"
 msgstr "Ógildar upplýsingar"
 
-#: ../text.py:465
+#: ../text.py:470
 msgid "You must enter valid IP information to continue"
 msgstr "Þú verður að gefa upp gildar IP stillingar"
 
-#: ../text.py:493
+#: ../text.py:498
 msgid "Hostname Configuration"
 msgstr "Stillingar vélarheitis"
 
-#: ../text.py:494
+#: ../text.py:499
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
@@ -425,11 +425,11 @@ msgstr ""
 "Vélarheiti er heiti vélarinnar á neti.  Ef tölvan þín er nettengd er heitinu "
 "úthlutað af netstjóra þínum."
 
-#: ../iw/network.py:210 ../loader/net.c:458 ../loader/net.c:630 ../text.py:497
+#: ../iw/network.py:210 ../loader/net.c:459 ../loader/net.c:631 ../text.py:502
 msgid "Hostname"
 msgstr "Vélarheiti"
 
-#: ../text.py:513
+#: ../text.py:518
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -449,7 +449,7 @@ msgstr ""
 "\n"
 "Viltu búa til ræsidiskling fyrir vélina þína?"
 
-#: ../text.py:532
+#: ../text.py:537
 msgid ""
 "\n"
 "On SMCC made Ultra machines floppy booting probably does not work\n"
@@ -459,39 +459,39 @@ msgstr ""
 "Á Ultra vélum frá SMCC er líklega ekki hægt að ræsa upp af disklingi\n"
 "\n"
 
-#: ../text.py:535 ../text.py:746
+#: ../text.py:540 ../text.py:751
 msgid "Bootdisk"
 msgstr "Ræsidisklingur"
 
-#: ../text.py:578
+#: ../text.py:583
 msgid "X probe results"
 msgstr "Útkoma X leitar"
 
-#: ../text.py:597 ../text.py:616
+#: ../text.py:602 ../text.py:621
 msgid "Unlisted Card"
 msgstr "Óþekkt kort"
 
-#: ../text.py:605
+#: ../text.py:610
 msgid "Video Card Selection"
 msgstr "Val skjákorts"
 
-#: ../text.py:606
+#: ../text.py:611
 msgid "Which video card do you have?"
 msgstr "Hvaða skjákort ertu með?"
 
-#: ../text.py:618
+#: ../text.py:623
 msgid "X Server Selection"
 msgstr "Val X þjóns"
 
-#: ../text.py:618
+#: ../text.py:623
 msgid "Choose a server"
 msgstr "Veldu þjón"
 
-#: ../text.py:674
+#: ../text.py:679
 msgid "Installation to begin"
 msgstr "Uppsetning að hefjast"
 
-#: ../iw/confirm.py:31 ../text.py:675
+#: ../iw/confirm.py:31 ../text.py:680
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -499,11 +499,11 @@ msgstr ""
 "Eftir að uppsetningunni lýkur verður til annáll sem heitir /tmp/install.log. "
 "Honum ættir þú að halda til haga."
 
-#: ../text.py:692 ../text.py:707 ../text.py:727
+#: ../text.py:697 ../text.py:712 ../text.py:732
 msgid "Complete"
 msgstr "Lokið"
 
-#: ../iw/congrats.py:32 ../text.py:693
+#: ../iw/congrats.py:32 ../text.py:698
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -525,7 +525,7 @@ msgstr ""
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
 "finna í viðeigandi kafla í Official Red Hat Linux User's Guide bókinni."
 
-#: ../text.py:708 ../text.py:728
+#: ../text.py:713 ../text.py:733
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -544,7 +544,7 @@ msgstr ""
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
 "finna í viðeigandi kafla í Official Red Hat Linux User's Guide bókinni."
 
-#: ../iw/bootdisk.py:50 ../text.py:747
+#: ../iw/bootdisk.py:50 ../text.py:752
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
@@ -552,12 +552,12 @@ msgstr ""
 "Settu tóman diskling í fyrsta disklingadrifið. Öllum gögnum á disklingnum "
 "verður eytt þegar ræsidisklingurinn er útbúinn."
 
-#: ../text.py:750 ../text.py:751 ../text.py:762 ../text.py:763
+#: ../text.py:755 ../text.py:756 ../text.py:767 ../text.py:768
 #: ../textw/lilo.py:30 ../textw/silo.py:25
 msgid "Skip"
 msgstr "Sleppa"
 
-#: ../iw/bootdisk.py:54 ../text.py:759
+#: ../iw/bootdisk.py:54 ../text.py:764
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
@@ -565,185 +565,185 @@ msgstr ""
 "Villa kom upp þegar reynt var að búa til ræsidisklinginn. Vinsamlegast "
 "gakktu úr skugga um að forsniðinn disklingur sé í fyrsta disklingadrifinu."
 
-#: ../text.py:821
+#: ../text.py:826
 msgid "Package Installation"
 msgstr "Uppsetning pakka"
 
-#: ../text.py:823
+#: ../text.py:828
 msgid "Name   : "
 msgstr "Heiti  : "
 
-#: ../text.py:824
+#: ../text.py:829
 msgid "Size   : "
 msgstr "Stærð  : "
 
-#: ../text.py:825
+#: ../text.py:830
 msgid "Summary: "
 msgstr "Lýsing : "
 
-#: ../text.py:851
+#: ../text.py:856
 msgid "    Packages"
 msgstr "    Pakkar"
 
-#: ../text.py:852
+#: ../text.py:857
 msgid "       Bytes"
 msgstr "       Bæti"
 
-#: ../text.py:853
+#: ../text.py:858
 msgid "        Time"
 msgstr "        Tími"
 
-#: ../text.py:855
+#: ../text.py:860
 msgid "Total    :"
 msgstr "Alls     :"
 
-#: ../text.py:862
+#: ../text.py:867
 msgid "Completed:   "
 msgstr "Lokið    :   "
 
-#: ../text.py:872
+#: ../text.py:877
 msgid "Remaining:  "
 msgstr "Eftir    :  "
 
-#: ../text.py:961 ../text.py:962
+#: ../text.py:966 ../text.py:967
 msgid "Debug"
 msgstr "Aflúsun"
 
-#: ../text.py:974
+#: ../text.py:979
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
-#: ../text.py:976
+#: ../text.py:981
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
 
-#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:996 ../text.py:1031
+#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1001 ../text.py:1036
 msgid "Welcome"
 msgstr "Velkomin(n)"
 
-#: ../text.py:1002 ../text.py:1070
+#: ../text.py:1007 ../text.py:1075
 msgid "Hostname Setup"
 msgstr "Stillingar vélarheitis"
 
-#: ../text.py:1004 ../text.py:1072
+#: ../text.py:1009 ../text.py:1077
 msgid "Network Setup"
 msgstr "Stillingar nets"
 
-#: ../text.py:1010 ../text.py:1078
+#: ../text.py:1015 ../text.py:1083
 msgid "Time Zone Setup"
 msgstr "Stillingar tímabeltis"
 
-#: ../text.py:1012 ../text.py:1080 ../textw/userauth.py:8
+#: ../text.py:1017 ../text.py:1085 ../textw/userauth.py:8
 msgid "Root Password"
 msgstr "Rótarlykilorð"
 
-#: ../text.py:1014 ../text.py:1082 ../textw/userauth.py:152
+#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:152
 msgid "User Account Setup"
 msgstr "Búa til notanda"
 
-#: ../text.py:1016 ../text.py:1084
+#: ../text.py:1021 ../text.py:1089
 msgid "Authentication"
 msgstr "Auðkenning"
 
-#: ../text.py:1022
+#: ../text.py:1027
 msgid "Configuration Complete"
 msgstr "Stillingum lokið"
 
-#: ../text.py:1040 ../textw/silo.py:28 ../textw/silo.py:89
+#: ../text.py:1045 ../textw/silo.py:28 ../textw/silo.py:89
 #: ../textw/silo.py:193
 msgid "SILO Configuration"
 msgstr "Stillingar SILO"
 
-#: ../text.py:1046 ../textw/lilo.py:33 ../textw/lilo.py:83
+#: ../text.py:1051 ../textw/lilo.py:33 ../textw/lilo.py:83
 #: ../textw/lilo.py:176
 msgid "LILO Configuration"
 msgstr "Stillingar LILO"
 
 #: ../iw/lilo.py:104 ../iw/lilo.py:223 ../iw/silo.py:125 ../iw/silo.py:269
-#: ../text.py:1050 ../text.py:1056
+#: ../text.py:1055 ../text.py:1061
 msgid "Partition"
 msgstr "Disksneið"
 
-#: ../text.py:1052
+#: ../text.py:1057
 msgid "Manually Partition"
 msgstr "Sneiða handvirkt"
 
-#: ../text.py:1054
+#: ../text.py:1059
 msgid "Automatic Partition"
 msgstr "Sjálfvirk disksneiðing"
 
-#: ../text.py:1058 ../textw/partitioning.py:252
+#: ../text.py:1063 ../textw/partitioning.py:252
 msgid "Root Filesystem Size"
 msgstr "Stærð rótarskráarkerfisins"
 
-#: ../text.py:1060
+#: ../text.py:1065
 msgid "Swap"
 msgstr "Diskminni"
 
-#: ../text.py:1062
+#: ../text.py:1067
 msgid "Filesystem Formatting"
 msgstr "Forsníða skráakerfi"
 
-#: ../iw/mouse.py:55 ../text.py:1074 ../text.py:1076
+#: ../iw/mouse.py:55 ../text.py:1079 ../text.py:1081
 msgid "Mouse Configuration"
 msgstr "Stillingar músar"
 
-#: ../text.py:1086
+#: ../text.py:1091
 msgid "Package Groups"
 msgstr "Pakkahópar"
 
-#: ../text.py:1088 ../text.py:1116
+#: ../text.py:1093 ../text.py:1121
 msgid "Individual Packages"
 msgstr "Stakir pakkar"
 
-#: ../text.py:1090 ../textw/packages.py:114
+#: ../text.py:1095 ../textw/packages.py:114
 msgid "Package Dependencies"
 msgstr "Pakkaskilyrði"
 
-#: ../iw/xconfig.py:249 ../text.py:1092 ../text.py:1100
+#: ../iw/xconfig.py:249 ../text.py:1097 ../text.py:1105
 msgid "X Configuration"
 msgstr "Stillingar X"
 
-#: ../text.py:1094 ../text.py:1099 ../text.py:1117 ../text.py:1120
+#: ../text.py:1099 ../text.py:1104 ../text.py:1122 ../text.py:1125
 msgid "Boot Disk"
 msgstr "Ræsidisklingur"
 
-#: ../text.py:1096
+#: ../text.py:1101
 msgid "Installation Begins"
 msgstr "Byrjun uppsetningar"
 
-#: ../text.py:1098
+#: ../text.py:1103
 msgid "Install System"
 msgstr "Setja upp kerfið"
 
-#: ../text.py:1102
+#: ../text.py:1107
 msgid "Installation Complete"
 msgstr "Uppsetningu lokið"
 
-#: ../text.py:1107
+#: ../text.py:1112
 msgid "Examine System"
 msgstr "Skoða kerfið"
 
-#: ../text.py:1114
+#: ../text.py:1119
 msgid "Customize Upgrade"
 msgstr "Sérsníða uppfærslu"
 
-#: ../text.py:1119
+#: ../text.py:1124
 msgid "Upgrade System"
 msgstr "Uppfæra kerfi"
 
-#: ../text.py:1121
+#: ../text.py:1126
 msgid "Upgrade Complete"
 msgstr "Uppfærslu lokið"
 
-#: ../text.py:1155
+#: ../text.py:1160
 msgid "Cancelled"
 msgstr "Hætt við"
 
-#: ../text.py:1156
+#: ../text.py:1161
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Þú kemst ekki í fyrra þrep uppsetningar héðan. Þú þarft að byrja upp á nýtt."
@@ -753,74 +753,74 @@ msgstr ""
 msgid "Error copying file: %s"
 msgstr "Villa við afritun skráar: %s"
 
-#: ../todo.py:482
+#: ../todo.py:492
 msgid "Creating boot disk..."
 msgstr "Bý til ræsidiskling..."
 
-#: ../todo.py:635
+#: ../todo.py:643
 msgid "Reading"
 msgstr "Les"
 
-#: ../todo.py:636
+#: ../todo.py:644
 msgid "Reading package information..."
 msgstr "Les upplýsingar um pakkana..."
 
-#: ../todo.py:811 ../todo.py:824
+#: ../todo.py:822 ../todo.py:835
 msgid "no suggestion"
 msgstr "engin tillaga"
 
-#: ../todo.py:830
+#: ../todo.py:841
 msgid "Searching"
 msgstr "Leita"
 
-#: ../todo.py:831
+#: ../todo.py:842
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Leita að Red Hat Linux uppsetningum..."
 
-#: ../todo.py:842 ../todo.py:873
+#: ../todo.py:853 ../todo.py:884
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "Villa við tengingu ext2 skráakerfis á %s: %s"
 
-#: ../todo.py:884
+#: ../todo.py:895
 msgid "Finding"
 msgstr "Leita"
 
-#: ../todo.py:885
+#: ../todo.py:896
 msgid "Finding packages to upgrade..."
 msgstr "Leita að pökkum sem þarf að uppfæra..."
 
-#: ../todo.py:1121
+#: ../todo.py:1132
 msgid "Processing"
 msgstr "Vinnsla"
 
-#: ../todo.py:1122
+#: ../todo.py:1133
 msgid "Preparing to install..."
 msgstr "Undirbý uppsetningu..."
 
-#: ../todo.py:1236
+#: ../todo.py:1247
 msgid "Rebuilding"
 msgstr "Endurbyggi"
 
-#: ../todo.py:1237
+#: ../todo.py:1248
 msgid "Rebuilding RPM database..."
 msgstr "Endurbyggi RPM gagnagrunninn..."
 
-#: ../todo.py:1242
+#: ../todo.py:1253
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Ekki tókst að endurbyggja RPM gagnagrunninn. Er nægjanlegt diskpláss?"
 
-#: ../todo.py:1292
+#: ../todo.py:1303
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Uppfæri %s.\n"
 
-#: ../todo.py:1294
+#: ../todo.py:1305
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Set inn %s.\n"
 
-#: ../todo.py:1315
+#: ../todo.py:1326
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -830,23 +830,23 @@ msgstr ""
 "valdir. Þú þarft meira pláss í eftirtöldum skráarkerfum:\n"
 "\n"
 
-#: ../todo.py:1318
+#: ../todo.py:1329
 msgid "Mount Point"
 msgstr "Tengipunktur"
 
-#: ../todo.py:1318
+#: ../todo.py:1329
 msgid "Space Needed"
 msgstr "Þarfnast diskrýmis"
 
-#: ../todo.py:1331
+#: ../todo.py:1342
 msgid "Disk Space"
 msgstr "Diskpláss"
 
-#: ../todo.py:1355
+#: ../todo.py:1366
 msgid "Post Install"
 msgstr "Eftir uppsetningu"
 
-#: ../todo.py:1356
+#: ../todo.py:1367
 msgid "Performing post install configuration..."
 msgstr "Breyta stillingum eftir uppsetningu..."
 
@@ -898,48 +898,48 @@ msgstr "Rótarlykilorðið er of stutt "
 msgid "Root password does not match."
 msgstr "Lykilorðin stemma ekki."
 
-#: ../iw/account.py:136
+#: ../iw/account.py:138
 msgid "Root Password: "
 msgstr "Rótarlykilorð: "
 
-#: ../iw/account.py:139
+#: ../iw/account.py:141
 msgid "Confirm: "
 msgstr "Staðfesta: "
 
-#: ../iw/account.py:195 ../iw/account.py:234
+#: ../iw/account.py:197 ../iw/account.py:236
 msgid "Account Name"
 msgstr "Notandanafn"
 
-#: ../iw/account.py:199 ../textw/userauth.py:79
+#: ../iw/account.py:201 ../textw/userauth.py:79
 msgid "Password"
 msgstr "Lykilorð"
 
-#: ../iw/account.py:203 ../textw/userauth.py:80
+#: ../iw/account.py:205 ../textw/userauth.py:80
 msgid "Password (confirm)"
 msgstr "Lykilorð (aftur)"
 
-#: ../iw/account.py:207 ../iw/account.py:234 ../textw/userauth.py:78
+#: ../iw/account.py:209 ../iw/account.py:236 ../textw/userauth.py:78
 #: ../textw/userauth.py:164
 msgid "Full Name"
 msgstr "Fullt nafn"
 
-#: ../iw/account.py:216 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:175
+#: ../iw/account.py:218 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:175
 msgid "Add"
 msgstr "Bæta við"
 
-#: ../iw/account.py:218 ../libfdisk/newtfsedit.c:1291
+#: ../iw/account.py:220 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:167 ../textw/lilo.py:189
 #: ../textw/partitioning.py:62 ../textw/silo.py:185 ../textw/silo.py:207
 #: ../textw/userauth.py:176
 msgid "Edit"
 msgstr "Breyta"
 
-#: ../iw/account.py:220 ../libfdisk/newtfsedit.c:1291
+#: ../iw/account.py:222 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:175
 msgid "Delete"
 msgstr "Eyða"
 
-#: ../iw/account.py:222
+#: ../iw/account.py:224
 msgid "New"
 msgstr "Nýr"
 
@@ -1195,11 +1195,11 @@ msgstr "Virkja við ræsingu"
 msgid "IP Address"
 msgstr "IP vistfang"
 
-#: ../iw/network.py:164 ../loader/net.c:628
+#: ../iw/network.py:164 ../loader/net.c:629
 msgid "Netmask"
 msgstr "Netmöskvi"
 
-#: ../iw/network.py:165 ../loader/loader.c:236
+#: ../iw/network.py:165 ../loader/loader.c:240
 msgid "Network"
 msgstr "Net"
 
@@ -1552,7 +1552,7 @@ msgstr ""
 "hana á öðrum af fyrstu tveim hörðu diskunum í vélinni svo það sé hægt að "
 "ræsa Linux með LILO."
 
-#: ../loader/loader.c:299 ../loader/loader.c:324 ../textw/partitioning.py:62
+#: ../loader/loader.c:303 ../loader/loader.c:328 ../textw/partitioning.py:62
 msgid "Done"
 msgstr "Búið"
 
@@ -2243,36 +2243,37 @@ msgstr ""
 "Þú verður að setja rótarsneiðina (/) á Linux (ext2) disksneið eða á RAID "
 "disksneið svo uppsetningin geti haldið áfram."
 
-#: ../libfdisk/gnomefsedit.c:3170
+#: ../libfdisk/gnomefsedit.c:3166
 msgid "Partitions"
 msgstr "Disksneiðar"
 
-#: ../libfdisk/gnomefsedit.c:3214
+#: ../libfdisk/gnomefsedit.c:3197
 msgid "_Add..."
 msgstr "_Bæta við..."
 
-#: ../libfdisk/gnomefsedit.c:3226
+#: ../libfdisk/gnomefsedit.c:3204
 msgid "_Edit..."
 msgstr "_Breyta..."
 
-#: ../libfdisk/gnomefsedit.c:3227
-msgid "_Delete"
-msgstr "_Eyða"
-
-#: ../libfdisk/gnomefsedit.c:3228
+#: ../libfdisk/gnomefsedit.c:3205
 msgid "_Reset"
 msgstr "_Endurstilla"
 
-#: ../libfdisk/gnomefsedit.c:3257
+#: ../libfdisk/gnomefsedit.c:3210
+msgid "_Delete"
+msgstr "_Eyða"
+
+#. try having make raid device button available in read-only mode too
+#: ../libfdisk/gnomefsedit.c:3223
 msgid "_Make RAID Device"
 msgstr "_Búa til RAID tæki"
 
 #
-#: ../libfdisk/gnomefsedit.c:3266
+#: ../libfdisk/gnomefsedit.c:3233
 msgid "Auto Partition"
 msgstr "Sneiða diskinn sjálfvirkt"
 
-#: ../libfdisk/gnomefsedit.c:3279
+#: ../libfdisk/gnomefsedit.c:3242
 msgid "Drive Summary"
 msgstr "Yfirlit yfir drif"
 
@@ -2367,8 +2368,8 @@ msgstr ""
 msgid "Module Parameters"
 msgstr "Viðföng kjarnarekla"
 
-#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:249
-#: ../loader/loader.c:308 ../loader/loader.c:324 ../loader/loader.c:1742
+#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:253
+#: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1747
 msgid "Devices"
 msgstr "Tæki"
 
@@ -2377,7 +2378,7 @@ msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr ""
 "Settu rekladisklinginn í drifið og veldu \"Í lagi\" til að halda áfram."
 
-#: ../loader/devices.c:179 ../loader/loader.c:1751
+#: ../loader/devices.c:179 ../loader/loader.c:1756
 msgid "Failed to mount floppy disk."
 msgstr "Gat ekki tengt disklinginn."
 
@@ -2458,23 +2459,23 @@ msgid ""
 msgstr ""
 "  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
 
-#: ../loader/loader.c:236
+#: ../loader/loader.c:240
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:250
+#: ../loader/loader.c:254
 msgid "What kind of device would you like to add"
 msgstr "Hverskonar tæki viltu bæta við"
 
-#: ../loader/loader.c:297
+#: ../loader/loader.c:301
 msgid "I have found the following devices in your system:"
 msgstr "Eftirfarandi tæki hafa fundist í vélinni þinni:"
 
-#: ../loader/loader.c:299 ../loader/loader.c:324
+#: ../loader/loader.c:303 ../loader/loader.c:328
 msgid "Add Device"
 msgstr "Bæta við tæki"
 
-#: ../loader/loader.c:325
+#: ../loader/loader.c:329
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -2482,23 +2483,23 @@ msgstr ""
 "Það eru engir sérstakir tækjareklar í notkun fyrir vélina þína. Viltu lesa "
 "einhverja inn núna?"
 
-#: ../loader/loader.c:409 ../loader/loader.c:411
+#: ../loader/loader.c:413 ../loader/loader.c:415
 msgid "Loading"
 msgstr "Les inn"
 
-#: ../loader/loader.c:463
+#: ../loader/loader.c:467
 msgid "Loading second stage ramdisk..."
 msgstr "Les inn auka RAM-disklinginn..."
 
-#: ../loader/loader.c:467
+#: ../loader/loader.c:471
 msgid "Error loading ramdisk."
 msgstr "Villa við lestur RAM-disklings."
 
-#: ../loader/loader.c:599
+#: ../loader/loader.c:603
 msgid "Hard Drives"
 msgstr "Harðir diskar"
 
-#: ../loader/loader.c:600
+#: ../loader/loader.c:604
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -2506,7 +2507,7 @@ msgstr ""
 "Þú virðist ekki vera með neina harða diska í vélinni! Viltu stilla önnur "
 "tæki?"
 
-#: ../loader/loader.c:613
+#: ../loader/loader.c:617
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
@@ -2516,20 +2517,20 @@ msgstr ""
 "RedHat/base möppurnar ? Ef þú sérð ekki harða diskinn sem þú ert að nota í "
 "listanum ýttu þá á F2 til að bæta við tækjum."
 
-#: ../loader/loader.c:627
+#: ../loader/loader.c:631
 msgid "Directory holding Red Hat:"
 msgstr "Mappa sem inniheldur Red Hat:"
 
-#: ../loader/loader.c:647
+#: ../loader/loader.c:651
 msgid "Select Partition"
 msgstr "Veldu disksneið"
 
-#: ../loader/loader.c:694
+#: ../loader/loader.c:697
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Tæki %s virðist ekki innihalda Red Hat dreifingu."
 
-#: ../loader/loader.c:739
+#: ../loader/loader.c:744
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -2538,48 +2539,48 @@ msgstr ""
 "Vinsamlegast settu Red Hat geisladiskinn í viðeigandi drif og veldu \"Í "
 "lagi\" til að reyna aftur."
 
-#: ../loader/loader.c:877
+#: ../loader/loader.c:882
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Þetta skráakerfi virðist ekki innihalda Red Hat uppsetningartré."
 
-#: ../loader/loader.c:882
+#: ../loader/loader.c:887
 msgid "I could not mount that directory from the server"
 msgstr "Ekki tókst að tengja þetta skráakerfi frá þjóninum"
 
-#: ../loader/loader.c:966
+#: ../loader/loader.c:971
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader/loader.c:967
+#: ../loader/loader.c:972
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Get ekki sótt RAM-disk seinna þreps"
 
-#: ../loader/loader.c:1102
+#: ../loader/loader.c:1107
 msgid "Rescue Method"
 msgstr "Gerð neyðardisklings"
 
-#: ../loader/loader.c:1103
+#: ../loader/loader.c:1108
 msgid "Installation Method"
 msgstr "Tegund uppsetningar"
 
-#: ../loader/loader.c:1105
+#: ../loader/loader.c:1110
 msgid "What type of media contains the rescue image?"
 msgstr "Á hverskonar miðli er neyðardisklingurinn?"
 
-#: ../loader/loader.c:1107
+#: ../loader/loader.c:1112
 msgid "What type of media contains the packages to be installed?"
 msgstr "Hverskonar kerfi viltu setja upp?"
 
-#: ../loader/loader.c:1634
+#: ../loader/loader.c:1639
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Gat ekki fundið ks.cfg á ræsidisklingnum."
 
-#: ../loader/loader.c:1680
+#: ../loader/loader.c:1685
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Gat ekki lesið möppuna %s: %s"
 
-#: ../loader/loader.c:1743
+#: ../loader/loader.c:1748
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
 "Settu uppfærsludisklinginn í drifið og veldu \"Í lagi\" til að halda áfram."
@@ -2587,19 +2588,19 @@ msgstr ""
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
-#: ../loader/loader.c:1756
+#: ../loader/loader.c:1761
 msgid "Updates"
 msgstr "Uppfærslur"
 
-#: ../loader/loader.c:1756
+#: ../loader/loader.c:1761
 msgid "Reading anaconda updates..."
 msgstr "Les inn uppfærslur fyrir anaconda..."
 
-#: ../loader/loader.c:1909
+#: ../loader/loader.c:1914
 msgid "PC Card"
 msgstr "PC kort"
 
-#: ../loader/loader.c:1909
+#: ../loader/loader.c:1914
 msgid "Initializing PC Card Devices..."
 msgstr "Frumstilli tækin í PC kortum..."
 
@@ -2653,57 +2654,57 @@ msgstr "Upplýsingar vantar"
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Þú verður að gefa upp fullgilt IP vistfang og netmöskva."
 
-#: ../loader/net.c:338 ../loader/net.c:571
+#: ../loader/net.c:338 ../loader/net.c:572
 msgid "Dynamic IP"
 msgstr "Lausbundið IP"
 
-#: ../loader/net.c:339 ../loader/net.c:572
+#: ../loader/net.c:339 ../loader/net.c:573
 msgid "Sending request for IP information..."
 msgstr "Sendi beiðni um IP stillingar..."
 
-#: ../loader/net.c:459
+#: ../loader/net.c:460
 msgid "Determining host name and domain..."
 msgstr "Reyni að ákvarða vélarheiti og netlén..."
 
-#: ../loader/net.c:557 ../loader/net.c:588
+#: ../loader/net.c:558 ../loader/net.c:589
 msgid "kickstart"
 msgstr "hraðuppsetning"
 
-#: ../loader/net.c:558
+#: ../loader/net.c:559
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "óleyfilegt viðfang við netskipun hraðuppsetningar %s: %s"
 
-#: ../loader/net.c:589
+#: ../loader/net.c:590
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Óleyfileg ''bootproto' %s í netskipun hraðuppsetningar"
 
-#: ../loader/net.c:620
+#: ../loader/net.c:621
 msgid "Boot protocol to use"
 msgstr "Ræsimáti"
 
-#: ../loader/net.c:622
+#: ../loader/net.c:623
 msgid "Network gateway"
 msgstr "Gátt nets"
 
-#: ../loader/net.c:624
+#: ../loader/net.c:625
 msgid "IP address"
 msgstr "IP vistfang"
 
-#: ../loader/net.c:626
+#: ../loader/net.c:627
 msgid "Nameserver"
 msgstr "Nafnaþjónn"
 
-#: ../loader/net.c:633
+#: ../loader/net.c:634
 msgid "Domain name"
 msgstr "Lén"
 
-#: ../loader/net.c:636
+#: ../loader/net.c:637
 msgid "Network device"
 msgstr "Netkort"
 
-#: ../loader/net.c:708
+#: ../loader/net.c:709
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
@@ -2711,16 +2712,16 @@ msgstr ""
 "  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
 
 # c-format
-#: ../loader/net.c:709
+#: ../loader/net.c:710
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
-#: ../loader/net.c:711
+#: ../loader/net.c:712
 msgid "Network configuration"
 msgstr "Stillingar nets"
 
-#: ../loader/net.c:712
+#: ../loader/net.c:713
 msgid "Would you like to set up networking?"
 msgstr "Viltu setja upp net?"
 
@@ -2814,7 +2815,7 @@ msgid ""
 "proxy server to use."
 msgstr ""
 "Ef þú ert ekki að nota nafnlaust FTP sláðu þá inn notandaheiti og lykilorð "
-"að neðan. If þú vilt nota FTP sel, sláðu þá inn nafnið á FTP selinu."
+"að neðan. Ef þú vilt nota FTP sel sláðu þá inn nafnið á FTP selinu."
 
 #: ../loader/urls.c:313
 msgid ""
@@ -2828,7 +2829,7 @@ msgstr "Notandanafn:"
 
 #: ../loader/urls.c:342
 msgid "FTP Proxy:"
-msgstr "FTP Sel:"
+msgstr "FTP sel:"
 
 #: ../loader/urls.c:343
 msgid "HTTP Proxy:"
@@ -2845,9 +2846,3 @@ msgstr "Gátt HTTP sels:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Les inn SCSI rekil"
-
-#~ msgid "Variant"
-#~ msgstr "Afbrigði"
-
-#~ msgid "Autoprobe results:"
-#~ msgstr "Niðurstaða leitar:"
