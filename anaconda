@@ -9,7 +9,7 @@ _ = gettext.gettext
 
 (args, extra) = getopt.getopt(sys.argv[1:], 'p:GTtdr:f', 
           [ 'gui', 'text', 'test', 'debug', 'rootpath=', 
-	    'testpath=', 'mountfs' ])
+	    'testpath=', 'mountfs', 'traceonly' ])
 
 # remove the arguments - gnome_init doesn't understand them
 for arg in sys.argv[1:]:
@@ -23,6 +23,7 @@ rootPath = '/mnt/sysimage'
 localInstall = 0
 forceMount = 0
 mode = 'g'
+traceOnly = 0
 
 for n in args:
     (str, arg) = n
@@ -41,6 +42,8 @@ for n in args:
 	imagepath = arg
     elif (str == '--mountfs'):
 	forceMount = 1
+    elif (str == '--traceonly'):
+	forceMount = 1
 
 if (debug):
     import pdb
@@ -51,7 +54,6 @@ if (not test and not localInstall and os.getpid() > 50):
     sys.exit(1)
 
 if (os.path.exists('rpmmodule')):
-    sys.path.append('balkan')
     sys.path.append('rpmmodule')
     sys.path.append('isys')
     sys.path.append('libfdisk')
@@ -216,6 +218,9 @@ if test:
     setupFilesystems = 0
 if forceMount:
     setupFilesystems = 1
+
+if traceonly:
+    sys.exit(0)
 
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
