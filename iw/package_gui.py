@@ -512,71 +512,61 @@ class PackageSelectionWindow (InstallWindow):
         sw = gtk.ScrolledWindow ()
         sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
-        boxcol1 = gtk.VBox (gtk.FALSE, 2)
-        boxcol2 = gtk.VBox (gtk.FALSE, 2)
+        box = gtk.VBox (gtk.FALSE, 10)
+	box.set_border_width(5)
 
         self.checkButtons = []
-	compsorder = orderPackageGroups(self.comps)
-	if len(compsorder) != len(self.comps):
-	    raise RuntimeError, ("len(Ordered comps) != len(original)")
+	(parlist, pardict) = orderPackageGroups(self.comps)
 
-	numvis = 0
-	for comp in compsorder:
-            if not comp.hidden:
-		numvis = numvis + 1
+	for par in parlist:
+	    vbox = gtk.VBox (gtk.FALSE, 2)
+	    box.pack_start(vbox, gtk.FALSE, gtk.FALSE)
+	    
+	    lbl = gtk.Label("")
+	    lbl.set_markup("<big><b>%s</b></big>" % (par,))
+	    lbl.set_alignment(0.0, 0.0)
+	    vbox.pack_start(lbl)
 
-#	grpTooltips = gtk.Tooltips()
-#	grpTooltips.enable()
-	idx = 0
-        for comp in compsorder:
-            if not comp.hidden:
-                pixname = string.replace (comp.name, ' ', '-')
-                pixname = string.replace (pixname, '/', '-')
-                pixname = string.replace (pixname, '.', '-')
-                pixname = string.replace (pixname, '(', '-')
-                pixname = string.replace (pixname, ')', '-')
-                pixname = string.lower (pixname) + ".png"
-                checkButton = None
-                pix = self.ics.readPixmap (pixname)
-                if pix and 0:
-                    hbox = gtk.HBox (gtk.FALSE, 5)
-                    hbox.pack_start (pix, gtk.FALSE, gtk.FALSE, 0)
-                    label = gtk.Label (_(comp.name))
-                    label.set_alignment (0.0, 0.5)
-                    hbox.pack_start (label, gtk.TRUE, gtk.TRUE, 0)
-                    checkButton = gtk.CheckButton ()
-                    checkButton.add (hbox)
-                else:
-                    checkButton = gtk.CheckButton (comp.name)
+	    for comp in pardict[par]:
+		if not comp.hidden:
+		    pixname = string.replace (comp.name, ' ', '-')
+		    pixname = string.replace (pixname, '/', '-')
+		    pixname = string.replace (pixname, '.', '-')
+		    pixname = string.replace (pixname, '(', '-')
+		    pixname = string.replace (pixname, ')', '-')
+		    pixname = string.lower (pixname) + ".png"
+		    checkButton = None
+		    pix = self.ics.readPixmap (pixname)
+		    if pix and 0:
+			hbox = gtk.HBox (gtk.FALSE, 5)
+			hbox.pack_start (pix, gtk.FALSE, gtk.FALSE, 0)
+			label = gtk.Label (_(comp.name))
+			label.set_alignment (0.0, 0.5)
+			hbox.pack_start (label, gtk.TRUE, gtk.TRUE, 0)
+			checkButton = gtk.CheckButton ()
+			checkButton.add (hbox)
+		    else:
+			checkButton = gtk.CheckButton (comp.name)
 
-                checkButton.set_active (comp.isSelected(justManual = 1))
-                checkButton.connect('toggled', self.componentToggled, comp)
-                self.checkButtons.append ((checkButton, comp))
+		    checkButton.set_active (comp.isSelected(justManual = 1))
+		    checkButton.connect('toggled', self.componentToggled, comp)
+		    self.checkButtons.append ((checkButton, comp))
 
-		if numvis <= 30:
-		    boxcol1.pack_start (checkButton)
-		elif idx < numvis/2:
-		    boxcol1.pack_start (checkButton)
-		else:
-		    boxcol2.pack_start (checkButton)
-		idx = idx + 1
+		    tmphbox = gtk.HBox(gtk.FALSE)
+		    crackhbox = gtk.HBox(gtk.FALSE)
+		    crackhbox.set_size_request(30, -1)
+		    tmphbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
+		    tmphbox.pack_start(checkButton, gtk.TRUE, gtk.TRUE)
+		    vbox.pack_start (tmphbox)
 
-#	for cb in self.checkButtons:
-#	    grpTooltips.set_tip(cb[0], cb[1].name, "")
-
-	tmpbox = gtk.HBox(gtk.FALSE, 0)
-	tmpbox.pack_start(boxcol1)
-	if numvis > 30:
-	    tmpbox.pack_start(boxcol2)
-	
         wrapper = gtk.VBox (gtk.FALSE, 0)
-        wrapper.pack_start (tmpbox, gtk.FALSE)
+        wrapper.pack_start (box, gtk.FALSE)
         
         sw.add_with_viewport (wrapper)
         viewport = sw.get_children()[0]
         viewport.set_shadow_type (gtk.SHADOW_IN)
-        tmpbox.set_focus_hadjustment(sw.get_hadjustment ())
-        tmpbox.set_focus_vadjustment(sw.get_vadjustment ())
+        box.set_focus_hadjustment(sw.get_hadjustment ())
+        box.set_focus_vadjustment(sw.get_vadjustment ())
 
         hbox = gtk.HBox (gtk.FALSE, 5)
 
