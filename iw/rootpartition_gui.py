@@ -268,6 +268,10 @@ class LoopSizeWindow(InstallWindow):
 class AutoPartitionWindow(InstallWindow):
     def getPrev(self):
 	self.druid = None
+
+        # probably wrong, but necessary so we don't remember previous
+        # editting user did in disk druid screen
+        self.todo.fstab.rescanPartitions(clearFstabCache=1)
 	self.beingDisplayed = 0
 
     def getNext(self):
@@ -345,9 +349,9 @@ class AutoPartitionWindow(InstallWindow):
         attemptedPartitioningandFailed = 0
 	if self.todo.instClass.partitions:
 	    self.druid = \
-		todo.fstab.attemptPartitioning(todo.instClass.partitions,
-                                               todo.instClass.fstab,
-					       todo.instClass.clearParts)
+                       todo.fstab.attemptPartitioning(todo.instClass.partitions,
+                                                      todo.instClass.fstab,
+                                                      todo.instClass.clearParts)
 
             if not self.druid:
                 attemptedPartitioningandFailed = 1
