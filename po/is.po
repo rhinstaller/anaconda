@@ -1819,15 +1819,13 @@ msgstr "Vista breytingum á disksneiðatöflunni?"
 msgid "You may only delete NFS mounts."
 msgstr "Þú mátt aðeins eyða NFS tengingum."
 
-#, fuzzy
+#
 msgid "Warning"
-msgstr "Eftir"
+msgstr "Aðvörun"
 
-#, fuzzy
+#
 msgid "You are about to lose data! Are you sure you want to do this?"
-msgstr ""
-"Þú hefur ekki valið tengipunkt fyrir þessa disksneið. Ertu viss um að þú "
-"viljir gera þetta?"
+msgstr "Þú ert við það að tapa gögnum! Ertu viss um að þú viljir gera þetta?"
 
 msgid "Disk Space"
 msgstr "Diskpláss"
@@ -1835,17 +1833,14 @@ msgstr "Diskpláss"
 msgid "There is not enough disk space for this type of installation."
 msgstr "Það er ekki nægjanlegt diskpláss fyrir svona uppsetningu."
 
-#, fuzzy
 msgid "There is not enough disk space for the chosen partitioning."
-msgstr "Það er ekki nægjanlegt diskpláss fyrir svona uppsetningu."
+msgstr "Það er ekki nægjanlegt diskpláss fyrir svona disksneiðar."
 
-#, fuzzy
 msgid "_Make RAID Device"
-msgstr "Ekkert RAID tæki"
+msgstr "_Búa til RAID tæki"
 
-#, fuzzy
 msgid "Skip LILO install"
-msgstr "Uppsetning SILO"
+msgstr "Sleppa uppsetningu LILO"
 
 msgid "No BOOTP reply received"
 msgstr "Ekkert svar við BOOTP beiðni"
@@ -1859,9 +1854,8 @@ msgstr "Annað geisladrif"
 msgid "CDROM type"
 msgstr "Tegund geisladrifs"
 
-#, fuzzy
 msgid "What type of CDROM do you have?"
-msgstr "Hvaða skjákort ertu með?"
+msgstr "Hvernig geisladrif er í vélinni þinni?"
 
 msgid "Initializing CDROM..."
 msgstr "Frumstilli geisladrifið..."
@@ -1942,9 +1936,8 @@ msgstr ""
 msgid "Miscellaneous options:"
 msgstr "Frekari stillingar:"
 
-#, fuzzy
 msgid "Module options:"
-msgstr "Stillingar músar"
+msgstr "Valmöguleikar kjarnaeininga:"
 
 msgid "Cannot open /proc/filesystems: %d"
 msgstr "Get ekki opnað /proc/filesystems: %d"
@@ -1969,9 +1962,8 @@ msgstr ""
 msgid "Space Needed"
 msgstr "Nauðsynlegt pláss"
 
-#, fuzzy
 msgid "Install anyway"
-msgstr "Tegund uppsetningar"
+msgstr "Setja samt upp"
 
 msgid "Fatal error reopening RPM database"
 msgstr "Banvæn villa við enduropnun RPM gagnagrunninn"
@@ -1997,7 +1989,6 @@ msgstr "Villa við uppsetningu pakka: gat ekki opnað RPM skrá fyrir %s: %s"
 msgid "Force supplemental disk"
 msgstr "Neyða notkun aukadisklingsins"
 
-#, fuzzy
 msgid "Installation Method"
 msgstr "Tegund uppsetningar"
 
@@ -2014,16 +2005,14 @@ msgstr ""
 "    o mappan á þjóninum sem inniheldur\n"
 "      Red Hat Linux fyrir vélina þína"
 
-#, fuzzy
 msgid "NFS server name:"
-msgstr "NIS þjónn:"
+msgstr "NFS þjónn:"
 
 msgid "Red Hat directory:"
 msgstr "Red Hat mappan:"
 
-#, fuzzy
 msgid "Note"
-msgstr "Nei"
+msgstr "Athugið"
 
 msgid "Insert your Red Hat CD into your CD drive now"
 msgstr "Vinsamlegast settu Red Hat geisladiskinn í geisladrifið"
@@ -2079,9 +2068,8 @@ msgstr ""
 msgid "Loading Supplemental Disk..."
 msgstr "Les inn aukadisklinginn..."
 
-#, fuzzy
 msgid "Driver Disk"
-msgstr "Drifin þín"
+msgstr "Rekladisklingur"
 
 msgid ""
 "This install method requires a driver disk. Please remove the supplemental "
@@ -2130,9 +2118,8 @@ msgstr ""
 msgid "Directory holding Red Hat:"
 msgstr "Mappa sem inniheldur Red Hat:"
 
-#, fuzzy
 msgid "Select Partition"
-msgstr "Eyða disksneið"
+msgstr "Veldu disksneið"
 
 msgid "Failed to create /tmp/rhimage symlink: %s"
 msgstr "Gat ekki búið til /tmp/rhimage sýndarhlekk: %s"
@@ -2155,51 +2142,29 @@ msgstr "slóðarskipun ókláruð"
 msgid "Unable to retrieve the second stage ramdisk: %s"
 msgstr "Get ekki sótt minnisdisk seinna þreps: %s"
 
-#, fuzzy
 msgid "Mount points must begin with a leading /."
-msgstr ""
-"Tengipunkturinn %s er ólöglegur.\n"
-"\n"
-"Heiti tengipunkta verður að byrja á /."
+msgstr "Heiti tengipunkta verður að byrja á /."
 
-#, fuzzy
 msgid "Mount points may not end with a /."
-msgstr ""
-"Tengipunkturinn %s er ólöglegur.\n"
-"\n"
-"Heiti tengipunkta má ekki enda á /."
+msgstr "Heiti tengipunkta má ekki enda á /."
 
-#, fuzzy
 msgid "Mount points may only printable characters."
-msgstr ""
-"Tengipunkturinn %s er ólöglegur.\n"
-"\n"
-"Heiti tengipunkta má bara innihalda prentanlega stafi."
+msgstr "Heiti tengipunkta má bara innihalda prentanlega stafi."
 
-#, fuzzy
 msgid "System partitions must be on Linux Native partitions."
-msgstr ""
-"Tengipunkturinn %s er ólöglegur.\n"
-"\n"
-"Kerfissneiðar verða að vera á 'Linux Native' disksneiðum."
+msgstr "Kerfissneiðar verða að vera á 'Linux Native' disksneiðum."
 
-#, fuzzy
 msgid "/usr must be on a Linux Native partition or an NFS volume."
-msgstr ""
-"Tengipunkturinn %s er ólöglegur.\n"
-"\n"
-"/usr verður að vera á 'Linux Native' disksneið eða NFS tengt."
+msgstr "/usr verður að vera á 'Linux Native' disksneið eða NFS tengt."
 
-#, fuzzy
 msgid "Edit Network Mount Point"
-msgstr "Enginn tengipunktur"
+msgstr "Breyta nettengipunkti"
 
 msgid "Making ext2 filesystem on /dev/%s..."
 msgstr "Bý til ext2 skráakerfi á /dev/%s..."
 
-#, fuzzy
 msgid "Running"
-msgstr "Eftir"
+msgstr "Í vinnslu"
 
 msgid "nfs mount failed: %s"
 msgstr "ekki tókst að nfs tengja: %s"
@@ -2207,17 +2172,15 @@ msgstr "ekki tókst að nfs tengja: %s"
 msgid "mount failed: %s"
 msgstr "ekki tókst að tengja: %s"
 
-#, fuzzy
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized. You can specify \"zerombr yes\" in the kickstart file "
 "to have this done automatically"
 msgstr ""
 "Disksneiðataflan á tæki %s er skemmd.  Til þess að hægt sé að búa til "
-"disksneiðar þarf að frumstilla hana, sem veldur því að ÖLL GÖGN á disknum "
-"týnast."
+"sneiðar þarf að frumstilla hana. Þú getur sett \"zerombr yes\" í "
+"hraðuppsetningarstillingaskrána svo þetta gerist sjálfvirkt"
 
-#, fuzzy
 msgid "Zero Partition Table"
 msgstr "Endurstilla disksneiðatöfluna"
 
@@ -2229,19 +2192,17 @@ msgstr ""
 "Það verður að vera 'on', '1' eða 'yes' til að virkja, eða 'off', '0', eða "
 "'no' til að slökkva á henni."
 
-#, fuzzy
 msgid "Clear Partition Command"
-msgstr "Veldu disksneiðar sem á að forsníða"
+msgstr "Tæma disksneið skipun"
 
 msgid "bad argument to kickstart clearpart command %s: %s"
-msgstr "ólöglegt viðfang við \"clearpart\" hraðuppsetningarskipun %s: %s"
+msgstr "ólöglegt viðfang við 'clearpart' hraðuppsetningarskipun %s: %s"
 
-#, fuzzy
 msgid "Partition Command"
-msgstr "Disksneið"
+msgstr "Disksneiðarskipur"
 
 msgid "bad argument to kickstart part command %s: %s"
-msgstr "ólöglegt viðfang við part hraðuppsetningar skipun %s: %s"
+msgstr "ólöglegt viðfang við 'part' hraðuppsetningar skipun %s: %s"
 
 msgid "Option Ignored"
 msgstr "Viðfang hundsað"
@@ -2253,11 +2214,8 @@ msgstr ""
 "Viðfangið --maxsize var hundsað fyrir disksneiðina %s. Athugaðu hvort það sé "
 "ekki örugglega hærra en --size viðfangið."
 
-#, fuzzy
 msgid "The mount point %s is already in use."
-msgstr ""
-"Tengipunkturinn sem þú valdir er þegar í notkun. Vinsamlegast veldu "
-"löglegann tengipunkt."
+msgstr "Tengipunkturinn %s er þegar í notkun."
 
 msgid "Failed Allocation"
 msgstr "Ekki tókst að taka frá pláss"
@@ -2265,9 +2223,8 @@ msgstr "Ekki tókst að taka frá pláss"
 msgid "The partition %s could not be allocated."
 msgstr "Gat ekki tekið frá pláss fyrir disksneið %s."
 
-#, fuzzy
 msgid "Disk Setup"
-msgstr "Stillingar nets"
+msgstr "Stillingar diska"
 
 msgid ""
 "There are partitions that can be resized nondestructively to make room for "
@@ -2276,7 +2233,6 @@ msgstr ""
 "Stærð sumra disksneiða má breyta án þess að valda skemmdum til þess að búa "
 "til pláss fyrir Red Hat Linux uppsetninguna. Viltu breyta þeim sneiðum núna?"
 
-#, fuzzy
 msgid "Success"
 msgstr "Tókst"
 
@@ -2286,9 +2242,8 @@ msgstr "Ólöglegt svar frá þjóninum"
 msgid "Server IO error"
 msgstr "Les/rit villa frá þjóni"
 
-#, fuzzy
 msgid "Server timeout"
-msgstr "Val X þjóns"
+msgstr "Tímatakmörk þjóns"
 
 msgid "Unable to lookup server host address"
 msgstr "Ekki tókst að fletta upp IP vistfangi þjónsins"
@@ -2341,9 +2296,8 @@ msgstr "OS/2 HPFS"
 msgid "Win95 FAT32"
 msgstr "Win95 FAT32"
 
-#, fuzzy
 msgid "Hard Drives"
-msgstr "Of mörg drif"
+msgstr "Harðir diskar"
 
 msgid "Scanning hard drives..."
 msgstr "Skoða hörðu diskana..."
@@ -2372,9 +2326,8 @@ msgstr ""
 "Til þess að setja up Red Hat Linux þarftu að minnsta kosti eina disksneið "
 "frátekna fyrir Linux sem er minnst 150 megabæti."
 
-#, fuzzy
 msgid "Partition Disks"
-msgstr "Disksneiðar"
+msgstr "Sneiða diska"
 
 msgid "Done"
 msgstr "Búið"
@@ -2403,7 +2356,7 @@ msgid "lilo command"
 msgstr "Lilo-skipun"
 
 msgid "bad argument to kickstart lilo command %s: %s"
-msgstr "ólöglegt viðfang við lilo-skipun í hraðuppsetningu %s: %s"
+msgstr "ólöglegt viðfang við 'lilo' skipun í hraðuppsetningu %s: %s"
 
 msgid "PCMCIA Support"
 msgstr "PCMCIA stuðningur"
@@ -2444,9 +2397,8 @@ msgstr ""
 "Sláðu inn <exit> til þess að komast aftur í uppsetningarforritið.\n"
 "\n"
 
-#, fuzzy
 msgid "Kickstart Error"
-msgstr "Fdisk villa"
+msgstr "Kickstart villa"
 
 msgid "No kickstart configuration file server can be found."
 msgstr "Enginn þjónn með stilliskrá fyrir hraðauppsetningar fannst."
@@ -2466,13 +2418,11 @@ msgstr "Villa við opnun skráa fyrir hraðuppsetningarafritun: %s\n"
 msgid "Error copying kickstart file from floppy."
 msgstr "Villa við afritun hraðuppsetningar frá disklingi."
 
-#, fuzzy
 msgid "Select installation path"
-msgstr "Velja pakkann til uppsetningar"
+msgstr "Velja uppsetningarslóð"
 
-#, fuzzy
 msgid "Select installation class"
-msgstr "Velja pakkann til uppsetningar"
+msgstr "Velja uppsetningarham"
 
 msgid "Setup SCSI"
 msgstr "Setja upp SCSI"
@@ -2483,43 +2433,35 @@ msgstr "Setja upp skráakerfi"
 msgid "Setup swap space"
 msgstr "Setja upp diskminni"
 
-#, fuzzy
 msgid "Find installation files"
-msgstr "Hefja uppsetningu"
+msgstr "Finna uppsetningarskrár"
 
 msgid "Choose packages to install"
 msgstr "Veldu pakka sem setja skal upp"
 
-#, fuzzy
 msgid "Configure networking"
-msgstr "Stilla með DHCP"
+msgstr "Stillingar nets"
 
-#, fuzzy
 msgid "Configure timezone"
-msgstr "Stillingar X"
+msgstr "Stillingar tímabeltis"
 
-#, fuzzy
 msgid "Configure services"
-msgstr "Stilla með DHCP"
+msgstr "Stillingar þjónustna"
 
-#, fuzzy
 msgid "Configure printer"
-msgstr "Stilla með DHCP"
+msgstr "Setja upp prentara"
 
-#, fuzzy
 msgid "Exit install"
-msgstr "Setja upp"
+msgstr "Hætta uppsetningu"
 
-#, fuzzy
 msgid "Find current installation"
-msgstr "Uppsetning pakka"
+msgstr "Finna núverandi uppsetningu"
 
 msgid "Disk Druid"
 msgstr "Diska Drúídi"
 
-#, fuzzy
 msgid "fdisk"
-msgstr "Ræsidisklingur"
+msgstr "fdisk"
 
 msgid ""
 "Disk Druid is a tool for partitioning and setting up mount points. It is "
@@ -2536,17 +2478,14 @@ msgstr ""
 "\n"
 "Hvort tólið viltu nota?"
 
-#, fuzzy
 msgid "Scanning packages..."
-msgstr "Set inn pakka"
+msgstr "Skoða pakkana..."
 
-#, fuzzy
 msgid "Install log"
-msgstr "Setja upp"
+msgstr "Uppsetningarannáll"
 
-#, fuzzy
 msgid "Upgrade log"
-msgstr "Uppfæra"
+msgstr "Uppfærsluannáll"
 
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
@@ -2567,7 +2506,7 @@ msgid "rootpw command"
 msgstr "rootpw skipun"
 
 msgid "bad argument to kickstart rootpw command %s: %s"
-msgstr "ólögleg viðföng við hraðuppsetningar rootpw skipun %s: %s"
+msgstr "ólögleg viðföng við hraðuppsetningar 'rootpw' skipun %s: %s"
 
 msgid "Missing password"
 msgstr "Lykilorð vantar"
@@ -2575,9 +2514,8 @@ msgstr "Lykilorð vantar"
 msgid "Unexpected arguments"
 msgstr "Ólögleg viðföng"
 
-#, fuzzy
 msgid "Installation Path"
-msgstr "Tegund uppsetningar"
+msgstr "Uppsetningarslóð"
 
 msgid ""
 "Would you like to install a new system or upgrade a system which already "
@@ -2596,7 +2534,6 @@ msgstr ""
 msgid "Converting RPM database..."
 msgstr "Umbreyti RPM gagnagrunninum..."
 
-#, fuzzy
 msgid "Finding packages to upgrade..."
 msgstr "Velja pakka sem á að uppfæra"
 
@@ -2631,9 +2568,8 @@ msgstr ""
 "Hvaða hluta uppsetningarinnar viltu keyra? Hlutum sem merktir eru með * er "
 "þegar lokið."
 
-#, fuzzy
 msgid "Cancelled"
-msgstr "Hætta við"
+msgstr "Hætt við"
 
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Það er ekki hægt að fara til baka héðan. Þú þarft að byrja uppá nýtt."
@@ -2684,9 +2620,8 @@ msgstr "Gat ekki búið til /mnt/tmp/ks.script: %s"
 msgid "Failed to write ks post script: %s"
 msgstr "Gat ekki búið til skipanaskrá hraðuppsetningar f/ eftirákeyrslu: %s"
 
-#, fuzzy
 msgid "Choose a Language"
-msgstr "Veldu þjón"
+msgstr "Veldu tungumál"
 
 msgid "Failed to create symlink for package source."
 msgstr "Gat ekki búið til tákntengingu fyrir frumkóða pakkans."
@@ -2706,31 +2641,26 @@ msgstr "LILO"
 msgid "Creating initial ramdisk..."
 msgstr "Bý til minnisræsidisk..."
 
-#, fuzzy
 msgid "Device:"
-msgstr "Tæki"
+msgstr "Tæki:"
 
-#, fuzzy
 msgid "Boot label:"
 msgstr "Ræsimerki:"
 
 msgid "Installing boot loader..."
 msgstr "Set upp ræsistjórann..."
 
-#, fuzzy
 msgid "Bootable Partitions"
-msgstr "Engin rótarsneið"
+msgstr "Ræsanlegar sneiðar"
 
-#, fuzzy
 msgid "Creating bootdisk..."
-msgstr "Búa til ræsidiskling"
+msgstr "Bý til ræsidiskling..."
 
 msgid "Formatting swap space on device %s..."
 msgstr "Forsníð diskminni á tæki %s..."
 
-#, fuzzy
 msgid "No Swap Space"
-msgstr "Engin diskminnissneið"
+msgstr "Ekkert diskminni"
 
 msgid ""
 "You don't have any swap space defined. Would you like to continue, or "
@@ -2778,13 +2708,11 @@ msgstr ""
 "Sláðu inn IP uppsetningu þessarar vélar. Hver færsla á að vera IP tala rituð "
 "sem tölur með punkt á milli (dæmi 1.2.3.4)."
 
-#, fuzzy
 msgid "Configure TCP/IP"
-msgstr "Stilla með DHCP"
+msgstr "Stillingar TCP/IP"
 
-#, fuzzy
 msgid "Static IP address"
-msgstr "IP vistfang:"
+msgstr "Fast IP vistfang"
 
 msgid "BOOTP"
 msgstr "BOOTP"
@@ -2847,25 +2775,20 @@ msgstr ""
 "mittbox.mittlén.is. Ef þú ert ekki með neina auka nafnaþjóna hafðu þá "
 "nafnaþjónareitina auða."
 
-#, fuzzy
 msgid "Host name:"
-msgstr "Vélarheiti"
+msgstr "Vélarheiti:"
 
-#, fuzzy
 msgid "Secondary nameserver (IP):"
-msgstr "Aðalnafnaþjónn:"
+msgstr "Auka nafnaþjónn (IP):"
 
-#, fuzzy
 msgid "Tertiary nameserver (IP):"
-msgstr "Aðalnafnaþjónn:"
+msgstr "Þriðji nafnaþjónn (IP):"
 
-#, fuzzy
 msgid "Configure Network"
-msgstr "Stillingar X"
+msgstr "Stillingar nets"
 
-#, fuzzy
 msgid "Keep the current IP configuration"
-msgstr "Prófa þessar stillingar"
+msgstr "Halda núverandi IP stillingum"
 
 msgid "Reconfigure network now"
 msgstr "Endurstilla netið nú"
@@ -2893,9 +2816,8 @@ msgstr "Íhlutaskráin er ekki af útgáfu 0.1 eins og búist var við"
 msgid "bad comps file at line %d"
 msgstr "ólögleg íhlutaskrá í línu %d"
 
-#, fuzzy
 msgid "comps Error"
-msgstr "Fdisk villa"
+msgstr "Íhlutavilla"
 
 msgid "missing component name at line %d"
 msgstr "heiti íhlutar vantar í línu %d"
@@ -2938,9 +2860,8 @@ msgstr "Pakkahópar sem eiga að fara inn"
 msgid "error opening header file: %s"
 msgstr "villa við opnun hausaskrár: %s"
 
-#, fuzzy
 msgid "Installed system size:"
-msgstr "Setja upp kerfi"
+msgstr "Stærð uppsetta kerfissins:"
 
 msgid "Choose a group to examine"
 msgstr "Veldu hóp til skoðunar"
@@ -2954,28 +2875,23 @@ msgstr "Veldu hóp"
 msgid "(none available)"
 msgstr "(ekkert til staðar)"
 
-#, fuzzy
 msgid "Package:"
-msgstr "Pakki"
+msgstr "Pakki:"
 
-#, fuzzy
 msgid "Upgrade Packages"
-msgstr "Pakkar"
+msgstr "Uppfæra pakka"
 
-#, fuzzy
 msgid "Printer Information"
-msgstr "Ólöglegar upplýsingar"
+msgstr "Upplýsingar um prentara"
 
 msgid "<F1> will give you information on a particular printer type"
 msgstr "<F1> mun gefa þér upplýsingar um þessa gerð prentara"
 
-#, fuzzy
 msgid "What type of printer do you have?"
-msgstr "Hvaða skjákort ertu með?"
+msgstr "Hvernig prentara ertu með?"
 
-#, fuzzy
 msgid "Configure Printer"
-msgstr "Stilla með DHCP"
+msgstr "Stillingar prentara"
 
 msgid "<F1> will give you information on this printer driver."
 msgstr "<F1> mun gefa þér upplýsingar um þennan prentrekil."
@@ -3001,9 +2917,8 @@ msgstr "Núna máttu stilla 'uniprint' viðföng þessa prentara."
 msgid "Configure Color Depth"
 msgstr "Stilla litadýpt"
 
-#, fuzzy
 msgid "Configure Uniprint Driver"
-msgstr "Stilla með DHCP"
+msgstr "Stillingar 'Uniprint' rekilsins"
 
 msgid ""
 "What device is your printer connected to (note that /dev/lp0 is equivalent "
@@ -3019,13 +2934,11 @@ msgstr ""
 "Gáttir sem fundust sjálfvirkt:\n"
 "\n"
 
-#, fuzzy
 msgid "Not "
-msgstr "Nei"
+msgstr "Ekki "
 
-#, fuzzy
 msgid "Detected\n"
-msgstr "Eyða"
+msgstr "Fundið\n"
 
 msgid "Printer Device:"
 msgstr "Prenttæki:"
@@ -3039,9 +2952,8 @@ msgstr "Prentþjónn:"
 msgid "Remote queue:"
 msgstr "Fjartengd biðröð:"
 
-#, fuzzy
 msgid "Remote lpd Printer Options"
-msgstr "Fjarlægja Linux disksneiðar"
+msgstr "Viðföng fyrir lpd prentara"
 
 msgid ""
 "To use a remote lpd print queue, you need to supply the hostname of the "
@@ -3051,9 +2963,8 @@ msgstr ""
 "Til þess að nota fjartengda lpd biðröð þarftu að gefa upp vélarheiti "
 "prentþjónsins og biðröðina á honum sem þú vilt prenta í."
 
-#, fuzzy
 msgid "Printer Server:"
-msgstr "Aðalnafnaþjónn:"
+msgstr "Prentþjónn:"
 
 msgid "Print Queue Name:"
 msgstr "Heiti prentraðar:"
@@ -3074,13 +2985,11 @@ msgstr ""
 msgid "SMB server host:"
 msgstr "Heiti SMB þjóns:"
 
-#, fuzzy
 msgid "SMB server IP:"
-msgstr "NIS þjónn:"
+msgstr "Vistfang SMB þjóns:"
 
-#, fuzzy
 msgid "Share name:"
-msgstr "Notandi"
+msgstr "Samnýtingarheiti:"
 
 msgid "Workgroup:"
 msgstr "Vinnuhópur:"
@@ -3132,9 +3041,8 @@ msgstr "Veldu prenttengingu"
 msgid "How is this printer connected?"
 msgstr "Hvernig er þessi prentari tengdur?"
 
-#, fuzzy
 msgid "Printer type:"
-msgstr "Tegund sneiðar"
+msgstr "Tegund prentara:"
 
 msgid "Queue:"
 msgstr "Biðröð:"
@@ -3142,9 +3050,8 @@ msgstr "Biðröð:"
 msgid "Printer device:"
 msgstr "Prenttæki:"
 
-#, fuzzy
 msgid "Remote host:"
-msgstr "Fjarlægja gögn"
+msgstr "Fjartengd vél:"
 
 msgid "Share:"
 msgstr "Samnýtiheiti:"
@@ -3171,9 +3078,8 @@ msgstr ""
 msgid "Printer device"
 msgstr "Prenttæki"
 
-#, fuzzy
 msgid "Verify Printer Configuration"
-msgstr "Stillingar nets"
+msgstr "Fara yfir prentuppsetninguna"
 
 msgid ""
 "I have found the following types of SCSI adapters on your system:\n"
@@ -3196,15 +3102,13 @@ msgid "SMB server name  :"
 msgstr "Heiti SMB þjóns  :"
 
 msgid "Share volume     :"
-msgstr "Skráakerfi      :"
+msgstr "Skráakerfi       :"
 
-#, fuzzy
 msgid "Account name     :"
-msgstr "Verknúmer"
+msgstr "Verknúmer        :"
 
-#, fuzzy
 msgid "Password         :"
-msgstr "Lykilorð:"
+msgstr "Lykilorð         :"
 
 msgid "SMB Setup"
 msgstr "SMB Stillingar"
@@ -3222,9 +3126,8 @@ msgstr ""
 "    o skráakerfið á þjóninum sem inniheldur\n"
 "      Red Hat Linux fyrir vélina þína."
 
-#, fuzzy
 msgid "Password for %s@%s: "
-msgstr "Lykilorð:"
+msgstr "Lykilorð fyrir %s@%s: "
 
 msgid "error: %sport must be a number\n"
 msgstr "villa: %sport verður að vera tala\n"
@@ -3241,9 +3144,8 @@ msgstr "gat ekki opnað %s\n"
 msgid "failed to create %s\n"
 msgstr "Get ekki búið til %s\n"
 
-#, fuzzy
 msgid "Retrieving"
-msgstr "Eftir"
+msgstr "Sæki"
 
 msgid "open of %s failed: %s\n"
 msgstr "gat ekki opnað %s: %s\n"
@@ -3281,13 +3183,11 @@ msgstr ""
 "    o nafn möppu á þjóninum sem inniheldur\n"
 "      Red Hat Linux fyrir vélina þína\n"
 
-#, fuzzy
 msgid "FTP site name:"
-msgstr "Notandi"
+msgstr "FTP þjónn:"
 
-#, fuzzy
 msgid "Web site name:"
-msgstr "Notandi"
+msgstr "Vefþjónn:"
 
 msgid "Use non-anonymous ftp or a proxy server"
 msgstr "Ekki nota nafnlaust FTP eða nota ftp-sel"
@@ -3338,9 +3238,8 @@ msgstr "<F1> gefur þér lýsingu og stærð pakka"
 msgid "Size of all selected packages:"
 msgstr "Stærð allra valinna pakka:"
 
-#, fuzzy
 msgid "Select Packages"
-msgstr "Pakkar"
+msgstr "Veldu pakka"
 
 msgid "I cannot get file %s: %s\n"
 msgstr "Get ekki náð í skrá %s: %s\n"
