@@ -303,6 +303,7 @@ class InstallCallback:
 			self.rpmFD = -1
 			raise SystemError
 		except:
+                    self.method.unmountCD()
 		    self.messageWindow(_("Error"),
 			_("The file %s cannot be opened. This is due to "
 			  "a missing file, a bad package, or bad media. "

@@ -51,11 +51,30 @@ class ImageInstallMethod(InstallMethod):
         
         return path
 
+    def unmountCD(self):
+        pass
+
     def __init__(self, tree, rootPath):
 	InstallMethod.__init__(self, rootPath)
 	self.tree = tree
 
 class CdromInstallMethod(ImageInstallMethod):
+
+    def unmountCD(self):
+        done = 0
+        while done == 0:
+            try:
+                isys.umount("/mnt/source")
+                self.currentDisc = []
+                break
+            except:
+                self.messageWindow(_("Error"),
+                                   _("An error occurred unmounting the CD.  "
+                                     "Please make sure you're not accessing "
+                                     "%s from the shell on tty2 "
+                                     "and then click OK to retry.")
+                                   % ("/mnt/source",))
+                
 
     def systemUnmounted(self):
 	if self.loopbackFile:
@@ -328,7 +347,6 @@ def findIsoImages(path, messageWindow):
     return discImages
 
 class NfsIsoInstallMethod(NfsInstallMethod):
-
     def getFilename(self, h, timer):
 	if self.imageMounted != h[1000002]:
 	    self.umountImage()
