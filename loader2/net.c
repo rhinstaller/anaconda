@@ -799,6 +799,10 @@ int kickstartNetworkUp(struct knownDevices * kd,
         } else if (rc == LOADER_BACK) {
             return -1;
         }
+
+	/* insert device into pump structure */
+	strcpy(netCfgPtr->dev.device, loaderData->netDev);
+
         break;
     } while (1);
 
