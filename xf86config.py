@@ -443,8 +443,12 @@ Section "Files"
 EndSection
 
 Section "Module"
+        Load  "GLcore"
         Load  "dbe"
+        Load  "dri"
         Load  "extmod"%(nonSparcMods)s%(pex5Mod)s
+        Load  "glx"
+        Load  "pex5"
         Load  "record"
         Load  "xie"%(ia64Mods)s
 EndSection
