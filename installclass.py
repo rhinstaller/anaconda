@@ -10,6 +10,7 @@ from xf86config import XF86Config
 from translate import _
 from instdata import InstallData
 from partitioning import *
+from log import log
 
 class BaseInstallClass:
     # default to not being hidden
@@ -327,14 +328,30 @@ class BaseInstallClass:
         else:
             usemon = None
 
+        setmonitor = 0
         if usemon:
-            (model, eisa, vert, horiz) = id.monitor.lookupMonitor(usemon)
-            id.monitor.setSpecs(horiz, vert, id=model, name=model)
-        elif hsync and vsync:
-            id.monitor.setSpecs(hsync, vsync)
-        else:
-            raise RuntimeError, "Could not probe monitor and no fallback specified"
+            try:
+                (model, eisa, vert, horiz) = id.monitor.lookupMonitor(usemon)
+                id.monitor.setSpecs(horiz, vert, id=model, name=model)
+                setmonitor = 1
+            except:
+                log("Couldnt lookup monitor type %s." % usemon)
+                pass
 
+        if not setmonitor and hsync and vsync:
+            id.monitor.setSpecs(hsync, vsync)
+            setmonitor = 1
+
+        if not setmonitor:
+             # fall back to standard VGA
+             log("Could not probe monitor, and no fallback specified.")
+             log("Falling back to Generic VGA monitor")
+
+             try:
+                 id.monitor.setSpecs("31.5-37.9", "50.0-61.0")
+             except:
+                 raise RuntimeError, "Could not probe monitor and fallback failed."
+             
         if startX:
             id.desktop.setDefaultRunLevel(5)
         else:
