@@ -547,6 +547,14 @@ static int writeModulesConf(moduleList list, int fd) {
         if (lm->written) continue;
         lm->written = 1;
 
+        /* JKFIXME: this is a hack for the fact that these are now
+         * DRIVER_SCSI so we can get /tmp/scsidisks, but we don't
+         * want them in modules.conf  :/ */
+        if (!strcmp(lm->name, "usb-storage") ||
+            !strcmp(lm->name, "sbp2")) {
+            continue;
+        }
+
         if (lm->major != DRIVER_NONE) {
             strcpy(buf, "alias ");
             switch (lm->major) {
