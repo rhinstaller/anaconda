@@ -1390,6 +1390,9 @@ def parseKickstartVNC(ksfile):
 	args = isys.parseArgv(l)
 	
 	if args:
+            if args[0] in ("%pre", "%post", "%traceback", "%packages"):
+                break
+            
 	    if args[0] != 'vnc':
 		continue
 	else:
