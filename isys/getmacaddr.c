@@ -1,9 +1,10 @@
 /*
  * getmacaddr.c - get mac address for ethernet interface
  *
- * Copyright 2003 Red Hat, Inc.
+ * Copyright 2003-2004 Red Hat, Inc.
  *
  * Michael Fulbright <msf@redhat.com>
+ * Jeremy Katz <katzj@redhat.com>
  *
  * This software may be freely redistributed under the terms of the GNU
  * general public license.
@@ -13,6 +14,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -48,6 +50,27 @@ char *getMacAddr(char *ifname) {
   }
 
   return rcstr;
+}
+
+/* returns NULL or allocated string */
+char * sanitizeMacAddr(char * hwaddr) {
+    char * rcstr;
+    int i = 0, j = 0;
+
+    if (!hwaddr)
+        return NULL;
+    rcstr = (char *) malloc(24);
+    for (i = 0; hwaddr[i] && (j < 24); i++) {
+        if (isdigit(hwaddr[i]))
+            rcstr[j++] = hwaddr[i];
+        else if (('A' <= hwaddr[i]) && ('F' >= hwaddr[i]))
+            rcstr[j++] = hwaddr[i];
+        else if (('a' <= hwaddr[i]) && ('f' >= hwaddr[i]))
+            rcstr[j++] = toupper(hwaddr[i]);
+    }
+    rcstr[j] = '\0';
+
+    return rcstr;
 }
 
 #ifdef TESTING

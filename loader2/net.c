@@ -1,5 +1,5 @@
 /*
- * Copyright 1999-2003 Red Hat, Inc.
+ * Copyright 1999-2004 Red Hat, Inc.
  * 
  * All Rights Reserved.
  * 
@@ -34,6 +34,7 @@
 #include "../isys/isys.h"
 #include "../isys/net.h"
 #include "../isys/wireless.h"
+#include "../isys/getmacaddr.h"
 
 #include "lang.h"
 #include "loader.h"
@@ -984,9 +985,22 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
 
         /* this device has been set and we don't really need to ask 
          * about it again... */
-        if (loaderData->netDev && (loaderData->netDev_set == 1) &&
-            !strcmp(loaderData->netDev, devs[i]->device))
-            foundDev = 1;
+        if (loaderData->netDev && (loaderData->netDev_set == 1)) {
+            if (!strcmp(loaderData->netDev, devs[i]->device)) {
+                foundDev = 1;
+            } else {
+                /* maybe it's a mac address */
+                char * mac1, * mac2;
+                mac1 = sanitizeMacAddr(loaderData->netDev);
+                mac2 = sanitizeMacAddr(getMacAddr(devs[i]->device));
+                if ((mac1 != NULL) && (mac2 != NULL) &&
+                    !strcmp(mac1, mac2)) {
+                    foundDev = 1;
+                    free(loaderData->netDev);
+                    loaderData->netDev = devs[i]->device;
+                }
+            }
+        }
     }
     if (foundDev == 1)
         return LOADER_NOOP;
