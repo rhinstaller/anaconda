@@ -218,7 +218,7 @@ def inet_calcNetmask (ip):
         klass = string.atoi (quad[0])
         if klass <= 127:
             mask = "255.0.0.0";
-        if klass <= 191:
+        elif klass <= 191:
             mask = "255.255.0.0";
         else:
             mask = "255.255.255.0";
