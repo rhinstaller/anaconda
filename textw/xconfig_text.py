@@ -611,12 +611,13 @@ class XConfigWindowCard:
             self.dispatch.skipStep("monitor")
             self.dispatch.skipStep("xcustom")
             self.dispatch.skipStep("writexconfig")
-            
+            self.xconfig.skipx = 1
             return
         else:
             self.dispatch.skipStep("monitor", skip = 0)
             self.dispatch.skipStep("xcustom", skip = 0)
             self.dispatch.skipStep("writexconfig", skip = 0)
+            self.xconfig.skipx = 0
 
         # store selected videocard
         selection = self.cards[self.cardslist[self.selectedCard]]

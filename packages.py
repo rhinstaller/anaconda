@@ -61,6 +61,10 @@ def writeKSConfiguration(id, instPath):
 def writeXConfiguration(id, instPath):
     if flags.test:
         return
+
+    if id.xconfig.skipx:
+        return
+    
     xserver = id.videocard.primaryCard().getXServer()
     if not xserver:
         return
@@ -116,6 +120,7 @@ def handleX11Packages(dir, intf, disp, id, instPath):
         disp.skipStep("monitor")
         disp.skipStep("xcustom")
         disp.skipStep("writexconfig")
+        id.xconfig.skipx = 1
     elif disp.stepInSkipList("videocard"):
         # if X is being installed, but videocard step skipped
         # need to turn it back on
@@ -123,6 +128,7 @@ def handleX11Packages(dir, intf, disp, id, instPath):
         disp.skipStep("monitor", skip=0)
         disp.skipStep("xcustom", skip=0)
         disp.skipStep("writexconfig", skip=0)
+        id.xconfig.skipx = 0
 
     # set default runlevel based on packages
     gnomeSelected = (id.comps.packages.has_key('gnome-core')

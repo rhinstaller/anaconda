@@ -639,6 +639,9 @@ class XF86Config:
         self.monlist = {}
         self.monids = {}
 
+        # if skipx is TRUE user has selected to not configure X
+        self.skipx = 0
+
         if isys.fbinfo() != None:
             (x, y, depth) = isys.fbinfo()
             self.fbDepth = depth
@@ -882,6 +885,10 @@ class XF86Config:
         config.close ()
 
     def writeKS (self, f):
+        if self.skipx:
+            f.write("skipx\n")
+            return
+        
         xmodes = self.getManualModes()
 
         if len(xmodes) == 0:

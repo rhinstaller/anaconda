@@ -663,10 +663,12 @@ class XConfigWindow (InstallWindow):
             self.dispatch.skipStep("monitor")
             self.dispatch.skipStep("xcustom")
             self.dispatch.skipStep("writexconfig")
+            self.xconfig.skipx = 1
         else:
             self.dispatch.skipStep("monitor", skip = 0)
             self.dispatch.skipStep("xcustom", skip = 0)
             self.dispatch.skipStep("writexconfig", skip = 0)
+            self.xconfig.skipx = 0
 
         # set videocard type (assuming we're working with PRIMARY card)
         if self.selected_card:
