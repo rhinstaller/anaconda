@@ -200,7 +200,7 @@ class LiloConfiguration:
 	    self.initrdsMade[kernelTag] = 1
 	return initrd
 
-    def install (self, fstab, instRoot, hdList, upgrade):
+    def install(self, fstab, instRoot, hdList, upgrade):
 	# If self.liloDevice is None, skipping lilo doesn't work
 	if not self.liloDevice: return
 
@@ -278,7 +278,7 @@ class LiloConfiguration:
             elif label:
                 otherList.append (label, "/dev/" + drive)
 
-        lilo.addEntry("default", main)        
+        lilo.addEntry("default", self.default)        
 
 	label = main
 	if (smpInstalled):
