@@ -528,7 +528,7 @@ class Partitions:
                     # if we get here, there's no PV data in the partition,
                     # so clamp the partition's size to 64M
                     size = partedUtils.getPartSizeMB(part)
-                    size = clampPVSize(size, 65536)
+                    size = lvm.clampPVSize(size, 65536)
 
                 if used == 0:
                     rc.append((partrequest.uniqueID, size, 0))
@@ -629,7 +629,7 @@ class Partitions:
 
             if iutil.getPPCMachine() == "pSeries":
                 boottype = "PPC PReP Boot"
-            else
+            else:
                 boottype = "Apple Bootstrap"
             
             # for the prep partition, we want either the first or the
