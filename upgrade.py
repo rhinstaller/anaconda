@@ -159,7 +159,7 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
     dispatch.skipStep("addswap", 0)
     
     # don't do this if we have more then 250 MB
-   if mem > 250:
+    if mem > 250:
         dispatch.skipStep("addswap", 1)
         return
     
