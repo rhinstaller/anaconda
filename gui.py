@@ -19,7 +19,6 @@ from iw.keyboard import *
 from iw.format import *
 from iw.congrats import *
 from iw.autopartition import *
-from iw.installtype import *
 from iw.dependencies import *
 from iw.lilo import *
 from iw.installpath import *
