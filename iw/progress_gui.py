@@ -167,6 +167,7 @@ class InstallProgressWindow_NEW (InstallWindow):
 
 	if (fractionComplete >= 1):
 	    log("Actual install time = %s", elapsedTime/60.0)
+	    self.remainingTimeLabel.set_text("")
 	    
         self.totalProgress.set_fraction(fractionComplete)
 	
