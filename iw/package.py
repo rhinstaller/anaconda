@@ -404,7 +404,7 @@ class PackageSelectionWindow (InstallWindow):
                 pixname = string.replace (pixname, '(', '_')
                 pixname = string.replace (pixname, ')', '_')
                 pixname = string.upper (pixname) + "_XPM"
-                print pixname
+#                print pixname
                 picture = None
                 checkButton = None
                 if pixname in xpms.__dict__.keys ():
