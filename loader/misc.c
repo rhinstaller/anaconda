@@ -14,7 +14,6 @@ int copyFileFd(int infd, char * dest) {
     outfd = open(dest, O_CREAT | O_RDWR, 0666);
 
     if (outfd < 0) {
-	close(infd);
 	logMessage("failed to open %s: %s", dest, strerror(errno));
 	return 1;
     }
