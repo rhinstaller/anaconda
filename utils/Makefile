@@ -2,7 +2,7 @@ LOADLIBES = -lpopt -L../isys -lisys
 CFLAGS = -Wall -g
 LDFLAGS = -g
 
-all:	modlist moddeps genhdlist
+all:	modlist moddeps genhdlist snarffont
 
 moddeps: moddeps.o
 	$(CC) $(LDFLAGS) -o moddeps moddeps.o ../loader/modules.o \
@@ -13,6 +13,9 @@ moddeps: moddeps.o
 
 genhdlist: genhdlist.c
 	$(CC) -I/usr/include/rpm $(LDFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2
+
+snarffont: snarffont.c
+	$(CC) -o snarffont snarffont.c
 
 install:
 	@echo "nothing to do"		
