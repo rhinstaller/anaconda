@@ -280,7 +280,7 @@ class SiloInstall:
 		kernelFile = "/vmlinuz" + kernelTag
 		initrdFile = initrd[5:]
 
-	    sl = LiloConfiguration()
+	    sl = LiloConfigFile()
 
 	    sl.addEntry("label", label)
 	    if os.access (instRoot + initrd, os.R_OK):
@@ -292,7 +292,7 @@ class SiloInstall:
 	    silo.addImage ("image", kernelFile, sl)
 
 	for (label, device) in otherList:
-	    sl = LiloConfiguration()
+	    sl = LiloConfigFile()
 	    sl.addEntry("label", label)
 	    silo.addImage ("other", device, sl)
 
