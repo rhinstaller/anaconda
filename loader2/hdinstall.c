@@ -430,7 +430,7 @@ char * mountHardDrive(struct installMethod * method,
 	} else {
 	    url = setupIsoImages(kspartition, ksdirectory, flags);
 	    if (!url) {
-		logMessage("unable to find Red Hat installation images on hd");
+		logMessage("unable to find %s installation images on hd",getProductName());
 		free(loaderData->method);
 		loaderData->method = NULL;
 	    } else {
@@ -566,7 +566,7 @@ char * mountHardDrive(struct installMethod * method,
 	if (!url) {
 	    newtWinMessage(_("Error"), _("OK"), 
 			_("Device %s does not appear to contain "
-			  "Red Hat CDROM images."), selpart);
+			  "%s CDROM images."), selpart, getProductName());
 	    continue;
 	}
 

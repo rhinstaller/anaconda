@@ -126,7 +126,7 @@ class UpgradeExamineWindow (InstallWindow):
 
 	# hack hack hackity hack
 	upboxtmp = gtk.VBox(gtk.FALSE, 5)
-	uplabelstr = _("The following Red Hat product will be upgraded:")
+	uplabelstr = _("The following installed system will be upgraded:")
 	self.uplabel = gtk.Label(uplabelstr)
 	self.uplabel.set_alignment(0.0, 0.0)
 	self.upgradeoption = gtk.OptionMenu()

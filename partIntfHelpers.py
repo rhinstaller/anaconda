@@ -400,7 +400,7 @@ def queryNoFormatPreExisting(intf):
     """Ensure the user wants to use a partition without formatting."""
     txt = _("You have chosen to use a pre-existing "
             "partition for this installation without formatting it. "
-            "Red Hat recommends that you format this partition "
+            "We recommend that you format this partition "
             "to make sure files from a previous operating system installation "
             "do not cause problems with this installation of Linux. "
             "However, if this partition contains files that you need "

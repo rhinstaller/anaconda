@@ -475,7 +475,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                                 _("This system appears to have third "
                                   "party packages installed that "
                                   "overlap with packages included in "
-                                  "Red Hat Linux. Because these packages "
+                                  "%s. Because these packages "
                                   "overlap, continuing the upgrade "
                                   "process may cause them to stop "
                                   "functioning properly or may cause "
@@ -483,7 +483,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                                   "the release notes for more information."
                                   "\n\n"
                                   "Do you wish to continue the upgrade "
-                                  "process?"),
+                                  "process?") % (productName,),
                                 type="yesno")
         if rc == 0:
             try:
@@ -497,10 +497,10 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         rc = intf.messageWindow(_("Warning"),
                                 _("This system does not have an "
                                   "/etc/redhat-release file.  It is possible "
-                                  "that this is not a Red Hat Linux system. "
+                                  "that this is not a %s system. "
                                   "Continuing with the upgrade process may "
                                   "leave the system in an unusable state.  Do "
-                                  "you wish to continue the upgrade process?"),
+                                  "you wish to continue the upgrade process?") % (productName,),
                                   type="yesno")
         if rc == 0:
             try:

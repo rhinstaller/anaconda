@@ -254,7 +254,7 @@ def runRescue(instPath, mountroot, id):
     # prompt to see if we should try and find root filesystem and mount
     # everything in /etc/fstab on that root
     rc = ButtonChoiceWindow(screen, _("Rescue"),
-        _("The rescue environment will now attempt to find your Red Hat "
+        _("The rescue environment will now attempt to find your "
           "Linux installation and mount it under the directory "
           "%s.  You can then make any changes required to your "
           "system.  If you want to proceed with this step choose "

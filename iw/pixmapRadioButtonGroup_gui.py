@@ -14,7 +14,7 @@
 
 import gtk
 from rhpl.translate import _, N_
-
+from constants import *
 
 class pixmapRadioButtonGroup:
 
@@ -194,7 +194,7 @@ if __name__ == "__main__":
     else:
 	opts = ['Red Hat 8.0 - /dev/hda1']
 
-    label = _("The following Red Hat product will be upgraded:")
+    label = _("The following installed system will be upgraded:")
     upgradeoption = gtk.OptionMenu()
     upgradeoptionmenu = gtk.Menu()
     for lev in opts:
@@ -221,9 +221,9 @@ if __name__ == "__main__":
     upbox.pack_start(upboxtmp, gtk.TRUE, gtk.TRUE)
 
     r = pixmapRadioButtonGroup()
-    r.addEntry("upgrade", "_Upgrade Existing Installation", pixmap=readPixmap("/usr/share/anaconda/pixmaps/upgrade.png"),  descr="Choose this option if you would like to upgrade your existing Red Hat Linux system.  This option will preserve the data on your driver.", userdata="data")
+    r.addEntry("upgrade", "_Upgrade Existing Installation", pixmap=readPixmap("/usr/share/anaconda/pixmaps/upgrade.png"),  descr="Choose this option if you would like to upgrade your existing %s system.  This option will preserve the data on your drive" % (productName,), userdata="data")
 
-    r.addEntry("install", "_Reinstall Red Hat Linux", pixmap=readPixmap("../pixmaps/install.png"),
+    r.addEntry("install", "_Reinstall %s" %(productName,), pixmap=readPixmap("../pixmaps/install.png"),
 	       descr="Choose this option to reinstall your system.  Depending on how you partition your system your previous data may or may not be lost.", userdata="data2")
     b = r.render()
     r.setCurrent("Don't Upgrade")

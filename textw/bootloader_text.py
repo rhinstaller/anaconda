@@ -12,6 +12,7 @@
 #
 
 from snack import *
+from constants import *
 from constants_text import *
 from rhpl.translate import _
 from flags import flags
@@ -298,10 +299,10 @@ class BootloaderImagesWindow:
 				      TEXT_BACK_BUTTON ] )
 
 	text = TextboxReflowed(55,
-		    _("The boot manager Red Hat uses can boot other " 
+		    _("The boot manager %s uses can boot other " 
 		      "operating systems as well. You need to tell me " 
 		      "what partitions you would like to be able to boot " 
-		      "and what label you want to use for each of them."))
+		      "and what label you want to use for each of them.") % (productName,))
 
 	g = GridFormHelp(screen, _("Boot Loader Configuration"), 
 			 "bootloaderlabels", 1, 4)
