@@ -811,38 +811,49 @@ static int ensureNetDevice(struct knownDevices * kd,
 		         moduleDeps * modDepsPtr, int flags, 
 			 char ** devNamePtr) {
     int i, rc;
-    char * devName = NULL;
+    char ** devices;
+    int deviceNums = 0;
+    int deviceNum;
 
-    /* Once we find an ethernet card, we're done. Perhaps we should
-       let them specify multiple ones here?? */
-
-    for (i = 0; i < kd->numKnown; i++) {
-	if (kd->known[i].class == CLASS_NETWORK) {
-	    devName = kd->known[i].name;
+    for (i = 0; i < kd->numKnown; i++) 
+	if (kd->known[i].class == CLASS_NETWORK) 
 	    break;
-	}
-    }
 
-    /* It seems like expert mode should do something here? */
-    if (!devName) {
+    /* Give them a chance to insert a module. */
+    if (i == kd->numKnown) {
 	rc = devDeviceMenu(DRIVER_NET, modInfo, modLoaded, modDepsPtr, flags,
 			   NULL);
 	if (rc) return rc;
 	kdFindNetList(kd);
     }
 
-    if (!devName) {
-	for (i = 0; i < kd->numKnown; i++) {
-	    if (kd->known[i].class == CLASS_NETWORK) {
-		devName = kd->known[i].name;
-		break;
-	    }
+    devices = alloca((kd->numKnown + 1) * sizeof(*devices));
+    for (i = 0; i < kd->numKnown; i++) {
+	if (kd->known[i].class == CLASS_NETWORK) {
+	    devices[deviceNums++] = kd->known[i].name;
 	}
     }
+    devices[deviceNums] = NULL;
 
-    if (!devName) return LOADER_ERROR;
+    /* This shouldn't happen. devDeviceMenu() should get us a network device,
+       or return LOADER_BACK, in which case we don't get here. */
+    if (!deviceNums) return LOADER_ERROR;
 
-    *devNamePtr = devName;
+    if (deviceNums == 1 || FL_KICKSTART(flags)) {
+	*devNamePtr = devices[0];
+	return 0;
+    }
+
+    deviceNum = 0;
+    rc = newtWinMenu(_("Networking Device"), 
+		     _("You have multiple network devices on this system. "
+		       "Which would you like to install through?"), 40, 10, 10, 
+		     deviceNums < 6 ? deviceNums : 6, devices,
+		     &deviceNum, _("OK"), _("Back"), NULL);
+    if (rc == 2)
+	return LOADER_BACK;
+
+    *devNamePtr = devices[deviceNum];
 
     return 0;
 }
@@ -1343,9 +1354,9 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 static char * setupKickstart(char * location, struct knownDevices * kd,
     		             moduleInfoSet modInfo,
 			     moduleList modLoaded,
-		             moduleDeps * modDepsPtr, int * flagsPtr) {
+		             moduleDeps * modDepsPtr, int * flagsPtr,
+			     char * netDevice) {
     char ** ksArgv;
-    char * device = NULL;
     int ksArgc;
     int ksType;
     int i, rc;
@@ -1413,17 +1424,20 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     }
 
     if (ksDeviceType != CLASS_UNSPEC) {
-	for (i = 0; i < kd->numKnown; i++)
-	    if (kd->known[i].class == ksDeviceType) break;
+	if (!netDevice) {
+	    for (i = 0; i < kd->numKnown; i++)
+		if (kd->known[i].class == ksDeviceType) break;
 
-	if (i == kd->numKnown) {
-	    logMessage("no appropriate device for kickstart method is "
-		       "available");
-	    return NULL;
+	    if (i == kd->numKnown) {
+		logMessage("no appropriate device for kickstart method is "
+			   "available");
+		return NULL;
+	    }
+
+	    netDevice = kd->known[i].name;
 	}
 
-	device = kd->known[i].name;
-	logMessage("kickstarting through device %s", device);
+	logMessage("kickstarting through device %s", netDevice);
     }
 
     if (!ksGetCommand(KS_CMD_XDISPLAY, NULL, &ksArgc, &ksArgv)) {
@@ -1449,7 +1463,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 #ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS || ksType == KS_CMD_URL) {
 	startNewt(flags);
-	if (kickstartNetwork(device, &netDev, NULL, flags)) return NULL;
+	if (kickstartNetwork(&netDevice, &netDev, NULL, flags)) return NULL;
 	writeNetInfo("/tmp/netinfo", &netDev);
     } else if (ksType == KS_CMD_URL) {
 	abort();
@@ -1532,7 +1546,8 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     return imageUrl;
 }
 
-static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
+static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
+			     char ** ksDevice) {
     int fd;
     char buf[500];
     int len;
@@ -1572,7 +1587,9 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	    flags |= LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "rescue"))
 	    flags |= LOADER_FLAGS_RESCUE;
-	else if (!strcasecmp(argv[i], "serial"))
+	else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
+	    *ksDevice = argv[i] + 9;
+	} else if (!strcasecmp(argv[i], "serial"))
 	    flags |= LOADER_FLAGS_SERIAL;
         else if (!strcasecmp(argv[i], "ks")) {
 	    flags |= LOADER_FLAGS_KICKSTART;
@@ -1608,16 +1625,22 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 #ifdef INCLUDE_NETWORK
 int kickstartFromNfs(struct knownDevices * kd, char * location, 
 		     moduleInfoSet modInfo, moduleList modLoaded, 
-		     moduleDeps * modDepsPtr, int flags, char * ksSource) {
+		     moduleDeps * modDepsPtr, int flags, char * ksSource,
+		     char * ksDevice) {
     struct networkDeviceConfig netDev;
     char * file, * fullFn;
     char * ksPath;
     char * devName;
 
-    if (ensureNetDevice(kd, modInfo, modLoaded, modDepsPtr, flags, &devName))
-	return 1;
+    if (!ksDevice) {
+	if (ensureNetDevice(kd, modInfo, modLoaded, modDepsPtr, flags, 
+			    &devName))
+	    return 1;
+    } else {
+	devName = ksDevice;
+    }
 
-    if (kickstartNetwork(devName, &netDev, "dhcp", flags)) {
+    if (kickstartNetwork(&devName, &netDev, "dhcp", flags)) {
         logMessage("no dhcp response received");
 	return 1;
     }
@@ -1925,6 +1948,7 @@ int main(int argc, char ** argv) {
     struct moduleInfo * mi;
     char twelve = 12;
     char * ksFile = NULL, * ksSource = NULL;
+    char * ksNetDevice = NULL;
     struct stat sb;
     struct poptOption optionTable[] = {
     	    { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
@@ -1981,7 +2005,7 @@ int main(int argc, char ** argv) {
 
     if (testing) flags |= LOADER_FLAGS_TESTING;
 
-    flags = parseCmdLineFlags(flags, cmdLine, &ksSource);
+    flags = parseCmdLineFlags(flags, cmdLine, &ksSource, &ksNetDevice);
 
     if (FL_SERIAL(flags) && !getenv("DISPLAY"))
 	flags |= LOADER_FLAGS_TEXT;
@@ -2062,7 +2086,7 @@ int main(int argc, char ** argv) {
 	ksFile = "/tmp/ks.cfg";
 	startNewt(flags);
 	kickstartFromNfs(&kd, ksFile, modInfo, modLoaded, &modDeps, flags, 
-			 ksSource);
+			 ksSource, ksNetDevice);
     }
 #endif
 
@@ -2070,7 +2094,7 @@ int main(int argc, char ** argv) {
 	startNewt(flags);
 	ksReadCommands(ksFile);
 	url = setupKickstart("/mnt/source", &kd, modInfo, modLoaded, &modDeps, 
-			     &flags);
+			     &flags, ksNetDevice);
     }
 
     if (!url) {

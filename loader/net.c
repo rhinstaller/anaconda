@@ -529,7 +529,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
 }
 
 #ifndef __STANDALONE__
-int kickstartNetwork(char * device, struct networkDeviceConfig * netDev, 
+int kickstartNetwork(char ** devicePtr, struct networkDeviceConfig * netDev, 
 		     char * bootProto, int flags) {
     char ** ksArgv;
     int ksArgc;
@@ -539,8 +539,10 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
     poptContext optCon;
     struct in_addr * parseAddress;
     int noDns = 0;
+    char * device;
     struct poptOption ksOptions[] = {
 	    { "bootproto", '\0', POPT_ARG_STRING, &bootProto, 0 },
+	    { "device", '\0', POPT_ARG_STRING, devicePtr, 0 },
 	    { "gateway", '\0', POPT_ARG_STRING, NULL, 'g' },
 	    { "ip", '\0', POPT_ARG_STRING, NULL, 'i' },
 	    { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n' },
@@ -611,6 +613,8 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 	    poptFreeContext(optCon);
 	}
     }
+
+    device = *devicePtr;
 
     if (!bootProto)
 	bootProto = "dhcp";
