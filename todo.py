@@ -1147,6 +1147,7 @@ class ToDo:
                         except SystemError, (errno, msg):
                             self.intf.messageWindow(_("Error"),
                                                     _("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
+                            continue
                         if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
                             rootparts.append (dev)
                         isys.umount('/mnt/sysimage')
