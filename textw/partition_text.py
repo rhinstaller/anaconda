@@ -881,7 +881,6 @@ class PartitionWindow:
 
     # isNew implies that this request has never been successfully used before
     def editRaidRequest(self, raidrequest, isNew = 0):
-
 	preexist = raidrequest and raidrequest.preexist
 	if preexist:
 	    tmpstr = _("Edit RAID Device")
@@ -894,6 +893,9 @@ class PartitionWindow:
         (self.mount, mountgrid) = self.makeMountEntry(raidrequest)
         poplevel.add(mountgrid, 0, row)
         row = row + 1
+
+	# initialize holder for temporary mount point value
+	self.oldMount = None
 
 	if preexist:
             # set some defaults
