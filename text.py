@@ -77,8 +77,8 @@ class UpgradeExamineWindow:
         if not parts:
             ButtonChoiceWindow(screen, _("Error"),
                                _("You don't have any Linux partitions. You "
-                                 "can't upgrade this system!")
-                               buttons = [ _("Back") ], width = 50)
+                                 "can't upgrade this system!"),
+                               [ _("Back") ], width = 50)
             return INSTALL_BACK
         
         if len (parts) > 1:
