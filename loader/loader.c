@@ -424,10 +424,15 @@ int findScsiList(void) {
 	    }
 
 	    chptr--;
-	    while (*chptr == ' ') chptr--;
-	    *(chptr + 1) = '\0';
-
-	    strcpy(linebuf, start);
+	    while (*chptr == ' ' && *chptr != ':' ) chptr--;
+	    if (*chptr == ':') {
+		    chptr++;
+		    *(chptr + 1) = '\0';
+		    strcpy(linebuf,"Unknown");
+	    } else {
+		    *(chptr + 1) = '\0';
+		    strcpy(linebuf, start);
+	    }
 	    *linebuf = toupper(*linebuf);
 	    chptr = linebuf + 1;
 	    while (*chptr) {
