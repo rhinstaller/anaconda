@@ -288,10 +288,10 @@ def hardDriveDict():
             pass
 
         if found == 1:
-            log("%s has a %s raid signature and windows parts" %(dev, ret)
+            log("%s has a %s raid signature and windows parts" %(dev, ret))
             del dict[dev]
         else:
-            log("%s has a %s raid signature but no windows parts" %(dev, ret)
+            log("%s has a %s raid signature but no windows parts" %(dev, ret))
         
     return driveDict("disk")
 
