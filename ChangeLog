@@ -1,5 +1,8 @@
 2004-12-21  Jeremy Katz  <katzj@redhat.com>
 
+	* partIntfHelpers.py (sanityCheckVolumeGroupName): Blacklist root
+	as a VG name (#142785)
+
 	* loader2/init.c: tmpfs, not ramfs for /dev
 
 2004-12-20  Jeremy Katz  <katzj@redhat.com>
