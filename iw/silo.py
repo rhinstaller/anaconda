@@ -144,7 +144,8 @@ class SiloWindow (InstallWindow):
 	self.images = self.todo.silo.getSiloImages()
         self.ignoreSignals = 0
 
-        if '/' not in self.todo.mounts.keys (): return None
+	(mount, dev, fstype, format, size) = self.todo.fstab.mountList()[0]
+	if mount != '/': return None
 	(bootpart, boothd, mbrpart) = self.todo.silo.getSiloOptions()
 	self.bootpart = bootpart
 	self.mbrpart = mbrpart

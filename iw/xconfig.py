@@ -311,7 +311,7 @@ class XConfigWindow (InstallWindow):
         self.autoBox = GtkVBox (FALSE, 5)
 
         if iutil.getArch() == "alpha":
-            label = GtkLabel (_("You video ram size can not be autodetected.  "
+            label = GtkLabel (_("Your video ram size can not be autodetected.  "
                                 "Choose your video ram size from the choices below:"))
             label.set_justify (JUSTIFY_LEFT)
             label.set_line_wrap (TRUE)        
