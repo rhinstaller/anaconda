@@ -56,7 +56,9 @@ Section "Pointer"
     Protocol    "%(mouseProto)s"
     Device      "/dev/%(mouseDevice)s"
 
-    ZAxisMapping 4 5
+#    For wheel support - can not be used with Emulate3Buttons
+#
+#    ZAxisMapping 4 5
 
 # When using XQUEUE, comment out the above two lines, and uncomment
 # the following line.
