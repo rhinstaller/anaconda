@@ -46,7 +46,7 @@ prepareBootImage() {
 # LATEUSBMODS go in the second stage
 USBMODS="usb-ohci usb-uhci hid keybdev"
 LATEUSBMODS="mousedev"
-IDEMODS="ide-mod ide-probe-mod ide-disk ide-cd"
+IDEMODS="ide-cd"
 SCSIMODS="sd_mod sr_mod"
 
 SECSTAGE="vfat raid0 raid1 raid5 $IDEMODS $SCSIMODS $LATEUSBMODS"
