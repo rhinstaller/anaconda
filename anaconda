@@ -5,6 +5,8 @@ import gettext
 import traceback
 import string
 
+setverPath = None
+
 gettext.bindtextdomain("anaconda", "/usr/share/locale")
 gettext.textdomain("anaconda")
 _ = gettext.gettext
@@ -78,152 +80,16 @@ import rpm
 import lilo
 from todo import ToDo
 import isys
-import kudzu
 
 if (mode == 'g' and not os.environ.has_key('DISPLAY')):
-    os.environ['DISPLAY'] = ':1'
-    serverPath = None
-
-    try:
-        f = open('/dev/fb0', 'r')
-	f.close()
-        serverPath = '/usr/X11R6/bin/XF86_FBDev'
-    except:
-#	serverPath = '/usr/X11R6/bin/XF86_VGA16'
-	serverPath = '/usr/X11R6/bin/XF86_SVGA'
-
-    print "Probing for mouse type..."
-    mice = kudzu.probe (kudzu.CLASS_MOUSE,
-                        kudzu.BUS_UNSPEC,
-                        kudzu.PROBE_ALL);
-    if not mice:
-        print "Unable to find a mouse!"
+    import xserver
+    if xserver.startX ():
         mode = 't'
-    else:
-        device = None
-        protocol = None
-        (device, driver, descr) = mice[0]
-        if device == 'psaux':
-            protocol = "PS/2"
-        else:
-            protocol = "Microsoft"
-
-        isys.makeDevInode(device, "/tmp/" + device)
-
-        if not test and not localInstall:
-            for i in ( "imrc", "im_palette.pal" ):
-                os.symlink ("../mnt/source/RedHat/instimage/etc/" + i, "/etc/" + i)
-
-        f = open ('/tmp/XF86Config', 'w')
-
-        settings = { "mouseDev" : '/tmp/' + device ,
-                     "mouseProto" : protocol }
-
-        f.write ("""
-Section "Files"
-    RgbPath	"/usr/X11R6/lib/X11/rgb"
-    FontPath	"/usr/X11R6/lib/X11/fonts/misc/"
-    FontPath	"/usr/X11R6/lib/X11/fonts/Type1/"
-    FontPath	"/usr/X11R6/lib/X11/fonts/Speedo/"
-    FontPath	"/usr/X11R6/lib/X11/fonts/75dpi/"
-    FontPath	"/usr/X11R6/lib/X11/fonts/100dpi/"
-EndSection
-
-Section "ServerFlags"
-EndSection
-
-Section "Keyboard"
-    Protocol    "Standard"
-    AutoRepeat  500 5
-    LeftAlt     Meta
-    RightAlt    Meta
-    ScrollLock  Compose
-    RightCtl    Control
-    XkbKeymap       "xfree86(us)"
-    XkbKeycodes     "xfree86"
-    XkbTypes        "default"
-    XkbCompat       "default"
-    XkbSymbols      "us(pc101)"
-    XkbGeometry     "pc"
-    XkbRules        "xfree86"
-    XkbModel        "pc101"
-    XkbLayout       "us"
-EndSection
-
-Section "Pointer"
-    Protocol    "%(mouseProto)s"
-    Device      "%(mouseDev)s"
-    Emulate3Buttons
-    Emulate3Timeout    50
-EndSection
-
-Section "Monitor"
-    Identifier  "Monitor"
-    VendorName  "Vendor"
-    ModelName   "Model"
-    HorizSync   31.5 - 79.0
-    VertRefresh 40-150
-
-# XXX fix me descr
-Modeline "640x480"     25.175 640  664  760  800   480  491  493  525
-# 640x480 @ 72 Hz, 36.5 kHz hsync
-Modeline "640x480"     31.5   640  680  720  864   480  488  491  521
-# 640x480 @ 75 Hz, 37.50 kHz hsync
-ModeLine  "640x480"    31.5   640  656  720  840   480  481  484  500 -HSync -VSync
-
-EndSection
-
-Section "Device"
-    Identifier  "Device"
-    VendorName  "Vendor"
-    BoardName   "Board"
-EndSection
-
-Section "Screen"
-    Driver      "vga16"
-    Device      "Device"
-    Monitor     "Monitor"
-    Subsection "Display"
-        Modes       "640x480"
-        ViewPort    0 0
-    EndSubsection
-EndSection
-
-Section "Screen"
-    Driver      "svga"
-    Device      "Device"
-    Monitor     "Monitor"
-    Subsection "Display"
-        Depth       8
-        Modes       "640x480"
-        ViewPort    0 0
-        Virtual     640 480
-    EndSubsection
-EndSection
-
-Section "Screen"
-    Driver      "fbdev"
-    Device      "Device"
-    Monitor     "Monitor"
-    Subsection "Display"
-	Depth 	    16
-        Modes       "default"
-    EndSubsection
-EndSection
-""" % settings)
-        f.close ()
-
-        server = os.fork()
-        if (not server):
-            os.execv(serverPath, [serverPath, ':1', '-xf86config', 
-                     '/tmp/XF86Config', 'vt5'])
-        child = os.fork()
-        if (child):
-            os.waitpid(child, 0)
-            os.kill(server, 15)
-            sys.exit(0)
 
 if (mode == 'g'):
+    if not test and not localInstall:
+        for i in ( "imrc", "im_palette.pal" ):
+            os.symlink ("../mnt/source/RedHat/instimage/etc/" + i, "/etc/" + i)
     from gui import InstallInterface
 elif (mode == 't'):
     from text import InstallInterface

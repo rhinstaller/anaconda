@@ -83,6 +83,7 @@ class Network:
         self.secondaryNS = ""
         self.ternaryNS = ""
         self.domains = []
+        self.readData = 0
         try:
             f = open ("/tmp/netinfo", "r")
         except:
@@ -104,6 +105,7 @@ class Network:
                 self.gateway = info["GATEWAY"]
             if info.has_key ("NS1"):
                 self.primaryNS = info["NS1"]
+            self.readData = 1
     
     def available (self):
         if self.netdevices:
@@ -822,14 +824,17 @@ class ToDo:
 
 	ts.order()
 
-	self.instLog = open(self.instPath + '/tmp/install.log', "w+")
+        if self.upgrade:
+            logname = '/tmp/upgrade.log'
+        else:
+            logname = '/tmp/install.log'
+            
+	self.instLog = open(self.instPath + logname, "w+")
 	syslog = Syslogd(root = self.instPath, output = self.instLog)
 
-	instLogFd = os.open(self.instPath + '/tmp/install.log', os.O_APPEND)
-	ts.scriptFd = instLogFd
+	ts.scriptFd = self.instLog.fileno ()
 	# the transaction set dup()s the file descriptor and will close the
 	# dup'd when we go out of scope
-	os.close(instLogFd)	
 
 	p = self.intf.packageProgressWindow(total, totalSize)
 
@@ -865,6 +870,8 @@ class ToDo:
         
 	del syslog
         del p
+
+        self.instLog.close ()
 
         w = self.intf.waitWindow("Post Install", 
                                  "Performing post install configuration...")

@@ -296,8 +296,13 @@ class NetworkWindow:
                     self.ns.set (ns)
 
         devices = todo.network.available ()
-        if devices.items () == 0:
+        if not devices:
             return INSTALL_NOOP
+
+        if todo.network.readData:
+            # XXX expert mode, allow changing network settings here
+            return INSTALL_NOOP
+        
         dev = devices[devices.keys ()[0]]
 
         firstg = Grid (1, 1)
@@ -380,13 +385,13 @@ class PartitionWindow:
 	if (not todo.setupFilesystems): return INSTALL_NOOP
 
         fstab = []
-        for (mntpoint, (dev, fstype, reformat)) in todo.mounts.items ():
+        for mntpoint, (dev, fstype, reformat) in todo.mounts.items ():
             fstab.append ((dev, mntpoint))
 
         if not todo.ddruid:
             todo.ddruid = fsedit(0, todo.drives.available ().keys (), fstab)
         dir = todo.ddruid.edit ()
-        for (partition, mount, fstype, size) in todo.ddruid.getFstab ():
+        for partition, mount, fstype, size in todo.ddruid.getFstab ():
             todo.addMount(partition, mount, fstype)
                 
         return dir
@@ -560,7 +565,7 @@ class PackageDepWindow:
                                       "installed.")), 0, 0, (0, 0, 0, 1))
         g.add (Label ("%-20s %-20s" % (_("Package"), _("Requirement"))), 0, 1, anchorLeft = 1)
         text = ""
-        for (name, suggest) in deps:
+        for name, suggest in deps:
             text = text + "%-20s %-20s\n" % (name, suggest)
         
         if len (deps) > 5:

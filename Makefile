@@ -1,4 +1,4 @@
-SUBDIRS = rpmmodule isys balkan po libfdisk collage loader stubs
+SUBDIRS = rpmmodule isys balkan po libfdisk collage loader stubs kudzu
 BUILDONLYSUBDIRS = pump
 
 TOPDIR = ../../..
