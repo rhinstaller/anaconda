@@ -113,8 +113,7 @@ class Network:
                 netinf = string.splitfields(line, '=')
                 info [netinf[0]] = string.strip(netinf[1])
             self.netdevices [info["DEVICE"]] = NetworkDevice(info["DEVICE"])
-            # XXX is REMIP ever used?
-            for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "REMIP"):
+            for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU"):
                 if info.has_key(key):
                     self.netdevices [info["DEVICE"]].set((key, info[key]))
             if info.has_key("GATEWAY"):
