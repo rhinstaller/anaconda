@@ -3,7 +3,12 @@ include ../Makefile.inc
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
-LOADLIBES =  -L../isys -lisys -lpopt
+ISYSLIB=isys
+ifeq ($(ARCH),i386)
+ISYSLIB=isys-diet
+endif
+
+LOADLIBES =  -L../isys -l$(ISYSLIB) -lpopt
 CFLAGS = -Wall -g -I/usr/include/rpm -I..
 LDFLAGS = -g -static
 MODDEPS = moddeps
@@ -18,7 +23,7 @@ everything: $(TARGET)
 
 all:	modlist $(MODDEPS) genhdlist snarffont mapshdr readmap
 
-modlist:    modlist.o ../isys/libisys.a
+modlist:    modlist.o 
 
 moddeps: moddeps.o
 	$(CC) $(LDFLAGS) -o moddeps moddeps.o ../loader/modules.o \
