@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 7.1\n"
-"POT-Creation-Date: 2002-09-02 22:36-0400\n"
+"POT-Creation-Date: 2002-09-02 23:28-0400\n"
 "PO-Revision-Date: 2001-01-10 22:20+1\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <blackziggy@freemail.it>\n"
 "Language-Team: BASQUE <linux-eu@chanae.alphanet.ch>\n"
@@ -2932,7 +2932,7 @@ msgstr "Lilo Egokitzaketa"
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
-"between 1 and 65535, and port is either 'tcp' or 'udp'.\n"
+"between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
 "\n"
 "For example, '1234:udp'"
 msgstr ""
@@ -8390,12 +8390,6 @@ msgstr ""
 msgid "Portuguese"
 msgstr "edo hau erabili:"
 
-# ../iw/progress_gui.py:224
-#. generated from lang-table
-#, fuzzy
-msgid "Romanian"
-msgstr "Gainerakoa"
-
 #. generated from lang-table
 msgid "Russian"
 msgstr ""
@@ -8417,6 +8411,11 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+# ../iw/progress_gui.py:224
+#, fuzzy
+#~ msgid "Romanian"
+#~ msgstr "Gainerakoa"
 
 # ../text.py:895 ../text.py:963 ../textw/userauth_text.py:9
 #, fuzzy

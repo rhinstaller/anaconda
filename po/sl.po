@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.3\n"
-"POT-Creation-Date: 2002-09-02 22:36-0400\n"
+"POT-Creation-Date: 2002-09-02 23:28-0400\n"
 "PO-Revision-Date: 2002-04-02 07:20+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@amis.net>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
@@ -2661,7 +2661,7 @@ msgstr "Prikrojitev po¾arnega zidu"
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
-"between 1 and 65535, and port is either 'tcp' or 'udp'.\n"
+"between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
 "\n"
 "For example, '1234:udp'"
 msgstr ""
@@ -7433,11 +7433,6 @@ msgid "Portuguese"
 msgstr "portugal¹èina"
 
 #. generated from lang-table
-#, fuzzy
-msgid "Romanian"
-msgstr "Preostanek"
-
-#. generated from lang-table
 msgid "Russian"
 msgstr "ru¹èina"
 
@@ -7456,6 +7451,10 @@ msgstr "¹ved¹èina"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "ukrajin¹èina"
+
+#, fuzzy
+#~ msgid "Romanian"
+#~ msgstr "Preostanek"
 
 #, fuzzy
 #~ msgid "No password"

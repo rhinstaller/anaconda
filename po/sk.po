@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall unknown\n"
-"POT-Creation-Date: 2002-09-02 22:36-0400\n"
+"POT-Creation-Date: 2002-09-02 23:28-0400\n"
 "PO-Revision-Date: 2000-03-07 18:15+01:00\n"
 "Last-Translator: Stanislav Meduna <stano@eunet.sk>\n"
 "Language-Team: Slovak <sk-i18n@rak.isternet.sk>\n"
@@ -2439,7 +2439,7 @@ msgstr "Konfigurácia LILO"
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
-"between 1 and 65535, and port is either 'tcp' or 'udp'.\n"
+"between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
 "\n"
 "For example, '1234:udp'"
 msgstr ""
@@ -7197,11 +7197,6 @@ msgid "Portuguese"
 msgstr "alebo pou¾i»:"
 
 #. generated from lang-table
-#, fuzzy
-msgid "Romanian"
-msgstr "Zostáva"
-
-#. generated from lang-table
 msgid "Russian"
 msgstr ""
 
@@ -7221,6 +7216,10 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Romanian"
+#~ msgstr "Zostáva"
 
 #, fuzzy
 #~ msgid "No password"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 1.0\n"
-"POT-Creation-Date: 2002-09-02 22:36-0400\n"
+"POT-Creation-Date: 2002-09-02 23:28-0400\n"
 "PO-Revision-Date: 2002-03-30 00:54+0000\n"
 "Last-Translator: Simos Xenitellis <simos@hellug.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -2499,7 +2499,7 @@ msgstr "Ρύθμιση Firewalling"
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
-"between 1 and 65535, and port is either 'tcp' or 'udp'.\n"
+"between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
 "\n"
 "For example, '1234:udp'"
 msgstr ""
@@ -7478,11 +7478,6 @@ msgid "Portuguese"
 msgstr "Πορτογαλλικά"
 
 #. generated from lang-table
-#, fuzzy
-msgid "Romanian"
-msgstr "Απομένουν"
-
-#. generated from lang-table
 msgid "Russian"
 msgstr "Ρωσικά"
 
@@ -7501,6 +7496,10 @@ msgstr "Σουηδικά"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ουκρανικά"
+
+#, fuzzy
+#~ msgid "Romanian"
+#~ msgstr "Απομένουν"
 
 #, fuzzy
 #~ msgid "No password"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda \n"
-"POT-Creation-Date: 2002-09-02 22:36-0400\n"
+"POT-Creation-Date: 2002-09-02 23:28-0400\n"
 "PO-Revision-Date: 2002-08-10 17:45+0300\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@superonline.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -2654,10 +2654,10 @@ msgid "Firewall Configuration"
 msgstr "Güvenlik Duvarý Yapýlandýrmasý"
 
 #: ../iw/firewall_gui.py:132
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
-"between 1 and 65535, and port is either 'tcp' or 'udp'.\n"
+"between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
 "\n"
 "For example, '1234:udp'"
 msgstr ""
@@ -7428,10 +7428,6 @@ msgid "Portuguese"
 msgstr "Portekizce"
 
 #. generated from lang-table
-msgid "Romanian"
-msgstr "Romence"
-
-#. generated from lang-table
 msgid "Russian"
 msgstr "Rusça"
 
@@ -7450,6 +7446,9 @@ msgstr "Ýsveççe"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukraynaca"
+
+#~ msgid "Romanian"
+#~ msgstr "Romence"
 
 #~ msgid "No password"
 #~ msgstr "Parolasý yok"

@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Install 6.2 \n"
-"POT-Creation-Date: 2002-09-02 22:36-0400\n"
+"POT-Creation-Date: 2002-09-02 23:28-0400\n"
 "PO-Revision-Date:  2000-03-01 17:24-0500\n"
 "Last-Translator: Raimo Koski <rkoski@pp.weppi.fi>\n"
 "Language-Team: Finnish <linux@sot.com>\n"
@@ -2429,7 +2429,7 @@ msgstr "SCSI-m‰‰ritykset"
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
-"between 1 and 65535, and port is either 'tcp' or 'udp'.\n"
+"between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
 "\n"
 "For example, '1234:udp'"
 msgstr ""
@@ -7194,11 +7194,6 @@ msgid "Portuguese"
 msgstr ""
 
 #. generated from lang-table
-#, fuzzy
-msgid "Romanian"
-msgstr "Rakennan uudelleen"
-
-#. generated from lang-table
 msgid "Russian"
 msgstr ""
 
@@ -7217,6 +7212,10 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Romanian"
+#~ msgstr "Rakennan uudelleen"
 
 #, fuzzy
 #~ msgid "No password"

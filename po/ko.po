@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
-"POT-Creation-Date: 2002-09-02 22:36-0400\n"
+"POT-Creation-Date: 2002-09-02 23:28-0400\n"
 "PO-Revision-Date: 2002-08-23 09:10+1000\n"
 "Last-Translator: Michelle Kim <mkim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -2658,7 +2658,7 @@ msgstr "방화벽 설정"
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
-"between 1 and 65535, and port is either 'tcp' or 'udp'.\n"
+"between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
 "\n"
 "For example, '1234:udp'"
 msgstr ""
@@ -7421,10 +7421,6 @@ msgid "Portuguese"
 msgstr "포루투칼어"
 
 #. generated from lang-table
-msgid "Romanian"
-msgstr "로마니아어"
-
-#. generated from lang-table
 msgid "Russian"
 msgstr "러시아어"
 
@@ -7443,6 +7439,9 @@ msgstr "스웨덴어"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "우크라니아어"
+
+#~ msgid "Romanian"
+#~ msgstr "로마니아어"
 
 #~ msgid "No password"
 #~ msgstr "암호 없음"

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
-"POT-Creation-Date: 2002-09-02 22:36-0400\n"
+"POT-Creation-Date: 2002-09-02 23:28-0400\n"
 "PO-Revision-Date: 2002-04-21 20:56+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -2640,7 +2640,7 @@ msgstr "Nastavení firewallu"
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
-"between 1 and 65535, and port is either 'tcp' or 'udp'.\n"
+"between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
 "\n"
 "For example, '1234:udp'"
 msgstr ""
@@ -7389,11 +7389,6 @@ msgid "Portuguese"
 msgstr "Portugalsko"
 
 #. generated from lang-table
-#, fuzzy
-msgid "Romanian"
-msgstr "Zbývá"
-
-#. generated from lang-table
 msgid "Russian"
 msgstr "Rusko"
 
@@ -7412,6 +7407,10 @@ msgstr "©védsko"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrajina"
+
+#, fuzzy
+#~ msgid "Romanian"
+#~ msgstr "Zbývá"
 
 #, fuzzy
 #~ msgid "No password"
