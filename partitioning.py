@@ -641,6 +641,34 @@ def getDefaultDiskType():
         # XXX fix me for alpha at least
         return parted.disk_type_get("msdos")
 
+archLabels = {'i386': ['msdos'],
+             'ia64': ['msdos', 'GPT']}
+
+def checkDiskLabel(disk, intf):
+    arch = iutil.getArch()
+    if arch in archLabels.keys():
+        if disk.type.name in archLabels[arch]:
+            return 0
+    else:
+        if disk.type.name == "msdos":
+            return 0
+
+    if intf:
+        rc = intf.messageWindow(_("Warning"),
+                       _("The partition table on device /dev/%s is of an "
+                         "unexpected type for your architecture.  To use this "
+                         "disk for installation of Red Hat Linux, it must be "
+                         "re-initialized causing the loss of ALL DATA on this "
+                         "drive.\n\n"
+                         "Would you like to initialize this drive?")
+                       % (disk.dev.path[5:]), type = "yesno")
+        if rc == 0:
+            return 1
+        else:
+            return -1
+    else:
+        return 1
+
 class DeleteSpec:
     def __init__(self, drive, start, end):
         self.drive = drive
@@ -1327,6 +1355,7 @@ class DiskSet:
             except parted.error, msg:
                 if not intf:
                     DiskSet.skippedDisks.append(drive)
+                    continue
                 else:
                     rc = intf.messageWindow(_("Warning"),
                              _("The partition table on device %s was unreadable. "
@@ -1336,6 +1365,7 @@ class DiskSet:
                                            % (drive,), type = "yesno")
                     if rc == 0:
                         DiskSet.skippedDisks.append(drive)
+                        continue
                     else:
                         try:
                             dev.disk_create(getDefaultDiskType())
@@ -1343,6 +1373,21 @@ class DiskSet:
                             self.disks[drive] = disk
                         except parted.error, msg:
                             DiskSet.skippedDisks.append(drive)
+                            continue
+
+            # check that their partition table is valid for their architecture
+            ret = checkDiskLabel(disk, intf)
+            if ret == 1:
+                DiskSet.skippedDisks.append(drive)
+                continue
+            elif ret == -1:
+                try:
+                    dev.disk_create(getDefaultDiskType())
+                    disk = parted.PedDisk.open(dev)
+                    self.disks[drive] = disk
+                except parted.error, msg:
+                    DiskSet.skippedDisks.append(drive)
+                    continue
 
     def partitionTypes (self):
         rc = []
@@ -1397,6 +1442,15 @@ class DiskSet:
                 part = disk.next_partition(part)
         return rc
 
+def checkNoDisks(diskset, intf):
+    if len(diskset.disks.keys()) == 0:
+        intf.messageWindow(_("No Drives Found"),
+                           _("An error has occurred - no valid devices were "
+                             "found on which to create new filesystems. "
+                             "Please check your hardware for the cause "
+                             "of this problem."))
+        sys.exit(0)
+
 def partitionObjectsInitialize(diskset, partitions, dir, intf):
     if dir == DISPATCH_BACK:
         diskset.closeDevices()
@@ -1405,15 +1459,8 @@ def partitionObjectsInitialize(diskset, partitions, dir, intf):
     # read in drive info
     diskset.refreshDevices(intf, partitions.reinitializeDisks)
 
-    if len(diskset.disks.keys()) == 0:
-        intf.messageWindow(_("No Drives Found"),
-                           _("An error has occurred - no valid devices were "
-                             "found on which to create new filesystems. "
-                             "Please check your hardware for the cause "
-                             "of this problem."))
-        sys.exit(0)
-                           
-    
+    checkNoDisks(diskset, intf)
+
     partitions.setFromDisk(diskset)
 
 def partitionMethodSetup(partitions, dispatch):
