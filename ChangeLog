@@ -1,3 +1,9 @@
+2004-12-03  Jeremy Katz  <katzj@redhat.com>
+
+	* partRequests.py (PartialVolumeGroupRequestSpec.__init__): Add
+	partial volume group request for handling non-complete volume
+	groups so we avoid conflicting names.
+
 2004-12-01  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/shutdown.c (shutDown): Make loop while waiting for

@@ -765,6 +765,23 @@ class VolumeGroupRequestSpec(RequestSpec):
 
         return totalspace
 
+class PartialVolumeGroupRequestSpec(RequestSpec):
+    """Request to represent partial volume group devices."""
+    # note, these are just used as placeholders so we don't collide on names
+    
+    def __init__(self, vgname = None):
+        """Create a new PartialVolumeGroupRequestSpec object.
+
+        vgname is the name of the volume group.
+        """
+
+        self.volumeGroupName = vgname
+
+    def __str__(self):
+        str = ("Partial VG Request -- name: %(vgname)s" %
+               {"vgname": self.volumeGroupName})
+        return str
+    
 class LogicalVolumeRequestSpec(RequestSpec):
     """Request to represent logical volume devices."""
     
