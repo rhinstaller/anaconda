@@ -13,12 +13,12 @@ rm -rf $TMPDIR
 mkdir -p $TMPDIR
 
 if [ $ARCH = "sparc" ]; then
-    PATTERN="{i386,sun}"
+    PATTERN={i386,sun}
 else
-    PETTERN="i386"
+    PETTERN=i386
 fi
 
-find /usr/lib/kbd/keymaps/$PATTERN -name "*.kmap*" | while read n; do
+eval find /usr/lib/kbd/keymaps/$PATTERN -name "*.kmap*" | while read n; do
     /usr/bin/loadkeys `basename $n .gz`
     ../utils/readmap $TMPDIR/`basename $n .kmap.gz`.kmap
 done
