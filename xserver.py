@@ -223,7 +223,9 @@ def testx(x):
         except:
             miniwm_pid = None
             log("Unable to start mini-wm")
-
+    else:
+	miniwm_pid = None
+	
     child = os.fork()
     if (child):
 	# here we fork and wait on our child, which will contine
