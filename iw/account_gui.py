@@ -464,7 +464,6 @@ class AccountWindow (InstallWindow):
 
         if flags.reconfig:
             label.set_sensitive(gtk.FALSE)
-            self.userList.set_sensitive(gtk.FALSE)
             self.add.set_sensitive(gtk.FALSE)
             self.edit.set_sensitive(gtk.FALSE)
             self.delete.set_sensitive(gtk.FALSE)
