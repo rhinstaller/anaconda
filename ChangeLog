@@ -1,3 +1,10 @@
+2005-02-19  Paul Nasrat <pnasrat@redhat.com>
+
+	* autopart.py, bootdisk/ppc/ofboot.b, fsset.py, installclass.py,
+	partedUtils.py, partitions.py, scripts/mk-images.ppc:
+	Fedora PPC - autopartitioning (#121266) and G5 (#149081)
+	* anaconda.spec: Bump version
+
 2005-02-16  Karsten Hopp  <karsten@redhat.com>
 
 	* scripts/mk-images: the s390 linuxrc creates some devices 

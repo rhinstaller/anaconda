@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.19
+Version: 10.2.0.20
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Feb 19 2005 Paul Nasrat <pnasrat@redhat.com> - 10.2.0.20-1
+- Pull in translations
+- s390 linuxrc silence nonexistant group warnings (karsten)
+- ppc mac autopartitioning and G5 boot.iso (#121266) and (#149081)
+
 * Sat Feb 12 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.19-1
 - fix x86_64 installs for bad urlgrabber import
 - Fix traceback with no %post (clumens)
