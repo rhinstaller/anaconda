@@ -1402,12 +1402,10 @@ msgid "Select drive to run fdisk on"
 msgstr "Выберите устройство для работы fdisk"
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid "Warning: "
 msgstr "Внимание!"
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid " is an invalid port."
 msgstr "%s не является допустимым именем сервера."
 
@@ -1790,7 +1788,6 @@ msgstr ""
 "таблицу разделов. Вы согласны?"
 
 #: ../iw/rootpartition_gui.py:82
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1815,7 +1812,6 @@ msgstr ""
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
 #: ../textw/partitioning_text.py:411
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit. It appears that this systems BIOS supports booting "
@@ -1926,7 +1922,6 @@ msgid "Boot Partition Location Warning"
 msgstr "Внимание: Размещение загрузочного раздела"
 
 #: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:391
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -2250,7 +2245,7 @@ msgstr ""
 "порты в форме 'service:protocol', такой как 'imap:tcp'."
 
 #: ../textw/firewall_text.py:186
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: %s is not a valid port."
 msgstr "%s не является допустимым именем сервера."
 
@@ -4223,21 +4218,3 @@ msgstr "Средства разработки ядра"
 
 msgid "Utilities"
 msgstr "Утилиты"
-
-#~ msgid ""
-#~ "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
-#~ "You can do this, but you may not use any other filesystems for your Linux "
-#~ "system. Additionally, there will be a speed penalty for not using "
-#~ "Linux-native partitions. Do you want to continue?"
-#~ msgstr ""
-#~ "Вы решили разместить корневую (/) файловую систему на разделе FAT. Это "
-#~ "возможно, но исключает использование других файловых систем для вашей "
-#~ "Linux-системы. Кроме этого, будет наблюдаться значительная потеря "
-#~ "производительности по сравнению с использованием разделов типа Linux-native. "
-#~ "Вы согласны продолжить?"
-
-#~ msgid "IDE"
-#~ msgstr "IDE"
-
-#~ msgid "Initializing IDE modules..."
-#~ msgstr "Инициализация модулей IDE..."
