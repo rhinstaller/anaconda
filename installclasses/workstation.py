@@ -26,7 +26,11 @@ class InstallClass(BaseInstallClass):
 
     def setGroupSelection(self, comps):
 	BaseInstallClass.__init__(self, comps)
-        comps["Workstation Common"].select()
+
+        for comp in comps.comps:
+            comp.unselect()
+
+        comps["Workstation Common"].includeMembers()
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)
