@@ -561,6 +561,7 @@ EOF
 	$MBD_DIR urandom c 1 9 644 root:root
 	$MBD_DIR nvram c 10 144 644 root:root
 	$MBD_DIR adb c 56 0 644 root:root
+        $MBD_DIR rtc c 10 135 644 root:root
 EOF
     ln -s fb0 $MBD_DIR/dev/fb
 
