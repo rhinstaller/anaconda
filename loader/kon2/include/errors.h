@@ -29,8 +29,6 @@
 #ifndef	ERRORS_H
 #define	ERRORS_H
 
-#define error kon_error
-
 extern void	Perror(const char *message);		/* perror(message) */
 extern void	PerrorExit(const char *message);	/* perror(message) and die */
 extern void	fatal(const char *format, ...);		/* print error message and die */

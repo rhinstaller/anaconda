@@ -50,7 +50,7 @@ struct fontRegs *dbFReg, *sbFReg;
 #define	PATH_MINIFONT	"/usr/lib/minikon.fnt.gz"
 #define	CMD_MINIFONT	"/bin/gzip -dc "PATH_MINIFONT
 #else
-#define	PATH_MINIFONT	"/etc/minikon.fnt"
+#define	PATH_MINIFONT	"/usr/lib/minikon.fnt"
 #endif
 
 void
@@ -106,6 +106,8 @@ LoadMiniFont()
 #endif
 }
 
+#ifdef	USE_ROMFONT
+
 void
 VgaLoadRomFont(char *fontbuff)
 {
@@ -132,6 +134,34 @@ VgaLoadRomFont(char *fontbuff)
     }
     loaded = 1;
 }
+
+#else /* USE_ROMFONT */
+
+#include "vgafont.h"
+
+void
+VgaLoadStaticFont()
+{
+    static int loaded=0;
+    int i;
+
+    if (loaded) return;
+    i = 1;
+    sbFReg = &fSRegs[0];
+    sbFReg->size = 256 * 16;
+    sbFReg->high = 16;
+    sbFReg->stat = FR_ATTACH;
+    sbFReg->bitmap = vgaFont;
+    while (fSRegs[i].registry) {
+	fSRegs[i].high = sbFReg->high;
+	fSRegs[i].stat = FR_PROXY;
+	fSRegs[i].size = sbFReg->size;
+	fSRegs[i].bitmap = sbFReg->bitmap;
+	i ++;
+    }
+    loaded = 1;
+}
+#endif /* USE_ROMFONT */
 
 #else
 
@@ -166,6 +196,37 @@ VgaLoadRomFont(char *fontbuff)
 }
 
 #endif
+
+#ifdef USE_STATICFONT
+
+#include "vgafont.h"
+
+void
+VgaLoadStaticFont()
+{
+    static int loaded=0;
+    key_t shmkey;
+    int	shmid, i;
+    u_char *shmbuff, *buff;
+    struct fontInfo fi;
+
+    if (loaded) return;
+    shmkey = ftok(CONFIG_NAME, CHR_SFLD);
+    fi.size = 256 * 16;
+    fi.high = 16;
+    fi.width = 8;
+    fi.type = CHR_SFLD;
+    shmid = shmget(shmkey, fi.size+sizeof(struct fontInfo),
+		   IPC_CREAT|0666);
+    shmbuff = shmat(shmid, 0, 0);
+    memcpy(shmbuff, &fi, sizeof(struct fontInfo));
+    buff = shmbuff + sizeof(struct fontInfo);
+
+    memcpy(buff, vgaFont, fi.size);
+    shmdt(shmbuff);
+    loaded = 1;
+}
+#endif /* MINI_KON || USE_STATICFONT */
 
 void FontDetach(bool down)
 {

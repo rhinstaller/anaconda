@@ -50,7 +50,7 @@ extern int mouseFd;
 
 extern void	MouseInit(void);
 extern int	MouseStart(void);
-extern void	MouseGetPacket(u_char *, int);
+extern void	MouseGetPacket(unsigned char *, int);
 extern void	MouseCleanup(void);
 extern void	MouseSetRfd(int);
 extern void	MouseResetRfd(int);

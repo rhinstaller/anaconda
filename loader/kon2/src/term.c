@@ -259,7 +259,7 @@ static void	ProcessArgs(int argc, const char *argv[])
 	const char	*arg;
 
 	if (argv[i][0] != '-') {
-	    kon_warn("bad arg `%s'; assumed `-%s'\r\n", argv[i]);
+	    warn("bad arg `%s'; assumed `-%s'\r\n", argv[i]);
 	    arg = (char *) argv[i];
 	} else
 	    arg = (char *) argv[i] + 1;
@@ -271,7 +271,7 @@ static void	ProcessArgs(int argc, const char *argv[])
 	if (!strcasecmp(arg, "e"))
 	    ConfigExecProg(argv[i]);
 	else if (SetCapArg(arg, argv[i]) < 0)
-	    kon_warn("invalid capability `%s' ignored\r\n", arg);
+	    warn("invalid capability `%s' ignored\r\n", arg);
 	i++;
     }
 }
@@ -512,7 +512,7 @@ void ChangeOrgConsole()
 #if defined(linux)
     cfd = open("/dev/console", O_WRONLY);
     if (cfd < 0 && (cfd = open("/dev/console", O_RDONLY)) < 0) {
-	PerrorExit("/dev/console");
+      PerrorExit("/dev/console");
     }
 #elif defined(__FreeBSD__)
     cfd = open("/dev/vga", O_WRONLY);
