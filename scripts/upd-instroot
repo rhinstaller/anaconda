@@ -114,7 +114,7 @@ PACKAGES="glibc glibc-common setup openssl python newt libtermcap zlib
 	 ash kon2 e2fsprogs util-linux raidtools popt mount procps rpm
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu db3 rpm-python bzip2 bzip2-libs dosfstools pciutils 
-	 reiserfs-utils parted busybox-anaconda"
+	 reiserfs-utils parted busybox-anaconda anaconda-help"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs lilo"
@@ -146,7 +146,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            ncurses bash cpio mt-st iputils sh-utils
            XFree86-cyrillic-fonts XFree86 Xconfigurator pygnome pygtk
            pygtk-libglade pygnome-libglade pygnome-applet
-           pygnome-capplet gdk-pixbuf XFree86-KOI8-R
+           pygnome-capplet gdk-pixbuf XFree86-KOI8-R anaconda-help
            XFree86-KOI8-R-75dpi-fonts pciutils pam reiserfs-utils"
 
 if [ -z "$NEEDGR" ]; then
