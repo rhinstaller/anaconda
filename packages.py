@@ -581,7 +581,7 @@ def doInstall(method, id, intf, instPath):
                         "\n\n") % (id.upgradeDeps,))
         
     cb.initWindow = intf.waitWindow(_("Install Starting"),
-				      _("Starting install process, may take several minutes..."))
+				      _("Starting install process, this may take several minutes..."))
     problems = ts.run(0, ~rpm.RPMPROB_FILTER_DISKSPACE, cb.cb, 0)
 
     # force test mode install
