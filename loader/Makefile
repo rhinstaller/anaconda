@@ -3,14 +3,18 @@ DESTDIR = ../../trees/initrd
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
-OBJS = log.o windows.o modules.o devices.o net.o cdrom.o urls.o kickstart.o
-LOADEROBJS = loader.o loader-pcmcia.o pcmcia.o popen.o
+OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o
+LOADEROBJS = loader.o loader-pcmcia.o popen.o
 SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
-BINS = loader init
+BINS = init
 DIRS = 
+NETOBJS = net.o
+PCMCIAOBJS = pcmcia.o $(NETOBJS)
+
+ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
 ifeq (i386, $(ARCH))
-BINS += loader-pcmcia
+BINS += loader-local loader-network loader-pcmcia
 DIRS += pcmcia-install
 endif
 
@@ -54,7 +58,15 @@ install: all
 	#install -s init $(DESTDIR)/sbin/init
 	#install -m 755 ../kudzu/pcitable $(DESTDIR)/etc
 
-loader: loader.o $(OBJS)
+loader-local: loader-local.o $(OBJS)
+	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
+        ../kudzu/libkudzu.a ../isys/libisys.a ../balkan/libbalkan.a \
+        ../isys/modutils/insmod/libmodutils.a    \
+        ../isys/modutils/util/libutil.a          \
+        ../isys/modutils/obj/libobj.a            \
+        -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
+
+loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         ../kudzu/libkudzu.a ../isys/libisys.a ../balkan/libbalkan.a \
         ../isys/modutils/insmod/libmodutils.a    \
@@ -62,9 +74,9 @@ loader: loader.o $(OBJS)
         ../isys/modutils/obj/libobj.a            \
         -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
-loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) 
-	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o pcmcia.o $(OBJS) \
-		-L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
+loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
+	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o $(OBJS) \
+	    $(PCMCIAOBJS) -L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
         -lpopt     \
         ../kudzu/libkudzu.a ../isys/libisys.a ../balkan/libbalkan.a \
         ../isys/modutils/insmod/libmodutils.a    \
@@ -72,8 +84,15 @@ loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS)
         ../isys/modutils/obj/libobj.a            \
         -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
+loader-local.o: loader.c
+	$(CC) -DINCLUDE_LOCAL $(CFLAGS) -o $@ -c $^
+
+loader-net.o: loader.c
+	$(CC) -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $^
+
 loader-pcmcia.o: loader.c
-	$(CC) -DINCLUDE_PCMCIA $(CFLAGS) -o $@ -c $^
+	$(CC) -DINCLUDE_PCMCIA -DINCLUDE_LOCAL -DINCLUDE_NETWORK \
+	    $(CFLAGS) -o $@ -c $^
 
 init: init.o $(MINILIBC)
 	$(CC) $(STATIC) -g $(LDFLAGS) -o $@ init.o $(MINILIBC)

@@ -89,11 +89,17 @@ static char * mountUrlImage(struct installMethod * method,
 		      moduleDeps modDeps, int flags);
 
 static struct installMethod installMethods[] = {
+#if defined(INCLUDE_LOCAL)
     { N_("Local CDROM"), 0, CLASS_CDROM, mountCdromImage },
+#endif
+#if defined(INCLUDE_NETWORK)
     { N_("NFS image"), 1, CLASS_NETWORK, mountNfsImage },
     { "FTP", 1, CLASS_NETWORK, mountUrlImage },
     { "HTTP", 1, CLASS_NETWORK, mountUrlImage },
+#endif
+#if defined(INCLUDE_LOCAL)
     { N_("Hard drive"), 0, CLASS_HD, mountHardDrive },
+#endif
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -457,6 +463,8 @@ static int loadStage2Ramdisk(int fd, off_t size, int flags) {
     return 0;
 }
 
+#ifdef INCLUDE_LOCAL
+
 static char * setupHardDrive(char * device, char * type, char * dir, 
 			     int flags) {
     int fd;
@@ -495,6 +503,10 @@ static char * setupHardDrive(char * device, char * type, char * dir,
 
     return url;
 }
+
+#endif
+
+#ifdef INCLUDE_LOCAL
 
 static char * mountHardDrive(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
@@ -712,6 +724,10 @@ static char * mountCdromImage(struct installMethod * method,
 		      flags, 0);
 }
 
+#endif
+
+#ifdef INCLUDE_NETWORK
+
 static int ensureNetDevice(struct knownDevices * kd,
     		         moduleInfoSet modInfo, moduleList modLoaded,
 		         moduleDeps modDeps, int flags, char ** devNamePtr) {
@@ -751,6 +767,10 @@ static int ensureNetDevice(struct knownDevices * kd,
 
     return 0;
 }
+
+#endif
+
+#ifdef INCLUDE_NETWORK
 
 #define NFS_STAGE_IP	1
 #define NFS_STAGE_NFS	2
@@ -835,6 +855,10 @@ static char * mountNfsImage(struct installMethod * method,
 
     return "dir://mnt/source/.";
 }
+
+#endif
+
+#ifdef INCLUDE_NETWORK
 
 #define URL_STAGE_IP			1
 #define URL_STAGE_MAIN			2
@@ -925,6 +949,8 @@ static char * mountUrlImage(struct installMethod * method,
 
     return url;
 }
+
+#endif
     
 static char * doMountImage(char * location, struct knownDevices * kd,
     		        moduleInfoSet modInfo,
@@ -984,6 +1010,7 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 	exit(1);
     }
 
+#ifdef INCLUDE_LOCAL
     /* If no network is available, check any attached CDROM device for a
        Red Hat CD. If there is one there, just die happy */
     if (!networkAvailable && !FL_EXPERT(flags)) {
@@ -991,6 +1018,7 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 			 flags, 1);
 	if (url) return url;
     }
+#endif
 
     startNewt(flags);
 
@@ -1052,10 +1080,18 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 
     /* XXX kickstartDevices(modInfo, modLoaded, modDeps); */
 
-    if (ksHasCommand(KS_CMD_NFS)) {
+    if (0) {
+#ifdef INCLUDE_NETWORK
+    } else if (ksHasCommand(KS_CMD_NFS)) {
 	ksDeviceType = CLASS_NETWORK;
 	ksType = KS_CMD_NFS;
 	table = ksNfsOptions;
+    } else if (ksHasCommand(KS_CMD_URL)) {
+	ksDeviceType = CLASS_NETWORK;
+	ksType = KS_CMD_URL;
+	table = ksUrlOptions;
+#endif
+#ifdef INCLUDE_LOCAL
     } else if (ksHasCommand(KS_CMD_CDROM)) {
 	ksDeviceType = CLASS_CDROM;
 	ksType = KS_CMD_CDROM;
@@ -1064,10 +1100,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	ksDeviceType = CLASS_UNSPEC;
 	ksType = KS_CMD_HD;
 	table = ksHDOptions;
-    } else if (ksHasCommand(KS_CMD_URL)) {
-	ksDeviceType = CLASS_NETWORK;
-	ksType = KS_CMD_URL;
-	table = ksUrlOptions;
+#endif
     } else {
 	logMessage("no install method specified for kickstart");
 	return NULL;
@@ -1107,12 +1140,17 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	}
     }
 
+#ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS || ksType == KS_CMD_URL) {
 	startNewt(flags);
 	if (kickstartNetwork(device, &netDev, flags)) return NULL;
 	writeNetInfo("/tmp/netinfo", &netDev);
+    } else if (ksType == KS_CMD_URL) {
+	abort();
     }
+#endif
 
+#ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS) {
 	mlLoadModule("nfs", modLoaded, modDeps, NULL, flags);
 	fullPath = alloca(strlen(host) + strlen(dir) + 2);
@@ -1126,7 +1164,11 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
 
 	return "dir://mnt/source/.";
-    } else if (ksType == KS_CMD_CDROM) {
+    }
+#endif
+
+#ifdef INCLUDE_LOCAL
+    if (ksType == KS_CMD_CDROM) {
 	return setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps, 
 			  flags, 1);
     } else if (ksType == KS_CMD_HD) {
@@ -1167,9 +1209,8 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 		partTable.parts[partNum].type == BALKAN_PART_EXT2 ? 
 			"ext2" : "vfat", 
 	        dir, flags);
-    } else if (ksType == KS_CMD_URL) {
-	abort();
-    }
+    } 
+#endif
 
     return NULL;
 }
