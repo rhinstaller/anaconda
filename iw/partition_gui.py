@@ -773,7 +773,7 @@ class PartitionWindow(InstallWindow):
                 setMntPtComboStateFromType(ofstype, mntptcombo)
 
         def noformatCB(widget, badblocks):
-            badblocks.set_sensitive(not widget.get_active())
+            badblocks.set_sensitive(widget.get_active())
 
         def sizespinchangedCB(widget, fillmaxszsb):
             size = widget.get_value_as_int()
@@ -1056,7 +1056,7 @@ class PartitionWindow(InstallWindow):
             badblocks = GtkCheckButton(_("Check for bad blocks?"))
             badblocks.set_active(0)
             maintable.attach(badblocks, 0, 1, row, row + 1)
-            noformatrb.connect("toggled", noformatCB, badblocks)
+            formatrb.connect("toggled", noformatCB, badblocks)
             noformatCB(noformatrb, badblocks)
             if origrequest.badblocks:
                 badblocks.set_active(1)
