@@ -1,0 +1,58 @@
+#include <popt.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/utsname.h>
+
+#include "../isys/isys.h"
+#include "../loader/modules.h"
+
+int main(int argc, char ** argv) {
+    poptContext optCon;
+    char * modDepsFile = NULL;
+    char * mod;
+    int rc;
+    char ** list, ** l;
+    struct utsname ut;
+    moduleDeps ml;
+    struct poptOption optionTable[] = {
+	    { "moddeps", 'm', POPT_ARG_STRING, &modDepsFile, 0 },
+	    POPT_AUTOHELP
+	    { 0, 0, 0, 0, 0 }
+    };
+
+    optCon = poptGetContext(NULL, argc, argv, optionTable, 0);
+
+    if ((rc = poptGetNextOpt(optCon)) < -1) {
+	fprintf(stderr, "bad option %s: %s\n",
+		       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+		       poptStrerror(rc));
+	exit(1);
+    }
+
+    if (!modDepsFile) {
+        modDepsFile = malloc(100);
+	uname(&ut);
+	sprintf(modDepsFile, "/lib/modules/%s/modules.dep",
+		ut.release);
+    }
+
+    ml = mlNewDeps();
+    if (mlLoadDeps(ml, modDepsFile)) {
+        fprintf(stderr, "Failed to read %s\n", modDepsFile);
+	exit(1);
+    }
+
+    while ((mod = poptGetArg(optCon))) {
+        list = mlGetDeps(ml, mod);
+	if (list) {
+	    printf("%s: ", mod);
+	    for (l = list; *l; l++)
+	        printf("%s", *l);
+	    printf("\n");
+	}
+    }
+
+    return 0;
+}
+
