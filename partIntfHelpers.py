@@ -227,24 +227,50 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
 
 	if not rc:
 	    return
-    
+
     requests = requestlist.getRequestsByDevice(diskset, device)
     if not requests:
         return
 
-    # XXX assumes all requests are due to a real partition device
-    notdeleted = []
+    # get list of unique IDs of these requests
+    reqIDs = []
     for req in requests:
+	part = partedUtils.get_partition_by_name(diskset.disks, req.device)
+	if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA:
+	    continue
+	reqIDs.append(req.uniqueID)
+
+    # now go thru and try to delete the unique IDs
+    for id in reqIDs:
         try:
+	    req = requestlist.getRequestByID(id)
+	    if req is None:
+		continue
             part = partedUtils.get_partition_by_name(diskset.disks, req.device)
             rc = doDeletePartitionByRequest(intf, requestlist, part,
                                             confirm=0, quiet=1)
-
             # not sure why it returns both '0' and '(None, None)' on failure
             if not rc or rc == (None, None):
-                notdeleted.append(req)
+		pass
         except:
-            notdeleted.append(req)
+	    pass
+
+    # see which partitions are left
+    notdeleted = []
+    left_requests = requestlist.getRequestsByDevice(diskset, device)
+    if left_requests:
+	# get list of unique IDs of these requests
+	leftIDs = []
+	for req in left_requests:
+	    part = partedUtils.get_partition_by_name(diskset.disks, req.device)
+	    if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA:
+		continue
+	    leftIDs.append(req.uniqueID)
+
+	for id in leftIDs:
+	    req = requestlist.getRequestByID(id)
+	    notdeleted.append(req)
+	    
 
     # see if we need to report any failures - some were because we removed
     # an extended partition which contained other members of our delete list
