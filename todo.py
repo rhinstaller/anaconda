@@ -391,6 +391,7 @@ class ToDo:
         self.initlevel = 3
 	self.expert = expert
         self.progressWindow = None
+	self.swapCreated = 0
 	if (not instClass):
 	    raise TypeError, "installation class expected"
         if x:
@@ -413,11 +414,12 @@ class ToDo:
 	for n in keys:
             (device, fsystem, format) = self.mounts[n]
             if fsystem != "swap":
-                try:
+		try:
+		    self.log("unmounting /mnt/sysimage/" + n)
                     isys.umount('/mnt/sysimage/' + n)
-                except:
-                    # XXX
-                    pass
+		except SystemError, (errno, msg):
+		    self.intf.messageWindow(_("Error"), 
+			_("Error unmounting %s: %s") % (device, msg))
 
     def writeTimezone(self):
 	if (self.timezone):
@@ -568,6 +570,9 @@ class ToDo:
 	# let's make the RAID devices first -- the fstab will then proceed
 	# naturally
         (devices, raid) = self.ddruid.partitionList()
+
+	if createSwap:
+	    self.swapCreated = 1
 	  
 	if raid:
 	    self.createRaidTab("/tmp/raidtab", "/tmp", createDevices = 1)
@@ -1319,7 +1324,7 @@ class ToDo:
 		    self.makeFilesystems (createSwap = 0)
 		else:
 		    self.ddruid.save ()
-		    self.makeFilesystems ()
+		    self.makeFilesystems (createSwap = (not self.swapCreated))
             else:
                 (drives, raid) = self.ddruid.partitionList()
 
@@ -1423,6 +1428,9 @@ class ToDo:
                 probs = probs + prob
                 
             self.intf.messageWindow (_("Disk Space"), probs)
+
+	    self.instLog.close()
+	    del syslog
 
             if self.setupFilesystems:
                 self.umountFilesystems ()
