@@ -75,24 +75,19 @@ while (<FILE>) {
     $lang=$_;
     $lang =~ s/eucjp/eucJP/;
 
-    open(INFO, "LANG=$lang locale -c language -c territory -k charmap|");
-    <INFO>;
+    # someone put nb_NO in locale.alias.  yuck.  We don't
+    # want to offer that.
+    ("nb_" eq substr($lang, 0, 3)) && next;
+
+    open(INFO, "LANG=$lang locale language territory charmap|");
     $name = <INFO>;
-    <INFO>;
     $territory = <INFO>;
-    <INFO>;
     $charmap = <INFO>;
     close(INFO);
 
     chop $name;
-    $name =~ s/^[^"]+"//;
-    $name =~ s/"$//;
     chop $territory;
-    $territory =~ s/^[^"]+"//;
-    $territory =~ s/"$//;
     chop $charmap;
-    $charmap =~ s/^[^"]+"//;
-    $charmap =~ s/"$//;
 
     # Some languages name's are the same as their ISO id's!
     ($name eq substr($lang, 0, 2)) && next;
