@@ -329,7 +329,7 @@ class InstallInterface:
 #	self.screen.suspendCallback(killSelf, self.screen)
 # uncomment this line to drop into the python debugger on <Ctrl+Z>
 # --VERY handy--
-	self.screen.suspendCallback(debugSelf, self.screen)
+#	self.screen.suspendCallback(debugSelf, self.screen)
 
 	if flags.serial:
 	    self.screen.suspendCallback(spawnShell, self.screen)
