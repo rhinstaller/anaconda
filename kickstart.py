@@ -221,6 +221,9 @@ class Kickstart(InstallClass):
     def doReboot(self, args):
         self.addToSkipList("complete")
 
+    def doSkipX(self, args):
+        self.addToSkipList("xconfig")
+
     def readKickstart(self, file):
 	handlers = { 
 		     "authconfig"	: self.doAuthconfig	,
@@ -237,6 +240,7 @@ class Kickstart(InstallClass):
 		     "part"		: self.definePartition	,
 		     "reboot"		: self.doReboot		,
 		     "rootpw"		: self.doRootPw		,
+		     "skipx"		: self.doSkipX		,
 		     "text"		: None			,
 		     "timezone"		: self.doTimezone	,
 		     "upgrade"		: self.doUpgrade	,
