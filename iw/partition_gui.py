@@ -761,13 +761,15 @@ class PartitionWindow(InstallWindow):
     def editPartitionRequest(self, origrequest):
 
         def formatOptionCB(widget, data):
-            (menuwidget, menu, mntptcombo) = data
+            (menuwidget, menu, mntptcombo, ofstype) = data
             menuwidget.set_sensitive(widget.get_active())
 
             # inject event for fstype menu
             if widget.get_active():
                 fstype = menu.get_active().get_data("type")
                 setMntPtComboStateFromType(fstype, mntptcombo)
+            else:
+                setMntPtComboStateFromType(ofstype, mntptcombo)
 
         def noformatCB(widget, badblocks):
             badblocks.set_sensitive(not widget.get_active())
@@ -1023,7 +1025,7 @@ class PartitionWindow(InstallWindow):
                 mountCombo.set_data("prevmountable", ofstype.isMountable())
 
             formatrb.connect("toggled", formatOptionCB, (fstype, fstypeMenu,
-                                                         mountCombo))
+                                                         mountCombo, ofstype))
 
             if origrequest.origfstype.isMigratable():
                 migraterb = GtkRadioButton (label=_("Migrate partition to:"),
