@@ -136,6 +136,7 @@ class NetworkDevice(SimpleConfigFile):
 
 class Network:
     def __init__(self):
+	self.firstnetdevice = None
         self.netdevices = {}
         self.gateway = ""
         self.primaryNS = ""
@@ -191,8 +192,30 @@ class Network:
 		    elif self.ternaryNS == "":
 			self.ternaryNS = resolv[1]
 
+	# now initialize remaining devices
+	# XXX we just throw return away, the method initialize a
+	# object member so we dont need to
+	available_devices = self.available()
+
+	# set first device to start up onboot
+	if len(available_devices) > 0:
+	    oneactive = 0
+	    for dev in available_devices.keys():
+		try:
+		    if available_devices[dev].get("onboot") == "yes":
+			oneactive = 1
+			break
+		except:
+		    continue
+
+	    if not oneactive:
+		self.netdevices[self.firstnetdevice].set(("onboot", "yes"))
+
     def getDevice(self, device):
 	return self.netdevices[device]
+
+    def getFirstDeviceName(self):
+	return self.firstnetdevice
 
     def available(self):
         f = open("/proc/net/dev")
@@ -203,6 +226,8 @@ class Network:
         for line in lines:
             dev = string.strip(line[0:6])
             if dev != "lo" and not self.netdevices.has_key(dev):
+		if self.firstnetdevice is None:
+		    self.firstnetdevice = dev
                 self.netdevices[dev] = NetworkDevice(dev)
 
         return self.netdevices
