@@ -494,8 +494,8 @@ class MonitorWindow:
 	    selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
 
 	if selMonitor:
-	    self.monitor.setSpecs(selMonitor[3], 
-				  selMonitor[2],
+	    self.monitor.setSpecs(selMonitor[2], 
+				  selMonitor[3],
 				  id=selMonitor[0],
 				  name=selMonitor[0])
         
