@@ -27,7 +27,7 @@ class ZiplWindow (InstallWindow):
     checkMark_Off = None
 
     windowTitle = N_("z/IPL Boot Loader Configuration")
-    htmlTag = "bootloader"
+    htmlTag = "zipl"
 
     def getPrev (self):
         # avoid coming back in here if the user backs past and then tries
