@@ -2277,7 +2277,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 		imageUrl = "nfs://mnt/source/.";
 	    }
 	} else if ((isopath = validIsoImages("/mnt/source"))) {
-	    useMntSourceUpdates("/mnt/source/RedHat/base/updates.img");
+	    useMntSourceUpdates("/mnt/source/updates.img");
 
 	    if (mountLoopback(isopath, "/mnt/source2", "loop1"))
 		logMessage("failed to mount iso loopback!");
@@ -2285,8 +2285,10 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 		if (mountLoopback("/mnt/source2/RedHat/base/stage2.img",
 				  "/mnt/runtime", "loop0"))
 		    logMessage("failed to mount install loopback!");
-		else
+		else {
+		    useMntSourceUpdates("/mnt/source2/RedHat/base/updates.img");
 		    imageUrl = "nfsiso:/mnt/source";
+		}
 	    }
 	} else {
 	    logMessage("No valid tree or isos found in %s", fullPath);
