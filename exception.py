@@ -139,7 +139,7 @@ def dumpException(out, text, tb, dispatch):
 
     if dispatch.id.grpset:
         out.write("\n\nPackage Group selection status:\n")
-        for comp in dispatch.id.grpset:
+        for comp in dispatch.id.grpset.groups.values():
             out.write("%s: %s\n" % (comp.name,
                                     comp.isSelected(justManual = 1)))
 
