@@ -103,7 +103,6 @@ class CongratulationWindow (InstallWindow):
                 _isys.umount(part)
             except:
                 print part + "is busy, couldn't umount."
-	sys.exit(0)
         return hbox
 
 
