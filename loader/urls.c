@@ -118,8 +118,11 @@ int urlinstFinishTransfer(struct iurlinfo * ui, int fd) {
 int setupRemote(struct iurlinfo * ui) {
     char *env, *d, *e;
      
-    if (!(env = getenv("RPMSERVER")))
-	return 1;
+    if (!(env = getenv("RPMSERVER"))) {
+	ui->address = "";
+	ui->prefix = "";
+	return 0;
+    }
 
     if (!strncmp(env, "ftp://",6))
 	env += 6;
