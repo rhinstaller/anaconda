@@ -389,7 +389,9 @@ class PartitionWindow:
             fstab.append ((dev, mntpoint))
 
         if not todo.ddruid:
-            todo.ddruid = fsedit(0, todo.drives.available ().keys (), fstab)
+            drives = todo.drives.available ().keys ()
+            drives.sort ()
+            todo.ddruid = fsedit(0, drives, fstab)
         dir = todo.ddruid.edit ()
         for partition, mount, fstype, size in todo.ddruid.getFstab ():
             todo.addMount(partition, mount, fstype)
