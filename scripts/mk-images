@@ -446,6 +446,7 @@ makeinitrd() {
        cp -f $LOADERBINDIR/linuxrc.s390 $MBD_DIR/linuxrc
        ln -s ../linuxrc $MBD_DIR/sbin/init
        cp -f $IMGPATH/usr/bin/ksh $MBD_DIR/sbin/ksh
+       cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
        ln -sf ksh $MBD_DIR/sbin/sh
        #cp -f $IMGPATH/usr/bin/ssh-keygen $MBD_DIR/sbin/ssh-keygen
        cp -f $IMGPATH/usr/bin/ldd $MBD_DIR/sbin/ldd
@@ -477,6 +478,8 @@ makeinitrd() {
        cp -df $IMGPATH/lib/libnsl.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libnsl-*.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libnss_compat* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libnss_dns* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libnss_files* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libutil.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libutil-*.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libcrypt* $MBD_DIR/lib
