@@ -440,7 +440,7 @@ LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs ctc netiucv ipv6"
 
 echo "In mk-images.s390: kernelvers is $kernelvers"
-if [ "$kernelvers" = "" ]; then
+if [ "$kernelvers" = "smp" ]; then
     makeS390initrd --initrdto $TOPDESTPATH/images/initrd.img \
 	   --initrdsize 15000 \
 	   --loaderbin loader \
