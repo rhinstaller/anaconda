@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-07-09 10:57-0400\n"
-"PO-Revision-Date: 2002-05-27 10:35+0100\n"
+"PO-Revision-Date: 2002-07-10 11:17+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -140,7 +140,7 @@ msgstr "A utilizar o tipo de rato: "
 
 #: ../anaconda:455
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "Variável DISPLAY não tem nenhum valor atribuído. A iniciar o modo texto."
 
 #: ../autopart.py:723
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -392,9 +392,8 @@ msgstr ""
 "agora reiniciado."
 
 #: ../floppy.py:59
-#, fuzzy
 msgid "Insert a floppy disk"
-msgstr "Não consegui montar disquete."
+msgstr "Insira uma disquete."
 
 #: ../floppy.py:60
 #, fuzzy
@@ -411,14 +410,12 @@ msgstr ""
 "disquete serão APAGADOS durante a criação da disquete de arranque."
 
 #: ../floppy.py:64
-#, fuzzy
 msgid "_Cancel"
-msgstr "Cancelar"
+msgstr "_Cancelar"
 
 #: ../floppy.py:64
-#, fuzzy
 msgid "_Make boot disk"
-msgstr "Criar disquete de arranque"
+msgstr "Criar _disquete de arranque"
 
 #: ../floppy.py:76 ../floppy.py:105 ../fsset.py:549 ../fsset.py:1010
 #: ../fsset.py:1029 ../fsset.py:1076 ../fsset.py:1087 ../fsset.py:1123
@@ -448,7 +445,7 @@ msgstr "Erro"
 #: ../floppy.py:77 ../floppy.py:106
 #, fuzzy
 msgid ""
-"An error occurred while making the boot disk. Please make sure that there is "
+"An error occured while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
 msgstr ""
 "Um erro ocorreu ao fazer a disquete de arranque. Verifique que está uma "
@@ -668,7 +665,7 @@ msgstr "Cancelar"
 
 #: ../gui.py:290 ../text.py:289
 msgid ""
-"An unhandled exception has occurred.  This is most likely a bug.  Please copy "
+"An unhandled exception has occured.  This is most likely a bug.  Please copy "
 "the full text of this exception or save the crash dump to a floppy then file "
 "a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
@@ -700,7 +697,7 @@ msgstr "Notas da Versão"
 
 #: ../gui.py:636
 msgid "Unable to load file!"
-msgstr "Impossível carregar ficheiro!"
+msgstr "Não é possível carregar ficheiro!"
 
 #: ../gui.py:673
 msgid "Release notes are missing.\n"
@@ -708,31 +705,27 @@ msgstr "As notas da versão não foram encontradas.\n"
 
 #: ../gui.py:781 ../packages.py:965
 msgid "_Back"
-msgstr "An_terior"
+msgstr "A_nterior"
 
 #: ../gui.py:783
-#, fuzzy
 msgid "_Next"
-msgstr "Próximo"
+msgstr "Próxi_mo"
 
 #: ../gui.py:785
 msgid "_Release Notes"
-msgstr "_Notas da Versão"
+msgstr "Notas da _Versão"
 
 #: ../gui.py:787
-#, fuzzy
 msgid "Show _Help"
-msgstr "Mostrar a Ajuda"
+msgstr "Mostrar a A_juda"
 
 #: ../gui.py:789
-#, fuzzy
 msgid "Hide _Help"
-msgstr "Esconder a Ajuda"
+msgstr "Esconder a A_juda"
 
 #: ../gui.py:791
-#, fuzzy
 msgid "_Debug"
-msgstr "Depuração"
+msgstr "_Depuração"
 
 #: ../gui.py:847
 #, python-format
@@ -746,7 +739,7 @@ msgstr "Instalador do %s em %s"
 
 #: ../gui.py:901
 msgid "Unable to load title bar"
-msgstr "Impossível carregar barra de título"
+msgstr "Não é possível carregar barra de título"
 
 #: ../gui.py:1002
 msgid "Install Window"
@@ -767,7 +760,7 @@ msgstr "A transferir a imagem de instalação para o disco rígido..."
 
 #: ../image.py:77
 msgid ""
-"An error occurred transferring the install image to your hard drive. You are "
+"An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
 "Ocorreu um erro ao transferir a imagem de instalação para o seu disco "
@@ -787,9 +780,9 @@ msgid "Wrong CDROM"
 msgstr " CDROM Errado"
 
 #: ../image.py:157
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s CDROM."
-msgstr "Este não é o CDROM Red Hat correcto."
+msgstr "Este não é o CDROM %s correcto."
 
 #: ../image.py:163
 msgid "The CDROM could not be mounted."
@@ -996,7 +989,7 @@ msgstr "A executar a configuração pós-instalação..."
 
 #: ../packages.py:945
 msgid "Warning! This is a beta!"
-msgstr ""
+msgstr "Aviso! Esta versão é beta!"
 
 #: ../packages.py:946
 msgid ""
@@ -1014,26 +1007,22 @@ msgid ""
 msgstr ""
 
 #: ../packages.py:959
-#, fuzzy
 msgid "_Exit"
-msgstr "Sair"
+msgstr "_Sair"
 
 #: ../packages.py:959
-#, fuzzy
 msgid "_Install BETA"
-msgstr "Instalar"
+msgstr "_Instalar a BETA"
 
 #: ../packages.py:962
-#, fuzzy
 msgid "Rebooting System"
-msgstr "Actualizar sistema existente"
+msgstr "A Reiniciar o Computador"
 
 #: ../packages.py:963
 msgid "Your system will now be rebooted..."
-msgstr ""
+msgstr "O seu computador vai agora ser reiniciado..."
 
 #: ../packages.py:965
-#, fuzzy
 msgid "_Reboot"
 msgstr "_Reiniciar"
 
@@ -1162,11 +1151,9 @@ msgstr ""
 "RAID."
 
 #: ../partIntfHelpers.py:113
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot %s this partition as it is part of a RAID device."
-msgstr ""
-"Não pode editar esta partição, uma vez que ela faz parte de um dispositivo "
-"RAID."
+msgstr "Não pode %s esta partição, uma vez que ela faz parte de um dispositivo RAID."
 
 #: ../partIntfHelpers.py:119
 #, fuzzy, python-format
@@ -1185,9 +1172,8 @@ msgstr ""
 
 #: ../partIntfHelpers.py:138 ../partIntfHelpers.py:152
 #: ../partIntfHelpers.py:162 ../partIntfHelpers.py:179
-#, fuzzy
 msgid "Unable To Delete"
-msgstr "Impossível Apagar"
+msgstr "Não é Possível Apagar"
 
 #: ../partIntfHelpers.py:139
 #, fuzzy
@@ -1234,7 +1220,7 @@ msgstr "A_pagar"
 
 #: ../partIntfHelpers.py:284
 msgid "Notice"
-msgstr ""
+msgstr "Aviso"
 
 #: ../partIntfHelpers.py:285
 #, fuzzy, python-format
@@ -1253,7 +1239,7 @@ msgstr ""
 #: ../partIntfHelpers.py:301 ../partIntfHelpers.py:314
 #: ../partIntfHelpers.py:344 ../partIntfHelpers.py:355
 msgid "Unable To Edit"
-msgstr "Impossível Editar"
+msgstr "Não é Possível Editar"
 
 #: ../partIntfHelpers.py:302
 msgid "You must select a partition to edit"
@@ -1314,7 +1300,7 @@ msgstr "Formatar?"
 
 #: ../partIntfHelpers.py:410
 msgid "Do _Not Format"
-msgstr ""
+msgstr "_Não Formatar"
 
 #: ../partIntfHelpers.py:418
 msgid "Error with Partitioning"
@@ -1383,31 +1369,27 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
+"Está prestes a apagar o grupo de volumes \"%s\".\n"
+"\n"
+"TODOS os volumes lógicos neste grupo de volumes serão perdidos!"
 
 #: ../partIntfHelpers.py:509
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr "Tem certeza que quer apagar o volume lógico %s?"
+msgstr "Está prestes a apagar o volume lógico \"%s\"."
 
 #: ../partIntfHelpers.py:512
-#, fuzzy
 msgid "You are about to delete a RAID device."
-msgstr ""
-"Está prestes a apagar um dispositivo RAID.\n"
-"\n"
-"Tem a certeza?"
+msgstr "Está prestes a apagar um dispositivo RAID."
 
 #: ../partIntfHelpers.py:515
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr ""
-"Está prestes a apagar a partição /dev/%s.\n"
-"\n"
-"Tem a certeza?"
+msgstr "Está prestes a apagar a partição /dev/%s."
 
 #: ../partIntfHelpers.py:518
 msgid "The partition you selected will be deleted."
-msgstr ""
+msgstr "A partição que seleccionou será apagadada."
 
 #: ../partIntfHelpers.py:528
 msgid "Confirm Reset"
@@ -1697,7 +1679,7 @@ msgstr ""
 #: ../rescue.py:188
 #, fuzzy, python-format
 msgid ""
-"An error occurred trying to mount some or all of your system. Some of it may "
+"An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under %s.\n"
 "\n"
 "Press <return> to get a shell. The system will reboot automatically when you "
@@ -1863,7 +1845,7 @@ msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Reconstrução da base de dados RPM falhou. Falta de espaço em disco?"
 
 #: ../upgrade.py:331
-msgid "An error occurred when finding the packages to upgrade."
+msgid "An error occured when finding the packages to upgrade."
 msgstr "Ocorreu um erro ao procurar pacotes para actualizar."
 
 #: ../upgrade.py:386
@@ -2224,17 +2206,15 @@ msgstr ""
 
 #: ../iw/bootdisk_gui.py:69
 msgid "_Yes, I would like to create a boot disk"
-msgstr ""
+msgstr "_Sim, quero criar uma disquete de arranque"
 
 #: ../iw/bootdisk_gui.py:72
-#, fuzzy
 msgid "No, I _do not want to create a boot disk"
-msgstr "Não quero criar um ficheiro de paginação"
+msgstr "Não quero criar uma disquete de arranque"
 
 #: ../iw/bootloader_advanced_gui.py:27
-#, fuzzy
 msgid "Advanced Boot Loader Configuration"
-msgstr "Configuração do Gestor de Arranque"
+msgstr "Configuração Avançada do Gestor de Arranque"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../iw/bootloader_old.py:52
 #: ../textw/bootloader_text.py:135
@@ -2258,14 +2238,12 @@ msgid "Force LBA32"
 msgstr "Forçar o modo LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:72
-#, fuzzy
 msgid "_Force LBA32 (Not normally required)"
-msgstr "Forçar utilização de LBA32 (não é normalmente necessário)"
+msgstr "_Forçar LBA32 (não é normalmente necessário)"
 
 #: ../iw/bootloader_advanced_gui.py:76
-#, fuzzy
 msgid "_General kernel parameters"
-msgstr "Parâmetros gerais do kernel"
+msgstr "Parâmetros _gerais do kernel"
 
 #: ../iw/bootloader_main_gui.py:29 ../iw/bootloader_old.py:22
 #: ../textw/bootloader_text.py:50 ../textw/bootloader_text.py:118
@@ -2275,9 +2253,8 @@ msgid "Boot Loader Configuration"
 msgstr "Configuração do Gestor de Arranque"
 
 #: ../iw/bootloader_main_gui.py:71
-#, fuzzy
 msgid "Change Boot Loader"
-msgstr "Não utilizar gestor de arranque"
+msgstr "Mudar o gestor de arranque"
 
 #: ../iw/bootloader_main_gui.py:89
 msgid ""
@@ -2288,9 +2265,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/bootloader_main_gui.py:101
-#, fuzzy
 msgid "C_ontinue with no boot loader"
-msgstr "Não instalar um gestor de arranque"
+msgstr "C_ontinuar sem gestor de arranque"
 
 #: ../iw/bootloader_main_gui.py:126 ../iw/bootloader_old.py:346
 msgid ""
@@ -2304,33 +2280,29 @@ msgstr ""
 "gestor de arranque\"  "
 
 #: ../iw/bootloader_main_gui.py:134
-#, fuzzy
 msgid "Use _GRUB as the boot loader"
-msgstr "Utilizar o GRUB como gestor de arranque"
+msgstr "Utilizar o _GRUB como gestor de arranque"
 
 #: ../iw/bootloader_main_gui.py:137
-#, fuzzy
 msgid "Use _LILO as the boot loader"
-msgstr "Utilizar o LILO como gestor de arranque"
+msgstr "Utilizar o _LILO como gestor de arranque"
 
 #: ../iw/bootloader_main_gui.py:138
-#, fuzzy
 msgid "_Do not install a boot loader"
-msgstr "Não instalar um gestor de arranque"
+msgstr "Não instalar um gestor _de arranque"
 
 #: ../iw/bootloader_main_gui.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr "O instalador detectou o gestor de arranque %s instalado em %s."
+msgstr "O gestor de arranque %s será instalado em /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:165
 msgid "No boot loader will be installed."
-msgstr ""
+msgstr "Não vai ser instalado gestor de arranque."
 
 #: ../iw/bootloader_main_gui.py:217
-#, fuzzy
 msgid "_Change boot loader"
-msgstr "A instalar o gestor de arranque..."
+msgstr "_Mudar o gestor de arranque"
 
 #: ../iw/bootloader_main_gui.py:245
 #, fuzzy
@@ -2530,24 +2502,20 @@ msgid "Requirement"
 msgstr "Requisito"
 
 #: ../iw/dependencies_gui.py:90
-#, fuzzy
 msgid "_Install packages to satisfy dependencies"
-msgstr "Instalar pacotes para satisfazer as dependências"
+msgstr "_Instalar pacotes para satisfazer as dependências"
 
 #: ../iw/dependencies_gui.py:93
-#, fuzzy
 msgid "_Do not install packages that have dependencies"
-msgstr "Não instalar os pacotes que têm dependências"
+msgstr "Não instalar os pacotes que têm _dependências"
 
 #: ../iw/dependencies_gui.py:97
-#, fuzzy
 msgid "I_gnore package dependencies"
-msgstr "Ignorar dependências dos pacotes"
+msgstr "I_gnorar dependências dos pacotes"
 
 #: ../iw/driveorderwidget.py:44
-#, fuzzy
 msgid "Drive"
-msgstr "Unidade:"
+msgstr "Unidade"
 
 #: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:210
 #: ../iw/progress_gui.py:273 ../textw/partition_text.py:1096
@@ -2580,13 +2548,12 @@ msgid "Upgrading the %s installation on partition /dev/%s"
 msgstr "A actualizar a instalação do %s na partição /dev/%s"
 
 #: ../iw/examine_gui.py:95
-#, fuzzy
 msgid "_Customize packages to be upgraded"
-msgstr "Personalizar pacotes a actualizar"
+msgstr "Personalizar pa_cotes a actualizar"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
-msgstr ""
+msgstr "fdasd"
 
 #: ../iw/fdasd_gui.py:28
 msgid "Select drive to run fdasd on"
@@ -2622,53 +2589,44 @@ msgid "Please choose your security level:  "
 msgstr "Por favor escolha o nível de segurança:  "
 
 #: ../iw/firewall_gui.py:189
-#, fuzzy
 msgid "Hi_gh"
-msgstr "Alta"
+msgstr "Al_ta"
 
 #: ../iw/firewall_gui.py:190
-#, fuzzy
 msgid "_Medium"
-msgstr "Média"
+msgstr "_Média"
 
 #: ../iw/firewall_gui.py:191
-#, fuzzy
 msgid "N_o firewall"
-msgstr "Sem 'firewall'"
+msgstr "_Sem 'firewall'"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Use _default firewall rules"
-msgstr "Utilizar regras de 'firewall' por omissão"
+msgstr "Utilizar regras de 'firewall' por _omissão"
 
 #: ../iw/firewall_gui.py:208
-#, fuzzy
 msgid "_Customize"
-msgstr "Personalizar"
+msgstr "_Personalizar"
 
 #: ../iw/firewall_gui.py:221
-#, fuzzy
 msgid "_Trusted devices:"
-msgstr "Dispositivos de confiança:"
+msgstr "Dispositivos de _confiança:"
 
 #: ../iw/firewall_gui.py:246
-#, fuzzy
 msgid "_Allow incoming:"
-msgstr "Permitir entrada:"
+msgstr "Permitir _entrada:"
 
 #: ../iw/firewall_gui.py:270
-#, fuzzy
 msgid "Other _ports:"
-msgstr "Outros portos:"
+msgstr "Outros _portos:"
 
 #: ../iw/installpath_gui.py:35 ../textw/installpath_text.py:42
 msgid "Installation Type"
 msgstr "Tipo de Instalação"
 
 #: ../iw/ipwidget.py:104
-#, fuzzy
 msgid "IP Address is missing"
-msgstr "Endereço IP"
+msgstr "Falta o Endereço IP"
 
 #: ../iw/ipwidget.py:109
 msgid "IP Addresses must contain numbers between 1 and 255"
@@ -2687,9 +2645,8 @@ msgid "Additional Language Support"
 msgstr "Suporte a Línguas Adicionais"
 
 #: ../iw/language_support_gui.py:147
-#, fuzzy
 msgid "_Choose the default language for this system:   "
-msgstr "Escolha a língua por omissão para este sistema:   "
+msgstr "Es_colha a língua por omissão para este sistema:   "
 
 #: ../iw/language_support_gui.py:157
 #, fuzzy
@@ -2697,9 +2654,8 @@ msgid "Choose _additional languages you would like to use on this system:"
 msgstr "Que línguas adicionais deseja utilizar neste sistema:"
 
 #: ../iw/language_support_gui.py:206
-#, fuzzy
 msgid "_Select all"
-msgstr "Escolher todas"
+msgstr "E_scolher todas"
 
 #: ../iw/language_support_gui.py:212
 #, fuzzy
@@ -2707,9 +2663,8 @@ msgid "Select _Default Only"
 msgstr "Seleccionar por omissão"
 
 #: ../iw/language_support_gui.py:218
-#, fuzzy
 msgid "Rese_t"
-msgstr "Reiniciar"
+msgstr "_Reiniciar"
 
 #: ../iw/lvm_dialog_gui.py:104 ../iw/lvm_dialog_gui.py:150
 #: ../iw/lvm_dialog_gui.py:184 ../iw/lvm_dialog_gui.py:257
@@ -2740,9 +2695,8 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:124 ../iw/lvm_dialog_gui.py:167
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:182
-#, fuzzy
 msgid "C_ontinue"
-msgstr "Continuar"
+msgstr "C_ontinuar"
 
 #: ../iw/lvm_dialog_gui.py:151
 #, python-format
@@ -2754,7 +2708,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:160
 msgid "Too small"
-msgstr ""
+msgstr "Demasiado pequeno"
 
 #: ../iw/lvm_dialog_gui.py:161
 msgid ""
@@ -2781,20 +2735,17 @@ msgid "Make Logical Volume"
 msgstr "Criar Volume Lógico"
 
 #: ../iw/lvm_dialog_gui.py:331
-#, fuzzy
 msgid "Edit Logical Volume"
-msgstr "Volumes Lógicos"
+msgstr "Editar Volumes Lógicos"
 
 #: ../iw/lvm_dialog_gui.py:344 ../iw/partition_dialog_gui.py:279
 #: ../iw/raid_dialog_gui.py:292
-#, fuzzy
 msgid "_Mount Point:"
-msgstr "Montar em:"
+msgstr "_Montar em:"
 
 #: ../iw/lvm_dialog_gui.py:352
-#, fuzzy
 msgid "_Filesystem Type:"
-msgstr "Tipo do Sistema de Ficheiros:"
+msgstr "Tipo do Sistema de _Ficheiros:"
 
 #: ../iw/lvm_dialog_gui.py:360 ../iw/partition_dialog_gui.py:297
 msgid "Original Filesystem Type:"
@@ -2806,18 +2757,16 @@ msgid "Unknown"
 msgstr "Desconhecido"
 
 #: ../iw/lvm_dialog_gui.py:371
-#, fuzzy
 msgid "_Logical Volume Name:"
-msgstr "Nome do Volume Lógico:"
+msgstr "Nome do Volume _Lógico:"
 
 #: ../iw/lvm_dialog_gui.py:379
 msgid "Logical Volume Name:"
 msgstr "Nome do Volume Lógico:"
 
 #: ../iw/lvm_dialog_gui.py:387 ../iw/partition_dialog_gui.py:354
-#, fuzzy
 msgid "_Size (MB):"
-msgstr "Tamanho (MB):"
+msgstr "_Tamanho (MB):"
 
 #: ../iw/lvm_dialog_gui.py:393 ../iw/partition_dialog_gui.py:371
 #: ../iw/partition_dialog_gui.py:414 ../textw/partition_text.py:317
@@ -2843,9 +2792,9 @@ msgid "Mount point in use"
 msgstr "Ponto de montagem já utilizado"
 
 #: ../iw/lvm_dialog_gui.py:501
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr "O ponto de montagem %s já está em uso, por favor seleccione outro."
+msgstr "O ponto de montagem \"%s\" já está em uso, por favor seleccione outro."
 
 #: ../iw/lvm_dialog_gui.py:512
 msgid "Illegal Logical Volume Name"
@@ -2856,9 +2805,9 @@ msgid "Illegal logical volume name"
 msgstr "Nome de volume lógico inválido"
 
 #: ../iw/lvm_dialog_gui.py:532
-#, fuzzy, python-format
+#, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "O nome do volume lógico %s já está em uso. Por favor seleccione outro."
+msgstr "O nome do volume lógico \"%s\" já está em uso. Por favor seleccione outro."
 
 #: ../iw/lvm_dialog_gui.py:546
 #, python-format
@@ -2898,9 +2847,8 @@ msgstr ""
 "volumes LVM."
 
 #: ../iw/lvm_dialog_gui.py:651
-#, fuzzy
 msgid "No free space"
-msgstr "Espaço livre"
+msgstr "Sem espaço livre"
 
 #: ../iw/lvm_dialog_gui.py:652
 msgid ""
@@ -2945,14 +2893,12 @@ msgid "Make LVM Device"
 msgstr "Criar Dispositivo LVM"
 
 #: ../iw/lvm_dialog_gui.py:871
-#, fuzzy
 msgid "Edit LVM Device"
-msgstr "Criar Dispositivo LVM"
+msgstr "Editar Dispositivo LVM"
 
 #: ../iw/lvm_dialog_gui.py:887
-#, fuzzy
 msgid "_Volume Group Name:"
-msgstr "Nome do Grupo de Volumes:"
+msgstr "Nome do Grupo de _Volumes:"
 
 #: ../iw/lvm_dialog_gui.py:895
 msgid "Volume Group Name:"
@@ -2972,19 +2918,16 @@ msgid "Physical Volumes to _Use:"
 msgstr "Volumes Físicos a Utilizar:"
 
 #: ../iw/lvm_dialog_gui.py:930
-#, fuzzy
 msgid "Used Space:"
-msgstr "Espaço em Disco"
+msgstr "Espaço Utilizado:"
 
 #: ../iw/lvm_dialog_gui.py:947
-#, fuzzy
 msgid "Free Space:"
-msgstr "Espaço Livre"
+msgstr "Espaço Livre:"
 
 #: ../iw/lvm_dialog_gui.py:965
-#, fuzzy
 msgid "Total Space:"
-msgstr "Tamanho total: "
+msgstr "Espaço Total:"
 
 #: ../iw/lvm_dialog_gui.py:994
 msgid "Logical Volume Name"
@@ -3019,19 +2962,16 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 em DOS)"
 
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:152
-#, fuzzy
 msgid "_Device"
-msgstr "Dispositivo"
+msgstr "_Dispositivo"
 
 #: ../iw/mouse_gui.py:220
-#, fuzzy
 msgid "_Emulate 3 Buttons"
-msgstr "Emular 3 botões"
+msgstr "_Emular 3 botões"
 
 #: ../iw/mouse_gui.py:234
-#, fuzzy
 msgid "Which _model mouse is attached to the computer?"
-msgstr "Que tipo de rato está ligado a este computador?"
+msgstr "Que tipo de rato está ligado a este co_mputador?"
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:534
 msgid "Gateway"
@@ -3050,24 +2990,20 @@ msgid "Tertiary DNS"
 msgstr "DNS terciário"
 
 #: ../iw/network_gui.py:29
-#, fuzzy
 msgid "_Gateway"
-msgstr "Gateway"
+msgstr "_Gateway"
 
 #: ../iw/network_gui.py:29
-#, fuzzy
 msgid "_Primary DNS"
-msgstr "DNS primário"
+msgstr "DNS _primário"
 
 #: ../iw/network_gui.py:30
-#, fuzzy
 msgid "_Secondary DNS"
-msgstr "DNS secundário"
+msgstr "DNS _secundário"
 
 #: ../iw/network_gui.py:30
-#, fuzzy
 msgid "_Tertiary DNS"
-msgstr "DNS terciário"
+msgstr "DNS _terciário"
 
 #: ../iw/network_gui.py:34
 msgid "Network Configuration"
@@ -3076,9 +3012,8 @@ msgstr "Configuração da Rede"
 #: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:164
 #: ../iw/network_gui.py:168 ../iw/network_gui.py:173 ../iw/network_gui.py:177
 #: ../iw/network_gui.py:182
-#, fuzzy
 msgid "Error With Data"
-msgstr "Erro No Pedido"
+msgstr "Erro nos Dados"
 
 #: ../iw/network_gui.py:157
 msgid ""
@@ -3128,46 +3063,40 @@ msgstr ""
 #: ../iw/network_gui.py:201
 #, python-format
 msgid "Edit Interface %s"
-msgstr ""
+msgstr "Editar a Interface %s"
 
 #: ../iw/network_gui.py:211
-#, fuzzy
 msgid "Configure using _DHCP"
-msgstr "Configurar utilizando DHCP"
+msgstr "Configurar utilizando _DHCP"
 
 #: ../iw/network_gui.py:217
-#, fuzzy
 msgid "_Activate on boot"
-msgstr "Activar no arranque"
+msgstr "_Activar no arranque"
 
 #: ../iw/network_gui.py:226
-#, fuzzy
 msgid "_IP Address"
-msgstr "Endereço IP"
+msgstr "Endereço _IP"
 
 #: ../iw/network_gui.py:227
-#, fuzzy
 msgid "Net_mask"
-msgstr "Máscara"
+msgstr "_Máscara"
 
 #: ../iw/network_gui.py:230
 msgid "Point to Point (IP)"
 msgstr "Ponto a Ponto (IP)"
 
 #: ../iw/network_gui.py:253
-#, fuzzy, python-format
+#, python-format
 msgid "Configure %s"
-msgstr "Configurar TCP/IP"
+msgstr "Configurar %s"
 
 #: ../iw/network_gui.py:365
-#, fuzzy
 msgid "Active on Boot"
-msgstr "Activar no arranque"
+msgstr "Activar no Arranque"
 
 #: ../iw/network_gui.py:369
-#, fuzzy
 msgid "IP/Netmask"
-msgstr "Máscara"
+msgstr "IP/Máscara"
 
 #: ../iw/network_gui.py:392 ../iw/network_gui.py:491
 #: ../textw/network_text.py:224 ../loader/net.c:622 ../loader/net.c:817
@@ -3175,31 +3104,28 @@ msgid "Hostname"
 msgstr "Máquina"
 
 #: ../iw/network_gui.py:397
-#, fuzzy
 msgid "Set hostname"
-msgstr "Máquina"
+msgstr "Nome da máquina"
 
 #: ../iw/network_gui.py:462
-#, fuzzy
 msgid "Network Devices"
-msgstr "Dispositivo de rede: %s"
+msgstr "Dispositivos de rede"
 
 #: ../iw/network_gui.py:471
 msgid "I would like the hostname to be set:"
-msgstr ""
+msgstr "O nome da máquina deve ser escolhido:"
 
 #: ../iw/network_gui.py:475
 msgid "_automatically via DHCP"
-msgstr ""
+msgstr "_automaticamente via DHCP"
 
 #: ../iw/network_gui.py:481
 msgid "_manually"
-msgstr ""
+msgstr "_manualmente"
 
 #: ../iw/network_gui.py:544
-#, fuzzy
 msgid "Miscellaneous Settings"
-msgstr "Vários"
+msgstr "Outras Configurações"
 
 #: ../iw/osbootwidget.py:41
 msgid ""
@@ -3222,7 +3148,7 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:144
 msgid "_Label"
-msgstr ""
+msgstr "_Nome"
 
 #: ../iw/osbootwidget.py:188
 #, fuzzy
@@ -3241,7 +3167,7 @@ msgstr "O nome de arranque contém caracteres ilegais."
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
-msgstr ""
+msgstr "Nome de Arranque Duplicado"
 
 #: ../iw/osbootwidget.py:251
 #, fuzzy
@@ -3259,9 +3185,8 @@ msgid "This device is already being used for another boot entry."
 msgstr "Este ID de utilizador já existe. Escolha outro."
 
 #: ../iw/osbootwidget.py:329
-#, fuzzy
 msgid "Cannot Delete"
-msgstr "Confirmar Remoção"
+msgstr "Não é Possível Apagar"
 
 #: ../iw/osbootwidget.py:330
 msgid ""
@@ -3285,56 +3210,48 @@ msgid ""
 msgstr ""
 
 #: ../iw/package_gui.py:358
-#, fuzzy
 msgid "_Tree View"
-msgstr "Vista em árvore"
+msgstr "Vis_ta em Árvore"
 
 #: ../iw/package_gui.py:360
-#, fuzzy
 msgid "_Flat View"
-msgstr "Vista plana"
+msgstr "_Vista Plana"
 
 #: ../iw/package_gui.py:375
-#, fuzzy
 msgid "_Package"
-msgstr "Pacote"
+msgstr "_Pacote"
 
 #: ../iw/package_gui.py:377
-#, fuzzy
 msgid "_Size (MB)"
-msgstr "Tamanho (MB)"
+msgstr "Ta_manho (MB)"
 
 #: ../iw/package_gui.py:428
 msgid "Total size: "
 msgstr "Tamanho total: "
 
 #: ../iw/package_gui.py:431
-#, fuzzy
 msgid "Select _all in group"
-msgstr "Seleccionar todos no grupo"
+msgstr "Seleccion_ar todos no grupo"
 
 #: ../iw/package_gui.py:435
-#, fuzzy
 msgid "_Unselect all in group"
-msgstr "Deseleccionar todos no grupo"
+msgstr "Deseleccionar todos no gr_upo"
 
 #: ../iw/package_gui.py:472 ../textw/packages_text.py:60
 msgid "Package Group Selection"
 msgstr "Selecção de Grupos de Pacotes"
 
 #: ../iw/package_gui.py:584
-#, fuzzy
 msgid "_Select individual packages"
-msgstr "Seleccionar pacotes individuais"
+msgstr "_Seleccionar pacotes individuais"
 
 #: ../iw/partition_dialog_gui.py:55
 msgid "Additional Size Options"
 msgstr "Opções Adicionais de Tamanho"
 
 #: ../iw/partition_dialog_gui.py:60
-#, fuzzy
 msgid "_Fixed size"
-msgstr "Tamanho fixo"
+msgstr "Tamanho _fixo"
 
 #: ../iw/partition_dialog_gui.py:62
 #, fuzzy
@@ -3355,19 +3272,16 @@ msgid "Add Partition"
 msgstr "Adicionar Partição"
 
 #: ../iw/partition_dialog_gui.py:261
-#, fuzzy
 msgid "Edit Partition"
-msgstr "Editar Partições"
+msgstr "Editar Partição"
 
 #: ../iw/partition_dialog_gui.py:288 ../iw/raid_dialog_gui.py:300
-#, fuzzy
 msgid "Filesystem _Type:"
-msgstr "Tipo do Sistema de Ficheiros:"
+msgstr "_Tipo do Sistema de Ficheiros:"
 
 #: ../iw/partition_dialog_gui.py:320
-#, fuzzy
 msgid "Allowable _Drives:"
-msgstr "Unidades Permitidas:"
+msgstr "Unida_des Permitidas:"
 
 #: ../iw/partition_dialog_gui.py:333
 msgid "Drive:"
@@ -3388,14 +3302,12 @@ msgid "_End Cylinder:"
 msgstr "Cilindro Final:"
 
 #: ../iw/partition_dialog_gui.py:446
-#, fuzzy
 msgid "Force to be a _primary partition"
-msgstr "Forçar a ser uma partição primária"
+msgstr "Forçar a ser uma partição _primária"
 
 #: ../iw/partition_dialog_gui.py:454
-#, fuzzy
 msgid "Check for _bad blocks"
-msgstr "Verificar blocos danificados"
+msgstr "Verificar _blocos danificados"
 
 #: ../iw/partition_gui.py:351
 msgid "Format"
@@ -3410,18 +3322,20 @@ msgid "End"
 msgstr "Fim"
 
 #: ../iw/partition_gui.py:391
-#, fuzzy
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
-msgstr "Montar Em"
+msgstr ""
+"Montar Em/\n"
+"RAID/Volume"
 
 #: ../iw/partition_gui.py:393
-#, fuzzy
 msgid ""
 "Size\n"
 "(MB)"
-msgstr "Tamanho (MB)"
+msgstr ""
+"Tamanho\n"
+"(MB)"
 
 #: ../iw/partition_gui.py:520 ../textw/fdasd_text.py:50
 #: ../textw/fdisk_text.py:39
@@ -3461,19 +3375,16 @@ msgid "Format Warnings"
 msgstr "Avisos de Formatação"
 
 #: ../iw/partition_gui.py:652
-#, fuzzy
 msgid "_Format"
-msgstr "Formatar"
+msgstr "_Formatar"
 
 #: ../iw/partition_gui.py:687
-#, fuzzy
 msgid "LVM Volume Groups"
-msgstr "Grupo de Volumes LVM"
+msgstr "Grupos de Volumes LVM"
 
 #: ../iw/partition_gui.py:722
-#, fuzzy
 msgid "RAID Devices"
-msgstr "Dispositivo RAID"
+msgstr "Dispositivos RAID"
 
 #: ../iw/partition_gui.py:750 ../iw/partition_gui.py:864
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:151
@@ -3520,17 +3431,16 @@ msgid "_Continue"
 msgstr "_Continuar"
 
 #: ../iw/partition_gui.py:1128 ../iw/partition_gui.py:1142
-#, fuzzy
 msgid "Not supported"
-msgstr "Suporte a Rede"
+msgstr "Não suportado"
 
 #: ../iw/partition_gui.py:1129
 msgid "LVM is NOT supported on this platform."
-msgstr ""
+msgstr "LVM não é suportado neste plataforma."
 
 #: ../iw/partition_gui.py:1143
 msgid "Software RAID is NOT supported on this platform."
-msgstr ""
+msgstr "RAID por software não é suportado nesta plataforma."
 
 #: ../iw/partition_gui.py:1150
 #, fuzzy
@@ -3544,9 +3454,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/partition_gui.py:1164
-#, fuzzy
 msgid "RAID Options"
-msgstr "Nenhuma partição RAID"
+msgstr "Opções RAID"
 
 #: ../iw/partition_gui.py:1175
 #, python-format
@@ -3569,7 +3478,6 @@ msgid ""
 msgstr ""
 
 #: ../iw/partition_gui.py:1192
-#, fuzzy
 msgid "What do you want to do now?"
 msgstr "O que deseja fazer?"
 
@@ -3599,22 +3507,19 @@ msgstr "Não foi possível montar essa directoria do servidor"
 
 #: ../iw/partition_gui.py:1296
 msgid "Make _RAID"
-msgstr "_Criar RAID"
+msgstr "Criar _RAID"
 
 #: ../iw/partition_gui.py:1298
-#, fuzzy
 msgid "Ne_w"
-msgstr "Nova"
+msgstr "No_va"
 
 #: ../iw/partition_gui.py:1301
-#, fuzzy
 msgid "Re_set"
-msgstr "Reiniciar"
+msgstr "_Reiniciar"
 
 #: ../iw/partition_gui.py:1302
-#, fuzzy
 msgid "R_AID"
-msgstr "RAID"
+msgstr "R_AID"
 
 #: ../iw/partition_gui.py:1303
 msgid "_LVM"
@@ -3665,19 +3570,16 @@ msgid "Leave _unchanged (preserve data)"
 msgstr "Deixar inalterada (preserva os dados)"
 
 #: ../iw/partition_ui_helpers_gui.py:255
-#, fuzzy
 msgid "_Format partition as:"
-msgstr "Formatar partição como:"
+msgstr "_Formatar partição como:"
 
 #: ../iw/partition_ui_helpers_gui.py:278
-#, fuzzy
 msgid "Mi_grate partition to:"
-msgstr "Migrar partição para:"
+msgstr "Mi_grar partição para:"
 
 #: ../iw/partition_ui_helpers_gui.py:301
-#, fuzzy
 msgid "Check for _bad blocks?"
-msgstr "Verificar blocos danificados?"
+msgstr "Verificar _blocos danificados?"
 
 #: ../iw/partition_ui_helpers_gui.py:335
 #, python-format
@@ -3765,34 +3667,28 @@ msgid "Make RAID Device"
 msgstr "Criar Dispositivo RAID"
 
 #: ../iw/raid_dialog_gui.py:278 ../textw/partition_text.py:869
-#, fuzzy
 msgid "Edit RAID Device"
-msgstr "Dispositivo RAID"
+msgstr "Editar Dispositivo RAID"
 
 #: ../iw/raid_dialog_gui.py:319
-#, fuzzy
 msgid "RAID _Device:"
-msgstr "Dispositivo RAID"
+msgstr "_Dispositivo RAID:"
 
 #: ../iw/raid_dialog_gui.py:337
-#, fuzzy
 msgid "RAID _Level:"
-msgstr "Nível de RAID:"
+msgstr "Níve_l de RAID:"
 
 #: ../iw/raid_dialog_gui.py:379
-#, fuzzy
 msgid "_RAID Members:"
-msgstr "Membros do RAID:"
+msgstr "Membros do _RAID:"
 
 #: ../iw/raid_dialog_gui.py:396
-#, fuzzy
 msgid "Number of _spares:"
-msgstr "Número de reservas:"
+msgstr "Número de re_servas:"
 
 #: ../iw/raid_dialog_gui.py:406
-#, fuzzy
 msgid "_Format partition?"
-msgstr "Formatar partição?"
+msgstr "_Formatar partição?"
 
 #: ../iw/raid_dialog_gui.py:478
 msgid ""
@@ -3859,9 +3755,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:554
-#, fuzzy
 msgid "delete"
-msgstr "Apagar"
+msgstr "apagar"
 
 #: ../iw/raid_dialog_gui.py:612
 #, fuzzy
@@ -3883,9 +3778,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:640
-#, fuzzy
 msgid "Final Warning"
-msgstr "Aviso da Formatação"
+msgstr "Aviso Final"
 
 #: ../iw/raid_dialog_gui.py:642
 #, fuzzy
@@ -3913,9 +3807,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:705
-#, fuzzy
 msgid "Source Drive:"
-msgstr "Unidade:"
+msgstr "Unidade de Origem:"
 
 #: ../iw/raid_dialog_gui.py:713
 #, fuzzy
@@ -3923,9 +3816,8 @@ msgid "Target Drive(s):"
 msgstr "Discos Rígidos"
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy
 msgid "Drives"
-msgstr "Unidade:"
+msgstr "Unidades"
 
 #: ../iw/silo_gui.py:28
 msgid "Silo Configuration"
@@ -3960,40 +3852,36 @@ msgid "Time Zone Selection"
 msgstr "Escolha do fuso horário"
 
 #: ../iw/timezone_gui.py:146 ../iw/timezone_gui.py:147
-#, fuzzy
 msgid "System clock uses _UTC"
-msgstr "Relógio de sistema utiliza UTC"
+msgstr "Relógio de sistema utiliza _UTC"
 
 #: ../iw/timezone_gui.py:170
 msgid "Location"
 msgstr "Localização"
 
 #: ../iw/timezone_gui.py:218
-#, fuzzy
 msgid "Use _Daylight Saving Time (US only)"
-msgstr "Mudança hora Verão/Inverno (só nos EUA)"
+msgstr "Mu_dança hora Verão/Inverno (só nos EUA)"
 
 #: ../iw/timezone_gui.py:231
 msgid "UTC Offset"
 msgstr "Desvio UTC"
 
 #: ../iw/timezone_map_gui.py:108
-#, fuzzy
 msgid "_Location"
-msgstr "Localização"
+msgstr "_Localização"
 
 #: ../iw/timezone_map_gui.py:110
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
 msgstr "Actualizar a Configuração do Gestor de Arranque"
 
 #: ../iw/upgrade_bootloader_gui.py:68
-#, fuzzy
 msgid "_Update boot loader configuration"
-msgstr "Actualizar a configuração do gestor de arranque"
+msgstr "Act_ualizar a configuração do gestor de arranque"
 
 #: ../iw/upgrade_bootloader_gui.py:69
 msgid "This will update your current boot loader."
@@ -4018,9 +3906,8 @@ msgstr ""
 "utilizado no seu computador."
 
 #: ../iw/upgrade_bootloader_gui.py:89
-#, fuzzy
 msgid "_Create new boot loader configuration"
-msgstr "Criar nova configuração de gestor de arranque"
+msgstr "_Criar nova configuração de gestor de arranque"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
@@ -4031,9 +3918,8 @@ msgstr ""
 "pretende mudar de gestor de arranque, deve escolhe-la."
 
 #: ../iw/upgrade_bootloader_gui.py:98
-#, fuzzy
 msgid "_Skip boot loader updating"
-msgstr "Não actualizar o gestor de arranque"
+msgstr "Não actualizar o ge_stor de arranque"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
@@ -4558,7 +4444,7 @@ msgstr "Formatar DASD"
 
 #: ../textw/fdasd_text.py:74
 #, python-format
-msgid "An error occurred while running %s on drive %s."
+msgid "An error occured while running %s on drive %s."
 msgstr "Ocorreu um erro ao executar o %s na unidade %s."
 
 #: ../textw/fdasd_text.py:85
@@ -5882,7 +5768,7 @@ msgstr "Não conseguir ler directoria %s: %s"
 
 #: ../loader/loader.c:595
 msgid ""
-"An error occurred reading the install from the ISO images. Please check your "
+"An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
 "Ocorreu um erro ao carregar a instalação das imagens ISO. Por favor "
@@ -7284,15 +7170,6 @@ msgstr "Sueco"
 msgid "Ukrainian"
 msgstr "Ucraniano"
 
-#~ msgid "Close"
-#~ msgstr "Fechar"
-
-#~ msgid "Unable to probe"
-#~ msgstr "Impossível detectar"
-
-#~ msgid "Are you sure you want to delete this partition?"
-#~ msgstr "Tem certeza que quer apagar esta partição?"
-
 #~ msgid ""
 #~ "You cannot remove this partition, as it is an extended partition which "
 #~ "contains %s"
@@ -7304,9 +7181,6 @@ msgstr "Ucraniano"
 #~ msgstr ""
 #~ "Não pode apagar esta partição, uma vez que ela faz parte de um "
 #~ "dispositivo RAID."
-
-#~ msgid "Unable to Edit"
-#~ msgstr "Impossível Editar"
 
 #~ msgid ""
 #~ "You have chosen to format a pre-existing partition.  This will destroy "
@@ -7873,6 +7747,3 @@ msgstr "Ucraniano"
 #~ "Vai ser efectuado um teste ao suporte físico antes da instalação.\n"
 #~ "\n"
 #~ "Escolha 'Não Efectuar' se desejar evitar este teste."
-
-#~ msgid "Portuguese(Brasilian)"
-#~ msgstr "Português(Brasil)"

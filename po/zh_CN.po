@@ -5,9 +5,9 @@
 #: ../gettext_rh.py:340
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 7.3\n"
+"Project-Id-Version: anaconda 8.0 beta\n"
 "POT-Creation-Date: 2002-07-09 10:57-0400\n"
-"PO-Revision-Date: 2002-06-28 16:16GMT+10:00\n"
+"PO-Revision-Date: 2002-07-12 08:35GMT+10:00\n"
 "Last-Translator: Sarah Smith <sarahs@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -75,8 +75,7 @@ msgstr "跳过鼠标探测。\n"
 
 #: ../anaconda:434
 #, c-format
-msgid ""
-"Graphical installation not available for %s installs.  Starting text mode."
+msgid "Graphical installation not available for %s installs.  Starting text mode."
 msgstr "%s 安装不支持图形方式安装，开始文本方式安装。"
 
 #: ../anaconda:446
@@ -91,7 +90,7 @@ msgstr "使用鼠标类型："
 
 #: ../anaconda:455
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "没有设置 DISPLAY 变量，开始使用文本模式！"
 
 #: ../autopart.py:723
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -114,15 +113,14 @@ msgstr "无法拨发分区"
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
-msgstr ""
-"引导分区 %s 可能没有满足你的体系的引导制约参数，大力提倡你创建一张引导软盘。"
+msgstr "引导分区 %s 可能没有满足你的体系的引导制约参数，大力提倡你创建一张引导软盘。"
 
 #: ../autopart.py:808
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
+msgstr "若添加该分区，已分配在 %s 的逻辑卷将没有足够的磁盘空间。"
 
 #: ../autopart.py:952
 msgid "Requested Partition Does Not Exist"
@@ -135,7 +133,7 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"找不到 %s 分区以便 %s。\n"
+"找不到 %s 分区以便用在 %s。\n"
 "\n"
 "按确定按钮来重新引导系统。"
 
@@ -179,6 +177,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"\n"
+"\n"
+"按确定按钮来重新引导你的系统。"
 
 #: ../autopart.py:1007 ../iw/partition_gui.py:939
 #: ../textw/partition_text.py:198
@@ -209,6 +210,14 @@ msgid ""
 "\n"
 "Press OK to continue."
 msgstr ""
+"在你的分区中发现了下列错误：\n"
+"\n"
+"%s\n"
+"\n"
+"这些错误在磁盘驱动器上的空间不够用来成功地自动分区时会发生。"
+"你可能需要手工为你的驱动器分区来完成安装进程。\n"
+"\n"
+"按确定按钮来继续。"
 
 #: ../autopart.py:1100 ../bootloader.py:123 ../image.py:217
 #: ../partedUtils.py:240 ../partedUtils.py:658 ../upgrade.py:259
@@ -258,7 +267,7 @@ msgstr "删除系统内所有的 Linux 分区"
 
 #: ../autopart.py:1129
 msgid "Keep all partitions and use existing free space"
-msgstr "保存所有的分区，使用现有的空闲空间"
+msgstr "保存所有分区，使用现有的空闲空间"
 
 #: ../autopart.py:1131
 #, python-format
@@ -272,7 +281,7 @@ msgstr ""
 "警告！！\t警告！！\n"
 "\n"
 "你已选择了要在下列驱动器内删除所有分区(及其所有数据)： %s\n"
-"是否确信要执行此操作？"
+"是否确信要执行此项操作？"
 
 #: ../autopart.py:1136
 #, python-format
@@ -286,7 +295,7 @@ msgstr ""
 "警告！！\t警告！！\n"
 "\n"
 "你已选择了要在以下驱动器内删除所有 Linux 分区(及其所有数据)：%s\n"
-"是否确信要执行此操作？"
+"是否确信要执行此项操作？"
 
 #: ../bootloader.py:89
 msgid "Bootloader"
@@ -325,32 +334,27 @@ msgid ""
 msgstr "你的系统状态已被成功地写入软盘，系统将被重设。"
 
 #: ../floppy.py:59
-#, fuzzy
 msgid "Insert a floppy disk"
-msgstr "挂载软盘失败。"
+msgstr "请插入软盘"
 
 #: ../floppy.py:60
-#, fuzzy
 msgid ""
 "Please remove any diskettes from the floppy drive, and insert the floppy "
 "diskette that is to contain the boot disk.\n"
 "\n"
 "All data will be ERASED during creation of the boot disk."
 msgstr ""
-"引导盘允许你从软盘中启动 %s 系统。\n"
+"请从软盘驱动器中取出任何软盘，然后插入要成为引导盘的软盘。\n"
 "\n"
-"请将软盘驱动器中的其它软盘取出，然后插入一张空盘。在创建引导盘过程中，该软盘"
-"上的所有信息将会被抹掉。"
+"在创建引导盘过程中，该软盘上的所有信息将会被抹掉。"
 
 #: ../floppy.py:64
-#, fuzzy
 msgid "_Cancel"
-msgstr "取消"
+msgstr "取消(_C)"
 
 #: ../floppy.py:64
-#, fuzzy
 msgid "_Make boot disk"
-msgstr "创建引导盘"
+msgstr "创建引导盘(_M)"
 
 #: ../floppy.py:76 ../floppy.py:105 ../fsset.py:549 ../fsset.py:1010
 #: ../fsset.py:1029 ../fsset.py:1076 ../fsset.py:1087 ../fsset.py:1123
@@ -378,11 +382,10 @@ msgid "Error"
 msgstr "错误"
 
 #: ../floppy.py:77 ../floppy.py:106
-#, fuzzy
 msgid ""
-"An error occurred while making the boot disk. Please make sure that there is "
+"An error occured while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
-msgstr "制作引导盘时出现错误。请确保第一个软盘驱动器中的软盘已被格式化。"
+msgstr "制作引导盘时出现错误。请确保第一个软盘驱动器中已插有软盘。"
 
 #: ../floppy.py:92
 msgid "Creating"
@@ -415,9 +418,8 @@ msgstr ""
 "你想不移植 %s 而继续吗？"
 
 #: ../fsset.py:943
-#, fuzzy
 msgid "RAID Device"
-msgstr "RAID 设备 %s"
+msgstr "RAID 设备"
 
 #: ../fsset.py:946 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
@@ -462,6 +464,9 @@ msgid ""
 "\n"
 "Press Enter to reboot your system"
 msgstr ""
+"在设备 /dev/%s 上检测到坏块。我们不推荐你使用该设备。\n"
+"\n"
+"请按 Enter 键来重新引导系统"
 
 #: ../fsset.py:1088
 #, python-format
@@ -592,7 +597,7 @@ msgstr "取消"
 
 #: ../gui.py:290 ../text.py:289
 msgid ""
-"An unhandled exception has occurred.  This is most likely a bug.  Please copy "
+"An unhandled exception has occured.  This is most likely a bug.  Please copy "
 "the full text of this exception or save the crash dump to a floppy then file "
 "a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
@@ -628,34 +633,28 @@ msgid "Release notes are missing.\n"
 msgstr "缺少发行注记。\n"
 
 #: ../gui.py:781 ../packages.py:965
-#, fuzzy
 msgid "_Back"
-msgstr "上一步"
+msgstr "上一步(_B)"
 
 #: ../gui.py:783
-#, fuzzy
 msgid "_Next"
-msgstr "下一步"
+msgstr "下一步(_N)"
 
 #: ../gui.py:785
-#, fuzzy
 msgid "_Release Notes"
-msgstr "发行注记"
+msgstr "发行注记(_R)"
 
 #: ../gui.py:787
-#, fuzzy
 msgid "Show _Help"
-msgstr "显示帮助"
+msgstr "显示帮助(_H)"
 
 #: ../gui.py:789
-#, fuzzy
 msgid "Hide _Help"
-msgstr "隐藏帮助"
+msgstr "隐藏帮助(_H)"
 
 #: ../gui.py:791
-#, fuzzy
 msgid "_Debug"
-msgstr "调试"
+msgstr "调试(_D)"
 
 #: ../gui.py:847
 #, python-format
@@ -690,7 +689,7 @@ msgstr "正在将安装映像传输到硬盘……"
 
 #: ../image.py:77
 msgid ""
-"An error occurred transferring the install image to your hard drive. You are "
+"An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr "将安装映像传输到硬盘时出错，很可能是磁盘空间不够。"
 
@@ -708,9 +707,9 @@ msgid "Wrong CDROM"
 msgstr "光盘不对"
 
 #: ../image.py:157
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s CDROM."
-msgstr "这不是正确的 Red Hat 光盘。"
+msgstr "这不是正确的 %s 光盘。"
 
 #: ../image.py:163
 msgid "The CDROM could not be mounted."
@@ -722,11 +721,11 @@ msgstr "安装"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
+msgstr "主机名只能以“a-z”或“A-Z”范围内的字符开头"
 
 #: ../network.py:44
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
+msgstr "主机名只能包含字符：“a-z”、“A-Z”、“-”、或“.”。"
 
 #: ../packages.py:39 ../iw/package_gui.py:34
 msgid "Proceed with upgrade?"
@@ -767,7 +766,7 @@ msgstr "正在处理"
 
 #: ../packages.py:237
 msgid "Preparing to install..."
-msgstr "正在进行安装准备……"
+msgstr "正在进行安装筹备……"
 
 #: ../packages.py:280
 #, python-format
@@ -780,19 +779,17 @@ msgstr ""
 
 #: ../packages.py:303
 msgid "Error Installing Package"
-msgstr "安装软件包出错"
+msgstr "安装软件包时出错"
 
 #: ../packages.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
 "disk space, and/or hardware problems.  This is a fatal error and your "
 "install will be aborted.  Please verify your media and try "
 msgstr ""
 "安装 %s 时出错。这可能意味着介质失败，缺乏空间，以及（或者）硬件问题。这是一"
-"个致命错误，安装将会中止。请校验你的介质后再重新安装。\n"
-"\n"
-"请按确定按钮来重新引导你的系统。"
+"个致命错误，安装将会中止。请校验你的介质后再"
 
 #: ../packages.py:308
 msgid ""
@@ -800,10 +797,13 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"重新安装。\n"
+"\n"
+"请按确定按钮来重新引导你的系统。"
 
 #: ../packages.py:545
 msgid "Setting up RPM transaction..."
-msgstr "正在建立 RPM 传输……"
+msgstr "正在设置 RPM 传输……"
 
 #: ../packages.py:582
 #, python-format
@@ -884,7 +884,7 @@ msgid ""
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
-"文件节点不足，无法安装已选定的软件包。 你需要更多的文件节点才能安装以下文件系"
+"文件节点不足，无法安装已选定的软件包。你需要更多的文件节点才能安装以下文件系"
 "统：\n"
 "\n"
 
@@ -904,7 +904,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"下列软件包在此版本已被提供却没有升级：\n"
+"下列软件包在本版中已被提供却没有升级：\n"
 
 #: ../packages.py:730
 msgid "Post Install"
@@ -916,7 +916,7 @@ msgstr "正在执行安装后配置……"
 
 #: ../packages.py:945
 msgid "Warning! This is a beta!"
-msgstr ""
+msgstr "警告！这是 beta 版本！"
 
 #: ../packages.py:946
 msgid ""
@@ -932,37 +932,44 @@ msgid ""
 "\n"
 "and file a report against 'Red Hat Public Beta'.\n"
 msgstr ""
+"感谢您下载 Red Hat Beta 版本。\n"
+"\n"
+"这不是最后的发行版本，也不是为用在生产系统上而制作的。"
+"该发行版本的目的是从测试者中收集反馈；它并不适合于"
+"日常使用。\n"
+"\n"
+"要提交反馈，请访问：\n"
+"\n"
+"    http://bugzilla.redhat.com/bugzilla\n"
+"\n"
+"然后向“Red Hat Public Beta”部分提交报告。\n"
 
 #: ../packages.py:959
-#, fuzzy
 msgid "_Exit"
-msgstr "退出"
+msgstr "退出(_E)"
 
 #: ../packages.py:959
-#, fuzzy
 msgid "_Install BETA"
-msgstr "安装"
+msgstr "安装 BETA(_I)"
 
 #: ../packages.py:962
-#, fuzzy
 msgid "Rebooting System"
-msgstr "升级现存系统"
+msgstr "重新引导系统"
 
 #: ../packages.py:963
 msgid "Your system will now be rebooted..."
-msgstr ""
+msgstr "你的系统现在将会被重新引导……"
 
 #: ../packages.py:965
-#, fuzzy
 msgid "_Reboot"
-msgstr "重设(_R)"
+msgstr "重新引导(_R)"
 
 #: ../partedUtils.py:171
 msgid "Foreign"
 msgstr "外来"
 
 #: ../partedUtils.py:241
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type %s for your "
 "architecture.  To use this disk for installation of %s, it must be re-"
@@ -970,7 +977,8 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"设备 /dev/%s 上的分区表与你的体系有异。若要使用该磁盘安装 %s ，它一定要被重新"
+"设备 /dev/%s 上的分区表的类型为 %s，与你的体系有异。"
+"若要使用该磁盘安装 %s ，它一定要被重新"
 "初始化，从而导致所有数据丢失。\n"
 "\n"
 "你想初始化这个驱动器吗？"
@@ -981,14 +989,13 @@ msgid "Error mounting filesystem on %s: %s"
 msgstr "在 %s 上挂载文件系统时出现错误： %s"
 
 #: ../partedUtils.py:543
-#, fuzzy
 msgid "Initializing"
-msgstr "初始化光盘……"
+msgstr "初始化"
 
 #: ../partedUtils.py:544
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr ""
+msgstr "正在格式驱动器 %s ……请稍候……\n"
 
 #: ../partedUtils.py:659
 #, python-format
@@ -1016,43 +1023,38 @@ msgstr ""
 "因。"
 
 #: ../partIntfHelpers.py:35
-#, fuzzy
 msgid "Please enter a volume group name."
-msgstr "请输入用户名"
+msgstr "请输入卷组名称。"
 
 #: ../partIntfHelpers.py:39
-#, fuzzy
 msgid "Volume Group Names must be less than 128 characters"
-msgstr "根口令最少应包含 6 个字符。"
+msgstr "卷组名称必须小于 128 个字符"
 
 #: ../partIntfHelpers.py:42
 #, python-format
 msgid "Error - the volume group name %s is not valid."
-msgstr ""
+msgstr "错误 - 卷组名 %s 无效。"
 
 #: ../partIntfHelpers.py:45
-#, fuzzy
 msgid "Error - the volume group name contains illegal characters  or spaces."
-msgstr "引导卷标包含不合法字符"
+msgstr "错误 - 卷组名包含不合法字符或空格。"
 
 #: ../partIntfHelpers.py:54
-#, fuzzy
 msgid "Please enter a logical volume name."
-msgstr "请输入用户名"
+msgstr "请输入逻辑卷组名称。"
 
 #: ../partIntfHelpers.py:58
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr ""
+msgstr "逻辑卷组名称必须小于 128 个字符"
 
 #: ../partIntfHelpers.py:62
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr ""
+msgstr "错误 - 逻辑卷组名称 %s 无效。"
 
 #: ../partIntfHelpers.py:67
-#, fuzzy
 msgid "Error - the logical volume name contains illegal characters or spaces."
-msgstr "引导卷标包含不合法字符"
+msgstr "错误 - 逻辑卷组名包含不合法字符或空格。"
 
 #: ../partIntfHelpers.py:89
 msgid ""
@@ -1064,63 +1066,58 @@ msgstr ""
 
 #: ../partIntfHelpers.py:96
 msgid "Please specify a mount point for this partition."
-msgstr "请为此分区指定一个挂载点。"
+msgstr "请为该分区指定一个挂载点。"
 
 #: ../partIntfHelpers.py:104
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot %s this partition, as it is holding the datafor the hard drive "
 "install."
-msgstr "你不能删除该分区，因为该分区含有硬盘安装的信息。"
+msgstr "你不能%s该分区，因为该分区含有硬盘安装的信息。"
 
 #: ../partIntfHelpers.py:110
-#, fuzzy, python-format
-msgid ""
-"You cannot %%s this partition as it is part of the RAID device /dev/md%s."
-msgstr "你不能编辑该分区，因为它是 RAID 设备的一部分。"
+#, python-format
+msgid "You cannot %%s this partition as it is part of the RAID device /dev/md%s."
+msgstr "你不能%%s该分区，因为它是 RAID 设备/dev/md%s的一部分。"
 
 #: ../partIntfHelpers.py:113
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot %s this partition as it is part of a RAID device."
-msgstr "你不能编辑该分区，因为它是 RAID 设备的一部分。"
+msgstr "你不能%s该分区，因为它是 RAID 设备的一部分。"
 
 #: ../partIntfHelpers.py:119
-#, fuzzy, python-format
-msgid ""
-"You cannot %%s this partition, as it is part of the LVM volume group '%s'."
-msgstr "你不能删除该分区，因为这是 RAID 设备的一部分。"
+#, python-format
+msgid "You cannot %%s this partition, as it is part of the LVM volume group '%s'."
+msgstr "你不能%%s该分区，因为这是 LVM 卷组“%s”的一部分。"
 
 #: ../partIntfHelpers.py:122
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot %s this partition, as it is part of a LVM volume group."
-msgstr "你不能删除该分区，因为这是 RAID 设备的一部分。"
+msgstr "你不能%s该分区，因为这是 LVM 卷组的一部分。"
 
 #: ../partIntfHelpers.py:138 ../partIntfHelpers.py:152
 #: ../partIntfHelpers.py:162 ../partIntfHelpers.py:179
-#, fuzzy
 msgid "Unable To Delete"
 msgstr "无法删除"
 
 #: ../partIntfHelpers.py:139
-#, fuzzy
 msgid "You must first select a partition to delete."
 msgstr "你必须首先选择一个要删除的分区。"
 
 #: ../partIntfHelpers.py:145 ../textw/partition_text.py:1060
 msgid "DASD partitions can only be deleted with fdasd"
-msgstr ""
+msgstr "DASD 分区只能用 fdasd 才能删除"
 
 #: ../partIntfHelpers.py:153
-#, fuzzy
 msgid "You cannot delete free space."
 msgstr "你不能删除空闲空间。"
 
 #: ../partIntfHelpers.py:163
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr "你不能编辑该分区，因为它是一个包含 %s 的扩展分区。"
+msgstr "你不能删除该分区，因为它是一个包含 %s 的扩展分区"
 
 #: ../partIntfHelpers.py:222 ../partIntfHelpers.py:520
 #: ../iw/lvm_dialog_gui.py:679
@@ -1128,12 +1125,9 @@ msgid "Confirm Delete"
 msgstr "确认删除"
 
 #: ../partIntfHelpers.py:223
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"即将删除 /dev/%s 分区。\n"
-"\n"
-"你确信要如此吗？"
+msgstr "即将删除“/dev/%s”设备上的所有分区。"
 
 #: ../partIntfHelpers.py:226 ../partIntfHelpers.py:521
 #: ../iw/account_gui.py:427 ../iw/lvm_dialog_gui.py:682
@@ -1144,21 +1138,18 @@ msgstr "删除(_D)"
 
 #: ../partIntfHelpers.py:284
 msgid "Notice"
-msgstr ""
+msgstr "注意"
 
 #: ../partIntfHelpers.py:285
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
 "\n"
 "%s"
 msgstr ""
+"下列要安装的软件包没有被删除，因为它们正被使用：\n"
 "\n"
-"\n"
-"下列要安装的软件包已自动被选：\n"
-"\n"
-"%s\n"
-"\n"
+"%s"
 
 #: ../partIntfHelpers.py:301 ../partIntfHelpers.py:314
 #: ../partIntfHelpers.py:344 ../partIntfHelpers.py:355
@@ -1167,11 +1158,11 @@ msgstr "无法编辑"
 
 #: ../partIntfHelpers.py:302
 msgid "You must select a partition to edit"
-msgstr "你必须选择一个分区来编辑"
+msgstr "你必须选择一个要编辑的分区"
 
 #: ../partIntfHelpers.py:327
 msgid "You must go back and use fdasd to inititalize this partition"
-msgstr ""
+msgstr "你必须返回并使用 fdasd 来初始化该分区"
 
 #: ../partIntfHelpers.py:345
 #, python-format
@@ -1206,6 +1197,11 @@ msgid ""
 "contains files that you need to keep, such as a users home directories, then "
 "you should continue without formatting this partition."
 msgstr ""
+"你已选定要在本次安装中使用预存的分区而不进行格式化。"
+"Red Hat 建议你格式化该分区，以便确定前次操作系统安装"
+"的文件不会在这次安装 Linux 中导致问题。然而，如果该分区"
+"包含你要保留的文件，如用户的主目录，那么你应该不格式化"
+"该分区而继续。"
 
 #: ../partIntfHelpers.py:410
 msgid "Format?"
@@ -1213,7 +1209,7 @@ msgstr "格式化？"
 
 #: ../partIntfHelpers.py:410
 msgid "Do _Not Format"
-msgstr ""
+msgstr "不要格式化(_N)"
 
 #: ../partIntfHelpers.py:418
 msgid "Error with Partitioning"
@@ -1248,7 +1244,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"确信要继续吗？"
+"你想继续使用申请的分区方案吗？"
 
 #: ../partIntfHelpers.py:448 ../iw/partition_gui.py:635
 msgid ""
@@ -1273,42 +1269,34 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
+"你即将删除卷组“%s”。\n"
+"\n"
+"该卷组内的所有逻辑卷将会丢失！"
 
 #: ../partIntfHelpers.py:509
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr ""
-"你即将删除一个 RAID 设备。\n"
-"\n"
-"你确信要如此吗？"
+msgstr "你即将删除逻辑卷“%s”。"
 
 #: ../partIntfHelpers.py:512
-#, fuzzy
 msgid "You are about to delete a RAID device."
-msgstr ""
-"你即将删除一个 RAID 设备。\n"
-"\n"
-"你确信要如此吗？"
+msgstr "你即将删除一个 RAID 设备。"
 
 #: ../partIntfHelpers.py:515
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr ""
-"即将删除 /dev/%s 分区。\n"
-"\n"
-"你确信要如此吗？"
+msgstr "即将删除 /dev/%s 分区。"
 
 #: ../partIntfHelpers.py:518
 msgid "The partition you selected will be deleted."
-msgstr ""
+msgstr "你选择的分区将会被删除。"
 
 #: ../partIntfHelpers.py:528
 msgid "Confirm Reset"
 msgstr "确认重设"
 
 #: ../partIntfHelpers.py:529
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "是否确信要将分区表还原至其最初状态？"
 
 #: ../partIntfHelpers.py:532 ../iw/partition_gui.py:1295
@@ -1331,7 +1319,6 @@ msgid "Low Memory"
 msgstr "内存不足"
 
 #: ../partitioning.py:115
-#, fuzzy
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1355,8 +1342,7 @@ msgid ""
 msgstr "你的根分区小于 250 MB，这个空间通常太小，不足以安装 %s。"
 
 #: ../partitions.py:749
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "你必须创建一个 /boot/efl 分区，类型为 FAT，大小为 50MB。"
 
 #: ../partitions.py:757
@@ -1371,9 +1357,8 @@ msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "可引导分区仅允许指定在 RAID1 设备上。"
 
 #: ../partitions.py:790
-#, fuzzy
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "可引导分区仅允许指定在 RAID1 设备上。"
+msgstr "可引导分区不能位于逻辑卷上。"
 
 #: ../partitions.py:794
 msgid ""
@@ -1399,39 +1384,37 @@ msgstr "你分配的交换空间(%dM)小于系统内的可用内存(%dM)，这�
 
 #: ../partitions.py:1013
 msgid "the partition in use by the installer."
-msgstr "安装程序在使用该分区。"
+msgstr "安装程序正在使用该分区。"
 
 #: ../partitions.py:1016
 msgid "a partition which is a member of a RAID array."
 msgstr "是 RAID 成员之一的分区。"
 
 #: ../partitions.py:1019
-#, fuzzy
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr "是 RAID 成员之一的分区。"
+msgstr "是 LVM 卷组成员之一的分区。"
 
 #: ../partRequests.py:214
-msgid ""
-"This mount point is invalid.  This directory must be on the / filesystem."
-msgstr "这个挂载点无效，目录必须位于 / 文件系统上。"
+msgid "This mount point is invalid.  This directory must be on the / filesystem."
+msgstr "该挂载点无效，目录必须位于 / 文件系统上。"
 
 #: ../partRequests.py:219
 msgid "This mount point must be on a linux filesystem."
-msgstr "这个挂载点必须位于 Linux 文件系统上。"
+msgstr "该挂载点必须位于 Linux 文件系统上。"
 
 #: ../partRequests.py:234
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
 msgstr "挂载点 %s 已被使用，请另选一个。"
 
 #: ../partRequests.py:248
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr "%s分区的大小(%sMB)已超过了最大值 %sMB。"
+msgstr "%s分区的大小(%10.2f MB)已超过了最大值 %10.2f MB。"
 
 #: ../partRequests.py:436
 #, python-format
@@ -1467,8 +1450,7 @@ msgstr "%s 类型的 RAID 设备至少需要 %s 个成员。"
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
-msgstr ""
-"该 RAID 设备至多可有 %s 个备件。要增加备件，你需要增加 RAID 设备的成员。"
+msgstr "该 RAID 设备至多可有 %s 个备件。要增加备件，你需要增加 RAID 设备的成员。"
 
 #: ../rescue.py:70 ../rescue.py:113 ../rescue.py:208
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1479,7 +1461,7 @@ msgid "Rescue"
 msgstr "救援"
 
 #: ../rescue.py:98
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory %s.  You can then make any "
@@ -1491,11 +1473,13 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"救援环境会试图搜寻所安装的 Red Hat Linux，并将之挂载到 /mnt/sysimage 目录下，"
-"然后你便可以按照需求进行更改。你若想执行这一步骤，请选择“继续”按钮。你也可以"
+"救援环境会试图搜寻所安装的 Red Hat Linux，并将之挂载到 %s 目录下，"
+"然后你便可以按照系统需求进行更改。你若想执行这一步骤，请选择“继续”"
+"按钮。你也可以"
 "选择“只读”，将文件系统挂载成“只读”状态而不是“读写”状态。\n"
-"如果由于某种原因，这一步骤失败，你可以选择“跳过”键，然后你会直接进入命令状"
-"态。\n"
+"\n"
+"如果由于某种原因，这一步骤失败，你可以选择“跳过”按钮，"
+"该步骤就会被跳过，你会直接进入命令状态。\n"
 "\n"
 
 #: ../rescue.py:108 ../iw/partition_gui.py:546 ../loader/loader.c:1229
@@ -1535,7 +1519,7 @@ msgstr ""
 "执行 fsck 命令，然后挂载分区。当你退出 shell 后，系统会自动被重新引导。"
 
 #: ../rescue.py:170
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
 "\n"
@@ -1546,24 +1530,24 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"你的系统已被挂载在 /mnt/sysimage 之下。\n"
+"你的系统已被挂载在 %s 之下。\n"
 "\n"
 "请按 <return> 键进入 shell。若想让你的系统成为根环境，执行下一命令：\n"
 "\n"
-"\tchroot  /mnt/sysimage\n"
+"\tchroot %s\n"
 "\n"
 "当你退出 shell 后，系统将会自动被重新引导。"
 
 #: ../rescue.py:188
-#, fuzzy, python-format
+#, python-format
 msgid ""
-"An error occurred trying to mount some or all of your system. Some of it may "
+"An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under %s.\n"
 "\n"
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"在挂载你的系统时出错。某些分区可能已经被挂载在 /mnt/sysimage 之下。\n"
+"在挂载你的系统时出错。某些分区可能已经被挂载在 %s 之下。\n"
 "\n"
 "请按 <return> 键进入 shell，当你退出 shell 时，系统将会自动被重新引导。"
 
@@ -1580,9 +1564,9 @@ msgstr ""
 "自动被重新引导。"
 
 #: ../rescue.py:205
-#, fuzzy, python-format
+#, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr "你的系统被挂载在 /mnt/sysimage 目录之下。"
+msgstr "你的系统被挂载在 %s 目录之下。"
 
 #: ../text.py:191
 msgid "Help not available"
@@ -1610,8 +1594,7 @@ msgid "%s (C) 2002 Red Hat, Inc."
 msgstr "%s (C) 2002 Red Hat, Inc."
 
 #: ../text.py:335
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "<F1>求助 | <Tab> 选项间切换   |  <Space> 选择   |  <F12> 下一屏幕 "
 
 #: ../text.py:337
@@ -1642,24 +1625,26 @@ msgid "Dirty Filesystems"
 msgstr "有问题的文件系统"
 
 #: ../upgrade.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following filesystems for your Linux system were not unmounted cleanly.  "
 "Please boot your Linux installation, let the filesystems be checked and shut "
 "down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"你的 Linux 系统有一个或多个文件系统没有被完整的卸载下来。请引导 Linux 安装程"
-"序，查验文件系统，正常关机后再进行系统升级。"
+"你的 Linux 系统中，下列文件系统没有被完整的卸载下来。请引导 Linux 安装程"
+"序，查验文件系统，正常关机后再进行系统升级。\n"
+"%s"
 
 #: ../upgrade.py:97
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following filesystems for your Linux system were not unmounted cleanly.  "
 "Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"你的 Linux 系统有一个或多个文件系统没有被完整地卸载下来，你仍要挂载它们吗？"
+"你的 Linux 系统中下列文件系统没有被完整地卸载下来，你仍要挂载它们吗？\n"
+"%s"
 
 #: ../upgrade.py:226 ../upgrade.py:232
 msgid "Mount failed"
@@ -1711,7 +1696,7 @@ msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "重建 RPM 数据库失败。是否磁盘空间已满？"
 
 #: ../upgrade.py:331
-msgid "An error occurred when finding the packages to upgrade."
+msgid "An error occured when finding the packages to upgrade."
 msgstr "在查找要升级的软件包时出错。"
 
 #: ../upgrade.py:386
@@ -1758,9 +1743,8 @@ msgid "Attempting to start native X server"
 msgstr "试图启动本地 X 服务器"
 
 #: ../xserver.py:127
-#, fuzzy
 msgid "Attempting to start VESA driver X server"
-msgstr "试图启动本地 X 服务器"
+msgstr "试图启动 VESA 驱动程序 X 服务器"
 
 #: ../xserver.py:140
 msgid "Attempting to start VGA16 X server"
@@ -1796,12 +1780,11 @@ msgstr "用户口令被接受。"
 
 #: ../iw/account_gui.py:92
 msgid "Root account can not be added here."
-msgstr "不能在此添加根帐号。"
+msgstr "不能在此处添加根帐号。"
 
 #: ../iw/account_gui.py:95
-#, fuzzy
 msgid "System accounts can not be added here."
-msgstr "不能在此添加根帐号。"
+msgstr "不能在此处添加系统帐号。"
 
 #: ../iw/account_gui.py:97
 msgid "Please enter user password."
@@ -1824,29 +1807,24 @@ msgid "Edit User"
 msgstr "编辑用户"
 
 #: ../iw/account_gui.py:213
-#, fuzzy
 msgid "Add a User Account"
-msgstr "设置用户帐号"
+msgstr "添加用户帐号"
 
 #: ../iw/account_gui.py:230
-#, fuzzy
 msgid "User _Name:"
-msgstr "用户名："
+msgstr "用户名(_N)："
 
 #: ../iw/account_gui.py:238 ../iw/blpasswidget.py:116
-#, fuzzy
 msgid "_Password:"
-msgstr "口令："
+msgstr "口令(_P)："
 
 #: ../iw/account_gui.py:247
-#, fuzzy
 msgid "Pass_word (confirm):"
-msgstr "口令(确认)："
+msgstr "口令(确认)(_W)："
 
 #: ../iw/account_gui.py:256
-#, fuzzy
 msgid "_Full Name:"
-msgstr "全称："
+msgstr "全称(_F)："
 
 #: ../iw/account_gui.py:264
 msgid "Please enter user name"
@@ -1857,9 +1835,8 @@ msgid "Enter the password for the root user (administrator) of this system."
 msgstr "请输入该系统的根用户(管理员)的口令。"
 
 #: ../iw/account_gui.py:367
-#, fuzzy
 msgid "_Confirm: "
-msgstr "确认： "
+msgstr "确认(_C)： "
 
 #: ../iw/account_gui.py:409
 msgid "Account Name"
@@ -1872,9 +1849,8 @@ msgstr "全称"
 
 #: ../iw/account_gui.py:422 ../iw/lvm_dialog_gui.py:1014
 #: ../iw/osbootwidget.py:88
-#, fuzzy
 msgid "_Add"
-msgstr "添加"
+msgstr "添加(_A)"
 
 #: ../iw/account_gui.py:424 ../iw/lvm_dialog_gui.py:1017
 #: ../iw/network_gui.py:456 ../iw/osbootwidget.py:92
@@ -1890,96 +1866,79 @@ msgid ""
 "enter additional user accounts."
 msgstr ""
 "可以为系统内的其他用户另外创建帐号。此类帐号可以是私人登录帐号，也可以是需要"
-"使用此系统的非管理性的帐号。用<添加>按钮输入每一个用户帐号。"
+"使用此系统的非管理性的帐号。用添加按钮输入每一个用户帐号。"
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:325
 msgid "Authentication Configuration"
 msgstr "验证配置"
 
 #: ../iw/auth_gui.py:98
-#, fuzzy
 msgid "Enable _MD5 passwords"
-msgstr "启用 MD5 口令"
+msgstr "启用 MD5 口令(_M)"
 
 #: ../iw/auth_gui.py:99
-#, fuzzy
 msgid "Enable shado_w passwords"
-msgstr "启用屏蔽口令"
+msgstr "启用屏蔽口令(_W)"
 
 #: ../iw/auth_gui.py:102
-#, fuzzy
 msgid "Enable N_IS"
-msgstr "启用 NIS"
+msgstr "启用 NIS(_I)"
 
 #: ../iw/auth_gui.py:103
-#, fuzzy
 msgid "Use _broadcast to find NIS server"
-msgstr "使用广播查找 NIS 服务器"
+msgstr "使用广播查找 NIS 服务器(_B)"
 
 #: ../iw/auth_gui.py:115
-#, fuzzy
 msgid "NIS _Domain: "
-msgstr "NIS 域： "
+msgstr "NIS 域(_D)： "
 
 #: ../iw/auth_gui.py:118
-#, fuzzy
 msgid "NIS _Server: "
-msgstr "NIS 服务器： "
+msgstr "NIS 服务器(_S)： "
 
 #: ../iw/auth_gui.py:142
-#, fuzzy
 msgid "Enable _LDAP"
-msgstr "启用 LDAP"
+msgstr "启用 LDAP(_L)"
 
 #: ../iw/auth_gui.py:145
-#, fuzzy
 msgid "Use _TLS lookups"
-msgstr "使用 TLS 查寻"
+msgstr "使用 TLS 查寻(_T)"
 
 #: ../iw/auth_gui.py:146
-#, fuzzy
 msgid "LDAP _Server:"
-msgstr "LDAP 服务器："
+msgstr "LDAP 服务器(_S)："
 
 #: ../iw/auth_gui.py:149
-#, fuzzy
 msgid "LDAP _Base DN:"
-msgstr "LDAP 基础 DN："
+msgstr "LDAP 基础 DN(_B)："
 
 #: ../iw/auth_gui.py:177
-#, fuzzy
 msgid "Enable _Kerberos"
-msgstr "启用 Kerberos"
+msgstr "启用 Kerberos(_K)"
 
 #: ../iw/auth_gui.py:181
-#, fuzzy
 msgid "R_ealm:"
-msgstr "领域："
+msgstr "领域(_E)："
 
 #: ../iw/auth_gui.py:184
-#, fuzzy
 msgid "K_DC:"
-msgstr "KDC："
+msgstr "KDC(_D)："
 
 #: ../iw/auth_gui.py:187
-#, fuzzy
 msgid "_Admin Server:"
-msgstr "管理服务器："
+msgstr "管理服务器(_A)："
 
 #: ../iw/auth_gui.py:216
-#, fuzzy
 msgid "Enable SMB _Authentication"
-msgstr "启用 SMB 验证"
+msgstr "启用 SMB 验证(_A)"
 
 #: ../iw/auth_gui.py:219
-#, fuzzy
 msgid "SMB _Server:"
-msgstr "SMB 服务器："
+msgstr "SMB 服务器(_S)："
 
 #: ../iw/auth_gui.py:222
-#, fuzzy
 msgid "SMB Work_group:"
-msgstr "SMB 工作组："
+msgstr "SMB 工作组(_G)："
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
@@ -2004,31 +1963,26 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"引导装载程序口令可以防止用户将任意选项传送到内核。为安全起见，我们建议你设立"
+"引导装载程序口令可以防止用户将任意选项传递到内核。为安全起见，我们建议你设立"
 "一个口令，但是这对一般的用户来说并非必不可少。"
 
 #: ../iw/blpasswidget.py:42
-#, fuzzy
 msgid "_Use a Boot Loader Password"
-msgstr "引导装载程序口令： "
+msgstr "使用引导装载程序口令(_U)"
 
 #: ../iw/blpasswidget.py:76
-#, fuzzy
 msgid "Change _password"
-msgstr "请输入口令"
+msgstr "改变口令(_P)"
 
 #: ../iw/blpasswidget.py:99
-#, fuzzy
 msgid "Enter Boot Loader Password"
-msgstr "引导装载程序口令： "
+msgstr "输入引导装载程序口令"
 
 #: ../iw/blpasswidget.py:122
-#, fuzzy
 msgid "Con_firm:"
-msgstr "确认："
+msgstr "确认(_F)："
 
 #: ../iw/blpasswidget.py:143
-#, fuzzy
 msgid "Passwords don't match"
 msgstr "口令不匹配"
 
@@ -2062,20 +2016,25 @@ msgid ""
 "\n"
 "Would you like to create a boot disk?"
 msgstr ""
+"引导盘允许你从软盘中引导你的 %s 系统 "
+"如果你的引导装载程序的配置出了问题，你可以使用引导盘"
+"来引导系统。\n"
+"\n"
+"大力推荐你创建引导盘。\n"
+"\n"
+"你想创建引导盘吗？"
 
 #: ../iw/bootdisk_gui.py:69
 msgid "_Yes, I would like to create a boot disk"
-msgstr ""
+msgstr "是，我想创建引导盘(_Y)"
 
 #: ../iw/bootdisk_gui.py:72
-#, fuzzy
 msgid "No, I _do not want to create a boot disk"
-msgstr "我不想创建交换文件"
+msgstr "否，我不想创建引导盘(_D)"
 
 #: ../iw/bootloader_advanced_gui.py:27
-#, fuzzy
 msgid "Advanced Boot Loader Configuration"
-msgstr "引导装载程序配置"
+msgstr "高级引导装载程序配置"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../iw/bootloader_old.py:52
 #: ../textw/bootloader_text.py:135
@@ -2093,17 +2052,15 @@ msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:51
 msgid "Force LBA32"
-msgstr ""
+msgstr "强制使用 LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:72
-#, fuzzy
 msgid "_Force LBA32 (Not normally required)"
-msgstr "强制使用 LBA32 (通常不需要)"
+msgstr "强制使用 LBA32 (通常不需要)(_F)"
 
 #: ../iw/bootloader_advanced_gui.py:76
-#, fuzzy
 msgid "_General kernel parameters"
-msgstr "内核参数"
+msgstr "常规内核参数(_G)"
 
 #: ../iw/bootloader_main_gui.py:29 ../iw/bootloader_old.py:22
 #: ../textw/bootloader_text.py:50 ../textw/bootloader_text.py:118
@@ -2113,9 +2070,8 @@ msgid "Boot Loader Configuration"
 msgstr "引导装载程序配置"
 
 #: ../iw/bootloader_main_gui.py:71
-#, fuzzy
 msgid "Change Boot Loader"
-msgstr "无引导装载程序"
+msgstr "改变引导装载程序"
 
 #: ../iw/bootloader_main_gui.py:89
 msgid ""
@@ -2124,11 +2080,14 @@ msgid ""
 "\n"
 "Would you like to continue and not install a boot loader?"
 msgstr ""
+"你已选定要不在系统上安装引导装载程序。使用该选项，你将"
+"不得不创建引导盘来引导你的系统。\n"
+"\n"
+"你想不安装引导装载程序而继续吗？"
 
 #: ../iw/bootloader_main_gui.py:101
-#, fuzzy
 msgid "C_ontinue with no boot loader"
-msgstr "不要安装引导装载程序"
+msgstr "不要安装引导装载程序而继续(_O)"
 
 #: ../iw/bootloader_main_gui.py:126 ../iw/bootloader_old.py:346
 msgid ""
@@ -2140,38 +2099,33 @@ msgstr ""
 "前使用的引导装载程序，则选择“不要安装引导装载程序”。"
 
 #: ../iw/bootloader_main_gui.py:134
-#, fuzzy
 msgid "Use _GRUB as the boot loader"
-msgstr "以 GRUB 为引导装载程序"
+msgstr "以 GRUB 为引导装载程序(_G)"
 
 #: ../iw/bootloader_main_gui.py:137
-#, fuzzy
 msgid "Use _LILO as the boot loader"
-msgstr "以 LILO 为引导装载程序"
+msgstr "以 LILO 为引导装载程序(_L)"
 
 #: ../iw/bootloader_main_gui.py:138
-#, fuzzy
 msgid "_Do not install a boot loader"
-msgstr "不要安装引导装载程序"
+msgstr "不要安装引导装载程序(_D)"
 
 #: ../iw/bootloader_main_gui.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr "安装程序检测到 %s 引导装载程序目前安装在 %s 上。"
+msgstr "%s 引导装载程序将会被安装在 /dev/%s 上。"
 
 #: ../iw/bootloader_main_gui.py:165
 msgid "No boot loader will be installed."
-msgstr ""
+msgstr "无引导装载程序将会被安装。"
 
 #: ../iw/bootloader_main_gui.py:217
-#, fuzzy
 msgid "_Change boot loader"
-msgstr "正在安装引导装载程序……"
+msgstr "改变引导装载程序(_C)"
 
 #: ../iw/bootloader_main_gui.py:245
-#, fuzzy
 msgid "Configure advanced boot loader _options"
-msgstr "创建新的引导装载程序配置"
+msgstr "配置高级引导装载程序选项(_O)"
 
 #: ../iw/bootloader_old.py:238 ../iw/bootloader_old.py:433
 #: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:149
@@ -2222,7 +2176,7 @@ msgstr "分区类型"
 #: ../textw/bootloader_text.py:275 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
-msgstr "引导卷标"
+msgstr "引导标签"
 
 #: ../iw/bootloader_old.py:359
 msgid "Use GRUB as the boot loader"
@@ -2242,19 +2196,19 @@ msgstr "默认引导映像"
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
-msgstr ""
+msgstr "改变驱动器顺序(_C)"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Unable to Change Drive Order for LILO"
-msgstr ""
+msgstr "无法为 LILO 改变驱动器顺序"
 
 #: ../iw/bootlocwidget.py:85
 msgid "We do not support changing the drive order for use with LILO."
-msgstr ""
+msgstr "我们不支持为使用 LILO 而改变驱动器顺序。"
 
 #: ../iw/bootlocwidget.py:92
 msgid "Edit Drive Order"
-msgstr ""
+msgstr "编辑驱动器顺序"
 
 #: ../iw/bootlocwidget.py:97
 msgid ""
@@ -2264,6 +2218,11 @@ msgid ""
 "\n"
 "This does change where we think the master boot record is."
 msgstr ""
+"请按照你的 BIOS 处理顺序来排列你的驱动器。它只有在下面这两种情况"
+"下才有用：你有多个 SCSI 适配器；或者你兼有 SCSI 和 IDE 设备，但想"
+"从 SCSI 设备中引导。\n"
+"\n"
+"这会改变我们所认为的主引导记录存在位置。"
 
 #: ../iw/confirm_gui.py:55
 msgid "About to Install"
@@ -2275,16 +2234,15 @@ msgid "Click next to begin installation of %s."
 msgstr "点击“下一步”以开始安装 %s。"
 
 #: ../iw/confirm_gui.py:61
-#, fuzzy
 msgid ""
 "A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
-"重新引导后，完整的安装日志将会保存在 /tmp/install.log 中。你可能需要保留此文"
-"件供以后参考。此外，反冲启动文件 /root/anaconda-ks.cfg 中将会保存你所有的安装"
-"选择。"
+"重新引导后，完整的安装日志将会保存在 /root/install.log 中。你可能需要保留此文"
+"件供以后参考。此外，代表你所做选择的 kickstart 文件将会被保存"
+"在 /root/anaconda-ks.cfg 中。"
 
 #: ../iw/confirm_gui.py:68
 msgid "About to Upgrade"
@@ -2296,12 +2254,11 @@ msgid "Click next to begin upgrade of %s."
 msgstr "点击“下一步”以开始升级 %s。"
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
-#, fuzzy
 msgid ""
 "A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"重新引导后，完整的安装日志将会保存在 /tmp/upgrade.log 中。你可能需要保留该文"
+"重新引导后，完整的安装日志将会保存在 /root/upgrade.log 中。你可能需要保留该文"
 "件供以后参考。"
 
 #: ../iw/congrats_gui.py:22
@@ -2363,24 +2320,20 @@ msgid "Requirement"
 msgstr "要求"
 
 #: ../iw/dependencies_gui.py:90
-#, fuzzy
 msgid "_Install packages to satisfy dependencies"
-msgstr "安装软件包以满足依赖关系"
+msgstr "安装软件包以满足依赖关系(_I)"
 
 #: ../iw/dependencies_gui.py:93
-#, fuzzy
 msgid "_Do not install packages that have dependencies"
-msgstr "不要安装需满足依赖关系的软件包"
+msgstr "不要安装需满足依赖关系的软件包(_D)"
 
 #: ../iw/dependencies_gui.py:97
-#, fuzzy
 msgid "I_gnore package dependencies"
-msgstr "忽略软件包依赖关系"
+msgstr "忽略软件包依赖关系(_G)"
 
 #: ../iw/driveorderwidget.py:44
-#, fuzzy
 msgid "Drive"
-msgstr "驱动器："
+msgstr "驱动器"
 
 #: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:210
 #: ../iw/progress_gui.py:273 ../textw/partition_text.py:1096
@@ -2413,18 +2366,16 @@ msgid "Upgrading the %s installation on partition /dev/%s"
 msgstr "正在升级 %s 在 /dev/%s 分区上的安装"
 
 #: ../iw/examine_gui.py:95
-#, fuzzy
 msgid "_Customize packages to be upgraded"
-msgstr "定制要升级的软件包"
+msgstr "定制要升级的软件包(_C)"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
-msgstr ""
+msgstr "fdasd"
 
 #: ../iw/fdasd_gui.py:28
-#, fuzzy
 msgid "Select drive to run fdasd on"
-msgstr "选择要在其中运行 fdisk 命令的驱动器"
+msgstr "选择要在其中运行 fdasd 命令的驱动器"
 
 #: ../iw/fdisk_gui.py:26 ../textw/partmethod_text.py:28
 msgid "fdisk"
@@ -2446,72 +2397,66 @@ msgid ""
 "\n"
 "For example, '1234:udp'"
 msgstr ""
+"给出的端口无效：%s。正确的格式是“端口:协议”，"
+"端口在 1 到 65535 之间，协议只能是“tcp”或“udp”。\n"
+"\n"
+" 譬如：“1234:udp”"
 
 #: ../iw/firewall_gui.py:128
-#, fuzzy
 msgid "Warning: Bad Token"
-msgstr "警告："
+msgstr "警告：权标不对"
 
 #: ../iw/firewall_gui.py:180
 msgid "Please choose your security level:  "
 msgstr "请选择你的安全级别："
 
 #: ../iw/firewall_gui.py:189
-#, fuzzy
 msgid "Hi_gh"
-msgstr "高级"
+msgstr "高级(_G)"
 
 #: ../iw/firewall_gui.py:190
-#, fuzzy
 msgid "_Medium"
-msgstr "中级"
+msgstr "中级(_M)"
 
 #: ../iw/firewall_gui.py:191
-#, fuzzy
 msgid "N_o firewall"
-msgstr "无防火墙"
+msgstr "无防火墙(_O)"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Use _default firewall rules"
-msgstr "使用默认的防火墙规则"
+msgstr "使用默认的防火墙规则(_D)"
 
 #: ../iw/firewall_gui.py:208
-#, fuzzy
 msgid "_Customize"
-msgstr "定制"
+msgstr "定制(_C)"
 
 #: ../iw/firewall_gui.py:221
-#, fuzzy
 msgid "_Trusted devices:"
-msgstr "信任的设备："
+msgstr "信任的设备(_T)："
 
 #: ../iw/firewall_gui.py:246
-#, fuzzy
 msgid "_Allow incoming:"
-msgstr "允许接收："
+msgstr "允许接收(_A)："
 
 #: ../iw/firewall_gui.py:270
-#, fuzzy
 msgid "Other _ports:"
-msgstr "其它端口："
+msgstr "其它端口(_P)："
 
 #: ../iw/installpath_gui.py:35 ../textw/installpath_text.py:42
 msgid "Installation Type"
 msgstr "安装类型"
 
 #: ../iw/ipwidget.py:104
-#, fuzzy
 msgid "IP Address is missing"
-msgstr "IP 地址"
+msgstr "缺少 IP 地址"
 
 #: ../iw/ipwidget.py:109
 msgid "IP Addresses must contain numbers between 1 and 255"
-msgstr ""
+msgstr "IP 地址必须包含从 1 到 255 之间的数字"
 
 #: ../iw/ipwidget.py:114 ../iw/ipwidget.py:116
 msgid "IP Addresses must contain numbers between 0 and 255"
-msgstr ""
+msgstr "IP 地址必须包含从 0 到 255 之间的数字"
 
 #: ../iw/language_gui.py:59 ../textw/language_text.py:40 ../loader/lang.c:306
 msgid "What language would you like to use during the installation process?"
@@ -2522,36 +2467,31 @@ msgid "Additional Language Support"
 msgstr "其它语言支持"
 
 #: ../iw/language_support_gui.py:147
-#, fuzzy
 msgid "_Choose the default language for this system:   "
-msgstr "选择系统默认语言："
+msgstr "选择系统默认语言(_C)："
 
 #: ../iw/language_support_gui.py:157
-#, fuzzy
 msgid "Choose _additional languages you would like to use on this system:"
-msgstr "选择你想在该系统上使用的其它语言："
+msgstr "选择你想在该系统上使用的其它语言(_A)："
 
 #: ../iw/language_support_gui.py:206
-#, fuzzy
 msgid "_Select all"
-msgstr "全部选择"
+msgstr "全部选择(_S)"
 
 #: ../iw/language_support_gui.py:212
-#, fuzzy
 msgid "Select _Default Only"
-msgstr "选成默认"
+msgstr "只选成默认(_D)"
 
 #: ../iw/language_support_gui.py:218
-#, fuzzy
 msgid "Rese_t"
-msgstr "重设"
+msgstr "重设(_T)"
 
 #: ../iw/lvm_dialog_gui.py:104 ../iw/lvm_dialog_gui.py:150
 #: ../iw/lvm_dialog_gui.py:184 ../iw/lvm_dialog_gui.py:257
 #: ../iw/lvm_dialog_gui.py:545 ../iw/lvm_dialog_gui.py:593
 #: ../iw/lvm_dialog_gui.py:787
 msgid "Not enough space"
-msgstr ""
+msgstr "空间不够"
 
 #: ../iw/lvm_dialog_gui.py:105
 msgid ""
@@ -2559,10 +2499,12 @@ msgid ""
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
+"物理范围的值不能被改变，否则，当前已定义的逻辑卷所要求的"
+"空间将有可能超过可用空间。"
 
 #: ../iw/lvm_dialog_gui.py:114
 msgid "Confirm Physical Extent Change"
-msgstr ""
+msgstr "确认物理范围改变"
 
 #: ../iw/lvm_dialog_gui.py:115
 msgid ""
@@ -2572,12 +2514,15 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
+"改变物理范围的值将会要求当前逻辑卷请求的大小被四舍五入"
+"成该物理范围的整数倍。\n"
+"\n"
+"这项改变会立即生效。"
 
 #: ../iw/lvm_dialog_gui.py:124 ../iw/lvm_dialog_gui.py:167
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:182
-#, fuzzy
 msgid "C_ontinue"
-msgstr "继续"
+msgstr "继续(_O)"
 
 #: ../iw/lvm_dialog_gui.py:151
 #, python-format
@@ -2586,16 +2531,18 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
+"物理范围大小无法被改变，因为选定的值 (%"
+"10.2f MB) 大于该卷组中最小的物理卷 (%10.2f MB)。"
 
 #: ../iw/lvm_dialog_gui.py:160
 msgid "Too small"
-msgstr ""
+msgstr "太小"
 
 #: ../iw/lvm_dialog_gui.py:161
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the phyical volumes in the volume group."
-msgstr ""
+msgstr "改变物理范围的值会在卷组中一个或多个物理卷上浪费大量空间。"
 
 #: ../iw/lvm_dialog_gui.py:185
 #, python-format
@@ -2604,31 +2551,31 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
+"物理范围大小无法被改变，因为改变的结果会导致逻辑卷大小 (%10.2f MB) "
+"小于一个或多个当前已定义的逻辑卷。"
 
 #: ../iw/lvm_dialog_gui.py:258
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
-msgstr ""
+msgstr "你不能删除该物理卷，否则，该卷组就会小得不能容纳目前已定义的逻辑卷。"
 
 #: ../iw/lvm_dialog_gui.py:329
 msgid "Make Logical Volume"
-msgstr ""
+msgstr "制作逻辑卷"
 
 #: ../iw/lvm_dialog_gui.py:331
 msgid "Edit Logical Volume"
-msgstr ""
+msgstr "编辑逻辑卷"
 
 #: ../iw/lvm_dialog_gui.py:344 ../iw/partition_dialog_gui.py:279
 #: ../iw/raid_dialog_gui.py:292
-#, fuzzy
 msgid "_Mount Point:"
-msgstr "挂载点："
+msgstr "挂载点(_M)："
 
 #: ../iw/lvm_dialog_gui.py:352
-#, fuzzy
 msgid "_Filesystem Type:"
-msgstr "文件系统类型："
+msgstr "文件系统类型(_F)："
 
 #: ../iw/lvm_dialog_gui.py:360 ../iw/partition_dialog_gui.py:297
 msgid "Original Filesystem Type:"
@@ -2641,16 +2588,15 @@ msgstr "未知"
 
 #: ../iw/lvm_dialog_gui.py:371
 msgid "_Logical Volume Name:"
-msgstr ""
+msgstr "逻辑卷名称(_L)："
 
 #: ../iw/lvm_dialog_gui.py:379
 msgid "Logical Volume Name:"
-msgstr ""
+msgstr "逻辑卷名称："
 
 #: ../iw/lvm_dialog_gui.py:387 ../iw/partition_dialog_gui.py:354
-#, fuzzy
 msgid "_Size (MB):"
-msgstr "大小(MB)："
+msgstr "大小(MB)(_S)："
 
 #: ../iw/lvm_dialog_gui.py:393 ../iw/partition_dialog_gui.py:371
 #: ../iw/partition_dialog_gui.py:414 ../textw/partition_text.py:317
@@ -2661,40 +2607,37 @@ msgstr "大小(MB)："
 #: ../iw/lvm_dialog_gui.py:405
 #, python-format
 msgid "(Max size is %s MB)"
-msgstr ""
+msgstr "(最大大小是 %s MB)"
 
 #: ../iw/lvm_dialog_gui.py:466
-#, fuzzy
 msgid "Illegal size"
-msgstr "合计"
+msgstr "大小不合法"
 
 #: ../iw/lvm_dialog_gui.py:467
-#, fuzzy
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr "你所输入的值不是一个有效的数字。"
+msgstr "你所请求的大小值不是一个大于 0 的有效数字。"
 
 #: ../iw/lvm_dialog_gui.py:500
-#, fuzzy
 msgid "Mount point in use"
-msgstr "挂载点"
+msgstr "挂载点已被使用"
 
 #: ../iw/lvm_dialog_gui.py:501
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
 msgstr "挂载点 %s 已被使用，请另选一个。"
 
 #: ../iw/lvm_dialog_gui.py:512
 msgid "Illegal Logical Volume Name"
-msgstr ""
+msgstr "逻辑卷名称不合法"
 
 #: ../iw/lvm_dialog_gui.py:531
 msgid "Illegal logical volume name"
-msgstr ""
+msgstr "逻辑卷名称不合法"
 
 #: ../iw/lvm_dialog_gui.py:532
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
+msgstr "逻辑卷名称“%s”已被使用，请另选一个。"
 
 #: ../iw/lvm_dialog_gui.py:546
 #, python-format
@@ -2703,6 +2646,8 @@ msgid ""
 "size (%10.2f MB) To increase this limit you can increase the Physical Extent "
 "size for this Volume Group."
 msgstr ""
+"目前请求的大小 (%10.2f MB)大于逻辑卷大小的最大值"
+" (%10.2f MB)。要增加上限，你可以增加该逻辑卷组的物理范围大小。"
 
 #: ../iw/lvm_dialog_gui.py:570 ../iw/partition_dialog_gui.py:170
 #: ../iw/partition_dialog_gui.py:182 ../iw/partition_dialog_gui.py:230
@@ -2718,20 +2663,21 @@ msgid ""
 "only has %g MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
+"你配置的逻辑卷需要 %g MB，但是该卷组只有 %g MB。"
+"请扩大该卷组，或缩小该逻辑卷。"
 
 #: ../iw/lvm_dialog_gui.py:644
 msgid "No free slots"
-msgstr ""
+msgstr "无空闲插槽"
 
 #: ../iw/lvm_dialog_gui.py:645
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
+msgstr "在每个卷组中，你不能创建多于 %s 个逻辑卷。"
 
 #: ../iw/lvm_dialog_gui.py:651
-#, fuzzy
 msgid "No free space"
-msgstr "空闲空间"
+msgstr "无空闲空间"
 
 #: ../iw/lvm_dialog_gui.py:652
 msgid ""
@@ -2739,29 +2685,30 @@ msgid ""
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
+"卷组中没有创建新逻辑卷的余地。要添加逻辑卷，你需要缩小"
+"一个或多个现存逻辑卷的大小。"
 
 #: ../iw/lvm_dialog_gui.py:680
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "是否确信要删除该分区？"
+msgstr "是否确信要删除该逻辑卷“%s”？"
 
 #: ../iw/lvm_dialog_gui.py:799
-#, fuzzy
 msgid "Invalid Volume Group Name"
-msgstr "引导卷标无效"
+msgstr "卷组名称无效"
 
 #: ../iw/lvm_dialog_gui.py:812
 msgid "Name in use"
-msgstr ""
+msgstr "名称已被使用"
 
 #: ../iw/lvm_dialog_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr "挂载点 %s 已被使用，请另选一个。"
+msgstr "卷组名称“%s”已被使用，请另选一个。"
 
 #: ../iw/lvm_dialog_gui.py:857
 msgid "Not enough physical volumes"
-msgstr ""
+msgstr "没有足够的物理卷"
 
 #: ../iw/lvm_dialog_gui.py:858
 msgid ""
@@ -2771,55 +2718,53 @@ msgid ""
 "First create a partition or raid array of type \"physical volume (LVM)\" and "
 "then select the \"LVM\" option again."
 msgstr ""
+"至少需要一个未用的物理卷分区来创建 LVM 卷组。\n"
+"\n"
+"首先创建类型为“物理卷 (LVM)”的分区或 RAID 阵列，然后再选择“LVM”选项。"
 
 #: ../iw/lvm_dialog_gui.py:869
-#, fuzzy
 msgid "Make LVM Device"
-msgstr "创建 RAID 设备"
+msgstr "创建 LVM 设备"
 
 #: ../iw/lvm_dialog_gui.py:871
-#, fuzzy
 msgid "Edit LVM Device"
-msgstr "添加设备"
+msgstr "编辑 LVM 设备"
 
 #: ../iw/lvm_dialog_gui.py:887
 msgid "_Volume Group Name:"
-msgstr ""
+msgstr "卷组名称(_V)："
 
 #: ../iw/lvm_dialog_gui.py:895
 msgid "Volume Group Name:"
-msgstr ""
+msgstr "卷组名称："
 
 #: ../iw/lvm_dialog_gui.py:904
 msgid "_Physical Extent:"
-msgstr ""
+msgstr "物理范围(_P)："
 
 #: ../iw/lvm_dialog_gui.py:911
 msgid "Physical Extent:"
-msgstr ""
+msgstr "物理范围："
 
 #: ../iw/lvm_dialog_gui.py:924
 msgid "Physical Volumes to _Use:"
-msgstr ""
+msgstr "要使用的物理卷(_U)："
 
 #: ../iw/lvm_dialog_gui.py:930
-#, fuzzy
 msgid "Used Space:"
-msgstr "磁盘空间"
+msgstr "已用空间："
 
 #: ../iw/lvm_dialog_gui.py:947
-#, fuzzy
 msgid "Free Space:"
-msgstr "空闲空间"
+msgstr "空闲空间："
 
 #: ../iw/lvm_dialog_gui.py:965
-#, fuzzy
 msgid "Total Space:"
-msgstr "合计："
+msgstr "合计空间："
 
 #: ../iw/lvm_dialog_gui.py:994
 msgid "Logical Volume Name"
-msgstr ""
+msgstr "逻辑卷名称"
 
 #: ../iw/lvm_dialog_gui.py:1000 ../iw/partition_gui.py:352
 msgid "Size (MB)"
@@ -2827,7 +2772,7 @@ msgstr "大小(MB)"
 
 #: ../iw/lvm_dialog_gui.py:1031
 msgid "Logical Volumes"
-msgstr ""
+msgstr "逻辑卷"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
@@ -2850,17 +2795,14 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3(DOS 下的 COM4)"
 
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:152
-#, fuzzy
 msgid "_Device"
-msgstr "设备"
+msgstr "设备(_D)"
 
 #: ../iw/mouse_gui.py:220
-#, fuzzy
 msgid "_Emulate 3 Buttons"
-msgstr "模拟三键鼠标"
+msgstr "模拟三键鼠标(_E)"
 
 #: ../iw/mouse_gui.py:234
-#, fuzzy
 msgid "Which _model mouse is attached to the computer?"
 msgstr "与计算机连接的鼠标是何种型号？"
 
@@ -2881,24 +2823,20 @@ msgid "Tertiary DNS"
 msgstr "第三 DNS"
 
 #: ../iw/network_gui.py:29
-#, fuzzy
 msgid "_Gateway"
-msgstr "网关"
+msgstr "网关(_G)"
 
 #: ../iw/network_gui.py:29
-#, fuzzy
 msgid "_Primary DNS"
-msgstr "主 DNS"
+msgstr "主 DNS(_P)"
 
 #: ../iw/network_gui.py:30
-#, fuzzy
 msgid "_Secondary DNS"
-msgstr "次 DNS"
+msgstr "次 DNS(_S)"
 
 #: ../iw/network_gui.py:30
-#, fuzzy
 msgid "_Tertiary DNS"
-msgstr "第三 DNS"
+msgstr "第三 DNS(_T)"
 
 #: ../iw/network_gui.py:34
 msgid "Network Configuration"
@@ -2907,22 +2845,21 @@ msgstr "网络配置"
 #: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:164
 #: ../iw/network_gui.py:168 ../iw/network_gui.py:173 ../iw/network_gui.py:177
 #: ../iw/network_gui.py:182
-#, fuzzy
 msgid "Error With Data"
-msgstr "请求错误"
+msgstr "数据错误"
 
 #: ../iw/network_gui.py:157
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
-msgstr ""
+msgstr "你还没有指定主机名。根据你的网络环境情况，这可能会在以后导致问题。"
 
 #: ../iw/network_gui.py:161
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr ""
+msgstr "你还没有指定“%s”字段。根据你的网络环境情况，这可能会在以后导致问题。"
 
 #: ../iw/network_gui.py:165
 #, python-format
@@ -2931,6 +2868,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"主机名“%s”无效，原因如下：\n"
+"\n"
+"%s"
 
 #: ../iw/network_gui.py:169
 #, python-format
@@ -2939,66 +2879,62 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"转换为“%s”输入的值时出错：\n"
+"\n"
+"%s"
 
 #: ../iw/network_gui.py:174
 #, python-format
 msgid "A value is required for the field \"%s\"."
-msgstr ""
+msgstr "“%s”字段需要输入值。"
 
 #: ../iw/network_gui.py:178
-#, fuzzy
 msgid "The IP information you have entered is invalid."
-msgstr "你所输入的值不是一个有效的数字。"
+msgstr "你所输入的 IP 信息无效。"
 
 #: ../iw/network_gui.py:182
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "commuciate over a network by default without at least one device active."
-msgstr ""
+msgstr "你没有活跃的网络设备。至少需要一个活跃网络设备，你的系统才能被默认使用网络来通讯。"
 
 #: ../iw/network_gui.py:201
 #, python-format
 msgid "Edit Interface %s"
-msgstr ""
+msgstr "编辑接口 %s"
 
 #: ../iw/network_gui.py:211
-#, fuzzy
 msgid "Configure using _DHCP"
-msgstr "使用 DHCP 进行配置"
+msgstr "使用 DHCP 进行配置(_D)"
 
 #: ../iw/network_gui.py:217
-#, fuzzy
 msgid "_Activate on boot"
-msgstr "引导时激活"
+msgstr "引导时激活(_A)"
 
 #: ../iw/network_gui.py:226
-#, fuzzy
 msgid "_IP Address"
-msgstr "IP 地址"
+msgstr "IP 地址(_I)"
 
 #: ../iw/network_gui.py:227
-#, fuzzy
 msgid "Net_mask"
-msgstr "子网掩码"
+msgstr "子网掩码(_M)"
 
 #: ../iw/network_gui.py:230
 msgid "Point to Point (IP)"
-msgstr ""
+msgstr "点对点 (IP)"
 
 #: ../iw/network_gui.py:253
-#, fuzzy, python-format
+#, python-format
 msgid "Configure %s"
-msgstr "配置 TCP/IP"
+msgstr "配置 %s"
 
 #: ../iw/network_gui.py:365
-#, fuzzy
 msgid "Active on Boot"
 msgstr "引导时激活"
 
 #: ../iw/network_gui.py:369
-#, fuzzy
 msgid "IP/Netmask"
-msgstr "子网掩码"
+msgstr "IP/子网掩码"
 
 #: ../iw/network_gui.py:392 ../iw/network_gui.py:491
 #: ../textw/network_text.py:224 ../loader/net.c:622 ../loader/net.c:817
@@ -3006,31 +2942,28 @@ msgid "Hostname"
 msgstr "主机名"
 
 #: ../iw/network_gui.py:397
-#, fuzzy
 msgid "Set hostname"
-msgstr "主机名"
+msgstr "设置主机名"
 
 #: ../iw/network_gui.py:462
-#, fuzzy
 msgid "Network Devices"
-msgstr "网络设备： %s"
+msgstr "网络设备"
 
 #: ../iw/network_gui.py:471
 msgid "I would like the hostname to be set:"
-msgstr ""
+msgstr "我想使用的主机名设置方法是："
 
 #: ../iw/network_gui.py:475
 msgid "_automatically via DHCP"
-msgstr ""
+msgstr "通过 DHCP 自动被设置(_A)"
 
 #: ../iw/network_gui.py:481
 msgid "_manually"
-msgstr ""
+msgstr "手工设置(_M)"
 
 #: ../iw/network_gui.py:544
-#, fuzzy
 msgid "Miscellaneous Settings"
-msgstr "其它"
+msgstr "其它设置"
 
 #: ../iw/osbootwidget.py:41
 msgid ""
@@ -3038,74 +2971,70 @@ msgid ""
 "Additional operating systems can be added to the below list to choose "
 "between them on boot."
 msgstr ""
+"你可以配置引导装载程序来引导其它操作系统。"
+"在下面的列表中添加可在引导时选择的额外操作系统。"
 
 #: ../iw/osbootwidget.py:125
 msgid "Image"
-msgstr ""
+msgstr "映像"
 
 #: ../iw/osbootwidget.py:132
 msgid ""
 "The label is what is displayed in the boot loader to choose to boot this "
 "operating system.  The device is the device which it boots from."
 msgstr ""
+"该标签是显示在引导装载程序中用来选择引导该操作系统的标签。"
+"该设备是从中引导的设备。"
 
 #: ../iw/osbootwidget.py:144
 msgid "_Label"
-msgstr ""
+msgstr "标签(_L)"
 
 #: ../iw/osbootwidget.py:188
-#, fuzzy
 msgid "Default Boot _Target"
-msgstr "默认引导映像"
+msgstr "默认引导目标(_T)"
 
 #: ../iw/osbootwidget.py:217
-#, fuzzy
 msgid "You must specify a label for the entry"
-msgstr "你必须选择一个分区来编辑"
+msgstr "你必须为该条目指定标签"
 
 #: ../iw/osbootwidget.py:226
-#, fuzzy
 msgid "Boot label contains illegal characters"
-msgstr "引导卷标包含不合法字符"
+msgstr "引导标签包含不合法字符"
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
-msgstr ""
+msgstr "重复标签"
 
 #: ../iw/osbootwidget.py:251
-#, fuzzy
 msgid "This label is already in use for another boot entry."
-msgstr "该用户 ID 已存在，请另选一个。"
+msgstr "该标签已被另一个引导条目使用。"
 
 #: ../iw/osbootwidget.py:264
-#, fuzzy
 msgid "Duplicate Device"
-msgstr "信任的设备："
+msgstr "重复设备"
 
 #: ../iw/osbootwidget.py:265
-#, fuzzy
 msgid "This device is already being used for another boot entry."
-msgstr "该用户 ID 已存在，请另选一个。"
+msgstr "该设备已被另一个引导条目使用。"
 
 #: ../iw/osbootwidget.py:329
-#, fuzzy
 msgid "Cannot Delete"
-msgstr "确认删除"
+msgstr "无法删除"
 
 #: ../iw/osbootwidget.py:330
 msgid ""
 "This boot target cannot be deleted because it is for the Red Hat Linux "
 "system you are about to install."
-msgstr ""
+msgstr "该引导目标无法被删除，因为它代表你即将安装的 Red Hat Linux 系统。"
 
 #: ../iw/package_gui.py:45 ../textw/packages_text.py:240
 msgid "Individual Package Selection"
 msgstr "选择单个软件包"
 
 #: ../iw/package_gui.py:73
-#, fuzzy
 msgid "All Packages"
-msgstr "软件包"
+msgstr "所有软件包"
 
 #: ../iw/package_gui.py:187
 #, python-format
@@ -3113,91 +3042,80 @@ msgid ""
 "Package: %s\n"
 "Version: %s\n"
 msgstr ""
+"软件包： %s\n"
+"版本： %s\n"
 
 #: ../iw/package_gui.py:358
-#, fuzzy
 msgid "_Tree View"
-msgstr "树形视图"
+msgstr "树形视图(_T)"
 
 #: ../iw/package_gui.py:360
-#, fuzzy
 msgid "_Flat View"
-msgstr "平面视图"
+msgstr "平面视图(_F)"
 
 #: ../iw/package_gui.py:375
-#, fuzzy
 msgid "_Package"
-msgstr "软件包"
+msgstr "软件包(_P)"
 
 #: ../iw/package_gui.py:377
-#, fuzzy
 msgid "_Size (MB)"
-msgstr "大小(MB)"
+msgstr "大小(MB)(_S)"
 
 #: ../iw/package_gui.py:428
 msgid "Total size: "
 msgstr "合计："
 
 #: ../iw/package_gui.py:431
-#, fuzzy
 msgid "Select _all in group"
-msgstr "选择全组"
+msgstr "选择全组(_A)"
 
 #: ../iw/package_gui.py:435
-#, fuzzy
 msgid "_Unselect all in group"
-msgstr "取消选择全组"
+msgstr "取消选择全组(_U)"
 
 #: ../iw/package_gui.py:472 ../textw/packages_text.py:60
 msgid "Package Group Selection"
 msgstr "选择软件包组"
 
 #: ../iw/package_gui.py:584
-#, fuzzy
 msgid "_Select individual packages"
-msgstr "选择单个软件包"
+msgstr "选择单个软件包(_S)"
 
 #: ../iw/partition_dialog_gui.py:55
 msgid "Additional Size Options"
 msgstr "其它大小选项"
 
 #: ../iw/partition_dialog_gui.py:60
-#, fuzzy
 msgid "_Fixed size"
-msgstr "固定大小"
+msgstr "固定大小(_F)"
 
 #: ../iw/partition_dialog_gui.py:62
-#, fuzzy
 msgid "Fill all space _up to (MB):"
-msgstr "指定空间大小(MB)："
+msgstr "指定空间大小(MB)(_U)："
 
 #: ../iw/partition_dialog_gui.py:72
-#, fuzzy
 msgid "Fill to maximum _allowable size"
-msgstr "使用全部可用空间"
+msgstr "使用全部可用空间(_A)"
 
 #: ../iw/partition_dialog_gui.py:171
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr ""
+msgstr "终止柱面必须大于起始柱面。"
 
 #: ../iw/partition_dialog_gui.py:259 ../textw/partition_text.py:626
 msgid "Add Partition"
 msgstr "添加分区"
 
 #: ../iw/partition_dialog_gui.py:261
-#, fuzzy
 msgid "Edit Partition"
-msgstr "添加分区"
+msgstr "编辑分区"
 
 #: ../iw/partition_dialog_gui.py:288 ../iw/raid_dialog_gui.py:300
-#, fuzzy
 msgid "Filesystem _Type:"
-msgstr "文件系统类型："
+msgstr "文件系统类型(_T)："
 
 #: ../iw/partition_dialog_gui.py:320
-#, fuzzy
 msgid "Allowable _Drives:"
-msgstr "允许的驱动器："
+msgstr "允许的驱动器(_D)："
 
 #: ../iw/partition_dialog_gui.py:333
 msgid "Drive:"
@@ -3208,24 +3126,20 @@ msgid "Original Filesystem Label:"
 msgstr "最初文件系统标签："
 
 #: ../iw/partition_dialog_gui.py:377
-#, fuzzy
 msgid "_Start Cylinder:"
-msgstr "起始柱面："
+msgstr "起始柱面(_S)："
 
 #: ../iw/partition_dialog_gui.py:395
-#, fuzzy
 msgid "_End Cylinder:"
-msgstr "终止柱面："
+msgstr "终止柱面(_E)："
 
 #: ../iw/partition_dialog_gui.py:446
-#, fuzzy
 msgid "Force to be a _primary partition"
-msgstr "强制为主分区"
+msgstr "强制为主分区(_P)"
 
 #: ../iw/partition_dialog_gui.py:454
-#, fuzzy
 msgid "Check for _bad blocks"
-msgstr "检查磁盘坏块"
+msgstr "检查磁盘坏块(_B)"
 
 #: ../iw/partition_gui.py:351
 msgid "Format"
@@ -3240,18 +3154,20 @@ msgid "End"
 msgstr "结束"
 
 #: ../iw/partition_gui.py:391
-#, fuzzy
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
-msgstr "挂载点"
+msgstr ""
+"挂载点/\n"
+"RAID/Volume"
 
 #: ../iw/partition_gui.py:393
-#, fuzzy
 msgid ""
 "Size\n"
 "(MB)"
-msgstr "大小(MB)"
+msgstr ""
+"大小\n"
+"(MB)"
 
 #: ../iw/partition_gui.py:520 ../textw/fdasd_text.py:50
 #: ../textw/fdisk_text.py:39
@@ -3259,14 +3175,12 @@ msgid "Disk Setup"
 msgstr "磁盘设置"
 
 #: ../iw/partition_gui.py:603
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "你所申请的分区方案存在下列严重错误。"
 
 #: ../iw/partition_gui.py:606
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "在继续安装 %s 之前，你一定要先更正这些错误。"
 
 #: ../iw/partition_gui.py:612
@@ -3290,18 +3204,16 @@ msgid "Format Warnings"
 msgstr "格式化警告"
 
 #: ../iw/partition_gui.py:652
-#, fuzzy
 msgid "_Format"
-msgstr "格式化"
+msgstr "格式化(_F)"
 
 #: ../iw/partition_gui.py:687
 msgid "LVM Volume Groups"
-msgstr ""
+msgstr "LVM 卷组"
 
 #: ../iw/partition_gui.py:722
-#, fuzzy
 msgid "RAID Devices"
-msgstr "RAID 设备 %s"
+msgstr "RAID 设备"
 
 #: ../iw/partition_gui.py:750 ../iw/partition_gui.py:864
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:151
@@ -3340,43 +3252,38 @@ msgid "Warning: %s."
 msgstr "警告： %s。"
 
 #: ../iw/partition_gui.py:951
-#, fuzzy
 msgid "_Modify Partition"
-msgstr "修改分区"
+msgstr "修改分区(_M)"
 
 #: ../iw/partition_gui.py:953
-#, fuzzy
 msgid "_Continue"
-msgstr "继续"
+msgstr "继续(_C)"
 
 #: ../iw/partition_gui.py:1128 ../iw/partition_gui.py:1142
-#, fuzzy
 msgid "Not supported"
-msgstr "网络支持"
+msgstr "不支持"
 
 #: ../iw/partition_gui.py:1129
 msgid "LVM is NOT supported on this platform."
-msgstr ""
+msgstr "该平台不支持 LVM。"
 
 #: ../iw/partition_gui.py:1143
 msgid "Software RAID is NOT supported on this platform."
-msgstr ""
+msgstr "该平台不支持软件 RAID。"
 
 #: ../iw/partition_gui.py:1150
-#, fuzzy
 msgid "No RAID minors available"
-msgstr "无帮助信息"
+msgstr "无可用的 RAID minors"
 
 #: ../iw/partition_gui.py:1151
 msgid ""
 "A software RAID device cannot be created because all of the available minors "
 "have been used."
-msgstr ""
+msgstr "无法创建软件 RAID 设备，因为所有可用的 minors 已被使用。"
 
 #: ../iw/partition_gui.py:1164
-#, fuzzy
 msgid "RAID Options"
-msgstr "无 RAID 分区"
+msgstr "RAID 选项"
 
 #: ../iw/partition_gui.py:1175
 #, python-format
@@ -3389,6 +3296,11 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
+"软件 RAID 允许你把几个磁盘合并成一个较大的 RAID 设备。"
+"和使用单个驱动器相比，RAID 设备可以被配置来提供额外的"
+"速度和可靠性。关于使用 RAID 设备的更多信息，请参考 %s 文档。\n"
+"\n"
+"你目前有 %s 个可使用的空闲软件 RAID 分区。\n"
 
 #: ../iw/partition_gui.py:1186
 msgid ""
@@ -3397,35 +3309,35 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
+"要使用 RAID，你必须首先创建至少两个类型为“软件 RAID”的分区。 "
+"然后，你可以创建能被格式化并挂载的 RAID 设备。\n"
+"\n"
 
 #: ../iw/partition_gui.py:1192
-#, fuzzy
 msgid "What do you want to do now?"
-msgstr "你想怎么办呢？"
+msgstr "你现在想怎么办？"
 
 #: ../iw/partition_gui.py:1201
-#, fuzzy
 msgid "Create a software RAID _partition."
-msgstr "至少需要两个软件 RAID 分区。"
+msgstr "创建软件 RAID 分区(_P)。"
 
 #: ../iw/partition_gui.py:1204
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr ""
+msgstr "创建 RAID 设备(_D) [default=/dev/md%s]。"
 
 #: ../iw/partition_gui.py:1208
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
+msgstr "复制驱动器来创建 RAID 设备(_D) [default=/dev/md%s]。"
 
 #: ../iw/partition_gui.py:1247
 msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
+msgstr "无法创建驱动器复制编辑器"
 
 #: ../iw/partition_gui.py:1248
-#, fuzzy
 msgid "The drive clone editor could not be created for some reason."
-msgstr "无法从服务器中挂载该目录"
+msgstr "由于某种原因，驱动器复制编辑器无法被创建。"
 
 #: ../iw/partition_gui.py:1296
 msgid "Make _RAID"
@@ -3434,27 +3346,24 @@ msgstr ""
 "RAID(_R)"
 
 #: ../iw/partition_gui.py:1298
-#, fuzzy
 msgid "Ne_w"
-msgstr "新建"
+msgstr "新建(_W)"
 
 #: ../iw/partition_gui.py:1301
-#, fuzzy
 msgid "Re_set"
-msgstr "重设"
+msgstr "重设(_S)"
 
 #: ../iw/partition_gui.py:1302
-#, fuzzy
 msgid "R_AID"
-msgstr "RAID"
+msgstr "RAID(_A)"
 
 #: ../iw/partition_gui.py:1303
 msgid "_LVM"
-msgstr ""
+msgstr "LVM(_L)"
 
 #: ../iw/partition_gui.py:1342
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "隐藏 RAID 设备/LVM 卷组成员(_G)"
 
 #: ../iw/partition_gui.py:1357 ../textw/partition_text.py:1187
 msgid "Automatic Partitioning"
@@ -3463,7 +3372,7 @@ msgstr "自动分区"
 #: ../iw/partition_gui.py:1386
 #, python-format
 msgid "You need to select at least one drive to have %s installed onto."
-msgstr "你至少要在一个驱动器上安装 %s"
+msgstr "你至少要在一个驱动器上安装 %s。"
 
 #: ../iw/partition_gui.py:1428
 msgid "I want to have automatic partitioning:"
@@ -3474,10 +3383,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "本次安装，你想使用哪些驱动器？"
 
 #: ../iw/partition_gui.py:1483
-#, fuzzy
-msgid ""
-"Re_view (allows you to see and change the automatic partitioning results)"
-msgstr "评审(允许你查看或改变自动分区的结果)"
+msgid "Re_view (allows you to see and change the automatic partitioning results)"
+msgstr "评审(允许你查看并改变自动分区的结果(_V)"
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:221
@@ -3488,27 +3395,23 @@ msgstr "<不适用>"
 
 #: ../iw/partition_ui_helpers_gui.py:241
 msgid "How would you like to prepare the filesystem on this partition?"
-msgstr "你想如何在该分区上准备文件系统？"
+msgstr "你想如何在该分区上筹备文件系统？"
 
 #: ../iw/partition_ui_helpers_gui.py:249
-#, fuzzy
 msgid "Leave _unchanged (preserve data)"
-msgstr "保持不变(保留信息)"
+msgstr "保持不变(保留信息)(_U)"
 
 #: ../iw/partition_ui_helpers_gui.py:255
-#, fuzzy
 msgid "_Format partition as:"
-msgstr "将分区格式化成："
+msgstr "将分区格式化成(_F)："
 
 #: ../iw/partition_ui_helpers_gui.py:278
-#, fuzzy
 msgid "Mi_grate partition to:"
-msgstr "将分区移植至："
+msgstr "将分区移植至(_G)："
 
 #: ../iw/partition_ui_helpers_gui.py:301
-#, fuzzy
 msgid "Check for _bad blocks?"
-msgstr "要检查磁盘坏块吗？"
+msgstr "要检查磁盘坏块吗(_B)？"
 
 #: ../iw/partition_ui_helpers_gui.py:335
 #, python-format
@@ -3516,25 +3419,24 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowed Drives' checklist."
 msgstr ""
+"类型为“%s”的分区必须局限于一个驱动器上。你可以通过在"
+"“允许的驱动器”查对单上选择该驱动器来达到这个目的。"
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
 msgstr "磁盘分区设置"
 
 #: ../iw/partmethod_gui.py:58
-#, fuzzy
 msgid "Have the installer _automatically partition for you"
-msgstr "让安装程序自动为你分区"
+msgstr "让安装程序自动为你分区(_A)"
 
 #: ../iw/partmethod_gui.py:61
-#, fuzzy
 msgid "Manually partition with _Disk Druid"
-msgstr "用 Disk Druid 手工分区"
+msgstr "用 Disk Druid 手工分区(_D)"
 
 #: ../iw/partmethod_gui.py:64
-#, fuzzy
 msgid "Manually partition with _fdisk [experts only]"
-msgstr "用 fdisk 程序手工分区〔只限专家〕"
+msgstr "用 fdisk 程序手工分区〔只限专家〕(_F)"
 
 #: ../iw/progress_gui.py:29
 msgid "Installing Packages"
@@ -3589,6 +3491,9 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
+"至少需要两个未用的 RAID 分区来创建 RAID 设备。\n"
+"\n"
+"首先创建至少两个类型为“软件 RAID”的分区，然后再选择“RAID”选项。"
 
 #: ../iw/raid_dialog_gui.py:276 ../iw/raid_dialog_gui.py:675
 #: ../textw/partition_text.py:871
@@ -3596,45 +3501,41 @@ msgid "Make RAID Device"
 msgstr "创建 RAID 设备"
 
 #: ../iw/raid_dialog_gui.py:278 ../textw/partition_text.py:869
-#, fuzzy
 msgid "Edit RAID Device"
-msgstr "创建 RAID 设备"
+msgstr "编辑 RAID 设备"
 
 #: ../iw/raid_dialog_gui.py:319
-#, fuzzy
 msgid "RAID _Device:"
-msgstr "RAID 设备 %s"
+msgstr "RAID 设备(_D)："
 
 #: ../iw/raid_dialog_gui.py:337
-#, fuzzy
 msgid "RAID _Level:"
-msgstr "RAID 级别："
+msgstr "RAID 级别(_L)："
 
 #: ../iw/raid_dialog_gui.py:379
-#, fuzzy
 msgid "_RAID Members:"
-msgstr "RAID 成员："
+msgstr "RAID 成员(_R)："
 
 #: ../iw/raid_dialog_gui.py:396
-#, fuzzy
 msgid "Number of _spares:"
-msgstr "备件数目："
+msgstr "备件数量(_S)："
 
 #: ../iw/raid_dialog_gui.py:406
-#, fuzzy
 msgid "_Format partition?"
-msgstr "格式化分区吗？"
+msgstr "格式化分区吗(_F)？"
 
 #: ../iw/raid_dialog_gui.py:478
 msgid ""
 "The source drive has no partitions to be cloned.  You must first defined "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
+"源驱动器上没有要复制的分区。在它能被复制前，"
+"你必须首先把该驱动器上的分区类型定义为“软件 RAID”。"
 
 #: ../iw/raid_dialog_gui.py:482 ../iw/raid_dialog_gui.py:488
 #: ../iw/raid_dialog_gui.py:500 ../iw/raid_dialog_gui.py:513
 msgid "Source Drive Error"
-msgstr ""
+msgstr "源驱动器错误"
 
 #: ../iw/raid_dialog_gui.py:489
 msgid ""
@@ -3643,6 +3544,9 @@ msgid ""
 "\n"
 "These partitions will have to removed before this drive can be cloned. "
 msgstr ""
+"选中的源驱动器上的有些分区类型不是“软件 RAID”。\n"
+"\n"
+"这些分区在该驱动器被复制前必须被删除。"
 
 #: ../iw/raid_dialog_gui.py:501
 #, python-format
@@ -3653,6 +3557,9 @@ msgid ""
 "These partitions will have to removed or restricted to this drive before "
 "this drive can be cloned. "
 msgstr ""
+"选中的源驱动器上的有些分区不仅局限于/dev/%s 驱动器。\n"
+"\n"
+"这些分区在该驱动器被复制前必须被删除或被限定于该驱动器之内。"
 
 #: ../iw/raid_dialog_gui.py:514
 msgid ""
@@ -3661,21 +3568,23 @@ msgid ""
 "\n"
 "These partitions will have to removed before this drive can be cloned."
 msgstr ""
+"选中的源驱动器上的有些软件 RAID 分区是一个活跃软件 RAID 设备上的成员。\n"
+"\n"
+"这些分区在该驱动器被复制前必须被删除。"
 
 #: ../iw/raid_dialog_gui.py:527 ../iw/raid_dialog_gui.py:533
 #: ../iw/raid_dialog_gui.py:546
 msgid "Target Drive Error"
-msgstr ""
+msgstr "目标驱动器错误"
 
 #: ../iw/raid_dialog_gui.py:528
-#, fuzzy
 msgid "Please select the target drives for the clone operation."
-msgstr "请选择与你的系统接连的显示器。"
+msgstr "请选择复制操作的目标驱动器。"
 
 #: ../iw/raid_dialog_gui.py:534
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
+msgstr "源驱动器 /dev/%s 不能被选为目标驱动器。"
 
 #: ../iw/raid_dialog_gui.py:547
 #, python-format
@@ -3687,16 +3596,19 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
+"目标驱动器 /dev/%s 上有一个无法删除的分区，原因如下：\n"
+"\n"
+"“%s”\n"
+"\n"
+"该分区必须在驱动器成为目标之前被删除。"
 
 #: ../iw/raid_dialog_gui.py:554
-#, fuzzy
 msgid "delete"
 msgstr "删除"
 
 #: ../iw/raid_dialog_gui.py:612
-#, fuzzy
 msgid "Please select a source drive."
-msgstr "现在请插入 %s 驱动程序盘。"
+msgstr "请选择源驱动器。"
 
 #: ../iw/raid_dialog_gui.py:632
 #, python-format
@@ -3704,6 +3616,8 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
+"驱动器 /dev/%s 现在将会被复制到下列驱动器上：\n"
+"\n"
 
 #: ../iw/raid_dialog_gui.py:637
 msgid ""
@@ -3711,20 +3625,21 @@ msgid ""
 "\n"
 "WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
 msgstr ""
+"\n"
+"\n"
+"警告！目标驱动器上的所有数据将会被破坏。"
 
 #: ../iw/raid_dialog_gui.py:640
-#, fuzzy
 msgid "Final Warning"
-msgstr "格式化警告"
+msgstr "最后警告"
 
 #: ../iw/raid_dialog_gui.py:642
-#, fuzzy
 msgid "Clone Drives"
-msgstr "允许的驱动器："
+msgstr "复制驱动器"
 
 #: ../iw/raid_dialog_gui.py:651
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
+msgstr "清除目标驱动器时出错。复制失败。"
 
 #: ../iw/raid_dialog_gui.py:685
 msgid ""
@@ -3741,21 +3656,28 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
+"复制驱动器工具\n"
+"\n"
+"该工具允许你显著减少设置 RAID 阵列所需付出的努力。"
+"它的原理是：把按照所需分区布局准备的驱动器作为源驱动器，"
+"然后在大小相仿的驱动器上复制该布局。这样就可以创建 RAID 设备。\n"
+"\n"
+"注意：源驱动器上的分区必须局限于该驱动器内，且仅可包含未用的"
+"软件 RAID 分区。不允许使用其它分区类型。\n"
+"\n"
+"目标驱动器上的一切将会被该进程破坏。"
 
 #: ../iw/raid_dialog_gui.py:705
-#, fuzzy
 msgid "Source Drive:"
-msgstr "驱动器："
+msgstr "源驱动器："
 
 #: ../iw/raid_dialog_gui.py:713
-#, fuzzy
 msgid "Target Drive(s):"
-msgstr "硬盘驱动器"
+msgstr "目标驱动器："
 
 #: ../iw/raid_dialog_gui.py:721
-#, fuzzy
 msgid "Drives"
-msgstr "驱动器："
+msgstr "驱动器"
 
 #: ../iw/silo_gui.py:28
 msgid "Silo Configuration"
@@ -3790,40 +3712,36 @@ msgid "Time Zone Selection"
 msgstr "选择时区"
 
 #: ../iw/timezone_gui.py:146 ../iw/timezone_gui.py:147
-#, fuzzy
 msgid "System clock uses _UTC"
-msgstr "系统时钟使用 UTC"
+msgstr "系统时钟使用 UTC(_U)"
 
 #: ../iw/timezone_gui.py:170
 msgid "Location"
 msgstr "位置"
 
 #: ../iw/timezone_gui.py:218
-#, fuzzy
 msgid "Use _Daylight Saving Time (US only)"
-msgstr "使用夏令时(仅限于美国)"
+msgstr "使用夏令时(仅限于美国)(_D)"
 
 #: ../iw/timezone_gui.py:231
 msgid "UTC Offset"
 msgstr "UTC 偏移"
 
 #: ../iw/timezone_map_gui.py:108
-#, fuzzy
 msgid "_Location"
-msgstr "位置"
+msgstr "位置(_L)"
 
 #: ../iw/timezone_map_gui.py:110
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
 msgstr "升级引导装载程序配置"
 
 #: ../iw/upgrade_bootloader_gui.py:68
-#, fuzzy
 msgid "_Update boot loader configuration"
-msgstr "更新引导装载程序配置"
+msgstr "更新引导装载程序配置(_U)"
 
 #: ../iw/upgrade_bootloader_gui.py:69
 msgid "This will update your current boot loader."
@@ -3831,8 +3749,7 @@ msgstr "这将会更新你目前的引导装载程序。"
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "安装程序检测到 %s 引导装载程序目前安装在 %s 上。"
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -3846,22 +3763,20 @@ msgid ""
 msgstr "安装程序无法在你的系统上检测到目前使用的引导装载程序。"
 
 #: ../iw/upgrade_bootloader_gui.py:89
-#, fuzzy
 msgid "_Create new boot loader configuration"
-msgstr "创建新的引导装载程序配置"
+msgstr "创建新的引导装载程序配置(_C)"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
-"这将会创建一个新的引导装载程序配置。如果你想在引导装载程序间切换，请选择该选"
+"这将会创建一个新的引导装载程序配置。如果你想更换引导装载程序，请选择该选"
 "项。"
 
 #: ../iw/upgrade_bootloader_gui.py:98
-#, fuzzy
 msgid "_Skip boot loader updating"
-msgstr "跳过引导装载程序的更新"
+msgstr "跳过引导装载程序的更新(_S)"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
@@ -3873,7 +3788,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:111
 msgid "What would you like to do?"
-msgstr "你想怎么办呢？"
+msgstr "你想怎么办？"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:32
 msgid "Migrate Filesystems"
@@ -3892,7 +3807,7 @@ msgstr ""
 "%s 的本次发行版支持 ext3 文件系统，这在很多方面都优于 %s 中传统附带的 ext2 文"
 "件系统。在将 ext2 格式化过的分区移植到 ext3 时可能不会丢失数据。\n"
 "\n"
-"你想移植哪些分区呢？"
+"你想移植哪些分区？"
 
 #: ../iw/upgrade_swap_gui.py:31
 msgid "Upgrade Swap Partition"
@@ -3921,14 +3836,12 @@ msgstr ""
 "安装程序检测到 %s MB 内存。\n"
 
 #: ../iw/upgrade_swap_gui.py:121
-#, fuzzy
 msgid "I _want to create a swap file"
-msgstr "我想创建一个交换文件"
+msgstr "我想创建一个交换文件(_W)"
 
 #: ../iw/upgrade_swap_gui.py:130
-#, fuzzy
 msgid "Select the _partition to put the swap file on:"
-msgstr "选择存放交换文件的分区："
+msgstr "选择存放交换文件的分区(_P)："
 
 #: ../iw/upgrade_swap_gui.py:149
 msgid "Free Space (MB)"
@@ -3942,30 +3855,26 @@ msgid ""
 msgstr "推荐你将交换文件至少定为 %d MB。请输入交换文件的大小："
 
 #: ../iw/upgrade_swap_gui.py:182
-#, fuzzy
 msgid "Swap file _size (MB):"
-msgstr "交换文件大小(MB)："
+msgstr "交换文件大小(MB)(_S)："
 
 #: ../iw/upgrade_swap_gui.py:192
-#, fuzzy
 msgid "I _don't want to create a swap file"
-msgstr "我不想创建交换文件"
+msgstr "我不想创建交换文件(_D)"
 
 #: ../iw/upgrade_swap_gui.py:202
 msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
-msgstr ""
-"强烈建议你创建一个交换文件，否则会导致安装程序非正常中止。你确信要继续么？"
+msgstr "强烈建议你创建一个交换文件，否则会导致安装程序非正常中止。你确信要继续么？"
 
 #: ../iw/upgrade_swap_gui.py:210 ../textw/upgrade_text.py:176
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "交换文件的大小必须在 1MB 到 2000MB 之间。"
 
 #: ../iw/upgrade_swap_gui.py:217 ../textw/upgrade_text.py:171
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "你所选的交换分区在该设备上空间不够。"
 
 #: ../iw/welcome_gui.py:20
@@ -3985,9 +3894,8 @@ msgid "Customize Graphics Configuration"
 msgstr "定制图形配置"
 
 #: ../iw/xconfig_gui.py:207
-#, fuzzy
 msgid "_Color Depth:"
-msgstr "色彩深度："
+msgstr "色彩深度(_C)："
 
 #: ../iw/xconfig_gui.py:213 ../textw/xconfig_text.py:109
 msgid "256 Colors (8 Bit)"
@@ -4002,14 +3910,12 @@ msgid "True Color (24 Bit)"
 msgstr "真色(24 位)"
 
 #: ../iw/xconfig_gui.py:223
-#, fuzzy
 msgid "_Screen Resolution:"
-msgstr "屏幕分辨率："
+msgstr "屏幕分辨率(_S)："
 
 #: ../iw/xconfig_gui.py:310
-#, fuzzy
 msgid "   _Test Setting   "
-msgstr "   测试设置   "
+msgstr "   测试设置   (_T)"
 
 #: ../iw/xconfig_gui.py:333
 msgid "Please choose your default desktop environment:"
@@ -4021,29 +3927,25 @@ msgstr "你的桌面环境是："
 
 # ../comps/comps-master:259
 #: ../iw/xconfig_gui.py:350
-#, fuzzy
 msgid "GNO_ME"
-msgstr "GNOME"
+msgstr "GNOME(_M)"
 
 # ../comps/comps-master:315
 #: ../iw/xconfig_gui.py:352
-#, fuzzy
 msgid "_KDE"
-msgstr "KDE"
+msgstr "KDE(_K)"
 
 #: ../iw/xconfig_gui.py:381
 msgid "Please choose your login type:"
 msgstr "请选择你的登录类型："
 
 #: ../iw/xconfig_gui.py:388
-#, fuzzy
 msgid "T_ext"
-msgstr "文本"
+msgstr "文本(_E)"
 
 #: ../iw/xconfig_gui.py:389
-#, fuzzy
 msgid "_Graphical"
-msgstr "图形化"
+msgstr "图形化(_G)"
 
 #: ../iw/xconfig_gui.py:406 ../textw/xconfig_text.py:434
 msgid "Monitor Configuration"
@@ -4054,19 +3956,16 @@ msgid "Generic"
 msgstr "通用"
 
 #: ../iw/xconfig_gui.py:691 ../iw/xconfig_gui.py:1044
-#, fuzzy
 msgid "Restore _original values"
-msgstr "恢复原值"
+msgstr "恢复原值(_O)"
 
 #: ../iw/xconfig_gui.py:699
-#, fuzzy
 msgid "Hori_zontal Sync:"
-msgstr "水平频率范围："
+msgstr "水平频率范围(_Z)："
 
 #: ../iw/xconfig_gui.py:702
-#, fuzzy
 msgid "_Vertical Sync:"
-msgstr "垂直频率范围："
+msgstr "垂直频率范围(_V)："
 
 #: ../iw/xconfig_gui.py:709
 msgid "kHz"
@@ -4081,16 +3980,15 @@ msgid "Graphical Interface (X) Configuration"
 msgstr "图形化界面(X)配置"
 
 #: ../iw/xconfig_gui.py:755
-#, fuzzy
 msgid "Unknown video card"
-msgstr "未知卡"
+msgstr "未知视频卡"
 
 #: ../iw/xconfig_gui.py:756
 #, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
-msgstr ""
+msgstr "选择视频卡 %s 时出错。请向 bugzilla.redhat.com 报告这个错误。"
 
 #: ../iw/xconfig_gui.py:780 ../textw/xconfig_text.py:666
 msgid "Unspecified video card"
@@ -4121,22 +4019,19 @@ msgstr "系统通常可以探测视频硬件来自动确定适用于显示器的
 msgid ""
 "If the probed settings do not match your hardware, select the correct "
 "hardware settings below:"
-msgstr "如果探测过的设置与你的硬件不符，请从下列中选择正确的硬件设置："
+msgstr "如果探测过的设置与你的硬件不匹配，请从下面选择正确的硬件设置："
 
 #: ../iw/xconfig_gui.py:1022
-#, fuzzy
 msgid "_Video card RAM: "
-msgstr "视频卡内存："
+msgstr "视频卡内存(_V)："
 
 #: ../iw/xconfig_gui.py:1048
-#, fuzzy
 msgid "_Skip X Configuration"
-msgstr "跳过 X 配置"
+msgstr "跳过 X 配置(_S)"
 
 #: ../iw/zipl_gui.py:33
-#, fuzzy
 msgid "z/IPL Boot Loader Configuration"
-msgstr "引导装载程序配置"
+msgstr "z/IPL 引导装载程序配置"
 
 #: ../iw/zipl_gui.py:75 ../textw/zipl_text.py:22
 msgid ""
@@ -4154,6 +4049,15 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
+" z/IPL 引导装载程序现在将会被安装到你的系统上。\n"
+"\n"
+"根分区将会是你在前面的分区设置中选择的分区。\n"
+"\n"
+"用来启动该机器的内核将会是默认安装的内核。\n"
+"\n"
+"如果你想在安装后再做改变，请随意改变 /etc/zipl.conf 配置文件。\n"
+"\n"
+"现在你可以输入任何你的机器或设置需要的额外内核参数。"
 
 #: ../textw/bootdisk_text.py:31
 msgid "Boot Disk"
@@ -4215,19 +4119,19 @@ msgstr "清除"
 
 #: ../textw/bootloader_text.py:217
 msgid "Edit Boot Label Please"
-msgstr "请编辑引导卷标"
+msgstr "请编辑引导标签"
 
 #: ../textw/bootloader_text.py:235 ../textw/bootloader_text.py:240
 msgid "Invalid Boot Label"
-msgstr "引导卷标无效"
+msgstr "引导标签无效"
 
 #: ../textw/bootloader_text.py:236
 msgid "Boot label may not be empty."
-msgstr "引导卷标不能空白"
+msgstr "引导标签不能空白"
 
 #: ../textw/bootloader_text.py:241
 msgid "Boot label contains illegal characters."
-msgstr "引导卷标包含不合法字符"
+msgstr "引导标签包含不合法字符"
 
 #: ../textw/bootloader_text.py:291 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1101 ../textw/partition_text.py:1108
@@ -4246,8 +4150,7 @@ msgstr ""
 "区，以及每一个分区使用的标签。"
 
 #: ../textw/bootloader_text.py:308
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Space> 选择按钮 | <F2> 选择默认的引导项目 | <F12> 下一屏幕"
 
 #: ../textw/bootloader_text.py:397
@@ -4284,13 +4187,15 @@ msgid ""
 "press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
+"取出任何你在安装过程中使用的软盘，然后按 <Enter> 键来重新引导系统。\n"
+"\n"
 
 #: ../textw/complete_text.py:43
 msgid "Complete"
 msgstr "完成"
 
 #: ../textw/complete_text.py:44
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -4300,11 +4205,11 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs."
 msgstr ""
-"祝贺你！配置已完成。\n"
+"祝贺你！你的 %s 安装已完成。\n"
 "\n"
-"有关为该版本提供的勘误信息(更新及改错)，请访问 http://www.redhat.com/"
+"%s%s 有关为该版本提供的勘误信息(更新及改错)，请访问 http://www.redhat.com/"
 "errata 。\n"
-"有关使用及配置系统的信息则可到 http://www.redhat.com/docs 网页上 %s指南手册中"
+"有关使用系统的信息则可到 http://www.redhat.com/docs 网页上 %s指南手册中"
 "查阅。"
 
 #: ../textw/confirm_text.py:20
@@ -4312,12 +4217,11 @@ msgid "Installation to begin"
 msgstr "即将开始安装"
 
 #: ../textw/confirm_text.py:21
-#, fuzzy
 msgid ""
 "A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"重新引导系统后，一份完整的安装日志将会保存在 /tmp/install.log 。你可能需要保"
+"重新引导系统后，一份完整的安装日志将会保存在 /root/install.log 中。你可能需要保"
 "留该文件供以后参考。"
 
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
@@ -4334,27 +4238,24 @@ msgstr "上一步"
 
 #: ../textw/confirm_text.py:32
 msgid "Upgrade to begin"
-msgstr "升级开始"
+msgstr "即将开始升级"
 
 #: ../textw/fdasd_text.py:31
-#, fuzzy
 msgid "Choose a disk to run fdasd or dasdfmt on"
-msgstr "选择要在其中运行 fdisk 命令的磁盘"
+msgstr "选择要在其中运行 fdasd 或 dasdfmt 命令的磁盘"
 
 #: ../textw/fdasd_text.py:32
-#, fuzzy
 msgid "Edit Partitions"
-msgstr "添加分区"
+msgstr "编辑分区"
 
 #: ../textw/fdasd_text.py:33
-#, fuzzy
 msgid "Format DASD"
-msgstr "格式化"
+msgstr "格式化 DASD"
 
 #: ../textw/fdasd_text.py:74
-#, fuzzy, python-format
-msgid "An error occurred while running %s on drive %s."
-msgstr "在查找要升级的软件包时出错。"
+#, python-format
+msgid "An error occured while running %s on drive %s."
+msgstr " %s 运行在驱动器 %s 上时出错。"
 
 #: ../textw/fdasd_text.py:85
 #, python-format
@@ -4364,9 +4265,12 @@ msgid ""
 "\n"
 "Do you really want this?"
 msgstr ""
+"运行 dasdfmt 意味着丢失驱\n"
+"动器 %s 上的所有数据。\n"
+"\n"
+"你真想这样做吗？"
 
 #: ../textw/fdasd_text.py:101
-#, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem or use "
@@ -4375,7 +4279,9 @@ msgid ""
 "Back to the fdasd screen?"
 msgstr ""
 "出现错误 - 未找到用于创建新文件系统的有效设备。请检查你的硬件以找到问题的起"
-"因。"
+"因，或使用dasdfmt。\n"
+"\n"
+"返回到 fdasd 屏幕吗？"
 
 #: ../textw/fdisk_text.py:40
 msgid "Choose a disk to run fdisk on"
@@ -4469,7 +4375,7 @@ msgid ""
 "specify additional ports in the form 'service:protocol' such as 'imap:tcp'. "
 msgstr ""
 "你可以用两种办法来定制防火墙。首先，你可以选择允许与某些网络接口间的所有交"
-"通；其次，你可以明确标明允许通过防火墙的协议，在以逗号分开的列表中用“服务:协"
+"通；其次，你可以明确标明允许通过防火墙的协议，在用逗号分开的列表中用“服务:协"
 "议”的形式指定额外的端口，如：“imap:tcp”"
 
 #: ../textw/firewall_text.py:194
@@ -4507,7 +4413,7 @@ msgstr "语言支持"
 
 #: ../textw/language_text.py:154
 msgid "You must select at least one language to install."
-msgstr "你至少要安装一种语言"
+msgstr "你至少要安装一种语言。"
 
 #: ../textw/language_text.py:182
 msgid "Default Language"
@@ -4571,9 +4477,8 @@ msgid "Tertiary nameserver:"
 msgstr "第三名称服务器："
 
 #: ../textw/network_text.py:94
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "挂载点："
+msgstr "点对点(IP)："
 
 #: ../textw/network_text.py:129
 #, python-format
@@ -4622,8 +4527,7 @@ msgid "Total size"
 msgstr "合计"
 
 #: ../textw/packages_text.py:248
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "  <Space>,<+>,<-> 选择   |   <F1> 帮助   |   <F2> 软件包描述"
 
 #: ../textw/packages_text.py:296
@@ -4679,7 +4583,7 @@ msgstr "修改分区"
 
 #: ../textw/partition_text.py:203
 msgid "Add anyway"
-msgstr "添加"
+msgstr "强行添加"
 
 #: ../textw/partition_text.py:240
 msgid "Mount Point:"
@@ -4760,9 +4664,8 @@ msgid "Filesystem Options"
 msgstr "文件系统选项"
 
 #: ../textw/partition_text.py:515
-msgid ""
-"Please choose how you would like to prepare the filesystem on this partition."
-msgstr "请选择你想如何在该分区上准备文件系统。"
+msgid "Please choose how you would like to prepare the filesystem on this partition."
+msgstr "请选择你想如何在该分区上筹备文件系统。"
 
 #: ../textw/partition_text.py:523 ../textw/partition_text.py:671
 msgid "Check for bad blocks"
@@ -4785,13 +4688,12 @@ msgid "Force to be a primary partition"
 msgstr "强制为主分区"
 
 #: ../textw/partition_text.py:679
-#, fuzzy
 msgid "Not Supported"
-msgstr "网络支持"
+msgstr "不支持"
 
 #: ../textw/partition_text.py:680
 msgid "LVM Volume Groups can only be editted in the graphical installer."
-msgstr ""
+msgstr "LVM 卷组只能在图形化安装程序中被编辑。"
 
 #: ../textw/partition_text.py:754 ../textw/partition_text.py:803
 msgid "Invalid Entry for Partition Size"
@@ -4835,7 +4737,7 @@ msgstr "RAID0 阵列的备件最多为 0。"
 
 #: ../textw/partition_text.py:1049
 msgid "You must go back and use fdasd to initialize this partition"
-msgstr ""
+msgstr "你必须返回并使用 fdasd 来初始化该分区"
 
 #: ../textw/partition_text.py:1090
 msgid "Partitioning"
@@ -4851,21 +4753,16 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1105
-#, fuzzy
-msgid ""
-"    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-帮助       F2-新建      F3-编辑   F4-删除    F5-重设    F12-确定    "
+msgid "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-帮助           F3-编辑   F4-删除    F5-重设    F12-确定    "
 
 #: ../textw/partition_text.py:1107
 msgid "New"
 msgstr "新建"
 
 #: ../textw/partition_text.py:1113
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-帮助       F2-新建      F3-编辑   F4-删除    F5-重设    F12-确定    "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-帮助       F2-新建      F3-编辑   F4-删除    F5-重设    F12-确定    "
 
 #: ../textw/partition_text.py:1142
 msgid "No Root Partition"
@@ -4942,7 +4839,7 @@ msgstr "你想在何处安装引导装载程序？"
 
 #: ../textw/silo_text.py:155
 msgid "Edit Boot Label"
-msgstr "编辑引导卷标"
+msgstr "编辑引导标签"
 
 #: ../textw/timezone_text.py:77
 msgid "What time zone are you located in?"
@@ -5023,7 +4920,7 @@ msgid ""
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
 "你想要安装的软件包，以及需满足其依赖关系的其它软件包，都已被系统选定要安装。 "
-"是否要定制升级的软件包集合？"
+"是否要定制这个将要升级的软件包集合？"
 
 #: ../textw/userauth_text.py:22
 msgid "Root Password"
@@ -5079,24 +4976,20 @@ msgid "Password (confirm)"
 msgstr "口令(确认)"
 
 #: ../textw/userauth_text.py:113
-#, fuzzy
 msgid "Bad User Name"
-msgstr "用户名"
+msgstr "用户名称不合适"
 
 #: ../textw/userauth_text.py:114
-#, fuzzy
 msgid "User names must contain only characters A-Z, a-z, and 0-9."
-msgstr "用户 ID 必须小于 8 个字符，而且只能包含字符：A-Z、a-z，以及 0-9。"
+msgstr "用户名称只能包含字符：A-Z、a-z，以及 0-9。"
 
 #: ../textw/userauth_text.py:121
-#, fuzzy
 msgid "Missing User Name"
-msgstr "缺少用户 ID"
+msgstr "缺少用户名称"
 
 #: ../textw/userauth_text.py:122
-#, fuzzy
 msgid "You must provide a user name"
-msgstr "你必须提供一个用户 ID"
+msgstr "你必须提供一个用户名称"
 
 #: ../textw/userauth_text.py:127
 msgid "The password must be at least 6 characters long."
@@ -5108,15 +5001,12 @@ msgid "User Exists"
 msgstr "用户已存在"
 
 #: ../textw/userauth_text.py:144
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr "根用户已被配置，你无需在此添加该用户。"
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "根用户已被配置，你不必在此添加该用户。"
 
 #: ../textw/userauth_text.py:151
-#, fuzzy
-msgid ""
-"This system user is already configured. You don't need to add this user here."
-msgstr "根用户已被配置，你无需在此添加该用户。"
+msgid "This system user is already configured. You don't need to add this user here."
+msgstr "系统用户已被配置，你不必在此添加该用户。"
 
 #: ../textw/userauth_text.py:159
 msgid "This user id already exists.  Choose another."
@@ -5136,13 +5026,12 @@ msgid "User Account Setup"
 msgstr "设置用户帐号"
 
 #: ../textw/userauth_text.py:199
-#, fuzzy
 msgid ""
 "What other user accounts would you like to have on the system? You should "
 "have at least one non-root account for normal work, but multi-user systems "
 "can have any number of accounts set up."
 msgstr ""
-"你要在系统上使用哪一个用户帐号？你至少应具有一个非根帐号以用于日常工作，多用"
+"你要在系统上使用哪些其他用户帐号？你至少应具有一个非根帐号以用于日常工作，多用"
 "户系统则可以具有任意数量的帐号设置。"
 
 #: ../textw/userauth_text.py:210
@@ -5155,7 +5044,7 @@ msgstr "添加"
 
 #: ../textw/userauth_text.py:237
 msgid "Enter the information for the user."
-msgstr "输入用户信息。"
+msgstr "输入该用户的信息。"
 
 #: ../textw/userauth_text.py:255
 msgid "Change the information for this user."
@@ -5278,7 +5167,7 @@ msgstr "X 定制"
 msgid ""
 "Select the color depth and video mode you want to use for your system. Use "
 "the '%s' button to test the video mode."
-msgstr "请选择你想在系统内使用的色彩深度及视频模式。用“%s”键来测试视频模式。"
+msgstr "请选择你想在系统内使用的色彩深度及视频模式。用“%s”按钮来测试视频模式。"
 
 #: ../textw/xconfig_text.py:192
 msgid "Color Depth:"
@@ -5341,7 +5230,7 @@ msgid ""
 msgstr ""
 "请输入你的显示器频率。\n"
 "\n"
-"注记：通常你没有必要手工编辑频率。编辑时切勿小心，以确保输入值正确。"
+"注意：通常你没有必要手工编辑频率。编辑时切勿小心，以确保输入值的正确性。"
 
 #: ../textw/xconfig_text.py:315
 msgid "HSync Rate: "
@@ -5390,7 +5279,7 @@ msgstr ""
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
-msgstr "请选择系统显示器。用“%s”键将其还原为探测值。"
+msgstr "请选择系统显示器。用“%s”按钮将其还原为探测值。"
 
 #: ../textw/xconfig_text.py:441
 msgid "Monitor:"
@@ -5413,8 +5302,7 @@ msgstr "视频卡"
 msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
-msgstr ""
-"请选择系统视频卡。用“%s”键将选择还原至安装程序在你的系统中所检测到的视频卡。"
+msgstr "请选择系统视频卡。用“%s”按钮将选择还原至安装程序在你的系统中所检测到的视频卡。"
 
 #: ../textw/xconfig_text.py:553
 msgid "Video RAM"
@@ -5425,7 +5313,7 @@ msgstr "视频内存"
 msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
-msgstr "请选择你的视频内存数量。用“% s”键将选择还原至安装程序所探测到的数量。"
+msgstr "请选择你的视频内存数量。用“% s”按钮将选择还原至安装程序所探测到的数量。"
 
 #: ../textw/xconfig_text.py:624
 msgid "Skip X Configuration"
@@ -5452,9 +5340,8 @@ msgid "Video RAM:"
 msgstr "视频内存："
 
 #: ../textw/zipl_text.py:50
-#, fuzzy
 msgid "z/IPL Configuration"
-msgstr "SILO 配置"
+msgstr "z/IPL 配置"
 
 #: ../installclasses/custom.py:10
 msgid "Custom"
@@ -5486,7 +5373,7 @@ msgstr "光盘类型"
 
 #: ../loader/cdrom.c:31
 msgid "What type of CDROM do you have?"
-msgstr "你配备了何种类型的光盘？"
+msgstr "你配备了何种类型的光盘驱动器？"
 
 #: ../loader/cdrom.c:88
 msgid "Initializing CDROM..."
@@ -5538,7 +5425,7 @@ msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
-"应试用何种驱动程序？如果此表中未包含所需的驱动程序，并通且你另外备有驱动程序"
+"应试用何种驱动程序？如果该列表中未包含所需的驱动程序，并且你另外备有驱动程序"
 "软盘，请按 F2 键。"
 
 #: ../loader/devices.c:335
@@ -5548,26 +5435,26 @@ msgstr "指定模块参数"
 #: ../loader/devices.c:429
 #, c-format
 msgid "Failed to insert %s module."
-msgstr "插入 %s 模块失败"
+msgstr "插入 %s 模块失败。"
 
 #: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
 msgid "Kickstart Error"
-msgstr "反冲启动错误"
+msgstr " kickstart 错误"
 
 #: ../loader/kickstart.c:60
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
-msgstr "打开反冲启动文件 %s 时出现错误：%s"
+msgstr "打开 kickstart 文件 %s 时出现错误：%s"
 
 #: ../loader/kickstart.c:70
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "读取反冲启动文件 %s 的内容时出现错误：%s"
+msgstr "读取 kickstart 文件 %s 的内容时出现错误：%s"
 
 #: ../loader/kickstart.c:109
 #, c-format
 msgid "Error on line %d of kickstart file %s."
-msgstr "第 %d 行反冲启动文件 %s 中出现错误。"
+msgstr "第 %d 行 kickstart 文件 %s 中出现错误。"
 
 #: ../loader/lang.c:41 ../loader/loader.c:199
 #, c-format
@@ -5575,8 +5462,7 @@ msgid "Welcome to %s"
 msgstr "欢迎使用 %s"
 
 #: ../loader/lang.c:42 ../loader/loader.c:205
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "<Tab>/<Alt-Tab> 选项间切换   |  <Space> 选择   |  <F12> 下一屏幕 "
 
 #: ../loader/lang.c:305
@@ -5631,7 +5517,7 @@ msgstr "添加设备"
 msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
-msgstr "没有为你的系统载入任何特殊设备驱动程序。现在是否需要装载？"
+msgstr "没有为你的系统载入任何特殊设备驱动程序。现在是否需要载入？"
 
 #: ../loader/loader.c:489 ../loader/loader.c:894 ../loader/loader.c:2802
 #, c-format
@@ -5640,7 +5526,7 @@ msgstr "读取目录 %s 失败：%s"
 
 #: ../loader/loader.c:595
 msgid ""
-"An error occurred reading the install from the ISO images. Please check your "
+"An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr "从 ISO 映像中读取安装时出错。请检查你的 ISO 映像后重试。"
 
@@ -5701,8 +5587,7 @@ msgstr "弹出光盘"
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
-msgstr ""
-"选择“%s”来测试目前驱动器内的光盘，或“%s”来弹出光盘，然后另插一张来测试。"
+msgstr "选择“%s”来测试当前驱动器内的光盘，或“%s”来弹出光盘，然后另插一张来测试。"
 
 #: ../loader/loader.c:1230
 #, c-format
@@ -5724,8 +5609,7 @@ msgstr ""
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
-msgstr ""
-"在你所有光盘驱动器中均无法找到 %s 光盘。请插入 %s 光盘，然后按 %s 来重试。"
+msgstr "在你所有光盘驱动器中均无法找到 %s 光盘。请插入 %s 光盘，然后按 %s 来重试。"
 
 #: ../loader/loader.c:1294
 msgid "CD Found"
@@ -5855,7 +5739,7 @@ msgstr "正在运行 anaconda - 请稍候……\n"
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr "无法从主卷标中读出磁盘查验值。这可能是因为创建磁盘时没有添加查验值。"
+msgstr "无法从主标签中读出磁盘查验值。这可能是因为创建磁盘时没有添加查验值。"
 
 #: ../loader/mediacheck.c:201
 #, c-format
@@ -5877,7 +5761,7 @@ msgid ""
 "\n"
 "It is not recommended to use this media."
 msgstr ""
-"失败。\n"
+"FAIL。\n"
 "\n"
 "建议你不要使用该介质。"
 
@@ -5887,7 +5771,7 @@ msgid ""
 "\n"
 "It is OK to install from this media."
 msgstr ""
-"通过。\n"
+"PASS。\n"
 "\n"
 "可以从这个介质中安装。"
 
@@ -5897,7 +5781,7 @@ msgid ""
 "\n"
 "No checksum information available, unable to verify media."
 msgstr ""
-"不适用。\n"
+"NA。\n"
 "\n"
 "没有可用的查验值，无法校验介质。"
 
@@ -6008,8 +5892,7 @@ msgstr "你输入的 IP 地址无效。"
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr ""
-"请输入本机的 IP 配置。每项均应以点式十进制输入为 IP 地址(例如：1.2.3.4)。"
+msgstr "请输入本机的 IP 配置。每项均应以点式十进制输入为 IP 地址(例如：1.2.3.4)。"
 
 #: ../loader/net.c:341
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -6041,12 +5924,12 @@ msgstr "正在确定主机的名称和域……"
 
 #: ../loader/net.c:730 ../loader/net.c:763
 msgid "kickstart"
-msgstr "反冲启动"
+msgstr " kickstart "
 
 #: ../loader/net.c:731
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr "反冲启动网络命令 %s 的参数不对：%s"
+msgstr " kickstart 网络命令 %s 的参数不对：%s"
 
 #: ../loader/net.c:764
 #, c-format
@@ -6078,9 +5961,8 @@ msgid "Network device"
 msgstr "网络设备"
 
 #: ../loader/net.c:826
-#, fuzzy
 msgid "No DNS lookups"
-msgstr "使用 TLS 查寻"
+msgstr "无 DNS 查寻"
 
 #: ../loader/net.c:898
 msgid ""
@@ -6367,8 +6249,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "大西洋时间 - 东拉布拉多"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr "大西洋时间 - 新斯科舍省 (多数地区)，NB，西拉布拉多，东魁北克 & PEI"
 
 #. generated from zone.tab
@@ -6548,8 +6429,7 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "东部时间 - 安大略 & 魁北克 - 多数地区"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "东部时间 - 安大略 & 魁北克 - 不使用 DST 1967-1973 的地区"
 
 #. generated from zone.tab
@@ -6710,15 +6590,14 @@ msgstr "莫斯科+10 - 白令海"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
+msgstr "多数位置 (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "山区标准时间 - 亚利桑那"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "山区标准时间 - 道森溪 & 圣约翰堡，英属哥伦比亚"
 
 #. generated from zone.tab
@@ -6994,9 +6873,8 @@ msgid "Portuguese"
 msgstr "葡萄牙语"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "剩余"
+msgstr "罗马尼亚语"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7343,3 +7221,4 @@ msgstr "乌克兰语"
 
 #~ msgid "Portuguese(Brasilian) pt"
 #~ msgstr "葡萄牙语(巴西)pt"
+
