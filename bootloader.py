@@ -260,6 +260,20 @@ class bootloaderInfo:
 
         return ""
 
+    def getArgList(self):
+        args = []
+
+        if self.args.get():
+            args.append("--append")
+            args.append(self.args.get())
+
+        return args
+
+    def writeKS(self, f):
+        f.write("bootloader")
+        for arg in self.getArgList():
+            f.write(" " + arg)
+        f.write("\n")
 
     def __init__(self):
 	self.args = KernelArguments()
@@ -429,6 +443,14 @@ class x86BootloaderInfo(bootloaderInfo):
 	    str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
 				 chainList, defaultDev, justConfig)
 
+    def getArgList(self):
+        args = bootloaderInfo.getArgList(self)
+        
+        if not self.useGrubVal:
+            args.append("--useLilo")
+        # XXX add location of bootloader here too
+
+        return args
 
     def __init__(self):
         bootloaderInfo.__init__(self)

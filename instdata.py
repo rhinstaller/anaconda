@@ -127,6 +127,7 @@ class InstallData:
 	self.firewall.writeKS(f)
 	self.auth.writeKS(f)
 	self.timezone.writeKS(f)
+        self.bootloader.writeKS(f)
 
 	f.write("\n%packages\n")
 	packages = {}
