@@ -47,9 +47,13 @@ def bestPartType(disk):
 # first step of partitioning voodoo
 # partitions with a specific start and end cylinder requested are
 # placed where they were asked to go
-def fitConstrained(diskset, requests):
+def fitConstrained(diskset, requests, primOnly=0):
     for request in requests.requests:
         if request.type != REQUEST_NEW:
+            continue
+        if request.device:
+            continue
+        if primOnly and not request.primary:
             continue
         if request.drive and (request.start != None) and request.end:
             fsType = request.fstype.getPartedFileSystemType()
@@ -96,7 +100,6 @@ def fitConstrained(diskset, requests):
                                            "a flag that is not available.")
                 newp.set_flag(flag, 1)
             request.device = PartedPartitionDevice(newp).getDevice()
-            request.realDevice = request.device
             request.currentDrive = drive
 
     return PARTITION_SUCCESS
@@ -104,13 +107,15 @@ def fitConstrained(diskset, requests):
 
 # fit partitions of a specific size with or without a specific disk
 # into the freespace
-def fitSized(diskset, requests):
+def fitSized(diskset, requests, primOnly = 0):
     todo = {}
 
     for request in requests.requests:
         if request.type != REQUEST_NEW:
             continue
-        if request.realDevice:
+        if request.device:
+            continue
+        if primOnly and not request.primary:
             continue
         if not request.drive:
             request.drive = diskset.disks.keys()
@@ -322,6 +327,15 @@ def processPartitioning(diskset, requests):
     # drive
     # priority partition (/boot or /)
     # size
+
+    # run through with primary only constraints first
+    ret = fitConstrained(diskset, requests, 1)
+    if ret == PARTITION_FAIL:
+        return ret
+
+    ret = fitSized(diskset, requests, 1)
+    if ret == PARTITION_FAIL:
+        return ret
 
     ret = fitConstrained(diskset, requests)
     if ret == PARTITION_FAIL:
