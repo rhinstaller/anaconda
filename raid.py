@@ -78,9 +78,9 @@ def scanForRaid(drives):
 	(level, totalDisks, mdMinor, devices) = raidSets[key]
 	if len(devices) < totalDisks:
             log("missing components of raid device md%d.  The "
-                "raid device needs %d drives and only %d were found. "
+                "raid device needs %d drive(s) and only %d (was/were) found. "
                 "This raid device will not be started.", mdMinor,
-                len(devices), totalDisks)
+                totalDisks, len(devices))
 	    continue
 	raidList.append((mdMinor, devices, level, totalDisks))
 
