@@ -1,134 +1,188 @@
 #include <sys/types.h>
-#include <sys/vm86.h>
+#include <sys/io.h>
 #include <sys/mman.h>
+#include <netinet/in.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include <assert.h>
 #include <limits.h>
-#include "bioscall.h"
+#include <ctype.h>
+#include "lrmi.h"
 #include "vesamode.h"
 #include "vbe.h"
 #ident "$Id$"
 
+/* Return information about a particular video mode. */
 struct vbe_mode_info *vbe_get_mode_info(u_int16_t mode)
 {
-	struct vm86_regs regs;
-	unsigned char *ram;
+	struct LRMI_regs regs;
+	char *mem;
 	struct vbe_mode_info *ret = NULL;
+
+	/* Initialize LRMI. */
+	if(LRMI_init() == 0) {
+		return NULL;
+	}
+
+	/* Allocate a chunk of memory. */
+	mem = LRMI_alloc_real(sizeof(struct vbe_mode_info));
+	if(mem == NULL) {
+		return NULL;
+	}
+	memset(mem, 0, sizeof(struct vbe_mode_info));
 
 	memset(&regs, 0, sizeof(regs));
 	regs.eax = 0x4f01;
 	regs.ecx = mode;
-	regs.es = 0x3000;
-	regs.edi = 0x3000;
-
-	/* Just to be sure... */
-	assert(regs.es != BIOSCALL_START_SEG);
-
-	/* Get memory for the bios call. */
-	ram = vm86_ram_alloc();
-	if(ram == MAP_FAILED) {
-		return NULL;
-	}
-	memset(&ram[regs.es * 16 + regs.edi], 0, 1024);
+	regs.es = ((u_int32_t)mem) >> 4;
+	regs.edi = ((u_int32_t)mem) & 0x0f;
 
 	/* Do it. */
-	bioscall(0x10, &regs, ram);
+	iopl(3);
+	ioperm(0, 0x400, 1);
+
+	if(LRMI_int(0x10, &regs) == 0) {
+		LRMI_free_real(mem);
+		return NULL;
+	}
 
 	/* Check for successful return. */
 	if((regs.eax & 0xffff) != 0x004f) {
-		vm86_ram_free(ram);
+		LRMI_free_real(mem);
 		return NULL;
 	}
 
 	/* Get memory for return. */
 	ret = malloc(sizeof(struct vbe_mode_info));
 	if(ret == NULL) {
-		vm86_ram_free(ram);
+		LRMI_free_real(mem);
 		return NULL;
 	}
 
 	/* Copy the buffer for return. */
-	memcpy(ret, &ram[regs.es*16 + regs.edi], sizeof(struct vbe_mode_info));
+	memcpy(ret, mem, sizeof(struct vbe_mode_info));
 
 	/* Clean up and return. */
-	vm86_ram_free(ram);
+	LRMI_free_real(mem);
 	return ret;
 }
 
+/* Get VBE info. */
 struct vbe_info *vbe_get_vbe_info()
 {
-	struct vm86_regs regs;
-	unsigned char *ram;
+	struct LRMI_regs regs;
+	unsigned char *mem;
 	struct vbe_info *ret = NULL;
-	u_int16_t *modes;
-	int mode_count = 0;
+	int i;
 
-	memset(&regs, 0, sizeof(regs));
-	regs.eax = 0x4f00;
-	regs.es = 0x3000;
-	regs.edi = 0x3000;
-
-	/* Just to be sure... */
-	assert(regs.es != BIOSCALL_START_SEG);
-
-	/* Get memory for the bios call. */
-	ram = vm86_ram_alloc();
-	if(ram == MAP_FAILED) {
+	/* Initialize LRMI. */
+	if(LRMI_init() == 0) {
 		return NULL;
 	}
-	memset(&ram[regs.es * 16 + regs.edi], 0, 1024);
+
+	/* Allocate a chunk of memory. */
+	mem = LRMI_alloc_real(sizeof(struct vbe_mode_info));
+	if(mem == NULL) {
+		return NULL;
+	}
+	memset(mem, 0, sizeof(struct vbe_mode_info));
+
+	/* Set up registers for the interrupt call. */
+	memset(&regs, 0, sizeof(regs));
+	regs.eax = 0x4f00;
+	regs.es = ((u_int32_t)mem) >> 4;
+	regs.edi = ((u_int32_t)mem) & 0x0f;
+	memcpy(mem, "VBE2", 4);
 
 	/* Do it. */
-	bioscall(0x10, &regs, ram);
+	iopl(3);
+	ioperm(0, 0x400, 1);
+
+	if(LRMI_int(0x10, &regs) == 0) {
+		LRMI_free_real(mem);
+		return NULL;
+	}
 
 	/* Check for successful return code. */
 	if((regs.eax & 0xffff) != 0x004f) {
-		vm86_ram_free(ram);
+		LRMI_free_real(mem);
 		return NULL;
 	}
 
-	/* Count the number of supported video modes. */
-	ret = (struct vbe_info*) &ram[regs.es * 16 + regs.edi];
-	modes = (u_int16_t*) &ram[ret->mode_list.addr.seg * 16 +
-				  ret->mode_list.addr.ofs];
-	for(mode_count = 0; (*modes != 0xffff); modes++) {
-		mode_count++;
-	}
-	modes = (u_int16_t*) &ram[ret->mode_list.addr.seg * 16 +
-				  ret->mode_list.addr.ofs];
-
-	/* Get enough memory to hold the mode list, too. */
-	ret = malloc(sizeof(struct vbe_info) +
-		     (mode_count + 1) * sizeof(u_int16_t) +
-		     strlen(&ram[ret->oem_name.addr.seg * 16 +
-				 ret->oem_name.addr.ofs]));
+	/* Get memory to return the information. */
+	ret = malloc(sizeof(struct vbe_info));
 	if(ret == NULL) {
-		vm86_ram_free(ram);
+		LRMI_free_real(mem);
 		return NULL;
 	}
+	memcpy(ret, mem, sizeof(struct vbe_info));
 
-	/* Copy the static parts of the buffer out. */
-	memcpy(ret, &ram[regs.es * 16 + regs.edi], sizeof(struct vbe_info));
+	/* Set up pointers to usable memory. */
+	ret->mode_list.list = (u_int16_t*) ((ret->mode_list.addr.seg << 4) +
+					    (ret->mode_list.addr.ofs));
+	ret->oem_name.string = (char*) ((ret->oem_name.addr.seg << 4) +
+					(ret->oem_name.addr.ofs));
 
-	/* Copy the modes list and set the pointer to it. */
-	memcpy(ret + 1, modes, (mode_count + 1) * sizeof(u_int16_t));
-	ret->mode_list.list = (u_int16_t*) (ret + 1);
-	memcpy(&ret->mode_list.list[mode_count + 1],
-	       &ram[ret->oem_name.addr.seg * 16 + ret->oem_name.addr.ofs],
-	       strlen(&ram[ret->oem_name.addr.seg*16+ret->oem_name.addr.ofs]));
-	ret->oem_name.string = (char*) &ret->mode_list.list[mode_count + 1];
+	/* Snip, snip. */
+	mem = strdup(ret->oem_name.string); /* leak */
+	while(((i = strlen(mem)) > 0) && isspace(mem[i - 1])) {
+		mem[i - 1] = '\0';
+	}
+	ret->oem_name.string = mem;
 
-	vm86_ram_free(ram);
+	/* Set up pointers for VESA 3.0+ strings. */
+	if(ret->version[1] >= 3) {
+
+		/* Vendor name. */
+		ret->vendor_name.string = (char*)
+			 ((ret->vendor_name.addr.seg << 4)
+			+ (ret->vendor_name.addr.ofs));
+
+		mem = strdup(ret->vendor_name.string); /* leak */
+		while(((i = strlen(mem)) > 0) && isspace(mem[i - 1])) {
+			mem[i - 1] = '\0';
+		}
+		ret->vendor_name.string = mem;
+
+		/* Product name. */
+		ret->product_name.string = (char*)
+			 ((ret->product_name.addr.seg << 4)
+			+ (ret->product_name.addr.ofs));
+
+		mem = strdup(ret->product_name.string); /* leak */
+		while(((i = strlen(mem)) > 0) && isspace(mem[i - 1])) {
+			mem[i - 1] = '\0';
+		}
+		ret->product_name.string = mem;
+
+		/* Product revision. */
+		ret->product_revision.string = (char*)
+			 ((ret->product_revision.addr.seg << 4)
+			+ (ret->product_revision.addr.ofs));
+
+		mem = strdup(ret->product_revision.string); /* leak */
+		while(((i = strlen(mem)) > 0) && isspace(mem[i - 1])) {
+			mem[i - 1] = '\0';
+		}
+		ret->product_revision.string = mem;
+	}
+
+	/* Cleanup. */
+	LRMI_free_real(mem);
 	return ret;
 }
 
+/* Check if EDID queries are suorted. */
 int vbe_get_edid_supported()
 {
-	struct vm86_regs regs;
-	unsigned char *ram;
+	struct LRMI_regs regs;
 	int ret = 0;
+
+	/* Initialize LRMI. */
+	if(LRMI_init() == 0) {
+		return 0;
+	}
 
 	memset(&regs, 0, sizeof(regs));
 	regs.eax = 0x4f15;
@@ -136,17 +190,13 @@ int vbe_get_edid_supported()
 	regs.es = 0x3000;
 	regs.edi = 0x3000;
 
-	/* Just to be sure... */
-	assert(regs.es != BIOSCALL_START_SEG);
+	/* Do it. */
+	iopl(3);
+	ioperm(0, 0x400, 1);
 
-	/* Get memory for the bios call. */
-	ram = vm86_ram_alloc();
-	if(ram == MAP_FAILED) {
+	if(LRMI_int(0x10, &regs) == 0) {
 		return 0;
 	}
-
-	/* Do it. */
-	bioscall(0x10, &regs, ram);
 
 	/* Check for successful return. */
 	if((regs.eax & 0xff) == 0x4f) {
@@ -158,80 +208,97 @@ int vbe_get_edid_supported()
 	}
 
 	/* Clean up and return. */
-	vm86_ram_free(ram);
 	return ret;
 }
 
-struct vbe_edid_info *vbe_get_edid_info()
+/* Get EDID info. */
+struct vbe_edid1_info *vbe_get_edid_info()
 {
-	struct vm86_regs regs;
-	unsigned char *ram;
-	struct vbe_edid_info *ret = NULL;
+	struct LRMI_regs regs;
+	unsigned char *mem;
+	struct vbe_edid1_info *ret = NULL;
+	u_int16_t man;
+
+	/* Initialize LRMI. */
+	if(LRMI_init() == 0) {
+		return NULL;
+	}
+
+	/* Allocate a chunk of memory. */
+	mem = LRMI_alloc_real(sizeof(struct vbe_edid1_info));
+	if(mem == NULL) {
+		return NULL;
+	}
+	memset(mem, 0, sizeof(struct vbe_edid1_info));
 
 	memset(&regs, 0, sizeof(regs));
 	regs.eax = 0x4f15;
 	regs.ebx = 0x0001;
-	regs.es = 0x3000;
-	regs.edi = 0x3000;
-
-	/* Just to be sure... */
-	assert(regs.es != BIOSCALL_START_SEG);
-
-	/* Get memory for the bios call. */
-	ram = vm86_ram_alloc();
-	if(ram == MAP_FAILED) {
-		return NULL;
-	}
-	memset(&ram[regs.es * 16 + regs.edi], 0, 1024);
+	regs.es = ((u_int32_t)mem) >> 4;
+	regs.edi = ((u_int32_t)mem) & 0x0f;
 
 	/* Do it. */
-	bioscall(0x10, &regs, ram);
+	iopl(3);
+	ioperm(0, 0x400, 1);
+
+	if(LRMI_int(0x10, &regs) == 0) {
+		LRMI_free_real(mem);
+		return NULL;
+	}
 
 #if 0
 	/* Check for successful return. */
 	if((regs.eax & 0xffff) != 0x004f) {
-		vm86_ram_free(ram);
+		LRMI_free_real(mem);
 		return NULL;
 	}
-#else
+#elseif
 	/* Check for successful return. */
-	ret = (struct vbe_edid_info*) &ram[regs.es * 16 + regs.edi];
-	if(ret->manufacturer == 0) {
-		vm86_ram_free(ram);
+	if((regs.eax & 0xff) != 0x4f) {
+		LRMI_free_real(mem);
 		return NULL;
 	}
 #endif
 
 	/* Get memory for return. */
-	ret = malloc(sizeof(struct vbe_edid_info));
+	ret = malloc(sizeof(struct vbe_edid1_info));
 	if(ret == NULL) {
-		vm86_ram_free(ram);
+		LRMI_free_real(mem);
 		return NULL;
 	}
 
 	/* Copy the buffer for return. */
-	memcpy(ret, &ram[regs.es*16 + regs.edi], sizeof(struct vbe_edid_info));
-	vm86_ram_free(ram);
+	memcpy(ret, mem, sizeof(struct vbe_edid1_info));
+
+	memcpy(&man, &ret->manufacturer_name, 2);
+	man = ntohs(man);
+	memcpy(&ret->manufacturer_name, &man, 2);
+
+	LRMI_free_real(mem);
 	return ret;
 }
 
+/* Figure out what the current video mode is. */
 int32_t vbe_get_mode()
 {
-	struct vm86_regs regs;
-	unsigned char *ram;
+	struct LRMI_regs regs;
 	int32_t ret = -1;
+
+	/* Initialize LRMI. */
+	if(LRMI_init() == 0) {
+		return -1;
+	}
 
 	memset(&regs, 0, sizeof(regs));
 	regs.eax = 0x4f03;
 
-	/* Get memory for the bios call. */
-	ram = vm86_ram_alloc();
-	if(ram == MAP_FAILED) {
+	/* Do it. */
+	iopl(3);
+	ioperm(0, 0x400, 1);
+
+	if(LRMI_int(0x10, &regs) == 0) {
 		return -1;
 	}
-
-	/* Do it. */
-	bioscall(0x10, &regs, ram);
 
 	/* Save the returned value. */
 	if((regs.eax & 0xffff) == 0x004f) {
@@ -241,38 +308,38 @@ int32_t vbe_get_mode()
 	}
 
 	/* Clean up and return. */
-	vm86_ram_free(ram);
 	return ret;
 }
 
+/* Set the video mode. */
 void vbe_set_mode(u_int16_t mode)
 {
-	struct vm86_regs regs;
-	unsigned char *ram;
+	struct LRMI_regs regs;
+
+	/* Initialize LRMI. */
+	if(LRMI_init() == 0) {
+		return;
+	}
 
 	memset(&regs, 0, sizeof(regs));
 	regs.eax = 0x4f02;
 	regs.ebx = mode;
 
-	/* Get memory for the bios call. */
-	ram = vm86_ram_alloc();
-	if(ram == MAP_FAILED) {
-		return;
-	}
-
 	/* Do it. */
-	bioscall(0x10, &regs, ram);
+	iopl(3);
+	ioperm(0, 0x400, 1);
+	LRMI_int(0x10, &regs);
 
-	/* Clean up and return. */
-	vm86_ram_free(ram);
+	/* Return. */
 	return;
 }
 
+/* Just read ranges from the EDID. */
 void vbe_get_edid_ranges(unsigned char *hmin, unsigned char *hmax,
 			 unsigned char *vmin, unsigned char *vmax)
 {
-	struct vbe_edid_info *edid;
-	const unsigned char *timing;
+	struct vbe_edid1_info *edid;
+	struct vbe_edid_monitor_descriptor *monitor;
 	int i;
 
 	*hmin = *hmax = *vmin = *vmax = 0;
@@ -282,14 +349,12 @@ void vbe_get_edid_ranges(unsigned char *hmin, unsigned char *hmax,
 	}
 
 	for(i = 0; i < 4; i++) {
-		timing = edid->detailed_timing[i];
-		if(!timing[0] && !timing[1] && !timing[2]) {
-			if(timing[3] == VBE_EDID_TEXT_RANGES) {
-				*vmin = timing[5];
-				*vmax = timing[6];
-				*hmin = timing[7];
-				*hmax = timing[8];
-			}
+		monitor = &edid->monitor_details.monitor_descriptor[i];
+		if(monitor->type == vbe_edid_monitor_descriptor_range) {
+			*hmin = monitor->data.range_data.horizontal_min;
+			*hmax = monitor->data.range_data.horizontal_max;
+			*vmin = monitor->data.range_data.vertical_min;
+			*vmax = monitor->data.range_data.vertical_max;
 		}
 	}
 }
@@ -305,7 +370,7 @@ static int compare_vbe_modelines(const void *m1, const void *m2)
 
 struct vbe_modeline *vbe_get_edid_modelines()
 {
-	struct vbe_edid_info *edid;
+	struct vbe_edid1_info *edid;
 	struct vbe_modeline *ret;
 	char buf[LINE_MAX];
 	int modeline_count = 0, i, j;
@@ -509,111 +574,140 @@ struct vbe_modeline *vbe_get_edid_modelines()
 
 const void *vbe_save_svga_state()
 {
-	struct vm86_regs regs;
-	unsigned char *ram;
+	struct LRMI_regs regs;
+	unsigned char *mem;
 	u_int16_t block_size;
 	void *data;
+
+	/* Initialize LRMI. */
+	if(LRMI_init() == 0) {
+		return NULL;
+	}
 
 	memset(&regs, 0, sizeof(regs));
 	regs.eax = 0x4f04;
 	regs.ecx = 0xffff;
 	regs.edx = 0;
 
-	/* Get memory for the bios call. */
-	ram = vm86_ram_alloc();
-	if(ram == MAP_FAILED) {
+	iopl(3);
+	ioperm(0, 0x400, 1);
+
+	if(LRMI_int(0x10, &regs) == 0) {
 		return NULL;
 	}
 
-	/* Find out how much memory we need. */
-	bioscall(0x10, &regs, ram);
 	if((regs.eax & 0xff) != 0x4f) {
 		fprintf(stderr, "Get SuperVGA Video State not supported.\n");
-		dump_regs(&regs);
-		vm86_ram_free(ram);
 		return NULL;
 	}
+
 	if((regs.eax & 0xffff) != 0x004f) {
 		fprintf(stderr, "Get SuperVGA Video State Info failed.\n");
-		dump_regs(&regs);
-		vm86_ram_free(ram);
 		return NULL;
 	}
 
 	block_size = 64 * (regs.ebx & 0xffff);
+
+	/* Allocate a chunk of memory. */
+	mem = LRMI_alloc_real(block_size);
+	if(mem == NULL) {
+		return NULL;
+	}
+	memset(mem, 0, sizeof(block_size));
+	
 	memset(&regs, 0, sizeof(regs));
 	regs.eax = 0x4f04;
 	regs.ecx = 0x000f;
 	regs.edx = 0x0001;
-	regs.es  = 0x2000;
-	regs.ebx = 0x0000;
-	memset(&ram[regs.es * 16 + regs.ebx], 0, block_size);
-	bioscall(0x10, &regs, ram);
+	regs.es  = ((u_int32_t)mem) >> 4;
+	regs.ebx = ((u_int32_t)mem) & 0x0f;
+	memset(mem, 0, block_size);
+	iopl(3);
+	ioperm(0, 0x400, 1);
+
+	if(LRMI_int(0x10, &regs) == 0) {
+		LRMI_free_real(mem);
+		return NULL;
+	}
+
 	if((regs.eax & 0xffff) != 0x004f) {
 		fprintf(stderr, "Get SuperVGA Video State Save failed.\n");
-		dump_regs(&regs);
-		vm86_ram_free(ram);
 		return NULL;
 	}
 
 	data = malloc(block_size);
 	if(data == NULL) {
-		vm86_ram_free(ram);
+		LRMI_free_real(mem);
 		return NULL;
 	}
 
-	memcpy(data, &ram[regs.es * 16 + regs.ebx], block_size);
-
 	/* Clean up and return. */
-	vm86_ram_free(ram);
+	memcpy(data, mem, block_size);
+	LRMI_free_real(mem);
 	return data;
 }
 
 void vbe_restore_svga_state(const void *state)
 {
-	struct vm86_regs regs;
-	unsigned char *ram;
+	struct LRMI_regs regs;
+	unsigned char *mem;
 	u_int16_t block_size;
+
+	/* Initialize LRMI. */
+	if(LRMI_init() == 0) {
+		return;
+	}
 
 	memset(&regs, 0, sizeof(regs));
 	regs.eax = 0x4f04;
 	regs.ecx = 0x000f;
 	regs.edx = 0;
 
-	/* Get memory for the bios call. */
-	ram = vm86_ram_alloc();
-	if(ram == MAP_FAILED) {
+	/* Find out how much memory we need. */
+	iopl(3);
+	ioperm(0, 0x400, 1);
+
+	if(LRMI_int(0x10, &regs) == 0) {
 		return;
 	}
 
-	/* Find out how much memory we need. */
-	bioscall(0x10, &regs, ram);
 	if((regs.eax & 0xff) != 0x4f) {
 		fprintf(stderr, "Get SuperVGA Video State not supported.\n");
-		dump_regs(&regs);
-		vm86_ram_free(ram);
 		return;
 	}
+
 	if((regs.eax & 0xffff) != 0x004f) {
 		fprintf(stderr, "Get SuperVGA Video State Info failed.\n");
-		dump_regs(&regs);
-		vm86_ram_free(ram);
 		return;
 	}
 
 	block_size = 64 * (regs.ebx & 0xffff);
+
+	/* Allocate a chunk of memory. */
+	mem = LRMI_alloc_real(block_size);
+	if(mem == NULL) {
+		return;
+	}
+	memset(mem, 0, sizeof(block_size));
+
 	memset(&regs, 0, sizeof(regs));
 	regs.eax = 0x4f04;
 	regs.ecx = 0x000f;
 	regs.edx = 0x0002;
 	regs.es  = 0x2000;
 	regs.ebx = 0x0000;
-	memcpy(&ram[regs.es * 16 + regs.ebx], state, block_size);
-	bioscall(0x10, &regs, ram);
+	memcpy(mem, state, block_size);
+
+	iopl(3);
+	ioperm(0, 0x400, 1);
+
+	if(LRMI_int(0x10, &regs) == 0) {
+		LRMI_free_real(mem);
+		return;
+	}
+
 	if((regs.eax & 0xffff) != 0x004f) {
 		fprintf(stderr, "Get SuperVGA Video State Restore failed.\n");
-		dump_regs(&regs);
-		vm86_ram_free(ram);
 		return;
 	}
 }
