@@ -415,6 +415,23 @@ class BootloaderPassword:
                         _("Passwords do not match"))
                 continue
 
+            if len(pw) < 1:
+                intf.messageWindow(_("Password Too Short"),
+                        _("Boot loader password is too short"))
+                continue
+
+            if len(pw) < 6:
+                rc = intf.messageWindow(_("Warning"),
+                                    _("Your boot loader password is less than "
+                                      "six characters.  We recommend a longer "
+                                      "boot loader password."
+                                      "\n\n"
+                                      "Would you like to continue with this "
+                                      "password?"),
+                                    type = "yesno")
+                if rc == 0:
+                    continue
+
             bl.setPassword(pw, isCrypted = 0)            
 
             screen.popWindow()

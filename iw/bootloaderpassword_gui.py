@@ -25,6 +25,17 @@ class BootloaderPasswordWindow (InstallWindow):
     htmlTag = "grubpasswd"
     
     def getNext (self):
+        if self.usegrubpasscb.get_active() and len(self.pw.get_text()) < 6:
+            rc = self.intf.messageWindow(_("Warning"),
+                                    _("Your boot loader password is less than "
+                                      "six characters.  We recommend a longer "
+                                      "boot loader password."
+                                      "\n\n"
+                                      "Would you like to continue with this "
+                                      "password?"),
+                                    type = "yesno")
+            if rc == 0:
+                raise gui.StayOnScreen
         if self.usegrubpasscb.get_active():
             self.bl.setPassword(self.pw.get_text(), isCrypted = 0)
         else:
@@ -38,14 +49,14 @@ class BootloaderPasswordWindow (InstallWindow):
         pw = self.pw.get_text ()
         confirm = self.confirm.get_text ()
 
-        if pw == confirm and len (pw) >= 6:
+        if pw == confirm and len(pw) >= 1:
             self.ics.setNextEnabled (TRUE)
             self.rootStatus.set_text (_("Password accepted."))
         else:
-	    if not pw and not confirm:
+            if not pw and not confirm:
                 self.rootStatus.set_text ("")
-            elif len (pw) < 6:
-                self.rootStatus.set_text (_("Password is too short."))
+            elif len(pw) < 1:
+                self.rootStatus.set_text(_("Password is too short."))
             else:
                 self.rootStatus.set_text (_("Passwords do not match."))
                 
@@ -53,6 +64,7 @@ class BootloaderPasswordWindow (InstallWindow):
         
     def getScreen(self, bl, intf):
         self.bl = bl
+        self.intf = intf
 
         box = GtkVBox(FALSE, 5)
         box.set_border_width (5)
