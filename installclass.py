@@ -161,7 +161,7 @@ class BaseInstallClass:
 		)
 
 	if not BETANAG:
-	    dispatch.skipStep("betanag")
+	    dispatch.skipStep("betanag", permanent=1)
 
         if iutil.getArch() != "i386" or 1:
             dispatch.skipStep("bootdisk")
