@@ -214,6 +214,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
     enum { DEV_DEVICE, DEV_INSERT, DEV_LOAD, DEV_PROBE, 
            DEV_DONE } stage = DEV_DEVICE;
     int rc, i, num = 0;
+    int dir = 1;
 
     while (stage != DEV_DONE) {
         switch(stage) {
@@ -226,9 +227,13 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
             if (rc == 1) {
                 device = strdup(devNames[0]);
                 free(devNames);
+                if (dir == -1)
+                    return LOADER_BACK;
+                
                 stage = DEV_INSERT;
                 break;
             }
+            dir = 1;
 
             startNewt(flags);
             rc = newtWinMenu(_("Driver Disk Source"),
@@ -256,8 +261,10 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                                buf);
             if (rc == 2) {
                 stage = DEV_DEVICE;
+                dir = -1;
                 break;
             }
+            dir = 1;
 
             devMakeInode(device, "/tmp/dddev");
             logMessage("trying to mount %s", device);
