@@ -7,7 +7,8 @@ from translate import _
 
 class PartitionMethod:
     def __call__(self, screen, todo):
-	if todo.instClass.partitions:
+        # if instClass has new or old partition info we're in ks so skip
+	if todo.instClass.partitions or todo.instClass.fstab:
 	    todo.skipFdisk = 1
 	    return INSTALL_NOOP
 
@@ -102,7 +103,8 @@ class AutoPartitionWindow:
     def __call__(self, screen, todo):
 	druid = None
 
-	if todo.instClass.partitions:
+        # if instClass has new or old partition info we are in ks
+	if todo.instClass.partitions or todo.instClass.fstab:
 	    druid = \
 		todo.fstab.attemptPartitioning(todo.instClass.partitions,
 					       todo.instClass.clearParts)
@@ -122,11 +124,6 @@ class AutoPartitionWindow:
 	    todo.fstab.formatAllFilesystems()
 	    todo.instClass.addToSkipList("format")
 
-            # configure kickstart requested ext2 filesystem options
-            if todo.instClass.partitions:
-                for (mntpoint, size, maxsize, grow, device, fsopts) in todo.instClass.partitions:
-                    if fsopts != None:
-                        todo.fstab.setfsOptions (mntpoint, fsopts)
 	    return
 
 	(rc, choice) = ListboxChoiceWindow(screen, _("Automatic Partitioning"),
