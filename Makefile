@@ -85,6 +85,8 @@ install:
 	cp -a raid*stub $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a losetup-stub $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a pump-stub $(DESTDIR)/$(PYTHONLIBDIR)
+	cp -a list-harddrives-stub $(DESTDIR)/$(PYTHONLIBDIR)
+	cp -a kudzu-probe-stub $(DESTDIR)/$(PYTHONLIBDIR)
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
 archive: create-archive
