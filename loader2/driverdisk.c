@@ -466,8 +466,8 @@ void useKickstartDD(struct knownDevices * kd, struct loaderData_s * loaderData,
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksDDOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to driver disk kickstart method "
-                         "command %s: %s"),
+                       _("The following invalid argument was specified for "
+                         "the kickstart driver disk command: %s:%s"),
                        poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
                        poptStrerror(rc));
         return;
