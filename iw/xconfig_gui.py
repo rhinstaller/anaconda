@@ -37,7 +37,7 @@ class XCustomWindow (InstallWindow):
 
         self.todo.x.manualModes = newmodes
         self.todo.x.setModes(newmodes)
-        
+
     def testPressed (self, widget, *args):
         newmodes = {}
 
@@ -260,19 +260,6 @@ class XConfigWindow (InstallWindow):
         
         self.didTest = 0
 
-        # cannot reliably test on i810 or Voodoo driver, or on Suns who dont
-        # need it since they are fixed resolution
-
-        self.cantprobe = 0
-        if not self.sunServer:
-            if self.todo.x.vidCards[self.todo.x.primary].has_key("DRIVER"):
-                curdriver = self.todo.x.vidCards[self.todo.x.primary]["DRIVER"]
-                noprobedriverList = ("i810", "tdfx")
-                for adriver in noprobedriverList:
-                    if curdriver == adriver:
-                        self.cantprobe = 1
-        else:
-            self.cantprobe = 1
 
     def getNext (self):
         if self.skipme:
@@ -449,6 +436,22 @@ class XConfigWindow (InstallWindow):
                 count = count + 1
             box.pack_start (table, FALSE)
         optbox = GtkVBox (FALSE, 5)
+
+
+        # cannot reliably test on i810 or Voodoo driver, or on Suns who dont
+        # need it since they are fixed resolution
+
+        self.cantprobe = 0
+        if not self.sunServer and self.todo.x.vidCards != []:
+            if self.todo.x.vidCards[self.todo.x.primary].has_key("DRIVER"):
+                curdriver = self.todo.x.vidCards[self.todo.x.primary]["DRIVER"]
+                noprobedriverList = ("i810", "tdfx")
+                for adriver in noprobedriverList:
+                    if curdriver == adriver:
+                        self.cantprobe = 1
+        else:
+            self.cantprobe = 1
+
 
         if not self.cantprobe:
             test = GtkAlignment ()
