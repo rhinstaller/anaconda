@@ -498,8 +498,8 @@ def growLogicalVolumes(diskset, requests):
 
 	# bail if none defined
         if len(growreqs) < 1:
-	    log("No growable logical volumes defined.")
-	    return
+	    log("No growable logical volumes defined in VG %s.", vgreq)
+	    continue
 
 	log("VG %s has these growable logical volumes: %s",  vgreq.volumeGroupName, growreqs)
 
