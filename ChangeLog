@@ -1,5 +1,25 @@
 2004-09-30  Jeremy Katz  <katzj@redhat.com>
 
+	* installclasses/workstation.py:
+	* installclasses/rhel_ws.py:	
+	Install compat-arch-support and compat-arch-devel-support 
+	by default (#133514).
+	s/OpenOffice/OpenOffice.org/
+	Mozilla isn't the web browser now.
+	
+	* installclasses/personal_desktop.py:
+	* installclasses/server.py:
+	* installclasses/rhel_as.py:	
+	* installclasses/rhel_es.py:	
+	* installclasses/rhel_desktop.py:
+	Install compat-arch-support by default (#133514)
+	s/OpenOffice/OpenOffice.org/
+	Mozilla isn't the web browser now.
+
+	* installclasses/rhel_ws.py: 
+	* installclasses/rhel_desktop.py:
+	Should say OpenOffice.org, not OpenOffice.
+
 	* upgrade.py (upgradeFindPackages): If this is RHEL, warn if
 	they're upgrading from < RHEL 3 (#134523)
 

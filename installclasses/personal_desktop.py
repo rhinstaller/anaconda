@@ -17,7 +17,7 @@ class InstallClass(BaseInstallClass):
     
     pkgstext = N_("\tDesktop shell (GNOME)\n"
                   "\tOffice suite (OpenOffice.org)\n"
-                  "\tWeb browser (Mozilla) \n"
+                  "\tWeb browser \n"
                   "\tEmail (Evolution)\n"
                   "\tInstant messaging\n"
                   "\tSound and video applications\n"
@@ -42,6 +42,7 @@ class InstallClass(BaseInstallClass):
 
         grpset.selectGroup("workstation-common", asMeta = 1)
         grpset.selectGroup("gnome-desktop")
+        grpset.selectGroup("compat-arch-support", asMeta = 1, missingOk = 1)
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)

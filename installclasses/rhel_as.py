@@ -31,7 +31,8 @@ class InstallClass(BaseInstallClass):
         grpset.selectGroup("server", asMeta = 1)
         grpset.selectGroup("base-x")
         grpset.selectGroup("gnome-desktop")
-
+        grpset.selectGroup("compat-arch-support", asMeta = 1, missingOk = 1)
+        
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)
         BaseInstallClass.setDefaultPartitioning(self, id.partitions,

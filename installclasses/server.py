@@ -28,6 +28,7 @@ class InstallClass(BaseInstallClass):
 
         grpset.unselectAll()
         grpset.selectGroup("server", asMeta = 1)
+        grpset.selectGroup("compat-arch-support", asMeta = 1, missingOk = 1)
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)

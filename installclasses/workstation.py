@@ -13,7 +13,7 @@ class InstallClass(personal_desktop.InstallClass):
 
     pkgstext = N_("\tDesktop shell (GNOME)\n"
                   "\tOffice suite (OpenOffice.org)\n"
-                  "\tWeb browser (Mozilla) \n"
+                  "\tWeb browser \n"
                   "\tEmail (Evolution)\n"
                   "\tInstant messaging\n"
                   "\tSound and video applications\n"
@@ -31,6 +31,8 @@ class InstallClass(personal_desktop.InstallClass):
         grpset.selectGroup("gnome-software-development")
 	grpset.selectGroup("x-software-development")
         grpset.selectGroup("development-tools")
-
+        grpset.selectGroup("compat-arch-support", asMeta = 1, missingOk = 1)
+        grpset.selectGroup("compat-arch-development", asMeta = 1, missingOk = 1)
+        
     def __init__(self, expert):
 	personal_desktop.InstallClass.__init__(self, expert)
