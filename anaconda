@@ -74,6 +74,11 @@ def doStartupX11Actions():
 	    else:
 		dpi = "75"
 
+
+	    xutils.setRootResource('Xcursor.size', '24')
+	    xutils.setRootResource('Xcursor.theme', 'Bluecurve')
+	    xutils.setRootResource('Xcursor.theme_core', 'true')
+
 	    xutils.setRootResource('Xft.antialias', '1')
 	    xutils.setRootResource('Xft.dpi', dpi)
 	    xutils.setRootResource('Xft.hinting', '1')
