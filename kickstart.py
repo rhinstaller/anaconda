@@ -516,6 +516,8 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("complete")
 
     def doSkipX(self, id, args):
+        self.skipSteps.append("checkmonitorok")
+        self.skipSteps.append("setsanex")
         self.skipSteps.append("videocard")
         self.skipSteps.append("monitor")
         self.skipSteps.append("xcustom")
