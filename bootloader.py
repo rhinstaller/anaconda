@@ -291,6 +291,7 @@ class bootloaderInfo:
         self.configfile = None
         self.kernelLocation = "/boot/"
         self.forceLBA32 = 0
+	self.password = None
 
 class ia64BootloaderInfo(bootloaderInfo):
     def writeLilo(self, instRoot, fsset, bl, langs, kernelList, 
