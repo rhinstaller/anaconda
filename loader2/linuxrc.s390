@@ -70,7 +70,12 @@ readcmsfile() # $1=dasdport $2=filename
    insmod dasd_mod$LO dasd=$1
    insmod dasd_eckd_mod$LO
    cmsfscat -d /dev/dasda -a $2 > /tmp/$2
-   echo 0 > /sys/bus/ccw/drivers/dasd-eckd/*$1/online
+   if [ ${#1} == 3 ]; then 
+      dev="0.0.0${1}"
+   elif [ ${#1} == 4 ]; then
+      dev="0.0.${1}"
+   fi
+   echo 0 > /sys/bus/ccw/drivers/dasd-eckd/$dev/online
    rmmod dasd_eckd_mod
    rmmod dasd_mod
 }
