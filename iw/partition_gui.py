@@ -900,7 +900,7 @@ class PartitionWindow(InstallWindow):
             maintable.attach(primonlycheckbutton, 0, 2, row, row+1)
             row = row + 1
 
-            badblocks = GtkCheckButton(_("Check for bad blocks?"))
+            badblocks = GtkCheckButton(_("Check for bad blocks"))
             badblocks.set_active(0)
             maintable.attach(badblocks, 0, 1, row, row + 1)
             row = row + 1
