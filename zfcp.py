@@ -92,6 +92,38 @@ class ZFCP:
             except:
                continue
 
+    def writeModprobeConf(self, fcpdevices):
+        lines = []
+        try:
+            f = open("/tmp/modprobe.conf", "r")
+            lines = f.readlines()
+            f.close()
+        except:
+            pass
+        foundalias = 0
+        for line in lines:
+            if line == "alias scsi_hostadapter zfcp":
+                foundalias = 1
+                break
+        if len(fcpdevices):
+            if not foundalias:
+                try:
+                    f = open("/tmp/modprobe.conf", "a")
+                    f.write("alias scsi_hostadapter zfcp")
+                    f.close()
+                except:
+                    pass
+        if not len(fcpdevices):
+            if foundalias:
+                try:
+                    f = open("/tmp/modprobe.conf", "w")
+                    for line in lines:
+                        if line != "alias scsi_hostadapter zfcp":
+                            f.write(line)
+                    f.close()
+                except:
+                    pass
+
     def write(self, instPath):
         if not len(self.fcpdevices):
             return
@@ -103,10 +135,6 @@ class ZFCP:
         os.chmod(fn, 0644)
         for dev in self.fcpdevices:
             f.write("%s %s %s %s %s\n" % (dev[0], dev[1], dev[2], dev[3], dev[4],))
-        f.close()
-        fn = "%s/etc/modprobe.conf" % (instpath,)
-        f = open(fn, "a")
-        f.write("alias scsi_hostadapter zfcp")
         f.close()
 
     def writeKS(self,fcpdevices):
@@ -146,7 +174,6 @@ class ZFCP:
         if lun[:2] == "0x":
             lun = lun[2:]
         lun = "0x" + "0" * (4 - len(lun)) + lun
-        length = len(lun) - 2
         lun = lun + "0" * (16 - len(lun) + 2)
         return lun
 

@@ -36,6 +36,7 @@ class ZFCPWindow(InstallWindow):
 
     def getNext(self):
         self.fcp.writeFcpSysfs(self.fcpdevices)
+        self.fcp.writeModprobeConf(self.fcpdevices)
         isys.flushDriveDict()
         self.diskset.refreshDevices(self.intf)
         try:
