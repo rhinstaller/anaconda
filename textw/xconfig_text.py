@@ -557,7 +557,7 @@ class XConfigWindowCard:
         self.cardslist.sort()
 
 	# yuck on fb driver works on ppc currently
-	self.force_ppc_fb = iutil.getArch() == "ppc" or 1
+	self.force_ppc_fb = iutil.getArch() == "ppc"
 
         self.ramlist = []
         for ram in self.videocard.possible_ram_sizes():
