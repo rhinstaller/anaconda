@@ -295,6 +295,11 @@ class Kickstart(InstallClass):
 		    cmd = args[0]
 		    if cmd == "%packages":
 			where = "packages"
+		    elif cmd[0:5] == "%post":
+			args = isys.parseArgv(n)
+			if len(args) >= 2 and args[1] == "--nochroot":
+			    postInChroot = 0
+			where = "post"
 		    elif handlers[cmd]: 
 			handlers[cmd](args[1:])
 		elif where == "packages":
