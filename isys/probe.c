@@ -9,6 +9,13 @@
 
 #include "probe.h"
 
+static int sortDevices(const void * a, const void * b) {
+    const struct device * one = a;
+    const struct device * two = b;
+
+    return strcmp(one->name, two->name);
+}
+
 static int deviceKnown(struct knownDevices * devices, char * dev) {
     int i;
 
@@ -74,6 +81,9 @@ int kdFindNetList(struct knownDevices * devices) {
 	if (start) start++;
     }
 
+    qsort(devices->known, devices->numKnown, sizeof(*devices->known),
+	  sortDevices);
+
     return 0;
 }
 
@@ -126,6 +136,9 @@ int kdFindIdeList(struct knownDevices * devices) {
     }
 
     closedir(dir);
+
+    qsort(devices->known, devices->numKnown, sizeof(*devices->known),
+	  sortDevices);
 
     return 0;
 }
@@ -271,6 +284,9 @@ int kdFindScsiList(struct knownDevices * devices) {
 
 	start = next;
     }
+
+    qsort(devices->known, devices->numKnown, sizeof(*devices->known),
+	  sortDevices);
 
     return 0;
 }
