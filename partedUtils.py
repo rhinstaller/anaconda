@@ -4,6 +4,7 @@
 # Matt Wilson <msw@redhat.com>
 # Jeremy Katz <katzj@redhat.com>
 # Mike Fulbright <msf@redhat.com>
+# Karsten Hopp <karsten@redhat.com>
 #
 # Copyright 2002-2003 Red Hat, Inc.
 #
@@ -817,7 +818,7 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
             # FIXME: need the right fix for z/VM formatted dasd
-            if iutil.getArch() == "s390" and isys.getDasdState(drive):
+            if iutil.getArch() == "s390" and drive[:4] == "dasd" and isys.getDasdState(drive):
                 devs = isys.getDasdDevPort()
                 rc = intf.messageWindow(_("Warning"),
                         _("The partition table on device %s (%s) was unreadable. "
@@ -845,7 +846,7 @@ class DiskSet:
             
             if (initAll and ((clearDevs is None) or (len(clearDevs) == 0)
                              or drive in clearDevs) and not flags.test):
-                if iutil.getArch() == "s390":
+                if iutil.getArch() == "s390" and drive[:4] == "dasd":
                     if (self.dasdFmt(intf, drive)):
                         DiskSet.skippedDisks.append(drive)
                         continue                    
@@ -880,11 +881,11 @@ class DiskSet:
                              _("The partition table on device %s was unreadable. "
                                "To create new partitions it must be initialized, "
                                "causing the loss of ALL DATA on this drive.\n\n"
-			       "This operation will override any previous "
-			       "installation choices about which drives to "
-			       "ignore.\n\n"
+                               "This operation will override any previous "
+                               "installation choices about which drives to "
+                               "ignore.\n\n"
                                "Would you like to initialize this drive, "
-			       "erasing ALL DATA?")
+                               "erasing ALL DATA?")
                                            % (format,), type = "yesno")
                     if rc == 0:
                         DiskSet.skippedDisks.append(drive)
@@ -893,7 +894,7 @@ class DiskSet:
                         recreate = 1
 
                 if recreate == 1 and not flags.test:
-                    if iutil.getArch() == "s390":
+                    if iutil.getArch() == "s390" and drive[:4] == "dasd":
                         if (self.dasdFmt(intf, drive)):
                             DiskSet.skippedDisks.append(drive)
                             continue
@@ -919,7 +920,7 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
             elif ret == -1:
-                if iutil.getArch() == "s390":
+                if iutil.getArch() == "s390" and drive[:4] == "dasd":
                     if (self.dasdFmt(intf, drive)):
                         DiskSet.skippedDisks.append(drive)
                         continue                    
