@@ -470,16 +470,9 @@ class x86BootloaderInfo(bootloaderInfo):
         if defaultDev == rootDev:
             default = 0
         else:
-            i = 0
-            for (label, longlabel, version) in kernelList:
-                i = i + 1
-            for (label, longlabel, device) in chainList:
-                if ((not longlabel) or (longlabel == "")):
-                    continue
-                if defaultDev == device:
-                    default = i
-                    break
-                i = i + 1
+            # if the default isn't linux, it's the first thing in the
+            # chain list
+            default = len(kernelList)
 
         # keep track of which devices are used for the device.map
         usedDevs = {}
