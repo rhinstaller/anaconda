@@ -144,15 +144,6 @@ class InstallData:
 	f.write("\n%post\n")
 	self.accounts.writeKScommands(f, self.auth)
 
-	# XXX
-	#self.monitor
-	#self.mouse
-	#self.videoCard
-	#self.fstab
-	#self.desktop
-	#
-
-
     def __init__(self, extraModules, floppyDevice, configFileData):
 	self.instLanguage = language.InstallTimeLanguage()
 	self.keyboard = kbd.Keyboard()
