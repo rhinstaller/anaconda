@@ -620,11 +620,18 @@ def handleMiscPackages(intf, id, dir):
             return 1
         return 0
 
+    def selected(hdrlist, name):
+        if hdrlist.has_key(name) and hdrlist[name].isSelected():
+            return 1
+        return 0
+
     if not upgrade:
         foundkernel = 0
 	if isys.smpAvailable() or isys.htavailable():
             if select(id.grpset.hdrlist, 'kernel-smp'):
                 foundkernel = 1
+                if selected(id.grpset.hdrlist, "gcc"):
+                    select("kernel-smp-devel")
 
         if iutil.needsEnterpriseKernel():
             if select(id.grpset.hdrlist, "kernel-bigmem"):
@@ -637,6 +644,8 @@ def handleMiscPackages(intf, id, dir):
         if foundkernel == 0:
             # we *always* need to have some sort of kernel installed
             select(id.grpset.hdrlist, 'kernel')
+            if selected(id.grpset.hdrlist, "gcc"):
+                select("kernel-devel")
 
 	# if NIS is configured, install ypbind and dependencies:
 	if id.auth.useNIS:

@@ -1,5 +1,8 @@
 2004-12-20  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py (doPreInstall): Some finagling for kernel-*devel 
+	handling (#143257)
+	
 	* command-stubs/mknod-stub (main): Add 
 	* partedUtils.py (get_partition_name): 
 	* iutil.py (makeDriveDeviceNodes): 
