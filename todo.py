@@ -1448,26 +1448,7 @@ class ToDo:
 
             self.fstab.mountFilesystems (self.instPath)
 
-        if self.upgrade and self.dbpath:
-            # move the rebuilt db into place.
-            try:
-                iutil.rmrf (self.instPath + "/var/lib/rpm-old")
-            except OSError:
-                pass
-            os.rename (self.instPath + "/var/lib/rpm",
-                       self.instPath + "/var/lib/rpm-old")
-            os.rename (self.instPath + self.dbpath,
-                       self.instPath + "/var/lib/rpm")
-            iutil.rmrf (self.instPath + "/var/lib/rpm-old")
-            rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
-            rpm.addMacro ("_dbapi", "3")
-            # flag this so we only do it once.
-            self.dbpath = None
-
-<<<<<<< todo.py
-=======
         if self.upgrade:
->>>>>>> 1.468
 	    # An old mtab can cause confusion (esp if loop devices are
 	    # in it)
 	    f = open(self.instPath + "/etc/mtab", "w+")
