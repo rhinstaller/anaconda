@@ -31,7 +31,7 @@ fileSystemTypes = {}
 availRaidLevels = ['RAID0', 'RAID1', 'RAID5']
 
 def fileSystemTypeGetDefault():
-    return fileSystemTypeGet('ext2')
+    return fileSystemTypeGet('ext3')
 
 def fileSystemTypeGet(key):
     return fileSystemTypes[key]
