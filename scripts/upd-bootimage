@@ -17,10 +17,18 @@ gunzip < $MNTPOINT/initrd.img > $INITRD
 
 mount -o loop $INITRD $LOOPMNT
 
-if [ ! -x $LOOPMNT/sbin/$2 ]; then
-    echo "$LOOPMNT/sbin/$2 doesn't exist"
+FROM=$2
+TO=$FROM
+if [ $(echo $FROM | cut -d- -f1) = loader ]; then
+    TO=loader
+fi
+
+if [ ! -x $LOOPMNT/sbin/$TO ]; then
+    echo "$LOOPMNT/sbin/$TO doesn't exist"
 else
-    install -s $2 $LOOPMNT/sbin/$2
+    ls -l $LOOPMNT/sbin
+    install -s $FROM $LOOPMNT/sbin/$TO
+    ls -l $LOOPMNT/sbin
 fi
 
 umount $LOOPMNT
