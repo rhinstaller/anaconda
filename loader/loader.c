@@ -33,6 +33,7 @@
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <zlib.h>
 
 #include "balkan/balkan.h"
 #include "isys/imount.h"
@@ -71,8 +72,8 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
 
 static struct installMethod installMethods[] = {
     { N_("Local CDROM"), 0, mountCdromImage },
-    { N_("Hard drive"), 1, mountHardDrive },
-    { N_("NFS image"), 0, mountNfsImage }
+    { N_("Hard drive"), 0, mountHardDrive },
+    { N_("NFS image"), 1, mountNfsImage }
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -336,6 +337,106 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
     return 0;
 }
 
+static int loadCompressedRamdisk(int fd, off_t size, char *title,
+				 char *ramdisk, int flags) {
+    int rc = 0, ram, i;
+    gzFile stream;
+    char buf[1024];
+    newtComponent form = NULL, scale = NULL;
+    int total;
+
+    if (FL_TESTING(flags)) return 0;
+
+    stream = gzdopen(dup(fd), "r");
+
+    strcpy(buf, "/tmp/");
+    strcat(buf, ramdisk);
+    
+    if (devMakeInode(ramdisk, buf)) return 1;
+    ram = open(buf, O_WRONLY);
+    unlink(buf);
+
+    logMessage("created inode");
+
+    if (title != NULL) {
+	if (size > 0)
+	    newtCenteredWindow(70, 5, _("Loading"));
+	else
+	    newtCenteredWindow(70, 3, _("Loading"));
+	
+	form = newtForm(NULL, NULL, 0);
+	
+	newtFormAddComponent(form, newtLabel(1, 1, title));
+	if (size > 0) {
+	    scale = newtScale(1, 3, 68, size);
+	    newtFormAddComponent(form, scale);
+	}
+	newtDrawForm(form);
+	newtRefresh();
+    }
+
+    total = 0;
+    while (!gzeof(stream) && !rc) {
+	if ((i = gzread(stream, buf, sizeof(buf))) != sizeof(buf)) {
+	    if (!gzeof(stream)) {
+		logMessage("error reading from device: %s", strerror(errno));
+		rc = 1;
+		break;
+	    }
+	}
+
+	if (write(ram, buf, i) != i) {
+	    logMessage("error writing to device: %s", strerror(errno));
+	    rc = 1;
+	}
+
+	total += i;
+
+	if (title != NULL && size > 0) {
+	    newtScaleSet(scale, lseek(fd, 0L, SEEK_CUR));
+	    newtRefresh();
+	}
+    }
+
+    logMessage("done loading %d bytes", total);
+
+    if (title != NULL) {
+	newtPopWindow();
+	newtFormDestroy(form);
+    }
+    
+    close(ram);
+    gzclose(stream);
+
+    return rc;
+}
+
+static int loadStage2Ramdisk(int fd, off_t size, int flags) {
+    int rc;
+    
+    rc = loadCompressedRamdisk(fd, size, _("Loading second stage ramdisk..."),
+			       "ram3", flags);
+    
+    if (rc) {
+	newtWinMessage(_("Error"), _("Ok"), _("Error loading ramdisk."));
+	return rc;
+    }
+
+    if (devMakeInode("ram3", "/tmp/ram3")) return 1;
+    
+    if (doPwMount("/tmp/ram3", "/mnt/runtime", "ext2", 1, 0, NULL, NULL)) {
+logMessage("mount error %s", strerror(errno));
+	newtWinMessage(_("Error"), _("Ok"),
+		"Error mounting ramdisk. This shouldn't "
+		    "happen, and I'm rebooting your system now.");
+	exit(1);
+    }
+
+    unlink("/tmp/ram3");
+
+    return 0;
+}
+
 static int mountHardDrive(char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags) {
@@ -353,10 +454,12 @@ static int mountHardDrive(char * location, struct knownDevices * kd,
     int done = 0;
     char * dir = NULL;
     char * type;
+    char * path;
 
     /* XXX load scsi devices here */
 
-    mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);
+
+    /*mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);*/
 
     for (i = 0; i < kd->numKnown; i++) {
 	if (kd->known[i].class == DEVICE_DISK) {
@@ -367,7 +470,8 @@ static int mountHardDrive(char * location, struct knownDevices * kd,
 			       "device %s: %d", kd->known[i].name, rc);
 		} else {
 		    for (j = 0; j < table.maxNumPartitions; j++) {
-			if (table.parts[j].type != -1) {
+			if (table.parts[j].type == BALKAN_PART_DOS ||
+				table.parts[j].type == BALKAN_PART_EXT2) {
 			    sprintf(partitions[numPartitions].name, 
 				    "/dev/%s%d", kd->known[i].name, j + 1);
 			    partitions[numPartitions].type = 
@@ -432,11 +536,18 @@ static int mountHardDrive(char * location, struct knownDevices * kd,
 	
 	answer = newtRunForm(form);
 	part = newtListboxGetCurrent(listbox);
+
+	if (dir && *dir)
+	    dir = strdup(dir);
+	else
+	    dir = NULL;
 	
 	newtFormDestroy(form);
 	newtPopWindow();
 	
 	if (answer == back) return LOADER_BACK;
+
+	logMessage("partition %s selected", part->name);
 	
 	switch (part->type) {
 	  case BALKAN_PART_EXT2:    type = "ext2"; 		break;
@@ -445,16 +556,36 @@ static int mountHardDrive(char * location, struct knownDevices * kd,
 	}
 
 	if (!FL_TESTING(flags)) {
-	    if (doPwMount(part->name, "/tmp/hdimage", type, 1, 0, NULL, NULL))
+	    logMessage("mounting device %s as %s", part->name, type);
+
+	    /* +5 skips over /dev/ */
+	    if (devMakeInode(part->name + 5, "/tmp/hddev"))
+		logMessage("devMakeInode failed!");
+
+	    if (doPwMount("/tmp/hddev", "/tmp/hdimage", type, 1, 0, NULL, NULL))
 		continue;
 
-	    if (access("/tmp/rhimage/RedHat/base/stage2.img", R_OK)) {
+	    logMessage("opening stage2");
+
+	    path = malloc(50 + (dir ? strlen(dir) : 2));
+	    sprintf(path, "/tmp/hdimage/%s/RedHat/base/stage2.img", 
+			dir ? dir : "");
+	    if (dir) free(dir);
+	    if ((fd = open(path, O_RDONLY)) < 0) {
+		logMessage("cannot open %s", path);
 		newtWinMessage(_("Error"), _("Ok"), 
 			    _("Device %s does not appear to contain "
 			      "a Red Hat installation tree."), part->name);
 		umount("/tmp/hdimage");
+		free(path);
 		continue;
 	    } 
+
+	    free(path);
+
+	    rc = loadStage2Ramdisk(fd, 0, flags);
+	    close(fd);
+	    if (rc) continue;
 	}
 
 	done = 1; 
@@ -484,8 +615,10 @@ static int mountCdromImage(char * location, struct knownDevices * kd,
 	    if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, NULL, 
 			  NULL)) {
 		if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", 
-			    X_OK)) 
+			    X_OK)) {
+		    symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
 		    return 0;
+		}
 		umount("/mnt/source");
 	    }
 	}
@@ -598,10 +731,18 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
 
 	    if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL)) {
 		if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", 
-			    X_OK)) 
+			    X_OK)) {
+		    symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
 		    stage = NFS_STAGE_DONE;
-		else
+		} else {
 		    umount("/mnt/source");
+		    newtWinMessage(_("Error"), _("Ok"), 
+				   _("That directory does not seem to contain "
+				     "a Red Hat installation tree."));
+		}
+	    } else {
+		newtWinMessage(_("Error"), _("Ok"), 
+		        _("I could not mount that directory from the server"));
 	    }
 
 	    break;
@@ -771,21 +912,21 @@ int main(int argc, char ** argv) {
 
     if (!FL_TESTING(flags)) {
      
-	symlink("mnt/source/RedHat/instimage/usr", "/usr");
-	symlink("mnt/source/RedHat/instimage/lib", "/lib");
+	symlink("mnt/runtime/usr", "/usr");
+	symlink("mnt/runtime/lib", "/lib");
 
 	unlink("/modules/modules.dep");
 	unlink("/modules/module-info");
 	unlink("/modules/modules.cgz");
 	unlink("/modules/pcitable");
 
-	symlink("../mnt/source/RedHat/instimage/modules/modules.dep",
+	symlink("../mnt/runtime/modules/modules.dep",
 		"/modules/modules.dep");
-	symlink("../mnt/source/RedHat/instimage/modules/module-info",
+	symlink("../mnt/runtime/modules/module-info",
 		"/modules/module-info");
-	symlink("../mnt/source/RedHat/instimage/modules/modules.cgz",
+	symlink("../mnt/runtime/modules/modules.cgz",
 		"/modules/modules.cgz");
-	symlink("../mnt/source/RedHat/instimage/modules/pcitable",
+	symlink("../mnt/runtime/modules/pcitable",
 		"/modules/pcitable");
     }
 
