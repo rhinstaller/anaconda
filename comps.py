@@ -1,7 +1,6 @@
 import sys
 import rpm
 import os
-from os import environ
 from string import *
 import types
 import iutil
@@ -176,8 +175,8 @@ class ComponentSet:
 	return self.compsDict.keys()
 
     def exprMatch(self, expr, arch1, arch2):
-	if environ.has_key('LANG'):
-	    lang = environ['LANG']
+	if os.environ.has_key('LANG'):
+	    lang = os.environ['LANG']
 	else:
 	    lang = None
 
@@ -198,7 +197,8 @@ class ComponentSet:
 		    raise ValueError, "too many arguments for lang"
 		if l[1] != lang:
 		    newTruth = 0
-		newTruth = 1
+		else:
+		    newTruth = 1
 	    elif l[0] == "arch":
 		if len(l) != 2:
 		    raise ValueError, "too many arguments for arch"
@@ -296,7 +296,6 @@ class ComponentSet:
                     if conditional:
                         comp.addConditional (conditional, packages[l])
                     else:
-			print "adding", packages[l]
                         comp.addPackage(packages[l])
                     
         everything = Component("Everything", 0, 0)
