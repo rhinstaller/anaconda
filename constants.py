@@ -41,3 +41,7 @@ CLEARPART_TYPE_NONE  = 3
 CHECK_DEPS = 0
 IGNORE_DEPS = 1
 RESOLVE_DEPS = 2
+
+# common string needs to be easy to change
+import product
+productName = product.productName

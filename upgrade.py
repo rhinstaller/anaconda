@@ -42,7 +42,7 @@ def findExistingRoots(intf, id, chroot):
     diskset.openDevices()
     
     win = intf.waitWindow(_("Searching"),
-                          _("Searching for Red Hat Linux installations..."))
+                          _("Searching for %s installations...") % (productName,))
 
     rootparts = diskset.findExistingRootPartitions(intf, chroot)
     win.pop()
@@ -50,7 +50,7 @@ def findExistingRoots(intf, id, chroot):
     return rootparts
 
 def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
-		       raiseErrors = 0):
+		       raiseErrors = 0, warnDirty = 0, readOnly = 0):
     (root, rootFs) = rootInfo
 
     diskset = partedUtils.DiskSet()
@@ -81,9 +81,16 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
 	      "installation, let the filesystems be checked, and "
 	      "shut down cleanly to upgrade."))
 	sys.exit(0)
+    elif warnDirty and oldfsset.hasDirtyFilesystems():
+        rc = intf.messageWindow(_("Dirty Filesystems"),
+                 _("One or more filesystems for your Linux system "
+                   "was not unmounted cleanly.  Would you like to mount "
+                   "them anyway?"), type = "yesno")
+        if rc == 0:
+            return -1
 
     if flags.setupFilesystems:
-        oldfsset.mountFilesystems(instPath)
+        oldfsset.mountFilesystems(instPath, readOnly = readOnly)
 
     # XXX we should properly support 'auto' at some point
     if (not oldfsset.getEntryByMountPoint("/") or
@@ -403,6 +410,26 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 pass
             sys.exit(0)
 
+    # during upgrade, make sure that we only install %lang colored files
+    # for the languages selected to be supported.
+    langs = ''
+    if os.access(instPath + "/etc/sysconfig/i18n", os.R_OK):
+        f = open(instPath + "/etc/sysconfig/i18n", 'r')
+        for line in f.readlines():
+            line = string.strip(line)
+            parts = string.split(line, '=')
+            if len(parts) < 2:
+                continue
+            if string.strip(parts[0]) == 'SUPPORTED':
+                langs = parts[1]
+                if len(langs) > 0:
+                    if langs[0] == '"' and langs[-1:] == '"':
+                        langs = langs[1:-1]
+                break
+        del f
+    if langs:
+        rpm.addMacro("_install_langs", langs)
+                
     # check the installed system to see if the packages just
     # are not newer in this release.
     if hasX and not hasFileManager:
@@ -482,6 +509,35 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
                 log(text)
                 id.hdList["nautilus"].select()
+
+    # more hacks!  we can't really have anything require rhn-applet without
+    # causing lots of pain (think systems that don't want rhn crap installed)
+    # and up2date-gnome is just in the X11 group, so KDE users without GNOME
+    # get it and we really don't want to change that.  so, more ugprade
+    # hacks it is
+    if (id.hdList.has_key("rhn-applet")
+        and not id.hdList["rhn-applet"].isSelected()):
+        log("Upgrade: rhn-applet is not currently selected to be upgraded")
+        recs = None
+        recs2 = None
+        try:
+            recs = db.findbyname("gnome-core")
+            recs2 = db.findbyname("up2date-gnome")
+        except rpm.error:
+            pass
+        if recs and recs2:
+            recs = None
+            try:
+                recs = db.findbyname("rhn-applet")
+            except rpm.error:
+                pass
+            if not recs:
+                text = ("Upgrade: gnome-core and up2date-gnome are on the "
+                        "system, but rhn-applet isn't.  Selecting "
+                        "rhn-applet to be installed")
+                id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
+                log(text)
+                id.hdList["rhn-applet"].select()
 
     del db
 

@@ -28,16 +28,17 @@ $defaultTerritory{"Vietnamese"} = "Vietnam";
 $defaultTerritory{"Turkish"} = "Turkey";
 $defaultTerritory{"Thai"} = "Thailand";
 
-$charMap{"GB2312"} =  "iso01";
-$charMap{"BIG5"} =  "iso01";
-$charMap{"EUC-JP"} =  "iso01";
-$charMap{"EUC-TW"} =  "iso01";
-$charMap{"EUC-KR"} =  "iso01";
-$charMap{"GB2312"} =  "iso01";
-$charMap{"BIG5"} =  "iso01";
+$charMap{"GB2312"} =  "iso15";
+$charMap{"GB18030"} = "iso15";
+$charMap{"BIG5"} =  "iso15";
+$charMap{"EUC-JP"} =  "iso15";
+$charMap{"EUC-TW"} =  "iso15";
+$charMap{"EUC-KR"} =  "iso15";
+$charMap{"GB2312"} =  "iso15";
+$charMap{"BIG5"} =  "iso15";
 $charMap{"KOI8-U"} =  "koi8-u";
 $charMap{"KOI8-R"} =  "koi8-u";
-$charMap{"ISO-8859-1"} =  "iso01";
+$charMap{"ISO-8859-1"} =  "iso15";
 $charMap{"ISO-8859-2"} =  "iso02";
 $charMap{"ISO-8859-3"} =  "iso03";
 $charMap{"ISO-8859-5"} =  "iso05";
@@ -51,6 +52,7 @@ $charFont{"EUC-JP"} =  "lat0-sun16";
 $charFont{"EUC-TW"} =  "lat0-sun16";
 $charFont{"EUC-KR"} =  "lat0-sun16";
 $charFont{"GB2312"} =  "lat0-sun16";
+$charFont{"GB18030"} = "lat0-sun16";
 $charFont{"BIG5"} =  "lat0-sun16";
 $charFont{"KOI8-U"} =  "cyr-sun16";
 $charFont{"KOI8-R"} =  "cyr-sun16";
@@ -77,13 +79,13 @@ while (<FILE>) {
     $lang=$_;
     $lang =~ s/eucjp/eucJP/;
     $lang =~ s/euckr/eucKR/;
+    $lang =~ s/gb18030/GB18030/;
     $lang =~ s/^zh_CN$/zh_CN.GB2312/;
     $lang =~ s/^zh_TW$/zh_TW.Big5/;
 
     # someone put nb_NO in locale.alias.  yuck.  We don't
     # want to offer that.
     ("nb_" eq substr($lang, 0, 3)) && next;
-    ("zh_CN.gb18030" eq $lang) && next;
     ("zh_TW.euctw" eq $lang) && next;
 
     open(INFO, "LANG=$lang locale language territory charmap|");

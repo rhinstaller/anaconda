@@ -15,6 +15,7 @@
 
 import upgrade
 from snack import *
+from constants_text import *
 from text import WaitWindow, OkCancelWindow
 from translate import _
 import sys
@@ -32,6 +33,14 @@ class RescueInterface:
 	if type == "ok":
 	    ButtonChoiceWindow(self.screen, _(title), _(text),
 			       buttons = [ _("OK") ])
+        elif type == "yesno":
+            btnlist = [TEXT_YES_BUTTON, TEXT_NO_BUTTON]
+	    rc = ButtonChoiceWindow(self.screen, _(title), _(text),
+			       buttons=btnlist)
+            if rc == "yes":
+                return 1
+            else:
+                return 0
 	else:
 	    return OkCancelWindow(self.screen, _(title), _(text))
 
@@ -41,20 +50,12 @@ class RescueInterface:
 # XXX grub-install is stupid and uses df output to figure out
 # things when installing grub.  make /etc/mtab be at least
 # moderately useful.  
-def makeMtab(instPath):
+def makeMtab(instPath, theFsset):
     child = os.fork()
     if (not child):
         os.chroot(instPath)
-        f = open("/proc/mounts", "r")
-        lines = f.readlines()
-        f.close()
         f = open("/etc/mtab", "w+")
-        for line in lines:
-            # and of course we don't want to reference dev nodes in /tmp
-            if line[0:5] == "/tmp/":
-                f.write("/dev/%s" % (line[5:]))
-            else:
-                f.write(line)
+        f.write(theFsset.mtab())
         f.close()
         sys.exit(0)
 
@@ -82,6 +83,11 @@ def runRescue(instPath, mountroot, id):
 
 	    isys.makeDevInode(dev, "/dev/" + dev)
 
+    # need loopback devices too
+    for lpminor in range(8):
+	dev = "loop%s" % (lpminor,)
+	isys.makeDevInode(dev, "/dev/" + dev)
+
     screen = SnackScreen()
     intf = RescueInterface(screen)
 
@@ -92,11 +98,13 @@ def runRescue(instPath, mountroot, id):
           "Linux installation and mount it under the directory "
           "%s.  You can then make any changes required to your "
           "system.  If you want to proceed with this step choose "
-          "'Continue'.\n\n"
+          "'Continue'.  You can also choose to mount your filesystems "
+          "read-only instead of read-write by choosing 'Read-Only'."
+          "\n\n"
           "If for some reason this process fails you can choose 'Skip' "
           "and this step will be skipped and you will go directly to a "
           "command shell.\n\n" % (instPath,)),
-          [_("Continue"), _("Skip")] )
+          [_("Continue"), _("Read-Only"), _("Skip")] )
 
     if rc == string.lower(_("Skip")):
         screen.finish()
@@ -105,6 +113,10 @@ def runRescue(instPath, mountroot, id):
                 "system will reboot.")
         print
         os.execv("/bin/sh", [ "-/bin/sh" ])
+    elif rc == string.lower(_("Read-Only")):
+        readOnly = 1
+    else:
+        readOnly = 0
 
     disks = upgrade.findExistingRoots(intf, id, instPath)
 
@@ -140,16 +152,27 @@ def runRescue(instPath, mountroot, id):
     if root:
 	try:
 	    fs = fsset.FileSystemSet()
-	    upgrade.mountRootPartition(intf, root, fs, instPath,
-				       allowDirty = 1)
-	    ButtonChoiceWindow(screen, _("Rescue"),
-		_("Your system has been mounted under %s.\n\n"
-		  "Press <return> to get a shell. If you would like to "
-		  "make your system the root environment, run the command:\n\n"
-		  "\tchroot %s\n\nThe system will reboot "
-		  "automatically when you exit from the shell." % (instPath, instPath)),
-		  [_("OK")] )
-            rootmounted = 1
+	    rc = upgrade.mountRootPartition(intf, root, fs, instPath,
+                                            allowDirty = 1, warnDirty = 1,
+                                            readOnly = readOnly)
+
+            if rc == -1:
+                ButtonChoiceWindow(screen, _("Rescue"),
+                    _("Your system had dirty filesystems which you chose not "
+                      "to mount.  Press return to get a shell from which "
+                      "you can fsck and mount your partitions.  The system "
+                      "will reboot automatically when you exit from the "
+                      "shell."), [_("OK")], width = 50)
+                rootmounted = 0
+            else:
+                ButtonChoiceWindow(screen, _("Rescue"),
+		   _("Your system has been mounted under /mnt/sysimage.\n\n"
+                     "Press <return> to get a shell. If you would like to "
+                     "make your system the root environment, run the command:\n\n"
+                     "\tchroot /mnt/sysimage\n\nThe system will reboot "
+                     "automatically when you exit from the shell."),
+                                   [_("OK")] )
+                rootmounted = 1
 	except:
 	    # This looks horrible, but all it does is catch every exception,
 	    # and reraise those in the tuple check. This lets programming
@@ -175,8 +198,8 @@ def runRescue(instPath, mountroot, id):
     screen.finish()
 
     print
-    if rootmounted:
-        makeMtab(instPath)
+    if rootmounted and not readOnly:
+        makeMtab(instPath, fs)
         print _("Your system is mounted under the %s directory." % (instPath,))
         print
 

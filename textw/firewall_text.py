@@ -205,8 +205,9 @@ class FirewallWindow:
         screen.popWindow()
 
         firewall.trustdevs = []
-        for dev in devicelist.getSelection():
-	    firewall.trustdevs.append(dev)
+        if devices != []:
+            for dev in devicelist.getSelection():
+                firewall.trustdevs.append(dev)
 
 #	firewall.portlist = self.other.value()
 	firewall.dhcp = self.dhcp.selected()

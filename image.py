@@ -113,6 +113,9 @@ class CdromInstallMethod(ImageInstallMethod):
 		if done:
 		    break
 
+		if done:
+		    break
+
 	    if not done:
 		isys.ejectCdrom(self.device)
 
@@ -133,6 +136,8 @@ class CdromInstallMethod(ImageInstallMethod):
 			f.close()
 			if newStamp == timestamp:
 			    done = 1
+                            # make /tmp/cdrom again so cd gets ejected
+                            isys.makeDevInode(self.device, "/tmp/cdrom")
 
 		    if not done:
 			self.messageWindow(_("Wrong CDROM"),
@@ -173,8 +178,6 @@ def findIsoImages(path, messageWindow):
     files = os.listdir(path)
     arch = iutil.getArch()
     discImages = {}
-
-    print "need to look at", files
 
     for file in files:
 	what = path + '/' + file
@@ -262,7 +265,6 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	# images the same way -- we use loop3 for everything
 
 	self.discImages = findIsoImages(tree, messageWindow)
-	print "found", self.discImages, "in tree", tree
 	self.mountImage(1)
 
 	ImageInstallMethod.__init__(self, self.mntPoint)

@@ -1,6 +1,6 @@
 include Makefile.inc
 
-VERSION = 7.2.91
+VERSION = 7.3.90
 RELEASE = 0
 SNAPRELEASE = $(RELEASE)$(shell date "+.%Y%m%d%H%M")
 
@@ -21,7 +21,10 @@ CATALOGS = po/anaconda.pot
 
 PYFILES = $(wildcard *.py)
 
-all: subdirs _xkb.so xmouse.so $(CATALOGS) lang-table lang-names
+all: subdirs _xkb.so xmouse.so $(CATALOGS) lang-table lang-names product.py
+
+product.py: product.py.in Makefile.inc
+	sed -e 's/@@PRODUCTNAME@@/$(PRODUCTNAME)/g' < product.py.in > product.py
 
 lang-names: lang-table
 	PYTHONPATH="iconvmodule:." $(PYTHON) scripts/getlangnames.py > lang-names

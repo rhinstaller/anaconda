@@ -121,16 +121,17 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            XFree86-S3 XFree86-SVGA XFree86-75dpi-fonts
            XFree86-ISO8859-2-75dpi-fonts glib2 gtk2
            XFree86-ISO8859-9-75dpi-fonts esound audiofile libgnome
-           XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
+           XFree86-100dpi-fonts fonts-ISO8859-2 fonts-ISO8859-9
            XFree86-xfs e2fsprogs fileutils glibc glibc-common rsh less
            ftp readline gzip popt specspo util-linux rpm rpm-devel
            open grep net-tools traceroute tar procps textutils sed
-           ncurses bash cpio mt-st iputils sh-utils XFree86-cyrillic-fonts
+           ncurses bash cpio mt-st iputils sh-utils
            XFree86 Xconfigurator gnome-python2 pygtk2 gdk-pixbuf 
            XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pciutils pam 
            reiserfs-utils atk pango freetype gnome-python2-canvas 
            libgnomecanvas libart_lgpl libzvt gnome-python2-zvt
-           anaconda-images anaconda-help hdparm XFree86-base-fonts"
+           anaconda-images anaconda-help hdparm XFree86-base-fonts
+           ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -232,6 +233,7 @@ sbin/mkdosfs
 sbin/mke2fs
 sbin/busybox.anaconda
 sbin/mkfs.ext2
+sbin/mkfs.ext3
 sbin/mkfs.jfs
 sbin/mkfs.msdos
 sbin/mkfs.vfat
@@ -246,6 +248,7 @@ sbin/pvdisplay
 sbin/pvmove
 sbin/pvscan
 sbin/probe
+sbin/sfdisk
 sbin/tune2fs
 sbin/vgcfgbackup
 sbin/vgcfgrestore
@@ -466,8 +469,9 @@ usr/X11R6/lib/X11/fonts/75dpi/cour*ISO8859*
 usr/X11R6/lib/X11/fonts/75dpi/fonts*ISO8859*
 usr/X11R6/lib/X11/fonts/75dpi/helv*ISO8859*
 usr/X11R6/lib/X11/fonts/75dpi/tim*ISO8859*
-usr/X11R6/lib/X11/fonts/cyrillic/*
 usr/X11R6/lib/X11/fonts/encodings/large/big5*
+usr/X11R6/lib/X11/fonts/korean/gulim*
+usr/X11R6/lib/X11/fonts/korean/font*
 usr/X11R6/lib/X11/fonts/misc/12x*
 usr/X11R6/lib/X11/fonts/misc/6x*
 usr/X11R6/lib/X11/fonts/misc/7x*
@@ -476,10 +480,10 @@ usr/X11R6/lib/X11/fonts/misc/9x*
 usr/X11R6/lib/X11/fonts/misc/cursor*
 usr/X11R6/lib/X11/fonts/misc/fonts*
 usr/X11R6/lib/X11/fonts/misc/gb*
-usr/X11R6/lib/X11/fonts/misc/hangl*
 usr/X11R6/lib/X11/fonts/misc/jis*
 usr/X11R6/lib/X11/fonts/misc/k14*
 usr/X11R6/lib/X11/fonts/misc/olcursor*
+usr/X11R6/lib/X11/fonts/misc/taipei*
 usr/X11R6/lib/X11/locale/*
 usr/X11R6/lib/X11/rgb*
 usr/X11R6/lib/X11/xkb/*

@@ -26,6 +26,7 @@ from language import expandLangs
 from splashscreen import splashScreenPop
 from log import log
 from flags import flags
+from constants import *
 
 StayOnScreen = "stayOnScreen"
 mainWindow = None
@@ -353,7 +354,8 @@ class InstallInterface:
 
 	self.dispatch = dispatch
 
-        if flags.setupFilesystems:
+        # XXX users complain when the keypad doesn't work for input.
+        if 0 and flags.setupFilesystems:
             try:
                 kb.setMouseKeys (1)
             except SystemError:
@@ -525,14 +527,17 @@ class InstallControlWindow:
     def loadReleaseNotes(self):
 	langList = self.langSearchPath + [ "" ]
         sourcepath = self.dispatch.method.getSourcePath()
+        suffixList = []        
 	for lang in langList:
 	    if lang:
-                langpart = '.%s' % (lang,)
+                suffixList.append("-%s.html" % (lang,))
+                suffixList.append(".%s" % (lang,))
             else:
-                langpart = ''
+                suffixList.append(".html")
+                suffixList.append("")
                 
-            for suffix in ('.html', ''):
-                fn = '%s/RELEASE-NOTES%s%s' % (sourcepath, langpart, suffix)
+            for suffix in suffixList:
+                fn = "%s/RELEASE-NOTES%s" % (sourcepath, suffix)
                 if os.access(fn, os.R_OK):
                     file = open(fn, "r")
                     if suffix == '.html':
@@ -752,7 +757,7 @@ class InstallControlWindow:
 
         self.window.set_border_width (10)
 
-	title = _("Red Hat Linux Installer")
+	title = _("%s Installer") % (productName,)
 	if os.environ["DISPLAY"][:1] != ':':
 	    # from gnome.zvt import *
 	    # zvtwin = gtk.Window ()
@@ -767,7 +772,7 @@ class InstallControlWindow:
 		for line in lines:
 		    netinf = string.splitfields (line, '=')
 		    if netinf[0] == "HOSTNAME":
-			title = _("Red Hat Linux Installer on %s") % string.strip (netinf[1])
+			title = _("%s Installer on %s") % (productName, string.strip (netinf[1]))
 #			shtitle = _("Red Hat Linux Install Shell on %s") % string.strip (netinf[1])
 			break
 

@@ -43,6 +43,9 @@ class KeyboardWindow:
         kbd.set (keyboards[choice])
 	kbd.beenset = 1
 
+        if (xconfig != (None, None)) and (xconfig != None):
+            apply(xconfig.setKeyboard, kbd.getXKB())
+            
 	try:
 	    isys.loadKeymap(keyboards[choice])
 	except SystemError, (errno, msg):

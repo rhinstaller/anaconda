@@ -14,6 +14,7 @@
 from snack import *
 from constants_text import *
 from translate import _
+from constants import *
 import iutil
 
 
@@ -25,8 +26,8 @@ class FinishedWindow:
 
         if iutil.getArch() != "ia64":
           bootstr = _("If you created a boot disk to use to boot your "
-                        "Red Hat Linux system, insert it before you "
-                        "press <Enter> to reboot.\n\n")
+                        "%s system, insert it before you "
+                        "press <Enter> to reboot.\n\n") % (productName,)
         else:
           bootstr = ""
 
@@ -40,16 +41,16 @@ class FinishedWindow:
           
 
         rc = ButtonChoiceWindow (screen, _("Complete"), 
-             _("Congratulations, your Red Hat Linux installation is "
+             _("Congratulations, your %s installation is "
                "complete.\n\n"
                "%s"
                "%s"
                "For information on errata (updates and bug fixes), visit "
                "http://www.redhat.com/errata.\n\n"
                "Information on using your "
-               "system is available in the Red Hat Linux manuals at "
+               "system is available in the %s manuals at "
                "http://www.redhat.com/docs.") %
-                                 (floppystr, bootstr),
+                                 (productName, floppystr, bootstr, productName),
                                  [ _("OK") ], help = "finished", width=60)
 
         return INSTALL_OK

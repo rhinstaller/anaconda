@@ -121,7 +121,7 @@ installSteps = [
     ("dopostaction", doPostAction, ("id", "instPath")),
     ("bootdisk", ("dir", "dispatch", "id.fsset")),
     ("makebootdisk", makeBootdisk, ("intf", "id.floppyDevice",
-                                    "id.hdList", "instPath")),
+                                    "id.hdList", "instPath", "id.bootloader")),
     ("videocard", ("dispatch", "id.xconfig", "id.videocard", "intf")),
     ("monitor", ("id.xconfig", "id.monitor")),
     ("xcustom", ("id.xconfig", "id.monitor", "id.videocard",

@@ -180,8 +180,25 @@ makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
 	     --imagename ../dosutils/autoboot/cdboot.img \
 	     --initrd $TOPDESTPATH/dosutils/autoboot/initrd.img
 
+makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
+	   --pcmcia \
+	   --initrdsize 4000 \
+	   --loaderbin loader-pcmcia \
+	   --modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES =scsi =net"
+
 makemainmodules "=scsi =net $SECSTAGE"
 
 makeinstimage "netstg" "=scsi $SECSTAGE"
 makeinstimage "hdstg" "=net $SECSTAGE"
 makemainimage "stage2" "cramfs"
+
+
+cat > $TOPDESTPATH/images/pxeboot/README <<EOF
+The files in this directory are useful for booting a machine via PXE.  
+
+The following files are available:
+vmlinuz - the BOOT kernel used for the installer
+initrd.img - the regular network initrd used by the bootnet images
+initrd-everything.img - an initrd with support for all install methods and
+    drivers supported for installation of Red Hat Linux
+EOF

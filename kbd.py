@@ -35,6 +35,7 @@ class Keyboard (SimpleConfigFile):
             ("dk"                , ('pc102', 'dk', '')),
             ("dk-latin1"         , ('pc102', 'dk', '')),
             ("es"                , ('pc102', 'es', '')),
+            ("et"                , ('pc105', 'ee', '')),
             ("fi"                , ('pc102', 'fi', '')),
             ("fi-latin1"         , ('pc102', 'fi', '')),
             ("fr"                , ('pc102', 'fr', '')),
@@ -92,7 +93,7 @@ class Keyboard (SimpleConfigFile):
 
     x2console = {}
     for (console, (map, layout, variant)) in console2xlist:
-        
+
 	if not x2console.has_key((map, layout, variant)):
 	    x2console [(map, layout, variant)] = console
 

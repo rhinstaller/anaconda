@@ -29,6 +29,7 @@ from language import expandLangs
 from log import log
 from flags import flags
 from constants_text import *
+from constants import *
 
 stepToClasses = {
     "language" : ("language_text", "LanguageWindow"),
@@ -312,7 +313,7 @@ class InstallInterface:
 	return WaitWindow(self.screen, title, text)
 
     def drawFrame(self):
-        self.welcomeText = _("Red Hat Linux (C) 2001 Red Hat, Inc.")
+        self.welcomeText = _("%s (C) 2002 Red Hat, Inc.") % (productName,)
         self.screen.drawRootText (0, 0, self.welcomeText)
 	if (os.access("/usr/share/anaconda/help/C/s1-help-screens-lang.txt", os.R_OK)):
 	    self.screen.pushHelpLine(_(" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"))
@@ -364,6 +365,9 @@ class InstallInterface:
         lang = id.instLanguage.getLangNick(lang)
         self.langSearchPath = expandLangs(lang) + ['C']
         self.instLanguage = id.instLanguage
+
+        # draw the frame after setting up the fallback
+        self.drawFrame()
 
         # draw the frame after setting up the fallback
         self.drawFrame()

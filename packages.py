@@ -73,7 +73,7 @@ def writeXConfiguration(id, instPath):
     xserver = id.videocard.primaryCard().getXServer()
     if not xserver:
         return
-    
+
     log("Writing X configuration")
     if not flags.test:
         fn = instPath
@@ -249,8 +249,12 @@ class InstallCallback:
 		    self.rpmFD = os.open(fn, os.O_RDONLY)
 		    # Make sure this package seems valid
 		    try:
-			(h, isSource) = rpm.headerFromPackage(self.rpmFD)
+			(hdr, isSource) = rpm.headerFromPackage(self.rpmFD)
 			os.lseek(self.rpmFD, 0, 0)
+                        
+                        # if we don't have a valid package, throw an error
+                        if not hdr:
+                            raise SystemError
 		    except:
 			self.rpmFD = -1
 			os.close(self.rpmFD)
@@ -260,6 +264,8 @@ class InstallCallback:
 			_("The file %s cannot be opened. This is due to "
 			  "a missing file, a bad package, or bad media. "
 			  "Press <return> to try again.") % fn)
+                    # FIXME: get should probably be inside the loop
+                    fn = self.method.getFilename(h, self.pkgTimer)
 
 	    fn = self.method.unlinkFilename(fn)
 	    return self.rpmFD
@@ -271,10 +277,26 @@ class InstallCallback:
 	    os.close (self.rpmFD)
 	    self.progress.completePackage(h, self.pkgTimer)
 	    self.progress.processEvents()
+        elif ((what == rpm.RPMCALLBACK_UNPACK_ERROR) or
+              (what == rpm.RPMCALLBACK_CPIO_ERROR)):
+            # we may want to make this error more fine-grained at some
+            # point
+            pkg = "%s-%s-%s" % (h[rpm.RPMTAG_NAME],
+                                h[rpm.RPMTAG_VERSION],
+                                h[rpm.RPMTAG_RELEASE])
+            self.messageWindow(_("Error Installing Package"),
+                               _("There was an error installing %s.  This "
+                                 "can indicate media failure, lack of disk "
+                                 "space, and/or hardware problems.  This is "
+                                 "a fatal error and your install will be "
+                                 "aborted.  Please verify your media and try "+                                  "your install again.\n\n"
+                                 "Press the OK button to reboot "
+                                 "your system.") % (pkg,))
+            sys.exit(0)
 	else:
 	    pass
 
-#	self.progress.processEvents()
+	self.progress.processEvents()
 
     def __init__(self, messageWindow, progress, pkgTimer, method,
 		 progressWindowClass, instLog, modeText):
@@ -381,7 +403,7 @@ def doPreInstall(method, id, intf, instPath, dir):
 		select(id.hdList, 'kernel-tape')
 	    else:
 		select(id.hdList, 'kernel')
-	elif isys.smpAvailable():
+	elif isys.smpAvailable() or isys.htavailable():
             select(id.hdList, 'kernel-smp')
 
 	if (id.hdList.has_key('kernel-bigmem')):
@@ -456,7 +478,7 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
 	       '/etc/sysconfig', '/etc/sysconfig/network-scripts',
-	       '/etc/X11' ):
+	       '/etc/X11', '/root' ):
 	try:
 	    os.mkdir(instPath + i)
 	except os.error, (errno, msg):
@@ -481,6 +503,9 @@ def doInstall(method, id, intf, instPath):
     if flags.test:
 	return
 
+    # set up dependency white outs
+    import whiteout
+    
     upgrade = id.upgrade.get()
     db = rpm.opendb(1, instPath)
     ts = rpm.TransactionSet(instPath, db)
@@ -518,9 +543,9 @@ def doInstall(method, id, intf, instPath):
 	ts.order()
 
     if upgrade:
-	logname = '/tmp/upgrade.log'
+	logname = '/root/upgrade.log'
     else:
-	logname = '/tmp/install.log'
+	logname = '/root/install.log'
 
     instLogName = instPath + logname
     try:
@@ -692,9 +717,9 @@ def doPostInstall(method, id, intf, instPath):
     arch = iutil.getArch ()
 
     if upgrade:
-	logname = '/tmp/upgrade.log'
+	logname = '/root/upgrade.log'
     else:
-	logname = '/tmp/install.log'
+	logname = '/root/install.log'
 
     instLogName = instPath + logname
     instLog = open(instLogName, "a")
@@ -835,12 +860,14 @@ def copyExtraModules(instPath, comps, extraModules):
     kernelVersions = comps.kernelVersionList()
 
     for (path, subdir, name) in extraModules:
+        if not path:
+            path = "/modules.cgz"
 	pattern = ""
 	names = ""
 	for (n, tag) in kernelVersions:
 	    pattern = pattern + " " + n + "/" + name + ".o"
 	    names = names + " " + name + ".o"
-	command = ("cd %s/lib/modules; gunzip < %s/modules.cgz | "
+	command = ("cd %s/lib/modules; gunzip < %s | "
                    "%s/bin/cpio  --quiet -iumd %s" % 
                    (instPath, path, instPath, pattern))
 	log("running: '%s'" % (command, ))

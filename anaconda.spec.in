@@ -51,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING
 %doc docs/command-line.txt
 %doc docs/install-methods.txt
+%doc docs/kickstart-docs.txt
+%doc docs/kickstart-docs.html
+%doc docs/anaconda-release-notes.txt
 /usr/sbin/anaconda
 /usr/share/anaconda
 /usr/share/locale/*/*/*
@@ -65,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
+
+* Tue Apr 02 2002 Michael Fulbright <msf@redhat.com>
+- added some more docs
 
 * Fri Feb 22 2002 Jeremy Katz <katzj@redhat.com>
 - buildrequire kernel-pcmcia-cs as we've sucked the libs the loader needs 

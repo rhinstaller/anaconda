@@ -93,7 +93,7 @@ try:
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
-            'autostep'])
+            'autostep', 'resolution='])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
@@ -191,6 +191,10 @@ for n in args:
 	overhead = int(arg)
     elif (str == '--rescue'):
         progmode = 'rescue'
+    elif (str == '--resolution'):
+        # run native X server at specified resolution, ignore fb
+        runres = arg
+        nofb = 1
     elif (str == "--autostep"):
 	flags.autostep = 1
     elif (str == '-r' or str == '--rootpath'):
@@ -244,12 +248,13 @@ if (debug):
     import pdb
     pdb.set_trace()
 
-# don't let folks do anything stupid on !s390
-if (not flags.test and os.getpid() > 90 and flags.setupFilesystems and
-    not iutil.getArch() == "s390"):
-    sys.stderr.write(
-        "You're running me on a live system! that's incredibly stupid.\n")
-    sys.exit(1)
+# let people be stupid
+## # don't let folks do anything stupid on !s390
+## if (not flags.test and os.getpid() > 90 and flags.setupFilesystems and
+##     not iutil.getArch() == "s390"):
+##     sys.stderr.write(
+##         "You're running me on a live system! that's incredibly stupid.\n")
+##     sys.exit(1)
 
 import isys
 import instdata
@@ -281,6 +286,7 @@ if traceOnly:
     import xserver
     import configFileData
     import kickstart
+    import whiteout
 
     installclass.availableClasses()
 
@@ -397,7 +403,8 @@ if 1:
 if (display_mode != 't' and method and
     method.startswith('ftp://') or
     method.startswith('http://') or
-    method.startswith('hd://')):
+    method.startswith('hd://') or
+    method.startswith('oldhd://')):
     print _("Graphical installation not available for %s installs.  "
             "Starting text mode.") % (string.split(method, ':')[0],)
     display_mode = 't'
@@ -428,7 +435,6 @@ else: # s390 checks
 # startup X server is we're not already running under an X session
 #
 startXServer = 0
-
 
 if display_mode == 'g':
     import xf86config
@@ -587,10 +593,6 @@ if method:
         sys.exit(1)
 
 floppyDevice = floppy.probeFloppyDevice()
-
-# create device nodes for detected devices if we're not running in test mode
-if not flags.test and flags.setupFilesystems:
-    iutil.makeDriveDeviceNodes()
 
 id = instClass.installDataClass(extraModules, floppyDevice, configFileData)
 #id = instClass.installDataClass(extraModules, floppyDevice)

@@ -11,6 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import copy
 from monitor import isValidSyncRange
 from videocard import Videocard_blacklist
 from constants_text import *
@@ -101,8 +102,6 @@ class XCustomWindow:
 
         depth_list = [(_("256 Colors (8 Bit)")), (_("High Color (16 Bit)")), (_("True Color (24 Bit)"))]
         self.bit_depth = ["8", "16", "32"]
-        self.res_list = ["640x480", "800x600", "1024x768", "1152x864",
-                         "1280x1024", "1400x1050", "1600x1200"]
 
         self.available_res_by_depth = self.xconfig.availableModes()
         availableDepths = []
@@ -114,6 +113,19 @@ class XCustomWindow:
         self.available_depths = []
         for i in availableDepths:
                self.available_depths.append(depth_list[self.bit_depth.index(i)])
+	if not videocard.getSupportedModes():
+	    self.res_list = ["640x480", "800x600", "1024x768", "1152x864",
+			     "1280x1024", "1400x1050", "1600x1200"]
+	else:
+	    self.res_list = videocard.getSupportedModes()
+
+	    for depth in availableDepths:
+		tmpavail = copy.copy(self.available_res_by_depth[depth])
+		for mode in self.available_res_by_depth[depth]:
+		    if mode not in self.res_list:
+			tmpavail.remove(mode)
+		self.available_res_by_depth[depth] = tmpavail
+	       
         manualmodes = self.xconfig.getManualModes()
         if manualmodes:
             self.selectedDepth = manualmodes.keys()[0]

@@ -298,7 +298,11 @@ def findtz(basepath, relpath):
 
 def rmrf (path):
     # this is only the very simple case.
-    files = os.listdir (path)
+    if os.path.isdir(path):
+        files = os.listdir (path)
+    else:
+        os.unlink(path)
+        return
     for file in files:
         if os.path.isdir(path + '/' + file):
             rmrf (path + '/' + file)

@@ -48,7 +48,7 @@ class Mouse (SimpleConfigFile):
 	N_("Genius - NetScroll (PS/2)"):
         ("netmouse", "NetScrollPS/2", "psaux", 1, "geniusscrollps/2"),
 	N_("Genius - NetScroll+ (PS/2)") :
-		("netmouse", "NetMousePS/2", "psaux", 1, "geniusscrollps/2+"),
+        ("netmouse", "NetMousePS/2", "psaux", 1, "geniusscrollps/2+"),
 	N_("Kensington - Thinking Mouse (serial)"):
         ("Microsoft", "ThinkingMouse", "ttyS", 1, "thinking"),
 	N_("Kensington - Thinking Mouse (PS/2)"):
@@ -219,6 +219,7 @@ class Mouse (SimpleConfigFile):
         # so leave it alone
         if (not self.info["XMOUSETYPE"] == "IMPS/2"
             and not self.info["XMOUSETYPE"] == "IntelliMouse"
+            and not self.info["XMOUSETYPE"] == "NetMousePS/2"
             and not self.info["XMOUSETYPE"] == "None"
             and not self.info["XMOUSETYPE"] == "none"):
             curmouse[1] = self.info["XMOUSETYPE"]
@@ -232,6 +233,8 @@ class Mouse (SimpleConfigFile):
             pass
 
     def write(self, instPath):
+        if self.info["FULLNAME"] == "None - None":
+            return
 	f = open(instPath + "/etc/sysconfig/mouse", "w")
 	f.write(str (self))
 	f.close()

@@ -48,7 +48,7 @@ def probeFloppyDevice():
     log("anaconda floppy device is %s", fdDevice)
     return fdDevice
 
-def makeBootdisk (intf, floppyDevice, hdList, instPath):
+def makeBootdisk (intf, floppyDevice, hdList, instPath, bootloader):
     if flags.test:
 	return DISPATCH_NOOP
 
@@ -70,9 +70,15 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath):
     kernelTag = "-%s-%s" % (kernel[rpm.RPMTAG_VERSION],
 			    kernel[rpm.RPMTAG_RELEASE])
 
+    if bootloader.args.get():
+        args = bootloader.args.get()
+    else:
+        args = ""
+
     w = intf.waitWindow (_("Creating"), _("Creating boot disk..."))
     rc = iutil.execWithRedirect("/sbin/mkbootdisk",
 				[ "/sbin/mkbootdisk",
+                                  "--kernelargs", args,
 				  "--noprompt",
 				  "--device",
 				  "/dev/" + floppyDevice,
