@@ -259,11 +259,10 @@ class KickstartBase(BaseInstallClass):
 	    elif str == "--nameserver":
 		nameserver = arg
 	    elif str == "--device":
-		# XXX ignored, is that okay?
 		device = arg
 	    elif str == "--hostname":
 		hostname = arg
-	self.setNetwork(bootProto, ip, netmask, gateway, nameserver)
+	self.setNetwork(bootProto, ip, netmask, gateway, nameserver, device)
 	if hostname != "":
 	    self.setHostname(hostname)
 

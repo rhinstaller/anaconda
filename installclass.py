@@ -181,19 +181,21 @@ class BaseInstallClass:
     def setMakeBootdisk(self, state):
 	self.makeBootdisk = state 
 
-    def setNetwork(self, bootproto, ip, netmask, gateway, nameserver):
+    def setNetwork(self, bootproto, ip, netmask, gateway, nameserver,
+		   device = None):
 	self.bootProto = bootproto
 	self.ip = ip
 	self.netmask = netmask
 	self.gateway = gateway
 	self.nameserver = nameserver
+	self.networkDevice = device
 
     def setZeroMbr(self, state):
 	self.zeroMbr = state
 
     def getNetwork(self):
 	return (self.bootProto, self.ip, self.netmask, self.gateway, 
-		self.nameserver)
+		self.nameserver, self.networkDevice)
 
     def setEarlySwapOn(self, state = 0):
 	self.earlySwapOn = state

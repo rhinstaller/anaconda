@@ -45,11 +45,18 @@ class NetworkDevice (SimpleConfigFile):
 	else:
 	    forceOffOnBoot = 0
 
+	onBootWritten = 0
         for key in keys:
 	    if key == 'ONBOOT' and forceOffOnBoot:
 		s = s + key + "=" + 'no' + "\n"
 	    else:
 		s = s + key + "=" + self.info[key] + "\n"
+
+	    if key == 'ONBOOT':
+		onBootWritten = 1
+
+	if not onBootWritten:
+	    s = s + 'ONBOOT=no\n'
 
         return s
 
@@ -982,7 +989,7 @@ class ToDo:
                     if (todo.instClass.x):
                         apply (todo.instClass.x.setKeyboard, xkb)
 
-	(bootProto, ip, netmask, gateway, nameserver) = \
+	(bootProto, ip, netmask, gateway, nameserver, netDevice) = \
 		todo.instClass.getNetwork()
 	if bootProto:
 	    todo.network.gateway = gateway
@@ -990,9 +997,11 @@ class ToDo:
 
 	    devices = todo.network.available ()
 	    if (devices and bootProto):
-		list = devices.keys ()
-		list.sort()
-		dev = devices[list[0]]
+		if not netDevice:
+		    list = devices.keys ()
+		    list.sort()
+		    netDevice = list[0]
+		dev = devices[netDevice]
                 dev.set (("bootproto", bootProto))
                 if bootProto == "static":
                     if (ip):
