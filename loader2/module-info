@@ -450,6 +450,10 @@ sunqe
 	eth
 	"Sun Quad Ethernet"
 
+starfire
+	eth
+	"Starfire Ethernet"
+
 tg3
 	eth
 	"Broadcom Tigon3 Ethernet"
@@ -704,6 +708,10 @@ qlogicpti
 	scsi_hostadapter
 	"QLogic ISP1020 SCSI SBUS"
 
+sata_nv
+        scsi_hostadapter
+        "nVidia SATA controllers"
+
 sata_via
         scsi_hostadapter
         "VIA SATA controllers"
@@ -715,6 +723,10 @@ sata_sil
 sata_sis
         scsi_hostadapter
         "SIS SATA controllers"
+
+sata_sx4
+        scsi_hostadapter
+        "Promise SX4 SATA controllers"
 
 sata_vsc
         scsi_hostadapter
