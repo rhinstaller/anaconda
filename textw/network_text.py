@@ -115,9 +115,9 @@ class NetworkDeviceWindow:
         while 1:
             result = toplevel.run()
             rc = bb.buttonPressed (result)
-            screen.popWindow()
 
             if rc == TEXT_BACK_CHECK:
+                screen.popWindow()
                 return INSTALL_BACK
 
             if self.onbootCb.selected() != 0:
@@ -155,6 +155,7 @@ class NetworkDeviceWindow:
 
             break
 
+        screen.popWindow()
         return INSTALL_OK
 
 
@@ -249,9 +250,9 @@ class NetworkGlobalWindow:
         while 1:
             result = toplevel.run()
             rc = bb.buttonPressed (result)
-            screen.popWindow()
 
             if rc == TEXT_BACK_CHECK:
+                screen.popWindow()
                 return INSTALL_BACK
 
             val = gwEntry.value()
@@ -278,7 +279,8 @@ class NetworkGlobalWindow:
                 continue
             network.ternaryNS = val
             break
-        
+
+        screen.popWindow()        
         return INSTALL_OK
         
 
@@ -349,9 +351,9 @@ class HostnameWindow:
         while 1:
             result = toplevel.run()
             rc = bb.buttonPressed(result)
-            screen.popWindow()
             
             if rc == TEXT_BACK_CHECK:
+                screen.popWindow()
                 return INSTALL_BACK
 
             if radio.getSelection() != "manual":
@@ -377,6 +379,7 @@ class HostnameWindow:
                 network.hostname = hname
             break
 
+        screen.popWindow()
         return INSTALL_OK
             
 
