@@ -2,7 +2,6 @@ from gtk import *
 from iw_gui import *
 import xkb
 import string
-#import keyboard
 from translate import _
 from kbd import Keyboard
 import iutil
@@ -33,7 +32,8 @@ class KeyboardWindow (InstallWindow):
             self.todo.x.setKeyboard (self.rulesbase, self.model,
                                      self.layout, self.variant, "")
             self.todo.keyboard.setfromx (self.model, self.layout)
-	    isys.loadKeymap(self.todo.keyboard.get())
+# XXX
+#	    isys.loadKeymap(self.todo.keyboard.get())
         return None
 
     def select_row (self, clist, row, col, event):
