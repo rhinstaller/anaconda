@@ -965,6 +965,42 @@ int SLsmg_resume_smg (void)
      return 0;
 }
 
+
+static void init_acs_map()
+{
+   if (SLtt_Has_Alt_Charset)
+     {
+           SLcurses_Acs_Map['l'] = SLSMG_ULCORN_CHAR_TERM | A_ALTCHARSET;
+           SLcurses_Acs_Map['k'] = SLSMG_URCORN_CHAR_TERM | A_ALTCHARSET;
+           SLcurses_Acs_Map['m'] = SLSMG_LLCORN_CHAR_TERM | A_ALTCHARSET;
+           SLcurses_Acs_Map['j'] = SLSMG_LRCORN_CHAR_TERM | A_ALTCHARSET;
+           SLcurses_Acs_Map['v'] = SLSMG_UTEE_CHAR_TERM | A_ALTCHARSET;
+           SLcurses_Acs_Map['w'] = SLSMG_DTEE_CHAR_TERM | A_ALTCHARSET;
+           SLcurses_Acs_Map['t'] = SLSMG_LTEE_CHAR_TERM | A_ALTCHARSET;
+           SLcurses_Acs_Map['u'] = SLSMG_RTEE_CHAR_TERM | A_ALTCHARSET;
+           SLcurses_Acs_Map['x'] = SLSMG_VLINE_CHAR_TERM | A_ALTCHARSET;
+           SLcurses_Acs_Map['q'] = SLSMG_HLINE_CHAR_TERM | A_ALTCHARSET;
+           SLcurses_Acs_Map['n'] = SLSMG_PLUS_CHAR_TERM | A_ALTCHARSET;
+           SLcurses_Acs_Map['a'] = SLSMG_CKBRD_CHAR_TERM | A_ALTCHARSET;
+     }
+   else
+     {
+       /* ugly defaults to use on terminals which don't support graphics */
+       SLcurses_Acs_Map['l'] = '+';
+       SLcurses_Acs_Map['k'] = '+';
+       SLcurses_Acs_Map['m'] = '+';
+       SLcurses_Acs_Map['j'] = '+';
+       SLcurses_Acs_Map['v'] = '+';
+       SLcurses_Acs_Map['w'] = '+';
+       SLcurses_Acs_Map['t'] = '+';
+       SLcurses_Acs_Map['u'] = '+';
+       SLcurses_Acs_Map['x'] = '|';
+       SLcurses_Acs_Map['q'] = '-';
+       SLcurses_Acs_Map['n'] = '+';
+       SLcurses_Acs_Map['a'] = '#';
+     }
+}
+
 int SLsmg_init_smg (void)
 {
    int i, len;
@@ -990,6 +1026,7 @@ int SLsmg_init_smg (void)
 #ifndef IBMPC_SYSTEM
    init_alt_char_set ();
 #endif
+   init_acs_map();
    len = Screen_Cols + 3;
    for (i = 0; i < Screen_Rows; i++)
      {

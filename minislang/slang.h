@@ -929,6 +929,8 @@ extern int SLtt_Baud_Rate;
 
 typedef unsigned long SLtt_Char_Type;
 SLtt_Char_Type SLcurses_Acs_Map [128];
+#define acs_map SLcurses_Acs_Map
+#define A_ALTCHARSET 0x8000
 
 #define SLTT_BOLD_MASK	0x01000000
 #define SLTT_BLINK_MASK	0x02000000
@@ -1099,34 +1101,51 @@ extern int SLsmg_Newline_Behavior;
 
 extern int SLsmg_Backspace_Moves;
 
-#ifdef IBMPC_SYSTEM
-# define SLSMG_HLINE_CHAR	0xC4
-# define SLSMG_VLINE_CHAR	0xB3
-# define SLSMG_ULCORN_CHAR	0xDA
-# define SLSMG_URCORN_CHAR	0xBF
-# define SLSMG_LLCORN_CHAR	0xC0
-# define SLSMG_LRCORN_CHAR	0xD9
-# define SLSMG_RTEE_CHAR	0xB4
-# define SLSMG_LTEE_CHAR	0xC3
-# define SLSMG_UTEE_CHAR	0xC2
-# define SLSMG_DTEE_CHAR	0xC1
-# define SLSMG_PLUS_CHAR	0xC5
-/* There are several to choose from: 0xB0, 0xB1, and 0xB2 */
-# define SLSMG_CKBRD_CHAR	0xB0
-#else
-# define SLSMG_HLINE_CHAR	'q'
-# define SLSMG_VLINE_CHAR	'x'
-# define SLSMG_ULCORN_CHAR	'l'
-# define SLSMG_URCORN_CHAR	'k'
-# define SLSMG_LLCORN_CHAR	'm'
-# define SLSMG_LRCORN_CHAR	'j'
-# define SLSMG_CKBRD_CHAR	'a'
-# define SLSMG_RTEE_CHAR	'u'
-# define SLSMG_LTEE_CHAR	't'
-# define SLSMG_UTEE_CHAR	'w'
-# define SLSMG_DTEE_CHAR	'v'
-# define SLSMG_PLUS_CHAR	'n'
-#endif
+#define SLSMG_HLINE_CHAR	(acs_map['q'])
+#define SLSMG_VLINE_CHAR	(acs_map['x'])
+#define SLSMG_ULCORN_CHAR	(acs_map['l'])
+#define SLSMG_URCORN_CHAR	(acs_map['k'])
+#define SLSMG_LLCORN_CHAR	(acs_map['m'])
+#define SLSMG_LRCORN_CHAR	(acs_map['j'])
+#define SLSMG_CKBRD_CHAR	(acs_map['a'])
+#define SLSMG_RTEE_CHAR	(acs_map['u'])
+#define SLSMG_LTEE_CHAR	(acs_map['t'])
+#define SLSMG_UTEE_CHAR	(acs_map['w'])
+#define SLSMG_DTEE_CHAR	(acs_map['v'])
+#define SLSMG_PLUS_CHAR	(acs_map['n'])
+#define SLSMG_DIAMOND_CHAR	(acs_map['`'])
+#define SLSMG_DEGREE_CHAR	(acs_map['f'])
+#define SLSMG_PLMINUS_CHAR	(acs_map['g'])
+#define SLSMG_BULLET_CHAR	(acs_map['~'])
+#define SLSMG_LARROW_CHAR	(acs_map[','])
+#define SLSMG_RARROW_CHAR	(acs_map['+'])
+#define SLSMG_DARROW_CHAR	(acs_map['.'])
+#define SLSMG_UARROW_CHAR	(acs_map['-'])
+#define SLSMG_BOARD_CHAR	(acs_map['h'])
+#define SLSMG_BLOCK_CHAR	(acs_map['0'])
+
+#define SLSMG_HLINE_CHAR_TERM	'q'
+#define SLSMG_VLINE_CHAR_TERM	'x'
+#define SLSMG_ULCORN_CHAR_TERM	'l'
+#define SLSMG_URCORN_CHAR_TERM	'k'
+#define SLSMG_LLCORN_CHAR_TERM	'm'
+#define SLSMG_LRCORN_CHAR_TERM	'j'
+#define SLSMG_CKBRD_CHAR_TERM	'a'
+#define SLSMG_RTEE_CHAR_TERM	'u'
+#define SLSMG_LTEE_CHAR_TERM	't'
+#define SLSMG_UTEE_CHAR_TERM	'w'
+#define SLSMG_DTEE_CHAR_TERM	'v'
+#define SLSMG_PLUS_CHAR_TERM	'n'
+#define SLSMG_DIAMOND_CHAR_TERM	'`'
+#define SLSMG_DEGREE_CHAR_TERM	'f'
+#define SLSMG_PLMINUS_CHAR_TERM	'g'
+#define SLSMG_BULLET_CHAR_TERM	'~'
+#define SLSMG_LARROW_CHAR_TERM	','
+#define SLSMG_RARROW_CHAR_TERM	'+'
+#define SLSMG_DARROW_CHAR_TERM	'.'
+#define SLSMG_UARROW_CHAR_TERM	'-'
+#define SLSMG_BOARD_CHAR_TERM	'h'
+#define SLSMG_BLOCK_CHAR_TERM	'0'
 
 #ifndef IBMPC_SYSTEM
 # define SLSMG_COLOR_BLACK		0x000000
