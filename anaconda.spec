@@ -1,14 +1,11 @@
 Name: anaconda
-Version: 10.2.0.3
+Version: 10.2.0.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
 BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.1.52, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, rhpl, booty, libxml2-python, zlib-devel, bogl-devel >= 0:0.1.9-17, bogl-bterm >= 0:0.1.9-17, elfutils-devel, beecrypt-devel, libselinux-devel >= 1.6, xorg-x11-devel
-%ifarch i386
-BuildRequires: dietlibc
-%endif
 Requires: rpm-python >= 4.2-0.61, rhpl > 0.63, parted >= 1.6.3-7, booty, kudzu
 Requires: pyparted, libxml2-python
 Requires: anaconda-help, system-logos
@@ -73,6 +70,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 23 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.4-1
+- Update python version in urllib hack
+- /init in initramfs instead of /linuxrc
+- Improved ppc console detection (nasrat, #134397)
+- Better handling of going back when out of space (#133773)
+- Better handling of LVM failures (#134263)
+- Set a default when boot loader to upgrade is indeterminate (#139603)
+- No more diet on i386
+
 * Tue Nov 16 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.3-1
 - Create initramfs images instead of initrds for boot media
 - Remove some old code in a few places
