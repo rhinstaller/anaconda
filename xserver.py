@@ -6,6 +6,7 @@ import sys
 import time
 from xf86config import *
 from kbd import Keyboard
+from mouse import Mouse
 
 def startX():
     global serverPath
@@ -41,7 +42,7 @@ def startX():
         mouseProtocol = "Microsoft"
 	mouseEmulate = 1
 
-    x = XF86Config ((mouseProtocol, mouseEmulate, mouseDev))
+    x = XF86Config (Mouse((mouseProtocol, mouseEmulate, mouseDev)))
     x.probe ()
     if x.server and len (x.server) >= 3 and x.server[0:3] == 'Sun':
 	serverPath = '/usr/X11R6/bin/Xs' + x.server[1:]
@@ -51,7 +52,7 @@ def startX():
 #  	raise RuntimeError, "Unknown card"
 #      else:
 #          print "Unknown card, falling back to VGA16"
-        serverPath = '/usr/X11R6/bin/XFree86'
+    serverPath = '/usr/X11R6/bin/XFree86'
 
     if not os.access (serverPath, os.X_OK):
 	if iutil.getArch() == "sparc":
@@ -188,9 +189,13 @@ def startX():
 	else:
 	    args.append("-xf86config")
 	    args.append("/tmp/XF86Config")
-	    if bpp:
-		args.append("-bpp")
-		args.append(bpp)
+#  	    if bpp:
+#  		args.append("-bpp")
+#  		args.append(bpp)
+        # XXX XFree86 4.0 fatal errors without a /var/log/ to place logfile
+	if serverPath[-7:] == 'XFree86':
+	    args.append("-logfile")
+	    args.append("/dev/null")
 	os.execv(serverPath, args)
 
     # give time for the server to fail (if it is going to fail...)

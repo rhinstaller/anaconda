@@ -51,7 +51,7 @@ Section "Device"
 	Identifier   "%(cardID)s"
         Driver       "%(cardDriver)s"
         VendorName   "%(cardVendor)s"
-        BordName     "%(cardBoardName)s"
+        BoardName     "%(cardBoardName)s"
         #BusID
 EndSection
 
