@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall unknown\n"
 "POT-Creation-Date: 1999-09-13 14:19-0400\n"
-"PO-Revision-Date: 1999-09-10 15:58+0200\n"
+"PO-Revision-Date: 1999-09-13 18:51+0200\n"
 "Last-Translator: Petr Kolar <Petr.Kolar@vslib.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -711,9 +711,8 @@ msgid "fdisk"
 msgstr "fdisk"
 
 #: ../iw/fdisk.py:42
-#, fuzzy
 msgid "Select drive to run fdisk on"
-msgstr "Výbìr pøipojení tiskárny"
+msgstr "Vyberte jednotku, na kterou spustit fsck"
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
@@ -754,7 +753,7 @@ msgstr "Aktualizace"
 
 #: ../iw/installpath.py:183
 msgid "Use fdisk to format drives"
-msgstr ""
+msgstr "Pou¾ít fdisk pro rozdìlení diskù"
 
 #: ../iw/keyboard.py:11
 msgid "Keyboard Configuration"
@@ -1140,7 +1139,7 @@ msgstr "Pokraèovat"
 
 #: ../textw/partitioning.py:130
 msgid "Low Memory"
-msgstr ""
+msgstr "Nedostatek pamìti"
 
 #: ../textw/partitioning.py:131
 msgid ""
@@ -1148,6 +1147,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
+"Proto¾e na tomto poèítaèi není dostatek pamìti, je tøeba zaèít pou¾ívat "
+"odkládací prostor. Proto je nutné zapsat novou tabulku oddílù na disk ji¾ "
+"nyní. Souhlasíte?"
 
 #: ../textw/partitioning.py:150
 msgid ""
@@ -1903,14 +1905,13 @@ msgid "Module Parameters"
 msgstr "Parametry modulù"
 
 #: ../loader/devices.c:54
-#, fuzzy
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
-"Tomuto modulu mù¾ete zadat parametry, které ovlivòují jeho funkci. "
-"Nevíte-li, jaké parametry zadat, klidnì pokraèujte dále stisknutím tlaèítka "
+"Tomuto modulu mù¾ete zadat parametry, které ovlivòují jeho funkci. Pokud "
+"nevíte, jaké parametry zadat, klidnì pokraèujte dále stisknutím tlaèítka "
 "\"OK\"."
 
 #: ../loader/devices.c:120
@@ -1950,14 +1951,12 @@ msgid "Choose a Language"
 msgstr "Vyberte jazyk"
 
 #: ../loader/lang.c:501
-#, fuzzy
 msgid "Keyboard Type"
-msgstr "Výbìr klávesnice"
+msgstr "Typ klávesnice"
 
 #: ../loader/lang.c:502
-#, fuzzy
 msgid "What type of keyboard do you have?"
-msgstr "Jaký máte typ tiskárny?"
+msgstr "Jaký typ klávesnice máte?"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
@@ -2053,7 +2052,6 @@ msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Zaøízení %s zøejmì neobsahuje instalaèní strom distribuce Red Hat."
 
 #: ../loader/loader.c:709
-#, fuzzy
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
