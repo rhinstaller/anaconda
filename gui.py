@@ -500,25 +500,28 @@ class InstallControlWindow:
         self.buff = ""
 	langList = self.langSearchPath + [ "" ]
         sourcepath = self.dispatch.method.getSourcePath()
+        suffixList = []
 	for lang in langList:
             if lang:
-                langpart = '.%s' % (lang,)
+                suffixList.append("-%s.html" % (lang,))
+                suffixList.append(".%s" % (lang,))
             else:
-                langpart = ''
+                suffixList.append(".html")
+                suffixList.append("")
 
-            for suffix in ('.html', ''):
-                fn = "%s/RELEASE-NOTES%s%s" % (sourcepath, langpart, suffix)
+        for suffix in suffixList:
+            fn = "%s/RELEASE-NOTES%s" % (sourcepath, suffix)
 
-                if os.access(fn, os.R_OK):
-                    file = open(fn, "r")
-                    if suffix == ".html":
-                        self.buff = string.join(file.readlines(), '')
-                    else:
-                        self.buff = ("<HTML><BODY BGCOLOR=white><PRE>" +
-                                     string.join(file.readlines(), '') +
-                                     "</PRE></BODY></HTML>")
-                    file.close()
-                    return
+            if os.access(fn, os.R_OK):
+                file = open(fn, "r")
+                if suffix == ".html":
+                    self.buff = string.join(file.readlines(), '')
+                else:
+                    self.buff = ("<HTML><BODY BGCOLOR=white><PRE>" +
+                                 string.join(file.readlines(), '') +
+                                 "</PRE></BODY></HTML>")
+                file.close()
+                return
 
 	self.buff = _("Release notes are missing.\n")
 
