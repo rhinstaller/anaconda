@@ -27,6 +27,7 @@ struct ksCommand {
 struct ksCommandNames ksTable[] = {
     { KS_CMD_NFS, "nfs" },
     { KS_CMD_CDROM, "cdrom" },
+    { KS_CMD_DEVICE, "device" },
     { KS_CMD_HD, "harddrive" },
     { KS_CMD_TEXT, "text" },
     { KS_CMD_URL, "url" },
