@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-08-20 22:51+0200\n"
+"PO-Revision-Date: 2004-09-09 22:57+0200\n"
 "Last-Translator: Josep Puigdemont <josep@imatge-sintetica.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -197,9 +197,8 @@ msgid "Using mouse type: %s"
 msgstr "S'està usant el tipus de ratolí: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "S'estan cercant instal·lacions de %s..."
+msgstr "S'esta iniciant la instal·lació gràfica..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -260,12 +259,12 @@ msgstr ""
 "podrà arrencar aquesta instal·lació."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "És possible que la partició d'arrencada %s no compleixi les limitacions per "
-"a l'arrencada d'aquesta màquina. Us recomanem crear un disc d'arrencada."
+"a l'arrencada d'aquesta màquina."
 
 #: ../autopart.py:1056
 #, python-format
@@ -1085,7 +1084,7 @@ msgstr "_Reintenta"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "L'instal·lador sortirà..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -2605,58 +2604,58 @@ msgid "DDC Probed Monitor"
 msgstr "Monitor probat DDC"
 
 #: ../zfcp.py:27
+#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
 msgstr ""
+"Les màquines zSeries poden accedir a dispositius SCSI a través d'un canal de "
+"fibra òprica (FCP). Cal que proporcioneu 5 paràmetres per a cada dispositiu: "
+"un número de dispositiu de 16 bits, l'ID de l'SCSCI de 16 bits, i el World "
+"Wide Port Number (WWPN) de 16 bits, el LUN de l'SCSI de 16 bits, i el LUN de "
+"l'FCP de 64 bits."
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Dispositiu"
+msgstr "Número del dispositiu"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "No heu indicat cap nom per a l'ordinador."
+msgstr "No heu indicat el número del dispositiu, o aquest no és vàlid."
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "No heu indicat cap nom per a l'ordinador."
+msgstr "No heu indicat la ID de l'SCSI, o aquesta no és vàlida."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "No heu indicat cap nom per a l'ordinador."
+msgstr "No heu especificat cap worldwide port name, o aquest no és vàlid."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "No heu indicat cap nom per a l'ordinador."
+msgstr "No heu indicat cap SCSI LUN, o aquest no és vàlid."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "No heu indicat cap nom per a l'ordinador."
+msgstr "No heu indicat cap FCP LUN, o aquest no és vàlid."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3367,7 +3366,6 @@ msgstr ""
 "voldríeu permetre l'accés?"
 
 #: ../iw/firewall_gui.py:145
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
@@ -5214,34 +5212,32 @@ msgid "_Skip X configuration"
 msgstr "_Omet la configuració d'X"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "Configuració del VNC"
+msgstr "Configuració de ZFCP"
 
 #: ../iw/zfcp_gui.py:99
 msgid "_Remove"
-msgstr ""
+msgstr "Sup_rimeix"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Dispositius"
+msgstr "Dispositius FCP"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Afegeix dispositiu"
+msgstr "Afegeix dispositiu FCP"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Edita el dispositiu RAID"
+msgstr "Edita el dispositiu FCP %s"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
+"Es suprimirà un disc FCP de la configuració. Esteu segur que ho voleu fer?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5970,9 +5966,8 @@ msgid "End Cylinder:"
 msgstr "Cilindre final:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Nom del grup de volum:"
+msgstr "Grup de volum:"
 
 #: ../textw/partition_text.py:498
 msgid "RAID Level:"
@@ -6097,24 +6092,21 @@ msgstr ""
 "La quantitat màxima de discos de recanvi per a una matriu RAID0 és de 0."
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "Grups del volum LVM"
+msgstr "Cap grup de volum"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "Indiqueu un nom de volum lògic."
+msgstr "No hi ha cap grup de volum per a crear-hi un volum lògic."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
 "La mida sol·licitada (%10.2f MB) és més gran que la mida màxima del volum "
-"lògic (%10.2f MB). Per incrementar aquest límit heu d'incrementar l'extensió "
-"física per a aquest grup de volum."
+"lògic (%10.2f MB)."
 
 #: ../textw/partition_text.py:1310
 #, python-format
@@ -6122,26 +6114,24 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"La mida sol·licitada (%10.2f MB) és més gran que la mida disponible en el "
+"grup de volum (%10.2f MB)."
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Edita un volum lògic"
+msgstr "Nova partició o nou volum lògic?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Les particions d'arrencada no poden estar en volums lògics."
+msgstr "Voleu crear una nova partició, o un nou volum lògic."
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Partició"
+msgstr "partició"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
-msgstr "Volums lògics"
+msgstr "volum lògic"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -6745,40 +6735,36 @@ msgid "Video RAM:"
 msgstr "RAM de vídeo:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Dispositiu"
+msgstr "Número de dispositiu:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "Dispositiu"
+msgstr "Dispositiu FCP"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "Dispositiu"
+msgstr "Dispositiu #"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "Suprimeix"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -7205,7 +7191,7 @@ msgstr "No s'ha pogut trobar el fitxer d'inici ràpid al disc dur."
 #: ../loader2/hdinstall.c:578
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "No s'ha pogut trobar un disc dur per al disc de la BIOS %s"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7858,7 +7844,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7938,7 +7924,7 @@ msgstr "Illes Chatham"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -8096,7 +8082,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -8203,10 +8189,9 @@ msgid "most locations"
 msgstr "la majoria d'ubicacions"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 msgstr ""
-"la majoria d'ubicacions (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+"la majoria d'ubicacions (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -8348,11 +8333,11 @@ msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8400,7 +8385,7 @@ msgstr "Tibet & major part de Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8412,7 +8397,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -8471,9 +8456,8 @@ msgid "Bengali"
 msgstr "Bengalí"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Hongarès"
+msgstr "Búlgar"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8564,9 +8548,8 @@ msgid "Persian"
 msgstr "Persa"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Anglès"
+msgstr "Polonès"
 
 #. generated from lang-table
 msgid "Portuguese"
