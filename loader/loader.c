@@ -1130,7 +1130,7 @@ static char * mountNfsImage(struct installMethod * method,
 	    stage = NFS_STAGE_NFS;
 
 	    if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL)) {
-		if (!access("/mnt/source/RedHat/base/stage2.img", X_OK)) {
+		if (!access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
 		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
 				       "/mnt/runtime", "loop0")) {
 			stage = NFS_STAGE_DONE;
@@ -2689,8 +2689,8 @@ int main(int argc, char ** argv) {
 #endif
 
     if (!continuing) {
-	if ((access("/proc/bus/pci/devices", X_OK) &&
-	      access("/proc/openprom", X_OK)) || FL_MODDISK(flags)) { 
+	if ((access("/proc/bus/pci/devices", R_OK) &&
+	      access("/proc/openprom", R_OK)) || FL_MODDISK(flags)) { 
 	    startNewt(flags);
 	    devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 1, 1,
 			      floppyDevice);
@@ -2840,8 +2840,8 @@ int main(int argc, char ** argv) {
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
-    if (((access("/proc/bus/pci/devices", X_OK) &&
-	  access("/proc/openprom", X_OK)) || 
+    if (((access("/proc/bus/pci/devices", R_OK) &&
+	  access("/proc/openprom", R_OK)) || 
 	  FL_ISA(flags) || FL_NOPROBE(flags)) && !ksFile) {
 	startNewt(flags);
 	manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);
