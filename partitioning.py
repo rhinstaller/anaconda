@@ -356,7 +356,8 @@ def sanityCheckMountPoint(mntpt, fstype, reqtype):
         else:
             return None
     else:
-        if fstype and fstype.isMountable() and reqtype == REQUEST_NEW:
+        if (fstype and fstype.isMountable() and
+            (reqtype == REQUEST_NEW or reqtype == REQUEST_RAID)):
             return _("Please specify a mount point for this partition.")
         else:
             # its an existing partition so don't force a mount point
