@@ -382,12 +382,16 @@ class PackageSelectionWindow (InstallWindow):
 	if not self.__dict__.has_key ("individualPackages"):
 	    return None
 
+        # turn off all the comps
+        for comp in self.todo.comps:
+            if not comp.hidden:
+                comp.unselect(0)
+
         # turn on each package group in order (msw's code requires this)
         for (button, comp) in self.checkButtons:
             if button.get_active ():
                 comp.select (1)
-            else:
-                comp.unselect (0)
+
         del self.checkButtons
 
         gotoIndividualPackages = self.individualPackages.get_active ()
