@@ -8,6 +8,7 @@ class InstallClass(BaseInstallClass):
     name = N_("Upgrade Existing System")
     pixmap = "upgrade.png"
     sortPriority = 999999
+    hidden = 1
 
     parentClass = ( _("Upgrade"), "upgrade.png" )
 
