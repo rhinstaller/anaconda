@@ -97,6 +97,7 @@ char * env[] = {
 int testing=0;
 void unmountFilesystems(void);
 void disableSwap(void);
+void shutDown(int noKill, int doReboot);
 struct termios ts;
 
 int mystrstr(char *str1, char *str2) {
