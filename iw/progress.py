@@ -68,6 +68,7 @@ class InstallProgressWindow (InstallWindow):
 	remainingTime = finishTime - elapsedTime
         apply (self.clist.set_text, self.status["remaining"]["time"] + ("%s" % formatTime(remainingTime),))
 
+        self.totalProgress.update (float (self.sizeComplete) / self.totalSize) 
         threads_leave ()
         
         return
@@ -83,11 +84,14 @@ class InstallProgressWindow (InstallWindow):
 
     def setPackage(self, header):
         threads_enter ()
-        self.curPackage["package"].set_text (header[rpm.RPMTAG_NAME])
+        self.curPackage["package"].set_text ("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
+                                                           header[rpm.RPMTAG_VERSION],
+                                                           header[rpm.RPMTAG_RELEASE]))
         self.curPackage["size"].set_text ("%.1f KBytes" % (header[rpm.RPMTAG_SIZE] / 1024.0))
-        self.curPackage["summary"].set_text (header[rpm.RPMTAG_SUMMARY])
-        print "foobar"
-        print header[rpm.RPMTAG_SUMMARY]
+        summary = header[rpm.RPMTAG_SUMMARY]
+	if (summary == None):
+            summary = "(none)"
+        self.curPackage["summary"].set_text (summary)
         threads_leave ()
 
     def setSizes (self, total, totalSize):
@@ -125,7 +129,8 @@ class InstallProgressWindow (InstallWindow):
         vbox = GtkVBox (FALSE, 10)
         vbox.pack_start (table, FALSE)
 
-	self.progress = GtkProgressBar()
+	self.progress = GtkProgressBar ()
+        self.totalProgress = GtkProgressBar ()
         vbox.pack_start (self.progress, FALSE)
 
         self.status =  {
@@ -155,9 +160,13 @@ class InstallProgressWindow (InstallWindow):
             clist.set_selectable (x, FALSE)
         clist['can_focus'] = FALSE
         self.clist = clist
+#        align = GtkAlignment (0.5, 0.5)
+#        align.add (clist)
+#        vbox.pack_start (align, FALSE)
         hbox = GtkHBox (FALSE, 5)
         hbox.pack_start (clist, TRUE)
         vbox.pack_start (hbox, FALSE)
+        vbox.pack_start (self.totalProgress, FALSE)
 
 	self.ics.getInstallInterface ().setPackageProgressWindow (self)
         ii = self.ics.getInstallInterface ()
