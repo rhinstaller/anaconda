@@ -10,10 +10,10 @@ FSEDIT_CLEAR_LINUX  = (1 << 1)
 FSEDIT_CLEAR_ALL    = (1 << 2)
 FSEDIT_USE_EXISTING = (1 << 3)
 
-import gettext, os
+import gettext_rh, os
 from xf86config import XF86Config
 
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
 _ = cat.gettext
 
 class InstallClass:
@@ -286,3 +286,15 @@ class Server(InstallClass):
 	    warningText = _("You are about to erase ALL DATA on your hard "
 			    "drive to make room for your Linux installation."))
 
+# reconfig machine w/o reinstall
+class UnconfigStation(InstallClass):
+
+    def __init__(self):
+	InstallClass.__init__(self)
+	self.setHostname("localhost.localdomain")
+	self.addToSkipList("lilo")
+	self.addToSkipList("authentication")
+	self.addToSkipList("bootdisk")
+	self.addToSkipList("partition")
+	self.addToSkipList("package-selection")
+	self.addToSkipList("format")
