@@ -118,7 +118,8 @@ class InstallProgressWindow (InstallWindow):
                     num = min(1, len(self.pixmaps))
                 pix = self.ics.readPixmap (self.pixmaps[num])
                 if pix:
-                    self.adbox.remove (self.adpix)
+		    if self.adpix:
+			self.adbox.remove (self.adpix)
                     pix.set_alignment (0.5, 0.5)
                     self.adbox.add (pix)
                     self.adpix = pix
