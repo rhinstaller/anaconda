@@ -485,12 +485,11 @@ EndSection
 Section "Module"
         Load  "GLcore"
         Load  "dbe"
-        Load  "extmod"%(nonSparcMods)s%(pex5Mod)s%(driMod)s
+        Load  "extmod"%(nonSparcMods)s%(driMod)s
         Load  "glx"
         Load  "record"
-        Load  "xie"
         Load  "freetype"
-        Load  "Type1"
+        Load  "type1"
 EndSection
 
 Section "InputDevice"
@@ -1283,7 +1282,6 @@ Section "Screen"
                  "files"        : self.files,
                  "screenModes"  : screens,
 		 "nonSparcMods" : '\n\tLoad "fbdevhw"',
-		 "pex5Mod"	: '\n\tLoad "pex5"',
 		 "driMod"	: '\n\tLoad "dri"',
                  "XkbRules"     : self.keyRules,
                  "XkbModel"     : self.keyModel,
@@ -1311,8 +1309,6 @@ Section "Screen"
                 data["defaultDepth"] = "\n\tDefaultDepth\t16"
             else:
                 data["defaultDepth"] = "\n\tDefaultDepth\t%d" % maxdepth
-	if test:
-	    data["pex5Mod"] = ""
 	if iutil.getArch() == "sparc":
 	    data["nonSparcMods"] = ""
 	    data["autorepeat"] = '#	Option	"AutoRepeat"	"200 20"'
