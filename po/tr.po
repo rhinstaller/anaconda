@@ -1,7 +1,3 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# Görkem Çetin , <gorkem@gelecek.com.tr> , 2000
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall\n"
@@ -14,17 +10,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: ../comps.py:460
-#, fuzzy
 msgid "Everything"
-msgstr "Taranýyor"
+msgstr "Tüm paketler"
 
 #: ../exception.py:13 ../text.py:938
 msgid "Exception Occurred"
-msgstr ""
+msgstr "Bir sorun oluþtu"
 
 #: ../exception.py:91
+#, fuzzy
 msgid "Dump Written"
-msgstr ""
+msgstr "Çevirmeli Baðlantý Ýþistasyonu"
 
 #: ../exception.py:92
 msgid ""
@@ -48,8 +44,9 @@ msgid ""
 msgstr ""
 
 #: ../fstab.py:74
+#, fuzzy
 msgid "Warning"
-msgstr "Uyarý"
+msgstr "Taranýyor"
 
 #: ../fstab.py:300 ../fstab.py:494 ../fstab.py:594 ../fstab.py:798
 #: ../harddrive.py:168 ../image.py:61 ../image.py:138
@@ -68,21 +65,12 @@ msgid "Error"
 msgstr "Hata"
 
 #: ../fstab.py:301
-#, fuzzy
 msgid ""
 "The kernel is unable to read your new partitioning information, probably "
 "because you modified extended partitions. While this is not critical, you "
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
 msgstr ""
-"Çekirdek yeni bölümlendirme bilgisini okuyamadý. Eklenti bölümlerin "
-"deðiþtirilmesi böyle bir hataya yol açabilir. Bu hata kritik olmamakla "
-"birlikte devam edebilmek için makinanýzý yeniden baþlatmalýsýnýz. Lütfen "
-"Turkuaz açýlýþ disketini taktýktan sonra Enter tuþuna basarak sisteminizi "
-"yeniden açýn.\n"
-"\n"
-"Bir ZIP ya da JAZ sürücünüz varsa, bu sürücüde bir disk olup olmadýðýný "
-"kontrol edin, çünkü boþ SCSI sürücüleri de bu hataya neden olabilirler."
 
 #: ../fstab.py:483 ../fstab.py:747 ../fstab.py:1184
 msgid "Formatting"
@@ -122,7 +110,7 @@ msgstr "/dev/%s aygýtýnda loopback dosya sistemi yaratýlýyor..."
 #: ../fstab.py:748 ../fstab.py:1185
 #, c-format
 msgid "Formatting %s filesystem..."
-msgstr "%s dosya sistemi formatlanýyor..."
+msgstr "%s dosya sistemi biçimlendiriliyor..."
 
 #: ../fstab.py:799
 #, c-format
@@ -140,12 +128,16 @@ msgid ""
 "copy the full text of this exception and file a bug report at "
 "http://bugzilla.redhat.com/bugzilla"
 msgstr ""
+"Bir sorun oluþtu. Lütfen hata http://bugzilla.redhat.com/bugzilla adresine "
+"gönderiniz."
 
 #: ../gui.py:307 ../text.py:956
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
+"Lütfen sürücüye bir disket yerleþtirin. Disket içindeki tüm veriler "
+"silinecektir"
 
 #: ../gui.py:413 ../gui.py:781
 msgid "Next"
@@ -211,9 +203,8 @@ msgid "Release Notes"
 msgstr ""
 
 #: ../gui.py:558
-#, fuzzy
 msgid "Unable to load file!"
-msgstr "Yerel dosyada giriþ-çýkýþ hatasý"
+msgstr ""
 
 #: ../gui.py:688
 msgid "Red Hat Linux Installer"
@@ -226,7 +217,7 @@ msgstr "Red Hat Linux Kurulum Kabuðu"
 #: ../gui.py:703
 #, c-format
 msgid "Red Hat Linux Installer on %s"
-msgstr "%s Üzerinde Red Hat Linux Kurucusu"
+msgstr "%s Üzerinde Red Hat Linux Kurulum Programý"
 
 #: ../gui.py:704
 #, c-format
@@ -234,9 +225,8 @@ msgid "Red Hat Linux Install Shell on %s"
 msgstr "%s Üzerinde Red Hat Linux Kurulum Kabuðu"
 
 #: ../gui.py:865
-#, fuzzy
 msgid "Install Window"
-msgstr "Kurulum Kaydý"
+msgstr "Kurulum Penceresi"
 
 #: ../harddrive.py:169
 #, c-format
@@ -245,12 +235,11 @@ msgstr ""
 
 #: ../image.py:58
 msgid "Copying File"
-msgstr ""
+msgstr "Dosyalar Kopyalanýyor"
 
 #: ../image.py:59
-#, fuzzy
 msgid "Transferring install image to hard drive..."
-msgstr "Sabit diskler taranýyor..."
+msgstr "Kurulum dosyalarý sabit diske aktarýlýyor.."
 
 #: ../image.py:62
 msgid ""
@@ -259,29 +248,25 @@ msgid ""
 msgstr ""
 
 #: ../image.py:115
-#, fuzzy
 msgid "Change CDROM"
-msgstr "Baþka CDROM"
+msgstr "CDROM'u deðiþtir"
 
 #: ../image.py:116
 #, c-format
 msgid "Please insert disc %d to continue."
-msgstr ""
+msgstr "Lütfen %d numaralý CD'yi yerleþtirin."
 
 #: ../image.py:133
-#, fuzzy
 msgid "Wrong CDROM"
-msgstr "Baþka CDROM"
+msgstr "Hatalý CDROM"
 
 #: ../image.py:134
-#, fuzzy
 msgid "That's not the correct Red Hat CDROM."
-msgstr "Bu CD bir Red Hat CD'si deðil."
+msgstr "Bu CD bir Red Hat Linux CD'si deðil."
 
 #: ../image.py:139
-#, fuzzy
 msgid "The CDROM could not be mounted."
-msgstr "%s bölümü ayrýlamadý."
+msgstr "CDROM baðlanamadý."
 
 #: ../rescue.py:26
 msgid "WARNING: no valid block devices were found.\n"
@@ -425,12 +410,12 @@ msgstr "Kurulum sýrasýnda hangi dili kullanmak istiyorsunuz?"
 #: ../text.py:153
 #, fuzzy
 msgid "Choose the languages to be installed:"
-msgstr "Kurulacak paketlerin seçimi"
+msgstr "Kurulacak paketler nerede bulunuyor?"
 
 #: ../text.py:158 ../text.py:1124
 #, fuzzy
 msgid "Language Support"
-msgstr "Yazýcý sunucusu:"
+msgstr "Dizüstü Bilgisayar Desteði"
 
 #: ../text.py:205
 #, fuzzy
@@ -530,13 +515,12 @@ msgid ""
 msgstr ""
 "Red Hat Linux'a Hoþgeldiniz!\n"
 "\n"
-"Kurulum konusunda ayrýntýlý bilgiyi Red Hat Software'den edinebileceðiniz "
-"resmi Red Hat Linux Kurulum Kýlavuzu'nda bulabilirsiniz. Bu belgeye "
-"eriþebiliyorsanýz devam etmeden önce kurulumla ilgili bölümleri okumanýz "
-"yararlý olacaktýr.\n"
+"Kurulum konusunda ayrýntýlý bilgiyi Red Hat A.Þ'den edinebileceðiniz Red Hat "
+"Linux Kurulum Kýlavuzu'nda bulabilirsiniz. Bu belgeye eriþebiliyorsanýz "
+"devam etmeden önce kurulumla ilgili bölümleri okumanýz yararlý olacaktýr.\n"
 "\n"
-"Resmi Red Hat Linux daðýtýmýný aldýysanýz, bunu web sitemiz aracýlýðýyla "
-"kaydettirmeyi unutmayýn: http://www.redhat.com"
+"Red Hat ve diðer Linux ürünlerini kaydetmek için lütfen "
+"http://www.redhat.com adresine göz atýn."
 
 #: ../text.py:449
 msgid ""
@@ -600,18 +584,16 @@ msgstr ""
 "sonra /tmp/install.log dosyasýnda bulabilirsiniz."
 
 #: ../text.py:616
-#, fuzzy
 msgid "Upgrade to begin"
-msgstr "Güncelleme Kaydý"
+msgstr "Güncellemeye baþla"
 
 #: ../iw/confirm_gui.py:41 ../text.py:617
-#, fuzzy
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"Kurulum boyunca yapýlan iþlemlerin kaydýný sisteminizi yeniden açtýktan "
-"sonra /tmp/install.log dosyasýnda bulabilirsiniz."
+"Güncelleme boyunca yapýlan iþlemlerin kaydýný sisteminizi yeniden açtýktan "
+"sonra /tmp/upgrade.log dosyasýnda bulabilirsiniz."
 
 #: ../text.py:636
 msgid ""
@@ -642,8 +624,8 @@ msgstr ""
 "Red Hat Linux'un bu sürümündeki hatalar için http://www.redhat.com/errata "
 "adresine göz atýn.\n"
 "\n"
-"Sisteminizi nasýl ayarlayacaðýnýza iliþkin bilgiler resmi Red Hat Linux "
-"Kullaným Kýlavuzu'nun 'Kurulum Sonrasý' baþlýklý bölümünde ele alýnmaktadýr."
+"Sisteminizi nasýl ayarlayacaðýnýza iliþkin bilgiler Red Hat Linux Kullaným "
+"Kýlavuzunda ele alýnmaktadýr."
 
 #: ../text.py:657
 msgid ""
@@ -668,7 +650,7 @@ msgstr ""
 "iþlemleri için http://www.redhat.com adresine göz atabilirsiniz.\n"
 "\n"
 "Daha ilerideki aþamalarda sistemde yapabileceðiniz ayarlamalar için Red Hat "
-"Linux Kullanýcý Kýlavuzu'na göz atýnýz."
+"Linux Kullanýcý Kýlavuzu'na baþvurun."
 
 #: ../text.py:729
 msgid "Package Installation"
@@ -711,17 +693,16 @@ msgid "Remaining:  "
 msgstr "Kalan:      "
 
 #: ../text.py:896
-#, fuzzy
 msgid "Help not available"
-msgstr "(yok)"
+msgstr "yardým yok"
 
 #: ../text.py:897
 msgid "No help is available for this install."
-msgstr ""
+msgstr "Bu kurulum için yardým bulunmuyor."
 
 #: ../text.py:955
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "Hata Mesajýný Kaydet"
 
 #: ../text.py:966
 msgid ""
@@ -731,10 +712,13 @@ msgid ""
 "will help Red Hat in fixing the problem.\n"
 "\n"
 msgstr ""
+"Linux kurulumunda bir hata oluþtu. Lütfen hata mesajýný bir diskete kaydedin "
+"ve bugzilla.redhat.com web sayfasý yardýmýyla Red Hat'e ulaþtýrýn.\n"
+"\n"
 
 #: ../text.py:973 ../text.py:976
 msgid "Save"
-msgstr ""
+msgstr "Kaydet"
 
 #: ../text.py:973 ../text.py:974
 msgid "Debug"
@@ -745,15 +729,16 @@ msgid " "
 msgstr ""
 
 #: ../text.py:988
+#, fuzzy
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
+msgstr "Red Hat Linux (C), 2000 Red Hat, Inc."
 
 #: ../text.py:991
-#, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
-" <Tab>/<Alt-Tab> ileri-geri  |   <Boþluk> iþaretle   |   <F12> sonraki ekran"
+"<F1> yardým  |  <Tab> ileri-geri  |  <Boþluk> iþaretle  |  <F12> sonraki "
+"ekran"
 
 #: ../text.py:993
 msgid ""
@@ -837,7 +822,7 @@ msgstr "Takas"
 #: ../textw/partitioning_text.py:385
 #, fuzzy
 msgid "Boot Partition Warning"
-msgstr "Kök Bölümü Seçimi"
+msgstr "Otomatik Bölümlendirme"
 
 #: ../text.py:1102
 msgid "Filesystem Formatting"
@@ -893,9 +878,8 @@ msgid "Customize Upgrade"
 msgstr "Güncellemeyi Ayarla"
 
 #: ../text.py:1168
-#, fuzzy
 msgid "Upgrade Begins"
-msgstr "Güncelleme Kaydý"
+msgstr "Güncelleme Baþlangýcý"
 
 #: ../text.py:1170
 msgid "Upgrade System"
@@ -927,11 +911,11 @@ msgstr "Paket bilgisi okunuyor..."
 
 #: ../todo.py:858
 msgid "Dependency Check"
-msgstr ""
+msgstr "Baðýmlýlýk Denetimi"
 
 #: ../todo.py:859
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
+msgstr "Kurulumdaki paketlerdeki baðýmlýlýklar denetleniyor..."
 
 #: ../todo.py:886 ../todo.py:928 ../todo.py:934 ../todo.py:951 ../todo.py:1076
 msgid "no suggestion"
@@ -942,6 +926,8 @@ msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
+"/etc/fstab dosyasýnda yeralan dosya sistemlerinden bir ya da birden fazlasý "
+"baðlanamadý. Lütfen yeniden güncelleme yapýn."
 
 #: ../todo.py:984
 msgid ""
@@ -962,8 +948,7 @@ msgstr "Güncellenecek paketler belirleniyor..."
 #: ../todo.py:1014
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
-"RPM veri tabanýnýn yeniden oluþturulmasý baþarýsýz. Diskiniz dolmuþ olabilir "
-"mi?"
+"RPM veri tabanýnýn yeniden oluþturulmasý baþarýsýz. Diskiniz dolmuþ olabilir."
 
 #: ../todo.py:1027
 #, fuzzy
@@ -1060,6 +1045,9 @@ msgid ""
 "cleanly. Please boot your Linux installation, let the filesystems be "
 "checked, and shut down cleanly to upgrade."
 msgstr ""
+"Diskinizdeki bir ya da birden fazla dosya bölümünün ayrýlmasý baþarýsýz "
+"oldu. Lütfen Linux'u tekrar açýn, dosya sistemlerini baðlayýn ve temiz bir "
+"þekilde güncellemek üzere sistemi yeniden baþlatýn."
 
 #: ../iw/xconfig_gui.py:12 ../xf86config.py:929
 msgid "Video Card"
@@ -1094,9 +1082,8 @@ msgid "Vertical frequency range"
 msgstr "Düþey tazeleme hýzý"
 
 #: ../xserver.py:26
-#, fuzzy
 msgid "Mouse Not Detected"
-msgstr "Fare Seçimi"
+msgstr "Fare Seçilmedi"
 
 #: ../xserver.py:27
 msgid ""
@@ -1105,10 +1092,13 @@ msgid ""
 "information. You may also use text mode installation which does not require "
 "a mouse."
 msgstr ""
+"Sistemdeki fare otomatik algýlanamadý. Grafiksel kuruluma devam etmek için "
+"sonraki ekrana geçin ve fare ile ilgili donaným bilgilerinizi verin. Diðer "
+"seçenek de fareye gereksinim duymayan metin tabanlý kurulum yapmak."
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
-msgstr ""
+msgstr "Metin tabanlý kurulum yap"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -1120,43 +1110,39 @@ msgstr "Root Parolasý kabul edildi."
 
 #: ../iw/account_gui.py:39
 msgid "Please enter root password."
-msgstr ""
+msgstr "Lütfen root parolasýný girin."
 
 #: ../iw/account_gui.py:41
 msgid "Root password is too short."
 msgstr "Root parolasý çok kýsa."
 
 #: ../iw/account_gui.py:43
-#, fuzzy
 msgid "Root passwords do not match."
 msgstr "Root parolalarý uyuþmuyor."
 
 #: ../iw/account_gui.py:56
-#, fuzzy
 msgid "User password accepted."
-msgstr "Root Parolasý kabul edildi."
+msgstr "Kullanýcý parolasý kabul edildi."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
-msgstr ""
+msgstr "Buraya root hesabý kaydedilemez."
 
 #: ../iw/account_gui.py:63
 msgid "Please enter user password."
-msgstr ""
+msgstr "Lütfen kullanýcý parolasýný girin."
 
 #: ../iw/account_gui.py:65
-#, fuzzy
 msgid "User password is too short."
-msgstr "Root parolasý çok kýsa."
+msgstr "Kullanýcý parolasý çok kýsa."
 
 #: ../iw/account_gui.py:67
-#, fuzzy
 msgid "User passwords do not match."
-msgstr "Root parolalarý uyuþmuyor."
+msgstr "Kullanýcý parolalarý uyuþmuyor."
 
 #: ../iw/account_gui.py:187
 msgid "Root Password: "
-msgstr "root Parolasý: "
+msgstr "Root Parolasý: "
 
 #: ../iw/account_gui.py:190
 msgid "Confirm: "
@@ -1230,54 +1216,49 @@ msgid "NIS Server: "
 msgstr "NIS Sunucu:"
 
 #: ../iw/auth_gui.py:136 ../textw/userauth_text.py:342
-#, fuzzy
 msgid "Enable LDAP"
-msgstr "NIS'i Etkinleþtir"
+msgstr "LDAP'ý Etkinleþtir"
 
 #: ../iw/auth_gui.py:139
 msgid "Use TLS lookups"
 msgstr ""
 
 #: ../iw/auth_gui.py:140 ../textw/userauth_text.py:348
-#, fuzzy
 msgid "LDAP Server:"
-msgstr "NIS Sunucu:"
+msgstr "LDAP Sunucu:"
 
 #: ../iw/auth_gui.py:142 ../textw/userauth_text.py:350
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "LDAP DN:"
 
 #: ../iw/auth_gui.py:173 ../textw/userauth_text.py:371
-#, fuzzy
 msgid "Enable Kerberos"
-msgstr "Ölü tuþlarý etkinleþtir"
+msgstr "Kerberos'u etkinleþtir"
 
 #: ../iw/auth_gui.py:177 ../textw/userauth_text.py:378
 msgid "Realm:"
-msgstr ""
+msgstr "Alan:"
 
 #: ../iw/auth_gui.py:179 ../textw/userauth_text.py:380
 msgid "KDC:"
-msgstr ""
+msgstr "KDC:"
 
 #: ../iw/auth_gui.py:181 ../textw/userauth_text.py:382
-#, fuzzy
 msgid "Admin Server:"
-msgstr "NIS Sunucu:"
+msgstr "Yetkili Sunucu:"
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
 msgstr "Açýlýþ Disketi Yaratýlmasý"
 
 #: ../iw/bootdisk_gui.py:58
-#, fuzzy
 msgid ""
 "Please remove the install floppy (if used) and insert a blank floppy in the "
 "first floppy drive. All data on this disk will be erased during creation of "
 "the boot disk."
 msgstr ""
-"Birinci disket sürücüsüne temiz bir disket yerleþtirin. Açýlýþ "
-"disketininyaratýlmasý sýrasýnda disketteki tüm bilgiler SÝLÝNECEKTÝR."
+"Birinci disket sürücüsüne temiz bir disket yerleþtirin. Açýlýþ disketinin "
+"yaratýlmasý sýrasýnda disketteki tüm bilgiler SÝLÝNECEKTÝR."
 
 #: ../iw/bootdisk_gui.py:62 ../textw/bootdisk_text.py:70
 msgid ""
@@ -1292,22 +1273,20 @@ msgid "Skip boot disk creation"
 msgstr "Açýlýþ disketi yaratmayý atla"
 
 #: ../iw/confirm_gui.py:13
-#, fuzzy
 msgid "About to Upgrade"
-msgstr "Güncellenecek Sistem"
+msgstr "Güncellemeye Baþlanýyor"
 
 #: ../iw/confirm_gui.py:16
 msgid "About to Install"
 msgstr "Kuruluma Baþlanýyor"
 
 #: ../iw/confirm_gui.py:34
-#, fuzzy
 msgid "Click next to begin upgrade of Red Hat Linux."
-msgstr "Red Hat Linux kurulumuna baþlamak için ileri'ye týklayýn."
+msgstr "Red Hat Linux güncellemesine baþlamak için Ýleri'ye týklayýn."
 
 #: ../iw/confirm_gui.py:36
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr "Red Hat Linux kurulumuna baþlamak için ileri'ye týklayýn."
+msgstr "Red Hat Linux kurulumuna baþlamak için Ýleri'ye týklayýn."
 
 #: ../iw/congrats_gui.py:11 ../iw/congrats_gui.py:60
 msgid "Congratulations"
@@ -1338,9 +1317,9 @@ msgstr "Çözülemeyen Paket Gerekliliði"
 
 #: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:524
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
-#, fuzzy, c-format
+#, c-format
 msgid "Total install size: %s"
-msgstr "%s paketinin kurulumu yapýlamadý: %s"
+msgstr "Toplam kurulum boyutu: %2"
 
 #: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:380
 #: ../iw/progress_gui.py:191 ../textw/packages_text.py:312
@@ -1356,14 +1335,12 @@ msgid "Install packages to satisfy dependencies"
 msgstr "gereklilikleri gözönüne alarak kur"
 
 #: ../iw/dependencies_gui.py:90 ../textw/packages_text.py:328
-#, fuzzy
 msgid "Do not install packages that have dependencies"
-msgstr "gereklilikleri gözönüne alarak kur"
+msgstr "Baðýmlýlýklarý olan paketleri kurma"
 
 #: ../iw/dependencies_gui.py:94 ../textw/packages_text.py:329
-#, fuzzy
 msgid "Ignore package dependencies"
-msgstr "Paket Baðýmlýlýðý"
+msgstr "Paket baðýmlýlýklarýný gözardý et"
 
 #: ../iw/examine_gui.py:10
 msgid "Upgrade Examine"
@@ -1378,9 +1355,8 @@ msgstr ""
 " Sistem güncellenemez."
 
 #: ../iw/examine_gui.py:45
-#, fuzzy
 msgid "Please select the device containing the root filesystem: "
-msgstr "%s dizini kök bölümünde bulunmalý"
+msgstr "Kök bölümünü tutan aygýtý seçin: "
 
 #: ../iw/examine_gui.py:73
 msgid "Customize packages to be upgraded"
@@ -1417,12 +1393,12 @@ msgstr ""
 #: ../iw/firewall_gui.py:88 ../textw/firewall_text.py:9
 #, fuzzy
 msgid "Customize"
-msgstr "Özel"
+msgstr "Güncellemeyi Ayarla"
 
 #: ../iw/firewall_gui.py:101
 #, fuzzy
 msgid "Trusted devices:"
-msgstr "Yazýcý aygýtý:"
+msgstr "Kullanýlan RAID Aygýtý"
 
 #: ../iw/firewall_gui.py:111 ../textw/firewall_text.py:75
 msgid "Allow incoming:"
@@ -1492,12 +1468,12 @@ msgstr "Bir Dil Seçin"
 #: ../iw/language_support_gui.py:156
 #, fuzzy
 msgid "Choose the languages to install:"
-msgstr "Kurulacak paketlerin seçimi"
+msgstr "Bir Dil Seçin"
 
 #: ../iw/language_support_gui.py:211
 #, fuzzy
 msgid "Select all"
-msgstr "Grup Seçimi"
+msgstr "Bölümü seçin"
 
 #: ../iw/language_support_gui.py:217
 #, fuzzy
@@ -1655,7 +1631,7 @@ msgstr "Tek Tek Paket Seçimi"
 
 #: ../iw/package_gui.py:302
 msgid "Total install size: "
-msgstr ""
+msgstr "Toplam kurulum boyu:"
 
 #: ../iw/package_gui.py:382
 #, fuzzy
@@ -1665,22 +1641,19 @@ msgstr "Boy (Mbayt):"
 #: ../iw/package_gui.py:413
 #, fuzzy
 msgid "Total size: "
-msgstr "Toplam"
+msgstr "Toplam boyut"
 
 #: ../iw/package_gui.py:416
-#, fuzzy
 msgid "Select all in group"
-msgstr "Grup Seçimi"
+msgstr ""
 
 #: ../iw/package_gui.py:420
-#, fuzzy
 msgid "Unselect all in group"
-msgstr "Grup Seçimi"
+msgstr ""
 
 #: ../iw/package_gui.py:455
-#, fuzzy
 msgid "File not found"
-msgstr "Dosya sunucuda bulunamadý"
+msgstr ""
 
 #: ../iw/package_gui.py:498 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
@@ -1818,9 +1791,8 @@ msgstr ""
 "kuruluma baþlayabirsiniz. "
 
 #: ../iw/rootpartition_gui.py:313
-#, fuzzy
 msgid "Automatic Partitioning Failed"
-msgstr "Otomatik Bölümlendirme"
+msgstr "Otomatik Bölümlendirme Baþarýsýz Oldu"
 
 #: ../iw/rootpartition_gui.py:314
 msgid ""
@@ -1832,11 +1804,15 @@ msgid ""
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
+"\n"
+"Diskinizi otomatik olarak ayýrabilmek için yeterli disk alaný bulunmuyor.Red "
+"Hat Linux'u kurabilmek için bölümlendirme iþlemini elle yapmanýz gerekecek\n"
+"\n"
+"Lütfen listeden hangi bölümlendirme programýný kullanacaðýnýzý belirtiniz."
 
 #: ../iw/rootpartition_gui.py:321
-#, fuzzy
 msgid "Manual Partitioning"
-msgstr "Elle Bölümlendir"
+msgstr "Elle Bölümlendirme"
 
 #: ../iw/rootpartition_gui.py:322
 msgid ""
@@ -1844,25 +1820,25 @@ msgid ""
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
+"\n"
+"Lütfen Red Hat Linux kurulumu için hangi bölümlendirme programýný "
+"kullanacaðýnýzý belirtiniz."
 
 #: ../iw/rootpartition_gui.py:336
-#, fuzzy
 msgid "Automatically partition and REMOVE DATA"
-msgstr "Otomatik Bölümlendirme"
+msgstr "Otomatik Bölümlendir ve VERÝLERÝ SÝL"
 
 #: ../iw/rootpartition_gui.py:343
-#, fuzzy
 msgid "Manually partition with Disk Druid"
-msgstr "Elle bölümlendir"
+msgstr "Disk Druid yardýmýyla elle bölümlendir"
 
 #: ../iw/rootpartition_gui.py:355
 msgid "Manually partition with fdisk [experts only]"
-msgstr ""
+msgstr "fdisk yardýmýyla elle bölümlendir [sadece uzmanlar]"
 
 #: ../iw/rootpartition_gui.py:378
-#, fuzzy
 msgid "Boot Partition Location Warning"
-msgstr "Kök Bölümü Seçimi"
+msgstr ""
 
 #: ../iw/rootpartition_gui.py:399 ../textw/partitioning_text.py:366
 msgid ""
@@ -1961,14 +1937,12 @@ msgid "Customize Graphics Configuration"
 msgstr "X Window Yapýlandýrmasý"
 
 #: ../iw/xconfig_gui.py:255
-#, fuzzy
 msgid "Color Depth:"
-msgstr "Renk Derinliði Ayarý"
+msgstr ""
 
 #: ../iw/xconfig_gui.py:283
-#, fuzzy
 msgid "Screen Resolution:"
-msgstr "Çözünürlük:"
+msgstr ""
 
 #: ../iw/xconfig_gui.py:393
 msgid "   Test Setting   "
@@ -1980,12 +1954,11 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:420 ../iw/xconfig_gui.py:485
 msgid "GNOME"
-msgstr "GNOME"
+msgstr "GNOME Masaüstü Ortamý"
 
-# ../comps/comps-master:315
 #: ../iw/xconfig_gui.py:422 ../iw/xconfig_gui.py:499
 msgid "KDE"
-msgstr ""
+msgstr "KDE - K Masaüstü Ortamý"
 
 #: ../iw/xconfig_gui.py:465
 msgid "Your desktop environment is:"
@@ -2120,14 +2093,13 @@ msgid "Skip"
 msgstr "Atla"
 
 #: ../textw/bootdisk_text.py:57
-#, fuzzy
 msgid ""
 "If you have the install floppy in your drive, first remove it. Then insert a "
 "blank floppy in the first floppy drive. All data on this disk will be erased "
 "during creation of the boot disk."
 msgstr ""
-"Birinci disket sürücüsüne temiz bir disket yerleþtirin. Açýlýþ "
-"disketininyaratýlmasý sýrasýnda disketteki tüm bilgiler SÝLÝNECEKTÝR."
+"Birinci disket sürücüsüne temiz bir disket yerleþtirin. Açýlýþ disketinin "
+"yaratýlmasý sýrasýnda disketteki tüm bilgiler SÝLÝNECEKTÝR."
 
 #: ../textw/firewall_text.py:13
 msgid ""
@@ -2144,11 +2116,11 @@ msgstr ""
 #: ../textw/firewall_text.py:58
 #, fuzzy
 msgid "Trusted Devices:"
-msgstr "Yazýcý Aygýtý:"
+msgstr "Kullanýlan RAID Aygýtý"
 
 #: ../textw/firewall_text.py:80
 msgid "DHCP"
-msgstr "DHCP"
+msgstr ""
 
 #: ../textw/firewall_text.py:82
 msgid "SSH"
@@ -2164,8 +2136,9 @@ msgid "WWW (HTTP)"
 msgstr ""
 
 #: ../textw/firewall_text.py:88
+#, fuzzy
 msgid "Mail (SMTP)"
-msgstr ""
+msgstr "Toplam (M)"
 
 #: ../loader/loader.c:1233 ../loader/loader.c:1242
 #: ../textw/firewall_text.py:90
@@ -2175,12 +2148,12 @@ msgstr "FTP"
 #: ../textw/firewall_text.py:94
 #, fuzzy
 msgid "Other ports"
-msgstr "Yazýcý sunucusu:"
+msgstr "Yazýcý Desteði"
 
 #: ../textw/firewall_text.py:120
 #, fuzzy
 msgid "Invalid Choice"
-msgstr "Açýlýþ etiketini deðiþtir:"
+msgstr "Geçersiz Açýlýþ Etiketi:"
 
 #: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
@@ -2220,22 +2193,20 @@ msgid "Clear"
 msgstr "Sil"
 
 #: ../textw/lilo_text.py:132
-#, fuzzy
 msgid "Edit Boot Label Please"
-msgstr "Açýlýþ etiketini deðiþtir:"
+msgstr "Açýlýþ Etiketini Deðiþtir:"
 
 #: ../textw/lilo_text.py:150 ../textw/lilo_text.py:155
-#, fuzzy
 msgid "Invalid Boot Label"
-msgstr "Açýlýþ etiketini deðiþtir:"
+msgstr "Geçersiz Açýlýþ Etiketi:"
 
 #: ../textw/lilo_text.py:151
 msgid "Boot label may not be empty."
-msgstr ""
+msgstr "Açýlýþ etiketi boþ olamaz."
 
 #: ../textw/lilo_text.py:156
 msgid "Boot label contains illegal characters."
-msgstr ""
+msgstr "Açýlýþ etiketinde geçersiz karakterler."
 
 #: ../textw/lilo_text.py:212 ../textw/silo_text.py:208
 msgid ""
@@ -2248,9 +2219,8 @@ msgstr ""
 "etiketlerini belirtin."
 
 #: ../textw/mouse_text.py:26
-#, fuzzy
 msgid "What device is your mouse located on?"
-msgstr "Fare hangi aygýt üzerinde bulunuyor? %s %i"
+msgstr "Fare hangi aygýt üzerinde bulunuyor?"
 
 #: ../textw/mouse_text.py:57
 msgid "Which model mouse is attached to this computer?"
@@ -2287,7 +2257,7 @@ msgstr "Birincil DNS sunucusu:"
 #: ../textw/network_text.py:75
 #, fuzzy
 msgid "Secondary nameserver:"
-msgstr "Ýkincil DNS sunucusu (IP):"
+msgstr "Birincil DNS sunucusu:"
 
 #: ../textw/network_text.py:76
 #, fuzzy
@@ -2315,14 +2285,12 @@ msgstr ""
 "danýþmanýz gerekebilir."
 
 #: ../textw/packages_text.py:91
-#, fuzzy
 msgid "Package :"
-msgstr "Paket:"
+msgstr "Paket   :"
 
 #: ../textw/packages_text.py:96
-#, fuzzy
 msgid "Size    :"
-msgstr "Boy    :"
+msgstr "Boy     :"
 
 #: ../textw/packages_text.py:97
 #, c-format
@@ -2330,14 +2298,15 @@ msgid "%.1f KBytes"
 msgstr ""
 
 #: ../textw/packages_text.py:116
-#, fuzzy
 msgid "Total size"
-msgstr "Toplam"
+msgstr "Toplam boyut"
 
 #: ../textw/packages_text.py:249
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr ""
+"    <Boþluk>,<+>,<-> seçim yap   |   <F1> yardým   |   <F2> paket tanýmý     "
+" "
 
 #: ../textw/packages_text.py:306
 msgid ""
@@ -2440,7 +2409,7 @@ msgstr ""
 msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
-msgstr ""
+msgstr "/ (kök) disk alaný ya da takas alaný 2000 Mb'tan büyük olamaz."
 
 #: ../textw/silo_text.py:66
 msgid "Create PROM alias `linux'"
@@ -2540,6 +2509,7 @@ msgstr "Kullanýcý Zaten Var"
 msgid ""
 "The root user is already configured. You don't need to add this user here."
 msgstr ""
+"Root kullanýcýsý daha önce tanýmlandý. Yeniden tanýmlamaya gerek yoktur."
 
 #: ../textw/userauth_text.py:134
 msgid "This user id already exists.  Choose another."
@@ -2603,14 +2573,12 @@ msgid "Request server via broadcast"
 msgstr "Yayýn aðý üzerinden sunucu iste"
 
 #: ../textw/userauth_text.py:360
-#, fuzzy
 msgid "Use TLS connections"
-msgstr "Baþka seçenekler kullan"
+msgstr ""
 
 #: ../installclasses/custom.py:9
-#, fuzzy
 msgid "Custom System"
-msgstr "Özel Sistem Kur"
+msgstr "Özel Sistem"
 
 #: ../installclasses/custom.py:23 ../installclasses/workstation.py:30
 msgid ""
@@ -2618,13 +2586,13 @@ msgid ""
 msgstr "Sistemde daha önce varolan tüm Linux kurulumlarýný silmek üzeresiniz."
 
 #: ../installclasses/laptop.py:7
+#, fuzzy
 msgid "Laptop"
-msgstr ""
+msgstr "Dizüstü Bilgisayar Desteði"
 
 #: ../installclasses/server.py:8
-#, fuzzy
 msgid "Server System"
-msgstr "Sunucu Sistemi Kur"
+msgstr "Sunucu Sistem"
 
 #: ../installclasses/server.py:38
 msgid ""
@@ -2638,7 +2606,7 @@ msgstr "Ýþistasyonu"
 
 #: ../libfdisk/fsedit.c:399
 msgid "partitioning did not meet requirements"
-msgstr ""
+msgstr "bölümlendirme henüz tamamlanmadý"
 
 #: ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924 ../libfdisk/fsedit.c:931
 #: ../libfdisk/fsedit.c:940 ../libfdisk/fsedit.c:967 ../libfdisk/fsedit.c:980
@@ -2660,7 +2628,7 @@ msgid ""
 msgstr ""
 "%s baðlama noktasý hatalý.\n"
 "\n"
-"Baðlama noktalarý / karakteriyle baþlamalý."
+"Baðlama noktalarý / karakteriyle baþlamalýdýr."
 
 #: ../libfdisk/fsedit.c:932
 #, c-format
@@ -2705,12 +2673,12 @@ msgid ""
 msgstr ""
 "%s baðlama noktasý hatalý.\n"
 "\n"
-"/usr dizini ya Linux native tipi bir bölümde ya da NFS üzerinde olmalýdýr."
+"Sistem bölümleri Linux native tipi bir bölümde olmalýdýr."
 
 #: ../libfdisk/fsedit.c:981
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-msgstr ""
+msgstr "Bu platformda /boot dizini DOS uyumlu dosya sisteminde %x olmalý."
 
 #: ../libfdisk/fsedit.c:991
 #, c-format
@@ -2735,19 +2703,21 @@ msgid ""
 msgstr ""
 "Sisteminizde bu programýn desteklediðinden fazla sayýda disk var. Lütfen "
 "diskinizi bölümlemek için fdisk aracýný kullanýn ve bu uyarýyý gördüðünüzü "
-"Red Hat Software'e bildirin."
+"Red Hat Software'a bildirin."
 
 #: ../libfdisk/fsedit.c:1029
-#, fuzzy
 msgid "Error Creating Device Nodes"
-msgstr "Aygýt üzerinde takas alaný oluþturulmasýnda hata: "
+msgstr "Aygýt Düðümlerinin Oluþturulmasýnda Hata"
 
 #: ../libfdisk/fsedit.c:1030
+#, fuzzy
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
 "drives in your system.  This may be because you have run out of disk space "
 "on the /tmp partition."
 msgstr ""
+"Disk üzerinde düðüm noktasý yaratýlýrken bir hata oluþtu. Disk alanýnýz "
+"yetersiz olabilir."
 
 #: ../libfdisk/fsedit.c:1046
 msgid "No Drives Found"
@@ -2807,7 +2777,7 @@ msgid ""
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
-"BSD etiketli bir disk bulundu. Red Hat kurulumu BSD disk etiketlerini "
+"BSD etiketli bir disk bulundu. Red Hat Linux kurulumu BSD disk etiketlerini "
 "yalnýzca salt-oku kipinde destekler, yani bu tip etiketli diski bulunan "
 "makinalarda özel bir kurulum programý ve fdisk kullanmanýz gerekir (Disk "
 "Druid çalýþmaz)."
@@ -2839,15 +2809,16 @@ msgid "Are you sure you want to delete this partition?"
 msgstr "Bu bölümü silmek istediðinizden emin misiniz?"
 
 #: ../libfdisk/gnomefsedit.c:783 ../libfdisk/newtfsedit.c:346
-#, fuzzy
 msgid "Cannot Edit Partitions"
-msgstr "Bölüm Ayarý"
+msgstr "Disk Bölümleri Düzenlenemiyor"
 
 #: ../libfdisk/gnomefsedit.c:784 ../libfdisk/newtfsedit.c:347
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
+"/ dosya sistemini kurmak için ext2 dýþýndaki bir disk bölümü seçtiniz. Bu "
+"nedenle diðer disk bölümleri buraya baðlanamaz."
 
 #: ../libfdisk/gnomefsedit.c:802 ../libfdisk/gnomefsedit.c:808
 #: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:814
@@ -2866,9 +2837,8 @@ msgid "Size (Megs):"
 msgstr "Boy (Mbayt):"
 
 #: ../libfdisk/gnomefsedit.c:903
-#, fuzzy
 msgid "Use remaining space?"
-msgstr "Mevcut boþ alaný kullan"
+msgstr "Kalan boþ alan kullanýlsýn mý?"
 
 #: ../libfdisk/gnomefsedit.c:922 ../libfdisk/newtfsedit.c:442
 msgid "Allocation Status:"
@@ -2920,6 +2890,10 @@ msgid ""
 "partitions also.  Clear those mount points and then you will be able to "
 "assign '/' to this partition."
 msgstr ""
+"/ disk bölümünü FAT türünde bir disk alanýna baðladýnýz. Diðer baðlantý "
+"noktalarý ext2 bölümlerine tanýmlandýðýndan bu iþlem geçersizdir. Bu "
+"baðlantý noktalarýný silerek / disk bölümünü FAT üzerinden "
+"kullanabileceksiniz."
 
 #: ../libfdisk/gnomefsedit.c:1204 ../libfdisk/newtfsedit.c:670
 msgid ""
@@ -2971,14 +2945,12 @@ msgid "Warning: Root FS Size"
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1291
-#, fuzzy
 msgid "No Drives Specified"
-msgstr "Hiç Sürücü Bulunamadý"
+msgstr "Sürücü Belirtilmedi"
 
 #: ../libfdisk/gnomefsedit.c:1293
-#, fuzzy
 msgid "You must constrain this partition to at least one drive."
-msgstr "Kurulumun sürebilmesi için bir takas bölümü seçmelisiniz."
+msgstr "Bu bölümü en az  bir sürücüye baðlamalýsýnýz."
 
 #: ../libfdisk/gnomefsedit.c:1301 ../libfdisk/gnomefsedit.c:1308
 msgid "No RAID Drive Constraint"
@@ -2991,6 +2963,7 @@ msgid ""
 " Are you sure you want to do this?"
 msgstr ""
 "Bir RAID disk bölümü seçtiniz, ancak bunu tek bir diske baðýmlý kýlmadýnýz. "
+"\n"
 "Böyle yapmak istediðinizden emin misiniz?"
 
 #: ../libfdisk/gnomefsedit.c:1310
@@ -3002,15 +2975,16 @@ msgstr ""
 "seçmediniz. Lütfen bir diski bu iþlem için ayýrýn."
 
 #: ../libfdisk/gnomefsedit.c:1430 ../libfdisk/newtfsedit.c:845
-#, fuzzy
 msgid "Cannot Add Partitions"
-msgstr "Ayrýlmamýþ Bölümler"
+msgstr "Bölüm Eklenemiyor"
 
 #: ../libfdisk/gnomefsedit.c:1431 ../libfdisk/newtfsedit.c:846
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
 msgstr ""
+"/ dosya sistemini ext2 dýþýnda bir disk alanýna baðladýnýz, bu nedenle diðer "
+"disk bölümleri buraya baðlanamaz."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -3057,13 +3031,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1916
 msgid "Cannot Edit Raid"
-msgstr ""
+msgstr "RAID Düzenlenemez"
 
 #: ../libfdisk/gnomefsedit.c:1917
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
+"/ dosya sistemini ext2 dýþýnda bir alana baðladýnýz. Bu nedenle RAID "
+"aygýtlarýný düzenleyemezsiniz."
 
 #: ../libfdisk/gnomefsedit.c:2017
 msgid "RAID Device: /dev/"
@@ -3094,6 +3070,9 @@ msgid ""
 "\n"
 "These drives are: "
 msgstr ""
+"Açýlabilir RAID aygýtý sistemdeki ilk iki disk bölümünden birisi olabilir.\n"
+"\n"
+"Bunlar: "
 
 #: ../libfdisk/gnomefsedit.c:2223
 msgid "Booting From RAID Warning"
@@ -3167,15 +3146,16 @@ msgid "Use Pre-existing Partition?"
 msgstr "Önceden Tanýmlý Disk Kullanýlsýn Mý?"
 
 #: ../libfdisk/gnomefsedit.c:2445
-#, fuzzy
 msgid "Cannot Add RAID Devices"
-msgstr "RAID Aygýtý Yok"
+msgstr "RAID Bölümü Eklenemiyor"
 
 #: ../libfdisk/gnomefsedit.c:2446
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
+"/ dosya sistemini ext2 olmayan bir disk bölümüne tanýmladýnýz, bu nedenle "
+"RAID ekleyemezsiniz."
 
 #: ../libfdisk/gnomefsedit.c:2487
 msgid "Auto-Partition"
@@ -3232,37 +3212,35 @@ msgstr "<tanýmsýz>"
 
 #: ../libfdisk/gnomefsedit.c:3035
 msgid "Requested"
-msgstr ""
+msgstr "Ýstenen"
 
 #: ../libfdisk/gnomefsedit.c:3036
 msgid "Actual"
-msgstr ""
+msgstr "Verilen"
 
 #: ../libfdisk/gnomefsedit.c:3209
-#, fuzzy
 msgid "Drive"
-msgstr "Diski Geç"
+msgstr "Sürücü"
 
 #: ../libfdisk/gnomefsedit.c:3210
 msgid "Geom [C/H/S]"
-msgstr ""
+msgstr "Geom [S/K/S]"
 
 #: ../libfdisk/gnomefsedit.c:3211
-#, fuzzy
 msgid "Total (M)"
-msgstr "Toplam"
+msgstr "Toplam (M)"
 
 #: ../libfdisk/gnomefsedit.c:3212
 msgid "Free (M)"
-msgstr ""
+msgstr "Boþ (M)"
 
 #: ../libfdisk/gnomefsedit.c:3213
 msgid "Used (M)"
-msgstr ""
+msgstr "Kull (M)"
 
 #: ../libfdisk/gnomefsedit.c:3214
 msgid "Used (%)"
-msgstr ""
+msgstr "Kull (%)"
 
 #: ../libfdisk/gnomefsedit.c:3462
 msgid "Unallocated Partitions Exist..."
@@ -3314,29 +3292,24 @@ msgid "Swap Partition"
 msgstr "Takas Bölümü"
 
 #: ../libfdisk/newtfsedit.c:210
-#, fuzzy
 msgid "Raid Partition"
-msgstr "Bölüm Ayarý"
+msgstr "Raid Bölümü"
 
 #: ../libfdisk/newtfsedit.c:365
-#, fuzzy
 msgid "Edit New Partition"
-msgstr "Bölüm Ayarý"
+msgstr "Yeni Bölüm Düzenle"
 
 #: ../libfdisk/newtfsedit.c:430
-#, fuzzy
 msgid "Use remaining space?:"
-msgstr "Mevcut boþ alaný kullan"
+msgstr "Kalan boþluk kullanýlsýn mý?:"
 
 #: ../libfdisk/newtfsedit.c:474
-#, fuzzy
 msgid "Type:"
-msgstr "Tip"
+msgstr "Tip:"
 
 #: ../libfdisk/newtfsedit.c:488
-#, fuzzy
 msgid "Unknown"
-msgstr "Bilinmeyen Makina"
+msgstr "Bilinmiyor"
 
 #: ../libfdisk/newtfsedit.c:1458
 msgid "Current Disk Partitions"
@@ -3350,6 +3323,8 @@ msgstr ""
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
+"   F1-Yardým   F2-Ekle   F3-Düzenle   F4-Sil   F5-Yeniden yükle  F12-Tamam   "
+" "
 
 #: ../libfdisk/newtfsedit.c:1491
 msgid "Drive Summaries"
@@ -3357,7 +3332,7 @@ msgstr "Disk Özetleri"
 
 #: ../libfdisk/newtfsedit.c:1493
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-msgstr ""
+msgstr "  Sürücü     Geom [C/H/S]    Toplam  Kullanýlan  Boþ"
 
 #: ../libfdisk/newtfsedit.c:1607
 msgid "No Root Partition"
@@ -3380,16 +3355,16 @@ msgid "You must assign a swap partition for the install to proceed."
 msgstr "Kurulumun sürebilmesi için bir takas bölümü seçmelisiniz."
 
 #: ../libfdisk/newtfsedit.c:1655
-#, fuzzy
 msgid "No /boot/efi Partition"
-msgstr "Kök Bölümü Yok"
+msgstr "/boot/efi Bölümü Yok"
 
 #: ../libfdisk/newtfsedit.c:1657
-#, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
-msgstr "Kurulumun sürebilmesi için bir takas bölümü seçmelisiniz."
+msgstr ""
+"Kurulumun sürebilmesi /boot/efi baðlama noktasýný bir FAT türü disk alanýna "
+"baðlamalýsýnýz. "
 
 #: ../libfdisk/newtfsedit.c:1678
 msgid ""
@@ -3455,26 +3430,24 @@ msgid "Devices"
 msgstr "Aygýtlar"
 
 #: ../loader/devices.c:209
-#, fuzzy
 msgid "Do you have a driver disk?"
-msgstr "Sisteminizde SCSI denetçisi var mý?"
+msgstr "Bir sürücü disketiniz var mý?"
 
 #: ../loader/devices.c:216
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Sürücü disketini takýp \"Tamam\" düðmesine týklayýn."
 
 #: ../loader/devices.c:237
-#, fuzzy
 msgid "Failed to mount driver disk."
-msgstr "Disket baðlanamadý."
+msgstr "Sürücü disketi baðlanamadý."
 
 #: ../loader/devices.c:244
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
-"Sürücüye yerleþtirilen disket, Red Hat'in bu sürümü için güncel sürücüler "
-"içermiyor."
+"Sürücüye yerleþtirilen disket Red Hat Linux'un bu sürümü için güncel "
+"sürücüler içermiyor."
 
 #: ../loader/devices.c:304
 msgid ""
@@ -3490,18 +3463,18 @@ msgid "Specify module parameters"
 msgstr "Modül parametrelerini belirtin"
 
 #: ../loader/devices.c:410
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to insert %s module."
-msgstr "%s makinasýna girilemedi: %s"
+msgstr "%s modülü yüklenemedi."
 
 #: ../loader/devices.c:456
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Disket baðlanamadý."
+msgstr "Sürücü disketi baðlanmadý: %s."
 
 #: ../loader/devices.c:476
 msgid "The wrong diskette was inserted."
-msgstr ""
+msgstr "Hatalý disket yerleþtirilmiþ."
 
 #: ../loader/devices.c:488 ../loader/loader.c:450 ../loader/loader.c:452
 msgid "Loading"
@@ -3510,7 +3483,7 @@ msgstr "Yükleniyor"
 #: ../loader/devices.c:488 ../loader/windows.c:47
 #, fuzzy, c-format
 msgid "Loading %s driver..."
-msgstr "Ýkinci kýsým ramdisk'i yükleniyor"
+msgstr "%s ramdisk yükleniyor..."
 
 #: ../loader/devices.c:507
 msgid "Driver Disk"
@@ -3519,7 +3492,7 @@ msgstr "Sürücü Disketi"
 #: ../loader/devices.c:508
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr ""
+msgstr "%s sürücü disketini sürücüye yerleþtirin."
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -3599,9 +3572,9 @@ msgstr ""
 "ister misiniz?"
 
 #: ../loader/loader.c:505
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s ramdisk..."
-msgstr "Ýkinci kýsým ramdisk'i yükleniyor"
+msgstr "%s ramdisk yükleniyor..."
 
 #: ../loader/loader.c:515
 msgid "Error loading ramdisk."
@@ -3638,7 +3611,7 @@ msgstr ""
 #: ../loader/loader.c:839
 #, fuzzy
 msgid "Directory holding images:"
-msgstr "RedHat bulunan dizin:"
+msgstr "Red Hat Linux bulunan dizin:"
 
 #: ../loader/loader.c:859
 msgid "Select Partition"
@@ -3647,31 +3620,31 @@ msgstr "Bölümü seçin"
 #: ../loader/loader.c:907
 #, fuzzy, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr "%s aygýtýnda bir Red Hat kurulum aðacý bulunamadý."
+msgstr "%s aygýtýnda bir Red Hat Linux kurulum aðacý bulunamadý."
 
 #: ../loader/loader.c:962
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"CD sürücülerinizde Red Hat Linux CD'si bulunamadý. Lütfen Red Hat CD'sini "
-"sürücüye yerleþtirin ve \"Tamam\" tuþuna basýn."
+"CD sürücülerinizde Red Hat Linux CD'si bulunamadý. Lütfen Red Hat Linux "
+"CD'sini sürücüye yerleþtirin ve \"Tamam\" tuþuna basýn."
 
 #: ../loader/loader.c:1049
-#, fuzzy
 msgid "Networking Device"
-msgstr "Að aygýtý"
+msgstr "Að Aygýtý"
 
 #: ../loader/loader.c:1050
-#, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr "Ne tür bir sistem kurmak istiyorsunuz?"
+msgstr ""
+"Sistemde birden fazla að aygýtý bulunuyor. Hangisi üzerinden kurulum yapmak "
+"istiyorsunuz?"
 
 #: ../loader/loader.c:1132
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr "Bu dizinde Red Hat kurulum aðacý bulunamadý."
+msgstr "Bu dizinde Red Hat Linux kurulum aðacý bulunamadý."
 
 #: ../loader/loader.c:1137
 msgid "I could not mount that directory from the server"
@@ -3679,17 +3652,15 @@ msgstr "Sunucudan bu dizin baðlanamadý."
 
 #: ../loader/loader.c:1233 ../loader/loader.c:1242
 msgid "HTTP"
-msgstr ""
+msgstr "HTTP"
 
 #: ../loader/loader.c:1234
-#, fuzzy
 msgid "Unable to retrieve the first install image"
-msgstr "Ýkinci kýsým ramdisk alýnamýyor"
+msgstr "Birinci kýsým kurulum dosyasý alýnamýyor"
 
 #: ../loader/loader.c:1243
-#, fuzzy
 msgid "Unable to retrieve the second install image"
-msgstr "Ýkinci kýsým ramdisk alýnamýyor"
+msgstr "Ýkinci kýsým kurulum dosyasý alýnamýyor"
 
 #: ../loader/loader.c:1273
 msgid "FTP and HTTP installs require 20MB or more of system memory."
@@ -3716,9 +3687,8 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Açýlýþ disketinde ks.cfg dosyasý bulunamadý."
 
 #: ../loader/loader.c:2249
-#, fuzzy
 msgid "Updates Disk"
-msgstr "Güncellemeler"
+msgstr "Güncelleme Disketi"
 
 #: ../loader/loader.c:2250
 msgid "Insert your updates disk and press \"OK\" to continue."
@@ -3730,8 +3700,8 @@ msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
 msgstr ""
-"Sürücüye yerleþtirilen disket, Red Hat'in bu sürümü için güncel sürücüler "
-"içermiyor."
+"Sürücüye yerleþtirilen disket Red Hat Linux'un bu sürümü için güncel "
+"sürücüler içermiyor."
 
 #: ../loader/loader.c:2263
 msgid "Failed to mount floppy disk."
@@ -3749,8 +3719,9 @@ msgid "Reading anaconda updates..."
 msgstr "Anaconda güncellemeleri okunuyor..."
 
 #: ../loader/loader.c:2471
+#, fuzzy
 msgid "IDE"
-msgstr ""
+msgstr "KDE - K Masaüstü Ortamý"
 
 #: ../loader/loader.c:2471
 #, fuzzy
@@ -3763,7 +3734,7 @@ msgstr "NFS sunucu adý:"
 
 #: ../loader/net.c:152 ../loader/urls.c:191
 msgid "Red Hat directory:"
-msgstr "Red Hat dizini:"
+msgstr "Red Hat Linux dizini:"
 
 #: ../loader/net.c:158
 msgid "NFS Setup"
@@ -3784,9 +3755,8 @@ msgstr ""
 "      Red Hat Linux'un bulunduðu dizin"
 
 #: ../loader/net.c:241
-#, fuzzy
 msgid "Nameserver IP"
-msgstr "Alan adý sunucu"
+msgstr "Alan adý sunucu IP'si"
 
 #: ../loader/net.c:245 ../loader/net.c:727
 msgid "Nameserver"
@@ -3799,16 +3769,18 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
+"Dinamik IP isteði bir IP bilgisi geri çevirdi. Ancak geri dönen bilgi içinde "
+"DNS IP numarasý bulunamadý. Eðer DNS IP sunucu numarasýný biliyorsanýz "
+"lütfen girin. Eðer bilmiyorsanýz boþ býrakabilir ve daha sonra "
+"girebilirsiniz."
 
 #: ../loader/net.c:256
-#, fuzzy
 msgid "Invalid IP Information"
-msgstr "Hatalý bilgi"
+msgstr "Geçersiz IP Bilgisi"
 
 #: ../loader/net.c:257
-#, fuzzy
 msgid "You entered an invalid IP address."
-msgstr "Devam etmek için geçerli bir IP adresi ve að maskesi girmelisiniz."
+msgstr "Geçersiz bir IP adresi girdiniz."
 
 #: ../loader/net.c:280
 msgid ""
@@ -3909,19 +3881,18 @@ msgid "Initializing PC Card Devices..."
 msgstr "PC Kart Sürücüleri Hazýrlanýyor..."
 
 #: ../loader/pcmcia.c:104
-#, fuzzy
 msgid "PCMCIA"
-msgstr "PCMCIA Disketi"
+msgstr ""
 
 #: ../loader/pcmcia.c:105
 #, fuzzy
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-msgstr "Lütfen Red Hat CD'nizi CD sürücünüze takýn."
+msgstr "%s sürücü disketini sürücüye yerleþtirin."
 
 #: ../loader/pcmcia.c:114
 #, fuzzy
 msgid "Failed to mount disk."
-msgstr "Disket baðlanamadý."
+msgstr "Sürücü disketi baðlanamadý."
 
 #: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
@@ -3971,11 +3942,11 @@ msgstr ""
 
 #: ../loader/urls.c:187
 msgid "FTP site name:"
-msgstr "FTP sitesi adý:"
+msgstr "FTP makina adý:"
 
 #: ../loader/urls.c:188
 msgid "Web site name:"
-msgstr "Að sitesi adý:"
+msgstr "Web sayfasý adý:"
 
 #: ../loader/urls.c:206
 #, fuzzy
@@ -4105,122 +4076,81 @@ msgstr ""
 msgid "View: "
 msgstr "Ýzle:"
 
-# ../comps/comps-master:3
 msgid "Base"
-msgstr ""
+msgstr "Temel"
 
-#, fuzzy
 msgid "Printer Support"
-msgstr "Yazýcý sunucusu:"
+msgstr "Yazýcý Desteði"
 
-#, fuzzy
 msgid "X Window System"
-msgstr "Sistemi Ýncele"
+msgstr "X Window Sistemi"
 
-# ../comps/comps-master:332
 msgid "Mail/WWW/News Tools"
-msgstr ""
+msgstr "E-posta/Web/Haber Grubu Araçlarý"
 
-# ../comps/comps-master:360
 msgid "DOS/Windows Connectivity"
-msgstr ""
+msgstr "DOS/Windows Baðlantýsý"
 
-# ../comps/comps-master:371
 msgid "Graphics Manipulation"
-msgstr ""
+msgstr "Grafik Ýþleme"
 
-# ../comps/comps-master:389
 msgid "Games"
-msgstr ""
+msgstr "Oyunlar"
 
-# ../comps/comps-master:417
 msgid "Multimedia Support"
-msgstr ""
+msgstr "Çokluortam Desteði"
 
-#, fuzzy
 msgid "Laptop Support"
-msgstr "Yazýcý sunucusu:"
+msgstr "Dizüstü Bilgisayar Desteði"
 
-#, fuzzy
 msgid "Networked Workstation"
-msgstr "Að Ayarlarý"
+msgstr "Að Destekli Ýþistasyonu"
 
-#, fuzzy
 msgid "Dialup Workstation"
-msgstr "KDE Ýþistasyonu"
+msgstr "Çevirmeli Baðlantý Ýþistasyonu"
 
-#, fuzzy
 msgid "News Server"
-msgstr "Alan adý sunucu"
+msgstr "Haber Grubu Sunucu"
 
-#, fuzzy
 msgid "NFS Server"
-msgstr "NIS Sunucu:"
+msgstr "NFS Sunucu"
 
-# ../comps/comps-master:517
 msgid "SMB (Samba) Server"
-msgstr ""
+msgstr "SMB (Samba) Sunucu"
 
-# ../comps/comps-master:524
 msgid "IPX/Netware(tm) Connectivity"
-msgstr ""
+msgstr "IPX/Netware(tm) Baðlantýsý"
 
-# ../comps/comps-master:531
 msgid "Anonymous FTP Server"
-msgstr ""
+msgstr "FTP Sunucu"
 
 #, fuzzy
 msgid "SQL Server"
-msgstr "NIS Sunucu:"
+msgstr "NFS Sunucu"
 
-#, fuzzy
 msgid "Web Server"
-msgstr "Sunucu"
+msgstr "Web Sunucu"
 
-#, fuzzy
 msgid "DNS Name Server"
-msgstr "Alan adý sunucu"
+msgstr "DNS Alan Adý Sunucu"
 
-#, fuzzy
 msgid "Network Management Workstation"
-msgstr "Að Ayarlarý"
+msgstr "Að Yönetim Ýstasyonu"
 
-# ../comps/comps-master:574
 msgid "Authoring/Publishing"
-msgstr ""
+msgstr "Basým/Yayýn"
 
-# ../comps/comps-master:597
 msgid "Emacs"
-msgstr ""
+msgstr "Emacs"
 
-# ../comps/comps-master:610
 msgid "Development"
-msgstr ""
+msgstr "Geliþtirme"
 
-#, fuzzy
 msgid "Kernel Development"
-msgstr "Çekirdek parametreleri"
+msgstr "Çekirdek Geliþtirme"
 
-# ../comps/comps-master:738
 msgid "Utilities"
-msgstr ""
-
-#, fuzzy
-#~ msgid "None"
-#~ msgstr "Yapýldý"
-
-#~ msgid "<Swap Partition"
-#~ msgstr "<Takas Bölümü"
-
-#~ msgid "Test this configuration"
-#~ msgstr "Bu yapýlandýrmayý sýna"
-
-#~ msgid "Customize X Configuration"
-#~ msgstr "X Window Yapýlandýrmasý"
-
-#, fuzzy
-#~ msgid "Default Desktop:"
-#~ msgstr "Öntanýmlý"
+msgstr "Yardýmcý Programlar"
 
 #~ msgid "Error mounting %s: %s"
 #~ msgstr "%s aygýtýnýn baðlanmasýnda hata: %s"
@@ -4246,7 +4176,12 @@ msgstr ""
 #~ msgid "Confirm Partitioning Selection"
 #~ msgstr "Bölümlendirme Seçimini Onayla"
 
-#, fuzzy
+#~ msgid "Test this configuration"
+#~ msgstr "Bu yapýlandýrmayý sýna"
+
+#~ msgid "Default Desktop:"
+#~ msgstr "Öntanýmlý Masaüstü:"
+
 #~ msgid ""
 #~ "The boot manager Red Hat uses can boot other operating systems as well. You "
 #~ "need to tell me what partitions you would like to be able to boot and what "
@@ -4255,1078 +4190,11 @@ msgstr ""
 #~ msgstr ""
 #~ "Red Hat Linux'un sistem yükleyicisi baþka iþletim sistemlerini de "
 #~ "yükleyebilir. Lütfen hangi bölümlerin açýlýþ bölümü olabileceklerini ve "
-#~ "etiketlerini belirtin."
-
-#, fuzzy
-#~ msgid "Error copying timezone (from %s): %s"
-#~ msgstr "Dosya kopyalanmasýnda hata: %s"
-
-#~ msgid "Install GNOME Workstation"
-#~ msgstr "GNOME Ýþistasyonu Kur"
-
-#~ msgid "Install KDE Workstation"
-#~ msgstr "KDE Ýþistasyonu"
-
-#~ msgid "GNOME Workstation"
-#~ msgstr "GNOME Ýþistasyonu"
-
-#~ msgid "Use fdisk"
-#~ msgstr "fdisk Kullan"
-
-#~ msgid "Remove data"
-#~ msgstr "Uzak veri"
-
-#~ msgid "Grow to fill disk?"
-#~ msgstr "Diski dolduracak þekilde büyüsün"
-
-#~ msgid ""
-#~ "You have made this raid device mount as a booting partition.  Please make "
-#~ "sure all the component partitions are bootable."
-#~ msgstr ""
-#~ "Bu RAID aygýtýný bir açýlýþ disk bölümü olarak belirlediniz. Tüm birimlerin "
-#~ "açýlabilir (bootable) olduðuna emin olmalýsýnýz."
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Hangi sürücü denensin?"
-
-#, fuzzy
-#~ msgid "Rebuilding"
-#~ msgstr "Kalan"
-
-#~ msgid "Rebuilding RPM database..."
-#~ msgstr "RPM veritabaný oluþturuluyor..."
-
-#~ msgid "Variant"
-#~ msgstr "Tip"
-
-#~ msgid ""
-#~ "A disk with a corrupt Sun disklabel has been found while reading block "
-#~ "device %s.  You must use fdisk to create and write a new label to this "
-#~ "device."
-#~ msgstr ""
-#~ "%s blok aygýtý okunurken bozulmuþ Sun disk etiketi olan bir disk bulundu. "
-#~ "fdisk'i kullanarak bu aygýt için yeni bir etiket yaratýp yazmalýsýnýz. "
-
-#~ msgid "Corrupt Sun disklabel"
-#~ msgstr "Bozuk Sun disk etiketi"
-
-#~ msgid ""
-#~ "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
-#~ "or a RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "Kurulumun sürebilmesi için Linux native (ext2) ya da RAID-1 tipi bir disk "
-#~ "bölümünü açýlýþ (/boot) bölümü olarak seçmelisiniz."
-
-#~ msgid ""
-#~ "Because you have assigned the root partition (/) to a RAID device, you must "
-#~ "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
-#~ "RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "Kök bölümünü bir RAID aygýtýna baðladýðýnýz için, /boot açýlýþ bölümünü de "
-#~ "bir RAID-1 disk bölümüne ayýrmalýsýnýz. Aksi takdirde kurulum devam "
-#~ "etmeyecektir."
-
-#~ msgid "Use fdisk to format drives"
-#~ msgstr "Diski biçimlendirmek için fdisk kullan"
-
-#~ msgid "There is not enough disk space for this type of installation."
-#~ msgstr "Diskte bu tür kurulum için gerektiði kadar yer yok."
-
-#, fuzzy
-#~ msgid "There is not enough disk space for the chosen partitioning."
-#~ msgstr "Diskte bu tür kurulum için gerektiði kadar yer yok."
-
-#, fuzzy
-#~ msgid "Skip LILO install"
-#~ msgstr "SILO Kurulumu"
-
-#~ msgid "No BOOTP reply received"
-#~ msgstr "BOOTP yanýtý alýnamadý"
-
-#~ msgid "No DHCP reply received"
-#~ msgstr "DHCP yanýtý alýnamadý"
-
-#~ msgid "Base IO port:"
-#~ msgstr "Taban IO adresi:"
-
-#~ msgid "IRQ level:"
-#~ msgstr "IRQ düzeyi:"
-
-#~ msgid "IO base, IRQ:"
-#~ msgstr "IO adresi, IRQ:"
-
-#~ msgid "Interrupt level (IRQ):"
-#~ msgstr "Kesme düzeyi (IRQ):"
-
-#~ msgid "IO base, IRQ, label:"
-#~ msgstr "IO adresi, IRQ, etiket:"
-
-#~ msgid "Specify options"
-#~ msgstr "Seçenek belirt"
-
-#~ msgid "mknod() failed: %s"
-#~ msgstr "mknod() baþarýsýz: %s"
-
-#~ msgid "Load module"
-#~ msgstr "Modül yükleme"
-
-#~ msgid "Probe"
-#~ msgstr "Tara"
-
-#~ msgid "A %s card has been found on your system."
-#~ msgstr "Sisteminizde bir %s kartý bulundu."
-
-#~ msgid "device command"
-#~ msgstr "aygýt komutu"
-
-#~ msgid "bad argument to kickstart device command %s: %s"
-#~ msgstr "kickstart aygýt komutu için hatalý argüman %s: %s"
-
-#~ msgid "bad arguments to kickstart device command"
-#~ msgstr "kickstart aygýt komutu için hatalý argümanlar"
-
-#~ msgid "No module exists for %s"
-#~ msgstr "%s için bir modül yok"
-
-#~ msgid "I can't find the device anywhere on your system!"
-#~ msgstr "Belirtilen aygýt sisteminizde bulunamýyor!"
-
-#~ msgid ""
-#~ "In some cases, the %s driver needs to have extra information to work "
-#~ "properly, although it normally works fine without. Would you like to specify "
-#~ "extra options for it or allow the driver to probe your machine for the "
-#~ "information it needs? Occasionally, probing will hang a computer, but it "
-#~ "should not cause any damage."
-#~ msgstr ""
-#~ "Bazý durumlarda %s aygýtýnýn tanýtýlmasý için ek parametreler gerekebilir. "
-#~ "Normal durumlarda ek parametreler olmadan çalýþmasý beklenir. Ek "
-#~ "parametreleri belirtmek mi istersiniz, sürücünün tarama yapmasýný mý? Bazen, "
-#~ "tarama iþlemi makinanýzýn kilitlenmesine neden olabilir, ancak donanýmýnýza "
-#~ "zarar vermesi beklenmez. "
-
-#~ msgid ""
-#~ "In many cases, the %s driver needs to be provided with extra information on "
-#~ "your hardware. If you prefer, some common values for those parameters will "
-#~ "be tried. This process can hang a machine, although it should not cause any "
-#~ "damage."
-#~ msgstr ""
-#~ "Birçok durumda %s aygýtýnýn tanýtýlmasý için ek parametreler gerekebilir. "
-#~ "Ýsterseniz bu parametreler için sýk rastlanan bazý deðerler denenebilir. Bu "
-#~ "iþlem makinanýzý kilitleyebilir, ancak donanýmýnýza zarar vermesi beklenmez."
-
-#~ msgid "Module options:"
-#~ msgstr "Modül seçenekleri:"
-
-#~ msgid "Cannot open /proc/filesystems: %d"
-#~ msgstr "/proc/filesystems açýlamýyor: %d"
-
-#~ msgid "Failed to open %s. No upgrade log will be kept."
-#~ msgstr "%s açýlamadý. Güncelleme kaydý tutulmayacak."
-
-#~ msgid "Fatal error opening RPM database"
-#~ msgstr "RPM veri tabanýnýn açýlmasýnda ciddi hata"
-
-#~ msgid "Error ordering package list: %s"
-#~ msgstr "Paket listesinin düzenlenmesinde hata: %s"
-
-#~ msgid "Install anyway"
-#~ msgstr "Yine de kur"
-
-#~ msgid "Fatal error reopening RPM database"
-#~ msgstr "RPM veri tabanýnýn yeniden açýlmasýnda ciddi hata"
-
-#~ msgid "Examining packages to install..."
-#~ msgstr "Kurulacak paketler inceleniyor..."
-
-#~ msgid "Finding overlapping files..."
-#~ msgstr "Çakýþan dosyalar bulunuyor..."
-
-#~ msgid "Removing old files..."
-#~ msgstr "Eski paketler kaldýrýlýyor..."
-
-#~ msgid "Error installing package: cannot open RPM file for %s: %s"
-#~ msgstr "Paketin kurulmasýnda hata: %s için RPM dosyasý açýlamadý: %s"
-
-#~ msgid "Force supplemental disk"
-#~ msgstr "Ek disketi iste"
-
-#~ msgid "Note"
-#~ msgstr "Not"
-
-#~ msgid "I could not mount a CD on device /dev/%s"
-#~ msgstr "/dev/%s aygýtýnda CD baðlanamadý"
-
-#~ msgid "nfs command"
-#~ msgstr "nfs komutu"
-
-#~ msgid "bad argument to kickstart nfs command %s: %s"
-#~ msgstr "kickstart nfs komutu %s için hatalý argüman: %s"
-
-#~ msgid "nfs command incomplete"
-#~ msgstr "nfs komutu eksik"
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Disket baðlamadý. Lütfen Red Hat PCMCIA disketini takýn ya da farklý "
-#~ "birkurulum yöntemi seçmek üzere Vazgeç seçeneðini seçin"
-
-#~ msgid "Loading PCMCIA Support"
-#~ msgstr "PCMCIA desteði yükleniyor"
-
-#~ msgid "Supplemental Disk"
-#~ msgstr "Yardýmcý Disket"
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Supplementary "
-#~ "Install disk, or choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Disket baðlanamadý. Lütfen Red Hat Ek disketini takýn ya da baþka bir "
-#~ "kurulum yöntemi seçmek üzere 'Vazgeç' seçeneðini seçin."
-
-#~ msgid "Loading Supplemental Disk..."
-#~ msgstr "Ek disket yükleniyor..."
-
-#~ msgid ""
-#~ "This install method requires a driver disk. Please remove the supplemental "
-#~ "disk currently in your drive and replace it with the Red Hat Modules disk."
-#~ msgstr ""
-#~ "Bu kurulum yöntemi bir sürücü disketi gerektiriyor. Lütfen ek disketi "
-#~ "sürücüden çýkartýp Red Hat modül disketini takýn."
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Module disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Disket baðlanamadý. Lütfen Red Hat Modül disketini takýn ya da baþka bir "
-#~ "kurulum yöntemi seçmek üzere 'Vazgeç' seçeneðini seçin."
-
-#~ msgid ""
-#~ "This install method requires two additional disks. Please remove the boot "
-#~ "disk currently in your drive and replace it with the Red Hat Supplementary "
-#~ "Install disk."
-#~ msgstr ""
-#~ "Bu kurulum yöntemi iki ek disket gerektiriyor. Lütfen Red Hat Yardýmcý "
-#~ "kurulum disketlerini takýn."
-
-#~ msgid "hd command"
-#~ msgstr "hd komutu"
-
-#~ msgid "bad argument to kickstart hd command %s: %s"
-#~ msgstr "kickstart hd komutu %s için hatalý argüman: %s"
-
-#~ msgid "hd command incomplete"
-#~ msgstr "hd komutu eksik"
-
-#~ msgid "HD device %s not found"
-#~ msgstr "Sabit disk aygýtý %s bulunamadý"
-
-#~ msgid "Failed to create /tmp/rhimage symlink: %s"
-#~ msgstr "/tmp/rhimage sembolik bað yaratýlamadý: %s"
-
-#~ msgid "url command"
-#~ msgstr "url komutu"
-
-#~ msgid "bad argument to kickstart url command %s: %s"
-#~ msgstr "kickstart url komutu %s için hatalý argüman: %s"
-
-#~ msgid "url command incomplete"
-#~ msgstr "url komutu eksik"
-
-#~ msgid "Mount points must begin with a leading /."
-#~ msgstr "Baðlama noktalarý / iþaretiyle baþlamalý."
-
-#~ msgid "Mount points may not end with a /."
-#~ msgstr "Baðlama noktalarý / iþaretiyle bitmemeli."
-
-#~ msgid "Mount points may only printable characters."
-#~ msgstr "Baðlama noktalarýnda yalnýzca basýlabilir iþaretler bulunmalý."
-
-#~ msgid "System partitions must be on Linux Native partitions."
-#~ msgstr "Sistem bölümleri Linux native tipi disk bölümleri üzerinde olmalý."
-
-#~ msgid "/usr must be on a Linux Native partition or an NFS volume."
-#~ msgstr ""
-#~ "/usr dizini ya Linux native tipi bir disk bölümünde ya da NFS üzerinde "
-#~ "olmalý."
-
-#~ msgid "Edit Network Mount Point"
-#~ msgstr "Að Baðlama Noktasý'ný düzenle"
-
-#~ msgid "Running"
-#~ msgstr "Çalýþýyor"
-
-#~ msgid "nfs mount failed: %s"
-#~ msgstr "NFS üzeri baðlama baþarýsýz oldu"
-
-#~ msgid "mount failed: %s"
-#~ msgstr "baðlama baþarýsýz oldu : %s"
-
-#~ msgid ""
-#~ "The partition table on device %s is corrupted.  To create new partitions it "
-#~ "must be initialized. You can specify \"zerombr yes\" in the kickstart file "
-#~ "to have this done automatically"
-#~ msgstr ""
-#~ "%s aygýtý üzerindeki bölüm tablosu bozulmuþ. Yeni bölümler yaratýlabilmesi "
-#~ "için sýfýrlanmasý gerekiyor. Kickstart dosyasýnda \"zerombr yes\" seçeneðini "
-#~ "belirtirseniz bu iþlem kendiliðinden gerçekleþecektir."
-
-#~ msgid "Zero Partition Table"
-#~ msgstr "Bölüm Tablosu Sýfýrla"
-
-#~ msgid ""
-#~ "bad argument to kickstart zerombr command: %s.\n"
-#~ "Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
-#~ msgstr ""
-#~ "kickstart zerombr komutu için hatalý argüman: %s.\n"
-#~ "Açmak için 'on', '1' ya da 'yes', kapatmak için 'off' '0' ya da 'no' "
-#~ "kullanabilirsiniz"
-
-#~ msgid "Clear Partition Command"
-#~ msgstr "Bolüme Ayýrma Komutunu Temizle"
-
-#~ msgid "bad argument to kickstart clearpart command %s: %s"
-#~ msgstr "kickstart clearpart komutuna hatalý argüman %s: %s"
-
-#~ msgid "Partition Command"
-#~ msgstr "Partition Komutu"
-
-#~ msgid "bad argument to kickstart part command %s: %s"
-#~ msgstr "kickstart part komutuna hatalý argüman %s: %s"
-
-#~ msgid "Option Ignored"
-#~ msgstr "Seçenek gözardý edildi"
-
-#~ msgid ""
-#~ "The --maxsize option for the partition %s was ignored. Check that it is "
-#~ "larger than the --size option."
-#~ msgstr ""
-#~ "%s bölümü için --maxsize seçeneði gözardý edildi. --size seçeneðinden daha "
-#~ "büyük bir deðeri olmasýna dikkat edin."
-
-#~ msgid "The mount point %s is already in use."
-#~ msgstr "%s baðlama noktasý zaten kullanýlýyor."
-
-#~ msgid "Failed Allocation"
-#~ msgstr "Ayýrma Baþarýsýz"
-
-#~ msgid ""
-#~ "There are partitions that can be resized nondestructively to make room for "
-#~ "your Red Hat Linux installation. Do you want to resize these partitions now?"
-#~ msgstr ""
-#~ "Red Hat Linux kurulumu için içlerine zarar vermeden boylarý ayarlanabilecek "
-#~ "bölümler var. Bu bölümlerin boylarýný ayarlamak ister misiniz ?"
-
-#~ msgid "Success"
-#~ msgstr "Baþarýlý"
-
-#~ msgid "Bad server response"
-#~ msgstr "Sunucu yanýtý olumsuz"
-
-#~ msgid "Server IO error"
-#~ msgstr "Sunucu G/Ç hatasý"
-
-#~ msgid "Server timeout"
-#~ msgstr "Sunucu zaman aþýmý"
-
-#~ msgid "Unable to lookup server host address"
-#~ msgstr "Sunucusu adresi çözülemedi"
-
-#~ msgid "Unable to lookup server host name"
-#~ msgstr "Sunucu adý çözülemedi"
-
-#~ msgid "Failed to establish data connection to server"
-#~ msgstr "Sunucu ile veri baðlantýsý kurulamadý"
-
-#~ msgid "Error setting remote server to passive mode"
-#~ msgstr "Uzak sunucu edilgen kipe (passive mode) geçirilemedi"
-
-#~ msgid "Abort in progress"
-#~ msgstr "Durdurma iþleme sokuldu"
-
-#~ msgid "Unknown or unexpected error"
-#~ msgstr "Bilinmeyen veya beklenmeyen hata"
-
-#~ msgid "Whole disk"
-#~ msgstr "Tüm disk"
-
-#~ msgid "Linux swap"
-#~ msgstr "Linux takas"
-
-#~ msgid "Linux native"
-#~ msgstr "Linux native"
-
-#~ msgid "DOS 12-bit FAT"
-#~ msgstr "DOS 12-bit FAT"
-
-#~ msgid "DOS 16-bit <32M"
-#~ msgstr "DOS 16-bit <32M"
-
-#~ msgid "DOS 16-bit >=32"
-#~ msgstr "DOS 16-bit >=32"
-
-#~ msgid "OS/2 HPFS"
-#~ msgstr "OS/2 HPFS"
-
-#~ msgid "Win95 FAT32"
-#~ msgstr "Win95 FAT32"
-
-#~ msgid ""
-#~ "You don't have any hard drives available! You probably forgot to configure a "
-#~ "SCSI controller."
-#~ msgstr ""
-#~ "Sistemde sabit disk bulunamadý. Bir SCSI denetçisi kurmayý unutmuþ "
-#~ "olabilirsiniz."
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux."
-#~ msgstr ""
-#~ "Red Hat Linux kurabilmek için Linux'a ayrýlmýþ en az 150 MB boyunda bir disk "
-#~ "bölümü gerekiyor."
-
-#~ msgid "Partition Disks"
-#~ msgstr "Disk Bölümleme"
-
-#~ msgid "Reboot Needed"
-#~ msgstr "Baþtan Baþlatma"
-
-#~ msgid "lilo command"
-#~ msgstr "lilo komutu"
-
-#~ msgid "bad argument to kickstart lilo command %s: %s"
-#~ msgstr "kickstart lilo komutu %s için hatalý argüman: %s"
-
-#~ msgid "PCMCIA Support"
-#~ msgstr "PCMCIA Desteði"
-
-#~ msgid ""
-#~ "Do you need to use PCMCIA devices during the install? Answer no to this "
-#~ "question if only need PCMCIA support after the install. You do not need "
-#~ "install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
-#~ "with a built-in CDROM drive."
-#~ msgstr ""
-#~ "Yükleme sýrasýnda PCMCIA desteðine ihtiyacýnýz var mý? Yüklemeden sonra "
-#~ "kullaným için PCMCIA desteði istiyorsanýz burada 'hayýr' diyebilirsiniz. "
-#~ "Dizüstü bilgisayarýnýzýn dahili CDROM sürücüsünü kullanýyorsanýz PCMCIA "
-#~ "desteðine ihtiyacýnýz olmayacktýr."
-
-#~ msgid "PCMCIA Support Disk"
-#~ msgstr "PCMCIA Desteði disketi"
-
-#~ msgid ""
-#~ "PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
-#~ "currently in your drive and replace it with the Red Hat PCMCIA support disk."
-#~ msgstr ""
-#~ "PCMCIA desteði için bir PCMCIA destek didketi gerekiyor. Lütfen Red Hat "
-#~ "PCMCIA Desteði disketini takýn."
-
-#~ msgid "Starting PCMCIA services..."
-#~ msgstr "PCMCIA hizmetleri baþlatýlýyor..."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Type <exit> to return to the install program.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Kurulum programýna geri dönmek için <exit> yazýn.\n"
+#~ "etiketlerini belirtin\n"
 #~ "\n"
 
-#~ msgid "No kickstart configuration file server can be found."
-#~ msgstr "Kickstart ayar dosyasý sunucusu bulunamadý."
-
-#~ msgid "I could not mount the kickstart path %s.\n"
-#~ msgstr "Kickstart dizini %s baðlanamadý.\n"
-
-#~ msgid "I could not mount the boot floppy."
-#~ msgstr "Açýlýþ disketi baðlanamadý."
-
-#~ msgid "Error opening files for kickstart copy: %s\n"
-#~ msgstr "Kickstart copy için dosyalar açýlamadý: %s\n"
-
-#~ msgid "Error copying kickstart file from floppy."
-#~ msgstr "Açýlýþ disketinden kickstart dosyasý kopyalanamadý."
-
-#~ msgid "Select installation path"
-#~ msgstr "Kurulumun yolunun seçimi"
-
-#~ msgid "Select installation class"
-#~ msgstr "Kurulum sýnýfýnýn seçimi"
-
-#~ msgid "Setup SCSI"
-#~ msgstr "SCSI ayarlarý"
-
-#~ msgid "Setup swap space"
-#~ msgstr "Takas alaný ayarlarý"
-
-#~ msgid "Find installation files"
-#~ msgstr "Kurulum dosyalarýnýn bulunmasý"
-
-#~ msgid "Configure networking"
-#~ msgstr "Að ayarlarý"
-
-#~ msgid "Configure timezone"
-#~ msgstr "Zaman dilimi ayarlarý"
-
-#~ msgid "Configure services"
-#~ msgstr "Hizmet ayarlarý"
-
-#~ msgid "Configure printer"
-#~ msgstr "Yazýcý ayarlarý"
-
-#~ msgid "Exit install"
-#~ msgstr "Kurulumdan cýkýþ"
-
-#~ msgid "Find current installation"
-#~ msgstr "Þu anki kurulumun bulunmasý"
-
-#~ msgid "Scanning packages..."
-#~ msgstr "Paketler taranýyor..."
-
-#~ msgid ""
-#~ "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
-#~ "is finished. After rebooting, please read it to ensure configuration files "
-#~ "are properly updated."
-#~ msgstr ""
-#~ "Güncelleme boyunca olanlarýn kaydýný sisteminizi yeniden açtýktan sonra "
-#~ "/tmp/upgrade.log dosyasýnda bulabilirsiniz."
-
-#~ msgid "rootpw command"
-#~ msgstr "rootpw komutu"
-
-#~ msgid "bad argument to kickstart rootpw command %s: %s"
-#~ msgstr "kickstart rootpw komutuna hatalý argüman %s: %s"
-
-#~ msgid "Unexpected arguments"
-#~ msgstr "Beklenmeyen argümanlar"
-
-#~ msgid "Installation Path"
-#~ msgstr "Kurulum Yolu"
-
-#~ msgid ""
-#~ "Would you like to install a new system or upgrade a system which already "
-#~ "contains Red Hat Linux 2.0 or later?"
-#~ msgstr ""
-#~ "Yeni bir sistem kurmak mý istiyorsunuz, Red Hat Linux 2.0 ya da üstü bir "
-#~ "sistemi güncellemek mi istiyorsunuz?"
-
-#~ msgid ""
-#~ "What type of machine are you installing? For maximum flexibility, choose "
-#~ "\"Custom\"."
-#~ msgstr ""
-#~ "Ne tip bir makina kuruyorsunuz? Esneklik için \"Özel\" seçeneðini "
-#~ "iþaretleyin."
-
-#~ msgid "Converting RPM database..."
-#~ msgstr "RPM veritabaný dönüþtürülüyor..."
-
-#~ msgid "Previous"
-#~ msgstr "Önceki"
-
-#~ msgid "Menu"
-#~ msgstr "Menü"
-
-#~ msgid ""
-#~ "An error occured during step \"%s\" of the install.\n"
-#~ "\n"
-#~ "You may retry that step, return to the previous step in the install, or see "
-#~ "a menu of installation steps which will allow you to move around in the "
-#~ "install more freely. It is not recommended to use the menu unless you are "
-#~ "already familiar with Red Hat Linux. What would you like to do?"
-#~ msgstr ""
-#~ "Kurulumun \"%s\" adýmýnda bir hata oluþtu.\n"
-#~ "\n"
-#~ "Bu adýmý yeniden deneyebilirsiniz, bir önceki adýma geri dönebilirsiniz, ya "
-#~ "da kurulum adýmlarý arasýnda dolaþmanýza olanak veren bir menüye "
-#~ "geçebilirsiniz. Daha önce Red Hat Linux kurmadýysanýz menüyü seçmenizi "
-#~ "önermeyiz. Ne yapmak istersiniz?"
-
-#~ msgid "  Continue with install"
-#~ msgstr "  Kuruluma devam et"
-
-#~ msgid ""
-#~ "What step would you like to run? Steps with a * next to them have already "
-#~ "been completed."
-#~ msgstr ""
-#~ "Hangi adýmý seçmek istiyorsunuz? Yanlarýnda (*) iþareti bulunan adýmlar "
-#~ "tamamlanmýþtýr."
-
-#~ msgid "Insert a blank floppy in the first drive /dev/fd0."
-#~ msgstr "Sistemin ilk disk sürücüsüne boþ bir disket yerleþtirin"
-
-#~ msgid "file %s missing from source directory"
-#~ msgstr "Kaynak dizindeki %s dosyasý eksik"
-
-#~ msgid "error reading from file %s: %s"
-#~ msgstr "%s dosyasýndan okunamadý: %s"
-
-#~ msgid "Kernel"
-#~ msgstr "Çekirdek"
-
-#~ msgid ""
-#~ "Please insert your boot disk in your first disk drive if it's not already "
-#~ "present."
-#~ msgstr "Açýlýþ disketini birinci disket sürücüye yerleþtirin"
-
-#~ msgid "Copying kernel from floppy..."
-#~ msgstr "Disketten Linux çekirdeði kopyalanýyor..."
-
-#~ msgid "Unknown command %s on line %d of kickstart file %s."
-#~ msgstr "kickstart %s dosyasýnýn %d. satýrýnda anlaþýlmayan komut"
-
-#~ msgid "Failed to create /mnt/tmp/ks.script: %s"
-#~ msgstr "/mnt/tmp/ks.script yaratýlamadý: %s"
-
-#~ msgid "Failed to write ks post script: %s"
-#~ msgstr "ks post script yazýlamadý: %s"
-
-#~ msgid "Failed to create symlink for package source."
-#~ msgstr "Paketlerin bulunduðu yere sembolik bað oluþturulamadý."
-
-#~ msgid "ftp"
-#~ msgstr "ftp"
-
-#~ msgid "I'm having trouble getting %s. Would you like to retry?"
-#~ msgstr "%s alýnýrken sorun çýkýyor. Tekrar denemek ister misiniz?"
-
-#~ msgid "SILO"
-#~ msgstr "SILO"
-
-#~ msgid "LILO"
-#~ msgstr "LILO"
-
-#~ msgid "Creating initial ramdisk..."
-#~ msgstr "ramdisk yaratýlýyor..."
-
-#~ msgid "Device:"
-#~ msgstr "Aygýt:"
-
-#~ msgid "Boot label:"
-#~ msgstr "Açýlýþ etiketi:"
-
-#~ msgid "Installing boot loader..."
-#~ msgstr "Sistem yükleyici kuruluyor..."
-
-#~ msgid "Bootable Partitions"
-#~ msgstr "Açýlabilir Bölümler"
-
-#~ msgid ""
-#~ "What partitions would you like to use for swap space? This will destroy any "
-#~ "information already on the partition."
-#~ msgstr ""
-#~ "Takas alaný olarak hangi bölümü kullanmak istiyorsunuz? Bu iþlem bölümdeki "
-#~ "bütün bilgiyi yok edecektir."
-
-#~ msgid "Active Swap Space"
-#~ msgstr "Etkin Takas Alaný"
-
-#~ msgid "Could not mount automatically selected device."
-#~ msgstr "Seçilen aygýt kendiliðinden baðlanamadý."
-
-#~ msgid "Cannot read /mnt/etc/fstab: %s"
-#~ msgstr "/mnt/etc/fstab dosyasý okunamýyor: %s"
-
-#~ msgid "Bad line in /mnt/etc/fstab -- aborting"
-#~ msgstr "/mnt/etc/fstab dosyasýnda hatalý satýr -- çýkýlýyor"
-
-#~ msgid "Ethernet Probe"
-#~ msgstr "Ethernet Taramasý"
-
-#~ msgid ""
-#~ "The Ethernet probe failed to find a card on your system. Press <Enter> to "
-#~ "manually configure one."
-#~ msgstr ""
-#~ "Ethernet taramasý sisteminizde bir kart bulamadý. <Enter> tuþuna  basarak "
-#~ "kart ayarlarýný kendiniz yapabilirsiniz."
-
-#~ msgid "Static IP address"
-#~ msgstr "Statik IP adresi"
-
-#~ msgid "BOOTP"
-#~ msgstr "BOOTP"
-
-#~ msgid "kickstart network command is missing ip address"
-#~ msgstr "kickstart að komutunda IP adresi eksik"
-
-#~ msgid ""
-#~ "How should the IP information be set? If your system administrator gave you "
-#~ "an IP address, choose static IP."
-#~ msgstr ""
-#~ "IP bilgileri nasýl belirlensin. Kullanýmýnýz için ayrýlmýþ sabit bir IP "
-#~ "adresi varsa, statik IP seçin."
-
-#~ msgid "Sending BOOTP request..."
-#~ msgstr "BOOTP isteði gönderiliyor..."
-
-#~ msgid "Cannot create %s: %s\n"
-#~ msgstr "%s yaratýlamýyor: %s\n"
-
-#~ msgid "cannot create network device config file: %s"
-#~ msgstr "Að aygýtý yapýlandýrma dosyasý yaratýlamýyor: %s"
-
-#~ msgid "cannot open file: %s"
-#~ msgstr "dosya açýlamýyor: %s"
-
-#~ msgid ""
-#~ "I cannot automatically determine the hostname. Press <Enter> to enter "
-#~ "hostname information."
-#~ msgstr ""
-#~ "Makina adý otomatik olarak belirlenemiyor. <Enter> tuþuna basarak makina adý "
-#~ "bilgilerini girin."
-
-#~ msgid ""
-#~ "Please enter your domain name, host name, and the IP addresses of any "
-#~ "additional nameservers. Your host name should be a fully-qualified host "
-#~ "name, such as mybox.mylab.myco.com. If you don't have any additional "
-#~ "nameservers, leave the nameserver entries blank."
-#~ msgstr ""
-#~ "Lütfen, makinanizin alan adýný, makina adýný ve alan adý sunucularýnýzýn IP "
-#~ "numaralarýný girin. Makina adý olarak makinanýzýn tam adý girmeniz gerek "
-#~ "(penguen.burasý.org.tr gibi). Baþka alan adý sunucunuz yoksa, ilgili "
-#~ "kýsýmlarý boþ býrakabilirsiniz."
-
-#~ msgid "Host name:"
-#~ msgstr "Makina adý:"
-
-#~ msgid "Tertiary nameserver (IP):"
-#~ msgstr "Üçüncül DNS sunucusu (IP):"
-
-#~ msgid "Configure Network"
-#~ msgstr "Að Ayarlarý"
-
-#~ msgid "Keep the current IP configuration"
-#~ msgstr "Þu anki að ayarlarýný koru"
-
-#~ msgid "Reconfigure network now"
-#~ msgstr "Að ayarlarýný yeniden yap"
-
-#~ msgid "LAN networking has already been configured. Do you want to:"
-#~ msgstr "Yerel að ayarý yapýlmýþ durumda. Ne yapmak istersiniz?"
-
-#~ msgid ""
-#~ "Do you want to configure LAN (not dialup) networking for your installed "
-#~ "system?"
-#~ msgstr ""
-#~ "Yüklenmiþ sisteminiz için yerel að ayarlarýný (çevirmeli að deðil) yapmak "
-#~ "ister misiniz? "
-
-#~ msgid "Cannot open components file: %s"
-#~ msgstr "Bileþen dosyasý açýlamadý: %s"
-
-#~ msgid "Cannot read components file: %s"
-#~ msgstr "Bileþen dosyasý okunamadý: %s"
-
-#~ msgid "Comps file is not version 0.1 as expected"
-#~ msgstr "comps dosyasý beklendiði gibi 0.1 sürümünde deðil"
-
-#~ msgid "bad comps file at line %d"
-#~ msgstr "comps dosyasýnýn %d. satýrýnda hata"
-
-#~ msgid "comps Error"
-#~ msgstr "comps dosyasý hatasý"
-
-#~ msgid "missing component name at line %d"
-#~ msgstr "%d. satýrda eksik bileþen adý"
-
-#~ msgid "Ignore all"
-#~ msgstr "Tümünü gözardý et"
-
-#~ msgid "package %s at line %d does not exist"
-#~ msgstr "%d satýrýndaki %s adýndaki bir paket yok."
-
-#~ msgid "Component %s does not exist.\n"
-#~ msgstr "%s adýnda bir bileþen yok.\n"
-
-#~ msgid "Package %s does not exist.\n"
-#~ msgstr "%s adýnda bir paket yok.\n"
-
-#~ msgid ""
-#~ "Would you like to have the GNOME desktop installed? It provides an easy to "
-#~ "use interface, including a drag and drop capability and an integrated help "
-#~ "system."
-#~ msgstr ""
-#~ "GNOME kurulmasýný ister misiniz? GNOME, içinde sürükle ve býrak özelliði "
-#~ "veyardým sistemi içeren kullanýmý kolay bir arabirim saðlar."
-
-#~ msgid "Choose components to install:"
-#~ msgstr "Kurulacak bileþenleri seçin:"
-
-#~ msgid "Choose a group to examine"
-#~ msgstr "Ýncelemek için bir grup seçin"
-
-#~ msgid "Press F1 for a package description"
-#~ msgstr "Paket tanýtýmý için F1'e basýn"
-
-#~ msgid "Upgrade Packages"
-#~ msgstr "Paket Güncelleme"
-
-#~ msgid "<F1> will give you information on a particular printer type"
-#~ msgstr ""
-#~ "<F1> tuþuna basarak belli bir yazýcý tipiyle ilgili bilgi alabilirsiniz"
-
-#~ msgid "Configure Printer"
-#~ msgstr "Yazýcý Ayarlarý"
-
-#~ msgid "<F1> will give you information on this printer driver."
-#~ msgstr ""
-#~ "<F1> tuþuna basarak bu yazýcý sürücüsüyle ilgili bilgi alabilirsiniz"
-
-#~ msgid ""
-#~ "You may now configure the paper size and resolution for this printer."
-#~ msgstr ""
-#~ "Þimdi bu yazýcý için kaðýt boyu ve çözünülürlük ayarý yapabilirsiniz."
-
-#~ msgid "Paper Size"
-#~ msgstr "Kaðýt Boyu"
-
-#~ msgid "Resolution"
-#~ msgstr "Çözünürlük"
-
-#~ msgid "Fix stair-stepping of text?"
-#~ msgstr "Basamak etkisi düzeltilsin mi?"
-
-#~ msgid "You may now configure the color options for this printer."
-#~ msgstr "Þimdi bu yazýcý için renk seçeneklerini ayarlayabilirsiniz."
-
-#~ msgid "You may now configure the uniprint options for this printer."
-#~ msgstr "Þimdi bu yazýcý için uniprint seçeneklerini ayarlayabilirsiniz."
-
-#~ msgid "Configure Uniprint Driver"
-#~ msgstr "Uniprint Sürücüsünü Ayarla"
-
-#~ msgid ""
-#~ "What device is your printer connected to (note that /dev/lp0 is equivalent "
-#~ "to LPT1:)?"
-#~ msgstr ""
-#~ "Yazýcýnýz hangi iskeleye baðlý? (/dev/lp0, LPT1: aygýtýna karþý gelir) "
-
-#~ msgid ""
-#~ "Auto-detected ports:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Bulunan iskeleler:\n"
-#~ "\n"
-
-#~ msgid "Not "
-#~ msgstr "Hatalý"
-
-#~ msgid "Detected\n"
-#~ msgstr "Bulundu\n"
-
-#~ msgid "Local Printer Device"
-#~ msgstr "Yerel Yazýcý Aygýtý"
-
-#~ msgid "Remote hostname:"
-#~ msgstr "Sunucu adý:"
-
-#~ msgid "Remote queue:"
-#~ msgstr "Kuyruk adý:"
-
-#~ msgid "Remote lpd Printer Options"
-#~ msgstr "Uzak lpd Yazýcý Seçenekleri"
-
-#~ msgid ""
-#~ "To use a remote lpd print queue, you need to supply the hostname of the "
-#~ "printer server and the queue name on that server which jobs should be placed "
-#~ "in."
-#~ msgstr ""
-#~ "Uzak bir lpd yazýcýsýna basabilmek için yazýcý sunucusunun ve sunucudaki "
-#~ "kuyruðun isimlerini belirtmelisiniz."
-
-#~ msgid "Print Queue Name:"
-#~ msgstr "Yazýcý Kuyruk Adý:"
-
-#~ msgid "NetWare Printer Options"
-#~ msgstr "NetWare Yazýcý Seçenekleri"
-
-#~ msgid ""
-#~ "To print to a NetWare printer, you need to provide the NetWare print server "
-#~ "name (this is not always the same as the machines TCP/IP hostname) as well "
-#~ "as the print queue name for the printer you wish to access and any "
-#~ "applicable user name and password."
-#~ msgstr ""
-#~ "Bir NetWare yazýcýsýna basabilmek için NetWare sunucu adýný (bu isim TCP/IP "
-#~ "ismi ile ayný olmayabilir), gerekiyorsa sunucunun yazýcý kuyruk adýný ve "
-#~ "kullanýcý adý ile parolanýzý belirtmelisiniz."
-
-#~ msgid "SMB server host:"
-#~ msgstr "SMB sunucu adý:"
-
-#~ msgid "SMB server IP:"
-#~ msgstr "SMB sunucu IP:"
-
-#~ msgid "Share name:"
-#~ msgstr "Paylaþým adý:"
-
-#~ msgid "Workgroup:"
-#~ msgstr "Çalýþma grubu:"
-
-#~ msgid "SMB/Windows 95/NT Printer Options"
-#~ msgstr "SMB/Windows 95/NT Yazýcý Seçenekleri"
-
-#~ msgid ""
-#~ "To print to a SMB printer, you need to provide the SMB host name (this is "
-#~ "not always the same as the machines TCP/IP hostname) and possibly the IP "
-#~ "address of the print server, as well as the share name for the printer you "
-#~ "wish to access and any applicable user name, password, and workgroup "
-#~ "information."
-#~ msgstr ""
-#~ "Bir SMB yazýcýsýna basabilmek için SMB sunucu adýný (bu isim TCP/IP ismi ile "
-#~ "ayný olmayabilir), gerekiyorsa sunucunun IP adresini, yazýcýnýn paylaþým "
-#~ "adýný ve kullanýcý adý ile parolanýzý belirtmelisiniz."
-
-#~ msgid "Spool directory:"
-#~ msgstr "Kuyruk alaný:"
-
-#~ msgid "Standard Printer Options"
-#~ msgstr "Genel Yazýcý Seçenekleri"
-
-#~ msgid ""
-#~ "Every print queue (which print jobs are directed to) needs a name (often lp) "
-#~ "and a spool directory associated with it. What name and directory should be "
-#~ "used for this queue?"
-#~ msgstr ""
-#~ "Her yazýcý kuyruðunun bir adý ve kuyruk alaný olmasý gerekir. Bu kuyruðun "
-#~ "adý ve alaný neresi?"
-
-#~ msgid "Would you like to add another printer?"
-#~ msgstr "Bir yazýcý daha eklemek istiyor musunuz?"
-
-#~ msgid "SMB/Windows 95/NT"
-#~ msgstr "SMB/Windows 95/NT"
-
-#~ msgid "NetWare"
-#~ msgstr "NetWare"
-
-#~ msgid "How is this printer connected?"
-#~ msgstr "Bu yazýcý nasýl baðlý?"
-
-#~ msgid "Printer type:"
-#~ msgstr "Yazýcý tipi:"
-
-#~ msgid "Queue:"
-#~ msgstr "Kuyruk:"
-
-#~ msgid "Remote host:"
-#~ msgstr "Uzak sunucu:"
-
-#~ msgid "Share:"
-#~ msgstr "Paylaþým:"
-
-#~ msgid "Printer driver:"
-#~ msgstr "Yazýcý sürücüsü:"
-
-#~ msgid "Uniprint driver:"
-#~ msgstr "Uniprint sürücüsü:"
-
-#~ msgid ""
-#~ "Please verify that this printer information is correct:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Lütfen bu yazýcý bilgilerinin doðruluðunu onaylayýn:\n"
-#~ "\n"
-
-#~ msgid "Printer device"
-#~ msgstr "Yazýcý aygýtý"
-
-#~ msgid "Verify Printer Configuration"
-#~ msgstr "Yazýcý Ayarý Doðrulanmasý"
-
-#~ msgid ""
-#~ "\n"
-#~ "Do you have any more SCSI adapters on your system?"
-#~ msgstr ""
-#~ "\n"
-#~ "Sisteminizde baþka SCSI denetçisi var mý?"
-
-#~ msgid "SMB server name  :"
-#~ msgstr "SMB sunucu adý   :"
-
-#~ msgid "Share volume     :"
-#~ msgstr "Paylaþým adý     :"
-
-#~ msgid "Account name     :"
-#~ msgstr "Hesap adý        :"
-
-#~ msgid "Password         :"
-#~ msgstr "Þifre            :"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your SMB server\n"
-#~ "    o the volume to share which contains\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Lütfen aþaðýdaki bilgileri girin:\n"
-#~ "\n"
-#~ "    o SMB sunucunuzun adý ya da IP adresi\n"
-#~ "    o Bu sunucu üzerinde, Red Hat \n"
-#~ "      Linux'un bulunduðu dizin"
-
-#~ msgid "Password for %s@%s: "
-#~ msgstr "%s@%s için þifre:"
-
-#~ msgid "url port must be a number\n"
-#~ msgstr "url port'u bir sayý olmalý\n"
-
-#~ msgid "logging into %s as %s, pw %s\n"
-#~ msgstr "%s'a %s olarak giriliyor, þifre %s\n"
-
-#~ msgid "failed to open %s\n"
-#~ msgstr "%s açýlamadý\n"
-
-#~ msgid "failed to create %s\n"
-#~ msgstr "%s yaratýlamadý\n"
-
-#~ msgid "open of %s failed: %s\n"
-#~ msgstr "%s açýlamadý: %s\n"
-
-#~ msgid ""
-#~ "Error transferring file %s:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s dosyasý transfer hatasý:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "An error occurred reading the partition table for the block device %s.  The "
-#~ "error was:"
-#~ msgstr "%s aygýtýnýn bölüm tablosu okunurken bir hatayla karþýlaþýldý:"
-
-#~ msgid "LAN manager host:"
-#~ msgstr "LAN manager sunucu:"
-
-#~ msgid "LAN manager IP:"
-#~ msgstr "LAN manager IP:"
-
-#~ msgid "LAN Manager Printer Options"
-#~ msgstr "LAN Manager Yazýcý Seçenekleri"
-
-#~ msgid "LAN Manager"
-#~ msgstr "LAN Manager"
-
-#~ msgid "<F1> will show you a size and description of a package"
-#~ msgstr "<F1> tuþuna basarak paketin boyunu ve tanýmýný öðrenebilirsiniz"
-
-#~ msgid "Size of all selected packages:"
-#~ msgstr "Seçili paketlerin toplam boyu:"
-
-#~ msgid "Select Packages"
-#~ msgstr "Paket Seçimi"
-
-#~ msgid "I cannot get file %s: %s\n"
-#~ msgstr "%s dosyasý alýnamadý: %s\n"
-
-#~ msgid "I cannot log into machine: %s\n"
-#~ msgstr "Makinaya girilemedi: %s\n"
-
-#~ msgid ""
-#~ "Would you like to install or configure the SILO bootloader on your system?"
-#~ msgstr ""
-#~ "Sistem için bir SILO açýlýþ yükleyici kurmak ve yapýlandýrmak istiyor "
-#~ "musunuz?"
+#~ msgid "<Swap Partition"
+#~ msgstr "<Takas Bölümü"
+
+#~ msgid "Postgres (SQL) Server"
+#~ msgstr "Postgres (SQL) Sunucu"
