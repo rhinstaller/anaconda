@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.84\n"
 "POT-Creation-Date: 2001-06-27 02:55-0400\n"
-"PO-Revision-Date: 2001-03-19 08:21+0000\n"
+"PO-Revision-Date: 2001-07-06 15:21+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -11,25 +11,22 @@ msgstr ""
 
 #: ../autopart.py:714 ../iw/partition_gui.py:973
 #: ../textw/partition_text.py:142
-#, fuzzy
 msgid "Error Partitioning"
-msgstr "Disksneiðing"
+msgstr "Villa við disksneiðingu"
 
 #: ../autopart.py:715 ../iw/partition_gui.py:974
 #: ../textw/partition_text.py:143
-#, fuzzy, c-format
+#, c-format
 msgid "Could not allocated requested partitions: %s."
-msgstr "Sneiðar sem ekki fannst pláss fyrir..."
+msgstr "Gat ekki búið til umbeðnar disksneiðar: %s."
 
 #: ../bootloader.py:417
-#, fuzzy
 msgid "Bootloader"
-msgstr "Villur í uppsetningu ræsistjóra"
+msgstr "Ræsistjóri"
 
 #: ../bootloader.py:417
-#, fuzzy
 msgid "Installing bootloader..."
-msgstr "Set inn %s.\n"
+msgstr "Set upp ræsistjórann..."
 
 #: ../comps.py:557
 msgid "Everything"
@@ -89,7 +86,7 @@ msgid "Error"
 msgstr "Villa"
 
 #: ../fsset.py:504
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -97,9 +94,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Villa kom upp þegar reynt var að tengja tæki %s á %s: %s\n"
+"Villa kom upp þegar reynt var að virkja diskminni á tæki %s: %s\n"
 "\n"
-"Þetta þýðir líklega að disksneiðin hefur ekki verið forsniðin.\n"
+"Þetta þýðir líklega að diskminnissneiðin hefur ekki verið forsniðin.\n"
 "\n"
 "Veldu Í lagi til að endurræsa vélina."
 
@@ -111,6 +108,10 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"Villa kom upp þegar reynt var að forsníða %s.   Þetta er alverlegt vandamál "
+"sem veldur því að uppsetningin getur ekki haldið áfram.\n"
+"\n"
+"Sláðu á enter til að endurræsa vélina."
 
 #: ../fsset.py:551
 #, c-format
@@ -203,7 +204,7 @@ msgstr "Reyna aftur"
 
 #: ../gui.py:101 ../text.py:277
 msgid "Ignore"
-msgstr ""
+msgstr "Hunsa"
 
 #: ../gui.py:102 ../iw/account_gui.py:135 ../iw/account_gui.py:145
 #: ../iw/partition_gui.py:650 ../iw/partition_gui.py:1054
@@ -220,7 +221,6 @@ msgid "Cancel"
 msgstr "Hætta við"
 
 #: ../gui.py:189
-#, fuzzy
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report against anaconda "
@@ -228,7 +228,7 @@ msgid ""
 msgstr ""
 "Óeðlilegt ástand hefur komið upp. Orsökin er líklegast villa í "
 "uppsetningarforritinu. Vinsamlegast afritaðu allann textann hérna og sendu "
-"inn villutilkynningu á http://bugzilla.redhat.com/bugzilla"
+"inn villutilkynningu um anaconda á http://bugzilla.redhat.com/bugzilla"
 
 #: ../gui.py:296 ../text.py:246
 msgid ""
@@ -239,9 +239,8 @@ msgstr ""
 "eytt svo veldu disklinginn vel."
 
 #: ../gui.py:359 ../gui.py:707
-#, fuzzy
 msgid "Navigation"
-msgstr "Disksneið"
+msgstr "Stjórnun"
 
 #: ../gui.py:360 ../iw/language_gui.py:7 ../iw/language_support_gui.py:22
 #: ../textw/language_text.py:27
@@ -263,7 +262,7 @@ msgstr "Get ekki lesið skrá!"
 
 #: ../gui.py:489
 msgid "Release notes are missing.\n"
-msgstr ""
+msgstr "Útgáfuupplýsingarnar vantar.\n"
 
 #: ../gui.py:570 ../libfdisk/newtfsedit.c:1480 ../libfdisk/newtfsedit.c:1488
 #: ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238
@@ -302,7 +301,7 @@ msgstr "Red Hat Linux uppsetningarforritið á %s"
 
 #: ../gui.py:672
 msgid "Unable to load anaconda_header.png"
-msgstr ""
+msgstr "Get ekki lesið anaconda_header.png"
 
 #: ../gui.py:754
 msgid "Install Window"
@@ -361,9 +360,8 @@ msgid "Install"
 msgstr "Setja upp"
 
 #: ../monitor.py:148 ../mouse.py:184 ../videocard.py:135
-#, fuzzy
 msgid "Unable to probe"
-msgstr "Get ekki lesið skrá!"
+msgstr "Get ekki leitað"
 
 #: ../iw/package_gui.py:18 ../packages.py:34
 msgid "Proceed with upgrade?"
@@ -473,44 +471,40 @@ msgid "Performing post install configuration..."
 msgstr "Breyta stillingum eftir uppsetningu..."
 
 #: ../partitioning.py:281
-#, fuzzy
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters."
 msgstr ""
-"Tengipunkturinn %s er óleyfilegur.\n"
-"\n"
-"Heiti tengipunkta mega einungis innihalda prentanlega stafi."
+"Tengipunkturinn er óleyfilegur. Heiti tengipunkta verða að byrja á '/' en "
+"mega ekki enda á '/' og verða að innihalda aðeins prentanlega stafi."
 
 #: ../partitioning.py:288
 msgid "Please specify a mount point for this partition."
-msgstr ""
+msgstr "Vinsamlegast gefðu upp tengipunkt fyrir þess disksneið."
 
 #: ../partitioning.py:306
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The mount point %s is already in use, please choose a different mount point."
 msgstr ""
-"Tengipunkturinn sem þú valdir er þegar í notkun. Vinsamlegast veldu löglegan "
-"tengipunkt."
+"Tengipunkturinn %s er þegar í notkun. Vinsamlegast veldu annann tengipunkt."
 
 #: ../partitioning.py:322
-#, fuzzy
 msgid ""
 "This mount point is invalid.  This directory must be on the / filesystem."
-msgstr "Mappan %s verður að vera á rótarskráakerfinu."
+msgstr ""
+"Þessi tengipunktur er ógildur. Mappan verður að vera á rótarskráakerfinu."
 
 #: ../partitioning.py:327
-#, fuzzy
 msgid "This mount point must be on a linux filesystem."
-msgstr "Mappan %s verður að vera á rótarskráakerfinu."
+msgstr "Þessi tengipunktur verður að vera á linux skráarkerfi."
 
 #: ../partitioning.py:337
 #, c-format
 msgid ""
 "The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
 "MB."
-msgstr ""
+msgstr "Stærð disksneiðarinnar %s (%s MB) er stærri en hámarksstærðin %s MB."
 
 #: ../partitioning.py:340
 #, c-format
@@ -518,37 +512,37 @@ msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
+"Stærð umbeðinnar disksneiðar (%s MB) er stærri en hámarksstærðin %s MB."
 
 #: ../partitioning.py:343
 #, c-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
+msgstr "Stærð umbeðinnar disksneiðar er neikvæð! (%s MB)"
 
 #: ../partitioning.py:346
 msgid "Partitions can't start below the first cylinder."
-msgstr ""
+msgstr "Disksneiðar geta ekki byrjað fyrir neðan fyrsta cylinder."
 
 #: ../partitioning.py:349
 msgid "Partitions can't end on a negative cylinder."
-msgstr ""
+msgstr "Disksneiðar geta ekki endað á neikvæðum cylinder."
 
 #: ../partitioning.py:382
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "Engir diskar í RAID tækinu eða ekkert RAID stig var gefið upp."
 
 #: ../partitioning.py:387
 msgid "Some members of RAID request are not RAID partitions."
-msgstr ""
+msgstr "Sumar sneiðarnar í RAIDi tækinu eru ekki RAID disksneiðar."
 
 #: ../partitioning.py:397
-#, fuzzy
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Ræsisneiðar (/boot) mega einungis nota RAID-1"
+msgstr "Ræsisneiðar mega einungis vera á RAID1 tækjum."
 
 #: ../partitioning.py:401
 #, c-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "RAID tæki af gerðinni %s þarfnast amk. %s diska."
 
 #: ../partitioning.py:405
 #, c-format
@@ -556,11 +550,13 @@ msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
+"Þetta RAID tæki getur haft mest %s væradrif. Til að bæta við varadrifum þarf "
+"að bæta fleiri drifum við þetta RAID tæki."
 
 #: ../partitioning.py:690 ../partitioning.py:713
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting filesystem on %s: %s"
-msgstr "Villa við tengingu ext2 skráakerfis á %s: %s"
+msgstr "Villa við tengingu skráakerfis á %s: %s"
 
 #: ../iw/account_gui.py:134 ../iw/account_gui.py:144
 #: ../iw/partition_gui.py:649 ../iw/partition_gui.py:1053 ../loader/cdrom.c:34
@@ -802,11 +798,11 @@ msgstr "Nota textaham"
 
 #: ../xserver.py:173
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr ""
+msgstr "Bíð eftir að X þjónninn ræsi... annállinn er í /tmp/X.log\n"
 
 #: ../xserver.py:194
 msgid " X server started successfully."
-msgstr ""
+msgstr " X þjónninn ræsti vandræðalaust."
 
 #: ../iw/account_gui.py:12
 msgid "Account Configuration"
@@ -845,42 +841,36 @@ msgid "User passwords do not match."
 msgstr "Lykilorðin stemma ekki."
 
 #: ../iw/account_gui.py:132
-#, fuzzy
 msgid "Add a New User"
-msgstr "Bæta við notanda"
+msgstr "Bæta við nýjum notanda"
 
 #: ../iw/account_gui.py:141 ../textw/userauth_text.py:71
 msgid "Edit User"
 msgstr "Breyta notanda"
 
 #: ../iw/account_gui.py:166
-#, fuzzy
 msgid "User Name:"
-msgstr "Notandanafn"
+msgstr "Notandanafn:"
 
 #: ../iw/account_gui.py:168
-#, fuzzy
 msgid "Full Name:"
-msgstr "Fullt nafn"
+msgstr "Fullt nafn:"
 
 #: ../iw/account_gui.py:170 ../loader/urls.c:345 ../textw/userauth_text.py:23
 msgid "Password:"
 msgstr "Lykilorð:"
 
 #: ../iw/account_gui.py:172
-#, fuzzy
 msgid "Confirm:"
-msgstr "Staðfesta: "
+msgstr "Staðfesta:"
 
 #: ../iw/account_gui.py:175
-#, fuzzy
 msgid "Please enter user name"
-msgstr "Vinsamlegast sláðu inn aðgangsorð notandans."
+msgstr "Vinsamlegast sláðu notandanafn"
 
 #: ../iw/account_gui.py:256
-#, fuzzy
 msgid "Please enter a password for the root user."
-msgstr "Vinsamlega sláðu inn rótarlykilorðið."
+msgstr "Vinsamlega sláðu inn lykilorð fyrir rótarnotandann."
 
 #: ../iw/account_gui.py:269
 msgid "Root Password: "
@@ -919,9 +909,11 @@ msgstr "Eyða"
 
 #: ../iw/account_gui.py:340
 msgid ""
-"Additional accounts can be created for users that need to access the "
-"system.  Please enter user accounts here."
+"Additional accounts can be created for users that need to access the system. "
+" Please enter user accounts here."
 msgstr ""
+"Hægt er að búa til aðganga fyrir notendur sem þurfa að hafa aðgang að "
+"vélinni.  Vinsamlegast sláðu þá inn hér."
 
 #: ../iw/auth_gui.py:8 ../textw/userauth_text.py:298
 msgid "Authentication Configuration"
@@ -984,36 +976,32 @@ msgid "Admin Server:"
 msgstr "Stjórnþjónn:"
 
 #: ../iw/auth_gui.py:195
-#, fuzzy
 msgid "Enable Samba Authentication"
-msgstr "Auðkenning"
+msgstr "Nota Samba auðkenningu"
 
 #: ../iw/auth_gui.py:198
-#, fuzzy
 msgid "Samba Server:"
-msgstr "SMB (Samba) þjónn"
+msgstr "Samba þjónn:"
 
 #: ../iw/auth_gui.py:200
 msgid "Samba Workgroup:"
-msgstr ""
+msgstr "Samba vinnuhópur"
 
 #: ../iw/auth_gui.py:227
 msgid "NIS"
-msgstr ""
+msgstr "NIS"
 
 #: ../iw/auth_gui.py:228
 msgid "LDAP"
-msgstr ""
+msgstr "LDAP"
 
 #: ../iw/auth_gui.py:229
-#, fuzzy
 msgid "Kerberos 5"
-msgstr "Nota Kerberos"
+msgstr "Kerberos 5"
 
 #: ../iw/auth_gui.py:230
-#, fuzzy
 msgid "Samba"
-msgstr "Svalbarði"
+msgstr "Samba"
 
 #: ../iw/bootdisk_gui.py:10
 msgid "Bootdisk Creation"
@@ -1116,8 +1104,8 @@ msgstr ""
 "Linux.\n"
 "\n"
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna í Red Hat linux handbókunum sem eru fáanlegar á http://www.redhat.com/"
-"support/manuals/."
+"finna í Red Hat linux handbókunum sem eru fáanlegar á "
+"http://www.redhat.com/support/manuals/."
 
 #: ../iw/dependencies_gui.py:7
 msgid "Unresolved Dependencies"
@@ -1155,13 +1143,12 @@ msgid "Upgrade Examine"
 msgstr "Skoða uppfærslu"
 
 #: ../iw/examine_gui.py:38
-#, fuzzy
 msgid ""
 "You don't have any Linux partitions.\n"
 "You can't upgrade this sytem!"
 msgstr ""
 "Þú ert ekki með neinar Linux disksneiðar.\n"
-" Þú getur ekki uppfært þessa vél!"
+"Þú getur ekki uppfært þessa vél!"
 
 #: ../iw/examine_gui.py:48
 msgid "Please select the device containing the root filesystem: "
@@ -1249,7 +1236,6 @@ msgid "Keyboard Configuration"
 msgstr "Stillingar lyklaborðs"
 
 #: ../iw/keyboard_gui.py:97
-#, fuzzy
 msgid "Which model keyboard is attached to the computer?"
 msgstr "Hvernig lyklaborð er tengt þessari vél?"
 
@@ -1304,9 +1290,8 @@ msgstr "Velja sem sjálfgefið"
 
 #: ../iw/lilo_gui.py:24 ../textw/lilo_text.py:33 ../textw/lilo_text.py:88
 #: ../textw/lilo_text.py:206
-#, fuzzy
 msgid "Bootloader Configuration"
-msgstr "Stillingar skjás"
+msgstr "Stillingar ræsistjóra"
 
 #: ../iw/lilo_gui.py:220 ../iw/lilo_gui.py:359 ../iw/silo_gui.py:127
 #: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:120
@@ -1320,13 +1305,12 @@ msgid "Type"
 msgstr "Tegund"
 
 #: ../iw/lilo_gui.py:259
-#, fuzzy
 msgid "Install GRUB boot record on:"
-msgstr "Setja LILO ræsifærsluna á:"
+msgstr "Setja GRUB ræsifærsluna á:"
 
 #: ../iw/lilo_gui.py:281 ../textw/lilo_text.py:25
 msgid "Use LILO bootloader (instead of Grub)"
-msgstr ""
+msgstr "Nota ræsistjórann LILO (í stað Grub)"
 
 #: ../iw/lilo_gui.py:286 ../iw/silo_gui.py:208
 msgid "Kernel parameters"
@@ -1337,9 +1321,8 @@ msgid "Create boot disk"
 msgstr "Búa til ræsidiskling"
 
 #: ../iw/lilo_gui.py:309
-#, fuzzy
 msgid "Install Bootloader"
-msgstr "Setja upp kerfið"
+msgstr "Setja upp ræsistjórann"
 
 #: ../iw/lilo_gui.py:329 ../iw/silo_gui.py:257 ../textw/lilo_text.py:185
 #: ../textw/silo_text.py:196 ../textw/xconfig_text.py:366
@@ -1401,7 +1384,6 @@ msgid "Port"
 msgstr "Gátt"
 
 #: ../iw/mouse_gui.py:216
-#, fuzzy
 msgid "Which model mouse is attached to the computer?"
 msgstr "Hvernig mús er tengd þessari vél?"
 
@@ -1463,17 +1445,16 @@ msgid "Total install size: "
 msgstr "Samanlögð stærð uppsetningar: "
 
 #: ../iw/package_gui.py:349
-#, fuzzy
 msgid "All Packages"
-msgstr "Pakkar"
+msgstr "Allir pakkar"
 
 #: ../iw/package_gui.py:406
 msgid "Tree View"
-msgstr ""
+msgstr "Trjáarhamur"
 
 #: ../iw/package_gui.py:408
 msgid "Flat View"
-msgstr ""
+msgstr "Flatur hamur"
 
 #: ../iw/package_gui.py:422 ../iw/partition_gui.py:1245
 msgid "Size (MB)"
@@ -1505,7 +1486,7 @@ msgstr "Velja hvern pakka fyrir sig"
 #: ../textw/partition_text.py:155 ../textw/partition_text.py:157
 #: ../textw/partition_text.py:179
 msgid "<Not Applicable>"
-msgstr ""
+msgstr "<Á ekki við>"
 
 #: ../iw/partition_gui.py:436 ../textw/fdisk_text.py:38
 #: ../textw/partmethod_text.py:23
@@ -1514,54 +1495,50 @@ msgstr "Stillingar diska"
 
 #: ../iw/partition_gui.py:486 ../textw/partition_text.py:61
 #: ../textw/partition_text.py:93
-#, fuzzy
 msgid "Free space"
 msgstr "Laust pláss"
 
 #: ../iw/partition_gui.py:488 ../textw/partition_text.py:63
 msgid "Extended"
-msgstr ""
+msgstr "Framlengt"
 
 #: ../iw/partition_gui.py:490 ../textw/partition_text.py:65
 msgid "software RAID component"
-msgstr ""
+msgstr "Hugbúnaðar RAID"
 
 #: ../iw/partition_gui.py:497 ../iw/partition_gui.py:551
 #: ../textw/partition_text.py:72 ../textw/partition_text.py:124
-#, fuzzy
 msgid "None"
-msgstr "Búið"
+msgstr "Ekkert"
 
 #: ../iw/partition_gui.py:499
-#, fuzzy
 msgid "Free"
-msgstr "Laust (M)"
+msgstr "Laust"
 
 #: ../iw/partition_gui.py:553 ../textw/partition_text.py:126
-#, fuzzy, c-format
+#, c-format
 msgid "RAID Device %s"
-msgstr "Ekkert RAID tæki"
+msgstr "RAID tæki %s"
 
 #: ../iw/partition_gui.py:606
 msgid "Additional Size Options"
-msgstr ""
+msgstr "Frekari stærðarrofar"
 
 #: ../iw/partition_gui.py:611
 msgid "Fixed size"
-msgstr ""
+msgstr "Föst stærð"
 
 #: ../iw/partition_gui.py:612
 msgid "Fill all space up to (MB):"
-msgstr ""
+msgstr "Nota allt pláss upp að (MB):"
 
 #: ../iw/partition_gui.py:620
 msgid "Fill to maximum allowable size"
-msgstr ""
+msgstr "Stækka upp í mestu leyfilegu stærð"
 
 #: ../iw/partition_gui.py:647
-#, fuzzy
 msgid "Add Partition"
-msgstr "Disksneið"
+msgstr "Bæta við disksneið"
 
 #: ../iw/partition_gui.py:664 ../iw/partition_gui.py:1068
 #: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
@@ -1570,9 +1547,8 @@ msgid "Mount Point:"
 msgstr "Tengipunktur:"
 
 #: ../iw/partition_gui.py:671
-#, fuzzy
 msgid "Filesystem Type:"
-msgstr "Stærð rótarskráarkerfisins"
+msgstr "Tegund skráarkerfis:"
 
 #: ../iw/partition_gui.py:688 ../libfdisk/gnomefsedit.c:1134
 #: ../libfdisk/newtfsedit.c:527 ../textw/partition_text.py:206
@@ -1580,104 +1556,93 @@ msgid "Allowable Drives:"
 msgstr "Leyfileg drif:"
 
 #: ../iw/partition_gui.py:695
-#, fuzzy
 msgid "Drive:"
-msgstr "Drif"
+msgstr "Drif:"
 
 #: ../iw/partition_gui.py:705 ../iw/partition_gui.py:740
 #: ../textw/partition_text.py:227 ../textw/partition_text.py:310
 #: ../textw/partition_text.py:426
-#, fuzzy
 msgid "Size (MB):"
-msgstr "Stærð (MB)"
+msgstr "Stærð (MB):"
 
 #: ../iw/partition_gui.py:718 ../textw/partition_text.py:290
 msgid "Start Cylinder:"
-msgstr ""
+msgstr "Fyrsti cylinder:"
 
 #: ../iw/partition_gui.py:734 ../textw/partition_text.py:303
 msgid "End Cylinder:"
-msgstr ""
+msgstr "Síðasti cylinder:"
 
 #: ../iw/partition_gui.py:750 ../iw/partition_gui.py:1134
 #: ../textw/partition_text.py:435 ../textw/partition_text.py:573
-#, fuzzy
 msgid "Format partition?"
-msgstr "Rótarsneið"
+msgstr "Forsníða disksneiðina?"
 
 #: ../iw/partition_gui.py:775 ../textw/partition_text.py:416
 msgid "Force to be a primary partition"
-msgstr ""
+msgstr "Gera að primary disksneið"
 
 #: ../iw/partition_gui.py:843 ../iw/partition_gui.py:852
 #: ../iw/partition_gui.py:872 ../iw/partition_gui.py:1187
 #: ../textw/partition_text.py:510 ../textw/partition_text.py:525
 #: ../textw/partition_text.py:617
 msgid "Error With Request"
-msgstr ""
+msgstr "Villa"
 
 #: ../iw/partition_gui.py:894 ../textw/partition_text.py:704
-#, fuzzy
 msgid "You must first select a partition"
-msgstr "Fyrsta geira ræsidisksneiðar"
+msgstr "Þú verður að velja disksneið"
 
 #: ../iw/partition_gui.py:907
 msgid "You cannot remove free space."
-msgstr ""
+msgstr "Þú getur ekki fjarlægt laust pláss."
 
 #: ../iw/partition_gui.py:917 ../iw/partition_gui.py:1029
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
 msgstr ""
+"Þú getur ekki fjarlægt þessa disksneið því hún inniheldur gögnin fyrir "
+"uppsetningu frá hörðum disk."
 
 #: ../iw/partition_gui.py:925
-#, fuzzy
 msgid "You cannot remove this partition, as it is part of a RAID device."
-msgstr ""
-"Þú getur ekki fjarlægt \"/boot\" ef \"/\" er á RAID tæki. Færðu \"/\" á tæki "
-"sem er ekki RAID fyrst."
+msgstr "Þú getur ekki fjarlægt þessa sneið þar sem hún er hluti af RAID tæki."
 
 #: ../iw/partition_gui.py:987
-#, fuzzy
 msgid "You must first select an existing partition or free space to edit."
-msgstr ""
-"Þú verður að skilgreina diskminnissneið svo uppsetningin geti haldið áfram."
+msgstr "Þú þarft að velja disksneið eða laust pláss til að breyta."
 
 #: ../iw/partition_gui.py:1014 ../textw/partition_text.py:673
-#, fuzzy
 msgid "You cannot edit partitions without a filesystem type."
-msgstr "Þú verður að takmarka þessa sneið við a.m.k. eitt drif."
+msgstr "Þú getur ekki breytt disksneiðum sem eru án skráarkerfistegundar."
 
 #: ../iw/partition_gui.py:1037 ../textw/partition_text.py:683
 #: ../textw/partition_text.py:722
-#, fuzzy
 msgid "You cannot edit this partition, as it is part of a RAID device."
-msgstr "Þú verður að takmarka þessa sneið við a.m.k. eitt drif."
+msgstr ""
+"Þú getur ekki breytt þessaru disksneið þar sem hún er hluti af RAID tæki."
 
 #: ../iw/partition_gui.py:1051
-#, fuzzy
 msgid "Make Raid Device"
-msgstr "Raid tæki þegar í notkun"
+msgstr "Búa til Raid tæki"
 
 #: ../iw/partition_gui.py:1075 ../textw/partition_text.py:187
 #: ../textw/partition_text.py:422
-#, fuzzy
 msgid "Filesystem type:"
-msgstr "Stærð rótarskráarkerfisins"
+msgstr "Tegund skráarkerfis:"
 
 #: ../iw/partition_gui.py:1086 ../textw/partition_text.py:327
-#, fuzzy
 msgid "RAID Level:"
 msgstr "RAID tegund:"
 
 #: ../iw/partition_gui.py:1116 ../textw/partition_text.py:345
 msgid "Raid Members:"
-msgstr ""
+msgstr "Raid drif:"
 
 #: ../iw/partition_gui.py:1127
 msgid "Number of spares?:"
-msgstr ""
+msgstr "Fjöldi varadrifa?:"
 
 #: ../iw/partition_gui.py:1233 ../textw/partition_text.py:776
 msgid "New"
@@ -1685,64 +1650,58 @@ msgstr "Nýr"
 
 #: ../iw/partition_gui.py:1237
 msgid "Make Raid"
-msgstr ""
+msgstr "Búa til Raid"
 
 #: ../iw/partition_gui.py:1244
-#, fuzzy
 msgid "Start"
-msgstr "Staða"
+msgstr "Byrjun"
 
 #: ../iw/partition_gui.py:1244
 msgid "End"
-msgstr ""
+msgstr "Endir"
 
 #: ../iw/partition_gui.py:1286
-#, fuzzy
 msgid "Automatic Disk Setup"
-msgstr "Stillingar diska"
+msgstr "Setja upp diskinn sjálfvirkt"
 
 #: ../iw/partition_gui.py:1304
-#, fuzzy
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
-msgstr "Þú verður að velja að minnsta kosti eitt tungumál til að setja inn."
+msgstr "Þú verður að velja amk. eitt drif til að setja Red Hat Linux upp á."
 
 #: ../iw/partition_gui.py:1326
 msgid ""
 "Before we can autopartition we need to know how you want us to use the space "
 "on your harddrives."
 msgstr ""
+"Áður en unnt er að sneiða diskinn sjálfvirkt þarf að gefa upp hvernig þú "
+"villt að diskurinn þinn sé nýttur."
 
 #: ../iw/partition_gui.py:1336
 msgid "I want to have autopartitioning:"
-msgstr ""
+msgstr "Ég vil sneiða diskinn sjálfvirkt:"
 
 #: ../iw/partition_gui.py:1342 ../textw/partition_text.py:828
-#, fuzzy
 msgid "Remove all Linux partitions"
-msgstr "Fjarlægja Linux disksneiðar"
+msgstr "Fjarlægja allar Linux disksneiðar"
 
 #: ../iw/partition_gui.py:1345 ../textw/partition_text.py:829
-#, fuzzy
 msgid "Remove all partitions"
-msgstr "Fjarlægja Linux disksneiðar"
+msgstr "Fjarlægja allar disksneiðar"
 
 #: ../iw/partition_gui.py:1348
-#, fuzzy
 msgid "Remove no partitions and use existing free space"
-msgstr "Nota laust pláss"
+msgstr "Fjarlægja engar sneiðar og nota einungis laust pláss"
 
 #: ../iw/partition_gui.py:1367
-#, fuzzy
 msgid "Which drives do you want to use for Linux?"
-msgstr "Hvar viltu setja upp ræsistjórann?"
+msgstr "Hvaða harðadiska viltu nota fyrir Linux?"
 
 #: ../iw/partmethod_gui.py:23
 msgid "Automatic Partitioning"
 msgstr "Sjálfvirk disksneiðing"
 
 #: ../iw/partmethod_gui.py:48 ../textw/partmethod_text.py:24
-#, fuzzy
 msgid ""
 "Autopartitioning sets up your partitioning in a reasonable way depending on "
 "your installation type and then gives you a chance to customize this setup.\n"
@@ -1754,6 +1713,10 @@ msgid ""
 "\n"
 "Which tool would you like to use?"
 msgstr ""
+"Sjálfvirk disksneiðing býr til grunn disksneiðarnar sem Linux þarfnast eftir "
+"þeirri uppsetningaraðferð sem þú hefur valið og gefur þér svo tækifæri til "
+"að breyta þeirri uppsetningu.\n"
+"\n"
 "Diska Drúídinn er tól til þess að sneiða niður diska og stilla upp "
 "tengipunktum. Það er hannað til þess að vera einfaldara í notkun en hið "
 "hefðbundna Linux fdisk ásamt því að vera öflugra. Samt eru tilfelli þar sem "
@@ -1763,7 +1726,7 @@ msgstr ""
 
 #: ../iw/partmethod_gui.py:69
 msgid "Have the installer autopartition for you"
-msgstr ""
+msgstr "Láta uppsetningarforritið sneiða diskinn sjálfvirkt"
 
 #: ../iw/partmethod_gui.py:72
 msgid "Manually partition with Disk Druid"
@@ -1871,16 +1834,16 @@ msgid "Upgrade Swap Partition"
 msgstr "Uppfæra diskminnissneið"
 
 #: ../iw/upgrade_swap_gui.py:89
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system.  You currently have %dMB of "
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"Linux 2.4 kjarninn þarfnast meira diskminnis en endri kjarnar. Magn "
-"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að stærð."
-"Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
+"Linux 2.4 kjarninn þarfnast talvert meira diskminnis en endri kjarnar. Magn "
+"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að "
+"stærð.Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
 "diskminni á einhverju af skráarkerfunum þínum núna."
 
 #: ../iw/upgrade_swap_gui.py:106
@@ -2020,7 +1983,7 @@ msgstr "Stillingar skjás"
 
 #: ../iw/xconfig_gui.py:532 ../iw/xconfig_gui.py:836
 msgid "Generic"
-msgstr ""
+msgstr "Almennur"
 
 #: ../iw/xconfig_gui.py:569
 msgid "DDC Probed Monitor"
@@ -2075,9 +2038,8 @@ msgstr ""
 "stillingar hér:"
 
 #: ../iw/xconfig_gui.py:841
-#, fuzzy
 msgid "Other"
-msgstr "Önnur port"
+msgstr "Önnur"
 
 #: ../iw/xconfig_gui.py:908
 msgid "Video card RAM: "
@@ -2139,11 +2101,11 @@ msgstr ""
 
 #: ../textw/complete_text.py:9
 msgid ""
-"                              <Return> to "
-"reboot                              "
+"                              <Return> to reboot                             "
+" "
 msgstr ""
-"                           <Return> til að "
-"endurræsa                          "
+"                           <Return> til að endurræsa                         "
+" "
 
 #: ../textw/complete_text.py:11 ../textw/complete_text.py:32
 msgid "Complete"
@@ -2151,11 +2113,11 @@ msgstr "Lokið"
 
 #: ../textw/complete_text.py:30
 msgid ""
-"                                <Return> to "
-"exit                              "
+"                                <Return> to exit                             "
+" "
 msgstr ""
-"                              <Return> til að "
-"hætta                           "
+"                              <Return> til að hætta                          "
+" "
 
 #: ../textw/complete_text.py:33
 msgid ""
@@ -2164,8 +2126,8 @@ msgid ""
 " For information on fixes which are available for this release of Red Hat "
 "Linux, consult the Errata available from http://www.redhat.com.\n"
 "\n"
-"Information on further configuring your system is available at http://www."
-"redhat.com/support/manuals/"
+"Information on further configuring your system is available at "
+"http://www.redhat.com/support/manuals/"
 msgstr ""
 "Til hamingju, uppsetningu er lokið.\n"
 "\n"
@@ -2185,7 +2147,6 @@ msgid "Upgrade to begin"
 msgstr "Uppfærsla að byrja"
 
 #: ../textw/fdisk_text.py:39
-#, fuzzy
 msgid "Choose a disk to run fdisk on"
 msgstr "Veldu disk til að keyra fdisk á"
 
@@ -2320,9 +2281,8 @@ msgstr ""
 "viðföngin núna. Ef þú ert ekki viss hafðu þetta autt."
 
 #: ../textw/lilo_text.py:50
-#, fuzzy
 msgid "Skip Bootloader"
-msgstr "Villur í uppsetningu ræsistjóra"
+msgstr "sleppa ræsistjóra"
 
 #: ../textw/lilo_text.py:51
 msgid ""
@@ -2333,6 +2293,11 @@ msgid ""
 "\n"
 "Are you sure you want to skip bootloader installation?"
 msgstr ""
+"Þú hefur kosið að setja ekki upp ræsistjóra. Við mælum eindregið með að "
+"ræsistjóri sé uppsettur nema þú hafir einhverjar sérþarfir. Ræsistjóra er "
+"nauðsynlegur til þess að ræsa upp Linux beint af harða disknum þínum. \n"
+"\n"
+"Ertu viss um að þú viljir sleppa uppsetningu ræsistjóra?"
 
 #: ../textw/lilo_text.py:89 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
@@ -2470,71 +2435,59 @@ msgstr ""
 "verða bætt við."
 
 #: ../textw/partition_text.py:261
-#, fuzzy
 msgid "Fixed Size:"
-msgstr "Ólögleg stærð"
+msgstr "Föst stærð:"
 
 #: ../textw/partition_text.py:263
 msgid "Fill maximum size of (MB):"
-msgstr ""
+msgstr "Nota hámarksstærðina (MB):"
 
 #: ../textw/partition_text.py:267
 msgid "Fill all available space:"
-msgstr ""
+msgstr "Nota allt tiltækt pláss:"
 
 #: ../textw/partition_text.py:363
 msgid "Number of spares?"
-msgstr ""
+msgstr "Fjöldi varadrifa?"
 
 #: ../textw/partition_text.py:375
-#, fuzzy
 msgid "Add partition"
-msgstr "Rótarsneið"
+msgstr "Bæta við sneið"
 
 #: ../textw/partition_text.py:548
-#, fuzzy
 msgid "Make RAID Device"
-msgstr "_Búa til RAID tæki"
+msgstr "Búa til RAID tæki"
 
 #: ../textw/partition_text.py:657
-#, fuzzy
 msgid "Not a Partition"
-msgstr "Engin diskminnissneið"
+msgstr "Ekki disksneið"
 
 #: ../textw/partition_text.py:658
-#, fuzzy
 msgid "You must select a partition to edit"
-msgstr "Þú verður að velja að minnsta kosti eitt tungumál til að setja inn."
+msgstr "Þú verður að velja disksneið til að breyta"
 
 #: ../textw/partition_text.py:688 ../textw/partition_text.py:703
 #: ../textw/partition_text.py:710 ../textw/partition_text.py:728
-#, fuzzy
 msgid "Unable to Remove"
-msgstr "Get ekki lesið skrá!"
+msgstr "Get ekki fjarlægt"
 
 #: ../textw/partition_text.py:689 ../textw/partition_text.py:729
-#, fuzzy
 msgid "You cannot remove this partition as it is part of a RAID device"
-msgstr ""
-"Þú getur ekki fjarlægt \"/boot\" ef \"/\" er á RAID tæki. Færðu \"/\" á tæki "
-"sem er ekki RAID fyrst."
+msgstr "Þú getur ekki fjarlægt þessa sneið þar sem hún er hluti af RAID tæki"
 
 #: ../textw/partition_text.py:711
 msgid "You cannot remove freespace"
-msgstr ""
+msgstr "Þú getur ekki fjarlægt laust pláss"
 
 #: ../textw/partition_text.py:766
-#, fuzzy
 msgid "Partitioning"
-msgstr "Disksneið"
+msgstr "Disksneiðing"
 
 #: ../textw/partition_text.py:776
-#, fuzzy
 msgid "RAID"
-msgstr "<RAID>"
+msgstr "RAID"
 
 #: ../textw/partition_text.py:779
-#, fuzzy
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
@@ -2545,24 +2498,20 @@ msgid "No Root Partition"
 msgstr "Engin rótarsneið"
 
 #: ../textw/partition_text.py:804
-#, fuzzy
 msgid "Must have a / partition to install on."
-msgstr ""
-"Þú verður að skilgreina diskminnissneið svo uppsetningin geti haldið áfram."
+msgstr "Þú verður að hafa / disksneið til að setja upp á."
 
 #: ../textw/partition_text.py:824 ../textw/partmethod_text.py:35
-#, fuzzy
 msgid "Autopartitioning"
-msgstr "Sneiða diskinn sjálfvirkt"
+msgstr "Sjálfvirk disksneiðing"
 
 #: ../textw/partition_text.py:830
-#, fuzzy
 msgid "Remove no partitions"
-msgstr "Fjarlægja Linux disksneiðar"
+msgstr "Fjarlægja engar disksneiðar"
 
 #: ../textw/partition_text.py:842
 msgid "Clear Partitions on These Drives:"
-msgstr ""
+msgstr "Eyða disksneiðum á eftirtöldum diskum:"
 
 #: ../textw/partmethod_text.py:35
 msgid "Disk Druid"
@@ -2642,8 +2591,8 @@ msgid ""
 "file systems now."
 msgstr ""
 "Linux 2.4 kjarninn þarfnast meira diskminnis en endri kjarnar. Magn "
-"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að stærð."
-"Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
+"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að "
+"stærð.Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
 "diskminni á einhverju af skráarkerfunum þínum núna."
 
 #: ../textw/upgrade_text.py:34
@@ -2744,8 +2693,8 @@ msgstr "Ólöglegt notandanafn"
 
 #: ../textw/userauth_text.py:95
 msgid ""
-"User IDs must be less than 8 characters and contain only characters A-Z, a-"
-"z, and 0-9."
+"User IDs must be less than 8 characters and contain only characters A-Z, "
+"a-z, and 0-9."
 msgstr ""
 "Notandanöfn verða að vera minna en 8 stafir að lengd og mega einungis \n"
 "innihalda stafina A-Z, a-z og 0-9."
@@ -2846,7 +2795,6 @@ msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
 #: ../textw/welcome_text.py:9
-#, fuzzy
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -2884,30 +2832,26 @@ msgstr ""
 "hnappinn að neðan."
 
 #: ../textw/xconfig_text.py:11
-#, fuzzy
 msgid "Color Depth"
-msgstr "Litadýpt:"
+msgstr "Litadýpt"
 
 #: ../textw/xconfig_text.py:12
 msgid "Please select the color depth you would like to use:"
-msgstr ""
+msgstr "Vinsamlegast veldu þá litadýpt sem þú villt nota:"
 
 #: ../textw/xconfig_text.py:30
-#, fuzzy
 msgid "Resolution"
-msgstr "Upplausn skjás:"
+msgstr "Upplausn"
 
 #: ../textw/xconfig_text.py:31
 msgid "Please select the resolution you would like to use:"
-msgstr ""
+msgstr "Vinsamlegast veldu þá upplausn sem þú villt nota:"
 
 #: ../textw/xconfig_text.py:148 ../textw/xconfig_text.py:157
-#, fuzzy
 msgid "Test"
-msgstr "Texti"
+msgstr "Prófa"
 
 #: ../textw/xconfig_text.py:151
-#, fuzzy
 msgid "X Customization"
 msgstr "Stillingar X"
 
@@ -2917,37 +2861,34 @@ msgid ""
 "Select the color depth and video mode you want to use for your system. Use "
 "the '%s' button to test the video mode."
 msgstr ""
+"Veldu litadýptina og upplausnina sem þú villt nota á vélinni þinni. Notaðu "
+"'%s' hnappinn til að prófa."
 
 #: ../textw/xconfig_text.py:164 ../textw/xconfig_text.py:171
 #: ../textw/xconfig_text.py:380 ../textw/xconfig_text.py:391
 #: ../textw/xconfig_text.py:547 ../textw/xconfig_text.py:554
-#, fuzzy
 msgid "Change"
-msgstr "Skipta um geisladisk"
+msgstr "Breyta"
 
 #: ../textw/xconfig_text.py:167
-#, fuzzy
 msgid "Resolution:"
-msgstr "Upplausn skjás:"
+msgstr "Upplausn:"
 
 #: ../textw/xconfig_text.py:177
-#, fuzzy
 msgid "Default Desktop:"
-msgstr "Sjálfgefið"
+msgstr "Sjálfgefið skjáborð:"
 
 #: ../textw/xconfig_text.py:197
-#, fuzzy
 msgid "Default Login:"
-msgstr "Sjálfgefið tungumál"
+msgstr "Sjálfgefin kveðja:"
 
 #: ../textw/xconfig_text.py:249
-#, fuzzy
 msgid "Please select the monitor attached to your system."
-msgstr "Vinsamlegast veldu tækið sem inniheldur rótarskráarkerfið: "
+msgstr "Vinsamlegast veldu skjáinn sem er tengdur vélinni þinni."
 
 #: ../textw/xconfig_text.py:266
 msgid "Monitor Sync Rates"
-msgstr ""
+msgstr "Tíðnisvið skjás"
 
 #: ../textw/xconfig_text.py:271
 msgid ""
@@ -2959,26 +2900,23 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:276
 msgid "HSync Rate: "
-msgstr ""
+msgstr "HSync tíðni: "
 
 #: ../textw/xconfig_text.py:281
 msgid "VSync Rate: "
-msgstr ""
+msgstr "VSync tíðni: "
 
 #: ../textw/xconfig_text.py:305
-#, fuzzy
 msgid "horizontal"
-msgstr "Lárétt samhæfing:"
+msgstr "Lárétt"
 
 #: ../textw/xconfig_text.py:308
-#, fuzzy
 msgid "vertical"
-msgstr "Lóðrétt samhæfing:"
+msgstr "Lóðrétt"
 
 #: ../textw/xconfig_text.py:317
-#, fuzzy
 msgid "Invalid Sync Rates"
-msgstr "Ógilt val"
+msgstr "Ógild tíðnisvið"
 
 #: ../textw/xconfig_text.py:318
 #, c-format
@@ -3002,17 +2940,16 @@ msgid ""
 msgstr ""
 
 #: ../textw/xconfig_text.py:376
-#, fuzzy
 msgid "Monitor:"
-msgstr "Skjár"
+msgstr "Skjár:"
 
 #: ../textw/xconfig_text.py:383
 msgid "HSync Rate:"
-msgstr ""
+msgstr "HSync tíðni:"
 
 #: ../textw/xconfig_text.py:393
 msgid "VSync Rate:"
-msgstr ""
+msgstr "VSync tíðni:"
 
 #: ../textw/xconfig_text.py:463
 #, c-format
@@ -3022,35 +2959,32 @@ msgid ""
 msgstr ""
 
 #: ../textw/xconfig_text.py:481
-#, fuzzy
 msgid "Video RAM"
 msgstr "Skjáminni"
 
 #: ../textw/xconfig_text.py:482
 #, c-format
 msgid ""
-"Please select the amount of video RAM present on your video card. Choose '%"
-"s' to reset the selection to the amount the installer detected on your card."
+"Please select the amount of video RAM present on your video card. Choose "
+"'%s' to reset the selection to the amount the installer detected on your "
+"card."
 msgstr ""
 
 #: ../textw/xconfig_text.py:537
-#, fuzzy
 msgid "Video Card Configuration"
-msgstr "Stillingar lyklaborðs"
+msgstr "Stillingar skjákorts"
 
 #: ../textw/xconfig_text.py:540
 msgid "Select the video card and video RAM for your system."
-msgstr ""
+msgstr "Veldu skjákortið og skjáminnið sem það hefur."
 
 #: ../textw/xconfig_text.py:543
-#, fuzzy
 msgid "Video Card:"
-msgstr "Skjákort"
+msgstr "Skjákort:"
 
 #: ../textw/xconfig_text.py:550
-#, fuzzy
 msgid "Video RAM:"
-msgstr "Vinnsluminni skjákorts: "
+msgstr "Vinnsluminni skjákorts:"
 
 #: ../installclasses/custom.py:12
 msgid "Custom System"
@@ -3065,9 +2999,8 @@ msgid "Server System"
 msgstr "Þjón"
 
 #: ../installclasses/upgradeclass.py:8
-#, fuzzy
 msgid "Upgrade Existing System"
-msgstr "Uppfæra kerfi"
+msgstr "Uppfæra núverandi kerfi"
 
 #: ../installclasses/upgradeclass.py:12
 msgid "Upgrade"
@@ -3129,8 +3062,8 @@ msgstr ""
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
-"system. Additionally, there will be a speed penalty for not using Linux-"
-"native partitions. Do you want to continue?"
+"system. Additionally, there will be a speed penalty for not using "
+"Linux-native partitions. Do you want to continue?"
 msgstr ""
 "Þú hefur farið fram á að hafa rótarskráarkerfið (/) á DOS FAT disksneið. "
 "Þetta er mögulegt, en þá er ekki hægt að nota aðrar gerðir skráarkerfa í "
@@ -4145,8 +4078,8 @@ msgid ""
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 "Red Hat Linux geisladiskurinn fannst ekki í neinu tiltæku geisladrifi. "
-"Vinsamlegast settu Red Hat geisladiskinn í viðeigandi drif og veldu \"Í lagi"
-"\" til að reyna aftur."
+"Vinsamlegast settu Red Hat geisladiskinn í viðeigandi drif og veldu \"Í "
+"lagi\" til að reyna aftur."
 
 #: ../loader/loader.c:1023
 msgid "Networking Device"
@@ -4234,10 +4167,9 @@ msgid "Reading anaconda updates..."
 msgstr "Les inn uppfærslur fyrir anaconda..."
 
 #: ../loader/loader.c:2361
-#, fuzzy
 msgid "You do not have enough RAM to install Red Hat Linux on this machine."
 msgstr ""
-"Það er ekki nægjanlegt vinnsluminni í vélinni til að setja upp Red Hat Linux"
+"Það er ekki nægjanlegt vinnsluminni í vélinni til að setja upp Red Hat Linux."
 
 #: ../loader/loader.c:2849
 msgid "Running anaconda - please wait...\n"
@@ -4426,7 +4358,6 @@ msgid "Retrieving"
 msgstr "Sæki"
 
 #: ../loader/urls.c:160
-#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4441,7 +4372,6 @@ msgstr ""
 "      Red Hat Linux fyrir vélina þína\n"
 
 #: ../loader/urls.c:169
-#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4589,13 +4519,11 @@ msgstr "Skoða: "
 msgid "Base"
 msgstr "Grunnur"
 
-#, fuzzy
 msgid "Printing Support"
 msgstr "Prentarastuðningur"
 
-#, fuzzy
 msgid "Classic X Window System"
-msgstr "X gluggakerfið"
+msgstr "Hefðbundið X gluggakerfi"
 
 msgid "X Window System"
 msgstr "X gluggakerfið"
@@ -4603,61 +4531,50 @@ msgstr "X gluggakerfið"
 msgid "Laptop Support"
 msgstr "Kjöltutölvustuðningur"
 
-#, fuzzy
 msgid "Sound and Multimedia Support"
-msgstr "Margmiðlunarstuðningur"
+msgstr "Hljóð og margmiðlunarstuðningur"
 
-#, fuzzy
 msgid "Network Support"
-msgstr "Stillingar nets"
+msgstr "Netstuðningur"
 
-#, fuzzy
 msgid "Dialup Support"
-msgstr "Kjöltutölvustuðningur"
+msgstr "Upphringistuðningur"
 
-# ../comps/comps-master:577
 msgid "Messaging and Web Tools"
-msgstr ""
+msgstr "Samskipta og veftól"
 
-#, fuzzy
 msgid "Graphics and Image Manipulation"
 msgstr "Umsýsla með grafík"
 
 msgid "News Server"
 msgstr "Fréttaþjónn"
 
-#, fuzzy
 msgid "NFS File Server"
 msgstr "NFS þjónn"
 
-#, fuzzy
 msgid "Windows File Server"
-msgstr "Vefþjónn"
+msgstr "Skráarþjónn fyrir Windows"
 
 msgid "Anonymous FTP Server"
 msgstr "Þjónn fyrir nafnlaust FTP"
 
-#, fuzzy
 msgid "SQL Database Server"
-msgstr "SQL þjónn"
+msgstr "SQL gagnagrunnsþjóns"
 
 msgid "Web Server"
 msgstr "Vefþjónn"
 
-#, fuzzy
 msgid "Router / Firewall"
-msgstr "Enginn eldveggur"
+msgstr "Beinir / Eldveggur"
 
 msgid "DNS Name Server"
 msgstr "DNS nafnaþjónn"
 
-#, fuzzy
 msgid "Network Managed Workstation"
-msgstr "Vinnustöð til netumsjónar"
+msgstr "Vinnustöð stýrð af neti"
 
-#, fuzzy
 msgid "Authoring and Publishing"
-msgstr "Umbrot/Ritstörf"
+msgstr "Umbrot og ritstörf"
 
 msgid "Emacs"
 msgstr "Emacs"
@@ -4665,24 +4582,20 @@ msgstr "Emacs"
 msgid "Utilities"
 msgstr "Tól"
 
-#, fuzzy
 msgid "Legacy Application Support"
-msgstr "Kjöltutölvustuðningur"
+msgstr "Stuðningur fyrir gömul forrit"
 
-#, fuzzy
 msgid "Software Development"
-msgstr "Kjarnaþróun"
+msgstr "Hugbúnaðarþróun"
 
 msgid "Kernel Development"
 msgstr "Kjarnaþróun"
 
-# ../comps/comps-master:1055
 msgid "Windows Compatibility / Interoperability"
-msgstr ""
+msgstr "Windows samhæfni"
 
-# ../comps/comps-master:1073
 msgid "Games and Entertainment"
-msgstr ""
+msgstr "Leikir og önnur skemmtun"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -4743,9 +4656,8 @@ msgid "Azores"
 msgstr "Azores"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr "Bayan-Olgiy, Hovd, Uvs"
+msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -4833,7 +4745,7 @@ msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar (unsure about this)"
-msgstr ""
+msgstr "Dornod, Sukhbaatar (unsure about this)"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
@@ -4852,9 +4764,8 @@ msgid "east Dem. Rep. of Congo"
 msgstr "east Dem. Rep. of Congo"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Easter Island & Sala y Gomez"
-msgstr "Easter Island"
+msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
@@ -4928,7 +4839,7 @@ msgstr "east Kazakhstan"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
+msgstr "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -5133,9 +5044,8 @@ msgid "New South Wales - most locations"
 msgstr "New South Wales - most locations"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Broken Hill"
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
@@ -5259,7 +5169,7 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Vostok Station, S Magnetic Pole"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -5275,7 +5185,7 @@ msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr ""
+msgstr "west & central Borneo"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
@@ -5384,516 +5294,3 @@ msgstr "Tyrkneska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
-
-#~ msgid ""
-#~ "The following partitions are newly created, but you have chosen not to "
-#~ "format them. This will probably cause an error later in the install.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Eftirtaldar disksneiðar er nýbúið að búa til en þú hefur kosið að "
-#~ "forsníða þær ekki. Þetta mun líklega valda villum þegar uppsetningin er "
-#~ "lengra komin.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Press OK to continue, or Cancel to go back and select these partitions to "
-#~ "be formatted (RECOMMENDED)."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Veldu Í lagi til að halda áfram eða Hætta við til að fara til baka og "
-#~ "láta forsníða þessar disksneiðar (MÆLT ER MEÐ ÞESSU)."
-
-#~ msgid ""
-#~ "The kernel is unable to read your new partitioning information, probably "
-#~ "because you modified extended partitions. While this is not critical, you "
-#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk "
-#~ "now and press \"Ok\" to reboot your system.\n"
-#~ msgstr ""
-#~ "Kjarninn getur ekki lesið nýju disksneiðatöfluna, sennilega vegna þess að "
-#~ "þú hefur breytt \"extended\" disksneiðum. Þó þetta sé ekki banvæn villa "
-#~ "verður þú að endurræsa vélina áður en þú getur haldið áfram. Settu inn "
-#~ "Red Hat ræsidiskinn og veldu \"Í lagi\" til að endurræsa.\n"
-
-#~ msgid "Swap Space"
-#~ msgstr "Diskminni"
-
-#~ msgid "Creating swap space..."
-#~ msgstr "Forsníð diskminni..."
-
-#~ msgid "Formatting swap space..."
-#~ msgstr "Forsníð diskminni..."
-
-#~ msgid "Error creating swap on device "
-#~ msgstr "Villa við frumstillingu diskminnis "
-
-#~ msgid "Error unmounting %s: %s"
-#~ msgstr "Villa við aftengingu %s: %s"
-
-#~ msgid "Creating RAID devices..."
-#~ msgstr "Bý til RAID tæki..."
-
-#~ msgid "Loopback"
-#~ msgstr "\"Loopback\""
-
-#~ msgid "Creating loopback filesystem on device /dev/%s..."
-#~ msgstr "Bý til \"loopback\" skráakerfi á tæki /dev/%s..."
-
-#~ msgid "Finish"
-#~ msgstr "Ljúka"
-
-#~ msgid "Online Help"
-#~ msgstr "Innbyggð hjálp"
-
-#~ msgid "Red Hat Linux Install Shell"
-#~ msgstr "Red Hat Linux uppsetningaskel"
-
-#~ msgid "Red Hat Linux Install Shell on %s"
-#~ msgstr "Red Hat Linux uppsetningaskel á %s"
-
-#~ msgid "WARNING: no valid block devices were found.\n"
-#~ msgstr "AÐVÖRUN: engin gild blokkartæki fundust.\n"
-
-#~ msgid "ERROR: unknown error encountered reading partition tables.\n"
-#~ msgstr "VILLA: óþekkt villa kom upp við lestur disksneiðatöflunnar.\n"
-
-#~ msgid "Upgrade Existing Installation"
-#~ msgstr "Uppfæra núverandi kerfi"
-
-#~ msgid "X probe results"
-#~ msgstr "Útkoma X leitar"
-
-#~ msgid "Unlisted Card"
-#~ msgstr "Óþekkt kort"
-
-#~ msgid "Video Card Selection"
-#~ msgstr "Val skjákorts"
-
-#~ msgid "Which video card do you have?"
-#~ msgstr "Hvaða skjákort ertu með?"
-
-#~ msgid "X Server Selection"
-#~ msgstr "Val X þjóns"
-
-#~ msgid "Choose a server"
-#~ msgstr "Veldu þjón"
-
-#~ msgid " "
-#~ msgstr " "
-
-#~ msgid "Hostname Setup"
-#~ msgstr "Stillingar vélarheitis"
-
-#~ msgid "Language Default"
-#~ msgstr "Sjálfgefið tungumál"
-
-#~ msgid "Time Zone Setup"
-#~ msgstr "Stillingar tímabeltis"
-
-#~ msgid "Configuration Complete"
-#~ msgstr "Stillingum lokið"
-
-#~ msgid "LILO Configuration"
-#~ msgstr "Stillingar LILO"
-
-#~ msgid "Automatic Partition"
-#~ msgstr "Sjálfvirk disksneiðing"
-
-#~ msgid "Manually Partition"
-#~ msgstr "Sneiða handvirkt"
-
-#~ msgid "Swap"
-#~ msgstr "Diskminni"
-
-#~ msgid "Boot Partition Warning"
-#~ msgstr "Ræsisneiðaraðvörun"
-
-#~ msgid "Filesystem Formatting"
-#~ msgstr "Forsníða skráakerfi"
-
-#~ msgid "Package Groups"
-#~ msgstr "Pakkahópar"
-
-#~ msgid "Individual Packages"
-#~ msgstr "Stakir pakkar"
-
-#~ msgid "Installation Begins"
-#~ msgstr "Byrjun uppsetningar"
-
-#~ msgid "Boot Disk"
-#~ msgstr "Ræsidisklingur"
-
-#~ msgid "Installation Complete"
-#~ msgstr "Uppsetningu lokið"
-
-#~ msgid "Examine System"
-#~ msgstr "Skoða kerfið"
-
-#~ msgid "System Swap Space"
-#~ msgstr "Diskminni"
-
-#~ msgid "Customize Upgrade"
-#~ msgstr "Sérsníða uppfærslu"
-
-#~ msgid "Upgrade Begins"
-#~ msgstr "Uppfærsla hefst"
-
-#~ msgid "Upgrade Complete"
-#~ msgstr "Uppfærslu lokið"
-
-#~ msgid ""
-#~ "An error occured while installing the bootloader.\n"
-#~ "\n"
-#~ "We HIGHLY recommend you make a recovery boot floppy when prompted, "
-#~ "otherwise you may not be able to reboot into Red Hat Linux.\n"
-#~ "\n"
-#~ "The error reported was:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Villa kom upp við að setja upp ræsistjórann.\n"
-#~ "\n"
-#~ "Við mælum EINDREGIÐ með að þú búir til ræsidiskling þegar þér er boðið "
-#~ "upp á það hér á eftir því annars er sú hætta til staðar að ekki sé hægt "
-#~ "að ræsa upp Red Hat Linux.\n"
-#~ "\n"
-#~ "Villan er:\n"
-#~ "\n"
-
-#~ msgid "Plug and Play Monitor"
-#~ msgstr "'Plug and Play' samhæfður skjár"
-
-#~ msgid "Horizontal frequency range"
-#~ msgstr "Lárétt tíðnisvið"
-
-#~ msgid "Vertical frequency range"
-#~ msgstr "Lóðrétt tíðnisvið"
-
-#~ msgid "Probing for mouse type..."
-#~ msgstr "Leita að mús..."
-
-#~ msgid "Aborting upgrade"
-#~ msgstr "Hætti við uppfærslu"
-
-#~ msgid "Check for bad blocks while formatting"
-#~ msgstr "Athuga hvort diskurinn hafi gallaðar blokkir"
-
-#~ msgid "Currently installed languages:"
-#~ msgstr "Tungumál sem nú þegar eru uppsett:"
-
-#~ msgid "Lilo Configuration"
-#~ msgstr "Stillingar Lilo"
-
-#~ msgid "Use linear mode (needed for some SCSI drives)"
-#~ msgstr "Nota línulegan ham (nauðsynlegt fyrir sum SCSI drif)"
-
-#~ msgid "Install LILO"
-#~ msgstr "Setja upp LILO"
-
-#~ msgid "File not found"
-#~ msgstr "Skráin finnst ekki"
-
-#~ msgid ""
-#~ "The following error occurred while retreiving hdlist file:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Installer will exit now."
-#~ msgstr ""
-#~ "Eftirfarandi villa kom upp við að sækja \"hdlist\" skrána:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Uppsetningarforritið mun nú hætta."
-
-#~ msgid ""
-#~ "An error has occurred while retreiving the hdlist file.  The installation "
-#~ "media or image is probably corrupt.  Installer will exit now."
-#~ msgstr ""
-#~ "Villa kom upp við að sækja \"hdlist\" skrána. Uppsetningardiskurinn eða "
-#~ "diskmyndin er líklega skemmd. Uppsetningarforritið mun nú hætta."
-
-#~ msgid "Low Memory"
-#~ msgstr "Of lítið minni"
-
-#~ msgid ""
-#~ "As you don't have much memory in this machine, we need to turn on swap "
-#~ "space immediately. To do this we'll have to write your new partition "
-#~ "table to the disk immediately. Is that okay?"
-#~ msgstr ""
-#~ "Þar sem þú ert ekki með nægjanlegt vinnsluminni í vélinni verðum við að "
-#~ "setja diskminni í gang strax. Svo það sé hægt verður að vista "
-#~ "disksneiðatöfluna á diskinn núna.  Er það í lagi?"
-
-#~ msgid ""
-#~ "You have put the partition containing the kernel (the boot partition) "
-#~ "above the 1024 cylinder limit, and it appears that this systems BIOS does "
-#~ "not support booting from above this limit. Proceeding will most likely "
-#~ "make the system unable to reboot into Linux.\n"
-#~ "\n"
-#~ "If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
-#~ "when asked. This will guarantee you have a way to boot into the system "
-#~ "after installation.\n"
-#~ "\n"
-#~ "Press OK to proceed, or Cancel to go back and reassign the boot partition."
-#~ msgstr ""
-#~ "Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) "
-#~ "uppfyrir 1024 cylindra þakið og BIOS vélarinnar þinnar virðist ekki ráða "
-#~ "við að ræsa stýrikerfi fyrir ofan þetta þak. Ef þú heldur áfram mun "
-#~ "kerfið að öllum líkindum ekki geta ræst Linux.\n"
-#~ "\n"
-#~ "Ef þú kýst að halda áfram er EINDREGIÐ mælt með því að þú útbúir "
-#~ "ræsidiskling þegar þér býðst tækifærið. Þannig er tryggt að þú getir ræst "
-#~ "upp Linux eftir að uppsetningu lýkur.\n"
-#~ "\n"
-#~ "Ertu viss um að þú viljir halda áfram?"
-
-#~ msgid ""
-#~ "You have put the partition containing the kernel (the boot partition) "
-#~ "above the 1024 cylinder limit. It appears that this systems BIOS supports "
-#~ "booting from above this limit. \n"
-#~ "\n"
-#~ "It is HIGHLY recommended you make a boot floppy when asked by the "
-#~ "installer, as this is a new feature in recent motherboards and is not "
-#~ "always reliable. Making a boot disk will guarantee you can boot your "
-#~ "system once installed."
-#~ msgstr ""
-#~ "Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) "
-#~ "uppfyrir 1024 cylindra þakið en BIOS vélarinnar þinnar virðist ráða við "
-#~ "að ræsa stýrikerfi fyrir ofan þetta þak.\n"
-#~ "\n"
-#~ "Það er EINDREGIÐ mælt með því að þú útbúir ræsidiskling þegar þér býðst "
-#~ "tækifæri til því þessi eiginleiki nýrra móðurborða er ekki alltaf "
-#~ "áreiðanlegur. Að búa til ræsidiskling tryggir að þú hafir leið til að "
-#~ "ræsa upp linux að uppsetningu lokinni."
-
-#~ msgid ""
-#~ "You've chosen to put your root filesystem in a file on an already-"
-#~ "existing DOS or Windows filesystem. How large, in megabytes, should would "
-#~ "you like the root filesystem to be, and how much swap space would you "
-#~ "like? They must total less then %d megabytes in size."
-#~ msgstr ""
-#~ "Þú hefur valið að setja rótina í skrá sem er í DOS eða windows disksneið "
-#~ "sem er þegar til staðar. Hversu stóra, í megabætum talið, viltu hafa "
-#~ "skrána og hversu mikið diskminni villtu hafa? Bæði saman verða að vera "
-#~ "minna en %d megabæti að stærð."
-
-#~ msgid "Root filesystem size:"
-#~ msgstr "Stærð rótarskráarkerfis:"
-
-#~ msgid "Swap space size:"
-#~ msgstr "Stærð diskminnis:"
-
-#~ msgid ""
-#~ "Please select the type of disk partitioning you would like to use.\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Selecting manual partitioning allows you to create the partitions by hand."
-#~ msgstr ""
-#~ "Vinsamlegast veldu þá afðferð sem þú vilt nota við disksneiðingu.\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Ef þú velur að sneiða handvirkt getur þú sérsniðið disksneiðarnar sjálf"
-#~ "(ur)."
-
-#~ msgid "Automatic Partitioning Failed"
-#~ msgstr "Sjálfvirk disksneiðing tókst ekki"
-
-#~ msgid ""
-#~ "\n"
-#~ "There is not sufficient disk space in order to automatically partition "
-#~ "your disk. You will need to manually partition your disks for Red Hat "
-#~ "Linux to install.\n"
-#~ "\n"
-#~ "Please choose the tool you would like to use to partition your system for "
-#~ "Red Hat Linux."
-#~ msgstr ""
-#~ "\n"
-#~ "Það er ekki nægjanlegt diskpláss til þess að sneiða niður diskinn "
-#~ "sjálfvirkt.Þú þarft að sneiða hann niður handvirkt svo uppsetningin geti "
-#~ "haldið áfram.\n"
-#~ "\n"
-#~ "Vinsamlegast veldu tólið sem þú vilt nota til að sneiða niður diskinn "
-#~ "fyrir Red Hat Linux."
-
-#~ msgid "Manual Partitioning"
-#~ msgstr "Sneiða handvirkt"
-
-#~ msgid ""
-#~ "\n"
-#~ "Please choose the tool you would like to use to partition your system for "
-#~ "Red Hat Linux."
-#~ msgstr ""
-#~ "\n"
-#~ "Vinsamlegast veldu tólið sem þú vilt nota til að sneiða niður diskana "
-#~ "fyrir Red Hat Linux."
-
-#~ msgid "Automatically partition and REMOVE DATA"
-#~ msgstr "Sjálfvirk disksneiðing og FJARLÆGJA GÖGN"
-
-#~ msgid "Boot Partition Location Warning"
-#~ msgstr "Aðvörun um staðsetningu ræsisneiðar"
-
-#~ msgid ""
-#~ "You have put the partition containing the kernel (the boot partition) "
-#~ "above the 1024 cylinder limit, and it appears that this systems BIOS does "
-#~ "not support booting from above this limit. Proceeding will most likely "
-#~ "make the system unable to reboot into Linux.\n"
-#~ "\n"
-#~ "If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
-#~ "when asked. This will guarantee you have a way to boot into the system "
-#~ "after installation.\n"
-#~ "\n"
-#~ "Are you sure you want to proceed?"
-#~ msgstr ""
-#~ "Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) "
-#~ "uppfyrir 1024 cylindra þakið og BIOS vélarinnar þinnar virðist ekki ráða "
-#~ "við að ræsa stýrikerfi fyrir ofan þetta þak. Ef þú heldur áfram mun "
-#~ "kerfið að öllum líkindum ekki geta ræst Linux.\n"
-#~ "\n"
-#~ "Ef þú kýst að halda áfram er EINDREGIÐ mælt með því að þú útbúir "
-#~ "ræsidiskling þegar þér býðst tækifærið. Þannig er tryggt að þú getir ræst "
-#~ "upp Linux eftir að uppsetningu lýkur.\n"
-#~ "\n"
-#~ "Ertu viss um að þú viljir halda áfram?"
-
-#~ msgid "Bits per Pixel"
-#~ msgstr "Bitar á myndeiningu"
-
-#~ msgid "Autoprobe results:"
-#~ msgstr "Útkoma X leitar:"
-
-#, fuzzy
-#~ msgid "Skip LILO"
-#~ msgstr "Sleppa"
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux. We suggest placing that partition on one of the first "
-#~ "two hard drives in your system so you can boot into Linux with LILO."
-#~ msgstr ""
-#~ "Til að setja upp Red Hat Linux þarftu að hafa að minnsta kosti eina "
-#~ "disksneið frátekna fyrir Linux sem er minnst 150 MB. Við mælum með að "
-#~ "hafa hana á öðrum af fyrstu tveim hörðu diskunum í vélinni svo það sé "
-#~ "hægt að ræsa Linux með LILO."
-
-#~ msgid ""
-#~ "%s\n"
-#~ "\n"
-#~ "If you don't want to do this, you can continue with this install by "
-#~ "partitioning manually, or you can go back and perform a fully customized "
-#~ "installation."
-#~ msgstr ""
-#~ "%s\n"
-#~ "\n"
-#~ "Ef þú vilt ekki gera þetta getur þú haldið uppsetningu áfram með því að "
-#~ "sneiða niður diskinn sjálf(ur) eða fara til baka og setja upp sérsniðið "
-#~ "kerfi."
-
-#~ msgid "Continue"
-#~ msgstr "Halda áfram"
-
-#~ msgid "Manually partition"
-#~ msgstr "Sneiða handvirkt"
-
-#~ msgid ""
-#~ "What partitions would you like to format? We strongly suggest formatting "
-#~ "all of the system partitions, including /, /usr, and /var. There is no "
-#~ "need to format /home or /usr/local if they have already been configured "
-#~ "during a previous install."
-#~ msgstr ""
-#~ "Hvaða disksneiðar viltu forsníða? Við mælum eindregið með að forsníða "
-#~ "allar kerfissneiðarnar, þar með talið /, /usr og /var. Það er alveg "
-#~ "óþarft að forsníða /home eða /usr/local disksneiðarnar ef þær hafa verið "
-#~ "settar upp í fyrri uppsetningum."
-
-#~ msgid "Check for bad blocks during format"
-#~ msgstr "Athuga með gallaðar blokkir um leið og forsniðið er"
-
-#~ msgid "Choose Partitions to Format"
-#~ msgstr "Veldu disksneiðar sem á að forsníða"
-
-#~ msgid "Root filesystem size"
-#~ msgstr "Stærð rótarskráarkerfis"
-
-#~ msgid "Swap space"
-#~ msgstr "Diskminni"
-
-#~ msgid "The size you enter must be a number."
-#~ msgstr "Þú verður að slá inn tölu."
-
-#~ msgid ""
-#~ "The total size must be smaller then the amount of free space on the disk, "
-#~ "which is %d megabytes."
-#~ msgstr ""
-#~ "Samanlögð stærð disksneiða verður að vera minni en laust diskpláss á "
-#~ "disknum sem er %d megabæti."
-
-#~ msgid ""
-#~ "Neither the root file system size nor the swap space size may be greater "
-#~ "then 2000 megabytes."
-#~ msgstr ""
-#~ "Hvorki rótarskráarkerfið né diskminnið mega vera stærri en 2000 megabæti."
-
-#~ msgid ""
-#~ "If you would like to exit the upgrade select Exit, or choose Ok to "
-#~ "continue with the upgrade."
-#~ msgstr ""
-#~ "Veldi hætta ef þú vilt hætta við uppfærsluna eða veldu Í lagi til að "
-#~ "halda uppfærslunni áfram."
-
-#~ msgid ""
-#~ "Automatic partitioning will erase any preexisting Linux installations on "
-#~ "your system."
-#~ msgstr ""
-#~ "Sjálfvirk disksneiðing mun eyða öllum linux disksneiðum sem gætu verið "
-#~ "til staðar á vélinni þinni."
-
-#~ msgid ""
-#~ "Automatic partitioning will erase ALL DATA on your hard drive to make "
-#~ "room for your Linux installation."
-#~ msgstr ""
-#~ "Sjálfvirk disksneiðing mun eyða ÖLLUM GÖGNUM af harða disknum þínum til "
-#~ "að búa til pláss fyrir Linux."
-
-#~ msgid "Loading %s ramdisk..."
-#~ msgstr "Les inn %s RAM-disklinginn..."
-
-#~ msgid "Error loading ramdisk."
-#~ msgstr "Villa við lestur RAM-disklings."
-
-#~ msgid "Unable to retrieve the second install image"
-#~ msgstr "Get ekki sótt seinni uppsetningardiskmyndina"
-
-#~ msgid "Mail/WWW/News Tools"
-#~ msgstr "Póst/Vef/Fréttatól"
-
-#~ msgid "DOS/Windows Connectivity"
-#~ msgstr "DOS/Windows samskipti"
-
-#~ msgid "Games"
-#~ msgstr "Leikir"
-
-#~ msgid "Networked Workstation"
-#~ msgstr "Nettengd vinnustöð"
-
-#~ msgid "Dialup Workstation"
-#~ msgstr "Vinnustöð með upphringineti"
-
-#~ msgid "IPX/Netware(tm) Connectivity"
-#~ msgstr "IPX/Netware(tm) samskipti"
-
-#~ msgid "Development"
-#~ msgstr "Þróun"
-
-#~ msgid "Borneo & Celebes"
-#~ msgstr "Borneo & Celebes"
-
-#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-#~ msgstr "Uppfæri Red Hat Linux kerifð á disksneið /dev/"
-
-#~ msgid "Transdniestria"
-#~ msgstr "Transdniestria"
