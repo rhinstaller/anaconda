@@ -68,6 +68,7 @@ import rpm
 from thread import *
 from threading import *
 import time
+from _gtk import gtk_set_locale
 
 class WaitWindow:
     def __init__(self, title, text):
@@ -241,6 +242,7 @@ class InstallControlWindow (Thread):
         global cat
         
         newlangs = [lang]
+        
         if len(lang) > 2:
             newlangs.append(lang[:2])
         gettext.setlangs (newlangs)
@@ -248,8 +250,19 @@ class InstallControlWindow (Thread):
         for l in newlangs:
             if os.access ("/etc/gtk/gtkrc." + l, os.R_OK):
                 rc_parse("/etc/gtk/gtkrc." + l)
-                print "loaded gtkrc." + l
+
+        gtk_set_locale ()
         self.window.reset_rc_styles ()
+        # get the labels
+        for (button, text) in [ (self.nextButtonStock, _("Next")),
+                                (self.prevButtonStock, _("Back")),
+                                (self.showHelpButton, _("Show Help")),
+                                (self.hideHelpButton, _("Hide Help")),
+                                (self.finishButton, _("Finish")) ]:
+            label = button.children ()[0].children ()[0].children()[1]
+            label.set_text (text)
+        self.helpFrame.set_label (_("Online Help"))
+        self.installFrame.set_label (_("Language Selection"))
 
     def instantiateWindow (self, windowClass):
         ics = InstallControlState (self, self.ii, self.todo)
@@ -392,7 +405,7 @@ class InstallControlWindow (Thread):
         if self.buildingWindows or ics != self.currentScreen.getICS ():
             return
 
-        self.installFrame.set_label (ics.getTitle ())
+        self.installFrame.set_label (_(ics.getTitle ()))
 
         buttons = { "prev" : ics.getPrevButton (),
                     "next" : ics.getNextButton () }
@@ -403,7 +416,7 @@ class InstallControlWindow (Thread):
             elif button["pixmap"] == STOCK_BUTTON_NEXT and not button["label"]:
                 buttons[name] = self.nextButtonStock
             else:
-                buttons[name] = GnomePixmapButton (GnomeStock (button["pixmap"]), button["label"])
+                buttons[name] = GnomePixmapButton (GnomeStock (button["pixmap"]), _(button["label"]))
                 if   name == "prev": buttons[name].connect ("clicked", self.prevClicked)
                 elif name == "next": buttons[name].connect ("clicked", self.nextClicked)
                 buttons[name].show ()

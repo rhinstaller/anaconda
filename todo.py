@@ -173,7 +173,8 @@ class Language (SimpleConfigFile):
             "Romanian"	 : "ro_RO" ,
             "Slovak"	 : "sk_SK" ,
             "Spanish"	 : "es_MX" ,
-            "Russian"	 : "ru_SU" ,
+#            "Russian"	 : "ru_SU" ,
+            "Russian"	 : "ru_RU.KOI8-R" ,
             "Ukrainian"	 : "uk_UA" ,
             }
         
@@ -193,8 +194,11 @@ class Language (SimpleConfigFile):
     def set (self, lang):
         self.lang = self.langs[lang]
         self.info["LANG"] = self.langs[lang]
+        os.environ["LANG"] = self.langs[lang]
         self.info["LINGUAS"] = self.langs[lang]
+        os.environ["LINGUAS"] = self.langs[lang]        
         self.info["LC_ALL"] = self.langs[lang]
+        os.environ["LC_ALL"] = self.langs[lang]        
         
     def get (self):
 	return self.lang

@@ -11,17 +11,25 @@ class LanguageWindow (InstallWindow):
         ics.setPrevEnabled (0)
         ics.setNextEnabled (1)
         ics.readHTML ("lang")
+        self.ics = ics
         self.icw = ics.getICW ()
         self.question = (_("What language should be used during the "
                          "installation process?"))
         self.languages = self.todo.language.available ()
         self.running = 0
+        self.lang = None
+
+    def getNext (self):
+        if self.lang:
+            self.todo.language.set (self.lang)
+            self.icw.setLanguage (self.languages[self.lang])
+        return None
+
         
     def select_row (self, clist, row, col, event):
         if self.running:
             lang = clist.get_text (clist.selection[0], 0)
-            self.todo.language.set (lang)
-            self.icw.setLanguage (self.languages[lang])
+            self.lang = lang
         
     def getScreen (self):
         self.running = 0

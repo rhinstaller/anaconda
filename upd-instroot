@@ -39,9 +39,10 @@ echo "DESTGR is $DESTGR"
 
 PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
           XFree86-S3 XFree86-S3V XFree86-Mach32 XFree86-Mach64
-          XFree86-FBDev XFree86-75dpi-fonts XFree86-100dpi-fonts XFree86-I128
-          XFree86-3DLabs XFree86-VGA16 XFree86-Sun
-	  XFree86-3. xpm-3 glib- gtk+-
+          XFree86-FBDev XFree86-I128 XFree86-3DLabs XFree86-VGA16
+          XFree86-Sun XFree86-75dpi-fonts XFree86-100dpi-fonts
+          XFree86-100dpi-fonts XFree86-ISO8859-2-75dpi-fonts
+          XFree86-cyrillic-fonts XFree86-3. xpm-3 glib- gtk+-
           gnome-libs python-1 newt imlib-1 libpng libtiff libjpeg-
           libtermcap-2 zlib rpm rpm-devel ash- bash- pygtk- pygnome-
           util-linux procps esound-0 audiofile-0 kernel-pcmcia-cs
@@ -144,6 +145,12 @@ usr/X11R6/lib/X11/fonts/misc/9x*
 usr/X11R6/lib/X11/fonts/misc/fonts*
 usr/X11R6/lib/X11/fonts/misc/cursor*
 usr/X11R6/lib/X11/fonts/misc/olcursor*
+usr/X11R6/lib/X11/fonts/cyrillic/koi*
+usr/X11R6/lib/X11/fonts/cyrillic/fonts*
+usr/X11R6/lib/X11/fonts/ISO8859-2/75dpi/cour*
+usr/X11R6/lib/X11/fonts/ISO8859-2/75dpi/helv*
+usr/X11R6/lib/X11/fonts/ISO8859-2/75dpi/tim*
+usr/X11R6/lib/X11/fonts/ISO8859-2/75dpi/fonts*
 usr/X11R6/lib/X11/locale/*
 usr/X11R6/lib/X11/xkb/*
 usr/X11R6/lib/X11/rgb*
@@ -151,7 +158,7 @@ usr/X11R6/lib/X11/XKeysymDB
 usr/X11R6/lib/libXpm*
 usr/lib/libglib*
 usr/lib/libthread*
-etc/gtk/gtkrc
+etc/gtk/gtkrc*
 usr/lib/libgtk*
 usr/lib/libgdk*
 usr/lib/libart*
