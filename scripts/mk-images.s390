@@ -39,7 +39,7 @@ SCSIMODS=""
 
 SECSTAGE="$IDEMODS $SCSIMODS ext3"
 
-COMMONMODULES="loop cramfs dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod tape390 iso9660"
+COMMONMODULES="loop cramfs dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod tape390 isofs"
 LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs ctc netiucv"
 
