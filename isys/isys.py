@@ -6,6 +6,7 @@ import os
 import os.path
 
 mountCount = {}
+raidCount = {}
 
 MIN_RAM = _isys.MIN_RAM
 MIN_GUI_RAM = _isys.MIN_GUI_RAM
@@ -24,6 +25,11 @@ def fsSpaceAvailable(fsystem):
     return _isys.devSpaceFree(fsystem)
 
 def raidstop(mdDevice):
+    if raidCount[mdDevice] > 1:
+	raidCount[mdDevice] = raidCount[mdDevice] - 1
+	return
+    del raidCount[mdDevice]
+
     makeDevInode(mdDevice, "/tmp/md")
     fd = os.open("/tmp/md", os.O_RDONLY)
     os.remove("/tmp/md")
@@ -31,6 +37,12 @@ def raidstop(mdDevice):
     os.close(fd)
 
 def raidstart(mdDevice, aMember):
+    if raidCount.has_key(mdDevice) and raidCount[mdDevice]:
+	raidCount[mdDevice] = raidCount[mdDevice] + 1
+	return
+
+    raidCount[mdDevice] = 1
+
     makeDevInode(mdDevice, "/tmp/md")
     makeDevInode(aMember, "/tmp/member")
     fd = os.open("/tmp/md", os.O_RDONLY)
