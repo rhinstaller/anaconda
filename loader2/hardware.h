@@ -4,6 +4,8 @@
 #include "modules.h"
 #include "../isys/probe.h"
 
+int canProbeDevices(void);
+
 int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
                       moduleInfoSet modInfo, int flags);
 int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
@@ -21,5 +23,8 @@ void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
               moduleInfoSet modInfo, int flags,
               struct knownDevices * kd);
+void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
+               moduleInfoSet modInfo, int flags,
+               struct knownDevices * kd);
 
 #endif

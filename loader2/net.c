@@ -445,8 +445,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
 #else /* s390 now */
    char * env;
-   /* quick and dirty hack by opaukstadt@millenux.com for s390 */
-   /* ctc stores remoteip in broadcast-field until pump.h is changed */
    memset(&newCfg, 0, sizeof(newCfg));
    strcpy(newCfg.dev.device, device);
    newCfg.isDynamic = 0;
@@ -477,17 +475,20 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
      if(inet_aton((t? t : s), &newCfg.dev.dnsServers[0]))
       newCfg.dev.set |= PUMP_NETINFO_HAS_DNS;
    }
-   if (!strncmp(newCfg.dev.device, "ctc", 3)) {
-     env = getenv("REMIP");
-     if (env && *env) {
-       if(inet_aton(env, &newCfg.dev.gateway))
-         newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
-     }
+   env = getenv("REMIP");
+   if (env && *env) {
+     if inet_aton(env, &newCfg.dev.ptpaddr)
+       newCfg.dev.set |= PUMP_INTFINFO_HAS_PTPADDR;
    }
    env = getenv("BROADCAST");
    if (env && *env) {
      if(inet_aton(env, &newCfg.dev.broadcast))
        newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
+   }
+   env = getenv("MTU");
+   if (env && *env) {
+       numCfg.dev.mtu = atoi(env);
+       newCfg.dev.set |= PUMP_INTFINFO_HAS_MTU;
    }
 #endif   /* s390 */
 
@@ -504,7 +505,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
     fillInIpInfo(cfg);
 
-#if !defined(__s390__) && !defined(__s390x__)
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
         if (*c.gw && inet_aton(c.gw, &addr)) {
             cfg->dev.gateway = addr;
@@ -520,7 +520,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     }
 
     newtPopWindow();
-#endif
+
     if (!FL_TESTING(flags)) {
         configureNetwork(cfg);
         findHostAndDomain(cfg, flags);
@@ -531,7 +531,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
-#if !defined(__s390__) && !defined(__s390x__)
     char *rc;
 
     rc = pumpSetupInterface(&dev->dev);
@@ -541,7 +540,6 @@ int configureNetwork(struct networkDeviceConfig * dev) {
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
         pumpSetupDefaultGateway(&dev->dev.gateway);
 
-#endif
     return 0;
 }
 
@@ -566,12 +564,10 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
         fprintf(f, "BOOTPROTO=static\n");
         fprintf(f, "IPADDR=%s\n", inet_ntoa(dev->dev.ip));
         fprintf(f, "NETMASK=%s\n", inet_ntoa(dev->dev.netmask));
-        if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
-          fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
-          if (!strncmp(dev->dev.device, "ctc", 3) || \
-              !strncmp(dev->dev.device, "iucv", 4)) 
+        if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+            fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
+        if (dev->dev.set & PUMP_INTFINFO_HAS_PTPADDR)
             fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.gateway));
-        }
         if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
           fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));    
     }
@@ -580,6 +576,8 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
         fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
         fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
+    if (dev->dev.set & PUMP_INTFINFO_HAS_MTU)
+        fprintf(f, "MTU=%d\n", dev->dev.mtu);
 
     fclose(f);
 
