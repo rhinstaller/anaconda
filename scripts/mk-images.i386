@@ -138,9 +138,6 @@ for I in $BOOTDISKDIR `find $BOOTDISKDIR -type d | egrep "($TIER1LANGS)"`; do
     if [ $BOOTLANG = "boot" ]; then
 	BOOTLANG=""
 	BOOTDIR=""
-    elif [ $BOOTLANG = "ja_JP" ]; then
-	# this is handled below.
-	continue
     fi
 
     makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
@@ -159,32 +156,6 @@ for I in $BOOTDISKDIR `find $BOOTDISKDIR -type d | egrep "($TIER1LANGS)"`; do
 done
 
 rm -f $TOPDESTPATH/images/initrd-pcmcia.img
-
-# --- Japanese
-BOOTLANG="ja_JP"
-BOOTDIR="ja"
-
-makebootdisk --bootdisksize 1440 \
-	     --imagename ja/boot.img \
-	     --initrdflags '--japanese
-			    --initrdsize 2950 \
-			    --loaderbin loader-local-kon \
-			    --modules "$LOCALMODULES"'
-
-makebootdisk --bootdisksize 1440 \
-	     --imagename ja/bootnet.img \
-	     --initrdflags '--japanese
-			    --initrdsize 2950 \
-			    --loaderbin loader-network-kon \
-		 	    --modules "$NETWORKMODULES"'
-
-makebootdisk --imagename ja/pcmcia.img \
-	     --bootdisksize 1440 \
-	     --initrdflags '--japanese
-			    --pcmcia \
-		     	    --initrdsize 3232 \
-			    --loaderbin loader-pcmcia-kon \
-			    --modules "$PCMCIAMAINMODULES"'
 
 makedriverdisk --padsize 1440 "Supplemental Block Device Drivers" "drvblock" "+scsi"
 makedriverdisk --padsize 1440 "Supplemental Network Drivers" "drvnet" "+net"
@@ -207,19 +178,6 @@ makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
 	     --bootdisksize 2880 \
 	     --imagename ../dosutils/autoboot/cdboot.img \
 	     --initrd $TOPDESTPATH/dosutils/autoboot/initrd.img
-
-makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd-ja.img \
-	   --initrdsize 4100 \
-	   --japanese \
-	   --loaderbin loader-pcmcia-kon \
-	   --pcmcia \
-	   --modules "$COMMONMODULES $PCMCIAMODULES nfs =scsi $IDEMODS 
-		      $SCSIMODS"
-
-makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
-	     --bootdisksize 2880 \
-	     --imagename ../dosutils/autoboot/cdboot-ja.img \
-	     --initrd $TOPDESTPATH/dosutils/autoboot/initrd-ja.img
 
 makemainmodules "=scsi =net $SECSTAGE"
 
