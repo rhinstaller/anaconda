@@ -17,7 +17,7 @@ void startPcmcia(moduleList modLoaded, moduleDeps modDeps, int flags) {
 			NULL };
     int p[2];
     char buf[4096];
-    int i;
+    int i, status;
     char * pcic;
 
     logMessage("in startPcmcia()");
@@ -74,5 +74,7 @@ void startPcmcia(moduleList modLoaded, moduleDeps modDeps, int flags) {
 
     logMessage("cardmgr running as pid %d", child);
 
-    waitpid(child, NULL, 0);
+    waitpid(child, &status, 0);
+
+    logMessage("cardmgr returned 0x%x", status);
 }
