@@ -35,18 +35,16 @@ class FirewallWindow (InstallWindow):
 
             if self.radio5.get_active ():
                 self.todo.firewallState = 1
-
                 count = 0
+                self.todo.firewall.trustdevs = []
+
                 for device in self.devices:
                     (val, row_data, header) = self.trusted.get_row_data (count)
-                    
+
                     if val == 1:
                         self.todo.firewall.trustdevs.append(device)
-                    elif val == 0:
-                        pass
-                    
-                    count = count + 1
 
+                    count = count + 1
 
                 for i in range(6):
                     (val, row_data, header) = self.incoming.get_row_data (i)
@@ -261,6 +259,8 @@ class FirewallWindow (InstallWindow):
                 else:
                     if device in self.todo.firewall.trustdevs:
                         self.trusted.append_row ((device, device), TRUE)
+                    else:
+                        self.trusted.append_row ((device, device), FALSE)
                 if self.todo.network.netdevices[device].get('bootproto') == 'dhcp':
                     self.todo.firewall.dhcp = 1
 
@@ -301,8 +301,6 @@ class FirewallWindow (InstallWindow):
 
         table.attach (self.label3, 0, 1, 2, 3, FILL, FILL, 5, 5)
         table.attach (self.ports, 1, 2, 2, 3, EXPAND|FILL, FILL, 5, 5)
-
-#        print self.todo.firewall.policy
 
         if self.todo.firewall.enabled == 0:
             self.radio3.set_active (TRUE)
