@@ -36,6 +36,23 @@ prepareBootTree() {
 	fi
 }
 
+mkdir -p $TOPDESTPATH/images
+cat > $TOPDESTPATH/images/README <<EOF
+This directory contains image files that can be used to create media
+capable of starting the $PRODUCT installation process.
+
+The boot.iso file is an ISO 9660 image of a bootable CD-ROM.  It is useful
+in cases where the CD-ROM installation method is not desired, but the
+CD-ROM's boot speed would be an advantage.
+
+To use this image file, burn the file onto CD-R (or CD-RW) media as you
+normally would.
+
+The diskboot.img file is a VFAT filesystem image that can be written to a
+USB pendrive or other bootable media larger than a floppy.  Note that
+booting via USB is dependent on your BIOS supporting this.  It should
+be written to the device using dd.
+EOF
 
 # LATEUSBMODS go in the second stage.  
 # FIXME: bleah, have to include sd_mod for usb-storage
