@@ -276,6 +276,13 @@ class Component:
                      "included by component %s", name, self.name)
             self.set[name].select(forInclude = 1, toplevel = 0)
 
+        for name in self.metapkgs.keys():
+            if not self.set.has_key(name):
+                log ("warning, unknown toplevel component %s "
+                     "included by component %s", name, self.name)
+            if self.metapkgs[name] == 1:
+                self.set[name].select(forInclude = 1, toplevel = 0)
+
         if toplevel:
             self.set.updateSelections()
 
@@ -320,11 +327,21 @@ class Component:
                      "included by component %s", name, self.name)
             self.set[name].unselect(forInclude = 1, toplevel = 0)
 
+        for name in self.metapkgs.keys():
+            if not self.set.has_key(name):
+                log ("warning, unknown toplevel component %s "
+                     "included by component %s", name, self.name)
+            if self.metapkgs[name] == 1:
+                self.set[name].unselect(forInclude = 1, toplevel = 0)
+
         if toplevel:
             self.set.updateSelections()
 
     def addInclude(self, comp):
 	self.includes.append(comp)
+
+    def addMetaPkg(self, comp, isDefault = 0):
+        self.metapkgs[comp] = (PKGTYPE_OPTIONAL, isDefault)
 
     def addPackage(self, p, pkgtype):
         if pkgtype == PKGTYPE_MANDATORY:
@@ -476,6 +493,7 @@ class Component:
         self.pkgDict = {}
         self.newpkgDict = {}
         self.includes = []
+        self.metapkgs = {}
         self.manuallySelected = 0
         self.selectionCount = 0
         self.depsDict = {}
@@ -676,8 +694,15 @@ class ComponentSet:
                         %(group.name, id))
                     continue
                 comp.addInclude(self.compsById[id].name)
-
-            
+            for id in group.metapkgs.keys():
+                if not self.compsById.has_key(id):
+                    log("%s references component %s which doesn't exist"
+                        %(group.name, id))
+                    continue
+                if group.metapkgs[id][0] == u'default':
+                    comp.addMetaPkg(self.compsById[id].name, isDefault = 1)
+                else:
+                    comp.addMetaPkg(self.compsById[id].name, isDefault = 0)
 
 ##         everything = Component(self, N_("Everything"), 0, 0)
 ##         for package in packages.keys ():
