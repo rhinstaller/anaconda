@@ -475,6 +475,10 @@ yellowfin
 	#scsi_hostadapter
 	#"Symbios/NCR 53c700 and 53c800 series"
 
+3w-xxxx.o
+	scsi_hostadapter
+	"3ware Storage Controller"
+
 AM53C974
 	scsi_hostadapter
 	"AM53/79C974 (PCscsi) driver"
@@ -540,6 +544,10 @@ DAC960
 	scsi_hostadapter
 	"Mylex DAC960 RAID Controller"
 
+dmx319ld
+	scsi_hostadapter
+	"Domex DMX3191D"
+
 dtc
 	scsi_hostadapter
 	"DTC 3180/3280"
@@ -580,6 +588,10 @@ gdth
 # not a module
 # gvp11
 
+imm
+	scsi_hostadapter
+	"Iomega ZIP Plus"
+
 in2000
 	scsi_hostadapter
 	"IN2000 SCSI"
@@ -604,6 +616,14 @@ ncr53c8xx
 pas16
 	scsi_hostadapter
 	"Pro Audio Spectrum/Studio 16"
+
+pci2000
+	scsi_hostadapter
+	"PCI-2000 IntelliCache"
+
+pci2220i
+	scsi_hostadapter
+	"PCI-2220I EIDE RAID"
 
 pluto
 	scsi_hostadapter
