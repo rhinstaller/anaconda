@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/stat.h>
+#include <glob.h>
+#include <dirent.h>
 #include <rpm/rpmlib.h>
 #include <rpm/header.h>
 #include <string.h>
@@ -27,6 +30,10 @@ static void printMemStats(char *mess)
     system(buf);
 }
 #endif
+
+/* in rpmlib */
+void buildFileList(Header h, /*@out@*/ char *** fileListPtr, 
+		    /*@out@*/ int * fileCountPtr);
 
 int pkgCompare(void * first, void * second) {
     struct packageInfo ** a = first;
@@ -102,8 +109,8 @@ static void addLostFiles(rpmdb db, struct pkgSet *psp, struct hash_table *ht)
 	pack = bsearch(&keyaddr, psp->packages, psp->numPackages,
 		       sizeof(*psp->packages), (void *)pkgCompare);
 	if (!pack) {
-	    if (headerGetEntry(h, RPMTAG_FILENAMES, NULL,
-			  (void **) &installedFiles, &installedFileCount)) {
+	    if (headerIsEntry(h, RPMTAG_ORIGCOMPFILELIST)) {
+		buildFileList(h, &installedFiles, &installedFileCount);
 		compareFileList(0, NULL, installedFileCount,
 				installedFiles, ht);
 		free(installedFiles);
@@ -217,8 +224,8 @@ static int findUpgradePackages(rpmdb db, struct pkgSet *psp,
 	    DEBUG (("UPGRADE\n"))
 	    (*pip)->selected = 1;
 
-	    if (!headerGetEntry(h, RPMTAG_FILENAMES, NULL,
-			  (void **) &availFiles, &availFileCount)) {
+	    if (headerIsEntry(h, RPMTAG_ORIGCOMPFILELIST)) {
+		buildFileList(h, &availFiles, &availFileCount);
 		availFiles = NULL;
 		availFileCount = 0;
 	    }
@@ -227,11 +234,12 @@ static int findUpgradePackages(rpmdb db, struct pkgSet *psp,
 		/* Compare the file lists */
 		installedHeader =
 		    rpmdbGetRecord(db, matches.recs[i].recOffset);
-		if (!headerGetEntry(installedHeader, RPMTAG_FILENAMES, NULL,
-			      (void **) &installedFiles,
-			      &installedFileCount)) {
+		if (!headerIsEntry(h, RPMTAG_ORIGCOMPFILELIST)) {
 		    installedFiles = NULL;
 		    installedFileCount = 0;
+		} else {
+		    buildFileList(installedHeader, &installedFiles,
+				  &installedFileCount);
 		}
 
 		compareFileList(availFileCount, availFiles,
@@ -279,10 +287,11 @@ static int removeMovedFilesAlreadyHandled(struct pkgSet *psp,
 	    name = NULL;
 	    headerGetEntry(h, RPMTAG_NAME, NULL, (void **) &name, NULL);
 
-	    if (!headerGetEntry(h, RPMTAG_FILENAMES, NULL,
-			  (void **) &availFiles, &availFileCount)) {
+	    if (!headerIsEntry(h, RPMTAG_ORIGCOMPFILELIST)) {
 		availFiles = NULL;
 		availFileCount = 0;
+	    } else {
+		buildFileList(h, &availFiles, &availFileCount);
 	    }
 
 	    for (i = 0; i < availFileCount; i++) {
@@ -324,8 +333,8 @@ static int findPackagesWithRelocatedFiles(struct pkgSet *psp,
 
 	    availFiles = NULL;
 	    availFileCount = 0;
-	    if (headerGetEntry(h, RPMTAG_FILENAMES, NULL,
-			 (void **) &availFiles, &availFileCount)) {
+	    if (headerIsEntry(h, RPMTAG_ORIGCOMPFILELIST)) {
+		buildFileList(h, &availFiles, &availFileCount);
 		for (i = 0; i < availFileCount; i++) {
 		    if ((file = htInTable(ht, availFiles[i]))) {
 			*file = '\0';
