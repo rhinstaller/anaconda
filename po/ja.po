@@ -2526,9 +2526,8 @@ msgid "This occurs because the drive geometry detected by the kernel used by the
 msgstr "これはインストーラのカーネルが検出したドライブジオメトリとドライブがパーティション設定されたときのものと異なるためです。おそらくインストーラ起動時のカーネルにコマンドラインオプションを与えることで修正することができます。"
 
 #: ../libfdisk/fsedit.c:1564
-#, fuzzy
 msgid "This error has occurred because there is a logical partition on the drive which has a partition type of zero (0).  A partition type of zero means that the drive's partitioning is not completely defined, and may have been caused by another operating system's partitioning program.  This condition is not supported by the anaconda installer.  You may be able to set the partition type correctly using your other operating system's partitioning program."
-msgstr "これはパーティションタイプ 0 のドライブ上に論理パーティションがあるためです。anaconda インストーラはこれをサポートしていません。この論理パーティションはたいていの場合他の OS のプログラムによってつくられたものですので、この問題はそのユーティリティを使って修正できるでしょう。"
+msgstr "これはパーティションタイプ 0 のドライブ上に論理パーティションがあるためです。anaconda インストーラはこれをサポートしていません。この論理パーティションはたいていの場合他の OS 上で動作するプログラムによってつくられたものです。anaconda インストーラはこのような条件をサポートしていません。おそらくこの問題はそのユーティリティを使って修正できるでしょう。"
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952 ../libfdisk/gnomefsedit.c:2050
 msgid "<Swap Partition>"
