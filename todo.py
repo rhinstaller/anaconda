@@ -1148,9 +1148,8 @@ class ToDo:
 		list = devices.keys ()
 		list.sort()
 		dev = devices[list[0]]
-                if bootProto:
-                    dev.set (("bootproto", bootProto))
-                else:
+                dev.set (("bootproto", bootProto))
+                if bootProto == "static":
                     if (ip):
                         dev.set (("ipaddr", ip))
                     if (netmask):
