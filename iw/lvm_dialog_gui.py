@@ -338,16 +338,18 @@ class VolumeGroupEditor:
         maintable.attach(mountCombo, 1, 2, row, row + 1)
         row = row + 1
 
-	maintable.attach(createAlignedLabel(_("Filesystem Type:")),
-			 0, 1, row, row + 1)
         if not logrequest or not logrequest.getPreExisting():
+            maintable.attach(createAlignedLabel(_("Filesystem Type:")),
+                             0, 1, row, row + 1)
             (newfstype, newfstypeMenu) = createFSTypeMenu(logrequest.fstype,
                                                           fstypechangeCB,
                                                           mountCombo,
                                                           ignorefs = ["software RAID", "physical volume (LVM)", "vfat"])
         else:
-            if logrequest.fstype.getName():
-                newfstype = gtk.Label(logrequest.fstype.getName())
+            maintable.attach(createAlignedLabel(_("Original Filesystem Type:")),
+                             0, 1, row, row + 1)
+            if logrequest.origfstype and logrequest.origfstype.getName():
+                newfstype = gtk.Label(logrequest.origfstype.getName())
             else:
                 newfstype = gtk.Label(_("Unknown"))
 	maintable.attach(newfstype, 1, 2, row, row + 1)
@@ -385,6 +387,10 @@ class VolumeGroupEditor:
             maxlabel = createAlignedLabel(_("(Max size is %s MB)") % (maxlv,))
             maintable.attach(maxlabel, 1, 2, row, row + 1)
 
+	self.fsoptionsDict = {}
+	if logrequest.getPreExisting():
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(logrequest, maintable, row, mountCombo, showbadblocks=0)
+
         dialog.vbox.pack_start(maintable)
         dialog.show_all()
 
@@ -396,8 +402,38 @@ class VolumeGroupEditor:
 
             if not logrequest or not logrequest.getPreExisting():
                 fsystem = newfstypeMenu.get_active().get_data("type")
+                format = 1
+                migrate = 0
             else:
-                fsystem = logrequest.fstype
+		if self.fsoptionsDict.has_key("formatrb"):
+		    formatrb = self.fsoptionsDict["formatrb"]
+		else:
+		    formatrb = None
+
+		if formatrb:
+                    format = formatrb.get_active()
+                    if format:
+                        fsystem = self.fsoptionsDict["fstypeMenu"].get_active().get_data("type")
+                else:
+                    format = 0
+
+		if self.fsoptionsDict.has_key("migraterb"):
+		    migraterb = self.fsoptionsDict["migraterb"]
+		else:
+		    migraterb = None
+		    
+		if migraterb:
+                    migrate = migraterb.get_active()
+                    if migrate:
+                        fsystem = self.fsoptionsDict["migfstypeMenu"].get_active().get_data("type")
+                else:
+                    migrate = 0
+
+                # set back if we are not formatting or migrating
+		origfstype = logrequest.origfstype
+                if not format and not migrate:
+                    fsystem = origfstype
+
             mntpt = string.strip(mountCombo.entry.get_text())
 
             if not logrequest or not logrequest.getPreExisting():
@@ -504,19 +540,22 @@ class VolumeGroupEditor:
  	    else:
  		request.mountpoint = None
 
+            request.preexist = preexist
 	    request.logicalVolumeName = lvname
 	    request.size = size
-
- 	    if not logrequest.preexist:
- 		request.format = 1
- 	    else:
- 		request.format = 0
+            request.format = format
+            request.migrate = migrate
 	    
  	    err = request.sanityCheckRequest(self.partitions)
  	    if err:
  		self.intf.messageWindow(_("Error With Request"),
  					"%s" % (err))
  		continue
+
+	    if (not request.format and
+		request.mountpoint and request.formatByDefault()):
+		if not queryNoFormatPreExisting(self.intf):
+		    continue
 
 	    # see if there is room for request
 	    (availSpaceMB, neededSpaceMB, fspace) = self.computeSpaceValues(usepe=pesize)
