@@ -361,6 +361,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.path_mapping = {}
         self.ctree = GtkCTree ()
         self.ctree.set_selection_mode (SELECTION_BROWSE)
+        self.ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
+        self.ctree.set_line_style(CTREE_LINES_NONE)
+
         # Kludge to get around CTree s extremely broken focus behavior
         self.ctree.unset_flags (CAN_FOCUS)
 
@@ -426,19 +429,20 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         self.packageList = checklist.CheckList(2)
 
-        pix, msk = create_pixmap_from_xpm (self.packageList, None, "iw/checkbox.xpm")
-        self.pixmap = GtkPixmap(pix, msk)
+#        pix, msk = create_pixmap_from_xpm (self.packageList, None, "iw/checkbox.xpm")
+#        self.pixmap = GtkPixmap(pix, msk)
         
         self.sortType = "Package"
 
-        self.packageList.set_column_widget (0, self.pixmap)
+#        self.packageList.set_column_widget (0, self.pixmap)
         self.packageList.set_column_title (1, ("Package"))
         self.packageList.set_column_auto_resize (1, TRUE)
         self.packageList.set_column_title (2, ("Size (MB)"))
         self.packageList.set_column_auto_resize (2, TRUE)
         self.packageList.column_titles_show ()
 
-        self.packageList.column_title_active (0)
+#        self.packageList.column_title_active (0)
+        self.packageList.set_column_min_width(0, 16)
         self.packageList.column_title_active (1)
         self.packageList.column_title_active (2)
         self.packageList.connect ('click-column', self.sort_list)
