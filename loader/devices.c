@@ -241,7 +241,7 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 
 	if (rc == 2) return LOADER_BACK;
 
-	mlLoadModule("vfat", NULL, modLoaded, (*modDepsPtr), NULL, modInfo, 
+	mlLoadModule("vfat", modLoaded, (*modDepsPtr), NULL, modInfo, 
 		     flags);
 
 	ddi->device = strdup(device);
@@ -422,7 +422,7 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 	scsiWindow(mod->moduleName);
 	sleep(1);
     }
-    rc = mlLoadModule(mod->moduleName, mod->locationID, modLoaded, 
+    rc = mlLoadModule(mod->moduleName, modLoaded, 
 		      *modDepsPtr, args, modInfo, flags);
     if (mod->major == DRIVER_SCSI) newtPopWindow();
 

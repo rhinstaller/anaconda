@@ -431,7 +431,6 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		} else {
 		    if (modList[i]->major == DRIVER_NET) {
 			mlLoadModule(modList[i]->moduleName, 
-				     modList[i]->locationID, 
 				     modLoaded, modDeps, NULL, modInfo, flags);
 		    }
 		}
@@ -443,7 +442,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 
 		    scsiWindow(modList[i]->moduleName);
 		    mlLoadModule(modList[i]->moduleName, 
-				 modList[i]->locationID, modLoaded, modDeps, 
+				 modLoaded, modDeps, 
 				 NULL, modInfo, flags);
 		    sleep(1);
 		    newtPopWindow();
@@ -759,7 +758,7 @@ static char * mountHardDrive(struct installMethod * method,
     static int ufsloaded;
     #endif
 
-    mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, 
+    mlLoadModule("vfat", modLoaded, *modDepsPtr, 
 		 NULL, modInfo, flags);
 
     while (!done) {
@@ -778,7 +777,7 @@ static char * mountHardDrive(struct installMethod * method,
 			      case BALKAN_PART_UFS:
 				if (!ufsloaded) {
 				    ufsloaded = 1;
-				    mlLoadModule("ufs", NULL, modLoaded, 
+				    mlLoadModule("ufs", modLoaded, 
 						 *modDepsPtr, NULL, modInfo, 
 						 flags);
 				}
@@ -1120,7 +1119,7 @@ static char * mountNfsImage(struct installMethod * method,
 		break;
 	    }
 
-	    mlLoadModule("nfs", NULL, modLoaded, *modDepsPtr, NULL, modInfo, 
+	    mlLoadModule("nfs", modLoaded, *modDepsPtr, NULL, modInfo, 
 			 flags);
 	    fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	    sprintf(fullPath, "%s:%s", host, dir);
@@ -1576,7 +1575,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	    }
 
 	    if (!strcmp(ddi->fs, "vfat"))
-		mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, 
+		mlLoadModule("vfat", modLoaded, *modDepsPtr, NULL, 
 			     modInfo, flags);
 
 	    logMessage("looking for driver disk (%s, %s, %s)",
@@ -1631,7 +1630,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	else
 	    optv = NULL;
 
-	rc = mlLoadModule(device, mi->locationID, modLoaded, 
+	rc = mlLoadModule(device, modLoaded, 
 			  *modDepsPtr, optv, modInfo, flags);
 	if (optv) free(optv);
 
@@ -1779,7 +1778,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 #ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS) {
 	int count = 0;
-	mlLoadModule("nfs", NULL, modLoaded, *modDepsPtr, NULL, modInfo, flags);
+	mlLoadModule("nfs", modLoaded, *modDepsPtr, NULL, modInfo, flags);
 	fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	sprintf(fullPath, "%s:%s", host, dir);
 
@@ -2042,7 +2041,7 @@ int kickstartFromNfs(struct knownDevices * kd, char * location,
 
     logMessage("ks server: %s file: %s", ksPath, file);
 
-    mlLoadModule("nfs", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
+    mlLoadModule("nfs", modLoaded, *modDepsPtr, NULL, NULL, flags);
 
     if (doPwMount(ksPath, "/tmp/nfskd", "nfs", 1, 0, NULL, NULL)) {
 	logMessage("failed to mount %s", ksPath);
@@ -2150,9 +2149,9 @@ int kickstartFromHardDrive(char * location,
     char * fileName;
     char * fullFn;
 
-    mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
+    mlLoadModule("vfat", modLoaded, *modDepsPtr, NULL, NULL, flags);
 #ifdef __sparc__
-    mlLoadModule("ufs", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
+    mlLoadModule("ufs", modLoaded, *modDepsPtr, NULL, NULL, flags);
 #endif
 
     fileName = strchr(source, '/');
@@ -2193,7 +2192,7 @@ int kickstartFromHardDrive(char * location,
 
 int kickstartFromFloppy(char * location, moduleList modLoaded,
 			moduleDeps * modDepsPtr, int flags) {
-    mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
+    mlLoadModule("vfat", modLoaded, *modDepsPtr, NULL, NULL, flags);
 
     if (devMakeInode(floppyDevice, "/tmp/floppy"))
 	return 1;
@@ -2348,7 +2347,7 @@ void loadUfs(struct knownDevices *kd, moduleList modLoaded,
 		    for (j = 0; j < table.maxNumPartitions; j++) {
 			if (table.parts[j].type == BALKAN_PART_UFS) {
 			    if (!ufsloaded) {
-				mlLoadModule("ufs", NULL, modLoaded, 
+				mlLoadModule("ufs", modLoaded, 
 					     *modDepsPtr, NULL, NULL, flags);
 				ufsloaded = 1;
 			    }
@@ -2420,7 +2419,7 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     }
 
     logMessage("found USB controller %s", devices[0]->driver);
-    if (mlLoadModule(devices[0]->driver, NULL, modLoaded, modDeps, NULL, 
+    if (mlLoadModule(devices[0]->driver, modLoaded, modDeps, NULL, 
 		 modInfo, flags)) {
 	logMessage("failed to insert usb module");
 	return 1;
@@ -2430,7 +2429,7 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 		  NULL, NULL))
 	logMessage("failed to mount device usbdevfs: %s", strerror(errno));
 
-    mlLoadModule("hid:keybdev:usb-storage", NULL, modLoaded, modDeps, NULL, 
+    mlLoadModule("hid:keybdev:usb-storage", modLoaded, modDeps, NULL, 
 		 modInfo, flags);
 
     return 0;
@@ -2446,7 +2445,7 @@ static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
     logMessage("looking for USB mouse...");
     if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL)) {
 	logMessage("USB mouse found, loading mousedev module");
-	if (mlLoadModule("mousedev", NULL, modLoaded, modDeps, NULL, modInfo, 
+	if (mlLoadModule("mousedev", modLoaded, modDeps, NULL, modInfo, 
 			 flags)) {
 	    logMessage ("failed to loading mousedev module");
 	    return;
@@ -2482,7 +2481,7 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
 	    logMessage("found %s card requiring agpgart, loading module",
 		       p->driver+5);
 	    
-	    if (mlLoadModule("agpgart", NULL, modLoaded, modDeps, NULL, 
+	    if (mlLoadModule("agpgart", modLoaded, modDeps, NULL, 
 			     modInfo, flags)) {
 		logMessage("failed to insert agpgart module");
 		return 1;
@@ -2500,7 +2499,7 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
 static void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo, int flags,
 			      struct knownDevices * kd) {
-    mlLoadModule("sd_mod:sr_mod", NULL, modLoaded, modDeps, NULL, modInfo, 
+    mlLoadModule("sd_mod:sr_mod", modLoaded, modDeps, NULL, modInfo, 
 		 flags);
 }
 
@@ -2509,7 +2508,7 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 			      struct knownDevices * kd) {
 
     /* This is fast enough that we don't need a screen to pop up */
-    mlLoadModule("ide-cd", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("ide-cd", modLoaded, modDeps, NULL, modInfo, flags);
 
     kdFindIdeList(kd, 0);
 }
@@ -2650,7 +2649,7 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
-    mlLoadModule("cramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("cramfs", modLoaded, modDeps, NULL, modInfo, flags);
 
     if (!continuing) {
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
@@ -2866,7 +2865,7 @@ int main(int argc, char ** argv) {
     /* We must look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
-    mlLoadModule("raid0:raid1:raid5:msdos:vfat:ext3:reiserfs", NULL, 
+    mlLoadModule("raid0:raid1:raid5:msdos:vfat:ext3:reiserfs", 
 		 modLoaded, modDeps, NULL, modInfo, flags);
 
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);

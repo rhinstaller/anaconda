@@ -382,7 +382,7 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
 
 /* loads a : separated list of modules. the arg only applies to the
    first module in the list */
-int mlLoadModuleSet(const char * origModNames, void * location, 
+int mlLoadModuleSet(const char * origModNames, 
 		    moduleList modLoaded, moduleDeps modDeps, char ** args, 
 		    moduleInfoSet modInfo, int flags) {
     char * modNames;
@@ -391,6 +391,7 @@ int mlLoadModuleSet(const char * origModNames, void * location,
     int i;
     char ** list, ** l;
     char ** paths, ** p;
+    struct moduleInfo * mi;
 
     start = modNames = alloca(strlen(origModNames) + 1);
     strcpy(modNames, origModNames);
@@ -427,8 +428,15 @@ int mlLoadModuleSet(const char * origModNames, void * location,
     }
 
     paths = NULL;
-    if (location)
-	paths = extractModules(location, list, paths); 
+    if (modInfo) {
+	for (i = 0; list[i]; i++) {
+	    if (paths && paths[i]) continue;
+	    mi = isysFindModuleInfo(modInfo, list[i]);
+
+	    if (mi && mi->locationID)
+		paths = extractModules(mi->locationID, list, paths); 
+	    }
+    }
 
     paths = extractModules(NULL, list, paths); 
     i = 0;
@@ -485,13 +493,6 @@ int mlLoadModuleSet(const char * origModNames, void * location,
     logMessage("load module set done");
 
     return i;
-}
-
-int mlLoadModule(const char * modName, void * location, moduleList modLoaded,
-	         moduleDeps modDeps, char ** args, moduleInfoSet modInfo,
-		 int flags) {
-    return mlLoadModuleSet(modName, location, modLoaded, modDeps, args,
-			   modInfo, flags);
 }
 
 char ** mlGetDeps(moduleDeps modDeps, const char * modName) {
