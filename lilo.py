@@ -183,6 +183,9 @@ class LiloConfigFile:
 	    if (len(fields) == 2):
 		f0 = string.strip (fields [0])
 		f1 = string.strip (fields [1])
+                # people can be silly and put quotes in their lilo.conf
+                f1 = string.replace(f1, '"', '')
+                f1 = string.replace(f1, "'", "")
 		if (f0 == "image" or f0 == "other"):
 		    if image: self.addImage(image)
 		    image = LiloConfigFile(imageType = f0, 
