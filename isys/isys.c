@@ -44,9 +44,6 @@ static PyObject * getModuleList(PyObject * s, PyObject * args);
 static PyObject * makeDevInode(PyObject * s, PyObject * args);
 static PyObject * doPciProbe(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
-#if 0
-static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
-#endif
 static PyObject * createProbedList(PyObject * s, PyObject * args);
 static PyObject * doChroot(PyObject * s, PyObject * args);
 static PyObject * doCheckBoot(PyObject * s, PyObject * args);
@@ -63,6 +60,7 @@ static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
 static PyObject * doRaidStart(PyObject * s, PyObject * args);
 static PyObject * doRaidStop(PyObject * s, PyObject * args);
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
+static PyObject * doPumpNetDevice(PyObject * s, PyObject * args);
 static PyObject * doResetResolv(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
@@ -91,6 +89,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
     { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
+    { "pumpnetdevice", (PyCFunction) doPumpNetDevice, METH_VARARGS, NULL },
     { "chroot", (PyCFunction) doChroot, METH_VARARGS, NULL },
     { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
     { "checkUFS", (PyCFunction) doCheckUFS, METH_VARARGS, NULL },
@@ -763,6 +762,39 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
 
     Py_INCREF(Py_None);
     return Py_None;
+}
+
+static PyObject * doPumpNetDevice(PyObject * s, PyObject * args) {
+    char * device;
+    char * chptr;
+    struct pumpNetIntf cfg;
+    PyObject * rc;
+
+    if (!PyArg_ParseTuple(args, "s", &device))
+	return NULL;
+	
+    chptr = pumpDhcpRun(device, 0, 0, NULL, &cfg, NULL);
+    if (chptr) {
+	Py_INCREF(Py_None);
+	return Py_None;
+    }
+
+    if (pumpSetupInterface(&cfg)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    if (pumpSetupDefaultGateway(&cfg.gateway)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    if (cfg.numDns)
+	rc = PyString_FromString(inet_ntoa(cfg.dnsServers[0]));
+    else
+	rc = PyString_FromString("");
+
+    return rc;
 }
 
 static PyObject * probedListGetAttr(probedListObject * o, char * name) {

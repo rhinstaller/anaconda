@@ -225,3 +225,8 @@ def configNetDevice(device, ip, netmask, gw):
 
 def resetResolv():
     return _isys.resetresolv()
+
+def pumpNetDevice(device):
+    # returns None on failure, "" if no nameserver is found, nameserver IP
+    # otherwise
+    return _isys.pumpnetdevice(device)
