@@ -520,8 +520,15 @@ class RaidRequestSpec(RequestSpec):
         raidminor is the minor of the device which should be used.
         """
 
+        # if it's preexisting, the original fstype should be set
+        if preexist == 1:
+            origfs = fstype
+        else:
+            origfs = None
+
         RequestSpec.__init__(self, fstype = fstype, format = format,
-                             mountpoint = mountpoint, preexist = preexist)
+                             mountpoint = mountpoint, preexist = preexist,
+			     origfstype = origfs)
         self.type = REQUEST_RAID
         
 
