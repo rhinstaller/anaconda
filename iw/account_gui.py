@@ -199,6 +199,8 @@ class AccountWindow (InstallWindow):
         self.userPwLabel = GtkLabel(_("Please enter user name"))
         vbox.pack_start(self.userPwLabel)
 
+        self.forward = lambda widget, box=userWin: box.focus (DIR_TAB_FORWARD)
+
         #entry boxes
         self.accountName = GtkEntry (8)
         userTable.attach(self.accountName, 1, 2, 0, 1, SHRINK, SHRINK)
@@ -222,9 +224,12 @@ class AccountWindow (InstallWindow):
         self.accountName.connect("changed", self.userOkay)
         self.accountName.connect("insert-text", self.filter)
         self.accountName.connect("activate", self.forward)
+        self.fullName.connect("activate", self.forward)
         self.userPass1.connect("changed", self.userOkay)
+        self.userPass1.connect("activate", self.forward)
         self.userPass2.connect("changed", self.userOkay)
-        
+        self.userPass2.connect("activate", self.forward)
+
         return userWin
         
     def deleteUser(self, *args):
