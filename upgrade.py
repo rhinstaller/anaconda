@@ -57,7 +57,7 @@ def findRootParts(intf, id, dispatch, dir, chroot):
 
 def findExistingRoots(intf, id, chroot, upgradeany = 0):
     if not flags.setupFilesystems:
-        relstr = partedUtils.getRedHatReleaseString (chroot)
+        relstr = partedUtils.getReleaseString (chroot)
         if ((cmdline.find("upgradeany") != -1) or
             (upgradeany == 1) or
             (partedUtils.productMatches(relstr, productName))):

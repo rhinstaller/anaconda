@@ -456,7 +456,7 @@ def sniffFilesystemType(device):
 
     return None
 
-def getRedHatReleaseString(mountpoint):
+def getReleaseString(mountpoint):
     if os.access(mountpoint + "/etc/redhat-release", os.R_OK):
         f = open(mountpoint + "/etc/redhat-release", "r")
         try:
@@ -602,7 +602,7 @@ class DiskSet:
 
             if found:
                 if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                    relstr = getRedHatReleaseString(mountpoint)
+                    relstr = getReleaseString(mountpoint)
                     cmdline = open('/proc/cmdline', 'r').read()
                     
                     if ((cmdline.find("upgradeany") != -1) or
@@ -630,7 +630,7 @@ class DiskSet:
 
             if found:
                 if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                    relstr = getRedHatReleaseString(mountpoint)
+                    relstr = getReleaseString(mountpoint)
                     cmdline = open('/proc/cmdline', 'r').read()
                     
                     if ((cmdline.find("upgradeany") != -1) or
@@ -667,7 +667,7 @@ class DiskSet:
                         part = disk.next_partition(part)
 			continue
 		    if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                        relstr = getRedHatReleaseString(mountpoint)
+                        relstr = getReleaseString(mountpoint)
                         cmdline = open('/proc/cmdline', 'r').read()
 
                         if ((cmdline.find("upgradeany") != -1) or

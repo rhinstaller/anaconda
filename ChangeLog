@@ -1,5 +1,8 @@
 2005-03-29  Jeremy Katz  <katzj@redhat.com>
 
+	* partedUtils.py (getRedHatReleaseString): Change to getReleaseString.
+	* upgrade.py (findExistingRoots): Method name change.
+
 	* constants.py: Make bugzilla URL more changeable.
 	* iw/xconfig_gui.py (XConfigWindow.getNext): Likewise.
 	* packages.py (betaNagScreen): Likewise.
