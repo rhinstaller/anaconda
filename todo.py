@@ -1137,6 +1137,7 @@ class ToDo:
 	todo.timezone = instClass.getTimezoneInfo()
 	todo.bootdisk = todo.instClass.getMakeBootdisk()
 	todo.zeroMbr = todo.instClass.zeroMbr
+	todo.mounts = todo.instClass.fstab
 	(where, linear, append) = todo.instClass.getLiloInformation()
 	todo.liloDevice = where
 

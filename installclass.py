@@ -68,6 +68,12 @@ class InstallClass:
     def getLiloInformation(self):
 	return self.lilo
 
+    def getFstab(self):
+	return self.fstab
+
+    def addToFstab(self, mntpoint, dev, fstype = "ext2" , reformat = 1):
+	self.fstab.append((mntpoint, (dev, fstype, reformat)))
+
     def setTimezoneInfo(self, timezone, asUtc = 0, asArc = 0):
 	self.timezone = (timezone, asUtc, asArc)
 
@@ -201,6 +207,7 @@ class InstallClass:
 	self.defaultRunlevel = None
 	self.postScript = None
 	self.postInChroot = 0
+	self.fstab = []
 
 # we need to be able to differentiate between this and custom
 class DefaultInstall(InstallClass):

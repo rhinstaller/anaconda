@@ -303,9 +303,10 @@ class Kickstart(InstallClass):
 	size = 0
 	grow = 0
 	maxSize = 0
+	onPart = None
 
 	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
-					'grow' ])
+					'grow', 'onpart=' ])
 
 	for n in args:
 	    (str, arg) = n
@@ -315,8 +316,13 @@ class Kickstart(InstallClass):
 		maxSize = int(arg)
 	    elif str == '--grow':
 		grow = 1
+	    elif str == '--onpart':
+		onPart = arg
 
-	self.partitions.append((extra[0], size, maxSize, grow))
+	if onPart:
+	    addToFstab(extra[0], onPart)
+	else:
+	    self.partitions.append((extra[0], size, maxSize, grow))
 
         self.addToSkipList("partition")
         self.addToSkipList("format")
