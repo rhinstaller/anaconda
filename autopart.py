@@ -1088,7 +1088,7 @@ def doClearPartAction(partitions, diskset):
                  partedUtils.isLinuxNativeByNumtype(part.native_type)) or 
                 ((part.native_type == -1) and # the ptable doesn't have types
                  ((part.is_flag_available(parted.PARTITION_RAID) and part.get_flag(parted.PARTITION_RAID)) or  # this is a RAID
-                  (part.is_flag_available(parted.PARTITION_LVM) and part.get_flag(PARTITION_LVM))))): # or an LVM
+                  (part.is_flag_available(parted.PARTITION_LVM) and part.get_flag(parted.PARTITION_LVM))))): # or an LVM
                 old = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
                 if old.getProtected():
                     part = disk.next_partition(part)
