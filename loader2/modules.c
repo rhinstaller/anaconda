@@ -585,7 +585,6 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     }
 
     free(paths);
-    free(list);
 
     logMessage("load module set done");
 
