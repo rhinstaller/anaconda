@@ -1,6 +1,6 @@
 include ../../Makefile.inc
 
-CFLAGS += -I . -g
+CFLAGS += -I . -g -Wall
 SOURCES = bits.c gzip.c inflate.c lzw.c trees.c unzip.c util.c zip.c binding.c \
 	  deflate.c zip.c
 OBJS = $(patsubst %.c,%.o,$(SOURCES))
@@ -12,7 +12,7 @@ endif
 
 all: libgunzip.a($(OBJS)) $(DIETLIB) test
 
-test: libgunzip.a
+test: libgunzip.a test.c
 	$(CC) $(CFLAGS) -o test test.c libgunzip.a
 
 clean:	
