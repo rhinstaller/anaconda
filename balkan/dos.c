@@ -31,6 +31,7 @@ struct singlePartitionTable {
 
 #define DOSP_TYPE_EXTENDED	5
 #define WINP_TYPE_EXTENDED	0xf
+#define LINUX_TYPE_EXTENDED     0x85
 
 long long llseek(int fd, long long offset, int whence);
 
@@ -74,7 +75,8 @@ static int readNextTable(int fd, struct partitionTable * table, int nextNum,
     for (i = 0; i < 4; i++) {
 	if (!singleTable.parts[i].size) continue;
 	if ((singleTable.parts[i].type == DOSP_TYPE_EXTENDED ||
-	     singleTable.parts[i].type == WINP_TYPE_EXTENDED) &&
+	     singleTable.parts[i].type == WINP_TYPE_EXTENDED ||
+	     singleTable.parts[i].type == LINUX_TYPE_EXTENDED) &&
 	    nextNum >= 4) continue;
 
 	if (nextNum < 4)
@@ -95,7 +97,8 @@ static int readNextTable(int fd, struct partitionTable * table, int nextNum,
 	if (!singleTable.parts[i].size) continue;
 
 	if (singleTable.parts[i].type == DOSP_TYPE_EXTENDED ||
-	    singleTable.parts[i].type == WINP_TYPE_EXTENDED) {
+	    singleTable.parts[i].type == WINP_TYPE_EXTENDED ||
+	    singleTable.parts[i].type == LINUX_TYPE_EXTENDED) {
 	    if (gotExtended) return BALKAN_ERROR_BADTABLE;
 	    gotExtended = 1;
 
