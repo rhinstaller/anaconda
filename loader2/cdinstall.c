@@ -314,6 +314,10 @@ char * setupCdrom(char * location,
                     sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
                     return buf;
                 }
+
+		/* this wasnt the CD we were looking for, clean up and */
+		/* try the next CD drive                               */
+		umount("/mnt/source");
                 unlink("/tmp/cdrom");
             } 
         } 

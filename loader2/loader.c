@@ -78,14 +78,8 @@ static int newtRunning = 0;
 /* JKFIXME: just temporarily here.  need to move to header files for 
  * each install method */
 #ifdef INCLUDE_LOCAL
-char * mountCdromImage(struct installMethod * method,
-                              char * location, struct knownDevices * kd,
-                              moduleInfoSet modInfo, moduleList modLoaded,
-                              moduleDeps * modDepsPtr, int flags);
-char * mountHardDrive(struct installMethod * method,
-                             char * location, struct knownDevices * kd,
-                             moduleInfoSet modInfo, moduleList modLoaded,
-                             moduleDeps * modDepsPtr, int flags);
+#include "cdinstall.h"
+#include "hdinstall.h"
 #endif
 #ifdef INCLUDE_NETWORK
 char * mountNfsImage(struct installMethod * method,
@@ -101,16 +95,12 @@ char * mountUrlImage(struct installMethod * method,
 static struct installMethod installMethods[] = {
 #if defined(INCLUDE_LOCAL)
     { N_("Local CDROM"), 0, CLASS_CDROM, mountCdromImage },
+    { N_("Hard drive"), 0, CLASS_HD, mountHardDrive },
 #endif
 #if defined(INCLUDE_NETWORK)
     { N_("NFS image"), 1, CLASS_NETWORK, mountNfsImage },
     { "FTP", 1, CLASS_NETWORK, mountUrlImage },
     { "HTTP", 1, CLASS_NETWORK, mountUrlImage },
-#endif
-#if 0
-#if defined(INCLUDE_LOCAL)
-    { N_("Hard drive"), 0, CLASS_HD, mountHardDrive },
-#endif
 #endif
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
@@ -676,6 +666,7 @@ static char *doLoaderMain(char * location,
      * vs network install methods here.  do we still want to do that or 
      * just nuke that code? */
     for (i = 0; i < numMethods; i++) {
+	logMessage("Adding %s", _(installMethods[i].name));
         installNames[numValidMethods] = _(installMethods[i].name);
         validMethods[numValidMethods++] = i;
     }
@@ -752,7 +743,6 @@ static char *doLoaderMain(char * location,
                     kd->known[i].class)
                     found = 1;
             }
-            found = 0;
             
             if (found) {
                 step = STEP_URL;

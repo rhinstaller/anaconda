@@ -20,7 +20,7 @@ MODULELINKAGE :=-lmodutils -lmodutilutil -lmodutilobj
 BINS = init
 
 HWOBJS = pcmcia.o usb.o firewire.o
-METHOBJS = method.o cdinstall.o nfsinstall.o urlinstall.o
+METHOBJS = method.o cdinstall.o hdinstall.o nfsinstall.o urlinstall.o
 OBJS = log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
 	lang.o kbd.o modules.o modstubs.o driverdisk.o \
 	md5.o mediacheck.o \

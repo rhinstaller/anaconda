@@ -240,7 +240,7 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
 	    /* readtime stamp line */
 	    tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
 	    
-	    if (tmpstr)
+	    if (tmpptr)
 		tstamp = strdup(tmpstr);
 
 	    /* now read OS description line */
