@@ -544,7 +544,7 @@ static char * mountHardDrive(struct installMethod * method,
     struct newtExitStruct es;
     newtGrid entryGrid, grid, buttons;
     int done = 0;
-    char * dir = NULL;
+    char * dir = strdup("");
     char * tmpDir;
     char * type;
     char * url = NULL;
@@ -656,12 +656,12 @@ static char * mountHardDrive(struct installMethod * method,
 
 	part = newtListboxGetCurrent(listbox);
 	
-	if (dir) free(dir);
+	free(dir);
 	if (tmpDir && *tmpDir) {
 	    /* Protect from form free. */
 	    dir = strdup(tmpDir);
 	} else  {
-	    dir = NULL;
+	    dir = strdup("");
 	}
 	
 	newtFormDestroy(form);
@@ -688,7 +688,6 @@ static char * mountHardDrive(struct installMethod * method,
 	}
 
 	url = setupHardDrive(part->name + 5, type, dir, flags);
-	if (dir) free(dir);
 	if (!url) {
 	    newtWinMessage(_("Error"), _("OK"), 
 			_("Device %s does not appear to contain "
@@ -701,6 +700,8 @@ static char * mountHardDrive(struct installMethod * method,
 	umount("/tmp/hdimage");
 	rmdir("/tmp/hdimage");
     }
+
+    free(dir);
 
     return url;
 }
