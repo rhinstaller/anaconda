@@ -384,6 +384,7 @@ class ToDo:
         self.probedFlag = ""
         self.resState = ""
         self.depthState = ""
+        self.initState = ""
 
         # If reconfig mode, don't probe floppy
         #print self.reconfigOnly
