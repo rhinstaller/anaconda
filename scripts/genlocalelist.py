@@ -122,7 +122,8 @@ for line in lines:
     # to offer that
     if lang.startswith("nb_") or lang.startswith("iw_"):
         continue
-    if lang in ["zh_TW.euctw", "zh_TW.UTF-8", "ja_JP.UTF-8"]:
+    if lang in ["zh_TW.euctw", "zh_TW.UTF-8", "ja_JP.UTF-8", "ko_KR.UTF-8",
+                "zh_TW.UTF-8"]:
         continue
 
     f = os.popen("LANG=%s locale language territory charmap" %(lang,), "r")
