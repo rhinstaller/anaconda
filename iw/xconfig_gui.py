@@ -79,20 +79,52 @@ class XCustomWindow (InstallWindow):
         return 0
 
     def depth_cb (self, widget, data):
+#        print "Inside depth_cb"
         depth = self.depth_combo.list.child_position (data)
-
         self.selectedDepth = self.bit_depth[depth]
+        store = self.currentRes
+#        print "Current res is = ", store
+        
 
         if depth == 0:
-            self.res_combo.set_popdown_strings (self.avail_res1)
+#            print "in depth = 0"
+            self.res_combo.set_popdown_strings (self.res_list1)
+            if store >= len (self.res_list1):
+                tmp = len (self.res_list1) - 1
+                self.res_combo.list.select_item (tmp)
+            else:
+                self.res_combo.list.select_item (store)
+
         if depth == 1:
-            self.res_combo.set_popdown_strings (self.avail_res2)        
+#            print "in depth == 1"
+            self.res_combo.set_popdown_strings (self.res_list2)
+            if store >= len (self.res_list2):
+#                self.res_combo.list.select_item (len (self.res_list2))
+                tmp = len (self.res_list2) - 1
+#                print "TMP = ", tmp
+                self.res_combo.list.select_item (tmp)
+            else:
+                self.res_combo.list.select_item (store)
+
+
         if depth == 2:
-            self.res_combo.set_popdown_strings (self.avail_res3)
+#            print "in depth == 2"
+#            print "store = ", store
+#            print "len (self.res_list3)", len (self.res_list3)
+            self.res_combo.set_popdown_strings (self.res_list3)
+            if store >= len (self.res_list3):
+                tmp = len (self.res_list3) - 1
+#                print "TMP = ", tmp
+                self.res_combo.list.select_item (tmp)
+            else:
+                self.res_combo.list.select_item (store)
+
+#        self.res_combo.list.select_item (tmp)
     
     def res_cb (self, widget, data):
-        res = self.res_combo.list.child_position (data)
-        self.selectedRes = self.res_list[res]
+        self.currentRes = self.res_combo.list.child_position (data)
+#        print self.currentRes
+        self.selectedRes = self.res_list[self.currentRes]
 
     def desktop_cb (self, widget, desktop):
         self.newDesktop = desktop
@@ -148,24 +180,36 @@ class XCustomWindow (InstallWindow):
         self.res_count2 = 0
         self.res_count3 = 0
 
+        self.res_list1 = []
+        self.res_list2 = []
+        self.res_list3 = []
+
         for depth in availableDepths:
+#            print "depth loop = ", depth
+
+            if len (available[depth]) < 1:
+                self.depth_count = self.depth_count -1
+
             for res in available[depth]:
+#                print "res = --", res, "--"
                 if self.depth_count == 0:
                     self.res_count1 = self.res_count1 + 1
+                    self.res_list1.append (res)
                 if self.depth_count == 1:
-                    self.res_count2 = self.res_count2 + 1                    
+                    self.res_count2 = self.res_count2 + 1
+                    self.res_list2.append (res)                    
                 if self.depth_count == 2:
-                    self.res_count3 = self.res_count1 + 1
+                    self.res_count3 = self.res_count3 + 1
+                    self.res_list3.append (res)
 
             self.depth_count = self.depth_count + 1
 
-        if self.res_count1 == 0:
-            self.depth_count = self.depth_count - 1
-        if self.res_count2 == 0:
-            self.depth_count = self.depth_count - 1        
-        if self.res_count3 == 0:
-            self.depth_count = self.depth_count - 1
-            
+#        print "depth_count = ", self.depth_count 
+#        print "self.res_list1 = ", self.res_list1
+#        print "self.res_list2 = ", self.res_list2
+#        print "self.res_list3 = ", self.res_list3
+
+
         frame1 = GtkFrame (_("Color Depth:"))
         frame1.set_shadow_type (SHADOW_NONE)
         frame1.set_border_width (10)
@@ -175,13 +219,14 @@ class XCustomWindow (InstallWindow):
         self.bit_depth = ["8", "16", "32"]
 
         self.avail_depths = depth_list[:self.depth_count]
+#        print "self.avail_depths = ", self.avail_depths
 
         self.depth_combo = GtkCombo ()
+        self.depth_combo.entry.set_editable (FALSE)
         self.depth_combo.set_popdown_strings (self.avail_depths)
 
         frame1.add (self.depth_combo)
 
-#        print "self.todo.depthState", self.todo.depthState
         count = 0
         for depth in self.bit_depth:
             if depth == self.todo.depthState:
@@ -191,8 +236,6 @@ class XCustomWindow (InstallWindow):
                 self.selectedDepth = "8"
             count = count + 1
 
-        self.depth_combo.list.connect ("select-child", self.depth_cb)
-
         frame2 = GtkFrame (_("Screen Resolution:"))
         frame2.set_shadow_type (SHADOW_NONE)
         frame2.set_border_width (10)
@@ -200,13 +243,35 @@ class XCustomWindow (InstallWindow):
 
         self.res_list = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
 
-        self.avail_res1 = self.res_list[:self.res_count1]
-        self.avail_res2 = self.res_list[:self.res_count2]
-        self.avail_res3 = self.res_list[:self.res_count3]
-
         self.res_combo = GtkCombo ()
-        self.res_combo.set_popdown_strings (self.res_list)
+        self.res_combo.entry.set_editable (FALSE)
+
+        if self.depth_count == 1:
+            self.res_combo.set_popdown_strings (self.res_list1)
+
+        elif self.depth_count >= 2:
+            #--If they can do 16 bit color, default to 16 bit at 1024x768
+            self.depth_combo.list.select_item (1)
+            self.res_combo.set_popdown_strings (self.res_list2)
+
+#            print "len(self.res_list2) = ", len (self.res_list2)
+            if len (self.res_list2) >= 3:
+#                print "try1"
+                self.res_combo.list.select_item (2)
+                self.currentRes = 2
+            elif len (self.res_list2) == 2:
+#                print "try2"
+                self.res_combo.list.select_item (1)
+                self.currentRes = 1
+            elif len (self.res_list2) == 1:
+#                print "try3"
+                self.res_combo.list.select_item (0)
+                self.currentRes = 0
+
         frame2.add (self.res_combo)
+
+
+        self.depth_combo.list.connect ("select-child", self.depth_cb)
 
         count = 0
         for res in self.res_list:
@@ -218,7 +283,6 @@ class XCustomWindow (InstallWindow):
             count = count + 1
 
         self.res_combo.list.connect ("select-child", self.res_cb)
-
 
         box.pack_start (hbox1, FALSE)
 
