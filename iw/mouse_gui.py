@@ -98,7 +98,10 @@ class MouseWindow (InstallWindow):
         return None
     
     def selectDeviceType(self, *args):
-	self.ics.setNextEnabled (TRUE)
+        if len(self.locList.selection) == 0:
+            self.ics.setNextEnabled (FALSE)
+        else:
+            self.ics.setNextEnabled (TRUE)
 
     def selectMouseType (self, widget, node, *args):
         if not node.is_leaf:
@@ -180,6 +183,7 @@ class MouseWindow (InstallWindow):
         self.ctree.columns_autosize ()
         self.ctree.connect ("tree_select_row", self.selectMouseType)
         self.locList.connect ("select_row", self.selectDeviceType)
+        self.locList.connect ("unselect_row", self.selectDeviceType)
 	self.locList.set_sensitive(FALSE)
 
         self.ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
