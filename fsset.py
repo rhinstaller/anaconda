@@ -1736,8 +1736,8 @@ class SwapFileDevice(Device):
         if not os.access(file, os.R_OK):
             if self.size:
                 # make sure the permissions are set properly
-                os.open(file, os.O_CREAT, 0600)
-                os.close(file)
+                fd = os.open(file, os.O_CREAT, 0600)
+                os.close(fd)
                 isys.ddfile(file, self.size, None)
             else:
                 raise SystemError, (0, "swap file creation necessary, but "
