@@ -27,6 +27,7 @@ from bootloader import partitioningComplete, writeBootloader
 from bootloader import bootloaderSetupChoices
 from flags import flags
 from upgrade import upgradeFindPackages, upgradeMountFilesystems
+from upgrade import upgradeSwapSuggestion
 
 # These are all of the install steps, in order. Note that upgrade and
 # install steps are the same thing! Upgrades skip install steps, while
@@ -49,8 +50,6 @@ installSteps = [
     ( "reconfigkeyboard", ("id.instLanguage", "id.keyboard" ) ),
     ( "installtype", ("dispatch", "id", "method", "intf") ),
     ( "findinstall", ("dispatch", "intf", "id", "instPath") ),
-    ( "upgradecontinue", queryUpgradeContinue, ("intf", "dir")),
-    ( "addswap", ("dispatch", "intf", "id.fsset", "instPath") ),
     ( "partitionmethod", ("id",) ),
     ( "partitionobjinit", partitionObjectsInitialize, ("id", "dir") ),
     ( "partitionmethodsetup", partitionMethodSetup, ("id", "dispatch") ),
@@ -60,6 +59,10 @@ installSteps = [
     ( "partition", ("id.fsset", "id.diskset", "id.partrequests", "intf")),
     ( "upgrademount", upgradeMountFilesystems, ("intf", "id.upgradeRoot",
                                                 "id.fsset", "instPath")),
+    ( "upgradecontinue", queryUpgradeContinue, ("intf", "dir")),
+    ( "upgradeswapsuggestion", upgradeSwapSuggestion, ("dispatch", "id",
+                                                       "instPath") ),
+    ( "addswap", ("intf", "id.fsset", "instPath", "id.upgradeSwapInfo") ),
     ( "partitiondone", partitioningComplete, ("dispatch", "id.bootloader",
                                               "id.fsset", "id.diskset",
                                               "id.partrequests") ),

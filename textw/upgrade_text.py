@@ -8,10 +8,8 @@ from constants_text import *
 import upgrade
 
 class UpgradeSwapWindow:
-    def __call__ (self, screen, dispatch, intf, fsset, instPath):
-	rc = upgrade.swapSuggestion(instPath, fsset)
-	if not rc:
-	    return INSTALL_OK
+    def __call__ (self, screen, intf, fsset, instPath, swapInfo):
+	rc = swapInfo
 
 	(fsList, suggSize, suggMntPoint) = rc
 
@@ -83,18 +81,21 @@ class UpgradeSwapWindow:
 	    try:
 		val = int(val)
 	    except ValueError:
-		todo.intf.messageWindow(_("Error"),
-		    _("The value you entered is not a valid number."))
+		intf.messageWindow(_("Error"),
+                                   _("The value you entered is not a "
+                                     "valid number."))
 
 	    if type(val) == type(1):
 		(mnt, part, size) = fsList[listbox.current()]
 		if size < (val + 16):
-		    todo.intf.messageWindow(_("Error"),
-			_("There is not enough space on the device you "
-			  "selected for the swap partition."))
+		    intf.messageWindow(_("Error"),
+                                       _("There is not enough space on the "
+                                         "device you selected for the swap "
+                                         "partition."))
                 elif val > 2000 or val < 1:
-                    todo.intf.messageWindow(_("Warning"), 
-                    _("The swap file must be between 1 and 2000 MB in size."))
+                    intf.messageWindow(_("Warning"), 
+                                       _("The swap file must be between 1 "
+                                         "and 2000 MB in size."))
 		else:
 		    screen.popWindow()
                     if todo.setupFilesystems:

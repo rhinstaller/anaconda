@@ -61,8 +61,10 @@ class UpgradeSwapWindow (InstallWindow):
 
         else:
             if flags.setupFilesystems:
-                upgrade.createSwapFile(instPath, fsset, mnt, val)
-                                       
+                # XXX fix me
+                # upgrade.createSwapFile(instPath, fsset, mnt, val)
+                pass
+                
         return None
 
     def toggle (self, data):
@@ -71,16 +73,13 @@ class UpgradeSwapWindow (InstallWindow):
     def clist_cb(self, clist, row, col, data):
         self.row = row
     
-    def getScreen (self, dispatch, intf, fsset, instPath):
+    def getScreen (self, intf, fsset, instPath, swapInfo):
         self.neededSwap = 0
         self.fsset = fsset
-        self.dispatch = dispatch
         self.instPath = instPath
         self.intf = intf
         
-        rc = upgrade.swapSuggestion(self.instPath, self.fsset)
-	if not rc:
-            return None
+        rc = swapInfo
 
         self.neededSwap = 1
         self.row = 0

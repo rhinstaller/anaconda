@@ -23,6 +23,7 @@ import time
 import rpm
 import sys
 import os.path
+import dispatch
 from flags import flags
 from partitioning import *
 from log import log
@@ -79,7 +80,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
         oldfsset.mountFilesystems (instPath)
 
 # returns None if no more swap is needed
-def swapSuggestion(instPath, fsset):
+def upgradeSwapSuggestion(dispatch, id, instPath):
     # mem is in kb -- round it up to the nearest 4Mb
     mem = iutil.memInstalled(corrected = 0)
     rem = mem % 16384
@@ -87,18 +88,23 @@ def swapSuggestion(instPath, fsset):
 	mem = mem + (16384 - rem)
     mem = mem / 1024
 
+    dispatch.skipStep("addswap", 0)
+    
     # don't do this if we have more then 512 MB
-    if mem > 510: return None
-
+    if mem > 510:
+        dispatch.skipStep("addswap", 1)
+        return
+    
     swap = iutil.swapAmount() / 1024
 
     # if we have twice as much swap as ram, we're safe
     if swap >= (mem * 2):
-	return None
+        dispatch.skipStep("addswap", 1)
+	return
 
     fsList = []
 
-    if fsset.rootOnLoop():
+    if id.fsset.rootOnLoop():
 	space = isys.pathSpaceAvailable("/mnt/loophost")
 
         for entry in fsset.entries:
@@ -108,7 +114,7 @@ def swapSuggestion(instPath, fsset):
 	    info = (entry.mountpoint, entry.device.getDevice(), space)
 	    fsList.append(info)
     else:
-        for entry in fsset.entries:
+        for entry in id.fsset.entries:
             # XXX multifsify
             if (entry.fsystem.getName() == "ext2"
                 or entry.fsystem.getName() == "ext3"):
@@ -125,7 +131,7 @@ def swapSuggestion(instPath, fsset):
 	if (size > suggSize) and (size > (suggestion + 100)):
 	    suggMnt = mnt
 
-    return (fsList, suggestion, suggMnt)
+    id.upgradeSwapInfo = (fsList, suggestion, suggMnt)
 
 def swapfileExists(swapname):
     try:
