@@ -133,6 +133,13 @@ int devMakeInode(char * devName, char * path) {
 	minor = (devName[7] - '0') * 16;  /* disk */
 	if (strlen(devName) > 8)          /* partition */
 	    minor += atoi(devName + 9);
+    } else if (!strncmp(devName, "cciss/", 6)) {
+	/* Compaq Smart Array 5300 "cciss/c0d0{p1} */
+	type = S_IFBLK;
+	major = 130 + devName[7] - '0';    /* controller */
+	minor = (devName[9] - '0') * 16;  /* disk */
+	if (strlen(devName) > 10)          /* partition */
+	    minor += atoi(devName + 11);
     } else {
 	for (i = 0; i < numDevices; i++) {
 	    if (!strcmp(devices[i].name, devName)) break;
