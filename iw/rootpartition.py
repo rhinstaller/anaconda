@@ -98,7 +98,7 @@ class LoopSizeWindow(InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
     def getNext (self):
-        self.todo.fstab.setLoopbackSize (self.adj.value, self.swapAdj.value)
+        self.todo.fstab.setLoopbackSize (self.sizeAdj.value, self.swapAdj.value)
 
     def getScreen (self):
         # XXX error check mount that this check tries
@@ -121,22 +121,30 @@ class LoopSizeWindow(InstallWindow):
         vbox.pack_start (label, FALSE, FALSE)
 
         # XXX lower is 150
-        self.adj = GtkAdjustment (value = size, lower = 150, upper = avail, step_incr = 1)
-        self.spin = GtkSpinButton (self.adj, digits = 0)
-        self.spin.set_usize (100, -1)
+        self.sizeAdj = GtkAdjustment (value = size, lower = 150, upper = avail, step_incr = 1)
+        self.sizeSpin = GtkSpinButton (self.sizeAdj, digits = 0)
+        self.sizeSpin.set_usize (100, -1)
 
         self.swapAdj = GtkAdjustment (value = swapSize, lower = 16, upper = avail, step_incr = 1)
         self.swapSpin = GtkSpinButton (self.swapAdj, digits = 0)
         self.swapSpin.set_usize (100, -1)
 
+        table = GtkTable ()
+
+        label = GtkLabel (_("Root filesystem size:"))
+        label.set_alignment (1.0, 0.5)
+        table.attach (label, 0, 1, 0, 1, xpadding=5, ypadding=5)
+        table.attach (self.sizeSpin, 1, 2, 0, 1, xpadding=5, ypadding=5)
+
+        label = GtkLabel (_("Swap space size:"))
+        label.set_alignment (1.0, 0.5)
+        table.attach (label, 0, 1, 1, 2, xpadding=5, ypadding=5)
+        table.attach (self.swapSpin, 1, 2, 1, 2, xpadding=5, ypadding=5)
 
         align = GtkAlignment ()
-        align.add (self.spin)
-
-        align2 = GtkAlignment ()
-        align2.add (self.swapSpin)
+        align.add (table)
+        align.set (0, 0, 0.5, 0.5)
         vbox.pack_start (align, FALSE, FALSE)
-        vbox.pack_start (align2, FALSE, FALSE)
 
 	self.ics.setNextEnabled (TRUE)
 
