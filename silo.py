@@ -299,7 +299,7 @@ class SiloInstall:
 		sl.addEntry("initrd", initrdFile)
 
             if self.todo.liloAppend:
-                sl.addEntry("append", self.todo.liloAppend)
+		sl.addEntry('append', '"%s"' % self.todo.liloAppend)
 
 	    silo.addImage ("image", kernelFile, sl)
 
