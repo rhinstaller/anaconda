@@ -64,7 +64,13 @@ class InstallProgressWindow (InstallWindow):
         apply (self.clist.set_text, self.status["remaining"]["size"] +
                                     ("%d M" % ((self.totalSize - self.sizeComplete) / (1024 * 1024)),))
 
-	elapsedTime = time.time() - self.timeStarted 
+        # check to see if we've started yet
+        if (self.timeStarted == -1):
+            self.timeStarted = time.time ()
+            elapsedTime = 0
+        else:
+            elapsedTime = time.time() - self.timeStarted
+            
         apply (self.clist.set_text, self.status["completed"]["time"] + ("%s" % formatTime(elapsedTime),))
 
 	finishTime = (float (self.totalSize) / self.sizeComplete) * elapsedTime
@@ -99,7 +105,7 @@ class InstallProgressWindow (InstallWindow):
         threads_enter ()
         self.numTotal = total
         self.totalSize = totalSize
-        self.timeStarted = time.time ()
+        self.timeStarted = -1
 
         apply (self.clist.set_text, self.status["total"]["packages"] + ("%d" % total,))
         
