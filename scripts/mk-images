@@ -387,6 +387,7 @@ EOF
 
     # setup xinetd for telnet
     cp -f $IMGPATH/etc/xinetd.conf $MBD_DIR/etc/xinetd.conf
+    mkdir -p $MBD_DIR_/etc/xinetd.d
     cat > $MBD_DIR/etc/xinetd.d/telnet <<EOF
 service telnet
 {
@@ -448,7 +449,7 @@ EOF
     cp -f $IMGPATH/usr/sbin/xinetd $MBD_DIR/sbin/xinetd
     cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
     cp -f $IMGPATH/usr/bin/bash $MBD_DIR/sbin/bash
-    cp -f $IMGPATH/sbin/busybox $MBD_DIR/sbin/busybox
+    cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
     
     # make some symlinks
     ln -sf bash $MBD_DIR/sbin/sh
@@ -579,7 +580,6 @@ makeinitrd() {
     MBD_MNTPOINT=/tmp/makebootdisk.mount.$$
     MBD_TMPIMAGE=/tmp/makebootdisk.image.$$
     MBD_BOOTTREE=/tmp/makebootdisk.tree.$$
-    INITBIN=init
 
     rm -rf $MBD_DIR MBD_FSIMAGE
     mkdir -p $MBD_DIR/modules
@@ -622,7 +622,7 @@ EOF
 
     install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
-	install -s -m 755 $LOADERBINDIR/$INITBIN $MBD_DIR/sbin
+	install -s -m 755 $LOADERBINDIR/init $MBD_DIR/sbin
     else
 	install -s -m 755 $LOADERBINDIR/shutdown $MBD_DIR/sbin/shutdown
 	install -m 755 $IMGPATH/usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR/linuxrc
