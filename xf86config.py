@@ -573,38 +573,42 @@ EndSection
 """
 
 class XF86Config:
-    def __init__ (self, mouse = None, resolution = None):
+    def __init__ (self, video, monitor, mouse, resolution = None):
+
+        if video:
+            self.setVideo(video)
+        else:
+            raise RuntimeError, "no videocard specified in XF86Config __init__"
+
+        if monitor:
+            self.setMonitor(monitor)
+        else:
+            raise RuntimeError, "no monitor specified in XF86Config __init__"
 
         if mouse:
             self.setMouse(mouse)
         else:
-            self.mouse = Mouse (skipProbe = 1)
-        self.server = None
-        self.vidCards = []
-        self.cardMan = None
-        self.vidRam = None
-        self.monEisa = None
-        self.monName = None
-        self.res = resolution
+            raise RuntimeError, "no mouse specified in XF86Config __init__"
 
-	self.monSect = ""
-        self.monID = "Unprobed Monitor"
-        self.state = ""
-        self.devID = None
-        self.probed = 0
         self.skip = 0
-	self.primary = 0
+        self.res = resolution
         self.manualModes = {}
+        self.fallbackModes = {}
+
+
+        monsyncknown = (self.monitor.getMonitorHorizSync() != None) and (self.monitor.getMonitorVertSync() != None)
 
         if self.res == "640x480":
             self.modes = { "8" :  ["640x480"] }
-            self.monHoriz = "31.5-35.5"
-            self.monVert = "50-61"
+            if not monsyncknown:
+                self.monitor.setSpecs("31.5-35.5", "50-61")
         else:
             self.modes = { "16" :  ["800x600"] }
-            self.monHoriz = "31.5-48.5"
-            self.monVert = "50-70"
+            if not monsyncknown:
+                self.monitor.setSpecs("31.5-48.5", "50-70")
 
+        self.fallbackModes = self.modes
+        
 	self.device = None
         self.keyRules = "xfree86"
         self.keyModel = "pc101"
@@ -620,7 +624,7 @@ class XF86Config:
         self.monids = {}
 
         if isys.fbinfo() != None:
-            x, y, depth = isys.fbinfo()
+            (x, y, depth) = isys.fbinfo()
             self.fbDepth = depth
         else:
             self.fbDepth = 16
@@ -650,6 +654,12 @@ class XF86Config:
     def setMouse(self, mouse):
         self.mouse = mouse
 
+    def setVideo(self, video):
+        self.video = video
+
+    def setMonitor(self, monitor):
+        self.monitor = monitor
+
     def areaCompare (self, first, second):
         (sx1, sy1) = string.split (first, 'x')
         (sx2, sy2) = string.split (second, 'x')
@@ -668,42 +678,47 @@ class XF86Config:
     def availableModes (self):
         modes = { "8" : [ "640x480" ] }
 
-        if not self.vidRam:
+        if not self.video:
+            return modes
+        
+        vidRam = self.video.primaryCard().getVideoRam()
+
+        if not vidRam:
             return modes
         laptop = self.laptop()
         if laptop:
             return laptop
-        if string.atoi(self.vidRam) >= 8192:
+        if string.atoi(vidRam) >= 8192:
             modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1400x1050", "1600x1200"]
             modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1400x1050", "1600x1200"]
             modes["32"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1400x1050", "1600x1200"]
             return modes
-        elif string.atoi(self.vidRam) >= 6144:
+        elif string.atoi(vidRam) >= 6144:
             modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1400x1050", "1600x1200"]
             modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1400x1050", "1600x1200"]
             modes["32"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
             return modes
-        elif string.atoi(self.vidRam) >= 4096:
+        elif string.atoi(vidRam) >= 4096:
             modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
             modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
             modes["32"] = ["640x480", "800x600", "1024x768", "1152x864"]
             return modes
-        elif string.atoi(self.vidRam) >= 2048:
+        elif string.atoi(vidRam) >= 2048:
             modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
             modes["16"] = ["640x480", "800x600", "1024x768", "1152x864"]
             modes["32"] = ["640x480", "800x600"]
             return modes
-        elif string.atoi(self.vidRam) >= 1024:
+        elif string.atoi(vidRam) >= 1024:
             modes["8"] = ["640x480", "800x600", "1024x768", "1152x864"]
             modes["16"] = ["640x480", "800x600"]
             modes["32"] = []
             return modes
-        elif string.atoi(self.vidRam) >= 512:
+        elif string.atoi(vidRam) >= 512:
             modes["8"] = ["640x480", "800x600"]
             modes["16"] = ["640x480"]
             modes["32"] = []
             return modes
-        elif string.atoi(self.vidRam) >= 256:
+        elif string.atoi(vidRam) >= 256:
             modes["8"] = ["640x480"]
             return modes
 
@@ -712,6 +727,21 @@ class XF86Config:
 
     def setModes(self, modes):
         self.modes = modes
+
+    def getModes(self):
+        return self.modes
+
+    def setManualModes(self, modes):
+        self.manualModes = modes
+
+    def getManualModes(self):
+        return self.manualModes
+
+    def setFallBackModes(self, modes):
+        self.fallbackModes = modes
+
+    def getFallBackModes(self):
+        return self.fallbackModes
 
     def cards (self, thecard = None):
         cards = {}
@@ -762,7 +792,7 @@ class XF86Config:
             db = open ('/usr/X11R6/share/Xconfigurator/MonitorsDB')
             lines = db.readlines ()
             db.close ()
-        found = 0
+
         for line in lines:
             line = string.strip (line)
             if not line:
@@ -782,179 +812,38 @@ class XF86Config:
             self.monids[eisa] = (man, model, eisa, vert, horiz)
         return self.monlist
 
-    def setMonitor (self, (monitor, (hrange, vrange))):
-        self.monName = monitor
-        self.monID = monitor
-        self.monHoriz = hrange
-        self.monVert = vrange
-
-    # must pass card as a dictionary entry for desired card
-    def setVidcard (self, card):
-        self.vidCards = [card]
-        self.primary = 0
-
-        if self.vidCards:
-            self.devID = self.vidCards[self.primary]["NAME"]
-            if (self.vidCards[self.primary].has_key("DRIVER") and
-                not self.vidCards[self.primary].has_key("UNSUPPORTED")):
-                self.server = "XFree86"
-            else:
-                self.server = "XF86_" + self.vidCards[self.primary]["SERVER"]
-
-    # locate dictionary entry for requested card name
-    # case matters
-    def locateVidcard (self, card):
-        cards = self.cards()
-        if cards.has_key(card):
-            return cards[card]
-        else:
-            return None
-
-    # server is string name of X server (eg. "SVGA")
-    # case matters
-    def setVidcardByServer (self, server):
-        tmpcard = "Generic " + server
-
-        entry = self.locateVidcard (tmpcard)
-
-        if entry != None:
-            self.setVidcard (entry)
-        else:
-            raise RuntimeError, "Could not find valid video card driver."
-    
-    # card is string name of video card (eg. "Generic SVGA")
-    def setVidcardByName (self, card):
-        entry = self.locateVidcard (card)
-
-        if entry != None:
-            self.setVidcard (entry)
-        else:
-            raise RuntimeError, "Could not find valid video card driver."
-    
-    def probe (self, probeMonitor = 1):
-# XXX defer monitor probe, then re-enable this check
-#        if self.probed:
-#            return
-        self.probed = 1
-	self.device = None
-        self.descr = None
-	self.primary = 0
-        # PCI probe for video cards
-        sections = {}
-
-        cards = []
-        cards = kudzu.probe (kudzu.CLASS_VIDEO,
-                             kudzu.BUS_UNSPEC,
-                             kudzu.PROBE_ALL);
-        
-        for card in cards:
-            section = ""
-            (device, server, descr) = card
-	    if device and not self.device:
-		self.device = device
-		self.primary = len(self.vidCards)
-            self.descr = descr
-	    if len (server) > 9 and server[0:10] == "Server:Sun" and descr[0:4] == "Sun|":
-		server = "Card:Sun " + descr[4:]
-            if len (server) > 5 and server[0:5] == "Card:":
-                self.vidCards.append (self.cards (server[5:]))
-            if len (server) > 7 and server[0:7] == "Server:":
-                info = { "NAME" : "Generic " + server[7:],
-                         "SERVER" : server[7:] }
-                self.vidCards.append (info)
-
-        if self.vidCards:
-            self.devID = self.vidCards[self.primary]["NAME"]
-            if (self.vidCards[self.primary].has_key("DRIVER") and
-                not self.vidCards[self.primary].has_key("UNSUPPORTED")):
-                self.server = "XFree86"
-            else:
-                self.server = "XF86_" + self.vidCards[self.primary]["SERVER"]
-
-        # VESA probe for monitor/videoram, etc.
-        if probeMonitor:
-	    try:
-		probe = string.split (iutil.execWithCapture ("/usr/sbin/ddcprobe", ['ddcprobe']), '\n')
-		for line in probe:
-		    if line and line[:9] == "OEM Name:":
-			self.cardMan = string.strip (line[10:])
-
-		    if line and line[:16] == "Memory installed":
-			memory = string.split (line, '=')
-			self.vidRam = string.strip (memory[2][:-2])
-
-		    if line and line[:8] == "EISA ID:":
-			self.monEisa = string.lower(line[9:])
-			self.monID = line[9:]
-
-		    if line and line[:6] == "\tName:":
-			if not self.monName or len (self.monName) < len (line[7:]):
-			    self.monName = line[7:]
-
-		    if line and line[:15] == "\tTiming ranges:":
-			ranges = string.split (line, ',')
-			self.monHoriz = string.strip (string.split (ranges[0], '=')[1])
-			self.monVert = string.strip (string.split (ranges[1], '=')[1])
-
-		    if self.vidCards and self.cardMan:
-			self.vidCards[self.primary]["VENDOR"] = self.cardMan
-                if self.monEisa:
-                    # read the monitor DB
-                    self.monitors()
-                    if self.monids.has_key (self.monEisa):
-                        (man, model, eisa, vert, horiz) = self.monids[self.monEisa]
-                        self.monName = model
-                        self.monID = model
-                        self.monHoriz = horiz
-                        self.monVert = vert
-	    except:
-		pass
-	    if not self.vidRam and self.device:
-		try:
-		    (vidram, depth, mode, monitor) = isys.fbconProbe("/dev/" + self.device)
-		    if vidram:
-			self.vidRam = "%d" % vidram
-		    if depth:
-			self.modes = { "%d" % depth : [ mode ] }
-			self.monSect = monitor
-			self.bpp = "%d" % depth
-		except:
-		    pass
-
-            # kludge to handle i810 displays which require at least 16 Meg
-            if (self.vidCards
-                and self.vidCards[self.primary].has_key("DRIVER")
-                and (self.vidCards[self.primary]["DRIVER"] == "i810")):
-                self.vidRam = "16384"
-
 
     def probeReport (self):
         probe = ""
-        if self.vidCards:
-            probe = probe + _("Video Card") + ": " + self.vidCards[self.primary]["NAME"] + "\n"
-            if self.vidRam:
-                probe = probe + "\t" + _("Video Ram") + ": " + self.vidRam + " kb\n"
-        if self.server:
+        if self.video:
+            primary = self.video.primaryCard()
+            vidCards = primary.getCardData()
+            
+        if vidCards:
+            probe = probe + _("Video Card") + ": " + vidCards["NAME"] + "\n"
+            if primary.getVideoRam():
+                probe = probe + "\t" + _("Video Ram") + ": " + primary.getVideoRam() + " kb\n"
+        if primary.getXServer():
             time.sleep(5)
-            probe = probe + "\t" + _("X server") + ": " + self.server + "\n"
-        if not self.server:
+            probe = probe + "\t" + _("X server") + ": " + primary.getXServer() + "\n"
+        else:
             time.sleep(5)
             probe = probe + "\t" + _("Unable to detect video card")
 
         return probe
         # disable monitor report
-        probe = probe + "\n"
+#          probe = probe + "\n"
 
-        if self.monName:
-            probe = probe + _("Monitor") + ": " + self.monName + "\n"
-        elif self.monEisa:
-            probe = probe + _("Monitor") + ": " + _("Plug and Play Monitor") + "\n"
-        if self.monHoriz:
-            probe = probe + "\t" + _("Horizontal frequency range") + ": " + self.monHoriz + " kHz\n"
-        if self.monHoriz:
-            probe = probe + "\t" + _("Vertical frequency range") + ": " + self.monVert + " Hz\n"
+#          if self.monName:
+#              probe = probe + _("Monitor") + ": " + self.monName + "\n"
+#          elif self.monEisa:
+#              probe = probe + _("Monitor") + ": " + _("Plug and Play Monitor") + "\n"
+#          if self.monHoriz:
+#              probe = probe + "\t" + _("Horizontal frequency range") + ": " + self.monHoriz + " kHz\n"
+#          if self.monHoriz:
+#              probe = probe + "\t" + _("Vertical frequency range") + ": " + self.monVert + " Hz\n"
 
-        return probe
+#          return probe
 
     def write (self, path):
         config = open (path + "/XF86Config", 'w')
@@ -966,34 +855,78 @@ class XF86Config:
             return
         config = open (path + "/XF86Config-4", 'w')
         config.write (config4)
-        config.close ()        
+        config.close ()
+
+    def writeKS (self, f):
+        xmodes = self.getManualModes()
+
+        if len(xmodes) == 0:
+            f.write("skipx\n")
+            return
+        
+        f.write("xconfig")
+
+        for arg in self.getArgList(xmodes):
+            f.write(" " + arg)
+        f.write("\n")
+
+    def getArgList(self, xmodes):
+        args = []
+        vc = self.video.primaryCard()
+
+        args = args + [ "--card", '"' + vc.shortDescription() + '"' ]
+        args = args + [ "--videoram", vc.getVideoRam() ]
+        args = args + [ "--hsync", self.monitor.getMonitorHorizSync() ]
+        args = args + [ "--vsync", self.monitor.getMonitorVertSync() ]
+
+        # XXX this isn't really quite right, but it works for the way
+        # things are now
+        depths = xmodes.keys()
+        args = args + [ "--resolution", xmodes[depths[0]][0] ]
+        args = args + [ "--depth", depths[0] ]
+
+        return args
+
 
     def laptop (self):
-        if not self.descr:
+
+        descr = self.video.primaryCard().getDescription() 
+        if not descr:
             return None
+
         # PCI descr, (horiz, vert), modes
         laptops = (("ATI|Rage Mobility",
                     ("30-110", "60-110"),
-                    { "8" : ["800x600", "1024x768", "1280x1024", "1400x1050"],
-                      "16" : ["800x600", "1024x768", "1280x1024", "1400x1050"],
-                      "32" : ["800x600", "1024x768", "1280x1024", "1400x1050"]}),
+                    { "8" : ["800x600", "1024x768", "1400x1050"],
+                      "16" : ["800x600", "1024x768", "1400x1050"],
+                      "32" : ["800x600", "1024x768", "1400x1050"]}),
                    )
         for (card, (horiz, vert), modes) in laptops:
-            if (len(self.descr) >= len (card)
-                and self.descr[:len(card)] == card):
-                self.monHoriz = horiz
-                self.monVert = vert
-                self.monID = "Laptop Screen"
+            if (len(descr) >= len (card)
+                and descr[:len(card)] == card):
+                self.monitor.setSpecs(horiz, vert, id="Laptop Screen")
                 return modes
         return None
 
     def test (self, serverflags=None, spawn=0):
-        if not self.server:
-#            print "self.server was None, doing nothing in test"
+        servername = self.video.primaryCard().getXServer()
+        if not servername:
             return
 
         files = self.files
-        modes = self.modes
+        laptop = self.laptop()
+
+        # override modes if on a laptop
+        if laptop:
+            self.manualModes = laptop
+
+        # save current manually selected mode, override if non-existant
+        manmodes = self.manualModes
+        if not manmodes:
+            if self.fallbackModes:
+                self.manualModes = self.fallbackModes
+            else:
+                self.manualModes = self.modes
 
         self.files = """
     RgbPath	"/usr/X11R6/lib/X11/rgb"
@@ -1014,7 +947,7 @@ class XF86Config:
 """
         f = open ('/tmp/XF86Config.test', 'w')
 
-        if self.server == "XFree86":
+        if servername == "XFree86":
             config = self.Version4Config
         else:
             config = self.Version3Config
@@ -1022,16 +955,19 @@ class XF86Config:
         f.close ()
 
         self.files = files
-        self.modes = modes
 
-        serverPath = "/usr/X11R6/bin/" + self.server
+        # restore manualmodes
+        self.manualModes = manmodes
 
-        server = os.fork()
+        serverPath = "/usr/X11R6/bin/" + servername
 
-        if (not server):
+        print "forking"
+        serverpid = os.fork()
+
+        if (not serverpid):
             args = [serverPath, '-xf86config', '/tmp/XF86Config.test' ]
 	    logFile = "/tmp/X.log"
-            if self.server == "XFree86":
+            if servername == "XFree86":
                 args = args + [ "-logfile", "/dev/null" ]
             if serverflags:
                 args = args + serverflags
@@ -1055,7 +991,7 @@ class XF86Config:
 
 
         if spawn:
-            return server
+            return serverpid
             
         child = os.fork()
         if (not child):
@@ -1066,8 +1002,8 @@ class XF86Config:
             status = -1
             try:
                 pid, status = os.waitpid(child, 0)
-                os.kill (server, 15)
-                os.waitpid(server, 0)
+                os.kill (serverpid, 15)
+                os.waitpid(serverpid, 0)
                 if not os.WIFEXITED (status) or os.WEXITSTATUS (status):
                     if os.WEXITSTATUS (status) not in [ 0, 1, 2 ]:
                         failed = 1
@@ -1081,43 +1017,46 @@ class XF86Config:
         info = {}
         devices = ""
         screens = ""
-        
-        for card in self.vidCards:
-            devices = devices + """
+
+        monitor = self.monitor
+        card = self.video.primaryCard()
+        carddata = card.getCardData()
+        devices = devices + """
 Section "Device"
     Identifier         "%(NAME)s"
-""" % card
-            if card.has_key ("VENDOR"):
-                devices = devices + '    VendorName         "%(VENDOR)s"\n' % card
-            if card.has_key ("BOARDNAME"):
-                devices = devices + '    BoardName          "%(BOARD)s"\n' % card
-            if card.has_key ("RAMDAC"):
-                devices = devices + '    Ramdac             "%(RAMDAC)s"\n' % card
-            if card.has_key ("LINE"):
-                devices = devices + card["LINE"] + "\n"
-            if self.vidRam:
-                devices = devices + '    VideoRam           %s\n' % (self.vidRam,) 
-            devices = devices + "EndSection\n"
+""" % carddata
+        if carddata.has_key ("VENDOR"):
+            devices = devices + '    VendorName         "%(VENDOR)s"\n' % carddata
+        if carddata.has_key ("BOARDNAME"):
+            devices = devices + '    BoardName          "%(BOARD)s"\n' % carddata
+        if carddata.has_key ("RAMDAC"):
+            devices = devices + '    Ramdac             "%(RAMDAC)s"\n' % carddata
+        if carddata.has_key ("LINE"):
+            devices = devices + carddata["LINE"] + "\n"
+        if card.getVideoRam():
+            devices = devices + '    VideoRam           %s\n' % (card.getVideoRam(),) 
+        devices = devices + "EndSection\n"
 
-        if self.devID:
+        if card.getDevID():
             screens = ""
             tmp = {}
             maxdepth = -1
-            for (depth, modes) in self.modes.items ():
+            xmodes = self.manualModes
+            
+            for (depth, modes) in xmodes.items ():
                 modes.sort (self.areaCompare)
                 if len(modes) > 0 and string.atoi(depth) > maxdepth:
                     maxdepth = string.atoi(depth)
 
-            if self.monSect:
-                monitor = "Probed Monitor"
+            if monitor.getFBMonitorSection():
+                monitorname = "Probed Monitor"
             else:
-                monitor = self.monID
-
+                monitorname = monitor.getMonitorID()
 
             for driver in [ "svga", "accel" ]:
                 tmp["driver"] = driver
-                tmp["devID"] = self.devID
-                tmp["monitorID"] = monitor
+                tmp["devID"] = card.getDevID()
+                tmp["monitorID"] = monitorname
                 screens = screens + """
 # The %(driver)s server
 Section "Screen"
@@ -1131,18 +1070,18 @@ Section "Screen"
                 if self.res == "640x480":
                     screens = screens + "    DefaultColorDepth 8\n"
                 elif maxdepth > 0:
-                    if maxdepth > 16 and '16' in self.modes.keys() and self.modes['16']:
+                    if maxdepth > 16 and '16' in xmodes.keys() and xmodes['16']:
                         screens = screens + "    DefaultColorDepth 16\n"
                     else:
                         screens = screens + "    DefaultColorDepth %d\n" % maxdepth
                         
-                for depth in self.modes.keys ():
-                    if not self.modes[depth]: continue
+                for depth in xmodes.keys ():
+                    if not xmodes[depth]: continue
                     screens = screens + """
     Subsection "Display"
         Depth       %s
         Modes       """ % depth
-                    for res in self.modes[depth]:
+                    for res in xmodes[depth]:
                         screens = screens + '"' + res + '" '
                     screens = screens + """
         ViewPort    0 0
@@ -1161,7 +1100,7 @@ Section "Screen"
             mouseProto = self.mouse.info['XMOUSETYPE']
         info = { "acceleratedDevices" : devices,
                  "acceleratedScreens" : screens,
-                 "devID"              : self.devID,
+                 "devID"              : card.getDevID(),
                  "mouseProto"         : mouseProto,
                  "mouseDevice"        : self.mouse.device,
                  "XkbRules"           : self.keyRules,
@@ -1171,13 +1110,19 @@ Section "Screen"
                  "enableVariant"      : "#",
                  "XkbOptions"         : self.keyOptions,
                  "enableOptions"      : "#",
-                 "monitorID"	      : self.monID,
-                 "monitorHoriz"       : self.monHoriz,
-                 "monitorVert"        : self.monVert,
-                 "fbProbedMonitor"    : self.monSect,
+                 "monitorID"	      : monitor.getMonitorID(),
+                 "monitorHoriz"       : monitor.getMonitorHorizSync(),
+                 "monitorVert"        : monitor.getMonitorVertSync(),
+                 "fbProbedMonitor"    : monitor.getFBMonitorSection(),
                  "files"              : self.files,
-                 "fbDepth"            : self.fbDepth,
                  }
+
+        # HACK if no frame buffer running just wing it
+        if card.getFBBpp():
+            info["fbDepth"] = card.getFBBpp()
+        else:
+            info["fbDepth"] = 8
+        
         if self.keyVariant:
             info["enableVariant"] = ""
         if self.keyOptions:
@@ -1194,15 +1139,16 @@ Section "Screen"
         return XF86Config_template % info
         
     def Version4Config(self, test=0):
-        if not self.vidCards:
+        if not self.video:
             raise RuntimeError, "No known video cards"
         screens = ""
         maxdepth = -1
-        for depth in self.modes.keys ():
-            if not self.modes[depth]: continue
+        xmodes = self.manualModes
+        for depth in xmodes.keys ():
+            if not xmodes[depth]: continue
             if depth == "32":
                 depth = "24"
-                self.modes["24"] = self.modes["32"]
+                xmodes["24"] = xmodes["32"]
             if maxdepth < string.atoi(depth):
                 maxdepth = string.atoi(depth)
             screens = screens + """
@@ -1210,7 +1156,7 @@ Section "Screen"
         	Depth       %s
                 Modes       """ % depth
             
-            modes = self.modes[depth]
+            modes = xmodes[depth]
             modes.sort (self.areaCompare)
             for res in modes:
                 screens = screens + '"' + res + '" '
@@ -1218,7 +1164,8 @@ Section "Screen"
 	EndSubsection
 """
             if depth == "24":
-                del self.modes["24"]
+                del xmodes["24"]
+                
         # XXX if we're going to be using IMPS/2 on
         # reboot, but we're using PS/2 now, we'll need
         # to temporarily use PS/2 so we don't frob the
@@ -1234,14 +1181,26 @@ Section "Screen"
             emulate3 = "yes"
         else:
             emulate3 = "no"
+
+        card = self.video.primaryCard()
+        carddata = card.getCardData()
+        monitor = self.monitor
+
+        # set cardsoptions if unambiguous what version of XFree86 they
+        # apply to
+        cardoptions = "	# no known options"
+        if carddata.has_key("DRIVER") and not carddata.has_key("SERVER"):
+            if carddata.has_key("LINE"):
+                cardoptions = carddata["LINE"]
+        
         data = { "mouseProto"   : mouseProto,
                  "mouseDevice"  : self.mouse.device,
-                 "cardsOptions" : "	# no known options",
-                 "cardID"       : self.vidCards[self.primary]["NAME"],
-                 "cardVendor"   : self.vidCards[self.primary]["NAME"],
-                 "cardBoardName": self.vidCards[self.primary]["NAME"],
-                 "monitorHoriz" : self.monHoriz,
-                 "monitorVert"  : self.monVert,
+                 "cardsOptions" : cardoptions,
+                 "cardID"       : carddata["NAME"],
+                 "cardVendor"   : carddata["NAME"],
+                 "cardBoardName": carddata["NAME"],
+                 "monitorHoriz" : monitor.getMonitorHorizSync(),
+                 "monitorVert"  : monitor.getMonitorVertSync(),
                  "files"        : self.files,
                  "screenModes"  : screens,
 		 "nonSparcMods" : '\n\tLoad "fbdevhw"',
@@ -1267,7 +1226,7 @@ Section "Screen"
             data["enableOptions"] = ""
 
         if maxdepth > 0:
-            if maxdepth > 16 and '16' in self.modes.keys() and self.modes['16']:
+            if maxdepth > 16 and '16' in xmodes.keys() and xmodes['16']:
                 data["defaultDepth"] = "\n\tDefaultDepth\t16"
             else:
                 data["defaultDepth"] = "\n\tDefaultDepth\t%d" % maxdepth
@@ -1278,10 +1237,10 @@ Section "Screen"
 	    data["autorepeat"] = '#	Option	"AutoRepeat"	"200 20"'
         else:
             data["autorepeat"] = '#	Option	"AutoRepeat"	"500 5"'
-        if self.vidCards[self.primary].has_key ("DRIVER"):
-            data["cardDriver"] = self.vidCards[self.primary]["DRIVER"]
+        if carddata.has_key ("DRIVER"):
+            data["cardDriver"] = carddata["DRIVER"]
             if data["cardDriver"] == "i810":
-                data["videoRam"] = "\tVideoRam %s\n" % self.vidRam
+                data["videoRam"] = "\tVideoRam %s\n" % card.getVideoRam()
 	    # DRI HACK!
 	    #if data["cardDriver"] == "r128" or data["cardDriver"] == "mga":
 	    #	data["driMod"] = '\n\t#Load "dri"'
