@@ -10,6 +10,6 @@ int loadDriverFromMedia(int class, moduleList modLoaded, moduleDeps * modDeps,
                         moduleInfoSet modInfo, struct knownDevices * kd, 
                         int flags);
 
-int getRemovableDevice(char ** device, int flags);
+int getRemovableDevices(char *** devNames);
 
 #endif

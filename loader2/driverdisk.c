@@ -112,21 +112,22 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     return 0;
 }
 
-/* JKFIXME: need a better name for this I think :) */
-/* Get the best available removable device (floppy/cdrom).  Used regularly
- * for device disks and update disks.
+/* Get the list of removable devices (floppy/cdrom) available.  Used to
+ * find suitable devices for update disk / driver disk source.  
+ * Returns the number of devices.  ***devNames will be a NULL-terminated list
+ * of device names
  */
-int getRemovableDevice(char ** device, int flags) {
+int getRemovableDevices(char *** devNames) {
     struct device **devices, **floppies, **cdroms;
-    char ** devNames;
     int numDevices = 0;
-    int i = 0, j = 0, rc, num = 0;
+    int i = 0, j = 0;
 
     floppies = probeDevices(CLASS_FLOPPY, 
                             BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_ALL);
     cdroms = probeDevices(CLASS_CDROM, BUS_IDE | BUS_SCSI, PROBE_ALL);
 
-    /* JKFIMXE: need to handle disconnected devices */
+    /* we should probably take detached into account here, but it just
+     * means we use a little bit more memory than we really need to */
     if (floppies)
         for (i = 0; floppies[i]; i++) numDevices++;
     if (cdroms)
@@ -135,51 +136,35 @@ int getRemovableDevice(char ** device, int flags) {
     /* JKFIXME: better error handling */
     if (!numDevices) {
         logMessage("no devices found to load drivers from");
-        return LOADER_BACK;
+        return numDevices;
     }
 
     devices = malloc((numDevices + 1) * sizeof(**devices));
 
     i = 0;
     if (floppies)
-        for (j = 0; floppies[j]; j++) devices[i++] = floppies[j];
+        for (j = 0; floppies[j]; j++) 
+            if (floppies[j]->detached == 0) devices[i++] = floppies[j];
     if (cdroms)
-        for (j = 0; cdroms[j]; j++) devices[i++] = cdroms[j];
+        for (j = 0; cdroms[j]; j++) 
+            if (cdroms[j]->detached == 0) devices[i++] = cdroms[j];
 
     devices[i] = NULL;
+    numDevices = i;
 
     for (i = 0; devices[i]; i++) {
         logMessage("devices[%d] is %s", i, devices[i]->device);
     }
 
-    if (numDevices == 1) {
-        logMessage("only one possible device, %s", devices[0]->device);
-        *device = strdup(devices[0]->device);
-	free(devices);
-        return LOADER_OK;
-    }
-
-
-    devNames = malloc((numDevices + 1) * sizeof(*devNames));
-    for (i = 0; devices[i]; i++)
-        devNames[i] = strdup(devices[i]->device);
+    *devNames = malloc((numDevices + 1) * sizeof(*devNames));
+    for (i = 0; devices[i] && (i < numDevices); i++)
+        (*devNames)[i] = strdup(devices[i]->device);
     free(devices);
 
-    startNewt(flags);
-    rc = newtWinMenu(_("Device Driver Source"),
-                     _("You have multiple devices which could serve as "
-                       "sources for a driver disk.  Which would you like "
-                       "to use?"), 40, 10, 10,
-                     numDevices < 6 ? numDevices : 6, devNames,
-                     &num, _("OK"), _("Back"), NULL);
-    if (rc == 2) {
-	free(devNames);
-        return LOADER_BACK;
-    }
+    if (i != numDevices)
+        logMessage("somehow numDevices != len(devices)");
 
-    *device = strdup(devNames[num]);
-    free(devNames);
-    return LOADER_OK;
+    return numDevices;
 }
 
 /* Prompt for loading a driver from "media"
@@ -190,16 +175,33 @@ int loadDriverFromMedia(int class, moduleList modLoaded, moduleDeps * modDepsPtr
                         moduleInfoSet modInfo, struct knownDevices * kd, 
                         int flags) {
 
-    char * device;
+    char * device = NULL;
+    char ** devNames = NULL;
     enum { DEV_DEVICE, DEV_INSERT, DEV_LOAD, DEV_DONE } stage = DEV_DEVICE;
-    int rc, i;
+    int rc, i, num = 0;
 
     while (stage != DEV_DONE) {
         switch(stage) {
         case DEV_DEVICE:
-            rc = getRemovableDevice(&device, flags);
-            if (rc == LOADER_BACK)
-                return rc;
+            rc = getRemovableDevices(&devNames);
+            if (rc == 0)
+                return LOADER_BACK;
+
+            startNewt(flags);
+            rc = newtWinMenu(_("Driver Disk Source"),
+                             _("You have multiple devices which could serve "
+                               "as sources for a driver disk.  Which would "
+                               "you like to use?"), 40, 10, 10,
+                             rc < 6 ? rc : 6, devNames,
+                             &num, _("OK"), _("Back"), NULL);
+
+            if (rc == 2) {
+                free(devNames);
+                return LOADER_BACK;
+            }
+            device = strdup(devNames[num]);
+            free(devNames);
+
             stage = DEV_INSERT;
         case DEV_INSERT: {
             char * buf;

@@ -229,36 +229,54 @@ static void spawnShell(int flags) {
 void loadUpdates(struct knownDevices *kd, int flags) {
     int done = 0;
     int rc;
+    char * device = NULL, ** devNames = NULL;
+    char * buf;
+    int num = 0;
 
     startNewt(flags);
 
     do { 
-        rc = newtWinChoice(_("Updates Disk"), _("OK"), _("Cancel"),
-                           _("Insert your updates disk and press "
-                             "\"OK\" to continue."));
+        rc = getRemovableDevices(&devNames);
+        if (rc == 0) 
+            return;
+        startNewt(flags);
+        rc = newtWinMenu(_("Update Disk Source"),
+                         _("You have multiple devices which could serve "
+                           "as sources for an update disk.  Which would "
+                           "you like to use?"), 40, 10, 10,
+                         rc < 6 ? rc : 6, devNames,
+                         &num, _("OK"), _("Back"), NULL);
 
-        if (rc == 2) return;
+        if (rc == 2) {
+            free(devNames);
+            return;
+        }
+        device = strdup(devNames[num]);
+        free(devNames);
 
-        /* JKFIXME: handle updates from floppy or cd */
-        return;
-#if 0
-        logMessage("UPDATES floppy device is %s", floppyDevice);
 
-        devMakeInode(floppyDevice, "/tmp/floppy");
-        if (doPwMount("/tmp/floppy", "/tmp/update-disk", "ext2", 1, 0, NULL, 
-                      NULL)) {
+        buf = sdupprintf(_("Insert your updates disk into /dev/%s and press "
+                           "\"OK\" to continue."), device);
+        rc = newtWinChoice(_("Updates Disk"), _("OK"), _("Cancel"), buf);
+        if (rc == 2)
+            return;
+
+        logMessage("UPDATES device is %s", device);
+
+        devMakeInode(device, "/tmp/upd.disk");
+        if (doPwMount("/tmp/upd.disk", "/tmp/update-disk", "ext2", 1, 0, 
+                      NULL, NULL) && 
+            doPwMount("/tmp/upd.disk", "/tmp/update-disk", "iso9660", 1, 0,
+                      NULL, NULL)) {
             newtWinMessage(_("Error"), _("OK"), 
-                           _("Failed to mount floppy disk."));
+                           _("Failed to mount updates disk"));
         } else {
-            /* Copy everything to /tmp/updates so .so files don't get run
-               from /dev/floppy. We could (and probably should) get smarter 
-               about this at some point. */
+            /* Copy everything to /tmp/updates so we can unmount the disk  */
             winStatus(40, 3, _("Updates"), _("Reading anaconda updates..."));
             if (!copyDirectory("/tmp/update-disk", "/tmp/updates")) done = 1;
             newtPopWindow();
             umount("/tmp/update-disk");
         }
-#endif
     } while (!done);
     
     return;
