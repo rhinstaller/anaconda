@@ -40,7 +40,7 @@ STATIC = -static
 REALCC=gcc
 
 ifeq (1, $(USEDIET))
-CFLAGS += -DGZLIB=1
+CFLAGS += -DGZLIB=1 -DDIET=1
 DIET=diet
 CC=$(DIET) $(REALCC)
 BTERMLIB = -lbtermdiet -lbogldiet 
