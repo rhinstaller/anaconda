@@ -122,12 +122,14 @@ class partlist:
 # partitions with a specific start and end cylinder requested are
 # placed where they were asked to go
 def fitConstrained(diskset, requests, primOnly=0, newParts = None):
+    bootreq = requests.getBootableRequest()
+    
     for request in requests.requests:
         if request.type != REQUEST_NEW:
             continue
         if request.device:
             continue
-        if primOnly and not request.primary:
+        if primOnly and not request.primary and request != bootreq:
             continue
         if request.drive and (request.start != None):
             if not request.end and not request.size:
