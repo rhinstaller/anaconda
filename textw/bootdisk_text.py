@@ -34,7 +34,7 @@ class BootDiskWindow:
 ##                                          "floppy booting probably does "
 ##                                          "not work\n\n"))
 
-	rc = ButtonChoiceWindow(screen, _("Boot Disk"), text
+	rc = ButtonChoiceWindow(screen, _("Boot Disk"), text,
                                 buttons = buttons,
 				help = "bootdiskquery")
 
