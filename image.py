@@ -43,7 +43,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	if changeloop == 0:
 	    return
 
-	self.loopbackFile = mntPoint + fstab.filesystemSpace()[0][0] + \
+	self.loopbackFile = mntPoint + fstab.filesystemSpace(mntPoint)[0][0] + \
 			    "/rhinstall-stage2.img"
 
 	try:
