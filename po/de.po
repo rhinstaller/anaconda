@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: installer 7.0\n"
-"POT-Creation-Date: 2001-02-05 12:49-0500\n"
+"POT-Creation-Date: 2001-02-07 13:19-0500\n"
 "PO-Revision-Date: 2001-01-18 19:00+0100\n"
 "Last-Translator: Claudia Krug <ckrug@redhat.it>\n"
 "Language-Team: German <de@li.org>\n"
@@ -58,14 +58,14 @@ msgstr "Suchen"
 #: ../harddrive.py:168 ../image.py:61 ../image.py:138
 #: ../libfdisk/newtfsedit.c:1740 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:433 ../loader/devices.c:478
-#: ../loader/devices.c:498 ../loader/lang.c:99 ../loader/loader.c:518
-#: ../loader/loader.c:528 ../loader/loader.c:582 ../loader/loader.c:909
-#: ../loader/loader.c:964 ../loader/loader.c:1134 ../loader/loader.c:1139
-#: ../loader/loader.c:1276 ../loader/loader.c:2146 ../loader/loader.c:2176
-#: ../loader/loader.c:2254 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
-#: ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94
-#: ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:369
-#: ../textw/bootdisk_text.py:69 ../todo.py:1131 ../todo.py:1144
+#: ../loader/devices.c:498 ../loader/lang.c:99 ../loader/loader.c:519
+#: ../loader/loader.c:529 ../loader/loader.c:583 ../loader/loader.c:965
+#: ../loader/loader.c:1020 ../loader/loader.c:1190 ../loader/loader.c:1195
+#: ../loader/loader.c:1277 ../loader/loader.c:2147 ../loader/loader.c:2177
+#: ../loader/loader.c:2255 ../loader/loader.c:2470 ../loader/pcmcia.c:114
+#: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
+#: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
+#: ../text.py:369 ../textw/bootdisk_text.py:69 ../todo.py:1131 ../todo.py:1144
 #: ../todo.py:1514 ../upgrade.py:22 ../upgrade.py:50
 msgid "Error"
 msgstr "Fehler"
@@ -163,8 +163,8 @@ msgstr "Weiter"
 #: ../gui.py:408 ../gui.py:770 ../libfdisk/newtfsedit.c:1474
 #: ../libfdisk/newtfsedit.c:1482 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:582
-#: ../loader/loader.c:289 ../loader/loader.c:813 ../loader/loader.c:850
-#: ../loader/loader.c:964 ../loader/loader.c:1056 ../loader/loader.c:1508
+#: ../loader/loader.c:290 ../loader/loader.c:869 ../loader/loader.c:906
+#: ../loader/loader.c:1020 ../loader/loader.c:1112 ../loader/loader.c:1509
 #: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
 #: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:99 ../text.py:61
 #: ../text.py:72 ../text.py:146 ../text.py:205 ../text.py:212 ../text.py:234
@@ -293,25 +293,26 @@ msgstr "Die CD-ROM konnte nicht gemountet werden."
 #: ../loader/devices.c:433 ../loader/devices.c:478 ../loader/devices.c:498
 #: ../loader/devices.c:530 ../loader/kickstart.c:58 ../loader/kickstart.c:68
 #: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:293
-#: ../loader/lang.c:582 ../loader/loader.c:289 ../loader/loader.c:518
-#: ../loader/loader.c:528 ../loader/loader.c:582 ../loader/loader.c:850
-#: ../loader/loader.c:909 ../loader/loader.c:964 ../loader/loader.c:1056
-#: ../loader/loader.c:1134 ../loader/loader.c:1139 ../loader/loader.c:1236
-#: ../loader/loader.c:1245 ../loader/loader.c:1276 ../loader/loader.c:1508
-#: ../loader/loader.c:2146 ../loader/loader.c:2176 ../loader/loader.c:2239
-#: ../loader/loader.c:2254 ../loader/net.c:185 ../loader/net.c:272
-#: ../loader/net.c:357 ../loader/net.c:668 ../loader/net.c:701
-#: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
-#: ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238
-#: ../loader/urls.c:375 ../rescue.py:17 ../rescue.py:67 ../rescue.py:85
-#: ../rescue.py:93 ../text.py:146 ../text.py:234 ../text.py:317 ../text.py:390
-#: ../text.py:437 ../text.py:455 ../text.py:497 ../text.py:526 ../text.py:612
-#: ../text.py:624 ../text.py:653 ../text.py:674 ../text.py:844 ../text.py:898
-#: ../text.py:924 ../text.py:950 ../text.py:958 ../text.py:973 ../text.py:1215
-#: ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54
-#: ../textw/firewall_text.py:9 ../textw/firewall_text.py:122
-#: ../textw/firewall_text.py:124 ../textw/firewall_text.py:187
-#: ../textw/lilo_text.py:33 ../textw/lilo_text.py:93 ../textw/lilo_text.py:152
+#: ../loader/lang.c:582 ../loader/loader.c:290 ../loader/loader.c:519
+#: ../loader/loader.c:529 ../loader/loader.c:583 ../loader/loader.c:906
+#: ../loader/loader.c:965 ../loader/loader.c:1020 ../loader/loader.c:1112
+#: ../loader/loader.c:1190 ../loader/loader.c:1195 ../loader/loader.c:1237
+#: ../loader/loader.c:1246 ../loader/loader.c:1277 ../loader/loader.c:1509
+#: ../loader/loader.c:2147 ../loader/loader.c:2177 ../loader/loader.c:2240
+#: ../loader/loader.c:2255 ../loader/loader.c:2470 ../loader/net.c:185
+#: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:668
+#: ../loader/net.c:701 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
+#: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
+#: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:17 ../rescue.py:67
+#: ../rescue.py:85 ../rescue.py:93 ../text.py:146 ../text.py:234
+#: ../text.py:317 ../text.py:390 ../text.py:437 ../text.py:455 ../text.py:497
+#: ../text.py:526 ../text.py:612 ../text.py:624 ../text.py:653 ../text.py:674
+#: ../text.py:844 ../text.py:898 ../text.py:924 ../text.py:950 ../text.py:958
+#: ../text.py:973 ../text.py:1215 ../textw/bootdisk_text.py:52
+#: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
+#: ../textw/firewall_text.py:122 ../textw/firewall_text.py:124
+#: ../textw/firewall_text.py:187 ../textw/lilo_text.py:33
+#: ../textw/lilo_text.py:93 ../textw/lilo_text.py:152
 #: ../textw/lilo_text.py:158 ../textw/mouse_text.py:55
 #: ../textw/network_text.py:102 ../textw/network_text.py:123
 #: ../textw/network_text.py:161 ../textw/packages_text.py:55
@@ -326,7 +327,7 @@ msgstr "Die CD-ROM konnte nicht gemountet werden."
 #: ../textw/userauth_text.py:105 ../textw/userauth_text.py:111
 #: ../textw/userauth_text.py:119 ../textw/userauth_text.py:128
 #: ../textw/userauth_text.py:135 ../textw/userauth_text.py:199
-#: ../textw/userauth_text.py:297 ../xserver.py:33
+#: ../textw/userauth_text.py:297 ../xserver.py:34
 msgid "OK"
 msgstr "OK"
 
@@ -510,7 +511,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739
 #: ../libfdisk/newtfsedit.c:871 ../libfdisk/newtfsedit.c:1677
 #: ../libfdisk/newtfsedit.c:1695 ../libfdisk/newtfsedit.c:1782
-#: ../loader/devices.c:230 ../loader/loader.c:813 ../loader/net.c:835
+#: ../loader/devices.c:230 ../loader/loader.c:869 ../loader/net.c:835
 #: ../text.py:412 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:219
 #: ../textw/partitioning_text.py:402
@@ -576,7 +577,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:913 ../libfdisk/gnomefsedit.c:2023
 #: ../libfdisk/gnomefsedit.c:2585 ../libfdisk/newtfsedit.c:575
 #: ../libfdisk/newtfsedit.c:1695 ../loader/devices.c:238
-#: ../loader/devices.c:530 ../loader/loader.c:2239 ../loader/pcmcia.c:104
+#: ../loader/devices.c:530 ../loader/loader.c:2240 ../loader/pcmcia.c:104
 #: ../text.py:455 ../text.py:458 ../text.py:844 ../text.py:845 ../text.py:958
 #: ../text.py:960 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
@@ -1141,11 +1142,11 @@ msgstr "Horizontaler Frequenzbereich"
 msgid "Vertical frequency range"
 msgstr "Vertikaler Frequenzbereich"
 
-#: ../xserver.py:26
+#: ../xserver.py:27
 msgid "Mouse Not Detected"
 msgstr "Maus wurde nicht erkannt"
 
-#: ../xserver.py:27
+#: ../xserver.py:28
 msgid ""
 "Your mouse was not automatically detected.  To proceed in the graphical "
 "installation mode, please proceed to the next screen and provide your mouse "
@@ -1157,7 +1158,7 @@ msgstr ""
 "Informationen zu Ihrer Maus eingeben. Sie können auch die Installation im "
 "Textmodus verwenden, für die keine Maus erforderlich ist."
 
-#: ../xserver.py:33 ../xserver.py:34
+#: ../xserver.py:34 ../xserver.py:35
 msgid "Use text mode"
 msgstr "Textmodus verwenden"
 
@@ -1652,48 +1653,48 @@ msgstr "Port"
 msgid "Network Configuration"
 msgstr "Netzwerk konfigurieren"
 
-#: ../iw/network_gui.py:170
+#: ../iw/network_gui.py:178
 msgid "Configure using DHCP"
 msgstr "Unter Verwendung von DHCP konfigurieren"
 
-#: ../iw/network_gui.py:176
+#: ../iw/network_gui.py:184
 msgid "Activate on boot"
 msgstr "Beim Starten aktivieren"
 
-#: ../iw/network_gui.py:185
+#: ../iw/network_gui.py:193
 msgid "IP Address"
 msgstr "IP-Adresse"
 
-#: ../iw/network_gui.py:186 ../loader/net.c:752
+#: ../iw/network_gui.py:194 ../loader/net.c:752
 msgid "Netmask"
 msgstr "Netzmaske"
 
-#: ../iw/network_gui.py:187 ../loader/loader.c:274
+#: ../iw/network_gui.py:195 ../loader/loader.c:275
 msgid "Network"
 msgstr "Netzwerk"
 
-#: ../iw/network_gui.py:188
+#: ../iw/network_gui.py:196
 msgid "Broadcast"
 msgstr "Broadcast"
 
-#: ../iw/network_gui.py:233 ../loader/net.c:556 ../loader/net.c:754
+#: ../iw/network_gui.py:242 ../loader/net.c:556 ../loader/net.c:754
 #: ../textw/network_text.py:161
 msgid "Hostname"
 msgstr "Rechnername"
 
-#: ../iw/network_gui.py:234
+#: ../iw/network_gui.py:243
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/network_gui.py:234
+#: ../iw/network_gui.py:243
 msgid "Primary DNS"
 msgstr "Erster DNS"
 
-#: ../iw/network_gui.py:234
+#: ../iw/network_gui.py:243
 msgid "Secondary DNS"
 msgstr "Zweiter DNS"
 
-#: ../iw/network_gui.py:234
+#: ../iw/network_gui.py:243
 msgid "Ternary DNS"
 msgstr "Dritter DNS"
 
@@ -2103,7 +2104,7 @@ msgstr "Bits pro Pixel"
 msgid "Monitor Configuration"
 msgstr "Bildschirm konfigurieren"
 
-#: ../iw/xconfig_gui.py:849 ../iw/xconfig_gui.py:1651
+#: ../iw/xconfig_gui.py:849 ../iw/xconfig_gui.py:1645
 msgid "Restore original values"
 msgstr "Originalwerte rückstellen"
 
@@ -2155,7 +2156,7 @@ msgstr "Ergebnisse der automatischen Erkennung:"
 msgid "Video card RAM: "
 msgstr "RAM der Videokarte:"
 
-#: ../iw/xconfig_gui.py:1655
+#: ../iw/xconfig_gui.py:1649
 msgid "Skip X Configuration"
 msgstr "X-Konfiguration überspringen"
 
@@ -2255,7 +2256,7 @@ msgstr "WWW (HTTP)"
 msgid "Mail (SMTP)"
 msgstr "Mail (SMTP)"
 
-#: ../loader/loader.c:1236 ../loader/loader.c:1245
+#: ../loader/loader.c:1237 ../loader/loader.c:1246
 #: ../textw/firewall_text.py:90
 msgid "FTP"
 msgstr "FTP"
@@ -2473,7 +2474,7 @@ msgstr ""
 "einer der ersten zwei Festplatten Ihres Systems anzulegen, damit Sie Linux "
 "mit LILO booten können."
 
-#: ../loader/loader.c:339 ../loader/loader.c:364
+#: ../loader/loader.c:340 ../loader/loader.c:365
 #: ../textw/partitioning_text.py:64
 msgid "Done"
 msgstr "Fertig"
@@ -2969,14 +2970,14 @@ msgstr "Keine Root-Partition"
 msgid ""
 "The growth of the root (/) RAID array appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
-"may allow the root partition to grow to fill the disk."
+"(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:788
 msgid ""
 "The growth of the root (/) partition appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
-"may allow the root partition to grow to fill the disk."
+"(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:871
@@ -3625,7 +3626,7 @@ msgid "Module Parameters"
 msgstr "Modulparameter"
 
 #: ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:356
-#: ../loader/loader.c:287 ../loader/loader.c:348 ../loader/loader.c:364
+#: ../loader/loader.c:288 ../loader/loader.c:349 ../loader/loader.c:365
 msgid "Devices"
 msgstr "Geräte"
 
@@ -3678,7 +3679,7 @@ msgstr "Driver disk:%s konnte nicht gemountet werden."
 msgid "The wrong diskette was inserted."
 msgstr "Die falsche Diskette wurde eingelegt."
 
-#: ../loader/devices.c:511 ../loader/loader.c:451 ../loader/loader.c:453
+#: ../loader/devices.c:511 ../loader/loader.c:452 ../loader/loader.c:454
 msgid "Loading"
 msgstr "Laden"
 
@@ -3750,23 +3751,23 @@ msgstr "NFS-Image"
 msgid "Hard drive"
 msgstr "Festplatte"
 
-#: ../loader/loader.c:274
+#: ../loader/loader.c:275
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:288
+#: ../loader/loader.c:289
 msgid "What kind of device would you like to add"
 msgstr "Welchen Gerätetyp möchten Sie hinzufügen?"
 
-#: ../loader/loader.c:337
+#: ../loader/loader.c:338
 msgid "I have found the following devices in your system:"
 msgstr "Die folgenden Geräte wurden in Ihrem System gefunden:"
 
-#: ../loader/loader.c:339 ../loader/loader.c:364
+#: ../loader/loader.c:340 ../loader/loader.c:365
 msgid "Add Device"
 msgstr "Gerät hinzufügen"
 
-#: ../loader/loader.c:365
+#: ../loader/loader.c:366
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -3774,25 +3775,25 @@ msgstr ""
 "Für Ihr System wurden keine speziellen Gerätetreiber geladen. Sollen diese "
 "jetzt geladen werden?"
 
-#: ../loader/loader.c:508
+#: ../loader/loader.c:509
 #, c-format
 msgid "Loading %s ramdisk..."
 msgstr "Laden der Ramdisk %s..."
 
-#: ../loader/loader.c:518
+#: ../loader/loader.c:519
 msgid "Error loading ramdisk."
 msgstr "Fehler beim Laden der Ramdisk"
 
-#: ../loader/loader.c:583 ../loader/loader.c:2177
+#: ../loader/loader.c:584 ../loader/loader.c:2178
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Verzeichnis %s konnte nicht gelesen werden: %s"
 
-#: ../loader/loader.c:813
+#: ../loader/loader.c:869
 msgid "Hard Drives"
 msgstr "Festplatten"
 
-#: ../loader/loader.c:814
+#: ../loader/loader.c:870
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -3800,7 +3801,7 @@ msgstr ""
 "In Ihrem System sind keine Festplatten vorhanden! Möchten Sie jetzt weitere "
 "Geräte konfigurieren?"
 
-#: ../loader/loader.c:828
+#: ../loader/loader.c:884
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
@@ -3810,20 +3811,20 @@ msgstr ""
 "(iso9660) Images enthalten? Wenn die von Ihnen verwendete Festplatte hier "
 "nicht aufgelistet wird, drücken Sie F2, um weitere Geräte zu konfigurieren."
 
-#: ../loader/loader.c:842
+#: ../loader/loader.c:898
 msgid "Directory holding images:"
 msgstr "Directory, die Images enthält:"
 
-#: ../loader/loader.c:862
+#: ../loader/loader.c:918
 msgid "Select Partition"
 msgstr "Partition auswählen"
 
-#: ../loader/loader.c:910
+#: ../loader/loader.c:966
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Auf dem Gerät %s befinden sich keine Images der Red Hat CDROM."
 
-#: ../loader/loader.c:965
+#: ../loader/loader.c:1021
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -3832,11 +3833,11 @@ msgstr ""
 "werden. Bitte legen Sie die Red Hat CD ein und klicken Sie auf \"OK\", um "
 "den Vorgang zu wiederholen."
 
-#: ../loader/loader.c:1052
+#: ../loader/loader.c:1108
 msgid "Networking Device"
 msgstr "Netzwerkgerät"
 
-#: ../loader/loader.c:1053
+#: ../loader/loader.c:1109
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -3844,65 +3845,65 @@ msgstr ""
 "Sie verfügen über mehrere Netzwerkgeräte in diesem System. Welches Gerät "
 "soll jetzt installiert werden?"
 
-#: ../loader/loader.c:1135
+#: ../loader/loader.c:1191
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr ""
 "Dieses Verzeichnis enthält keinen Red Hat Installationsverzeichnisbaum."
 
-#: ../loader/loader.c:1140
+#: ../loader/loader.c:1196
 msgid "I could not mount that directory from the server"
 msgstr "Diese Directory konnte nicht vom Server gemountet werden."
 
-#: ../loader/loader.c:1236 ../loader/loader.c:1245
+#: ../loader/loader.c:1237 ../loader/loader.c:1246
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../loader/loader.c:1237
+#: ../loader/loader.c:1238
 msgid "Unable to retrieve the first install image"
 msgstr "Erstes Installationsimage kann nicht abgerufen werden."
 
-#: ../loader/loader.c:1246
+#: ../loader/loader.c:1247
 msgid "Unable to retrieve the second install image"
 msgstr "Zweites Installationsimage kann nicht abgerufen werden."
 
-#: ../loader/loader.c:1276
+#: ../loader/loader.c:1277
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
 "FTP und HTTP Installationen benötigen 20MB oder mehr Speicherkapazität des "
 "Systems. "
 
-#: ../loader/loader.c:1500
+#: ../loader/loader.c:1501
 msgid "Rescue Method"
 msgstr "Rettungsmethode"
 
-#: ../loader/loader.c:1501
+#: ../loader/loader.c:1502
 msgid "Installation Method"
 msgstr "Installationsmethode"
 
-#: ../loader/loader.c:1503
+#: ../loader/loader.c:1504
 msgid "What type of media contains the rescue image?"
 msgstr "Auf welchem Datenträgertyp ist die Rettungsdiskette enthalten?"
 
-#: ../loader/loader.c:1505
+#: ../loader/loader.c:1506
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 "Auf welchem Datenträgertyp sind die zu installierenden Pakete enthalten?"
 
-#: ../loader/loader.c:2147
+#: ../loader/loader.c:2148
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "ks.cfg konnte nicht auf der Bootdiskette gefunden werden."
 
-#: ../loader/loader.c:2239
+#: ../loader/loader.c:2240
 msgid "Updates Disk"
 msgstr "Update-Diskette"
 
-#: ../loader/loader.c:2240
+#: ../loader/loader.c:2241
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
 "Legen Sie Ihre Update-Diskette ein und klicken Sie auf \"OK\", um "
 "fortzufahren."
 
-#: ../loader/loader.c:2245
+#: ../loader/loader.c:2246
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
@@ -3910,20 +3911,24 @@ msgstr ""
 "Bei der von Ihnen eingelegten Diskette handelt es sich nicht um eine "
 "zulässige Updatediskette für diese Version Red Hat Linux."
 
-#: ../loader/loader.c:2255
+#: ../loader/loader.c:2256
 msgid "Failed to mount floppy disk."
 msgstr "Diskette konnte nicht gemountet werden."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2260
+#: ../loader/loader.c:2261
 msgid "Updates"
 msgstr "Updates"
 
-#: ../loader/loader.c:2260
+#: ../loader/loader.c:2261
 msgid "Reading anaconda updates..."
 msgstr "Anaconda-Updates werden gelesen..."
+
+#: ../loader/loader.c:2470
+msgid "You don't have enough system memory to install Red Hat on this machine."
+msgstr ""
 
 #: ../loader/net.c:170
 msgid "NFS server name:"

@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 7.1\n"
-"POT-Creation-Date: 2001-02-05 12:49-0500\n"
+"POT-Creation-Date: 2001-02-07 13:19-0500\n"
 "PO-Revision-Date: 2001-01-10 22:20+1\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <blackziggy@freemail.it>\n"
 "Language-Team: BASQUE <linux-eu@chanae.alphanet.ch>\n"
@@ -75,14 +75,14 @@ msgstr "Bilatzen"
 #: ../harddrive.py:168 ../image.py:61 ../image.py:138
 #: ../libfdisk/newtfsedit.c:1740 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:433 ../loader/devices.c:478
-#: ../loader/devices.c:498 ../loader/lang.c:99 ../loader/loader.c:518
-#: ../loader/loader.c:528 ../loader/loader.c:582 ../loader/loader.c:909
-#: ../loader/loader.c:964 ../loader/loader.c:1134 ../loader/loader.c:1139
-#: ../loader/loader.c:1276 ../loader/loader.c:2146 ../loader/loader.c:2176
-#: ../loader/loader.c:2254 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
-#: ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94
-#: ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:369
-#: ../textw/bootdisk_text.py:69 ../todo.py:1131 ../todo.py:1144
+#: ../loader/devices.c:498 ../loader/lang.c:99 ../loader/loader.c:519
+#: ../loader/loader.c:529 ../loader/loader.c:583 ../loader/loader.c:965
+#: ../loader/loader.c:1020 ../loader/loader.c:1190 ../loader/loader.c:1195
+#: ../loader/loader.c:1277 ../loader/loader.c:2147 ../loader/loader.c:2177
+#: ../loader/loader.c:2255 ../loader/loader.c:2470 ../loader/pcmcia.c:114
+#: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
+#: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
+#: ../text.py:369 ../textw/bootdisk_text.py:69 ../todo.py:1131 ../todo.py:1144
 #: ../todo.py:1514 ../upgrade.py:22 ../upgrade.py:50
 msgid "Error"
 msgstr "Akatsa"
@@ -220,8 +220,8 @@ msgstr "Hurrengoa"
 #: ../gui.py:408 ../gui.py:770 ../libfdisk/newtfsedit.c:1474
 #: ../libfdisk/newtfsedit.c:1482 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:582
-#: ../loader/loader.c:289 ../loader/loader.c:813 ../loader/loader.c:850
-#: ../loader/loader.c:964 ../loader/loader.c:1056 ../loader/loader.c:1508
+#: ../loader/loader.c:290 ../loader/loader.c:869 ../loader/loader.c:906
+#: ../loader/loader.c:1020 ../loader/loader.c:1112 ../loader/loader.c:1509
 #: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
 #: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:99 ../text.py:61
 #: ../text.py:72 ../text.py:146 ../text.py:205 ../text.py:212 ../text.py:234
@@ -407,25 +407,26 @@ msgstr "Ezinezkoa CDROM-a lotzea."
 #: ../loader/devices.c:433 ../loader/devices.c:478 ../loader/devices.c:498
 #: ../loader/devices.c:530 ../loader/kickstart.c:58 ../loader/kickstart.c:68
 #: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:293
-#: ../loader/lang.c:582 ../loader/loader.c:289 ../loader/loader.c:518
-#: ../loader/loader.c:528 ../loader/loader.c:582 ../loader/loader.c:850
-#: ../loader/loader.c:909 ../loader/loader.c:964 ../loader/loader.c:1056
-#: ../loader/loader.c:1134 ../loader/loader.c:1139 ../loader/loader.c:1236
-#: ../loader/loader.c:1245 ../loader/loader.c:1276 ../loader/loader.c:1508
-#: ../loader/loader.c:2146 ../loader/loader.c:2176 ../loader/loader.c:2239
-#: ../loader/loader.c:2254 ../loader/net.c:185 ../loader/net.c:272
-#: ../loader/net.c:357 ../loader/net.c:668 ../loader/net.c:701
-#: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
-#: ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238
-#: ../loader/urls.c:375 ../rescue.py:17 ../rescue.py:67 ../rescue.py:85
-#: ../rescue.py:93 ../text.py:146 ../text.py:234 ../text.py:317 ../text.py:390
-#: ../text.py:437 ../text.py:455 ../text.py:497 ../text.py:526 ../text.py:612
-#: ../text.py:624 ../text.py:653 ../text.py:674 ../text.py:844 ../text.py:898
-#: ../text.py:924 ../text.py:950 ../text.py:958 ../text.py:973 ../text.py:1215
-#: ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54
-#: ../textw/firewall_text.py:9 ../textw/firewall_text.py:122
-#: ../textw/firewall_text.py:124 ../textw/firewall_text.py:187
-#: ../textw/lilo_text.py:33 ../textw/lilo_text.py:93 ../textw/lilo_text.py:152
+#: ../loader/lang.c:582 ../loader/loader.c:290 ../loader/loader.c:519
+#: ../loader/loader.c:529 ../loader/loader.c:583 ../loader/loader.c:906
+#: ../loader/loader.c:965 ../loader/loader.c:1020 ../loader/loader.c:1112
+#: ../loader/loader.c:1190 ../loader/loader.c:1195 ../loader/loader.c:1237
+#: ../loader/loader.c:1246 ../loader/loader.c:1277 ../loader/loader.c:1509
+#: ../loader/loader.c:2147 ../loader/loader.c:2177 ../loader/loader.c:2240
+#: ../loader/loader.c:2255 ../loader/loader.c:2470 ../loader/net.c:185
+#: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:668
+#: ../loader/net.c:701 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
+#: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
+#: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:17 ../rescue.py:67
+#: ../rescue.py:85 ../rescue.py:93 ../text.py:146 ../text.py:234
+#: ../text.py:317 ../text.py:390 ../text.py:437 ../text.py:455 ../text.py:497
+#: ../text.py:526 ../text.py:612 ../text.py:624 ../text.py:653 ../text.py:674
+#: ../text.py:844 ../text.py:898 ../text.py:924 ../text.py:950 ../text.py:958
+#: ../text.py:973 ../text.py:1215 ../textw/bootdisk_text.py:52
+#: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
+#: ../textw/firewall_text.py:122 ../textw/firewall_text.py:124
+#: ../textw/firewall_text.py:187 ../textw/lilo_text.py:33
+#: ../textw/lilo_text.py:93 ../textw/lilo_text.py:152
 #: ../textw/lilo_text.py:158 ../textw/mouse_text.py:55
 #: ../textw/network_text.py:102 ../textw/network_text.py:123
 #: ../textw/network_text.py:161 ../textw/packages_text.py:55
@@ -440,7 +441,7 @@ msgstr "Ezinezkoa CDROM-a lotzea."
 #: ../textw/userauth_text.py:105 ../textw/userauth_text.py:111
 #: ../textw/userauth_text.py:119 ../textw/userauth_text.py:128
 #: ../textw/userauth_text.py:135 ../textw/userauth_text.py:199
-#: ../textw/userauth_text.py:297 ../xserver.py:33
+#: ../textw/userauth_text.py:297 ../xserver.py:34
 msgid "OK"
 msgstr "Onartu"
 
@@ -682,7 +683,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739
 #: ../libfdisk/newtfsedit.c:871 ../libfdisk/newtfsedit.c:1677
 #: ../libfdisk/newtfsedit.c:1695 ../libfdisk/newtfsedit.c:1782
-#: ../loader/devices.c:230 ../loader/loader.c:813 ../loader/net.c:835
+#: ../loader/devices.c:230 ../loader/loader.c:869 ../loader/net.c:835
 #: ../text.py:412 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:219
 #: ../textw/partitioning_text.py:402
@@ -767,7 +768,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:913 ../libfdisk/gnomefsedit.c:2023
 #: ../libfdisk/gnomefsedit.c:2585 ../libfdisk/newtfsedit.c:575
 #: ../libfdisk/newtfsedit.c:1695 ../loader/devices.c:238
-#: ../loader/devices.c:530 ../loader/loader.c:2239 ../loader/pcmcia.c:104
+#: ../loader/devices.c:530 ../loader/loader.c:2240 ../loader/pcmcia.c:104
 #: ../text.py:455 ../text.py:458 ../text.py:844 ../text.py:845 ../text.py:958
 #: ../text.py:960 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
@@ -1431,12 +1432,12 @@ msgid "Vertical frequency range"
 msgstr "Goitibeherako maiztasun mugak"
 
 # ../xserver.py:26
-#: ../xserver.py:26
+#: ../xserver.py:27
 msgid "Mouse Not Detected"
 msgstr "Xagurik ez da topatu"
 
 # ../xserver.py:27
-#: ../xserver.py:27
+#: ../xserver.py:28
 msgid ""
 "Your mouse was not automatically detected.  To proceed in the graphical "
 "installation mode, please proceed to the next screen and provide your mouse "
@@ -1449,7 +1450,7 @@ msgstr ""
 "horretarako xagurik ez bait da behar."
 
 # ../xserver.py:33 ../xserver.py:34
-#: ../xserver.py:33 ../xserver.py:34
+#: ../xserver.py:34 ../xserver.py:35
 msgid "Use text mode"
 msgstr "Testu era erabili"
 
@@ -2062,59 +2063,59 @@ msgid "Network Configuration"
 msgstr "Sarearen Egokitzaketa"
 
 # ../iw/network_gui.py:148
-#: ../iw/network_gui.py:170
+#: ../iw/network_gui.py:178
 msgid "Configure using DHCP"
 msgstr "DHCP erabiliz Egokitzatu"
 
 # ../iw/network_gui.py:154
-#: ../iw/network_gui.py:176
+#: ../iw/network_gui.py:184
 msgid "Activate on boot"
 msgstr "Abiatzerakoan Piztu"
 
 # ../iw/network_gui.py:163
-#: ../iw/network_gui.py:185
+#: ../iw/network_gui.py:193
 msgid "IP Address"
 msgstr "IP Helbidea"
 
 # ../iw/network_gui.py:164 ../loader/net.c:727
-#: ../iw/network_gui.py:186 ../loader/net.c:752
+#: ../iw/network_gui.py:194 ../loader/net.c:752
 msgid "Netmask"
 msgstr "Sarearen Mozorroa"
 
 # ../iw/network_gui.py:165 ../loader/loader.c:262
-#: ../iw/network_gui.py:187 ../loader/loader.c:274
+#: ../iw/network_gui.py:195 ../loader/loader.c:275
 msgid "Network"
 msgstr "Lan-Sarea"
 
 # ../iw/network_gui.py:166
-#: ../iw/network_gui.py:188
+#: ../iw/network_gui.py:196
 msgid "Broadcast"
 msgstr "Hedapena"
 
 # ../iw/network_gui.py:210 ../loader/net.c:531 ../loader/net.c:729
 # ../textw/network_text.py:141
-#: ../iw/network_gui.py:233 ../loader/net.c:556 ../loader/net.c:754
+#: ../iw/network_gui.py:242 ../loader/net.c:556 ../loader/net.c:754
 #: ../textw/network_text.py:161
 msgid "Hostname"
 msgstr "Ostalariaren Izena"
 
 # ../iw/network_gui.py:211
-#: ../iw/network_gui.py:234
+#: ../iw/network_gui.py:243
 msgid "Gateway"
 msgstr "Pasabidea"
 
 # ../iw/network_gui.py:211
-#: ../iw/network_gui.py:234
+#: ../iw/network_gui.py:243
 msgid "Primary DNS"
 msgstr "Aurrenengo DNS-a"
 
 # ../iw/network_gui.py:211
-#: ../iw/network_gui.py:234
+#: ../iw/network_gui.py:243
 msgid "Secondary DNS"
 msgstr "Bigarreneko DNS-a"
 
 # ../iw/network_gui.py:211
-#: ../iw/network_gui.py:234
+#: ../iw/network_gui.py:243
 msgid "Ternary DNS"
 msgstr "Hirugarreneko DNS-a"
 
@@ -2560,7 +2561,7 @@ msgid "Monitor Configuration"
 msgstr "Monitorea Egokitu"
 
 # ../iw/xconfig_gui.py:857 ../iw/xconfig_gui.py:1653
-#: ../iw/xconfig_gui.py:849 ../iw/xconfig_gui.py:1651
+#: ../iw/xconfig_gui.py:849 ../iw/xconfig_gui.py:1645
 msgid "Restore original values"
 msgstr "Jatorrizko balioak berreskuratu"
 
@@ -2622,7 +2623,7 @@ msgid "Video card RAM: "
 msgstr "Bideo Xaflaren RAM-a:"
 
 # ../iw/xconfig_gui.py:472
-#: ../iw/xconfig_gui.py:1655
+#: ../iw/xconfig_gui.py:1649
 msgid "Skip X Configuration"
 msgstr "X-en Egokitzaketaz Ahaztu"
 
@@ -2726,7 +2727,7 @@ msgid "Mail (SMTP)"
 msgstr ""
 
 # ../loader/loader.c:1126 ../loader/loader.c:1135
-#: ../loader/loader.c:1236 ../loader/loader.c:1245
+#: ../loader/loader.c:1237 ../loader/loader.c:1246
 #: ../textw/firewall_text.py:90
 msgid "FTP"
 msgstr "FTP"
@@ -2978,7 +2979,7 @@ msgstr ""
 
 # ../loader/loader.c:327 ../loader/loader.c:352
 # ../textw/partitioning_text.py:64
-#: ../loader/loader.c:339 ../loader/loader.c:364
+#: ../loader/loader.c:340 ../loader/loader.c:365
 #: ../textw/partitioning_text.py:64
 msgid "Done"
 msgstr "Amaituta"
@@ -3545,14 +3546,14 @@ msgstr "Erro disko-zatirik ez dago"
 msgid ""
 "The growth of the root (/) RAID array appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
-"may allow the root partition to grow to fill the disk."
+"(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:788
 msgid ""
 "The growth of the root (/) partition appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
-"may allow the root partition to grow to fill the disk."
+"(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:728 ../libfdisk/newtfsedit.c:836
@@ -4314,7 +4315,7 @@ msgstr "Moduluaren Agerbideak"
 # ../loader/devices.c:207 ../loader/devices.c:214 ../loader/devices.c:333
 # ../loader/loader.c:275 ../loader/loader.c:336 ../loader/loader.c:352
 #: ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:356
-#: ../loader/loader.c:287 ../loader/loader.c:348 ../loader/loader.c:364
+#: ../loader/loader.c:288 ../loader/loader.c:349 ../loader/loader.c:365
 msgid "Devices"
 msgstr "Tramankuluak"
 
@@ -4377,7 +4378,7 @@ msgid "The wrong diskette was inserted."
 msgstr "Dsikete okerrekoa sartu duzu."
 
 # ../loader/loader.c:439 ../loader/loader.c:441
-#: ../loader/devices.c:511 ../loader/loader.c:451 ../loader/loader.c:453
+#: ../loader/devices.c:511 ../loader/loader.c:452 ../loader/loader.c:454
 msgid "Loading"
 msgstr "Gaineratzen"
 
@@ -4465,27 +4466,27 @@ msgid "Hard drive"
 msgstr "Disko Gogorra"
 
 # ../loader/loader.c:262
-#: ../loader/loader.c:274
+#: ../loader/loader.c:275
 msgid "SCSI"
 msgstr "SCSI"
 
 # ../loader/loader.c:276
-#: ../loader/loader.c:288
+#: ../loader/loader.c:289
 msgid "What kind of device would you like to add"
 msgstr "Zein tramankulu mota gehitzea gura dozu?"
 
 # ../loader/loader.c:325
-#: ../loader/loader.c:337
+#: ../loader/loader.c:338
 msgid "I have found the following devices in your system:"
 msgstr "Zure sisteman ondoko tramankulu hauek aurkitu dira:"
 
 # ../loader/loader.c:327 ../loader/loader.c:352
-#: ../loader/loader.c:339 ../loader/loader.c:364
+#: ../loader/loader.c:340 ../loader/loader.c:365
 msgid "Add Device"
 msgstr "Tramankulua Gehitu"
 
 # ../loader/loader.c:353
-#: ../loader/loader.c:365
+#: ../loader/loader.c:366
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -4494,29 +4495,29 @@ msgstr ""
 "Nahi duzu batenbat gaineratzea?"
 
 # ../loader/loader.c:494
-#: ../loader/loader.c:508
+#: ../loader/loader.c:509
 #, c-format
 msgid "Loading %s ramdisk..."
 msgstr "%s Ramdisk bereganatzen..."
 
 # ../loader/loader.c:504
-#: ../loader/loader.c:518
+#: ../loader/loader.c:519
 msgid "Error loading ramdisk."
 msgstr "RAM diskoa gaineratzean akatsa."
 
 # ../loader/loader.c:2073
-#: ../loader/loader.c:583 ../loader/loader.c:2177
+#: ../loader/loader.c:584 ../loader/loader.c:2178
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "%s direktorioa irakurtzean %s akatsa"
 
 # ../loader/loader.c:656
-#: ../loader/loader.c:813
+#: ../loader/loader.c:869
 msgid "Hard Drives"
 msgstr "Disko Gogorrak"
 
 # ../loader/loader.c:657
-#: ../loader/loader.c:814
+#: ../loader/loader.c:870
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -4525,7 +4526,7 @@ msgstr ""
 "bategokitzerik nahi dozu?"
 
 # ../loader/loader.c:671
-#: ../loader/loader.c:828
+#: ../loader/loader.c:884
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
@@ -4537,23 +4538,23 @@ msgstr ""
 "egokitu."
 
 # ../loader/loader.c:685
-#: ../loader/loader.c:842
+#: ../loader/loader.c:898
 msgid "Directory holding images:"
 msgstr "Irudiak dauzkan direktorioa:"
 
 # ../loader/loader.c:705
-#: ../loader/loader.c:862
+#: ../loader/loader.c:918
 msgid "Select Partition"
 msgstr "Disko-zatia Hautatu"
 
 # ../loader/loader.c:753
-#: ../loader/loader.c:910
+#: ../loader/loader.c:966
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "%s tramankulua Red Hat Linux-eko CDROM irudietan ez da ageri."
 
 # ../loader/loader.c:853
-#: ../loader/loader.c:965
+#: ../loader/loader.c:1021
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -4563,86 +4564,86 @@ msgstr ""
 "\"Onartu\"zapaldu."
 
 # ../loader/loader.c:940
-#: ../loader/loader.c:1052
+#: ../loader/loader.c:1108
 msgid "Networking Device"
 msgstr "Sareko Tramankulua"
 
 # ../loader/loader.c:941
-#: ../loader/loader.c:1053
+#: ../loader/loader.c:1109
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr "Zure sistemak sareko tramankulu asko ditu. Zein ezartzea nahi duzu?"
 
 # ../loader/loader.c:1023
-#: ../loader/loader.c:1135
+#: ../loader/loader.c:1191
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Badirudi direktorio horrek Red Hat-eko ezarketa zuhaitzik ez daukala."
 
 # ../loader/loader.c:1028
-#: ../loader/loader.c:1140
+#: ../loader/loader.c:1196
 msgid "I could not mount that directory from the server"
 msgstr "Zerbitzaritik direktorio hori ezin izan dut lotu"
 
 # ../loader/loader.c:1126 ../loader/loader.c:1135
-#: ../loader/loader.c:1236 ../loader/loader.c:1245
+#: ../loader/loader.c:1237 ../loader/loader.c:1246
 msgid "HTTP"
 msgstr "HTTP"
 
 # ../loader/loader.c:1127
-#: ../loader/loader.c:1237
+#: ../loader/loader.c:1238
 msgid "Unable to retrieve the first install image"
 msgstr "Ezarketako lehen irudia lortzea ezinezkoa izan da."
 
 # ../loader/loader.c:1136
-#: ../loader/loader.c:1246
+#: ../loader/loader.c:1247
 msgid "Unable to retrieve the second install image"
 msgstr "Ezarketako bigarren irudia lortzea ezinezkoa izan dal."
 
 # ../loader/loader.c:1166
-#: ../loader/loader.c:1276
+#: ../loader/loader.c:1277
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
 "FTP eta HTTP-ren bitarteko ezarketek sisteman 20MB memoria edo gehiago behar "
 "dituzte."
 
 # ../loader/loader.c:1390
-#: ../loader/loader.c:1500
+#: ../loader/loader.c:1501
 msgid "Rescue Method"
 msgstr "Berreskuraketa Bidea"
 
 # ../loader/loader.c:1391
-#: ../loader/loader.c:1501
+#: ../loader/loader.c:1502
 msgid "Installation Method"
 msgstr "Ezarketa Bidea"
 
 # ../loader/loader.c:1393
-#: ../loader/loader.c:1503
+#: ../loader/loader.c:1504
 msgid "What type of media contains the rescue image?"
 msgstr "Berreskuratze irudia zein tramankulutan dago?"
 
 # ../loader/loader.c:1395
-#: ../loader/loader.c:1505
+#: ../loader/loader.c:1506
 msgid "What type of media contains the packages to be installed?"
 msgstr "Ezarketako Sortak zein tramankulutan daude?"
 
 # ../loader/loader.c:2027
-#: ../loader/loader.c:2147
+#: ../loader/loader.c:2148
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Abiatze disketean 'ks.cfg' ezin izan da aurkitu."
 
 # ../loader/loader.c:2135
-#: ../loader/loader.c:2239
+#: ../loader/loader.c:2240
 msgid "Updates Disk"
 msgstr "Eguneraketako diskoa"
 
 # ../loader/loader.c:2136
-#: ../loader/loader.c:2240
+#: ../loader/loader.c:2241
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Jarraitzeko eguneraketa diskete bat sartu eta \"Onartu\" zapaldu."
 
 # ../loader/devices.c:244
-#: ../loader/loader.c:2245
+#: ../loader/loader.c:2246
 #, fuzzy
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
@@ -4652,7 +4653,7 @@ msgstr ""
 "du balio."
 
 # ../loader/loader.c:2144
-#: ../loader/loader.c:2255
+#: ../loader/loader.c:2256
 msgid "Failed to mount floppy disk."
 msgstr "Disketea lotzerakoan porrot egin du."
 
@@ -4660,14 +4661,18 @@ msgstr "Disketea lotzerakoan porrot egin du."
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2260
+#: ../loader/loader.c:2261
 msgid "Updates"
 msgstr "Eguneraketak"
 
 # ../loader/loader.c:2149
-#: ../loader/loader.c:2260
+#: ../loader/loader.c:2261
 msgid "Reading anaconda updates..."
 msgstr "'Anaconda'-ren eguneraketak irakurtzen..."
+
+#: ../loader/loader.c:2470
+msgid "You don't have enough system memory to install Red Hat on this machine."
+msgstr ""
 
 # ../loader/net.c:149
 #: ../loader/net.c:170
