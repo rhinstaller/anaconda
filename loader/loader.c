@@ -87,16 +87,16 @@ static int detectHardware(struct loaderState *state) {
     devices = probePci(0, 1);
     if (devices == NULL) {
 	printf("No PCI devices found\n");
-    } else {
-	while ((device = *devices++)) {
-	    if (!testing) {
-		insmod(device->driver, NULL);
-		newtPopWindow();
-	    } else {
-		newtWinMessage("Testing", "OK",
-			       "Test mode: I would run insmod(%s, args);\n",
-			       device->driver);
-	    }
+	return LOADER_OK;
+    }
+    while ((device = *devices++)) {
+	if (!testing) {
+	    insmod(device->driver, NULL);
+	    newtPopWindow();
+	} else {
+	    newtWinMessage("Testing", "OK",
+			   "Test mode: I would run insmod(%s, args);\n",
+			   device->driver);
 	}
     }
     return LOADER_OK;
