@@ -61,6 +61,10 @@ route add -host 127.0.0.1 dev lo
 
 [ -n "$DEBUG" ] && debugshell
 
+LO=""
+
+[ -L /sbin/insmod ] && LO=".o"
+
 # Parse configuration
 if [ -n "$HOST" ]; then
 	set -- `echo $HOST |sed 's/:/ /g'`
@@ -150,11 +154,11 @@ fi
 
 # configure network-interface
 if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
-	insmod ctc.o $CTC
+	insmod ctc$LO $CTC
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 	route add -host $IPADDR dev $DEVICE
 elif [ ":$NETTYPE" = ":iucv" ]; then
-	insmod netiucv.o $IUCV
+	insmod netiucv$LO $IUCV
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 	route add -host $IPADDR dev $DEVICE
 else
