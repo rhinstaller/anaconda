@@ -26,6 +26,7 @@ class InstallClass(BaseInstallClass):
                     "bootloadersetup",
 		    "bootloader",
                     "bootloaderpassword",
+                    "readcomps",                    
                     "checkdeps",
 		    "dependencies",
 		    "confirmupgrade",
