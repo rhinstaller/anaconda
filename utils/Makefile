@@ -42,7 +42,6 @@ md5.o: md5.c md5.h
 	gcc -c -O -g md5.c
 
 genhdlist: genhdlist.c hash.c
-#	$(CC) $(LDFLAGS) $(RPMCFLAGS) -o genhdlist genhdlist.c hash.c \
 	$(CC) -s $(RPMCFLAGS) -o genhdlist genhdlist.c hash.c \
 	-lrpm -lrpmdb -lrpmio -lbz2 -lz -lpopt -lelf -lpthread
 
