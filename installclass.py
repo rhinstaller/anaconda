@@ -183,7 +183,7 @@ class InstallClass:
     def __init__(self):
 	self.skipSteps = {}
 	self.hostname = None
-	self.lilo = ("mbr", 0, "")
+	self.lilo = ("mbr", 1, "")
 	self.groups = None
 	self.packages = None
 	self.makeBootdisk = 0
