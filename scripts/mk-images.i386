@@ -20,12 +20,16 @@ prepareBootImage() {
 	    cp $BOOTDISKDIR/$BOOTLANG/*.msg $MBD_BOOTTREE
 	    if [ $? != 0 ]; then
 		echo $0: Failed to copy messages from $BOOTDISKDIR/$BOOTLANG to $MBD_BOOTTREE.
+		umount $MBD_BOOTTREE
+		rm -rf $MBD_BOOTTREE $MBD_TMPIMAGE
 		exit 1
 	    fi
 	else
 	    cp $BOOTDISKDIR/*.msg $MBD_BOOTTREE
 	    if [ $? != 0 ]; then
 		echo $0: Failed to copy messages from $BOOTDISKDIR to $MBD_BOOTTREE.
+		umount $MBD_BOOTTREE
+		rm -rf $MBD_BOOTTREE $MBD_TMPIMAGE
 		exit 1
 	    fi
 	fi
@@ -40,7 +44,7 @@ SECSTAGE="vfat raid0 raid1 raid5 $LATEUSBMODS"
 COMMONMODULES="vfat $USBMODS agpgart"
 LOCALMODULES="$COMMONMODULES AM53C974 BusLogic DAC960 aacraid advansys 
              aic7xxx cpqarray eata_dma ips initio megaraid ncr53c8xx 
-	     qla1280 qlogicisp"
+	     qlogicisp"
 NETWORKMODULES="$COMMONMODULES 3c509 3c59x 3c90x 8390 ac3200 at1700 de4x5
 	       de600 de620 depca dgrs e1000 eepro100 eepro hp-plus hp hp100
 	       ne ne2k-pci ni52 old_tulip pcnet32 rtl8139 tlan tulip
@@ -48,12 +52,12 @@ NETWORKMODULES="$COMMONMODULES 3c509 3c59x 3c90x 8390 ac3200 at1700 de4x5
                nfs vfat"
 
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
-	   --initrdsize 2000 \
+	   --initrdsize 2100 \
 	   --loaderbin loader-local \
 	   --modules "$LOCALMODULES"
 
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
-	   --initrdsize 2000 \
+	   --initrdsize 2100 \
 	   --loaderbin loader-network \
 	   --modules "$NETWORKMODULES"
 
@@ -80,7 +84,7 @@ PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 
 makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --pcmcia \
-	   --initrdsize 2000 \
+	   --initrdsize 2100 \
 	   --loaderbin loader-pcmcia \
 	   --modules "$PCMCIAMODULES nfs vfat"
 
@@ -129,14 +133,14 @@ NETWORKMODULES="$COMMONMODULES 3c509 3c59x 3c90x 8390 ac3200 at1700 de4x5
 makebootdisk --bootdisksize 1440 \
 	     --imagename ja/boot.img \
 	     --initrdflags '--japanese
-			    --initrdsize 2000 \
+			    --initrdsize 2100 \
 			    --loaderbin loader-local-kon \
 			    --modules "$LOCALMODULES"'
 
 makebootdisk --bootdisksize 1440 \
 	     --imagename ja/bootnet.img \
 	     --initrdflags '--japanese
-			    --initrdsize 2000 \
+			    --initrdsize 2100 \
 			    --loaderbin loader-network-kon \
 		 	    --modules "$NETWORKMODULES"'
 
@@ -144,7 +148,7 @@ makebootdisk --imagename ja/pcmcia.img \
 	     --bootdisksize 1440 \
 	     --initrdflags '--japanese
 			    --pcmcia \
-		     	    --initrdsize 2000 \
+		     	    --initrdsize 2100 \
 			    --loaderbin loader-pcmcia-kon \
 			    --modules "$PCMCIAMODULES nfs vfat"'
 
@@ -154,6 +158,6 @@ makedriverdisk "Parallel port IDE Drivers" "paride" "parport_pc parport pcd pari
 
 makemainmodules "=scsi =net $SECSTAGE"
 
-makeinstimage --size1 2800 --size2 2660 "netstg" "=scsi $SECSTAGE"
+makeinstimage --size1 3000 --size2 2660 "netstg" "=scsi $SECSTAGE"
 makeinstimage --size1 2800 --size2 2660 "hdstg" "=net $SECSTAGE"
 makemainimage "stage2"
