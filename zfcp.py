@@ -105,7 +105,7 @@ class ZFCP:
             f.write("%s %s %s %s %s\n" % (dev[0], dev[1], dev[2], dev[3], dev[4],))
         f.close()
         fn = "%s/etc/modprobe.conf" % (instpath,)
-        f = open(fn, "w")
+        f = open(fn, "a")
         f.write("alias scsi_hostadapter zfcp")
         f.close()
 
