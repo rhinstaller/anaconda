@@ -487,7 +487,10 @@ class ToDo:
 		self.selectPackage(n)
 
         if self.x.server and not self.x.server == "XFree86":
-	    self.selectPackage('XFree86-' + self.x.server)
+            try:
+                self.selectPackage ('XFree86-' + self.x.server[5:])
+            except ValueError, message:
+                log ("Error selecting XFree86 server package: %s", message)
 
     def selectPackage(self, package):
 	if not self.hdList.packages.has_key(package):
