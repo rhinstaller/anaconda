@@ -1318,7 +1318,8 @@ class ToDo:
             fn = self.method.unlinkFilename(fn)
             return self.rpmFD
         elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
-            intf.setPackageScale(amount, total)
+            if total:
+                intf.setPackageScale(amount, total)
         elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
             os.close (self.rpmFD)
             intf.completePackage(h)
