@@ -28,6 +28,9 @@ class HeaderList:
     def has_key(self, item):
 	return self.packages.has_key(item)
 
+    def keys(self):
+        return self.packages.keys()
+
     def __getitem__(self, item):
 	return self.packages[item]
 

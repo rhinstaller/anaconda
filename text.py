@@ -1,5 +1,5 @@
 from snack import *
-import _balkan
+import parted
 import sys
 import isys
 import os
@@ -164,19 +164,22 @@ class WaitWindow:
 
 class PartitionWindow:
     def run(self, screen, todo):
-	if (not todo.setupFilesystems): return -2
+ 	if (not todo.setupFilesystems): return -2
 
-        device = "hda";
+        dev = "hda"
 
-	isys.makeDevInode(device, "/tmp/" + device)
-	table = _balkan.readTable("/tmp/" + device)
-	os.remove("/tmp/" + device)
+	isys.makeDevInode (dev, "/tmp/" + dev)
+	device = parted.device_read ("/tmp/" + dev)
+	os.remove("/tmp/" + dev)
 
-	partList = []
-	for i in range(0, len(table) - 1):
-	    (type, start, size) = table[i]
-	    if (type == 0x83 and size):
-		fullName = "%s%d" % (device, i + 1)
+        keys = device.partitions.keys()
+        keys.sort()
+
+        partList = []
+	for key in keys:
+            partition = device.partitions[key]
+	    if (partition.sys_type == 0x83):
+		fullName = "%s%d" % (dev, key)
 		partList.append((fullName, fullName))
 
 	rc = ListboxChoiceWindow(screen, _("Root Partition"),

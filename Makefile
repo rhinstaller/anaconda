@@ -14,3 +14,6 @@ install: all
 	mkdir -p $(DESTDIR)
 	cp -a anaconda *.py $(DESTDIR)
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d install; done
+
+text.po: text.py
+	xgettext --default-domain=text --add-comments --keyword=_ text.py

@@ -312,9 +312,7 @@ class WaitWindow:
 
 class GtkMainThread:
     def run (self):
-	threads_enter ()
         mainloop ()
-	threads_leave ()	
     
 class InstallInterface:
 
