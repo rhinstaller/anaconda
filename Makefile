@@ -5,7 +5,7 @@ VERSION = 7.0
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
-SUBDIRSHD = rpmmodule kudzu balkan isys libfdisk collage loader po \
+SUBDIRSHD = rpmmodule balkan isys libfdisk collage loader po \
 	    minislang textw utils
 BUILDONLYSUBDIRS = pump
 SUBDIRS = $(SUBDIRSHD)
@@ -65,7 +65,6 @@ install:
 	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a kudzu/kudzumodule.so $(DESTDIR)/$(PYTHONLIBDIR)
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
 
 archive: create-archive
