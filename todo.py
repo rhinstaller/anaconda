@@ -176,7 +176,7 @@ class Network:
 
 	try:
 	    ip = socket.gethostbyname(self.hostname)
-	except socket.error:
+	except:
 	    return None
 
 	return ip
