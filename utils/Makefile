@@ -5,10 +5,11 @@ ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
 ISYSLIB=isys
 
-LOADLIBES =  -L../isys -l$(ISYSLIB) -lpopt
-CFLAGS = -Wall -g -I.. -I/usr/include/rpm-4.0.4 -I../loader
+LOADERDIR = ../loader2
+LOADLIBES =  -lpopt
+CFLAGS = -Wall -g -I.. -I$(LOADERDIR)
+RPMCFLAGS = $(CFLAGS) -I/usr/include/rpm
 LDFLAGS = -g -static
-MODDEPS = moddeps
 
 ifeq (.depend,$(wildcard .depend))
 TARGET=all
@@ -18,12 +19,17 @@ endif
 
 everything: $(TARGET)
 
-all:	modlist $(MODDEPS) snarffont mapshdr readmap
+all:	modlist moddeps snarffont mapshdr readmap
 
-modlist:    modlist.o 
+modlist: modlist.o moduleinfo.o
+	$(CC) $(LDFLAGS) -o modlist modlist.o moduleinfo.o $(LOADLIBES)
 
-moduledeps.o: ../loader/moduledeps.c
-	cp ../loader/moduledeps.c ./
+moduleinfo.o: $(LOADERDIR)/moduleinfo.c
+	cp $(LOADERDIR)/moduleinfo.c ./
+	$(CC) $(CFLAGS) -c moduleinfo.c
+
+moduledeps.o: $(LOADERDIR)/moduledeps.c
+	cp $(LOADERDIR)/moduledeps.c ./
 	$(CC) $(CFLAGS) -c moduledeps.c
 
 moddeps: moddeps.o moduledeps.o
@@ -36,8 +42,8 @@ md5.o: md5.c md5.h
 	gcc -c -O -g md5.c
 
 genhdlist: genhdlist.c hash.c
-	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c hash.c -lrpm-4.0.4 -lrpmdb-4.0.4 -lrpmio-4.0.4 \
-	-lbz2 -lz -lpopt 
+	$(CC) $(LDFLAGS) $(RPMCFLAGS) -o genhdlist genhdlist.c hash.c \
+	-lrpm -lrpmdb -lrpmio -lbz2 -lz -lpopt -lelf
 
 depends:
 
@@ -54,10 +60,11 @@ install: all
 	install -m755 mapshdr $(DESTDIR)/$(RUNTIMEDIR)
 
 clean:	
-	rm -f modlist moddeps snarffont genhdlist mapshdr readmap *.o 
+	rm -f modlist moddeps snarffont genhdlist mapshdr readmap \
+	moduledeps.c moduleinfo.c *.o
 
 depend:
-	$(CPP) -M $(CFLAGS) *.c > .depend
+	$(CPP) -M $(RPMCFLAGS) *.c > .depend
 
 ifeq (.depend,$(wildcard .depend))
 include .depend

@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "../isys/isys.h"
+#include "moduleinfo.h"
 
 int main(int argc, char ** argv) {
     poptContext optCon;
@@ -37,8 +38,8 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
-    mis = isysNewModuleInfoSet();
-    if (isysReadModuleInfo(modInfoFile, mis, NULL)) {
+    mis = newModuleInfoSet();
+    if (readModuleInfo(modInfoFile, mis, NULL, 0)) {
         fprintf(stderr, "Failed to read %s\n", modInfoFile);
 	exit(1);
     }
@@ -46,7 +47,7 @@ int main(int argc, char ** argv) {
     if (showModInfo) {
         printf("Version 0\n");
 	while ((mod = poptGetArg(optCon))) {
-	    mi = isysFindModuleInfo(mis, mod);
+	    mi = findModuleInfo(mis, mod);
 	    if (mi) {
 	    	printf("%s\n", mi->moduleName);
 		switch (mi->major) {
@@ -97,7 +98,7 @@ int main(int argc, char ** argv) {
 		exit(1);
 	    }
 
-	    list = isysGetModuleList(mis, major);
+	    list = getModuleList(mis, major);
 	    for (m = list; m && m->moduleName; m++)
 		printf("%s\n", m->moduleName);
 	    free(list);

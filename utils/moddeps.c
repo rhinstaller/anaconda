@@ -5,7 +5,7 @@
 #include <sys/utsname.h>
 
 #include "../isys/isys.h"
-#include "../loader/modules.h"
+#include "modules.h"
 
 void setFloppyDevice(int flags) {
 }
@@ -53,7 +53,7 @@ int main(int argc, char ** argv) {
 	    { 0, 0, 0, 0, 0 }
     };
 
-    optCon = poptGetContext(NULL, argc, argv, optionTable, 0);
+    optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
 
     if ((rc = poptGetNextOpt(optCon)) < -1) {
 	fprintf(stderr, "bad option %s: %s\n",
@@ -75,7 +75,7 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
-    while ((mod = poptGetArg(optCon))) {
+    while ((mod = (char *) poptGetArg(optCon))) {
         list = mlGetDeps(ml, mod);
 	if (list) {
 	    for (l = list; *l; l++)
