@@ -64,3 +64,14 @@ class Desktop (SimpleConfigFile):
 	f.close()
 
 
+ENABLE_DESKTOP_CHOICE = 0
+try:
+    f = open("/proc/cmdline")
+    line = f.readline()
+    if string.find(line, " kde") != -1:
+	ENABLE_DESKTOP_CHOICE = 1
+    else:
+	ENABLE_DESKTOP_CHOICE = 0
+    del f
+except:
+    ENABLE_DESKTOP_CHOICE = 0
