@@ -34,9 +34,33 @@ $defaultTerritory{"Swedish"} = "Sweden";
 $defaultTerritory{"Turkish"} = "Turkey";
 $defaultTerritory{"Thai"} = "Thailand";
 
+$charMap{"EUC-JP"} =  "iso01";
+$charMap{"ISO-8859-1"} =  "iso01";
+$charMap{"ISO-8859-2"} =  "iso02";
+$charMap{"ISO-8859-3"} =  "iso03";
+$charMap{"ISO-8859-5"} =  "iso05";
+$charMap{"ISO-8859-6"} =  "iso06";
+$charMap{"ISO-8859-7"} =  "iso07";
+$charMap{"ISO-8859-8"} =  "iso08";
+$charMap{"ISO-8859-9"} =  "iso09";
+$charMap{"ISO-8859-15"} =  "iso15";
+
+$charFont{"EUC-JP"} =  "default8x16";
+$charFont{"ISO-8859-1"} =  "default8x16";
+$charFont{"ISO-8859-2"} =  "lat2-sun16";
+#$charFont{"ISO-8859-3"} =  "iso03";		mk_MK -- no font available
+$charFont{"ISO-8859-5"} =  "cyr-sun16";
+$charFont{"ISO-8859-6"} =  "LatArCyrHeb-16";
+$charFont{"ISO-8859-7"} =  "gr.f16";
+$charFont{"ISO-8859-8"} =  "LatArCyrHeb-16";
+$charFont{"ISO-8859-9"} =  "lat5-sun16";
+$charFont{"ISO-8859-15"} =  "lat0-sun16";
+
+
 open(FILE, "locale -a|");
 
 while (<FILE>) {
+#for (['he_IL', 'en_US']) {
     chop;
 
     # limit to items of the form xx_.*
@@ -44,15 +68,24 @@ while (<FILE>) {
 
     $lang=$_;
 
-    open(INFO, "LANG=$lang locale -c language -c territory|");
+    open(INFO, "LANG=$lang locale -c language -c territory -k charmap|");
     <INFO>;
     $name = <INFO>;
     <INFO>;
     $territory = <INFO>;
+    <INFO>;
+    $charmap = <INFO>;
     close(INFO);
 
     chop $name;
+    $name =~ s/^[^"]+"//;
+    $name =~ s/"$//;
     chop $territory;
+    $territory =~ s/^[^"]+"//;
+    $territory =~ s/"$//;
+    chop $charmap;
+    $charmap =~ s/^[^"]+"//;
+    $charmap =~ s/"$//;
 
     # Some languages name's are the same as their ISO id's!
     ($name eq substr($lang, 0, 2)) && next;
@@ -67,9 +100,11 @@ while (<FILE>) {
 	# this is a hack
 	if (length($langList{$lang}) < length($fullName)) {
 	    $langList{$lang} = $fullName;
+	    $charmapList{$lang} = $charmap;
 	}
     } else {
 	$langList{$lang} = $fullName;
+	$charmapList{$lang} = $charmap;
     }
 }
 
@@ -82,6 +117,10 @@ for $key (keys %langList) {
 @names = sort(keys %nameList);
 
 for $name (@names) {
-    print "$nameList{$name} $name\n";
+    $short = $nameList{$name};
+    $map = $charmapList{$short};
+    if ($charMap{$map} and $charFont{$map}) {
+	print "$short $charMap{$map} $charFont{$map} $name\n";
+    }
 }
 
