@@ -17,6 +17,7 @@ import string
 import math
 
 from flags import flags
+from rhpl.log import log
 
 from constants import *
 
@@ -47,6 +48,8 @@ has_lvm()
 
 def vgscan():
     """Runs vgscan."""
+    global lvmDevicePresent
+        
     if flags.test or lvmDevicePresent == 0:
         return
 
@@ -56,7 +59,8 @@ def vgscan():
                                 stderr = output,
                                 searchPath = 1)
     if rc:
-        raise SystemError, "vgscan failed"
+        log("running vgscan failed.  disabling lvm")
+        lvmDevicePresent = 0
 
 def vgactivate(volgroup = None):
     """Activate volume groups by running vgchange -ay.
