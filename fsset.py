@@ -497,7 +497,8 @@ class extFileSystem(FileSystemType):
 
         # JKFIXME: this *MUST* be fixed before the final
         # workaround for #87639
-        args.extend(["-b", "4096"])
+        if iutil.getArch() == "s390":
+            args.extend(["-b", "4096"])
         
         args.extend(devArgs)
         args.extend(self.extraFormatArgs)
