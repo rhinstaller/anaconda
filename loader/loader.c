@@ -2923,11 +2923,7 @@ int main(int argc, char ** argv) {
 	kickstartNetwork(&ksNetDevice, &netDev, NULL, flags);
 	writeNetInfo("/tmp/netinfo", &netDev, &kd);
 
-	stopNewt();
-#if 0
-	beTelnet();
-#endif
-	startNewt(flags);
+	if (!beTelnet(flags)) flags |= LOADER_FLAGS_TEXT;
     }
 #endif
 

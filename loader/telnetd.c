@@ -2,8 +2,11 @@
 
 #include <arpa/inet.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <netinet/in.h>
+#include <newt.h>
 #include <pty.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/poll.h>
 #include <sys/signal.h>
@@ -12,11 +15,18 @@
 #include <termios.h>
 #include <unistd.h>
 
+#include "lang.h"
+#include "loader.h"
 #include "log.h"
 #include "telnet.h"
+#include "windows.h"
+
+#ifndef IPPORT_TELNET
+#define IPPORT_TELNET 23
+#endif
 
 /* Forks, keeping the loader as our child (so we know when it dies). */
-int beTelnet(void) {
+int beTelnet(int flags) {
     int sock;
     int conn;
     int addrLength;
@@ -48,35 +58,40 @@ int beTelnet(void) {
     bind(sock, (struct sockaddr *) &address, sizeof(address));
     listen(sock, 5);
 
-    printf("Waiting for telnet connection on port 23...");
+    winStatus(45, 3, _("Telnet"), _("Waiting for telnet connection..."));
 
     if ((conn = accept(sock, (struct sockaddr *) &address, 
                           &addrLength)) < 0) {
-	logMessage("accept: %s", strerror(errno));
-	exit(0);
+	newtWinMessage(_("Error"), _("OK"), "accept failed: %s", 
+		       strerror(errno));
+	close(sock);
 	return -1;
     }
 
-    printf(" got a connection.\n");
+    stopNewt();
 
     close(sock);
 
     telnet_negotiate(conn);
-    child = forkpty(&masterFd, NULL, NULL, NULL);
 
-    if (child < 0) {
-	logMessage("forkpty: %s", strerror(errno));
+    masterFd = open("/dev/ptyp0", O_RDWR);
+    if (masterFd < 0) {
+	logMessage("cannot open /dev/ttyp0");
 	close(conn);
 	return -1;
-    } else if (child) {
+    }
+
+    child = fork();
+
+    if (child) {
+	startNewt(flags);
+	winStatus(45, 3, _("Telnet"), _("Running anaconda via telnet..."));
+
 	fds[0].events = POLLIN;
 	fds[0].fd = masterFd;
 
 	fds[1].events = POLLIN;
 	fds[1].fd = conn;
-
-	fds[2].events = POLLIN;
-	fds[2].fd = STDIN_FILENO;
 
 	tcgetattr(STDIN_FILENO, &orig);
 	tcgetattr(STDIN_FILENO, &new);
@@ -86,7 +101,7 @@ int beTelnet(void) {
 	new.c_cc[VSUSP] = 0;
 	tcsetattr(STDIN_FILENO, 0, &new);
 
-	while ((i = poll(fds, 3, -1)) > 0) {
+	while ((i = poll(fds, 2, -1)) > 0) {
 	    if (fds[0].revents) {
 		i = read(masterFd, buf, sizeof(buf));
 
@@ -95,7 +110,6 @@ int beTelnet(void) {
 		    break;
 
 		telnet_send_output(conn, buf, i);
-		write(STDOUT_FILENO, buf, i);
 	    }
 
 	    if (fds[1].revents) {
@@ -108,18 +122,14 @@ int beTelnet(void) {
 		i = telnet_process_input(&ts, buf, i);
 		write(masterFd, buf, i);
 	    }
-
-	    if (fds[2].revents) {
-		i = read(STDIN_FILENO, buf, sizeof(buf));
-		write(masterFd, buf, i);
-	    }
 	}
 
-	printf("out of poll %d\n", i);
 
 	if (i < 0) {
 	    logMessage("poll: %s", strerror(errno));
 	} 
+
+	stopNewt();
 
 	kill(child, SIGTERM);
 	close(conn);
@@ -127,6 +137,18 @@ int beTelnet(void) {
 
 	exit(0);
     }
+
+    close(masterFd);
+    close(0);
+    close(1);
+    close(2);
+
+    open("/dev/ttyp0", O_RDWR);
+    dup(0);
+    dup(0);
+
+    /* brand new tty! */
+    startNewt(flags);
 
     return 0;
 }

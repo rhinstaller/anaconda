@@ -62,5 +62,6 @@
 #define CODE_PCMCIA	1
 
 void startNewt(int flags);
+void stopNewt(void);
 
 void setFloppyDevice(int flags);
