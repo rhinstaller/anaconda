@@ -425,7 +425,8 @@ class ToDo:
 	keys.sort()
         for mntpoint in keys:
             (device, fsystem, format) = self.mounts[mntpoint]
-            if fsystem == "swap": continue
+            if fsystem == "swap":
+                isys.swapon ('/tmp/' + device)
 
             isys.makeDevInode(device, '/tmp/' + device)
 	    try:
@@ -458,7 +459,6 @@ class ToDo:
                                              searchPath = 1)
                 if rc:
                     raise ToDoError, "error making swap on " + device
-                isys.swapon ('/tmp/' + device)
             else:
                 pass
 
