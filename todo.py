@@ -1482,14 +1482,23 @@ class ToDo:
 
     def sortPackages(self, first, second):
         # install packages in cd order (cd tag is 1000002)
-	one = 0
-	two = 0
+	one = None
+	two = None
 
-        if first[1000002] != None:
-	    one = first[1000002]
+        if first[1000003] != None:
+	    one = first[1000003]
 
-        if second[1000002] != None:
-	    two = second[1000002]
+        if second[1000003] != None:
+	    two = second[1000003]
+
+        if one == None or two == None:
+            one = 0
+            two = 0
+            if first[1000002] != None:
+                one = first[1000002]
+
+            if second[1000002] != None:
+                two = second[1000002]
 
 	if one < two:
 	    return -1
@@ -1610,7 +1619,8 @@ class ToDo:
             total = total + 1
             totalSize = totalSize + (p[rpm.RPMTAG_SIZE] / 1024 )
 
-	ts.order()
+        # XXX I've inserted them in order already.
+        # ts.order()
 
         if self.upgrade:
             logname = '/tmp/upgrade.log'
