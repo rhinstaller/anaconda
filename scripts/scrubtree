@@ -6,7 +6,7 @@ p=$1
 # dirs specified on the command line.
 touch $p/etc/ld.so.conf
 [ -d $p/usr/X11R6/lib ] && echo /usr/X11R6/lib > $p/etc/ld.so.conf
-(cd $p; chroot $p usr/sbin/ldconfig )
+(cd $p; /usr/sbin/chroot $p usr/sbin/ldconfig )
 rm -f $p/usr/sbin/ldconfig $p/etc/ld.so.conf
 
 (cd $p/usr/bin; ./collage | $p/usr/lib/anaconda-runtime/mkcollagelinks ./collage)
