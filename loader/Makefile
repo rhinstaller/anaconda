@@ -71,7 +71,7 @@ endif
 ifeq (1, $(KON))
 LANGS = ja
 else
-LANGS = cs hu is id it no ro ru sr sk sl tr uk fr de ja
+LANGS = $(shell awk '{ print $$2 }' ../lang-table | grep -v '^en$$')
 endif
 
 TR = $(patsubst %,tr/%.tr,$(LANGS))
