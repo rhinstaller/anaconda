@@ -255,7 +255,6 @@ class Server(InstallClass):
 	self.setGroups(["Server"])
 	self.setHostname("localhost.localdomain")
 	self.addToSkipList("lilo")
-	self.addToSkipList("network")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
