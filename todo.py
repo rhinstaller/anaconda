@@ -932,7 +932,7 @@ class ToDo:
                                     _("Searching for Red Hat Linux installations..."))
         
         drives = self.drives.available ().keys ()
-        self.todo.ddruid = FakeDDruid ()
+        todo.ddruid = FakeDDruid ()
         for drive in drives:
             isys.makeDevInode(drive, '/tmp/' + drive)
             
