@@ -1,5 +1,6 @@
 #include <arpa/inet.h>
 #include <errno.h>
+#include <popt.h>
 #include <resolv.h>
 #include <net/if.h>
 #include <newt.h>
@@ -9,6 +10,7 @@
 #include "isys/dns.h"
 #include "pump/pump.h"
 
+#include "kickstart.h"
 #include "lang.h"
 #include "loader.h"
 #include "log.h"
@@ -96,6 +98,22 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     *dirptr = newDir;
 
     return 0;
+}
+
+static void fillInIpInfo(struct networkDeviceConfig * cfg) {
+    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST)) {
+	*((int32 *) &cfg->dev.broadcast) = (*((int32 *) &cfg->dev.ip) & 
+			   *((int32 *) &cfg->dev.netmask)) | 
+			   ~(*((int32 *) &cfg->dev.netmask));
+	cfg->dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
+    }
+
+    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_NETWORK)) {
+	*((int32 *) &cfg->dev.network) = 
+		*((int32 *) &cfg->dev.ip) &
+		*((int32 *) &cfg->dev.netmask);
+	cfg->dev.set |= PUMP_INTFINFO_HAS_NETWORK;
+    }
 }
 
 static void dhcpBoxCallback(newtComponent co, void * ptr) {
@@ -233,7 +251,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 			  _("Sending request for IP information..."),
 			    0);
 		chptr = pumpDhcpRun(device, 0, 0, NULL, &newCfg.dev, NULL);
-		logMessage("pump told us: %s", chptr);
 		newtPopWindow();
 	    } else {
 	    	chptr = NULL;
@@ -243,6 +260,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 		i = 2; 
 		cfg->isDynamic = 1;
 	    } else {
+		logMessage("pump told us: %s", chptr);
 		i = 0;
 	    }
 	}
@@ -250,19 +268,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
     cfg->dev = newCfg.dev;
 
-    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST)) {
-	*((int32 *) &cfg->dev.broadcast) = (*((int32 *) &cfg->dev.ip) & 
-			   *((int32 *) &cfg->dev.netmask)) | 
-			   ~(*((int32 *) &cfg->dev.netmask));
-	cfg->dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
-    }
-
-    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_NETWORK)) {
-	*((int32 *) &cfg->dev.network) = 
-		*((int32 *) &cfg->dev.ip) &
-		*((int32 *) &cfg->dev.netmask);
-	cfg->dev.set |= PUMP_INTFINFO_HAS_NETWORK;
-    }
+    fillInIpInfo(cfg);
 
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
 	if (*c.gw && inet_aton(c.gw, &addr)) {
@@ -383,5 +389,92 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
 	}
     }
 
+    return 0;
+}
+
+int kickstartNetwork(char * device, struct networkDeviceConfig * netDev, 
+		     int flags) {
+    char ** ksArgv;
+    int ksArgc;
+    int netSet, rc;
+    char * bootProto = NULL;
+    char * arg, * chptr;
+    poptContext optCon;
+    struct in_addr * parseAddress;
+    struct poptOption ksOptions[] = {
+	    { "bootproto", '\0', POPT_ARG_STRING, &bootProto, 0 },
+	    { "gateway", '\0', POPT_ARG_STRING, NULL, 'g' },
+	    { "ip", '\0', POPT_ARG_STRING, NULL, 'i' },
+	    { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n' },
+	    { "netmask", '\0', POPT_ARG_STRING, NULL, 'm' },
+	    { 0, 0, 0, 0, 0 }
+    };
+
+    if (ksGetCommand(KS_CMD_NETWORK, NULL, &ksArgc, &ksArgv)) {
+	/* This is for compatibility with RH 5.0 */
+	ksArgv = alloca(sizeof(*ksArgv) * 1);
+	ksArgv[0] = "network";
+	ksArgc = 1;
+    }
+
+    optCon = poptGetContext(NULL, ksArgc, ksArgv, ksOptions, 0);
+    while ((rc = poptGetNextOpt(optCon)) >= 0) {
+	parseAddress = NULL;
+	netSet = 0;
+
+	arg = poptGetOptArg(optCon);
+
+	switch (rc) {
+	  case 'g':
+	    parseAddress = &netDev->dev.gateway;
+	    netSet = PUMP_NETINFO_HAS_GATEWAY;
+	    break;
+		
+	  case 'i':
+	    parseAddress = &netDev->dev.ip;
+	    netSet = PUMP_INTFINFO_HAS_IP;
+	    break;
+		
+	  case 'n':
+	    parseAddress = &netDev->dev.dnsServers[netDev->dev.numDns++];
+	    netSet = PUMP_NETINFO_HAS_DNS;
+	    break;
+
+	  case 'm':
+	    parseAddress = &netDev->dev.netmask;
+	    netSet = PUMP_INTFINFO_HAS_NETMASK;
+	    break;
+	}
+
+	if (!inet_aton(arg, parseAddress)) {
+	    logMessage("bad ip number in network command: %s", arg);
+	    return -1;
+	}
+
+	netDev->dev.set |= netSet;
+    }
+
+    if (rc < -1) {
+	newtWinMessage(_("kickstart"),  _("Ok"),
+		   _("bad argument to kickstart network command %s: %s"),
+		   poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+		   poptStrerror(rc));
+    } else {
+	poptFreeContext(optCon);
+    }
+
+    if (!strcmp(bootProto, "dhcp") || !strcmp(bootProto, "bootp")) {
+	chptr = pumpDhcpRun(device, 0, 0, NULL, &netDev->dev, NULL);
+	if (chptr) {
+	    logMessage("pump told us: %s", chptr);
+	    return -1;
+	}
+    }
+
+    fillInIpInfo(netDev);
+    configureNetwork(netDev);
+    findHostAndDomain(netDev, flags);
+    writeResolvConf(netDev);
+    
     return 0;
 }

@@ -6,9 +6,13 @@
 #define LOADER_FLAGS_EXPERT		(1 << 1)
 #define LOADER_FLAGS_TEXT		(1 << 2)
 #define LOADER_FLAGS_RESCUE		(1 << 3)
+#define LOADER_FLAGS_KICKSTART		(1 << 4)
+#define LOADER_FLAGS_KSFLOPPY		(1 << 5)
 
-#define FL_TESTING(a) ((a) & LOADER_FLAGS_TESTING)
-#define FL_EXPERT(a) ((a) & LOADER_FLAGS_EXPERT)
-#define FL_TEXT(a) ((a) & LOADER_FLAGS_TEXT)
-#define FL_RESCUE(a) ((a) & LOADER_FLAGS_RESCUE)
+#define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
+#define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
+#define FL_TEXT(a)	    ((a) & LOADER_FLAGS_TEXT)
+#define FL_RESCUE(a)	    ((a) & LOADER_FLAGS_RESCUE)
+#define FL_KICKSTART(a)	    ((a) & LOADER_FLAGS_KICKSTART)
+#define FL_KSFLOPPY(a)	    ((a) & LOADER_FLAGS_KSFLOPPY)
 

@@ -15,5 +15,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr);
 int writeNetInfo(const char * fn, struct networkDeviceConfig * dev);
 int findHostAndDomain(struct networkDeviceConfig * dev, int flags);
 int writeResolvConf(struct networkDeviceConfig * net);
+int kickstartNetwork(char * device, struct networkDeviceConfig * netDev, 
+		     int flags);
 
 #endif

@@ -1,6 +1,6 @@
 DESTDIR = ../../trees/initrd
 
-OBJS = log.o windows.o modules.o devices.o net.o cdrom.o urls.o
+OBJS = log.o windows.o modules.o devices.o net.o cdrom.o urls.o kickstart.o
 LOADEROBJS = loader.o loader-pcmcia.o pcmcia.o popen.o
 SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
 BINS = loader loader-pcmcia init
