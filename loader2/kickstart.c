@@ -267,8 +267,9 @@ void getKickstartFile(struct knownDevices * kd,
         logMessage("grabbing kickstart from cdrom currently unsupported");
         return;
     } else if (!strncmp(c, "ks=nfs:", 7)) {
-        logMessage("grabbing kickstart from nfs currently unsupported");
-        return;
+        if (kickstartFromNfs(c + 7, kd, loaderData, flags))
+            return;
+        loaderData->ksFile = strdup("/tmp/ks.cfg");
     } else if (!strncmp(c, "ks=floppy", 9)) {
         if (kickstartFromFloppy(*flagsPtr)) 
             return;

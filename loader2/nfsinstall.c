@@ -271,3 +271,55 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 
     logMessage("results of nfs, host is %s, dir is %s", host, dir);
 }
+
+
+int kickstartFromNfs(char * url, struct knownDevices * kd,
+                     struct loaderData_s * loaderData, int flags) {
+    char * host = NULL, * file = NULL;
+    int failed = 0;
+
+    if (kickstartNetworkUp(kd, loaderData, flags)) {
+        logMessage("unable to bring up network");
+        return 1;
+    }
+
+    host = url;
+    /* JKFIXME: need to add this; abstract out the functionality
+     * so that we can use it for all types */
+    if (host[strlen(url) - 1] == '/') {
+        logMessage("directory syntax not supported yet");
+        return 1;
+        /* host[strlen(host) - 1] = '\0';
+           file = malloc(30);
+           sprintf(file, "%s-kickstart", inet_ntoa(netDev.dev.ip));*/
+    } else {
+        file = strrchr(host, '/');
+        if (!file) {
+            file = "/";
+        } else {
+            *file++ = '\0';
+        }
+    }
+
+    logMessage("ks location: nfs://%s/%s", host, file);
+
+    if (!doPwMount(host, "/tmp/ks", "nfs", 1, 0, NULL, NULL)) {
+        char * buf;
+
+        buf = alloca(strlen(file) + 10);
+        sprintf(buf, "/tmp/ks/%s", file);
+        if (copyFile(buf, "/tmp/ks.cfg")) {
+            logMessage("failed to copy ks.cfg to /tmp/ks.cfg");
+            failed = 1;
+        }
+        
+    } else {
+        logMessage("failed to mount nfs source");
+        failed = 1;
+    }
+
+    umount("/tmp/ks");
+    unlink("/tmp/ks");
+
+    return failed;
+}
