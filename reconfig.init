@@ -25,7 +25,7 @@ case "$1" in
         if grep -i reconfig /proc/cmdline >/dev/null || [ -f /etc/reconfigSys ]; then
 	    echo -n "Running system reconfiguration tool"
 	    /usr/sbin/anaconda --reconfig
-	    rm /etc/reconfigSys
+	    rm -f /etc/reconfigSys
 	fi
 
 	# We don't want to run this on random runlevel changes.
