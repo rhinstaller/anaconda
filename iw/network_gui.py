@@ -135,7 +135,7 @@ class NetworkWindow(InstallWindow):
 
         if valid_ip == TRUE:
             try:
-                new_nm = inet_calcNetmask(ip)
+                new_nm = 255.255.255.0
                 if(new_nm != nm.get_text()):
                     nm.set_text(new_nm)
             except:
