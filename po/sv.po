@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-01 23:26-0400\n"
+"POT-Creation-Date: 2004-09-16 12:06-0400\n"
 "PO-Revision-Date: 2004-09-07 01:22+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -92,10 +92,10 @@ msgstr "Anslut till %s för att påbörja installationen..."
 msgid "Please connect to begin the install..."
 msgstr "Anslut för att påbörja installationen..."
 
-#: ../anaconda:564 ../anaconda:749 ../gui.py:241 ../gui.py:1009
+#: ../anaconda:567 ../anaconda:752 ../gui.py:241 ../gui.py:1009
 #: ../rescue.py:40 ../rescue.py:227 ../rescue.py:305 ../rescue.py:333
 #: ../rescue.py:343 ../rescue.py:412 ../rescue.py:418 ../text.py:339
-#: ../text.py:485 ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
+#: ../text.py:504 ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:174
 #: ../textw/network_text.py:405 ../textw/network_text.py:413
@@ -105,10 +105,10 @@ msgstr "Anslut för att påbörja installationen..."
 #: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:374
 #: ../loader2/cdinstall.c:379 ../loader2/cdinstall.c:382
 #: ../loader2/cdinstall.c:447 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:261 ../loader2/driverdisk.c:292
-#: ../loader2/driverdisk.c:330 ../loader2/driverdisk.c:368
-#: ../loader2/driverdisk.c:381 ../loader2/driverdisk.c:395
-#: ../loader2/driverdisk.c:570 ../loader2/driverdisk.c:603
+#: ../loader2/driverdisk.c:267 ../loader2/driverdisk.c:298
+#: ../loader2/driverdisk.c:337 ../loader2/driverdisk.c:375
+#: ../loader2/driverdisk.c:388 ../loader2/driverdisk.c:402
+#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:610
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
 #: ../loader2/hdinstall.c:218 ../loader2/hdinstall.c:380
@@ -118,33 +118,33 @@ msgstr "Anslut för att påbörja installationen..."
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
 #: ../loader2/kickstart.c:270 ../loader2/kickstart.c:405 ../loader2/lang.c:102
 #: ../loader2/lang.c:375 ../loader2/loader.c:326 ../loader2/loader.c:339
-#: ../loader2/loader.c:350 ../loader2/loader.c:654 ../loader2/loader.c:832
+#: ../loader2/loader.c:350 ../loader2/loader.c:657 ../loader2/loader.c:835
 #: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
 #: ../loader2/mediacheck.c:354 ../loader2/method.c:155 ../loader2/method.c:364
 #: ../loader2/method.c:449 ../loader2/modules.c:919 ../loader2/net.c:191
-#: ../loader2/net.c:229 ../loader2/net.c:523 ../loader2/net.c:881
-#: ../loader2/net.c:904 ../loader2/net.c:1038 ../loader2/nfsinstall.c:54
+#: ../loader2/net.c:229 ../loader2/net.c:523 ../loader2/net.c:883
+#: ../loader2/net.c:906 ../loader2/net.c:1040 ../loader2/nfsinstall.c:54
 #: ../loader2/nfsinstall.c:200 ../loader2/nfsinstall.c:209
 #: ../loader2/nfsinstall.c:247 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:66 ../loader2/urlinstall.c:136
 #: ../loader2/urlinstall.c:149 ../loader2/urlinstall.c:431
 #: ../loader2/urlinstall.c:440 ../loader2/urlinstall.c:451
-#: ../loader2/urls.c:171 ../loader2/urls.c:181 ../loader2/urls.c:189
-#: ../loader2/urls.c:254 ../loader2/urls.c:319 ../loader2/urls.c:324
-#: ../loader2/urls.c:330 ../loader2/urls.c:444
+#: ../loader2/urls.c:172 ../loader2/urls.c:182 ../loader2/urls.c:190
+#: ../loader2/urls.c:255 ../loader2/urls.c:320 ../loader2/urls.c:325
+#: ../loader2/urls.c:331 ../loader2/urls.c:445
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:615
+#: ../anaconda:618
 msgid "Unknown Error"
 msgstr "Okänt fel"
 
-#: ../anaconda:618
+#: ../anaconda:621
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Fel vid hämtning av andra delen av kickstartkonfigurationen: %s!"
 
-#: ../anaconda:734
+#: ../anaconda:737
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -152,40 +152,40 @@ msgstr ""
 "Du har inte tillräckligt med minne för att använda det grafiska "
 "installationsprogrammet. Startar textläge."
 
-#: ../anaconda:786
+#: ../anaconda:789
 msgid "Install class forcing text mode installation"
 msgstr "Installationsklassen påtvingar textlägesinstallation"
 
-#: ../anaconda:813
+#: ../anaconda:816
 msgid "No video hardware found, assuming headless"
 msgstr "Ingen grafikhårdvara hittades, antar huvudlöst"
 
-#: ../anaconda:824 ../anaconda:1084
+#: ../anaconda:827 ../anaconda:1087
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Kan inte instantiera ett X-hårdvarutillståndsobjekt."
 
-#: ../anaconda:848
+#: ../anaconda:851
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafisk installation är inte tillgänglig... Startar textläge."
 
-#: ../anaconda:863
+#: ../anaconda:866
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
 "Ingen mus hittades. En mus krävs för grafisk installation. Startar textläge."
 
-#: ../anaconda:873
+#: ../anaconda:876
 #, c-format
 msgid "Detected mouse type: %s"
 msgstr "Detekterad mustyp: %s"
 
-#: ../anaconda:877
+#: ../anaconda:880
 #, c-format
 msgid "Using mouse type: %s"
 msgstr "Använder mustyp: %s"
 
-#: ../anaconda:966
+#: ../anaconda:969
 msgid "Starting graphical installation..."
 msgstr "Startar grafisk installation..."
 
@@ -250,8 +250,7 @@ msgstr ""
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
-"Startpartitionen %s klarar kanske inte kraven för uppstart av din "
-"arkitektur."
+"Startpartitionen %s klarar kanske inte kraven för uppstart av din arkitektur."
 
 #: ../autopart.py:1056
 #, python-format
@@ -659,8 +658,8 @@ msgid "_Make boot disk"
 msgstr "_Skapa startdiskett"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
-#: ../fsset.py:592 ../fsset.py:1267 ../fsset.py:1286 ../fsset.py:1337
-#: ../fsset.py:1348 ../fsset.py:1383 ../fsset.py:1433 ../fsset.py:1477
+#: ../fsset.py:592 ../fsset.py:1271 ../fsset.py:1290 ../fsset.py:1341
+#: ../fsset.py:1352 ../fsset.py:1387 ../fsset.py:1437 ../fsset.py:1481
 #: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:326
 #: ../image.py:523 ../packages.py:150 ../packages.py:163 ../packages.py:175
 #: ../packages.py:182 ../packages.py:412 ../packages.py:595 ../packages.py:680
@@ -669,20 +668,20 @@ msgstr "_Skapa startdiskett"
 #: ../iw/raid_dialog_gui.py:603 ../iw/raid_dialog_gui.py:642
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:330
-#: ../loader2/driverdisk.c:368 ../loader2/driverdisk.c:395
-#: ../loader2/driverdisk.c:462 ../loader2/hdinstall.c:106
+#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:337
+#: ../loader2/driverdisk.c:375 ../loader2/driverdisk.c:402
+#: ../loader2/driverdisk.c:469 ../loader2/hdinstall.c:106
 #: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:218
 #: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:534
 #: ../loader2/hdinstall.c:577 ../loader2/hdinstall.c:590
 #: ../loader2/kickstart.c:270 ../loader2/lang.c:102 ../loader2/loader.c:350
-#: ../loader2/loader.c:654 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:657 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:155 ../loader2/method.c:364
 #: ../loader2/method.c:449 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:66 ../loader2/urlinstall.c:136
-#: ../loader2/urlinstall.c:149 ../loader2/urls.c:171 ../loader2/urls.c:181
-#: ../loader2/urls.c:189 ../loader2/urls.c:319 ../loader2/urls.c:324
+#: ../loader2/urlinstall.c:149 ../loader2/urls.c:172 ../loader2/urls.c:182
+#: ../loader2/urls.c:190 ../loader2/urls.c:320 ../loader2/urls.c:325
 msgid "Error"
 msgstr "Fel"
 
@@ -742,28 +741,28 @@ msgstr ""
 "\n"
 "Vill du fortsätta utan att migrera %s?"
 
-#: ../fsset.py:1182
+#: ../fsset.py:1186
 msgid "RAID Device"
 msgstr "RAID-enhet"
 
 # Nix, kommer inte på någon bra översättning av bootstrap
-#: ../fsset.py:1186 ../fsset.py:1192
+#: ../fsset.py:1190 ../fsset.py:1196
 msgid "Apple Bootstrap"
 msgstr "Apple-bootstrap"
 
-#: ../fsset.py:1197 ../partitions.py:807
+#: ../fsset.py:1201 ../partitions.py:807
 msgid "PPC PReP Boot"
 msgstr "PPC PReP-start"
 
-#: ../fsset.py:1200 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1204 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Första sektorn av startpartitionen"
 
-#: ../fsset.py:1201 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1205 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Huvudstartposten (MBR)"
 
-#: ../fsset.py:1268
+#: ../fsset.py:1272
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -776,7 +775,7 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att för att starta om ditt system."
 
-#: ../fsset.py:1287
+#: ../fsset.py:1291
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -791,7 +790,7 @@ msgstr ""
 "\n"
 "Tryck OK för att starta om ditt system."
 
-#: ../fsset.py:1338
+#: ../fsset.py:1342
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -804,7 +803,7 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att starta om ditt system"
 
-#: ../fsset.py:1349
+#: ../fsset.py:1353
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -817,7 +816,7 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att för att starta om ditt system."
 
-#: ../fsset.py:1384
+#: ../fsset.py:1388
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -830,7 +829,7 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att för att starta om ditt system."
 
-#: ../fsset.py:1434
+#: ../fsset.py:1438
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -843,11 +842,11 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att för att starta om ditt system."
 
-#: ../fsset.py:1455 ../fsset.py:1464
+#: ../fsset.py:1459 ../fsset.py:1468
 msgid "Invalid mount point"
 msgstr "Ogiltig monteringspunkt"
 
-#: ../fsset.py:1456
+#: ../fsset.py:1460
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -861,7 +860,7 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att för att starta om ditt system."
 
-#: ../fsset.py:1465
+#: ../fsset.py:1469
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -874,7 +873,7 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att för att starta om ditt system."
 
-#: ../fsset.py:1478
+#: ../fsset.py:1482
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -889,11 +888,11 @@ msgstr ""
 "\n"
 "Tryck OK för att starta om ditt system."
 
-#: ../fsset.py:2124
+#: ../fsset.py:2128
 msgid "Duplicate Labels"
 msgstr "Dublettetiketter"
 
-#: ../fsset.py:2125
+#: ../fsset.py:2129
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -906,18 +905,18 @@ msgstr ""
 "\n"
 "Korrigera detta problem och starta om installationen."
 
-#: ../fsset.py:2132 ../gui.py:661 ../gui.py:1120 ../image.py:96
-#: ../image.py:476 ../packages.py:1497 ../iw/confirm_gui.py:68
+#: ../fsset.py:2136 ../gui.py:661 ../gui.py:1120 ../image.py:96
+#: ../image.py:476 ../packages.py:1504 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "Starta _om"
 
-#: ../fsset.py:2385
+#: ../fsset.py:2389
 msgid "Formatting"
 msgstr "Formaterar"
 
-#: ../fsset.py:2386
+#: ../fsset.py:2390
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Formaterar %s-filsystem..."
@@ -972,8 +971,8 @@ msgstr "Fixa"
 
 #: ../gui.py:239 ../rescue.py:179 ../text.py:337 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:254 ../loader2/driverdisk.c:506
-#: ../loader2/driverdisk.c:517 ../loader2/hdinstall.c:326
+#: ../textw/upgrade_text.py:254 ../loader2/driverdisk.c:513
+#: ../loader2/driverdisk.c:524 ../loader2/hdinstall.c:326
 #: ../loader2/loader.c:381
 msgid "Yes"
 msgstr "Ja"
@@ -982,7 +981,7 @@ msgstr "Ja"
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:254 ../textw/upgrade_text.py:261
-#: ../loader2/driverdisk.c:506 ../loader2/driverdisk.c:517
+#: ../loader2/driverdisk.c:513 ../loader2/driverdisk.c:524
 #: ../loader2/loader.c:381
 msgid "No"
 msgstr "Nej"
@@ -1001,7 +1000,7 @@ msgstr "Ignorera"
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:262
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:268
 #: ../loader2/loader.c:339
 msgid "Cancel"
 msgstr "Avbryt"
@@ -1059,7 +1058,7 @@ msgstr ""
 "className = %s"
 
 #: ../gui.py:1112 ../gui.py:1117 ../packages.py:187 ../packages.py:600
-#: ../packages.py:1489 ../packages.py:1494
+#: ../packages.py:1496 ../packages.py:1501
 msgid "_Exit"
 msgstr "_Avsluta"
 
@@ -1067,19 +1066,19 @@ msgstr "_Avsluta"
 msgid "_Retry"
 msgstr "_Försök igen"
 
-#: ../gui.py:1116 ../packages.py:1493
+#: ../gui.py:1116 ../packages.py:1500
 msgid "The installer will now exit..."
 msgstr "Installationsprogrammet kommer nu att avslutas..."
 
-#: ../gui.py:1119 ../packages.py:1496
+#: ../gui.py:1119 ../packages.py:1503
 msgid "Your system will now be rebooted..."
 msgstr "Ditt system kommer nu att startas om..."
 
-#: ../gui.py:1122 ../packages.py:1498
+#: ../gui.py:1122 ../packages.py:1505
 msgid "Rebooting System"
 msgstr "Startar om system"
 
-#: ../gui.py:1214 ../packages.py:1494 ../packages.py:1497
+#: ../gui.py:1214 ../packages.py:1501 ../packages.py:1504
 #: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:120
 msgid "_Back"
@@ -1325,7 +1324,7 @@ msgstr "Beroendekontroll"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kontrollerar beroenden hos de paket som valts för installation..."
 
-#: ../packages.py:353 ../packages.py:808
+#: ../packages.py:353 ../packages.py:815
 msgid "Processing"
 msgstr "Bearbetar"
 
@@ -1373,11 +1372,11 @@ msgstr ""
 "\n"
 "Tryck OK-knappen för att starta om ditt system."
 
-#: ../packages.py:809
+#: ../packages.py:816
 msgid "Preparing RPM transaction..."
 msgstr "Förbereder RPM-transaktion..."
 
-#: ../packages.py:892
+#: ../packages.py:899
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -1386,7 +1385,7 @@ msgstr ""
 "Uppgraderar %s paket\n"
 "\n"
 
-#: ../packages.py:894
+#: ../packages.py:901
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -1395,17 +1394,17 @@ msgstr ""
 "Installerar %s paket\n"
 "\n"
 
-#: ../packages.py:902 ../packages.py:1202
+#: ../packages.py:909 ../packages.py:1209
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "Uppgraderar %s-%s-%s.%s.\n"
 
-#: ../packages.py:904 ../packages.py:1204
+#: ../packages.py:911 ../packages.py:1211
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "Installerar %s-%s-%s.%s.\n"
 
-#: ../packages.py:920
+#: ../packages.py:927
 #, python-format
 msgid ""
 "\n"
@@ -1422,15 +1421,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:926
+#: ../packages.py:933
 msgid "Install Starting"
 msgstr "Installationen startar"
 
-#: ../packages.py:927
+#: ../packages.py:934
 msgid "Starting install process, this may take several minutes..."
 msgstr "Startar installationen, detta kan ta flera minuter..."
 
-#: ../packages.py:967
+#: ../packages.py:974
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -1440,17 +1439,17 @@ msgstr ""
 "du har valt. Du behöver mer utrymme på följande filsystem:\n"
 "\n"
 
-#: ../packages.py:971 ../packages.py:992 ../iw/lvm_dialog_gui.py:1062
+#: ../packages.py:978 ../packages.py:999 ../iw/lvm_dialog_gui.py:1057
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1437 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../packages.py:972
+#: ../packages.py:979
 msgid "Space Needed"
 msgstr "Nödvändigt utrymme"
 
-#: ../packages.py:988
+#: ../packages.py:995
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1460,27 +1459,27 @@ msgstr ""
 "har valt. Du behöver fler filnoder på följande filsystem:\n"
 "\n"
 
-#: ../packages.py:993
+#: ../packages.py:1000
 msgid "Nodes Needed"
 msgstr "Noder som behövs"
 
-#: ../packages.py:1004
+#: ../packages.py:1011
 msgid "Disk Space"
 msgstr "Diskutrymme"
 
 # För många klagomål på "postinstallation", det får bli "efterinstallation"
 # istället.
-#: ../packages.py:1053
+#: ../packages.py:1060
 msgid "Post Install"
 msgstr "Efterinstallation"
 
 # För många klagomål på "postinstallationskonfiguration", det får bli
 # "efterinstallationskonfiguration" istället.
-#: ../packages.py:1054
+#: ../packages.py:1061
 msgid "Performing post install configuration..."
 msgstr "Utför efterinstallationskonfiguration..."
 
-#: ../packages.py:1228
+#: ../packages.py:1235
 msgid ""
 "\n"
 "\n"
@@ -1490,7 +1489,7 @@ msgstr ""
 "\n"
 "Följande paket är tillgängliga i denna version men uppgraderades INTE:\n"
 
-#: ../packages.py:1231
+#: ../packages.py:1238
 msgid ""
 "\n"
 "\n"
@@ -1500,11 +1499,11 @@ msgstr ""
 "\n"
 "Följande paket är tillgängliga i denna version men installerades INTE:\n"
 
-#: ../packages.py:1475
+#: ../packages.py:1482
 msgid "Warning! This is pre-release software!"
 msgstr "Varning! Detta är en förhandsutgåva!"
 
-#: ../packages.py:1476
+#: ../packages.py:1483
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1531,7 +1530,7 @@ msgstr ""
 "\n"
 "och fyller i en felrapport mot \"%s\".\n"
 
-#: ../packages.py:1489
+#: ../packages.py:1496
 msgid "_Install anyway"
 msgstr "_Installera ändå"
 
@@ -1769,7 +1768,7 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Du är på väg att ta bort alla partitioner på enheten \"/dev/%s\"."
 
 #: ../partIntfHelpers.py:232 ../partIntfHelpers.py:520
-#: ../iw/lvm_dialog_gui.py:732 ../iw/lvm_dialog_gui.py:1085
+#: ../iw/lvm_dialog_gui.py:732 ../iw/lvm_dialog_gui.py:1080
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1353
 msgid "_Delete"
 msgstr "_Ta bort"
@@ -2162,11 +2161,11 @@ msgstr "Konfigurera nätverk"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Vill du starta nätverksgränssnitten på detta system?"
 
-#: ../rescue.py:223 ../text.py:481
+#: ../rescue.py:223 ../text.py:500
 msgid "Cancelled"
 msgstr "Avbruten"
 
-#: ../rescue.py:224 ../text.py:482
+#: ../rescue.py:224 ../text.py:501
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Jag kan inte gå till det föregående steget härifrån. Du måste försöka igen."
@@ -2205,7 +2204,7 @@ msgstr ""
 "\n"
 
 #: ../rescue.py:270 ../iw/partition_gui.py:562 ../loader2/cdinstall.c:109
-#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:463
+#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:470
 msgid "Continue"
 msgstr "Fortsätt"
 
@@ -2518,10 +2517,6 @@ msgstr ""
 "eller högre. Detta verkar vara ett äldre system. Vill du fortsätta "
 "uppgraderingsprocessen?"
 
-#: ../urlinstall.py:46
-msgid "Connecting..."
-msgstr "Ansluter..."
-
 #: ../vnc.py:36
 msgid "Unable to Start X"
 msgstr "Kan inte starta X"
@@ -2562,7 +2557,7 @@ msgstr ""
 "och övervaka installationsförloppet. Ange ett lösenord att använda för "
 "installationen"
 
-#: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
+#: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:435
 msgid "Password:"
 msgstr "Lösenord:"
 
@@ -2591,41 +2586,17 @@ msgid "DDC Probed Monitor"
 msgstr "DDC-testad bildskärm"
 
 #: ../zfcp.py:27
+#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
-"number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
-"SCSI LUN and a 64 bit FCP LUN."
+"number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
+"LUN and a 64 bit FCP LUN."
 msgstr ""
 "zSeries-maskiner kan komma åt SCSI-enheter som följer industristandarden via "
-"Fibre Channel (FCP). Du måste ange 5 parametrar för varje enhet: ett "
-"16-bitars enhetsnummer, ett 16-bitars SCSI-id, ett 64-bitars "
-"World Wide Port Number (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars "
-"FCP-LUN."
-
-msgid ""
-"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
-"(FCP). You need to provide 5 parameters for each device: a 16bit device "
-"number, a 16bit SCSI ID, a 64bit World Wide Port Number (WWPN), a 16bit "
-"SCSI LUN and a 64 bit FCP LUN."
-msgstr ""
-"zSeries-maskiner kan komma åt SCSI-enheter som följer industristandarden via "
-"Fibre Channel (FCP). Du måste ange 5 parametrar för varje enhet: ett "
-"16-bitars enhetsnummer, ett 16-bitars SCSI-id, ett 64-bitars "
-"World Wide Port Number (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars "
-"FCP-LUN."
-
-msgid ""
-"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
-"(FCP). You need to provide 5 parameters for each device: a 16 bit device "
-"number, a 16 bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16 bit "
-"SCSI LUN and a 64 bit FCP LUN."
-msgstr ""
-"zSeries-maskiner kan komma åt SCSI-enheter som följer industristandarden via "
-"Fibre Channel (FCP). Du måste ange 5 parametrar för varje enhet: ett "
-"16-bitars enhetsnummer, ett 16-bitars SCSI-id, ett 64-bitars "
-"World Wide Port Number (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars "
-"FCP-LUN."
+"Fibre Channel (FCP). Du måste ange 5 parametrar för varje enhet: ett 16-"
+"bitars enhetsnummer, ett 16-bitars SCSI-id, ett 64-bitars World Wide Port "
+"Number (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars FCP-LUN."
 
 #: ../zfcp.py:29
 msgid "Device number"
@@ -2635,9 +2606,6 @@ msgstr "Enhetsnummer"
 msgid "You have not specified a device number or the number is invalid"
 msgstr "Du har inte angivit ett enhetsnummer eller så är numret ogiltigt"
 
-msgid "You have not specified a device number or the number is invalid."
-msgstr "Du har inte angivit ett enhetsnummer eller så är numret ogiltigt."
-
 #: ../zfcp.py:32
 msgid "SCSI Id"
 msgstr "SCSI-id"
@@ -2646,7 +2614,7 @@ msgstr "SCSI-id"
 msgid "You have not specified a SCSI ID or the ID is invalid."
 msgstr "Du har inte angivit ett SCSI-id eller så är id-numret ogiltigt."
 
-#: ../zfcp.py:35 ../textw/zfcp_text.py:105
+#: ../zfcp.py:35 ../textw/zfcp_text.py:102
 msgid "WWPN"
 msgstr "WWPN"
 
@@ -2664,7 +2632,7 @@ msgstr "SCSI-LUN"
 msgid "You have not specified a SCSI LUN or the number is invalid."
 msgstr "Du har inte angivit ett SCSI-LUN eller så är namnet ogiltigt."
 
-#: ../zfcp.py:41 ../textw/zfcp_text.py:105
+#: ../zfcp.py:41 ../textw/zfcp_text.py:102
 msgid "FCP LUN"
 msgstr "FCP-LUN"
 
@@ -3154,8 +3122,8 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Olösta paketberoenden"
 
-#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:252
-#: ../iw/package_gui.py:495 ../iw/package_gui.py:672
+#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:253
+#: ../iw/package_gui.py:496 ../iw/package_gui.py:673
 #: ../textw/packages_text.py:26 ../textw/packages_text.py:351
 #, python-format
 msgid "Total install size: %s"
@@ -3309,15 +3277,15 @@ msgstr "Partitionering med fdisk"
 msgid "Select a drive to partition with fdisk:"
 msgstr "Välj en hårddisk att partitionera med fdisk:"
 
-#: ../iw/firewall_gui.py:23
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:173
 msgid "Disabled"
 msgstr "Inaktiverad"
 
-#: ../iw/firewall_gui.py:23
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:175
 msgid "Warn"
 msgstr "Varna"
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:173
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:177
 msgid "Active"
 msgstr "Aktiv"
 
@@ -3367,15 +3335,17 @@ msgstr "_Ingen brandvägg"
 msgid "_Enable firewall"
 msgstr "_Aktivera brandvägg"
 
-#: ../iw/firewall_gui.py:109 ../textw/firewall_text.py:94
+#: ../iw/firewall_gui.py:109
+#, fuzzy
 msgid ""
-"With a firewall, you may wish to allow access to specific services on your "
-"computer from others.  Allow access to which services?"
+"You can use a firewall to allow access to specific services on your computer "
+"from other computers. Which services, if any, do you wish to allow access "
+"to ?"
 msgstr ""
 "Med en brandvägg kan du tillåta åtkomst för andra till specifika tjänster på "
 "din dator. Tillåt åtkomst för vilka tjänster?"
 
-#: ../iw/firewall_gui.py:145
+#: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
@@ -3384,11 +3354,11 @@ msgid ""
 msgstr ""
 "Security Enhanced Linux (SELinux) möjliggör mer finjusterbar "
 "säkerhetsstyrning än vad som är tillgängligt i ett traditionellt "
-"Linuxsystem. Det kan konfigureras i ett inaktiverat tillstånd, ett "
-"tillstånd som endast varnar om saker som skulle nekas, eller ett "
-"fullständigt aktiverat tillstånd."
+"Linuxsystem. Det kan konfigureras i ett inaktiverat tillstånd, ett tillstånd "
+"som endast varnar om saker som skulle nekas, eller ett fullständigt "
+"aktiverat tillstånd."
 
-#: ../iw/firewall_gui.py:157
+#: ../iw/firewall_gui.py:158
 msgid "Enable _SELinux?:"
 msgstr "Aktivera _SELinux?:"
 
@@ -3728,48 +3698,44 @@ msgstr "Namn på _volymgrupp:"
 msgid "Volume Group Name:"
 msgstr "Namn på volymgrupp:"
 
-#: ../iw/lvm_dialog_gui.py:970
+#: ../iw/lvm_dialog_gui.py:969
 msgid "_Physical Extent:"
 msgstr "_Fysisk yta:"
 
-#: ../iw/lvm_dialog_gui.py:977
-msgid "Physical Extent:"
-msgstr "Fysisk yta:"
-
-#: ../iw/lvm_dialog_gui.py:989
+#: ../iw/lvm_dialog_gui.py:984
 msgid "Physical Volumes to _Use:"
 msgstr "Fysiska volymer att _använda:"
 
-#: ../iw/lvm_dialog_gui.py:995
+#: ../iw/lvm_dialog_gui.py:990
 msgid "Used Space:"
 msgstr "Använt diskutrymme:"
 
-#: ../iw/lvm_dialog_gui.py:1012
+#: ../iw/lvm_dialog_gui.py:1007
 msgid "Free Space:"
 msgstr "Ledigt utrymme:"
 
-#: ../iw/lvm_dialog_gui.py:1030
+#: ../iw/lvm_dialog_gui.py:1025
 msgid "Total Space:"
 msgstr "Totalt utrymme:"
 
-#: ../iw/lvm_dialog_gui.py:1059
+#: ../iw/lvm_dialog_gui.py:1054
 msgid "Logical Volume Name"
 msgstr "Namn på logisk volym"
 
-#: ../iw/lvm_dialog_gui.py:1065 ../iw/partition_gui.py:363
+#: ../iw/lvm_dialog_gui.py:1060 ../iw/partition_gui.py:363
 msgid "Size (MB)"
 msgstr "Storlek (MB)"
 
-#: ../iw/lvm_dialog_gui.py:1079 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:93
+#: ../iw/lvm_dialog_gui.py:1074 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:93
 msgid "_Add"
 msgstr "_Lägg till"
 
-#: ../iw/lvm_dialog_gui.py:1082 ../iw/network_gui.py:512
+#: ../iw/lvm_dialog_gui.py:1077 ../iw/network_gui.py:512
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352 ../iw/zfcp_gui.py:96
 msgid "_Edit"
 msgstr "_Redigera"
 
-#: ../iw/lvm_dialog_gui.py:1097
+#: ../iw/lvm_dialog_gui.py:1092
 msgid "Logical Volumes"
 msgstr "Logiska volymer"
 
@@ -3848,6 +3814,7 @@ msgstr "Nätverkskonfiguration"
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:165
 #: ../iw/network_gui.py:170 ../iw/network_gui.py:176 ../iw/network_gui.py:180
 #: ../iw/network_gui.py:185 ../iw/zfcp_gui.py:156 ../iw/zfcp_gui.py:220
+#: ../textw/zfcp_text.py:63
 msgid "Error With Data"
 msgstr "Fel med data"
 
@@ -3987,7 +3954,7 @@ msgstr "_manuellt"
 msgid "(ex. \"host.domain.com\")"
 msgstr "(t.ex. \"värd.domän.se\")"
 
-#: ../iw/network_gui.py:552 ../loader2/net.c:796
+#: ../iw/network_gui.py:552 ../loader2/net.c:798
 msgid "Hostname"
 msgstr "Värdnamn"
 
@@ -4095,48 +4062,48 @@ msgstr ""
 "Paket: %s\n"
 "Version: %s\n"
 
-#: ../iw/package_gui.py:356
+#: ../iw/package_gui.py:357
 msgid "_Tree View"
 msgstr "_Trädvy"
 
-#: ../iw/package_gui.py:358
+#: ../iw/package_gui.py:359
 msgid "_Flat View"
 msgstr "P_latt vy"
 
-#: ../iw/package_gui.py:373
+#: ../iw/package_gui.py:374
 msgid "_Package"
 msgstr "_Paket"
 
-#: ../iw/package_gui.py:375
+#: ../iw/package_gui.py:376
 msgid "_Size (MB)"
 msgstr "_Storlek (MB)"
 
-#: ../iw/package_gui.py:426
+#: ../iw/package_gui.py:427
 msgid "Total size: "
 msgstr "Total storlek: "
 
-#: ../iw/package_gui.py:429
+#: ../iw/package_gui.py:430
 msgid "Select _all in group"
 msgstr "Markera _alla i gruppen"
 
-#: ../iw/package_gui.py:433
+#: ../iw/package_gui.py:434
 msgid "_Unselect all in group"
 msgstr "Av_markera alla i gruppen"
 
-#: ../iw/package_gui.py:470 ../textw/packages_text.py:63
+#: ../iw/package_gui.py:471 ../textw/packages_text.py:63
 msgid "Package Group Selection"
 msgstr "Val av paketgrupper"
 
-#: ../iw/package_gui.py:677
+#: ../iw/package_gui.py:678
 msgid "Minimal"
 msgstr "Minimalt"
 
-#: ../iw/package_gui.py:739
+#: ../iw/package_gui.py:740
 #, python-format
 msgid "Details for '%s'"
 msgstr "Detaljer för \"%s\""
 
-#: ../iw/package_gui.py:748
+#: ../iw/package_gui.py:749
 msgid ""
 "A package group can have both Base and Optional package members.  Base "
 "packages are always selected as long as the package group is selected.\n"
@@ -4148,19 +4115,19 @@ msgstr ""
 "\n"
 "Välj de valfria paket som ska installeras:"
 
-#: ../iw/package_gui.py:791
+#: ../iw/package_gui.py:792
 msgid "Base Packages"
 msgstr "Baspaket"
 
-#: ../iw/package_gui.py:821
+#: ../iw/package_gui.py:822
 msgid "Optional Packages"
 msgstr "Valfria paket"
 
-#: ../iw/package_gui.py:1031
+#: ../iw/package_gui.py:1032
 msgid "Details"
 msgstr "Detaljer"
 
-#: ../iw/package_gui.py:1125
+#: ../iw/package_gui.py:1126
 msgid "_Select individual packages"
 msgstr "_Välj enstaka paket"
 
@@ -5224,7 +5191,7 @@ msgstr "ZFCP-konfiguration"
 msgid "_Remove"
 msgstr "_Ta bort"
 
-#: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
+#: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:116
 msgid "FCP Devices"
 msgstr "FCP-enheter"
 
@@ -5394,7 +5361,7 @@ msgstr "Startetiketten innehåller otillåtna tecken."
 #: ../textw/bootloader_text.py:298 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1442 ../textw/silo_text.py:216
 #: ../textw/silo_text.py:238 ../textw/userauth_text.py:237
-#: ../textw/zfcp_text.py:112
+#: ../textw/zfcp_text.py:109
 msgid "Edit"
 msgstr "Redigera"
 
@@ -5527,14 +5494,14 @@ msgstr ""
 #: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
 #: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:382
-#: ../loader2/driverdisk.c:262 ../loader2/driverdisk.c:293
-#: ../loader2/driverdisk.c:381 ../loader2/driverselect.c:73
+#: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:299
+#: ../loader2/driverdisk.c:388 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:187 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:326 ../loader2/hdinstall.c:380 ../loader2/kbd.c:125
-#: ../loader2/loader.c:326 ../loader2/loader.c:832 ../loader2/loader.c:854
+#: ../loader2/loader.c:326 ../loader2/loader.c:835 ../loader2/loader.c:857
 #: ../loader2/net.c:191 ../loader2/net.c:229 ../loader2/net.c:523
-#: ../loader2/net.c:1038 ../loader2/nfsinstall.c:54 ../loader2/urls.c:254
-#: ../loader2/urls.c:444
+#: ../loader2/net.c:1040 ../loader2/nfsinstall.c:54 ../loader2/urls.c:255
+#: ../loader2/urls.c:445
 msgid "Back"
 msgstr "Tillbaka"
 
@@ -5656,27 +5623,17 @@ msgstr "Du kan inte anpassa en inaktiverad brandvägg."
 msgid "Customize Firewall Configuration"
 msgstr "Anpassa brandväggskonfiguration"
 
+#: ../textw/firewall_text.py:94
+msgid ""
+"With a firewall, you may wish to allow access to specific services on your "
+"computer from others.  Allow access to which services?"
+msgstr ""
+"Med en brandvägg kan du tillåta åtkomst för andra till specifika tjänster på "
+"din dator. Tillåt åtkomst för vilka tjänster?"
+
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
 msgstr "Säkerhetsförbättrat Linux"
-
-#: ../textw/firewall_text.py:161
-msgid ""
-"Security Enhanced Linux (SELinux) provides stricter access controls to "
-"improve the security of your system.  How would you like this support "
-"enabled?"
-msgstr ""
-"Säkerhetsförbättrat Linux (SELinux) tillhandahåller striktare "
-"åtkomstkontroll för att förbättra säkerheten på ditt system. Hur vill du att "
-"detta stöd ska vara aktiverat?"
-
-#: ../textw/firewall_text.py:169
-msgid "Disable SELinux"
-msgstr "Inaktivera SELinux"
-
-#: ../textw/firewall_text.py:171
-msgid "Warn on violations"
-msgstr "Varna vid överträdelser"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -6100,7 +6057,8 @@ msgid "No Volume Groups"
 msgstr "Inga volymgrupper"
 
 #: ../textw/partition_text.py:1175
-msgid "No volume groups to create a logical volume in."
+#, fuzzy
+msgid "No volume groups in which to create a logical volume"
 msgstr "Inga volymgrupper att skapa en logisk volym i."
 
 #: ../textw/partition_text.py:1291
@@ -6111,13 +6069,6 @@ msgid ""
 msgstr ""
 "Den för tillfället begärda storleken (%10.2f MB) är större än den maximala "
 "logiska volymstorleken (%10.2f MB). "
-
-msgid ""
-"The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB)."
-msgstr ""
-"Den för tillfället begärda storleken (%10.2f MB) är större än den maximala "
-"logiska volymstorleken (%10.2f MB)."
 
 #: ../textw/partition_text.py:1310
 #, python-format
@@ -6143,9 +6094,6 @@ msgstr "partition"
 #: ../textw/partition_text.py:1367
 msgid "logical volume"
 msgstr "logisk volym"
-
-msgid "Logical volume"
-msgstr "Logisk volym"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -6453,7 +6401,7 @@ msgstr ""
 msgid "User name"
 msgstr "Användarnamn"
 
-#: ../textw/userauth_text.py:236 ../textw/zfcp_text.py:111
+#: ../textw/userauth_text.py:236 ../textw/zfcp_text.py:108
 msgid "Add"
 msgstr "Lägg till"
 
@@ -6751,35 +6699,15 @@ msgstr "Okänt kort"
 msgid "Video RAM:"
 msgstr "Grafikminne:"
 
-#: ../textw/zfcp_text.py:32
-msgid "Device number:"
-msgstr "Enhetsnummer:"
-
-#: ../textw/zfcp_text.py:34
-msgid "SCSI ID:"
-msgstr "SCSI-id:"
-
-#: ../textw/zfcp_text.py:36
-msgid "WWPN:"
-msgstr "WWPN:"
-
-#: ../textw/zfcp_text.py:38
-msgid "SCSI LUN:"
-msgstr "SCSI-LUN:"
-
-#: ../textw/zfcp_text.py:40
-msgid "FCP LUN:"
-msgstr "FCP-LUN:"
-
-#: ../textw/zfcp_text.py:53
+#: ../textw/zfcp_text.py:44
 msgid "FCP Device"
 msgstr "FCP-enhet"
 
-#: ../textw/zfcp_text.py:105
+#: ../textw/zfcp_text.py:102
 msgid "Device #"
 msgstr "Enhetsnr"
 
-#: ../textw/zfcp_text.py:113
+#: ../textw/zfcp_text.py:110
 msgid "Remove"
 msgstr "Ta bort"
 
@@ -6975,19 +6903,19 @@ msgstr "Cd hittades inte"
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Kan inte hitta kickstartfil på cdrom-skiva."
 
-#: ../loader2/driverdisk.c:122 ../loader2/firewire.c:50
+#: ../loader2/driverdisk.c:123 ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Läser in"
 
-#: ../loader2/driverdisk.c:122
+#: ../loader2/driverdisk.c:123
 msgid "Reading driver disk..."
 msgstr "Läser drivrutinsdisketten..."
 
-#: ../loader2/driverdisk.c:256 ../loader2/driverdisk.c:288
+#: ../loader2/driverdisk.c:262 ../loader2/driverdisk.c:294
 msgid "Driver Disk Source"
 msgstr "Källa för drivrutinsdiskett"
 
-#: ../loader2/driverdisk.c:257
+#: ../loader2/driverdisk.c:263
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -6995,7 +6923,7 @@ msgstr ""
 "Du har flera enheter som kan tjäna som källor för en drivrutinsdiskett. "
 "Vilken vill du använda?"
 
-#: ../loader2/driverdisk.c:289
+#: ../loader2/driverdisk.c:295
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -7003,46 +6931,46 @@ msgstr ""
 "Det finns flera partitioner på denna enhet som kan innehålla avbilden för "
 "drivrutinsdisketten. Vilken vill du använda?"
 
-#: ../loader2/driverdisk.c:331
+#: ../loader2/driverdisk.c:338
 msgid "Failed to mount partition."
 msgstr "Misslyckades med att montera partitionen."
 
-#: ../loader2/driverdisk.c:339
+#: ../loader2/driverdisk.c:346
 msgid "Select driver disk image"
 msgstr "Välj avbild för drivrutinsdiskett"
 
-#: ../loader2/driverdisk.c:340
+#: ../loader2/driverdisk.c:347
 msgid "Select the file which is your driver disk image."
 msgstr "Välj den fil som är avbilden för drivrutinsdisketten."
 
-#: ../loader2/driverdisk.c:369
+#: ../loader2/driverdisk.c:376
 msgid "Failed to load driver disk from file."
 msgstr "Misslyckades med att läsa in drivrutinsdisketten från fil."
 
-#: ../loader2/driverdisk.c:379
+#: ../loader2/driverdisk.c:386
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Sätt in din drivrutinsdiskett i /dev/%s och tryck på \"OK\" för att "
 "fortsätta."
 
-#: ../loader2/driverdisk.c:381
+#: ../loader2/driverdisk.c:388
 msgid "Insert Driver Disk"
 msgstr "Sätt in drivrutinsdiskett"
 
-#: ../loader2/driverdisk.c:396
+#: ../loader2/driverdisk.c:403
 msgid "Failed to mount driver disk."
 msgstr "Montering av drivrutinsdisketten misslyckades."
 
-#: ../loader2/driverdisk.c:462
+#: ../loader2/driverdisk.c:469
 msgid "Manually choose"
 msgstr "Välj manuellt"
 
-#: ../loader2/driverdisk.c:463
+#: ../loader2/driverdisk.c:470
 msgid "Load another disk"
 msgstr "Läs in en annan diskett"
 
-#: ../loader2/driverdisk.c:464
+#: ../loader2/driverdisk.c:471
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -7052,38 +6980,38 @@ msgstr ""
 "drivrutinen manuellt, fortsätta ändå, eller läsa in en annan "
 "drivrutinsdiskett?"
 
-#: ../loader2/driverdisk.c:506
+#: ../loader2/driverdisk.c:513
 msgid "Driver disk"
 msgstr "Drivrutinsdiskett"
 
-#: ../loader2/driverdisk.c:507
+#: ../loader2/driverdisk.c:514
 msgid "Do you have a driver disk?"
 msgstr "Har du en drivrutinsdiskett?"
 
-#: ../loader2/driverdisk.c:517
+#: ../loader2/driverdisk.c:524
 msgid "More Driver Disks?"
 msgstr "Fler drivrutinsdisketter?"
 
-#: ../loader2/driverdisk.c:518
+#: ../loader2/driverdisk.c:525
 msgid "Do you wish to load any more driver disks?"
 msgstr "Vill du läsa in fler drivrutinsdisketter?"
 
-#: ../loader2/driverdisk.c:570 ../loader2/driverdisk.c:603
+#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:610
 #: ../loader2/hdinstall.c:466 ../loader2/kickstart.c:118
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
-#: ../loader2/kickstart.c:405 ../loader2/modules.c:919 ../loader2/net.c:881
-#: ../loader2/net.c:904 ../loader2/nfsinstall.c:247
+#: ../loader2/kickstart.c:405 ../loader2/modules.c:919 ../loader2/net.c:883
+#: ../loader2/net.c:906 ../loader2/nfsinstall.c:247
 #: ../loader2/urlinstall.c:431 ../loader2/urlinstall.c:440
 #: ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
 msgstr "Kickstartfel"
 
-#: ../loader2/driverdisk.c:571
+#: ../loader2/driverdisk.c:578
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Okänd kickstartkälla för drivrutinsdiskett: %s"
 
-#: ../loader2/driverdisk.c:604
+#: ../loader2/driverdisk.c:611
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -7314,41 +7242,41 @@ msgstr ""
 "enhetsdrivrutiner för att installationen ska lyckas. Vill du välja "
 "drivrutiner nu?"
 
-#: ../loader2/loader.c:651
+#: ../loader2/loader.c:654
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "Du har inte tillräckligt med minne för att installera %s på denna maskin."
 
-#: ../loader2/loader.c:824
+#: ../loader2/loader.c:827
 msgid "Rescue Method"
 msgstr "Räddningsmetod"
 
-#: ../loader2/loader.c:825
+#: ../loader2/loader.c:828
 msgid "Installation Method"
 msgstr "Installationsmetod"
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:830
 msgid "What type of media contains the rescue image?"
 msgstr "Vilket medium innehåller räddningsavbilden?"
 
-#: ../loader2/loader.c:829
+#: ../loader2/loader.c:832
 msgid "What type of media contains the packages to be installed?"
 msgstr "Vilket medium innehåller paketen som ska installeras?"
 
-#: ../loader2/loader.c:853
+#: ../loader2/loader.c:856
 msgid "No driver found"
 msgstr "Ingen drivrutin hittades"
 
-#: ../loader2/loader.c:853
+#: ../loader2/loader.c:856
 msgid "Select driver"
 msgstr "Välj drivrutin"
 
-#: ../loader2/loader.c:854
+#: ../loader2/loader.c:857
 msgid "Use a driver disk"
 msgstr "Använd en drivrutinsdiskett"
 
-#: ../loader2/loader.c:855
+#: ../loader2/loader.c:858
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -7357,11 +7285,11 @@ msgstr ""
 "installationstyp. Vill du välja din drivrutin manuellt eller använda en "
 "drivrutinsdiskett?"
 
-#: ../loader2/loader.c:1015
+#: ../loader2/loader.c:1018
 msgid "The following devices have been found on your system."
 msgstr "Följande enheter har hittats i ditt system."
 
-#: ../loader2/loader.c:1017
+#: ../loader2/loader.c:1020
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -7369,29 +7297,29 @@ msgstr ""
 "Inga enhetsdrivrutiner för ditt system har lästs in. Vill du läsa in några "
 "nu?"
 
-#: ../loader2/loader.c:1021
+#: ../loader2/loader.c:1024
 msgid "Devices"
 msgstr "Enheter"
 
-#: ../loader2/loader.c:1022
+#: ../loader2/loader.c:1025
 msgid "Done"
 msgstr "Färdig"
 
-#: ../loader2/loader.c:1023
+#: ../loader2/loader.c:1026
 msgid "Add Device"
 msgstr "Lägg till enhet"
 
-#: ../loader2/loader.c:1142
+#: ../loader2/loader.c:1144
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "inläsaren har redan körts. Startar skal.\n"
 
-#: ../loader2/loader.c:1496
+#: ../loader2/loader.c:1505
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Kör anaconda, räddningsläget för %s - var vänlig vänta...\n"
 
-#: ../loader2/loader.c:1498
+#: ../loader2/loader.c:1507
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -7609,25 +7537,25 @@ msgstr "Information saknas"
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Du måste skriva in både en giltig IP-adress och en nätmask."
 
-#: ../loader2/net.c:797
+#: ../loader2/net.c:799
 msgid "Determining host name and domain..."
 msgstr "Undersöker värdnamn och domän..."
 
-#: ../loader2/net.c:882
+#: ../loader2/net.c:884
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Felaktigt argument till kickstartnätverkskommandot %s: %s"
 
-#: ../loader2/net.c:905
+#: ../loader2/net.c:907
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Felaktigt startprotokoll %s angivet i nätverkskommando"
 
-#: ../loader2/net.c:1034
+#: ../loader2/net.c:1036
 msgid "Networking Device"
 msgstr "Nätverksenhet"
 
-#: ../loader2/net.c:1035
+#: ../loader2/net.c:1037
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -7638,7 +7566,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "Namn på NFS-server:"
 
-#: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
+#: ../loader2/nfsinstall.c:47 ../loader2/urls.c:286
 #, c-format
 msgid "%s directory:"
 msgstr "%s-katalog:"
@@ -7704,58 +7632,58 @@ msgstr "Måste ange ett --url-argument till Url-kickstartmetoden."
 msgid "Unknown Url method %s"
 msgstr "Url-metoden %s är okänd"
 
-#: ../loader2/urls.c:172
+#: ../loader2/urls.c:173
 #, c-format
 msgid "Failed to log into %s: %s"
 msgstr "Misslyckades med att logga in till %s: %s"
 
-#: ../loader2/urls.c:182 ../loader2/urls.c:190
+#: ../loader2/urls.c:183 ../loader2/urls.c:191
 #, c-format
 msgid "Failed to retrieve %s: %s"
 msgstr "Misslyckades med att hämta %s: %s"
 
-#: ../loader2/urls.c:196
+#: ../loader2/urls.c:197
 msgid "Retrieving"
 msgstr "Hämtar"
 
-#: ../loader2/urls.c:280
+#: ../loader2/urls.c:281
 msgid "FTP site name:"
 msgstr "FTP-serverns namn:"
 
-#: ../loader2/urls.c:281
+#: ../loader2/urls.c:282
 msgid "Web site name:"
 msgstr "Webbserverns namn:"
 
-#: ../loader2/urls.c:300
+#: ../loader2/urls.c:301
 msgid "Use non-anonymous ftp"
 msgstr "Använd icke-anonym ftp"
 
-#: ../loader2/urls.c:309
+#: ../loader2/urls.c:310
 msgid "FTP Setup"
 msgstr "FTP-konfiguration"
 
-#: ../loader2/urls.c:310
+#: ../loader2/urls.c:311
 msgid "HTTP Setup"
 msgstr "HTTP-konfiguration"
 
-#: ../loader2/urls.c:320
+#: ../loader2/urls.c:321
 msgid "You must enter a server name."
 msgstr "Du måste ange ett servernamn."
 
-#: ../loader2/urls.c:325
+#: ../loader2/urls.c:326
 msgid "You must enter a directory."
 msgstr "Du måste ange en katalog."
 
-#: ../loader2/urls.c:330
+#: ../loader2/urls.c:331
 msgid "Unknown Host"
 msgstr "Okänd värd"
 
-#: ../loader2/urls.c:331
+#: ../loader2/urls.c:332
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s är inget giltigt värdnamn."
 
-#: ../loader2/urls.c:404
+#: ../loader2/urls.c:405
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -7763,7 +7691,7 @@ msgstr ""
 "Om du använder icke-anonym ftp anger du kontonamnet och lösenordet som du "
 "vill använda nedan."
 
-#: ../loader2/urls.c:409
+#: ../loader2/urls.c:410
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -7771,7 +7699,7 @@ msgstr ""
 "Om du använder en HTTP-proxy anger du namnet på den HTTP-proxyserver som ska "
 "användas."
 
-#: ../loader2/urls.c:431
+#: ../loader2/urls.c:432
 msgid "Account name:"
 msgstr "Kontonamn:"
 
@@ -8396,9 +8324,6 @@ msgstr "Tibet och större delen av Xinjiang Uyghur"
 msgid "Tierra del Fuego (TF)"
 msgstr "Eldslandet (TF)"
 
-msgid "Tierra del Fuego"
-msgstr "Eldslandet"
-
 #. generated from zone.tab
 msgid "Tocantins"
 msgstr "Tocantins"
@@ -8468,6 +8393,11 @@ msgid "Bengali"
 msgstr "Bengali"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Bengali(India)"
+msgstr "Bengali"
+
+#. generated from lang-table
 msgid "Bulgarian"
 msgstr "Bulgariska"
 
@@ -8518,6 +8448,10 @@ msgstr "Franska"
 #. generated from lang-table
 msgid "German"
 msgstr "Tyska"
+
+#. generated from lang-table
+msgid "Gujarati"
+msgstr ""
 
 #. generated from lang-table
 msgid "Hindi"
@@ -8614,6 +8548,80 @@ msgstr "Kymriska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid "Connecting..."
+#~ msgstr "Ansluter..."
+
+#~ msgid ""
+#~ "zSeries machines can access industry-standard SCSI devices via Fibre "
+#~ "Channel (FCP). You need to provide 5 parameters for each device: a 16bit "
+#~ "device number, a 16bit SCSI ID, a 64bit World Wide Port Number (WWPN), a "
+#~ "16bit SCSI LUN and a 64 bit FCP LUN."
+#~ msgstr ""
+#~ "zSeries-maskiner kan komma åt SCSI-enheter som följer industristandarden "
+#~ "via Fibre Channel (FCP). Du måste ange 5 parametrar för varje enhet: ett "
+#~ "16-bitars enhetsnummer, ett 16-bitars SCSI-id, ett 64-bitars World Wide "
+#~ "Port Number (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars FCP-LUN."
+
+#~ msgid ""
+#~ "zSeries machines can access industry-standard SCSI devices via Fibre "
+#~ "Channel (FCP). You need to provide 5 parameters for each device: a 16 bit "
+#~ "device number, a 16 bit SCSI ID, a 64 bit World Wide Port Number (WWPN), "
+#~ "a 16 bit SCSI LUN and a 64 bit FCP LUN."
+#~ msgstr ""
+#~ "zSeries-maskiner kan komma åt SCSI-enheter som följer industristandarden "
+#~ "via Fibre Channel (FCP). Du måste ange 5 parametrar för varje enhet: ett "
+#~ "16-bitars enhetsnummer, ett 16-bitars SCSI-id, ett 64-bitars World Wide "
+#~ "Port Number (WWPN), ett 16-bitars SCSI-LUN och ett 64-bitars FCP-LUN."
+
+#~ msgid "You have not specified a device number or the number is invalid."
+#~ msgstr "Du har inte angivit ett enhetsnummer eller så är numret ogiltigt."
+
+#~ msgid "Physical Extent:"
+#~ msgstr "Fysisk yta:"
+
+#~ msgid ""
+#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
+#~ "improve the security of your system.  How would you like this support "
+#~ "enabled?"
+#~ msgstr ""
+#~ "Säkerhetsförbättrat Linux (SELinux) tillhandahåller striktare "
+#~ "åtkomstkontroll för att förbättra säkerheten på ditt system. Hur vill du "
+#~ "att detta stöd ska vara aktiverat?"
+
+#~ msgid "Disable SELinux"
+#~ msgstr "Inaktivera SELinux"
+
+#~ msgid "Warn on violations"
+#~ msgstr "Varna vid överträdelser"
+
+#~ msgid ""
+#~ "The current requested size (%10.2f MB) is larger than maximum logical "
+#~ "volume size (%10.2f MB)."
+#~ msgstr ""
+#~ "Den för tillfället begärda storleken (%10.2f MB) är större än den "
+#~ "maximala logiska volymstorleken (%10.2f MB)."
+
+#~ msgid "Logical volume"
+#~ msgstr "Logisk volym"
+
+#~ msgid "Device number:"
+#~ msgstr "Enhetsnummer:"
+
+#~ msgid "SCSI ID:"
+#~ msgstr "SCSI-id:"
+
+#~ msgid "WWPN:"
+#~ msgstr "WWPN:"
+
+#~ msgid "SCSI LUN:"
+#~ msgstr "SCSI-LUN:"
+
+#~ msgid "FCP LUN:"
+#~ msgstr "FCP-LUN:"
+
+#~ msgid "Tierra del Fuego"
+#~ msgstr "Eldslandet"
 
 #~ msgid "Remote Login"
 #~ msgstr "Fjärrinloggning"
