@@ -20,46 +20,15 @@
 
 int main(int argc, char **argv)
 {
-	struct vm86_struct info;
 	struct vbe_info *vbe_info = NULL;
-	struct edid_info *edid_info = NULL;
-	unsigned char *memory = NULL;
+	struct vbe_edid_info *edid_info = NULL;
 	u_int16_t *mode_list = NULL;
 	char manufacturer[4];
 	int i;
 
-	/* Get a copy of the low megabyte for use as an address space. */
-	memory = vm86_ram_alloc();
-	if(memory == MAP_FAILED) {
-		printf("Couldn't allocate needed memory!\n");
-		exit(0);
-	}
-
-	/* Set up registers for a real-mode interrupt call. */
-	memset(&info, 0, sizeof(info));
-	info.regs.eax = 0x4f00;
-	info.regs.es  = 0x4000;
-	info.regs.edi = 0x0000;
-	info.regs.ss  = 0x9000;
-	info.regs.esp = 0x0000;
-	info.flags    = 0;
-
-	/* Call the BIOS. */
-	memset(&memory[info.regs.es * 16 + info.regs.edi], 0, 1024);
-	bioscall(0x10, &info.regs, memory);
-
-	/* Interpret results. */
-	vbe_info = (struct vbe_info*) &memory[info.regs.es*16 + info.regs.edi];
-
-	if((info.regs.eax & 0xff) != 0x4f) {
+	vbe_info = vbe_get_vbe_info();
+	if(vbe_info == NULL) {
 		printf("VESA BIOS Extensions not detected.\n");
-		vm86_ram_free(memory);
-		exit(0);
-	}
-
-	if((info.regs.eax & 0xffff) != 0x004f) {
-		printf("VESA Get SuperVGA Information request failed.\n");
-		vm86_ram_free(memory);
 		exit(0);
 	}
 
@@ -70,16 +39,14 @@ int main(int argc, char **argv)
 	       vbe_info->version[1], vbe_info->version[0]);
 
 	/* OEM */
-	printf("OEM Name: %s\n", &memory[vbe_info->oem_name.addr.seg * 16 +
-					 vbe_info->oem_name.addr.ofs]);
+	printf("OEM Name: %s\n", vbe_info->oem_name.string);
 
 	/* Memory. */
 	printf("Memory installed = %d * 64k blocks = %dkb\n",
 	       vbe_info->memory_size, vbe_info->memory_size * 64);
 
 	/* List supported standard modes. */
-	mode_list = (u_int16_t*) &memory[vbe_info->mode_list.addr.seg * 16 +
-					 vbe_info->mode_list.addr.ofs];
+	mode_list = vbe_info->mode_list.list;
 	if(*mode_list != 0xffff) {
 		printf("Supported standard modes:\n");
 	}
@@ -92,46 +59,19 @@ int main(int argc, char **argv)
 		}
 	}
 
-	/* Set up registers for reading the EDID from the BIOS. */
-	memset(&info, 0, sizeof(info));
-	info.regs.eax = 0x4f15;
-	info.regs.ebx = 0x0001;
-	info.regs.es  = 0x4000;
-	info.regs.edi = 0x0000;
-	info.regs.ss  = 0x9000;
-	info.regs.esp = 0x0000;
-	info.flags    = 0;
+	if(!vbe_get_edid_supported()) {
+		printf("EDID read not supported by video card.\n");
+		exit(0);
+	}
 
-	/* Call the BIOS again. */
-	memset(&memory[info.regs.es * 16 + info.regs.edi], 0, 1024);
-	bioscall(0x10, &info.regs, memory);
+	edid_info = vbe_get_edid_info();
 
 	/* Interpret results. */
-	if((info.regs.eax & 0xff) != 0x4f) {
-		printf("EDID read not supported by hardware.\n");
-		vm86_ram_free(memory);
+	if(edid_info == NULL) {
+		printf("EDID failed. (No DDC-capable monitor attached?)\n");
 		exit(0);
 	}
 
-	if((info.regs.eax & 0xffff) == 0x014f) {
-		printf("EDID read supported by hardware, but failed "
-		       "(monitor not DCC-capable?).\n");
-#if 1
-		vm86_ram_free(memory);
-		exit(0);
-#endif
-	}
-
-	if((info.regs.eax & 0xffff) != 0x004f) {
-		printf("Unknown failure reading EDID.\n");
-		dump_regs(&info.regs);
-	} else {
-		printf("EDID read successfully.\n");
-		dump_regs(&info.regs);
-	}
-
-	edid_info = (struct edid_info*) &memory[info.regs.es * 16 +
-						info.regs.edi];
 	printf("EDID ver. %d rev. %d.\n",
 	       edid_info->edid_version, edid_info->edid_revision);
 
@@ -153,7 +93,7 @@ int main(int argc, char **argv)
 			edid_info->serial -= 640000000;
 		}
 	}
-	printf("Serial number: %d.\n", edid_info->serial);
+	printf("Serial number: %08x.\n", edid_info->serial);
 
 	printf("Manufactured in week %d of %d.\n",
 	       edid_info->week, edid_info->year + 1990);
@@ -349,6 +289,5 @@ int main(int argc, char **argv)
 			printf("\n");
 		}
 	}
-	vm86_ram_free(memory);
 	return 0;
 }
