@@ -84,8 +84,9 @@ class AccountWindow (InstallWindow):
         if pix:
             hbox.pack_start (pix, gtk.FALSE)
 
-        label = gtk.Label (_("Enter the root (administrator) password "
-                             "for the system."))
+        label = gui.WrappingLabel (_("The root account is used for "
+                                     "administering the system.  Enter "
+                                     "a password for the root user."))
         label.set_line_wrap(gtk.TRUE)
         label.set_size_request(350, -1)
         label.set_alignment(0.0, 0.5)
