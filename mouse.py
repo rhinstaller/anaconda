@@ -261,6 +261,7 @@ def mouseWindow(mouse):
     from snack import *
     from mouse_text import MouseWindow, MouseDeviceWindow
     from constants_text import INSTALL_BACK, INSTALL_OK
+    import string
     screen = SnackScreen()
 
     STEP_MESSAGE = 0
