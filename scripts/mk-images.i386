@@ -72,7 +72,7 @@ FSMODS="fat msdos vfat ext3 reiserfs jfs xfs"
 SECSTAGE="agpgart md raid0 raid1 raid5 raid6 dm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
 
 BTERMMODULES="vga16fb vgastate"
-COMMONMODULES="fat vfat nfs sunrpc lockd floppy cramfs loop $USBMODS $BTERMMODULES"
+COMMONMODULES="fat vfat nfs sunrpc lockd floppy cramfs loop edd $USBMODS $BTERMMODULES"
 LOCALMODULES="$COMMONMODULES aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES 3c59x 
