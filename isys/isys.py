@@ -306,6 +306,9 @@ def cdromList():
 def getDasdPorts():
     return _isys.getDasdPorts()
 
+def isUsableDasd(device):
+    return _isys.isUsableDasd(device)
+
 def moduleListByType(type):
     return _isys.modulelist(type)
 

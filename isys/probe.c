@@ -9,6 +9,10 @@
 #include <string.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/ioctl.h>
+#include <linux/fs.h>
 
 #include "isys.h"
 #include "probe.h"
@@ -151,10 +155,104 @@ bye:
     free (buf);
     return 0;
 }
+
+/* s390 stuff to detect DASDs */
+int vtoc_read_volume_label (int fd, unsigned long vlabel_start,
+		volume_label_t *vlabel) {
+	int rc;
+	if (lseek(fd, vlabel_start, SEEK_SET) < 0) {
+		/* fprintf(stderr, "Could not read volume label.\n"); */
+		return 2;
+	}
+	rc = read(fd, vlabel, sizeof(volume_label_t));
+	if (rc != sizeof(volume_label_t)) {
+		/* fprintf(stderr, "Could not read volume label, DASD is probably unformatted\n"); */
+		return 1;
+	}
+	return 0;
+}
+
+int read_vlabel(dasd_information_t *dasd_info, int fd, int blksize, volume_label_t *vlabel) {
+	volume_label_t tmp;
+	unsigned long  pos;
+	int ret;
+
+	pos = dasd_info->label_block * blksize;
+
+	memset(vlabel, 0, sizeof(volume_label_t));
+	if ((strncmp(dasd_info->type, "ECKD", 4) == 0) &&
+			(!dasd_info->FBA_layout)) {
+		/* OS/390 and zOS compatible disk layout */
+		return vtoc_read_volume_label(fd, pos, vlabel);
+	}
+	else {
+		/* standard LINUX disk layout */
+		ret = vtoc_read_volume_label(fd, pos, &tmp);
+		if(!ret) {
+			memcpy(vlabel->vollbl, &tmp, sizeof(tmp)-4);
+			return 0;
+		}
+		return ret;
+	}
+}
+
+int isUsableDasd(char *device) {
+	char devname[16];
+	char label[5], v4_hex[9];
+	char v4ebcdic_hex[] = "e5d6d3f1";  /* VOL1 */
+	char l4ebcdic_hex[] = "d3d5e7f1";  /* LNX1 */
+	int f, ret, blksize;
+	dasd_information_t dasd_info;
+	volume_label_t vlabel;
+	memset(&dasd_info, 0, sizeof(dasd_info));
+	strcpy(devname, "/dev/");
+	strcat(devname, device);
+	devMakeInode(device, devname);
+	if((f = open(devname, O_RDONLY)) == -1) {
+		unlink(devname);
+		return 0;
+	}
+	if (ioctl(f, BLKSSZGET, &blksize) != 0) {
+		close(f);
+		unlink(devname);
+		/* fprintf(stderr, "Could not retrieve blocksize information!\n"); */
+		return 0;
+	}
+	if (ioctl(f, BIODASDINFO, &dasd_info) != 0) {
+		close(f);
+		unlink(devname);
+		/* fprintf(stderr, "Could not retrieve disk information!\n"); */
+		return 0;
+	}
+	ret = read_vlabel(&dasd_info, f, blksize, &vlabel);
+	
+	if (ret == 2) {
+		close(f);
+		unlink(devname);
+		return 0;
+	} else if (ret == 1) { /* probably unformatted DASD */
+		close(f);
+		unlink(devname);
+		/* fprintf(stderr, "Found a usable device: %s\n", devname); */
+		return 1;
+	}
+	memset(label, 0, 5);
+	memset(v4_hex, 0, 9);
+	strncpy(label, vlabel.volkey, 4);
+	sprintf(v4_hex, "%02x%02x%02x%02x", label[0], label[1], label[2], label[3]);
+	if(!strncmp(v4_hex, v4ebcdic_hex, 9) || !strncmp(v4_hex, l4ebcdic_hex, 9)) {
+		/* fprintf(stderr, "Found a usable device: %s\n", devname); */
+		return 1;
+	}
+        return 0;
+}
+
 char *getDasdPorts() {
         char * line, *ports = NULL;
+	char devname[7];
         char port[6];
         FILE *fd;
+	int ret;
         fd = fopen ("/proc/dasd/devices", "r");
         if(!fd) {
                 return NULL;
@@ -164,15 +262,16 @@ char *getDasdPorts() {
                 if ((strstr(line, "unknown") != NULL)) {
                         continue;
                 }
-                if(sscanf (line, "%[A-Za-z0-9](%*s", port)) {
-                        if(!ports) {
-                                ports = (char *)malloc(strlen(port) + 1);
-                                strcpy(ports, port);
-                        } else {
-                                ports = (char *)realloc(ports, strlen(ports) + strlen(port) + 2);   /* portnumber + ',' */
-                                strcat(ports, ",");
-                                strcat(ports, port);
-                        }
+                ret = sscanf (line, "%[A-Za-z0-9](ECKD) at ( %*d: %*d) is %s : %*s", port, devname);
+		if (ret == 2) {
+			if(!ports) {
+				ports = (char *)malloc(strlen(port) + 1);
+				strcpy(ports, port);
+			} else {
+				ports = (char *)realloc(ports, strlen(ports) + strlen(port) + 2);
+				strcat(ports, ",");
+				strcat(ports, port);
+			}
                 }
         }
         if (fd) fclose(fd);
@@ -180,7 +279,7 @@ char *getDasdPorts() {
 }
 
 int kdFindDasdList(struct knownDevices * devices, int code) {
-        char devname[10];
+        char devname[7];
         char *line;
         int ret;
         FILE *fd;
@@ -196,14 +295,13 @@ int kdFindDasdList(struct knownDevices * devices, int code) {
         while (fgets (line, 100, fd) != NULL) {
                 ret = sscanf (line, "%*[A-Za-z0-9](ECKD) at ( %*d: %*d) is %s : %*s",
                                 devname);
-                if (ret == 1) {
-                        if(!deviceKnown(devices, devname)) {
+                if (ret == 1 && !deviceKnown(devices, devname) 
+		   && isUsableDasd(devname)) {
                                 device.code = code;
                                 device.class = CLASS_HD;
                                 device.name = strdup(devname);
                                 device.model = strdup("IBM DASD");
                                 addDevice(devices, device);
-                        }
                 }
         }
         if (fd) fclose(fd);

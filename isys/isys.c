@@ -100,6 +100,7 @@ static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * getLinkStatus(PyObject * s, PyObject * args);
 static PyObject * hasIdeRaidMagic(PyObject * s, PyObject * args);
 static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
+static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -149,6 +150,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "getLinkStatus", (PyCFunction) getLinkStatus, METH_VARARGS, NULL },
     { "hasIdeRaidMagic", (PyCFunction) hasIdeRaidMagic, METH_VARARGS, NULL },
     { "getDasdPorts", (PyCFunction) py_getDasdPorts, METH_VARARGS, NULL},
+    { "isUsableDasd", (PyCFunction) py_isUsableDasd, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1370,6 +1372,13 @@ static PyObject * getLinkStatus(PyObject * s, PyObject * args) {
 
 static PyObject * py_getDasdPorts(PyObject * o, PyObject * args) {
     return Py_BuildValue("s", getDasdPorts());
+}
+
+static PyObject * py_isUsableDasd(PyObject * o, PyObject * args) {
+    char *devname;
+    if (!PyArg_ParseTuple(args, "s", &devname))
+	return NULL;
+    return Py_BuildValue("i", isUsableDasd(devname));
 }
 
 static PyObject * printObject (PyObject * o, PyObject * args) {
