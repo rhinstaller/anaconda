@@ -18,6 +18,9 @@
 
 #if USE_MINILIBC
 #include "minilibc.h"
+#ifndef SOCK_STREAM
+# define SOCK_STREAM 1
+#endif 
 #else
 #include <ctype.h>
 #include <errno.h>
