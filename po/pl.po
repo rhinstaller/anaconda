@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-10-01 12:30+0200\n"
+"PO-Revision-Date: 2004-10-12 09:47+0200\n"
 "Last-Translator: Tom Berner <tom@man.lodz.pl>\n"
 "Language-Team: POLISH <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -508,11 +508,11 @@ msgstr ""
 
 #: ../bootloader.py:110
 msgid "Bootloader"
-msgstr "Program rozruchowy"
+msgstr "Program startowy"
 
 #: ../bootloader.py:110
 msgid "Installing bootloader..."
-msgstr "Instalacja programu rozruchowego..."
+msgstr "Instalacja programu startowego..."
 
 #: ../bootloader.py:152
 msgid ""
@@ -520,7 +520,7 @@ msgid ""
 "configuration will not be changed."
 msgstr ""
 "W twoim systemie nie zainstalowano żadnych pakietów z jądrem systemu.  "
-"Konfiguracja programu rozruchowego nie zostanie zmieniona."
+"Konfiguracja programu startowego nie zostanie zmieniona."
 
 #: ../cmdline.py:42 ../iw/progress_gui.py:472 ../iw/progress_gui.py:673
 msgid "Completed"
@@ -769,7 +769,7 @@ msgstr "Pierwszy sektor partycji bootującej"
 
 #: ../fsset.py:1242 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
-msgstr "główny sektor rozruchowy (MBR)"
+msgstr "główny sektor startowy (MBR)"
 
 #: ../fsset.py:1316
 #, python-format
@@ -1333,7 +1333,7 @@ msgstr "Przetwarzanie"
 
 #: ../packages.py:354
 msgid "Preparing to install..."
-msgstr "Przygotowanie do instalacji..."
+msgstr "Przygotowywanie do instalacji..."
 
 #: ../packages.py:413
 #, python-format
@@ -2767,13 +2767,13 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
-"Hasło programu rozruchowego chroni przed zmianą parametrów jądra przez "
+"Hasło programu startowego chroni przed zmianą parametrów jądra przez "
 "użytkowników. Dla zwiększenia bezpieczeństwa systemu zalecane jest założenie "
 "hasła."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "_Użyj hasła programu rozruchowego"
+msgstr "_Użyj hasła programu startowego"
 
 #: ../iw/blpasswidget.py:76
 msgid "Change _password"
@@ -2781,14 +2781,14 @@ msgstr "Zmień _hasło"
 
 #: ../iw/blpasswidget.py:99
 msgid "Enter Boot Loader Password"
-msgstr "Wpisz hasło programu rozruchowego"
+msgstr "Wpisz hasło programu startowego"
 
 #: ../iw/blpasswidget.py:105
 msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-"Wprowadź hasło dla programu rozruchowego, a potem je potwierdź.  (Zauważ, że "
+"Wprowadź hasło dla programu startowego, a potem je potwierdź.  (Zauważ, że "
 "mapowanie klawiszy w BIOS może być inne niż to, do którego przywykłeś.)"
 
 #: ../iw/blpasswidget.py:112
@@ -2814,7 +2814,7 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Twoje hasło programu rozruchowego ma mniej niż 6 znaków. Zalecamy dłuższe "
+"Twoje hasło programu startowego ma mniej niż 6 znaków. Zalecamy dłuższe "
 "hasło\n"
 "\n"
 "Czy chcesz kontynuować instalację ze zbyt krótkim hasłem?"
@@ -2834,8 +2834,8 @@ msgid ""
 "It is highly recommended you create a boot diskette.\n"
 msgstr ""
 "Dyskietka startowa pozwala wystartować system %s z dyskietki.  Umożliwia to "
-"uruchomienie systemu, gdy program rozruchowy przestanie działać, jeśli nie "
-"zainstalujesz programu rozruchowego, lub gdy twój program rozruchowy innego "
+"uruchomienie systemu, gdy program startowy przestanie działać, jeśli nie "
+"zainstalujesz programu startowego, lub gdy twój program startowy innego "
 "producenta nie obsługuje Linuksa.\n"
 "\n"
 "Utworzenie dyskietki startowej jest wysoce zalecane.\n"
@@ -2850,7 +2850,7 @@ msgstr "_Nie, nie chcę tworzyć dyskietki startowej"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
-msgstr "Zaawansowana konfiguracja programu rozruchowego"
+msgstr "Zaawansowana konfiguracja programu startowego"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
 msgid ""
@@ -2860,7 +2860,7 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Wymuszenie użycia LBA32 przez program rozruchowy, gdy nie jest wspierane "
+"Wymuszenie użycia LBA32 przez program startowy, gdy nie jest wspierane "
 "przez BIOS, może spowodować, że twój komputer nie będzie mógł wystartować. "
 "Zalecamy utworzenie dyskietki startowej, gdy zostanie to zaproponowane "
 "później podczas instalacji.\n"
@@ -2891,11 +2891,11 @@ msgstr "O_gólne parametry jądra"
 #: ../textw/bootloader_text.py:125 ../textw/bootloader_text.py:184
 #: ../textw/bootloader_text.py:307 ../textw/bootloader_text.py:399
 msgid "Boot Loader Configuration"
-msgstr "Konfiguracja programu rozruchowego"
+msgstr "Konfiguracja Programu Startowego"
 
 #: ../iw/bootloader_main_gui.py:75
 msgid "Change Boot Loader"
-msgstr "Zmień program rozruchowy"
+msgstr "Zmień Program Startowy"
 
 #: ../iw/bootloader_main_gui.py:93
 msgid ""
@@ -2904,15 +2904,15 @@ msgid ""
 "\n"
 "Would you like to continue and not install a boot loader?"
 msgstr ""
-"Wybrałeś, aby nie instalować programu rozruchowego w systemie. W takim razie "
+"Wybrałeś, aby nie instalować programu startowego w systemie. W takim razie "
 "będziesz musiał utworzyć dyskietkę startową i w ten sposób uruchamiać "
 "system.\n"
 "\n"
-"Czy chcesz przejść dalej bez instalowania programu rozruchowego?"
+"Czy chcesz przejść dalej bez instalowania programu startowego?"
 
 #: ../iw/bootloader_main_gui.py:105
 msgid "C_ontinue with no boot loader"
-msgstr "_Kontynuuj bez programu rozruchowego"
+msgstr "_Kontynuuj bez programu startowego"
 
 #: ../iw/bootloader_main_gui.py:131
 msgid ""
@@ -2920,43 +2920,43 @@ msgid ""
 "default boot loader. However, if you do not wish to overwrite your current "
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
-"Wybierz program rozruchowy, który będzie używany na tym komputerze. "
-"Standardowy program rozruchowy to GRUB. Jeśli nie chcesz nadpisać swojego "
-"obecnego programu rozruchowego, wybierz \"Nie instaluj programu rozruchowego"
+"Wybierz program startowy, który będzie używany na tym komputerze. "
+"Standardowy program startowy to GRUB. Jeśli nie chcesz nadpisać swojego "
+"obecnego programu startowego, wybierz \"Nie instaluj programu startowego"
 "\".  "
 
 #: ../iw/bootloader_main_gui.py:139
 msgid "Use _GRUB as the boot loader"
-msgstr "Użyj programu rozruchowego _GRUB"
+msgstr "Użyj programu startowego _GRUB"
 
 #: ../iw/bootloader_main_gui.py:143
 msgid "Use _LILO as the boot loader"
-msgstr "Użyj programu rozruchowego _LILO"
+msgstr "Użyj programu startowego _LILO"
 
 #: ../iw/bootloader_main_gui.py:147
 msgid "_Do not install a boot loader"
-msgstr "_Nie instaluj programu rozruchowego"
+msgstr "_Nie instaluj programu startowego"
 
 #: ../iw/bootloader_main_gui.py:170
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr "Program rozruchowy %s zostanie zainstalowany na /dev/%s."
+msgstr "Program startowy %s zostanie zainstalowany na /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:175
 msgid "No boot loader will be installed."
-msgstr "Żaden program rozruchowy nie zostanie zainstalowany."
+msgstr "Żaden program startowy nie zostanie zainstalowany."
 
 #: ../iw/bootloader_main_gui.py:227
 msgid "_Change boot loader"
-msgstr "_Zmień program rozruchowy"
+msgstr "_Zmień program startowy"
 
 #: ../iw/bootloader_main_gui.py:255
 msgid "Configure advanced boot loader _options"
-msgstr "_Konfiguracja zaawansowanych opcji programu rozruchowego"
+msgstr "_Konfiguracja zaawansowanych opcji programu startowego"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
-msgstr "Instalacja programu rozruchowego na:"
+msgstr "Instalacja programu startowego na:"
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
@@ -2988,7 +2988,7 @@ msgstr ""
 "IDE, a chcesz startować z urządzenia SCSI.\n"
 "\n"
 "Zmiana kolejności dysków zmieni miejsce, które program instalacyjny uznaje "
-"za główny sektor rozruchowy (MBR)."
+"za główny sektor startowy (MBR)."
 
 #: ../iw/confirm_gui.py:57
 msgid "About to Install"
@@ -3950,7 +3950,7 @@ msgid ""
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
 msgstr ""
-"Możesz skonfigurować program rozruchowy, aby startował inne systemy "
+"Możesz skonfigurować program startowy, aby startował inne systemy "
 "operacyjne. Dzięki temu będziesz mógł wybrać z listy system, który chcesz "
 "uruchomić. Aby dodać do listy systemy operacyjne, których nie wykryto "
 "automatycznie, kliknij 'Dodaj'. Aby wybrać system operacyjny startowany "
@@ -3977,7 +3977,7 @@ msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
-"Wpisz etykietę wyświetlaną w menu programu rozruchowego. Urządzenie (czyli "
+"Wpisz etykietę wyświetlaną w menu programu startowego. Urządzenie (czyli "
 "dysk i numer partycji) to urządzenie z którego będzie startował system."
 
 #: ../iw/osbootwidget.py:152
@@ -4779,7 +4779,7 @@ msgstr "Utworzenie aliasu PROM"
 
 #: ../iw/silo_gui.py:212
 msgid "Set default PROM boot device to linux"
-msgstr "Ustawienie domyślnego urządzenia rozruchowego w PROM-ie na Linux"
+msgstr "Ustawienie domyślnego urządzenia startowego w PROM-ie na Linux"
 
 #: ../iw/silo_gui.py:216
 msgid "Kernel parameters"
@@ -4829,20 +4829,20 @@ msgstr "Opis"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Aktualizacja konfiguracji programu rozruchowego"
+msgstr "Aktualizacja konfiguracji programu startowego"
 
 #: ../iw/upgrade_bootloader_gui.py:68
 msgid "_Update boot loader configuration"
-msgstr "Akt_ualizuj konfigurację programu rozruchowego"
+msgstr "Akt_ualizuj konfigurację programu startowego"
 
 #: ../iw/upgrade_bootloader_gui.py:69
 msgid "This will update your current boot loader."
-msgstr "To uaktualni twój obecny program rozruchowy."
+msgstr "To uaktualni twój obecny program startowy."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr "Program instalacyjny wykrył program rozruchowy %s zainstalowany na %s."
+msgstr "Program instalacyjny wykrył program startowy %s zainstalowany na %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -4853,32 +4853,32 @@ msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
-"Program instalacyjny nie potrafi wykryć programu rozruchowego obecnie "
+"Program instalacyjny nie potrafi wykryć programu startowego obecnie "
 "używanego w twoim systemie."
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
-msgstr "_Utwórz nową konfigurację programu rozruchowego"
+msgstr "_Utwórz nową konfigurację programu startowego"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
-"To pozwoli utworzyć nową konfigurację programu rozruchowego. Wybierz, jeśli "
-"chcesz wymienić program rozruchowy."
+"To pozwoli utworzyć nową konfigurację programu startowego. Wybierz, jeśli "
+"chcesz wymienić program startowy."
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
-msgstr "Pomiń aktualiza_cję programu rozruchowego"
+msgstr "Pomiń aktualiza_cję programu startowego"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
-"To nie zmieni konfiguracji programu rozruchowego. Jeśli używasz programu "
-"rozruchowego innej firmy, powinieneś użyć tej opcji."
+"To nie zmieni konfiguracji programu startowego. Jeśli używasz programu "
+"startowego innej firmy, powinieneś użyć tej opcji."
 
 #: ../iw/upgrade_bootloader_gui.py:111
 msgid "What would you like to do?"
@@ -5181,11 +5181,11 @@ msgstr ""
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
-msgstr "Konfiguracja programu rozruchowego z/IPL"
+msgstr "Konfiguracja programu startowego z/IPL"
 
 #: ../iw/zipl_gui.py:75
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr "Program rozruchowy z/IPL zostanie zainstalowany w twoim systemie."
+msgstr "Program startowy z/IPL zostanie zainstalowany w twoim systemie."
 
 #: ../iw/zipl_gui.py:77
 msgid ""
@@ -5203,7 +5203,7 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
-"Program rozruchowy z/IPL zostanie teraz zainstalowany.\n"
+"Program startowy z/IPL zostanie teraz zainstalowany.\n"
 "\n"
 "Główną partycją będzie ta, którą wybrałeś poprzednio przy konfiguracji "
 "partycji.\n"
@@ -5236,7 +5236,7 @@ msgid ""
 "Would you like to create a boot diskette?"
 msgstr ""
 "Dyskietka startowa pozwoli ci wystartować twój system %s. Umożliwia "
-"uruchomienie systemu w przypadku, gdy zainstalowany program rozruchowy "
+"uruchomienie systemu w przypadku, gdy zainstalowany program startowy "
 "przestanie działać.\n"
 "\n"
 "Utworzenie dyskietki startowej jest zdecydowanie zalecane.\n"
@@ -5249,23 +5249,23 @@ msgstr "Dyskietka startowa"
 
 #: ../textw/bootloader_text.py:29
 msgid "Which boot loader would you like to use?"
-msgstr "Jakiego programu rozruchowego chcesz użyć?"
+msgstr "Jakiego programu startowego chcesz użyć?"
 
 #: ../textw/bootloader_text.py:45
 msgid "Use GRUB Boot Loader"
-msgstr "Użyj programu rozruchowego GRUB"
+msgstr "Użyj programu startowego GRUB"
 
 #: ../textw/bootloader_text.py:47
 msgid "Use LILO Boot Loader"
-msgstr "Użyj programu rozruchowego LILO"
+msgstr "Użyj programu startowego LILO"
 
 #: ../textw/bootloader_text.py:50
 msgid "No Boot Loader"
-msgstr "Bez programu rozruchowego"
+msgstr "Bez programu startowego"
 
 #: ../textw/bootloader_text.py:72
 msgid "Skip Boot Loader"
-msgstr "Pomiń program rozruchowy"
+msgstr "Pomiń Program Startowy"
 
 #: ../textw/bootloader_text.py:73
 msgid ""
@@ -5276,12 +5276,12 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Zdecydowałeś, aby nie instalować żadnego programu rozruchowego. "
-"Zainstalowanie programu rozruchowego jest zdecydowanie zalecane, chyba że "
-"masz jakieś specjalne wymagania. Program rozruchowy jest niemal zawsze "
+"Zdecydowałeś, aby nie instalować żadnego programu startowego. "
+"Zainstalowanie programu startowego jest zdecydowanie zalecane, chyba że "
+"masz jakieś specjalne wymagania. Program startowy jest niemal zawsze "
 "konieczny do wystartowania systemu Linux bezpośrednio z dysku twardego.\n"
 "\n"
-"Czy jesteś pewien, że chcesz pominąć instalację programu rozruchowego?"
+"Czy jesteś pewien, że chcesz pominąć instalację programu startowego?"
 
 #: ../textw/bootloader_text.py:110 ../textw/silo_text.py:25
 msgid ""
@@ -5301,7 +5301,7 @@ msgstr "Wymuś użycie LBA32 (normalnie nie jest wymagane)"
 
 #: ../textw/bootloader_text.py:185
 msgid "Where do you want to install the boot loader?"
-msgstr "Gdzie chcesz zainstalować program rozruchowy?"
+msgstr "Gdzie chcesz zainstalować program startowy?"
 
 #: ../textw/bootloader_text.py:217 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
@@ -5338,7 +5338,7 @@ msgid ""
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
-"Program rozruchowy %s może startować inne systemy operacyjne. Możesz "
+"Program startowy %s może startować inne systemy operacyjne. Możesz "
 "wyszczególnić, jakie partycje mogą być wybierane podczas rozruchu oraz podać "
 "etykiety dla systemów na tych partycjach."
 
@@ -5352,7 +5352,7 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"Hasło programu rozruchowego chroni przed podawaniem dowolnych parametrów "
+"Hasło programu startowego chroni przed podawaniem dowolnych parametrów "
 "jądra przez użytkowników. Jeśli zależy ci na bezpieczeństwie, zalecamy "
 "wybranie hasła; zwykle to nie jest potrzebne."
 
@@ -5362,7 +5362,7 @@ msgstr "Użyj hasła dla GRUB-a"
 
 #: ../textw/bootloader_text.py:416
 msgid "Boot Loader Password:"
-msgstr "Hasło programu rozruchowego:"
+msgstr "Hasło programu startowego:"
 
 #: ../textw/bootloader_text.py:417
 msgid "Confirm:"
@@ -5378,7 +5378,7 @@ msgstr "Za krótkie hasło"
 
 #: ../textw/bootloader_text.py:452
 msgid "Boot loader password is too short"
-msgstr "Hasło programu rozruchowego jest za krótkie"
+msgstr "Hasło programu startowego jest za krótkie"
 
 #: ../textw/complete_text.py:27
 msgid ""
@@ -6144,7 +6144,7 @@ msgstr "Ustawienie domyślnego urządzenia bootowania w PROM-ie"
 
 #: ../textw/silo_text.py:114
 msgid "Where do you want to install the bootloader?"
-msgstr "Gdzie chcesz zainstalować program rozruchowy?"
+msgstr "Gdzie chcesz zainstalować program startowy?"
 
 #: ../textw/silo_text.py:219
 msgid ""
@@ -6152,7 +6152,7 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
-"Program rozruchowy może startować inne systemy operacyjne. Możesz "
+"Program startowy może startować inne systemy operacyjne. Możesz "
 "wyszczególnić, jakie partycje mogą być wybierane podczas rozruchu komputera "
 "oraz możesz podać etykiety dla systemów z tych partycji."
 
@@ -6163,15 +6163,15 @@ msgstr "W jakiej strefie czasowej się znajdujesz?"
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr "Aktualizuj konfigurację programu rozruchowego"
+msgstr "Aktualizuj konfigurację programu startowego"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
-msgstr "Pomiń aktualizację programu rozruchowego"
+msgstr "Pomiń aktualizację programu startowego"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr "Utwórz nową konfigurację programu rozruchowego"
+msgstr "Utwórz nową konfigurację programu startowego"
 
 #: ../textw/upgrade_text.py:94
 #, python-format
@@ -6666,7 +6666,7 @@ msgid ""
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
-"Program rozruchowy z/IPL zostanie zainstalowany po zakończeniu instalacji. "
+"Program startowy z/IPL zostanie zainstalowany po zakończeniu instalacji. "
 "Możesz teraz wprowadzić dodatkowe parametry jądra i chandev, których wymaga "
 "twój komputer lub konfiguracja."
 
