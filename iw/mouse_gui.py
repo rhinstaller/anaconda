@@ -65,13 +65,13 @@ class MouseWindow(InstallWindow):
 
 	cur = model.get_value(iter, 1)
 
-        self.emulate3.set_sensitive(gtk.TRUE)
+	self.emulate3.set_sensitive(gtk.TRUE)
 	(gpm, xdev, device, emulate, shortname) = self.availableMice[cur]
 
-        if device == "ttyS":
-            self.setCurrent(self.serialDevice, cur, emulate, recenter=0)
-        else:
-            self.setCurrent(device, cur, emulate, recenter=0)
+	if device == "ttyS":
+	    self.setCurrent(self.serialDevice, cur, emulate, recenter=0)
+	else:
+	    self.setCurrent(device, cur, emulate, recenter=0)
 
     def setupDeviceList(self):
 	deviceList = ((_("/dev/ttyS0 (COM1 under DOS)"), "ttyS0" ),
@@ -88,8 +88,6 @@ class MouseWindow(InstallWindow):
         self.devstore.set_sort_column_id(0, gtk.SORT_ASCENDING)
         self.devview = gtk.TreeView(self.devstore)
         col = gtk.TreeViewColumn(_("Device"), gtk.CellRendererText(), text=0)
-        self.devview.append_column(col)
-        col = gtk.TreeViewColumn(_("Port"), gtk.CellRendererText(), text=1)
         self.devview.append_column(col)
         selection = self.devview.get_selection()
         selection.connect("changed", self.selectDeviceType)
