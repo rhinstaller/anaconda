@@ -495,6 +495,7 @@ class XConfigWindow:
 		    "W32", "W32", "Mach64", "I128", "S3V", "3DLabs" ]
 
 	rc = INSTALL_NOOP
+        server = None
 	while rc != INSTALL_OK:
 	    (rc, choice) = ListboxChoiceWindow(screen, _("Video Card Selection"),
 					       _("Which video card do you have?"),
