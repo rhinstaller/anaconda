@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
-"POT-Creation-Date: 2001-02-09 15:55-0500\n"
+"POT-Creation-Date: 2001-02-14 14:30-0500\n"
 "PO-Revision-Date: 2001-02-12 08:09+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -9,11 +9,11 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../comps.py:481
+#: ../comps.py:493
 msgid "Everything"
 msgstr "V¹echno"
 
-#: ../exception.py:13 ../text.py:929
+#: ../exception.py:13 ../text.py:926
 msgid "Exception Occurred"
 msgstr "Nastala výjimka"
 
@@ -53,18 +53,18 @@ msgid "Warning"
 msgstr "Varování"
 
 #: ../fstab.py:320 ../fstab.py:514 ../fstab.py:614 ../fstab.py:823
-#: ../harddrive.py:168 ../image.py:61 ../image.py:138
+#: ../harddrive.py:173 ../image.py:64 ../image.py:141
 #: ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:433 ../loader/devices.c:478
-#: ../loader/devices.c:498 ../loader/lang.c:99 ../loader/loader.c:519
-#: ../loader/loader.c:529 ../loader/loader.c:583 ../loader/loader.c:965
-#: ../loader/loader.c:1020 ../loader/loader.c:1190 ../loader/loader.c:1195
-#: ../loader/loader.c:1277 ../loader/loader.c:2149 ../loader/loader.c:2179
-#: ../loader/loader.c:2257 ../loader/loader.c:2469 ../loader/pcmcia.c:114
+#: ../loader/devices.c:498 ../loader/lang.c:99 ../loader/loader.c:520
+#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:966
+#: ../loader/loader.c:1021 ../loader/loader.c:1191 ../loader/loader.c:1196
+#: ../loader/loader.c:1278 ../loader/loader.c:2152 ../loader/loader.c:2182
+#: ../loader/loader.c:2260 ../loader/loader.c:2472 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
-#: ../text.py:360 ../textw/bootdisk_text.py:69 ../todo.py:1136 ../todo.py:1149
-#: ../todo.py:1538 ../upgrade.py:22 ../upgrade.py:50
+#: ../text.py:357 ../textw/bootdisk_text.py:69 ../todo.py:1148 ../todo.py:1161
+#: ../todo.py:1484 ../upgrade.py:22 ../upgrade.py:50
 msgid "Error"
 msgstr "Chyba"
 
@@ -145,7 +145,7 @@ msgstr ""
 "Zkopírujte prosím plné znìní této vyjímky a ohla¹te chybu na adrese "
 "http://bugzilla.redhat.com/bugzilla"
 
-#: ../gui.py:310 ../text.py:947
+#: ../gui.py:313 ../text.py:944
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -153,22 +153,22 @@ msgstr ""
 "Vlo¾te prosím disketu. Celý obsah diskety bude smazán, proto vyberte "
 "disketu, na které nemáte dùle¾itá data."
 
-#: ../gui.py:408 ../gui.py:772
+#: ../gui.py:404 ../gui.py:768
 msgid "Next"
 msgstr "Dále"
 
-#: ../gui.py:409 ../gui.py:771 ../libfdisk/newtfsedit.c:1477
+#: ../gui.py:405 ../gui.py:767 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
-#: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:582
-#: ../loader/loader.c:290 ../loader/loader.c:869 ../loader/loader.c:906
-#: ../loader/loader.c:1020 ../loader/loader.c:1112 ../loader/loader.c:1509
+#: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
+#: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
+#: ../loader/loader.c:1021 ../loader/loader.c:1113 ../loader/loader.c:1511
 #: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
-#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:99 ../text.py:61
-#: ../text.py:72 ../text.py:132 ../text.py:196 ../text.py:203 ../text.py:225
-#: ../text.py:228 ../text.py:308 ../text.py:363 ../text.py:381 ../text.py:384
-#: ../text.py:403 ../text.py:406 ../text.py:428 ../text.py:431 ../text.py:488
-#: ../text.py:491 ../text.py:517 ../text.py:521 ../text.py:530 ../text.py:603
-#: ../text.py:605 ../text.py:615 ../text.py:617 ../textw/bootdisk_text.py:30
+#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:99 ../text.py:58
+#: ../text.py:69 ../text.py:129 ../text.py:193 ../text.py:200 ../text.py:222
+#: ../text.py:225 ../text.py:305 ../text.py:360 ../text.py:378 ../text.py:381
+#: ../text.py:400 ../text.py:403 ../text.py:425 ../text.py:428 ../text.py:485
+#: ../text.py:488 ../text.py:514 ../text.py:518 ../text.py:527 ../text.py:600
+#: ../text.py:602 ../text.py:612 ../text.py:614 ../textw/bootdisk_text.py:30
 #: ../textw/firewall_text.py:9 ../textw/lilo_text.py:34
 #: ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
 #: ../textw/lilo_text.py:209 ../textw/mouse_text.py:27
@@ -187,76 +187,76 @@ msgstr "Dále"
 msgid "Back"
 msgstr "Zpìt"
 
-#: ../gui.py:410 ../gui.py:777
+#: ../gui.py:406 ../gui.py:773
 msgid "Show Help"
 msgstr "Zobrazit nápovìdu"
 
-#: ../gui.py:411 ../gui.py:776
+#: ../gui.py:407 ../gui.py:772
 msgid "Hide Help"
 msgstr "Skrýt nápovìdu"
 
-#: ../gui.py:412 ../gui.py:775
+#: ../gui.py:408 ../gui.py:771
 msgid "Finish"
 msgstr "Dokonèení"
 
-#: ../gui.py:415 ../gui.py:807
+#: ../gui.py:411 ../gui.py:803
 msgid "Online Help"
 msgstr "Online nápovìda"
 
-#: ../gui.py:416 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../text.py:66 ../text.py:1019 ../text.py:1052
+#: ../gui.py:412 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../text.py:63 ../text.py:1016 ../text.py:1049
 msgid "Language Selection"
 msgstr "Výbìr jazyka"
 
-#: ../gui.py:518 ../iw/firewall_gui.py:125 ../libfdisk/gnomefsedit.c:1387
+#: ../gui.py:514 ../iw/firewall_gui.py:125 ../libfdisk/gnomefsedit.c:1387
 #: ../libfdisk/gnomefsedit.c:1404
 msgid "Close"
 msgstr "Zavøít"
 
-#: ../gui.py:523 ../gui.py:774
+#: ../gui.py:519 ../gui.py:770
 msgid "Release Notes"
 msgstr "Poznámky k vydání"
 
-#: ../gui.py:554
+#: ../gui.py:550
 msgid "Unable to load file!"
 msgstr "Nemohu pøeèíst soubor!"
 
-#: ../gui.py:695
+#: ../gui.py:691
 msgid "Red Hat Linux Installer"
 msgstr "Instalátor Red Hat Linuxu"
 
-#: ../gui.py:699
+#: ../gui.py:695
 msgid "Red Hat Linux Install Shell"
 msgstr "Instalaèní shell Red Hat Linuxu"
 
-#: ../gui.py:710
+#: ../gui.py:706
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Instalátor Red Hat Linuxu na %s"
 
-#: ../gui.py:711
+#: ../gui.py:707
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Instalaèní shell Red Hat Linuxu na %s"
 
-#: ../gui.py:856
+#: ../gui.py:852
 msgid "Install Window"
 msgstr "Instalaèní okno"
 
-#: ../harddrive.py:169
+#: ../harddrive.py:174
 #, c-format
 msgid "Missing CD #%d, which is required for the install."
 msgstr "Chybí CD #%d, které je pro instalaci potøeba."
 
-#: ../image.py:58
+#: ../image.py:61
 msgid "Copying File"
 msgstr "Kopírování souboru"
 
-#: ../image.py:59
+#: ../image.py:62
 msgid "Transferring install image to hard drive..."
 msgstr "Pøená¹ím instalaèní obraz na pevný disk"
 
-#: ../image.py:62
+#: ../image.py:65
 msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -264,24 +264,24 @@ msgstr ""
 "Do¹lo k chybì pøi pøenosu instalaèních souborù na vá¹ pevný disk. Disk je "
 "pravdìpodobnì plný."
 
-#: ../image.py:115
+#: ../image.py:118
 msgid "Change CDROM"
 msgstr "Vymìnit CD-ROM"
 
-#: ../image.py:116
+#: ../image.py:119
 #, c-format
 msgid "Please insert disc %d to continue."
 msgstr "Vlo¾te prosím disk %d pro pokraèování."
 
-#: ../image.py:133
+#: ../image.py:136
 msgid "Wrong CDROM"
 msgstr "Nesprávné CD-ROM"
 
-#: ../image.py:134
+#: ../image.py:137
 msgid "That's not the correct Red Hat CDROM."
 msgstr "Toto není správné CD-ROM s Red Hat Linuxem."
 
-#: ../image.py:139
+#: ../image.py:142
 msgid "The CDROM could not be mounted."
 msgstr "Nelze pøipojit CDROM."
 
@@ -289,26 +289,26 @@ msgstr "Nelze pøipojit CDROM."
 #: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:335
 #: ../loader/devices.c:433 ../loader/devices.c:478 ../loader/devices.c:498
 #: ../loader/devices.c:530 ../loader/kickstart.c:58 ../loader/kickstart.c:68
-#: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:293
-#: ../loader/lang.c:582 ../loader/loader.c:290 ../loader/loader.c:519
-#: ../loader/loader.c:529 ../loader/loader.c:583 ../loader/loader.c:906
-#: ../loader/loader.c:965 ../loader/loader.c:1020 ../loader/loader.c:1112
-#: ../loader/loader.c:1190 ../loader/loader.c:1195 ../loader/loader.c:1237
-#: ../loader/loader.c:1246 ../loader/loader.c:1277 ../loader/loader.c:1509
-#: ../loader/loader.c:2149 ../loader/loader.c:2179 ../loader/loader.c:2242
-#: ../loader/loader.c:2257 ../loader/loader.c:2469 ../loader/net.c:185
+#: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294
+#: ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520
+#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:907
+#: ../loader/loader.c:966 ../loader/loader.c:1021 ../loader/loader.c:1113
+#: ../loader/loader.c:1191 ../loader/loader.c:1196 ../loader/loader.c:1238
+#: ../loader/loader.c:1247 ../loader/loader.c:1278 ../loader/loader.c:1511
+#: ../loader/loader.c:2152 ../loader/loader.c:2182 ../loader/loader.c:2245
+#: ../loader/loader.c:2260 ../loader/loader.c:2472 ../loader/net.c:185
 #: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:668
 #: ../loader/net.c:701 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
 #: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:17 ../rescue.py:67
-#: ../rescue.py:85 ../rescue.py:93 ../text.py:132 ../text.py:171
-#: ../text.py:225 ../text.py:308 ../text.py:381 ../text.py:428 ../text.py:446
-#: ../text.py:488 ../text.py:517 ../text.py:603 ../text.py:615 ../text.py:644
-#: ../text.py:665 ../text.py:835 ../text.py:889 ../text.py:915 ../text.py:941
-#: ../text.py:949 ../text.py:964 ../text.py:1206 ../textw/bootdisk_text.py:52
+#: ../rescue.py:85 ../rescue.py:93 ../text.py:129 ../text.py:168
+#: ../text.py:222 ../text.py:305 ../text.py:378 ../text.py:425 ../text.py:443
+#: ../text.py:485 ../text.py:514 ../text.py:600 ../text.py:612 ../text.py:641
+#: ../text.py:662 ../text.py:832 ../text.py:886 ../text.py:912 ../text.py:938
+#: ../text.py:946 ../text.py:961 ../text.py:1203 ../textw/bootdisk_text.py:52
 #: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
-#: ../textw/firewall_text.py:122 ../textw/firewall_text.py:124
-#: ../textw/firewall_text.py:187 ../textw/lilo_text.py:33
+#: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
+#: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
 #: ../textw/lilo_text.py:93 ../textw/lilo_text.py:152
 #: ../textw/lilo_text.py:158 ../textw/mouse_text.py:55
 #: ../textw/network_text.py:102 ../textw/network_text.py:123
@@ -340,7 +340,7 @@ msgstr "CHYBA: pøi ètení tabulky oddílù nastala neznámá chyba.\n"
 msgid "System to Rescue"
 msgstr "Opravit systém"
 
-#: ../rescue.py:65 ../text.py:379
+#: ../rescue.py:65 ../text.py:376
 msgid "What partition holds the root partition of your installation?"
 msgstr "Který oddíl je ve va¹í instalaci pou¾it jako koøenový?"
 
@@ -421,8 +421,8 @@ msgstr "Vá¹ systém je pøipojen v adresáøi /mnt/sysimage."
 #: ../libfdisk/newtfsedit.c:1485 ../libfdisk/newtfsedit.c:1610
 #: ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659
 #: ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87
-#: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
-#: ../text.py:196 ../text.py:530 ../textw/lilo_text.py:123
+#: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:58 ../text.py:60
+#: ../text.py:193 ../text.py:527 ../textw/lilo_text.py:123
 #: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
 #: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:420
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
@@ -430,75 +430,76 @@ msgstr "Vá¹ systém je pøipojen v adresáøi /mnt/sysimage."
 msgid "Ok"
 msgstr "Ok"
 
-#: ../text.py:67
+#: ../text.py:64
 msgid "What language would you like to use during the installation process?"
 msgstr "Jaký jazyk chcete pou¾ívat bìhem instalace?"
 
-#: ../text.py:132
+#: ../text.py:129
 msgid "Select All"
 msgstr "Vybrat v¹e"
 
-#: ../iw/language_support_gui.py:199 ../text.py:132
+#: ../iw/language_support_gui.py:208 ../text.py:129
 msgid "Reset"
 msgstr "Reset"
 
-#: ../text.py:134
+#: ../text.py:131
 msgid "Choose the languages to be installed:"
 msgstr "Zvolte jazyky, které mají být nainstalovány:"
 
-#: ../text.py:138 ../text.py:1115
+#: ../text.py:135 ../text.py:1112
 msgid "Language Support"
 msgstr "Podpora jazykù"
 
-#: ../text.py:169 ../textw/firewall_text.py:120 ../textw/firewall_text.py:185
+#: ../text.py:166 ../textw/firewall_text.py:124 ../textw/firewall_text.py:189
 msgid "Invalid Choice"
 msgstr "Neplatná volba"
 
-#: ../text.py:170
-msgid "You select at least one language to install."
+#: ../text.py:167
+#, fuzzy
+msgid "You must select at least one language to install."
 msgstr "Vyberte alespoò jeden jazyk, který se má nainstalovat."
 
-#: ../text.py:198
+#: ../text.py:195
 msgid "Default Language"
 msgstr "Preferovaný jazyk"
 
-#: ../text.py:199
+#: ../text.py:196
 msgid "Choose the default language: "
 msgstr "Vyberte preferovaný jazyk: "
 
-#: ../text.py:223 ../text.py:1021 ../text.py:1058
+#: ../text.py:220 ../text.py:1018 ../text.py:1055
 msgid "Keyboard Selection"
 msgstr "Výbìr klávesnice"
 
-#: ../text.py:224
+#: ../text.py:221
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Jaký model klávesnice je pøipojen k tomuto poèítaèi?"
 
-#: ../text.py:284
+#: ../text.py:281
 msgid "Upgrade Existing Installation"
 msgstr "Upgrade stávajícího systému"
 
-#: ../text.py:306 ../text.py:1061
+#: ../text.py:303 ../text.py:1058
 msgid "Installation Type"
 msgstr "Typ instalace"
 
-#: ../text.py:307
+#: ../text.py:304
 msgid "What type of system would you like to install?"
 msgstr "Jaký druh systému chcete instalovat?"
 
-#: ../text.py:361
+#: ../text.py:358
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Neexistují ¾ádné linuxové oddíly. Tento systém nelze aktualizovat!"
 
-#: ../text.py:378
+#: ../text.py:375
 msgid "System to Upgrade"
 msgstr "Upgrade systému"
 
-#: ../text.py:395
+#: ../text.py:392
 msgid "Customize Packages to Upgrade"
 msgstr "Výbìr balíèkù pro aktualizaci"
 
-#: ../text.py:396
+#: ../text.py:393
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -516,8 +517,8 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
-#: ../loader/devices.c:230 ../loader/loader.c:869 ../loader/net.c:835
-#: ../text.py:403 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
+#: ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:835
+#: ../text.py:400 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:219
 #: ../textw/partitioning_text.py:402
 msgid "Yes"
@@ -531,17 +532,17 @@ msgstr "Ano"
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
-#: ../loader/devices.c:231 ../loader/net.c:835 ../text.py:403 ../text.py:409
+#: ../loader/devices.c:231 ../loader/net.c:835 ../text.py:400 ../text.py:406
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:402
 msgid "No"
 msgstr "Ne"
 
-#: ../text.py:419 ../text.py:438
+#: ../text.py:416 ../text.py:435
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:420
+#: ../text.py:417
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -562,7 +563,7 @@ msgstr ""
 "Pokud jste koupili oficiální Red Hat Linux, nezapomeòte si jej zaregistrovat "
 "na na¹em WWW serveru http://www.redhat.com/now."
 
-#: ../text.py:439
+#: ../text.py:436
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -582,42 +583,42 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:913 ../libfdisk/gnomefsedit.c:2023
 #: ../libfdisk/gnomefsedit.c:2585 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
-#: ../loader/devices.c:530 ../loader/loader.c:2242 ../loader/pcmcia.c:104
-#: ../text.py:446 ../text.py:449 ../text.py:835 ../text.py:836 ../text.py:949
-#: ../text.py:951 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
+#: ../loader/devices.c:530 ../loader/loader.c:2245 ../loader/pcmcia.c:104
+#: ../text.py:443 ../text.py:446 ../text.py:832 ../text.py:833 ../text.py:946
+#: ../text.py:948 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "Zru¹it"
 
-#: ../text.py:486
+#: ../text.py:483
 msgid "X probe results"
 msgstr "Výsledky automatická detekce X"
 
-#: ../text.py:506 ../text.py:526
+#: ../text.py:503 ../text.py:523
 msgid "Unlisted Card"
 msgstr "Neuvedená karta"
 
-#: ../text.py:514
+#: ../text.py:511
 msgid "Video Card Selection"
 msgstr "Typ videokarty"
 
-#: ../text.py:515
+#: ../text.py:512
 msgid "Which video card do you have?"
 msgstr "Jakou máte videokartu?"
 
-#: ../text.py:528
+#: ../text.py:525
 msgid "X Server Selection"
 msgstr "Výbìr X serveru"
 
-#: ../text.py:528
+#: ../text.py:525
 msgid "Choose a server"
 msgstr "Pou¾ít server"
 
-#: ../text.py:599
+#: ../text.py:596
 msgid "Installation to begin"
 msgstr "Zahájení instalace"
 
-#: ../iw/confirm_gui.py:45 ../text.py:600
+#: ../iw/confirm_gui.py:45 ../text.py:597
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -625,11 +626,11 @@ msgstr ""
 "Úplný protokol o instalaci bude po restartu systému v souboru "
 "/tmp/install.log. Tento soubor se mù¾e hodit pro pozdìj¹í referenci."
 
-#: ../text.py:611
+#: ../text.py:608
 msgid "Upgrade to begin"
 msgstr "Zahájení aktualizace"
 
-#: ../iw/confirm_gui.py:41 ../text.py:612
+#: ../iw/confirm_gui.py:41 ../text.py:609
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -637,7 +638,7 @@ msgstr ""
 "Úplný protokol o aktualizaci bude po restartu systému v souboru "
 "/tmp/upgrade.log. Tento soubor se mù¾e hodit pro pozdìj¹í referenci."
 
-#: ../text.py:631
+#: ../text.py:628
 msgid ""
 "                              <Return> to reboot                             "
 " "
@@ -645,11 +646,11 @@ msgstr ""
 "                              <Enter> pro restart                            "
 " "
 
-#: ../text.py:633 ../text.py:656
+#: ../text.py:630 ../text.py:653
 msgid "Complete"
 msgstr "Hotovo"
 
-#: ../iw/congrats_gui.py:34 ../text.py:634
+#: ../iw/congrats_gui.py:34 ../text.py:631
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -671,14 +672,14 @@ msgstr ""
 "Informace o nastavování a pou¾ívání systému jsou obsa¾eny v pøíruèkách pro "
 "Red Hat Linux."
 
-#: ../text.py:652
+#: ../text.py:649
 msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr ""
 "                                <Enter> pro ukonèení                         "
 
-#: ../text.py:657
+#: ../text.py:654
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -696,59 +697,59 @@ msgstr ""
 "Informace o dal¹ím nastavování systému jsou obsa¾eny v pøíruèkách dostupných "
 "na adrese http://www.redhat.com/support/manuals/"
 
-#: ../text.py:724
+#: ../text.py:721
 msgid "Package Installation"
 msgstr "Instalace balíèku"
 
-#: ../text.py:726
+#: ../text.py:723
 msgid "Name   : "
 msgstr "Jméno   : "
 
-#: ../text.py:727
+#: ../text.py:724
 msgid "Size   : "
 msgstr "Velikost: "
 
-#: ../text.py:728
+#: ../text.py:725
 msgid "Summary: "
 msgstr "Popis   : "
 
-#: ../text.py:754
+#: ../text.py:751
 msgid "    Packages"
 msgstr "    Balíèkù"
 
-#: ../text.py:755
+#: ../text.py:752
 msgid "       Bytes"
 msgstr "      Bajtù"
 
-#: ../text.py:756
+#: ../text.py:753
 msgid "        Time"
 msgstr "        Èas"
 
-#: ../text.py:758
+#: ../text.py:755
 msgid "Total    :"
 msgstr "Celkem   :"
 
-#: ../text.py:765
+#: ../text.py:762
 msgid "Completed:   "
 msgstr "Hotovo:      "
 
-#: ../text.py:775
+#: ../text.py:772
 msgid "Remaining:  "
 msgstr "Zbývá:      "
 
-#: ../text.py:887
+#: ../text.py:884
 msgid "Help not available"
 msgstr "Nápovìda není k dispozici"
 
-#: ../text.py:888
+#: ../text.py:885
 msgid "No help is available for this install."
 msgstr "Pro tuto instalaci není dostupná ¾ádná nápovìda."
 
-#: ../text.py:946
+#: ../text.py:943
 msgid "Save Crash Dump"
 msgstr "Ulo¾it záznam havárie"
 
-#: ../text.py:957
+#: ../text.py:954
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -762,178 +763,178 @@ msgstr ""
 "chyby, zejména pokud zprávu o chybì nahrajete na disketu.\n"
 "\n"
 
-#: ../text.py:964 ../text.py:967
+#: ../text.py:961 ../text.py:964
 msgid "Save"
 msgstr "Ulo¾it"
 
-#: ../text.py:964 ../text.py:965
+#: ../text.py:961 ../text.py:962
 msgid "Debug"
 msgstr "Ladìní"
 
-#: ../text.py:975
+#: ../text.py:972
 msgid " "
 msgstr " "
 
-#: ../text.py:979
+#: ../text.py:976
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
-#: ../text.py:982
+#: ../text.py:979
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "  <F1> nápovìda | <Tab> mezi polo¾kami | <Mezera> výbìr | <F12> pokraèovat"
 
-#: ../text.py:984
+#: ../text.py:981
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> mezi polo¾kami  |  <Mezera> výbìr  |  <F12> pokraèovat"
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1017
-#: ../text.py:1060
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1014
+#: ../text.py:1057
 msgid "Welcome"
 msgstr "Vítejte"
 
-#: ../text.py:1023 ../text.py:1106
+#: ../text.py:1020 ../text.py:1103
 msgid "Hostname Setup"
 msgstr "Nastavení jména poèítaèe"
 
-#: ../text.py:1025 ../text.py:1103
+#: ../text.py:1022 ../text.py:1100
 msgid "Network Setup"
 msgstr "Nastavení sítì"
 
-#: ../iw/firewall_gui.py:12 ../text.py:1027 ../text.py:1108
+#: ../iw/firewall_gui.py:12 ../text.py:1024 ../text.py:1105
 #: ../textw/firewall_text.py:11
 msgid "Firewall Configuration"
 msgstr "Nastavení firewallu"
 
-#: ../text.py:1035 ../text.py:1120
+#: ../text.py:1032 ../text.py:1117
 msgid "Time Zone Setup"
 msgstr "Nastavení èasové zóny"
 
-#: ../text.py:1037 ../text.py:1122 ../textw/userauth_text.py:9
+#: ../text.py:1034 ../text.py:1119 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "Heslo správce systému"
 
-#: ../text.py:1039 ../text.py:1124 ../textw/userauth_text.py:172
+#: ../text.py:1036 ../text.py:1121 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "Vytvoøení u¾ivatelského úètu"
 
-#: ../text.py:1041 ../text.py:1126
+#: ../text.py:1038 ../text.py:1123
 msgid "Authentication"
 msgstr "Autentizace"
 
-#: ../text.py:1047
+#: ../text.py:1044
 msgid "Configuration Complete"
 msgstr "Nastavení dokonèeno"
 
-#: ../text.py:1069 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../text.py:1066 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "Nastavení SILO"
 
-#: ../text.py:1075 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
+#: ../text.py:1072 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
 #: ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "Nastavení LILO"
 
-#: ../text.py:1079
+#: ../text.py:1076
 msgid "Automatic Partition"
 msgstr "Automatické rozdìlování disku"
 
 #: ../iw/lilo_gui.py:205 ../iw/lilo_gui.py:364 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../text.py:1081 ../text.py:1085
+#: ../iw/silo_gui.py:280 ../text.py:1078 ../text.py:1082
 msgid "Partition"
 msgstr "Oblast disku"
 
-#: ../text.py:1083
+#: ../text.py:1080
 msgid "Manually Partition"
 msgstr "Ruèní rozdìlování disku"
 
-#: ../text.py:1087 ../textw/partitioning_text.py:333
+#: ../text.py:1084 ../textw/partitioning_text.py:333
 msgid "Root Filesystem Size"
 msgstr "Velikost koøenové oblasti"
 
-#: ../text.py:1089
+#: ../text.py:1086
 msgid "Swap"
 msgstr "Odkládací"
 
-#: ../text.py:1091 ../textw/partitioning_text.py:390
+#: ../text.py:1088 ../textw/partitioning_text.py:390
 #: ../textw/partitioning_text.py:410
 msgid "Boot Partition Warning"
 msgstr "Varování o boot oddílu"
 
-#: ../text.py:1093
+#: ../text.py:1090
 msgid "Filesystem Formatting"
 msgstr "Formátování disku"
 
-#: ../iw/mouse_gui.py:56 ../text.py:1110 ../text.py:1112
+#: ../iw/mouse_gui.py:56 ../text.py:1107 ../text.py:1109
 msgid "Mouse Configuration"
 msgstr "Nastavení my¹i"
 
-#: ../text.py:1117
+#: ../text.py:1114
 msgid "Language Default"
 msgstr "Defaultní jazyk"
 
-#: ../text.py:1128
+#: ../text.py:1125
 msgid "Package Groups"
 msgstr "Skupiny balíèkù"
 
-#: ../text.py:1130 ../text.py:1158
+#: ../text.py:1127 ../text.py:1155
 msgid "Individual Packages"
 msgstr "Jednotlivé balíèky"
 
-#: ../text.py:1132 ../textw/packages_text.py:304
+#: ../text.py:1129 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Závislosti balíèkù"
 
-#: ../iw/xconfig_gui.py:895 ../text.py:1134 ../text.py:1142
+#: ../iw/xconfig_gui.py:899 ../text.py:1131 ../text.py:1139
 msgid "X Configuration"
 msgstr "Nastavení X serveru"
 
-#: ../text.py:1136
+#: ../text.py:1133
 msgid "Installation Begins"
 msgstr "Zaèátek instalace"
 
-#: ../text.py:1138
+#: ../text.py:1135
 msgid "Install System"
 msgstr "Instalace systému"
 
-#: ../text.py:1139 ../text.py:1141 ../text.py:1162 ../text.py:1164
+#: ../text.py:1136 ../text.py:1138 ../text.py:1159 ../text.py:1161
 msgid "Boot Disk"
 msgstr "Zavádìcí disk"
 
-#: ../text.py:1144
+#: ../text.py:1141
 msgid "Installation Complete"
 msgstr "Instalace dokonèena"
 
-#: ../text.py:1149
+#: ../text.py:1146
 msgid "Examine System"
 msgstr "Kontrola systému"
 
-#: ../text.py:1156
+#: ../text.py:1153
 msgid "Customize Upgrade"
 msgstr "Úprava aktualizace"
 
-#: ../text.py:1159
+#: ../text.py:1156
 msgid "Upgrade Begins"
 msgstr "Zaèátek aktualizace"
 
-#: ../text.py:1161
+#: ../text.py:1158
 msgid "Upgrade System"
 msgstr "Aktualizace systému"
 
-#: ../text.py:1165
+#: ../text.py:1162
 msgid "Upgrade Complete"
 msgstr "Aktualizace dokonèena"
 
-#: ../text.py:1203
+#: ../text.py:1200
 msgid "Cancelled"
 msgstr "Zru¹eno"
 
-#: ../text.py:1204
+#: ../text.py:1201
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Z tohoto místa se nelze vrátit k pøedchozímu kroku."
 
@@ -949,21 +950,21 @@ msgstr "Ètení"
 msgid "Reading package information..."
 msgstr "Ètení informací o balíècích..."
 
-#: ../todo.py:982
+#: ../todo.py:990
 msgid "Dependency Check"
 msgstr "Kontrola závislostí"
 
-#: ../todo.py:983
+#: ../todo.py:991
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 "Kontroluji závislosti mezi balíèky, které byly zvoleny pro instalaci..."
 
-#: ../todo.py:1008 ../todo.py:1050 ../todo.py:1056 ../todo.py:1073
-#: ../todo.py:1202
+#: ../todo.py:1016 ../todo.py:1061 ../todo.py:1067 ../todo.py:1084
+#: ../todo.py:1214
 msgid "no suggestion"
 msgstr "¾ádné doporuèení"
 
-#: ../todo.py:1089
+#: ../todo.py:1100
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -972,7 +973,7 @@ msgstr ""
 "Linuxovém systému nemù¾e být pøipojeno. Opravte prosím tento problém a "
 "zkuste opìt spustit aktualizaci."
 
-#: ../todo.py:1107
+#: ../todo.py:1118
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -984,32 +985,32 @@ msgstr ""
 "znovu.\n"
 "\n"
 
-#: ../todo.py:1121
+#: ../todo.py:1133
 msgid "Finding"
 msgstr "Hledání"
 
-#: ../todo.py:1122
+#: ../todo.py:1134
 msgid "Finding packages to upgrade..."
 msgstr "Hledám balíèky pro aktualizaci..."
 
-#: ../todo.py:1137
+#: ../todo.py:1149
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Do¹lo k chybì pøi aktualizaci RPM databáze. Je dostatek místa na disku?"
 
-#: ../todo.py:1150
+#: ../todo.py:1162
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Pøi vyhledávání balíèkù pro aktualizaci se vyskytla chyba."
 
-#: ../todo.py:1504
+#: ../todo.py:1450
 msgid "Processing"
 msgstr "Pracuji"
 
-#: ../todo.py:1505
+#: ../todo.py:1451
 msgid "Preparing to install..."
 msgstr "Pøíprava na instalaci..."
 
-#: ../todo.py:1539
+#: ../todo.py:1485
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -1018,17 +1019,17 @@ msgstr ""
 "Soubor %s nemù¾e být otevøen, proto¾e není pøítomen, balíèek je po¹kozen "
 "nebo je vadné médium. Stisknìte <Enter> pro nový pokus."
 
-#: ../todo.py:1782
+#: ../todo.py:1731
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Aktualizace %s.\n"
 
-#: ../todo.py:1784
+#: ../todo.py:1733
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Instalace %s.\n"
 
-#: ../todo.py:1829
+#: ../todo.py:1778
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1038,15 +1039,15 @@ msgstr ""
 "Potøebujete více místa na následujících souborových systémech:\n"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:3131 ../todo.py:1832 ../todo.py:1848
+#: ../libfdisk/gnomefsedit.c:3131 ../todo.py:1781 ../todo.py:1797
 msgid "Mount Point"
 msgstr "Bod pøipojení"
 
-#: ../todo.py:1832
+#: ../todo.py:1781
 msgid "Space Needed"
 msgstr "Nedostatek místa"
 
-#: ../todo.py:1845
+#: ../todo.py:1794
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1056,19 +1057,19 @@ msgstr ""
 "Potøebujete více volných inodù na následujících souborových systémech:\n"
 "\n"
 
-#: ../todo.py:1848
+#: ../todo.py:1797
 msgid "Nodes Needed"
 msgstr "Nedostatek inodù"
 
-#: ../todo.py:1854
+#: ../todo.py:1803
 msgid "Disk Space"
 msgstr "Diskový prostor"
 
-#: ../todo.py:1889
+#: ../todo.py:1838
 msgid "Post Install"
 msgstr "Po instalaci"
 
-#: ../todo.py:1890
+#: ../todo.py:1839
 msgid "Performing post install configuration..."
 msgstr "Provádím poinstalaèní nastavení..."
 
@@ -1095,35 +1096,35 @@ msgstr ""
 "Spus»te prosím svùj linux a nechte jej, aby disky opravil. Pak korektnì "
 "systém ukonèete a proveïte èistou aktualizaci."
 
-#: ../iw/xconfig_gui.py:12 ../xf86config.py:959
+#: ../iw/xconfig_gui.py:12 ../xf86config.py:960
 msgid "Video Card"
 msgstr "Videokarta"
 
-#: ../iw/xconfig_gui.py:14 ../xf86config.py:961
+#: ../iw/xconfig_gui.py:14 ../xf86config.py:962
 msgid "Video Ram"
 msgstr "Video RAM"
 
-#: ../xf86config.py:964
+#: ../xf86config.py:965
 msgid "X server"
 msgstr "X server"
 
-#: ../xf86config.py:967
+#: ../xf86config.py:968
 msgid "Unable to detect video card"
 msgstr "Nemohu detekovat videokartu"
 
-#: ../iw/xconfig_gui.py:13 ../xf86config.py:974 ../xf86config.py:976
+#: ../iw/xconfig_gui.py:13 ../xf86config.py:975 ../xf86config.py:977
 msgid "Monitor"
 msgstr "Monitor"
 
-#: ../xf86config.py:976
+#: ../xf86config.py:977
 msgid "Plug and Play Monitor"
 msgstr "Plug and play monitor"
 
-#: ../xf86config.py:978
+#: ../xf86config.py:979
 msgid "Horizontal frequency range"
 msgstr "Rozsah øádkových kmitoètù (horizontal)"
 
-#: ../xf86config.py:980
+#: ../xf86config.py:981
 msgid "Vertical frequency range"
 msgstr "Rozsah snímkových kmitoètù (vertical)"
 
@@ -1456,11 +1457,11 @@ msgstr "Vlastní úpravy"
 msgid "Trusted devices:"
 msgstr "Bezpeèná zaøízení:"
 
-#: ../iw/firewall_gui.py:271 ../textw/firewall_text.py:75
+#: ../iw/firewall_gui.py:270 ../textw/firewall_text.py:79
 msgid "Allow incoming:"
 msgstr "Povolit pøíchozí:"
 
-#: ../iw/firewall_gui.py:300
+#: ../iw/firewall_gui.py:299
 msgid "Other ports:"
 msgstr "Ostatní porty:"
 
@@ -1512,23 +1513,23 @@ msgstr "Zakázat mrtvé klávesy"
 msgid "Test your selection here:"
 msgstr "Vyzkou¹ejte zde svùj výbìr:"
 
-#: ../iw/language_gui.py:40 ../loader/lang.c:291
+#: ../iw/language_gui.py:40 ../loader/lang.c:292
 msgid "What language should be used during the installation process?"
 msgstr "Jakým jazykem má s vámi komunikovat instalaèní program?"
 
-#: ../iw/language_support_gui.py:137
+#: ../iw/language_support_gui.py:144
 msgid "Choose the default language:   "
 msgstr "Zvolte preferovaný jazyk:   "
 
-#: ../iw/language_support_gui.py:148
+#: ../iw/language_support_gui.py:155
 msgid "Choose the languages to install:"
 msgstr "Vyberte jazyky, které se mají nainstalovat:"
 
-#: ../iw/language_support_gui.py:193
+#: ../iw/language_support_gui.py:202
 msgid "Select all"
 msgstr "Vybrat v¹echny"
 
-#: ../iw/language_support_gui.py:213
+#: ../iw/language_support_gui.py:222
 msgid "Select as default"
 msgstr "Zvolit preferovaný"
 
@@ -1642,7 +1643,7 @@ msgstr "IP adresa"
 msgid "Netmask"
 msgstr "Maska sítì"
 
-#: ../iw/network_gui.py:195 ../loader/loader.c:275
+#: ../iw/network_gui.py:195 ../loader/loader.c:276
 msgid "Network"
 msgstr "Sí»"
 
@@ -2037,59 +2038,59 @@ msgstr "   Otestovat nastavení   "
 msgid "Please choose your default desktop environment:"
 msgstr "Zvolte prosím preferované prostøedí desktopu:"
 
-#: ../iw/xconfig_gui.py:420 ../iw/xconfig_gui.py:485
+#: ../iw/xconfig_gui.py:420 ../iw/xconfig_gui.py:481
 msgid "GNOME"
 msgstr "GNOME"
 
-#: ../iw/xconfig_gui.py:422 ../iw/xconfig_gui.py:499
+#: ../iw/xconfig_gui.py:422 ../iw/xconfig_gui.py:495
 msgid "KDE"
 msgstr "KDE"
 
-#: ../iw/xconfig_gui.py:465
+#: ../iw/xconfig_gui.py:461
 msgid "Your desktop environment is:"
 msgstr "Va¹e prostøedí desktopu je:"
 
-#: ../iw/xconfig_gui.py:510
+#: ../iw/xconfig_gui.py:506
 msgid "Please choose your login type:"
 msgstr "Zvolte prosím typ pøihla¹ování:"
 
-#: ../iw/xconfig_gui.py:519
+#: ../iw/xconfig_gui.py:515
 msgid "Text"
 msgstr "Textové"
 
-#: ../iw/xconfig_gui.py:520
+#: ../iw/xconfig_gui.py:516
 msgid "Graphical"
 msgstr "Grafické"
 
-#: ../iw/xconfig_gui.py:560
+#: ../iw/xconfig_gui.py:564
 msgid "Bits per Pixel"
 msgstr "Bitù na pixel"
 
-#: ../iw/xconfig_gui.py:580
+#: ../iw/xconfig_gui.py:584
 msgid "Monitor Configuration"
 msgstr "Nastavení monitoru"
 
-#: ../iw/xconfig_gui.py:849 ../iw/xconfig_gui.py:1645
+#: ../iw/xconfig_gui.py:853 ../iw/xconfig_gui.py:1649
 msgid "Restore original values"
 msgstr "Obnovit pùvodní hodnoty"
 
-#: ../iw/xconfig_gui.py:857
+#: ../iw/xconfig_gui.py:861
 msgid "Horizontal Sync:"
 msgstr "Horizontální kmitoèet:"
 
-#: ../iw/xconfig_gui.py:859
+#: ../iw/xconfig_gui.py:863
 msgid "Vertical Sync:"
 msgstr "Vertikální kmitoèet:"
 
-#: ../iw/xconfig_gui.py:865
+#: ../iw/xconfig_gui.py:869
 msgid "kHz"
 msgstr "kHz"
 
-#: ../iw/xconfig_gui.py:868
+#: ../iw/xconfig_gui.py:872
 msgid "Hz"
 msgstr "Hz"
 
-#: ../iw/xconfig_gui.py:1053
+#: ../iw/xconfig_gui.py:1057
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -2097,7 +2098,7 @@ msgstr ""
 "Velikost va¹í video RAM nelze automaticky detekovat. Prosím vyberte velikost "
 "z uvedených mo¾ností:"
 
-#: ../iw/xconfig_gui.py:1064 ../iw/xconfig_gui.py:1085
+#: ../iw/xconfig_gui.py:1068 ../iw/xconfig_gui.py:1089
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -2105,21 +2106,21 @@ msgstr ""
 "Ve vìt¹inì pøípadù lze va¹i videokartu automaticky otestovat a nastavit "
 "nejlep¹í rozli¹ení pro vá¹ displej."
 
-#: ../iw/xconfig_gui.py:1073
+#: ../iw/xconfig_gui.py:1077
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr "Pokud zji¹tìné nastavení neodpovídá va¹emu hardware, vyberte správné:"
 
-#: ../iw/xconfig_gui.py:1094
+#: ../iw/xconfig_gui.py:1098
 msgid "Autoprobe results:"
 msgstr "Výsledky automatické detekce:"
 
-#: ../iw/xconfig_gui.py:1580
+#: ../iw/xconfig_gui.py:1584
 msgid "Video card RAM: "
 msgstr "Pamì» videokarty: "
 
-#: ../iw/xconfig_gui.py:1649
+#: ../iw/xconfig_gui.py:1653
 msgid "Skip X Configuration"
 msgstr "Pøeskoèit nastavování X"
 
@@ -2190,48 +2191,48 @@ msgstr ""
 msgid "Security Level:"
 msgstr "Úroveò bezpeènosti:"
 
-#: ../textw/firewall_text.py:58
+#: ../textw/firewall_text.py:59
 msgid "Trusted Devices:"
 msgstr "Bezpeèné porty:"
 
-#: ../textw/firewall_text.py:80
+#: ../textw/firewall_text.py:84
 msgid "DHCP"
 msgstr "DHCP"
 
-#: ../textw/firewall_text.py:82
+#: ../textw/firewall_text.py:86
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:84
+#: ../textw/firewall_text.py:88
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:90
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:92
 msgid "Mail (SMTP)"
 msgstr "Po¹ta (SMTP)"
 
-#: ../loader/loader.c:1237 ../loader/loader.c:1246
-#: ../textw/firewall_text.py:90
+#: ../loader/loader.c:1238 ../loader/loader.c:1247
+#: ../textw/firewall_text.py:94
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:94
+#: ../textw/firewall_text.py:98
 msgid "Other ports"
 msgstr "Ostatní porty"
 
-#: ../textw/firewall_text.py:121
+#: ../textw/firewall_text.py:125
 msgid "You cannot customize a disabled firewall."
 msgstr "Nelze nastavovat zakázaný firewall."
 
-#: ../textw/firewall_text.py:126
+#: ../textw/firewall_text.py:130
 msgid "Firewall Configuration - Customize"
 msgstr "Vlastní nastavení firewallu"
 
-#: ../textw/firewall_text.py:128
+#: ../textw/firewall_text.py:132
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -2243,7 +2244,7 @@ msgstr ""
 "umo¾òuje nastavit prùchod urèitých protokolù firewallem. Doplòující porty "
 "lze zadávat ve formì 'service:protocol', napø. 'imap:tcp'."
 
-#: ../textw/firewall_text.py:186
+#: ../textw/firewall_text.py:190
 #, c-format
 msgid "Warning: %s is not a valid port."
 msgstr "Varování: %s není platný port."
@@ -2421,7 +2422,7 @@ msgstr ""
 "alespoò 150 MB vyhrazený pro Linux. Doporuèuje se umístit tento oddíl na "
 "první nebo druhý pevný disk, aby bylo mo¾né zavádìt Linux zavadìèem LILO."
 
-#: ../loader/loader.c:340 ../loader/loader.c:365
+#: ../loader/loader.c:341 ../loader/loader.c:366
 #: ../textw/partitioning_text.py:64
 msgid "Done"
 msgstr "Hotovo"
@@ -3548,7 +3549,7 @@ msgid "Module Parameters"
 msgstr "Parametry modulù"
 
 #: ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:356
-#: ../loader/loader.c:288 ../loader/loader.c:349 ../loader/loader.c:365
+#: ../loader/loader.c:289 ../loader/loader.c:350 ../loader/loader.c:366
 msgid "Devices"
 msgstr "Zaøízení"
 
@@ -3598,7 +3599,7 @@ msgstr "Pøipojení diskety s ovladaèi selhalo: %s."
 msgid "The wrong diskette was inserted."
 msgstr "Vlo¾ena ¹patná disketa."
 
-#: ../loader/devices.c:511 ../loader/loader.c:452 ../loader/loader.c:454
+#: ../loader/devices.c:511 ../loader/loader.c:453 ../loader/loader.c:455
 msgid "Loading"
 msgstr "Zavádìní"
 
@@ -3635,25 +3636,25 @@ msgstr "Chyba pøi ètení obsahu kickstart souboru %s: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "Chyba na øádku %d kickstart souboru %s."
 
-#: ../loader/lang.c:291
+#: ../loader/lang.c:292
 msgid "Choose a Language"
 msgstr "Vyberte jazyk"
 
-#: ../loader/lang.c:341 ../loader/loader.c:154
+#: ../loader/lang.c:344 ../loader/loader.c:155
 msgid "Welcome to Red Hat Linux"
 msgstr "Vítá vás Red Hat Linux"
 
-#: ../loader/lang.c:342 ../loader/loader.c:156
+#: ../loader/lang.c:345 ../loader/loader.c:157
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 " <Tab>/<Alt-Tab> pøepíná mezi polo¾kami  | <Mezera> výbìr | <F12> pokraèovat"
 
-#: ../loader/lang.c:580
+#: ../loader/lang.c:583
 msgid "Keyboard Type"
 msgstr "Typ klávesnice"
 
-#: ../loader/lang.c:581
+#: ../loader/lang.c:584
 msgid "What type of keyboard do you have?"
 msgstr "Jaký typ klávesnice máte?"
 
@@ -3669,23 +3670,23 @@ msgstr "NFS obraz"
 msgid "Hard drive"
 msgstr "Pevný disk"
 
-#: ../loader/loader.c:275
+#: ../loader/loader.c:276
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:289
+#: ../loader/loader.c:290
 msgid "What kind of device would you like to add"
 msgstr "Jaké zaøízení chcete pøidat?"
 
-#: ../loader/loader.c:338
+#: ../loader/loader.c:339
 msgid "I have found the following devices in your system:"
 msgstr "V poèítaèi byly nalezeny následující zaøízení:"
 
-#: ../loader/loader.c:340 ../loader/loader.c:365
+#: ../loader/loader.c:341 ../loader/loader.c:366
 msgid "Add Device"
 msgstr "Pøidat zaøízení"
 
-#: ../loader/loader.c:366
+#: ../loader/loader.c:367
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -3693,25 +3694,25 @@ msgstr ""
 "®ádné speciální ovladaèe zaøízení pro vá¹ systém nejsou zavedeny. Chcete "
 "nyní nìjaké zavést?"
 
-#: ../loader/loader.c:509
+#: ../loader/loader.c:510
 #, c-format
 msgid "Loading %s ramdisk..."
 msgstr "Zavádím ramdisk %s..."
 
-#: ../loader/loader.c:519
+#: ../loader/loader.c:520
 msgid "Error loading ramdisk."
 msgstr "Chyba pøi zavádìní ramdisku."
 
-#: ../loader/loader.c:584 ../loader/loader.c:2180
+#: ../loader/loader.c:585 ../loader/loader.c:2183
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Nelze èíst adresáø %s: %s"
 
-#: ../loader/loader.c:869
+#: ../loader/loader.c:870
 msgid "Hard Drives"
 msgstr "Pevné disky"
 
-#: ../loader/loader.c:870
+#: ../loader/loader.c:871
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -3719,7 +3720,7 @@ msgstr ""
 "V tomto poèítaèi nebyly nalezeny ¾ádné pevné disky! Chcete nastavit dal¹í "
 "pøipojená zaøízení?"
 
-#: ../loader/loader.c:884
+#: ../loader/loader.c:885
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
@@ -3729,20 +3730,20 @@ msgstr ""
 "Red Hat Linux? Pokud tento disk nenaleznete na ní¾e uvedeném seznamu, "
 "stisknìte klávesu F2, abyste mohli nakonfigurovat dal¹í zaøízení."
 
-#: ../loader/loader.c:898
+#: ../loader/loader.c:899
 msgid "Directory holding images:"
 msgstr "Adresáø obsahující obrazy:"
 
-#: ../loader/loader.c:918
+#: ../loader/loader.c:919
 msgid "Select Partition"
 msgstr "Výbìr oddílu"
 
-#: ../loader/loader.c:966
+#: ../loader/loader.c:967
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Zaøízení %s zøejmì neobsahuje soubory s obrazy CD Red Hat Linuxu."
 
-#: ../loader/loader.c:1021
+#: ../loader/loader.c:1022
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -3750,71 +3751,71 @@ msgstr ""
 "Nemohu nalézt CD-ROM Red Hat Linux v ¾ádné jednotce CD. Prosím vlo¾te CD-ROM "
 "Red Hat Linux a stisknìte tlaèítko \"Ok\" pro opakování."
 
-#: ../loader/loader.c:1108
+#: ../loader/loader.c:1109
 msgid "Networking Device"
 msgstr "Sí»ové zaøízení"
 
-#: ../loader/loader.c:1109
+#: ../loader/loader.c:1110
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr "V systému je více sí»ových zaøízení. Pomocí kterého chcete instalovat?"
 
-#: ../loader/loader.c:1191
+#: ../loader/loader.c:1192
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Zadaný adresáø zøejmì neobsahuje instalaèní strom distribuce Red Hat."
 
-#: ../loader/loader.c:1196
+#: ../loader/loader.c:1197
 msgid "I could not mount that directory from the server"
 msgstr "Zadaný adresáø nelze ze serveru pøipojit"
 
-#: ../loader/loader.c:1237 ../loader/loader.c:1246
+#: ../loader/loader.c:1238 ../loader/loader.c:1247
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../loader/loader.c:1238
+#: ../loader/loader.c:1239
 msgid "Unable to retrieve the first install image"
 msgstr "Nelze získat první instalaèní obraz"
 
-#: ../loader/loader.c:1247
+#: ../loader/loader.c:1248
 msgid "Unable to retrieve the second install image"
 msgstr "Nelze získat druhý instalaèní obraz"
 
-#: ../loader/loader.c:1277
+#: ../loader/loader.c:1278
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
 "Instalce pomocí FTP a HTTP protokolu potøebuje o zhruba 20MB více systémové "
 "pamìti."
 
-#: ../loader/loader.c:1501
+#: ../loader/loader.c:1503
 msgid "Rescue Method"
 msgstr "Metoda zotavení"
 
-#: ../loader/loader.c:1502
+#: ../loader/loader.c:1504
 msgid "Installation Method"
 msgstr "Instalaèní metoda"
 
-#: ../loader/loader.c:1504
+#: ../loader/loader.c:1506
 msgid "What type of media contains the rescue image?"
 msgstr "Jaký druh média obsahuje disk pro zotavení?"
 
-#: ../loader/loader.c:1506
+#: ../loader/loader.c:1508
 msgid "What type of media contains the packages to be installed?"
 msgstr "Na jakém druhu média jsou balíèky, které chcete instalovat?"
 
-#: ../loader/loader.c:2150
+#: ../loader/loader.c:2153
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Na zavádìcí disketì nelze nalézt soubor ks.cfg."
 
-#: ../loader/loader.c:2242
+#: ../loader/loader.c:2245
 msgid "Updates Disk"
 msgstr "Disk s aktualiazací"
 
-#: ../loader/loader.c:2243
+#: ../loader/loader.c:2246
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Pro pokraèování vlo¾te disk s updaty a stisknìte \"Ok\"."
 
-#: ../loader/loader.c:2248
+#: ../loader/loader.c:2251
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
@@ -3822,22 +3823,22 @@ msgstr ""
 "Disketa, kterou jste vlo¾ili, není správnou disketou s ovladaèi pro tuto "
 "verzi Red Hat Linuxu."
 
-#: ../loader/loader.c:2258
+#: ../loader/loader.c:2261
 msgid "Failed to mount floppy disk."
 msgstr "Nelze pøipojit disketu."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2263
+#: ../loader/loader.c:2266
 msgid "Updates"
 msgstr "Updaty"
 
-#: ../loader/loader.c:2263
+#: ../loader/loader.c:2266
 msgid "Reading anaconda updates..."
 msgstr "Ètení updatù pro anakondu..."
 
-#: ../loader/loader.c:2469
+#: ../loader/loader.c:2472
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr "Ve va¹em systému není dostek pamìti pro instalaèní program."
 
