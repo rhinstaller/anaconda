@@ -2,12 +2,13 @@
 
 import sys, getopt, os
 
-(args, extra) = getopt.getopt(sys.argv[1:], 'gTtd', [ 'gui', 'text', 'test', 'force', 'debug' ])
+(args, extra) = getopt.getopt(sys.argv[1:], 'p:gTtdr:', [ 'gui', 'text', 'test', 'force', 'debug', 'rootpath=', 'testpath=' ])
 
 mode = None
 test = 0
 force = 0
 debug = 0
+rootPath = None
 
 for n in args:
     (str, arg) = n
@@ -19,6 +20,10 @@ for n in args:
 	test = 1
     elif (str == '-d' or str == '--debug'):
 	debug = 1
+    elif (str == '-r' or str == '--rootpath'):
+	rootPath = arg
+    elif (str == '-p' or str == '--testpath'):
+	testPath = arg
     elif (str == '--force'):
 	force = 1
 
@@ -43,6 +48,15 @@ elif (mode == None):
 
 # imports after setting up the path
 from image import InstallMethod
+from comps import ComponentSet
+import rpm
+
+def cb(what, amount, total, key, data):
+    if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
+	(h, key) = key
+	data.setPackage(h[rpm.RPMTAG_NAME])
+	d = os.open("/mnt/redhat/test/6.0/i386/RedHat/RPMS/" + key, os.O_RDONLY)
+	return d
 
 if (mode == 'g' and not os.environ.has_key('DISPLAY')):
     os.environ['DISPLAY'] = ':0'
@@ -63,12 +77,24 @@ else:
     print "No mode was specified"
     sys.exit(1)
 
-method = InstallMethod('/mnt/redhat/test/6.0/i386')
+method = InstallMethod(testPath)
 
 intf = InstallInterface()
 
 w = intf.waitWindow("Reading", "Reading package information...")
 hdlist = method.readHeaders()
+comps = ComponentSet('i386', 'comps', hdlist)
 intf.popWaitWindow(w)
 
-intf.run(hdlist)
+intf.run(hdlist, rootPath)
+
+comps['Base'].select(1)
+db = rpm.opendb(1, rootPath)
+ts = rpm.TransactionSet(rootPath, db)
+
+for p in comps.selected():
+    ts.add(p.h, (p.h, p.h[1000000]))
+
+ts.order()
+p = intf.packageProgessWindow()
+print "run", ts.run(0, 0, cb, p)
