@@ -3,7 +3,7 @@ DESTDIR = ../../trees/initrd
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
-OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o
+OBJS = stubs.o log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o
 LOADEROBJS = loader.o loader-pcmcia.o popen.o
 SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
 BINS = init
