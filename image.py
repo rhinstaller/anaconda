@@ -327,7 +327,6 @@ class CdromInstallMethod(ImageInstallMethod):
 	self.messageWindow = messageWindow
 	self.progressWindow = progressWindow
         self.loopbackFile = None
-        self.needUpdateCache = 1        
 
         # figure out which disc is in.  if we fail for any reason,
         # assume it's just disc1.
@@ -346,6 +345,7 @@ class CdromInstallMethod(ImageInstallMethod):
             self.currentDisc = [ 1 ]
         
 	ImageInstallMethod.__init__(self, tree, rootPath)
+        self.needUpdateCache = 1        
 
 class NfsInstallMethod(ImageInstallMethod):
 

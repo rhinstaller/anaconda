@@ -98,6 +98,7 @@ class InstallMethod:
 
     def cacheUpdates(self, chroot, hdlist, intf):
         if self.needUpdateCache == 0:
+            log("not caching updates")
             return
         log("going to cache updates")
         size = 0
@@ -141,7 +142,14 @@ class InstallMethod:
         self.rootPath = rootpath
         self.needUpdateCache = 0
         self.updatesCopied = 0
-	pass
+        try:
+            f = open("/proc/cmdline")
+            line = f.readline()
+            if string.find(line, " cacheupdates") != -1:
+                self.needUpdateCache = 1
+            f.close()
+        except:
+            pass
 
     def getSourcePath(self):
         pass
