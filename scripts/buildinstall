@@ -39,7 +39,7 @@ MK_IMAGES=$BUILDINSTDIR/mk-images
 
 $UPD_INSTROOT $p/RedHat/RPMS $p/image-template $p/RedHat/instimage $BUILDARCH
 if [ -x /usr/bin/runroot ]; then
-    runroot dist-7.0 --arch $BUILDARCH "cd $BUILDINSTDIR\; $MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH"
+    runroot dist-7.0 --arch $BUILDARCH cd $BUILDINSTDIR\; $MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH
 else
     $MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH
 fi
