@@ -150,7 +150,6 @@ vmlinuz - the kernel used for the installer
 initrd.img - an initrd with support for all install methods and
     drivers supported for installation of $PRODUCT
 EOF
-  fi
 }
 
 makeSecondStage() {
