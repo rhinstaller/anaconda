@@ -230,7 +230,8 @@ class InstallPathWindow:
                                    todo.intf.messageWindow,
                                    todo.intf.progressWindow,
                                    not todo.expert,
-                                   todo.method.protectedPartitions())
+                                   todo.method.protectedPartitions(),
+                                   todo.expert)
 	    return INSTALL_NOOP
 
 	classes = installclass.availableClasses()
@@ -287,7 +288,8 @@ class InstallPathWindow:
                                    todo.intf.messageWindow,
                                    todo.intf.progressWindow,
                                    not todo.expert,
-                                   todo.method.protectedPartitions())
+                                   todo.method.protectedPartitions(),
+                                   todo.expert)
 
         return INSTALL_OK
 
@@ -304,7 +306,8 @@ class UpgradeExamineWindow:
                                    todo.intf.messageWindow,
                                    todo.intf.progressWindow,
                                    not todo.expert,
-                                   todo.method.protectedPartitions())
+                                   todo.method.protectedPartitions(),
+                                   todo.expert)
 
 	    return INSTALL_NOOP
 
