@@ -149,8 +149,8 @@ EndSection
     if x.monSect:
 	bpp = x.bpp
     else:
-        x.modes["32"] = [ "640x480" ]
-        x.modes["16"] = [ "640x480" ]
+        x.modes["32"] = [ ]
+        x.modes["16"] = [ ]
         x.modes["8"] = [ "640x480" ]
 	bpp = None
     f.write (x.screenSection (1))

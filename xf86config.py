@@ -83,7 +83,7 @@ class XF86Config:
         elif string.atoi(self.vidRam) >= 1024:
             self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864"]
             self.modes["16"] = ["640x480", "800x600"]
-            self.modes["32"] = ["640x480"]
+            self.modes["32"] = []
         elif string.atoi(self.vidRam) >= 512:
             self.modes["8"] = ["640x480", "800x600"]
             self.modes["16"] = ["640x480"]
