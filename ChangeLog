@@ -1,5 +1,14 @@
 2005-03-31  Chris Lumens  <clumens@redhat.com>
 
+	* language.py (InstallTimeLanguage.__init__):  Set default language
+	settings so we get a useful /etc/sysconfig/i18n on manual installs
+	(#149688).
+	* language.py (InstallTimeLanguage.__init__):  Fix time zones.
+
+	* language.py:  Renamed class to Language.
+	* instdata.py:  Likewise.
+	* scripts/getlangnames.py:  Likewise.
+
 	* iw/network_gui.py  (NetworkWindow.setHostOptionsSensitivity): Make
 	sure automatic hostname option isn't greyed out when using a static IP
 	for installation (#149116).

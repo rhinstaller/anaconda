@@ -248,7 +248,7 @@ class InstallData:
                 f.write("-%s\n" %(pkg.name))
 
     def __init__(self, extraModules, floppyDevice, methodstr):
-	self.instLanguage = language.InstallTimeLanguage()
+	self.instLanguage = language.Language()
 	self.keyboard = keyboard.Keyboard()
 
         self.mouse = None

@@ -39,10 +39,7 @@ def expandLangs(astring):
 
     return langs
 
-# XXX: The following description is going to be wrong soon.
-# This is the langauge that's being used at install time (a list of the
-# choices is in lang-table). 
-class InstallTimeLanguage:
+class Language:
     def __init__ (self):
         self.info = {}
         self.info["SUPPORTED"] = None
@@ -89,7 +86,7 @@ class InstallTimeLanguage:
             if len(l) < 6:
                 continue
 
-            self.localeInfo[l[3]] = (l[0], l[1], l[2], l[4], l[5])
+            self.localeInfo[l[3]] = (l[0], l[1], l[2], l[4], string.strip(l[5]))
 
         f.close()
 
@@ -115,6 +112,8 @@ class InstallTimeLanguage:
 
         # Set the language for anaconda to be using based on current $LANG.
         self.setRuntimeLanguage(self.current)
+        self.setDefault(self.current)
+        self.setSupported([self.getLangNameByNick(self.current)])
 
     # Convert what might be a shortened form of a language's nick (en or
     # en_US, for example) into the full version (en_US.UTF-8).
@@ -216,19 +215,19 @@ class InstallTimeLanguage:
 	if lang == "zh_CN.GB18030":
 	    self.info['LANGUAGE'] = "zh_CN.GB18030:zh_CN.GB2312:zh_CN"        
 
-    def setSupported (self, langlist):
-	if len(langlist) == len(self.allSupportedLangs):
+    def setSupported (self, namelist):
+	if len(namelist) == len(self.allSupportedLangs):
             self.info["SUPPORTED"] = None
 	    self.supported = self.getAllSupported()
-        elif langlist:
+        elif namelist:
 	    rpmNickList = []
-	    for name in langlist:
+	    for name in namelist:
                 nick = self.getNickByName(name)
 		rpmNickList = rpmNickList + expandLangs(nick)
 
             linguas = string.join (rpmNickList, ':')
             self.info["SUPPORTED"] = linguas
-	    self.supported = langlist
+	    self.supported = namelist
 
             shortLinguas = string.join (rpmNickList, ':')
         else:

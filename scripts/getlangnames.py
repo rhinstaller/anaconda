@@ -6,7 +6,7 @@ import language
 
 rhpl.translate.cat.setunicode(1)
 
-langs = language.InstallTimeLanguage()
+langs = language.Language()
 names = {}
 for k in langs.localeInfo.keys():
     langs.setRuntimeLanguage(k)
