@@ -788,18 +788,11 @@ def doPostInstall(method, id, intf, instPath):
         w.set(5)
 
 	if flags.setupFilesystems:
-	    # go ahead and depmod modules as modprobe in rc.sysinit
-	    # will complain loaduly if we don't do it now.
-	    depmodModules(id.comps, instPath)
-
-	w.set(6)
-
-	if flags.setupFilesystems:
 	    f = open("/tmp/cleanup", "w")
 	    method.writeCleanupPath(f)
 	    f.close()
 
-	w.set(7)
+	w.set(6)
 
     finally:
 	pass
