@@ -1139,9 +1139,7 @@ Section "Screen"
             emulate3 = "no"
         data = { "mouseProto"   : mouseProto,
                  "mouseDevice"  : self.mouse.device,
-                 "cardsOptions" :
-                 self.vidCards[self.primary].get ("LINE",
-                                                  "	# no known options"),
+                 "cardsOptions" : "	# no known options",
                  "cardID"       : self.vidCards[self.primary]["NAME"],
                  "cardVendor"   : self.vidCards[self.primary]["NAME"],
                  "cardBoardName": self.vidCards[self.primary]["NAME"],
