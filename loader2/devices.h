@@ -86,7 +86,7 @@ struct devnode devnodes[] = {
 #ifdef __powerpc__
     {"nvram", CHARDEV, 10, 144, 0644, "root", "root"},
     {"adb", CHARDEV, 56, 0, 0644, "root", "root"},
-    {"iseries", DEVTYPE, 0, 0, 0755, "root", "root" },
+    {"iseries", DIRTYPE, 0, 0, 0755, "root", "root" },
 #endif
     {"rtc", CHARDEV, 10, 135, 0644, "root", "root"},
     { NULL, 0, 0, 0, 0, NULL, NULL },
