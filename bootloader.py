@@ -122,6 +122,12 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 	    kernelList.append((kernelLabel, kernelLongLabel, version))
 	    plainLabelUsed = 1
 
+    # FIXME: blah, exec-shield breaks grub.  turn it off for now
+    if os.access("/proc/sys/kernel/exec-shield", os.W_OK):
+        f = open("/proc/sys/kernel/exec-shield", "w")
+        f.write("0")
+        f.close()
+
     dosync()
     try:
         bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
