@@ -112,7 +112,7 @@ class x86BootloaderInfo:
 	if not bootDev:
 	    bootDev = fsset.getEntryByMountPoint("/")
 	    grubPath = "/boot/grub"
-	    cfPath = "/boot"
+	    cfPath = "/boot/"
 	else:
             f.write ("# NOTICE:  You have a /boot partition.  This means that\n")
             f.write ("#          all kernel paths are relative to /boot/\n")
@@ -124,19 +124,19 @@ class x86BootloaderInfo:
 
 	for (label, version) in kernelList:
 	    kernelTag = "-" + version
-	    kernelFile = cfPath + "/vmlinuz" + kernelTag
+	    kernelFile = cfPath + "vmlinuz" + kernelTag
 
 	    initrd = makeInitrd (kernelTag, instRoot)
 
 	    f.write('title Red Hat Linux 7.2 (%s)\n' % version)
-	    f.write('\troot %s\n' % grubRootDev)
+	    f.write('\troot %s\n' % bootDev)
 	    f.write('\tkernel %s ro root=/dev/%s' % (kernelFile, rootDev))
 	    if self.args.get():
 		f.write(' %s' % self.args.get())
 	    f.write('\n')
 
 	    if os.access (instRoot + initrd, os.R_OK):
-		f.write('\tinitrd %s\n' % (initrd[len(cfPath):], ))
+		f.write('\tinitrd %s\n' % (cfPath + initrd[len(cfPath):]))
 
 	f.close()
 
