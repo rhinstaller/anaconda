@@ -501,11 +501,14 @@ def doClearPartAction(id, type, cleardrives):
         disk = id.diskset.disks[drive]
         part = disk.next_partition()
         while part:
+            if (part.type & parted.PARTITION_FREESPACE) or (part.type & parted.PARTITION_METADATA):
+                part = disk.next_partition(part)
+                continue
             if part.fs_type:
                 ptype = get_partition_file_system_type(part)
             else:
                 ptype = None
-            if ptype and ( (linuxOnly == 0) or (ptype.isLinuxNativeFS())):
+            if (linuxOnly == 0) or (ptype and (ptype.isLinuxNativeFS())):
                 old = id.partrequests.getRequestByDeviceName(get_partition_name(part))
                 id.partrequests.removeRequest(old)
 
@@ -513,6 +516,19 @@ def doClearPartAction(id, type, cleardrives):
                 delete = DeleteSpec(drive, part.geom.start, part.geom.end)
                 id.partrequests.addDelete(delete)
             part = disk.next_partition(part)
+
+    # set the diskset up
+    processPartitioning(id.diskset, id.partrequests)
+    for drive in drives:
+        if cleardrives and len(cleardrives) > 0 and not drive in cleardrives:
+            continue
+
+        disk = id.diskset.disks[drive]
+        ext = disk.extended_partition
+        if ext and len(get_logical_partitions(disk)) == 0:
+            delete = DeleteSpec(drive, ext.geom.start, ext.geom.end)
+            id.partrequests.addDelete(delete)
+            continue
     
 def doAutoPartition(id):
     if not id.useAutopartitioning:
