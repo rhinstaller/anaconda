@@ -410,7 +410,7 @@ int handleCleanup(void) {
     int i;
     char buf[4096];
     int fd;
-    int loopfd;
+    int loopfd, ejectfd;
     char * start, * end;
 
     fd = open("/tmp/cleanup", O_RDONLY, 0);
@@ -451,6 +451,20 @@ int handleCleanup(void) {
 	    printf("unmounting %s...", start);
 	    if (umount(start) < 0)
 		printf(" failed (%d)", errno);
+	    printf("\n");
+	} else if (!strncmp(start, "eject ", 6)) {
+	    start += 6;
+	    while (isspace(*start) && start < end) start++;
+	    if (start == end) return 1;
+
+	    printf("ejecting %s...", start);
+	    if ((ejectfd = open(start, O_RDONLY | O_NONBLOCK, 0)) >= 0) {
+	    	if (ioctl(ejectfd, CDROMEJECT, 0))
+	    	    printf("eject failed %d ", errno);
+
+	    	close(ejectfd);
+	    }
+
 	    printf("\n");
 	}
 
