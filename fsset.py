@@ -1029,6 +1029,9 @@ class Device:
         return self.__class__.__name__
 
 class RAIDDevice(Device):
+    # XXX usedMajors does not take in account any EXISTING md device
+    #     on the system for installs.  We need to examine all partitions
+    #     to investigate which minors are really available.
     usedMajors = {}
 
     # members is a list of Device based instances that will be
