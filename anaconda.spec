@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.26
+Version: 10.2.0.27
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,19 +69,24 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar  7 2005 Peter Jones <pjones@redhat.com> - 20.2.0.27-1
+- supress lvm fd warning messages
+- fewer log messages when growing partitions
+- clamp LVs to pesize during grow
+
 * Mon Mar  7 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.26-1
 - urlgrabber stuff is in its own package now
 
-* Sun Mar  6 2005 Peter Jones <pjones@redhat.com> 10.2.0.25-1
+* Sun Mar  6 2005 Peter Jones <pjones@redhat.com> - 10.2.0.25-1
 - Empty blacklist in upgrade.py (notting, #142893)
 - Add new font package names (katzj)
 - Yet another fix of autopart with lvm (pjones)
 
-* Tue Mar  1 2005 Peter Jones <pjones@redhat.com> 10.2.0.24-1
+* Tue Mar  1 2005 Peter Jones <pjones@redhat.com> - 10.2.0.24-1
 - gcc4 fixes (clumens, pjones)
 - build C files with -D_FORTIFY_SOURCE=2 (pjones)
 
-* Mon Feb 28 2005 Chris Lumens <clumens@redhat.com> 10.2.0.23-1 
+* Mon Feb 28 2005 Chris Lumens <clumens@redhat.com> - 10.2.0.23-1 
 - Don't write out filesystems to fstab we haven't mounted (katzj, #149091).
 - Deal with multiple Apple Bootstrap partitions (pnasrat).
 - Set hostname sensitivity UI bug.
