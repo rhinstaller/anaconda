@@ -23,7 +23,7 @@ import network
 import checklist
 import ipwidget
 
-global_options = [_("Hostname"), _("Gateway"), _("Primary DNS"),
+global_options = [_("Gateway"), _("Primary DNS"),
 		  _("Secondary DNS"), _("Tertiary DNS")]
 
 class NetworkWindow(InstallWindow):		
@@ -35,39 +35,64 @@ class NetworkWindow(InstallWindow):
 	InstallWindow.__init__(self, ics)
 
     def getNext(self):
-	# XXX huh?
-#	if not self.__dict__.has_key("gw"):
-#	    return None
 
-	tmpvals = {}
-	for t in range(len(global_options)):
-	    if t == 0:
-		tmpvals[t] = string.strip(self.hostname.get_text())
-		neterrors =  network.sanityCheckHostname(tmpvals[t])
-		if neterrors is not None:
-		    self.handleBadHostname(tmpvals[t], neterrors)
+        iter = self.ethdevices.store.get_iter_root()
+	next = 1
+	noneonboot = 1
+	while next:
+	    model = self.ethdevices.store
+	    if model.get_value(iter, 0):
+		noneonboot = 0
+		break
+            next = self.ethdevices.store.iter_next(iter)
+
+	if noneonboot:
+	    rc = self.handleNoActiveDevices()
+	    if not rc:
+		raise gui.StayOnScreen
+
+	if self.hostnameManual.get_active():
+	    hname = string.strip(self.hostnameEntry.get_text())
+	    neterrors =  network.sanityCheckHostname(hname)
+	    if neterrors is not None:
+		self.handleBadHostname(hname, neterrors) 
+		raise gui.StayOnScreen
+	    elif len(hname) == 0:
+		if self.handleMissingHostname():
 		    raise gui.StayOnScreen
-	    else:
+
+	    newHostname = hname
+	else:
+	    newHostname = "localhost.localdomain"
+
+	if not self.anyUsingDHCP():
+	    tmpvals = {}
+	    for t in range(len(global_options)):
 		try:
 		    tmpvals[t] = self.globals[global_options[t]].dehydrate()
+		except ipwidget.IPMissing, msg:
+		    if t < 2:
+			if self.handleMissingOptionalIP(global_options[t]):
+			    raise gui.StayOnScreen
+			else:
+			    tmpvals[t] = None
+		    else:
+			    tmpvals[t] = None
+			
 		except ipwidget.IPError, msg:
-		    tmpvals[t] = None
-		    pass
-#		    self.handleIPError(global_options[t], msg[0])
-#		    raise gui.StayOnScreen 
+		    self.handleIPError(global_options[t], msg[0])
+		    raise gui.StayOnScreen
 
-        if(tmpvals[0] != ""):
-            self.network.hostname = string.strip(tmpvals[0])
+	    self.network.gateway = tmpvals[0]
+	    self.network.primaryNS = tmpvals[1]
+	    self.network.secondaryNS = tmpvals[2]
+	    self.network.ternaryNS = tmpvals[3]
+	else:
+	    self.network.gateway = None
+	    self.network.primaryNS = None
+	    self.network.secondaryNS = None
+	    self.network.ternaryNS = None
 
-	if tmpvals[1]:
-	    self.network.gateway = tmpvals[1]
-	if tmpvals[2]:
-	    self.network.primaryNS = tmpvals[2]
-	if tmpvals[3]:
-	    self.network.secondaryNS = tmpvals[3]
-	if tmpvals[4]:
-	    self.network.ternaryNS = tmpvals[4]
-            
         iter = self.ethdevices.store.get_iter_root()
 	next = 1
 	while next:
@@ -90,12 +115,14 @@ class NetworkWindow(InstallWindow):
 	    self.devices[dev].set(("bootproto", bootproto))
             next = self.ethdevices.store.iter_next(iter)
 
+	self.network.hostname = newHostname
+
         return None
         
     def DHCPtoggled(self, widget, (dev, table)):
 	active = widget.get_active()
         table.set_sensitive(not active)
-        self.ipTable.set_sensitive(not active)
+#        self.ipTable.set_sensitive(not active)
 	
 	bootproto = "dhcp"
 	if not active:
@@ -109,6 +136,23 @@ class NetworkWindow(InstallWindow):
 	    onboot = "no"
 	dev.set(("ONBOOT", onboot))
 
+    def setHostOptionsSensitivity(self):
+	if not self.anyUsingDHCP():
+	    self.hostnameManual.set_active(1)
+	    
+        self.hostnameUseDHCP.set_sensitive(self.anyUsingDHCP())
+
+    def setIPTableSensitivity(self):
+        self.ipTable.set_sensitive(not self.anyUsingDHCP())
+
+    def handleMissingHostname(self):
+	return not self.intf.messageWindow(_("Error With Data"),
+				_("You have not specified a hostname.  Depending on your network environment this may cause problems later."), type="custom", custom_buttons=[_("Cancel"), _("Continue")])
+
+    def handleMissingOptionalIP(self, field):
+	return not self.intf.messageWindow(_("Error With Data"),
+				_("You have not specified the field \"%s\".  Depending on your network environment this may cause problems later.") % (field,), type="custom", custom_buttons=[_("Cancel"), _("Continue")])
+
     def handleBadHostname(self, hostname, error):
 	self.intf.messageWindow(_("Error With Data"),
 				_("The hostname \"%s\" is not valid for the following reason:\n\n%s") % (hostname, error))
@@ -116,12 +160,22 @@ class NetworkWindow(InstallWindow):
     def handleIPError(self, field, errmsg):
 	self.intf.messageWindow(_("Error With Data"),
 				_("An error occurred converting "
-				  " the value entered for %s:\n\n%s" % (field, errmsg)))
+				  " the value entered for \"%s\":\n\n%s" % (field, errmsg)))
+
+    def handleIPMissing(self, field):
+	self.intf.messageWindow(_("Error With Data"),
+				_("An value is required for the field \"%s\"." % (field,)))
 
     def handleBroadCastError(self):
 	self.intf.messageWindow(_("Error With Data"),
 				_("The IP information you have entered is "
 				  "invalid."))
+
+    def handleNoActiveDevices(self):
+	return self.intf.messageWindow(_("Error With Data"), _("You have no active network devices.  Your system will not be able to commuciate over a network by default without at least one device active."), type="custom", custom_buttons=[_("Cancel"), _("Continue")])
+    
+    def setHostnameRadioState(self):
+	pass
 
     def editDevice(self, data):
 	if self.ignoreEvents:
@@ -170,6 +224,7 @@ class NetworkWindow(InstallWindow):
 	    options.append(newopt)
             
         ipTable = gtk.Table(len(options), 2)
+        iptable = None
 	DHCPcb.connect("toggled", self.DHCPtoggled, (self.devices[dev], ipTable))
 	# go ahead and set up DHCP on the first device
 	DHCPcb.set_active(bootproto == 'DHCP')
@@ -191,8 +246,8 @@ class NetworkWindow(InstallWindow):
 	editWin.vbox.pack_start(frame, padding=5)
         editWin.set_position(gtk.WIN_POS_CENTER)
 	editWin.show_all()
-	editWin.add_button('gtk-ok', 1)
         editWin.add_button('gtk-cancel', 2)
+	editWin.add_button('gtk-ok', 1)
 
 	while 1:
 	    rc = editWin.run()
@@ -218,9 +273,16 @@ class NetworkWindow(InstallWindow):
 		for t in range(len(options)):
 		    try:
 			tmpvals[t] = entrys[t].dehydrate()
+		    except ipwidget.IPMissing, msg:
+			self.handleIPMissing(options[t][0])
+			break
 		    except ipwidget.IPError, msg:
-			self.handleIPError(options[t][1], msg[0])
+			self.handleIPError(options[t][0], msg[0])
 			valsgood = 0
+			break
+
+		if valsgood == 0:
+		    continue
 
 		try:
                     (net, bc) = inet_calcNetBroad (tmpvals[0], tmpvals[1])
@@ -241,6 +303,10 @@ class NetworkWindow(InstallWindow):
 	    model.set_value(iter, 0, onboot == 'yes')
 	    model.set_value(iter, 2, self.createIPRepr(self.devices[dev]))
 	    editWin.destroy()
+
+	    self.setIPTableSensitivity()
+	    self.setHostOptionsSensitivity()
+
 	    return
 
     def createIPRepr(self, device):
@@ -251,6 +317,16 @@ class NetworkWindow(InstallWindow):
 	    ip = "%s/%s" % (device.get("ipaddr"), device.get("netmask"))
 
 	return ip
+
+    def anyUsingDHCP(self):
+	for device in self.devices.keys():
+	    bootproto = self.devices[device].get("bootproto")
+
+	    if bootproto and bootproto == 'dhcp':
+		return 1
+
+	return 0
+	
 
     def setupDevices(self):
 	devnames = self.devices.keys()
@@ -292,6 +368,51 @@ class NetworkWindow(InstallWindow):
 
 	return self.ethdevices
 
+    def modifyHostname(self, widget):
+	if self.ignoreEvents:
+	    return
+
+        editWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
+        gui.addFrame(editWin)
+        editWin.set_modal(gtk.TRUE)
+
+	vbox = gtk.VBox()
+	hbox = gtk.HBox()
+	hbox.pack_start(gtk.Label(_("Hostname")), gtk.FALSE, gtk.FALSE)
+	hentry = gtk.Entry()
+	hbox.pack_start(hentry, gtk.FALSE, gtk.FALSE)
+	vbox.pack_start(hbox, gtk.FALSE, gtk.FALSE)
+	vbox.set_border_width(6)
+	frame = gtk.Frame(_("Set hostname"))
+	frame.add(vbox)
+	frame.set_border_width(3)
+	editWin.vbox.pack_start(frame, padding=5)
+        editWin.set_position(gtk.WIN_POS_CENTER)
+	editWin.show_all()
+        editWin.add_button('gtk-cancel', 2)
+	editWin.add_button('gtk-ok', 1)
+
+	while 1:
+	    rc=editWin.run()
+	    
+	    if rc == 2:
+		editWin.destroy()
+		return
+
+	    h = string.strip(hentry.get_text())
+	    if len(h) > 0:
+		self.hostname = h
+
+	    editWin.destroy()
+
+	    return
+
+    def hostnameUseDHCPCB(self, widget, data):
+	self.hostnameEntry.set_sensitive(not widget.get_active())
+
+    def hostnameManualCB(self, widget, data):
+	if widget.get_active():
+	    self.hostnameEntry.grab_focus()
 
     # NetworkWindow tag="netconf"
     def getScreen(self, network, dispatch, intf):
@@ -304,6 +425,8 @@ class NetworkWindow(InstallWindow):
         if not self.devices:
 	    return None
 
+	self.hostname = self.network.hostname
+
 	devhbox = gtk.HBox(gtk.FALSE)
 
 	self.devlist = self.setupDevices()
@@ -313,7 +436,7 @@ class NetworkWindow(InstallWindow):
         devlistSW.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         devlistSW.set_shadow_type(gtk.SHADOW_IN)
         devlistSW.add(self.devlist)
-	devlistSW.set_size_request(-1, 175)
+	devlistSW.set_size_request(-1, 150)
 	devhbox.pack_start(devlistSW, gtk.FALSE, padding=10)
 
         buttonbar = gtk.VButtonBox()
@@ -323,47 +446,94 @@ class NetworkWindow(InstallWindow):
         edit.connect("clicked", self.editDevice)
 	buttonbar.pack_start(edit, gtk.FALSE)
 	devhbox.pack_start(buttonbar, gtk.FALSE)
-	
-	box.pack_start(devhbox, gtk.FALSE, padding=10)
+
+	devhbox.set_border_width(6)
+	frame=gtk.Frame(_("Network Devices"))
+	frame.add(devhbox)
+	box.pack_start(frame, gtk.FALSE, padding=10)
 	
         box.pack_start(gtk.HSeparator(), gtk.FALSE, padding=10)
 
+	# show hostname and dns/misc network info and offer chance to modify
+	hostbox = gtk.HBox()
+	hostbox=gtk.VBox()
+	label=gtk.Label(_("I would like the hostname to be set:"))
+	label.set_alignment(0.0, 0.0)
+	hostbox.pack_start(label, gtk.FALSE, gtk.FALSE)
+	tmphbox=gtk.HBox()
+        self.hostnameUseDHCP = gtk.RadioButton(label=_("automatically via DHCP"))
+	self.hostnameUseDHCP.connect("toggled", self.hostnameUseDHCPCB, None)
+	
+	tmphbox.pack_start(self.hostnameUseDHCP, gtk.FALSE, gtk.FALSE, padding=15)
+	hostbox.pack_start(tmphbox, gtk.FALSE, gtk.FALSE, padding=5)
+
+	self.hostnameManual  = gtk.RadioButton(group=self.hostnameUseDHCP, label=_("manually"))
+	tmphbox=gtk.HBox()
+	tmphbox.pack_start(self.hostnameManual, gtk.FALSE, gtk.FALSE, padding=15)
+	self.hostnameEntry = gtk.Entry()
+	tmphbox.pack_start(self.hostnameEntry, gtk.FALSE, gtk.FALSE, padding=15)
+	self.hostnameManual.connect("toggled", self.hostnameManualCB, None)
+
+	hostbox.pack_start(tmphbox, gtk.FALSE, gtk.FALSE, padding=5)
+
+	hostbox.set_border_width(6)
+	frame=gtk.Frame(_("Hostname"))
+	frame.add(hostbox)
+	box.pack_start(frame, gtk.FALSE, gtk.FALSE)
+
+
+        # figure out if they have overridden using dhcp for hostname
+	if self.anyUsingDHCP():
+	    if self.hostname != "localhost.localdomain":
+		self.hostnameManual.set_active(1)
+	    else:
+		self.hostnameUseDHCP.set_active(1)
+	else:
+	    self.hostnameManual.set_active(1)
+
+        #
 	# this is the iptable used for DNS, et. al
 	self.ipTable = gtk.Table(len(global_options), 2)
 	options = {}
-        for i in range(len(global_options)):
-            label = gtk.Label("%s:" %(global_options[i],))
-            label.set_alignment(0.0, 0.0)
-            self.ipTable.attach(label, 0, 1, i, i+1, gtk.FILL, 0, 10)
-            align = gtk.Alignment(0, 0.5)
-            if i == 0:
-                options[i] = gtk.Entry()
-                options[i].set_size_request(7 * 30, -1)
-		align.add(options[i])
-            else:
-                options[i] = ipwidget.IPEditor()
-		align.add(options[i].getWidget())
+	for i in range(len(global_options)):
+	    label = gtk.Label("%s:" %(global_options[i],))
+	    label.set_alignment(0.0, 0.0)
+	    self.ipTable.attach(label, 0, 1, i, i+1, gtk.FILL, 0, 10)
+	    align = gtk.Alignment(0, 0.5)
+	    options[i] = ipwidget.IPEditor()
+	    align.add(options[i].getWidget())
 
-            self.ipTable.attach(align, 1, 2, i, i+1, gtk.FILL, 0)
-        self.ipTable.set_row_spacing(0, 5)
+	    self.ipTable.attach(align, 1, 2, i, i+1, gtk.FILL, 0)
+
+	self.ipTable.set_row_spacing(0, 5)
 
 	self.globals = {}
 	for t in range(len(global_options)):
-	    if t == 0:
-		self.hostname = options[0]
-	    else:
-		self.globals[global_options[t]] = options[t]
+	    self.globals[global_options[t]] = options[t]
 
-        # bring over the value from the loader
-        if(self.network.hostname != "localhost.localdomain"):
-            self.hostname.set_text(self.network.hostname)
+	# bring over the value from the loader
+	if(self.network.hostname != "localhost.localdomain"):
+	    self.hostnameEntry.set_text(self.network.hostname)
 
-        self.globals[_("Gateway")].hydrate(self.network.gateway)
-        self.globals[_("Primary DNS")].hydrate(self.network.primaryNS)
-        self.globals[_("Secondary DNS")].hydrate(self.network.secondaryNS)
-        self.globals[_("Tertiary DNS")].hydrate(self.network.ternaryNS)
-	
-        box.pack_start(self.ipTable, gtk.FALSE, gtk.FALSE, 5)
+	if not self.anyUsingDHCP():
+	    if self.network.gateway:
+		self.globals[_("Gateway")].hydrate(self.network.gateway)
+	    if self.network.primaryNS:
+		self.globals[_("Primary DNS")].hydrate(self.network.primaryNS)
+	    if self.network.secondaryNS:
+		self.globals[_("Secondary DNS")].hydrate(self.network.secondaryNS)
+	    if self.network.ternaryNS:
+		self.globals[_("Tertiary DNS")].hydrate(self.network.ternaryNS)
 
-        return box
+	self.ipTable.set_border_width(6)
 
+	frame=gtk.Frame(_("Miscellaneous Settings"))
+	frame.add(self.ipTable)
+	box.pack_start(frame, gtk.FALSE, gtk.FALSE, 5)
+	box.set_border_width(6)
+
+	self.hostnameEntry.set_sensitive(not self.hostnameUseDHCP.get_active())
+	self.setIPTableSensitivity()
+	self.setHostOptionsSensitivity()
+
+	return box
