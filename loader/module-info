@@ -1,0 +1,538 @@
+Version 0
+#  The version 0 module-info format is ('|' denotes the left margin):
+#  |<module-name>
+#  |  <module-type> [<module-alias>]
+#  |  "<description-string>"
+#  |  <argument> "<argument-description-string>" ["<match-regex>" ["<default>"]]
+#  |# <comment>
+#  Stanzas are delimited by non-indented lines, and continued with indented lines.
+#  Comments start in the first column, or are preceded only by whitespace.
+#  The []'s above are not literal, they delimit optional material.
+#  There can be multiple <argument> lines.
+#  <module-name> is the name of the module without any .o extension, just
+#  as the module name would be entered in /etc/conf.modules
+#  <module-type> is the base part of the string demanded by kerneld (eth,
+#  scsi_hostadapter, etc.)
+#  <module-alias> is an optional identifier to identify groups of similar
+#  drivers, such as the non-scsi cdrom devices which are requested by
+#  block-major-*; they are given an alias of "cdrom".
+#  <description-string> is a free-form string enclosed in quotes to describe
+#  the module to a human reader
+#  <argument> is an argument such as io or irq, as understood by the module
+#  <argument-description-string> is a free-form description
+#  <match-regex> is a regular expression which can be used to test the
+#  validity of a user-entered string
+#  <default> is a default value.  This should not be provided unless it is
+#  almost always the correct value, and will not, say, hang a user's computer
+#  if it is wrong
+#
+#  Ideas for version 1 file format:
+#   o Add long description, presumably including all known cards supported
+#     by the module in question
+#   o Sub-argument description, for arguments which have multiple parts
+#     separated by commas, particularly ones which share code with boot-time
+#     arguments.
+#   o Optional architecture flag(?)
+
+# drivers/net directory
+
+3c501
+	eth
+	"3Com 3c501 (throw it away!)"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+3c503
+	eth
+	"3Com EtherLink II"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+	xcvr "Transceiver (0 = BNC; 1 = AUI)" "[01]"
+
+3c505
+	eth
+	"3Com Etherlink Plus"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+	
+3c507
+	eth
+	"3Com EtherLink16"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+3c509
+	eth
+	"3Com EtherLink III"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+3c59x
+	eth
+	"3Com 3c590/3c595 Vortex"
+
+#a2065
+#	eth
+#	"Amiga Linux/68k A2065"
+
+ac3200
+	eth
+	"Ansel Communications Model 3200"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+	mem "Base shared memory address" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
+
+apricot
+	eth
+	"Apricot 82596"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+arcnet
+	arc
+	"ARCnet for IP driver"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+	shmem "Base shared memory address" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
+
+#ariadne
+#	eth
+#	"Amiga Linux/m68k Ariadne"
+
+at1700
+	eth
+	"Allied Telesis AT1700"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+#atarilance
+#	eth
+#	"Atari Linux/m68k VME Lance"
+
+# Not yet modularized
+#atp
+#	atp
+#	"Attached (pocket) ethernet adapter"
+
+de4x5
+	eth
+	"DE4x5, DE434, DE450, and DE500 DEC EtherWORKS"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+
+de600
+	eth
+	"D-Link DE-600 Ethernet pocket adapter"
+
+de620
+	eth
+	"D-Link DE-620 Ethernet pocket adapter"
+
+depca
+	eth
+	"DEC DEPCA and EtherWORKS DE1xx, DE2xx, DE422"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+dgrs
+	eth
+	"Digi RightSwitch SE-4, SE-6"
+	dma "Toggle DMA use" "[01]"
+	spantree "Toggle Spantree" "[01]"
+	hashexpire "Hash Expiration"
+	ipaddr "List of four IP addresses"
+	ipxnet "IPX network number"
+
+dlci
+	dlci
+	"RFC 1490 Frame Relay protocol"
+
+dummy
+	dummy
+	"Placeholder device for intermittent links"
+
+e2100
+	eth
+	"Cabletron E2100"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+	mem "Base shared memory address" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
+	xcvr "Transceiver (0 = internal; 1 = external)" "[01]"
+
+eepro
+	eth
+	"EtherExpress Pro/10"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+eexpress
+	eth
+	"EtherExpress"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+eql
+	eql
+	"Load balancing for point-to-point network interfaces"
+
+eth16i
+	eth
+	"ICL EtherTeam 16i/32 EISA"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+ewrk3
+	eth
+	"EtherWORKS 3: DE203, DE204, DE205"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+fmv18x
+	eth
+	"Fujitsu FMV-181/182/183/184"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+hp-plus
+	eth
+	"HP PCLAN/plus"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+hp
+	eth
+	"HP LAN"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+hp100
+	eth
+	"HP10/100VG ANY LAN: J257x, 27248B, J2585"
+	hp100_port "Base I/O address" "0x[0-9a-fA-F]+"
+
+#hydra
+#	eth
+#	"Amiga Linux/m68k Hydra"
+
+ibmtr
+	tr
+	"Shared-memory IBM Token Ring 16/4"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+
+# NOT YET MODULARIZED!
+#lance
+#	eth
+#	"AMD LANCE: Allied Telesis AT1500, HP J2405A, most NE2100/clone"
+
+# NOT YET MODULARIZED!
+#lance32
+#	eth
+#	"AMD PCnet32, PCnetPCI"
+
+ne
+	eth
+	"NE1000, NE2000, and compatible"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+ni52
+	eth
+	"NI5210 Ethernet"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+	memstart "Base shared memory address" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
+	memend "Address of end of shared memory" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
+
+# NOT YET MODULARIZED!
+#ni65
+#	eth
+#	"NI6510 Ethernet"
+
+# not modularized
+#pi2
+
+plip
+	plip
+	"Parallel Link Internet Protocal"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+#ppp
+#	ppp
+#	"Point-to-Point Protocol"
+
+# NOT YET MODULARIZED!
+#pt
+
+sdla
+	sdla
+	"Sangoma S502/S508 series multi-protocol PC interface card"
+
+# NOT YET MODULARIZED!
+#seeq8005
+#	What's a seeq8005, anyway?  From the comments in the file:
+#	"seeq8005.c: A network driver for linux."  No, really!
+
+# NOT YET MODULARIZED!
+#sk_g16
+#	eth
+#	"Schneider & Koch (SK) G16"
+
+# slhc is never loaded explicitly, only by dependencies
+
+#slip
+#	sl
+#	"Serial Link Internet Protocol"
+
+smc-ultra
+	eth
+	"SMC Ultra, SMC EtherEZ ISA"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+smc9194
+	eth
+	"SMC 9000 series Ethernet"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+	ifport "Interface: 0 auto, 1 TP, 2 AUI/BNC" "[012]"
+
+strip
+	strip_proto
+	"Starmode Radio IP"
+
+# Not a module, may never be?
+#sunlance
+#	eth
+#	"Linux/Sparc/Lance Ethernet"
+
+tulip
+	eth
+	"DEC 21040, most 21*40 Ethernet"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+
+wavelan
+	eth
+	"AT&T GIS WaveLAN transceiver"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+
+wd
+	eth
+	"WD8003 and WD8013 `compatible' ethercards."
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+	irq "IRQ level" "[0-9]+"
+	mem "Base shared memory address" "0x[0-9a-fA-F]+"
+	mem_end "Address of end of shared memory (if non-standard size)" "0x[0-9a-fA-F]+"
+
+wic
+	wic
+	"parallel port network driver"
+
+# NOT YET MODULARIZED!
+#znet
+#	eth
+
+# drivers/scsi directory
+
+53c7,8xx
+	scsi_hostadapter
+	"Symbios/NCR 53c700 and 53c800 series"
+
+# Not a module
+#AM53C974
+#	scsi_hostadapter
+#	"AM53/79C974 (PCscsi) driver"
+
+BusLogic
+	scsi_hostadapter
+	"BusLogic MultiMaster SCSI"
+
+NCR53c406a
+	scsi_hostadapter
+	"NCR53c406a-based SCSI"
+
+# not a module
+#a2091
+#a3000
+
+advansys
+	scsi_hostadapter
+	"AdvanSys SCSI"
+	asc_iopflag "0 = normal portscan; 1 = portscan asc_ioport ports" "[01]"
+	asc_ioport "list of up to four port address to scan if asc_iopflag is set" "0x[0-9a-fA-F].*"
+
+aha152x
+	scsi_hostadapter
+	"Adaptec AHA-152x"
+	aha152x "First adaptor: ioport, irq, scsiid, reconnect, parity, synchronous, delay" "0x[0-9a-fA-F]+.*"
+	aha152x1 "Second adaptor: ioport, irq, scsiid, reconnect, parity, synchronous, delay" "0x[0-9a-fA-F]+.*"
+
+aha1542
+	scsi_hostadapter
+	"Adaptec AHA-154x and 631x-based"
+
+aha1740
+	scsi_hostadapter
+	"Adaptec AHA-174x"
+
+aic7xxx
+	scsi_hostadapter
+	"Adaptec AHA-2740, 28xx, 29xx, 39xx"
+
+dtc
+	scsi_hostadapter
+	"DTC 3180/3280"
+
+eata
+	scsi_hostadapter
+	"All DMA-capable DPT SCSI"
+
+eata_dma
+	scsi_hostadapter
+	"All DMA-capable DPT SCSI"
+
+eata_pio
+	scsi_hostadapter
+	"All PIO-capable DPT SCSI"
+
+# not a module
+# esp
+
+fdomain
+	scsi_hostadapter
+	"Future Domain TMC-16xx SCSI"
+
+# not a module
+# gvp11
+
+in2000
+	scsi_hostadapter
+	"IN2000 SCSI"
+	setup_string "ioport:addr, noreset, nosync:x, period:ns, disconnect:x, debug:x, proc:x"
+
+ncr53c8xx
+	scsi_hostadapter
+	"Symbios/NCR 53C8xx"
+
+pas16
+	scsi_hostadapter
+	"Pro Audio Spectrum/Studio 16"
+
+ppa
+	scsi_hostadapter
+	"IOMEGA PPA3/Parallel ZIP"
+	ppa_base "Base I/O address" "0x[0-9a-fA-F]+"
+	ppa_speed_high "microsecond delay used during data transfer"
+	ppa_speed_low "microsecond delay used except during data transfer"
+	ppa_nybble "1 to force 4-bit transfer mode"
+
+qlogicfas
+	scsi_hostadapter
+	"Qlogic FAS408 SCSI"
+
+qlogicisp
+	scsi_hostadapter
+	"QLogic ISP1020 SCSI"
+
+#scsi
+# Can kerneld actually request this?
+#	scsi
+#	"SCSI Protocol support (midlevel driver)"
+
+#sd
+#	block-major-8	sd
+#	"SCSI disk protocol"
+
+seagate
+	scsi_hostadapter
+	"Seagate ST-01/02, Future Domain TMC-8xx"
+
+#sg
+#	char-major-21	sg
+#	"SCSI generic driver for user-level SCSI protocol drivers"
+
+#sr
+#	block-major-11	sr
+#	"SCSI CD-ROM protocol"
+
+#st
+#	char-major-10	st
+#	"SCSI tape protocol"
+
+t128
+	scsi_hostadapter
+	"Trantor T128/T128F/T228"
+
+u14-34f
+	scsi_hostadapter
+	"UltraStor 14F/34F (not 24F)"
+
+ultrastor
+	scsi_hostadapter
+	"UltraStor 14F/24F/34F"
+
+#wd33c93
+#	scsi_hostadapter
+#	"Amiga A2091/590"
+
+wd7000
+	scsi_hostadapter
+	"WD7000 series"
+
+# drivers/cdrom
+
+aztcd
+	block-major-29	cdrom
+	"Aztech CD268 CDROM driver"
+	aztcd "Base I/O Address"
+
+cdu31a
+	block-major-15	cdrom
+	"Sony CDU-31A CDROM driver"
+	cdu31a_port "Base I/O Address"
+	cdu31a_irq "IRQ"
+
+cm206
+	block-major-32	cdrom
+	"Philips/LMS cm20 CDROM driver"
+	cm206 "Base I/O address, irq"
+
+gscd
+	block-major-16	cdrom
+	"GoldStar R420 CDROM driver"
+	gscd "Base I/O Address"
+
+isp16
+# module, but dynamic block number so kerneld can't request it... (?)
+	unknown	cdrom
+	"ISP16/MAD16/Mozart soundcard-based CDROM driver"
+	isp16_cdrom_base "Base I/O Address"
+	isp16_cdrom_irq "IRQ"
+	isp16_cdrom_dma "DMA Channel (0,3,5,6,7)"
+	isp16_cdrom_type "Type (0=undefined, 2=Sony/Panasonic, 4=Mitsumi/Panasonic, 6=Sanyo)"
+
+mcd
+	block-major-23	cdrom
+	"Mitsumi CDROM driver"
+	mcd "Base I/O Address,irq"
+
+mcdx
+	block-major-20	cdrom
+	"Mitsumi XA/Multisession CDROM driver"
+	mcdx "Base I/O Address,irq"
+
+sbpcd
+	block-major-25	cdrom
+	"SoundBlaster Pro/Matsushita/Panasonic/Longshine/CreativeLabs/TEAC/ECS-AT CDROM"
+	sbpcd "Base I/O Address,type (0=LaserMate, 1=SoundBlaster, 2=SoundScape, 3=Teac16bit)"
+
+sjcd
+	block-major-18	cdrom
+	"Sanyo CD-ROM device driver"
+	sjcd_base "Base I/O Address"
+
+sonycd535
+	block-major-24	cdrom
+	"Sony CDU-535 CDROM driver"
+	sonycd535 "Base I/O Address"
+
