@@ -143,12 +143,9 @@ class FirewallWindow:
 		    
 
 		    result2 = poplevel.run()
-#                    screen.popWindow()
                     rc2 = popbb.buttonPressed(result2)
 
-
-#                    rc2 = ""
-                    if rc2 == "ok":
+                    if rc2 == "ok" or result2 == "F12":
 
                         #- Do some sanity checking on port list
                         portstring = string.strip(self.other.value())
@@ -194,16 +191,7 @@ class FirewallWindow:
                             todo.firewall.portlist = portlist
                             screen.popWindow()
 
-
-        
-#        print todo.firewall.portlist
-#        import time
-#        time.sleep(3)        
-
-#                    break
-	
-	    if rc == "ok" or result == "F12":
-                
+	    if rc == "ok" or result == "F12":                
                 break
                 
         screen.popWindow()
@@ -212,7 +200,6 @@ class FirewallWindow:
 	for device in self.netCBs.keys():
 	    if self.netCBs[device].selected():
 		todo.firewall.trustdevs.append(device)
-#	todo.firewall.portlist = self.other.value()
 	todo.firewall.dhcp = self.dhcp.selected()
 	todo.firewall.ssh = self.ssh.selected()
 	todo.firewall.telnet = self.telnet.selected()
@@ -227,9 +214,6 @@ class FirewallWindow:
 	    todo.firewall.policy = 0
 	else:
 	    todo.firewall.policy = 1
-
-
-
 
 	return INSTALL_OK
     
