@@ -1033,6 +1033,7 @@ Section "Screen"
             if not self.modes[depth]: continue
             if depth == "32":
                 depth = "24"
+                self.modes["24"] = self.modes["32"]
             if maxdepth < string.atoi(depth):
                 maxdepth = string.atoi(depth)
             screens = screens + """
@@ -1044,6 +1045,8 @@ Section "Screen"
             screens = screens + """
 	EndSubsection
 """
+            if depth == "24":
+                del self.modes["24"]
         # XXX if we're going to be using IMPS/2 on
         # reboot, but we're using PS/2 now, we'll need
         # to temporarily use PS/2 so we don't frob the
