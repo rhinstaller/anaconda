@@ -476,7 +476,7 @@ class Fstab:
             try:
                 table = _balkan.readTable ('/tmp/' + drive)
             except SystemError:
-		next
+		continue
 
 	    for i in range (len (table)):
 		dev = drive + str (i + 1)
@@ -489,7 +489,7 @@ class Fstab:
 			if label:
 			    labels[dev] = label
 			#print "label for", dev
-
+        log (str(labels))
 	return labels
 
     def makeFilesystems(self):
