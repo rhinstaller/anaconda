@@ -1074,7 +1074,7 @@ class PartitionWindow(InstallWindow):
             rc = 0
         except PartitioningError, msg:
             self.intf.messageWindow(_("Error Partitioning"),
-                   _("Could not allocated requested partitions: %s.") % (msg))
+                   _("Could not allocate requested partitions: %s.") % (msg))
             rc = -1
         except PartitioningWarning, msg:
             # XXX somebody other than me should make this look better
