@@ -1,5 +1,8 @@
 2004-10-12  Jeremy Katz  <katzj@redhat.com>
 
+	* partitions.py (Partitions.setProtected): Backport from HEAD --
+	Allow installs from USB storage to not explode (#135492)
+
 	* loader2/hardware.c: Backport from HEAD -- We can always probe
 	devices with current supported hardware (#135108)
 
