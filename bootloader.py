@@ -808,7 +808,7 @@ class s390BootloaderInfo(bootloaderInfo):
 	    f.write('\ttarget=%s\n' % (self.kernelLocation))
 	    f.write('\timage=%s\n' % (kernelFile))
 	    if os.access (instRoot + initrd, os.R_OK):
-		f.write("ramdisk=%sinitrd%s.img" %(self.kernelLocation, kernelTag))
+		f.write("ramdisk=%sinitrd%s.img\n" %(self.kernelLocation, kernelTag))
 	    if self.args.get():
 		f.write('\tparameters="root=/dev/%s %s"\n' % (rootDev, self.args.get()))
 	    f.write('\n')
