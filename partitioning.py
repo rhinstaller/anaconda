@@ -902,12 +902,13 @@ class DiskSet:
 			rootparts.append ((node, part.fs_type.name))
 		    isys.umount('/mnt/sysimage')
                 elif part.fs_type and (part.fs_type.name == "FAT"):
+                    node = get_partition_name(part)
                     try:
                         isys.mount(node, '/mnt/sysimage', fstype = "vfat",
                                    readOnly = 1)
                     except:
 			log("failed to mount vfat filesystem on %s\n" 
-                            % dev)
+                            % node)
                         part = disk.next_partition(part)
 			continue
                         
