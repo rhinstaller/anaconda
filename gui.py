@@ -16,6 +16,7 @@ from iw.congrats import *
 from iw.autopartition import *
 from iw.installtype import *
 from iw.dependencies import *
+from iw.lilo import *
 
 import sys
 import GdkImlib
@@ -98,13 +99,13 @@ class InstallInterface:
         
         steps = [WelcomeWindow, LanguageWindow, InstallTypeWindow, MouseWindow, 
 	         KeyboardWindow, NetworkWindow, AutoPartitionWindow, PartitionWindow, 
-                 FormatWindow, PackageSelectionWindow, UnresolvedDependenciesWindow, AuthWindow, 
+                 FormatWindow, PackageSelectionWindow, UnresolvedDependenciesWindow, LiloWindow, AuthWindow,
 	         AccountWindow, InstallProgressWindow, CongratulationWindow]
 
         windows = [WelcomeWindow, LanguageWindow, InstallTypeWindow, MouseWindow, 
 	           KeyboardWindow, NetworkWindow, AutoPartitionWindow,
                    PartitionWindow, FormatWindow, PackageSelectionWindow, UnresolvedDependenciesWindow, 
-		   AuthWindow, AccountWindow, IndividualPackageSelectionWindow, 
+		   LiloWindow, AuthWindow, AccountWindow, IndividualPackageSelectionWindow, 
                    InstallProgressWindow, ConfirmPartitionWindow, CongratulationWindow]
 
         self.finishedTODO = Event ()
