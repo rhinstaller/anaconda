@@ -19,10 +19,13 @@ class KeyboardWindow (InstallWindow):
         return None
 
     def select_row (self, clist, row, col, event):
-	self.kb.setRule (self.modelList.get_row_data (self.modelList.selection[0]),
-                         self.layoutList.get_row_data (self.layoutList.selection[0]),
-                         self.variantList.get_row_data (self.variantList.selection[0]),
-                         "complete")
+	model = self.modelList.get_row_data (self.modelList.selection[0])
+	layout = self.layoutList.get_row_data (self.layoutList.selection[0])
+	variant = self.variantList.get_row_data (self.variantList.selection[0])
+	options = "complete"
+
+	self.kb.setRule (model, layout, variant, options)
+	self.todo.x.setKeyboard (model, layout, variant, "")
 
     def getScreen (self):
 	box = GtkVBox (FALSE, 5)
