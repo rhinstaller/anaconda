@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-13 14:23-0500\n"
+"POT-Creation-Date: 2005-03-03 14:34-0500\n"
 "PO-Revision-Date: 2005-01-28 22:39+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -104,7 +104,7 @@ msgstr "Maak een verbinding met %s om de installatie te beginnen..."
 msgid "Please connect to begin the install..."
 msgstr "Maak een verbinding om de installatie te beginnen..."
 
-#: ../anaconda:575 ../anaconda:760 ../gui.py:243 ../gui.py:1085
+#: ../anaconda:575 ../anaconda:760 ../gui.py:244 ../gui.py:1072
 #: ../rescue.py:41 ../rescue.py:228 ../rescue.py:308 ../rescue.py:336
 #: ../rescue.py:346 ../rescue.py:418 ../rescue.py:424 ../text.py:339
 #: ../text.py:507 ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
@@ -115,12 +115,12 @@ msgstr "Maak een verbinding om de installatie te beginnen..."
 #: ../textw/silo_text.py:160 ../loader2/cdinstall.c:136
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:253
 #: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:374
-#: ../loader2/cdinstall.c:379 ../loader2/cdinstall.c:382
-#: ../loader2/cdinstall.c:447 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:299
-#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
-#: ../loader2/driverdisk.c:389 ../loader2/driverdisk.c:403
-#: ../loader2/driverdisk.c:578 ../loader2/driverdisk.c:616
+#: ../loader2/cdinstall.c:379 ../loader2/cdinstall.c:383
+#: ../loader2/cdinstall.c:448 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:269 ../loader2/driverdisk.c:300
+#: ../loader2/driverdisk.c:339 ../loader2/driverdisk.c:377
+#: ../loader2/driverdisk.c:390 ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:621
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
 #: ../loader2/hdinstall.c:217 ../loader2/hdinstall.c:384
@@ -129,15 +129,15 @@ msgstr "Maak een verbinding om de installatie te beginnen..."
 #: ../loader2/hdinstall.c:594 ../loader2/kbd.c:125 ../loader2/kickstart.c:118
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
 #: ../loader2/kickstart.c:270 ../loader2/kickstart.c:405 ../loader2/lang.c:103
-#: ../loader2/lang.c:380 ../loader2/loader.c:286 ../loader2/loader.c:299
-#: ../loader2/loader.c:310 ../loader2/loader.c:666 ../loader2/loader.c:844
+#: ../loader2/lang.c:380 ../loader2/loader.c:308 ../loader2/loader.c:321
+#: ../loader2/loader.c:332 ../loader2/loader.c:688 ../loader2/loader.c:866
 #: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
-#: ../loader2/mediacheck.c:354 ../loader2/method.c:155 ../loader2/method.c:364
-#: ../loader2/method.c:449 ../loader2/modules.c:967 ../loader2/net.c:192
-#: ../loader2/net.c:230 ../loader2/net.c:529 ../loader2/net.c:890
-#: ../loader2/net.c:913 ../loader2/net.c:1062 ../loader2/nfsinstall.c:54
-#: ../loader2/nfsinstall.c:200 ../loader2/nfsinstall.c:209
-#: ../loader2/nfsinstall.c:247 ../loader2/telnetd.c:84
+#: ../loader2/mediacheck.c:354 ../loader2/method.c:155 ../loader2/method.c:372
+#: ../loader2/method.c:457 ../loader2/modules.c:968 ../loader2/net.c:231
+#: ../loader2/net.c:269 ../loader2/net.c:537 ../loader2/net.c:898
+#: ../loader2/net.c:921 ../loader2/net.c:1070 ../loader2/nfsinstall.c:54
+#: ../loader2/nfsinstall.c:201 ../loader2/nfsinstall.c:210
+#: ../loader2/nfsinstall.c:248 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:67 ../loader2/urlinstall.c:139
 #: ../loader2/urlinstall.c:152 ../loader2/urlinstall.c:442
 #: ../loader2/urlinstall.c:451 ../loader2/urlinstall.c:462
@@ -205,28 +205,28 @@ msgstr "Muistype dat nu wordt gebruikt: %s"
 msgid "Starting graphical installation..."
 msgstr "Grafische installatie wordt nu opgestart..."
 
-#: ../autopart.py:949
+#: ../autopart.py:951
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr ""
 "Kon cylinder-gebaseerde partities niet alloceren als primaire partities"
 
-#: ../autopart.py:952
+#: ../autopart.py:954
 msgid "Could not allocate partitions as primary partitions"
 msgstr "Kon partities niet alloceren als primaire partities"
 
-#: ../autopart.py:955
+#: ../autopart.py:957
 msgid "Could not allocate cylinder-based partitions"
 msgstr "Kon cylinder-gebaseerde partities niet alloceren"
 
-#: ../autopart.py:958
+#: ../autopart.py:960
 msgid "Could not allocate partitions"
 msgstr "Kon partities niet alloceren"
 
-#: ../autopart.py:1020
-#, python-format
+#: ../autopart.py:1022
+#, fuzzy, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
-"boot from this paritition. Use a partition belonging to a BSD disk label or "
+"boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
 "Opstartpartitie %s behoort niet tot een BSD schijflabel. SRM zal niet in "
@@ -234,7 +234,7 @@ msgstr ""
 "behorende bij een BSD schijflabel of verander deze partitie-schijflabel naar "
 "BSD."
 
-#: ../autopart.py:1022
+#: ../autopart.py:1024
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -245,7 +245,7 @@ msgstr ""
 "het begin om de bootloader te installeren. Zorg dat er minimaal 5 Megabyte "
 "vrije ruimte is aan het begin van de schijf die de map /boot bevat"
 
-#: ../autopart.py:1024
+#: ../autopart.py:1026
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
@@ -254,7 +254,7 @@ msgstr ""
 "Opstartpartitie %s is niet van het type VFAT.  EFI zal niet in staat zijn om "
 "van deze partitie op te starten."
 
-#: ../autopart.py:1026
+#: ../autopart.py:1028
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
@@ -262,7 +262,7 @@ msgstr ""
 "Opstartpartitie staat niet genoeg aan het begin van de disk.  OpenFirmware "
 "zal niet in staat zijn om van deze partitie op te starten."
 
-#: ../autopart.py:1033
+#: ../autopart.py:1035
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
@@ -270,7 +270,7 @@ msgstr ""
 "Opstartpartitie %s voldoet mogelijk niet aan de opstart-voorwaarden voor uw "
 "architectuur."
 
-#: ../autopart.py:1059
+#: ../autopart.py:1061
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -279,11 +279,11 @@ msgstr ""
 "Het toevoegen van deze partitie zou te weinig schijfruimte vrijlaten voor de "
 "reeds gealloceerde logische volumes in %s."
 
-#: ../autopart.py:1226
+#: ../autopart.py:1229
 msgid "Requested Partition Does Not Exist"
 msgstr "Gevraagde partitie bestaat niet"
 
-#: ../autopart.py:1227
+#: ../autopart.py:1230
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -294,11 +294,11 @@ msgstr ""
 "\n"
 "Geef 'OK' om uw systeem te herstarten."
 
-#: ../autopart.py:1252
+#: ../autopart.py:1255
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Gevraagd RAID apparaat bestaat niet"
 
-#: ../autopart.py:1253
+#: ../autopart.py:1256
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -309,11 +309,11 @@ msgstr ""
 "\n"
 "Geef 'OK' om uw systeem te herstarten."
 
-#: ../autopart.py:1282
+#: ../autopart.py:1285
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Gevraagde volumegroep bestaat niet"
 
-#: ../autopart.py:1283
+#: ../autopart.py:1286
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -324,11 +324,11 @@ msgstr ""
 "\n"
 "Geef 'OK' om uw systeem te herstarten."
 
-#: ../autopart.py:1318
+#: ../autopart.py:1321
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Gevraagd logisch volume bestaat niet"
 
-#: ../autopart.py:1319
+#: ../autopart.py:1322
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -339,11 +339,11 @@ msgstr ""
 "\n"
 "Geef 'OK' om uw systeem te herstarten."
 
-#: ../autopart.py:1411 ../autopart.py:1459
+#: ../autopart.py:1414 ../autopart.py:1462
 msgid "Automatic Partitioning Errors"
 msgstr "Fouten bij automatisch partitioneren"
 
-#: ../autopart.py:1412
+#: ../autopart.py:1415
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -358,11 +358,11 @@ msgstr ""
 "\n"
 "Geef 'OK' om uw systeem te herstarten."
 
-#: ../autopart.py:1422
+#: ../autopart.py:1425
 msgid "Warnings During Automatic Partitioning"
 msgstr "Waarschuwingen tijdens automatisch partitioneren"
 
-#: ../autopart.py:1423
+#: ../autopart.py:1426
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -373,7 +373,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1436 ../autopart.py:1453
+#: ../autopart.py:1439 ../autopart.py:1456
 msgid ""
 "\n"
 "\n"
@@ -383,12 +383,12 @@ msgstr ""
 "\n"
 "Geef 'OK' om uw systeem te herstarten."
 
-#: ../autopart.py:1437 ../iw/partition_gui.py:992
+#: ../autopart.py:1440 ../iw/partition_gui.py:995
 #: ../textw/partition_text.py:224
 msgid "Error Partitioning"
 msgstr "Fout bij partitioneren"
 
-#: ../autopart.py:1438
+#: ../autopart.py:1441
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -399,7 +399,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1455
+#: ../autopart.py:1458
 msgid ""
 "\n"
 "\n"
@@ -415,7 +415,7 @@ msgstr ""
 "\n"
 "Geef 'OK' om door te gaan."
 
-#: ../autopart.py:1460
+#: ../autopart.py:1463
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -432,29 +432,29 @@ msgstr ""
 "Dit kan gebeuren als er te weinig ruimte op de harde schijf is voor de "
 "installatie.%s"
 
-#: ../autopart.py:1471
+#: ../autopart.py:1474
 msgid "Unrecoverable Error"
 msgstr "Onherstelbare fout"
 
-#: ../autopart.py:1472
+#: ../autopart.py:1475
 msgid "Your system will now be rebooted."
 msgstr "Uw systeem wordt nu opnieuw opgestart."
 
-#: ../autopart.py:1618 ../bootloader.py:166 ../gui.py:1082 ../image.py:473
-#: ../packages.py:444 ../partedUtils.py:286 ../partedUtils.py:316
-#: ../partedUtils.py:842 ../partedUtils.py:899 ../upgrade.py:318
+#: ../autopart.py:1621 ../bootloader.py:153 ../gui.py:1069 ../image.py:473
+#: ../packages.py:446 ../partedUtils.py:289 ../partedUtils.py:319
+#: ../partedUtils.py:845 ../partedUtils.py:902 ../upgrade.py:318
 #: ../upgrade.py:429 ../upgrade.py:482 ../upgrade.py:505 ../upgrade.py:545
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:92 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
 #: ../iw/upgrade_swap_gui.py:215 ../iw/zfcp_gui.py:248
-#: ../textw/bootloader_text.py:141 ../textw/bootloader_text.py:454
+#: ../textw/bootloader_text.py:125 ../textw/bootloader_text.py:438
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:228
-#: ../textw/upgrade_text.py:177 ../loader2/loader.c:341
+#: ../textw/upgrade_text.py:177 ../loader2/loader.c:363
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: ../autopart.py:1624
+#: ../autopart.py:1627
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -471,7 +471,7 @@ msgstr ""
 "mogelijkheid om op interactieve wijze partities aan te maken. U kunt zelf "
 "bestandssysteem-types, koppelpunten en partitiegroottes instellen."
 
-#: ../autopart.py:1635
+#: ../autopart.py:1638
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -480,19 +480,19 @@ msgstr ""
 "partitioneren, dient u aan te geven hoe de ruimte op de harde schijven moet "
 "worden gebruikt."
 
-#: ../autopart.py:1640
+#: ../autopart.py:1643
 msgid "Remove all partitions on this system"
 msgstr "Alle partities op dit systeem verwijderen"
 
-#: ../autopart.py:1641
+#: ../autopart.py:1644
 msgid "Remove all Linux partitions on this system"
 msgstr "Alle Linux-partities op dit systeem verwijderen"
 
-#: ../autopart.py:1642
+#: ../autopart.py:1645
 msgid "Keep all partitions and use existing free space"
 msgstr "Alle partities ongemoeid laten en alleen vrije ruimte gebruiken"
 
-#: ../autopart.py:1644
+#: ../autopart.py:1647
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -503,7 +503,7 @@ msgstr ""
 "de volgende stations:%s\n"
 "Weet u zeker dat u dit wilt doen?"
 
-#: ../autopart.py:1648
+#: ../autopart.py:1651
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -514,15 +514,15 @@ msgstr ""
 "verwijderen op de volgende stations:%s\n"
 "Weet u zeker dat u dit wilt doen?"
 
-#: ../bootloader.py:109
+#: ../bootloader.py:96
 msgid "Bootloader"
 msgstr "Bootloader"
 
-#: ../bootloader.py:109
+#: ../bootloader.py:96
 msgid "Installing bootloader..."
 msgstr "Bootloader wordt geïnstalleerd..."
 
-#: ../bootloader.py:167
+#: ../bootloader.py:154
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -558,36 +558,6 @@ msgstr "Gereed [%d/%d]"
 msgid "Installing %s-%s-%s... "
 msgstr "Bezig met installeren van %s-%s-%s... "
 
-#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:779
-msgid "Everything"
-msgstr "Alles"
-
-#: ../comps.py:936 ../comps.py:1001
-msgid "no suggestion"
-msgstr "geen suggestie"
-
-#: ../comps.py:1098 ../hdrlist.py:1008
-msgid "Miscellaneous"
-msgstr "Overig"
-
-#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:955
-msgid ""
-"This group includes all the packages available.  Note that there are "
-"substantially more packages than just the ones in all the other package "
-"groups on this page."
-msgstr ""
-"Deze groep bevat alle beschikbare pakketten.  Bedenk wel dat dit "
-"substantieel meer pakketten zijn dan de pakketten van alle overige "
-"pakketgroepen op deze pagina tezamen."
-
-#: ../comps.py:1118 ../hdrlist.py:959
-msgid ""
-"Choose this group to get the minimal possible set of packages.  Useful for "
-"creating small router/firewall boxes, for example."
-msgstr ""
-"Kies deze groep voor een zo klein mogelijke verzameling pakketten. Dat is "
-"bijvoorbeeld handig bij het opzetten van een kleine router/firewall-computer."
-
 #: ../constants.py:72
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
@@ -611,15 +581,15 @@ msgstr ""
 "gedetailleerd foutrapport voor het pakket anaconda te maken op http://"
 "bugzilla.redhat.com/bugzilla/"
 
-#: ../exception.py:227 ../text.py:241
+#: ../exception.py:228 ../text.py:241
 msgid "Exception Occurred"
 msgstr "Uitzondering opgetreden"
 
-#: ../exception.py:295
+#: ../exception.py:296
 msgid "Dump Written"
 msgstr "Dump geschreven"
 
-#: ../exception.py:296
+#: ../exception.py:297
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -673,7 +643,7 @@ msgstr ""
 "Bij het maken van de opstartdiskette zullen alle oude gegevens hierop worden "
 "VERWIJDERD."
 
-#: ../floppy.py:118 ../packages.py:454
+#: ../floppy.py:118 ../packages.py:456
 msgid "_Cancel"
 msgstr "_Annuleren"
 
@@ -682,28 +652,28 @@ msgid "_Make boot disk"
 msgstr "_Opstartdiskette maken"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
-#: ../fsset.py:592 ../fsset.py:1316 ../fsset.py:1354 ../fsset.py:1365
-#: ../fsset.py:1415 ../fsset.py:1426 ../fsset.py:1461 ../fsset.py:1511
-#: ../fsset.py:1555 ../fsset.py:1574 ../harddrive.py:165 ../image.py:154
+#: ../fsset.py:595 ../fsset.py:1326 ../fsset.py:1364 ../fsset.py:1375
+#: ../fsset.py:1425 ../fsset.py:1436 ../fsset.py:1471 ../fsset.py:1521
+#: ../fsset.py:1565 ../fsset.py:1584 ../harddrive.py:165 ../image.py:154
 #: ../image.py:192 ../image.py:326 ../image.py:530 ../packages.py:162
-#: ../packages.py:175 ../packages.py:184 ../packages.py:196 ../packages.py:430
-#: ../packages.py:628 ../packages.py:734 ../partedUtils.py:659
+#: ../packages.py:175 ../packages.py:184 ../packages.py:196 ../packages.py:432
+#: ../packages.py:630 ../packages.py:734 ../partedUtils.py:662
 #: ../upgrade.py:349 ../upgrade.py:374 ../upgrade.py:401
 #: ../iw/osbootwidget.py:219 ../iw/osbootwidget.py:228
 #: ../iw/raid_dialog_gui.py:604 ../iw/raid_dialog_gui.py:643
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:338
-#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:403
-#: ../loader2/driverdisk.c:470 ../loader2/hdinstall.c:106
+#: ../loader2/cdinstall.c:448 ../loader2/driverdisk.c:339
+#: ../loader2/driverdisk.c:377 ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:476 ../loader2/hdinstall.c:106
 #: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:217
 #: ../loader2/hdinstall.c:435 ../loader2/hdinstall.c:538
 #: ../loader2/hdinstall.c:581 ../loader2/hdinstall.c:594
-#: ../loader2/kickstart.c:270 ../loader2/lang.c:103 ../loader2/loader.c:310
-#: ../loader2/loader.c:666 ../loader2/mediacheck.c:255
-#: ../loader2/mediacheck.c:312 ../loader2/method.c:155 ../loader2/method.c:364
-#: ../loader2/method.c:449 ../loader2/nfsinstall.c:200
-#: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
+#: ../loader2/kickstart.c:270 ../loader2/lang.c:103 ../loader2/loader.c:332
+#: ../loader2/loader.c:688 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/method.c:155 ../loader2/method.c:372
+#: ../loader2/method.c:457 ../loader2/nfsinstall.c:201
+#: ../loader2/nfsinstall.c:210 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:67 ../loader2/urlinstall.c:139
 #: ../loader2/urlinstall.c:152 ../loader2/urls.c:172 ../loader2/urls.c:182
 #: ../loader2/urls.c:191 ../loader2/urls.c:322 ../loader2/urls.c:327
@@ -754,7 +724,7 @@ msgstr "Er wordt nu gecontroleerd op schijffouten"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "/dev/%s wordt nu gecontroleerd op schijffouten..."
 
-#: ../fsset.py:593
+#: ../fsset.py:596
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -767,27 +737,27 @@ msgstr ""
 "\n"
 "Wilt u doorgaan zonder %s om te zetten?"
 
-#: ../fsset.py:1224
+#: ../fsset.py:1234
 msgid "RAID Device"
 msgstr "RAID Device"
 
-#: ../fsset.py:1228 ../fsset.py:1234
+#: ../fsset.py:1238 ../fsset.py:1244
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1239 ../partitions.py:825
+#: ../fsset.py:1249 ../partitions.py:856
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1242 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1252 ../iw/silo_gui.py:185 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Eerste sector van de opstartpartitie"
 
-#: ../fsset.py:1243 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1253 ../iw/silo_gui.py:182 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:1317
+#: ../fsset.py:1327
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -801,7 +771,7 @@ msgstr ""
 "\n"
 "Geef <Enter> om uw systeem te herstarten."
 
-#: ../fsset.py:1355
+#: ../fsset.py:1365
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -818,7 +788,7 @@ msgstr ""
 "\n"
 "Geef OK om uw systeem te herstarten."
 
-#: ../fsset.py:1366
+#: ../fsset.py:1376
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -834,7 +804,7 @@ msgstr ""
 "\n"
 "Geef OK om uw systeem te herstarten."
 
-#: ../fsset.py:1416
+#: ../fsset.py:1426
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -847,7 +817,7 @@ msgstr ""
 "\n"
 "Geef <Enter> om uw systeem te herstarten"
 
-#: ../fsset.py:1427
+#: ../fsset.py:1437
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -860,7 +830,7 @@ msgstr ""
 "\n"
 "Geef <Enter> om uw systeem te herstarten."
 
-#: ../fsset.py:1462
+#: ../fsset.py:1472
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -873,7 +843,7 @@ msgstr ""
 "\n"
 "Geef <Enter> om uw systeem te herstarten."
 
-#: ../fsset.py:1512
+#: ../fsset.py:1522
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -886,11 +856,11 @@ msgstr ""
 "\n"
 "Geef <Enter> om uw systeem te herstarten."
 
-#: ../fsset.py:1533 ../fsset.py:1542
+#: ../fsset.py:1543 ../fsset.py:1552
 msgid "Invalid mount point"
 msgstr "Ongeldig koppelpunt"
 
-#: ../fsset.py:1534
+#: ../fsset.py:1544
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -904,7 +874,7 @@ msgstr ""
 "\n"
 "Geef <Enter> om uw systeem te herstarten."
 
-#: ../fsset.py:1543
+#: ../fsset.py:1553
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -917,7 +887,7 @@ msgstr ""
 "\n"
 "Geef <Enter> om uw systeem te herstarten."
 
-#: ../fsset.py:1556
+#: ../fsset.py:1566
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -933,7 +903,7 @@ msgstr ""
 "\n"
 "Geef OK om uw systeem te herstarten."
 
-#: ../fsset.py:1575
+#: ../fsset.py:1585
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -948,11 +918,11 @@ msgstr ""
 "Geef OK om uw systeem te herstarten."
 
 # geen werkwoord!
-#: ../fsset.py:2214
+#: ../fsset.py:2226
 msgid "Duplicate Labels"
 msgstr "Duplicaat-labels"
 
-#: ../fsset.py:2215
+#: ../fsset.py:2227
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -966,34 +936,34 @@ msgstr ""
 "\n"
 "Verhelp dit probleem en start het installatieproces opnieuw."
 
-#: ../fsset.py:2222 ../gui.py:727 ../gui.py:1184 ../image.py:96
-#: ../image.py:483 ../packages.py:455 ../packages.py:1558
+#: ../fsset.py:2234 ../gui.py:728 ../gui.py:1174 ../image.py:96
+#: ../image.py:483 ../packages.py:457 ../packages.py:1565
 #: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "_Herstarten"
 
-#: ../fsset.py:2475
+#: ../fsset.py:2487
 msgid "Formatting"
 msgstr "Bezig met formatteren"
 
 # dubbele punt toegevoegd om verwarring te voorkomen: bijv:
 # Bestandssysteem / wordt nu geformatteerd
 # Misschien ook nog aanhalingstekens gebruiken?
-#: ../fsset.py:2476
+#: ../fsset.py:2488
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Bestandssysteem: %s wordt nu geformatteerd..."
 
-#: ../gui.py:109
+#: ../gui.py:110
 msgid "An error occurred copying the screenshots over."
 msgstr "Er is een fout opgetreden bij het kopieren van de schermafdrukken."
 
-#: ../gui.py:121
+#: ../gui.py:122
 msgid "Screenshots Copied"
 msgstr "Schermafdrukken gekopieerd"
 
-#: ../gui.py:122
+#: ../gui.py:123
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -1007,20 +977,20 @@ msgstr ""
 "\n"
 "U kunt deze bekijken wanneer u opstart en zich aanmeldt als root."
 
-#: ../gui.py:166
+#: ../gui.py:167
 msgid "Saving Screenshot"
 msgstr "Opslaan schermafdruk"
 
-#: ../gui.py:167
+#: ../gui.py:168
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "Een schermafdruk genaamd '%s' is opgeslagen."
 
-#: ../gui.py:170
+#: ../gui.py:171
 msgid "Error Saving Screenshot"
 msgstr "Fout bij het opslaan van schermafdruk"
 
-#: ../gui.py:171
+#: ../gui.py:172
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -1028,47 +998,47 @@ msgstr ""
 "Er is een fout opgetreden tijdens het opslaan van de schermafdruk. Als dit "
 "gebeurde tijdens pakket-installatie, zou u het nog eens kunnen proberen."
 
-#: ../gui.py:240 ../text.py:336
+#: ../gui.py:241 ../text.py:336
 msgid "Fix"
 msgstr "Herstellen"
 
-#: ../gui.py:241 ../rescue.py:180 ../text.py:337 ../textw/bootdisk_text.py:22
-#: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:254 ../loader2/driverdisk.c:514
-#: ../loader2/driverdisk.c:525 ../loader2/hdinstall.c:330
-#: ../loader2/loader.c:341
+#: ../gui.py:242 ../rescue.py:180 ../text.py:337 ../textw/bootdisk_text.py:22
+#: ../textw/bootloader_text.py:70 ../textw/constants_text.py:48
+#: ../textw/upgrade_text.py:254 ../loader2/driverdisk.c:519
+#: ../loader2/driverdisk.c:530 ../loader2/hdinstall.c:330
+#: ../loader2/loader.c:363
 msgid "Yes"
 msgstr "Ja"
 
-#: ../gui.py:242 ../rescue.py:180 ../rescue.py:182 ../text.py:338
+#: ../gui.py:243 ../rescue.py:180 ../rescue.py:182 ../text.py:338
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
-#: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
+#: ../textw/bootloader_text.py:70 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:254 ../textw/upgrade_text.py:261
-#: ../loader2/driverdisk.c:514 ../loader2/driverdisk.c:525
-#: ../loader2/loader.c:341
+#: ../loader2/driverdisk.c:519 ../loader2/driverdisk.c:530
+#: ../loader2/loader.c:363
 msgid "No"
 msgstr "Nee"
 
-#: ../gui.py:244 ../text.py:340 ../loader2/net.c:235 ../loader2/net.c:580
+#: ../gui.py:245 ../text.py:340 ../loader2/net.c:274 ../loader2/net.c:588
 msgid "Retry"
 msgstr "Opnieuw"
 
-#: ../gui.py:245 ../text.py:341
+#: ../gui.py:246 ../text.py:341
 msgid "Ignore"
 msgstr "Negeren"
 
-#: ../gui.py:246 ../gui.py:641 ../partIntfHelpers.py:233
+#: ../gui.py:247 ../gui.py:642 ../partIntfHelpers.py:233
 #: ../partIntfHelpers.py:521 ../text.py:117 ../text.py:118 ../text.py:298
 #: ../text.py:300 ../text.py:342 ../iw/bootloader_advanced_gui.py:48
-#: ../iw/bootloader_main_gui.py:96 ../textw/bootloader_text.py:216
+#: ../iw/bootloader_main_gui.py:96 ../textw/bootloader_text.py:200
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:269
-#: ../loader2/loader.c:299
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
+#: ../loader2/loader.c:321
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: ../gui.py:722 ../text.py:284
+#: ../gui.py:723 ../text.py:284
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -1080,11 +1050,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../gui.py:724 ../text.py:286
+#: ../gui.py:725 ../text.py:286
 msgid "Error Parsing Kickstart Config"
 msgstr "Fout bij verwerken kickstart configuratie"
 
-#: ../gui.py:732 ../text.py:296
+#: ../gui.py:733 ../text.py:296
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1092,23 +1062,23 @@ msgstr ""
 "Voer nu een diskette in. Alle gegevens op de diskette zullen worden "
 "verwijderd, dus let goed op welke diskette u gebruikt."
 
-#: ../gui.py:845
+#: ../gui.py:846
 msgid "default:LTR"
 msgstr "standaard:LTR"
 
-#: ../gui.py:927 ../iw/release_notes_viewer_gui.py:44
+#: ../gui.py:914 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
 msgstr "Versie-informatie ontbreekt.\n"
 
-#: ../gui.py:1083
+#: ../gui.py:1070
 msgid "The release notes are missing."
 msgstr "Versie-informatie ontbreekt."
 
-#: ../gui.py:1171
+#: ../gui.py:1161
 msgid "Error!"
 msgstr "Fout!"
 
-#: ../gui.py:1172
+#: ../gui.py:1162
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1120,38 +1090,38 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1176 ../gui.py:1181 ../packages.py:190 ../packages.py:201
-#: ../packages.py:633 ../packages.py:1550 ../packages.py:1555
+#: ../gui.py:1166 ../gui.py:1171 ../packages.py:190 ../packages.py:201
+#: ../packages.py:635 ../packages.py:1557 ../packages.py:1562
 msgid "_Exit"
 msgstr "_Afsluiten"
 
-#: ../gui.py:1177 ../packages.py:442
+#: ../gui.py:1167 ../packages.py:444
 msgid "_Retry"
 msgstr "Op_nieuw"
 
-#: ../gui.py:1180 ../packages.py:1554
+#: ../gui.py:1170 ../packages.py:1561
 msgid "The installer will now exit..."
 msgstr "Het installatieprogramma zal nu afsluiten..."
 
-#: ../gui.py:1183 ../packages.py:1557
+#: ../gui.py:1173 ../packages.py:1564
 msgid "Your system will now be rebooted..."
 msgstr "Uw systeem wordt nu opnieuw opgestart..."
 
-#: ../gui.py:1186 ../packages.py:1559
+#: ../gui.py:1176 ../packages.py:1566
 msgid "Rebooting System"
 msgstr "Systeem herstarten"
 
 # Grafische of Tekst installatie
-#: ../gui.py:1267
+#: ../gui.py:1257
 #, python-format
 msgid "%s Installer"
 msgstr "%s Installatie"
 
-#: ../gui.py:1275
+#: ../gui.py:1265
 msgid "Unable to load title bar"
 msgstr "Titelbalk kon niet worden geladen"
 
-#: ../gui.py:1337
+#: ../gui.py:1327
 msgid "Install Window"
 msgstr "Installatievenster"
 
@@ -1167,6 +1137,32 @@ msgstr ""
 "\n"
 "%s\n"
 "Het systeem zal nu herstarten."
+
+#: ../hdrlist.py:45 ../hdrlist.py:937
+msgid ""
+"This group includes all the packages available.  Note that there are "
+"substantially more packages than just the ones in all the other package "
+"groups on this page."
+msgstr ""
+"Deze groep bevat alle beschikbare pakketten.  Bedenk wel dat dit "
+"substantieel meer pakketten zijn dan de pakketten van alle overige "
+"pakketgroepen op deze pagina tezamen."
+
+#: ../hdrlist.py:779
+msgid "Everything"
+msgstr "Alles"
+
+#: ../hdrlist.py:941
+msgid ""
+"Choose this group to get the minimal possible set of packages.  Useful for "
+"creating small router/firewall boxes, for example."
+msgstr ""
+"Kies deze groep voor een zo klein mogelijke verzameling pakketten. Dat is "
+"bijvoorbeeld handig bij het opzetten van een kleine router/firewall-computer."
+
+#: ../hdrlist.py:990
+msgid "Miscellaneous"
+msgstr "Overig"
 
 #: ../image.py:87
 msgid "Required Install Media"
@@ -1189,8 +1185,8 @@ msgstr ""
 "installatie.  Als u de installatie wilt afbreken en herstarten selecteer dan "
 "\"Herstarten\"."
 
-#: ../image.py:96 ../image.py:484 ../kickstart.py:1479 ../kickstart.py:1507
-#: ../iw/partition_gui.py:1006
+#: ../image.py:96 ../image.py:484 ../kickstart.py:1497 ../kickstart.py:1525
+#: ../iw/partition_gui.py:1009
 msgid "_Continue"
 msgstr "_Doorgaan"
 
@@ -1246,11 +1242,30 @@ msgstr "Niet in staat om de CDROM te benaderen."
 msgid "Install on System"
 msgstr "Installeren op systeem"
 
-#: ../kickstart.py:1471
+#: ../kickstart.py:102
+msgid "Scriptlet Failure"
+msgstr ""
+
+#: ../kickstart.py:103
+#, fuzzy, python-format
+msgid ""
+"There was an error running the scriptlet.  You may examine the output in %"
+"s.  This is a fatal error and your install will be aborted.\n"
+"\n"
+"Press the OK button to reboot your system."
+msgstr ""
+"Er was een fout bij het installeren van %s.  De oorzaak kan zijn: slechte "
+"mediadrager, te weinig vrije ruimte of hardwareproblemen. Dit is een fatale "
+"fout en uw installatie zal worden afgebroken.  Controleer uw mediadrager en "
+"probeer opnieuw te installeren.\n"
+"\n"
+"Geef OK om uw systeem opnieuw op te starten."
+
+#: ../kickstart.py:1489
 msgid "Missing Package"
 msgstr "Ontbrekend pakket"
 
-#: ../kickstart.py:1472
+#: ../kickstart.py:1490
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1259,15 +1274,15 @@ msgstr ""
 "U heeft aangegeven dat het pakket '%s' moet worden geïnstalleerd.  Dit "
 "pakket bestaat niet. Wilt u doorgaan met uw installatie of wilt u afbreken?"
 
-#: ../kickstart.py:1478 ../kickstart.py:1506
+#: ../kickstart.py:1496 ../kickstart.py:1524
 msgid "_Abort"
 msgstr "_Afbreken"
 
-#: ../kickstart.py:1498
+#: ../kickstart.py:1516
 msgid "Missing Group"
 msgstr "Ontbrekende groep"
 
-#: ../kickstart.py:1499
+#: ../kickstart.py:1517
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1344,7 +1359,7 @@ msgstr ""
 "installatieomgeving. Wees er zeker van dat uw installatieomgeving correct is "
 "samengesteld."
 
-#: ../packages.py:197 ../packages.py:629
+#: ../packages.py:197 ../packages.py:631
 #, python-format
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
@@ -1362,15 +1377,15 @@ msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 "De afhankelijkheden in de geselecteerde pakketten worden gecontroleerd..."
 
-#: ../packages.py:371 ../packages.py:869
+#: ../packages.py:373 ../packages.py:869
 msgid "Processing"
 msgstr "Verwerken"
 
-#: ../packages.py:372
+#: ../packages.py:374
 msgid "Preparing to install..."
 msgstr "De installatie wordt nu voorbereid..."
 
-#: ../packages.py:431
+#: ../packages.py:433
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -1387,28 +1402,28 @@ msgstr ""
 "Met <Enter> zal het installatieprogramma nogmaals proberen het bestand te "
 "lezen."
 
-#: ../packages.py:441
+#: ../packages.py:443
 msgid "Re_boot"
 msgstr "_Herstarten"
 
-#: ../packages.py:445
+#: ../packages.py:447
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
-"Als u herstart, zal uw systeem zich in een inconsistente status bevinden. Dit "
-"zal waarschijnlijk een herinstallatie inhouden.  Weet u zeker dat u verder "
-"wilt gaan?"
+"Als u herstart, zal uw systeem zich in een inconsistente status bevinden. "
+"Dit zal waarschijnlijk een herinstallatie inhouden.  Weet u zeker dat u "
+"verder wilt gaan?"
 
-#: ../packages.py:459
+#: ../packages.py:461
 msgid "Installing..."
 msgstr "Installeren..."
 
-#: ../packages.py:480
+#: ../packages.py:482
 msgid "Error Installing Package"
 msgstr "Fout bij installeren van pakket"
 
-#: ../packages.py:481
+#: ../packages.py:483
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -1439,7 +1454,7 @@ msgstr ""
 msgid "Preparing RPM transaction..."
 msgstr "Opzetten van RPM-overdracht..."
 
-#: ../packages.py:953
+#: ../packages.py:960
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -1448,7 +1463,7 @@ msgstr ""
 "%s pakketten worden vernieuwd\n"
 "\n"
 
-#: ../packages.py:955
+#: ../packages.py:962
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -1457,17 +1472,17 @@ msgstr ""
 "%s pakketten worden nu geïnstalleerd\n"
 "\n"
 
-#: ../packages.py:963 ../packages.py:1263
+#: ../packages.py:970 ../packages.py:1270
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "Bezig met upgraden van %s-%s-%s.%s.\n"
 
-#: ../packages.py:965 ../packages.py:1265
+#: ../packages.py:972 ../packages.py:1272
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "Bezig met installeren van %s-%s-%s.%s.\n"
 
-#: ../packages.py:981
+#: ../packages.py:988
 #, python-format
 msgid ""
 "\n"
@@ -1484,16 +1499,16 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:987
+#: ../packages.py:994
 msgid "Install Starting"
 msgstr "De installatie gaat nu beginnen"
 
-#: ../packages.py:988
+#: ../packages.py:995
 msgid "Starting install process, this may take several minutes..."
 msgstr ""
 "Het installatieproces wordt nu opgestart. Dit kan enkele minuten duren..."
 
-#: ../packages.py:1028
+#: ../packages.py:1035
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -1504,17 +1519,17 @@ msgstr ""
 "bestandssystemen:\n"
 "\n"
 
-#: ../packages.py:1032 ../packages.py:1053 ../iw/lvm_dialog_gui.py:1060
-#: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
+#: ../packages.py:1039 ../packages.py:1060 ../iw/lvm_dialog_gui.py:1060
+#: ../iw/partition_gui.py:361 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1435 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Koppelpunt"
 
-#: ../packages.py:1033
+#: ../packages.py:1040
 msgid "Space Needed"
 msgstr "Benodigde schijfruimte"
 
-#: ../packages.py:1049
+#: ../packages.py:1056
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1525,23 +1540,23 @@ msgstr ""
 "de volgende bestandssystemen:\n"
 "\n"
 
-#: ../packages.py:1054
+#: ../packages.py:1061
 msgid "Nodes Needed"
 msgstr "Benodigde knooppunten"
 
-#: ../packages.py:1065
+#: ../packages.py:1072
 msgid "Disk Space"
 msgstr "Schijfruimte"
 
-#: ../packages.py:1110
+#: ../packages.py:1117
 msgid "Post Install"
 msgstr "Na-installatie"
 
-#: ../packages.py:1111
+#: ../packages.py:1118
 msgid "Performing post install configuration..."
 msgstr "Bezig met na-installatie configuratie..."
 
-#: ../packages.py:1289
+#: ../packages.py:1296
 msgid ""
 "\n"
 "\n"
@@ -1552,7 +1567,7 @@ msgstr ""
 "De volgende pakketten waren wel beschikbaar in deze versie maar werden NIET "
 "vernieuwd:\n"
 
-#: ../packages.py:1292
+#: ../packages.py:1299
 msgid ""
 "\n"
 "\n"
@@ -1563,11 +1578,11 @@ msgstr ""
 "De volgende pakketten waren wel beschikbaar in deze versie maar werden NIET "
 "geïnstalleerd:\n"
 
-#: ../packages.py:1536
+#: ../packages.py:1543
 msgid "Warning! This is pre-release software!"
 msgstr "Opgepast! Deze software is een proefversie!"
 
-#: ../packages.py:1537
+#: ../packages.py:1544
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1594,21 +1609,21 @@ msgstr ""
 "\n"
 "en maak een foutrapportage voor '%s'.\n"
 
-#: ../packages.py:1550
+#: ../packages.py:1557
 msgid "_Install anyway"
 msgstr "_Installeer toch"
 
-#: ../packages.py:1555 ../packages.py:1558 ../iw/confirm_gui.py:68
+#: ../packages.py:1562 ../packages.py:1565 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:120
 msgid "_Back"
 msgstr "_Terug"
 
-#: ../partedUtils.py:191 ../textw/partition_text.py:555
+#: ../partedUtils.py:194 ../textw/partition_text.py:555
 msgid "Foreign"
 msgstr "Vreemd"
 
-#: ../partedUtils.py:287
+#: ../partedUtils.py:290
 #, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
@@ -1626,7 +1641,7 @@ msgstr ""
 "\n"
 "Wilt u deze DASD opnieuw formatteren met het CDL formaat?"
 
-#: ../partedUtils.py:317
+#: ../partedUtils.py:320
 #, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
@@ -1641,30 +1656,30 @@ msgstr ""
 "\n"
 "Wilt u dit station initialiseren?"
 
-#: ../partedUtils.py:326
+#: ../partedUtils.py:329
 msgid "_Ignore drive"
 msgstr "_Negeer station"
 
-#: ../partedUtils.py:327
+#: ../partedUtils.py:330
 msgid "_Format drive"
 msgstr "_Formatteer station"
 
-#: ../partedUtils.py:660
+#: ../partedUtils.py:663
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Fout bij het aankoppelen van het bestandssysteem aan %s: %s"
 
-#: ../partedUtils.py:748
+#: ../partedUtils.py:751
 msgid "Initializing"
 msgstr "Initialisatie"
 
-#: ../partedUtils.py:749
+#: ../partedUtils.py:752
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Een ogenblik geduld, station %s wordt nu geformatteerd...\n"
 
 # drive en device worden hier wel heel erg willekeurig door elkaar gehaald, lijkt het.
-#: ../partedUtils.py:843
+#: ../partedUtils.py:846
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1686,7 +1701,7 @@ msgstr ""
 "Wilt u dit station initialiseren?"
 
 # drive en device worden hier wel heel erg willekeurig door elkaar gehaald, lijkt het.
-#: ../partedUtils.py:900
+#: ../partedUtils.py:903
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1706,11 +1721,11 @@ msgstr ""
 "\n"
 "Wilt u dit station initialiseren?"
 
-#: ../partedUtils.py:1018 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:1021 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "Geen stations gevonden"
 
-#: ../partedUtils.py:1019
+#: ../partedUtils.py:1022
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1843,7 +1858,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:521
 #: ../iw/lvm_dialog_gui.py:732 ../iw/lvm_dialog_gui.py:1083
-#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1351
+#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1356
 msgid "_Delete"
 msgstr "Verwij_deren"
 
@@ -1925,7 +1940,7 @@ msgstr ""
 msgid "Format?"
 msgstr "Formatteren?"
 
-#: ../partIntfHelpers.py:410 ../iw/partition_gui.py:1004
+#: ../partIntfHelpers.py:410 ../iw/partition_gui.py:1007
 msgid "_Modify Partition"
 msgstr "Partitie _aanpassen"
 
@@ -1972,7 +1987,7 @@ msgstr ""
 "\n"
 "Wilt u doorgaan met uw opgegeven partitieschema?"
 
-#: ../partIntfHelpers.py:448 ../iw/partition_gui.py:660
+#: ../partIntfHelpers.py:448 ../iw/partition_gui.py:663
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -2060,7 +2075,7 @@ msgstr ""
 "meteen aanzetten. Om dit te kunnen doen, moeten we nu meteen uw "
 "partitietabel naar de schijf schrijven. Is dat OK?"
 
-#: ../partitions.py:779
+#: ../partitions.py:791
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -2069,7 +2084,7 @@ msgstr ""
 "U heeft geen rootpartitie (/) gedefinieerd. Deze is benodigd om door te "
 "kunnen gaan met de installatie van %s."
 
-#: ../partitions.py:784
+#: ../partitions.py:796
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -2078,18 +2093,23 @@ msgstr ""
 "Uw root-partitie is minder dan 250 megabytes wat gewoonlijk te klein is om %"
 "s te installeren."
 
-#: ../partitions.py:791
+#: ../partitions.py:803
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "U moet een partitie /boot/efi aanmaken, van type FAT en met een grootte van "
 "50 megabytes."
 
-#: ../partitions.py:814
+#: ../partitions.py:823
+#, fuzzy
+msgid "You must create an Apple Bootstrap partition."
+msgstr "U moet een PPC PReP Boot partitie aanmaken."
+
+#: ../partitions.py:845
 msgid "You must create a PPC PReP Boot partition."
 msgstr "U moet een PPC PReP Boot partitie aanmaken."
 
-#: ../partitions.py:822 ../partitions.py:833
+#: ../partitions.py:853 ../partitions.py:864
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -2098,15 +2118,15 @@ msgstr ""
 "Uw %s partitie is minder dan %s megabytes groot; wat kleiner is dan "
 "aanbevolen voor een normale %s installatie."
 
-#: ../partitions.py:862 ../partRequests.py:653
+#: ../partitions.py:893 ../partRequests.py:709
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Opstartpartities mogen alleen op een RAID1-opstelling staan."
 
-#: ../partitions.py:869
+#: ../partitions.py:900
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Opstartpartities mogen niet op een logisch volume staan."
 
-#: ../partitions.py:880
+#: ../partitions.py:911
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -2115,7 +2135,7 @@ msgstr ""
 "strikt noodzakelijk is, verhoogt het in het algemeen wel de prestaties van "
 "het systeem."
 
-#: ../partitions.py:887
+#: ../partitions.py:918
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -2124,7 +2144,7 @@ msgstr ""
 "U heeft meer dan 32 wisselpartities opgegeven.  De kernel voor %s "
 "ondersteunt maximaal 32 wisselpartities."
 
-#: ../partitions.py:898
+#: ../partitions.py:929
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -2133,19 +2153,19 @@ msgstr ""
 "U heeft minder wisselgeheugen (%dM) gealloceerd dan de hoeveelheid RAM-"
 "geheugen (%dM) in uw systeem.  Dit kan de prestaties negatief beïnvloeden."
 
-#: ../partitions.py:1194
+#: ../partitions.py:1227
 msgid "the partition in use by the installer."
 msgstr "de partitie in gebruik door het installatieprogramma."
 
-#: ../partitions.py:1197
+#: ../partitions.py:1230
 msgid "a partition which is a member of a RAID array."
 msgstr "een partitie die deel uitmaakt van een RAID-opstelling."
 
-#: ../partitions.py:1200
+#: ../partitions.py:1233
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "een partitie die deel uitmaakt van een LVM-Volumegroep."
 
-#: ../partRequests.py:233
+#: ../partRequests.py:286
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
@@ -2153,7 +2173,7 @@ msgstr ""
 "Dit koppelpunt is ongeldig.  De map %s moet zich op het / -bestandssysteem "
 "bevinden."
 
-#: ../partRequests.py:236
+#: ../partRequests.py:289
 #, python-format
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
@@ -2162,18 +2182,18 @@ msgstr ""
 "Het koppelpunt %s mag niet worden gebruikt.  Voor een juiste werking van het "
 "systeem moet het een symbolische link zijn.  Kies een ander koppelpunt."
 
-#: ../partRequests.py:243
+#: ../partRequests.py:296
 msgid "This mount point must be on a linux file system."
 msgstr "Dit koppelpunt moet zich op een Linux-bestandssysteem bevinden."
 
-#: ../partRequests.py:264
+#: ../partRequests.py:317
 #, python-format
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
 msgstr "Het koppelpunt \"%s\" is reeds in gebruik. Kies een ander koppelpunt."
 
-#: ../partRequests.py:278
+#: ../partRequests.py:331
 #, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
@@ -2181,7 +2201,7 @@ msgid ""
 msgstr ""
 "De grootte van partitie %s (%10.2f MB) overschrijdt de limiet van %10.2f MB."
 
-#: ../partRequests.py:470
+#: ../partRequests.py:526
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
@@ -2190,30 +2210,30 @@ msgstr ""
 "De grootte van de gevraagde partitie (grootte = %s MB) overschrijdt de "
 "maximumgrootte van %s MB."
 
-#: ../partRequests.py:475
+#: ../partRequests.py:531
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr "De grootte van de gevraagde partitie is negatief! (grootte = %s MB)"
 
-#: ../partRequests.py:479
+#: ../partRequests.py:535
 msgid "Partitions can't start below the first cylinder."
 msgstr "Partities kunnen niet vóór de eerste cylinder beginnen."
 
-#: ../partRequests.py:482
+#: ../partRequests.py:538
 msgid "Partitions can't end on a negative cylinder."
 msgstr "Partities kunnen niet op een negatieve cylinder eindigen."
 
 # spelfout in not RAD level specified!
-#: ../partRequests.py:645
+#: ../partRequests.py:701
 msgid "No members in RAID request, or not RAID level specified."
 msgstr "Geen onderdelen in RAID-verzoek of geen RAID-level opgegeven."
 
-#: ../partRequests.py:657
+#: ../partRequests.py:713
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "Een RAID-opstelling van type %s heeft tenminste %s onderdelen."
 
-#: ../partRequests.py:663
+#: ../partRequests.py:719
 #, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
@@ -2284,8 +2304,8 @@ msgstr ""
 "prompt.\n"
 "\n"
 
-#: ../rescue.py:273 ../iw/partition_gui.py:562 ../loader2/cdinstall.c:109
-#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:471
+#: ../rescue.py:273 ../iw/partition_gui.py:565 ../loader2/cdinstall.c:109
+#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:477
 msgid "Continue"
 msgstr "Doorgaan"
 
@@ -2295,7 +2315,7 @@ msgstr "Alleen-lezen"
 
 #: ../rescue.py:273 ../rescue.py:275 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:254
-#: ../loader2/cdinstall.c:256 ../loader2/method.c:411
+#: ../loader2/cdinstall.c:256 ../loader2/method.c:419
 msgid "Skip"
 msgstr "Overslaan"
 
@@ -2599,7 +2619,7 @@ msgstr ""
 "om opgewaardeerd te worden naar deze versie van %s.  Weet u zeker dat u door "
 "wilt gaan met het upgrade-proces?"
 
-#: ../urlinstall.py:46
+#: ../urlinstall.py:45
 msgid "Connecting..."
 msgstr "Verbinden..."
 
@@ -2909,11 +2929,11 @@ msgstr "Be_vestigen:"
 msgid "Passwords don't match"
 msgstr "De wachtwoorden komen niet overeen"
 
-#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:445
+#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:429
 msgid "Passwords do not match"
 msgstr "De wachtwoorden komen niet overeen"
 
-#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:455
+#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:439
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2925,11 +2945,11 @@ msgstr ""
 "\n"
 "Wilt u dit wachtwoord blijven gebruiken?"
 
-#: ../iw/bootdisk_gui.py:23
+#: ../iw/bootdisk_gui.py:24
 msgid "Boot Diskette Creation"
 msgstr "Opstartdiskette aanmaken"
 
-#: ../iw/bootdisk_gui.py:54
+#: ../iw/bootdisk_gui.py:55
 #, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
@@ -2947,11 +2967,11 @@ msgstr ""
 "\n"
 "Het wordt sterk aanbevolen een opstartdiskette te maken.\n"
 
-#: ../iw/bootdisk_gui.py:70
+#: ../iw/bootdisk_gui.py:71
 msgid "_Yes, I would like to create a boot diskette"
 msgstr "_Ja, ik wil een opstartdiskette maken"
 
-#: ../iw/bootdisk_gui.py:73
+#: ../iw/bootdisk_gui.py:74
 msgid "No, I _do not want to create a boot diskette"
 msgstr "_Nee, ik wil geen opstartdiskette maken"
 
@@ -2959,7 +2979,7 @@ msgstr "_Nee, ik wil geen opstartdiskette maken"
 msgid "Advanced Boot Loader Configuration"
 msgstr "Geavanceerde bootloader-configuratie"
 
-#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
+#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:126
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
@@ -2992,9 +3012,9 @@ msgstr ""
 msgid "_General kernel parameters"
 msgstr "_Algemene kernel-parameters"
 
-#: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:53
-#: ../textw/bootloader_text.py:125 ../textw/bootloader_text.py:182
-#: ../textw/bootloader_text.py:305 ../textw/bootloader_text.py:397
+#: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:43
+#: ../textw/bootloader_text.py:109 ../textw/bootloader_text.py:166
+#: ../textw/bootloader_text.py:289 ../textw/bootloader_text.py:381
 msgid "Boot Loader Configuration"
 msgstr "Bootloader configureren"
 
@@ -3022,7 +3042,7 @@ msgstr ""
 msgid "C_ontinue with no boot loader"
 msgstr "_Doorgaan zonder bootloader"
 
-#: ../iw/bootloader_main_gui.py:123
+#: ../iw/bootloader_main_gui.py:120
 msgid ""
 "Please select the boot loader that the computer will use.  GRUB is the "
 "default boot loader. However, if you do not wish to overwrite your current "
@@ -3032,32 +3052,28 @@ msgstr ""
 "bootloader. Als u echter uw huidige bootloader niet wilt overschrijven, "
 "selecteer dan: \"Geen bootloader installeren.\"  "
 
-#: ../iw/bootloader_main_gui.py:131
+#: ../iw/bootloader_main_gui.py:128
 msgid "Use _GRUB as the boot loader"
 msgstr "_GRUB als bootloader gebruiken"
 
-#: ../iw/bootloader_main_gui.py:135
-msgid "Use _LILO as the boot loader"
-msgstr "_LILO als bootloader gebruiken"
-
-#: ../iw/bootloader_main_gui.py:139
+#: ../iw/bootloader_main_gui.py:130
 msgid "_Do not install a boot loader"
 msgstr "_Geen bootloader installeren"
 
-#: ../iw/bootloader_main_gui.py:162
+#: ../iw/bootloader_main_gui.py:149
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
 msgstr "De bootloader %s zal worden geïnstalleerd op /dev/%s."
 
-#: ../iw/bootloader_main_gui.py:167
+#: ../iw/bootloader_main_gui.py:154
 msgid "No boot loader will be installed."
 msgstr "Er zal geen bootloader worden geïnstalleerd."
 
-#: ../iw/bootloader_main_gui.py:219
+#: ../iw/bootloader_main_gui.py:204
 msgid "_Change boot loader"
 msgstr "Bootloader _aanpassen"
 
-#: ../iw/bootloader_main_gui.py:247
+#: ../iw/bootloader_main_gui.py:232
 msgid "Configure advanced boot loader _options"
 msgstr "_Geavanceerde bootloader-opties configureren"
 
@@ -3069,20 +3085,11 @@ msgstr "Bootloader installeren op:"
 msgid "_Change Drive Order"
 msgstr "Stationsvolgorde _veranderen"
 
-#: ../iw/bootlocwidget.py:84
-msgid "Unable to Change Drive Order for LILO"
-msgstr "Niet in staat de stationsvolgorde te veranderen voor LILO"
-
-#: ../iw/bootlocwidget.py:85
-msgid "We do not support changing the drive order for use with LILO."
-msgstr ""
-"We ondersteunen het wisselen van stationsvolgorde niet voor gebruik met LILO."
-
-#: ../iw/bootlocwidget.py:92
+#: ../iw/bootlocwidget.py:82
 msgid "Edit Drive Order"
 msgstr "Stationsvolgorde bewerken"
 
-#: ../iw/bootlocwidget.py:97
+#: ../iw/bootlocwidget.py:87
 msgid ""
 "Arrange the drives to be in the same order as used by the BIOS. Changing the "
 "drive order may be useful if you have multiple SCSI adapters or both SCSI "
@@ -3157,9 +3164,10 @@ msgid "Congratulations"
 msgstr "Gefeliciteerd"
 
 #: ../iw/congrats_gui.py:59
+#, fuzzy
 msgid ""
-"Remove any installation media (diskettes or CD-ROMs) used during the "
-"installation process and press the \"Reboot\" button to reboot your system.\n"
+"Remove any installation media  used during the installation process and "
+"press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
 "Verwijder alle installatiemedia (diskettes of CD-ROMs) die u tijdens de "
@@ -3304,19 +3312,19 @@ msgstr "Grootte"
 msgid "Model"
 msgstr "Model"
 
-#: ../iw/examine_gui.py:32
+#: ../iw/examine_gui.py:33
 msgid "Upgrade Examine"
 msgstr "Upgrade onderzoek"
 
 # sneltoets op de _n omdat de andere optie een _U heeft en de
 # i en de u zitten vlak naast elkaar, dus om vergissingen te
 # voorkomen...
-#: ../iw/examine_gui.py:59
+#: ../iw/examine_gui.py:60
 #, python-format
 msgid "_Install %s"
 msgstr "%s I_nstalleren"
 
-#: ../iw/examine_gui.py:61
+#: ../iw/examine_gui.py:62
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
@@ -3324,11 +3332,11 @@ msgstr ""
 "Kies deze optie om uw systeem opnieuw te installeren. Bestaande software en "
 "data kan (afhankelijk van uw configuratie keuzes) overschreven worden."
 
-#: ../iw/examine_gui.py:65
+#: ../iw/examine_gui.py:66
 msgid "_Upgrade an existing installation"
 msgstr "_Upgraden van een reeds bestaande installatie"
 
-#: ../iw/examine_gui.py:67
+#: ../iw/examine_gui.py:68
 #, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
@@ -3338,11 +3346,11 @@ msgstr ""
 "deze optie zullen de gegevens die nu op uw harde schijf staan, behouden "
 "blijven."
 
-#: ../iw/examine_gui.py:130 ../iw/pixmapRadioButtonGroup_gui.py:197
+#: ../iw/examine_gui.py:131 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
 msgstr "Het volgende geïnstalleerd systeem zal een upgrade krijgen:"
 
-#: ../iw/examine_gui.py:143
+#: ../iw/examine_gui.py:144
 msgid "Unknown Linux system"
 msgstr "Onbekend Linux systeem"
 
@@ -3472,11 +3480,11 @@ msgstr "IP-adressen moeten bestaan uit getallen tussen 1 en 255"
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP-adressen moeten bestaan uit getallen tussen 0 en 255"
 
-#: ../iw/language_gui.py:23 ../textw/language_text.py:38
+#: ../iw/language_gui.py:24 ../textw/language_text.py:38
 msgid "Language Selection"
 msgstr "Taalkeuze"
 
-#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:378
+#: ../iw/language_gui.py:63 ../textw/language_text.py:39 ../loader2/lang.c:378
 msgid "What language would you like to use during the installation process?"
 msgstr "Welke taal wilt u gebruiken tijdens de installatie?"
 
@@ -3541,7 +3549,7 @@ msgstr ""
 "Deze verandering zal meteen worden doorgevoerd."
 
 #: ../iw/lvm_dialog_gui.py:128 ../iw/lvm_dialog_gui.py:188
-#: ../iw/network_gui.py:158 ../iw/network_gui.py:162 ../iw/network_gui.py:185
+#: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:187
 msgid "C_ontinue"
 msgstr "_Doorgaan"
 
@@ -3820,7 +3828,7 @@ msgstr "Totale ruimte:"
 msgid "Logical Volume Name"
 msgstr "Logisch Volumenaam"
 
-#: ../iw/lvm_dialog_gui.py:1063 ../iw/partition_gui.py:363
+#: ../iw/lvm_dialog_gui.py:1063 ../iw/partition_gui.py:366
 msgid "Size (MB)"
 msgstr "Grootte (MB)"
 
@@ -3829,8 +3837,8 @@ msgid "_Add"
 msgstr "To_evoegen"
 
 # was eerst Wijzig_en
-#: ../iw/lvm_dialog_gui.py:1080 ../iw/network_gui.py:524
-#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1350 ../iw/zfcp_gui.py:101
+#: ../iw/lvm_dialog_gui.py:1080 ../iw/network_gui.py:526
+#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1355 ../iw/zfcp_gui.py:101
 msgid "_Edit"
 msgstr "_Aanpassen"
 
@@ -3875,19 +3883,19 @@ msgstr "3 knoppen _emuleren"
 msgid "Select the appropriate mouse for the system."
 msgstr "Kies de juiste muis voor dit systeem."
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:606
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:607
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:608
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:609
 msgid "Primary DNS"
 msgstr "Eerste DNS-server"
 
-#: ../iw/network_gui.py:28 ../iw/network_gui.py:610
+#: ../iw/network_gui.py:28 ../iw/network_gui.py:611
 msgid "Secondary DNS"
 msgstr "Tweede DNS-server"
 
-#: ../iw/network_gui.py:28 ../iw/network_gui.py:612
+#: ../iw/network_gui.py:28 ../iw/network_gui.py:613
 msgid "Tertiary DNS"
 msgstr "Derde DNS-server"
 
@@ -3911,14 +3919,14 @@ msgstr "_Derde DNS-server"
 msgid "Network Configuration"
 msgstr "Netwerk configureren"
 
-#: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:165
-#: ../iw/network_gui.py:170 ../iw/network_gui.py:176 ../iw/network_gui.py:180
-#: ../iw/network_gui.py:185 ../iw/zfcp_gui.py:160 ../iw/zfcp_gui.py:224
+#: ../iw/network_gui.py:159 ../iw/network_gui.py:163 ../iw/network_gui.py:167
+#: ../iw/network_gui.py:172 ../iw/network_gui.py:178 ../iw/network_gui.py:182
+#: ../iw/network_gui.py:187 ../iw/zfcp_gui.py:160 ../iw/zfcp_gui.py:224
 #: ../textw/zfcp_text.py:63
 msgid "Error With Data"
 msgstr "Fout met data"
 
-#: ../iw/network_gui.py:158
+#: ../iw/network_gui.py:160
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3926,7 +3934,7 @@ msgstr ""
 "U heeft geen computernaam opgegeven.  Afhankelijk van uw netwerkomgeving, "
 "kan dit later problemen geven."
 
-#: ../iw/network_gui.py:162
+#: ../iw/network_gui.py:164
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3935,7 +3943,7 @@ msgstr ""
 "U heeft het veld \"%s\" niet gespecificeerd. Afhankelijk van uw "
 "netwerkomgeving kan dit later problemen geven."
 
-#: ../iw/network_gui.py:166 ../textw/network_text.py:414
+#: ../iw/network_gui.py:168 ../textw/network_text.py:414
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3946,7 +3954,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:171
+#: ../iw/network_gui.py:173
 #, python-format
 msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
@@ -3956,16 +3964,16 @@ msgstr ""
 "\":\n"
 "%s"
 
-#: ../iw/network_gui.py:177
+#: ../iw/network_gui.py:179
 #, python-format
 msgid "A value is required for the field \"%s\"."
 msgstr "Voor het veld \"%s\" is een waarde vereist."
 
-#: ../iw/network_gui.py:181
+#: ../iw/network_gui.py:183
 msgid "The IP information you have entered is invalid."
 msgstr "De ingevoerde IP-informatie is ongeldig."
 
-#: ../iw/network_gui.py:185
+#: ../iw/network_gui.py:187
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active.\n"
@@ -3982,90 +3990,90 @@ msgstr ""
 "worden geactiveerd."
 
 # instellen hier beter dan bewerken of aanpassen
-#: ../iw/network_gui.py:204
+#: ../iw/network_gui.py:206
 #, python-format
 msgid "Edit Interface %s"
 msgstr "Interface %s instellen"
 
-#: ../iw/network_gui.py:215
+#: ../iw/network_gui.py:217
 msgid "Configure using _DHCP"
 msgstr "Configureren via _DHCP"
 
-#: ../iw/network_gui.py:221
+#: ../iw/network_gui.py:223
 msgid "_Activate on boot"
 msgstr "_Actief bij opstarten"
 
-#: ../iw/network_gui.py:230
+#: ../iw/network_gui.py:232
 msgid "_IP Address"
 msgstr "_IP Adres"
 
-#: ../iw/network_gui.py:231
+#: ../iw/network_gui.py:233
 msgid "Net_mask"
 msgstr "Net_mask"
 
-#: ../iw/network_gui.py:236
+#: ../iw/network_gui.py:238
 msgid "_Point to Point (IP)"
 msgstr "_Point to Point (IP)"
 
-#: ../iw/network_gui.py:240
+#: ../iw/network_gui.py:242
 msgid "_ESSID"
 msgstr "_ESSID"
 
-#: ../iw/network_gui.py:241
+#: ../iw/network_gui.py:243
 msgid "Encryption _Key"
 msgstr "Encryptie _sleutel"
 
-#: ../iw/network_gui.py:252
+#: ../iw/network_gui.py:254
 msgid "Hardware address:"
 msgstr "Hardware adres:"
 
-#: ../iw/network_gui.py:291
+#: ../iw/network_gui.py:293
 #, python-format
 msgid "Configure %s"
 msgstr "%s configureren"
 
-#: ../iw/network_gui.py:465
+#: ../iw/network_gui.py:467
 msgid "Active on Boot"
 msgstr "Actief bij opstarten"
 
-#: ../iw/network_gui.py:467 ../iw/osbootwidget.py:67
-#: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:210 ../textw/bootloader_text.py:281
+#: ../iw/network_gui.py:469 ../iw/osbootwidget.py:67
+#: ../iw/partition_gui.py:360 ../iw/silo_gui.py:264
+#: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:265
 #: ../textw/mouse_text.py:38 ../textw/partition_text.py:1435
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Apparaat"
 
-#: ../iw/network_gui.py:469
+#: ../iw/network_gui.py:471
 msgid "IP/Netmask"
 msgstr "IP/Netmask"
 
-#: ../iw/network_gui.py:531
+#: ../iw/network_gui.py:533
 msgid "Network Devices"
 msgstr "Netwerkapparaten"
 
-#: ../iw/network_gui.py:541
+#: ../iw/network_gui.py:543
 msgid "Set the hostname:"
 msgstr "Computernaam instellen:"
 
 # a wordt al gebruikt voor _Aanpassen
-#: ../iw/network_gui.py:545
+#: ../iw/network_gui.py:547
 msgid "_automatically via DHCP"
 msgstr "a_utomatisch via DHCP"
 
-#: ../iw/network_gui.py:551
+#: ../iw/network_gui.py:553
 msgid "_manually"
 msgstr "hand_matig"
 
-#: ../iw/network_gui.py:557
+#: ../iw/network_gui.py:559
 msgid "(ex. \"host.domain.com\")"
 msgstr "(bijv. \"host.domein.com\")"
 
-#: ../iw/network_gui.py:564 ../loader2/net.c:803
+#: ../iw/network_gui.py:566 ../loader2/net.c:811
 msgid "Hostname"
 msgstr "Computernaam"
 
-#: ../iw/network_gui.py:617
+#: ../iw/network_gui.py:618
 msgid "Miscellaneous Settings"
 msgstr "Overige instellingen"
 
@@ -4084,8 +4092,8 @@ msgstr ""
 "besturingssysteem dat standaard moet worden opgestart geeft u een vinkje in "
 "de kolom 'Standaard'."
 
-#: ../iw/osbootwidget.py:67 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:207
+#: ../iw/osbootwidget.py:67 ../iw/silo_gui.py:264
+#: ../textw/bootloader_text.py:265 ../textw/silo_text.py:207
 #: ../textw/xconfig_text.py:413 ../textw/xconfig_text.py:420
 #: ../textw/xconfig_text.py:547 ../textw/xconfig_text.py:548
 #: ../textw/xconfig_text.py:567 ../textw/xconfig_text.py:568
@@ -4302,25 +4310,25 @@ msgstr "_Eindcylinder:"
 msgid "Force to be a _primary partition"
 msgstr "Forceren als _primaire partitie"
 
-#: ../iw/partition_gui.py:359 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../iw/partition_gui.py:362 ../iw/silo_gui.py:141 ../iw/silo_gui.py:288
 #: ../textw/partition_text.py:1435
 msgid "Type"
 msgstr "Type"
 
-#: ../iw/partition_gui.py:362
+#: ../iw/partition_gui.py:365
 msgid "Format"
 msgstr "Formatteren"
 
 # Start is hier waarschijnlijk het begin van de partitie, dus een znw
-#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1435
+#: ../iw/partition_gui.py:367 ../textw/partition_text.py:1435
 msgid "Start"
 msgstr "Begin"
 
-#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1435
+#: ../iw/partition_gui.py:368 ../textw/partition_text.py:1435
 msgid "End"
 msgstr "Eind"
 
-#: ../iw/partition_gui.py:402
+#: ../iw/partition_gui.py:405
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
@@ -4328,7 +4336,7 @@ msgstr ""
 "Koppelpunt/\n"
 "RAID/Volume"
 
-#: ../iw/partition_gui.py:404
+#: ../iw/partition_gui.py:407
 msgid ""
 "Size\n"
 "(MB)"
@@ -4336,16 +4344,16 @@ msgstr ""
 "Grootte\n"
 "(MB)"
 
-#: ../iw/partition_gui.py:536 ../textw/partition_text.py:1429
+#: ../iw/partition_gui.py:539 ../textw/partition_text.py:1429
 msgid "Partitioning"
 msgstr "Partitioneren"
 
-#: ../iw/partition_gui.py:628
+#: ../iw/partition_gui.py:631
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr "Er zijn de volgende kritieke fouten met uw opgegeven partitieschema."
 
-#: ../iw/partition_gui.py:631
+#: ../iw/partition_gui.py:634
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
@@ -4353,91 +4361,91 @@ msgstr ""
 "Deze fouten moeten worden hersteld voordat u verder kunt gaan met de "
 "installatie van %s."
 
-#: ../iw/partition_gui.py:637
+#: ../iw/partition_gui.py:640
 msgid "Partitioning Errors"
 msgstr "Partitioneringsfouten"
 
-#: ../iw/partition_gui.py:643
+#: ../iw/partition_gui.py:646
 msgid "The following warnings exist with your requested partition scheme."
 msgstr "Er zijn de volgende waarschuwingen met uw opgegeven partitieschema."
 
-#: ../iw/partition_gui.py:645
+#: ../iw/partition_gui.py:648
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "Wilt u doorgaan met uw opgegeven partitieschema?"
 
-#: ../iw/partition_gui.py:650
+#: ../iw/partition_gui.py:653
 msgid "Partitioning Warnings"
 msgstr "Partitioneringswaarschuwingen"
 
-#: ../iw/partition_gui.py:672
+#: ../iw/partition_gui.py:675
 msgid "Format Warnings"
 msgstr "Formatteringswaarschuwingen"
 
-#: ../iw/partition_gui.py:677
+#: ../iw/partition_gui.py:680
 msgid "_Format"
 msgstr "_Formatteren"
 
-#: ../iw/partition_gui.py:712
+#: ../iw/partition_gui.py:715
 msgid "LVM Volume Groups"
 msgstr "LVM Volumegroepen"
 
-#: ../iw/partition_gui.py:747
+#: ../iw/partition_gui.py:750
 msgid "RAID Devices"
 msgstr "RAID-opstellingen"
 
-#: ../iw/partition_gui.py:775 ../iw/partition_gui.py:901
+#: ../iw/partition_gui.py:778 ../iw/partition_gui.py:904
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:156
 msgid "None"
 msgstr "Geen"
 
-#: ../iw/partition_gui.py:793 ../loader2/hdinstall.c:330
+#: ../iw/partition_gui.py:796 ../loader2/hdinstall.c:330
 msgid "Hard Drives"
 msgstr "Harde schijven"
 
-#: ../iw/partition_gui.py:864 ../textw/partition_text.py:138
+#: ../iw/partition_gui.py:867 ../textw/partition_text.py:138
 #: ../textw/partition_text.py:177
 msgid "Free space"
 msgstr "Vrije ruimte"
 
-#: ../iw/partition_gui.py:866 ../textw/partition_text.py:140
+#: ../iw/partition_gui.py:869 ../textw/partition_text.py:140
 msgid "Extended"
 msgstr "Uitgebreid"
 
-#: ../iw/partition_gui.py:868 ../textw/partition_text.py:142
+#: ../iw/partition_gui.py:871 ../textw/partition_text.py:142
 msgid "software RAID"
 msgstr "softwarematig RAID"
 
-#: ../iw/partition_gui.py:903
+#: ../iw/partition_gui.py:906
 msgid "Free"
 msgstr "Beschikbaar"
 
-#: ../iw/partition_gui.py:993 ../textw/partition_text.py:225
+#: ../iw/partition_gui.py:996 ../textw/partition_text.py:225
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Kon de gevraagde partities niet alloceren: %s."
 
-#: ../iw/partition_gui.py:1002
+#: ../iw/partition_gui.py:1005
 #, python-format
 msgid "Warning: %s."
 msgstr "Waarschuwing: %s."
 
-#: ../iw/partition_gui.py:1184 ../iw/partition_gui.py:1198
+#: ../iw/partition_gui.py:1189 ../iw/partition_gui.py:1203
 msgid "Not supported"
 msgstr "Niet ondersteund"
 
-#: ../iw/partition_gui.py:1185
+#: ../iw/partition_gui.py:1190
 msgid "LVM is NOT supported on this platform."
 msgstr "LVM wordt NIET door dit platform ondersteund."
 
-#: ../iw/partition_gui.py:1199
+#: ../iw/partition_gui.py:1204
 msgid "Software RAID is NOT supported on this platform."
 msgstr "Softwarematig RAID wordt NIET door dit platform ondersteund."
 
-#: ../iw/partition_gui.py:1206
+#: ../iw/partition_gui.py:1211
 msgid "No RAID minor device numbers available"
 msgstr "Geen RAID minor device nummers beschikbaar"
 
-#: ../iw/partition_gui.py:1207
+#: ../iw/partition_gui.py:1212
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
@@ -4445,11 +4453,11 @@ msgstr ""
 "Een softwarematige RAID-opstelling kon niet worden gemaakt omdat alle "
 "beschikbare RAID minor device nummers opgebruikt zijn."
 
-#: ../iw/partition_gui.py:1221
+#: ../iw/partition_gui.py:1226
 msgid "RAID Options"
 msgstr "RAID-opties"
 
-#: ../iw/partition_gui.py:1232
+#: ../iw/partition_gui.py:1237
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -4469,7 +4477,7 @@ msgstr ""
 "U heeft momenteel %s softwarematige RAID-partitie(s) vrij voor gebruik.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1243
+#: ../iw/partition_gui.py:1248
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -4481,74 +4489,74 @@ msgstr ""
 "geformatteerd en aangekoppeld kan worden.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1249
+#: ../iw/partition_gui.py:1254
 msgid "What do you want to do now?"
 msgstr "Wat wilt u nu doen?"
 
-#: ../iw/partition_gui.py:1258
+#: ../iw/partition_gui.py:1263
 msgid "Create a software RAID _partition."
 msgstr "Softwarematige RAID-_partitie maken."
 
-#: ../iw/partition_gui.py:1261
+#: ../iw/partition_gui.py:1266
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "Een RAID-_opstelling maken (standaard=/dev/md%s)."
 
-#: ../iw/partition_gui.py:1265
+#: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
 "Een _station klonen om een RAID-opstelling te maken (standaard=/dev/md%s)."
 
-#: ../iw/partition_gui.py:1304
+#: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "Kon de 'stationskloon-editor' niet aanmaken"
 
-#: ../iw/partition_gui.py:1305
+#: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
 msgstr ""
 "De stationskloon-editor kon om een of andere reden niet aangemaakt worden."
 
-#: ../iw/partition_gui.py:1349
+#: ../iw/partition_gui.py:1354
 msgid "Ne_w"
 msgstr "_Nieuw"
 
-#: ../iw/partition_gui.py:1352
+#: ../iw/partition_gui.py:1357
 msgid "Re_set"
 msgstr "Re_setten"
 
-#: ../iw/partition_gui.py:1353
+#: ../iw/partition_gui.py:1358
 msgid "R_AID"
 msgstr "_RAID"
 
-#: ../iw/partition_gui.py:1354
+#: ../iw/partition_gui.py:1359
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1395
+#: ../iw/partition_gui.py:1400
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Onderdelen van RAID-opstelling/LVM Volumegroep verbergen"
 
-#: ../iw/partition_gui.py:1410 ../textw/partition_text.py:1519
+#: ../iw/partition_gui.py:1415 ../textw/partition_text.py:1519
 msgid "Automatic Partitioning"
 msgstr "Automatisch partitioneren"
 
-#: ../iw/partition_gui.py:1438
+#: ../iw/partition_gui.py:1443
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr ""
 "U moet tenminste één harde schijf selecteren waarop %s moet worden "
 "geïnstalleerd."
 
-#: ../iw/partition_gui.py:1480
+#: ../iw/partition_gui.py:1485
 msgid "I want to have automatic partitioning:"
 msgstr "Ik wil automatisch partitioneren gebruiken:"
 
-#: ../iw/partition_gui.py:1511
+#: ../iw/partition_gui.py:1516
 msgid "Select the drive(s) to use for this installation:"
 msgstr "Kies de station(s) die u voor deze installatie wilt gebruiken:"
 
-#: ../iw/partition_gui.py:1535
+#: ../iw/partition_gui.py:1540
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr "De aangemaakte partities herzien en zonodig _aanpassen"
 
@@ -4876,71 +4884,71 @@ msgstr "Versie-informatie"
 msgid "Unable to load file!"
 msgstr "Kan bestand niet laden!"
 
-#: ../iw/silo_gui.py:28
+#: ../iw/silo_gui.py:29
 msgid "Silo Configuration"
 msgstr "Silo instellingen"
 
 # werkwoord of znw?
-#: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:148
+#: ../iw/silo_gui.py:136 ../iw/silo_gui.py:287 ../iw/upgrade_swap_gui.py:148
 #: ../textw/upgrade_text.py:112
 msgid "Partition"
 msgstr "Partitie"
 
-#: ../iw/silo_gui.py:172
+#: ../iw/silo_gui.py:173
 msgid "Install SILO boot record on:"
 msgstr "SILO bootrecord installeren op:"
 
-#: ../iw/silo_gui.py:189
+#: ../iw/silo_gui.py:190
 msgid "Create PROM alias"
 msgstr "PROM-alias maken"
 
-#: ../iw/silo_gui.py:212
+#: ../iw/silo_gui.py:213
 msgid "Set default PROM boot device to linux"
 msgstr "Standaard PROM-boot-device instellen op Linux"
 
-#: ../iw/silo_gui.py:216
+#: ../iw/silo_gui.py:217
 msgid "Kernel parameters"
 msgstr "Kernel-parameters"
 
-#: ../iw/silo_gui.py:234
+#: ../iw/silo_gui.py:235
 msgid "Create boot disk"
 msgstr "Opstartdiskette maken"
 
-#: ../iw/silo_gui.py:244
+#: ../iw/silo_gui.py:245
 msgid "Do not install SILO"
 msgstr "SILO niet installeren"
 
-#: ../iw/silo_gui.py:263 ../textw/silo_text.py:207
+#: ../iw/silo_gui.py:264 ../textw/silo_text.py:207
 msgid "Partition type"
 msgstr "Soort partitie"
 
-#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:211
-#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:143
+#: ../iw/silo_gui.py:264 ../iw/silo_gui.py:299 ../textw/bootloader_text.py:195
+#: ../textw/bootloader_text.py:265 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "Bootlabel"
 
-#: ../iw/silo_gui.py:294
+#: ../iw/silo_gui.py:295
 msgid "Default boot image"
 msgstr "Standaard boot-image"
 
-#: ../iw/timezone_gui.py:28 ../textw/timezone_text.py:97
+#: ../iw/timezone_gui.py:29 ../textw/timezone_text.py:97
 msgid "Time Zone Selection"
 msgstr "Tijdzone kiezen"
 
-#: ../iw/timezone_gui.py:67
+#: ../iw/timezone_gui.py:68
 msgid "System clock uses _UTC"
 msgstr "Systeemklok gebruikt _UTC"
 
-#: ../iw/timezone_gui.py:75
+#: ../iw/timezone_gui.py:76
 msgid "Please select the nearest city in your timezone:"
 msgstr "Kies de dichtstbijzijnde stad in uw tijdzone:"
 
-#: ../iw/timezone_map_gui.py:126
+#: ../iw/timezone_map_gui.py:129
 msgid "_Location"
 msgstr "_Lokatie"
 
-#: ../iw/timezone_map_gui.py:128
+#: ../iw/timezone_map_gui.py:131
 msgid "Description"
 msgstr "Beschrijving"
 
@@ -5378,23 +5386,19 @@ msgstr "Opstartdiskette"
 msgid "Which boot loader would you like to use?"
 msgstr "Welke bootloader wilt u gebruiken?"
 
-#: ../textw/bootloader_text.py:45
+#: ../textw/bootloader_text.py:39
 msgid "Use GRUB Boot Loader"
 msgstr "Bootloader GRUB gebruiken"
 
-#: ../textw/bootloader_text.py:47
-msgid "Use LILO Boot Loader"
-msgstr "Bootloader LILO gebruiken"
-
-#: ../textw/bootloader_text.py:50
+#: ../textw/bootloader_text.py:40
 msgid "No Boot Loader"
 msgstr "Geen bootloader"
 
-#: ../textw/bootloader_text.py:72
+#: ../textw/bootloader_text.py:60
 msgid "Skip Boot Loader"
 msgstr "Bootloader overslaan"
 
-#: ../textw/bootloader_text.py:73
+#: ../textw/bootloader_text.py:61
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -5410,7 +5414,7 @@ msgstr ""
 "\n"
 "Weet u zeker dat u het installeren van de bootloader wilt overslaan?"
 
-#: ../textw/bootloader_text.py:110 ../textw/silo_text.py:25
+#: ../textw/bootloader_text.py:94 ../textw/silo_text.py:25
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -5422,43 +5426,43 @@ msgstr ""
 "moet meegeven, voer deze dan nu in. Als u geen opties nodig heeft of u bent "
 "er niet zeker van, laat dit dan open."
 
-#: ../textw/bootloader_text.py:119
+#: ../textw/bootloader_text.py:103
 msgid "Force use of LBA32 (not normally required)"
 msgstr "Gebruik van LBA32 forceren (gewoonlijk niet nodig)"
 
-#: ../textw/bootloader_text.py:183
+#: ../textw/bootloader_text.py:167
 msgid "Where do you want to install the boot loader?"
 msgstr "Waar wilt u de bootloader installeren?"
 
-#: ../textw/bootloader_text.py:215 ../textw/silo_text.py:147
+#: ../textw/bootloader_text.py:199 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
 msgstr "Wissen"
 
-#: ../textw/bootloader_text.py:223 ../textw/silo_text.py:155
+#: ../textw/bootloader_text.py:207 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
 msgstr "Bootlabel bewerken"
 
-#: ../textw/bootloader_text.py:241 ../textw/bootloader_text.py:246
+#: ../textw/bootloader_text.py:225 ../textw/bootloader_text.py:230
 msgid "Invalid Boot Label"
 msgstr "Ongeldig bootlabel"
 
-#: ../textw/bootloader_text.py:242
+#: ../textw/bootloader_text.py:226
 msgid "Boot label may not be empty."
 msgstr "Het bootlabel mag niet leeg zijn."
 
-#: ../textw/bootloader_text.py:247
+#: ../textw/bootloader_text.py:231
 msgid "Boot label contains illegal characters."
 msgstr "Het bootlabel bevat ongeldige tekens."
 
-#: ../textw/bootloader_text.py:296 ../textw/fdisk_text.py:41
+#: ../textw/bootloader_text.py:280 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1440 ../textw/silo_text.py:216
 #: ../textw/silo_text.py:238 ../textw/userauth_text.py:237
 #: ../textw/zfcp_text.py:109
 msgid "Edit"
 msgstr "Bewerken"
 
-#: ../textw/bootloader_text.py:300
+#: ../textw/bootloader_text.py:284
 #, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well. You need "
@@ -5469,14 +5473,14 @@ msgstr ""
 "moet aangeven van welke partities u wilt kunnen opstarten en welk label u "
 "elk van deze partities wilt geven."
 
-#: ../textw/bootloader_text.py:313
+#: ../textw/bootloader_text.py:297
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Spatie> selecteert knop | <F2> opstart-standaard kiezen| <F12> volgend "
 "scherm>"
 
-#: ../textw/bootloader_text.py:392
+#: ../textw/bootloader_text.py:376
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -5487,27 +5491,27 @@ msgstr ""
 "ook aan om een wachtwoord in te stellen. Voor normaal gebruik is dit echter "
 "niet noodzakelijk."
 
-#: ../textw/bootloader_text.py:402
+#: ../textw/bootloader_text.py:386
 msgid "Use a GRUB Password"
 msgstr "Wachtwoord voor GRUB gebruiken"
 
-#: ../textw/bootloader_text.py:414
+#: ../textw/bootloader_text.py:398
 msgid "Boot Loader Password:"
 msgstr "Bootloader wachtwoord:"
 
-#: ../textw/bootloader_text.py:415
+#: ../textw/bootloader_text.py:399
 msgid "Confirm:"
 msgstr "Bevestigen:"
 
-#: ../textw/bootloader_text.py:444
+#: ../textw/bootloader_text.py:428
 msgid "Passwords Do Not Match"
 msgstr "De wachtwoorden komen niet overeen"
 
-#: ../textw/bootloader_text.py:449
+#: ../textw/bootloader_text.py:433
 msgid "Password Too Short"
 msgstr "Het wachtwoord is te kort"
 
-#: ../textw/bootloader_text.py:450
+#: ../textw/bootloader_text.py:434
 msgid "Boot loader password is too short"
 msgstr "Het bootloader-wachtwoord is te kort"
 
@@ -5524,9 +5528,10 @@ msgid "<Enter> to exit"
 msgstr "<Enter> om te beëindigen"
 
 #: ../textw/complete_text.py:30
+#, fuzzy
 msgid ""
-"Remove any installation media (diskettes or CD-ROMs) used during the "
-"installation process and press <Enter> to reboot your system.\n"
+"Remove any installation media used during the installation process and press "
+"<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
 "Verwijder alle installatie media (diskettes of CD-ROMs) die u tijdens de "
@@ -5589,14 +5594,14 @@ msgstr ""
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
-#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:382
-#: ../loader2/driverdisk.c:269 ../loader2/driverdisk.c:300
-#: ../loader2/driverdisk.c:389 ../loader2/driverselect.c:73
+#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:383
+#: ../loader2/driverdisk.c:270 ../loader2/driverdisk.c:301
+#: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:187 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:330 ../loader2/hdinstall.c:384 ../loader2/kbd.c:125
-#: ../loader2/loader.c:286 ../loader2/loader.c:844 ../loader2/loader.c:866
-#: ../loader2/net.c:192 ../loader2/net.c:230 ../loader2/net.c:529
-#: ../loader2/net.c:1062 ../loader2/nfsinstall.c:54 ../loader2/urls.c:257
+#: ../loader2/loader.c:308 ../loader2/loader.c:866 ../loader2/loader.c:888
+#: ../loader2/net.c:231 ../loader2/net.c:269 ../loader2/net.c:537
+#: ../loader2/net.c:1070 ../loader2/nfsinstall.c:54 ../loader2/urls.c:257
 #: ../loader2/urls.c:447
 msgid "Back"
 msgstr "Terug"
@@ -5811,11 +5816,11 @@ msgstr "Netmask"
 msgid "Point to Point (IP)"
 msgstr "Point to Point (IP)"
 
-#: ../textw/network_text.py:75 ../loader2/net.c:187
+#: ../textw/network_text.py:75 ../loader2/net.c:226
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../textw/network_text.py:76 ../loader2/net.c:188
+#: ../textw/network_text.py:76 ../loader2/net.c:227
 msgid "Encryption Key"
 msgstr "Encryptie sleutel"
 
@@ -6978,7 +6983,7 @@ msgstr "Controle mediadrager"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
 #: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
-#: ../loader2/method.c:411
+#: ../loader2/method.c:419
 msgid "Test"
 msgstr "Testen"
 
@@ -7045,11 +7050,11 @@ msgstr ""
 "De %s CD werd niet in uw CDROM-station gevonden. Voer de %s CD in en klik op "
 "%s om opnieuw te proberen."
 
-#: ../loader2/cdinstall.c:381
+#: ../loader2/cdinstall.c:382
 msgid "CD Not Found"
 msgstr "CD niet gevonden"
 
-#: ../loader2/cdinstall.c:448
+#: ../loader2/cdinstall.c:449
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Kan kickstart bestand op CDROM niet vinden."
 
@@ -7061,11 +7066,11 @@ msgstr "Bezig met laden"
 msgid "Reading driver disk..."
 msgstr "Inlezen van stuurprogramma-diskette..."
 
-#: ../loader2/driverdisk.c:263 ../loader2/driverdisk.c:295
+#: ../loader2/driverdisk.c:264 ../loader2/driverdisk.c:296
 msgid "Driver Disk Source"
 msgstr "Bron van stuurprogramma-diskette"
 
-#: ../loader2/driverdisk.c:264
+#: ../loader2/driverdisk.c:265
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -7074,7 +7079,7 @@ msgstr ""
 "extra stuurprogramma's. Welke wilt u gebruiken?"
 
 # vertaling van "disk image" naar "bestand" ok?
-#: ../loader2/driverdisk.c:296
+#: ../loader2/driverdisk.c:297
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -7082,48 +7087,48 @@ msgstr ""
 "Er zijn meerdere partities op dit apparaat die het stuurprogramma-bestand "
 "kunnen bevatten.  Welke wilt u gebruiken?"
 
-#: ../loader2/driverdisk.c:339
+#: ../loader2/driverdisk.c:340
 msgid "Failed to mount partition."
 msgstr "Aankoppelen van partitie mislukt."
 
 # vertaling ok?
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:348
 msgid "Select driver disk image"
 msgstr "Stuurprogramma-bestand selecteren"
 
 # vertaling ok?
-#: ../loader2/driverdisk.c:348
+#: ../loader2/driverdisk.c:349
 msgid "Select the file which is your driver disk image."
 msgstr "Selecteer het stuurprogramma-bestand."
 
 # vertaling ok?
-#: ../loader2/driverdisk.c:377
+#: ../loader2/driverdisk.c:378
 msgid "Failed to load driver disk from file."
 msgstr "Laden van stuurprogramma-bestand mislukt."
 
-#: ../loader2/driverdisk.c:387
+#: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Voer uw stuurprogramma-diskette in /dev/%s en geef \"OK\" om door te gaan."
 
-#: ../loader2/driverdisk.c:389
+#: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
 msgstr "Stuurprogramma-diskette invoeren"
 
-#: ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:405
 msgid "Failed to mount driver disk."
 msgstr "Aankoppelen stuurprogramma-diskette mislukt."
 
-#: ../loader2/driverdisk.c:470
+#: ../loader2/driverdisk.c:476
 msgid "Manually choose"
 msgstr "Kies handmatig"
 
-#: ../loader2/driverdisk.c:471
+#: ../loader2/driverdisk.c:477
 msgid "Load another disk"
 msgstr "Een andere diskette inladen"
 
-#: ../loader2/driverdisk.c:472
+#: ../loader2/driverdisk.c:478
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -7133,38 +7138,38 @@ msgstr ""
 "stuurprogramma-diskette. Wilt u handmatig een stuurprogramma selecteren, "
 "doorgaan of een andere diskette met stuurprogramma's proberen?"
 
-#: ../loader2/driverdisk.c:514
+#: ../loader2/driverdisk.c:519
 msgid "Driver disk"
 msgstr "Stuurprogramma-diskette"
 
-#: ../loader2/driverdisk.c:515
+#: ../loader2/driverdisk.c:520
 msgid "Do you have a driver disk?"
 msgstr "Heeft u een stuurprogramma-diskette?"
 
-#: ../loader2/driverdisk.c:525
+#: ../loader2/driverdisk.c:530
 msgid "More Driver Disks?"
 msgstr "Meer stuurprogramma-diskettes?"
 
-#: ../loader2/driverdisk.c:526
+#: ../loader2/driverdisk.c:531
 msgid "Do you wish to load any more driver disks?"
 msgstr "Wilt u nog meer stuurprogramma-diskettes laden?"
 
-#: ../loader2/driverdisk.c:578 ../loader2/driverdisk.c:616
+#: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:621
 #: ../loader2/hdinstall.c:470 ../loader2/kickstart.c:118
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
-#: ../loader2/kickstart.c:405 ../loader2/modules.c:967 ../loader2/net.c:890
-#: ../loader2/net.c:913 ../loader2/nfsinstall.c:247
+#: ../loader2/kickstart.c:405 ../loader2/modules.c:968 ../loader2/net.c:898
+#: ../loader2/net.c:921 ../loader2/nfsinstall.c:248
 #: ../loader2/urlinstall.c:442 ../loader2/urlinstall.c:451
 #: ../loader2/urlinstall.c:462
 msgid "Kickstart Error"
 msgstr "Kickstart fout"
 
-#: ../loader2/driverdisk.c:579
+#: ../loader2/driverdisk.c:584
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Onbekende driver disk kickstart bron: %s"
 
-#: ../loader2/driverdisk.c:617
+#: ../loader2/driverdisk.c:622
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -7229,7 +7234,7 @@ msgid "Loading %s driver..."
 msgstr "Stuurprogramma %s wordt nu geladen..."
 
 #: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:155
-#: ../loader2/nfsinstall.c:193 ../loader2/urlinstall.c:148
+#: ../loader2/nfsinstall.c:194 ../loader2/urlinstall.c:148
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -7325,7 +7330,7 @@ msgstr "Kon ks.cfg niet op de opstartdiskette vinden."
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Foutief argument voor 'uitschakelen' kickstart methode commando %s: %s"
 
-#: ../loader2/lang.c:52 ../loader2/loader.c:132
+#: ../loader2/lang.c:52 ../loader2/loader.c:133
 #, c-format
 msgid "Welcome to %s"
 msgstr "Welkom bij %s"
@@ -7335,7 +7340,7 @@ msgstr "Welkom bij %s"
 msgid "Welcome to %s - Rescue Mode"
 msgstr "Welkom bij %s - Herstel modus"
 
-#: ../loader2/lang.c:54 ../loader2/loader.c:138
+#: ../loader2/lang.c:54 ../loader2/loader.c:139
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -7345,23 +7350,23 @@ msgstr ""
 msgid "Choose a Language"
 msgstr "Kies een taal"
 
-#: ../loader2/loader.c:107
+#: ../loader2/loader.c:108
 msgid "Local CDROM"
 msgstr "Lokale CDROM"
 
-#: ../loader2/loader.c:109
+#: ../loader2/loader.c:110
 msgid "Hard drive"
 msgstr "Harde schijf"
 
-#: ../loader2/loader.c:110
+#: ../loader2/loader.c:111
 msgid "NFS image"
 msgstr "NFS image"
 
-#: ../loader2/loader.c:281
+#: ../loader2/loader.c:303
 msgid "Update Disk Source"
 msgstr "Updates diskette bron"
 
-#: ../loader2/loader.c:282
+#: ../loader2/loader.c:304
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -7369,28 +7374,28 @@ msgstr ""
 "U heeft meerdere apparaten op dit systeem die als bron voor update diskettes "
 "gebruikt kunnen worden. Welke wilt u gebruiken?"
 
-#: ../loader2/loader.c:297
+#: ../loader2/loader.c:319
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "Voer uw updates-diskette in /dev/%s en klik op \"OK\" om door te gaan."
 
-#: ../loader2/loader.c:299
+#: ../loader2/loader.c:321
 msgid "Updates Disk"
 msgstr "Updates diskette"
 
-#: ../loader2/loader.c:311
+#: ../loader2/loader.c:333
 msgid "Failed to mount updates disk"
 msgstr "Aankoppelen update-diskette mislukt"
 
-#: ../loader2/loader.c:314
+#: ../loader2/loader.c:336
 msgid "Updates"
 msgstr "Updates"
 
-#: ../loader2/loader.c:314
+#: ../loader2/loader.c:336
 msgid "Reading anaconda updates..."
 msgstr "Anaconda updates worden nu gelezen..."
 
-#: ../loader2/loader.c:342
+#: ../loader2/loader.c:364
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -7400,41 +7405,41 @@ msgstr ""
 "stuurprogramma's kiezen om door te kunnen gaan met de installatie. Wilt u nu "
 "stuurprogramma's selecteren?"
 
-#: ../loader2/loader.c:663
+#: ../loader2/loader.c:685
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "U heeft te weinig RAM-geheugen in deze machine om %s te kunnen installeren."
 
-#: ../loader2/loader.c:836
+#: ../loader2/loader.c:858
 msgid "Rescue Method"
 msgstr "Redding-methode"
 
-#: ../loader2/loader.c:837
+#: ../loader2/loader.c:859
 msgid "Installation Method"
 msgstr "Installatie-methode"
 
-#: ../loader2/loader.c:839
+#: ../loader2/loader.c:861
 msgid "What type of media contains the rescue image?"
 msgstr "Op wat voor medium staat het reddings-image?"
 
-#: ../loader2/loader.c:841
+#: ../loader2/loader.c:863
 msgid "What type of media contains the packages to be installed?"
 msgstr "Op wat voor medium staan de te installeren pakketten?"
 
-#: ../loader2/loader.c:865
+#: ../loader2/loader.c:887
 msgid "No driver found"
 msgstr "Geen stuurprogramma gevonden"
 
-#: ../loader2/loader.c:865
+#: ../loader2/loader.c:887
 msgid "Select driver"
 msgstr "Stuurprogramma selecteren"
 
-#: ../loader2/loader.c:866
+#: ../loader2/loader.c:888
 msgid "Use a driver disk"
 msgstr "Een stuurprogramma-diskette gebruiken"
 
-#: ../loader2/loader.c:867
+#: ../loader2/loader.c:889
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -7443,43 +7448,43 @@ msgstr ""
 "Wilt u handmatig het stuurprogramma kiezen of gebruik maken van een diskette "
 "met stuurprogramma's?"
 
-#: ../loader2/loader.c:1027
+#: ../loader2/loader.c:1049
 msgid "The following devices have been found on your system."
 msgstr "De volgende apparaten zijn op uw systeem gevonden."
 
-#: ../loader2/loader.c:1029
+#: ../loader2/loader.c:1051
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "Er zijn geen stuurprogramma's voor uw systeem geladen. Wilt u deze nu laden?"
 
-#: ../loader2/loader.c:1033
+#: ../loader2/loader.c:1055
 msgid "Devices"
 msgstr "Apparaten"
 
-#: ../loader2/loader.c:1034
+#: ../loader2/loader.c:1056
 msgid "Done"
 msgstr "Gereed"
 
-#: ../loader2/loader.c:1035
+#: ../loader2/loader.c:1057
 msgid "Add Device"
 msgstr "Apparaat toevoegen"
 
 # mooier dan: de lader is reeds uitgevoerd, en... komt op hetzelfde neer.
-#: ../loader2/loader.c:1153
+#: ../loader2/loader.c:1176
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "Het laden is reeds gedaan.  Shell wordt nu opgestart.\n"
 
 # vertaling correct?
-#: ../loader2/loader.c:1517
+#: ../loader2/loader.c:1545
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr ""
 "Anaconda, de %s herstel modus, wordt opgestart - een ogenblik geduld...\n"
 
-#: ../loader2/loader.c:1519
+#: ../loader2/loader.c:1547
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -7567,12 +7572,12 @@ msgstr ""
 msgid "The media check %sis complete, and the result is: %s\n"
 msgstr "De medium-controle %s is compleet en het resultaat is: %s\n"
 
-#: ../loader2/method.c:156 ../loader2/method.c:365 ../loader2/method.c:450
+#: ../loader2/method.c:156 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Lezen van map %s: %s is mislukt"
 
-#: ../loader2/method.c:408
+#: ../loader2/method.c:416
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -7583,11 +7588,11 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:411
+#: ../loader2/method.c:419
 msgid "Checksum Test"
 msgstr "Somcontrole-test"
 
-#: ../loader2/modules.c:968
+#: ../loader2/modules.c:969
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Foutief argument voor schijf kickstart methode commando %s: %s"
@@ -7607,7 +7612,7 @@ msgstr ""
 "    o de map op die server die %s bevat voor uw\n"
 "      architectuur\n"
 
-#: ../loader2/net.c:181
+#: ../loader2/net.c:220
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -7618,19 +7623,19 @@ msgstr ""
 "in die nodig zijn om uw draadloos netwerk te benaderen.  Als er geen sleutel "
 "nodig is kunt u dit veld leeg laten. De installatie zal dan verder gaan."
 
-#: ../loader2/net.c:191
+#: ../loader2/net.c:230
 msgid "Wireless Settings"
 msgstr "Draadloze instellingen"
 
-#: ../loader2/net.c:220
+#: ../loader2/net.c:259
 msgid "Nameserver IP"
 msgstr "Naamserver IP"
 
-#: ../loader2/net.c:224
+#: ../loader2/net.c:263
 msgid "Nameserver"
 msgstr "Naamserver"
 
-#: ../loader2/net.c:225
+#: ../loader2/net.c:264
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -7642,24 +7647,24 @@ msgstr ""
 "u deze informatie niet heeft, kunt u dit veld leeg laten en zal de "
 "installatie verder gaan."
 
-#: ../loader2/net.c:235
+#: ../loader2/net.c:274
 msgid "Invalid IP Information"
 msgstr "Ongeldige IP-informatie"
 
-#: ../loader2/net.c:236
+#: ../loader2/net.c:275
 msgid "You entered an invalid IP address."
 msgstr "U heeft een ongeldig IP-adres ingevuld."
 
-#: ../loader2/net.c:299 ../loader2/net.c:589
+#: ../loader2/net.c:342 ../loader2/net.c:597
 msgid "Dynamic IP"
 msgstr "Dynamisch IP"
 
-#: ../loader2/net.c:300 ../loader2/net.c:590
+#: ../loader2/net.c:343 ../loader2/net.c:598
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "Verzoek om IP-informatie voor %s wordt verzonden..."
 
-#: ../loader2/net.c:473
+#: ../loader2/net.c:481
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -7668,57 +7673,57 @@ msgstr ""
 "als een IP-adres in decimale notatie, gescheiden door punten (bijvoorbeeld: "
 "1.2.3.4)."
 
-#: ../loader2/net.c:479
+#: ../loader2/net.c:487
 msgid "IP address:"
 msgstr "IP-adres:"
 
-#: ../loader2/net.c:482
+#: ../loader2/net.c:490
 msgid "Netmask:"
 msgstr "Netmask:"
 
-#: ../loader2/net.c:485
+#: ../loader2/net.c:493
 msgid "Default gateway (IP):"
 msgstr "Standaard gateway (IP):"
 
-#: ../loader2/net.c:488
+#: ../loader2/net.c:496
 msgid "Primary nameserver:"
 msgstr "Eerste naamserver:"
 
-#: ../loader2/net.c:515
+#: ../loader2/net.c:523
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Dynamische IP-configuratie gebruiken (BOOTP/DHCP)"
 
-#: ../loader2/net.c:543
+#: ../loader2/net.c:551
 msgid "Configure TCP/IP"
 msgstr "TCP/IP instellen"
 
-#: ../loader2/net.c:580
+#: ../loader2/net.c:588
 msgid "Missing Information"
 msgstr "Ontbrekende informatie"
 
-#: ../loader2/net.c:581
+#: ../loader2/net.c:589
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "U moet zowel een geldig IP adres als een netmask invullen."
 
-#: ../loader2/net.c:804
+#: ../loader2/net.c:812
 msgid "Determining host name and domain..."
 msgstr "Computernaam en domein worden vastgesteld..."
 
-#: ../loader2/net.c:891
+#: ../loader2/net.c:899
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Foutief argument voor het kickstart netwerk commando %s: %s"
 
-#: ../loader2/net.c:914
+#: ../loader2/net.c:922
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Foutief opstartprotocol %s opgegeven in netwerkopdracht"
 
-#: ../loader2/net.c:1058
+#: ../loader2/net.c:1066
 msgid "Networking Device"
 msgstr "Netwerkapparaat"
 
-#: ../loader2/net.c:1059
+#: ../loader2/net.c:1067
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -7739,16 +7744,16 @@ msgstr "%s map:"
 msgid "NFS Setup"
 msgstr "NFS-instellingen"
 
-#: ../loader2/nfsinstall.c:197
+#: ../loader2/nfsinstall.c:198
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "Die map bevat kennelijk geen %s installatiebestanden."
 
-#: ../loader2/nfsinstall.c:210
+#: ../loader2/nfsinstall.c:211
 msgid "That directory could not be mounted from the server."
 msgstr "Die map kon niet vanaf de server worden aangekoppeld."
 
-#: ../loader2/nfsinstall.c:248
+#: ../loader2/nfsinstall.c:249
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "Foutief argument voor het NFS kickstart methode commando %s: %s"
@@ -8750,6 +8755,23 @@ msgstr "Welsh"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid "no suggestion"
+#~ msgstr "geen suggestie"
+
+#~ msgid "Use _LILO as the boot loader"
+#~ msgstr "_LILO als bootloader gebruiken"
+
+#~ msgid "Unable to Change Drive Order for LILO"
+#~ msgstr "Niet in staat de stationsvolgorde te veranderen voor LILO"
+
+#~ msgid "We do not support changing the drive order for use with LILO."
+#~ msgstr ""
+#~ "We ondersteunen het wisselen van stationsvolgorde niet voor gebruik met "
+#~ "LILO."
+
+#~ msgid "Use LILO Boot Loader"
+#~ msgstr "Bootloader LILO gebruiken"
 
 #~ msgid "%s Installer on %s"
 #~ msgstr "%s Installatie op %s"

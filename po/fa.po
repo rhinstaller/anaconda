@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-13 14:23-0500\n"
+"POT-Creation-Date: 2005-03-03 14:34-0500\n"
 "PO-Revision-Date: 2004-05-15 11:45+0430\n"
 "Last-Translator: Hedayat Vatankhah <hedavat@mail15.com>\n"
 "Language-Team: Persian\n"
@@ -92,7 +92,7 @@ msgstr "لطفا با %s برای شروع نصب ارتباط برقرار کن
 msgid "Please connect to begin the install..."
 msgstr "لطفا برای شروع به نصب ارتباط برقرار کنید..."
 
-#: ../anaconda:575 ../anaconda:760 ../gui.py:243 ../gui.py:1085
+#: ../anaconda:575 ../anaconda:760 ../gui.py:244 ../gui.py:1072
 #: ../rescue.py:41 ../rescue.py:228 ../rescue.py:308 ../rescue.py:336
 #: ../rescue.py:346 ../rescue.py:418 ../rescue.py:424 ../text.py:339
 #: ../text.py:507 ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
@@ -103,12 +103,12 @@ msgstr "لطفا برای شروع به نصب ارتباط برقرار کنی�
 #: ../textw/silo_text.py:160 ../loader2/cdinstall.c:136
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:253
 #: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:374
-#: ../loader2/cdinstall.c:379 ../loader2/cdinstall.c:382
-#: ../loader2/cdinstall.c:447 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:299
-#: ../loader2/driverdisk.c:338 ../loader2/driverdisk.c:376
-#: ../loader2/driverdisk.c:389 ../loader2/driverdisk.c:403
-#: ../loader2/driverdisk.c:578 ../loader2/driverdisk.c:616
+#: ../loader2/cdinstall.c:379 ../loader2/cdinstall.c:383
+#: ../loader2/cdinstall.c:448 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:269 ../loader2/driverdisk.c:300
+#: ../loader2/driverdisk.c:339 ../loader2/driverdisk.c:377
+#: ../loader2/driverdisk.c:390 ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:621
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
 #: ../loader2/hdinstall.c:217 ../loader2/hdinstall.c:384
@@ -117,15 +117,15 @@ msgstr "لطفا برای شروع به نصب ارتباط برقرار کنی�
 #: ../loader2/hdinstall.c:594 ../loader2/kbd.c:125 ../loader2/kickstart.c:118
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
 #: ../loader2/kickstart.c:270 ../loader2/kickstart.c:405 ../loader2/lang.c:103
-#: ../loader2/lang.c:380 ../loader2/loader.c:286 ../loader2/loader.c:299
-#: ../loader2/loader.c:310 ../loader2/loader.c:666 ../loader2/loader.c:844
+#: ../loader2/lang.c:380 ../loader2/loader.c:308 ../loader2/loader.c:321
+#: ../loader2/loader.c:332 ../loader2/loader.c:688 ../loader2/loader.c:866
 #: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
-#: ../loader2/mediacheck.c:354 ../loader2/method.c:155 ../loader2/method.c:364
-#: ../loader2/method.c:449 ../loader2/modules.c:967 ../loader2/net.c:192
-#: ../loader2/net.c:230 ../loader2/net.c:529 ../loader2/net.c:890
-#: ../loader2/net.c:913 ../loader2/net.c:1062 ../loader2/nfsinstall.c:54
-#: ../loader2/nfsinstall.c:200 ../loader2/nfsinstall.c:209
-#: ../loader2/nfsinstall.c:247 ../loader2/telnetd.c:84
+#: ../loader2/mediacheck.c:354 ../loader2/method.c:155 ../loader2/method.c:372
+#: ../loader2/method.c:457 ../loader2/modules.c:968 ../loader2/net.c:231
+#: ../loader2/net.c:269 ../loader2/net.c:537 ../loader2/net.c:898
+#: ../loader2/net.c:921 ../loader2/net.c:1070 ../loader2/nfsinstall.c:54
+#: ../loader2/nfsinstall.c:201 ../loader2/nfsinstall.c:210
+#: ../loader2/nfsinstall.c:248 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:67 ../loader2/urlinstall.c:139
 #: ../loader2/urlinstall.c:152 ../loader2/urlinstall.c:442
 #: ../loader2/urlinstall.c:451 ../loader2/urlinstall.c:462
@@ -191,34 +191,34 @@ msgstr "استفاده از نوع موشی: %s"
 msgid "Starting graphical installation..."
 msgstr "در حال جستجو برای نصب‌های %s..."
 
-#: ../autopart.py:949
+#: ../autopart.py:951
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr "قسمت‌بندی‌هایی بر اساس-سیلندر نتوانست مانند قسمت‌بندی‌های اصلی جایابی شوند"
 
-#: ../autopart.py:952
+#: ../autopart.py:954
 msgid "Could not allocate partitions as primary partitions"
 msgstr "قسمت‌بندی‌هایی بمانند قسمت‌بندی‌های اصلی نتوانست جایابی شود"
 
-#: ../autopart.py:955
+#: ../autopart.py:957
 msgid "Could not allocate cylinder-based partitions"
 msgstr "قسمت‌بندی‌های بر اساس-سیلندر نتوانست جایابی شود"
 
-#: ../autopart.py:958
+#: ../autopart.py:960
 msgid "Could not allocate partitions"
 msgstr "قسمت‌بندی‌هایی نتوانست جایابی شود"
 
-#: ../autopart.py:1020
-#, python-format
+#: ../autopart.py:1022
+#, fuzzy, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
-"boot from this paritition. Use a partition belonging to a BSD disk label or "
+"boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
 "قسمت‌بندی آغازگر %s به یک برچسب دیسک BSD تعلق ندارد. SRM به آغازگری از این "
 "قسمت‌بندی قادر نخواهد بود. یا از قسمت‌بندیی متعلق به برچسب دیسک BSD استفاده "
 "کرده یا برچسب این دستگاه دیسک را به BSD تغییر دهید."
 
-#: ../autopart.py:1022
+#: ../autopart.py:1024
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -229,7 +229,7 @@ msgstr ""
 "بتواند در آن قرار گیرد تعلق ندارد. مطمئن شوید که حداقل ۵ مگابایت فضای آزاد "
 "در شروع دیسک که دارای /boot باشد وجود داشته باشد"
 
-#: ../autopart.py:1024
+#: ../autopart.py:1026
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
@@ -238,7 +238,7 @@ msgstr ""
 "قسمت‌بندی آغازگر %s یک قسمت‌بندی VFAT نیست. EFI به آغازگری از این قسمت‌بندی "
 "قادر نخواهد بود."
 
-#: ../autopart.py:1026
+#: ../autopart.py:1028
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
@@ -246,7 +246,7 @@ msgstr ""
 "قسمت‌بندی آغازگر به اندازه‌ی کافی در شروع دیسک قرار نگرفته است.  OpenFirmware "
 "به آغازگری این نصب قادر نخواهد بود."
 
-#: ../autopart.py:1033
+#: ../autopart.py:1035
 #, fuzzy, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
@@ -254,7 +254,7 @@ msgstr ""
 "قسمت‌بندی آغازگر %s ممکن است ضروریات آغازگری برای ساختار رایانه شما را نداشته "
 "باشد. ساختن یک دیسکچه‌ی آغازگری بشدت ترغیب می‌شود."
 
-#: ../autopart.py:1059
+#: ../autopart.py:1061
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -263,11 +263,11 @@ msgstr ""
 "افزودن این قسمت‌بندی، فضای آزاد کافی دیسک را برای حجم‌های منطقی از قبل جایابی "
 "شده در %s بجا نخواهد گذاشت."
 
-#: ../autopart.py:1226
+#: ../autopart.py:1229
 msgid "Requested Partition Does Not Exist"
 msgstr "قسمت‌بندی خواسته شده وجود ندارد"
 
-#: ../autopart.py:1227
+#: ../autopart.py:1230
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -278,11 +278,11 @@ msgstr ""
 "\n"
 "'تایید' را برای آغازگری مجدد سیستم خود فشار دهید."
 
-#: ../autopart.py:1252
+#: ../autopart.py:1255
 msgid "Requested Raid Device Does Not Exist"
 msgstr "دستگاه Raid خواسته شده وجود ندارد"
 
-#: ../autopart.py:1253
+#: ../autopart.py:1256
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -293,11 +293,11 @@ msgstr ""
 "\n"
 "'تایید' را برای آغازگری سیستم خود فشار دهید."
 
-#: ../autopart.py:1282
+#: ../autopart.py:1285
 msgid "Requested Volume Group Does Not Exist"
 msgstr "گروه حجم خواسته شده وجود ندارد"
 
-#: ../autopart.py:1283
+#: ../autopart.py:1286
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -308,11 +308,11 @@ msgstr ""
 "\n"
 "'تایید' را برای آغازگری مجدد سیستم خود فشار دهید."
 
-#: ../autopart.py:1318
+#: ../autopart.py:1321
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "حجم منطقی خواسته شده وجود ندارد"
 
-#: ../autopart.py:1319
+#: ../autopart.py:1322
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -323,11 +323,11 @@ msgstr ""
 "\n"
 "'تایید' را برای آغازگری مجدد سیستم خود فشار دهید."
 
-#: ../autopart.py:1411 ../autopart.py:1459
+#: ../autopart.py:1414 ../autopart.py:1462
 msgid "Automatic Partitioning Errors"
 msgstr "خطاهای قسمت‌بندی خودکار"
 
-#: ../autopart.py:1412
+#: ../autopart.py:1415
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -342,11 +342,11 @@ msgstr ""
 "\n"
 "'تایید' را برای آغازگری مجدد سیستم خود فشار دهید."
 
-#: ../autopart.py:1422
+#: ../autopart.py:1425
 msgid "Warnings During Automatic Partitioning"
 msgstr "هشدارهای در طول قسمت‌بندی خودکار"
 
-#: ../autopart.py:1423
+#: ../autopart.py:1426
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -357,7 +357,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1436 ../autopart.py:1453
+#: ../autopart.py:1439 ../autopart.py:1456
 msgid ""
 "\n"
 "\n"
@@ -367,12 +367,12 @@ msgstr ""
 "\n"
 "'تایید' را برای آغازگری مجدد سیستم خود فشار دهید."
 
-#: ../autopart.py:1437 ../iw/partition_gui.py:992
+#: ../autopart.py:1440 ../iw/partition_gui.py:995
 #: ../textw/partition_text.py:224
 msgid "Error Partitioning"
 msgstr "خطا در قسمت‌بندی"
 
-#: ../autopart.py:1438
+#: ../autopart.py:1441
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -383,7 +383,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1455
+#: ../autopart.py:1458
 msgid ""
 "\n"
 "\n"
@@ -399,7 +399,7 @@ msgstr ""
 "\n"
 "'تایید' را برای ادامه فشار دهید."
 
-#: ../autopart.py:1460
+#: ../autopart.py:1463
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -416,29 +416,29 @@ msgstr ""
 "این در صورتی اتفاق می‌افتد که فضای کافی بر دیسک شما برای نصب وجود نداشته باشد."
 "%s"
 
-#: ../autopart.py:1471
+#: ../autopart.py:1474
 msgid "Unrecoverable Error"
 msgstr "خطای غیرقابل ترمیم"
 
-#: ../autopart.py:1472
+#: ../autopart.py:1475
 msgid "Your system will now be rebooted."
 msgstr "سیستم شما اکنون آغازگری مجدد خواهد شد."
 
-#: ../autopart.py:1618 ../bootloader.py:166 ../gui.py:1082 ../image.py:473
-#: ../packages.py:444 ../partedUtils.py:286 ../partedUtils.py:316
-#: ../partedUtils.py:842 ../partedUtils.py:899 ../upgrade.py:318
+#: ../autopart.py:1621 ../bootloader.py:153 ../gui.py:1069 ../image.py:473
+#: ../packages.py:446 ../partedUtils.py:289 ../partedUtils.py:319
+#: ../partedUtils.py:845 ../partedUtils.py:902 ../upgrade.py:318
 #: ../upgrade.py:429 ../upgrade.py:482 ../upgrade.py:505 ../upgrade.py:545
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:92 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
 #: ../iw/upgrade_swap_gui.py:215 ../iw/zfcp_gui.py:248
-#: ../textw/bootloader_text.py:141 ../textw/bootloader_text.py:454
+#: ../textw/bootloader_text.py:125 ../textw/bootloader_text.py:438
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:228
-#: ../textw/upgrade_text.py:177 ../loader2/loader.c:341
+#: ../textw/upgrade_text.py:177 ../loader2/loader.c:363
 msgid "Warning"
 msgstr "هشدار"
 
-#: ../autopart.py:1624
+#: ../autopart.py:1627
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -454,7 +454,7 @@ msgstr ""
 "محیط گفتگویی می‌دهد. شما انواع سیستم پرونده، نقاط سوارسازی، اندازه‌های "
 "قسمت‌بندی، و غیره را می توانید تعیین کنید."
 
-#: ../autopart.py:1635
+#: ../autopart.py:1638
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -462,19 +462,19 @@ msgstr ""
 "قبل از آن که قسمت‌بندی خودکار بتواند بوسیله‌ی برنامه‌ی نصب برپاسازی شود، شما "
 "باید چگونگی استفاده از فضای دیسک‌های خود را انتخاب کنید."
 
-#: ../autopart.py:1640
+#: ../autopart.py:1643
 msgid "Remove all partitions on this system"
 msgstr "برداشتن همه‌ی قسمت‌بندی‌ها بر این سیستم"
 
-#: ../autopart.py:1641
+#: ../autopart.py:1644
 msgid "Remove all Linux partitions on this system"
 msgstr "برداشتن همه‌ی قسمت‌بندی‌های لینوکس بر این سیستم"
 
-#: ../autopart.py:1642
+#: ../autopart.py:1645
 msgid "Keep all partitions and use existing free space"
 msgstr "نگهداشتن همه‌ی قسمت‌بندی‌ها و استفاده از فضای آزاد موجود"
 
-#: ../autopart.py:1644
+#: ../autopart.py:1647
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -485,7 +485,7 @@ msgstr ""
 "انتخاب کرده‌اید:%s\n"
 "آیا مطمئنید که می‌خواهید این کار را انجام دهید؟"
 
-#: ../autopart.py:1648
+#: ../autopart.py:1651
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -496,15 +496,15 @@ msgstr ""
 "بدنبال آمده را انتخاب کرده‌اید:%s\n"
 "آیا مطمئنید که می‌خواهید این کار را انجام دهید؟"
 
-#: ../bootloader.py:109
+#: ../bootloader.py:96
 msgid "Bootloader"
 msgstr "بارگذار آغازگری"
 
-#: ../bootloader.py:109
+#: ../bootloader.py:96
 msgid "Installing bootloader..."
 msgstr "نصب بارگذار آغازگری..."
 
-#: ../bootloader.py:167
+#: ../bootloader.py:154
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -538,35 +538,6 @@ msgstr "انجام شد [%d/%d]"
 msgid "Installing %s-%s-%s... "
 msgstr "نصب %s-%s-%s... "
 
-#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:779
-msgid "Everything"
-msgstr "همه چیز"
-
-#: ../comps.py:936 ../comps.py:1001
-msgid "no suggestion"
-msgstr "هیچ پیشنهادی"
-
-#: ../comps.py:1098 ../hdrlist.py:1008
-msgid "Miscellaneous"
-msgstr "متفرقه"
-
-#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:955
-msgid ""
-"This group includes all the packages available.  Note that there are "
-"substantially more packages than just the ones in all the other package "
-"groups on this page."
-msgstr ""
-"این گروه شامل همه‌ی بسته‌های موجود می‌باشد.  توجه داشته باشید که بسته‌های بسیار "
-"بیشتری از تمام گروه‌های بسته‌ی دیگر در این صفحه وجود دارد."
-
-#: ../comps.py:1118 ../hdrlist.py:959
-msgid ""
-"Choose this group to get the minimal possible set of packages.  Useful for "
-"creating small router/firewall boxes, for example."
-msgstr ""
-"این گروه را برای گرفتن کمترین مجموعه از بسته‌ها انتخاب کنید.  این برای مثال، "
-"برای ساختن رایانه‌های مسیریاب/دیوارآتش مفید است."
-
 #: ../constants.py:72
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
@@ -589,15 +560,15 @@ msgstr ""
 "تمام متن این استثنا را کپی کرده و یک اشکال مشروح را برای آناکوندا  به http://"
 "bugzilla.redhat.com/bugzilla/ گزارش دهید"
 
-#: ../exception.py:227 ../text.py:241
+#: ../exception.py:228 ../text.py:241
 msgid "Exception Occurred"
 msgstr "استثنا رخ داد"
 
-#: ../exception.py:295
+#: ../exception.py:296
 msgid "Dump Written"
 msgstr "تخلیه‌ی حافظه نوشته شد"
 
-#: ../exception.py:296
+#: ../exception.py:297
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -650,7 +621,7 @@ msgstr ""
 "\n"
 "همه‌ی داده‌ها در طول ساخت دیسک آغازگری پاک خواهند شد."
 
-#: ../floppy.py:118 ../packages.py:454
+#: ../floppy.py:118 ../packages.py:456
 msgid "_Cancel"
 msgstr "_لغو"
 
@@ -659,28 +630,28 @@ msgid "_Make boot disk"
 msgstr "_ساختن دیسک آغازگری"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
-#: ../fsset.py:592 ../fsset.py:1316 ../fsset.py:1354 ../fsset.py:1365
-#: ../fsset.py:1415 ../fsset.py:1426 ../fsset.py:1461 ../fsset.py:1511
-#: ../fsset.py:1555 ../fsset.py:1574 ../harddrive.py:165 ../image.py:154
+#: ../fsset.py:595 ../fsset.py:1326 ../fsset.py:1364 ../fsset.py:1375
+#: ../fsset.py:1425 ../fsset.py:1436 ../fsset.py:1471 ../fsset.py:1521
+#: ../fsset.py:1565 ../fsset.py:1584 ../harddrive.py:165 ../image.py:154
 #: ../image.py:192 ../image.py:326 ../image.py:530 ../packages.py:162
-#: ../packages.py:175 ../packages.py:184 ../packages.py:196 ../packages.py:430
-#: ../packages.py:628 ../packages.py:734 ../partedUtils.py:659
+#: ../packages.py:175 ../packages.py:184 ../packages.py:196 ../packages.py:432
+#: ../packages.py:630 ../packages.py:734 ../partedUtils.py:662
 #: ../upgrade.py:349 ../upgrade.py:374 ../upgrade.py:401
 #: ../iw/osbootwidget.py:219 ../iw/osbootwidget.py:228
 #: ../iw/raid_dialog_gui.py:604 ../iw/raid_dialog_gui.py:643
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:338
-#: ../loader2/driverdisk.c:376 ../loader2/driverdisk.c:403
-#: ../loader2/driverdisk.c:470 ../loader2/hdinstall.c:106
+#: ../loader2/cdinstall.c:448 ../loader2/driverdisk.c:339
+#: ../loader2/driverdisk.c:377 ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:476 ../loader2/hdinstall.c:106
 #: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:217
 #: ../loader2/hdinstall.c:435 ../loader2/hdinstall.c:538
 #: ../loader2/hdinstall.c:581 ../loader2/hdinstall.c:594
-#: ../loader2/kickstart.c:270 ../loader2/lang.c:103 ../loader2/loader.c:310
-#: ../loader2/loader.c:666 ../loader2/mediacheck.c:255
-#: ../loader2/mediacheck.c:312 ../loader2/method.c:155 ../loader2/method.c:364
-#: ../loader2/method.c:449 ../loader2/nfsinstall.c:200
-#: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
+#: ../loader2/kickstart.c:270 ../loader2/lang.c:103 ../loader2/loader.c:332
+#: ../loader2/loader.c:688 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/method.c:155 ../loader2/method.c:372
+#: ../loader2/method.c:457 ../loader2/nfsinstall.c:201
+#: ../loader2/nfsinstall.c:210 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:67 ../loader2/urlinstall.c:139
 #: ../loader2/urlinstall.c:152 ../loader2/urls.c:172 ../loader2/urls.c:182
 #: ../loader2/urls.c:191 ../loader2/urls.c:322 ../loader2/urls.c:327
@@ -729,7 +700,7 @@ msgstr "بررسی کردن برای بلوک‌های بد"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "بررسی برای بلوک‌های بد بر روی /dev/%s..."
 
-#: ../fsset.py:593
+#: ../fsset.py:596
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -742,27 +713,27 @@ msgstr ""
 "\n"
 "آیا میخواهید بدون انتقال %s ادامه دهید؟"
 
-#: ../fsset.py:1224
+#: ../fsset.py:1234
 msgid "RAID Device"
 msgstr "دستگاه RAID"
 
-#: ../fsset.py:1228 ../fsset.py:1234
+#: ../fsset.py:1238 ../fsset.py:1244
 msgid "Apple Bootstrap"
 msgstr "زنجیره‌ی آغازگری Apple"
 
-#: ../fsset.py:1239 ../partitions.py:825
+#: ../fsset.py:1249 ../partitions.py:856
 msgid "PPC PReP Boot"
 msgstr "آغازگری PPC PReP"
 
-#: ../fsset.py:1242 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1252 ../iw/silo_gui.py:185 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "اولین بخش قسمت‌بندی آغازگر"
 
-#: ../fsset.py:1243 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1253 ../iw/silo_gui.py:182 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "ضبط آغازگری اصلی (MBR)"
 
-#: ../fsset.py:1317
+#: ../fsset.py:1327
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -775,7 +746,7 @@ msgstr ""
 "\n"
 "برای آغازگری سیستم خود <Enter> را فشار دهید."
 
-#: ../fsset.py:1355
+#: ../fsset.py:1365
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -791,7 +762,7 @@ msgstr ""
 "\n"
 "تایید را برای آغازگری مجدد سیستم خود فشار دهید."
 
-#: ../fsset.py:1366
+#: ../fsset.py:1376
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -806,7 +777,7 @@ msgstr ""
 "\n"
 "تایید را برای آغازگری مجدد سیستم خود فشار دهید."
 
-#: ../fsset.py:1416
+#: ../fsset.py:1426
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -818,7 +789,7 @@ msgstr ""
 "از این دستگاه استفاده نکنید. \n"
 "برای آغازگری سیستم خود <Enter> را فشار دهید"
 
-#: ../fsset.py:1427
+#: ../fsset.py:1437
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -831,7 +802,7 @@ msgstr ""
 "\n"
 "برای آغازگری مجدد سیستم خود <Enter> را فشار دهید."
 
-#: ../fsset.py:1462
+#: ../fsset.py:1472
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -844,7 +815,7 @@ msgstr ""
 "\n"
 "برای آغازگری مجدد سیستم خود <Enter> را فشار دهید."
 
-#: ../fsset.py:1512
+#: ../fsset.py:1522
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -857,11 +828,11 @@ msgstr ""
 "\n"
 "برای آغازگری مجدد سیستم خود <Enter> را فشار دهید."
 
-#: ../fsset.py:1533 ../fsset.py:1542
+#: ../fsset.py:1543 ../fsset.py:1552
 msgid "Invalid mount point"
 msgstr "نقطه‌ی سوارسازی نامعتبر"
 
-#: ../fsset.py:1534
+#: ../fsset.py:1544
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -874,7 +845,7 @@ msgstr ""
 "\n"
 "برای آغازگری مجدد سیستم خود <Enter> را فشار دهید."
 
-#: ../fsset.py:1543
+#: ../fsset.py:1553
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -887,7 +858,7 @@ msgstr ""
 "\n"
 "برای آغازگری مجدد سیستم خود <Enter> را فشار دهید."
 
-#: ../fsset.py:1556
+#: ../fsset.py:1566
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -902,7 +873,7 @@ msgstr ""
 "\n"
 "برای آغازگری مجدد سیستم خود تایید را فشار دهید."
 
-#: ../fsset.py:1575
+#: ../fsset.py:1585
 #, fuzzy
 msgid ""
 "Error finding / entry.\n"
@@ -917,11 +888,11 @@ msgstr ""
 "\n"
 "برای آغازگری مجدد سیستم خود تایید را فشار دهید."
 
-#: ../fsset.py:2214
+#: ../fsset.py:2226
 msgid "Duplicate Labels"
 msgstr "تکثیر برچسب‌ها"
 
-#: ../fsset.py:2215
+#: ../fsset.py:2227
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -934,31 +905,31 @@ msgstr ""
 "\n"
 "لطفا این اشکال را برطرف کرده و روند نصب را از اول شروع کنید."
 
-#: ../fsset.py:2222 ../gui.py:727 ../gui.py:1184 ../image.py:96
-#: ../image.py:483 ../packages.py:455 ../packages.py:1558
+#: ../fsset.py:2234 ../gui.py:728 ../gui.py:1174 ../image.py:96
+#: ../image.py:483 ../packages.py:457 ../packages.py:1565
 #: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "_آغازگری مجدد"
 
-#: ../fsset.py:2475
+#: ../fsset.py:2487
 msgid "Formatting"
 msgstr "قالب‌بندی"
 
-#: ../fsset.py:2476
+#: ../fsset.py:2488
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "قالب‌بندی سیستم پرونده‌ی %s..."
 
-#: ../gui.py:109
+#: ../gui.py:110
 msgid "An error occurred copying the screenshots over."
 msgstr "خطایی هنگام کپی کردن عکس‌های‌صفحه رخ داد."
 
-#: ../gui.py:121
+#: ../gui.py:122
 msgid "Screenshots Copied"
 msgstr "عکس‌های‌صفحه کپی شد"
 
-#: ../gui.py:122
+#: ../gui.py:123
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -972,20 +943,20 @@ msgstr ""
 "\n"
 "شما می‌توانید با آغازگری مجدد و ثبت‌ورود مانند مدیر به اینها دست‌یابی پیدا کنید."
 
-#: ../gui.py:166
+#: ../gui.py:167
 msgid "Saving Screenshot"
 msgstr "در حال ذخیره‌ی عکس‌صفحه"
 
-#: ../gui.py:167
+#: ../gui.py:168
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "عکس‌صفحه‌ای با نام '%s' ذخیره شده است."
 
-#: ../gui.py:170
+#: ../gui.py:171
 msgid "Error Saving Screenshot"
 msgstr "خطا در ذخیره‌ی عکس‌صفحه"
 
-#: ../gui.py:171
+#: ../gui.py:172
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -993,47 +964,47 @@ msgstr ""
 "خطایی هنگام ذخیره‌ی عکس‌صفحه رخ داد.  اگر این هنگام نصب بسته رخ داد، شما نیاز "
 "به چندین تکرار برای موفق شدن آن دارید."
 
-#: ../gui.py:240 ../text.py:336
+#: ../gui.py:241 ../text.py:336
 msgid "Fix"
 msgstr "ترمیم"
 
-#: ../gui.py:241 ../rescue.py:180 ../text.py:337 ../textw/bootdisk_text.py:22
-#: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:254 ../loader2/driverdisk.c:514
-#: ../loader2/driverdisk.c:525 ../loader2/hdinstall.c:330
-#: ../loader2/loader.c:341
+#: ../gui.py:242 ../rescue.py:180 ../text.py:337 ../textw/bootdisk_text.py:22
+#: ../textw/bootloader_text.py:70 ../textw/constants_text.py:48
+#: ../textw/upgrade_text.py:254 ../loader2/driverdisk.c:519
+#: ../loader2/driverdisk.c:530 ../loader2/hdinstall.c:330
+#: ../loader2/loader.c:363
 msgid "Yes"
 msgstr "بله"
 
-#: ../gui.py:242 ../rescue.py:180 ../rescue.py:182 ../text.py:338
+#: ../gui.py:243 ../rescue.py:180 ../rescue.py:182 ../text.py:338
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
-#: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
+#: ../textw/bootloader_text.py:70 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:254 ../textw/upgrade_text.py:261
-#: ../loader2/driverdisk.c:514 ../loader2/driverdisk.c:525
-#: ../loader2/loader.c:341
+#: ../loader2/driverdisk.c:519 ../loader2/driverdisk.c:530
+#: ../loader2/loader.c:363
 msgid "No"
 msgstr "نه"
 
-#: ../gui.py:244 ../text.py:340 ../loader2/net.c:235 ../loader2/net.c:580
+#: ../gui.py:245 ../text.py:340 ../loader2/net.c:274 ../loader2/net.c:588
 msgid "Retry"
 msgstr "تلاش مجدد"
 
-#: ../gui.py:245 ../text.py:341
+#: ../gui.py:246 ../text.py:341
 msgid "Ignore"
 msgstr "نادیده‌گیری"
 
-#: ../gui.py:246 ../gui.py:641 ../partIntfHelpers.py:233
+#: ../gui.py:247 ../gui.py:642 ../partIntfHelpers.py:233
 #: ../partIntfHelpers.py:521 ../text.py:117 ../text.py:118 ../text.py:298
 #: ../text.py:300 ../text.py:342 ../iw/bootloader_advanced_gui.py:48
-#: ../iw/bootloader_main_gui.py:96 ../textw/bootloader_text.py:216
+#: ../iw/bootloader_main_gui.py:96 ../textw/bootloader_text.py:200
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:269
-#: ../loader2/loader.c:299
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
+#: ../loader2/loader.c:321
 msgid "Cancel"
 msgstr "لغو"
 
-#: ../gui.py:722 ../text.py:284
+#: ../gui.py:723 ../text.py:284
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -1041,12 +1012,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../gui.py:724 ../text.py:286
+#: ../gui.py:725 ../text.py:286
 #, fuzzy
 msgid "Error Parsing Kickstart Config"
 msgstr "خطا در باز کردن پرونده‌ی راه‌اندازی شروعی %s: %s"
 
-#: ../gui.py:732 ../text.py:296
+#: ../gui.py:733 ../text.py:296
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1054,24 +1025,24 @@ msgstr ""
 "لطفا دیسکچه‌ای را اکنون داخل کنید. تمام محتویات دیسکچه پاک خواهد شد، پس لطفا "
 "در انتخاب دیسکچه دقت کنید."
 
-#: ../gui.py:845
+#: ../gui.py:846
 #, fuzzy
 msgid "default:LTR"
 msgstr "پیش‌فرض"
 
-#: ../gui.py:927 ../iw/release_notes_viewer_gui.py:44
+#: ../gui.py:914 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
 msgstr "یادداشت‌های انتشار وجود ندارند.\n"
 
-#: ../gui.py:1083
+#: ../gui.py:1070
 msgid "The release notes are missing."
 msgstr "یادداشت‌های انتشار وجود ندارند."
 
-#: ../gui.py:1171
+#: ../gui.py:1161
 msgid "Error!"
 msgstr "خطا!"
 
-#: ../gui.py:1172
+#: ../gui.py:1162
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1082,37 +1053,37 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1176 ../gui.py:1181 ../packages.py:190 ../packages.py:201
-#: ../packages.py:633 ../packages.py:1550 ../packages.py:1555
+#: ../gui.py:1166 ../gui.py:1171 ../packages.py:190 ../packages.py:201
+#: ../packages.py:635 ../packages.py:1557 ../packages.py:1562
 msgid "_Exit"
 msgstr "_خروج"
 
-#: ../gui.py:1177 ../packages.py:442
+#: ../gui.py:1167 ../packages.py:444
 msgid "_Retry"
 msgstr "_تلاش مجدد"
 
-#: ../gui.py:1180 ../packages.py:1554
+#: ../gui.py:1170 ../packages.py:1561
 msgid "The installer will now exit..."
 msgstr ""
 
-#: ../gui.py:1183 ../packages.py:1557
+#: ../gui.py:1173 ../packages.py:1564
 msgid "Your system will now be rebooted..."
 msgstr "سیستم شما اکنون آغازگری مجدد خواهد شد..."
 
-#: ../gui.py:1186 ../packages.py:1559
+#: ../gui.py:1176 ../packages.py:1566
 msgid "Rebooting System"
 msgstr "آغازگری مجدد سیستم"
 
-#: ../gui.py:1267
+#: ../gui.py:1257
 #, python-format
 msgid "%s Installer"
 msgstr "نصب کننده‌ی %s"
 
-#: ../gui.py:1275
+#: ../gui.py:1265
 msgid "Unable to load title bar"
 msgstr "ناتوان در بارگذاری نوار عنوان"
 
-#: ../gui.py:1337
+#: ../gui.py:1327
 msgid "Install Window"
 msgstr "پنجره‌ی نصب"
 
@@ -1128,6 +1099,31 @@ msgstr ""
 "\n"
 "%s\n"
 "این سیستم اکنون آغازگری مجدد خواهد شد."
+
+#: ../hdrlist.py:45 ../hdrlist.py:937
+msgid ""
+"This group includes all the packages available.  Note that there are "
+"substantially more packages than just the ones in all the other package "
+"groups on this page."
+msgstr ""
+"این گروه شامل همه‌ی بسته‌های موجود می‌باشد.  توجه داشته باشید که بسته‌های بسیار "
+"بیشتری از تمام گروه‌های بسته‌ی دیگر در این صفحه وجود دارد."
+
+#: ../hdrlist.py:779
+msgid "Everything"
+msgstr "همه چیز"
+
+#: ../hdrlist.py:941
+msgid ""
+"Choose this group to get the minimal possible set of packages.  Useful for "
+"creating small router/firewall boxes, for example."
+msgstr ""
+"این گروه را برای گرفتن کمترین مجموعه از بسته‌ها انتخاب کنید.  این برای مثال، "
+"برای ساختن رایانه‌های مسیریاب/دیوارآتش مفید است."
+
+#: ../hdrlist.py:990
+msgid "Miscellaneous"
+msgstr "متفرقه"
 
 #: ../image.py:87
 msgid "Required Install Media"
@@ -1149,8 +1145,8 @@ msgstr ""
 "لطفا قبل از پیشروی برای نصب اینها را آماده داشته باشید.  اگر شما احتیاج به "
 "قطع کردن نصب و آغازگری مجدد دارید لطفا \"آغازگری مجدد\" را انتخاب کنید."
 
-#: ../image.py:96 ../image.py:484 ../kickstart.py:1479 ../kickstart.py:1507
-#: ../iw/partition_gui.py:1006
+#: ../image.py:96 ../image.py:484 ../kickstart.py:1497 ../kickstart.py:1525
+#: ../iw/partition_gui.py:1009
 msgid "_Continue"
 msgstr "_ادامه"
 
@@ -1205,11 +1201,29 @@ msgstr ""
 msgid "Install on System"
 msgstr "نصب بر سیستم"
 
-#: ../kickstart.py:1471
+#: ../kickstart.py:102
+msgid "Scriptlet Failure"
+msgstr ""
+
+#: ../kickstart.py:103
+#, fuzzy, python-format
+msgid ""
+"There was an error running the scriptlet.  You may examine the output in %"
+"s.  This is a fatal error and your install will be aborted.\n"
+"\n"
+"Press the OK button to reboot your system."
+msgstr ""
+"خطایی در نصب %s وجود داشت.  این می‌تواند نشانه‌ی خرابی رسانه، کمبود فضای دیسک، "
+"و/یا اشکالات سخت‌افزاری باشد.  این خطای جدی بوده و نصب شما قطع خواهد گردید.  "
+"لطفا درست بودن رسانه‌ی خود را تصدیق نموده و دوباره نصب خود را آزمایش کنید.\n"
+"\n"
+"برای آغازگری سیستم خود دکمه‌ی تایید را فشار دهید."
+
+#: ../kickstart.py:1489
 msgid "Missing Package"
 msgstr "فقدان بسته"
 
-#: ../kickstart.py:1472
+#: ../kickstart.py:1490
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1218,15 +1232,15 @@ msgstr ""
 "شما مشخص کرده‌اید که بسته‌ی '%s' باید نصب گردد. این بسته وجود ندارد. آیا مایل "
 "هستید ادامه دهید یا نصب خود را قطع می‌کنید؟"
 
-#: ../kickstart.py:1478 ../kickstart.py:1506
+#: ../kickstart.py:1496 ../kickstart.py:1524
 msgid "_Abort"
 msgstr "_قطع کردن"
 
-#: ../kickstart.py:1498
+#: ../kickstart.py:1516
 msgid "Missing Group"
 msgstr "فقدان گروه"
 
-#: ../kickstart.py:1499
+#: ../kickstart.py:1517
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1295,7 +1309,7 @@ msgid ""
 "ensure that your install tree has been correctly generated."
 msgstr ""
 
-#: ../packages.py:197 ../packages.py:629
+#: ../packages.py:197 ../packages.py:631
 #, python-format
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
@@ -1312,15 +1326,15 @@ msgstr "بررسی وابستگی"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "در حال بررسی وابستگی‌ها در بسته‌های انتخاب شده‌ی برای نصب..."
 
-#: ../packages.py:371 ../packages.py:869
+#: ../packages.py:373 ../packages.py:869
 msgid "Processing"
 msgstr "در حال پردازش"
 
-#: ../packages.py:372
+#: ../packages.py:374
 msgid "Preparing to install..."
 msgstr "در حال آماده کردن برای نصب..."
 
-#: ../packages.py:431
+#: ../packages.py:433
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -1335,26 +1349,26 @@ msgstr ""
 "\n"
 "برای تلاش مجدد <return> را فشار دهید."
 
-#: ../packages.py:441
+#: ../packages.py:443
 #, fuzzy
 msgid "Re_boot"
 msgstr "آغازگری مجدد"
 
-#: ../packages.py:445
+#: ../packages.py:447
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
 
-#: ../packages.py:459
+#: ../packages.py:461
 msgid "Installing..."
 msgstr "در حال نصب کردن..."
 
-#: ../packages.py:480
+#: ../packages.py:482
 msgid "Error Installing Package"
 msgstr "خطا در نصب بسته"
 
-#: ../packages.py:481
+#: ../packages.py:483
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -1382,7 +1396,7 @@ msgstr ""
 msgid "Preparing RPM transaction..."
 msgstr "در حال آماده سازی اداره‌ی RPM..."
 
-#: ../packages.py:953
+#: ../packages.py:960
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -1391,7 +1405,7 @@ msgstr ""
 "در حال ارتقاء دادن بسته‌های %s\n"
 "\n"
 
-#: ../packages.py:955
+#: ../packages.py:962
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -1400,17 +1414,17 @@ msgstr ""
 "در حال نصب کردن بسته‌های %s\n"
 "\n"
 
-#: ../packages.py:963 ../packages.py:1263
+#: ../packages.py:970 ../packages.py:1270
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "در حال ارتقاء دادن %s-%s-%s.%s.\n"
 
-#: ../packages.py:965 ../packages.py:1265
+#: ../packages.py:972 ../packages.py:1272
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "در حال نصب کردن %s-%s-%s.%s.\n"
 
-#: ../packages.py:981
+#: ../packages.py:988
 #, python-format
 msgid ""
 "\n"
@@ -1427,15 +1441,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:987
+#: ../packages.py:994
 msgid "Install Starting"
 msgstr "نصب شروع می‌شود"
 
-#: ../packages.py:988
+#: ../packages.py:995
 msgid "Starting install process, this may take several minutes..."
 msgstr "پردازش نصب شروع می‌شود، این ممکن است چندین دقیقه طول بکشد..."
 
-#: ../packages.py:1028
+#: ../packages.py:1035
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -1446,17 +1460,17 @@ msgstr ""
 "نیاز دارید:\n"
 "\n"
 
-#: ../packages.py:1032 ../packages.py:1053 ../iw/lvm_dialog_gui.py:1060
-#: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
+#: ../packages.py:1039 ../packages.py:1060 ../iw/lvm_dialog_gui.py:1060
+#: ../iw/partition_gui.py:361 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1435 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "نقطه‌ی سوارسازی"
 
-#: ../packages.py:1033
+#: ../packages.py:1040
 msgid "Space Needed"
 msgstr "فضای مورد نیاز"
 
-#: ../packages.py:1049
+#: ../packages.py:1056
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1467,23 +1481,23 @@ msgstr ""
 "بدنبال آمده نیاز دارید:\n"
 "\n"
 
-#: ../packages.py:1054
+#: ../packages.py:1061
 msgid "Nodes Needed"
 msgstr "گره‌های مورد نیاز"
 
-#: ../packages.py:1065
+#: ../packages.py:1072
 msgid "Disk Space"
 msgstr "فضای دیسک"
 
-#: ../packages.py:1110
+#: ../packages.py:1117
 msgid "Post Install"
 msgstr "پس‌ نصب"
 
-#: ../packages.py:1111
+#: ../packages.py:1118
 msgid "Performing post install configuration..."
 msgstr "در حال انجام پیکربندی پس نصب..."
 
-#: ../packages.py:1289
+#: ../packages.py:1296
 msgid ""
 "\n"
 "\n"
@@ -1493,7 +1507,7 @@ msgstr ""
 "\n"
 "بسته‌های بدنبال آمده در این نسخه موجود بوده ولی ارتقاء نیافته‌اند:\n"
 
-#: ../packages.py:1292
+#: ../packages.py:1299
 msgid ""
 "\n"
 "\n"
@@ -1503,11 +1517,11 @@ msgstr ""
 "\n"
 "بسته‌های بدنبال آمده در این نسخه موجود بوده ولی نصب نشده‌اند:\n"
 
-#: ../packages.py:1536
+#: ../packages.py:1543
 msgid "Warning! This is pre-release software!"
 msgstr "هشدار! این نرم‌افزار پیش-انتشار است!"
 
-#: ../packages.py:1537
+#: ../packages.py:1544
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1534,21 +1548,21 @@ msgstr ""
 "\n"
 "و گزارشی را برای '%s' ارسال نمایید.\n"
 
-#: ../packages.py:1550
+#: ../packages.py:1557
 msgid "_Install anyway"
 msgstr "_نصب بهر حال"
 
-#: ../packages.py:1555 ../packages.py:1558 ../iw/confirm_gui.py:68
+#: ../packages.py:1562 ../packages.py:1565 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:120
 msgid "_Back"
 msgstr "_برگشت"
 
-#: ../partedUtils.py:191 ../textw/partition_text.py:555
+#: ../partedUtils.py:194 ../textw/partition_text.py:555
 msgid "Foreign"
 msgstr "بیگانه"
 
-#: ../partedUtils.py:287
+#: ../partedUtils.py:290
 #, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
@@ -1565,7 +1579,7 @@ msgstr ""
 "\n"
 "می‌خواهید این DASD را با استفاده از قالب CDL دوباره قالب‌بندی کنید؟"
 
-#: ../partedUtils.py:317
+#: ../partedUtils.py:320
 #, fuzzy, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
@@ -1580,31 +1594,31 @@ msgstr ""
 "\n"
 "آیا می‌خواهید این گرداننده را جااندازی کنید؟"
 
-#: ../partedUtils.py:326
+#: ../partedUtils.py:329
 #, fuzzy
 msgid "_Ignore drive"
 msgstr "نادیده‌گیری"
 
-#: ../partedUtils.py:327
+#: ../partedUtils.py:330
 #, fuzzy
 msgid "_Format drive"
 msgstr "_قالب‌بندی"
 
-#: ../partedUtils.py:660
+#: ../partedUtils.py:663
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "خطا در سوار کردن سیستم پرونده بر %s: %s"
 
-#: ../partedUtils.py:748
+#: ../partedUtils.py:751
 msgid "Initializing"
 msgstr "جااندازی"
 
-#: ../partedUtils.py:749
+#: ../partedUtils.py:752
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "لطفا هنگام قالب‌بندی گرداننده‌ی %s صبر کنید...\n"
 
-#: ../partedUtils.py:843
+#: ../partedUtils.py:846
 #, fuzzy, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1624,7 +1638,7 @@ msgstr ""
 "\n"
 "آیا می‌خواهید این دستگاه را با پاک کردن همه‌ی داده‌ها جااندازی کنید؟"
 
-#: ../partedUtils.py:900
+#: ../partedUtils.py:903
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1643,11 +1657,11 @@ msgstr ""
 "\n"
 "آیا می‌خواهید این دستگاه را با پاک کردن همه‌ی داده‌ها جااندازی کنید؟"
 
-#: ../partedUtils.py:1018 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:1021 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "هیچ گرداننده‌ای یافت نشد"
 
-#: ../partedUtils.py:1019
+#: ../partedUtils.py:1022
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1779,7 +1793,7 @@ msgstr "شما دارید همه‌ی قسمت‌بندی‌های بر روی �
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:521
 #: ../iw/lvm_dialog_gui.py:732 ../iw/lvm_dialog_gui.py:1083
-#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1351
+#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1356
 msgid "_Delete"
 msgstr "_حذف کردن"
 
@@ -1862,7 +1876,7 @@ msgstr ""
 msgid "Format?"
 msgstr "قالب‌بندی؟"
 
-#: ../partIntfHelpers.py:410 ../iw/partition_gui.py:1004
+#: ../partIntfHelpers.py:410 ../iw/partition_gui.py:1007
 msgid "_Modify Partition"
 msgstr "_تغییر دادن قسمت‌بندی"
 
@@ -1906,7 +1920,7 @@ msgstr ""
 "\n"
 "آیا می‌خواهید با طرح قسمت‌بندی مورد درخواست خود ادامه دهید؟"
 
-#: ../partIntfHelpers.py:448 ../iw/partition_gui.py:660
+#: ../partIntfHelpers.py:448 ../iw/partition_gui.py:663
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1992,7 +2006,7 @@ msgstr ""
 "بلادرنگ روشن کنیم. برای انجام این کار مجبور خواهیم بود تا جدول قسمت‌بندی جدید "
 "را بلادرنگ به دیسک بنویسیم. اشکالی ندارد؟"
 
-#: ../partitions.py:779
+#: ../partitions.py:791
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -2000,7 +2014,7 @@ msgid ""
 msgstr ""
 "شما یک قسمت‌بندی ریشه (/) که برای ادامه‌ی نصب %s ضروری است تعیین نکرده‌اید."
 
-#: ../partitions.py:784
+#: ../partitions.py:796
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -2009,17 +2023,22 @@ msgstr ""
 "قسمت‌بندی ریشه‌ی شما کمتر از ۲۵۰ مگابایت است که معمولا برای نصب %s بسیار کوچک "
 "است."
 
-#: ../partitions.py:791
+#: ../partitions.py:803
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "شما باید یک قسمت‌بندی /boot/efi از نوع FAT و اندازه‌ی ۵۰ مگابایت ایجاد کنید."
 
-#: ../partitions.py:814
+#: ../partitions.py:823
+#, fuzzy
+msgid "You must create an Apple Bootstrap partition."
+msgstr "شما باید یک قسمت‌بندی آغازگری PPC PReP را ایجاد کنید."
+
+#: ../partitions.py:845
 msgid "You must create a PPC PReP Boot partition."
 msgstr "شما باید یک قسمت‌بندی آغازگری PPC PReP را ایجاد کنید."
 
-#: ../partitions.py:822 ../partitions.py:833
+#: ../partitions.py:853 ../partitions.py:864
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -2028,15 +2047,15 @@ msgstr ""
 "قسمت‌بندی %s شما کوچک‌تر از %s مگابایت است که کمتر از مقدار سفارش شده برای یک "
 "نصب عادی %s می‌باشد."
 
-#: ../partitions.py:862 ../partRequests.py:653
+#: ../partitions.py:893 ../partRequests.py:709
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "قسمت‌بندی‌های قابل آغازگری فقط می‌تواند بر روی دستگاه‌های RAID1 باشند."
 
-#: ../partitions.py:869
+#: ../partitions.py:900
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "قسمت‌بندی‌های قابل آغازگری نمی‌توانند روی یک حجم منطقی باشند."
 
-#: ../partitions.py:880
+#: ../partitions.py:911
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -2044,7 +2063,7 @@ msgstr ""
 "شما یک قسمت‌بندی حافظه‌ی مبادله را مشخص نکرده‌اید.  هرچند آن در همه‌ی موارد "
 "اجباری نبوده ولی وجود آن توانایی انجام بیشتر نصب‌ها را بهبود خواهد بخشید."
 
-#: ../partitions.py:887
+#: ../partitions.py:918
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -2053,7 +2072,7 @@ msgstr ""
 "شما بیش از ۳۲ دستگاه حافظه‌ی مبادله را مشخص کرده‌اید. هسته‌ی %s فقط برای ۳۲ "
 "دستگاه حافظه‌ی مبادله پشتیبانی دارد."
 
-#: ../partitions.py:898
+#: ../partitions.py:929
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -2062,26 +2081,26 @@ msgstr ""
 "شما فضای مبادله‌ی کمتری (%dM) از حافظه‌ی موقت بر روی سیستم خود (%dM)تعیین "
 "کرده‌اید. این می‌تواند تأثیر منفی بر قابلیت اجرا بگذارد."
 
-#: ../partitions.py:1194
+#: ../partitions.py:1227
 msgid "the partition in use by the installer."
 msgstr "قسمت‌بندی مورد استفاده بوسیله‌ی نصب‌گر."
 
-#: ../partitions.py:1197
+#: ../partitions.py:1230
 msgid "a partition which is a member of a RAID array."
 msgstr "قسمت‌بندیی که عضویی از یک آرایه‌ی RAID است. "
 
-#: ../partitions.py:1200
+#: ../partitions.py:1233
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "قسمت‌بندیی که عضویی از یک گروه حجمی LVM می‌باشد."
 
-#: ../partRequests.py:233
+#: ../partRequests.py:286
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "این نقطه‌ی سوارسازی نامعتبر است.  شاخه‌ی %s باید بر روی سیستم پرونده‌ی / باشد."
 
-#: ../partRequests.py:236
+#: ../partRequests.py:289
 #, python-format
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
@@ -2090,11 +2109,11 @@ msgstr ""
 "از نقطه‌ی سوارسازی %s نمی‌توان استفاده کرد.  برای عمل کردمناسب سیستم باید آن "
 "یک پیوند نمادی باشد.  لطفا یک نقطه‌ی سوارسازی دیگری را انتخاب کنید."
 
-#: ../partRequests.py:243
+#: ../partRequests.py:296
 msgid "This mount point must be on a linux file system."
 msgstr "این نقطه‌ی سوارسازی باید بر روی یک سیستم پرونده‌ی لینوکس باشد."
 
-#: ../partRequests.py:264
+#: ../partRequests.py:317
 #, python-format
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
@@ -2103,7 +2122,7 @@ msgstr ""
 "نقطه‌ی سوارسازی \"%s\" از قبل مورد استفاده است، لطفا یک نقطه‌ی سوارسازی دیگری "
 "را انتخاب کنید."
 
-#: ../partRequests.py:278
+#: ../partRequests.py:331
 #, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
@@ -2112,7 +2131,7 @@ msgstr ""
 "اندازه‌ی قسمت‌بندی %s (%10.2f MB) از حداکثر اندازه‌ی %10.2f مگابایت فراتر رفته "
 "است."
 
-#: ../partRequests.py:470
+#: ../partRequests.py:526
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
@@ -2121,29 +2140,29 @@ msgstr ""
 "اندازه‌ی قسمت‌بندی مورد درخواست (اندازه= %s مگابایت) از حداکثر اندازه‌ی %s "
 "مگابایت بیشتر شده است."
 
-#: ../partRequests.py:475
+#: ../partRequests.py:531
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr "اندازه‌ی قسمت‌بندی مورد درخواست منفی است! (اندازه= %s مگابایت)"
 
-#: ../partRequests.py:479
+#: ../partRequests.py:535
 msgid "Partitions can't start below the first cylinder."
 msgstr "قسمت‌بندی‌ها نمی‌تواند زیر اولین سیلندر شروع شود."
 
-#: ../partRequests.py:482
+#: ../partRequests.py:538
 msgid "Partitions can't end on a negative cylinder."
 msgstr "قسمت‌بندی‌ها نمی‌تواند بر یک سیلندر منفی پایان یابند."
 
-#: ../partRequests.py:645
+#: ../partRequests.py:701
 msgid "No members in RAID request, or not RAID level specified."
 msgstr "هیچ اعضایی در درخواست RAID، یا سطح RAID مشخص نشده است."
 
-#: ../partRequests.py:657
+#: ../partRequests.py:713
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "یک دستگاه RAID از نوع %s به حداقل %s عضو نیاز دارد."
 
-#: ../partRequests.py:663
+#: ../partRequests.py:719
 #, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
@@ -2211,8 +2230,8 @@ msgstr ""
 "نادیده گرفته خواهد شد و شما مستقیما به پوسته‌ی خط فرمان خواهید رفت.\n"
 "\n"
 
-#: ../rescue.py:273 ../iw/partition_gui.py:562 ../loader2/cdinstall.c:109
-#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:471
+#: ../rescue.py:273 ../iw/partition_gui.py:565 ../loader2/cdinstall.c:109
+#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:477
 msgid "Continue"
 msgstr "ادامه"
 
@@ -2222,7 +2241,7 @@ msgstr "فقط-خواندن"
 
 #: ../rescue.py:273 ../rescue.py:275 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:254
-#: ../loader2/cdinstall.c:256 ../loader2/method.c:411
+#: ../loader2/cdinstall.c:256 ../loader2/method.c:419
 msgid "Skip"
 msgstr "پرش"
 
@@ -2515,7 +2534,7 @@ msgstr ""
 "ساختار نصب پیشین شما %s تطبیق نمی‌کند.  این به احتمال زیاد موفق نمی‌شود.  آیا "
 "مطمئنید که می‌خواهید به پردازش ارتقا ادامه دهید؟"
 
-#: ../urlinstall.py:46
+#: ../urlinstall.py:45
 msgid "Connecting..."
 msgstr "در حال برقراری اتصال..."
 
@@ -2817,11 +2836,11 @@ msgstr "تصد_یق:"
 msgid "Passwords don't match"
 msgstr "گذرواژه‌ها تطبیق نمی‌کنند"
 
-#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:445
+#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:429
 msgid "Passwords do not match"
 msgstr "گذرواژه‌ها تطبیق نمی‌کنند"
 
-#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:455
+#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:439
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2833,11 +2852,11 @@ msgstr ""
 "\n"
 "آیا می‌خواهید با این گذرواژه ادامه دهید؟"
 
-#: ../iw/bootdisk_gui.py:23
+#: ../iw/bootdisk_gui.py:24
 msgid "Boot Diskette Creation"
 msgstr "ایجاد دیسکچه‌ی آغازگری"
 
-#: ../iw/bootdisk_gui.py:54
+#: ../iw/bootdisk_gui.py:55
 #, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
@@ -2855,11 +2874,11 @@ msgstr ""
 "\n"
 "بشدت سفارش می‌شود که یک دیسکچه‌ی آغازگری ایجاد کنید.\n"
 
-#: ../iw/bootdisk_gui.py:70
+#: ../iw/bootdisk_gui.py:71
 msgid "_Yes, I would like to create a boot diskette"
 msgstr "_بله، می‌خواهم دیسکچه‌ی آغازگری ایجاد کنم"
 
-#: ../iw/bootdisk_gui.py:73
+#: ../iw/bootdisk_gui.py:74
 msgid "No, I _do not want to create a boot diskette"
 msgstr "_نه، نمی‌خواهم دیسکچه‌ی آغازگری ایجاد کنم"
 
@@ -2867,7 +2886,7 @@ msgstr "_نه، نمی‌خواهم دیسکچه‌ی آغازگری ایجاد 
 msgid "Advanced Boot Loader Configuration"
 msgstr "پیکربندی پیشرفته بارگذار آغازگری"
 
-#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
+#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:126
 #, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
@@ -2902,9 +2921,9 @@ msgstr ""
 msgid "_General kernel parameters"
 msgstr "پا_رامترهای عمومی هسته"
 
-#: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:53
-#: ../textw/bootloader_text.py:125 ../textw/bootloader_text.py:182
-#: ../textw/bootloader_text.py:305 ../textw/bootloader_text.py:397
+#: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:43
+#: ../textw/bootloader_text.py:109 ../textw/bootloader_text.py:166
+#: ../textw/bootloader_text.py:289 ../textw/bootloader_text.py:381
 msgid "Boot Loader Configuration"
 msgstr "پیکربندی بارگذار آغازگری"
 
@@ -2933,7 +2952,7 @@ msgstr ""
 msgid "C_ontinue with no boot loader"
 msgstr "ا_دامه بدون بارگذار آغازگری"
 
-#: ../iw/bootloader_main_gui.py:123
+#: ../iw/bootloader_main_gui.py:120
 msgid ""
 "Please select the boot loader that the computer will use.  GRUB is the "
 "default boot loader. However, if you do not wish to overwrite your current "
@@ -2943,32 +2962,28 @@ msgstr ""
 "GRUB بارگذار آغازگری پیش‌فرض است. هر چند، اگر نمی‌خواهید بارگذار آغازگری کنونی "
 "خود را بازنگاری کنید، \"بارگذار آغازگری نصب نشود\" را انتخاب کنید.  "
 
-#: ../iw/bootloader_main_gui.py:131
+#: ../iw/bootloader_main_gui.py:128
 msgid "Use _GRUB as the boot loader"
 msgstr "ا_ستفاده از GRUB برای بارگذار آغازگری"
 
-#: ../iw/bootloader_main_gui.py:135
-msgid "Use _LILO as the boot loader"
-msgstr "استفاده از LILO برای بارگذار آ_غازگری"
-
-#: ../iw/bootloader_main_gui.py:139
+#: ../iw/bootloader_main_gui.py:130
 msgid "_Do not install a boot loader"
 msgstr "بارگذار _آغازگری نصب نشود"
 
-#: ../iw/bootloader_main_gui.py:162
+#: ../iw/bootloader_main_gui.py:149
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
 msgstr "بارگذار آغازگری %s بر روی /dev/%s نصب خواهد شد."
 
-#: ../iw/bootloader_main_gui.py:167
+#: ../iw/bootloader_main_gui.py:154
 msgid "No boot loader will be installed."
 msgstr "هیچ بارگذار آغازگری نصب نخواهد شد."
 
-#: ../iw/bootloader_main_gui.py:219
+#: ../iw/bootloader_main_gui.py:204
 msgid "_Change boot loader"
 msgstr "_تغییر دادن بارگذار آغازگری"
 
-#: ../iw/bootloader_main_gui.py:247
+#: ../iw/bootloader_main_gui.py:232
 msgid "Configure advanced boot loader _options"
 msgstr "پیکربندی پیشرفته‌ی _گزینه‌های بارگذار آغازگری"
 
@@ -2980,19 +2995,11 @@ msgstr "نصب کردن ضبط بارگذار آغازگری بر روی:"
 msgid "_Change Drive Order"
 msgstr "تغییر _دادن ترتیب دستگاه"
 
-#: ../iw/bootlocwidget.py:84
-msgid "Unable to Change Drive Order for LILO"
-msgstr "ناتوان در تغییر دادن ترتیب دستگاه برای LILO"
-
-#: ../iw/bootlocwidget.py:85
-msgid "We do not support changing the drive order for use with LILO."
-msgstr "ما از تغییر ترتیب دستگاه برای استفاده با LILO پشتیبانی نمی‌کنیم."
-
-#: ../iw/bootlocwidget.py:92
+#: ../iw/bootlocwidget.py:82
 msgid "Edit Drive Order"
 msgstr "ویرایش ترتیب دستگاه"
 
-#: ../iw/bootlocwidget.py:97
+#: ../iw/bootlocwidget.py:87
 msgid ""
 "Arrange the drives to be in the same order as used by the BIOS. Changing the "
 "drive order may be useful if you have multiple SCSI adapters or both SCSI "
@@ -3065,9 +3072,10 @@ msgid "Congratulations"
 msgstr "تبریک می‌گوییم"
 
 #: ../iw/congrats_gui.py:59
+#, fuzzy
 msgid ""
-"Remove any installation media (diskettes or CD-ROMs) used during the "
-"installation process and press the \"Reboot\" button to reboot your system.\n"
+"Remove any installation media  used during the installation process and "
+"press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
 "هر رسانه‌ی نصب (دیسکچه‌ها یا سی‌دی‌های) استفاده شده در طول پردازش نصب را برداشته "
@@ -3208,16 +3216,16 @@ msgstr "اندازه"
 msgid "Model"
 msgstr "مدل"
 
-#: ../iw/examine_gui.py:32
+#: ../iw/examine_gui.py:33
 msgid "Upgrade Examine"
 msgstr "آزمایش ارتقا"
 
-#: ../iw/examine_gui.py:59
+#: ../iw/examine_gui.py:60
 #, python-format
 msgid "_Install %s"
 msgstr "_نصب کردن %s"
 
-#: ../iw/examine_gui.py:61
+#: ../iw/examine_gui.py:62
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
@@ -3225,11 +3233,11 @@ msgstr ""
 "این گزینه را برای نصب تازه‌ی سیستم خود انتخاب کنید. نرم‌افزار و داده‌های موجود "
 "ممکن است با بستگی به پیکربندی مورد انتخاب شما بازنگاری شوند."
 
-#: ../iw/examine_gui.py:65
+#: ../iw/examine_gui.py:66
 msgid "_Upgrade an existing installation"
 msgstr "_ارتقا دادن یک نصب موجود"
 
-#: ../iw/examine_gui.py:67
+#: ../iw/examine_gui.py:68
 #, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
@@ -3238,11 +3246,11 @@ msgstr ""
 "این گزینه را اگر می‌خواهید سیستم %s موجود خود را ارتقا دهید انتخاب کنید.  این "
 "گزینه داده‌های موجود بر دیسک‌های شما را نگه خواهد داشت."
 
-#: ../iw/examine_gui.py:130 ../iw/pixmapRadioButtonGroup_gui.py:197
+#: ../iw/examine_gui.py:131 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
 msgstr "سیستم نصب‌شده‌ی زیر ارتقا داده خواهد شد:"
 
-#: ../iw/examine_gui.py:143
+#: ../iw/examine_gui.py:144
 msgid "Unknown Linux system"
 msgstr "سیستم لینوکس ناشناس"
 
@@ -3364,11 +3372,11 @@ msgstr "نشانی‌های IP باید حاوی اعداد بین ۱ و ۲۵۵ 
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "نشانی‌های IP باید حاوی اعداد بین ۰ و ۲۵۵ باشند"
 
-#: ../iw/language_gui.py:23 ../textw/language_text.py:38
+#: ../iw/language_gui.py:24 ../textw/language_text.py:38
 msgid "Language Selection"
 msgstr "گزینش زبان"
 
-#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:378
+#: ../iw/language_gui.py:63 ../textw/language_text.py:39 ../loader2/lang.c:378
 msgid "What language would you like to use during the installation process?"
 msgstr "از چه زبانی می‌خواهید هنگام پردازش نصب استفاده کنید؟"
 
@@ -3432,7 +3440,7 @@ msgstr ""
 "این تغییر بلادرنگ مؤثر واقع خواهد گردید."
 
 #: ../iw/lvm_dialog_gui.py:128 ../iw/lvm_dialog_gui.py:188
-#: ../iw/network_gui.py:158 ../iw/network_gui.py:162 ../iw/network_gui.py:185
+#: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:187
 msgid "C_ontinue"
 msgstr "ا_دامه"
 
@@ -3707,7 +3715,7 @@ msgstr "فضای کل:"
 msgid "Logical Volume Name"
 msgstr "نام حجم منطقی"
 
-#: ../iw/lvm_dialog_gui.py:1063 ../iw/partition_gui.py:363
+#: ../iw/lvm_dialog_gui.py:1063 ../iw/partition_gui.py:366
 msgid "Size (MB)"
 msgstr "اندازه (مگابایت)"
 
@@ -3715,8 +3723,8 @@ msgstr "اندازه (مگابایت)"
 msgid "_Add"
 msgstr "_افزودن"
 
-#: ../iw/lvm_dialog_gui.py:1080 ../iw/network_gui.py:524
-#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1350 ../iw/zfcp_gui.py:101
+#: ../iw/lvm_dialog_gui.py:1080 ../iw/network_gui.py:526
+#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1355 ../iw/zfcp_gui.py:101
 msgid "_Edit"
 msgstr "_ویرایش"
 
@@ -3760,19 +3768,19 @@ msgstr "_شبیه‌سازی ۳ دکمه‌ای"
 msgid "Select the appropriate mouse for the system."
 msgstr "انتخاب.کردن موشی مناسب برای سیستم"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:606
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:607
 msgid "Gateway"
 msgstr "دروازه"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:608
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:609
 msgid "Primary DNS"
 msgstr "DNS اولیه"
 
-#: ../iw/network_gui.py:28 ../iw/network_gui.py:610
+#: ../iw/network_gui.py:28 ../iw/network_gui.py:611
 msgid "Secondary DNS"
 msgstr "DNS ثانویه"
 
-#: ../iw/network_gui.py:28 ../iw/network_gui.py:612
+#: ../iw/network_gui.py:28 ../iw/network_gui.py:613
 msgid "Tertiary DNS"
 msgstr "DNS ثالثیه"
 
@@ -3796,14 +3804,14 @@ msgstr "DNS _ثالثیه"
 msgid "Network Configuration"
 msgstr "پیکربندی شبکه"
 
-#: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:165
-#: ../iw/network_gui.py:170 ../iw/network_gui.py:176 ../iw/network_gui.py:180
-#: ../iw/network_gui.py:185 ../iw/zfcp_gui.py:160 ../iw/zfcp_gui.py:224
+#: ../iw/network_gui.py:159 ../iw/network_gui.py:163 ../iw/network_gui.py:167
+#: ../iw/network_gui.py:172 ../iw/network_gui.py:178 ../iw/network_gui.py:182
+#: ../iw/network_gui.py:187 ../iw/zfcp_gui.py:160 ../iw/zfcp_gui.py:224
 #: ../textw/zfcp_text.py:63
 msgid "Error With Data"
 msgstr "خطای داده‌ها"
 
-#: ../iw/network_gui.py:158
+#: ../iw/network_gui.py:160
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
@@ -3811,7 +3819,7 @@ msgstr ""
 "شما نام  میزبانی را مشخص نکرده‌اید.  با توجه به محیط شبکه‌ی شما ممکن است بعدا "
 "این باعث مشکلاتی بشود."
 
-#: ../iw/network_gui.py:162
+#: ../iw/network_gui.py:164
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3820,7 +3828,7 @@ msgstr ""
 "شما محوطه‌ی \"%s\" را مشخص نکرده‌اید.  با بستگی به محیط شبکه شما ممکن است این "
 "امر بعدا باعث مشکلاتی شود."
 
-#: ../iw/network_gui.py:166 ../textw/network_text.py:414
+#: ../iw/network_gui.py:168 ../textw/network_text.py:414
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3831,7 +3839,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:171
+#: ../iw/network_gui.py:173
 #, python-format
 msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
@@ -3840,16 +3848,16 @@ msgstr ""
 "خطایی در تبدیل مقدار وارد شده برای \"%s\" رخ داد:\n"
 "%s"
 
-#: ../iw/network_gui.py:177
+#: ../iw/network_gui.py:179
 #, python-format
 msgid "A value is required for the field \"%s\"."
 msgstr "مقداری برای محوطه‌ی \"%s\" مورد نیاز است."
 
-#: ../iw/network_gui.py:181
+#: ../iw/network_gui.py:183
 msgid "The IP information you have entered is invalid."
 msgstr "اطلاعات آی‌پی که وارد کرده‌اید نامعتبر است."
 
-#: ../iw/network_gui.py:185
+#: ../iw/network_gui.py:187
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active.\n"
@@ -3865,90 +3873,90 @@ msgstr ""
 "غیرفعال باقی بگذارید. وقتی شما سیستم خود را آغازگری مجدد کنید آن کارت بطور "
 "خودکار فعال خواهد شد."
 
-#: ../iw/network_gui.py:204
+#: ../iw/network_gui.py:206
 #, python-format
 msgid "Edit Interface %s"
 msgstr "ویرایش کردن واسط %s"
 
-#: ../iw/network_gui.py:215
+#: ../iw/network_gui.py:217
 msgid "Configure using _DHCP"
 msgstr "_پیکربندی با استفاده از DHCP"
 
-#: ../iw/network_gui.py:221
+#: ../iw/network_gui.py:223
 msgid "_Activate on boot"
 msgstr "_فعال‌سازی در آغازگری"
 
-#: ../iw/network_gui.py:230
+#: ../iw/network_gui.py:232
 msgid "_IP Address"
 msgstr "_نشانی IP"
 
-#: ../iw/network_gui.py:231
+#: ../iw/network_gui.py:233
 msgid "Net_mask"
 msgstr "نقاب‌_شبکه"
 
-#: ../iw/network_gui.py:236
+#: ../iw/network_gui.py:238
 msgid "_Point to Point (IP)"
 msgstr "_نقطه به نقطه (آی‌پی)"
 
-#: ../iw/network_gui.py:240
+#: ../iw/network_gui.py:242
 msgid "_ESSID"
 msgstr ""
 
-#: ../iw/network_gui.py:241
+#: ../iw/network_gui.py:243
 msgid "Encryption _Key"
 msgstr ""
 
-#: ../iw/network_gui.py:252
+#: ../iw/network_gui.py:254
 #, fuzzy
 msgid "Hardware address:"
 msgstr "نشانی IP:"
 
-#: ../iw/network_gui.py:291
+#: ../iw/network_gui.py:293
 #, python-format
 msgid "Configure %s"
 msgstr "پیکربندی %s"
 
-#: ../iw/network_gui.py:465
+#: ../iw/network_gui.py:467
 msgid "Active on Boot"
 msgstr "فعال‌سازی در آغازگری"
 
-#: ../iw/network_gui.py:467 ../iw/osbootwidget.py:67
-#: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:210 ../textw/bootloader_text.py:281
+#: ../iw/network_gui.py:469 ../iw/osbootwidget.py:67
+#: ../iw/partition_gui.py:360 ../iw/silo_gui.py:264
+#: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:265
 #: ../textw/mouse_text.py:38 ../textw/partition_text.py:1435
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
 msgstr "دستگاه"
 
-#: ../iw/network_gui.py:469
+#: ../iw/network_gui.py:471
 msgid "IP/Netmask"
 msgstr "آی‌پی/نقاب شبکه"
 
-#: ../iw/network_gui.py:531
+#: ../iw/network_gui.py:533
 msgid "Network Devices"
 msgstr "دستگاه‌های شبکه"
 
-#: ../iw/network_gui.py:541
+#: ../iw/network_gui.py:543
 msgid "Set the hostname:"
 msgstr "گذاردن نام‌میزبان:"
 
-#: ../iw/network_gui.py:545
+#: ../iw/network_gui.py:547
 msgid "_automatically via DHCP"
 msgstr "بطور _خودکار از طریق DHCP"
 
-#: ../iw/network_gui.py:551
+#: ../iw/network_gui.py:553
 msgid "_manually"
 msgstr "_دستی"
 
-#: ../iw/network_gui.py:557
+#: ../iw/network_gui.py:559
 msgid "(ex. \"host.domain.com\")"
 msgstr "(مثال. \"میزبان.دامنه.com\")"
 
-#: ../iw/network_gui.py:564 ../loader2/net.c:803
+#: ../iw/network_gui.py:566 ../loader2/net.c:811
 msgid "Hostname"
 msgstr "نام میزبان"
 
-#: ../iw/network_gui.py:617
+#: ../iw/network_gui.py:618
 msgid "Miscellaneous Settings"
 msgstr "تنظیمات متفرقه"
 
@@ -3966,8 +3974,8 @@ msgstr ""
 "'افزودن' را کلیک کنید. برای تغییر دادن سیستم عاملی که بوسیله‌ی پیش‌فرض آغازگری "
 "می‌شود، 'پیش‌فرض' را کنار سیستم عامل مورد نظرتان انتخاب کنید. "
 
-#: ../iw/osbootwidget.py:67 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:207
+#: ../iw/osbootwidget.py:67 ../iw/silo_gui.py:264
+#: ../textw/bootloader_text.py:265 ../textw/silo_text.py:207
 #: ../textw/xconfig_text.py:413 ../textw/xconfig_text.py:420
 #: ../textw/xconfig_text.py:547 ../textw/xconfig_text.py:548
 #: ../textw/xconfig_text.py:567 ../textw/xconfig_text.py:568
@@ -4182,24 +4190,24 @@ msgstr "_سیلندر آخر:"
 msgid "Force to be a _primary partition"
 msgstr "اجبار به قسمت‌بندی او_لیه بودن"
 
-#: ../iw/partition_gui.py:359 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../iw/partition_gui.py:362 ../iw/silo_gui.py:141 ../iw/silo_gui.py:288
 #: ../textw/partition_text.py:1435
 msgid "Type"
 msgstr "نوع"
 
-#: ../iw/partition_gui.py:362
+#: ../iw/partition_gui.py:365
 msgid "Format"
 msgstr "قالب"
 
-#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1435
+#: ../iw/partition_gui.py:367 ../textw/partition_text.py:1435
 msgid "Start"
 msgstr "آغاز"
 
-#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1435
+#: ../iw/partition_gui.py:368 ../textw/partition_text.py:1435
 msgid "End"
 msgstr "پایان یافتن"
 
-#: ../iw/partition_gui.py:402
+#: ../iw/partition_gui.py:405
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
@@ -4207,7 +4215,7 @@ msgstr ""
 "نقطه‌ی سوار کردن/\n"
 "RAID/حجم"
 
-#: ../iw/partition_gui.py:404
+#: ../iw/partition_gui.py:407
 msgid ""
 "Size\n"
 "(MB)"
@@ -4215,106 +4223,106 @@ msgstr ""
 "اندازه\n"
 "(مگابایت)"
 
-#: ../iw/partition_gui.py:536 ../textw/partition_text.py:1429
+#: ../iw/partition_gui.py:539 ../textw/partition_text.py:1429
 msgid "Partitioning"
 msgstr "قسمت‌بندی"
 
-#: ../iw/partition_gui.py:628
+#: ../iw/partition_gui.py:631
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr "خطاهای بحرانی بدنبال در طرح قسمت‌بندی خواسته شده‌ی شما وجود دارند."
 
-#: ../iw/partition_gui.py:631
+#: ../iw/partition_gui.py:634
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr "این خطاها باید پیش از ادامه با نصب %s شما برطرف شوند."
 
-#: ../iw/partition_gui.py:637
+#: ../iw/partition_gui.py:640
 msgid "Partitioning Errors"
 msgstr "خطاهای قسمت‌بندی"
 
-#: ../iw/partition_gui.py:643
+#: ../iw/partition_gui.py:646
 msgid "The following warnings exist with your requested partition scheme."
 msgstr "هشدارهای بدنبال در طرح قسمت‌بندی خواسته شده‌ی شما وجود دارند."
 
-#: ../iw/partition_gui.py:645
+#: ../iw/partition_gui.py:648
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "آیا می‌خواهید با طرح قسمت‌بندی مورد درخواست خود ادامه دهید؟"
 
-#: ../iw/partition_gui.py:650
+#: ../iw/partition_gui.py:653
 msgid "Partitioning Warnings"
 msgstr "هشدارهای قسمت‌بندی"
 
-#: ../iw/partition_gui.py:672
+#: ../iw/partition_gui.py:675
 msgid "Format Warnings"
 msgstr "هشدارهای قالب‌بندی"
 
-#: ../iw/partition_gui.py:677
+#: ../iw/partition_gui.py:680
 msgid "_Format"
 msgstr "_قالب‌بندی"
 
-#: ../iw/partition_gui.py:712
+#: ../iw/partition_gui.py:715
 msgid "LVM Volume Groups"
 msgstr "گروه‌های حجم LVM"
 
-#: ../iw/partition_gui.py:747
+#: ../iw/partition_gui.py:750
 msgid "RAID Devices"
 msgstr "دستگاه‌های RAID"
 
-#: ../iw/partition_gui.py:775 ../iw/partition_gui.py:901
+#: ../iw/partition_gui.py:778 ../iw/partition_gui.py:904
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:156
 msgid "None"
 msgstr "هیچکدام"
 
-#: ../iw/partition_gui.py:793 ../loader2/hdinstall.c:330
+#: ../iw/partition_gui.py:796 ../loader2/hdinstall.c:330
 msgid "Hard Drives"
 msgstr "گرداننده‌های دیسک"
 
-#: ../iw/partition_gui.py:864 ../textw/partition_text.py:138
+#: ../iw/partition_gui.py:867 ../textw/partition_text.py:138
 #: ../textw/partition_text.py:177
 msgid "Free space"
 msgstr "فضای آزاد"
 
-#: ../iw/partition_gui.py:866 ../textw/partition_text.py:140
+#: ../iw/partition_gui.py:869 ../textw/partition_text.py:140
 msgid "Extended"
 msgstr "گسترش یافته"
 
-#: ../iw/partition_gui.py:868 ../textw/partition_text.py:142
+#: ../iw/partition_gui.py:871 ../textw/partition_text.py:142
 msgid "software RAID"
 msgstr "نرم‌افزار RAID"
 
-#: ../iw/partition_gui.py:903
+#: ../iw/partition_gui.py:906
 msgid "Free"
 msgstr "آزاد"
 
-#: ../iw/partition_gui.py:993 ../textw/partition_text.py:225
+#: ../iw/partition_gui.py:996 ../textw/partition_text.py:225
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "قسمت‌بندی‌های درخواست شده نتوانستند جایابی شوند: %s."
 
-#: ../iw/partition_gui.py:1002
+#: ../iw/partition_gui.py:1005
 #, python-format
 msgid "Warning: %s."
 msgstr "هشدار: %s."
 
-#: ../iw/partition_gui.py:1184 ../iw/partition_gui.py:1198
+#: ../iw/partition_gui.py:1189 ../iw/partition_gui.py:1203
 msgid "Not supported"
 msgstr "بدون پشتیبانی"
 
-#: ../iw/partition_gui.py:1185
+#: ../iw/partition_gui.py:1190
 msgid "LVM is NOT supported on this platform."
 msgstr "LVM بر این پایه پشتیبانی نمی‌شود."
 
-#: ../iw/partition_gui.py:1199
+#: ../iw/partition_gui.py:1204
 msgid "Software RAID is NOT supported on this platform."
 msgstr "نرم‌افزار RAID بر این پایه پشتیبانی نمی‌شود."
 
-#: ../iw/partition_gui.py:1206
+#: ../iw/partition_gui.py:1211
 msgid "No RAID minor device numbers available"
 msgstr "هیچ شماره‌های کوچکتر دستگاه RAID در دسترس نمی‌باشند"
 
-#: ../iw/partition_gui.py:1207
+#: ../iw/partition_gui.py:1212
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
@@ -4322,11 +4330,11 @@ msgstr ""
 "یک دستگاه نرم‌افزار RAID نمی‌تواند ایجاد شود برای اینکه تمام شماره‌های کوچکتر "
 "موجودبرای دستگاه RAID استفاده شده‌اند."
 
-#: ../iw/partition_gui.py:1221
+#: ../iw/partition_gui.py:1226
 msgid "RAID Options"
 msgstr "گزینه‌های RAID"
 
-#: ../iw/partition_gui.py:1232
+#: ../iw/partition_gui.py:1237
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -4345,7 +4353,7 @@ msgstr ""
 "شما در حال حاضر %s قسمت‌بندی آزاد نرم‌افزار RAID برای استفاده دارید.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1243
+#: ../iw/partition_gui.py:1248
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -4357,71 +4365,71 @@ msgstr ""
 "سوار گردند.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1249
+#: ../iw/partition_gui.py:1254
 msgid "What do you want to do now?"
 msgstr "اکنون چکار می‌خواهید انجام دهید؟"
 
-#: ../iw/partition_gui.py:1258
+#: ../iw/partition_gui.py:1263
 msgid "Create a software RAID _partition."
 msgstr "ایجاد کردن یک _قسمت‌بندی نرم‌افزار RAID."
 
-#: ../iw/partition_gui.py:1261
+#: ../iw/partition_gui.py:1266
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "ایجاد کردن یک _دستگاه RAID [پیش‌فرض=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1265
+#: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr "کلون کردن یک _گرداننده برای ایجاد یک دستگاه RAID [پیش‌فرض=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1304
+#: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "ویرایشگر کلون کردن گرداننده‌ی دیسک نتوانست ایجاد گردد"
 
-#: ../iw/partition_gui.py:1305
+#: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
 msgstr "ویرایشگر کلون گرداننده‌ی دیسک بدلایلی نتوانست ایجاد شود."
 
-#: ../iw/partition_gui.py:1349
+#: ../iw/partition_gui.py:1354
 msgid "Ne_w"
 msgstr "_جدید"
 
-#: ../iw/partition_gui.py:1352
+#: ../iw/partition_gui.py:1357
 msgid "Re_set"
 msgstr "با_زنشانی"
 
-#: ../iw/partition_gui.py:1353
+#: ../iw/partition_gui.py:1358
 msgid "R_AID"
 msgstr "R_AID"
 
-#: ../iw/partition_gui.py:1354
+#: ../iw/partition_gui.py:1359
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1395
+#: ../iw/partition_gui.py:1400
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "پنهان کردن دستگاه RAID/اعضای _گروه حجمی LVM"
 
-#: ../iw/partition_gui.py:1410 ../textw/partition_text.py:1519
+#: ../iw/partition_gui.py:1415 ../textw/partition_text.py:1519
 msgid "Automatic Partitioning"
 msgstr "قسمت‌بندی خودکار"
 
-#: ../iw/partition_gui.py:1438
+#: ../iw/partition_gui.py:1443
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr ""
 "شما نیاز به انتخاب کردن حداقل یک دیسک‌سخت برای نصب کردن %s بر رویش دارید."
 
-#: ../iw/partition_gui.py:1480
+#: ../iw/partition_gui.py:1485
 msgid "I want to have automatic partitioning:"
 msgstr "قسمت‌بندی خودکار را می‌خواهم:"
 
-#: ../iw/partition_gui.py:1511
+#: ../iw/partition_gui.py:1516
 msgid "Select the drive(s) to use for this installation:"
 msgstr "انتخاب کردن دیسک‌(های) برای استفاده در این نصب:"
 
-#: ../iw/partition_gui.py:1535
+#: ../iw/partition_gui.py:1540
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr "_بازنگری (و تغییر در صورت نیاز) قسمت‌بندی‌های ایجاد شده"
 
@@ -4738,70 +4746,70 @@ msgstr "یادداشت‌های انتشار"
 msgid "Unable to load file!"
 msgstr "ناتوان در بارگذاری پرونده!"
 
-#: ../iw/silo_gui.py:28
+#: ../iw/silo_gui.py:29
 msgid "Silo Configuration"
 msgstr "پیکربندی سیلو"
 
-#: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:148
+#: ../iw/silo_gui.py:136 ../iw/silo_gui.py:287 ../iw/upgrade_swap_gui.py:148
 #: ../textw/upgrade_text.py:112
 msgid "Partition"
 msgstr "قسمت‌بندی"
 
-#: ../iw/silo_gui.py:172
+#: ../iw/silo_gui.py:173
 msgid "Install SILO boot record on:"
 msgstr "نصب کردن ضبط آغازگری سیلو بر:"
 
-#: ../iw/silo_gui.py:189
+#: ../iw/silo_gui.py:190
 msgid "Create PROM alias"
 msgstr "ایجاد کردن اسم مستعار PROM"
 
-#: ../iw/silo_gui.py:212
+#: ../iw/silo_gui.py:213
 msgid "Set default PROM boot device to linux"
 msgstr "گذاردن پیش‌فرض دستگاه آغازگری PROM به لینوکس"
 
-#: ../iw/silo_gui.py:216
+#: ../iw/silo_gui.py:217
 msgid "Kernel parameters"
 msgstr "پارامترهای هسته"
 
-#: ../iw/silo_gui.py:234
+#: ../iw/silo_gui.py:235
 msgid "Create boot disk"
 msgstr "ایجاد کردن دیسک آغازگری"
 
-#: ../iw/silo_gui.py:244
+#: ../iw/silo_gui.py:245
 msgid "Do not install SILO"
 msgstr "SILO نصب نشود"
 
-#: ../iw/silo_gui.py:263 ../textw/silo_text.py:207
+#: ../iw/silo_gui.py:264 ../textw/silo_text.py:207
 msgid "Partition type"
 msgstr "نوع قسمت‌بندی"
 
-#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:211
-#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:143
+#: ../iw/silo_gui.py:264 ../iw/silo_gui.py:299 ../textw/bootloader_text.py:195
+#: ../textw/bootloader_text.py:265 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "برچسب آغازگری"
 
-#: ../iw/silo_gui.py:294
+#: ../iw/silo_gui.py:295
 msgid "Default boot image"
 msgstr "تصویر آغازگری پیش‌فرض"
 
-#: ../iw/timezone_gui.py:28 ../textw/timezone_text.py:97
+#: ../iw/timezone_gui.py:29 ../textw/timezone_text.py:97
 msgid "Time Zone Selection"
 msgstr "انتخاب منطقه‌ی زمانی"
 
-#: ../iw/timezone_gui.py:67
+#: ../iw/timezone_gui.py:68
 msgid "System clock uses _UTC"
 msgstr "_ساعت سیستم از UTC استفاده می‌کند"
 
-#: ../iw/timezone_gui.py:75
+#: ../iw/timezone_gui.py:76
 msgid "Please select the nearest city in your timezone:"
 msgstr "لطفا نزدیکترین شهر را در منطقه‌ی زمانی خود انتخاب کنید:"
 
-#: ../iw/timezone_map_gui.py:126
+#: ../iw/timezone_map_gui.py:129
 msgid "_Location"
 msgstr "_مکان"
 
-#: ../iw/timezone_map_gui.py:128
+#: ../iw/timezone_map_gui.py:131
 msgid "Description"
 msgstr "توصیف"
 
@@ -5235,23 +5243,19 @@ msgstr "دیسکچه‌ی آغازگری"
 msgid "Which boot loader would you like to use?"
 msgstr "از کدام بارگذار آغازگر می‌خواهید استفاده کنید؟"
 
-#: ../textw/bootloader_text.py:45
+#: ../textw/bootloader_text.py:39
 msgid "Use GRUB Boot Loader"
 msgstr "استفاده کردن از بارگذار آغازگر گروب"
 
-#: ../textw/bootloader_text.py:47
-msgid "Use LILO Boot Loader"
-msgstr "استفاده کردن از بارگذار آغازگر لیلو"
-
-#: ../textw/bootloader_text.py:50
+#: ../textw/bootloader_text.py:40
 msgid "No Boot Loader"
 msgstr "بدون بارگذار آغازگر"
 
-#: ../textw/bootloader_text.py:72
+#: ../textw/bootloader_text.py:60
 msgid "Skip Boot Loader"
 msgstr "نادیده گرفتن بارگذار آغازگری"
 
-#: ../textw/bootloader_text.py:73
+#: ../textw/bootloader_text.py:61
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -5267,7 +5271,7 @@ msgstr ""
 "\n"
 "آیا مطمئن هستید که می‌خواهید از روی نصب بارگذار آغازگری پرش کنید؟"
 
-#: ../textw/bootloader_text.py:110 ../textw/silo_text.py:25
+#: ../textw/bootloader_text.py:94 ../textw/silo_text.py:25
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -5279,43 +5283,43 @@ msgstr ""
 "آنها را اکنون وارد کنید. اگر نیازی ندارید یا مطمئن نیستید، این را خالی "
 "بگذارید."
 
-#: ../textw/bootloader_text.py:119
+#: ../textw/bootloader_text.py:103
 msgid "Force use of LBA32 (not normally required)"
 msgstr "اجبار به استفاده از LBA32 (معمولا لازم نیست)"
 
-#: ../textw/bootloader_text.py:183
+#: ../textw/bootloader_text.py:167
 msgid "Where do you want to install the boot loader?"
 msgstr "کجا می‌خواهید بارگذار آغازگر را نصب کنید؟"
 
-#: ../textw/bootloader_text.py:215 ../textw/silo_text.py:147
+#: ../textw/bootloader_text.py:199 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
 msgstr "پاک کردن"
 
-#: ../textw/bootloader_text.py:223 ../textw/silo_text.py:155
+#: ../textw/bootloader_text.py:207 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
 msgstr "ویرایش برچسب آغازگری"
 
-#: ../textw/bootloader_text.py:241 ../textw/bootloader_text.py:246
+#: ../textw/bootloader_text.py:225 ../textw/bootloader_text.py:230
 msgid "Invalid Boot Label"
 msgstr "برچسب آغازگری نامعتبر"
 
-#: ../textw/bootloader_text.py:242
+#: ../textw/bootloader_text.py:226
 msgid "Boot label may not be empty."
 msgstr "برچسب آغازگری نمی‌تواند خالی باشد."
 
-#: ../textw/bootloader_text.py:247
+#: ../textw/bootloader_text.py:231
 msgid "Boot label contains illegal characters."
 msgstr "برچسب آغازگری دارای نویسه‌های غیرمجاز است."
 
-#: ../textw/bootloader_text.py:296 ../textw/fdisk_text.py:41
+#: ../textw/bootloader_text.py:280 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1440 ../textw/silo_text.py:216
 #: ../textw/silo_text.py:238 ../textw/userauth_text.py:237
 #: ../textw/zfcp_text.py:109
 msgid "Edit"
 msgstr "ویرایش"
 
-#: ../textw/bootloader_text.py:300
+#: ../textw/bootloader_text.py:284
 #, fuzzy, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well. You need "
@@ -5326,13 +5330,13 @@ msgstr ""
 "آغازگری کند. شما لازم است به‌ من بگویید چه قسمت‌بندیی را می‌خواهید بتوانید "
 "آغازگری کرده و چه برچسبی را می‌خواهید برای هر یک از آنها استفاده کنید. "
 
-#: ../textw/bootloader_text.py:313
+#: ../textw/bootloader_text.py:297
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> انتخاب دکمه | <F2> انتخاب ورودی آغازگری پیش‌فرض | <F12> صفحه‌ی بعد>"
 
-#: ../textw/bootloader_text.py:392
+#: ../textw/bootloader_text.py:376
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -5342,27 +5346,27 @@ msgstr ""
 "می‌گیرد. برای بالاترین امنیت، سفارش می‌کنیم که گذرواژه‌ای را بگذارید، ولی این "
 "برای بیشتر کاربرهای راحت طلب ضروری نیست. "
 
-#: ../textw/bootloader_text.py:402
+#: ../textw/bootloader_text.py:386
 msgid "Use a GRUB Password"
 msgstr "استفاده از گذرواژه‌ی گروب"
 
-#: ../textw/bootloader_text.py:414
+#: ../textw/bootloader_text.py:398
 msgid "Boot Loader Password:"
 msgstr "گذرواژه‌ی بارگذار آغازگری:"
 
-#: ../textw/bootloader_text.py:415
+#: ../textw/bootloader_text.py:399
 msgid "Confirm:"
 msgstr "تصدیق:"
 
-#: ../textw/bootloader_text.py:444
+#: ../textw/bootloader_text.py:428
 msgid "Passwords Do Not Match"
 msgstr "گذرواژه‌ها تطبیق نمی‌کنند"
 
-#: ../textw/bootloader_text.py:449
+#: ../textw/bootloader_text.py:433
 msgid "Password Too Short"
 msgstr "گذرواژه‌ی بسیار کوتاه"
 
-#: ../textw/bootloader_text.py:450
+#: ../textw/bootloader_text.py:434
 msgid "Boot loader password is too short"
 msgstr "گذرواژه‌ی بارگذار آغازگری بسیار کوتاه است"
 
@@ -5379,9 +5383,10 @@ msgid "<Enter> to exit"
 msgstr "<Enter> برای خروج"
 
 #: ../textw/complete_text.py:30
+#, fuzzy
 msgid ""
-"Remove any installation media (diskettes or CD-ROMs) used during the "
-"installation process and press <Enter> to reboot your system.\n"
+"Remove any installation media used during the installation process and press "
+"<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
 "هر رسانه‌ی نصب (دیسکچه‌ها یا سی‌دی‌های) استفاده شده در طول پردازش نصب را برداشته "
@@ -5442,14 +5447,14 @@ msgstr ""
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
-#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:382
-#: ../loader2/driverdisk.c:269 ../loader2/driverdisk.c:300
-#: ../loader2/driverdisk.c:389 ../loader2/driverselect.c:73
+#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:383
+#: ../loader2/driverdisk.c:270 ../loader2/driverdisk.c:301
+#: ../loader2/driverdisk.c:390 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:187 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:330 ../loader2/hdinstall.c:384 ../loader2/kbd.c:125
-#: ../loader2/loader.c:286 ../loader2/loader.c:844 ../loader2/loader.c:866
-#: ../loader2/net.c:192 ../loader2/net.c:230 ../loader2/net.c:529
-#: ../loader2/net.c:1062 ../loader2/nfsinstall.c:54 ../loader2/urls.c:257
+#: ../loader2/loader.c:308 ../loader2/loader.c:866 ../loader2/loader.c:888
+#: ../loader2/net.c:231 ../loader2/net.c:269 ../loader2/net.c:537
+#: ../loader2/net.c:1070 ../loader2/nfsinstall.c:54 ../loader2/urls.c:257
 #: ../loader2/urls.c:447
 msgid "Back"
 msgstr "برگشت"
@@ -5659,11 +5664,11 @@ msgstr "نقاب شبکه"
 msgid "Point to Point (IP)"
 msgstr "نقطه به نقطه (آی‌پی)"
 
-#: ../textw/network_text.py:75 ../loader2/net.c:187
+#: ../textw/network_text.py:75 ../loader2/net.c:226
 msgid "ESSID"
 msgstr ""
 
-#: ../textw/network_text.py:76 ../loader2/net.c:188
+#: ../textw/network_text.py:76 ../loader2/net.c:227
 msgid "Encryption Key"
 msgstr ""
 
@@ -6819,7 +6824,7 @@ msgstr "کنترل رسانه"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
 #: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
-#: ../loader2/method.c:411
+#: ../loader2/method.c:419
 msgid "Test"
 msgstr "آزمایش"
 
@@ -6886,11 +6891,11 @@ msgstr ""
 "هیچ سی‌دی %s که با رسانه‌ی آغازگری شما تطبیق کند یافت نشد.  لطفا سی‌دی %s را "
 "داخل کرده و %s را برای تلاش مجدد فشار دهید."
 
-#: ../loader2/cdinstall.c:381
+#: ../loader2/cdinstall.c:382
 msgid "CD Not Found"
 msgstr "سی‌دی یافت نشد"
 
-#: ../loader2/cdinstall.c:448
+#: ../loader2/cdinstall.c:449
 msgid "Cannot find kickstart file on CDROM."
 msgstr "نمی‌توان پرونده‌ی راه‌اندازی شروعی را روی سی‌دی یافت."
 
@@ -6902,11 +6907,11 @@ msgstr "در حال بارگذاری"
 msgid "Reading driver disk..."
 msgstr "در حال خواندن دیسک راه‌انداز..."
 
-#: ../loader2/driverdisk.c:263 ../loader2/driverdisk.c:295
+#: ../loader2/driverdisk.c:264 ../loader2/driverdisk.c:296
 msgid "Driver Disk Source"
 msgstr "منبع دیسک راه‌انداز"
 
-#: ../loader2/driverdisk.c:264
+#: ../loader2/driverdisk.c:265
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -6914,7 +6919,7 @@ msgstr ""
 "شما دارای چندین دستگاه که می‌توانند مانند منابع دیسک راه‌انداز عمل کنند "
 "می‌باشید.  از کدامیک می‌خواهید استفاده کنید؟"
 
-#: ../loader2/driverdisk.c:296
+#: ../loader2/driverdisk.c:297
 #, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
@@ -6923,49 +6928,49 @@ msgstr ""
 "شما دارای چندین دستگاه که می‌توانند مانند منابع دیسک راه‌انداز عمل کنند "
 "می‌باشید.  از کدامیک می‌خواهید استفاده کنید؟"
 
-#: ../loader2/driverdisk.c:339
+#: ../loader2/driverdisk.c:340
 #, fuzzy
 msgid "Failed to mount partition."
 msgstr "ناموفق در سوارسازی دیسک به‌روزسازی‌ها"
 
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:348
 #, fuzzy
 msgid "Select driver disk image"
 msgstr "انتخاب کردن راه‌انداز"
 
-#: ../loader2/driverdisk.c:348
+#: ../loader2/driverdisk.c:349
 msgid "Select the file which is your driver disk image."
 msgstr ""
 
-#: ../loader2/driverdisk.c:377
+#: ../loader2/driverdisk.c:378
 #, fuzzy
 msgid "Failed to load driver disk from file."
 msgstr "موفق نشدن در سوار کردن دیسک راه‌انداز."
 
-#: ../loader2/driverdisk.c:387
+#: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "دیسک راه‌انداز خود را بدرون /dev/%s داخل کرده و \"تایید\" را برای ادامه فشار "
 "دهید."
 
-#: ../loader2/driverdisk.c:389
+#: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
 msgstr "دیسکچه راه‌انداز را داخل کنید"
 
-#: ../loader2/driverdisk.c:404
+#: ../loader2/driverdisk.c:405
 msgid "Failed to mount driver disk."
 msgstr "موفق نشدن در سوار کردن دیسک راه‌انداز."
 
-#: ../loader2/driverdisk.c:470
+#: ../loader2/driverdisk.c:476
 msgid "Manually choose"
 msgstr "انتخاب دستی"
 
-#: ../loader2/driverdisk.c:471
+#: ../loader2/driverdisk.c:477
 msgid "Load another disk"
 msgstr "بارگذاری دیسک دیگری"
 
-#: ../loader2/driverdisk.c:472
+#: ../loader2/driverdisk.c:478
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -6975,38 +6980,38 @@ msgstr ""
 "راه‌انداز را بطور دستی انتخاب کرده، بهر حال ادامه دهید، یا دیسک راه‌انداز "
 "دیگری را بارگذاری کنید؟"
 
-#: ../loader2/driverdisk.c:514
+#: ../loader2/driverdisk.c:519
 msgid "Driver disk"
 msgstr "دیسک راه‌انداز"
 
-#: ../loader2/driverdisk.c:515
+#: ../loader2/driverdisk.c:520
 msgid "Do you have a driver disk?"
 msgstr "آیا دیسک راه‌انداز دارید؟"
 
-#: ../loader2/driverdisk.c:525
+#: ../loader2/driverdisk.c:530
 msgid "More Driver Disks?"
 msgstr "دیسکچه‌های راه‌انداز بیشتری؟"
 
-#: ../loader2/driverdisk.c:526
+#: ../loader2/driverdisk.c:531
 msgid "Do you wish to load any more driver disks?"
 msgstr "آیا می‌خواهید دیسک‌های راه‌انداز بیشتری را بارگذاری کنید؟"
 
-#: ../loader2/driverdisk.c:578 ../loader2/driverdisk.c:616
+#: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:621
 #: ../loader2/hdinstall.c:470 ../loader2/kickstart.c:118
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
-#: ../loader2/kickstart.c:405 ../loader2/modules.c:967 ../loader2/net.c:890
-#: ../loader2/net.c:913 ../loader2/nfsinstall.c:247
+#: ../loader2/kickstart.c:405 ../loader2/modules.c:968 ../loader2/net.c:898
+#: ../loader2/net.c:921 ../loader2/nfsinstall.c:248
 #: ../loader2/urlinstall.c:442 ../loader2/urlinstall.c:451
 #: ../loader2/urlinstall.c:462
 msgid "Kickstart Error"
 msgstr "خطا راه‌اندازی شروعی"
 
-#: ../loader2/driverdisk.c:579
+#: ../loader2/driverdisk.c:584
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "منبع ناشناس راه‌اندازی شروعی دیسک راه‌انداز: %s"
 
-#: ../loader2/driverdisk.c:617
+#: ../loader2/driverdisk.c:622
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -7070,7 +7075,7 @@ msgid "Loading %s driver..."
 msgstr "در حال بارگذاری راه‌انداز %s..."
 
 #: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:155
-#: ../loader2/nfsinstall.c:193 ../loader2/urlinstall.c:148
+#: ../loader2/nfsinstall.c:194 ../loader2/urlinstall.c:148
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -7164,7 +7169,7 @@ msgstr "نمی‌توان ks.cfg را بر روی دیسکچه‌ی آغازگر
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "آرگومان بد به فرمان روش راه‌اندازی شروعی دیسک سخت %s: %s"
 
-#: ../loader2/lang.c:52 ../loader2/loader.c:132
+#: ../loader2/lang.c:52 ../loader2/loader.c:133
 #, c-format
 msgid "Welcome to %s"
 msgstr "به %s خوش آمدید"
@@ -7174,7 +7179,7 @@ msgstr "به %s خوش آمدید"
 msgid "Welcome to %s - Rescue Mode"
 msgstr "به %s خوش آمدید"
 
-#: ../loader2/lang.c:54 ../loader2/loader.c:138
+#: ../loader2/lang.c:54 ../loader2/loader.c:139
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> بین اجزا  | <Space> گزینش | <F12> صفحه‌ی بعدی "
@@ -7183,23 +7188,23 @@ msgstr "  <Tab>/<Alt-Tab> بین اجزا  | <Space> گزینش | <F12> صفحه
 msgid "Choose a Language"
 msgstr "زبانی را انتخاب کنید"
 
-#: ../loader2/loader.c:107
+#: ../loader2/loader.c:108
 msgid "Local CDROM"
 msgstr "سی‌دی محلی"
 
-#: ../loader2/loader.c:109
+#: ../loader2/loader.c:110
 msgid "Hard drive"
 msgstr "دیسک سخت"
 
-#: ../loader2/loader.c:110
+#: ../loader2/loader.c:111
 msgid "NFS image"
 msgstr "تصویر NFS"
 
-#: ../loader2/loader.c:281
+#: ../loader2/loader.c:303
 msgid "Update Disk Source"
 msgstr "به‌روز‌سازی منبع دیسک"
 
-#: ../loader2/loader.c:282
+#: ../loader2/loader.c:304
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -7207,30 +7212,30 @@ msgstr ""
 "شما دارای چندین دستگاه هستید که می‌توانند مانند منابعی برای یک به‌روزسازی دیسک "
 "باشند.  از کدامیک می‌خواهید استفاده کنید؟"
 
-#: ../loader2/loader.c:297
+#: ../loader2/loader.c:319
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "دیسک به‌روزسازی‌های خود را داخل /dev/%s کرده و \"تایید\" را برای ادامه فشار "
 "دهید."
 
-#: ../loader2/loader.c:299
+#: ../loader2/loader.c:321
 msgid "Updates Disk"
 msgstr "دیسک به‌روزسازی"
 
-#: ../loader2/loader.c:311
+#: ../loader2/loader.c:333
 msgid "Failed to mount updates disk"
 msgstr "ناموفق در سوارسازی دیسک به‌روزسازی‌ها"
 
-#: ../loader2/loader.c:314
+#: ../loader2/loader.c:336
 msgid "Updates"
 msgstr "به‌روز‌سازی"
 
-#: ../loader2/loader.c:314
+#: ../loader2/loader.c:336
 msgid "Reading anaconda updates..."
 msgstr "در حال خواندن به‌روزسازی‌های آناکوندا..."
 
-#: ../loader2/loader.c:342
+#: ../loader2/loader.c:364
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -7239,41 +7244,41 @@ msgstr ""
 "هیچ دیسک سختی یافت نشد.  شما احتمالا نیاز به انتخاب دستی راه‌اندازهای دستگاه "
 "برای موفق شدن نصب دارید.  آیا می‌خواهید راه‌اندازها را اکنون انتخاب کنید؟"
 
-#: ../loader2/loader.c:663
+#: ../loader2/loader.c:685
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "شما به اندازه‌ی کافی حافظه‌ی موقت برای نصب کردن %s بر روی این رایانه ندارید."
 
-#: ../loader2/loader.c:836
+#: ../loader2/loader.c:858
 msgid "Rescue Method"
 msgstr "روش نجات"
 
-#: ../loader2/loader.c:837
+#: ../loader2/loader.c:859
 msgid "Installation Method"
 msgstr "روش نصب"
 
-#: ../loader2/loader.c:839
+#: ../loader2/loader.c:861
 msgid "What type of media contains the rescue image?"
 msgstr "چه نوع رسانه‌ای دارای تصویر نجات است؟"
 
-#: ../loader2/loader.c:841
+#: ../loader2/loader.c:863
 msgid "What type of media contains the packages to be installed?"
 msgstr "چه نوع رسانه‌ای دارای بسته‌های برای نصب شدن است؟"
 
-#: ../loader2/loader.c:865
+#: ../loader2/loader.c:887
 msgid "No driver found"
 msgstr "هیچ راه‌اندازی یافت نشد"
 
-#: ../loader2/loader.c:865
+#: ../loader2/loader.c:887
 msgid "Select driver"
 msgstr "انتخاب کردن راه‌انداز"
 
-#: ../loader2/loader.c:866
+#: ../loader2/loader.c:888
 msgid "Use a driver disk"
 msgstr "استفاده از دیسک راه‌انداز"
 
-#: ../loader2/loader.c:867
+#: ../loader2/loader.c:889
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -7282,11 +7287,11 @@ msgstr ""
 "می‌خواهید راه‌انداز خود را بطور دستی انتخاب کرده یا از یک دیسکچه‌ی راه‌انداز "
 "استفاده کنید؟"
 
-#: ../loader2/loader.c:1027
+#: ../loader2/loader.c:1049
 msgid "The following devices have been found on your system."
 msgstr "دستگاه‌های بدنبال آمده بر روی سیستم شما یافت شده‌اند."
 
-#: ../loader2/loader.c:1029
+#: ../loader2/loader.c:1051
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -7294,29 +7299,29 @@ msgstr ""
 "هیچ راه‌انداز دستگاهی برای سیستم‌تان بارگذاری نشده است.  آیا می‌خواهید "
 "راه‌اندازی را بارگذاری کنید؟"
 
-#: ../loader2/loader.c:1033
+#: ../loader2/loader.c:1055
 msgid "Devices"
 msgstr "دستگاه‌ها"
 
-#: ../loader2/loader.c:1034
+#: ../loader2/loader.c:1056
 msgid "Done"
 msgstr "انجام شد"
 
-#: ../loader2/loader.c:1035
+#: ../loader2/loader.c:1057
 msgid "Add Device"
 msgstr "افزودن دستگاه"
 
-#: ../loader2/loader.c:1153
+#: ../loader2/loader.c:1176
 #, fuzzy, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "بارگذار از قبل اجرا شده است.  راه‌اندازی پوسته."
 
-#: ../loader2/loader.c:1517
+#: ../loader2/loader.c:1545
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "در حال اجرای آناکوندا، حالت نجات %s - لطفا صبر کنید...\n"
 
-#: ../loader2/loader.c:1519
+#: ../loader2/loader.c:1547
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "در حال اجرای آناکوندا، نصب کننده‌ی سیستم %s - لطفا صبر کنید...\n"
@@ -7401,12 +7406,12 @@ msgstr ""
 msgid "The media check %sis complete, and the result is: %s\n"
 msgstr "کنترل جمع %s تکمیل شد، و نتیجه‌ی آن: %s\n"
 
-#: ../loader2/method.c:156 ../loader2/method.c:365 ../loader2/method.c:450
+#: ../loader2/method.c:156 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "ناموفق در خواندن شاخه‌ی %s: %s"
 
-#: ../loader2/method.c:408
+#: ../loader2/method.c:416
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -7417,11 +7422,11 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:411
+#: ../loader2/method.c:419
 msgid "Checksum Test"
 msgstr "آزمایش کنترل‌جمع"
 
-#: ../loader2/modules.c:968
+#: ../loader2/modules.c:969
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "آرگومان بد به فرمان روش راه‌اندازی شروعی %s: %s"
@@ -7440,7 +7445,7 @@ msgstr ""
 "    o نام یا شماره‌ی آی‌پی کارگزار %s شما\n"
 "    o شاخه‌ای بر آن کارگزار که دارای       %s ساختار شما می‌باشد\n"
 
-#: ../loader2/net.c:181
+#: ../loader2/net.c:220
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -7448,20 +7453,20 @@ msgid ""
 "field blank and the install will continue."
 msgstr ""
 
-#: ../loader2/net.c:191
+#: ../loader2/net.c:230
 #, fuzzy
 msgid "Wireless Settings"
 msgstr "تنظیمات متفرقه"
 
-#: ../loader2/net.c:220
+#: ../loader2/net.c:259
 msgid "Nameserver IP"
 msgstr "IP کارگزار نام"
 
-#: ../loader2/net.c:224
+#: ../loader2/net.c:263
 msgid "Nameserver"
 msgstr "کارگزار نام"
 
-#: ../loader2/net.c:225
+#: ../loader2/net.c:264
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -7473,24 +7478,24 @@ msgstr ""
 "اگر این اطلاعات را ندارید، می‌توانید این محوطه را خالی گذاشته و نصب ادامه "
 "خواهد یافت."
 
-#: ../loader2/net.c:235
+#: ../loader2/net.c:274
 msgid "Invalid IP Information"
 msgstr "اطلاعات IP نامعتبر"
 
-#: ../loader2/net.c:236
+#: ../loader2/net.c:275
 msgid "You entered an invalid IP address."
 msgstr "شما نشانی IP غیرمعتبری را وارد کردید."
 
-#: ../loader2/net.c:299 ../loader2/net.c:589
+#: ../loader2/net.c:342 ../loader2/net.c:597
 msgid "Dynamic IP"
 msgstr "ّّIP پویا"
 
-#: ../loader2/net.c:300 ../loader2/net.c:590
+#: ../loader2/net.c:343 ../loader2/net.c:598
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "فرستادن درخواست برای اطلاعات IP برای %s..."
 
-#: ../loader2/net.c:473
+#: ../loader2/net.c:481
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -7498,57 +7503,57 @@ msgstr ""
 "لطفا پیکربندی آی‌پی را برای این رایانه وارد کنید. هر آیتم باید مثل یک نشانی "
 "آی‌پی در نماد اعشار-نقطه‌ای وارد شود."
 
-#: ../loader2/net.c:479
+#: ../loader2/net.c:487
 msgid "IP address:"
 msgstr "نشانی IP:"
 
-#: ../loader2/net.c:482
+#: ../loader2/net.c:490
 msgid "Netmask:"
 msgstr "نقاب شبکه:"
 
-#: ../loader2/net.c:485
+#: ../loader2/net.c:493
 msgid "Default gateway (IP):"
 msgstr "دروازه‌ی پیش‌فرض (IP):"
 
-#: ../loader2/net.c:488
+#: ../loader2/net.c:496
 msgid "Primary nameserver:"
 msgstr "کارگزار نام اصلی:"
 
-#: ../loader2/net.c:515
+#: ../loader2/net.c:523
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "استفاده کردن از پیکربندی پویای IP (BOOTP/DHCP)"
 
-#: ../loader2/net.c:543
+#: ../loader2/net.c:551
 msgid "Configure TCP/IP"
 msgstr "پیکربندی TCP/IP"
 
-#: ../loader2/net.c:580
+#: ../loader2/net.c:588
 msgid "Missing Information"
 msgstr "فقدان اطلاعات"
 
-#: ../loader2/net.c:581
+#: ../loader2/net.c:589
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "شما باید نشانی IP معتبری و نقاب‌شبکه‌ای را وارد کنید."
 
-#: ../loader2/net.c:804
+#: ../loader2/net.c:812
 msgid "Determining host name and domain..."
 msgstr "در حال پیدا کردن نام میزبان و دامنه..."
 
-#: ../loader2/net.c:891
+#: ../loader2/net.c:899
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "آرگومان بد در فرمان راه‌اندازی شروعی شبکه %s: %s"
 
-#: ../loader2/net.c:914
+#: ../loader2/net.c:922
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "bootproto بد %s در فرمان شبکه مشخص شد"
 
-#: ../loader2/net.c:1058
+#: ../loader2/net.c:1066
 msgid "Networking Device"
 msgstr "دستگاه شبکه‌کاری"
 
-#: ../loader2/net.c:1059
+#: ../loader2/net.c:1067
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -7569,16 +7574,16 @@ msgstr "شاخه‌ی %s:"
 msgid "NFS Setup"
 msgstr "برپاسازی NFS"
 
-#: ../loader2/nfsinstall.c:197
+#: ../loader2/nfsinstall.c:198
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "آن شاخه بنظر نمی‌رسد که دارای یک درخت نصب %s باشد."
 
-#: ../loader2/nfsinstall.c:210
+#: ../loader2/nfsinstall.c:211
 msgid "That directory could not be mounted from the server."
 msgstr "آن شاخه نتوانست از کارگزار سوار بشود."
 
-#: ../loader2/nfsinstall.c:248
+#: ../loader2/nfsinstall.c:249
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "آرگومان بد به فرمان %s روش راه‌اندازی شروعی NFS: %s"
@@ -8580,6 +8585,21 @@ msgstr ""
 #. generated from lang-table
 msgid "Zulu"
 msgstr ""
+
+#~ msgid "no suggestion"
+#~ msgstr "هیچ پیشنهادی"
+
+#~ msgid "Use _LILO as the boot loader"
+#~ msgstr "استفاده از LILO برای بارگذار آ_غازگری"
+
+#~ msgid "Unable to Change Drive Order for LILO"
+#~ msgstr "ناتوان در تغییر دادن ترتیب دستگاه برای LILO"
+
+#~ msgid "We do not support changing the drive order for use with LILO."
+#~ msgstr "ما از تغییر ترتیب دستگاه برای استفاده با LILO پشتیبانی نمی‌کنیم."
+
+#~ msgid "Use LILO Boot Loader"
+#~ msgstr "استفاده کردن از بارگذار آغازگر لیلو"
 
 #~ msgid "%s Installer on %s"
 #~ msgstr "نصب کننده‌ی %s بر %s"
