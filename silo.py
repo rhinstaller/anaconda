@@ -197,6 +197,7 @@ class SiloInstall:
 
 	# XXX make me "not test mode"
 	if todo.setupFilesystems:
-	    iutil.execWithRedirect(todo.instPath + '/sbin/silo' ,
+	    iutil.execWithRedirect('/sbin/silo',
 				   args,
-				   stdout = None)
+				   stdout = None,
+                                   root = todo.instPath)
