@@ -22,16 +22,16 @@ if [ ! -d $1 ]; then
 	LATEST="latest --arch $ARCH"
 fi
 
-if [ $ARCH = x86_64 ]; then
-    LIBDIR=lib64
-else
-    LIBDIR=lib
-fi
-
 PACKAGEDIR=$1
 
 if [ -z "$ARCH" ]; then
 	ARCH=`rpm -qp --qf "%{ARCH}" $PACKAGEDIR/anaconda-runtime*.rpm`
+fi
+
+if [ $ARCH = x86_64 ]; then
+    LIBDIR=lib64
+else
+    LIBDIR=lib
 fi
 
 NEEDGR=yes
