@@ -446,7 +446,7 @@ class XConfigWindow (InstallWindow):
         # need it since they are fixed resolution
 
         self.cantprobe = 0
-        if not self.sunServer and self.todo.x.vidCards != []:
+        if not self.sunServer and self.todo.x.vidCards:
             if self.todo.x.vidCards[self.todo.x.primary].has_key("DRIVER"):
                 curdriver = self.todo.x.vidCards[self.todo.x.primary]["DRIVER"]
                 noprobedriverList = ("i810", "tdfx")
