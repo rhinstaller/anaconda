@@ -16,12 +16,12 @@
 import isys
 import errno
 import iutil
-from log import log
 import re
 import os
-from flags import flags
 import dispatch
 import rpm
+from log import log
+from flags import flags
 from translate import _
 
 def probeFloppyDevice():
@@ -113,6 +113,5 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath):
     w.pop()
 
     if rc:
-	import dispatch
 	return dispatch.DISPATCH_BACK
 
