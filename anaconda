@@ -87,6 +87,7 @@ if os.environ.has_key('HOME'):
     os.environ['XAUTHORITY'] = os.environ['HOME'] + '/.Xauthority'
 os.environ['HOME'] = '/tmp'
 os.environ['LC_NUMERIC'] = 'C'
+os.environ['GDK_USE_XFT'] = 0
 
 if os.environ.has_key ("ANACONDAARGS"):
     theargs = string.split (os.environ["ANACONDAARGS"])
