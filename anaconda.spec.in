@@ -9,6 +9,7 @@ Obsoletes: anaconda-reconfig
 BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel
 Prereq: chkconfig /etc/init.d
 Requires: rpm-python
+ExcludeArch: sparc
 
 BuildRoot: /var/tmp/anaconda-%{PACKAGE_VERSION}
 
