@@ -21,7 +21,7 @@ import copy
 import parted
 from partitioning import *
 from fsset import *
-from autopart import doPartitioning
+from autopart import *
 from snack import *
 from constants_text import *
 from translate import _
@@ -789,4 +789,39 @@ class PartitionWindow:
                 screen.popHelpLine()
                 screen.popWindow()                
                 return INSTALL_OK
+        
+
+
+class AutoPartitionWindow:
+    def __call__(self, screen, type, cleardrives, diskset, intf):
+        self.screen = screen
+        self.type = type
+        self.cleardrives = cleardrives
+        self.diskset = diskset
+        self.intf = intf
+
+        if type == CLEARPART_TYPE_LINUX:
+            clearstring = "all Linux partitions"
+        elif type == CLEARPART_TYPE_ALL:
+            clearstring = "all partitions"
+        else:
+            clearstring = "no partitions"
+
+        if not cleardrives or len(cleardrives) < 1:
+            cleardrivestring = "on all drives"
+        else:
+            cleardrivestring = "on these drives: "
+            for drive in cleardrives:
+                cleardrivestring = cleardrivestring + drive + " "
+
+        rc = ButtonChoiceWindow(self.screen, _("Autopartitioning"),
+              _("Autopartitioning will remove %s %s" %
+                (clearstring, cleardrivestring)),
+                                buttons = [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
+
+        if rc == TEXT_BACK_CHECK:
+            self.screen.popWindow()
+            return INSTALL_BACK
+
+        return INSTALL_OK
         
