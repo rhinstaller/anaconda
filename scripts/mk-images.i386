@@ -51,11 +51,11 @@ SCSIMODS="sd_mod sr_mod"
 
 SECSTAGE="msdos vfat raid0 raid1 raid5 ext3 reiserfs $IDEMODS $SCSIMODS $LATEUSBMODS"
 
-COMMONMODULES="vfat $USBMODS agpgart cramfs ramfs"
+COMMONMODULES="vfat $USBMODS agpgart"
 LOCALMODULES="$COMMONMODULES BusLogic aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
-NETWORKMODULES="$COMMONMODULES nfs 3c59x 
-	       eepro100 
+NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci 
+	       eepro100 e100 tulip pcnet32 hp100
 	       sis900 "
 
 PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
@@ -97,8 +97,8 @@ makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --loaderbin loader-pcmcia \
 	   --modules "$PCMCIAMAINMODULES"
 
-#for I in `find $BOOTDISKDIR -type d`; do
-for I in $BOOTDISKDIR; do
+#for I in $BOOTDISKDIR; do
+for I in `find $BOOTDISKDIR -type d`; do
     BOOTLANG=`basename $I`
     BOOTDIR=`basename $I | cut -d'_' -f1`
 
