@@ -77,6 +77,13 @@ class partlist:
     def __init__(self):
         self.parts = []
 
+    def __str__(self):
+        retval = ""
+        for p in self.parts:
+            retval = retval + "\t%s %s %s\n" % (get_partition_name(p), get_partition_file_system_type(p), getPartSizeMB(p))
+
+        return retval
+
 
 # first step of partitioning voodoo
 # partitions with a specific start and end cylinder requested are
@@ -434,12 +441,9 @@ def growParts(diskset, requests, newParts):
 
                     # try adding
                     (ret, msg) = processPartitioning(diskset, newRequest, newParts)
-
                     if ret == PARTITION_SUCCESS:
-#                        print "success", min
                         min = cur
                     else:
-#                        print "failed", max
                         max = cur
 
                     lastDiff = diff
@@ -490,7 +494,6 @@ def setPreexistParts(diskset, requests, newParts):
         while part:
             if part.geom.start == request.start and part.geom.end == request.end:
                 request.device = get_partition_name(part)
-                newParts.parts.append(part)
                 break
             part = disk.next_partition(part)
 
@@ -509,6 +512,7 @@ def processPartitioning(diskset, requests, newParts):
     # partitions on.  When we remove these extended partitions the logicals
     # (all of which we created) will be destroyed along with it.
     extendeds = {}
+
     for part in newParts.parts:
         if part.type == parted.PARTITION_EXTENDED:
             extendeds[part.geom.disk.dev.path] = None
@@ -532,13 +536,13 @@ def processPartitioning(diskset, requests, newParts):
         disk.delete_partition(part)
         del part
     newParts.parts = []
-        
+
     for request in requests.requests:
         if request.type == REQUEST_NEW:
             request.device = None
 
     setPreexistParts(diskset, requests.requests, newParts)
-
+    
     # sort requests by size
     requests.sortRequests()
     
@@ -672,6 +676,7 @@ def doClearPartAction(id, type, cleardrives):
             old = id.partrequests.getRequestByDeviceName(get_partition_name(ext))
             id.partrequests.removeRequest(old)
             id.partrequests.addDelete(delete)
+            deletePart(id.diskset, delete)
             continue
     
 def doAutoPartition(dir, id, intf):
