@@ -39,9 +39,10 @@
 #include "isys/isys.h"
 #include "isys/pci/pciprobe.h"
 
-#include "windows.h"
-#include "log.h"
 #include "lang.h"
+#include "log.h"
+#include "modules.h"
+#include "windows.h"
 
 #define LOADER_OK 0
 #define LOADER_BACK 1
@@ -307,6 +308,8 @@ static int detectHardware(struct moduleInfo *** modules) {
         logMessage("An error occured while reading the PCI ID table");
 	return LOADER_ERROR;
     }
+
+    logMessage("looking for devices on pci bus\n");
     
     devices = probePci(0, 0);
     if (devices == NULL) {
@@ -345,13 +348,16 @@ int main(int argc, char ** argv) {
     char * arg;
     poptContext optCon;
     int network = 0;
+    moduleList modLoaded;
+    moduleDeps modDeps;
     int local = 0;
     int i, rc;
+    int newtRunning = 0;
     struct moduleInfo ** modList;
     struct poptOption optionTable[] = {
-	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
 	    { "network", '\0', POPT_ARG_NONE, &network, 0 },
 	    { "local", '\0', POPT_ARG_NONE, &local, 0 },
+	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
 	    { 0, 0, 0, 0, 0 }
     };
 
@@ -382,6 +388,9 @@ int main(int argc, char ** argv) {
     findIdeList();
     findScsiList();
     findNetList();
+    mlReadLoadedList(&modLoaded);
+    modDeps = mlNewDeps();
+    mlLoadDeps(modDeps, "/modules/modules.dep");
 
     if (!access("/proc/bus/pci/devices", R_OK)) {
         /* autodetect whatever we can */
@@ -390,10 +399,35 @@ int main(int argc, char ** argv) {
 	    sleep(5);
 	    exit(1);
 	} else if (modList) {
-	    for (i = 0; modList[i]; i++)
-	        printf("should try %s\n", modList[i]->moduleName);
+	    for (i = 0; modList[i]; i++) {
+	    	if (modList[i]->major == DRIVER_NET) {
+		    mlLoadModule(modList[i], modLoaded, modDeps);
+		}
+	    }
+
+	    /* if we have any SCSI devices to load, we need to get newt going */
+	    for (i = 0; modList[i]; i++) {
+	    	if (modList[i]->major == DRIVER_SCSI) {
+		    if (!newtRunning) {
+		    	newtInit();
+			newtCls();
+			newtRunning = 1;
+		    }
+
+		    winStatus(40, 3, _("Loading SCSI driver"), 
+		    	      "Loading %s driver...", modList[i]->moduleName);
+		    mlLoadModule(modList[i], modLoaded, modDeps);
+		    newtPopWindow();
+		}
+	    }
+
+	    findScsiList();
+	    findNetList();
 	}
     }
+
+    if (newtRunning) newtFinished();
+    closeLog();
 
     for (i = 0; i < numKnownDevices; i++) {
     	printf("%-5s ", knownDevices[i].name);
@@ -409,6 +443,6 @@ int main(int argc, char ** argv) {
 	    printf("\n");
     }
 
-    closeLog();
+    return 1;
 }
 
