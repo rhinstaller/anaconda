@@ -330,7 +330,7 @@ class ia64BootloaderInfo(bootloaderInfo):
         if bootdisk[0:4] == "ida/" or bootdisk[0:6] == "cciss/" or bootdisk[0:3] == "rd/":
             bootdisk = bootdisk[:-1]
                     
-        argv = [ "/usr/sbin/efibootmgr", "-c" , "-L",
+        argv = [ "/usr/sbin/efibootmgr", "-c" , "-w", "-L",
                  "Red Hat Linux", "-d", "/dev/%s" % bootdisk, "-p", bootpart ]
         iutil.execWithRedirect(argv[0], argv, root = instRoot,
                                stdout = "/dev/tty5",
