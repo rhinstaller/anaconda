@@ -58,7 +58,7 @@ def createAlignedLabel(text):
 
     return label
 
-def createMountPointCombo(request):
+def createMountPointCombo(request, excludeMountPoints=[]):
     mountCombo = gtk.Combo()
 
     mntptlist = []
@@ -66,6 +66,9 @@ def createMountPointCombo(request):
 	mntptlist.append(request.fslabel)
     
     for p in defaultMountPoints:
+	if p in excludeMountPoints:
+	    continue
+	
 	if not p in mntptlist and (p[0] == "/"):
 	    mntptlist.append(p)
 	
