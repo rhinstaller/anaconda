@@ -817,7 +817,8 @@ class VolumeGroupEditor:
 	labelalign = gtk.Alignment()
 	labelalign.set(0.0, 0.5, 0.0, 0.0)
 	labelalign.add(createAlignedLabel(_("Volume Group Name:")))
-        maintable.attach(labelalign, 0, 1, row, row + 1)
+
+        maintable.attach(labelalign, 0, 1, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
         if not origvgrequest.getPreExisting():
             self.volnameEntry = gtk.Entry(16)
             if not self.isNew:
@@ -827,13 +828,13 @@ class VolumeGroupEditor:
         else:
             self.volnameEntry = gtk.Label(self.origvgrequest.volumeGroupName)
 	    
-        maintable.attach(self.volnameEntry, 1, 2, row, row + 1)
+        maintable.attach(self.volnameEntry, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	row = row + 1
 
 	labelalign = gtk.Alignment()
 	labelalign.set(0.0, 0.5, 0.0, 0.0)
 	labelalign.add(createAlignedLabel(_("Physical Extent:")))
-        maintable.attach(labelalign, 0, 1, row, row + 1)
+        maintable.attach(labelalign, 0, 1, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 
         if not origvgrequest.getPreExisting():
             (self.peOption, self.peOptionMenu) = self.createPEOptionMenu(self.origvgrequest.pesize)
@@ -844,7 +845,7 @@ class VolumeGroupEditor:
             (self.peOption, self.peOptionMenu) = self.createPEOptionMenu(self.origvgrequest.pesize)            
             self.peOption = gtk.Label(self.prettyFormatPESize(origvgrequest.pesize))
 
-        maintable.attach(self.peOption, 1, 2, row, row + 1)
+        maintable.attach(self.peOption, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
         row = row + 1
 
         (self.lvmlist, sw) = self.createAllowedLvmPartitionsList(self.availlvmparts, self.origvgrequest.physicalVolumes, self.partitions, origvgrequest.getPreExisting())
@@ -859,7 +860,7 @@ class VolumeGroupEditor:
 	labelalign = gtk.Alignment()
 	labelalign.set(0.0, 0.5, 0.0, 0.0)
 	labelalign.add(createAlignedLabel(_("Used Space:")))
-        maintable.attach(labelalign, 0, 1, row, row + 1)
+        maintable.attach(labelalign, 0, 1, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	lbox = gtk.HBox()
 	self.usedSpaceLabel = gtk.Label("")
 	labelalign = gtk.Alignment()
@@ -871,13 +872,14 @@ class VolumeGroupEditor:
 	labelalign.set(1.0, 0.5, 0.0, 0.0)
 	labelalign.add(self.usedPercentLabel)
 	lbox.pack_start(labelalign, gtk.FALSE, gtk.FALSE, padding=10)
-        maintable.attach(lbox, 1, 2, row, row + 1)
+        maintable.attach(lbox, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
+	maintable.set_row_spacing(row, 0)
         row = row + 1
 
 	labelalign = gtk.Alignment()
 	labelalign.set(0.0, 0.5, 0.0, 0.0)
 	labelalign.add(createAlignedLabel(_("Free Space:")))
-        maintable.attach(labelalign, 0, 1, row, row + 1)
+        maintable.attach(labelalign, 0, 1, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	lbox = gtk.HBox()
 	self.freeSpaceLabel = gtk.Label("")
 	labelalign = gtk.Alignment()
@@ -890,22 +892,21 @@ class VolumeGroupEditor:
 	labelalign.add(self.freePercentLabel)
 	lbox.pack_start(labelalign, gtk.FALSE, gtk.FALSE, padding=10)
 
-        maintable.attach(lbox, 1, 2, row, row + 1)
+        maintable.attach(lbox, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
+	maintable.set_row_spacing(row, 0)
         row = row + 1
 
 	labelalign = gtk.Alignment()
 	labelalign.set(0.0, 0.5, 0.0, 0.0)
 	labelalign.add(createAlignedLabel(_("Total Space:")))
-        maintable.attach(labelalign, 0, 1, row, row + 1)
+        maintable.attach(labelalign, 0, 1, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	self.totalSpaceLabel = gtk.Label("")
 	labelalign = gtk.Alignment()
 	labelalign.set(0.0, 0.5, 0.0, 0.0)
 	labelalign.add(self.totalSpaceLabel)
-        maintable.attach(labelalign, 1, 2, row, row + 1)
+        maintable.attach(labelalign, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
+	maintable.set_row_spacing(row, 5)
         row = row + 1
-
-	maintable.attach(gtk.HSeparator(), 0, 2, row, row + 1)
-	row = row + 1
 
 	# populate list of logical volumes
         lvtable = gtk.Table()
@@ -965,12 +966,13 @@ class VolumeGroupEditor:
 	lvtable.set_border_width(5)
 	frame = gtk.Frame(_("Logical Volumes"))
 	frame.add(lvtable)
+
+#	dialog.vbox.pack_start(frame)
 	maintable.attach(frame, 0, 2, row, row+1)
 	row = row + 1
 	
-	dialog.set_size_request(500, 450)
-
         dialog.vbox.pack_start(maintable)
+	dialog.set_size_request(500, 450)
         dialog.show_all()
 
 	# set space labels to correct values
