@@ -96,12 +96,20 @@ class LanguageWindow:
         return INSTALL_OK
 
 class KeyboardWindow:
+    beenRun = 0
+
     def __call__(self, screen, todo):
 	if todo.serial:
 	    return INSTALL_NOOP
         keyboards = todo.keyboard.available ()
         keyboards.sort ()
-        default = keyboards.index (todo.keyboard.get ())
+
+	if self.beenRun:
+	    default = todo.keyboard.get ()
+	else:
+            default = iutil.defaultKeyboard()
+
+        default = keyboards.index (default)
 
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Keyboard Selection"),
@@ -111,7 +119,10 @@ class KeyboardWindow:
         
         if button == string.lower (_("Back")):
             return INSTALL_BACK
+
         todo.keyboard.set (keyboards[choice])
+	self.beenRun = 1
+
 	if not todo.serial:
             if todo.reconfigOnly:
                 iutil.execWithRedirect ("/bin/loadkeys",
