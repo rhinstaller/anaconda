@@ -568,7 +568,7 @@ class MonitorWindow (InstallWindow):
             if self.orig_name != "Unprobed Monitor":
                 title = _("DDC Probed Monitor")
             else:
-                title = self.orig_name
+                title = _("Unprobed Monitor")
                 
             parent = self.ctree.insert_node (None, first_node,
                                              (title,),
