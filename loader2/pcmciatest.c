@@ -7,7 +7,10 @@
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
+#include <ctype.h>
 
 #include <linux/kd.h>
 
@@ -168,7 +171,6 @@ char * getPcicController() {
 int initializePcmciaController() {
     char * pcic = NULL;
     char * mods;
-    int i;
 
     pcic = getPcicController();
     if (!pcic)
@@ -400,4 +402,6 @@ int main(int argc, char ** argv) {
         sleep(2);
         startPcmciaDevices();
     }
+
+    return 0;
 }
