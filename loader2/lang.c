@@ -36,6 +36,7 @@
 #include "../isys/stubs.h"
 #include "../isys/cpio.h"
 #include "../isys/lang.h"
+#include "../isys/isys.h"
 
 static int startBterm(int flags);
 
@@ -385,9 +386,10 @@ int chooseLanguage(char ** lang, int flags) {
     if (i == numLanguages) abort();
 
     /* load the language only if it is displayable.  assume that if they're
-     * on a serial console that their terminal is smart. */
+     * on a serial console or iSeries vioconsole that their terminal is
+     * smart. */
     if (!strcmp(languages[choice].font, "bterm") && !FL_SERIAL(flags) &&
-        startBterm(flags)) {
+	!isVioConsole() && startBterm(flags)) {
 	newtWinMessage("Language Unavailable", "OK", 
 		       "%s display is unavailable in text mode.  The "
 		       "installation will continue in English until the "

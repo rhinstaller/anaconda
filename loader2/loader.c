@@ -682,6 +682,11 @@ static char *doLoaderMain(char * location,
         if (url && !FL_RESCUE(flags)) return url;
     }
 
+    /* iSeries vio console users will be telnetting in to the primary
+       partition, so use a terminal type that is appripriate */
+    if (isVioConsole())
+	setenv("TERM", "vt100", 1);
+    
     startNewt(flags);
 
     step = STEP_LANG;

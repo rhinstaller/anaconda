@@ -90,6 +90,7 @@ static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args);
 static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
 static PyObject * doVtActivate(PyObject * s, PyObject * args);
 static PyObject * doisPsudoTTY(PyObject * s, PyObject * args);
+static PyObject * doisVioConsole(PyObject * s);
 static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doisIsoImage(PyObject * s, PyObject * args);
 static PyObject * dogetGeometry(PyObject * s, PyObject * args);
@@ -142,6 +143,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "isIdeRemovable", (PyCFunction) doIsIdeRemovable, METH_VARARGS, NULL},
     { "vtActivate", (PyCFunction) doVtActivate, METH_VARARGS, NULL},
     { "isPsudoTTY", (PyCFunction) doisPsudoTTY, METH_VARARGS, NULL},
+    { "isVioConsole", (PyCFunction) doisVioConsole, METH_NOARGS, NULL},
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
     { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
     { "getGeometry", (PyCFunction) dogetGeometry, METH_VARARGS, NULL},
@@ -981,7 +983,6 @@ static PyObject * doRaidStop(PyObject * s, PyObject * args) {
 }
 
 static PyObject * doLoadFont (PyObject * s, PyObject * args) {
-    char * font;
     int ret;
 
     if (!PyArg_ParseTuple(args, "")) return NULL;
@@ -1260,6 +1261,10 @@ static PyObject * doisPsudoTTY(PyObject * s, PyObject * args) {
 
     /* XXX close enough for now */
     return Py_BuildValue("i", (major(sb.st_rdev) == 3));
+}
+
+static PyObject * doisVioConsole(PyObject * s) {
+    return Py_BuildValue("i", isVioConsole());
 }
 
 static PyObject * doSync(PyObject * s, PyObject * args) {

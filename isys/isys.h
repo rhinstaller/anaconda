@@ -19,4 +19,7 @@ int fileIsIso(const char * file);
 /* returns 1 for link, 0 for no link, -1 for unknown */
 int get_link_status(char *ifname);
 
+/* returns 1 if on an iSeries vio console, 0 otherwise */
+int isVioConsole(void);
+
 #endif

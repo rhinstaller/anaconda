@@ -389,7 +389,7 @@ class InstallInterface:
         if DEBUG:
             self.screen.suspendCallback(debugSelf, self.screen)
 
-	if flags.serial or isys.isPsudoTTY(0):
+	if flags.serial or isys.isPsudoTTY(0) or isys.isVioConsole():
 	    self.screen.suspendCallback(spawnShell, self.screen)
 
 	# clear out the old root text by writing spaces in the blank
