@@ -2985,6 +2985,41 @@ static void checkForRam(int flags) {
     }
 }
 
+/* verify that the stamp files in / of the initrd and the stage2 match */
+static void verifyImagesMatched() {
+    char *stamp1;
+    char *stamp2;
+    FILE *f;
+
+    stamp1 = alloca(13);
+    stamp2 = alloca(13);
+
+    /* grab the one from the initrd */
+    f = fopen("/.buildstamp", "r");
+    if (!f) {
+	/* hrmm... not having them won't be fatal for now */
+	return;
+    }
+    fgets(stamp1, 13, f);
+
+    /* and the runtime */
+    f = fopen("/mnt/runtime/.buildstamp", "r");
+    if (!f) {
+	return;
+    }
+    fgets(stamp2, 13, f);
+
+    if (strncmp(stamp1, stamp2, 12) != 0) {
+	newtWinMessage(_("Error"), _("OK"),
+		       _("The second stage of the install which you have "
+			 "selected does not match the boot disk which you "
+			 "are using.  This shouldn't happen, and I'm "
+			 "rebooting your system now."));
+	exit(1);
+    }
+}
+
+
 int main(int argc, char ** argv) {
     char ** argptr;
     char * anacondaArgs[50];
@@ -3299,6 +3334,8 @@ int main(int argc, char ** argv) {
     logMessage("getting ready to spawn shell now");
 
     spawnShell(flags);			/* we can attach gdb now :-) */
+
+    verifyImagesMatched();
 
     /* XXX should free old Deps */
     modDeps = mlNewDeps();
