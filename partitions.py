@@ -474,18 +474,21 @@ class Partitions:
 	if self.getRaidMemberParent(request) is not None:
 	    return 1
 	else:
-	    return 0 
+	    return 0
 
-    def getLVMLVForVG(self, vgrequest):
-        """Find and return a list of all of the LVs in the VG."""
+    def getLVMLVForVGID(self, vgid):        
+        """Find and return a list of all the LVs associated with a VG id."""
         retval = []
-        vgid = vgrequest.uniqueID
         for request in self.requests:
 	    if request.type == REQUEST_LV:
 		if request.volumeGroup == vgid:
                     retval.append(request)
-
         return retval
+
+    def getLVMLVForVG(self, vgrequest):
+        """Find and return a list of all of the LVs in the VG."""
+        vgid = vgrequest.uniqueID
+        return self.getLVMLVForVGID(vgid)
 		
     def getLVMRequests(self):
         """Return a dictionary of all of the LVM bits.

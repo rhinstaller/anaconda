@@ -1222,6 +1222,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                                     custom_icon='error')
                  sys.exit(0)
 
+            oldid = None
             # now go through and set things from the request to the
             # preexisting partition's request... ladeda
             if request.physicalVolumes:
@@ -1229,11 +1230,20 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             if request.pesize:
                 req.pesize = request.pesize
             if request.uniqueID:  # for raid to work
+                oldid = req.uniqueID
                 req.uniqueID = request.uniqueID
             if not request.format:
                 req.format = 0
             else:
                 req.format = 1
+
+            # we also need to go through and remap everything which we
+            # previously found to our new id.  yay!
+            if oldid is not None:
+                for lv in partitions.getLVMLVForVGID(oldid):
+                    lv.volumeGroup = req.uniqueID
+                
+                
         elif (isinstance(request, partRequests.LogicalVolumeRequestSpec) and
               request.preexist == 1):
             # get the preexisting partition they want to use
