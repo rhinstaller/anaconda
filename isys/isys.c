@@ -99,6 +99,7 @@ static PyObject * doGetPageSize(PyObject * s, PyObject * args);
 static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * getLinkStatus(PyObject * s, PyObject * args);
 static PyObject * hasIdeRaidMagic(PyObject * s, PyObject * args);
+static PyObject * start_bterm(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -147,6 +148,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
     { "getLinkStatus", (PyCFunction) getLinkStatus, METH_VARARGS, NULL },
     { "hasIdeRaidMagic", (PyCFunction) hasIdeRaidMagic, METH_VARARGS, NULL },
+    { "startBterm", (PyCFunction) start_bterm, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -1452,4 +1454,10 @@ static PyObject * hasIdeRaidMagic(PyObject * s, PyObject * args) {
     close(fd);
     return Py_None;
 #endif
+}
+
+static PyObject * start_bterm(PyObject * s, PyObject * args) {
+    if (!PyArg_ParseTuple(args, "")) return NULL;
+
+    return Py_BuildValue("i", isysStartBterm());
 }

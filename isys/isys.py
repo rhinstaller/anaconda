@@ -576,6 +576,9 @@ def getpagesize():
 def getLinkStatus(dev):
     return _isys.getLinkStatus(dev)
 
+def startBterm():
+    return _isys.startBterm()
+
 printObject = _isys.printObject
 bind_textdomain_codeset = _isys.bind_textdomain_codeset
 
