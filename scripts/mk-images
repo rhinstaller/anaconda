@@ -389,9 +389,19 @@ EOF
 	$MBD_DIR tty5 c 4 5 600 root:tty
 	$MBD_DIR tty6 c 4 6 600 root:tty
 	$MBD_DIR tty7 c 4 7 600 root:tty
+	$MBD_DIR fb0 c 29 0 600 root:tty
+	$MBD_DIR fb1 c 29 32 600 root:tty
+	$MBD_DIR fb2 c 29 64 600 root:tty
+	$MBD_DIR fb3 c 29 96 600 root:tty
+	$MBD_DIR fb4 c 29 128 600 root:tty
+	$MBD_DIR fb5 c 29 160 600 root:tty
+	$MBD_DIR fb6 c 29 192 600 root:tty
+	$MBD_DIR fb7 c 29 224 600 root:tty
 	$MBD_DIR openprom c 10 139 644 root:root
+	$MBD_DIR sunmouse c 10 6 644 root:root
 	$MBD_DIR kbd c 11 0 644 root:root
 EOF
+    ln -s fb0 $MBD_DIR/dev/fb
 
 cat > $MBD_DIR/.profile <<EOF
 PATH=/bin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/mnt/sbin:/mnt/usr/sbin:/mnt/bin:/mnt/usr/bin
