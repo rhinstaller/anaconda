@@ -1,22 +1,22 @@
 # translation of fr.po to French
 # Copyright (C) 2001 Red Hat, Inc.
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
-# Audrey Simons <asimons@redhat.com>, 2003,2004
-# Jean-Paul Aubry <jpaubry@redhat.com>, 2003,2004
-# Stephane Raimbault <stephane.raimbault@free.fr>, 2004
+# Audrey Simons <asimons@redhat.com>, 2003,2004.
+# Jean-Paul Aubry <jpaubry@redhat.com>, 2003,2004.
+# Stephane Raimbault <stephane.raimbault@free.fr>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-05 12:03+1000\n"
+"PO-Revision-Date: 2004-08-17 16:03+1000\n"
 "Last-Translator: Audrey Simons <asimons@redhat.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -456,14 +456,14 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"Le partitionnement automatique configure les partitions d'après votre type "
+"Le partitionnement automatique configure les partitions selon votre type "
 "d'installation. Vous pouvez également personnaliser les partitions en "
 "fonction de vos besoins, après leur création.\n"
 "\n"
 "L'outil de partitionnement manuel, Disk Druid, vous permet de créer vos "
 "partitions dans un environnement interactif. Vous pouvez configurer les "
-"types de systèmes de fichiers, les points de montage, tailles de partition "
-"et plus encore."
+"types de systèmes de fichiers, les points de montage, les tailles de partition "
+"et bien plus encore."
 
 #: ../autopart.py:1494
 msgid ""
@@ -495,7 +495,7 @@ msgid ""
 msgstr ""
 "Vous avez choisi de supprimer toutes les partitions (TOUTES LES DONNÉES) "
 "contenues dans les disques suivants : %s\n"
-"Êtes-vous sûr de vouloir continuer ?"
+"Souhaitez-vous continuer ?"
 
 #: ../autopart.py:1507
 #, python-format
@@ -506,7 +506,7 @@ msgid ""
 msgstr ""
 "Vous avez choisi de supprimer toutes les partitions Linux (et TOUTES LES "
 "DONNÉES sur elles) contenues dans les disques suivants : %s\n"
-"Êtes-vous sûr de vouloir continuer ?"
+"Souhaitez-vous continuer ?"
 
 #: ../bootloader.py:108
 msgid "Bootloader"
@@ -1096,11 +1096,11 @@ msgstr "Votre système sera maintenant redémarré..."
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:120
 msgid "_Back"
-msgstr "_Précédent"
+msgstr "Précé_dent"
 
 #: ../gui.py:1192
 msgid "_Next"
-msgstr "_Suivant"
+msgstr "S_uivant"
 
 #: ../gui.py:1194
 msgid "_Release Notes"
@@ -1869,7 +1869,7 @@ msgstr ""
 "Vous avez choisi d'utiliser une partition pré-existante pour cette "
 "installation sans la formater. Nous vous recommandons de formater cette "
 "partition pour vous assurer que d'anciens fichiers provenant d'une autre  "
-"installation ne créent pas de conflits avec cette installation de Linux. "
+"installation ne créent pas de conflits avec cette installation Linux. "
 "Toutefois, si cette partition contient des fichiers que vous souhaitez "
 "conserver, comme par exemple des fichiers utilisateurs, vous pouvez "
 "continuer sans formater la partition."
@@ -1979,7 +1979,7 @@ msgstr "Confirmer la ré-initialisation "
 
 #: ../partIntfHelpers.py:528
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr "Êtes-vous sûr de vouloir reporter la table de partition à son état initial ?"
+msgstr "Souhaitez-vous remettre la table de partition à son état initial ?"
 
 #: ../partitioning.py:77
 msgid "Installation cannot continue."
@@ -2221,7 +2221,7 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"L'environnement de secours va maintenant chercher l'installation de Linux et "
+"L'environnement de secours va maintenant chercher l'installation Linux et "
 "la monter sous le répertoire %s. Vous pourrez ensuite apporter toutes les "
 "modifications souhaitées à votre système. Si vous désirez poursuivre cette "
 "étape, choisissez 'Continuer'. Vous pouvez également choisir de monter vos "
@@ -2662,7 +2662,7 @@ msgstr ""
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
-msgstr "Mot _de passe root : "
+msgstr "Mot de _passe root : "
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
@@ -2734,7 +2734,7 @@ msgstr "Activer l'authentification_SMB"
 
 #: ../iw/auth_gui.py:219
 msgid "SMB _Server:"
-msgstr "Serveur_SMB :"
+msgstr "Serveur _SMB :"
 
 #: ../iw/auth_gui.py:222
 msgid "SMB Work_group:"
@@ -2772,7 +2772,7 @@ msgstr "_Utiliser un mot de passe pour le chargeur de démarrage "
 
 #: ../iw/blpasswidget.py:76
 msgid "Change _password"
-msgstr "Changer le mot _de passe"
+msgstr "Changer le mot de _passe"
 
 #: ../iw/blpasswidget.py:99
 msgid "Enter Boot Loader Password"
@@ -2783,7 +2783,7 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-"Saisissez un mot de passe du chargeur de démarrage, puis confirmez le (notez "
+"Saisissez un mot de passe pour le chargeur de démarrage, puis confirmez-le (notez "
 "que le clavier de votre BIOS peut être différent de celui dont vous avez "
 "l'habitude)."
 
@@ -3255,8 +3255,7 @@ msgid ""
 "Do you really want to format the selected DASD device?"
 msgstr ""
 "Le formatage du périphérique DASD sélectionné entraînera la destruction de "
-"tout son contenu. Êtes-vous certain de bien vouloir formater le périphérique "
-"DASD sélectionné?"
+"tout son contenu. Souhaitez-vous formater le périphérique DASD sélectionné ?"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
@@ -3319,7 +3318,7 @@ msgid ""
 "computer from others.  Allow access to which services?"
 msgstr ""
 "Grâce à un pare-feu, vous pouvez autoriser d'autres ordinateurs à accéder à certains "
-"services sur votre ordinateur.Souhaitez-vous autoriser l'accès à ces services ?"
+"services sur votre ordinateur. Souhaitez-vous autoriser l'accès à ces services ?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3343,11 +3342,11 @@ msgstr "Désactiver"
 
 #: ../iw/firewall_gui.py:161
 msgid "Warn"
-msgstr "Avertissement"
+msgstr "Avertir"
 
 #: ../iw/firewall_gui.py:161 ../textw/firewall_text.py:173
 msgid "Active"
-msgstr "Actif"
+msgstr "Activer"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3392,7 +3391,7 @@ msgstr "_Sélectionner tout"
 
 #: ../iw/language_support_gui.py:262
 msgid "Select Default _Only"
-msgstr "Sélectionner _uniquement par défaut"
+msgstr "Sélectionner uni_quement par défaut"
 
 #: ../iw/language_support_gui.py:273
 msgid "Rese_t"
@@ -3630,7 +3629,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:731
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "Êtes-vous sûr de vouloir supprimer le volume  \"%s\" ?"
+msgstr "Souhaitez-vous supprimer le volume  \"%s\" ?"
 
 #: ../iw/lvm_dialog_gui.py:863
 msgid "Invalid Volume Group Name"
@@ -3694,7 +3693,7 @@ msgstr "Dimension physique :"
 
 #: ../iw/lvm_dialog_gui.py:991
 msgid "Physical Volumes to _Use:"
-msgstr "Volumes physiques à_utiliser :"
+msgstr "Volumes physiques à _utiliser :"
 
 #: ../iw/lvm_dialog_gui.py:997
 msgid "Used Space:"
@@ -3723,7 +3722,7 @@ msgstr "_Ajouter"
 #: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:508
 #: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1360
 msgid "_Edit"
-msgstr "_Éditer"
+msgstr "Édit_er"
 
 #: ../iw/lvm_dialog_gui.py:1099
 msgid "Logical Volumes"
@@ -3759,7 +3758,7 @@ msgstr "_Modèle"
 
 #: ../iw/mouse_gui.py:235
 msgid "_Emulate 3 buttons"
-msgstr "_Émulation de souris à trois boutons"
+msgstr "É_mulation de souris à trois boutons"
 
 #: ../iw/mouse_gui.py:250
 msgid "Select the appropriate mouse for the system."
@@ -3878,7 +3877,7 @@ msgstr "Éditer l'interface %s"
 
 #: ../iw/network_gui.py:213
 msgid "Configure using _DHCP"
-msgstr "Configuration avec_DHCP"
+msgstr "Configuration avec _DHCP"
 
 #: ../iw/network_gui.py:219
 msgid "_Activate on boot"
@@ -3886,11 +3885,11 @@ msgstr "_Activer au démarrage"
 
 #: ../iw/network_gui.py:228
 msgid "_IP Address"
-msgstr "_Adresse IP"
+msgstr "Adresse _IP"
 
 #: ../iw/network_gui.py:229
 msgid "Net_mask"
-msgstr "Masque_réseau"
+msgstr "Masque _réseau"
 
 #: ../iw/network_gui.py:234
 msgid "_Point to Point (IP)"
@@ -3943,7 +3942,7 @@ msgstr "_manuellement"
 
 #: ../iw/network_gui.py:541
 msgid "(ex. \"host.domain.com\")"
-msgstr "(ex. \"host.domain.com\")"
+msgstr "(par ex. \"nom.exemple.com\")"
 
 #: ../iw/network_gui.py:548 ../loader2/net.c:772
 msgid "Hostname"
@@ -3965,8 +3964,8 @@ msgstr ""
 "systèmes d'exploitation. Il vous permettra de sélectionner un système "
 "d'exploitation à démarrer parmi ceux de la liste. Pour ajouter des systèmes "
 "d'exploitation qui ne sont pas sélectionnés automatiquement, cliquez sur "
-"'Ajouter'. Pour modifier le système d'exploitation démarré par défaut, "
-"sélectionnez 'Défaut' à côté du système d'exploitation désiré."
+"'Ajouter'. Pour changer le système d'exploitation démarré par défaut, "
+"sélectionnez 'Par défaut' à côté du système d'exploitation désiré."
 
 #: ../iw/osbootwidget.py:66 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:283 ../textw/silo_text.py:207
@@ -3989,13 +3988,12 @@ msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
-"L'étiquette est ce qui est affiché dans le chargeur de démarrage du chargeur "
-"de démarrage. Le périphérique (ou disuqe dur et nombre de partition) est "
-"celui d'où vous démarrez."
+"Saisissez l'étiquette à afficher dans le menu du chargeur de démarrage. Le périphérique "
+"(ou disque dur et nombre de partitions) est celui à partir duquel il démarre."
 
 #: ../iw/osbootwidget.py:151
 msgid "_Label"
-msgstr "_Étiquette"
+msgstr "Étiqu_ette"
 
 #: ../iw/osbootwidget.py:195
 msgid "Default Boot _Target"
@@ -4430,7 +4428,7 @@ msgstr "Quel(s) périphérique(s) voulez-vous utiliser pour cette installation ?
 
 #: ../iw/partition_gui.py:1545
 msgid "Re_view (and modify if needed) the partitions created"
-msgstr "Re_voir (et modifier, au besoin) les partitions créées"
+msgstr "E_xaminer (et modifier, au besoin) les partitions créées"
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:247
@@ -4478,7 +4476,7 @@ msgstr "_Partitionnement automatique"
 
 #: ../iw/partmethod_gui.py:56
 msgid "Manually partition with _Disk Druid"
-msgstr "Partitionner manuellement avec _Disk Druid"
+msgstr "Partitionnement manuel avec _Disk Druid"
 
 #: ../iw/progress_gui.py:41
 #, python-format
@@ -4604,7 +4602,7 @@ msgstr "Niveau _RAID :"
 
 #: ../iw/raid_dialog_gui.py:381
 msgid "_RAID Members:"
-msgstr "_Éléments RAID :"
+msgstr "Élém_ents RAID :"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
@@ -4841,7 +4839,7 @@ msgstr "Sélection du fuseau horaire"
 
 #: ../iw/timezone_gui.py:67
 msgid "System clock uses _UTC"
-msgstr "Horloge système en _UTC"
+msgstr "Horloge système en U_TC"
 
 #: ../iw/timezone_gui.py:75
 msgid "Please select the nearest city in your timezone:"
@@ -5001,8 +4999,8 @@ msgid ""
 "to continue?"
 msgstr ""
 "Nous vous recommandons vivement de créer un fichier swap, sans quoi vous "
-"risquez d'interrompre brusquement le programme d'installation. Êtes-vous sûr "
-"de vouloir continuer ?"
+"risquez d'interrompre brusquement le programme d'installation. Souhaitez-vous "
+"continuer ?"
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -5296,7 +5294,7 @@ msgstr ""
 "n'ayez un besoin spécifique. Un chargeur de démarrage est presque toujours "
 "requis pour redémarrer le système Linux à partir du disque dur.\n"
 "\n"
-"Êtes-vous sûr de vouloir ignorer l'installation du chargeur de démarrage ?"
+"Souhaitez-vous ignorer l'installation du chargeur de démarrage ?"
 
 #: ../textw/bootloader_text.py:110 ../textw/silo_text.py:25
 msgid ""
@@ -5559,7 +5557,7 @@ msgstr ""
 "En exécutant dasdfmt  vous perdrez \n"
 "TOUTES LES DONNÉES du disque %s\n"
 "\n"
-"Êtes-vous sûr de vouloir continuer ?"
+"Souhaitez-vous continuer ?"
 
 #: ../textw/fdasd_text.py:101
 msgid ""
@@ -6688,7 +6686,7 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr "Bureau _personnel"
+msgstr "_Bureau personnel"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -6729,7 +6727,7 @@ msgid ""
 "and you can choose whether or not to install a graphical environment."
 msgstr ""
 "Sélectionnez ce type d'installation si vous désirez paramétrer le partage "
-"des fichiers, le partage de l'impression et les services Web. Des services "
+"de fichiers, le partage de l'impression et les services Web. Des services "
 "supplémentaires peuvent être activés. Vous pouvez décider si vous souhaitez "
 "installer ou non l'environnement graphique."
 
@@ -6743,7 +6741,7 @@ msgid ""
 "development and system administration. "
 msgstr ""
 "Cette option installe un environnement de bureau graphique comprenant des "
-"outils pour le développement du logiciel et l'administration de système. "
+"outils pour le développement de logiciels et l'administration système. "
 
 #: ../installclasses/workstation.py:14
 msgid ""
@@ -7007,7 +7005,7 @@ msgid ""
 "appear and you have a driver disk, press F2."
 msgstr ""
 "Dans la liste ci-dessous. veuillez choisir le pilote que vous souhaité "
-"chargé.Si le pilote dont vous avez besoin ne figure pas dans cette liste et "
+"chargé. Si le pilote dont vous avez besoin ne figure pas dans cette liste et "
 "que vous avez une disquette de pilotes, appuyez sur F2."
 
 #: ../loader2/driverselect.c:214
