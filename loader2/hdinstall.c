@@ -20,6 +20,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <newt.h>
+#include <popt.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mount.h>
@@ -263,6 +264,7 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
  */
 char * mountHardDrive(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
+		      struct loaderData_s * loaderData,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps * modDepsPtr, int flags) {
     int rc;
@@ -281,6 +283,49 @@ char * mountHardDrive(struct installMethod * method,
 
     char **partition_list;
     char *selpart;
+    char *kspartition, *ksdirectory;
+
+    logMessage("in mountHardDrive():");
+
+    /* handle kickstart data first if available */
+    if (loaderData->method &&
+	!strncmp(loaderData->method, "hd", 2) &&
+	loaderData->methodData) {
+	
+	kspartition = ((struct nfsInstallData *)loaderData->methodData)->host;
+	ksdirectory = ((struct nfsInstallData *)loaderData->methodData)->directory;
+	logMessage("partition  is %s, dir is %s", kspartition, ksdirectory);
+
+	/* if exist, duplicate */
+	if (kspartition)
+	    kspartition = strdup(kspartition);
+	if (ksdirectory)
+	    ksdirectory = strdup(ksdirectory);
+
+	if (!kspartition || !ksdirectory) {
+	    logMessage("missing partition or directory specification");
+	    free(loaderData->method);
+	    loaderData->method = NULL;
+	} else {
+	    url = setupIsoImages(kspartition, ksdirectory, flags);
+	    if (!url) {
+		logMessage("unable to find Red Hat installation images on hd");
+		free(loaderData->method);
+		loaderData->method = NULL;
+	    } else {
+		free(kspartition);
+		free(ksdirectory);
+		return url;
+	    }
+	}
+    } else {
+	kspartition = NULL;
+	ksdirectory = NULL;
+    }
+
+    /* if we're here its either because this is interactive, or the */
+    /* hd kickstart directive was faulty and we have to prompt for  */
+    /* location of harddrive image                                  */
 
     partition_list = NULL;
     while (!done) {
@@ -329,10 +374,24 @@ char * mountHardDrive(struct installMethod * method,
 	for (i = 0; i < numPartitions; i++)
 	    newtListboxAppendEntry(listbox, partition_list[i], partition_list[i]);
 
+	/* if we had ks data around use it to prime entry, then get rid of it*/
+	if (kspartition) {
+	    newtListboxSetCurrentByKey(listbox, kspartition);
+	    free(kspartition);
+	    kspartition = NULL;
+	}
+
 	label = newtLabel(-1, -1, _("Directory holding images:"));
 
 	dirEntry = newtEntry(28, 11, dir, 28, &tmpDir, NEWT_ENTRY_SCROLL);
-	
+
+	/* if we had ks data around use it to prime entry, then get rid of it*/
+	if (ksdirectory) {
+	    newtEntrySet(dirEntry, ksdirectory, 1);
+	    free(ksdirectory);
+	    ksdirectory = NULL;
+	}
+
 	entryGrid = newtGridHStacked(NEWT_GRID_COMPONENT, label,
 				     NEWT_GRID_COMPONENT, dirEntry,
 				     NEWT_GRID_EMPTY);
@@ -404,6 +463,40 @@ char * mountHardDrive(struct installMethod * method,
 
     return url;
 }
+
+void setKickstartHD(struct loaderData_s * loaderData, int argc,
+                     char ** argv, int * flagsPtr) {
+    char *partition, *dir;
+    poptContext optCon;
+    int rc;
+    struct poptOption ksHDOptions[] = {
+        { "partition", '\0', POPT_ARG_STRING, &partition, 0 },
+        { "dir", '\0', POPT_ARG_STRING, &dir, 0 },
+        { 0, 0, 0, 0, 0 }
+    };
+
+    logMessage("kickstartFromHD");
+    optCon = poptGetContext(NULL, argc, (const char **) argv, ksHDOptions, 0);
+    if ((rc = poptGetNextOpt(optCon)) < -1) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad argument to HD kickstart method "
+                         "command %s: %s"),
+                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+                       poptStrerror(rc));
+        return;
+    }
+
+    loaderData->method = strdup("hd");
+    loaderData->methodData = calloc(sizeof(struct hdInstallData *), 1);
+    if (partition)
+        ((struct hdInstallData *)loaderData->methodData)->partition = partition;
+    if (dir)
+        ((struct hdInstallData *)loaderData->methodData)->directory = dir;
+
+    logMessage("results of hd ks, partition is %s, dir is %s", partition, dir);
+}
+
+
 
 /* use for testing */
 #if 0
