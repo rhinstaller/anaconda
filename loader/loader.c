@@ -1296,7 +1296,8 @@ static char * mountNfsImage(struct installMethod * method,
 #ifdef INCLUDE_NETWORK
 
 static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags, 
-			char * dest, char * mntpoint, char * device) {
+			char * dest, char * mntpoint, char * device,
+			int silentErrors) {
     int fd;
     int rc;
     char * newFile = NULL;
@@ -1315,6 +1316,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 
 	if (fd == -2) return 1;
 	if (fd < 0) {
+	  if (!silentErrors) 
 	    newtWinMessage(_("Error"), _("OK"),
 			    _("File %s/%s not found on server."), 
 			    ui->prefix, file);
@@ -1343,7 +1345,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
      * we can minimize our ramdisk size */
     if (!loadSingleUrlImage(ui, "RedHat/base/updates.img", flags,
 			    "/tmp/ramfs/updates-disk.img",
-			    "/tmp/update-disk", "loop7")) {
+			    "/tmp/update-disk", "loop7", 1)) {
 	/* copy the updates, then unmount the loopback and unlink the img */
 	copyDirectory("/tmp/update-disk", "/tmp/updates");
 	umountLoopback("/tmp/update-disk", "loop7");
@@ -1352,7 +1354,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
 	
     if (loadSingleUrlImage(ui, "RedHat/base/netstg1.img", flags, 
 			   "/tmp/ramfs/netstg1.img",
-			   "/mnt/runtime", "loop0")) {
+			   "/mnt/runtime", "loop0", 0)) {
 	newtWinMessage(ui->protocol == URL_METHOD_FTP ?
 			_("FTP") : _("HTTP"), _("OK"), 
 	       _("Unable to retrieve the first install image"));
