@@ -1059,12 +1059,13 @@ def doPostInstall(method, id, intf, instPath):
                 h = ts.hdrFromFdno(fd)
                 os.close(fd)
                 if upgrade:
-                    text = _("Upgrading %s-%s-%s.\n")
+                    text = _("Upgrading %s-%s-%s.%s.\n")
                 else:
-                    text = _("Installing %s-%s-%s.\n")
+                    text = _("Installing %s-%s-%s.%s.\n")
                 instLog.write(text % (h['name'],
                                       h['version'],
-                                      h['release']))
+                                      h['release'],
+                                      h['arch']))
                 os.unlink(id.compspkg)
                 del ts
 
