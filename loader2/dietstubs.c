@@ -14,6 +14,8 @@
 #include <wlite_wchar.h>
 #include <wlite_wctype.h>
 
+int __libc_enable_secure = 0;
+
 struct glibc_stat {
     long long st_dev;
     unsigned short int __pad1;
