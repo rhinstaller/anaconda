@@ -122,6 +122,10 @@ class LanguageSupportWindow (InstallWindow):
                 self.language.set_row_data(row, (0, row_data, header))
                 self.language._update_row (row)
 
+    def language_key_press (self, list, event):
+        if event.keyval == ord(" ") and self.language.focus_row != -1:
+            self.toggle_row (self.language.focus_row)
+
     # LanguageSupportWindow tag="langsupport"
     def getScreen (self):
         self.langs = self.todo.language.getSupported()
@@ -163,6 +167,8 @@ class LanguageSupportWindow (InstallWindow):
         # langs we want to support
         self.language = checklist.CheckList(1)
         self.language.connect ('button_press_event', self.support_select_row)
+        self.language.connect ("key_press_event", self.language_key_press)
+
 
         self.maxrows = 0
         list = []
