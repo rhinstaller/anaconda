@@ -343,17 +343,19 @@ class Component:
     def addMetaPkg(self, comp, isDefault = 0):
         self.metapkgs[comp] = (PKGTYPE_OPTIONAL, isDefault)
 
-    def addPackage(self, p, pkgtype):
+    def addPackage(self, p, pkgtype, handleDeps = 1):
         if pkgtype == PKGTYPE_MANDATORY:
             p.registerComponent(self)
             self.newpkgDict[p] = (pkgtype, 1)
             self.pkgDict[p] = None
-            self.updateDependencyCountForAddition(p)            
+            if handleDeps == 1:
+                self.updateDependencyCountForAddition(p)            
         elif pkgtype == PKGTYPE_DEFAULT:
             p.registerComponent(self)
             self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 1)
             self.pkgDict[p] = None
-            self.updateDependencyCountForAddition(p)            
+            if handleDeps == 1:            
+                self.updateDependencyCountForAddition(p)            
         elif pkgtype == PKGTYPE_OPTIONAL:
             self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 0)
         else:
@@ -503,7 +505,7 @@ class Component:
 	(self.manuallySelected, self.selectionCount) = state
 
     def __init__(self, set, compgroup, packages,
-                 conditionalKey = "", parent=None):
+                 conditionalKey = "", parent=None, doDeps = 1):
 
         self.set = set
         self.name = compgroup.name
@@ -540,7 +542,7 @@ class Component:
             else:
                 log("Invalid package type of %s for %s in %s; defaulting to optional" % (type, pkg, self.name))
                 pkgtype = PKGTYPE_OPTIONAL
-            self.addPackage(packages[pkg], pkgtype)
+            self.addPackage(packages[pkg], pkgtype, doDeps)
                 
 
 class ComponentSet:
@@ -705,9 +707,17 @@ class ComponentSet:
 
         # we have to go through first and make Comp objects for all
         # of the groups.  then we can go through and set up the includes
-        for group in groups:
+        for group in groups[:-1]:
             group = self.compsxml.groups[group]
             comp = Component(self, group, packages)
+            self.comps.append(comp)
+            self.compsDict[comp.name] = comp
+            self.compsById[comp.id] = comp
+
+        # special case everything to make it faster...
+        for group in [ groups[-1] ]:
+            group = self.compsxml.groups[group]
+            comp = Component(self, group, packages, doDeps = 0)
             self.comps.append(comp)
             self.compsDict[comp.name] = comp
             self.compsById[comp.id] = comp
