@@ -1,0 +1,82 @@
+/*
+ * shutdown.c
+ *
+ * Shutdown a running system.  If built with -DAS_SHUTDOWN=1, then
+ * it builds a standalone shutdown binary.
+ *
+ * Copyright 1996 - 2003 Red Hat, Inc.
+ *
+ * This software may be freely redistributed under the terms of the GNU
+ * public license.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/reboot.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#ifdef AS_SHUTDOWN
+int testing = 0;
+#else
+extern int testing;
+#endif
+
+void disableSwap(void);
+void unmountFilesystems(void);
+
+
+void shutDown(int noKill, int doReboot) {
+    sync(); sync();
+
+    if (!testing && !noKill) {
+	printf("sending termination signals...");
+	kill(-1, 15);
+	sleep(2);
+	printf("done\n");
+
+	printf("sending kill signals...");
+	kill(-1, 9);
+	sleep(2);
+	printf("done\n");
+    }
+
+    printf("disabling swap...\n");
+    disableSwap();
+
+    printf("unmounting filesystems...\n"); 
+    unmountFilesystems();
+
+    if (doReboot) {
+	printf("rebooting system\n");
+	sleep(2);
+
+#if USE_MINILIBC
+	reboot(0xfee1dead, 672274793, 0x1234567);
+#else
+# ifdef __alpha__
+	reboot(RB_HALT_SYSTEM);
+# else
+	reboot(RB_AUTOBOOT);
+# endif
+#endif
+    } else {
+	printf("you may safely reboot your system\n");
+	while (1);
+    }
+
+    exit(0);
+
+    return;
+}
+
+#ifdef AS_SHUTDOWN
+int main(int argc, char ** argv) {
+    shutDown(0, 0);
+}
+#endif

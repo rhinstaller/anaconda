@@ -14,7 +14,7 @@ ISYSLIB = ../isys/libisys.a
 GUNZIP = -lz
 MODULELINKAGE :=-lmodutils -lmodutilutil -lmodutilobj
 
-BINS = init loader
+BINS = loader
 
 HWOBJS = pcmcia.o usb.o firewire.o hardware.o
 METHOBJS = method.o cdinstall.o hdinstall.o nfsinstall.o urlinstall.o
@@ -51,8 +51,12 @@ else
 OBJS += wcstubs.o
 endif
 
+# linuxrc + shutdown on s390, init everywhere else
 ifneq (,$(filter s390 s390x,$(ARCH)))
-BINS += linuxrc.s390
+BINS += linuxrc.s390 shutdown
+SHUTDOWNOPTS = -DAS_SHUTDOWN=1
+else
+BINS += init
 endif
 
 # translation stuff
@@ -83,11 +87,20 @@ loader.po: $(wildcard *.c)
 linuxrc.s390:
 	@echo "Nothing to do for $@"
 
-init: init.o
-	$(CC) $(STATIC) $(COPTS) $(LDFLAGS) -o $@ init.o
+init: init.o undomounts.o shutdown.o
+	$(CC) $(STATIC) $(COPTS) $(LDFLAGS) -o $@ $^
+
+shutdown: shutdown.o undomounts.o
+	$(CC) $(STATIC) $(COPTS) $(SHUTDOWNOPTS) $(LDFLAGS) -o $@ $^
 
 init.o: init.c
 	$(CC) $(COPTS) -c -o init.o init.c
+
+undomounts.o: undomounts.c
+	$(CC) $(COPTS) -c -o undomounts.o undomounts.c
+
+shutdown.o: shutdown.c
+	$(CC) $(COPTS) $(SHUTDOWNOPTS) -c -o shutdown.o shutdown.c
 
 mkctype: mkctype.c
 	$(REALCC) $(COPTS) -o mkctype mkctype.c
