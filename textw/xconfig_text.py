@@ -299,6 +299,29 @@ class MonitorWindow:
 		self.hsync = selMonitor[3]
 		self.vsync = selMonitor[2]
 
+    def sanityCheckSyncRates(self, screen, hval, vval):
+	hgood = isValidSyncRange(hval)
+	vgood = isValidSyncRange(vval)
+	if not hgood:
+	    badtitle = _("horizontal")
+	    badone = hval
+	elif not vgood:
+	    badtitle = _("vertical")
+	    badone = vval
+
+	if not (hgood and vgood):
+	    ButtonChoiceWindow(screen, _("Invalid Sync Rates"),
+			       _("The %s sync rate is invalid:\n\n      %s\n\n"
+				 "A valid sync rate can be of the form:\n\n"
+				 "      31.5                   a single number\n"
+				 "    50.1-90.2                a range of numbers\n"
+				 "31.5,35.0,39.3-40.0          a list of numbers/ranges\n") % (badtitle, badone),
+			       buttons = [ TEXT_OK_BUTTON ], width = 45)
+	    return 0
+	
+	return 1
+                    
+
     def syncchangeCB(self, screen):
         bb = ButtonBar(screen, (TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON))
 
@@ -338,28 +361,12 @@ class MonitorWindow:
                 if hentry.value() and ventry.value():
                     hval = hentry.value()
                     vval = ventry.value()
-                    hgood = isValidSyncRange(hval)
-                    vgood = isValidSyncRange(vval)
-                    if not hgood:
-                        badtitle = _("horizontal")
-                        badone = hval
-                    elif not vgood:
-                        badtitle = _("vertical")
-                        badone = vval
-                    
-                    if isValidSyncRange(hval) and isValidSyncRange(vval):
+
+		    if self.sanityCheckSyncRates(screen, hval, vval):
                         self.hsync = hval
                         self.vsync = vval
                         screen.popWindow()
                         return
-                    else:
-                        ButtonChoiceWindow(screen, _("Invalid Sync Rates"),
-                         _("The %s sync rate is invalid:\n\n      %s\n\n"
-                           "A valid sync rate can be of the form:\n\n"
-                           "      31.5                   a single number\n"
-                           "    50.1-90.2                a range of numbers\n"
-                           "31.5,35.0,39.3-40.0          a list of numbers/ranges\n") % (badtitle, badone),
-                           buttons = [ TEXT_OK_BUTTON ], width = 45)
 
     def resetCB(self, screen):
         self.hsync = self.origHsync
@@ -475,6 +482,13 @@ class MonitorWindow:
 		screen.popWindow()
 		return INSTALL_BACK
             elif rc == TEXT_OK_CHECK or result == TEXT_F12_CHECK:
+		# test sync rates
+		hval = self.hsync
+		vval = self.vsync
+
+		if not self.sanityCheckSyncRates(screen, hval, vval):
+		    continue
+
                 screen.popWindow()
                 break
             elif rc == "default":
@@ -496,10 +510,9 @@ class MonitorWindow:
 	else:
 	    selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
 
+
 	if selMonitor:
-	    self.monitor.setSpecs(selMonitor[3], 
-				  selMonitor[2],
-				  id=selMonitor[0],
+	    self.monitor.setSpecs(hval, vval, id=selMonitor[0],
 				  name=selMonitor[0])
         
         
