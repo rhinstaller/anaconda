@@ -21,6 +21,7 @@ else:
     sys.path.append('/usr/lib/anaconda/installclasses')
 
 os.environ['HOME'] = '/tmp'
+os.environ["LC_NUMERIC"] = "C"
 
 # Python passed my path as argv[0]!
 # if sys.argv[0][-7:] == "syslogd":
