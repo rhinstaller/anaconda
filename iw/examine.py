@@ -31,6 +31,7 @@ class UpgradeExamineWindow (InstallWindow):
 
         # if there is only one partition, go on.
         if parts and len (parts) == 1:
+            self.root = parts[0]
             return None
 
 	box = GtkVBox (FALSE)
