@@ -406,7 +406,7 @@ def queryNoFormatPreExisting(intf):
             "However, if this partition contains files that you need "
             "to keep, such as a users home directories, then you should "
             "continue without formatting this partition.")
-    rc = intf.messageWindow(_("Format?"), txt, type = "custom", custom_buttons=[_("Cancel"), _("Do _Not Format")], custom_icon="warning")
+    rc = intf.messageWindow(_("Format?"), txt, type = "custom", custom_buttons=[_("_Modify Partition"), _("Do _Not Format")], custom_icon="warning")
     return rc
 
 def partitionSanityErrors(intf, errors):
