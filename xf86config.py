@@ -326,6 +326,15 @@ Section "ServerFlags"
 EndSection
 """)
         config.write (self.keyboardSection ())
+        # XXX if we're going to be using IMPS/2 on
+        # reboot, but we're using PS/2 now, we'll need
+        # to temporarily use PS/2 so we don't frob the
+        # intellimouse into IMPS/2 mode (if we did, we'll
+        # loose the mouse cursor in the install)
+        if self.mouse.info["XMOUSETYPE"] == "IMPS/2":
+            mouseproto = "PS/2"
+        else:
+            mouseproto = self.mouse.info["XMOUSETYPE"]
         config.write (
 """
 Section "Pointer"
@@ -334,7 +343,7 @@ Section "Pointer"
     Emulate3Buttons
     Emulate3Timeout    50
 EndSection
-""" % (self.mouse.info["XMOUSETYPE"], self.mouse.device))
+""" % (mouseproto, self.mouse.device))
         config.write (self.monitorSection ())
         config.write (self.deviceSection ())
         config.write (self.screenSection ())
