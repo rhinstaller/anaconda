@@ -1,5 +1,9 @@
 2004-11-17  Jeremy Katz  <katzj@redhat.com>
 
+	* textw/upgrade_bootloader_text.py
+	(UpgradeBootloaderWindow.__call__): Set a default when we can't
+	determine the boot loader to avoid indeterminate state (#139603)
+
 	* lvm.py: Don't disable LVM if vgscan, et al segfault (#134263)
 
 2004-11-16  Jeremy Katz  <katzj@redhat.com>

@@ -42,7 +42,7 @@ class UpgradeBootloaderWindow:
             if self.type is not None and self.bootDev is not None:
                 update = 1
             else:
-                nobl = 0
+                nobl = 1
         
         if self.type is not None and self.bootDev is not None:
             t = TextboxReflowed(53,
