@@ -95,8 +95,6 @@ class Fstab:
 
         success = 0
 
-#        self.messageWindow(_("Ready?"), _("About to try to autopartition"))
-
 	try:
 	    rc = ddruid.attempt (attempt, "Junk Argument", clearParts)
             success = 1
@@ -191,8 +189,8 @@ class Fstab:
             fstab.append ((dev, mntpoint))
 
 	self.ddruid = self.fsedit(0, self.driveList(), fstab, self.zeroMbr,
-				  self.readOnly, 0,
-                                  (self.expert or self.upgrade))
+				  self.readOnly, self.upgrade,
+                                  self.expert)
 	del self.cachedFstab
 
     def closeDrives(self, clearFstabCache = 0):
@@ -837,8 +835,9 @@ class Fstab:
             list = tlist
 
 	return self.fsedit(0, list, fstab, self.zeroMbr, 
-			   self.readOnly, ignoreBadDrives,
-                           (self.expert or self.upgrade))
+			   self.readOnly,
+                           (self.upgrade or ignoreBadDrives),
+                           self.expert)
 
     def getRunDruid(self):
 	return self.shouldRunDruid
