@@ -998,6 +998,11 @@ int main(int argc, char ** argv) {
      * kind of weird. */
     if (loaderData.ksFile || ksFile) {
         logMessage("getting kickstart file");
+        /* JKFIXME: should probably not be doing this, but ... */
+        loaderData.modLoaded = modLoaded;
+        loaderData.modDepsPtr = &modDeps;
+        loaderData.modInfo = modInfo;
+
         if (!ksFile)
             getKickstartFile(&kd, &loaderData, &flags);
         if (FL_KICKSTART(flags) && 
