@@ -424,9 +424,25 @@ static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args) {
 
     o = PyObject_NEW(rpmdbObject, &rpmdbType);
     o->db = NULL;
+
+    /* XXX --gafton
+     * I would like this root argument to behave like the --dbpath in the plain
+     * rpm command line. What it does now it re-roots the /var/lib/rpm to whatever
+     * I am passing on, so if I pass in /ftp/updates/rpmdb/i386 it will end up looking
+     * for the rpm database in /ftp/updates/rpmdb/i386/var/lib/rpm.
+     * I'm stuck.
+     */
     if (rpmdbOpen(root, &o->db, forWrite ? O_RDWR | O_CREAT: O_RDONLY, 0)) {
+	char * errmsg = "cannot open database in %s";
+	char * errstr = NULL;
+	int errsize;
+	
 	Py_DECREF(o);
-	PyErr_SetString(pyrpmError, "cannot open database in /var/lib/rpm");
+	/* PyErr_SetString should take varargs... */
+	errsize = strlen(errmsg) + *root == '\0' ? 15 /* "/var/lib/rpm" */ : strlen(root);
+	errstr = alloca(errsize);
+	snprintf(errstr, errsize, errmsg, *root == '\0' ? "/var/lib/rpm" : root);
+	PyErr_SetString(pyrpmError, errstr);
 	return NULL;
     }
 
