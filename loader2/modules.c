@@ -510,7 +510,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     }
 
     if (reloadUsbStorage) {
-        reloadUnloadedModule("usb-storage", NULL, modLoaded, flags);
+        reloadUnloadedModule("usb-storage", modLoaded, NULL, flags);
         /* JKFIXME: here's the rest of the hacks.  basically do the reverse
          * of what we did before.
          */
