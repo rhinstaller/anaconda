@@ -312,6 +312,8 @@ if traceOnly:
     import configFileData
     import kickstart
     import whiteout
+    import xml.dom.minidom
+    from xml.dom import pulldom
 
     installclass.availableClasses()
 
