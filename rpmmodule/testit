@@ -2,58 +2,21 @@
 
 import rpm
 import os
-import time
 
-def cb(what, amount, total, key, data):
-    if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
-	d = os.open(key, os.O_RDONLY)
-	return d
+## fd = os.open('/mnt/redhat/comps/dist/6.0/i386/util-linux-2.9o-13.i386.rpm', 0)
+## (hdr1, foo) = rpm.headerFromPackage (fd)
+## os.close (fd)
+## fd = os.open ('/mnt/redhat/comps/dist/6.1/i386/util-linux-2.9v-20.i386.rpm', 0)
+## (hdr2, foo) = rpm.headerFromPackage (fd)
+## os.close (fd)
 
-## fd = os.open('foo', os.O_RDONLY);
-## (h, isSource) = rpm.headerFromPackage(fd)
-## print "from foo:", h[rpm.RPMTAG_NAME]
-## os.close(fd)
+## print rpm.versionCompare (hdr1, hdr1)
 
-from urllib import *
+## print rpm.labelCompare ((None, "2.9j", "14"), (None, "2.9j", "15"))
 
-#url = urlopen ("http://porkchop.redhat.com/msw/i386/RedHat/base/hdlist")
-#url = urlretrieve ("http://porkchop.redhat.com/msw/i386/RedHat/base/hdlist", "/tmp/hdlist")
-#url = urlopen ("/mnt/test/msw/i386/RedHat/base/hdlist")
-#print os.read (url.fileno (), 1)
+db = rpm.opendb ()
 
-import httplib
-h = httplib.HTTP('porkchop.redhat.com')
-h.putrequest('GET', '/msw/i386/RedHat/base/hdlist')
-h.endheaders()
-#errcode, errmsg, headers = h.getreply()
-h.getreply()
-#print errcode # Should be 200
-f = h.getfile()
-
-print f.fileno ()
-print os.read (f.fileno (), 5)
-list = rpm.readHeaderListFromFD(f.fileno ())
-f.close()
-#list = rpm.readHeaderListFromFD('/mnt/test/msw/i386/RedHat/base/hdlist')
-#list = rpm.readHeaderListFromFile('/tmp/hdlist')
-print "got", len(list), "items"
-
-print "finding upgrade set..."
-ugset = rpm.findUpgradeSet (list)
-for header in ugset:
-    print header[rpm.RPMTAG_NAME]
-
-#d = rpm.opendb(0)
-
-#ts = rpm.TransactionSet()
-
-#for h in list:
-#    ts.add(h, "foo", "a")
-
-#ts.add(list[0], "foo")
-#rc = ts.depcheck()
-#print rc
-
-#ts.order()
-#print "run", ts.run(rpm.RPMTRANS_FLAG_TEST, 0, cb, "arg")
-
+rc = db.findpackage ("Xconfigurator")
+for rec in rc:
+    print db[rec]
+    print db[rec]['name']

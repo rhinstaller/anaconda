@@ -9,6 +9,9 @@
 #include "rpmlib.h"
 #include "upgrade.h"
 
+/* from lib/misc.c */
+int rpmvercmp(const char * one, const char * two);
+
 /* Forward types */
 
 typedef struct rpmdbObject_s rpmdbObject;
@@ -24,6 +27,7 @@ static PyObject * rpmdbNext(rpmdbObject * s, PyObject * args);
 static PyObject * rpmdbByName(rpmdbObject * s, PyObject * args);
 static PyObject * rpmdbByProvides(rpmdbObject * s, PyObject * args);
 static PyObject * rpmdbByFile(rpmdbObject * s, PyObject * args);
+static PyObject * dbFindPackage(rpmdbObject * s, PyObject * args);
 static int rpmdbLength(rpmdbObject * s);
 static hdrObject * rpmdbSubscript(rpmdbObject * s, PyObject * key);
 
@@ -176,6 +180,7 @@ static struct PyMethodDef rpmdbMethods[] = {
 	{"findbyfile",	    (PyCFunction) rpmdbByFile, 1 },
 	{"findbyname",	    (PyCFunction) rpmdbByName, 1 },
 	{"findbyprovides",  (PyCFunction) rpmdbByProvides, 1 },
+	{"findpackage",     (PyCFunction) dbFindPackage, 1 },
 	{NULL,		NULL}		/* sentinel */
 };
 
@@ -747,6 +752,17 @@ static PyObject * rpmdbByProvides(rpmdbObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "s", &str)) return NULL;
 
     rc = rpmdbFindByProvides(s->db, str, &matches);
+    return handleDbResult(rc, matches);
+}
+
+static PyObject * dbFindPackage(rpmdbObject * s, PyObject * args) {
+    char * str;
+    dbiIndexSet matches;
+    int rc;
+
+    if (!PyArg_ParseTuple(args, "s", &str)) return NULL;
+
+    rc = rpmdbFindPackage(s->db, str, &matches);
     return handleDbResult(rc, matches);
 }
 
