@@ -260,6 +260,9 @@ class MessageWindow:
         if type == 'ok':
             buttons = gtk.BUTTONS_OK
             style = gtk.MESSAGE_INFO
+        elif type == 'warning':
+            buttons = gtk.BUTTONS_OK
+            style = gtk.MESSAGE_WARNING
         elif type == 'okcancel':
             buttons = gtk.BUTTONS_OK_CANCEL
             style = gtk.MESSAGE_WARNING
