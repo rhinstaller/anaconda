@@ -12,7 +12,7 @@
 #
 
 import iutil
-
+from flags import flags
 from rhpl.log import log
 
 def bool(val):
@@ -28,6 +28,10 @@ class Timezone:
 	f.write(" %s\n" % self.tz)
 
     def write(self, instPath):
+	# dont do this in test mode!
+	if flags.test:
+	    return
+	
 	fromFile = instPath + "/usr/share/zoneinfo/" + self.tz
 
 	try:

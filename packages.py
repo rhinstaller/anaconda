@@ -472,6 +472,10 @@ def setupTimezone(timezone, upgrade, instPath, dir):
     # we don't need this on an upgrade or going backwards
     if upgrade.get() or (dir == DISPATCH_BACK):
         return
+
+    # dont do this in test mode!
+    if flags.test:
+	return
     
     os.environ["TZ"] = timezone.tz
     tzfile = "/usr/share/zoneinfo/" + timezone.tz
