@@ -298,7 +298,10 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 
 void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
                moduleInfoSet modInfo, int flags) {
-    mlLoadModuleSet("scsi_mod:sd_mod:sr_mod:zfcp", modLoaded, modDeps, modInfo, flags);
+    mlLoadModuleSet("scsi_mod:sd_mod:sr_mod", modLoaded, modDeps, modInfo, flags);
+#if defined(__s390__) || defined(__s390x__)
+    mlLoadModule("zfcp", modLoaded, modDeps, modInfo, NULL, flags);
+#endif
 }
 
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
