@@ -31,21 +31,18 @@ if len(sys.argv) > 1:
         output = sys.argv[3]
         syslog = Syslogd (root, open (output, "w+"))
 
-import gettext_rh
 import traceback
 import string
 
 import isys
 import iutil
+from translate import _
 
 setverPath = None
 
-gettext_rh.bindtextdomain("anaconda", "/usr/share/locale")
-gettext_rh.textdomain("anaconda")
-_ = gettext_rh.gettext
 
-(args, extra) = isys.getopt(sys.argv[1:], 'GTRtdr:fm:', 
-          [ 'gui', 'text', 'reconfig', 'test', 'debug',
+(args, extra) = isys.getopt(sys.argv[1:], 'GTRxtdr:fm:', 
+          [ 'gui', 'text', 'reconfig', 'xmode', 'test', 'debug',
             'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
@@ -76,6 +73,7 @@ if iutil.getArch() == 'ia64':
 
 # booleans - value is 0 for false or non-zero for true
 # test           - in test mode?
+# xmode          - bring up text mode in a X terminal window?
 # debug          - in debug mode?
 # serial         - install via serial port (?)
 # expert         - in expert mode?
@@ -84,6 +82,7 @@ if iutil.getArch() == 'ia64':
 # localInstall   - install to chroot
 # reconfigOnly   - allow user to reconfig installed box w/o reinstall
 test = 0
+xmode = 0
 debug = 0
 serial = 0
 expert = 0
@@ -125,6 +124,8 @@ for n in args:
     elif (str == '-R' or str == '--reconfig'):
 	reconfigOnly = 1
         progmode = 'reconfig'
+    elif (str == '-x' or str == '--xmode'):
+	xmode = 1
     elif (str == '-t' or str == '--test'):
 	test = 1
     elif (str == '--module'):
@@ -315,6 +316,29 @@ if not instClass:
     else:
         instClass = DefaultInstall(expert)
 
+# we like to have a way to shoot text mode back at a display
+if xmode:
+    from gtk import *
+    from gnome.zvt import *
+
+    def child_died (widget, *args):
+        mainquit()
+
+    win = GtkWindow ()
+    zvt = ZvtTerm (80, 24)
+    zvt.connect ("child_died", child_died)
+    zvt.set_del_key_swap(TRUE)
+    win.add (zvt)
+    win.show_all ()
+    child = zvt.forkpty()
+    if child != 0:
+        mainloop()
+        try:
+            pid, status = os.waitpid(child, 0)
+        except OSError:
+            pass
+        sys.exit (0)
+
 intf = InstallInterface()
 
 # imports after setting up the path
@@ -404,6 +428,7 @@ except:
     rc = intf.exceptionWindow (_("Exception Occurred"), text)
     intf.__del__ ()
     if rc:
+        print text
         import pdb
         pdb.post_mortem (tb)
     os._exit (1)
