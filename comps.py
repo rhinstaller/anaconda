@@ -213,6 +213,12 @@ class ComponentSet:
 
 	return "%dM" % (megs)
 
+    def totalSize(self):
+	total = 0
+	for pkg in self.packages.list():
+	    total = total + pkg['size']
+	return total
+
     def size(self):
 	total = 0
 	for pkg in self.packages.list():
