@@ -30,6 +30,7 @@ import fstab
 import time
 import gettext_rh
 import os.path
+import upgrade
 from translate import _
 from log import log
 
@@ -941,105 +942,18 @@ class ToDo:
                 if dep != _("no suggestion"):
                     canresolve = 1
         return canresolve
+
+    def upgradeFindRoot(self):
+	if not self.setupFilesystems: return [ self.instPath ]
+	return upgrade.findExistingRoots(self.intf, self.fstab)
                     
-
-    def upgradeFindRoot (self):
-        rootparts = []
-        if not self.setupFilesystems: return [ self.instPath ]
-        win = self.intf.waitWindow (_("Searching"),
-			_("Searching for Red Hat Linux installations..."))
-        
-        drives = self.fstab.driveList()
-	mdList = raid.startAllRaid(drives)
-
-	for dev in mdList:
-            if fstab.isValidExt2 (dev):
-                try:
-                    isys.mount(dev, '/mnt/sysimage', readOnly = 1)
-                except SystemError, (errno, msg):
-                    self.intf.messageWindow(_("Error"),
-                                            _("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
-                    continue
-                if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
-                    rootparts.append ((dev, "ext2"))
-                isys.umount('/mnt/sysimage')
-
-	raid.stopAllRaid(mdList)
-	
-        for drive in drives:
-            isys.makeDevInode(drive, '/tmp/' + drive)
-            
-            try:
-                table = _balkan.readTable ('/tmp/' + drive)
-            except SystemError:
-                pass
-            else:
-                for i in range (len (table)):
-                    (type, sector, size) = table[i]
-                    if size and type == _balkan.EXT2:
-			# for RAID arrays of format c0d0p1
-			if drive [:3] == "rd/" or drive [:4] == "ida/" or drive [:6] == "cciss/":
-                            dev = drive + 'p' + str (i + 1)
-			else:
-                            dev = drive + str (i + 1)
-                        try:
-                            isys.mount(dev, '/mnt/sysimage')
-                        except SystemError, (errno, msg):
-                            self.intf.messageWindow(_("Error"),
-                                                    _("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
-                            continue
-                        if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
-                            rootparts.append ((dev, "ext2"))
-                        isys.umount('/mnt/sysimage')
-		    elif size and type == _balkan.DOS:
-			dev = drive + str (i + 1)
-                        try:
-                            isys.mount(dev, '/mnt/sysimage', fstype = "vfat",
-				       readOnly = 1)
-                        except SystemError, (errno, msg):
-			    log("failed to mount vfat filesystem on %s\n" 
-					% dev)
-                            continue
-
-			if os.access('/mnt/sysimage/redhat.img', os.R_OK):
-			    rootparts.append((dev, "vfat"))
-
-                        isys.umount('/mnt/sysimage')
-            os.remove ('/tmp/' + drive)
-        win.pop ()
-        return rootparts
-
     def upgradeFindPackages (self, rootInfo):
-	(root, rootFs) = rootInfo
         if self.setupFilesystems:
-	    mdList = raid.startAllRaid(self.fstab.driveList())
-
-	    if rootFs == "vfat":
-		fstab.mountLoopbackRoot(root)
-	    else:
-		isys.mount(root, '/mnt/sysimage')
-
-	    fstab.readFstab('/mnt/sysimage/etc/fstab', self.fstab)
-
-	    if rootFs == "vfat":
-		fstab.unmountLoopbackRoot()
-	    else:
-		isys.umount('/mnt/sysimage')        
-
-	    raid.stopAllRaid(mdList)
-
-	    if self.fstab.hasDirtyFilesystems():
-		self.intf.messageWindow(("Dirty Filesystems"),
-		    _("One or more of the filesystems for your Linux system "
-		      "was not unmounted cleanly. Please boot your Linux "
-		      "installation, let the filesystems be checked, and "
-		      "shut down cleanly to upgrade."))
-		sys.exit(0)
-
 	    try:
-                self.fstab.mountFilesystems (self.instPath)
+		upgrade.mountRootPartition(rootInfo, self.fstab, self.instPath,
+					   allowDirty = 0):
 	    except SystemError, msg:
-		self.intf.messageWindow(("Dirty Filesystems"),
+		intf.messageWindow(("Dirty Filesystems"),
 		    _("One or more of the filesystems listed in the "
 		      "/etc/fstab on your Linux system cannot be mounted. "
 		      "Please fix this problem and try to upgrade again."))

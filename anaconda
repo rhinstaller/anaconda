@@ -55,7 +55,7 @@ try:
             'method=', 'rootpath=', 'pcic=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
-	    'expert', 'serial', 'lowres'])
+	    'expert', 'serial', 'lowres', 'rescue'])
 except TypeError, msg:
     print "Error:", msg
     sys.exit(-1)
@@ -100,6 +100,7 @@ forced_display_mode = None
 # reconfigOnly   - allow user to reconfig installed box w/o reinstall
 # nofallback     - don't fall back to text mode on gui startup failure
 # runres         - resolution to run 
+# rescue	 - run rescue mode instead
 test = 0
 xmode = 0
 debug = 0
@@ -110,6 +111,7 @@ forceMount = 0
 localInstall = 0
 reconfigOnly = 0
 nofallback = 0
+rescue = 0
 runres = '800x600'
 
 #
@@ -120,7 +122,7 @@ runres = '800x600'
 # kbdtype    - type of keyboard (84 key, 101 key, etc)
 # kickstart  - ?
 # mouseInfo  - type of mouse
-# progmode   - either 'reconfig' or 'install'
+# progmode   - either 'reconfig', 'rescue', or 'install'
 #
 x = None
 lang = None
@@ -152,6 +154,8 @@ for n in args:
 	test = 1
     elif (str == '--pcic'):
 	pcicController = arg
+    elif (str == '--rescue'):
+        progmode = 'rescue'
     elif (str == '--nofallback'):
 	nofallback = 1
     elif (str == '--module'):
@@ -196,10 +200,16 @@ for n in args:
         runres = '640x480'
 
 #
-# must specify install or reconfig mode
+# must specify install, rescue or reconfig mode
 #
 if (progmode == None):
     print "Must specify either --reconfig or --method for program mode"
+    sys.exit(1)
+
+if (progmode == 'rescue'):
+    import rescue
+    rescue.runRescue(serial)
+    # shouldn't get back here
     sys.exit(1)
 
 #

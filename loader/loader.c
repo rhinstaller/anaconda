@@ -2796,6 +2796,12 @@ int main(int argc, char ** argv) {
 #endif
 
     argptr = anacondaArgs;
+
+    if (!access("./anaconda", X_OK))
+	*argptr++ = "./anaconda";
+    else
+	*argptr++ = "/usr/bin/anaconda";
+
     if (FL_RESCUE(flags)) {
 	startNewt(flags);
 
@@ -2807,14 +2813,8 @@ int main(int argc, char ** argv) {
 		rc = chooseKeyboard (&keymap, &kbdtype, flags);
 	    } while (rc);
 	}
-/*	*argptr++ = "/bin/sh"; */
-	*argptr++ = "/usr/bin/anaconda-runrescue"; 
+	*argptr++ = "--rescue";
     } else {
-	if (!access("./anaconda", X_OK))
-	    *argptr++ = "./anaconda";
-	else
-	    *argptr++ = "/usr/bin/anaconda";
-
 	*argptr++ = "-m";
 	if (strncmp(url, "ftp:", 4)) {
 	    *argptr++ = url;
