@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
-"POT-Creation-Date: 2001-03-14 11:37-0500\n"
+"POT-Creation-Date: 2001-03-16 20:06-0500\n"
 "PO-Revision-Date: 2001-03-15 12:30-0500\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -52,25 +52,26 @@ msgstr ""
 "partisjonene skal formateres (ANBEFALT)."
 
 #: ../fstab.py:76 ../harddrive.py:235 ../iw/rootpartition_gui.py:81
-#: ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:144
-#: ../iw/upgrade_swap_gui.py:153 ../iw/upgrade_swap_gui.py:160
+#: ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:174
+#: ../iw/upgrade_swap_gui.py:183 ../iw/upgrade_swap_gui.py:190
+#: ../textw/upgrade_text.py:100
 msgid "Warning"
 msgstr "Advarsel"
 
-#: ../fstab.py:320 ../fstab.py:517 ../fstab.py:618 ../fstab.py:829
+#: ../fstab.py:320 ../fstab.py:523 ../fstab.py:623 ../fstab.py:834
 #: ../harddrive.py:173 ../image.py:64 ../image.py:141
 #: ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520
 #: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:966
 #: ../loader/loader.c:1021 ../loader/loader.c:1191 ../loader/loader.c:1196
-#: ../loader/loader.c:1278 ../loader/loader.c:2129 ../loader/loader.c:2159
-#: ../loader/loader.c:2237 ../loader/loader.c:2449 ../loader/pcmcia.c:114
+#: ../loader/loader.c:1278 ../loader/loader.c:2132 ../loader/loader.c:2162
+#: ../loader/loader.c:2240 ../loader/loader.c:2452 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
-#: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:89
-#: ../textw/upgrade_text.py:95 ../textw/upgrade_text.py:145 ../todo.py:1199
-#: ../todo.py:1212 ../todo.py:1532 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:90
+#: ../textw/upgrade_text.py:96 ../textw/upgrade_text.py:150 ../todo.py:1206
+#: ../todo.py:1219 ../todo.py:1539 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Feil"
 
@@ -86,54 +87,54 @@ msgstr ""
 "maskinen på nytt før du fortsetter. Sett inn din oppstartsdiskett for Red "
 "Hat Linux nå og trykk \"Ok\" for å starte systemet på nytt.\n"
 
-#: ../fstab.py:492
+#: ../fstab.py:494
 msgid "Swap Space"
 msgstr "Swap-område"
 
-#: ../fstab.py:493
+#: ../fstab.py:495
 msgid "Creating swap space..."
 msgstr "Lager swap-område..."
 
-#: ../fstab.py:507 ../fstab.py:771 ../fstab.py:1230
+#: ../fstab.py:513 ../fstab.py:776 ../fstab.py:1235
 msgid "Formatting"
 msgstr "Formaterer"
 
-#: ../fstab.py:508
+#: ../fstab.py:514
 msgid "Formatting swap space..."
 msgstr "Formaterer swap-område..."
 
-#: ../fstab.py:517
+#: ../fstab.py:523
 msgid "Error creating swap on device "
 msgstr "Feil under oppretting av swap-område på enhet "
 
-#: ../fstab.py:619
+#: ../fstab.py:624
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr "Feil ved avmontering av %s: %s"
 
-#: ../fstab.py:672 ../todo.py:740
+#: ../fstab.py:677 ../todo.py:740
 msgid "Creating"
 msgstr "Oppretter"
 
-#: ../fstab.py:672
+#: ../fstab.py:677
 msgid "Creating RAID devices..."
 msgstr "Oppretter RAID-enheter..."
 
-#: ../fstab.py:713
+#: ../fstab.py:718
 msgid "Loopback"
 msgstr "Loopback"
 
-#: ../fstab.py:714
+#: ../fstab.py:719
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "Oppretter loopback-filsystem på enhet /dev/%s..."
 
-#: ../fstab.py:772 ../fstab.py:1231
+#: ../fstab.py:777 ../fstab.py:1236
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formaterer %s-filsystem..."
 
-#: ../fstab.py:830
+#: ../fstab.py:835
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -148,7 +149,7 @@ msgstr ""
 "\n"
 "Trykk OK for å starte systemet på nytt."
 
-#: ../gui.py:176
+#: ../gui.py:178
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report at "
@@ -158,7 +159,7 @@ msgstr ""
 "hele teksten fra unntaksmeldingen og send inn en feilrapport på "
 "http://bugzilla.redhat.com/bugzilla"
 
-#: ../gui.py:325 ../text.py:873
+#: ../gui.py:327 ../text.py:873
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -166,17 +167,17 @@ msgstr ""
 "Sett inn en diskett: Alt innhold på disketten vil slettes, så vær forsiktig "
 "når du velger diskett."
 
-#: ../gui.py:417 ../gui.py:785
+#: ../gui.py:419 ../gui.py:788
 msgid "Next"
 msgstr "Neste"
 
-#: ../gui.py:418 ../gui.py:784 ../libfdisk/newtfsedit.c:1477
+#: ../gui.py:420 ../gui.py:787 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
 #: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
 #: ../loader/loader.c:1021 ../loader/loader.c:1113 ../loader/loader.c:1516
 #: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
-#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:123 ../text.py:61
+#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61
 #: ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228
 #: ../text.py:231 ../text.py:311 ../text.py:354 ../text.py:357 ../text.py:414
 #: ../text.py:417 ../text.py:443 ../text.py:447 ../text.py:456 ../text.py:529
@@ -194,68 +195,68 @@ msgstr "Neste"
 #: ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342
 #: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:52
-#: ../textw/upgrade_text.py:148 ../textw/upgrade_text.py:166
-#: ../textw/upgrade_text.py:169 ../textw/upgrade_text.py:183
-#: ../textw/upgrade_text.py:184 ../textw/upgrade_text.py:199
-#: ../textw/upgrade_text.py:202 ../textw/userauth_text.py:30
+#: ../textw/upgrade_text.py:153 ../textw/upgrade_text.py:171
+#: ../textw/upgrade_text.py:174 ../textw/upgrade_text.py:188
+#: ../textw/upgrade_text.py:189 ../textw/upgrade_text.py:204
+#: ../textw/upgrade_text.py:207 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:165 ../textw/userauth_text.py:199
 #: ../textw/userauth_text.py:297
 msgid "Back"
 msgstr "Tilbake"
 
-#: ../gui.py:419 ../gui.py:538 ../gui.py:787
+#: ../gui.py:421 ../gui.py:540 ../gui.py:790
 msgid "Release Notes"
 msgstr "Kommentarer til denne utgaven"
 
-#: ../gui.py:420 ../gui.py:790
+#: ../gui.py:422 ../gui.py:793
 msgid "Show Help"
 msgstr "Vis hjelp"
 
-#: ../gui.py:421 ../gui.py:789
+#: ../gui.py:423 ../gui.py:792
 msgid "Hide Help"
 msgstr "Skjul hjelp"
 
-#: ../gui.py:422 ../gui.py:788
+#: ../gui.py:424 ../gui.py:791
 msgid "Finish"
 msgstr "Fullfør"
 
-#: ../gui.py:425 ../gui.py:820
+#: ../gui.py:427 ../gui.py:823
 msgid "Online Help"
 msgstr "Online hjelp"
 
-#: ../gui.py:426 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../gui.py:428 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
 #: ../text.py:69 ../text.py:968
 msgid "Language Selection"
 msgstr "Valg av språk"
 
-#: ../gui.py:533 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
+#: ../gui.py:535 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
 #: ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr "Lukk"
 
-#: ../gui.py:569
+#: ../gui.py:571
 msgid "Unable to load file!"
 msgstr "Kan ikke lese filen!"
 
-#: ../gui.py:708
+#: ../gui.py:711
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux installasjon"
 
-#: ../gui.py:712
+#: ../gui.py:715
 msgid "Red Hat Linux Install Shell"
 msgstr "Red Hat Linux installasjonsskall"
 
-#: ../gui.py:723
+#: ../gui.py:726
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Red Hat Linux installasjon på %s"
 
-#: ../gui.py:724
+#: ../gui.py:727
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Red Hat Linux installasjonsskall på %s"
 
-#: ../gui.py:869
+#: ../gui.py:872
 msgid "Install Window"
 msgstr "Installasjonsvindu"
 
@@ -311,13 +312,13 @@ msgstr "Denne CD-ROMen kunne ikke monteres."
 #: ../loader/loader.c:966 ../loader/loader.c:1021 ../loader/loader.c:1113
 #: ../loader/loader.c:1191 ../loader/loader.c:1196 ../loader/loader.c:1238
 #: ../loader/loader.c:1247 ../loader/loader.c:1278 ../loader/loader.c:1516
-#: ../loader/loader.c:2129 ../loader/loader.c:2159 ../loader/loader.c:2222
-#: ../loader/loader.c:2237 ../loader/loader.c:2449 ../loader/net.c:185
+#: ../loader/loader.c:2132 ../loader/loader.c:2162 ../loader/loader.c:2225
+#: ../loader/loader.c:2240 ../loader/loader.c:2452 ../loader/net.c:185
 #: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:678
 #: ../loader/net.c:711 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
-#: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:19 ../rescue.py:91
-#: ../rescue.py:109 ../rescue.py:117 ../text.py:135 ../text.py:174
+#: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:20 ../rescue.py:92
+#: ../rescue.py:110 ../rescue.py:126 ../text.py:135 ../text.py:174
 #: ../text.py:228 ../text.py:311 ../text.py:354 ../text.py:372 ../text.py:414
 #: ../text.py:443 ../text.py:529 ../text.py:541 ../text.py:570 ../text.py:591
 #: ../text.py:761 ../text.py:815 ../text.py:841 ../text.py:867 ../text.py:875
@@ -335,7 +336,7 @@ msgstr "Denne CD-ROMen kunne ikke monteres."
 #: ../textw/partitioning_text.py:361 ../textw/partitioning_text.py:368
 #: ../textw/silo_text.py:25 ../textw/silo_text.py:99
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:51
-#: ../textw/upgrade_text.py:166 ../textw/userauth_text.py:30
+#: ../textw/upgrade_text.py:171 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:44 ../textw/userauth_text.py:49
 #: ../textw/userauth_text.py:84 ../textw/userauth_text.py:99
 #: ../textw/userauth_text.py:105 ../textw/userauth_text.py:111
@@ -345,32 +346,32 @@ msgstr "Denne CD-ROMen kunne ikke monteres."
 msgid "OK"
 msgstr "OK"
 
-#: ../rescue.py:38
+#: ../rescue.py:39
 msgid "WARNING: no valid block devices were found.\n"
 msgstr "ADVARSEL: ingen gyldige blokkenheter ble funnet.\n"
 
-#: ../rescue.py:40
+#: ../rescue.py:41
 msgid "ERROR: unknown error encountered reading partition tables.\n"
 msgstr "FEIL: ukjent feil under lesing av partisjonstabellene.\n"
 
-#: ../rescue.py:88
+#: ../rescue.py:89
 msgid "System to Rescue"
 msgstr "System som skal reddes"
 
-#: ../rescue.py:89 ../textw/upgrade_text.py:164
+#: ../rescue.py:90 ../textw/upgrade_text.py:169
 msgid "What partition holds the root partition of your installation?"
 msgstr "Hvilken partisjon inneholder rotpartisjonen til din installasjon?"
 
-#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:91
-#: ../rescue.py:95 ../textw/upgrade_text.py:119
+#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:92
+#: ../rescue.py:96 ../textw/upgrade_text.py:124
 msgid "Exit"
 msgstr "Avslutt"
 
-#: ../rescue.py:105 ../rescue.py:112
+#: ../rescue.py:106 ../rescue.py:121
 msgid "Rescue"
 msgstr "Redning"
 
-#: ../rescue.py:106
+#: ../rescue.py:107
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -382,7 +383,7 @@ msgstr ""
 "Trykk <Enter> for å gå til skallet. Systemet vil starte på nytt når du "
 "avslutter skallet."
 
-#: ../rescue.py:113
+#: ../rescue.py:122
 msgid ""
 "An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under /mnt/sysimage.\n"
@@ -396,11 +397,11 @@ msgstr ""
 "Trykk <linjeskift> for å gå til et skall. Systemet vil starte på nytt når du "
 "avslutter skallet."
 
-#: ../rescue.py:119
+#: ../rescue.py:128
 msgid "Rescue Mode"
 msgstr "Redningsmodus"
 
-#: ../rescue.py:120
+#: ../rescue.py:129
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -408,12 +409,12 @@ msgstr ""
 "Du har ingen Linux-partisjoner. Trykk linjeskift for å gå til et skall. "
 "Systemet vil starte på nytt når du avslutter skallet."
 
-#: ../rescue.py:132
+#: ../rescue.py:141
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr "Systemet er montert under katalogen \"/mnt/sysimage\"."
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:921 ../libfdisk/fsedit.c:928
+#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:921 ../libfdisk/fsedit.c:928
 #: ../libfdisk/fsedit.c:935 ../libfdisk/fsedit.c:944 ../libfdisk/fsedit.c:971
 #: ../libfdisk/fsedit.c:984 ../libfdisk/fsedit.c:994 ../libfdisk/fsedit.c:1023
 #: ../libfdisk/fsedit.c:1033 ../libfdisk/fsedit.c:1050
@@ -443,8 +444,8 @@ msgstr "Systemet er montert under katalogen \"/mnt/sysimage\"."
 #: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
 #: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:421
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
-#: ../textw/silo_text.py:205 ../textw/upgrade_text.py:119
-#: ../textw/upgrade_text.py:183
+#: ../textw/silo_text.py:205 ../textw/upgrade_text.py:124
+#: ../textw/upgrade_text.py:188
 msgid "Ok"
 msgstr "Ok"
 
@@ -549,7 +550,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
-#: ../loader/devices.c:532 ../loader/loader.c:2222 ../loader/pcmcia.c:104
+#: ../loader/devices.c:532 ../loader/loader.c:2225 ../loader/pcmcia.c:104
 #: ../text.py:372 ../text.py:375 ../text.py:761 ../text.py:762 ../text.py:875
 #: ../text.py:877 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
@@ -817,8 +818,8 @@ msgstr "LILO-konfigurasjon"
 msgid "Automatic Partition"
 msgstr "Automatisk partisjonering"
 
-#: ../iw/lilo_gui.py:230 ../iw/lilo_gui.py:393 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:99 ../text.py:996
+#: ../iw/lilo_gui.py:225 ../iw/lilo_gui.py:388 ../iw/silo_gui.py:127
+#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:129 ../text.py:996
 #: ../text.py:1000 ../textw/upgrade_text.py:40
 msgid "Partition"
 msgstr "Partisjon"
@@ -932,12 +933,17 @@ msgstr "Sjekk av avhengigheter"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Sjekker avhengigheter i pakker valgt for installasjon..."
 
-#: ../todo.py:1067 ../todo.py:1111 ../todo.py:1117 ../todo.py:1134
-#: ../todo.py:1262
+#: ../todo.py:1071 ../todo.py:1115 ../todo.py:1121 ../todo.py:1138
+#: ../todo.py:1269
 msgid "no suggestion"
 msgstr "ingen forslag"
 
-#: ../todo.py:1152
+#: ../todo.py:1155 ../upgrade.py:99
+#, fuzzy
+msgid "Dirty Filesystems"
+msgstr "Størrelse på rot-filsystem"
+
+#: ../todo.py:1156
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -946,7 +952,7 @@ msgstr ""
 "Linux-system kan ikke monteres. Vennligst rett opp dette problemet og forsøk "
 "å oppgradere igjen."
 
-#: ../todo.py:1167
+#: ../todo.py:1171
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -958,31 +964,31 @@ msgstr ""
 "oppgraderingen på nytt.\n"
 "\n"
 
-#: ../todo.py:1184
+#: ../todo.py:1191
 msgid "Finding"
 msgstr "Finner"
 
-#: ../todo.py:1185
+#: ../todo.py:1192
 msgid "Finding packages to upgrade..."
 msgstr "Finner pakker som skal oppgraderes..."
 
-#: ../todo.py:1200
+#: ../todo.py:1207
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Gjenoppbygging av RPM-databasen feilet. Ikke mer diskplass?"
 
-#: ../todo.py:1213
+#: ../todo.py:1220
 msgid "An error occured when finding the packages to upgrade."
 msgstr "En feil oppsto under søk etter pakker som skal oppgraderes."
 
-#: ../todo.py:1498
+#: ../todo.py:1505
 msgid "Processing"
 msgstr "Arbeider"
 
-#: ../todo.py:1499
+#: ../todo.py:1506
 msgid "Preparing to install..."
 msgstr "Forbereder installasjon..."
 
-#: ../todo.py:1533
+#: ../todo.py:1540
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -991,17 +997,17 @@ msgstr ""
 "Filen %s kan ikke åpnes. Dette pga. en manglende fil, en dårlig pakke, eller "
 "et dårlig media. Trykk <Enter> for å prøve igjen."
 
-#: ../todo.py:1785
+#: ../todo.py:1795
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Oppgraderer %s.\n"
 
-#: ../todo.py:1787
+#: ../todo.py:1797
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerer %s.\n"
 
-#: ../todo.py:1832
+#: ../todo.py:1842
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1011,16 +1017,16 @@ msgstr ""
 "valgt. Du må ha mer plass på følgende filsystemer:\n"
 "\n"
 
-#: ../iw/upgrade_swap_gui.py:99 ../libfdisk/gnomefsedit.c:3132
-#: ../textw/upgrade_text.py:39 ../todo.py:1835 ../todo.py:1853
+#: ../iw/upgrade_swap_gui.py:129 ../libfdisk/gnomefsedit.c:3132
+#: ../textw/upgrade_text.py:39 ../todo.py:1845 ../todo.py:1863
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../todo.py:1835
+#: ../todo.py:1845
 msgid "Space Needed"
 msgstr "Nødvendig plass"
 
-#: ../todo.py:1850
+#: ../todo.py:1860
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1029,23 +1035,23 @@ msgstr ""
 "Det ser ikke ut til at du har nok filnoder til å installere pakkene du har "
 "valgt. Du må ha flere filnoder på følgende filsystemer:\n"
 
-#: ../todo.py:1853
+#: ../todo.py:1863
 msgid "Nodes Needed"
 msgstr "Manglende noder"
 
-#: ../todo.py:1859
+#: ../todo.py:1869
 msgid "Disk Space"
 msgstr "Diskplass"
 
-#: ../todo.py:1894
+#: ../todo.py:1904
 msgid "Post Install"
 msgstr "Etter-installasjon"
 
-#: ../todo.py:1895
+#: ../todo.py:1905
 msgid "Performing post install configuration..."
 msgstr "Utfører etter-installasjons konfigurasjon..."
 
-#: ../todo.py:2033
+#: ../todo.py:2043
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1063,7 +1069,7 @@ msgstr ""
 "Den rapporterte feilen var:\n"
 "\n"
 
-#: ../todo.py:2039
+#: ../todo.py:2049
 msgid "Bootloader Errors"
 msgstr "Bootloader-feil"
 
@@ -1361,14 +1367,14 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Uløste avhengigheter"
 
-#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:524
+#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:544
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
 #, c-format
 msgid "Total install size: %s"
 msgstr "Total størrelse for installasjon: %s"
 
-#: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:380
-#: ../iw/progress_gui.py:198 ../textw/packages_text.py:312
+#: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:400
+#: ../iw/progress_gui.py:205 ../textw/packages_text.py:312
 msgid "Package"
 msgstr "Pakke"
 
@@ -1392,7 +1398,7 @@ msgstr "Ignorér pakkeavhengigheter"
 msgid "Upgrade Examine"
 msgstr "Sjekk oppgradering"
 
-#: ../iw/examine_gui.py:37
+#: ../iw/examine_gui.py:45
 msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
@@ -1400,11 +1406,16 @@ msgstr ""
 "Du har ingen Linux-partisjoner.\n"
 "Du kan ikke oppgradere dette systemet!"
 
-#: ../iw/examine_gui.py:46
+#: ../iw/examine_gui.py:54
 msgid "Please select the device containing the root filesystem: "
 msgstr "Vennligst velg enheten som inneholder rotfilsystemet: "
 
-#: ../iw/examine_gui.py:74
+#: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:187
+#, fuzzy
+msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+msgstr "Leter etter Red Hat Linux-installasjoner..."
+
+#: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
 msgstr "Velg pakker som skal oppgraderes"
 
@@ -1472,15 +1483,15 @@ msgstr "Velg partisjoner som skal formateres"
 msgid "Check for bad blocks while formatting"
 msgstr "Sjekk etter dårlige blokker under formatering"
 
-#: ../iw/installpath_gui.py:98
+#: ../iw/installpath_gui.py:99
 msgid "Install Type"
 msgstr "Type installasjon"
 
-#: ../iw/installpath_gui.py:180
+#: ../iw/installpath_gui.py:182
 msgid "Install"
 msgstr "Installér"
 
-#: ../iw/installpath_gui.py:182
+#: ../iw/installpath_gui.py:184
 msgid "Upgrade"
 msgstr "Oppgradér"
 
@@ -1536,92 +1547,73 @@ msgstr "Velg alle"
 msgid "Select as default"
 msgstr "Velg som standard"
 
-#: ../iw/lilo_gui.py:32
+#: ../iw/lilo_gui.py:33
 msgid "Lilo Configuration"
 msgstr "LILO-konfigurasjon"
 
-#: ../iw/lilo_gui.py:50 ../textw/upgrade_text.py:111
-msgid "Proceed with upgrade?"
-msgstr "Gå videre med oppgradering?"
-
-#: ../iw/lilo_gui.py:51 ../textw/upgrade_text.py:112
-msgid ""
-"The filesystems of the Linux installation you have chosen to upgrade have "
-"already been mounted. You cannot go back past this point. \n"
-"\n"
-msgstr ""
-"Filsystememe på Linux-systemet du har valgt å oppgradere er allerede "
-"montert.\n"
-"Du kan ikke gå lengre tilbake enn dette.\n"
-"\n"
-
-#: ../iw/lilo_gui.py:55
-msgid "Would you like to continue with the upgrade?"
-msgstr "Vil du fortsette med oppgradering?"
-
-#: ../iw/lilo_gui.py:64
+#: ../iw/lilo_gui.py:59 ../iw/package_gui.py:61 ../iw/upgrade_swap_gui.py:34
 msgid "Aborting upgrade"
 msgstr "Avbryter oppgradering"
 
-#: ../iw/lilo_gui.py:233 ../iw/lilo_gui.py:394 ../iw/silo_gui.py:132
+#: ../iw/lilo_gui.py:228 ../iw/lilo_gui.py:389 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
 msgstr "Type"
 
-#: ../iw/lilo_gui.py:282
+#: ../iw/lilo_gui.py:277
 msgid "Install LILO boot record on:"
 msgstr "Installér oppstartslaster på:"
 
-#: ../iw/lilo_gui.py:289 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87
+#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87
 #: ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../iw/lilo_gui.py:293 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88
+#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88
 #: ../textw/silo_text.py:65
 msgid "First sector of boot partition"
 msgstr "Første sektor på oppstartspartisjonen"
 
-#: ../iw/lilo_gui.py:297 ../textw/lilo_text.py:27
+#: ../iw/lilo_gui.py:292 ../textw/lilo_text.py:27
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Bruk lineær modus (nødvendig for noen SCSI-disker)"
 
-#: ../iw/lilo_gui.py:308 ../iw/silo_gui.py:208
+#: ../iw/lilo_gui.py:303 ../iw/silo_gui.py:208
 msgid "Kernel parameters"
 msgstr "Parametere for kjerne"
 
-#: ../iw/lilo_gui.py:325 ../iw/silo_gui.py:226
+#: ../iw/lilo_gui.py:320 ../iw/silo_gui.py:226
 msgid "Create boot disk"
 msgstr "Lag oppstartsdiskett"
 
-#: ../iw/lilo_gui.py:339
+#: ../iw/lilo_gui.py:334
 msgid "Install LILO"
 msgstr "Installér LILO"
 
-#: ../iw/lilo_gui.py:366 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
+#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
 msgid "Default"
 msgstr "Standard"
 
-#: ../iw/lilo_gui.py:366 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
+#: ../iw/lilo_gui.py:361 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
 #: ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:118
 #: ../textw/lilo_text.py:199 ../textw/mouse_text.py:25
 #: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
 msgstr "Enhet"
 
-#: ../iw/lilo_gui.py:366 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
+#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "Partisjonstype"
 
-#: ../iw/lilo_gui.py:366 ../iw/lilo_gui.py:405 ../iw/silo_gui.py:257
+#: ../iw/lilo_gui.py:361 ../iw/lilo_gui.py:400 ../iw/silo_gui.py:257
 #: ../iw/silo_gui.py:292 ../textw/lilo_text.py:119 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
 msgstr "Oppstartsnavn"
 
-#: ../iw/lilo_gui.py:401 ../iw/silo_gui.py:288
+#: ../iw/lilo_gui.py:396 ../iw/silo_gui.py:288
 msgid "Default boot image"
 msgstr "Sett standard bootfil"
 
@@ -1698,40 +1690,59 @@ msgstr "Sekundær DNS"
 msgid "Ternary DNS"
 msgstr "Tertiær DNS"
 
-#: ../iw/package_gui.py:25
+#: ../iw/package_gui.py:22 ../textw/upgrade_text.py:116
+msgid "Proceed with upgrade?"
+msgstr "Gå videre med oppgradering?"
+
+#: ../iw/package_gui.py:23 ../textw/upgrade_text.py:117
+msgid ""
+"The filesystems of the Linux installation you have chosen to upgrade have "
+"already been mounted. You cannot go back past this point. \n"
+"\n"
+msgstr ""
+"Filsystememe på Linux-systemet du har valgt å oppgradere er allerede "
+"montert.\n"
+"Du kan ikke gå lengre tilbake enn dette.\n"
+"\n"
+
+#: ../iw/package_gui.py:27
+msgid "Would you like to continue with the upgrade?"
+msgstr "Vil du fortsette med oppgradering?"
+
+#: ../iw/package_gui.py:38
 msgid "Individual Package Selection"
 msgstr "Individuelt pakkevalg"
 
-#: ../iw/package_gui.py:302
+#: ../iw/package_gui.py:322
 msgid "Total install size: "
 msgstr "Total størrelse for installasjon: "
 
-#: ../iw/package_gui.py:382
+#: ../iw/package_gui.py:402
 msgid "Size (MB)"
 msgstr "Størrelse (MB)"
 
-#: ../iw/package_gui.py:413
+#: ../iw/package_gui.py:433
 msgid "Total size: "
 msgstr "Total størrelse: "
 
-#: ../iw/package_gui.py:416
+#: ../iw/package_gui.py:436
 msgid "Select all in group"
 msgstr "Velg alle i gruppen"
 
-#: ../iw/package_gui.py:420
+#: ../iw/package_gui.py:440
 msgid "Unselect all in group"
 msgstr "Velg bort alle i gruppen"
 
-#: ../iw/package_gui.py:455
+#: ../iw/package_gui.py:475
 msgid "File not found"
 msgstr "Fil ikke funnet"
 
-#: ../iw/package_gui.py:498 ../textw/packages_text.py:60
+#: ../iw/package_gui.py:518 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
 msgid "Package Group Selection"
 msgstr "Valg av pakkegruppe"
 
-#: ../iw/package_gui.py:558
+#: ../iw/package_gui.py:578
 #, c-format
 msgid ""
 "The following error occurred while retreiving hdlist file:\n"
@@ -1746,7 +1757,7 @@ msgstr ""
 "\n"
 "Installasjonen vil avsluttes nå."
 
-#: ../iw/package_gui.py:563
+#: ../iw/package_gui.py:583
 msgid ""
 "An error has occurred while retreiving the hdlist file.  The installation "
 "media or image is probably corrupt.  Installer will exit now."
@@ -1754,56 +1765,56 @@ msgstr ""
 "En feil har oppstått under henting av hdlist-filen. Installasjonsmediet "
 "eller bildet er sannsynligvis korrupt. Installasjonen vil avsluttes nå."
 
-#: ../iw/package_gui.py:629 ../textw/packages_text.py:54
+#: ../iw/package_gui.py:649 ../textw/packages_text.py:54
 msgid "Select individual packages"
 msgstr "Velg individuelle pakker"
 
-#: ../iw/progress_gui.py:51
+#: ../iw/progress_gui.py:55
 msgid "Installing Packages"
 msgstr "Installerer pakker"
 
-#: ../iw/progress_gui.py:140
+#: ../iw/progress_gui.py:147
 #, c-format
 msgid "%s KBytes"
 msgstr "%s kBytes"
 
-#: ../iw/progress_gui.py:199 ../iw/progress_gui.py:252
+#: ../iw/progress_gui.py:206 ../iw/progress_gui.py:259
 msgid "Size"
 msgstr "Størrelse"
 
-#: ../iw/progress_gui.py:200
+#: ../iw/progress_gui.py:207
 msgid "Summary"
 msgstr "Sammendrag"
 
-#: ../iw/progress_gui.py:230
+#: ../iw/progress_gui.py:237
 msgid "Package Progress: "
 msgstr "Pakke for pakker: "
 
-#: ../iw/progress_gui.py:235
+#: ../iw/progress_gui.py:242
 msgid "Total Progress:   "
 msgstr "Fremgang totalt:  "
 
-#: ../iw/progress_gui.py:252
+#: ../iw/progress_gui.py:259
 msgid "Status"
 msgstr "Status"
 
-#: ../iw/progress_gui.py:252
+#: ../iw/progress_gui.py:259
 msgid "Packages"
 msgstr "Pakker"
 
-#: ../iw/progress_gui.py:252
+#: ../iw/progress_gui.py:259
 msgid "Time"
 msgstr "Tid"
 
-#: ../iw/progress_gui.py:262
+#: ../iw/progress_gui.py:269
 msgid "Total"
 msgstr "Total"
 
-#: ../iw/progress_gui.py:263
+#: ../iw/progress_gui.py:270
 msgid "Completed"
 msgstr "Ferdig"
 
-#: ../iw/progress_gui.py:264
+#: ../iw/progress_gui.py:271
 msgid "Remaining"
 msgstr "Gjenstår"
 
@@ -1850,7 +1861,7 @@ msgstr ""
 "Trykk OK for å fortsette, eller avbryt for å gå tilbake og plassere "
 "oppstartspartisjonen et annet sted."
 
-#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
+#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:486
 #: ../textw/partitioning_text.py:412
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
@@ -1883,28 +1894,28 @@ msgstr ""
 "rot-filsystemet skal være, og hvor stort swap-område ønsker du? Totalt må "
 "dette være mindre enn %d megabytes."
 
-#: ../iw/rootpartition_gui.py:248
+#: ../iw/rootpartition_gui.py:249
 msgid "Root filesystem size:"
 msgstr "Størrelse på rot-filsystem:"
 
-#: ../iw/rootpartition_gui.py:253
+#: ../iw/rootpartition_gui.py:254
 msgid "Swap space size:"
 msgstr "Størrelse på swap-område:"
 
-#: ../iw/rootpartition_gui.py:324 ../textw/partitioning_text.py:149
+#: ../iw/rootpartition_gui.py:325 ../textw/partitioning_text.py:149
 msgid "Automatic Partitioning"
 msgstr "Automatisk partisjonering"
 
-#: ../iw/rootpartition_gui.py:375
+#: ../iw/rootpartition_gui.py:376
 msgid "Disk Partitioning"
 msgstr "Diskpartisjonering"
 
-#: ../iw/rootpartition_gui.py:377
-#, c-format
+#: ../iw/rootpartition_gui.py:378
+#, fuzzy, c-format
 msgid ""
 "Please select the type of disk partitioning you would like to use.\n"
 "\n"
-"Automatic partitioning will erase %s\n"
+"%s\n"
 "\n"
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
@@ -1914,11 +1925,11 @@ msgstr ""
 "\n"
 "Manuell partisjonering lar deg opprette partisjonene for hånd."
 
-#: ../iw/rootpartition_gui.py:383
+#: ../iw/rootpartition_gui.py:384
 msgid "Automatic Partitioning Failed"
 msgstr "Automatisk partisjonering feilet"
 
-#: ../iw/rootpartition_gui.py:384
+#: ../iw/rootpartition_gui.py:385
 msgid ""
 "\n"
 "There is not sufficient disk space in order to automatically partition your "
@@ -1935,11 +1946,11 @@ msgstr ""
 "Vennligst velg hvilket verktøy du vil bruke til å partisjonere ditt system "
 "for Red Hat Linux."
 
-#: ../iw/rootpartition_gui.py:391
+#: ../iw/rootpartition_gui.py:392
 msgid "Manual Partitioning"
 msgstr "Manuell partisjonering"
 
-#: ../iw/rootpartition_gui.py:392
+#: ../iw/rootpartition_gui.py:393
 msgid ""
 "\n"
 "Please choose the tool you would like to use to partition your system for "
@@ -1949,23 +1960,23 @@ msgstr ""
 "Vennligst velg hvilket verktøy du vil bruke for å partisjonere ditt system "
 "for Red Hat Linux."
 
-#: ../iw/rootpartition_gui.py:406
+#: ../iw/rootpartition_gui.py:407
 msgid "Automatically partition and REMOVE DATA"
 msgstr "Partisjoner automatisk og FJERN DATA"
 
-#: ../iw/rootpartition_gui.py:413
+#: ../iw/rootpartition_gui.py:414
 msgid "Manually partition with Disk Druid"
 msgstr "Partisjoner manuelt med Disk Druid"
 
-#: ../iw/rootpartition_gui.py:425
+#: ../iw/rootpartition_gui.py:426
 msgid "Manually partition with fdisk [experts only]"
 msgstr "Partisjoner manuelt med fdisk [kun eksperter]"
 
-#: ../iw/rootpartition_gui.py:448
+#: ../iw/rootpartition_gui.py:449
 msgid "Boot Partition Location Warning"
 msgstr "Advarsel om plassering av oppstartspartisjon"
 
-#: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:392
+#: ../iw/rootpartition_gui.py:473 ../textw/partitioning_text.py:392
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1991,7 +2002,7 @@ msgstr ""
 "\n"
 "Er du sikker på at du vil fortsette?"
 
-#: ../iw/rootpartition_gui.py:503 ../iw/welcome_gui.py:89
+#: ../iw/rootpartition_gui.py:504 ../iw/welcome_gui.py:89
 #: ../libfdisk/fsedit.c:952 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
@@ -2002,11 +2013,11 @@ msgstr ""
 #: ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:845
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220
-#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:199
+#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
 msgid "Yes"
 msgstr "Ja"
 
-#: ../iw/rootpartition_gui.py:505 ../iw/welcome_gui.py:92
+#: ../iw/rootpartition_gui.py:506 ../iw/welcome_gui.py:92
 #: ../libfdisk/fsedit.c:952 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
@@ -2016,8 +2027,8 @@ msgstr "Ja"
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:231 ../loader/net.c:845 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
-#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:199
-#: ../textw/upgrade_text.py:205
+#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
+#: ../textw/upgrade_text.py:210
 msgid "No"
 msgstr "Nei"
 
@@ -2065,11 +2076,11 @@ msgstr "Plassering"
 msgid "UTC Offset"
 msgstr "Forskyvning fra UTC"
 
-#: ../iw/upgrade_swap_gui.py:17
+#: ../iw/upgrade_swap_gui.py:18
 msgid "Upgrade Swap Partition"
 msgstr "Swap for oppgradering"
 
-#: ../iw/upgrade_swap_gui.py:66 ../textw/upgrade_text.py:22
+#: ../iw/upgrade_swap_gui.py:101 ../textw/upgrade_text.py:22
 #, c-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -2082,19 +2093,19 @@ msgstr ""
 "konfigurert,\n"
 "men du kan opprette mer swap på et av dine filsystemer nå."
 
-#: ../iw/upgrade_swap_gui.py:80
+#: ../iw/upgrade_swap_gui.py:115
 msgid "I want to create a swap file"
 msgstr "Jeg ønsker å lage en swapfil."
 
-#: ../iw/upgrade_swap_gui.py:94
+#: ../iw/upgrade_swap_gui.py:124
 msgid "Select the partition to put the swap file on:"
 msgstr "Velg partisjonen å legge swapfilen på:"
 
-#: ../iw/upgrade_swap_gui.py:99
+#: ../iw/upgrade_swap_gui.py:129
 msgid "Free Space (MB)"
 msgstr "Fri diskplass (Mb)"
 
-#: ../iw/upgrade_swap_gui.py:114
+#: ../iw/upgrade_swap_gui.py:144
 #, c-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
@@ -2102,15 +2113,15 @@ msgid ""
 msgstr ""
 "Det anbefales at swapfilen er minst %d MB. Oppgi en størelse for swapfilen:"
 
-#: ../iw/upgrade_swap_gui.py:127 ../textw/upgrade_text.py:58
+#: ../iw/upgrade_swap_gui.py:157 ../textw/upgrade_text.py:58
 msgid "Swap file size (MB):"
 msgstr "Størrelse på swapfil(MB):"
 
-#: ../iw/upgrade_swap_gui.py:135
+#: ../iw/upgrade_swap_gui.py:165
 msgid "I don't want to create a swap file"
 msgstr "Jeg ønsker ikke å lage en swapfil."
 
-#: ../iw/upgrade_swap_gui.py:145
+#: ../iw/upgrade_swap_gui.py:175
 msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
@@ -2121,11 +2132,12 @@ msgstr ""
 "sikker\n"
 "på at du vil fortsette?"
 
-#: ../iw/upgrade_swap_gui.py:154
-msgid "The swap file must be between 0 and 2000 MB in size."
+#: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:101
+#, fuzzy
+msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Swapfil-størrelsen må være mellom 0 og 2000 MB."
 
-#: ../iw/upgrade_swap_gui.py:161 ../textw/upgrade_text.py:96
+#: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:97
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr "Det er ikke nok plass på enheten du oppga for swapområdet."
@@ -2570,9 +2582,9 @@ msgid "Done"
 msgstr "Ferdig"
 
 #: ../textw/partitioning_text.py:150
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Automatic partitioning will erase %s\n"
+"%s\n"
 "\n"
 "If you don't want to do this, you can continue with this install by "
 "partitioning manually, or you can go back and perform a fully customized "
@@ -2677,11 +2689,11 @@ msgstr "Anbefalt størrelse(MB):"
 msgid "Add Swap"
 msgstr "Legg til swap"
 
-#: ../textw/upgrade_text.py:90
+#: ../textw/upgrade_text.py:91
 msgid "The value you entered is not a valid number."
 msgstr "Størrelsen du oppgav er ikke et gyldig tall."
 
-#: ../textw/upgrade_text.py:116
+#: ../textw/upgrade_text.py:121
 msgid ""
 "If you would like to exit the upgrade select Exit, or choose Ok to continue "
 "with the upgrade."
@@ -2689,27 +2701,23 @@ msgstr ""
 "Hvis du vil avslutte oppgraderingen, velg \"Avslutt\". Vil du fortsette, "
 "velg \"Ok\"."
 
-#: ../textw/upgrade_text.py:146
+#: ../textw/upgrade_text.py:151
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Du har ingen Linux-partisjoner. Du kan ikke oppgradere dette systemet!"
 
-#: ../textw/upgrade_text.py:163
+#: ../textw/upgrade_text.py:168
 msgid "System to Upgrade"
 msgstr "System som skal oppgraderes"
 
-#: ../textw/upgrade_text.py:181
+#: ../textw/upgrade_text.py:186
 msgid "Upgrade Partition"
 msgstr "Oppgradér partisjon"
 
-#: ../textw/upgrade_text.py:182
-msgid "Going to upgrade partition /dev/"
-msgstr "Skal oppgradere \"/dev\"-partisjonen."
-
-#: ../textw/upgrade_text.py:191
+#: ../textw/upgrade_text.py:196
 msgid "Customize Packages to Upgrade"
 msgstr "Tilpass pakker som skal oppgraderes"
 
-#: ../textw/upgrade_text.py:192
+#: ../textw/upgrade_text.py:197
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -2869,7 +2877,10 @@ msgid "Custom System"
 msgstr "Spesialtilpasset system"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-msgid "any preexisting Linux installations on your system."
+#, fuzzy
+msgid ""
+"Automatic partitioning will erase any preexisting Linux installations on "
+"your system."
 msgstr "alle eksisterende Linux-installasjoner på ditt system."
 
 #: ../installclasses/laptop.py:7
@@ -2881,7 +2892,10 @@ msgid "Server System"
 msgstr "Tjener"
 
 #: ../installclasses/server.py:38
-msgid "ALL DATA on your hard drive to make room for your Linux installation."
+#, fuzzy
+msgid ""
+"Automatic partitioning will erase ALL DATA on your hard drive to make room "
+"for your Linux installation."
 msgstr "ALLE DATA på harddisken for å skaffe plass til ditt Linux-system."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
@@ -3914,7 +3928,7 @@ msgstr "Laster %s-ramdisk..."
 msgid "Error loading ramdisk."
 msgstr "Feil under lasting av ramdisk."
 
-#: ../loader/loader.c:585 ../loader/loader.c:2160
+#: ../loader/loader.c:585 ../loader/loader.c:2163
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Kunne ikke lese katalog %s: %s"
@@ -4014,19 +4028,19 @@ msgstr "Hvilken type media inneholder redningsbildet?"
 msgid "What type of media contains the packages to be installed?"
 msgstr "Hvilken type media inneholder pakkene som skal installeres?"
 
-#: ../loader/loader.c:2130
+#: ../loader/loader.c:2133
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Kan ikke finne ks.cfg på oppstartsdisketten."
 
-#: ../loader/loader.c:2222
+#: ../loader/loader.c:2225
 msgid "Updates Disk"
 msgstr "Oppdateringsdiskett"
 
-#: ../loader/loader.c:2223
+#: ../loader/loader.c:2226
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Sett inn oppdateringsdisketten og trykk \"OK\" for å fortsette."
 
-#: ../loader/loader.c:2228
+#: ../loader/loader.c:2231
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
@@ -4034,27 +4048,27 @@ msgstr ""
 "Disketten du satte inn er ikke en gyldig oppdateringsdiskett for denne "
 "utgaven av Red Hat Linux."
 
-#: ../loader/loader.c:2238
+#: ../loader/loader.c:2241
 msgid "Failed to mount floppy disk."
 msgstr "Kunne ikke montere disketten."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2243
+#: ../loader/loader.c:2246
 msgid "Updates"
 msgstr "Oppdateringer"
 
-#: ../loader/loader.c:2243
+#: ../loader/loader.c:2246
 msgid "Reading anaconda updates..."
 msgstr "Leser anaconda-oppdateringer..."
 
-#: ../loader/loader.c:2449
+#: ../loader/loader.c:2452
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr ""
 "Du har ikke nok systemminne til å installere Red Hat på denne maskinen."
 
-#: ../loader/loader.c:2909
+#: ../loader/loader.c:2912
 msgid "Running anaconda - please wait...\n"
 msgstr "Kjører anaconda - snart tilbake...\n"
 
@@ -5176,3 +5190,6 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
+
+#~ msgid "Going to upgrade partition /dev/"
+#~ msgstr "Skal oppgradere \"/dev\"-partisjonen."

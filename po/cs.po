@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
-"POT-Creation-Date: 2001-03-14 11:37-0500\n"
+"POT-Creation-Date: 2001-03-16 20:06-0500\n"
 "PO-Revision-Date: 2001-02-18 22:30+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -49,25 +49,26 @@ msgstr ""
 "krok zpìt a oznaèit tyto oddíly k formátování (DOPORUÈENO)."
 
 #: ../fstab.py:76 ../harddrive.py:235 ../iw/rootpartition_gui.py:81
-#: ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:144
-#: ../iw/upgrade_swap_gui.py:153 ../iw/upgrade_swap_gui.py:160
+#: ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:174
+#: ../iw/upgrade_swap_gui.py:183 ../iw/upgrade_swap_gui.py:190
+#: ../textw/upgrade_text.py:100
 msgid "Warning"
 msgstr "Varování"
 
-#: ../fstab.py:320 ../fstab.py:517 ../fstab.py:618 ../fstab.py:829
+#: ../fstab.py:320 ../fstab.py:523 ../fstab.py:623 ../fstab.py:834
 #: ../harddrive.py:173 ../image.py:64 ../image.py:141
 #: ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520
 #: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:966
 #: ../loader/loader.c:1021 ../loader/loader.c:1191 ../loader/loader.c:1196
-#: ../loader/loader.c:1278 ../loader/loader.c:2129 ../loader/loader.c:2159
-#: ../loader/loader.c:2237 ../loader/loader.c:2449 ../loader/pcmcia.c:114
+#: ../loader/loader.c:1278 ../loader/loader.c:2132 ../loader/loader.c:2162
+#: ../loader/loader.c:2240 ../loader/loader.c:2452 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
-#: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:89
-#: ../textw/upgrade_text.py:95 ../textw/upgrade_text.py:145 ../todo.py:1199
-#: ../todo.py:1212 ../todo.py:1532 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:90
+#: ../textw/upgrade_text.py:96 ../textw/upgrade_text.py:150 ../todo.py:1206
+#: ../todo.py:1219 ../todo.py:1539 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Chyba"
 
@@ -83,57 +84,57 @@ msgstr ""
 "je tøeba restartovat poèítaè. Vlo¾te zavádìcí disk Red Hat a stisknìte "
 "\"Ok\" pro nový start poèítaèe.\n"
 
-#: ../fstab.py:492
+#: ../fstab.py:494
 #, fuzzy
 msgid "Swap Space"
 msgstr "Odkládací prostor"
 
-#: ../fstab.py:493
+#: ../fstab.py:495
 #, fuzzy
 msgid "Creating swap space..."
 msgstr "Formátuji odkládací prostor na zaøízení /dev/%s..."
 
-#: ../fstab.py:507 ../fstab.py:771 ../fstab.py:1230
+#: ../fstab.py:513 ../fstab.py:776 ../fstab.py:1235
 msgid "Formatting"
 msgstr "Formátování"
 
-#: ../fstab.py:508
+#: ../fstab.py:514
 #, fuzzy
 msgid "Formatting swap space..."
 msgstr "Formátuji odkládací prostor na zaøízení /dev/%s..."
 
-#: ../fstab.py:517
+#: ../fstab.py:523
 msgid "Error creating swap on device "
 msgstr "Chyba pøi vytváøení odkládacího prostoru na zaøízení "
 
-#: ../fstab.py:619
+#: ../fstab.py:624
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr "Chyba pøi odpojování %s: %s"
 
-#: ../fstab.py:672 ../todo.py:740
+#: ../fstab.py:677 ../todo.py:740
 msgid "Creating"
 msgstr "Vytváøení"
 
-#: ../fstab.py:672
+#: ../fstab.py:677
 msgid "Creating RAID devices..."
 msgstr "Vytváøím RAID zaøízení..."
 
-#: ../fstab.py:713
+#: ../fstab.py:718
 msgid "Loopback"
 msgstr "Smyèka (loopback)"
 
-#: ../fstab.py:714
+#: ../fstab.py:719
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "Vytváøím loopback souborový systém na zaøízení /dev/%s..."
 
-#: ../fstab.py:772 ../fstab.py:1231
+#: ../fstab.py:777 ../fstab.py:1236
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formátuji souborový systém %s..."
 
-#: ../fstab.py:830
+#: ../fstab.py:835
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -148,7 +149,7 @@ msgstr ""
 "\n"
 "Stisknìte OK pro restart systému."
 
-#: ../gui.py:176
+#: ../gui.py:178
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report at "
@@ -158,7 +159,7 @@ msgstr ""
 "Zkopírujte prosím plné znìní této vyjímky a ohla¹te chybu na adrese "
 "http://bugzilla.redhat.com/bugzilla"
 
-#: ../gui.py:325 ../text.py:873
+#: ../gui.py:327 ../text.py:873
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -166,17 +167,17 @@ msgstr ""
 "Vlo¾te prosím disketu. Celý obsah diskety bude smazán, proto vyberte "
 "disketu, na které nemáte dùle¾itá data."
 
-#: ../gui.py:417 ../gui.py:785
+#: ../gui.py:419 ../gui.py:788
 msgid "Next"
 msgstr "Dále"
 
-#: ../gui.py:418 ../gui.py:784 ../libfdisk/newtfsedit.c:1477
+#: ../gui.py:420 ../gui.py:787 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
 #: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
 #: ../loader/loader.c:1021 ../loader/loader.c:1113 ../loader/loader.c:1516
 #: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
-#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:123 ../text.py:61
+#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61
 #: ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228
 #: ../text.py:231 ../text.py:311 ../text.py:354 ../text.py:357 ../text.py:414
 #: ../text.py:417 ../text.py:443 ../text.py:447 ../text.py:456 ../text.py:529
@@ -194,68 +195,68 @@ msgstr "Dále"
 #: ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342
 #: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:52
-#: ../textw/upgrade_text.py:148 ../textw/upgrade_text.py:166
-#: ../textw/upgrade_text.py:169 ../textw/upgrade_text.py:183
-#: ../textw/upgrade_text.py:184 ../textw/upgrade_text.py:199
-#: ../textw/upgrade_text.py:202 ../textw/userauth_text.py:30
+#: ../textw/upgrade_text.py:153 ../textw/upgrade_text.py:171
+#: ../textw/upgrade_text.py:174 ../textw/upgrade_text.py:188
+#: ../textw/upgrade_text.py:189 ../textw/upgrade_text.py:204
+#: ../textw/upgrade_text.py:207 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:165 ../textw/userauth_text.py:199
 #: ../textw/userauth_text.py:297
 msgid "Back"
 msgstr "Zpìt"
 
-#: ../gui.py:419 ../gui.py:538 ../gui.py:787
+#: ../gui.py:421 ../gui.py:540 ../gui.py:790
 msgid "Release Notes"
 msgstr "Poznámky k vydání"
 
-#: ../gui.py:420 ../gui.py:790
+#: ../gui.py:422 ../gui.py:793
 msgid "Show Help"
 msgstr "Zobrazit nápovìdu"
 
-#: ../gui.py:421 ../gui.py:789
+#: ../gui.py:423 ../gui.py:792
 msgid "Hide Help"
 msgstr "Skrýt nápovìdu"
 
-#: ../gui.py:422 ../gui.py:788
+#: ../gui.py:424 ../gui.py:791
 msgid "Finish"
 msgstr "Dokonèení"
 
-#: ../gui.py:425 ../gui.py:820
+#: ../gui.py:427 ../gui.py:823
 msgid "Online Help"
 msgstr "Online nápovìda"
 
-#: ../gui.py:426 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../gui.py:428 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
 #: ../text.py:69 ../text.py:968
 msgid "Language Selection"
 msgstr "Výbìr jazyka"
 
-#: ../gui.py:533 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
+#: ../gui.py:535 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
 #: ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr "Zavøít"
 
-#: ../gui.py:569
+#: ../gui.py:571
 msgid "Unable to load file!"
 msgstr "Nemohu pøeèíst soubor!"
 
-#: ../gui.py:708
+#: ../gui.py:711
 msgid "Red Hat Linux Installer"
 msgstr "Instalátor Red Hat Linuxu"
 
-#: ../gui.py:712
+#: ../gui.py:715
 msgid "Red Hat Linux Install Shell"
 msgstr "Instalaèní shell Red Hat Linuxu"
 
-#: ../gui.py:723
+#: ../gui.py:726
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Instalátor Red Hat Linuxu na %s"
 
-#: ../gui.py:724
+#: ../gui.py:727
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Instalaèní shell Red Hat Linuxu na %s"
 
-#: ../gui.py:869
+#: ../gui.py:872
 msgid "Install Window"
 msgstr "Instalaèní okno"
 
@@ -311,13 +312,13 @@ msgstr "Nelze pøipojit CDROM."
 #: ../loader/loader.c:966 ../loader/loader.c:1021 ../loader/loader.c:1113
 #: ../loader/loader.c:1191 ../loader/loader.c:1196 ../loader/loader.c:1238
 #: ../loader/loader.c:1247 ../loader/loader.c:1278 ../loader/loader.c:1516
-#: ../loader/loader.c:2129 ../loader/loader.c:2159 ../loader/loader.c:2222
-#: ../loader/loader.c:2237 ../loader/loader.c:2449 ../loader/net.c:185
+#: ../loader/loader.c:2132 ../loader/loader.c:2162 ../loader/loader.c:2225
+#: ../loader/loader.c:2240 ../loader/loader.c:2452 ../loader/net.c:185
 #: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:678
 #: ../loader/net.c:711 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
-#: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:19 ../rescue.py:91
-#: ../rescue.py:109 ../rescue.py:117 ../text.py:135 ../text.py:174
+#: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:20 ../rescue.py:92
+#: ../rescue.py:110 ../rescue.py:126 ../text.py:135 ../text.py:174
 #: ../text.py:228 ../text.py:311 ../text.py:354 ../text.py:372 ../text.py:414
 #: ../text.py:443 ../text.py:529 ../text.py:541 ../text.py:570 ../text.py:591
 #: ../text.py:761 ../text.py:815 ../text.py:841 ../text.py:867 ../text.py:875
@@ -335,7 +336,7 @@ msgstr "Nelze pøipojit CDROM."
 #: ../textw/partitioning_text.py:361 ../textw/partitioning_text.py:368
 #: ../textw/silo_text.py:25 ../textw/silo_text.py:99
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:51
-#: ../textw/upgrade_text.py:166 ../textw/userauth_text.py:30
+#: ../textw/upgrade_text.py:171 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:44 ../textw/userauth_text.py:49
 #: ../textw/userauth_text.py:84 ../textw/userauth_text.py:99
 #: ../textw/userauth_text.py:105 ../textw/userauth_text.py:111
@@ -345,32 +346,32 @@ msgstr "Nelze pøipojit CDROM."
 msgid "OK"
 msgstr "Ok"
 
-#: ../rescue.py:38
+#: ../rescue.py:39
 msgid "WARNING: no valid block devices were found.\n"
 msgstr "VAROVÁNÍ: nebylo nalezeno ¾ádné blokové zaøízení.\n"
 
-#: ../rescue.py:40
+#: ../rescue.py:41
 msgid "ERROR: unknown error encountered reading partition tables.\n"
 msgstr "CHYBA: pøi ètení tabulky oddílù nastala neznámá chyba.\n"
 
-#: ../rescue.py:88
+#: ../rescue.py:89
 msgid "System to Rescue"
 msgstr "Opravit systém"
 
-#: ../rescue.py:89 ../textw/upgrade_text.py:164
+#: ../rescue.py:90 ../textw/upgrade_text.py:169
 msgid "What partition holds the root partition of your installation?"
 msgstr "Který oddíl je ve va¹í instalaci pou¾it jako koøenový?"
 
-#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:91
-#: ../rescue.py:95 ../textw/upgrade_text.py:119
+#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:92
+#: ../rescue.py:96 ../textw/upgrade_text.py:124
 msgid "Exit"
 msgstr "Ukonèit"
 
-#: ../rescue.py:105 ../rescue.py:112
+#: ../rescue.py:106 ../rescue.py:121
 msgid "Rescue"
 msgstr "Záchrana"
 
-#: ../rescue.py:106
+#: ../rescue.py:107
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -382,7 +383,7 @@ msgstr ""
 "Stisknìte <Enter> pro vstup do shellu. Systém bude po jeho ukonèení "
 "automaticky restartován."
 
-#: ../rescue.py:113
+#: ../rescue.py:122
 msgid ""
 "An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under /mnt/sysimage.\n"
@@ -396,11 +397,11 @@ msgstr ""
 "Stisknìte <Enter> pro vstup do shellu. Systém bude po jeho ukonèení "
 "automaticky restartován."
 
-#: ../rescue.py:119
+#: ../rescue.py:128
 msgid "Rescue Mode"
 msgstr "Záchranný re¾im"
 
-#: ../rescue.py:120
+#: ../rescue.py:129
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -408,12 +409,12 @@ msgstr ""
 "Ve va¹em systému nejsou ¾ádné oddíly s Linuxem. Stisknìte <Enter> pro vstup "
 "do shellu. Systém bude po jeho ukonèení automaticky restartován."
 
-#: ../rescue.py:132
+#: ../rescue.py:141
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr "Vá¹ systém je pøipojen v adresáøi /mnt/sysimage."
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:921 ../libfdisk/fsedit.c:928
+#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:921 ../libfdisk/fsedit.c:928
 #: ../libfdisk/fsedit.c:935 ../libfdisk/fsedit.c:944 ../libfdisk/fsedit.c:971
 #: ../libfdisk/fsedit.c:984 ../libfdisk/fsedit.c:994 ../libfdisk/fsedit.c:1023
 #: ../libfdisk/fsedit.c:1033 ../libfdisk/fsedit.c:1050
@@ -443,8 +444,8 @@ msgstr "Vá¹ systém je pøipojen v adresáøi /mnt/sysimage."
 #: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
 #: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:421
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
-#: ../textw/silo_text.py:205 ../textw/upgrade_text.py:119
-#: ../textw/upgrade_text.py:183
+#: ../textw/silo_text.py:205 ../textw/upgrade_text.py:124
+#: ../textw/upgrade_text.py:188
 msgid "Ok"
 msgstr "Ok"
 
@@ -549,7 +550,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
-#: ../loader/devices.c:532 ../loader/loader.c:2222 ../loader/pcmcia.c:104
+#: ../loader/devices.c:532 ../loader/loader.c:2225 ../loader/pcmcia.c:104
 #: ../text.py:372 ../text.py:375 ../text.py:761 ../text.py:762 ../text.py:875
 #: ../text.py:877 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
@@ -814,8 +815,8 @@ msgstr "Nastavení LILO"
 msgid "Automatic Partition"
 msgstr "Automatické rozdìlování disku"
 
-#: ../iw/lilo_gui.py:230 ../iw/lilo_gui.py:393 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:99 ../text.py:996
+#: ../iw/lilo_gui.py:225 ../iw/lilo_gui.py:388 ../iw/silo_gui.py:127
+#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:129 ../text.py:996
 #: ../text.py:1000 ../textw/upgrade_text.py:40
 msgid "Partition"
 msgstr "Oblast disku"
@@ -931,12 +932,17 @@ msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 "Kontroluji závislosti mezi balíèky, které byly zvoleny pro instalaci..."
 
-#: ../todo.py:1067 ../todo.py:1111 ../todo.py:1117 ../todo.py:1134
-#: ../todo.py:1262
+#: ../todo.py:1071 ../todo.py:1115 ../todo.py:1121 ../todo.py:1138
+#: ../todo.py:1269
 msgid "no suggestion"
 msgstr "¾ádné doporuèení"
 
-#: ../todo.py:1152
+#: ../todo.py:1155 ../upgrade.py:99
+#, fuzzy
+msgid "Dirty Filesystems"
+msgstr "Velikost koøenové oblasti"
+
+#: ../todo.py:1156
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -945,7 +951,7 @@ msgstr ""
 "Linuxovém systému nemù¾e být pøipojeno. Opravte prosím tento problém a "
 "zkuste opìt spustit aktualizaci."
 
-#: ../todo.py:1167
+#: ../todo.py:1171
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -957,32 +963,32 @@ msgstr ""
 "znovu.\n"
 "\n"
 
-#: ../todo.py:1184
+#: ../todo.py:1191
 msgid "Finding"
 msgstr "Hledání"
 
-#: ../todo.py:1185
+#: ../todo.py:1192
 msgid "Finding packages to upgrade..."
 msgstr "Hledám balíèky pro aktualizaci..."
 
-#: ../todo.py:1200
+#: ../todo.py:1207
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Do¹lo k chybì pøi aktualizaci RPM databáze. Je dostatek místa na disku?"
 
-#: ../todo.py:1213
+#: ../todo.py:1220
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Pøi vyhledávání balíèkù pro aktualizaci se vyskytla chyba."
 
-#: ../todo.py:1498
+#: ../todo.py:1505
 msgid "Processing"
 msgstr "Pracuji"
 
-#: ../todo.py:1499
+#: ../todo.py:1506
 msgid "Preparing to install..."
 msgstr "Pøíprava na instalaci..."
 
-#: ../todo.py:1533
+#: ../todo.py:1540
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -991,17 +997,17 @@ msgstr ""
 "Soubor %s nemù¾e být otevøen, proto¾e není pøítomen, balíèek je po¹kozen "
 "nebo je vadné médium. Stisknìte <Enter> pro nový pokus."
 
-#: ../todo.py:1785
+#: ../todo.py:1795
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Aktualizace %s.\n"
 
-#: ../todo.py:1787
+#: ../todo.py:1797
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Instalace %s.\n"
 
-#: ../todo.py:1832
+#: ../todo.py:1842
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1011,16 +1017,16 @@ msgstr ""
 "Potøebujete více místa na následujících souborových systémech:\n"
 "\n"
 
-#: ../iw/upgrade_swap_gui.py:99 ../libfdisk/gnomefsedit.c:3132
-#: ../textw/upgrade_text.py:39 ../todo.py:1835 ../todo.py:1853
+#: ../iw/upgrade_swap_gui.py:129 ../libfdisk/gnomefsedit.c:3132
+#: ../textw/upgrade_text.py:39 ../todo.py:1845 ../todo.py:1863
 msgid "Mount Point"
 msgstr "Bod pøipojení"
 
-#: ../todo.py:1835
+#: ../todo.py:1845
 msgid "Space Needed"
 msgstr "Nedostatek místa"
 
-#: ../todo.py:1850
+#: ../todo.py:1860
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1030,23 +1036,23 @@ msgstr ""
 "Potøebujete více volných inodù na následujících souborových systémech:\n"
 "\n"
 
-#: ../todo.py:1853
+#: ../todo.py:1863
 msgid "Nodes Needed"
 msgstr "Nedostatek inodù"
 
-#: ../todo.py:1859
+#: ../todo.py:1869
 msgid "Disk Space"
 msgstr "Diskový prostor"
 
-#: ../todo.py:1894
+#: ../todo.py:1904
 msgid "Post Install"
 msgstr "Po instalaci"
 
-#: ../todo.py:1895
+#: ../todo.py:1905
 msgid "Performing post install configuration..."
 msgstr "Provádím poinstalaèní nastavení..."
 
-#: ../todo.py:2033
+#: ../todo.py:2043
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1057,7 +1063,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../todo.py:2039
+#: ../todo.py:2049
 msgid "Bootloader Errors"
 msgstr ""
 
@@ -1354,14 +1360,14 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Nevyøe¹ené závislosti"
 
-#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:524
+#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:544
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
 #, c-format
 msgid "Total install size: %s"
 msgstr "Celkem k instalaci: %s"
 
-#: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:380
-#: ../iw/progress_gui.py:198 ../textw/packages_text.py:312
+#: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:400
+#: ../iw/progress_gui.py:205 ../textw/packages_text.py:312
 msgid "Package"
 msgstr "Balíèek"
 
@@ -1385,7 +1391,7 @@ msgstr "Nebrat ohled na závislosti balíèkù"
 msgid "Upgrade Examine"
 msgstr "Kontrola aktualizace"
 
-#: ../iw/examine_gui.py:37
+#: ../iw/examine_gui.py:45
 msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
@@ -1393,11 +1399,16 @@ msgstr ""
 "Neexistují ¾ádné linuxové oddíly.\n"
 " Tento systém nelze aktualizovat!"
 
-#: ../iw/examine_gui.py:46
+#: ../iw/examine_gui.py:54
 msgid "Please select the device containing the root filesystem: "
 msgstr "Zvolte prosím zaøízení, které obsahuje koøenový systém souborù: "
 
-#: ../iw/examine_gui.py:74
+#: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:187
+#, fuzzy
+msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+msgstr "Hledám instalace Red Hat Linuxu..."
+
+#: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
 msgstr "Volba balíèkù pro aktualizaci"
 
@@ -1465,15 +1476,15 @@ msgstr "Výbìr oddílù pro formátování"
 msgid "Check for bad blocks while formatting"
 msgstr "Pøi formátování zji¹»ovat chybné bloky"
 
-#: ../iw/installpath_gui.py:98
+#: ../iw/installpath_gui.py:99
 msgid "Install Type"
 msgstr "Typ instalace"
 
-#: ../iw/installpath_gui.py:180
+#: ../iw/installpath_gui.py:182
 msgid "Install"
 msgstr "Instalace"
 
-#: ../iw/installpath_gui.py:182
+#: ../iw/installpath_gui.py:184
 msgid "Upgrade"
 msgstr "Aktualizace"
 
@@ -1529,90 +1540,74 @@ msgstr "Vybrat v¹echny"
 msgid "Select as default"
 msgstr "Zvolit preferovaný"
 
-#: ../iw/lilo_gui.py:32
+#: ../iw/lilo_gui.py:33
 msgid "Lilo Configuration"
 msgstr "Nastavení LILO"
 
-#: ../iw/lilo_gui.py:50 ../textw/upgrade_text.py:111
-msgid "Proceed with upgrade?"
-msgstr ""
-
-#: ../iw/lilo_gui.py:51 ../textw/upgrade_text.py:112
-msgid ""
-"The filesystems of the Linux installation you have chosen to upgrade have "
-"already been mounted. You cannot go back past this point. \n"
-"\n"
-msgstr ""
-
-#: ../iw/lilo_gui.py:55
-#, fuzzy
-msgid "Would you like to continue with the upgrade?"
-msgstr "Chcete nastavit svùj systém?"
-
-#: ../iw/lilo_gui.py:64
+#: ../iw/lilo_gui.py:59 ../iw/package_gui.py:61 ../iw/upgrade_swap_gui.py:34
 #, fuzzy
 msgid "Aborting upgrade"
 msgstr "Upgrade systému"
 
-#: ../iw/lilo_gui.py:233 ../iw/lilo_gui.py:394 ../iw/silo_gui.py:132
+#: ../iw/lilo_gui.py:228 ../iw/lilo_gui.py:389 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
 msgstr "Typ"
 
-#: ../iw/lilo_gui.py:282
+#: ../iw/lilo_gui.py:277
 msgid "Install LILO boot record on:"
 msgstr "Instalovat zavadìè LILO na:"
 
-#: ../iw/lilo_gui.py:289 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87
+#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87
 #: ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
 msgstr "Hlavní zavádìcí záznam (MBR)"
 
-#: ../iw/lilo_gui.py:293 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88
+#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88
 #: ../textw/silo_text.py:65
 msgid "First sector of boot partition"
 msgstr "První sektor zavádìcího oddílu"
 
-#: ../iw/lilo_gui.py:297 ../textw/lilo_text.py:27
+#: ../iw/lilo_gui.py:292 ../textw/lilo_text.py:27
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Pou¾ít lineární re¾im (nutné pro nìkteré SCSI jednotky)"
 
-#: ../iw/lilo_gui.py:308 ../iw/silo_gui.py:208
+#: ../iw/lilo_gui.py:303 ../iw/silo_gui.py:208
 msgid "Kernel parameters"
 msgstr "Parametry jádra"
 
-#: ../iw/lilo_gui.py:325 ../iw/silo_gui.py:226
+#: ../iw/lilo_gui.py:320 ../iw/silo_gui.py:226
 msgid "Create boot disk"
 msgstr "Vytvoøení zavádìcí diskety"
 
-#: ../iw/lilo_gui.py:339
+#: ../iw/lilo_gui.py:334
 msgid "Install LILO"
 msgstr "Instalovat LILO"
 
-#: ../iw/lilo_gui.py:366 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
+#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
 msgid "Default"
 msgstr "Default"
 
-#: ../iw/lilo_gui.py:366 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
+#: ../iw/lilo_gui.py:361 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
 #: ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:118
 #: ../textw/lilo_text.py:199 ../textw/mouse_text.py:25
 #: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
 msgstr "Zaøízení"
 
-#: ../iw/lilo_gui.py:366 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
+#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "Typ oddílu"
 
-#: ../iw/lilo_gui.py:366 ../iw/lilo_gui.py:405 ../iw/silo_gui.py:257
+#: ../iw/lilo_gui.py:361 ../iw/lilo_gui.py:400 ../iw/silo_gui.py:257
 #: ../iw/silo_gui.py:292 ../textw/lilo_text.py:119 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
 msgstr "Jméno systému"
 
-#: ../iw/lilo_gui.py:401 ../iw/silo_gui.py:288
+#: ../iw/lilo_gui.py:396 ../iw/silo_gui.py:288
 msgid "Default boot image"
 msgstr "Implicitní obraz pro zavedení systému"
 
@@ -1689,40 +1684,56 @@ msgstr "Sekundární DNS"
 msgid "Ternary DNS"
 msgstr "Terciální DNS"
 
-#: ../iw/package_gui.py:25
+#: ../iw/package_gui.py:22 ../textw/upgrade_text.py:116
+msgid "Proceed with upgrade?"
+msgstr ""
+
+#: ../iw/package_gui.py:23 ../textw/upgrade_text.py:117
+msgid ""
+"The filesystems of the Linux installation you have chosen to upgrade have "
+"already been mounted. You cannot go back past this point. \n"
+"\n"
+msgstr ""
+
+#: ../iw/package_gui.py:27
+#, fuzzy
+msgid "Would you like to continue with the upgrade?"
+msgstr "Chcete nastavit svùj systém?"
+
+#: ../iw/package_gui.py:38
 msgid "Individual Package Selection"
 msgstr "Výbìr jednotlivých balíèkù"
 
-#: ../iw/package_gui.py:302
+#: ../iw/package_gui.py:322
 msgid "Total install size: "
 msgstr "Celkem k instalaci: "
 
-#: ../iw/package_gui.py:382
+#: ../iw/package_gui.py:402
 msgid "Size (MB)"
 msgstr "Velikost (MB)"
 
-#: ../iw/package_gui.py:413
+#: ../iw/package_gui.py:433
 msgid "Total size: "
 msgstr "Celkem: "
 
-#: ../iw/package_gui.py:416
+#: ../iw/package_gui.py:436
 msgid "Select all in group"
 msgstr "Vybrat v¹echny ve skupinì"
 
-#: ../iw/package_gui.py:420
+#: ../iw/package_gui.py:440
 msgid "Unselect all in group"
 msgstr "Odebrat v¹echny ve skupinì"
 
-#: ../iw/package_gui.py:455
+#: ../iw/package_gui.py:475
 msgid "File not found"
 msgstr "Soubor nenalezen"
 
-#: ../iw/package_gui.py:498 ../textw/packages_text.py:60
+#: ../iw/package_gui.py:518 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
 msgid "Package Group Selection"
 msgstr "Výbìr skupin balíèkù"
 
-#: ../iw/package_gui.py:558
+#: ../iw/package_gui.py:578
 #, c-format
 msgid ""
 "The following error occurred while retreiving hdlist file:\n"
@@ -1737,7 +1748,7 @@ msgstr ""
 "\n"
 "Instalátor se nyní ukonèí."
 
-#: ../iw/package_gui.py:563
+#: ../iw/package_gui.py:583
 msgid ""
 "An error has occurred while retreiving the hdlist file.  The installation "
 "media or image is probably corrupt.  Installer will exit now."
@@ -1745,56 +1756,56 @@ msgstr ""
 "Pøi ètení souboru hdlist nastala chyba. Instalaèní médium nebo jeho obraz je "
 "pravdìpodobnì po¹kozen. Instalátor bude nyní ukonèen."
 
-#: ../iw/package_gui.py:629 ../textw/packages_text.py:54
+#: ../iw/package_gui.py:649 ../textw/packages_text.py:54
 msgid "Select individual packages"
 msgstr "Výbìr jednotlivých balíèkù"
 
-#: ../iw/progress_gui.py:51
+#: ../iw/progress_gui.py:55
 msgid "Installing Packages"
 msgstr "Instaluji balíèky"
 
-#: ../iw/progress_gui.py:140
+#: ../iw/progress_gui.py:147
 #, c-format
 msgid "%s KBytes"
 msgstr "%s KByte"
 
-#: ../iw/progress_gui.py:199 ../iw/progress_gui.py:252
+#: ../iw/progress_gui.py:206 ../iw/progress_gui.py:259
 msgid "Size"
 msgstr "Velikost"
 
-#: ../iw/progress_gui.py:200
+#: ../iw/progress_gui.py:207
 msgid "Summary"
 msgstr "Popis"
 
-#: ../iw/progress_gui.py:230
+#: ../iw/progress_gui.py:237
 msgid "Package Progress: "
 msgstr "Prùbìh balíèku:   "
 
-#: ../iw/progress_gui.py:235
+#: ../iw/progress_gui.py:242
 msgid "Total Progress:   "
 msgstr "Celkový prùbìh:   "
 
-#: ../iw/progress_gui.py:252
+#: ../iw/progress_gui.py:259
 msgid "Status"
 msgstr "Stav instalace"
 
-#: ../iw/progress_gui.py:252
+#: ../iw/progress_gui.py:259
 msgid "Packages"
 msgstr "Balíèky"
 
-#: ../iw/progress_gui.py:252
+#: ../iw/progress_gui.py:259
 msgid "Time"
 msgstr "Èas"
 
-#: ../iw/progress_gui.py:262
+#: ../iw/progress_gui.py:269
 msgid "Total"
 msgstr "Celkem"
 
-#: ../iw/progress_gui.py:263
+#: ../iw/progress_gui.py:270
 msgid "Completed"
 msgstr "Hotovo"
 
-#: ../iw/progress_gui.py:264
+#: ../iw/progress_gui.py:271
 msgid "Remaining"
 msgstr "Zbývá"
 
@@ -1841,7 +1852,7 @@ msgstr ""
 "Stisknìte OK pro pokraèování a Zru¹it pokud chcete vrátit zpìt a zmìnit "
 "rozdìlení disku."
 
-#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
+#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:486
 #: ../textw/partitioning_text.py:412
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
@@ -1872,38 +1883,38 @@ msgstr ""
 "koøenový systém souborù, a jak velký chcete odkládací prostor? Oba dohromady "
 "musí mít ménì ne¾ %d megabytù."
 
-#: ../iw/rootpartition_gui.py:248
+#: ../iw/rootpartition_gui.py:249
 msgid "Root filesystem size:"
 msgstr "Velikost koøenového oddílu:"
 
-#: ../iw/rootpartition_gui.py:253
+#: ../iw/rootpartition_gui.py:254
 msgid "Swap space size:"
 msgstr "Velikost odkládacího oddílu:"
 
-#: ../iw/rootpartition_gui.py:324 ../textw/partitioning_text.py:149
+#: ../iw/rootpartition_gui.py:325 ../textw/partitioning_text.py:149
 msgid "Automatic Partitioning"
 msgstr "Automatické rozdìlování na oddíly"
 
-#: ../iw/rootpartition_gui.py:375
+#: ../iw/rootpartition_gui.py:376
 #, fuzzy
 msgid "Disk Partitioning"
 msgstr "Ruèní dìlení disku"
 
-#: ../iw/rootpartition_gui.py:377
+#: ../iw/rootpartition_gui.py:378
 #, c-format
 msgid ""
 "Please select the type of disk partitioning you would like to use.\n"
 "\n"
-"Automatic partitioning will erase %s\n"
+"%s\n"
 "\n"
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:383
+#: ../iw/rootpartition_gui.py:384
 msgid "Automatic Partitioning Failed"
 msgstr "Automatické dìlení na oddíly selhalo"
 
-#: ../iw/rootpartition_gui.py:384
+#: ../iw/rootpartition_gui.py:385
 msgid ""
 "\n"
 "There is not sufficient disk space in order to automatically partition your "
@@ -1920,11 +1931,11 @@ msgstr ""
 "\n"
 "Zvolte si prosím nástroj, kterým provedete rozdìlení disku."
 
-#: ../iw/rootpartition_gui.py:391
+#: ../iw/rootpartition_gui.py:392
 msgid "Manual Partitioning"
 msgstr "Ruèní dìlení disku"
 
-#: ../iw/rootpartition_gui.py:392
+#: ../iw/rootpartition_gui.py:393
 msgid ""
 "\n"
 "Please choose the tool you would like to use to partition your system for "
@@ -1934,23 +1945,23 @@ msgstr ""
 "Zvolte prosím nástroj, kterým provedete dìlení systému na oddíly pro vá¹ Red "
 "Hat Linux."
 
-#: ../iw/rootpartition_gui.py:406
+#: ../iw/rootpartition_gui.py:407
 msgid "Automatically partition and REMOVE DATA"
 msgstr "Automatické dìlení na oddíly a SMAZÁNÍ DAT"
 
-#: ../iw/rootpartition_gui.py:413
+#: ../iw/rootpartition_gui.py:414
 msgid "Manually partition with Disk Druid"
 msgstr "Ruèní dìlení diskù pomocí Disk Druida"
 
-#: ../iw/rootpartition_gui.py:425
+#: ../iw/rootpartition_gui.py:426
 msgid "Manually partition with fdisk [experts only]"
 msgstr "Ruèní dìlení diskù pomocí fdisk [pouze experti]"
 
-#: ../iw/rootpartition_gui.py:448
+#: ../iw/rootpartition_gui.py:449
 msgid "Boot Partition Location Warning"
 msgstr "Varování o bootovacím oddílu"
 
-#: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:392
+#: ../iw/rootpartition_gui.py:473 ../textw/partitioning_text.py:392
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1974,7 +1985,7 @@ msgstr ""
 "\n"
 "Jste si jisti, ¾e chcete pokraèovat?"
 
-#: ../iw/rootpartition_gui.py:503 ../iw/welcome_gui.py:89
+#: ../iw/rootpartition_gui.py:504 ../iw/welcome_gui.py:89
 #: ../libfdisk/fsedit.c:952 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
@@ -1985,11 +1996,11 @@ msgstr ""
 #: ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:845
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220
-#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:199
+#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
 msgid "Yes"
 msgstr "Ano"
 
-#: ../iw/rootpartition_gui.py:505 ../iw/welcome_gui.py:92
+#: ../iw/rootpartition_gui.py:506 ../iw/welcome_gui.py:92
 #: ../libfdisk/fsedit.c:952 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
@@ -1999,8 +2010,8 @@ msgstr "Ano"
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:231 ../loader/net.c:845 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
-#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:199
-#: ../textw/upgrade_text.py:205
+#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
+#: ../textw/upgrade_text.py:210
 msgid "No"
 msgstr "Ne"
 
@@ -2048,12 +2059,12 @@ msgstr "Umístìní"
 msgid "UTC Offset"
 msgstr "Èasový posun"
 
-#: ../iw/upgrade_swap_gui.py:17
+#: ../iw/upgrade_swap_gui.py:18
 #, fuzzy
 msgid "Upgrade Swap Partition"
 msgstr "RAID oddíl"
 
-#: ../iw/upgrade_swap_gui.py:66 ../textw/upgrade_text.py:22
+#: ../iw/upgrade_swap_gui.py:101 ../textw/upgrade_text.py:22
 #, c-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -2062,47 +2073,47 @@ msgid ""
 "file systems now."
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:80
+#: ../iw/upgrade_swap_gui.py:115
 msgid "I want to create a swap file"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:94
+#: ../iw/upgrade_swap_gui.py:124
 msgid "Select the partition to put the swap file on:"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:99
+#: ../iw/upgrade_swap_gui.py:129
 #, fuzzy
 msgid "Free Space (MB)"
 msgstr "Diskový prostor"
 
-#: ../iw/upgrade_swap_gui.py:114
+#: ../iw/upgrade_swap_gui.py:144
 #, c-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:127 ../textw/upgrade_text.py:58
+#: ../iw/upgrade_swap_gui.py:157 ../textw/upgrade_text.py:58
 #, fuzzy
 msgid "Swap file size (MB):"
 msgstr "Velikost odkládacího oddílu:"
 
-#: ../iw/upgrade_swap_gui.py:135
+#: ../iw/upgrade_swap_gui.py:165
 msgid "I don't want to create a swap file"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:145
+#: ../iw/upgrade_swap_gui.py:175
 msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:154
-msgid "The swap file must be between 0 and 2000 MB in size."
+#: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:101
+msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:161 ../textw/upgrade_text.py:96
+#: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:97
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
@@ -2551,7 +2562,7 @@ msgstr "Hotovo"
 #: ../textw/partitioning_text.py:150
 #, fuzzy, c-format
 msgid ""
-"Automatic partitioning will erase %s\n"
+"%s\n"
 "\n"
 "If you don't want to do this, you can continue with this install by "
 "partitioning manually, or you can go back and perform a fully customized "
@@ -2660,40 +2671,35 @@ msgstr "Velikost (MB)"
 msgid "Add Swap"
 msgstr "Odkládací"
 
-#: ../textw/upgrade_text.py:90
+#: ../textw/upgrade_text.py:91
 #, fuzzy
 msgid "The value you entered is not a valid number."
 msgstr "Velikost musí být zadána èíslem."
 
-#: ../textw/upgrade_text.py:116
+#: ../textw/upgrade_text.py:121
 msgid ""
 "If you would like to exit the upgrade select Exit, or choose Ok to continue "
 "with the upgrade."
 msgstr ""
 
-#: ../textw/upgrade_text.py:146
+#: ../textw/upgrade_text.py:151
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Neexistují ¾ádné linuxové oddíly. Tento systém nelze aktualizovat!"
 
-#: ../textw/upgrade_text.py:163
+#: ../textw/upgrade_text.py:168
 msgid "System to Upgrade"
 msgstr "Upgrade systému"
 
-#: ../textw/upgrade_text.py:181
+#: ../textw/upgrade_text.py:186
 #, fuzzy
 msgid "Upgrade Partition"
 msgstr "RAID oddíl"
 
-#: ../textw/upgrade_text.py:182
-#, fuzzy
-msgid "Going to upgrade partition /dev/"
-msgstr "RAID oddíl"
-
-#: ../textw/upgrade_text.py:191
+#: ../textw/upgrade_text.py:196
 msgid "Customize Packages to Upgrade"
 msgstr "Výbìr balíèkù pro aktualizaci"
 
-#: ../textw/upgrade_text.py:192
+#: ../textw/upgrade_text.py:197
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -2854,7 +2860,9 @@ msgstr "Vlastní systém"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
 #, fuzzy
-msgid "any preexisting Linux installations on your system."
+msgid ""
+"Automatic partitioning will erase any preexisting Linux installations on "
+"your system."
 msgstr "Døívìj¹í instalace Linuxu na va¹em poèítaèi bude nyní smazána."
 
 #: ../installclasses/laptop.py:7
@@ -2867,7 +2875,9 @@ msgstr "Serverový systém"
 
 #: ../installclasses/server.py:38
 #, fuzzy
-msgid "ALL DATA on your hard drive to make room for your Linux installation."
+msgid ""
+"Automatic partitioning will erase ALL DATA on your hard drive to make room "
+"for your Linux installation."
 msgstr ""
 "Nyní bude smazán CELÝ OBSAH va¹eho pevného disku, aby se uvolnilo místo pro "
 "novou instalaci Linuxu!"
@@ -3896,7 +3906,7 @@ msgstr "Zavádím ramdisk %s..."
 msgid "Error loading ramdisk."
 msgstr "Chyba pøi zavádìní ramdisku."
 
-#: ../loader/loader.c:585 ../loader/loader.c:2160
+#: ../loader/loader.c:585 ../loader/loader.c:2163
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Nelze èíst adresáø %s: %s"
@@ -3996,19 +4006,19 @@ msgstr "Jaký druh média obsahuje disk pro zotavení?"
 msgid "What type of media contains the packages to be installed?"
 msgstr "Na jakém druhu média jsou balíèky, které chcete instalovat?"
 
-#: ../loader/loader.c:2130
+#: ../loader/loader.c:2133
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Na zavádìcí disketì nelze nalézt soubor ks.cfg."
 
-#: ../loader/loader.c:2222
+#: ../loader/loader.c:2225
 msgid "Updates Disk"
 msgstr "Disk s aktualiazací"
 
-#: ../loader/loader.c:2223
+#: ../loader/loader.c:2226
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Pro pokraèování vlo¾te disk s updaty a stisknìte \"Ok\"."
 
-#: ../loader/loader.c:2228
+#: ../loader/loader.c:2231
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
@@ -4016,26 +4026,26 @@ msgstr ""
 "Disketa, kterou jste vlo¾ili, není správnou disketou s ovladaèi pro tuto "
 "verzi Red Hat Linuxu."
 
-#: ../loader/loader.c:2238
+#: ../loader/loader.c:2241
 msgid "Failed to mount floppy disk."
 msgstr "Nelze pøipojit disketu."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2243
+#: ../loader/loader.c:2246
 msgid "Updates"
 msgstr "Updaty"
 
-#: ../loader/loader.c:2243
+#: ../loader/loader.c:2246
 msgid "Reading anaconda updates..."
 msgstr "Ètení updatù pro anakondu..."
 
-#: ../loader/loader.c:2449
+#: ../loader/loader.c:2452
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr "Ve va¹em systému není dostek pamìti pro instalaèní program."
 
-#: ../loader/loader.c:2909
+#: ../loader/loader.c:2912
 #, fuzzy
 msgid "Running anaconda - please wait...\n"
 msgstr "Ètení updatù pro anakondu..."
@@ -5151,3 +5161,7 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Going to upgrade partition /dev/"
+#~ msgstr "RAID oddíl"
