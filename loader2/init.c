@@ -344,13 +344,14 @@ void undoMount(struct unmountInfo * fs, int numFs, int this) {
 
     /* unmount everything underneath this */
     for (i = 0; i < numFs; i++) {
-	if (fs[i].name[len] == '/' && 
-		!strncmp(fs[this].name, fs[i].name, len)) {
+	if (fs[i].name && (strlen(fs[i].name) >= len) &&
+	    (fs[i].name[len] == '/') && 
+	    !strncmp(fs[this].name, fs[i].name, len)) {
 	    if (fs[i].what == LOOP)
 		undoLoop(fs, numFs, i);
 	    else
 		undoMount(fs, numFs, i);
-	}
+	} 
     }
 
     printf("\t%s", fs[this].name);
@@ -432,8 +433,7 @@ void unmountFilesystems(void) {
 	*chptr++ = '\0';
 
 	if (strcmp(start, "/") && strcmp(start, "/tmp")) {
-	    filesystems[numFilesystems].name = alloca(strlen(start) + 1);
-	    strcpy(filesystems[numFilesystems].name, start);
+	    filesystems[numFilesystems].name = strdup(start);
 	    filesystems[numFilesystems].what = FS;
 	    filesystems[numFilesystems].mounted = 1;
 
@@ -456,9 +456,7 @@ void unmountFilesystems(void) {
 	mknod("/tmp/loop", 0600 | S_IFBLK, (7 << 8) | i);
 	if ((fd = open("/tmp/loop", O_RDONLY, 0)) >= 0) {
 	    if (!ioctl(fd, LOOP_GET_STATUS, &li) && li.lo_name[0]) {
-		filesystems[numFilesystems].name = alloca(strlen(li.lo_name) 
-								+ 1);
-		strcpy(filesystems[numFilesystems].name, li.lo_name);
+		filesystems[numFilesystems].name = strdup(li.lo_name);
 		filesystems[numFilesystems].what = LOOP;
 		filesystems[numFilesystems].mounted = 1;
 		filesystems[numFilesystems].loopDevice = i;
@@ -476,10 +474,13 @@ void unmountFilesystems(void) {
     }
 
     for (i = 0; i < numFilesystems; i++) {
-	if (filesystems[i].mounted) {
+	if ((filesystems[i].mounted) && (filesystems[i].name)) {
 	    undoMount(filesystems, numFilesystems, i);
 	}
     }
+
+    for (i = 0; i < numFilesystems; i++) 
+        free(filesystems[i].name);
 }
 
 void disableSwap(void) {
