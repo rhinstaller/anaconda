@@ -442,7 +442,8 @@ class XConfigWindow:
         if todo.x.server:
             rc = ButtonChoiceWindow (screen, _("X probe results"),
                                      todo.x.probeReport (),
-                                     buttons = [ _("OK"), _("Back") ])
+                                     buttons = [ _("OK"), _("Back") ],
+                                     help = 'xprobe')
         
             if rc == string.lower (_("Back")):
                 return INSTALL_BACK
