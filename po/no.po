@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 6.1\n"
-"POT-Creation-Date: 2000-02-02 17:43-0500\n"
-"PO-Revision-Date: 1999-09-22 11:04+02:00\n"
+"POT-Creation-Date: 2000-02-05 14:42-0500\n"
+"PO-Revision-Date: 2000-02-07 22:15+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,72 +14,71 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: ../fstab.py:234 ../fstab.py:390
-#, fuzzy
 msgid "Formatting"
-msgstr "Formatering av filsystem"
+msgstr "Formaterer"
 
 #: ../fstab.py:235
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
-msgstr ""
+msgstr "Formaterer swap område på /dev/%s..."
 
 #: ../fstab.py:245 ../fstab.py:322 ../fstab.py:456
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
-#: ../loader/devices.c:183 ../loader/loader.c:471 ../loader/loader.c:481
-#: ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905
-#: ../loader/loader.c:910 ../loader/loader.c:1665 ../loader/loader.c:1711
-#: ../loader/loader.c:1782 ../loader/urls.c:70 ../loader/urls.c:79
-#: ../loader/urls.c:86 ../loader/urls.c:223 ../loader/urls.c:228
-#: ../text.py:280 ../text.py:765 ../todo.py:328 ../todo.py:657 ../todo.py:688
+#: ../loader/devices.c:183 ../loader/lang.c:89 ../loader/loader.c:471
+#: ../loader/loader.c:481 ../loader/loader.c:696 ../loader/loader.c:748
+#: ../loader/loader.c:905 ../loader/loader.c:910 ../loader/loader.c:1683
+#: ../loader/loader.c:1729 ../loader/loader.c:1800 ../loader/urls.c:70
+#: ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:223
+#: ../loader/urls.c:228 ../text.py:280 ../text.py:765 ../todo.py:330
+#: ../todo.py:659 ../todo.py:690
 msgid "Error"
 msgstr "Feil"
 
 #: ../fstab.py:245
 msgid "Error creating swap on device "
-msgstr ""
+msgstr "Feil under oppretting av swap på enhet "
 
 #: ../fstab.py:323
-#, fuzzy, c-format
+#, c-format
 msgid "Error unmounting %s: %s"
-msgstr "Feil under åpning: kickstart-fil %s: %s"
+msgstr "Feil under avmontering av %s: %s"
 
-#: ../fstab.py:345 ../todo.py:410
+#: ../fstab.py:345 ../todo.py:412
 msgid "Creating"
-msgstr ""
+msgstr "Oppretter"
 
 #: ../fstab.py:345
-#, fuzzy
 msgid "Creating RAID devices..."
-msgstr "Slett RAID enhet?"
+msgstr "Oppretter RAID enheter..."
 
 #: ../fstab.py:391
 #, c-format
 msgid "Formatting %s filesystem..."
-msgstr ""
+msgstr "Formaterer %s filsystem..."
 
 #: ../fstab.py:413
 msgid "Loopback"
-msgstr ""
+msgstr "Loopback"
 
 #: ../fstab.py:414
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr ""
+msgstr "Oppretter loopback filsystem på enhet /dev/%s..."
 
 #: ../fstab.py:457
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting %s: %s"
-msgstr "Feil under åpning: kickstart-fil %s: %s"
+msgstr "Feil under montering av %s: %s"
 
-#: ../gui.py:270 ../gui.py:516
+#: ../gui.py:277 ../gui.py:523
 msgid "Next"
 msgstr "Neste"
 
-#: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292
+#: ../gui.py:278 ../gui.py:522 ../libfdisk/newtfsedit.c:1292
 #: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
-#: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:536
+#: ../loader/devices.c:168 ../loader/devices.c:245 ../loader/lang.c:548
 #: ../loader/loader.c:255 ../loader/loader.c:603 ../loader/loader.c:639
-#: ../loader/loader.c:748 ../loader/loader.c:1139 ../loader/net.c:162
+#: ../loader/loader.c:748 ../loader/loader.c:1151 ../loader/net.c:162
 #: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:54
 #: ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143
 #: ../text.py:173 ../text.py:176 ../text.py:229 ../text.py:283 ../text.py:297
@@ -92,62 +91,65 @@ msgstr "Neste"
 #: ../textw/packages.py:144 ../textw/packages.py:153
 #: ../textw/partitioning.py:23 ../textw/partitioning.py:63
 #: ../textw/partitioning.py:214 ../textw/partitioning.py:263
-#: ../textw/silo.py:26 ../textw/silo.py:87 ../textw/silo.py:186
-#: ../textw/timezone.py:66 ../textw/userauth.py:29 ../textw/userauth.py:145
-#: ../textw/userauth.py:176 ../textw/userauth.py:248
+#: ../textw/silo.py:26 ../textw/silo.py:88 ../textw/silo.py:195
+#: ../textw/timezone.py:66 ../textw/userauth.py:30 ../textw/userauth.py:154
+#: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "Back"
 msgstr "Tilbake"
 
-#: ../gui.py:272 ../gui.py:520
+#: ../gui.py:279 ../gui.py:527
 msgid "Show Help"
 msgstr "Vis hjelp"
 
-#: ../gui.py:273 ../gui.py:519
+#: ../gui.py:280 ../gui.py:526
 msgid "Hide Help"
 msgstr "Skjul hjelp"
 
-#: ../gui.py:274 ../gui.py:518
+#: ../gui.py:281 ../gui.py:525
 msgid "Finish"
 msgstr "Fullfør"
 
-#: ../gui.py:277 ../gui.py:545
+#: ../gui.py:284 ../gui.py:552
 msgid "Online Help"
 msgstr "Online hjelp"
 
-#: ../gui.py:278 ../iw/language.py:10 ../text.py:59 ../text.py:1005
+#: ../gui.py:285 ../iw/language.py:10 ../text.py:59 ../text.py:1005
 #: ../text.py:1034
 msgid "Language Selection"
 msgstr "Valg av språk"
 
-#: ../gui.py:482
+#: ../gui.py:489
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux installasjon"
 
-#: ../gui.py:486
-#, fuzzy
+#: ../gui.py:493
 msgid "Red Hat Linux Install Shell"
-msgstr "Red Hat Linux installasjon"
+msgstr "Red Hat Linux installasjonsskall"
 
-#: ../gui.py:497
-#, fuzzy, c-format
+#: ../gui.py:504
+#, c-format
 msgid "Red Hat Linux Installer on %s"
-msgstr "Red Hat Linux installasjon"
+msgstr "Red Hat Linux installasjon på %s"
 
-#: ../gui.py:498
-#, fuzzy, c-format
+#: ../gui.py:505
+#, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "Red Hat Linux installasjon"
+msgstr "Red Hat Linux installasjonsskall på %s"
 
 #: ../installclass.py:251
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
+"Du er i ferd med å slette alle eksisterende Linux installasjoner på ditt "
+"system."
 
 #: ../installclass.py:289
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
 msgstr ""
+"Du er i ferd med å slette ALLE DATA på din harddisk for å gjøre plass til "
+"din Linux installasjon."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742
@@ -170,8 +172,8 @@ msgstr ""
 #: ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86
 #: ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100
 #: ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:105
-#: ../textw/lilo.py:177 ../textw/silo.py:124 ../textw/silo.py:137
-#: ../textw/silo.py:185
+#: ../textw/lilo.py:177 ../textw/silo.py:125 ../textw/silo.py:138
+#: ../textw/silo.py:194
 msgid "Ok"
 msgstr "Ok"
 
@@ -196,7 +198,7 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 i DOS)"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:100
-#: ../textw/lilo.py:168 ../textw/silo.py:119 ../textw/silo.py:176
+#: ../textw/lilo.py:168 ../textw/silo.py:120 ../textw/silo.py:185
 msgid "Device"
 msgstr "Enhet"
 
@@ -206,29 +208,29 @@ msgid "What device is your mouse located on? %s %i"
 msgstr "Hvilken enhet er musen plassert på? %s %i"
 
 #: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167
-#: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
+#: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:245
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader/lang.c:269 ../loader/lang.c:536 ../loader/loader.c:255
-#: ../loader/loader.c:471 ../loader/loader.c:481 ../loader/loader.c:639
-#: ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905
-#: ../loader/loader.c:910 ../loader/loader.c:995 ../loader/loader.c:1139
-#: ../loader/loader.c:1665 ../loader/loader.c:1711 ../loader/loader.c:1774
-#: ../loader/loader.c:1782 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:560 ../loader/net.c:591 ../loader/urls.c:146
-#: ../loader/urls.c:223 ../loader/urls.c:228 ../loader/urls.c:361
-#: ../text.py:120 ../text.py:173 ../text.py:229 ../text.py:297 ../text.py:342
-#: ../text.py:359 ../text.py:451 ../text.py:471 ../text.py:502 ../text.py:585
-#: ../text.py:613 ../text.py:685 ../text.py:710 ../text.py:724 ../text.py:744
-#: ../text.py:757 ../text.py:769 ../text.py:964 ../text.py:968 ../text.py:1165
-#: ../textw/lilo.py:30 ../textw/lilo.py:87 ../textw/packages.py:20
-#: ../textw/packages.py:85 ../textw/packages.py:144
+#: ../loader/lang.c:89 ../loader/lang.c:277 ../loader/lang.c:548
+#: ../loader/loader.c:255 ../loader/loader.c:471 ../loader/loader.c:481
+#: ../loader/loader.c:639 ../loader/loader.c:696 ../loader/loader.c:748
+#: ../loader/loader.c:905 ../loader/loader.c:910 ../loader/loader.c:995
+#: ../loader/loader.c:1151 ../loader/loader.c:1683 ../loader/loader.c:1729
+#: ../loader/loader.c:1792 ../loader/loader.c:1800 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/net.c:560 ../loader/net.c:591
+#: ../loader/urls.c:146 ../loader/urls.c:223 ../loader/urls.c:228
+#: ../loader/urls.c:361 ../text.py:120 ../text.py:173 ../text.py:229
+#: ../text.py:297 ../text.py:342 ../text.py:359 ../text.py:451 ../text.py:471
+#: ../text.py:502 ../text.py:585 ../text.py:613 ../text.py:685 ../text.py:710
+#: ../text.py:724 ../text.py:744 ../text.py:757 ../text.py:769 ../text.py:964
+#: ../text.py:968 ../text.py:1165 ../textw/lilo.py:30 ../textw/lilo.py:87
+#: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144
 #: ../textw/partitioning.py:214 ../textw/partitioning.py:263
 #: ../textw/partitioning.py:273 ../textw/partitioning.py:281
-#: ../textw/silo.py:25 ../textw/silo.py:87 ../textw/timezone.py:66
-#: ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48
-#: ../textw/userauth.py:81 ../textw/userauth.py:92 ../textw/userauth.py:98
-#: ../textw/userauth.py:106 ../textw/userauth.py:115 ../textw/userauth.py:176
-#: ../textw/userauth.py:248
+#: ../textw/silo.py:25 ../textw/silo.py:88 ../textw/timezone.py:66
+#: ../textw/userauth.py:30 ../textw/userauth.py:44 ../textw/userauth.py:49
+#: ../textw/userauth.py:82 ../textw/userauth.py:95 ../textw/userauth.py:101
+#: ../textw/userauth.py:107 ../textw/userauth.py:115 ../textw/userauth.py:124
+#: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "OK"
 msgstr "OK"
 
@@ -363,12 +365,18 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
+"Velkommen til Red Hat Linux!\n"
+"\n"
+"Du har gått til rekonfigurasjonsmodus, som lar deg konfigurere "
+"steds-spesifikke alternativer for din maskin.\n"
+"\n"
+"For å avslutte uten å endre oppsettet velg Avbryt knappen under."
 
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
 #: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168
-#: ../loader/loader.c:1774 ../text.py:359 ../text.py:361 ../textw/lilo.py:106
-#: ../textw/silo.py:124 ../textw/silo.py:142 ../textw/userauth.py:62
+#: ../loader/loader.c:1792 ../text.py:359 ../text.py:361 ../textw/lilo.py:106
+#: ../textw/silo.py:125 ../textw/silo.py:143 ../textw/userauth.py:63
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -421,7 +429,6 @@ msgid "Hostname"
 msgstr "Vertsnavn"
 
 #: ../text.py:518
-#, fuzzy
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -447,6 +454,9 @@ msgid ""
 "On SMCC made Ultra machines floppy booting probably does not work\n"
 "\n"
 msgstr ""
+"\n"
+"På Ultra maskiner laget av SMCC, virker sannsynligvis ikke oppstart fra "
+"diskett.\n"
 
 #: ../text.py:540 ../text.py:753
 msgid "Bootdisk"
@@ -494,7 +504,6 @@ msgid "Complete"
 msgstr "Ferdig"
 
 #: ../iw/congrats.py:32 ../text.py:700
-#, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -510,13 +519,12 @@ msgstr ""
 "\n"
 "Fjern oppstartsmediet og trykk linjeskift for å starte opp på nytt. For "
 "informasjon om feilrettinger som er tilgjengelig for denne utgaven av Red "
-"Hat Linux, se errataen som finnes på http://www.redhat.com.\n"
+"Hat Linux, se errataen som finnes på http://www.redhat.com/errata.\n"
 "\n"
-"Informasjon om konfigurasjon av systemet er tilgjengelig kapittelet \"What "
-"do I do now?\" i den offisielle brukermanualen for Red Hat Linux."
+"Informasjon om konfigurasjon av systemet er tilgjengelig i brukerhåndbøkene "
+"for Red Hat Linux."
 
 #: ../text.py:715 ../text.py:735
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -526,14 +534,14 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Gratulerer, installasjonen er ferdig.\n"
+"Gratulerer, konfigurasjonen er ferdig.\n"
 "\n"
-"Fjern oppstartsmediet og trykk linjeskift for å starte opp på nytt. For "
-"informasjon om feilrettinger som er tilgjengelig for denne utgaven av Red "
-"Hat Linux, se errataen som finnes på http://www.redhat.com.\n"
+"For informasjon om feilrettinger som er tilgjengelig for denne utgaven av "
+"Red Hat Linux, se errataen som finnes på http://www.redhat.com.\n"
 "\n"
-"Informasjon om konfigurasjon av systemet er tilgjengelig kapittelet \"What "
-"do I do now?\" i den offisielle brukermanualen for Red Hat Linux."
+"Informasjon om videre konfigurasjon av systemet er tilgjengelig i \"etter "
+"installasjonen\" kapittelet i den offisielle brukermanualen for Red Hat "
+"Linux."
 
 #: ../iw/bootdisk.py:50 ../text.py:754
 msgid ""
@@ -601,9 +609,8 @@ msgid "Debug"
 msgstr "Debug"
 
 #: ../text.py:981
-#, fuzzy
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:983
 msgid ""
@@ -629,11 +636,11 @@ msgstr "Oppsett av nettverk"
 msgid "Time Zone Setup"
 msgstr "Oppsett av tidssone"
 
-#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:8
+#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:9
 msgid "Root Password"
 msgstr "Root-passord"
 
-#: ../text.py:1021 ../text.py:1089 ../textw/userauth.py:152
+#: ../text.py:1021 ../text.py:1089 ../textw/userauth.py:161
 msgid "User Account Setup"
 msgstr "Oppsett av brukerkonto"
 
@@ -642,15 +649,13 @@ msgid "Authentication"
 msgstr "Autentisering"
 
 #: ../text.py:1029
-#, fuzzy
 msgid "Configuration Complete"
-msgstr "Konfigurasjon av X"
+msgstr "Konfigurasjonen fullført"
 
-#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:89
-#: ../textw/silo.py:193
-#, fuzzy
+#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:90
+#: ../textw/silo.py:202
 msgid "SILO Configuration"
-msgstr "LILO-konfigurasjon"
+msgstr "SILO-konfigurasjon"
 
 #: ../text.py:1053 ../textw/lilo.py:33 ../textw/lilo.py:84
 #: ../textw/lilo.py:186
@@ -672,7 +677,7 @@ msgstr "Automatisk partisjon"
 
 #: ../text.py:1065 ../textw/partitioning.py:255
 msgid "Root Filesystem Size"
-msgstr ""
+msgstr "Størrelse på rot filsystem"
 
 #: ../text.py:1067
 msgid "Swap"
@@ -735,109 +740,102 @@ msgid "Upgrade Complete"
 msgstr "Oppgradéring ferdig"
 
 #: ../text.py:1162
-#, fuzzy
 msgid "Cancelled"
-msgstr "Avbryt"
+msgstr "Avbrutt"
 
 #: ../text.py:1163
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
+msgstr "Kan ikke gå tilbake til forrige steg herfra. Du må forsøke igjen."
 
-#: ../todo.py:329
-#, fuzzy, c-format
+#: ../todo.py:331
+#, c-format
 msgid "Error copying file: %s"
-msgstr "Feil under åpning: kickstart-fil %s: %s"
+msgstr "Feil under kopiering av fil: %s"
 
-#: ../todo.py:410
-#, fuzzy
+#: ../todo.py:412
 msgid "Creating boot disk..."
-msgstr "Lag oppstartsdiskett"
+msgstr "Oppretter oppstartsdiskett..."
 
-#: ../todo.py:430
-#, fuzzy
+#: ../todo.py:432
 msgid "Reading"
-msgstr "Gjenstår"
+msgstr "Leser"
 
-#: ../todo.py:431
-#, fuzzy
+#: ../todo.py:433
 msgid "Reading package information..."
-msgstr "Sender forespørsel for IP-informasjon"
+msgstr "Leser pakkeinformasjon"
 
-#: ../todo.py:627 ../todo.py:640
+#: ../todo.py:629 ../todo.py:642
 msgid "no suggestion"
-msgstr ""
+msgstr "ingen forslag"
 
-#: ../todo.py:646
+#: ../todo.py:648
 msgid "Searching"
-msgstr ""
+msgstr "Søker"
 
-#: ../todo.py:647
+#: ../todo.py:649
 msgid "Searching for Red Hat Linux installations..."
-msgstr ""
+msgstr "Slker etter Red Hat Linux installasjoner..."
 
-#: ../todo.py:658 ../todo.py:689
-#, fuzzy, c-format
+#: ../todo.py:660 ../todo.py:691
+#, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "Feil under åpning: kickstart-fil %s: %s"
+msgstr "Feil under montering av ext2 filsystem på %s: %s"
 
-#: ../todo.py:700
-#, fuzzy
+#: ../todo.py:702
 msgid "Finding"
-msgstr "Gjenstår"
+msgstr "Finner"
 
-#: ../todo.py:701
-#, fuzzy
+#: ../todo.py:703
 msgid "Finding packages to upgrade..."
-msgstr "Velg pakker som skal oppgraderes"
+msgstr "Finner pakker som skal oppgraderes..."
 
-#: ../todo.py:944
+#: ../todo.py:952
 msgid "Processing"
-msgstr ""
+msgstr "Arbeider"
 
-#: ../todo.py:945
+#: ../todo.py:953
 msgid "Preparing to install..."
-msgstr ""
+msgstr "Forbereder installasjon..."
 
-#: ../todo.py:1112
+#: ../todo.py:1120
 #, c-format
 msgid "Upgrading %s.\n"
-msgstr ""
+msgstr "Oppgraderer %s.\n"
 
-#: ../todo.py:1114
-#, fuzzy, c-format
+#: ../todo.py:1122
+#, c-format
 msgid "Installing %s.\n"
-msgstr "Installerer pakker"
+msgstr "Installerer %s.\n"
 
-#: ../todo.py:1135
+#: ../todo.py:1143
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
+"Det ser ikke ut til at du har nok diskplass til å installere pakkene du har "
+"valgt. Du må ha mer plass på de følgende filsystemene:\n"
+"\n"
 
-#: ../todo.py:1138
-#, fuzzy
+#: ../todo.py:1146
 msgid "Mount Point"
-msgstr "Monteringspunkt:"
+msgstr "Monteringspunkt"
 
-#: ../todo.py:1138
+#: ../todo.py:1146
 msgid "Space Needed"
-msgstr ""
+msgstr "Nødvendig plass"
 
-#: ../todo.py:1151
-#, fuzzy
+#: ../todo.py:1159
 msgid "Disk Space"
-msgstr "Diskoppsett"
+msgstr "Diskplass"
 
-#: ../todo.py:1175
-#, fuzzy
+#: ../todo.py:1183
 msgid "Post Install"
-msgstr "Installér"
+msgstr "Etter-installasjon"
 
-#: ../todo.py:1176
-#, fuzzy
+#: ../todo.py:1184
 msgid "Performing post install configuration..."
-msgstr "Test denne konfigurasjonen"
+msgstr "Utfører etter-installasjons konfigurasjon..."
 
 #: ../iw/xconfig.py:10 ../xf86config.py:243
 msgid "Video Card"
@@ -848,14 +846,12 @@ msgid "Video Ram"
 msgstr "Grafikkminne"
 
 #: ../xf86config.py:247
-#, fuzzy
 msgid "X server"
-msgstr "Tjener"
+msgstr "X-tjener"
 
 #: ../xf86config.py:249
-#, fuzzy
 msgid "Unable to detect video card"
-msgstr "Kunne ikke finne ramdisk for nivå to: %s"
+msgstr "Kunne ikke finne skjermkort"
 
 #: ../iw/xconfig.py:11 ../xf86config.py:256 ../xf86config.py:258
 msgid "Monitor"
@@ -863,83 +859,78 @@ msgstr "Skjerm"
 
 #: ../xf86config.py:258
 msgid "Plug and Play Monitor"
-msgstr ""
+msgstr "Plug and Play skjerm"
 
 #: ../xf86config.py:260
-#, fuzzy
 msgid "Horizontal frequency range"
 msgstr "Horisontalt frekvensområde"
 
 #: ../xf86config.py:262
-#, fuzzy
 msgid "Vertical frequency range"
 msgstr "Vertikalt frekvensområde"
 
-#: ../iw/account.py:14
+#: ../iw/account.py:15
 msgid "Account Configuration"
 msgstr "Konfigurasjon av kontoer"
 
-#: ../iw/account.py:35
-#, fuzzy
+#: ../iw/account.py:36
 msgid "Root password accepted."
-msgstr "Passord for root: "
+msgstr "Passord for root godtatt."
 
-#: ../iw/account.py:38
-#, fuzzy
+#: ../iw/account.py:39
 msgid "Root password is too short."
-msgstr "Passord for root: "
+msgstr "Passord for root er for kort."
 
-#: ../iw/account.py:40
-#, fuzzy
+#: ../iw/account.py:41
 msgid "Root password does not match."
-msgstr "Passordene er ikke like"
+msgstr "Rot-passordene er ikke like."
 
-#: ../iw/account.py:138
+#: ../iw/account.py:168
 msgid "Root Password: "
 msgstr "Passord for root: "
 
-#: ../iw/account.py:141
+#: ../iw/account.py:171
 msgid "Confirm: "
 msgstr "Bekreft: "
 
-#: ../iw/account.py:197 ../iw/account.py:236
+#: ../iw/account.py:229 ../iw/account.py:268
 msgid "Account Name"
 msgstr "Kontonavn"
 
-#: ../iw/account.py:201 ../textw/userauth.py:79
+#: ../iw/account.py:233 ../textw/userauth.py:80
 msgid "Password"
 msgstr "Passord"
 
-#: ../iw/account.py:205 ../textw/userauth.py:80
+#: ../iw/account.py:237 ../textw/userauth.py:81
 msgid "Password (confirm)"
 msgstr "Passord (bekreft)"
 
-#: ../iw/account.py:209 ../iw/account.py:236 ../textw/userauth.py:78
-#: ../textw/userauth.py:164
+#: ../iw/account.py:241 ../iw/account.py:268 ../textw/userauth.py:79
+#: ../textw/userauth.py:173
 msgid "Full Name"
 msgstr "Fullt navn"
 
-#: ../iw/account.py:218 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:175
+#: ../iw/account.py:250 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:184
 msgid "Add"
 msgstr "Legg til"
 
-#: ../iw/account.py:220 ../libfdisk/newtfsedit.c:1291
+#: ../iw/account.py:252 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:177 ../textw/lilo.py:199
-#: ../textw/partitioning.py:62 ../textw/silo.py:185 ../textw/silo.py:207
-#: ../textw/userauth.py:176
+#: ../textw/partitioning.py:62 ../textw/silo.py:194 ../textw/silo.py:216
+#: ../textw/userauth.py:185
 msgid "Edit"
 msgstr "Rediger"
 
-#: ../iw/account.py:222 ../libfdisk/newtfsedit.c:1291
-#: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:175
+#: ../iw/account.py:254 ../libfdisk/newtfsedit.c:1291
+#: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:184
 msgid "Delete"
 msgstr "Slett"
 
-#: ../iw/account.py:224
+#: ../iw/account.py:256
 msgid "New"
 msgstr "Ny"
 
-#: ../iw/auth.py:11 ../textw/userauth.py:250
+#: ../iw/auth.py:11 ../textw/userauth.py:259
 msgid "Authentication Configuration"
 msgstr "Konfigurasjon av autentisering"
 
@@ -951,7 +942,7 @@ msgstr "Bruk MD5 passord"
 msgid "Enable shadow passwords"
 msgstr "Bruk skyggepassord"
 
-#: ../iw/auth.py:53 ../textw/userauth.py:255
+#: ../iw/auth.py:53 ../textw/userauth.py:264
 msgid "Enable NIS"
 msgstr "Bruk NIS"
 
@@ -992,7 +983,6 @@ msgid "Exit"
 msgstr "Avslutt"
 
 #: ../iw/congrats.py:80
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -1002,14 +992,13 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Gratulerer, installasjonen er ferdig.\n"
+"Gratulerer, konfigurasjonen er ferdig.\n"
 "\n"
-"Fjern oppstartsmediet og trykk linjeskift for å starte opp på nytt. For "
-"informasjon om feilrettinger som er tilgjengelig for denne utgaven av Red "
-"Hat Linux, se errataen som finnes på http://www.redhat.com.\n"
+"For informasjon om feilrettinger som er tilgjengelig for denne utgaven av "
+"Red Hat Linux, se errataen som finnes på http://www.redhat.com.\n"
 "\n"
-"Informasjon om konfigurasjon av systemet er tilgjengelig kapittelet \"What "
-"do I do now?\" i den offisielle brukermanualen for Red Hat Linux."
+"Informasjon om konfigurasjon av systemet er tilgjengelig i \"etter "
+"installasjonen\" i den offisielle brukermanualen for Red Hat Linux."
 
 #: ../iw/dependencies.py:9
 msgid "Unresolved Dependencies"
@@ -1047,7 +1036,7 @@ msgstr "Velg pakker som skal oppgraderes"
 msgid "fdisk"
 msgstr "fdisk"
 
-#: ../iw/fdisk.py:80
+#: ../iw/fdisk.py:78
 msgid "Select drive to run fdisk on"
 msgstr "Velg disk det fdisk skal kjøres på"
 
@@ -1080,15 +1069,15 @@ msgstr "Egendefinert"
 msgid "Install Type"
 msgstr "Type installasjon"
 
-#: ../iw/installpath.py:181
+#: ../iw/installpath.py:187
 msgid "Install"
 msgstr "Installér"
 
-#: ../iw/installpath.py:183
+#: ../iw/installpath.py:189
 msgid "Upgrade"
 msgstr "Oppgradér"
 
-#: ../iw/installpath.py:236
+#: ../iw/installpath.py:242
 msgid "Use fdisk"
 msgstr "Bruk fdisk"
 
@@ -1096,31 +1085,31 @@ msgstr "Bruk fdisk"
 msgid "Keyboard Configuration"
 msgstr "Konfigurasjon av tastatur"
 
-#: ../iw/keyboard.py:56
+#: ../iw/keyboard.py:57
 msgid "Model"
 msgstr "Modell"
 
-#: ../iw/keyboard.py:75
+#: ../iw/keyboard.py:76
 msgid "Layout"
 msgstr "Utforming"
 
-#: ../iw/keyboard.py:94
+#: ../iw/keyboard.py:95
 msgid "Dead Keys"
-msgstr ""
-
-#: ../iw/keyboard.py:103
-msgid "Enable dead keys"
-msgstr ""
+msgstr "Døde taster"
 
 #: ../iw/keyboard.py:104
-msgid "Disable dead keys"
-msgstr ""
+msgid "Enable dead keys"
+msgstr "Slå på døde taster"
 
-#: ../iw/keyboard.py:113
+#: ../iw/keyboard.py:105
+msgid "Disable dead keys"
+msgstr "Slå av døde taster"
+
+#: ../iw/keyboard.py:114
 msgid "Test your selection here:"
 msgstr "Test ditt valg her:"
 
-#: ../iw/language.py:21 ../loader/lang.c:267
+#: ../iw/language.py:21 ../loader/lang.c:275
 msgid "What language should be used during the installation process?"
 msgstr "Hvilket språk skal brukes under installasjonen?"
 
@@ -1136,11 +1125,11 @@ msgstr "Type"
 msgid "Install LILO boot record on:"
 msgstr "Installér oppstartslaster på:"
 
-#: ../iw/lilo.py:171 ../iw/silo.py:167 ../textw/silo.py:61
+#: ../iw/lilo.py:171 ../iw/silo.py:167 ../textw/silo.py:62
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../iw/lilo.py:175 ../iw/silo.py:170 ../textw/silo.py:62
+#: ../iw/lilo.py:175 ../iw/silo.py:170 ../textw/silo.py:63
 msgid "First sector of boot partition"
 msgstr "Første sektor på oppstartspartisjonen"
 
@@ -1161,22 +1150,22 @@ msgid "Do not install LILO"
 msgstr "Ikke installer LILO"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
-#: ../textw/silo.py:176
+#: ../textw/silo.py:185
 msgid "Default"
 msgstr "Standard"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
-#: ../textw/silo.py:176
+#: ../textw/silo.py:185
 msgid "Partition type"
 msgstr "Partisjonstype"
 
 #: ../iw/lilo.py:221 ../iw/lilo.py:257 ../iw/silo.py:246 ../iw/silo.py:281
-#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:120
-#: ../textw/silo.py:176
+#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:121
+#: ../textw/silo.py:185
 msgid "Boot label"
 msgstr "Oppstartsetikett"
 
-#: ../iw/mouse.py:134
+#: ../iw/mouse.py:132
 msgid "Emulate 3 Buttons"
 msgstr "Emuler 3 knapper"
 
@@ -1318,14 +1307,18 @@ msgid ""
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
 msgstr ""
+"Du har valgt å legge rot filsystemet i en fil på et allerede eksisterende "
+"DOS eller Windows filsystem. Hvor stor, i megabytes, ønsker du at rot "
+"filsystemet skal være, og hvor stort swap område ønsker du? Totalt må dette "
+"være mindre enn %d megabytes."
 
 #: ../iw/rootpartition.py:135
 msgid "Root filesystem size:"
-msgstr ""
+msgstr "Størrelse på rot filsystem:"
 
 #: ../iw/rootpartition.py:140
 msgid "Swap space size:"
-msgstr ""
+msgstr "Størrelse på swap område:"
 
 #: ../iw/rootpartition.py:159 ../textw/partitioning.py:124
 msgid "Automatic Partitioning"
@@ -1355,58 +1348,52 @@ msgid "Manually partition"
 msgstr "Manuell partisjonering"
 
 #: ../iw/silo.py:18
-#, fuzzy
 msgid "Silo Configuration"
-msgstr "LILO-konfigurasjon"
+msgstr "Silo-konfigurasjon"
 
 #: ../iw/silo.py:162
-#, fuzzy
 msgid "Install SILO boot record on:"
-msgstr "Installér oppstartslaster på:"
+msgstr "Installér SILO oppstartssektor på:"
 
 #: ../iw/silo.py:175
-#, fuzzy
 msgid "Create PROM alias"
-msgstr "Lag oppstartsdiskett"
+msgstr "Opprett PROM-alias"
 
 #: ../iw/silo.py:193
 msgid "Set default PROM boot device to linux"
-msgstr ""
+msgstr "Sett standard PROM oppstartsenhet til linux"
 
 #: ../iw/silo.py:225
-#, fuzzy
 msgid "Do not install SILO"
-msgstr "Ikke installer LILO"
+msgstr "Ikke installer SILO"
 
 #: ../iw/timezone.py:30 ../textw/timezone.py:84
 msgid "Time Zone Selection"
 msgstr "Valg av tidssone"
 
-#: ../iw/timezone.py:143
+#: ../iw/timezone.py:147
 msgid "View:"
 msgstr "Vis:"
 
-#: ../iw/timezone.py:151 ../iw/timezone.py:152
+#: ../iw/timezone.py:155 ../iw/timezone.py:156
 msgid "System clock uses UTC"
 msgstr "Systemklokken bruker UTC"
 
-#: ../iw/timezone.py:200
-#, fuzzy
+#: ../iw/timezone.py:204
 msgid "Use Daylight Saving Time (US only)"
 msgstr "Bruk \"Daylight Saving Time\""
 
-#: ../iw/timezone.py:214
+#: ../iw/timezone.py:218
 msgid "Location"
 msgstr "Arbeidsstasjon"
 
-#: ../iw/timezone.py:215
+#: ../iw/timezone.py:219
 msgid "UTC Offset"
 msgstr "Forskyvning fra UTC"
 
 #: ../iw/welcome.py:80
-#, fuzzy
 msgid "Would you like to configure your system?"
-msgstr "Vil du sette opp nettverk?"
+msgstr "Vil du konfigurere systemet ditt?"
 
 #: ../iw/xconfig.py:13
 msgid "Horizontal Frequency Range"
@@ -1433,26 +1420,24 @@ msgid "Test this configuration"
 msgstr "Test denne konfigurasjonen"
 
 #: ../iw/xconfig.py:112
-#, fuzzy
 msgid "Monitor Configuration"
-msgstr "LILO-konfigurasjon"
+msgstr "Skjermkonfigurasjon"
 
 #: ../iw/xconfig.py:215
-#, fuzzy
 msgid "Horizontal Sync"
-msgstr "Horisontalt frekvensområde"
+msgstr "Horisontal synkronisering"
 
 #: ../iw/xconfig.py:224
 msgid "Vertical Sync"
-msgstr ""
+msgstr "Vertikal synkronisering"
 
 #: ../iw/xconfig.py:329
-#, fuzzy
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"Din skjerm kunne ikke finnes av autosøk. Vennligst velg fra listen under:"
+"Mengden videominne kunne ikke finnes av autosøk. Velg mengden videoram fra "
+"listen under:"
 
 #: ../iw/xconfig.py:340
 msgid ""
@@ -1467,6 +1452,8 @@ msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
+"Hvis innstillingene fra autosøk ikke er riktig for din maskinvare, velg de "
+"riktige innstillingene under:"
 
 #: ../iw/xconfig.py:418
 msgid "Use Graphical Login"
@@ -1488,19 +1475,19 @@ msgstr ""
 "oppstartsflagg til kjernen, skriv dem inn nå. Hvis du ikke trenger dette, "
 "eller ikke er sikker, kan du la dette stå tomt."
 
-#: ../textw/lilo.py:85 ../textw/silo.py:91
+#: ../textw/lilo.py:85 ../textw/silo.py:92
 msgid "Where do you want to install the bootloader?"
 msgstr "Hvor vil du installere oppstartslasteren?"
 
-#: ../textw/lilo.py:105 ../textw/silo.py:124 ../textw/silo.py:145
+#: ../textw/lilo.py:105 ../textw/silo.py:125 ../textw/silo.py:146
 msgid "Clear"
 msgstr "Slett"
 
-#: ../textw/lilo.py:114 ../textw/silo.py:132
+#: ../textw/lilo.py:114 ../textw/silo.py:133
 msgid "Edit Boot Label"
 msgstr "Rediger oppstartsetikett"
 
-#: ../textw/lilo.py:181 ../textw/silo.py:188
+#: ../textw/lilo.py:181 ../textw/silo.py:197
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1580,20 +1567,19 @@ msgstr "Velg partisjoner som skal formateres"
 
 #: ../textw/partitioning.py:261
 msgid "Root filesystem size"
-msgstr ""
+msgstr "Størrelse på rot filsystem"
 
 #: ../textw/partitioning.py:262
 msgid "Swap space"
-msgstr ""
+msgstr "Swap område"
 
 #: ../textw/partitioning.py:271 ../textw/partitioning.py:277
-#, fuzzy
 msgid "Bad Size"
-msgstr "Størrelse"
+msgstr "Ugyldig størrelse"
 
 #: ../textw/partitioning.py:272
 msgid "The size you enter must be a number."
-msgstr ""
+msgstr "Størrelsen du oppgir må være et tall."
 
 #: ../textw/partitioning.py:278
 #, c-format
@@ -1601,15 +1587,16 @@ msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
 "which is %d megabytes."
 msgstr ""
-
-#: ../textw/silo.py:63
-#, fuzzy
-msgid "Create PROM alias `linux'"
-msgstr "Lag oppstartsdiskett"
+"Total størrelse må være mindre enn mengden ledig plass på disken, som er %d "
+"megabytes."
 
 #: ../textw/silo.py:64
+msgid "Create PROM alias `linux'"
+msgstr "Lag PROM-alias `linux'"
+
+#: ../textw/silo.py:65
 msgid "Set default PROM boot device"
-msgstr ""
+msgstr "Sett standard PROM oppstartsenhet"
 
 #: ../textw/timezone.py:68
 msgid "What time zone are you located in?"
@@ -1619,7 +1606,7 @@ msgstr "Hvilken tidssone befinner du deg i?"
 msgid "Hardware clock set to GMT?"
 msgstr "Maskinvareklokken satt til GMT?"
 
-#: ../textw/userauth.py:10
+#: ../textw/userauth.py:11
 msgid ""
 "Pick a root password. You must type it twice to ensure you know what it is "
 "and didn't make a mistake in typing. Remember that the root password is a "
@@ -1629,65 +1616,74 @@ msgstr ""
 "du vet hva det er og at du ikke gjorde en skrivefeil. Husk at root-passordet "
 "er kritisk for systemsikkerheten!"
 
-#: ../loader/urls.c:337 ../textw/userauth.py:23
+#: ../loader/urls.c:337 ../textw/userauth.py:24
 msgid "Password:"
 msgstr "Passord:"
 
-#: ../textw/userauth.py:24
+#: ../textw/userauth.py:25
 msgid "Password (again):"
 msgstr "Passord (igjen):"
 
-#: ../textw/userauth.py:40 ../textw/userauth.py:95
+#: ../textw/userauth.py:41 ../textw/userauth.py:104
 msgid "Password Length"
 msgstr "Passordlengde"
 
-#: ../textw/userauth.py:41
+#: ../textw/userauth.py:42
 msgid "The root password must be at least 6 characters long."
 msgstr "Root-passordet må være minst 6 tegn langt."
 
-#: ../textw/userauth.py:45 ../textw/userauth.py:103
+#: ../textw/userauth.py:46 ../textw/userauth.py:112
 msgid "Password Mismatch"
 msgstr "Passordene er ikke like"
 
-#: ../textw/userauth.py:46 ../textw/userauth.py:104
+#: ../textw/userauth.py:47 ../textw/userauth.py:113
 msgid "The passwords you entered were different. Please try again."
 msgstr "Passordene du skrev inn var forskjellige. Vennligst forsøk igjen."
 
-#: ../textw/userauth.py:71
+#: ../textw/userauth.py:72
 msgid "Edit User"
 msgstr "Rediger bruker"
 
-#: ../textw/userauth.py:73
+#: ../textw/userauth.py:74
 msgid "Add User"
 msgstr "Legg til bruker"
 
-#: ../textw/userauth.py:77
+#: ../textw/userauth.py:78
 msgid "User ID"
-msgstr "Bruker-ID:"
-
-#: ../textw/userauth.py:90
-#, fuzzy
-msgid "Missing User ID"
 msgstr "Bruker-ID:"
 
 #: ../textw/userauth.py:91
 #, fuzzy
-msgid "You must provide a user ID"
-msgstr "Du må skrive inn et tjenernavn."
+msgid "Bad User ID"
+msgstr "Bruker-ID:"
 
-#: ../textw/userauth.py:96
+#: ../textw/userauth.py:92
+msgid ""
+"User IDs must be less than 8 characters and contain only characters A-Z, "
+"a-z, and 0-9."
+msgstr ""
+
+#: ../textw/userauth.py:99
+msgid "Missing User ID"
+msgstr "Manglende bruker-ID"
+
+#: ../textw/userauth.py:100
+msgid "You must provide a user ID"
+msgstr "Du må oppgi en bruker-ID"
+
+#: ../textw/userauth.py:105
 msgid "The password must be at least 6 characters long."
 msgstr "Passordet må bestå av minst 6 tegn."
 
-#: ../textw/userauth.py:113
+#: ../textw/userauth.py:122
 msgid "User Exists"
 msgstr "Brukeren eksisterer"
 
-#: ../textw/userauth.py:114
+#: ../textw/userauth.py:123
 msgid "This user id already exists.  Choose another."
 msgstr "Denne brukeren eksisterer allerede. Velg en annen."
 
-#: ../textw/userauth.py:141
+#: ../textw/userauth.py:150
 msgid ""
 "You should use a normal user account for most activities on your system. By "
 "not using the root account casually, you'll reduce the chance of disrupting "
@@ -1697,7 +1693,7 @@ msgstr ""
 "ditt Ved å ikke bruke root kontoen reduserer du sjansene for å ødelegge "
 "systemets konfigurasjon."
 
-#: ../textw/userauth.py:154
+#: ../textw/userauth.py:163
 msgid ""
 "What user account would you like to have on the system? You should have at "
 "least one non-root account for normal work, but multi-user systems can have "
@@ -1707,39 +1703,39 @@ msgstr ""
 "siden av root for vanlig arbeid, men flerbrukersystemer kan ha mange kontoer "
 "satt opp."
 
-#: ../textw/userauth.py:164
+#: ../textw/userauth.py:173
 msgid "User name"
 msgstr "Brukernavn"
 
-#: ../textw/userauth.py:188
+#: ../textw/userauth.py:197
 msgid "Enter the information for the user."
 msgstr "Skriv inn informasjon om brukeren."
 
-#: ../textw/userauth.py:200
+#: ../textw/userauth.py:209
 msgid "Change the information for this user."
 msgstr "Endre informasjonen om denne brukeren."
 
-#: ../textw/userauth.py:251
+#: ../textw/userauth.py:260
 msgid "Use Shadow Passwords"
 msgstr "Bruk skyggepassord"
 
-#: ../textw/userauth.py:253
+#: ../textw/userauth.py:262
 msgid "Enable MD5 Passwords"
 msgstr "Bruk MD5-passord"
 
-#: ../textw/userauth.py:260
+#: ../textw/userauth.py:269
 msgid "NIS Domain:"
 msgstr "NIS-domene:"
 
-#: ../textw/userauth.py:262
+#: ../textw/userauth.py:271
 msgid "NIS Server:"
 msgstr "NIS-tjener:"
 
-#: ../textw/userauth.py:264
+#: ../textw/userauth.py:273
 msgid "or use:"
 msgstr "eller bruk:"
 
-#: ../textw/userauth.py:267
+#: ../textw/userauth.py:276
 msgid "Request server via broadcast"
 msgstr "Forespør tjener via kringkasting"
 
@@ -1793,6 +1789,10 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
+"Du har bedt om å legge rot (/) filsystemet på en DOS-stil FAT partisjon. Du "
+"kan gjøre dette, men du vil ikke kunne bruke andre filsystemer for ditt "
+"Linux system. I tillegg vil det gå utover ytelsen når du ikke bruker Linux "
+"partisjoner. Vil du fortsette?"
 
 #: ../libfdisk/fsedit.c:779
 #, c-format
@@ -2154,13 +2154,12 @@ msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Oppstartspartisjoner (/boot) kan kun plasseres på RAID-1."
 
 #: ../libfdisk/gnomefsedit.c:2077
-#, fuzzy
 msgid "Illegal RAID mountpoint"
-msgstr "Ugyldig RAID-type i /boot"
+msgstr "Ugyldig RAID monteringspunkt"
 
 #: ../libfdisk/gnomefsedit.c:2079
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr ""
+msgstr "RAID partisjoner kan ikke monteres som rot (/) på Alpha."
 
 #: ../libfdisk/gnomefsedit.c:2162
 #, c-format
@@ -2367,8 +2366,8 @@ msgstr ""
 msgid "Module Parameters"
 msgstr "Parametere for moduler"
 
-#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:253
-#: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1774
+#: ../loader/devices.c:167 ../loader/devices.c:268 ../loader/loader.c:253
+#: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1792
 msgid "Devices"
 msgstr "Enheter"
 
@@ -2376,7 +2375,7 @@ msgstr "Enheter"
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Sett inn driverdisketten og trykk \"OK\" for å fortsette."
 
-#: ../loader/devices.c:179 ../loader/loader.c:1783
+#: ../loader/devices.c:179 ../loader/loader.c:1801
 msgid "Failed to mount floppy disk."
 msgstr "Kunne ikke montere disketten."
 
@@ -2388,7 +2387,7 @@ msgstr ""
 "Disketten du satte inn er ikke en gyldig driverdiskett for denne utgaven av "
 "Red Hat Linux."
 
-#: ../loader/devices.c:206
+#: ../loader/devices.c:233
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
@@ -2396,11 +2395,11 @@ msgstr ""
 "Hvilken driver skal jeg forsøke? Hvis driveren du trenger ikke finnes på "
 "denne listen, og du har en separat driverdiskett, vennligst trykk F2."
 
-#: ../loader/devices.c:211
+#: ../loader/devices.c:238
 msgid "Which driver should I try?"
 msgstr "Hvilken driver skal jeg forsøke?"
 
-#: ../loader/devices.c:219
+#: ../loader/devices.c:246
 msgid "Specify module parameters"
 msgstr "Spesifiser parametere modul"
 
@@ -2423,15 +2422,15 @@ msgstr "Feil under lesing av innholdet i kickstart-fil %s: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "Feil på linje %d i kickstart-fil %s."
 
-#: ../loader/lang.c:267
+#: ../loader/lang.c:275
 msgid "Choose a Language"
 msgstr "Velg et språk"
 
-#: ../loader/lang.c:534
+#: ../loader/lang.c:546
 msgid "Keyboard Type"
 msgstr "Tastaturtype"
 
-#: ../loader/lang.c:535
+#: ../loader/lang.c:547
 msgid "What type of keyboard do you have?"
 msgstr "Hvilken type tastatur har du?"
 
@@ -2552,52 +2551,51 @@ msgstr "FTP"
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Kunne ikke finne ramdisk for nivå to: %s"
 
-#: ../loader/loader.c:1131
+#: ../loader/loader.c:1143
 msgid "Rescue Method"
 msgstr "Redningsmetode"
 
-#: ../loader/loader.c:1132
+#: ../loader/loader.c:1144
 msgid "Installation Method"
 msgstr "Installasjonsmetode"
 
-#: ../loader/loader.c:1134
+#: ../loader/loader.c:1146
 msgid "What type of media contains the rescue image?"
 msgstr "Hvilken type media inneholder redningsbildet?"
 
-#: ../loader/loader.c:1136
+#: ../loader/loader.c:1148
 msgid "What type of media contains the packages to be installed?"
 msgstr "Hvilken type media inneholder pakkene som skal installeres?"
 
-#: ../loader/loader.c:1666
+#: ../loader/loader.c:1684
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Kan ikke finne ks.cfg på oppstartsdisketten."
 
-#: ../loader/loader.c:1712
-#, fuzzy, c-format
+#: ../loader/loader.c:1730
+#, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Red Hat katalog:"
+msgstr "Kunne ikke lese katalog %s: %s"
 
-#: ../loader/loader.c:1775
-#, fuzzy
+#: ../loader/loader.c:1793
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "Sett inn driverdisketten og trykk \"OK\" for å fortsette."
+msgstr "Sett inn oppdateringsdisketten og trykk \"OK\" for å fortsette."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
-#: ../loader/loader.c:1788
+#: ../loader/loader.c:1806
 msgid "Updates"
-msgstr ""
+msgstr "Oppdateringer"
 
-#: ../loader/loader.c:1788
+#: ../loader/loader.c:1806
 msgid "Reading anaconda updates..."
-msgstr ""
+msgstr "Leser anaconda oppdateringer..."
 
-#: ../loader/loader.c:1942
+#: ../loader/loader.c:1960
 msgid "PC Card"
 msgstr "PC-kort"
 
-#: ../loader/loader.c:1942
+#: ../loader/loader.c:1960
 msgid "Initializing PC Card Devices..."
 msgstr "Initialiserer enheter på PC-kort..."
 
@@ -2676,7 +2674,7 @@ msgstr "ugyldig argument til nettverks-kommando for kickstart %s: %s"
 #: ../loader/net.c:592
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "Ugyldig bootproto %s spesifisert i nettverkskommandoen"
 
 #: ../loader/net.c:628
 msgid "Boot protocol to use"
@@ -2724,14 +2722,14 @@ msgid "Would you like to set up networking?"
 msgstr "Vil du sette opp nettverk?"
 
 #: ../loader/urls.c:71
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Red Hat katalog:"
+msgstr "Klarte ikke logge inn på %s: %s"
 
 #: ../loader/urls.c:80 ../loader/urls.c:87
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Red Hat katalog:"
+msgstr "Klarte ikke å hente %s: %s"
 
 #: ../loader/urls.c:92
 msgid "Retrieving"
@@ -2799,12 +2797,12 @@ msgstr "Du må skrive inn en katalog."
 
 #: ../loader/urls.c:234
 msgid "Unknown Host"
-msgstr ""
+msgstr "Ukjent vert"
 
 #: ../loader/urls.c:235
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr ""
+msgstr "%s er ikke et gyldig vertsnavn."
 
 #: ../loader/urls.c:307
 msgid ""
@@ -2847,42 +2845,3 @@ msgstr "HTTP-proxy-port:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Laster SCSI-driver..."
-
-#, fuzzy
-#~ msgid "Rebuilding"
-#~ msgstr "Gjenstår"
-
-#~ msgid "Variant"
-#~ msgstr "Variant"
-
-#~ msgid "Autoprobe results:"
-#~ msgstr "Resultat av autosøk"
-
-#~ msgid ""
-#~ "A disk with a corrupt Sun disklabel has been found while reading block "
-#~ "device %s.  You must use fdisk to create and write a new label to this "
-#~ "device."
-#~ msgstr ""
-#~ "En disk med en korrupt Sun disketikett ble funnet under lesing av blokkenhet "
-#~ "%s. Du må bruke fdisk til å opprette og skrive en ny etikett for denne "
-#~ "enheten."
-
-#~ msgid "Corrupt Sun disklabel"
-#~ msgstr "Korrupt Sun disketikett"
-
-#~ msgid ""
-#~ "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
-#~ "or a RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "Du må tilegne systemet en oppstartspartisjon (/boot) plassert på en Linux "
-#~ "Native- partisjon (ext2), eller en RAID-1 partisjon, for at installasjonen "
-#~ "skal fortsette."
-
-#~ msgid ""
-#~ "Because you have assigned the root partition (/) to a RAID device, you must "
-#~ "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
-#~ "RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "Fordi du har tilegnet en rot-partisjon (/) til en RAID enhet, må du også "
-#~ "spesifisere en oppstartspartisjon (/boot) på en Linux native partisjon "
-#~ "(ext2) eller en RAID-1 partisjon for at installasjonen skal fortsette."
