@@ -1,24 +1,25 @@
 
+                    09Ayuda general para el arranque07
 
-                        09Ayuda general para el arranque07
+Est  preparado para empezar ahora el proceso de instalaci¢n.  En muchos
+casos, el mejor modo de empezar es simplemente pulsando 0f<ENTER>07. 
 
-Puede cargar el proceso de instalaci¢n 0cRed Hat07 Linux, y empezar el 
-proceso desde este prompt. En muchos casos, el mejor modo de
-empezar es simplemente pulsar 0f<ENTER>07.
+El instalador gr fico usa framebuffer con una resoluci¢n de 800x600 y con
+una profundidad de color de 16 bits.  Si tiene problemas con la instalaci¢n
+gr fica, pruebe una de las siguientes opciones:
+  - Inicie el instalador en una resoluci¢n de 640x480 tecleando 0flowres <ENTER>07.
+  - Evite usar el modo framebuffer tecleando 0fnofb <ENTER>07.
+  - Intente otra resoluci¢n agregando 'vga=xxx'. Posibles valores de vga:
+         1024x768x8bpp  -> vga=773        1024x768x16bpp  -> vga=791 
+         1280x1024x8bpp -> vga=775        1280x1024x16bpp -> vga=794
 
-En determinadas configuraciones del hardware durante la instalaci¢n pueden
-darse errores en la detecci¢n autom tica del hardware. Pero no es muy normal,
-sucede en raras ocasiones. Si se dan problemas durante la instalaci¢n,
-vuelva a empezar y utilice el modo experto (expert). Pulse 05<F3>07 
-para obtener mayor informaci¢n sobre el modo experto.
+En determinadas configuraciones de hardware, durante la instalaci¢n, pueden
+darse errores en la detecci¢n autom tica del mismo.  Si experimenta problemas
+durante la instalaci¢n, rein¡ciela utilizando el modo experto.  Pulse 05<F3>07
+para obtener m s informaci¢n sobre el modo experto.
 
-Existe una serie de par metros que pueden ser introducidos en el kernel de
-Linux durante el arranque. Pero no se dan par metros para dispositivos como 
-CD-ROM o tarjetas ethernet. Pulse 05<F4>07 para obtener mayor informaci¢n. 
+Existen una serie de par metros que pueden ser pasados al kernel de Linux
+durante el proceso de arranque.  Pulse 05<F4>07 para obtener m s informaci¢n. 
 
 
-
-
-
-
-05[F1-Main] [F2-General] [F3-Expert] [F4-Kernel] [F5-Rescue]07
+  05[F1-Principal]   [F2-General]   [F3-Experto]   [F4-Kernel]   [F5-Rescate]07
