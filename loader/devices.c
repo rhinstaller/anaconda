@@ -485,7 +485,11 @@ char * extractModule(struct driverDiskInfo * ddi, char * modName) {
 	    strcat(toPath, "/modules.cgz");
 	    to = gzopen(toPath, "w");
 
+	    winStatus(50, 3, _("Loading"), _("Loading %s driver..."), modName);
+
 	    myCpioFilterArchive(from, to, pattern);
+
+	    newtPopWindow();
 
 	    gzclose(from);
 	    gzclose(to);
