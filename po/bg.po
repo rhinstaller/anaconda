@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-16 12:06-0400\n"
+"POT-Creation-Date: 2004-09-24 17:14-0400\n"
 "PO-Revision-Date: 2004-09-22 11:23-0700\n"
 "Last-Translator: Николай Сърмаджиев <nikolayd@sarmadzhiev.tk>\n"
 "Language-Team: Български <bg@li.org>\n"
@@ -93,7 +93,8 @@ msgstr "Прекратяване след 50 неуспешни опита!\n"
 #: ../anaconda:198
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "Моля, направете връзка с Вашия vnc клиент към %s за да започне инсталацията."
+msgstr ""
+"Моля, направете връзка с Вашия vnc клиент към %s за да започне инсталацията."
 
 #: ../anaconda:200
 msgid "Please manually connect your vnc client to begin the install."
@@ -142,12 +143,12 @@ msgstr "Моля, направете връзка за да започне ин�
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
 #: ../loader2/kickstart.c:270 ../loader2/kickstart.c:405 ../loader2/lang.c:102
 #: ../loader2/lang.c:375 ../loader2/loader.c:326 ../loader2/loader.c:339
-#: ../loader2/loader.c:350 ../loader2/loader.c:657 ../loader2/loader.c:835
+#: ../loader2/loader.c:350 ../loader2/loader.c:661 ../loader2/loader.c:839
 #: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
 #: ../loader2/mediacheck.c:354 ../loader2/method.c:155 ../loader2/method.c:364
-#: ../loader2/method.c:449 ../loader2/modules.c:919 ../loader2/net.c:191
-#: ../loader2/net.c:229 ../loader2/net.c:523 ../loader2/net.c:883
-#: ../loader2/net.c:906 ../loader2/net.c:1040 ../loader2/nfsinstall.c:54
+#: ../loader2/method.c:449 ../loader2/modules.c:919 ../loader2/net.c:192
+#: ../loader2/net.c:230 ../loader2/net.c:524 ../loader2/net.c:884
+#: ../loader2/net.c:907 ../loader2/net.c:1054 ../loader2/nfsinstall.c:54
 #: ../loader2/nfsinstall.c:200 ../loader2/nfsinstall.c:209
 #: ../loader2/nfsinstall.c:247 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:66 ../loader2/urlinstall.c:136
@@ -166,7 +167,8 @@ msgstr "Неизвестна грешка"
 #: ../anaconda:621
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "Грешка при дърпането на втората част на \"кикстарт\" конфигурацията:%s!"
+msgstr ""
+"Грешка при дърпането на втората част на \"кикстарт\" конфигурацията:%s!"
 
 #: ../anaconda:737
 msgid ""
@@ -273,7 +275,8 @@ msgstr ""
 
 #: ../autopart.py:1030
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Дялът за първоначално зареждане %s може би не отговаря на изискванията на "
 "архитектурата."
@@ -690,8 +693,8 @@ msgid "_Make boot disk"
 msgstr "_Създаване на стартираща дискета"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
-#: ../fsset.py:592 ../fsset.py:1271 ../fsset.py:1290 ../fsset.py:1341
-#: ../fsset.py:1352 ../fsset.py:1387 ../fsset.py:1437 ../fsset.py:1481
+#: ../fsset.py:592 ../fsset.py:1274 ../fsset.py:1293 ../fsset.py:1344
+#: ../fsset.py:1355 ../fsset.py:1390 ../fsset.py:1440 ../fsset.py:1484
 #: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:326
 #: ../image.py:523 ../packages.py:150 ../packages.py:163 ../packages.py:175
 #: ../packages.py:182 ../packages.py:412 ../packages.py:595 ../packages.py:680
@@ -707,7 +710,7 @@ msgstr "_Създаване на стартираща дискета"
 #: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:534
 #: ../loader2/hdinstall.c:577 ../loader2/hdinstall.c:590
 #: ../loader2/kickstart.c:270 ../loader2/lang.c:102 ../loader2/loader.c:350
-#: ../loader2/loader.c:657 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:661 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:155 ../loader2/method.c:364
 #: ../loader2/method.c:449 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -773,27 +776,27 @@ msgstr ""
 "\n"
 "Желаете ли да продължите без конвертиране на %s?"
 
-#: ../fsset.py:1186
+#: ../fsset.py:1189
 msgid "RAID Device"
 msgstr "RAID устройство"
 
-#: ../fsset.py:1190 ../fsset.py:1196
+#: ../fsset.py:1193 ../fsset.py:1199
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1201 ../partitions.py:807
+#: ../fsset.py:1204 ../partitions.py:807
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1204 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1207 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Първи сектор на дяла за първоначално зареждане"
 
-#: ../fsset.py:1205 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1208 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:1272
+#: ../fsset.py:1275
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -801,11 +804,12 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Възникна грешка при опита за инициализиране на слуап дял върху устройство %s.  Проблема е сериозен и инсталацията не може да продължи.\n"
+"Възникна грешка при опита за инициализиране на слуап дял върху устройство %"
+"s.  Проблема е сериозен и инсталацията не може да продължи.\n"
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1291
+#: ../fsset.py:1294
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -819,7 +823,7 @@ msgstr ""
 "Най-често това е индикация за грешка при инициализацията на слуапът.\n"
 "Натиснете 'Добре' за рестартиране на системата."
 
-#: ../fsset.py:1342
+#: ../fsset.py:1345
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -832,7 +836,7 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата"
 
-#: ../fsset.py:1353
+#: ../fsset.py:1356
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -845,7 +849,7 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1388
+#: ../fsset.py:1391
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -858,7 +862,7 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1438
+#: ../fsset.py:1441
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -871,11 +875,11 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1459 ../fsset.py:1468
+#: ../fsset.py:1462 ../fsset.py:1471
 msgid "Invalid mount point"
 msgstr "Невалидна точка на монтиране"
 
-#: ../fsset.py:1460
+#: ../fsset.py:1463
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -888,7 +892,7 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1469
+#: ../fsset.py:1472
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -901,7 +905,7 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1482
+#: ../fsset.py:1485
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -916,11 +920,11 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:2128
+#: ../fsset.py:2131
 msgid "Duplicate Labels"
 msgstr "Повтарящи се етикети"
 
-#: ../fsset.py:2129
+#: ../fsset.py:2132
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -933,18 +937,18 @@ msgstr ""
 "\n"
 "Моля отстранете проблема и започнете отново процеса на инсталация."
 
-#: ../fsset.py:2136 ../gui.py:661 ../gui.py:1120 ../image.py:96
+#: ../fsset.py:2139 ../gui.py:661 ../gui.py:1120 ../image.py:96
 #: ../image.py:476 ../packages.py:1504 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "П_резареждане"
 
-#: ../fsset.py:2389
+#: ../fsset.py:2392
 msgid "Formatting"
 msgstr "_Форматиране"
 
-#: ../fsset.py:2390
+#: ../fsset.py:2393
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Форматиране на файлова система %s..."
@@ -1013,7 +1017,7 @@ msgstr "Да"
 msgid "No"
 msgstr "Не"
 
-#: ../gui.py:242 ../text.py:340 ../loader2/net.c:234 ../loader2/net.c:568
+#: ../gui.py:242 ../text.py:340 ../loader2/net.c:235 ../loader2/net.c:569
 msgid "Retry"
 msgstr "Отново"
 
@@ -1449,7 +1453,8 @@ msgstr "Стартиране на инсталацията"
 
 #: ../packages.py:934
 msgid "Starting install process, this may take several minutes..."
-msgstr "Стартиране на инсталационния процес, това може да отнеме няколко минути..."
+msgstr ""
+"Стартиране на инсталационния процес, това може да отнеме няколко минути..."
 
 #: ../packages.py:974
 msgid ""
@@ -1829,7 +1834,8 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr "Не може да редактирате този дял, защото той е extended дял, който съдържа %s"
+msgstr ""
+"Не може да редактирате този дял, защото той е extended дял, който съдържа %s"
 
 #: ../partIntfHelpers.py:379
 msgid "Format as Swap?"
@@ -1965,8 +1971,11 @@ msgid "Confirm Reset"
 msgstr "Потвърдете"
 
 #: ../partIntfHelpers.py:528
-msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr "Сигурни ли сте, че искате да върнете таблицата на дяловете в оригиналното състояние?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
+msgstr ""
+"Сигурни ли сте, че искате да върнете таблицата на дяловете в оригиналното "
+"състояние?"
 
 #: ../partitioning.py:77
 msgid "Installation cannot continue."
@@ -2015,7 +2024,8 @@ msgstr ""
 "за да се инсталира %s."
 
 #: ../partitions.py:773
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Трябва да създадете /boot/efi FAT дял с размер от 50 МБ."
 
 #: ../partitions.py:796
@@ -2033,7 +2043,8 @@ msgstr ""
 
 #: ../partitions.py:844 ../partRequests.py:652
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Дяловете за Началното зареждане могат да бъдат само на RAID1 устройства."
+msgstr ""
+"Дяловете за Началното зареждане могат да бъдат само на RAID1 устройства."
 
 #: ../partitions.py:851
 msgid "Bootable partitions cannot be on a logical volume."
@@ -2080,7 +2091,8 @@ msgstr "дял, който е член на LVM Група от Томове."
 
 #: ../partRequests.py:233
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Тази точка на монтиране е невалидна. Директорията %s трябва да е на / "
 "файловата система."
@@ -2110,14 +2122,16 @@ msgstr "Точката на монтиране \"%s\" е заета, моля и
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr "Размера на %s дела (%10.2f МБ) надвишава максималния размер от %10.2f МБ."
+msgstr ""
+"Размера на %s дела (%10.2f МБ) надвишава максималния размер от %10.2f МБ."
 
 #: ../partRequests.py:469
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr "Размера на зададения дял (= %s МБ) превишава максималния размер от %s МБ."
+msgstr ""
+"Размера на зададения дял (= %s МБ) превишава максималния размер от %s МБ."
 
 #: ../partRequests.py:474
 #, python-format
@@ -2325,8 +2339,10 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:367
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr " <F1> помощ | <Tab> между елементите | <Space> избор | <F12> следващ екран"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr ""
+" <F1> помощ | <Tab> между елементите | <Space> избор | <F12> следващ екран"
 
 #: ../text.py:369
 msgid ""
@@ -2515,11 +2531,16 @@ msgstr ""
 "нов.  Това изглежда е по-стара система.  Желаете ли да продължите с "
 "обновлението?"
 
-#: ../vnc.py:36
+#: ../urlinstall.py:46
+#, fuzzy
+msgid "Connecting..."
+msgstr "Проверява \"%s\"..."
+
+#: ../vnc.py:54
 msgid "Unable to Start X"
 msgstr "Не може да се стартира Х"
 
-#: ../vnc.py:37
+#: ../vnc.py:55
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
@@ -2529,23 +2550,23 @@ msgstr ""
 "свържа към този компютър от друг компютър и да извърша графична инсталация "
 "или да продължа инсталацията в текстов режим?"
 
-#: ../vnc.py:44 ../vnc.py:47
+#: ../vnc.py:62 ../vnc.py:65
 msgid "Use text mode"
 msgstr "Използвай текстов режим"
 
-#: ../vnc.py:45
+#: ../vnc.py:63
 msgid "Start VNC"
 msgstr "Стартиране на VNC"
 
-#: ../vnc.py:55
+#: ../vnc.py:73
 msgid "VNC Configuration"
 msgstr "VNC Конфигурация"
 
-#: ../vnc.py:59
+#: ../vnc.py:77
 msgid "No password"
 msgstr "Няма парола"
 
-#: ../vnc.py:62
+#: ../vnc.py:80
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
@@ -2555,27 +2576,27 @@ msgstr ""
 "Вашия инсталационен процес. Моля въведете парола, която да бъде използвана "
 "за инсталацията"
 
-#: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:435
+#: ../vnc.py:88 ../textw/userauth_text.py:44 ../loader2/urls.c:435
 msgid "Password:"
 msgstr "Парола:"
 
-#: ../vnc.py:71 ../textw/userauth_text.py:45
+#: ../vnc.py:89 ../textw/userauth_text.py:45
 msgid "Password (confirm):"
 msgstr "Потвърждаване:"
 
-#: ../vnc.py:93 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
+#: ../vnc.py:111 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
 msgid "Password Mismatch"
 msgstr "Различни пароли"
 
-#: ../vnc.py:94 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
+#: ../vnc.py:112 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
 msgid "The passwords you entered were different. Please try again."
 msgstr "Паролите, които сте въвели за различни. Моля опитайте пак."
 
-#: ../vnc.py:99 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
+#: ../vnc.py:117 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
 msgid "Password Length"
 msgstr "Дължина на паролата"
 
-#: ../vnc.py:100
+#: ../vnc.py:118
 msgid "The password must be at least six characters long."
 msgstr "Паролата трябва да съдържа поне 6 символа."
 
@@ -2589,7 +2610,11 @@ msgid ""
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
-msgstr "zSeries машините могат да използват стандартните SCSI устройства през Фибър Канала (FCP). Трябва да зададете 5 параметъра за всяко устройство: 16 битов номер на устройството, 16 битово SCSI ID, 64 битов номер на уеб порт (WWPN), 16 битов SCSI LUN и 64 битов FCP LUN."
+msgstr ""
+"zSeries машините могат да използват стандартните SCSI устройства през Фибър "
+"Канала (FCP). Трябва да зададете 5 параметъра за всяко устройство: 16 битов "
+"номер на устройството, 16 битово SCSI ID, 64 битов номер на уеб порт (WWPN), "
+"16 битов SCSI LUN и 64 битов FCP LUN."
 
 #: ../zfcp.py:29
 msgid "Device number"
@@ -3216,7 +3241,10 @@ msgstr "_Инсталиране на %s"
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr "Изберете тази опция за нова инсталация на системата. Съществуващия софтуер и информация може да бъдат припокрити, в зависимост от зададената от Вас конфигурация."
+msgstr ""
+"Изберете тази опция за нова инсталация на системата. Съществуващия софтуер и "
+"информация може да бъдат припокрити, в зависимост от зададената от Вас "
+"конфигурация."
 
 #: ../iw/examine_gui.py:65
 msgid "_Upgrade an existing installation"
@@ -3227,7 +3255,9 @@ msgstr "Обновление на съществуваща система"
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
-msgstr "Изберете тази опция, ако желаете да обновите съществуващата %s система.  Опцията ще запази информацията съществуващата на устройствата."
+msgstr ""
+"Изберете тази опция, ако желаете да обновите съществуващата %s система.  "
+"Опцията ще запази информацията съществуващата на устройствата."
 
 #: ../iw/examine_gui.py:130 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3324,8 +3354,9 @@ msgid ""
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
 msgstr ""
-"Може да настройте защитна стена, да допуска достъп до специализирани "
-"услуги на компютъра от други потребители.  Към кой услуги, ако има такива, да се разреши достъпа?"
+"Може да настройте защитна стена, да допуска достъп до специализирани услуги "
+"на компютъра от други потребители.  Към кой услуги, ако има такива, да се "
+"разреши достъпа?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -3404,7 +3435,10 @@ msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
-msgstr "Физическия размер не може да бъде променен, защото иначе размера необходим за дефинираните по настоящем логически томове ще стане над наличното пространство."
+msgstr ""
+"Физическия размер не може да бъде променен, защото иначе размера необходим "
+"за дефинираните по настоящем логически томове ще стане над наличното "
+"пространство."
 
 #: ../iw/lvm_dialog_gui.py:118
 msgid "Confirm Physical Extent Change"
@@ -3934,7 +3968,7 @@ msgstr "ръчно"
 msgid "(ex. \"host.domain.com\")"
 msgstr "(напр. \"host.domain.com\")"
 
-#: ../iw/network_gui.py:552 ../loader2/net.c:798
+#: ../iw/network_gui.py:552 ../loader2/net.c:799
 msgid "Hostname"
 msgstr "Хост-име"
 
@@ -4211,12 +4245,14 @@ msgid "Partitioning"
 msgstr "Разделяне"
 
 #: ../iw/partition_gui.py:628
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr "Следните критични грешки са намерени в зададената схема за разделяне."
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr "Грешките трябва да се отстранят преди да продължи инсталацията на %s."
 
 #: ../iw/partition_gui.py:637
@@ -4326,11 +4362,11 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
-"Софтуерните RAID Ви позволяват да комбинирате няколко диска в по-голямо "
-"RAID устройство.  RAID устройство може да се конфигурира да придава "
-"допълнителна скорост и надеждност в сравнение с използването на индивидуални "
-"дискове.  За повече информация за използването на RAID устройствата, моля "
-"разгледайте %s документацията.\n"
+"Софтуерните RAID Ви позволяват да комбинирате няколко диска в по-голямо RAID "
+"устройство.  RAID устройство може да се конфигурира да придава допълнителна "
+"скорост и надеждност в сравнение с използването на индивидуални дискове.  За "
+"повече информация за използването на RAID устройствата, моля разгледайте %s "
+"документацията.\n"
 "\n"
 "В момента имате свободен %s софтуерен RAID дял(-ове) за използване.\n"
 "\n"
@@ -4371,7 +4407,8 @@ msgstr "Не може да се създаде клонинг устройств
 
 #: ../iw/partition_gui.py:1307
 msgid "The drive clone editor could not be created for some reason."
-msgstr "Клон-редактор за устройство не може да бъде създаден по някаква причина."
+msgstr ""
+"Клон-редактор за устройство не може да бъде създаден по някаква причина."
 
 #: ../iw/partition_gui.py:1351
 msgid "Ne_w"
@@ -4658,7 +4695,8 @@ msgstr "Моля изберете target устройства за клонир�
 #: ../iw/raid_dialog_gui.py:530
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr "Устройството източник /dev/%s не може да се избира като желано устройство."
+msgstr ""
+"Устройството източник /dev/%s не може да се избира като желано устройство."
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
@@ -4711,7 +4749,8 @@ msgstr "Клониране на Устройствата"
 
 #: ../iw/raid_dialog_gui.py:643
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr "Има грешка при почистването на target устройствата.  Клонирането е провалена."
+msgstr ""
+"Има грешка при почистването на target устройствата.  Клонирането е провалена."
 
 #: ../iw/raid_dialog_gui.py:677
 msgid ""
@@ -4842,7 +4881,8 @@ msgstr "Ще се обнови конфигурацията на текущия 
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "Инсталатора намери %s начален зареждач, инсталиран на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4853,7 +4893,8 @@ msgstr "Опцията е препоръчителна."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr "Инсталатора не може да намери начален зареждач, инсталиран на системата."
+msgstr ""
+"Инсталатора не може да намери начален зареждач, инсталиран на системата."
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
@@ -4976,7 +5017,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Слуап файла трябва да е между 1 и 2000 МБ."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "Няма достатъчно място на устройството което сте избрали за слуап дял."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -5343,7 +5385,8 @@ msgstr ""
 "поставят за всеки от тях."
 
 #: ../textw/bootloader_text.py:315
-msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid ""
+" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> избира бутон | <F2> избира подразбиращ се дял за начално зареждане "
 "| <F12> следващ екран>"
@@ -5428,8 +5471,8 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-"За информация относно errata (обновления и поправки), посетете http://"
-"www.redhat.com/errata/.\n"
+"За информация относно errata (обновления и поправки), посетете http://www."
+"redhat.com/errata/.\n"
 "\n"
 "Информация за използването на системата е налична в %s ръководствата на "
 "http://www.redhat.com/docs/."
@@ -5463,9 +5506,9 @@ msgstr ""
 #: ../loader2/driverdisk.c:388 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:187 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:326 ../loader2/hdinstall.c:380 ../loader2/kbd.c:125
-#: ../loader2/loader.c:326 ../loader2/loader.c:835 ../loader2/loader.c:857
-#: ../loader2/net.c:191 ../loader2/net.c:229 ../loader2/net.c:523
-#: ../loader2/net.c:1040 ../loader2/nfsinstall.c:54 ../loader2/urls.c:255
+#: ../loader2/loader.c:326 ../loader2/loader.c:839 ../loader2/loader.c:861
+#: ../loader2/net.c:192 ../loader2/net.c:230 ../loader2/net.c:524
+#: ../loader2/net.c:1054 ../loader2/nfsinstall.c:54 ../loader2/urls.c:255
 #: ../loader2/urls.c:445
 msgid "Back"
 msgstr "Назад"
@@ -5622,7 +5665,8 @@ msgstr "Анулиране"
 
 #: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr "Изберете допълнителни езици които желаете да се използват на системата:"
+msgstr ""
+"Изберете допълнителни езици които желаете да се използват на системата:"
 
 #: ../textw/language_text.py:114
 msgid "Language Support"
@@ -5677,11 +5721,11 @@ msgstr "Нетмаска"
 msgid "Point to Point (IP)"
 msgstr "Точка до точка (IP)"
 
-#: ../textw/network_text.py:75 ../loader2/net.c:186
+#: ../textw/network_text.py:75 ../loader2/net.c:187
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../textw/network_text.py:76 ../loader2/net.c:187
+#: ../textw/network_text.py:76 ../loader2/net.c:188
 msgid "Encryption Key"
 msgstr "Криптиращ Ключ"
 
@@ -5773,8 +5817,10 @@ msgid "Select individual packages"
 msgstr "Изберете индивидуални пакети"
 
 #: ../textw/packages_text.py:73
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> избор   |   <F2> Групови Детайли   |   <F12> следващ екран"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr ""
+"<Space>,<+>,<-> избор   |   <F2> Групови Детайли   |   <F12> следващ екран"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5798,8 +5844,10 @@ msgid "Total size"
 msgstr "Общо"
 
 #: ../textw/packages_text.py:326
-msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr "   <Space>,<+>,<-> избор   |   <F1> помощ   |   <F2> описание на пакета"
+msgid ""
+"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr ""
+"   <Space>,<+>,<-> избор   |   <F1> помощ   |   <F2> описание на пакета"
 
 #: ../textw/packages_text.py:374
 msgid "Package Dependencies"
@@ -5943,7 +5991,8 @@ msgstr "Файлова Система Опции"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr "Моля изберете как желаете да се приготви файловата система на този дял."
+msgstr ""
+"Моля изберете как желаете да се приготви файловата система на този дял."
 
 #: ../textw/partition_text.py:607
 msgid "Check for bad blocks"
@@ -6068,8 +6117,11 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "    F1-Помощ     F2-Нов      F3-Редактирай   F4-Премахни    F5-Анулирай    F12-Добре     "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr ""
+"    F1-Помощ     F2-Нов      F3-Редактирай   F4-Премахни    F5-Анулирай    "
+"F12-Добре     "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -6315,11 +6367,14 @@ msgid "User Exists"
 msgstr "Потребителя съществува"
 
 #: ../textw/userauth_text.py:156
-msgid "The root user is already configured. You don't need to add this user here."
-msgstr "Руут потребителя вече е настроен. Не е нужно да добавяте потребителя тук."
+msgid ""
+"The root user is already configured. You don't need to add this user here."
+msgstr ""
+"Руут потребителя вече е настроен. Не е нужно да добавяте потребителя тук."
 
 #: ../textw/userauth_text.py:163
-msgid "This system user is already configured. You don't need to add this user here."
+msgid ""
+"This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Този системен потребител е вече настроен. Не трябва да добавяте потребителя "
 "тук."
@@ -6575,7 +6630,9 @@ msgstr "ВСинх честота: "
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
-msgstr "Изберете монитор за системата. Използвайте бутона '%s' за да възстановите намерените стойности."
+msgstr ""
+"Изберете монитор за системата. Използвайте бутона '%s' за да възстановите "
+"намерените стойности."
 
 #: ../textw/xconfig_text.py:423
 msgid "Monitor:"
@@ -6720,6 +6777,74 @@ msgstr ""
 "\tТекстови съобщения\n"
 "\tАудио и видео приложения\n"
 "\tИгри\n"
+
+#: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
+msgid "Red Hat Enterprise Linux AS"
+msgstr ""
+
+#: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tAdministration Tools\n"
+"\tServer Configuration Tools\n"
+"\tWeb Server\n"
+"\tWindows File Server (SMB)\n"
+msgstr ""
+
+#: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
+msgid "Red Hat Enterprise Linux Desktop"
+msgstr ""
+
+#: ../installclasses/rhel_desktop.py:16
+#, fuzzy
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tAdministration Tools\n"
+msgstr ""
+"\tДесктоп обвивка (GNOME)\n"
+"\tОфис пакет (OpenOffice.org)\n"
+"\tУеб браузър (Mozilla) \n"
+"\tЕмайл (Evolution)\n"
+"\tТекстови съобщения\n"
+"\tАудио и видео приложения\n"
+"\tИгри\n"
+
+#: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
+msgid "Red Hat Enterprise Linux ES"
+msgstr ""
+
+#: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
+msgid "Red Hat Enterprise Linux WS"
+msgstr ""
+
+#: ../installclasses/rhel_ws.py:16
+#, fuzzy
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tSoftware Development Tools\n"
+"\tAdministration Tools\n"
+msgstr ""
+"\tДесктоп обвивка (GNOME)\n"
+"\tОфис пакет (OpenOffice.org)\n"
+"\tУеб браузър (Mozilla) \n"
+"\tЕмайл (Evolution)\n"
+"\tТекстови съобщения\n"
+"\tАудио и видео приложения\n"
+"\tИгри\n"
+"\tИнструменти за разработка\n"
+"\tАдминистративни инструменти\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6897,7 +7022,8 @@ msgstr "Провали се зареждането на диска с драйв
 #: ../loader2/driverdisk.c:386
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Поставете диск с драйвери в /dev/%s и натиснете \"Добре\" за да продължите."
+msgstr ""
+"Поставете диск с драйвери в /dev/%s и натиснете \"Добре\" за да продължите."
 
 #: ../loader2/driverdisk.c:388
 msgid "Insert Driver Disk"
@@ -6944,8 +7070,8 @@ msgstr "Желаете ли да заредите други дискове?"
 #: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:610
 #: ../loader2/hdinstall.c:466 ../loader2/kickstart.c:118
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
-#: ../loader2/kickstart.c:405 ../loader2/modules.c:919 ../loader2/net.c:883
-#: ../loader2/net.c:906 ../loader2/nfsinstall.c:247
+#: ../loader2/kickstart.c:405 ../loader2/modules.c:919 ../loader2/net.c:884
+#: ../loader2/net.c:907 ../loader2/nfsinstall.c:247
 #: ../loader2/urlinstall.c:431 ../loader2/urlinstall.c:440
 #: ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
@@ -7121,8 +7247,10 @@ msgid "Welcome to %s"
 msgstr "Добре дошли в %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/<Alt-Tab> между елементите  | <Space> избира | <F12> следващ екран "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> между елементите  | <Space> избира | <F12> следващ екран "
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
@@ -7185,40 +7313,40 @@ msgstr ""
 "устройства за да е успешна инсталацията.  Желаете ли да изберете драйвер "
 "сега?"
 
-#: ../loader2/loader.c:654
+#: ../loader2/loader.c:658
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Нямата достатъчно RAM за инсталирането на %s на машината."
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:831
 msgid "Rescue Method"
 msgstr "Спасителен метод"
 
-#: ../loader2/loader.c:828
+#: ../loader2/loader.c:832
 msgid "Installation Method"
 msgstr "Инсталационен метод"
 
-#: ../loader2/loader.c:830
+#: ../loader2/loader.c:834
 msgid "What type of media contains the rescue image?"
 msgstr "Какъв е вида на медията, която съдържа спасителните изображения?"
 
-#: ../loader2/loader.c:832
+#: ../loader2/loader.c:836
 msgid "What type of media contains the packages to be installed?"
 msgstr "Какъв е вида на медията, която съдържа пакетите за инсталиране?"
 
-#: ../loader2/loader.c:856
+#: ../loader2/loader.c:860
 msgid "No driver found"
 msgstr "Не е намерен драйвер"
 
-#: ../loader2/loader.c:856
+#: ../loader2/loader.c:860
 msgid "Select driver"
 msgstr "Изберете драйвер"
 
-#: ../loader2/loader.c:857
+#: ../loader2/loader.c:861
 msgid "Use a driver disk"
 msgstr "използване на диск с драйвери"
 
-#: ../loader2/loader.c:858
+#: ../loader2/loader.c:862
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -7227,11 +7355,11 @@ msgstr ""
 "метод.  Желаете ли, ръчно да изберете драйвер или да ползвате диск с "
 "драйвери?"
 
-#: ../loader2/loader.c:1018
+#: ../loader2/loader.c:1022
 msgid "The following devices have been found on your system."
 msgstr "Следните устройства са намерени на системата."
 
-#: ../loader2/loader.c:1020
+#: ../loader2/loader.c:1024
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -7239,29 +7367,29 @@ msgstr ""
 "Не са заредени драйвери за устройствата на системата.  Желаете ли да "
 "заредите, въпреки това?"
 
-#: ../loader2/loader.c:1024
+#: ../loader2/loader.c:1028
 msgid "Devices"
 msgstr "Устройства"
 
-#: ../loader2/loader.c:1025
+#: ../loader2/loader.c:1029
 msgid "Done"
 msgstr "Готово"
 
-#: ../loader2/loader.c:1026
+#: ../loader2/loader.c:1030
 msgid "Add Device"
 msgstr "Добави устройства"
 
-#: ../loader2/loader.c:1144
+#: ../loader2/loader.c:1148
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "Зареждача е стартиран.  Стартирам конзолата.\n"
 
-#: ../loader2/loader.c:1505
+#: ../loader2/loader.c:1509
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Изпълнение на анаконда, %s спасителен режим - моля изчакайте...\n"
 
-#: ../loader2/loader.c:1507
+#: ../loader2/loader.c:1511
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Изпълнение на анаконда, %s системен инсталатор - моля изчакайте...\n"
@@ -7371,7 +7499,7 @@ msgstr "Проверка на контролната сума"
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Невалиден аргумент за командата за устройствения кикстарт метод %s: %s"
 
-#: ../loader2/net.c:46
+#: ../loader2/net.c:47
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -7386,7 +7514,7 @@ msgstr ""
 "    o директория на този сървър съдържаща\n"
 "       %s за архитектурата\n"
 
-#: ../loader2/net.c:180
+#: ../loader2/net.c:181
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -7397,19 +7525,19 @@ msgstr ""
 "необходимо, за достъп до безжичната мрежа.  Ако не е нужен ключ оставете "
 "полето празно и инсталацията ще продължи."
 
-#: ../loader2/net.c:190
+#: ../loader2/net.c:191
 msgid "Wireless Settings"
 msgstr "Безжични параметри"
 
-#: ../loader2/net.c:219
+#: ../loader2/net.c:220
 msgid "Nameserver IP"
 msgstr "Nameserver IP"
 
-#: ../loader2/net.c:223
+#: ../loader2/net.c:224
 msgid "Nameserver"
 msgstr "Nameserver"
 
-#: ../loader2/net.c:224
+#: ../loader2/net.c:225
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -7420,24 +7548,24 @@ msgstr ""
 "nameserver. Ако знаете nameserver си, моля въведете го сега. Ако нямате тази "
 "информация, може да оставите полето празно и инсталацията ще продължи."
 
-#: ../loader2/net.c:234
+#: ../loader2/net.c:235
 msgid "Invalid IP Information"
 msgstr "Невалидна IP информация"
 
-#: ../loader2/net.c:235
+#: ../loader2/net.c:236
 msgid "You entered an invalid IP address."
 msgstr "Въвели сте невалиден IP адрес."
 
-#: ../loader2/net.c:298 ../loader2/net.c:577
+#: ../loader2/net.c:299 ../loader2/net.c:578
 msgid "Dynamic IP"
 msgstr "Динамичен IP"
 
-#: ../loader2/net.c:299 ../loader2/net.c:578
+#: ../loader2/net.c:300 ../loader2/net.c:579
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "Изпращане на заявка за IP информация за %s..."
 
-#: ../loader2/net.c:467
+#: ../loader2/net.c:468
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -7445,57 +7573,57 @@ msgstr ""
 "Моля въведете IP конфигурация за машината. Всеки елемент трябва да бъде "
 "въведен като IP адрес в точково-десетичен формат (напр. 1.2.3.4)."
 
-#: ../loader2/net.c:473
+#: ../loader2/net.c:474
 msgid "IP address:"
 msgstr "IP адрес:"
 
-#: ../loader2/net.c:476
+#: ../loader2/net.c:477
 msgid "Netmask:"
 msgstr "Нетмаска:"
 
-#: ../loader2/net.c:479
+#: ../loader2/net.c:480
 msgid "Default gateway (IP):"
 msgstr "Подразбиращ се шлюз(IP):"
 
-#: ../loader2/net.c:482
+#: ../loader2/net.c:483
 msgid "Primary nameserver:"
 msgstr "Първичен nameserver:"
 
-#: ../loader2/net.c:509
+#: ../loader2/net.c:510
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "използване на динамична IP конфигурация (bootP/DHCP)"
 
-#: ../loader2/net.c:537
+#: ../loader2/net.c:538
 msgid "Configure TCP/IP"
 msgstr "Конфигуриране на TCP/IP"
 
-#: ../loader2/net.c:568
+#: ../loader2/net.c:569
 msgid "Missing Information"
 msgstr "Липсваща информация"
 
-#: ../loader2/net.c:569
+#: ../loader2/net.c:570
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Трябва да въведете валидни IP адрес и нетмаска."
 
-#: ../loader2/net.c:799
+#: ../loader2/net.c:800
 msgid "Determining host name and domain..."
 msgstr "Разрешаване на хост името и домейна..."
 
-#: ../loader2/net.c:884
+#: ../loader2/net.c:885
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Невалиден аргумент за командата за мрежовия кикстарт %s: %s"
 
-#: ../loader2/net.c:907
+#: ../loader2/net.c:908
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Невалидно bootproto %s зададено в мрежовата команда"
 
-#: ../loader2/net.c:1036
+#: ../loader2/net.c:1050
 msgid "Networking Device"
 msgstr "Мрежово Устройство"
 
-#: ../loader2/net.c:1037
+#: ../loader2/net.c:1051
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -7634,7 +7762,8 @@ msgstr "Ако не използвате анонимно ftp, въведете 
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr "Ако използвате HTTP прокси, въведете името на проксито, което да се използва."
+msgstr ""
+"Ако използвате HTTP прокси, въведете името на проксито, което да се използва."
 
 #: ../loader2/urls.c:432
 msgid "Account name:"
@@ -7693,12 +7822,14 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Атлантическо Време - И Лабрадор"
 
 #. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid ""
+"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr "Атлантическо Време - Нова Скотия, NB, З Лабрадор, И Квебек и PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr "Атлантическо Време - Нова Скотия - места, които не виждали DST 1966-1971"
+msgstr ""
+"Атлантическо Време - Нова Скотия - места, които не виждали DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -7881,7 +8012,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Източно време - Онтарио - повечето територии"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Източно време - Онтарио и Квебел - места не попадащи под DST 1967-1973"
 
 #. generated from zone.tab
@@ -8062,17 +8194,18 @@ msgstr "повечето местоположения"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "повечето местоположения (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+msgstr ""
+"повечето местоположения (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Планинско Стандартно Време - Аризона"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
-"Планинско Стандартно Време - Даунсон Крик и Форт Св. Джон, Британска "
-"Колумбия"
+"Планинско Стандартно Време - Даунсон Крик и Форт Св. Джон, Британска Колумбия"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8481,4 +8614,3 @@ msgstr "Уелски"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Зулу"
-

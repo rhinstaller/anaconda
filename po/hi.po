@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-16 12:06-0400\n"
+"POT-Creation-Date: 2004-09-24 17:14-0400\n"
 "PO-Revision-Date: 2004-09-20 13:59+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <Indlinux-hindi@lists.sourceforge.net>\n"
@@ -118,12 +118,12 @@ msgstr "अधिष्ठापन प्रारंभ करने के �
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
 #: ../loader2/kickstart.c:270 ../loader2/kickstart.c:405 ../loader2/lang.c:102
 #: ../loader2/lang.c:375 ../loader2/loader.c:326 ../loader2/loader.c:339
-#: ../loader2/loader.c:350 ../loader2/loader.c:657 ../loader2/loader.c:835
+#: ../loader2/loader.c:350 ../loader2/loader.c:661 ../loader2/loader.c:839
 #: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
 #: ../loader2/mediacheck.c:354 ../loader2/method.c:155 ../loader2/method.c:364
-#: ../loader2/method.c:449 ../loader2/modules.c:919 ../loader2/net.c:191
-#: ../loader2/net.c:229 ../loader2/net.c:523 ../loader2/net.c:883
-#: ../loader2/net.c:906 ../loader2/net.c:1040 ../loader2/nfsinstall.c:54
+#: ../loader2/method.c:449 ../loader2/modules.c:919 ../loader2/net.c:192
+#: ../loader2/net.c:230 ../loader2/net.c:524 ../loader2/net.c:884
+#: ../loader2/net.c:907 ../loader2/net.c:1054 ../loader2/nfsinstall.c:54
 #: ../loader2/nfsinstall.c:200 ../loader2/nfsinstall.c:209
 #: ../loader2/nfsinstall.c:247 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:66 ../loader2/urlinstall.c:136
@@ -238,11 +238,13 @@ msgstr "%s बूट विभाजन एक VFAT विभाजन नही
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
-msgstr "बूट विभाजन डिस्क में पहले से स्थानीय नहीं है। ओपनफर्मवेयर इस अधिष्ठापन को बूट नहीं कर सकता।"
+msgstr ""
+"बूट विभाजन डिस्क में पहले से स्थानीय नहीं है। ओपनफर्मवेयर इस अधिष्ठापन को बूट नहीं कर सकता।"
 
 #: ../autopart.py:1030
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr "आपके वास्तुकार के लिए %s बूट विभाजन में बूटिंग आवश्यकताएँ मिल नहीं सकती।"
 
 #: ../autopart.py:1056
@@ -496,7 +498,8 @@ msgstr "बूटलोडर अधिष्ठापित कर रहा �
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr "आपके तंञ पर कोई कर्नल संकुल अधिष्ठापित नहीं थे। आपका बूटलोडर विन्यास बदला नहीं जाएगा।"
+msgstr ""
+"आपके तंञ पर कोई कर्नल संकुल अधिष्ठापित नहीं थे। आपका बूटलोडर विन्यास बदला नहीं जाएगा।"
 
 #: ../cmdline.py:42 ../iw/progress_gui.py:472 ../iw/progress_gui.py:673
 msgid "Completed"
@@ -643,8 +646,8 @@ msgid "_Make boot disk"
 msgstr "बूट डिस्क बनाएंँ"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
-#: ../fsset.py:592 ../fsset.py:1271 ../fsset.py:1290 ../fsset.py:1341
-#: ../fsset.py:1352 ../fsset.py:1387 ../fsset.py:1437 ../fsset.py:1481
+#: ../fsset.py:592 ../fsset.py:1274 ../fsset.py:1293 ../fsset.py:1344
+#: ../fsset.py:1355 ../fsset.py:1390 ../fsset.py:1440 ../fsset.py:1484
 #: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:326
 #: ../image.py:523 ../packages.py:150 ../packages.py:163 ../packages.py:175
 #: ../packages.py:182 ../packages.py:412 ../packages.py:595 ../packages.py:680
@@ -660,7 +663,7 @@ msgstr "बूट डिस्क बनाएंँ"
 #: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:534
 #: ../loader2/hdinstall.c:577 ../loader2/hdinstall.c:590
 #: ../loader2/kickstart.c:270 ../loader2/lang.c:102 ../loader2/loader.c:350
-#: ../loader2/loader.c:657 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:661 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:155 ../loader2/method.c:364
 #: ../loader2/method.c:449 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -725,27 +728,27 @@ msgstr ""
 "\n"
 "क्या आप %s में बिना पलायन किए जारी रखना चाहते हैं?"
 
-#: ../fsset.py:1186
+#: ../fsset.py:1189
 msgid "RAID Device"
 msgstr "RAID युक्ति"
 
-#: ../fsset.py:1190 ../fsset.py:1196
+#: ../fsset.py:1193 ../fsset.py:1199
 msgid "Apple Bootstrap"
 msgstr "एप्पल बूटस्ट्रेप"
 
-#: ../fsset.py:1201 ../partitions.py:807
+#: ../fsset.py:1204 ../partitions.py:807
 msgid "PPC PReP Boot"
 msgstr "PPC PReP बूट"
 
-#: ../fsset.py:1204 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1207 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "बूट विभाजन का प्रथम खण्ड"
 
-#: ../fsset.py:1205 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1208 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "मास्टर बूट रिकार्ड (MBR)"
 
-#: ../fsset.py:1272
+#: ../fsset.py:1275
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -758,7 +761,7 @@ msgstr ""
 "\n"
 "आपके तंञ को रिबूट करने के लिए <Enter> दबायें।"
 
-#: ../fsset.py:1291
+#: ../fsset.py:1294
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -773,7 +776,7 @@ msgstr ""
 "\n"
 "आपके तंञ को रीबूट करने के लिए 'सही' दबाएँ।"
 
-#: ../fsset.py:1342
+#: ../fsset.py:1345
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -785,7 +788,7 @@ msgstr ""
 "\n"
 "आपके तंञ को रीबूट करने के लिए <Enter> दबाएँ।"
 
-#: ../fsset.py:1353
+#: ../fsset.py:1356
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -798,7 +801,7 @@ msgstr ""
 "\n"
 "आपके तंञ को रीबूट करने के लिए <Enter> दबाएँ।"
 
-#: ../fsset.py:1388
+#: ../fsset.py:1391
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -811,7 +814,7 @@ msgstr ""
 "\n"
 "आपके तंञ को रीबूट करने के लिए <Enter> दबाएँ।"
 
-#: ../fsset.py:1438
+#: ../fsset.py:1441
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -824,11 +827,11 @@ msgstr ""
 "\n"
 "आपके तंञ को रीबूट करने के लिए <Enter> दबाएँ।"
 
-#: ../fsset.py:1459 ../fsset.py:1468
+#: ../fsset.py:1462 ../fsset.py:1471
 msgid "Invalid mount point"
 msgstr "अनुचित आरोह स्थान "
 
-#: ../fsset.py:1460
+#: ../fsset.py:1463
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -841,7 +844,7 @@ msgstr ""
 "\n"
 "आपके तंञ को रीबूट करने के लिए <Enter> दबाएँ।"
 
-#: ../fsset.py:1469
+#: ../fsset.py:1472
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -854,7 +857,7 @@ msgstr ""
 "\n"
 "आपके तंञ को रीबूट करने के लिए <Enter> दबाएंँ।"
 
-#: ../fsset.py:1482
+#: ../fsset.py:1485
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -869,11 +872,11 @@ msgstr ""
 "\n"
 "आपके तंञ को रिबूट करने के लिए 'सही' दबाएंँ।"
 
-#: ../fsset.py:2128
+#: ../fsset.py:2131
 msgid "Duplicate Labels"
 msgstr "हमशक्ल लेबल"
 
-#: ../fsset.py:2129
+#: ../fsset.py:2132
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -886,18 +889,18 @@ msgstr ""
 "\n"
 "कृपया इस समस्या को ठीक करें और अधिष्ठापन प्रक्रिया को पुनः प्रारंभ करें।"
 
-#: ../fsset.py:2136 ../gui.py:661 ../gui.py:1120 ../image.py:96
+#: ../fsset.py:2139 ../gui.py:661 ../gui.py:1120 ../image.py:96
 #: ../image.py:476 ../packages.py:1504 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "रीबूट करें"
 
-#: ../fsset.py:2389
+#: ../fsset.py:2392
 msgid "Formatting"
 msgstr "संरूपित कर रहा है"
 
-#: ../fsset.py:2390
+#: ../fsset.py:2393
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "%s संचिका तंञ को संरूपित कर रहा है..."
@@ -966,7 +969,7 @@ msgstr "सही"
 msgid "No"
 msgstr "नहीं"
 
-#: ../gui.py:242 ../text.py:340 ../loader2/net.c:234 ../loader2/net.c:568
+#: ../gui.py:242 ../text.py:340 ../loader2/net.c:235 ../loader2/net.c:569
 msgid "Retry"
 msgstr "पुनःप्रयास करें"
 
@@ -1708,7 +1711,8 @@ msgstr "एक LDL संरुपित DASD के एक विभाजन �
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr "आप यह विभाजन विलोपित नहीं कर सकते, यह एक विस्तारित विभाजन है जिसमें %s समाहित है"
+msgstr ""
+"आप यह विभाजन विलोपित नहीं कर सकते, यह एक विस्तारित विभाजन है जिसमें %s समाहित है"
 
 #: ../partIntfHelpers.py:184
 msgid ""
@@ -1859,7 +1863,8 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr "निम्नांकित पूर्व-जीवंत विभाजन को  सभी आंकड़े नष्ट करके, संरूपित करने के लिए चुना गया है।"
+msgstr ""
+"निम्नांकित पूर्व-जीवंत विभाजन को  सभी आंकड़े नष्ट करके, संरूपित करने के लिए चुना गया है।"
 
 #: ../partIntfHelpers.py:450
 msgid ""
@@ -1907,7 +1912,8 @@ msgid "Confirm Reset"
 msgstr "पुनःजमावट निश्चित करें"
 
 #: ../partIntfHelpers.py:528
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "क्या आप निश्चित हैं कि आप विभाजन तालिका को असली स्थिति में पुनःजमाना चाहते हैं ?"
 
 #: ../partitioning.py:77
@@ -1954,7 +1960,8 @@ msgid ""
 msgstr "आपका रूट विभाजन २५० मेगाबाइट से भी कम हैं जोकि %s के अधिष्ठापन के लिए छोटा है।"
 
 #: ../partitions.py:773
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "आपको FAT प्रकार और ५० मेगाबाइट आकार का एक /boot/efi विभाजन अवश्य बनाना है।"
 
 #: ../partitions.py:796
@@ -2018,7 +2025,8 @@ msgstr "एक विभाजन, जो LVM आयतन समूह का �
 
 #: ../partRequests.py:233
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "यह आरोह स्थान अनुचित है। / संचिका तंञ पर %s निर्देशिका को अवश्य होना है।"
 
 #: ../partRequests.py:236
@@ -2257,8 +2265,10 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) २००४ रेड हैट, निगमन."
 
 #: ../text.py:367
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr " <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> अगला प्रपट"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr ""
+" <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> अगला प्रपट"
 
 #: ../text.py:369
 msgid ""
@@ -2440,11 +2450,16 @@ msgstr ""
 "%s के इस संस्करण के लिए श्रैणीविस्तार केवल रेड हेट लाइनक्स  6.2 या उच्च के लिए सहायक है। "
 "यह एक पुराना तंञ जैसा लग रहा है। क्या आप श्रैणीविस्तार प्रक्रिया सतत चाहते हैं?"
 
-#: ../vnc.py:36
+#: ../urlinstall.py:46
+#, fuzzy
+msgid "Connecting..."
+msgstr "\"%s\" को जांँच कर रहा है...."
+
+#: ../vnc.py:54
 msgid "Unable to Start X"
 msgstr "X को चालू करने में असमर्थ"
 
-#: ../vnc.py:37
+#: ../vnc.py:55
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
@@ -2454,23 +2469,23 @@ msgstr ""
 "आरंभ करना चाहेंगे और आरेखीय अधिष्ठापन से कार्य निष्पादन करेंगे या टेक्सट मोड अधिष्ठापन को "
 "जारी रखेंगे?्थ"
 
-#: ../vnc.py:44 ../vnc.py:47
+#: ../vnc.py:62 ../vnc.py:65
 msgid "Use text mode"
 msgstr "टेक्स्ट मोड का उपयोग करें"
 
-#: ../vnc.py:45
+#: ../vnc.py:63
 msgid "Start VNC"
 msgstr "VNC प्रारंभ कीजिए"
 
-#: ../vnc.py:55
+#: ../vnc.py:73
 msgid "VNC Configuration"
 msgstr "VNC विन्यास"
 
-#: ../vnc.py:59
+#: ../vnc.py:77
 msgid "No password"
 msgstr "रूट शब्दकूट"
 
-#: ../vnc.py:62
+#: ../vnc.py:80
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
@@ -2479,27 +2494,27 @@ msgstr ""
 "शब्दकूट अनधिकृत श्रोताओं को आपके अधिष्ठापन प्रगति से जुड़ने और नियंत्रण स्थापित करने से "
 "रोकेगा.  कृपया अधिष्ठापन के लिए प्रयुक्त शब्दकूट को दाखिल करें"
 
-#: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:435
+#: ../vnc.py:88 ../textw/userauth_text.py:44 ../loader2/urls.c:435
 msgid "Password:"
 msgstr "शब्दकूटः"
 
-#: ../vnc.py:71 ../textw/userauth_text.py:45
+#: ../vnc.py:89 ../textw/userauth_text.py:45
 msgid "Password (confirm):"
 msgstr "शब्दकूट (निश्चित करें):"
 
-#: ../vnc.py:93 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
+#: ../vnc.py:111 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
 msgid "Password Mismatch"
 msgstr "शब्दकूट मेल नहीं खाता"
 
-#: ../vnc.py:94 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
+#: ../vnc.py:112 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
 msgid "The passwords you entered were different. Please try again."
 msgstr "आपने जो शब्दकूट दिए, वे भिन्न थे। कृपया पुनः प्रयास करें।"
 
-#: ../vnc.py:99 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
+#: ../vnc.py:117 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
 msgid "Password Length"
 msgstr "शब्दकूट लंबाई"
 
-#: ../vnc.py:100
+#: ../vnc.py:118
 msgid "The password must be at least six characters long."
 msgstr "शब्दकूट कम से कम छह अक्षर का जरूर होना चाहिए."
 
@@ -2588,7 +2603,8 @@ msgstr "रूट शब्दकूट कम से कम छः अक्ष
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
-msgstr "निवेदित शब्दकूट में non-ascii अक्षर समाहित है जोकि शब्दकूट में प्रयोग के लिए अनुमति नहीं है।"
+msgstr ""
+"निवेदित शब्दकूट में non-ascii अक्षर समाहित है जोकि शब्दकूट में प्रयोग के लिए अनुमति नहीं है।"
 
 #: ../iw/account_gui.py:93
 msgid ""
@@ -2966,7 +2982,8 @@ msgstr "%s का श्रेणीविस्तार प्रारंभ 
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr "आपके तंञ को रीबूट करने के बाद '%s' संचिका में श्रेणीविस्तार की सारा प्रचालेख मिल सकता है।"
+msgstr ""
+"आपके तंञ को रीबूट करने के बाद '%s' संचिका में श्रेणीविस्तार की सारा प्रचालेख मिल सकता है।"
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
@@ -3851,7 +3868,7 @@ msgstr "हस्तेन"
 msgid "(ex. \"host.domain.com\")"
 msgstr "(उदाहरण. \"host.domain.com\")"
 
-#: ../iw/network_gui.py:552 ../loader2/net.c:798
+#: ../iw/network_gui.py:552 ../loader2/net.c:799
 msgid "Hostname"
 msgstr "प्रधाननाम"
 
@@ -4126,12 +4143,14 @@ msgid "Partitioning"
 msgstr "विभाजन कर रहा है"
 
 #: ../iw/partition_gui.py:628
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr "निम्नांकित गंभीरतम दोष आपके निवेदित विभाजन योजना के साथ जीवंत हैं।"
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr "आपके %s के अधिष्ठापन से सतत होने से पहले यह दोषों को सही किया जाना जरूरी।"
 
 #: ../iw/partition_gui.py:637
@@ -4753,7 +4772,8 @@ msgstr "यह आपके वर्तमान बूट लोडर के 
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "अधिष्ठापक ने %s बूट लोडर को वर्तमान में %s पर अधिष्ठापित हुआ खोजा है।"
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4884,7 +4904,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "स्वेप संचिका का आकार १ और २००० MB के बीच होना जरूरी।"
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "आपके द्वारा चयनित युक्ति पर स्वेप विभाजन के लिए स्थान पर्याप्त नहीं हैं।"
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -5034,7 +5055,8 @@ msgstr ""
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
-msgstr "आपकी वीडियो रेम आकार स्वतःखोज नहीं हो सकती ।निम्नांकित पसंदों में से आपकी वीडियो रेम चुनेंः"
+msgstr ""
+"आपकी वीडियो रेम आकार स्वतःखोज नहीं हो सकती ।निम्नांकित पसंदों में से आपकी वीडियो रेम चुनेंः"
 
 #: ../iw/xconfig_gui.py:990
 msgid ""
@@ -5242,7 +5264,8 @@ msgstr ""
 "साथ करना चाहते हैं।"
 
 #: ../textw/bootloader_text.py:315
-msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid ""
+" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Space> बटन चुनते हैं  | <F2> निर्धारित बूट प्रवेशिका चुनें | <F12> अगला प्रपट>"
 
 #: ../textw/bootloader_text.py:394
@@ -5358,9 +5381,9 @@ msgstr ""
 #: ../loader2/driverdisk.c:388 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:187 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:326 ../loader2/hdinstall.c:380 ../loader2/kbd.c:125
-#: ../loader2/loader.c:326 ../loader2/loader.c:835 ../loader2/loader.c:857
-#: ../loader2/net.c:191 ../loader2/net.c:229 ../loader2/net.c:523
-#: ../loader2/net.c:1040 ../loader2/nfsinstall.c:54 ../loader2/urls.c:255
+#: ../loader2/loader.c:326 ../loader2/loader.c:839 ../loader2/loader.c:861
+#: ../loader2/net.c:192 ../loader2/net.c:230 ../loader2/net.c:524
+#: ../loader2/net.c:1054 ../loader2/nfsinstall.c:54 ../loader2/urls.c:255
 #: ../loader2/urls.c:445
 msgid "Back"
 msgstr "पीछे"
@@ -5570,11 +5593,11 @@ msgstr "नेटमास्क"
 msgid "Point to Point (IP)"
 msgstr "पोइंट टू पोइंट (IP)"
 
-#: ../textw/network_text.py:75 ../loader2/net.c:186
+#: ../textw/network_text.py:75 ../loader2/net.c:187
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../textw/network_text.py:76 ../loader2/net.c:187
+#: ../textw/network_text.py:76 ../loader2/net.c:188
 msgid "Encryption Key"
 msgstr "गोपन कुंजी"
 
@@ -5665,7 +5688,8 @@ msgid "Select individual packages"
 msgstr "व्यक्तिगत संकुल चुनें"
 
 #: ../textw/packages_text.py:73
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> चुनाव   |   <F2> समूह विवरण   |   <F12> अगला प्रपट"
 
 #: ../textw/packages_text.py:117
@@ -5690,7 +5714,8 @@ msgid "Total size"
 msgstr "कुल आकार "
 
 #: ../textw/packages_text.py:326
-msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid ""
+"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>,<+>,<-> चुनाव   |   <F1> सहायता  |   <F2> संकुल वर्णन"
 
 #: ../textw/packages_text.py:374
@@ -5917,14 +5942,16 @@ msgstr "तार्किक आयतन बनाने के लिए क�
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
-msgstr "वर्तमान में निवेदित आकार (%10.2f MB) अधिकतम तार्किक आयतन आकार (%10.2f MB) से बड़ा है."
+msgstr ""
+"वर्तमान में निवेदित आकार (%10.2f MB) अधिकतम तार्किक आयतन आकार (%10.2f MB) से बड़ा है."
 
 #: ../textw/partition_text.py:1310
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr "वर्तमान में निवेदित आकार (%10.2f MB) आयतन समूह में उपलब्ध आकार (%10.2f MB) से बड़ा है."
+msgstr ""
+"वर्तमान में निवेदित आकार (%10.2f MB) आयतन समूह में उपलब्ध आकार (%10.2f MB) से बड़ा है."
 
 #: ../textw/partition_text.py:1364
 msgid "New Partition or Logical Volume?"
@@ -5955,7 +5982,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "   F1-सहायता     F2-नया   F3-संपादन करें F4-विलोपित करें    F5-पुनःजमाएँ    F12-"
 "सही        "
@@ -6202,11 +6230,14 @@ msgid "User Exists"
 msgstr "उपयोगकर्ता जीवंत है"
 
 #: ../textw/userauth_text.py:156
-msgid "The root user is already configured. You don't need to add this user here."
-msgstr "रुट उपयोगकर्ता पहले से विन्यासित है। आपको यहांँ इस उपयोगकर्ता को जोड़ने की जरुरत नहीं है।"
+msgid ""
+"The root user is already configured. You don't need to add this user here."
+msgstr ""
+"रुट उपयोगकर्ता पहले से विन्यासित है। आपको यहांँ इस उपयोगकर्ता को जोड़ने की जरुरत नहीं है।"
 
 #: ../textw/userauth_text.py:163
-msgid "This system user is already configured. You don't need to add this user here."
+msgid ""
+"This system user is already configured. You don't need to add this user here."
 msgstr ""
 "यह तंञ उपयोगकर्ता पहले से विन्यासित है। आपको यहांँ इस उपयोगकर्ता को जोड़ने की जरुरत नहीं "
 "है।"
@@ -6608,6 +6639,74 @@ msgstr ""
 "\tध्वनि और वीडियो अनुप्रयोग\n"
 "\tखेल\n"
 
+#: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
+msgid "Red Hat Enterprise Linux AS"
+msgstr ""
+
+#: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tAdministration Tools\n"
+"\tServer Configuration Tools\n"
+"\tWeb Server\n"
+"\tWindows File Server (SMB)\n"
+msgstr ""
+
+#: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
+msgid "Red Hat Enterprise Linux Desktop"
+msgstr ""
+
+#: ../installclasses/rhel_desktop.py:16
+#, fuzzy
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tAdministration Tools\n"
+msgstr ""
+"\tडेस्कटाप शैल (GNOME)\n"
+"\tआफिस सर्वाग (ओपनओफिस.ओर्ग)\n"
+"\tवेब ब्राउजर (मोज़िला) \n"
+"\tईडाक (एवोल्यूशन)\n"
+"\tतुरंत संदेशा\n"
+"\tध्वनि और वीडियो अनुप्रयोग\n"
+"\tखेल\n"
+
+#: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
+msgid "Red Hat Enterprise Linux ES"
+msgstr ""
+
+#: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
+msgid "Red Hat Enterprise Linux WS"
+msgstr ""
+
+#: ../installclasses/rhel_ws.py:16
+#, fuzzy
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tSoftware Development Tools\n"
+"\tAdministration Tools\n"
+msgstr ""
+"\tडेस्कटाप शैल (GNOME)\n"
+"\tआफिस सर्वाग (ओपनओफिस.ओर्ग)\n"
+"\tवेब ब्राउजर (मोज़िला) \n"
+"\tईडाक (एवोल्यूशन)\n"
+"\tतुरंत संदेशा\n"
+"\tध्वनि और वीडियो अनुप्रयोग\n"
+"\tखेल\n"
+"\tसाफ्टवेयर विकास उपकरण\n"
+"\tप्रशासन उपकरण\n"
+
 #: ../installclasses/server.py:11
 msgid "_Server"
 msgstr "परिसेवक "
@@ -6829,8 +6928,8 @@ msgstr "क्या आप ओर अधिक चालक डिस्क भ
 #: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:610
 #: ../loader2/hdinstall.c:466 ../loader2/kickstart.c:118
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
-#: ../loader2/kickstart.c:405 ../loader2/modules.c:919 ../loader2/net.c:883
-#: ../loader2/net.c:906 ../loader2/nfsinstall.c:247
+#: ../loader2/kickstart.c:405 ../loader2/modules.c:919 ../loader2/net.c:884
+#: ../loader2/net.c:907 ../loader2/nfsinstall.c:247
 #: ../loader2/urlinstall.c:431 ../loader2/urlinstall.c:440
 #: ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
@@ -6876,7 +6975,8 @@ msgstr "चालक डिस्क भारित करें"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr "हस्तेन रूप से डालने के लिए कोई चालक नहीं मिले थे। क्या आप चालक डिस्क प्रयोग करना पसंद करेंगे?"
+msgstr ""
+"हस्तेन रूप से डालने के लिए कोई चालक नहीं मिले थे। क्या आप चालक डिस्क प्रयोग करना पसंद करेंगे?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -6905,7 +7005,8 @@ msgstr "%s चालक भारित कर रहा है..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr "ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन वृक्ष आपके बूट माध्यम से मिलान करता है।"
+msgstr ""
+"ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन वृक्ष आपके बूट माध्यम से मिलान करता है।"
 
 #: ../loader2/hdinstall.c:219
 msgid ""
@@ -6999,8 +7100,10 @@ msgid "Welcome to %s"
 msgstr "%s मे स्वागत है"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> अगला प्रपट"
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> अगला प्रपट"
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
@@ -7060,40 +7163,40 @@ msgstr ""
 "कोई भी हार्ड ड्राइव नहीं मिला था। आपको अधिष्ठापन की सफलता के लिए, प्रायः हस्तेन रूप से "
 "युक्ति ड्राइवरों को चुनने की आवश्यकता हैं।क्या अब आप ड्राइवरों को चुनना चाहते हैं?"
 
-#: ../loader2/loader.c:654
+#: ../loader2/loader.c:658
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "इस मशीन पर %s अधिष्ठापित करने के लिए पर्याप्त रेम नहीं है।"
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:831
 msgid "Rescue Method"
 msgstr "सुरक्षित रीति"
 
-#: ../loader2/loader.c:828
+#: ../loader2/loader.c:832
 msgid "Installation Method"
 msgstr "अधिष्ठापन रीति"
 
-#: ../loader2/loader.c:830
+#: ../loader2/loader.c:834
 msgid "What type of media contains the rescue image?"
 msgstr "किस प्रकार के माध्यम में सुरक्षा चिञ समाहित है?"
 
-#: ../loader2/loader.c:832
+#: ../loader2/loader.c:836
 msgid "What type of media contains the packages to be installed?"
 msgstr "किस प्रकार के माध्यम में अधिष्ठापन के लिए संकुल समाहित है? "
 
-#: ../loader2/loader.c:856
+#: ../loader2/loader.c:860
 msgid "No driver found"
 msgstr "कोई चालक नहीं मिला "
 
-#: ../loader2/loader.c:856
+#: ../loader2/loader.c:860
 msgid "Select driver"
 msgstr "चालक चुनें"
 
-#: ../loader2/loader.c:857
+#: ../loader2/loader.c:861
 msgid "Use a driver disk"
 msgstr "एक चालक डिस्क का प्रयोग करें"
 
-#: ../loader2/loader.c:858
+#: ../loader2/loader.c:862
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -7101,11 +7204,11 @@ msgstr ""
 "इस अधिष्ठापन प्रकार के लिए आवश्यक कोई युक्तियाँ प्रकार मिलने में असमर्थ। क्या आपके ड्राइवर "
 "को हस्तेन से चुनना चाहते हैं या एक ड्राइवर डिस्क का उपयोग करना चाहते हैं?"
 
-#: ../loader2/loader.c:1018
+#: ../loader2/loader.c:1022
 msgid "The following devices have been found on your system."
 msgstr "निम्नांकित युक्तियाँ आपके तंञ पर मिली हैं।"
 
-#: ../loader2/loader.c:1020
+#: ../loader2/loader.c:1024
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -7113,29 +7216,29 @@ msgstr ""
 "कोई भी युक्ति चालक आपके तंञ पर भारित नहीं हुए हैं। क्या अब आप किसी का भारण करना पसंद "
 "करेंगे?"
 
-#: ../loader2/loader.c:1024
+#: ../loader2/loader.c:1028
 msgid "Devices"
 msgstr "युक्तियांँ"
 
-#: ../loader2/loader.c:1025
+#: ../loader2/loader.c:1029
 msgid "Done"
 msgstr "पूर्ण"
 
-#: ../loader2/loader.c:1026
+#: ../loader2/loader.c:1030
 msgid "Add Device"
 msgstr "युक्ति जोड़ें"
 
-#: ../loader2/loader.c:1144
+#: ../loader2/loader.c:1148
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "भारक पहले चलाया जा चुका है.  शैल प्रारंभ कर रहा है.\n"
 
-#: ../loader2/loader.c:1505
+#: ../loader2/loader.c:1509
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "अनाकोंडा चला रहा है, %s बचाव मोड - कृपया प्रतीक्षा करें...\n"
 
-#: ../loader2/loader.c:1507
+#: ../loader2/loader.c:1511
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "अनाकोंडा चला रहा है, %s तंञ अधिष्ठापक - कृपया प्रतीक्षा करें...\n"
@@ -7244,7 +7347,7 @@ msgstr "जाँचयोग परीक्षा"
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "%s युक्ति किकस्टार्ट प्रक्रिया समादेश को बुरा तर्क: %s"
 
-#: ../loader2/net.c:46
+#: ../loader2/net.c:47
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -7259,7 +7362,7 @@ msgstr ""
 "    o उस परिसेवक का निर्देशिका जिसमें आपकी\n"
 "       वास्तुकार के लिए %s समाहित है \n"
 
-#: ../loader2/net.c:180
+#: ../loader2/net.c:181
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -7270,19 +7373,19 @@ msgstr ""
 "गोपन कुंजी उपलब्ध कराएं.  अगर कुंजी की जरूरत नहीं है, इस फील्ड को खाली छोड़ें और अधिष्ठापन "
 "को जारी रहने दें."
 
-#: ../loader2/net.c:190
+#: ../loader2/net.c:191
 msgid "Wireless Settings"
 msgstr "वेतार जमावट"
 
-#: ../loader2/net.c:219
+#: ../loader2/net.c:220
 msgid "Nameserver IP"
 msgstr "नामपरिसेवक IP"
 
-#: ../loader2/net.c:223
+#: ../loader2/net.c:224
 msgid "Nameserver"
 msgstr "नामपरिसेवक"
 
-#: ../loader2/net.c:224
+#: ../loader2/net.c:225
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -7294,24 +7397,24 @@ msgstr ""
 "प्रवेशित करें। यदि आपके पास यह जानकारी नहीं हैं, आप इस क्षेञ को खाली छोड़ सकते हैं और "
 "अधिष्ठापन सतत करेगा।"
 
-#: ../loader2/net.c:234
+#: ../loader2/net.c:235
 msgid "Invalid IP Information"
 msgstr "अनुचित IP जानकारी "
 
-#: ../loader2/net.c:235
+#: ../loader2/net.c:236
 msgid "You entered an invalid IP address."
 msgstr "आपने एक अनुचित IP पता दिया है।"
 
-#: ../loader2/net.c:298 ../loader2/net.c:577
+#: ../loader2/net.c:299 ../loader2/net.c:578
 msgid "Dynamic IP"
 msgstr "गतिक IP"
 
-#: ../loader2/net.c:299 ../loader2/net.c:578
+#: ../loader2/net.c:300 ../loader2/net.c:579
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "%s के लिए IP जानकारी के लिए निवेदन भेज रहा है..."
 
-#: ../loader2/net.c:467
+#: ../loader2/net.c:468
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -7319,57 +7422,57 @@ msgstr ""
 "कृपया इस मशीन के लिए IP विन्यास प्रवेशित करें। प्रत्येक वस्तु, बिन्दुकित_दशमलव पद्धति में"
 "(उदाहरण के लिए , 1.2.3.4) एक IP पते की तरह प्रवेशित की जाएँ।"
 
-#: ../loader2/net.c:473
+#: ../loader2/net.c:474
 msgid "IP address:"
 msgstr "IP पताः"
 
-#: ../loader2/net.c:476
+#: ../loader2/net.c:477
 msgid "Netmask:"
 msgstr "नेटमास्कः"
 
-#: ../loader2/net.c:479
+#: ../loader2/net.c:480
 msgid "Default gateway (IP):"
 msgstr "निर्धारित गेटवे (IP):"
 
-#: ../loader2/net.c:482
+#: ../loader2/net.c:483
 msgid "Primary nameserver:"
 msgstr "प्राथमिक नामपरिसेवकः"
 
-#: ../loader2/net.c:509
+#: ../loader2/net.c:510
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "गतिक IP विन्यास(BOOTP/DHCP) का प्रयोग करें"
 
-#: ../loader2/net.c:537
+#: ../loader2/net.c:538
 msgid "Configure TCP/IP"
 msgstr "TCP/IP का विन्यास करें"
 
-#: ../loader2/net.c:568
+#: ../loader2/net.c:569
 msgid "Missing Information"
 msgstr "जानकारी गुम गई"
 
-#: ../loader2/net.c:569
+#: ../loader2/net.c:570
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "आप एक उचित IP पता और एक नेटमॉस्क दोनों अवश्य प्रवेशित करें।"
 
-#: ../loader2/net.c:799
+#: ../loader2/net.c:800
 msgid "Determining host name and domain..."
 msgstr "प्रधाननाम और क्षेञ की गणना कर रहा है..."
 
-#: ../loader2/net.c:884
+#: ../loader2/net.c:885
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "%s किकस्टार्ट जालक्रम समादेश को बुरा तर्क: %s"
 
-#: ../loader2/net.c:907
+#: ../loader2/net.c:908
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "जालक्रम समादेश में बेकार %s बूटसंदेशाचार विशिष्ट है"
 
-#: ../loader2/net.c:1036
+#: ../loader2/net.c:1050
 msgid "Networking Device"
 msgstr "जालक्रम युक्ति"
 
-#: ../loader2/net.c:1037
+#: ../loader2/net.c:1051
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -7569,8 +7672,10 @@ msgid "Atlantic Time - E Labrador"
 msgstr "अटलांटिक समय - ई लेब्राडोर"
 
 #. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr "अटलांटिक समय - नोवा स्कोटिया (अधिकतम स्थान) NB, W  लाब्राडोर, E क्यूबेक और PEI"
+msgid ""
+"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr ""
+"अटलांटिक समय - नोवा स्कोटिया (अधिकतम स्थान) NB, W  लाब्राडोर, E क्यूबेक और PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -7757,7 +7862,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "प्राच्य समय - ओंटारियो - अधिकतर जगह"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "प्राच्य समय - ओंटारियो एवं क्यूबेक - जगह जो  DST १९६७-१९७३ को नहीं देखते"
 
 #. generated from zone.tab
@@ -7945,7 +8051,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "पर्वतीय मानक समय - एरिजोना"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "पर्वतीय मानक समय - डासन क्रीक & सेंट जाऩ किला, ब्रिटिश कोलंबिया"
 
 #. generated from zone.tab
@@ -8355,4 +8462,3 @@ msgstr "वेल्श"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "जुलु"
-

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 7.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-16 12:06-0400\n"
+"POT-Creation-Date: 2004-09-24 17:14-0400\n"
 "PO-Revision-Date: 2001-01-10 22:20+1\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <blackziggy@freemail.it>\n"
 "Language-Team: BASQUE <linux-eu@chanae.alphanet.ch>\n"
@@ -157,12 +157,12 @@ msgstr ""
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
 #: ../loader2/kickstart.c:270 ../loader2/kickstart.c:405 ../loader2/lang.c:102
 #: ../loader2/lang.c:375 ../loader2/loader.c:326 ../loader2/loader.c:339
-#: ../loader2/loader.c:350 ../loader2/loader.c:657 ../loader2/loader.c:835
+#: ../loader2/loader.c:350 ../loader2/loader.c:661 ../loader2/loader.c:839
 #: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
 #: ../loader2/mediacheck.c:354 ../loader2/method.c:155 ../loader2/method.c:364
-#: ../loader2/method.c:449 ../loader2/modules.c:919 ../loader2/net.c:191
-#: ../loader2/net.c:229 ../loader2/net.c:523 ../loader2/net.c:883
-#: ../loader2/net.c:906 ../loader2/net.c:1040 ../loader2/nfsinstall.c:54
+#: ../loader2/method.c:449 ../loader2/modules.c:919 ../loader2/net.c:192
+#: ../loader2/net.c:230 ../loader2/net.c:524 ../loader2/net.c:884
+#: ../loader2/net.c:907 ../loader2/net.c:1054 ../loader2/nfsinstall.c:54
 #: ../loader2/nfsinstall.c:200 ../loader2/nfsinstall.c:209
 #: ../loader2/nfsinstall.c:247 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:66 ../loader2/urlinstall.c:136
@@ -707,8 +707,8 @@ msgstr "Abiatze disketea sortu"
 # ../text.py:248 ../textw/bootdisk_text.py:69 ../todo.py:868 ../todo.py:896
 # ../todo.py:979 ../todo.py:992
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
-#: ../fsset.py:592 ../fsset.py:1271 ../fsset.py:1290 ../fsset.py:1341
-#: ../fsset.py:1352 ../fsset.py:1387 ../fsset.py:1437 ../fsset.py:1481
+#: ../fsset.py:592 ../fsset.py:1274 ../fsset.py:1293 ../fsset.py:1344
+#: ../fsset.py:1355 ../fsset.py:1390 ../fsset.py:1440 ../fsset.py:1484
 #: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:326
 #: ../image.py:523 ../packages.py:150 ../packages.py:163 ../packages.py:175
 #: ../packages.py:182 ../packages.py:412 ../packages.py:595 ../packages.py:680
@@ -724,7 +724,7 @@ msgstr "Abiatze disketea sortu"
 #: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:534
 #: ../loader2/hdinstall.c:577 ../loader2/hdinstall.c:590
 #: ../loader2/kickstart.c:270 ../loader2/lang.c:102 ../loader2/loader.c:350
-#: ../loader2/loader.c:657 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:661 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:155 ../loader2/method.c:364
 #: ../loader2/method.c:449 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -797,33 +797,33 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:2199
-#: ../fsset.py:1186
+#: ../fsset.py:1189
 #, fuzzy
 msgid "RAID Device"
 msgstr "RAID tramankulurik ez da ageri"
 
-#: ../fsset.py:1190 ../fsset.py:1196
+#: ../fsset.py:1193 ../fsset.py:1199
 msgid "Apple Bootstrap"
 msgstr ""
 
-#: ../fsset.py:1201 ../partitions.py:807
+#: ../fsset.py:1204 ../partitions.py:807
 msgid "PPC PReP Boot"
 msgstr ""
 
 # ../iw/lilo_gui.py:247 ../iw/silo_gui.py:175 ../textw/lilo_text.py:82
 # ../textw/silo_text.py:65
-#: ../fsset.py:1204 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1207 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Abiatze disko-zatiko Lehen Sektorea"
 
 # ../iw/lilo_gui.py:243 ../iw/silo_gui.py:172 ../textw/lilo_text.py:81
 # ../textw/silo_text.py:64
-#: ../fsset.py:1205 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1208 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
 # ../fstab.py:715
-#: ../fsset.py:1272
+#: ../fsset.py:1275
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -838,7 +838,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../fstab.py:715
-#: ../fsset.py:1291
+#: ../fsset.py:1294
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -853,7 +853,7 @@ msgstr ""
 "\n"
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
-#: ../fsset.py:1342
+#: ../fsset.py:1345
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -863,7 +863,7 @@ msgid ""
 msgstr ""
 
 # ../fstab.py:715
-#: ../fsset.py:1353
+#: ../fsset.py:1356
 #, fuzzy, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -878,7 +878,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../fstab.py:715
-#: ../fsset.py:1388
+#: ../fsset.py:1391
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -893,7 +893,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../fstab.py:715
-#: ../fsset.py:1438
+#: ../fsset.py:1441
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -910,13 +910,13 @@ msgstr ""
 # ../libfdisk/fsedit.c:912 ../libfdisk/fsedit.c:919 ../libfdisk/fsedit.c:926
 # ../libfdisk/fsedit.c:935 ../libfdisk/fsedit.c:962 ../libfdisk/fsedit.c:975
 # ../libfdisk/fsedit.c:985
-#: ../fsset.py:1459 ../fsset.py:1468
+#: ../fsset.py:1462 ../fsset.py:1471
 #, fuzzy
 msgid "Invalid mount point"
 msgstr "Loturagune Okerra"
 
 # ../fstab.py:715
-#: ../fsset.py:1460
+#: ../fsset.py:1463
 #, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -931,7 +931,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../fstab.py:715
-#: ../fsset.py:1469
+#: ../fsset.py:1472
 #, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -946,7 +946,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../fstab.py:715
-#: ../fsset.py:1482
+#: ../fsset.py:1485
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -962,12 +962,12 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../libfdisk/gnomefsedit.c:2617
-#: ../fsset.py:2128
+#: ../fsset.py:2131
 #, fuzzy
 msgid "Duplicate Labels"
 msgstr "RAID tramankulua ezabatu?"
 
-#: ../fsset.py:2129
+#: ../fsset.py:2132
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -977,7 +977,7 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3538
-#: ../fsset.py:2136 ../gui.py:661 ../gui.py:1120 ../image.py:96
+#: ../fsset.py:2139 ../gui.py:661 ../gui.py:1120 ../image.py:96
 #: ../image.py:476 ../packages.py:1504 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
@@ -987,12 +987,12 @@ msgstr "_Garbitu"
 
 # ../fstab.py:395 ../fstab.py:598 ../fstab.py:633 ../fstab.py:643
 # ../fstab.py:667
-#: ../fsset.py:2389
+#: ../fsset.py:2392
 msgid "Formatting"
 msgstr "Diskoa Egituratzen"
 
 # ../fstab.py:599 ../fstab.py:634 ../fstab.py:644 ../fstab.py:668
-#: ../fsset.py:2390
+#: ../fsset.py:2393
 #, fuzzy, python-format
 msgid "Formatting %s file system..."
 msgstr "%s fitxategitza egituratzen..."
@@ -1077,7 +1077,7 @@ msgid "No"
 msgstr "Ez"
 
 # ../libfdisk/fsedit.c:1439 ../loader/net.c:254 ../loader/net.c:379
-#: ../gui.py:242 ../text.py:340 ../loader2/net.c:234 ../loader2/net.c:568
+#: ../gui.py:242 ../text.py:340 ../loader2/net.c:235 ../loader2/net.c:569
 msgid "Retry"
 msgstr "Saiatu Berriz"
 
@@ -2687,13 +2687,19 @@ msgid ""
 "upgrade process?"
 msgstr ""
 
+# ../todo.py:1558
+#: ../urlinstall.py:46
+#, fuzzy
+msgid "Connecting..."
+msgstr "%s ezartzen.\n"
+
 # ../xf86config.py:873
-#: ../vnc.py:36
+#: ../vnc.py:54
 #, fuzzy
 msgid "Unable to Start X"
 msgstr "Bideo xafla ezin ezagutu"
 
-#: ../vnc.py:37
+#: ../vnc.py:55
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
@@ -2701,29 +2707,29 @@ msgid ""
 msgstr ""
 
 # ../xserver.py:33 ../xserver.py:34
-#: ../vnc.py:44 ../vnc.py:47
+#: ../vnc.py:62 ../vnc.py:65
 msgid "Use text mode"
 msgstr "Testu era erabili"
 
 # ../iw/progress_gui.py:217
-#: ../vnc.py:45
+#: ../vnc.py:63
 #, fuzzy
 msgid "Start VNC"
 msgstr "Egoera"
 
 # ../iw/xconfig_gui.py:263 ../text.py:975 ../text.py:983
-#: ../vnc.py:55
+#: ../vnc.py:73
 #, fuzzy
 msgid "VNC Configuration"
 msgstr "X Egokitzaketa"
 
 # ../text.py:895 ../text.py:963 ../textw/userauth_text.py:9
-#: ../vnc.py:59
+#: ../vnc.py:77
 #, fuzzy
 msgid "No password"
 msgstr "Sistemako Arduradunaren (root) Pasahitza"
 
-#: ../vnc.py:62
+#: ../vnc.py:80
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
@@ -2731,33 +2737,33 @@ msgid ""
 msgstr ""
 
 # ../loader/urls.c:346 ../textw/userauth_text.py:24
-#: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:435
+#: ../vnc.py:88 ../textw/userauth_text.py:44 ../loader2/urls.c:435
 msgid "Password:"
 msgstr "Hitz-ezkutua:"
 
 # ../iw/account_gui.py:252 ../textw/userauth_text.py:83
-#: ../vnc.py:71 ../textw/userauth_text.py:45
+#: ../vnc.py:89 ../textw/userauth_text.py:45
 #, fuzzy
 msgid "Password (confirm):"
 msgstr "Hitz-Ezkutua (egiaztatu)"
 
 # ../textw/userauth_text.py:46 ../textw/userauth_text.py:116
-#: ../vnc.py:93 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
+#: ../vnc.py:111 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
 msgid "Password Mismatch"
 msgstr "Hitz-ezkutuak ez datoz bat"
 
 # ../textw/userauth_text.py:47 ../textw/userauth_text.py:117
-#: ../vnc.py:94 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
+#: ../vnc.py:112 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
 msgid "The passwords you entered were different. Please try again."
 msgstr "Hitz-ezkutuak ezberdinak dira. Berriro saiatu, mesedez."
 
 # ../textw/userauth_text.py:41 ../textw/userauth_text.py:108
-#: ../vnc.py:99 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
+#: ../vnc.py:117 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
 msgid "Password Length"
 msgstr "Hitz-ezkutuaren Luzera"
 
 # ../textw/userauth_text.py:109
-#: ../vnc.py:100
+#: ../vnc.py:118
 #, fuzzy
 msgid "The password must be at least six characters long."
 msgstr "Hitz-ezkutuak gitxienik 6 hizki (ikur) eduki behar ditu."
@@ -4266,7 +4272,7 @@ msgstr ""
 
 # ../iw/network_gui.py:210 ../loader/net.c:531 ../loader/net.c:729
 # ../textw/network_text.py:141
-#: ../iw/network_gui.py:552 ../loader2/net.c:798
+#: ../iw/network_gui.py:552 ../loader2/net.c:799
 msgid "Hostname"
 msgstr "Ostalariaren Izena"
 
@@ -6023,9 +6029,9 @@ msgstr ""
 #: ../loader2/driverdisk.c:388 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:187 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:326 ../loader2/hdinstall.c:380 ../loader2/kbd.c:125
-#: ../loader2/loader.c:326 ../loader2/loader.c:835 ../loader2/loader.c:857
-#: ../loader2/net.c:191 ../loader2/net.c:229 ../loader2/net.c:523
-#: ../loader2/net.c:1040 ../loader2/nfsinstall.c:54 ../loader2/urls.c:255
+#: ../loader2/loader.c:326 ../loader2/loader.c:839 ../loader2/loader.c:861
+#: ../loader2/net.c:192 ../loader2/net.c:230 ../loader2/net.c:524
+#: ../loader2/net.c:1054 ../loader2/nfsinstall.c:54 ../loader2/urls.c:255
 #: ../loader2/urls.c:445
 msgid "Back"
 msgstr "Atzera"
@@ -6280,12 +6286,12 @@ msgid "Point to Point (IP)"
 msgstr ""
 
 # ../loader/loader.c:262
-#: ../textw/network_text.py:75 ../loader2/net.c:186
+#: ../textw/network_text.py:75 ../loader2/net.c:187
 #, fuzzy
 msgid "ESSID"
 msgstr "SCSI"
 
-#: ../textw/network_text.py:76 ../loader2/net.c:187
+#: ../textw/network_text.py:76 ../loader2/net.c:188
 msgid "Encryption Key"
 msgstr ""
 
@@ -7565,6 +7571,62 @@ msgid ""
 "\tGames\n"
 msgstr ""
 
+# ../text.py:307 ../text.py:326
+#: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
+#, fuzzy
+msgid "Red Hat Enterprise Linux AS"
+msgstr "Red Hat Linux"
+
+#: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tAdministration Tools\n"
+"\tServer Configuration Tools\n"
+"\tWeb Server\n"
+"\tWindows File Server (SMB)\n"
+msgstr ""
+
+#: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
+msgid "Red Hat Enterprise Linux Desktop"
+msgstr ""
+
+#: ../installclasses/rhel_desktop.py:16
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tAdministration Tools\n"
+msgstr ""
+
+# ../text.py:307 ../text.py:326
+#: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
+#, fuzzy
+msgid "Red Hat Enterprise Linux ES"
+msgstr "Red Hat Linux"
+
+# ../text.py:307 ../text.py:326
+#: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
+#, fuzzy
+msgid "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Linux"
+
+#: ../installclasses/rhel_ws.py:16
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tSoftware Development Tools\n"
+"\tAdministration Tools\n"
+msgstr ""
+
 # ../libfdisk/gnomefsedit.c:2517 ../libfdisk/gnomefsedit.c:253
 #: ../installclasses/server.py:11
 #, fuzzy
@@ -7802,8 +7864,8 @@ msgstr "Kontrolatzaileen diskorik bai?"
 #: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:610
 #: ../loader2/hdinstall.c:466 ../loader2/kickstart.c:118
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
-#: ../loader2/kickstart.c:405 ../loader2/modules.c:919 ../loader2/net.c:883
-#: ../loader2/net.c:906 ../loader2/nfsinstall.c:247
+#: ../loader2/kickstart.c:405 ../loader2/modules.c:919 ../loader2/net.c:884
+#: ../loader2/net.c:907 ../loader2/nfsinstall.c:247
 #: ../loader2/urlinstall.c:431 ../loader2/urlinstall.c:440
 #: ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
@@ -8083,63 +8145,63 @@ msgid ""
 msgstr ""
 
 # ../loader/lang.c:287
-#: ../loader2/loader.c:654
+#: ../loader2/loader.c:658
 #, fuzzy, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Hizkuntza bat Hautatu"
 
 # ../loader/loader.c:1390
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:831
 msgid "Rescue Method"
 msgstr "Berreskuraketa Bidea"
 
 # ../loader/loader.c:1391
-#: ../loader2/loader.c:828
+#: ../loader2/loader.c:832
 msgid "Installation Method"
 msgstr "Ezarketa Bidea"
 
 # ../loader/loader.c:1393
-#: ../loader2/loader.c:830
+#: ../loader2/loader.c:834
 msgid "What type of media contains the rescue image?"
 msgstr "Berreskuratze irudia zein tramankulutan dago?"
 
 # ../loader/loader.c:1395
-#: ../loader2/loader.c:832
+#: ../loader2/loader.c:836
 msgid "What type of media contains the packages to be installed?"
 msgstr "Ezarketako Sortak zein tramankulutan daude?"
 
 # ../libfdisk/fsedit.c:1041
-#: ../loader2/loader.c:856
+#: ../loader2/loader.c:860
 #, fuzzy
 msgid "No driver found"
 msgstr "Disko Gogorrik ez da aurkitu"
 
 # ../iw/fdisk_gui.py:109
-#: ../loader2/loader.c:856
+#: ../loader2/loader.c:860
 #, fuzzy
 msgid "Select driver"
 msgstr "'fdisk'-ek zein disko landu behar du?"
 
 # ../loader/devices.c:209
-#: ../loader2/loader.c:857
+#: ../loader2/loader.c:861
 #, fuzzy
 msgid "Use a driver disk"
 msgstr "Kontrolatzaileen diskorik bai?"
 
-#: ../loader2/loader.c:858
+#: ../loader2/loader.c:862
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
 # ../loader/loader.c:325
-#: ../loader2/loader.c:1018
+#: ../loader2/loader.c:1022
 #, fuzzy
 msgid "The following devices have been found on your system."
 msgstr "Zure sisteman ondoko tramankulu hauek aurkitu dira:"
 
 # ../loader/loader.c:353
-#: ../loader2/loader.c:1020
+#: ../loader2/loader.c:1024
 #, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
@@ -8150,34 +8212,34 @@ msgstr ""
 
 # ../loader/devices.c:207 ../loader/devices.c:214 ../loader/devices.c:333
 # ../loader/loader.c:275 ../loader/loader.c:336 ../loader/loader.c:352
-#: ../loader2/loader.c:1024
+#: ../loader2/loader.c:1028
 msgid "Devices"
 msgstr "Tramankuluak"
 
 # ../loader/loader.c:327 ../loader/loader.c:352
 # ../textw/partitioning_text.py:64
-#: ../loader2/loader.c:1025
+#: ../loader2/loader.c:1029
 msgid "Done"
 msgstr "Amaituta"
 
 # ../loader/loader.c:327 ../loader/loader.c:352
-#: ../loader2/loader.c:1026
+#: ../loader2/loader.c:1030
 msgid "Add Device"
 msgstr "Tramankulua Gehitu"
 
-#: ../loader2/loader.c:1144
+#: ../loader2/loader.c:1148
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
 # ../loader/loader.c:2149
-#: ../loader2/loader.c:1505
+#: ../loader2/loader.c:1509
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "'Anaconda'-ren eguneraketak irakurtzen..."
 
 # ../loader/loader.c:2149
-#: ../loader2/loader.c:1507
+#: ../loader2/loader.c:1511
 #, fuzzy, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "'Anaconda'-ren eguneraketak irakurtzen..."
@@ -8270,7 +8332,7 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "%s kickstart-eko %s sare aginduak argumentu okerra"
 
 # ../loader/urls.c:169
-#: ../loader2/net.c:46
+#: ../loader2/net.c:47
 #, fuzzy, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -8285,7 +8347,7 @@ msgstr ""
 "    o Red Hat Linux-eko Ezarketako fitxategiak dituen\n"
 "      zerbitzariaren direktorioa\n"
 
-#: ../loader2/net.c:180
+#: ../loader2/net.c:181
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -8294,23 +8356,23 @@ msgid ""
 msgstr ""
 
 # ../loader/devices.c:77
-#: ../loader2/net.c:190
+#: ../loader2/net.c:191
 #, fuzzy
 msgid "Wireless Settings"
 msgstr "Denetatik"
 
 # ../loader/net.c:239
-#: ../loader2/net.c:219
+#: ../loader2/net.c:220
 msgid "Nameserver IP"
 msgstr "Izen Zerbitzariaren IP -a"
 
 # ../loader/net.c:243 ../loader/net.c:725
-#: ../loader2/net.c:223
+#: ../loader2/net.c:224
 msgid "Nameserver"
 msgstr "Zerbitzari Izena"
 
 # ../loader/net.c:244
-#: ../loader2/net.c:224
+#: ../loader2/net.c:225
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -8323,28 +8385,28 @@ msgstr ""
 "ezarketarekin jarraitu."
 
 # ../loader/net.c:254
-#: ../loader2/net.c:234
+#: ../loader2/net.c:235
 msgid "Invalid IP Information"
 msgstr "IP -ren balio erabilkaitza"
 
 # ../loader/net.c:255
-#: ../loader2/net.c:235
+#: ../loader2/net.c:236
 msgid "You entered an invalid IP address."
 msgstr "IP helbide erabilkaitza idatzi duzu."
 
 # ../loader/net.c:388 ../loader/net.c:659
-#: ../loader2/net.c:298 ../loader2/net.c:577
+#: ../loader2/net.c:299 ../loader2/net.c:578
 msgid "Dynamic IP"
 msgstr "IP Dinamikoa"
 
 # ../loader/net.c:389 ../loader/net.c:660
-#: ../loader2/net.c:299 ../loader2/net.c:578
+#: ../loader2/net.c:300 ../loader2/net.c:579
 #, fuzzy, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "IP argibide eskaera bidaltzen..."
 
 # ../loader/net.c:278
-#: ../loader2/net.c:467
+#: ../loader2/net.c:468
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -8354,69 +8416,69 @@ msgstr ""
 "1.2.34.5)."
 
 # ../loader/net.c:284 ../textw/network_text.py:69
-#: ../loader2/net.c:473
+#: ../loader2/net.c:474
 msgid "IP address:"
 msgstr "IP Helbidea:"
 
 # ../loader/net.c:287 ../textw/network_text.py:70
-#: ../loader2/net.c:476
+#: ../loader2/net.c:477
 msgid "Netmask:"
 msgstr "Sareko Mozorroa:"
 
 # ../loader/net.c:290 ../textw/network_text.py:71
-#: ../loader2/net.c:479
+#: ../loader2/net.c:480
 msgid "Default gateway (IP):"
 msgstr "Jatorrizko Pasabidea (IP):"
 
 # ../loader/net.c:293 ../textw/network_text.py:72
-#: ../loader2/net.c:482
+#: ../loader2/net.c:483
 msgid "Primary nameserver:"
 msgstr "Izen-Zerbitzari (DNS) Nagusia:"
 
 # ../loader/net.c:320
-#: ../loader2/net.c:509
+#: ../loader2/net.c:510
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "IP dinamiko egokitzaketa erabili (BOOTP/DHCP)"
 
 # ../loader/net.c:34
-#: ../loader2/net.c:537
+#: ../loader2/net.c:538
 msgid "Configure TCP/IP"
 msgstr "TCP/IP Egokitu"
 
 # ../loader/net.c:379
-#: ../loader2/net.c:568
+#: ../loader2/net.c:569
 msgid "Missing Information"
 msgstr "Azalpenak Galdu dira"
 
 # ../loader/net.c:380
-#: ../loader2/net.c:569
+#: ../loader2/net.c:570
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "IP helbide eta sare-mozorro baliagarriak idatzi behar dituzu."
 
 # ../loader/net.c:532
-#: ../loader2/net.c:799
+#: ../loader2/net.c:800
 msgid "Determining host name and domain..."
 msgstr "Ostalariaren izen eta jabetza zehazten..."
 
 # ../loader/net.c:644
-#: ../loader2/net.c:884
+#: ../loader2/net.c:885
 #, fuzzy, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "%s kickstart-eko %s sare aginduak argumentu okerra"
 
 # ../loader/net.c:677
-#: ../loader2/net.c:907
+#: ../loader2/net.c:908
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Sare aginduan zehaztutako %s abiatze hizketa-araua okerra"
 
 # ../loader/loader.c:940
-#: ../loader2/net.c:1036
+#: ../loader2/net.c:1050
 msgid "Networking Device"
 msgstr "Sareko Tramankulua"
 
 # ../loader/loader.c:941
-#: ../loader2/net.c:1037
+#: ../loader2/net.c:1051
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -10596,10 +10658,6 @@ msgstr ""
 # ../textw/userauth_text.py:80
 #~ msgid "User ID"
 #~ msgstr "Erabiltzailearen Nortasuna"
-
-# ../text.py:307 ../text.py:326
-#~ msgid "Red Hat Linux"
-#~ msgstr "Red Hat Linux"
 
 # ../loader/lang.c:337 ../loader/loader.c:146
 #~ msgid "Welcome to Red Hat Linux"
