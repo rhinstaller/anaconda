@@ -390,9 +390,8 @@ class LBA32WarningWindow(InstallWindow):
         if iutil.getArch() != "i386":
             return INSTALL_NOOP
 
-        if self.todo.fstab.getBootPartitionMaxCyl() > 1023:
+        if self.todo.fstab.getBootPartitionMaxCylFromDesired() > 1023:
             vbox = GtkVBox (FALSE, 5)
-
 
             if not self.todo.fstab.edd:
                 label = GtkLabel (

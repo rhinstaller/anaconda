@@ -102,7 +102,7 @@ class SiloInstall:
 	self.siloImages = {}
 	nSolaris = 0
 	nSunOS = 0
-	for (dev, devName, type, start, size) in drives:
+	for (dev, devName, type, start, size, maxcyl) in drives:
 	    # ext2 and raid partitions get listed if 
 	    #	    1) they're /
 	    #	    2) they're not mounted
@@ -152,7 +152,7 @@ class SiloInstall:
 	    i = i - 1
 	boothd = bootpart[:i+1]
 	(drives, raid) = fstab.partitionList()
-	for (dev, devName, type, start, size) in drives:
+	for (dev, devName, type, start, size, maxcyl) in drives:
 	    i = len (dev) - 1
 	    while i > 0 and dev[i] in string.digits:
 		i = i - 1

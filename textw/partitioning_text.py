@@ -351,7 +351,7 @@ class LBA32WarningWindow:
         if iutil.getArch() != "i386":
             return INSTALL_NOOP
 
-        if todo.fstab.getBootPartitionMaxCyl() > 1023:
+        if todo.fstab.getBootPartitionMaxCylFromDesired() > 1023:
             if not todo.fstab.edd:
                 rc = ButtonChoiceWindow(screen, _("Boot Partition Warning"),
                      _("You have put the partition containing the kernel (the "

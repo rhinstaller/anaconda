@@ -129,10 +129,13 @@ class Fstab:
         else:
             return None
 
-    def getBootPartitionMaxCyl(self):
+    # returns max cylinder, starting counting from 1
+    # reads DIRECTLY from drive partition table, not the desired
+    # partition table we construct at the start of the install
+    # in disk druid/autopartitioning!!!
+    def getBootPartitionMaxCylFromDrive(self):
 	bootpart = self.getBootDevice()
 	boothd = self.getMbrDevice()
-
 
         maxcyl = None
         
@@ -157,12 +160,27 @@ class Fstab:
                         maxcyl = (sector+size) / string.atoi(bootgeom[2])
                         maxcyl = maxcyl /  string.atoi(bootgeom[1])
 
-                        log("Boot part ends on cyl %s" % maxcyl)
+                        log("Boot part %s ends on cyl %s" % (bootpart, maxcyl))
                                     
             os.remove ('/tmp/' + boothd)
 
             return maxcyl
 
+    # returns max cylinder, starting counting from 1
+    # this is read from the ddruid object of the partitioning scheme we
+    # are currently building up from disk druid/autopartitioning
+    # NOT guaranteed to be same as getBootPartitionMaxCylFromDrive() result
+    def getBootPartitionMaxCylFromDesired(self):
+	bootpart = self.getBootDevice()
+	boothd = self.getMbrDevice()
+        (drives, raid) = self.partitionList()
+
+        for (dev, devName, type, start, size, maxcyl) in drives:
+            if dev == bootpart:
+                log ("maxcyl of %s is %d" % (dev, maxcyl))
+                return maxcyl
+
+        return None
 
     def getMbrDevice(self):
 	return self.driveList()[0]

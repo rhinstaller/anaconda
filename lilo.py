@@ -275,9 +275,9 @@ class LiloConfiguration:
         useLBA32 = 0
         if self.edd:
             from log import log
-            maxcyl = fstab.getBootPartitionMaxCyl()
+            maxcyl = fstab.getBootPartitionMaxCylFromDrive()
             if maxcyl > 1023:
-                log("Using lba32")
+                log("Maximum cyling is %d, using lba32" % maxcyl)
                 useLBA32 = 1
 
 	if (self.liloDevice == "mbr"):
