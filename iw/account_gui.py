@@ -57,6 +57,8 @@ class AccountWindow (InstallWindow):
 	else:
 	    if not accountName:
 		self.userPwLabel.set_text("")
+	    elif accountName == "root":
+		self.userPwLabel.set_text (_("Root account can not be added here."))
 	    elif not password1 and not password2:
 		self.userPwLabel.set_text (_("Please enter user password."))
 	    elif len (password1) < 6:
