@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.10
+Version: 10.0.3.11
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct  4 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.11-1
+- Handle 32 raid devs (#134438)
+- Fix LCS PORTNAME (#134487)
+- Add logging of kickstart scripts with --log to %post/%pre
+- Copy /tmp/anaconda.log and /tmp/syslog to /var/log/anaconda.log 
+  and /var/log/anaconda.syslog respectively (#124370)
+- Fix Polish (#134554)
+- Add arch-specific package removal (#133396)
+- Include PPC PReP Boot partition in anaconda-ks.cfg (#133934)
+- Fix changing of VG name going through to boot loader setup (#132213)
+- Add support for > 128 SCSI disks (#134575)
+
 * Fri Oct  1 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.10-1
 - add kickstart zfcp configuration (#133288, #130070)
 - Use NFSv3 for NFS installs.  Fixes NFSISO installs from DVD (#122032)
