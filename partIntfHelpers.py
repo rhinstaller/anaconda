@@ -110,7 +110,9 @@ def isNotChangable(request, requestlist):
 	if request.type == REQUEST_LV:
 	    # temporary message
 	    return _("The %s action on logical volumes from the "
-		     "treeview is not currently supported.")
+		     "treeview is not currently supported.\n\n"
+		     "To perform this action first edit the "
+		     "associated volume group.")
 
 	if requestlist.isLVMVolumeGroupMember(request):
 	    return _("You cannot %s this partition, as it is part of a LVM "
