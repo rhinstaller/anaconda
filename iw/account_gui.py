@@ -16,7 +16,6 @@ import gobject
 import re
 import string
 import gui
-from gui import WrappingLabel
 from iw_gui import *
 from translate import _, N_
 from flags import flags
@@ -436,7 +435,7 @@ class AccountWindow (InstallWindow):
             hbox.pack_start (a, gtk.FALSE, padding=7)
 
         a = gtk.Alignment (0.0, 0.5)
-        label = WrappingLabel(
+        label = gui.WrappingLabel(
             _("Additional accounts can be created for other "
               "users of this system. Such accounts could be for "
               "a personal login account, or for other "
