@@ -684,16 +684,17 @@ class MonitorWindow (InstallWindow):
 
 	# now insert rest of monitors, unless we match the ddc probed id
         for man in keys:
+            models = monitorslist[man]
             if man == "Generic":
                 title = _("Generic")
+		# dont sort generic, present in order in file
             else:
                 title = man
+		models.sort()
 
 	    toplevels[man] = self.monitorstore.append(None)
 	    self.monitorstore.set_value(toplevels[man], 0, man)
                 
-            models = monitorslist[man]
-            models.sort()
             previous_monitor = ""
             for amonitor in models:
                 if previous_monitor != "":
