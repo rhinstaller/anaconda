@@ -155,6 +155,7 @@ class AutoPartitionWindow(InstallWindow):
 
         if (InstallPathWindow.fdisk and
             InstallPathWindow.fdisk.get_active ()):
+		self.todo.manuallyPartition()
 		return None
         
         # XXX hack

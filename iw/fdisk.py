@@ -24,6 +24,20 @@ class FDiskWindow (InstallWindow):
         self.ics.setNextEnabled (1)
         self.ics.setHelpEnabled (1)
 
+    def getNext(self):
+        from gnomepyfsedit import fsedit
+	drives = self.todo.drives.available ().keys ()
+	drives.sort (isys.compareDrives)
+
+        fstab = []
+        for mntpoint, (dev, fstype, reformat) in self.todo.mounts.items ():
+            fstab.append ((dev, mntpoint))
+
+	print "fstab", fstab
+
+	self.todo.ddruid = fsedit(0, drives, fstab, self.todo.zeroMbr)
+	return None
+
     def button_clicked (self, widget, drive):
         zvt = ZvtTerm (80, 24)
         zvt.connect ("child_died", self.child_died, widget)
@@ -74,5 +88,7 @@ class FDiskWindow (InstallWindow):
         self.buttonBox.pack_start (label, FALSE)
         self.buttonBox.pack_start (box, FALSE)
         self.windowContainer.pack_start (self.buttonBox)
+
+        self.ics.setNextEnabled (1)
 
         return self.windowContainer
