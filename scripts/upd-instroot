@@ -764,7 +764,7 @@ echo "Getting gtk2 input method modules"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
     	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gtk-query-immodules-2.0 > $REALPATH/etc/gtk-2.0/gtk.immodules"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gtk-query-immodules-2.0 2> $REALPATH/etc/gtk-2.0/gtk.immodules"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/gtk.immodules
     fi
