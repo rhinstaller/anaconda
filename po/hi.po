@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-24 17:14-0400\n"
-"PO-Revision-Date: 2004-09-20 13:59+0530\n"
+"PO-Revision-Date: 2004-09-28 17:42+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <Indlinux-hindi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -238,13 +238,11 @@ msgstr "%s बूट विभाजन एक VFAT विभाजन नही
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
-msgstr ""
-"बूट विभाजन डिस्क में पहले से स्थानीय नहीं है। ओपनफर्मवेयर इस अधिष्ठापन को बूट नहीं कर सकता।"
+msgstr "बूट विभाजन डिस्क में पहले से स्थानीय नहीं है। ओपनफर्मवेयर इस अधिष्ठापन को बूट नहीं कर सकता।"
 
 #: ../autopart.py:1030
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "आपके वास्तुकार के लिए %s बूट विभाजन में बूटिंग आवश्यकताएँ मिल नहीं सकती।"
 
 #: ../autopart.py:1056
@@ -498,8 +496,7 @@ msgstr "बूटलोडर अधिष्ठापित कर रहा �
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"आपके तंञ पर कोई कर्नल संकुल अधिष्ठापित नहीं थे। आपका बूटलोडर विन्यास बदला नहीं जाएगा।"
+msgstr "आपके तंञ पर कोई कर्नल संकुल अधिष्ठापित नहीं थे। आपका बूटलोडर विन्यास बदला नहीं जाएगा।"
 
 #: ../cmdline.py:42 ../iw/progress_gui.py:472 ../iw/progress_gui.py:673
 msgid "Completed"
@@ -1711,8 +1708,7 @@ msgstr "एक LDL संरुपित DASD के एक विभाजन �
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"आप यह विभाजन विलोपित नहीं कर सकते, यह एक विस्तारित विभाजन है जिसमें %s समाहित है"
+msgstr "आप यह विभाजन विलोपित नहीं कर सकते, यह एक विस्तारित विभाजन है जिसमें %s समाहित है"
 
 #: ../partIntfHelpers.py:184
 msgid ""
@@ -1863,8 +1859,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"निम्नांकित पूर्व-जीवंत विभाजन को  सभी आंकड़े नष्ट करके, संरूपित करने के लिए चुना गया है।"
+msgstr "निम्नांकित पूर्व-जीवंत विभाजन को  सभी आंकड़े नष्ट करके, संरूपित करने के लिए चुना गया है।"
 
 #: ../partIntfHelpers.py:450
 msgid ""
@@ -1912,8 +1907,7 @@ msgid "Confirm Reset"
 msgstr "पुनःजमावट निश्चित करें"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "क्या आप निश्चित हैं कि आप विभाजन तालिका को असली स्थिति में पुनःजमाना चाहते हैं ?"
 
 #: ../partitioning.py:77
@@ -1960,8 +1954,7 @@ msgid ""
 msgstr "आपका रूट विभाजन २५० मेगाबाइट से भी कम हैं जोकि %s के अधिष्ठापन के लिए छोटा है।"
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "आपको FAT प्रकार और ५० मेगाबाइट आकार का एक /boot/efi विभाजन अवश्य बनाना है।"
 
 #: ../partitions.py:796
@@ -2025,8 +2018,7 @@ msgstr "एक विभाजन, जो LVM आयतन समूह का �
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "यह आरोह स्थान अनुचित है। / संचिका तंञ पर %s निर्देशिका को अवश्य होना है।"
 
 #: ../partRequests.py:236
@@ -2265,10 +2257,8 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) २००४ रेड हैट, निगमन."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> अगला प्रपट"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> अगला प्रपट"
 
 #: ../text.py:369
 msgid ""
@@ -2451,9 +2441,8 @@ msgstr ""
 "यह एक पुराना तंञ जैसा लग रहा है। क्या आप श्रैणीविस्तार प्रक्रिया सतत चाहते हैं?"
 
 #: ../urlinstall.py:46
-#, fuzzy
 msgid "Connecting..."
-msgstr "\"%s\" को जांँच कर रहा है...."
+msgstr "जोड़ रहा है..."
 
 #: ../vnc.py:54
 msgid "Unable to Start X"
@@ -2603,8 +2592,7 @@ msgstr "रूट शब्दकूट कम से कम छः अक्ष
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
-msgstr ""
-"निवेदित शब्दकूट में non-ascii अक्षर समाहित है जोकि शब्दकूट में प्रयोग के लिए अनुमति नहीं है।"
+msgstr "निवेदित शब्दकूट में non-ascii अक्षर समाहित है जोकि शब्दकूट में प्रयोग के लिए अनुमति नहीं है।"
 
 #: ../iw/account_gui.py:93
 msgid ""
@@ -2982,8 +2970,7 @@ msgstr "%s का श्रेणीविस्तार प्रारंभ 
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr ""
-"आपके तंञ को रीबूट करने के बाद '%s' संचिका में श्रेणीविस्तार की सारा प्रचालेख मिल सकता है।"
+msgstr "आपके तंञ को रीबूट करने के बाद '%s' संचिका में श्रेणीविस्तार की सारा प्रचालेख मिल सकता है।"
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
@@ -4143,14 +4130,12 @@ msgid "Partitioning"
 msgstr "विभाजन कर रहा है"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "निम्नांकित गंभीरतम दोष आपके निवेदित विभाजन योजना के साथ जीवंत हैं।"
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "आपके %s के अधिष्ठापन से सतत होने से पहले यह दोषों को सही किया जाना जरूरी।"
 
 #: ../iw/partition_gui.py:637
@@ -4772,8 +4757,7 @@ msgstr "यह आपके वर्तमान बूट लोडर के 
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "अधिष्ठापक ने %s बूट लोडर को वर्तमान में %s पर अधिष्ठापित हुआ खोजा है।"
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4904,8 +4888,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "स्वेप संचिका का आकार १ और २००० MB के बीच होना जरूरी।"
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "आपके द्वारा चयनित युक्ति पर स्वेप विभाजन के लिए स्थान पर्याप्त नहीं हैं।"
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -5055,8 +5038,7 @@ msgstr ""
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
-msgstr ""
-"आपकी वीडियो रेम आकार स्वतःखोज नहीं हो सकती ।निम्नांकित पसंदों में से आपकी वीडियो रेम चुनेंः"
+msgstr "आपकी वीडियो रेम आकार स्वतःखोज नहीं हो सकती ।निम्नांकित पसंदों में से आपकी वीडियो रेम चुनेंः"
 
 #: ../iw/xconfig_gui.py:990
 msgid ""
@@ -5264,8 +5246,7 @@ msgstr ""
 "साथ करना चाहते हैं।"
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Space> बटन चुनते हैं  | <F2> निर्धारित बूट प्रवेशिका चुनें | <F12> अगला प्रपट>"
 
 #: ../textw/bootloader_text.py:394
@@ -5688,8 +5669,7 @@ msgid "Select individual packages"
 msgstr "व्यक्तिगत संकुल चुनें"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> चुनाव   |   <F2> समूह विवरण   |   <F12> अगला प्रपट"
 
 #: ../textw/packages_text.py:117
@@ -5714,8 +5694,7 @@ msgid "Total size"
 msgstr "कुल आकार "
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>,<+>,<-> चुनाव   |   <F1> सहायता  |   <F2> संकुल वर्णन"
 
 #: ../textw/packages_text.py:374
@@ -5942,16 +5921,14 @@ msgstr "तार्किक आयतन बनाने के लिए क�
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
-msgstr ""
-"वर्तमान में निवेदित आकार (%10.2f MB) अधिकतम तार्किक आयतन आकार (%10.2f MB) से बड़ा है."
+msgstr "वर्तमान में निवेदित आकार (%10.2f MB) अधिकतम तार्किक आयतन आकार (%10.2f MB) से बड़ा है."
 
 #: ../textw/partition_text.py:1310
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
-"वर्तमान में निवेदित आकार (%10.2f MB) आयतन समूह में उपलब्ध आकार (%10.2f MB) से बड़ा है."
+msgstr "वर्तमान में निवेदित आकार (%10.2f MB) आयतन समूह में उपलब्ध आकार (%10.2f MB) से बड़ा है."
 
 #: ../textw/partition_text.py:1364
 msgid "New Partition or Logical Volume?"
@@ -5982,8 +5959,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "   F1-सहायता     F2-नया   F3-संपादन करें F4-विलोपित करें    F5-पुनःजमाएँ    F12-"
 "सही        "
@@ -6230,14 +6206,11 @@ msgid "User Exists"
 msgstr "उपयोगकर्ता जीवंत है"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr ""
-"रुट उपयोगकर्ता पहले से विन्यासित है। आपको यहांँ इस उपयोगकर्ता को जोड़ने की जरुरत नहीं है।"
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "रुट उपयोगकर्ता पहले से विन्यासित है। आपको यहांँ इस उपयोगकर्ता को जोड़ने की जरुरत नहीं है।"
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "यह तंञ उपयोगकर्ता पहले से विन्यासित है। आपको यहांँ इस उपयोगकर्ता को जोड़ने की जरुरत नहीं "
 "है।"
@@ -6641,7 +6614,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6651,13 +6624,17 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tडेस्कटाप शैल (GNOME)\n"
+"\tप्रशासनिक उपकरण\n"
+"\tपरिसेवक विन्यास उपकरण\n"
+"\tवेब परिसेवक\n"
+"\tविंडोज फाइल परिसेवक (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6675,17 +6652,17 @@ msgstr ""
 "\tतुरंत संदेशा\n"
 "\tध्वनि और वीडियो अनुप्रयोग\n"
 "\tखेल\n"
+"\tप्रशासनिक उपकरण\n"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6975,8 +6952,7 @@ msgstr "चालक डिस्क भारित करें"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"हस्तेन रूप से डालने के लिए कोई चालक नहीं मिले थे। क्या आप चालक डिस्क प्रयोग करना पसंद करेंगे?"
+msgstr "हस्तेन रूप से डालने के लिए कोई चालक नहीं मिले थे। क्या आप चालक डिस्क प्रयोग करना पसंद करेंगे?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -7005,8 +6981,7 @@ msgstr "%s चालक भारित कर रहा है..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन वृक्ष आपके बूट माध्यम से मिलान करता है।"
+msgstr "ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन वृक्ष आपके बूट माध्यम से मिलान करता है।"
 
 #: ../loader2/hdinstall.c:219
 msgid ""
@@ -7100,10 +7075,8 @@ msgid "Welcome to %s"
 msgstr "%s मे स्वागत है"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> अगला प्रपट"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> अगला प्रपट"
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
@@ -7672,10 +7645,8 @@ msgid "Atlantic Time - E Labrador"
 msgstr "अटलांटिक समय - ई लेब्राडोर"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"अटलांटिक समय - नोवा स्कोटिया (अधिकतम स्थान) NB, W  लाब्राडोर, E क्यूबेक और PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "अटलांटिक समय - नोवा स्कोटिया (अधिकतम स्थान) NB, W  लाब्राडोर, E क्यूबेक और PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -7862,8 +7833,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "प्राच्य समय - ओंटारियो - अधिकतर जगह"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "प्राच्य समय - ओंटारियो एवं क्यूबेक - जगह जो  DST १९६७-१९७३ को नहीं देखते"
 
 #. generated from zone.tab
@@ -8051,8 +8021,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "पर्वतीय मानक समय - एरिजोना"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "पर्वतीय मानक समय - डासन क्रीक & सेंट जाऩ किला, ब्रिटिश कोलंबिया"
 
 #. generated from zone.tab
@@ -8462,3 +8431,4 @@ msgstr "वेल्श"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "जुलु"
+
