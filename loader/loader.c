@@ -471,7 +471,8 @@ static int setupStage2Image(int fd, char * dest, int flags,
 
     rc = copyFileFd(fd, dest);
     stat(dest, &sb);
-    logMessage("copied %d bytes to %s", sb.st_size, dest);
+    logMessage("copied %d bytes to %s%s", sb.st_size, dest, 
+	       (rc) ? " (incomplete)" : "");
 
     if (rc) {
 	/* just to make sure */
