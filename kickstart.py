@@ -218,7 +218,8 @@ class KickstartBase(BaseInstallClass):
     def doBootloader (self, id, args, useLilo = 0):
         (args, extra) = isys.getopt(args, '',
                 [ 'append=', 'location=', 'useLilo', 'lba32',
-                  'password=', 'md5pass=', 'linear', 'nolinear'])
+                  'password=', 'md5pass=', 'linear', 'nolinear',
+                  'upgrade'])
 
         validLocations = [ "mbr", "partition", "none" ]
         appendLine = ""
@@ -227,6 +228,7 @@ class KickstartBase(BaseInstallClass):
         md5pass = None
         forceLBA = 0
         linear = 1
+        upgrade = 0
 
         for n in args:
             (str, arg) = n
@@ -246,6 +248,8 @@ class KickstartBase(BaseInstallClass):
                 password = arg
             elif str == '--md5pass':
                 md5pass = arg
+            elif str == '--upgrade':
+                upgrade = 1
 
         if location not in validLocations:
             raise ValueError, "mbr, partition, or none expected for bootloader command"
@@ -253,6 +257,13 @@ class KickstartBase(BaseInstallClass):
             location = None
         else:
             location = validLocations.index(location)
+
+        if upgrade and not id.upgrade.get():
+            raise RuntimeError, "Selected upgrade mode for bootloader but not doing an upgrade"
+
+        if upgrade:
+            id.bl.kickstart = 1
+            id.bl.doUpgradeOnly = 1
                 
         self.setBootloader(id, useLilo, location, linear, forceLBA,
                            password, md5pass, appendLine)

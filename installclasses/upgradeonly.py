@@ -23,6 +23,7 @@ class InstallClass(BaseInstallClass):
                     "upgrademigfind",
                     "upgrademigratefs",
                     "upgradecontinue",
+                    "upgbootloader",
                     "bootloadersetup",
 		    "bootloader",
                     "bootloaderpassword",

@@ -312,6 +312,13 @@ class bootloaderInfo:
         self.pure = None
         self.above1024 = 0
 
+        # this has somewhat strange semantics.  if 0, act like a normal
+        # "install" case.  if 1, update lilo.conf (since grubby won't do that)
+        # and then run lilo or grub only.
+        # XXX THIS IS A HACK.  implementation details are only there for x86
+        self.doUpgradeOnly = 0
+        self.kickstart = 0
+
 class ia64BootloaderInfo(bootloaderInfo):
     # XXX wouldn't it be nice to have a real interface to use efibootmgr from?
     def removeOldEfiEntries(self, instRoot):
@@ -628,9 +635,89 @@ class x86BootloaderInfo(bootloaderInfo):
 	    str = ""
 
 	return str
+
+    # this is a hackish function that depends on the way anaconda writes
+    # out the grub.conf with a #boot= comment
+    # XXX this falls into the category of self.doUpgradeOnly
+    def upgradeGrub(self, instRoot, fsset, bl, langs, kernelList, chainList,
+                    defaultDev, justConfigFile):
+        if justConfigFile:
+            return ""
+
+        try:
+            f = open(instRoot + "/boot/grub/grub.conf", "r")
+        except:
+            # if we fail to open it when we did earlier.. I don't know
+            # take our toys and go home
+            pass
+        
+        # the following bits of code are straight from checkbootloader.py
+        lines = f.readlines()
+        for line in lines:
+            if line[0:6] == "#boot=":
+                import checkbootloader
+                theDev = checkbootloader.getBootDevString(line)
+                break
+
+
+        # more suckage.  grub-install can't work without a valid /etc/mtab
+        # so we have to do shenanigans to get updated grub installed...
+        # steal some more code above
+	bootDev = fsset.getEntryByMountPoint("/boot")
+	grubPath = "/grub"
+	cfPath = "/"
+	if not bootDev:
+	    bootDev = fsset.getEntryByMountPoint("/")
+	    grubPath = "/boot/grub"
+	    cfPath = "/boot/"
+        bootDev = bootDev.device.getDevice(asBoot = 1)
+
+	part = grubbyPartitionName(bootDev)
+ 	prefix = "%s/%s" % (grubbyPartitionName(bootDev), grubPath)
+	cmd = "root %s\ninstall %s/stage1 d %s %s/stage2 p %s%s/grub.conf" % \
+	    (part, grubPath, grubbyPartitionName(theDev[5:]),
+             grubPath, part, grubPath)
+
+	if not justConfigFile:
+            log("GRUB command %s", cmd)
+
+            # copy the stage files over into /boot
+            iutil.execWithRedirect( "/sbin/grub-install",
+                                    ["/sbin/grub-install", "--just-copy"],
+                                    stdout = "/dev/tty5", stderr = "/dev/tty5",
+                                    root = instRoot)
+
+
+            # really install the bootloader
+	    p = os.pipe()
+	    os.write(p[1], cmd + '\n')
+	    os.close(p[1])
+	    iutil.execWithRedirect('/sbin/grub' ,
+				    [ "grub",  "--batch", "--no-floppy",
+                                      "--device-map=/boot/grub/device.map" ],
+                                    stdin = p[0],
+				    stdout = "/dev/tty5", stderr = "/dev/tty5",
+				    root = instRoot)
+	    os.close(p[0])
+
+	return ""
+
         
     def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
 		  defaultDev, justConfig, intf):
+        # XXX HACK ALERT - see declaration above
+        if self.doUpgradeOnly:
+            if not self.useGrubVal:
+                # we do upgrades sort of right for lilo...
+                str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
+                                     chainList, defaultDev,
+                                     justConfig | (self.useGrubVal))
+            else:
+                self.upgradeGrub(instRoot, fsset, bl, langs, kernelList,
+                                 chainList, defaultDev, justConfig)
+            return
+                
+            
         if len(kernelList) < 1:
             self.noKernelsWarn(intf)
 
@@ -742,6 +829,21 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 
     if bl.defaultDevice == -1:
         return
+
+    # now make the upgrade stuff work for kickstart too. ick.
+    if bl.kickstart == 1 and bl.doUpgradeOnly == 1:
+        import checkbootloader
+        (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(instRoot)
+
+        bl.doUpgradeonly = 1
+        if bootType == "GRUB":
+            bl.useGrubVal = 1
+            bl.setDevice(theDev)
+        elif bootType == "LILO":
+            bl.useGrubVal = 0
+            bl.setDevice(theDev)            
+        else:
+            bl.doUpgradeOnly = 0
 
     w = intf.waitWindow(_("Bootloader"), _("Installing bootloader..."))
 

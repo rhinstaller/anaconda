@@ -48,6 +48,7 @@ stepToClasses = {
     "findinstall" : ("upgrade_text", ("UpgradeExamineWindow",
                                       "CustomizeUpgradeWindow")),
     "addswap" : ("upgrade_text", "UpgradeSwapWindow"),
+    "upgbootloader": ("upgrade_bootloader_text", "UpgradeBootloaderWindow"),
     "bootloader" : ("bootloader_text", ("BootloaderChoiceWindow",
                                         "BootloaderWindow",
                                         "BootloaderAppendWindow",
