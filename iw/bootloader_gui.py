@@ -21,25 +21,6 @@ import gui
 from iw_gui import *
 from translate import _, N_
 
-fbModes = {}
-fbModes["8"] = { "640x480": 0x301,
-                 "800x600": 0x303,
-                 "1024x768": 0x305,
-                 "1280x1024": 0x307 }
-fbModes["16"] = { "640x480": 0x311,
-                  "800x600": 0x314,
-                  "1024x768": 0x317,
-                  "1280x1024": 0x31A}
-fbModes["24"] = { "640x480": 0x311,
-                  "800x600": 0x314,
-                  "1024x768": 0x317,
-                  "1280x1024": 0x31A }
-fbModes["32"] = { "640x480": 0x312,
-                  "800x600": 0x315,
-                  "1024x768": 0x318,
-                  "1280x1024": 0x31B }
-
-
 class BootloaderWindow (InstallWindow):
     windowTitle = N_("Boot Loader Configuration")
     htmlTag = "bootloader"
@@ -99,116 +80,6 @@ class BootloaderWindow (InstallWindow):
             # punt
             pass
         
-
-    def fbModeWindow(self, *args):
-        resolutions = [ "640x480", "800x600", "1024x768", "1280x1024" ]
-        depths = [ 8, 16, 24, 32 ]
-
-        if self.fbMode:
-            theResolution = self.fbMode[0]
-            theDepth = self.fbMode[1]
-        else:
-            # XXX better defaults
-            theResolution = resolutions[0]
-            theDepth = depths[0]
-        
-        dialog = gtk.Dialog(_("Select framebuffer resolution"), self.parent)
-        dialog.add_button('gtk-ok', 1)
-        dialog.add_button('gtk-cancel', 2)
-        dialog.set_position(gtk.WIN_POS_CENTER)
-        gui.addFrame(dialog)
-        
-        label = gui.WrappingLabel(_("Please select the resolution and bit "
-                                    "depth that you would prefer to use as "
-                                    "your framebuffer settings."))
-        dialog.vbox.pack_start(label)
-        
-        
-        hbox = gtk.HBox(gtk.FALSE, 5)
-
-        frame = gtk.Frame(_("Resolution"))
-        bbox = gtk.VButtonBox()
-
-        resRadio = None
-        group = []
-        # XXX need to make sure the resolutions are actually viable for
-        # their vidcard/monitor
-        for resolution in resolutions:
-            resRadio = gtk.RadioButton(resRadio, resolution)
-            if resolution == theResolution:
-                resRadio.set_active(gtk.TRUE)
-            bbox.pack_start(resRadio)
-            group.append(resRadio)
-        resRadio.group = group
-
-        frame.add(bbox)
-        hbox.pack_start(frame)
-        
-        frame = gtk.Frame(_("Bit Depth"))
-        bbox = gtk.VButtonBox()
-
-        depthRadio = None
-        group = []
-        # XXX need to make sure the depths are actually viable for
-        # their vidcard/monitor
-        for depth in depths:
-            depthRadio = gtk.RadioButton(depthRadio, _("%d") % (depth,))
-            if "%d" % (depth,) == theDepth:
-                depthRadio.set_active(gtk.TRUE)
-            bbox.pack_start(depthRadio)
-            group.append(depthRadio)
-        depthRadio.group = group
-
-        frame.add(bbox)
-        hbox.pack_start(frame)
-        
-        dialog.vbox.pack_start(hbox)
-        dialog.show_all()
-
-        rc = dialog.run()
-        # user hit cancel, destroy the dialog and return
-        if rc == 2:
-            dialog.destroy()
-            return rc
-
-        for radio in resRadio.group:
-            if radio.get_active():
-                resolution = radio.get_label()
-                break
-
-        for radio in depthRadio.group:
-            if radio.get_active():
-                depth = radio.get_label()
-                break
-                
-        self.fbMode = (resolution, depth)
-        dialog.destroy()
-        return rc
-
-    # set the label on the button for the framebuffer mode
-    def setFbModeLabel(self):
-        if not self.useFbcb.get_active() or not self.fbMode:
-            self.fbButton.set_label(_("No Framebuffer"))
-        else:
-            # XXX need to translate numeric -> text properly
-            self.fbButton.set_label("%s @ %s" % self.fbMode)
-            self.fbButton.set_sensitive(gtk.TRUE)
-
-    # callback for when the framebuffer mode checkbox is clicked
-    def fbCallback(self, widget, *args):
-        if not widget.get_active():
-            self.fbButton.set_sensitive(gtk.FALSE)
-            self.setFbModeLabel()
-        else:
-            if self.fbModeWindow() == 2:
-                widget.set_active(0)
-            self.setFbModeLabel()
-
-    # callback for when the framebuffer mode button is clicked
-    def fbButtonCallback(self, widget, *args):
-        self.fbModeWindow()
-        self.setFbModeLabel()
-
     # get the bootloader password
     def passwordWindow(self, *args):
         dialog = gtk.Dialog(_("Enter Boot Loader Password"), self.parent)
@@ -308,9 +179,6 @@ class BootloaderWindow (InstallWindow):
 	self.bl = bl
         self.intf = dispatch.intf
 
-        self.useFb = 0
-        self.fbMode = None
-
         # find the video mode... this is pretty ugly
         args = self.bl.args.get()
         
@@ -366,7 +234,7 @@ class BootloaderWindow (InstallWindow):
 
         thebox.pack_start (gtk.HSeparator(), gtk.FALSE)
 
-        # kernel parameters: append, fb, password, lba32
+        # kernel parameters: append, password, lba32
         self.options_vbox = gtk.VBox(gtk.FALSE, 5)
         spacer = gtk.Label("")
         spacer.set_size_request(10, 1)
@@ -633,9 +501,9 @@ class AdvancedBootloaderWindow (InstallWindow):
             self.fillOSList()
         else:
             self.intf.messageWindow(_("Cannot Delete"),
-                                    _("You cannot remove the system being "
-                                      "installed from the bootloader "
-                                      "options."),
+                                    _("This boot target cannot be deleted "
+				      "because it is for the Red Hat Linux "
+				      "system you are about to install."),
                                       type="warning")
 
     def editEntry(self, widget, *args):
@@ -662,8 +530,9 @@ class AdvancedBootloaderWindow (InstallWindow):
         
         keys = self.imagelist.keys()
         keys.sort()
+
         for dev in keys:
-            (label, longlabel, isRoot) = self.imagelist[dev]
+            (label, longlabel, fstype) = self.imagelist[dev]
             if self.bl.useGrub():
                 theLabel = longlabel
             else:
@@ -674,6 +543,11 @@ class AdvancedBootloaderWindow (InstallWindow):
             if not theLabel:
                 del self.imagelist[dev]
                 continue
+
+	    isRoot = 0
+	    fsentry = self.fsset.getEntryByDeviceName(dev)
+	    if fsentry and fsentry.getMountPoint() == '/':
+		isRoot = 1
 
             iter = self.osStore.append()
             self.osStore.set_value(iter, 1, theLabel)
@@ -728,6 +602,7 @@ class AdvancedBootloaderWindow (InstallWindow):
     def getScreen(self, dispatch, bl, fsset, diskSet):
 	self.dispatch = dispatch
 	self.bl = bl
+        self.fsset = fsset
         self.intf = dispatch.intf
         self.diskset = diskSet
 
