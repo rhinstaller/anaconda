@@ -543,6 +543,11 @@ class XF86Config:
 
 	    # put in all modes up to selected mode
 	    availmodes = self.availableModes()
+
+	    # copy so we have modes for 32 and 24 bpp
+	    if "32" in availmodes.keys():
+		availmodes["24"] = availmodes["32"]
+
 	    if depth in availmodes.keys():
 		tmpmodes = availmodes[depth]
 		tmpmodes.reverse()
