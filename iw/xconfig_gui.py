@@ -139,6 +139,8 @@ class XCustomWindow (InstallWindow):
            pix = self.ics.readPixmap("gnome.png")
         elif desktop == "KDE":
             pix = self.ics.readPixmap("kde.png")
+        else:
+            pix = None
 
         if pix:
             a = GtkAlignment ()
