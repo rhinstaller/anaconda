@@ -2,6 +2,7 @@
 # partition_gui.py: allows the user to choose how to partition their disks
 #
 # Matt Wilson <msw@redhat.com>
+# Michael Fulbright <msf@redhat.com>
 #
 # Copyright 2001 Red Hat, Inc.
 #
@@ -824,14 +825,28 @@ class PartitionWindow(InstallWindow):
             for vgname in lvmrequests.keys():
                 vgparent = self.tree.append(lvmparent)
 		self.tree[vgparent]['Device'] = _("LVM: %s") % (vgname,)
-		vgrequest = self.partitions.getRequestByDeviceName(vgname)
-                self.tree[vgparent]['PyObject'] = vgrequest.volumeGroupName
+		vgrequest = self.partitions.getRequestByVolumeGroupName(vgname)
+		rsize = requestSize(vgrequest, self.partitions, self.diskset)
+		print "volume group %s size is %s" % (vgname, rsize)
+		self.tree[vgparent]['Mount Point'] = ""
+		self.tree[vgparent]['Size (MB)'] = "%g" % (rsize,)
+		self.tree[vgparent]['Type'] = _("LVM Volume Group")
+		if lvmrequests[vgname]:
+		    self.tree[vgparent]['IsLeaf'] = gtk.FALSE
+		else:
+		    self.tree[vgparent]['IsLeaf'] = gtk.TRUE
+		self.tree[vgparent]['Start'] = ""
+		self.tree[vgparent]['End'] = ""
+#                self.tree[vgparent]['PyObject'] = vgrequest.volumeGroupName
+                self.tree[vgparent]['PyObject'] = str(vgrequest.uniqueID)
 		for lvrequest in lvmrequests[vgname]:
 		    iter = self.tree.append(vgparent)
 		    self.tree[iter]['Device'] = lvrequest.logicalVolumeName
 		    self.tree[iter]['Mount Point'] = lvrequest.mountpoint
-		    self.tree[iter]['Size (MB)'] = "%g" % (lvrequest.size)
-		    self.tree[iter]['PyObject'] = lvrequest.logicalVolumeName
+		    self.tree[iter]['Size (MB)'] = "%g" % (lvrequest.size,)
+		    print lvrequest.logicalVolumeName
+#		    self.tree[iter]['PyObject'] = lvrequest.logicalVolumeName
+		    self.tree[iter]['PyObject'] = str(lvrequest.uniqueID)
 		
                     ptype = lvrequest.fstype.getName()
                     self.tree[iter]['Format'] = gtk.TRUE
@@ -872,7 +887,7 @@ class PartitionWindow(InstallWindow):
 #                self.tree[iter]['Start'] = ""
 #                self.tree[iter]['End'] = ""
                 self.tree[iter]['Size (MB)'] = "%g" % (request.size)
-                self.tree[iter]['PyObject'] = request.device
+                self.tree[iter]['PyObject'] = str(request.uniqueID)
 
                 raidcounter = raidcounter + 1
                 
@@ -1423,9 +1438,9 @@ class PartitionWindow(InstallWindow):
 
                     if request.end <= request.start:
                         self.intf.messageWindow(_("Error With Request"),
-                                                "The end cylinder must be "
+                                                _("The end cylinder must be "
                                                 "greater than the start "
-                                                "cylinder.")
+                                                "cylinder."))
 
                         continue
 
@@ -1837,17 +1852,27 @@ class PartitionWindow(InstallWindow):
 	    
 	    lvname = string.strip(lvnameEntry.get_text())
 
-	    print "|%s|" % (mntpt,)
 	    err = sanityCheckMountPoint(mntpt, fsystem, REQUEST_LV)
 	    if err:
 		self.intf.messageWindow(_("Bad mount point"), err)
 		continue
 
 	    used = 0
-	    if isNew or logrequest is None or mntpt != logrequest.mountpoint:
+	    if not logrequest or mntpt != logrequest.mountpoint:
+		# check in existing requests
 		curreq = self.partitions.getRequestByMountPoint(mntpt)
 		if curreq:
 		    used = 1
+
+		# check in pending logical volume requests
+		if not used:
+		    for lv in self.logvolreqs:
+			if logrequest and logrequest.mountpoint and lv.mountpoint == logrequest.mountpoint:
+			    continue
+
+			if lv.mountpoint == mntpt:
+			    used = 1
+			    break
 
 	    if used:
 		self.intf.messageWindow(_("Mount point in use"),
@@ -1855,9 +1880,33 @@ class PartitionWindow(InstallWindow):
 					  "please pick another.") % (mntpt,))
 		continue
 
-	    if len(lvname) < 1:
+	    err = sanityCheckLogicalVolumeName(lvname)
+	    if err:
 		self.intf.messageWindow(_("Illegal Logical Volume Name"),
-					_("Please enter a logical volume name."))
+					err)
+		continue
+
+	    # is it in use?
+	    used = 0
+	    if logrequest:
+		origlvname = logrequest.logicalVolumeName
+	    else:
+		origlvname = None
+		
+	    if not used:
+		for lv in self.logvolreqs:
+		    if logrequest and logrequest.mountpoint and lv.mountpoint == logrequest.mountpoint:
+			continue
+
+		    if lv.logicalVolumeName == lvname:
+			used = 1
+			break
+
+	    if used:
+		self.intf.messageWindow(_("Illegal logical volume name"),
+					_("The logical volume name %s is "
+					  "already in use. Please pick "
+					  "another.") % (lvname,))
 		continue
 
 	    # everything ok
@@ -1881,6 +1930,9 @@ class PartitionWindow(InstallWindow):
 	
     def editCurrentLogicalVolume(self):
 	iter = self.getCurrentLogicalVolume()
+
+	if iter is None:
+	    return
 	
 	logvolname = self.logvolstore.get_value(iter, 0)
 	logrequest = None
@@ -2056,8 +2108,9 @@ class PartitionWindow(InstallWindow):
 		    pv.append(id)
 
 		    part = get_partition_by_name(self.diskset.disks, partname)
-		    availSpaceMB = availSpaceMB + getPartSizeMB(part)
-
+		    availSpaceMB = availSpaceMB + requestSize(pvreq,
+							      self.partitions,
+							      self.diskset)
 		next = model.iter_next(iter)
 
 	    print "Total size of volume group is %g MB" % (availSpaceMB,)
@@ -2079,10 +2132,29 @@ class PartitionWindow(InstallWindow):
 
 	    # check volume name
 	    volname = string.strip(volnameEntry.get_text())
-	    if len(volname) < 1:
-		self.intf.messageWindow(_("Illegal Volume Group Name"),
-					_("Please enter a volume group name"))
+	    err = sanityCheckVolumeGroupName(volname)
+	    if err:
+		self.intf.messageWindow(_("Invalid Volume Group Name"), err)
 		continue
+
+	    if origvgrequest:
+		origvname = origvgrequest.volumeGroupName
+	    else:
+		origname = None
+
+	    if origvname != volname:
+		tmpreq =  PartitionSpec(fileSystemTypeGet("volume group (LVM)"),
+					REQUEST_VG, physvolumes = pv,
+					vgname = volname)
+		if isVolumeGroupNameInUse(self.partitions, tmpreq):
+		    self.intf.messageWindow(_("Name in use"),
+					    _("The volume group name %s is "
+					      "already in use. Please pick "
+					      "another." % (volname,)))
+		    del tmpreq
+		    continue
+
+		del tmpreq
 
 	    # everything ok
 	    break
@@ -2114,9 +2186,12 @@ class PartitionWindow(InstallWindow):
 #            print req
 
 	# XXX - probably shouldn't do this here - trying to force refresh of ui
-        self.diskStripeGraph.shutDown()
-        self.tree.clear()
-        self.populate()
+#        self.diskStripeGraph.shutDown()
+#        self.tree.clear()
+#        self.populate()
+
+        # XXX should probably check if this fails, cant see how it could
+        self.refresh()
 	
         dialog.destroy()
 	return

@@ -717,14 +717,15 @@ def processPartitioning(diskset, requests, newParts):
         if request.type == REQUEST_RAID and not request.device:
             request.device = str(request.uniqueID)
         if request.type == REQUEST_VG and not request.device:
-            request.device = request.volumeGroupName
+            request.device = str(request.uniqueID)
         # anything better we can use for the logical volume?
         if request.type == REQUEST_LV and not request.device:
             request.device = str(request.uniqueID)
 
         if request.type == REQUEST_RAID:
             request.size = get_raid_device_size(request, requests, diskset) / 1024 / 1024
-        
+	elif request.type == REQUEST_VG:
+	    request.size = get_lvm_volume_group_size(request, requests, diskset) / 1024 / 1024
         if not request.device:
 #            return PARTITION_FAIL
             raise PartitioningError, "Unsatisfied partition request\n%s" %(request)

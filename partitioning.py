@@ -308,6 +308,18 @@ def get_available_lvm_partitions(diskset, requests, request):
                 rc.append((partname, getPartSizeMB(part), 1))
     return rc
 
+def get_lvm_volume_group_size(request, requests, diskset):
+	# got to add up all of physical volumes to get total size
+	if request.physicalVolumes is None:
+	    return 0
+	totalspace = 0
+	for physvolid in request.physicalVolumes:
+	    pvreq = requests.getRequestByID(physvolid)
+	    part = get_partition_by_name(diskset.disks, pvreq.device)
+	    totalspace = totalspace + part.geom.length * part.geom.disk.dev.sector_size
+
+	return totalspace
+    
 # set of functions to determine if the given level is RAIDX or X
 def isRaid5(raidlevel):
     if raidlevel == "RAID5":
@@ -388,6 +400,35 @@ def get_raid_device_size(raidrequest, partitions, diskset):
     else:
         raise ValueError, "Invalid raidlevel in get_raid_device_size()"
 
+def sanityCheckVolumeGroupName(volname):
+    badNames = ['lvm']
+
+    if not volname:
+	return _("Please enter a volume group name.")
+
+    if volname in badNames:
+	return _("Error - the volume group name %s is not valid." % (volname,))
+
+    if string.find(volname, '/') != -1 or string.find(volname, ' ') != -1:
+	return _("Error - the volume group name contains illegal characters "
+		 " or spaces.")
+    return None
+
+def sanityCheckLogicalVolumeName(logvolname):
+    badNames = ['group']
+    
+    if not logvolname:
+	return _("Please enter a logical volume name.")
+
+    if logvolname in badNames:
+	return _("Error - the logical volume name %s is not valid." % (logvolname,))
+
+    if string.find(logvolname, '/') != -1 or string.find(logvolname, ' ') != -1:
+	return _("Error - the logical volume name contains illegal characters "
+		 " or spaces.")
+    return None
+
+
 # sanityCheckMountPoint
 def sanityCheckMountPoint(mntpt, fstype, reqtype):
     if mntpt:
@@ -412,6 +453,43 @@ def sanityCheckMountPoint(mntpt, fstype, reqtype):
         else:
             # its an existing partition so don't force a mount point
             return None
+
+def isVolumeGroupNameInUse(reqpartitions, req):
+    volname = req.volumeGroupName
+    if not volname:
+        return None
+
+    lvmrequests = reqpartitions.getLVMRequests()
+    if not lvmrequests:
+	return None
+
+    if volname in lvmrequests.keys():
+	return 1
+
+    return 0
+	
+def isLogicalVolumeNameInUse(reqpartitions, req):
+    logvolname = req.logicalVolumeName
+    if not logvolname:
+        return None
+
+    lvmrequests = reqpartitions.getLVMRequests()
+    if not lvmrequests:
+	return None
+
+    for vgname in lvmrequests.keys():
+	vgrequest = reqpartitions.getRequestByDeviceName(vgname)
+	if not lvmrequests[vgname]:
+	    continue
+	for lvrequest in lvmrequests[vgname]:
+	    lvname = lvrequest.logicalVolumeName
+	    if not lvname:
+		continue
+	    
+	    if lvname == logvolname:
+		return 1
+
+    return 0
 
 def isMountPointInUse(reqpartitions, newrequest):
     mntpt = newrequest.mountpoint
@@ -590,7 +668,12 @@ def sanityCheckRaidRequest(reqpartitions, newraid, doPartitionCheck = 1):
     return None
 
 # return the actual size being used by the request in megabytes
-def requestSize(req, diskset):
+def requestSize(req, allrequests, diskset):
+    if req.type == REQUEST_VG:
+	if req.size != None:
+	    thissize = req.size
+	else:
+	    thissize = 0
     if req.type == REQUEST_RAID:
         # XXX duplicate the hack below.  
         if req.size != None:
@@ -626,12 +709,12 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
     if not slash:
         errors.append(_("You have not defined a root partition (/), which is required for installation of Red Hat Linux to continue."))
 
-    if slash and requestSize(slash, diskset) < 250:
+    if slash and requestSize(slash, requests, diskset) < 250:
         warnings.append(_("Your root partition is less than 250 megabytes which is usually too small to install Red Hat Linux."))
 
     if iutil.getArch() == "ia64":
         bootreq = requests.getRequestByMountPoint("/boot/efi")
-        if not bootreq or requestSize(bootreq, diskset) < 50:
+        if not bootreq or requestSize(bootreq, requests, diskset) < 50:
             errors.append(_("You must create a /boot/efi partition of type "
                             "FAT and a size of 50 megabytes."))
 
@@ -639,7 +722,7 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
         req = requests.getRequestByMountPoint(mount)
         if not req:
             continue
-        if requestSize(req, diskset) < size:
+        if requestSize(req, requests, diskset) < size:
             warnings.append(_("Your %s partition is less than %s megabytes which is lower than recommended for a normal Red Hat Linux install.") %(mount, size))
 
     foundSwap = 0
@@ -647,7 +730,7 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
     for request in requests.requests:
         if request.fstype and request.fstype.getName() == "swap":
             foundSwap = foundSwap + 1
-            swapSize = swapSize + requestSize(request, diskset)
+            swapSize = swapSize + requestSize(request, requests, diskset)
         if baseChecks:
             rc = doPartitionSizeCheck(request)
             if rc:
@@ -1031,7 +1114,6 @@ class Partitions:
                 part = disk.next_partition(part)
 
     def addRequest (self, request):
-#        print "adding %s" %(self.nextUniqueID)
         if not request.uniqueID:
             request.uniqueID = self.nextUniqueID
             self.nextUniqueID = self.nextUniqueID + 1
@@ -1056,20 +1138,35 @@ class Partitions:
         return None
 
     def getRequestByDeviceName(self, device):
+	if device is None:
+	    return None
+	
         for request in self.requests:
             if request.device == device:
                 return request
 
+
+    def getRequestByVolumeGroupName(self, volname):
 	# now look for a Volume group or logical volume that matches
+	if volname is None:
+	    return None
+	
 	for request in self.requests:
-	    if request.type == REQUEST_VG and request.volumeGroupName == device:
+	    if request.type == REQUEST_VG and request.volumeGroupName == volname:
 		return request
-	    elif request.type == REQUEST_LV and request.logicalVolumeName == device:
-		return request
-	    
         return None
 
+    def getRequestByLogicalVolumeName(self, lvname):
+	if lvname is None:
+	    return None
+	for request in self.requests:
+	    if request.type == REQUEST_LV and request.logicalVolumeName == lvname:
+		return request
+	
+
     def getRequestByID(self, id):
+	if type(id) == type("a string"):
+	    id = int(id)
         for request in self.requests:
             if request.uniqueID == id:
                 return request
@@ -2014,7 +2111,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
         return (None, None)
 
     if type(part) == type("RAID"):
-        request = requestlist.getRequestByDeviceName(part)
+        request = requestlist.getRequestByID(int(part))
 
 	if request.type == REQUEST_RAID:
 	    return ("RAID", request)
