@@ -36,6 +36,17 @@ class XCustomWindow (InstallWindow):
 
         self.todo.x.modes = newmodes
         
+    def testPressed (self, widget, *args):
+        try:
+            self.todo.x.test ()
+        except RuntimeError:
+            ### test failed window
+            pass
+        else:
+            self.didTest = 1
+            
+        self.setNext ()
+
     def getScreen (self):
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
@@ -57,7 +68,14 @@ class XCustomWindow (InstallWindow):
                 
             hbox.pack_start (vbox)
 
+        
+        test = GtkAlignment ()
+        button = GtkButton (_("Test this configuration"))
+        button.connect ("pressed", self.testPressed)
+        test.add (button)
+        
         box.pack_start (hbox, FALSE)
+        box.pack_start (test, FALSE)
         return box
 
     def getPrev (self):
