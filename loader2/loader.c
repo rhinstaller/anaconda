@@ -705,6 +705,7 @@ static char *doLoaderMain(char * location,
         case STEP_DRIVER: {
             int found = 0;
 
+            updateKnownDevices(kd);
             for (i = 0; i < kd->numKnown; i++) {
                 if (installMethods[validMethods[methodNum]].deviceType == 
                     kd->known[i].class)
