@@ -950,7 +950,7 @@ def betaNagScreen(intf, dir):
 				   "this release is to collect feedback "
 				   "from testers, and it is not suitable "
 				   "for day to day usage.\n\n"
-				   "To report feedback, please goto:\n\n"
+				   "To report feedback, please visit:\n\n"
 				   "    http://bugzilla.redhat.com/bugzilla\n\n"
 				   "and file a report against 'Red Hat Public "
 				   "Beta'.\n"),
