@@ -49,6 +49,7 @@ class UpgradeMigrateFSWindow:
             entry = fsset.getEntryByDeviceName(req.device)
             if not entry:
                 # only show partitions in current fstab
+                pass
             else:
                 mntpt = entry.mountpoint
 
