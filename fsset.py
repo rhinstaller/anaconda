@@ -1457,7 +1457,7 @@ class LogicalVolumeDevice(Device):
         return self.getDevice()
 
     def getDevice(self, asBoot = 0):
-        return "/dev/%s/%s" % (self.volumeGroup, self.name)
+        return "%s/%s" % (self.volumeGroup, self.name)
 
     def solidify(self):
         return
