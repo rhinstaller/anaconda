@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 8.0 beta\n"
-"POT-Creation-Date: 2003-02-11 10:57-0500\n"
+"POT-Creation-Date: 2003-02-14 17:59-0500\n"
 "PO-Revision-Date: 2003-02-10 14:41GMT+10:00\n"
 "Last-Translator: Sarah Smith <sarahs@redhat.com>\n"
 "Language-Team: Simplified Chinese <i18n@redhat.com>\n"
@@ -38,15 +38,15 @@ msgstr "您没有足够的内存来使用图形化安装程序，开始使用文
 #: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:504
 #: ../loader2/hdinstall.c:554 ../loader2/kbd.c:125 ../loader2/kickstart.c:101
 #: ../loader2/kickstart.c:111 ../loader2/kickstart.c:154
-#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/lang.c:373
+#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/lang.c:375
 #: ../loader2/loader.c:297 ../loader2/loader.c:309 ../loader2/loader.c:320
-#: ../loader2/loader.c:580 ../loader2/loader.c:702 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:565 ../loader2/loader.c:687 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
-#: ../loader2/method.c:158 ../loader2/method.c:366 ../loader2/method.c:451
+#: ../loader2/method.c:160 ../loader2/method.c:368 ../loader2/method.c:453
 #: ../loader2/modules.c:922 ../loader2/net.c:170 ../loader2/net.c:334
 #: ../loader2/net.c:658 ../loader2/net.c:681 ../loader2/net.c:744
-#: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:217
-#: ../loader2/nfsinstall.c:220 ../loader2/nfsinstall.c:258
+#: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:220
+#: ../loader2/nfsinstall.c:224 ../loader2/nfsinstall.c:262
 #: ../loader2/telnetd.c:86 ../loader2/urlinstall.c:58
 #: ../loader2/urlinstall.c:98 ../loader2/urlinstall.c:111
 #: ../loader2/urlinstall.c:366 ../loader2/urlinstall.c:375
@@ -236,7 +236,7 @@ msgstr ""
 
 #: ../autopart.py:1404 ../bootloader.py:123 ../image.py:380
 #: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:303
-#: ../upgrade.py:444 ../upgrade.py:464 ../upgrade.py:506
+#: ../upgrade.py:438 ../upgrade.py:458 ../upgrade.py:500
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
@@ -313,19 +313,19 @@ msgid ""
 "configuration will not be changed."
 msgstr "您的系统上没有安装任何内核软件包。引导装载程序的配置不变。"
 
-#: ../comps.py:747 ../comps.py:775
+#: ../comps.py:752 ../comps.py:780
 msgid "Everything"
 msgstr "全部"
 
-#: ../comps.py:916 ../comps.py:981 ../upgrade.py:624
+#: ../comps.py:921 ../comps.py:986 ../upgrade.py:618
 msgid "no suggestion"
 msgstr "没有建议"
 
-#: ../comps.py:1076
+#: ../comps.py:1081
 msgid "Miscellaneous"
 msgstr "其它"
 
-#: ../comps.py:1092
+#: ../comps.py:1097
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -334,7 +334,7 @@ msgstr ""
 "该组包括所有可用的软件包。注意，这里包括的软件包要比在这一页上包括的所有其它"
 "软件包组的数量都大得多。"
 
-#: ../comps.py:1096
+#: ../comps.py:1101
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -415,10 +415,10 @@ msgstr "创建引导盘(_M)"
 #: ../fsset.py:559 ../fsset.py:1031 ../fsset.py:1050 ../fsset.py:1097
 #: ../fsset.py:1108 ../fsset.py:1144 ../fsset.py:1194 ../fsset.py:1237
 #: ../harddrive.py:217 ../image.py:76 ../image.py:107 ../image.py:243
-#: ../packages.py:132 ../packages.py:146 ../packages.py:333 ../packages.py:505
-#: ../packages.py:577 ../partedUtils.py:531 ../partIntfHelpers.py:147
-#: ../partIntfHelpers.py:332 ../upgrade.py:333 ../upgrade.py:368
-#: ../upgrade.py:390 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
+#: ../packages.py:142 ../packages.py:156 ../packages.py:343 ../packages.py:515
+#: ../packages.py:587 ../partedUtils.py:531 ../partIntfHelpers.py:147
+#: ../partIntfHelpers.py:332 ../upgrade.py:333 ../upgrade.py:358
+#: ../upgrade.py:384 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1066
 #: ../textw/partition_text.py:1077 ../textw/upgrade_text.py:165
@@ -427,10 +427,10 @@ msgstr "创建引导盘(_M)"
 #: ../loader2/driverdisk.c:295 ../loader2/hdinstall.c:255
 #: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:554
 #: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/loader.c:320
-#: ../loader2/loader.c:580 ../loader2/mediacheck.c:255
-#: ../loader2/mediacheck.c:312 ../loader2/method.c:158 ../loader2/method.c:366
-#: ../loader2/method.c:451 ../loader2/nfsinstall.c:217
-#: ../loader2/nfsinstall.c:220 ../loader2/telnetd.c:86
+#: ../loader2/loader.c:565 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/method.c:160 ../loader2/method.c:368
+#: ../loader2/method.c:453 ../loader2/nfsinstall.c:220
+#: ../loader2/nfsinstall.c:224 ../loader2/telnetd.c:86
 #: ../loader2/urlinstall.c:58 ../loader2/urlinstall.c:98
 #: ../loader2/urlinstall.c:111 ../loader2/urls.c:168 ../loader2/urls.c:178
 #: ../loader2/urls.c:186 ../loader2/urls.c:309 ../loader2/urls.c:314
@@ -715,7 +715,7 @@ msgid ""
 "please choose your diskette carefully."
 msgstr "现在请插入软盘。软盘上的所有内容将会被抹掉，所以请慎重选择软盘。"
 
-#: ../gui.py:739 ../gui.py:1232
+#: ../gui.py:739 ../gui.py:1234
 msgid "Online Help"
 msgstr "在线帮助"
 
@@ -723,23 +723,23 @@ msgstr "在线帮助"
 msgid "Language Selection"
 msgstr "选择语言"
 
-#: ../gui.py:844 ../gui.py:873
+#: ../gui.py:846 ../gui.py:875
 msgid "Release Notes"
 msgstr "发行注记"
 
-#: ../gui.py:878
+#: ../gui.py:880
 msgid "Unable to load file!"
 msgstr "无法载入文件！"
 
-#: ../gui.py:915
+#: ../gui.py:917
 msgid "Release notes are missing.\n"
 msgstr "缺少发行注记。\n"
 
-#: ../gui.py:947
+#: ../gui.py:949
 msgid "Error!"
 msgstr "错误！"
 
-#: ../gui.py:948
+#: ../gui.py:950
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -749,65 +749,65 @@ msgstr ""
 "试图载入安装程序界面部件时出现错误。\n"
 "className = %s"
 
-#: ../gui.py:952 ../packages.py:1245 ../iw/congrats_gui.py:29
+#: ../gui.py:954 ../packages.py:1258 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "退出(_E)"
 
-#: ../gui.py:953
+#: ../gui.py:955
 msgid "_Retry"
 msgstr "重试(_R)"
 
-#: ../gui.py:955 ../packages.py:1248
+#: ../gui.py:957 ../packages.py:1261
 msgid "Rebooting System"
 msgstr "重新引导系统"
 
-#: ../gui.py:956 ../packages.py:1249
+#: ../gui.py:958 ../packages.py:1262
 msgid "Your system will now be rebooted..."
 msgstr "您的系统现在将会被重新引导..."
 
-#: ../gui.py:959 ../packages.py:1251
+#: ../gui.py:961 ../packages.py:1264
 msgid "_Reboot"
 msgstr "重新引导(_R)"
 
-#: ../gui.py:1050 ../packages.py:1251
+#: ../gui.py:1052 ../packages.py:1264
 msgid "_Back"
 msgstr "上一步(_B)"
 
-#: ../gui.py:1052
+#: ../gui.py:1054
 msgid "_Next"
 msgstr "下一步(_N)"
 
-#: ../gui.py:1054
+#: ../gui.py:1056
 msgid "_Release Notes"
 msgstr "发行注记(_R)"
 
-#: ../gui.py:1056
+#: ../gui.py:1058
 msgid "Show _Help"
 msgstr "显示帮助(_H)"
 
-#: ../gui.py:1058
+#: ../gui.py:1060
 msgid "Hide _Help"
 msgstr "隐藏帮助(_H)"
 
-#: ../gui.py:1060
+#: ../gui.py:1062
 msgid "_Debug"
 msgstr "调试(_D)"
 
-#: ../gui.py:1136
+#: ../gui.py:1138
 #, python-format
 msgid "%s Installer"
 msgstr "%s 安装程序"
 
-#: ../gui.py:1151
+#: ../gui.py:1153
 #, python-format
 msgid "%s Installer on %s"
 msgstr " %s 安装程序用于 %s 的"
 
-#: ../gui.py:1190
+#: ../gui.py:1192
 msgid "Unable to load title bar"
 msgstr "无法载入标题栏"
 
-#: ../gui.py:1294
+#: ../gui.py:1296
 msgid "Install Window"
 msgstr "安装窗口"
 
@@ -909,11 +909,11 @@ msgstr "主机名只能以“a-z”或“A-Z”范围内的字符开头"
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "主机名只能包含字符：“a-z”、“A-Z”、“-”、或“.”。"
 
-#: ../packages.py:45 ../iw/package_gui.py:38
+#: ../packages.py:47 ../iw/package_gui.py:38
 msgid "Proceed with upgrade?"
 msgstr "继续升级吗？"
 
-#: ../packages.py:46 ../iw/package_gui.py:39
+#: ../packages.py:48 ../iw/package_gui.py:39
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -922,19 +922,19 @@ msgstr ""
 "您所选择要升级的 Linux 文件系统已经被挂载，过了该步骤便不能返回。\n"
 "\n"
 
-#: ../packages.py:50 ../iw/package_gui.py:43
+#: ../packages.py:52 ../iw/package_gui.py:43
 msgid "Would you like to continue with the upgrade?"
 msgstr "是否要继续升级？"
 
-#: ../packages.py:126
+#: ../packages.py:136
 msgid "Reading"
 msgstr "读取"
 
-#: ../packages.py:126
+#: ../packages.py:136
 msgid "Reading package information..."
 msgstr "正在读取软件包信息..."
 
-#: ../packages.py:133
+#: ../packages.py:143
 msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -942,7 +942,7 @@ msgstr ""
 "无法读取头列表。这可能是由于文件遗失或者介质不对造成的。请按 <return> 键重"
 "试。"
 
-#: ../packages.py:147
+#: ../packages.py:157
 msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
 "Press <return> to try again."
@@ -950,23 +950,23 @@ msgstr ""
 "无法读取 comps 文件。这可能是由于文件遗失或者介质不对造成的。请按 <return> 键"
 "重试。"
 
-#: ../packages.py:219
+#: ../packages.py:229
 msgid "Dependency Check"
 msgstr "依赖关系检查"
 
-#: ../packages.py:220
+#: ../packages.py:230
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "在所选定要安装的软件包中检查依赖关系..."
 
-#: ../packages.py:285 ../packages.py:700
+#: ../packages.py:295 ../packages.py:710
 msgid "Processing"
 msgstr "正在处理"
 
-#: ../packages.py:286
+#: ../packages.py:296
 msgid "Preparing to install..."
 msgstr "正在进行安装筹备..."
 
-#: ../packages.py:334
+#: ../packages.py:344
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -980,11 +980,11 @@ msgstr ""
 "\n"
 "请按 <return> 键重试。"
 
-#: ../packages.py:363
+#: ../packages.py:373
 msgid "Error Installing Package"
 msgstr "安装软件包时出错"
 
-#: ../packages.py:364
+#: ../packages.py:374
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -999,14 +999,14 @@ msgstr ""
 "\n"
 "请按确定按钮来重新引导您的系统。"
 
-#: ../packages.py:506
+#: ../packages.py:516
 #, python-format
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
 msgstr "您试图在 %s 的本次发行版不支持的机器上安装。"
 
-#: ../packages.py:578 ../upgrade.py:334
+#: ../packages.py:588 ../upgrade.py:334
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1014,11 +1014,11 @@ msgstr ""
 "无法合并头列表。这是由于文件遗失、坏块，或者是介质不对。请按 <return> 键重"
 "试。"
 
-#: ../packages.py:701
+#: ../packages.py:711
 msgid "Setting up RPM transaction..."
 msgstr "正在设置 RPM 传输..."
 
-#: ../packages.py:767
+#: ../packages.py:780
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -1027,7 +1027,7 @@ msgstr ""
 "正在升级 %s 软件包\n"
 "\n"
 
-#: ../packages.py:769
+#: ../packages.py:782
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -1036,17 +1036,17 @@ msgstr ""
 "正在安装 %s 软件包\n"
 "\n"
 
-#: ../packages.py:777 ../packages.py:1083
+#: ../packages.py:790 ../packages.py:1096
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "正在升级 %s-%s-%s。\n"
 
-#: ../packages.py:779 ../packages.py:1085
+#: ../packages.py:792 ../packages.py:1098
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "正在安装 %s-%s-%s。\n"
 
-#: ../packages.py:795
+#: ../packages.py:808
 #, python-format
 msgid ""
 "\n"
@@ -1063,15 +1063,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:801
+#: ../packages.py:814
 msgid "Install Starting"
 msgstr "安装开始"
 
-#: ../packages.py:802
+#: ../packages.py:815
 msgid "Starting install process, this may take several minutes..."
 msgstr "正在开启安装进程，可能会花几分钟时间..."
 
-#: ../packages.py:847
+#: ../packages.py:860
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -1081,17 +1081,17 @@ msgstr ""
 "统：\n"
 "\n"
 
-#: ../packages.py:851 ../packages.py:872 ../iw/lvm_dialog_gui.py:1059
+#: ../packages.py:864 ../packages.py:885 ../iw/lvm_dialog_gui.py:1059
 #: ../iw/partition_gui.py:349 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "挂载点"
 
-#: ../packages.py:852
+#: ../packages.py:865
 msgid "Space Needed"
 msgstr "所需空间"
 
-#: ../packages.py:868
+#: ../packages.py:881
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1101,15 +1101,15 @@ msgstr ""
 "点：\n"
 "\n"
 
-#: ../packages.py:873
+#: ../packages.py:886
 msgid "Nodes Needed"
 msgstr "所需节点"
 
-#: ../packages.py:884
+#: ../packages.py:897
 msgid "Disk Space"
 msgstr "磁盘空间"
 
-#: ../packages.py:921
+#: ../packages.py:934
 msgid ""
 "\n"
 "\n"
@@ -1119,19 +1119,19 @@ msgstr ""
 "\n"
 "下列软件包在本版中已被提供却没有升级：\n"
 
-#: ../packages.py:942
+#: ../packages.py:955
 msgid "Post Install"
 msgstr "安装后"
 
-#: ../packages.py:943
+#: ../packages.py:956
 msgid "Performing post install configuration..."
 msgstr "正在执行安装后配置..."
 
-#: ../packages.py:1231
+#: ../packages.py:1244
 msgid "Warning! This is a beta!"
 msgstr "警告！这是 beta 版本！"
 
-#: ../packages.py:1232
+#: ../packages.py:1245
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1156,7 +1156,7 @@ msgstr ""
 "\n"
 "然后向“Red Hat Public Beta”部分提交报告。\n"
 
-#: ../packages.py:1245
+#: ../packages.py:1258
 msgid "_Install BETA"
 msgstr "安装 BETA(_I)"
 
@@ -1539,41 +1539,41 @@ msgstr ""
 "因为本机内存不足，您必须立即打开交换空间。要执行该项操作，必须将新分区表立即"
 "写入磁盘。是否执行？"
 
-#: ../partitions.py:749
+#: ../partitions.py:752
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr "您还没有指定继续安装 %s 所需的根分区(/)。"
 
-#: ../partitions.py:754
+#: ../partitions.py:757
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr "您的根分区小于 250 MB，这个空间通常太小，不足以安装 %s。"
 
-#: ../partitions.py:761
+#: ../partitions.py:764
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "您必须创建一个 /boot/efl 分区，类型为 FAT，大小为 50MB。"
 
-#: ../partitions.py:769
+#: ../partitions.py:772
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr "您的 %s 分区小于 %s MB，比正常安装 %s 的建议值还小。"
 
-#: ../partitions.py:796 ../partRequests.py:635
+#: ../partitions.py:799 ../partRequests.py:635
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "可引导分区仅允许指定在 RAID1 设备上。"
 
-#: ../partitions.py:802
+#: ../partitions.py:805
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "可引导分区不能位于逻辑卷上。"
 
-#: ../partitions.py:806
+#: ../partitions.py:809
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1581,29 +1581,29 @@ msgstr ""
 "您还没有指定一个交换分区。虽然在大多情况下这并非必不可少，但若有一个交换分区"
 "的话，系统性能会显著提高。"
 
-#: ../partitions.py:813
+#: ../partitions.py:816
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr "您指定的交换设备已超过 32 个。%s 的内核只支持 32 个交换设备。"
 
-#: ../partitions.py:824
+#: ../partitions.py:827
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr "您分配的交换空间(%dM)小于系统内的可用内存(%dM)，这可能会影响性能。"
 
-#: ../partitions.py:1105
+#: ../partitions.py:1108
 msgid "the partition in use by the installer."
 msgstr "安装程序正在使用该分区。"
 
-#: ../partitions.py:1108
+#: ../partitions.py:1111
 msgid "a partition which is a member of a RAID array."
 msgstr "是 RAID 成员之一的分区。"
 
-#: ../partitions.py:1111
+#: ../partitions.py:1114
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "是 LVM 卷组成员之一的分区。"
 
@@ -1724,7 +1724,7 @@ msgstr "只读"
 
 #: ../rescue.py:189 ../rescue.py:191 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:260 ../loader2/method.c:413
+#: ../loader2/cdinstall.c:260 ../loader2/method.c:415
 msgid "Skip"
 msgstr "跳过"
 
@@ -1950,15 +1950,18 @@ msgstr "查找"
 msgid "Finding packages to upgrade..."
 msgstr "正在查找要升级的软件包..."
 
-#: ../upgrade.py:369
-msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr "重建 RPM 数据库失败。是否磁盘空间已满？"
+#: ../upgrade.py:359
+msgid ""
+"The installation program is unable to upgrade systems with a pre-rpm 4.x "
+"database. Please install the errata rpm packages for your release as "
+"described in the release notes and then run the upgrade procedure."
+msgstr ""
 
-#: ../upgrade.py:391
+#: ../upgrade.py:385
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "在查找要升级的软件包时出错。"
 
-#: ../upgrade.py:445
+#: ../upgrade.py:439
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1969,7 +1972,7 @@ msgstr ""
 "这个系统内似乎存在第三方软件包，与 Red Hat Linux 所提供的软件包重复。由于软件"
 "包重复，继续升级可能会导致功能不正常或系统不稳定。您想继续升级吗？"
 
-#: ../upgrade.py:465
+#: ../upgrade.py:459
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1979,7 +1982,7 @@ msgstr ""
 "该系统中没有 /etc/redhat-release 这一文件，这很可能不是 Red Hat Linux 系统，"
 "若继续升级可能会导致系统处于不稳定状态。您想继续升级吗？"
 
-#: ../upgrade.py:507
+#: ../upgrade.py:501
 #, python-format
 msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
@@ -2457,7 +2460,7 @@ msgid "Unresolved Dependencies"
 msgstr "未解决的依赖关系"
 
 #: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:263
-#: ../iw/package_gui.py:506 ../iw/package_gui.py:696
+#: ../iw/package_gui.py:511 ../iw/package_gui.py:701
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
@@ -2743,7 +2746,7 @@ msgstr "IP 地址必须包含从 1 到 255 之间的数字"
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP 地址必须包含从 0 到 255 之间的数字"
 
-#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:371
+#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:373
 msgid "What language would you like to use during the installation process?"
 msgstr "您在安装过程中想使用何种语言？"
 
@@ -3426,16 +3429,16 @@ msgstr "取消选择全组(_U)"
 msgid "Package Group Selection"
 msgstr "选择软件包组"
 
-#: ../iw/package_gui.py:701
+#: ../iw/package_gui.py:706
 msgid "Minimal"
 msgstr "最小值"
 
-#: ../iw/package_gui.py:772
+#: ../iw/package_gui.py:777
 #, python-format
 msgid "Details for '%s'"
 msgstr "“%s”的细节"
 
-#: ../iw/package_gui.py:781
+#: ../iw/package_gui.py:786
 msgid ""
 "A package group can have both Base and Optional package members.  Base "
 "packages are always selected as long as the package group is selected.\n"
@@ -3447,19 +3450,19 @@ msgstr ""
 "\n"
 "选择要安装的可选软件包："
 
-#: ../iw/package_gui.py:822
+#: ../iw/package_gui.py:827
 msgid "Base Packages"
 msgstr "基本软件包"
 
-#: ../iw/package_gui.py:852
+#: ../iw/package_gui.py:857
 msgid "Optional Packages"
 msgstr "可选的软件包"
 
-#: ../iw/package_gui.py:1072
+#: ../iw/package_gui.py:1077
 msgid "Details"
 msgstr "细节"
 
-#: ../iw/package_gui.py:1166
+#: ../iw/package_gui.py:1171
 msgid "_Select individual packages"
 msgstr "选择单个软件包(_S)"
 
@@ -4346,7 +4349,7 @@ msgstr ""
 msgid "Generic"
 msgstr "通用"
 
-#: ../iw/xconfig_gui.py:718 ../iw/xconfig_gui.py:1056
+#: ../iw/xconfig_gui.py:718 ../iw/xconfig_gui.py:1061
 msgid "Restore _original values"
 msgstr "恢复原值(_O)"
 
@@ -4394,13 +4397,13 @@ msgstr ""
 "如果您想继续配置 X，您需要挑选一种视频卡。如果您想跳过 X 配置的整个过程，则选"
 "择“跳过 X 配置”按钮。"
 
-#: ../iw/xconfig_gui.py:942
+#: ../iw/xconfig_gui.py:947
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr "无法自动检测到您的视频内存大小，请在以下列表中选择："
 
-#: ../iw/xconfig_gui.py:949
+#: ../iw/xconfig_gui.py:954
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
 "detected settings are not correct for the hardware, select the right "
@@ -4409,11 +4412,11 @@ msgstr ""
 "多数情况下，视频硬件可以被自动检测到。如果检测到的设置对该硬件而言不正确，请"
 "选择正确的设置。"
 
-#: ../iw/xconfig_gui.py:1034
+#: ../iw/xconfig_gui.py:1039
 msgid "_Video card RAM: "
 msgstr "视频卡内存(_V)："
 
-#: ../iw/xconfig_gui.py:1060
+#: ../iw/xconfig_gui.py:1065
 msgid "_Skip X configuration"
 msgstr "跳过 X 配置(_S)"
 
@@ -4668,7 +4671,7 @@ msgstr ""
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:368
 #: ../loader2/hdinstall.c:422 ../loader2/kbd.c:125 ../loader2/loader.c:297
-#: ../loader2/loader.c:702 ../loader2/loader.c:730 ../loader2/net.c:170
+#: ../loader2/loader.c:687 ../loader2/loader.c:715 ../loader2/net.c:170
 #: ../loader2/net.c:334 ../loader2/net.c:744 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:248 ../loader2/urls.c:433
 msgid "Back"
@@ -4832,7 +4835,7 @@ msgid "Other ports"
 msgstr "其它端口"
 
 #: ../textw/firewall_text.py:130 ../textw/firewall_text.py:193
-#: ../textw/language_text.py:160
+#: ../textw/language_text.py:161
 msgid "Invalid Choice"
 msgstr "选择无效"
 
@@ -4872,31 +4875,31 @@ msgstr "选择键盘"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "与计算机连接的键盘属于何种型号？"
 
-#: ../textw/language_text.py:123
+#: ../textw/language_text.py:124
 msgid "Select All"
 msgstr "全部选择"
 
-#: ../textw/language_text.py:123
+#: ../textw/language_text.py:124
 msgid "Reset"
 msgstr "重设"
 
-#: ../textw/language_text.py:125
+#: ../textw/language_text.py:126
 msgid "Choose additional languages that you would like to use on this system:"
 msgstr "选择您想在这个系统中使用的其它语言："
 
-#: ../textw/language_text.py:129
+#: ../textw/language_text.py:130
 msgid "Language Support"
 msgstr "语言支持"
 
-#: ../textw/language_text.py:161
+#: ../textw/language_text.py:162
 msgid "You must select at least one language to install."
 msgstr "您至少需要安装一种语言。"
 
-#: ../textw/language_text.py:189
+#: ../textw/language_text.py:190
 msgid "Default Language"
 msgstr "默认语言"
 
-#: ../textw/language_text.py:190
+#: ../textw/language_text.py:191
 msgid "Choose the default language for this system: "
 msgstr "为该系统选择默认语言："
 
@@ -5890,7 +5893,7 @@ msgstr "检查介质"
 
 #: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:98
 #: ../loader2/cdinstall.c:116 ../loader2/cdinstall.c:124
-#: ../loader2/method.c:413
+#: ../loader2/method.c:415
 msgid "Test"
 msgstr "测试"
 
@@ -6026,7 +6029,7 @@ msgstr "您想载入更多驱动程序盘吗？"
 #: ../loader2/driverdisk.c:376 ../loader2/hdinstall.c:504
 #: ../loader2/kickstart.c:101 ../loader2/kickstart.c:111
 #: ../loader2/kickstart.c:154 ../loader2/modules.c:922 ../loader2/net.c:658
-#: ../loader2/net.c:681 ../loader2/nfsinstall.c:258
+#: ../loader2/net.c:681 ../loader2/nfsinstall.c:262
 #: ../loader2/urlinstall.c:366 ../loader2/urlinstall.c:375
 #: ../loader2/urlinstall.c:386
 msgid "Kickstart Error"
@@ -6163,7 +6166,7 @@ msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "<Tab>/<Alt-Tab> 元素间切换   |  <Space> 选择   |  <F12> 下一屏幕 "
 
-#: ../loader2/lang.c:370
+#: ../loader2/lang.c:372
 msgid "Choose a Language"
 msgstr "选择一种语言"
 
@@ -6219,40 +6222,40 @@ msgstr ""
 "没有发现硬盘驱动器。您可能需要手工选择设备驱动程序以确保安装成功。您想现在就"
 "选择驱动程序吗？"
 
-#: ../loader2/loader.c:577
+#: ../loader2/loader.c:562
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "在本机上安装 %s 所需内存不够。"
 
-#: ../loader2/loader.c:694
+#: ../loader2/loader.c:679
 msgid "Rescue Method"
 msgstr "救援方法"
 
-#: ../loader2/loader.c:695
+#: ../loader2/loader.c:680
 msgid "Installation Method"
 msgstr "安装方法"
 
-#: ../loader2/loader.c:697
+#: ../loader2/loader.c:682
 msgid "What type of media contains the rescue image?"
 msgstr "哪一类介质包含救援映像？"
 
-#: ../loader2/loader.c:699
+#: ../loader2/loader.c:684
 msgid "What type of media contains the packages to be installed?"
 msgstr "哪一类介质包含要安装的软件包？"
 
-#: ../loader2/loader.c:729
+#: ../loader2/loader.c:714
 msgid "No driver found"
 msgstr "未找到任何驱动程序"
 
-#: ../loader2/loader.c:729
+#: ../loader2/loader.c:714
 msgid "Select driver"
 msgstr "选择驱动程序"
 
-#: ../loader2/loader.c:730
+#: ../loader2/loader.c:715
 msgid "Use a driver disk"
 msgstr "使用驱动程序盘"
 
-#: ../loader2/loader.c:731
+#: ../loader2/loader.c:716
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6260,29 +6263,29 @@ msgstr ""
 "找不到这种安装类型所需的任何设备。您想手工选择驱动程序或使用一张驱动程序盘"
 "吗？"
 
-#: ../loader2/loader.c:825
+#: ../loader2/loader.c:810
 msgid "The following devices have been found on your system."
 msgstr "在系统中发现以下设备。"
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:812
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr "没有为您的系统载入任何设备驱动程序。现在是否需要载入？"
 
-#: ../loader2/loader.c:831
+#: ../loader2/loader.c:816
 msgid "Devices"
 msgstr "设备"
 
-#: ../loader2/loader.c:832
+#: ../loader2/loader.c:817
 msgid "Done"
 msgstr "完成"
 
-#: ../loader2/loader.c:833
+#: ../loader2/loader.c:818
 msgid "Add Device"
 msgstr "添加设备"
 
-#: ../loader2/loader.c:1211
+#: ../loader2/loader.c:1196
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "正在运行 %s 的 anaconda 系统安装程序 - 请稍候...\n"
@@ -6362,12 +6365,12 @@ msgstr ""
 msgid "The media check %sis complete, and the result is: %s\n"
 msgstr "%s 介质检查完毕，结果是：%s\n"
 
-#: ../loader2/method.c:159 ../loader2/method.c:367 ../loader2/method.c:452
+#: ../loader2/method.c:161 ../loader2/method.c:369 ../loader2/method.c:454
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "读取目录 %s 失败：%s"
 
-#: ../loader2/method.c:410
+#: ../loader2/method.c:412
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6378,7 +6381,7 @@ msgstr ""
 "\n"
 "   %s？"
 
-#: ../loader2/method.c:413
+#: ../loader2/method.c:415
 msgid "Checksum Test"
 msgstr "校验和的测试"
 
@@ -6492,23 +6495,23 @@ msgstr "Red Hat 目录："
 msgid "NFS Setup"
 msgstr "NFS 设置"
 
-#: ../loader2/nfsinstall.c:210 ../loader2/urlinstall.c:107
+#: ../loader2/nfsinstall.c:213 ../loader2/urlinstall.c:107
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr "该目录中的 %s 安装树似乎和您的引导介质不符。"
 
-#: ../loader2/nfsinstall.c:214
+#: ../loader2/nfsinstall.c:217
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "该目录似乎不包含 %s 安装树。"
 
-#: ../loader2/nfsinstall.c:221
+#: ../loader2/nfsinstall.c:225
 msgid "That directory could not be mounted from the server."
 msgstr "无法从服务器中挂载该目录。"
 
-#: ../loader2/nfsinstall.c:259
+#: ../loader2/nfsinstall.c:263
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "NFS kickstart 命令 %s 的参数不对：%s"
@@ -7329,6 +7332,9 @@ msgstr "瑞典语"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "乌克兰语"
+
+#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
+#~ msgstr "重建 RPM 数据库失败。是否磁盘空间已满？"
 
 #~ msgid "Upgrade an existing installation"
 #~ msgstr "升级现有安装"

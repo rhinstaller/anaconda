@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"POT-Creation-Date: 2003-02-11 10:57-0500\n"
+"POT-Creation-Date: 2003-02-14 17:59-0500\n"
 "PO-Revision-Date: 2003-02-05 11:28+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -40,15 +40,15 @@ msgstr ""
 #: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:504
 #: ../loader2/hdinstall.c:554 ../loader2/kbd.c:125 ../loader2/kickstart.c:101
 #: ../loader2/kickstart.c:111 ../loader2/kickstart.c:154
-#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/lang.c:373
+#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/lang.c:375
 #: ../loader2/loader.c:297 ../loader2/loader.c:309 ../loader2/loader.c:320
-#: ../loader2/loader.c:580 ../loader2/loader.c:702 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:565 ../loader2/loader.c:687 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
-#: ../loader2/method.c:158 ../loader2/method.c:366 ../loader2/method.c:451
+#: ../loader2/method.c:160 ../loader2/method.c:368 ../loader2/method.c:453
 #: ../loader2/modules.c:922 ../loader2/net.c:170 ../loader2/net.c:334
 #: ../loader2/net.c:658 ../loader2/net.c:681 ../loader2/net.c:744
-#: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:217
-#: ../loader2/nfsinstall.c:220 ../loader2/nfsinstall.c:258
+#: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:220
+#: ../loader2/nfsinstall.c:224 ../loader2/nfsinstall.c:262
 #: ../loader2/telnetd.c:86 ../loader2/urlinstall.c:58
 #: ../loader2/urlinstall.c:98 ../loader2/urlinstall.c:111
 #: ../loader2/urlinstall.c:366 ../loader2/urlinstall.c:375
@@ -251,7 +251,7 @@ msgstr ""
 
 #: ../autopart.py:1404 ../bootloader.py:123 ../image.py:380
 #: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:303
-#: ../upgrade.py:444 ../upgrade.py:464 ../upgrade.py:506
+#: ../upgrade.py:438 ../upgrade.py:458 ../upgrade.py:500
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
@@ -337,19 +337,19 @@ msgstr ""
 "Inga kärnpaket installerades på ditt system. Din startprogramskonfiguration "
 "kommer inte att ändras."
 
-#: ../comps.py:747 ../comps.py:775
+#: ../comps.py:752 ../comps.py:780
 msgid "Everything"
 msgstr "Allt"
 
-#: ../comps.py:916 ../comps.py:981 ../upgrade.py:624
+#: ../comps.py:921 ../comps.py:986 ../upgrade.py:618
 msgid "no suggestion"
 msgstr "inget förslag"
 
-#: ../comps.py:1076
+#: ../comps.py:1081
 msgid "Miscellaneous"
 msgstr "Diverse"
 
-#: ../comps.py:1092
+#: ../comps.py:1097
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -358,7 +358,7 @@ msgstr ""
 "Denna grupp innehåller alla tillgängliga paket. Observera att det finns "
 "avsevärt fler paket än de som finns i alla andra paketgrupper på denna sida."
 
-#: ../comps.py:1096
+#: ../comps.py:1101
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -445,10 +445,10 @@ msgstr "_Skapa startdiskett"
 #: ../fsset.py:559 ../fsset.py:1031 ../fsset.py:1050 ../fsset.py:1097
 #: ../fsset.py:1108 ../fsset.py:1144 ../fsset.py:1194 ../fsset.py:1237
 #: ../harddrive.py:217 ../image.py:76 ../image.py:107 ../image.py:243
-#: ../packages.py:132 ../packages.py:146 ../packages.py:333 ../packages.py:505
-#: ../packages.py:577 ../partedUtils.py:531 ../partIntfHelpers.py:147
-#: ../partIntfHelpers.py:332 ../upgrade.py:333 ../upgrade.py:368
-#: ../upgrade.py:390 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
+#: ../packages.py:142 ../packages.py:156 ../packages.py:343 ../packages.py:515
+#: ../packages.py:587 ../partedUtils.py:531 ../partIntfHelpers.py:147
+#: ../partIntfHelpers.py:332 ../upgrade.py:333 ../upgrade.py:358
+#: ../upgrade.py:384 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1066
 #: ../textw/partition_text.py:1077 ../textw/upgrade_text.py:165
@@ -457,10 +457,10 @@ msgstr "_Skapa startdiskett"
 #: ../loader2/driverdisk.c:295 ../loader2/hdinstall.c:255
 #: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:554
 #: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/loader.c:320
-#: ../loader2/loader.c:580 ../loader2/mediacheck.c:255
-#: ../loader2/mediacheck.c:312 ../loader2/method.c:158 ../loader2/method.c:366
-#: ../loader2/method.c:451 ../loader2/nfsinstall.c:217
-#: ../loader2/nfsinstall.c:220 ../loader2/telnetd.c:86
+#: ../loader2/loader.c:565 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/method.c:160 ../loader2/method.c:368
+#: ../loader2/method.c:453 ../loader2/nfsinstall.c:220
+#: ../loader2/nfsinstall.c:224 ../loader2/telnetd.c:86
 #: ../loader2/urlinstall.c:58 ../loader2/urlinstall.c:98
 #: ../loader2/urlinstall.c:111 ../loader2/urls.c:168 ../loader2/urls.c:178
 #: ../loader2/urls.c:186 ../loader2/urls.c:309 ../loader2/urls.c:314
@@ -762,7 +762,7 @@ msgstr ""
 "Sätt i en diskett nu. Allt innehåll på disketten kommer att tas bort, så var "
 "noga med valet av diskett."
 
-#: ../gui.py:739 ../gui.py:1232
+#: ../gui.py:739 ../gui.py:1234
 msgid "Online Help"
 msgstr "Hjälp"
 
@@ -770,23 +770,23 @@ msgstr "Hjälp"
 msgid "Language Selection"
 msgstr "Språkval"
 
-#: ../gui.py:844 ../gui.py:873
+#: ../gui.py:846 ../gui.py:875
 msgid "Release Notes"
 msgstr "Utgåvenoteringar"
 
-#: ../gui.py:878
+#: ../gui.py:880
 msgid "Unable to load file!"
 msgstr "Kan inte läsa in fil!"
 
-#: ../gui.py:915
+#: ../gui.py:917
 msgid "Release notes are missing.\n"
 msgstr "Utgåvenoteringar saknas.\n"
 
-#: ../gui.py:947
+#: ../gui.py:949
 msgid "Error!"
 msgstr "Fel!"
 
-#: ../gui.py:948
+#: ../gui.py:950
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -798,65 +798,65 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:952 ../packages.py:1245 ../iw/congrats_gui.py:29
+#: ../gui.py:954 ../packages.py:1258 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "_Avsluta"
 
-#: ../gui.py:953
+#: ../gui.py:955
 msgid "_Retry"
 msgstr "_Försök igen"
 
-#: ../gui.py:955 ../packages.py:1248
+#: ../gui.py:957 ../packages.py:1261
 msgid "Rebooting System"
 msgstr "Startar om system"
 
-#: ../gui.py:956 ../packages.py:1249
+#: ../gui.py:958 ../packages.py:1262
 msgid "Your system will now be rebooted..."
 msgstr "Ditt system kommer nu att startas om..."
 
-#: ../gui.py:959 ../packages.py:1251
+#: ../gui.py:961 ../packages.py:1264
 msgid "_Reboot"
 msgstr "Starta _om"
 
-#: ../gui.py:1050 ../packages.py:1251
+#: ../gui.py:1052 ../packages.py:1264
 msgid "_Back"
 msgstr "Till_baka"
 
-#: ../gui.py:1052
+#: ../gui.py:1054
 msgid "_Next"
 msgstr "_Nästa"
 
-#: ../gui.py:1054
+#: ../gui.py:1056
 msgid "_Release Notes"
 msgstr "_Utgåvenoteringar"
 
-#: ../gui.py:1056
+#: ../gui.py:1058
 msgid "Show _Help"
 msgstr "Visa _hjälp"
 
-#: ../gui.py:1058
+#: ../gui.py:1060
 msgid "Hide _Help"
 msgstr "Dölj _hjälp"
 
-#: ../gui.py:1060
+#: ../gui.py:1062
 msgid "_Debug"
 msgstr "_Felsök"
 
-#: ../gui.py:1136
+#: ../gui.py:1138
 #, python-format
 msgid "%s Installer"
 msgstr "Installationsprogram för %s"
 
-#: ../gui.py:1151
+#: ../gui.py:1153
 #, python-format
 msgid "%s Installer on %s"
 msgstr "Installationsprogram för %s på %s"
 
-#: ../gui.py:1190
+#: ../gui.py:1192
 msgid "Unable to load title bar"
 msgstr "Kan inte läsa in titelrad"
 
-#: ../gui.py:1294
+#: ../gui.py:1296
 msgid "Install Window"
 msgstr "Installationsfönster"
 
@@ -968,11 +968,11 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
 "Värdnamn kan endast innehålla tecknen \"a-z\", \"A-Z\", \"-\" eller \".\""
 
-#: ../packages.py:45 ../iw/package_gui.py:38
+#: ../packages.py:47 ../iw/package_gui.py:38
 msgid "Proceed with upgrade?"
 msgstr "Fortsätt med uppgraderingen?"
 
-#: ../packages.py:46 ../iw/package_gui.py:39
+#: ../packages.py:48 ../iw/package_gui.py:39
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -982,19 +982,19 @@ msgstr ""
 "redan monterats. Du kan inte gå tillbaka efter detta.\n"
 "\n"
 
-#: ../packages.py:50 ../iw/package_gui.py:43
+#: ../packages.py:52 ../iw/package_gui.py:43
 msgid "Would you like to continue with the upgrade?"
 msgstr "Vill du fortsätta med uppgraderingen?"
 
-#: ../packages.py:126
+#: ../packages.py:136
 msgid "Reading"
 msgstr "Läser"
 
-#: ../packages.py:126
+#: ../packages.py:136
 msgid "Reading package information..."
 msgstr "Läser paketinformation..."
 
-#: ../packages.py:133
+#: ../packages.py:143
 msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1002,7 +1002,7 @@ msgstr ""
 "Kan inte läsa huvudlistan. Detta kan bero på att filen saknas eller "
 "felaktigt medium. Tryck på <Retur> för att försöka igen."
 
-#: ../packages.py:147
+#: ../packages.py:157
 msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
 "Press <return> to try again."
@@ -1010,23 +1010,23 @@ msgstr ""
 "Kan inte läsa comps-filen. Detta kan bero på att filen saknas eller "
 "felaktigt medium. Tryck på <Retur> för att försöka igen."
 
-#: ../packages.py:219
+#: ../packages.py:229
 msgid "Dependency Check"
 msgstr "Beroendekontroll"
 
-#: ../packages.py:220
+#: ../packages.py:230
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kontrollerar beroenden hos de paket som valts för installation..."
 
-#: ../packages.py:285 ../packages.py:700
+#: ../packages.py:295 ../packages.py:710
 msgid "Processing"
 msgstr "Bearbetar"
 
-#: ../packages.py:286
+#: ../packages.py:296
 msgid "Preparing to install..."
 msgstr "Förbereder installation..."
 
-#: ../packages.py:334
+#: ../packages.py:344
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -1041,11 +1041,11 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att försöka igen."
 
-#: ../packages.py:363
+#: ../packages.py:373
 msgid "Error Installing Package"
 msgstr "Fel vid installation av paket"
 
-#: ../packages.py:364
+#: ../packages.py:374
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -1062,7 +1062,7 @@ msgstr ""
 "\n"
 "Tryck på OK-knappen för att starta om ditt system."
 
-#: ../packages.py:506
+#: ../packages.py:516
 #, python-format
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
@@ -1070,7 +1070,7 @@ msgid ""
 msgstr ""
 "Du försöker installera på en maskin som inte stöds av denna version av %s."
 
-#: ../packages.py:578 ../upgrade.py:334
+#: ../packages.py:588 ../upgrade.py:334
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1078,11 +1078,11 @@ msgstr ""
 "Kan inte slå samman huvudlistan. Detta kan bero på att filen saknas eller "
 "felaktigt medium. Tryck på <Retur> för att försöka igen."
 
-#: ../packages.py:701
+#: ../packages.py:711
 msgid "Setting up RPM transaction..."
 msgstr "Ställer in RPM-transaktion..."
 
-#: ../packages.py:767
+#: ../packages.py:780
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -1091,7 +1091,7 @@ msgstr ""
 "Uppgraderar %s paket\n"
 "\n"
 
-#: ../packages.py:769
+#: ../packages.py:782
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -1100,17 +1100,17 @@ msgstr ""
 "Installerar %s paket\n"
 "\n"
 
-#: ../packages.py:777 ../packages.py:1083
+#: ../packages.py:790 ../packages.py:1096
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Uppgraderar %s-%s-%s.\n"
 
-#: ../packages.py:779 ../packages.py:1085
+#: ../packages.py:792 ../packages.py:1098
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Installerar %s-%s-%s.\n"
 
-#: ../packages.py:795
+#: ../packages.py:808
 #, python-format
 msgid ""
 "\n"
@@ -1127,15 +1127,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:801
+#: ../packages.py:814
 msgid "Install Starting"
 msgstr "Installationen startar"
 
-#: ../packages.py:802
+#: ../packages.py:815
 msgid "Starting install process, this may take several minutes..."
 msgstr "Startar installationsprocessen, detta kan ta flera minuter..."
 
-#: ../packages.py:847
+#: ../packages.py:860
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -1145,17 +1145,17 @@ msgstr ""
 "du har valt. Du behöver mer utrymme på följande filsystem:\n"
 "\n"
 
-#: ../packages.py:851 ../packages.py:872 ../iw/lvm_dialog_gui.py:1059
+#: ../packages.py:864 ../packages.py:885 ../iw/lvm_dialog_gui.py:1059
 #: ../iw/partition_gui.py:349 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../packages.py:852
+#: ../packages.py:865
 msgid "Space Needed"
 msgstr "Nödvändigt utrymme"
 
-#: ../packages.py:868
+#: ../packages.py:881
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1165,15 +1165,15 @@ msgstr ""
 "har valt. Du behöver fler filnoder på följande filsystem:\n"
 "\n"
 
-#: ../packages.py:873
+#: ../packages.py:886
 msgid "Nodes Needed"
 msgstr "Noder som behövs"
 
-#: ../packages.py:884
+#: ../packages.py:897
 msgid "Disk Space"
 msgstr "Diskutrymme"
 
-#: ../packages.py:921
+#: ../packages.py:934
 msgid ""
 "\n"
 "\n"
@@ -1183,19 +1183,19 @@ msgstr ""
 "\n"
 "Följande paket är tillgängliga i denna version men uppgraderades INTE:\n"
 
-#: ../packages.py:942
+#: ../packages.py:955
 msgid "Post Install"
 msgstr "Postinstallation"
 
-#: ../packages.py:943
+#: ../packages.py:956
 msgid "Performing post install configuration..."
 msgstr "Utför postinstallationskonfiguration..."
 
-#: ../packages.py:1231
+#: ../packages.py:1244
 msgid "Warning! This is a beta!"
 msgstr "Varning! Detta är en beta!"
 
-#: ../packages.py:1232
+#: ../packages.py:1245
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1221,7 +1221,7 @@ msgstr ""
 "\n"
 "och fyller i en felrapport mot \"Red Hat Public Beta\".\n"
 
-#: ../packages.py:1245
+#: ../packages.py:1258
 msgid "_Install BETA"
 msgstr "_Installera BETA"
 
@@ -1630,7 +1630,7 @@ msgstr ""
 "växlingsutrymmet (swap) direkt. För att göra detta måste vi omedelbart "
 "skriva din nya partitionstabell till hårddisken. Är det okej?"
 
-#: ../partitions.py:749
+#: ../partitions.py:752
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -1639,7 +1639,7 @@ msgstr ""
 "Du har inte angivit någon rotpartition (/), vilket krävs för att "
 "installationen av %s ska kunna fortsätta."
 
-#: ../partitions.py:754
+#: ../partitions.py:757
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -1648,14 +1648,14 @@ msgstr ""
 "Din rotpartition är mindre än 250 megabyte, vilket normalt är för litet för "
 "att installera %s."
 
-#: ../partitions.py:761
+#: ../partitions.py:764
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Du måste skapa en /boot/efi-partition av FAT-typ och med en storlek på 50 "
 "megabyte."
 
-#: ../partitions.py:769
+#: ../partitions.py:772
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1664,15 +1664,15 @@ msgstr ""
 "Din %s-partition är mindre än %s megabyte vilket är mindre än rekommenderat "
 "för en normal installation av %s."
 
-#: ../partitions.py:796 ../partRequests.py:635
+#: ../partitions.py:799 ../partRequests.py:635
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Startbara partitioner kan endast finnas på RAID1-enheter."
 
-#: ../partitions.py:802
+#: ../partitions.py:805
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Startbara partitioner kan endast finnas på en logisk volym."
 
-#: ../partitions.py:806
+#: ../partitions.py:809
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1681,7 +1681,7 @@ msgstr ""
 "alla lägen kommer det att markant förbättra prestanda för de flesta "
 "installationer."
 
-#: ../partitions.py:813
+#: ../partitions.py:816
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1690,7 +1690,7 @@ msgstr ""
 "Du har angivit mer än 32 växlingsenheter. Kärnan i %s stöder endast 32 "
 "växlingsenheter."
 
-#: ../partitions.py:824
+#: ../partitions.py:827
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1699,15 +1699,15 @@ msgstr ""
 "Du har allokerat mindre växlingsutrymme (%d MB) än tillgängligt arbetsminne "
 "(%d MB) på ditt system. Detta kan påverka prestanda negativt."
 
-#: ../partitions.py:1105
+#: ../partitions.py:1108
 msgid "the partition in use by the installer."
 msgstr "partitionen som används av installationsprogrammet."
 
-#: ../partitions.py:1108
+#: ../partitions.py:1111
 msgid "a partition which is a member of a RAID array."
 msgstr "en partition som är medlem i en RAID-kedja."
 
-#: ../partitions.py:1111
+#: ../partitions.py:1114
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "en partition som är medlem i en LVM-volymgrupp."
 
@@ -1839,7 +1839,7 @@ msgstr "Skrivskyddad"
 
 #: ../rescue.py:189 ../rescue.py:191 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:260 ../loader2/method.c:413
+#: ../loader2/cdinstall.c:260 ../loader2/method.c:415
 msgid "Skip"
 msgstr "Hoppa över"
 
@@ -2081,16 +2081,18 @@ msgstr "Letar"
 msgid "Finding packages to upgrade..."
 msgstr "Letar efter paket att uppgradera..."
 
-#: ../upgrade.py:369
-msgid "Rebuild of RPM database failed. You may be out of disk space?"
+#: ../upgrade.py:359
+msgid ""
+"The installation program is unable to upgrade systems with a pre-rpm 4.x "
+"database. Please install the errata rpm packages for your release as "
+"described in the release notes and then run the upgrade procedure."
 msgstr ""
-"Ombyggnad av RPM-databasen misslyckades. Du kanske har slut på diskutrymme?"
 
-#: ../upgrade.py:391
+#: ../upgrade.py:385
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "Ett fel inträffade vid sökning efter paketen att uppgradera."
 
-#: ../upgrade.py:445
+#: ../upgrade.py:439
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -2104,7 +2106,7 @@ msgstr ""
 "ordentligt eller orsaka instabilitet i systemet. Vill du fortsätta "
 "uppgraderingsprocessen?"
 
-#: ../upgrade.py:465
+#: ../upgrade.py:459
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -2116,7 +2118,7 @@ msgstr ""
 "uppgraderingsprocessen kan lämna systemet i ett oanvändbart tillstånd. Vill "
 "du fortsätta uppgraderingsprocessen?"
 
-#: ../upgrade.py:507
+#: ../upgrade.py:501
 #, python-format
 msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
@@ -2614,7 +2616,7 @@ msgid "Unresolved Dependencies"
 msgstr "Olösta paketberoenden"
 
 #: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:263
-#: ../iw/package_gui.py:506 ../iw/package_gui.py:696
+#: ../iw/package_gui.py:511 ../iw/package_gui.py:701
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
@@ -2910,7 +2912,7 @@ msgstr "IP-adresser får bara innehålla tal mellan 1 och 255"
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP-adresser får bara innehålla tal mellan 0 och 255"
 
-#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:371
+#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:373
 msgid "What language would you like to use during the installation process?"
 msgstr "Vilket språk vill du använda under installationen?"
 
@@ -3615,16 +3617,16 @@ msgstr "Av_markera alla i gruppen"
 msgid "Package Group Selection"
 msgstr "Val av paketgrupper"
 
-#: ../iw/package_gui.py:701
+#: ../iw/package_gui.py:706
 msgid "Minimal"
 msgstr "Minimalt"
 
-#: ../iw/package_gui.py:772
+#: ../iw/package_gui.py:777
 #, python-format
 msgid "Details for '%s'"
 msgstr "Detaljer för \"%s\""
 
-#: ../iw/package_gui.py:781
+#: ../iw/package_gui.py:786
 msgid ""
 "A package group can have both Base and Optional package members.  Base "
 "packages are always selected as long as the package group is selected.\n"
@@ -3636,19 +3638,19 @@ msgstr ""
 "\n"
 "Välj de valfria paket som ska installeras:"
 
-#: ../iw/package_gui.py:822
+#: ../iw/package_gui.py:827
 msgid "Base Packages"
 msgstr "Baspaket"
 
-#: ../iw/package_gui.py:852
+#: ../iw/package_gui.py:857
 msgid "Optional Packages"
 msgstr "Valfria paket"
 
-#: ../iw/package_gui.py:1072
+#: ../iw/package_gui.py:1077
 msgid "Details"
 msgstr "Detaljer"
 
-#: ../iw/package_gui.py:1166
+#: ../iw/package_gui.py:1171
 msgid "_Select individual packages"
 msgstr "_Välj enstaka paket"
 
@@ -4561,7 +4563,7 @@ msgstr ""
 msgid "Generic"
 msgstr "Allmän"
 
-#: ../iw/xconfig_gui.py:718 ../iw/xconfig_gui.py:1056
+#: ../iw/xconfig_gui.py:718 ../iw/xconfig_gui.py:1061
 msgid "Restore _original values"
 msgstr "Återställ _ursprungliga värden"
 
@@ -4612,7 +4614,7 @@ msgstr ""
 "du vill hoppa över konfigurationen av X helt kan du använda knappen \"Hoppa "
 "över konfiguration av X\"."
 
-#: ../iw/xconfig_gui.py:942
+#: ../iw/xconfig_gui.py:947
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -4620,7 +4622,7 @@ msgstr ""
 "Storleken på ditt grafikminne kan inte upptäckas automatiskt. Välj storleken "
 "på ditt grafikminne från alternativen nedan:"
 
-#: ../iw/xconfig_gui.py:949
+#: ../iw/xconfig_gui.py:954
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
 "detected settings are not correct for the hardware, select the right "
@@ -4630,11 +4632,11 @@ msgstr ""
 "detekterade inställningarna inte stämmer för hårdvaran bör du välja rätt "
 "inställningar."
 
-#: ../iw/xconfig_gui.py:1034
+#: ../iw/xconfig_gui.py:1039
 msgid "_Video card RAM: "
 msgstr "_Grafikminne: "
 
-#: ../iw/xconfig_gui.py:1060
+#: ../iw/xconfig_gui.py:1065
 msgid "_Skip X configuration"
 msgstr "_Hoppa över konfiguration av X"
 
@@ -4903,7 +4905,7 @@ msgstr ""
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:368
 #: ../loader2/hdinstall.c:422 ../loader2/kbd.c:125 ../loader2/loader.c:297
-#: ../loader2/loader.c:702 ../loader2/loader.c:730 ../loader2/net.c:170
+#: ../loader2/loader.c:687 ../loader2/loader.c:715 ../loader2/net.c:170
 #: ../loader2/net.c:334 ../loader2/net.c:744 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:248 ../loader2/urls.c:433
 msgid "Back"
@@ -5072,7 +5074,7 @@ msgid "Other ports"
 msgstr "Andra portar"
 
 #: ../textw/firewall_text.py:130 ../textw/firewall_text.py:193
-#: ../textw/language_text.py:160
+#: ../textw/language_text.py:161
 msgid "Invalid Choice"
 msgstr "Ogiltigt val"
 
@@ -5114,31 +5116,31 @@ msgstr "Tangentbordsval"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Vilken typ av tangentbord är ansluten till denna dator?"
 
-#: ../textw/language_text.py:123
+#: ../textw/language_text.py:124
 msgid "Select All"
 msgstr "Välj alla"
 
-#: ../textw/language_text.py:123
+#: ../textw/language_text.py:124
 msgid "Reset"
 msgstr "Återställ"
 
-#: ../textw/language_text.py:125
+#: ../textw/language_text.py:126
 msgid "Choose additional languages that you would like to use on this system:"
 msgstr "Välj ytterligare språk som du vill använda på detta system:"
 
-#: ../textw/language_text.py:129
+#: ../textw/language_text.py:130
 msgid "Language Support"
 msgstr "Språkstöd"
 
-#: ../textw/language_text.py:161
+#: ../textw/language_text.py:162
 msgid "You must select at least one language to install."
 msgstr "Du måste välja minst ett språk att installera."
 
-#: ../textw/language_text.py:189
+#: ../textw/language_text.py:190
 msgid "Default Language"
 msgstr "Standardspråk"
 
-#: ../textw/language_text.py:190
+#: ../textw/language_text.py:191
 msgid "Choose the default language for this system: "
 msgstr "Välj standardspråket för detta system: "
 
@@ -6163,7 +6165,7 @@ msgstr "Mediakontroll"
 
 #: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:98
 #: ../loader2/cdinstall.c:116 ../loader2/cdinstall.c:124
-#: ../loader2/method.c:413
+#: ../loader2/method.c:415
 msgid "Test"
 msgstr "Testa"
 
@@ -6309,7 +6311,7 @@ msgstr "Vill du läsa in fler drivrutinsdisketter?"
 #: ../loader2/driverdisk.c:376 ../loader2/hdinstall.c:504
 #: ../loader2/kickstart.c:101 ../loader2/kickstart.c:111
 #: ../loader2/kickstart.c:154 ../loader2/modules.c:922 ../loader2/net.c:658
-#: ../loader2/net.c:681 ../loader2/nfsinstall.c:258
+#: ../loader2/net.c:681 ../loader2/nfsinstall.c:262
 #: ../loader2/urlinstall.c:366 ../loader2/urlinstall.c:375
 #: ../loader2/urlinstall.c:386
 msgid "Kickstart Error"
@@ -6456,7 +6458,7 @@ msgid ""
 msgstr ""
 "  <Tab>/<Alt-Tab> mellan element | <Blanksteg> väljer | <F12> nästa skärm "
 
-#: ../loader2/lang.c:370
+#: ../loader2/lang.c:372
 msgid "Choose a Language"
 msgstr "Välj ett språk"
 
@@ -6516,41 +6518,41 @@ msgstr ""
 "enhetsdrivrutiner för att installationen ska lyckas. Vill du välja "
 "drivrutiner nu?"
 
-#: ../loader2/loader.c:577
+#: ../loader2/loader.c:562
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "Du har inte tillräckligt med minne för att installera %s på denna maskin."
 
-#: ../loader2/loader.c:694
+#: ../loader2/loader.c:679
 msgid "Rescue Method"
 msgstr "Räddningsmetod"
 
-#: ../loader2/loader.c:695
+#: ../loader2/loader.c:680
 msgid "Installation Method"
 msgstr "Installationsmetod"
 
-#: ../loader2/loader.c:697
+#: ../loader2/loader.c:682
 msgid "What type of media contains the rescue image?"
 msgstr "Vilket medium innehåller räddningsavbilden?"
 
-#: ../loader2/loader.c:699
+#: ../loader2/loader.c:684
 msgid "What type of media contains the packages to be installed?"
 msgstr "Vilket medium innehåller paketen som ska installeras?"
 
-#: ../loader2/loader.c:729
+#: ../loader2/loader.c:714
 msgid "No driver found"
 msgstr "Ingen drivrutin hittades"
 
-#: ../loader2/loader.c:729
+#: ../loader2/loader.c:714
 msgid "Select driver"
 msgstr "Välj drivrutin"
 
-#: ../loader2/loader.c:730
+#: ../loader2/loader.c:715
 msgid "Use a driver disk"
 msgstr "Använd en drivrutinsdiskett"
 
-#: ../loader2/loader.c:731
+#: ../loader2/loader.c:716
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6559,11 +6561,11 @@ msgstr ""
 "installationstyp. Vill du välja din drivrutin manuellt eller använda en "
 "drivrutinsdiskett?"
 
-#: ../loader2/loader.c:825
+#: ../loader2/loader.c:810
 msgid "The following devices have been found on your system."
 msgstr "Följande enheter har hittats i ditt system."
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:812
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6571,19 +6573,19 @@ msgstr ""
 "Inga enhetsdrivrutiner för ditt system har lästs in. Vill du läsa in några "
 "nu?"
 
-#: ../loader2/loader.c:831
+#: ../loader2/loader.c:816
 msgid "Devices"
 msgstr "Enheter"
 
-#: ../loader2/loader.c:832
+#: ../loader2/loader.c:817
 msgid "Done"
 msgstr "Färdig"
 
-#: ../loader2/loader.c:833
+#: ../loader2/loader.c:818
 msgid "Add Device"
 msgstr "Lägg till enhet"
 
-#: ../loader2/loader.c:1211
+#: ../loader2/loader.c:1196
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -6668,12 +6670,12 @@ msgstr ""
 msgid "The media check %sis complete, and the result is: %s\n"
 msgstr "Mediekontrollen %sär klar, resultatet är: %s\n"
 
-#: ../loader2/method.c:159 ../loader2/method.c:367 ../loader2/method.c:452
+#: ../loader2/method.c:161 ../loader2/method.c:369 ../loader2/method.c:454
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Kunde inte läsa katalogen %s: %s"
 
-#: ../loader2/method.c:410
+#: ../loader2/method.c:412
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6684,7 +6686,7 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:413
+#: ../loader2/method.c:415
 msgid "Checksum Test"
 msgstr "Test av kontrollsumma"
 
@@ -6801,7 +6803,7 @@ msgstr "Red Hat-katalog:"
 msgid "NFS Setup"
 msgstr "NFS-konfiguration"
 
-#: ../loader2/nfsinstall.c:210 ../loader2/urlinstall.c:107
+#: ../loader2/nfsinstall.c:213 ../loader2/urlinstall.c:107
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -6810,16 +6812,16 @@ msgstr ""
 "%s-installationsträdet i den katalogen verkar inte stämma överens med ditt "
 "startmedium."
 
-#: ../loader2/nfsinstall.c:214
+#: ../loader2/nfsinstall.c:217
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "Den katalogen verkar inte innehålla ett %s-installationsträd."
 
-#: ../loader2/nfsinstall.c:221
+#: ../loader2/nfsinstall.c:225
 msgid "That directory could not be mounted from the server."
 msgstr "Den katalogen kunde inte monteras från servern."
 
-#: ../loader2/nfsinstall.c:259
+#: ../loader2/nfsinstall.c:263
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "Felaktigt argument till NFS-kickstartmetodkommandot %s: %s"
@@ -7646,6 +7648,11 @@ msgstr "Svenska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainska"
+
+#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
+#~ msgstr ""
+#~ "Ombyggnad av RPM-databasen misslyckades. Du kanske har slut på "
+#~ "diskutrymme?"
 
 #~ msgid "Portuguese (Brazilian)"
 #~ msgstr "Portugisiska (brasiliansk)"
