@@ -6,18 +6,20 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <fcntl.h>
+#include <string.h>
 
 #include "md5.h"
-
-/* number of sectors to ignore at end of iso when computing sum */
-#define SKIPSECTORS 0
 
 #define APPDATA_OFFSET 883
 #define SIZE_OFFSET 84
 
 #define MAX(x, y)  ((x > y) ? x : y)
 #define MIN(x, y)  ((x < y) ? x : y)
+
+/* number of sectors to ignore at end of iso when computing sum */
+#define SKIPSECTORS 15
 
 /* finds primary volume descriptor and returns info from it */
 /* mediasum must be a preallocated buffer at least 33 bytes long */
@@ -65,32 +67,20 @@ int parsepvd(int isofd, char *mediasum, long long *isosize) {
 /* both strings must be pre-allocated at least 33 chars in length        */
 int checkmd5sum(int isofd, char *mediasum, char *computedsum) {
     int nread;
-    int nattempt;
     int i;
-    int dirty;
-    int sector;
     int appdata_start_offset, appdata_end_offset;
-    long long isosize;
+    int nattempt;
     unsigned int bufsize = 32768;
     unsigned char md5sum[16];
-    unsigned int offset;
     unsigned int len;
     unsigned char *buf;
-    unsigned char orig_appdata[512];
-    unsigned char new_appdata[512];
-    char orig_md5str[40], md5str[40];
+    long long isosize, offset, pvd_offset, apoff;
     MD5_CTX md5ctx;
 
+    if ((pvd_offset = parsepvd(isofd, mediasum, &isosize)) < 0)
+	return -1;
 
-    pvd_offset = parsepvd(isofd, &orig_md5str, &isosize);
-
-    /* seek to application data, read */
-    lseek(isofd, pvd_offset + APPDATA_OFFSET, SEEK_SET);
-    nread = read(isofd, orig_appdata, 512);
-
-    /* read out md5sum */
-    memcpy(mediasum, orig_appdata+13, 32);
-    mediasum[32] = '\0';
+    /*    printf("Mediasum = %s\n",mediasum); */
 
     /* rewind, compute md5sum */
     lseek(isofd, 0L, SEEK_SET);
@@ -98,36 +88,49 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum) {
     MD5_Init(&md5ctx);
 
     offset = 0;
+    apoff = pvd_offset + APPDATA_OFFSET;
 
     buf = malloc(bufsize * sizeof(unsigned char));
-    while (total < isosize - SKIPSECTORS*2048) {
-	nattempt = MIN( isosize - SKIPSECTORS*2048 - total, bufsize );
+    printf("Percent complete: %05.1f%%", (100.0*offset)/(isosize-SKIPSECTORS*2048.0));
+    fflush(stdout);
+    while (offset < isosize - SKIPSECTORS*2048) {
+	nattempt = MIN(isosize - SKIPSECTORS*2048 - offset, bufsize);
+
+	/*	printf("%lld %lld %lld %d\n", offset, isosize, isosize-SKIPSECTORS*2048, nattempt); */
+
 	nread = read(isofd, buf, nattempt);
 	if (nread <= 0)
 	    break;
 
 	/* overwrite md5sum we implanted with original data */
-	if (offset < APPDATA_OFFSET && offset+nread >= APPDATA_OFFSET) {
-	    appdata_start_offset = APPDATA_OFFSET - offset;
+	if (offset < apoff && offset+nread >= apoff) {
+	    appdata_start_offset = apoff - offset;
 	    appdata_end_offset = MIN(appdata_start_offset+MIN(nread, 512),
-				     offset+nread - APPDATA_OFFSET);
+				     offset + nread - apoff);
 	    len = appdata_end_offset - appdata_start_offset;
 	    memset(buf+appdata_start_offset, ' ', len);
-	} else if (offset >= APPDATA_OFFSET && offset+nread < APPDATA_OFFSET+512) {
+	} else if (offset >= apoff && offset+nread < apoff + 512) {
 	    appdata_start_offset = 0;
 	    appdata_end_offset = nread;
 	    len = appdata_end_offset - appdata_start_offset;
 	    memset(buf+appdata_start_offset, ' ', len);
-	} else if (offset < APPDATA_OFFSET + 512 && offset+nread >= APPDATA_OFFSET+512) {
+	} else if (offset < apoff + 512 && offset+nread >= apoff + 512) {
 	    appdata_start_offset = 0;
-	    appdata_end_offset = APPDATA_OFFSET+512 - offset;
+	    appdata_end_offset = apoff + 512 - offset;
 	    len = appdata_end_offset - appdata_start_offset;
 	    memset(buf+appdata_start_offset, ' ', len);
 	}
 
 	MD5_Update(&md5ctx, buf, nread);
 	offset = offset + nread;
+	
+	printf("\b\b\b\b\b\b%05.1f%%", (100.0*offset)/(isosize-SKIPSECTORS*2048.0));
+	fflush(stdout);
     }
+
+    printf("\b\b\b\b\b\b\n\n", (100.0*offset)/(isosize-SKIPSECTORS*2048.0));
+    
+    sleep(1);
 
     free(buf);
 
@@ -140,42 +143,92 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum) {
 	strcat(computedsum, tmpstr);
     }
 
+    /*    printf("mediasum, computedsum = %s %s\n", mediasum, computedsum); */
+
     if (strcmp(mediasum, computedsum))
 	return 0;
     else
 	return 1;
     }
 
-#ifdef TESTING
-int main(int argc, char **argv) {
-    int isofd;
-    int rc;
-    unsigned char mediasum[33], computedsum[33];
 
-    printf ("Do not use\n");
-    exit(1);
+#if 0
+static void readCB(void *co, long long pos) {
+    struct progressCBdata *data = co;
+    static int tick = 0;
+    char tickmark[2] = "-";
+    char * ticks = "-\\|/";
 
-    if (argc < 2) {
-	printf("Usage: checkisomd5 <isofilename>\n\n");
-	exit(1);
-    }
+    newtScaleSet(data->scale, pos);
+    tick++;
+    if (tick > 399) tick = 0;
+    *tickmark = ticks[tick / 100];
 
-    isofd = open(argv[1], O_RDWR);
-
-    if (isofd < 0) {
-	fprintf(stderr, "Error - Unable to open file %s\n\n", argv[1]);
-	exit(1);
-    }
-    
-    rc = checkmd5sum(isofd, mediasum, computedsum);
-    printf("%s\n%s\n", mediasum, computedsum);
-    if ( rc == 0)
-	printf("Md5sums differ.\n");
-    else if (rc > 0)
-	printf("Md5sums match.\n");
-    else
-	printf("None checksum information in iso, check skipped.\n");
-
-    close(isofd);
+    newtLabelSetText(data->label, tickmark);
+    newtRefresh();
 }
 #endif
+
+int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosize) {
+    int rc;
+    int llen;
+
+    if (parsepvd(isofd, mediasum, isosize) < 0) {
+	fprintf(stderr, "Unable to read the disc checksum from the "
+			 "primary volume descriptor.  This probably "
+			 "means the disc was created without adding the "
+			 "checksum.");
+	return -1;
+    }
+
+    rc = checkmd5sum(isofd, mediasum, computedsum);
+
+    return rc;
+}
+
+int mediaCheckFile(char *file) {
+    int isofd;
+    int rc;
+    char *result;
+    unsigned char mediasum[33], computedsum[33];
+    char tmpstr[256];
+    long long isosize;
+
+    isofd = open(file, O_RDONLY);
+
+    if (isofd < 0) {
+	fprintf(stderr, "Unable to find install image %s\n", file);
+	return -1;
+    }
+
+    rc = doMediaCheck(isofd, mediasum, computedsum, &isosize);
+
+    close(isofd);
+
+    /*    printf("isosize = %lld\n", isosize); 
+	  printf("%s\n%s\n", mediasum, computedsum);*/
+
+    if ( rc == 0)
+	result = "FAIL.\n\nIt is not recommended to use this media.";
+    else if (rc > 0)
+	result = "PASS.\n\nIt is OK to install from this media.";
+    else
+	result = "NA.\n\nNo checksum information available, unable to verify media.";
+
+    fprintf(stderr, "The media check is complete, the "
+		      "result is: %s", result);
+
+    return rc;
+}
+
+
+int main(int argc, char **argv) {
+    int rc;
+
+    if (argc < 2) {
+	printf("Usage: checkisomd5  <isofilename>\n\n");
+	exit(1);
+    }
+
+    rc = mediaCheckFile(argv[1]);
+}
