@@ -241,6 +241,7 @@ class KickstartBase(BaseInstallClass):
                 
         self.setBootloader(id, useLilo, forceLBA, password, md5pass, appendLine)
         self.skipSteps.append("bootloader")
+        self.skipSteps.append("bootloaderpassword")
 
     def doLilo	(self, id, args):
 	(args, extra) = isys.getopt(args, '',
@@ -272,7 +273,8 @@ class KickstartBase(BaseInstallClass):
 			"lilo command")
 
 	self.setLiloInformation(id, location, linear, forceLBA, appendLine)
-        self.skipSteps.append("bootloader")        
+        self.skipSteps.append("bootloader")
+        self.skipSteps.append("bootloaderpassword")
 
     def doLiloCheck (self, args):
         drives = isys.hardDriveDict ().keys()
