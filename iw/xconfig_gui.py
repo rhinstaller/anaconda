@@ -314,10 +314,12 @@ class XCustomWindow (InstallWindow):
 
         # cannot reliably test on i810 or Voodoo driver, or on Suns who dont
         # need it since they are fixed resolution
-
         self.cantprobe = not self.videocard.primaryCard().canTestSafely()
-
-        if not self.cantprobe:
+        # just disable X testing altogether -- too many combinations of
+        # videocards not wanting to run multiple servers and mice
+        # not liking protocol changes to reliably do this 
+#        if not self.cantprobe:
+        if 0:
             test = gtk.Alignment (.9, 0, 0, 0)
             button = gtk.Button (_("   _Test Setting   "))
             button.connect ("clicked", self.testPressed)
