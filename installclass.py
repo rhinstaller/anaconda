@@ -131,6 +131,9 @@ class InstallClass:
 	self.gateway = gateway
 	self.nameserver = nameserver
 
+    def setZeroMbr(self, state):
+	self.zeroMbr = state
+
     def getNetwork(self):
 	return (self.bootProto, self.ip, self.netmask, self.gateway, 
 		self.nameserver)
@@ -156,6 +159,7 @@ class InstallClass:
 	self.clearParts = 0
 	self.clearText = None
 	self.clearPartText = None
+	self.zeroMbr = 0
 
 # custom installs are easy :-)
 class CustomInstall(InstallClass):
