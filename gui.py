@@ -489,11 +489,106 @@ class InstallControlWindow:
         closeButton = GtkButton ("Close")
         closeButton.connect ("clicked", self.textWin.hide)
 
+        buttonBox = GtkHButtonBox()
+        buttonBox.set_layout(BUTTONBOX_SPREAD)
+        buttonBox.pack_start(closeButton)
+
+
+        table = GtkTable(3, 3, FALSE)
+
+
+
+        try:
+            im = GdkImlib.Image ("pixmaps/border_top_left.png")
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0, 0, 1.0, 1.0)
+                table.attach (a, 0, 1, 0, 1, SHRINK, FILL)
+
+            im = GdkImlib.Image ("pixmaps/border_top.png")
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0, 0, 1.0, 1.0)
+                table.attach (a, 1, 2, 0, 1, SHRINK, FILL)
+
+            im = GdkImlib.Image ("pixmaps/border_top_right.png")
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0, 0, 1.0, 1.0)
+                table.attach (a, 2, 3, 0, 1, SHRINK, FILL)
+
+            im = GdkImlib.Image ("pixmaps/border_left.png")
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0, 0, 1.0, 1.0)
+                table.attach (a, 0, 1, 1, 2, SHRINK, FILL)
+
+            im = GdkImlib.Image ("pixmaps/border_right.png")
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0, 0, 1.0, 1.0)
+                table.attach (a, 2, 3, 1, 2, SHRINK, FILL)
+
+            im = GdkImlib.Image ("pixmaps/border_bottom_left.png")
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0, 0, 1.0, 1.0)
+                table.attach (a, 0, 1, 2, 3, SHRINK, FILL)
+
+            im = GdkImlib.Image ("pixmaps/border_bottom.png")
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0, 0, 1.0, 1.0)
+                table.attach (a, 1, 2, 2, 3, SHRINK, FILL)
+
+            im = GdkImlib.Image ("pixmaps/border_bottom_right.png")
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0, 0, 1.0, 1.0)
+                table.attach (a, 2, 3, 2, 3, SHRINK, FILL)
+
+
+        except:
+            print "Unable to load left_border.png"
+
+
+
+
+
+
         vbox1 = GtkVBox ()        
         vbox1.set_border_width (10)
-        frame = GtkFrame ("Release Notes")
+        frame = GtkFrame (_("Release Notes"))
         frame.add(vbox1)
-        self.textWin.add (frame)
+        frame.set_label_align (0.5, 0.5)
+        frame.set_shadow_type (SHADOW_NONE)
+        
+#        self.textWin.add (frame)
+        self.textWin.add (table)
 
         self.textWin.set_position (WIN_POS_CENTER)
 
@@ -505,15 +600,32 @@ class InstallControlWindow:
             sw = GtkScrolledWindow()
             sw.set_policy(POLICY_NEVER, POLICY_ALWAYS)
             sw.add(text)
-        
-            vbox1.pack_start(sw, TRUE, TRUE)
+#            frame.add(sw)
+            vbox1.pack_start(sw)
+#            vbox1.pack_start(closeButton)
+
+            a = GtkAlignment ()
+            a.add (frame)
+            a.set (0, 0, 1.0, 1.0)
             
-            self.textWin.set_default_size (520, 400)
-            self.textWin.set_usize (520, 400)
+#            vbox1.pack_start(sw, TRUE, TRUE)
+            
+            self.textWin.set_default_size (560, 393)
+            self.textWin.set_usize (560, 393)
             self.textWin.set_position (WIN_POS_CENTER)
-            
-            vbox1.pack_start(closeButton, FALSE, FALSE)
-            
+
+#            closeButton.set_usize(40, 10)
+#            vbox1.pack_start(closeButton, FALSE, TRUE)
+            vbox1.pack_start(buttonBox, FALSE, TRUE)            
+
+
+            table.attach (a, 1, 2, 1, 2, FILL, FILL, 5, 5)
+
+
+
+
+
+
             self.textWin.set_border_width(1)
             self.textWin.show_all()
 
