@@ -1,8 +1,7 @@
 #ifndef H_CDINSTALL
 #define H_CDINSTALL
 
-#include "../isys/probe.h"
-#include "modules.h"
+#include "method.h"
 
 char * mountCdromImage(struct installMethod * method,
                        char * location, struct knownDevices * kd,
@@ -16,5 +15,9 @@ char * findRedHatCD(char * location,
                     moduleList modLoaded, 
                     moduleDeps modDeps, 
                     int flags);
+
+
+void setKickstartCD(struct loaderData_s * loaderData, int argc,
+		    char ** argv, int * flagsPtr);
 
 #endif

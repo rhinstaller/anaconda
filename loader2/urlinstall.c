@@ -29,6 +29,7 @@
 #include "method.h"
 #include "net.h"
 #include "method.h"
+#include "urlinstall.h"
 #include "urls.h"
 
 static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags, 

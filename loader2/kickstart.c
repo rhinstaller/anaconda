@@ -39,6 +39,11 @@
 #include "net.h"
 #include "method.h"
 
+#include "nfsinstall.h"
+#include "urlinstall.h"
+#include "cdinstall.h"
+#include "hdinstall.h"
+
 #include "../isys/imount.h"
 #include "../isys/isys.h"
 #include "../isys/probe.h"

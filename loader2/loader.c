@@ -76,23 +76,13 @@
 static int newtRunning = 0;
 
 
-/* JKFIXME: just temporarily here.  need to move to header files for 
- * each install method */
 #ifdef INCLUDE_LOCAL
 #include "cdinstall.h"
 #include "hdinstall.h"
 #endif
 #ifdef INCLUDE_NETWORK
-char * mountNfsImage(struct installMethod * method,
-                     char * location, struct knownDevices * kd,
-                     struct loaderData_s * loaderData,
-                     moduleInfoSet modInfo, moduleList modLoaded,
-                     moduleDeps * modDepsPtr, int flags);
-char * mountUrlImage(struct installMethod * method,
-                     char * location, struct knownDevices * kd,
-                     struct loaderData_s * loaderData,
-                     moduleInfoSet modInfo, moduleList modLoaded,
-                     moduleDeps * modDepsPtr, int flags);
+#include "nfsinstall.h"
+#include "urlinstall.h"
 #endif
 
 static struct installMethod installMethods[] = {

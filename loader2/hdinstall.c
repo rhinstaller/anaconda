@@ -27,6 +27,7 @@
 #include <unistd.h>
 
 #include "driverdisk.h"
+#include "hdinstall.h"
 #include "loader.h"
 #include "loadermisc.h"
 #include "log.h"
@@ -313,8 +314,8 @@ char * mountHardDrive(struct installMethod * method,
 	!strncmp(loaderData->method, "hd", 2) &&
 	loaderData->methodData) {
 	
-	kspartition = ((struct nfsInstallData *)loaderData->methodData)->host;
-	ksdirectory = ((struct nfsInstallData *)loaderData->methodData)->directory;
+	kspartition = ((struct hdInstallData *)loaderData->methodData)->partition;
+	ksdirectory = ((struct hdInstallData *)loaderData->methodData)->directory;
 	logMessage("partition  is %s, dir is %s", kspartition, ksdirectory);
 
 	/* if exist, duplicate */

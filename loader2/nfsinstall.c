@@ -28,6 +28,7 @@
 #include "loadermisc.h"
 #include "log.h"
 #include "method.h"
+#include "nfsinstall.h"
 #include "net.h"
 
 #include "../isys/imount.h"
