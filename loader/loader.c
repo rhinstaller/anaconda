@@ -1465,7 +1465,19 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	    *ksSource = argv[i] + 6;
 	} else if (!strncasecmp(argv[i], "lang=", 5)) {
 	    setLanguage (argv[i] + 5);
+#ifdef INCLUDE_KON
+	    if (!strcmp (argv[i] + 5, "ja")) {
+		char * args[5];
+
+		args[0] = "kon";
+		args[1] = "-e";
+		args[2] = "/sbin/loader";
+		args[3] = NULL;
+		
+		execv(FL_TESTING(flags) ? "./loader" : "/sbin/loader", args);
+	    }
 	}
+#endif /* INCLUDE_KON */
     }
 
     return flags;
@@ -1799,6 +1811,7 @@ int main(int argc, char ** argv) {
 	symlink("mnt/runtime/usr", "/usr");
 	symlink("mnt/runtime/lib", "/lib");
 
+#ifndef __alpha__ /* the only modules we need for alpha are on the inired */
 	unlink("/modules/modules.dep");
 	unlink("/modules/module-info");
 	unlink("/modules/pcitable");
@@ -1810,19 +1823,20 @@ int main(int argc, char ** argv) {
 	symlink("../mnt/runtime/modules/pcitable",
 		"/modules/pcitable");
 
-#ifndef __sparc__
+# ifndef __sparc__
 	unlink("/modules/modules.cgz");
 
 	symlink("../mnt/runtime/modules/modules.cgz",
 		"/modules/modules.cgz");
-#else
+# else
 	/* All sparc32 modules are on the first stage image, if it is sparc64,
 	   then we must keep both the old /modules/modules.cgz which may
 	   either contain all modules, or the basic set + one of net or scsi
 	   and we extend it with the full set of net + scsi modules. */
 	symlink("../mnt/runtime/modules/modules64.cgz",
 		"/modules/modules65.cgz");
-#endif
+# endif
+#endif /* !__alpha__ */
     }
 
     spawnShell(flags);			/* we can attach gdb now :-) */
