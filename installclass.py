@@ -32,11 +32,14 @@ class BaseInstallClass:
     def postAction(self, rootPath, serial):
 	pass
 
-    def setBootloader(self, id, useLilo = 0, location = None, forceLBA = 0, password = None, md5pass = None, appendLine = None):
+    def setBootloader(self, id, useLilo = 0, location = None, linear = 1,
+                      forceLBA = 0, password = None, md5pass = None,
+                      appendLine = None):
         if useLilo:
             id.bootloader.useGrubVal = 0
         id.bootloader.args.set(appendLine)
         id.bootloader.setForceLBA(forceLBA)
+        id.bootloader.useLinear = linear
         if password:
             id.bootloader.setPassword(password, isCrypted = 0)
         if md5pass:
@@ -46,16 +49,6 @@ class BaseInstallClass:
         else:
             id.bootloader.defaultDevice = -1
         
-
-    def setLiloInformation(self, id, location, linear = 1, forceLBA = 0, appendLine = None):
-	# this throws an exception if there is a problem
-	["mbr", "partition", None].index(location)
-
-        id.bootloader.useLinear = linear
-        id.bootloader.args.set(appendLine)
-        id.bootloader.useGrubVal = 0
-        id.bootloader.setForceLBA(forceLBA)
-
     def setClearParts(self, id, clear, drives = None, warningText = None,
                       initAll = 0):
 	id.partitions.autoClearPartType = clear

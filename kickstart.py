@@ -205,7 +205,7 @@ class KickstartBase(BaseInstallClass):
         
 	self.skipSteps.append("authentication")
 
-    def doBootloader (self, id, args):
+    def doBootloader (self, id, args, useLilo = 0):
         (args, extra) = isys.getopt(args, '',
                 [ 'append=', 'location=', 'useLilo', '--lba32',
                   'password=', 'md5pass=', 'linear', 'nolinear'])
@@ -213,7 +213,6 @@ class KickstartBase(BaseInstallClass):
         validLocations = [ "mbr", "partition", "none" ]
         appendLine = None
         location = "mbr"
-        useLilo = 0
         password = None
         md5pass = None
         forceLBA = 0
@@ -225,19 +224,18 @@ class KickstartBase(BaseInstallClass):
                 appendLine = arg
             elif str == '--location':
                 location = arg
-                # XXX need this to do something
             elif str == '--useLilo':
                 useLilo = 1
+	    elif str == '--linear':
+		linear = 1
+	    elif str == '--nolinear':
+		linear = 0
             elif str == '--lba32':
                 forceLBA = 1
             elif str == '--password':
                 password = arg
             elif str == '--md5pass':
                 md5pass = arg
-	    elif str == '--linear':
-		linear = 1
-	    elif str == '--nolinear':
-		linear = 0
 
         if location not in validLocations:
             raise ValueError, "mbr, partition, or none expected for bootloader command"
@@ -246,43 +244,14 @@ class KickstartBase(BaseInstallClass):
         else:
             location = validLocations.index(location)
                 
-        self.setBootloader(id, useLilo, location, forceLBA, password, md5pass, appendLine)
+        self.setBootloader(id, useLilo, location, linear, forceLBA,
+                           password, md5pass, appendLine)
         self.skipSteps.append("bootloader")
         self.skipSteps.append("bootloaderpassword")
 
     def doLilo	(self, id, args):
-	(args, extra) = isys.getopt(args, '',
-		[ 'append=', 'location=', 'linear', 'nolinear', 'lba32' ])
-
-	appendLine = None
-	location = "mbr"
-	linear = 1
-        forceLBA = 0
-
-	for n in args:
-	    (str, arg) = n
-	    if str == '--append':
-		appendLine = arg
-	    elif str == '--linear':
-		linear = 1
-	    elif str == '--nolinear':
-		linear = 0
-            elif str == '--lba32':
-                forceLBA = 1
-	    elif str == '--location':
-                # XXX this doesn't really do anything right now
-	        if arg == 'mbr' or arg == 'partition':
-		    location = arg
-		elif arg == 'none':
-		    location = None
-		else:
-		    raise ValueError, ("mbr, partition or none expected for "+
-			"lilo command")
-
-	self.setLiloInformation(id, location, linear, forceLBA, appendLine)
-        self.skipSteps.append("bootloader")
-        self.skipSteps.append("bootloaderpassword")
-
+        self.doBootloader(id, args, useLilo = 1)
+        
     def doLiloCheck (self, args):
         drives = isys.hardDriveDict ().keys()
 	drives.sort(isys.compareDrives)
