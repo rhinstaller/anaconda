@@ -1,7 +1,7 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.4.0
-Release: 4.RHEL
+Version: 9.1.4.1
+Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
 Group: Applications/System
@@ -72,6 +72,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 10 2004 Jeremy Katz <katzj@redhat.com> - 9.1.4.1-1.RHEL
+- Don't ask about manually loading devices if we have all 
+  virtual hardware (#135108)
+- Make it so that installs from USB storage don't explode (#135492)
+- Tweaks to the pci.ids stuff so that the splash screen should fit (notting)
+- Fix segfault loading modules (#137182)
+- ipr should be similar to ibmsis in special casing of auto-partitioning 
+  stuff on ppc hardware
+- Make serial imply nofb (#134167)
+
 * Wed Oct  6 2004 Jeremy Katz <katzj@redhat.com> - 9.1.4.0-4.RHEL
 - take three
 
