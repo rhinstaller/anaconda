@@ -69,6 +69,7 @@ readcmsfile() # $1=dasdport $2=filename
    insmod dasd_mod$LO dasd=$1
    insmod dasd_eckd_mod$LO
    cmsfscat -d /dev/dasda -a $2 > /tmp/$2
+   echo 0 > /sys/bus/ccw/drivers/dasd-eckd/*$1/online
    rmmod dasd_eckd_mod.ko
    rmmod dasd_mod.ko
 }
@@ -282,6 +283,7 @@ elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
 elif [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
    insmod ccwgroup$LO
 	insmod qdio$LO
+	insmod ipv6$LO
 	insmod qeth$LO
    setupdevice
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
