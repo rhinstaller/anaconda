@@ -8,6 +8,8 @@ import rpm
 import string
 import comps
 
+depcheck = None
+
 def cmpHeaderByName(h1, h2):
     n1 = string.lower(h1['name'])
     n2 = string.lower(h2['name'])
@@ -79,6 +81,13 @@ ts = rpm.TransactionSet(testpath, db)
 for h in pkgOrder:
     ts.add(h, h, 'i')
 ts.order()
+if depcheck:
+	deps = ts.depcheck()
+	if deps:
+		print "unresolved dependencies:"
+		for dep in deps:
+			print dep
+
 for p in ts.getKeys():
     print p[1000000]
 os.system ("rm -rf " + testpath)
