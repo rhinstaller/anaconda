@@ -421,10 +421,13 @@ def productMatches(oldproduct, newproduct):
     if oldproduct.startswith(newproduct):
         return 1
 
-    if newproduct == "Red Hat Enterprise Linux AS":
-        acceptable = ( "Red Hat Linux Advanced Server", )
-    elif newproduct == "Red Hat Enterprise Linux WS":
-        acceptable = ( "Red Hat Linux Advanced Workstation", )
+    productUpgrades = {
+        "Red Hat Enterprise Linux AS": ("Red Hat Linux Advanced Server", ),
+        "Red Hat Enterprise Linux WS": ("Red Hat Linux Advanced Workstation",)
+        }
+
+    if productUpgrades.has_key(newproduct):
+        acceptable = productUpgrades[newproduct]
     else:
         acceptable = ()
 
