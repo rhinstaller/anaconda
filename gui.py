@@ -593,7 +593,7 @@ class InstallControlWindow:
 
 	if ics.getNextButton():
 	    (icon, text) = ics.getNextButton()
-	    nextButton = Button(stock=icon)
+	    nextButton = gtk.Button(stock=icon)
 #            nextButton.set_property("label", _(text))
 	    nextButton.connect ("clicked", self.nextClicked)
 	    nextButton.show_all()
