@@ -204,6 +204,10 @@ class RequestSpec:
                         '/mnt', 'lost+found', '/proc']
         mustbeonlinuxfs = ['/', '/boot', '/var', '/tmp', '/usr', '/home']
 
+	# these are symlinks so you cant make them mount points
+	otherexcept = ['/var/mail', '/usr/bin/X11', '/usr/lib/X11'
+		       '/usr/tmp']
+
         if not self.mountpoint:
             return None
 
@@ -213,8 +217,13 @@ class RequestSpec:
         if self.fstype.isMountable():    
             if self.mountpoint in mustbeonroot:
                 return _("This mount point is invalid.  The %s directory must "
-                         "be on the / file system." % (self.mountpoint,))
-
+                         "be on the / file system.") % (self.mountpoint,)
+	    elif self.mountpoint in otherexcept:
+                return _("The mount point %s cannot be used.  It must "
+			 "be a symbolic link for proper system "
+			 "operation.  Please select a different "
+			 "mount point.") % (self.mountpoint,)
+		
         if not self.fstype.isLinuxNativeFS():
             if self.mountpoint in mustbeonlinuxfs:
                 return _("This mount point must be on a linux file system.")
