@@ -405,7 +405,7 @@ class Partitions:
                         for raidmem in raid.raidmembers:
                             tmpreq = self.getRequestByID(raidmem)
                             if (partname == tmpreq.device):
-                                if raid.device == request.device:
+                                if raid.uniqueID == request.uniqueID:
                                     used = 2
                                 else:
                                     used = 1
