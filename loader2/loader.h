@@ -14,7 +14,7 @@
 #define LOADER_FLAGS_KICKSTART		(1 << 4)
 #define LOADER_FLAGS_KICKSTART_SEND_MAC	(1 << 5)
 #define LOADER_FLAGS_POWEROFF           (1 << 6)
-#define LOADER_FLAGS_NOPROBE		(1 << 7)
+#define LOADER_FLAGS_NONET		(1 << 7)
 #define LOADER_FLAGS_MODDISK		(1 << 8)
 #define LOADER_FLAGS_ISA		(1 << 9)
 #define LOADER_FLAGS_SERIAL		(1 << 10)
@@ -36,6 +36,7 @@
 #define LOADER_FLAGS_HALT       	(1 << 13)
 #define LOADER_FLAGS_SELINUX            (1 << 14)
 #define LOADER_FLAGS_VIRTPCONSOLE       (1 << 15)
+#define LOADER_FLAGS_NOSTORAGE	        (1 << 30)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -44,7 +45,7 @@
 #define FL_KICKSTART(a)	    ((a) & LOADER_FLAGS_KICKSTART)
 #define FL_KICKSTART_SEND_MAC(a) ((a) & LOADER_FLAGS_KICKSTART_SEND_MAC)
 #define FL_POWEROFF(a)      ((a) & LOADER_FLAGS_POWEROFF)
-#define FL_NOPROBE(a)	    ((a) & LOADER_FLAGS_NOPROBE)
+#define FL_NONET(a)         ((a) & LOADER_FLAGS_NONET)
 #define FL_MODDISK(a)	    ((a) & LOADER_FLAGS_MODDISK)
 #define FL_ISA(a)	    ((a) & LOADER_FLAGS_ISA)
 #define FL_SERIAL(a)	    ((a) & LOADER_FLAGS_SERIAL)
@@ -68,6 +69,8 @@
 #define FL_HALT(a)          ((a) & LOADER_FLAGS_HALT)
 #define FL_SELINUX(a)       ((a) & LOADER_FLAGS_SELINUX)
 #define FL_VIRTPCONSOLE(a)  ((a) & LOADER_FLAGS_VIRTPCONSOLE)
+#define FL_NOSTORAGE(a)     ((a) & LOADER_FLAGS_NOSTORAGE)
+#define FL_NOPROBE(a)       (FL_NOSTORAGE(a) | FL_NONET(a))
 
 void startNewt(int flags);
 void stopNewt();

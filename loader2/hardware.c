@@ -100,6 +100,15 @@ static int detectHardware(moduleInfoSet modInfo,
         } else if (FL_NOUSB(flags) && ((*device)->type == CLASS_USB)) {
             logMessage("ignoring usb device %s (%s)", (*device)->desc,
                        (*device)->driver);
+        } else if (FL_NOSTORAGE(flags) && 
+                   (((*device)->type == CLASS_SCSI) || 
+                    ((*device)->type == CLASS_IDE) ||
+                    ((*device)->type == CLASS_RAID))) {
+            logMessage("ignoring storage device %s (%s)", (*device)->desc,
+                       (*device)->driver);
+        } else if (FL_NONET(flags) && ((*device)->type == CLASS_NETWORK)) {
+            logMessage("ignoring network device %s (%s)", (*device)->desc,
+                       (*device)->driver);
         } else if (strcmp (driver, "ignore") && strcmp (driver, "unknown")
             && strcmp (driver, "disabled")) {
             modList[numMods++] = strdup(driver);

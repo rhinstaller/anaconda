@@ -507,8 +507,12 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_TELNETD;
         else if (!strcasecmp(argv[i], "nofirewire"))
             flags |= LOADER_FLAGS_NOIEEE1394;
+        else if (!strcasecmp(argv[i], "nonet"))
+            flags |= LOADER_FLAGS_NONET;
+        else if (!strcasecmp(argv[i], "nostorage"))
+            flags |= LOADER_FLAGS_NOSTORAGE;
         else if (!strcasecmp(argv[i], "noprobe"))
-            flags |= LOADER_FLAGS_NOPROBE;
+            flags |= (LOADER_FLAGS_NONET | LOADER_FLAGS_NOSTORAGE);
         else if (!strcasecmp(argv[i], "nopcmcia"))
             flags |= LOADER_FLAGS_NOPCMCIA;
         else if (!strcasecmp(argv[i], "text")) {
