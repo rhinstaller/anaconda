@@ -122,10 +122,7 @@ def runTsAndOutput(pkglist):
             pkg = hdlist.pkgs[pnevra[0]]
             line = "%s-%s-%s.%s.rpm\n" % (pkg['name'], pkg['version'],
                                           pkg['release'], pkg['arch'])
-            if ofile is None:
-                print line,
-            else:
-                ofile.write(line)
+            ofile.write(line)
     
 
 
@@ -134,7 +131,7 @@ if os.environ.has_key("PKGORDER_DEBUG"):
     rpm.setVerbosity(rpm.RPMLOG_DEBUG)
 
 productPath = None
-ofile = None
+ofile = sys.stdout
 
 #parse optional arguments
 args = [sys.argv[0]]
@@ -297,5 +294,4 @@ for p in pkgOrder:
 
 runTsAndOutput(list)
 
-if ofile is not None:
-    ofile.close()
+ofile.close()
