@@ -498,6 +498,8 @@ class PartitionWindow:
             return (format, migrate, newfstype, badblocksCB.selected())
         
     def editPartitionRequest(self, origrequest):
+        self.oldMount = None
+        
         poplevel = GridFormHelp(self.screen,_("Add Partition"),"addpart", 1, 6)
 
         # mount point entry
@@ -648,7 +650,7 @@ class PartitionWindow:
                     request.drive = allowdrives
                 else:
                     request.start = int(start.value())
-                    request.badblocks = badblocks
+                    request.badblocks = badblocksCB.selected()
 
                     cyltype = cylopts.getSelection()
                     if cyltype == "end":
