@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-03-09 11:30-0500\n"
-"PO-Revision-Date: 2001-03-08 17:51+0100\n"
+"PO-Revision-Date: 2001-03-10 02:56+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -86,23 +86,20 @@ msgstr ""
 "Hat-bootdiskett och tryck \"Ok\" för att starta om ditt system.\n"
 
 #: ../fstab.py:492
-#, fuzzy
 msgid "Swap Space"
 msgstr "Växlingsutrymme (swap)"
 
 #: ../fstab.py:493
-#, fuzzy
 msgid "Creating swap space..."
-msgstr "Formaterar växlingsutrymme på /dev/%s..."
+msgstr "Skapar växlingsutrymme..."
 
 #: ../fstab.py:507 ../fstab.py:771 ../fstab.py:1230
 msgid "Formatting"
 msgstr "Formaterar"
 
 #: ../fstab.py:508
-#, fuzzy
 msgid "Formatting swap space..."
-msgstr "Formaterar växlingsutrymme på /dev/%s..."
+msgstr "Formaterar växlingsutrymme..."
 
 #: ../fstab.py:517
 msgid "Error creating swap on device "
@@ -891,9 +888,8 @@ msgid "Examine System"
 msgstr "Granska system"
 
 #: ../text.py:1079
-#, fuzzy
 msgid "System Swap Space"
-msgstr "Växlingsutrymme (swap)"
+msgstr "Systemväxlingsutrymme (swap)"
 
 #: ../text.py:1086
 msgid "Customize Upgrade"
@@ -2149,7 +2145,7 @@ msgstr "Konfiguration av bildskärm"
 
 #: ../iw/xconfig_gui.py:736
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "DDC-testad bildskärm"
 
 #: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
 msgid "Restore original values"
@@ -2599,36 +2595,37 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"2.4-kärnan behöver avsevärt mer växlingsutrymme än tidigare kärnor, så "
+"mycket som dubbelt så mycket utrymme som mängden RAM-minne på systemet. Du "
+"har för tillfället %d MB växlingsutrymme konfigurerat, men du kan skapa "
+"ytterligare växlingsutrymme på ett av dina filsystem nu."
 
 #: ../textw/upgrade_text.py:40
-#, fuzzy
 msgid "Free Space"
-msgstr "Diskutrymme"
+msgstr "Ledigt utrymme"
 
 #: ../textw/upgrade_text.py:55
-#, fuzzy
 msgid "Suggested size (MB):"
-msgstr "Storlek (MB)"
+msgstr "Föreslagen storlek (MB):"
 
 #: ../textw/upgrade_text.py:58
-#, fuzzy
 msgid "Swap file size (MB):"
-msgstr "Storlek på växlingsutrymme (swap):"
+msgstr "Storlek på växlingsfil (swap):"
 
 #: ../textw/upgrade_text.py:66
-#, fuzzy
 msgid "Add Swap"
-msgstr "Swap"
+msgstr "Lägg till växlingsutrymme"
 
 #: ../textw/upgrade_text.py:90
-#, fuzzy
 msgid "The value you entered is not a valid number."
-msgstr "Storleken du anger måste vara ett tal."
+msgstr "Värdet du angav är inte ett giltigt tal."
 
 #: ../textw/upgrade_text.py:96
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
+"Det finns inte tillräckligt med utrymme för växlingspartitionen på den "
+"enheten."
 
 #: ../textw/upgrade_text.py:116
 msgid ""
@@ -2651,9 +2648,8 @@ msgid "Upgrade Partition"
 msgstr "Uppgradera partition"
 
 #: ../textw/upgrade_text.py:182
-#, fuzzy
 msgid "Going to upgrade partition /dev/"
-msgstr "Uppgradera partition"
+msgstr "Kommer att uppgradera partitionen /dev/"
 
 #: ../textw/upgrade_text.py:191
 msgid "Customize Packages to Upgrade"
@@ -4444,32 +4440,34 @@ msgstr "Verktyg"
 
 #. generated from zone.tab
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #. generated from zone.tab
 msgid "# 1.  ISO 3166 2-character country code.  See the file `iso3166.tab'."
-msgstr ""
+msgstr "# 1. ISO 3166-landskod med två tecken. Se filen \"iso3166.tab\"."
 
 #. generated from zone.tab
 msgid "# (1) makes some geographical sense, and"
-msgstr ""
+msgstr "# (1) är lite vettigt geografiskt, och"
 
 #. generated from zone.tab
 msgid "# 2.  Latitude and longitude of the zone's principal location"
-msgstr ""
+msgstr "# 2. Latitud och longitud för zonens huvudort"
 
 #. generated from zone.tab
 msgid ""
 "# (2) puts the most populous zones first, where that does not contradict (1)."
 msgstr ""
+"# (2) gör att de tättbefolkade zonerna hamnar först, där det inte motsäger "
+"(1)."
 
 #. generated from zone.tab
 msgid "# 3.  Zone name used in value of TZ environment variable."
-msgstr ""
+msgstr "# 3. Zonnamn som används i värdet på TZ-miljövariabeln."
 
 #. generated from zone.tab
 msgid "# 4.  Comments; present if and only if the country has multiple rows."
-msgstr ""
+msgstr "# 4. Kommentarer; finns om och endast om landet har flera rader."
 
 #. generated from zone.tab
 msgid "Acre"
@@ -4619,11 +4617,11 @@ msgstr "Kina, bergen"
 
 #. generated from zone.tab
 msgid "# Columns are separated by a single tab."
-msgstr ""
+msgstr "# Kolumner åtskiljs med ett enkelt tabbsteg."
 
 #. generated from zone.tab
 msgid "#country-"
-msgstr ""
+msgstr "#land-"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -4725,15 +4723,15 @@ msgstr "östra Uzbekistan"
 
 #. generated from zone.tab
 msgid "#     either +-DDMM+-DDDMM or +-DDMMSS+-DDDMMSS,"
-msgstr ""
+msgstr "#    antingen +-DDMM+-DDDMM eller +-DDMMSS+-DDDMMSS,"
 
 #. generated from zone.tab
 msgid "#     first latitude (+ is north), then longitude (+ is east)."
-msgstr ""
+msgstr "#    först latituden (+ är norr), sedan longituden (+ är öster)."
 
 #. generated from zone.tab
 msgid "# From Paul Eggert <eggert@twinsun.com> (1996-08-05):"
-msgstr ""
+msgstr "# Från Paul Eggert <eggert@twinsun.com> (1996-08-05):"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -4757,7 +4755,7 @@ msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "#     in ISO 6709 sign-degrees-minutes-seconds format,"
-msgstr ""
+msgstr "#    i ISO 6709-tecken-grader-minuter-sekunder-format,"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -4793,7 +4791,7 @@ msgstr "Lineöarna"
 
 #. generated from zone.tab
 msgid "# Lines beginning with `#' are comments."
-msgstr ""
+msgstr "# Rader som börjar med \"#\" är kommentarer."
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
@@ -5052,10 +5050,11 @@ msgstr "Tasmanien"
 msgid ""
 "# The table is sorted first by country, then an order within the country that"
 msgstr ""
+"# Tabellen sorteras först efter land, sedan en ordning inom det landet som"
 
 #. generated from zone.tab
 msgid "# This file contains a table with the following columns:"
-msgstr ""
+msgstr "# Denna fil innehåller en tabell med följande kolumner:"
 
 #. generated from zone.tab
 msgid "Tibet & Xinjiang"
@@ -5075,7 +5074,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "# TZ zone descriptions"
-msgstr ""
+msgstr "# TZ-zonbeskrivningar"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -5204,9 +5203,3 @@ msgstr "Turkiska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainska"
-
-#~ msgid ""
-#~ "The Red Hat Linux OS installed on partition /dev/%s will now be upgraded."
-#~ msgstr ""
-#~ "Red Hat Linux-installationen på partitionen /dev/%s kommer nu att "
-#~ "uppgraderas."
