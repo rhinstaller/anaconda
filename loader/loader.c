@@ -55,7 +55,7 @@ struct knownDevices devices;
 
 struct installMethod {
     char * name;
-    enum deviceClass deviceRequired;
+    int network;
     int (*mountImage)(char * location, int numKnownDevices, 
     		      struct device * knownDevices, moduleInfoSet
 		      modInfo, moduleList modLoaded,
@@ -72,8 +72,8 @@ static int mountNfsImage(char * location, int numKnownDevices,
 		      moduleDeps modDeps, int flags);
 
 static struct installMethod installMethods[] = {
-    { N_("Local CDROM"), DEVICE_CDROM, mountCdromImage },
-    { N_("NFS image"), DEVICE_NET, mountNfsImage }
+    { N_("Local CDROM"), 0, mountCdromImage },
+    { N_("NFS image"), 1, mountNfsImage }
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -380,21 +380,21 @@ static int mountCdromImage(char * location, int numKnownDevices,
 		      moduleDeps modDeps, int flags) {
     int i;
 
+    /* XXX we might need to look for SCSI devices here, we definitely
+       need to look for non-SCSI, non-IDE ones */
+
     for (i = 0; i < numKnownDevices; i++) {
-	if (knownDevices[i].class == DEVICE_CDROM) break;
+	if (knownDevices[i].class != DEVICE_CDROM) continue;
+
+	logMessage("trying to mount device %s", knownDevices[i].name);
+	devMakeInode(knownDevices[i].name, "/tmp/cdrom");
+	if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, NULL, 
+		      NULL)) {
+	    return 0;
+	}
     }
 
-    if (i == numKnownDevices) {
-    	/* XXX we might need to look for SCSI devices here, we definitely
-	   need to look for non-SCSI, non-IDE ones */
-	return LOADER_BACK;
-    }
-
-    logMessage("trying to mount device %s", knownDevices[i].name);
-    devMakeInode(knownDevices[i].name, "/tmp/cdrom");
-    doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, NULL, NULL);
-
-    return 0;
+    return LOADER_BACK;
 }
 
 static int mountNfsImage(char * location, int numKnownDevices, 
@@ -452,29 +452,26 @@ static int doMountImage(char * location, int numKnownDevices,
 			moduleList modLoaded,
 		        moduleDeps modDeps, int flags) {
     static int defaultMethod = 0;
-    int i, j, rc;
+    int i, rc;
     int validMethods[10];
     int numValidMethods = 0;
     char * installNames[10];
     int methodNum = 0;
+    int networkAvailable;
+
+    networkAvailable = (isysFindModuleInfo(modInfo, "nfs") != NULL);
 
     for (i = 0; i < numMethods; i++) {
-	for (j = 0; j < numKnownDevices; j++) {
-	    if (installMethods[i].deviceRequired == knownDevices[j].class)
-		break;
-	}
-
-	if (j < numKnownDevices) {
+	if ((networkAvailable && installMethods[i].network) ||
+		(!networkAvailable && !installMethods[i].network)) {
 	    if (i == defaultMethod) methodNum = numValidMethods;
+
 	    installNames[numValidMethods] = installMethods[i].name;
 	    validMethods[numValidMethods++] = i;
 	}
     }
 
     installNames[numValidMethods] = NULL;
-
-    /* XXX we need to go through the available modules and see what install
-       methods might be valid with a bit more hardware support */
 
     if (!numValidMethods) {
 	logMessage("no install methods have the required devices!\n");
