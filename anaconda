@@ -29,7 +29,6 @@ import sys, os
 
 # For anaconda in test mode
 if (os.path.exists('isys')):
-    sys.path.append('edd')
     sys.path.append('libfdisk')
     sys.path.append('balkan')
     sys.path.append('gnome-map')
@@ -37,13 +36,14 @@ if (os.path.exists('isys')):
     sys.path.append('textw')
     sys.path.append('iw')
     sys.path.append('installclasses')
-    sys.path.append('edd')
     sys.path.append('iconvmodule')
+    sys.path.append('booty')
 else:
     sys.path.append('/usr/lib/anaconda')
     sys.path.append('/usr/lib/anaconda/textw')
     sys.path.append('/usr/lib/anaconda/iw')
     sys.path.append('/usr/lib/anaconda/installclasses')
+    sys.path.append('/usr/lib/booty')
 
 try:
     import updates_disk_hook
@@ -288,9 +288,6 @@ if traceOnly:
     import kickstart
 
     installclass.availableClasses()
-
-    if iutil.getArch() == "i386":
-	import edd
 
     if display_mode == 't':
         for step in stepToClasses.keys():

@@ -82,7 +82,7 @@ class BaseInstallClass:
 		 "partitiondone",
 		 "bootloadersetup",                 
 		 "bootloader",
-                 "bootloaderpassword",
+                 "bootloaderadvanced",
                  "networkdevicecheck",
 		 "network",
 		 "firewall",
@@ -118,7 +118,7 @@ class BaseInstallClass:
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
 	    dispatch.skipStep("bootdisk")
             dispatch.skipStep("bootloader")
-            dispatch.skipStep("bootloaderpassword")
+            dispatch.skipStep("bootloaderadvanced")            
             dispatch.skipStep("fdasd", permanent = 1)
         elif iutil.getArch() == "s390" or iutil.getArch() == "s390x":
 	    #dispatch.skipStep("language")
@@ -129,7 +129,6 @@ class BaseInstallClass:
             dispatch.skipStep("autopartition", permanent = 1)
             dispatch.skipStep("autopartitionexecute", permanent = 1)
             dispatch.skipStep("fdisk", permanent = 1)
-            dispatch.skipStep("bootloaderpassword",  permanent = 1)
 
 	    dispatch.skipStep("handleX11pkgs", permanent = 1)
 	    dispatch.skipStep("videocard", permanent = 1)

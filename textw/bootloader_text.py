@@ -80,14 +80,12 @@ class BootloaderChoiceWindow:
                 if rc == "no":
                     continue
                 dispatch.skipStep("instbootloader", skip = (rc == "yes"))
-                dispatch.skipStep("bootloaderpassword")            
             elif blradio.getSelection() == "lilo":
                 bl.setUseGrub(0)
                 dispatch.skipStep("instbootloader", 0)            
             else:
                 bl.setUseGrub(1)
                 dispatch.skipStep("instbootloader", 0)
-                dispatch.skipStep("bootloaderpassword", 0)
 
             screen.popWindow()
             return INSTALL_OK
@@ -148,19 +146,25 @@ class BootloaderAppendWindow:
             screen.popWindow()
             return INSTALL_OK
 
-class BootloaderWindow:
+class BootloaderLocationWindow:
     def __call__(self, screen, dispatch, bl, fsset, diskSet):
 	if dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
 
 	choices = fsset.bootloaderChoices(diskSet)
-	if len(choices) == 1:
-	    bl.setDevice(choices[0][0])
+	if len(choices.keys()) == 1:
+	    bl.setDevice(choices[choices.keys()[0]][0])
 	    return INSTALL_NOOP
+        if len(choices.keys()) == 0:
+            return INSTALL_NOOP
 
         format = "/dev/%-11s %s" 
         locations = []
 	default = 0
-	for (device, desc) in choices:
+
+        keys = choices.keys()
+        keys.reverse()
+        for key in keys:
+            (device, desc) = choices[key]
 	    if device == bl.getDevice():
 		default = len(locations)
 	    locations.append (format % (device, _(desc)))
@@ -174,7 +178,8 @@ class BootloaderWindow:
         if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-	bl.setDevice(choices[sel][0])
+        # XXX this is obviously not right :)
+	bl.setDevice(choices[choices.keys()[0]][0])
 
         return INSTALL_OK
 
@@ -240,12 +245,7 @@ class BootloaderImagesWindow:
 
 	return newLabel.value()
 
-    def formatDevice(self, type, label, device, default):
-	if (type == "FAT"):
-	    type = "DOS/Windows"
-	elif (type == "ntfs" or type == "hpfs"):	
-	    type = "OS/2 / Windows NT"
-
+    def formatDevice(self, label, device, default):
 	if default == device:
 	    default = '*'
 	else:
@@ -254,28 +254,35 @@ class BootloaderImagesWindow:
         if not label:
             label = ""
 	    
-	return "%-10s  %-25s %-7s %-10s" % ( "/dev/" + device, type, default, label)
+	return "     %-12s  %-7s %-25s" % ( "/dev/" + device, default, label)
 
     def __call__(self, screen, dispatch, bl, fsset, diskSet):
 	if dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
 
 	images = bl.images.getImages()
 	default = bl.images.getDefault()
+
+        # XXX debug crap
+##         images = { 'hda2': ('linux', 'Red Hat Linux', 1),
+##                    'hda1': ('windows', 'Windows', 0) }
+##         default = 'hda1'
+        
         self.bl = bl
 
-	listboxLabel = Label("%-10s  %-25s %-7s %-10s" % 
-		( _("Device"), _("Partition type"), _("Default"), _("Boot label")))
+	listboxLabel = Label(     "%-12s  %-7s %-25s" % 
+		( _("Device"), _("Default"), _("Boot label")))
 	listbox = Listbox(5, scroll = 1, returnExit = 1)
 
 	sortedKeys = images.keys()
 	sortedKeys.sort()
+        print sortedKeys
 
 	for dev in sortedKeys:
-	    (label, longlabel, type) = images[dev]
+	    (label, longlabel, isRoot) = images[dev]
             if not bl.useGrub():
-                listbox.append(self.formatDevice(type, label, dev, default), dev)
+                listbox.append(self.formatDevice(label, dev, default), dev)
             else:
-                listbox.append(self.formatDevice(type, longlabel, dev, default), dev)                
+                listbox.append(self.formatDevice(longlabel, dev, default), dev)                
 
 	listbox.setCurrent(dev)
 
@@ -298,6 +305,7 @@ class BootloaderImagesWindow:
 #        g.addHotKey(" ")
         
 	rootdev = fsset.getEntryByMountPoint("/").device.getDevice()
+#        rootdev = "hda2"
 
 	result = None
 	while (result != TEXT_OK_CHECK and result != TEXT_BACK_CHECK and result != TEXT_F12_CHECK):
@@ -317,24 +325,24 @@ class BootloaderImagesWindow:
 		images[item] = (label, label, type)
 		if (default == item and not label):
 		    default = ""
-		listbox.replace(self.formatDevice(type, label, item, default), item)
+		listbox.replace(self.formatDevice(label, item, default), item)
 		listbox.setCurrent(item)
 	    elif result == "F2":
 #	    elif result == " ":
 		item = listbox.current()
-		(label, longlabel, type) = images[item]
+		(label, longlabel, isRoot) = images[item]
                 if bl.useGrub():
                     label = longlabel
                 
 		if (label):
 		    if (default):
-			(oldLabel, oldLong, oldType) = images[default]
+			(oldLabel, oldLong, oldIsRoot) = images[default]
                         if bl.useGrub():
                             oldLabel = oldLong
-			listbox.replace(self.formatDevice(oldType, oldLabel, default, 
+			listbox.replace(self.formatDevice(oldLabel, default, 
 					""), default)
 		    default = item
-		    listbox.replace(self.formatDevice(type, label, item, default), 
+		    listbox.replace(self.formatDevice(label, item, default), 
 				    item)
 		    listbox.setCurrent(item)
 
@@ -343,7 +351,7 @@ class BootloaderImagesWindow:
 	if (result == TEXT_BACK_CHECK):
 	    return INSTALL_BACK
 
-	for (dev, (label, longlabel, type)) in images.items():
+	for (dev, (label, longlabel, isRoot)) in images.items():
             if not bl.useGrub():
                 bl.images.setImageLabel(dev, label, setLong = 0)
             else:
@@ -352,18 +360,19 @@ class BootloaderImagesWindow:
 
 	return INSTALL_OK
 
-class BootloaderPassword:
+class BootloaderPasswordWindow:
     def usepasscb(self, *args):
         flag = FLAGS_RESET
         if not self.checkbox.selected():
             flag = FLAGS_SET
         self.entry1.setFlags(FLAG_DISABLED, flag)
         self.entry2.setFlags(FLAG_DISABLED, flag)        
-    
-    def __call__(self, screen, bl, intf):
+        
+    def __call__(self, screen, dispatch, bl, fsset, diskSet):
         if not bl.useGrub():
             return INSTALL_NOOP
 
+        intf = dispatch.intf
         self.bl = bl
 
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])

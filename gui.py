@@ -44,8 +44,8 @@ stepToClass = {
     "upgrademigratefs" : ("upgrade_migratefs_gui", "UpgradeMigrateFSWindow"),
     "fdisk" : ("fdisk_gui", "FDiskWindow"),
     "fdasd" : ("fdasd_gui", "FDasdWindow"),
-    "bootloader": ("bootloader_gui", "BootloaderWindow"), 
-    "bootloaderpassword" : ("bootloaderpassword_gui", "BootloaderPasswordWindow"),
+    "bootloader": ("bootloader_gui", "BootloaderWindow"),
+    "bootloaderadvanced": ("bootloader_gui", "AdvancedBootloaderWindow"),     
     "network" : ("network_gui", "NetworkWindow"),
     "firewall" : ("firewall_gui", "FirewallWindow"),
     "languagesupport" : ("language_support_gui", "LanguageSupportWindow"),
@@ -75,6 +75,8 @@ elif iutil.getArch() == 's390':
     stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
 else:
     stepToClass["bootloader"] = ("bootloader_gui", "BootloaderWindow")
+    stepToClass["bootloaderadvanced"] = ("bootloader_gui",
+                                         "AdvancedBootloaderWindow")
 
 # setup globals
 

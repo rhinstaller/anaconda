@@ -712,6 +712,7 @@ class FileSystemSet:
 
     def bootloaderChoices(self, diskSet):
 	mntDict = {}
+        ret = {}
 
         for entry in self.entries:
 	    mntDict[entry.mountpoint] = entry.device
@@ -724,13 +725,14 @@ class FileSystemSet:
 	    bootDev = mntDict['/']
 
 	if bootDev.getName() == "LoopbackDevice":
-	    return None
+	    return ret
 	elif bootDev.getName() == "RAIDDevice":
-	    return [ ( bootDev.device, "RAID Device" ) ]
-	
-	return [ (diskSet.driveList()[0], N_("Master Boot Record (MBR)") ),
-		 (bootDev.device,	  N_("First sector of boot partition"))
-	       ]
+            ret['boot'] = (bootDev.device, N_("RAID Device"))
+            return ret
+
+	ret['boot'] = (bootDev.device, N_("First sector of boot partition"))
+        ret['mbr'] = (bootDev.device, N_("Master Boot Record (MBR)"))
+        return ret
 
     # set active partition on disks
     # if an active partition is set, leave it alone; if none set
@@ -739,10 +741,8 @@ class FileSystemSet:
         choices = self.bootloaderChoices(diskset)
         if not choices:
             bootDev = None
-        elif len(choices) == 1:
-            bootDev = self.bootloaderChoices(diskset)[0][0]
         else:
-            bootDev = self.bootloaderChoices(diskset)[1][0]
+            bootDev = choices['boot'][0]
 
         # stupid itanium
         if iutil.getArch() == "ia64":

@@ -1,7 +1,9 @@
 #
 # bootloader_gui.py: gui bootloader configuration dialog
 #
-# Copyright 2001 Red Hat, Inc.
+# Jeremy Katz <katzj@redhat.com>
+#
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -12,42 +14,46 @@
 #
 
 import gtk
+import gobject
 import iutil
 import gui
 from iw_gui import *
 from translate import _, N_
-from package_gui import queryUpgradeContinue
+
+fbModes = {}
+fbModes["8"] = { "640x480": 0x301,
+                 "800x600": 0x303,
+                 "1024x768": 0x305,
+                 "1280x1024": 0x307 }
+fbModes["16"] = { "640x480": 0x310,
+                  "800x600": 0x313,
+                  "1024x768": 0x316,
+                  "1280x1024": 0x319}
+fbModes["24"] = { "640x480": 0x311,
+                  "800x600": 0x314,
+                  "1024x768": 0x317,
+                  "1280x1024": 0x31A }
+fbModes["32"] = { "640x480": 0x312,
+                  "800x600": 0x315,
+                  "1024x768": 0x318,
+                  "1280x1024": 0x31B }
+
 
 class BootloaderWindow (InstallWindow):
     windowTitle = N_("Boot Loader Configuration")
     htmlTag = "bootloader"
 
-    def getPrev (self):
-        # avoid coming back in here if the user backs past and then tries
-        # to skip this screen
-	pass
+    def __init__(self, ics):
+        InstallWindow.__init__(self, ics)
+        self.parent = ics.getICW().window
+        
 
-	# XXX
-	#
-        # if doing an upgrade, offer choice of aborting upgrade.
-        # we can't allow them to go back in install, since we've
-        # started swap and mounted the systems filesystems
-        # if we've already started an upgrade, cannot back out
-        #
-        # if we are skipping indivual package selection, must stop it here
-        # very messy.
-        #
-        #if self.todo.upgrade and self.todo.instClass.skipStep("indivpackage"):
-            #rc = queryUpgradeContinue(self.todo.intf)
-            #if not rc:
-                #raise gui.StayOnScreen
-            #else:
-                #import sys
-                #print _("Aborting upgrade")
-                #sys.exit(0)
+    def getPrev(self):
+        pass
 
-    def getNext (self):
-        if self.lba.get_active() and not self.bl.forceLBA32:
+
+    def getNext(self):
+        if self.forceLBA.get_active() and not self.bl.forceLBA32:
             rc = self.intf.messageWindow(_("Warning"),
                     _("Forcing the use of LBA32 for your bootloader when "
                       "not supported by the BIOS can cause your machine "
@@ -58,290 +64,286 @@ class BootloaderWindow (InstallWindow):
                                     type = "yesno")
             if rc != 1:
                 raise gui.StayOnScreen
-
-        if self.none_radio.get_active ():
-	    self.dispatch.skipStep("instbootloader")
-            self.dispatch.skipStep("bootloaderpassword")
+        
+        # set the bootloader type
+        if self.none_radio.get_active():
+            self.dispatch.skipStep("instbootloader")
             return
-        elif self.lilo_radio.get_active ():
-            self.dispatch.skipStep("bootloaderpassword")
-        elif self.grub_radio.get_active ():
-            self.dispatch.skipStep("bootloaderpassword", skip = 0)
-
-        if len(self.bootDevice.keys()) > 0:
-	    self.dispatch.skipStep("instbootloader", skip = 0)
-
-	    for (widget, device) in self.bootDevice.items():
-		if widget.get_active():
-		    self.bl.setDevice(device)
-
-        self.bl.setUseGrub(self.grub_radio.get_active())
-        self.bl.args.set(self.appendEntry.get_text())
-        
-        default = None
-        linuxDevice = None
-        for index in range(self.numImages):
-            device = self.imageList.get_text(index, 1)[5:]
-            type = self.types[index]
-            label = self.imageList.get_text(index, 3)
-
-	    self.bl.images.setImageLabel(device, label, self.bl.useGrub())
-
-            if self.default == index:
-                default = device
-            if type == 2:
-                linuxDevice = device
-
-        if not default:
-            default = linuxDevice
-
-        self.bl.images.setDefault(default)
-        self.bl.setForceLBA(self.lba.get_active())
-        
-
-    def typeName(self, type):
-        if (type == "FAT"):
-            return "DOS/Windows"
-        elif (type == "hpfs"):       
-            return "OS/2 / Windows NT"
         else:
-            return type
+            self.bl.setUseGrub(self.grub_radio.get_active())
+            self.dispatch.skipStep("instbootloader", skip = 0)
+        
+        if self.useFbcb.get_active():
+            (res, depth) = self.fbMode
+            video = " vga=%s" % (fbModes[depth][res],)
+        else:
+            video = ""
 
-    def checkLiloReqs(self):
-        if self.default == None:
-            return 0
+        # set the bootloader pass XXX should handle the only crypted pass case
+        if self.usePassCb and self.password:
+            self.bl.setPassword(self.password, isCrypted = 0)
+        else:
+            self.bl.setPassword(None)
 
-        defaultlabel = self.imageList.get_text(self.default, 3)
-        if defaultlabel == "" or defaultlabel == None:
-            return 0
+        # set kernel args
+        self.bl.args.set(self.appendEntry.get_text() + video)
 
-        device = None
-        label = None
-        for i in range(self.numImages):
-            device = self.imageList.get_text(i, 1)[5:]
-            label  = self.imageList.get_text(i, 3)
-            if device == self.rootdev:
+        # set forcelba
+        self.bl.setForceLBA(self.forceLBA.get_active())
+
+    def bootloaderChanged(self, widget, *args):
+        if widget == self.grub_radio and self.grub_radio.get_active():
+            self.options_vbox.set_sensitive(gtk.TRUE)
+        elif widget == self.lilo_radio and self.lilo_radio.get_active():
+            self.options_vbox.set_sensitive(gtk.TRUE)
+        elif widget == self.none_radio and self.none_radio.get_active():
+            self.options_vbox.set_sensitive(gtk.FALSE)
+        else:
+            # punt
+            pass
+        
+
+    def fbModeWindow(self, *args):
+        resolutions = [ "640x480", "800x600", "1024x768", "1280x1024" ]
+        depths = [ 8, 16, 24, 32 ]
+
+        if self.fbMode:
+            theResolution = self.fbMode[0]
+            theDepth = self.fbMode[1]
+        else:
+            # XXX better defaults
+            theResolution = resolutions[0]
+            theDepth = depths[0]
+        
+        dialog = gtk.Dialog(_("Select framebuffer resolution"), self.parent)
+        dialog.add_button('gtk-ok', 1)
+        dialog.add_button('gtk-cancel', 2)
+        dialog.set_position(gtk.WIN_POS_CENTER)
+        
+        label = gui.WrappingLabel(_("Please select the resolution and bit "
+                                    "depth that you would prefer to use as "
+                                    "your framebuffer settings."))
+        dialog.vbox.pack_start(label)
+        
+        
+        hbox = gtk.HBox(gtk.FALSE, 5)
+
+        frame = gtk.Frame(_("Resolution"))
+        bbox = gtk.VButtonBox()
+
+        resRadio = None
+        group = []
+        # XXX need to make sure the resolutions are actually viable for
+        # their vidcard/monitor
+        for resolution in resolutions:
+            resRadio = gtk.RadioButton(resRadio, resolution)
+            if resolution == theResolution:
+                resRadio.set_active(gtk.TRUE)
+            bbox.pack_start(resRadio)
+            group.append(resRadio)
+        resRadio.group = group
+
+        frame.add(bbox)
+        hbox.pack_start(frame)
+        
+        frame = gtk.Frame(_("Bit Depth"))
+        bbox = gtk.VButtonBox()
+
+        depthRadio = None
+        group = []
+        # XXX need to make sure the depths are actually viable for
+        # their vidcard/monitor
+        for depth in depths:
+            depthRadio = gtk.RadioButton(depthRadio, _("%d") % (depth,))
+            if "%d" % (depth,) == theDepth:
+                depthRadio.set_active(gtk.TRUE)
+            bbox.pack_start(depthRadio)
+            group.append(depthRadio)
+        depthRadio.group = group
+
+        frame.add(bbox)
+        hbox.pack_start(frame)
+        
+        dialog.vbox.pack_start(hbox)
+        dialog.show_all()
+
+        rc = dialog.run()
+        # user hit cancel, destroy the dialog and return
+        if rc == 2:
+            dialog.destroy()
+            return rc
+
+        for radio in resRadio.group:
+            if radio.get_active():
+                resolution = radio.get_label()
                 break
 
-        if label == "":
-            return 0
+        for radio in depthRadio.group:
+            if radio.get_active():
+                depth = radio.get_label()
+                break
+                
+        self.fbMode = (resolution, depth)
+        dialog.destroy()
+        return rc
 
-        for i in range(self.numImages):
-            label1 = self.imageList.get_text(i, 3)
-            j = i+1
-            while j < self.numImages:
-                label2 = self.imageList.get_text(j, 3)
-                if label1 == label2 and label1 != "":
-                    return 0
-                j = j + 1
+    # set the label on the button for the framebuffer mode
+    def setFbModeLabel(self):
+        if not self.useFbcb.get_active() or not self.fbMode:
+            self.fbButton.set_label(_("No Framebuffer"))
+        else:
+            # XXX need to translate numeric -> text properly
+            self.fbButton.set_label("%s @ %s" % self.fbMode)
+            self.fbButton.set_sensitive(gtk.TRUE)
 
+    # callback for when the framebuffer mode checkbox is clicked
+    def fbCallback(self, widget, *args):
+        if not widget.get_active():
+            self.fbButton.set_sensitive(gtk.FALSE)
+            self.setFbModeLabel()
+        else:
+            if self.fbModeWindow() == 2:
+                widget.set_active(0)
+            self.setFbModeLabel()
 
-        return 1
+    # callback for when the framebuffer mode button is clicked
+    def fbButtonCallback(self, widget, *args):
+        self.fbModeWindow()
+        self.setFbModeLabel()
 
-    def toggled (self, widget, *args):
-        if self.ignoreSignals:
-            return
+    # get the bootloader password
+    def passwordWindow(self, *args):
+        dialog = gtk.Dialog(_("Enter Boot Loader Password"), self.parent)
+        dialog.add_button('gtk-ok', 1)
+        dialog.add_button('gtk-cancel', 2)
+        dialog.set_position(gtk.WIN_POS_CENTER)
         
-        if not widget.get_active ():
-            state = gtk.TRUE
-            if self.checkLiloReqs():
-                self.ics.setNextEnabled (1)
-            else:
-                self.ics.setNextEnabled (0)            
+        label = gui.WrappingLabel(_("A boot loader password prevents users "
+                                    "from passing arbitrary options to the "
+                                    "kernel.  For highest security, we "
+                                    "recommend setting a password, but this "
+                                    "is not necessary for more casual users."))
+        label.set_alignment(0.0, 0.0)
+        dialog.vbox.pack_start(label)
+
+        table = gtk.Table(2, 2)
+        table.set_row_spacings(5)
+        table.set_col_spacings(5)
+        table.attach(gtk.Label(_("Password:")), 0, 1, 2, 3,
+                              gtk.FILL, 0, 10)
+        pwEntry = gtk.Entry (16)
+        pwEntry.set_visibility (gtk.FALSE)
+        table.attach(pwEntry, 1, 2, 2, 3, gtk.FILL, 0, 10)
+        table.attach(gtk.Label(_("Confirm:")), 0, 1, 3, 4,
+                              gtk.FILL, 0, 10) 
+        confirmEntry = gtk.Entry (16)
+        confirmEntry.set_visibility (gtk.FALSE)
+        table.attach(confirmEntry, 1, 2, 3, 4, gtk.FILL, 0, 10)
+        dialog.vbox.pack_start(table)
+
+        # set the default
+        if self.password:
+            pwEntry.set_text(self.password)
+            confirmEntry.set_text(self.password)
+
+        dialog.show_all()
+
+        while 1:
+            rc = dialog.run()
+            if rc == 2:
+                break
+
+            if pwEntry.get_text() != confirmEntry.get_text():
+                self.intf.messageWindow(_("Passwords don't match"),
+                                        _("Passwords do not match"),
+                                        type='warning')
+                continue
+
+            thePass = pwEntry.get_text()
+            if not thePass:
+                continue
+            if len(thePass) < 6:
+                ret = self.intf.messageWindow(_("Warning"),
+                                    _("Your boot loader password is less than "
+                                      "six characters.  We recommend a longer "
+                                      "boot loader password."
+                                      "\n\n"
+                                      "Would you like to continue with this "
+                                      "password?"),
+                                             type = "yesno")
+                if ret == 0:
+                    continue
+
+            self.password = thePass
+            break
+
+        dialog.destroy()
+        return rc
+
+    # set the label on the button for the bootloader password
+    def setPassLabel(self):
+        if not self.usePassCb.get_active() or not self.password:
+            self.passButton.set_label(_("No password"))
         else:
-            state = gtk.FALSE
-            self.ics.setNextEnabled(1)
+            self.passButton.set_label(_("Change password"))
+            self.passButton.set_sensitive(gtk.TRUE)
 
-        list = self.bootDevice.keys()
-        list.extend ([self.appendEntry, self.editBox, self.imageList,
-                      self.liloLocationBox, self.radioBox, self.sw])
-        for n in list:
-            n.set_sensitive (state)
-
-#        if state and not len(self.bootDevice.keys()) < 2:
-#            self.liloLocationBox.set_sensitive(0)
-#            self.grubCheck.set_sensitive(0)
-#            print "here"
-#            self.radio_hbox.set_sensitive(0)
-#	    for n in self.bootDevice.keys():
-#		n.set_sensitive(0)
-
-    def labelInsertText(self, entry, text, len, data):
-        i = 0
-        while i < len:
-            cur = text[i]
-
-            # lilo did not allow ' '!, grub does
-            if self.lilo_radio.get_active() and (cur == ' ' or cur == '#' or cur == '$' or cur == '='):
-                entry.emit_stop_by_name("insert_text")
-                return
-            elif cur == '#' or cur == '$' or cur == '=':
-                entry.emit_stop_by_name ("insert_text")
-                return
-            i = i + 1
-
-    def labelUpdated(self, *args):
-        index = self.imageList.selection[0]
-
-        label = self.labelEntry.get_text()
-        self.imageList.set_text(index, 3, label)
-
-        # cannot allow user to select as default is zero length
-        if label:
-            self.defaultCheck.set_sensitive (gtk.TRUE)
+    # callback for when the password checkbox is clicked
+    def passCallback(self, widget, *args):
+        if not widget.get_active():
+            self.passButton.set_sensitive(gtk.FALSE)
+            self.setPassLabel()
         else:
-            self.ignoreSignals = 1
-            self.defaultCheck.set_active(0)
-            self.defaultCheck.set_sensitive (gtk.FALSE)
-            if self.default != None and self.default == index:
-                self.imageList.set_text(self.default, 0, "")
-                self.default = None
-            self.ignoreSignals = 0
-            
-        if self.checkLiloReqs():
-            self.ics.setNextEnabled (1)
-        else:
-            self.ics.setNextEnabled (0)
+            if self.passwordWindow() == 2:
+                widget.set_active(0)
+            self.setPassLabel()
 
-
-    def defaultUpdated(self, *args):
-        if self.ignoreSignals: return
-
-        index = self.imageList.selection[0]
-        
-        if range(self.count) > 0:
-            for i in range(self.count):
-                self.imageList.set_pixmap(i, 0, self.checkMark_Off)
-        
-        if self.defaultCheck.get_active():
-            if self.default != None:
-                self.imageList.set_pixmap(self.default, 0, self.checkMark_Off)
-
-            self.imageList.set_pixmap(index, 0, self.checkMark)
-            self.default = index
-        else:
-            self.imageList.set_pixmap(index, 0, self.checkMark_Off)
-            self.default = None
-
-        if self.checkLiloReqs():
-            self.ics.setNextEnabled (1)
-        else:
-            self.ics.setNextEnabled (0)
-        
-
-    def labelSelected(self, *args):
-        index = self.imageList.selection[0]
-        device = self.imageList.get_text(index, 1)
-        type = self.imageList.get_text(index, 2)
-        label = self.imageList.get_text(index, 3)
-
-        self.deviceLabel.set_text(_("Partition") + ": " + device)
-        device = device[5:]
-
-        self.typeLabel.set_text(_("Type") + ":" + type)
-        self.labelEntry.set_text(label)
-        
-        # do not allow blank label to be default
-        if not label:
-            self.defaultCheck.set_active(0)
-            self.defaultCheck.set_sensitive (gtk.FALSE)
-
-        self.ignoreSignals = 1
-        if index == self.default:
-            self.defaultCheck.set_active(1)
-        else:
-            self.defaultCheck.set_active(0)
-        self.ignoreSignals = 0
-
-    def bootloaderchange(self, widget):
-        if self.lilo_radio.get_active():
-            selected = "lilo"
-        elif self.grub_radio.get_active():
-            selected = "grub"
-        elif self.none_radio.get_active():
-            return
-
-        if not self.lastselected or selected == self.lastselected:
-            return
-        self.lastselected = selected
-
-        # swap the label for what it was "last"...  this is conveniently
-        # also the long form if we're switching back to grub or vice versa
-        for index in range(self.numImages):
-            tmp = self.oldLabels[index]
-            self.oldLabels[index] = self.imageList.get_text(index, 3)
-            self.imageList.set_text(index, 3, tmp)
-        self.labelSelected()
+    # callback for when the password button is clicked
+    def passButtonCallback(self, widget, *args):
+        self.passwordWindow()
+        self.setPassLabel()
 
     # LiloWindow tag="lilo"
     def getScreen(self, dispatch, bl, fsset, diskSet):
-        fn = self.ics.findPixmap("checkbox-on.png")
-        if fn:
-            pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
-            self.checkMark = pixbuf.render_pixmap_and_mask()[0]
-        fn = self.ics.findPixmap("checkbox-off.png")
-        if fn:
-            pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
-            self.checkMark_Off = pixbuf.render_pixmap_and_mask()[0]
-
 	self.dispatch = dispatch
 	self.bl = bl
         self.intf = dispatch.intf
 
-	self.rootdev = fsset.getEntryByMountPoint("/").device.getDevice()
+        self.useFb = 0
+        self.fbMode = None
 
-	imageList = bl.images.getImages()
-	defaultDevice = bl.images.getDefault()
-        self.ignoreSignals = 0
+        # find the video mode... this is pretty ugly
+        args = self.bl.args.get()
+        if args and args.find("vga=") != -1:
+            start = args.find("vga=")
+            end = args[start:].find(" ")
+            if end == -1:
+                end = len(args)
+            # grab just the number
+            video = args[start + 4:end]
+            args = args[:start] + args[end:]
 
-        self.radioBox = gtk.Table(2, 6)
-	self.bootDevice = {}
-        self.radioBox.set_border_width (5)
+            # traverse the dictionary looking for the mode
+            for depth in fbModes.keys():
+                for res in fbModes[depth].keys():
+                    if int(video) == int(fbModes[depth][res]):
+                        self.fbMode = (res, depth)
+                        self.useFb = 1
         
-        spacer = gtk.Label("")
-        spacer.set_size_request(10, 1)
-        self.radioBox.attach(spacer, 0, 1, 2, 4, gtk.FALSE)
+        if self.bl.getPassword():
+            self.usePass = 1
+            self.password = self.bl.getPassword()
+        else:
+            self.usePass = 0
+            self.password = None
 
-        label = gtk.Label(_("Install Boot Loader record on:"))
-        label.set_alignment(0.0, 0.5)
-        self.liloLocationBox = gtk.VBox (gtk.FALSE, 0)
-        self.liloLocationBox.pack_start(label)
-        self.radioBox.attach(self.liloLocationBox, 0, 2, 1, 2)
+        # main vbox
+        thebox = gtk.VBox (gtk.FALSE, 10)
 
-	choices = fsset.bootloaderChoices(diskSet)
-	if choices:
-	    radio = None
-	    count = 0
-	    for (device, desc) in choices:
-		radio = gtk.RadioButton(radio,  
-				("/dev/%s %s" % (device, _(desc))))
-		self.radioBox.attach(radio, 1, 2, count + 2, count + 3)
-		self.bootDevice[radio] = device
 
-		if bl.getDevice() == device:
-		    radio.set_active(1)
-
-		count = count + 1
-
-        label = gtk.Label(_("Kernel Parameters") + ":")
-        label.set_alignment(0.0, 0.5)
-        self.appendEntry = gtk.Entry()
-        if bl.args.get():
-            self.appendEntry.set_text(bl.args.get())
-        box = gtk.HBox(gtk.FALSE, 5)
-        box.pack_start(label)
-        box.pack_start(self.appendEntry)
-        alignment = gtk.Alignment()
-        alignment.set(0.0, 0.5, 0, 1.0)
-        alignment.add(box)
-        self.lba = gtk.CheckButton(_("Force use of LBA32 (not normally required)"))
-        self.lba.set_active(self.bl.forceLBA32)
-        vbox = gtk.VBox(gtk.FALSE, 5)
-        vbox.pack_start(alignment)
-        vbox.pack_end(self.lba)
-        self.radioBox.attach(vbox, 0, 2, 5, 6)
-        
-        box = gtk.VBox (gtk.FALSE, 0)
+        # radio buttons for type of boot loader to use
+        self.radio_vbox = gtk.VBox(gtk.FALSE, 2)
+        self.radio_vbox.set_border_width(5)
 
         label = gui.WrappingLabel(_("Please select the boot loader that "
                                     "the computer will use.  GRUB is the "
@@ -350,143 +352,572 @@ class BootloaderWindow (InstallWindow):
                                     "boot loader, select \"Do not install "
                                     "a boot loader.\"  "))
         label.set_alignment(0.0, 0.0)
-        self.editBox = gtk.VBox ()
-        self.imageList = gtk.CList (4, ( _("Default"), _("Device"),
-                                        _("Partition type"), _("Boot label")))
-        self.sw = gtk.ScrolledWindow ()
-
                            
-        self.grub_radio = gtk.RadioButton(None, (_("Use GRUB as the boot loader")))
-        self.lilo_radio = gtk.RadioButton(self.grub_radio, (_("Use LILO as the boot loader")))
-        self.none_radio = gtk.RadioButton(self.grub_radio, (_("Do not install a boot loader")))
+        self.grub_radio = gtk.RadioButton(None, (_("Use _GRUB as the "
+                                                   "boot loader")))
+        self.lilo_radio = gtk.RadioButton(self.grub_radio, (_("Use _LILO as "
+                                                              "the boot loader")))
+        self.none_radio = gtk.RadioButton(self.grub_radio, (_("Do not "
+                                                              "install a "
+                                                              "boot loader")))
 
 
-        self.lilo_radio.connect("toggled", self.bootloaderchange)
-        self.grub_radio.connect("toggled", self.bootloaderchange)
-        self.none_radio.connect("toggled", self.toggled)
-
- 	if not dispatch.stepInSkipList("instbootloader"):
- 	    self.none_radio.set_active (gtk.FALSE)
- 	else:
-             self.none_radio.set_active (gtk.TRUE)
-             self.toggled (self.none_radio)
-
-             for n in (self.appendEntry, self.editBox, 
-                       self.imageList, self.liloLocationBox, self.radioBox ):
-                 n.set_sensitive (gtk.FALSE)
-
-        self.lastselected = None
-
-        self.radio_vbox = gtk.VBox(gtk.FALSE, 2)
-        self.radio_vbox.set_border_width(5)
         self.radio_vbox.pack_start(label, gtk.FALSE)
         self.radio_vbox.pack_start(self.grub_radio, gtk.FALSE)
         self.radio_vbox.pack_start(self.lilo_radio, gtk.FALSE)
         self.radio_vbox.pack_start(self.none_radio, gtk.FALSE)
-        
-        box.pack_start(self.radio_vbox, gtk.FALSE)
 
-        box.pack_start (gtk.HSeparator (), gtk.FALSE)
-        box.pack_start (self.radioBox, gtk.FALSE)
-        
-        sortedKeys = imageList.keys()
-        sortedKeys.sort()
-        self.numImages = len(sortedKeys)
-
-        if not bl.useGrub():
-            self.lilo_radio.set_active(1)
-            self.lastselected = "lilo"
+        # XXX this is kind of ugly
+        if dispatch.stepInSkipList("instbootloader"):
+            self.none_radio.set_active(gtk.TRUE)
+        elif not bl.useGrub():
+            self.lilo_radio.set_active(gtk.TRUE)
         else:
-            self.grub_radio.set_active(1)
-            self.lastselected = "grub"
-                
-        self.default = None
-        self.count = 0
-        self.types = []
-        self.oldLabels = []
-        for n in sortedKeys:
-            (label, longlabel, type) = imageList[n]
-            self.types.append(type)
-            if label == None:
-                label = ""
-            if longlabel == None:
-                longlabel = ""
-            if self.lastselected == "lilo":
-                row = ("", "/dev/" + n, self.typeName(type), label)
-                self.oldLabels.append(longlabel)
-            else:
-                row = ("", "/dev/" + n, self.typeName(type), longlabel)
-                self.oldLabels.append(label)
-            self.imageList.append(row)
+            self.grub_radio.set_active(gtk.TRUE)
 
-            if (n == defaultDevice):
-                self.default = self.count
-                self.imageList.set_pixmap(self.count, 0, self.checkMark)
-            else:
-                self.imageList.set_pixmap(self.count, 0, self.checkMark_Off)
-            self.count = self.count + 1
+        self.grub_radio.connect("toggled", self.bootloaderChanged)
+        self.lilo_radio.connect("toggled", self.bootloaderChanged)
+        self.none_radio.connect("toggled", self.bootloaderChanged)
+        thebox.pack_start(self.radio_vbox, gtk.FALSE)
 
-        self.imageList.columns_autosize ()
-        self.imageList.column_title_passive (1)
-        self.imageList.set_border_width (5)
+        thebox.pack_start (gtk.HSeparator(), gtk.FALSE)
 
-        self.deviceLabel = gtk.Label(_("Partition") + ":")
-        self.typeLabel = gtk.Label(_("Type") + ":")
+        # kernel parameters: append, fb, password, lba32
+        self.options_vbox = gtk.VBox(gtk.FALSE, 5)
+        spacer = gtk.Label("")
+        spacer.set_size_request(10, 1)
+        self.options_vbox.pack_start(spacer, gtk.FALSE)
+        
+        label = gui.WrappingLabel(_("The following affect options passed to "
+                                    "the kernel on boot.  FIXME."
+                                    "Obviously there needs to be more explanatory text here and throughout and better spacing"))
+        label.set_alignment(0.0, 0.5)
+        self.options_vbox.pack_start(label, gtk.FALSE)
 
-        tempBox = gtk.HBox(gtk.TRUE)
-        self.deviceLabel.set_alignment(0.0, 0.0)
-        self.typeLabel.set_alignment(0.0, 0.0)
-        tempBox.pack_start(self.deviceLabel, gtk.FALSE)
-        tempBox.pack_start(self.typeLabel, gtk.FALSE)
-        self.defaultCheck = gtk.CheckButton(_("Default boot image"))
-
-        # Alliteration!
-        self.labelLabel = gtk.Label(_("Boot label") + ":")
-        self.labelEntry = gtk.Entry(15)
-
-        self.imageList.connect("select_row", self.labelSelected)
-        self.defaultCheck.connect("toggled", self.defaultUpdated)
-        self.labelEntry.connect("changed", self.labelUpdated)
-        self.labelEntry.connect("insert_text", self.labelInsertText)
-
-        tempBox2 = gtk.HBox(gtk.FALSE, 5)
-        self.labelLabel.set_alignment(0.0, 0.5)
-        tempBox2.pack_start(self.labelLabel, gtk.FALSE)
-        tempBox2.pack_start(self.labelEntry, gtk.FALSE)
-
-        self.editBox.pack_start (tempBox, gtk.FALSE)
-        self.editBox.pack_start (self.defaultCheck, gtk.FALSE)
-        self.editBox.pack_start (tempBox2, gtk.FALSE)
-        self.editBox.set_border_width (5)
-
-        box.pack_start (gtk.HSeparator (), gtk.FALSE)
-        box.pack_start (self.editBox, gtk.FALSE)
-
-        self.imageList.set_selection_mode (gtk.SELECTION_BROWSE)
-
-        self.sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.sw.add (self.imageList)
-        box.pack_start (self.sw, gtk.TRUE)
-
-	if not dispatch.stepInSkipList("instbootloader"):
-            self.editBox.set_sensitive(gtk.TRUE)
-            tempBox2.set_sensitive(gtk.TRUE)
-            self.radioBox.set_sensitive(gtk.TRUE)
-            self.sw.set_sensitive(gtk.TRUE)
+        # framebuffer mode widgets + callbacks
+        self.useFbcb = gtk.CheckButton(_("Use Framebuffer Mode"))
+        self.fbButton = gtk.Button()
+        if self.useFb:
+            self.useFbcb.set_active(gtk.TRUE)
+            self.fbButton.set_sensitive(gtk.TRUE)
         else:
-            self.editBox.set_sensitive(gtk.FALSE)
-            self.radioBox.set_sensitive(gtk.FALSE)
-            self.sw.set_sensitive(gtk.FALSE)
+            self.useFbcb.set_active(gtk.FALSE)
+            self.fbButton.set_sensitive(gtk.FALSE)
+        self.useFbcb.connect("toggled", self.fbCallback)
+        self.fbButton.connect("clicked", self.fbButtonCallback)
+        self.setFbModeLabel()
+        
+        box = gtk.HBox(gtk.FALSE, 5)
+        box.pack_start(self.useFbcb)
+        box.pack_start(self.fbButton)
+        self.options_vbox.pack_start(box, gtk.FALSE)
+
+        # password widgets + callback
+        self.usePassCb = gtk.CheckButton(_("Use a Boot Loader Password"))
+        self.passButton = gtk.Button(_("Set Password"))
+        if self.usePass:
+            self.usePassCb.set_active(gtk.TRUE)
+            self.passButton.set_sensitive(gtk.TRUE)
+        else:
+            self.usePassCb.set_active(gtk.FALSE)
+            self.passButton.set_sensitive(gtk.FALSE)
+        self.usePassCb.connect("toggled", self.passCallback)
+        self.passButton.connect("clicked", self.passButtonCallback)
             
-        self.ignoreSignals = 0
+        box = gtk.HBox(gtk.FALSE, 5)
+        box.pack_start(self.usePassCb)
+        box.pack_start(self.passButton)
+        self.options_vbox.pack_start(box, gtk.FALSE)
 
-        return box
+        self.forceLBA = gtk.CheckButton(_("Force LBA32"))
+        self.options_vbox.pack_start(self.forceLBA, gtk.FALSE)
+        self.forceLBA.set_active(self.bl.forceLBA32)
+
+        label = gtk.Label(_("General kernel parameters"))
+        self.appendEntry = gtk.Entry()
+        if args:
+            self.appendEntry.set_text(args)
+        box = gtk.HBox(gtk.FALSE, 5)
+        box.pack_start(label)
+        box.pack_start(self.appendEntry)
+        self.options_vbox.pack_start(box, gtk.FALSE)
+        if self.none_radio.get_active():
+            self.options_vbox.set_sensitive(gtk.FALSE)
+            
+        alignment = gtk.Alignment()
+        alignment.set(0.1, 0.5, 0, 1.0)
+        alignment.add(self.options_vbox)
+
+        thebox.pack_start(alignment, gtk.FALSE)
+        
+        return thebox
 
 
+class AdvancedBootloaderWindow (InstallWindow):
+    windowTitle = N_("Boot Loader Configuration")
+    htmlTag = "bootloader"
+
+    def __init__(self, ics):
+        InstallWindow.__init__(self, ics)
+        self.parent = ics.getICW().window
+        
+
+    def getPrev(self):
+        pass
 
 
+    def getNext(self):
+        # make a copy of our image list to shove into the bl struct
+        self.bl.images.images = {}
+        for key in self.imagelist.keys():
+            self.bl.images.images[key] = self.imagelist[key]
+        self.bl.images.setDefault(self.defaultDev)
+
+        for key in self.bootDevices.keys():
+            if self.bootDevices[key][0].get_active():
+#                print "setting device to %s" % (self.bootDevices[key][1],)
+                self.bl.setDevice(self.bootDevices[key][1])
+
+        self.bl.drivelist = self.driveOrder
+                
+
+    # adds/edits a new "other" os to the boot loader config
+    def editOther(self, oldDevice, oldLabel, isDefault, isRoot = 0):
+        dialog = gtk.Dialog(_("Image"), self.parent)
+        dialog.add_button('gtk-ok', 1)
+        dialog.add_button('gtk-cancel', 2)
+        dialog.set_position(gtk.WIN_POS_CENTER)
+
+        dialog.vbox.pack_start(gui.WrappingLabel(
+            _("The label is what is displayed in the boot loader to "
+              "choose to boot this operating system.  The device "
+              "is the device which it boots from.")))
+
+        spacer = gtk.Label("")
+        spacer.set_size_request(10, 1)
+        dialog.vbox.pack_start(spacer, gtk.FALSE)
+
+        table = gtk.Table(2, 5)
+        table.set_row_spacings(5)
+        table.set_col_spacings(5)
+
+        table.attach(gtk.Label(_("Label")), 0, 1, 1, 2, gtk.FILL, 0, 10)
+        labelEntry = gtk.Entry(16)
+        table.attach(labelEntry, 1, 2, 1, 2, gtk.FILL, 0, 10)
+        if oldLabel:
+            labelEntry.set_text(oldLabel)
+
+        table.attach(gtk.Label(_("Device")), 0, 1, 2, 3, gtk.FILL, 0, 10)
+        if not isRoot:
+            # XXX switch to a combo of the partitions on the system
+            deviceEntry = gtk.Entry(16)
+            table.attach(deviceEntry, 1, 2, 2, 3, gtk.FILL, 0, 10)
+            if oldDevice:
+                deviceEntry.set_text(oldDevice)
+        else:
+            table.attach(gtk.Label(oldDevice), 1, 2, 2, 3, gtk.FILL, 0, 10)
+
+        default = gtk.CheckButton(_("Default Boot Target"))
+        table.attach(default, 0, 2, 3, 4, gtk.FILL, 0, 10)
+        if isDefault != 0:
+            default.set_active(gtk.TRUE)
+        
+        dialog.vbox.pack_start(table)
+        dialog.show_all()
+
+        while 1:
+            rc = dialog.run()
+
+            # cancel
+            if rc == 2:
+                break
+
+            label = labelEntry.get_text()
+
+            if not isRoot:
+                dev = deviceEntry.get_text()
+            else:
+                dev = oldDevice
+
+            if not label:
+                self.intf.messageWindow(_("Error"),
+                                        _("You must specify a label for the "
+                                          "entry"),
+                                        type="warning")
+                continue
+
+            foundBad = 0
+            for char in self.illegalChars:
+                if char in label:
+                    self.intf.messageWindow(_("Error"),
+                                            _("Boot label contains illegal "
+                                              "characters"),
+                                            type="warning")
+                    foundBad = 1
+                    break
+            if foundBad:
+                continue
+
+            # verify that the label hasn't been used
+            foundBad = 0
+            for key in self.imagelist.keys():
+                if dev == key:
+                    continue
+                if self.bl.useGrub():
+                    thisLabel = self.imagelist[key][1]
+                else:
+                    thisLabel = self.imagelist[key][0]
+
+                if thisLabel == label:
+                    self.intf.messageWindow(_("Duplicate Label"),
+                                            _("This label is already in "
+                                              "use for another boot entry."),
+                                            type="warning")
+                    foundBad = 1
+                    break
+            if foundBad:
+                continue
+
+            # XXX need to do some sort of validation of the device?
+
+            # they could be duplicating a device, which we don't handle
+            if dev in self.imagelist.keys() and (not oldDevice or
+                                                 dev != oldDevice):
+                self.intf.messageWindow(_("Duplicate Device"),
+                                        _("This device is already being "
+                                          "used for another boot entry."),
+                                        type="warning")
+                continue
+
+            # if we're editing and the device has changed, delete the old
+            if oldDevice and dev != oldDevice:
+                del self.imagelist[oldDevice]
+                
+
+            # go ahead and add it
+            if self.bl.useGrub():
+                self.imagelist[dev] = (None, label, isRoot)
+            else:
+                self.imagelist[dev] = (label, None, isRoot)
+
+            if default.get_active():
+                self.defaultDev = dev
+
+            # refill the os list store
+            self.fillOSList()
+            break
+        
+        dialog.destroy()
+
+    def getSelected(self):
+        selection = self.osTreeView.get_selection()
+        rc = selection.get_selected()
+        if not rc:
+            return None
+        model, iter = rc
+
+        dev = model.get_value(iter, 2)
+        theDev = dev[5:] # strip /dev/
+        
+        label = model.get_value(iter, 1)
+        isRoot = model.get_value(iter, 3)
+        isDefault = model.get_value(iter, 0)
+        return (theDev, label, isDefault, isRoot)
 
 
+    def addEntry(self, widget, *args):
+        self.editOther(None, None, 0)
+
+    def deleteEntry(self, widget, *args):
+        rc = self.getSelected()
+        if not rc:
+            return
+        (dev, label, isDefault, isRoot) = rc
+        if not isRoot:
+            del self.imagelist[dev]
+            self.fillOSList()
+        else:
+            self.intf.messageWindow(_("Cannot Delete"),
+                                    _("You cannot remove the system being "
+                                      "installed from the bootloader "
+                                      "options."),
+                                      type="warning")
+
+    def editEntry(self, widget, *args):
+        rc = self.getSelected()
+        if not rc:
+            return
+        (dev, label, isDefault, isRoot) = rc
+        self.editOther(dev, label, isDefault, isRoot)
+
+    # the default os was changed in the treeview
+    def toggledDefault(self, widget, *args):
+        if widget.get_active():
+            return
+
+        rc = self.getSelected()
+        if not rc:
+            return
+        self.defaultDev = rc[0]
+        self.fillOSList()
+
+    # fill in the os list tree view
+    def fillOSList(self):
+        self.osStore.clear()
+        
+        keys = self.imagelist.keys()
+        keys.sort()
+        for dev in keys:
+            (label, longlabel, isRoot) = self.imagelist[dev]
+            if self.bl.useGrub():
+                theLabel = longlabel
+            else:
+                theLabel = label
+
+            # if the label is empty, remove from the image list and don't
+            # worry about it
+            if not theLabel:
+                del self.imagelist[dev]
+                continue
+
+            iter = self.osStore.append()
+            self.osStore.set_value(iter, 1, theLabel)
+            self.osStore.set_value(iter, 2, "/dev/%s" % (dev,))
+            self.osStore.set_value(iter, 3, isRoot)
+            if self.defaultDev == dev:
+                self.osStore.set_value(iter, 0, gtk.TRUE)
+            else:
+                self.osStore.set_value(iter, 0, gtk.FALSE)
+
+    def arrowClicked(self, widget, direction, *args):
+        selection = self.driveOrderView.get_selection()
+        rc = selection.get_selected()
+        if not rc:
+            return
+        model, iter = rc
+
+        # there has got to be a better way to do this =\
+        drive = model.get_value(iter, 0)[5:]
+        index = self.driveOrder.index(drive)
+        if direction == gtk.ARROW_DOWN:
+            self.driveOrder.remove(drive)
+            self.driveOrder.insert(index + 1, drive)
+        elif direction == gtk.ARROW_UP:
+            self.driveOrder.remove(drive)
+            self.driveOrder.insert(index - 1, drive)
+        self.makeDriveOrderStore()
+        
+        self.setMbrLabel(self.driveOrder[0])
 
 
+    # make the store for the drive order
+    def makeDriveOrderStore(self):
+        self.driveOrderStore.clear()
+        iter = self.driveOrderStore.append()
+        for drive in self.driveOrder:
+            self.driveOrderStore.set_value(iter, 0, "/dev/%s" % (drive,))
+            iter = self.driveOrderStore.append()
 
+    # set the label on the mbr radio button to show the right device.
+    # kind of a hack
+    def setMbrLabel(self, firstDrive):
+        if not self.bootDevices.has_key("mbr"):
+            return
+
+        (radio, olddev, desc) = self.bootDevices["mbr"]
+        radio.set_label("/dev/%s %s" % (firstDrive, _(desc)))
+        self.bootDevices["mbr"] = (radio, firstDrive, desc)
+
+        
+    # LiloWindow tag="lilo"
+    def getScreen(self, dispatch, bl, fsset, diskSet):
+	self.dispatch = dispatch
+	self.bl = bl
+        self.intf = dispatch.intf
+
+        # illegal characters for boot loader labels
+        if self.bl.useGrub():
+            self.illegalChars = [ "$", "=" ]
+        else:
+            self.illegalChars = [ "$", "=", " " ]
+
+        # main vbox
+        thebox = gtk.VBox (gtk.FALSE, 10)
+
+        vbox = gtk.VBox(gtk.FALSE, 5)
+        label = gui.WrappingLabel(_("Insert some text about booting other operating systems"))
+        vbox.pack_start(label, gtk.FALSE)
+
+        spacer = gtk.Label("")
+        spacer.set_size_request(10, 1)
+        vbox.pack_start(spacer, gtk.FALSE)
+
+        box = gtk.HBox (gtk.FALSE, 5)
+        sw = gtk.ScrolledWindow()
+        sw.set_shadow_type(gtk.SHADOW_ETCHED_IN)
+        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        sw.set_size_request(300, 100)
+        box.pack_start(sw, gtk.TRUE)
+
+
+        self.osStore = gtk.ListStore(gobject.TYPE_BOOLEAN, gobject.TYPE_STRING,
+                                     gobject.TYPE_STRING, gobject.TYPE_BOOLEAN)
+        self.osTreeView = gtk.TreeView(self.osStore)
+        theColumns = [ "Default", "Label", "Device" ]
+
+        self.checkboxrenderer = gtk.CellRendererToggle()
+        column = gtk.TreeViewColumn(theColumns[0], self.checkboxrenderer,
+                                    active = 0)
+        column.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+        self.checkboxrenderer.connect("toggled", self.toggledDefault)
+        self.osTreeView.append_column(column)
+
+        for columnTitle in theColumns[1:]:
+            renderer = gtk.CellRendererText()
+            column = gtk.TreeViewColumn(columnTitle, renderer,
+                                        text = theColumns.index(columnTitle))
+            column.set_clickable(gtk.FALSE)
+            self.osTreeView.append_column(column)
+
+        self.osTreeView.set_headers_visible(gtk.TRUE)
+        self.osTreeView.columns_autosize()
+        self.osTreeView.set_size_request(100, 100)
+        sw.add(self.osTreeView)
+
+        self.imagelist = self.bl.images.getImages()
+        self.defaultDev = self.bl.images.getDefault()
+
+        # XXX debug spew, remove me
+##         if len(self.imagelist.keys()) <= 1:
+##             self.imagelist = { 'hda2': ('linux', 'Red Hat Linux', 1),
+##                           'hda1': ('windows', 'Windows', 0) }
+##             self.defaultDev = 'hda1'
+
+        self.fillOSList()
+
+        buttonbar = gtk.VButtonBox()
+        buttonbar.set_layout(gtk.BUTTONBOX_START)
+        buttonbar.set_border_width(5)
+        add = gtk.Button(_("_Add"))
+        buttonbar.pack_start(add, gtk.FALSE)
+        add.connect("clicked", self.addEntry)
+
+        edit = gtk.Button(_("_Edit"))
+        buttonbar.pack_start(edit, gtk.FALSE)
+        edit.connect("clicked", self.editEntry)
+
+        delete = gtk.Button(_("_Delete"))
+        buttonbar.pack_start(delete, gtk.FALSE)
+        delete.connect("clicked", self.deleteEntry)
+        box.pack_start(buttonbar, gtk.FALSE)
+
+        vbox.pack_start(box, gtk.FALSE)
+
+        alignment = gtk.Alignment()
+        alignment.set(0.1, 0, 0, 0)
+        alignment.add(vbox)
+        thebox.pack_start(alignment, gtk.FALSE)
+
+        thebox.pack_start (gtk.HSeparator(), gtk.FALSE)
+
+        label = gtk.Label(_("Install Boot Loader record on:"))
+        label.set_alignment(0.0, 0.5)
+        locationBox = gtk.VBox (gtk.FALSE, 2)
+        locationBox.pack_start(label)
+
+        spacer = gtk.Label("")
+        spacer.set_size_request(10, 1)
+        locationBox.pack_start(spacer, gtk.FALSE)
+
+        # XXX switch over to real and not debug crap
+#        choices = { 'mbr': ("hda", "MBR"), 'boot': ("hda2", "/boot") }
+        choices = fsset.bootloaderChoices(diskSet)
+        self.bootDevices = {}
+        
+	if choices:
+	    radio = None
+            keys = choices.keys()
+            keys.reverse()
+            for key in keys:
+                (device, desc) = choices[key]
+		radio = gtk.RadioButton(radio,  
+				("/dev/%s %s" % (device, _(desc))))
+                locationBox.pack_start(radio, gtk.FALSE)
+                self.bootDevices[key] = (radio, device, desc)
+
+                if self.bl.getDevice() == device:
+                    radio.set_active(gtk.TRUE)
+                else:
+                    radio.set_active(gtk.FALSE)
+
+        alignment = gtk.Alignment()
+        alignment.set(0.1, 0, 0, 0)
+        alignment.add(locationBox)
+        thebox.pack_start(alignment, gtk.FALSE)
+
+        if not self.bl.useGrub():
+            return thebox
+        
+        thebox.pack_start (gtk.HSeparator(), gtk.FALSE)
+
+        drivebox = gtk.VBox(gtk.FALSE, 5)
+        label = gui.WrappingLabel(_("Blah, this is the BIOS drive order, more information, etc"))
+        drivebox.pack_start(label, gtk.FALSE)
+
+        hbox = gtk.HBox(gtk.FALSE, 5)
+
+        # different widget for this maybe?
+        self.driveOrderStore = gtk.ListStore(gobject.TYPE_STRING)
+        sw = gtk.ScrolledWindow()
+        sw.set_shadow_type(gtk.SHADOW_ETCHED_IN)
+        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        
+        self.driveOrderView = gtk.TreeView(self.driveOrderStore)
+        renderer = gtk.CellRendererText()
+        column = gtk.TreeViewColumn('Text', renderer, text = 0)
+        column.set_clickable(gtk.FALSE)
+        self.driveOrderView.append_column(column)
+        self.driveOrderView.set_rules_hint(gtk.FALSE)
+        self.driveOrderView.set_headers_visible(gtk.FALSE)
+        self.driveOrderView.set_enable_search(gtk.FALSE)
+
+        # XXX more debug fun
+#        self.driveOrder = ["hda", "hdb"]
+        self.driveOrder = self.bl.drivelist
+        self.makeDriveOrderStore()
+
+        sw.add(self.driveOrderView)
+        sw.set_size_request(100, 100)
+        hbox.pack_start(sw, gtk.FALSE)
+
+        arrowbox = gtk.VBox(gtk.FALSE, 5)
+        arrowButton = gtk.Button()
+        arrow = gtk.Arrow(gtk.ARROW_UP, gtk.SHADOW_ETCHED_IN)
+        arrowButton.add(arrow)
+        arrowButton.connect("clicked", self.arrowClicked, gtk.ARROW_UP)
+        arrowbox.pack_start(arrowButton, gtk.FALSE)
+        
+        spacer = gtk.Label("")
+        spacer.set_size_request(10, 1)
+        arrowbox.pack_start(spacer, gtk.FALSE)
+
+        arrowButton = gtk.Button()
+        arrow = gtk.Arrow(gtk.ARROW_DOWN, gtk.SHADOW_ETCHED_IN)
+        arrowButton.add(arrow)
+        arrowButton.connect("clicked", self.arrowClicked, gtk.ARROW_DOWN)
+        arrowbox.pack_start(arrowButton, gtk.FALSE)
+
+        alignment = gtk.Alignment()
+        alignment.set(0, 0.5, 0, 0)
+        alignment.add(arrowbox)
+        hbox.pack_start(alignment, gtk.FALSE)
+
+        drivebox.pack_start(hbox, gtk.FALSE)
+        alignment = gtk.Alignment()
+        alignment.set(0.1, 0, 0, 0)
+        alignment.add(drivebox)
+        thebox.pack_start(alignment, gtk.FALSE)
+
+        self.setMbrLabel(self.driveOrder[0])
+
+        return thebox
