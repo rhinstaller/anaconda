@@ -600,8 +600,8 @@ int nfsmount(const char *spec, const char *node, int *flags,
  				       mountport);
 
 			if (pm_mnt == NULL) {
-			  fprintf(stderr, "mount: cannot access portmapper on %s: %s\n",
-				  hostname, strerror (errno));
+			    /*			  fprintf(stderr, "mount: cannot access portmapper on %s: %s\n",
+						  hostname, strerror (errno));*/
 			  goto fail;
 			}
 
