@@ -657,7 +657,7 @@ int main(void) {
 	    close(fd);
 	}
 	
-	*argvp++ = "/bin/loader";
+	*argvp++ = "/sbin/loader";
 
 	if (isExpert) *argvp++ = "--expert";
 	if (forceSupp) *argvp++ = "--forcesupp";
