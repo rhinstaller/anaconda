@@ -366,7 +366,8 @@ makeproductfile() {
 
 setupShellEnvironment() {
     # setup password/group entries
-    cat >> $MBD_DIR/etc/passwd << EOF
+    cat > $MBD_DIR/etc/passwd << EOF
+root::0:0::/:/sbin/loader
 debug::0:0:debug shell:/:/bin/bash
 sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
 EOF
