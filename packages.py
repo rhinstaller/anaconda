@@ -220,7 +220,9 @@ class InstallCallback:
 
 	    self.progress.setPackage(h)
 	    self.progress.setPackageScale(0, 1)
-	    self.instLog.write (self.modeText % (h[rpm.RPMTAG_NAME],))
+	    self.instLog.write (self.modeText % (h[rpm.RPMTAG_NAME],
+                                                 h[rpm.RPMTAG_VERSION],
+                                                 h[rpm.RPMTAG_RELEASE]))
 	    self.instLog.flush ()
 	    fn = self.method.getFilename(h, self.pkgTimer)
 
@@ -525,9 +527,9 @@ def doInstall(method, id, intf, instPath):
     # dup'd when we go out of scope
 
     if upgrade:
-	modeText = _("Upgrading %s.\n")
+	modeText = _("Upgrading %s-%s-%s.\n")
     else:
-	modeText = _("Installing %s.\n")
+	modeText = _("Installing %s-%s-%s.\n")
 
     errors = rpmErrorClass(instLog)
     oldError = rpm.errorSetCallback (errors.cb)
