@@ -28,6 +28,7 @@ from flags import flags
 from fsset import *
 from partitioning import *
 from constants import *
+from installmethod import FileCopyException
 
 from rhpl.log import log
 from rhpl.translate import _
