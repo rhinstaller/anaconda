@@ -297,18 +297,6 @@ patch -p0 <<EOF
 
 EOF
 
-# Don't ask for which OS is this kludge
-cd $DESTGR/usr/lib/python1.5/site-packages
-patch <<EOF
---- gtk.py	Tue Oct 12 12:00:57 1999
-+++ gtk.py	Tue Oct 12 12:01:12 1999
-@@ -19 +19 @@
--from GTK import *
-+from GtkConst import *
-EOF
-mv -f GTK.py GtkConst.py
-rm -f GTK.pyc GTK.pyo
-
 pythondeps $DEST
 
 for p in $DEST $DESTGR; do
