@@ -727,6 +727,19 @@ class KickstartBase(BaseInstallClass):
             
         self.setClearParts(id, type, drives, initAll = initAll)
 
+    # this adds a partition to the autopartition list replacing anything
+    # else with this mountpoint so that you can use autopart and override /
+    def addPartRequest(self, partitions, request):
+        if not request.mountpoint:
+            partitions.autoPartitionRequests.append(request)
+            return
+
+        for req in partitions.autoPartitionRequests:
+            if req.mountpoint and req.mountpoint == request.mountpoint:
+                partitions.autoPartitionRequests.remove(req)
+                break
+        partitions.autoPartitionRequests.append(request)            
+
     def doAutoPart(self, id, args):
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
@@ -829,7 +842,7 @@ class KickstartBase(BaseInstallClass):
 							grow = grow,
 							maxSizeMB=maxSizeMB,
                                                         preexist = preexist)
-        id.partitions.autoPartitionRequests.append(request)        
+        self.addPartRequest(id.partitions, request)
                                                         
 
     def defineVolumeGroup(self, id, args):
@@ -866,7 +879,7 @@ class KickstartBase(BaseInstallClass):
                                                       preexist = preexist,
                                                       format = format)
         request.uniqueID = uniqueID
-        id.partitions.autoPartitionRequests.append(request)
+        self.addPartRequest(id.partitions, request)
 
     def defineRaid(self, id, args):
 	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=',
@@ -957,8 +970,8 @@ class KickstartBase(BaseInstallClass):
         
         if uniqueID:
             request.uniqueID = uniqueID
-            
-        id.partitions.autoPartitionRequests.append(request)
+
+        self.addPartRequest(id.partitions, request)
 
 
     def definePartition(self, id, args):
@@ -1108,7 +1121,7 @@ class KickstartBase(BaseInstallClass):
         if onPart:
             request.device = onPart
 
-        id.partitions.autoPartitionRequests.append(request)
+        self.addPartRequest(id.partitions, request)
         id.partitions.isKickstart = 1
 
         self.skipSteps.append("partition")
