@@ -106,7 +106,7 @@ mkdir -p $DESTGR
 PACKAGES="glibc setup python newt libtermcap zlib ash
 	 e2fsprogs util-linux raidtools locale-ja popt mount procps
 	 rpm XFree86 Xconfigurator anaconda anaconda-runtime
-	 kudzu-devel kudzu db1 db2 db3 rpm-python syslinux"
+	 kudzu-devel kudzu db1 db2 db3 rpm-python syslinux bzip2"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
@@ -161,6 +161,7 @@ lib/libdb1*
 usr/lib/libdb.so.2
 usr/lib/libdb.so.3
 usr/lib/libdb1*
+usr/lib/libbz2*
 lib/libdb-*
 lib/libnsl*
 lib/libnss_files*
