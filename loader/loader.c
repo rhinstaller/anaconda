@@ -3050,7 +3050,13 @@ static int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     if (FL_TESTING(flags)) return 0;
 
+    logMessage("probing for firewire scsi devices");
     devices = probeDevices(CLASS_SCSI, BUS_FIREWIRE, PROBE_ALL);
+
+    if (!devices) {
+	logMessage("no firewire scsi devices found");
+	return 0;
+    }
 
     for (i=0;devices[i];i++) {
 	if ((devices[i]->detached == 0) && (devices[i]->driver != NULL)) {
