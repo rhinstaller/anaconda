@@ -86,11 +86,12 @@ class UsersWindow:
             
             if rc == "cancel":
                 return INSTALL_BACK
+            
 	    if not len(pass1.value()) and not len(pass2.value()) and \
 	       not len(userid.value()) and not len(fullname.value()):
                 return INSTALL_OK
 
-            if (not iutil.validUser(userid.value())):
+            if (not len(userid.value()) or not iutil.validUser(userid.value())):
 		ButtonChoiceWindow(self.screen, _("Bad User ID"),
                                    _("User IDs must be less than 8 "
                                      "characters and contain only characters "
