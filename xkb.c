@@ -219,11 +219,11 @@ int main (int argc, char **argv)
 /*      } */
 
   dpy = XkbOpenDisplay (NULL, &event, &error, &major, &minor, &reason);
-  assert (dpy);
+  assert (dpy != NULL);
 
   max = MAX_COMPONENTS;
   comps = XkbListComponents (dpy, XkbUseCoreKbd, &ptrns, &max);
-  assert (comps);
+  assert (comps != NULL);
 /*    for (i = 0; i < comps->num_geometry; i++) */
 /*    { */
 /*      printf ("%s\n", comps->geometry[i].name); */
