@@ -251,6 +251,10 @@ class InstallCallback:
 		    try:
 			(h, isSource) = rpm.headerFromPackage(self.rpmFD)
 			os.lseek(self.rpmFD, 0, 0)
+                        
+                        # if we don't have a valid package, throw an error
+                        if not h:
+                            raise SystemError
 		    except:
 			self.rpmFD = -1
 			os.close(self.rpmFD)
