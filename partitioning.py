@@ -518,6 +518,18 @@ class PartitionRequests:
 
         return retval
 
+    def isRaidMember(self, request):
+        raiddev = self.getRaidRequests()
+        if not raiddev or not request.device:
+            return 0
+        for dev in raiddev:
+            if not dev.raidmembers:
+                continue
+            for member in dev.raidmembers:
+                if request.device == get_partition_name(member.partition):
+                    return 1
+        return 0
+
     # return name of boot mount point in current requests
     def getBootableRequest(self):
         bootreq = self.getRequestByMountPoint("/boot")
