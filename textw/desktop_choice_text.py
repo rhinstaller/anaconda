@@ -17,7 +17,7 @@ from rhpl.translate import _
 from constants import productName
 
 class DesktopChoiceWindow:
-    def __call__(self, screen, intf, instclass, dispatch):
+    def __call__(self, screen, intf, instclass, dispatch, grpset):
 
 	bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 	
@@ -48,6 +48,8 @@ class DesktopChoiceWindow:
 	    dispatch.skipStep("package-selection", skip = 0)
 	else:
 	    dispatch.skipStep("package-selection")
+            instclass.setGroupSelection(grpset, intf)
+            instclass.setPackageSelection(grpset.hdrlist, intf)
 	    
 	screen.popWindow()
 				 

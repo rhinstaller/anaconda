@@ -1,5 +1,11 @@
 2005-01-10  Jeremy Katz  <katzj@redhat.com>
 
+	* dispatch.py (installSteps): Pass new arg to desktopchoice
+
+	* iw/desktop_choice_gui.py (DesktopChoiceWindow.getNext): Reset
+	package selection to defaults if selected (#142415)
+	* textw/desktop_choice_text.py (DesktopChoiceWindow): Likewise.
+
 	* installclass.py (BaseInstallClass.setSteps): Allow install
 	classes to turn off showing upgrade as an option (only really
 	applicable if you only have one install class)

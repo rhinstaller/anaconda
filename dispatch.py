@@ -106,7 +106,7 @@ installSteps = [
     ("accounts", ("intf", "id.rootPassword")),
     ("authentication", ("id.auth",)),
     ("readcomps", readPackages, ("intf", "method", "id")),
-    ("desktopchoice", ("intf", "id.instClass", "dispatch")),
+    ("desktopchoice", ("intf", "id.instClass", "dispatch", "id.grpset")),
     ("findpackages", upgradeFindPackages, ("intf", "method", "id",
                                            "instPath", "dir")),
     ("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.langSupport")),    
