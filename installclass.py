@@ -53,7 +53,8 @@ class BaseInstallClass:
                       initAll = 0):
 	id.partitions.autoClearPartType = clear
         id.partitions.autoClearPartDrives = drives
-        id.partitions.reinitializeDisks = initAll
+        if initAll:
+            id.partitions.reinitializeDisks = initAll
         # XXX hack for install help text in GUI mode
         if clear == CLEARPART_TYPE_LINUX:
             self.clearType = "wkst"
