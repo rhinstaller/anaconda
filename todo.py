@@ -375,9 +375,11 @@ class ToDo:
         self.lilostate = ""
         self.videoCardOriginalName = ""
         self.videoCardOriginalNode = ""
-        self.videoCardState = ""
+        self.videoCardStateName = ""
         self.videoCardStateNode = ""
         self.videoRamState = ""
+        self.monitorOriginalName = ""
+        self.monitorOriginalNode = ""
         
 
         # If reconfig mode, don't probe floppy
