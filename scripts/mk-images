@@ -674,7 +674,7 @@ makemainimage () {
     umount $mmi_mntpoint
     
     if [ "$BUILDARCH" = "ia64" ]; then
-        ln -s $mmi_tmpimage $INSTIMGPATH/${imagename}.img
+        ln -snf $mmi_tmpimage $INSTIMGPATH/${imagename}.img
     else
 	cp $mmi_tmpimage $INSTIMGPATH/${imagename}.img
     fi
