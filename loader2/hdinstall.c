@@ -213,7 +213,8 @@ static int loadHDImages(char * prefix, char * dir, int flags,
 
 /* mount loopback  second stage image for hard drive install */
 static int mountHDImages(char * prefix, char * dir, int flags, 
-			   char * device, char * mntpoint) {
+			 char * device, char * mntpoint,
+			 int checkstamp) {
     int idx, rc;
     char * path, *target;
     char *stg2list[] = {"stage2.img", "hdstg2.img", NULL};
@@ -245,6 +246,21 @@ static int mountHDImages(char * prefix, char * dir, int flags,
 	logMessage("Unable to mount hdstage2 loopback");
 	return rc;
     }
+
+    /* now verify the stamp... */
+    if (checkstamp && !verifyStamp(mntpoint)) {
+	char * buf;
+
+	buf = sdupprintf(_("The %s installation tree in that directory does "
+			   "not seem to match your boot media."), 
+                         getProductName());
+
+	newtWinMessage(_("Error"), _("OK"), buf);
+
+	umountLoopback(mntpoint, device);
+	return 1;
+    }
+
 
     /* handle updates.img now before we copy stage2 over... this allows
      * us to keep our ramdisk size as small as possible */
@@ -301,7 +317,7 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 		/* holding the ISOs, which used to cause trouble during */
 		/* partitioning, but parted fixes all this now.         */
 		rc = mountHDImages("/tmp/loopimage", "/", flags, "loop1",
-				  "/mnt/runtime");
+				  "/mnt/runtime", 1);
 #else
 		/* This code is for copying small stage2 into ram */
 		/* and mounting                                   */
