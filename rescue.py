@@ -167,11 +167,12 @@ def runRescue(instPath, mountroot, id):
                 rootmounted = 0
             else:
                 ButtonChoiceWindow(screen, _("Rescue"),
-		   _("Your system has been mounted under /mnt/sysimage.\n\n"
+		   _("Your system has been mounted under %s.\n\n"
                      "Press <return> to get a shell. If you would like to "
                      "make your system the root environment, run the command:\n\n"
-                     "\tchroot /mnt/sysimage\n\nThe system will reboot "
-                     "automatically when you exit from the shell."),
+                     "\tchroot %s\n\nThe system will reboot "
+                     "automatically when you exit from the shell.") %
+                                   (instPath,instPath),
                                    [_("OK")] )
                 rootmounted = 1
 	except:
