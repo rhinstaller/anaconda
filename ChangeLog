@@ -1,4 +1,7 @@
-2005-02-08  Paul Nasrat <pnasrat@redhat.com>
+2005-02-08  Paul Nasrat  <pnasrat@redhat.com>
+
+	* upgradeclass.py:
+	Setup iSeries bootloader as no real config on upgrades (#146915)
 
 	* findpackageset.py:
 	Don't use rpm.archscore as iseries upgrades don't work (#146915)
