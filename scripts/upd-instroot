@@ -305,6 +305,8 @@ sbin/insmod
 sbin/ifconfig
 sbin/route
 sbin/portmap
+sbin/fdasd
+sbin/dasdfmt
 bin/cat
 bin/chmod
 bin/sed
@@ -326,6 +328,7 @@ lib/ld.so*
 lib/ld-*.so*
 lib/libresolv.so*
 lib/libresolv-*.so*
+lib/libvtoc*.so*
 lib/modules/ibm*
 etc/inetd.conf
 etc/ssh/*

@@ -304,6 +304,10 @@ makemainmodules() {
     rm -rf $FULLMODPATH
     rm -rf $FINALFULLMODPATH
 
+    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+       mkdir -p $KERNELROOT/lib/modules/misc
+       cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $KERNELROOT/lib/modules/misc
+    fi
     makemoduleball $extraargs $FULLMODPATH "$modlist"
     cp -ar $FULLMODPATH $FINALFULLMODPATH
     rm -rf $FULLMODPATH
@@ -460,6 +464,10 @@ makeinitrd() {
        #install -m 755 $IMGPATH/usr/sbin/modprobe $MBD_DIR/sbin/modprobe
        #install -m 755 $IMGPATH/bin/ls $MBD_DIR/sbin/ls
        #install -m 755 $IMGPATH/lib/libtermcap.so.2.0.8 $MBD_DIR/lib/libtermcap.so.2
+       install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
+       install -m 755 $IMGPATH/usr/sbin/fdasd $MBD_DIR/sbin/fdasd
+       install -m 755 $IMGPATH/usr/sbin/ldconfig $MBD_DIR/sbin/ldconfig
+
        cp -f $IMGPATH/usr/sbin/ifconfig $MBD_DIR/sbin/ifconfig
        cp -f $IMGPATH/usr/sbin/inetd $MBD_DIR/sbin/inetd
        cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
@@ -490,6 +498,7 @@ makeinitrd() {
        cp -df $IMGPATH/lib/ld-*.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libresolv.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libresolv-*.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libvtoc*.so* $MBD_DIR/lib
        cp -df $IMGPATH/usr/lib/libz.so* $MBD_DIR/lib
        echo >$MBD_DIR/etc/ld.so.conf <<EOF
 /lib
@@ -734,6 +743,10 @@ makeinstimage () {
     mkdir -p $tmpdir
 
     (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmpdir)
+    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+       mkdir -p $KERNELROOT/lib/modules/misc
+       cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $KERNELROOT/lib/modules/misc
+    fi
     makemoduleball $tmpdir/modules "$modlist"
 
     mkcramfs $tmpdir $INSTIMGPATH/${imagename}1.img
