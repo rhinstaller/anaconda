@@ -85,6 +85,11 @@ static void loadLanguageList(int flags) {
     int lineNum = 0;
 
     f = fopen(file, "r");
+    if (!f) {
+        newtWinMessage(_("Error"), _("OK"), "cannot open %s: %s",
+                       file, strerror (errno));
+        return;
+    }
 
     while (fgets(line, sizeof(line), f)) {
 	lineNum++;
@@ -406,7 +411,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     int j;
 #endif
 
-    if (FL_SERIAL (flags)) return 0;
+    if (FL_SERIAL (flags)) return LOADER_NOOP;
 
     /*if (testing) return 0;*/
 
