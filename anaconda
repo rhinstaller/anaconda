@@ -272,7 +272,11 @@ if (display_mode == 'g'):
                 os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
             except:
                 pass
-    from gui import InstallInterface
+    try:
+        from gui import InstallInterface
+    except:
+        print "GUI installer startup failed, falling back to text mode."
+        from text import InstallInterface
 elif (display_mode == 't'):
     from text import InstallInterface
 else:
