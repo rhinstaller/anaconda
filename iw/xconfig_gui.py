@@ -229,6 +229,7 @@ class XCustomWindow (InstallWindow):
             if len(available) == 1:
                 self.res_combo.set_popdown_strings (available["8"])
                 self.selectedDepth = "8"
+                self.selectedRes = available[self.selectedDepth][0]
             elif len(available) >= 2:
                 #--If they can do 16 bit color, default to 16 bit at 1024x768
                 self.depth_combo.list.select_item (1)
@@ -263,7 +264,6 @@ class XCustomWindow (InstallWindow):
                 self.currentRes = count
                 break
             count = count + 1
-
 
         location = available[self.selectedDepth].index(self.selectedRes)
         self.swap_monitor(location)
