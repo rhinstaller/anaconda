@@ -305,19 +305,19 @@ def createMountPointCombo(request):
 
     return mountCombo
 
-def fstypechangeCB(widget, mountCombo):
-    fstype = widget.get_data("type")
-
+def setMntPtComboStateFromType(fstype, mountCombo):
     prevmountable = mountCombo.get_data("prevmountable")
     mountpoint = mountCombo.get_data("saved_mntpt")
 
     if prevmountable and fstype.isMountable():
         return
-    
+
     if fstype.isMountable():
         mountCombo.set_sensitive(1)
         if mountpoint != None:
             mountCombo.entry.set_text(mountpoint)
+        else:
+            mountCombo.entry.set_text("")
     else:
         if mountCombo.entry.get_text() != _("<Not Applicable>"):
             mountCombo.set_data("saved_mntpt", mountCombo.entry.get_text())
@@ -325,6 +325,10 @@ def fstypechangeCB(widget, mountCombo):
         mountCombo.set_sensitive(0)
 
     mountCombo.set_data("prevmountable", fstype.isMountable())
+    
+def fstypechangeCB(widget, mountCombo):
+    fstype = widget.get_data("type")
+    setMntPtComboStateFromType(fstype, mountCombo)
     
 def createAllowedDrivesClist(disks, reqdrives):
     driveclist = GtkCList()
@@ -630,8 +634,14 @@ class PartitionWindow(InstallWindow):
     # edit a partition request
     def editPartitionRequest(self, origrequest):
 
-        def formatOptionCB(widget, menu):
-            menu.set_sensitive(widget.get_active())
+        def formatOptionCB(widget, data):
+            (menuwidget, menu, mntptcombo) = data
+            menuwidget.set_sensitive(widget.get_active())
+
+            # inject event for fstype menu
+            if widget.get_active():
+                fstype = menu.get_active().get_data("type")
+                setMntPtComboStateFromType(fstype, mntptcombo)
 
         def noformatCB(widget, badblocks):
             badblocks.set_sensitive(not widget.get_active())
@@ -695,6 +705,8 @@ class PartitionWindow(InstallWindow):
         #
         # start of editPartitionRequest
         #
+
+
         dialog = GnomeDialog(_("Add Partition"))
         dialog.set_parent(self.parent)
         dialog.append_button (_("OK"))
@@ -732,7 +744,7 @@ class PartitionWindow(InstallWindow):
                 typestr = origrequest.origfstype.getName()
             else:
                 typestr = _("Unknown")
-                
+
             fstypelabel = GtkLabel(typestr)
             maintable.attach(fstypelabel, 1, 2, row, row + 1)
             newfstype = None
@@ -842,7 +854,11 @@ class PartitionWindow(InstallWindow):
             maintable.attach(fstype, 1, 2, row, row + 1)
             row = row + 1
 
-            formatrb.connect("toggled", formatOptionCB, fstype)
+            if not formatrb.get_active() and not origrequest.migrate:
+                mountCombo.set_data("prevmountable", ofstype.isMountable())
+
+            formatrb.connect("toggled", formatOptionCB, (fstype, fstypeMenu,
+                                                         mountCombo))
 
             if origrequest.origfstype.isMigratable():
                 migraterb = GtkRadioButton (label=_("Migrate partition to:"),
