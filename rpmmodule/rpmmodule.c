@@ -785,6 +785,7 @@ static PyObject * rpmtransCreate(PyObject * self, PyObject * args) {
 
     Py_INCREF(db);
     o->dbo = db;
+    o->scriptFd = NULL;
     o->ts = rpmtransCreateSet(db ? db->db : NULL, rootPath);
     o->keyList = PyList_New(0);
 
