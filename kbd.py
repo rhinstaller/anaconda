@@ -27,6 +27,7 @@ class Keyboard (SimpleConfigFile):
             ("fr_CH-latin1"      , ('pc102', 'fr_CH')),
             ("hu"                , ('pc102', 'fr_CH')),
             ("hu101"             , ('pc102', 'hu')),
+            ("is-latin1"         , ('pc102', 'is')),
             ("it"                , ('pc102', 'it')),
             ("it-ibm"            , ('pc101', 'it')),
             ("it2"               , ('pc102', 'it')),
