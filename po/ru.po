@@ -1100,6 +1100,9 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
+"Менеджер загрузки Red Hat может загружать также другие операционные системы. "
+"Укажите загрузочные разделы и метки, которые вы будете использовать при "
+"обращении к ним."
 
 #: ../textw/packages.py:117
 msgid ""
@@ -1107,6 +1110,9 @@ msgid ""
 "not selected. If you just select Ok all of those required packages will be "
 "installed."
 msgstr ""
+"Для инсталляции некоторых выбранных вами пакетов требуются другие пакеты, "
+"которые не были выбраны. Если вы просто нажмете ', будут установлены все "
+"необходимые пакеты."
 
 #: ../textw/partitioning.py:18 ../textw/partitioning.py:57
 msgid "Disk Setup"
@@ -1121,6 +1127,12 @@ msgid ""
 "\n"
 "Which tool would you like to use?"
 msgstr ""
+"Утилита Disk Druid предназначена для разбиения диска и установки точек "
+"монтирования. Она легче в использовании по сравнению с классическим fdisk, "
+"поставляемым с Linux, и более функциональна. Несмотря на это, в некоторых "
+"случаях предпочтение может быть отдано утилите fdisk.\n"
+"\n"
+"Какую утилиту вы будете использовать?"
 
 #: ../textw/partitioning.py:58
 msgid ""
@@ -1128,18 +1140,22 @@ msgid ""
 "dedicated to Linux. We suggest placing that partition on one of the first "
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
+"Для инсталляции Red Hat Linux вам необходим хотя бы один раздел в 150 MB, "
+"выделенный под Linux. Мы рекомендуем расположить этот раздел на одном из "
+"двух первых жестких дисков вашей системы, чтобы вы могли загружать Linux с "
+"помощью LILO."
 
 #: ../loader/loader.c:290 ../loader/loader.c:315 ../textw/partitioning.py:63
 msgid "Done"
-msgstr ""
+msgstr "Готово"
 
 #: ../textw/partitioning.py:114 ../textw/partitioning.py:115
 msgid "Continue"
-msgstr ""
+msgstr "Продолжить"
 
 #: ../textw/partitioning.py:142
 msgid "Low Memory"
-msgstr ""
+msgstr "Мало памяти"
 
 #: ../textw/partitioning.py:143
 msgid ""
@@ -1155,6 +1171,10 @@ msgid ""
 "format /home or /usr/local if they have already been configured during a "
 "previous install."
 msgstr ""
+"Какие разделы вы хотите отформатировать? Рекомендуется форматировать все "
+"системные разделы, включая /, /usr и /var. Такие разделы как /home или "
+"/usr/local можно не форматировать, особенно если они сконфигурированы при "
+"предыдущей установке."
 
 #: ../textw/partitioning.py:182
 msgid "Check for bad blocks during format"
@@ -1170,6 +1190,9 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
+"Выберите пароль пользователя root. Вы должны ввести его дважды, чтобы "
+"исключить ошибку при вводе. Помните, что пароль пользователя root - ключевой "
+"момент безопасности системы!"
 
 #: ../loader/urls.c:298 ../textw/userauth.py:25
 msgid "Password:"
@@ -1185,7 +1208,7 @@ msgstr "Длина пароля"
 
 #: ../textw/userauth.py:43
 msgid "The root password must be at least 6 characters long."
-msgstr ""
+msgstr "Пароль пользователя root должен содержать не менее 6 символов."
 
 #: ../textw/userauth.py:47 ../textw/userauth.py:101
 msgid "Password Mismatch"
@@ -1193,7 +1216,7 @@ msgstr "Пароли не совпадают"
 
 #: ../textw/userauth.py:48 ../textw/userauth.py:102
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
+msgstr "Введенные вами пароли не совпадают. Повторите ввод."
 
 #: ../textw/userauth.py:73
 msgid "Edit User"
@@ -1209,7 +1232,7 @@ msgstr "ID пользователя"
 
 #: ../textw/userauth.py:94
 msgid "The password must be at least 6 characters long."
-msgstr ""
+msgstr "Пароль пользователя должен содержать не менее 6 символов."
 
 #: ../textw/userauth.py:111
 msgid "User Exists"
@@ -1860,11 +1883,11 @@ msgstr "Удалять можно только точки монтирования NFS."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
-msgstr ""
+msgstr "Другой CD-ROM"
 
 #: ../loader/cdrom.c:32
 msgid "CDROM type"
-msgstr ""
+msgstr "Тип CD-ROM"
 
 #: ../loader/cdrom.c:32
 msgid "What type of CDROM do you have?"
@@ -1872,7 +1895,7 @@ msgstr "Укажите тип CD-ROM"
 
 #: ../loader/cdrom.c:88
 msgid "Initializing CDROM..."
-msgstr ""
+msgstr "Инициализация CD-ROM..."
 
 #: ../loader/devices.c:50
 msgid "Miscellaneous"
@@ -1916,7 +1939,7 @@ msgstr ""
 
 #: ../loader/devices.c:203
 msgid "Which driver should I try?"
-msgstr ""
+msgstr "Какой драйвер необходимо попробовать?"
 
 #: ../loader/devices.c:211
 msgid "Specify module parameters"
@@ -1996,6 +2019,8 @@ msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
+"Не загружено ни одного драйвера специальных устройств. Вы хотите загрузить "
+"их сейчас?"
 
 #: ../loader/loader.c:400 ../loader/loader.c:402
 msgid "Loading"
@@ -2003,11 +2028,11 @@ msgstr "Загрузка"
 
 #: ../loader/loader.c:454
 msgid "Loading second stage ramdisk..."
-msgstr ""
+msgstr "Загружается виртуальный диск..."
 
 #: ../loader/loader.c:458
 msgid "Error loading ramdisk."
-msgstr ""
+msgstr "Ошибка загрузки виртуального диска"
 
 #: ../loader/loader.c:579
 msgid "Hard Drives"
@@ -2018,6 +2043,8 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
+"В вашей системе не обнаружен ни один жесткий диск. Хотите ли вы "
+"сконфигурировать дополнительные устройства?"
 
 #: ../loader/loader.c:593
 msgid ""
@@ -2025,10 +2052,13 @@ msgid ""
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
+"Укажите раздел и каталог на этом разделе, который содержит подкаталоги "
+"RedHat/RPMS и RedHat/base. Если диск отсутствует в списке, нажмите F2 для "
+"конфигурирования дополнительных устройств."
 
 #: ../loader/loader.c:607
 msgid "Directory holding Red Hat:"
-msgstr ""
+msgstr "Каталог, содержащий Red Hat:"
 
 #: ../loader/loader.c:627
 msgid "Select Partition"
@@ -2037,17 +2067,19 @@ msgstr "Выбор раздела"
 #: ../loader/loader.c:671
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
-msgstr ""
+msgstr "Устройство %s не содержит инсталляционное дерево Red Hat."
 
 #: ../loader/loader.c:716
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
+"Ни в одном из вашиш приводов CD-ROM не удалось найти Red Hat CD-ROM. "
+"Пожалуйста вставьте Red Hat CD и нажмите \"OK\" для продолдения."
 
 #: ../loader/loader.c:849
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr "Этот каталог не содержит инсталляционное дерево Red Hat"
+msgstr "Этот каталог не содержит инсталляционное дерево Red Hat."
 
 #: ../loader/loader.c:854
 msgid "I could not mount that directory from the server"
@@ -2109,12 +2141,19 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecture"
 msgstr ""
+"Пожалуйста, введите следующую информацию:\n"
+"\n"
+"    o имя или адрес IP вашего сервера NFS\n"
+"    o каталог на этом сервере, в котором содержится\n"
+"      Red Hat Linux для вашей архитектуры"
 
 #: ../loader/net.c:228
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
+"Введите конфигурацию протокола IP для этой машины. Каждый элемент должен "
+"быть введен как IP адрес в десятично-точечной записи (например 1.2.3.4)."
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -2210,6 +2249,11 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
+"Пожалуйста введите следующую информацию:\n"
+"\n"
+"    o имя или адрес IP вашего сервера FTP\n"
+"    o каталог на этом сервере, в котором содержится\n"
+"      Red Hat Linux для вашей архитектуры\n"
 
 #: ../loader/urls.c:138
 msgid ""
@@ -2219,6 +2263,11 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
+"Пожалуйста, введите следующую информацию:\n"
+"\n"
+"    o имя или адрес IP вашего web-сервера\n"
+"    o каталог на этом сервере, в котором содержится\n"
+"      Red Hat Linux для вашей архитектуры\n"
 
 #: ../loader/urls.c:156
 msgid "FTP site name:"
