@@ -14,7 +14,6 @@
 #
 
 import language
-import kbd
 import network
 import firewall
 import timezone
@@ -27,6 +26,7 @@ import partedUtils
 from flags import *
 from constants import *
 
+import rhpl.kbd
 from rhpl.simpleconfig import SimpleConfigFile
 
 class Boolean:

@@ -18,11 +18,12 @@ import xkb
 import gobject
 import gtk
 from iw_gui import *
-from kbd import Keyboard
+
 from flags import flags
 
 from rhpl.log import log
 from rhpl.translate import _, N_
+from rhpl.kbd import Keyboard
 
 class KeyboardWindow (InstallWindow):
     windowTitle = N_("Keyboard Configuration")
