@@ -442,7 +442,7 @@ makeinitrd() {
     done
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-       #mkdir -p $MBD_DIR/lib/modules/misc
+       mkdir -p $MBD_DIR/lib
        mkdir -p $MBD_DIR/etc/ssh 
        cp -f $LOADERBINDIR/linuxrc.s390 $MBD_DIR/linuxrc
        ln -s ../linuxrc $MBD_DIR/sbin/init
@@ -491,10 +491,15 @@ makeinitrd() {
        cp -df $IMGPATH/lib/libresolv.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libresolv-*.so* $MBD_DIR/lib
        cp -df $IMGPATH/usr/lib/libz.so* $MBD_DIR/lib
-       cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $MBD_DIR/lib/modules/misc
-       if [ -d $IMGPATH/lib/modules/ibm-2.4*/kernel/drivers/net ]; then
-          cp -f $IMGPATH/lib/modules/ibm-2.4*/kernel/drivers/net/* $MBD_DIR/lib/modules/misc
-       fi
+       echo >$MBD_DIR/etc/ld.so.conf <<EOF
+/lib
+/mnt/runtime/lib
+/mnt/runtime/usr/lib
+EOF
+       #cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $MBD_DIR/lib/modules/misc
+       #if [ -d $IMGPATH/lib/modules/ibm-2.4*/kernel/drivers/net ]; then
+       #   cp -f $IMGPATH/lib/modules/ibm-2.4*/kernel/drivers/net/* $MBD_DIR/lib/modules/misc
+       #fi
     else
        ln -s /usr/bin/sh $MBD_DIR/sbin/sh
        ln -s /sbin/init $MBD_DIR/linuxrc
@@ -570,7 +575,11 @@ EOF
     fi
     ln -s fb0 $MBD_DIR/dev/fb
 
-    dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=12000
+    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+	dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=16000
+    else
+	dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=12000
+    fi
     mke2fs -Fq $MBD_DIR/etc/ramfs.img.big
     gzip -9 < $MBD_DIR/etc/ramfs.img.big > $MBD_DIR/etc/ramfs.img
     rm -f $MBD_DIR/etc/ramfs.img.big
