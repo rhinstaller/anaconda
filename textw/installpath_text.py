@@ -39,9 +39,6 @@ class InstallPathWindow:
 	if orig != None:
 	    default = orig
 
-	if len(choices) < 3:
-	    raise KeyError
-
 	(button, choice) = ListboxChoiceWindow(screen, _("Installation Type"),
 			_("What type of system would you like to install?"),
 			    choices, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON],
