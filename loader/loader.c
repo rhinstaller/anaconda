@@ -1087,6 +1087,72 @@ static char * doMountImage(char * location,
     return url;
 }
 
+static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo, 
+			    moduleList modLoaded, moduleDeps modDeps, 
+			    int flags) {
+    char ** ksArgv = NULL;
+    int ksArgc, rc;
+    char * opts, * device, * type;
+    char ** optv;
+    poptContext optCon;
+    int doContinue, missingOkay;	/* obsolete */
+    struct poptOption table[] = {
+	    { "continue", '\0', POPT_ARG_STRING, &doContinue, 0 },
+	    { "missingok", '\0', POPT_ARG_STRING, &missingOkay, 0 },
+	    { "opts", '\0', POPT_ARG_STRING, &opts, 0 },
+	    { 0, 0, 0, 0, 0 }
+	};
+
+logMessage("looking for device commands");
+
+    while (!ksGetCommand(KS_CMD_DEVICE, ksArgv, &ksArgc, &ksArgv)) {
+	opts = NULL;
+
+logMessage("got device command");
+
+	optCon = poptGetContext(NULL, ksArgc, ksArgv, table, 0);
+
+	if ((rc = poptGetNextOpt(optCon)) < -1) {
+	    logMessage("bad argument to kickstart device command %s: %s",
+		       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+		       poptStrerror(rc));
+	    continue;
+	}
+
+	type = poptGetArg(optCon);
+	device = poptGetArg(optCon);
+
+	if (!type || !device || poptGetArg(optCon)) {
+	    logMessage("bad arguments to kickstart device command");
+	    poptFreeContext(optCon);
+	    continue;
+	}
+
+        if (!isysFindModuleInfo(modInfo, device)) {
+	    logMessage("unknown module %s", device);
+	    continue;
+	}
+
+        if (opts)
+	    poptParseArgvString(opts, &rc, &optv);
+	else
+	    optv = NULL;
+
+	rc = mlLoadModule(device, modLoaded, modDeps, optv, flags);
+	if (optv) free(optv);
+
+	if (rc)
+	    logMessage("module %s failed to insert", device);
+	else
+	    logMessage("module %s inserted successfully", device);
+    }
+
+    kdFindScsiList(kd);
+    kdFindNetList(kd);
+
+    return 0;
+}
+
 static char * setupKickstart(char * location, struct knownDevices * kd,
     		             moduleInfoSet modInfo,
 			     moduleList modLoaded,
@@ -1101,6 +1167,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     struct poptOption * table;
     poptContext optCon;
     char * dir = NULL;
+    char * imageUrl;
 #ifdef INCLUDE_NETWORK
     static struct networkDeviceConfig netDev;
     char * host = NULL, * url = NULL, * proxy = NULL, * proxyport = NULL;
@@ -1129,7 +1196,8 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	    { 0, 0, 0, 0, 0 }
     };
 #endif
-    /* XXX kickstartDevices(modInfo, modLoaded, modDeps); */
+
+    kickstartDevices(kd, modInfo, modLoaded, modDeps, flags);
 
     if (0) {
 #ifdef INCLUDE_NETWORK
@@ -1201,6 +1269,8 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     }
 #endif
 
+    imageUrl = NULL;
+
 #ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS) {
 	mlLoadModule("nfs", modLoaded, modDeps, NULL, flags);
@@ -1214,13 +1284,13 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	    
 	symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
 
-	return "dir://mnt/source/.";
+	imageUrl = "dir://mnt/source/.";
     }
 #endif
 
 #ifdef INCLUDE_LOCAL
     if (ksType == KS_CMD_CDROM) {
-	return setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps, 
+	imageUrl = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps, 
 			  flags, 1);
     } else if (ksType == KS_CMD_HD) {
 	logMessage("partname is %s", partname);
@@ -1256,14 +1326,16 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	}
 
 	/* XXX this shouldn't be hard coded to ext2 */
-	return setupHardDrive(partname, 
+	imageUrl = setupHardDrive(partname, 
 		partTable.parts[partNum].type == BALKAN_PART_EXT2 ? 
 			"ext2" : "vfat", 
 	        dir, flags);
     } 
 #endif
 
-    return NULL;
+    kickstartDevices(kd, modInfo, modLoaded, modDeps, flags);
+
+    return imageUrl;
 }
 
 static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
@@ -1478,8 +1550,6 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
-logMessage("Flags are 0x%x\n", flags);
-
 #ifdef __sparc__
     /* XXX: sparc -BOOT kernels should compile openprom in. */
     if (!FL_TESTING(flags))
@@ -1507,7 +1577,8 @@ logMessage("Flags are 0x%x\n", flags);
     kdFindScsiList(&kd);
     kdFindNetList(&kd);
 
-    busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
+    if (!FL_EXPERT(flags))
+	busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
     if (probeOnly) exit(0);
 
     if (FL_KSHD(flags)) {
@@ -1619,11 +1690,15 @@ logMessage("Flags are 0x%x\n", flags);
 	*argptr++ = ksFile;
     }
 
-    *argptr++ = "--lang";
-    *argptr++ = lang;
+    if (lang) {
+	*argptr++ = "--lang";
+	*argptr++ = lang;
+    }
     
-    *argptr++ = "--keymap";
-    *argptr++ = keymap;
+    if (keymap) {
+	*argptr++ = "--keymap";
+	*argptr++ = keymap;
+    }
 
     if (kbdtype) {
 	*argptr++ = "--kbdtype";
