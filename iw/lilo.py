@@ -5,7 +5,6 @@ from xpms import SMALL_CHECK
 import GdkImlib
 
 class LiloWindow (InstallWindow):
-
     foo = GdkImlib.create_image_from_xpm (SMALL_CHECK)
     foo.render()
     checkMark = foo.make_pixmap()
@@ -107,7 +106,8 @@ class LiloWindow (InstallWindow):
         format = "/dev/%s"
 
         self.radioBox = GtkTable(2, 6)
-
+        self.radioBox.set_border_width (5)
+        
 	spacer = GtkLabel("")
 	spacer.set_usize(10, 1)
 	self.radioBox.attach(spacer, 0, 1, 2, 4, FALSE)
@@ -129,9 +129,9 @@ class LiloWindow (InstallWindow):
 	self.radioBox.attach(self.linearCheck, 0, 2, 4, 5)
 
 	label = GtkLabel(_("Kernel parameters") + ":")
-	label.set_alignment(0.0, 0.0)
+	label.set_alignment(0.0, 0.5)
 	self.appendEntry = GtkEntry(15)
-	box = GtkHBox(FALSE)
+	box = GtkHBox(FALSE, 5)
 	box.pack_start(label)
 	box.pack_start(self.appendEntry)
 	alignment = GtkAlignment()
@@ -139,22 +139,27 @@ class LiloWindow (InstallWindow):
 	alignment.add(box)
 	self.radioBox.attach(alignment, 0, 2, 5, 6)
 	
-        box = GtkVBox (FALSE, 5)
+        box = GtkVBox (FALSE, 0)
+
+        optionBox = GtkVBox (FALSE, 5)
+        optionBox.set_border_width (5)
         self.bootdisk = GtkCheckButton (_("Create boot disk"))
         self.bootdisk.set_active (TRUE)
-        box.pack_start (self.bootdisk, FALSE)
+        optionBox.pack_start (self.bootdisk)
 
-        self.lilo = GtkCheckButton (_("Skip LILO install"))
+        self.lilo = GtkCheckButton (_("Do not install LILO"))
         self.lilo.set_active (FALSE)
         self.lilo.connect ("toggled", self.toggled)
-        box.pack_start (self.lilo, FALSE)
+        optionBox.pack_start (self.lilo, FALSE)
 
-        box.pack_start (GtkHSeparator (), FALSE, padding=3)
+        box.pack_start (optionBox, FALSE)
+
+        box.pack_start (GtkHSeparator (), FALSE)
         box.pack_start (self.radioBox, FALSE)
 
 	self.imageList = GtkCList (4,
 	    ( _("Default"), _("Device"), _("Partition type"), _("Boot label")))
-        self.imageList.set_selection_mode (SELECTION_SINGLE)
+        self.imageList.set_selection_mode (SELECTION_BROWSE)
 
 	sortedKeys = self.images.keys()
 	sortedKeys.sort()
@@ -179,10 +184,9 @@ class LiloWindow (InstallWindow):
 	self.deviceLabel = GtkLabel(_("Partition") + ":")
 	self.typeLabel = GtkLabel(_("Type") + ":")
 
-	tempBox = GtkHBox()
+	tempBox = GtkHBox(TRUE)
 	self.deviceLabel.set_alignment(0.0, 0.0)
 	self.typeLabel.set_alignment(0.0, 0.0)
-	tempBox.set_homogeneous(1)
 	tempBox.pack_start(self.deviceLabel, FALSE)
 	tempBox.pack_start(self.typeLabel, FALSE)
 	self.defaultCheck = GtkCheckButton("Default boot image")
@@ -193,18 +197,18 @@ class LiloWindow (InstallWindow):
 	self.labelEntry = GtkEntry(15)
 	self.labelEntry.connect("changed", self.labelUpdated)
 
-	tempBox2 = GtkHBox()
-	self.labelLabel.set_alignment(0.0, 0.0)
+	tempBox2 = GtkHBox(FALSE, 5)
+	self.labelLabel.set_alignment(0.0, 0.5)
 	tempBox2.pack_start(self.labelLabel, FALSE)
-	tempBox2.pack_start(self.labelEntry, FALSE, padding = 5)
+	tempBox2.pack_start(self.labelEntry, FALSE)
 
-	self.editBox = GtkVBox()
-	self.editBox.pack_start(tempBox, FALSE)
-	self.editBox.pack_start(self.defaultCheck, FALSE)
-	self.editBox.pack_start(tempBox2, FALSE)
-	self.editBox.set_border_width(5)
+	self.editBox = GtkVBox ()
+	self.editBox.pack_start (tempBox, FALSE)
+	self.editBox.pack_start (self.defaultCheck, FALSE)
+	self.editBox.pack_start (tempBox2, FALSE)
+	self.editBox.set_border_width (5)
 
-        box.pack_start (GtkHSeparator (), FALSE, padding=3)
+        box.pack_start (GtkHSeparator (), FALSE)
         box.pack_start (self.editBox, FALSE)
         box.pack_start (self.imageList, TRUE)
 
