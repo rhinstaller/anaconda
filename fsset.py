@@ -1484,7 +1484,8 @@ class RAIDDevice(Device):
                                                     devPrefix=devPrefix)
             iutil.execWithRedirect ("/usr/sbin/mkraid", 
                                     ('mkraid', '--really-force',
-                                     '--configfile', raidtab, node),
+                                     '--configfile', '--dangerous-no-resync',
+                                     raidtab, node),
                                     stderr="/dev/tty5", stdout="/dev/tty5")
             raid.register_raid_device(self.device, self.members[:],
                                       self.level, self.numDisks)
@@ -1510,6 +1511,7 @@ class VolumeGroupDevice(Device):
         self.isSetup = existing
         self.name = name
         self.device = name
+        self.isSetup = existing
 
         # these are attributes we might want to expose.  or maybe not
         # self.physicalextentsize = 4 * 1024 * 1024
@@ -1565,6 +1567,7 @@ class LogicalVolumeDevice(Device):
         self.size = size
         self.name = vgname
         self.isSetup = 0
+        self.isSetup = existing
 
         # these are attributes we might want to expose.  or maybe not.
         # self.chunksize
