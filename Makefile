@@ -106,6 +106,7 @@ create-snapshot:
 	@rm -rf /tmp/anaconda-$(VERSION)
 	@tag=`cvs status Makefile | awk ' /Sticky Tag/ { print $$3 } '` 2> /dev/null; \
 	[ x"$$tag" = x"(none)" ] && tag=HEAD; \
+	[ x"$$TAG" != x ] && tag=$$TAG; \
 	echo "*** Pulling off $$tag!"; \
 	cd /tmp ; cvs -Q -d $(CVSROOT) export -r $$tag anaconda || echo "Um... export aborted."
 	@cd /tmp/anaconda ; rm -f pycheckrc-for-anaconda
