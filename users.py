@@ -226,7 +226,7 @@ class Authentication:
             args.append ("--smbworkgroup")
             args.append (self.sambaWorkgroup)
         else:
-            args.append ("--disablesamba")
+            args.append ("--disablesmbauth")
 
 	return args
  
