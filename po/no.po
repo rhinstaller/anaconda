@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2001-08-22 18:13EDT\n"
+"PO-Revision-Date: 2002-04-10 10:47-0400\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -611,14 +611,14 @@ msgid "Hide Help"
 msgstr "Skjul hjelp"
 
 #: ../gui.py:678
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer"
-msgstr "Etter-installasjon"
+msgstr "%s installering"
 
 #: ../gui.py:693
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer on %s"
-msgstr "Red Hat Linux installasjon på %s"
+msgstr "%s installering på %s"
 
 #: ../gui.py:731
 msgid "Unable to load title bar"
@@ -750,9 +750,8 @@ msgstr ""
 "et dårlig media. Trykk <Enter> for å prøve igjen."
 
 #: ../packages.py:280
-#, fuzzy
 msgid "Error Installing Package"
-msgstr "Installerer pakker"
+msgstr "Feil ved installering av pakke"
 
 #: ../packages.py:281
 #, python-format
