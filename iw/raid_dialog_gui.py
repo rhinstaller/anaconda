@@ -569,6 +569,10 @@ class RaidCloneDialog:
 	    for drive in self.targetDrives:
 		newreq = copy.copy(req)
 		newreq.drive = [drive]
+		newreq.uniqueID = None
+		newreq.device = None
+		newreq.preexist = 0
+		newreq.dev = None
 		self.partitions.addRequest(newreq)
 		
 	return 0
