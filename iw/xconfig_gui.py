@@ -935,7 +935,7 @@ class XConfigWindow (InstallWindow):
         count = 0
 
         for sizes in ("256k", "512k", "1024k", "2048k", "4096k",
-                     "8192k", "16384k", "32768k"):     
+                     "8192k", "16384k", "32768k", "65536k"):     
             if size == sizes:
                 self.todo.videoRamState = count
             count = count + 1
@@ -1599,6 +1599,8 @@ class XConfigWindow (InstallWindow):
             mem7.connect ("activate", self.memory_cb, "16384k")
             mem8 = GtkMenuItem("32 MB")
             mem8.connect ("activate", self.memory_cb, "32768k")
+            mem9 = GtkMenuItem("64 MB")
+            mem9.connect ("activate", self.memory_cb, "65536k")
             self.ramMenu.add(mem1)
             self.ramMenu.add(mem2)
             self.ramMenu.add(mem3)
@@ -1607,27 +1609,23 @@ class XConfigWindow (InstallWindow):
             self.ramMenu.add(mem6)
             self.ramMenu.add(mem7)
             self.ramMenu.add(mem8)
+            self.ramMenu.add(mem9)
 
 
             #--Valid video ram sizes--
-            ram_sizes = [256, 512, 1024, 2048, 4096, 8192, 16384, 32768]
+            ram_sizes = [256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]
 
             count = 0
-#            current = 0
+            
             #--Some video cards don't return exact numbers, so we've got to do some hacks
-
             try:
                 vidRam = string.atoi (self.todo.x.vidRam)
             except:
                 vidRam = 1024
                 
-#            print vidRam
-
             for size in ram_sizes:
                 small = size - 64
-#                print size
                 #--Cards such as Mach64 and ATI Rage Mobility report 64k less ram than it should
-#                if size == self.todo.x.vidRam or small == self.todo.x.vidRam:
                 if size == vidRam or small == vidRam:
                     if self.todo.videoRamState == "":          
                         self.todo.videoRamState = count
@@ -1636,10 +1634,6 @@ class XConfigWindow (InstallWindow):
                     else:                        
                         self.ramMenu.set_active(self.todo.videoRamState)
                 count = count + 1
-
-
-
-
 
 
             hbox.pack_start(label, FALSE)
