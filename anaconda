@@ -81,7 +81,7 @@ if (mode == 'g' and not os.environ.has_key('DISPLAY')):
 #	serverPath = '/usr/X11R6/bin/XF86_VGA16'
 	serverPath = '/usr/X11R6/bin/XF86_SVGA'
 
-    isys.makeDevInode("psaux", "psaux")
+    isys.makeDevInode("psaux", "/tmp/psaux")
 
     f = open ('/tmp/XF86Config', 'w')
     f.write ("""
@@ -117,7 +117,7 @@ EndSection
 
 Section "Pointer"
     Protocol    "ps/2"
-    Device      "/psaux"
+    Device      "/tmp/psaux"
     Emulate3Buttons
     Emulate3Timeout    50
 EndSection
