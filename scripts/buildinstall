@@ -68,7 +68,7 @@ if [ -z "$PRODUCTSTR" ]; then
 fi
 
 if [ -z "$VERSION" ]; then
-    VERSION=$(rpm --qf '%{VERSION}' -qp $DIR/$PRODUCTPATH/RPMS/redhat-release-*.rpm)
+    usage
 fi
 
 if [ -z "$DIR" ]; then
