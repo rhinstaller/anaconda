@@ -462,6 +462,7 @@ class DiskTreeModel(gtk.TreeStore):
                         # not found the partition
                         raise RuntimeError, "could not find partition"
 
+    """ returns partition 'id' of current selection in tree """
     def getCurrentPartition(self):
         selection = self.view.get_selection()
         model, iter = selection.get_selected()
@@ -470,7 +471,30 @@ class DiskTreeModel(gtk.TreeStore):
 
         pyobject = self.titleSlot['PyObject']
 	try:
-	    return self.get_value(iter, pyobject)
+            val = self.get_value(iter, pyobject)
+            if type(val) == type("/dev/"):
+                if val[:5] == '/dev/':
+                    return None
+
+            return val
+        except:
+            return None
+
+    """ Return name of current selected drive (if a drive is highlighted) """
+    def getCurrentDevice(self):
+        selection = self.view.get_selection()
+        model, iter = selection.get_selected()
+        if not iter:
+            return None
+
+        pyobject = self.titleSlot['PyObject']
+	try:
+            val = self.get_value(iter, pyobject)
+            if type(val) == type("/dev/"):
+                print val
+                if val[:5] == '/dev/':
+                    return val
+            return None
         except:
             return None
 
@@ -751,6 +775,7 @@ class PartitionWindow(InstallWindow):
             # add a parent node to the tree
             parent = self.tree.append(drvparent)
             self.tree[parent]['Device'] = '/dev/%s' % (drive,)
+            self.tree[parent]['PyObject'] = str('/dev/%s' % (drive,))
             sectorsPerCyl = disk.dev.heads * disk.dev.sectors
 
             extendedParent = None
@@ -881,9 +906,17 @@ class PartitionWindow(InstallWindow):
     def deleteCb(self, widget):
         curselection = self.tree.getCurrentPartition()
 
-        if doDeletePartitionByRequest(self.intf, self.partitions, curselection):
-            self.refresh()
-            
+        if curselection:
+            if doDeletePartitionByRequest(self.intf, self.partitions, curselection):
+                self.refresh()
+        else:
+            curdevice = self.tree.getCurrentDevice()
+            if curdevice and len(curdevice) > 5:
+                if doDeletePartitionsByDevice(self.intf, self.partitions, self.diskset, curdevice[5:]):
+                    self.refresh()
+                else:
+                    return
+                
     def resetCb(self, *args):
         if not confirmResetPartitionState(self.intf):
             return
@@ -1145,9 +1178,7 @@ class PartitionWindow(InstallWindow):
 		   "You currently have %s software RAID "
 		   "partition(s) free to use.\n\n") % (constants.productName, len(availraidparts))
 
-	haveenuf = len(availraidparts) > 1
-
-	if not haveenuf:
+        if len(availraidparts) < 2:
 	    lbltxt = lbltxt + _("To use RAID you must first "
 				"create least two partitions of type "
 				"'software RAID'.  Then you can "
@@ -1174,12 +1205,15 @@ class PartitionWindow(InstallWindow):
 					"RAID device [default=/dev/md%s].") % newminor)
 	radioBox.pack_start(doRAIDclone, gtk.FALSE, gtk.FALSE, padding=10)
 
-	if not haveenuf:
-	    createRAIDpart.set_active(1)
-	    createRAIDdev.set_sensitive(0)
-	    doRAIDclone.set_sensitive(0)
-	else:
-	    createRAIDdev.set_active(1)
+        createRAIDpart.set_active(1)
+        doRAIDclone.set_sensitive(0)
+        createRAIDdev.set_sensitive(0)
+        if len(availraidparts) > 0 :
+            doRAIDclone.set_sensitive(1)
+
+        if len(availraidparts) > 1:
+            createRAIDdev.set_active(1)
+	    createRAIDdev.set_sensitive(1)
 
 	align = gtk.Alignment(0.5, 0.0)
 	align.add(radioBox)
@@ -1201,7 +1235,21 @@ class PartitionWindow(InstallWindow):
 	elif createRAIDdev.get_active():
 	    self.editRaidRequest(request, isNew=1)
 	else:
-	    self.intf.messageWindow("not yet", "Cloning not allowed")
+            cloneDialog = raid_dialog_gui.RaidCloneDialog(self.partitions,
+                                                          self.diskset,
+                                                          self.intf,
+                                                          self.parent)
+            if cloneDialog is None:
+                self.intf.messageWindow(_("Couldn't Create Drive Clone Editor"),
+                                        _("The drive clone editor could not "
+                                          "be created for some reason."))
+                return
+            
+            while 1:
+                rc = cloneDialog.run()
+
+                cloneDialog.destroy()
+                return
 
 	    
     def viewButtonCB(self, widget):
@@ -1218,7 +1266,7 @@ class PartitionWindow(InstallWindow):
         self.diskset.openDevices()
         self.partitions = partitions
 
-	self.show_uneditable = 0
+	self.show_uneditable = 1
 
         checkForSwapNoMatch(self.intf, self.diskset, self.partitions)
 

@@ -410,3 +410,247 @@ class RaidEditor:
 	dialog.show_all()
 	self.dialog = dialog
 	return
+
+
+
+class RaidCloneDialog:
+    def createDriveList(self, diskset):
+
+	store = gtk.ListStore(gobject.TYPE_STRING)
+        view = gtk.TreeView(store)
+
+	sw = gtk.ScrolledWindow()
+	sw.add(view)
+	sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+	sw.set_shadow_type(gtk.SHADOW_IN)
+
+        drives = diskset.disks.keys()
+        drives.sort()
+
+        for drive in drives:
+            iter = store.append()
+            store.set_value(iter, 0, drive)
+            
+        view.set_property("headers-visible", gtk.FALSE)
+
+        col = gtk.TreeViewColumn("", gtk.CellRendererText(), text=0)
+        view.append_column(col)
+        
+        return (sw, view)
+
+    def getInterestingRequestsForDrive(self, drive):
+        allrequests = self.partitions.getRequestsByDevice(self.diskset, drive)
+
+        # remove extended partitions
+        requests = []
+        for req in allrequests:
+            try:
+                part = partedUtils.get_partition_by_name(self.diskset.disks,
+                                                         req.device)
+            except:
+                part = None
+                
+            if part and part.type & parted.PARTITION_EXTENDED:
+                continue
+
+            requests.append(req)
+
+        return requests
+
+    def sanityCheckSourceDrive(self):
+        # first see if it has any non-software RAID partitions
+        requests = self.getInterestingRequestsForDrive(self.sourceDrive)
+        
+        errmsg1 = _("The source drive has no partitions to be cloned.  "
+                    "You must first defined partitions of type "
+                    "'software RAID' on this drive before it can be cloned.")
+        if not requests or len(requests) == 0:
+            self.intf.messageWindow(_("Source Drive Error"), errmsg1)
+            return 0
+
+        for req in requests:
+            if not req.fstype or req.fstype.getName() != "software RAID":
+                self.intf.messageWindow(_("Source Drive Error"),
+                                        _("The source drive selected has "
+                                          "partitions on it which are not of "
+                                          "type 'software RAID'.\n\n"
+                                          "These "
+                                          "partitions will have to removed "
+                                          "before this drive can be cloned. "))
+                return 0
+
+        for req in requests:
+            if not req.drive or req.drive[0] != self.sourceDrive or len(req.drive) > 1:
+                self.intf.messageWindow(_("Source Drive Error"),
+                                        _("The source drive selected has "
+                                          "partitions which are not "
+                                          "constrained to the drive /dev/%s.\n\n"
+                                          "These partitions will have to "
+                                          "removed or restricted to this "
+                                          "drive "
+                                          "before this drive can be cloned. ")
+                                        %(self.sourceDrive,))
+                return 0
+
+        for req in requests:
+            if self.partitions.isRaidMember(req):
+                self.intf.messageWindow(_("Source Drive Error"),
+                                        _("The source drive selected has "
+                                          "software RAID partition(s) which "
+                                          "are members of an active "
+                                          "software RAID device.\n\n"
+                                          "These partitions will have to "
+                                          "removed before this drive "
+                                          "can be cloned."))
+                return 0
+
+        return 1
+
+    def sanityCheckTargetDrives(self):
+        if self.targetDrives is None or len(self.targetDrives) < 1:
+                self.intf.messageWindow(_("Target Drive Error"),
+                                        _("Please select the target drives "
+                                          "for the clone operation."))
+                return 0
+
+        if self.sourceDrive in self.targetDrives:
+                self.intf.messageWindow(_("Target Drive Error"),
+                                        _("The source drive /dev/%s cannot be "
+                                          "selected as a target drive as well.") % (self.sourceDrive,))
+                return 0
+
+        for drive in self.targetDrives:
+            requests = self.getInterestingRequestsForDrive(drive)
+            for req in requests:
+                rc = partIntfHelpers.isNotChangable(req, self.partitions)
+                if rc:
+                    self.intf.messageWindow(_("Target Drive Error"),
+                                            _("The target drive /dev/%s "
+                                              "has a partition which cannot "
+                                              "be removed for the following "
+                                              "reason:\n\n\"%s\"\n\n"
+                                              "This partition must be removed "
+                                              "(if possible) before "
+                                              "this drive can be a target.") %
+                                            (drive, rc % (_("delete"),)))
+                    return 0
+
+        return 1
+
+    def targetSelectFunc(self, model, path, iter):
+        self.targetDrives.append(model.get_value(iter,0))
+        
+    def run(self):
+	if self.dialog is None:
+	    return None
+	
+	while 1:
+	    rc = self.dialog.run()
+
+	    # user hit cancel, do nothing
+	    if rc == 2:
+		self.destroy()
+		return None
+
+            # see what drive they selected as the source
+            selection = self.sourceView.get_selection()
+            (model, iter) = selection.get_selected()
+            if iter is None:
+                self.intf.messageWindow(_("Error"),
+                                        _("Please select a source drive."))
+                continue
+
+            self.sourceDrive = model.get_value(iter, 0)
+
+            # sanity check it
+            if not self.sanityCheckSourceDrive():
+                continue
+
+            
+            # now get target drive(s)
+            self.targetDrives = []
+            selection = self.targetView.get_selection()
+            selection.selected_foreach(self.targetSelectFunc)
+
+            # sanity check it
+            if not self.sanityCheckTargetDrives():
+                continue
+            
+
+	    # everything ok, break out
+	    break
+
+	return None
+
+    def destroy(self):
+	if self.dialog:
+	    self.dialog.destroy()
+
+	self.dialog = None
+	
+    def __init__(self, partitions, diskset, intf, parent):
+	self.partitions = partitions
+	self.diskset = diskset
+	self.intf = intf
+	self.parent = parent
+
+	self.dialog = None
+	self.dialog = gtk.Dialog(_("Make RAID Device"), self.parent)
+        self.dialog.set_size_request(500, 400)
+	gui.addFrame(self.dialog)
+	self.dialog.add_button('gtk-cancel', 2)
+	self.dialog.add_button('gtk-ok', 1)
+	self.dialog.set_position(gtk.WIN_POS_CENTER)
+
+        # present list of drives as source
+        vbox = gtk.VBox()
+
+        lbl = gui.WrappingLabel(_("Clone Drive Tool\n\n"
+                                  "This tool allows you to significantly "
+                                  "reduce the amount of effort required "
+                                  "to setup RAID arrays.  The idea is to "
+                                  "take a source drive which has been "
+                                  "prepared with the desired partitioning "
+                                  "layout, and clone this layout onto other "
+                                  "similar sized drives.  Then a RAID device "
+                                  "can be created.\n\n"
+                                  "NOTE: The source drive must have "
+                                  "partitions which are restricted to be on "
+                                  "that drive only, and can only contain "
+                                  "unused software RAID partitions.  Other "
+                                  "partition types are not allowed.\n\n"
+                                  "EVERYTHING on the target drive(s) will be "
+                                  "destroyed by this process."))
+        vbox.pack_start(lbl)
+                                  
+        box = gtk.HBox()
+
+        lbl = gtk.Label(_("Source Drive:"))
+        lbl.set_alignment(0.0, 0.0)
+        box.pack_start(lbl, padding=5)
+        (sw, self.sourceView) = self.createDriveList(diskset)
+        selection = self.sourceView.get_selection()
+        selection.set_mode(gtk.SELECTION_SINGLE)
+        box.pack_start(sw)
+
+        lbl = gtk.Label(_("Target Drive(s):"))
+        lbl.set_alignment(0.0, 0.0)
+        box.pack_start(lbl, padding=5)
+        (sw, self.targetView) = self.createDriveList(diskset)
+        selection = self.targetView.get_selection()
+        selection.set_mode(gtk.SELECTION_MULTIPLE)
+        box.pack_start(sw)
+
+        frame = gtk.Frame(_("Drives"))
+        frame.add(box)
+        vbox.pack_start(frame)
+
+	# put contents into dialog
+	self.dialog.vbox.pack_start(vbox)
+
+	self.dialog.show_all()
+
+	return
+
+
+

@@ -18,13 +18,14 @@
 """Helper functions shared between partitioning interfaces."""
 
 import string
-from rhpl.translate import _
 from constants import *
 import partedUtils
 import parted
 import fsset
 import iutil
 import partRequests
+
+from rhpl.translate import _
 
 def sanityCheckVolumeGroupName(volname):
     """Make sure that the volume group name doesn't contain invalid chars."""
@@ -124,7 +125,8 @@ def isNotChangable(request, requestlist):
     return None
     
 
-def doDeletePartitionByRequest(intf, requestlist, partition):
+def doDeletePartitionByRequest(intf, requestlist, partition,
+                               confirm=1, quiet=0):
     """Delete a partition from the request list.
 
     intf is the interface
@@ -154,10 +156,11 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
 
     ret = requestlist.containsImmutablePart(partition)
     if ret:
-        intf.messageWindow(_("Unable To Delete"),
-                           _("You cannot delete this "
-                             "partition, as it is an extended partition "
-                             "which contains %s") %(ret))
+        if not quiet:
+            intf.messageWindow(_("Unable To Delete"),
+                               _("You cannot delete this "
+                                 "partition, as it is an extended partition "
+                                 "which contains %s") %(ret))
         return 0
 
     # see if device is in our partition requests, remove
@@ -169,10 +172,11 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
     if request:
 	state = isNotChangable(request, requestlist)
 	if state is not None:
-	    intf.messageWindow(_("Unable To Delete"), state % ("delete",))
+            if not quiet:
+                intf.messageWindow(_("Unable To Delete"), state % ("delete",))
 	    return (None, None)
 
-        if not confirmDeleteRequest(intf, request):
+        if confirm and not confirmDeleteRequest(intf, request):
             return 0
 
         if request.getPreExisting():
@@ -206,6 +210,50 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
             raise ValueError, "Deleting a non-existent partition"
 
     del partition
+    return 1
+
+def doDeletePartitionsByDevice(intf, requestlist, diskset, device):
+    """ Remove all partitions currently on device """
+    rc = intf.messageWindow(_("Confirm Delete"),
+                            _("You are about to delete all partitions on "
+                              "the device '/dev/%s'.") % (device,),
+                            type="custom",
+                            custom_buttons=[_("Cancel"), _("_Delete")])
+
+    if not rc:
+        return
+    
+    requests = requestlist.getRequestsByDevice(diskset, device)
+    if not requests:
+        return
+
+    # XXX assumes all requests are due to a real partition device
+    notdeleted = []
+    for req in requests:
+        try:
+            part = partedUtils.get_partition_by_name(diskset.disks, req.device)
+            rc = doDeletePartitionByRequest(intf, requestlist, part,
+                                            confirm=0, quiet=1)
+
+            # not sure why it returns both '0' and '(None, None)' on failure
+            if not rc or rc == (None, None):
+                notdeleted.append(req)
+        except:
+            notdeleted.append(req)
+
+    # see if we need to report any failures - some were because we removed
+    # an extended partition which contained other members of our delete list
+    outlist = ""
+    for req in notdeleted:
+        newreq = requestlist.getRequestByID(req.uniqueID)
+        if newreq:
+            outlist = outlist + "\t/dev/%s\n" % (newreq.device,)
+
+    if outlist != "":
+        intf.messageWindow(_("Notice"),
+                           _("The following partitions were not deleted "
+                             "because they are in use:\n\n%s") % outlist)
+
     return 1
 
 

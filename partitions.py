@@ -324,6 +324,32 @@ class Partitions:
                 return request
         return None
 
+
+    def getRequestsByDevice(self, diskset, device):
+        """Find and return the requests on a given device (like 'hda')."""
+        if device is None:
+            return None
+
+        drives = diskset.disks.keys()
+        if device not in drives:
+            return None
+
+        rc = []
+        disk = diskset.disks[device]
+        part = disk.next_partition()
+        while part:
+            dev = partedUtils.get_partition_name(part)
+            request = self.getRequestByDeviceName(dev)
+
+            if request:
+                rc.append(request)
+            part = disk.next_partition(part)
+
+        if len(rc) > 0:
+            return rc
+        else:
+            return None
+
     def getRequestByVolumeGroupName(self, volname):
         """Find and return the request with the given volume group name."""
 	if volname is None:
@@ -989,6 +1015,9 @@ class Partitions:
                 if self.isRaidMember(request):
                     return _("a partition which is a member of a RAID array.")
 
+                if self.isLVMVolumeGroupMember(request):
+                    return _("a partition which is a member of a LVM Volume Group.")
+                    
             part = disk.next_partition(part)
         return None
 
