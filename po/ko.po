@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.3\n"
 "POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2002-03-25 09:38GMT+10.00\n"
+"PO-Revision-Date: 2002-03-26 14:50GMT+10.00\n"
 "Last-Translator: Michelle Kim <mkim@brisbane.redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -80,10 +80,8 @@ msgstr "마우스 검색을 생략합니다.\n"
 
 #: ../anaconda:410
 #, c-format
-msgid ""
-"Graphical installation not available for %s installs.  Starting text mode."
-msgstr ""
-"그래픽 모드 설치로는 %s (을)를 설치할 수 없습니다.  텍스트 모드로 설치합니다."
+msgid "Graphical installation not available for %s installs.  Starting text mode."
+msgstr "그래픽 모드 설치로는 %s (을)를 설치할 수 없습니다.  텍스트 모드로 설치합니다."
 
 #: ../anaconda:420
 msgid ""
@@ -233,15 +231,15 @@ msgstr ""
 
 #: ../autopart.py:1023
 msgid "Remove all partitions on this system"
-msgstr "시스템 상의 모든 분할공간 삭제"
+msgstr "시스템 상의 모든 파티션 삭제"
 
 #: ../autopart.py:1024
 msgid "Remove all Linux Partitions on this system"
-msgstr "시스템 상의 모든 리눅스 공간 삭제"
+msgstr "시스템 상의 모든 리눅스 파티션 삭제"
 
 #: ../autopart.py:1025
 msgid "Keep all partitions and use existing free space"
-msgstr "모든 분할공간을 그대로 유지하고 남은 여유공간 사용"
+msgstr "모든 파티션을 그대로 유지하고 남은 여유공간 사용"
 
 #: ../autopart.py:1027
 #, python-format
@@ -633,8 +631,7 @@ msgstr "설치 화면"
 #: ../harddrive.py:173
 #, python-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr ""
-"#%d 번 CD를 찾을 수 없습니다. 설치를 위해서는 반드시 이 CD가 필요합니다."
+msgstr "#%d 번 CD를 찾을 수 없습니다. 설치를 위해서는 반드시 이 CD가 필요합니다."
 
 #: ../image.py:60
 msgid "Copying File"
@@ -770,7 +767,7 @@ msgstr ""
 "로 설치를 계쏙 진행할 수 없습니다. 미디어를 확인하시고 설치를 다시 시도해 주"
 "십시오.\n"
 "\n"
-"OK 버튼을 누르시면, 시스템을 재부팅 합니다."
+"OK 버튼?? 누르시면, 시스템을 재부팅 합니다."
 
 #: ../packages.py:530
 msgid "Setting up RPM transaction..."
@@ -903,14 +900,11 @@ msgstr "이 파티션의 마운트할 지점을 지정해 주십시요."
 
 #: ../partitioning.py:382
 #, python-format
-msgid ""
-"The mount point %s is already in use, please choose a different mount point."
-msgstr ""
-"'%s' 마운트할 지점은 이미 지정되어 있습니다. 다른 곳으로 지정해 주십시요."
+msgid "The mount point %s is already in use, please choose a different mount point."
+msgstr "'%s' 마운트할 지점은 이미 지정되어 있습니다. 다른 곳으로 지정해 주십시요."
 
 #: ../partitioning.py:439
-msgid ""
-"This mount point is invalid.  This directory must be on the / filesystem."
+msgid "This mount point is invalid.  This directory must be on the / filesystem."
 msgstr ""
 "마운트할 지점이 올바르지 않습니다.  이 디렉토리는 반드시 루트(/) 파일시스템 "
 "상에 위치해야 합니다."
@@ -948,8 +942,7 @@ msgstr "파티션은 절대 실린더 값 밖에서 끝날 수 없습니다."
 
 #: ../partitioning.py:509
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
+msgstr "RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
 
 #: ../partitioning.py:527 ../partitioning.py:617
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -958,8 +951,7 @@ msgstr "부트 파티션은 'RAID1' 장치에서만 지정하실 수 있습니다."
 #: ../partitioning.py:531
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
-"%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
+msgstr "%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
 
 #: ../partitioning.py:537
 #, python-format
@@ -989,8 +981,7 @@ msgstr ""
 "설정된 용량이 너무 적습니다."
 
 #: ../partitioning.py:586
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "반드시 FAT 유형의 /boot/efi 파티션을 생성해야 하며, 용량은 50 MB 이어야 합니"
 "다."
@@ -1111,8 +1102,7 @@ msgid "Confirm Reset"
 msgstr "재설정 확인"
 
 #: ../partitioning.py:1659
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "확실히 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
 
 #: ../partitioning.py:1683
@@ -1299,8 +1289,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"다음의 기존-파티션이 포맷되기 위해 선택되었으며, 모든 자료는 삭제됩니다."
+msgstr "다음의 기존-파티션이 포맷되기 위해 선택되었으며, 모든 자료는 삭제됩니다."
 
 #: ../partitioning.py:1924 ../iw/partition_gui.py:589
 msgid ""
@@ -1457,17 +1446,14 @@ msgid "%s (C) 2002 Red Hat, Inc."
 msgstr "%s (C) 2002 Red Hat, Inc."
 
 #: ../text.py:324
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
 
 #: ../text.py:326
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../text.py:420
 msgid "Cancelled"
@@ -1919,8 +1905,8 @@ msgid ""
 "default boot loader. However, if you do not wish to overwrite your current "
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
-"시스템에서 사용될 부트로더를 선택해 주십시요.  %s의 기본 부트로더는 'GRUB' 입"
-"니다. 현재 시스템에서 사용되고 있는 부트로더를 그대로 사용하시려면, \"부트로"
+"시스템에서 사용될 부트로더를 선택해 주십시요. GRUB이 디폴트 부트로더 입니다."
+"현재 시스템에서 사용되고 있는 부트로더를 그대로 사용하시려면, \"부트로"
 "더를 설치하지 않음\" 항목을 선택하십시요."
 
 #: ../iw/bootloader_gui.py:356 ../iw/silo_gui.py:263
@@ -2430,16 +2416,14 @@ msgid "Disk Setup"
 msgstr "드라이브 설정"
 
 #: ../iw/partition_gui.py:553
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "여러분이 요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니"
 "다."
 
 #: ../iw/partition_gui.py:556
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "%s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시기 바랍니"
 "다. "
@@ -2450,8 +2434,7 @@ msgstr "파티션 설정의 오류"
 
 #: ../iw/partition_gui.py:569
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
-"여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
+msgstr "여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
 
 #: ../iw/partition_gui.py:571
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -2687,8 +2670,7 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "사용하실 드라이브를 지정해 주십시요"
 
 #: ../iw/partition_gui.py:1719
-msgid ""
-"Review (allows you to see and change the automatic partitioning results)"
+msgid "Review (allows you to see and change the automatic partitioning results)"
 msgstr "재확인 (자동 파티션 설정의 결과를 보거나 수정할 수 있습니다)"
 
 #: ../iw/partmethod_gui.py:24 ../textw/partmethod_text.py:24
@@ -2815,9 +2797,8 @@ msgstr "부트로더 설정 업그레이드"
 
 #: ../iw/upgrade_bootloader_gui.py:69 ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
-#, fuzzy
 msgid "Update boot loader configuration"
-msgstr "부트로더 설정 업그레이드"
+msgstr "부트로더 설정 업데이트"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
@@ -2825,9 +2806,8 @@ msgstr "이것은 현재의 부트 로더를 업데이트 시킬 것입니다."
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr "설치 프로그램이 현재 %s에 설치되어 있는 %s부트 로더를 발견했습니다."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "설치 프로그램이  %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 #, python-format
@@ -2842,13 +2822,11 @@ msgstr "이 옵션을 사용하시길 권장합니다."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
+msgstr "설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
-#, fuzzy
 msgid "Create new boot loader configuration"
-msgstr "새로운 부트로더 사용자 설정"
+msgstr "새로운 부트로더 설정 작성하기"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
@@ -2859,9 +2837,8 @@ msgstr ""
 "시면, 이것을 선택하십시오."
 
 #: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
-#, fuzzy
 msgid "Skip boot loader updating"
-msgstr "부트로더 생략"
+msgstr "부트로더 업데이트 생략"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
@@ -2968,8 +2945,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "스왑 파일은 '2 GB' 용량 내에서 지정해 주셔야 합니다."
 
 #: ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "여러분이 선택하신 장치에 스왑 파티션을 생성하기에는 공간이 부족합니다."
 
 #: ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
@@ -3250,8 +3226,7 @@ msgstr ""
 "정해 주십시요."
 
 #: ../textw/bootloader_text.py:298
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> 는 버튼 선택 | <F2> 는 기본 부트 엔트리 선택 | <F12> 는 다음 화면으"
 "로 가기>"
@@ -3586,8 +3561,7 @@ msgid "Total size"
 msgstr "총 용량"
 
 #: ../textw/packages_text.py:245
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "        <Space>,<+>,<-> 선택   |   <F1> 도움말   |   <F2> 패키지 정보"
 
 #: ../textw/packages_text.py:293
@@ -3642,8 +3616,7 @@ msgid "Filesystem Options"
 msgstr "파일시스템 옵션"
 
 #: ../textw/partition_text.py:441
-msgid ""
-"Please choose how you would like to prepare the filesystem on this partition."
+msgid "Please choose how you would like to prepare the filesystem on this partition."
 msgstr "이 파티션에 설정할 파일시스템을 지정해 주십시요."
 
 #: ../textw/partition_text.py:458
@@ -3721,10 +3694,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:993
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
 
 #: ../textw/partition_text.py:1020
 msgid "No Root Partition"
@@ -3950,8 +3921,7 @@ msgid "User Exists"
 msgstr "사용자가 존재함"
 
 #: ../textw/userauth_text.py:146
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Root 사용자는 이미 설정되어 있습니다. Root 사용자를 이곳에 추가하실 필요는 없"
 "습니다."
@@ -4330,11 +4300,13 @@ msgid "Failed to mount driver disk."
 msgstr "드라이버 디스켓을 마운트하는데 실패했습니다."
 
 #: ../loader/devices.c:266
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of %"
 "s."
-msgstr "이 디스켓은 이번 %s 버전의 드라이버 디스켓이 아닙니다."
+msgstr ""
+"이 디스켓은 이번 %"
+"s 버전의 드라이버 디스켓이 아닙니다."
 
 #: ../loader/devices.c:326
 msgid ""
@@ -4379,10 +4351,8 @@ msgid "Welcome to %s"
 msgstr "%s에 오신것을 환영합니다 "
 
 #: ../loader/lang.c:42 ../loader/loader.c:201
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../loader/lang.c:306
 msgid "Choose a Language"
@@ -4591,8 +4561,7 @@ msgstr "첫번째 설치 이미지를 읽어올 수 없습니다"
 
 #: ../loader/loader.c:1693
 msgid "FTP and HTTP installs require 20MB or more of system memory."
-msgstr ""
-"FTP 와 HTTP 를 통해 설치하시려면, 최소한 '20 MB' 이상의 메모리가 필요합니다."
+msgstr "FTP 와 HTTP 를 통해 설치하시려면, 최소한 '20 MB' 이상의 메모리가 필요합니다."
 
 #: ../loader/loader.c:1956
 msgid "Rescue Method"
@@ -4898,8 +4867,7 @@ msgstr "네트웍 장치"
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../loader/net.c:899
 #, c-format
@@ -5230,7 +5198,7 @@ msgstr "Amundsen-Scott Station, South Pole"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -5241,19 +5209,16 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+msgstr "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -5277,7 +5242,7 @@ msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr ""
+msgstr "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -5316,9 +5281,8 @@ msgid "Central Time - most locations"
 msgstr "Central Time - most locations"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Oliver County"
-msgstr "Central Time - most locations"
+msgstr "Central Time - North Dakota - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
@@ -5345,9 +5309,8 @@ msgid "Davis Station, Vestfold Hills"
 msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Dornod, Sukhbaatar"
-msgstr "Dornod, Sukhbaatar "
+msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
@@ -5363,11 +5326,11 @@ msgstr "E Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "east China - Beijing, Guangdong, Shanghai, etc."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "east coast, north of Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
@@ -5426,10 +5389,8 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "Eastern Time - Ontario & Quebec - most locations"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -5465,7 +5426,7 @@ msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr ""
+msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -5572,14 +5533,12 @@ msgid "Moscow+07 - Amur River"
 msgstr "Moscow+07 - Amur River"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+07 - Sakhalin Island"
-msgstr "Moscow+08 - Magadan & Sakhalin"
+msgstr "Moscow+07 - Sakhalin Island"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+08 - Magadan"
-msgstr "Moscow+08 - Magadan & Sakhalin"
+msgstr "Moscow+08 - Magadan"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
@@ -5594,10 +5553,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -5709,7 +5666,7 @@ msgstr "Queensland - most locations"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -5725,7 +5682,7 @@ msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
@@ -5741,7 +5698,7 @@ msgstr "southwest Mali"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr ""
+msgstr "southwest Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
@@ -5761,12 +5718,11 @@ msgstr "Tasmania"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr "Tibet & Xinjiang"
+msgstr "Tibet & most of Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -5809,9 +5765,8 @@ msgid "Western Australia"
 msgstr "Western Australia"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "West Kazakhstan"
-msgstr "동부 카자흐스탄"
+msgstr "West Kazakhstan"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -5913,35 +5868,3 @@ msgstr "스웨덴어"
 msgid "Ukrainian"
 msgstr "우크라니아어"
 
-#~ msgid "Update current settings"
-#~ msgstr "현재 설정 업데이트"
-
-#~ msgid "Do nothing"
-#~ msgstr "아무것도 하지않음"
-
-#~ msgid "China coast"
-#~ msgstr "China coast"
-
-#~ msgid "China mountains"
-#~ msgstr "China mountains"
-
-#~ msgid "Eastern Turkestan"
-#~ msgstr "Eastern Turkestan"
-
-#~ msgid "central Kazakhstan"
-#~ msgstr "중부 카자흐스탄"
-
-#~ msgid "east Greenland"
-#~ msgstr "east Greenland"
-
-#~ msgid "north Manchuria"
-#~ msgstr "north Manchuria"
-
-#~ msgid "northwest Greenland"
-#~ msgstr "northwest Greenland"
-
-#~ msgid "southwest Greenland"
-#~ msgstr "southwest Greenland"
-
-#~ msgid "west Kazakhstan"
-#~ msgstr "서부 카자흐스탄"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Installer 7.0\n"
 "POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2002-04-05 16:58GMT\n"
+"PO-Revision-Date: 2002-04-09 16:50GMT\n"
 "Last-Translator: Bettina De Monti <bettina@redhat.it>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -81,8 +81,7 @@ msgstr "Aucune détection de la souris.\n"
 
 #: ../anaconda:410
 #, c-format
-msgid ""
-"Graphical installation not available for %s installs.  Starting text mode."
+msgid "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 "Installation graphique non disponible pour les installations de %s. "
 "Démarrage du mode texte."
@@ -184,7 +183,7 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
-"Impossible d'allouer les partitions requises : \n"
+"Impossible d'allouer les partitions requises\n"
 "\n"
 "%s.%s"
 
@@ -743,7 +742,7 @@ msgstr ""
 
 #: ../packages.py:280
 msgid "Error Installing Package"
-msgstr "Erreur lors de l'installation du paquetage"
+msgstr "Erreur lors de l'installation des paquetages"
 
 #: ../packages.py:281
 msgid ""
@@ -891,20 +890,18 @@ msgid "Please specify a mount point for this partition."
 msgstr "Spécifier un point de montage pour cette partition."
 
 #: ../partitioning.py:382
-msgid ""
-"The mount point %s is already in use, please choose a different mount point."
+msgid "The mount point %s is already in use, please choose a different mount point."
 msgstr "Le point de montage %s est déjà utilisé. Choisissez-en un autre."
 
 #: ../partitioning.py:439
-msgid ""
-"This mount point is invalid.  This directory must be on the / filesystem."
+msgid "This mount point is invalid.  This directory must be on the / filesystem."
 msgstr ""
-"Ce point de montage n'est pas valide. Ce répertoire doit se trouver sur le "
-"système de fichiers /."
+"Ce point de montage n'est pas valide. Ce répertoire être sur le système de "
+"fichiers /."
 
 #: ../partitioning.py:444
 msgid "This mount point must be on a linux filesystem."
-msgstr "Ce point de montage doit se trouver sur un système de fichiers Linux."
+msgstr "Ce point de montage doit être sur un système de fichiers Linux."
 
 #: ../partitioning.py:457
 msgid ""
@@ -976,10 +973,8 @@ msgstr ""
 "petit pour installer %s."
 
 #: ../partitioning.py:586
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Vous devez créer une partition /boot/efi de type FAT et de 50 méga-octets."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Vous devez créer une partition /boot/efi de type FAT et de 50 méga-octets."
 
 #: ../partitioning.py:594
 msgid ""
@@ -1092,10 +1087,8 @@ msgid "Confirm Reset"
 msgstr "Confirmer la réinitialisation "
 
 #: ../partitioning.py:1659
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Etes-vous sûr de vouloir reporter la table de partition à son état initial ?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Etes-vous sûr de vouloir reporter la table de partition à son état initial ?"
 
 #: ../partitioning.py:1683
 msgid "the partition in use by the installer."
@@ -1450,17 +1443,14 @@ msgid "%s (C) 2002 Red Hat, Inc."
 msgstr "%s (C) 2002 Red Hat, Inc."
 
 #: ../text.py:324
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"  <F1> Aide|<Tab> Changer d'élément|<Espace> Sélectionner|<F12> Ecran suivant"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "  <F1> Aide|<Tab> Changer d'élément|<Espace> Sélectionner|<F12> Ecran suivant"
 
 #: ../text.py:326
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> Changer d'élément|<Espace> Sélectionner|<F12> Ecran suivant"
+msgstr "  <Tab>/<Alt-Tab> Changer d'élément|<Espace> Sélectionner|<F12> Ecran suivant"
 
 #: ../text.py:420
 msgid "Cancelled"
@@ -1468,8 +1458,7 @@ msgstr "Annulé"
 
 #: ../text.py:421
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Impossible de revenir à l'étape précédente à partir d'ici. Essayer à nouveau."
+msgstr "Impossible de revenir à l'étape précédente à partir d'ici. Essayer à nouveau."
 
 #: ../upgrade.py:43
 msgid "Searching"
@@ -1618,8 +1607,7 @@ msgstr "Tentative de démarrage du serveur X VGA16"
 
 #: ../xserver.py:170
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr ""
-"Le serveur X se prépare à démarrer...le journal se trouve dans /tmp/X.log\n"
+msgstr "Le serveur X se prépare à démarrer...le journal se trouve dans /tmp/X.log\n"
 
 #: ../xserver.py:197
 msgid " X server started successfully."
@@ -1693,8 +1681,7 @@ msgstr "Entrer un mot de passe utilisateur"
 
 #: ../iw/account_gui.py:273
 msgid "Enter the password for the root user (administrator) of this system."
-msgstr ""
-"Entrer le mot de passe du super-utilisateur (administrateur) de ce système."
+msgstr "Entrer le mot de passe du super-utilisateur (administrateur) de ce système."
 
 #: ../iw/account_gui.py:289
 msgid "Root Password: "
@@ -2014,7 +2001,7 @@ msgstr "Début de l'installation"
 
 #: ../iw/confirm_gui.py:60
 msgid "Click next to begin installation of %s."
-msgstr "Cliquer sur Suivant pour commencer l'installation de %s."
+msgstr "Cliquez sur Suivant pour commencer l'installation de %s."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
@@ -2034,7 +2021,7 @@ msgstr "Début de la mise à jour"
 
 #: ../iw/confirm_gui.py:73
 msgid "Click next to begin upgrade of %s."
-msgstr "Cliquer sur Suivant pour commencer la mise à jour de %s."
+msgstr "Cliquez sur Suivant pour commencer la mise à jour de %s."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
@@ -2230,7 +2217,7 @@ msgstr "Configuration du clavier"
 
 #: ../iw/keyboard_gui.py:103
 msgid "Which model keyboard is attached to the computer?"
-msgstr "Quel est le modèle du clavier connecté à cet ordinateur ?"
+msgstr "Modèle de clavier connecté à cet ordinateur :"
 
 #: ../iw/keyboard_gui.py:112
 msgid "Model"
@@ -2258,8 +2245,7 @@ msgstr "Tester la sélection ici :"
 
 #: ../iw/language_gui.py:49 ../loader/lang.c:307 ../textw/language_text.py:39
 msgid "What language would you like to use during the installation process?"
-msgstr ""
-"Quelle langue souhaitez-vous utiliser durant le processus d'installation ?"
+msgstr "Quelle langue souhaitez-vous utiliser durant le processus d'installation ?"
 
 # ../comps/comps-master:446
 #: ../iw/language_support_gui.py:23
@@ -2276,7 +2262,7 @@ msgstr "Langues actuellement installées :"
 
 #: ../iw/language_support_gui.py:155
 msgid "Choose additional languages you would like to use on this system:"
-msgstr "Quelle autres langue souhaitez-vous utiliser sur ce système ?"
+msgstr "Quelles autres langues souhaitez-vous utiliser sur ce système ?"
 
 #: ../iw/language_support_gui.py:204
 msgid "Select all"
@@ -2320,7 +2306,7 @@ msgstr "Port"
 
 #: ../iw/mouse_gui.py:229
 msgid "Which model mouse is attached to the computer?"
-msgstr "Quel est le modèle de la souris connectée à cet ordinateur ?"
+msgstr "Modèle de souris connecté à cet ordinateur :"
 
 #: ../iw/network_gui.py:21
 msgid "Network Configuration"
@@ -2393,7 +2379,7 @@ msgstr "Taille (Mo)"
 
 #: ../iw/package_gui.py:463
 msgid "Total size: "
-msgstr "Taille totale :"
+msgstr "Taille tot:"
 
 #: ../iw/package_gui.py:466
 msgid "Select all in group"
@@ -2420,20 +2406,17 @@ msgstr "<Non applicable>"
 
 #: ../iw/partition_gui.py:493 ../textw/fdisk_text.py:39
 msgid "Disk Setup"
-msgstr "Configuration disque"
+msgstr "Configuration du disque"
 
 #: ../iw/partition_gui.py:553
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "Les erreurs critiques ci-dessous se réfèrent au schéma de partitionnement "
 "requis."
 
 #: ../iw/partition_gui.py:556
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
-"Ces erreurs doivent être corrigées avant de poursuivre l'installation de %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
+msgstr "Ces erreurs doivent être corrigées avant de poursuivre l'installation de %s."
 
 #: ../iw/partition_gui.py:563
 msgid "Partitioning Errors"
@@ -2514,7 +2497,7 @@ msgstr "Type de système de fichiers :"
 
 #: ../iw/partition_gui.py:891
 msgid "Original Filesystem Type:"
-msgstr "Type du système de fichiers originel :"
+msgstr "Type de système de fichiers originel :"
 
 #: ../iw/partition_gui.py:900
 msgid "Unknown"
@@ -2548,8 +2531,7 @@ msgstr "Fin du cylindre :"
 
 #: ../iw/partition_gui.py:1010
 msgid "How would you like to prepare the filesystem on this partition?"
-msgstr ""
-"Comment souhaitez-vous préparer le système de fichiers sur cette partition ?"
+msgstr "Comment souhaitez-vous préparer le système de fichiers sur cette partition ?"
 
 #: ../iw/partition_gui.py:1019 ../textw/partition_text.py:449
 msgid "Leave unchanged (preserve data)"
@@ -2676,8 +2658,7 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Quel(s) périphérique(s) voulez-vous utiliser pour cette installation ?"
 
 #: ../iw/partition_gui.py:1719
-msgid ""
-"Review (allows you to see and change the automatic partitioning results)"
+msgid "Review (allows you to see and change the automatic partitioning results)"
 msgstr ""
 "Examiner (permet de voir et de modifier les résultats du partitionnement "
 "automatique)"
@@ -2815,8 +2796,7 @@ msgid "This will update your current boot loader."
 msgstr "Ceci mettra à jour votre chargeur de démarrage actuel."
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Le programme d'installation a détecté le chargeur de démarrage %s installé "
 "sur %s."
@@ -2919,8 +2899,7 @@ msgstr "Je veux créer un fichier swap"
 
 #: ../iw/upgrade_swap_gui.py:118
 msgid "Select the partition to put the swap file on:"
-msgstr ""
-"Sélectionnez la partition dans laquelle vous voulez insérer le fichier :"
+msgstr "Sélectionnez la partition dans laquelle vous voulez insérer le fichier :"
 
 #: ../iw/upgrade_swap_gui.py:123
 msgid "Free Space (MB)"
@@ -2957,8 +2936,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "La taille du fichier swap doit être comprise entre 1 et 2000 Mo."
 
 #: ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Le périphérique que vous avez sélectionné ne contient pas assez d'espace "
 "libre pour la partition swap."
@@ -3250,8 +3228,7 @@ msgstr ""
 "pouvoir lancer et l'étiquette que vous voulez utiliser pour chacune d'elles."
 
 #: ../textw/bootloader_text.py:298
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> sélectionne bouton | <F2> sélectionne entrée de démarrage par "
 "défaut | <F12> écran suivant>"
@@ -3466,7 +3443,7 @@ msgstr "Sélection du clavier"
 
 #: ../textw/keyboard_text.py:36
 msgid "Which model keyboard is attached to this computer?"
-msgstr "Quel est le modèle du clavier connecté à cet ordinateur ?"
+msgstr "Modèle du clavier connecté à cet ordinateur :"
 
 #: ../textw/language_text.py:120
 msgid "Select All"
@@ -3474,8 +3451,7 @@ msgstr "Sélectionner tout"
 
 #: ../textw/language_text.py:122
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr ""
-"Choisir les autres langues que vous souhaitez utiliser dans ce système :"
+msgstr "Choisir les autres langues que vous souhaitez utiliser dans ce système :"
 
 # ../comps/comps-master:446
 #: ../textw/language_text.py:126
@@ -3500,7 +3476,7 @@ msgstr "Sur quel port votre souris est-elle connectée ?"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
-msgstr "Quel est le modèle de souris connecté à cet ordinateur ?"
+msgstr "Modèle de souris connecté à cet ordinateur :"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
@@ -3584,10 +3560,8 @@ msgid "Total size"
 msgstr "Taille totale"
 
 #: ../textw/packages_text.py:245
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"  <Espace>,<+>,<-> Sélectionner | <F1> Aide | <F2> Description du paquetage"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "  <Espace>,<+>,<-> Sélectionner | <F1> Aide | <F2> Description du paquetage"
 
 #: ../textw/packages_text.py:293
 msgid "Package Dependencies"
@@ -3640,8 +3614,7 @@ msgid "Filesystem Options"
 msgstr "Options du système de fichiers"
 
 #: ../textw/partition_text.py:441
-msgid ""
-"Please choose how you would like to prepare the filesystem on this partition."
+msgid "Please choose how you would like to prepare the filesystem on this partition."
 msgstr ""
 "Choisissez la façon dont vous souhaitez préparer le système de fichiers sur "
 "cette partition."
@@ -3719,8 +3692,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:993
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "  F1-Aide     F2-Ajouter     F3-Modifier    F4-Effacer     F5-Réinitialiser  "
 "   F12-Ok  "
@@ -3731,8 +3703,7 @@ msgstr "Pas de partition root"
 
 #: ../textw/partition_text.py:1021
 msgid "Must have a / partition to install on."
-msgstr ""
-"Vous devez disposer d'une partition / sur laquelle effectuer l'installation."
+msgstr "Vous devez disposer d'une partition / sur laquelle effectuer l'installation."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -3744,7 +3715,7 @@ msgstr "Disk Druid"
 
 #: ../textw/progress_text.py:79
 msgid "Package Installation"
-msgstr "Installation du paquetage"
+msgstr "Installation des paquetages"
 
 #: ../textw/progress_text.py:81
 msgid " Name   : "
@@ -3951,8 +3922,7 @@ msgid "User Exists"
 msgstr "L'utilisateur existe déjà"
 
 #: ../textw/userauth_text.py:146
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "L'utilisateur root est déjà configuré. Vous n'avez pas besoin d'ajouter cet "
 "utilisateur ici."
@@ -3982,7 +3952,7 @@ msgid ""
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
-"Quel compte utilisateur souhaitez-vous utiliser sur le système ? Vous devez "
+"Quel compte utilisateur souhaitez-vous utiliser ? Vous devez "
 "disposer au minimum d'un compte non root pour le travail courant, mais les "
 "systèmes multi-utilisateurs peuvent gérer un grand nombre d'autres comptes "
 "non privilégiés."
@@ -4242,8 +4212,7 @@ msgstr "Configuration de la carte vidéo"
 
 #: ../textw/xconfig_text.py:584
 msgid "Select the video card and video RAM for your system."
-msgstr ""
-"Sélectionnez la carte vidéo ainsi que sa mémoire vive pour votre système."
+msgstr "Sélectionnez la carte vidéo ainsi que sa mémoire vive pour votre système."
 
 #: ../textw/xconfig_text.py:587
 msgid "Video Card:"
@@ -4292,7 +4261,7 @@ msgstr "Type de lecteur de CD-ROM"
 
 #: ../loader/cdrom.c:32
 msgid "What type of CDROM do you have?"
-msgstr "Quel est le type de votre lecteur de CD-ROM ?"
+msgstr "Type de lecteur de CD-ROM :"
 
 #: ../loader/cdrom.c:89
 msgid "Initializing CDROM..."
@@ -4327,8 +4296,7 @@ msgstr "Disposez-vous d'une disquette de pilotes ?"
 
 #: ../loader/devices.c:241
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr ""
-"Insérez votre disquette de pilotes et cliquez sur \"OK\" pour continuer."
+msgstr "Insérez votre disquette de pilotes et cliquez sur \"OK\" pour continuer."
 
 #: ../loader/devices.c:259
 msgid "Failed to mount driver disk."
@@ -4386,10 +4354,8 @@ msgid "Welcome to %s"
 msgstr "Bienvenue à %s"
 
 #: ../loader/lang.c:42 ../loader/loader.c:201
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"<Tab>/<Alt-Tab> Changer d'élément |<Espace> Sélectionner |<F12> Ecran suivant"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "<Tab>/<Alt-Tab> Changer d'élément |<Espace> Sélectionner |<F12> Ecran suivant"
 
 #: ../loader/lang.c:306
 msgid "Choose a Language"
@@ -4505,8 +4471,7 @@ msgstr "Sélection de la partition"
 #: ../loader/loader.c:1156
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr ""
-"Le périphérique %s ne semble pas contenir des images de CD-ROM Red Hat."
+msgstr "Le périphérique %s ne semble pas contenir des images de CD-ROM Red Hat."
 
 #: ../loader/loader.c:1209 ../loader/loader.c:1227 ../loader/mediacheck.c:209
 msgid "Media Check"
@@ -4581,8 +4546,7 @@ msgstr ""
 
 #: ../loader/loader.c:1576
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr ""
-"Ce répertoire ne semble pas contenir une arborescence d'installation Red Hat."
+msgstr "Ce répertoire ne semble pas contenir une arborescence d'installation Red Hat."
 
 #: ../loader/loader.c:1581
 msgid "That directory could not be mounted from the server"
@@ -4661,8 +4625,7 @@ msgstr "Lecture des mises à jour anaconda..."
 #: ../loader/loader.c:3046
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
-"Vous n'avez pas assez de mémoire vive pour installer %s sur cette machine."
+msgstr "Vous n'avez pas assez de mémoire vive pour installer %s sur cette machine."
 
 #: ../loader/loader.c:3082
 msgid ""
@@ -5290,8 +5253,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Heure de l'Atlantique - Labrador de l'est"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Heure de l'Atlantique - Nouvelle-Ecosse (plupart du territoire), NB, "
 "Labrador de l'ouest, Québec de l'est et PEI"
@@ -5336,8 +5298,7 @@ msgstr "Crimée centrale"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
-"Heure légale des Etats du Centre des Etats-Unis - Saskatchewan - midwest"
+msgstr "Heure légale des Etats du Centre des Etats-Unis - Saskatchewan - midwest"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
@@ -5361,13 +5322,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
-"Heure des Etats du Centre des Etats-Unis - Manitoba et Ontario de l'ouest"
+msgstr "Heure des Etats du Centre des Etats-Unis - Manitoba et Ontario de l'ouest"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
-msgstr ""
-"Heure des Etats du Centre des Etats-Unis - Michigan - frontière du Wisconsin "
+msgstr "Heure des Etats du Centre des Etats-Unis - Michigan - frontière du Wisconsin "
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -5375,8 +5334,7 @@ msgstr "Heure des Etats du Centre des Etats-Unis - plupart du territoire"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr ""
-"Heure des Etats du Centre des Etats-Unis - North Dakota - Oliver County"
+msgstr "Heure des Etats du Centre des Etats-Unis - North Dakota - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
@@ -5485,8 +5443,7 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "Heure de l'Est - Ontario et Québec - plupart du territoire"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Heure de l'Est - Ontario et Québec - endroits qui n'observent pas DST "
 "1967-1973"
@@ -5497,8 +5454,7 @@ msgstr "Heure de l'Est - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"Borneo de l'est et du sud, Celebes, Bali, Nusa Tengarra, Timor de l'ouest"
+msgstr "Borneo de l'est et du sud, Celebes, Bali, Nusa Tengarra, Timor de l'ouest"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -5653,8 +5609,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Heure standard des Montagnes Rocheuses - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 "Heure standard des Montagnes Rocheuses - Dawson Creek et Fort Saint John, "
 "Colombie-Britannique"
@@ -5972,3 +5927,4 @@ msgstr "Suédois"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainien"
+
