@@ -883,13 +883,10 @@ class XF86Config:
             probe = probe + _("Video Card") + ": " + self.vidCards[self.primary]["NAME"] + "\n"
             if self.vidRam:
                 probe = probe + "\t" + _("Video Ram") + ": " + self.vidRam + " kb\n"
-        print self.server
         if self.server:
-            print "Inside probeReport in xf86config.py  - if self.server"
             time.sleep(5)
             probe = probe + "\t" + _("X server") + ": " + self.server + "\n"
         if not self.server:
-            print "Inside probeReport in xf86config.py  - if not self.server"
             time.sleep(5)
             probe = probe + "\t" + _("Unable to detect video card")
 
