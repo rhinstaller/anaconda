@@ -3,7 +3,6 @@ import rpm
 import os
 from string import *
 import types
-import iutil
 import urllib
 
 XFreeServerPackages = { 'XFree86-3DLabs' : 1, 	'XFree86-8514' : 1,
@@ -228,7 +227,7 @@ class ComponentSet:
     def keys(self):
 	return self.compsDict.keys()
 
-    def exprMatch(self, expr, arch1, arch2):
+    def exprMatch(self, expr, arch1, arch2, matchAllLang = 0):
 	if os.environ.has_key('LANG'):
 	    lang = os.environ['LANG']
 	else:
@@ -253,6 +252,9 @@ class ComponentSet:
 		    newTruth = 0
 		else:
 		    newTruth = 1
+
+		if matchAllLang:
+		    newTruth = 1
 	    elif l[0] == "arch":
 		if len(l) != 2:
 		    raise ValueError, "too many arguments for arch"
@@ -271,8 +273,12 @@ class ComponentSet:
 	    return 1
 	return 0
 
-    def readCompsFile(self, filename, packages):
-	arch = iutil.getArch()
+    def readCompsFile(self, filename, packages, arch = None,
+		      matchAllLang = 0):
+	if not arch:
+	    import iutil
+	    arch = iutil.getArch()
+
 	arch2 = None
 	if arch == "sparc" and os.uname ()[4] == "sparc64":
 	    arch2 = "sparc64"
@@ -297,7 +303,7 @@ class ComponentSet:
 		(archList, l) = split(l, ":", 1)
 		if archList[0] == '(':
 		    l = strip(l)
-		    if not self.exprMatch(archList, arch, arch2):
+		    if not self.exprMatch(archList, arch, arch2, matchAllLang):
 			continue
 		else:
 		    while (l[0] == " "): l = l[1:]
@@ -375,6 +381,6 @@ class ComponentSet:
 
 	return s
 
-    def __init__(self, file, hdlist):
+    def __init__(self, file, hdlist, arch = None, matchAllLang = 0):
 	self.packages = hdlist
-	self.readCompsFile(file, self.packages)
+	self.readCompsFile(file, self.packages, arch, matchAllLang)
