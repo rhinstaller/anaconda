@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage() {
-	echo "Usage: buildinstall [--comp <component>] [--pkgorder <file>] [--version <version>] [--product <product>] [--release <comment>] [--prodpath <path>] <root>" >&2
+	echo "Usage: buildinstall [--comp <component>] [--pkgorder <file>] [--version <version>] [--product <product>] [--release <comment>] [--prodpath <path>] [--discs <discstring>] <root>" >&2
 	exit 1
 }
 
@@ -48,6 +48,10 @@ while [ $# -gt 0 ]; do
 	    BUILDINSTDIR=$2
 	    shift; shift
 	    ;;
+	--discs)
+	    DISCSTR=$2
+	    shift; shift
+	    ;;
 	*)
 	    if [ -n "$DIR" -o ! -d $1/$PRODUCTPATH/RPMS ]; then
 		usage
@@ -72,6 +76,10 @@ fi
 
 if [ -z "$RELEASESTR" ]; then
     usage
+fi
+
+if [ -z "$DISCSTR" ]; then
+    DISCSTR="1,2,3"
 fi
 
 p=`cd $DIR; /bin/pwd`
@@ -120,9 +128,9 @@ rm -rf $BUILDINSTDIR/usr
 echo "Going to run buildinstall again"
 # run it again for the second half
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release '\"$RELEASESTR\"' --product '\"$PRODUCTSTR\"' --prodpath $PRODUCTPATH $DIR" 
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release '\"$RELEASESTR\"' --product '\"$PRODUCTSTR\"' --prodpath $PRODUCTPATH --discs '\"$DISCSTR\"' $DIR" 
 else
-    $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release "$RELEASESTR" --product "$PRODUCTSTR" --prodpath $PRODUCTPATH $DIR
+    $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release "$RELEASESTR" --product "$PRODUCTSTR" --prodpath $PRODUCTPATH --discs "$DISCSTR" $DIR 
 fi
 
 rm -rf $BUILDINSTDIR
@@ -154,7 +162,7 @@ else
 fi
 
 echo "Writing .discinfo file"
-$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="1,2,3" --baseDir=$PRODUCTPATH/base --packagesDir=$PRODUCTPATH/RPMS --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
+$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="$DISCSTR" --baseDir=$PRODUCTPATH/base --packagesDir=$PRODUCTPATH/RPMS --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
 
 if [ -x /usr/bin/runroot ]; then
     runroot $COMPNAME --onlyone --arch $BUILDARCH "rm -rf $TREEDIR/image-template $TREEDIR/instimage"
