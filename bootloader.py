@@ -367,7 +367,8 @@ class ia64BootloaderInfo(bootloaderInfo):
             
         bootdisk = bootdev[:ind]
         bootpart = bootdev[ind:]
-        if bootdisk[0:4] == "ida/" or bootdisk[0:6] == "cciss/" or bootdisk[0:3] == "rd/":
+        if (bootdisk.startswith('ida/') or bootdisk.startswith('cciss/') or
+            bootdisk.startswith('rd/')):
             bootdisk = bootdisk[:-1]
 
         self.removeOldEfiEntries(instRoot)            
@@ -434,7 +435,7 @@ class x86BootloaderInfo(bootloaderInfo):
 
         grubTarget = bl.getDevice()
         # XXX wouldn't it be nice if grub really understood raid? :)
-        if grubTarget[:2] == "md":
+        if grubTarget.startswith('md'):
             device = fsset.getEntryByDeviceName(grubTarget).device.members[0]
             (grubTarget, None) = getDiskPart(device)
 
@@ -785,7 +786,8 @@ def makeInitrd (kernelTag, instRoot):
 # return (disk, partition number) eg ('hda', 1)
 def getDiskPart(dev):
     cut = len(dev)
-    if dev[:3] == "rd/" or dev[:4] == "ida/" or dev[:6] == "cciss/":
+    if (dev.startswith('rd/') or dev.startswith('ida/') or
+        dev.startswith('cciss/')):
         if dev[-2] == 'p':
             cut = -1
         elif dev[-3] == 'p':
