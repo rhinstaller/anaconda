@@ -1419,7 +1419,7 @@ class AutoPartitionWindow(InstallWindow):
 
         self.inspect = GtkCheckButton(_("Review (allows you to see and "
                                         "change the automatic partitioning "
-                                        "results"))
+                                        "results)"))
 
         self.inspect.set_active(not dispatch.stepInSkipList("partition"))
         
