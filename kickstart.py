@@ -226,6 +226,7 @@ class Kickstart(InstallClass):
 
     def readKickstart(self, file):
 	handlers = { 
+		     "auth"		: self.doAuthconfig	,
 		     "authconfig"	: self.doAuthconfig	,
 		     "cdrom"		: None			,
 		     "clearpart"	: self.doClearPart	,
