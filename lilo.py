@@ -242,7 +242,7 @@ class LiloConfiguration:
 	    if fsType == "other": continue
 
 	    if not os.access(instRoot + sl.getPath(), os.R_OK):
-		lilo.delImage(image)
+		lilo.delImage(label)
 
 	bootpart = fstab.getBootDevice()
 	boothd = fstab.getMbrDevice()
