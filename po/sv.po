@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-08-22 02:05-0400\n"
-"PO-Revision-Date: 2002-08-16 22:17+0200\n"
+"PO-Revision-Date: 2002-08-22 12:11+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -386,15 +386,16 @@ msgstr ""
 "startas om."
 
 #: ../floppy.py:91
-#, fuzzy
 msgid "Unable to make boot floppy"
-msgstr "Montering av disketten misslyckades."
+msgstr "Kan inte skapa startdiskett"
 
 #: ../floppy.py:92
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
+"Storleken på kärnmodulerna som krävs för din maskin gör det omöjligt att "
+"skapa en startdiskett som kommer att passa på en diskett."
 
 #: ../floppy.py:101
 msgid "Insert a floppy disk"
@@ -698,7 +699,7 @@ msgstr "Språkval"
 
 #: ../gui.py:703 ../gui.py:732
 msgid "Release Notes"
-msgstr "Versionsinformation"
+msgstr "Utgåvenoteringar"
 
 #: ../gui.py:737
 msgid "Unable to load file!"
@@ -706,7 +707,7 @@ msgstr "Kan inte läsa in fil!"
 
 #: ../gui.py:774
 msgid "Release notes are missing.\n"
-msgstr "Versionsinformation saknas.\n"
+msgstr "Utgåvenoteringar saknas.\n"
 
 #: ../gui.py:805
 msgid "Error!"
@@ -749,7 +750,7 @@ msgstr "_Nästa"
 
 #: ../gui.py:912
 msgid "_Release Notes"
-msgstr "_Versionsinformation"
+msgstr "_Utgåvenoteringar"
 
 #: ../gui.py:914
 msgid "Show _Help"
@@ -792,6 +793,9 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
+"Ett fel inträffade vid avmontering av cd-romskivan. Försäkra dig om att "
+"du inte försöker komma åt %s från skalet på tty2 och klicka sedan på OK "
+"för att försöka igen."
 
 #: ../image.py:99
 msgid "Copying File"
@@ -914,7 +918,7 @@ msgstr ""
 "Det uppstod ett fel vid installationen av %s. Detta kan bero på ett "
 "mediafel, brist på hårddiskutrymme, och/eller hårdvaruproblem. Detta är ett "
 "ödesdigert fel och din installation kommer att avbrytas. Verifiera mediumet "
-"och försök igen.\n"
+"och försök att installera igen.\n"
 "\n"
 "Tryck på OK-knappen för att starta om ditt system."
 
@@ -1131,7 +1135,7 @@ msgstr "Ange ett volymgruppsnamn."
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr "Volymgruppsnamn får vara högst 128 tecken långa"
+msgstr "Volymgruppsnamn måste använda färre än 128 tecken"
 
 #: ../partIntfHelpers.py:42
 #, python-format
@@ -1144,7 +1148,7 @@ msgid ""
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
 "Fel - volymgruppsnamnet innehåller otillåtna tecken eller blanktecken. "
-"Tillåtna tecken är bokstäver, siffror, \".\" eller \"-\"."
+"Tillåtna tecken är bokstäver, siffror, \".\" eller \"_\"."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1152,7 +1156,7 @@ msgstr "Ange ett logiskt volymnamn."
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr "Logiska volymnamn får högst vara 128 tecken"
+msgstr "Logiska volymnamn måste använda färre än 128 tecken"
 
 #: ../partIntfHelpers.py:65
 #, python-format
@@ -1165,7 +1169,7 @@ msgid ""
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
 "Fel - det logiska volymnamnet innehåller otillåtna tecken eller blanktecken. "
-"Tillåtna tecken är bokstäver, siffror, \".\" eller \"-\"."
+"Tillåtna tecken är bokstäver, siffror, \".\" eller \"_\"."
 
 #: ../partIntfHelpers.py:94
 msgid ""
@@ -1912,6 +1916,9 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
+"Uppgraderingar för denna version av %s stöds endast från Red Hat Linux 6.2 "
+"eller högre. Detta verkar vara ett äldre system. Vill du fortsätta "
+"uppgraderingsprocessen?"
 
 #: ../xserver.py:48
 msgid "Mouse Not Detected"
@@ -2664,7 +2671,7 @@ msgstr "fdasd"
 
 #: ../iw/fdasd_gui.py:28
 msgid "Select drive to run fdasd on"
-msgstr "Välj enhet att köra fdasd på"
+msgstr "Välj hårddisk att köra fdasd på"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
@@ -2672,7 +2679,7 @@ msgstr "Partitionering med fdisk"
 
 #: ../iw/fdisk_gui.py:103
 msgid "Select a drive to partition with fdisk:"
-msgstr "Välj en enhet att partitionera med fdisk:"
+msgstr "Välj en hårddisk att partitionera med fdisk:"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
 msgid "Firewall Configuration"
@@ -3198,7 +3205,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Värdnamnet \"%s\" är inte giltigt på grund av följande orsak:\n"
+"Värdnamnet \"%s\" är inte giltigt av följande skäl:\n"
 "\n"
 "%s"
 
@@ -3347,7 +3354,7 @@ msgid ""
 "drive and partition number) is the device from which it boots."
 msgstr ""
 "Ange en etikett som visas i startprogramsmenyn. Enheten (eller hårddisk och "
-"partitionsnummer) är den enhet som den startar från."
+"partitionsnummer) är den enhet som det startar från."
 
 #: ../iw/osbootwidget.py:150
 msgid "_Label"
@@ -3855,7 +3862,7 @@ msgstr "Partitionera manuellt med _Disk Druid"
 
 #: ../iw/partmethod_gui.py:64
 msgid "Manually partition with _fdisk (experts only)"
-msgstr "Partitionera manuellt med _fdisk (endast avancerade användare)"
+msgstr "Partitionera manuellt med _fdisk (endast experter)"
 
 #: ../iw/progress_gui.py:29
 msgid "Installing Packages"
@@ -3956,7 +3963,7 @@ msgid ""
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
 "Källhårddisken har inga partitioner som kan klonas. Du måste först definiera "
-"partitioner av typen \"programvaru-RAID\" på denna hårddisk innan den kan "
+"partitioner av typen \"programvaru-RAID\" på hårddisken innan den kan "
 "klonas."
 
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
@@ -3974,7 +3981,7 @@ msgstr ""
 "Källhårddisken som valdes har partitioner på sig som inte är av typen "
 "\"programvaru-RAID\".\n"
 "\n"
-"Dessa partitioner måste tas bort innan denna hårddisk kan klonas. "
+"Dessa partitioner måste tas bort innan hårddisken kan klonas. "
 
 #: ../iw/raid_dialog_gui.py:510
 #, python-format
@@ -3988,7 +3995,7 @@ msgstr ""
 "Källhårddisken har partitioner som inte begränsas till hårddisken /dev/%s.\n"
 "\n"
 "Dessa partitioner kommer att behöva tas bort eller begränsas till denna "
-"hårddisk innan denna hårddisk kan klonas. "
+"hårddisk innan hårddisken kan klonas. "
 
 #: ../iw/raid_dialog_gui.py:523
 msgid ""
@@ -4000,7 +4007,7 @@ msgstr ""
 "Källhårddisken som valts har programvaru-RAID-partition(er) som är medlemmar "
 "i en aktiv programvaru-RAID-enhet.\n"
 "\n"
-"Dessa partitioner kommer att behöva tas bort innan denna hårddisk kan klonas."
+"Dessa partitioner kommer att behöva tas bort innan hårddisken kan klonas."
 
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:555
@@ -4026,12 +4033,12 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
-"Målhårddisken /dev/%s har en partitionstabell som inte kan tas bort på grund "
-"av följande orsak:\n"
+"Målhårddisken /dev/%s har en partition som, av följande skäl, inte kan "
+"tas bort:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Denna partition måste tas bort innan denna hårddisk kan vara ett mål."
+"Denna partition måste tas bort innan hårddisken kan vara ett mål."
 
 #: ../iw/raid_dialog_gui.py:617
 msgid "Please select a source drive."
@@ -4043,7 +4050,7 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Hårddisken /dev%s kommer nu att klonas till följande hårddiskar:\n"
+"Hårddisken /dev/%s kommer nu att klonas till följande hårddiskar:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:642
@@ -4420,7 +4427,7 @@ msgid ""
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
 "I de flesta fall kan bildskärmen upptäckas automatiskt. Om de upptäckta "
-"inställningarna inte är de rätta för bildkärmen bör du välja rätt "
+"inställningarna inte är de rätta för bildskärmen bör du välja rätt "
 "inställningar."
 
 #: ../iw/xconfig_gui.py:662
@@ -4535,8 +4542,8 @@ msgstr ""
 "Om du vill göra ändringar senare efter installationen kan du redigera "
 "konfigurationsfilen /etc/zipl.conf.\n"
 "\n"
-"Du kan nu ange några ytterligare kärnparametrar som din maskin eller din "
-"konfiguration kräver."
+"Du kan nu ange eventuella ytterligare kärnparametrar som din maskin eller "
+"din konfiguration kräver."
 
 #: ../iw/zipl_gui.py:102 ../textw/zipl_text.py:54
 msgid "Kernel Parameters"
@@ -4812,7 +4819,7 @@ msgstr "Anpassa valet av programvara"
 
 #: ../textw/fdasd_text.py:31
 msgid "Choose a disk to run fdasd or dasdfmt on"
-msgstr "Välj enhet att köra fdasd eller dasdfmt på"
+msgstr "Välj en hårddisk att köra fdasd eller dasdfmt på"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
@@ -4829,7 +4836,7 @@ msgstr "Hårddiskkonfiguration"
 #: ../textw/fdasd_text.py:74
 #, python-format
 msgid "An error occurred while running %s on drive %s."
-msgstr "Ett fel inträffade vid körning av %s på enhet %s."
+msgstr "Ett fel inträffade vid körning av %s på hårddisk %s."
 
 #: ../textw/fdasd_text.py:85
 #, python-format
@@ -4840,7 +4847,7 @@ msgid ""
 "Do you really want this?"
 msgstr ""
 "Att köra dasdfmt innebär att ALL DATA\n"
-"kommer att gå förlorad på enhet %s.\n"
+"kommer att gå förlorad på hårddisk %s.\n"
 "\n"
 "Vill du verkligen detta?"
 
@@ -4860,7 +4867,7 @@ msgstr ""
 
 #: ../textw/fdisk_text.py:40
 msgid "Choose a disk to run fdisk on"
-msgstr "Välj enhet att köra fdisk på"
+msgstr "Välj en hårddisk att köra fdisk på"
 
 #: ../textw/firewall_text.py:24
 msgid "Customize"
@@ -5489,7 +5496,7 @@ msgstr "Värdet du angav är inte ett giltigt tal."
 
 #: ../textw/upgrade_text.py:194
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr "Du har inga Linuxpartitioner. Du kan inte uppgradera systemet!"
+msgstr "Du har inga Linuxpartitioner. Du kan inte uppgradera detta system!"
 
 #: ../textw/upgrade_text.py:211
 msgid "System to Upgrade"
@@ -6074,7 +6081,7 @@ msgstr "Ange modulparametrar"
 #: ../loader/devices.c:429
 #, c-format
 msgid "Failed to insert %s module."
-msgstr "Misslyckades med att stoppa in %s-modulen."
+msgstr "Misslyckades med att läsa in %s-modulen."
 
 #: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
 msgid "Kickstart Error"
@@ -6596,7 +6603,7 @@ msgstr "kickstart"
 #: ../loader/net.c:737
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr "felaktigt argument till kickstart-nätverkskommando %s : %s"
+msgstr "felaktigt argument till kickstart-nätverkskommandot %s: %s"
 
 #: ../loader/net.c:770
 #, c-format
@@ -6643,6 +6650,9 @@ msgstr ""
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s  © 1999 Red Hat, Inc."
+
+msgid "netconfig %s  (C) 2002 Red Hat, Inc."
+msgstr "netconfig %s  © 2002 Red Hat, Inc."
 
 #: ../loader/net.c:907
 msgid "Network configuration"
@@ -6744,7 +6754,7 @@ msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
-"Om du använder icke-anonym ftp anger du användarnamnet och lösenordet som du "
+"Om du använder icke-anonym ftp anger du kontonamnet och lösenordet som du "
 "vill använda nedan."
 
 #: ../loader/urls.c:365
@@ -6757,7 +6767,7 @@ msgstr ""
 
 #: ../loader/urls.c:386
 msgid "Account name:"
-msgstr "Användarnamn:"
+msgstr "Kontonamn:"
 
 #: ../loader/urls.c:395
 msgid "FTP Proxy:"
@@ -7089,7 +7099,7 @@ msgstr "Lord Howe-ön"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr "Madeiraöarna"
+msgstr "Madeira"
 
 #. generated from zone.tab
 msgid "mainland"
@@ -7520,7 +7530,7 @@ msgstr "Ukrainska"
 #~ "operating system.  The device is the device which it boots from."
 #~ msgstr ""
 #~ "Etiketten är vad som visas i startprogrammet så att detta operativsystem "
-#~ "kan väljas att startas upp. Enheten är den enhet som den startar från."
+#~ "kan väljas att startas upp. Enheten är den enhet som det startar från."
 
 #~ msgid "Default Boot Target"
 #~ msgstr "Standardstartmål"
@@ -7529,7 +7539,7 @@ msgstr "Ukrainska"
 #~ msgstr "Infoga en text om startande av andra operativsystem"
 
 #~ msgid "Blah, this is the BIOS drive order, more information, etc"
-#~ msgstr "Blah, detta är BIOS-enhetsordningen, mer information, och så vidare"
+#~ msgstr "Bla, detta är BIOS-enhetsordningen, mer information, och så vidare"
 
 #~ msgid "Unable to probe\n"
 #~ msgstr "Kan inte undersöka\n"
@@ -7674,7 +7684,7 @@ msgstr "Ukrainska"
 #~ "partitions of type 'software RAID' on this drive before it can be cloned."
 #~ msgstr ""
 #~ "Källhårddisken har inga partitioner som kan klonas. Du måste först "
-#~ "definiera partitioner av typen \"programvaru-RAID\" på denna hårddisk "
+#~ "definiera partitioner av typen \"programvaru-RAID\" på hårddisken "
 #~ "innan den kan klonas."
 
 #~ msgid "Developer Workstation"

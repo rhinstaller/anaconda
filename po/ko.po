@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "POT-Creation-Date: 2002-08-22 02:05-0400\n"
-"PO-Revision-Date: 2002-08-19 08:55+1000\n"
+"PO-Revision-Date: 2002-08-23 09:10+1000\n"
 "Last-Translator: Michelle Kim <mkim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -381,15 +381,16 @@ msgstr ""
 "템을 재부팅 합니다."
 
 #: ../floppy.py:91
-#, fuzzy
 msgid "Unable to make boot floppy"
-msgstr "플로피 디스켓을 마운트하는데 실패했습니다."
+msgstr "부팅 디스켓을 만드는데 실패했습니다."
 
 #: ../floppy.py:92
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
+"여러분의 컴퓨터에 필요한 커널 모듈의 용량이 너무 커서 부팅 디스켓을 생성하는"
+"데 한 개의 플로피 디스켓으로는 부족합니다."
 
 #: ../floppy.py:101
 msgid "Insert a floppy disk"
@@ -788,6 +789,8 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
+"CD를 마운트 해제하는데 오류가 발생했습니다.  tty2 쉘로부터 %s에 접근하고 있는"
+"지 확인해 주신 후 확인 버튼을 클릭하여 재시도 해주십시오."
 
 #: ../image.py:99
 msgid "Copying File"
@@ -1895,6 +1898,9 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
+"Red Hat Linux 6.2 이후 버전에서만 이 버전의 %s을(를) 업그레이드 가능합니다.  "
+"여러분이 사용하시는 컴퓨터는 이전 버전으로 나타납니다.  업그레이드 설치를 계"
+"속 진행하시겠습니까?"
 
 #: ../xserver.py:48
 msgid "Mouse Not Detected"

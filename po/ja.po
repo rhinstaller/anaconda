@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 8.0\n"
 "POT-Creation-Date: 2002-08-22 02:05-0400\n"
-"PO-Revision-Date: 2002-08-21 22:04GMT+10:00\n"
+"PO-Revision-Date: 2002-08-26 10:51GMT+10:00\n"
 "Last-Translator: James Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <i18-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -92,8 +92,7 @@ msgstr "マウス検出を省略中。"
 
 #: ../anaconda:440 ../anaconda:442
 #, c-format
-msgid ""
-"Graphical installation not available for %s installs.  Starting text mode."
+msgid "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 "%sインストールではグラフィカルインストールが利用できません。テキストモードで"
 "起動します。"
@@ -116,8 +115,7 @@ msgstr "DISPLAYの変数が設定されていません。テキストモードでスタートします。!"
 
 #: ../autopart.py:829
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
-"シリンダベースパーティションを第一パーティションとして確保できませんでした"
+msgstr "シリンダベースパーティションを第一パーティションとして確保できませんでした"
 
 #: ../autopart.py:832
 msgid "Could not allocate partitions as primary partitions"
@@ -384,15 +382,16 @@ msgid ""
 msgstr "システム状態のフロッピーへの書き込みに成功。システムを再起動します"
 
 #: ../floppy.py:91
-#, fuzzy
 msgid "Unable to make boot floppy"
-msgstr "フロッピーディスクのマウントに失敗しました。"
+msgstr "ブートディスクの作成が出来ません"
 
 #: ../floppy.py:92
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
+"このマシンに必要なカーネルモジュールのサイズの為、フロッピィディスクを使用 "
+"したブートディスク作成は無理です。"
 
 #: ../floppy.py:101
 msgid "Insert a floppy disk"
@@ -710,10 +709,8 @@ msgid "Error!"
 msgstr "エラー!"
 
 #: ../gui.py:806
-msgid ""
-"An error occured when attempting to load an installer interface component."
-msgstr ""
-"インストーラーインターフェイスコンポーネントをロードしようとしてエラー発生。"
+msgid "An error occured when attempting to load an installer interface component."
+msgstr "インストーラーインターフェイスコンポーネントをロードしようとしてエラー発生。"
 
 #: ../gui.py:810 ../packages.py:1105 ../iw/congrats_gui.py:29
 msgid "_Exit"
@@ -788,6 +785,8 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
+"CDをアンマウント中にエラーが発生しました。tty2上でシェルから%sにアクセスして "
+"いないことを確認してから[OK]を押して再試行して下さい。"
 
 #: ../image.py:99
 msgid "Copying File"
@@ -833,13 +832,11 @@ msgstr "システム上にインストール"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"ホスト名は'a-z' 又は 'A-Z'の範囲の有効な文字からスタートする必要があります。"
+msgstr "ホスト名は'a-z' 又は 'A-Z'の範囲の有効な文字からスタートする必要があります。"
 
 #: ../network.py:44
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"ホスト名は 'a-z', 'A-Z', '-', 又は '.'の文字のみを含んでいる必要があります。"
+msgstr "ホスト名は 'a-z', 'A-Z', '-', 又は '.'の文字のみを含んでいる必要があります。"
 
 #: ../packages.py:39 ../iw/package_gui.py:37
 msgid "Proceed with upgrade?"
@@ -1174,8 +1171,7 @@ msgstr "このパーティションに対するマウントポイントを指定して下さい"
 
 #: ../partIntfHelpers.py:109
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"このパーティションはハードドライブインストール用のデータを保有しています。"
+msgstr "このパーティションはハードドライブインストール用のデータを保有しています。"
 
 #: ../partIntfHelpers.py:115
 #, python-format
@@ -1418,8 +1414,7 @@ msgid "Confirm Reset"
 msgstr "リセットの確認"
 
 #: ../partIntfHelpers.py:536
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "本当に、パーティションテーブル設定をリセットして元の状態に戻しますか?"
 
 #: ../partitioning.py:83
@@ -1454,8 +1449,7 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"%sのインストールを継続するため必要なルートパーティション (/) が未指定です"
+msgstr "%sのインストールを継続するため必要なルートパーティション (/) が未指定です"
 
 #: ../partitions.py:742
 #, python-format
@@ -1467,8 +1461,7 @@ msgstr ""
 "容量となっています"
 
 #: ../partitions.py:749
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "タイプFAT、50Mbyteの/boot/efiパーティションを作成しなければなりません"
 
 #: ../partitions.py:757
@@ -1528,8 +1521,7 @@ msgstr "LVMボリュームグループのメンバーである、パーティション"
 
 #: ../partRequests.py:215
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "マウントポイントが不適切です。%sディレクトリは/ファイルシステム上になければな"
 "りません。"
@@ -1552,8 +1544,7 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"%s パーティションのサイズ(%10.2f MB) は最大サイズ %10.2f MBを超えています。"
+msgstr "%s パーティションのサイズ(%10.2f MB) は最大サイズ %10.2f MBを超えています。"
 
 #: ../partRequests.py:437
 #, python-format
@@ -1740,8 +1731,7 @@ msgid "%s (C) 2002 Red Hat, Inc."
 msgstr " %s (C) 2002 Red Hat, Inc."
 
 #: ../text.py:335
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> ヘルプ| <Tab> 項目間の移動| <Space> 選択| <F12> 次の画面"
 
 #: ../text.py:337
@@ -1884,6 +1874,9 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
+"%sのこのバージョン用のアップグレードはRed Hat Linux 6.2 又はそれ以降からのみの "
+"サポートとなります。これは古いシステムのようです。アップグレードのプロセスを "
+"続行しますか?"
 
 #: ../xserver.py:48
 msgid "Mouse Not Detected"
@@ -2900,8 +2893,7 @@ msgstr "使用中のマウントポイント"
 #: ../iw/lvm_dialog_gui.py:536
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-"マウントポイント\"%s\"は使用中です。別のマウントポイントを選択して下さい。"
+msgstr "マウントポイント\"%s\"は使用中です。別のマウントポイントを選択して下さい。"
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
@@ -3550,16 +3542,13 @@ msgid "Partitioning"
 msgstr "パーティション設定"
 
 #: ../iw/partition_gui.py:625
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "要求されたパーティション設定に次のような致命的なエラーが存在しています"
 
 #: ../iw/partition_gui.py:628
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
-"これらのエラーは %s インストールの続行の前に必ず修正しなければなりません"
+msgid "These errors must be corrected prior to continuing with your install of %s."
+msgstr "これらのエラーは %s インストールの続行の前に必ず修正しなければなりません"
 
 #: ../iw/partition_gui.py:634
 msgid "Partitioning Errors"
@@ -3712,8 +3701,7 @@ msgstr "RAIDデバイスを作成 [default=/dev/md%s](_d)"
 #: ../iw/partition_gui.py:1250
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
-"RAIDデバイス作成用にデバイスを互換ドライブを作成 [default=/dev/md%s](_d)"
+msgstr "RAIDデバイス作成用にデバイスを互換ドライブを作成 [default=/dev/md%s](_d)"
 
 #: ../iw/partition_gui.py:1289
 msgid "Couldn't Create Drive Clone Editor"
@@ -3984,8 +3972,7 @@ msgstr "クローン操作の為にターゲットドライブを選択して下さい。"
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
+msgstr "ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
 
 #: ../iw/raid_dialog_gui.py:556
 #, python-format
@@ -4038,8 +4025,7 @@ msgstr "クローンデバイス"
 
 #: ../iw/raid_dialog_gui.py:656
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"ターゲットドライブ内を清掃している途中でエラーが発生。クローン失敗です。"
+msgstr "ターゲットドライブ内を清掃している途中でエラーが発生。クローン失敗です。"
 
 #: ../iw/raid_dialog_gui.py:690
 msgid ""
@@ -4170,10 +4156,8 @@ msgstr "これで現在のブートローダーを更新します。"
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"インストーラが現在%sにインストールされている%sブートローダを探知しました。"
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "インストーラが現在%sにインストールされている%sブートローダを探知しました。"
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -4304,8 +4288,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "スワップファイルは 1 〜 2000 MB の容量でなければなりません"
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:171
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "そのスワップパーティションのための十分なディスク領域が残っていません"
 
 #: ../iw/welcome_gui.py:20
@@ -4624,10 +4607,8 @@ msgstr ""
 "用するブートラベルを設定して下さい"
 
 #: ../textw/bootloader_text.py:309
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-"<Space>はボタン選択 | <F2>はディフォルトのブートエントリ| <F12> 次の画面>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr "<Space>はボタン選択 | <F2>はディフォルトのブートエントリ| <F12> 次の画面>"
 
 #: ../textw/bootloader_text.py:388
 msgid ""
@@ -5070,8 +5051,7 @@ msgid "Total size"
 msgstr "合計容量"
 
 #: ../textw/packages_text.py:245
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>、<+>、<->選択| <F1> ヘルプ>| <F2> パッケージの説明"
 
 #: ../textw/packages_text.py:293
@@ -5211,8 +5191,7 @@ msgstr "ファイル システム オプション"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"このパーティションでファイルシステムをどの様に用意するか 選択して下さい。"
+msgstr "このパーティションでファイルシステムをどの様に用意するか 選択して下さい。"
 
 #: ../textw/partition_text.py:541 ../textw/partition_text.py:689
 msgid "Check for bad blocks"
@@ -5284,8 +5263,7 @@ msgstr "RAID0 アレイでの最大スペア数は 0 です"
 
 #: ../textw/partition_text.py:1067
 msgid "You must go back and use fdasd to initialize this partition"
-msgstr ""
-"戻って、このパーティションを初期化するためにfdasdを使用する必要があります。"
+msgstr "戻って、このパーティションを初期化するためにfdasdを使用する必要があります。"
 
 #: ../textw/partition_text.py:1120 ../textw/partition_text.py:1127
 #: ../textw/userauth_text.py:224
@@ -5297,8 +5275,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1123
-msgid ""
-"    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    <F1> ヘルプ          <F3> 編集   <F4> 削除    <F5>リセット  <F12> "
 "OK        "
@@ -5308,8 +5285,7 @@ msgid "New"
 msgstr "新規"
 
 #: ../textw/partition_text.py:1131
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    <F1> - ヘルプ   <F2> - 新規    <F3> - 編集   <F4> - 削除  <F5> - リセッ"
 "ト  <F12> - OK        "
@@ -5560,15 +5536,12 @@ msgid "User Exists"
 msgstr "ユーザが存在します"
 
 #: ../textw/userauth_text.py:144
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr "root ユーザは既に設定済みです。ユーザ追加の必要はありません"
 
 #: ../textw/userauth_text.py:151
-msgid ""
-"This system user is already configured. You don't need to add this user here."
-msgstr ""
-"システム ユーザは既に設定済みです。このユーザの追加の必要はありません。"
+msgid "This system user is already configured. You don't need to add this user here."
+msgstr "システム ユーザは既に設定済みです。このユーザの追加の必要はありません。"
 
 #: ../textw/userauth_text.py:159
 msgid "This user id already exists.  Choose another."
@@ -6062,8 +6035,7 @@ msgid "Welcome to %s"
 msgstr "%sへようこそ"
 
 #: ../loader/lang.c:42 ../loader/loader.c:205
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> 項目間の移動|  <Space> 選択|  <F12> 次の画面"
 
 #: ../loader/lang.c:305
@@ -6154,8 +6126,7 @@ msgstr "チェックサム テスト"
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"このシステムにはハードディスクがないようです。追加デバイスの設定を行いますか?"
+msgstr "このシステムにはハードディスクがないようです。追加デバイスの設定を行いますか?"
 
 #: ../loader/loader.c:1101
 #, c-format
@@ -6293,8 +6264,7 @@ msgstr "レスキューイメージが保存されているメディアタイプを指定して下さい"
 
 #: ../loader/loader.c:1995
 msgid "What type of media contains the packages to be installed?"
-msgstr ""
-"インストール対象のパッケージが保存されているメディアタイプを指定して下さい"
+msgstr "インストール対象のパッケージが保存されているメディアタイプを指定して下さい"
 
 #: ../loader/loader.c:2793
 msgid "Cannot find ks.cfg on boot floppy."
@@ -6786,8 +6756,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "大西洋時間 -東ラブラドール "
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "大西洋時間 - ノバスコシア (ほとんどの地域), NB, 西ラブラドール,東ケベック及"
 "び PEI"
@@ -6975,8 +6944,7 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "東部時間 - オンタリオ、ケベック--ほとんどの地域"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "東部時間 - オンタリオ、ケベック - DST 1967-1973 で未認識の地域"
 
 #. generated from zone.tab
@@ -7153,10 +7121,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "山岳標準時 - アリゾナ"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"山岳標準時 - ドーソン川、フォートセントジョン、ブリティッシュコロンビア"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "山岳標準時 - ドーソン川、フォートセントジョン、ブリティッシュコロンビア"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7168,8 +7134,7 @@ msgstr "山岳標準時"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"山岳標準時 - アルバータ、東ブリティッシュコロンビア、西サスカチュワーン"
+msgstr "山岳標準時 - アルバータ、東ブリティッシュコロンビア、西サスカチュワーン"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -8071,3 +8036,4 @@ msgstr "ウクライナ語"
 
 #~ msgid "Portuguese(Brasilian) pt"
 #~ msgstr "ポルトガル語(ブラジル系)pt"
+

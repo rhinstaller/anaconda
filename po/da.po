@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2002-08-22 02:05-0400\n"
-"PO-Revision-Date: 2002-08-17 19:50+0200\n"
+"PO-Revision-Date: 2002-08-22 19:50+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -381,15 +381,16 @@ msgstr ""
 "Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
 
 #: ../floppy.py:91
-#, fuzzy
 msgid "Unable to make boot floppy"
-msgstr "Kunne ikke montere diskette."
+msgstr "Kunne ikke lave opstartsdiskette."
 
 #: ../floppy.py:92
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
+"Størrelsen på kernemodulerne krævet af din maskine gør det umuligt at "
+"lave en opstartsdiskette som vil kunne være på en diskette."
 
 #: ../floppy.py:101
 msgid "Insert a floppy disk"
@@ -787,6 +788,8 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
+"En fejl skete ved afmontering af cd-en. Forsikr dig venligst om at du ikke "
+"bruger %s fra skallen, og klik så O.k. for at prøve igen."
 
 #: ../image.py:99
 msgid "Copying File"
@@ -1896,6 +1899,9 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
+"Opgraderinger for denne version af %s er kun understøttet fra Red Hat Linux "
+"6.2 eller højere. Dette ser ud til at være et ældre system. Ønsker du at "
+"fortsætte opgraderingsprocessen?"
 
 #: ../xserver.py:48
 msgid "Mouse Not Detected"

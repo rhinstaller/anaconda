@@ -378,15 +378,16 @@ msgstr ""
 "endurræsa."
 
 #: ../floppy.py:91
-#, fuzzy
 msgid "Unable to make boot floppy"
-msgstr "Gat ekki tengt disklinginn."
+msgstr "Gat ekki búið til ræsidisklinginn"
 
 #: ../floppy.py:92
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
+"Stærð kjarnareklanna sem vélin þarf gerir það ómögulegt að búa til "
+"ræsidiskling sem rúmast á diskettu."
 
 #: ../floppy.py:101
 msgid "Insert a floppy disk"
@@ -782,6 +783,8 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
+"Villa kom upp við aftengingu geisladisksins. VInsamlegast gakktu úr skugga um "
+"að þú ert ekki að nota %s í skélinni á tty2 og veldu svo Í lagi til að reyna aftur."
 
 #: ../image.py:99
 msgid "Copying File"
@@ -1887,6 +1890,8 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
+"Uppfærslur í þessa útgáfu af %s eru einungis studdar frá Red Hat Linux 6.2 "
+"eða nýrra. Þetta virðist vera eldra kerfi. Viltu halda uppfærslunni áfram ?"
 
 #: ../xserver.py:48
 msgid "Mouse Not Detected"
@@ -7434,41 +7439,3 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
-
-#~ msgid "No password"
-#~ msgstr "Ekkert lykilorð"
-
-#~ msgid "Change _Password"
-#~ msgstr "_Breyta lykilorði"
-
-#~ msgid "_Use a Boot Loader Password"
-#~ msgstr "_Nota lykilorð í ræsistjóranum"
-
-#~ msgid "Set _Password"
-#~ msgstr "Setja _Lykilorð"
-
-#~ msgid ""
-#~ "Force the use of LBA32 extensions for booting (not normally required)"
-#~ msgstr "Krefjast LBA32-hams við ræsingu (oftast óþarft)"
-
-#~ msgid "_Force LBA32"
-#~ msgstr "_Krefjast LBA32"
-
-#~ msgid "General kernel parameters"
-#~ msgstr "Almenn kjarnaviðföng"
-
-#~ msgid ""
-#~ "The label is what is displayed in the boot loader to choose to boot this "
-#~ "operating system.  The device is the device which it boots from."
-#~ msgstr ""
-#~ "Diskmerkið verður notað í lista ræsistjórans til að velja hvaða "
-#~ "stýrikerfi á að ræsa. Tæki er tækið sem ræst er upp af."
-
-#~ msgid "Default Boot Target"
-#~ msgstr "Sjálfgefin ræsimynd"
-
-#~ msgid "Insert some text about booting other operating systems"
-#~ msgstr "Setja inn texta um að ræsa önnur stýrikerfi"
-
-#~ msgid "Blah, this is the BIOS drive order, more information, etc"
-#~ msgstr "Blah, þetta er BIOS drifröðun, frekari upplýsingar og svo frv."
