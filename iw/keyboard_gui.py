@@ -39,7 +39,8 @@ class KeyboardWindow (InstallWindow):
             self.kb.setRule(self.model, self.layout, self.variant,
                              "complete")
 
-        self.x.setKeyboard(self.rulesbase, self.model,
+	if (self.x != (None, None)):
+            self.x.setKeyboard(self.rulesbase, self.model,
                             self.layout, self.variant, "")
 
         self.kbd.setfromx(self.model, self.layout, self.variant)
@@ -67,7 +68,10 @@ class KeyboardWindow (InstallWindow):
 	self.kbd = kbd
         self.x = x
 
-        rules, model, layout, variant, options = x.getKeyboard()
+	if (x == (None, None)):
+            rules, model, layout, variant, options = Keyboard().getXKB()
+        else:
+            rules, model, layout, variant, options = x.getKeyboard()
         self.model = model
         self.layout = layout
         self.variant = variant
