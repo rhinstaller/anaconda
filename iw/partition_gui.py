@@ -848,6 +848,7 @@ class PartitionWindow(InstallWindow):
 						     self.diskset, self.intf,
 						     self.parent, raidrequest,
 						     isNew)
+	origpartitions = self.partitions.copy()
 	
 	while 1:
 	    request = raideditor.run()
@@ -857,18 +858,19 @@ class PartitionWindow(InstallWindow):
 
 	    if not isNew:
 		self.partitions.removeRequest(raidrequest)
+                if raidrequest.getPreExisting():
+                    delete = partRequests.DeleteRAIDSpec(raidrequest.raidminor)
+                    self.partitions.addDelete(delete)
 
 	    self.partitions.addRequest(request)
 
 	    if self.refresh():
-		# how can this fail?  well, if it does, do the remove new,
-		# add old back in dance
-		self.partitions.removeRequest(request)
 		if not isNew:
-		    self.partitions.addRequest(raidrequest)
-		if self.refresh():
-		    raise RuntimeError, ("Returning partitions to state "
-					 "prior to RAID edit failed")
+		    self.partitions = origpartitions.copy()
+                    if self.refresh():
+                        raise RuntimeError, ("Returning partitions to state "
+                                             "prior to RAID edit failed")
+                continue
 	    else:
 		break
 
@@ -897,7 +899,6 @@ class PartitionWindow(InstallWindow):
             if self.refresh():
                 # the add failed; remove what we just added and put
                 # back what was there if we removed it
-		print "failed"
                 self.partitions.removeRequest(request)
                 if not isNew:
                     self.partitions.addRequest(origrequest)

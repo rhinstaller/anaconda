@@ -28,7 +28,8 @@ from constants import *
 
 class RaidEditor:
 
-    def createAllowedRaidPartitionsList(self, allraidparts, reqraidpart):
+    def createAllowedRaidPartitionsList(self, allraidparts, reqraidpart,
+                                        preexist):
 
 	store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 			      gobject.TYPE_STRING,
@@ -49,7 +50,8 @@ class RaidEditor:
 	    else:
 		selected = 0
 
-	    partlist.append_row((partname, partsize), selected)
+            if preexist == 0 or selected == 1:
+                partlist.append_row((partname, partsize), selected)
 
 	return (partlist, sw)
 
@@ -142,8 +144,9 @@ class RaidEditor:
 	    # read out UI into a partition specification
 	    request = copy.copy(self.origrequest)
 
-	    filesystem = self.fstypeoptionMenu.get_active().get_data("type")
-	    request.fstype = filesystem
+            if not self.origrequest.getPreExisting():
+                filesystem = self.fstypeoptionMenu.get_active().get_data("type")
+                request.fstype = filesystem
 
 	    if request.fstype.isMountable():
 		request.mountpoint = self.mountCombo.entry.get_text()
@@ -164,14 +167,15 @@ class RaidEditor:
 
 		next = model.iter_next(iter)
 
-	    request.raidminor = self.minorOptionMenu.get_active().get_data("minor")
+            if not self.origrequest.getPreExisting():
+                request.raidminor = self.minorOptionMenu.get_active().get_data("minor")
 
-	    request.raidmembers = raidmembers
-	    request.raidlevel = self.leveloptionmenu.get_active().get_data("level")
-	    if request.raidlevel != "RAID0":
-		request.raidspares = self.sparesb.get_value_as_int()
-	    else:
-		request.raidspares = 0
+                request.raidmembers = raidmembers
+                request.raidlevel = self.leveloptionmenu.get_active().get_data("level")
+                if request.raidlevel != "RAID0":
+                    request.raidspares = self.sparesb.get_value_as_int()
+                else:
+                    request.raidspares = 0
 
 	    if self.formatButton:
 		request.format = self.formatButton.get_active()
@@ -186,6 +190,7 @@ class RaidEditor:
 
 	    # everything ok, break out
 	    break
+
 
 	return request
 
@@ -249,10 +254,17 @@ class RaidEditor:
 	maintable.attach(createAlignedLabel(_("Filesystem type:")),
 					    0, 1, row, row + 1)
 
-	(self.fstypeoption, self.fstypeoptionMenu) = createFSTypeMenu(origrequest.fstype,
-							    fstypechangeCB,
-							    self.mountCombo,
-							    ignorefs = ["software RAID"])
+        if not origrequest.getPreExisting():
+            (self.fstypeoption, self.fstypeoptionMenu) = createFSTypeMenu(origrequest.fstype,
+                                                                          fstypechangeCB,
+                                                                          self.mountCombo,
+                                                                          ignorefs = ["software RAID"])
+        else:
+            if origrequest.fstype.getName():
+                self.fstypeoption = gtk.Label(origrequest.fstype.getName())
+            else:
+                self.fstypeoption = gtk.Label(_("Unknown"))
+            
 	maintable.attach(self.fstypeoption, 1, 2, row, row + 1)
 	row = row + 1
 
@@ -260,13 +272,16 @@ class RaidEditor:
 	maintable.attach(createAlignedLabel(_("RAID Device:")),
 					    0, 1, row, row + 1)
 
-	availminors = self.partitions.getAvailableRaidMinors()[:16]
-	reqminor = origrequest.raidminor
-	if reqminor is not None:
-	    availminors.append(reqminor)
+        if not origrequest.getPreExisting():
+            availminors = self.partitions.getAvailableRaidMinors()[:16]
+            reqminor = origrequest.raidminor
+            if reqminor is not None:
+                availminors.append(reqminor)
 
-	availminors.sort()
-	(self.minorOption, self.minorOptionMenu) = self.createRaidMinorMenu(availminors, reqminor)
+            availminors.sort()
+            (self.minorOption, self.minorOptionMenu) = self.createRaidMinorMenu(availminors, reqminor)
+        else:
+            self.minorOption = gtk.Label("md%s" %(origrequest.raidminor,))
 	maintable.attach(self.minorOption, 1, 2, row, row + 1)
 	row = row + 1
 
@@ -274,31 +289,39 @@ class RaidEditor:
 	maintable.attach(createAlignedLabel(_("RAID Level:")),
 					    0, 1, row, row + 1)
 
-	# Create here, pack below
-	numparts =  len(availraidparts)
-	if origrequest.raidspares:
-	    nspares = origrequest.raidspares
-	else:
-	    nspares = 0
+        if not origrequest.getPreExisting():
+            # Create here, pack below
+            numparts =  len(availraidparts)
+            if origrequest.raidspares:
+                nspares = origrequest.raidspares
+            else:
+                nspares = 0
 
-	if origrequest.raidlevel:
-	    maxspares = raid.get_raid_max_spares(origrequest.raidlevel, numparts)
-	else:
-	    maxspares = 0
+            if origrequest.raidlevel:
+                maxspares = raid.get_raid_max_spares(origrequest.raidlevel, numparts)
+            else:
+                maxspares = 0
 
-	spareAdj = gtk.Adjustment(value = nspares, lower = 0,
-				  upper = maxspares, step_incr = 1)
-	self.sparesb = gtk.SpinButton(spareAdj, digits = 0)
-	self.sparesb.set_data("numparts", numparts)
+            spareAdj = gtk.Adjustment(value = nspares, lower = 0,
+                                      upper = maxspares, step_incr = 1)
+            self.sparesb = gtk.SpinButton(spareAdj, digits = 0)
+            self.sparesb.set_data("numparts", numparts)
 
-	if maxspares > 0:
-	    self.sparesb.set_sensitive(1)
-	else:
-	    self.sparesb.set_value(0)
-	    self.sparesb.set_sensitive(0)
+            if maxspares > 0:
+                self.sparesb.set_sensitive(1)
+            else:
+                self.sparesb.set_value(0)
+                self.sparesb.set_sensitive(0)
+        else:
+            self.sparesb = gtk.Label(str(origrequest.raidspares))
 
-	(self.leveloption, self.leveloptionmenu) = self.createRaidLevelMenu(availRaidLevels,
-						       origrequest.raidlevel)
+
+        if not origrequest.getPreExisting():
+            (self.leveloption, self.leveloptionmenu) = \
+                               self.createRaidLevelMenu(availRaidLevels,
+                                                        origrequest.raidlevel)
+        else:
+            self.leveloption = gtk.Label(origrequest.raidlevel)
 
 	maintable.attach(self.leveloption, 1, 2, row, row + 1)
 	row = row + 1
@@ -309,11 +332,15 @@ class RaidEditor:
 
 	# XXX need to pass in currently used partitions for this device
 	(self.raidlist, sw) = self.createAllowedRaidPartitionsList(availraidparts,
-						       origrequest.raidmembers)
+                                                                   origrequest.raidmembers,
+                                                                   origrequest.getPreExisting())
 
 	self.raidlist.set_size_request(275, 80)
 	maintable.attach(sw, 1, 2, row, row + 1)
 	row = row + 1
+
+        if origrequest.getPreExisting():
+            self.raidlist.set_sensitive(gtk.FALSE)
 
 	# number of spares - created widget above
 	maintable.attach(createAlignedLabel(_("Number of spares:")),
@@ -324,13 +351,14 @@ class RaidEditor:
 	# format or not?
 	if origrequest.fstype and origrequest.fstype.isFormattable():
 	    self.formatButton = gtk.CheckButton(_("Format partition?"))
-	    # XXX this probably needs more logic once we detect existing raid
 	    if origrequest.format == None or origrequest.format != 0:
 		self.formatButton.set_active(1)
 	    else:
 		self.formatButton.set_active(0)
-	    maintable.attach(self.formatButton, 0, 2, row, row + 1)
-	    row = row + 1
+            # it only makes sense to show this for preexisting RAID
+            if origrequest.getPreExisting():
+                maintable.attach(self.formatButton, 0, 2, row, row + 1)
+                row = row + 1
 
 	else:
 	    self.formatButton = None
