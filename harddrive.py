@@ -13,7 +13,8 @@ class InstallMethod:
 
     def readComps(self, hdlist):
 	isys.makeDevInode(self.device, '/tmp/' + self.device)
-	isys.mount('/tmp/' + self.device, "/tmp/hdimage");
+	isys.mount('/tmp/' + self.device, "/tmp/hdimage", 
+		   fstype = self.fstype);
 	cs = ComponentSet('i386', "/tmp/hdimage/" + self.path + 
 		'/RedHat/base/comps', hdlist)
 	isys.umount("/tmp/hdimage")
@@ -24,7 +25,8 @@ class InstallMethod:
 
     def readHeaders(self):
 	isys.makeDevInode(self.device, '/tmp/' + self.device)
-	isys.mount('/tmp/' + self.device, "/tmp/hdimage");
+	isys.mount('/tmp/' + self.device, "/tmp/hdimage", 
+		   fstype = self.fstype);
 	hl = []
 	path = "/tmp/hdimage" + self.path + "/RedHat/RPMS"
 	for n in os.listdir(path):
@@ -47,7 +49,8 @@ class InstallMethod:
 		self.needsUnmount = 0
 
 	if (not self.isMounted):
-	    isys.mount('/tmp/' + self.device, "/tmp/hdimage");
+	    isys.mount('/tmp/' + self.device, "/tmp/hdimage", 
+		       fstype = self.fstype)
 	    self.tree = "/tmp/hdimage/" + self.path
 	    self.needsUnmount = 1
 	    
@@ -58,7 +61,8 @@ class InstallMethod:
     def unlinkFilename(self, fullName):
 	pass
 	    
-    def __init__(self, device, path):
+    def __init__(self, device, type, path):
 	self.device = device
 	self.path = path
+	self.fstype = type
 	self.fnames = {}

@@ -438,7 +438,10 @@ static int loadStage2Ramdisk(int fd, off_t size, int flags) {
 	return rc;
     }
 
-    if (devMakeInode("ram3", "/tmp/ram3")) return 1;
+    if (devMakeInode("ram3", "/tmp/ram3")) {
+	logMessage("failed to make device ram3");
+	return 1;
+    }
     
     if (doPwMount("/tmp/ram3", "/mnt/runtime", "ext2", 0, 0, NULL, NULL)) {
 	newtWinMessage(_("Error"), _("Ok"),
@@ -481,11 +484,12 @@ static char * setupHardDrive(char * device, char * type, char * dir,
 
 	rc = loadStage2Ramdisk(fd, 0, flags);
 	close(fd);
+	umount("/tmp/hdimage");
 	if (rc) return NULL;
     }
 
     url = malloc(50 + strlen(dir ? dir : ""));
-    sprintf(url, "hd://%s/%s", device + 5, dir ? dir : ".");
+    sprintf(url, "hd://%s:%s/%s", device, type, dir ? dir : ".");
 
     return url;
 }
@@ -638,7 +642,7 @@ static char * mountHardDrive(struct installMethod * method,
 
 	url = setupHardDrive(part->name + 5, type, dir, flags);
 	if (dir) free(dir);
-	if (url) {
+	if (!url) {
 	    newtWinMessage(_("Error"), _("Ok"), 
 			_("Device %s does not appear to contain "
 			  "a Red Hat installation tree."), part->name);
@@ -1054,7 +1058,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	ksType = KS_CMD_CDROM;
 	table = NULL;
     } else if (ksHasCommand(KS_CMD_HD)) {
-	ksDeviceType = DEVICE_DISK;
+	ksDeviceType = DEVICE_UNKNOWN;
 	ksType = KS_CMD_HD;
 	table = ksHDOptions;
     } else if (ksHasCommand(KS_CMD_URL)) {
@@ -1066,16 +1070,19 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	return NULL;
     }
 
-    for (i = 0; i < kd->numKnown; i++)
-	if (kd->known[i].class == ksDeviceType) break;
+    if (ksDeviceType != DEVICE_UNKNOWN) {
+	for (i = 0; i < kd->numKnown; i++)
+	    if (kd->known[i].class == ksDeviceType) break;
 
-    if (i == kd->numKnown) {
-	logMessage("no appropriate device for kickstart method is available");
-	return NULL;
+	if (i == kd->numKnown) {
+	    logMessage("no appropriate device for kickstart method is "
+		       "available");
+	    return NULL;
+	}
+
+	device = kd->known[i].name;
+	logMessage("kickstarting through device %s", device);
     }
-
-    device = kd->known[i].name;
-    logMessage("kickstarting through device %s", device);
 
     if (!ksGetCommand(KS_CMD_XDISPLAY, NULL, &ksArgc, &ksArgv)) {
 	setenv("DISPLAY", ksArgv[1], 1);
@@ -1117,6 +1124,8 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	return setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps, 
 			  flags, 1);
     } else if (ksType == KS_CMD_HD) {
+	logMessage("partname is %s", partname);
+
 	for (i = 0; i < kd->numKnown; i++) {
 	    if (kd->known[i].class != DEVICE_DISK) continue;
 	    if (!strncmp(kd->known[i].name, partname, strlen(partname) - 1))
@@ -1139,10 +1148,11 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	    return NULL;
 	}
 
-	partNum = atoi(partname + 3);
+	partNum = atoi(partname + 3) - 1;
 	if (partTable.maxNumPartitions < partNum ||
 	    partTable.parts[partNum].type == -1) {
-	    logMessage("partition %d on device %s does not exist");
+	    logMessage("partition %d on device %s does not exist", partNum,
+		       kd->known[i].name);
 	    return NULL;
 	}
 
@@ -1158,7 +1168,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     return NULL;
 }
 
-static int parseCmdLineFlags(int flags, char * cmdLine) {
+static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
     int fd;
     char buf[500];
     int len;
@@ -1191,9 +1201,11 @@ static int parseCmdLineFlags(int flags, char * cmdLine) {
 	    flags |= LOADER_FLAGS_TEXT;
         else if (!strcasecmp(argv[i], "rescue"))
 	    flags |= LOADER_FLAGS_RESCUE;
-        else if (!strcasecmp(argv[i], "ks=floppy")) {
+        else if (!strcasecmp(argv[i], "ks=floppy"))
 	    flags |= LOADER_FLAGS_KSFLOPPY;
-	    logMessage("got ks=floppy");
+        else if (!strncasecmp(argv[i], "ks=hd:", 6)) {
+	    flags |= LOADER_FLAGS_KSHD;
+	    *ksSource = argv[i] + 6;
 	}
     }
 
@@ -1205,13 +1217,67 @@ struct moduleDependency_s {
     char ** deps;
 };
 
-int kickstartFromFloppy(char * location, moduleList modLoaded,
-			moduleDeps modDeps, int flags) {
+static int copyFile(char * source, char * dest) {
     int infd = -1, outfd = -1;
     char buf[4096];
     int i;
 
+    outfd = open(dest, O_CREAT | O_RDWR, 0666);
+    infd = open(source, O_RDONLY);
+
+    if (infd < 0) {
+	logMessage("failed to open %s: %s", source, strerror(errno));
+    }
+
+    while ((i = read(infd, buf, sizeof(buf))) > 0) {
+	if (write(outfd, buf, i) != i) break;
+    }
+
+    close(infd);
+    close(outfd);
+
+    return 0;
+}
+
+int kickstartFromHardDrive(char * location, 
+			   moduleList modLoaded, moduleDeps modDeps, 
+			   char * source, int flags) {
+    char * device;
+    char * fileName;
+    char * fullFn;
+
     mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);
+
+    fileName = strchr(source, '/');
+    *fileName = '\0';
+    fileName++;
+    device = source;
+
+    if (devMakeInode(device, "/tmp/hddevice")) {
+	logMessage("failed to make device %s", device);
+	return 1;
+    }
+
+    if (doPwMount("/tmp/hddevice", "/mnt/hddrive", "ext2", 0, 0, 
+		  NULL, NULL) &&
+	doPwMount("/tmp/hddevice", "/mnt/hddrive", "vfat", 0, 0, 
+		  NULL, NULL)) {
+	logMessage("failed to mount %s", device);
+    }
+
+    fullFn = alloca(strlen(fileName) + 20);
+    sprintf(fullFn, "/mnt/hddrive/%s", fileName);
+    copyFile(fullFn, location);
+
+    umount("/mnt/hddrive");
+
+    return 0;
+}
+
+int kickstartFromFloppy(char * location, moduleList modLoaded,
+			moduleDeps modDeps, int flags) {
+    mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);
+
     if (devMakeInode("fd0", "/tmp/fd0"))
 	return 1;
 
@@ -1226,16 +1292,7 @@ int kickstartFromFloppy(char * location, moduleList modLoaded,
 	return 1;
     }
 
-
-    outfd = open(location, O_CREAT | O_RDWR, 0666);
-    infd = open("/tmp/ks/ks.cfg", O_RDONLY);
-
-    while ((i = read(infd, buf, sizeof(buf))) > 0) {
-	if (write(outfd, buf, i) != i) break;
-    }
-
-    close(infd);
-    close(outfd);
+    copyFile("/tmp/ks/ks.cfg", location);
 
     umount("/tmp/ks");
     unlink("/tmp/fd0");
@@ -1259,7 +1316,7 @@ int main(int argc, char ** argv) {
     int testing = 0;
     struct knownDevices kd;
     moduleInfoSet modInfo;
-    char * ksFile = NULL;
+    char * ksFile = NULL, * ksSource = NULL;
     struct poptOption optionTable[] = {
     	    { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
 	    { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
@@ -1299,7 +1356,7 @@ int main(int argc, char ** argv) {
 
     if (testing) flags |= LOADER_FLAGS_TESTING;
 
-    flags = parseCmdLineFlags(flags, cmdLine);
+    flags = parseCmdLineFlags(flags, cmdLine, &ksSource);
 
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = isysNewModuleInfoSet();
@@ -1341,6 +1398,12 @@ logMessage("Flags are 0x%x\n", flags);
 
     pciProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
     if (probeOnly) exit(0);
+
+    if (FL_KSHD(flags)) {
+	ksFile = "/tmp/ks.cfg";
+	kickstartFromHardDrive(ksFile, modLoaded, modDeps, ksSource, flags);
+	flags |= LOADER_FLAGS_KICKSTART;
+    }
 
     if (ksFile) {
 	ksReadCommands(ksFile);

@@ -139,10 +139,14 @@ elif (method[0:5] == "hd://"):
     method = method[5:]
     i = string.index(method, '/')
     dir = method[i:]
-    drive = method[0:i]
+    driveAndType = method[0:i]
+
+    i = string.index(driveAndType, ":")
+    drive = driveAndType[0:i]
+    type = driveAndType[i + 1:]
 
     from harddrive import InstallMethod
-    method = InstallMethod(drive, dir)
+    method = InstallMethod(drive, type, dir)
 else:
     print "unknown install method:", method
     sys.exit(1)

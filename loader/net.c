@@ -479,6 +479,7 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
     }
 
     if (!strcmp(bootProto, "dhcp") || !strcmp(bootProto, "bootp")) {
+	logMessage("sending dhcp request through device %s", device);
 	winStatus(50, 3, _("Dynamic IP"), 
 		  _("Sending request for IP information..."),
 		    0);

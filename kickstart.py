@@ -124,6 +124,7 @@ class Kickstart(InstallClass):
 		     "authconfig"	: self.doAuthconfig	,
 		     "cdrom"		: None			,
 		     "clearpart"	: self.doClearPart	,
+		     "harddrive"	: None			,
 		     "install"		: self.doInstall	,
 		     "network"		: self.doNetwork	,
 		     "lilo"		: self.doLilo		,
