@@ -402,8 +402,14 @@ def makeDriveDeviceNodes():
         else:
             num = 15
 
+        if (drive.startswith("cciss") or drive.startswith("ida") or
+            drive.startswith("rd")):
+            sep = "p"
+        else:
+            sep = ""
+
         for i in range(1, num):
-            dev = "%s%d" % (drive, i)
+            dev = "%s%s%d" % (drive, sep, i)
             isys.makeDevInode(dev, "/dev/%s" % (dev,))
 
     cdroms = isys.cdromList()
