@@ -20,6 +20,7 @@ from xf86config import XF86Config
 import errno
 import raid
 import fstab
+import time
 
 def _(x):
     return x
@@ -716,6 +717,7 @@ class ToDo:
 	    raid.stopAllRaid(mdList)
             self.fstab.mountFilesystems (self.instPath)
 	    self.fstab.turnOnSwap(formatSwap = 0)
+
         packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
 
         # unselect all packages
@@ -735,7 +737,12 @@ class ToDo:
             if package[rpm.RPMTAG_NAME] == "gmc":
                 hasgmc = 1
 
+        self.dbpath = "/var/lib/anaconda-rebuilddb" + str(int(time.time()))
+        rpm.addMacro("_rebuilddbpath", self.dbpath);
+        rc = rpm.rebuilddb (self.instPath)
+
         # open up the database to check dependencies
+        rpm.addMacro("_dbpath", self.dbpath);
         db = rpm.opendb (0, self.instPath)
 
         # if we have X but not gmc, we need to turn on GNOME.  We only
@@ -1056,16 +1063,13 @@ class ToDo:
             self.fstab.mountFilesystems (self.instPath)
 
         if self.upgrade:
-            w = self.intf.waitWindow(_("Rebuilding"), 
-                                     _("Rebuilding RPM database..."))
-            rc = rpm.rebuilddb (self.instPath)
-            w.pop ()
-            if rc:
-                self.intf.messageWindow (_("Error"),
-                                    _("Rebuild of RPM "
-                                      "database failed. You may be out of disk space?"));
-                # XXX do something sane here.
-                raise RuntimeError, "panic"
+            # move the rebuilt db into place.
+            os.rename (self.instPath + "/var/lib/rpm",
+                       self.instPath + "/var/lib/rpm-old")
+            os.rename (self.instPath + self.dbpath,
+                       self.instPath + "/var/lib/rpm")
+            rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
+            iutil.rmrf (self.instPath + "/var/lib/rpm-old")
 
         self.method.targetFstab (self.fstab)
 

@@ -141,6 +141,9 @@ class LiloWindow (InstallWindow):
 	    self.todo.bootdisk = 1
 	    return None
 
+        if not self.todo.fstab.setupFilesystems:
+            return None
+        
 	(imageList, defaultLabel) = \
 		self.todo.lilo.getLiloImages(self.todo.fstab)
         self.ignoreSignals = 0

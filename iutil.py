@@ -207,3 +207,15 @@ def findtz(basepath, relpath):
         tzdata.sort()
                             
     return tzdata
+
+def rmrf (path):
+    # this is only the very simple case.
+    files = os.listdir (path)
+    for file in files:
+        if os.path.isdir(path + '/' + file):
+            rmrf (path + '/' + file)
+        else:
+            os.unlink (path + '/' + file)
+    os.rmdir (path)
+
+    
