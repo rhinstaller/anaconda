@@ -131,7 +131,7 @@ static unsigned long long calc_pdcblock_offset (int fd) {
 
 static int read_disk_sb (int fd, unsigned char *buffer,int bufsize)
 {
-	int ret = -1;
+	int ret;
 	unsigned long long sb_offset;
 	
 	/*
@@ -143,11 +143,9 @@ static int read_disk_sb (int fd, unsigned char *buffer,int bufsize)
 	    return -1;
 
 	lseek64(fd, sb_offset * 512, SEEK_SET);
-	read (fd, buffer, bufsize);
+	ret = read (fd, buffer, bufsize);
 
-	ret = 0;
-
-	return ret;
+	return 0;
 }
 
 static unsigned int calc_sb_csum (unsigned int* ptr)
