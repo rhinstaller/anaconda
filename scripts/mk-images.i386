@@ -84,6 +84,9 @@ PCMCIAMODULES_EXCLUDED="
 	apa1480_cb
 	airo
 	airo_cs
+	atmel
+	atmel_cs
+	atmel_pci
 	aironet4500_core
 	aironet4500_proc
 	hermes
@@ -91,6 +94,7 @@ PCMCIAMODULES_EXCLUDED="
 	iflash2_mtd
 	memory_cb
 	memory_cs
+	netwave_cs
 	parport_cs
 	parport_pc
 	parport
@@ -100,10 +104,15 @@ PCMCIAMODULES_EXCLUDED="
         aironet4500_cs
         orinoco_cs
         orinoco
+	orinoco_pci
+	orinoco_plx
+	orinoco_tmd
+	prism54
         orinoco_old_cs
 	wavelan
         wavelan_cs
         wvlan_cs
+	wl3501_cs
 "
 PCMCIAMODULES_EXCLUDED_SED="sed"
 for m in $PCMCIAMODULES_EXCLUDED
