@@ -2340,9 +2340,9 @@ int main(int argc, char ** argv) {
     if (!FL_TESTING(flags)) {
         int fd;
 
-	fd = open("/tmp/conf.modules", O_WRONLY | O_CREAT, 0666);
+	fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT, 0666);
 	if (fd < 0) {
-	    logMessage("error creating /tmp/conf.modules: %s\n", 
+	    logMessage("error creating /tmp/modules.conf: %s\n", 
 	    	       strerror(errno));
 	} else {
 	    mlWriteConfModules(modLoaded, modInfo, fd);

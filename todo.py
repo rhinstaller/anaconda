@@ -579,11 +579,11 @@ class ToDo:
 
     def copyConfModules (self):
         try:
-            inf = open ("/tmp/conf.modules", "r")
+            inf = open ("/tmp/modules.conf", "r")
         except:
             pass
         else:
-            out = open (self.instPath + "/etc/conf.modules", "a")
+            out = open (self.instPath + "/etc/modules.conf", "a")
             out.write (inf.read ())
 
     def verifyDeps (self):
