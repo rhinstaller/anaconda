@@ -1,7 +1,17 @@
 import gettext
 
 cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
+
+def _(string):
+    return cat.gettext(string)
+
+def setLanguage (lang):
+    global cat
+    newlangs = [lang]
+    if len(lang) > 2:
+        newlangs.append(lang[:2])
+    gettext.setlangs (newlangs)
+    cat = gettext.Catalog ("anaconda", "/usr/share/locale")
 
 from gtk import *
 from gtk import _root_window

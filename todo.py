@@ -616,7 +616,7 @@ class ToDo:
             if fields and fields[0][0] == '#':
                 continue
             # all valid fstab entries have 6 fields
-            if len (fields) == 6:
+            if not len (fields) < 4 and len (fields) <= 6:
                 if fields and (fields[2] == "ext2" or fields[2] == "swap") \
                    and fields[3] == "defaults":
                     format = 0

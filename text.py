@@ -53,12 +53,9 @@ class LanguageWindow:
         newlangs = [lang]
 	if len(lang) > 2:
             newlangs.append(lang[:2])
-        langs = gettext.getlangs ()
-        langs = newlangs + langs
-        gettext.setlangs (langs)
-        global cat, _
+        gettext.setlangs (newlangs)
+        global cat
         cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-        _ = cat.gettext
         todo.language.set (choice)
         return INSTALL_OK
 
