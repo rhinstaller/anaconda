@@ -349,7 +349,7 @@ class ToDo:
         self.auth = Authentication ()
         self.ddruidReadOnly = 0
         self.bootdisk = 1
-#        self.bdstate = ""
+        self.bdstate = ""
 
         log.open (serial, reconfigOnly, test)
 
