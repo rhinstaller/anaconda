@@ -404,10 +404,10 @@ class PartitionEditor:
 		lbl.set_mnemonic_widget(self.endcylspin)
                 maintable.attach(self.endcylspin, 1, 2, row, row + 1)
 
-                self.startcylspin.connect("changed", self.cylspinchangedCB,
+                self.startcylspin.connect("value-changed", self.cylspinchangedCB,
 					  (dev, self.startcylspin,
 					   self.endcylspin, bycyl_sizelabel))
-                self.endcylspin.connect("changed", self.cylspinchangedCB,
+                self.endcylspin.connect("value-changed", self.cylspinchangedCB,
 					(dev, self.startcylspin,
 					 self.endcylspin, bycyl_sizelabel))
                 
