@@ -2,7 +2,7 @@ LOADLIBES = -lpopt -L../isys -lisys
 CFLAGS = -Wall -g
 LDFLAGS = -g
 
-all:	modlist moddeps
+all:	modlist moddeps genhdlist
 
 moddeps: moddeps.o
 	$(CC) $(LDFLAGS) -o moddeps moddeps.o ../loader/modules.o \
@@ -10,6 +10,9 @@ moddeps: moddeps.o
 	    ../isys/modutils/insmod/libmodutils.a    \
 	    ../isys/modutils/util/libutil.a          \
 	    ../isys/modutils/obj/libobj.a -lrpm -lbz2 -lz
+
+genhdlist: genhdlist.c
+	$(CC) -I/usr/include/rpm $(LDFLAGS) -o genhdlist genhdlist.c -lrpm
 
 install:
 	@echo "nothing to do"		
