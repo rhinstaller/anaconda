@@ -303,12 +303,21 @@ class DiskStripeGraph:
                                       x=0.0, y=yoff,
                                       font="sans",
                                       size_points=9)
-        drivetext = ("Drive %s (Geom: %s/%s/%s) "
-                     "(Model: %s)") % ('/dev/' + drive,
-                                       disk.dev.cylinders,
-                                       disk.dev.heads,
-                                       disk.dev.sectors,
-                                       disk.dev.model)
+	show_geometry = 0
+	if show_geometry:
+	    drivetext = ("Drive %s (Geom: %s/%s/%s) "
+			 "(Model: %s)") % ('/dev/' + drive,
+					   disk.dev.cylinders,
+					   disk.dev.heads,
+					   disk.dev.sectors,
+					   disk.dev.model)
+	else:
+	    drivetext = ("Drive %s (%-0.f MB) "
+			 "(Model: %s)") % ('/dev/' + drive,
+					   partedUtils.getDeviceSizeMB(disk.dev),
+					   disk.dev.model)
+
+
         text.set(text=drivetext, fill_color='black', anchor=gtk.ANCHOR_NW,
                  weight=pango.WEIGHT_BOLD)
         (xxx1, yyy1, xxx2, yyy2) =  text.get_bounds()
