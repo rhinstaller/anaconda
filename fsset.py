@@ -146,7 +146,7 @@ class FileSystemType:
         self.linuxnativefs = 0
         self.partedFileSystemType = None
         self.partedPartitionFlags = []
-        self.maxSizeMB = 1024 * 1024
+        self.maxSizeMB = 8 * 1024 * 1024
         self.supported = -1
         self.defaultOptions = "defaults"
         self.migratetofs = None
@@ -371,7 +371,7 @@ class reiserfsFileSystem(FileSystemType):
         self.name = "reiserfs"
         self.packages = [ "reiserfs-utils" ]
 
-        self.maxSizeMB = 1024 * 1024
+        self.maxSizeMB = 8 * 1024 * 1024
 
 
     def formatDevice(self, entry, progress, chroot='/'):
@@ -400,7 +400,7 @@ class xfsFileSystem(FileSystemType):
         self.checked = 1
         self.linuxnativefs = 1
         self.name = "xfs"
-        self.maxSizeMB = 1024 * 1024
+        self.maxSizeMB = 16 * 1024 * 1024
         self.maxLabelChars = 12
         # this is totally, 100% unsupported.  Boot with "linux xfs"
         # at the boot: prompt will let you make new xfs filesystems
@@ -475,7 +475,7 @@ class jfsFileSystem(FileSystemType):
         self.name = "jfs"
         self.packages = [ "jfsutils" ]
 
-        self.maxSizeMB = 1024 * 1024
+        self.maxSizeMB = 8 * 1024 * 1024
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
@@ -509,7 +509,7 @@ class extFileSystem(FileSystemType):
         self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
-        self.maxSizeMB = 1024 * 1024
+        self.maxSizeMB = 8 * 1024 * 1024
         self.packages = [ "e2fsprogs" ]
 
     def labelDevice(self, entry, chroot):
@@ -626,7 +626,7 @@ class raidMemberDummyFileSystem(FileSystemType):
         self.checked = 0
         self.linuxnativefs = 1
         self.name = "software RAID"
-        self.maxSizeMB = 1024 * 1024
+        self.maxSizeMB = 8 * 1024 * 1024
         self.supported = 1
 
         if len(availRaidLevels) == 0:
@@ -649,7 +649,7 @@ class lvmPhysicalVolumeDummyFileSystem(FileSystemType):
         self.checked = 0
         self.linuxnativefs = 1
         self.name = "physical volume (LVM)"
-        self.maxSizeMB = 1024 * 1024
+        self.maxSizeMB = 8 * 1024 * 1024
         self.supported = 1
         self.packages = [ "lvm2" ]
 
@@ -671,7 +671,7 @@ class lvmVolumeGroupDummyFileSystem(FileSystemType):
         self.linuxnativefs = 0
         self.name = "volume group (LVM)"
         self.supported = 0
-        self.maxSizeMB = 1024 * 1024
+        self.maxSizeMB = 8 * 1024 * 1024
         self.packages = [ "lvm2" ]
 
     def isMountable(self):
@@ -691,7 +691,7 @@ class swapFileSystem(FileSystemType):
         self.partedFileSystemType = parted.file_system_type_get("linux-swap")
         self.formattable = 1
         self.name = "swap"
-        self.maxSizeMB = 1024 * 1024
+        self.maxSizeMB = 8 * 1024 * 1024
         self.linuxnativefs = 1
         self.supported = 1
 
