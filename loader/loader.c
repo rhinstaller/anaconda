@@ -3199,6 +3199,23 @@ int main(int argc, char ** argv) {
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
+    /* look for hard drives; if there aren't any warn the user and
+       let him add drivers manually */
+    for (i = 0; i < kd.numKnown; i++)
+	if (kd.known[i].class == CLASS_HD) break;
+
+    if (i == kd.numKnown) {
+	int rc;
+
+	startNewt(flags);
+	rc = newtWinChoice(_("Warning"), _("Yes"), _("No"),
+		_("No hard drives have been found. You probably need to "
+		  "manually choose device drivers for the installation to "
+		  "succeed. Would you like to select drivers now?"));
+
+	if (rc != 2) flags |= LOADER_FLAGS_ISA;
+    }
+
     if (((access("/proc/bus/pci/devices", R_OK) &&
 	  access("/proc/openprom", R_OK)) || 
 	  FL_ISA(flags) || FL_NOPROBE(flags)) && !ksFile) {
