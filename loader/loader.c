@@ -1299,8 +1299,12 @@ static char * mountUrlImage(struct installMethod * method,
 
 	  case URL_STAGE_MAIN:
 	    rc = urlMainSetupPanel(&ui, proto, &needsSecondary);
-	    if (rc) 
+	    if (rc) {
+#if defined (__s390__) || defined (__s390x__)
+	        return NULL;
+#endif
 		stage = URL_STAGE_IP;
+	    }
 	    else
 		stage = needsSecondary != ' ' ? 
 			URL_STAGE_SECOND : URL_STAGE_FETCH;
