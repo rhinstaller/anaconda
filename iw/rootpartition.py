@@ -96,6 +96,7 @@ class PartitionWindow (InstallWindow):
 class LoopSizeWindow(InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
+        ics.readHTML ("loopback")
 
     def getNext (self):
         self.todo.fstab.setLoopbackSize (self.sizeAdj.value, self.swapAdj.value)
