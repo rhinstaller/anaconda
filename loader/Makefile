@@ -159,27 +159,27 @@ loader-pcmcia-kon: loader-pcmcia-kon.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
         $(KONOBJS)
 
 loader.o: loader.c
-	$(CC) -DINCLUDE_LOCAL -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $^
+	$(CC) -DINCLUDE_LOCAL -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $<
 
 loader-local.o: loader.c
-	$(CC) -DINCLUDE_LOCAL $(CFLAGS) -o $@ -c $^
+	$(CC) -DINCLUDE_LOCAL $(CFLAGS) -o $@ -c $<
 
 loader-local-kon.o: loader.c
-	$(CC) -DINCLUDE_LOCAL -DINCLUDE_KON $(CFLAGS) -o $@ -c $^
+	$(CC) -DINCLUDE_LOCAL -DINCLUDE_KON $(CFLAGS) -o $@ -c $<
 
 loader-net.o: loader.c
-	$(CC) -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $^
+	$(CC) -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $<
 
 loader-net-kon.o: loader.c
-	$(CC) -DINCLUDE_NETWORK -DINCLUDE_KON $(CFLAGS) -o $@ -c $^
+	$(CC) -DINCLUDE_NETWORK -DINCLUDE_KON $(CFLAGS) -o $@ -c $<
 
 loader-pcmcia.o: loader.c
 	$(CC) -DINCLUDE_PCMCIA -DINCLUDE_LOCAL -DINCLUDE_NETWORK \
-	    $(CFLAGS) -o $@ -c $^
+	    $(CFLAGS) -o $@ -c $<
 
 loader-pcmcia-kon.o: loader.c
 	$(CC) -DINCLUDE_PCMCIA -DINCLUDE_LOCAL -DINCLUDE_NETWORK \
-	    -DINCLUDE_KON $(CFLAGS) -o $@ -c $^
+	    -DINCLUDE_KON $(CFLAGS) -o $@ -c $<
 
 init: init.o $(MINILIBC)
 	$(CC) $(STATIC) -g $(LDFLAGS) -o $@ init.o $(MINILIBC)
