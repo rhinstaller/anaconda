@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-03 14:34-0500\n"
-"PO-Revision-Date: 2005-01-16 23:12+0300\n"
+"PO-Revision-Date: 2005-03-05 01:37+0300\n"
 "Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -213,7 +213,7 @@ msgid "Could not allocate partitions"
 msgstr "Невозможно распределить разделы"
 
 #: ../autopart.py:1022
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
@@ -1210,20 +1210,19 @@ msgstr "Установка системы"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Сбой скриптлета"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Произошла ошибка при установке %s. Она означает либо ошибку носителя, либо "
-"недостаток места на диске, либо проблемы оборудования. Это фатальная ошибка, "
-"поэтому работа программы установки будет прервана. Проверьте носитель и "
-"повторите установку снова.\n"
+"Произошла ошибка при выполнении скрипта установки пакета.  Вы можете "
+"просмотреть вывод в %s. Это фатальная ошибка, поэтому работа программы "
+"установки будет прервана.\n"
 "\n"
 "Нажмите OK для перезагрузки вашей системы."
 
@@ -2038,9 +2037,8 @@ msgid ""
 msgstr "Вы должны создать раздел /boot/efi типа FAT размером 50 мегабайт."
 
 #: ../partitions.py:823
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Необходимо создать загрузочный раздел PPC PReP"
+msgstr "Необходимо создать загрузочный раздел Apple Bootstrap"
 
 #: ../partitions.py:845
 msgid "You must create a PPC PReP Boot partition."
@@ -3082,14 +3080,13 @@ msgid "Congratulations"
 msgstr "Поздравляем"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media  used during the installation process and "
 "press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Удалите все носители (дискеты или CD-ROM), которые использовались при "
-"установке, и нажмите \"Перезагрузка\" для перезагрузки системы.\n"
+"Удалите все носители, которые использовались при установке, и нажмите "
+"\"Перезагрузка\" для перезагрузки системы.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -5398,14 +5395,13 @@ msgid "<Enter> to exit"
 msgstr "<Enter> для выхода"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Удалите все носители (дискеты или CD-ROM), которые использовались при "
-"установке, и нажмите <Enter> для перезагрузки системы.\n"
+"Удалите все носители, которые использовались при установке, и нажмите "
+"<Enter> для перезагрузки системы.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
