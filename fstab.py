@@ -542,7 +542,7 @@ class Fstab:
 	if not raid: return
 
 	deviceDict = {}
-	for (device, name, type, start, size) in devices:
+	for (device, name, type, start, size, maxcyl, preexist) in devices:
 	    deviceDict[name] = device
 
 	rt = open(file, "w")
