@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-08-28 09:49+0200\n"
+"PO-Revision-Date: 2004-09-03 09:49+0200\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -186,9 +186,8 @@ msgid "Using mouse type: %s"
 msgstr "Використовується тип миші: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Пошук встановлень %s..."
+msgstr "Запускається графічне встановлення..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -246,12 +245,12 @@ msgstr ""
 "OpenFirmware не зможе завантажуватись з цього розділу."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Завантажувальний розділ %s може не задовольняти вимоги завантажувача вашої "
-"архітектури. Наполегливо рекомендується створити завантажувальний диск."
+"архітектури."
 
 #: ../autopart.py:1056
 #, python-format
@@ -1061,7 +1060,7 @@ msgstr "_Повторити"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Програма встановлення завершується..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -2569,52 +2568,50 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
 msgstr ""
+"Машини zSeries можуть отримувати доступ до стандартних SCSI пристроїв через Fibre Channel "
+"(FCP). Необхідно вказати 5 параметрів дял кожного пристрою: 16-бітний номер пристрою, "
+"16-бітний SCSI ID, 64-бітний World Wide Port Number (WWPN), 16-бітний "
+"SCSI LUN та 64-бітний FCP LUN."
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Пристрій"
+msgstr "Номер пристрою"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Ви не вказали назву комп'ютера."
+msgstr "Ви не вказали номер пристрою, або номер пристрою - неправильний."
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI ID"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Ви не вказали назву комп'ютера."
+msgstr "Ви не вказали SCSI-ідентифікатор, або ідентифікатор - неправильний."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Ви не вказали назву комп'ютера."
+msgstr "Ви не вказали worldwide назву порта, або назва - неправильна."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Ви не вказали назву комп'ютера."
+msgstr "Ви не вказали SCSI LUN, або номер - неправильний."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Ви не вказали назву комп'ютера."
+msgstr "Ви не вказали FCP LUN, або номер - неправильний."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3316,7 +3313,6 @@ msgstr ""
 "служб вашої системи. До яких служб треба дозволити доступ?"
 
 #: ../iw/firewall_gui.py:145
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
@@ -5142,34 +5138,32 @@ msgid "_Skip X configuration"
 msgstr "_Пропустити налаштовування Х"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "Налаштовування VNC"
+msgstr "Налаштовування ZFCP"
 
 #: ../iw/zfcp_gui.py:99
 msgid "_Remove"
-msgstr ""
+msgstr "В_идалити"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Пристрої"
+msgstr "Пристрої FCP"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Додати пристрій"
+msgstr "Додати FCP пристрій"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Правка пристрою RAID"
+msgstr "Правка пристрою FCP %s"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
+"Ви намагаєтесь видалити FCP диск з конфігурації. Ви дійсно бажаєте продовжувати?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5891,9 +5885,8 @@ msgid "End Cylinder:"
 msgstr "Кінцевий Циліндр:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Назва групи томів:"
+msgstr "Група томів:"
 
 #: ../textw/partition_text.py:498
 msgid "RAID Level:"
@@ -6016,24 +6009,21 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Максимальна кількість резервних пристроїв у масиві RAID0 дорівнює 0."
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "Групи томів LVM"
+msgstr "Немає груп томів"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "Введіть назву логічного тому."
+msgstr "Відсутні групи томів, необхідні для створення логічних томів."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
 "Запитаний розмір (%10.2f MB) перевищує максимальний розмір логічного тому (%"
-"10.2f MB). Щоб збільшити це обмеження необхідно збільшити розмір фізичного "
-"екстенту цієї групи томів."
+"10.2f MB)."
 
 #: ../textw/partition_text.py:1310
 #, python-format
@@ -6041,26 +6031,23 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"Запитаний розмір (%10.2f MB) перевищує наявний розмір у групі томів (%10.2f MB)."
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Правка логічного тому"
+msgstr "Новий розділ чи логічний том"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Завантажувальні розділи на логічних томах не допускаються."
+msgstr "Бажаєте створити новий розділ чи новий логічний том?"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Розділ"
+msgstr "розділ"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
-msgstr "Логічні томи"
+msgstr "логічний том"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -6663,40 +6650,36 @@ msgid "Video RAM:"
 msgstr "Відеопам'ять:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Пристрій"
+msgstr "Номер пристрою:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "Пристрій"
+msgstr "Пристрій FCP"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "Пристрій"
+msgstr "Номер пристрою"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "Видалити"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -7120,7 +7103,7 @@ msgstr "Не вдається знайти файл на жорсткому ди
 #: ../loader2/hdinstall.c:578
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Не вдається знайти жорсткий диск відповідний BIOS диску %s"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7766,7 +7749,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Буенос Аерос (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7846,7 +7829,7 @@ msgstr "Chatham Islands"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -8005,7 +7988,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -8112,9 +8095,8 @@ msgid "most locations"
 msgstr "більшість місць"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "більшість місць (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "більшість місць (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -8258,11 +8240,11 @@ msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "Сан Хуан (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Санта-Круз (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8310,7 +8292,7 @@ msgstr "Тибет і Кцінджанґ"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Т'єрра дель фуего (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8322,7 +8304,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Тукуман (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -8381,9 +8363,8 @@ msgid "Bengali"
 msgstr "Бенгальська"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Угорська"
+msgstr "Болгарська"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8474,9 +8455,8 @@ msgid "Persian"
 msgstr "Персидська"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Англійська"
+msgstr "Польська"
 
 #. generated from lang-table
 msgid "Portuguese"
