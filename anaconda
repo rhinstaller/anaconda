@@ -736,7 +736,7 @@ if not instClass:
     instClass = DefaultInstall(flags.expert)
 
     if len(availableClasses(showHidden = 1)) < 2:
-        (cname, cobject, clogo) = availableClasses()[0]
+        (cname, cobject, clogo) = availableClasses(showHidden = 1)[0]
         log("%s is only installclass, using it" %(cname,))
         instClass = cobject(flags.expert)
         
