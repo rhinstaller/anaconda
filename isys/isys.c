@@ -609,14 +609,14 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
 
 static PyObject * doPumpNetDevice(PyObject * s, PyObject * args) {
     char * device;
-    char * dhcpclass;
+    char * dhcpclass = NULL;
     char * chptr;
     struct pumpNetIntf cfg;
     PyObject * rc;
 
-    if (!PyArg_ParseTuple(args, "ss", &device, &dhcpclass))
+    if (!PyArg_ParseTuple(args, "s|s", &device, &dhcpclass))
 	return NULL;
-	
+
     chptr = pumpDhcpClassRun(device, 0, 0, NULL, dhcpclass, &cfg, NULL);
     if (chptr) {
 	Py_INCREF(Py_None);

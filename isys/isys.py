@@ -482,7 +482,10 @@ def setResolvRetry(count):
 def pumpNetDevice(device, klass = None):
     # returns None on failure, "" if no nameserver is found, nameserver IP
     # otherwise
-    return _isys.pumpnetdevice(device, klass)
+    if klass is not None:
+        return _isys.pumpnetdevice(device, klass)
+    else:
+        return _isys.pumpnetdevice(device)    
 
 def readXFSLabel_int(device):
     try:
