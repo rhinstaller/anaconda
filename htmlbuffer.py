@@ -24,7 +24,7 @@ import re
 class HTMLBuffer(HTMLParser.HTMLParser):
     ignoreTags = ('title',)
     noTagTags = ('html', 'head', 'span')
-    newlineTags = ('p', 'h1', 'h2')
+    newlineTags = ('p', 'h1', 'h2', 'h3')
     entityRefMap = { 'copy': unichr(0xA9),
                      'lt': '<',
                      'gt': '>',
@@ -131,7 +131,7 @@ class HTMLBuffer(HTMLParser.HTMLParser):
             if not self.inOList:
                 self.buffer.insert(self.iter, u'\u2022 ')
             else:
-                self.buffer.insert(self.iter, u'%d ' %(self.inOList,))
+                self.buffer.insert(self.iter, u'%d. ' %(self.inOList,))
                 self.inOList += 1
         elif tag == 'p':
             self.startOfP = 1
@@ -160,6 +160,8 @@ class HTMLBuffer(HTMLParser.HTMLParser):
                 # for the first <li> entry with a <p> following, break
                 # before the bullet
                 if self.pInListCounter == 1:
+                    if self.inOList:
+                        offset -= 2
                     offset -= 2
             # put a newline at the beginning
             start = self.buffer.get_iter_at_offset(offset)
