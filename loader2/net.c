@@ -33,6 +33,7 @@
 #include "../isys/dns.h"
 #include "../isys/isys.h"
 #include "../isys/net.h"
+#include "../isys/wireless.h"
 
 #include "lang.h"
 #include "loader.h"
@@ -157,6 +158,34 @@ static void dhcpBoxCallback(newtComponent co, void * ptr) {
     newtEntrySetFlags(c->nmEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
     newtEntrySetFlags(c->nsEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
 }
+
+#if 0
+static int getWirelessConfig(char * ifname) {
+    const char * wepkey = "";
+    const char * essid = get_essid(ifname);
+    int rc = 0;
+    char * buf;
+
+    struct newtWinEntry entry[] = { { N_("ESSID"), &essid, 0 },
+                                    { N_("Encryption Key"), &wepkey, 0 },
+                                    { NULL, NULL, 0 } };
+
+    buf = sdupprintf(_("%s is a wireless network adapter.  Please "
+                       "provide the ESSID and encryption key needed "
+                       "to access your wireless network.  If no key "
+                       "is needed, leave this field blank and the "
+                       "install will continue."), ifname);
+    do {
+        rc = newtWinEntries(_("Wireless Settings"), buf,
+                            40, 5, 10, 25, entry, _("OK"), _("Back"), NULL);
+        if (rc == 2) return LOADER_BACK;
+
+        /* set stuff up */
+    } while (rc == 2);
+
+    return LOADER_OK;
+}
+#endif
 
 static int getDnsServers(struct networkDeviceConfig * cfg) {
     int rc;
