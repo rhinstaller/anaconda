@@ -26,6 +26,7 @@ import sys
 import parted
 from translate import cat, _, N_
 from gnome.ui import *
+from gnome.util import *
 from gnome.xmhtml import *
 from gtk import *
 from _gtk import gtk_set_locale, gtk_rc_init, gtk_rc_reparse_all
@@ -183,12 +184,9 @@ class ExceptionWindow:
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
         hbox = GtkHBox (FALSE)
-        # XXX fix me, use util function when we upgrade pygnome
-        # s = unconditional_pixmap_file ("gnome-error.png")
-        # use this for now
         s = None
         if s:
-            hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-warning.png'),
+            hbox.pack_start (GnomePixmap (pixmap_file('gnome-warning.png'),
                              FALSE)
 
         info = GtkLabel (_("An exceptional condition has occured.  This "
