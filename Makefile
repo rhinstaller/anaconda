@@ -13,5 +13,7 @@ subdirs:
 
 install: all
 	mkdir -p $(DESTDIR)
+	mkdir -p $(DESTDIR)/iw
 	cp -a anaconda *.py $(DESTDIR)
+	cp -a iw/*.py $(DESTDIR)/iw
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d install; done
