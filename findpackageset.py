@@ -1,4 +1,5 @@
 import rpm
+import string
 from constants import *
 
 # set DB_PRIVATE to make rpm happy
@@ -78,18 +79,44 @@ def findpackageset(hdrlist, dbPath='/'):
             continue
 
         if pkg[rpm.RPMTAG_OBSOLETENAME] is not None:
-            for obs in pkg[rpm.RPMTAG_OBSOLETENAME]:
+            for obs,obsver in zip(pkg[rpm.RPMTAG_OBSOLETENAME],pkg[rpm.RPMTAG_OBSOLETEVERSION]):
                 mi = ts.dbMatch('name', obs)
-                # FIXME: I should really iterate over all matches and verify
-                # versioned obsoletes, but nothing in Red Hat Linux uses
-                # them, so I'll optimize
+                oevr = strToVersion(obsver)
                 for h in mi:
 #                    dEBUG("adding %(name)s to the upgrade set for obsoletes" % pkg)
-                    addNewPackageToUpgSet(pkgDict, pkg)
-                    break
+                    if h[rpm.RPMTAG_EPOCH] is None:
+                        epoch = '0'
+                    else:
+                        epoch = str(h[rpm.RPMTAG_EPOCH])
+                    val= rpm.labelCompare(oevr,(epoch,h[rpm.RPMTAG_VERSION],h[rpm.RPMTAG_RELEASE]))
+                    if val > 0:
+                        addNewPackageToUpgSet(pkgDict, pkg)
+                        break
 
     return pkgDict.values()
 
+def strToVersion(str):
+    """Parse a string such as in obsoleteversion into evr.
+       Gratuitously borrowed from yum str_to_version
+       FIXME: should be implemented in and use rpmUtils"""
+    i = string.find(str, ':')
+    if i != -1:
+        epoch = string.atol(str[:i])
+    else:
+        epoch = '0'
+    j = string.find(str, '-')
+    if j != -1:
+        if str[i + 1:j] == '':
+            version = None
+        else:             version = str[i + 1:j]
+        release = str[j + 1:]     
+    else:
+        if str[i + 1:] == '':
+            version = None
+        else:
+            version = str[i + 1:]
+        release = None
+    return (epoch, version, release)
 
 
 if __name__ == "__main__":
