@@ -780,8 +780,16 @@ static char * mountHardDrive(struct installMethod * method,
 #endif
 			      case BALKAN_PART_DOS:
 			      case BALKAN_PART_EXT2:
-				sprintf(partitions[numPartitions].name, 
-					"/dev/%s%d", kd->known[i].name, j + 1);
+				  if (!strncmp (kd->known[i].name, "cciss/", 6) ||
+				      !strncmp (kd->known[i].name, "ida/", 4) ||
+				      !strncmp (kd->known[i].name, "rd/", 3))
+				      
+				      sprintf(partitions[numPartitions].name, 
+					      "/dev/%sp%d", kd->known[i].name, j + 1);
+				  else
+				      sprintf(partitions[numPartitions].name, 
+					      "/dev/%s%d", kd->known[i].name, j + 1);
+				  
 				partitions[numPartitions].type = 
 					table.parts[j].type;
 				numPartitions++;
