@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2001-03-22 15:24-0500\n"
-"PO-Revision-Date: 2001-03-15 12:30-0500\n"
+"PO-Revision-Date: 2001-03-26 12:00-0500\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -137,6 +137,11 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"Det oppstod en feil under formatering av %s. Dette problemet er alvorlig, "
+"og\n"
+"installeringen kan ikke fortsette.\n"
+"\n"
+"Press <Enter> for å starte systemet på nytt."
 
 #: ../fstab.py:784 ../fstab.py:1243
 #, c-format
@@ -3117,6 +3122,11 @@ msgid ""
 "This logical partition was most likely created by the partitioning program "
 "of another OS, so you may be able to correct the problem using that utility."
 msgstr ""
+"Dette skjer fordi det er en logisk partisjon på harddisken som har "
+"partisjonstype null (0). Dette støttes ikke av installeringsprogrammet, "
+"anaconda. Den logiske partisjonen ble sannsynligvis laget av et "
+"partisjonsprogram for et annet operativsystem, så du kan forsøke å rette "
+"problemet der."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
