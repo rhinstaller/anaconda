@@ -155,7 +155,8 @@ class Mouse (SimpleConfigFile):
         # so leave it alone
         if (not self.info["XMOUSETYPE"] == "IMPS/2"
             and not self.info["XMOUSETYPE"] == "IntelliMouse"
-            and not self.info["XMOUSETYPE"] == "None"):
+            and not self.info["XMOUSETYPE"] == "None"
+            and not self.info["XMOUSETYPE"] == "none"):
             curmouse[1] = self.info["XMOUSETYPE"]
 
         curmouse[6] = self.emulate
