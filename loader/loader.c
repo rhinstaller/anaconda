@@ -512,7 +512,7 @@ static char * mountHardDrive(struct installMethod * method,
     char * url = NULL;
     int numPartitions;
 
-    /*mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);*/
+    mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);
 
     while (!done) {
 	numPartitions = 0;
