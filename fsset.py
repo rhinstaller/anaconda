@@ -629,7 +629,10 @@ class raidMemberDummyFileSystem(FileSystemType):
         self.maxSizeMB = 1024 * 1024
         self.supported = 1
 
-        self.packages = [ "raidtools", "mdadm" ]
+        if len(availRaidLevels) == 0:
+            self.supported = 0
+
+        self.packages = [ "mdadm" ]
 
     def formatDevice(self, entry, progress, chroot='/'):
         # mkraid did all we need to format this partition...
