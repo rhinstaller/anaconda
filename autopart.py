@@ -1287,6 +1287,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                                  "partitioning:\n\n%s\n\n"
                                  "Press 'OK' to reboot your system.") %
                                (errors,), custom_icon='error')
+            sys.exit(0)
 
     try:
         doPartitioning(diskset, partitions, doRefresh = 0)
