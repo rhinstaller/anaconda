@@ -191,7 +191,7 @@ class LanguageDefaultWindow:
 
 #	ct.setCallback(self.updateSize, (la, todo, ct))
 
-        g = GridFormHelp (screen, _("Language Support"), "langsupport", 1, 4)
+        g = GridFormHelp (screen, _("Default Language"), "langdefault", 1, 4)
 
         g.add (tb, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
         g.add (ct, 0, 1, (0, 0, 0, 1))
@@ -861,6 +861,11 @@ class InstallInterface:
 
 	    fn = "/usr/share/anaconda/help/%s/s1-help-screens-%s.txt" \
 			% (lang, key)
+
+# uncomment to test help text installed in local directory instead            
+#	    fn = "./text-help/%s/s1-help-screens-%s.txt" \
+#			% (lang, key)
+
 	    try:
 		f = open(fn)
 	    except IOError, msg:
