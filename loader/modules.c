@@ -496,7 +496,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
 		       (argModule && !strcmp(argModule, *l)) ? args : NULL, 
 		       modInfo, flags)) {
 	    logMessage("failed to insert %s", *p);
-	} else {
+	} else if (*p) {
 	    logMessage("inserted %s", *p);
 	}
     }
