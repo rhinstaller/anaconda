@@ -455,6 +455,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         if (getWirelessConfig(cfg, device) == LOADER_BACK)
             return LOADER_BACK;
         /* FIXME: this is a bit of a hack */
+        strcpy(newCfg.dev.device, device);
         newCfg.essid = cfg->essid;
         newCfg.wepkey = cfg->wepkey;
     }
