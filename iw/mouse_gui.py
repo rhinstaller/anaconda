@@ -25,10 +25,10 @@ class MouseWindow(InstallWindow):
     htmlTag = "mouse"
 
     def getNext(self):
-        self.mouse.set(self.currentMouse, self.emulate3.get_active())
+        self.mouse.setMouse(self.currentMouse,self.emulate3.get_active())
 
-        mouse = self.availableMice[self.currentMouse]
-        gpm, xdev, device, emulate, shortname = mouse
+        mouse = self.mice[self.currentMouse]
+        (make, model, gpmproto, xproto, device, emulate3) = mouse        
 
         if device == "ttyS":
             self.mouse.setDevice(self.serialDevice)
@@ -67,7 +67,7 @@ class MouseWindow(InstallWindow):
 	cur = model.get_value(iter, 1)
 
 	self.emulate3.set_sensitive(gtk.TRUE)
-	(gpm, xdev, device, emulate, shortname) = self.availableMice[cur]
+        (make, model, gpmproto, xproto, device, emulate) = self.mice[cur]
 
 	if device == "ttyS":
 	    self.setCurrent(self.serialDevice, cur, emulate, recenter=0)
@@ -98,8 +98,9 @@ class MouseWindow(InstallWindow):
                                         gobject.TYPE_STRING)
         # go though and find all the makes that have more than 1 mouse
         toplevels = {}
-        for key, value in self.availableMice.items():
-            make = string.split(key, ' - ')[0]
+        for key, value in self.mice.items():
+            (make, model, gpmproto, xproto, device, emulate3) = value
+            make = _(make)
             if toplevels.has_key(make):
                 toplevels[make] = toplevels[make] + 1
             else:
@@ -116,10 +117,10 @@ class MouseWindow(InstallWindow):
                 del toplevels[make]
                 
         # now go and add each child node
-        for key, value in self.availableMice.items():
-            fields = string.split(key, ' - ')
-            make = fields[0]
-            model = fields[1]
+        for key, value in self.mice.items():
+            (make, model, gpmproto, xproto, device, emulate3) = value
+            make = _(make)
+            model = _(model)
             parent = toplevels.get(make)
             iter = self.mousestore.append(parent)
             # if there is a parent, put only the model in the tree
@@ -127,7 +128,7 @@ class MouseWindow(InstallWindow):
                 self.mousestore.set_value(iter, 0, model)
             else:
                 # otherwise, put the full device there.
-                self.mousestore.set_value(iter, 0, "%s %s" % tuple(fields))
+                self.mousestore.set_value(iter, 0, "%s %s" % (make, model))
             self.mousestore.set_value(iter, 1, key)
 
         self.mousestore.set_sort_column_id(0, gtk.SORT_ASCENDING)
@@ -196,7 +197,7 @@ class MouseWindow(InstallWindow):
 	    # XXX - see if this is the 'No - mouse' case
 	    if fndmouse:
 		cur = self.mousestore.get_value(iter, 1)
-		(gpm, xdev, device, emulate, shortname) = self.availableMice[cur]
+                (make, model, gpmproto, xdev, device, emulate3) = self.mice[cur]                        
 	    else:
 		xdev = None
 
@@ -222,11 +223,11 @@ class MouseWindow(InstallWindow):
 
         self.ignoreEvents = 0
 
-	self.availableMice = mouse.available()
+	self.mice = mouse.mouseModels
         self.serialDevice = None
 
         currentDev = mouse.getDevice()
-	currentMouse, emulate3 = mouse.get()
+	currentMouse, emulate3 = mouse.getMouse()
         
         # populate the big widgets with the available selections
         self.setupMice()
