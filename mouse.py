@@ -226,6 +226,8 @@ class Mouse (SimpleConfigFile):
             pass
 
     def write(self, instPath):
+        if self.info["FULLNAME"] == "None - None":
+            return
 	f = open(instPath + "/etc/sysconfig/mouse", "w")
 	f.write(str (self))
 	f.close()
