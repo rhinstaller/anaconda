@@ -768,7 +768,7 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "ssss", &dev, &ip, &netmask, &gateway)) 
 	return NULL;
 
-    memset(device,'\0',sizeof(struct pumpNetIntf));
+    memset(&device,'\0',sizeof(struct pumpNetIntf));
     strncpy(device.device, dev, sizeof(device.device) - 1);
     device.ip.s_addr = inet_addr(ip);
     device.netmask.s_addr = inet_addr(netmask);
