@@ -756,7 +756,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 	elif dev == defaultDev:
 	    otherList = [(label, longlabel, dev)] + otherList
 	else:
-	    otherList.append(label, longlabel, dev)
+	    otherList.append((label, longlabel, dev))
 
     plainLabelUsed = 0
     for (version, nick) in comps.kernelVersionList():
@@ -764,7 +764,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 	    kernelList.append("%s-%s" % (kernelLabel, nick),
                               "%s-%s" % (kernelLongLabel, nick), version)
 	else:
-	    kernelList.append(kernelLabel, kernelLongLabel, version)
+	    kernelList.append((kernelLabel, kernelLongLabel, version))
 	    plainLabelUsed = 1
 
 
