@@ -40,6 +40,9 @@ fi
 umount $LOOPMNT
 gzip -9 < $INITRD > $INITRD.new
 cp $INITRD.new $MNTPOINT/initrd.img
+if [ -f $MNTPOINT/efi/boot/initrd.img ]; then
+    cp $INITRD.new $MNTPOINT/efi/boot/initrd.img
+fi
 umount $MNTPOINT
 
 if [ -n "$3" -a -f "$3" ]; then
