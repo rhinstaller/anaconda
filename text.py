@@ -402,11 +402,16 @@ class UpgradeExamineWindow:
         else:
             root = parts[0]
             (drive, fs) = root
-            rc = ButtonChoiceWindow (screen, _("Upgrade Partition"),
-                                     _("Going to upgrade partition /dev/") + drive,
-                                     buttons = [ _("Ok"), _("Back") ])
-            if rc  == string.lower (_("Back")):
-                return INSTALL_BACK
+
+            # terrible hack - need to fix in future
+            # if we're skipping confirm upgrade window, we must be in
+            # upgradeonly mode, so don't display this window either
+            if not todo.instClass.skipStep('confirm-upgrade'):
+                rc = ButtonChoiceWindow (screen, _("Upgrade Partition"),
+                                         _("Going to upgrade partition /dev/") + drive,
+                                         buttons = [ _("Ok"), _("Back") ])
+                if rc  == string.lower (_("Back")):
+                    return INSTALL_BACK
 
         todo.upgradeFindPackages (root)
 
