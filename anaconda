@@ -114,7 +114,7 @@ nofallback = 0
 rescue = 0
 overhead = 0
 runres = '800x600'
-fbmode = 0
+nofbmode = 0
 
 #
 # x          - xserver info (?)
@@ -203,7 +203,7 @@ for n in args:
     elif (str == '--lowres'):
         runres = '640x480'
     elif (str == '--nofb'):
-        fbmode = 1
+        nofbmode = 1
 
 #
 # must specify install, rescue or reconfig mode
@@ -310,7 +310,7 @@ if (display_mode == 'g' and not os.environ.has_key('DISPLAY')):
     import xserver
     try:
         if (reconfigOnly == 0):
-            result = xserver.startX (runres, fbmode)
+            result = xserver.startX (runres, nofbmode)
         else:
             result = xserver.start_existing_X ()
             
@@ -415,7 +415,7 @@ if xmode:
 if display_mode == "t":
     intf = InstallInterface ()
 else:
-    intf = InstallInterface (runres = runres, fbmode = fbmode)
+    intf = InstallInterface (runres = runres, nofbmode = nofbmode)
 
 # imports after setting up the path
 if not reconfigOnly:
