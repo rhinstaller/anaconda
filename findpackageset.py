@@ -43,8 +43,19 @@ def findBestArch(arch, archlist):
     for availarch in archlist:
         newscore = rpm.archscore(availarch)
         oldscore = rpm.archscore(bestarch)
-        if newscore and newscore < oldscore:
-            bestarch = availarch
+        # Both unsupported
+        if newscore == 0 and oldscore == 0:
+            continue
+        # If old arch is better or now unsupported and we have a better one
+        if oldscore < newscore:
+            if oldscore == 0:
+                bestarch = availarch
+        # If new arch is better but not unsupported
+        if newscore < oldscore:
+            if newscore != 0:
+                bestarch = availarch
+        if oldscore = newscore:
+            pass
     return bestarch
         
 def getAvailPackages(hdrlist):     
