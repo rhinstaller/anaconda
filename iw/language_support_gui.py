@@ -93,7 +93,7 @@ class LanguageSupportWindow (InstallWindow):
         # iterate over the list looking for the default locale
         while (row < self.language.num_rows):
             if self.language.get_text(row, 1) == currentDefault:
-                path = store.get_path(store.get_iter(row))
+                path = store.get_path(store.get_iter((row,)))
                 col = self.language.get_column(0)
                 self.language.set_cursor(path, col, gtk.FALSE)
                 self.language.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)

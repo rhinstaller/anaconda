@@ -474,7 +474,7 @@ class PackageSelectionWindow (InstallWindow):
         wrapper.pack_start (box, gtk.FALSE)
         
         sw.add_with_viewport (wrapper)
-        viewport = sw.children()[0]
+        viewport = sw.get_children()[0]
         viewport.set_shadow_type (gtk.SHADOW_IN)
         box.set_focus_hadjustment(sw.get_hadjustment ())
         box.set_focus_vadjustment(sw.get_vadjustment ())

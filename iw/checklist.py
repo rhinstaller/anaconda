@@ -91,7 +91,7 @@ class CheckList (gtk.TreeView):
         The  function will be called with two arguments, the clicked item
         in the row and a string for which row was clicked."""
         
-        iter = self.store.get_iter(int(row))
+        iter = self.store.get_iter((int(row),))
         val = self.store.get_value(iter, 0)
         self.store.set_value(iter, 0, not val)
 
@@ -106,21 +106,21 @@ class CheckList (gtk.TreeView):
         """Return FALSE or TRUE as to whether or not the row is toggled
         similar to GtkToggleButtons"""
 
-        iter = self.store.get_iter(row)
+        iter = self.store.get_iter((row,))
         return self.store.get_value(iter, 0)
 
 
     def set_active(self, row, is_active):
         "Set row to be is_active, similar to GtkToggleButton"
 
-        iter = self.store.get_iter(row)
+        iter = self.store.get_iter((row,))
         self.store.set_value(iter, 0, is_active)
 
 
     def get_text(self, row, column):
         "Get the text from row and column"
 
-        iter = self.store.get_iter(row)
+        iter = self.store.get_iter((row,))
         return self.store.get_value(iter, column)
 
 
