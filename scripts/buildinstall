@@ -117,6 +117,5 @@ MK_STAMP=$BUILDINSTDIR/makestamp.py
 
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="1,2,3" --baseDir=RedHat/base --packagesDir=RedHat/RPMS --pixmapsDir=RedHat/pixmaps --outfile=$p/.discinfo
 
-
 rm -rf $BUILDINSTDIR
 rm -rf $p/image-template $p/RedHat/instimage
