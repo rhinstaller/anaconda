@@ -37,13 +37,13 @@ struct progressCBdata {
 /* finds primary volume descriptor and returns info from it */
 /* mediasum must be a preallocated buffer at least 33 bytes long */
 int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, int *isostatus) {
-    unsigned char buf[2048];
-    unsigned char buf2[512];
-    unsigned char tmpbuf[512];
+    char buf[2048];
+    char buf2[512];
+    char tmpbuf[512];
     int skipfnd, md5fnd, isostatusfnd;
     unsigned int loc;
     long long offset;
-    unsigned char *p;
+    char *p;
 
     if (lseek(isofd, (off_t)(16L * 2048L), SEEK_SET) == -1)
 	return ((long long)-1);
@@ -56,7 +56,7 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 	if (buf[0] == 1)
 	    /* found primary volume descriptor */
 	    break;
-	else if (buf[0] == 255)
+	else if (buf[0] == -1)
 	    /* hit end and didn't find primary volume descriptor */
 	    return ((long long)-1);
 	offset += 2048L;
@@ -300,7 +300,7 @@ int mediaCheckFile(char *file, char *descr) {
     int rc;
     int isostatus;
     char *result;
-    unsigned char mediasum[33], computedsum[33];
+    char mediasum[33], computedsum[33];
     char tmpstr[512];
     char descrstr[256];
     long long isosize;
