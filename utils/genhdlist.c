@@ -73,6 +73,8 @@ int getOrder (char * fn)
     if (p) {
 	return i;
     }
+
+    fprintf (stderr, "WARNING: ordering not found for %s\n", fn);
     
     return -1;
 }
