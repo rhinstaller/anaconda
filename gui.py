@@ -1,10 +1,10 @@
-import gettext
+import gettext_rh
 import os
 
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
 
 def _(string):
-    return cat.gettext(string)          
+    return cat.gettext(string)
 
 from gtk import *
 from gtk import _root_window
@@ -224,18 +224,38 @@ class InstallInterface:
         gtkThread.start ()
 
         # This is the same as the file
-	if todo.serial:
-	    commonSteps = [ ( LanguageWindow, "language" ), 
-			    ( WelcomeWindow, "welcome" ),
-			    ( InstallPathWindow, "installtype" ),
-			  ]
-	else:
-	    commonSteps = [ ( LanguageWindow, "language" ), 
-			    ( KeyboardWindow, "keyboard" ),
-			    ( MouseWindow, "mouse" ),
-			    ( WelcomeWindow, "welcome" ),
-			    ( InstallPathWindow, "installtype" ),
-			  ]
+        if todo.unconfigOnly:
+            if todo.serial:
+                commonSteps = [ ( LanguageWindow, "language" ), 
+                                ]
+            else:
+                commonSteps = [ ( LanguageWindow, "language" ), 
+                                ( KeyboardWindow, "keyboard" ),
+                                ( MouseWindow, "mouse" ),
+                                ]
+
+            commonSteps = commonSteps + [
+		     ( NetworkWindow, "network" ),
+		     ( TimezoneWindow, "timezone" ),
+		     ( AccountWindow, "accounts" ),
+		     ( AuthWindow, "authentication" ),
+                     ( XConfigWindow, "xconfig" ),
+		     ( CongratulationWindow, "complete" )
+		   ]
+
+        else:
+            if todo.serial:
+                commonSteps = [ ( LanguageWindow, "language" ), 
+                                ( WelcomeWindow, "welcome" ),
+                                ( InstallPathWindow, "installtype" ),
+                                ]
+            else:
+                commonSteps = [ ( LanguageWindow, "language" ), 
+                                ( KeyboardWindow, "keyboard" ),
+                                ( MouseWindow, "mouse" ),
+                                ( WelcomeWindow, "welcome" ),
+                                ( InstallPathWindow, "installtype" ),
+                                ]
 
         self.finishedTODO = Event ()
         self.icw = InstallControlWindow (self, commonSteps, todo)
@@ -251,8 +271,10 @@ class InstallControlWindow (Thread):
         if len(lang) > 2:
             newlangs.append(lang[:2])
         self.locale = lang[:2]
-        gettext.setlangs (newlangs)
-        cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+
+        gettext_rh.setlangs (newlangs)
+        
+        cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
         for l in newlangs:
             if os.access ("/etc/gtk/gtkrc." + l, os.R_OK):
                 rc_parse("/etc/gtk/gtkrc." + l)
