@@ -1848,6 +1848,12 @@ int main(int argc, char ** argv) {
 	    	       strerror(errno));
 	} else {
 	    mlWriteConfModules(modLoaded, modInfo, fd);
+	    /* HACK - notting */
+#ifdef __sparc__
+	    write(fd,"alias parport_lowlevel parport_ax\n",34);
+#else
+	    write(fd,"alias parport_lowlevel parport_pc\n",34);
+#endif
 	    close(fd);
 	}
     }
