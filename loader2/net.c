@@ -551,6 +551,9 @@ int configureNetwork(struct networkDeviceConfig * dev) {
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
         pumpSetupDefaultGateway(&dev->dev.gateway);
 
+    /* we need to wait for a link after setting up the interface as some
+     * switches decide to reconfigure themselves after that (#115825)
+     */
     waitForLink((char *)&dev->dev.device);
     return 0;
 }
