@@ -153,8 +153,10 @@ getRootResources(PyObject *s, PyObject *args) {
     Resource **resources, **p;
     PyObject *rc;
 
-    if (openDisplay(&dpy, &root) < 0)
+    if (openDisplay(&dpy, &root) < 0) {
+	PyErr_SetString(PyExc_SystemError, "Could not open display.");
 	return NULL;
+    }
 	
     resources = getCurrentResources(dpy);
     if (!resources) {
@@ -185,11 +187,14 @@ setRootResource(PyObject *s, PyObject *args)
     char *key, *val, *rstring;
     int fnd, nrec;
 
-    if (!PyArg_ParseTuple(args, "ss", &key, &val))
+    if (!PyArg_ParseTuple(args, "ss", &key, &val)) {
 	return NULL;
+    }
 
-    if (openDisplay(&dpy, &root) < 0)
+    if (openDisplay(&dpy, &root) < 0) {
+	PyErr_SetString(PyExc_SystemError, "Could not open display.");
 	return NULL;
+    }
 
     resources = getCurrentResources(dpy);
     fnd = 0;
@@ -273,8 +278,10 @@ screenHeight(PyObject *s, PyObject *args)
     int     scrn;
     PyObject *rc;
 
-    if (openDisplay(&dpy, &root) < 0)
+    if (openDisplay(&dpy, &root) < 0) {
+	PyErr_SetString(PyExc_SystemError, "Could not open display.");
 	return NULL;
+    }
 
     scrn=DefaultScreen(dpy);
 
@@ -292,8 +299,10 @@ screenWidth(PyObject *s, PyObject *args)
     int     scrn;
     PyObject *rc;
 
-    if (openDisplay(&dpy, &root) < 0)
+    if (openDisplay(&dpy, &root) < 0) {
+	PyErr_SetString(PyExc_SystemError, "Could not open display.");
 	return NULL;
+    }
 
     scrn=DefaultScreen(dpy);
 

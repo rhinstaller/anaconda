@@ -230,16 +230,20 @@ def testx(hwstate, mouse, keyboard):
     if miniwm_pid is not None:
 	import xutils
 
-	if xutils.screenWidth() > 640:
-	    dpi = "96"
-	else:
-	    dpi = "75"
-	    
-	xutils.setRootResource('Xft.antialias', '1')
-	xutils.setRootResource('Xft.dpi', dpi)
-	xutils.setRootResource('Xft.hinting', '1')
-	xutils.setRootResource('Xft.hintstyle', 'hintslight')
-	xutils.setRootResource('Xft.rgba', 'none')
+	try:
+	    if xutils.screenWidth() > 640:
+		dpi = "96"
+	    else:
+		dpi = "75"
+
+	    xutils.setRootResource('Xft.antialias', '1')
+	    xutils.setRootResource('Xft.dpi', dpi)
+	    xutils.setRootResource('Xft.hinting', '1')
+	    xutils.setRootResource('Xft.hintstyle', 'hintslight')
+	    xutils.setRootResource('Xft.rgba', 'none')
+	except:
+	    sys.stderr.write("X SERVER STARTED, THEN FAILED");
+	    raise RuntimeError, "X server failed to start"
 
     child = os.fork()
     if (child):
