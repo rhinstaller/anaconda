@@ -394,23 +394,31 @@ class IndividualPackageSelectionWindow (InstallWindow):
         descVBox = GtkVBox ()        
         descVBox.pack_start (GtkHSeparator (), FALSE, padding=2)
 
-        hbox = GtkHButtonBox ()
+#        hbox = GtkHButtonBox ()
+        hbox = GtkHBox ()
 
-        self.totalSizeLabel = GtkLabel(_("Total size: "))
-        hbox.pack_start(self.totalSizeLabel, FALSE, FALSE, 0)
+        bb = GtkHButtonBox ()
+        bb.set_layout (BUTTONBOX_END)
 
-        self.selectAllButton = GtkButton(_("Select all in group"))
-        hbox.pack_start(self.selectAllButton, FALSE)
-        self.selectAllButton.connect('clicked', self.select_all)
+        self.totalSizeLabel = GtkLabel (_("Total size: "))
+        hbox.pack_start (self.totalSizeLabel, FALSE, FALSE, 0)
+
+        self.selectAllButton = GtkButton (_("Select all in group"))
+        bb.pack_start (self.selectAllButton, FALSE)
+        self.selectAllButton.connect ('clicked', self.select_all)
 
         self.unselectAllButton = GtkButton(_("Unselect all in group"))
-        hbox.pack_start(self.unselectAllButton, FALSE)
-        self.unselectAllButton.connect('clicked', self.unselect_all)        
+        bb.pack_start(self.unselectAllButton, FALSE)
+        self.unselectAllButton.connect ('clicked', self.unselect_all)        
+
+        hbox.pack_start (bb)
 
         self.selectAllButton.set_sensitive (FALSE)
         self.unselectAllButton.set_sensitive (FALSE)
 
+#        descVBox.pack_start (hbox, FALSE)
         descVBox.pack_start (hbox, FALSE)
+        
 
         descSW = GtkScrolledWindow ()
         descSW.set_border_width (5)
