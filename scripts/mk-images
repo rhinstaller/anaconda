@@ -1,4 +1,5 @@
 #!/bin/bash
+LANG=C
 
 PATH=$PATH:/sbin:/usr/sbin
 IMAGEUUID=$(date +%Y%m%d%H%M)
@@ -376,6 +377,10 @@ setupShellEnvironment() {
 root::0:0::/:/sbin/loader
 debug::0:0:debug shell:/:/bin/bash
 sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+EOF
+    cat > $MBD_DIR/etc/group << EOF
+root:x:0:root
+tty:x:5:
 EOF
     echo "sshd:x:74:" >> $MBD_DIR/etc/group
     echo "telnet          23/tcp" > $MBD_DIR/etc/services 
