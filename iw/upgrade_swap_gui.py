@@ -55,8 +55,9 @@ class UpgradeSwapWindow (InstallWindow):
 
         else:
             threads_leave()
-            upgrade.createSwapFile(self.todo.instPath, self.todo.fstab, mnt, val,
-                                   self.todo.intf.progressWindow)
+            if not self.todo.setupFilesystems:
+                upgrade.createSwapFile(self.todo.instPath, self.todo.fstab, mnt, val,
+                                       self.todo.intf.progressWindow)
             self.todo.upgradeFindPackages()
             threads_enter()
         return None

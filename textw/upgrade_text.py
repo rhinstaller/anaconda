@@ -101,8 +101,9 @@ class UpgradeSwapWindow:
                     _("The swap file must be between 0 and 2000 MB in size."))
 		else:
 		    screen.popWindow()
-		    upgrade.createSwapFile(todo.instPath, todo.fstab, mnt, val,
-					   todo.intf.progressWindow)
+                    if not todo.setupFilesystems:
+                        upgrade.createSwapFile(todo.instPath, todo.fstab, mnt, val,
+                                               todo.intf.progressWindow)
 		    todo.upgradeFindPackages ()
 		    return INSTALL_OK
 
