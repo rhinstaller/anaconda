@@ -681,99 +681,9 @@ EOF
     ln -s /proc/mounts $MBD_DIR/etc/mtab
     ln -s sbin $MBD_DIR/bin
 
-    awk '{ printf("mknod %s/dev/%s %s %s %s\n", $1, $2, $3, $4, $5);
-	   printf("chmod %s %s/dev/%s\n", $6, $1, $2);
-	   printf("chown %s %s/dev/%s\n", $7, $1, $2); 
-	 }' <<EOF | sh
-	$MBD_DIR console c 5 1 600 root:root
-	$MBD_DIR ttyS0 c 4 64 600 root:root
-	$MBD_DIR ttyS1 c 4 65 600 root:root
-	$MBD_DIR ttyS2 c 4 66 600 root:root
-	$MBD_DIR ttyS3 c 4 67 600 root:root
-	$MBD_DIR psaux c 10 1 644 root:root
-	$MBD_DIR null c 1 3 666 root:root
-	$MBD_DIR zero c 1 5 666 root:root
-	$MBD_DIR md0 b 9 0 644 root:root
-	$MBD_DIR mem c 1 1 600 root:root
-	$MBD_DIR ram b 1 1 640 root:root
-	$MBD_DIR ptmx c 5 2 666 root:root
-	$MBD_DIR tty  c 5 0 666 root:root
-	$MBD_DIR tty0 c 4 0 600 root:tty
-	$MBD_DIR tty1 c 4 1 600 root:tty
-	$MBD_DIR tty2 c 4 2 600 root:tty
-	$MBD_DIR tty3 c 4 3 600 root:tty
-	$MBD_DIR tty4 c 4 4 600 root:tty
-	$MBD_DIR tty5 c 4 5 600 root:tty
-	$MBD_DIR tty6 c 4 6 600 root:tty
-	$MBD_DIR tty7 c 4 7 600 root:tty
-	$MBD_DIR tty8 c 4 8 600 root:tty
-	$MBD_DIR tty9 c 4 9 600 root:tty
-	$MBD_DIR fb0 c 29 0 600 root:tty
-	$MBD_DIR fb1 c 29 32 600 root:tty
-	$MBD_DIR fb2 c 29 64 600 root:tty
-	$MBD_DIR fb3 c 29 96 600 root:tty
-	$MBD_DIR fb4 c 29 128 600 root:tty
-	$MBD_DIR fb5 c 29 160 600 root:tty
-	$MBD_DIR fb6 c 29 192 600 root:tty
-	$MBD_DIR fb7 c 29 224 600 root:tty
-	$MBD_DIR openprom c 10 139 644 root:root
-	$MBD_DIR sunmouse c 10 6 644 root:root
-	$MBD_DIR kbd c 11 0 644 root:root
-	$MBD_DIR ptyp0 c 2 0 644 root:root
-	$MBD_DIR ttyp0 c 3 0 644 root:root
-	$MBD_DIR ttyp1 c 3 1 644 root:root
-	$MBD_DIR ttyp2 c 3 2 644 root:root
-	$MBD_DIR ttyp3 c 3 3 644 root:root
-	$MBD_DIR ttyp4 c 3 4 644 root:root
-	$MBD_DIR ttyp5 c 3 5 644 root:root
-	$MBD_DIR ttyp6 c 3 6 644 root:root
-	$MBD_DIR ttyp7 c 3 7 644 root:root
-	$MBD_DIR ttyp8 c 3 8 644 root:root
-	$MBD_DIR ttyp9 c 3 9 644 root:root
-	$MBD_DIR agpgart c 10 175 664 root:root
-	$MBD_DIR input/mice c 13 63 664 root:root
-	$MBD_DIR fd0 b 2 0 644 root:root
-	$MBD_DIR fd1 b 2 1 644 root:root
-	$MBD_DIR sg0 c 21 0 666 root:root
-	$MBD_DIR st0 c 9 0 666 root:root
-	$MBD_DIR nst0 c 9 128 666 root:root
-	$MBD_DIR random c 1 8 644 root:root
-	$MBD_DIR urandom c 1 9 644 root:root
-	$MBD_DIR nvram c 10 144 644 root:root
-	$MBD_DIR adb c 56 0 644 root:root
-        $MBD_DIR rtc c 10 135 644 root:root
-EOF
-    ln -s fb0 $MBD_DIR/dev/fb
-
-    # s390 console fun
-    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-	for i in `seq 2 9`; do
-	    rm -f $MBD_DIR/dev/tty$i
-	    ln -s console $MBD_DIR/dev/tty$i
-	done
-    fi
-
     # s390/s390x need sshd/telnet setup
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
 	setupShellEnvironment
-    fi
-
-    # weird ppc consoles
-    if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
-	mknod $MBD_DIR/dev/hvsi0 c 229 128
-	mknod $MBD_DIR/dev/hvsi1 c 229 129
-	mknod $MBD_DIR/dev/hvsi2 c 229 130
-	mknod $MBD_DIR/dev/hvc0 c 229 0
-	chown root:root $MBD_DIR/dev/hvsi0 $MBD_DIR/dev/hvsi1 $MBD_DIR/dev/hvsi2 $MBD_DIR/dev/hvc0
-	chmod 644 $MBD_DIR/dev/hvsi0 $MBD_DIR/dev/hvsi1 $MBD_DIR/dev/hvsi2 $MBD_DIR/dev/hvc0
-    fi
-
-    # weird ia64 consoles
-    if [ "$BUILDARCH" = "ia64" ]; then
-	# SGI Altix
-	mknod $MBD_DIR/dev/ttySG0 c 204 40
-	chown root:root $MBD_DIR/dev/ttySG0
-	chmod 644 $MBD_DIR/dev/ttySG0
     fi
 
 cat > $MBD_DIR/.profile <<EOF
