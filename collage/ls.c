@@ -494,6 +494,4 @@ void listFiles(char * path, char * fn, int flags) {
     }
 
     globfree(&matches);
-
-    close(1);
 }
