@@ -980,7 +980,7 @@ static PyObject * doLoadFont (PyObject * s, PyObject * args) {
     char * font;
     int ret;
 
-    if (!PyArg_ParseTuple(args, "s", &font)) return NULL;
+    if (!PyArg_ParseTuple(args, "")) return NULL;
 
     ret = isysLoadFont ();
     if (ret) {

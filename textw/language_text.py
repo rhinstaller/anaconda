@@ -84,23 +84,6 @@ class LanguageWindow:
 
 	instLanguage.setRuntimeLanguage(choice)
                 
-	if not flags.serial:
-	    map = instLanguage.getFontMap(choice)
-	    font = instLanguage.getFontFile(choice)
-	    if map != "None":
-		if os.access("/bin/consolechars", os.X_OK):
-		    iutil.execWithRedirect ("/bin/consolechars",
-					["/bin/consolechars", "-f", font, "-m", map])
-		else:
-		    try:
-			isys.loadFont(map)
-		    except SystemError, (errno, msg):
-			log("Could not load font %s: %s" % (font, msg))
-	    elif os.access("/bin/consolechars", os.X_OK):
-		# test
-		iutil.execWithRedirect ("/bin/consolechars", 
-			["/bin/consolechars", "-d", "-m", "iso01"])
-
 	textInterface.drawFrame()
 	    
         return INSTALL_OK

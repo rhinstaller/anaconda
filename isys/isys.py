@@ -224,8 +224,8 @@ def swapon (path):
 def fbconProbe(path):
     return _isys.fbconprobe (path)
 
-def loadFont(font):
-    return _isys.loadFont (font)
+def loadFont():
+    return _isys.loadFont ()
 
 def loadKeymap(keymap):
     return _isys.loadKeymap (keymap)

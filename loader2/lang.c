@@ -92,7 +92,7 @@ static void loadLanguageList(int flags) {
                     "/etc/lang-table";
     FILE * f;
     char line[256];
-    char name[256], key[256], font[256], map[256], code[256],
+    char name[256], key[256], font[256], code[256],
          keyboard[256], timezone[256], instlang[256];
     int lineNum = 0;
 
@@ -106,7 +106,7 @@ static void loadLanguageList(int flags) {
     while (fgets(line, sizeof(line), f)) {
         lineNum++;
         languages = realloc(languages, sizeof(*languages) * (numLanguages + 1));
-        if (sscanf(line, "%s %s %s %s %s %s %s %s\n", name, key, font, map,
+        if (sscanf(line, "%s %s %s %s %s %s %s\n", name, key, font, 
                    code, keyboard, timezone, instlang) != 8) {
             logMessage("bad line %d in lang-table", lineNum);
         } else {

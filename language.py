@@ -70,7 +70,6 @@ class InstallTimeLanguage:
 	f.close()
 	self.langNicks = {}
 	self.font = {}
-	self.map = {}
 	self.kbd = {}
 	self.tz = {}
 	self.langList = []
@@ -88,16 +87,14 @@ class InstallTimeLanguage:
 	    
 	    longName = l[0]
 	    font = l[2]
-	    map = l[3]
-	    shortName = l[4]
-	    keyboard = l[5]
-	    timezone = l[6]
-            runtime = l[7]
+	    shortName = l[3]
+	    keyboard = l[4]
+	    timezone = l[5]
+            runtime = l[6]
 
 	    self.langList.append(longName)
 	    self.langNicks[longName] = shortName
 	    self.font[longName] = font
-	    self.map[longName] = map
 	    self.kbd[longName] = keyboard
 	    self.tz[longName] = timezone
             self.runtimeLangs[runtime] = shortName
@@ -107,9 +104,6 @@ class InstallTimeLanguage:
 
 	self.langList.sort()
         self.setRuntimeLanguage(self.getLangNameByNick(self.current))
-
-    def getFontMap (self, lang):
-	return self.map[lang]
 
     def getFontFile (self, lang):
 	# Note: in /etc/fonts.cgz fonts are named by the map
