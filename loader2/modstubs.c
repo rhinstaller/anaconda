@@ -49,16 +49,17 @@ static int rmmod_usage() {
 static char * extractModule(char * file, char * ballPath, int version, 
                             int *rmObj) {
     gzFile fd;
-    char finalName[100], fullName[100];
+    /* Make finaleName and fullName REALLY static, otherwise they get dropped
+       from the stack after the function returns and the addresses are no
+       longer valid. */
+    static char finalName[100], fullName[100];
     char * chptr = NULL;
 
     if (access(file, R_OK)) {
         /* it might be having a ball */
         fd = gunzip_open(ballPath);
-        if (!fd) {
-            free(ballPath);
+        if (!fd)
             return NULL;
-        }
         
         chptr = strrchr(file, '/');
         if (chptr) file = chptr + 1;
@@ -67,10 +68,8 @@ static char * extractModule(char * file, char * ballPath, int version,
         /* XXX: leak */
         sprintf(fullName, "%s/%s", getModuleLocation(version), file);
         
-        if (installCpioFile(fd, fullName, finalName, 0)) {
-            free(ballPath);
+        if (installCpioFile(fd, fullName, finalName, 0))
             return NULL;
-        }
         
         *rmObj = 1;
         file = finalName;
