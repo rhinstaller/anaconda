@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-12-23 11:49-0500\n"
+"POT-Creation-Date: 1999-12-23 15:09-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,12 +125,12 @@ msgstr ""
 msgid "Red Hat Linux Install Shell on %s"
 msgstr ""
 
-#: ../installclass.py:238
+#: ../installclass.py:241
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
 
-#: ../installclass.py:275
+#: ../installclass.py:278
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
@@ -191,9 +191,9 @@ msgid "What device is your mouse located on? %s %i"
 msgstr ""
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:621 ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:635
-#: ../libfdisk/fsedit.c:644 ../libfdisk/fsedit.c:656 ../libfdisk/fsedit.c:666
-#: ../libfdisk/fsedit.c:695 ../libfdisk/fsedit.c:711 ../libfdisk/fsedit.c:1069
+#: ../libfdisk/fsedit.c:634 ../libfdisk/fsedit.c:641 ../libfdisk/fsedit.c:648
+#: ../libfdisk/fsedit.c:657 ../libfdisk/fsedit.c:669 ../libfdisk/fsedit.c:679
+#: ../libfdisk/fsedit.c:708 ../libfdisk/fsedit.c:724 ../libfdisk/fsedit.c:1082
 #: ../libfdisk/gnomefsedit.c:679 ../libfdisk/gnomefsedit.c:1049
 #: ../libfdisk/gnomefsedit.c:1075 ../libfdisk/gnomefsedit.c:1093
 #: ../libfdisk/gnomefsedit.c:1298 ../libfdisk/gnomefsedit.c:1392
@@ -1491,17 +1491,17 @@ msgstr ""
 msgid "Request server via broadcast"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:621 ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:635
-#: ../libfdisk/fsedit.c:644 ../libfdisk/fsedit.c:656 ../libfdisk/fsedit.c:666
+#: ../libfdisk/fsedit.c:634 ../libfdisk/fsedit.c:641 ../libfdisk/fsedit.c:648
+#: ../libfdisk/fsedit.c:657 ../libfdisk/fsedit.c:669 ../libfdisk/fsedit.c:679
 msgid "Bad Mount Point"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:622
+#: ../libfdisk/fsedit.c:635
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:629
+#: ../libfdisk/fsedit.c:642
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1509,7 +1509,7 @@ msgid ""
 "Mount points must begin with a leading /."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:636
+#: ../libfdisk/fsedit.c:649
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1517,7 +1517,7 @@ msgid ""
 "Mount points may not end with a /."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:645
+#: ../libfdisk/fsedit.c:658
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1525,7 +1525,7 @@ msgid ""
 "Mount points may only printable characters."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:657
+#: ../libfdisk/fsedit.c:670
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1533,7 +1533,7 @@ msgid ""
 "System partitions must be on Linux Native partitions."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:667
+#: ../libfdisk/fsedit.c:680
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1541,74 +1541,74 @@ msgid ""
 "/usr must be on a Linux Native partition or an NFS volume."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:695
+#: ../libfdisk/fsedit.c:708
 msgid "Too Many Drives"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:696
+#: ../libfdisk/fsedit.c:709
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:711
+#: ../libfdisk/fsedit.c:724
 msgid "No Drives Found"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:712
+#: ../libfdisk/fsedit.c:725
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:1053
+#: ../libfdisk/fsedit.c:998 ../libfdisk/fsedit.c:1066
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1026
+#: ../libfdisk/fsedit.c:1039
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1031
+#: ../libfdisk/fsedit.c:1044
 msgid "Bad Partition Table"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1032
+#: ../libfdisk/fsedit.c:1045
 msgid "Initialize"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1032 ../libfdisk/fsedit.c:1057
+#: ../libfdisk/fsedit.c:1045 ../libfdisk/fsedit.c:1070
 msgid "Skip Drive"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1057 ../loader/net.c:329
+#: ../libfdisk/fsedit.c:1070 ../loader/net.c:329
 msgid "Retry"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1069
+#: ../libfdisk/fsedit.c:1082
 msgid "BSD Disklabel"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1069
+#: ../libfdisk/fsedit.c:1082
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1099
+#: ../libfdisk/fsedit.c:1112
 #, c-format
 msgid "System error %d"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1108 ../libfdisk/fsedit.c:1110
+#: ../libfdisk/fsedit.c:1121 ../libfdisk/fsedit.c:1123
 msgid "Fdisk Error"
 msgstr ""
 

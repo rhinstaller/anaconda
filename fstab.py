@@ -35,14 +35,14 @@ class Fstab:
 
 	ddruid = self.createDruid(fstab = fstab)
 
-	for (mntpoint, size, maxsize, grow) in partitions:
+	for (mntpoint, size, maxsize, grow, device) in partitions:
 	    type = 0x83
 	    if (mntpoint == "swap"):
 		mntpoint = "Swap%04d-auto" % swapCount
 		swapCount = swapCount + 1
 		type = 0x82
 
-	    attempt.append((mntpoint, size, type, grow, -1))
+	    attempt.append((mntpoint, size, type, grow, -1, device))
 
 	try:
 	    ddruid.attempt (attempt, "Junk Argument", clearParts)

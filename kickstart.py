@@ -322,10 +322,11 @@ class Kickstart(InstallClass):
 	size = 0
 	grow = 0
 	maxSize = 0
+	device = None
 	onPart = None
 
 	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
-					'grow', 'onpart=' ])
+					'grow', 'onpart=', 'ondisk=' ])
 
 	for n in args:
 	    (str, arg) = n
@@ -337,11 +338,13 @@ class Kickstart(InstallClass):
 		grow = 1
 	    elif str == '--onpart':
 		onPart = arg
+	    elif str == '--ondisk':
+		device = arg
 
 	if onPart:
 	    self.addToFstab(extra[0], onPart)
 	else:
-	    self.addNewPartition(extra[0], size, maxSize, grow)
+	    self.addNewPartition(extra[0], size, maxSize, grow, device)
 
     def __init__(self, file):
 	InstallClass.__init__(self)

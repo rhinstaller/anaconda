@@ -48,7 +48,8 @@ class InstallClass:
 	[ 0, 1, 5 ].index(level)
 	for device in devices:
 	    found = 0
-	    for (otherMountPoint, size, maxSize, grow) in self.partitions:
+	    for (otherMountPoint, size, maxSize, grow, forceDevice) in \
+			self.partitions:
 		if otherMountPoint == device:
 		    found = 1
 	    if not found:
@@ -64,12 +65,14 @@ class InstallClass:
 
 	self.raidList.append(mntPoint, raidDev, level, devices)	
 
-    def addNewPartition(self, mntPoint, size, maxSize, grow):
+    def addNewPartition(self, mntPoint, size, maxSize, grow, device):
+	if not device: device = ""
+
 	if mntPoint[0] != '/' and mntPoint != 'swap' and \
 		mntPoint[0:5] != "raid.":
 	    raise TypeError, "bad mount point for partitioning: %s" % \
 		    (mntPoint,)
-	self.partitions.append((mntPoint, size, maxSize, grow))
+	self.partitions.append((mntPoint, size, maxSize, grow, device))
 
     def addToFstab(self, mntpoint, dev, fstype = "ext2" , reformat = 1):
 	self.fstab.append((mntpoint, (dev, fstype, reformat)))
@@ -231,9 +234,9 @@ class Workstation(InstallClass):
 	self.addToSkipList("package-selection")
 
 	if os.uname ()[4] != 'sparc64':
-	    self.addNewPartition('/boot', 16, 16, 0)
-	self.addNewPartition('/', 500, 500, 1)
-	self.addNewPartition('swap', 64, 64, 0)
+	    self.addNewPartition('/boot', 16, 16, 0, None)
+	self.addNewPartition('/', 500, 500, 1, None)
+	self.addNewPartition('swap', 64, 64, 0, None)
 	self.setClearParts(FSEDIT_CLEAR_LINUX, 
 	    warningText = _("You are about to erase any preexisting Linux "
 			    "installations on your system."))
@@ -266,11 +269,11 @@ class Server(InstallClass):
 
 	if os.uname ()[4] != 'sparc64':
 	    self.addNewPartition('/boot', 16, 16, 0)
-	self.addNewPartition('/', 256, 256, 0)
-	self.addNewPartition('/usr', 512, 512, 1)
-	self.addNewPartition('/var', 256, 256, 0)
-	self.addNewPartition('/home', 512, 512, 1)
-	self.addNewPartition('swap', 64, 64, 1)
+	self.addNewPartition('/', 256, 256, 0, None)
+	self.addNewPartition('/usr', 512, 512, 1, None)
+	self.addNewPartition('/var', 256, 256, 0, None)
+	self.addNewPartition('/home', 512, 512, 1, None)
+	self.addNewPartition('swap', 64, 64, 1, None)
 	self.setClearParts(FSEDIT_CLEAR_ALL, 
 	    warningText = _("You are about to erase ALL DATA on your hard "
 			    "drive to make room for your Linux installation."))
