@@ -16,15 +16,10 @@ ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 ARCH := $(patsubst ppc%,ppc,$(ARCH))
 
+ifneq (,$(filter ppc64 x86_64 s390x,$(ARCH)))
+LIBDIR = lib64
+else
 LIBDIR = lib
-ifeq (x86_64, $(ARCH))
-LIBDIR = lib64
-endif
-ifeq (ppc64, $(ARCH))
-LIBDIR = lib64
-endif
-ifeq (s390x, $(ARCH))
-LIBDIR = lib64
 endif
 
 # diet defines
