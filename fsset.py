@@ -2085,7 +2085,6 @@ def getDevFD(device):
             return -1
     return fd
 
-
 def isValidExt2(device):
     fd = getDevFD(device)
     if fd == -1:
@@ -2118,6 +2117,40 @@ def isValidXFS(device):
     
     return 0
 
+def isValidReiserFS(device):
+    fd = getDevFD(device)
+    if fd == -1:
+        return 0
+
+    '''
+    ** reiserfs 3.5.x super block begins at offset 8K
+    ** reiserfs 3.6.x super block begins at offset 64K
+    All versions have a magic value of "ReIsEr" at
+    offset 0x34 from start of super block
+    '''
+    reiserMagicVal = "ReIsEr"
+    reiserMagicOffset = 0x34
+    reiserSBStart = [64*1024, 8*1024]
+    bufSize = 0x40  # just large enough to include the magic value
+    for SBOffset in reiserSBStart:
+        try:
+            os.lseek(fd, SBOffset, 0)
+            buf = os.read(fd, bufSize)
+        except:
+            buf = ""
+
+        if len(buf) < bufSize:
+            continue
+
+        if (buf[reiserMagicOffset:reiserMagicOffset+len(reiserMagicVal)] ==
+            reiserMagicVal):
+            os.close(fd)
+            return 1
+
+    os.close(fd)
+    return 0    
+
+
 # this will return a list of types of filesystems which device
 # looks like it could be to try mounting as
 def getFStoTry(device):
@@ -2125,6 +2158,9 @@ def getFStoTry(device):
 
     if isValidXFS(device):
         rc.append("xfs")
+
+    if isValidReiserFS(device):
+        rc.append("reiserfs")
 
     if isValidExt2(device):
         if os.access(device, os.O_RDONLY):
@@ -2137,7 +2173,7 @@ def getFStoTry(device):
 
     # FIXME: need to check for swap
 
-    # XXX check for reiserfs signature, jfs signature, and others ?
+    # XXX check for, jfs signature, and others ?
     return rc
 
 def allocateLoopback(file):

@@ -367,7 +367,10 @@ def sniffFilesystemType(device):
     except:
         pass
 
-    # FIXME:  we don't look for reiserfs, jfs, or vfat
+    if fsset.isValidReiserFS(dev):
+        return "reiserfs"
+
+    # FIXME:  we don't look for jfs, or vfat
 
     return None
 
