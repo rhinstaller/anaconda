@@ -47,6 +47,7 @@
 #include "probe.h"
 #include "smp.h"
 #include "lang.h"
+#include "getmacaddr.h"
 
 #ifndef CDROMEJECT
 #define CDROMEJECT 0x5309
@@ -105,6 +106,7 @@ static PyObject * start_bterm(PyObject * s, PyObject * args);
 static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
 static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
 static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
+static PyObject * doGetMacAddress(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -158,6 +160,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "getDasdPorts", (PyCFunction) py_getDasdPorts, METH_VARARGS, NULL},
     { "isUsableDasd", (PyCFunction) py_isUsableDasd, METH_VARARGS, NULL},
     { "isLdlDasd", (PyCFunction) py_isLdlDasd, METH_VARARGS, NULL},
+    { "getMacAddress", (PyCFunction) doGetMacAddress, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1380,6 +1383,18 @@ static PyObject * getLinkStatus(PyObject * s, PyObject * args) {
     ret = get_link_status(dev);
     /* returns 1 for link, 0 for no link, -1 for unknown */
     return Py_BuildValue("i", ret);
+}
+
+static PyObject * doGetMacAddress(PyObject * s, PyObject * args) {
+    char *dev;
+    char *ret;
+
+    if (!PyArg_ParseTuple(args, "s", &dev))
+	return NULL;
+
+    ret = getMacAddr(dev);
+    /* returns 1 for link, 0 for no link, -1 for unknown */
+    return Py_BuildValue("s", ret);
 }
 
 static PyObject * py_getDasdPorts(PyObject * o, PyObject * args) {

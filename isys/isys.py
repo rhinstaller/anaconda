@@ -586,6 +586,9 @@ def getpagesize():
 def getLinkStatus(dev):
     return _isys.getLinkStatus(dev)
 
+def getMacAddress(dev):
+    return _isys.getMacAddress(dev)
+
 def startBterm():
     return _isys.startBterm()
 

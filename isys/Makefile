@@ -2,7 +2,7 @@ include ../Makefile.inc
 
 CFLAGS = -ffunction-sections -I$(PYTHONINCLUDE) -I.. -Wall -Os -g  -DHAVE_NFS -D_LARGEFILE_SOURCE=1 -D_LARGEFILE64_SOURCE=1 -D_FILE_OFFSET_BITS=64 -Werror
 
-OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
+OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o getmacaddr.o \
           smp.o devnodes.o cpio.o probe.o uncpio.o \
 	  lang.o isofs.o dns.o linkdetect.o pdc.o hpt.o silraid.o vio.o \
 	  ethtool.o
