@@ -1307,7 +1307,7 @@ int main(int argc, char ** argv) {
     /* look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
-    mlLoadModuleSetLocation("md:raid0:raid1:raid5:fat:msdos:jbd:ext3:reiserfs:jfs:xfs:dm-mod",
+    mlLoadModuleSetLocation("md:raid0:raid1:raid5:raid6:fat:msdos:jbd:ext3:reiserfs:jfs:xfs:dm-mod",
 			    modLoaded, modDeps, modInfo, flags, 
 			    secondStageModuleLocation);
 
