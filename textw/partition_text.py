@@ -534,7 +534,8 @@ class PartitionWindow:
             self.drivelist.key2item = {}
             self.drivelist.item2key = {}
 
-    def editPartitionRequest(self, origrequest):
+    # isNew implies that this request has never been successfully used before
+    def editPartitionRequest(self, origrequest, isNew = 0):
         self.oldMount = None
         
         poplevel = GridFormHelp(self.screen,_("Add Partition"),"addpart", 1, 6)
@@ -780,15 +781,19 @@ class PartitionWindow:
                     if not queryNoFormatPreExisting(self.intf):
                         continue
 
-            # backup current (known working) configuration
-            backpart = self.partitions.copy()
-            if origrequest.device or origrequest.type != REQUEST_NEW:
+            if not isNew:
                 self.partitions.removeRequest(origrequest)
 
             self.partitions.addRequest(request)
             if self.refresh():
-                self.partitions = backpart
-                self.refresh()
+                # the add failed; remove what we just added and put
+                # back what was there if we removed it
+                self.partitions.removeRequest(request)
+                if not isNew:
+                    self.partitions.addRequest(origrequest)
+                if self.refresh():
+                    # this worked before and doesn't now...
+                    raise RuntimeError, "Returning partitions to state prior to edit failed"
             else:
                 break
 
@@ -796,8 +801,8 @@ class PartitionWindow:
         self.shutdownUI()
         self.screen.popWindow()
 
-
-    def editRaidRequest(self, raidrequest):
+    # isNew implies that this request has never been successfully used before
+    def editRaidRequest(self, raidrequest, isNew = 0):
         poplevel = GridFormHelp(self.screen, _("Make RAID Device"), "makeraid", 1, 6)
 
         # mount point entry
@@ -897,22 +902,21 @@ class PartitionWindow:
                                         "%s" % (err))
                 continue
 
-            # backup current (known working) configuration
-            backpart = self.partitions.copy()
-
-            # XXX should only remove if we know we put it in before
-            try:
+            if not isNew:
                 self.partitions.removeRequest(raidrequest)
-            except:
-                pass
 
             self.partitions.addRequest(request)
             
             if self.refresh():
-                self.partitions = backpart
-                self.refresh()
+                # how can this fail?  well, if it does, do the remove new,
+                # add old back in dance
+                self.partitions.removeRequest(request)
+                if not isNew:
+                    self.partitions.addRequest(raidrequest)
+                if self.refresh():
+                    raise RuntimeError, "Returning partitions to state prior to RAID edit failed"
             else:
-                break            
+                break
 
             break
 
@@ -922,12 +926,12 @@ class PartitionWindow:
         
     def newCb(self):
         request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW, 1)
-        self.editPartitionRequest(request)
+        self.editPartitionRequest(request, isNew = 1)
 
 
     def makeraidCb(self):
         request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_RAID, 1)
-        self.editRaidRequest(request)
+        self.editRaidRequest(request, isNew = 1)
 
 
     def editCb(self):
