@@ -17,6 +17,7 @@ import iutil
 import os
 import isys
 import time
+import stat
 import kudzu
 import string
 import shutil
@@ -237,7 +238,8 @@ def findIsoImages(path, messageWindow):
 
     for file in files:
 	what = path + '/' + file
-	if not isys.isIsoImage(what): continue
+	if not isys.isIsoImage(what):
+            continue
 
 	isys.makeDevInode("loop2", "/tmp/loop2")
 
@@ -251,20 +253,21 @@ def findIsoImages(path, messageWindow):
 		       readOnly = 1)
 	    for num in range(1, 10):
 		if os.access("/mnt/cdimage/.discinfo", os.R_OK):
-                    f = open("/mnt/cdimage/.discinfo");
+                    f = open("/mnt/cdimage/.discinfo")
                     try:
                         f.readline() # skip timestamp
                         f.readline() # skip release description
-                        discArch = f.readline() # read architecture
+                        discArch = string.strip(f.readline()) # read architecture
                         discNum = string.atoi(f.readline()) # read disc number
                     except:
                         discArch = None
                         discNum = 0
+
+                    f.close()
+
                     if discNum != num or discArch != arch:
                         continue
                     
-		    import stat
-
 		    # warn user if images appears to be wrong size
 		    if os.stat(what)[stat.ST_SIZE] % 2048:
 			rc = messageWindow(_("Warning"),
