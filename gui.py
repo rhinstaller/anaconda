@@ -554,6 +554,23 @@ class InstallControlWindow:
             self.hideHelpButton.grab_focus()
             self.displayHelp = gtk.TRUE
 
+    def debugClicked (self, *args):
+        try:
+            # switch to VC1 so we can debug
+            isys.vtActivate (1)
+        except SystemError:
+            pass
+        import pdb
+        try:
+            pdb.set_trace()
+        except:
+            sys.exit(-1)
+        try:
+            # switch back
+            isys.vtActivate (7)
+        except SystemError:
+            pass
+        
     def refreshHelp(self):
         buffer = htmlbuffer.HTMLBuffer()
         ics = self.currentWindow.getICS()
@@ -758,6 +775,7 @@ class InstallControlWindow:
         self.releaseButton = None
         self.showHelpButton = None
         self.hideHelpButton = None
+        self.debugButton = None
 
 	self.stockButtons = (('gtk-go-back', "prevButtonStock",
                               N_("_Back"), self.prevClicked),
@@ -768,7 +786,9 @@ class InstallControlWindow:
                              ('gtk-help', "showHelpButton",
                               N_("Show _Help"), self.helpClicked),
                              ('gtk-help', "hideHelpButton",
-                              N_("Hide _Help"), self.helpClicked))
+                              N_("Hide _Help"), self.helpClicked),
+                             ('gtk-execute', 'debugButton',
+                              N_("_Debug"), self.debugClicked))
 
         self.reloadRcQueued = 0
         self.ii = ii
@@ -900,6 +920,9 @@ class InstallControlWindow:
         # set up ctrl+alt+delete handler
         self.window.connect ("key-release-event", self.keyRelease)
 
+        if DEBUG:
+            self.buttonBox.add (self.debugButton)
+            
         self.buttonBox.add (self.prevButtonStock)
         self.buttonBox.add (self.nextButtonStock)
 
