@@ -13,27 +13,17 @@ class FirewallWindow (InstallWindow):
         ics.setNextEnabled (1)
         ics.readHTML ("securitylevel")
         self.todo = ics.getToDo ()
-#        self.calcNMHandler = None
-
-#        for dev in self.todo.network.available ().values ():
-#	    if not dev.get('onboot'):
-#		dev.set (("onboot", "yes"))
 
     def getNext (self):
-#        print self.ports.get_text ()
-        
         if self.radio3.get_active ():
-#            print "Welcome to crackers"
             self.todo.firewall.enabled = 0
             self.todo.firewall.policy = 1
         else:
 
             if self.radio1.get_active ():
-#                print "We're paranoid"
                 self.todo.firewall.policy = 0
                 self.todo.firewall.enabled = 1
             elif self.radio2.get_active ():
-#                print "We're reasonable"
                 self.todo.firewall.policy = 1
                 self.todo.firewall.enabled = 1
 
@@ -41,20 +31,15 @@ class FirewallWindow (InstallWindow):
                 self.todo.firewallState = 0
 
             if self.radio5.get_active ():
-#                print "Customizing"
                 self.todo.firewallState = 1
 
                 count = 0
                 for device in self.devices:
-#                    print count
                     (val, row_data, header) = self.trusted.get_row_data (count)
-#                    print device, val, row_data, header
                     
                     if val == 1:
-#                        print "adding ", device
                         self.todo.firewall.trustdevs.append(device)
                     elif val == 0:
-#                        print "need to remove ", device
                         pass
                     
                     count = count + 1
@@ -62,7 +47,6 @@ class FirewallWindow (InstallWindow):
 
                 for i in range(6):
                     (val, row_data, header) = self.incoming.get_row_data (i)
-#                    print val, row_data, header
 
                     if row_data == "DHCP":
                         self.todo.firewall.dhcp = val
@@ -84,17 +68,14 @@ class FirewallWindow (InstallWindow):
                 if portstring != "":
                     tokens = string.split(portstring, ',')
                     for token in tokens:
-#                        print "token is ", token
                         try:
                             if string.index(token,':'):         #- if there's a colon in the token, it's valid
                                 parts = string.split(token, ':')
                                 if len(parts) > 2:              #- We've found more than one colon.  Break loop and raise an error.
-#                                    print "too many colons"
                                     bad_token_found = 1
                                     bad_token = token
                                 else:
                                     if parts[1] == 'tcp' or parts[1] == 'udp':  #-upd and tcp are the only valid protocols
-#                                        print "appending ports", token
                                         if portlist == "":
                                             portlist = token
                                         else:
@@ -104,7 +85,6 @@ class FirewallWindow (InstallWindow):
                                         bad_token = token
                                         pass
                         except:
-#                            print "no colons found"                #-assume that the protocol is tcp
                             if token != "":
                                 if portlist == "":
                                     portlist = token + ":tcp"
@@ -112,7 +92,6 @@ class FirewallWindow (InstallWindow):
                                     portlist = portlist + ',' + token + ':tcp'
 
                 else:
-#                    print "no ports selected"
                     pass
 
                 if bad_token_found == 1:         #- We've found a bad token...raise a warning
@@ -135,11 +114,9 @@ class FirewallWindow (InstallWindow):
                     self.textWin.set_position (WIN_POS_CENTER)
 
                     label = GtkLabel((_("Warning: ")) + bad_token + (_(" is an invalid port.")))
-                    #self.textWin.vbox.pack_start(label)
                     vbox.pack_start(label)
 
                     label = GtkLabel(_("The format is 'port:protocol'.  For example, '1234:udp'"))
-                    #self.textWin.vbox.pack_start(label)
                     vbox.pack_start(label)
                     
                     self.textWin.append_button(_("Close"))
@@ -151,25 +128,6 @@ class FirewallWindow (InstallWindow):
                     raise gui.StayOnScreen
                 else:                             #-all the port data looks good.  Pass it on to todo.
                     self.todo.firewall.portlist = portlist
-#                    print self.todo.firewall.portlist
-
-
-
-#                self.todo.firewall.portlist = self.ports.get_text()    
-
-
-
-#        print "self.todo.firewall.dhcp", self.todo.firewall.dhcp 
-#        print "self.todo.firewall.ssh", self.todo.firewall.ssh 
-#        print "self.todo.firewall.telnet", self.todo.firewall.telnet
-#        print "self.todo.firewall.http", self.todo.firewall.http
-#        print "self.todo.firewall.smtp", self.todo.firewall.smtp
-#        print "self.todo.firewall.ftp", self.todo.firewall.ftp
-
-#        print "self.todo.firewall.portlist", self.todo.firewall.portlist
-
-#        print "self.todo.firewall.policy", self.todo.firewall.policy
-#        print "self.todo.firewall.enabled", self.todo.firewall.enabled 
         
 
     def activate_firewall (self, widget):
@@ -254,7 +212,6 @@ class FirewallWindow (InstallWindow):
         self.radio1 = GtkRadioButton (None, (_("High")))
         self.radio2 = GtkRadioButton (self.radio1, (_("Medium")))
         self.radio3 = GtkRadioButton (self.radio1, (_("No firewall")))
-
         self.radio3.connect ("clicked", self.activate_firewall)
 
         hbox.pack_start (self.radio1)
@@ -305,16 +262,6 @@ class FirewallWindow (InstallWindow):
 
             count = count + 1
 
-        #--Need
-#        for device in self.netCBs.keys():
-#            if self.netCBs[device].selected():
-#                print "here"
-#                self.trusted.append_row ((device, device), FALSE)
-
-
-#        self.trusted.append_row (("cipcb0", ""), FALSE)
-#        self.trusted.append_row (("wvlan0", ""), FALSE)
-
         hbox = GtkHBox(FALSE, 10)        
         self.label2 = GtkLabel (_("Allow incoming:"))
         self.label2.set_alignment (0.2, 0.0)
@@ -353,7 +300,6 @@ class FirewallWindow (InstallWindow):
 
 #        print self.todo.firewall.policy
 
-
         if self.todo.firewall.enabled == 0:
             self.radio3.set_active (TRUE)
         elif self.todo.firewall.policy == 0:
@@ -373,7 +319,6 @@ class FirewallWindow (InstallWindow):
             self.label1.set_sensitive(FALSE)
             self.label2.set_sensitive(FALSE)
             self.label3.set_sensitive(FALSE)
-
 
         return box
 
