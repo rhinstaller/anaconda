@@ -281,7 +281,6 @@ class ToDo:
         self.auth = Authentication ()
         self.desktop = Desktop ()
         self.ddruidReadOnly = 0
-        self.badBlockCheck = 0
         self.bootdisk = 1
 	self.lilo = LiloConfiguration()
 
