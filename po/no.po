@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: install 7.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-10-15 14:38-0400\n"
-"PO-Revision-Date: 2003-10-14 23:11+0200\n"
+"PO-Revision-Date: 2003-10-19 00:35+0200\n"
 "Last-Translator: Trond Varslot <varslot@math.ntnu.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -50,11 +50,11 @@ msgstr "VNC-tjeneren kjører nå."
 #: ../anaconda:182
 #, c-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr ""
+msgstr "Prøver på koble til vnc-klient på vert %s..."
 
 #: ../anaconda:196
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr ""
+msgstr "Gir opp forsøk på å koble til etter 50 forsøk!\n"
 
 #: ../anaconda:198
 #, c-format
@@ -67,7 +67,7 @@ msgstr ""
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
-msgstr ""
+msgstr "Prøver å koble til igjen om 15 sekunder..."
 
 #: ../anaconda:208
 msgid "Connected!"
@@ -140,11 +140,11 @@ msgstr ""
 
 #: ../anaconda:769
 msgid "Install class forcing text mode installation"
-msgstr ""
+msgstr "Installasjonsklassen krever installasjon i tekstmodus"
 
 #: ../anaconda:796
 msgid "No video hardware found, assuming headless"
-msgstr ""
+msgstr "Ingen skjermkort funnet. Antar at du kjører uten skjerm"
 
 #: ../anaconda:807 ../anaconda:1054 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
@@ -510,11 +510,11 @@ msgstr "Pågår...   "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr ""
+msgstr "Kan ikke stille spørsmål i kommandolinjemodus!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
+msgstr "Unntak fra parted kan ikke håndteres i kommandolinjemodus!"
 
 #: ../cmdline.py:131
 #, python-format
@@ -1075,7 +1075,7 @@ msgstr ""
 
 #: ../image.py:63
 msgid "Required Install Media"
-msgstr ""
+msgstr "Krav til installasjonsmedie"
 
 #: ../image.py:64
 #, python-format
@@ -2837,9 +2837,8 @@ msgid "Congratulations"
 msgstr "Gratulerer"
 
 #: ../iw/congrats_gui.py:29
-#, fuzzy
 msgid "Reboo_t"
-msgstr "Sta_rt på nytt"
+msgstr "S_tart på nytt"
 
 #: ../iw/congrats_gui.py:56
 #, fuzzy
@@ -4234,33 +4233,33 @@ msgid "Manually partition with _Disk Druid"
 msgstr "Partisjoner _manuelt med Disk Druid"
 
 #: ../iw/progress_gui.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "%s MB"
-msgstr " MB"
+msgstr "%s MB"
 
 #: ../iw/progress_gui.py:44
-#, fuzzy, python-format
+#, python-format
 msgid "%s KB"
-msgstr " KB"
+msgstr "%s KB"
 
 #: ../iw/progress_gui.py:47
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
-msgstr " byte"
+msgstr "%s byte"
 
 #: ../iw/progress_gui.py:49
-#, fuzzy, python-format
+#, python-format
 msgid "%s Bytes"
-msgstr " bytes"
+msgstr "%s bytes"
 
 #: ../iw/progress_gui.py:53 ../iw/progress_gui.py:395
 msgid "Installing Packages"
 msgstr "Installerer pakker"
 
 #: ../iw/progress_gui.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "Remaining time: %s minutes"
-msgstr "Gjenstår :  "
+msgstr "Tid som gjenstår: %s minutter"
 
 #: ../iw/progress_gui.py:183
 #, python-format
@@ -5156,6 +5155,9 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Gratulerer, din %s-installasjon er fullført.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:41
 #, fuzzy, python-format
@@ -5179,9 +5181,8 @@ msgid "Complete"
 msgstr "Ferdig"
 
 #: ../textw/complete_text.py:48
-#, fuzzy
 msgid "Reboot"
-msgstr "Sta_rt på nytt"
+msgstr "Start på nytt"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
@@ -7388,7 +7389,7 @@ msgstr "Azorene"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr ""
+msgstr "Bahia"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
@@ -7551,25 +7552,21 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "\"Eastern Time\" - de fleste steder i Michigan."
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Ontario - most locations"
-msgstr "\"Eastern Time\" - de fleste steder i Ontario og Quebec"
+msgstr "Eastern Time - Ontario - de fleste lokasjoner"
 
 #. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"\"Eastern Time\" - steder i Ontario og Quebec som ikke hadde sommertid i "
-"1967-1973"
+msgstr "Eastern Time - Ontario og Quebec - steder som ikke hadde DST i 1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Quebec - most locations"
-msgstr "\"Eastern Time\" - de fleste steder i Ontario og Quebec"
+msgstr "Eastern Time - Quebec - de fleste lokasjoner"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr "\"Eastern Time\" - Thunder Bay, Ontario"
+msgstr "Eastern Time - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
@@ -7577,7 +7574,7 @@ msgstr "Øst- og syd-Borneo, Celebes, Bali, Nusa Tengarra, vest-Timor"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr "øst-Uzbekistan"
+msgstr "Øst-Uzbekistan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -7653,12 +7650,11 @@ msgstr "Marquesas-øyene"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mato Grosso do Sul"
-msgstr "Mato Grosso, Mato Grosso do Sul"
+msgstr "Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
@@ -7787,9 +7783,8 @@ msgid "Mountain Time - west Northwest Territories"
 msgstr "«Mountain Time» - vestlige nordvestterritorier"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr "Nordøstre Brasil (MA, PI, CE, RN, PR)"
+msgstr "Nordøstre Brasil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
@@ -7900,9 +7895,8 @@ msgid "southwest Xinjiang Uyghur"
 msgstr "sydvest Xinjian Uyghur"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "Syd- og Sydøst-Brasil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "Syd- og Sydøst-Brasil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -8063,127 +8057,3 @@ msgstr "Svensk"
 #. generated from lang-table
 msgid "Turkish"
 msgstr "Tyrkisk"
-
-#~ msgid ""
-#~ "If you created a boot diskette during this installation as your primary "
-#~ "means of booting %s, insert it before rebooting your newly installed "
-#~ "system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Hvis du laget en oppstartsdiskett for under installasjonen, og skal bruke "
-#~ "denne som for å starte %s, må du sette denne inn før du starter ditt "
-#~ "nyinstallerte system.\n"
-#~ "\n"
-
-#~ msgid "Online Help"
-#~ msgstr "Online hjelp"
-
-#~ msgid "_Install BETA"
-#~ msgstr "_Installer BETA"
-
-#~ msgid "Set hostname"
-#~ msgstr "Sett vertsnavn"
-
-#~ msgid "Welcome"
-#~ msgstr "Velkommen"
-
-#~ msgid "Hardware clock set to GMT?"
-#~ msgstr "Maskinvareklokken satt til GMT?"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "WARNING!!! VNC server running with NO PASSWORD!"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "ADVARSEL!!! VNC-tjener kjører UTEN PASSORD!"
-
-#~ msgid "Enter a boot loader password and then confirm it."
-#~ msgstr "Oppgi passord for oppstartslaster og bekreft det."
-
-#~ msgid ""
-#~ "The default workstation environment includes our recommendations for new "
-#~ "users, including:\n"
-#~ "\n"
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'redhat-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "Forvalgt arbeidsstasjonoppsett inkluderer våre anbefalinger for nye "
-#~ "brukere, deriblant:\n"
-#~ "\n"
-#~ "\tSkrivebordsmiljø (GNOME)\n"
-#~ "\tKontorstøtteprogramvare (OpenOffice)\n"
-#~ "\tNettleser (Mozilla)\n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tInstant Messging\n"
-#~ "\tLyd- og bildeprogrammer\n"
-#~ "\tSpill\n"
-#~ "\tProgramvareutvikling\n"
-#~ "\tAdministrasjonsverktøy\n"
-#~ "\n"
-#~ "Etter installasjonen kan du legge til eller fjerne pakker ved å bruke "
-#~ "verktøyet «redhat-config-package».\n"
-#~ "\n"
-#~ "Hvis du er kjent med %s er det mulig at du har spesifikke pakker du "
-#~ "ønsker å installere eller unngå at blir installert. Kryss av i boksen "
-#~ "under for å tilpasse din installasjon."
-
-#~ msgid "Personal Desktop Defaults"
-#~ msgstr "Forvalg for personlig skrivebord"
-
-#~ msgid "Firewall Configuration"
-#~ msgstr "Brannvegg-konfigurasjon"
-
-#~ msgid "Select a security level for the system:  "
-#~ msgstr "Velg sikkerhetsnivå for systemet: "
-
-#~ msgid "Hi_gh"
-#~ msgstr "H_øyt"
-
-#~ msgid "_Medium"
-#~ msgstr "_Middels"
-
-#~ msgid "Use _default firewall rules"
-#~ msgstr "Bruk _forvalgt regelsett for brannvegg"
-
-#~ msgid "_Customize"
-#~ msgstr "_Tilpass"
-
-#~ msgid ""
-#~ "A firewall protects against unauthorized network intrusions. High "
-#~ "security blocks all incoming accesses. Medium blocks access to system "
-#~ "services (such as telnet or printing), but allows other connections. No "
-#~ "firewall allows all connections and is not recommended. "
-#~ msgstr ""
-#~ "En brannvegg beskytter mot innbrudd på nettverket. Høy sikkerhet "
-#~ "blokkerer all innkommende trafikk. Medium blokkerer tilgang til "
-#~ "systemtjenester (slik som telnet og utskrift), men tillater andre "
-#~ "tilkoblinger. Ingen brannvegg tillater alle tilkoblinger og er ikke "
-#~ "anbefalt."
-
-#~ msgid "Security Level:"
-#~ msgstr "Sikkerhetsnivå:"
-
-#~ msgid "High"
-#~ msgstr "Høyt"
-
-#~ msgid "Medium"
-#~ msgstr "Middels"
-
-#~ msgid "DHCP"
-#~ msgstr "DHCP"

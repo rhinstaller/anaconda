@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: install VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-10-15 14:38-0400\n"
-"PO-Revision-Date: 2003-10-03 15:56+0200\n"
+"PO-Revision-Date: 2003-10-18 14:31+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1597,8 +1597,8 @@ msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Místo přípojení (mount point) je neplatné. Musí začínat znakem '/' a nesmí "
-"tímto znakem končit. Může obsahovat tisknutelné znaky a žádné mezery."
+"Místo připojení je neplatné. Musí začínat znakem '/' a nesmí tímto znakem "
+"končit. Může obsahovat tisknutelné znaky a žádné mezery."
 
 #: ../partIntfHelpers.py:101
 msgid "Please specify a mount point for this partition."
@@ -2597,7 +2597,7 @@ msgid ""
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
 "Zadejte heslo zavaděče systému a potvrďte ho. (Všimněte si, že mapa kláves "
-"vašeho BIOSu může být jiná, než aktuální mapa kláves, na kterou jste zvyklí.)"
+"vašeho BIOSu může být jiná než aktuální mapa kláves, na kterou jste zvyklí.)"
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
@@ -2644,7 +2644,7 @@ msgstr ""
 "Zaváděcí disketa vám umožňuje zavést váš systém %s z diskety. Zaváděcí "
 "disketa vám umožňuje zavést váš systém, když nastavení zavaděče systému "
 "přestane fungovat, pokud se rozhodnete nenainstalovat zavaděč systému, nebo "
-"pokud váš zavaděč systému třetí strany nepodporuje Linux\n"
+"pokud váš zavaděč systému třetí strany nepodporuje Linux.\n"
 "\n"
 "Doporučuje se vytvořit zaváděcí disketu.\n"
 
@@ -2849,19 +2849,15 @@ msgid "Congratulations"
 msgstr "Gratulujeme"
 
 #: ../iw/congrats_gui.py:29
-#, fuzzy
 msgid "Reboo_t"
 msgstr "_Restartovat"
 
 #: ../iw/congrats_gui.py:56
-#, fuzzy
 msgid ""
 "Remove any installation media (diskettes or CD-ROMs) used during the "
 "installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
-msgstr ""
-"Vyjměte všechna instalační média (diskety nebo CD-ROM) používaná při "
-"instalaci a restartujte svůj systém stisknutím Enter.\n"
+msgstr "Vyjměte všechna instalační média (diskety nebo CD-ROM) používaná při instalaci a restartujte svůj systém stisknutím tlačítka \"Restartovat\"..\n"
 
 #: ../iw/congrats_gui.py:62
 #, python-format
@@ -2965,7 +2961,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Po instalaci lze přidat nebo odebrat sofware pomocí nástroje 'redhat-config-"
+"Po instalaci lze přidat nebo odebrat software pomocí nástroje 'redhat-config-"
 "packages'.\n"
 "\n"
 "Pokud znáte %s, možná budete chtít nainstalovat nebo se vyhnout instalaci "
@@ -3122,7 +3118,7 @@ msgstr "Žádný _firewall"
 
 #: ../iw/firewall_gui.py:168
 msgid "_Enable firewall"
-msgstr "_Povolit firewall"
+msgstr "Po_volit firewall"
 
 #: ../iw/firewall_gui.py:170
 msgid "_Custom firewall"
@@ -4240,36 +4236,36 @@ msgstr "_Automatické vytvoření oddílů"
 
 #: ../iw/partmethod_gui.py:56
 msgid "Manually partition with _Disk Druid"
-msgstr "Ruční vytvoření oddílů pomocí programu Dis_k Druid"
+msgstr "_Ruční vytvoření oddílů pomocí programu Disk Druid"
 
 #: ../iw/progress_gui.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "%s MB"
-msgstr " MB"
+msgstr "%s MB"
 
 #: ../iw/progress_gui.py:44
-#, fuzzy, python-format
+#, python-format
 msgid "%s KB"
-msgstr " KB"
+msgstr "%s KB"
 
 #: ../iw/progress_gui.py:47
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
-msgstr " bajt"
+msgstr "%s bajt"
 
 #: ../iw/progress_gui.py:49
-#, fuzzy, python-format
+#, python-format
 msgid "%s Bytes"
-msgstr " bajtů"
+msgstr "%s bajtů"
 
 #: ../iw/progress_gui.py:53 ../iw/progress_gui.py:395
 msgid "Installing Packages"
 msgstr "Instaluji balíčky"
 
 #: ../iw/progress_gui.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "Remaining time: %s minutes"
-msgstr "Zbývá    :  "
+msgstr "Zbývající čas: %s minut"
 
 #: ../iw/progress_gui.py:183
 #, python-format
@@ -5186,9 +5182,8 @@ msgid "Complete"
 msgstr "Hotovo"
 
 #: ../textw/complete_text.py:48
-#, fuzzy
 msgid "Reboot"
-msgstr "_Restartovat"
+msgstr "Restartovat"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
@@ -5245,7 +5240,7 @@ msgid ""
 "selection of software installed if you want."
 msgstr ""
 "Implicitní instalované prostředí obsahuje námi doporučovaný výběr balíků. Po "
-"instalaci lze přidat nebo odebrat sofware pomocí nástroje 'redhat-config-"
+"instalaci lze přidat nebo odebrat software pomocí nástroje 'redhat-config-"
 "packages'.\n"
 "\n"
 "%s je ale dodáván s mnohem více aplikacemi a jestliže chcete, můžete výběr "
@@ -7404,7 +7399,7 @@ msgstr "Azory"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr ""
+msgstr "Bahia"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
@@ -7567,9 +7562,8 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "Východní čas - Michigan - většina míst"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Ontario - most locations"
-msgstr "Východní čas - Ontario & Quebec - většina míst"
+msgstr "Východní čas - Ontario - většina míst"
 
 #. generated from zone.tab
 msgid ""
@@ -7578,9 +7572,8 @@ msgstr ""
 "Východní čas - Ontario & Quebec - místa bez letního času v letech 1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Quebec - most locations"
-msgstr "Východní čas - Ontario & Quebec - většina míst"
+msgstr "Východní čas - Quebec - většina míst"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -7668,12 +7661,11 @@ msgstr "Marquesas Islands"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mato Grosso do Sul"
-msgstr "Mato Grosso, Mato Grosso do Sul"
+msgstr "Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
@@ -7802,9 +7794,8 @@ msgid "Mountain Time - west Northwest Territories"
 msgstr "Horský čas - west Northwest Territories"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr "SV Brazílie (MA, PI, CE, RN, PR)"
+msgstr "SV Brazílie (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
@@ -7915,9 +7906,8 @@ msgid "southwest Xinjiang Uyghur"
 msgstr "Jihozápadní Xinjiang Uyghur"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "J a JV Brazílie (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "J a JV Brazílie (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-10-15 14:38-0400\n"
-"PO-Revision-Date: 2003-10-03 12:45+0200\n"
+"PO-Revision-Date: 2003-10-20 12:22+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,7 @@ msgstr ""
 "\n"
 "\n"
 "VARNING!!! VNC-servern kör UTAN LÖSENORD!\n"
-"Du kan använda uppstartsflaggan vncpasswd=<lösenord>\n"
+"Du kan använda uppstartsflaggan vncpassword=<lösenord>\n"
 "om du vill säkra servern.\n"
 "\n"
 
@@ -880,6 +880,17 @@ msgstr ""
 "\n"
 "Korrigera detta problem och starta om installationen."
 
+msgid ""
+"Multiple devices on your system are labelled %s.  Labels across devices "
+"must be unique for your system to function properly.\n"
+"\n"
+"Please fix this problem and restart the installation process."
+msgstr ""
+"Flera enheter på ditt system har etiketten %s. Etiketter över enheter måste "
+"vara unika för att ditt system ska fungera korrekt.\n"
+"\n"
+"Korrigera detta problem och starta om installationen."
+
 #: ../fsset.py:2018 ../gui.py:1092 ../image.py:72 ../packages.py:1372
 #: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
@@ -1445,7 +1456,7 @@ msgstr ""
 
 #: ../packages.py:1352
 msgid "Warning! This is pre-release software!"
-msgstr "Varning! Detta är en förhandsutgåva av programvara!"
+msgstr "Varning! Detta är en förhandsutgåva!"
 
 #: ../packages.py:1353
 #, python-format
@@ -1492,7 +1503,7 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Enheten %s är LDL_formaterad istället för CDL-formaterad. LDL-formaterade "
+"Enheten %s är LDL-formaterad istället för CDL-formaterad. LDL-formaterade "
 "DASD:er stöds inte för användning under en installation av %s. Om du vill "
 "använda denna hårddisk för installation måste den initieras om, vilket "
 "kommer att förstöra ALL DATA på denna hårddisk.\n"
@@ -2882,19 +2893,21 @@ msgid "Congratulations"
 msgstr "Gratulerar"
 
 #: ../iw/congrats_gui.py:29
-#, fuzzy
 msgid "Reboo_t"
 msgstr "Starta _om"
 
+msgid "Reb_oot"
+msgstr "Starta _om"
+
 #: ../iw/congrats_gui.py:56
-#, fuzzy
 msgid ""
 "Remove any installation media (diskettes or CD-ROMs) used during the "
 "installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Ta bort all installationsmedia (disketter eller cd-romskivor) som användes "
-"under installationen och tryck <Retur> för att starta om din maskin.\n"
+"Ta bort alla installationsmedia (disketter eller cd-romskivor) som användes "
+"under installationen och tryck på knappen \"Starta om\" för att starta om "
+"din maskin.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:62
@@ -3150,7 +3163,7 @@ msgid ""
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
 "En brandvägg kan hjälpa till att förhindra otillåten åtkomst till din dator "
-"från världen utanför. Vill du aktivera en brandvägg?"
+"från omvärlden. Vill du aktivera en brandvägg?"
 
 #: ../iw/firewall_gui.py:166
 msgid "N_o firewall"
@@ -4278,33 +4291,33 @@ msgid "Manually partition with _Disk Druid"
 msgstr "Partitionera manuellt med _Disk Druid"
 
 #: ../iw/progress_gui.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "%s MB"
-msgstr " MB"
+msgstr "%s MB"
 
 #: ../iw/progress_gui.py:44
-#, fuzzy, python-format
+#, python-format
 msgid "%s KB"
-msgstr " kB"
+msgstr "%s kB"
 
 #: ../iw/progress_gui.py:47
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
-msgstr " byte"
+msgstr "%s byte"
 
 #: ../iw/progress_gui.py:49
-#, fuzzy, python-format
+#, python-format
 msgid "%s Bytes"
-msgstr " byte"
+msgstr "%s byte"
 
 #: ../iw/progress_gui.py:53 ../iw/progress_gui.py:395
 msgid "Installing Packages"
 msgstr "Installerar paket"
 
 #: ../iw/progress_gui.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "Remaining time: %s minutes"
-msgstr "Återstår :  "
+msgstr "Återstående tid: %s minuter"
 
 #: ../iw/progress_gui.py:183
 #, python-format
@@ -5235,9 +5248,8 @@ msgid "Complete"
 msgstr "Färdig"
 
 #: ../textw/complete_text.py:48
-#, fuzzy
 msgid "Reboot"
-msgstr "Starta _om"
+msgstr "Starta om"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
@@ -7468,7 +7480,7 @@ msgstr "Azorerna"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr ""
+msgstr "Bahia"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
@@ -7631,9 +7643,8 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "Östlig tid - Michigan - större delen"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Ontario - most locations"
-msgstr "Östlig tid - Ontario och Quebec - större delen"
+msgstr "Östlig tid - Ontario - större delen"
 
 #. generated from zone.tab
 msgid ""
@@ -7642,9 +7653,8 @@ msgstr ""
 "Östlig tid - Ontario och Quebec - orter som inte hade sommartid 1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Quebec - most locations"
-msgstr "Östlig tid - Ontario och Quebec - större delen"
+msgstr "Östlig tid - Quebec - större delen"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -7732,12 +7742,11 @@ msgstr "Marquesasöarna"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mato Grosso do Sul"
-msgstr "Mato Grosso, södra Mato Grosso"
+msgstr "södra Mato Grosso"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
@@ -7865,9 +7874,8 @@ msgid "Mountain Time - west Northwest Territories"
 msgstr "Bergstid - västra Nordvästterritorierna"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr "NÖ Brasilien (MA, PI, CE, RN, PR)"
+msgstr "NÖ Brasilien (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
@@ -7978,9 +7986,8 @@ msgid "southwest Xinjiang Uyghur"
 msgstr "sydvästra Xinjiang Uyghur"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "S och SÖ Brasilien (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "S och SÖ Brasilien (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
