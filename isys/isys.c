@@ -796,7 +796,7 @@ static void probedListDealloc (probedListObject * o) {
 static PyObject * probedListNet(probedListObject * o, PyObject * args) {
     if (!PyArg_ParseTuple(args, "")) return NULL;
     
-    kdFindNetList(&o->list);
+    kdFindNetList(&o->list, 0);
 
     Py_INCREF(Py_None);
     return Py_None;
@@ -805,7 +805,7 @@ static PyObject * probedListNet(probedListObject * o, PyObject * args) {
 static PyObject * probedListScsi(probedListObject * o, PyObject * args) {
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
-    kdFindScsiList(&o->list);
+    kdFindScsiList(&o->list, 0);
 
     Py_INCREF(Py_None);
     return Py_None;
@@ -814,7 +814,7 @@ static PyObject * probedListScsi(probedListObject * o, PyObject * args) {
 static PyObject * probedListIde(probedListObject * o, PyObject * args) {
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
-    kdFindIdeList(&o->list);
+    kdFindIdeList(&o->list, 0);
 
     Py_INCREF(Py_None);
     return Py_None;

@@ -55,7 +55,7 @@ void kdFree(struct knownDevices * devices) {
     devices->numKnown = devices->numKnownAlloced = 0;
 }
 
-int kdFindNetList(struct knownDevices * devices) {
+int kdFindNetList(struct knownDevices * devices, int code) {
     int fd;
     char buf[1024];
     char * start, * end;
@@ -95,6 +95,7 @@ int kdFindNetList(struct knownDevices * devices) {
 	    newDevice.name = strdup(start);
 	    newDevice.model = NULL;
 	    newDevice.class = CLASS_NETWORK;
+	    newDevice.code = code;
 	    addDevice(devices, newDevice);
 	}
 
@@ -108,7 +109,7 @@ int kdFindNetList(struct knownDevices * devices) {
     return 0;
 }
 
-int kdFindIdeList(struct knownDevices * devices) {
+int kdFindIdeList(struct knownDevices * devices, int code) {
     DIR * dir;
     char path[80];
     int fd, i;
@@ -130,6 +131,8 @@ int kdFindIdeList(struct knownDevices * devices) {
 		i = read(fd, path, 50);
 		close(fd);
 		path[i - 1] = '\0';		/* chop off trailing \n */
+
+		device.code = code;
 
 		device.class = CLASS_UNSPEC;
 		if (!strcmp(path, "cdrom")) 
@@ -169,7 +172,7 @@ int kdFindIdeList(struct knownDevices * devices) {
 #define SCSISCSI_VENDOR 2
 #define SCSISCSI_TYPE 	3
 
-int kdFindScsiList(struct knownDevices * devices) {
+int kdFindScsiList(struct knownDevices * devices, int code) {
     int fd;
     char buf[16384];
     char linebuf[80];
@@ -301,6 +304,7 @@ int kdFindScsiList(struct knownDevices * devices) {
 	    if (*typebuf && !deviceKnown(devices, typebuf)) {
 		device.name = strdup(typebuf);
 		device.model = strdup(linebuf);
+		device.code = code;
 
 		/* Do we need this for anything?
 		sdi[numMatches].bus = 0;

@@ -7,6 +7,7 @@ struct kddevice {
     char * name;		/* malloced */
     char * model;
     enum deviceClass class;
+    int code;
 };
 
 struct knownDevices {
@@ -16,9 +17,9 @@ struct knownDevices {
 };
 
 struct knownDevices kdInit(void);
-int kdFindNetList(struct knownDevices * devices);
-int kdFindIdeList(struct knownDevices * devices);
-int kdFindScsiList(struct knownDevices * devices);
+int kdFindNetList(struct knownDevices * devices, int code);
+int kdFindIdeList(struct knownDevices * devices, int code);
+int kdFindScsiList(struct knownDevices * devices, int code);
 void kdFree(struct knownDevices * devices);
 void kdAddDevice(struct knownDevices * devices, enum deviceClass devClass, 
 		 char * devName, char * devModel);
