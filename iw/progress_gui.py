@@ -186,6 +186,21 @@ class InstallProgressWindow (InstallWindow):
         vbox.pack_start (hbox, FALSE)
         vbox.pack_start (self.totalProgress, FALSE)
 
+        im = self.ics.readPixmap ("first-progress.png")
+        
+        if im:
+            frame = GtkFrame()
+            frame.set_shadow_type (SHADOW_IN)
+            im.render ()
+            box = GtkEventBox ()
+            pix = im.make_pixmap ()
+            style = box.get_style ().copy ()
+            style.bg[STATE_NORMAL] = style.white
+            box.set_style (style)
+            box.add (pix)
+            frame.add (box)
+            vbox.pack_start (frame, FALSE);
+
 	self.ics.getInstallInterface ().setPackageProgressWindow (self)
         ii = self.ics.getInstallInterface ()
         icw = ii.icw
