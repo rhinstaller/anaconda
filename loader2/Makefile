@@ -46,6 +46,7 @@ GUNZIP = ../isys/gzlib/libgunzip-diet.a
 
 OBJS += dietstubs.o ctype.o
 ISYSLIB += -lrpc
+CTYPEDEP = ctype.c
 endif
 
 ifeq (i386, $(ARCH))
@@ -109,7 +110,7 @@ clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \
 	loader
 
-depend: ctype.c
+depend: $(CTYPEDEP)
 	$(CPP) $(CFLAGS) -DHAVE_CONFIG_H -M $(SOURCES) > .depend
 
 install: all
