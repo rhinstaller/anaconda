@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
-"POT-Creation-Date: 2001-04-03 18:40-0400\n"
+"POT-Creation-Date: 2001-06-27 02:55-0400\n"
 "PO-Revision-Date: 2001-04-23 16:23+0900\n"
 "Last-Translator: Jong-Hoon Ryu <queenrjh@chollian.net>\n"
 "Language-Team: Korean Linux Extension project <kle@kldp.org>\n"
@@ -9,145 +9,113 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-KR\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../comps.py:490
+#: ../autopart.py:714 ../iw/partition_gui.py:973
+#: ../textw/partition_text.py:142
+#, fuzzy
+msgid "Error Partitioning"
+msgstr "드라이브 파티션 설정"
+
+#: ../autopart.py:715 ../iw/partition_gui.py:974
+#: ../textw/partition_text.py:143
+#, fuzzy, c-format
+msgid "Could not allocated requested partitions: %s."
+msgstr "할당되지 않은 파티션이 존재합니다..."
+
+#: ../bootloader.py:417
+#, fuzzy
+msgid "Bootloader"
+msgstr "부트로더 오류"
+
+#: ../bootloader.py:417
+#, fuzzy
+msgid "Installing bootloader..."
+msgstr "%s (을)를 설치합니다.\n"
+
+#: ../comps.py:557
 msgid "Everything"
 msgstr "전부 설치"
 
-#: ../exception.py:13 ../text.py:860
+#: ../comps.py:662 ../upgrade.py:342
+msgid "no suggestion"
+msgstr "관련된 내용 없음"
+
+#: ../exception.py:58 ../text.py:228
 msgid "Exception Occurred"
 msgstr "예외적인 상황 발생"
 
-#: ../exception.py:91
+#: ../exception.py:125
 msgid "Dump Written"
 msgstr "오류 내용 기록"
 
-#: ../exception.py:92
+#: ../exception.py:126
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
 "현재 여러분의 시스템 상태를 플로피에 기록하였습니다. 시스템을 재부팅 합니다."
 
-#: ../fstab.py:67
-msgid ""
-"The following partitions are newly created, but you have chosen not to "
-"format them. This will probably cause an error later in the install.\n"
-"\n"
-msgstr ""
-"다음의 파티션이 새로이 생성되었으나, 포맷되지 않았습니다. 이와같은 상황에서 "
-"설치를 계속 진행하시면, 설치 도중 오류가 발생됩니다.\n"
-"\n"
-
-#: ../fstab.py:75
-msgid ""
-"\n"
-"\n"
-"Press OK to continue, or Cancel to go back and select these partitions to be "
-"formatted (RECOMMENDED)."
-msgstr ""
-"\n"
-"\n"
-"설치를 계속 진행하시려면 [확인] 버튼을 누르시고, 리눅스가 설치될 파티션을 "
-"포맷하시려면 [취소] 버튼을 누르십시요 (권장사항)."
-
-#: ../fstab.py:76 ../harddrive.py:235 ../iw/rootpartition_gui.py:81
-#: ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:175
-#: ../iw/upgrade_swap_gui.py:184 ../iw/upgrade_swap_gui.py:191
-#: ../textw/upgrade_text.py:117
-msgid "Warning"
-msgstr "경고"
-
-#: ../fstab.py:320 ../fstab.py:535 ../fstab.py:635 ../fstab.py:786
-#: ../fstab.py:853 ../harddrive.py:173 ../image.py:64 ../image.py:141
-#: ../libfdisk/newtfsedit.c:1746 ../loader/devices.c:259
-#: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
-#: ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520
-#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:969
-#: ../loader/loader.c:1024 ../loader/loader.c:1194 ../loader/loader.c:1199
-#: ../loader/loader.c:1281 ../loader/loader.c:2135 ../loader/loader.c:2165
-#: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/pcmcia.c:114
-#: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
-#: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
-#: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:107
-#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1239
-#: ../todo.py:1252 ../todo.py:1572 ../upgrade.py:24 ../upgrade.py:52
-msgid "Error"
-msgstr "오류"
-
-#: ../fstab.py:321
-msgid ""
-"The kernel is unable to read your new partitioning information, probably "
-"because you modified extended partitions. While this is not critical, you "
-"must reboot your machine before proceeding. Insert the Red Hat boot disk now "
-"and press \"Ok\" to reboot your system.\n"
-msgstr ""
-"커널이 여러분의 새로운 파티션 정보를 읽어올 수 없습니다. 아마도, 여러분이 "
-"확장 파티션을 변경하신 것 같습니다. 현재의 상황이 아주 심각한 것은 아니지만, "
-"설치를 계속 진행하시기에 앞서 반드시 재부팅 하셔야 합니다. 지금 부팅 "
-"디스켓을 플로피 드라이브에 넣으신 후 [확인] 버튼을 눌러 시스템을 재부팅 "
-"하십시요.\n"
-
-#: ../fstab.py:506
-msgid "Swap Space"
-msgstr "스왑 공간"
-
-#: ../fstab.py:507
-msgid "Creating swap space..."
-msgstr "스왑 공간을 생성하고 있습니다..."
-
-#: ../fstab.py:525 ../fstab.py:795 ../fstab.py:1254
-msgid "Formatting"
-msgstr "포맷 중"
-
-#: ../fstab.py:526
-msgid "Formatting swap space..."
-msgstr "스왑 공간을 포맷하고 있습니다..."
-
-#: ../fstab.py:535
-msgid "Error creating swap on device "
-msgstr "스왑 공간을 생성하는 도중 오류가 발생된 장치 "
-
-#: ../fstab.py:636
-#, c-format
-msgid "Error unmounting %s: %s"
-msgstr "%s (을)를 언마운트하는 도중 오류가 발생되었습니다: %s"
-
-#: ../fstab.py:689 ../todo.py:740
+#: ../floppy.py:104
 msgid "Creating"
 msgstr "생성 중"
 
-#: ../fstab.py:689
-msgid "Creating RAID devices..."
-msgstr "RAID 장치를 생성하고 있습니다..."
+#: ../floppy.py:104
+msgid "Creating boot disk..."
+msgstr "부팅 디스켓을 만들고 있습니다..."
 
-#: ../fstab.py:730
-msgid "Loopback"
-msgstr "루프백"
+#: ../fsset.py:486 ../iw/silo_gui.py:173 ../textw/silo_text.py:64
+msgid "Master Boot Record (MBR)"
+msgstr "마스터 부트 레코드 (MBR)"
 
-#: ../fstab.py:731
-#, c-format
-msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr "/dev/%s 장치에 루프백 파일시스템을 생성하고 있습니다..."
+#: ../fsset.py:487 ../iw/silo_gui.py:176 ../textw/silo_text.py:65
+msgid "First sector of boot partition"
+msgstr "부트 파티션의 첫번째 섹터"
 
-#: ../fstab.py:787
-#, c-format
+#: ../fsset.py:503 ../fsset.py:531 ../fsset.py:550 ../harddrive.py:171
+#: ../image.py:65 ../image.py:142 ../libfdisk/newtfsedit.c:1746
+#: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435
+#: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:27
+#: ../loader/lang.c:102 ../loader/loader.c:447 ../loader/loader.c:499
+#: ../loader/loader.c:878 ../loader/loader.c:933 ../loader/loader.c:1105
+#: ../loader/loader.c:1110 ../loader/loader.c:1183 ../loader/loader.c:2041
+#: ../loader/loader.c:2071 ../loader/loader.c:2149 ../loader/loader.c:2361
+#: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:78
+#: ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:233
+#: ../loader/urls.c:238 ../packages.py:224 ../partitioning.py:689
+#: ../partitioning.py:712 ../textw/bootdisk_text.py:72
+#: ../textw/upgrade_text.py:84 ../textw/upgrade_text.py:91
+#: ../textw/upgrade_text.py:116 ../upgrade.py:252 ../upgrade.py:266
+msgid "Error"
+msgstr "오류"
+
+#: ../fsset.py:504
+#, fuzzy, c-format
 msgid ""
-"An error occured trying to format %s. This problem is serious, and the "
+"Error enabling swap device %s: %s\n"
+"\n"
+"This most likely means this swap partition has not been initialized.\n"
+"\n"
+"Press OK to reboot your system."
+msgstr ""
+"%s 장치를 %s (으)로 마운트하는 도중 오류가 발생되었습니다: %s\n"
+"\n"
+"이와같은 상황은 마운트할 파티션이 포맷되어 있지 않기 때문입니다.\n"
+"\n"
+"[확인] 버튼을 누르시면, 시스템을 재부팅 합니다."
+
+#: ../fsset.py:532
+#, fuzzy, c-format
+msgid ""
+"An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"%s (을)를 포맷하는 도중 오류가 발생되었습니다. 지금과 같은 상황은 매우 "
-"심각한 상황이므로 설치를 계속 진행할 수 없습니다.\n"
+"%s (을)를 포맷하는 도중 오류가 발생되었습니다. 지금과 같은 상황은 매우 심각"
+"한 상황이므로 설치를 계속 진행할 수 없습니다.\n"
 "\n"
 "[엔터] 키를 누르시면, 시스템을 재부팅 합니다."
 
-#: ../fstab.py:796 ../fstab.py:1255
-#, c-format
-msgid "Formatting %s filesystem..."
-msgstr "%s 파일시스템을 포맷하고 있습니다..."
-
-#: ../fstab.py:854
+#: ../fsset.py:551
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -162,287 +130,45 @@ msgstr ""
 "\n"
 "[확인] 버튼을 누르시면, 시스템을 재부팅 합니다."
 
-#: ../gui.py:183
-msgid ""
-"An exceptional condition has occured.  This is most likely a bug.  Please "
-"copy the full text of this exception and file a bug report at "
-"http://bugzilla.redhat.com/bugzilla"
-msgstr ""
-"예외적인 상황이 발생되었습니다.  지금과 같은 상황은 버그로 추정됩니다.  현재 "
-"발생된 오류의 내용을 http://bugzilla.redhat.com/bugzilla 를 통해 보고해 "
-"주시기 바랍니다."
+#: ../fsset.py:996
+msgid "Formatting"
+msgstr "포맷 중"
 
-#: ../gui.py:332 ../text.py:878
-msgid ""
-"Please insert a floppy now. All contents of the disk will be erased, so "
-"please choose your diskette carefully."
-msgstr ""
-"플로피 디스켓을 넣어 주십시요. 디스켓 안의 모든 자료가 삭제되므로 주의하시기 "
-"바랍니다."
-
-#: ../gui.py:424 ../gui.py:799
-msgid "Next"
-msgstr "다음"
-
-#: ../gui.py:425 ../gui.py:798 ../libfdisk/newtfsedit.c:1480
-#: ../libfdisk/newtfsedit.c:1488 ../loader/cdrom.c:34 ../loader/devices.c:93
-#: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
-#: ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910
-#: ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1519
-#: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
-#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61
-#: ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228
-#: ../text.py:231 ../text.py:311 ../text.py:356 ../text.py:359 ../text.py:416
-#: ../text.py:419 ../text.py:445 ../text.py:449 ../text.py:458 ../text.py:531
-#: ../text.py:533 ../text.py:543 ../text.py:545 ../textw/bootdisk_text.py:30
-#: ../textw/firewall_text.py:9 ../textw/lilo_text.py:34
-#: ../textw/lilo_text.py:110 ../textw/lilo_text.py:118
-#: ../textw/lilo_text.py:226 ../textw/mouse_text.py:27
-#: ../textw/mouse_text.py:28 ../textw/mouse_text.py:55
-#: ../textw/mouse_text.py:81 ../textw/network_text.py:102
-#: ../textw/network_text.py:161 ../textw/network_text.py:164
-#: ../textw/packages_text.py:55 ../textw/packages_text.py:236
-#: ../textw/packages_text.py:347 ../textw/packages_text.py:353
-#: ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:66
-#: ../textw/partitioning_text.py:157 ../textw/partitioning_text.py:221
-#: ../textw/partitioning_text.py:260 ../textw/partitioning_text.py:343
-#: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
-#: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:68
-#: ../textw/upgrade_text.py:155 ../textw/upgrade_text.py:173
-#: ../textw/upgrade_text.py:176 ../textw/upgrade_text.py:190
-#: ../textw/upgrade_text.py:191 ../textw/upgrade_text.py:213
-#: ../textw/upgrade_text.py:216 ../textw/userauth_text.py:30
-#: ../textw/userauth_text.py:165 ../textw/userauth_text.py:199
-#: ../textw/userauth_text.py:297
-msgid "Back"
-msgstr "뒤로"
-
-#: ../gui.py:426 ../gui.py:546 ../gui.py:801
-msgid "Release Notes"
-msgstr "새로운 사항"
-
-#: ../gui.py:427 ../gui.py:804
-msgid "Show Help"
-msgstr "도움말 표시"
-
-#: ../gui.py:428 ../gui.py:803
-msgid "Hide Help"
-msgstr "도움말 숨김"
-
-#: ../gui.py:429 ../gui.py:802
-msgid "Finish"
-msgstr "완료"
-
-#: ../gui.py:433 ../gui.py:834
-msgid "Online Help"
-msgstr "도움말 화면"
-
-#: ../gui.py:434 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../test.py:24 ../text.py:69 ../text.py:973
-msgid "Language Selection"
-msgstr "언어 선택"
-
-#: ../gui.py:541 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
-#: ../libfdisk/gnomefsedit.c:1405
-msgid "Close"
-msgstr "닫기"
-
-#: ../gui.py:577
-msgid "Unable to load file!"
-msgstr "파일을 불러올 수 없습니다!"
-
-#: ../gui.py:722
-msgid "Red Hat Linux Installer"
-msgstr "레드햇 리눅스 설치 프로그램"
-
-#: ../gui.py:726
-msgid "Red Hat Linux Install Shell"
-msgstr "레드햇 리눅스 설치 쉘"
-
-#: ../gui.py:737
+#: ../fsset.py:997
 #, c-format
-msgid "Red Hat Linux Installer on %s"
-msgstr "%s 의 레드햇 리눅스 설치 프로그램"
+msgid "Formatting %s filesystem..."
+msgstr "%s 파일시스템을 포맷하고 있습니다..."
 
-#: ../gui.py:738
-#, c-format
-msgid "Red Hat Linux Install Shell on %s"
-msgstr "%s 의 레드햇 리눅스 설치 쉘"
+#: ../gui.py:97 ../iw/welcome_gui.py:86 ../libfdisk/fsedit.c:953
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237
+#: ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398
+#: ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754
+#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:618
+#: ../libfdisk/newtfsedit.c:745 ../libfdisk/newtfsedit.c:877
+#: ../libfdisk/newtfsedit.c:1683 ../libfdisk/newtfsedit.c:1701
+#: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:230
+#: ../loader/loader.c:782 ../loader/net.c:845 ../text.py:273
+#: ../textw/bootdisk_text.py:16 ../textw/bootdisk_text.py:34
+#: ../textw/lilo_text.py:60 ../textw/upgrade_text.py:178
+msgid "Yes"
+msgstr "예"
 
-#: ../gui.py:883
-msgid "Install Window"
-msgstr "설치 화면"
-
-#: ../harddrive.py:174
-#, c-format
-msgid "Missing CD #%d, which is required for the install."
-msgstr ""
-"#%d 번 CD를 찾을 수 없습니다. 설치를 위해서는 반드시 이 CD가 필요합니다."
-
-#: ../image.py:61
-msgid "Copying File"
-msgstr "파일 복사 중"
-
-#: ../image.py:62
-msgid "Transferring install image to hard drive..."
-msgstr "설치 이미지를 하드 드라이브로 전송하고 있습니다..."
-
-#: ../image.py:65
-msgid ""
-"An error occured transferring the install image to your hard drive. You are "
-"probably out of disk space."
-msgstr ""
-"설치 이미지를 하드 드라이브로 전송하는 도중 오류가 발생되었습니다. 드라이브 "
-"공간의 부족으로 인한 것 같습니다."
-
-#: ../image.py:118
-msgid "Change CDROM"
-msgstr "CDROM 교체"
-
-#: ../image.py:119
-#, c-format
-msgid "Please insert disc %d to continue."
-msgstr "%d 번째 CD를 넣어 주십시요."
-
-#: ../image.py:136
-msgid "Wrong CDROM"
-msgstr "CDROM 오류"
-
-#: ../image.py:137
-msgid "That's not the correct Red Hat CDROM."
-msgstr "올바른 레드햇 CD가 아닙니다."
-
-#: ../image.py:142
-msgid "The CDROM could not be mounted."
-msgstr "CDROM 을 마운트할 수 없습니다."
-
-#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:237
-#: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:335
-#: ../loader/devices.c:435 ../loader/devices.c:480 ../loader/devices.c:500
-#: ../loader/devices.c:532 ../loader/kickstart.c:58 ../loader/kickstart.c:68
-#: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294
-#: ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520
-#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:910
-#: ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1116
-#: ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1241
-#: ../loader/loader.c:1250 ../loader/loader.c:1281 ../loader/loader.c:1519
-#: ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2228
-#: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/net.c:185
-#: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:687
-#: ../loader/net.c:720 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
-#: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
-#: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:20 ../rescue.py:92
-#: ../rescue.py:110 ../rescue.py:126 ../text.py:135 ../text.py:174
-#: ../text.py:228 ../text.py:311 ../text.py:356 ../text.py:374 ../text.py:416
-#: ../text.py:445 ../text.py:531 ../text.py:543 ../text.py:573 ../text.py:594
-#: ../text.py:764 ../text.py:820 ../text.py:846 ../text.py:872 ../text.py:880
-#: ../text.py:895 ../text.py:1138 ../textw/bootdisk_text.py:52
-#: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
-#: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
-#: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
-#: ../textw/lilo_text.py:110 ../textw/lilo_text.py:169
-#: ../textw/lilo_text.py:175 ../textw/mouse_text.py:55
-#: ../textw/network_text.py:102 ../textw/network_text.py:123
-#: ../textw/network_text.py:161 ../textw/packages_text.py:55
-#: ../textw/packages_text.py:89 ../textw/packages_text.py:236
-#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:260
-#: ../textw/partitioning_text.py:343 ../textw/partitioning_text.py:354
-#: ../textw/partitioning_text.py:362 ../textw/partitioning_text.py:369
-#: ../textw/silo_text.py:25 ../textw/silo_text.py:99
-#: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:67
-#: ../textw/upgrade_text.py:173 ../textw/userauth_text.py:30
-#: ../textw/userauth_text.py:44 ../textw/userauth_text.py:49
-#: ../textw/userauth_text.py:84 ../textw/userauth_text.py:99
-#: ../textw/userauth_text.py:105 ../textw/userauth_text.py:111
-#: ../textw/userauth_text.py:119 ../textw/userauth_text.py:128
-#: ../textw/userauth_text.py:135 ../textw/userauth_text.py:199
-#: ../textw/userauth_text.py:297 ../xserver.py:34
-msgid "OK"
-msgstr "확인"
-
-#: ../rescue.py:39
-msgid "WARNING: no valid block devices were found.\n"
-msgstr "경고: 블록 장치를 찾을 수 없습니다.\n"
-
-#: ../rescue.py:41
-msgid "ERROR: unknown error encountered reading partition tables.\n"
-msgstr "오류: 파티션 정보를 읽는 도중 알 수 없는 오류가 발생되었습니다.\n"
-
-#: ../rescue.py:89
-msgid "System to Rescue"
-msgstr "복구할 시스템"
-
-#: ../rescue.py:90 ../textw/upgrade_text.py:171
-msgid "What partition holds the root partition of your installation?"
-msgstr "루트 파티션이 있는 곳을 지정해 주십시요."
-
-#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:92
-#: ../rescue.py:96 ../textw/upgrade_text.py:22 ../textw/upgrade_text.py:141
-msgid "Exit"
-msgstr "종료"
-
-#: ../rescue.py:106 ../rescue.py:121
-msgid "Rescue"
-msgstr "복구"
-
-#: ../rescue.py:107
-msgid ""
-"Your system has been mounted under /mnt/sysimage.\n"
-"\n"
-"Press <return> to get a shell. The system will reboot automatically when you "
-"exit from the shell."
-msgstr ""
-"여러분의 시스템이 '/mnt/sysimage' 에 마운트 되었습니다.\n"
-"\n"
-"쉘로 나가기 위해서는 [엔터] 키를 누르십시요. 쉘에서 빠져 나가시면, 시스템은 "
-"자동으로 재부팅 됩니다."
-
-#: ../rescue.py:122
-msgid ""
-"An error occured trying to mount some or all of your system. Some of it may "
-"be mounted under /mnt/sysimage.\n"
-"\n"
-"Press <return> to get a shell. The system will reboot automatically when you "
-"exit from the shell."
-msgstr ""
-"여러분의 시스템을 일부 또는 전부 마운트하는 도중 오류가 발생되었습니다. "
-"시스템의 일부는 '/mnt/sysimage' 에 마운트 되었습니다.\n"
-"\n"
-"쉘로 나가기 위해서는 [엔터] 키를 누르십시요. 쉘에서 빠져 나가시면, 시스템은 "
-"자동으로 재부팅 됩니다."
-
-#: ../rescue.py:128
-msgid "Rescue Mode"
-msgstr "복구 모드"
-
-#: ../rescue.py:129
-msgid ""
-"You don't have any Linux partitions. Press return to get a shell. The system "
-"will reboot automatically when you exit from the shell."
-msgstr ""
-"리눅스 파티션이 존재하지 않습니다. 쉘로 나가기 위해서는 [엔터] 키를 "
-"누르십시요. 쉘에서 빠져 나가시면, 시스템은 자동으로 재부팅 됩니다."
-
-#: ../rescue.py:141
-msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr "여러분의 시스템이 '/mnt/sysimage' 디렉토리에 마운트 되었습니다."
-
-#: ../iw/upgrade_swap_gui.py:102 ../test.py:26 ../test.py:34 ../test.py:40
-#: ../textw/upgrade_text.py:38
-#, c-format
-msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system. You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
-msgstr ""
-"커널 2.4 부터는 이전 버전의 커널이 시스템에 설치되어 있는 램 용량의 두배 "
-"이상의 용량을 스왑 공간을 사용했던 것 보다 훨씬 더 많은 용량의 스왑 공간을 "
-"필요로 합니다. 현재 여러분이 설정하신 스왑 용량은 %d MB 이지만, 추가로 스왑 "
-"공간을 더 생성하실 수 있습니다."
+#: ../gui.py:98 ../iw/welcome_gui.py:89 ../libfdisk/fsedit.c:953
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237
+#: ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398
+#: ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754
+#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:618
+#: ../libfdisk/newtfsedit.c:745 ../libfdisk/newtfsedit.c:877
+#: ../libfdisk/newtfsedit.c:1683 ../libfdisk/newtfsedit.c:1701
+#: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:231 ../loader/net.c:845
+#: ../text.py:274 ../textw/bootdisk_text.py:16 ../textw/bootdisk_text.py:34
+#: ../textw/bootdisk_text.py:42 ../textw/lilo_text.py:60
+#: ../textw/upgrade_text.py:178 ../textw/upgrade_text.py:185
+msgid "No"
+msgstr "아니오"
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
+#: ../gui.py:99 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
 #: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
 #: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
 #: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1052
@@ -467,151 +193,870 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1488 ../libfdisk/newtfsedit.c:1613
 #: ../libfdisk/newtfsedit.c:1634 ../libfdisk/newtfsedit.c:1662
 #: ../libfdisk/newtfsedit.c:1746 ../loader/urls.c:78 ../loader/urls.c:87
-#: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
-#: ../text.py:199 ../text.py:458 ../textw/lilo_text.py:140
-#: ../textw/lilo_text.py:225 ../textw/mouse_text.py:27
-#: ../textw/partitioning_text.py:157 ../textw/partitioning_text.py:422
+#: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:275
+#: ../textw/constants_text.py:7 ../textw/fdisk_text.py:40
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
-#: ../textw/silo_text.py:205 ../textw/upgrade_text.py:22
-#: ../textw/upgrade_text.py:141 ../textw/upgrade_text.py:190
 msgid "Ok"
 msgstr "확인"
 
-#: ../text.py:70
-msgid "What language would you like to use during the installation process?"
-msgstr "설치 과정 동안에 사용하실 언어를 선택해 주십시요."
+#: ../gui.py:100 ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1463
+#: ../loader/net.c:277 ../loader/net.c:402 ../text.py:276
+msgid "Retry"
+msgstr "재시도"
 
-#: ../text.py:135
-msgid "Select All"
-msgstr "모두 선택"
-
-#: ../iw/language_support_gui.py:209 ../text.py:135
-msgid "Reset"
-msgstr "재설정"
-
-#: ../text.py:137
-msgid "Choose the languages to be installed:"
-msgstr "설치할 언어 선택:"
-
-#: ../text.py:141 ../text.py:1035
-msgid "Language Support"
-msgstr "언어 지원"
-
-#: ../text.py:172 ../textw/firewall_text.py:124 ../textw/firewall_text.py:189
-msgid "Invalid Choice"
-msgstr "선택 오류"
-
-#: ../text.py:173
-msgid "You must select at least one language to install."
-msgstr "최소한 하나의 언어는 반드시 선택하셔야 합니다."
-
-#: ../text.py:201
-msgid "Default Language"
-msgstr "기본 언어"
-
-#: ../text.py:202
-msgid "Choose the default language: "
-msgstr "기본 언어 선택: "
-
-#: ../text.py:226 ../text.py:950 ../text.py:975
-msgid "Keyboard Selection"
-msgstr "키보드 선택"
-
-#: ../text.py:227
-msgid "Which model keyboard is attached to this computer?"
-msgstr "사용하고 계신 키보드 모델을 선택해 주십시요."
-
-#: ../text.py:287
-msgid "Upgrade Existing Installation"
-msgstr "기존의 리눅스 시스템 업그레이드"
-
-#: ../text.py:309 ../text.py:978
-msgid "Installation Type"
-msgstr "설치 유형"
-
-#: ../text.py:310
-msgid "What type of system would you like to install?"
-msgstr "설치할 시스템 유형을 선택해 주십시요."
-
-#: ../text.py:347 ../text.py:366
-msgid "Red Hat Linux"
-msgstr "레드햇 리눅스"
-
-#: ../text.py:348
-msgid ""
-"Welcome to Red Hat Linux!\n"
-"\n"
-"This installation process is outlined in detail in the Official Red Hat "
-"Linux Installation Guide available from Red Hat Software. If you have access "
-"to this manual, you should read the installation section before continuing.\n"
-"\n"
-"If you have purchased Official Red Hat Linux, be sure to register your "
-"purchase through our web site, http://www.redhat.com/."
+#: ../gui.py:101 ../text.py:277
+msgid "Ignore"
 msgstr ""
-"레드햇 리눅스를 선택해 주셔서 감사합니다!\n"
-"\n"
-"설치 과정에 대한 내용은 저희 레드햇 리눅스 사에서 제공하는 공식 레드햇 "
-"리눅스 설치 안내서를 참고해 주십시요. 현재 설치 안내서를 통해 설치를 하고 "
-"계시다면, 설치 관련 부분을 먼저 읽어보시기 바랍니다.\n"
-"\n"
-"여러분이 공식 레드햇 리눅스 제품을 구입하신 경우에는 반드시 저희 웹 사이트 "
-"http://www.redhat.com/ 를 방문하여 사용자 등록을 해주시기 바랍니다."
 
-#: ../text.py:367
-msgid ""
-"Welcome to the Red Hat Linux!\n"
-"\n"
-"You have entered reconfiguration mode, which will allow you to configure "
-"site-specific options of your computer.\n"
-"\n"
-"To exit without changing your setup select the Cancel button below."
-msgstr ""
-"레드햇 리눅스를 선택해 주셔서 감사합니다!\n"
-"\n"
-"여러분의 시스템에 특정-부분의 항목(site-specific options) 을 설정할 수 있는 "
-"재 설정 모드 입니다.\n"
-"\n"
-"설정 내용을 변경하지 않고 종료하시려면, 화면 아래의 [취소] 버튼을 누르십시요."
-
+#: ../gui.py:102 ../iw/account_gui.py:135 ../iw/account_gui.py:145
+#: ../iw/partition_gui.py:650 ../iw/partition_gui.py:1054
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1701 ../loader/devices.c:238
-#: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
-#: ../text.py:374 ../text.py:377 ../text.py:764 ../text.py:765 ../text.py:880
-#: ../text.py:882 ../textw/lilo_text.py:141 ../textw/silo_text.py:136
-#: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
+#: ../loader/devices.c:532 ../loader/loader.c:2134 ../loader/pcmcia.c:104
+#: ../text.py:127 ../text.py:128 ../text.py:248 ../text.py:250 ../text.py:278
+#: ../textw/constants_text.py:11 ../textw/lilo_text.py:120
+#: ../textw/silo_text.py:136 ../textw/silo_text.py:154
+#: ../textw/userauth_text.py:62 ../textw/welcome_text.py:35
+#: ../textw/welcome_text.py:38
 msgid "Cancel"
 msgstr "취소"
 
-#: ../text.py:414
-msgid "X probe results"
-msgstr "X 검색 결과"
+#: ../gui.py:189
+#, fuzzy
+msgid ""
+"An exceptional condition has occured.  This is most likely a bug.  Please "
+"copy the full text of this exception and file a bug report against anaconda "
+"at http://bugzilla.redhat.com/bugzilla"
+msgstr ""
+"예외적인 상황이 발생되었습니다.  지금과 같은 상황은 버그로 추정됩니다.  현재 "
+"발생된 오류의 내용을 http://bugzilla.redhat.com/bugzilla 를 통해 보고해 주시"
+"기 바랍니다."
 
-#: ../text.py:434 ../text.py:454
-msgid "Unlisted Card"
-msgstr "목록에 없는 카드"
+#: ../gui.py:296 ../text.py:246
+msgid ""
+"Please insert a floppy now. All contents of the disk will be erased, so "
+"please choose your diskette carefully."
+msgstr ""
+"플로피 디스켓을 넣어 주십시요. 디스켓 안의 모든 자료가 삭제되므로 주의하시기 "
+"바랍니다."
 
-#: ../text.py:442
-msgid "Video Card Selection"
-msgstr "비디오 카드 선택"
+#: ../gui.py:359 ../gui.py:707
+#, fuzzy
+msgid "Navigation"
+msgstr "파티션"
 
-#: ../text.py:443
-msgid "Which video card do you have?"
-msgstr "사용하고 계신 비디오 카드를 선택해 주십시요."
+#: ../gui.py:360 ../iw/language_gui.py:7 ../iw/language_support_gui.py:22
+#: ../textw/language_text.py:27
+msgid "Language Selection"
+msgstr "언어 선택"
 
-#: ../text.py:456
-msgid "X Server Selection"
-msgstr "X 서버 선택"
+#: ../gui.py:432 ../iw/firewall_gui.py:121 ../libfdisk/gnomefsedit.c:1388
+#: ../libfdisk/gnomefsedit.c:1405
+msgid "Close"
+msgstr "닫기"
 
-#: ../text.py:456
-msgid "Choose a server"
-msgstr "서버를 선택해 주십시요."
+#: ../gui.py:437 ../gui.py:574
+msgid "Release Notes"
+msgstr "새로운 사항"
 
-#: ../text.py:527
-msgid "Installation to begin"
+#: ../gui.py:468
+msgid "Unable to load file!"
+msgstr "파일을 불러올 수 없습니다!"
+
+#: ../gui.py:489
+msgid "Release notes are missing.\n"
+msgstr ""
+
+#: ../gui.py:570 ../libfdisk/newtfsedit.c:1480 ../libfdisk/newtfsedit.c:1488
+#: ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238
+#: ../loader/devices.c:335 ../loader/lang.c:592 ../loader/loader.c:292
+#: ../loader/loader.c:782 ../loader/loader.c:819 ../loader/loader.c:933
+#: ../loader/loader.c:1027 ../loader/loader.c:1421 ../loader/net.c:185
+#: ../loader/net.c:272 ../loader/net.c:357 ../loader/urls.c:155
+#: ../loader/urls.c:375 ../rescue.py:155 ../textw/bootdisk_text.py:34
+#: ../textw/confirm_text.py:11 ../textw/confirm_text.py:13
+#: ../textw/confirm_text.py:23 ../textw/confirm_text.py:25
+#: ../textw/constants_text.py:15 ../textw/silo_text.py:99
+#: ../textw/userauth_text.py:164
+msgid "Back"
+msgstr "뒤로"
+
+#: ../gui.py:572
+msgid "Next"
+msgstr "다음"
+
+#: ../gui.py:576
+msgid "Show Help"
+msgstr "도움말 표시"
+
+#: ../gui.py:578
+msgid "Hide Help"
+msgstr "도움말 숨김"
+
+#: ../gui.py:620
+msgid "Red Hat Linux Installer"
+msgstr "레드햇 리눅스 설치 프로그램"
+
+#: ../gui.py:635
+#, c-format
+msgid "Red Hat Linux Installer on %s"
+msgstr "%s 의 레드햇 리눅스 설치 프로그램"
+
+#: ../gui.py:672
+msgid "Unable to load anaconda_header.png"
+msgstr ""
+
+#: ../gui.py:754
+msgid "Install Window"
+msgstr "설치 화면"
+
+#: ../harddrive.py:172
+#, c-format
+msgid "Missing CD #%d, which is required for the install."
+msgstr ""
+"#%d 번 CD를 찾을 수 없습니다. 설치를 위해서는 반드시 이 CD가 필요합니다."
+
+#: ../harddrive.py:233 ../iw/partition_gui.py:1303
+#: ../iw/upgrade_swap_gui.py:168 ../iw/upgrade_swap_gui.py:176
+#: ../iw/upgrade_swap_gui.py:183 ../textw/upgrade_text.py:96
+msgid "Warning"
+msgstr "경고"
+
+#: ../image.py:62
+msgid "Copying File"
+msgstr "파일 복사 중"
+
+#: ../image.py:63
+msgid "Transferring install image to hard drive..."
+msgstr "설치 이미지를 하드 드라이브로 전송하고 있습니다..."
+
+#: ../image.py:66
+msgid ""
+"An error occured transferring the install image to your hard drive. You are "
+"probably out of disk space."
+msgstr ""
+"설치 이미지를 하드 드라이브로 전송하는 도중 오류가 발생되었습니다. 드라이브 "
+"공간의 부족으로 인한 것 같습니다."
+
+#: ../image.py:119
+msgid "Change CDROM"
+msgstr "CDROM 교체"
+
+#: ../image.py:120
+#, c-format
+msgid "Please insert disc %d to continue."
+msgstr "%d 번째 CD를 넣어 주십시요."
+
+#: ../image.py:137
+msgid "Wrong CDROM"
+msgstr "CDROM 오류"
+
+#: ../image.py:138
+msgid "That's not the correct Red Hat CDROM."
+msgstr "올바른 레드햇 CD가 아닙니다."
+
+#: ../image.py:143
+msgid "The CDROM could not be mounted."
+msgstr "CDROM 을 마운트할 수 없습니다."
+
+#: ../installclass.py:27
+msgid "Install"
+msgstr "설치"
+
+#: ../monitor.py:148 ../mouse.py:184 ../videocard.py:135
+#, fuzzy
+msgid "Unable to probe"
+msgstr "파일을 불러올 수 없습니다!"
+
+#: ../iw/package_gui.py:18 ../packages.py:34
+msgid "Proceed with upgrade?"
+msgstr "업그레이드 설치 진행"
+
+#: ../iw/package_gui.py:19 ../packages.py:35
+msgid ""
+"The filesystems of the Linux installation you have chosen to upgrade have "
+"already been mounted. You cannot go back past this point. \n"
+"\n"
+msgstr ""
+"여러분이 업그레이드 설치를 하기위해 선택하신 리눅스 파일시스템은 이미 마운트"
+"되어 있습니다. 지금의 상황에서는 뒤로 되돌아 가실 수 없습니다. \n"
+"\n"
+
+#: ../iw/package_gui.py:23 ../packages.py:39
+msgid "Would you like to continue with the upgrade?"
+msgstr "업그레이드 설치를 하시겠습니까?"
+
+#: ../packages.py:85
+msgid "Reading"
+msgstr "읽는 중"
+
+#: ../packages.py:85
+msgid "Reading package information..."
+msgstr "패키지에 대한 정보를 읽고 있습니다..."
+
+#: ../packages.py:140
+msgid "Dependency Check"
+msgstr "의존성 검사"
+
+#: ../packages.py:141
+msgid "Checking dependencies in packages selected for installation..."
+msgstr "설치될 패키지의 의존성을 검사하고 있습니다..."
+
+#: ../packages.py:190
+msgid "Processing"
+msgstr "진행 중"
+
+#: ../packages.py:191
+msgid "Preparing to install..."
+msgstr "설치를 위한 준비를 하고 있습니다..."
+
+#: ../packages.py:225
+#, c-format
+msgid ""
+"The file %s cannot be opened. This is due to a missing file, a bad package, "
+"or bad media. Press <return> to try again."
+msgstr ""
+"%s 파일을 열 수 없습니다. 파일이 없거나, 불량 패키지, 혹은 손상된 CD인 것 같"
+"습니다. 다시 확인해 보시려면, [엔터] 키를 누르십시요."
+
+#: ../packages.py:441
+#, c-format
+msgid "Upgrading %s.\n"
+msgstr "%s (을)를 업그레이드 합니다.\n"
+
+#: ../packages.py:443
+#, c-format
+msgid "Installing %s.\n"
+msgstr "%s (을)를 설치합니다.\n"
+
+#: ../packages.py:492
+msgid ""
+"You don't appear to have enough disk space to install the packages you've "
+"selected. You need more space on the following filesystems:\n"
+"\n"
+msgstr ""
+"패키지를 설치하는데 필요한 공간이 부족한 것 같습니다. 다음의 파일시스템에 충"
+"분한 공간이 확보되어야 합니다:\n"
+"\n"
+
+#: ../iw/partition_gui.py:1245 ../iw/upgrade_swap_gui.py:120
+#: ../libfdisk/gnomefsedit.c:3132 ../packages.py:495 ../packages.py:513
+#: ../textw/upgrade_text.py:33
+msgid "Mount Point"
+msgstr "마운트할 지점"
+
+#: ../packages.py:495
+msgid "Space Needed"
+msgstr "공간 부족"
+
+#: ../packages.py:510
+msgid ""
+"You don't appear to have enough file nodes to install the packages you've "
+"selected. You need more file nodes on the following filesystems:\n"
+"\n"
+msgstr ""
+"패키지를 설치하는데 필요한 파일 노드가 부족한 것 같습니다. 다음의 파일시스템"
+"에 충분한 파일 노드가 확보되어야 합니다:\n"
+"\n"
+
+#: ../packages.py:513
+msgid "Nodes Needed"
+msgstr "노드 부족"
+
+#: ../packages.py:519
+msgid "Disk Space"
+msgstr "드라이브 공간"
+
+#: ../packages.py:555
+msgid "Post Install"
+msgstr "설치 후 작업"
+
+#: ../packages.py:556
+msgid "Performing post install configuration..."
+msgstr "설치 후에 작업할 내용을 설정하고 있습니다..."
+
+#: ../partitioning.py:281
+#, fuzzy
+msgid ""
+"The mount point is invalid.  Mount points must start with '/' and cannot end "
+"with '/', and must contain printable characters."
+msgstr ""
+"%s (은)는 마운트할 지점으로 사용하실 수 없습니다.\n"
+"\n"
+"마운트할 지점은 출력가능한 문자로만 입력해 주십시요."
+
+#: ../partitioning.py:288
+msgid "Please specify a mount point for this partition."
+msgstr ""
+
+#: ../partitioning.py:306
+#, fuzzy, c-format
+msgid ""
+"The mount point %s is already in use, please choose a different mount point."
+msgstr ""
+"여러분이 지정하신 마운트할 지점은 이미 지정되어 있습니다. 다시한번 확인하시"
+"고 지정해 주십시요."
+
+#: ../partitioning.py:322
+#, fuzzy
+msgid ""
+"This mount point is invalid.  This directory must be on the / filesystem."
+msgstr "%s 디렉토리는 반드시 루트 파일시스템 상에 위치해야 합니다."
+
+#: ../partitioning.py:327
+#, fuzzy
+msgid "This mount point must be on a linux filesystem."
+msgstr "%s 디렉토리는 반드시 루트 파일시스템 상에 위치해야 합니다."
+
+#: ../partitioning.py:337
+#, c-format
+msgid ""
+"The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
+"MB."
+msgstr ""
+
+#: ../partitioning.py:340
+#, c-format
+msgid ""
+"The size of the requested partition (size = %s MB) exceeds the maximum size "
+"of %s MB."
+msgstr ""
+
+#: ../partitioning.py:343
+#, c-format
+msgid "The size of the requested partition is negative! (size = %s MB)"
+msgstr ""
+
+#: ../partitioning.py:346
+msgid "Partitions can't start below the first cylinder."
+msgstr ""
+
+#: ../partitioning.py:349
+msgid "Partitions can't end on a negative cylinder."
+msgstr ""
+
+#: ../partitioning.py:382
+msgid "No members in RAID request, or not RAID level specified."
+msgstr ""
+
+#: ../partitioning.py:387
+msgid "Some members of RAID request are not RAID partitions."
+msgstr ""
+
+#: ../partitioning.py:397
+#, fuzzy
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "부트 파티션(/boot) 은 'RAID-1' 유형에서만 지정하실 수 있습니다."
+
+#: ../partitioning.py:401
+#, c-format
+msgid "A RAID device of type %s requires at least %s members."
+msgstr ""
+
+#: ../partitioning.py:405
+#, c-format
+msgid ""
+"This RAID device can have a maximum of %s spares. To have more spares you "
+"will need to add members to the RAID device."
+msgstr ""
+
+#: ../partitioning.py:690 ../partitioning.py:713
+#, fuzzy, c-format
+msgid "Error mounting filesystem on %s: %s"
+msgstr "%s 의 'ext2' 파일시스템을 마운트하는 도중 오류가 발생되었습니다: %s"
+
+#: ../iw/account_gui.py:134 ../iw/account_gui.py:144
+#: ../iw/partition_gui.py:649 ../iw/partition_gui.py:1053 ../loader/cdrom.c:34
+#: ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259
+#: ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435
+#: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532
+#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
+#: ../loader/lang.c:27 ../loader/lang.c:102 ../loader/lang.c:297
+#: ../loader/lang.c:592 ../loader/loader.c:292 ../loader/loader.c:447
+#: ../loader/loader.c:499 ../loader/loader.c:819 ../loader/loader.c:878
+#: ../loader/loader.c:933 ../loader/loader.c:1027 ../loader/loader.c:1105
+#: ../loader/loader.c:1110 ../loader/loader.c:1152 ../loader/loader.c:1183
+#: ../loader/loader.c:1421 ../loader/loader.c:2041 ../loader/loader.c:2071
+#: ../loader/loader.c:2134 ../loader/loader.c:2149 ../loader/loader.c:2361
+#: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
+#: ../loader/net.c:678 ../loader/net.c:711 ../loader/pcmcia.c:104
+#: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:155
+#: ../loader/urls.c:233 ../loader/urls.c:238 ../loader/urls.c:375
+#: ../rescue.py:33 ../rescue.py:115 ../rescue.py:133 ../rescue.py:149
+#: ../text.py:383 ../textw/bootdisk_text.py:62 ../textw/complete_text.py:22
+#: ../textw/complete_text.py:41 ../textw/confirm_text.py:11
+#: ../textw/confirm_text.py:23 ../textw/firewall_text.py:201
+#: ../textw/network_text.py:121 ../textw/silo_text.py:99 ../xserver.py:50
+msgid "OK"
+msgstr "확인"
+
+#: ../rescue.py:112
+msgid "System to Rescue"
+msgstr "복구할 시스템"
+
+#: ../rescue.py:113 ../textw/upgrade_text.py:135
+msgid "What partition holds the root partition of your installation?"
+msgstr "루트 파티션이 있는 곳을 지정해 주십시요."
+
+#: ../iw/congrats_gui.py:14 ../iw/congrats_gui.py:62 ../rescue.py:115
+#: ../rescue.py:119
+msgid "Exit"
+msgstr "종료"
+
+#: ../rescue.py:129 ../rescue.py:144
+msgid "Rescue"
+msgstr "복구"
+
+#: ../rescue.py:130
+msgid ""
+"Your system has been mounted under /mnt/sysimage.\n"
+"\n"
+"Press <return> to get a shell. The system will reboot automatically when you "
+"exit from the shell."
+msgstr ""
+"여러분의 시스템이 '/mnt/sysimage' 에 마운트 되었습니다.\n"
+"\n"
+"쉘로 나가기 위해서는 [엔터] 키를 누르십시요. 쉘에서 빠져 나가시면, 시스템은 "
+"자동으로 재부팅 됩니다."
+
+#: ../rescue.py:145
+msgid ""
+"An error occured trying to mount some or all of your system. Some of it may "
+"be mounted under /mnt/sysimage.\n"
+"\n"
+"Press <return> to get a shell. The system will reboot automatically when you "
+"exit from the shell."
+msgstr ""
+"여러분의 시스템을 일부 또는 전부 마운트하는 도중 오류가 발생되었습니다. 시스"
+"템의 일부는 '/mnt/sysimage' 에 마운트 되었습니다.\n"
+"\n"
+"쉘로 나가기 위해서는 [엔터] 키를 누르십시요. 쉘에서 빠져 나가시면, 시스템은 "
+"자동으로 재부팅 됩니다."
+
+#: ../rescue.py:151
+msgid "Rescue Mode"
+msgstr "복구 모드"
+
+#: ../rescue.py:152
+msgid ""
+"You don't have any Linux partitions. Press return to get a shell. The system "
+"will reboot automatically when you exit from the shell."
+msgstr ""
+"리눅스 파티션이 존재하지 않습니다. 쉘로 나가기 위해서는 [엔터] 키를 누르십시"
+"요. 쉘에서 빠져 나가시면, 시스템은 자동으로 재부팅 됩니다."
+
+#: ../rescue.py:161
+msgid "Your system is mounted under the /mnt/sysimage directory."
+msgstr "여러분의 시스템이 '/mnt/sysimage' 디렉토리에 마운트 되었습니다."
+
+#: ../text.py:186
+msgid "Help not available"
+msgstr "도움말 없음"
+
+#: ../text.py:187
+msgid "No help is available for this install."
+msgstr "이 설정에 관한 도움말이 없습니다."
+
+#: ../text.py:245
+msgid "Save Crash Dump"
+msgstr "오류 내용 저장"
+
+#: ../text.py:256
+msgid ""
+"An internal error occurred in the installation program. Please report this "
+"error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
+"possible. The information on this failure may be saved to a floppy disk, and "
+"will help Red Hat in fixing the problem.\n"
+"\n"
+msgstr ""
+"설치 프로그램 상의 내부 오류가 발생되었습니다. 이 오류를 가능한 빠른 시일내"
+"에 레드햇 (http://bugzilla.redhat.com 를 통해) 에 보고해 주십시요. 이 오류에 "
+"관한 내용은 디스켓에 저장되며, 저장된 오류 내용을 레드햇에 보고해 주시면, 그"
+"와같은 문제를 해결하는데 큰 도움이 됩니다.\n"
+"\n"
+
+#: ../text.py:263 ../text.py:266
+msgid "Save"
+msgstr "저장"
+
+#: ../text.py:263 ../text.py:264
+msgid "Debug"
+msgstr "디버그"
+
+#: ../text.py:292
+msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
+msgstr "레드햇 리눅스 (C) 2001 레드햇 사."
+
+#: ../text.py:295
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr ""
+"     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
+
+#: ../text.py:297
+msgid ""
+"  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
+"screen"
+msgstr ""
+"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+
+#: ../text.py:379
+msgid "Cancelled"
+msgstr "취소됨"
+
+#: ../text.py:380
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr "이전 화면으로 되돌아 갈 수 없습니다. 다시한번 확인해 주십시요."
+
+#: ../upgrade.py:38
+msgid "Searching"
+msgstr "검색 중"
+
+#: ../upgrade.py:39
+msgid "Searching for Red Hat Linux installations..."
+msgstr "레드햇 리눅스 설치에 필요한 사항을 검색하고 있습니다..."
+
+#: ../upgrade.py:72 ../upgrade.py:189
+msgid "Dirty Filesystems"
+msgstr "파일시스템 오류"
+
+#: ../upgrade.py:73
+msgid ""
+"One or more of the filesystems for your Linux system was not unmounted "
+"cleanly. Please boot your Linux installation, let the filesystems be "
+"checked, and shut down cleanly to upgrade."
+msgstr ""
+"여러분 시스템의 모든 파일시스템이 완전히 언마운트 되지 않았습니다. 기존의 리"
+"눅스 시스템으로 부팅하여 파일시스템을 검사해 보시고, 모든 것을 완전히 종료하"
+"신 후에 업그레이드 하시기 바랍니다."
+
+#: ../upgrade.py:190
+msgid ""
+"One or more of the filesystems listed in the /etc/fstab on your Linux system "
+"cannot be mounted. Please fix this problem and try to upgrade again."
+msgstr ""
+"여러분 시스템의 '/etc/fstab' 파일에 나열되어 있는 파일시스템을 마운트할 수 없"
+"습니다. 이 문제를 해결하신 후에 업그레이드 하시기 바랍니다."
+
+#: ../upgrade.py:205
+msgid ""
+"The following files are absolute symbolic links, which we do not support "
+"during an upgrade. Please change them to relative symbolic links and restart "
+"the upgrade.\n"
+"\n"
+msgstr ""
+"다음의 파일은 특정 파일에 연결되어있지 않은 독립된 심볼릭 링크 파일입니다. 독"
+"립된 심볼릭 링크 파일은 업그레이드 하실 수 없습니다. 심볼릭 링크 파일의 원본 "
+"파일을 복구하신 후에 다시 업그레이드 하시기 바랍니다.\n"
+"\n"
+
+#: ../upgrade.py:229
+msgid "Finding"
+msgstr "검색 중"
+
+#: ../upgrade.py:230
+msgid "Finding packages to upgrade..."
+msgstr "업그레이드할 패키지를 검색하고 있습니다..."
+
+#: ../upgrade.py:253
+msgid "Rebuild of RPM database failed. You may be out of disk space?"
+msgstr ""
+"RPM 데이터베이스를 재구축하는데 실패했습니다. 드라이브 공간의 부족으로 인한 "
+"것 같습니다."
+
+#: ../upgrade.py:267
+msgid "An error occured when finding the packages to upgrade."
+msgstr "업그레이드할 패키지를 검색하는 도중 오류가 발생되었습니다."
+
+#: ../iw/xconfig_gui.py:15 ../textw/xconfig_text.py:462 ../xf86config.py:839
+msgid "Video Card"
+msgstr "비디오 카드"
+
+#: ../iw/xconfig_gui.py:17 ../xf86config.py:841
+msgid "Video Ram"
+msgstr "비디오 램"
+
+#: ../xf86config.py:844
+msgid "X server"
+msgstr "X 서버"
+
+#: ../xf86config.py:847
+msgid "Unable to detect video card"
+msgstr "비디오 카드가 검색되지 않음"
+
+#: ../xserver.py:43
+msgid "Mouse Not Detected"
+msgstr "마우스가 검색되지 않음"
+
+#: ../xserver.py:44
+msgid ""
+"Your mouse was not automatically detected.  To proceed in the graphical "
+"installation mode, please proceed to the next screen and provide your mouse "
+"information. You may also use text mode installation which does not require "
+"a mouse."
+msgstr ""
+"여러분의 마우스가 자동 검색되지 않았습니다.  그래픽 설치 모드로 설치하길 원하"
+"신다면, 다음 화면으로 진행하신 후에 여러분이 사용하고 계신 마우스에 대한 정보"
+"를 입력해 주십시요. 그래픽 설치 모드 이외에 마우스를 사용하지 않는 텍스트 모"
+"드로도 설치하실 수 있습니다."
+
+#: ../xserver.py:50 ../xserver.py:51
+msgid "Use text mode"
+msgstr "텍스트 모드 사용"
+
+#: ../xserver.py:173
+msgid "Waiting for X server to start...log located in /tmp/X.log\n"
+msgstr ""
+"X 서버를 시작하는 동안 잠시 기다려 주십시요...log 파일은 /tmp/X.log 에 위치"
+"해 있습니다\n"
+
+#: ../xserver.py:194
+msgid " X server started successfully."
+msgstr " X 서버가 성공적으로 시작되었습니다."
+
+#: ../iw/account_gui.py:12
+msgid "Account Configuration"
+msgstr "계정 설정"
+
+#: ../iw/account_gui.py:35
+msgid "Root password accepted."
+msgstr "루트 패스워드가 입력되었습니다."
+
+#: ../iw/account_gui.py:40
+msgid "Root password is too short."
+msgstr "루트 패스워드가 너무 짧습니다."
+
+#: ../iw/account_gui.py:42
+msgid "Root passwords do not match."
+msgstr "루트 패스워드가 아직 입력되지 않았거나 일치하지 않습니다."
+
+#: ../iw/account_gui.py:54
+msgid "User password accepted."
+msgstr "사용자 패스워드가 입력되었습니다."
+
+#: ../iw/account_gui.py:59
+msgid "Root account can not be added here."
+msgstr "루트 계정은 이곳에 추가하실 수 없습니다."
+
+#: ../iw/account_gui.py:61
+msgid "Please enter user password."
+msgstr "사용자 패스워드를 입력해 주십시요."
+
+#: ../iw/account_gui.py:63
+msgid "User password is too short."
+msgstr "사용자 패스워드가 너무 짧습니다."
+
+#: ../iw/account_gui.py:65
+msgid "User passwords do not match."
+msgstr "사용자 패스워드가 아직 입력되지 않았거나 일치하지 않습니다."
+
+#: ../iw/account_gui.py:132
+#, fuzzy
+msgid "Add a New User"
+msgstr "사용자 추가"
+
+#: ../iw/account_gui.py:141 ../textw/userauth_text.py:71
+msgid "Edit User"
+msgstr "사용자 편집"
+
+#: ../iw/account_gui.py:166
+#, fuzzy
+msgid "User Name:"
+msgstr "사용자 이름"
+
+#: ../iw/account_gui.py:168
+#, fuzzy
+msgid "Full Name:"
+msgstr "실제 이름"
+
+#: ../iw/account_gui.py:170 ../loader/urls.c:345 ../textw/userauth_text.py:23
+msgid "Password:"
+msgstr "패스워드:"
+
+#: ../iw/account_gui.py:172
+#, fuzzy
+msgid "Confirm:"
+msgstr "확인: "
+
+#: ../iw/account_gui.py:175
+#, fuzzy
+msgid "Please enter user name"
+msgstr "사용자 패스워드를 입력해 주십시요."
+
+#: ../iw/account_gui.py:256
+#, fuzzy
+msgid "Please enter a password for the root user."
+msgstr "루트 패스워드를 입력해 주십시요."
+
+#: ../iw/account_gui.py:269
+msgid "Root Password: "
+msgstr "루트 패스워드: "
+
+#: ../iw/account_gui.py:272
+msgid "Confirm: "
+msgstr "확인: "
+
+#: ../iw/account_gui.py:306
+msgid "Account Name"
+msgstr "계정 이름 (ID)"
+
+#: ../iw/account_gui.py:306 ../textw/userauth_text.py:82
+#: ../textw/userauth_text.py:183
+msgid "Full Name"
+msgstr "실제 이름"
+
+#: ../iw/account_gui.py:313 ../libfdisk/newtfsedit.c:1486
+#: ../textw/userauth_text.py:197
+msgid "Add"
+msgstr "추가"
+
+#: ../iw/account_gui.py:315 ../iw/partition_gui.py:1234
+#: ../libfdisk/newtfsedit.c:1479 ../libfdisk/newtfsedit.c:1487
+#: ../textw/fdisk_text.py:40 ../textw/lilo_text.py:197
+#: ../textw/partition_text.py:776 ../textw/silo_text.py:205
+#: ../textw/silo_text.py:227 ../textw/userauth_text.py:198
+msgid "Edit"
+msgstr "편집"
+
+#: ../iw/account_gui.py:318 ../iw/partition_gui.py:1235
+#: ../libfdisk/newtfsedit.c:1487 ../textw/userauth_text.py:197
+msgid "Delete"
+msgstr "삭제"
+
+#: ../iw/account_gui.py:340
+msgid ""
+"Additional accounts can be created for users that need to access the "
+"system.  Please enter user accounts here."
+msgstr ""
+
+#: ../iw/auth_gui.py:8 ../textw/userauth_text.py:298
+msgid "Authentication Configuration"
+msgstr "인증 설정"
+
+#: ../iw/auth_gui.py:84
+msgid "Enable MD5 passwords"
+msgstr "MD5 패스워드 사용"
+
+#: ../iw/auth_gui.py:85
+msgid "Enable shadow passwords"
+msgstr "섀도우 패스워드 사용"
+
+#: ../iw/auth_gui.py:88 ../textw/userauth_text.py:307
+msgid "Enable NIS"
+msgstr "NIS 사용"
+
+#: ../iw/auth_gui.py:89
+msgid "Use broadcast to find NIS server"
+msgstr "NIS 서버를 찾기 위해 브로드캐스트 사용"
+
+#: ../iw/auth_gui.py:101
+msgid "NIS Domain: "
+msgstr "NIS 도메인: "
+
+#: ../iw/auth_gui.py:103
+msgid "NIS Server: "
+msgstr "NIS 서버: "
+
+#: ../iw/auth_gui.py:126 ../textw/userauth_text.py:341
+msgid "Enable LDAP"
+msgstr "LDAP 사용"
+
+#: ../iw/auth_gui.py:129
+msgid "Use TLS lookups"
+msgstr "TLS 검사 사용"
+
+#: ../iw/auth_gui.py:130 ../textw/userauth_text.py:347
+msgid "LDAP Server:"
+msgstr "LDAP 서버:"
+
+#: ../iw/auth_gui.py:132 ../textw/userauth_text.py:349
+msgid "LDAP Base DN:"
+msgstr "DN 기반의 LDAP:"
+
+#: ../iw/auth_gui.py:159 ../textw/userauth_text.py:370
+msgid "Enable Kerberos"
+msgstr "Kerberos 사용"
+
+#: ../iw/auth_gui.py:163 ../textw/userauth_text.py:377
+msgid "Realm:"
+msgstr "구성영역:"
+
+#: ../iw/auth_gui.py:165 ../textw/userauth_text.py:379
+msgid "KDC:"
+msgstr "KDC:"
+
+#: ../iw/auth_gui.py:167 ../textw/userauth_text.py:381
+msgid "Admin Server:"
+msgstr "관리 서버:"
+
+#: ../iw/auth_gui.py:195
+#, fuzzy
+msgid "Enable Samba Authentication"
+msgstr "인증 관련"
+
+#: ../iw/auth_gui.py:198
+#, fuzzy
+msgid "Samba Server:"
+msgstr "SMB(삼바) 서버"
+
+#: ../iw/auth_gui.py:200
+msgid "Samba Workgroup:"
+msgstr ""
+
+#: ../iw/auth_gui.py:227
+msgid "NIS"
+msgstr ""
+
+#: ../iw/auth_gui.py:228
+msgid "LDAP"
+msgstr ""
+
+#: ../iw/auth_gui.py:229
+#, fuzzy
+msgid "Kerberos 5"
+msgstr "Kerberos 사용"
+
+#: ../iw/auth_gui.py:230
+#, fuzzy
+msgid "Samba"
+msgstr "Svalbard"
+
+#: ../iw/bootdisk_gui.py:10
+msgid "Bootdisk Creation"
+msgstr "부팅 디스켓 제작"
+
+#: ../iw/bootdisk_gui.py:44
+msgid ""
+"Please remove the install floppy (if used) and insert a blank floppy in the "
+"first floppy drive. All data on this disk will be erased during creation of "
+"the boot disk."
+msgstr ""
+"설치 디스켓을 사용하셨다면, 플로피 드라이브 안의 설치 디스켓을 제거하시고, "
+"빈 디스켓을 넣어 주십시요. 디스켓 안의 모든 자료는 삭제되므로 주의하시기 바랍"
+"니다."
+
+#: ../iw/bootdisk_gui.py:49 ../textw/bootdisk_text.py:73
+msgid ""
+"An error occured while making the boot disk. Please make sure that there is "
+"a formatted floppy in the first floppy drive."
+msgstr ""
+"부팅 디스켓을 만드는 동안 오류가 발생되었습니다. 첫번째 플로피 드라이브에 포"
+"맷된 디스켓이 있는지 확인해 주십시요."
+
+#: ../iw/bootdisk_gui.py:56
+msgid "Skip boot disk creation"
+msgstr "부팅 디스켓을 만들지 않음"
+
+#: ../iw/confirm_gui.py:43
+msgid "About to Install"
 msgstr "설치 시작"
 
-#: ../iw/confirm_gui.py:64 ../text.py:528
+#: ../iw/confirm_gui.py:48
+msgid "Click next to begin installation of Red Hat Linux."
+msgstr "레드햇 리눅스를 설치하시려면, [다음] 버튼을 클릭하십시요."
+
+#: ../iw/confirm_gui.py:49 ../textw/confirm_text.py:8
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -619,31 +1064,27 @@ msgstr ""
 "설치에 관련된 기록 내용은 '/tmp/install.log' 파일에 안에 저장됩니다. 추후에 "
 "참고하실 경우를 대비하여 잘 보관해 두시기 바랍니다."
 
-#: ../text.py:539
-msgid "Upgrade to begin"
+#: ../iw/confirm_gui.py:54
+msgid "About to Upgrade"
 msgstr "업그레이드 시작"
 
-#: ../iw/confirm_gui.py:60 ../text.py:540
+#: ../iw/confirm_gui.py:59
+msgid "Click next to begin upgrade of Red Hat Linux."
+msgstr "레드햇 리눅스를 업그레이드 하시려면, [다음] 버튼을 클릭하십시요."
+
+#: ../iw/confirm_gui.py:60 ../textw/confirm_text.py:20
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"업그레이드에 관련된 기록 내용은 '/tmp/install.log' 파일에 안에 저장됩니다. "
-"추후에 참고하실 경우를 대비하여 잘 보관해 두시기 바랍니다."
+"업그레이드에 관련된 기록 내용은 '/tmp/install.log' 파일에 안에 저장됩니다. 추"
+"후에 참고하실 경우를 대비하여 잘 보관해 두시기 바랍니다."
 
-#: ../text.py:560
-msgid ""
-"                              <Return> to reboot                             "
-" "
-msgstr ""
-"                   재부팅 하시려면, [엔터] 키를 누르십시요.                  "
-"  "
+#: ../iw/congrats_gui.py:8 ../iw/congrats_gui.py:60
+msgid "Congratulations"
+msgstr "축하합니다"
 
-#: ../text.py:562 ../text.py:585
-msgid "Complete"
-msgstr "완료"
-
-#: ../iw/congrats_gui.py:34 ../text.py:563
+#: ../iw/congrats_gui.py:34 ../textw/complete_text.py:12
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -657,731 +1098,12 @@ msgid ""
 msgstr ""
 "축하합니다, 설치가 완료되었습니다.\n"
 "\n"
-"[엔터] 키를 누르시면, 시스템을 재부팅 합니다. 시스템을 재부팅 하시기 전에 "
-"부팅 디스켓과 CD를 시스템에서 제거해 주십시요. 이번 레드햇 리눅스 버전에서 "
-"수정된 사항은 http://www.redhat.com/errata 를 통해 확인하실 수 있습니다.\n"
+"[엔터] 키를 누르시면, 시스템을 재부팅 합니다. 시스템을 재부팅 하시기 전에 부"
+"팅 디스켓과 CD를 시스템에서 제거해 주십시요. 이번 레드햇 리눅스 버전에서 수정"
+"된 사항은 http://www.redhat.com/errata 를 통해 확인하실 수 있습니다.\n"
 "\n"
 "레드햇 리눅스의 사용법 및 설정에 관련된 내용은 레드햇 리눅스 안내서를 참고해 "
 "주십시요."
-
-#: ../text.py:581
-msgid ""
-"                                <Return> to exit                             "
-" "
-msgstr ""
-"                    종료하시려면, [엔터] 키를 누르십시요.                    "
-"  "
-
-#: ../text.py:586
-msgid ""
-"Congratulations, configuration is complete.\n"
-"\n"
-" For information on fixes which are available for this release of Red Hat "
-"Linux, consult the Errata available from http://www.redhat.com.\n"
-"\n"
-"Information on further configuring your system is available at "
-"http://www.redhat.com/support/manuals/"
-msgstr ""
-"축하합니다, 설정이 완료되었습니다.\n"
-"\n"
-"이번 레드햇 리눅스 버전에서 수정된 사항은 http://www.redhat.com 홈페이지의 "
-"Errata를 통해 확인하실 수 있습니다.\n"
-"\n"
-"시스템 설정에 관련된 자세한 내용은 http://www.redhat.com/support/manuals/ 을 "
-"참고해 주십시요."
-
-#: ../text.py:653
-msgid "Package Installation"
-msgstr "패키지 설치"
-
-#: ../text.py:655
-msgid "Name   : "
-msgstr "이름:    "
-
-#: ../text.py:656
-msgid "Size   : "
-msgstr "용량:    "
-
-#: ../text.py:657
-msgid "Summary: "
-msgstr "설명:    "
-
-#: ../text.py:683
-msgid "    Packages"
-msgstr "   패키지 수"
-
-#: ../text.py:684
-msgid "       Bytes"
-msgstr "      바이트"
-
-#: ../text.py:685
-msgid "        Time"
-msgstr "    소요시간"
-
-#: ../text.py:687
-msgid "Total    :"
-msgstr "전  체:   "
-
-#: ../text.py:694
-msgid "Completed:   "
-msgstr "완료됨:      "
-
-#: ../text.py:704
-msgid "Remaining:  "
-msgstr "남  음:     "
-
-#: ../text.py:818
-msgid "Help not available"
-msgstr "도움말 없음"
-
-#: ../text.py:819
-msgid "No help is available for this install."
-msgstr "이 설정에 관한 도움말이 없습니다."
-
-#: ../text.py:877
-msgid "Save Crash Dump"
-msgstr "오류 내용 저장"
-
-#: ../text.py:888
-msgid ""
-"An internal error occurred in the installation program. Please report this "
-"error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
-"possible. The information on this failure may be saved to a floppy disk, and "
-"will help Red Hat in fixing the problem.\n"
-"\n"
-msgstr ""
-"설치 프로그램 상의 내부 오류가 발생되었습니다. 이 오류를 가능한 빠른 "
-"시일내에 레드햇 (http://bugzilla.redhat.com 를 통해) 에 보고해 주십시요. 이 "
-"오류에 관한 내용은 디스켓에 저장되며, 저장된 오류 내용을 레드햇에 보고해 "
-"주시면, 그와같은 문제를 해결하는데 큰 도움이 됩니다.\n"
-"\n"
-
-#: ../text.py:895 ../text.py:898
-msgid "Save"
-msgstr "저장"
-
-#: ../text.py:895 ../text.py:896
-msgid "Debug"
-msgstr "디버그"
-
-#: ../text.py:906
-msgid " "
-msgstr " "
-
-#: ../text.py:910
-msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
-msgstr "레드햇 리눅스 (C) 2001 레드햇 사."
-
-#: ../text.py:913
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
-
-#: ../text.py:915
-msgid ""
-"  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
-"screen"
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
-
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:948
-#: ../text.py:977
-msgid "Welcome"
-msgstr "레드햇 리눅스"
-
-#: ../text.py:952 ../text.py:1026
-msgid "Hostname Setup"
-msgstr "호스트명 설정"
-
-#: ../text.py:954 ../text.py:1023
-msgid "Network Setup"
-msgstr "네트웍 설정"
-
-#: ../iw/firewall_gui.py:12 ../text.py:956 ../text.py:1028
-#: ../textw/firewall_text.py:11
-msgid "Firewall Configuration"
-msgstr "방화벽 설정"
-
-#: ../text.py:958 ../text.py:1037
-msgid "Language Default"
-msgstr "기본 언어"
-
-#: ../text.py:960 ../text.py:1040
-msgid "Time Zone Setup"
-msgstr "시간대 설정"
-
-#: ../text.py:962 ../text.py:1042 ../textw/userauth_text.py:9
-msgid "Root Password"
-msgstr "루트 패스워드"
-
-#: ../text.py:964 ../text.py:1044 ../textw/userauth_text.py:172
-msgid "User Account Setup"
-msgstr "사용자 계정 설정"
-
-#: ../text.py:966 ../text.py:1046
-msgid "Authentication"
-msgstr "인증 관련"
-
-#: ../text.py:968
-msgid "Configuration Complete"
-msgstr "설정 완료"
-
-#: ../text.py:986 ../textw/silo_text.py:28 ../textw/silo_text.py:101
-#: ../textw/silo_text.py:213
-msgid "SILO Configuration"
-msgstr "SILO 설정"
-
-#: ../text.py:992 ../textw/lilo_text.py:36 ../textw/lilo_text.py:107
-#: ../textw/lilo_text.py:234
-msgid "LILO Configuration"
-msgstr "LILO 설정"
-
-#: ../text.py:999
-msgid "Automatic Partition"
-msgstr "자동 파티션 설정"
-
-#: ../iw/lilo_gui.py:225 ../iw/lilo_gui.py:388 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:130 ../text.py:1001
-#: ../text.py:1005 ../textw/upgrade_text.py:56
-msgid "Partition"
-msgstr "파티션"
-
-#: ../text.py:1003
-msgid "Manually Partition"
-msgstr "수동 파티션 설정"
-
-#: ../text.py:1007 ../textw/partitioning_text.py:335
-msgid "Root Filesystem Size"
-msgstr "루트 파일시스템 용량"
-
-#: ../text.py:1009
-msgid "Swap"
-msgstr "스왑"
-
-#: ../text.py:1011 ../textw/partitioning_text.py:392
-#: ../textw/partitioning_text.py:412
-msgid "Boot Partition Warning"
-msgstr "부트 파티션 경고"
-
-#: ../text.py:1013
-msgid "Filesystem Formatting"
-msgstr "파일시스템 포맷"
-
-#: ../iw/mouse_gui.py:56 ../text.py:1030 ../text.py:1032
-msgid "Mouse Configuration"
-msgstr "마우스 설정"
-
-#: ../text.py:1048
-msgid "Package Groups"
-msgstr "패키지 그룹"
-
-#: ../text.py:1050 ../text.py:1079
-msgid "Individual Packages"
-msgstr "개별 패키지"
-
-#: ../text.py:1052 ../text.py:1080 ../textw/packages_text.py:304
-msgid "Package Dependencies"
-msgstr "패키지간의 의존성"
-
-#: ../iw/xconfig_gui.py:846 ../text.py:1054 ../text.py:1062
-msgid "X Configuration"
-msgstr "X 윈도우 시스템 설정"
-
-#: ../text.py:1056
-msgid "Installation Begins"
-msgstr "설치 시작"
-
-#: ../text.py:1058
-msgid "Install System"
-msgstr "시스템 설치"
-
-#: ../text.py:1059 ../text.py:1061 ../text.py:1085 ../text.py:1087
-msgid "Boot Disk"
-msgstr "부팅 디스켓"
-
-#: ../text.py:1064
-msgid "Installation Complete"
-msgstr "설치 완료"
-
-#: ../text.py:1069
-msgid "Examine System"
-msgstr "시스템 검사"
-
-#: ../text.py:1070
-msgid "System Swap Space"
-msgstr "시스템 스왑 공간"
-
-#: ../text.py:1077
-msgid "Customize Upgrade"
-msgstr "사용자 설정 업그레이드"
-
-#: ../text.py:1082
-msgid "Upgrade Begins"
-msgstr "업그레이드 시작"
-
-#: ../text.py:1084
-msgid "Upgrade System"
-msgstr "시스템 업그레이드"
-
-#: ../text.py:1088
-msgid "Upgrade Complete"
-msgstr "업그레이드 완료"
-
-#: ../text.py:1135
-msgid "Cancelled"
-msgstr "취소됨"
-
-#: ../text.py:1136
-msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "이전 화면으로 되돌아 갈 수 없습니다. 다시한번 확인해 주십시요."
-
-#: ../todo.py:740
-msgid "Creating boot disk..."
-msgstr "부팅 디스켓을 만들고 있습니다..."
-
-#: ../todo.py:759
-msgid "Reading"
-msgstr "읽는 중"
-
-#: ../todo.py:760
-msgid "Reading package information..."
-msgstr "패키지에 대한 정보를 읽고 있습니다..."
-
-#: ../todo.py:1057
-msgid "Dependency Check"
-msgstr "의존성 검사"
-
-#: ../todo.py:1058
-msgid "Checking dependencies in packages selected for installation..."
-msgstr "설치될 패키지의 의존성을 검사하고 있습니다..."
-
-#: ../todo.py:1092 ../todo.py:1136 ../todo.py:1145 ../todo.py:1171
-#: ../todo.py:1302
-msgid "no suggestion"
-msgstr "관련된 내용 없음"
-
-#: ../todo.py:1188 ../upgrade.py:99
-msgid "Dirty Filesystems"
-msgstr "파일시스템 오류"
-
-#: ../todo.py:1189
-msgid ""
-"One or more of the filesystems listed in the /etc/fstab on your Linux system "
-"cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr ""
-"여러분 시스템의 '/etc/fstab' 파일에 나열되어 있는 파일시스템을 마운트할 수 "
-"없습니다. 이 문제를 해결하신 후에 업그레이드 하시기 바랍니다."
-
-#: ../todo.py:1204
-msgid ""
-"The following files are absolute symbolic links, which we do not support "
-"during an upgrade. Please change them to relative symbolic links and restart "
-"the upgrade.\n"
-"\n"
-msgstr ""
-"다음의 파일은 특정 파일에 연결되어있지 않은 독립된 심볼릭 링크 파일입니다. "
-"독립된 심볼릭 링크 파일은 업그레이드 하실 수 없습니다. 심볼릭 링크 파일의 "
-"원본 파일을 복구하신 후에 다시 업그레이드 하시기 바랍니다.\n"
-"\n"
-
-#: ../todo.py:1224
-msgid "Finding"
-msgstr "검색 중"
-
-#: ../todo.py:1225
-msgid "Finding packages to upgrade..."
-msgstr "업그레이드할 패키지를 검색하고 있습니다..."
-
-#: ../todo.py:1240
-msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr ""
-"RPM 데이터베이스를 재구축하는데 실패했습니다. 드라이브 공간의 부족으로 인한 "
-"것 같습니다."
-
-#: ../todo.py:1253
-msgid "An error occured when finding the packages to upgrade."
-msgstr "업그레이드할 패키지를 검색하는 도중 오류가 발생되었습니다."
-
-#: ../todo.py:1538
-msgid "Processing"
-msgstr "진행 중"
-
-#: ../todo.py:1539
-msgid "Preparing to install..."
-msgstr "설치를 위한 준비를 하고 있습니다..."
-
-#: ../todo.py:1573
-#, c-format
-msgid ""
-"The file %s cannot be opened. This is due to a missing file, a bad package, "
-"or bad media. Press <return> to try again."
-msgstr ""
-"%s 파일을 열 수 없습니다. 파일이 없거나, 불량 패키지, 혹은 손상된 CD인 것 "
-"같습니다. 다시 확인해 보시려면, [엔터] 키를 누르십시요."
-
-#: ../todo.py:1828
-#, c-format
-msgid "Upgrading %s.\n"
-msgstr "%s (을)를 업그레이드 합니다.\n"
-
-#: ../todo.py:1830
-#, c-format
-msgid "Installing %s.\n"
-msgstr "%s (을)를 설치합니다.\n"
-
-#: ../todo.py:1875
-msgid ""
-"You don't appear to have enough disk space to install the packages you've "
-"selected. You need more space on the following filesystems:\n"
-"\n"
-msgstr ""
-"패키지를 설치하는데 필요한 공간이 부족한 것 같습니다. 다음의 파일시스템에 "
-"충분한 공간이 확보되어야 합니다:\n"
-"\n"
-
-#: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3132
-#: ../textw/upgrade_text.py:55 ../todo.py:1878 ../todo.py:1896
-msgid "Mount Point"
-msgstr "마운트할 지점"
-
-#: ../todo.py:1878
-msgid "Space Needed"
-msgstr "공간 부족"
-
-#: ../todo.py:1893
-msgid ""
-"You don't appear to have enough file nodes to install the packages you've "
-"selected. You need more file nodes on the following filesystems:\n"
-"\n"
-msgstr ""
-"패키지를 설치하는데 필요한 파일 노드가 부족한 것 같습니다. 다음의 "
-"파일시스템에 충분한 파일 노드가 확보되어야 합니다:\n"
-"\n"
-
-#: ../todo.py:1896
-msgid "Nodes Needed"
-msgstr "노드 부족"
-
-#: ../todo.py:1902
-msgid "Disk Space"
-msgstr "드라이브 공간"
-
-#: ../todo.py:1937
-msgid "Post Install"
-msgstr "설치 후 작업"
-
-#: ../todo.py:1938
-msgid "Performing post install configuration..."
-msgstr "설치 후에 작업할 내용을 설정하고 있습니다..."
-
-#: ../todo.py:2077
-msgid ""
-"An error occured while installing the bootloader.\n"
-"\n"
-"We HIGHLY recommend you make a recovery boot floppy when prompted, otherwise "
-"you may not be able to reboot into Red Hat Linux.\n"
-"\n"
-"The error reported was:\n"
-"\n"
-msgstr ""
-"부트로더를 설치하는 도중 오류가 발생되었습니다.\n"
-"\n"
-"설치 과정에서 반드시 부팅 디스켓을 만드시기 바랍니다. 그렇지 않으면, 설치 "
-"후에 레드햇 리눅스로 부팅하실 수 없습니다.\n"
-"\n"
-"오류 내용은 다음과 같습니다:\n"
-"\n"
-
-#: ../todo.py:2083
-msgid "Bootloader Errors"
-msgstr "부트로더 오류"
-
-#: ../upgrade.py:13
-msgid "Searching"
-msgstr "검색 중"
-
-#: ../upgrade.py:14
-msgid "Searching for Red Hat Linux installations..."
-msgstr "레드햇 리눅스 설치에 필요한 사항을 검색하고 있습니다..."
-
-#: ../upgrade.py:25 ../upgrade.py:53
-#, c-format
-msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "%s 의 'ext2' 파일시스템을 마운트하는 도중 오류가 발생되었습니다: %s"
-
-#: ../upgrade.py:100
-msgid ""
-"One or more of the filesystems for your Linux system was not unmounted "
-"cleanly. Please boot your Linux installation, let the filesystems be "
-"checked, and shut down cleanly to upgrade."
-msgstr ""
-"여러분 시스템의 모든 파일시스템이 완전히 언마운트 되지 않았습니다. 기존의 "
-"리눅스 시스템으로 부팅하여 파일시스템을 검사해 보시고, 모든 것을 완전히 "
-"종료하신 후에 업그레이드 하시기 바랍니다."
-
-#: ../iw/xconfig_gui.py:12 ../xf86config.py:933
-msgid "Video Card"
-msgstr "비디오 카드"
-
-#: ../iw/xconfig_gui.py:14 ../xf86config.py:935
-msgid "Video Ram"
-msgstr "비디오 램"
-
-#: ../xf86config.py:938
-msgid "X server"
-msgstr "X 서버"
-
-#: ../xf86config.py:941
-msgid "Unable to detect video card"
-msgstr "비디오 카드가 검색되지 않음"
-
-#: ../iw/xconfig_gui.py:13 ../xf86config.py:948 ../xf86config.py:950
-msgid "Monitor"
-msgstr "모니터"
-
-#: ../xf86config.py:950
-msgid "Plug and Play Monitor"
-msgstr "플러그 앤 플래이 모니터"
-
-#: ../xf86config.py:952
-msgid "Horizontal frequency range"
-msgstr "수평 주파수 범위"
-
-#: ../xf86config.py:954
-msgid "Vertical frequency range"
-msgstr "수직 주파수 범위"
-
-#: ../xserver.py:27
-msgid "Mouse Not Detected"
-msgstr "마우스가 검색되지 않음"
-
-#: ../xserver.py:28
-msgid ""
-"Your mouse was not automatically detected.  To proceed in the graphical "
-"installation mode, please proceed to the next screen and provide your mouse "
-"information. You may also use text mode installation which does not require "
-"a mouse."
-msgstr ""
-"여러분의 마우스가 자동 검색되지 않았습니다.  그래픽 설치 모드로 설치하길 "
-"원하신다면, 다음 화면으로 진행하신 후에 여러분이 사용하고 계신 마우스에 대한 "
-"정보를 입력해 주십시요. 그래픽 설치 모드 이외에 마우스를 사용하지 않는 "
-"텍스트 모드로도 설치하실 수 있습니다."
-
-#: ../xserver.py:34 ../xserver.py:35
-msgid "Use text mode"
-msgstr "텍스트 모드 사용"
-
-#: ../xserver.py:69
-msgid "Probing for mouse type..."
-msgstr "마우스 유형을 검색하고 있습니다..."
-
-#: ../xserver.py:189
-msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr ""
-"X 서버를 시작하는 동안 잠시 기다려 주십시요...log 파일은 /tmp/X.log 에 "
-"위치해 있습니다\n"
-
-#: ../xserver.py:211
-msgid " X server started successfully."
-msgstr " X 서버가 성공적으로 시작되었습니다."
-
-#: ../iw/account_gui.py:15
-msgid "Account Configuration"
-msgstr "계정 설정"
-
-#: ../iw/account_gui.py:39
-msgid "Root password accepted."
-msgstr "루트 패스워드가 입력되었습니다."
-
-#: ../iw/account_gui.py:42
-msgid "Please enter root password."
-msgstr "루트 패스워드를 입력해 주십시요."
-
-#: ../iw/account_gui.py:44
-msgid "Root password is too short."
-msgstr "루트 패스워드가 너무 짧습니다."
-
-#: ../iw/account_gui.py:46
-msgid "Root passwords do not match."
-msgstr "루트 패스워드가 아직 입력되지 않았거나 일치하지 않습니다."
-
-#: ../iw/account_gui.py:59
-msgid "User password accepted."
-msgstr "사용자 패스워드가 입력되었습니다."
-
-#: ../iw/account_gui.py:64
-msgid "Root account can not be added here."
-msgstr "루트 계정은 이곳에 추가하실 수 없습니다."
-
-#: ../iw/account_gui.py:66
-msgid "Please enter user password."
-msgstr "사용자 패스워드를 입력해 주십시요."
-
-#: ../iw/account_gui.py:68
-msgid "User password is too short."
-msgstr "사용자 패스워드가 너무 짧습니다."
-
-#: ../iw/account_gui.py:70
-msgid "User passwords do not match."
-msgstr "사용자 패스워드가 아직 입력되지 않았거나 일치하지 않습니다."
-
-#: ../iw/account_gui.py:192
-msgid "Root Password: "
-msgstr "루트 패스워드: "
-
-#: ../iw/account_gui.py:195
-msgid "Confirm: "
-msgstr "확인: "
-
-#: ../iw/account_gui.py:256 ../iw/account_gui.py:305
-msgid "Account Name"
-msgstr "계정 이름 (ID)"
-
-#: ../iw/account_gui.py:260 ../textw/userauth_text.py:81
-msgid "Password"
-msgstr "패스워드"
-
-#: ../iw/account_gui.py:264 ../textw/userauth_text.py:82
-msgid "Password (confirm)"
-msgstr "패스워드 (확인)"
-
-#: ../iw/account_gui.py:275 ../iw/account_gui.py:305
-#: ../textw/userauth_text.py:83 ../textw/userauth_text.py:184
-msgid "Full Name"
-msgstr "실제 이름"
-
-#: ../iw/account_gui.py:284 ../libfdisk/newtfsedit.c:1486
-#: ../textw/userauth_text.py:198
-msgid "Add"
-msgstr "추가"
-
-#: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1479
-#: ../libfdisk/newtfsedit.c:1487 ../textw/lilo_text.py:225
-#: ../textw/partitioning_text.py:65 ../textw/silo_text.py:205
-#: ../textw/silo_text.py:227 ../textw/userauth_text.py:199
-msgid "Edit"
-msgstr "편집"
-
-#: ../iw/account_gui.py:288 ../libfdisk/newtfsedit.c:1487
-#: ../textw/userauth_text.py:198
-msgid "Delete"
-msgstr "삭제"
-
-#: ../iw/account_gui.py:290
-msgid "New"
-msgstr "새로 생성"
-
-#: ../iw/auth_gui.py:11 ../textw/userauth_text.py:299
-msgid "Authentication Configuration"
-msgstr "인증 설정"
-
-#: ../iw/auth_gui.py:78
-msgid "Enable MD5 passwords"
-msgstr "MD5 패스워드 사용"
-
-#: ../iw/auth_gui.py:79
-msgid "Enable shadow passwords"
-msgstr "섀도우 패스워드 사용"
-
-#: ../iw/auth_gui.py:82 ../textw/userauth_text.py:308
-msgid "Enable NIS"
-msgstr "NIS 사용"
-
-#: ../iw/auth_gui.py:83
-msgid "Use broadcast to find NIS server"
-msgstr "NIS 서버를 찾기 위해 브로드캐스트 사용"
-
-#: ../iw/auth_gui.py:95
-msgid "NIS Domain: "
-msgstr "NIS 도메인: "
-
-#: ../iw/auth_gui.py:97
-msgid "NIS Server: "
-msgstr "NIS 서버: "
-
-#: ../iw/auth_gui.py:136 ../textw/userauth_text.py:342
-msgid "Enable LDAP"
-msgstr "LDAP 사용"
-
-#: ../iw/auth_gui.py:139
-msgid "Use TLS lookups"
-msgstr "TLS 검사 사용"
-
-#: ../iw/auth_gui.py:140 ../textw/userauth_text.py:348
-msgid "LDAP Server:"
-msgstr "LDAP 서버:"
-
-#: ../iw/auth_gui.py:142 ../textw/userauth_text.py:350
-msgid "LDAP Base DN:"
-msgstr "DN 기반의 LDAP:"
-
-#: ../iw/auth_gui.py:173 ../textw/userauth_text.py:371
-msgid "Enable Kerberos"
-msgstr "Kerberos 사용"
-
-#: ../iw/auth_gui.py:177 ../textw/userauth_text.py:378
-msgid "Realm:"
-msgstr "구성영역:"
-
-#: ../iw/auth_gui.py:179 ../textw/userauth_text.py:380
-msgid "KDC:"
-msgstr "KDC:"
-
-#: ../iw/auth_gui.py:181 ../textw/userauth_text.py:382
-msgid "Admin Server:"
-msgstr "관리 서버:"
-
-#: ../iw/bootdisk_gui.py:11
-msgid "Bootdisk Creation"
-msgstr "부팅 디스켓 제작"
-
-#: ../iw/bootdisk_gui.py:58
-msgid ""
-"Please remove the install floppy (if used) and insert a blank floppy in the "
-"first floppy drive. All data on this disk will be erased during creation of "
-"the boot disk."
-msgstr ""
-"설치 디스켓을 사용하셨다면, 플로피 드라이브 안의 설치 디스켓을 제거하시고, "
-"빈 디스켓을 넣어 주십시요. 디스켓 안의 모든 자료는 삭제되므로 주의하시기 "
-"바랍니다."
-
-#: ../iw/bootdisk_gui.py:62 ../textw/bootdisk_text.py:70
-msgid ""
-"An error occured while making the boot disk. Please make sure that there is "
-"a formatted floppy in the first floppy drive."
-msgstr ""
-"부팅 디스켓을 만드는 동안 오류가 발생되었습니다. 첫번째 플로피 드라이브에 "
-"포맷된 디스켓이 있는지 확인해 주십시요."
-
-#: ../iw/bootdisk_gui.py:69
-msgid "Skip boot disk creation"
-msgstr "부팅 디스켓을 만들지 않음"
-
-#: ../iw/confirm_gui.py:15
-msgid "About to Upgrade"
-msgstr "업그레이드 시작"
-
-#: ../iw/confirm_gui.py:18
-msgid "About to Install"
-msgstr "설치 시작"
-
-#: ../iw/confirm_gui.py:35 ../iw/lilo_gui.py:59 ../iw/package_gui.py:61
-#: ../iw/upgrade_swap_gui.py:34
-msgid "Aborting upgrade"
-msgstr "업그레이드 설치를 취소합니다."
-
-#: ../iw/confirm_gui.py:53
-msgid "Click next to begin upgrade of Red Hat Linux."
-msgstr "레드햇 리눅스를 업그레이드 하시려면, [다음] 버튼을 클릭하십시요."
-
-#: ../iw/confirm_gui.py:55
-msgid "Click next to begin installation of Red Hat Linux."
-msgstr "레드햇 리눅스를 설치하시려면, [다음] 버튼을 클릭하십시요."
-
-#: ../iw/congrats_gui.py:11 ../iw/congrats_gui.py:60
-msgid "Congratulations"
-msgstr "축하합니다"
 
 #: ../iw/congrats_gui.py:83
 msgid ""
@@ -1401,179 +1123,173 @@ msgstr ""
 "시스템 설정에 관련된 자세한 내용은 http://www.redhat.com/support/manuals/ 의 "
 "공식 레드햇 리눅스 설명서를 참고해 주십시요."
 
-#: ../iw/dependencies_gui.py:9
+#: ../iw/dependencies_gui.py:7
 msgid "Unresolved Dependencies"
 msgstr "패키지간의 의존성 문제"
 
-#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:544
-#: ../textw/packages_text.py:12 ../textw/packages_text.py:275
+#: ../iw/dependencies_gui.py:19 ../iw/package_gui.py:514
+#: ../textw/packages_text.py:12 ../textw/packages_text.py:258
 #, c-format
 msgid "Total install size: %s"
 msgstr "총 설치 용량: %s"
 
-#: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:400
-#: ../iw/progress_gui.py:209 ../textw/packages_text.py:312
+#: ../iw/dependencies_gui.py:51 ../iw/package_gui.py:420
+#: ../iw/progress_gui.py:179 ../textw/packages_text.py:289
 msgid "Package"
 msgstr "패키지"
 
-#: ../iw/dependencies_gui.py:69 ../textw/packages_text.py:312
+#: ../iw/dependencies_gui.py:51 ../textw/packages_text.py:289
 msgid "Requirement"
 msgstr "필요한 패키지"
 
-#: ../iw/dependencies_gui.py:87 ../textw/packages_text.py:327
+#: ../iw/dependencies_gui.py:68 ../textw/packages_text.py:304
 msgid "Install packages to satisfy dependencies"
 msgstr "의존성 문제를 해결하기 위한 패키지 설치"
 
-#: ../iw/dependencies_gui.py:90 ../textw/packages_text.py:328
+#: ../iw/dependencies_gui.py:71 ../textw/packages_text.py:305
 msgid "Do not install packages that have dependencies"
 msgstr "의존 관계에 있는 패키지를 설치하지 않음"
 
-#: ../iw/dependencies_gui.py:94 ../textw/packages_text.py:329
+#: ../iw/dependencies_gui.py:75 ../textw/packages_text.py:306
 msgid "Ignore package dependencies"
 msgstr "패키지가 갖는 의존성 무시"
 
-#: ../iw/examine_gui.py:10
+#: ../iw/examine_gui.py:11
 msgid "Upgrade Examine"
 msgstr "업그레이드 검사"
 
-#: ../iw/examine_gui.py:45
+#: ../iw/examine_gui.py:38
+#, fuzzy
 msgid ""
 "You don't have any Linux partitions.\n"
-" You can't upgrade this sytem!"
+"You can't upgrade this sytem!"
 msgstr ""
 "리눅스 파티션이 존재하지 않습니다.\n"
 " 이 시스템을 업그레이드 하실 수 없습니다!"
 
-#: ../iw/examine_gui.py:54
+#: ../iw/examine_gui.py:48
 msgid "Please select the device containing the root filesystem: "
 msgstr "루트 파일시스템이 있는 장치를 선택해 주십시요: "
 
-#: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
+#: ../iw/examine_gui.py:76 ../textw/upgrade_text.py:149
 #, c-format
 msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr "다음의 파티션을 업그레이드 하고 있습니다: /dev/%s"
 
-#: ../iw/examine_gui.py:85
+#: ../iw/examine_gui.py:82
 msgid "Customize packages to be upgraded"
 msgstr "업그레이드할 패키지 선택"
 
-#: ../iw/fdisk_gui.py:12 ../textw/partitioning_text.py:23
+#: ../iw/fdisk_gui.py:12 ../textw/partmethod_text.py:36
 msgid "fdisk"
 msgstr "fdisk"
 
-#: ../iw/fdisk_gui.py:105
+#: ../iw/fdisk_gui.py:75
 msgid "Select drive to run fdisk on"
 msgstr "파티션할 드라이브를 선택해 주십시요."
 
-#: ../iw/firewall_gui.py:117
+#: ../iw/firewall_gui.py:9 ../textw/firewall_text.py:25
+msgid "Firewall Configuration"
+msgstr "방화벽 설정"
+
+#: ../iw/firewall_gui.py:115
 msgid "Warning: "
 msgstr "경고: "
 
-#: ../iw/firewall_gui.py:117
+#: ../iw/firewall_gui.py:115
 msgid " is an invalid port."
 msgstr " 은 잘못된 포트입니다."
 
-#: ../iw/firewall_gui.py:120
+#: ../iw/firewall_gui.py:118
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
 msgstr "형식은 'port:protocol' 입니다.  예) '1234:udp'"
 
-#: ../iw/firewall_gui.py:204
+#: ../iw/firewall_gui.py:205
 msgid "Please choose your security level:  "
 msgstr "보안 수준을 선택해 주십시요:  "
 
-#: ../iw/firewall_gui.py:213 ../textw/firewall_text.py:33
+#: ../iw/firewall_gui.py:214 ../textw/firewall_text.py:47
 msgid "High"
 msgstr "최상위 수준"
 
-#: ../iw/firewall_gui.py:214 ../textw/firewall_text.py:36
+#: ../iw/firewall_gui.py:215 ../textw/firewall_text.py:50
 msgid "Medium"
 msgstr "중간 수준"
 
-#: ../iw/firewall_gui.py:215 ../textw/firewall_text.py:39
+#: ../iw/firewall_gui.py:216 ../textw/firewall_text.py:53
 msgid "No firewall"
 msgstr "방화벽을 사용하지 않음"
 
-#: ../iw/firewall_gui.py:231
+#: ../iw/firewall_gui.py:232
 msgid "Use default firewall rules"
 msgstr "기본적인 방화벽 방침 사용"
 
-#: ../iw/firewall_gui.py:232 ../textw/firewall_text.py:9
+#: ../iw/firewall_gui.py:233 ../textw/firewall_text.py:23
 msgid "Customize"
 msgstr "사용자 설정"
 
-#: ../iw/firewall_gui.py:245
+#: ../iw/firewall_gui.py:246
 msgid "Trusted devices:"
 msgstr "신뢰하는 장치:"
 
-#: ../iw/firewall_gui.py:270 ../textw/firewall_text.py:79
+#: ../iw/firewall_gui.py:271 ../textw/firewall_text.py:90
 msgid "Allow incoming:"
 msgstr "허용할 서비스:"
 
-#: ../iw/firewall_gui.py:299
+#: ../iw/firewall_gui.py:300
 msgid "Other ports:"
 msgstr "그 외의 포트:"
 
-#: ../iw/format_gui.py:14
+#: ../iw/format_gui.py:25
 msgid "Choose partitions to Format"
 msgstr "포맷할 파티션 선택"
 
-#: ../iw/format_gui.py:61
-msgid "Check for bad blocks while formatting"
-msgstr "포맷시에 불량 섹터 검사"
-
-#: ../iw/installpath_gui.py:99
+#: ../iw/installpath_gui.py:22
 msgid "Install Type"
 msgstr "설치 유형"
 
-#: ../iw/installpath_gui.py:182
-msgid "Install"
-msgstr "설치"
-
-#: ../iw/installpath_gui.py:184
-msgid "Upgrade"
-msgstr "업그레이드"
-
-#: ../iw/keyboard_gui.py:16
+#: ../iw/keyboard_gui.py:21
 msgid "Keyboard Configuration"
 msgstr "키보드 설정"
 
-#: ../iw/keyboard_gui.py:87
+#: ../iw/keyboard_gui.py:97
+#, fuzzy
+msgid "Which model keyboard is attached to the computer?"
+msgstr "사용하고 계신 키보드 모델을 선택해 주십시요."
+
+#: ../iw/keyboard_gui.py:106
 msgid "Model"
 msgstr "모델"
 
-#: ../iw/keyboard_gui.py:107
+#: ../iw/keyboard_gui.py:126
 msgid "Layout"
 msgstr "자판 배열"
 
-#: ../iw/keyboard_gui.py:127
+#: ../iw/keyboard_gui.py:146
 msgid "Dead Keys"
 msgstr "Dead Keys"
 
-#: ../iw/keyboard_gui.py:137
+#: ../iw/keyboard_gui.py:156
 msgid "Enable dead keys"
 msgstr "Dead Keys"
 
-#: ../iw/keyboard_gui.py:138
+#: ../iw/keyboard_gui.py:157
 msgid "Disable dead keys"
 msgstr "dead keys를 사용하지 않음"
 
-#: ../iw/keyboard_gui.py:151
+#: ../iw/keyboard_gui.py:170
 msgid "Test your selection here:"
 msgstr "이곳에서 테스트해 보십시요:"
 
-#: ../iw/language_gui.py:39 ../loader/lang.c:292
-msgid "What language should be used during the installation process?"
+#: ../iw/language_gui.py:38 ../textw/language_text.py:28
+msgid "What language would you like to use during the installation process?"
 msgstr "설치 과정 동안에 사용하실 언어를 선택해 주십시요."
 
-#: ../iw/language_support_gui.py:144
+#: ../iw/language_support_gui.py:140
 msgid "Choose the default language:   "
 msgstr "기본 언어 선택:  "
 
-#: ../iw/language_support_gui.py:155
-msgid "Currently installed languages:"
-msgstr "현재 설치될 언어:"
-
-#: ../iw/language_support_gui.py:157
+#: ../iw/language_support_gui.py:156
 msgid "Choose the languages to install:"
 msgstr "설치할 언어 선택:"
 
@@ -1581,75 +1297,88 @@ msgstr "설치할 언어 선택:"
 msgid "Select all"
 msgstr "모두 선택"
 
+#: ../iw/language_support_gui.py:209 ../iw/partition_gui.py:1236
+#: ../textw/language_text.py:94
+msgid "Reset"
+msgstr "재설정"
+
 #: ../iw/language_support_gui.py:223
 msgid "Select as default"
 msgstr "기본 언어 선택"
 
-#: ../iw/lilo_gui.py:33
-msgid "Lilo Configuration"
-msgstr "LILO 설정"
+#: ../iw/lilo_gui.py:24 ../textw/lilo_text.py:33 ../textw/lilo_text.py:88
+#: ../textw/lilo_text.py:206
+#, fuzzy
+msgid "Bootloader Configuration"
+msgstr "모니터 설정"
 
-#: ../iw/lilo_gui.py:228 ../iw/lilo_gui.py:389 ../iw/silo_gui.py:132
-#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
+#: ../iw/lilo_gui.py:220 ../iw/lilo_gui.py:359 ../iw/silo_gui.py:127
+#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:120
+#: ../textw/upgrade_text.py:34
+msgid "Partition"
+msgstr "파티션"
+
+#: ../iw/lilo_gui.py:223 ../iw/lilo_gui.py:360 ../iw/partition_gui.py:1245
+#: ../iw/silo_gui.py:132 ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
 msgstr "유형"
 
-#: ../iw/lilo_gui.py:277
-msgid "Install LILO boot record on:"
+#: ../iw/lilo_gui.py:259
+#, fuzzy
+msgid "Install GRUB boot record on:"
 msgstr "LILO가 설치될 부트 레코드:"
 
-#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:104
-#: ../textw/silo_text.py:64
-msgid "Master Boot Record (MBR)"
-msgstr "마스터 부트 레코드 (MBR)"
+#: ../iw/lilo_gui.py:281 ../textw/lilo_text.py:25
+msgid "Use LILO bootloader (instead of Grub)"
+msgstr ""
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:105
-#: ../textw/silo_text.py:65
-msgid "First sector of boot partition"
-msgstr "부트 파티션의 첫번째 섹터"
-
-#: ../iw/lilo_gui.py:292 ../textw/lilo_text.py:27
-msgid "Use linear mode (needed for some SCSI drives)"
-msgstr "Linear 모드 사용 (몇몇 SCSI 드라이브에서 필요함)"
-
-#: ../iw/lilo_gui.py:303 ../iw/silo_gui.py:208
+#: ../iw/lilo_gui.py:286 ../iw/silo_gui.py:208
 msgid "Kernel parameters"
 msgstr "커널 매개변수"
 
-#: ../iw/lilo_gui.py:320 ../iw/silo_gui.py:226
+#: ../iw/lilo_gui.py:303 ../iw/silo_gui.py:226
 msgid "Create boot disk"
 msgstr "부팅 디스켓 제작"
 
-#: ../iw/lilo_gui.py:334
-msgid "Install LILO"
-msgstr "LILO 설치"
+#: ../iw/lilo_gui.py:309
+#, fuzzy
+msgid "Install Bootloader"
+msgstr "시스템 설치"
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:216
-#: ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:329 ../iw/silo_gui.py:257 ../textw/lilo_text.py:185
+#: ../textw/silo_text.py:196 ../textw/xconfig_text.py:366
+#: ../textw/xconfig_text.py:373 ../textw/xconfig_text.py:466
+#: ../textw/xconfig_text.py:467 ../textw/xconfig_text.py:486
+#: ../textw/xconfig_text.py:487
 msgid "Default"
 msgstr "기본부팅"
 
-#: ../iw/lilo_gui.py:361 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
-#: ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:135
-#: ../textw/lilo_text.py:216 ../textw/mouse_text.py:25
-#: ../textw/silo_text.py:131 ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:329 ../iw/mouse_gui.py:145 ../iw/partition_gui.py:1244
+#: ../iw/silo_gui.py:257 ../libfdisk/gnomefsedit.c:3133
+#: ../textw/lilo_text.py:114 ../textw/lilo_text.py:185
+#: ../textw/mouse_text.py:25 ../textw/silo_text.py:131
+#: ../textw/silo_text.py:196
 msgid "Device"
 msgstr "장치"
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:216
+#: ../iw/lilo_gui.py:330 ../iw/silo_gui.py:257 ../textw/lilo_text.py:185
 #: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "파티션 유형"
 
-#: ../iw/lilo_gui.py:361 ../iw/lilo_gui.py:400 ../iw/silo_gui.py:257
-#: ../iw/silo_gui.py:292 ../textw/lilo_text.py:136 ../textw/lilo_text.py:216
+#: ../iw/lilo_gui.py:330 ../iw/lilo_gui.py:370 ../iw/silo_gui.py:257
+#: ../iw/silo_gui.py:292 ../textw/lilo_text.py:115 ../textw/lilo_text.py:185
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
 msgstr "부팅할 이름"
 
-#: ../iw/lilo_gui.py:396 ../iw/silo_gui.py:288
+#: ../iw/lilo_gui.py:367 ../iw/silo_gui.py:288
 msgid "Default boot image"
 msgstr "기본 부트 이미지"
+
+#: ../iw/mouse_gui.py:13
+msgid "Mouse Configuration"
+msgstr "마우스 설정"
 
 #: ../iw/mouse_gui.py:134 ../textw/mouse_text.py:7
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -1675,390 +1404,426 @@ msgstr "3-버튼 마우스처럼 사용"
 msgid "Port"
 msgstr "포트"
 
-#: ../iw/network_gui.py:11 ../textw/network_text.py:104
+#: ../iw/mouse_gui.py:216
+#, fuzzy
+msgid "Which model mouse is attached to the computer?"
+msgstr "사용하고 계신 마우스 모델을 선택해 주십시요."
+
+#: ../iw/network_gui.py:8 ../textw/network_text.py:102
 msgid "Network Configuration"
 msgstr "네트웍 설정"
 
-#: ../iw/network_gui.py:178
+#: ../iw/network_gui.py:184
 msgid "Configure using DHCP"
 msgstr "DHCP 사용 환경으로 설정"
 
-#: ../iw/network_gui.py:184
+#: ../iw/network_gui.py:190
 msgid "Activate on boot"
 msgstr "부팅시 활성화"
 
-#: ../iw/network_gui.py:193
+#: ../iw/network_gui.py:201
 msgid "IP Address"
 msgstr "IP 주소"
 
-#: ../iw/network_gui.py:194 ../loader/net.c:771
+#: ../iw/network_gui.py:202 ../loader/net.c:762
 msgid "Netmask"
 msgstr "넷매스크"
 
-#: ../iw/network_gui.py:195 ../loader/loader.c:276
+#: ../iw/network_gui.py:203 ../loader/loader.c:277
 msgid "Network"
 msgstr "네트웍"
 
-#: ../iw/network_gui.py:196
+#: ../iw/network_gui.py:204
 msgid "Broadcast"
 msgstr "브로드캐스트"
 
-#: ../iw/network_gui.py:248 ../loader/net.c:575 ../loader/net.c:773
-#: ../textw/network_text.py:161
+#: ../iw/network_gui.py:254 ../loader/net.c:566 ../loader/net.c:764
+#: ../textw/network_text.py:156
 msgid "Hostname"
 msgstr "호스트명"
 
-#: ../iw/network_gui.py:249
+#: ../iw/network_gui.py:255
 msgid "Gateway"
 msgstr "게이트웨이"
 
-#: ../iw/network_gui.py:249
+#: ../iw/network_gui.py:255
 msgid "Primary DNS"
 msgstr "1차-DNS"
 
-#: ../iw/network_gui.py:249
+#: ../iw/network_gui.py:255
 msgid "Secondary DNS"
 msgstr "2차-DNS"
 
-#: ../iw/network_gui.py:249
+#: ../iw/network_gui.py:255
 msgid "Ternary DNS"
 msgstr "3차-DNS"
 
-#: ../iw/package_gui.py:22 ../textw/upgrade_text.py:14
-#: ../textw/upgrade_text.py:133
-msgid "Proceed with upgrade?"
-msgstr "업그레이드 설치 진행"
-
-#: ../iw/package_gui.py:23 ../textw/upgrade_text.py:15
-#: ../textw/upgrade_text.py:134
-msgid ""
-"The filesystems of the Linux installation you have chosen to upgrade have "
-"already been mounted. You cannot go back past this point. \n"
-"\n"
-msgstr ""
-"여러분이 업그레이드 설치를 하기위해 선택하신 리눅스 파일시스템은 이미 "
-"마운트되어 있습니다. 지금의 상황에서는 뒤로 되돌아 가실 수 없습니다. \n"
-"\n"
-
-#: ../iw/package_gui.py:27
-msgid "Would you like to continue with the upgrade?"
-msgstr "업그레이드 설치를 하시겠습니까?"
-
-#: ../iw/package_gui.py:38
+#: ../iw/package_gui.py:29
 msgid "Individual Package Selection"
 msgstr "개별 패키지 선택"
 
-#: ../iw/package_gui.py:322
+#: ../iw/package_gui.py:273
 msgid "Total install size: "
 msgstr "총 설치 용량: "
 
-#: ../iw/package_gui.py:402
+#: ../iw/package_gui.py:349
+#, fuzzy
+msgid "All Packages"
+msgstr "패키지 수"
+
+#: ../iw/package_gui.py:406
+msgid "Tree View"
+msgstr ""
+
+#: ../iw/package_gui.py:408
+msgid "Flat View"
+msgstr ""
+
+#: ../iw/package_gui.py:422 ../iw/partition_gui.py:1245
 msgid "Size (MB)"
 msgstr "용량 (MB)"
 
-#: ../iw/package_gui.py:433
+#: ../iw/package_gui.py:453
 msgid "Total size: "
 msgstr "총 용량: "
 
-#: ../iw/package_gui.py:436
+#: ../iw/package_gui.py:456
 msgid "Select all in group"
 msgstr "그룹 안의 모든 패키지 선택"
 
-#: ../iw/package_gui.py:440
+#: ../iw/package_gui.py:460
 msgid "Unselect all in group"
 msgstr "그룹 안의 모든 패키지 해제"
 
-#: ../iw/package_gui.py:475
-msgid "File not found"
-msgstr "파일을 찾을 수 없음"
-
-#: ../iw/package_gui.py:518 ../textw/packages_text.py:60
-#: ../textw/packages_text.py:241
+#: ../iw/package_gui.py:493 ../textw/packages_text.py:45
+#: ../textw/packages_text.py:225
 msgid "Package Group Selection"
 msgstr "패키지 그룹 선택"
 
-#: ../iw/package_gui.py:578
-#, c-format
-msgid ""
-"The following error occurred while retreiving hdlist file:\n"
-"\n"
-"%s\n"
-"\n"
-"Installer will exit now."
-msgstr ""
-"hdlist 파일을 읽는 도중 다음과 같은 오류가 발생되었습니다:\n"
-"\n"
-"%s\n"
-"\n"
-"설치를 종료합니다."
-
-#: ../iw/package_gui.py:583
-msgid ""
-"An error has occurred while retreiving the hdlist file.  The installation "
-"media or image is probably corrupt.  Installer will exit now."
-msgstr ""
-"hdlist 파일을 읽는 도중 오류가 발생되었습니다.  설치 CD 또는 이미지가 손상된 "
-"것 같습니다.  설치를 종료합니다."
-
-#: ../iw/package_gui.py:649 ../textw/packages_text.py:54
+#: ../iw/package_gui.py:580 ../textw/packages_text.py:38
 msgid "Select individual packages"
 msgstr "개별 패키지 선택"
 
-#: ../iw/progress_gui.py:55
+#: ../iw/partition_gui.py:291 ../iw/partition_gui.py:312
+#: ../iw/partition_gui.py:314 ../textw/partition_text.py:153
+#: ../textw/partition_text.py:155 ../textw/partition_text.py:157
+#: ../textw/partition_text.py:179
+msgid "<Not Applicable>"
+msgstr ""
+
+#: ../iw/partition_gui.py:436 ../textw/fdisk_text.py:38
+#: ../textw/partmethod_text.py:23
+msgid "Disk Setup"
+msgstr "드라이브 설정"
+
+#: ../iw/partition_gui.py:486 ../textw/partition_text.py:61
+#: ../textw/partition_text.py:93
+#, fuzzy
+msgid "Free space"
+msgstr "여유 공간"
+
+#: ../iw/partition_gui.py:488 ../textw/partition_text.py:63
+msgid "Extended"
+msgstr ""
+
+#: ../iw/partition_gui.py:490 ../textw/partition_text.py:65
+msgid "software RAID component"
+msgstr ""
+
+#: ../iw/partition_gui.py:497 ../iw/partition_gui.py:551
+#: ../textw/partition_text.py:72 ../textw/partition_text.py:124
+#, fuzzy
+msgid "None"
+msgstr "완료"
+
+#: ../iw/partition_gui.py:499
+#, fuzzy
+msgid "Free"
+msgstr "여유 공간 (M)"
+
+#: ../iw/partition_gui.py:553 ../textw/partition_text.py:126
+#, fuzzy, c-format
+msgid "RAID Device %s"
+msgstr "RAID 장치가 지정되지 않음"
+
+#: ../iw/partition_gui.py:606
+msgid "Additional Size Options"
+msgstr ""
+
+#: ../iw/partition_gui.py:611
+msgid "Fixed size"
+msgstr ""
+
+#: ../iw/partition_gui.py:612
+msgid "Fill all space up to (MB):"
+msgstr ""
+
+#: ../iw/partition_gui.py:620
+msgid "Fill to maximum allowable size"
+msgstr ""
+
+#: ../iw/partition_gui.py:647
+#, fuzzy
+msgid "Add Partition"
+msgstr "파티션"
+
+#: ../iw/partition_gui.py:664 ../iw/partition_gui.py:1068
+#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
+#: ../libfdisk/newtfsedit.c:392 ../textw/partition_text.py:169
+msgid "Mount Point:"
+msgstr "마운트할 지점:"
+
+#: ../iw/partition_gui.py:671
+#, fuzzy
+msgid "Filesystem Type:"
+msgstr "루트 파일시스템 용량"
+
+#: ../iw/partition_gui.py:688 ../libfdisk/gnomefsedit.c:1134
+#: ../libfdisk/newtfsedit.c:527 ../textw/partition_text.py:206
+msgid "Allowable Drives:"
+msgstr "할당 가능한 드라이브:"
+
+#: ../iw/partition_gui.py:695
+#, fuzzy
+msgid "Drive:"
+msgstr "드라이브"
+
+#: ../iw/partition_gui.py:705 ../iw/partition_gui.py:740
+#: ../textw/partition_text.py:227 ../textw/partition_text.py:310
+#: ../textw/partition_text.py:426
+#, fuzzy
+msgid "Size (MB):"
+msgstr "용량 (MB)"
+
+#: ../iw/partition_gui.py:718 ../textw/partition_text.py:290
+msgid "Start Cylinder:"
+msgstr ""
+
+#: ../iw/partition_gui.py:734 ../textw/partition_text.py:303
+msgid "End Cylinder:"
+msgstr ""
+
+#: ../iw/partition_gui.py:750 ../iw/partition_gui.py:1134
+#: ../textw/partition_text.py:435 ../textw/partition_text.py:573
+#, fuzzy
+msgid "Format partition?"
+msgstr "루트 파티션"
+
+#: ../iw/partition_gui.py:775 ../textw/partition_text.py:416
+msgid "Force to be a primary partition"
+msgstr ""
+
+#: ../iw/partition_gui.py:843 ../iw/partition_gui.py:852
+#: ../iw/partition_gui.py:872 ../iw/partition_gui.py:1187
+#: ../textw/partition_text.py:510 ../textw/partition_text.py:525
+#: ../textw/partition_text.py:617
+msgid "Error With Request"
+msgstr ""
+
+#: ../iw/partition_gui.py:894 ../textw/partition_text.py:704
+#, fuzzy
+msgid "You must first select a partition"
+msgstr "부트 파티션의 첫번째 섹터"
+
+#: ../iw/partition_gui.py:907
+msgid "You cannot remove free space."
+msgstr ""
+
+#: ../iw/partition_gui.py:917 ../iw/partition_gui.py:1029
+msgid ""
+"You cannot remove this partition, as it is holding the data for the hard "
+"drive install."
+msgstr ""
+
+#: ../iw/partition_gui.py:925
+#, fuzzy
+msgid "You cannot remove this partition, as it is part of a RAID device."
+msgstr ""
+"'/' 를 RAID 장치 상에 지정하신 경우에는 '/boot' 를 삭제하실 수 없습니다.  '/"
+"boot' 를 삭제하시려면, '/' 를 RAID가 아닌 다른 장치에 지정하셔야 합니다."
+
+#: ../iw/partition_gui.py:987
+#, fuzzy
+msgid "You must first select an existing partition or free space to edit."
+msgstr ""
+"설치를 계속 진행하기 위해서는 반드시 스왑 파티션을 지정해 주셔야 합니다."
+
+#: ../iw/partition_gui.py:1014 ../textw/partition_text.py:673
+#, fuzzy
+msgid "You cannot edit partitions without a filesystem type."
+msgstr "최소한 하나의 드라이브에는 이 파티션이 포함되어야 합니다."
+
+#: ../iw/partition_gui.py:1037 ../textw/partition_text.py:683
+#: ../textw/partition_text.py:722
+#, fuzzy
+msgid "You cannot edit this partition, as it is part of a RAID device."
+msgstr "최소한 하나의 드라이브에는 이 파티션이 포함되어야 합니다."
+
+#: ../iw/partition_gui.py:1051
+#, fuzzy
+msgid "Make Raid Device"
+msgstr "RAID 장치로 설정되어 있음"
+
+#: ../iw/partition_gui.py:1075 ../textw/partition_text.py:187
+#: ../textw/partition_text.py:422
+#, fuzzy
+msgid "Filesystem type:"
+msgstr "루트 파일시스템 용량"
+
+#: ../iw/partition_gui.py:1086 ../textw/partition_text.py:327
+#, fuzzy
+msgid "RAID Level:"
+msgstr "RAID 유형:"
+
+#: ../iw/partition_gui.py:1116 ../textw/partition_text.py:345
+msgid "Raid Members:"
+msgstr ""
+
+#: ../iw/partition_gui.py:1127
+msgid "Number of spares?:"
+msgstr ""
+
+#: ../iw/partition_gui.py:1233 ../textw/partition_text.py:776
+msgid "New"
+msgstr "새로 생성"
+
+#: ../iw/partition_gui.py:1237
+msgid "Make Raid"
+msgstr ""
+
+#: ../iw/partition_gui.py:1244
+#, fuzzy
+msgid "Start"
+msgstr "상황"
+
+#: ../iw/partition_gui.py:1244
+msgid "End"
+msgstr ""
+
+#: ../iw/partition_gui.py:1286
+#, fuzzy
+msgid "Automatic Disk Setup"
+msgstr "드라이브 설정"
+
+#: ../iw/partition_gui.py:1304
+#, fuzzy
+msgid ""
+"You need to select at least one drive to have Red Hat Linux installed onto."
+msgstr "최소한 하나의 언어는 반드시 선택하셔야 합니다."
+
+#: ../iw/partition_gui.py:1326
+msgid ""
+"Before we can autopartition we need to know how you want us to use the space "
+"on your harddrives."
+msgstr ""
+
+#: ../iw/partition_gui.py:1336
+msgid "I want to have autopartitioning:"
+msgstr ""
+
+#: ../iw/partition_gui.py:1342 ../textw/partition_text.py:828
+#, fuzzy
+msgid "Remove all Linux partitions"
+msgstr "리눅스 파티션 삭제"
+
+#: ../iw/partition_gui.py:1345 ../textw/partition_text.py:829
+#, fuzzy
+msgid "Remove all partitions"
+msgstr "리눅스 파티션 삭제"
+
+#: ../iw/partition_gui.py:1348
+#, fuzzy
+msgid "Remove no partitions and use existing free space"
+msgstr "기존의 여유 공간 사용"
+
+#: ../iw/partition_gui.py:1367
+#, fuzzy
+msgid "Which drives do you want to use for Linux?"
+msgstr "부트로더가 설치될 곳을 지정해 주십시요."
+
+#: ../iw/partmethod_gui.py:23
+msgid "Automatic Partitioning"
+msgstr "자동 파티션 설정"
+
+#: ../iw/partmethod_gui.py:48 ../textw/partmethod_text.py:24
+#, fuzzy
+msgid ""
+"Autopartitioning sets up your partitioning in a reasonable way depending on "
+"your installation type and then gives you a chance to customize this setup.\n"
+"\n"
+"Disk Druid is a tool designed for partitioning and setting up mount points.  "
+"It is designed to be easier to use than Linux's traditional disk "
+"partitioning software, fdisk, as well as more powerful.  However, there are "
+"some cases where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"'Disk Druid' 는 파티션 및 마운트할 지점을 설정하기 위한 프로그램입니다. 기존"
+"의 전통적인 리눅스 파티션 설정 프로그램인 'fdisk' 보다 사용하기 편하며, 훨씬 "
+"강력합니다. 그러나, 때로는 'fdisk' 를 사용해야 하는 경우도 있습니다.\n"
+"\n"
+"어느 것을 사용하시겠습니까?"
+
+#: ../iw/partmethod_gui.py:69
+msgid "Have the installer autopartition for you"
+msgstr ""
+
+#: ../iw/partmethod_gui.py:72
+msgid "Manually partition with Disk Druid"
+msgstr "Disk Druid를 통한 수동 파티션 설정"
+
+#: ../iw/partmethod_gui.py:75
+msgid "Manually partition with fdisk [experts only]"
+msgstr "fdisk를 통한 수동 파티션 설정 [익숙한 사용자만]"
+
+#: ../iw/progress_gui.py:14
 msgid "Installing Packages"
 msgstr "패키지 설치"
 
-#: ../iw/progress_gui.py:147
+#: ../iw/progress_gui.py:109
 #, c-format
 msgid "%s KBytes"
 msgstr "%s KB"
 
-#: ../iw/progress_gui.py:210 ../iw/progress_gui.py:263
+#: ../iw/progress_gui.py:180 ../iw/progress_gui.py:233
 msgid "Size"
 msgstr "용  량"
 
-#: ../iw/progress_gui.py:211
+#: ../iw/progress_gui.py:181
 msgid "Summary"
 msgstr "설  명"
 
-#: ../iw/progress_gui.py:241
+#: ../iw/progress_gui.py:211
 msgid "Package Progress: "
 msgstr "패키지 설치상황: "
 
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:216
 msgid "Total Progress:   "
 msgstr "전체 진행상황:   "
 
-#: ../iw/progress_gui.py:263
+#: ../iw/progress_gui.py:233
 msgid "Status"
 msgstr "상황"
 
-#: ../iw/progress_gui.py:263
+#: ../iw/progress_gui.py:233
 msgid "Packages"
 msgstr "패키지 수"
 
-#: ../iw/progress_gui.py:263
+#: ../iw/progress_gui.py:233
 msgid "Time"
 msgstr "소요시간"
 
-#: ../iw/progress_gui.py:273
+#: ../iw/progress_gui.py:243
 msgid "Total"
 msgstr "전  체"
 
-#: ../iw/progress_gui.py:274
+#: ../iw/progress_gui.py:244
 msgid "Completed"
 msgstr "완료됨"
 
-#: ../iw/progress_gui.py:275
+#: ../iw/progress_gui.py:245
 msgid "Remaining"
 msgstr "남  음"
-
-#: ../iw/rootpartition_gui.py:39 ../textw/partitioning_text.py:23
-msgid "Disk Druid"
-msgstr "Disk Druid"
-
-#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:216
-msgid "Low Memory"
-msgstr "메모리 부족"
-
-#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:217
-msgid ""
-"As you don't have much memory in this machine, we need to turn on swap space "
-"immediately. To do this we'll have to write your new partition table to the "
-"disk immediately. Is that okay?"
-msgstr ""
-"여러분 시스템의 메모리가 부족하기 때문에 지금 스왑 공간을 사용해야 합니다. "
-"스왑 공간을 사용하기 위해서는 현재 여러분의 새로운 파티션 정보를 드라이브에 "
-"기록해야 합니다. 그렇게 하시겠습니까?"
-
-#: ../iw/rootpartition_gui.py:82
-msgid ""
-"You have put the partition containing the kernel (the boot partition) above "
-"the 1024 cylinder limit, and it appears that this systems BIOS does not "
-"support booting from above this limit. Proceeding will most likely make the "
-"system unable to reboot into Linux.\n"
-"\n"
-"If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
-"when asked. This will guarantee you have a way to boot into the system after "
-"installation.\n"
-"\n"
-"Press OK to proceed, or Cancel to go back and reassign the boot partition."
-msgstr ""
-"여러분이 지정하신 파티션 (커널이 포함된 부트 파티션) 은 1024 실린더 제한을 "
-"벗어난 곳에 있으며, 여러분 시스템의 바이오스가 1024 실린더 제한을 벗어난 "
-"곳으로 부터의 부팅을 지원하지 않는 것 같습니다. 설치를 계속 진행하셔도 "
-"대부분의 경우 시스템이 재부팅 된 후에는 리눅스로 부팅하실 수 없습니다.\n"
-"\n"
-"설치를 계속 진행하려고 하신다면, 반드시 부팅 디스켓을 만드시기 바랍니다. "
-"그래야만 설치 후에 리눅스로 부팅하실 수 있습니다.\n"
-"\n"
-"설치를 계속 진행하시려면 [확인] 버튼을 클릭하시고, 부트 파티션을 다시 "
-"지정하시려면 [취소] 버튼을 클릭하십시요."
-
-#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:492
-#: ../textw/partitioning_text.py:413
-msgid ""
-"You have put the partition containing the kernel (the boot partition) above "
-"the 1024 cylinder limit. It appears that this systems BIOS supports booting "
-"from above this limit. \n"
-"\n"
-"It is HIGHLY recommended you make a boot floppy when asked by the installer, "
-"as this is a new feature in recent motherboards and is not always reliable. "
-"Making a boot disk will guarantee you can boot your system once installed."
-msgstr ""
-"여러분이 지정하신 파티션 (커널이 포함된 부트 파티션) 은 1024 실린더 제한을 "
-"벗어난 곳에 있습니다. 여러분 시스템의 바이오스가 1024 실린더 제한을 벗어난 "
-"곳으로 부터의 부팅을 지원하지 않는 것 같습니다. \n"
-"\n"
-"최근의 마더보드에서는 이러한 기능을 지원하지만, 언제나 신뢰할 수는 없으므로 "
-"반드시 부팅 디스켓을 만드시기 바랍니다. 설치 후에 리눅스로 부팅할 수 없는 "
-"상황이 발생되었을 경우에는 부팅 디스켓을 통해 리눅스로 부팅하실 수 있습니다."
-
-#: ../iw/rootpartition_gui.py:221 ../textw/partitioning_text.py:336
-#, c-format
-msgid ""
-"You've chosen to put your root filesystem in a file on an already-existing "
-"DOS or Windows filesystem. How large, in megabytes, should would you like "
-"the root filesystem to be, and how much swap space would you like? They must "
-"total less then %d megabytes in size."
-msgstr ""
-"DOS 또는 Windows 파일시스템을 루트 파일시스템으로 지정하셨습니다. 루트 "
-"파일시스템과 스왑 공간으로 사용하실 용량을 지정해 주십시요 (단위: MB). 총 "
-"용량은 %d MB 한도 내에서 지정하셔야 합니다."
-
-#: ../iw/rootpartition_gui.py:251
-msgid "Root filesystem size:"
-msgstr "루트 파일시스템 용량:"
-
-#: ../iw/rootpartition_gui.py:256
-msgid "Swap space size:"
-msgstr "스왑 공간 용량:"
-
-#: ../iw/rootpartition_gui.py:331 ../textw/partitioning_text.py:150
-msgid "Automatic Partitioning"
-msgstr "자동 파티션 설정"
-
-#: ../iw/rootpartition_gui.py:382
-msgid "Disk Partitioning"
-msgstr "드라이브 파티션 설정"
-
-#: ../iw/rootpartition_gui.py:384
-#, c-format
-msgid ""
-"Please select the type of disk partitioning you would like to use.\n"
-"\n"
-"%s\n"
-"\n"
-"Selecting manual partitioning allows you to create the partitions by hand."
-msgstr ""
-"파티션을 설정하기 위한 유형을 선택해 주십시요.\n"
-"\n"
-"%s\n"
-"\n"
-"수동 파티션 설정을 선택하시면, 여러분이 직접 파티션을 설정하실 수 있습니다."
-
-#: ../iw/rootpartition_gui.py:390
-msgid "Automatic Partitioning Failed"
-msgstr "자동 파티션 설정 실패"
-
-#: ../iw/rootpartition_gui.py:391
-msgid ""
-"\n"
-"There is not sufficient disk space in order to automatically partition your "
-"disk. You will need to manually partition your disks for Red Hat Linux to "
-"install.\n"
-"\n"
-"Please choose the tool you would like to use to partition your system for "
-"Red Hat Linux."
-msgstr ""
-"\n"
-"파티션을 자동으로 설정하기에는 드라이브의 공간이 부족합니다. 수동으로 "
-"여러분이 직접 파티션을 설정해 주시기 바랍니다.\n"
-"\n"
-"파티션을 설정하기 위한 방법을 선택해 주십시요."
-
-#: ../iw/rootpartition_gui.py:398
-msgid "Manual Partitioning"
-msgstr "수동 파티션 설정"
-
-#: ../iw/rootpartition_gui.py:399
-msgid ""
-"\n"
-"Please choose the tool you would like to use to partition your system for "
-"Red Hat Linux."
-msgstr ""
-"\n"
-"파티션을 설정하기 위한 방법을 선택해 주십시요."
-
-#: ../iw/rootpartition_gui.py:413
-msgid "Automatically partition and REMOVE DATA"
-msgstr "자동 파티션 설정 (자료가 임의로 삭제됨)"
-
-#: ../iw/rootpartition_gui.py:420
-msgid "Manually partition with Disk Druid"
-msgstr "Disk Druid를 통한 수동 파티션 설정"
-
-#: ../iw/rootpartition_gui.py:432
-msgid "Manually partition with fdisk [experts only]"
-msgstr "fdisk를 통한 수동 파티션 설정 [익숙한 사용자만]"
-
-#: ../iw/rootpartition_gui.py:455
-msgid "Boot Partition Location Warning"
-msgstr "부트 파티션 위치 경고"
-
-#: ../iw/rootpartition_gui.py:479 ../textw/partitioning_text.py:393
-msgid ""
-"You have put the partition containing the kernel (the boot partition) above "
-"the 1024 cylinder limit, and it appears that this systems BIOS does not "
-"support booting from above this limit. Proceeding will most likely make the "
-"system unable to reboot into Linux.\n"
-"\n"
-"If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
-"when asked. This will guarantee you have a way to boot into the system after "
-"installation.\n"
-"\n"
-"Are you sure you want to proceed?"
-msgstr ""
-"여러분이 지정하신 파티션 (커널이 포함된 부트 파티션) 은 1024 실린더 제한을 "
-"벗어난 곳에 있으며, 여러분 시스템의 바이오스가 1024 실린더 제한을 벗어난 "
-"곳으로 부터의 부팅을 지원하지 않는 것 같습니다. 설치를 계속 진행하셔도 "
-"대부분의 경우 시스템이 재부팅 된 후에는 리눅스로 부팅하실 수 없습니다.\n"
-"\n"
-"설치를 계속 진행하려고 하신다면, 반드시 부팅 디스켓을 만드시기 바랍니다. "
-"그래야만 설치 후에 리눅스로 부팅하실 수 있습니다.\n"
-"\n"
-"설치를 계속 진행하시겠습니까?"
-
-#: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:89
-#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
-#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
-#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
-#: ../libfdisk/newtfsedit.c:618 ../libfdisk/newtfsedit.c:745
-#: ../libfdisk/newtfsedit.c:877 ../libfdisk/newtfsedit.c:1683
-#: ../libfdisk/newtfsedit.c:1701 ../libfdisk/newtfsedit.c:1788
-#: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:854
-#: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
-#: ../textw/bootdisk_text.py:38 ../textw/lilo_text.py:62
-#: ../textw/partitioning_text.py:221 ../textw/partitioning_text.py:404
-#: ../textw/upgrade_text.py:213
-msgid "Yes"
-msgstr "예"
-
-#: ../iw/rootpartition_gui.py:512 ../iw/welcome_gui.py:92
-#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
-#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
-#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
-#: ../libfdisk/newtfsedit.c:618 ../libfdisk/newtfsedit.c:745
-#: ../libfdisk/newtfsedit.c:877 ../libfdisk/newtfsedit.c:1683
-#: ../libfdisk/newtfsedit.c:1701 ../libfdisk/newtfsedit.c:1788
-#: ../loader/devices.c:231 ../loader/net.c:854 ../textw/bootdisk_text.py:12
-#: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
-#: ../textw/lilo_text.py:62 ../textw/partitioning_text.py:404
-#: ../textw/upgrade_text.py:213 ../textw/upgrade_text.py:219
-msgid "No"
-msgstr "아니오"
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -2080,196 +1845,223 @@ msgstr "PROM을 리눅스의 기본 부트 장치로 설정"
 msgid "Do not install SILO"
 msgstr "SILO를 설치하지 않음"
 
-#: ../iw/timezone_gui.py:31 ../textw/timezone_text.py:89
+#: ../iw/timezone_gui.py:31 ../textw/timezone_text.py:85
 msgid "Time Zone Selection"
 msgstr "시간대 선택"
 
-#: ../iw/timezone_gui.py:158
+#: ../iw/timezone_gui.py:160
 msgid "View:"
 msgstr "지역:"
 
-#: ../iw/timezone_gui.py:166 ../iw/timezone_gui.py:167
+#: ../iw/timezone_gui.py:168 ../iw/timezone_gui.py:169
 msgid "System clock uses UTC"
 msgstr "시스템의 시간을 UTC에 맞춤"
 
-#: ../iw/timezone_gui.py:215
+#: ../iw/timezone_gui.py:217
 msgid "Use Daylight Saving Time (US only)"
 msgstr "일광-절약 시간 사용 (미국의 사용자만)"
 
-#: ../iw/timezone_gui.py:229
+#: ../iw/timezone_gui.py:231
 msgid "Location"
 msgstr "지역 시간대"
 
-#: ../iw/timezone_gui.py:230
+#: ../iw/timezone_gui.py:232
 msgid "UTC Offset"
 msgstr "UTC와의 시차"
 
-#: ../iw/upgrade_swap_gui.py:18
+#: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
 msgstr "스왑 파티션 업그레이드"
 
-#: ../iw/upgrade_swap_gui.py:116
+#: ../iw/upgrade_swap_gui.py:89
+#, fuzzy, c-format
+msgid ""
+"The 2.4 kernel needs significantly more swap than older kernels, as much as "
+"twice as much swap space as RAM on the system.  You currently have %dMB of "
+"swap configured, but you may create additional swap space on one of your "
+"file systems now."
+msgstr ""
+"커널 2.4 부터는 이전 버전의 커널이 시스템에 설치되어 있는 램 용량의 두배 이상"
+"의 용량을 스왑 공간을 사용했던 것 보다 훨씬 더 많은 용량의 스왑 공간을 필요"
+"로 합니다. 현재 여러분이 설정하신 스왑 용량은 %d MB 이지만, 추가로 스왑 공간"
+"을 더 생성하실 수 있습니다."
+
+#: ../iw/upgrade_swap_gui.py:106
 msgid "I want to create a swap file"
 msgstr "스왑 파일을 생성함"
 
-#: ../iw/upgrade_swap_gui.py:125
+#: ../iw/upgrade_swap_gui.py:115
 msgid "Select the partition to put the swap file on:"
 msgstr "스왑 파일을 생성할 파티션:"
 
-#: ../iw/upgrade_swap_gui.py:130
+#: ../iw/upgrade_swap_gui.py:120
 msgid "Free Space (MB)"
 msgstr "여유 공간 (MB)"
 
-#: ../iw/upgrade_swap_gui.py:145
+#: ../iw/upgrade_swap_gui.py:135
 #, c-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
-"스왑 파일은 최소한 %d MB 정도의 용량은 되어야 합니다.  스왑 파일의 용량을 "
-"지정해 주십시요:"
+"스왑 파일은 최소한 %d MB 정도의 용량은 되어야 합니다.  스왑 파일의 용량을 지"
+"정해 주십시요:"
 
-#: ../iw/upgrade_swap_gui.py:158 ../textw/upgrade_text.py:74
+#: ../iw/upgrade_swap_gui.py:150 ../textw/upgrade_text.py:52
 msgid "Swap file size (MB):"
 msgstr "스왑 파일 용량 (MB):"
 
-#: ../iw/upgrade_swap_gui.py:166
+#: ../iw/upgrade_swap_gui.py:159
 msgid "I don't want to create a swap file"
 msgstr "스왑 파일을 생성하지 않음"
 
-#: ../iw/upgrade_swap_gui.py:176
+#: ../iw/upgrade_swap_gui.py:169
 msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
-"여러분은 반드시 스왑 파일을 생성하셔야 합니다.  스왑 파일을 생성하지 않고 "
-"설치를 진행하실 경우에는 설치 프로그램이 비 정상적으로 종료될 수 있습니다.  "
-"이대로 설치를 계속 진행하시겠습니까?"
+"여러분은 반드시 스왑 파일을 생성하셔야 합니다.  스왑 파일을 생성하지 않고 설"
+"치를 진행하실 경우에는 설치 프로그램이 비 정상적으로 종료될 수 있습니다.  이"
+"대로 설치를 계속 진행하시겠습니까?"
 
-#: ../iw/upgrade_swap_gui.py:185 ../textw/upgrade_text.py:118
+#: ../iw/upgrade_swap_gui.py:177 ../textw/upgrade_text.py:97
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "스왑 파일은 '2 GB' 한도 내에서 지정하셔야 합니다."
 
-#: ../iw/upgrade_swap_gui.py:192 ../textw/upgrade_text.py:114
+#: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:92
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "여러분이 선택하신 장치에는 스왑 파티션으로 사용하기 위한 공간이 부족합니다."
 
-#: ../iw/welcome_gui.py:81
+#: ../iw/welcome_gui.py:8 ../iw/welcome_gui.py:35
+msgid "Welcome"
+msgstr "레드햇 리눅스"
+
+#: ../iw/welcome_gui.py:78
 msgid "Would you like to configure your system?"
 msgstr "여러분의 시스템을 설정하시겠습니까?"
 
-#: ../iw/xconfig_gui.py:15
+#: ../iw/xconfig_gui.py:16 ../textw/xconfig_text.py:248
+msgid "Monitor"
+msgstr "모니터"
+
+#: ../iw/xconfig_gui.py:18
 msgid "Horizontal Frequency Range"
 msgstr "수평 주파수 범위"
 
-#: ../iw/xconfig_gui.py:16
+#: ../iw/xconfig_gui.py:19
 msgid "Vertical Frequency Range"
 msgstr "수직 주파수 범위"
 
-#: ../iw/xconfig_gui.py:17
+#: ../iw/xconfig_gui.py:20
 msgid "Test failed"
 msgstr "테스트 실패"
 
-#: ../iw/xconfig_gui.py:25
+#: ../iw/xconfig_gui.py:26
 msgid "Customize Graphics Configuration"
 msgstr "사용자 그래픽 환경 설정"
 
-#: ../iw/xconfig_gui.py:233
+#: ../iw/xconfig_gui.py:187 ../textw/xconfig_text.py:160
 msgid "Color Depth:"
 msgstr "색상 수:"
 
-#: ../iw/xconfig_gui.py:238
+#: ../iw/xconfig_gui.py:192 ../textw/xconfig_text.py:91
 msgid "256 Colors (8 Bit)"
 msgstr "256 컬러 (8 비트)"
 
-#: ../iw/xconfig_gui.py:238
+#: ../iw/xconfig_gui.py:192 ../textw/xconfig_text.py:91
 msgid "High Color (16 Bit)"
 msgstr "하이 컬러 (16비트)"
 
-#: ../iw/xconfig_gui.py:238
+#: ../iw/xconfig_gui.py:192 ../textw/xconfig_text.py:91
 msgid "True Color (24 Bit)"
 msgstr "트루 컬러 (24 비트)"
 
-#: ../iw/xconfig_gui.py:256
+#: ../iw/xconfig_gui.py:201
 msgid "Screen Resolution:"
 msgstr "화면 해상도:"
 
-#: ../iw/xconfig_gui.py:358
+#: ../iw/xconfig_gui.py:282
 msgid "   Test Setting   "
 msgstr "  설정 내용 확인  "
 
-#: ../iw/xconfig_gui.py:375
+#: ../iw/xconfig_gui.py:305
 msgid "Please choose your default desktop environment:"
 msgstr "기본 데스크탑 환경을 선택해 주십시요:"
 
-#: ../iw/xconfig_gui.py:385 ../iw/xconfig_gui.py:443
-msgid "GNOME"
-msgstr "GNOME"
-
-#: ../iw/xconfig_gui.py:387 ../iw/xconfig_gui.py:457
-msgid "KDE"
-msgstr "KDE"
-
-#: ../iw/xconfig_gui.py:426
+#: ../iw/xconfig_gui.py:307
 msgid "Your desktop environment is:"
 msgstr "여러분의 데스크탑 환경:"
 
-#: ../iw/xconfig_gui.py:467
+#: ../iw/xconfig_gui.py:322 ../textw/xconfig_text.py:181
+#: ../textw/xconfig_text.py:190
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../iw/xconfig_gui.py:324 ../textw/xconfig_text.py:183
+#: ../textw/xconfig_text.py:192
+msgid "KDE"
+msgstr "KDE"
+
+#: ../iw/xconfig_gui.py:353
 msgid "Please choose your login type:"
 msgstr "로그인 유형을 선택해 주십시요:"
 
-#: ../iw/xconfig_gui.py:474
+#: ../iw/xconfig_gui.py:360 ../textw/xconfig_text.py:201
 msgid "Text"
 msgstr "텍스트 환경"
 
-#: ../iw/xconfig_gui.py:475
+#: ../iw/xconfig_gui.py:361 ../textw/xconfig_text.py:199
 msgid "Graphical"
 msgstr "그래픽 환경"
 
-#: ../iw/xconfig_gui.py:513
-msgid "Bits per Pixel"
-msgstr "비트 컬러"
-
-#: ../iw/xconfig_gui.py:531
+#: ../iw/xconfig_gui.py:378 ../textw/xconfig_text.py:369
 msgid "Monitor Configuration"
 msgstr "모니터 설정"
 
-#: ../iw/xconfig_gui.py:736
+#: ../iw/xconfig_gui.py:532 ../iw/xconfig_gui.py:836
+msgid "Generic"
+msgstr ""
+
+#: ../iw/xconfig_gui.py:569
 msgid "DDC Probed Monitor"
 msgstr "DDC에 의해 검색된 모니터"
 
-#: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
+#: ../iw/xconfig_gui.py:618 ../iw/xconfig_gui.py:930
 msgid "Restore original values"
 msgstr "초기 설정 값으로 복귀"
 
-#: ../iw/xconfig_gui.py:808
+#: ../iw/xconfig_gui.py:626
 msgid "Horizontal Sync:"
 msgstr "수평 동기:"
 
-#: ../iw/xconfig_gui.py:810
+#: ../iw/xconfig_gui.py:628
 msgid "Vertical Sync:"
 msgstr "수직 동기:"
 
-#: ../iw/xconfig_gui.py:816
+#: ../iw/xconfig_gui.py:634
 msgid "kHz"
 msgstr "KHz"
 
-#: ../iw/xconfig_gui.py:819
+#: ../iw/xconfig_gui.py:637
 msgid "Hz"
 msgstr "Hz"
 
-#: ../iw/xconfig_gui.py:980
+#: ../iw/xconfig_gui.py:655
+msgid "X Configuration"
+msgstr "X 윈도우 시스템 설정"
+
+#: ../iw/xconfig_gui.py:800
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"비디오 카드의 램 용량이 자동 검색되지 않았습니다.  비디오 카드의 램 용량을 "
-"아래에서 직접 선택해 주십시요:"
+"비디오 카드의 램 용량이 자동 검색되지 않았습니다.  비디오 카드의 램 용량을 아"
+"래에서 직접 선택해 주십시요:"
 
-#: ../iw/xconfig_gui.py:991 ../iw/xconfig_gui.py:1012
+#: ../iw/xconfig_gui.py:808
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -2277,27 +2069,28 @@ msgstr ""
 "대부분의 경우 여러분의 비디오 카드는 최적의 화면 설정을 위해 자동으로 검색될 "
 "것입니다."
 
-#: ../iw/xconfig_gui.py:1000
+#: ../iw/xconfig_gui.py:814
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
-"만일, 검색된 내용이 여러분의 비디오 카드와 일치하지 않을 경우에는 아래의 "
-"목록에서 직접 선택해 주십시요:"
+"만일, 검색된 내용이 여러분의 비디오 카드와 일치하지 않을 경우에는 아래의 목록"
+"에서 직접 선택해 주십시요:"
 
-#: ../iw/xconfig_gui.py:1021
-msgid "Autoprobe results:"
-msgstr "자동 검색 결과:"
+#: ../iw/xconfig_gui.py:841
+#, fuzzy
+msgid "Other"
+msgstr "그 외의 포트"
 
-#: ../iw/xconfig_gui.py:1465
+#: ../iw/xconfig_gui.py:908
 msgid "Video card RAM: "
 msgstr "비디오 카드의 램 용량: "
 
-#: ../iw/xconfig_gui.py:1534
+#: ../iw/xconfig_gui.py:934 ../textw/xconfig_text.py:534
 msgid "Skip X Configuration"
 msgstr "X 윈도우 설정 생략"
 
-#: ../textw/bootdisk_text.py:13
+#: ../textw/bootdisk_text.py:17
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -2308,16 +2101,16 @@ msgid ""
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"부팅 디스켓은 부트로더를 통해 정상적으로 부팅할 수 없는 상황에서 여러분의 "
-"리눅스 시스템으로 부팅할 수 있는 방법을 제공합니다. 즉, 여러분의 시스템에 "
-"'LILO' 를 설치하지 않은 경우, 다른 운영체제가 'LILO' 를 지웠을 경우, 또는 "
-"여러분의 하드웨어에서 제대로 작동되지 않을 경우에 사용하실 수 있습니다. "
-"또한, 부팅 디스켓을 복구 이미지와 함께 사용하시면, 심각한 문제가 발생된 "
-"상황의 시스템을 쉽게 복구하실 수 있습니다.\n"
+"부팅 디스켓은 부트로더를 통해 정상적으로 부팅할 수 없는 상황에서 여러분의 리"
+"눅스 시스템으로 부팅할 수 있는 방법을 제공합니다. 즉, 여러분의 시스템에 "
+"'LILO' 를 설치하지 않은 경우, 다른 운영체제가 'LILO' 를 지웠을 경우, 또는 여"
+"러분의 하드웨어에서 제대로 작동되지 않을 경우에 사용하실 수 있습니다. 또한, "
+"부팅 디스켓을 복구 이미지와 함께 사용하시면, 심각한 문제가 발생된 상황의 시스"
+"템을 쉽게 복구하실 수 있습니다.\n"
 "\n"
 "부팅 디스켓을 만드시겠습니까?"
 
-#: ../textw/bootdisk_text.py:32
+#: ../textw/bootdisk_text.py:36
 msgid ""
 "\n"
 "On SMCC made Ultra machines floppy booting probably does not work\n"
@@ -2327,27 +2120,78 @@ msgstr ""
 "SMCC의 'Ultra' 에서는 부팅디스켓을 사용하여 부팅하실 수 없습니다.\n"
 "\n"
 
-#: ../textw/bootdisk_text.py:35 ../textw/bootdisk_text.py:56
+#: ../textw/bootdisk_text.py:39 ../textw/bootdisk_text.py:65
 msgid "Bootdisk"
 msgstr "부팅 디스켓"
 
-#: ../textw/bootdisk_text.py:54 ../textw/bootdisk_text.py:62
-#: ../textw/bootdisk_text.py:73 ../textw/lilo_text.py:33
-#: ../textw/silo_text.py:25 ../textw/upgrade_text.py:67
+#: ../textw/bootdisk_text.py:62 ../textw/bootdisk_text.py:77
+#: ../textw/lilo_text.py:30 ../textw/silo_text.py:25
+#: ../textw/upgrade_text.py:45
 msgid "Skip"
 msgstr "생략"
 
-#: ../textw/bootdisk_text.py:57
+#: ../textw/bootdisk_text.py:66
 msgid ""
 "If you have the install floppy in your drive, first remove it. Then insert a "
 "blank floppy in the first floppy drive. All data on this disk will be erased "
 "during creation of the boot disk."
 msgstr ""
-"플로피 드라이브에 설치 디스켓이 있다면 제거해 주시고, 첫번째 플로피 "
-"드라이브에 빈 디스켓을 넣어 주십시요. 디스켓 안의 모든 자료는 삭제되므로 "
-"주의하시기 바랍니다."
+"플로피 드라이브에 설치 디스켓이 있다면 제거해 주시고, 첫번째 플로피 드라이브"
+"에 빈 디스켓을 넣어 주십시요. 디스켓 안의 모든 자료는 삭제되므로 주의하시기 "
+"바랍니다."
 
-#: ../textw/firewall_text.py:13
+#: ../textw/complete_text.py:9
+msgid ""
+"                              <Return> to "
+"reboot                              "
+msgstr ""
+"                   재부팅 하시려면, [엔터] 키를 누르십시"
+"요.                    "
+
+#: ../textw/complete_text.py:11 ../textw/complete_text.py:32
+msgid "Complete"
+msgstr "완료"
+
+#: ../textw/complete_text.py:30
+msgid ""
+"                                <Return> to "
+"exit                              "
+msgstr ""
+"                    종료하시려면, [엔터] 키를 누르십시"
+"요.                      "
+
+#: ../textw/complete_text.py:33
+msgid ""
+"Congratulations, configuration is complete.\n"
+"\n"
+" For information on fixes which are available for this release of Red Hat "
+"Linux, consult the Errata available from http://www.redhat.com.\n"
+"\n"
+"Information on further configuring your system is available at http://www."
+"redhat.com/support/manuals/"
+msgstr ""
+"축하합니다, 설정이 완료되었습니다.\n"
+"\n"
+"이번 레드햇 리눅스 버전에서 수정된 사항은 http://www.redhat.com 홈페이지의 "
+"Errata를 통해 확인하실 수 있습니다.\n"
+"\n"
+"시스템 설정에 관련된 자세한 내용은 http://www.redhat.com/support/manuals/ 을 "
+"참고해 주십시요."
+
+#: ../textw/confirm_text.py:7
+msgid "Installation to begin"
+msgstr "설치 시작"
+
+#: ../textw/confirm_text.py:19
+msgid "Upgrade to begin"
+msgstr "업그레이드 시작"
+
+#: ../textw/fdisk_text.py:39
+#, fuzzy
+msgid "Choose a disk to run fdisk on"
+msgstr "파티션할 드라이브를 선택해 주십시요."
+
+#: ../textw/firewall_text.py:27
 msgid ""
 "A firewall protects against unauthorized network intrusions. High security "
 "blocks all incoming accesses. Medium blocks access to system services (such "
@@ -2356,56 +2200,60 @@ msgid ""
 msgstr ""
 "방화벽은 인증되지 않은 네트웍 칩입으로 부터 여러분의 시스템을 보호합니다.  "
 "'최상위 수준의 보안' 은 거의 모든 접근을 제한합니다.  '중간 수준의 보안' 은 "
-"시스템 서비스 (텔넷이나 프린트 작업과 같은 서비스) 에 대한 접근은 "
-"제한하지만, 그 외의 접근은 허락합니다.  '방화벽을 사용하지 않음' 은 모든 "
-"접근에 대해 허락하지만, 권장하지는 않습니다."
+"시스템 서비스 (텔넷이나 프린트 작업과 같은 서비스) 에 대한 접근은 제한하지"
+"만, 그 외의 접근은 허락합니다.  '방화벽을 사용하지 않음' 은 모든 접근에 대해 "
+"허락하지만, 권장하지는 않습니다."
 
-#: ../textw/firewall_text.py:29
+#: ../textw/firewall_text.py:43
 msgid "Security Level:"
 msgstr "보안 수준:"
 
-#: ../textw/firewall_text.py:59
+#: ../textw/firewall_text.py:73
 msgid "Trusted Devices:"
 msgstr "신뢰하는 장치:"
 
-#: ../textw/firewall_text.py:84
+#: ../textw/firewall_text.py:95
 msgid "DHCP"
 msgstr "DHCP"
 
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:97
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:99
 msgid "Telnet"
 msgstr "텔넷"
 
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:101
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:92
+#: ../textw/firewall_text.py:103
 msgid "Mail (SMTP)"
 msgstr "메일 (SMTP)"
 
-#: ../loader/loader.c:1241 ../loader/loader.c:1250
-#: ../textw/firewall_text.py:94
+#: ../loader/loader.c:1152 ../textw/firewall_text.py:105
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:98
+#: ../textw/firewall_text.py:109
 msgid "Other ports"
 msgstr "그 외의 포트"
 
-#: ../textw/firewall_text.py:125
+#: ../textw/firewall_text.py:135 ../textw/firewall_text.py:199
+#: ../textw/language_text.py:131
+msgid "Invalid Choice"
+msgstr "선택 오류"
+
+#: ../textw/firewall_text.py:136
 msgid "You cannot customize a disabled firewall."
 msgstr "방화벽을 사용하지 않으실 경우에는 사용자 설정을 하실 수 없습니다."
 
-#: ../textw/firewall_text.py:130
+#: ../textw/firewall_text.py:141
 msgid "Firewall Configuration - Customize"
 msgstr "방화벽 - 사용자 설정"
 
-#: ../textw/firewall_text.py:132
+#: ../textw/firewall_text.py:143
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -2417,12 +2265,52 @@ msgstr ""
 "방화벽을 통해 들어오는 특정 프로토콜을 허용하실 수 있습니다. 그 이외에 따로 "
 "추가하실 포트는 '서버스:프로토콜', 'imap:tcp' 와 같은 형식으로 사용하십시요."
 
-#: ../textw/firewall_text.py:190
+#: ../textw/firewall_text.py:200
 #, c-format
 msgid "Warning: %s is not a valid port."
 msgstr "경고: %s 은 잘못된 포트입니다."
 
-#: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
+#: ../textw/installpath_text.py:32
+msgid "Installation Type"
+msgstr "설치 유형"
+
+#: ../textw/installpath_text.py:33
+msgid "What type of system would you like to install?"
+msgstr "설치할 시스템 유형을 선택해 주십시요."
+
+#: ../textw/keyboard_text.py:23
+msgid "Keyboard Selection"
+msgstr "키보드 선택"
+
+#: ../textw/keyboard_text.py:24
+msgid "Which model keyboard is attached to this computer?"
+msgstr "사용하고 계신 키보드 모델을 선택해 주십시요."
+
+#: ../textw/language_text.py:94
+msgid "Select All"
+msgstr "모두 선택"
+
+#: ../textw/language_text.py:96
+msgid "Choose the languages to be installed:"
+msgstr "설치할 언어 선택:"
+
+#: ../textw/language_text.py:100
+msgid "Language Support"
+msgstr "언어 지원"
+
+#: ../textw/language_text.py:132
+msgid "You must select at least one language to install."
+msgstr "최소한 하나의 언어는 반드시 선택하셔야 합니다."
+
+#: ../textw/language_text.py:160
+msgid "Default Language"
+msgstr "기본 언어"
+
+#: ../textw/language_text.py:161
+msgid "Choose the default language: "
+msgstr "기본 언어 선택: "
+
+#: ../textw/lilo_text.py:19 ../textw/silo_text.py:14
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -2430,55 +2318,57 @@ msgid ""
 "blank."
 msgstr ""
 "몇몇 시스템에서는 시스템의 기능을 제대로 활용하기 위해 부팅시 커널에 특별한 "
-"옵션을 주어야 합니다. 여러분의 시스템에 그러한 특별 옵션을 커널로 전달하여 "
-"부팅해야 하는 경우에는 아래의 빈 칸에 그 내용을 입력해 주십시요. 이러한 "
-"내용이 필요없거나 잘 모르시겠다면, 빈 칸으로 두시기 바랍니다."
+"옵션을 주어야 합니다. 여러분의 시스템에 그러한 특별 옵션을 커널로 전달하여 부"
+"팅해야 하는 경우에는 아래의 빈 칸에 그 내용을 입력해 주십시요. 이러한 내용이 "
+"필요없거나 잘 모르시겠다면, 빈 칸으로 두시기 바랍니다."
 
-#: ../textw/lilo_text.py:52
-msgid "Skip LILO"
-msgstr "LILO 생략"
+#: ../textw/lilo_text.py:50
+#, fuzzy
+msgid "Skip Bootloader"
+msgstr "부트로더 오류"
 
-#: ../textw/lilo_text.py:53
+#: ../textw/lilo_text.py:51
+#, fuzzy
 msgid ""
-"You have elected to not install LILO. It is strongly recommended that you do "
-"install LILO unless you have an advanced need.  LILO is almost always "
-"required in order to reboot your system into Linux directly from the hard "
-"drive.\n"
+"You have elected to not install any bootloader. It is strongly recommended "
+"that you install a bootloader unless you have an advanced need.  A "
+"bootloader is almost always required in order to reboot your system into "
+"Linux directly from the hard drive.\n"
 "\n"
-"Are you sure you want to skip LILO installation?"
+"Are you sure you want to skip bootloader installation?"
 msgstr ""
-"여러분은 LILO 설치를 생략하셨습니다. 특별한 이유가 없다면, 가능한 LILO를 "
-"설치하시기 바랍니다.  LILO는 여러분의 시스템에 설치되어 있는 리눅스를 하드 "
-"드라이브에서 부팅하도록 하는데 반드시 필요합니다.\n"
+"여러분은 LILO 설치를 생략하셨습니다. 특별한 이유가 없다면, 가능한 LILO를 설치"
+"하시기 바랍니다.  LILO는 여러분의 시스템에 설치되어 있는 리눅스를 하드 드라이"
+"브에서 부팅하도록 하는데 반드시 필요합니다.\n"
 "\n"
 "확실히 LILO 설치를 생략하시겠습니까?"
 
-#: ../textw/lilo_text.py:108 ../textw/silo_text.py:103
+#: ../textw/lilo_text.py:89 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
 msgstr "부트로더가 설치될 곳을 지정해 주십시요."
 
-#: ../textw/lilo_text.py:140 ../textw/silo_text.py:136
+#: ../textw/lilo_text.py:119 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:157
 msgid "Clear"
 msgstr "지움"
 
-#: ../textw/lilo_text.py:149
+#: ../textw/lilo_text.py:128
 msgid "Edit Boot Label Please"
 msgstr "부팅할 이름 편집"
 
-#: ../textw/lilo_text.py:167 ../textw/lilo_text.py:172
+#: ../textw/lilo_text.py:146 ../textw/lilo_text.py:151
 msgid "Invalid Boot Label"
 msgstr "부팅할 이름의 오류"
 
-#: ../textw/lilo_text.py:168
+#: ../textw/lilo_text.py:147
 msgid "Boot label may not be empty."
 msgstr "부팅할 이름을 지정해 주셔야 합니다."
 
-#: ../textw/lilo_text.py:173
+#: ../textw/lilo_text.py:152
 msgid "Boot label contains illegal characters."
 msgstr "부팅할 이름에는 특수한 문자를 사용하실 수 없습니다."
 
-#: ../textw/lilo_text.py:229 ../textw/silo_text.py:208
+#: ../textw/lilo_text.py:201 ../textw/silo_text.py:208
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -2492,205 +2382,245 @@ msgstr ""
 msgid "What device is your mouse located on?"
 msgstr "마우스가 연결되어 있는 장치를 선택해 주십시요."
 
-#: ../textw/mouse_text.py:57
+#: ../textw/mouse_text.py:58
 msgid "Which model mouse is attached to this computer?"
 msgstr "사용하고 계신 마우스 모델을 선택해 주십시요."
 
-#: ../textw/mouse_text.py:68
+#: ../textw/mouse_text.py:69
 msgid "Emulate 3 Buttons?"
 msgstr "3-버튼 마우스처럼 사용"
 
-#: ../textw/mouse_text.py:71
+#: ../textw/mouse_text.py:72
 msgid "Mouse Selection"
 msgstr "마우스 선택"
 
-#: ../textw/network_text.py:66
+#: ../textw/network_text.py:64
 msgid "Use bootp/dhcp"
 msgstr "BOOTP/DHCP 사용"
 
-#: ../loader/net.c:307 ../textw/network_text.py:71
+#: ../loader/net.c:307 ../textw/network_text.py:69
 msgid "IP address:"
 msgstr "IP 주소:"
 
-#: ../loader/net.c:310 ../textw/network_text.py:72
+#: ../loader/net.c:310 ../textw/network_text.py:70
 msgid "Netmask:"
 msgstr "넷매스크:"
 
-#: ../loader/net.c:313 ../textw/network_text.py:73
+#: ../loader/net.c:313 ../textw/network_text.py:71
 msgid "Default gateway (IP):"
 msgstr "기본 게이트웨이 (IP):"
 
-#: ../loader/net.c:316 ../textw/network_text.py:74
+#: ../loader/net.c:316 ../textw/network_text.py:72
 msgid "Primary nameserver:"
 msgstr "1차-네임서버:"
 
-#: ../textw/network_text.py:75
+#: ../textw/network_text.py:73
 msgid "Secondary nameserver:"
 msgstr "2차-네임서버:"
 
-#: ../textw/network_text.py:76
+#: ../textw/network_text.py:74
 msgid "Ternary nameserver:"
 msgstr "3차-네임서버:"
 
-#: ../textw/network_text.py:121
+#: ../textw/network_text.py:119
 msgid "Invalid information"
 msgstr "입력된 정보 오류"
 
-#: ../textw/network_text.py:122
+#: ../textw/network_text.py:120
 msgid "You must enter valid IP information to continue"
 msgstr "반드시 올바른 IP 주소를 입력해 주셔야 합니다."
 
-#: ../textw/network_text.py:157
+#: ../textw/network_text.py:152
 msgid "Hostname Configuration"
 msgstr "호스트명 설정"
 
-#: ../textw/network_text.py:158
+#: ../textw/network_text.py:153
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
-"호스트명은 여러분이 사용하시는 컴퓨터의 이름입니다.  여러분의 컴퓨터가 "
-"네트웍으로 구성되어 있다면, 네트웍 관리자에게 문의하신 후 입력해 주십시요."
+"호스트명은 여러분이 사용하시는 컴퓨터의 이름입니다.  여러분의 컴퓨터가 네트웍"
+"으로 구성되어 있다면, 네트웍 관리자에게 문의하신 후 입력해 주십시요."
 
-#: ../textw/packages_text.py:91
+#: ../textw/packages_text.py:79
 msgid "Package :"
 msgstr "패키지 :"
 
-#: ../textw/packages_text.py:96
+#: ../textw/packages_text.py:84
 msgid "Size    :"
 msgstr "용  량 :"
 
-#: ../textw/packages_text.py:97
+#: ../textw/packages_text.py:85
 #, c-format
 msgid "%.1f KBytes"
 msgstr "%.1f KB"
 
-#: ../textw/packages_text.py:116
+#: ../textw/packages_text.py:104
 msgid "Total size"
 msgstr "총 용량"
 
-#: ../textw/packages_text.py:249
+#: ../textw/packages_text.py:233
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "         <Space>,<+>,<-> 선택   |   <F1> 도움말   |   <F2> 패키지 정보"
 
-#: ../textw/packages_text.py:306
+#: ../textw/packages_text.py:281
+msgid "Package Dependencies"
+msgstr "패키지간의 의존성"
+
+#: ../textw/packages_text.py:283
 msgid ""
 "Some of the packages you have selected to install require packages you have "
 "not selected. If you just select Ok all of those required packages will be "
 "installed."
 msgstr ""
-"여러분이 선택하신 패키지 중 일부는 선택되지 않은 다른 패키지를 필요로 "
-"합니다. [확인] 버튼을 누르시면, 여러분이 선택하신 패키지가 필요로하는 "
-"패키지를 자동으로 설치합니다."
+"여러분이 선택하신 패키지 중 일부는 선택되지 않은 다른 패키지를 필요로 합니"
+"다. [확인] 버튼을 누르시면, 여러분이 선택하신 패키지가 필요로하는 패키지를 자"
+"동으로 설치합니다."
 
-#: ../textw/partitioning_text.py:15 ../textw/partitioning_text.py:59
-msgid "Disk Setup"
-msgstr "드라이브 설정"
-
-#: ../textw/partitioning_text.py:16
-msgid ""
-"Disk Druid is a tool for partitioning and setting up mount points. It is "
-"designed to be easier to use than Linux's traditional disk partitioning "
-"sofware, fdisk, as well as more powerful. However, there are some cases "
-"where fdisk may be preferred.\n"
-"\n"
-"Which tool would you like to use?"
-msgstr ""
-"'Disk Druid' 는 파티션 및 마운트할 지점을 설정하기 위한 프로그램입니다. "
-"기존의 전통적인 리눅스 파티션 설정 프로그램인 'fdisk' 보다 사용하기 편하며, "
-"훨씬 강력합니다. 그러나, 때로는 'fdisk' 를 사용해야 하는 경우도 있습니다.\n"
-"\n"
-"어느 것을 사용하시겠습니까?"
-
-#: ../textw/partitioning_text.py:60
-msgid ""
-"To install Red Hat Linux, you must have at least one partition of 150 MB "
-"dedicated to Linux. We suggest placing that partition on one of the first "
-"two hard drives in your system so you can boot into Linux with LILO."
-msgstr ""
-"레드햇 리눅스를 설치하시려면, 적어도 '150 MB' 정도의 파티션이 필요합니다. "
-"또한, 파티션은 첫번째 하드 드라이브의 첫번째 파티션을 리눅스 파티션으로 "
-"지정해 주셔야 'LILO' 를 통해 리눅스로 부팅하실 수 있습니다."
-
-#: ../loader/loader.c:341 ../loader/loader.c:366
-#: ../textw/partitioning_text.py:65
-msgid "Done"
-msgstr "완료"
-
-#: ../textw/partitioning_text.py:151
-#, c-format
-msgid ""
-"%s\n"
-"\n"
-"If you don't want to do this, you can continue with this install by "
-"partitioning manually, or you can go back and perform a fully customized "
-"installation."
-msgstr ""
-"%s\n"
-"\n"
-"자동 파티션 설정을 원하지 않으신다면, 수동으로 파티션을 설정하시거나, 이전 "
-"화면의 '사용자 설치' 를 선택하여 여러분이 원하시는 사항으로 설정하시기 "
-"바랍니다."
-
-#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:158
-msgid "Continue"
-msgstr "진행"
-
-#: ../textw/partitioning_text.py:156
-msgid "Manually partition"
-msgstr "수동 파티션 설정"
-
-#: ../textw/partitioning_text.py:237
-msgid ""
-"What partitions would you like to format? We strongly suggest formatting all "
-"of the system partitions, including /, /usr, and /var. There is no need to "
-"format /home or /usr/local if they have already been configured during a "
-"previous install."
-msgstr ""
-"포맷할 파티션을 선택해 주십시요.  '/', '/usr', '/var' 이 포함된 모든 시스템 "
-"파티션은 반드시 포맷되어야 합니다. '/home' 이나 '/usr/local' 은 예전에 "
-"설정하신 적이 있으시다면, 반드시 포맷하실 필요는 없습니다."
-
-#: ../textw/partitioning_text.py:257
-msgid "Check for bad blocks during format"
-msgstr "포맷시에 불량 섹터 검사"
-
-#: ../textw/partitioning_text.py:262
-msgid "Choose Partitions to Format"
-msgstr "포맷할 파티션 선택"
-
-#: ../textw/partitioning_text.py:341
-msgid "Root filesystem size"
-msgstr "루트 파일시스템 용량"
-
-#: ../textw/partitioning_text.py:342
-msgid "Swap space"
-msgstr "스왑 공간"
-
-#: ../textw/partitioning_text.py:352 ../textw/partitioning_text.py:358
-#: ../textw/partitioning_text.py:365
-msgid "Bad Size"
+#: ../textw/partition_text.py:261
+#, fuzzy
+msgid "Fixed Size:"
 msgstr "용량 오류"
 
-#: ../textw/partitioning_text.py:353
-msgid "The size you enter must be a number."
-msgstr "용량은 반드시 숫자로 지정해 주셔야 합니다."
-
-#: ../textw/partitioning_text.py:359
-#, c-format
-msgid ""
-"The total size must be smaller then the amount of free space on the disk, "
-"which is %d megabytes."
+#: ../textw/partition_text.py:263
+msgid "Fill maximum size of (MB):"
 msgstr ""
-"총 용량은 현재 드라이브 상의 여유 공간 용량인 %d MB 보다 적어야 합니다."
 
-#: ../textw/partitioning_text.py:366
-msgid ""
-"Neither the root file system size nor the swap space size may be greater "
-"then 2000 megabytes."
+#: ../textw/partition_text.py:267
+msgid "Fill all available space:"
 msgstr ""
-"루트 파일시스템의 용량 및 스왑 공간의 용량은 '2 GB' 를 넘어서는 안됩니다."
+
+#: ../textw/partition_text.py:363
+msgid "Number of spares?"
+msgstr ""
+
+#: ../textw/partition_text.py:375
+#, fuzzy
+msgid "Add partition"
+msgstr "루트 파티션"
+
+#: ../textw/partition_text.py:548
+#, fuzzy
+msgid "Make RAID Device"
+msgstr "RAID 장치 설정(_M)"
+
+#: ../textw/partition_text.py:657
+#, fuzzy
+msgid "Not a Partition"
+msgstr "스왑 파티션이 지정되지 않음"
+
+#: ../textw/partition_text.py:658
+#, fuzzy
+msgid "You must select a partition to edit"
+msgstr "최소한 하나의 언어는 반드시 선택하셔야 합니다."
+
+#: ../textw/partition_text.py:688 ../textw/partition_text.py:703
+#: ../textw/partition_text.py:710 ../textw/partition_text.py:728
+#, fuzzy
+msgid "Unable to Remove"
+msgstr "파일을 불러올 수 없습니다!"
+
+#: ../textw/partition_text.py:689 ../textw/partition_text.py:729
+#, fuzzy
+msgid "You cannot remove this partition as it is part of a RAID device"
+msgstr ""
+"'/' 를 RAID 장치 상에 지정하신 경우에는 '/boot' 를 삭제하실 수 없습니다.  '/"
+"boot' 를 삭제하시려면, '/' 를 RAID가 아닌 다른 장치에 지정하셔야 합니다."
+
+#: ../textw/partition_text.py:711
+msgid "You cannot remove freespace"
+msgstr ""
+
+#: ../textw/partition_text.py:766
+#, fuzzy
+msgid "Partitioning"
+msgstr "파티션"
+
+#: ../textw/partition_text.py:776
+#, fuzzy
+msgid "RAID"
+msgstr "<RAID>"
+
+#: ../textw/partition_text.py:779
+#, fuzzy
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
+msgstr ""
+"     F1-도움말    F2-추가    F3-편집    F4-삭제    F5-재설정    F12-확인     "
+
+#: ../libfdisk/newtfsedit.c:1613 ../textw/partition_text.py:803
+msgid "No Root Partition"
+msgstr "루트 파티션이 지정되지 않음"
+
+#: ../textw/partition_text.py:804
+#, fuzzy
+msgid "Must have a / partition to install on."
+msgstr ""
+"설치를 계속 진행하기 위해서는 반드시 스왑 파티션을 지정해 주셔야 합니다."
+
+#: ../textw/partition_text.py:824 ../textw/partmethod_text.py:35
+#, fuzzy
+msgid "Autopartitioning"
+msgstr "자동-파티션"
+
+#: ../textw/partition_text.py:830
+#, fuzzy
+msgid "Remove no partitions"
+msgstr "리눅스 파티션 삭제"
+
+#: ../textw/partition_text.py:842
+msgid "Clear Partitions on These Drives:"
+msgstr ""
+
+#: ../textw/partmethod_text.py:35
+msgid "Disk Druid"
+msgstr "Disk Druid"
+
+#: ../textw/progress_text.py:66
+msgid "Package Installation"
+msgstr "패키지 설치"
+
+#: ../textw/progress_text.py:68
+msgid "Name   : "
+msgstr "이름:    "
+
+#: ../textw/progress_text.py:69
+msgid "Size   : "
+msgstr "용량:    "
+
+#: ../textw/progress_text.py:70
+msgid "Summary: "
+msgstr "설명:    "
+
+#: ../textw/progress_text.py:96
+msgid "    Packages"
+msgstr "   패키지 수"
+
+#: ../textw/progress_text.py:97
+msgid "       Bytes"
+msgstr "      바이트"
+
+#: ../textw/progress_text.py:98
+msgid "        Time"
+msgstr "    소요시간"
+
+#: ../textw/progress_text.py:100
+msgid "Total    :"
+msgstr "전  체:   "
+
+#: ../textw/progress_text.py:107
+msgid "Completed:   "
+msgstr "완료됨:      "
+
+#: ../textw/progress_text.py:117
+msgid "Remaining:  "
+msgstr "남  음:     "
+
+#: ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../textw/silo_text.py:213
+msgid "SILO Configuration"
+msgstr "SILO 설정"
 
 #: ../textw/silo_text.py:66
 msgid "Create PROM alias `linux'"
@@ -2704,56 +2634,61 @@ msgstr "PROM을 기본 부트 장치로 설정"
 msgid "Edit Boot Label"
 msgstr "부팅할 이름 편집"
 
-#: ../textw/timezone_text.py:71
+#: ../textw/timezone_text.py:67
 msgid "What time zone are you located in?"
 msgstr "여러분이 위치한 시간대를 선택해 주십시요."
 
-#: ../textw/timezone_text.py:86
+#: ../textw/timezone_text.py:82
 msgid "Hardware clock set to GMT?"
 msgstr "시스템의 시간을 GMT에 맞춤"
 
-#: ../textw/upgrade_text.py:19 ../textw/upgrade_text.py:138
+#: ../textw/upgrade_text.py:16
+#, c-format
 msgid ""
-"If you would like to exit the upgrade select Exit, or choose Ok to continue "
-"with the upgrade."
+"The 2.4 kernel needs significantly more swap than older kernels, as much as "
+"twice as much swap space as RAM on the system. You currently have %dMB of "
+"swap configured, but you may create additional swap space on one of your "
+"file systems now."
 msgstr ""
-"업그레이드 설치를 하시려면 [확인] 버튼을 누르시고, 취소하시려면 [종료] "
-"버튼을 누르십시요."
+"커널 2.4 부터는 이전 버전의 커널이 시스템에 설치되어 있는 램 용량의 두배 이상"
+"의 용량을 스왑 공간을 사용했던 것 보다 훨씬 더 많은 용량의 스왑 공간을 필요"
+"로 합니다. 현재 여러분이 설정하신 스왑 용량은 %d MB 이지만, 추가로 스왑 공간"
+"을 더 생성하실 수 있습니다."
 
-#: ../textw/upgrade_text.py:56
+#: ../textw/upgrade_text.py:34
 msgid "Free Space"
 msgstr "여유 공간"
 
-#: ../textw/upgrade_text.py:71
+#: ../textw/upgrade_text.py:49
 msgid "Suggested size (MB):"
 msgstr "필요한 용량 (MB):"
 
-#: ../textw/upgrade_text.py:82
+#: ../textw/upgrade_text.py:60
 msgid "Add Swap"
 msgstr "스왑 추가"
 
-#: ../textw/upgrade_text.py:108
+#: ../textw/upgrade_text.py:85
 msgid "The value you entered is not a valid number."
 msgstr "여러분이 입력하신 값은 사용될 수 없습니다."
 
-#: ../textw/upgrade_text.py:153
+#: ../textw/upgrade_text.py:117
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr ""
 "리눅스 파티션이 존재하지 않습니다. 이 시스템을 업그레이드 하실 수 없습니다!"
 
-#: ../textw/upgrade_text.py:170
+#: ../textw/upgrade_text.py:134
 msgid "System to Upgrade"
 msgstr "업그레이드할 시스템"
 
-#: ../textw/upgrade_text.py:188
+#: ../textw/upgrade_text.py:148
 msgid "Upgrade Partition"
 msgstr "파티션 업그레이드"
 
-#: ../textw/upgrade_text.py:205
+#: ../textw/upgrade_text.py:170
 msgid "Customize Packages to Upgrade"
 msgstr "업그레이드할 패키지 선택"
 
-#: ../textw/upgrade_text.py:206
+#: ../textw/upgrade_text.py:171
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -2762,179 +2697,391 @@ msgstr ""
 "기존에 설치되어 있는 패키지와 서로 의존 관계에 있는 패키지가 선택되었습니다. "
 "여러분이 직접 업그레이드할 패키지를 선택하시겠습니까?"
 
-#: ../textw/userauth_text.py:11
+#: ../textw/userauth_text.py:8
+msgid "Root Password"
+msgstr "루트 패스워드"
+
+#: ../textw/userauth_text.py:10
 msgid ""
 "Pick a root password. You must type it twice to ensure you know what it is "
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"루트 패스워드를 입력해 주십시요. 패스워드는 두번 입력하여 앞서 입력하신 "
-"내용과 서로 일치하는지를 확인해 주셔야 합니다. 루트 패스워드는 시스템의 "
-"보안에 있어 매우 중요한 부분입니다!"
+"루트 패스워드를 입력해 주십시요. 패스워드는 두번 입력하여 앞서 입력하신 내용"
+"과 서로 일치하는지를 확인해 주셔야 합니다. 루트 패스워드는 시스템의 보안에 있"
+"어 매우 중요한 부분입니다!"
 
-#: ../loader/urls.c:345 ../textw/userauth_text.py:24
-msgid "Password:"
-msgstr "패스워드:"
-
-#: ../textw/userauth_text.py:25
+#: ../textw/userauth_text.py:24
 msgid "Password (again):"
 msgstr "패스워드 (확인):"
 
-#: ../textw/userauth_text.py:41 ../textw/userauth_text.py:108
+#: ../textw/userauth_text.py:40 ../textw/userauth_text.py:107
 msgid "Password Length"
 msgstr "패스워드 길이"
 
-#: ../textw/userauth_text.py:42
+#: ../textw/userauth_text.py:41
 msgid "The root password must be at least 6 characters long."
 msgstr "루트 패스워드는 적어도 6자 이상 되어야 합니다."
 
-#: ../textw/userauth_text.py:46 ../textw/userauth_text.py:116
+#: ../textw/userauth_text.py:45 ../textw/userauth_text.py:115
 msgid "Password Mismatch"
 msgstr "패스워드 오류"
 
-#: ../textw/userauth_text.py:47 ../textw/userauth_text.py:117
+#: ../textw/userauth_text.py:46 ../textw/userauth_text.py:116
 msgid "The passwords you entered were different. Please try again."
 msgstr "여러분이 입력하신 패스워드가 일치하지 않습니다. 다시 입력해 주십시요."
 
-#: ../textw/userauth_text.py:72
-msgid "Edit User"
-msgstr "사용자 편집"
-
-#: ../textw/userauth_text.py:75
+#: ../textw/userauth_text.py:74
 msgid "Add User"
 msgstr "사용자 추가"
 
-#: ../textw/userauth_text.py:80
+#: ../textw/userauth_text.py:79
 msgid "User ID"
 msgstr "사용자 ID"
 
-#: ../textw/userauth_text.py:95
+#: ../textw/userauth_text.py:80
+msgid "Password"
+msgstr "패스워드"
+
+#: ../textw/userauth_text.py:81
+msgid "Password (confirm)"
+msgstr "패스워드 (확인)"
+
+#: ../textw/userauth_text.py:94
 msgid "Bad User ID"
 msgstr "사용자 ID 오류"
 
-#: ../textw/userauth_text.py:96
+#: ../textw/userauth_text.py:95
 msgid ""
-"User IDs must be less than 8 characters and contain only characters A-Z, "
-"a-z, and 0-9."
+"User IDs must be less than 8 characters and contain only characters A-Z, a-"
+"z, and 0-9."
 msgstr ""
-"사용자 ID는 대문자 'A-Z', 소문자 'a-z', 그리고 숫자 '0-9' 의 문자만을 "
-"사용하여 8자 이내로 지정해 주셔야 합니다."
+"사용자 ID는 대문자 'A-Z', 소문자 'a-z', 그리고 숫자 '0-9' 의 문자만을 사용하"
+"여 8자 이내로 지정해 주셔야 합니다."
 
-#: ../textw/userauth_text.py:103
+#: ../textw/userauth_text.py:102
 msgid "Missing User ID"
 msgstr "사용자 ID 오류"
 
-#: ../textw/userauth_text.py:104
+#: ../textw/userauth_text.py:103
 msgid "You must provide a user ID"
 msgstr "사용자 ID는 반드시 지정해 주셔야 합니다"
 
-#: ../textw/userauth_text.py:109
+#: ../textw/userauth_text.py:108
 msgid "The password must be at least 6 characters long."
 msgstr "패스워드는 적어도 6자 이상 되어야 합니다."
 
-#: ../textw/userauth_text.py:125 ../textw/userauth_text.py:133
+#: ../textw/userauth_text.py:124 ../textw/userauth_text.py:132
 msgid "User Exists"
 msgstr "사용자가 존재함"
 
-#: ../textw/userauth_text.py:126
+#: ../textw/userauth_text.py:125
 msgid ""
 "The root user is already configured. You don't need to add this user here."
 msgstr ""
-"루트 사용자는 이미 설정되어 있습니다. 루트 사용자를 이곳에 추가하실 필요는 "
-"없습니다."
+"루트 사용자는 이미 설정되어 있습니다. 루트 사용자를 이곳에 추가하실 필요는 없"
+"습니다."
 
-#: ../textw/userauth_text.py:134
+#: ../textw/userauth_text.py:133
 msgid "This user id already exists.  Choose another."
 msgstr "이 사용자 ID는 이미 존재합니다.  다른 이름으로 입력해 주십시요."
 
-#: ../textw/userauth_text.py:161
+#: ../textw/userauth_text.py:160
 msgid ""
 "You should use a normal user account for most activities on your system. By "
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
 "여러분 시스템에서의 모든 작업은 일반 사용자 계정을 사용하십시요. 일반 계정을 "
-"사용하시면, 실수로 인해 여러분의 시스템을 심각한 상황으로 만들 수 있는 "
-"확률을 최소화 할 수 있습니다."
+"사용하시면, 실수로 인해 여러분의 시스템을 심각한 상황으로 만들 수 있는 확률"
+"을 최소화 할 수 있습니다."
 
-#: ../textw/userauth_text.py:174
+#: ../textw/userauth_text.py:171
+msgid "User Account Setup"
+msgstr "사용자 계정 설정"
+
+#: ../textw/userauth_text.py:173
 msgid ""
 "What user account would you like to have on the system? You should have at "
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
-"시스템에서 사용하실 사용자 계정을 추가해 주십시요. 루트 이외에 일반적으로 "
-"사용하기 위한 사용자 계정은 반드시 필요합니다. 여러 사용자를 수용하기 위한 "
-"시스템을 구축하신다면, 필요하신 만큼의 사용자 계정을 추가하실 수 있습니다."
+"시스템에서 사용하실 사용자 계정을 추가해 주십시요. 루트 이외에 일반적으로 사"
+"용하기 위한 사용자 계정은 반드시 필요합니다. 여러 사용자를 수용하기 위한 시스"
+"템을 구축하신다면, 필요하신 만큼의 사용자 계정을 추가하실 수 있습니다."
 
-#: ../textw/userauth_text.py:184
+#: ../textw/userauth_text.py:183
 msgid "User name"
 msgstr "사용자 이름"
 
-#: ../textw/userauth_text.py:211
+#: ../textw/userauth_text.py:210
 msgid "Enter the information for the user."
 msgstr "사용자에 대한 사항을 입력해 주십시요."
 
-#: ../textw/userauth_text.py:229
+#: ../textw/userauth_text.py:228
 msgid "Change the information for this user."
 msgstr "이 사용자에 대한 사항을 변경합니다."
 
-#: ../textw/userauth_text.py:301
+#: ../textw/userauth_text.py:300
 msgid "Use Shadow Passwords"
 msgstr "섀도우 패스워드 사용"
 
-#: ../textw/userauth_text.py:303
+#: ../textw/userauth_text.py:302
 msgid "Enable MD5 Passwords"
 msgstr "MD5 패스워드 사용"
 
-#: ../textw/userauth_text.py:314
+#: ../textw/userauth_text.py:313
 msgid "NIS Domain:"
 msgstr "NIS 도메인:"
 
-#: ../textw/userauth_text.py:316
+#: ../textw/userauth_text.py:315
 msgid "NIS Server:"
 msgstr "NIS 서버:"
 
-#: ../textw/userauth_text.py:318
+#: ../textw/userauth_text.py:317
 msgid "or use:"
 msgstr "사용할 서버:"
 
-#: ../textw/userauth_text.py:321
+#: ../textw/userauth_text.py:320
 msgid "Request server via broadcast"
 msgstr "브로드캐스트를 통해 서버 요청"
 
-#: ../textw/userauth_text.py:360
+#: ../textw/userauth_text.py:359
 msgid "Use TLS connections"
 msgstr "TLS 접속 사용"
 
-#: ../installclasses/custom.py:10
+#: ../textw/welcome_text.py:8 ../textw/welcome_text.py:27
+msgid "Red Hat Linux"
+msgstr "레드햇 리눅스"
+
+#: ../textw/welcome_text.py:9
+#, fuzzy
+msgid ""
+"Welcome to Red Hat Linux!\n"
+"\n"
+"This installation process is outlined in detail in the Official Red Hat "
+"Linux Installation Guide available from Red Hat, Inc. If you have access to "
+"this manual, you should read the installation section before continuing.\n"
+"\n"
+"If you have purchased Official Red Hat Linux, be sure to register your "
+"purchase through our web site, http://www.redhat.com/."
+msgstr ""
+"레드햇 리눅스를 선택해 주셔서 감사합니다!\n"
+"\n"
+"설치 과정에 대한 내용은 저희 레드햇 리눅스 사에서 제공하는 공식 레드햇 리눅"
+"스 설치 안내서를 참고해 주십시요. 현재 설치 안내서를 통해 설치를 하고 계시다"
+"면, 설치 관련 부분을 먼저 읽어보시기 바랍니다.\n"
+"\n"
+"여러분이 공식 레드햇 리눅스 제품을 구입하신 경우에는 반드시 저희 웹 사이트 "
+"http://www.redhat.com/ 를 방문하여 사용자 등록을 해주시기 바랍니다."
+
+#: ../textw/welcome_text.py:28
+msgid ""
+"Welcome to the Red Hat Linux!\n"
+"\n"
+"You have entered reconfiguration mode, which will allow you to configure "
+"site-specific options of your computer.\n"
+"\n"
+"To exit without changing your setup select the Cancel button below."
+msgstr ""
+"레드햇 리눅스를 선택해 주셔서 감사합니다!\n"
+"\n"
+"여러분의 시스템에 특정-부분의 항목(site-specific options) 을 설정할 수 있는 "
+"재 설정 모드 입니다.\n"
+"\n"
+"설정 내용을 변경하지 않고 종료하시려면, 화면 아래의 [취소] 버튼을 누르십시요."
+
+#: ../textw/xconfig_text.py:11
+#, fuzzy
+msgid "Color Depth"
+msgstr "색상 수:"
+
+#: ../textw/xconfig_text.py:12
+msgid "Please select the color depth you would like to use:"
+msgstr ""
+
+#: ../textw/xconfig_text.py:30
+#, fuzzy
+msgid "Resolution"
+msgstr "화면 해상도:"
+
+#: ../textw/xconfig_text.py:31
+msgid "Please select the resolution you would like to use:"
+msgstr ""
+
+#: ../textw/xconfig_text.py:148 ../textw/xconfig_text.py:157
+#, fuzzy
+msgid "Test"
+msgstr "텍스트 환경"
+
+#: ../textw/xconfig_text.py:151
+#, fuzzy
+msgid "X Customization"
+msgstr "X 윈도우 시스템 설정"
+
+#: ../textw/xconfig_text.py:154
+#, c-format
+msgid ""
+"Select the color depth and video mode you want to use for your system. Use "
+"the '%s' button to test the video mode."
+msgstr ""
+
+#: ../textw/xconfig_text.py:164 ../textw/xconfig_text.py:171
+#: ../textw/xconfig_text.py:380 ../textw/xconfig_text.py:391
+#: ../textw/xconfig_text.py:547 ../textw/xconfig_text.py:554
+#, fuzzy
+msgid "Change"
+msgstr "CDROM 교체"
+
+#: ../textw/xconfig_text.py:167
+#, fuzzy
+msgid "Resolution:"
+msgstr "화면 해상도:"
+
+#: ../textw/xconfig_text.py:177
+#, fuzzy
+msgid "Default Desktop:"
+msgstr "기본부팅"
+
+#: ../textw/xconfig_text.py:197
+#, fuzzy
+msgid "Default Login:"
+msgstr "기본 언어"
+
+#: ../textw/xconfig_text.py:249
+#, fuzzy
+msgid "Please select the monitor attached to your system."
+msgstr "루트 파일시스템이 있는 장치를 선택해 주십시요: "
+
+#: ../textw/xconfig_text.py:266
+msgid "Monitor Sync Rates"
+msgstr ""
+
+#: ../textw/xconfig_text.py:271
+msgid ""
+"Please enter the sync rates for your monitor. \n"
+"\n"
+"NOTE - it is not usually necessary to edit sync rates manually, and care "
+"should be taken to make sure the values entered are accurate."
+msgstr ""
+
+#: ../textw/xconfig_text.py:276
+msgid "HSync Rate: "
+msgstr ""
+
+#: ../textw/xconfig_text.py:281
+msgid "VSync Rate: "
+msgstr ""
+
+#: ../textw/xconfig_text.py:305
+#, fuzzy
+msgid "horizontal"
+msgstr "수평 동기:"
+
+#: ../textw/xconfig_text.py:308
+#, fuzzy
+msgid "vertical"
+msgstr "수직 동기:"
+
+#: ../textw/xconfig_text.py:317
+#, fuzzy
+msgid "Invalid Sync Rates"
+msgstr "선택 오류"
+
+#: ../textw/xconfig_text.py:318
+#, c-format
+msgid ""
+"The %s sync rate is invalid:\n"
+"\n"
+"      %s\n"
+"\n"
+"A valid sync rate can be of the form:\n"
+"\n"
+"      31.5                   a single number\n"
+"    50.1-90.2                a range of numbers\n"
+"31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
+msgstr ""
+
+#: ../textw/xconfig_text.py:372
+#, c-format
+msgid ""
+"Select the monitor for your system.  Use the '%s' button to reset to the "
+"probed values."
+msgstr ""
+
+#: ../textw/xconfig_text.py:376
+#, fuzzy
+msgid "Monitor:"
+msgstr "모니터"
+
+#: ../textw/xconfig_text.py:383
+msgid "HSync Rate:"
+msgstr ""
+
+#: ../textw/xconfig_text.py:393
+msgid "VSync Rate:"
+msgstr ""
+
+#: ../textw/xconfig_text.py:463
+#, c-format
+msgid ""
+"Please select the video card present in your system.  Choose '%s' to reset "
+"the selection to the card the installer detected in your system."
+msgstr ""
+
+#: ../textw/xconfig_text.py:481
+#, fuzzy
+msgid "Video RAM"
+msgstr "비디오 램"
+
+#: ../textw/xconfig_text.py:482
+#, c-format
+msgid ""
+"Please select the amount of video RAM present on your video card. Choose '%"
+"s' to reset the selection to the amount the installer detected on your card."
+msgstr ""
+
+#: ../textw/xconfig_text.py:537
+#, fuzzy
+msgid "Video Card Configuration"
+msgstr "키보드 설정"
+
+#: ../textw/xconfig_text.py:540
+msgid "Select the video card and video RAM for your system."
+msgstr ""
+
+#: ../textw/xconfig_text.py:543
+#, fuzzy
+msgid "Video Card:"
+msgstr "비디오 카드"
+
+#: ../textw/xconfig_text.py:550
+#, fuzzy
+msgid "Video RAM:"
+msgstr "비디오 카드의 램 용량: "
+
+#: ../installclasses/custom.py:12
 msgid "Custom System"
 msgstr "사용자 설정 시스템"
-
-#: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-msgid ""
-"Automatic partitioning will erase any preexisting Linux installations on "
-"your system."
-msgstr ""
-"자동 파티션 설정은 기존에 설치되어 있는 모든 리눅스 시스템을 삭제합니다."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
 msgstr "랩탑 (노트북)"
 
-#: ../installclasses/server.py:9
+#: ../installclasses/server.py:12
 msgid "Server System"
 msgstr "서버 시스템"
 
-#: ../installclasses/server.py:38
-msgid ""
-"Automatic partitioning will erase ALL DATA on your hard drive to make room "
-"for your Linux installation."
-msgstr ""
-"자동 파티션 설정은 리눅스를 설치하기 위해 여러분 시스템의 하드 드라이브 상에 "
-"있는 모든 자료를 전부 삭제합니다."
+#: ../installclasses/upgradeclass.py:8
+#, fuzzy
+msgid "Upgrade Existing System"
+msgstr "시스템 업그레이드"
 
-#: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
+#: ../installclasses/upgradeclass.py:12
+msgid "Upgrade"
+msgstr "업그레이드"
+
+#: ../installclasses/workstation.py:12 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
 msgstr "웍스테이션"
 
@@ -2990,13 +3137,13 @@ msgstr ""
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
-"system. Additionally, there will be a speed penalty for not using "
-"Linux-native partitions. Do you want to continue?"
+"system. Additionally, there will be a speed penalty for not using Linux-"
+"native partitions. Do you want to continue?"
 msgstr ""
-"루트(/) 파일시스템을 DOS-형식의 'FAT' 파티션에 지정하셨습니다. 이와같이 "
-"지정하실 수는 있지만, 그대신 다른 파일시스템은 사용하실 수 없게 됩니다. "
-"또한, 리눅스 파티션을 사용하지 않는 관계로 속도가 현저히 저하됩니다. 그래도 "
-"사용하시겠습니까?"
+"루트(/) 파일시스템을 DOS-형식의 'FAT' 파티션에 지정하셨습니다. 이와같이 지정"
+"하실 수는 있지만, 그대신 다른 파일시스템은 사용하실 수 없게 됩니다. 또한, 리"
+"눅스 파티션을 사용하지 않는 관계로 속도가 현저히 저하됩니다. 그래도 사용하시"
+"겠습니까?"
 
 #: ../libfdisk/fsedit.c:973
 #, c-format
@@ -3035,9 +3182,9 @@ msgid ""
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
-"이 프로그램에서 지원할 수 있는 최대 드라이브의 수가 초과되었습니다. 파티션 "
-"설정은 'fdisk' 를 사용하여 설정해 주시고, 현재 나타난 오류 메세지를 레드햇에 "
-"알려주시기 바랍니다."
+"이 프로그램에서 지원할 수 있는 최대 드라이브의 수가 초과되었습니다. 파티션 설"
+"정은 'fdisk' 를 사용하여 설정해 주시고, 현재 나타난 오류 메세지를 레드햇에 알"
+"려주시기 바랍니다."
 
 #: ../libfdisk/fsedit.c:1034
 msgid "Error Creating Device Nodes"
@@ -3049,8 +3196,8 @@ msgid ""
 "drives in your system.  This may be because you have run out of disk space "
 "on the /tmp partition."
 msgstr ""
-"하드 드라이브의 장치 노드를 생성하는 도중 오류가 발생되었습니다.  이와같은 "
-"상황은 '/tmp' 파티션의 드라이브 공간 부족으로 인한 것 같습니다."
+"하드 드라이브의 장치 노드를 생성하는 도중 오류가 발생되었습니다.  이와같은 상"
+"황은 '/tmp' 파티션의 드라이브 공간 부족으로 인한 것 같습니다."
 
 #: ../libfdisk/fsedit.c:1052
 msgid "No Drives Found"
@@ -3061,8 +3208,8 @@ msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
-"오류 발생 - 새로운 파일시스템을 생성하기 위한 장치를 찾을 수 없습니다.  "
-"여러분의 하드웨어를 다시한번 확인해 보시기 바랍니다."
+"오류 발생 - 새로운 파일시스템을 생성하기 위한 장치를 찾을 수 없습니다.  여러"
+"분의 하드웨어를 다시한번 확인해 보시기 바랍니다."
 
 #: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1445
 #, c-format
@@ -3072,11 +3219,6 @@ msgid ""
 msgstr ""
 "블럭 장치 %s 의 파티션 정보를 읽는 도중 오류가 발생되었습니다.  오류 내용은 "
 "다음과 같습니다:"
-
-#: ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1463 ../loader/net.c:277
-#: ../loader/net.c:402
-msgid "Retry"
-msgstr "재시도"
 
 #: ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1428
 #: ../libfdisk/fsedit.c:1450 ../libfdisk/fsedit.c:1456
@@ -3090,9 +3232,9 @@ msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
-"%s 장치의 파티션 정보가 손상되었습니다.  새로운 파티션을 생성하기 위해서는 "
-"반드시 이 드라이브를 초기화해야 합니다. 단, 초기화로 인해 드라이브 안의 모든 "
-"자료는 삭제됩니다."
+"%s 장치의 파티션 정보가 손상되었습니다.  새로운 파티션을 생성하기 위해서는 반"
+"드시 이 드라이브를 초기화해야 합니다. 단, 초기화로 인해 드라이브 안의 모든 자"
+"료는 삭제됩니다."
 
 #: ../libfdisk/fsedit.c:1427
 msgid "Bad Partition Table"
@@ -3112,10 +3254,10 @@ msgid ""
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
-"'BSD 디스크레이블' 이 있는 드라이브가 검색되었습니다. 레드햇 리눅스 설치 "
-"프로그램에서는 'BSD 디스크레이블' 을 '읽기-전용' 모드로만 지원하기 때문에, "
-"'설치 유형' 화면에서 반드시 '사용자 설치' 를 선택하신 후에 'fdisk' (Disk "
-"Druid의 사용 대신) 를 사용하여 파티션을 설정하시기 바랍니다."
+"'BSD 디스크레이블' 이 있는 드라이브가 검색되었습니다. 레드햇 리눅스 설치 프로"
+"그램에서는 'BSD 디스크레이블' 을 '읽기-전용' 모드로만 지원하기 때문에, '설치 "
+"유형' 화면에서 반드시 '사용자 설치' 를 선택하신 후에 'fdisk' (Disk Druid의 사"
+"용 대신) 를 사용하여 파티션을 설정하시기 바랍니다."
 
 #: ../libfdisk/fsedit.c:1506 ../libfdisk/fsedit.c:1529
 #: ../libfdisk/fsedit.c:1555
@@ -3135,10 +3277,10 @@ msgid ""
 "partitioned.  This can be corrected by specifying the drive geometry on the "
 "kernel command line when booting the installer."
 msgstr ""
-"이와같은 상황은 설치 프로그램에서 검색된 드라이브의 지오메트리 내용과 "
-"드라이브가 파티션 되었을 때 사용된 지오메트리의 내용이 서로 다르기 "
-"때문입니다.  이 문제를 해결하시려면, 설치 프로그램의 부팅시 커널 명령 행에서 "
-"드라이브의 정확한 지오메트리를 직접 입력해 주시기 바랍니다."
+"이와같은 상황은 설치 프로그램에서 검색된 드라이브의 지오메트리 내용과 드라이"
+"브가 파티션 되었을 때 사용된 지오메트리의 내용이 서로 다르기 때문입니다.  이 "
+"문제를 해결하시려면, 설치 프로그램의 부팅시 커널 명령 행에서 드라이브의 정확"
+"한 지오메트리를 직접 입력해 주시기 바랍니다."
 
 #: ../libfdisk/fsedit.c:1565
 msgid ""
@@ -3149,13 +3291,12 @@ msgid ""
 "supported by the anaconda installer.  You may be able to set the partition "
 "type correctly using your other operating system's partitioning program."
 msgstr ""
-"이 오류의 원인은 여러분 시스템의 드라이브에 파티션 유형이 '0' 인 논리 "
-"파티션이 존재하기 때문입니다.  파티션 유형이 '0' 인 파티션은 해당 드라이브의 "
-"파티션이 완전히 정의되어 있지 않은 것이며, 다른 운영체제의 파티션 설정 "
-"프로그램에 의해 생성된 것입니다.  이와같은 상황은 현재 아나콘다 설치 "
-"프로그램에서는 지원하지 않습니다.  이 문제를 해결하시려면, 그 파티션을 "
-"생성한 운영체제의 파티션 설정 프로그램을 사용하여 해당 파티션의 유형을 "
-"올바로 지정해 주시기 바랍니다."
+"이 오류의 원인은 여러분 시스템의 드라이브에 파티션 유형이 '0' 인 논리 파티션"
+"이 존재하기 때문입니다.  파티션 유형이 '0' 인 파티션은 해당 드라이브의 파티션"
+"이 완전히 정의되어 있지 않은 것이며, 다른 운영체제의 파티션 설정 프로그램에 "
+"의해 생성된 것입니다.  이와같은 상황은 현재 아나콘다 설치 프로그램에서는 지원"
+"하지 않습니다.  이 문제를 해결하시려면, 그 파티션을 생성한 운영체제의 파티션 "
+"설정 프로그램을 사용하여 해당 파티션의 유형을 올바로 지정해 주시기 바랍니다."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
@@ -3183,8 +3324,8 @@ msgid ""
 msgstr ""
 "1024 실린더 부트 제한으로 인해 RAID 어레이 장치의 루트(/) 파티션 용량을 전부 "
 "사용하실 수 없는 상황인 것 같습니다. 이와같은 상황에서는 '/boot' 파티션 (약 "
-"50 MB 정도) 을 따로 지정해 주셔야만 루트 파티션의 용량을 모두 사용하실 수 "
-"있습니다."
+"50 MB 정도) 을 따로 지정해 주셔야만 루트 파티션의 용량을 모두 사용하실 수 있"
+"습니다."
 
 #: ../libfdisk/gnomefsedit.c:789
 msgid ""
@@ -3193,8 +3334,8 @@ msgid ""
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 "1024 실린더 부트 제한으로 인해 루트(/) 파티션의 용량을 전부 사용하실 수 없는 "
-"상황인 것 같습니다. 이와같은 상황에서는 '/boot' 파티션 (약 50 MB 정도) 을 "
-"따로 지정해 주셔야만 루트 파티션의 용량을 모두 사용하실 수 있습니다."
+"상황인 것 같습니다. 이와같은 상황에서는 '/boot' 파티션 (약 50 MB 정도) 을 따"
+"로 지정해 주셔야만 루트 파티션의 용량을 모두 사용하실 수 있습니다."
 
 #: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:877
 msgid "Delete Partition"
@@ -3213,8 +3354,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
-"'/' 파일시스템을 'ext2' 가 아닌 파티션에 지정하셨기 때문에, 다른 파티션은 "
-"편집하실 수 없습니다."
+"'/' 파일시스템을 'ext2' 가 아닌 파티션에 지정하셨기 때문에, 다른 파티션은 편"
+"집하실 수 없습니다."
 
 #: ../libfdisk/gnomefsedit.c:898 ../libfdisk/gnomefsedit.c:904
 #: ../libfdisk/gnomefsedit.c:908 ../libfdisk/gnomefsedit.c:910
@@ -3222,11 +3363,6 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:381 ../libfdisk/newtfsedit.c:383
 msgid "Edit Partition"
 msgstr "파티션 편집"
-
-#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
-#: ../libfdisk/newtfsedit.c:392
-msgid "Mount Point:"
-msgstr "마운트할 지점:"
 
 #: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
 msgid "Size (Megs):"
@@ -3258,10 +3394,6 @@ msgstr "실패 원인:"
 msgid "Partition Type:"
 msgstr "파티션 유형:"
 
-#: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:527
-msgid "Allowable Drives:"
-msgstr "할당 가능한 드라이브:"
-
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
 #: ../libfdisk/newtfsedit.c:618
 msgid "No Mount Point"
@@ -3272,8 +3404,8 @@ msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr ""
-"이 파티션에 마운트할 지점을 지정하지 않으셨습니다. 지정되지 않은채로 "
-"놔두시겠습니까?"
+"이 파티션에 마운트할 지점을 지정하지 않으셨습니다. 지정되지 않은채로 놔두시겠"
+"습니까?"
 
 #: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:642
@@ -3290,8 +3422,8 @@ msgid ""
 msgstr ""
 "FAT-형식의 파티션에 마운트할 지점을 '/' 로 지정하셨습니다.  '/' 는 이미 "
 "'ext2' 파티션에 마운트할 지점으로 지정되었기 때문에 이 위치로는 지정하실 수 "
-"없습니다.  이 파티션을 '/' 로 지정하시려면, 앞서 다른 곳에 지정하신 '/' 의 "
-"마운트할 지점을 다른 위치로 변경하시거나 지워주십시요."
+"없습니다.  이 파티션을 '/' 로 지정하시려면, 앞서 다른 곳에 지정하신 '/' 의 마"
+"운트할 지점을 다른 위치로 변경하시거나 지워주십시요."
 
 #: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:676
 msgid ""
@@ -3338,8 +3470,8 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 "루트(/) 파티션으로 사용하기 위해서는 최소한 %ld MB 정도의 용량이 확보되어야 "
-"합니다. 여러분이 지정하신 루트 파티션의 용량은 %ld MB 이므로, 설치시에 "
-"오류가 발생될 수 있습니다.\n"
+"합니다. 여러분이 지정하신 루트 파티션의 용량은 %ld MB 이므로, 설치시에 오류"
+"가 발생될 수 있습니다.\n"
 "\n"
 "그대로 진행하시겠습니까?"
 
@@ -3373,8 +3505,8 @@ msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
-"하나의 드라이브에 RAID 파티션을 포함하지 않고 파티션을 설정하셨습니다. 이 "
-"파티션을 포함시킬 드라이브를 선택해 주십시요."
+"하나의 드라이브에 RAID 파티션을 포함하지 않고 파티션을 설정하셨습니다. 이 파"
+"티션을 포함시킬 드라이브를 선택해 주십시요."
 
 #: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:851
 msgid "Cannot Add Partitions"
@@ -3385,8 +3517,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
 msgstr ""
-"'/' 파일시스템을 'ext2' 가 아닌 파티션에 지정하셨기 때문에, 다른 파티션은 "
-"추가하실 수 없습니다."
+"'/' 파일시스템을 'ext2' 가 아닌 파티션에 지정하셨기 때문에, 다른 파티션은 추"
+"가하실 수 없습니다."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -3401,9 +3533,9 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
-"RAID 장치 /dev/%s 에는 아직 할당되지 않은 파티션이 포함되어 있습니다. "
-"그로인해, RAID 장치 /dev/%s 에 구성되어 있는 파티션은 각각 원래의 파티션으로 "
-"분리될 것입니다. RAID 장치를 할당되어 있는 파티션으로 재구성해 주십시요."
+"RAID 장치 /dev/%s 에는 아직 할당되지 않은 파티션이 포함되어 있습니다. 그로인"
+"해, RAID 장치 /dev/%s 에 구성되어 있는 파티션은 각각 원래의 파티션으로 분리"
+"될 것입니다. RAID 장치를 할당되어 있는 파티션으로 재구성해 주십시요."
 
 #: ../libfdisk/gnomefsedit.c:1651
 msgid "Cannot Remove /boot"
@@ -3414,8 +3546,8 @@ msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
 msgstr ""
-"'/' 를 RAID 장치 상에 지정하신 경우에는 '/boot' 를 삭제하실 수 없습니다.  "
-"'/boot' 를 삭제하시려면, '/' 를 RAID가 아닌 다른 장치에 지정하셔야 합니다."
+"'/' 를 RAID 장치 상에 지정하신 경우에는 '/boot' 를 삭제하실 수 없습니다.  '/"
+"boot' 를 삭제하시려면, '/' 를 RAID가 아닌 다른 장치에 지정하셔야 합니다."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738
@@ -3430,8 +3562,8 @@ msgid ""
 "requested partitions. The unallocated partition(s) are shown below, along "
 "with the reason they were not allocated."
 msgstr ""
-"여러분이 지정하신 파티션 목록에는 아직 할당되지 않은 파티션이 존재합니다. "
-"화면 아래에서 할당되지 않은 파티션의 이름과 그 원인을 확인해 보시기 바랍니다."
+"여러분이 지정하신 파티션 목록에는 아직 할당되지 않은 파티션이 존재합니다. 화"
+"면 아래에서 할당되지 않은 파티션의 이름과 그 원인을 확인해 보시기 바랍니다."
 
 #: ../libfdisk/gnomefsedit.c:2015
 msgid "Cannot Edit Raid"
@@ -3442,8 +3574,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
-"'/' 파일시스템을 'ext2' 가 아닌 파티션에 지정하셨기 때문에, RAID 장치를 "
-"편집하실 수 없습니다."
+"'/' 파일시스템을 'ext2' 가 아닌 파티션에 지정하셨기 때문에, RAID 장치를 편집"
+"하실 수 없습니다."
 
 #: ../libfdisk/gnomefsedit.c:2116
 msgid "RAID Device: /dev/"
@@ -3468,8 +3600,8 @@ msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
-"여러분이 지정하신 마운트할 지점은 이미 지정되어 있습니다. 다시한번 "
-"확인하시고 지정해 주십시요."
+"여러분이 지정하신 마운트할 지점은 이미 지정되어 있습니다. 다시한번 확인하시"
+"고 지정해 주십시요."
 
 #: ../libfdisk/gnomefsedit.c:2315
 msgid ""
@@ -3478,8 +3610,8 @@ msgid ""
 "\n"
 "These drives are: "
 msgstr ""
-"부팅 가능한 RAID 장치를 설정하시려면, 하드 드라이브의 첫번째 파티션으로만 "
-"구성하셔야 합니다.\n"
+"부팅 가능한 RAID 장치를 설정하시려면, 하드 드라이브의 첫번째 파티션으로만 구"
+"성하셔야 합니다.\n"
 "\n"
 "구성 가능한 드라이브: "
 
@@ -3505,8 +3637,8 @@ msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
-"/dev/%s 장치는 이미 RAID 장치로 설정되어 있습니다. 다시한번 확인하시고 "
-"지정해 주십시요."
+"/dev/%s 장치는 이미 RAID 장치로 설정되어 있습니다. 다시한번 확인하시고 지정"
+"해 주십시요."
 
 #: ../libfdisk/gnomefsedit.c:2353
 msgid "Not Enough Partitions"
@@ -3547,9 +3679,9 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
-"%s 파티션은 이 RAID 장치를 구성하고 있는 파티션 중 이전에 설정되어 있던 "
-"파티션이며, 마운트할 지점은 '/boot' 로 지정되어 있습니다.  이 파티션을 부팅 "
-"파티션으로 하시겠습니까?"
+"%s 파티션은 이 RAID 장치를 구성하고 있는 파티션 중 이전에 설정되어 있던 파티"
+"션이며, 마운트할 지점은 '/boot' 로 지정되어 있습니다.  이 파티션을 부팅 파티"
+"션으로 하시겠습니까?"
 
 #: ../libfdisk/gnomefsedit.c:2466
 msgid "Use Pre-existing Partition?"
@@ -3564,8 +3696,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
-"'/' 파일시스템을 'ext2' 가 아닌 파티션에 지정하셨기 때문에, RAID 장치를 "
-"추가하실 수 없습니다."
+"'/' 파일시스템을 'ext2' 가 아닌 파티션에 지정하셨기 때문에, RAID 장치를 추가"
+"하실 수 없습니다."
 
 #: ../libfdisk/gnomefsedit.c:2586
 msgid "Auto-Partition"
@@ -3661,8 +3793,8 @@ msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
-"설치를 계속 진행하기 위해서는 루트(/) 파티션을 반드시 리눅스 파티션(ext2) "
-"또는 RAID 파티션에 지정하셔야 합니다."
+"설치를 계속 진행하기 위해서는 루트(/) 파티션을 반드시 리눅스 파티션(ext2) 또"
+"는 RAID 파티션에 지정하셔야 합니다."
 
 #: ../libfdisk/gnomefsedit.c:3656
 msgid "Partitions"
@@ -3743,10 +3875,6 @@ msgstr "드라이브 정보"
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
 msgstr " 드라이브 [실린더/헤드/섹터] 총 용량  사용량  여유 공간"
 
-#: ../libfdisk/newtfsedit.c:1613
-msgid "No Root Partition"
-msgstr "루트 파티션이 지정되지 않음"
-
 #: ../libfdisk/newtfsedit.c:1614
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
@@ -3773,8 +3901,8 @@ msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr ""
-"설치를 계속 진행하기 위해서는 '/boot/efi' 의 마운트할 지점을 반드시 "
-"FAT-형식의 첫번째 파티션에 지정하셔야 합니다."
+"설치를 계속 진행하기 위해서는 '/boot/efi' 의 마운트할 지점을 반드시 FAT-형식"
+"의 첫번째 파티션에 지정하셔야 합니다."
 
 #: ../libfdisk/newtfsedit.c:1684
 msgid ""
@@ -3826,15 +3954,15 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
-"이 모듈에 필요한 매개변수 값을 설정해 주십시요. 매개변수로 전달할 값을 "
-"정확히 모르신다면, [확인] 버튼을 눌러 설치를 계속 진행하시기 바랍니다."
+"이 모듈에 필요한 매개변수 값을 설정해 주십시요. 매개변수로 전달할 값을 정확"
+"히 모르신다면, [확인] 버튼을 눌러 설치를 계속 진행하시기 바랍니다."
 
 #: ../loader/devices.c:91
 msgid "Module Parameters"
 msgstr "모듈 매개변수"
 
 #: ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:358
-#: ../loader/loader.c:289 ../loader/loader.c:350 ../loader/loader.c:366
+#: ../loader/loader.c:290 ../loader/loader.c:351 ../loader/loader.c:367
 msgid "Devices"
 msgstr "장치"
 
@@ -3862,8 +3990,8 @@ msgid ""
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
 "어떤 드라이버로 사용하시겠습니까?  여러분이 필요하신 드라이버가 이 목록에는 "
-"없는 것 같습니다. 만일, 별도의 드라이버 디스켓을 갖고 계시다면, [F2] 키를 "
-"누르십시요."
+"없는 것 같습니다. 만일, 별도의 드라이버 디스켓을 갖고 계시다면, [F2] 키를 누"
+"르십시요."
 
 #: ../loader/devices.c:336
 msgid "Specify module parameters"
@@ -3883,7 +4011,7 @@ msgstr "드라이버 디스켓을 마운트하는데 실패했습니다: %s."
 msgid "The wrong diskette was inserted."
 msgstr "이 디스켓은 올바른 디스켓이 아닙니다."
 
-#: ../loader/devices.c:513 ../loader/loader.c:453 ../loader/loader.c:455
+#: ../loader/devices.c:513
 msgid "Loading"
 msgstr "로딩 중"
 
@@ -3920,25 +4048,29 @@ msgstr "킥스타트 파일 %s 의 내용을 읽는 도중 오류가 발생되었습니다: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "킥스타트 파일 %2$s 의 %1$d 번째 줄에서 오류가 발생되었습니다."
 
-#: ../loader/lang.c:292
-msgid "Choose a Language"
-msgstr "언어 선택"
-
-#: ../loader/lang.c:344 ../loader/loader.c:155
+#: ../loader/lang.c:40 ../loader/loader.c:155
 msgid "Welcome to Red Hat Linux"
 msgstr "레드햇 리눅스"
 
-#: ../loader/lang.c:345 ../loader/loader.c:157
+#: ../loader/lang.c:41 ../loader/loader.c:157
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
-#: ../loader/lang.c:583
+#: ../loader/lang.c:295
+msgid "Choose a Language"
+msgstr "언어 선택"
+
+#: ../loader/lang.c:295
+msgid "What language should be used during the installation process?"
+msgstr "설치 과정 동안에 사용하실 언어를 선택해 주십시요."
+
+#: ../loader/lang.c:590
 msgid "Keyboard Type"
 msgstr "키보드 유형"
 
-#: ../loader/lang.c:584
+#: ../loader/lang.c:591
 msgid "What type of keyboard do you have?"
 msgstr "사용하고 계신 키보드를 선택해 주십시요."
 
@@ -3954,80 +4086,75 @@ msgstr "NFS 이미지"
 msgid "Hard drive"
 msgstr "하드 드라이브"
 
-#: ../loader/loader.c:276
+#: ../loader/loader.c:277
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:290
+#: ../loader/loader.c:291
 msgid "What kind of device would you like to add"
 msgstr "추가할 장치의 종류를 선택해 주십시요."
 
-#: ../loader/loader.c:339
+#: ../loader/loader.c:340
 msgid "I have found the following devices in your system:"
 msgstr "여러분의 시스템에서 다음의 장치를 찾았습니다:"
 
-#: ../loader/loader.c:341 ../loader/loader.c:366
+#: ../loader/loader.c:342 ../loader/loader.c:367
+msgid "Done"
+msgstr "완료"
+
+#: ../loader/loader.c:342 ../loader/loader.c:367
 msgid "Add Device"
 msgstr "장치 추가"
 
-#: ../loader/loader.c:367
+#: ../loader/loader.c:368
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
-"여러분의 시스템에 어떠한 장치 드라이버도 로딩되지 않았습니다. 지금 장치를 "
-"로딩하시겠습니까?"
+"여러분의 시스템에 어떠한 장치 드라이버도 로딩되지 않았습니다. 지금 장치를 로"
+"딩하시겠습니까?"
 
-#: ../loader/loader.c:510
-#, c-format
-msgid "Loading %s ramdisk..."
-msgstr "%s 램디스크를 로딩하고 있습니다..."
-
-#: ../loader/loader.c:520
-msgid "Error loading ramdisk."
-msgstr "램디스크를 로딩하는 도중 오류가 발생되었습니다."
-
-#: ../loader/loader.c:585 ../loader/loader.c:2166
+#: ../loader/loader.c:500 ../loader/loader.c:2072
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "%s 디렉토리를 읽는데 실패했습니다: %s"
 
-#: ../loader/loader.c:873
+#: ../loader/loader.c:782
 msgid "Hard Drives"
 msgstr "하드 드라이브"
 
-#: ../loader/loader.c:874
+#: ../loader/loader.c:783
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"여러분의 시스템에서 하드 드라이브를 찾을 수 없습니다! 추가할 장치를 "
-"설정하시겠습니까?"
+"여러분의 시스템에서 하드 드라이브를 찾을 수 없습니다! 추가할 장치를 설정하시"
+"겠습니까?"
 
-#: ../loader/loader.c:888
+#: ../loader/loader.c:797
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
 "press F2 to configure additional devices."
 msgstr ""
-"레드햇 리눅스 CD (iso9660) 이미지가 있는 파티션이나 디렉토리를 지정해 "
-"주십시요. 이곳에 나열된 드라이브 목록 중 여러분이 사용하고 계신 드라이브를 "
-"찾을 수 없으시다면, [F2] 키를 눌러 추가할 장치를 설정하시기 바랍니다."
+"레드햇 리눅스 CD (iso9660) 이미지가 있는 파티션이나 디렉토리를 지정해 주십시"
+"요. 이곳에 나열된 드라이브 목록 중 여러분이 사용하고 계신 드라이브를 찾을 수 "
+"없으시다면, [F2] 키를 눌러 추가할 장치를 설정하시기 바랍니다."
 
-#: ../loader/loader.c:902
+#: ../loader/loader.c:811
 msgid "Directory holding images:"
 msgstr "이미지가 있는 디렉토리:"
 
-#: ../loader/loader.c:922
+#: ../loader/loader.c:831
 msgid "Select Partition"
 msgstr "파티션 선택"
 
-#: ../loader/loader.c:970
+#: ../loader/loader.c:879
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "%s 장치에는 레드햇 CD 이미지가 없는 것 같습니다."
 
-#: ../loader/loader.c:1025
+#: ../loader/loader.c:934
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -4035,98 +4162,95 @@ msgstr ""
 "여러분의 CDROM 드라이브에서 레드햇 리눅스 CD를 찾을 수 없습니다. 레드햇 CD를 "
 "넣으신 후에 [확인] 버튼을 눌러주십시요."
 
-#: ../loader/loader.c:1112
+#: ../loader/loader.c:1023
 msgid "Networking Device"
 msgstr "네트웍 장치"
 
-#: ../loader/loader.c:1113
+#: ../loader/loader.c:1024
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"여러분의 시스템에서 한개 이상의 네트웍 장치가 발견되었습니다. 어떤 장치를 "
-"통해 설치하시겠습니까?"
+"여러분의 시스템에서 한개 이상의 네트웍 장치가 발견되었습니다. 어떤 장치를 통"
+"해 설치하시겠습니까?"
 
-#: ../loader/loader.c:1195
+#: ../loader/loader.c:1106
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr ""
 "지정하신 디렉토리에서는 레드햇 리눅스 설치에 관련된 파일을 찾을 수 없습니다."
 
-#: ../loader/loader.c:1200
+#: ../loader/loader.c:1111
 msgid "I could not mount that directory from the server"
 msgstr "지정하신 서버의 디렉토리를 마운트할 수 없습니다."
 
-#: ../loader/loader.c:1241 ../loader/loader.c:1250
+#: ../loader/loader.c:1152
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../loader/loader.c:1242
+#: ../loader/loader.c:1153
 msgid "Unable to retrieve the first install image"
 msgstr "첫번째 설치 이미지를 읽어올 수 없습니다."
 
-#: ../loader/loader.c:1251
-msgid "Unable to retrieve the second install image"
-msgstr "두번째 설치 이미지를 읽어올 수 없습니다."
-
-#: ../loader/loader.c:1281
+#: ../loader/loader.c:1183
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
 "FTP 와 HTTP 를 통해 설치하시려면, 최소한 '20 MB' 이상의 메모리가 필요합니다."
 
-#: ../loader/loader.c:1511
+#: ../loader/loader.c:1413
 msgid "Rescue Method"
 msgstr "복구 방법"
 
-#: ../loader/loader.c:1512
+#: ../loader/loader.c:1414
 msgid "Installation Method"
 msgstr "설치 방법"
 
-#: ../loader/loader.c:1514
+#: ../loader/loader.c:1416
 msgid "What type of media contains the rescue image?"
 msgstr "복구 이미지가 있는 매체를 지정해 주십시요."
 
-#: ../loader/loader.c:1516
+#: ../loader/loader.c:1418
 msgid "What type of media contains the packages to be installed?"
 msgstr "설치할 패키지가 있는 매체를 지정해 주십시요."
 
-#: ../loader/loader.c:2136
+#: ../loader/loader.c:2042
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "부팅 디스켓 안의 'ks.cfg' 파일을 찾을 수 없습니다."
 
-#: ../loader/loader.c:2228
+#: ../loader/loader.c:2134
 msgid "Updates Disk"
 msgstr "업데이트 디스켓"
 
-#: ../loader/loader.c:2229
+#: ../loader/loader.c:2135
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "업데이트 디스켓을 넣으신 후에 [확인] 버튼을 눌러주십시요."
 
-#: ../loader/loader.c:2234
+#: ../loader/loader.c:2140
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
 msgstr "이 디스켓은 이번 레드햇 리눅스 버전의 업데이트 디스켓이 아닙니다."
 
-#: ../loader/loader.c:2244
+#: ../loader/loader.c:2150
 msgid "Failed to mount floppy disk."
 msgstr "플로피 디스켓을 마운트하는데 실패했습니다."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2249
+#: ../loader/loader.c:2155
 msgid "Updates"
 msgstr "업데이트"
 
-#: ../loader/loader.c:2249
+#: ../loader/loader.c:2155
 msgid "Reading anaconda updates..."
 msgstr "아나콘다의 업데이트 사항을 읽고 있습니다..."
 
-#: ../loader/loader.c:2455
-msgid "You don't have enough system memory to install Red Hat on this machine."
+#: ../loader/loader.c:2361
+#, fuzzy
+msgid "You do not have enough RAM to install Red Hat Linux on this machine."
 msgstr "현재 이 시스템에 있는 메모리로는 레드햇 리눅스를 설치하실 수 없습니다."
 
-#: ../loader/loader.c:2917
+#: ../loader/loader.c:2849
 msgid "Running anaconda - please wait...\n"
 msgstr "아나콘다 실행 중 - 잠시만 기다려 주십시요...\n"
 
@@ -4160,7 +4284,7 @@ msgstr ""
 msgid "Nameserver IP"
 msgstr "네임서버의 IP 주소"
 
-#: ../loader/net.c:266 ../loader/net.c:769
+#: ../loader/net.c:266 ../loader/net.c:760
 msgid "Nameserver"
 msgstr "네임서버"
 
@@ -4173,8 +4297,8 @@ msgid ""
 msgstr ""
 "여러분의 동적 IP 주소 요청에 의해 IP 설정 정보가 전달되었으나, 그 정보에는 "
 "DNS 네임서버의 정보가 포함되어 있지 않습니다. 네임서버를 알고 계신다면, 지금 "
-"입력해 주십시요. 이와 관련된 사항에 대해 잘 모르실 경우에는 빈 칸으로 "
-"놔두시고, 설치를 계속 진행하시기 바랍니다."
+"입력해 주십시요. 이와 관련된 사항에 대해 잘 모르실 경우에는 빈 칸으로 놔두시"
+"고, 설치를 계속 진행하시기 바랍니다."
 
 #: ../loader/net.c:277
 msgid "Invalid IP Information"
@@ -4189,8 +4313,8 @@ msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
-"여러분 시스템의 IP 주소를 입력해 주십시요. IP 주소의 각 항목은 십진수의 "
-"숫자를 점으로 구분하여 입력하셔야 합니다 (예, 1.2.3.4)."
+"여러분 시스템의 IP 주소를 입력해 주십시요. IP 주소의 각 항목은 십진수의 숫자"
+"를 점으로 구분하여 입력하셔야 합니다 (예, 1.2.3.4)."
 
 #: ../loader/net.c:343
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -4208,69 +4332,69 @@ msgstr "정보 부족"
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "올바른 IP 주소와 넷매스크를 입력하셔야 합니다."
 
-#: ../loader/net.c:411 ../loader/net.c:703
+#: ../loader/net.c:411 ../loader/net.c:694
 msgid "Dynamic IP"
 msgstr "동적 IP 주소"
 
-#: ../loader/net.c:412 ../loader/net.c:704
+#: ../loader/net.c:412 ../loader/net.c:695
 msgid "Sending request for IP information..."
 msgstr "IP 주소를 요청하고 있습니다..."
 
-#: ../loader/net.c:576
+#: ../loader/net.c:567
 msgid "Determining host name and domain..."
 msgstr "호스트명과 도메인을 설정하고 있습니다..."
 
-#: ../loader/net.c:687 ../loader/net.c:720
+#: ../loader/net.c:678 ../loader/net.c:711
 msgid "kickstart"
 msgstr "킥스타트"
 
-#: ../loader/net.c:688
+#: ../loader/net.c:679
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "킥스타트 네트웍 명령 %s 에 잘못된 인수 값이 지정되었습니다: %s"
 
-#: ../loader/net.c:721
+#: ../loader/net.c:712
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "네트웍 명령에 잘못된 bootproto %s (이)가 지정되었습니다."
 
-#: ../loader/net.c:763
+#: ../loader/net.c:754
 msgid "Boot protocol to use"
 msgstr "사용할 부트 프로토콜"
 
-#: ../loader/net.c:765
+#: ../loader/net.c:756
 msgid "Network gateway"
 msgstr "네트웍 게이트웨이"
 
-#: ../loader/net.c:767
+#: ../loader/net.c:758
 msgid "IP address"
 msgstr "IP 주소"
 
-#: ../loader/net.c:776
+#: ../loader/net.c:767
 msgid "Domain name"
 msgstr "도메인명"
 
-#: ../loader/net.c:779
+#: ../loader/net.c:770
 msgid "Network device"
 msgstr "네트웍 장치"
 
-#: ../loader/net.c:851
+#: ../loader/net.c:842
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
 "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
-#: ../loader/net.c:852
+#: ../loader/net.c:843
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s  (C) 1999 레드햇 사."
 
-#: ../loader/net.c:854
+#: ../loader/net.c:845
 msgid "Network configuration"
 msgstr "네트웍 설정"
 
-#: ../loader/net.c:855
+#: ../loader/net.c:846
 msgid "Would you like to set up networking?"
 msgstr "네트웍 설정을 하시겠습니까?"
 
@@ -4313,12 +4437,13 @@ msgid "Retrieving"
 msgstr "읽는 중"
 
 #: ../loader/urls.c:160
+#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
 "    o the name or IP number of your FTP server\n"
 "    o the directory on that server containing\n"
-"      Red Hat Linux for your architecture\n"
+"      Red Hat Linux for your architecure\n"
 msgstr ""
 "다음의 사항을 입력해 주십시요:\n"
 "\n"
@@ -4327,12 +4452,13 @@ msgstr ""
 "      디렉토리\n"
 
 #: ../loader/urls.c:169
+#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
 "    o the name or IP number of your web server\n"
 "    o the directory on that server containing\n"
-"      Red Hat Linux for your architecture\n"
+"      Red Hat Linux for your architecure\n"
 msgstr ""
 "다음의 사항을 입력해 주십시요:\n"
 "\n"
@@ -4386,16 +4512,16 @@ msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
-"비-공개용(non-anonymous) ftp를 사용하고 계시다면, 계정 이름(ID) 과 "
-"패스워드를 입력해 주십시요."
+"비-공개용(non-anonymous) ftp를 사용하고 계시다면, 계정 이름(ID) 과 패스워드"
+"를 입력해 주십시요."
 
 #: ../loader/urls.c:321
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
-"HTTP 프록시 서버를 사용하고 계시다면, HTTP 프록시 서버의 이름을 입력해 "
-"주십시요."
+"HTTP 프록시 서버를 사용하고 계시다면, HTTP 프록시 서버의 이름을 입력해 주십시"
+"요."
 
 #: ../loader/urls.c:342
 msgid "Account name:"
@@ -4476,77 +4602,100 @@ msgstr "지역: "
 msgid "Base"
 msgstr "기본 패키지"
 
-msgid "Printer Support"
+#, fuzzy
+msgid "Printing Support"
 msgstr "프린터 지원"
+
+#, fuzzy
+msgid "Classic X Window System"
+msgstr "X 윈도우 시스템"
 
 msgid "X Window System"
 msgstr "X 윈도우 시스템"
 
-msgid "Mail/WWW/News Tools"
-msgstr "메일/WWW/뉴스 프로그램"
-
-msgid "DOS/Windows Connectivity"
-msgstr "DOS/Windows 연결"
-
-msgid "Graphics Manipulation"
-msgstr "그래픽 작업"
-
-msgid "Games"
-msgstr "게임"
-
-msgid "Multimedia Support"
-msgstr "멀티미디어 지원"
-
 msgid "Laptop Support"
 msgstr "랩탑(노트북) 지원"
 
-msgid "Networked Workstation"
-msgstr "네트웍 웍스테이션"
+#, fuzzy
+msgid "Sound and Multimedia Support"
+msgstr "멀티미디어 지원"
 
-msgid "Dialup Workstation"
-msgstr "전화-접속 웍스테이션"
+#, fuzzy
+msgid "Network Support"
+msgstr "네트웍 설정"
+
+#, fuzzy
+msgid "Dialup Support"
+msgstr "랩탑(노트북) 지원"
+
+# ../comps/comps-master:577
+msgid "Messaging and Web Tools"
+msgstr ""
+
+#, fuzzy
+msgid "Graphics and Image Manipulation"
+msgstr "그래픽 작업"
 
 msgid "News Server"
 msgstr "뉴스 서버"
 
-msgid "NFS Server"
+#, fuzzy
+msgid "NFS File Server"
 msgstr "NFS 서버"
 
-msgid "SMB (Samba) Server"
-msgstr "SMB(삼바) 서버"
-
-msgid "IPX/Netware(tm) Connectivity"
-msgstr "IPX/Netware(tm) 접속"
+#, fuzzy
+msgid "Windows File Server"
+msgstr "웹 서버"
 
 msgid "Anonymous FTP Server"
 msgstr "공개용(Anonymous) FTP 서버"
 
-msgid "SQL Server"
+#, fuzzy
+msgid "SQL Database Server"
 msgstr "SQL 서버"
 
 msgid "Web Server"
 msgstr "웹 서버"
 
+#, fuzzy
+msgid "Router / Firewall"
+msgstr "방화벽을 사용하지 않음"
+
 msgid "DNS Name Server"
 msgstr "DNS 네임서버"
 
-msgid "Network Management Workstation"
+#, fuzzy
+msgid "Network Managed Workstation"
 msgstr "네트웍-관리 웍스테이션"
 
-msgid "Authoring/Publishing"
+#, fuzzy
+msgid "Authoring and Publishing"
 msgstr "문서 저작/출판"
 
 msgid "Emacs"
 msgstr "이맥스"
 
-msgid "Development"
-msgstr "개발 관련"
+msgid "Utilities"
+msgstr "유틸리티"
+
+#, fuzzy
+msgid "Legacy Application Support"
+msgstr "랩탑(노트북) 지원"
+
+#, fuzzy
+msgid "Software Development"
+msgstr "커널 개발"
 
 msgid "Kernel Development"
 msgstr "커널 개발"
 
-msgid "Utilities"
-msgstr "유틸리티"
+# ../comps/comps-master:1055
+msgid "Windows Compatibility / Interoperability"
+msgstr ""
+
+# ../comps/comps-master:1073
+msgid "Games and Entertainment"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Acre"
@@ -4608,12 +4757,9 @@ msgid "Azores"
 msgstr "Azores"
 
 #. generated from zone.tab
-msgid "Bayan-Olgiy, Hovd, Uvs"
+#, fuzzy
+msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 msgstr "Bayan-Olgiy, Hovd, Uvs"
-
-#. generated from zone.tab
-msgid "Borneo & Celebes"
-msgstr "Borneo & Celebes"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -4700,6 +4846,10 @@ msgid "Davis Station, Vestfold Hills"
 msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
+msgid "Dornod, Sukhbaatar (unsure about this)"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
 msgstr "Dumont-d'Urville Base, Terre Adelie"
 
@@ -4716,7 +4866,8 @@ msgid "east Dem. Rep. of Congo"
 msgstr "east Dem. Rep. of Congo"
 
 #. generated from zone.tab
-msgid "Easter Island"
+#, fuzzy
+msgid "Easter Island & Sala y Gomez"
 msgstr "Easter Island"
 
 #. generated from zone.tab
@@ -4788,6 +4939,10 @@ msgstr "east Greenland"
 #. generated from zone.tab
 msgid "east Kazakhstan"
 msgstr "east Kazakhstan"
+
+#. generated from zone.tab
+msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+msgstr ""
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -5132,6 +5287,10 @@ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #. generated from zone.tab
+msgid "west & central Borneo"
+msgstr ""
+
+#. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
 msgstr "west Dem. Rep. of Congo"
 
@@ -5238,3 +5397,499 @@ msgstr "터키어"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "우크라이나어"
+
+#~ msgid ""
+#~ "The following partitions are newly created, but you have chosen not to "
+#~ "format them. This will probably cause an error later in the install.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "다음의 파티션이 새로이 생성되었으나, 포맷되지 않았습니다. 이와같은 상황에"
+#~ "서 설치를 계속 진행하시면, 설치 도중 오류가 발생됩니다.\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Press OK to continue, or Cancel to go back and select these partitions to "
+#~ "be formatted (RECOMMENDED)."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "설치를 계속 진행하시려면 [확인] 버튼을 누르시고, 리눅스가 설치될 파티션을 "
+#~ "포맷하시려면 [취소] 버튼을 누르십시요 (권장사항)."
+
+#~ msgid ""
+#~ "The kernel is unable to read your new partitioning information, probably "
+#~ "because you modified extended partitions. While this is not critical, you "
+#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk "
+#~ "now and press \"Ok\" to reboot your system.\n"
+#~ msgstr ""
+#~ "커널이 여러분의 새로운 파티션 정보를 읽어올 수 없습니다. 아마도, 여러분이 "
+#~ "확장 파티션을 변경하신 것 같습니다. 현재의 상황이 아주 심각한 것은 아니지"
+#~ "만, 설치를 계속 진행하시기에 앞서 반드시 재부팅 하셔야 합니다. 지금 부팅 "
+#~ "디스켓을 플로피 드라이브에 넣으신 후 [확인] 버튼을 눌러 시스템을 재부팅 하"
+#~ "십시요.\n"
+
+#~ msgid "Swap Space"
+#~ msgstr "스왑 공간"
+
+#~ msgid "Creating swap space..."
+#~ msgstr "스왑 공간을 생성하고 있습니다..."
+
+#~ msgid "Formatting swap space..."
+#~ msgstr "스왑 공간을 포맷하고 있습니다..."
+
+#~ msgid "Error creating swap on device "
+#~ msgstr "스왑 공간을 생성하는 도중 오류가 발생된 장치 "
+
+#~ msgid "Error unmounting %s: %s"
+#~ msgstr "%s (을)를 언마운트하는 도중 오류가 발생되었습니다: %s"
+
+#~ msgid "Creating RAID devices..."
+#~ msgstr "RAID 장치를 생성하고 있습니다..."
+
+#~ msgid "Loopback"
+#~ msgstr "루프백"
+
+#~ msgid "Creating loopback filesystem on device /dev/%s..."
+#~ msgstr "/dev/%s 장치에 루프백 파일시스템을 생성하고 있습니다..."
+
+#~ msgid "Finish"
+#~ msgstr "완료"
+
+#~ msgid "Online Help"
+#~ msgstr "도움말 화면"
+
+#~ msgid "Red Hat Linux Install Shell"
+#~ msgstr "레드햇 리눅스 설치 쉘"
+
+#~ msgid "Red Hat Linux Install Shell on %s"
+#~ msgstr "%s 의 레드햇 리눅스 설치 쉘"
+
+#~ msgid "WARNING: no valid block devices were found.\n"
+#~ msgstr "경고: 블록 장치를 찾을 수 없습니다.\n"
+
+#~ msgid "ERROR: unknown error encountered reading partition tables.\n"
+#~ msgstr "오류: 파티션 정보를 읽는 도중 알 수 없는 오류가 발생되었습니다.\n"
+
+#~ msgid "Upgrade Existing Installation"
+#~ msgstr "기존의 리눅스 시스템 업그레이드"
+
+#~ msgid "X probe results"
+#~ msgstr "X 검색 결과"
+
+#~ msgid "Unlisted Card"
+#~ msgstr "목록에 없는 카드"
+
+#~ msgid "Video Card Selection"
+#~ msgstr "비디오 카드 선택"
+
+#~ msgid "Which video card do you have?"
+#~ msgstr "사용하고 계신 비디오 카드를 선택해 주십시요."
+
+#~ msgid "X Server Selection"
+#~ msgstr "X 서버 선택"
+
+#~ msgid "Choose a server"
+#~ msgstr "서버를 선택해 주십시요."
+
+#~ msgid " "
+#~ msgstr " "
+
+#~ msgid "Hostname Setup"
+#~ msgstr "호스트명 설정"
+
+#~ msgid "Language Default"
+#~ msgstr "기본 언어"
+
+#~ msgid "Time Zone Setup"
+#~ msgstr "시간대 설정"
+
+#~ msgid "Configuration Complete"
+#~ msgstr "설정 완료"
+
+#~ msgid "LILO Configuration"
+#~ msgstr "LILO 설정"
+
+#~ msgid "Automatic Partition"
+#~ msgstr "자동 파티션 설정"
+
+#~ msgid "Manually Partition"
+#~ msgstr "수동 파티션 설정"
+
+#~ msgid "Swap"
+#~ msgstr "스왑"
+
+#~ msgid "Boot Partition Warning"
+#~ msgstr "부트 파티션 경고"
+
+#~ msgid "Filesystem Formatting"
+#~ msgstr "파일시스템 포맷"
+
+#~ msgid "Package Groups"
+#~ msgstr "패키지 그룹"
+
+#~ msgid "Individual Packages"
+#~ msgstr "개별 패키지"
+
+#~ msgid "Installation Begins"
+#~ msgstr "설치 시작"
+
+#~ msgid "Boot Disk"
+#~ msgstr "부팅 디스켓"
+
+#~ msgid "Installation Complete"
+#~ msgstr "설치 완료"
+
+#~ msgid "Examine System"
+#~ msgstr "시스템 검사"
+
+#~ msgid "System Swap Space"
+#~ msgstr "시스템 스왑 공간"
+
+#~ msgid "Customize Upgrade"
+#~ msgstr "사용자 설정 업그레이드"
+
+#~ msgid "Upgrade Begins"
+#~ msgstr "업그레이드 시작"
+
+#~ msgid "Upgrade Complete"
+#~ msgstr "업그레이드 완료"
+
+#~ msgid ""
+#~ "An error occured while installing the bootloader.\n"
+#~ "\n"
+#~ "We HIGHLY recommend you make a recovery boot floppy when prompted, "
+#~ "otherwise you may not be able to reboot into Red Hat Linux.\n"
+#~ "\n"
+#~ "The error reported was:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "부트로더를 설치하는 도중 오류가 발생되었습니다.\n"
+#~ "\n"
+#~ "설치 과정에서 반드시 부팅 디스켓을 만드시기 바랍니다. 그렇지 않으면, 설치 "
+#~ "후에 레드햇 리눅스로 부팅하실 수 없습니다.\n"
+#~ "\n"
+#~ "오류 내용은 다음과 같습니다:\n"
+#~ "\n"
+
+#~ msgid "Plug and Play Monitor"
+#~ msgstr "플러그 앤 플래이 모니터"
+
+#~ msgid "Horizontal frequency range"
+#~ msgstr "수평 주파수 범위"
+
+#~ msgid "Vertical frequency range"
+#~ msgstr "수직 주파수 범위"
+
+#~ msgid "Probing for mouse type..."
+#~ msgstr "마우스 유형을 검색하고 있습니다..."
+
+#~ msgid "Aborting upgrade"
+#~ msgstr "업그레이드 설치를 취소합니다."
+
+#~ msgid "Check for bad blocks while formatting"
+#~ msgstr "포맷시에 불량 섹터 검사"
+
+#~ msgid "Currently installed languages:"
+#~ msgstr "현재 설치될 언어:"
+
+#~ msgid "Lilo Configuration"
+#~ msgstr "LILO 설정"
+
+#~ msgid "Use linear mode (needed for some SCSI drives)"
+#~ msgstr "Linear 모드 사용 (몇몇 SCSI 드라이브에서 필요함)"
+
+#~ msgid "Install LILO"
+#~ msgstr "LILO 설치"
+
+#~ msgid "File not found"
+#~ msgstr "파일을 찾을 수 없음"
+
+#~ msgid ""
+#~ "The following error occurred while retreiving hdlist file:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Installer will exit now."
+#~ msgstr ""
+#~ "hdlist 파일을 읽는 도중 다음과 같은 오류가 발생되었습니다:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "설치를 종료합니다."
+
+#~ msgid ""
+#~ "An error has occurred while retreiving the hdlist file.  The installation "
+#~ "media or image is probably corrupt.  Installer will exit now."
+#~ msgstr ""
+#~ "hdlist 파일을 읽는 도중 오류가 발생되었습니다.  설치 CD 또는 이미지가 손상"
+#~ "된 것 같습니다.  설치를 종료합니다."
+
+#~ msgid "Low Memory"
+#~ msgstr "메모리 부족"
+
+#~ msgid ""
+#~ "As you don't have much memory in this machine, we need to turn on swap "
+#~ "space immediately. To do this we'll have to write your new partition "
+#~ "table to the disk immediately. Is that okay?"
+#~ msgstr ""
+#~ "여러분 시스템의 메모리가 부족하기 때문에 지금 스왑 공간을 사용해야 합니"
+#~ "다. 스왑 공간을 사용하기 위해서는 현재 여러분의 새로운 파티션 정보를 드라"
+#~ "이브에 기록해야 합니다. 그렇게 하시겠습니까?"
+
+#~ msgid ""
+#~ "You have put the partition containing the kernel (the boot partition) "
+#~ "above the 1024 cylinder limit, and it appears that this systems BIOS does "
+#~ "not support booting from above this limit. Proceeding will most likely "
+#~ "make the system unable to reboot into Linux.\n"
+#~ "\n"
+#~ "If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
+#~ "when asked. This will guarantee you have a way to boot into the system "
+#~ "after installation.\n"
+#~ "\n"
+#~ "Press OK to proceed, or Cancel to go back and reassign the boot partition."
+#~ msgstr ""
+#~ "여러분이 지정하신 파티션 (커널이 포함된 부트 파티션) 은 1024 실린더 제한"
+#~ "을 벗어난 곳에 있으며, 여러분 시스템의 바이오스가 1024 실린더 제한을 벗어"
+#~ "난 곳으로 부터의 부팅을 지원하지 않는 것 같습니다. 설치를 계속 진행하셔도 "
+#~ "대부분의 경우 시스템이 재부팅 된 후에는 리눅스로 부팅하실 수 없습니다.\n"
+#~ "\n"
+#~ "설치를 계속 진행하려고 하신다면, 반드시 부팅 디스켓을 만드시기 바랍니다. "
+#~ "그래야만 설치 후에 리눅스로 부팅하실 수 있습니다.\n"
+#~ "\n"
+#~ "설치를 계속 진행하시려면 [확인] 버튼을 클릭하시고, 부트 파티션을 다시 지정"
+#~ "하시려면 [취소] 버튼을 클릭하십시요."
+
+#~ msgid ""
+#~ "You have put the partition containing the kernel (the boot partition) "
+#~ "above the 1024 cylinder limit. It appears that this systems BIOS supports "
+#~ "booting from above this limit. \n"
+#~ "\n"
+#~ "It is HIGHLY recommended you make a boot floppy when asked by the "
+#~ "installer, as this is a new feature in recent motherboards and is not "
+#~ "always reliable. Making a boot disk will guarantee you can boot your "
+#~ "system once installed."
+#~ msgstr ""
+#~ "여러분이 지정하신 파티션 (커널이 포함된 부트 파티션) 은 1024 실린더 제한"
+#~ "을 벗어난 곳에 있습니다. 여러분 시스템의 바이오스가 1024 실린더 제한을 벗"
+#~ "어난 곳으로 부터의 부팅을 지원하지 않는 것 같습니다. \n"
+#~ "\n"
+#~ "최근의 마더보드에서는 이러한 기능을 지원하지만, 언제나 신뢰할 수는 없으므"
+#~ "로 반드시 부팅 디스켓을 만드시기 바랍니다. 설치 후에 리눅스로 부팅할 수 없"
+#~ "는 상황이 발생되었을 경우에는 부팅 디스켓을 통해 리눅스로 부팅하실 수 있습"
+#~ "니다."
+
+#~ msgid ""
+#~ "You've chosen to put your root filesystem in a file on an already-"
+#~ "existing DOS or Windows filesystem. How large, in megabytes, should would "
+#~ "you like the root filesystem to be, and how much swap space would you "
+#~ "like? They must total less then %d megabytes in size."
+#~ msgstr ""
+#~ "DOS 또는 Windows 파일시스템을 루트 파일시스템으로 지정하셨습니다. 루트 파"
+#~ "일시스템과 스왑 공간으로 사용하실 용량을 지정해 주십시요 (단위: MB). 총 용"
+#~ "량은 %d MB 한도 내에서 지정하셔야 합니다."
+
+#~ msgid "Root filesystem size:"
+#~ msgstr "루트 파일시스템 용량:"
+
+#~ msgid "Swap space size:"
+#~ msgstr "스왑 공간 용량:"
+
+#~ msgid ""
+#~ "Please select the type of disk partitioning you would like to use.\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Selecting manual partitioning allows you to create the partitions by hand."
+#~ msgstr ""
+#~ "파티션을 설정하기 위한 유형을 선택해 주십시요.\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "수동 파티션 설정을 선택하시면, 여러분이 직접 파티션을 설정하실 수 있습니"
+#~ "다."
+
+#~ msgid "Automatic Partitioning Failed"
+#~ msgstr "자동 파티션 설정 실패"
+
+#~ msgid ""
+#~ "\n"
+#~ "There is not sufficient disk space in order to automatically partition "
+#~ "your disk. You will need to manually partition your disks for Red Hat "
+#~ "Linux to install.\n"
+#~ "\n"
+#~ "Please choose the tool you would like to use to partition your system for "
+#~ "Red Hat Linux."
+#~ msgstr ""
+#~ "\n"
+#~ "파티션을 자동으로 설정하기에는 드라이브의 공간이 부족합니다. 수동으로 여러"
+#~ "분이 직접 파티션을 설정해 주시기 바랍니다.\n"
+#~ "\n"
+#~ "파티션을 설정하기 위한 방법을 선택해 주십시요."
+
+#~ msgid "Manual Partitioning"
+#~ msgstr "수동 파티션 설정"
+
+#~ msgid ""
+#~ "\n"
+#~ "Please choose the tool you would like to use to partition your system for "
+#~ "Red Hat Linux."
+#~ msgstr ""
+#~ "\n"
+#~ "파티션을 설정하기 위한 방법을 선택해 주십시요."
+
+#~ msgid "Automatically partition and REMOVE DATA"
+#~ msgstr "자동 파티션 설정 (자료가 임의로 삭제됨)"
+
+#~ msgid "Boot Partition Location Warning"
+#~ msgstr "부트 파티션 위치 경고"
+
+#~ msgid ""
+#~ "You have put the partition containing the kernel (the boot partition) "
+#~ "above the 1024 cylinder limit, and it appears that this systems BIOS does "
+#~ "not support booting from above this limit. Proceeding will most likely "
+#~ "make the system unable to reboot into Linux.\n"
+#~ "\n"
+#~ "If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
+#~ "when asked. This will guarantee you have a way to boot into the system "
+#~ "after installation.\n"
+#~ "\n"
+#~ "Are you sure you want to proceed?"
+#~ msgstr ""
+#~ "여러분이 지정하신 파티션 (커널이 포함된 부트 파티션) 은 1024 실린더 제한"
+#~ "을 벗어난 곳에 있으며, 여러분 시스템의 바이오스가 1024 실린더 제한을 벗어"
+#~ "난 곳으로 부터의 부팅을 지원하지 않는 것 같습니다. 설치를 계속 진행하셔도 "
+#~ "대부분의 경우 시스템이 재부팅 된 후에는 리눅스로 부팅하실 수 없습니다.\n"
+#~ "\n"
+#~ "설치를 계속 진행하려고 하신다면, 반드시 부팅 디스켓을 만드시기 바랍니다. "
+#~ "그래야만 설치 후에 리눅스로 부팅하실 수 있습니다.\n"
+#~ "\n"
+#~ "설치를 계속 진행하시겠습니까?"
+
+#~ msgid "Bits per Pixel"
+#~ msgstr "비트 컬러"
+
+#~ msgid "Autoprobe results:"
+#~ msgstr "자동 검색 결과:"
+
+#~ msgid "Skip LILO"
+#~ msgstr "LILO 생략"
+
+#~ msgid ""
+#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
+#~ "dedicated to Linux. We suggest placing that partition on one of the first "
+#~ "two hard drives in your system so you can boot into Linux with LILO."
+#~ msgstr ""
+#~ "레드햇 리눅스를 설치하시려면, 적어도 '150 MB' 정도의 파티션이 필요합니다. "
+#~ "또한, 파티션은 첫번째 하드 드라이브의 첫번째 파티션을 리눅스 파티션으로 지"
+#~ "정해 주셔야 'LILO' 를 통해 리눅스로 부팅하실 수 있습니다."
+
+#~ msgid ""
+#~ "%s\n"
+#~ "\n"
+#~ "If you don't want to do this, you can continue with this install by "
+#~ "partitioning manually, or you can go back and perform a fully customized "
+#~ "installation."
+#~ msgstr ""
+#~ "%s\n"
+#~ "\n"
+#~ "자동 파티션 설정을 원하지 않으신다면, 수동으로 파티션을 설정하시거나, 이"
+#~ "전 화면의 '사용자 설치' 를 선택하여 여러분이 원하시는 사항으로 설정하시기 "
+#~ "바랍니다."
+
+#~ msgid "Continue"
+#~ msgstr "진행"
+
+#~ msgid "Manually partition"
+#~ msgstr "수동 파티션 설정"
+
+#~ msgid ""
+#~ "What partitions would you like to format? We strongly suggest formatting "
+#~ "all of the system partitions, including /, /usr, and /var. There is no "
+#~ "need to format /home or /usr/local if they have already been configured "
+#~ "during a previous install."
+#~ msgstr ""
+#~ "포맷할 파티션을 선택해 주십시요.  '/', '/usr', '/var' 이 포함된 모든 시스"
+#~ "템 파티션은 반드시 포맷되어야 합니다. '/home' 이나 '/usr/local' 은 예전에 "
+#~ "설정하신 적이 있으시다면, 반드시 포맷하실 필요는 없습니다."
+
+#~ msgid "Check for bad blocks during format"
+#~ msgstr "포맷시에 불량 섹터 검사"
+
+#~ msgid "Choose Partitions to Format"
+#~ msgstr "포맷할 파티션 선택"
+
+#~ msgid "Root filesystem size"
+#~ msgstr "루트 파일시스템 용량"
+
+#~ msgid "Swap space"
+#~ msgstr "스왑 공간"
+
+#~ msgid "The size you enter must be a number."
+#~ msgstr "용량은 반드시 숫자로 지정해 주셔야 합니다."
+
+#~ msgid ""
+#~ "The total size must be smaller then the amount of free space on the disk, "
+#~ "which is %d megabytes."
+#~ msgstr ""
+#~ "총 용량은 현재 드라이브 상의 여유 공간 용량인 %d MB 보다 적어야 합니다."
+
+#~ msgid ""
+#~ "Neither the root file system size nor the swap space size may be greater "
+#~ "then 2000 megabytes."
+#~ msgstr ""
+#~ "루트 파일시스템의 용량 및 스왑 공간의 용량은 '2 GB' 를 넘어서는 안됩니다."
+
+#~ msgid ""
+#~ "If you would like to exit the upgrade select Exit, or choose Ok to "
+#~ "continue with the upgrade."
+#~ msgstr ""
+#~ "업그레이드 설치를 하시려면 [확인] 버튼을 누르시고, 취소하시려면 [종료] 버"
+#~ "튼을 누르십시요."
+
+#~ msgid ""
+#~ "Automatic partitioning will erase any preexisting Linux installations on "
+#~ "your system."
+#~ msgstr ""
+#~ "자동 파티션 설정은 기존에 설치되어 있는 모든 리눅스 시스템을 삭제합니다."
+
+#~ msgid ""
+#~ "Automatic partitioning will erase ALL DATA on your hard drive to make "
+#~ "room for your Linux installation."
+#~ msgstr ""
+#~ "자동 파티션 설정은 리눅스를 설치하기 위해 여러분 시스템의 하드 드라이브 상"
+#~ "에 있는 모든 자료를 전부 삭제합니다."
+
+#~ msgid "Loading %s ramdisk..."
+#~ msgstr "%s 램디스크를 로딩하고 있습니다..."
+
+#~ msgid "Error loading ramdisk."
+#~ msgstr "램디스크를 로딩하는 도중 오류가 발생되었습니다."
+
+#~ msgid "Unable to retrieve the second install image"
+#~ msgstr "두번째 설치 이미지를 읽어올 수 없습니다."
+
+#~ msgid "Mail/WWW/News Tools"
+#~ msgstr "메일/WWW/뉴스 프로그램"
+
+#~ msgid "DOS/Windows Connectivity"
+#~ msgstr "DOS/Windows 연결"
+
+#~ msgid "Games"
+#~ msgstr "게임"
+
+#~ msgid "Networked Workstation"
+#~ msgstr "네트웍 웍스테이션"
+
+#~ msgid "Dialup Workstation"
+#~ msgstr "전화-접속 웍스테이션"
+
+#~ msgid "IPX/Netware(tm) Connectivity"
+#~ msgstr "IPX/Netware(tm) 접속"
+
+#~ msgid "Development"
+#~ msgstr "개발 관련"
+
+#~ msgid "Borneo & Celebes"
+#~ msgstr "Borneo & Celebes"

@@ -5,13 +5,11 @@ PREFIX=$(DESTDIR)/
 INSTALLNLSDIR=usr/share/locale
 
 MSGMERGE = msgmerge -v
-LONG_MERGE = -w 0
 
 NLSPACKAGE = anaconda
 
-LONG_PO  = ja.po ko.po zh.po
-SHORT_PO = $(filter-out $(LONG_PO), $(wildcard *.po))
-FMTCATALOGS = $(patsubst %.po,%.mo,$(SHORT_PO) $(LONG_PO))
+POS = $(wildcard *.po)
+FMTCATALOGS = $(patsubst %.po,%.mo,$(POS))
 
 POTFILES = ../*.py ../iw/*.py ../textw/*.py \
            ../installclasses/*.py \
@@ -41,7 +39,7 @@ $(NLSPACKAGE).pot: $(POTFILES) $(NONPOTFILES)
 update-po: Makefile $(NLSPACKAGE).pot refresh-po
 
 refresh-po: Makefile
-	for cat in $(SHORT_PO); do \
+	for cat in $(POS); do \
 		lang=`basename $$cat .po`; \
 		if $(MSGMERGE) $$lang.po $(NLSPACKAGE).pot > $$lang.pot ; then \
 			mv -f $$lang.pot $$lang.po ; \
@@ -51,19 +49,9 @@ refresh-po: Makefile
 			rm -f $$lang.pot ; \
 		fi \
 	done
-	for cat in $(LONG_PO); do \
-		lang=`basename $$cat .po`; \
-		if $(MSGMERGE) $(LONG_MERGE) $$lang.po $(NLSPACKAGE).pot > $$lang.pot ; then \
-			mv -f $$lang.pot $$lang.po ; \
-			echo "$(MSGMERGE) $(LONG_MERGE) of $$lang succeeded" ; \
-		else \
-			echo "$(MSGMERGE) $(LONG_MERGE) of $$lang failed" ; \
-			rm -f $$lang.pot ; \
-		fi \
-	done
 
 report:
-	@for cat in $(SHORT_PO) $(LONG_PO); do \
+	@for cat in $(POS); do \
 		echo -n "$$cat: "; \
 		msgfmt -v --statistics -o /dev/null $$cat; \
 	done

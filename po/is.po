@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 1.84\n"
-"POT-Creation-Date: 2001-04-03 18:40-0400\n"
+"POT-Creation-Date: 2001-06-27 02:55-0400\n"
 "PO-Revision-Date: 2001-03-19 08:21+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
@@ -9,19 +9,45 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../comps.py:490
+#: ../autopart.py:714 ../iw/partition_gui.py:973
+#: ../textw/partition_text.py:142
+#, fuzzy
+msgid "Error Partitioning"
+msgstr "Disksneiðing"
+
+#: ../autopart.py:715 ../iw/partition_gui.py:974
+#: ../textw/partition_text.py:143
+#, fuzzy, c-format
+msgid "Could not allocated requested partitions: %s."
+msgstr "Sneiðar sem ekki fannst pláss fyrir..."
+
+#: ../bootloader.py:417
+#, fuzzy
+msgid "Bootloader"
+msgstr "Villur í uppsetningu ræsistjóra"
+
+#: ../bootloader.py:417
+#, fuzzy
+msgid "Installing bootloader..."
+msgstr "Set inn %s.\n"
+
+#: ../comps.py:557
 msgid "Everything"
 msgstr "Allt"
 
-#: ../exception.py:13 ../text.py:860
+#: ../comps.py:662 ../upgrade.py:342
+msgid "no suggestion"
+msgstr "engin tillaga"
+
+#: ../exception.py:58 ../text.py:228
 msgid "Exception Occurred"
 msgstr "Óeðlilegt ástand"
 
-#: ../exception.py:91
+#: ../exception.py:125
 msgid "Dump Written"
 msgstr "Dump ritað"
 
-#: ../exception.py:92
+#: ../exception.py:126
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -29,122 +55,64 @@ msgstr ""
 "Staða vélarinnar þinnar hefur verið vistuð á diskling. Vélin þín mun nú "
 "endurræsa."
 
-#: ../fstab.py:67
-msgid ""
-"The following partitions are newly created, but you have chosen not to "
-"format them. This will probably cause an error later in the install.\n"
-"\n"
-msgstr ""
-"Eftirtaldar disksneiðar er nýbúið að búa til en þú hefur kosið að forsníða "
-"þær ekki. Þetta mun líklega valda villum þegar uppsetningin er lengra "
-"komin.\n"
-"\n"
-
-#: ../fstab.py:75
-msgid ""
-"\n"
-"\n"
-"Press OK to continue, or Cancel to go back and select these partitions to be "
-"formatted (RECOMMENDED)."
-msgstr ""
-"\n"
-"\n"
-"Veldu Í lagi til að halda áfram eða Hætta við til að fara til baka og láta "
-"forsníða þessar disksneiðar (MÆLT ER MEÐ ÞESSU)."
-
-#: ../fstab.py:76 ../harddrive.py:235 ../iw/rootpartition_gui.py:81
-#: ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:175
-#: ../iw/upgrade_swap_gui.py:184 ../iw/upgrade_swap_gui.py:191
-#: ../textw/upgrade_text.py:117
-msgid "Warning"
-msgstr "Aðvörun"
-
-#: ../fstab.py:320 ../fstab.py:535 ../fstab.py:635 ../fstab.py:786
-#: ../fstab.py:853 ../harddrive.py:173 ../image.py:64 ../image.py:141
-#: ../libfdisk/newtfsedit.c:1746 ../loader/devices.c:259
-#: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
-#: ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520
-#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:969
-#: ../loader/loader.c:1024 ../loader/loader.c:1194 ../loader/loader.c:1199
-#: ../loader/loader.c:1281 ../loader/loader.c:2135 ../loader/loader.c:2165
-#: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/pcmcia.c:114
-#: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
-#: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
-#: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:107
-#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1239
-#: ../todo.py:1252 ../todo.py:1572 ../upgrade.py:24 ../upgrade.py:52
-msgid "Error"
-msgstr "Villa"
-
-#: ../fstab.py:321
-msgid ""
-"The kernel is unable to read your new partitioning information, probably "
-"because you modified extended partitions. While this is not critical, you "
-"must reboot your machine before proceeding. Insert the Red Hat boot disk now "
-"and press \"Ok\" to reboot your system.\n"
-msgstr ""
-"Kjarninn getur ekki lesið nýju disksneiðatöfluna, sennilega vegna þess að þú "
-"hefur breytt \"extended\" disksneiðum. Þó þetta sé ekki banvæn villa verður "
-"þú að endurræsa vélina áður en þú getur haldið áfram. Settu inn Red Hat "
-"ræsidiskinn og veldu \"Í lagi\" til að endurræsa.\n"
-
-#: ../fstab.py:506
-msgid "Swap Space"
-msgstr "Diskminni"
-
-#: ../fstab.py:507
-msgid "Creating swap space..."
-msgstr "Forsníð diskminni..."
-
-#: ../fstab.py:525 ../fstab.py:795 ../fstab.py:1254
-msgid "Formatting"
-msgstr "Forsníð"
-
-#: ../fstab.py:526
-msgid "Formatting swap space..."
-msgstr "Forsníð diskminni..."
-
-#: ../fstab.py:535
-msgid "Error creating swap on device "
-msgstr "Villa við frumstillingu diskminnis "
-
-#: ../fstab.py:636
-#, c-format
-msgid "Error unmounting %s: %s"
-msgstr "Villa við aftengingu %s: %s"
-
-#: ../fstab.py:689 ../todo.py:740
+#: ../floppy.py:104
 msgid "Creating"
 msgstr "Bý til"
 
-#: ../fstab.py:689
-msgid "Creating RAID devices..."
-msgstr "Bý til RAID tæki..."
+#: ../floppy.py:104
+msgid "Creating boot disk..."
+msgstr "Bý til ræsidiskling..."
 
-#: ../fstab.py:730
-msgid "Loopback"
-msgstr "\"Loopback\""
+#: ../fsset.py:486 ../iw/silo_gui.py:173 ../textw/silo_text.py:64
+msgid "Master Boot Record (MBR)"
+msgstr "Aðalræsifærsluna (MBR)"
 
-#: ../fstab.py:731
-#, c-format
-msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr "Bý til \"loopback\" skráakerfi á tæki /dev/%s..."
+#: ../fsset.py:487 ../iw/silo_gui.py:176 ../textw/silo_text.py:65
+msgid "First sector of boot partition"
+msgstr "Fyrsta geira ræsidisksneiðar"
 
-#: ../fstab.py:787
+#: ../fsset.py:503 ../fsset.py:531 ../fsset.py:550 ../harddrive.py:171
+#: ../image.py:65 ../image.py:142 ../libfdisk/newtfsedit.c:1746
+#: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435
+#: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:27
+#: ../loader/lang.c:102 ../loader/loader.c:447 ../loader/loader.c:499
+#: ../loader/loader.c:878 ../loader/loader.c:933 ../loader/loader.c:1105
+#: ../loader/loader.c:1110 ../loader/loader.c:1183 ../loader/loader.c:2041
+#: ../loader/loader.c:2071 ../loader/loader.c:2149 ../loader/loader.c:2361
+#: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:78
+#: ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:233
+#: ../loader/urls.c:238 ../packages.py:224 ../partitioning.py:689
+#: ../partitioning.py:712 ../textw/bootdisk_text.py:72
+#: ../textw/upgrade_text.py:84 ../textw/upgrade_text.py:91
+#: ../textw/upgrade_text.py:116 ../upgrade.py:252 ../upgrade.py:266
+msgid "Error"
+msgstr "Villa"
+
+#: ../fsset.py:504
+#, fuzzy, c-format
+msgid ""
+"Error enabling swap device %s: %s\n"
+"\n"
+"This most likely means this swap partition has not been initialized.\n"
+"\n"
+"Press OK to reboot your system."
+msgstr ""
+"Villa kom upp þegar reynt var að tengja tæki %s á %s: %s\n"
+"\n"
+"Þetta þýðir líklega að disksneiðin hefur ekki verið forsniðin.\n"
+"\n"
+"Veldu Í lagi til að endurræsa vélina."
+
+#: ../fsset.py:532
 #, c-format
 msgid ""
-"An error occured trying to format %s. This problem is serious, and the "
+"An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fstab.py:796 ../fstab.py:1255
-#, c-format
-msgid "Formatting %s filesystem..."
-msgstr "Forsníð %s skráakerfið..."
-
-#: ../fstab.py:854
+#: ../fsset.py:551
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -159,286 +127,45 @@ msgstr ""
 "\n"
 "Veldu Í lagi til að endurræsa vélina."
 
-#: ../gui.py:183
-msgid ""
-"An exceptional condition has occured.  This is most likely a bug.  Please "
-"copy the full text of this exception and file a bug report at "
-"http://bugzilla.redhat.com/bugzilla"
-msgstr ""
-"Óeðlilegt ástand hefur komið upp. Orsökin er líklegast villa í "
-"uppsetningarforritinu. Vinsamlegast afritaðu allann textann hérna og sendu "
-"inn villutilkynningu á http://bugzilla.redhat.com/bugzilla"
+#: ../fsset.py:996
+msgid "Formatting"
+msgstr "Forsníð"
 
-#: ../gui.py:332 ../text.py:878
-msgid ""
-"Please insert a floppy now. All contents of the disk will be erased, so "
-"please choose your diskette carefully."
-msgstr ""
-"Vinsamlegast settu diskling í drifið. Öllu innihaldi disklingsins verður "
-"eytt svo veldu disklinginn vel."
-
-#: ../gui.py:424 ../gui.py:799
-msgid "Next"
-msgstr "Áfram"
-
-#: ../gui.py:425 ../gui.py:798 ../libfdisk/newtfsedit.c:1480
-#: ../libfdisk/newtfsedit.c:1488 ../loader/cdrom.c:34 ../loader/devices.c:93
-#: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
-#: ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910
-#: ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1519
-#: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
-#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61
-#: ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228
-#: ../text.py:231 ../text.py:311 ../text.py:356 ../text.py:359 ../text.py:416
-#: ../text.py:419 ../text.py:445 ../text.py:449 ../text.py:458 ../text.py:531
-#: ../text.py:533 ../text.py:543 ../text.py:545 ../textw/bootdisk_text.py:30
-#: ../textw/firewall_text.py:9 ../textw/lilo_text.py:34
-#: ../textw/lilo_text.py:110 ../textw/lilo_text.py:118
-#: ../textw/lilo_text.py:226 ../textw/mouse_text.py:27
-#: ../textw/mouse_text.py:28 ../textw/mouse_text.py:55
-#: ../textw/mouse_text.py:81 ../textw/network_text.py:102
-#: ../textw/network_text.py:161 ../textw/network_text.py:164
-#: ../textw/packages_text.py:55 ../textw/packages_text.py:236
-#: ../textw/packages_text.py:347 ../textw/packages_text.py:353
-#: ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:66
-#: ../textw/partitioning_text.py:157 ../textw/partitioning_text.py:221
-#: ../textw/partitioning_text.py:260 ../textw/partitioning_text.py:343
-#: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
-#: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:68
-#: ../textw/upgrade_text.py:155 ../textw/upgrade_text.py:173
-#: ../textw/upgrade_text.py:176 ../textw/upgrade_text.py:190
-#: ../textw/upgrade_text.py:191 ../textw/upgrade_text.py:213
-#: ../textw/upgrade_text.py:216 ../textw/userauth_text.py:30
-#: ../textw/userauth_text.py:165 ../textw/userauth_text.py:199
-#: ../textw/userauth_text.py:297
-msgid "Back"
-msgstr "Til baka"
-
-#: ../gui.py:426 ../gui.py:546 ../gui.py:801
-msgid "Release Notes"
-msgstr "Útgáfuupplýsingar"
-
-#: ../gui.py:427 ../gui.py:804
-msgid "Show Help"
-msgstr "Sýna hjálp"
-
-#: ../gui.py:428 ../gui.py:803
-msgid "Hide Help"
-msgstr "Fela hjálp"
-
-#: ../gui.py:429 ../gui.py:802
-msgid "Finish"
-msgstr "Ljúka"
-
-#: ../gui.py:433 ../gui.py:834
-msgid "Online Help"
-msgstr "Innbyggð hjálp"
-
-#: ../gui.py:434 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../test.py:24 ../text.py:69 ../text.py:973
-msgid "Language Selection"
-msgstr "Veljið tungumál"
-
-#: ../gui.py:541 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
-#: ../libfdisk/gnomefsedit.c:1405
-msgid "Close"
-msgstr "Loka"
-
-#: ../gui.py:577
-msgid "Unable to load file!"
-msgstr "Get ekki lesið skrá!"
-
-#: ../gui.py:722
-msgid "Red Hat Linux Installer"
-msgstr "Red Hat Linux uppsetningarforritið"
-
-#: ../gui.py:726
-msgid "Red Hat Linux Install Shell"
-msgstr "Red Hat Linux uppsetningaskel"
-
-#: ../gui.py:737
+#: ../fsset.py:997
 #, c-format
-msgid "Red Hat Linux Installer on %s"
-msgstr "Red Hat Linux uppsetningarforritið á %s"
+msgid "Formatting %s filesystem..."
+msgstr "Forsníð %s skráakerfið..."
 
-#: ../gui.py:738
-#, c-format
-msgid "Red Hat Linux Install Shell on %s"
-msgstr "Red Hat Linux uppsetningaskel á %s"
+#: ../gui.py:97 ../iw/welcome_gui.py:86 ../libfdisk/fsedit.c:953
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237
+#: ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398
+#: ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754
+#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:618
+#: ../libfdisk/newtfsedit.c:745 ../libfdisk/newtfsedit.c:877
+#: ../libfdisk/newtfsedit.c:1683 ../libfdisk/newtfsedit.c:1701
+#: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:230
+#: ../loader/loader.c:782 ../loader/net.c:845 ../text.py:273
+#: ../textw/bootdisk_text.py:16 ../textw/bootdisk_text.py:34
+#: ../textw/lilo_text.py:60 ../textw/upgrade_text.py:178
+msgid "Yes"
+msgstr "Já"
 
-#: ../gui.py:883
-msgid "Install Window"
-msgstr "Uppsetningargluggi"
-
-#: ../harddrive.py:174
-#, c-format
-msgid "Missing CD #%d, which is required for the install."
-msgstr "Geisladisk nr. %d vantar, en hann er nauðsynlegur til uppsetningar."
-
-#: ../image.py:61
-msgid "Copying File"
-msgstr "Afrita skrá"
-
-#: ../image.py:62
-msgid "Transferring install image to hard drive..."
-msgstr "Flyt uppsetningarskrár á harða diskinn..."
-
-#: ../image.py:65
-msgid ""
-"An error occured transferring the install image to your hard drive. You are "
-"probably out of disk space."
-msgstr ""
-"Villa kom upp við að flytja uppsetningarskrár á harða diskinn. Hann er "
-"líklega fullur."
-
-#: ../image.py:118
-msgid "Change CDROM"
-msgstr "Skipta um geisladisk"
-
-#: ../image.py:119
-#, c-format
-msgid "Please insert disc %d to continue."
-msgstr "Vinsamlegast settu inn disk %d til að halda áfram."
-
-#: ../image.py:136
-msgid "Wrong CDROM"
-msgstr "Rangur geisladiskur"
-
-#: ../image.py:137
-msgid "That's not the correct Red Hat CDROM."
-msgstr "Þetta er ekki rétti RedHat geisladiskurinn."
-
-#: ../image.py:142
-msgid "The CDROM could not be mounted."
-msgstr "Ekki var hægt að tengja geisladiskinn."
-
-#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:237
-#: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:335
-#: ../loader/devices.c:435 ../loader/devices.c:480 ../loader/devices.c:500
-#: ../loader/devices.c:532 ../loader/kickstart.c:58 ../loader/kickstart.c:68
-#: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294
-#: ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520
-#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:910
-#: ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1116
-#: ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1241
-#: ../loader/loader.c:1250 ../loader/loader.c:1281 ../loader/loader.c:1519
-#: ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2228
-#: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/net.c:185
-#: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:687
-#: ../loader/net.c:720 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
-#: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
-#: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:20 ../rescue.py:92
-#: ../rescue.py:110 ../rescue.py:126 ../text.py:135 ../text.py:174
-#: ../text.py:228 ../text.py:311 ../text.py:356 ../text.py:374 ../text.py:416
-#: ../text.py:445 ../text.py:531 ../text.py:543 ../text.py:573 ../text.py:594
-#: ../text.py:764 ../text.py:820 ../text.py:846 ../text.py:872 ../text.py:880
-#: ../text.py:895 ../text.py:1138 ../textw/bootdisk_text.py:52
-#: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
-#: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
-#: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
-#: ../textw/lilo_text.py:110 ../textw/lilo_text.py:169
-#: ../textw/lilo_text.py:175 ../textw/mouse_text.py:55
-#: ../textw/network_text.py:102 ../textw/network_text.py:123
-#: ../textw/network_text.py:161 ../textw/packages_text.py:55
-#: ../textw/packages_text.py:89 ../textw/packages_text.py:236
-#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:260
-#: ../textw/partitioning_text.py:343 ../textw/partitioning_text.py:354
-#: ../textw/partitioning_text.py:362 ../textw/partitioning_text.py:369
-#: ../textw/silo_text.py:25 ../textw/silo_text.py:99
-#: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:67
-#: ../textw/upgrade_text.py:173 ../textw/userauth_text.py:30
-#: ../textw/userauth_text.py:44 ../textw/userauth_text.py:49
-#: ../textw/userauth_text.py:84 ../textw/userauth_text.py:99
-#: ../textw/userauth_text.py:105 ../textw/userauth_text.py:111
-#: ../textw/userauth_text.py:119 ../textw/userauth_text.py:128
-#: ../textw/userauth_text.py:135 ../textw/userauth_text.py:199
-#: ../textw/userauth_text.py:297 ../xserver.py:34
-msgid "OK"
-msgstr "Í lagi"
-
-#: ../rescue.py:39
-msgid "WARNING: no valid block devices were found.\n"
-msgstr "AÐVÖRUN: engin gild blokkartæki fundust.\n"
-
-#: ../rescue.py:41
-msgid "ERROR: unknown error encountered reading partition tables.\n"
-msgstr "VILLA: óþekkt villa kom upp við lestur disksneiðatöflunnar.\n"
-
-#: ../rescue.py:89
-msgid "System to Rescue"
-msgstr "Kerfi sem á að bjarga"
-
-#: ../rescue.py:90 ../textw/upgrade_text.py:171
-msgid "What partition holds the root partition of your installation?"
-msgstr "Á hvaða disksneið er rót skráarkerfisins?"
-
-#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:92
-#: ../rescue.py:96 ../textw/upgrade_text.py:22 ../textw/upgrade_text.py:141
-msgid "Exit"
-msgstr "Hætta"
-
-#: ../rescue.py:106 ../rescue.py:121
-msgid "Rescue"
-msgstr "Bjarga"
-
-#: ../rescue.py:107
-msgid ""
-"Your system has been mounted under /mnt/sysimage.\n"
-"\n"
-"Press <return> to get a shell. The system will reboot automatically when you "
-"exit from the shell."
-msgstr ""
-"Diskurinn þinn er tengdur undir /mnt/sysimage.\n"
-"\n"
-"Sláðu á <return> til að komast í skel. Vélin mun endurræsa sig sjálfvirkt "
-"þegar þú hættir í skelinni."
-
-#: ../rescue.py:122
-msgid ""
-"An error occured trying to mount some or all of your system. Some of it may "
-"be mounted under /mnt/sysimage.\n"
-"\n"
-"Press <return> to get a shell. The system will reboot automatically when you "
-"exit from the shell."
-msgstr ""
-"Villa kom upp þegar reynt var að tengja sum eða öll skráarkerfi á vélinni "
-"þinni. Sum þeirra gætu þó verið tengd undir /mnt/sysimage.\n"
-"\n"
-"Sláðu á <return> til að komast í skel. Vélin mun endurræsa sig sjálfvirkt "
-"þegar þú hættir í skelinni."
-
-#: ../rescue.py:128
-msgid "Rescue Mode"
-msgstr "Björgunarhamur"
-
-#: ../rescue.py:129
-msgid ""
-"You don't have any Linux partitions. Press return to get a shell. The system "
-"will reboot automatically when you exit from the shell."
-msgstr ""
-"Þú ert ekki með neinar Linux disksneiðar. Sláðu á <return> til að komast í "
-"skel. Vélin mun endurræsa sig sjálfvirkt þegar þú hættir í skelinni."
-
-#: ../rescue.py:141
-msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr "Diskurinn þinn er tengdur undir /mnt/sysimage möppunni."
-
-#: ../iw/upgrade_swap_gui.py:102 ../test.py:26 ../test.py:34 ../test.py:40
-#: ../textw/upgrade_text.py:38
-#, c-format
-msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system. You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
-msgstr ""
-"Linux 2.4 kjarninn þarfnast meira diskminnis en endri kjarnar. Magn "
-"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að "
-"stærð.Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
-"diskminni á einhverju af skráarkerfunum þínum núna."
+#: ../gui.py:98 ../iw/welcome_gui.py:89 ../libfdisk/fsedit.c:953
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237
+#: ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398
+#: ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754
+#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:618
+#: ../libfdisk/newtfsedit.c:745 ../libfdisk/newtfsedit.c:877
+#: ../libfdisk/newtfsedit.c:1683 ../libfdisk/newtfsedit.c:1701
+#: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:231 ../loader/net.c:845
+#: ../text.py:274 ../textw/bootdisk_text.py:16 ../textw/bootdisk_text.py:34
+#: ../textw/bootdisk_text.py:42 ../textw/lilo_text.py:60
+#: ../textw/upgrade_text.py:178 ../textw/upgrade_text.py:185
+msgid "No"
+msgstr "Nei"
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
+#: ../gui.py:99 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
 #: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
 #: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
 #: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1052
@@ -463,152 +190,866 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1488 ../libfdisk/newtfsedit.c:1613
 #: ../libfdisk/newtfsedit.c:1634 ../libfdisk/newtfsedit.c:1662
 #: ../libfdisk/newtfsedit.c:1746 ../loader/urls.c:78 ../loader/urls.c:87
-#: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
-#: ../text.py:199 ../text.py:458 ../textw/lilo_text.py:140
-#: ../textw/lilo_text.py:225 ../textw/mouse_text.py:27
-#: ../textw/partitioning_text.py:157 ../textw/partitioning_text.py:422
+#: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:275
+#: ../textw/constants_text.py:7 ../textw/fdisk_text.py:40
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
-#: ../textw/silo_text.py:205 ../textw/upgrade_text.py:22
-#: ../textw/upgrade_text.py:141 ../textw/upgrade_text.py:190
 msgid "Ok"
 msgstr "Í lagi"
 
-#: ../text.py:70
-msgid "What language would you like to use during the installation process?"
-msgstr "Hvaða tungumál viltu nota meðan á uppsetningu stendur?"
+#: ../gui.py:100 ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1463
+#: ../loader/net.c:277 ../loader/net.c:402 ../text.py:276
+msgid "Retry"
+msgstr "Reyna aftur"
 
-#: ../text.py:135
-msgid "Select All"
-msgstr "Velja öll"
-
-#: ../iw/language_support_gui.py:209 ../text.py:135
-msgid "Reset"
-msgstr "Endurstilla"
-
-#: ../text.py:137
-msgid "Choose the languages to be installed:"
-msgstr "Veldu tungumálin sem þú villt setja upp:"
-
-#: ../text.py:141 ../text.py:1035
-msgid "Language Support"
-msgstr "Tungumálastuðningur"
-
-#: ../text.py:172 ../textw/firewall_text.py:124 ../textw/firewall_text.py:189
-msgid "Invalid Choice"
-msgstr "Ógilt val"
-
-#: ../text.py:173
-msgid "You must select at least one language to install."
-msgstr "Þú verður að velja að minnsta kosti eitt tungumál til að setja inn."
-
-#: ../text.py:201
-msgid "Default Language"
-msgstr "Sjálfgefið tungumál"
-
-#: ../text.py:202
-msgid "Choose the default language: "
-msgstr "Veldu sjálfgefna tungumálið: "
-
-#: ../text.py:226 ../text.py:950 ../text.py:975
-msgid "Keyboard Selection"
-msgstr "Stillingar lyklaborðs"
-
-#: ../text.py:227
-msgid "Which model keyboard is attached to this computer?"
-msgstr "Hvernig lyklaborð er tengt þessari vél?"
-
-#: ../text.py:287
-msgid "Upgrade Existing Installation"
-msgstr "Uppfæra núverandi kerfi"
-
-#: ../text.py:309 ../text.py:978
-msgid "Installation Type"
-msgstr "Tegund uppsetningar"
-
-#: ../text.py:310
-msgid "What type of system would you like to install?"
-msgstr "Hverskonar kerfi viltu setja upp?"
-
-#: ../text.py:347 ../text.py:366
-msgid "Red Hat Linux"
-msgstr "Red Hat Linux"
-
-#: ../text.py:348
-msgid ""
-"Welcome to Red Hat Linux!\n"
-"\n"
-"This installation process is outlined in detail in the Official Red Hat "
-"Linux Installation Guide available from Red Hat Software. If you have access "
-"to this manual, you should read the installation section before continuing.\n"
-"\n"
-"If you have purchased Official Red Hat Linux, be sure to register your "
-"purchase through our web site, http://www.redhat.com/."
+#: ../gui.py:101 ../text.py:277
+msgid "Ignore"
 msgstr ""
-"Velkomin(n) í Red Hat Linux!\n"
-"\n"
-"Uppsetningin er útskýrð í smáatriðum í 'Red Hat Linux Installation Guide' "
-"bókinni sem er fáanleg frá Red Hat Software. Ef þú hefur aðgang að þessari "
-"bók ættir þú að lesa um uppsetninguna áður en þú heldur áfram.\n"
-"\n"
-"Ef þú hefur keypt opinbert eintak Red Hat Linux mundu þá að skrá það á "
-"vefsíðu okkar á http://www.redhat.com."
 
-#: ../text.py:367
-msgid ""
-"Welcome to the Red Hat Linux!\n"
-"\n"
-"You have entered reconfiguration mode, which will allow you to configure "
-"site-specific options of your computer.\n"
-"\n"
-"To exit without changing your setup select the Cancel button below."
-msgstr ""
-"Velkomin(n) í Red Hat Linux!\n"
-"\n"
-"þú ert kominn í breytingarham, sem leyfir þér að sérsníða uppsetningu "
-"vélarinnar að breyttum aðstæðum. \n"
-"\n"
-"Ef þú vilt hætta án þess að gera neinar breytingar veldu þá Hætta við "
-"hnappinn að neðan."
-
+#: ../gui.py:102 ../iw/account_gui.py:135 ../iw/account_gui.py:145
+#: ../iw/partition_gui.py:650 ../iw/partition_gui.py:1054
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1701 ../loader/devices.c:238
-#: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
-#: ../text.py:374 ../text.py:377 ../text.py:764 ../text.py:765 ../text.py:880
-#: ../text.py:882 ../textw/lilo_text.py:141 ../textw/silo_text.py:136
-#: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
+#: ../loader/devices.c:532 ../loader/loader.c:2134 ../loader/pcmcia.c:104
+#: ../text.py:127 ../text.py:128 ../text.py:248 ../text.py:250 ../text.py:278
+#: ../textw/constants_text.py:11 ../textw/lilo_text.py:120
+#: ../textw/silo_text.py:136 ../textw/silo_text.py:154
+#: ../textw/userauth_text.py:62 ../textw/welcome_text.py:35
+#: ../textw/welcome_text.py:38
 msgid "Cancel"
 msgstr "Hætta við"
 
-#: ../text.py:414
-msgid "X probe results"
-msgstr "Útkoma X leitar"
+#: ../gui.py:189
+#, fuzzy
+msgid ""
+"An exceptional condition has occured.  This is most likely a bug.  Please "
+"copy the full text of this exception and file a bug report against anaconda "
+"at http://bugzilla.redhat.com/bugzilla"
+msgstr ""
+"Óeðlilegt ástand hefur komið upp. Orsökin er líklegast villa í "
+"uppsetningarforritinu. Vinsamlegast afritaðu allann textann hérna og sendu "
+"inn villutilkynningu á http://bugzilla.redhat.com/bugzilla"
 
-#: ../text.py:434 ../text.py:454
-msgid "Unlisted Card"
-msgstr "Óþekkt kort"
+#: ../gui.py:296 ../text.py:246
+msgid ""
+"Please insert a floppy now. All contents of the disk will be erased, so "
+"please choose your diskette carefully."
+msgstr ""
+"Vinsamlegast settu diskling í drifið. Öllu innihaldi disklingsins verður "
+"eytt svo veldu disklinginn vel."
 
-#: ../text.py:442
-msgid "Video Card Selection"
-msgstr "Val skjákorts"
+#: ../gui.py:359 ../gui.py:707
+#, fuzzy
+msgid "Navigation"
+msgstr "Disksneið"
 
-#: ../text.py:443
-msgid "Which video card do you have?"
-msgstr "Hvaða skjákort ertu með?"
+#: ../gui.py:360 ../iw/language_gui.py:7 ../iw/language_support_gui.py:22
+#: ../textw/language_text.py:27
+msgid "Language Selection"
+msgstr "Veljið tungumál"
 
-#: ../text.py:456
-msgid "X Server Selection"
-msgstr "Val X þjóns"
+#: ../gui.py:432 ../iw/firewall_gui.py:121 ../libfdisk/gnomefsedit.c:1388
+#: ../libfdisk/gnomefsedit.c:1405
+msgid "Close"
+msgstr "Loka"
 
-#: ../text.py:456
-msgid "Choose a server"
-msgstr "Veldu þjón"
+#: ../gui.py:437 ../gui.py:574
+msgid "Release Notes"
+msgstr "Útgáfuupplýsingar"
 
-#: ../text.py:527
-msgid "Installation to begin"
+#: ../gui.py:468
+msgid "Unable to load file!"
+msgstr "Get ekki lesið skrá!"
+
+#: ../gui.py:489
+msgid "Release notes are missing.\n"
+msgstr ""
+
+#: ../gui.py:570 ../libfdisk/newtfsedit.c:1480 ../libfdisk/newtfsedit.c:1488
+#: ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238
+#: ../loader/devices.c:335 ../loader/lang.c:592 ../loader/loader.c:292
+#: ../loader/loader.c:782 ../loader/loader.c:819 ../loader/loader.c:933
+#: ../loader/loader.c:1027 ../loader/loader.c:1421 ../loader/net.c:185
+#: ../loader/net.c:272 ../loader/net.c:357 ../loader/urls.c:155
+#: ../loader/urls.c:375 ../rescue.py:155 ../textw/bootdisk_text.py:34
+#: ../textw/confirm_text.py:11 ../textw/confirm_text.py:13
+#: ../textw/confirm_text.py:23 ../textw/confirm_text.py:25
+#: ../textw/constants_text.py:15 ../textw/silo_text.py:99
+#: ../textw/userauth_text.py:164
+msgid "Back"
+msgstr "Til baka"
+
+#: ../gui.py:572
+msgid "Next"
+msgstr "Áfram"
+
+#: ../gui.py:576
+msgid "Show Help"
+msgstr "Sýna hjálp"
+
+#: ../gui.py:578
+msgid "Hide Help"
+msgstr "Fela hjálp"
+
+#: ../gui.py:620
+msgid "Red Hat Linux Installer"
+msgstr "Red Hat Linux uppsetningarforritið"
+
+#: ../gui.py:635
+#, c-format
+msgid "Red Hat Linux Installer on %s"
+msgstr "Red Hat Linux uppsetningarforritið á %s"
+
+#: ../gui.py:672
+msgid "Unable to load anaconda_header.png"
+msgstr ""
+
+#: ../gui.py:754
+msgid "Install Window"
+msgstr "Uppsetningargluggi"
+
+#: ../harddrive.py:172
+#, c-format
+msgid "Missing CD #%d, which is required for the install."
+msgstr "Geisladisk nr. %d vantar, en hann er nauðsynlegur til uppsetningar."
+
+#: ../harddrive.py:233 ../iw/partition_gui.py:1303
+#: ../iw/upgrade_swap_gui.py:168 ../iw/upgrade_swap_gui.py:176
+#: ../iw/upgrade_swap_gui.py:183 ../textw/upgrade_text.py:96
+msgid "Warning"
+msgstr "Aðvörun"
+
+#: ../image.py:62
+msgid "Copying File"
+msgstr "Afrita skrá"
+
+#: ../image.py:63
+msgid "Transferring install image to hard drive..."
+msgstr "Flyt uppsetningarskrár á harða diskinn..."
+
+#: ../image.py:66
+msgid ""
+"An error occured transferring the install image to your hard drive. You are "
+"probably out of disk space."
+msgstr ""
+"Villa kom upp við að flytja uppsetningarskrár á harða diskinn. Hann er "
+"líklega fullur."
+
+#: ../image.py:119
+msgid "Change CDROM"
+msgstr "Skipta um geisladisk"
+
+#: ../image.py:120
+#, c-format
+msgid "Please insert disc %d to continue."
+msgstr "Vinsamlegast settu inn disk %d til að halda áfram."
+
+#: ../image.py:137
+msgid "Wrong CDROM"
+msgstr "Rangur geisladiskur"
+
+#: ../image.py:138
+msgid "That's not the correct Red Hat CDROM."
+msgstr "Þetta er ekki rétti RedHat geisladiskurinn."
+
+#: ../image.py:143
+msgid "The CDROM could not be mounted."
+msgstr "Ekki var hægt að tengja geisladiskinn."
+
+#: ../installclass.py:27
+msgid "Install"
+msgstr "Setja upp"
+
+#: ../monitor.py:148 ../mouse.py:184 ../videocard.py:135
+#, fuzzy
+msgid "Unable to probe"
+msgstr "Get ekki lesið skrá!"
+
+#: ../iw/package_gui.py:18 ../packages.py:34
+msgid "Proceed with upgrade?"
+msgstr "Halda áfram með uppfærslu?"
+
+#: ../iw/package_gui.py:19 ../packages.py:35
+msgid ""
+"The filesystems of the Linux installation you have chosen to upgrade have "
+"already been mounted. You cannot go back past this point. \n"
+"\n"
+msgstr ""
+"Skráarkerfi Linux uppsetningarinnar sem þú hefur kosið að uppfæra hafa þegar "
+"verið tengd. Þú getur ekki farið til baka aftur fyrir þennan stað. \n"
+"\n"
+
+#: ../iw/package_gui.py:23 ../packages.py:39
+msgid "Would you like to continue with the upgrade?"
+msgstr "Viltu halda áfram með uppfærsluna?"
+
+#: ../packages.py:85
+msgid "Reading"
+msgstr "Les"
+
+#: ../packages.py:85
+msgid "Reading package information..."
+msgstr "Les upplýsingar um pakkana..."
+
+#: ../packages.py:140
+msgid "Dependency Check"
+msgstr "Athuga pakkaskilyrði"
+
+#: ../packages.py:141
+msgid "Checking dependencies in packages selected for installation..."
+msgstr "Athuga skilyrði pakkanna sem voru valdir til uppsetningar..."
+
+#: ../packages.py:190
+msgid "Processing"
+msgstr "Vinnsla"
+
+#: ../packages.py:191
+msgid "Preparing to install..."
+msgstr "Undirbý uppsetningu..."
+
+#: ../packages.py:225
+#, c-format
+msgid ""
+"The file %s cannot be opened. This is due to a missing file, a bad package, "
+"or bad media. Press <return> to try again."
+msgstr ""
+"Ekki er hægt að opna skrána %s. Þetta orsakast af skrá sem vantar, skemmdum "
+"pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
+
+#: ../packages.py:441
+#, c-format
+msgid "Upgrading %s.\n"
+msgstr "Uppfæri %s.\n"
+
+#: ../packages.py:443
+#, c-format
+msgid "Installing %s.\n"
+msgstr "Set inn %s.\n"
+
+#: ../packages.py:492
+msgid ""
+"You don't appear to have enough disk space to install the packages you've "
+"selected. You need more space on the following filesystems:\n"
+"\n"
+msgstr ""
+"Þú virðist ekki hafa nægjanlegt diskrými til að setja upp þá pakka sem þú "
+"valdir. Þú þarft meira pláss í eftirtöldum skráarkerfum:\n"
+"\n"
+
+#: ../iw/partition_gui.py:1245 ../iw/upgrade_swap_gui.py:120
+#: ../libfdisk/gnomefsedit.c:3132 ../packages.py:495 ../packages.py:513
+#: ../textw/upgrade_text.py:33
+msgid "Mount Point"
+msgstr "Tengipunktur"
+
+#: ../packages.py:495
+msgid "Space Needed"
+msgstr "Þarfnast diskrýmis"
+
+#: ../packages.py:510
+msgid ""
+"You don't appear to have enough file nodes to install the packages you've "
+"selected. You need more file nodes on the following filesystems:\n"
+"\n"
+msgstr ""
+"Þú virðist ekki hafa nóg af lausum skrám til að setja upp þá pakka sem þú "
+"valdir. Þú þarft fleiri lausar skrár (inóður) í eftirtöldum skráarkerfum:\n"
+"\n"
+
+#: ../packages.py:513
+msgid "Nodes Needed"
+msgstr "Vantar inóður"
+
+#: ../packages.py:519
+msgid "Disk Space"
+msgstr "Diskpláss"
+
+#: ../packages.py:555
+msgid "Post Install"
+msgstr "Eftir uppsetningu"
+
+#: ../packages.py:556
+msgid "Performing post install configuration..."
+msgstr "Breyta stillingum eftir uppsetningu..."
+
+#: ../partitioning.py:281
+#, fuzzy
+msgid ""
+"The mount point is invalid.  Mount points must start with '/' and cannot end "
+"with '/', and must contain printable characters."
+msgstr ""
+"Tengipunkturinn %s er óleyfilegur.\n"
+"\n"
+"Heiti tengipunkta mega einungis innihalda prentanlega stafi."
+
+#: ../partitioning.py:288
+msgid "Please specify a mount point for this partition."
+msgstr ""
+
+#: ../partitioning.py:306
+#, fuzzy, c-format
+msgid ""
+"The mount point %s is already in use, please choose a different mount point."
+msgstr ""
+"Tengipunkturinn sem þú valdir er þegar í notkun. Vinsamlegast veldu löglegan "
+"tengipunkt."
+
+#: ../partitioning.py:322
+#, fuzzy
+msgid ""
+"This mount point is invalid.  This directory must be on the / filesystem."
+msgstr "Mappan %s verður að vera á rótarskráakerfinu."
+
+#: ../partitioning.py:327
+#, fuzzy
+msgid "This mount point must be on a linux filesystem."
+msgstr "Mappan %s verður að vera á rótarskráakerfinu."
+
+#: ../partitioning.py:337
+#, c-format
+msgid ""
+"The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
+"MB."
+msgstr ""
+
+#: ../partitioning.py:340
+#, c-format
+msgid ""
+"The size of the requested partition (size = %s MB) exceeds the maximum size "
+"of %s MB."
+msgstr ""
+
+#: ../partitioning.py:343
+#, c-format
+msgid "The size of the requested partition is negative! (size = %s MB)"
+msgstr ""
+
+#: ../partitioning.py:346
+msgid "Partitions can't start below the first cylinder."
+msgstr ""
+
+#: ../partitioning.py:349
+msgid "Partitions can't end on a negative cylinder."
+msgstr ""
+
+#: ../partitioning.py:382
+msgid "No members in RAID request, or not RAID level specified."
+msgstr ""
+
+#: ../partitioning.py:387
+msgid "Some members of RAID request are not RAID partitions."
+msgstr ""
+
+#: ../partitioning.py:397
+#, fuzzy
+msgid "Bootable partitions can only be on RAID1 devices."
+msgstr "Ræsisneiðar (/boot) mega einungis nota RAID-1"
+
+#: ../partitioning.py:401
+#, c-format
+msgid "A RAID device of type %s requires at least %s members."
+msgstr ""
+
+#: ../partitioning.py:405
+#, c-format
+msgid ""
+"This RAID device can have a maximum of %s spares. To have more spares you "
+"will need to add members to the RAID device."
+msgstr ""
+
+#: ../partitioning.py:690 ../partitioning.py:713
+#, fuzzy, c-format
+msgid "Error mounting filesystem on %s: %s"
+msgstr "Villa við tengingu ext2 skráakerfis á %s: %s"
+
+#: ../iw/account_gui.py:134 ../iw/account_gui.py:144
+#: ../iw/partition_gui.py:649 ../iw/partition_gui.py:1053 ../loader/cdrom.c:34
+#: ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259
+#: ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435
+#: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532
+#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
+#: ../loader/lang.c:27 ../loader/lang.c:102 ../loader/lang.c:297
+#: ../loader/lang.c:592 ../loader/loader.c:292 ../loader/loader.c:447
+#: ../loader/loader.c:499 ../loader/loader.c:819 ../loader/loader.c:878
+#: ../loader/loader.c:933 ../loader/loader.c:1027 ../loader/loader.c:1105
+#: ../loader/loader.c:1110 ../loader/loader.c:1152 ../loader/loader.c:1183
+#: ../loader/loader.c:1421 ../loader/loader.c:2041 ../loader/loader.c:2071
+#: ../loader/loader.c:2134 ../loader/loader.c:2149 ../loader/loader.c:2361
+#: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
+#: ../loader/net.c:678 ../loader/net.c:711 ../loader/pcmcia.c:104
+#: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:155
+#: ../loader/urls.c:233 ../loader/urls.c:238 ../loader/urls.c:375
+#: ../rescue.py:33 ../rescue.py:115 ../rescue.py:133 ../rescue.py:149
+#: ../text.py:383 ../textw/bootdisk_text.py:62 ../textw/complete_text.py:22
+#: ../textw/complete_text.py:41 ../textw/confirm_text.py:11
+#: ../textw/confirm_text.py:23 ../textw/firewall_text.py:201
+#: ../textw/network_text.py:121 ../textw/silo_text.py:99 ../xserver.py:50
+msgid "OK"
+msgstr "Í lagi"
+
+#: ../rescue.py:112
+msgid "System to Rescue"
+msgstr "Kerfi sem á að bjarga"
+
+#: ../rescue.py:113 ../textw/upgrade_text.py:135
+msgid "What partition holds the root partition of your installation?"
+msgstr "Á hvaða disksneið er rót skráarkerfisins?"
+
+#: ../iw/congrats_gui.py:14 ../iw/congrats_gui.py:62 ../rescue.py:115
+#: ../rescue.py:119
+msgid "Exit"
+msgstr "Hætta"
+
+#: ../rescue.py:129 ../rescue.py:144
+msgid "Rescue"
+msgstr "Bjarga"
+
+#: ../rescue.py:130
+msgid ""
+"Your system has been mounted under /mnt/sysimage.\n"
+"\n"
+"Press <return> to get a shell. The system will reboot automatically when you "
+"exit from the shell."
+msgstr ""
+"Diskurinn þinn er tengdur undir /mnt/sysimage.\n"
+"\n"
+"Sláðu á <return> til að komast í skel. Vélin mun endurræsa sig sjálfvirkt "
+"þegar þú hættir í skelinni."
+
+#: ../rescue.py:145
+msgid ""
+"An error occured trying to mount some or all of your system. Some of it may "
+"be mounted under /mnt/sysimage.\n"
+"\n"
+"Press <return> to get a shell. The system will reboot automatically when you "
+"exit from the shell."
+msgstr ""
+"Villa kom upp þegar reynt var að tengja sum eða öll skráarkerfi á vélinni "
+"þinni. Sum þeirra gætu þó verið tengd undir /mnt/sysimage.\n"
+"\n"
+"Sláðu á <return> til að komast í skel. Vélin mun endurræsa sig sjálfvirkt "
+"þegar þú hættir í skelinni."
+
+#: ../rescue.py:151
+msgid "Rescue Mode"
+msgstr "Björgunarhamur"
+
+#: ../rescue.py:152
+msgid ""
+"You don't have any Linux partitions. Press return to get a shell. The system "
+"will reboot automatically when you exit from the shell."
+msgstr ""
+"Þú ert ekki með neinar Linux disksneiðar. Sláðu á <return> til að komast í "
+"skel. Vélin mun endurræsa sig sjálfvirkt þegar þú hættir í skelinni."
+
+#: ../rescue.py:161
+msgid "Your system is mounted under the /mnt/sysimage directory."
+msgstr "Diskurinn þinn er tengdur undir /mnt/sysimage möppunni."
+
+#: ../text.py:186
+msgid "Help not available"
+msgstr "Hjálp ekki tiltæk"
+
+#: ../text.py:187
+msgid "No help is available for this install."
+msgstr "Engin hjálp er tiltæk fyrir þessa uppsetningu."
+
+#: ../text.py:245
+msgid "Save Crash Dump"
+msgstr "Vista \"Crash Dump\""
+
+#: ../text.py:256
+msgid ""
+"An internal error occurred in the installation program. Please report this "
+"error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
+"possible. The information on this failure may be saved to a floppy disk, and "
+"will help Red Hat in fixing the problem.\n"
+"\n"
+msgstr ""
+"Það kom upp villa í uppsetningarforritinu. Vinsamlegast láttu Red Hat vita "
+"af þessari villu (á bugzilla.redhat.com vefsetrinu) eins fljótt og unnt er. "
+"Nánari upplýsingum um þessa villu er hægt að vista á diskling og það mun "
+"hjálpa Red Hat við að lagfæra vandamálið.\n"
+"\n"
+
+#: ../text.py:263 ../text.py:266
+msgid "Save"
+msgstr "Vista"
+
+#: ../text.py:263 ../text.py:264
+msgid "Debug"
+msgstr "Aflúsun"
+
+#: ../text.py:292
+msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
+
+#: ../text.py:295
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr ""
+" <F1> hjálp  |  <Tab> milli atriða   |   <Bilslá> velur   | <F12> næsti skjár"
+
+#: ../text.py:297
+msgid ""
+"  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
+"screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
+
+#: ../text.py:379
+msgid "Cancelled"
+msgstr "Hætt við"
+
+#: ../text.py:380
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr ""
+"Þú kemst ekki í fyrra þrep uppsetningar héðan. Þú þarft að byrja upp á nýtt."
+
+#: ../upgrade.py:38
+msgid "Searching"
+msgstr "Leita"
+
+#: ../upgrade.py:39
+msgid "Searching for Red Hat Linux installations..."
+msgstr "Leita að Red Hat Linux uppsetningum..."
+
+#: ../upgrade.py:72 ../upgrade.py:189
+msgid "Dirty Filesystems"
+msgstr "Óhrein skráarkerfi"
+
+#: ../upgrade.py:73
+msgid ""
+"One or more of the filesystems for your Linux system was not unmounted "
+"cleanly. Please boot your Linux installation, let the filesystems be "
+"checked, and shut down cleanly to upgrade."
+msgstr ""
+"Eitt eða fleiri af Linux skráarkerfunum þínum var ekki aftengt á réttann "
+"máta. Vinsamlegast ræstu upp Linux kerfið þitt, láttu yfirfara skráarkerfin "
+"og keyrðu svo vélina rétt niður til að uppfæra."
+
+#: ../upgrade.py:190
+msgid ""
+"One or more of the filesystems listed in the /etc/fstab on your Linux system "
+"cannot be mounted. Please fix this problem and try to upgrade again."
+msgstr ""
+"Ekki tókst að tengja eitt eða fleiri af skráarkerfunum í /etc/fstab á "
+"vélinni þinni. Vinsamlegast lagfærðu þetta og reyndu svo að uppfæra aftur."
+
+#: ../upgrade.py:205
+msgid ""
+"The following files are absolute symbolic links, which we do not support "
+"during an upgrade. Please change them to relative symbolic links and restart "
+"the upgrade.\n"
+"\n"
+msgstr ""
+"Eftirfarandi skrár eru tákntengi með fullum slóðum sem við styðjum ekki á "
+"meðan á uppfærslu stendur. Vinsamlegast breyttu þeim í hlekki sem ekki eru "
+"með \"Absolute\" slóð heldur \"Relative\" og reyndu uppfærsluna aftur.\n"
+"\n"
+
+#: ../upgrade.py:229
+msgid "Finding"
+msgstr "Leita"
+
+#: ../upgrade.py:230
+msgid "Finding packages to upgrade..."
+msgstr "Leita að pökkum sem þarf að uppfæra..."
+
+#: ../upgrade.py:253
+msgid "Rebuild of RPM database failed. You may be out of disk space?"
+msgstr "Ekki tókst að endurbyggja RPM gagnagrunninn. Er nægilegt diskrými?"
+
+#: ../upgrade.py:267
+msgid "An error occured when finding the packages to upgrade."
+msgstr "Það kom upp villa þegar leitað var að pökkum til uppfærslu."
+
+#: ../iw/xconfig_gui.py:15 ../textw/xconfig_text.py:462 ../xf86config.py:839
+msgid "Video Card"
+msgstr "Skjákort"
+
+#: ../iw/xconfig_gui.py:17 ../xf86config.py:841
+msgid "Video Ram"
+msgstr "Skjáminni"
+
+#: ../xf86config.py:844
+msgid "X server"
+msgstr "X þjónn"
+
+#: ../xf86config.py:847
+msgid "Unable to detect video card"
+msgstr "Finn ekki skjákort"
+
+#: ../xserver.py:43
+msgid "Mouse Not Detected"
+msgstr "Engin mús fannst"
+
+#: ../xserver.py:44
+msgid ""
+"Your mouse was not automatically detected.  To proceed in the graphical "
+"installation mode, please proceed to the next screen and provide your mouse "
+"information. You may also use text mode installation which does not require "
+"a mouse."
+msgstr ""
+"Ekki tókst að finna músina sjálfvirkt. Til þess að halda uppsetningunni "
+"áfram í myndrænum ham þarftu að fara áfram á næsta skjá og gefa upp "
+"upplýsingar um músina.  Þú getur einnig notað uppsetninguna í textaham sem "
+"þarfnast ekki músar."
+
+#: ../xserver.py:50 ../xserver.py:51
+msgid "Use text mode"
+msgstr "Nota textaham"
+
+#: ../xserver.py:173
+msgid "Waiting for X server to start...log located in /tmp/X.log\n"
+msgstr ""
+
+#: ../xserver.py:194
+msgid " X server started successfully."
+msgstr ""
+
+#: ../iw/account_gui.py:12
+msgid "Account Configuration"
+msgstr "Stillingar notanda"
+
+#: ../iw/account_gui.py:35
+msgid "Root password accepted."
+msgstr "Rótarlykilorð móttekið."
+
+#: ../iw/account_gui.py:40
+msgid "Root password is too short."
+msgstr "Rótarlykilorðið er of stutt "
+
+#: ../iw/account_gui.py:42
+msgid "Root passwords do not match."
+msgstr "Lykilorðin stemma ekki."
+
+#: ../iw/account_gui.py:54
+msgid "User password accepted."
+msgstr "Lykilorð notanda móttekið."
+
+#: ../iw/account_gui.py:59
+msgid "Root account can not be added here."
+msgstr "Það er ekki hægt að búa til rótarnotandann hér."
+
+#: ../iw/account_gui.py:61
+msgid "Please enter user password."
+msgstr "Vinsamlegast sláðu inn aðgangsorð notandans."
+
+#: ../iw/account_gui.py:63
+msgid "User password is too short."
+msgstr "Lykilorðið er of stutt "
+
+#: ../iw/account_gui.py:65
+msgid "User passwords do not match."
+msgstr "Lykilorðin stemma ekki."
+
+#: ../iw/account_gui.py:132
+#, fuzzy
+msgid "Add a New User"
+msgstr "Bæta við notanda"
+
+#: ../iw/account_gui.py:141 ../textw/userauth_text.py:71
+msgid "Edit User"
+msgstr "Breyta notanda"
+
+#: ../iw/account_gui.py:166
+#, fuzzy
+msgid "User Name:"
+msgstr "Notandanafn"
+
+#: ../iw/account_gui.py:168
+#, fuzzy
+msgid "Full Name:"
+msgstr "Fullt nafn"
+
+#: ../iw/account_gui.py:170 ../loader/urls.c:345 ../textw/userauth_text.py:23
+msgid "Password:"
+msgstr "Lykilorð:"
+
+#: ../iw/account_gui.py:172
+#, fuzzy
+msgid "Confirm:"
+msgstr "Staðfesta: "
+
+#: ../iw/account_gui.py:175
+#, fuzzy
+msgid "Please enter user name"
+msgstr "Vinsamlegast sláðu inn aðgangsorð notandans."
+
+#: ../iw/account_gui.py:256
+#, fuzzy
+msgid "Please enter a password for the root user."
+msgstr "Vinsamlega sláðu inn rótarlykilorðið."
+
+#: ../iw/account_gui.py:269
+msgid "Root Password: "
+msgstr "Rótarlykilorð: "
+
+#: ../iw/account_gui.py:272
+msgid "Confirm: "
+msgstr "Staðfesta: "
+
+#: ../iw/account_gui.py:306
+msgid "Account Name"
+msgstr "Notandanafn"
+
+#: ../iw/account_gui.py:306 ../textw/userauth_text.py:82
+#: ../textw/userauth_text.py:183
+msgid "Full Name"
+msgstr "Fullt nafn"
+
+#: ../iw/account_gui.py:313 ../libfdisk/newtfsedit.c:1486
+#: ../textw/userauth_text.py:197
+msgid "Add"
+msgstr "Bæta við"
+
+#: ../iw/account_gui.py:315 ../iw/partition_gui.py:1234
+#: ../libfdisk/newtfsedit.c:1479 ../libfdisk/newtfsedit.c:1487
+#: ../textw/fdisk_text.py:40 ../textw/lilo_text.py:197
+#: ../textw/partition_text.py:776 ../textw/silo_text.py:205
+#: ../textw/silo_text.py:227 ../textw/userauth_text.py:198
+msgid "Edit"
+msgstr "Breyta"
+
+#: ../iw/account_gui.py:318 ../iw/partition_gui.py:1235
+#: ../libfdisk/newtfsedit.c:1487 ../textw/userauth_text.py:197
+msgid "Delete"
+msgstr "Eyða"
+
+#: ../iw/account_gui.py:340
+msgid ""
+"Additional accounts can be created for users that need to access the "
+"system.  Please enter user accounts here."
+msgstr ""
+
+#: ../iw/auth_gui.py:8 ../textw/userauth_text.py:298
+msgid "Authentication Configuration"
+msgstr "Stillingar auðkenningar"
+
+#: ../iw/auth_gui.py:84
+msgid "Enable MD5 passwords"
+msgstr "Nota MD5 lykilorð"
+
+#: ../iw/auth_gui.py:85
+msgid "Enable shadow passwords"
+msgstr "Nota falin lykilorð"
+
+#: ../iw/auth_gui.py:88 ../textw/userauth_text.py:307
+msgid "Enable NIS"
+msgstr "Nota NIS"
+
+#: ../iw/auth_gui.py:89
+msgid "Use broadcast to find NIS server"
+msgstr "Kalla eftir NIS þjóni"
+
+#: ../iw/auth_gui.py:101
+msgid "NIS Domain: "
+msgstr "NIS lén: "
+
+#: ../iw/auth_gui.py:103
+msgid "NIS Server: "
+msgstr "NIS þjónn: "
+
+#: ../iw/auth_gui.py:126 ../textw/userauth_text.py:341
+msgid "Enable LDAP"
+msgstr "Nota LDAP"
+
+#: ../iw/auth_gui.py:129
+msgid "Use TLS lookups"
+msgstr "Nota TLS uppflettingar"
+
+#: ../iw/auth_gui.py:130 ../textw/userauth_text.py:347
+msgid "LDAP Server:"
+msgstr "LDAP þjónn:"
+
+#: ../iw/auth_gui.py:132 ../textw/userauth_text.py:349
+msgid "LDAP Base DN:"
+msgstr "LDAP grunn DN:"
+
+#: ../iw/auth_gui.py:159 ../textw/userauth_text.py:370
+msgid "Enable Kerberos"
+msgstr "Nota Kerberos"
+
+#: ../iw/auth_gui.py:163 ../textw/userauth_text.py:377
+msgid "Realm:"
+msgstr "Lén:"
+
+#: ../iw/auth_gui.py:165 ../textw/userauth_text.py:379
+msgid "KDC:"
+msgstr "KDC:"
+
+#: ../iw/auth_gui.py:167 ../textw/userauth_text.py:381
+msgid "Admin Server:"
+msgstr "Stjórnþjónn:"
+
+#: ../iw/auth_gui.py:195
+#, fuzzy
+msgid "Enable Samba Authentication"
+msgstr "Auðkenning"
+
+#: ../iw/auth_gui.py:198
+#, fuzzy
+msgid "Samba Server:"
+msgstr "SMB (Samba) þjónn"
+
+#: ../iw/auth_gui.py:200
+msgid "Samba Workgroup:"
+msgstr ""
+
+#: ../iw/auth_gui.py:227
+msgid "NIS"
+msgstr ""
+
+#: ../iw/auth_gui.py:228
+msgid "LDAP"
+msgstr ""
+
+#: ../iw/auth_gui.py:229
+#, fuzzy
+msgid "Kerberos 5"
+msgstr "Nota Kerberos"
+
+#: ../iw/auth_gui.py:230
+#, fuzzy
+msgid "Samba"
+msgstr "Svalbarði"
+
+#: ../iw/bootdisk_gui.py:10
+msgid "Bootdisk Creation"
+msgstr "Búa til ræsidiskling"
+
+#: ../iw/bootdisk_gui.py:44
+msgid ""
+"Please remove the install floppy (if used) and insert a blank floppy in the "
+"first floppy drive. All data on this disk will be erased during creation of "
+"the boot disk."
+msgstr ""
+"Vinsamlegast taktu ræsidisklinginn úr disklingadrifinu og settu tóman "
+"diskling í fyrsta disklingadrifið. Öllum gögnum á disklingnum verður eytt "
+"þegar ræsidisklingurinn er útbúinn."
+
+#: ../iw/bootdisk_gui.py:49 ../textw/bootdisk_text.py:73
+msgid ""
+"An error occured while making the boot disk. Please make sure that there is "
+"a formatted floppy in the first floppy drive."
+msgstr ""
+"Villa kom upp þegar reynt var að búa til ræsidisklinginn. Vinsamlegast "
+"gakktu úr skugga um að forsniðinn disklingur sé í fyrsta disklingadrifinu."
+
+#: ../iw/bootdisk_gui.py:56
+msgid "Skip boot disk creation"
+msgstr "Sleppa ræsidiskling"
+
+#: ../iw/confirm_gui.py:43
+msgid "About to Install"
 msgstr "Uppsetning að hefjast"
 
-#: ../iw/confirm_gui.py:64 ../text.py:528
+#: ../iw/confirm_gui.py:48
+msgid "Click next to begin installation of Red Hat Linux."
+msgstr "Veldu áfram-örina til að byrja uppsetningu  Red Hat Linux."
+
+#: ../iw/confirm_gui.py:49 ../textw/confirm_text.py:8
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -616,11 +1057,15 @@ msgstr ""
 "Eftir að uppsetningunni lýkur verður til annáll sem heitir /tmp/install.log. "
 "Honum ættir þú að halda til haga."
 
-#: ../text.py:539
-msgid "Upgrade to begin"
-msgstr "Uppfærsla að byrja"
+#: ../iw/confirm_gui.py:54
+msgid "About to Upgrade"
+msgstr "Uppfærsla að hefjast"
 
-#: ../iw/confirm_gui.py:60 ../text.py:540
+#: ../iw/confirm_gui.py:59
+msgid "Click next to begin upgrade of Red Hat Linux."
+msgstr "Veldu áfram-örina til að byrja uppsetningu Red Hat Linux."
+
+#: ../iw/confirm_gui.py:60 ../textw/confirm_text.py:20
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -628,19 +1073,11 @@ msgstr ""
 "Eftir að uppfærslunni lýkur verður til annáll sem heitir /tmp/upgrade.log. "
 "Honum ættir þú að halda til haga."
 
-#: ../text.py:560
-msgid ""
-"                              <Return> to reboot                             "
-" "
-msgstr ""
-"                           <Return> til að endurræsa                         "
-" "
+#: ../iw/congrats_gui.py:8 ../iw/congrats_gui.py:60
+msgid "Congratulations"
+msgstr "Til hamingju"
 
-#: ../text.py:562 ../text.py:585
-msgid "Complete"
-msgstr "Lokið"
-
-#: ../iw/congrats_gui.py:34 ../text.py:563
+#: ../iw/congrats_gui.py:34 ../textw/complete_text.py:12
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -662,724 +1099,6 @@ msgstr ""
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
 "finna í viðeigandi kafla í Official Red Hat Linux handbókunum."
 
-#: ../text.py:581
-msgid ""
-"                                <Return> to exit                             "
-" "
-msgstr ""
-"                              <Return> til að hætta                          "
-" "
-
-#: ../text.py:586
-msgid ""
-"Congratulations, configuration is complete.\n"
-"\n"
-" For information on fixes which are available for this release of Red Hat "
-"Linux, consult the Errata available from http://www.redhat.com.\n"
-"\n"
-"Information on further configuring your system is available at "
-"http://www.redhat.com/support/manuals/"
-msgstr ""
-"Til hamingju, uppsetningu er lokið.\n"
-"\n"
-" Á http://www.redhat.com, undir 'Errata', má finna viðbætur og/eða "
-"lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu af Red Hat "
-"Linux.\n"
-"\n"
-"Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna á http://www.redhat.com/support/manuals/"
-
-#: ../text.py:653
-msgid "Package Installation"
-msgstr "Uppsetning pakka"
-
-#: ../text.py:655
-msgid "Name   : "
-msgstr "Heiti  : "
-
-#: ../text.py:656
-msgid "Size   : "
-msgstr "Stærð  : "
-
-#: ../text.py:657
-msgid "Summary: "
-msgstr "Lýsing : "
-
-#: ../text.py:683
-msgid "    Packages"
-msgstr "    Pakkar"
-
-#: ../text.py:684
-msgid "       Bytes"
-msgstr "       Bæti"
-
-#: ../text.py:685
-msgid "        Time"
-msgstr "        Tími"
-
-#: ../text.py:687
-msgid "Total    :"
-msgstr "Alls     :"
-
-#: ../text.py:694
-msgid "Completed:   "
-msgstr "Lokið    :   "
-
-#: ../text.py:704
-msgid "Remaining:  "
-msgstr "Eftir    :  "
-
-#: ../text.py:818
-msgid "Help not available"
-msgstr "Hjálp ekki tiltæk"
-
-#: ../text.py:819
-msgid "No help is available for this install."
-msgstr "Engin hjálp er tiltæk fyrir þessa uppsetningu."
-
-#: ../text.py:877
-msgid "Save Crash Dump"
-msgstr "Vista \"Crash Dump\""
-
-#: ../text.py:888
-msgid ""
-"An internal error occurred in the installation program. Please report this "
-"error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
-"possible. The information on this failure may be saved to a floppy disk, and "
-"will help Red Hat in fixing the problem.\n"
-"\n"
-msgstr ""
-"Það kom upp villa í uppsetningarforritinu. Vinsamlegast láttu Red Hat vita "
-"af þessari villu (á bugzilla.redhat.com vefsetrinu) eins fljótt og unnt er. "
-"Nánari upplýsingum um þessa villu er hægt að vista á diskling og það mun "
-"hjálpa Red Hat við að lagfæra vandamálið.\n"
-"\n"
-
-#: ../text.py:895 ../text.py:898
-msgid "Save"
-msgstr "Vista"
-
-#: ../text.py:895 ../text.py:896
-msgid "Debug"
-msgstr "Aflúsun"
-
-#: ../text.py:906
-msgid " "
-msgstr " "
-
-#: ../text.py:910
-msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
-
-#: ../text.py:913
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> hjálp  |  <Tab> milli atriða   |   <Bilslá> velur   | <F12> næsti skjár"
-
-#: ../text.py:915
-msgid ""
-"  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
-"screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
-
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:948
-#: ../text.py:977
-msgid "Welcome"
-msgstr "Velkomin(n)"
-
-#: ../text.py:952 ../text.py:1026
-msgid "Hostname Setup"
-msgstr "Stillingar vélarheitis"
-
-#: ../text.py:954 ../text.py:1023
-msgid "Network Setup"
-msgstr "Stillingar nets"
-
-#: ../iw/firewall_gui.py:12 ../text.py:956 ../text.py:1028
-#: ../textw/firewall_text.py:11
-msgid "Firewall Configuration"
-msgstr "Stillingar eldveggjar"
-
-#: ../text.py:958 ../text.py:1037
-msgid "Language Default"
-msgstr "Sjálfgefið tungumál"
-
-#: ../text.py:960 ../text.py:1040
-msgid "Time Zone Setup"
-msgstr "Stillingar tímabeltis"
-
-#: ../text.py:962 ../text.py:1042 ../textw/userauth_text.py:9
-msgid "Root Password"
-msgstr "Rótarlykilorð"
-
-#: ../text.py:964 ../text.py:1044 ../textw/userauth_text.py:172
-msgid "User Account Setup"
-msgstr "Búa til notanda"
-
-#: ../text.py:966 ../text.py:1046
-msgid "Authentication"
-msgstr "Auðkenning"
-
-#: ../text.py:968
-msgid "Configuration Complete"
-msgstr "Stillingum lokið"
-
-#: ../text.py:986 ../textw/silo_text.py:28 ../textw/silo_text.py:101
-#: ../textw/silo_text.py:213
-msgid "SILO Configuration"
-msgstr "Stillingar SILO"
-
-#: ../text.py:992 ../textw/lilo_text.py:36 ../textw/lilo_text.py:107
-#: ../textw/lilo_text.py:234
-msgid "LILO Configuration"
-msgstr "Stillingar LILO"
-
-#: ../text.py:999
-msgid "Automatic Partition"
-msgstr "Sjálfvirk disksneiðing"
-
-#: ../iw/lilo_gui.py:225 ../iw/lilo_gui.py:388 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:130 ../text.py:1001
-#: ../text.py:1005 ../textw/upgrade_text.py:56
-msgid "Partition"
-msgstr "Disksneið"
-
-#: ../text.py:1003
-msgid "Manually Partition"
-msgstr "Sneiða handvirkt"
-
-#: ../text.py:1007 ../textw/partitioning_text.py:335
-msgid "Root Filesystem Size"
-msgstr "Stærð rótarskráarkerfisins"
-
-#: ../text.py:1009
-msgid "Swap"
-msgstr "Diskminni"
-
-#: ../text.py:1011 ../textw/partitioning_text.py:392
-#: ../textw/partitioning_text.py:412
-msgid "Boot Partition Warning"
-msgstr "Ræsisneiðaraðvörun"
-
-#: ../text.py:1013
-msgid "Filesystem Formatting"
-msgstr "Forsníða skráakerfi"
-
-#: ../iw/mouse_gui.py:56 ../text.py:1030 ../text.py:1032
-msgid "Mouse Configuration"
-msgstr "Stillingar músar"
-
-#: ../text.py:1048
-msgid "Package Groups"
-msgstr "Pakkahópar"
-
-#: ../text.py:1050 ../text.py:1079
-msgid "Individual Packages"
-msgstr "Stakir pakkar"
-
-#: ../text.py:1052 ../text.py:1080 ../textw/packages_text.py:304
-msgid "Package Dependencies"
-msgstr "Pakkaskilyrði"
-
-#: ../iw/xconfig_gui.py:846 ../text.py:1054 ../text.py:1062
-msgid "X Configuration"
-msgstr "Stillingar X"
-
-#: ../text.py:1056
-msgid "Installation Begins"
-msgstr "Byrjun uppsetningar"
-
-#: ../text.py:1058
-msgid "Install System"
-msgstr "Setja upp kerfið"
-
-#: ../text.py:1059 ../text.py:1061 ../text.py:1085 ../text.py:1087
-msgid "Boot Disk"
-msgstr "Ræsidisklingur"
-
-#: ../text.py:1064
-msgid "Installation Complete"
-msgstr "Uppsetningu lokið"
-
-#: ../text.py:1069
-msgid "Examine System"
-msgstr "Skoða kerfið"
-
-#: ../text.py:1070
-msgid "System Swap Space"
-msgstr "Diskminni"
-
-#: ../text.py:1077
-msgid "Customize Upgrade"
-msgstr "Sérsníða uppfærslu"
-
-#: ../text.py:1082
-msgid "Upgrade Begins"
-msgstr "Uppfærsla hefst"
-
-#: ../text.py:1084
-msgid "Upgrade System"
-msgstr "Uppfæra kerfi"
-
-#: ../text.py:1088
-msgid "Upgrade Complete"
-msgstr "Uppfærslu lokið"
-
-#: ../text.py:1135
-msgid "Cancelled"
-msgstr "Hætt við"
-
-#: ../text.py:1136
-msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Þú kemst ekki í fyrra þrep uppsetningar héðan. Þú þarft að byrja upp á nýtt."
-
-#: ../todo.py:740
-msgid "Creating boot disk..."
-msgstr "Bý til ræsidiskling..."
-
-#: ../todo.py:759
-msgid "Reading"
-msgstr "Les"
-
-#: ../todo.py:760
-msgid "Reading package information..."
-msgstr "Les upplýsingar um pakkana..."
-
-#: ../todo.py:1057
-msgid "Dependency Check"
-msgstr "Athuga pakkaskilyrði"
-
-#: ../todo.py:1058
-msgid "Checking dependencies in packages selected for installation..."
-msgstr "Athuga skilyrði pakkanna sem voru valdir til uppsetningar..."
-
-#: ../todo.py:1092 ../todo.py:1136 ../todo.py:1145 ../todo.py:1171
-#: ../todo.py:1302
-msgid "no suggestion"
-msgstr "engin tillaga"
-
-#: ../todo.py:1188 ../upgrade.py:99
-msgid "Dirty Filesystems"
-msgstr "Óhrein skráarkerfi"
-
-#: ../todo.py:1189
-msgid ""
-"One or more of the filesystems listed in the /etc/fstab on your Linux system "
-"cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr ""
-"Ekki tókst að tengja eitt eða fleiri af skráarkerfunum í /etc/fstab á "
-"vélinni þinni. Vinsamlegast lagfærðu þetta og reyndu svo að uppfæra aftur."
-
-#: ../todo.py:1204
-msgid ""
-"The following files are absolute symbolic links, which we do not support "
-"during an upgrade. Please change them to relative symbolic links and restart "
-"the upgrade.\n"
-"\n"
-msgstr ""
-"Eftirfarandi skrár eru tákntengi með fullum slóðum sem við styðjum ekki á "
-"meðan á uppfærslu stendur. Vinsamlegast breyttu þeim í hlekki sem ekki eru "
-"með \"Absolute\" slóð heldur \"Relative\" og reyndu uppfærsluna aftur.\n"
-"\n"
-
-#: ../todo.py:1224
-msgid "Finding"
-msgstr "Leita"
-
-#: ../todo.py:1225
-msgid "Finding packages to upgrade..."
-msgstr "Leita að pökkum sem þarf að uppfæra..."
-
-#: ../todo.py:1240
-msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr "Ekki tókst að endurbyggja RPM gagnagrunninn. Er nægilegt diskrými?"
-
-#: ../todo.py:1253
-msgid "An error occured when finding the packages to upgrade."
-msgstr "Það kom upp villa þegar leitað var að pökkum til uppfærslu."
-
-#: ../todo.py:1538
-msgid "Processing"
-msgstr "Vinnsla"
-
-#: ../todo.py:1539
-msgid "Preparing to install..."
-msgstr "Undirbý uppsetningu..."
-
-#: ../todo.py:1573
-#, c-format
-msgid ""
-"The file %s cannot be opened. This is due to a missing file, a bad package, "
-"or bad media. Press <return> to try again."
-msgstr ""
-"Ekki er hægt að opna skrána %s. Þetta orsakast af skrá sem vantar, skemmdum "
-"pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
-
-#: ../todo.py:1828
-#, c-format
-msgid "Upgrading %s.\n"
-msgstr "Uppfæri %s.\n"
-
-#: ../todo.py:1830
-#, c-format
-msgid "Installing %s.\n"
-msgstr "Set inn %s.\n"
-
-#: ../todo.py:1875
-msgid ""
-"You don't appear to have enough disk space to install the packages you've "
-"selected. You need more space on the following filesystems:\n"
-"\n"
-msgstr ""
-"Þú virðist ekki hafa nægjanlegt diskrými til að setja upp þá pakka sem þú "
-"valdir. Þú þarft meira pláss í eftirtöldum skráarkerfum:\n"
-"\n"
-
-#: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3132
-#: ../textw/upgrade_text.py:55 ../todo.py:1878 ../todo.py:1896
-msgid "Mount Point"
-msgstr "Tengipunktur"
-
-#: ../todo.py:1878
-msgid "Space Needed"
-msgstr "Þarfnast diskrýmis"
-
-#: ../todo.py:1893
-msgid ""
-"You don't appear to have enough file nodes to install the packages you've "
-"selected. You need more file nodes on the following filesystems:\n"
-"\n"
-msgstr ""
-"Þú virðist ekki hafa nóg af lausum skrám til að setja upp þá pakka sem þú "
-"valdir. Þú þarft fleiri lausar skrár (inóður) í eftirtöldum skráarkerfum:\n"
-"\n"
-
-#: ../todo.py:1896
-msgid "Nodes Needed"
-msgstr "Vantar inóður"
-
-#: ../todo.py:1902
-msgid "Disk Space"
-msgstr "Diskpláss"
-
-#: ../todo.py:1937
-msgid "Post Install"
-msgstr "Eftir uppsetningu"
-
-#: ../todo.py:1938
-msgid "Performing post install configuration..."
-msgstr "Breyta stillingum eftir uppsetningu..."
-
-#: ../todo.py:2077
-msgid ""
-"An error occured while installing the bootloader.\n"
-"\n"
-"We HIGHLY recommend you make a recovery boot floppy when prompted, otherwise "
-"you may not be able to reboot into Red Hat Linux.\n"
-"\n"
-"The error reported was:\n"
-"\n"
-msgstr ""
-"Villa kom upp við að setja upp ræsistjórann.\n"
-"\n"
-"Við mælum EINDREGIÐ með að þú búir til ræsidiskling þegar þér er boðið upp á "
-"það hér á eftir því annars er sú hætta til staðar að ekki sé hægt að ræsa "
-"upp Red Hat Linux.\n"
-"\n"
-"Villan er:\n"
-"\n"
-
-#: ../todo.py:2083
-msgid "Bootloader Errors"
-msgstr "Villur í uppsetningu ræsistjóra"
-
-#: ../upgrade.py:13
-msgid "Searching"
-msgstr "Leita"
-
-#: ../upgrade.py:14
-msgid "Searching for Red Hat Linux installations..."
-msgstr "Leita að Red Hat Linux uppsetningum..."
-
-#: ../upgrade.py:25 ../upgrade.py:53
-#, c-format
-msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "Villa við tengingu ext2 skráakerfis á %s: %s"
-
-#: ../upgrade.py:100
-msgid ""
-"One or more of the filesystems for your Linux system was not unmounted "
-"cleanly. Please boot your Linux installation, let the filesystems be "
-"checked, and shut down cleanly to upgrade."
-msgstr ""
-"Eitt eða fleiri af Linux skráarkerfunum þínum var ekki aftengt á réttann "
-"máta. Vinsamlegast ræstu upp Linux kerfið þitt, láttu yfirfara skráarkerfin "
-"og keyrðu svo vélina rétt niður til að uppfæra."
-
-#: ../iw/xconfig_gui.py:12 ../xf86config.py:933
-msgid "Video Card"
-msgstr "Skjákort"
-
-#: ../iw/xconfig_gui.py:14 ../xf86config.py:935
-msgid "Video Ram"
-msgstr "Skjáminni"
-
-#: ../xf86config.py:938
-msgid "X server"
-msgstr "X þjónn"
-
-#: ../xf86config.py:941
-msgid "Unable to detect video card"
-msgstr "Finn ekki skjákort"
-
-#: ../iw/xconfig_gui.py:13 ../xf86config.py:948 ../xf86config.py:950
-msgid "Monitor"
-msgstr "Skjár"
-
-#: ../xf86config.py:950
-msgid "Plug and Play Monitor"
-msgstr "'Plug and Play' samhæfður skjár"
-
-#: ../xf86config.py:952
-msgid "Horizontal frequency range"
-msgstr "Lárétt tíðnisvið"
-
-#: ../xf86config.py:954
-msgid "Vertical frequency range"
-msgstr "Lóðrétt tíðnisvið"
-
-#: ../xserver.py:27
-msgid "Mouse Not Detected"
-msgstr "Engin mús fannst"
-
-#: ../xserver.py:28
-msgid ""
-"Your mouse was not automatically detected.  To proceed in the graphical "
-"installation mode, please proceed to the next screen and provide your mouse "
-"information. You may also use text mode installation which does not require "
-"a mouse."
-msgstr ""
-"Ekki tókst að finna músina sjálfvirkt. Til þess að halda uppsetningunni "
-"áfram í myndrænum ham þarftu að fara áfram á næsta skjá og gefa upp "
-"upplýsingar um músina.  Þú getur einnig notað uppsetninguna í textaham sem "
-"þarfnast ekki músar."
-
-#: ../xserver.py:34 ../xserver.py:35
-msgid "Use text mode"
-msgstr "Nota textaham"
-
-#: ../xserver.py:69
-msgid "Probing for mouse type..."
-msgstr "Leita að mús..."
-
-#: ../xserver.py:189
-msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr ""
-
-#: ../xserver.py:211
-msgid " X server started successfully."
-msgstr ""
-
-#: ../iw/account_gui.py:15
-msgid "Account Configuration"
-msgstr "Stillingar notanda"
-
-#: ../iw/account_gui.py:39
-msgid "Root password accepted."
-msgstr "Rótarlykilorð móttekið."
-
-#: ../iw/account_gui.py:42
-msgid "Please enter root password."
-msgstr "Vinsamlega sláðu inn rótarlykilorðið."
-
-#: ../iw/account_gui.py:44
-msgid "Root password is too short."
-msgstr "Rótarlykilorðið er of stutt "
-
-#: ../iw/account_gui.py:46
-msgid "Root passwords do not match."
-msgstr "Lykilorðin stemma ekki."
-
-#: ../iw/account_gui.py:59
-msgid "User password accepted."
-msgstr "Lykilorð notanda móttekið."
-
-#: ../iw/account_gui.py:64
-msgid "Root account can not be added here."
-msgstr "Það er ekki hægt að búa til rótarnotandann hér."
-
-#: ../iw/account_gui.py:66
-msgid "Please enter user password."
-msgstr "Vinsamlegast sláðu inn aðgangsorð notandans."
-
-#: ../iw/account_gui.py:68
-msgid "User password is too short."
-msgstr "Lykilorðið er of stutt "
-
-#: ../iw/account_gui.py:70
-msgid "User passwords do not match."
-msgstr "Lykilorðin stemma ekki."
-
-#: ../iw/account_gui.py:192
-msgid "Root Password: "
-msgstr "Rótarlykilorð: "
-
-#: ../iw/account_gui.py:195
-msgid "Confirm: "
-msgstr "Staðfesta: "
-
-#: ../iw/account_gui.py:256 ../iw/account_gui.py:305
-msgid "Account Name"
-msgstr "Notandanafn"
-
-#: ../iw/account_gui.py:260 ../textw/userauth_text.py:81
-msgid "Password"
-msgstr "Lykilorð"
-
-#: ../iw/account_gui.py:264 ../textw/userauth_text.py:82
-msgid "Password (confirm)"
-msgstr "Lykilorð (aftur)"
-
-#: ../iw/account_gui.py:275 ../iw/account_gui.py:305
-#: ../textw/userauth_text.py:83 ../textw/userauth_text.py:184
-msgid "Full Name"
-msgstr "Fullt nafn"
-
-#: ../iw/account_gui.py:284 ../libfdisk/newtfsedit.c:1486
-#: ../textw/userauth_text.py:198
-msgid "Add"
-msgstr "Bæta við"
-
-#: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1479
-#: ../libfdisk/newtfsedit.c:1487 ../textw/lilo_text.py:225
-#: ../textw/partitioning_text.py:65 ../textw/silo_text.py:205
-#: ../textw/silo_text.py:227 ../textw/userauth_text.py:199
-msgid "Edit"
-msgstr "Breyta"
-
-#: ../iw/account_gui.py:288 ../libfdisk/newtfsedit.c:1487
-#: ../textw/userauth_text.py:198
-msgid "Delete"
-msgstr "Eyða"
-
-#: ../iw/account_gui.py:290
-msgid "New"
-msgstr "Nýr"
-
-#: ../iw/auth_gui.py:11 ../textw/userauth_text.py:299
-msgid "Authentication Configuration"
-msgstr "Stillingar auðkenningar"
-
-#: ../iw/auth_gui.py:78
-msgid "Enable MD5 passwords"
-msgstr "Nota MD5 lykilorð"
-
-#: ../iw/auth_gui.py:79
-msgid "Enable shadow passwords"
-msgstr "Nota falin lykilorð"
-
-#: ../iw/auth_gui.py:82 ../textw/userauth_text.py:308
-msgid "Enable NIS"
-msgstr "Nota NIS"
-
-#: ../iw/auth_gui.py:83
-msgid "Use broadcast to find NIS server"
-msgstr "Kalla eftir NIS þjóni"
-
-#: ../iw/auth_gui.py:95
-msgid "NIS Domain: "
-msgstr "NIS lén: "
-
-#: ../iw/auth_gui.py:97
-msgid "NIS Server: "
-msgstr "NIS þjónn: "
-
-#: ../iw/auth_gui.py:136 ../textw/userauth_text.py:342
-msgid "Enable LDAP"
-msgstr "Nota LDAP"
-
-#: ../iw/auth_gui.py:139
-msgid "Use TLS lookups"
-msgstr "Nota TLS uppflettingar"
-
-#: ../iw/auth_gui.py:140 ../textw/userauth_text.py:348
-msgid "LDAP Server:"
-msgstr "LDAP þjónn:"
-
-#: ../iw/auth_gui.py:142 ../textw/userauth_text.py:350
-msgid "LDAP Base DN:"
-msgstr "LDAP grunn DN:"
-
-#: ../iw/auth_gui.py:173 ../textw/userauth_text.py:371
-msgid "Enable Kerberos"
-msgstr "Nota Kerberos"
-
-#: ../iw/auth_gui.py:177 ../textw/userauth_text.py:378
-msgid "Realm:"
-msgstr "Lén:"
-
-#: ../iw/auth_gui.py:179 ../textw/userauth_text.py:380
-msgid "KDC:"
-msgstr "KDC:"
-
-#: ../iw/auth_gui.py:181 ../textw/userauth_text.py:382
-msgid "Admin Server:"
-msgstr "Stjórnþjónn:"
-
-#: ../iw/bootdisk_gui.py:11
-msgid "Bootdisk Creation"
-msgstr "Búa til ræsidiskling"
-
-#: ../iw/bootdisk_gui.py:58
-msgid ""
-"Please remove the install floppy (if used) and insert a blank floppy in the "
-"first floppy drive. All data on this disk will be erased during creation of "
-"the boot disk."
-msgstr ""
-"Vinsamlegast taktu ræsidisklinginn úr disklingadrifinu og settu tóman "
-"diskling í fyrsta disklingadrifið. Öllum gögnum á disklingnum verður eytt "
-"þegar ræsidisklingurinn er útbúinn."
-
-#: ../iw/bootdisk_gui.py:62 ../textw/bootdisk_text.py:70
-msgid ""
-"An error occured while making the boot disk. Please make sure that there is "
-"a formatted floppy in the first floppy drive."
-msgstr ""
-"Villa kom upp þegar reynt var að búa til ræsidisklinginn. Vinsamlegast "
-"gakktu úr skugga um að forsniðinn disklingur sé í fyrsta disklingadrifinu."
-
-#: ../iw/bootdisk_gui.py:69
-msgid "Skip boot disk creation"
-msgstr "Sleppa ræsidiskling"
-
-#: ../iw/confirm_gui.py:15
-msgid "About to Upgrade"
-msgstr "Uppfærsla að hefjast"
-
-#: ../iw/confirm_gui.py:18
-msgid "About to Install"
-msgstr "Uppsetning að hefjast"
-
-#: ../iw/confirm_gui.py:35 ../iw/lilo_gui.py:59 ../iw/package_gui.py:61
-#: ../iw/upgrade_swap_gui.py:34
-msgid "Aborting upgrade"
-msgstr "Hætti við uppfærslu"
-
-#: ../iw/confirm_gui.py:53
-msgid "Click next to begin upgrade of Red Hat Linux."
-msgstr "Veldu áfram-örina til að byrja uppsetningu Red Hat Linux."
-
-#: ../iw/confirm_gui.py:55
-msgid "Click next to begin installation of Red Hat Linux."
-msgstr "Veldu áfram-örina til að byrja uppsetningu  Red Hat Linux."
-
-#: ../iw/congrats_gui.py:11 ../iw/congrats_gui.py:60
-msgid "Congratulations"
-msgstr "Til hamingju"
-
 #: ../iw/congrats_gui.py:83
 msgid ""
 "Congratulations, configuration is complete.\n"
@@ -1397,182 +1116,176 @@ msgstr ""
 "Linux.\n"
 "\n"
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna í Red Hat linux handbókunum sem eru fáanlegar á "
-"http://www.redhat.com/support/manuals/."
+"finna í Red Hat linux handbókunum sem eru fáanlegar á http://www.redhat.com/"
+"support/manuals/."
 
-#: ../iw/dependencies_gui.py:9
+#: ../iw/dependencies_gui.py:7
 msgid "Unresolved Dependencies"
 msgstr "Óuppfyllt pakkaskilyrði"
 
-#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:544
-#: ../textw/packages_text.py:12 ../textw/packages_text.py:275
+#: ../iw/dependencies_gui.py:19 ../iw/package_gui.py:514
+#: ../textw/packages_text.py:12 ../textw/packages_text.py:258
 #, c-format
 msgid "Total install size: %s"
 msgstr "Samanlögð stærð uppsetningar: %s"
 
-#: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:400
-#: ../iw/progress_gui.py:209 ../textw/packages_text.py:312
+#: ../iw/dependencies_gui.py:51 ../iw/package_gui.py:420
+#: ../iw/progress_gui.py:179 ../textw/packages_text.py:289
 msgid "Package"
 msgstr "Pakki"
 
-#: ../iw/dependencies_gui.py:69 ../textw/packages_text.py:312
+#: ../iw/dependencies_gui.py:51 ../textw/packages_text.py:289
 msgid "Requirement"
 msgstr "Þarfnast"
 
-#: ../iw/dependencies_gui.py:87 ../textw/packages_text.py:327
+#: ../iw/dependencies_gui.py:68 ../textw/packages_text.py:304
 msgid "Install packages to satisfy dependencies"
 msgstr "Setja inn pakka til að uppfylla þarfir annara pakka"
 
-#: ../iw/dependencies_gui.py:90 ../textw/packages_text.py:328
+#: ../iw/dependencies_gui.py:71 ../textw/packages_text.py:305
 msgid "Do not install packages that have dependencies"
 msgstr "Ekki setja inn pakka sem þarfnast annara pakka"
 
-#: ../iw/dependencies_gui.py:94 ../textw/packages_text.py:329
+#: ../iw/dependencies_gui.py:75 ../textw/packages_text.py:306
 msgid "Ignore package dependencies"
 msgstr "Hunsa pakkaskilyrði"
 
-#: ../iw/examine_gui.py:10
+#: ../iw/examine_gui.py:11
 msgid "Upgrade Examine"
 msgstr "Skoða uppfærslu"
 
-#: ../iw/examine_gui.py:45
+#: ../iw/examine_gui.py:38
+#, fuzzy
 msgid ""
 "You don't have any Linux partitions.\n"
-" You can't upgrade this sytem!"
+"You can't upgrade this sytem!"
 msgstr ""
 "Þú ert ekki með neinar Linux disksneiðar.\n"
 " Þú getur ekki uppfært þessa vél!"
 
-#: ../iw/examine_gui.py:54
+#: ../iw/examine_gui.py:48
 msgid "Please select the device containing the root filesystem: "
 msgstr "Vinsamlegast veldu tækið sem inniheldur rótarskráarkerfið: "
 
-#: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
+#: ../iw/examine_gui.py:76 ../textw/upgrade_text.py:149
 #, c-format
 msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr "Uppfæri Red Hat Linux kerifð á disksneið /dev/%s"
 
-#: ../iw/examine_gui.py:85
+#: ../iw/examine_gui.py:82
 msgid "Customize packages to be upgraded"
 msgstr "Velja pakka sem á að uppfæra"
 
-#: ../iw/fdisk_gui.py:12 ../textw/partitioning_text.py:23
+#: ../iw/fdisk_gui.py:12 ../textw/partmethod_text.py:36
 msgid "fdisk"
 msgstr "fdisk"
 
-#: ../iw/fdisk_gui.py:105
+#: ../iw/fdisk_gui.py:75
 msgid "Select drive to run fdisk on"
 msgstr "Veldu disk til að keyra fdisk á"
 
-#: ../iw/firewall_gui.py:117
+#: ../iw/firewall_gui.py:9 ../textw/firewall_text.py:25
+msgid "Firewall Configuration"
+msgstr "Stillingar eldveggjar"
+
+#: ../iw/firewall_gui.py:115
 msgid "Warning: "
 msgstr "Aðvörun: "
 
-#: ../iw/firewall_gui.py:117
+#: ../iw/firewall_gui.py:115
 msgid " is an invalid port."
 msgstr " er ógild gátt."
 
-#: ../iw/firewall_gui.py:120
+#: ../iw/firewall_gui.py:118
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
 msgstr "Sniðið er 'gátt:prótókollur'. Til dæmis '1234:udp'"
 
-#: ../iw/firewall_gui.py:204
+#: ../iw/firewall_gui.py:205
 msgid "Please choose your security level:  "
 msgstr "Vinsamlegast veldu öryggisstig:  "
 
-#: ../iw/firewall_gui.py:213 ../textw/firewall_text.py:33
+#: ../iw/firewall_gui.py:214 ../textw/firewall_text.py:47
 msgid "High"
 msgstr "Hátt"
 
-#: ../iw/firewall_gui.py:214 ../textw/firewall_text.py:36
+#: ../iw/firewall_gui.py:215 ../textw/firewall_text.py:50
 msgid "Medium"
 msgstr "Miðlungs"
 
-#: ../iw/firewall_gui.py:215 ../textw/firewall_text.py:39
+#: ../iw/firewall_gui.py:216 ../textw/firewall_text.py:53
 msgid "No firewall"
 msgstr "Enginn eldveggur"
 
-#: ../iw/firewall_gui.py:231
+#: ../iw/firewall_gui.py:232
 msgid "Use default firewall rules"
 msgstr "Nota sjálfgefnar eldveggjarreglur"
 
-#: ../iw/firewall_gui.py:232 ../textw/firewall_text.py:9
+#: ../iw/firewall_gui.py:233 ../textw/firewall_text.py:23
 msgid "Customize"
 msgstr "Sérsníða"
 
-#: ../iw/firewall_gui.py:245
+#: ../iw/firewall_gui.py:246
 msgid "Trusted devices:"
 msgstr "Tæki sem er treyst:"
 
-#: ../iw/firewall_gui.py:270 ../textw/firewall_text.py:79
+#: ../iw/firewall_gui.py:271 ../textw/firewall_text.py:90
 msgid "Allow incoming:"
 msgstr "Leyfa tengingar inn:"
 
-#: ../iw/firewall_gui.py:299
+#: ../iw/firewall_gui.py:300
 msgid "Other ports:"
 msgstr "Önnur port:"
 
-#: ../iw/format_gui.py:14
+#: ../iw/format_gui.py:25
 msgid "Choose partitions to Format"
 msgstr "Velja disksneiðar sem á að forsníða"
 
-#: ../iw/format_gui.py:61
-msgid "Check for bad blocks while formatting"
-msgstr "Athuga hvort diskurinn hafi gallaðar blokkir"
-
-#: ../iw/installpath_gui.py:99
+#: ../iw/installpath_gui.py:22
 msgid "Install Type"
 msgstr "Tegund uppsetningar"
 
-#: ../iw/installpath_gui.py:182
-msgid "Install"
-msgstr "Setja upp"
-
-#: ../iw/installpath_gui.py:184
-msgid "Upgrade"
-msgstr "Uppfæra"
-
-#: ../iw/keyboard_gui.py:16
+#: ../iw/keyboard_gui.py:21
 msgid "Keyboard Configuration"
 msgstr "Stillingar lyklaborðs"
 
-#: ../iw/keyboard_gui.py:87
+#: ../iw/keyboard_gui.py:97
+#, fuzzy
+msgid "Which model keyboard is attached to the computer?"
+msgstr "Hvernig lyklaborð er tengt þessari vél?"
+
+#: ../iw/keyboard_gui.py:106
 msgid "Model"
 msgstr "Tegund"
 
-#: ../iw/keyboard_gui.py:107
+#: ../iw/keyboard_gui.py:126
 msgid "Layout"
 msgstr "Vörpun"
 
-#: ../iw/keyboard_gui.py:127
+#: ../iw/keyboard_gui.py:146
 msgid "Dead Keys"
 msgstr "Broddstafir"
 
-#: ../iw/keyboard_gui.py:137
+#: ../iw/keyboard_gui.py:156
 msgid "Enable dead keys"
 msgstr "Nota broddstafi"
 
-#: ../iw/keyboard_gui.py:138
+#: ../iw/keyboard_gui.py:157
 msgid "Disable dead keys"
 msgstr "Ekki nota broddstafi"
 
-#: ../iw/keyboard_gui.py:151
+#: ../iw/keyboard_gui.py:170
 msgid "Test your selection here:"
 msgstr "Prófaðu valið hér:"
 
-#: ../iw/language_gui.py:39 ../loader/lang.c:292
-msgid "What language should be used during the installation process?"
+#: ../iw/language_gui.py:38 ../textw/language_text.py:28
+msgid "What language would you like to use during the installation process?"
 msgstr "Hvaða tungumál viltu nota meðan á uppsetningu stendur?"
 
-#: ../iw/language_support_gui.py:144
+#: ../iw/language_support_gui.py:140
 msgid "Choose the default language:   "
 msgstr "Veldu sjálfgefna tungumálið:   "
 
-#: ../iw/language_support_gui.py:155
-msgid "Currently installed languages:"
-msgstr "Tungumál sem nú þegar eru uppsett:"
-
-#: ../iw/language_support_gui.py:157
+#: ../iw/language_support_gui.py:156
 msgid "Choose the languages to install:"
 msgstr "Veldu tungumálin sem þú vilt setja inn:"
 
@@ -1580,75 +1293,88 @@ msgstr "Veldu tungumálin sem þú vilt setja inn:"
 msgid "Select all"
 msgstr "Velja öll"
 
+#: ../iw/language_support_gui.py:209 ../iw/partition_gui.py:1236
+#: ../textw/language_text.py:94
+msgid "Reset"
+msgstr "Endurstilla"
+
 #: ../iw/language_support_gui.py:223
 msgid "Select as default"
 msgstr "Velja sem sjálfgefið"
 
-#: ../iw/lilo_gui.py:33
-msgid "Lilo Configuration"
-msgstr "Stillingar Lilo"
+#: ../iw/lilo_gui.py:24 ../textw/lilo_text.py:33 ../textw/lilo_text.py:88
+#: ../textw/lilo_text.py:206
+#, fuzzy
+msgid "Bootloader Configuration"
+msgstr "Stillingar skjás"
 
-#: ../iw/lilo_gui.py:228 ../iw/lilo_gui.py:389 ../iw/silo_gui.py:132
-#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
+#: ../iw/lilo_gui.py:220 ../iw/lilo_gui.py:359 ../iw/silo_gui.py:127
+#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:120
+#: ../textw/upgrade_text.py:34
+msgid "Partition"
+msgstr "Disksneið"
+
+#: ../iw/lilo_gui.py:223 ../iw/lilo_gui.py:360 ../iw/partition_gui.py:1245
+#: ../iw/silo_gui.py:132 ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
 msgstr "Tegund"
 
-#: ../iw/lilo_gui.py:277
-msgid "Install LILO boot record on:"
+#: ../iw/lilo_gui.py:259
+#, fuzzy
+msgid "Install GRUB boot record on:"
 msgstr "Setja LILO ræsifærsluna á:"
 
-#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:104
-#: ../textw/silo_text.py:64
-msgid "Master Boot Record (MBR)"
-msgstr "Aðalræsifærsluna (MBR)"
+#: ../iw/lilo_gui.py:281 ../textw/lilo_text.py:25
+msgid "Use LILO bootloader (instead of Grub)"
+msgstr ""
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:105
-#: ../textw/silo_text.py:65
-msgid "First sector of boot partition"
-msgstr "Fyrsta geira ræsidisksneiðar"
-
-#: ../iw/lilo_gui.py:292 ../textw/lilo_text.py:27
-msgid "Use linear mode (needed for some SCSI drives)"
-msgstr "Nota línulegan ham (nauðsynlegt fyrir sum SCSI drif)"
-
-#: ../iw/lilo_gui.py:303 ../iw/silo_gui.py:208
+#: ../iw/lilo_gui.py:286 ../iw/silo_gui.py:208
 msgid "Kernel parameters"
 msgstr "Viðföng kjarnans"
 
-#: ../iw/lilo_gui.py:320 ../iw/silo_gui.py:226
+#: ../iw/lilo_gui.py:303 ../iw/silo_gui.py:226
 msgid "Create boot disk"
 msgstr "Búa til ræsidiskling"
 
-#: ../iw/lilo_gui.py:334
-msgid "Install LILO"
-msgstr "Setja upp LILO"
+#: ../iw/lilo_gui.py:309
+#, fuzzy
+msgid "Install Bootloader"
+msgstr "Setja upp kerfið"
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:216
-#: ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:329 ../iw/silo_gui.py:257 ../textw/lilo_text.py:185
+#: ../textw/silo_text.py:196 ../textw/xconfig_text.py:366
+#: ../textw/xconfig_text.py:373 ../textw/xconfig_text.py:466
+#: ../textw/xconfig_text.py:467 ../textw/xconfig_text.py:486
+#: ../textw/xconfig_text.py:487
 msgid "Default"
 msgstr "Sjálfgefið"
 
-#: ../iw/lilo_gui.py:361 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
-#: ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:135
-#: ../textw/lilo_text.py:216 ../textw/mouse_text.py:25
-#: ../textw/silo_text.py:131 ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:329 ../iw/mouse_gui.py:145 ../iw/partition_gui.py:1244
+#: ../iw/silo_gui.py:257 ../libfdisk/gnomefsedit.c:3133
+#: ../textw/lilo_text.py:114 ../textw/lilo_text.py:185
+#: ../textw/mouse_text.py:25 ../textw/silo_text.py:131
+#: ../textw/silo_text.py:196
 msgid "Device"
 msgstr "Tæki"
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:216
+#: ../iw/lilo_gui.py:330 ../iw/silo_gui.py:257 ../textw/lilo_text.py:185
 #: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "Tegund sneiðar"
 
-#: ../iw/lilo_gui.py:361 ../iw/lilo_gui.py:400 ../iw/silo_gui.py:257
-#: ../iw/silo_gui.py:292 ../textw/lilo_text.py:136 ../textw/lilo_text.py:216
+#: ../iw/lilo_gui.py:330 ../iw/lilo_gui.py:370 ../iw/silo_gui.py:257
+#: ../iw/silo_gui.py:292 ../textw/lilo_text.py:115 ../textw/lilo_text.py:185
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
 msgstr "Ræsimerki"
 
-#: ../iw/lilo_gui.py:396 ../iw/silo_gui.py:288
+#: ../iw/lilo_gui.py:367 ../iw/silo_gui.py:288
 msgid "Default boot image"
 msgstr "Sjálfgefin ræsimynd"
+
+#: ../iw/mouse_gui.py:13
+msgid "Mouse Configuration"
+msgstr "Stillingar músar"
 
 #: ../iw/mouse_gui.py:134 ../textw/mouse_text.py:7
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -1674,396 +1400,427 @@ msgstr "Herma eftir þrem hnöppum"
 msgid "Port"
 msgstr "Gátt"
 
-#: ../iw/network_gui.py:11 ../textw/network_text.py:104
+#: ../iw/mouse_gui.py:216
+#, fuzzy
+msgid "Which model mouse is attached to the computer?"
+msgstr "Hvernig mús er tengd þessari vél?"
+
+#: ../iw/network_gui.py:8 ../textw/network_text.py:102
 msgid "Network Configuration"
 msgstr "Stillingar nets"
 
-#: ../iw/network_gui.py:178
+#: ../iw/network_gui.py:184
 msgid "Configure using DHCP"
 msgstr "Stilla með DHCP"
 
-#: ../iw/network_gui.py:184
+#: ../iw/network_gui.py:190
 msgid "Activate on boot"
 msgstr "Virkja við ræsingu"
 
-#: ../iw/network_gui.py:193
+#: ../iw/network_gui.py:201
 msgid "IP Address"
 msgstr "IP vistfang"
 
-#: ../iw/network_gui.py:194 ../loader/net.c:771
+#: ../iw/network_gui.py:202 ../loader/net.c:762
 msgid "Netmask"
 msgstr "Netmöskvi"
 
-#: ../iw/network_gui.py:195 ../loader/loader.c:276
+#: ../iw/network_gui.py:203 ../loader/loader.c:277
 msgid "Network"
 msgstr "Net"
 
-#: ../iw/network_gui.py:196
+#: ../iw/network_gui.py:204
 msgid "Broadcast"
 msgstr "Uppkall"
 
-#: ../iw/network_gui.py:248 ../loader/net.c:575 ../loader/net.c:773
-#: ../textw/network_text.py:161
+#: ../iw/network_gui.py:254 ../loader/net.c:566 ../loader/net.c:764
+#: ../textw/network_text.py:156
 msgid "Hostname"
 msgstr "Vélarheiti"
 
-#: ../iw/network_gui.py:249
+#: ../iw/network_gui.py:255
 msgid "Gateway"
 msgstr "Gátt"
 
-#: ../iw/network_gui.py:249
+#: ../iw/network_gui.py:255
 msgid "Primary DNS"
 msgstr "Aðalnafnaþjónn"
 
-#: ../iw/network_gui.py:249
+#: ../iw/network_gui.py:255
 msgid "Secondary DNS"
 msgstr "Annar nafnaþjónn"
 
-#: ../iw/network_gui.py:249
+#: ../iw/network_gui.py:255
 msgid "Ternary DNS"
 msgstr "Þriðji nafnaþjónn"
 
-#: ../iw/package_gui.py:22 ../textw/upgrade_text.py:14
-#: ../textw/upgrade_text.py:133
-msgid "Proceed with upgrade?"
-msgstr "Halda áfram með uppfærslu?"
-
-#: ../iw/package_gui.py:23 ../textw/upgrade_text.py:15
-#: ../textw/upgrade_text.py:134
-msgid ""
-"The filesystems of the Linux installation you have chosen to upgrade have "
-"already been mounted. You cannot go back past this point. \n"
-"\n"
-msgstr ""
-"Skráarkerfi Linux uppsetningarinnar sem þú hefur kosið að uppfæra hafa þegar "
-"verið tengd. Þú getur ekki farið til baka aftur fyrir þennan stað. \n"
-"\n"
-
-#: ../iw/package_gui.py:27
-msgid "Would you like to continue with the upgrade?"
-msgstr "Viltu halda áfram með uppfærsluna?"
-
-#: ../iw/package_gui.py:38
+#: ../iw/package_gui.py:29
 msgid "Individual Package Selection"
 msgstr "Val einstakra pakka"
 
-#: ../iw/package_gui.py:322
+#: ../iw/package_gui.py:273
 msgid "Total install size: "
 msgstr "Samanlögð stærð uppsetningar: "
 
-#: ../iw/package_gui.py:402
+#: ../iw/package_gui.py:349
+#, fuzzy
+msgid "All Packages"
+msgstr "Pakkar"
+
+#: ../iw/package_gui.py:406
+msgid "Tree View"
+msgstr ""
+
+#: ../iw/package_gui.py:408
+msgid "Flat View"
+msgstr ""
+
+#: ../iw/package_gui.py:422 ../iw/partition_gui.py:1245
 msgid "Size (MB)"
 msgstr "Stærð (MB)"
 
-#: ../iw/package_gui.py:433
+#: ../iw/package_gui.py:453
 msgid "Total size: "
 msgstr "Heildarstærð: "
 
-#: ../iw/package_gui.py:436
+#: ../iw/package_gui.py:456
 msgid "Select all in group"
 msgstr "Velja allt í hópnum"
 
-#: ../iw/package_gui.py:440
+#: ../iw/package_gui.py:460
 msgid "Unselect all in group"
 msgstr "Afvelja allt í hópnum"
 
-#: ../iw/package_gui.py:475
-msgid "File not found"
-msgstr "Skráin finnst ekki"
-
-#: ../iw/package_gui.py:518 ../textw/packages_text.py:60
-#: ../textw/packages_text.py:241
+#: ../iw/package_gui.py:493 ../textw/packages_text.py:45
+#: ../textw/packages_text.py:225
 msgid "Package Group Selection"
 msgstr "Velja pakkahópa"
 
-#: ../iw/package_gui.py:578
-#, c-format
-msgid ""
-"The following error occurred while retreiving hdlist file:\n"
-"\n"
-"%s\n"
-"\n"
-"Installer will exit now."
-msgstr ""
-"Eftirfarandi villa kom upp við að sækja \"hdlist\" skrána:\n"
-"\n"
-"%s\n"
-"\n"
-"Uppsetningarforritið mun nú hætta."
-
-#: ../iw/package_gui.py:583
-msgid ""
-"An error has occurred while retreiving the hdlist file.  The installation "
-"media or image is probably corrupt.  Installer will exit now."
-msgstr ""
-"Villa kom upp við að sækja \"hdlist\" skrána. Uppsetningardiskurinn eða "
-"diskmyndin er líklega skemmd. Uppsetningarforritið mun nú hætta."
-
-#: ../iw/package_gui.py:649 ../textw/packages_text.py:54
+#: ../iw/package_gui.py:580 ../textw/packages_text.py:38
 msgid "Select individual packages"
 msgstr "Velja hvern pakka fyrir sig"
 
-#: ../iw/progress_gui.py:55
+#: ../iw/partition_gui.py:291 ../iw/partition_gui.py:312
+#: ../iw/partition_gui.py:314 ../textw/partition_text.py:153
+#: ../textw/partition_text.py:155 ../textw/partition_text.py:157
+#: ../textw/partition_text.py:179
+msgid "<Not Applicable>"
+msgstr ""
+
+#: ../iw/partition_gui.py:436 ../textw/fdisk_text.py:38
+#: ../textw/partmethod_text.py:23
+msgid "Disk Setup"
+msgstr "Stillingar diska"
+
+#: ../iw/partition_gui.py:486 ../textw/partition_text.py:61
+#: ../textw/partition_text.py:93
+#, fuzzy
+msgid "Free space"
+msgstr "Laust pláss"
+
+#: ../iw/partition_gui.py:488 ../textw/partition_text.py:63
+msgid "Extended"
+msgstr ""
+
+#: ../iw/partition_gui.py:490 ../textw/partition_text.py:65
+msgid "software RAID component"
+msgstr ""
+
+#: ../iw/partition_gui.py:497 ../iw/partition_gui.py:551
+#: ../textw/partition_text.py:72 ../textw/partition_text.py:124
+#, fuzzy
+msgid "None"
+msgstr "Búið"
+
+#: ../iw/partition_gui.py:499
+#, fuzzy
+msgid "Free"
+msgstr "Laust (M)"
+
+#: ../iw/partition_gui.py:553 ../textw/partition_text.py:126
+#, fuzzy, c-format
+msgid "RAID Device %s"
+msgstr "Ekkert RAID tæki"
+
+#: ../iw/partition_gui.py:606
+msgid "Additional Size Options"
+msgstr ""
+
+#: ../iw/partition_gui.py:611
+msgid "Fixed size"
+msgstr ""
+
+#: ../iw/partition_gui.py:612
+msgid "Fill all space up to (MB):"
+msgstr ""
+
+#: ../iw/partition_gui.py:620
+msgid "Fill to maximum allowable size"
+msgstr ""
+
+#: ../iw/partition_gui.py:647
+#, fuzzy
+msgid "Add Partition"
+msgstr "Disksneið"
+
+#: ../iw/partition_gui.py:664 ../iw/partition_gui.py:1068
+#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
+#: ../libfdisk/newtfsedit.c:392 ../textw/partition_text.py:169
+msgid "Mount Point:"
+msgstr "Tengipunktur:"
+
+#: ../iw/partition_gui.py:671
+#, fuzzy
+msgid "Filesystem Type:"
+msgstr "Stærð rótarskráarkerfisins"
+
+#: ../iw/partition_gui.py:688 ../libfdisk/gnomefsedit.c:1134
+#: ../libfdisk/newtfsedit.c:527 ../textw/partition_text.py:206
+msgid "Allowable Drives:"
+msgstr "Leyfileg drif:"
+
+#: ../iw/partition_gui.py:695
+#, fuzzy
+msgid "Drive:"
+msgstr "Drif"
+
+#: ../iw/partition_gui.py:705 ../iw/partition_gui.py:740
+#: ../textw/partition_text.py:227 ../textw/partition_text.py:310
+#: ../textw/partition_text.py:426
+#, fuzzy
+msgid "Size (MB):"
+msgstr "Stærð (MB)"
+
+#: ../iw/partition_gui.py:718 ../textw/partition_text.py:290
+msgid "Start Cylinder:"
+msgstr ""
+
+#: ../iw/partition_gui.py:734 ../textw/partition_text.py:303
+msgid "End Cylinder:"
+msgstr ""
+
+#: ../iw/partition_gui.py:750 ../iw/partition_gui.py:1134
+#: ../textw/partition_text.py:435 ../textw/partition_text.py:573
+#, fuzzy
+msgid "Format partition?"
+msgstr "Rótarsneið"
+
+#: ../iw/partition_gui.py:775 ../textw/partition_text.py:416
+msgid "Force to be a primary partition"
+msgstr ""
+
+#: ../iw/partition_gui.py:843 ../iw/partition_gui.py:852
+#: ../iw/partition_gui.py:872 ../iw/partition_gui.py:1187
+#: ../textw/partition_text.py:510 ../textw/partition_text.py:525
+#: ../textw/partition_text.py:617
+msgid "Error With Request"
+msgstr ""
+
+#: ../iw/partition_gui.py:894 ../textw/partition_text.py:704
+#, fuzzy
+msgid "You must first select a partition"
+msgstr "Fyrsta geira ræsidisksneiðar"
+
+#: ../iw/partition_gui.py:907
+msgid "You cannot remove free space."
+msgstr ""
+
+#: ../iw/partition_gui.py:917 ../iw/partition_gui.py:1029
+msgid ""
+"You cannot remove this partition, as it is holding the data for the hard "
+"drive install."
+msgstr ""
+
+#: ../iw/partition_gui.py:925
+#, fuzzy
+msgid "You cannot remove this partition, as it is part of a RAID device."
+msgstr ""
+"Þú getur ekki fjarlægt \"/boot\" ef \"/\" er á RAID tæki. Færðu \"/\" á tæki "
+"sem er ekki RAID fyrst."
+
+#: ../iw/partition_gui.py:987
+#, fuzzy
+msgid "You must first select an existing partition or free space to edit."
+msgstr ""
+"Þú verður að skilgreina diskminnissneið svo uppsetningin geti haldið áfram."
+
+#: ../iw/partition_gui.py:1014 ../textw/partition_text.py:673
+#, fuzzy
+msgid "You cannot edit partitions without a filesystem type."
+msgstr "Þú verður að takmarka þessa sneið við a.m.k. eitt drif."
+
+#: ../iw/partition_gui.py:1037 ../textw/partition_text.py:683
+#: ../textw/partition_text.py:722
+#, fuzzy
+msgid "You cannot edit this partition, as it is part of a RAID device."
+msgstr "Þú verður að takmarka þessa sneið við a.m.k. eitt drif."
+
+#: ../iw/partition_gui.py:1051
+#, fuzzy
+msgid "Make Raid Device"
+msgstr "Raid tæki þegar í notkun"
+
+#: ../iw/partition_gui.py:1075 ../textw/partition_text.py:187
+#: ../textw/partition_text.py:422
+#, fuzzy
+msgid "Filesystem type:"
+msgstr "Stærð rótarskráarkerfisins"
+
+#: ../iw/partition_gui.py:1086 ../textw/partition_text.py:327
+#, fuzzy
+msgid "RAID Level:"
+msgstr "RAID tegund:"
+
+#: ../iw/partition_gui.py:1116 ../textw/partition_text.py:345
+msgid "Raid Members:"
+msgstr ""
+
+#: ../iw/partition_gui.py:1127
+msgid "Number of spares?:"
+msgstr ""
+
+#: ../iw/partition_gui.py:1233 ../textw/partition_text.py:776
+msgid "New"
+msgstr "Nýr"
+
+#: ../iw/partition_gui.py:1237
+msgid "Make Raid"
+msgstr ""
+
+#: ../iw/partition_gui.py:1244
+#, fuzzy
+msgid "Start"
+msgstr "Staða"
+
+#: ../iw/partition_gui.py:1244
+msgid "End"
+msgstr ""
+
+#: ../iw/partition_gui.py:1286
+#, fuzzy
+msgid "Automatic Disk Setup"
+msgstr "Stillingar diska"
+
+#: ../iw/partition_gui.py:1304
+#, fuzzy
+msgid ""
+"You need to select at least one drive to have Red Hat Linux installed onto."
+msgstr "Þú verður að velja að minnsta kosti eitt tungumál til að setja inn."
+
+#: ../iw/partition_gui.py:1326
+msgid ""
+"Before we can autopartition we need to know how you want us to use the space "
+"on your harddrives."
+msgstr ""
+
+#: ../iw/partition_gui.py:1336
+msgid "I want to have autopartitioning:"
+msgstr ""
+
+#: ../iw/partition_gui.py:1342 ../textw/partition_text.py:828
+#, fuzzy
+msgid "Remove all Linux partitions"
+msgstr "Fjarlægja Linux disksneiðar"
+
+#: ../iw/partition_gui.py:1345 ../textw/partition_text.py:829
+#, fuzzy
+msgid "Remove all partitions"
+msgstr "Fjarlægja Linux disksneiðar"
+
+#: ../iw/partition_gui.py:1348
+#, fuzzy
+msgid "Remove no partitions and use existing free space"
+msgstr "Nota laust pláss"
+
+#: ../iw/partition_gui.py:1367
+#, fuzzy
+msgid "Which drives do you want to use for Linux?"
+msgstr "Hvar viltu setja upp ræsistjórann?"
+
+#: ../iw/partmethod_gui.py:23
+msgid "Automatic Partitioning"
+msgstr "Sjálfvirk disksneiðing"
+
+#: ../iw/partmethod_gui.py:48 ../textw/partmethod_text.py:24
+#, fuzzy
+msgid ""
+"Autopartitioning sets up your partitioning in a reasonable way depending on "
+"your installation type and then gives you a chance to customize this setup.\n"
+"\n"
+"Disk Druid is a tool designed for partitioning and setting up mount points.  "
+"It is designed to be easier to use than Linux's traditional disk "
+"partitioning software, fdisk, as well as more powerful.  However, there are "
+"some cases where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Diska Drúídinn er tól til þess að sneiða niður diska og stilla upp "
+"tengipunktum. Það er hannað til þess að vera einfaldara í notkun en hið "
+"hefðbundna Linux fdisk ásamt því að vera öflugra. Samt eru tilfelli þar sem "
+"betra er að nota fdisk.\n"
+"\n"
+"Hvort tólið viltu nota?"
+
+#: ../iw/partmethod_gui.py:69
+msgid "Have the installer autopartition for you"
+msgstr ""
+
+#: ../iw/partmethod_gui.py:72
+msgid "Manually partition with Disk Druid"
+msgstr "Sneiða handvirkt með Diska Drúídanum"
+
+#: ../iw/partmethod_gui.py:75
+msgid "Manually partition with fdisk [experts only]"
+msgstr "Sneiða handvirkt með fdisk [fyrir sérfræðinga]"
+
+#: ../iw/progress_gui.py:14
 msgid "Installing Packages"
 msgstr "Set inn pakka"
 
-#: ../iw/progress_gui.py:147
+#: ../iw/progress_gui.py:109
 #, c-format
 msgid "%s KBytes"
 msgstr "%s Kbæti"
 
-#: ../iw/progress_gui.py:210 ../iw/progress_gui.py:263
+#: ../iw/progress_gui.py:180 ../iw/progress_gui.py:233
 msgid "Size"
 msgstr "Stærð"
 
-#: ../iw/progress_gui.py:211
+#: ../iw/progress_gui.py:181
 msgid "Summary"
 msgstr "Lýsing"
 
-#: ../iw/progress_gui.py:241
+#: ../iw/progress_gui.py:211
 msgid "Package Progress: "
 msgstr "Framvinda pakka:  "
 
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:216
 msgid "Total Progress:   "
 msgstr "Framvinda: "
 
-#: ../iw/progress_gui.py:263
+#: ../iw/progress_gui.py:233
 msgid "Status"
 msgstr "Staða"
 
-#: ../iw/progress_gui.py:263
+#: ../iw/progress_gui.py:233
 msgid "Packages"
 msgstr "Pakkar"
 
-#: ../iw/progress_gui.py:263
+#: ../iw/progress_gui.py:233
 msgid "Time"
 msgstr "Tími"
 
-#: ../iw/progress_gui.py:273
+#: ../iw/progress_gui.py:243
 msgid "Total"
 msgstr "Alls"
 
-#: ../iw/progress_gui.py:274
+#: ../iw/progress_gui.py:244
 msgid "Completed"
 msgstr "Lokið"
 
-#: ../iw/progress_gui.py:275
+#: ../iw/progress_gui.py:245
 msgid "Remaining"
 msgstr "Eftir"
-
-#: ../iw/rootpartition_gui.py:39 ../textw/partitioning_text.py:23
-msgid "Disk Druid"
-msgstr "Diska Drúídi"
-
-#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:216
-msgid "Low Memory"
-msgstr "Of lítið minni"
-
-#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:217
-msgid ""
-"As you don't have much memory in this machine, we need to turn on swap space "
-"immediately. To do this we'll have to write your new partition table to the "
-"disk immediately. Is that okay?"
-msgstr ""
-"Þar sem þú ert ekki með nægjanlegt vinnsluminni í vélinni verðum við að "
-"setja diskminni í gang strax. Svo það sé hægt verður að vista "
-"disksneiðatöfluna á diskinn núna.  Er það í lagi?"
-
-#: ../iw/rootpartition_gui.py:82
-msgid ""
-"You have put the partition containing the kernel (the boot partition) above "
-"the 1024 cylinder limit, and it appears that this systems BIOS does not "
-"support booting from above this limit. Proceeding will most likely make the "
-"system unable to reboot into Linux.\n"
-"\n"
-"If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
-"when asked. This will guarantee you have a way to boot into the system after "
-"installation.\n"
-"\n"
-"Press OK to proceed, or Cancel to go back and reassign the boot partition."
-msgstr ""
-"Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) uppfyrir "
-"1024 cylindra þakið og BIOS vélarinnar þinnar virðist ekki ráða við að ræsa "
-"stýrikerfi fyrir ofan þetta þak. Ef þú heldur áfram mun kerfið að öllum "
-"líkindum ekki geta ræst Linux.\n"
-"\n"
-"Ef þú kýst að halda áfram er EINDREGIÐ mælt með því að þú útbúir "
-"ræsidiskling þegar þér býðst tækifærið. Þannig er tryggt að þú getir ræst "
-"upp Linux eftir að uppsetningu lýkur.\n"
-"\n"
-"Ertu viss um að þú viljir halda áfram?"
-
-#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:492
-#: ../textw/partitioning_text.py:413
-msgid ""
-"You have put the partition containing the kernel (the boot partition) above "
-"the 1024 cylinder limit. It appears that this systems BIOS supports booting "
-"from above this limit. \n"
-"\n"
-"It is HIGHLY recommended you make a boot floppy when asked by the installer, "
-"as this is a new feature in recent motherboards and is not always reliable. "
-"Making a boot disk will guarantee you can boot your system once installed."
-msgstr ""
-"Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) uppfyrir "
-"1024 cylindra þakið en BIOS vélarinnar þinnar virðist ráða við að ræsa "
-"stýrikerfi fyrir ofan þetta þak.\n"
-"\n"
-"Það er EINDREGIÐ mælt með því að þú útbúir ræsidiskling þegar þér býðst "
-"tækifæri til því þessi eiginleiki nýrra móðurborða er ekki alltaf "
-"áreiðanlegur. Að búa til ræsidiskling tryggir að þú hafir leið til að ræsa "
-"upp linux að uppsetningu lokinni."
-
-#: ../iw/rootpartition_gui.py:221 ../textw/partitioning_text.py:336
-#, c-format
-msgid ""
-"You've chosen to put your root filesystem in a file on an already-existing "
-"DOS or Windows filesystem. How large, in megabytes, should would you like "
-"the root filesystem to be, and how much swap space would you like? They must "
-"total less then %d megabytes in size."
-msgstr ""
-"Þú hefur valið að setja rótina í skrá sem er í DOS eða windows disksneið sem "
-"er þegar til staðar. Hversu stóra, í megabætum talið, viltu hafa skrána og "
-"hversu mikið diskminni villtu hafa? Bæði saman verða að vera minna en %d "
-"megabæti að stærð."
-
-#: ../iw/rootpartition_gui.py:251
-msgid "Root filesystem size:"
-msgstr "Stærð rótarskráarkerfis:"
-
-#: ../iw/rootpartition_gui.py:256
-msgid "Swap space size:"
-msgstr "Stærð diskminnis:"
-
-#: ../iw/rootpartition_gui.py:331 ../textw/partitioning_text.py:150
-msgid "Automatic Partitioning"
-msgstr "Sjálfvirk disksneiðing"
-
-#: ../iw/rootpartition_gui.py:382
-msgid "Disk Partitioning"
-msgstr "Disksneiðing"
-
-#: ../iw/rootpartition_gui.py:384
-#, c-format
-msgid ""
-"Please select the type of disk partitioning you would like to use.\n"
-"\n"
-"%s\n"
-"\n"
-"Selecting manual partitioning allows you to create the partitions by hand."
-msgstr ""
-"Vinsamlegast veldu þá afðferð sem þú vilt nota við disksneiðingu.\n"
-"\n"
-"%s\n"
-"\n"
-"Ef þú velur að sneiða handvirkt getur þú sérsniðið disksneiðarnar sjálf(ur)."
-
-#: ../iw/rootpartition_gui.py:390
-msgid "Automatic Partitioning Failed"
-msgstr "Sjálfvirk disksneiðing tókst ekki"
-
-#: ../iw/rootpartition_gui.py:391
-msgid ""
-"\n"
-"There is not sufficient disk space in order to automatically partition your "
-"disk. You will need to manually partition your disks for Red Hat Linux to "
-"install.\n"
-"\n"
-"Please choose the tool you would like to use to partition your system for "
-"Red Hat Linux."
-msgstr ""
-"\n"
-"Það er ekki nægjanlegt diskpláss til þess að sneiða niður diskinn "
-"sjálfvirkt.Þú þarft að sneiða hann niður handvirkt svo uppsetningin geti "
-"haldið áfram.\n"
-"\n"
-"Vinsamlegast veldu tólið sem þú vilt nota til að sneiða niður diskinn fyrir "
-"Red Hat Linux."
-
-#: ../iw/rootpartition_gui.py:398
-msgid "Manual Partitioning"
-msgstr "Sneiða handvirkt"
-
-#: ../iw/rootpartition_gui.py:399
-msgid ""
-"\n"
-"Please choose the tool you would like to use to partition your system for "
-"Red Hat Linux."
-msgstr ""
-"\n"
-"Vinsamlegast veldu tólið sem þú vilt nota til að sneiða niður diskana fyrir "
-"Red Hat Linux."
-
-#: ../iw/rootpartition_gui.py:413
-msgid "Automatically partition and REMOVE DATA"
-msgstr "Sjálfvirk disksneiðing og FJARLÆGJA GÖGN"
-
-#: ../iw/rootpartition_gui.py:420
-msgid "Manually partition with Disk Druid"
-msgstr "Sneiða handvirkt með Diska Drúídanum"
-
-#: ../iw/rootpartition_gui.py:432
-msgid "Manually partition with fdisk [experts only]"
-msgstr "Sneiða handvirkt með fdisk [fyrir sérfræðinga]"
-
-#: ../iw/rootpartition_gui.py:455
-msgid "Boot Partition Location Warning"
-msgstr "Aðvörun um staðsetningu ræsisneiðar"
-
-#: ../iw/rootpartition_gui.py:479 ../textw/partitioning_text.py:393
-msgid ""
-"You have put the partition containing the kernel (the boot partition) above "
-"the 1024 cylinder limit, and it appears that this systems BIOS does not "
-"support booting from above this limit. Proceeding will most likely make the "
-"system unable to reboot into Linux.\n"
-"\n"
-"If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
-"when asked. This will guarantee you have a way to boot into the system after "
-"installation.\n"
-"\n"
-"Are you sure you want to proceed?"
-msgstr ""
-"Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) uppfyrir "
-"1024 cylindra þakið og BIOS vélarinnar þinnar virðist ekki ráða við að ræsa "
-"stýrikerfi fyrir ofan þetta þak. Ef þú heldur áfram mun kerfið að öllum "
-"líkindum ekki geta ræst Linux.\n"
-"\n"
-"Ef þú kýst að halda áfram er EINDREGIÐ mælt með því að þú útbúir "
-"ræsidiskling þegar þér býðst tækifærið. Þannig er tryggt að þú getir ræst "
-"upp Linux eftir að uppsetningu lýkur.\n"
-"\n"
-"Ertu viss um að þú viljir halda áfram?"
-
-#: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:89
-#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
-#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
-#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
-#: ../libfdisk/newtfsedit.c:618 ../libfdisk/newtfsedit.c:745
-#: ../libfdisk/newtfsedit.c:877 ../libfdisk/newtfsedit.c:1683
-#: ../libfdisk/newtfsedit.c:1701 ../libfdisk/newtfsedit.c:1788
-#: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:854
-#: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
-#: ../textw/bootdisk_text.py:38 ../textw/lilo_text.py:62
-#: ../textw/partitioning_text.py:221 ../textw/partitioning_text.py:404
-#: ../textw/upgrade_text.py:213
-msgid "Yes"
-msgstr "Já"
-
-#: ../iw/rootpartition_gui.py:512 ../iw/welcome_gui.py:92
-#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
-#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
-#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
-#: ../libfdisk/newtfsedit.c:618 ../libfdisk/newtfsedit.c:745
-#: ../libfdisk/newtfsedit.c:877 ../libfdisk/newtfsedit.c:1683
-#: ../libfdisk/newtfsedit.c:1701 ../libfdisk/newtfsedit.c:1788
-#: ../loader/devices.c:231 ../loader/net.c:854 ../textw/bootdisk_text.py:12
-#: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
-#: ../textw/lilo_text.py:62 ../textw/partitioning_text.py:404
-#: ../textw/upgrade_text.py:213 ../textw/upgrade_text.py:219
-msgid "No"
-msgstr "Nei"
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -2085,47 +1842,60 @@ msgstr "Stilli PROM til að ræsa upp linux"
 msgid "Do not install SILO"
 msgstr "Ekki setja upp SILO"
 
-#: ../iw/timezone_gui.py:31 ../textw/timezone_text.py:89
+#: ../iw/timezone_gui.py:31 ../textw/timezone_text.py:85
 msgid "Time Zone Selection"
 msgstr "Val tímabeltis"
 
-#: ../iw/timezone_gui.py:158
+#: ../iw/timezone_gui.py:160
 msgid "View:"
 msgstr "Skoða:"
 
-#: ../iw/timezone_gui.py:166 ../iw/timezone_gui.py:167
+#: ../iw/timezone_gui.py:168 ../iw/timezone_gui.py:169
 msgid "System clock uses UTC"
 msgstr "Klukkan í vélinni er á UTC"
 
-#: ../iw/timezone_gui.py:215
+#: ../iw/timezone_gui.py:217
 msgid "Use Daylight Saving Time (US only)"
 msgstr "Nota sumartíma/vetrartíma"
 
-#: ../iw/timezone_gui.py:229
+#: ../iw/timezone_gui.py:231
 msgid "Location"
 msgstr "Staðsetning"
 
-#: ../iw/timezone_gui.py:230
+#: ../iw/timezone_gui.py:232
 msgid "UTC Offset"
 msgstr "Frávik frá UTC"
 
-#: ../iw/upgrade_swap_gui.py:18
+#: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
 msgstr "Uppfæra diskminnissneið"
 
-#: ../iw/upgrade_swap_gui.py:116
+#: ../iw/upgrade_swap_gui.py:89
+#, fuzzy, c-format
+msgid ""
+"The 2.4 kernel needs significantly more swap than older kernels, as much as "
+"twice as much swap space as RAM on the system.  You currently have %dMB of "
+"swap configured, but you may create additional swap space on one of your "
+"file systems now."
+msgstr ""
+"Linux 2.4 kjarninn þarfnast meira diskminnis en endri kjarnar. Magn "
+"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að stærð."
+"Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
+"diskminni á einhverju af skráarkerfunum þínum núna."
+
+#: ../iw/upgrade_swap_gui.py:106
 msgid "I want to create a swap file"
 msgstr "Ég vil búa til diskminnisskrá"
 
-#: ../iw/upgrade_swap_gui.py:125
+#: ../iw/upgrade_swap_gui.py:115
 msgid "Select the partition to put the swap file on:"
 msgstr "Veldu disksneiðina til að setja diskminnisskrá á:"
 
-#: ../iw/upgrade_swap_gui.py:130
+#: ../iw/upgrade_swap_gui.py:120
 msgid "Free Space (MB)"
 msgstr "Laust pláss (MB)"
 
-#: ../iw/upgrade_swap_gui.py:145
+#: ../iw/upgrade_swap_gui.py:135
 #, c-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
@@ -2134,15 +1904,15 @@ msgstr ""
 "Mælt er með að diskminnisskráin sé að minnsta kosti %d MB.  Vinsamlegast "
 "sláðu inn stærð diskminnisskráarinnar:"
 
-#: ../iw/upgrade_swap_gui.py:158 ../textw/upgrade_text.py:74
+#: ../iw/upgrade_swap_gui.py:150 ../textw/upgrade_text.py:52
 msgid "Swap file size (MB):"
 msgstr "Stærð diskminnisskráar (MB):"
 
-#: ../iw/upgrade_swap_gui.py:166
+#: ../iw/upgrade_swap_gui.py:159
 msgid "I don't want to create a swap file"
 msgstr "Ég vil ekki búa til diskminnisskrá"
 
-#: ../iw/upgrade_swap_gui.py:176
+#: ../iw/upgrade_swap_gui.py:169
 msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
@@ -2151,122 +1921,136 @@ msgstr ""
 "Við mælum sterklega með að þú búir til diskminnisskrá. Ef þú gerir það ekki "
 "getur uppsetningaforritið hrunið.  Ertu viss um að þú viljir halda áfram ?"
 
-#: ../iw/upgrade_swap_gui.py:185 ../textw/upgrade_text.py:118
+#: ../iw/upgrade_swap_gui.py:177 ../textw/upgrade_text.py:97
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Stærð diskminnisskráarinnar verur að vera á milli 1 og 2000 MB."
 
-#: ../iw/upgrade_swap_gui.py:192 ../textw/upgrade_text.py:114
+#: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:92
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Það er ekki nægjanlegt laust pláss á disknum sem þú valdir fyrir "
 "diskminnissneiðina."
 
-#: ../iw/welcome_gui.py:81
+#: ../iw/welcome_gui.py:8 ../iw/welcome_gui.py:35
+msgid "Welcome"
+msgstr "Velkomin(n)"
+
+#: ../iw/welcome_gui.py:78
 msgid "Would you like to configure your system?"
 msgstr "Viltu stilla kerfið þitt?"
 
-#: ../iw/xconfig_gui.py:15
+#: ../iw/xconfig_gui.py:16 ../textw/xconfig_text.py:248
+msgid "Monitor"
+msgstr "Skjár"
+
+#: ../iw/xconfig_gui.py:18
 msgid "Horizontal Frequency Range"
 msgstr "Lárétt tíðnisvið"
 
-#: ../iw/xconfig_gui.py:16
+#: ../iw/xconfig_gui.py:19
 msgid "Vertical Frequency Range"
 msgstr "Lóðrétt tíðnisvið"
 
-#: ../iw/xconfig_gui.py:17
+#: ../iw/xconfig_gui.py:20
 msgid "Test failed"
 msgstr "Prófun mistókst"
 
-#: ../iw/xconfig_gui.py:25
+#: ../iw/xconfig_gui.py:26
 msgid "Customize Graphics Configuration"
 msgstr "Sérsníða grafískar stillingar"
 
-#: ../iw/xconfig_gui.py:233
+#: ../iw/xconfig_gui.py:187 ../textw/xconfig_text.py:160
 msgid "Color Depth:"
 msgstr "Litadýpt:"
 
-#: ../iw/xconfig_gui.py:238
+#: ../iw/xconfig_gui.py:192 ../textw/xconfig_text.py:91
 msgid "256 Colors (8 Bit)"
 msgstr "256 litir (8 bita)"
 
-#: ../iw/xconfig_gui.py:238
+#: ../iw/xconfig_gui.py:192 ../textw/xconfig_text.py:91
 msgid "High Color (16 Bit)"
 msgstr "Mjög margir litir (16 bita)"
 
-#: ../iw/xconfig_gui.py:238
+#: ../iw/xconfig_gui.py:192 ../textw/xconfig_text.py:91
 msgid "True Color (24 Bit)"
 msgstr "Allir litirnir (24 bita)"
 
-#: ../iw/xconfig_gui.py:256
+#: ../iw/xconfig_gui.py:201
 msgid "Screen Resolution:"
 msgstr "Upplausn skjás:"
 
-#: ../iw/xconfig_gui.py:358
+#: ../iw/xconfig_gui.py:282
 msgid "   Test Setting   "
 msgstr " Prófa stillingar "
 
-#: ../iw/xconfig_gui.py:375
+#: ../iw/xconfig_gui.py:305
 msgid "Please choose your default desktop environment:"
 msgstr "Vinsamlegast veldu sjálfgefið skjáborðsumhverfi:"
 
-#: ../iw/xconfig_gui.py:385 ../iw/xconfig_gui.py:443
-msgid "GNOME"
-msgstr "GNOME"
-
-#: ../iw/xconfig_gui.py:387 ../iw/xconfig_gui.py:457
-msgid "KDE"
-msgstr "KDE"
-
-#: ../iw/xconfig_gui.py:426
+#: ../iw/xconfig_gui.py:307
 msgid "Your desktop environment is:"
 msgstr "Sjálfgefið skjáborðsumhverfi er:"
 
-#: ../iw/xconfig_gui.py:467
+#: ../iw/xconfig_gui.py:322 ../textw/xconfig_text.py:181
+#: ../textw/xconfig_text.py:190
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../iw/xconfig_gui.py:324 ../textw/xconfig_text.py:183
+#: ../textw/xconfig_text.py:192
+msgid "KDE"
+msgstr "KDE"
+
+#: ../iw/xconfig_gui.py:353
 msgid "Please choose your login type:"
 msgstr "Vinsamlega veldu tegund kveðju:"
 
-#: ../iw/xconfig_gui.py:474
+#: ../iw/xconfig_gui.py:360 ../textw/xconfig_text.py:201
 msgid "Text"
 msgstr "Texti"
 
-#: ../iw/xconfig_gui.py:475
+#: ../iw/xconfig_gui.py:361 ../textw/xconfig_text.py:199
 msgid "Graphical"
 msgstr "Myndræn"
 
-#: ../iw/xconfig_gui.py:513
-msgid "Bits per Pixel"
-msgstr "Bitar á myndeiningu"
-
-#: ../iw/xconfig_gui.py:531
+#: ../iw/xconfig_gui.py:378 ../textw/xconfig_text.py:369
 msgid "Monitor Configuration"
 msgstr "Stillingar skjás"
 
-#: ../iw/xconfig_gui.py:736
+#: ../iw/xconfig_gui.py:532 ../iw/xconfig_gui.py:836
+msgid "Generic"
+msgstr ""
+
+#: ../iw/xconfig_gui.py:569
 msgid "DDC Probed Monitor"
 msgstr "Skjár fundinn með DDC"
 
-#: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
+#: ../iw/xconfig_gui.py:618 ../iw/xconfig_gui.py:930
 msgid "Restore original values"
 msgstr "Endurheimta fyrri gildi"
 
-#: ../iw/xconfig_gui.py:808
+#: ../iw/xconfig_gui.py:626
 msgid "Horizontal Sync:"
 msgstr "Lárétt samhæfing:"
 
-#: ../iw/xconfig_gui.py:810
+#: ../iw/xconfig_gui.py:628
 msgid "Vertical Sync:"
 msgstr "Lóðrétt samhæfing:"
 
-#: ../iw/xconfig_gui.py:816
+#: ../iw/xconfig_gui.py:634
 msgid "kHz"
 msgstr "kHz"
 
-#: ../iw/xconfig_gui.py:819
+#: ../iw/xconfig_gui.py:637
 msgid "Hz"
 msgstr "Hz"
 
-#: ../iw/xconfig_gui.py:980
+#: ../iw/xconfig_gui.py:655
+msgid "X Configuration"
+msgstr "Stillingar X"
+
+#: ../iw/xconfig_gui.py:800
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -2274,7 +2058,7 @@ msgstr ""
 "Ekki var hægt að finna magn skjáminnis sjálfvirkt. Veldu magn skjáminnis úr "
 "listanum að neðan:"
 
-#: ../iw/xconfig_gui.py:991 ../iw/xconfig_gui.py:1012
+#: ../iw/xconfig_gui.py:808
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -2282,7 +2066,7 @@ msgstr ""
 "Í flestum tilfellum er hægt að leita sjálfvirkt eftir bestu stillingunum "
 "fyrir skjáinn þinn."
 
-#: ../iw/xconfig_gui.py:1000
+#: ../iw/xconfig_gui.py:814
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
@@ -2290,19 +2074,20 @@ msgstr ""
 "Ef útkoma leitarinnar passar ekki við vélbúnaðinn þinn, veldu réttar "
 "stillingar hér:"
 
-#: ../iw/xconfig_gui.py:1021
-msgid "Autoprobe results:"
-msgstr "Útkoma X leitar:"
+#: ../iw/xconfig_gui.py:841
+#, fuzzy
+msgid "Other"
+msgstr "Önnur port"
 
-#: ../iw/xconfig_gui.py:1465
+#: ../iw/xconfig_gui.py:908
 msgid "Video card RAM: "
 msgstr "Vinnsluminni skjákorts: "
 
-#: ../iw/xconfig_gui.py:1534
+#: ../iw/xconfig_gui.py:934 ../textw/xconfig_text.py:534
 msgid "Skip X Configuration"
 msgstr "Sleppa að stilla X"
 
-#: ../textw/bootdisk_text.py:13
+#: ../textw/bootdisk_text.py:17
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -2322,7 +2107,7 @@ msgstr ""
 "\n"
 "Viltu búa til ræsidiskling fyrir vélina þína?"
 
-#: ../textw/bootdisk_text.py:32
+#: ../textw/bootdisk_text.py:36
 msgid ""
 "\n"
 "On SMCC made Ultra machines floppy booting probably does not work\n"
@@ -2332,17 +2117,17 @@ msgstr ""
 "Á Ultra vélum frá SMCC er líklega ekki hægt að ræsa upp af disklingi\n"
 "\n"
 
-#: ../textw/bootdisk_text.py:35 ../textw/bootdisk_text.py:56
+#: ../textw/bootdisk_text.py:39 ../textw/bootdisk_text.py:65
 msgid "Bootdisk"
 msgstr "Ræsidisklingur"
 
-#: ../textw/bootdisk_text.py:54 ../textw/bootdisk_text.py:62
-#: ../textw/bootdisk_text.py:73 ../textw/lilo_text.py:33
-#: ../textw/silo_text.py:25 ../textw/upgrade_text.py:67
+#: ../textw/bootdisk_text.py:62 ../textw/bootdisk_text.py:77
+#: ../textw/lilo_text.py:30 ../textw/silo_text.py:25
+#: ../textw/upgrade_text.py:45
 msgid "Skip"
 msgstr "Sleppa"
 
-#: ../textw/bootdisk_text.py:57
+#: ../textw/bootdisk_text.py:66
 msgid ""
 "If you have the install floppy in your drive, first remove it. Then insert a "
 "blank floppy in the first floppy drive. All data on this disk will be erased "
@@ -2352,7 +2137,59 @@ msgstr ""
 "diskling í fyrsta disklingadrifið. Öllum gögnum á disklingnum verður eytt "
 "þegar ræsidisklingurinn er útbúinn."
 
-#: ../textw/firewall_text.py:13
+#: ../textw/complete_text.py:9
+msgid ""
+"                              <Return> to "
+"reboot                              "
+msgstr ""
+"                           <Return> til að "
+"endurræsa                          "
+
+#: ../textw/complete_text.py:11 ../textw/complete_text.py:32
+msgid "Complete"
+msgstr "Lokið"
+
+#: ../textw/complete_text.py:30
+msgid ""
+"                                <Return> to "
+"exit                              "
+msgstr ""
+"                              <Return> til að "
+"hætta                           "
+
+#: ../textw/complete_text.py:33
+msgid ""
+"Congratulations, configuration is complete.\n"
+"\n"
+" For information on fixes which are available for this release of Red Hat "
+"Linux, consult the Errata available from http://www.redhat.com.\n"
+"\n"
+"Information on further configuring your system is available at http://www."
+"redhat.com/support/manuals/"
+msgstr ""
+"Til hamingju, uppsetningu er lokið.\n"
+"\n"
+" Á http://www.redhat.com, undir 'Errata', má finna viðbætur og/eða "
+"lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu af Red Hat "
+"Linux.\n"
+"\n"
+"Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
+"finna á http://www.redhat.com/support/manuals/"
+
+#: ../textw/confirm_text.py:7
+msgid "Installation to begin"
+msgstr "Uppsetning að hefjast"
+
+#: ../textw/confirm_text.py:19
+msgid "Upgrade to begin"
+msgstr "Uppfærsla að byrja"
+
+#: ../textw/fdisk_text.py:39
+#, fuzzy
+msgid "Choose a disk to run fdisk on"
+msgstr "Veldu disk til að keyra fdisk á"
+
+#: ../textw/firewall_text.py:27
 msgid ""
 "A firewall protects against unauthorized network intrusions. High security "
 "blocks all incoming accesses. Medium blocks access to system services (such "
@@ -2365,52 +2202,56 @@ msgstr ""
 "tengingar. Ef enginn eldveggur er valinn er öllum tengingum hleypt inn og "
 "það er ekki mælt með því."
 
-#: ../textw/firewall_text.py:29
+#: ../textw/firewall_text.py:43
 msgid "Security Level:"
 msgstr "Öryggisstig:"
 
-#: ../textw/firewall_text.py:59
+#: ../textw/firewall_text.py:73
 msgid "Trusted Devices:"
 msgstr "Tæki sem er treyst, þegar í notkun:"
 
-#: ../textw/firewall_text.py:84
+#: ../textw/firewall_text.py:95
 msgid "DHCP"
 msgstr "DHCP"
 
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:97
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:99
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:101
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:92
+#: ../textw/firewall_text.py:103
 msgid "Mail (SMTP)"
 msgstr "Póstur (SMTP)"
 
-#: ../loader/loader.c:1241 ../loader/loader.c:1250
-#: ../textw/firewall_text.py:94
+#: ../loader/loader.c:1152 ../textw/firewall_text.py:105
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:98
+#: ../textw/firewall_text.py:109
 msgid "Other ports"
 msgstr "Önnur port"
 
-#: ../textw/firewall_text.py:125
+#: ../textw/firewall_text.py:135 ../textw/firewall_text.py:199
+#: ../textw/language_text.py:131
+msgid "Invalid Choice"
+msgstr "Ógilt val"
+
+#: ../textw/firewall_text.py:136
 msgid "You cannot customize a disabled firewall."
 msgstr "Þú getur ekki sérsniðið eldvegg sem er ekki virkur."
 
-#: ../textw/firewall_text.py:130
+#: ../textw/firewall_text.py:141
 msgid "Firewall Configuration - Customize"
 msgstr "Stillingar eldveggs - Sérsníða"
 
-#: ../textw/firewall_text.py:132
+#: ../textw/firewall_text.py:143
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -2422,12 +2263,52 @@ msgstr ""
 "eingungu að komast í gegnum eldvegginn. Þú getur tiltekið auka port á "
 "sniðinu 'þjónusta:prótókollur' eins og til dæmis 'imap:tcp'."
 
-#: ../textw/firewall_text.py:190
+#: ../textw/firewall_text.py:200
 #, c-format
 msgid "Warning: %s is not a valid port."
 msgstr "Aðvörun: %s er ekki gild gátt."
 
-#: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
+#: ../textw/installpath_text.py:32
+msgid "Installation Type"
+msgstr "Tegund uppsetningar"
+
+#: ../textw/installpath_text.py:33
+msgid "What type of system would you like to install?"
+msgstr "Hverskonar kerfi viltu setja upp?"
+
+#: ../textw/keyboard_text.py:23
+msgid "Keyboard Selection"
+msgstr "Stillingar lyklaborðs"
+
+#: ../textw/keyboard_text.py:24
+msgid "Which model keyboard is attached to this computer?"
+msgstr "Hvernig lyklaborð er tengt þessari vél?"
+
+#: ../textw/language_text.py:94
+msgid "Select All"
+msgstr "Velja öll"
+
+#: ../textw/language_text.py:96
+msgid "Choose the languages to be installed:"
+msgstr "Veldu tungumálin sem þú villt setja upp:"
+
+#: ../textw/language_text.py:100
+msgid "Language Support"
+msgstr "Tungumálastuðningur"
+
+#: ../textw/language_text.py:132
+msgid "You must select at least one language to install."
+msgstr "Þú verður að velja að minnsta kosti eitt tungumál til að setja inn."
+
+#: ../textw/language_text.py:160
+msgid "Default Language"
+msgstr "Sjálfgefið tungumál"
+
+#: ../textw/language_text.py:161
+msgid "Choose the default language: "
+msgstr "Veldu sjálfgefna tungumálið: "
+
+#: ../textw/lilo_text.py:19 ../textw/silo_text.py:14
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -2438,47 +2319,47 @@ msgstr ""
 "svo vélin virki rétt. Ef vélin þín er ein af þessum vélum sláðu þá inn "
 "viðföngin núna. Ef þú ert ekki viss hafðu þetta autt."
 
-#: ../textw/lilo_text.py:52
+#: ../textw/lilo_text.py:50
 #, fuzzy
-msgid "Skip LILO"
-msgstr "Sleppa"
+msgid "Skip Bootloader"
+msgstr "Villur í uppsetningu ræsistjóra"
 
-#: ../textw/lilo_text.py:53
+#: ../textw/lilo_text.py:51
 msgid ""
-"You have elected to not install LILO. It is strongly recommended that you do "
-"install LILO unless you have an advanced need.  LILO is almost always "
-"required in order to reboot your system into Linux directly from the hard "
-"drive.\n"
+"You have elected to not install any bootloader. It is strongly recommended "
+"that you install a bootloader unless you have an advanced need.  A "
+"bootloader is almost always required in order to reboot your system into "
+"Linux directly from the hard drive.\n"
 "\n"
-"Are you sure you want to skip LILO installation?"
+"Are you sure you want to skip bootloader installation?"
 msgstr ""
 
-#: ../textw/lilo_text.py:108 ../textw/silo_text.py:103
+#: ../textw/lilo_text.py:89 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
 msgstr "Hvar viltu setja upp ræsistjórann?"
 
-#: ../textw/lilo_text.py:140 ../textw/silo_text.py:136
+#: ../textw/lilo_text.py:119 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:157
 msgid "Clear"
 msgstr "Hreinsa"
 
-#: ../textw/lilo_text.py:149
+#: ../textw/lilo_text.py:128
 msgid "Edit Boot Label Please"
 msgstr "Vinsamlegast breyttu ræsimerkinu"
 
-#: ../textw/lilo_text.py:167 ../textw/lilo_text.py:172
+#: ../textw/lilo_text.py:146 ../textw/lilo_text.py:151
 msgid "Invalid Boot Label"
 msgstr "Ógilt ræsimerki"
 
-#: ../textw/lilo_text.py:168
+#: ../textw/lilo_text.py:147
 msgid "Boot label may not be empty."
 msgstr "Ræsimerkið má ekki vera tómt."
 
-#: ../textw/lilo_text.py:173
+#: ../textw/lilo_text.py:152
 msgid "Boot label contains illegal characters."
 msgstr "Heiti ræsamerkis inniheldur ólöglegt tákn."
 
-#: ../textw/lilo_text.py:229 ../textw/silo_text.py:208
+#: ../textw/lilo_text.py:201 ../textw/silo_text.py:208
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -2492,59 +2373,59 @@ msgstr ""
 msgid "What device is your mouse located on?"
 msgstr "Við hvaða tæki er músin tengd?"
 
-#: ../textw/mouse_text.py:57
+#: ../textw/mouse_text.py:58
 msgid "Which model mouse is attached to this computer?"
 msgstr "Hvernig mús er tengd þessari vél?"
 
-#: ../textw/mouse_text.py:68
+#: ../textw/mouse_text.py:69
 msgid "Emulate 3 Buttons?"
 msgstr "Herma eftir þrem hnöppum?"
 
-#: ../textw/mouse_text.py:71
+#: ../textw/mouse_text.py:72
 msgid "Mouse Selection"
 msgstr "Stillingar músar"
 
-#: ../textw/network_text.py:66
+#: ../textw/network_text.py:64
 msgid "Use bootp/dhcp"
 msgstr "Nota bootp/dhcp"
 
-#: ../loader/net.c:307 ../textw/network_text.py:71
+#: ../loader/net.c:307 ../textw/network_text.py:69
 msgid "IP address:"
 msgstr "IP vistfang:"
 
-#: ../loader/net.c:310 ../textw/network_text.py:72
+#: ../loader/net.c:310 ../textw/network_text.py:70
 msgid "Netmask:"
 msgstr "Netmöskvi:"
 
-#: ../loader/net.c:313 ../textw/network_text.py:73
+#: ../loader/net.c:313 ../textw/network_text.py:71
 msgid "Default gateway (IP):"
 msgstr "Sjálfgefin gátt (IP):"
 
-#: ../loader/net.c:316 ../textw/network_text.py:74
+#: ../loader/net.c:316 ../textw/network_text.py:72
 msgid "Primary nameserver:"
 msgstr "Aðalnafnaþjónn:"
 
-#: ../textw/network_text.py:75
+#: ../textw/network_text.py:73
 msgid "Secondary nameserver:"
 msgstr "Annar nafnaþjónn:"
 
-#: ../textw/network_text.py:76
+#: ../textw/network_text.py:74
 msgid "Ternary nameserver:"
 msgstr "Þriðji nafnaþjónn:"
 
-#: ../textw/network_text.py:121
+#: ../textw/network_text.py:119
 msgid "Invalid information"
 msgstr "Ógildar upplýsingar"
 
-#: ../textw/network_text.py:122
+#: ../textw/network_text.py:120
 msgid "You must enter valid IP information to continue"
 msgstr "Þú verður að gefa upp gildar IP stillingar"
 
-#: ../textw/network_text.py:157
+#: ../textw/network_text.py:152
 msgid "Hostname Configuration"
 msgstr "Stillingar vélarheitis"
 
-#: ../textw/network_text.py:158
+#: ../textw/network_text.py:153
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
@@ -2552,29 +2433,33 @@ msgstr ""
 "Vélarheiti er heiti vélarinnar á neti.  Ef tölvan þín er nettengd er heitinu "
 "úthlutað af netstjóra þínum."
 
-#: ../textw/packages_text.py:91
+#: ../textw/packages_text.py:79
 msgid "Package :"
 msgstr "Pakki   :"
 
-#: ../textw/packages_text.py:96
+#: ../textw/packages_text.py:84
 msgid "Size    :"
 msgstr "Stærð   :"
 
-#: ../textw/packages_text.py:97
+#: ../textw/packages_text.py:85
 #, c-format
 msgid "%.1f KBytes"
 msgstr "%.1f Kbæti"
 
-#: ../textw/packages_text.py:116
+#: ../textw/packages_text.py:104
 msgid "Total size"
 msgstr "Heildarstærð"
 
-#: ../textw/packages_text.py:249
+#: ../textw/packages_text.py:233
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "  <Bilslá>,<+>,<-> velur       |   <F1> hjálp  |   <F2> pakkalýsingar"
 
-#: ../textw/packages_text.py:306
+#: ../textw/packages_text.py:281
+msgid "Package Dependencies"
+msgstr "Pakkaskilyrði"
+
+#: ../textw/packages_text.py:283
 msgid ""
 "Some of the packages you have selected to install require packages you have "
 "not selected. If you just select Ok all of those required packages will be "
@@ -2584,117 +2469,149 @@ msgstr ""
 "valdir ekki. Ef þú velur 'Í lagi' mun öllum þessum pökkum sem uppá vantar "
 "verða bætt við."
 
-#: ../textw/partitioning_text.py:15 ../textw/partitioning_text.py:59
-msgid "Disk Setup"
-msgstr "Stillingar diska"
-
-#: ../textw/partitioning_text.py:16
-msgid ""
-"Disk Druid is a tool for partitioning and setting up mount points. It is "
-"designed to be easier to use than Linux's traditional disk partitioning "
-"sofware, fdisk, as well as more powerful. However, there are some cases "
-"where fdisk may be preferred.\n"
-"\n"
-"Which tool would you like to use?"
-msgstr ""
-"Diska Drúídinn er tól til þess að sneiða niður diska og stilla upp "
-"tengipunktum. Það er hannað til þess að vera einfaldara í notkun en hið "
-"hefðbundna Linux fdisk ásamt því að vera öflugra. Samt eru tilfelli þar sem "
-"betra er að nota fdisk.\n"
-"\n"
-"Hvort tólið viltu nota?"
-
-#: ../textw/partitioning_text.py:60
-msgid ""
-"To install Red Hat Linux, you must have at least one partition of 150 MB "
-"dedicated to Linux. We suggest placing that partition on one of the first "
-"two hard drives in your system so you can boot into Linux with LILO."
-msgstr ""
-"Til að setja upp Red Hat Linux þarftu að hafa að minnsta kosti eina "
-"disksneið frátekna fyrir Linux sem er minnst 150 MB. Við mælum með að hafa "
-"hana á öðrum af fyrstu tveim hörðu diskunum í vélinni svo það sé hægt að "
-"ræsa Linux með LILO."
-
-#: ../loader/loader.c:341 ../loader/loader.c:366
-#: ../textw/partitioning_text.py:65
-msgid "Done"
-msgstr "Búið"
-
-#: ../textw/partitioning_text.py:151
-#, c-format
-msgid ""
-"%s\n"
-"\n"
-"If you don't want to do this, you can continue with this install by "
-"partitioning manually, or you can go back and perform a fully customized "
-"installation."
-msgstr ""
-"%s\n"
-"\n"
-"Ef þú vilt ekki gera þetta getur þú haldið uppsetningu áfram með því að "
-"sneiða niður diskinn sjálf(ur) eða fara til baka og setja upp sérsniðið "
-"kerfi."
-
-#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:158
-msgid "Continue"
-msgstr "Halda áfram"
-
-#: ../textw/partitioning_text.py:156
-msgid "Manually partition"
-msgstr "Sneiða handvirkt"
-
-#: ../textw/partitioning_text.py:237
-msgid ""
-"What partitions would you like to format? We strongly suggest formatting all "
-"of the system partitions, including /, /usr, and /var. There is no need to "
-"format /home or /usr/local if they have already been configured during a "
-"previous install."
-msgstr ""
-"Hvaða disksneiðar viltu forsníða? Við mælum eindregið með að forsníða allar "
-"kerfissneiðarnar, þar með talið /, /usr og /var. Það er alveg óþarft að "
-"forsníða /home eða /usr/local disksneiðarnar ef þær hafa verið settar upp í "
-"fyrri uppsetningum."
-
-#: ../textw/partitioning_text.py:257
-msgid "Check for bad blocks during format"
-msgstr "Athuga með gallaðar blokkir um leið og forsniðið er"
-
-#: ../textw/partitioning_text.py:262
-msgid "Choose Partitions to Format"
-msgstr "Veldu disksneiðar sem á að forsníða"
-
-#: ../textw/partitioning_text.py:341
-msgid "Root filesystem size"
-msgstr "Stærð rótarskráarkerfis"
-
-#: ../textw/partitioning_text.py:342
-msgid "Swap space"
-msgstr "Diskminni"
-
-#: ../textw/partitioning_text.py:352 ../textw/partitioning_text.py:358
-#: ../textw/partitioning_text.py:365
-msgid "Bad Size"
+#: ../textw/partition_text.py:261
+#, fuzzy
+msgid "Fixed Size:"
 msgstr "Ólögleg stærð"
 
-#: ../textw/partitioning_text.py:353
-msgid "The size you enter must be a number."
-msgstr "Þú verður að slá inn tölu."
-
-#: ../textw/partitioning_text.py:359
-#, c-format
-msgid ""
-"The total size must be smaller then the amount of free space on the disk, "
-"which is %d megabytes."
+#: ../textw/partition_text.py:263
+msgid "Fill maximum size of (MB):"
 msgstr ""
-"Samanlögð stærð disksneiða verður að vera minni en laust diskpláss á disknum "
-"sem er %d megabæti."
 
-#: ../textw/partitioning_text.py:366
-msgid ""
-"Neither the root file system size nor the swap space size may be greater "
-"then 2000 megabytes."
+#: ../textw/partition_text.py:267
+msgid "Fill all available space:"
 msgstr ""
-"Hvorki rótarskráarkerfið né diskminnið mega vera stærri en 2000 megabæti."
+
+#: ../textw/partition_text.py:363
+msgid "Number of spares?"
+msgstr ""
+
+#: ../textw/partition_text.py:375
+#, fuzzy
+msgid "Add partition"
+msgstr "Rótarsneið"
+
+#: ../textw/partition_text.py:548
+#, fuzzy
+msgid "Make RAID Device"
+msgstr "_Búa til RAID tæki"
+
+#: ../textw/partition_text.py:657
+#, fuzzy
+msgid "Not a Partition"
+msgstr "Engin diskminnissneið"
+
+#: ../textw/partition_text.py:658
+#, fuzzy
+msgid "You must select a partition to edit"
+msgstr "Þú verður að velja að minnsta kosti eitt tungumál til að setja inn."
+
+#: ../textw/partition_text.py:688 ../textw/partition_text.py:703
+#: ../textw/partition_text.py:710 ../textw/partition_text.py:728
+#, fuzzy
+msgid "Unable to Remove"
+msgstr "Get ekki lesið skrá!"
+
+#: ../textw/partition_text.py:689 ../textw/partition_text.py:729
+#, fuzzy
+msgid "You cannot remove this partition as it is part of a RAID device"
+msgstr ""
+"Þú getur ekki fjarlægt \"/boot\" ef \"/\" er á RAID tæki. Færðu \"/\" á tæki "
+"sem er ekki RAID fyrst."
+
+#: ../textw/partition_text.py:711
+msgid "You cannot remove freespace"
+msgstr ""
+
+#: ../textw/partition_text.py:766
+#, fuzzy
+msgid "Partitioning"
+msgstr "Disksneið"
+
+#: ../textw/partition_text.py:776
+#, fuzzy
+msgid "RAID"
+msgstr "<RAID>"
+
+#: ../textw/partition_text.py:779
+#, fuzzy
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
+msgstr ""
+"    F1-Hjálp   F2-Bæta við  F3-Breyta   F4-Eyða   F5-Frumstilla  F12-Í lagi  "
+
+#: ../libfdisk/newtfsedit.c:1613 ../textw/partition_text.py:803
+msgid "No Root Partition"
+msgstr "Engin rótarsneið"
+
+#: ../textw/partition_text.py:804
+#, fuzzy
+msgid "Must have a / partition to install on."
+msgstr ""
+"Þú verður að skilgreina diskminnissneið svo uppsetningin geti haldið áfram."
+
+#: ../textw/partition_text.py:824 ../textw/partmethod_text.py:35
+#, fuzzy
+msgid "Autopartitioning"
+msgstr "Sneiða diskinn sjálfvirkt"
+
+#: ../textw/partition_text.py:830
+#, fuzzy
+msgid "Remove no partitions"
+msgstr "Fjarlægja Linux disksneiðar"
+
+#: ../textw/partition_text.py:842
+msgid "Clear Partitions on These Drives:"
+msgstr ""
+
+#: ../textw/partmethod_text.py:35
+msgid "Disk Druid"
+msgstr "Diska Drúídi"
+
+#: ../textw/progress_text.py:66
+msgid "Package Installation"
+msgstr "Uppsetning pakka"
+
+#: ../textw/progress_text.py:68
+msgid "Name   : "
+msgstr "Heiti  : "
+
+#: ../textw/progress_text.py:69
+msgid "Size   : "
+msgstr "Stærð  : "
+
+#: ../textw/progress_text.py:70
+msgid "Summary: "
+msgstr "Lýsing : "
+
+#: ../textw/progress_text.py:96
+msgid "    Packages"
+msgstr "    Pakkar"
+
+#: ../textw/progress_text.py:97
+msgid "       Bytes"
+msgstr "       Bæti"
+
+#: ../textw/progress_text.py:98
+msgid "        Time"
+msgstr "        Tími"
+
+#: ../textw/progress_text.py:100
+msgid "Total    :"
+msgstr "Alls     :"
+
+#: ../textw/progress_text.py:107
+msgid "Completed:   "
+msgstr "Lokið    :   "
+
+#: ../textw/progress_text.py:117
+msgid "Remaining:  "
+msgstr "Eftir    :  "
+
+#: ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../textw/silo_text.py:213
+msgid "SILO Configuration"
+msgstr "Stillingar SILO"
 
 #: ../textw/silo_text.py:66
 msgid "Create PROM alias `linux'"
@@ -2708,55 +2625,60 @@ msgstr "Stilli sjálfgefna ræsitækið í PROM"
 msgid "Edit Boot Label"
 msgstr "Breyta ræsimerki"
 
-#: ../textw/timezone_text.py:71
+#: ../textw/timezone_text.py:67
 msgid "What time zone are you located in?"
 msgstr "Í hvaða tímabelti ertu?"
 
-#: ../textw/timezone_text.py:86
+#: ../textw/timezone_text.py:82
 msgid "Hardware clock set to GMT?"
 msgstr "Vélbúnaðarklukkan stillt á GMT?"
 
-#: ../textw/upgrade_text.py:19 ../textw/upgrade_text.py:138
+#: ../textw/upgrade_text.py:16
+#, c-format
 msgid ""
-"If you would like to exit the upgrade select Exit, or choose Ok to continue "
-"with the upgrade."
+"The 2.4 kernel needs significantly more swap than older kernels, as much as "
+"twice as much swap space as RAM on the system. You currently have %dMB of "
+"swap configured, but you may create additional swap space on one of your "
+"file systems now."
 msgstr ""
-"Veldi hætta ef þú vilt hætta við uppfærsluna eða veldu Í lagi til að halda "
-"uppfærslunni áfram."
+"Linux 2.4 kjarninn þarfnast meira diskminnis en endri kjarnar. Magn "
+"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að stærð."
+"Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
+"diskminni á einhverju af skráarkerfunum þínum núna."
 
-#: ../textw/upgrade_text.py:56
+#: ../textw/upgrade_text.py:34
 msgid "Free Space"
 msgstr "Laust pláss"
 
-#: ../textw/upgrade_text.py:71
+#: ../textw/upgrade_text.py:49
 msgid "Suggested size (MB):"
 msgstr "Stærðartillaga (MB):"
 
-#: ../textw/upgrade_text.py:82
+#: ../textw/upgrade_text.py:60
 msgid "Add Swap"
 msgstr "Bæta við diskminni"
 
-#: ../textw/upgrade_text.py:108
+#: ../textw/upgrade_text.py:85
 msgid "The value you entered is not a valid number."
 msgstr "Það sem þú slóst inn er ekki gild tala."
 
-#: ../textw/upgrade_text.py:153
+#: ../textw/upgrade_text.py:117
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Þú ert ekki með neinar Linux disksneiðar. Það er ekki hægt að uppfæra!"
 
-#: ../textw/upgrade_text.py:170
+#: ../textw/upgrade_text.py:134
 msgid "System to Upgrade"
 msgstr "Kerfi sem á að uppfæra"
 
-#: ../textw/upgrade_text.py:188
+#: ../textw/upgrade_text.py:148
 msgid "Upgrade Partition"
 msgstr "Uppfæra disksneið"
 
-#: ../textw/upgrade_text.py:205
+#: ../textw/upgrade_text.py:170
 msgid "Customize Packages to Upgrade"
 msgstr "Velja pakka sem skal uppfæra"
 
-#: ../textw/upgrade_text.py:206
+#: ../textw/upgrade_text.py:171
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -2766,7 +2688,11 @@ msgstr ""
 "uppfylla skilyrði þeirra hafa verið valdir til uppsetningar. Viltu skoða "
 "listann og kannski breyta honum?"
 
-#: ../textw/userauth_text.py:11
+#: ../textw/userauth_text.py:8
+msgid "Root Password"
+msgstr "Rótarlykilorð"
+
+#: ../textw/userauth_text.py:10
 msgid ""
 "Pick a root password. You must type it twice to ensure you know what it is "
 "and didn't make a mistake in typing. Remember that the root password is a "
@@ -2776,82 +2702,82 @@ msgstr ""
 "vitir örugglega hvað það er og þú hafir ekki slegið það rangt inn. Mundu að "
 "rótarlykilorðið er mjög mikilvægur þáttur í öryggi vélarinnar!"
 
-#: ../loader/urls.c:345 ../textw/userauth_text.py:24
-msgid "Password:"
-msgstr "Lykilorð:"
-
-#: ../textw/userauth_text.py:25
+#: ../textw/userauth_text.py:24
 msgid "Password (again):"
 msgstr "Lykilorð (aftur):"
 
-#: ../textw/userauth_text.py:41 ../textw/userauth_text.py:108
+#: ../textw/userauth_text.py:40 ../textw/userauth_text.py:107
 msgid "Password Length"
 msgstr "Lengd lykilorðs"
 
-#: ../textw/userauth_text.py:42
+#: ../textw/userauth_text.py:41
 msgid "The root password must be at least 6 characters long."
 msgstr "Rótarlykilorðið verður að vera a.m.k. 6 stafir að lengd."
 
-#: ../textw/userauth_text.py:46 ../textw/userauth_text.py:116
+#: ../textw/userauth_text.py:45 ../textw/userauth_text.py:115
 msgid "Password Mismatch"
 msgstr "Lykilorð stemmir ekki"
 
-#: ../textw/userauth_text.py:47 ../textw/userauth_text.py:117
+#: ../textw/userauth_text.py:46 ../textw/userauth_text.py:116
 msgid "The passwords you entered were different. Please try again."
 msgstr "Lykilorðin sem þú slóst inn eru ekki eins. Reyndu aftur."
 
-#: ../textw/userauth_text.py:72
-msgid "Edit User"
-msgstr "Breyta notanda"
-
-#: ../textw/userauth_text.py:75
+#: ../textw/userauth_text.py:74
 msgid "Add User"
 msgstr "Bæta við notanda"
 
-#: ../textw/userauth_text.py:80
+#: ../textw/userauth_text.py:79
 msgid "User ID"
 msgstr "Notandanafn"
 
-#: ../textw/userauth_text.py:95
+#: ../textw/userauth_text.py:80
+msgid "Password"
+msgstr "Lykilorð"
+
+#: ../textw/userauth_text.py:81
+msgid "Password (confirm)"
+msgstr "Lykilorð (aftur)"
+
+#: ../textw/userauth_text.py:94
 msgid "Bad User ID"
 msgstr "Ólöglegt notandanafn"
 
-#: ../textw/userauth_text.py:96
+#: ../textw/userauth_text.py:95
 msgid ""
-"User IDs must be less than 8 characters and contain only characters A-Z, "
-"a-z, and 0-9."
+"User IDs must be less than 8 characters and contain only characters A-Z, a-"
+"z, and 0-9."
 msgstr ""
 "Notandanöfn verða að vera minna en 8 stafir að lengd og mega einungis \n"
 "innihalda stafina A-Z, a-z og 0-9."
 
-#: ../textw/userauth_text.py:103
+#: ../textw/userauth_text.py:102
 msgid "Missing User ID"
 msgstr "Notandanafn vantar"
 
-#: ../textw/userauth_text.py:104
+#: ../textw/userauth_text.py:103
 msgid "You must provide a user ID"
 msgstr "Þú verður að gefa upp notandanafn"
 
-#: ../textw/userauth_text.py:109
+#: ../textw/userauth_text.py:108
 msgid "The password must be at least 6 characters long."
 msgstr "Lykilorðið verður að vera a.m.k. 6 stafir að lengd."
 
-#: ../textw/userauth_text.py:125 ../textw/userauth_text.py:133
+#: ../textw/userauth_text.py:124 ../textw/userauth_text.py:132
 msgid "User Exists"
 msgstr "Notandinn er þegar til"
 
-#: ../textw/userauth_text.py:126
+#: ../textw/userauth_text.py:125
 msgid ""
 "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Þegar er búið að skilgreina rótarnotandann. Þú þarft ekki að bæta honum við "
 "hér."
 
-#: ../textw/userauth_text.py:134
+#: ../textw/userauth_text.py:133
 msgid "This user id already exists.  Choose another."
 msgstr "Þessi notandi er þegar til. Veldu annað notandanafn."
 
-#: ../textw/userauth_text.py:161
+#: ../textw/userauth_text.py:160
 msgid ""
 "You should use a normal user account for most activities on your system. By "
 "not using the root account casually, you'll reduce the chance of disrupting "
@@ -2861,7 +2787,11 @@ msgstr ""
 "vélinni. Með því að nota rótaraðganginn sem minnst minnkar þú hættuna á að "
 "valda skemmdum á grunnstillingum vélarinnar."
 
-#: ../textw/userauth_text.py:174
+#: ../textw/userauth_text.py:171
+msgid "User Account Setup"
+msgstr "Búa til notanda"
+
+#: ../textw/userauth_text.py:173
 msgid ""
 "What user account would you like to have on the system? You should have at "
 "least one non-root account for normal work, but multi-user systems can have "
@@ -2871,75 +2801,279 @@ msgstr ""
 "einn notandaaðgang, sem er ekki rót fyrir dagleg störf. Fjölnotandavélar "
 "geta haft ótakmarkaðan fjölda notenda."
 
-#: ../textw/userauth_text.py:184
+#: ../textw/userauth_text.py:183
 msgid "User name"
 msgstr "Notandanafn"
 
-#: ../textw/userauth_text.py:211
+#: ../textw/userauth_text.py:210
 msgid "Enter the information for the user."
 msgstr "Sláðu inn upplýsingar um þennan notanda."
 
-#: ../textw/userauth_text.py:229
+#: ../textw/userauth_text.py:228
 msgid "Change the information for this user."
 msgstr "Breyta upplýsingum þessa notanda."
 
-#: ../textw/userauth_text.py:301
+#: ../textw/userauth_text.py:300
 msgid "Use Shadow Passwords"
 msgstr "Nota falin lykilorð"
 
-#: ../textw/userauth_text.py:303
+#: ../textw/userauth_text.py:302
 msgid "Enable MD5 Passwords"
 msgstr "Nota MD5 lykilorð"
 
-#: ../textw/userauth_text.py:314
+#: ../textw/userauth_text.py:313
 msgid "NIS Domain:"
 msgstr "NIS lén:"
 
-#: ../textw/userauth_text.py:316
+#: ../textw/userauth_text.py:315
 msgid "NIS Server:"
 msgstr "NIS þjónn:"
 
-#: ../textw/userauth_text.py:318
+#: ../textw/userauth_text.py:317
 msgid "or use:"
 msgstr "eða nota:"
 
-#: ../textw/userauth_text.py:321
+#: ../textw/userauth_text.py:320
 msgid "Request server via broadcast"
 msgstr "Kalla eftir þjóni"
 
-#: ../textw/userauth_text.py:360
+#: ../textw/userauth_text.py:359
 msgid "Use TLS connections"
 msgstr "Nota TLS tengingar"
 
-#: ../installclasses/custom.py:10
+#: ../textw/welcome_text.py:8 ../textw/welcome_text.py:27
+msgid "Red Hat Linux"
+msgstr "Red Hat Linux"
+
+#: ../textw/welcome_text.py:9
+#, fuzzy
+msgid ""
+"Welcome to Red Hat Linux!\n"
+"\n"
+"This installation process is outlined in detail in the Official Red Hat "
+"Linux Installation Guide available from Red Hat, Inc. If you have access to "
+"this manual, you should read the installation section before continuing.\n"
+"\n"
+"If you have purchased Official Red Hat Linux, be sure to register your "
+"purchase through our web site, http://www.redhat.com/."
+msgstr ""
+"Velkomin(n) í Red Hat Linux!\n"
+"\n"
+"Uppsetningin er útskýrð í smáatriðum í 'Red Hat Linux Installation Guide' "
+"bókinni sem er fáanleg frá Red Hat Software. Ef þú hefur aðgang að þessari "
+"bók ættir þú að lesa um uppsetninguna áður en þú heldur áfram.\n"
+"\n"
+"Ef þú hefur keypt opinbert eintak Red Hat Linux mundu þá að skrá það á "
+"vefsíðu okkar á http://www.redhat.com."
+
+#: ../textw/welcome_text.py:28
+msgid ""
+"Welcome to the Red Hat Linux!\n"
+"\n"
+"You have entered reconfiguration mode, which will allow you to configure "
+"site-specific options of your computer.\n"
+"\n"
+"To exit without changing your setup select the Cancel button below."
+msgstr ""
+"Velkomin(n) í Red Hat Linux!\n"
+"\n"
+"þú ert kominn í breytingarham, sem leyfir þér að sérsníða uppsetningu "
+"vélarinnar að breyttum aðstæðum. \n"
+"\n"
+"Ef þú vilt hætta án þess að gera neinar breytingar veldu þá Hætta við "
+"hnappinn að neðan."
+
+#: ../textw/xconfig_text.py:11
+#, fuzzy
+msgid "Color Depth"
+msgstr "Litadýpt:"
+
+#: ../textw/xconfig_text.py:12
+msgid "Please select the color depth you would like to use:"
+msgstr ""
+
+#: ../textw/xconfig_text.py:30
+#, fuzzy
+msgid "Resolution"
+msgstr "Upplausn skjás:"
+
+#: ../textw/xconfig_text.py:31
+msgid "Please select the resolution you would like to use:"
+msgstr ""
+
+#: ../textw/xconfig_text.py:148 ../textw/xconfig_text.py:157
+#, fuzzy
+msgid "Test"
+msgstr "Texti"
+
+#: ../textw/xconfig_text.py:151
+#, fuzzy
+msgid "X Customization"
+msgstr "Stillingar X"
+
+#: ../textw/xconfig_text.py:154
+#, c-format
+msgid ""
+"Select the color depth and video mode you want to use for your system. Use "
+"the '%s' button to test the video mode."
+msgstr ""
+
+#: ../textw/xconfig_text.py:164 ../textw/xconfig_text.py:171
+#: ../textw/xconfig_text.py:380 ../textw/xconfig_text.py:391
+#: ../textw/xconfig_text.py:547 ../textw/xconfig_text.py:554
+#, fuzzy
+msgid "Change"
+msgstr "Skipta um geisladisk"
+
+#: ../textw/xconfig_text.py:167
+#, fuzzy
+msgid "Resolution:"
+msgstr "Upplausn skjás:"
+
+#: ../textw/xconfig_text.py:177
+#, fuzzy
+msgid "Default Desktop:"
+msgstr "Sjálfgefið"
+
+#: ../textw/xconfig_text.py:197
+#, fuzzy
+msgid "Default Login:"
+msgstr "Sjálfgefið tungumál"
+
+#: ../textw/xconfig_text.py:249
+#, fuzzy
+msgid "Please select the monitor attached to your system."
+msgstr "Vinsamlegast veldu tækið sem inniheldur rótarskráarkerfið: "
+
+#: ../textw/xconfig_text.py:266
+msgid "Monitor Sync Rates"
+msgstr ""
+
+#: ../textw/xconfig_text.py:271
+msgid ""
+"Please enter the sync rates for your monitor. \n"
+"\n"
+"NOTE - it is not usually necessary to edit sync rates manually, and care "
+"should be taken to make sure the values entered are accurate."
+msgstr ""
+
+#: ../textw/xconfig_text.py:276
+msgid "HSync Rate: "
+msgstr ""
+
+#: ../textw/xconfig_text.py:281
+msgid "VSync Rate: "
+msgstr ""
+
+#: ../textw/xconfig_text.py:305
+#, fuzzy
+msgid "horizontal"
+msgstr "Lárétt samhæfing:"
+
+#: ../textw/xconfig_text.py:308
+#, fuzzy
+msgid "vertical"
+msgstr "Lóðrétt samhæfing:"
+
+#: ../textw/xconfig_text.py:317
+#, fuzzy
+msgid "Invalid Sync Rates"
+msgstr "Ógilt val"
+
+#: ../textw/xconfig_text.py:318
+#, c-format
+msgid ""
+"The %s sync rate is invalid:\n"
+"\n"
+"      %s\n"
+"\n"
+"A valid sync rate can be of the form:\n"
+"\n"
+"      31.5                   a single number\n"
+"    50.1-90.2                a range of numbers\n"
+"31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
+msgstr ""
+
+#: ../textw/xconfig_text.py:372
+#, c-format
+msgid ""
+"Select the monitor for your system.  Use the '%s' button to reset to the "
+"probed values."
+msgstr ""
+
+#: ../textw/xconfig_text.py:376
+#, fuzzy
+msgid "Monitor:"
+msgstr "Skjár"
+
+#: ../textw/xconfig_text.py:383
+msgid "HSync Rate:"
+msgstr ""
+
+#: ../textw/xconfig_text.py:393
+msgid "VSync Rate:"
+msgstr ""
+
+#: ../textw/xconfig_text.py:463
+#, c-format
+msgid ""
+"Please select the video card present in your system.  Choose '%s' to reset "
+"the selection to the card the installer detected in your system."
+msgstr ""
+
+#: ../textw/xconfig_text.py:481
+#, fuzzy
+msgid "Video RAM"
+msgstr "Skjáminni"
+
+#: ../textw/xconfig_text.py:482
+#, c-format
+msgid ""
+"Please select the amount of video RAM present on your video card. Choose '%"
+"s' to reset the selection to the amount the installer detected on your card."
+msgstr ""
+
+#: ../textw/xconfig_text.py:537
+#, fuzzy
+msgid "Video Card Configuration"
+msgstr "Stillingar lyklaborðs"
+
+#: ../textw/xconfig_text.py:540
+msgid "Select the video card and video RAM for your system."
+msgstr ""
+
+#: ../textw/xconfig_text.py:543
+#, fuzzy
+msgid "Video Card:"
+msgstr "Skjákort"
+
+#: ../textw/xconfig_text.py:550
+#, fuzzy
+msgid "Video RAM:"
+msgstr "Vinnsluminni skjákorts: "
+
+#: ../installclasses/custom.py:12
 msgid "Custom System"
 msgstr "Sérsniðið kerfi"
-
-#: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-msgid ""
-"Automatic partitioning will erase any preexisting Linux installations on "
-"your system."
-msgstr ""
-"Sjálfvirk disksneiðing mun eyða öllum linux disksneiðum sem gætu verið til "
-"staðar á vélinni þinni."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
 msgstr "Fartölvu"
 
-#: ../installclasses/server.py:9
+#: ../installclasses/server.py:12
 msgid "Server System"
 msgstr "Þjón"
 
-#: ../installclasses/server.py:38
-msgid ""
-"Automatic partitioning will erase ALL DATA on your hard drive to make room "
-"for your Linux installation."
-msgstr ""
-"Sjálfvirk disksneiðing mun eyða ÖLLUM GÖGNUM af harða disknum þínum til að "
-"búa til pláss fyrir Linux."
+#: ../installclasses/upgradeclass.py:8
+#, fuzzy
+msgid "Upgrade Existing System"
+msgstr "Uppfæra kerfi"
 
-#: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
+#: ../installclasses/upgradeclass.py:12
+msgid "Upgrade"
+msgstr "Uppfæra"
+
+#: ../installclasses/workstation.py:12 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
 msgstr "Vinnustöð"
 
@@ -2995,8 +3129,8 @@ msgstr ""
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
-"system. Additionally, there will be a speed penalty for not using "
-"Linux-native partitions. Do you want to continue?"
+"system. Additionally, there will be a speed penalty for not using Linux-"
+"native partitions. Do you want to continue?"
 msgstr ""
 "Þú hefur farið fram á að hafa rótarskráarkerfið (/) á DOS FAT disksneið. "
 "Þetta er mögulegt, en þá er ekki hægt að nota aðrar gerðir skráarkerfa í "
@@ -3076,11 +3210,6 @@ msgid ""
 "error was"
 msgstr ""
 "Villa kom upp við lestur disksneiðatöflunnar á blokkatæki %s. Villan var"
-
-#: ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1463 ../loader/net.c:277
-#: ../loader/net.c:402
-msgid "Retry"
-msgstr "Reyna aftur"
 
 #: ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1428
 #: ../libfdisk/fsedit.c:1450 ../libfdisk/fsedit.c:1456
@@ -3218,11 +3347,6 @@ msgstr ""
 msgid "Edit Partition"
 msgstr "Breyta disksneið"
 
-#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
-#: ../libfdisk/newtfsedit.c:392
-msgid "Mount Point:"
-msgstr "Tengipunktur:"
-
 #: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
 msgid "Size (Megs):"
 msgstr "Stærð (Megab.):"
@@ -3252,10 +3376,6 @@ msgstr "Ástæða:"
 #: ../libfdisk/gnomefsedit.c:1051 ../libfdisk/gnomefsedit.c:2071
 msgid "Partition Type:"
 msgstr "Tegund disksneiðar:"
-
-#: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:527
-msgid "Allowable Drives:"
-msgstr "Leyfileg drif:"
 
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
 #: ../libfdisk/newtfsedit.c:618
@@ -3737,10 +3857,6 @@ msgstr "Drifin þín"
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
 msgstr "  Drif     Uppby.[C/H/S]      Alls     Notað   Laust"
 
-#: ../libfdisk/newtfsedit.c:1613
-msgid "No Root Partition"
-msgstr "Engin rótarsneið"
-
 #: ../libfdisk/newtfsedit.c:1614
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
@@ -3829,7 +3945,7 @@ msgid "Module Parameters"
 msgstr "Viðföng kjarnarekla"
 
 #: ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:358
-#: ../loader/loader.c:289 ../loader/loader.c:350 ../loader/loader.c:366
+#: ../loader/loader.c:290 ../loader/loader.c:351 ../loader/loader.c:367
 msgid "Devices"
 msgstr "Tæki"
 
@@ -3880,7 +3996,7 @@ msgstr "Gat ekki tengt rekladisklinginn: %s."
 msgid "The wrong diskette was inserted."
 msgstr "Réttur disklingur fór ekki inn."
 
-#: ../loader/devices.c:513 ../loader/loader.c:453 ../loader/loader.c:455
+#: ../loader/devices.c:513
 msgid "Loading"
 msgstr "Les inn"
 
@@ -3917,25 +4033,29 @@ msgstr "Villa við lestur hraðuppsetningarskráar %s: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "Villa í línu %d í hraðuppsetningarskrá %s."
 
-#: ../loader/lang.c:292
-msgid "Choose a Language"
-msgstr "Veldu tungumál"
-
-#: ../loader/lang.c:344 ../loader/loader.c:155
+#: ../loader/lang.c:40 ../loader/loader.c:155
 msgid "Welcome to Red Hat Linux"
 msgstr "Velkomin(n) í Red Hat Linux"
 
-#: ../loader/lang.c:345 ../loader/loader.c:157
+#: ../loader/lang.c:41 ../loader/loader.c:157
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
 
-#: ../loader/lang.c:583
+#: ../loader/lang.c:295
+msgid "Choose a Language"
+msgstr "Veldu tungumál"
+
+#: ../loader/lang.c:295
+msgid "What language should be used during the installation process?"
+msgstr "Hvaða tungumál viltu nota meðan á uppsetningu stendur?"
+
+#: ../loader/lang.c:590
 msgid "Keyboard Type"
 msgstr "Stillingar lyklaborðs"
 
-#: ../loader/lang.c:584
+#: ../loader/lang.c:591
 msgid "What type of keyboard do you have?"
 msgstr "Hvernig lyklaborð ertu með?"
 
@@ -3951,23 +4071,27 @@ msgstr "NFS svæði"
 msgid "Hard drive"
 msgstr "Harðir diskar"
 
-#: ../loader/loader.c:276
+#: ../loader/loader.c:277
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:290
+#: ../loader/loader.c:291
 msgid "What kind of device would you like to add"
 msgstr "Hverskonar tæki viltu bæta við"
 
-#: ../loader/loader.c:339
+#: ../loader/loader.c:340
 msgid "I have found the following devices in your system:"
 msgstr "Eftirfarandi tæki hafa fundist í vélinni þinni:"
 
-#: ../loader/loader.c:341 ../loader/loader.c:366
+#: ../loader/loader.c:342 ../loader/loader.c:367
+msgid "Done"
+msgstr "Búið"
+
+#: ../loader/loader.c:342 ../loader/loader.c:367
 msgid "Add Device"
 msgstr "Bæta við tæki"
 
-#: ../loader/loader.c:367
+#: ../loader/loader.c:368
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -3975,25 +4099,16 @@ msgstr ""
 "Það eru engir sérstakir tækjareklar í notkun fyrir vélina þína. Viltu lesa "
 "einhverja inn núna?"
 
-#: ../loader/loader.c:510
-#, c-format
-msgid "Loading %s ramdisk..."
-msgstr "Les inn %s RAM-disklinginn..."
-
-#: ../loader/loader.c:520
-msgid "Error loading ramdisk."
-msgstr "Villa við lestur RAM-disklings."
-
-#: ../loader/loader.c:585 ../loader/loader.c:2166
+#: ../loader/loader.c:500 ../loader/loader.c:2072
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Gat ekki lesið möppuna %s: %s"
 
-#: ../loader/loader.c:873
+#: ../loader/loader.c:782
 msgid "Hard Drives"
 msgstr "Harðir diskar"
 
-#: ../loader/loader.c:874
+#: ../loader/loader.c:783
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -4001,7 +4116,7 @@ msgstr ""
 "Þú virðist ekki vera með neina harða diska í vélinni! Viltu stilla önnur "
 "tæki?"
 
-#: ../loader/loader.c:888
+#: ../loader/loader.c:797
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
@@ -4011,33 +4126,33 @@ msgstr ""
 "Red Hat Linux? Ef þú sérð ekki diskinn í listanum ýttu þá á F2 til að bæta "
 "við tækjum."
 
-#: ../loader/loader.c:902
+#: ../loader/loader.c:811
 msgid "Directory holding images:"
 msgstr "Mappa sem inniheldur diskmyndinar:"
 
-#: ../loader/loader.c:922
+#: ../loader/loader.c:831
 msgid "Select Partition"
 msgstr "Veldu disksneið"
 
-#: ../loader/loader.c:970
+#: ../loader/loader.c:879
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Tæki %s virðist ekki innihalda Red Hat diskmyndir."
 
-#: ../loader/loader.c:1025
+#: ../loader/loader.c:934
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 "Red Hat Linux geisladiskurinn fannst ekki í neinu tiltæku geisladrifi. "
-"Vinsamlegast settu Red Hat geisladiskinn í viðeigandi drif og veldu \"Í "
-"lagi\" til að reyna aftur."
+"Vinsamlegast settu Red Hat geisladiskinn í viðeigandi drif og veldu \"Í lagi"
+"\" til að reyna aftur."
 
-#: ../loader/loader.c:1112
+#: ../loader/loader.c:1023
 msgid "Networking Device"
 msgstr "Netkort"
 
-#: ../loader/loader.c:1113
+#: ../loader/loader.c:1024
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -4045,61 +4160,57 @@ msgstr ""
 "Þú hefur fleiri en eitt netkort í vélinni þinni. Hvert þeirra villtu nota "
 "við uppsetninguna?"
 
-#: ../loader/loader.c:1195
+#: ../loader/loader.c:1106
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Þetta skráakerfi virðist ekki innihalda Red Hat uppsetningartré."
 
-#: ../loader/loader.c:1200
+#: ../loader/loader.c:1111
 msgid "I could not mount that directory from the server"
 msgstr "Ekki tókst að tengja þetta skráakerfi frá þjóninum"
 
-#: ../loader/loader.c:1241 ../loader/loader.c:1250
+#: ../loader/loader.c:1152
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../loader/loader.c:1242
+#: ../loader/loader.c:1153
 msgid "Unable to retrieve the first install image"
 msgstr "Get ekki sótt fyrstu uppsetningardiskmyndina"
 
-#: ../loader/loader.c:1251
-msgid "Unable to retrieve the second install image"
-msgstr "Get ekki sótt seinni uppsetningardiskmyndina"
-
-#: ../loader/loader.c:1281
+#: ../loader/loader.c:1183
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
 "FTP og HTTP uppsetningaraðferðirnar þarfnar 20MB eða meira af vinnsluminni."
 
-#: ../loader/loader.c:1511
+#: ../loader/loader.c:1413
 msgid "Rescue Method"
 msgstr "Gerð neyðardisklings"
 
-#: ../loader/loader.c:1512
+#: ../loader/loader.c:1414
 msgid "Installation Method"
 msgstr "Tegund uppsetningar"
 
-#: ../loader/loader.c:1514
+#: ../loader/loader.c:1416
 msgid "What type of media contains the rescue image?"
 msgstr "Á hverskonar miðli er neyðardisklingurinn?"
 
-#: ../loader/loader.c:1516
+#: ../loader/loader.c:1418
 msgid "What type of media contains the packages to be installed?"
 msgstr "Hverskonar kerfi viltu setja upp?"
 
-#: ../loader/loader.c:2136
+#: ../loader/loader.c:2042
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Gat ekki fundið ks.cfg á ræsidisklingnum."
 
-#: ../loader/loader.c:2228
+#: ../loader/loader.c:2134
 msgid "Updates Disk"
 msgstr "Uppfærsludiskur"
 
-#: ../loader/loader.c:2229
+#: ../loader/loader.c:2135
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
 "Settu uppfærsludisklinginn í drifið og veldu \"Í lagi\" til að halda áfram."
 
-#: ../loader/loader.c:2234
+#: ../loader/loader.c:2140
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
@@ -4107,27 +4218,28 @@ msgstr ""
 "Disklingurinn sem þú settir í drifið er ekki gildur uppfærsludisklingur "
 "fyrir þessa útgáfu af Red Hat Linux."
 
-#: ../loader/loader.c:2244
+#: ../loader/loader.c:2150
 msgid "Failed to mount floppy disk."
 msgstr "Gat ekki tengt disklinginn."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2249
+#: ../loader/loader.c:2155
 msgid "Updates"
 msgstr "Uppfærslur"
 
-#: ../loader/loader.c:2249
+#: ../loader/loader.c:2155
 msgid "Reading anaconda updates..."
 msgstr "Les inn uppfærslur fyrir anaconda..."
 
-#: ../loader/loader.c:2455
-msgid "You don't have enough system memory to install Red Hat on this machine."
+#: ../loader/loader.c:2361
+#, fuzzy
+msgid "You do not have enough RAM to install Red Hat Linux on this machine."
 msgstr ""
 "Það er ekki nægjanlegt vinnsluminni í vélinni til að setja upp Red Hat Linux"
 
-#: ../loader/loader.c:2917
+#: ../loader/loader.c:2849
 msgid "Running anaconda - please wait...\n"
 msgstr "Keyri anaconda - Vinsamlegast bíðið...\n"
 
@@ -4161,7 +4273,7 @@ msgstr ""
 msgid "Nameserver IP"
 msgstr "IP vistfang nafnaþjóns"
 
-#: ../loader/net.c:266 ../loader/net.c:769
+#: ../loader/net.c:266 ../loader/net.c:760
 msgid "Nameserver"
 msgstr "Nafnaþjónn"
 
@@ -4209,69 +4321,69 @@ msgstr "Upplýsingar vantar"
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Þú verður að gefa upp fullgilt IP vistfang og netmöskva."
 
-#: ../loader/net.c:411 ../loader/net.c:703
+#: ../loader/net.c:411 ../loader/net.c:694
 msgid "Dynamic IP"
 msgstr "Lausbundið IP"
 
-#: ../loader/net.c:412 ../loader/net.c:704
+#: ../loader/net.c:412 ../loader/net.c:695
 msgid "Sending request for IP information..."
 msgstr "Sendi beiðni um IP stillingar..."
 
-#: ../loader/net.c:576
+#: ../loader/net.c:567
 msgid "Determining host name and domain..."
 msgstr "Reyni að ákvarða vélarheiti og netlén..."
 
-#: ../loader/net.c:687 ../loader/net.c:720
+#: ../loader/net.c:678 ../loader/net.c:711
 msgid "kickstart"
 msgstr "hraðuppsetning"
 
-#: ../loader/net.c:688
+#: ../loader/net.c:679
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "óleyfilegt viðfang við netskipun hraðuppsetningar %s: %s"
 
-#: ../loader/net.c:721
+#: ../loader/net.c:712
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Óleyfileg ''bootproto' %s í netskipun hraðuppsetningar"
 
-#: ../loader/net.c:763
+#: ../loader/net.c:754
 msgid "Boot protocol to use"
 msgstr "Ræsimáti"
 
-#: ../loader/net.c:765
+#: ../loader/net.c:756
 msgid "Network gateway"
 msgstr "Gátt nets"
 
-#: ../loader/net.c:767
+#: ../loader/net.c:758
 msgid "IP address"
 msgstr "IP vistfang"
 
-#: ../loader/net.c:776
+#: ../loader/net.c:767
 msgid "Domain name"
 msgstr "Lén"
 
-#: ../loader/net.c:779
+#: ../loader/net.c:770
 msgid "Network device"
 msgstr "Netkort"
 
-#: ../loader/net.c:851
+#: ../loader/net.c:842
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
 
-#: ../loader/net.c:852
+#: ../loader/net.c:843
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
-#: ../loader/net.c:854
+#: ../loader/net.c:845
 msgid "Network configuration"
 msgstr "Stillingar nets"
 
-#: ../loader/net.c:855
+#: ../loader/net.c:846
 msgid "Would you like to set up networking?"
 msgstr "Viltu setja upp net?"
 
@@ -4314,12 +4426,13 @@ msgid "Retrieving"
 msgstr "Sæki"
 
 #: ../loader/urls.c:160
+#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
 "    o the name or IP number of your FTP server\n"
 "    o the directory on that server containing\n"
-"      Red Hat Linux for your architecture\n"
+"      Red Hat Linux for your architecure\n"
 msgstr ""
 "Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
 "\n"
@@ -4328,12 +4441,13 @@ msgstr ""
 "      Red Hat Linux fyrir vélina þína\n"
 
 #: ../loader/urls.c:169
+#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
 "    o the name or IP number of your web server\n"
 "    o the directory on that server containing\n"
-"      Red Hat Linux for your architecture\n"
+"      Red Hat Linux for your architecure\n"
 msgstr ""
 "Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
 "\n"
@@ -4475,77 +4589,100 @@ msgstr "Skoða: "
 msgid "Base"
 msgstr "Grunnur"
 
-msgid "Printer Support"
+#, fuzzy
+msgid "Printing Support"
 msgstr "Prentarastuðningur"
+
+#, fuzzy
+msgid "Classic X Window System"
+msgstr "X gluggakerfið"
 
 msgid "X Window System"
 msgstr "X gluggakerfið"
 
-msgid "Mail/WWW/News Tools"
-msgstr "Póst/Vef/Fréttatól"
-
-msgid "DOS/Windows Connectivity"
-msgstr "DOS/Windows samskipti"
-
-msgid "Graphics Manipulation"
-msgstr "Umsýsla með grafík"
-
-msgid "Games"
-msgstr "Leikir"
-
-msgid "Multimedia Support"
-msgstr "Margmiðlunarstuðningur"
-
 msgid "Laptop Support"
 msgstr "Kjöltutölvustuðningur"
 
-msgid "Networked Workstation"
-msgstr "Nettengd vinnustöð"
+#, fuzzy
+msgid "Sound and Multimedia Support"
+msgstr "Margmiðlunarstuðningur"
 
-msgid "Dialup Workstation"
-msgstr "Vinnustöð með upphringineti"
+#, fuzzy
+msgid "Network Support"
+msgstr "Stillingar nets"
+
+#, fuzzy
+msgid "Dialup Support"
+msgstr "Kjöltutölvustuðningur"
+
+# ../comps/comps-master:577
+msgid "Messaging and Web Tools"
+msgstr ""
+
+#, fuzzy
+msgid "Graphics and Image Manipulation"
+msgstr "Umsýsla með grafík"
 
 msgid "News Server"
 msgstr "Fréttaþjónn"
 
-msgid "NFS Server"
+#, fuzzy
+msgid "NFS File Server"
 msgstr "NFS þjónn"
 
-msgid "SMB (Samba) Server"
-msgstr "SMB (Samba) þjónn"
-
-msgid "IPX/Netware(tm) Connectivity"
-msgstr "IPX/Netware(tm) samskipti"
+#, fuzzy
+msgid "Windows File Server"
+msgstr "Vefþjónn"
 
 msgid "Anonymous FTP Server"
 msgstr "Þjónn fyrir nafnlaust FTP"
 
-msgid "SQL Server"
+#, fuzzy
+msgid "SQL Database Server"
 msgstr "SQL þjónn"
 
 msgid "Web Server"
 msgstr "Vefþjónn"
 
+#, fuzzy
+msgid "Router / Firewall"
+msgstr "Enginn eldveggur"
+
 msgid "DNS Name Server"
 msgstr "DNS nafnaþjónn"
 
-msgid "Network Management Workstation"
+#, fuzzy
+msgid "Network Managed Workstation"
 msgstr "Vinnustöð til netumsjónar"
 
-msgid "Authoring/Publishing"
+#, fuzzy
+msgid "Authoring and Publishing"
 msgstr "Umbrot/Ritstörf"
 
 msgid "Emacs"
 msgstr "Emacs"
 
-msgid "Development"
-msgstr "Þróun"
+msgid "Utilities"
+msgstr "Tól"
+
+#, fuzzy
+msgid "Legacy Application Support"
+msgstr "Kjöltutölvustuðningur"
+
+#, fuzzy
+msgid "Software Development"
+msgstr "Kjarnaþróun"
 
 msgid "Kernel Development"
 msgstr "Kjarnaþróun"
 
-msgid "Utilities"
-msgstr "Tól"
+# ../comps/comps-master:1055
+msgid "Windows Compatibility / Interoperability"
+msgstr ""
+
+# ../comps/comps-master:1073
+msgid "Games and Entertainment"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Acre"
@@ -4606,12 +4743,9 @@ msgid "Azores"
 msgstr "Azores"
 
 #. generated from zone.tab
-msgid "Bayan-Olgiy, Hovd, Uvs"
+#, fuzzy
+msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 msgstr "Bayan-Olgiy, Hovd, Uvs"
-
-#. generated from zone.tab
-msgid "Borneo & Celebes"
-msgstr "Borneo & Celebes"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -4698,6 +4832,10 @@ msgid "Davis Station, Vestfold Hills"
 msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
+msgid "Dornod, Sukhbaatar (unsure about this)"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
 msgstr "Dumont-d'Urville Base, Terre Adelie"
 
@@ -4714,7 +4852,8 @@ msgid "east Dem. Rep. of Congo"
 msgstr "east Dem. Rep. of Congo"
 
 #. generated from zone.tab
-msgid "Easter Island"
+#, fuzzy
+msgid "Easter Island & Sala y Gomez"
 msgstr "Easter Island"
 
 #. generated from zone.tab
@@ -4786,6 +4925,10 @@ msgstr "east Greenland"
 #. generated from zone.tab
 msgid "east Kazakhstan"
 msgstr "east Kazakhstan"
+
+#. generated from zone.tab
+msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+msgstr ""
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -5131,6 +5274,10 @@ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #. generated from zone.tab
+msgid "west & central Borneo"
+msgstr ""
+
+#. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
 msgstr "west Dem. Rep. of Congo"
 
@@ -5237,6 +5384,513 @@ msgstr "Tyrkneska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
+
+#~ msgid ""
+#~ "The following partitions are newly created, but you have chosen not to "
+#~ "format them. This will probably cause an error later in the install.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Eftirtaldar disksneiðar er nýbúið að búa til en þú hefur kosið að "
+#~ "forsníða þær ekki. Þetta mun líklega valda villum þegar uppsetningin er "
+#~ "lengra komin.\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Press OK to continue, or Cancel to go back and select these partitions to "
+#~ "be formatted (RECOMMENDED)."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Veldu Í lagi til að halda áfram eða Hætta við til að fara til baka og "
+#~ "láta forsníða þessar disksneiðar (MÆLT ER MEÐ ÞESSU)."
+
+#~ msgid ""
+#~ "The kernel is unable to read your new partitioning information, probably "
+#~ "because you modified extended partitions. While this is not critical, you "
+#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk "
+#~ "now and press \"Ok\" to reboot your system.\n"
+#~ msgstr ""
+#~ "Kjarninn getur ekki lesið nýju disksneiðatöfluna, sennilega vegna þess að "
+#~ "þú hefur breytt \"extended\" disksneiðum. Þó þetta sé ekki banvæn villa "
+#~ "verður þú að endurræsa vélina áður en þú getur haldið áfram. Settu inn "
+#~ "Red Hat ræsidiskinn og veldu \"Í lagi\" til að endurræsa.\n"
+
+#~ msgid "Swap Space"
+#~ msgstr "Diskminni"
+
+#~ msgid "Creating swap space..."
+#~ msgstr "Forsníð diskminni..."
+
+#~ msgid "Formatting swap space..."
+#~ msgstr "Forsníð diskminni..."
+
+#~ msgid "Error creating swap on device "
+#~ msgstr "Villa við frumstillingu diskminnis "
+
+#~ msgid "Error unmounting %s: %s"
+#~ msgstr "Villa við aftengingu %s: %s"
+
+#~ msgid "Creating RAID devices..."
+#~ msgstr "Bý til RAID tæki..."
+
+#~ msgid "Loopback"
+#~ msgstr "\"Loopback\""
+
+#~ msgid "Creating loopback filesystem on device /dev/%s..."
+#~ msgstr "Bý til \"loopback\" skráakerfi á tæki /dev/%s..."
+
+#~ msgid "Finish"
+#~ msgstr "Ljúka"
+
+#~ msgid "Online Help"
+#~ msgstr "Innbyggð hjálp"
+
+#~ msgid "Red Hat Linux Install Shell"
+#~ msgstr "Red Hat Linux uppsetningaskel"
+
+#~ msgid "Red Hat Linux Install Shell on %s"
+#~ msgstr "Red Hat Linux uppsetningaskel á %s"
+
+#~ msgid "WARNING: no valid block devices were found.\n"
+#~ msgstr "AÐVÖRUN: engin gild blokkartæki fundust.\n"
+
+#~ msgid "ERROR: unknown error encountered reading partition tables.\n"
+#~ msgstr "VILLA: óþekkt villa kom upp við lestur disksneiðatöflunnar.\n"
+
+#~ msgid "Upgrade Existing Installation"
+#~ msgstr "Uppfæra núverandi kerfi"
+
+#~ msgid "X probe results"
+#~ msgstr "Útkoma X leitar"
+
+#~ msgid "Unlisted Card"
+#~ msgstr "Óþekkt kort"
+
+#~ msgid "Video Card Selection"
+#~ msgstr "Val skjákorts"
+
+#~ msgid "Which video card do you have?"
+#~ msgstr "Hvaða skjákort ertu með?"
+
+#~ msgid "X Server Selection"
+#~ msgstr "Val X þjóns"
+
+#~ msgid "Choose a server"
+#~ msgstr "Veldu þjón"
+
+#~ msgid " "
+#~ msgstr " "
+
+#~ msgid "Hostname Setup"
+#~ msgstr "Stillingar vélarheitis"
+
+#~ msgid "Language Default"
+#~ msgstr "Sjálfgefið tungumál"
+
+#~ msgid "Time Zone Setup"
+#~ msgstr "Stillingar tímabeltis"
+
+#~ msgid "Configuration Complete"
+#~ msgstr "Stillingum lokið"
+
+#~ msgid "LILO Configuration"
+#~ msgstr "Stillingar LILO"
+
+#~ msgid "Automatic Partition"
+#~ msgstr "Sjálfvirk disksneiðing"
+
+#~ msgid "Manually Partition"
+#~ msgstr "Sneiða handvirkt"
+
+#~ msgid "Swap"
+#~ msgstr "Diskminni"
+
+#~ msgid "Boot Partition Warning"
+#~ msgstr "Ræsisneiðaraðvörun"
+
+#~ msgid "Filesystem Formatting"
+#~ msgstr "Forsníða skráakerfi"
+
+#~ msgid "Package Groups"
+#~ msgstr "Pakkahópar"
+
+#~ msgid "Individual Packages"
+#~ msgstr "Stakir pakkar"
+
+#~ msgid "Installation Begins"
+#~ msgstr "Byrjun uppsetningar"
+
+#~ msgid "Boot Disk"
+#~ msgstr "Ræsidisklingur"
+
+#~ msgid "Installation Complete"
+#~ msgstr "Uppsetningu lokið"
+
+#~ msgid "Examine System"
+#~ msgstr "Skoða kerfið"
+
+#~ msgid "System Swap Space"
+#~ msgstr "Diskminni"
+
+#~ msgid "Customize Upgrade"
+#~ msgstr "Sérsníða uppfærslu"
+
+#~ msgid "Upgrade Begins"
+#~ msgstr "Uppfærsla hefst"
+
+#~ msgid "Upgrade Complete"
+#~ msgstr "Uppfærslu lokið"
+
+#~ msgid ""
+#~ "An error occured while installing the bootloader.\n"
+#~ "\n"
+#~ "We HIGHLY recommend you make a recovery boot floppy when prompted, "
+#~ "otherwise you may not be able to reboot into Red Hat Linux.\n"
+#~ "\n"
+#~ "The error reported was:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Villa kom upp við að setja upp ræsistjórann.\n"
+#~ "\n"
+#~ "Við mælum EINDREGIÐ með að þú búir til ræsidiskling þegar þér er boðið "
+#~ "upp á það hér á eftir því annars er sú hætta til staðar að ekki sé hægt "
+#~ "að ræsa upp Red Hat Linux.\n"
+#~ "\n"
+#~ "Villan er:\n"
+#~ "\n"
+
+#~ msgid "Plug and Play Monitor"
+#~ msgstr "'Plug and Play' samhæfður skjár"
+
+#~ msgid "Horizontal frequency range"
+#~ msgstr "Lárétt tíðnisvið"
+
+#~ msgid "Vertical frequency range"
+#~ msgstr "Lóðrétt tíðnisvið"
+
+#~ msgid "Probing for mouse type..."
+#~ msgstr "Leita að mús..."
+
+#~ msgid "Aborting upgrade"
+#~ msgstr "Hætti við uppfærslu"
+
+#~ msgid "Check for bad blocks while formatting"
+#~ msgstr "Athuga hvort diskurinn hafi gallaðar blokkir"
+
+#~ msgid "Currently installed languages:"
+#~ msgstr "Tungumál sem nú þegar eru uppsett:"
+
+#~ msgid "Lilo Configuration"
+#~ msgstr "Stillingar Lilo"
+
+#~ msgid "Use linear mode (needed for some SCSI drives)"
+#~ msgstr "Nota línulegan ham (nauðsynlegt fyrir sum SCSI drif)"
+
+#~ msgid "Install LILO"
+#~ msgstr "Setja upp LILO"
+
+#~ msgid "File not found"
+#~ msgstr "Skráin finnst ekki"
+
+#~ msgid ""
+#~ "The following error occurred while retreiving hdlist file:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Installer will exit now."
+#~ msgstr ""
+#~ "Eftirfarandi villa kom upp við að sækja \"hdlist\" skrána:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Uppsetningarforritið mun nú hætta."
+
+#~ msgid ""
+#~ "An error has occurred while retreiving the hdlist file.  The installation "
+#~ "media or image is probably corrupt.  Installer will exit now."
+#~ msgstr ""
+#~ "Villa kom upp við að sækja \"hdlist\" skrána. Uppsetningardiskurinn eða "
+#~ "diskmyndin er líklega skemmd. Uppsetningarforritið mun nú hætta."
+
+#~ msgid "Low Memory"
+#~ msgstr "Of lítið minni"
+
+#~ msgid ""
+#~ "As you don't have much memory in this machine, we need to turn on swap "
+#~ "space immediately. To do this we'll have to write your new partition "
+#~ "table to the disk immediately. Is that okay?"
+#~ msgstr ""
+#~ "Þar sem þú ert ekki með nægjanlegt vinnsluminni í vélinni verðum við að "
+#~ "setja diskminni í gang strax. Svo það sé hægt verður að vista "
+#~ "disksneiðatöfluna á diskinn núna.  Er það í lagi?"
+
+#~ msgid ""
+#~ "You have put the partition containing the kernel (the boot partition) "
+#~ "above the 1024 cylinder limit, and it appears that this systems BIOS does "
+#~ "not support booting from above this limit. Proceeding will most likely "
+#~ "make the system unable to reboot into Linux.\n"
+#~ "\n"
+#~ "If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
+#~ "when asked. This will guarantee you have a way to boot into the system "
+#~ "after installation.\n"
+#~ "\n"
+#~ "Press OK to proceed, or Cancel to go back and reassign the boot partition."
+#~ msgstr ""
+#~ "Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) "
+#~ "uppfyrir 1024 cylindra þakið og BIOS vélarinnar þinnar virðist ekki ráða "
+#~ "við að ræsa stýrikerfi fyrir ofan þetta þak. Ef þú heldur áfram mun "
+#~ "kerfið að öllum líkindum ekki geta ræst Linux.\n"
+#~ "\n"
+#~ "Ef þú kýst að halda áfram er EINDREGIÐ mælt með því að þú útbúir "
+#~ "ræsidiskling þegar þér býðst tækifærið. Þannig er tryggt að þú getir ræst "
+#~ "upp Linux eftir að uppsetningu lýkur.\n"
+#~ "\n"
+#~ "Ertu viss um að þú viljir halda áfram?"
+
+#~ msgid ""
+#~ "You have put the partition containing the kernel (the boot partition) "
+#~ "above the 1024 cylinder limit. It appears that this systems BIOS supports "
+#~ "booting from above this limit. \n"
+#~ "\n"
+#~ "It is HIGHLY recommended you make a boot floppy when asked by the "
+#~ "installer, as this is a new feature in recent motherboards and is not "
+#~ "always reliable. Making a boot disk will guarantee you can boot your "
+#~ "system once installed."
+#~ msgstr ""
+#~ "Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) "
+#~ "uppfyrir 1024 cylindra þakið en BIOS vélarinnar þinnar virðist ráða við "
+#~ "að ræsa stýrikerfi fyrir ofan þetta þak.\n"
+#~ "\n"
+#~ "Það er EINDREGIÐ mælt með því að þú útbúir ræsidiskling þegar þér býðst "
+#~ "tækifæri til því þessi eiginleiki nýrra móðurborða er ekki alltaf "
+#~ "áreiðanlegur. Að búa til ræsidiskling tryggir að þú hafir leið til að "
+#~ "ræsa upp linux að uppsetningu lokinni."
+
+#~ msgid ""
+#~ "You've chosen to put your root filesystem in a file on an already-"
+#~ "existing DOS or Windows filesystem. How large, in megabytes, should would "
+#~ "you like the root filesystem to be, and how much swap space would you "
+#~ "like? They must total less then %d megabytes in size."
+#~ msgstr ""
+#~ "Þú hefur valið að setja rótina í skrá sem er í DOS eða windows disksneið "
+#~ "sem er þegar til staðar. Hversu stóra, í megabætum talið, viltu hafa "
+#~ "skrána og hversu mikið diskminni villtu hafa? Bæði saman verða að vera "
+#~ "minna en %d megabæti að stærð."
+
+#~ msgid "Root filesystem size:"
+#~ msgstr "Stærð rótarskráarkerfis:"
+
+#~ msgid "Swap space size:"
+#~ msgstr "Stærð diskminnis:"
+
+#~ msgid ""
+#~ "Please select the type of disk partitioning you would like to use.\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Selecting manual partitioning allows you to create the partitions by hand."
+#~ msgstr ""
+#~ "Vinsamlegast veldu þá afðferð sem þú vilt nota við disksneiðingu.\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Ef þú velur að sneiða handvirkt getur þú sérsniðið disksneiðarnar sjálf"
+#~ "(ur)."
+
+#~ msgid "Automatic Partitioning Failed"
+#~ msgstr "Sjálfvirk disksneiðing tókst ekki"
+
+#~ msgid ""
+#~ "\n"
+#~ "There is not sufficient disk space in order to automatically partition "
+#~ "your disk. You will need to manually partition your disks for Red Hat "
+#~ "Linux to install.\n"
+#~ "\n"
+#~ "Please choose the tool you would like to use to partition your system for "
+#~ "Red Hat Linux."
+#~ msgstr ""
+#~ "\n"
+#~ "Það er ekki nægjanlegt diskpláss til þess að sneiða niður diskinn "
+#~ "sjálfvirkt.Þú þarft að sneiða hann niður handvirkt svo uppsetningin geti "
+#~ "haldið áfram.\n"
+#~ "\n"
+#~ "Vinsamlegast veldu tólið sem þú vilt nota til að sneiða niður diskinn "
+#~ "fyrir Red Hat Linux."
+
+#~ msgid "Manual Partitioning"
+#~ msgstr "Sneiða handvirkt"
+
+#~ msgid ""
+#~ "\n"
+#~ "Please choose the tool you would like to use to partition your system for "
+#~ "Red Hat Linux."
+#~ msgstr ""
+#~ "\n"
+#~ "Vinsamlegast veldu tólið sem þú vilt nota til að sneiða niður diskana "
+#~ "fyrir Red Hat Linux."
+
+#~ msgid "Automatically partition and REMOVE DATA"
+#~ msgstr "Sjálfvirk disksneiðing og FJARLÆGJA GÖGN"
+
+#~ msgid "Boot Partition Location Warning"
+#~ msgstr "Aðvörun um staðsetningu ræsisneiðar"
+
+#~ msgid ""
+#~ "You have put the partition containing the kernel (the boot partition) "
+#~ "above the 1024 cylinder limit, and it appears that this systems BIOS does "
+#~ "not support booting from above this limit. Proceeding will most likely "
+#~ "make the system unable to reboot into Linux.\n"
+#~ "\n"
+#~ "If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
+#~ "when asked. This will guarantee you have a way to boot into the system "
+#~ "after installation.\n"
+#~ "\n"
+#~ "Are you sure you want to proceed?"
+#~ msgstr ""
+#~ "Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) "
+#~ "uppfyrir 1024 cylindra þakið og BIOS vélarinnar þinnar virðist ekki ráða "
+#~ "við að ræsa stýrikerfi fyrir ofan þetta þak. Ef þú heldur áfram mun "
+#~ "kerfið að öllum líkindum ekki geta ræst Linux.\n"
+#~ "\n"
+#~ "Ef þú kýst að halda áfram er EINDREGIÐ mælt með því að þú útbúir "
+#~ "ræsidiskling þegar þér býðst tækifærið. Þannig er tryggt að þú getir ræst "
+#~ "upp Linux eftir að uppsetningu lýkur.\n"
+#~ "\n"
+#~ "Ertu viss um að þú viljir halda áfram?"
+
+#~ msgid "Bits per Pixel"
+#~ msgstr "Bitar á myndeiningu"
+
+#~ msgid "Autoprobe results:"
+#~ msgstr "Útkoma X leitar:"
+
+#, fuzzy
+#~ msgid "Skip LILO"
+#~ msgstr "Sleppa"
+
+#~ msgid ""
+#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
+#~ "dedicated to Linux. We suggest placing that partition on one of the first "
+#~ "two hard drives in your system so you can boot into Linux with LILO."
+#~ msgstr ""
+#~ "Til að setja upp Red Hat Linux þarftu að hafa að minnsta kosti eina "
+#~ "disksneið frátekna fyrir Linux sem er minnst 150 MB. Við mælum með að "
+#~ "hafa hana á öðrum af fyrstu tveim hörðu diskunum í vélinni svo það sé "
+#~ "hægt að ræsa Linux með LILO."
+
+#~ msgid ""
+#~ "%s\n"
+#~ "\n"
+#~ "If you don't want to do this, you can continue with this install by "
+#~ "partitioning manually, or you can go back and perform a fully customized "
+#~ "installation."
+#~ msgstr ""
+#~ "%s\n"
+#~ "\n"
+#~ "Ef þú vilt ekki gera þetta getur þú haldið uppsetningu áfram með því að "
+#~ "sneiða niður diskinn sjálf(ur) eða fara til baka og setja upp sérsniðið "
+#~ "kerfi."
+
+#~ msgid "Continue"
+#~ msgstr "Halda áfram"
+
+#~ msgid "Manually partition"
+#~ msgstr "Sneiða handvirkt"
+
+#~ msgid ""
+#~ "What partitions would you like to format? We strongly suggest formatting "
+#~ "all of the system partitions, including /, /usr, and /var. There is no "
+#~ "need to format /home or /usr/local if they have already been configured "
+#~ "during a previous install."
+#~ msgstr ""
+#~ "Hvaða disksneiðar viltu forsníða? Við mælum eindregið með að forsníða "
+#~ "allar kerfissneiðarnar, þar með talið /, /usr og /var. Það er alveg "
+#~ "óþarft að forsníða /home eða /usr/local disksneiðarnar ef þær hafa verið "
+#~ "settar upp í fyrri uppsetningum."
+
+#~ msgid "Check for bad blocks during format"
+#~ msgstr "Athuga með gallaðar blokkir um leið og forsniðið er"
+
+#~ msgid "Choose Partitions to Format"
+#~ msgstr "Veldu disksneiðar sem á að forsníða"
+
+#~ msgid "Root filesystem size"
+#~ msgstr "Stærð rótarskráarkerfis"
+
+#~ msgid "Swap space"
+#~ msgstr "Diskminni"
+
+#~ msgid "The size you enter must be a number."
+#~ msgstr "Þú verður að slá inn tölu."
+
+#~ msgid ""
+#~ "The total size must be smaller then the amount of free space on the disk, "
+#~ "which is %d megabytes."
+#~ msgstr ""
+#~ "Samanlögð stærð disksneiða verður að vera minni en laust diskpláss á "
+#~ "disknum sem er %d megabæti."
+
+#~ msgid ""
+#~ "Neither the root file system size nor the swap space size may be greater "
+#~ "then 2000 megabytes."
+#~ msgstr ""
+#~ "Hvorki rótarskráarkerfið né diskminnið mega vera stærri en 2000 megabæti."
+
+#~ msgid ""
+#~ "If you would like to exit the upgrade select Exit, or choose Ok to "
+#~ "continue with the upgrade."
+#~ msgstr ""
+#~ "Veldi hætta ef þú vilt hætta við uppfærsluna eða veldu Í lagi til að "
+#~ "halda uppfærslunni áfram."
+
+#~ msgid ""
+#~ "Automatic partitioning will erase any preexisting Linux installations on "
+#~ "your system."
+#~ msgstr ""
+#~ "Sjálfvirk disksneiðing mun eyða öllum linux disksneiðum sem gætu verið "
+#~ "til staðar á vélinni þinni."
+
+#~ msgid ""
+#~ "Automatic partitioning will erase ALL DATA on your hard drive to make "
+#~ "room for your Linux installation."
+#~ msgstr ""
+#~ "Sjálfvirk disksneiðing mun eyða ÖLLUM GÖGNUM af harða disknum þínum til "
+#~ "að búa til pláss fyrir Linux."
+
+#~ msgid "Loading %s ramdisk..."
+#~ msgstr "Les inn %s RAM-disklinginn..."
+
+#~ msgid "Error loading ramdisk."
+#~ msgstr "Villa við lestur RAM-disklings."
+
+#~ msgid "Unable to retrieve the second install image"
+#~ msgstr "Get ekki sótt seinni uppsetningardiskmyndina"
+
+#~ msgid "Mail/WWW/News Tools"
+#~ msgstr "Póst/Vef/Fréttatól"
+
+#~ msgid "DOS/Windows Connectivity"
+#~ msgstr "DOS/Windows samskipti"
+
+#~ msgid "Games"
+#~ msgstr "Leikir"
+
+#~ msgid "Networked Workstation"
+#~ msgstr "Nettengd vinnustöð"
+
+#~ msgid "Dialup Workstation"
+#~ msgstr "Vinnustöð með upphringineti"
+
+#~ msgid "IPX/Netware(tm) Connectivity"
+#~ msgstr "IPX/Netware(tm) samskipti"
+
+#~ msgid "Development"
+#~ msgstr "Þróun"
+
+#~ msgid "Borneo & Celebes"
+#~ msgstr "Borneo & Celebes"
 
 #~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
 #~ msgstr "Uppfæri Red Hat Linux kerifð á disksneið /dev/"
