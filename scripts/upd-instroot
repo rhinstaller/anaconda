@@ -150,7 +150,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            XFree86 Xconfigurator gnome-python2 pygtk2 gdk-pixbuf 
            XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pam 
            reiserfs-utils atk pango freetype gnome-python2-canvas 
-           libgnomecanvas libart_lgpl libgcc libacl libstdc++ expat
+           libgnomecanvas libart_lgpl libgcc libacl libattr libstdc++ expat
            anaconda-images anaconda-help XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
            redhat-config-keyboard Xft fontconfig redhat-artwork
@@ -487,6 +487,7 @@ etc/man.config
 etc/pango/*
 etc/fonts/*
 $LIBDIR/libacl*
+$LIBDIR/libattr*
 $LIBDIR/libgcc*
 $LIBDIR/libnss_dns*
 $LIBDIR/libpam*
