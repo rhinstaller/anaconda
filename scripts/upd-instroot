@@ -480,7 +480,7 @@ for p in $DEST $DESTGR; do
 
 	if [ -x /usr/bin/runroot ]; then
 	    REALPATH=`(cd $p; /bin/pwd)`
-            runroot dist-7.0 --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH"
+            runroot dist-7.0 --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH"
 	else
 	    $p/usr/lib/anaconda-runtime/scrubtree $p
 	fi
@@ -524,7 +524,7 @@ cd -
 echo -n -e "Removing unused python files in hdimage... "
 if [ -x /usr/bin/runroot ]; then
     REALPATH=`(cd $DEST; /bin/pwd)`
-    runroot dist-7.0 --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/pythondeps $REALPATH"
+    runroot dist-7.0 --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/pythondeps $REALPATH"
 else
     $DEST/usr/lib/anaconda-runtime/pythondeps $DEST
 fi
