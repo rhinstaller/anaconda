@@ -100,10 +100,10 @@ mkdir -p $DESTGR
 PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 libtermcap zlib ash e2fsprogs util-linux raidtools popt
 	 mount procps rpm XFree86 Xconfigurator anaconda
-	 anaconda-runtime kudzu-devel kudzu hwdata db3 bzip2
+	 anaconda-runtime kudzu hwdata bzip2
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
-	 busybox-anaconda rpm-python anaconda-help booty hdparm lvm
-	 rhpl pyxf86config libxml2 libxml2-python rdate glib2
+	 busybox-anaconda rpm-python booty hdparm lvm
+	 rhpl pyxf86config libxml2 libxml2-python glib2
 	 elfutils-libelf bogl-bterm krb5-libs"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
@@ -129,8 +129,7 @@ fi
 # 
 # Extra stuff we want for rescue mode should go in PACKAGESRESCUE
 #
-PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
-           XFree86-S3 XFree86-SVGA XFree86-75dpi-fonts
+PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            XFree86-ISO8859-2-75dpi-fonts gtk2
            XFree86-ISO8859-9-75dpi-fonts esound audiofile libgnome
            XFree86-100dpi-fonts fonts-ISO8859-2 fonts-ISO8859-9
@@ -140,10 +139,10 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            XFree86 Xconfigurator gnome-python2 pygtk2 gdk-pixbuf 
            XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pam 
            reiserfs-utils atk pango freetype gnome-python2-canvas 
-           libgnomecanvas libart_lgpl vte
+           libgnomecanvas libart_lgpl expat
            anaconda-images anaconda-help XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
-           redhat-config-keyboard Xft fontconfig expat redhat-artwork
+           redhat-config-keyboard Xft fontconfig redhat-artwork
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts 
            comps-extras XFree86-libs-data"
 
@@ -152,12 +151,10 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
 #
 # these packages are combined with the PACKAGES and PACKAGESGR for big stage 2
 #
-PACKAGESRESCUE=" bzip2 bzip2-libs dump
+PACKAGESRESCUE="bzip2 bzip2-libs dump
                 findutils ftp gzip iputils joe krb5-libs less 
                 modutils mtools mt-st mtr net-tools open 
-                openssh openssh-clients 
-                pciutils rsh
-                traceroute tar"
+                openssh openssh-clients pciutils rsh traceroute tar"
 
 # turn off options we dont want, ie. set package list to something harmless
 if [ -z "$NEEDGR" ]; then
@@ -222,11 +219,6 @@ $LIBDIR/ld-*
 $LIBDIR/libc*
 $LIBDIR/libcom_err*
 $LIBDIR/libcrypt*
-$LIBDIR/libdb-*
-$LIBDIR/libdb-3.0
-$LIBDIR/libdb.so.2
-$LIBDIR/libdb.so.3
-$LIBDIR/libdb1*
 $LIBDIR/libdl*
 $LIBDIR/libe2p*
 $LIBDIR/libext2fs*
@@ -245,8 +237,11 @@ $LIBDIR/libuuid*
 sbin/badblocks
 sbin/clock
 sbin/debugfs
+sbin/e2fsck
 sbin/e2fsadm
 sbin/e2label
+sbin/fsck.ext2
+sbin/fsck.ext3
 sbin/fdisk
 sbin/hdparm
 sbin/hwclock
@@ -323,9 +318,6 @@ usr/$LIBDIR/libgthread*
 usr/$LIBDIR/libssl*
 usr/$LIBDIR/libcrypto*
 usr/$LIBDIR/libbz2*
-usr/$LIBDIR/libdb.so.2
-usr/$LIBDIR/libdb.so.3
-usr/$LIBDIR/libdb1*
 usr/$LIBDIR/libelf*
 usr/$LIBDIR/libnewt*
 usr/$LIBDIR/libparted*
@@ -338,7 +330,6 @@ usr/$LIBDIR/libxml2.so*
 usr/$LIBDIR/libz.*
 usr/$LIBDIR/python2.2/*
 usr/$LIBDIR/python2.2/site-packages/libxml2*
-usr/$LIBDIR/python2.2/site-packages/*vte*
 usr/$LIBDIR/python2.2/site-packages/*kudzu*
 usr/$LIBDIR/python2.2/site-packages/rpmmodule.so
 usr/$LIBDIR/python2.2/site-packages/partedmodule.so
@@ -495,10 +486,6 @@ sbin/parted
 sbin/silo
 sbin/tune2fs
 usr/X11R6/bin/XFree86
-usr/X11R6/bin/Xsun
-usr/X11R6/bin/Xsun24
-usr/X11R6/bin/XsunMono
-usr/X11R6/bin/Xtest
 usr/X11R6/bin/setxkbmap
 usr/X11R6/bin/xsetroot
 usr/X11R6/lib/X11/XKeysymDB
@@ -543,7 +530,6 @@ usr/lib/anaconda/iw
 usr/$LIBDIR/gconv/*
 usr/$LIBDIR/gdk-pixbuf/loaders/*png*
 usr/$LIBDIR/gdk-pixbuf/loaders/*la*
-usr/$LIBDIR/gdkimlib*
 usr/$LIBDIR/gtk-2.0/*/engines/libbluecurve.so
 usr/$LIBDIR/gtk-2.0/*/loaders/*png*
 usr/$LIBDIR/gtk-2.0/*/loaders/*la*
@@ -558,25 +544,14 @@ usr/$LIBDIR/libexpat*
 usr/$LIBDIR/libfontconfig*
 usr/$LIBDIR/libfreetype*
 usr/$LIBDIR/libgdk*
-usr/$LIBDIR/libgnome*
-usr/$LIBDIR/libgnomesupport*
+usr/$LIBDIR/libgnomecanvas*
 usr/$LIBDIR/libgnomeui*
-usr/$LIBDIR/libgnorba*
-usr/$LIBDIR/libgnorbagtk*
 usr/$LIBDIR/libgtk*
-usr/$LIBDIR/libgtkxmhtml*
-usr/$LIBDIR/libimlib-png*
-usr/$LIBDIR/libimlib-pnm*
-usr/$LIBDIR/libimlib-xpm*
-usr/$LIBDIR/libjpeg*
 usr/$LIBDIR/libncurses*
 usr/$LIBDIR/libpango*
 usr/$LIBDIR/libpng.so.3*
-usr/$LIBDIR/libpng12*
+usr/$LIBDIR/libpng12.so*
 usr/$LIBDIR/libreadline*
-usr/$LIBDIR/libthread*
-usr/$LIBDIR/libtiff*
-usr/$LIBDIR/libvte*
 usr/$LIBDIR/locale/*
 usr/$LIBDIR/pango/*
 usr/$LIBDIR/python2.2/site-packages/gtk*/gtk/*
@@ -585,7 +560,6 @@ usr/lib/syslinux/*
 usr/sbin/chroot
 usr/sbin/ddcprobe
 usr/sbin/fbset
-usr/sbin/gnome-pty-helper
 usr/sbin/smartctl
 usr/share/anaconda/*
 usr/share/fonts/bitmap-fonts/fangsongti*
@@ -600,7 +574,12 @@ usr/share/fonts/default/Type1/n021024l*
 usr/share/fonts/ko/TrueType/dotum.ttf
 usr/share/fonts/ja/TrueType/kochi-gothic.ttf
 usr/share/fonts/zh_TW/TrueType/bsmi00lp.ttf
-usr/share/locale/*
+usr/share/locale/*/LC_MESSAGES/anaconda.mo
+usr/share/locale/*/LC_MESSAGES/redhat-dist.mo
+usr/share/locale/*/LC_MESSAGES/redhat-config-keyboard.mo
+usr/share/locale/*/LC_MESSAGES/gtk20.mo
+usr/share/locale/*/LC_MESSAGES/libc.mo
+usr/share/locale/*/LC_MESSAGES/rhpl.mo
 usr/share/pixmaps/comps/*.png
 usr/share/pixmaps/gnome-default-dlg.png
 usr/share/pixmaps/gnome-error.png
@@ -708,7 +687,6 @@ usr/bin/mtools
 usr/bin/mtype
 usr/bin/mzip
 usr/bin/open
-usr/bin/pico
 usr/bin/rcp
 usr/bin/rlogin
 usr/bin/rsh
