@@ -23,7 +23,7 @@ SEL_PERMISSIVE = 1
 SEL_ENFORCING = 2
 
 selinux_states = { SEL_DISABLED: "disabled",
-                   SEL_ENFORCING: "enforced",
+                   SEL_ENFORCING: "enforcing",
                    SEL_PERMISSIVE: "permissive" }
 
 class Security:
