@@ -763,6 +763,8 @@ static char * mountNfsImage(struct installMethod * method,
     char * fullPath;
     int stage = NFS_STAGE_IP;
 
+    initLoopback();
+
     memset(&netDev, 0, sizeof(netDev));
 
     i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
@@ -849,6 +851,8 @@ static char * mountUrlImage(struct installMethod * method,
     char buf[1024];
     enum urlprotocol_t proto = 
 	!strcmp(method->name, "FTP") ? URL_METHOD_FTP : URL_METHOD_HTTP;
+
+    initLoopback();
 
     i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
     if (i) return NULL;
@@ -1063,7 +1067,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     }
 
     for (i = 0; i < kd->numKnown; i++)
-	if (kd->known[i].class == ksType) break;
+	if (kd->known[i].class == ksDeviceType) break;
 
     if (i == kd->numKnown) {
 	logMessage("no appropriate device for kickstart method is available");
@@ -1071,6 +1075,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     }
 
     device = kd->known[i].name;
+    logMessage("kickstarting through device %s", device);
 
     if (table) {
 	ksGetCommand(ksType, NULL, &ksArgc, &ksArgv);
@@ -1086,6 +1091,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     }
 
     if (ksType == KS_CMD_NFS || ksType == KS_CMD_URL) {
+logMessage("need to kickstart network");
 	if (kickstartNetwork(device, &netDev, flags)) return NULL;
 	writeNetInfo("/tmp/netinfo", &netDev);
     }
@@ -1156,6 +1162,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine) {
     int argc;
     int i;
 
+    logMessage("here with cmdLine %s", cmdLine);
+
     if (!cmdLine) {
 	if ((fd = open("/proc/cmdline", O_RDONLY)) < 0) return flags;
 	len = read(fd, buf, sizeof(buf) - 1);
@@ -1166,7 +1174,11 @@ static int parseCmdLineFlags(int flags, char * cmdLine) {
 	cmdLine = buf;
     }
 
+    logMessage("cmdLine %s", cmdLine);
+
     if (poptParseArgvString(cmdLine, &argc, &argv)) return flags;
+
+    logMessage("here I am");
 
     for (i = 0; i < argc; i++) {
         if (!strcasecmp(argv[i], "expert"))
@@ -1175,19 +1187,27 @@ static int parseCmdLineFlags(int flags, char * cmdLine) {
 	    flags |= LOADER_FLAGS_TEXT;
         else if (!strcasecmp(argv[i], "rescue"))
 	    flags |= LOADER_FLAGS_RESCUE;
-        else if (!strcasecmp(argv[i], "ks=floppy"))
-	    flags |= LOADER_FLAGS_RESCUE;
+        else if (!strcasecmp(argv[i], "ks=floppy")) {
+	    flags |= LOADER_FLAGS_KSFLOPPY;
+	    logMessage("got ks=floppy");
+	}
     }
 
     return flags;
 }
 
-int kickstartFromFloppy(char * location) {
+struct moduleDependency_s {
+    char * name;
+    char ** deps;
+};
+
+int kickstartFromFloppy(char * location, moduleList modLoaded,
+			moduleDeps modDeps, int flags) {
     int infd = -1, outfd = -1;
     char buf[4096];
     int i;
 
-    /*loadFilesystem("vfat", "vfat", &dl);*/
+    mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);
     if (devMakeInode("fd0", "/tmp/fd0"))
 	return 1;
 
@@ -1216,10 +1236,7 @@ int kickstartFromFloppy(char * location) {
     umount("/tmp/ks");
     unlink("/tmp/fd0");
 
-    if (ksReadCommands("location")) {
-	logMessage("error reading kickstart commands");
-	return 1;
-    }
+    logMessage("kickstart file copied to %s", location);
 
     return 0;
 }
@@ -1280,12 +1297,6 @@ int main(int argc, char ** argv) {
 
     flags = parseCmdLineFlags(flags, cmdLine);
 
-    if (FL_KSFLOPPY(flags)) {
-	kickstartFromFloppy("/tmp/ks.cfg");
-    } else if (FL_KICKSTART(flags)) {
-	/* XXX we need to get our ks file from the network */
-    }
-
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = isysNewModuleInfoSet();
     if (isysReadModuleInfo(arg, modInfo)) {
@@ -1300,6 +1311,16 @@ int main(int argc, char ** argv) {
     mlReadLoadedList(&modLoaded);
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
+
+logMessage("Flags are 0x%x\n", flags);
+
+    if (FL_KSFLOPPY(flags)) {
+	ksFile = "/tmp/ks.cfg";
+	kickstartFromFloppy(ksFile, modLoaded, modDeps, flags);
+    } else if (FL_KICKSTART(flags)) {
+	/* XXX we need to get our ks file from the network */
+    }
+
 
 #ifdef INCLUDE_PCMCIA
     startNewt(flags);
@@ -1320,9 +1341,12 @@ int main(int argc, char ** argv) {
 	ksReadCommands(ksFile);
 	url = setupKickstart("/mnt/source", &kd, modInfo, modLoaded, modDeps, 
 			     flags);
-    } else
+    }
+
+    if (!url) {
 	url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, modDeps, 
 			    flags);
+    }
 
     if (!FL_TESTING(flags)) {
      

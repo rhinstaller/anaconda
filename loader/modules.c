@@ -135,8 +135,7 @@ int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path) {
 
 	/* found something */
 	nextDep->name = strdup(start);
-	i = strlen(chptr) / 3;
-	nextDep->deps = malloc(sizeof(char **) * i);
+	nextDep->deps = malloc(sizeof(char *) * (strlen(chptr) + 1));
 	start = chptr, i = 0;
 	while (start && *start) {
 	    chptr = strchr(start, ' ');
@@ -148,6 +147,8 @@ int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path) {
 		start = NULL;
 	    while (start && *start && isspace(*start)) start++;
 	}
+	nextDep->deps[i] = NULL;
+	nextDep->deps = realloc(nextDep->deps, sizeof(char *) * (i + 1));
 	nextDep++;
 
 	start = end + 1;
