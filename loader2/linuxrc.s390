@@ -292,7 +292,10 @@ elif [ "$NETTYPE" = "lcs" ]; then
 	insmod cu3088$LO
 	insmod lcs$LO
    setupdevice
-   DEVICE=`cat /sys/devices/lcs/${SUBCHANNELS//,*/}/if_name`
+# KH FIXME: Workaround for missing sysfs interface, hardcode it to
+# eth0 for now, ignore TokenRing
+#   DEVICE=`cat /sys/devices/lcs/${SUBCHANNELS//,*/}/if_name`
+   DEVICE=eth0
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
    echo "alias $DEVICE lcs" >> /tmp/modprobe.conf

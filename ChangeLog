@@ -1,3 +1,7 @@
+2004-10-14  Karsten Hopp  <karsten@redhat.com>
+	* loader/linuxrc.s390: Hardcode LCS interface to eth0 (workaround
+	until fix with sysfs interface is available)
+
 2004-10-14  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: Add fonts for ta, gu, hi, bn and pa (#119283)
