@@ -1,6 +1,24 @@
 import kudzu
 import _isys
 import string
+import os
+
+def losetup(device, file):
+    loop = os.open(device, os.O_RDONLY)
+    targ = os.open(file, os.O_RDWR)
+    _isys.losetup(loop, targ, file)
+    os.close(loop)
+    os.close(targ)
+
+def unlosetup(device):
+    loop = os.open(device, os.O_RDONLY)
+    _isys.unlosetup(loop)
+    os.close(loop)
+
+def ddfile(file, megs):
+    fd = os.open(file, os.O_RDWR | os.O_CREAT)
+    _isys.ddfile(fd, megs)
+    os.close(fd)
 
 def mount(device, location, fstype = "ext2"):
     return _isys.mount(fstype, device, location)

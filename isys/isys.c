@@ -1,6 +1,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <popt.h>
+#include <linux/loop.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <unistd.h>
@@ -37,8 +38,14 @@ static PyObject * doCheckUFS(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
 static PyObject * doPoptParse(PyObject * s, PyObject * args);
 static PyObject * doFbconProbe(PyObject * s, PyObject * args);
+static PyObject * doLoSetup(PyObject * s, PyObject * args);
+static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
+static PyObject * doDdFile(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
+    { "losetup", (PyCFunction) doLoSetup, METH_VARARGS, NULL },
+    { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
+    { "ddfile", (PyCFunction) doDdFile, METH_VARARGS, NULL },
     { "findmoduleinfo", (PyCFunction) doFindModInfo, METH_VARARGS, NULL },
     { "getopt", (PyCFunction) doGetOpt, METH_VARARGS, NULL },
 /*
@@ -258,6 +265,70 @@ static PyObject * doInsmod(PyObject * s, PyObject * pyargs) {
 }
 #endif
 
+static PyObject * doDdFile(PyObject * s, PyObject * args) {
+    int fd;
+    int megs;
+    char * ptr;
+    int i;
+
+    if (!PyArg_ParseTuple(args, "ii", &fd, &megs)) return NULL;
+
+    ptr = calloc(1024 * 256, 1);
+
+    while (megs--) {
+	for (i = 0; i < 4; i++) {
+	    if (write(fd, ptr, 1024 * 256) != 1024 * 256) {
+		PyErr_SetFromErrno(PyExc_SystemError);
+		free(ptr);
+		return NULL;
+	    }
+	}
+    }
+
+    free(ptr);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doUnLoSetup(PyObject * s, PyObject * args) {
+    int loopfd;
+
+    if (!PyArg_ParseTuple(args, "i", &loopfd)) return NULL;
+    if (ioctl(loopfd, LOOP_CLR_FD, 0)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doLoSetup(PyObject * s, PyObject * args) {
+    int loopfd;
+    int targfd;
+    struct loop_info loopInfo;
+    char * loopName;
+
+    if (!PyArg_ParseTuple(args, "iis", &loopfd, &targfd, &loopName)) 
+	return NULL;
+    if (ioctl(loopfd, LOOP_SET_FD, targfd)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    memset(&loopInfo, 0, sizeof(loopInfo));
+    strcpy(loopInfo.lo_name, loopName);
+
+    if (ioctl(loopfd, LOOP_SET_STATUS, &loopInfo)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
 static PyObject * doFindModInfo(PyObject * s, PyObject * args) {
     char * mod;
     struct moduleInfo * mi;
@@ -366,7 +437,7 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
 
     argv[i] = NULL;
 
-    optCon = poptGetContext("", PyList_Size(argList), (const char **) argv,
+    optCon = poptGetContext("", PyList_Size(argList), argv,
 			    options, POPT_CONTEXT_KEEP_FIRST);
 
     if ((rc = poptGetNextOpt(optCon)) < -1) {
@@ -725,7 +796,7 @@ static PyObject * doPoptParse(PyObject * s, PyObject * args) {
 
     if (!PyArg_ParseTuple(args, "s", &str)) return NULL;
 
-    if (poptParseArgvString(str, &argc, (const char ***) &argv)) {
+    if (poptParseArgvString(str, &argc, &argv)) {
 	PyErr_SetString(PyExc_ValueError, "bad string for parsing");
 	return NULL;
     }
