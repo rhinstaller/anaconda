@@ -214,6 +214,10 @@ int main(int argc, char ** argv) {
 
     mkdir("/mnt", 777);
     mkdir("/mnt/source", 777);
+
+    insmod("sunrpc.o", NULL);
+    insmod("lockd.o", NULL);
+    insmod("nfs.o", NULL);
     
     doPwMount("207.175.42.68:/mnt/test/msw/i386",
 	      "/mnt/source", "nfs", 1, 0, NULL, NULL);
