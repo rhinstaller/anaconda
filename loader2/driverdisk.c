@@ -155,7 +155,7 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
  * of device names
  */
 int getRemovableDevices(char *** devNames) {
-    struct device **devices, **floppies, **cdroms;
+    struct device **devices, **floppies, **cdroms, **disks;
     int numDevices = 0;
     int i = 0, j = 0;
 
@@ -163,6 +163,8 @@ int getRemovableDevices(char *** devNames) {
                             BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_LOADED);
     cdroms = probeDevices(CLASS_CDROM, 
                           BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_LOADED);
+    disks = probeDevices(CLASS_HD, 
+                         BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_LOADED);
 
     /* we should probably take detached into account here, but it just
      * means we use a little bit more memory than we really need to */
@@ -170,6 +172,8 @@ int getRemovableDevices(char *** devNames) {
         for (i = 0; floppies[i]; i++) numDevices++;
     if (cdroms)
         for (i = 0; cdroms[i]; i++) numDevices++;
+    if (disks)
+        for (i = 0; disks[i]; i++) numDevices++;
 
     /* JKFIXME: better error handling */
     if (!numDevices) {
@@ -188,6 +192,10 @@ int getRemovableDevices(char *** devNames) {
         for (j = 0; cdroms[j]; j++) 
             if ((cdroms[j]->detached == 0) && (cdroms[j]->device != NULL)) 
                 devices[i++] = cdroms[j];
+    if (disks)
+        for (j = 0; disks[j]; j++) 
+            if ((disks[j]->detached == 0) && (disks[j]->device != NULL)) 
+                devices[i++] = disks[j];
 
     devices[i] = NULL;
     numDevices = i;
@@ -262,10 +270,12 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
 
             stage = DEV_PART;
         case DEV_PART: {
-            char ** part_list = getPartitionsList(NULL);
+            char ** part_list = getPartitionsList(device);
+            int nump = 0, num = 0;
+
             if (part != NULL) free(part);
 
-            if ((num = lenPartitionsList(part_list)) == 0) {
+            if ((nump = lenPartitionsList(part_list)) == 0) {
                 if (dir == -1)
                     stage = DEV_DEVICE;
                 else
@@ -279,8 +289,8 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                              _("There are multiple partitions on this device "
                                "which could contain the driver disk image.  "
                                "Which would you like to use?"), 40, 10, 10,
-                             num < 6 ? num : 6, part_list, &num, _("OK"),
-                             (usecancel) ? _("Cancel") : _("Back"), NULL);
+                             nump < 6 ? nump : 6, part_list, &num, _("OK"),
+                             _("Back"), NULL);
 
             if (rc == 2) {
                 freePartitionsList(part_list);
