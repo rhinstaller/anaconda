@@ -75,6 +75,11 @@ class UsersWindow:
 	if (not cancelText):
 	    cancelText = _("Cancel")
 
+        systemUsers = ['root', 'bin', 'daemon', 'adm', 'lp', 'sync', 'shutdown', 'halt', 'mail',
+                       'news', 'uucp', 'operator', 'games', 'gopher', 'ftp', 'nobody', 'nscd',
+                       'mailnull', 'rpm', 'ident', 'rpc', 'rpcuser', 'radvd', 'xfs', 'gdm', 'apache',
+                       'squid']
+
         userid = Entry (8, user["id"], scroll=0)
         currentid = user["id"]
         pass1 = Entry (10, user["password"], password = 1)
@@ -144,6 +149,13 @@ class UsersWindow:
 	    if userid.value() == "root":
                 ButtonChoiceWindow(self.screen, _("User Exists"),
 		       _("The root user is already configured. You don't "
+		         "need to add this user here."),
+			 buttons = [ TEXT_OK_BUTTON ], width = 50)
+                continue
+
+	    if userid.value() in systemUsers :
+                ButtonChoiceWindow(self.screen, _("User Exists"),
+		       _("This system user is already configured. You don't "
 		         "need to add this user here."),
 			 buttons = [ TEXT_OK_BUTTON ], width = 50)
                 continue
