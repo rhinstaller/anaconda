@@ -91,10 +91,10 @@ def writeXConfiguration(id, instPath):
 
     if id.xsetup.skipx:
         return
-    
+
     xserver = id.videocard.primaryCard().getXServer()
     if not xserver:
-        return
+	return
 
     log("Writing X configuration")
     if not testmode:
@@ -529,30 +529,6 @@ def doPreInstall(method, id, intf, instPath, dir):
         if pcmcia.pcicType():
             select(id.hdList, 'kernel-pcmcia-cs')
 
-        if iutil.getArch() != "s390":
-            xserver = id.videocard.primaryCard().getXServer()
-            if (xserver and id.comps.packages.has_key('XFree86')
-                and id.comps.packages['XFree86'].selected
-                and xserver != "XFree86"):
-                try:
-                    id.hdList['XFree86-' + xserver[5:]].selected = 1
-                except ValueError, message:
-                    log ("Error selecting XFree86 server package: %s", message)
-                except KeyError:
-                    log ("Error selecting XFree86 server package, "
-                         "package not available")
-
-                # XXX remove me once we have dependency resolution after
-                # videocard selection
-                try:
-                    id.hdList['XFree86-compat-modules'].selected = 1
-                except ValueError, message:
-                    log ("Error selecting XFree86-compat-modules package")
-                except KeyError:
-                    log ("Error selecting XFree86-compat-modules, "
-                         "package not available")
-                
-                
     # make sure that all comps that include other comps are
     # selected (i.e. - recurse down the selected comps and turn
     # on the children
