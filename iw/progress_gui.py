@@ -114,9 +114,9 @@ class InstallProgressWindow (InstallWindow):
         if len(self.pixmaps):
             # set to switch every N seconds
             if self.pixtimer.elapsed() > 30:
-                num = self.pixcurnum + 1
+                num = self.pixcurnum
                 if num >= len(self.pixmaps):
-                    num = min(1, len(self.pixmaps))
+                    num = 0
                 pix = self.ics.readPixmapDithered (self.pixmaps[num], 425, 225)
                 if pix:
 		    if self.adpix:
@@ -125,7 +125,7 @@ class InstallProgressWindow (InstallWindow):
                     self.adbox.add (pix)
                     self.adpix = pix
                 self.adbox.show_all()
-                self.pixcurnum = num
+                self.pixcurnum = num + 1
                 self.pixtimer.reset()
                 
         self.curPackage["package"].set_text ("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
