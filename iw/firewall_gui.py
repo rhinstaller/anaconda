@@ -230,11 +230,12 @@ class FirewallWindow (InstallWindow):
         self.label1.set_alignment (0.2, 0.0)
 
         self.trusted = checklist.CheckList(1)
+	self.trusted.set_size_request(-1, 80)
         self.label1.set_mnemonic_widget(self.trusted)
 
         trustedSW = gtk.ScrolledWindow()
         trustedSW.set_border_width(5)
-        trustedSW.set_policy(gtk.POLICY_NEVER, gtk.POLICY_NEVER)
+        trustedSW.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         trustedSW.set_shadow_type(gtk.SHADOW_IN)
         trustedSW.add(self.trusted)
 
@@ -254,11 +255,12 @@ class FirewallWindow (InstallWindow):
         self.label2 = gui.MnemonicLabel (_("_Allow incoming:"))
         self.label2.set_alignment (0.2, 0.0)
         self.incoming = checklist.CheckList(1)
+	self.incoming.set_size_request(-1, 140)
         self.label2.set_mnemonic_widget(self.incoming)
 
         incomingSW = gtk.ScrolledWindow()
         incomingSW.set_border_width(5)
-        incomingSW.set_policy(gtk.POLICY_NEVER, gtk.POLICY_NEVER)
+        incomingSW.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         incomingSW.set_shadow_type(gtk.SHADOW_IN)
         incomingSW.add(self.incoming)
         
@@ -280,7 +282,7 @@ class FirewallWindow (InstallWindow):
         self.label3.set_mnemonic_widget(self.ports)
 
         table.attach (self.label3, 0, 1, 2, 3, gtk.FILL, gtk.FILL, 5, 5)
-        table.attach (self.ports, 1, 2, 2, 3, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
+        table.attach (self.ports, 1, 2, 2, 3, gtk.EXPAND|gtk.FILL, gtk.FILL, 10, 5)
 
         if self.firewall.enabled == 0:
             self.sec_none_radio.set_active (gtk.TRUE)
