@@ -1,5 +1,9 @@
 2004-09-27  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/language_support_gui.py
+	(LanguageSupportWindow.rebuild_combo): Fix traceback when
+	unselecting last language (#133164)
+
 	* fsset.py (swapFileSystem.mount): Skip version 0 swaps (#122101)
 
 	* partedUtils.py (sniffFilesystemType): Don't accept version 0

@@ -40,12 +40,6 @@ class LanguageSupportWindow (InstallWindow):
         return None
 
     def toggled_language(self, data, row):
-#        row = int(row)
-#        lang = self.languageList.get_text(row, 1)
-# 	 val = self.languageList.get_active(row)
-#
-	# may be too slow to redo everytime they select/deselect a lang
-	# but worth trying since its simple
 	olddef = self.defaultLang
 	oldidx = None
 	for row in range(self.maxrows):
@@ -54,7 +48,7 @@ class LanguageSupportWindow (InstallWindow):
 		oldidx = row
 		break
 
-	self.rebuild_combo()
+        self.rebuild_combo()
 
 	# if no default lang now restore
 	# this can happen if they clicked on the only remaining selected
@@ -64,7 +58,7 @@ class LanguageSupportWindow (InstallWindow):
 	if self.defaultLang is None or self.defaultLang == "":
             self.languageList.set_active(oldidx, gtk.TRUE)
 	    self.rebuild_combo()
-	    
+
     def rebuild_combo(self):
         list = []
 
@@ -80,7 +74,7 @@ class LanguageSupportWindow (InstallWindow):
 	    self.ics.setNextEnabled (gtk.TRUE)
 
 	curidx = self.deflang_combo.get_active()
-	if curidx >= 0:
+	if curidx > 0:
 	    self.defaultLang = self.deflang_values[curidx]
 	else:
 	    self.defaultLang = None
