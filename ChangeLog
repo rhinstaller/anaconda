@@ -1,3 +1,10 @@
+2005-04-04  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
+	* language.py (Language.__init__):  Add settings for the 'C' locale to
+	prevent a traceback when building an RPM.
+
 2005-04-02  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

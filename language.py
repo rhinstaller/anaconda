@@ -90,6 +90,9 @@ class Language:
 
         f.close()
 
+        # Hard code this to prevent errors in the build environment.
+        self.localeInfo['C'] = self.localeInfo['en_US.UTF-8']
+
         # long name -> (nick, map, font) mapping
         search = ('locale-list', '/usr/share/anaconda/locale-list')
         for path in search:

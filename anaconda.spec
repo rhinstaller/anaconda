@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.39
+Version: 10.2.0.40
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Apr 04 2005 Chris Lumens <clumens@redhat.com> 10.2.0.40-1
+- Add locale information for 'C' to fix RPM building.
+
 * Sat Apr  2 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.39-1
 - fix makefile deps to fix build
 
