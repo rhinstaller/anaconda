@@ -21,8 +21,8 @@ prepareBootImage() {
 		sed -e "s/ vga=.*//g" < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cf2
 		mv -f $MBD_BOOTTREE/syslinux.cf2 $MBD_BOOTTREE/syslinux.cfg
 	    fi
-	    if [ -n $BOOTLANG ]; then
-		sed -e "s/initrd.img/initrd.img lang=$BOOTLANG/g" < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cf2
+	    if [ -n $BOOTDIR ]; then
+		sed -e "s/initrd.img/initrd.img lang=$BOOTDIR/g" < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cf2
 		mv -f $MBD_BOOTTREE/syslinux.cf2 $MBD_BOOTTREE/syslinux.cfg
 	    fi
 	    cp $BOOTDISKDIR/$BOOTLANG/*.msg $MBD_BOOTTREE
