@@ -495,6 +495,32 @@ class FileSystemSet:
                                     entry.mountpoint, msg))
                 sys.exit(0)
 
+    def filesystemSpace(self, chroot='/'):
+	space = []
+        # XXX limit to ext[23] etc?
+        for entry in self.entries:
+            if not entry.isMounted():
+                continue
+            path = "%s/%s" % (chroot, entry.mountpoint)
+            try:
+                space.append((entry.mountpoint, isys.fsSpaceAvailable(path)))
+            except SystemError:
+                pass
+
+        def spaceSort(a, b):
+            (m1, s1) = a
+            (m2, s2) = b
+
+            if (s1 > s2):
+                return -1
+            elif s1 < s2:
+                return 1
+
+            return 0
+
+	space.sort(spaceSort)
+	return space
+
     def umountFilesystems(self, instPath, ignoreErrors = 0):
         # XXX remove special case
         try:

@@ -358,7 +358,9 @@ def doInstall(method, id, intf, instPath):
 	    id.hdList['krb5-libs'].selected = 1
 
         xserver = id.videocard.primaryCard().getXServer()
-        if xserver and id.comps.packages.has_key('XFree86') and id.comps.packages['XFree86'].selected and xserver != "XFree86":
+        if (xserver and id.comps.packages.has_key('XFree86')
+            and id.comps.packages['XFree86'].selected
+            and xserver != "XFree86"):
             try:
                 id.hdList['XFree86-' + xserver[5:]].selected = 1
             except ValueError, message:
@@ -376,10 +378,9 @@ def doInstall(method, id, intf, instPath):
 	f = open(instPath + "/etc/mtab", "w+")
 	f.close()
 
-    # XXX
-    #if method.systemMounted (fstab, instPath, id.hdList.selected()):
-	#fstab.umountFilesystems(instPath)
-	#return 1
+    if method.systemMounted (id.fsset, instPath, id.hdList.selected()):
+	id.fsset.umountFilesystems(instPath)
+	return 1
 
     for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
 	       '/etc/sysconfig', '/etc/sysconfig/network-scripts',
@@ -666,7 +667,6 @@ def doInstall(method, id, intf, instPath):
 	    # needed for prior systems which were not xinetd based
 	    migrateXinetd(instPath, instLogName)
 
-	# XXX
 	if flags.setupFilesystems:
 	    errors = None
 
@@ -713,8 +713,7 @@ def doInstall(method, id, intf, instPath):
 
 	w.set(6)
 
-	# XXX
-	#self.instClass.postAction(instPath, self.serial)
+	self.instClass.postAction(instPath, flags.serial)
 
 	w.set(7)
 

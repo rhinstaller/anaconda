@@ -43,7 +43,7 @@ class CdromInstallMethod(ImageInstallMethod):
 			"%s/RedHat/base/stage2.img" % self.tree)
 	    self.loopbackFile = None
 
-    def systemMounted(self, fstab, mntPoint, selected):
+    def systemMounted(self, fsset, chroot, selected):
 	changeloop=0
 	for p in selected:
 	    if p[1000002] and p[1000002] > 1:
@@ -52,8 +52,9 @@ class CdromInstallMethod(ImageInstallMethod):
 	if changeloop == 0:
 	    return
 
-	self.loopbackFile = mntPoint + fstab.filesystemSpace(mntPoint)[0][0] + \
-			    "/rhinstall-stage2.img"
+	self.loopbackFile = "%s%s%s" % (chroot,
+                                        fsset.filesystemSpace(chroot)[0][0],
+                                        "/rhinstall-stage2.img")
 
 	try:
 	    iutil.copyFile("%s/RedHat/base/stage2.img" % self.tree, 
