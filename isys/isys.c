@@ -741,7 +741,14 @@ static PyObject * smpAvailable(PyObject * s, PyObject * args) {
 }
 
 void init_isys(void) {
-    Py_InitModule("_isys", isysModuleMethods);
+    PyObject * m, * d;
+
+    m = Py_InitModule("_isys", isysModuleMethods);
+    d = PyModule_GetDict(m);
+
+    PyDict_SetItemString(d, "MIN_RAM", PyInt_FromLong(MIN_RAM));
+    PyDict_SetItemString(d, "MIN_GUI_RAM", PyInt_FromLong(MIN_GUI_RAM));
+    PyDict_SetItemString(d, "EARLY_SWAP_RAM", PyInt_FromLong(EARLY_SWAP_RAM));
 }
 
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {

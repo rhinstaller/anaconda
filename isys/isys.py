@@ -6,6 +6,10 @@ import os.path
 
 mountCount = {}
 
+MIN_RAM = _isys.MIN_RAM
+MIN_GUI_RAM = _isys.MIN_GUI_RAM
+EARLY_SWAP_RAM = _isys.EARLY_SWAP_RAM
+
 def spaceAvailable(device, fsystem = "ext2"):
     mount(device, "/mnt/space", fstype = fsystem)
     space = _isys.devSpaceFree("/mnt/space/.")
