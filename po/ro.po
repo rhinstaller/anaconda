@@ -297,7 +297,6 @@ msgid "Bootdisk"
 msgstr "Disc de boot"
 
 #: ../text.py:441
-#, fuzzy
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -562,9 +561,8 @@ msgstr "Instalare terminatã"
 
 #: ../text.py:964 ../text.py:967 ../text.py:970 ../textw/silo.py:24
 #: ../textw/silo.py:62 ../textw/silo.py:153
-#, fuzzy
 msgid "SILO Configuration"
-msgstr "Configurare LILO"
+msgstr "Configurare SILO"
 
 #: ../text.py:975
 msgid "Examine System"
@@ -1036,28 +1034,24 @@ msgid "Manually partition"
 msgstr "Partiþionare manualã"
 
 #: ../iw/silo.py:18
-#, fuzzy
 msgid "Silo Configuration"
-msgstr "Configurare LILO"
+msgstr "Configurare Silo"
 
 #: ../iw/silo.py:155
-#, fuzzy
 msgid "Install SILO boot record on:"
-msgstr "Unde doriþi sã fie instalat LILO:"
+msgstr "Unde doriþi sã fie instalat SILO:"
 
 #: ../iw/silo.py:170
-#, fuzzy
 msgid "Create PROM alias"
-msgstr "Creare disc boot"
+msgstr "Creare PROM alias"
 
 #: ../iw/silo.py:182
 msgid "Set default PROM boot device to linux"
-msgstr ""
+msgstr "Seteazã imaginea implicitã de boot în PROM pentru Linux"
 
 #: ../iw/silo.py:209
-#, fuzzy
 msgid "Do not install SILO"
-msgstr "Fãrã instalare LILO"
+msgstr "Fãrã instalare SILO"
 
 #: ../iw/timezone.py:154
 msgid "View:"
@@ -1068,9 +1062,8 @@ msgid "System clock uses UTC"
 msgstr "Ceasul sistem este setat pentru GMT"
 
 #: ../iw/timezone.py:211
-#, fuzzy
 msgid "Use Daylight Saving Time (US only)"
-msgstr "În aceastã zonã de timp se foloseºte ora de varã"
+msgstr "Foloseºte ora de varã"
 
 #: ../iw/timezone.py:225
 msgid "Location"
