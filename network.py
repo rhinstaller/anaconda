@@ -238,6 +238,13 @@ class Network:
 	return self.firstnetdevice
 
     def available(self):
+        ksdevice = None
+        cmdline = open("/proc/cmdline").read()
+        if cmdline.find("ksdevice=") != -1:
+                ksdevice = \
+                    cmdline[cmdline.index("ksdevice="):].split(" ")[0]
+                ksdevice = ksdevice.split("=")[1].strip()
+
         f = open("/proc/net/dev")
         lines = f.readlines()
         f.close()
@@ -249,6 +256,9 @@ class Network:
 		if self.firstnetdevice is None:
 		    self.firstnetdevice = dev
                 self.netdevices[dev] = NetworkDevice(dev)
+
+        if ksdevice and self.netdevices.has_key(ksdevice):
+            self.firstnetdevice = ksdevice
 
         return self.netdevices
 
