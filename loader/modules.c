@@ -574,7 +574,9 @@ int mlWriteConfModules(moduleList list, int fd) {
     int scsiNum;
     int ethNum;
     int trNum = 0;
+    int iucvNum = 0;
     char ** arg;
+    char *iucvopt;
 
     if (!list) return 0;
 
@@ -611,6 +613,8 @@ int mlWriteConfModules(moduleList list, int fd) {
 			      strcat(buf2, "\nalias ");
 			  }
 			  strcat(buf, buf2);
+			  if(!strstr(lm->name, "iucv"))
+			     iucvNum++;
 		      }
 			  
 		      break;
@@ -640,7 +644,13 @@ int mlWriteConfModules(moduleList list, int fd) {
 	    write(fd, buf, strlen(buf));
 	}
     }
-
+    if (iucvNum) {
+        iucvopt = getenv("IUCV");
+        if (iucvopt && *iucvopt) {
+        sprintf(buf, "options netiucv %s\n", iucvopt);
+        write(fd, buf, strlen(buf));
+	}
+    }
     return 0;
 }
 

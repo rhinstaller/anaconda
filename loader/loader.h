@@ -61,6 +61,12 @@
 
 #define CODE_PCMCIA	1
 
+#if !defined(__s390__) && !defined(__s390x__)
+#define RAMDISK_DEVICE "/dev/ram"
+#else
+#define RAMDISK_DEVICE "/dev/ram2"
+#endif
+
 void startNewt(int flags);
 void stopNewt(void);
 

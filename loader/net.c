@@ -446,48 +446,55 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
    strcpy(newCfg.dev.device, device);
    newCfg.isDynamic = 0;
    env = getenv("IPADDR");
-   if (env) {
-      inet_aton(env, &newCfg.dev.ip);
+   if (env && *env) {
+     if(inet_aton(env, &newCfg.dev.ip))
       newCfg.dev.set |= PUMP_INTFINFO_HAS_IP;
    }
    env = getenv("NETMASK");
-   if (env) {
-      inet_aton(env, &newCfg.dev.netmask);
+   if (env && *env) {
+     if(inet_aton(env, &newCfg.dev.netmask))
       newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
    }
    env = getenv("GATEWAY");
-   if (env) {
-      inet_aton(env, &newCfg.dev.gateway);
+   if (env && *env) {
+     if(inet_aton(env, &newCfg.dev.gateway))
       newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
    }
    env = getenv("NETWORK");
-   if (env) {
-      inet_aton(env, &newCfg.dev.network);
+   if (env && *env) {
+     if(inet_aton(env, &newCfg.dev.network))
       newCfg.dev.set |= PUMP_INTFINFO_HAS_NETWORK;
    }
+   env = getenv("DNS");
+   if (env && *env) {
+     char *s = strdup (env);
+     char *t = strtok (s, ":");
+     if(inet_aton((t? t : s), &newCfg.dev.dnsServers[0]))
+      newCfg.dev.set |= PUMP_NETINFO_HAS_DNS;
+   }
    if (!strncmp(newCfg.dev.device, "ctc", 3)) {
-      env = getenv("REMIP");
-      if (env) {
-         inet_aton(env, &newCfg.dev.broadcast);
-         newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
-      }
-   } else {
-      env = getenv("BROADCAST");
-      if (env) {
-         inet_aton(env, &newCfg.dev.broadcast);
-         newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
-      }
+     env = getenv("REMIP");
+     if (env && *env) {
+       if(inet_aton(env, &newCfg.dev.gateway))
+	 newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
+     }
+   }
+   env = getenv("BROADCAST");
+   if (env && *env) {
+     if(inet_aton(env, &newCfg.dev.broadcast))
+       newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
    }
 #endif   /* s390 */
 
 #ifdef __STANDALONE__
     if (!newCfg.isDynamic)
 #endif	  
-    cfg->dev = newCfg.dev;
     cfg->isDynamic = newCfg.isDynamic;
+    memcpy(&cfg->dev,&newCfg.dev,sizeof(newCfg.dev));
 
     fillInIpInfo(cfg);
 
+#if !defined(__s390__) && !defined(__s390x__)
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
 	if (*c.gw && inet_aton(c.gw, &addr)) {
 	    cfg->dev.gateway = addr;
@@ -502,7 +509,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 	}
     }
 
-#if !defined(__s390__) && !defined(__s390x__)
     newtPopWindow();
 #endif
     if (!FL_TESTING(flags)) {
@@ -518,11 +524,13 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
+#if !defined(__s390__) && !defined(__s390x__)
     pumpSetupInterface(&dev->dev);
 
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
 	pumpSetupDefaultGateway(&dev->dev.gateway);
 
+#endif
     return 0;
 }
 
@@ -555,8 +563,14 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 	fprintf(f, "BOOTPROTO=static\n");
 	fprintf(f, "IPADDR=%s\n", inet_ntoa(dev->dev.ip));
 	fprintf(f, "NETMASK=%s\n", inet_ntoa(dev->dev.netmask));
-	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
-	    fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
+	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
+	  fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
+	  if (!strncmp(dev->dev.device, "ctc", 3) || \
+	      !strncmp(dev->dev.device, "iucv", 4)) 
+	    fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.gateway));
+	}
+	if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
+	  fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));    
     }
 
     if (dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)
@@ -573,6 +587,9 @@ int writeResolvConf(struct networkDeviceConfig * net) {
     char * filename = "/etc/resolv.conf";
     FILE * f;
     int i;
+#if defined(__s390__) || defined(__s390x__)
+    return 0;
+#endif
 
     if (!(net->dev.set & PUMP_NETINFO_HAS_DOMAIN) && !net->dev.numDns)
     	return LOADER_ERROR;

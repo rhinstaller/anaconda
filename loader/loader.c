@@ -169,7 +169,7 @@ static int setupRamdisk(void) {
 	int i, j = 0;
 	int fd;
 
-	fd = open("/dev/ram", O_RDWR);
+	fd = open(RAMDISK_DEVICE, O_RDWR);
 	logMessage("copying file to fd %d", fd);
 
 	while ((i = gunzip_read(f, buf, sizeof(buf))) > 0) {
@@ -181,7 +181,7 @@ static int setupRamdisk(void) {
 	gunzip_close(f);
     }
 
-    if (doPwMount("/dev/ram", "/tmp/ramfs", "ext2", 0, 0, NULL, NULL))
+    if (doPwMount(RAMDISK_DEVICE, "/tmp/ramfs", "ext2", 0, 0, NULL, NULL))
 	logMessage("failed to mount ramfs image");
 
     return 0;
@@ -209,6 +209,11 @@ void stopNewt(void) {
 static void spawnShell(int flags) {
     pid_t pid;
     int fd;
+
+#if defined (__s390__) && !defined (__s390x__)
+	logMessage("not spawning a shell on s390");
+	return;
+#else
 
     if (FL_SERIAL(flags)) {
 	logMessage("not spawning a shell over a serial connection");
@@ -256,6 +261,7 @@ static void spawnShell(int flags) {
     }
 
     return;
+#endif
 }
 
 static int detectHardware(moduleInfoSet modInfo, 
@@ -764,6 +770,11 @@ static char * mountHardDrive(struct installMethod * method,
     int rc;
     int fd;
     int i, j;
+#if defined (__s390__) || defined (__s390x__)
+    static struct networkDeviceConfig netDev;
+    struct iurlinfo ui;
+    char * devName;
+#endif
     struct {
 	char name[20];
 	int type;
@@ -784,6 +795,7 @@ static char * mountHardDrive(struct installMethod * method,
 
     while (!done) {
 	numPartitions = 0;
+#if !defined (__s390__) && !defined (__s390x__)
 	for (i = 0; i < kd->numKnown; i++) {
 	    if (kd->known[i].class == CLASS_HD) {
 		devMakeInode(kd->known[i].name, "/tmp/hddevice");
@@ -846,6 +858,38 @@ static char * mountHardDrive(struct installMethod * method,
 
 	    continue;
 	}
+
+#else
+	/* s390 */
+	memset(&ui, 0, sizeof(ui));
+        memset(&netDev, 0, sizeof(netDev));
+        netDev.isDynamic = 1;
+	i = ensureNetDevice(kd, modInfo, modLoaded, modDepsPtr, flags, &devName);
+        if (i) return NULL;
+	rc = readNetConfig(devName, &netDev, flags);
+	if (rc) {
+                if (!FL_TESTING(flags)) pumpDisableInterface(devName);
+                return NULL;
+	}
+	setupRemote(&ui);
+	for(c = 'a'; c <= 'z'; c++) {
+	  for(i = 1; i < 4; i++) {
+	    char dev[7];
+	    sprintf(dev, "dasd%c%d", c, i);
+	    devMakeInode(dev, "/tmp/hddevice");
+	    fd = open("/tmp/hddevice", O_RDONLY);
+	    if (fd >= 0) {
+	      close(fd);
+	      sprintf(partitions[numPartitions].name, "/dev/%s", dev);
+	      partitions[numPartitions].type = BALKAN_PART_EXT2;
+	      numPartitions++;					
+	    }
+	  }
+        }
+	mlLoadModule("isofs", NULL, modLoaded, *modDepsPtr,
+                 NULL, modInfo, flags);
+
+#endif
 
 	text = newtTextboxReflowed(-1, -1,
 		_("What partition and directory on that partition hold the "
@@ -942,6 +986,9 @@ static char * mountHardDrive(struct installMethod * method,
     }
 
     free(dir);
+#if defined (__s390__) || defined (__s390x__)
+    writeNetInfo("/tmp/netinfo", &netDev, kd);
+#endif
 
     return url;
 }
@@ -1210,6 +1257,7 @@ static char * mountNfsImage(struct installMethod * method,
     		         moduleInfoSet modInfo, moduleList modLoaded,
 		         moduleDeps * modDepsPtr, int flags) {
     static struct networkDeviceConfig netDev;
+    struct iurlinfo ui;
     char * devName;
     int i, rc;
     char * host = NULL;
@@ -1222,6 +1270,7 @@ static char * mountNfsImage(struct installMethod * method,
 
     initLoopback();
 
+    memset(&ui, 0, sizeof(ui));
     memset(&netDev, 0, sizeof(netDev));
     netDev.isDynamic = 1;
     
@@ -1236,6 +1285,11 @@ static char * mountNfsImage(struct installMethod * method,
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
 		return NULL;
 	    }
+#if defined (__s390__) || defined (__s390x__)
+	    setupRemote(&ui);
+	    host = ui.address;
+	    dir = ui.prefix;
+#endif
 	    stage = NFS_STAGE_NFS;
 	    break;
 
@@ -1410,15 +1464,17 @@ static char * mountUrlImage(struct installMethod * method,
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
 		return NULL;
 	    }
+#if defined (__s390__) || defined (__s390x__)
+	    setupRemote(&ui);
+#endif
 	    stage = URL_STAGE_MAIN;
 
 	  case URL_STAGE_MAIN:
 	    rc = urlMainSetupPanel(&ui, proto, &needsSecondary);
 	    if (rc) 
-		stage = URL_STAGE_IP;
+			stage = URL_STAGE_IP;
 	    else
-		stage = needsSecondary != ' ' ? 
-			URL_STAGE_SECOND : URL_STAGE_FETCH;
+			stage = needsSecondary != ' ' ? URL_STAGE_SECOND : URL_STAGE_FETCH;
 	    break;
 
 	  case URL_STAGE_SECOND:
@@ -2545,6 +2601,9 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     struct device ** devices;
     char * buf = NULL;
 
+#if !defined (__s390__) && !defined (__s390x__)
+	return 0;
+#else
     if (FL_NOUSB(flags)) return 0;
 
     logMessage("looking for usb controllers");
@@ -2580,6 +2639,7 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     sleep(1);
 
     return 0;
+#endif
 }
 
 /* This forces a pause between initializing usb and trusting the /proc 
@@ -2587,6 +2647,9 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo, int flags) {
 
+#if !defined (__s390__) && !defined (__s390x__)
+	return;
+#else
     if (FL_NOUSB(flags)) return;
 
     logMessage("looking for USB mouse...");
@@ -2597,6 +2660,7 @@ static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 	    return;
 	}
     }
+#endif
 }
 
 
@@ -2604,6 +2668,11 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
 			     moduleInfoSet modInfo, int flags) {
     struct device ** devices, *p;
     int i;
+
+#if defined (__s390__) && defined (__s390x__)
+	/* obviously no agp on s/390 :) */
+	return 0;
+#else
 
     if (FL_TESTING(flags)) return 0;
 
@@ -2640,6 +2709,7 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
     }
 
     return 0;
+#endif
 }
 
 static void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
@@ -2794,7 +2864,7 @@ int main(int argc, char ** argv) {
 
     openLog(FL_TESTING(flags));
     if (!FL_TESTING(flags))
-	openlog("loader", 0, LOG_LOCAL0);
+		openlog("loader", 0, LOG_LOCAL0);
 
     checkForRam(flags);
 
@@ -2804,6 +2874,11 @@ int main(int argc, char ** argv) {
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
     mlLoadModuleSet("cramfs:vfat", modLoaded, modDeps, modInfo, flags);
+
+
+#if defined (__s390__) || defined (__s390x__)
+    mlLoadModule("loop", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+#endif
 
     if (!continuing) {
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);

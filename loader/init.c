@@ -103,7 +103,7 @@ char * env[] = {
  *
  */
 
-int testing;
+int testing=0;
 
 void printstr(char * string) {
     write(1, string, strlen(string));
@@ -120,7 +120,9 @@ void fatal_error(int usePerror) {
 
     printf("\nI can't recover from this.\n");
     if (testing) exit(0);
+#if !defined(__s390__) && !defined(__s390x__)
     while (1) ;
+#endif
 }
 
 int doMke2fs(char * device, char * size) {
@@ -542,7 +544,9 @@ int main(int argc, char **argv) {
     char twelve = 12;
     int i;
 
+#if !defined(__s390__) && !defined(__s390x__)
     testing = (getppid() != 0) && (getppid() != 1);
+#endif
 
     if (!testing) {
 	/* turn off screen blanking */
@@ -587,6 +591,7 @@ int main(int argc, char **argv) {
 	    break;
 	}
 
+#if !defined(__s390__) && !defined(__s390x__)
     if (ioctl (0, TIOCLINUX, &twelve) < 0)
 	isSerial = 2;
     
@@ -625,10 +630,17 @@ int main(int argc, char **argv) {
     if (testing)
 	exit(0);
 
+	fd = open("/proc/self/0", O_RDWR, 0);    
+	if (fd < 0) {
+	    printf("failed to open /proc/self/0\n");
+	    fatal_error(1);
+	}
+
     dup2(fd, 0);
     dup2(fd, 1);
     dup2(fd, 2);
     close(fd);
+#endif
 
     setsid();
     if (ioctl(0, TIOCSCTTY, NULL)) {
@@ -673,15 +685,21 @@ int main(int argc, char **argv) {
 	}
     }
 
+#if !defined(__s390__) && !defined(__s390x__)
+#define RAMDISK_DEVICE "/dev/ram"
+#else
+#define RAMDISK_DEVICE "/dev/ram2"
+#endif
+
     if (!testing && roRoot) {
 	printf("creating 300k of ramdisk space... ");
-	if (doMke2fs("/dev/ram", "300"))
+	if (doMke2fs(RAMDISK_DEVICE, "300"))
 	    fatal_error(0);
 
 	printf("done\n");
 	
 	printf("mounting /tmp from ramdisk... ");
-	if (mount("/dev/ram", "/tmp", "ext2", 0, NULL))
+	if (mount(RAMDISK_DEVICE, "/tmp", "ext2", 0, NULL))
 	    fatal_error(1);
 
 	printf("done\n");

@@ -81,6 +81,11 @@ __gconv_compare_alias (const char *name1, const char *name2) {
     return 0;
 }
 
+int
+__gconv_compare_alias_cache (const char *name1, const char *name2, int *result) {
+   return 0;
+}
+
 void
 __gconv_release_step () { }
 
