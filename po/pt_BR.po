@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"POT-Creation-Date: 2003-01-08 20:15-0500\n"
-"PO-Revision-Date: 2002-12-20 12:30+1000\n"
+"POT-Creation-Date: 2002-12-18 00:10-0500\n"
+"PO-Revision-Date: 2003-01-10 14:54+1000\n"
 "Last-Translator: David Barzilay <barzilay@redhat.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -107,8 +107,7 @@ msgstr "Não foi possível instanciar um objeto com o estado de hardware do X."
 
 #: ../anaconda:494
 #, c-format
-msgid ""
-"Graphical installation not available for %s installs.  Starting text mode."
+msgid "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 "A instalação gráfica não está disponível para instalações %s.  Iniciando em "
 "modo texto."
@@ -323,7 +322,6 @@ msgstr ""
 "de arquivos, sua localização, seu tamanho, dentre outras coisas."
 
 #: ../autopart.py:1309
-#, fuzzy
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -423,13 +421,12 @@ msgstr ""
 "seguida, reporte-o em 'anaconda' em http://bugzilla.redhat.com/bugzilla/"
 
 #: ../constants.py:71
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
-"Ocorreu um erro irreparável. Provavelmente um 'bug'. Por favor copie o texto "
+"Ocorreu um erro irreparável.  Provavelmente um 'bug'.  Por favor copie o texto "
 "da exceção ocorrida ou grave o relatório do erro em um disquete e, em "
 "seguida, reporte-o em 'anaconda' em http://bugzilla.redhat.com/bugzilla/"
 
@@ -528,23 +525,22 @@ msgid "Creating boot disk..."
 msgstr "Criando disco 'boot'..."
 
 #: ../floppy.py:158
-#, fuzzy
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
 msgstr ""
-"Ocorreu um erro ao criar o disquete 'boot'. Verifique se há um disquete no "
-"primeiro 'drive'."
+"Ocorreu um erro ao tentar verificar o disquete 'boot'.  Por favor "
+"verifique se há um disquete no primeiro 'drive'."
 
 #: ../floppy.py:189
-#, fuzzy
 msgid ""
 "Your boot floppy appears to be invalid.  This is likely due to a bad "
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
 msgstr ""
-"Ocorreu um erro ao criar o disquete 'boot'. Verifique se há um disquete no "
-"primeiro 'drive'."
+"Seu disquete 'boot' parece ser inválido.  Provavelmente é um disquete "
+"defeituoso.  Por favor certifique-se de ter um bom disquete no primeiro "
+"'drive'."
 
 #: ../fsset.py:176
 msgid "Checking for Bad Blocks"
@@ -750,14 +746,13 @@ msgid "Error Saving Screenshot"
 msgstr "Erro ao Salvar 'Screenshot'"
 
 #: ../gui.py:166
-#, fuzzy
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
-"Ocorreu um erro ao salvar o 'screenshot'.  Se isso ocorreu durante "
-"ainstalação do pacote, você talvez tenha que tentar diversas vezes parasalvá-"
-"lo com sucesso."
+"Ocorreu um erro ao salvar o 'screenshot'.  Se isso ocorreu durante a "
+"instalação do pacote, você talvez tenha que tentar diversas vezes para"
+"salvá-lo com sucesso."
 
 #: ../gui.py:234 ../text.py:311
 msgid "Fix"
@@ -960,9 +955,8 @@ msgid "Install on System"
 msgstr "Instalar no Sistema"
 
 #: ../kickstart.py:1140
-#, fuzzy
 msgid "Missing Package"
-msgstr "Instalando Pacotes"
+msgstr "Pacote Faltando"
 
 #: ../kickstart.py:1141
 #, python-format
@@ -970,20 +964,20 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Você especificou que o pacote '%s' deve ser instalado.  Este pacote "
+"não existe. Você quer continuar ou abortar a instalação?"
 
 #: ../kickstart.py:1147 ../kickstart.py:1173
-#, fuzzy
 msgid "_Abort"
-msgstr "_Reiniciar"
+msgstr "_Abortar"
 
 #: ../kickstart.py:1148 ../kickstart.py:1174 ../iw/partition_gui.py:995
 msgid "_Continue"
 msgstr "_Continuar"
 
 #: ../kickstart.py:1166
-#, fuzzy
 msgid "Missing Group"
-msgstr "Informação Faltando"
+msgstr "Grupo Faltando"
 
 #: ../kickstart.py:1167
 #, python-format
@@ -991,6 +985,8 @@ msgid ""
 "You have specified that the group '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Você especificou que o grupo '%s' deve ser instalado.  Este pacote "
+"não existe. Você quer continuar ou abortar sua instalação?"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1000,8 +996,7 @@ msgstr ""
 
 #: ../network.py:44
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"Os nomes das máquinas só podem conter os caracteres 'a-z', 'A-Z', '-' ou '.'"
+msgstr "Os nomes das máquinas só podem conter os caracteres 'a-z', 'A-Z', '-' ou '.'"
 
 #: ../packages.py:42 ../iw/package_gui.py:38
 msgid "Proceed with upgrade?"
@@ -1445,8 +1440,7 @@ msgstr "Confirmar Remoção"
 #: ../partIntfHelpers.py:228
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"Você está prestes a apagar todas as partições do dispositivo '/dev/%s'."
+msgstr "Você está prestes a apagar todas as partições do dispositivo '/dev/%s'."
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
 #: ../iw/lvm_dialog_gui.py:717 ../iw/lvm_dialog_gui.py:1071
@@ -1631,8 +1625,7 @@ msgid "Confirm Reset"
 msgstr "Confirmar Restauração"
 
 #: ../partIntfHelpers.py:536
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Tem certeza que deseja restaurar a tabela de partições para o estado "
 "original?"
@@ -1684,10 +1677,8 @@ msgstr ""
 "para instalar %s."
 
 #: ../partitions.py:758
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Você deve criar uma partição /boot/efi do tipo FAT e com o tamanho de 50 MB."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Você deve criar uma partição /boot/efi do tipo FAT e com o tamanho de 50 MB."
 
 #: ../partitions.py:766
 #, python-format
@@ -1748,20 +1739,20 @@ msgstr "uma partição pertencente a um Grupo de Volumes de LVM."
 
 #: ../partRequests.py:219
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Este ponto de montagem é inválido. O diretório %s deve estar no sistema de "
 "arquivos /."
 
 #: ../partRequests.py:222
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-"O ponto de montagem \"%s\" já está em uso. Por favor selecione um outro "
-"ponto de montagem."
+"O ponto de montagem %s não pode ser utilizado.  Deve ser uma ligação "
+"simbólica para operação apropriada do sistema.  Por favor selecione um "
+"ponto de montagem diferente."
 
 #: ../partRequests.py:229
 msgid "This mount point must be on a linux file system."
@@ -1781,8 +1772,7 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"O tamanho da partição %s (%10.2f MB) excede o tamanho máximo de %10.2f MB."
+msgstr "O tamanho da partição %s (%10.2f MB) excede o tamanho máximo de %10.2f MB."
 
 #: ../partRequests.py:446
 #, python-format
@@ -1825,13 +1815,12 @@ msgstr ""
 "unidades reserva, você precisa adicionar mais membros ao dispositivo RAID."
 
 #: ../rescue.py:137
-#, fuzzy
 msgid "Setup Networking"
-msgstr "Rede"
+msgstr "Configuração da Rede"
 
 #: ../rescue.py:138
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "Você deseja iniciar as interfaces de rede neste sistema?"
 
 #: ../rescue.py:152 ../rescue.py:186 ../rescue.py:297
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1980,13 +1969,12 @@ msgid "Debug"
 msgstr "Depurar"
 
 #: ../text.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2003 Red Hat, Inc."
-msgstr "%s (C) 2002 Red Hat, Inc."
+msgstr "%s (C) 2003 Red Hat, Inc."
 
 #: ../text.py:339
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> ajuda | <Tab> entre elementos | <Espaço> seleciona | <F12> próxima "
 "tela "
@@ -2597,8 +2585,8 @@ msgstr ""
 "visite:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
-"Para informações sobre a atualizações automáticas através da Red Hat "
-"Network, visite:\n"
+"Para informações sobre a atualizações automáticas através da Rede Red "
+"Hat, visite:\n"
 "\thttp://rhn.redhat.com/\n"
 "\n"
 "Para informações sobre utilização e configuração do sistema, visite:\n"
@@ -2826,6 +2814,8 @@ msgid ""
 "Formating the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
 msgstr ""
+"Formatar o dispositivo DASD selecionado destruirá todo o conteúdo do"
+"dispositivo. Você deseja realmente formatar o dispositivo DASD selecionado?"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
@@ -3112,8 +3102,7 @@ msgstr "Nome de volume lógico inválido"
 #: ../iw/lvm_dialog_gui.py:567
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"O nome do volume lógico \"%s\" já está em uso. Por favor selecione outro."
+msgstr "O nome do volume lógico \"%s\" já está em uso. Por favor selecione outro."
 
 #: ../iw/lvm_dialog_gui.py:581
 #, python-format
@@ -3151,8 +3140,7 @@ msgstr "Não há 'slots' livres"
 #: ../iw/lvm_dialog_gui.py:680
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
-"Você não pode criar mais do que %s volumes lógicos por grupo de volumes."
+msgstr "Você não pode criar mais do que %s volumes lógicos por grupo de volumes."
 
 #: ../iw/lvm_dialog_gui.py:686
 msgid "No free space"
@@ -3184,8 +3172,7 @@ msgstr "Nome já utilizado"
 #: ../iw/lvm_dialog_gui.py:861
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"O nome do grupo de volumes \"%s\" já está em uso. Por favor escolha outro."
+msgstr "O nome do grupo de volumes \"%s\" já está em uso. Por favor escolha outro."
 
 #: ../iw/lvm_dialog_gui.py:905
 msgid "Not enough physical volumes"
@@ -3760,18 +3747,15 @@ msgid "Partitioning"
 msgstr "Particionamento"
 
 #: ../iw/partition_gui.py:626
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "Existem os seguintes erros críticos com o esquema de particionamento "
 "selecionado."
 
 #: ../iw/partition_gui.py:629
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
-"Estes erros têm que ser corrigidos antes de continuar com a instalação do %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
+msgstr "Estes erros têm que ser corrigidos antes de continuar com a instalação do %s."
 
 #: ../iw/partition_gui.py:635
 msgid "Partitioning Errors"
@@ -3929,8 +3913,7 @@ msgstr "Não foi Possível Criar o Editor de Clonagem de Discos"
 
 #: ../iw/partition_gui.py:1292
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Por alguma razão, não foi possível criar o editor de clonagem de discos."
+msgstr "Por alguma razão, não foi possível criar o editor de clonagem de discos."
 
 #: ../iw/partition_gui.py:1339
 msgid "_Reset"
@@ -4161,8 +4144,7 @@ msgstr "Erro no Drive de Destino"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
-msgstr ""
-"Por favor selecione os 'drives' de destino para a operação de clonagem."
+msgstr "Por favor selecione os 'drives' de destino para a operação de clonagem."
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
@@ -4353,8 +4335,7 @@ msgstr "Isto atualizará seu gestor de início atual."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "O instalador detectou o gestor de início %s instalado em %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4489,8 +4470,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "O arquivo de troca deve ter entre 1 e 2000 MB de tamanho."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Não há espaço suficiente no dispositivo que você selecionou para a partição "
 "de troca."
@@ -4552,9 +4532,8 @@ msgid "Please choose your login type:"
 msgstr "Por favor escolha o tipo de 'login':"
 
 #: ../iw/xconfig_gui.py:393
-#, fuzzy
 msgid "_Text"
-msgstr "Texto"
+msgstr "_Texto"
 
 #: ../iw/xconfig_gui.py:394
 msgid "_Graphical"
@@ -4810,8 +4789,7 @@ msgstr ""
 "iniciar e que etiqueta deseja usar para cada uma delas."
 
 #: ../textw/bootloader_text.py:309
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Espaço> seleciona botão | <F2> seleciona início 'default' | <F12> próxima "
 "tela>"
@@ -4967,9 +4945,8 @@ msgid "Choose a disk to run fdasd or dasdfmt on"
 msgstr "Escolha um 'drive' para rodar o fdisk ou o dasdfmt"
 
 #: ../textw/fdasd_text.py:32
-#, fuzzy
 msgid "Next"
-msgstr "_Próximo"
+msgstr "Próximo"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
@@ -5265,10 +5242,8 @@ msgid "Total size"
 msgstr "Tamanho total"
 
 #: ../textw/packages_text.py:245
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Espaço>,<+>,<-> seleção   |   <F1> ajuda   |   <F2> descrição do pacote"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Espaço>,<+>,<-> seleção   |   <F1> ajuda   |   <F2> descrição do pacote"
 
 #: ../textw/packages_text.py:293
 msgid "Package Dependencies"
@@ -5494,8 +5469,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1123
-msgid ""
-"    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Ajuda                F3-Editar   F4-Apagar    F5-Restaurar    F12-"
 "OK        "
@@ -5505,8 +5479,7 @@ msgid "New"
 msgstr "Nova"
 
 #: ../textw/partition_text.py:1131
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Ajuda     F2-Novo      F3-Editar   F4-Apagar    F5-Restaurar    F12-"
 "OK        "
@@ -5647,9 +5620,8 @@ msgid "The value you entered is not a valid number."
 msgstr "O valor que você inseriu não é um número válido."
 
 #: ../textw/upgrade_text.py:205
-#, fuzzy
 msgid "Reinstall System"
-msgstr "Instalar no Sistema"
+msgstr "Reinstalar o Sistema"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
@@ -5769,14 +5741,11 @@ msgid "User Exists"
 msgstr "Usuário Existe"
 
 #: ../textw/userauth_text.py:144
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr ""
-"O usuário 'root' já está configurado. Não é necessário adicioná-lo aqui."
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "O usuário 'root' já está configurado. Não é necessário adicioná-lo aqui."
 
 #: ../textw/userauth_text.py:151
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Este usuário do sistema já está configurado. Não é necessário adicioná-lo "
 "aqui."
@@ -6121,6 +6090,10 @@ msgid ""
 "is complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
+"O gestor de início z/IPL será instalado em seu sistema após completar "
+"a instalação. Agora você pode indicar quaisquer parâmetros adicionais"
+"para o kernel e chandev que sua máquina ou sua configuração podem "
+"precisar."
 
 #: ../textw/zipl_text.py:47
 msgid "z/IPL Configuration"
@@ -6128,7 +6101,7 @@ msgstr "Configuração do z/IPL"
 
 #: ../textw/zipl_text.py:54 ../textw/zipl_text.py:57
 msgid "Chandev line "
-msgstr ""
+msgstr "Linha chandev"
 
 #: ../installclasses/custom.py:10
 msgid "Custom"
@@ -6335,20 +6308,20 @@ msgid "Enter Module Parameters"
 msgstr "Indique os Parâmetros do Módulo"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "No drivers found"
 msgstr "Nenhum 'driver' encontrado"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "Load driver disk"
-msgstr "Utilizar um 'driver disk'"
+msgstr "Carregar 'driver disk'"
 
 #: ../loader2/driverselect.c:187
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
+"Nenhum 'driver' foi encontrado para inserir manualmente.  Você deseja "
+"usar um 'driver disk'?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -6461,10 +6434,8 @@ msgid "Welcome to %s"
 msgstr "Bem-vindo ao %s"
 
 #: ../loader2/lang.c:51 ../loader2/loader.c:172
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> entre elementos  | <Espaço> seleciona | <F12> continuar "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> entre elementos  | <Espaço> seleciona | <F12> continuar "
 
 #: ../loader2/lang.c:380
 msgid "Choose a Language"
@@ -6596,8 +6567,7 @@ msgstr "Adicionar Dispositivo"
 #: ../loader2/loader.c:1149
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"Executando anaconda, o instalador do sistema %s - por favor aguarde...\n"
+msgstr "Executando anaconda, o instalador do sistema %s - por favor aguarde...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -6629,6 +6599,12 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"FALHA.\n"
+"\n"
+"A imagem testada há pouco tem erros. Isto pode ser devido a problemas "
+"com o download ou com o disco.  Se possível, limpe o disco e tente "
+"novamente.  Se este teste continuar falhando você não deve continuar "
+"a instalação."
 
 #: ../loader2/mediacheck.c:333
 msgid ""
@@ -6741,9 +6717,9 @@ msgid "Dynamic IP"
 msgstr "IP dinâmico"
 
 #: ../loader2/net.c:208 ../loader2/net.c:389
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s..."
-msgstr "Enviando pedido para informações IP para %s"
+msgstr "Enviando pedido para informações IP para %s..."
 
 #: ../loader2/net.c:278
 msgid ""
@@ -6839,9 +6815,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Executando anaconda através do telnet..."
 
 #: ../loader2/urlinstall.c:58
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr "Não foi possível recuperar %s: %s"
+msgstr "Não foi possível recuperar %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:98
 msgid "Unable to retrieve the install image."
@@ -6924,8 +6900,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"Se você estiver utilizando um servidor proxy de HTTP insira o seu nome."
+msgstr "Se você estiver utilizando um servidor proxy de HTTP insira o seu nome."
 
 #: ../loader2/urls.c:420
 msgid "Account name:"
@@ -6984,16 +6959,14 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Hora do Atlântico - Labrador Leste"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Hora do Atlântico - Nova Escócia (maioria das localidades), NB, Labrador "
 "Oeste, Quebec Leste & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Hora do Atlântico - Nova Escócia - locais não regidos pelo DST 1966-1971"
+msgstr "Hora do Atlântico - Nova Escócia - locais não regidos pelo DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -7168,8 +7141,7 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "Hora Oriental - Ontario & Quebec - maioria das localidades"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Hora Oriental - Ontario & Quebec - locais regidos pelo DST 1966-1971"
 
 #. generated from zone.tab
@@ -7338,18 +7310,15 @@ msgstr "maioria das localidades"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
-"maioria das localidades (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "maioria das localidades (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Hora Padrão da Montanha - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Hora Padrão da Montanha - Dawson Creek & Forte Saint John, Columbia Britânica"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Hora Padrão da Montanha - Dawson Creek & Forte Saint John, Columbia Britânica"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7391,8 +7360,7 @@ msgstr "Hora da Montanha - oeste dos Territórios Noroeste"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
-msgstr ""
-"Nordeste do Brasil (Maranhão, Piauí, Ceará, Rio Grande do Norte, Paraná)"
+msgstr "Nordeste do Brasil (Maranhão, Piauí, Ceará, Rio Grande do Norte, Paraná)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
@@ -7638,9 +7606,8 @@ msgid "Portuguese"
 msgstr "Português"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese (Brasilian)"
-msgstr "Português"
+msgstr "Português (Brasileiro)"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7938,3 +7905,4 @@ msgstr "Ucraniano"
 
 #~ msgid "not probed correctly."
 #~ msgstr "no caso de eles não terem sido detectados correctamente."
+

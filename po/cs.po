@@ -1,11 +1,11 @@
 # $Id$
-# Miloslav Trmac <mitr@volny.cz>, 2002.
+# Miloslav Trmac <mitr@volny.cz>, 2002, 2003.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2003-01-08 20:15-0500\n"
-"PO-Revision-Date: 2002-12-20 12:24+0100\n"
+"PO-Revision-Date: 2003-01-14 11:37+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -273,13 +273,12 @@ msgstr ""
 "přehledném grafickém rozhraní."
 
 #: ../autopart.py:1309
-#, fuzzy
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
-"Před automatickým vytvořením oddílů musíte zvolit, jak bude využito místo \n"
-"na pevných discích."
+"Před automatickým vytvořením oddílů instalačním programem musíte zvolit, jak "
+"využít místo na vašich pevných discích."
 
 #: ../autopart.py:1314
 msgid "Remove all partitions on this system"
@@ -367,20 +366,19 @@ msgid ""
 "file a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
 msgstr ""
-"Byla zachycena vyjímka. Obvykle to znamená, že v programu je chyba. "
-"Zkopírujte prosím plné znění této vyjímky nebo uložte výpis na disketu a "
+"Byla zachycena výjimka. Obvykle to znamená, že v programu je chyba. "
+"Zkopírujte prosím plné znění této výjimky nebo uložte výpis na disketu a "
 "ohlaste chybu na adrese http://bugzilla.redhat.com/bugzilla/"
 
 #: ../constants.py:71
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
-"Byla zachycena vyjímka. Obvykle to znamená, že v programu je chyba. "
-"Zkopírujte prosím plné znění této vyjímky nebo uložte výpis na disketu a "
-"ohlaste chybu na adrese http://bugzilla.redhat.com/bugzilla/"
+"Došlo k neobsloužené výjimce. To pravděpodobně znamená, že v programu je "
+"chyba. Zkopírujte prosím plné znění této výjimky a podrobně vyplňte hlášení "
+"o chybě programu anaconda na http://bugzilla.redhat.com/bugzilla/"
 
 #: ../exception.py:167 ../text.py:235
 msgid "Exception Occurred"
@@ -475,23 +473,22 @@ msgid "Creating boot disk..."
 msgstr "Vytvářím zaváděcí disketu..."
 
 #: ../floppy.py:158
-#, fuzzy
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
 msgstr ""
-"Při vytváření zaváděcí diskety došlo k chybě. Zkontrolujte, zda v první "
-"disketové jednotce je disketa."
+"Při pokusu zkontrolovat zaváděcí disketu došlo k chybě. Zkontrolujte prosím, "
+"jestli je v první disketové jednotce dobrá disketa."
 
 #: ../floppy.py:189
-#, fuzzy
 msgid ""
 "Your boot floppy appears to be invalid.  This is likely due to a bad "
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
 msgstr ""
-"Při vytváření zaváděcí diskety došlo k chybě. Zkontrolujte, zda v první "
-"disketové jednotce je disketa."
+"Vaše zaváděcí disketa je zřejmě neplatná. To je pravděpodobně kvůli špatné "
+"disketě. Zkontrolujte prosím, jestli je v první disketové jednotce dobrá "
+"disketa."
 
 #: ../fsset.py:176
 msgid "Checking for Bad Blocks"
@@ -697,12 +694,11 @@ msgid "Error Saving Screenshot"
 msgstr "Chyba při ukládání snímku obrazovky"
 
 #: ../gui.py:166
-#, fuzzy
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
-"Při ukládání snímku obrazovku došlo k chybě. Jestliže k ní došlo v průběhu "
+"Při ukládání snímku obrazovky došlo k chybě. Jestliže k ní došlo v průběhu "
 "instalace balíčků, možná to budete muset zkusit několikrát."
 
 #: ../gui.py:234 ../text.py:311
@@ -905,9 +901,8 @@ msgid "Install on System"
 msgstr "Typ instalace"
 
 #: ../kickstart.py:1140
-#, fuzzy
 msgid "Missing Package"
-msgstr "Instaluji balíčky"
+msgstr "Chybějící balíček"
 
 #: ../kickstart.py:1141
 #, python-format
@@ -915,20 +910,20 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Určili jste, že má být nainstalován balíček '%s'. Tento balíček neexistuje. "
+"Chcete pokračovat nebo přerušit instalaci?"
 
 #: ../kickstart.py:1147 ../kickstart.py:1173
-#, fuzzy
 msgid "_Abort"
-msgstr "_Restartovat"
+msgstr "Pře_rušit"
 
 #: ../kickstart.py:1148 ../kickstart.py:1174 ../iw/partition_gui.py:995
 msgid "_Continue"
 msgstr "_Pokračovat"
 
 #: ../kickstart.py:1166
-#, fuzzy
 msgid "Missing Group"
-msgstr "Chybějící informace"
+msgstr "Chybějící skupina"
 
 #: ../kickstart.py:1167
 #, python-format
@@ -936,6 +931,8 @@ msgid ""
 "You have specified that the group '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Určili jste, že má být nainstalována skupina '%s'. Tato skupina neexistuje. "
+"Chcete pokračovat nebo přerušit instalaci?"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1021,7 +1018,7 @@ msgstr ""
 "kvůli poškozenému balíčku. Pokud instalujete z CD, obvykle to znamená, že CD "
 "je poškozené nebo jednotka CD nemůže přečíst médium.\n"
 "\n"
-"Skiskněte Enter pro nový pokus."
+"Stiskněte Enter pro nový pokus."
 
 #: ../packages.py:360
 msgid "Error Installing Package"
@@ -1171,7 +1168,7 @@ msgstr "Po instalaci"
 
 #: ../packages.py:891
 msgid "Performing post install configuration..."
-msgstr "Provádím poinstalační nastavení..."
+msgstr "Provádím zápis nastavení po instalaci..."
 
 #: ../packages.py:1184
 msgid "Warning! This is a beta!"
@@ -1221,7 +1218,7 @@ msgid ""
 msgstr ""
 "Tabulka oddílů na zařízení /dev/%s je typu %s, který není na vaší "
 "architektuře očekáván. Pokud chcete na tento disk nainstalovat %s, musí být "
-"tabulka oddílů reinicializována, což znamená ztrátu VŠECH DAT na tomto "
+"tabulka oddílů znovu inicializována, což znamená ztrátu VŠECH DAT na tomto "
 "disku.\n"
 "\n"
 "Chcete tento disk inicializovat?"
@@ -1694,11 +1691,13 @@ msgstr ""
 "souborů."
 
 #: ../partRequests.py:222
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr "Místo připojení \"%s\" je již používáno. Prosím zadejte jiné."
+msgstr ""
+"Místo připojení %s nelze použít. Pro správnou funkci systému to musí být "
+"symbolický odkaz. Zvolte prosím jiné místo připojení."
 
 #: ../partRequests.py:229
 msgid "This mount point must be on a linux file system."
@@ -1759,13 +1758,12 @@ msgstr ""
 "musíte přidat další členy RAIDu."
 
 #: ../rescue.py:137
-#, fuzzy
 msgid "Setup Networking"
-msgstr "Síť"
+msgstr "Nastavení sítě"
 
 #: ../rescue.py:138
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "Chcete spustit síťová rozhraní na tomto systému?"
 
 #: ../rescue.py:152 ../rescue.py:186 ../rescue.py:297
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1910,9 +1908,9 @@ msgid "Debug"
 msgstr "Ladění"
 
 #: ../text.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2003 Red Hat, Inc."
-msgstr "%s (C) 2002 Red Hat, Inc."
+msgstr "%s (C) 2003 Red Hat, Inc."
 
 #: ../text.py:339
 msgid ""
@@ -2700,7 +2698,7 @@ msgid ""
 "Choose this option if you would like to upgrade your existing Red Hat Linux "
 "system.  This option will preserve the existing data on your drives."
 msgstr ""
-"Zvote tuto možnost, jestliže chcete akutalizovat váš existující systém Red "
+"Zvolte tuto možnost, jestliže chcete aktualizovat váš existující systém Red "
 "Hat Linux. Tato možnost zachová existující data na vašich discích."
 
 #: ../iw/examine_gui.py:64
@@ -2716,7 +2714,7 @@ msgid ""
 msgstr ""
 "Zvolte tuto možnost pro novou instalaci vašeho systému. Podle toho, jak se "
 "rozhodnete vytvořit oddíly, budou nebo nebudou zachována data na vašich "
-"disích."
+"discích."
 
 #: ../iw/examine_gui.py:110
 msgid "_Customize packages to be upgraded"
@@ -2743,6 +2741,8 @@ msgid ""
 "Formating the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
 msgstr ""
+"Formátování vybraného zařízení DASD zničí všechen obsah tohoto zařízení. "
+"Opravdu chcete naformátovat vybrané zařízení DASD?"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
@@ -4450,9 +4450,8 @@ msgid "Please choose your login type:"
 msgstr "Zvolte prosím typ přihlašování:"
 
 #: ../iw/xconfig_gui.py:393
-#, fuzzy
 msgid "_Text"
-msgstr "Textové"
+msgstr "_Textové"
 
 #: ../iw/xconfig_gui.py:394
 msgid "_Graphical"
@@ -4597,7 +4596,7 @@ msgid ""
 "Would you like to create a boot diskette?"
 msgstr ""
 "Zaváděcí disketa umožňuje zavést váš systém %s z diskety. Zaváděcí disketa "
-"vám umožňuje zavást systém, když vaše konfigurace zavaděče systému přestane "
+"vám umožňuje zavést systém, když vaše konfigurace zavaděče systému nebude "
 "fungovat.\n"
 "\n"
 "Doporučuje se vytvořit zaváděcí disketu.\n"
@@ -4856,9 +4855,8 @@ msgid "Choose a disk to run fdasd or dasdfmt on"
 msgstr "Vyberte jednotku, na kterou spustit fdasd nebo dasdfmt"
 
 #: ../textw/fdasd_text.py:32
-#, fuzzy
 msgid "Next"
-msgstr "_Další"
+msgstr "Další"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
@@ -5532,9 +5530,8 @@ msgid "The value you entered is not a valid number."
 msgstr "Vložený údaj není platné číslo."
 
 #: ../textw/upgrade_text.py:205
-#, fuzzy
 msgid "Reinstall System"
-msgstr "Typ instalace"
+msgstr "Přeinstalovat systém"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
@@ -5551,7 +5548,7 @@ msgstr ""
 "Linuxu.\n"
 "\n"
 "Pro aktualizaci prosím jednu zvolte, nebo nainstalujte nový systém zvolením "
-"'Reinstalovat sytém'."
+"'Přeinstalovat systém'."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
@@ -6005,6 +6002,9 @@ msgid ""
 "is complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
+"Zavaděč systému z/IPL bude na váš systém nainstalován po dokončení "
+"instalace. Nyní můžete zadat přídavné parametry jádra a chandev, které jsou "
+"potřeba pro váš počítač."
 
 #: ../textw/zipl_text.py:47
 msgid "z/IPL Configuration"
@@ -6012,7 +6012,7 @@ msgstr "Nastavení z-IPL"
 
 #: ../textw/zipl_text.py:54 ../textw/zipl_text.py:57
 msgid "Chandev line "
-msgstr ""
+msgstr "Řádek chandev "
 
 #: ../installclasses/custom.py:10
 msgid "Custom"
@@ -6216,20 +6216,20 @@ msgid "Enter Module Parameters"
 msgstr "Zadejte parametry modulu"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "No drivers found"
 msgstr "Nenalezen žádný ovladač"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "Load driver disk"
-msgstr "Použít disketu s ovladači"
+msgstr "Načíst disketu s ovladači"
 
 #: ../loader2/driverselect.c:187
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
+"Nebyly nalezeny žádné ovladače pro ruční zavedení. Chcete použít disketu s "
+"ovladači?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -6298,7 +6298,7 @@ msgstr "Zařízení %s zřejmě neobsahuje soubory s obrazy CD Red Hat Linuxu."
 #: ../loader2/urlinstall.c:388 ../loader2/urlinstall.c:397
 #: ../loader2/urlinstall.c:408
 msgid "Kickstart Error"
-msgstr "Chyba kickstartu"
+msgstr "Chyba Kickstartu"
 
 #: ../loader2/hdinstall.c:505
 #, c-format
@@ -6505,6 +6505,12 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"SELHÁNÍ.\n"
+"\n"
+"Obraz, který byl právě testován, má chyby. To může být kvůli poškozenému "
+"stahování nebo špatnému médiu. Je-li to třeba, očistěte prosím médium a "
+"zkuste to znovu. Jestliže tento test bude přesto selhávat, neměli byste "
+"pokračovat v instalaci."
 
 #: ../loader2/mediacheck.c:333
 msgid ""
@@ -6615,9 +6621,9 @@ msgid "Dynamic IP"
 msgstr "Dynamické nastavení IP"
 
 #: ../loader2/net.c:208 ../loader2/net.c:389
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s..."
-msgstr "Odesílám dotaz o nastavení IP pro %s..."
+msgstr "Odesílám požadavek o informace IP pro %s..."
 
 #: ../loader2/net.c:278
 msgid ""
@@ -6650,7 +6656,7 @@ msgstr "Zjišťuji jméno počítače a doménu..."
 #: ../loader2/net.c:659
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "Chybný argument kickstart příkazu network %s: %s"
+msgstr "Chybný argument Kickstart příkazu network %s: %s"
 
 #: ../loader2/net.c:682
 #, c-format
@@ -6700,7 +6706,7 @@ msgstr "Tento adresář na serveru nelze připojit."
 #: ../loader2/nfsinstall.c:258
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "Chybný argument kickstart příkazu metody NFS %s: %s"
+msgstr "Chybný argument Kickstart příkazu metody NFS %s: %s"
 
 #: ../loader2/telnetd.c:82
 msgid "Waiting for telnet connection..."
@@ -6708,12 +6714,12 @@ msgstr "Čekám na telnetové spojení..."
 
 #: ../loader2/telnetd.c:124
 msgid "Running anaconda via telnet..."
-msgstr "Spouštím anacondu via telnet..."
+msgstr "Spouštím Anacondu přes telnet..."
 
 #: ../loader2/urlinstall.c:58
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr "Nelze načíst %s: %s"
+msgstr "Nemohu získat %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:98
 msgid "Unable to retrieve the install image."
@@ -6722,7 +6728,7 @@ msgstr "Nemohu získat instalační obraz."
 #: ../loader2/urlinstall.c:389
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "Chybný argument kickstart příkazu metody Url %s: %s"
+msgstr "Chybný argument Kickstart příkazu metody Url %s: %s"
 
 #: ../loader2/urlinstall.c:398
 msgid "Must supply a --url argument to Url kickstart method."
@@ -7204,7 +7210,7 @@ msgstr "Moskva+10 - Beringovo moře"
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr "většína míst"
+msgstr "většina míst"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
@@ -7326,7 +7332,7 @@ msgstr "Queensland - Holiday Islands"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr "Queensland - většína míst"
+msgstr "Queensland - většina míst"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
@@ -7501,9 +7507,8 @@ msgid "Portuguese"
 msgstr "Portugalština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese (Brasilian)"
-msgstr "Portugalština"
+msgstr "Portugalština (brazilská)"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7524,507 +7529,3 @@ msgstr "Švédština"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrajinština"
-
-#~ msgid "T_ext"
-#~ msgstr "_Textové"
-
-#~ msgid "CDROM type"
-#~ msgstr "Typ CD-ROM"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "Jaký máte typ jednotky CD-ROM?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "Inicializuji CD-ROM..."
-
-#~ msgid ""
-#~ "This module can take parameters which affects its operation. If you don't "
-#~ "know what parameters to supply, just skip this screen by pressing the \"OK"
-#~ "\" button now."
-#~ msgstr ""
-#~ "Tomuto modulu můžete zadat parametry, které ovlivňují jeho funkci. Pokud "
-#~ "nevíte, jaké parametry zadat, pokračujte dále stisknutím tlačítka \"OK\"."
-
-#~ msgid "Module Parameters"
-#~ msgstr "Parametry modulů"
-
-#~ msgid "Do you have a driver disk?"
-#~ msgstr "Máte disketu s ovladači?"
-
-#~ msgid "Insert your driver disk and press \"OK\" to continue."
-#~ msgstr "Vložte disketu s ovladači a stiskněte \"OK\"."
-
-#~ msgid ""
-#~ "The floppy disk you inserted is not a valid driver disk for this release "
-#~ "of %s."
-#~ msgstr ""
-#~ "Vložená disketa s ovladači neobsahuje ovladače pro tuto verzi distribuce %"
-#~ "s."
-
-#~ msgid ""
-#~ "Which driver should I try?. If the driver you need does not appear in "
-#~ "this list, and you have a separate driver disk, please press F2."
-#~ msgstr ""
-#~ "Který ovladač mám použít? Pokud ovladač, který potřebujete, není uveden v "
-#~ "tomto seznamu a máte další disketu s ovladači, stiskněte prosím F2."
-
-#~ msgid "Specify module parameters"
-#~ msgstr "Zadání parametrů modulu"
-
-#~ msgid "Failed to insert %s module."
-#~ msgstr "Zavedeni modulu %s selhalo."
-
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Chyba při otevírání souboru kickstart %s: %s"
-
-#~ msgid "SCSI"
-#~ msgstr "SCSI"
-
-#~ msgid "What kind of device would you like to add"
-#~ msgstr "Jaké zařízení chcete přidat?"
-
-#~ msgid "The following devices have been found on your system:"
-#~ msgstr "V počítači byly nalezeny následující zařízení:"
-
-#~ msgid ""
-#~ "No special device drivers have been loaded for your system. Would you "
-#~ "like to load any now?"
-#~ msgstr ""
-#~ "Žádné speciální ovladače zařízení pro váš systém nejsou zavedeny. Chcete "
-#~ "nějaké zavést?"
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr ""
-#~ "Zadaný adresář zřejmě neobsahuje instalační strom distribuce Red Hat."
-
-#~ msgid "That directory could not be mounted from the server"
-#~ msgstr "Zadaný adresář na serveru nelze připojit"
-
-#~ msgid "File %s/%s not found on server."
-#~ msgstr "Soubor %s/%s nebyl na serveru nenalezen."
-
-#~ msgid "HTTP"
-#~ msgstr "HTTP"
-
-#~ msgid "Unable to retrieve the first install image"
-#~ msgstr "Nelze získat první instalační obraz"
-
-#~ msgid "FTP and HTTP installs require 20MB or more of system memory."
-#~ msgstr ""
-#~ "Instalace pomocí FTP a HTTP protokolu potřebuje alespoň 20MB paměti."
-
-#~ msgid "Insert your updates disk and press \"OK\" to continue."
-#~ msgstr "Pro pokračování vložte disk s aktualizacemi a stiskněte \"OK\"."
-
-#~ msgid ""
-#~ "The floppy disk you inserted is not a valid update disk for this release "
-#~ "of %s."
-#~ msgstr ""
-#~ "Vložená disketa není platným aktualizačním diskem pro tuto verzi "
-#~ "distribuce %s."
-
-#~ msgid "Failed to mount floppy disk."
-#~ msgstr "Nelze připojit disketu."
-
-#~ msgid ""
-#~ "The second stage of the install which you have selected does not match "
-#~ "the boot disk which you are using.  This shouldn't happen, and I'm "
-#~ "rebooting your system now."
-#~ msgstr ""
-#~ "Druhý krok instalace, kterou jste zvolili, neodpovídá zaváděcímu disku, "
-#~ "který používáte. Taková situace by neměla nastat. Systém bude restartován."
-
-#~ msgid ""
-#~ "No hard drives have been found. You probably need to manually choose "
-#~ "device drivers for the installation to succeed. Would you like to select "
-#~ "drivers now?"
-#~ msgstr ""
-#~ "Nebyly nalezeny žádné pevné disky. Bude potřeba ručně zvolit zařízení pro "
-#~ "instalaci. Chcete ho nyní vybrat?"
-
-#~ msgid ""
-#~ "FAIL.\n"
-#~ "\n"
-#~ "It is not recommended to use this media."
-#~ msgstr ""
-#~ "CHYBA.\n"
-#~ "\n"
-#~ "Toto médium nelze pro instalaci doporučit."
-
-#~ msgid "Failed to mount driver disk: %s."
-#~ msgstr "Připojení diskety s ovladači selhalo: %s."
-
-#~ msgid "The wrong diskette was inserted."
-#~ msgstr "Vložena špatná disketa."
-
-#~ msgid "Driver Disk"
-#~ msgstr "Disketa s ovladači"
-
-#~ msgid "Please insert the %s driver disk now."
-#~ msgstr "Vložte prosím disketu %s s ovladači."
-
-#~ msgid "Sending request for IP information..."
-#~ msgstr "Odesílám dotaz o nastavení IP..."
-
-#~ msgid "kickstart"
-#~ msgstr "kickstart"
-
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "chybný argument kickstart příkazu network %s: %s"
-
-#~ msgid "Boot protocol to use"
-#~ msgstr "Volba zaváděcího protokolu"
-
-#~ msgid "Network gateway"
-#~ msgstr "Implicitní gateway"
-
-#~ msgid "IP address"
-#~ msgstr "IP adresa"
-
-#~ msgid "Netmask"
-#~ msgstr "Maska sítě"
-
-#~ msgid "Domain name"
-#~ msgstr "Jméno domény"
-
-#~ msgid "Network device"
-#~ msgstr "Síťové zařízení"
-
-#~ msgid "No DNS lookups"
-#~ msgstr "Žádné dotazy DNS"
-
-#~ msgid ""
-#~ " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
-#~ "screen"
-#~ msgstr ""
-#~ " <Tab>/<Alt-Tab> přepíná mezi položkami | <Mezera> výběr | <F12> "
-#~ "pokračovat"
-
-#~ msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-#~ msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
-
-#~ msgid "Network configuration"
-#~ msgstr "Nastavení sítě"
-
-#~ msgid "Would you like to set up networking?"
-#~ msgstr "Chcete nastavit připojení k síti?"
-
-#~ msgid "PC Card"
-#~ msgstr "PC Card"
-
-#~ msgid "Initializing PC Card Devices..."
-#~ msgstr "Inicializuji PC Card zařízení..."
-
-#~ msgid "PCMCIA"
-#~ msgstr "PCMCIA"
-
-#~ msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-#~ msgstr "Vložte prosím disketu s ovladači PCMCIA."
-
-#~ msgid "Failed to mount disk."
-#~ msgstr "Selhalo připojení disku."
-
-#~ msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-#~ msgstr "Tato disketa nevypadá jako disketa s ovladači PCMCIA pro Red Hat."
-
-#~ msgid "Use proxy server"
-#~ msgstr "Použít proxy server"
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "FTP proxy:"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "HTTP proxy:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "FTP proxy port:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "HTTP proxy port:"
-
-#~ msgid "Mouse Not Detected"
-#~ msgstr "Myš nezjištěna"
-
-#~ msgid ""
-#~ "Your mouse was not automatically detected.  To proceed in the graphical "
-#~ "installation mode, please proceed to the next screen and provide your "
-#~ "mouse information. You may also use text mode installation which does not "
-#~ "require a mouse."
-#~ msgstr ""
-#~ "Vaše myš nebyla automaticky detekována. Abyste mohli použít grafickou "
-#~ "instalaci, vložte prosím v následující obrazovce informace o své myši. "
-#~ "Můžete také použít textovou instalaci, která nevyžaduje připojenou myš."
-
-#~ msgid "Use text mode"
-#~ msgstr "Použít textový režim"
-
-#~ msgid "Attempting to start native X server"
-#~ msgstr "Zkouším spustit nativní X server"
-
-#~ msgid "Attempting to start VESA driver X server"
-#~ msgstr "Zkouším spustit X server s VESA ovladačem"
-
-#~ msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-#~ msgstr "Čekám na start X serveru... záznam je v souboru /tmp/X.log\n"
-
-#~ msgid " X server started successfully."
-#~ msgstr " X server byl úspěšně spuštěn."
-
-#~ msgid "Unable to probe"
-#~ msgstr "Nemohu detekovat"
-
-#~ msgid "Probing for video card:   "
-#~ msgstr "Zjišťuji typ videokarty: "
-
-#~ msgid "Probing for video card:   %s"
-#~ msgstr "Zjišťuji typ videokarty:  %s"
-
-#~ msgid "Probing for monitor type: "
-#~ msgstr "Zjišťuji typ monitoru: "
-
-#~ msgid "Probing for monitor type: %s"
-#~ msgstr "Zjišťuji typ monitoru:    %s"
-
-#~ msgid "Probing for mouse type:   "
-#~ msgstr "Zjišťuji typ myši:     "
-
-#~ msgid "Probing for mouse type:   %s"
-#~ msgstr "Zjišťuji typ myši:        %s"
-
-#~ msgid "Skipping mouse probe."
-#~ msgstr "Přeskakuji detekci myši."
-
-#~ msgid "DISPLAY variable not set. Starting text mode!"
-#~ msgstr ""
-#~ "Proměnná DISPLAY není nastavena. Spouštím textovou verzi instalačního "
-#~ "programu!"
-
-#~ msgid "Manually partition with _fdisk (experts only)"
-#~ msgstr "Ruční vytvoření oddílů pomocí programu _fdisk (pouze experti)"
-
-#~ msgid "   _Test Setting   "
-#~ msgstr "   _Otestovat nastavení   "
-
-#~ msgid "No password"
-#~ msgstr "Bez hesla"
-
-#~ msgid "Change _Password"
-#~ msgstr "Změnit _heslo"
-
-#~ msgid "_Use a Boot Loader Password"
-#~ msgstr "_Použít heslo pro zavaděč systému"
-
-#~ msgid "Set _Password"
-#~ msgstr "Nastavit _heslo:"
-
-#~ msgid "Edit Boot Label Please"
-#~ msgstr "Změňte prosím jmenovku systému"
-
-#~ msgid "Attempting to start VGA16 X server"
-#~ msgstr "Zkouším spustit VGA16 X server"
-
-#~ msgid "delete"
-#~ msgstr "odstranit"
-
-#~ msgid "Make LVM Device"
-#~ msgstr "Vytvořit zařízení LVM"
-
-#~ msgid "Edit LVM Device"
-#~ msgstr "Upravit zařízení LVM"
-
-#~ msgid "Developer Workstation"
-#~ msgstr "Vývojářská pracovní stanice"
-
-#~ msgid "Partition Request Sanity Check Errors"
-#~ msgstr "Chyby při kontrole rozdělení disků"
-
-#~ msgid "Which _model mouse is attached to the computer?"
-#~ msgstr "Jaký _model myši je připojen k tomuto počítači?"
-
-#~ msgid ""
-#~ "Re_view (allows you to see and change the automatic partitioning results)"
-#~ msgstr ""
-#~ "_Prohlédnout (umožňuje prohlédnout a změnit výsledky automatického "
-#~ "vytváření oddílů)"
-
-#~ msgid "Have the installer _automatically partition for you"
-#~ msgstr "_Automatické vytvoření oddílů"
-
-#~ msgid ""
-#~ "If the probed settings do not match your hardware, select the correct "
-#~ "hardware settings below:"
-#~ msgstr ""
-#~ "Pokud zjištěné hodnoty neodpovídají vašemu hardware, vložte sami správné "
-#~ "hodnoty:"
-
-#~ msgid "Close"
-#~ msgstr "Zavřít"
-
-#~ msgid ""
-#~ "You cannot remove this partition, as it is an extended partition which "
-#~ "contains %s"
-#~ msgstr "Nelze odstranit tento extended oddíl, protože obsahuje %s"
-
-#~ msgid ""
-#~ "You have chosen to format a pre-existing partition.  This will destroy "
-#~ "all data that was previously on it.\n"
-#~ "\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Zvolili jste formátování již existujícího oddílu. Formátování zničí "
-#~ "všechna data, která jsou na oddílu uložena.\n"
-#~ "\n"
-#~ "Chcete pokračovat?"
-
-#~ msgid ""
-#~ "You have chosen not to format a pre-existing partition which is being "
-#~ "mounted under a system directory.  Unless you have particular needs to "
-#~ "preserve data on this partition, it is highly recommended you format this "
-#~ "partition to guarantee the data formerly on the partition does not "
-#~ "corrupt your new installation.\n"
-#~ "\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Zvolili jste neformátovat oddíly, které budou připojeny jako systémové. "
-#~ "Tato možnost je správná pouze v případě, že chcete zahovat data. V "
-#~ "opačném případě doporučujeme zformátovat příslušné oddíly, aby stará data "
-#~ "nepoškodila novou instalaci.\n"
-#~ "\n"
-#~ "Chcete pokračovat?"
-
-#~ msgid "X server"
-#~ msgstr "X server"
-
-#~ msgid "Unable to detect video card"
-#~ msgstr "Nemohu detekovat videokartu"
-
-#~ msgid "Attempting to start framebuffer based X server"
-#~ msgstr "Zkouším se spustit X server s podporou framebuffer"
-
-#~ msgid "Skip boot disk creation"
-#~ msgstr "Přeskočit vytváření zaváděcí diskety"
-
-#~ msgid "Boot Loader Password Configuration"
-#~ msgstr "Nastavení hesla pro zavaděč systému"
-
-#~ msgid "Password accepted."
-#~ msgstr "Heslo akceptováno."
-
-#~ msgid "Password is too short."
-#~ msgstr "Heslo je příliš krátké."
-
-#~ msgid "Passwords do not match."
-#~ msgstr "Hesla nesouhlasí."
-
-#~ msgid " is an invalid port."
-#~ msgstr " je neplatný port."
-
-#~ msgid "Choose partitions to Format"
-#~ msgstr "Výběr oddílů pro formátování"
-
-#~ msgid "Keyboard Configuration"
-#~ msgstr "Nastavení klávesnice"
-
-#~ msgid "Which model keyboard is attached to the computer?"
-#~ msgstr "Jaký model klávesnice je připojen k tomuto počítači?"
-
-#~ msgid "Layout"
-#~ msgstr "Rozložení"
-
-#~ msgid "Dead Keys"
-#~ msgstr "Mrtvé klávesy"
-
-#~ msgid "Enable dead keys"
-#~ msgstr "Povolit mrtvé klávesy"
-
-#~ msgid "Disable dead keys"
-#~ msgstr "Zakázat mrtvé klávesy"
-
-#~ msgid "Test your selection here:"
-#~ msgstr "Vyzkoušejte zde svůj výběr:"
-
-#~ msgid "Currently installed languages:"
-#~ msgstr "Nainstalované jazyky:"
-
-#~ msgid "Port"
-#~ msgstr "Port"
-
-#~ msgid "Broadcast"
-#~ msgstr "Všesměrová adresa"
-
-#~ msgid "Total install size: "
-#~ msgstr "Celkem k instalaci: "
-
-#~ msgid "_New"
-#~ msgstr "_Nový"
-
-#~ msgid "View:"
-#~ msgstr "Prohlédnout:"
-
-#~ msgid "%s  %s"
-#~ msgstr "%s  %s"
-
-#~ msgid "Would you like to configure your system?"
-#~ msgstr "Chcete nastavit svůj systém?"
-
-#~ msgid "Unknown server"
-#~ msgstr "Neznámý počítač"
-
-#~ msgid ""
-#~ "This video card has no suitable X server in the database.  You will need "
-#~ "to choose a different card or choose the 'Skip X Configuration' button."
-#~ msgstr ""
-#~ "K používané grafické kartě není podle databáze k dispozici žádný X "
-#~ "server. Zvolte jinou kartu nebo zaškrtněte volbu 'Přeskočit nastavování "
-#~ "X'."
-
-#~ msgid "Other"
-#~ msgstr "Ostatní"
-
-#~ msgid "<Enter> to continue"
-#~ msgstr "<Enter> pro pokračování"
-
-#~ msgid ""
-#~ "Congratulations, package installation is complete.\n"
-#~ "\n"
-#~ "Press return to continue.\n"
-#~ "\n"
-#~ "Information on configuring and using your Red Hat Linux system is "
-#~ "contained in the %s manuals."
-#~ msgstr ""
-#~ "Instalace balíčků je dokončena, blahopřejeme.\n"
-#~ "\n"
-#~ "Stiskněte <Enter> pro pokračování.\n"
-#~ "\n"
-#~ "Informace o používání a konfiguraci distribuce %s naleznete na adrese v "
-#~ "dokumentaci a na adrese http://www.redhat.com/docs."
-
-#~ msgid "<Enter> to exit"
-#~ msgstr "<Enter> pro ukončení"
-
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ "You have entered reconfiguration mode, which will allow you to configure "
-#~ "site-specific options of your computer.\n"
-#~ "\n"
-#~ "To exit without changing your setup select the Cancel button below."
-#~ msgstr ""
-#~ "Vítá vás %s!\n"
-#~ "\n"
-#~ "Vstoupili jste do rekonfiguračního režimu, ve kterém můžete nastavit "
-#~ "lokální konfiguraci vašeho počítače.\n"
-#~ "\n"
-#~ "Pro ukončení této operace beze změny nastavení stiskněte tlačítko Zrušit."
-
-#~ msgid "You cannot go back from this step."
-#~ msgstr "Z tohoto místa nelze jít zpět."
-
-#~ msgid "Other CDROM"
-#~ msgstr "Jiná CD-ROM"
-
-#~ msgid "Enable antialias"
-#~ msgstr "Povolit antialiasing"
-
-#~ msgid "View: "
-#~ msgstr "Zobrazit: "

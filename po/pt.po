@@ -326,7 +326,6 @@ msgstr ""
 "coisas."
 
 #: ../autopart.py:1309
-#, fuzzy
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -427,16 +426,11 @@ msgstr ""
 "bugzilla.redhat.com/bugzilla/"
 
 #: ../constants.py:71
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
-msgstr ""
-"Ocorreu um erro não recuperável. Provavelmente encontrou um 'bug'. Por favor "
-"copie o texto da excepção ocorrida ou grave o relatório do erro para uma "
-"disquete. De seguida, comunique um erro no componente 'anaconda' em http://"
-"bugzilla.redhat.com/bugzilla/"
+msgstr "Ocorreu um erro não recuperável.  Provavelmente isto é um 'bug'.  Por favor copie o texto da excepção ocorrida e comunique um erro no componente 'anaconda' em http://bugzilla.redhat.com/bugzilla/"
 
 #: ../exception.py:167 ../text.py:235
 msgid "Exception Occurred"
@@ -477,11 +471,9 @@ msgid ""
 "\n"
 "All data will be ERASED during creation of the boot disk."
 msgstr ""
-"Por favor remova todas as disquetes da 'drive' e introduza a disquete que "
-"irá conter a imagem de arranque.\n"
+"Por favor remova qualquer disquete que esteja unidade de disquetes e introduza a disquete que irá conter a imagem de arranque.\n"
 "\n"
-"Todos os dados da disquete serão APAGADOS durante a criação da disquete de "
-"arranque."
+"Todos os dados da disquete serão APAGADOS durante a criação da disquete de arranque."
 
 #: ../floppy.py:106
 msgid "_Cancel"
@@ -521,9 +513,7 @@ msgstr "Erro"
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
-msgstr ""
-"Ocorreu um erro ao fazer a disquete de arranque. Verifique que está uma "
-"disquete formatada na primeira 'drive' de disquetes."
+msgstr "Ocorreu um erro ao fazer a disquete de arranque. Verifique que está uma disquete formatada na primeira unidade de disquetes."
 
 #: ../floppy.py:129
 msgid "Creating"
@@ -534,23 +524,17 @@ msgid "Creating boot disk..."
 msgstr "A criar disquete de arranque..."
 
 #: ../floppy.py:158
-#, fuzzy
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
-msgstr ""
-"Ocorreu um erro ao fazer a disquete de arranque. Verifique que está uma "
-"disquete formatada na primeira 'drive' de disquetes."
+msgstr "Ocorreu um erro ao verificar a disquete de arranque.  Verifique que tem uma disquete em boas condições na primeira unidade de disquetes."
 
 #: ../floppy.py:189
-#, fuzzy
 msgid ""
 "Your boot floppy appears to be invalid.  This is likely due to a bad "
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
-msgstr ""
-"Ocorreu um erro ao fazer a disquete de arranque. Verifique que está uma "
-"disquete formatada na primeira 'drive' de disquetes."
+msgstr "A sua disquete de arranque parece ser inválida.  Isto deve-se provavelmente a uma disquete estraga.  Verifique que tem um disquete em boas condições na primeira unidade de disquetes."
 
 #: ../fsset.py:176
 msgid "Checking for Bad Blocks"
@@ -757,13 +741,10 @@ msgid "Error Saving Screenshot"
 msgstr "Erro ao Gravar Captura de Ecrã"
 
 #: ../gui.py:166
-#, fuzzy
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
-msgstr ""
-"Ocorreu um erro ao gravar a captura de ecrã.  Se isto ocorreu durante a "
-"instalação de pacotes pode ter que tentar várias vezes até ter sucesso."
+msgstr "Ocorreu um erro ao gravar a captura de ecrã.  Se isto ocorreu durante a instalação de pacotes pode ter que tentar várias vezes até ter sucesso."
 
 #: ../gui.py:234 ../text.py:311
 msgid "Fix"
@@ -817,7 +798,7 @@ msgstr "Ajuda"
 
 #: ../gui.py:733 ../iw/language_gui.py:23 ../textw/language_text.py:37
 msgid "Language Selection"
-msgstr "Seleccione a língua"
+msgstr "Escolha de Língua"
 
 #: ../gui.py:833 ../gui.py:862
 msgid "Release Notes"
@@ -966,37 +947,34 @@ msgid "Install on System"
 msgstr "Instalar no Sistema"
 
 #: ../kickstart.py:1140
-#, fuzzy
 msgid "Missing Package"
-msgstr "A Instalar os Pacotes"
+msgstr "Pacote em Falta"
 
 #: ../kickstart.py:1141
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "Indicou que o pacote '%s' deve ser instalado.  Este pacote não existe.  Quer continuar ou abortar a instalação?"
 
 #: ../kickstart.py:1147 ../kickstart.py:1173
-#, fuzzy
 msgid "_Abort"
-msgstr "_Reiniciar"
+msgstr "_Abortar"
 
 #: ../kickstart.py:1148 ../kickstart.py:1174 ../iw/partition_gui.py:995
 msgid "_Continue"
 msgstr "_Continuar"
 
 #: ../kickstart.py:1166
-#, fuzzy
 msgid "Missing Group"
-msgstr "Informação em Falta"
+msgstr "Grupo em Falta"
 
 #: ../kickstart.py:1167
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "Indicou que o grupo '%s' deve ser instalado.  Este pacote não existe.  Quer continuar ou abortar a instalação?"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1770,13 +1748,11 @@ msgstr ""
 "ficheiros /."
 
 #: ../partRequests.py:222
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr ""
-"O ponto de montagem \"%s\" já está em uso. Por favor seleccione um ponto de "
-"montagem diferente."
+msgstr "O ponto de montagem %s não pode ser utilizado: tem que ser uma ligação simbólica para que o sistema funcione correctamente.  Por favor seleccione um ponto de montagem diferente."
 
 #: ../partRequests.py:229
 msgid "This mount point must be on a linux file system."
@@ -1841,13 +1817,12 @@ msgstr ""
 "RAID."
 
 #: ../rescue.py:137
-#, fuzzy
 msgid "Setup Networking"
-msgstr "Rede"
+msgstr "Configuração da Rede"
 
 #: ../rescue.py:138
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "Quer iniciar as interfaces de rede deste sistema?"
 
 #: ../rescue.py:152 ../rescue.py:186 ../rescue.py:297
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1994,9 +1969,9 @@ msgid "Debug"
 msgstr "Depurar"
 
 #: ../text.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2003 Red Hat, Inc."
-msgstr "%s (C) 2001 Red Hat, Inc."
+msgstr "%s (C) 2003 Red Hat, Inc."
 
 #: ../text.py:339
 msgid ""
@@ -2355,7 +2330,7 @@ msgstr ""
 
 #: ../iw/bootdisk_gui.py:23
 msgid "Boot Diskette Creation"
-msgstr "Criação da Disquete de Arranque"
+msgstr "Criar a Disquete de Arranque"
 
 #: ../iw/bootdisk_gui.py:54
 #, python-format
@@ -2664,7 +2639,7 @@ msgstr "I_gnorar dependências dos pacotes"
 #: ../iw/desktop_choice_gui.py:25 ../iw/desktop_choice_gui.py:53
 #: ../textw/desktop_choice_text.py:24
 msgid "Workstation Defaults"
-msgstr "Estação de Trabalho por Omissão"
+msgstr "Predefinições da Estação de Trabalho"
 
 #: ../iw/desktop_choice_gui.py:52 ../installclasses/workstation.py:7
 msgid "Workstation"
@@ -2715,11 +2690,11 @@ msgstr ""
 
 #: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:11
 msgid "Personal Desktop"
-msgstr "Ambiente de Trabalho Pessoal"
+msgstr "Computador Pessoal"
 
 #: ../iw/desktop_choice_gui.py:76
 msgid "Personal Desktop Defaults"
-msgstr "Valores por Omissão do Ambiente de Trabalho Pessoal"
+msgstr "Predefinições do Computador Pessoal"
 
 #: ../iw/desktop_choice_gui.py:81
 #, python-format
@@ -2791,7 +2766,7 @@ msgstr "Modelo"
 
 #: ../iw/examine_gui.py:32
 msgid "Upgrade Examine"
-msgstr "Examinar Actualização"
+msgstr "Examinar a Actualização"
 
 #: ../iw/examine_gui.py:58
 msgid "Upgrade an existing installation"
@@ -2844,7 +2819,7 @@ msgstr "Escolha a unidade onde quer correr o fdasd"
 msgid ""
 "Formating the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
-msgstr ""
+msgstr "Formatar o dispositivo DASD seleccionado irá destruir todo o conteúdo do dispositivo.  Tem a certeza que quer formatar o dispositivo DASD seleccionado?"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
@@ -2933,7 +2908,7 @@ msgstr "Que língua gostaria de utilizar durante o processo de instalação?"
 
 #: ../iw/language_support_gui.py:24
 msgid "Additional Language Support"
-msgstr "Suporte a Línguas Adicionais"
+msgstr "Suporte de Línguas Adicionais"
 
 #: ../iw/language_support_gui.py:205
 msgid "Select the _default language for the system:   "
@@ -4140,10 +4115,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
-"O dispositivo de origem seleccionado tem partições nele que não são do tipo "
-"'RAID por software'.\n"
+"O dispositivo de origem seleccionado tem partições nele que não são do tipo 'RAID por software'.\n"
 "\n"
-"Estas partições terão de ser removidas antes desta 'drive' ser copiada."
+"Estas partições terão de ser removidas antes desta unidade ser copiada."
 
 #: ../iw/raid_dialog_gui.py:510
 #, python-format
@@ -4154,11 +4128,9 @@ msgid ""
 "These partitions will have to be removed or restricted to this drive before "
 "this drive can be cloned. "
 msgstr ""
-"O dispositivo de origem seleccionado tem partições que não se restringem ao "
-"dispositivo /dev/%s.\n"
+"O dispositivo de origem seleccionado tem partições que não se restringem ao dispositivo /dev/%s.\n"
 "\n"
-"Estas partições terão de ser movidas ou restringidas a esta 'drive' antes de "
-"ela poder ser copiada."
+"Estas partições terão de ser movidas ou restringidas a esta unidade antes de ela poder ser copiada."
 
 #: ../iw/raid_dialog_gui.py:523
 msgid ""
@@ -4167,10 +4139,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
-"O dispositivo de origem seleccionado tem partições de RAID por 'software' "
-"que são membros de um dispositivo de RAID por 'software' activo.\n"
+"O dispositivo de origem seleccionado tem partições de RAID por 'software' que são membros de um dispositivo de RAID por 'software' activo.\n"
 "\n"
-"Estas partições deverão ser removidas antes desta 'drive' poder ser copiada."
+"Estas partições deverão ser removidas antes desta unidade poder ser copiada."
 
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:555
@@ -4198,12 +4169,11 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
-"O dispositivo de destino /dev/%s tem uma partição que não pode ser removida "
-"pela seguinte razão:\n"
+"O dispositivo de destino /dev/%s tem uma partição que não pode ser removida pela seguinte razão:\n"
 "\n"
 "\"%s\"\n"
 "\n"
-"Esta partição tem de ser removida antes de esta 'drive' poder ser o destino."
+"Esta partição tem de ser removida antes de esta unidade poder ser o destino."
 
 #: ../iw/raid_dialog_gui.py:617
 msgid "Please select a source drive."
@@ -4257,18 +4227,11 @@ msgid ""
 msgstr ""
 "Ferramenta de Cópia de Dispositivos\n"
 "\n"
-"Esta ferramenta permite-lhe reduzir significativamente a quantidade "
-"necessária de esforço para configurar os dispositivos RAID. A ideia é "
-"agarrar numa 'drive' de origem que foi preparada com a disposição desejada "
-"de particionamento e copiar esta disposição para outros discos de tamanho "
-"similar. Deste modo pode ser criado um dispositivo de RAID.\n"
+"Esta ferramenta permite-lhe reduzir significativamente a quantidade necessária de esforço para configurar os dispositivos RAID. A ideia é agarrar numa unidade de origem que foi preparada com a disposição desejada de particionamento e copiar esta disposição para outros discos de tamanho similar. Deste modo pode ser criado um dispositivo de RAID.\n"
 "\n"
-"NOTA: O dispositivo de origem deverá ter partições que se restrinjam a essa "
-"'drive' apenas, e só pode conter partições de RAID por 'software' não "
-"usadas. Os outros tipos de partições não são permitidos.\n"
+"NOTA: O dispositivo de origem deverá ter partições que se restrinjam a essa unidade apenas, e só pode conter partições de RAID por 'software' não usadas. Os outros tipos de partições não são permitidos.\n"
 "\n"
-"TUDO o que existir nos dispositivos de destino será destruído por este "
-"processo."
+"TUDO o que existir nos dispositivos de destino será destruído por este processo."
 
 #: ../iw/raid_dialog_gui.py:710
 msgid "Source Drive:"
@@ -4331,7 +4294,7 @@ msgstr "Imagem de arranque por omissão"
 
 #: ../iw/timezone_gui.py:26 ../textw/timezone_text.py:95
 msgid "Time Zone Selection"
-msgstr "Escolha do fuso horário"
+msgstr "Escolha do Fuso Horário"
 
 #: ../iw/timezone_gui.py:146 ../iw/timezone_gui.py:147
 msgid "System clock uses _UTC"
@@ -4571,9 +4534,8 @@ msgid "Please choose your login type:"
 msgstr "Por favor escolha o tipo de autenticação:"
 
 #: ../iw/xconfig_gui.py:393
-#, fuzzy
 msgid "_Text"
-msgstr "Texto"
+msgstr "_Texto"
 
 #: ../iw/xconfig_gui.py:394
 msgid "_Graphical"
@@ -4966,13 +4928,9 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"As opções de Ambiente Pessoal e de Estação de trabalho instalam um conjunto "
-"predefinido de aplicações que lhe permitem navegar pela Internet, enviar e "
-"receber email, assim como criar e editar documentos no seu sistema %s. A "
-"opção da Estação de Trabalho inclui as ferramentas de desenvolvimento e de "
-"administração também.\n"
-"Contudo, o %s vem com muitas mais aplicações, pelo que pode personalizar a "
-"selecção do 'software' instalado se o desejar."
+"As opções de Computador Pessoal e de Estação de Trabalho instalam um conjunto predefinido de aplicações que lhe permitem navegar pela Internet, enviar e receber email, assim como criar e editar documentos no seu sistema %s. A opção da Estação de Trabalho inclui as ferramentas de desenvolvimento e de administração também.\n"
+"\n"
+"Contudo, o %s vem com muitas mais aplicações, pelo que pode personalizar a selecção do 'software' instalado se o desejar."
 
 #: ../textw/desktop_choice_text.py:39
 msgid "Customize software selection"
@@ -4983,9 +4941,8 @@ msgid "Choose a disk to run fdasd or dasdfmt on"
 msgstr "Escolha a unidade onde quer correr o fdisk ou o dasdfmt"
 
 #: ../textw/fdasd_text.py:32
-#, fuzzy
 msgid "Next"
-msgstr "Próxi_mo"
+msgstr "Próxima"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
@@ -5658,9 +5615,8 @@ msgid "The value you entered is not a valid number."
 msgstr "O valor que inseriu não é um número válido."
 
 #: ../textw/upgrade_text.py:205
-#, fuzzy
 msgid "Reinstall System"
-msgstr "Instalar no Sistema"
+msgstr "Reinstalar o Sistema"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
@@ -6132,7 +6088,7 @@ msgid ""
 "The z/IPL Boot Loader will be installed on your system after installations "
 "is complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
-msgstr ""
+msgstr "O Gestor de Arranque z/IPL será instalado no seu sistema depois da instalação estar concluída. Pode inserir parâmetros adicionais de kernel e chandev que a sua máquina ou a sua configuração necessitem."
 
 #: ../textw/zipl_text.py:47
 msgid "z/IPL Configuration"
@@ -6140,7 +6096,7 @@ msgstr "Configuração do z/IPL"
 
 #: ../textw/zipl_text.py:54 ../textw/zipl_text.py:57
 msgid "Chandev line "
-msgstr ""
+msgstr "Linha do chandev "
 
 #: ../installclasses/custom.py:10
 msgid "Custom"
@@ -6349,20 +6305,18 @@ msgid "Enter Module Parameters"
 msgstr "Indique os Parâmetros do Módulo"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "No drivers found"
 msgstr "Nenhum controlador encontrado"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "Load driver disk"
-msgstr "Utilizar uma disquete de controladores"
+msgstr "Carregar uma disquete de controladores"
 
 #: ../loader2/driverselect.c:187
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
+msgstr "Não foram encontrados controladores para inserção manual.  Deseja utilizar uma disquete de controladores?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -6645,6 +6599,9 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"ERRO.\n"
+"\n"
+"A imagem que testou tem erros. Isto pode dever-se a uma transferência de rede corrompida ou a um disco com erros.  Se aplicável, limpe o disco e tente novamente.  Se este teste continuar a falhar não deve continuar com a instalação."
 
 #: ../loader2/mediacheck.c:333
 msgid ""
@@ -6757,9 +6714,9 @@ msgid "Dynamic IP"
 msgstr "IP dinâmico"
 
 #: ../loader2/net.c:208 ../loader2/net.c:389
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s..."
-msgstr "A enviar pedido para informações sobre IP para %s"
+msgstr "A enviar pedido para informações sobre IP para %s..."
 
 #: ../loader2/net.c:278
 msgid ""
@@ -6855,9 +6812,9 @@ msgid "Running anaconda via telnet..."
 msgstr "A executar o anaconda através do telnet..."
 
 #: ../loader2/urlinstall.c:58
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr "Não foi possível obter %s: %s"
+msgstr "Não foi possível obter %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:98
 msgid "Unable to retrieve the install image."
@@ -7649,9 +7606,8 @@ msgid "Portuguese"
 msgstr "Português"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese (Brasilian)"
-msgstr "Português"
+msgstr "Português (Brasil)"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7794,15 +7750,6 @@ msgstr "Ucraniano"
 #~ "Nenhum disco rígido encontrado. Provavelmente necessita de seleccionar "
 #~ "manualmente controladores de dispositivos para continuar com a "
 #~ "instalação.  Deseja seleccionar controladores de dispositivos agora?"
-
-#~ msgid ""
-#~ "FAIL.\n"
-#~ "\n"
-#~ "It is not recommended to use this media."
-#~ msgstr ""
-#~ "ERRO.\n"
-#~ "\n"
-#~ "Não é recomendável utilizar este suporte físico."
 
 #~ msgid "Failed to mount driver disk: %s."
 #~ msgstr "Não foi possível montar a disquete de controladores: %s."

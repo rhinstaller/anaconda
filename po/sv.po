@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2003-01-08 20:15-0500\n"
-"PO-Revision-Date: 2003-01-05 00:46+0100\n"
+"PO-Revision-Date: 2003-01-09 07:50+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -277,13 +277,12 @@ msgstr ""
 "monteringspunkter, storlek med mera."
 
 #: ../autopart.py:1309
-#, fuzzy
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
 "Innan installationsprogrammet kan genomföra automatisk partitionering måste "
-"du välja hur utrymmet på hårddiskarna ska användas."
+"du välja hur utrymmet på dina hårddiskar ska användas."
 
 #: ../autopart.py:1314
 msgid "Remove all partitions on this system"
@@ -377,7 +376,6 @@ msgstr ""
 "detaljerad felrapport på http://bugzilla.redhat.com/bugzilla/"
 
 #: ../constants.py:71
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
@@ -385,8 +383,8 @@ msgid ""
 msgstr ""
 "En undantagshändelse som inte hanteras har inträffat. Detta är med största "
 "sannolikhet ett fel. Var vänlig och kopiera hela texten från detta "
-"undantagsfel eller spara kraschdumpen på en diskett, och skapa sedan en "
-"detaljerad felrapport på http://bugzilla.redhat.com/bugzilla/"
+"undantagsfel och skapa en detaljerad felrapport för anaconda på "
+"http://bugzilla.redhat.com/bugzilla/"
 
 #: ../exception.py:167 ../text.py:235
 msgid "Exception Occurred"
@@ -483,23 +481,22 @@ msgid "Creating boot disk..."
 msgstr "Skapar startdiskett..."
 
 #: ../floppy.py:158
-#, fuzzy
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
 msgstr ""
-"Ett fel inträffade under skapandet av startdisketten. Försäkra dig om att "
-"det finns en diskett i den första diskettstationen."
+"Ett fel inträffade under försöket att verifiera startdisketten. Försäkra dig "
+"om att det finns en felfri diskett i den första diskettstationen."
 
 #: ../floppy.py:189
-#, fuzzy
 msgid ""
 "Your boot floppy appears to be invalid.  This is likely due to a bad "
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
 msgstr ""
-"Ett fel inträffade under skapandet av startdisketten. Försäkra dig om att "
-"det finns en diskett i den första diskettstationen."
+"Din startdiskett verkar vara ogiltig. Detta beror sannolikt på att disketten "
+"är trasig. Försäkra dig om att det finns en felfri diskett i den första "
+"diskettstationen."
 
 #: ../fsset.py:176
 msgid "Checking for Bad Blocks"
@@ -916,9 +913,8 @@ msgid "Install on System"
 msgstr "Installera på system"
 
 #: ../kickstart.py:1140
-#, fuzzy
 msgid "Missing Package"
-msgstr "Installerar paket"
+msgstr "Paket saknas"
 
 #: ../kickstart.py:1141
 #, python-format
@@ -926,20 +922,20 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Du har angivit att paketet \"%s\" ska installeras. Detta paket finns inte. "
+"Vill du fortsätta eller avbryta din installation?"
 
 #: ../kickstart.py:1147 ../kickstart.py:1173
-#, fuzzy
 msgid "_Abort"
-msgstr "Starta _om"
+msgstr "_Avbryt"
 
 #: ../kickstart.py:1148 ../kickstart.py:1174 ../iw/partition_gui.py:995
 msgid "_Continue"
 msgstr "_Fortsätt"
 
 #: ../kickstart.py:1166
-#, fuzzy
 msgid "Missing Group"
-msgstr "Information saknas"
+msgstr "Grupp saknas"
 
 #: ../kickstart.py:1167
 #, python-format
@@ -947,6 +943,15 @@ msgid ""
 "You have specified that the group '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Du har angivit att gruppen \"%s\" ska installeras. Detta paket finns inte. "
+"Vill du fortsätta eller avbryta din installation?"
+
+msgid ""
+"You have specified that the group '%s' should be installed.  This group "
+"does not exist. Would you like to continue or abort your installation?"
+msgstr ""
+"Du har angivit att gruppen \"%s\" ska installeras. Denna grupp finns inte. "
+"Vill du fortsätta eller avbryta din installation?"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1710,11 +1715,13 @@ msgstr ""
 "Denna monteringspunkt är ogiltig. Katalogen %s måste vara på /-filsystemet."
 
 #: ../partRequests.py:222
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr "Monteringspunkten \"%s\" används redan, välj en annan monteringspunkt."
+msgstr ""
+"Monteringspunkten %s kan inte användas. Den måste vara en symbolisk länk för "
+"att systemet ska fungera korrekt. Välj en annan monteringspunkt."
 
 #: ../partRequests.py:229
 msgid "This mount point must be on a linux file system."
@@ -1777,13 +1784,12 @@ msgstr ""
 "måste du lägga till medlemmar i RAID-enheten."
 
 #: ../rescue.py:137
-#, fuzzy
 msgid "Setup Networking"
-msgstr "Nätverk"
+msgstr "Konfigurera nätverk"
 
 #: ../rescue.py:138
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "Vill du starta nätverksgränssnitten på detta system?"
 
 #: ../rescue.py:152 ../rescue.py:186 ../rescue.py:297
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1930,9 +1936,9 @@ msgid "Debug"
 msgstr "Felsökning"
 
 #: ../text.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2003 Red Hat, Inc."
-msgstr "%s © 2002 Red Hat, Inc."
+msgstr "%s © 2003 Red Hat, Inc."
 
 #: ../text.py:339
 msgid ""
@@ -2779,6 +2785,15 @@ msgid ""
 "Formating the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
 msgstr ""
+"Formatering av den valda DASD-enheten kommer att förstöra allt innehåll på "
+"enheten. Vill du verkligen formatera den valda DASD-enheten?"
+
+msgid ""
+"Formatting the selected DASD device will destroy all contents of the device. "
+"Do you really want to format the selected DASD device?"
+msgstr ""
+"Formatering av den valda DASD-enheten kommer att förstöra allt innehåll på "
+"enheten. Vill du verkligen formatera den valda DASD-enheten?"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
@@ -4492,9 +4507,8 @@ msgid "Please choose your login type:"
 msgstr "Välj din inloggningstyp:"
 
 #: ../iw/xconfig_gui.py:393
-#, fuzzy
 msgid "_Text"
-msgstr "Text"
+msgstr "_Text"
 
 #: ../iw/xconfig_gui.py:394
 msgid "_Graphical"
@@ -4907,9 +4921,8 @@ msgid "Choose a disk to run fdasd or dasdfmt on"
 msgstr "Välj en hårddisk att köra fdasd eller dasdfmt på"
 
 #: ../textw/fdasd_text.py:32
-#, fuzzy
 msgid "Next"
-msgstr "_Nästa"
+msgstr "Nästa"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
@@ -5582,9 +5595,8 @@ msgid "The value you entered is not a valid number."
 msgstr "Värdet du angav är inte ett giltigt tal."
 
 #: ../textw/upgrade_text.py:205
-#, fuzzy
 msgid "Reinstall System"
-msgstr "Installera på system"
+msgstr "Installera om system"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
@@ -6057,6 +6069,18 @@ msgid ""
 "is complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
+"Startprogrammet z/IPL kommer att installeras på ditt system efter det att "
+"installationerna är färdiga. Du kan nu ange eventuella ytterligare kärn- och "
+"chandev-parametrar som din maskin eller din konfiguration kanske kräver."
+
+msgid ""
+"The z/IPL Boot Loader will be installed on your system after installations "
+"are complete. You can now enter any additional kernel and chandev parameters "
+"which your machine or your setup may require."
+msgstr ""
+"Startprogrammet z/IPL kommer att installeras på ditt system efter det att "
+"installationerna är färdiga. Du kan nu ange eventuella ytterligare kärn- och "
+"chandev-parametrar som din maskin eller din konfiguration kanske kräver."
 
 #: ../textw/zipl_text.py:47
 msgid "z/IPL Configuration"
@@ -6064,7 +6088,10 @@ msgstr "z/IPL-konfiguration"
 
 #: ../textw/zipl_text.py:54 ../textw/zipl_text.py:57
 msgid "Chandev line "
-msgstr ""
+msgstr "Chandev-rad "
+
+msgid "Chandev line"
+msgstr "Chandev-rad"
 
 #: ../installclasses/custom.py:10
 msgid "Custom"
@@ -6271,20 +6298,20 @@ msgid "Enter Module Parameters"
 msgstr "Ange modulparametrar"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "No drivers found"
-msgstr "Ingen drivrutin hittades"
+msgstr "Inga drivrutiner hittades"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "Load driver disk"
-msgstr "Använd en drivrutinsdiskett"
+msgstr "Läs in drivrutinsdiskett"
 
 #: ../loader2/driverselect.c:187
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
+"Inga drivrutiner som kan infogas manuellt kunde hittas. Vill du använda en "
+"drivrutinsdiskett?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -6565,6 +6592,12 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"MISSLYCKADES.\n"
+"\n"
+"Avbilden som testades nyss innehåller fel. Detta kan bero på en felaktig "
+"hämtning eller en trasig skiva. Prova att göra rent skivan om möjligt och "
+"försök igen. Om detta test fortsätter att misslyckas bör du inte fortsätta "
+"installationen."
 
 #: ../loader2/mediacheck.c:333
 msgid ""
@@ -6676,9 +6709,9 @@ msgid "Dynamic IP"
 msgstr "Dynamisk IP"
 
 #: ../loader2/net.c:208 ../loader2/net.c:389
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s..."
-msgstr "Skickar förfrågan om IP-information för %s"
+msgstr "Skickar förfrågan om IP-information för %s..."
 
 #: ../loader2/net.c:278
 msgid ""
@@ -6773,9 +6806,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Kör anaconda via telnet..."
 
 #: ../loader2/urlinstall.c:58
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr "Misslyckades med att hämta %s: %s"
+msgstr "Kan inte hämta %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:98
 msgid "Unable to retrieve the install image."
@@ -7564,9 +7597,8 @@ msgid "Portuguese"
 msgstr "Portugisiska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese (Brasilian)"
-msgstr "Brasiliansk portugisiska"
+msgstr "Portugisiska (brasiliansk)"
 
 #. generated from lang-table
 msgid "Russian"
