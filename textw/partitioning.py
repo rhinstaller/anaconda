@@ -80,6 +80,7 @@ class ManualPartitionWindow:
                     os.remove ('/tmp/' + device)
                 except:
                     # XXX fixme
+                    pass
 		screen.resume ()
 
 	if button == "back":
