@@ -129,7 +129,7 @@ class ProgressWindow:
         self.window.set_title (_(title))
         self.window.set_position (WIN_POS_CENTER)
         self.window.set_modal (TRUE)
-        box = GtkVBox (5)
+        box = GtkVBox (FALSE, 5)
         box.set_border_width (10)
 
         label = GtkLabel (_(text))
