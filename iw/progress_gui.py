@@ -27,7 +27,8 @@ class InstallProgressWindow (InstallWindow):
 
     windowTitle = N_("Installing Packages")
     htmlTag = "installing"
-
+    curScaleValue = 0
+    
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
@@ -43,8 +44,17 @@ class InstallProgressWindow (InstallWindow):
 	gui.processEvents()
         
     def setPackageScale (self, amount, total):
-	self.progress.update (float (amount) / total)
-#        self.totalProgress.update (float (self.sizeComplete + amount) / self.totalSize)
+	# only update widget if we've changed by 10%, otherwise
+	# we update widget hundreds of times a seconds because RPM
+	# calls us back ALOT
+	newval = float (amount) / total
+	if newval < 0.998:
+	    if (newval - self.curScaleValue) < 0.10 and newval > self.curScaleValue:
+	    return
+
+	self.progress.update (newval)
+	self.curScaleValue = newval
+	
 
     def completePackage(self, header, timer):
         def formatTime(amt):
