@@ -124,7 +124,12 @@ Section "Keyboard"
 #
 # If you'd like to switch the positions of your capslock and
 # control keys, use:
+#    XkbOptions  "ctrl:swapcaps"
+#
+# If you'd like to disable the capslock key, use:
 #    XkbOptions  "ctrl:nocaps"
+
+
      XkbRules    "%(XkbRules)s"
      XkbModel    "%(XkbModel)s"
      XkbLayout   "%(XkbLayout)s"     
