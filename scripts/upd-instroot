@@ -113,7 +113,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            XFree86-S3 XFree86-SVGA XFree86-75dpi-fonts
            XFree86-ISO8859-2-75dpi-fonts glib gtk+ gtk-engines
            XFree86-ISO8859-9-75dpi-fonts esound audiofile gnome-libs
-           XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
+           XFree86-100dpi-fonts fonts-ISO8859-2 fonts-ISO8859-9
            XFree86-xfs e2fsprogs fileutils glibc glibc-common rsh less
            ftp readline gzip popt specspo util-linux rpm rpm-devel
            open grep net-tools traceroute tar procps textutils sed
@@ -123,7 +123,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            pygnome-capplet gdk-pixbuf fonts-KOI8-R
            fonts-KOI8-R-75dpi-fonts pciutils pam reiserfs-utils
            anaconda-help anaconda-images hdparm XFree86-base-fonts
-           ttfonts-ko"
+           ttfonts-ko taipeifonts"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -353,6 +353,7 @@ usr/X11R6/lib/X11/fonts/misc/gb*
 usr/X11R6/lib/X11/fonts/misc/jis*
 usr/X11R6/lib/X11/fonts/misc/k14*
 usr/X11R6/lib/X11/fonts/misc/olcursor*
+usr/X11R6/lib/X11/fonts/misc/taipai*
 usr/X11R6/lib/X11/locale/*
 usr/X11R6/lib/X11/rgb*
 usr/X11R6/lib/X11/xkb/*
