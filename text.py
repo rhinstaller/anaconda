@@ -77,7 +77,7 @@ class MouseWindow:
         default = mice.index (default)
 
 	bb = ButtonBar(screen, [_("OK"), _("Back")])
-	t = TextboxReflowed(30, 
+	t = TextboxReflowed(40, 
 		_("Which model mouse is attached to this computer?"))
 	l = Listbox(8, scroll = 1, returnExit = 0)
 
@@ -220,13 +220,17 @@ class RootPasswordWindow:
         toplevel = GridForm (screen, _("Root Password"), 1, 3)
 
         toplevel.add (TextboxReflowed(37, _("Pick a root password. You must "
-                                            "type it twice to ensure you know "
-                                            "what it is and didn't make a mistake "
-                                            "in typing. Remember that the "
-                                            "root password is a critical part "
-                                            "of system security!")), 0, 0, (0, 0, 0, 1))
-        entry1 = Entry (24, hidden = 1)
-        entry2 = Entry (24, hidden = 1)
+				"type it twice to ensure you know "
+				"what it is and didn't make a mistake "
+				"in typing. Remember that the "
+				"root password is a critical part "
+				"of system security!")), 0, 0, (0, 0, 0, 1))
+
+	pw = todo.rootpassword.getPure()
+	if not pw: pw = ""
+
+        entry1 = Entry (24, hidden = 1, text = pw)
+        entry2 = Entry (24, hidden = 1, text = pw)
         passgrid = Grid (2, 2)
         passgrid.setField (Label (_("Password:")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
         passgrid.setField (Label (_("Password (again):")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
@@ -238,8 +242,6 @@ class RootPasswordWindow:
         toplevel.add (bb, 0, 2, growx = 1)
 
         while 1:
-            entry1.set ("")
-            entry2.set ("")
             toplevel.setCurrent (entry1)
             result = toplevel.run ()
             rc = bb.buttonPressed (result)
@@ -248,16 +250,20 @@ class RootPasswordWindow:
                 return INSTALL_BACK
             if len (entry1.value ()) < 6:
                 ButtonChoiceWindow(screen, _("Password Length"),
-                                   _("The root password must be at least 6 characters "
-                                     "long."),
-                                   buttons = [ _("OK") ], width = 50)
+		       _("The root password must be at least 6 characters "
+			 "long."),
+		       buttons = [ _("OK") ], width = 50)
             elif entry1.value () != entry2.value ():
                 ButtonChoiceWindow(screen, _("Password Mismatch"),
-                                   _("The passwords you entered were different. Please "
-                                     "try again."),
-                                   buttons = [ _("OK") ], width = 50)
+		       _("The passwords you entered were different. Please "
+			 "try again."),
+		       buttons = [ _("OK") ], width = 50)
             else:
                 break
+
+            entry1.set ("")
+            entry2.set ("")
+
         screen.popWindow()
         todo.rootpassword.set (entry1.value ())
         return INSTALL_OK
@@ -661,8 +667,6 @@ class PartitionWindow:
 
 class FormatWindow:
     def __call__(self, screen, todo):
-	if (not todo.setupFilesystems): return INSTALL_NOOP
-
         tb = TextboxReflowed (55,
                               _("What partitions would you like to "
                                 "format? We strongly suggest formatting "
@@ -1296,6 +1300,12 @@ class TimezoneWindow:
 
     def __call__(self, screen, todo, test):
 	timezones = self.getTimezoneList(test)
+	rc = todo.getTimezoneInfo()
+	if rc:
+	    (default, asUtc, asArc) = rc
+	else:
+	    default = "US/Eastern"
+	    asUtc = 0
 
 	bb = ButtonBar(screen, [_("OK"), _("Back")])
 	t = TextboxReflowed(30, 
@@ -1305,9 +1315,9 @@ class TimezoneWindow:
 
         for tz in timezones:
 	    l.append(tz, tz)
-	l.setCurrent("US/Eastern")
+	l.setCurrent(default)
 
-	c = Checkbox(_("Hardware clock set to GMT?"), isOn = 0)
+	c = Checkbox(_("Hardware clock set to GMT?"), isOn = asUtc)
 
 	g = GridForm(screen, _("Mouse Selection"), 1, 4)
 	g.add(t, 0, 0)
@@ -1321,6 +1331,8 @@ class TimezoneWindow:
         
         if button == string.lower (_("Back")):
             return INSTALL_BACK
+
+	todo.setTimezoneInfo(l.current(), asUtc = c.selected())
 
 	return INSTALL_OK
 
@@ -1372,15 +1384,20 @@ class InstallInterface:
 
     def run(self, todo, test = 0):
         self.commonSteps = [
-            [_("Language Selection"), LanguageWindow, (self.screen, todo)],
-            [_("Keyboard Selection"), KeyboardWindow, (self.screen, todo)],
-            [_("Welcome"), WelcomeWindow, (self.screen,)],
-            [_("Installation Type"), InstallPathWindow, (self.screen, todo, self)],
+            [_("Language Selection"), LanguageWindow, 
+		    (self.screen, todo), "language" ],
+            [_("Keyboard Selection"), KeyboardWindow, 
+		    (self.screen, todo), "keyboard" ],
+            [_("Welcome"), WelcomeWindow, (self.screen,), "welcome" ],
+            [_("Installation Type"), InstallPathWindow, 
+		    (self.screen, todo, self), "installtype" ],
             ]
         
         self.installSteps = [
-            [_("Partition"), PartitionWindow, (self.screen, todo)],
-            [_("Filesystem Formatting"), FormatWindow, (self.screen, todo)],
+            [_("Partition"), PartitionWindow, (self.screen, todo),
+		    "partition" ],
+            [_("Filesystem Formatting"), FormatWindow, (self.screen, todo),
+		    "format" ],
             [_("LILO Configuration"), LiloAppendWindow, 
 		    (self.screen, todo), "lilo"],
             [_("LILO Configuration"), LiloWindow, 
@@ -1391,23 +1408,29 @@ class InstallInterface:
 		    "network"],
             [_("Network Setup"), NetworkWindow, (self.screen, todo), 
 		    "network"],
-            [_("Mouse Configuration"), MouseWindow, (self.screen, todo)],
-            [_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo)],
-            [_("Time Zone Setup"), TimezoneWindow, (self.screen, todo, test)],
-            [_("Root Password"), RootPasswordWindow, (self.screen, todo)],
-            [_("User Account Setup"), UsersWindow, (self.screen, todo)],
+            [_("Mouse Configuration"), MouseWindow, (self.screen, todo),
+		    "mouse" ],
+            [_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo),
+		    "mouse" ],
+            [_("Time Zone Setup"), TimezoneWindow, 
+		    (self.screen, todo, test), "timezone" ],
+            [_("Root Password"), RootPasswordWindow, 
+		    (self.screen, todo), "accounts" ],
+            [_("User Account Setup"), UsersWindow, 
+		    (self.screen, todo), "accounts" ],
             [_("Authentication"), AuthConfigWindow, (self.screen, todo),
-		"authentication" ],
+		    "authentication" ],
             [_("Package Groups"), PackageGroupWindow, 
 		(self.screen, todo, self.individual), "package-selection" ],
             [_("Individual Packages"), IndividualPackageWindow, 
 		(self.screen, todo, self.individual), "package-selection" ],
-            [_("Package Dependencies"), PackageDepWindow, (self.screen, todo)],
+            [_("Package Dependencies"), PackageDepWindow, (self.screen, todo),
+		"package-selection" ],
             [_("Boot Disk"), BootDiskWindow, (self.screen, todo),
 		"bootdisk" ],
-            [_("Installation Begins"), BeginInstallWindow, (self.screen, todo)],
-            [_("Install System"), InstallWindow, (self.screen, todo),
-		"install-pause"],
+            [_("Installation Begins"), BeginInstallWindow, 
+		(self.screen, todo), "begininstall" ],
+            [_("Install System"), InstallWindow, (self.screen, todo) ],
             [_("Bootdisk"), BootdiskWindow, (self.screen, todo), "bootdisk"],
             [_("Installation Complete"), FinishedWindow, (self.screen,),
 		"complete" ]
