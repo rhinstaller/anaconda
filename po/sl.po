@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 6.1\n"
 "POT-Creation-Date: 1999-12-21 18:51-0500\n"
-"PO-Revision-Date: 1999-12-24 12:25+0200\n"
+"PO-Revision-Date: 1999-12-25 16:45+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@hermes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,14 +16,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../fstab.py:124 ../fstab.py:245
-#, fuzzy
 msgid "Formatting"
-msgstr "Formatiranje datoteènega sistema"
+msgstr "Formatiranje"
 
 #: ../fstab.py:125
-#, fuzzy, c-format
+#, c-format
 msgid "Formatting swap space on /dev/%s..."
-msgstr "Formatiram izmenjalni prostor v napravi %s..."
+msgstr "Formatiramo izmenjalni prostor v napravi /dev/%s..."
 
 #: ../fstab.py:187 ../fstab.py:276 ../libfdisk/newtfsedit.c:1540
 #: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/loader.c:471
@@ -36,28 +35,27 @@ msgid "Error"
 msgstr "Napaka"
 
 #: ../fstab.py:188
-#, fuzzy, c-format
+#, c-format
 msgid "Error unmounting %s: %s"
-msgstr "napaka pri pisanju v datoteko %s: %s"
+msgstr "Napaka pri odklapljanju %s: %s"
 
 #: ../fstab.py:199 ../todo.py:523
 msgid "Creating"
 msgstr "Ustvarjamo"
 
 #: ../fstab.py:199
-#, fuzzy
 msgid "Creating RAID devices..."
-msgstr "Ustvarjam zagonski disk..."
+msgstr "Ustvarjamo naprave RAID..."
 
 #: ../fstab.py:246
-#, fuzzy, c-format
+#, c-format
 msgid "Formatting %s filesystem..."
-msgstr "Ustvarjamo datoteèni sistem ext2 na /dev%s..."
+msgstr "Formatiramo datoteèni sistem %s..."
 
 #: ../fstab.py:277
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting %s: %s"
-msgstr "napaka pri pisanju v datoteko %s: %s"
+msgstr "Napaka pri priklapljanju %s: %s"
 
 #: ../gui.py:269 ../gui.py:515
 msgid "Next"
@@ -385,7 +383,6 @@ msgid "Hostname"
 msgstr "Ime raèunalnika"
 
 #: ../text.py:450
-#, fuzzy
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -400,8 +397,8 @@ msgstr ""
 "obièajni zaganjalnik. To je uporabno, èe v sistem ne ¾elite namestiti "
 "zaganjalnika LILO, èe kak drug operacijski sistem odstrani LILO, ali LILO ne "
 "deluje z va¹o strojno opremo. Prilagojeno zagonsko disketo lahko uporabljate "
-"tudi z re¹ilno sliko Red Hata, kar omogoèa s katero mnogo la¾jo obnovitev "
-"sistema po resnem sesutju.\n"
+"tudi z re¹ilno sliko Red Hata, kar omogoèa mnogo la¾jo obnovitev sistema po "
+"resnem sesutju.\n"
 "\n"
 "Bi radi ustvarili zagonsko disketo, prilagojeno za va¹ sistem?"
 
@@ -482,7 +479,6 @@ msgstr ""
 "namestitvi."
 
 #: ../text.py:644 ../text.py:664
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -494,9 +490,8 @@ msgid ""
 msgstr ""
 "Èestitamo, namestitev je konèana.\n"
 "\n"
-"Odstranite disketo iz disketnika in pritisnite <Enter>, da se bo raèunalnik "
-"resetiral. Za informacije o popravkih te razlièice Red Hat Linuxa, ki so na "
-"voljo, poglejte razdelek Errata, ki ga najdete na http://www.redhat.com.\n"
+"Za informacije o popravkih te razlièice Red Hat Linuxa, ki so na voljo, "
+"poglejte razdelek Errata, ki ga najdete na http://www.redhat.com.\n"
 "\n"
 "Informacije o prikrojitvi sistema lahko najdete v poglavju v Uradnem "
 "uporabni¹kem priroèniku za Red Hat Linux, ki opisuje prikrojevanje po "
@@ -603,18 +598,16 @@ msgid "Authentication"
 msgstr "Identifikacija"
 
 #: ../text.py:958
-#, fuzzy
 msgid "Configuration Complete"
-msgstr "Nastavitev X"
+msgstr "Nastavitev konèana"
 
 #: ../iw/welcome.py:10 ../text.py:967
 msgid "Welcome"
 msgstr "Dobrodo¹li"
 
 #: ../text.py:976 ../textw/silo.py:28 ../textw/silo.py:88 ../textw/silo.py:192
-#, fuzzy
 msgid "SILO Configuration"
-msgstr "Nastavitev LILO"
+msgstr "Nastavitev SILO"
 
 #: ../text.py:982 ../textw/lilo.py:29 ../textw/lilo.py:75 ../textw/lilo.py:168
 msgid "LILO Configuration"
@@ -699,67 +692,60 @@ msgstr "Preklicano"
 
 #: ../text.py:1085
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "Ne morem se vrniti na prej¹nji korak. Poskusiti boste morali ponovno."
+msgstr "Ne moremo se vrniti na prej¹nji korak. Poskusiti boste morali ponovno."
 
 #: ../todo.py:523
-#, fuzzy
 msgid "Creating boot disk..."
-msgstr "Ustvarjam zagonski disk..."
+msgstr "Ustvarjamo zagonski disk..."
 
 #: ../todo.py:668
-#, fuzzy
 msgid "Reading"
-msgstr "Preostanek"
+msgstr "Branje"
 
 #: ../todo.py:669
-#, fuzzy
 msgid "Reading package information..."
-msgstr "Po¹iljam zahtevo po podatkih IP..."
+msgstr "Beremo podatke o paketih..."
 
 #: ../todo.py:837 ../todo.py:847
 msgid "no suggestion"
 msgstr "ni predloga"
 
 #: ../todo.py:853
-#, fuzzy
 msgid "Searching"
-msgstr "Vse"
+msgstr "Iskanje"
 
 #: ../todo.py:854
 msgid "Searching for Red Hat Linux installations..."
 msgstr "I¹èemo namestitve Red Hat Linuxa..."
 
 #: ../todo.py:881
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "napaka pri pisanju v datoteko %s: %s"
+msgstr "Napaka pri priklapljanju datoteènega sistema ext2 na %s: %s"
 
 #: ../todo.py:900
-#, fuzzy
 msgid "Finding"
-msgstr "Preostanek"
+msgstr "Iskanje"
 
 #: ../todo.py:901
 msgid "Finding packages to upgrade..."
-msgstr "I¹èem pakete za nadgradnjo..."
+msgstr "I¹èemo pakete za nadgradnjo..."
 
 #: ../todo.py:1084
 msgid "Processing"
 msgstr "Obdelujemo"
 
 #: ../todo.py:1085
-#, fuzzy
 msgid "Preparing to install..."
-msgstr "Preiskujemo datoteke pred namestitvijo..."
+msgstr "Pripravljamo se na namestitev..."
 
 #: ../todo.py:1201
-#, fuzzy
 msgid "Rebuilding"
-msgstr "Preostanek"
+msgstr "Ponovno gradimo"
 
 #: ../todo.py:1202
 msgid "Rebuilding RPM database..."
-msgstr "Ponovno gradim bazo podataka o RPM..."
+msgstr "Ponovno gradimo bazo podatkov o RPM..."
 
 #: ../todo.py:1207
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
@@ -773,9 +759,9 @@ msgid "Upgrading %s.\n"
 msgstr "Nadgrajujemo %s.\n"
 
 #: ../todo.py:1259
-#, fuzzy, c-format
+#, c-format
 msgid "Installing %s.\n"
-msgstr "Name¹èamo pakete"
+msgstr "Name¹èamo %s.\n"
 
 #: ../todo.py:1280
 msgid ""
@@ -788,9 +774,8 @@ msgstr ""
 "\n"
 
 #: ../todo.py:1283
-#, fuzzy
 msgid "Mount Point"
-msgstr "Toèka priklopa:"
+msgstr "Toèka priklopa"
 
 #: ../todo.py:1283
 msgid "Space Needed"
@@ -801,14 +786,12 @@ msgid "Disk Space"
 msgstr "Prostor na disku"
 
 #: ../todo.py:1319
-#, fuzzy
 msgid "Post Install"
-msgstr "Namestitev"
+msgstr "Po namestitvi"
 
 #: ../todo.py:1320
-#, fuzzy
 msgid "Performing post install configuration..."
-msgstr "Preizkus te nastavitve"
+msgstr "Izvajamo nastavitve po namestitvi..."
 
 #: ../iw/xconfig.py:10 ../xf86config.py:241
 msgid "Video Card"
@@ -819,14 +802,12 @@ msgid "Video Ram"
 msgstr "Video RAM"
 
 #: ../xf86config.py:245
-#, fuzzy
 msgid "X server"
-msgstr "Stre¾nik"
+msgstr "Stre¾nik X"
 
 #: ../xf86config.py:247
-#, fuzzy
 msgid "Unable to detect video card"
-msgstr "Ne moremo nalo¾iti drugostopenjskega pomnilni¹kega diska: %s"
+msgstr "Ne moremo zaznati grafiène kartice"
 
 #: ../iw/xconfig.py:11 ../xf86config.py:252 ../xf86config.py:254
 msgid "Monitor"
@@ -837,14 +818,12 @@ msgid "Plug and Play Monitor"
 msgstr "Monitor vrste Plug and Play"
 
 #: ../xf86config.py:256
-#, fuzzy
 msgid "Horizontal frequency range"
-msgstr "Obseg horizontalnih frekvenc"
+msgstr "Obseg horizontalne frekvence"
 
 #: ../xf86config.py:258
-#, fuzzy
 msgid "Vertical frequency range"
-msgstr "Obseg vertikalnih frekvenc"
+msgstr "Obseg vertikalne frekvence"
 
 #: ../iw/account.py:14
 msgid "Account Configuration"
@@ -948,7 +927,6 @@ msgid "Exit"
 msgstr "Izhod"
 
 #: ../iw/congrats.py:76
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -960,9 +938,8 @@ msgid ""
 msgstr ""
 "Èestitamo, namestitev je konèana.\n"
 "\n"
-"Odstranite disketo iz disketnika in pritisnite <Enter>, da se bo raèunalnik "
-"resetiral. Za informacije o popravkih te razlièice Red Hat Linuxa, ki so na "
-"voljo, poglejte razdelek Errata, ki ga najdete na http://www.redhat.com.\n"
+"Za informacije o popravkih te razlièice Red Hat Linuxa, ki so na voljo, "
+"poglejte razdelek Errata, ki ga najdete na http://www.redhat.com.\n"
 "\n"
 "Informacije o prikrojitvi sistema lahko najdete v poglavju v Uradnem "
 "uporabni¹kem priroèniku za Red Hat Linux, ki opisuje prikrojevanje po "
@@ -1286,28 +1263,24 @@ msgid "Manually partition"
 msgstr "Roèna razdelitev"
 
 #: ../iw/silo.py:18
-#, fuzzy
 msgid "Silo Configuration"
-msgstr "Nastavitev LILO"
+msgstr "Nastavitev SILO"
 
 #: ../iw/silo.py:161
-#, fuzzy
 msgid "Install SILO boot record on:"
-msgstr "Namestitev zaganjalnega zapisa LILO na:"
+msgstr "Namestitev zaganjalnega zapisa SILO na:"
 
 #: ../iw/silo.py:174
-#, fuzzy
 msgid "Create PROM alias"
-msgstr "Izdelava zagonske diskete"
+msgstr "Izdelava vzdevka PROM"
 
 #: ../iw/silo.py:192
 msgid "Set default PROM boot device to linux"
 msgstr "Nastavimo privzeto zagonsko napravo PROM na linux"
 
 #: ../iw/silo.py:224
-#, fuzzy
 msgid "Do not install SILO"
-msgstr "Ne name¹èaj zaganjalnika LILO"
+msgstr "Ne name¹èajmo zaganjalnika SILO"
 
 #: ../iw/timezone.py:30 ../textw/timezone.py:80
 msgid "Time Zone Selection"
@@ -1322,9 +1295,8 @@ msgid "System clock uses UTC"
 msgstr "Sistemska ura uporablja UTC"
 
 #: ../iw/timezone.py:211
-#, fuzzy
 msgid "Use Daylight Saving Time (US only)"
-msgstr "Uporaba zimskega èasa"
+msgstr "Uporaba zimskega èasa (le ZDA)"
 
 #: ../iw/timezone.py:225
 msgid "Location"
@@ -1498,9 +1470,8 @@ msgid "Choose Partitions to Format"
 msgstr "Izberite razdelitve za formatiranje"
 
 #: ../textw/silo.py:62
-#, fuzzy
 msgid "Create PROM alias `linux'"
-msgstr "Izdelava zagonske diskete"
+msgstr "Izdelava vzdevka PROM ,linux`"
 
 #: ../textw/silo.py:63
 msgid "Set default PROM boot device"
@@ -2436,14 +2407,13 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Ne morem najti ks.cfg na zagonski disketi."
 
 #: ../loader/loader.c:1668
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Ne morem ustvariti datoteke %s\n"
+msgstr "Ne moremo brati imenika %s: %s"
 
 #: ../loader/loader.c:1731
-#, fuzzy
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "Vstavite disketo z gonilnikom in pritisnite \"V redu\" za nadaljevanje"
+msgstr "Vstavite disketo s popravki in pritisnite \"V redu\" za nadaljevanje"
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
