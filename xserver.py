@@ -95,12 +95,11 @@ def startX(resolution, nofbmode):
 
     #--Run fb_check() and see if framebuffer works on this card
     if fb_check() == 0:
-#        print "fb_check returned with value", fb_check()
         x.server = "XF86_FBDev"
 
     if x.server:
         serverPath = '/usr/X11R6/bin/' + x.server
-        print "Using X server", serverPath
+#        print "Using X server", serverPath
         
     elif iutil.getArch() == "sparc":
   	raise RuntimeError, "Unknown card"
