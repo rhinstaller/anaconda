@@ -135,7 +135,7 @@ class Network:
 
 	if not self.isConfigured:
 	    for dev in self.netdevices.values():
-		if dev.get('bootproto'):
+		if dev.get('bootproto') == "dhcp":
 		    self.primaryNS = isys.pumpNetDevice(dev.get('device'))
 		elif dev.get('ipaddr') and dev.get('netmask'):
 		    isys.configNetDevice(dev.get('device'),
@@ -148,6 +148,7 @@ class Network:
 	f.write("nameserver %s\n" % self.primaryNS)
 	f.close()
 	isys.resetResolv()
+	isys.setResolvRetry(2)
 
 	try:
 	    ip = socket.gethostbyname(self.hostname)
@@ -541,7 +542,7 @@ class ToDo:
         # /etc/resolv.conf
         f = open (self.instPath + "/etc/resolv.conf", "w")
 
-	if self.network.domains != [ 'localdomain' ]:
+	if self.network.domains != [ 'localdomain' ] and self.network.domains:
 	    f.write ("search " + string.joinfields (self.network.domains, ' ') 
 			+ "\n")
 
