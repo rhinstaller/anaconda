@@ -17,6 +17,7 @@
 
 #include <kudzu/kudzu.h>
 
+#if defined(__powerpc__)
 static int readFD (int fd, char **buf)
 {
     char *p;
@@ -48,6 +49,7 @@ static int readFD (int fd, char **buf)
 
     return filesize;
 }
+#endif
 
 int isVioConsole(void) {
 #if !defined(__powerpc__)
