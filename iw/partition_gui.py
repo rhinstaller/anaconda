@@ -606,7 +606,7 @@ class PartitionWindow(InstallWindow):
 		for lvrequest in lvmrequests[vgname]:
 		    iter = self.tree.append(vgparent)
 		    self.tree[iter]['Device'] = lvrequest.logicalVolumeName
-		    if lvrequest.fstype and lvrequest.fstype.isMountable():
+		    if lvrequest.fstype and lvrequest.fstype.isMountable() and lvrequest.mountpoint:
 			self.tree[iter]['Mount Point'] = lvrequest.mountpoint
 		    else:
 			self.tree[iter]['Mount Point'] = ""

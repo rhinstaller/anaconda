@@ -29,6 +29,74 @@ from constants import *
 
 class VolumeGroupEditor:
 
+    def reclampLV(self, newpe):
+        """ given a new pe value, set logical volume sizes accordingly
+
+        newpe - (int) new value of PE, in KB
+        """
+
+        pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
+        availSpaceMB = self.computeVGSize(pvlist)
+
+        oldused = 0
+        used = 0
+        for lv in self.logvolreqs:
+            osize = lv.getActualSize(self.partitions, self.diskset)
+            oldused = oldused + osize
+            nsize = lvm.clampLVSizeRequest(osize, newpe)
+            used = used + nsize
+
+        print oldused, used, availSpaceMB
+        if used > availSpaceMB:
+            self.intf.messageWindow(_("Not enough space"),
+                                    _("The physical extent size cannot be "
+                                      "changed because otherwise the space "
+                                      "required by the currently defined "
+                                      "logical volumes will be increased "
+                                      "to more than the available space."))
+            return 0
+
+        rc = self.intf.messageWindow(_("Confirm Physical Extent Change"),
+                                     _("This change in the value of the "
+                                       "physical extent will require the "
+                                       "sizes of the current logical "
+                                       "volume requests to be rounded "
+                                       "up in size."), type="custom",
+                                     custom_buttons=["gtk-cancel", _("Continue")])
+        if not rc:
+            return 0
+        
+        for lv in self.logvolreqs:
+            osize = lv.getActualSize(self.partitions, self.diskset)
+            nsize = lvm.clampLVSizeRequest(osize, newpe)
+            lv.size = nsize
+
+        return 1
+            
+            
+        
+    def peChangeCB(self, widget, peOption):
+        """ handle changes in the Physical Extent option menu
+
+        widget - menu item which was activated
+        peOption - the Option menu containing the items. The data value for
+                   "lastval" is the previous PE value.
+        """
+        curval = widget.get_data("value")
+        lastval = peOption.get_data("lastpe")
+        print curval, lastval
+        if curval > lastval:
+            rc = self.reclampLV(curval)
+            if not rc:
+                self.intf.messageWindow("grr", "Tried to stop activate signal "
+                                        "to no avail, PE menu changed anyways")
+                widget.emit_stop_by_name("activate")
+            else:
+                self.updateLogVolStore()
+            
+        peOption.set_data("lastpe", curval)
+        
+
     def createPEOptionMenu(self, default=4096):
 	peOption = gtk.OptionMenu()
 	peOptionMenu = gtk.Menu()
@@ -48,6 +116,7 @@ class VolumeGroupEditor:
             item.set_data("value", curpe)
 	    item.show()
 	    peOptionMenu.add(item)
+            item.connect("activate", self.peChangeCB, peOption)
 
 	    if default == curpe:
 		defindex = idx
@@ -55,6 +124,7 @@ class VolumeGroupEditor:
 	    idx = idx + 1
 
 	peOption.set_menu(peOptionMenu)
+        peOption.set_data("lastpe", default)
 
 	if defindex:
 	    peOption.set_history(defindex)
@@ -416,6 +486,22 @@ class VolumeGroupEditor:
 	    neededSpaceMB = neededSpaceMB + lv.getActualSize(self.partitions, self.diskset)
 
 	return neededSpaceMB
+
+    def updateLogVolStore(self):
+        self.logvolstore.clear()
+        for lv in self.logvolreqs:
+            iter = self.logvolstore.append()
+            size = lv.getActualSize(self.partitions, self.diskset)
+            lvname = lv.logicalVolumeName
+            mntpt = lv.mountpoint
+            if lvname:
+                self.logvolstore.set_value(iter, 0, lvname)
+                
+            if lv.fstype and lv.fstype.isMountable() and mntpt:
+                self.logvolstore.set_value(iter, 1, mntpt)
+                
+            self.logvolstore.set_value(iter, 2, "%g" % (size,))
+        
 
     def updateVGSpaceLabels(self, alt_pvlist=None):
 	if alt_pvlist == None:
