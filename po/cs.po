@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install VERSION\n"
 "POT-Creation-Date: 2003-09-19 23:33-0400\n"
-"PO-Revision-Date: 2003-08-14 21:21+0200\n"
+"PO-Revision-Date: 2003-09-20 18:32+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1080,7 +1080,7 @@ msgstr ""
 
 #: ../image.py:63
 msgid "Required Install Media"
-msgstr ""
+msgstr "Vyžadovaná instalační média"
 
 #: ../image.py:64
 #, python-format
@@ -1091,6 +1091,10 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
+"Software, který jste se rozhodli nainstalovat, bude vyžadovat následující CD:\n"
+"\n"
+"%s\n"
+"Připravte si je prosím před pokračováním v instalaci. Pokud potřebujete instalaci přerušit a restartovat, zvolte \"Restartovat\"."
 
 #: ../image.py:72 ../kickstart.py:1266 ../kickstart.py:1293
 #: ../iw/partition_gui.py:1012
@@ -2799,15 +2803,13 @@ msgstr "Zahájení instalace"
 
 #: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:95 ../textw/confirm_text.py:34
 #: ../textw/confirm_text.py:60
-#, fuzzy
 msgid "Reboot?"
-msgstr "_Restartovat"
+msgstr "Restartovat?"
 
 #: ../iw/confirm_gui.py:66 ../iw/confirm_gui.py:96 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:61
-#, fuzzy
 msgid "The system will be rebooted now."
-msgstr "Váš systém se nyní restartuje."
+msgstr "Systém se nyní restartuje."
 
 #: ../iw/confirm_gui.py:79
 #, python-format
@@ -3068,9 +3070,8 @@ msgid "Firewall"
 msgstr "Firewall"
 
 #: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:193
-#, fuzzy
 msgid "Warning - No Firewall"
-msgstr "Žádný firewall"
+msgstr "Varování - žádný firewall"
 
 #: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:194
 msgid ""
@@ -3081,12 +3082,14 @@ msgid ""
 "\n"
 "Are you sure you want to turn off the firewall?"
 msgstr ""
+"Rozhodli jste se zakázat v tomto systému firewall. Toto se nedoporučuje, pokud je tento systém připojen přímo k Internetu nebo je na velké veřejné síti. Firewall pomůže zabránit nautorizovanému přístupu k vašemu systému.\n"
+"\n"
+"Jste si jisti, že chcete vypnout firewall?"
 
 #: ../iw/firewall_gui.py:36 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:196
-#, fuzzy
 msgid "_Proceed"
-msgstr "Pokračovat"
+msgstr "_Pokračovat"
 
 #: ../iw/firewall_gui.py:122
 #, python-format
@@ -4800,9 +4803,8 @@ msgstr ""
 "odpovídající model pro dosažení nejlepší možné kvality zobrazování."
 
 #: ../iw/xconfig_gui.py:445
-#, fuzzy
 msgid "_Choose monitor type"
-msgstr "Vybrat typ monitoru"
+msgstr "_Vybrat typ monitoru"
 
 #: ../iw/xconfig_gui.py:625
 msgid ""
@@ -7988,7 +7990,7 @@ msgstr "Ruština"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovinština"
 
 #. generated from lang-table
 msgid "Spanish"
@@ -8001,9 +8003,6 @@ msgstr "Švédština"
 #. generated from lang-table
 msgid "Turkish"
 msgstr "Turečtina"
-
-#~ msgid "Hardware clock set to GMT?"
-#~ msgstr "Hardwarové hodiny nastavit na GMT?"
 
 #~ msgid ""
 #~ "The default workstation environment includes our recommendations for new "

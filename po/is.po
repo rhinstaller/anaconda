@@ -1086,7 +1086,7 @@ msgstr ""
 
 #: ../image.py:63
 msgid "Required Install Media"
-msgstr ""
+msgstr "Nauðsynlegir diskar"
 
 #: ../image.py:64
 #, python-format
@@ -1097,6 +1097,11 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
+"Hugbúnaðurinn sem þú hefur kosið að setja inn þarfnast eftirfanandi geisladiska:\n"
+"\n"
+"%s\n"
+"Vinsamlegast hafðu þá tiltæka áður en lengra er haldið. Ef þú þarft að hætta "
+"við þessa uppsetningu og endurræsa getur þú valið \"Endurræsa\" hnappinn."
 
 #: ../image.py:72 ../kickstart.py:1266 ../kickstart.py:1293
 #: ../iw/partition_gui.py:1012
@@ -2801,13 +2806,11 @@ msgstr "Uppsetning að hefjast"
 
 #: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:95 ../textw/confirm_text.py:34
 #: ../textw/confirm_text.py:60
-#, fuzzy
 msgid "Reboot?"
-msgstr "En_durræsa"
+msgstr "Endurræsa?"
 
 #: ../iw/confirm_gui.py:66 ../iw/confirm_gui.py:96 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:61
-#, fuzzy
 msgid "The system will be rebooted now."
 msgstr "Vélin þín mun nú endurræsa."
 
@@ -3070,9 +3073,8 @@ msgid "Firewall"
 msgstr "Eldveggur"
 
 #: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:193
-#, fuzzy
 msgid "Warning - No Firewall"
-msgstr "Enginn eldveggur"
+msgstr "Aðvörun - Enginn eldveggur"
 
 #: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:194
 msgid ""
@@ -3083,12 +3085,16 @@ msgid ""
 "\n"
 "Are you sure you want to turn off the firewall?"
 msgstr ""
+"Þú hefur kosið að slökkva á eldveggnum í þessari vél. Við mælum ekki með að "
+"þetta sé gert ef vélin er tengd við Internetið eða önnur stór net. Eldveggurinn "
+"mun aðstoða við það að halda óvelkomnum gestum frá vélinni þinni.\n"
+"\n"
+"Ertu viss um að þú viljir slökkva á eldveggnum?"
 
 #: ../iw/firewall_gui.py:36 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:196
-#, fuzzy
 msgid "_Proceed"
-msgstr "Halda áfram"
+msgstr "_Halda áfram"
 
 #: ../iw/firewall_gui.py:122
 #, python-format
@@ -4802,9 +4808,8 @@ msgstr ""
 "þínum hvað mest til að fá meiri gæði á skjáborðinu."
 
 #: ../iw/xconfig_gui.py:445
-#, fuzzy
 msgid "_Choose monitor type"
-msgstr "Veldu tegund skjás"
+msgstr "_Veldu tegund skjás"
 
 #: ../iw/xconfig_gui.py:625
 msgid ""
@@ -7993,7 +7998,7 @@ msgstr "Rússneska"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "Slóveníska"
 
 #. generated from lang-table
 msgid "Spanish"
@@ -8006,6 +8011,3 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Turkish"
 msgstr "Tyrkneska"
-
-#~ msgid "Hardware clock set to GMT?"
-#~ msgstr "Vélbúnaðarklukkan stillt á GMT?"

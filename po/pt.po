@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2003-09-19 23:33-0400\n"
-"PO-Revision-Date: 2003-09-16 14:53+0100\n"
+"PO-Revision-Date: 2003-09-22 09:35+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1142,7 +1142,7 @@ msgstr ""
 
 #: ../image.py:63
 msgid "Required Install Media"
-msgstr ""
+msgstr "CDs Necessários para a Instalação"
 
 #: ../image.py:64
 #, python-format
@@ -1153,6 +1153,10 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
+"O software que seleccionou para instalação necessita dos seguintes CDs:\n"
+"\n"
+"%s\n"
+"Por favor verifique que tem estes CDs disponíveis antes de continuar com a instalação.  Se necessita de cancelar a instalação carregue em \"Reiniciar\"."
 
 #: ../image.py:72 ../kickstart.py:1266 ../kickstart.py:1293
 #: ../iw/partition_gui.py:1012
@@ -2894,13 +2898,11 @@ msgstr "Prestes a Instalar"
 
 #: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:95 ../textw/confirm_text.py:34
 #: ../textw/confirm_text.py:60
-#, fuzzy
 msgid "Reboot?"
-msgstr "_Reiniciar"
+msgstr "Reiniciar?"
 
 #: ../iw/confirm_gui.py:66 ../iw/confirm_gui.py:96 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:61
-#, fuzzy
 msgid "The system will be rebooted now."
 msgstr "O seu computador vai agora ser reiniciado."
 
@@ -3169,9 +3171,8 @@ msgid "Firewall"
 msgstr "'Firewall'"
 
 #: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:193
-#, fuzzy
 msgid "Warning - No Firewall"
-msgstr "Sem 'firewall'"
+msgstr "Aviso - Sem 'Firewall'"
 
 #: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:194
 msgid ""
@@ -3182,12 +3183,14 @@ msgid ""
 "\n"
 "Are you sure you want to turn off the firewall?"
 msgstr ""
+"Escolheu desactivar a 'firewall' do computador.  Isto não é recomendado se o sistema estive ligado directamente à Internet ou a uma rede pública extensa. Uma 'firewall' ajuda a impedir os acessos não autorizados ao seu computador.\n"
+"\n"
+"Tem a certeza que quer desligar a 'firewall'?"
 
 #: ../iw/firewall_gui.py:36 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:196
-#, fuzzy
 msgid "_Proceed"
-msgstr "Continuar"
+msgstr "_Continuar"
 
 #: ../iw/firewall_gui.py:122
 #, python-format
@@ -4919,9 +4922,8 @@ msgstr ""
 "imagem."
 
 #: ../iw/xconfig_gui.py:445
-#, fuzzy
 msgid "_Choose monitor type"
-msgstr "Escolher o tipo de monitor"
+msgstr "Es_colher o tipo de monitor"
 
 #: ../iw/xconfig_gui.py:625
 msgid ""
