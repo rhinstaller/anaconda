@@ -92,41 +92,59 @@ class XCustomWindow (InstallWindow):
             return -1
         return 0
 
-    def depth_cb (self, widget, data):
+    def depth_cb (self, widget):
 	self.ignore_res_cb = 1
-        loc = self.depth_combo.list.child_position (data)
+        loc = self.depth_optionmenu.get_history()
 
         if self.selectedDepth == self.avail_depth[loc]:
 	    self.ignore_res_cb = 0
             return
+
         self.selectedDepth = self.avail_depth[loc]
 	self.xsetup.xhwstate.set_colordepth(self.selectedDepth)
 
 	# now we set color depth, read out what modes are now supported
 	self.selectedRes = self.xsetup.xhwstate.get_resolution()
 	self.avail_res = self.xsetup.xhwstate.available_resolutions()
-        self.res_combo.set_popdown_strings(self.avail_res)
-        if self.selectedRes in self.avail_res:
-            self.res_combo.list.select_item(self.avail_res.index(self.selectedRes))
-	else:
+
+	self.create_res_optionmenu()
+
+        if self.selectedRes not in self.avail_res:
 	    self.selectedRes = self.avail_res[-1]
 	    
 	self.currentRes = self.avail_res.index(self.selectedRes)
+	self.res_optionmenu.set_history(self.currentRes)
 	self.ignore_res_cb = 0
 
-    def res_cb (self, widget, data):
+    def res_cb (self, widget):
 	if self.ignore_res_cb:
 	    return
 	
-        newres = self.res_combo.list.child_position (data)
+        newres = self.res_optionmenu.get_history()
         if self.currentRes == newres:
             return
         
-        self.currentRes = self.res_combo.list.child_position (data)
+        self.currentRes = newres
         self.selectedRes = self.avail_res[self.currentRes]
 	self.xsetup.xhwstate.set_resolution(self.selectedRes)
 
         self.swap_monitor (self.currentRes)
+
+    def create_res_optionmenu(self):
+	if self.res_optionmenu is None:
+	    self.res_optionmenu = gtk.OptionMenu()
+
+	if self.res_menu is not None:
+	    self.res_optionmenu.remove_menu()
+
+	self.res_menu = gtk.Menu()
+	
+	for r in self.avail_res:
+	    item = gtk.MenuItem(r)
+	    item.show()
+	    self.res_menu.add(item)
+
+	self.res_optionmenu.set_menu(self.res_menu)
 
     def load_monitor_preview_pixmap(self, file):
         if self.monitor_align:
@@ -241,51 +259,59 @@ class XCustomWindow (InstallWindow):
 		      (_("High Color (16 Bit)")),
 		      (_("True Color (24 Bit)"))]
         self.bit_depth = [8, 16, 24]
-        self.avail_res = self.xsetup.xhwstate.available_resolutions()
 
-        self.depth_combo = gtk.Combo ()
-	self.depth_combo.entry.set_property("editable", gtk.FALSE)
+	# create option menu for bit depth
+	self.depth_optionmenu = gtk.OptionMenu()
+	self.depth_menu = gtk.Menu()
 
-	tmpstrlst = []
-	for d in self.avail_depth:
-	    tmpstrlst.append(self.depth_list[self.bit_depth.index(d)])
-        self.depth_combo.set_popdown_strings (tmpstrlst)
+	for i in range(0, len(self.depth_list)):
+	    if self.bit_depth[i] in self.avail_depth:
+		d = self.depth_list[i]
+		item = gtk.MenuItem(d)
+		item.show()
+		self.depth_menu.add(item)
 
-        frame1.add (self.depth_combo)
-        frame1.get_label_widget().set_mnemonic_widget(self.depth_combo.entry)
+	self.depth_optionmenu.set_menu(self.depth_menu)
+	
+        frame1.add (self.depth_optionmenu)
+        frame1.get_label_widget().set_mnemonic_widget(self.depth_optionmenu)
+
+	# now we do screen resolution
         frame2 = gtk.Frame (_("_Screen Resolution:"))
         frame2.get_label_widget().set_property("use-underline", gtk.TRUE)
         frame2.set_shadow_type (gtk.SHADOW_NONE)
         frame2.set_border_width (10)
         hbox1.pack_start (frame2, gtk.TRUE, gtk.FALSE, 2)
 
-        self.res_combo = gtk.Combo ()
-        self.res_combo.entry.set_property("editable", gtk.FALSE)
+        self.avail_res = self.xsetup.xhwstate.available_resolutions()
+	
+	self.res_optionmenu = None
+	self.res_menu = None
+	self.create_res_optionmenu()
 
-        self.selectedDepth = self.xsetup.xhwstate.get_colordepth()
-        self.selectedRes   = self.xsetup.xhwstate.get_resolution()
-        self.res_combo.set_popdown_strings (self.avail_res)
-
-        frame2.add (self.res_combo)
-        frame2.get_label_widget().set_mnemonic_widget(self.res_combo.entry)
+        frame2.add (self.res_optionmenu)
+        frame2.get_label_widget().set_mnemonic_widget(self.res_optionmenu)
 
         # apply current configuration to UI
+        self.selectedDepth = self.xsetup.xhwstate.get_colordepth()
+        self.selectedRes   = self.xsetup.xhwstate.get_resolution()
+
 	if self.selectedDepth not in self.avail_depth:
 	    self.selectedDepth = self.avail_depth[-1]
 
-	self.currentDepth = self.avail_depth.index(self.selectedDepth)
-	self.depth_combo.list.select_item (self.currentDepth)
+	idx = self.avail_depth.index(self.selectedDepth)
+	self.depth_optionmenu.set_history(idx)
 
 	if self.selectedRes not in self.avail_res:
 	    self.selectedRes = self.avail_res[-1]
 	    
 	self.currentRes = self.avail_res.index(self.selectedRes)
-	self.res_combo.list.select_item (self.currentRes)
+	self.res_optionmenu.set_history (self.currentRes)
         self.swap_monitor(self.currentRes)
 
-        self.depth_combo.list.connect ("select-child", self.depth_cb)
+	self.depth_optionmenu.connect ("changed", self.depth_cb)
 	self.ignore_res_cb = 0
-        self.res_combo.list.connect ("select-child", self.res_cb)
+        self.res_optionmenu.connect ("changed", self.res_cb)
 
         self.box.pack_start (hbox1, gtk.FALSE)
 
