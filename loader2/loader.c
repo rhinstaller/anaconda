@@ -1117,6 +1117,8 @@ int main(int argc, char ** argv) {
 
     if (!access("/mnt/runtime/usr/lib/libunicode-lite.so.1", R_OK))
         setenv("LD_PRELOAD", "/mnt/runtime/usr/lib/libunicode-lite.so.1", 1);
+    if (!access("/mnt/runtime/usr/lib64/libunicode-lite.so.1", R_OK))
+        setenv("LD_PRELOAD", "/mnt/runtime/usr/lib64/libunicode-lite.so.1", 1);
 
     argptr = anacondaArgs;
 
