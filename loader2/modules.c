@@ -709,7 +709,7 @@ char * getModuleLocation(int version) {
 
     uname(&u);
 
-    if (!arch) {
+    if (!arch && !access(archfile, R_OK)) {
         struct stat sb;
         int fd;
 
@@ -722,6 +722,10 @@ char * getModuleLocation(int version) {
             sb.st_size--;
         arch[sb.st_size] = '\0';
         close(fd);
+    } else if (!arch) {
+        logMessage("can't find arch file %s, defaulting to %s", archfile, 
+                   u.machine);
+        arch = strdup(u.machine);
     }
 
     if (version == 1) {
