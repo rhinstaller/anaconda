@@ -444,8 +444,11 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                                   "overlap, continuing the upgrade "
                                   "process may cause them to stop "
                                   "functioning properly or may cause "
-                                  "other system instability.  Do you "
-                                  "wish to continue the upgrade process?"),
+                                  "other system instability.  Please see "
+                                  "the release notes for more information."
+                                  "\n\n"
+                                  "Do you wish to continue the upgrade "
+                                  "process?"),
                                 type="yesno")
         if rc == 0:
             try:
