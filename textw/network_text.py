@@ -109,7 +109,6 @@ class NetworkWindow:
         if ask_ptp:            
             self.ptp = Entry(16)
             self.ptp.set (dev.get ("remip"))
-            secondg.setField (self.ptp, 1, 7, (1, 0, 0, 0))
 
             
         self.cb.setCallback (self.setsensitive)
@@ -122,6 +121,8 @@ class NetworkWindow:
         secondg.setField (self.ns, 1, 3, (1, 0, 0, 0))
         secondg.setField (self.ns2, 1, 4, (1, 0, 0, 0))
         secondg.setField (self.ns3, 1, 5, (1, 0, 0, 0))
+	if ask_ptp:
+            secondg.setField (self.ptp, 1, 6, (1, 0, 0, 0))
 
         bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
