@@ -420,6 +420,7 @@ class InstallControlWindow:
         # get the labels
         for (button, text) in [ (self.nextButtonStock, _("Next")),
                                 (self.prevButtonStock, _("Back")),
+                                (self.releaseButton, _("Release Notes")),
                                 (self.showHelpButton, _("Show Help")),
                                 (self.hideHelpButton, _("Hide Help")),
                                 (self.finishButton, _("Finish")) ]:
