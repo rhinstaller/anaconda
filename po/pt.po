@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: redhat-install\n"
 "POT-Creation-Date: 2001-01-16 16:09-0500\n"
-"PO-Revision-Date: 2001-01-17 20:48+00:00\n"
+"PO-Revision-Date: 2001-01-18 13:16+00:00\n"
 "Last-Translator: Pedro Morais <morais@poli.org>\n"
 "Language-Team: Portuguese <morais@poli.org>\n"
 "MIME-Version: 1.0\n"
@@ -232,6 +232,8 @@ msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
+"Ocorreu um erro ao transferir a imagem de instalação para o seu disco "
+"rígido. Provavelmente ficou seu espaço em disco."
 
 #: ../image.py:115
 msgid "Change CDROM"
@@ -320,6 +322,10 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"O seu sistema foi montado em /mnt/sysimage.\n"
+"\n"
+"Carregue em <return> para obter uma 'shell'. O sistema será reiniciado "
+"automáticamente quando sair da 'shell'."
 
 #: ../rescue.py:66
 msgid ""
@@ -342,7 +348,7 @@ msgstr ""
 
 #: ../rescue.py:84
 msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr ""
+msgstr "O seu sistema está montado na directoria /mnt/sysimage."
 
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924
@@ -702,7 +708,7 @@ msgstr "Depuração"
 
 #: ../text.py:983
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../text.py:987
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
@@ -1620,6 +1626,11 @@ msgid ""
 "\n"
 "Installer will exit now."
 msgstr ""
+"O seguinte erro ocorreu ao tentar aceder ao ficheiro hdlist:\n"
+"\n"
+"%s\n"
+"\n"
+"O instalador vai agora terminar."
 
 #: ../iw/package_gui.py:563
 msgid ""
@@ -1781,7 +1792,7 @@ msgstr "Particionar manualmente com o fdisk [só para peritos]"
 
 #: ../iw/rootpartition_gui.py:378
 msgid "Boot Partition Location Warning"
-msgstr ""
+msgstr "Aviso de Localização da Partição de Arranque"
 
 #: ../iw/rootpartition_gui.py:399 ../textw/partitioning_text.py:366
 msgid ""
@@ -2751,6 +2762,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
+"Colocou o sistema de ficheiros '/' numa partição não-ext2, por isso não pode "
+"editar outras partições."
 
 #: ../libfdisk/gnomefsedit.c:802 ../libfdisk/gnomefsedit.c:808
 #: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:814
