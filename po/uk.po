@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2002-08-16 02:09-0400\n"
+"POT-Creation-Date: 2002-08-22 02:05-0400\n"
 "PO-Revision-Date: 2001-08-22 21:06EET\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -113,23 +113,23 @@ msgstr "Використову╓ться тип миш╕: "
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
-#: ../autopart.py:723
+#: ../autopart.py:829
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr "Неможливо вид╕лити м╕сце для розд╕лу типу cylinder-based"
 
-#: ../autopart.py:726
+#: ../autopart.py:832
 msgid "Could not allocate partitions as primary partitions"
 msgstr "Неможливо зробити розд╕ли головними"
 
-#: ../autopart.py:729
+#: ../autopart.py:835
 msgid "Could not allocate cylinder-based partitions"
 msgstr "Неможливо розм╕стити розд╕ли типу cylinder-based"
 
-#: ../autopart.py:732
+#: ../autopart.py:838
 msgid "Could not allocate partitions"
 msgstr "Неможливо розм╕стити розд╕ли"
 
-#: ../autopart.py:791
+#: ../autopart.py:901
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
@@ -138,18 +138,18 @@ msgstr ""
 "Завантажувальний розд╕л %s може не задовольняти завантажувальн╕ обмеження "
 "для вашо╖ арх╕тектури.  Наполегливо рекоменду╓ться створити системний диск."
 
-#: ../autopart.py:808
+#: ../autopart.py:926
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
 
-#: ../autopart.py:952
+#: ../autopart.py:1070
 msgid "Requested Partition Does Not Exist"
 msgstr "Запитаного розд╕лу не ╕сну╓"
 
-#: ../autopart.py:953
+#: ../autopart.py:1071
 #, fuzzy, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -160,12 +160,12 @@ msgstr ""
 "\n"
 "Натисн╕ть \"Гаразд\" для перевантаження вашо╖ системи."
 
-#: ../autopart.py:984 ../autopart.py:1024
+#: ../autopart.py:1102 ../autopart.py:1142
 #, fuzzy
 msgid "Automatic Partitioning Errors"
 msgstr "Автоматичний розпод╕л"
 
-#: ../autopart.py:985
+#: ../autopart.py:1103
 #, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -180,11 +180,11 @@ msgstr ""
 "\n"
 "Натисн╕ть \"Гаразд\" для перевантаження вашо╖ системи."
 
-#: ../autopart.py:994
+#: ../autopart.py:1112
 msgid "Warnings During Automatic Partitioning"
 msgstr "Попередження п╕д час автоматичного розпод╕лу"
 
-#: ../autopart.py:995
+#: ../autopart.py:1113
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -195,19 +195,19 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1008
+#: ../autopart.py:1126
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1009 ../iw/partition_gui.py:980
+#: ../autopart.py:1127 ../iw/partition_gui.py:980
 #: ../textw/partition_text.py:213
 msgid "Error Partitioning"
 msgstr "Помилка розпод╕лу"
 
-#: ../autopart.py:1010
+#: ../autopart.py:1128
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -218,7 +218,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1025
+#: ../autopart.py:1143
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -232,19 +232,19 @@ msgid ""
 "Press 'OK' to continue."
 msgstr ""
 
-#: ../autopart.py:1103 ../bootloader.py:123 ../image.py:308
+#: ../autopart.py:1221 ../bootloader.py:123 ../image.py:330
 #: ../partedUtils.py:240 ../partedUtils.py:668 ../upgrade.py:260
-#: ../upgrade.py:389 ../upgrade.py:408 ../iw/blpasswidget.py:148
-#: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:88
-#: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
-#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:135
-#: ../textw/bootloader_text.py:451 ../textw/fdasd_text.py:84
-#: ../textw/partition_text.py:217 ../textw/upgrade_text.py:175
-#: ../loader/loader.c:3612
+#: ../upgrade.py:389 ../upgrade.py:408 ../upgrade.py:431
+#: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
+#: ../iw/bootloader_main_gui.py:88 ../iw/upgrade_swap_gui.py:200
+#: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
+#: ../textw/bootloader_text.py:135 ../textw/bootloader_text.py:450
+#: ../textw/fdasd_text.py:84 ../textw/partition_text.py:217
+#: ../textw/upgrade_text.py:175 ../loader/loader.c:3612
 msgid "Warning"
 msgstr "Увага"
 
-#: ../autopart.py:1109
+#: ../autopart.py:1227
 #, fuzzy
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
@@ -270,7 +270,7 @@ msgstr ""
 "Незважаючи на те, що вона не ╓ легкою у використанн╕, ╕снують випадки в яких "
 "краще використовувати fdsik."
 
-#: ../autopart.py:1123
+#: ../autopart.py:1241
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
@@ -278,19 +278,19 @@ msgstr ""
 "Перед автоматичним розпод╕лом за допомогою програми встановлення, ви ма╓те "
 "виказати як використовувати прост╕р на жорсткому диску."
 
-#: ../autopart.py:1128
+#: ../autopart.py:1246
 msgid "Remove all partitions on this system"
 msgstr "Видалити вс╕ розд╕ли в ц╕й систем╕"
 
-#: ../autopart.py:1129
+#: ../autopart.py:1247
 msgid "Remove all Linux Partitions on this system"
 msgstr "Видалити розд╕ли Linux в ц╕й систем╕"
 
-#: ../autopart.py:1130
+#: ../autopart.py:1248
 msgid "Keep all partitions and use existing free space"
 msgstr "Зберегти вс╕ розд╕ли ╕ використовувати в╕льний прост╕р"
 
-#: ../autopart.py:1132
+#: ../autopart.py:1250
 #, fuzzy, python-format
 msgid ""
 "You have selected to remove all partitions (ALL DATA) on the following "
@@ -302,7 +302,7 @@ msgstr ""
 "Ви вибрали видалення вс╕х розд╕л╕в (ВС╤ ДАН╤) на таких пристроях:%s\n"
 "Ви впевнен╕ що ви бажа╓те це зробити?"
 
-#: ../autopart.py:1136
+#: ../autopart.py:1254
 #, fuzzy, python-format
 msgid ""
 "You have selected to remove all Linux partitions (and ALL DATA on them) on "
@@ -333,22 +333,22 @@ msgstr ""
 msgid "Everything"
 msgstr "Все"
 
-#: ../comps.py:893 ../comps.py:959 ../upgrade.py:588
+#: ../comps.py:893 ../comps.py:959 ../upgrade.py:611
 msgid "no suggestion"
 msgstr "жодних вар╕ант╕в"
 
-#: ../comps.py:1053 ../loader/devices.c:79
+#: ../comps.py:1054 ../loader/devices.c:79
 msgid "Miscellaneous"
 msgstr "╤нш╕ параметри"
 
-#: ../comps.py:1069
+#: ../comps.py:1070
 msgid ""
 "This group includes all the packages available.  Note that this is "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
 
-#: ../comps.py:1073
+#: ../comps.py:1074
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -369,12 +369,23 @@ msgid ""
 msgstr ""
 "Стан вашо╖ системи було записано на дискету. Систему буде перезавантажено."
 
-#: ../floppy.py:59
+#: ../floppy.py:91
+#, fuzzy
+msgid "Unable to make boot floppy"
+msgstr "Не вдалося змонтувати дискету."
+
+#: ../floppy.py:92
+msgid ""
+"The size of the kernel modules needed for your machine make it impossible to "
+"create a boot disk that will fit on a floppy diskette."
+msgstr ""
+
+#: ../floppy.py:101
 #, fuzzy
 msgid "Insert a floppy disk"
 msgstr "Не вдалося змонтувати дискету."
 
-#: ../floppy.py:60
+#: ../floppy.py:102
 #, fuzzy
 msgid ""
 "Please remove any diskettes from the floppy drive, and insert the floppy "
@@ -387,20 +398,20 @@ msgstr ""
 "Будь ласка, вийм╕ть будь як╕ дискети з вашого дисководу ╕ вставте чисту "
 "дискету. Вс╕ дан╕ буде ВИТЕРТО п╕д час створення системно╖ дискети."
 
-#: ../floppy.py:64
+#: ../floppy.py:106
 #, fuzzy
 msgid "_Cancel"
 msgstr "В╕дм╕нити"
 
-#: ../floppy.py:64
+#: ../floppy.py:106
 #, fuzzy
 msgid "_Make boot disk"
 msgstr "Створити системний диск"
 
-#: ../floppy.py:76 ../floppy.py:105 ../fsset.py:554 ../fsset.py:1015
+#: ../floppy.py:118 ../floppy.py:143 ../fsset.py:554 ../fsset.py:1015
 #: ../fsset.py:1034 ../fsset.py:1081 ../fsset.py:1092 ../fsset.py:1128
-#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:202 ../image.py:86
-#: ../image.py:198 ../packages.py:306 ../partedUtils.py:458
+#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:207 ../image.py:68
+#: ../image.py:102 ../image.py:214 ../packages.py:307 ../partedUtils.py:458
 #: ../partIntfHelpers.py:147 ../partIntfHelpers.py:332 ../upgrade.py:316
 #: ../upgrade.py:334 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
@@ -422,7 +433,7 @@ msgstr "Створити системний диск"
 msgid "Error"
 msgstr "Помилка"
 
-#: ../floppy.py:77 ../floppy.py:106
+#: ../floppy.py:119 ../floppy.py:144
 #, fuzzy
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
@@ -431,11 +442,11 @@ msgstr ""
 "Виникла помилка при створенн╕ системного диску. Будь ласка, перев╕рте чи ╓ "
 "форматований диск у першому привод╕."
 
-#: ../floppy.py:92
+#: ../floppy.py:130
 msgid "Creating"
 msgstr "Створення"
 
-#: ../floppy.py:92
+#: ../floppy.py:130
 msgid "Creating boot disk..."
 msgstr "Створення системного диску..."
 
@@ -692,7 +703,7 @@ msgid ""
 "An error occured when attempting to load an installer interface component."
 msgstr ""
 
-#: ../gui.py:810 ../packages.py:1100 ../iw/congrats_gui.py:29
+#: ../gui.py:810 ../packages.py:1105 ../iw/congrats_gui.py:29
 #, fuzzy
 msgid "_Exit"
 msgstr "Вих╕д"
@@ -702,21 +713,21 @@ msgstr "Вих╕д"
 msgid "_Retry"
 msgstr "Повторити"
 
-#: ../gui.py:813 ../packages.py:1103
+#: ../gui.py:813 ../packages.py:1108
 #, fuzzy
 msgid "Rebooting System"
 msgstr "Оновлення ╤снуючо╖ Системи"
 
-#: ../gui.py:814 ../packages.py:1104
+#: ../gui.py:814 ../packages.py:1109
 msgid "Your system will now be rebooted..."
 msgstr ""
 
-#: ../gui.py:817 ../packages.py:1106
+#: ../gui.py:817 ../packages.py:1111
 #, fuzzy
 msgid "_Reboot"
 msgstr "_В╕дм╕нити"
 
-#: ../gui.py:908 ../packages.py:1106
+#: ../gui.py:908 ../packages.py:1111
 #, fuzzy
 msgid "_Back"
 msgstr "Назад"
@@ -764,20 +775,27 @@ msgstr "Неможливо завантажити заголовок"
 msgid "Install Window"
 msgstr "В╕кно Встановлення"
 
-#: ../harddrive.py:203
+#: ../harddrive.py:208
 #, python-format
 msgid "Missing CD #%d, which is required for the install."
 msgstr "В╕дсутн╕й CD N%d, який потр╕бен для встановлення."
 
-#: ../image.py:83
+#: ../image.py:69
+#, python-format
+msgid ""
+"An error occurred unmounting the CD.  Please make sure you're not accessing %"
+"s from the shell on tty2 and then click OK to retry."
+msgstr ""
+
+#: ../image.py:99
 msgid "Copying File"
 msgstr "Коп╕ювання файлу"
 
-#: ../image.py:84
+#: ../image.py:100
 msgid "Transferring install image to hard drive..."
 msgstr "Перенесення образу встановлення на жорсткий диск..."
 
-#: ../image.py:87
+#: ../image.py:103
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -785,29 +803,29 @@ msgstr ""
 "Сталася помилка при перенесенн╕ образу встановлення на жорсткий диск вашого "
 "комп'ютера. Можливо не вистача╓ дискового простору."
 
-#: ../image.py:156
+#: ../image.py:172
 msgid "Change CDROM"
 msgstr "Зм╕нити компакт-диск"
 
-#: ../image.py:157
+#: ../image.py:173
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Будь ласка, вставте диск %d для продовження."
 
-#: ../image.py:192
+#: ../image.py:208
 msgid "Wrong CDROM"
 msgstr "Нев╕рний компакт-диск"
 
-#: ../image.py:193
+#: ../image.py:209
 #, fuzzy, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Це не коректний компакт-диск Red Hat."
 
-#: ../image.py:199
+#: ../image.py:215
 msgid "The CDROM could not be mounted."
 msgstr "CDROM не може бути змонтовано."
 
-#: ../installclass.py:43
+#: ../installclass.py:44
 #, fuzzy
 msgid "Install on System"
 msgstr "Тип встановлення"
@@ -855,7 +873,7 @@ msgstr "Перев╕рка Залежностей"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Перев╕рка залежностей у пакетах, що вибран╕ для встановлення..."
 
-#: ../packages.py:256 ../packages.py:638
+#: ../packages.py:256 ../packages.py:643
 msgid "Processing"
 msgstr "Обробка"
 
@@ -863,7 +881,7 @@ msgstr "Обробка"
 msgid "Preparing to install..."
 msgstr "П╕дготовка до встановлення... "
 
-#: ../packages.py:307
+#: ../packages.py:308
 #, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -872,12 +890,12 @@ msgstr ""
 "Неможливо в╕дкрити файл %s. Це може бути через в╕дсутн╕й файл, поганий пакет "
 "або поганий нос╕й. Натисн╕ть <Вв╕д> для повторно╖ спроби."
 
-#: ../packages.py:342
+#: ../packages.py:343
 #, fuzzy
 msgid "Error Installing Package"
 msgstr "Встановлення Пакет╕в"
 
-#: ../packages.py:343
+#: ../packages.py:344
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -888,35 +906,35 @@ msgid ""
 "Press the OK button to reboot your system."
 msgstr ""
 
-#: ../packages.py:639
+#: ../packages.py:644
 msgid "Setting up RPM transaction..."
 msgstr "Встановлення транзакц╕╖ RPM..."
 
-#: ../packages.py:676
+#: ../packages.py:681
 #, fuzzy, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr "Оновлення %s.\n"
 
-#: ../packages.py:678
+#: ../packages.py:683
 #, fuzzy, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr "Встановлення Пакет╕в"
 
-#: ../packages.py:685 ../packages.py:968
+#: ../packages.py:690 ../packages.py:973
 #, fuzzy, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Оновлення %s.\n"
 
-#: ../packages.py:687 ../packages.py:970
+#: ../packages.py:692 ../packages.py:975
 #, fuzzy, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Встановлення %s.\n"
 
-#: ../packages.py:703
+#: ../packages.py:708
 #, python-format
 msgid ""
 "\n"
@@ -927,16 +945,16 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../packages.py:709
+#: ../packages.py:714
 #, fuzzy
 msgid "Install Starting"
 msgstr "Тип встановлення"
 
-#: ../packages.py:710
+#: ../packages.py:715
 msgid "Starting install process, this may take several minutes..."
 msgstr ""
 
-#: ../packages.py:755
+#: ../packages.py:760
 #, fuzzy
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
@@ -947,17 +965,17 @@ msgstr ""
 "Вам потр╕бно б╕льше м╕сця на цих файлових системах:\n"
 "\n"
 
-#: ../packages.py:759 ../packages.py:779 ../iw/lvm_dialog_gui.py:1036
+#: ../packages.py:764 ../packages.py:784 ../iw/lvm_dialog_gui.py:1036
 #: ../iw/partition_gui.py:348 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:109
 msgid "Mount Point"
 msgstr "Точка Монтування"
 
-#: ../packages.py:760
+#: ../packages.py:765
 msgid "Space Needed"
 msgstr "Необх╕дне М╕сце"
 
-#: ../packages.py:775
+#: ../packages.py:780
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -968,34 +986,34 @@ msgstr ""
 "Вам потр╕бно б╕льше м╕сця на цих файлових системах:\n"
 "\n"
 
-#: ../packages.py:780
+#: ../packages.py:785
 msgid "Nodes Needed"
 msgstr "Необх╕дн╕ Вузли"
 
-#: ../packages.py:786
+#: ../packages.py:791
 msgid "Disk Space"
 msgstr "Дисковий Прост╕р"
 
-#: ../packages.py:807
+#: ../packages.py:812
 msgid ""
 "\n"
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
 
-#: ../packages.py:824
+#: ../packages.py:829
 msgid "Post Install"
 msgstr "Повстановлювальн╕ д╕╖"
 
-#: ../packages.py:825
+#: ../packages.py:830
 msgid "Performing post install configuration..."
 msgstr "Зд╕йснення повстанолювально╖ коф╕╜урац╕╖..."
 
-#: ../packages.py:1086
+#: ../packages.py:1091
 msgid "Warning! This is a beta!"
 msgstr ""
 
-#: ../packages.py:1087
+#: ../packages.py:1092
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1010,7 +1028,7 @@ msgid ""
 "and file a report against 'Red Hat Public Beta'.\n"
 msgstr ""
 
-#: ../packages.py:1100
+#: ../packages.py:1105
 #, fuzzy
 msgid "_Install BETA"
 msgstr "Встановити"
@@ -1211,7 +1229,7 @@ msgstr ""
 "Ви впевнен╕?"
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
-#: ../iw/account_gui.py:424 ../iw/lvm_dialog_gui.py:717
+#: ../iw/account_gui.py:426 ../iw/lvm_dialog_gui.py:717
 #: ../iw/lvm_dialog_gui.py:1059 ../iw/osbootwidget.py:102
 #: ../iw/partition_gui.py:1336 ../iw/partition_gui.py:1342
 msgid "_Delete"
@@ -1498,15 +1516,15 @@ msgstr ""
 "Ви в╕двели меньше простору для п╕дкачки (%dM) н╕ж доступно пам'ят╕ (%dM) у "
 "ваш╕й систем╕.  Це може негативно вплинути на швидкод╕ю."
 
-#: ../partitions.py:1082
+#: ../partitions.py:1093
 msgid "the partition in use by the installer."
 msgstr "розд╕л використову╓ться програмою встановлення."
 
-#: ../partitions.py:1085
+#: ../partitions.py:1096
 msgid "a partition which is a member of a RAID array."
 msgstr "розд╕л ╓ членом RAID масиву."
 
-#: ../partitions.py:1088
+#: ../partitions.py:1099
 #, fuzzy
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "розд╕л ╓ членом RAID масиву."
@@ -1867,6 +1885,14 @@ msgstr ""
 "поновлення може привести до того, що систему б╕льше неможливо буде "
 "використовувати. Чи бажа╓те ви продовжити процес поновлення?"
 
+#: ../upgrade.py:432
+#, python-format
+msgid ""
+"Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
+"higher.  This appears to be an older system.  Do you wish to continue the "
+"upgrade process?"
+msgstr ""
+
 #: ../xserver.py:48
 msgid "Mouse Not Detected"
 msgstr "Миш╕ не виявлено"
@@ -1945,81 +1971,81 @@ msgstr "Пароль користувача надто короткий."
 msgid "User passwords do not match."
 msgstr "Парол╕ користувач╕в не сп╕впадають"
 
-#: ../iw/account_gui.py:188
+#: ../iw/account_gui.py:190
 msgid "Add a New User"
 msgstr "Додати Користувача"
 
-#: ../iw/account_gui.py:196 ../textw/userauth_text.py:90
+#: ../iw/account_gui.py:198 ../textw/userauth_text.py:90
 msgid "Edit User"
 msgstr "Редагувати"
 
-#: ../iw/account_gui.py:210
+#: ../iw/account_gui.py:212
 #, fuzzy
 msgid "Add a User Account"
 msgstr "Встановленя бюджету користувача"
 
-#: ../iw/account_gui.py:227
+#: ../iw/account_gui.py:229
 #, fuzzy
 msgid "Enter a user _name:"
 msgstr "Введ╕ть ╕м'я користувача"
 
-#: ../iw/account_gui.py:235
+#: ../iw/account_gui.py:237
 #, fuzzy
 msgid "Enter a user _password:"
 msgstr "Введ╕ть пароль користувача."
 
-#: ../iw/account_gui.py:244
+#: ../iw/account_gui.py:246
 #, fuzzy
 msgid "Pass_word (confirm):"
 msgstr "Пароль (для перев╕рки)"
 
-#: ../iw/account_gui.py:253
+#: ../iw/account_gui.py:255
 #, fuzzy
 msgid "_Full Name:"
 msgstr "Повне ╕м'я:"
 
-#: ../iw/account_gui.py:261
+#: ../iw/account_gui.py:263
 msgid "Please enter user name"
 msgstr "Введ╕ть ╕м'я користувача"
 
-#: ../iw/account_gui.py:344
+#: ../iw/account_gui.py:346
 #, fuzzy
 msgid "Enter the root (administrator) password for the system."
 msgstr ""
 "Введ╕ть пароль для кореневого користувача(адм╕н╕стратора) ц╕╓╖ системи."
 
-#: ../iw/account_gui.py:361
+#: ../iw/account_gui.py:363
 #, fuzzy
 msgid "Root _Password: "
 msgstr "Пароль користувача root: "
 
-#: ../iw/account_gui.py:364
+#: ../iw/account_gui.py:366
 #, fuzzy
 msgid "_Confirm: "
 msgstr "П╕дтвердження: "
 
-#: ../iw/account_gui.py:406
+#: ../iw/account_gui.py:408
 msgid "Account Name"
 msgstr "Назва користувача"
 
-#: ../iw/account_gui.py:409 ../textw/userauth_text.py:101
+#: ../iw/account_gui.py:411 ../textw/userauth_text.py:101
 #: ../textw/userauth_text.py:210
 msgid "Full Name"
 msgstr "Повне ╕м'я"
 
-#: ../iw/account_gui.py:419 ../iw/lvm_dialog_gui.py:1053
+#: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1053
 #: ../iw/osbootwidget.py:94
 #, fuzzy
 msgid "_Add"
 msgstr "Додати"
 
-#: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1056
+#: ../iw/account_gui.py:423 ../iw/lvm_dialog_gui.py:1056
 #: ../iw/network_gui.py:488 ../iw/osbootwidget.py:98
 #: ../iw/partition_gui.py:1335 ../iw/partition_gui.py:1341
 msgid "_Edit"
 msgstr "_Редагувати"
 
-#: ../iw/account_gui.py:445
+#: ../iw/account_gui.py:447
 msgid ""
 "It is recommended that you create a personal account for normal (non-"
 "administrative) use. Accounts can also be created for additional users."
@@ -2176,11 +2202,11 @@ msgstr "П╕дтвердження:"
 msgid "Passwords don't match"
 msgstr "Парол╕ не сп╕впадають"
 
-#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:442
+#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:441
 msgid "Passwords do not match"
 msgstr "Парол╕ не сп╕впадають"
 
-#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:452
+#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:451
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2258,7 +2284,7 @@ msgstr "Параметри ядра"
 
 #: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:51
 #: ../textw/bootloader_text.py:119 ../textw/bootloader_text.py:178
-#: ../textw/bootloader_text.py:302 ../textw/bootloader_text.py:394
+#: ../textw/bootloader_text.py:301 ../textw/bootloader_text.py:393
 msgid "Boot Loader Configuration"
 msgstr "Конф╕╜урування завантажувача"
 
@@ -2433,7 +2459,7 @@ msgid "Unresolved Dependencies"
 msgstr "Нерозв'язан╕ залежност╕ пакет╕в"
 
 #: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:262
-#: ../iw/package_gui.py:504 ../iw/package_gui.py:694
+#: ../iw/package_gui.py:505 ../iw/package_gui.py:695
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
@@ -3338,54 +3364,54 @@ msgid ""
 "Version: %s\n"
 msgstr ""
 
-#: ../iw/package_gui.py:365
+#: ../iw/package_gui.py:366
 #, fuzzy
 msgid "_Tree View"
 msgstr "Деревовидний вигляд"
 
-#: ../iw/package_gui.py:367
+#: ../iw/package_gui.py:368
 #, fuzzy
 msgid "_Flat View"
 msgstr "Простий Вигляд"
 
-#: ../iw/package_gui.py:382
+#: ../iw/package_gui.py:383
 #, fuzzy
 msgid "_Package"
 msgstr "Пакет"
 
-#: ../iw/package_gui.py:384
+#: ../iw/package_gui.py:385
 #, fuzzy
 msgid "_Size (MB)"
 msgstr "Розм╕р (Мб)"
 
-#: ../iw/package_gui.py:435
+#: ../iw/package_gui.py:436
 msgid "Total size: "
 msgstr "Загальний розм╕р: "
 
-#: ../iw/package_gui.py:438
+#: ../iw/package_gui.py:439
 #, fuzzy
 msgid "Select _all in group"
 msgstr "Вибрати вс╕х в груп╕"
 
-#: ../iw/package_gui.py:442
+#: ../iw/package_gui.py:443
 #, fuzzy
 msgid "_Unselect all in group"
 msgstr "В╕дкинути вс╕х в груп╕"
 
-#: ../iw/package_gui.py:479 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:480 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr "Виб╕р груп пакет╕в"
 
-#: ../iw/package_gui.py:699
+#: ../iw/package_gui.py:700
 msgid "Minimal"
 msgstr ""
 
-#: ../iw/package_gui.py:770
+#: ../iw/package_gui.py:771
 #, python-format
 msgid "Details for '%s'"
 msgstr ""
 
-#: ../iw/package_gui.py:779
+#: ../iw/package_gui.py:780
 msgid ""
 "A package group can have both Base and Optional package members.  Base "
 "packages are always selected as long as the package group is selected.\n"
@@ -3393,22 +3419,22 @@ msgid ""
 "Select the optional packages to be installed:"
 msgstr ""
 
-#: ../iw/package_gui.py:820
+#: ../iw/package_gui.py:821
 #, fuzzy
 msgid "Base Packages"
 msgstr "Пакети"
 
-#: ../iw/package_gui.py:850
+#: ../iw/package_gui.py:851
 #, fuzzy
 msgid "Optional Packages"
 msgstr "Пакети"
 
-#: ../iw/package_gui.py:1070
+#: ../iw/package_gui.py:1071
 #, fuzzy
 msgid "Details"
 msgstr "╤спанська"
 
-#: ../iw/package_gui.py:1164
+#: ../iw/package_gui.py:1165
 #, fuzzy
 msgid "_Select individual packages"
 msgstr "Виб╕р окремих пакет╕в"
@@ -4555,14 +4581,14 @@ msgstr "Етикетка системи не може бути порожньою."
 msgid "Boot label contains illegal characters."
 msgstr "Етикетка системи м╕стить заборонен╕ символи."
 
-#: ../textw/bootloader_text.py:293 ../textw/fdisk_text.py:41
+#: ../textw/bootloader_text.py:292 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1119 ../textw/partition_text.py:1126
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:225
 msgid "Edit"
 msgstr "Редагувати"
 
-#: ../textw/bootloader_text.py:297 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:296 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -4572,12 +4598,12 @@ msgstr ""
 "системи. Вкаж╕ть, для яких розд╕л╕в ви хочете мати можлив╕сть завантаження "
 "та як ви хочете ╖х назвати."
 
-#: ../textw/bootloader_text.py:310
+#: ../textw/bootloader_text.py:309
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 
-#: ../textw/bootloader_text.py:389
+#: ../textw/bootloader_text.py:388
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -4587,27 +4613,27 @@ msgstr ""
 "ядра.  Для п╕двищено╖ секретност╕, ми рекоменду╓мо встановити пароль, але це "
 "не ╓ необх╕дним для б╕льшост╕ тимчасових користувач╕в."
 
-#: ../textw/bootloader_text.py:399
+#: ../textw/bootloader_text.py:398
 msgid "Use a GRUB Password"
 msgstr "Вживати Пароль для GRUB"
 
-#: ../textw/bootloader_text.py:411
+#: ../textw/bootloader_text.py:410
 msgid "Boot Loader Password:"
 msgstr "Пароль завантажувача:"
 
-#: ../textw/bootloader_text.py:412
+#: ../textw/bootloader_text.py:411
 msgid "Confirm:"
 msgstr "П╕дтвердження:"
 
-#: ../textw/bootloader_text.py:441
+#: ../textw/bootloader_text.py:440
 msgid "Passwords Do Not Match"
 msgstr "Парол╕ Не Сп╕впадають"
 
-#: ../textw/bootloader_text.py:446
+#: ../textw/bootloader_text.py:445
 msgid "Password Too Short"
 msgstr "Пароль Закороткий"
 
-#: ../textw/bootloader_text.py:447
+#: ../textw/bootloader_text.py:446
 msgid "Boot loader password is too short"
 msgstr "Пароль для завантажувача закороткий"
 

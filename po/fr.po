@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Installer 7.0\n"
-"POT-Creation-Date: 2002-08-16 02:09-0400\n"
+"POT-Creation-Date: 2002-08-22 02:05-0400\n"
 "PO-Revision-Date: 2002-07-26 12:15+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -114,25 +114,25 @@ msgstr "Type de souris utilisée :"
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "La variable DISPLAY n'est pas paramétrée. Démarrage en mode texte ! "
 
-#: ../autopart.py:723
+#: ../autopart.py:829
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr ""
 "Impossible d'allouer les partitions basées sur cylindre comme partitions "
 "primaires"
 
-#: ../autopart.py:726
+#: ../autopart.py:832
 msgid "Could not allocate partitions as primary partitions"
 msgstr "Impossible d'allouer les partitions comme partitions primaires"
 
-#: ../autopart.py:729
+#: ../autopart.py:835
 msgid "Could not allocate cylinder-based partitions"
 msgstr "Impossible d'allouer les partitions basées sur cylindre."
 
-#: ../autopart.py:732
+#: ../autopart.py:838
 msgid "Could not allocate partitions"
 msgstr "Impossible d'allouer les partitions."
 
-#: ../autopart.py:791
+#: ../autopart.py:901
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
@@ -142,7 +142,7 @@ msgstr ""
 "requises par votre architecture. La création d'une disquette d'amorçage est "
 "fortement conseillée."
 
-#: ../autopart.py:808
+#: ../autopart.py:926
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -151,11 +151,11 @@ msgstr ""
 "Si vous ajoutez une partition, vous n'aurez plus assez d'espace disque pour "
 "les volumes logiques déjà alloués %s"
 
-#: ../autopart.py:952
+#: ../autopart.py:1070
 msgid "Requested Partition Does Not Exist"
 msgstr "La partition requise n'existe pas"
 
-#: ../autopart.py:953
+#: ../autopart.py:1071
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -166,11 +166,11 @@ msgstr ""
 "\n"
 "Appuyer sur OK pour redémarrer le système."
 
-#: ../autopart.py:984 ../autopart.py:1024
+#: ../autopart.py:1102 ../autopart.py:1142
 msgid "Automatic Partitioning Errors"
 msgstr "Erreurs de partitionnement automatique"
 
-#: ../autopart.py:985
+#: ../autopart.py:1103
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -185,11 +185,11 @@ msgstr ""
 "\n"
 "Appuyer sur OK pour redémarrer votre système."
 
-#: ../autopart.py:994
+#: ../autopart.py:1112
 msgid "Warnings During Automatic Partitioning"
 msgstr "Avertissements durant le partitionnement automatique"
 
-#: ../autopart.py:995
+#: ../autopart.py:1113
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -201,7 +201,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1008
+#: ../autopart.py:1126
 msgid ""
 "\n"
 "\n"
@@ -211,12 +211,12 @@ msgstr ""
 "\n"
 "Appuyer sur OK pour redémarrer le système."
 
-#: ../autopart.py:1009 ../iw/partition_gui.py:980
+#: ../autopart.py:1127 ../iw/partition_gui.py:980
 #: ../textw/partition_text.py:213
 msgid "Error Partitioning"
 msgstr "Erreur de partitionnement"
 
-#: ../autopart.py:1010
+#: ../autopart.py:1128
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -227,7 +227,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1025
+#: ../autopart.py:1143
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -252,19 +252,19 @@ msgstr ""
 "\n"
 "Appuyez sur OK pour continuer."
 
-#: ../autopart.py:1103 ../bootloader.py:123 ../image.py:308
+#: ../autopart.py:1221 ../bootloader.py:123 ../image.py:330
 #: ../partedUtils.py:240 ../partedUtils.py:668 ../upgrade.py:260
-#: ../upgrade.py:389 ../upgrade.py:408 ../iw/blpasswidget.py:148
-#: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:88
-#: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
-#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:135
-#: ../textw/bootloader_text.py:451 ../textw/fdasd_text.py:84
-#: ../textw/partition_text.py:217 ../textw/upgrade_text.py:175
-#: ../loader/loader.c:3612
+#: ../upgrade.py:389 ../upgrade.py:408 ../upgrade.py:431
+#: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
+#: ../iw/bootloader_main_gui.py:88 ../iw/upgrade_swap_gui.py:200
+#: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
+#: ../textw/bootloader_text.py:135 ../textw/bootloader_text.py:450
+#: ../textw/fdasd_text.py:84 ../textw/partition_text.py:217
+#: ../textw/upgrade_text.py:175 ../loader/loader.c:3612
 msgid "Warning"
 msgstr "Avertissement"
 
-#: ../autopart.py:1109
+#: ../autopart.py:1227
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -288,7 +288,7 @@ msgstr ""
 "L'outil de partitionnement fdisk est un utilitaire en mode texte recommandé "
 "pour les utilisateurs expérimentés qui doivent exécuter des tâches spéciales."
 
-#: ../autopart.py:1123
+#: ../autopart.py:1241
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
@@ -297,19 +297,19 @@ msgstr ""
 "programme d'installation, vous devez choisir comment utiliser l'espace sur "
 "les disques durs."
 
-#: ../autopart.py:1128
+#: ../autopart.py:1246
 msgid "Remove all partitions on this system"
 msgstr "Supprimer toutes les partitions du système"
 
-#: ../autopart.py:1129
+#: ../autopart.py:1247
 msgid "Remove all Linux Partitions on this system"
 msgstr "Supprimer toutes les partitions Linux de votre système"
 
-#: ../autopart.py:1130
+#: ../autopart.py:1248
 msgid "Keep all partitions and use existing free space"
 msgstr "Conserver toutes les partitions et utiliser l'espace libre existant"
 
-#: ../autopart.py:1132
+#: ../autopart.py:1250
 #, python-format
 msgid ""
 "You have selected to remove all partitions (ALL DATA) on the following "
@@ -320,7 +320,7 @@ msgstr ""
 "contenues dans les disques suivants : %s\n"
 "Etes-vous sûr de vouloir continuer ?"
 
-#: ../autopart.py:1136
+#: ../autopart.py:1254
 #, python-format
 msgid ""
 "You have selected to remove all Linux partitions (and ALL DATA on them) on "
@@ -351,15 +351,15 @@ msgstr ""
 msgid "Everything"
 msgstr "Tout"
 
-#: ../comps.py:893 ../comps.py:959 ../upgrade.py:588
+#: ../comps.py:893 ../comps.py:959 ../upgrade.py:611
 msgid "no suggestion"
 msgstr "Aucune suggestion"
 
-#: ../comps.py:1053 ../loader/devices.c:79
+#: ../comps.py:1054 ../loader/devices.c:79
 msgid "Miscellaneous"
 msgstr "Divers"
 
-#: ../comps.py:1069
+#: ../comps.py:1070
 msgid ""
 "This group includes all the packages available.  Note that this is "
 "substantially more packages than just the ones in all the other package "
@@ -368,7 +368,7 @@ msgstr ""
 "Ce groupe comprend tous les paquetages disponibles. Cela représente plus de "
 "paquetages que ceux des autres groupes de paquetages de cette page."
 
-#: ../comps.py:1073
+#: ../comps.py:1074
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -394,11 +394,22 @@ msgstr ""
 "L'état de votre système a été copié sur la disquette. Votre système va "
 "maintenant être réinitialisé."
 
-#: ../floppy.py:59
+#: ../floppy.py:91
+#, fuzzy
+msgid "Unable to make boot floppy"
+msgstr "Impossible de monter la disquette."
+
+#: ../floppy.py:92
+msgid ""
+"The size of the kernel modules needed for your machine make it impossible to "
+"create a boot disk that will fit on a floppy diskette."
+msgstr ""
+
+#: ../floppy.py:101
 msgid "Insert a floppy disk"
 msgstr "Insérer une disquette."
 
-#: ../floppy.py:60
+#: ../floppy.py:102
 msgid ""
 "Please remove any diskettes from the floppy drive, and insert the floppy "
 "diskette that is to contain the boot disk.\n"
@@ -411,18 +422,18 @@ msgstr ""
 "Toutes les données seront EFFACEES lors de la création de la disquette "
 "d'amorçage."
 
-#: ../floppy.py:64
+#: ../floppy.py:106
 msgid "_Cancel"
 msgstr "_Annuler"
 
-#: ../floppy.py:64
+#: ../floppy.py:106
 msgid "_Make boot disk"
 msgstr "_Créer une disquette d'amorçage"
 
-#: ../floppy.py:76 ../floppy.py:105 ../fsset.py:554 ../fsset.py:1015
+#: ../floppy.py:118 ../floppy.py:143 ../fsset.py:554 ../fsset.py:1015
 #: ../fsset.py:1034 ../fsset.py:1081 ../fsset.py:1092 ../fsset.py:1128
-#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:202 ../image.py:86
-#: ../image.py:198 ../packages.py:306 ../partedUtils.py:458
+#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:207 ../image.py:68
+#: ../image.py:102 ../image.py:214 ../packages.py:307 ../partedUtils.py:458
 #: ../partIntfHelpers.py:147 ../partIntfHelpers.py:332 ../upgrade.py:316
 #: ../upgrade.py:334 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
@@ -444,7 +455,7 @@ msgstr "_Créer une disquette d'amorçage"
 msgid "Error"
 msgstr "Erreur"
 
-#: ../floppy.py:77 ../floppy.py:106
+#: ../floppy.py:119 ../floppy.py:144
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
@@ -453,11 +464,11 @@ msgstr ""
 "Assurez-vous qu'une disquette formatée se trouve dans le premier lecteur de "
 "disquette."
 
-#: ../floppy.py:92
+#: ../floppy.py:130
 msgid "Creating"
 msgstr "Création"
 
-#: ../floppy.py:92
+#: ../floppy.py:130
 msgid "Creating boot disk..."
 msgstr "Création de la disquette d'amorçage."
 
@@ -719,7 +730,7 @@ msgid ""
 "An error occured when attempting to load an installer interface component."
 msgstr ""
 
-#: ../gui.py:810 ../packages.py:1100 ../iw/congrats_gui.py:29
+#: ../gui.py:810 ../packages.py:1105 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "_Quitter"
 
@@ -728,19 +739,19 @@ msgstr "_Quitter"
 msgid "_Retry"
 msgstr "Réessayer"
 
-#: ../gui.py:813 ../packages.py:1103
+#: ../gui.py:813 ../packages.py:1108
 msgid "Rebooting System"
 msgstr "Mise à jour du système"
 
-#: ../gui.py:814 ../packages.py:1104
+#: ../gui.py:814 ../packages.py:1109
 msgid "Your system will now be rebooted..."
 msgstr "Votre système sera maintenant redémarré..."
 
-#: ../gui.py:817 ../packages.py:1106
+#: ../gui.py:817 ../packages.py:1111
 msgid "_Reboot"
 msgstr "_Réinitialiser"
 
-#: ../gui.py:908 ../packages.py:1106
+#: ../gui.py:908 ../packages.py:1111
 msgid "_Back"
 msgstr "_Précédent"
 
@@ -782,20 +793,27 @@ msgstr "Impossible de charger la barre du titre !"
 msgid "Install Window"
 msgstr "Fenêtre d'installation"
 
-#: ../harddrive.py:203
+#: ../harddrive.py:208
 #, python-format
 msgid "Missing CD #%d, which is required for the install."
 msgstr "Le CD-ROM #%d est nécessaire pour l'installation."
 
-#: ../image.py:83
+#: ../image.py:69
+#, python-format
+msgid ""
+"An error occurred unmounting the CD.  Please make sure you're not accessing %"
+"s from the shell on tty2 and then click OK to retry."
+msgstr ""
+
+#: ../image.py:99
 msgid "Copying File"
 msgstr "Copie du fichier"
 
-#: ../image.py:84
+#: ../image.py:100
 msgid "Transferring install image to hard drive..."
 msgstr "Transfert de l'image d'installation sur le disque dur."
 
-#: ../image.py:87
+#: ../image.py:103
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -803,29 +821,29 @@ msgstr ""
 "Une erreur s'est produite lors du transfert de l'image d'installation sur le "
 "disque dur, probablement à cause d'un manque d'espace sur le disque."
 
-#: ../image.py:156
+#: ../image.py:172
 msgid "Change CDROM"
 msgstr "Changer de CD-ROM"
 
-#: ../image.py:157
+#: ../image.py:173
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Insérer le disque %d pour continuer."
 
-#: ../image.py:192
+#: ../image.py:208
 msgid "Wrong CDROM"
 msgstr "CD-ROM inapproprié"
 
-#: ../image.py:193
+#: ../image.py:209
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Il ne s'agit pas du CD-ROM %s approprié."
 
-#: ../image.py:199
+#: ../image.py:215
 msgid "The CDROM could not be mounted."
 msgstr "Le CD-ROM n'a pas pu être monté."
 
-#: ../installclass.py:43
+#: ../installclass.py:44
 msgid "Install on System"
 msgstr "Installer sur le système"
 
@@ -876,7 +894,7 @@ msgstr ""
 "Vérification des dépendances dans les paquetages sélectionnés pour "
 "l'installation."
 
-#: ../packages.py:256 ../packages.py:638
+#: ../packages.py:256 ../packages.py:643
 msgid "Processing"
 msgstr "Traitement"
 
@@ -884,7 +902,7 @@ msgstr "Traitement"
 msgid "Preparing to install..."
 msgstr "Préparation de l'installation."
 
-#: ../packages.py:307
+#: ../packages.py:308
 #, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -894,11 +912,11 @@ msgstr ""
 "un mauvais paquetage ou à un support endommagé. Appuyer sur <Entrée> pour "
 "réessayer."
 
-#: ../packages.py:342
+#: ../packages.py:343
 msgid "Error Installing Package"
 msgstr "Erreur lors de l'installation des paquetages"
 
-#: ../packages.py:343
+#: ../packages.py:344
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -915,11 +933,11 @@ msgstr ""
 "\n"
 "Appuyez sur OK pour redémarrer votre système."
 
-#: ../packages.py:639
+#: ../packages.py:644
 msgid "Setting up RPM transaction..."
 msgstr "Configuration de la transaction des RPM."
 
-#: ../packages.py:676
+#: ../packages.py:681
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -928,7 +946,7 @@ msgstr ""
 "Mise à jour des paquetages %s\n"
 "\n"
 
-#: ../packages.py:678
+#: ../packages.py:683
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -937,17 +955,17 @@ msgstr ""
 "Installation des paquetages %s\n"
 "\n"
 
-#: ../packages.py:685 ../packages.py:968
+#: ../packages.py:690 ../packages.py:973
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Mise à jour de %s-%s-%s.\n"
 
-#: ../packages.py:687 ../packages.py:970
+#: ../packages.py:692 ../packages.py:975
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Installation de %s-%s-%s.\n"
 
-#: ../packages.py:703
+#: ../packages.py:708
 #, python-format
 msgid ""
 "\n"
@@ -964,15 +982,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:709
+#: ../packages.py:714
 msgid "Install Starting"
 msgstr "Démarrage du programme d'installation"
 
-#: ../packages.py:710
+#: ../packages.py:715
 msgid "Starting install process, this may take several minutes..."
 msgstr "Démarrage du programme d'installation. Patienter quelques minutes... "
 
-#: ../packages.py:755
+#: ../packages.py:760
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -983,17 +1001,17 @@ msgstr ""
 "suivants : \n"
 "\n"
 
-#: ../packages.py:759 ../packages.py:779 ../iw/lvm_dialog_gui.py:1036
+#: ../packages.py:764 ../packages.py:784 ../iw/lvm_dialog_gui.py:1036
 #: ../iw/partition_gui.py:348 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:109
 msgid "Mount Point"
 msgstr "Point de montage"
 
-#: ../packages.py:760
+#: ../packages.py:765
 msgid "Space Needed"
 msgstr "Espace nécessaire"
 
-#: ../packages.py:775
+#: ../packages.py:780
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1004,15 +1022,15 @@ msgstr ""
 "sur les systèmes de fichiers suivants : \n"
 "\n"
 
-#: ../packages.py:780
+#: ../packages.py:785
 msgid "Nodes Needed"
 msgstr "Noeuds d'index requis"
 
-#: ../packages.py:786
+#: ../packages.py:791
 msgid "Disk Space"
 msgstr "Espace disque"
 
-#: ../packages.py:807
+#: ../packages.py:812
 msgid ""
 "\n"
 "\n"
@@ -1023,19 +1041,19 @@ msgstr ""
 "Les paquetages suivants sont disponibles dans cette version mais ils n'ont "
 "pas été mis à jour :\n"
 
-#: ../packages.py:824
+#: ../packages.py:829
 msgid "Post Install"
 msgstr "Post-installation"
 
-#: ../packages.py:825
+#: ../packages.py:830
 msgid "Performing post install configuration..."
 msgstr "Exécution de la configuration post-installation."
 
-#: ../packages.py:1086
+#: ../packages.py:1091
 msgid "Warning! This is a beta!"
 msgstr "Attention ! Ceci est un beta !"
 
-#: ../packages.py:1087
+#: ../packages.py:1092
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1063,7 +1081,7 @@ msgstr ""
 "\n"
 "et remplissez le rapport 'Red Hat Public Beta'.\n"
 
-#: ../packages.py:1100
+#: ../packages.py:1105
 msgid "_Install BETA"
 msgstr "_Installation de BETA"
 
@@ -1253,7 +1271,7 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Vous êtes sur le point de supprimer la partition '/dev/%s'."
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
-#: ../iw/account_gui.py:424 ../iw/lvm_dialog_gui.py:717
+#: ../iw/account_gui.py:426 ../iw/lvm_dialog_gui.py:717
 #: ../iw/lvm_dialog_gui.py:1059 ../iw/osbootwidget.py:102
 #: ../iw/partition_gui.py:1336 ../iw/partition_gui.py:1342
 msgid "_Delete"
@@ -1545,15 +1563,15 @@ msgstr ""
 "dM) sur votre système. Ceci pourrait avoir un impact négatif sur les "
 "performances."
 
-#: ../partitions.py:1082
+#: ../partitions.py:1093
 msgid "the partition in use by the installer."
 msgstr "la partition utilisée par le programme d'installation."
 
-#: ../partitions.py:1085
+#: ../partitions.py:1096
 msgid "a partition which is a member of a RAID array."
 msgstr "une partition qui fait partie d'un RAID array."
 
-#: ../partitions.py:1088
+#: ../partitions.py:1099
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "une partition qui fait partie d'un groupe de volume LVM."
 
@@ -1922,6 +1940,14 @@ msgstr ""
 "s'agisse pas d'un système Red Hat Linux. En poursuivant la mise à jour, vous "
 "risquez de le rendre inutilisable. Souhaitez-vous poursuivre la mise à jour ?"
 
+#: ../upgrade.py:432
+#, python-format
+msgid ""
+"Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
+"higher.  This appears to be an older system.  Do you wish to continue the "
+"upgrade process?"
+msgstr ""
+
 #: ../xserver.py:48
 msgid "Mouse Not Detected"
 msgstr "Souris non détectée"
@@ -1999,73 +2025,73 @@ msgstr "Mot de passe utilisateur trop court."
 msgid "User passwords do not match."
 msgstr "Les mots de passe utilisateur ne correspondent pas."
 
-#: ../iw/account_gui.py:188
+#: ../iw/account_gui.py:190
 msgid "Add a New User"
 msgstr "Ajouter un nouvel utilisateur"
 
-#: ../iw/account_gui.py:196 ../textw/userauth_text.py:90
+#: ../iw/account_gui.py:198 ../textw/userauth_text.py:90
 msgid "Edit User"
 msgstr "Modifier l'utilisateur"
 
-#: ../iw/account_gui.py:210
+#: ../iw/account_gui.py:212
 msgid "Add a User Account"
 msgstr "Ajouter un compte utilisateur"
 
-#: ../iw/account_gui.py:227
+#: ../iw/account_gui.py:229
 msgid "Enter a user _name:"
 msgstr "Entrer un mot de passe _utilisateur :"
 
-#: ../iw/account_gui.py:235
+#: ../iw/account_gui.py:237
 msgid "Enter a user _password:"
 msgstr "Entrer un mot de passe _utilisateur :"
 
-#: ../iw/account_gui.py:244
+#: ../iw/account_gui.py:246
 msgid "Pass_word (confirm):"
 msgstr "Mot _de passe (confirmation) :"
 
-#: ../iw/account_gui.py:253
+#: ../iw/account_gui.py:255
 msgid "_Full Name:"
 msgstr "_Nom complet :"
 
-#: ../iw/account_gui.py:261
+#: ../iw/account_gui.py:263
 msgid "Please enter user name"
 msgstr "Entrer un mot de passe utilisateur"
 
-#: ../iw/account_gui.py:344
+#: ../iw/account_gui.py:346
 msgid "Enter the root (administrator) password for the system."
 msgstr ""
 "Entrer le mot de passe du super-utilisateur (administrateur) de ce système."
 
-#: ../iw/account_gui.py:361
+#: ../iw/account_gui.py:363
 #, fuzzy
 msgid "Root _Password: "
 msgstr "Mot de passe root : "
 
-#: ../iw/account_gui.py:364
+#: ../iw/account_gui.py:366
 msgid "_Confirm: "
 msgstr "_Confirmer : "
 
-#: ../iw/account_gui.py:406
+#: ../iw/account_gui.py:408
 msgid "Account Name"
 msgstr "Nom de compte"
 
-#: ../iw/account_gui.py:409 ../textw/userauth_text.py:101
+#: ../iw/account_gui.py:411 ../textw/userauth_text.py:101
 #: ../textw/userauth_text.py:210
 msgid "Full Name"
 msgstr "Nom complet"
 
-#: ../iw/account_gui.py:419 ../iw/lvm_dialog_gui.py:1053
+#: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1053
 #: ../iw/osbootwidget.py:94
 msgid "_Add"
 msgstr "_Ajouter"
 
-#: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1056
+#: ../iw/account_gui.py:423 ../iw/lvm_dialog_gui.py:1056
 #: ../iw/network_gui.py:488 ../iw/osbootwidget.py:98
 #: ../iw/partition_gui.py:1335 ../iw/partition_gui.py:1341
 msgid "_Edit"
 msgstr "_Modifier"
 
-#: ../iw/account_gui.py:445
+#: ../iw/account_gui.py:447
 msgid ""
 "It is recommended that you create a personal account for normal (non-"
 "administrative) use. Accounts can also be created for additional users."
@@ -2200,11 +2226,11 @@ msgstr "Conf_irmer : "
 msgid "Passwords don't match"
 msgstr "Les mots de passe root ne correspondent pas."
 
-#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:442
+#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:441
 msgid "Passwords do not match"
 msgstr "Les mots de passe root ne correspondent pas."
 
-#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:452
+#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:451
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2287,7 +2313,7 @@ msgstr "_Paramètres du noyau"
 
 #: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:51
 #: ../textw/bootloader_text.py:119 ../textw/bootloader_text.py:178
-#: ../textw/bootloader_text.py:302 ../textw/bootloader_text.py:394
+#: ../textw/bootloader_text.py:301 ../textw/bootloader_text.py:393
 msgid "Boot Loader Configuration"
 msgstr "Configuration du chargeur de démarrage"
 
@@ -2499,7 +2525,7 @@ msgid "Unresolved Dependencies"
 msgstr "Dépendances non résolues"
 
 #: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:262
-#: ../iw/package_gui.py:504 ../iw/package_gui.py:694
+#: ../iw/package_gui.py:505 ../iw/package_gui.py:695
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
@@ -3439,48 +3465,48 @@ msgstr ""
 "Paquetage : %s\n"
 "Version : %s\n"
 
-#: ../iw/package_gui.py:365
+#: ../iw/package_gui.py:366
 msgid "_Tree View"
 msgstr "_Affichage arborescence"
 
-#: ../iw/package_gui.py:367
+#: ../iw/package_gui.py:368
 msgid "_Flat View"
 msgstr "_Affichage linéaire"
 
-#: ../iw/package_gui.py:382
+#: ../iw/package_gui.py:383
 msgid "_Package"
 msgstr "_Paquetage"
 
-#: ../iw/package_gui.py:384
+#: ../iw/package_gui.py:385
 msgid "_Size (MB)"
 msgstr "_Taille (Mo)"
 
-#: ../iw/package_gui.py:435
+#: ../iw/package_gui.py:436
 msgid "Total size: "
 msgstr "Taille tot:"
 
-#: ../iw/package_gui.py:438
+#: ../iw/package_gui.py:439
 msgid "Select _all in group"
 msgstr "Sélectionner_ tous les paquetages"
 
-#: ../iw/package_gui.py:442
+#: ../iw/package_gui.py:443
 msgid "_Unselect all in group"
 msgstr "_Désélectionner tout le groupe"
 
-#: ../iw/package_gui.py:479 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:480 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr "Sélection des groupes de paquetages"
 
-#: ../iw/package_gui.py:699
+#: ../iw/package_gui.py:700
 msgid "Minimal"
 msgstr "Minimal"
 
-#: ../iw/package_gui.py:770
+#: ../iw/package_gui.py:771
 #, python-format
 msgid "Details for '%s'"
 msgstr "Détails concernant '%s'"
 
-#: ../iw/package_gui.py:779
+#: ../iw/package_gui.py:780
 msgid ""
 "A package group can have both Base and Optional package members.  Base "
 "packages are always selected as long as the package group is selected.\n"
@@ -3493,19 +3519,19 @@ msgstr ""
 "\n"
 "Sélectionnez les paquetages optionnels à installer."
 
-#: ../iw/package_gui.py:820
+#: ../iw/package_gui.py:821
 msgid "Base Packages"
 msgstr "Paquetages de base"
 
-#: ../iw/package_gui.py:850
+#: ../iw/package_gui.py:851
 msgid "Optional Packages"
 msgstr "Paquetages optionnels"
 
-#: ../iw/package_gui.py:1070
+#: ../iw/package_gui.py:1071
 msgid "Details"
 msgstr "Détails"
 
-#: ../iw/package_gui.py:1164
+#: ../iw/package_gui.py:1165
 msgid "_Select individual packages"
 msgstr "_Sélection des paquetages individuels"
 
@@ -4694,14 +4720,14 @@ msgstr "L'étiquette de démarrage ne peut pas être vide."
 msgid "Boot label contains illegal characters."
 msgstr "L'étiquette de démarrage contient des caractères non valides."
 
-#: ../textw/bootloader_text.py:293 ../textw/fdisk_text.py:41
+#: ../textw/bootloader_text.py:292 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1119 ../textw/partition_text.py:1126
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:225
 msgid "Edit"
 msgstr "Modifier"
 
-#: ../textw/bootloader_text.py:297 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:296 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -4711,14 +4737,14 @@ msgstr ""
 "d'exploitation. Vous devez indiquer les partitions que vous souhaitez "
 "pouvoir lancer et l'étiquette que vous voulez utiliser pour chacune d'elles."
 
-#: ../textw/bootloader_text.py:310
+#: ../textw/bootloader_text.py:309
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> sélectionne bouton | <F2> sélectionne entrée de démarrage par "
 "défaut | <F12> écran suivant>"
 
-#: ../textw/bootloader_text.py:389
+#: ../textw/bootloader_text.py:388
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -4729,27 +4755,27 @@ msgstr ""
 "requise pour une sécurité optimale, mais n'est pas indispensable pour les "
 "utilisateurs occasionnels."
 
-#: ../textw/bootloader_text.py:399
+#: ../textw/bootloader_text.py:398
 msgid "Use a GRUB Password"
 msgstr "Utiliser un mot de passe GRUB"
 
-#: ../textw/bootloader_text.py:411
+#: ../textw/bootloader_text.py:410
 msgid "Boot Loader Password:"
 msgstr "Mot de passe du chargeur de démarrage : "
 
-#: ../textw/bootloader_text.py:412
+#: ../textw/bootloader_text.py:411
 msgid "Confirm:"
 msgstr "Confirmer : "
 
-#: ../textw/bootloader_text.py:441
+#: ../textw/bootloader_text.py:440
 msgid "Passwords Do Not Match"
 msgstr "Les mots de passe root ne correspondent pas."
 
-#: ../textw/bootloader_text.py:446
+#: ../textw/bootloader_text.py:445
 msgid "Password Too Short"
 msgstr "Mot de passe trop court"
 
-#: ../textw/bootloader_text.py:447
+#: ../textw/bootloader_text.py:446
 msgid "Boot loader password is too short"
 msgstr "Le mot de passe pour le chargeur d'amorçage est trop court."
 

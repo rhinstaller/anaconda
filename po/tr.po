@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda \n"
-"POT-Creation-Date: 2002-08-16 02:09-0400\n"
+"POT-Creation-Date: 2002-08-22 02:05-0400\n"
 "PO-Revision-Date: 2002-08-10 17:45+0300\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@superonline.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -109,23 +109,23 @@ msgstr "Kullanýlan fare türü: "
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "DISPLAY deðiþkeni belirlenemedi. Metin kipine geçiliyor!"
 
-#: ../autopart.py:723
+#: ../autopart.py:829
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr "Silindir bazlý disk bölümleri birincil bölümler olarak kullanýlamaz."
 
-#: ../autopart.py:726
+#: ../autopart.py:832
 msgid "Could not allocate partitions as primary partitions"
 msgstr "Bu bölümler birincil disk bölümü olamýyor."
 
-#: ../autopart.py:729
+#: ../autopart.py:835
 msgid "Could not allocate cylinder-based partitions"
 msgstr "Silindir bazlý bölümler kullanýlamýyor"
 
-#: ../autopart.py:732
+#: ../autopart.py:838
 msgid "Could not allocate partitions"
 msgstr "Bölümleme yapýlamadý"
 
-#: ../autopart.py:791
+#: ../autopart.py:901
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
@@ -134,7 +134,7 @@ msgstr ""
 "Önyükleme bölümü %s mimarinizin gerektirdiði koþullarý saðlayamýyor. Bir "
 "açýlýþ disketinin oluþturulmasý kaçýnýlmaz görünüyor."
 
-#: ../autopart.py:808
+#: ../autopart.py:926
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -143,11 +143,11 @@ msgstr ""
 "Bu bölümün eklenmesi ile önceden ayrýlmýþ %s mantýksal oylumlarýnda yeterli "
 "disk alaný kalmayacaktý."
 
-#: ../autopart.py:952
+#: ../autopart.py:1070
 msgid "Requested Partition Does Not Exist"
 msgstr "Ýstenen Disk Bölümü Mevcut Deðil"
 
-#: ../autopart.py:953
+#: ../autopart.py:1071
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -158,11 +158,11 @@ msgstr ""
 "\n"
 "'Tamam' düðmesini seçtiðinizde sistem yeniden baþlatýlacak."
 
-#: ../autopart.py:984 ../autopart.py:1024
+#: ../autopart.py:1102 ../autopart.py:1142
 msgid "Automatic Partitioning Errors"
 msgstr "Otomatik Bölümlendirme Hatalarý"
 
-#: ../autopart.py:985
+#: ../autopart.py:1103
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -177,11 +177,11 @@ msgstr ""
 "\n"
 "'Tamam' düðmesine bastýðýnýzda sistem yeniden baþlatýlacaktýr."
 
-#: ../autopart.py:994
+#: ../autopart.py:1112
 msgid "Warnings During Automatic Partitioning"
 msgstr "Otomatik Bölümlendirme Sýrasýndaki Uyarýlar"
 
-#: ../autopart.py:995
+#: ../autopart.py:1113
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -192,7 +192,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1008
+#: ../autopart.py:1126
 msgid ""
 "\n"
 "\n"
@@ -202,12 +202,12 @@ msgstr ""
 "\n"
 "Sisteminizi yeniden baþlatmak için 'Tamam' düðmesine týklayýnýz."
 
-#: ../autopart.py:1009 ../iw/partition_gui.py:980
+#: ../autopart.py:1127 ../iw/partition_gui.py:980
 #: ../textw/partition_text.py:213
 msgid "Error Partitioning"
 msgstr "Hatalý Bölümlendirme"
 
-#: ../autopart.py:1010
+#: ../autopart.py:1128
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -218,7 +218,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1025
+#: ../autopart.py:1143
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -241,19 +241,19 @@ msgstr ""
 "\n"
 "Devam etmek için 'Tamam' düðmesine týklayýnýz."
 
-#: ../autopart.py:1103 ../bootloader.py:123 ../image.py:308
+#: ../autopart.py:1221 ../bootloader.py:123 ../image.py:330
 #: ../partedUtils.py:240 ../partedUtils.py:668 ../upgrade.py:260
-#: ../upgrade.py:389 ../upgrade.py:408 ../iw/blpasswidget.py:148
-#: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:88
-#: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
-#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:135
-#: ../textw/bootloader_text.py:451 ../textw/fdasd_text.py:84
-#: ../textw/partition_text.py:217 ../textw/upgrade_text.py:175
-#: ../loader/loader.c:3612
+#: ../upgrade.py:389 ../upgrade.py:408 ../upgrade.py:431
+#: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
+#: ../iw/bootloader_main_gui.py:88 ../iw/upgrade_swap_gui.py:200
+#: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
+#: ../textw/bootloader_text.py:135 ../textw/bootloader_text.py:450
+#: ../textw/fdasd_text.py:84 ../textw/partition_text.py:217
+#: ../textw/upgrade_text.py:175 ../loader/loader.c:3612
 msgid "Warning"
 msgstr "Uyarý"
 
-#: ../autopart.py:1109
+#: ../autopart.py:1227
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -276,7 +276,7 @@ msgstr ""
 "fdisk ise geleneksel, metin tabanlý, kullanýmý zor ancak bazý durumlarda "
 "özellikle uzman kullanýcýlar için önerilen bir disk bölümleme aracýdýr."
 
-#: ../autopart.py:1123
+#: ../autopart.py:1241
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
@@ -284,19 +284,19 @@ msgstr ""
 "Otomatik bölümlendirme öncesi, sabit disk alanlarýnýn nasýl kullanýlacaðýný "
 "belirtmelisiniz."
 
-#: ../autopart.py:1128
+#: ../autopart.py:1246
 msgid "Remove all partitions on this system"
 msgstr "Tüm disk bölümlerini sil"
 
-#: ../autopart.py:1129
+#: ../autopart.py:1247
 msgid "Remove all Linux Partitions on this system"
 msgstr "Tüm Linux disk bölümlerini sil"
 
-#: ../autopart.py:1130
+#: ../autopart.py:1248
 msgid "Keep all partitions and use existing free space"
 msgstr "Disk bölümlerine dokunma, sadece boþ alaný kullan"
 
-#: ../autopart.py:1132
+#: ../autopart.py:1250
 #, python-format
 msgid ""
 "You have selected to remove all partitions (ALL DATA) on the following "
@@ -308,7 +308,7 @@ msgstr ""
 "SÝLÝNMESÝNÝ) seçtiniz.\n"
 "Böyle yapmak istediðinizden emin misiniz?"
 
-#: ../autopart.py:1136
+#: ../autopart.py:1254
 #, python-format
 msgid ""
 "You have selected to remove all Linux partitions (and ALL DATA on them) on "
@@ -339,15 +339,15 @@ msgstr ""
 msgid "Everything"
 msgstr "Tüm paketler"
 
-#: ../comps.py:893 ../comps.py:959 ../upgrade.py:588
+#: ../comps.py:893 ../comps.py:959 ../upgrade.py:611
 msgid "no suggestion"
 msgstr "öneri yok"
 
-#: ../comps.py:1053 ../loader/devices.c:79
+#: ../comps.py:1054 ../loader/devices.c:79
 msgid "Miscellaneous"
 msgstr "Çeþitli"
 
-#: ../comps.py:1069
+#: ../comps.py:1070
 msgid ""
 "This group includes all the packages available.  Note that this is "
 "substantially more packages than just the ones in all the other package "
@@ -356,7 +356,7 @@ msgstr ""
 "Bu grup mümkün olan tüm paketleri içerir. Yalnýz dikkat, bu grup, bu "
 "sayfadaki tüm paketlerden biraz daha fazlasýný (temel paketleri de) içerir."
 
-#: ../comps.py:1073
+#: ../comps.py:1074
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -379,11 +379,22 @@ msgid ""
 msgstr ""
 "Sisteminizin durumu diskete kaydedildi. Sistem þimdi yeniden baþlatýlacak."
 
-#: ../floppy.py:59
+#: ../floppy.py:91
+#, fuzzy
+msgid "Unable to make boot floppy"
+msgstr "Disket baðlanamadý."
+
+#: ../floppy.py:92
+msgid ""
+"The size of the kernel modules needed for your machine make it impossible to "
+"create a boot disk that will fit on a floppy diskette."
+msgstr ""
+
+#: ../floppy.py:101
 msgid "Insert a floppy disk"
 msgstr "Sürücüye bir disket yerleþtirin."
 
-#: ../floppy.py:60
+#: ../floppy.py:102
 msgid ""
 "Please remove any diskettes from the floppy drive, and insert the floppy "
 "diskette that is to contain the boot disk.\n"
@@ -396,18 +407,18 @@ msgstr ""
 "Açýlýþ disketinin oluþturulmasý sýrasýnda disketteki tüm bilgiyi "
 "kaybedeceksiniz."
 
-#: ../floppy.py:64
+#: ../floppy.py:106
 msgid "_Cancel"
 msgstr "Ýp_tal"
 
-#: ../floppy.py:64
+#: ../floppy.py:106
 msgid "_Make boot disk"
 msgstr "_Açýlýþ disketi oluþtur"
 
-#: ../floppy.py:76 ../floppy.py:105 ../fsset.py:554 ../fsset.py:1015
+#: ../floppy.py:118 ../floppy.py:143 ../fsset.py:554 ../fsset.py:1015
 #: ../fsset.py:1034 ../fsset.py:1081 ../fsset.py:1092 ../fsset.py:1128
-#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:202 ../image.py:86
-#: ../image.py:198 ../packages.py:306 ../partedUtils.py:458
+#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:207 ../image.py:68
+#: ../image.py:102 ../image.py:214 ../packages.py:307 ../partedUtils.py:458
 #: ../partIntfHelpers.py:147 ../partIntfHelpers.py:332 ../upgrade.py:316
 #: ../upgrade.py:334 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
@@ -429,7 +440,7 @@ msgstr "_Açýlýþ disketi oluþtur"
 msgid "Error"
 msgstr "Hata"
 
-#: ../floppy.py:77 ../floppy.py:106
+#: ../floppy.py:119 ../floppy.py:144
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
@@ -437,11 +448,11 @@ msgstr ""
 "Açýlýþ disketi oluþturulurken bir hata oluþtu. Birinci disket sürücüsünde "
 "bir disketin olup olmadýðýný kontrol ediniz."
 
-#: ../floppy.py:92
+#: ../floppy.py:130
 msgid "Creating"
 msgstr "Yaratýlýyor"
 
-#: ../floppy.py:92
+#: ../floppy.py:130
 msgid "Creating boot disk..."
 msgstr "Açýlýþ disketi yaratýlýyor..."
 
@@ -702,7 +713,7 @@ msgstr ""
 "Kurulum programýnýn bir arabirim elemaný yüklenmeye çalýþýlýrken bir hata "
 "oluþtu."
 
-#: ../gui.py:810 ../packages.py:1100 ../iw/congrats_gui.py:29
+#: ../gui.py:810 ../packages.py:1105 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "Çý_kýþ"
 
@@ -710,19 +721,19 @@ msgstr "Çý_kýþ"
 msgid "_Retry"
 msgstr "_Tekrar dene"
 
-#: ../gui.py:813 ../packages.py:1103
+#: ../gui.py:813 ../packages.py:1108
 msgid "Rebooting System"
 msgstr "Sistemin Yeniden Baþlatýlmasý"
 
-#: ../gui.py:814 ../packages.py:1104
+#: ../gui.py:814 ../packages.py:1109
 msgid "Your system will now be rebooted..."
 msgstr "Sisteminiz yeniden baþlatýlacak..."
 
-#: ../gui.py:817 ../packages.py:1106
+#: ../gui.py:817 ../packages.py:1111
 msgid "_Reboot"
 msgstr "Yeniden _Baþlat"
 
-#: ../gui.py:908 ../packages.py:1106
+#: ../gui.py:908 ../packages.py:1111
 msgid "_Back"
 msgstr "_Geri"
 
@@ -764,20 +775,27 @@ msgstr "Baþlýk çubuðu yüklenemedi"
 msgid "Install Window"
 msgstr "Kurulum Penceresi"
 
-#: ../harddrive.py:203
+#: ../harddrive.py:208
 #, python-format
 msgid "Missing CD #%d, which is required for the install."
 msgstr "Kurulum için gereken %d. CD eksik."
 
-#: ../image.py:83
+#: ../image.py:69
+#, python-format
+msgid ""
+"An error occurred unmounting the CD.  Please make sure you're not accessing %"
+"s from the shell on tty2 and then click OK to retry."
+msgstr ""
+
+#: ../image.py:99
 msgid "Copying File"
 msgstr "Dosyalar Kopyalanýyor"
 
-#: ../image.py:84
+#: ../image.py:100
 msgid "Transferring install image to hard drive..."
 msgstr "Kurulum dosyalarý sabit diske aktarýlýyor.."
 
-#: ../image.py:87
+#: ../image.py:103
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -785,29 +803,29 @@ msgstr ""
 "Kurulum dosyalarý sabit diske aktarýlýrken bir hata oluþtu. Bu sorun diskte "
 "yer kalmamasýndan kaynaklanabilir."
 
-#: ../image.py:156
+#: ../image.py:172
 msgid "Change CDROM"
 msgstr "CDROM'u deðiþtir"
 
-#: ../image.py:157
+#: ../image.py:173
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Lütfen %d numaralý CD'yi yerleþtirin."
 
-#: ../image.py:192
+#: ../image.py:208
 msgid "Wrong CDROM"
 msgstr "Hatalý CDROM"
 
-#: ../image.py:193
+#: ../image.py:209
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Bu doðru %s CD'si deðil."
 
-#: ../image.py:199
+#: ../image.py:215
 msgid "The CDROM could not be mounted."
 msgstr "CDROM baðlanamadý."
 
-#: ../installclass.py:43
+#: ../installclass.py:44
 msgid "Install on System"
 msgstr "Sistemde Kurulum"
 
@@ -856,7 +874,7 @@ msgstr "Baðýmlýlýk Denetimi"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kurulumdaki paketlerdeki baðýmlýlýklar denetleniyor..."
 
-#: ../packages.py:256 ../packages.py:638
+#: ../packages.py:256 ../packages.py:643
 msgid "Processing"
 msgstr "Ýþleniyor"
 
@@ -864,7 +882,7 @@ msgstr "Ýþleniyor"
 msgid "Preparing to install..."
 msgstr "Kuruluma hazýrlýk yapýlýyor..."
 
-#: ../packages.py:307
+#: ../packages.py:308
 #, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -873,11 +891,11 @@ msgstr ""
 "%s dosyasý açýlamýyor. Bu, bir eksik dosya, bir hatalý paket ya da hatalý "
 "bir ortamdan kaynaklanabilir. Tekrar denemek için <enter> tuþuna basýnýz."
 
-#: ../packages.py:342
+#: ../packages.py:343
 msgid "Error Installing Package"
 msgstr "Paketler Kurulumunda Hata"
 
-#: ../packages.py:343
+#: ../packages.py:344
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -894,11 +912,11 @@ msgstr ""
 "\n"
 "Sistemi yeniden baþlatmak için 'Tamam' düðmesine týklayýn."
 
-#: ../packages.py:639
+#: ../packages.py:644
 msgid "Setting up RPM transaction..."
 msgstr "RPM iþlemleri ayarlanýyor..."
 
-#: ../packages.py:676
+#: ../packages.py:681
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -907,7 +925,7 @@ msgstr ""
 "%s paketleri güncelleniyor.\n"
 "\n"
 
-#: ../packages.py:678
+#: ../packages.py:683
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -916,17 +934,17 @@ msgstr ""
 "%s paketleri kuruluyor\n"
 "\n"
 
-#: ../packages.py:685 ../packages.py:968
+#: ../packages.py:690 ../packages.py:973
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "%s-%s-%s güncelleniyor.\n"
 
-#: ../packages.py:687 ../packages.py:970
+#: ../packages.py:692 ../packages.py:975
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "%s-%s-%s kuruluyor.\n"
 
-#: ../packages.py:703
+#: ../packages.py:708
 #, python-format
 msgid ""
 "\n"
@@ -943,15 +961,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:709
+#: ../packages.py:714
 msgid "Install Starting"
 msgstr "Kurulum Baþlýyor"
 
-#: ../packages.py:710
+#: ../packages.py:715
 msgid "Starting install process, this may take several minutes..."
 msgstr "Kurulum baþlatýlýyor. Baþlatma bir kaç dakika sürebilir..."
 
-#: ../packages.py:755
+#: ../packages.py:760
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -961,17 +979,17 @@ msgstr ""
 "Aþaðýdaki dosya sistemlerinde daha fazla alana ihtiyacýnýz var:\n"
 "\n"
 
-#: ../packages.py:759 ../packages.py:779 ../iw/lvm_dialog_gui.py:1036
+#: ../packages.py:764 ../packages.py:784 ../iw/lvm_dialog_gui.py:1036
 #: ../iw/partition_gui.py:348 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:109
 msgid "Mount Point"
 msgstr "Baðlama Noktasý"
 
-#: ../packages.py:760
+#: ../packages.py:765
 msgid "Space Needed"
 msgstr "Gerekli Alan"
 
-#: ../packages.py:775
+#: ../packages.py:780
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -981,15 +999,15 @@ msgstr ""
 "Aþaðýdaki dosya sistemlerinde daha fazla alana ihtiyacýnýz var:\n"
 "\n"
 
-#: ../packages.py:780
+#: ../packages.py:785
 msgid "Nodes Needed"
 msgstr "Gerekli Düðümler"
 
-#: ../packages.py:786
+#: ../packages.py:791
 msgid "Disk Space"
 msgstr "Disk Alaný"
 
-#: ../packages.py:807
+#: ../packages.py:812
 msgid ""
 "\n"
 "\n"
@@ -999,19 +1017,19 @@ msgstr ""
 "\n"
 "Aþaðýdaki paketler bu sürümde var ama güncel deðil:\n"
 
-#: ../packages.py:824
+#: ../packages.py:829
 msgid "Post Install"
 msgstr "Kurulum Sonrasý"
 
-#: ../packages.py:825
+#: ../packages.py:830
 msgid "Performing post install configuration..."
 msgstr "Kurulum sonrasý ayarlar yapýlýyor..."
 
-#: ../packages.py:1086
+#: ../packages.py:1091
 msgid "Warning! This is a beta!"
 msgstr "Uyarý! Bu bir beta sürümüdür!"
 
-#: ../packages.py:1087
+#: ../packages.py:1092
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1038,7 +1056,7 @@ msgstr ""
 "adresini kullanýnýz ve 'Red Hat Public Beta' konu baþlýðý ile raporunuzu "
 "gönderiniz.\n"
 
-#: ../packages.py:1100
+#: ../packages.py:1105
 msgid "_Install BETA"
 msgstr "_BETA Kurulumu"
 
@@ -1222,7 +1240,7 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "/dev/%s üzerindeki tüm bölümleri silmek üzeresiniz."
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
-#: ../iw/account_gui.py:424 ../iw/lvm_dialog_gui.py:717
+#: ../iw/account_gui.py:426 ../iw/lvm_dialog_gui.py:717
 #: ../iw/lvm_dialog_gui.py:1059 ../iw/osbootwidget.py:102
 #: ../iw/partition_gui.py:1336 ../iw/partition_gui.py:1342
 msgid "_Delete"
@@ -1498,15 +1516,15 @@ msgstr ""
 "Ayýrdýðýnýz takas alaný (%dM) belleðinizden (%dM) daha küçük. Bu baþarýmý "
 "olumsuz etkileyecektir."
 
-#: ../partitions.py:1082
+#: ../partitions.py:1093
 msgid "the partition in use by the installer."
 msgstr "disk bölümü kurulum programý tarafýndan kullanýlýyor."
 
-#: ../partitions.py:1085
+#: ../partitions.py:1096
 msgid "a partition which is a member of a RAID array."
 msgstr "bir RAID dizisinin üyesi olan bir bölüm."
 
-#: ../partitions.py:1088
+#: ../partitions.py:1099
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "bir LVM Oylum Grubunun üyesi olan bir bölüm."
 
@@ -1862,6 +1880,14 @@ msgstr ""
 "Linux sistemi deðil. Güncelleme iþlemi sisteminizin karasýz duruma gelmesi "
 "ile sonuçlanabilir. Yine de güncelleme iþlemine devam edilsin mi?"
 
+#: ../upgrade.py:432
+#, python-format
+msgid ""
+"Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
+"higher.  This appears to be an older system.  Do you wish to continue the "
+"upgrade process?"
+msgstr ""
+
 #: ../xserver.py:48
 msgid "Mouse Not Detected"
 msgstr "Fare Seçilmedi"
@@ -1939,71 +1965,71 @@ msgstr "Kullanýcý parolasý çok kýsa."
 msgid "User passwords do not match."
 msgstr "Kullanýcý parolalarý uyuþmuyor."
 
-#: ../iw/account_gui.py:188
+#: ../iw/account_gui.py:190
 msgid "Add a New User"
 msgstr "Yeni Kullanýcý Ekle"
 
-#: ../iw/account_gui.py:196 ../textw/userauth_text.py:90
+#: ../iw/account_gui.py:198 ../textw/userauth_text.py:90
 msgid "Edit User"
 msgstr "Kullanýcý Deðiþtir"
 
-#: ../iw/account_gui.py:210
+#: ../iw/account_gui.py:212
 msgid "Add a User Account"
 msgstr "Kullanýcý Hesabý Eklenmesi"
 
-#: ../iw/account_gui.py:227
+#: ../iw/account_gui.py:229
 msgid "Enter a user _name:"
 msgstr "Bir _kullanýcý adý girin:"
 
-#: ../iw/account_gui.py:235
+#: ../iw/account_gui.py:237
 msgid "Enter a user _password:"
 msgstr "Bir kullanýcý _Parolasýný girin:"
 
-#: ../iw/account_gui.py:244
+#: ../iw/account_gui.py:246
 msgid "Pass_word (confirm):"
 msgstr "Parola (_onay):"
 
-#: ../iw/account_gui.py:253
+#: ../iw/account_gui.py:255
 msgid "_Full Name:"
 msgstr "_Adý ve Soyadý:"
 
-#: ../iw/account_gui.py:261
+#: ../iw/account_gui.py:263
 msgid "Please enter user name"
 msgstr "Lütfen kullanýcý adýný girin"
 
-#: ../iw/account_gui.py:344
+#: ../iw/account_gui.py:346
 msgid "Enter the root (administrator) password for the system."
 msgstr "root (sistem yöneticisi) parolasýný girin."
 
-#: ../iw/account_gui.py:361
+#: ../iw/account_gui.py:363
 msgid "Root _Password: "
 msgstr "Root _Parolasý: "
 
-#: ../iw/account_gui.py:364
+#: ../iw/account_gui.py:366
 msgid "_Confirm: "
 msgstr "O_nayla : "
 
-#: ../iw/account_gui.py:406
+#: ../iw/account_gui.py:408
 msgid "Account Name"
 msgstr "Hesap Adý"
 
-#: ../iw/account_gui.py:409 ../textw/userauth_text.py:101
+#: ../iw/account_gui.py:411 ../textw/userauth_text.py:101
 #: ../textw/userauth_text.py:210
 msgid "Full Name"
 msgstr "Adý ve Soyadý"
 
-#: ../iw/account_gui.py:419 ../iw/lvm_dialog_gui.py:1053
+#: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1053
 #: ../iw/osbootwidget.py:94
 msgid "_Add"
 msgstr "_Ekle"
 
-#: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1056
+#: ../iw/account_gui.py:423 ../iw/lvm_dialog_gui.py:1056
 #: ../iw/network_gui.py:488 ../iw/osbootwidget.py:98
 #: ../iw/partition_gui.py:1335 ../iw/partition_gui.py:1341
 msgid "_Edit"
 msgstr "_Düzenle"
 
-#: ../iw/account_gui.py:445
+#: ../iw/account_gui.py:447
 msgid ""
 "It is recommended that you create a personal account for normal (non-"
 "administrative) use. Accounts can also be created for additional users."
@@ -2138,11 +2164,11 @@ msgstr "O_nayla:"
 msgid "Passwords don't match"
 msgstr "Parolalar uyuþmuyor"
 
-#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:442
+#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:441
 msgid "Passwords do not match"
 msgstr "Parolalar uyuþmuyor"
 
-#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:452
+#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:451
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2223,7 +2249,7 @@ msgstr "_Genel çekirdek parametreleri"
 
 #: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:51
 #: ../textw/bootloader_text.py:119 ../textw/bootloader_text.py:178
-#: ../textw/bootloader_text.py:302 ../textw/bootloader_text.py:394
+#: ../textw/bootloader_text.py:301 ../textw/bootloader_text.py:393
 msgid "Boot Loader Configuration"
 msgstr "Önyükleyici Yapýlandýrmasý"
 
@@ -2431,7 +2457,7 @@ msgid "Unresolved Dependencies"
 msgstr "Çözülemeyen Paket Gerekliliði"
 
 #: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:262
-#: ../iw/package_gui.py:504 ../iw/package_gui.py:694
+#: ../iw/package_gui.py:505 ../iw/package_gui.py:695
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
@@ -3364,48 +3390,48 @@ msgstr ""
 "Paket: %s\n"
 "Sürüm: %s\n"
 
-#: ../iw/package_gui.py:365
+#: ../iw/package_gui.py:366
 msgid "_Tree View"
 msgstr "_Aðaç Görünümü"
 
-#: ../iw/package_gui.py:367
+#: ../iw/package_gui.py:368
 msgid "_Flat View"
 msgstr "_Liste Görünümü"
 
-#: ../iw/package_gui.py:382
+#: ../iw/package_gui.py:383
 msgid "_Package"
 msgstr "_Paket"
 
-#: ../iw/package_gui.py:384
+#: ../iw/package_gui.py:385
 msgid "_Size (MB)"
 msgstr "_Boy (MB):"
 
-#: ../iw/package_gui.py:435
+#: ../iw/package_gui.py:436
 msgid "Total size: "
 msgstr "Toplam boy: "
 
-#: ../iw/package_gui.py:438
+#: ../iw/package_gui.py:439
 msgid "Select _all in group"
 msgstr "Grubun t_amamýný seç"
 
-#: ../iw/package_gui.py:442
+#: ../iw/package_gui.py:443
 msgid "_Unselect all in group"
 msgstr "Seçilenleri _býrak"
 
-#: ../iw/package_gui.py:479 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:480 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr "Paket Grup Seçimi"
 
-#: ../iw/package_gui.py:699
+#: ../iw/package_gui.py:700
 msgid "Minimal"
 msgstr "En küçük"
 
-#: ../iw/package_gui.py:770
+#: ../iw/package_gui.py:771
 #, python-format
 msgid "Details for '%s'"
 msgstr "'%s' ayrýntýlarý"
 
-#: ../iw/package_gui.py:779
+#: ../iw/package_gui.py:780
 msgid ""
 "A package group can have both Base and Optional package members.  Base "
 "packages are always selected as long as the package group is selected.\n"
@@ -3417,19 +3443,19 @@ msgstr ""
 "\n"
 "Kurulacak seçimlik paketleri seçiniz:"
 
-#: ../iw/package_gui.py:820
+#: ../iw/package_gui.py:821
 msgid "Base Packages"
 msgstr "Temel Paketler"
 
-#: ../iw/package_gui.py:850
+#: ../iw/package_gui.py:851
 msgid "Optional Packages"
 msgstr "Seçimlik Paketler"
 
-#: ../iw/package_gui.py:1070
+#: ../iw/package_gui.py:1071
 msgid "Details"
 msgstr "Ayrýntýlar"
 
-#: ../iw/package_gui.py:1164
+#: ../iw/package_gui.py:1165
 msgid "_Select individual packages"
 msgstr "_Tek tek paket seçimi"
 
@@ -4578,14 +4604,14 @@ msgstr "Açýlýþ etiketi boþ olamaz."
 msgid "Boot label contains illegal characters."
 msgstr "Açýlýþ etiketinde geçersiz karakterler."
 
-#: ../textw/bootloader_text.py:293 ../textw/fdisk_text.py:41
+#: ../textw/bootloader_text.py:292 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1119 ../textw/partition_text.py:1126
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:225
 msgid "Edit"
 msgstr "Deðiþtir"
 
-#: ../textw/bootloader_text.py:297 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:296 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -4595,13 +4621,13 @@ msgstr ""
 "yükleyebilir. Lütfen hangi bölümlerin açýlýþ bölümü olabileceklerini ve "
 "etiketlerini belirtin."
 
-#: ../textw/bootloader_text.py:310
+#: ../textw/bootloader_text.py:309
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 "  <Boþluk> seçer  |  <F2>  Öntanýmlý sistemi seçer  |  <F12>  sonraki ekran "
 
-#: ../textw/bootloader_text.py:389
+#: ../textw/bootloader_text.py:388
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -4612,27 +4638,27 @@ msgstr ""
 "istiyorsanýz bir parolalý açýlýþ tavsiye edilirse de sistemi sizden baþka "
 "birinin açmasý söz konusu deðilse gereksizdir."
 
-#: ../textw/bootloader_text.py:399
+#: ../textw/bootloader_text.py:398
 msgid "Use a GRUB Password"
 msgstr "GRUB Parolasý Kullanýlsýn"
 
-#: ../textw/bootloader_text.py:411
+#: ../textw/bootloader_text.py:410
 msgid "Boot Loader Password:"
 msgstr "Önyükleyici Parolasý: "
 
-#: ../textw/bootloader_text.py:412
+#: ../textw/bootloader_text.py:411
 msgid "Confirm:"
 msgstr "Onayla :"
 
-#: ../textw/bootloader_text.py:441
+#: ../textw/bootloader_text.py:440
 msgid "Passwords Do Not Match"
 msgstr "Parolalar Uyuþmuyor"
 
-#: ../textw/bootloader_text.py:446
+#: ../textw/bootloader_text.py:445
 msgid "Password Too Short"
 msgstr "Parola Çok Kýsa."
 
-#: ../textw/bootloader_text.py:447
+#: ../textw/bootloader_text.py:446
 msgid "Boot loader password is too short"
 msgstr "Önyükleyici parolasý çok kýsa."
 
