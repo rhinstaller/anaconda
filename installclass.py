@@ -21,7 +21,7 @@ class InstallClass:
 
     def addToSkipList(self, type):
 	# this throws an exception if there is a problem
-	[ "lilo", "mouse", "hostname", "network", "authentication", "complete",
+	[ "lilo", "mouse", "network", "authentication", "complete",
 	  "package-selection", "bootdisk", "install-pause" ].index(type)
 	self.skipSteps[type] = 1
 
@@ -75,7 +75,6 @@ class Workstation(InstallClass):
 	self.setHostname("localhost.localdomain")
 	self.setGroups(["Base"])
 	self.addToSkipList("lilo")
-	self.addToSkipList("hostname")
 	self.addToSkipList("network")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")

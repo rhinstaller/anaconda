@@ -1355,7 +1355,7 @@ class InstallInterface:
 		    "network"],
             [_("Time zone Setup"), TimezoneWindow, (self.screen, todo, test)],
             [_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
-		    "hostname"],
+		    "network"],
             [_("Partition"), PartitionWindow, (self.screen, todo)],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo)],
             [_("LILO Configuration"), LiloAppendWindow, 
