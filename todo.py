@@ -1716,7 +1716,7 @@ class ToDo:
                 log("Mounting /proc/bus/usb in install path")
                 try:
                     isys.mount('/usbdevfs', self.instPath+'/proc/bus/usb', 'usbdevfs')
-                    log("Mount of USB suceeded")
+                    log("Mount of USB succeeded")
                 except:
                     log("Mount of USB failed")
                     pass
