@@ -11,9 +11,9 @@ DEST=../../../RedHat/instimage
 
 PACKAGES="glibc-2 ldconfig filesystem basesystem setup fileutils
           XFree86-libs XFree86-SVGA XFree86-FBDev XFree86-75dpi-fonts
-          XFree86-3 glib- gtk+- gnome-libs slang python-1 newt imlib-1
+          XFree86-3. glib- gtk+- gnome-libs slang python-1 newt imlib-1
           libpng libtiff libjpeg- libtermcap-2 zlib rpm bash- pygtk-
-          pygnome- util-linux procps e2fsprogs-1 esound-0"
+          pygnome- util-linux procps e2fsprogs-1 esound-0 audiofile-0"
 
 for I in $PACKAGES; do
     for J in `ls $SRC/$I*`; do
