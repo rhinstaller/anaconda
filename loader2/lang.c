@@ -133,7 +133,7 @@ void loadLanguage (char * file, int flags) {
     int fd, hash, rc;
     char * key = getenv("LANGKEY");
 
-    if (!key || !strcmp(key, "en_US")) {
+    if (!key || !strcmp(key, "en_US.UTF-8")) {
         if (strings) {
             free(strings), strings = NULL;
             numStrings = allocedStrings = 0;
