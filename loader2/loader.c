@@ -715,11 +715,11 @@ static char *doLoaderMain(char * location,
                                       installMethods + validMethods[methodNum],
                                       location, kd, loaderData, modInfo, modLoaded, 
                                       modDepsPtr, flags);
-            logMessage("got url %s", url);
             if (!url) {
                 step = STEP_METHOD;
                 dir = -1;
             } else {
+                logMessage("got url %s", url);
                 step = STEP_DONE;
                 dir = 1;
             }
@@ -737,8 +737,49 @@ static char *doLoaderMain(char * location,
 static int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
                              moduleDeps * modDepsPtr, struct knownDevices * kd,
                              int flags) {
-    /* JKFIXME: need to give a "these devices are on your system, 
-     * add more? type of thing */
+    char ** devices;
+    int i, j, rc, num = 0;
+    struct moduleInfo * mi;
+    int width = 40;
+    char * buf;
+
+    devices = malloc((modLoaded->numModules + 1) * sizeof(*devices));
+    for (i = 0, j = 0; i < modLoaded->numModules; i++) {
+        if (!modLoaded->mods[i].weLoaded) continue;
+        
+        if (!(mi = findModuleInfo(modInfo, modLoaded->mods[i].name)) ||
+            (!mi->description))
+            continue;
+
+        devices[j] = sdupprintf("%s (%s)", mi->description, 
+                                modLoaded->mods[i].name);
+        if (strlen(devices[j]) > width)
+            width = strlen(devices[j]);
+        j++;
+    }
+
+    devices[j] = NULL;
+
+    if (width > 70)
+        width = 70;
+
+    if (j > 0) {
+        buf = _("The following devices have been found on your system.");
+    } else {
+        buf = _("No device drivers have been loaded for your system.  Would "
+                "you like to load any now?");
+    }
+
+    do { 
+        rc = newtWinMenu(_("Devices"), buf, width, 10, 20, 
+                         (j > 6) ? 6 : j, devices, &num, _("Done"), 
+                         _("Add Device"), NULL);
+        if (rc != 2)
+            break;
+
+        chooseManualDriver(CLASS_UNSPEC, modLoaded, *modDepsPtr, modInfo, 
+                           kd, flags);
+    } while (1);
     return 0;
 }
 
