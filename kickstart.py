@@ -320,7 +320,7 @@ class Kickstart(InstallClass):
 		onPart = arg
 
 	if onPart:
-	    addToFstab(extra[0], onPart)
+	    self.addToFstab(extra[0], onPart)
 	else:
 	    self.partitions.append((extra[0], size, maxSize, grow))
 
