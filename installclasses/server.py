@@ -20,6 +20,7 @@ class InstallClass(BaseInstallClass):
 
         self.showgroups = [ "KDE", 
 			    (0, "GNOME"),
+                            (0, "X Window System"),
 			    "News Server",
                             "NFS Server",
                             "Web Server",
