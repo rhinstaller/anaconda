@@ -11,13 +11,16 @@ from syslog import Syslog
 def instCallback(what, amount, total, key, data):
     if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
 	(h, method) = key
-	data.setPackage(h[rpm.RPMTAG_NAME])
+	data.setPackage(h)
 	data.setPackageScale(0, 1)
 	fn = method.getFilename(h)
 	d = os.open(fn, os.O_RDONLY)
 	return d
     elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
 	data.setPackageScale(amount, total)
+    elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
+	(h, method) = key
+	data.completePackage(h)
 
 class ToDo:
 
@@ -75,8 +78,12 @@ class ToDo:
 	db = rpm.opendb(1, self.instPath)
 	ts = rpm.TransactionSet(self.instPath, db)
 
+        total = 0
+	totalSize = 0
 	for p in self.hdList.selected():
 	    ts.add(p.h, (p.h, self.method))
+	    total = total + 1
+	    totalSize = totalSize + p.h[rpm.RPMTAG_SIZE]
 
 	ts.order()
 
@@ -90,10 +97,10 @@ class ToDo:
 	# dup'd when we go out of scope
 	os.close(instLogFd)	
 
-	p = self.intf.packageProgessWindow()
+	p = self.intf.packageProgressWindow(total, totalSize)
 	ts.run(0, 0, instCallback, p)
 
-	syslog.kill()
+	del syslog
 
 	self.writeFstab()
 	self.installLilo()

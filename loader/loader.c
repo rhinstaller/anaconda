@@ -35,13 +35,83 @@
 #include "log.h"
 #include "lang.h"
 
+#define LOADER_OK 0
+#define LOADER_BACK 1
+#define LOADER_ERROR -1
+
+static int welcomeScreen(void);
+static int detectHardware(void);
+static int selectMedia(void);
+
+typedef int (*installStepFn)(void);
+
+struct installStep {
+    char * name;
+    installStepFn fn;
+    int skipOnLocal;
+};
+
+static struct installStep installSteps[] = { 
+    { N_("Welcome"), welcomeScreen, 0 },
+    { N_("Hardware Detection"), detectHardware, 1 },
+    { N_("Select Media"), selectMedia, 0 },
+};
+
+static int numSteps = sizeof(installSteps) / sizeof(struct installStep);
+int testing;
+
+static int welcomeScreen(void) {
+    newtWinMessage(_("Red Hat Linux"), _("OK"), 
+		   _("Welcome to Red Hat Linux!\n\n"
+		     "This short process is outlined in detail in the "
+		     "Official Red Hat Linux Installation Guide available from "
+		     "Red Hat Software. If you have access to this manual, you "
+		     "should read the installation section before continuing.\n\n"
+		     "If you have purchased Official Red Hat Linux, be sure to "
+		     "register your purchase through our web site, "
+		     "http://www.redhat.com."));
+
+    return LOADER_OK;
+}
+
+static int detectHardware(void) {
+    char ** modules, *module;
+
+    if (probePciReadDrivers(testing ? "../isys/pci/pcitable" :
+			              "/etc/pcitable")) {
+	newtWinMessage(_("Error"), _("OK"),
+		       _("An error occured while reading the PCI ID table"));
+	return LOADER_ERROR;
+    }
+    
+    modules = probePciDriverList();
+    if (modules == NULL) {
+	printf("No PCI devices found :(\n");
+    } else {
+	while ((module = *modules++)) {
+	    if (!testing) {
+		winStatus(60, 3, "Module Insertion", "Inserting module %s", module);
+		insmod(module, NULL);
+		newtPopWindow();
+	    } else {
+		newtWinMessage("Testing", "OK",
+			       "Test mode: I would run insmod(%s, args);\n", module);
+	    }
+	}
+    }
+    return LOADER_OK;
+}
+
+static int selectMedia(void) {
+    return LOADER_OK;
+}
+
 int main(int argc, char ** argv) {
     char ** argptr;
     char * anacondaArgs[30];
     char * arg;
     poptContext optCon;
-    int testing, network, local, rc;
-    char ** modules, *module;
+    int network, local, rc;
     struct intfInfo eth0;    
     struct poptOption optionTable[] = {
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
@@ -49,6 +119,7 @@ int main(int argc, char ** argv) {
 	    { "local", '\0', POPT_ARG_NONE, &local, 0 },
 	    { 0, 0, 0, 0, 0 }
     };
+    int step = 0;
 
     optCon = poptGetContext(NULL, argc, argv, optionTable, 0);
 
@@ -64,12 +135,6 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
-    if (probePciReadDrivers(testing ? "../isys/pci/pcitable" :
-			              "/etc/pcitable")) {
-	perror("error reading pci table");
-	return 1;
-    }
-
     openLog(testing);
     
     newtInit();
@@ -77,26 +142,25 @@ int main(int argc, char ** argv) {
     newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
     
     newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
-	
-    if (!testing) {
-	modules = probePciDriverList();
-	if (modules == NULL) {
-	    printf("No PCI devices found :(\n");
-	} else {
-	    while ((module = *modules++)) {
-		if (!testing) {
-		    winStatus(60, 5, "Module Insertion",
-			      "Inserting module %s", module);
-		    insmod(module, NULL);
-		    newtPopWindow();
-		} else {
-		    printf("Test mode: I would run insmod(%s, args);\n",
-			   module);
-		}
-	    }
-	}
-    
 
+    while (step < numSteps) {
+	rc = installSteps[step].fn();
+	switch (rc) {
+	case LOADER_OK:
+	    step++;
+	    break;
+	case LOADER_BACK:
+	    step--;
+	    break;
+	case LOADER_ERROR:
+	    newtWinMessage(_("Error"), _("OK"),
+			   _("An error occured while running the '%s' step"),
+			   installSteps[step].name);
+	    break;
+	}
+    }
+    
+    if (!testing) {
 	strcpy(eth0.device, "eth0");
 	eth0.isPtp=0;
 	eth0.isUp=0;
@@ -125,6 +189,7 @@ int main(int argc, char ** argv) {
 	    exit (1);
 	}
     }
+
     argptr = anacondaArgs;
     *argptr++ = testing ? "../anaconda" : "/usr/bin/anaconda";
     *argptr++ = "-p";

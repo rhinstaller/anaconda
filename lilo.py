@@ -1,4 +1,5 @@
 import string
+import os
 
 class LiloConfiguration:
 
@@ -35,6 +36,7 @@ class LiloConfiguration:
 	f = open(file, "w")
 	f.write(self.__repr__())
 	f.close()
+	os.chmod(file, 0644)
 
     def read(self, file):
 	f = open(file, "r")
