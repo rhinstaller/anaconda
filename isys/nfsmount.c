@@ -180,7 +180,7 @@ find_kernel_nfs_mount_version(void) {
 		  nfs_mount_version = 4;
 #else
 	     else
-		  nfs_mount_version = 3
+		 nfs_mount_version = 3;
 #endif
 	}
 #if 0
