@@ -329,6 +329,9 @@ void ideSetup(moduleList modLoaded, moduleDeps modDeps,
     if (FL_ENABLECDDMA(flags))
         return;
     devices = probeDevices(CLASS_CDROM, BUS_IDE, PROBE_ALL);
+    if (!devices)
+        return;
+
     for (i = 0; devices[i]; i++) {
         if ((devices[i]->detached != 0) || (devices[i]->device == NULL)) 
             continue;
