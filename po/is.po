@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.130\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-08 23:26-0400\n"
+"POT-Creation-Date: 2004-06-30 16:31-0400\n"
 "PO-Revision-Date: 2004-06-14 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
@@ -97,8 +97,8 @@ msgstr "Vinsamlegast tengist til að hefja uppsetningu..."
 #: ../rescue.py:409 ../rescue.py:415 ../text.py:337 ../text.py:483
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
-#: ../textw/network_text.py:32 ../textw/network_text.py:166
-#: ../textw/network_text.py:394 ../textw/network_text.py:402
+#: ../textw/network_text.py:32 ../textw/network_text.py:174
+#: ../textw/network_text.py:405 ../textw/network_text.py:413
 #: ../textw/silo_text.py:110 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:160 ../loader2/cdinstall.c:136
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:253
@@ -113,23 +113,24 @@ msgstr "Vinsamlegast tengist til að hefja uppsetningu..."
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
 #: ../loader2/hdinstall.c:218 ../loader2/hdinstall.c:380
 #: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:463
-#: ../loader2/hdinstall.c:513 ../loader2/kbd.c:125 ../loader2/kickstart.c:109
-#: ../loader2/kickstart.c:119 ../loader2/kickstart.c:162
-#: ../loader2/kickstart.c:261 ../loader2/lang.c:102 ../loader2/lang.c:375
-#: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:646 ../loader2/loader.c:824 ../loader2/mediacheck.c:255
-#: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
-#: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
-#: ../loader2/modules.c:919 ../loader2/net.c:188 ../loader2/net.c:210
-#: ../loader2/net.c:487 ../loader2/net.c:833 ../loader2/net.c:856
-#: ../loader2/net.c:974 ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:200
-#: ../loader2/nfsinstall.c:209 ../loader2/nfsinstall.c:247
-#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:66
-#: ../loader2/urlinstall.c:136 ../loader2/urlinstall.c:149
-#: ../loader2/urlinstall.c:431 ../loader2/urlinstall.c:440
-#: ../loader2/urlinstall.c:451 ../loader2/urls.c:171 ../loader2/urls.c:181
-#: ../loader2/urls.c:189 ../loader2/urls.c:254 ../loader2/urls.c:319
-#: ../loader2/urls.c:324 ../loader2/urls.c:330 ../loader2/urls.c:444
+#: ../loader2/hdinstall.c:513 ../loader2/kbd.c:125 ../loader2/kickstart.c:118
+#: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
+#: ../loader2/kickstart.c:270 ../loader2/kickstart.c:401 ../loader2/lang.c:102
+#: ../loader2/lang.c:375 ../loader2/loader.c:324 ../loader2/loader.c:337
+#: ../loader2/loader.c:348 ../loader2/loader.c:652 ../loader2/loader.c:830
+#: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
+#: ../loader2/mediacheck.c:354 ../loader2/method.c:150 ../loader2/method.c:359
+#: ../loader2/method.c:444 ../loader2/modules.c:919 ../loader2/net.c:191
+#: ../loader2/net.c:213 ../loader2/net.c:504 ../loader2/net.c:857
+#: ../loader2/net.c:880 ../loader2/net.c:1014 ../loader2/nfsinstall.c:54
+#: ../loader2/nfsinstall.c:200 ../loader2/nfsinstall.c:209
+#: ../loader2/nfsinstall.c:247 ../loader2/telnetd.c:84
+#: ../loader2/urlinstall.c:66 ../loader2/urlinstall.c:136
+#: ../loader2/urlinstall.c:149 ../loader2/urlinstall.c:431
+#: ../loader2/urlinstall.c:440 ../loader2/urlinstall.c:451
+#: ../loader2/urls.c:171 ../loader2/urls.c:181 ../loader2/urls.c:189
+#: ../loader2/urls.c:254 ../loader2/urls.c:319 ../loader2/urls.c:324
+#: ../loader2/urls.c:330 ../loader2/urls.c:444
 msgid "OK"
 msgstr "Í lagi"
 
@@ -419,15 +420,15 @@ msgid "Your system will now be rebooted."
 msgstr "Vélin þín mun nú endurræsa."
 
 #: ../autopart.py:1477 ../bootloader.py:155 ../gui.py:989 ../image.py:466
-#: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:806
-#: ../partedUtils.py:858 ../upgrade.py:310 ../upgrade.py:421 ../upgrade.py:474
+#: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:812
+#: ../partedUtils.py:869 ../upgrade.py:310 ../upgrade.py:421 ../upgrade.py:474
 #: ../upgrade.py:497 ../upgrade.py:543 ../iw/blpasswidget.py:148
 #: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:92
 #: ../iw/fdasd_gui.py:93 ../iw/upgrade_swap_gui.py:200
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
 #: ../textw/bootloader_text.py:141 ../textw/bootloader_text.py:456
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:227
-#: ../textw/upgrade_text.py:177 ../loader2/loader.c:377
+#: ../textw/upgrade_text.py:177 ../loader2/loader.c:379
 msgid "Warning"
 msgstr "Aðvörun"
 
@@ -599,6 +600,22 @@ msgstr ""
 "Staða vélarinnar þinnar hefur verið vistuð á diskling. Vélin þín mun nú "
 "endurræsa."
 
+#: ../firewall.py:54
+msgid "Remote Login (SSH)"
+msgstr "Fjarvinnsla (SSH)"
+
+#: ../firewall.py:55
+msgid "Web Server (HTTP, HTTPS)"
+msgstr ""
+
+#: ../firewall.py:56
+msgid "File Transfer (FTP)"
+msgstr "Skráaflutningur (FTP)"
+
+#: ../firewall.py:58
+msgid "Mail Server (SMTP)"
+msgstr "Póstþjónn (SMTP)"
+
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
 msgstr "Gat ekki búið til ræsidisklinginn"
@@ -641,7 +658,7 @@ msgstr "_Búa til ræsidiskling"
 #: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:326
 #: ../image.py:523 ../packages.py:150 ../packages.py:163 ../packages.py:175
 #: ../packages.py:182 ../packages.py:408 ../packages.py:591 ../packages.py:676
-#: ../partedUtils.py:627 ../upgrade.py:341 ../upgrade.py:366 ../upgrade.py:393
+#: ../partedUtils.py:632 ../upgrade.py:341 ../upgrade.py:366 ../upgrade.py:393
 #: ../iw/osbootwidget.py:223 ../iw/osbootwidget.py:232
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
@@ -651,8 +668,8 @@ msgstr "_Búa til ræsidiskling"
 #: ../loader2/driverdisk.c:462 ../loader2/hdinstall.c:106
 #: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:218
 #: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:513
-#: ../loader2/kickstart.c:261 ../loader2/lang.c:102 ../loader2/loader.c:346
-#: ../loader2/loader.c:646 ../loader2/mediacheck.c:255
+#: ../loader2/kickstart.c:270 ../loader2/lang.c:102 ../loader2/loader.c:348
+#: ../loader2/loader.c:652 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:150 ../loader2/method.c:359
 #: ../loader2/method.c:444 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -726,7 +743,7 @@ msgstr "RAID tæki"
 msgid "Apple Bootstrap"
 msgstr "Eplaræsing"
 
-#: ../fsset.py:1197 ../partitions.py:802
+#: ../fsset.py:1197 ../partitions.py:807
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
@@ -949,7 +966,7 @@ msgstr "Laga"
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:506
 #: ../loader2/driverdisk.c:517 ../loader2/hdinstall.c:326
-#: ../loader2/loader.c:377
+#: ../loader2/loader.c:379
 msgid "Yes"
 msgstr "Já"
 
@@ -958,11 +975,11 @@ msgstr "Já"
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:506 ../loader2/driverdisk.c:517
-#: ../loader2/loader.c:377
+#: ../loader2/loader.c:379
 msgid "No"
 msgstr "Nei"
 
-#: ../gui.py:240 ../text.py:338 ../loader2/net.c:215 ../loader2/net.c:532
+#: ../gui.py:240 ../text.py:338 ../loader2/net.c:218 ../loader2/net.c:549
 msgid "Retry"
 msgstr "Reyna aftur"
 
@@ -977,7 +994,7 @@ msgstr "Hunsa"
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:262
-#: ../loader2/loader.c:335
+#: ../loader2/loader.c:337
 msgid "Cancel"
 msgstr "Hætta við"
 
@@ -1049,7 +1066,7 @@ msgstr "Vélin þín mun nú endurræsa sig..."
 
 #: ../gui.py:1190 ../packages.py:1485 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:203
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:120
 msgid "_Back"
 msgstr "_Til baka"
 
@@ -1124,7 +1141,7 @@ msgstr ""
 "Vinsamlegast hafðu þá tiltæka áður en lengra er haldið. Ef þú þarft að hætta "
 "við þessa uppsetningu og endurræsa getur þú valið \"Endurræsa\" hnappinn."
 
-#: ../image.py:96 ../image.py:477 ../kickstart.py:1381 ../kickstart.py:1409
+#: ../image.py:96 ../image.py:477 ../kickstart.py:1386 ../kickstart.py:1414
 #: ../iw/partition_gui.py:1016
 msgid "_Continue"
 msgstr "_Halda áfram"
@@ -1181,11 +1198,11 @@ msgstr "Get ekki opnað geisladrifið."
 msgid "Install on System"
 msgstr "Setja upp á kerfi"
 
-#: ../kickstart.py:1373
+#: ../kickstart.py:1378
 msgid "Missing Package"
 msgstr "Vantar pakka"
 
-#: ../kickstart.py:1374
+#: ../kickstart.py:1379
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1194,15 +1211,15 @@ msgstr ""
 "Þú hefur tekið fram að setja skuli upp pakkann '%s'. Þessi pakki er ekki "
 "til. Viltu halda áfram eða hætta uppsetningu?"
 
-#: ../kickstart.py:1380 ../kickstart.py:1408
+#: ../kickstart.py:1385 ../kickstart.py:1413
 msgid "_Abort"
 msgstr "Hætta _við"
 
-#: ../kickstart.py:1400
+#: ../kickstart.py:1405
 msgid "Missing Group"
 msgstr "Pakkahóp vantar"
 
-#: ../kickstart.py:1401
+#: ../kickstart.py:1406
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1516,13 +1533,13 @@ msgstr ""
 "Viltu endurforsníða þennan DASD með CDL sniði?"
 
 #: ../partedUtils.py:304
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The partition table on device /dev/%s is of an unexpected type %s for your "
-"architecture.  To use this disk for installation of %s, it must be re-"
-"initialized causing the loss of ALL DATA on this drive.\n"
+"/dev/%s currently has a %s partition layout.  To use this disk for the "
+"installation of %s, it must be re-initialized, causing the loss of ALL DATA "
+"on this drive.\n"
 "\n"
-"Would you like to initialize this drive?"
+"Would you like to format this drive?"
 msgstr ""
 "Disksneiðataflan á tæki /dev/%s er af gerð %s sem ekki passar fyrir vélbúnað "
 "þinn. Til þess að hægt sé að nota diskinn fyrir þessa uppsetningu af %s þarf "
@@ -1531,21 +1548,51 @@ msgstr ""
 "\n"
 "Viltu frumstilla töfluna?"
 
-#: ../partedUtils.py:628
+#: ../partedUtils.py:313
+#, fuzzy
+msgid "_Ignore drive"
+msgstr "Hunsa"
+
+#: ../partedUtils.py:314
+#, fuzzy
+msgid "_Format drive"
+msgstr "_Forsníða"
+
+#: ../partedUtils.py:633
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Villa við tengingu skráakerfis á %s: %s"
 
-#: ../partedUtils.py:716
+#: ../partedUtils.py:721
 msgid "Initializing"
 msgstr "Frumstilli"
 
-#: ../partedUtils.py:717
+#: ../partedUtils.py:722
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Vinsamlegast bíðið meðan drifið %s er forsniðið...\n"
 
-#: ../partedUtils.py:807 ../partedUtils.py:859
+#: ../partedUtils.py:813
+#, fuzzy, python-format
+msgid ""
+"The partition table on device %s (%s) was unreadable. To create new "
+"partitions it must be initialized, causing the loss of ALL DATA on this "
+"drive.\n"
+"\n"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
+msgstr ""
+"Disksneiðataflan á tæki %s er ólæsileg.  Til þess að hægt sé að búa til "
+"nýjar disksneiðar þarf að frumstilla hana, sem veldur því að ÖLL GÖGN á "
+"disknum tapast.\n"
+"\n"
+"þessi aðgerð breytir fyrra vali um hvaða diska á að hunsa.\n"
+"\n"
+"Viltu frumstilla þennan disk og eyða á honum ÖLLUM GÖGNUM?"
+
+#: ../partedUtils.py:870
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1564,11 +1611,11 @@ msgstr ""
 "\n"
 "Viltu frumstilla þennan disk og eyða á honum ÖLLUM GÖGNUM?"
 
-#: ../partedUtils.py:977 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:988 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "Engin drif fundust"
 
-#: ../partedUtils.py:978
+#: ../partedUtils.py:989
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1912,7 +1959,7 @@ msgstr ""
 "diskminni núna. Til að það sé hægt þarf að vista disksneiðatöfluna á diskinn "
 "strax. Er það í lagi?"
 
-#: ../partitions.py:756
+#: ../partitions.py:761
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -1921,7 +1968,7 @@ msgstr ""
 "Þú hefur ekki skilgreint rótarsneið (/) sem er nauðsynleg svo uppsetning %s "
 "geti haldið áfram."
 
-#: ../partitions.py:761
+#: ../partitions.py:766
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -1929,17 +1976,17 @@ msgid ""
 msgstr ""
 "Rótarsneiðin þín er minni en 250 megabæti sem er yfirleitt of lítið fyrir %s."
 
-#: ../partitions.py:768
+#: ../partitions.py:773
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Þú verður að búa til /boot/efi sneið af gerðinni FAT sem er 50 megabæti."
 
-#: ../partitions.py:791
+#: ../partitions.py:796
 msgid "You must create a PPC PReP Boot partition."
 msgstr "Þú verður að búa til PPC PReP ræsisneið."
 
-#: ../partitions.py:799 ../partitions.py:810
+#: ../partitions.py:804 ../partitions.py:815
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1948,15 +1995,15 @@ msgstr ""
 "%s disksneiðin er minni en %s megabæti sem er minna en mælt er með fyrir "
 "venjulega %s uppsetningu."
 
-#: ../partitions.py:839 ../partRequests.py:651
+#: ../partitions.py:844 ../partRequests.py:651
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Ræsisneiðar mega einungis vera á RAID1 tækjum."
 
-#: ../partitions.py:846
+#: ../partitions.py:851
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Ræsisneiðar mega ekki vera á sýndardiskum."
 
-#: ../partitions.py:857
+#: ../partitions.py:862
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1964,7 +2011,7 @@ msgstr ""
 "Þú hefur ekki skilgreint diskminnissneið. Þó það sé ekki algerlega "
 "nauðsynlegt mun það bæta afköst til muna í flestum tilfellum."
 
-#: ../partitions.py:864
+#: ../partitions.py:869
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1973,7 +2020,7 @@ msgstr ""
 "Þú hefur skilgreint fleiri en 32 diskminnissneiðar. Kjarninn í %s styður "
 "einungis 32 diskminnissneiðar."
 
-#: ../partitions.py:875
+#: ../partitions.py:880
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1982,15 +2029,15 @@ msgstr ""
 "Þú hefur skilgreint minna diskminnispláss (%dM) en minnið í vélinni (%dM). "
 "Þetta getur haft neikvæð áhrif á afköst vélarinnar."
 
-#: ../partitions.py:1159
+#: ../partitions.py:1167
 msgid "the partition in use by the installer."
 msgstr "disksneiðin er í notkun af uppsetningarforritinu."
 
-#: ../partitions.py:1162
+#: ../partitions.py:1170
 msgid "a partition which is a member of a RAID array."
 msgstr "disksneið sem er í RAID tæki."
 
-#: ../partitions.py:1165
+#: ../partitions.py:1173
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "disksneið sem er í LVM sýndardiskhóp."
 
@@ -2449,8 +2496,8 @@ msgid ""
 "install or continue with a text mode install?"
 msgstr ""
 "Það var ekki hægt að ræsa X á vélinni.  Viltu ræsa VNC til að tengjast "
-"þessari vél frá annari og framkvæma myndræna uppsetningu eða halda "
-"áfram í textaham?"
+"þessari vél frá annari og framkvæma myndræna uppsetningu eða halda áfram í "
+"textaham?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
@@ -2475,8 +2522,8 @@ msgid ""
 "installation"
 msgstr ""
 "Lykilorð mun koma í veg fyrir að óprúttnir aðilar tengist og fylgjast með "
-"framgangi uppsetningarinnar.  Vinsamlegast gefðu upp lykilorð til að nota "
-"í uppsetningunni"
+"framgangi uppsetningarinnar.  Vinsamlegast gefðu upp lykilorð til að nota í "
+"uppsetningunni"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -3133,15 +3180,15 @@ msgstr "Disksneiðing með fdisk"
 msgid "Select a drive to partition with fdisk:"
 msgstr "Veldu disk til að keyra fdisk á:"
 
-#: ../iw/firewall_gui.py:25 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:25 ../textw/firewall_text.py:29
 msgid "Firewall"
 msgstr "Eldveggur"
 
-#: ../iw/firewall_gui.py:35 ../textw/firewall_text.py:195
+#: ../iw/firewall_gui.py:35 ../textw/firewall_text.py:112
 msgid "Warning - No Firewall"
 msgstr "Aðvörun - Enginn eldveggur"
 
-#: ../iw/firewall_gui.py:36 ../textw/firewall_text.py:196
+#: ../iw/firewall_gui.py:36 ../textw/firewall_text.py:113
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -3158,29 +3205,11 @@ msgid "_Configure Firewall"
 msgstr "_Stillingar eldveggs"
 
 #: ../iw/firewall_gui.py:43 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:203
+#: ../textw/firewall_text.py:120
 msgid "_Proceed"
 msgstr "_Halda áfram"
 
-#: ../iw/firewall_gui.py:122
-#, python-format
-msgid ""
-"Invalid port given: %s.  The proper format is 'port:protocol', where port is "
-"between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-"\n"
-"For example, '1234:udp'"
-msgstr ""
-"Þú gafst upp ógilda gátt: %s. Rétt snið á þessu er 'gátt:prótókollur' þar "
-"sem gátt er á milli 1 og 65535 og prótókollur er annaðhvort 'tcp' eða "
-"'udp'.\n"
-"\n"
-"Til dæmis '1234:udp'"
-
-#: ../iw/firewall_gui.py:126
-msgid "Warning: Bad Token"
-msgstr "Aðvörun: Ógilt tákn"
-
-#: ../iw/firewall_gui.py:152 ../textw/firewall_text.py:30
+#: ../iw/firewall_gui.py:77 ../textw/firewall_text.py:31
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3188,55 +3217,42 @@ msgstr ""
 "Eldveggur getur komið í veg fyrir að óprúttnir aðilar geti tengst tölvunni "
 "þinni af Internetinu.  Viltu virkja eldvegginn?"
 
-#: ../iw/firewall_gui.py:160
+#: ../iw/firewall_gui.py:88
 msgid "N_o firewall"
 msgstr "En_ginn eldveggur"
 
-#: ../iw/firewall_gui.py:162
+#: ../iw/firewall_gui.py:90
 msgid "_Enable firewall"
 msgstr "_Virkja eldvegginn"
 
-#: ../iw/firewall_gui.py:179
-msgid "Allow others on the internet to access these services."
-msgstr "Leyfa öðrum á internetinu að nota þessar þjónustur."
+#: ../iw/firewall_gui.py:107 ../textw/firewall_text.py:94
+msgid ""
+"With a firewall, you may wish to allow access to specific services on your "
+"computer from others.  Allow access to which services?"
+msgstr ""
 
-#: ../iw/firewall_gui.py:187
-msgid "_Allow incoming:"
-msgstr "_Leyfa tengingar inn:"
+#: ../iw/firewall_gui.py:143
+msgid ""
+"Security Enhanced Linux (SELinux) provides finer-grained security controls "
+"than are available in a traditional Linux system.  It can be set up in a "
+"disabled state, a state which only warns about things which would be denied, "
+"or a fully active state."
+msgstr ""
 
-#: ../iw/firewall_gui.py:203
-msgid "Remote Login (SSH)"
-msgstr "Fjarvinnsla (SSH)"
+#: ../iw/firewall_gui.py:155
+#, fuzzy
+msgid "Enable _SELinux?:"
+msgstr "Slökkva á SELinux"
 
-#: ../iw/firewall_gui.py:205
-msgid "Web Server"
-msgstr "Vefþjónn"
-
-#: ../iw/firewall_gui.py:207
-msgid "Mail Server (SMTP)"
-msgstr "Póstþjónn (SMTP)"
-
-#: ../iw/firewall_gui.py:209
-msgid "File Transfer (FTP)"
-msgstr "Skráaflutningur (FTP)"
-
-#: ../iw/firewall_gui.py:215
-msgid "Other _ports:"
-msgstr "Aðrar _gáttir:"
-
-#: ../iw/firewall_gui.py:236
-msgid "_Security Enhanced Linux (SELinux) Extensions:"
-msgstr "Ö_ryggisendurbættur Linux (SELinux) viðbætur:"
-
-#: ../iw/firewall_gui.py:242
+#: ../iw/firewall_gui.py:161
 msgid "Disabled"
 msgstr "Óvirkar"
 
-#: ../iw/firewall_gui.py:242
+#: ../iw/firewall_gui.py:161
 msgid "Warn"
 msgstr "Aðvörun"
 
-#: ../iw/firewall_gui.py:242 ../textw/firewall_text.py:265
+#: ../iw/firewall_gui.py:161 ../textw/firewall_text.py:173
 msgid "Active"
 msgstr "Virkar"
 
@@ -3610,7 +3626,7 @@ msgstr "Stærð (MB)"
 msgid "_Add"
 msgstr "_Bæta við"
 
-#: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:481
+#: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:508
 #: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1360
 msgid "_Edit"
 msgstr "_Breyta"
@@ -3655,19 +3671,19 @@ msgstr "_Herma eftir þremur hnöppum"
 msgid "Select the appropriate mouse for the system."
 msgstr "Veldu rétta mús fyrir þessa vél."
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:571
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:598
 msgid "Gateway"
 msgstr "Gátt"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:573
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:600
 msgid "Primary DNS"
 msgstr "Aðalnafnaþjónn"
 
-#: ../iw/network_gui.py:28 ../iw/network_gui.py:575
+#: ../iw/network_gui.py:28 ../iw/network_gui.py:602
 msgid "Secondary DNS"
 msgstr "Annar nafnaþjónn"
 
-#: ../iw/network_gui.py:28 ../iw/network_gui.py:577
+#: ../iw/network_gui.py:28 ../iw/network_gui.py:604
 msgid "Tertiary DNS"
 msgstr "Þriðji nafnaþjónn"
 
@@ -3713,7 +3729,7 @@ msgstr ""
 "Þú hefur ekki gefið neitt upp í sviðinu \"%s\".  Þetta gæti valdið þér "
 "vandræðum síðar."
 
-#: ../iw/network_gui.py:164 ../textw/network_text.py:399
+#: ../iw/network_gui.py:164 ../textw/network_text.py:410
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3778,20 +3794,30 @@ msgstr "_IP vistfang"
 msgid "Net_mask"
 msgstr "Net_möskvi"
 
-#: ../iw/network_gui.py:232
+#: ../iw/network_gui.py:234
 msgid "_Point to Point (IP)"
 msgstr "_Stað í stað (IP)"
 
-#: ../iw/network_gui.py:256
+#: ../iw/network_gui.py:238
+#, fuzzy
+msgid "_ESSID"
+msgstr "ESSID"
+
+#: ../iw/network_gui.py:239
+#, fuzzy
+msgid "Encryption _Key"
+msgstr "Dulritunarlykill"
+
+#: ../iw/network_gui.py:279
 #, python-format
 msgid "Configure %s"
 msgstr "Stillingar %s"
 
-#: ../iw/network_gui.py:424
+#: ../iw/network_gui.py:451
 msgid "Active on Boot"
 msgstr "Virkja við ræsingu"
 
-#: ../iw/network_gui.py:426 ../iw/osbootwidget.py:66
+#: ../iw/network_gui.py:453 ../iw/osbootwidget.py:66
 #: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:212 ../textw/bootloader_text.py:283
 #: ../textw/mouse_text.py:38 ../textw/partition_text.py:1130
@@ -3799,35 +3825,35 @@ msgstr "Virkja við ræsingu"
 msgid "Device"
 msgstr "Tæki"
 
-#: ../iw/network_gui.py:428
+#: ../iw/network_gui.py:455
 msgid "IP/Netmask"
 msgstr "IP/Netmöskvi"
 
-#: ../iw/network_gui.py:488
+#: ../iw/network_gui.py:515
 msgid "Network Devices"
 msgstr "Netkort"
 
-#: ../iw/network_gui.py:498
+#: ../iw/network_gui.py:525
 msgid "Set the hostname:"
 msgstr "Settu vélarheiti:"
 
-#: ../iw/network_gui.py:502
+#: ../iw/network_gui.py:529
 msgid "_automatically via DHCP"
 msgstr "_sjálfkrafa með DHCP"
 
-#: ../iw/network_gui.py:508
+#: ../iw/network_gui.py:535
 msgid "_manually"
 msgstr "_handvirkt"
 
-#: ../iw/network_gui.py:514
+#: ../iw/network_gui.py:541
 msgid "(ex. \"host.domain.com\")"
 msgstr "(t.d. \"vél.lén.is\")"
 
-#: ../iw/network_gui.py:521 ../loader2/net.c:751
+#: ../iw/network_gui.py:548 ../loader2/net.c:772
 msgid "Hostname"
 msgstr "Vélarheiti"
 
-#: ../iw/network_gui.py:582
+#: ../iw/network_gui.py:609
 msgid "Miscellaneous Settings"
 msgstr "Ýmsar stillingar"
 
@@ -5322,9 +5348,9 @@ msgstr ""
 #: ../loader2/driverdisk.c:381 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:187 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:326 ../loader2/hdinstall.c:380 ../loader2/kbd.c:125
-#: ../loader2/loader.c:322 ../loader2/loader.c:824 ../loader2/loader.c:846
-#: ../loader2/net.c:188 ../loader2/net.c:210 ../loader2/net.c:487
-#: ../loader2/net.c:974 ../loader2/nfsinstall.c:54 ../loader2/urls.c:254
+#: ../loader2/loader.c:324 ../loader2/loader.c:830 ../loader2/loader.c:852
+#: ../loader2/net.c:191 ../loader2/net.c:213 ../loader2/net.c:504
+#: ../loader2/net.c:1014 ../loader2/nfsinstall.c:54 ../loader2/urls.c:254
 #: ../loader2/urls.c:444
 msgid "Back"
 msgstr "Til baka"
@@ -5419,86 +5445,40 @@ msgstr ""
 msgid "Choose a disk to run fdisk on"
 msgstr "Veldu disk til að keyra fdisk á"
 
-#: ../textw/firewall_text.py:26
+#: ../textw/firewall_text.py:27
 msgid "Customize"
 msgstr "Sérsníða"
 
-#: ../textw/firewall_text.py:47
+#: ../textw/firewall_text.py:44
 msgid "Enable firewall"
 msgstr "Virkja eldvegginn"
 
-#: ../textw/firewall_text.py:50
+#: ../textw/firewall_text.py:47
 msgid "No firewall"
 msgstr "Enginn eldveggur"
 
-#: ../textw/firewall_text.py:69
-msgid "Trusted Devices:"
-msgstr "Tæki sem er treyst, þegar í notkun:"
-
-#: ../textw/firewall_text.py:79
+#: ../textw/firewall_text.py:54
 msgid "Allow incoming:"
 msgstr "Leyfa tengingar inn:"
 
-#: ../textw/firewall_text.py:84
-msgid "SSH"
-msgstr "SSH"
-
-#: ../textw/firewall_text.py:86 ../loader2/telnetd.c:80
-#: ../loader2/telnetd.c:122
-msgid "Telnet"
-msgstr "Telnet"
-
-#: ../textw/firewall_text.py:88
-msgid "WWW (HTTP)"
-msgstr "WWW (HTTP)"
-
-#: ../textw/firewall_text.py:90
-msgid "Mail (SMTP)"
-msgstr "Póstur (SMTP)"
-
-#: ../textw/firewall_text.py:92
-msgid "FTP"
-msgstr "FTP"
-
-#: ../textw/firewall_text.py:96
-msgid "Other ports"
-msgstr "Aðrar gáttir"
-
-#: ../textw/firewall_text.py:122 ../textw/firewall_text.py:185
-#: ../textw/language_text.py:145
+#: ../textw/firewall_text.py:86 ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "Ógilt val"
 
-#: ../textw/firewall_text.py:123
+#: ../textw/firewall_text.py:87
 msgid "You cannot customize a disabled firewall."
 msgstr "Þú getur ekki sérsniðið eldvegg sem er ekki virkur."
 
-#: ../textw/firewall_text.py:128
-msgid "Firewall Configuration - Customize"
-msgstr "Stillingar eldveggs - Sérsníða"
+#: ../textw/firewall_text.py:92
+#, fuzzy
+msgid "Customize Firewall Configuration"
+msgstr "Sérsníða grafískar stillingar"
 
-#: ../textw/firewall_text.py:130
-msgid ""
-"You can customize your firewall in two ways. First, you can select to allow "
-"all traffic from certain network interfaces. Second, you can allow certain "
-"protocols explicitly through the firewall. In a comma separated list, "
-"specify additional ports in the form 'service:protocol' such as 'imap:tcp'. "
-msgstr ""
-"Þú getur sérsniðið eldvegginn á tvo vegu. Þú getur valið að leyfa allar "
-"tengingar frá tilteknum netkortum eða að leyfa tilteknum prótokollum "
-"eingungu að komast í gegnum eldvegginn. Þú getur tiltekið auka gátt á "
-"sniðinu 'þjónusta:prótókollur' eins og til dæmis 'imap:tcp'."
-
-#: ../textw/firewall_text.py:186
-#, python-format
-msgid "Warning: %s is not a valid port."
-msgstr "Aðvörun: %s er ekki gild gátt."
-
-#: ../textw/firewall_text.py:251
+#: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
 msgstr "Öryggisendurbætur"
 
-#: ../textw/firewall_text.py:253
+#: ../textw/firewall_text.py:161
 msgid ""
 "Security Enhanced Linux (SELinux) provides stricter access controls to "
 "improve the security of your system.  How would you like this support "
@@ -5507,11 +5487,11 @@ msgstr ""
 "Linux með öryggisendurbótum (SELinux) veitir betri aðgangsstjórn til að auka "
 "öryggi vélarinnar. Viltu virkja þessar endurbætur ?"
 
-#: ../textw/firewall_text.py:261
+#: ../textw/firewall_text.py:169
 msgid "Disable SELinux"
 msgstr "Slökkva á SELinux"
 
-#: ../textw/firewall_text.py:263
+#: ../textw/firewall_text.py:171
 msgid "Warn on violations"
 msgstr "Vara við brotum"
 
@@ -5592,70 +5572,78 @@ msgstr "Netmöskvi"
 msgid "Point to Point (IP)"
 msgstr "Stað í stað (IP)"
 
-#: ../textw/network_text.py:83
+#: ../textw/network_text.py:75 ../loader2/net.c:186
+msgid "ESSID"
+msgstr "ESSID"
+
+#: ../textw/network_text.py:76 ../loader2/net.c:187
+msgid "Encryption Key"
+msgstr "Dulritunarlykill"
+
+#: ../textw/network_text.py:88
 #, python-format
 msgid "Network Device: %s"
 msgstr "Netkort: %s"
 
-#: ../textw/network_text.py:89
+#: ../textw/network_text.py:94
 #, python-format
 msgid "Description: %s"
 msgstr "Lýsing: %s"
 
-#: ../textw/network_text.py:94
+#: ../textw/network_text.py:99
 msgid "Configure using DHCP"
 msgstr "Stilla með DHCP"
 
-#: ../textw/network_text.py:107
+#: ../textw/network_text.py:112
 msgid "Activate on boot"
 msgstr "Virkja við ræsingu"
 
-#: ../textw/network_text.py:130
+#: ../textw/network_text.py:138
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "Stillingar nets %s"
 
-#: ../textw/network_text.py:163
+#: ../textw/network_text.py:171
 msgid "Invalid information"
 msgstr "Ógildar upplýsingar"
 
-#: ../textw/network_text.py:164
+#: ../textw/network_text.py:172
 msgid "You must enter valid IP information to continue"
 msgstr "Þú verður að gefa upp gildar IP stillingar"
 
-#: ../textw/network_text.py:245
+#: ../textw/network_text.py:256
 msgid "Gateway:"
 msgstr "Gátt:"
 
-#: ../textw/network_text.py:255
+#: ../textw/network_text.py:266
 msgid "Primary DNS:"
 msgstr "Aðalnafnaþjónn:"
 
-#: ../textw/network_text.py:260
+#: ../textw/network_text.py:271
 msgid "Secondary DNS:"
 msgstr "Annar nafnaþjónn:"
 
-#: ../textw/network_text.py:265
+#: ../textw/network_text.py:276
 msgid "Tertiary DNS:"
 msgstr "Þriðji nafnaþjónn:"
 
-#: ../textw/network_text.py:272
+#: ../textw/network_text.py:283
 msgid "Miscellaneous Network Settings"
 msgstr "Ýmsar netstillingar"
 
-#: ../textw/network_text.py:340
+#: ../textw/network_text.py:351
 msgid "automatically via DHCP"
 msgstr "sjálfkrafa með DHCP"
 
-#: ../textw/network_text.py:344
+#: ../textw/network_text.py:355
 msgid "manually"
 msgstr "handvirkt"
 
-#: ../textw/network_text.py:363
+#: ../textw/network_text.py:374
 msgid "Hostname Configuration"
 msgstr "Stillingar vélarheitis"
 
-#: ../textw/network_text.py:366
+#: ../textw/network_text.py:377
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
@@ -5666,11 +5654,11 @@ msgstr ""
 "'sjálfkrafa með DHCP'. Annars þarftu að slá inn heiti fyrir vélina þína. "
 "Gerir þú það ekki fær hún heitið 'localhost.'"
 
-#: ../textw/network_text.py:392 ../textw/network_text.py:398
+#: ../textw/network_text.py:403 ../textw/network_text.py:409
 msgid "Invalid Hostname"
 msgstr "Ógilt vélarheiti"
 
-#: ../textw/network_text.py:393
+#: ../textw/network_text.py:404
 msgid "You have not specified a hostname."
 msgstr "Þú hefur ekki skilgreint vélarheiti."
 
@@ -6804,11 +6792,12 @@ msgid "Do you wish to load any more driver disks?"
 msgstr "Viltu lesa inn fleiri rekladisklinga?"
 
 #: ../loader2/driverdisk.c:570 ../loader2/driverdisk.c:603
-#: ../loader2/hdinstall.c:463 ../loader2/kickstart.c:109
-#: ../loader2/kickstart.c:119 ../loader2/kickstart.c:162
-#: ../loader2/modules.c:919 ../loader2/net.c:833 ../loader2/net.c:856
-#: ../loader2/nfsinstall.c:247 ../loader2/urlinstall.c:431
-#: ../loader2/urlinstall.c:440 ../loader2/urlinstall.c:451
+#: ../loader2/hdinstall.c:463 ../loader2/kickstart.c:118
+#: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
+#: ../loader2/kickstart.c:401 ../loader2/modules.c:919 ../loader2/net.c:857
+#: ../loader2/net.c:880 ../loader2/nfsinstall.c:247
+#: ../loader2/urlinstall.c:431 ../loader2/urlinstall.c:440
+#: ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
 msgstr "Kickstart villa"
 
@@ -6947,31 +6936,36 @@ msgstr "Stillingar lyklaborðs"
 msgid "What type of keyboard do you have?"
 msgstr "Hvernig lyklaborð ertu með?"
 
-#: ../loader2/kickstart.c:110
+#: ../loader2/kickstart.c:119
 #, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "Villa við opnun hraðuppsetningarskrár %s: %s"
 
-#: ../loader2/kickstart.c:120
+#: ../loader2/kickstart.c:129
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Villa við lestur hraðuppsetningarskráar %s: %s"
 
-#: ../loader2/kickstart.c:163
+#: ../loader2/kickstart.c:172
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Villa í %s á línu %d í hraðuppsetningarskrá %s."
 
-#: ../loader2/kickstart.c:262
+#: ../loader2/kickstart.c:271
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Gat ekki fundið ks.cfg á ræsidisklingnum."
 
-#: ../loader2/lang.c:52 ../loader2/loader.c:168
+#: ../loader2/kickstart.c:402
+#, fuzzy, c-format
+msgid "Bad argument to shutdown kickstart method command %s: %s"
+msgstr "Óleyfilegt viðfang við HD skipun hraðuppsetningar %s: %s"
+
+#: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
 msgid "Welcome to %s"
 msgstr "Velkomin(n) í %s"
 
-#: ../loader2/lang.c:53 ../loader2/loader.c:174
+#: ../loader2/lang.c:53 ../loader2/loader.c:176
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -6981,23 +6975,23 @@ msgstr ""
 msgid "Choose a Language"
 msgstr "Veldu tungumál"
 
-#: ../loader2/loader.c:103
+#: ../loader2/loader.c:105
 msgid "Local CDROM"
 msgstr "Geisladrif"
 
-#: ../loader2/loader.c:105
+#: ../loader2/loader.c:107
 msgid "Hard drive"
 msgstr "Harðir diskar"
 
-#: ../loader2/loader.c:106
+#: ../loader2/loader.c:108
 msgid "NFS image"
 msgstr "NFS svæði"
 
-#: ../loader2/loader.c:317
+#: ../loader2/loader.c:319
 msgid "Update Disk Source"
 msgstr "Staðsetning uppfærsludisks"
 
-#: ../loader2/loader.c:318
+#: ../loader2/loader.c:320
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -7005,29 +6999,29 @@ msgstr ""
 "Þú hefur fleiri en eitt tæki í vélinni þinni sem gætu hentað fyrir "
 "uppfærsludisk.  Hvert þeirra viltu nota?"
 
-#: ../loader2/loader.c:333
+#: ../loader2/loader.c:335
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Settu uppfærsludisklinginn í /dev/%s og veldu \"Í lagi\" til að halda áfram."
 
-#: ../loader2/loader.c:335
+#: ../loader2/loader.c:337
 msgid "Updates Disk"
 msgstr "Uppfærsludiskur"
 
-#: ../loader2/loader.c:347
+#: ../loader2/loader.c:349
 msgid "Failed to mount updates disk"
 msgstr "Gat ekki tengt uppfærsludisklinginn"
 
-#: ../loader2/loader.c:350
+#: ../loader2/loader.c:352
 msgid "Updates"
 msgstr "Uppfærslur"
 
-#: ../loader2/loader.c:350
+#: ../loader2/loader.c:352
 msgid "Reading anaconda updates..."
 msgstr "Les inn uppfærslur fyrir anacondu..."
 
-#: ../loader2/loader.c:378
+#: ../loader2/loader.c:380
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -7036,40 +7030,40 @@ msgstr ""
 "Engir harðir diskar fundust. Þú þarft líklega að velja rekla fyrir diskana "
 "handvirkt svo uppsetningin geti haldið áfram. Viltu velja þá núna ?"
 
-#: ../loader2/loader.c:643
+#: ../loader2/loader.c:649
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Það er ekki nægjanlegt vinnsluminni í vélinni til að setja upp %s."
 
-#: ../loader2/loader.c:816
+#: ../loader2/loader.c:822
 msgid "Rescue Method"
 msgstr "Gerð neyðardisklings"
 
-#: ../loader2/loader.c:817
+#: ../loader2/loader.c:823
 msgid "Installation Method"
 msgstr "Tegund uppsetningar"
 
-#: ../loader2/loader.c:819
+#: ../loader2/loader.c:825
 msgid "What type of media contains the rescue image?"
 msgstr "Á hverskonar miðli er neyðardisklingurinn?"
 
-#: ../loader2/loader.c:821
+#: ../loader2/loader.c:827
 msgid "What type of media contains the packages to be installed?"
 msgstr "Hverskonar kerfi viltu setja upp?"
 
-#: ../loader2/loader.c:845
+#: ../loader2/loader.c:851
 msgid "No driver found"
 msgstr "Engin rekill fannst"
 
-#: ../loader2/loader.c:845
+#: ../loader2/loader.c:851
 msgid "Select driver"
 msgstr "Veldu rekil"
 
-#: ../loader2/loader.c:846
+#: ../loader2/loader.c:852
 msgid "Use a driver disk"
 msgstr "Nota rekladiskling"
 
-#: ../loader2/loader.c:847
+#: ../loader2/loader.c:853
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -7077,40 +7071,40 @@ msgstr ""
 "Engin tæki fundust til að framkvæma þessa tegund af uppsetningu.  Viltu "
 "velja rekil handvirkt eða nota rekladiskling?"
 
-#: ../loader2/loader.c:1007
+#: ../loader2/loader.c:1013
 msgid "The following devices have been found on your system."
 msgstr "Eftirfarandi tæki hafa fundist í vélinni þinni."
 
-#: ../loader2/loader.c:1009
+#: ../loader2/loader.c:1015
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "Það eru engir sérstakir tækjareklar í notkun. Viltu lesa einhverja inn núna?"
 
-#: ../loader2/loader.c:1013
+#: ../loader2/loader.c:1019
 msgid "Devices"
 msgstr "Tæki"
 
-#: ../loader2/loader.c:1014
+#: ../loader2/loader.c:1020
 msgid "Done"
 msgstr "Búið"
 
-#: ../loader2/loader.c:1015
+#: ../loader2/loader.c:1021
 msgid "Add Device"
 msgstr "Bæta við tæki"
 
-#: ../loader2/loader.c:1130
+#: ../loader2/loader.c:1136
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "lesarinn hefur þegar verið keyrður. Ræsi skel.\n"
 
-#: ../loader2/loader.c:1478
+#: ../loader2/loader.c:1484
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Keyri anaconda, %s björgunartólið - Vinsamlegast bíðið...\n"
 
-#: ../loader2/loader.c:1480
+#: ../loader2/loader.c:1486
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Keyri anaconda, %s kerfisuppsetningatólið - Vinsamlegast bíðið...\n"
@@ -7235,38 +7229,30 @@ msgstr ""
 "    o nafn möppu á þjóninum sem inniheldur\n"
 "      %s fyrir vélina þína\n"
 
-#: ../loader2/net.c:177
+#: ../loader2/net.c:180
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
-"%s er þráðlaust netkort. Vinsamlegast gefðu upp ESSID númer og dulritunarlykil "
-"þann sem þarf til að nota þráðlausa netið. Ef þessi gildi eru óþörf má skilja "
-"við þetta tómt og uppsetningin mun halda áfram."
+"%s er þráðlaust netkort. Vinsamlegast gefðu upp ESSID númer og "
+"dulritunarlykil þann sem þarf til að nota þráðlausa netið. Ef þessi gildi "
+"eru óþörf má skilja við þetta tómt og uppsetningin mun halda áfram."
 
-#: ../loader2/net.c:183
-msgid "ESSID"
-msgstr "ESSID"
-
-#: ../loader2/net.c:184
-msgid "Encryption Key"
-msgstr "Dulritunarlykill"
-
-#: ../loader2/net.c:187
+#: ../loader2/net.c:190
 msgid "Wireless Settings"
 msgstr "Stillingar þráðlausra neta"
 
-#: ../loader2/net.c:200
+#: ../loader2/net.c:203
 msgid "Nameserver IP"
 msgstr "IP vistfang nafnaþjóns"
 
-#: ../loader2/net.c:204
+#: ../loader2/net.c:207
 msgid "Nameserver"
 msgstr "Nafnaþjónn"
 
-#: ../loader2/net.c:205
+#: ../loader2/net.c:208
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -7278,24 +7264,24 @@ msgstr ""
 "það inn hérna. Ef þú veist það ekki máttu skilja þetta eftir autt og "
 "uppsetningin mun halda áfram."
 
-#: ../loader2/net.c:215
+#: ../loader2/net.c:218
 msgid "Invalid IP Information"
 msgstr "Ógildar IP upplýsingar"
 
-#: ../loader2/net.c:216
+#: ../loader2/net.c:219
 msgid "You entered an invalid IP address."
 msgstr "Þú gafst upp ógilt IP vistfang."
 
-#: ../loader2/net.c:265 ../loader2/net.c:541
+#: ../loader2/net.c:282 ../loader2/net.c:558
 msgid "Dynamic IP"
 msgstr "Lausbundið IP"
 
-#: ../loader2/net.c:266 ../loader2/net.c:542
+#: ../loader2/net.c:283 ../loader2/net.c:559
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "Sendi beiðni um IP stillingar fyrir %s..."
 
-#: ../loader2/net.c:431
+#: ../loader2/net.c:448
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -7303,57 +7289,57 @@ msgstr ""
 "Sláðu inn IP uppsetningu þessarar vélar. Hver færsla á að vera IP-tala rituð "
 "sem tölur með punkt á milli (dæmi 1.2.3.4)."
 
-#: ../loader2/net.c:437
+#: ../loader2/net.c:454
 msgid "IP address:"
 msgstr "IP vistfang:"
 
-#: ../loader2/net.c:440
+#: ../loader2/net.c:457
 msgid "Netmask:"
 msgstr "Netmöskvi:"
 
-#: ../loader2/net.c:443
+#: ../loader2/net.c:460
 msgid "Default gateway (IP):"
 msgstr "Sjálfgefin gátt (IP):"
 
-#: ../loader2/net.c:446
+#: ../loader2/net.c:463
 msgid "Primary nameserver:"
 msgstr "Aðalnafnaþjónn:"
 
-#: ../loader2/net.c:473
+#: ../loader2/net.c:490
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Nota lausbundnar IP stillingar (BOOTP/DHCP)"
 
-#: ../loader2/net.c:501
+#: ../loader2/net.c:518
 msgid "Configure TCP/IP"
 msgstr "Stillingar TCP/IP"
 
-#: ../loader2/net.c:532
+#: ../loader2/net.c:549
 msgid "Missing Information"
 msgstr "Upplýsingar vantar"
 
-#: ../loader2/net.c:533
+#: ../loader2/net.c:550
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Þú verður að gefa upp fullgilt IP vistfang og netmöskva."
 
-#: ../loader2/net.c:752
+#: ../loader2/net.c:773
 msgid "Determining host name and domain..."
 msgstr "Reyni að ákvarða vélarheiti og netlén..."
 
-#: ../loader2/net.c:834
+#: ../loader2/net.c:858
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "óleyfilegt viðfang við netskipun hraðuppsetningar %s: %s"
 
-#: ../loader2/net.c:857
+#: ../loader2/net.c:881
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Óleyfileg ''bootproto' %s í netskipun hraðuppsetningar"
 
-#: ../loader2/net.c:970
+#: ../loader2/net.c:1010
 msgid "Networking Device"
 msgstr "Netkort"
 
-#: ../loader2/net.c:971
+#: ../loader2/net.c:1011
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -7387,6 +7373,10 @@ msgstr "Ekki tókst að tengja þetta skráakerfi frá þjóninum."
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "óleyfilegt viðfang við NFS skipun hraðuppsetningar %s: %s"
+
+#: ../loader2/telnetd.c:80 ../loader2/telnetd.c:122
+msgid "Telnet"
+msgstr "Telnet"
 
 #: ../loader2/telnetd.c:80
 msgid "Waiting for telnet connection..."
@@ -8156,6 +8146,10 @@ msgid "Zaporozh'ye, E Lugansk"
 msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
+msgid "Arabic"
+msgstr ""
+
+#. generated from lang-table
 msgid "Bengali"
 msgstr "Bengalí"
 
@@ -8208,6 +8202,11 @@ msgid "German"
 msgstr "Þýska"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Hindi"
+msgstr "Leita"
+
+#. generated from lang-table
 msgid "Hungarian"
 msgstr "Ungverska"
 
@@ -8226,6 +8225,10 @@ msgstr "Japanska"
 #. generated from lang-table
 msgid "Korean"
 msgstr "Kóreska"
+
+#. generated from lang-table
+msgid "Macedonian"
+msgstr ""
 
 #. generated from lang-table
 msgid "Malay"
@@ -8248,6 +8251,10 @@ msgid "Portuguese(Brazilian)"
 msgstr "Brasílísk Postúgalska"
 
 #. generated from lang-table
+msgid "Punjabi"
+msgstr ""
+
+#. generated from lang-table
 msgid "Russian"
 msgstr "Rússneska"
 
@@ -8264,6 +8271,11 @@ msgid "Swedish"
 msgstr "Sænska"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Tamil"
+msgstr "Tasmania"
+
+#. generated from lang-table
 msgid "Turkish"
 msgstr "Tyrkneska"
 
@@ -8272,9 +8284,79 @@ msgid "Ukrainian"
 msgstr "Úkraínska"
 
 #. generated from lang-table
+msgid "Vietnamese"
+msgstr ""
+
+#. generated from lang-table
 msgid "Welsh"
 msgstr "Velska"
 
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
+
+#~ msgid ""
+#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
+#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
+#~ "\n"
+#~ "For example, '1234:udp'"
+#~ msgstr ""
+#~ "Þú gafst upp ógilda gátt: %s. Rétt snið á þessu er 'gátt:prótókollur' þar "
+#~ "sem gátt er á milli 1 og 65535 og prótókollur er annaðhvort 'tcp' eða "
+#~ "'udp'.\n"
+#~ "\n"
+#~ "Til dæmis '1234:udp'"
+
+#~ msgid "Warning: Bad Token"
+#~ msgstr "Aðvörun: Ógilt tákn"
+
+#~ msgid "Allow others on the internet to access these services."
+#~ msgstr "Leyfa öðrum á internetinu að nota þessar þjónustur."
+
+#~ msgid "_Allow incoming:"
+#~ msgstr "_Leyfa tengingar inn:"
+
+#~ msgid "Web Server"
+#~ msgstr "Vefþjónn"
+
+#~ msgid "Other _ports:"
+#~ msgstr "Aðrar _gáttir:"
+
+#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
+#~ msgstr "Ö_ryggisendurbættur Linux (SELinux) viðbætur:"
+
+#~ msgid "Trusted Devices:"
+#~ msgstr "Tæki sem er treyst, þegar í notkun:"
+
+#~ msgid "SSH"
+#~ msgstr "SSH"
+
+#~ msgid "WWW (HTTP)"
+#~ msgstr "WWW (HTTP)"
+
+#~ msgid "Mail (SMTP)"
+#~ msgstr "Póstur (SMTP)"
+
+#~ msgid "FTP"
+#~ msgstr "FTP"
+
+#~ msgid "Other ports"
+#~ msgstr "Aðrar gáttir"
+
+#~ msgid "Firewall Configuration - Customize"
+#~ msgstr "Stillingar eldveggs - Sérsníða"
+
+#~ msgid ""
+#~ "You can customize your firewall in two ways. First, you can select to "
+#~ "allow all traffic from certain network interfaces. Second, you can allow "
+#~ "certain protocols explicitly through the firewall. In a comma separated "
+#~ "list, specify additional ports in the form 'service:protocol' such as "
+#~ "'imap:tcp'. "
+#~ msgstr ""
+#~ "Þú getur sérsniðið eldvegginn á tvo vegu. Þú getur valið að leyfa allar "
+#~ "tengingar frá tilteknum netkortum eða að leyfa tilteknum prótokollum "
+#~ "eingungu að komast í gegnum eldvegginn. Þú getur tiltekið auka gátt á "
+#~ "sniðinu 'þjónusta:prótókollur' eins og til dæmis 'imap:tcp'."
+
+#~ msgid "Warning: %s is not a valid port."
+#~ msgstr "Aðvörun: %s er ekki gild gátt."
