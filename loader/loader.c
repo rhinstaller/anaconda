@@ -1275,6 +1275,36 @@ static void mountCdromStage2(char *cddev) {
     } while (!gotcd1);
 }
 
+/* ask about doing media check */
+static void queryMediaCheck(char *name, int flags) {
+  int rc;
+
+  /* check image(s) if not kickstart and requested */
+  if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags)) {
+    
+    startNewt(flags);
+    rc = newtWinChoice(_("CD Found"), _("OK"),
+		       _("Skip"), 
+       _("To begin testing the CD media before installation press %s.\n\n"
+	 "Choose %s to skip the media test and start the installation."), _("OK"), _("Skip"));
+
+    if (rc != 2) {
+      
+      /* unmount CD now we've identified */
+      /* a valid disc #1 is present */
+      umount("/mnt/runtime");
+      umountLoopback("/mnt/runtime", "loop0");
+      umount("/mnt/source");
+      
+      /* test CD(s) */
+      mediaCheckCdrom(name);
+      
+      /* remount stage2 from CD #1 and proceed */
+      mountCdromStage2(name);
+    }
+  }
+}
+
 /* XXX this ignores "location", which should be fixed */
 static char * setupCdrom(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
@@ -1296,6 +1326,14 @@ static char * setupCdrom(struct installMethod * method,
 	    devMakeInode(kd->known[i].name, "/tmp/cdrom");
 	    if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, NULL, 
 			  NULL)) {
+		/* if probe quickly, then we're looking for a kickstart config
+		 * and should just return if we can mount it */
+		if (probeQuickly) {
+		    buf = malloc(200);
+		    sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
+		    return buf;
+		}
+
 		if (!needRedHatCD || 
 		    !access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
 		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
@@ -1304,31 +1342,7 @@ static char * setupCdrom(struct installMethod * method,
 		      
 			buf = malloc(200);
 			sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
-
-			/* check image(s) if not kickstart and requested */
-			if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags)) {
-
-			    startNewt(flags);
-			    rc = newtWinChoice(_("CD Found"), _("OK"),
-					       _("Skip"), 
-       _("To begin testing the CD media before installation press %s.\n\n"
-	 "Choose %s to skip the media test and start the installation."), _("OK"), _("Skip"));
-
-			    if (rc != 2) {
-
-				/* unmount CD now we've identified */
-				/* a valid disc #1 is present */
-				umount("/mnt/runtime");
-				umountLoopback("/mnt/runtime", "loop0");
-				umount("/mnt/source");
-
-				/* test CD(s) */
-				mediaCheckCdrom(kd->known[i].name);
-
-				/* remount stage2 from CD #1 and proceed */
-				mountCdromStage2(kd->known[i].name);
-			    }
-			}
+			queryMediaCheck(kd->known[i].name, flags);
 			return buf;
 		    }
 		}
@@ -1384,6 +1398,7 @@ int kickstartFromCdrom(char * ksFile, char * fromFile,
     sprintf(fullFn, "/mnt/source/%s", fromFile);
     copyFile(fullFn, ksFile);
     umount("/mnt/source");
+    unlink("/tmp/cdrom");
 
     return 0;
 }
