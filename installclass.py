@@ -164,6 +164,14 @@ class BaseInstallClass:
     def getGroups(self):
 	return self.groups
 
+    # Groups is a list of group names -- the full list can be found in 
+    # ths comps file for each release
+    def setOptionalGroups(self, groups):
+	self.showgroups = groups
+
+    def getOptionalGroups(self):
+	return self.showgroups
+
     # This is a list of packages -- it is combined with the group list
     def setPackages(self, packages):
         hash = {}
