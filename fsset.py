@@ -118,6 +118,7 @@ class FileSystemType:
         self.supported = -1
         self.defaultOptions = "defaults"
         self.migratetofs = None
+        self.extraFormatArgs = []
         
     def mount(self, device, mountpoint, readOnly=0):
         if not self.isMountable():
@@ -264,7 +265,6 @@ class extFileSystem(FileSystemType):
         self.checked = 1
         self.linuxnativefs = 1
         self.maxSize = 2 * 1024 * 1024
-        self.extraFormatArgs = []
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
