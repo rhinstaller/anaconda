@@ -196,6 +196,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
     def get_rpm_desc (self, header):
         desc = replace (header[rpm.RPMTAG_DESCRIPTION], "\n\n", "\x00")
         desc = replace (desc, "\n", " ")
+        desc = replace (desc, "&", "&amp;")
         desc = replace (desc, "\x00", "\n\n")
         return desc
 
