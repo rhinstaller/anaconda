@@ -533,7 +533,7 @@ class KickstartBase(BaseInstallClass):
 	handlers = { 
 		     "auth"		: self.doAuthconfig	,
 		     "authconfig"	: self.doAuthconfig	,
-                     "autopart"         : self.doAutopart       ,
+                     "autopart"         : self.doAutoPart       ,
 		     "cdrom"		: None			,
 		     "clearpart"	: self.doClearPart	,
 		     "device"		: None			,
