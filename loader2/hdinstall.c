@@ -402,8 +402,6 @@ char * mountHardDrive(struct installMethod * method,
     char *selpart;
     char *kspartition, *ksdirectory;
 
-    logMessage("in mountHardDrive():");
-
     /* handle kickstart data first if available */
     if (loaderData->method &&
 	!strncmp(loaderData->method, "hd", 2) &&
@@ -452,13 +450,6 @@ char * mountHardDrive(struct installMethod * method,
 
 	partition_list = getPartitionsList();
 	numPartitions = lenPartitionsList(partition_list);
-
-	/* for debugging */
-#if 0
-	logMessage("partitionslist: %d", numPartitions);
-	for (i=0; i<numPartitions; i++)
-	    logMessage("%s", partition_list[i]);
-#endif
 
 	/* no partitions found, try to load a device driver disk for storage */
 	if (!numPartitions) {
