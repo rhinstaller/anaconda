@@ -230,7 +230,7 @@ def noformatCB2(widget, data):
        badblocks     - toggle button for badblock check
 """
 def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
-                                  showbadblocks=1):
+                                  showbadblocks=1, ignorefs=[]):
     ofstype = origrequest.fstype
 
     maintable.attach(gtk.HSeparator(), 0, 2, row, row + 1)
@@ -257,7 +257,8 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	formatrb.set_active(1)
 
     maintable.attach(formatrb, 0, 1, row, row + 1)
-    (fstype, fstypeMenu) = createFSTypeMenu(ofstype, fstypechangeCB,mountCombo)
+    (fstype, fstypeMenu) = createFSTypeMenu(ofstype, fstypechangeCB,
+					    mountCombo, ignorefs=ignorefs)
     fstype.set_sensitive(formatrb.get_active())
     maintable.attach(fstype, 1, 2, row, row + 1)
     row = row + 1

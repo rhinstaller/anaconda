@@ -143,6 +143,8 @@ class RaidEditor:
 	    # read out UI into a partition specification
 	    request = copy.copy(self.origrequest)
 
+	    # doesn't make sense for RAID device
+	    request.badblocks = None
             if not self.origrequest.getPreExisting():
                 filesystem = self.fstypeoptionMenu.get_active().get_data("type")
                 request.fstype = filesystem
@@ -190,13 +192,8 @@ class RaidEditor:
                     request.format = formatrb.get_active()
                     if request.format:
                         request.fstype = self.fsoptionsDict["fstypeMenu"].get_active().get_data("type")
-                    if self.fsoptionsDict.has_key("badblocks") and self.fsoptionsDict["badblocks"].get_active():
-                        request.badblocks = gtk.TRUE
-                    else:
-                        request.badblocks = None
                 else:
                     request.format = 0
-                    request.badblocks = None
 
 		if self.fsoptionsDict.has_key("migraterb"):
 		    migraterb = self.fsoptionsDict["migraterb"]

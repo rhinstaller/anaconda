@@ -389,7 +389,7 @@ class VolumeGroupEditor:
 
 	self.fsoptionsDict = {}
 	if logrequest.getPreExisting():
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(logrequest, maintable, row, mountCombo, showbadblocks=0)
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(logrequest, maintable, row, mountCombo, showbadblocks=0, ignorefs = ["software RAID", "physical volume (LVM)", "vfat"])
 
         dialog.vbox.pack_start(maintable)
         dialog.show_all()
@@ -545,6 +545,7 @@ class VolumeGroupEditor:
 	    request.size = size
             request.format = format
             request.migrate = migrate
+	    request.badblock = None
 	    
  	    err = request.sanityCheckRequest(self.partitions)
  	    if err:
