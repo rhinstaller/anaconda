@@ -113,32 +113,31 @@ install: all
 	done
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
-	install -m 644 ../kudzu/pcitable $(DESTDIR)/$(RUNTIMEDIR)/loader
 
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-	../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
-	-L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
+	-lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
+	-lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
 loader-local: loader-local.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-        ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
+        -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -L ../stubs -L../pump -lpump -lz -lresolv -lnewt -lslang -lpci
+        -L ../stubs -lz -lresolv -lnewt -lslang -lpci
 
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-        ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
+        -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
+        -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
 loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o $(OBJS) \
 	    $(PCMCIAOBJS) -L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
         -lpopt     \
-        ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
+        -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
+        -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
 loader.o: loader.c
 	$(CC) -DINCLUDE_LOCAL -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $^

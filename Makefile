@@ -7,7 +7,6 @@ ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
 SUBDIRSHD = rpmmodule balkan isys libfdisk collage loader po \
 	    minislang textw utils
-BUILDONLYSUBDIRS = pump
 SUBDIRS = $(SUBDIRSHD)
 
 ifneq (ia64, $(ARCH))
@@ -24,7 +23,6 @@ endif
 DESTDIR = ../../../RedHat/instimage
 
 CATALOGS = po/anaconda.pot
-ALLSUBDIRS = $(BUILDONLYSUBDIRS) $(SUBDIRS) 
 
 PYFILES = $(wildcard *.py)
 
@@ -40,10 +38,10 @@ xmouse.so: xmouse.c
 
 clean:
 	rm -f *.o *.so *.pyc
-	for d in $(ALLSUBDIRS); do make -C $$d clean; done
+	for d in $(SUBDIRS); do make -C $$d clean; done
 
 subdirs:
-	for d in $(ALLSUBDIRS); do make -C $$d; done
+	for d in $(SUBDIRS); do make -C $$d; done
 
 install: 
 	@if [ "$(DESTDIR)" = "" ]; then \
