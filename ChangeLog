@@ -1,5 +1,8 @@
 2004-10-04  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/devnodes.c: Add support more than 128 SCSI disks
+	(#134575).
+
 	* dispatch.py (installSteps): Remove my new typo.
 
 	* partRequests.py (LogicalVolumeRequestSpec.getDevice): Fix

@@ -63,9 +63,25 @@ static struct devnum devices[] = {
 
 int numDevices = sizeof(devices) / sizeof(struct devnum);
 
+#include <linux/major.h>
+/* from linux/drivers/scsi/sd.c */
+static int sd_major(int major_idx) {
+    switch (major_idx) {
+    case 0:
+        return SCSI_DISK0_MAJOR;
+    case 1 ... 7:
+        return SCSI_DISK1_MAJOR + major_idx - 1;
+    case 8 ... 15:
+        return SCSI_DISK8_MAJOR + major_idx - 8;
+    default:
+        /* this shouldn't happen... but if it does, return -1 */
+        return -1;
+    }
+}
+
 int devMakeInode(char * devName, char * path) {
     int i;
-    int major, minor;
+    unsigned int major, minor;
     int type;
     char *ptr;
     char *dir;
@@ -77,6 +93,7 @@ int devMakeInode(char * devName, char * path) {
     if (devName[0] == 's' && devName[1] == 'd') {
 	int drive = 0;
 	char *num = NULL;
+        int maj;
 	type = S_IFBLK;
 
 	if (devName[3] && isdigit(devName[3])) {
@@ -87,13 +104,11 @@ int devMakeInode(char * devName, char * path) {
 	    num = devName + 4;	    
 	} else
 	    drive = devName[2] - 'a';
-	/* only 128 SCSI drives, sorry */
-	if (drive > 128)
-	    return -1;
-	else if (drive < 16)
-	    major = 8;
-	else
-	    major = 64 + (drive) / 16;
+        
+        maj = sd_major(drive & 0xf0);
+        if (maj < 0)
+            return maj;
+        major = maj >> 4;
 	minor = (drive * 16) % 256;
 	if (num && num[0] && num[1])
 	   minor += (num[0] - '0') * 10 + (num[1] - '0');
