@@ -991,7 +991,7 @@ class InstallInterface:
 	#self.screen.suspendCallback(killSelf, self.screen)
 # uncomment this line to drop into the python debugger on <Ctrl+Z>
 # --VERY handy--
-	self.screen.suspendCallback(debugSelf, self.screen)
+	#self.screen.suspendCallback(debugSelf, self.screen)
         self.individual = Flag(0)
         self.step = 0
         self.dir = 1
