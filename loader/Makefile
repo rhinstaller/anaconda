@@ -5,7 +5,7 @@ VERSION = 7.2
 DESTDIR = ../../trees/initrd
 
 OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o lang.o \
-       misc.o ftp.o md5.o mediacheck.o
+       misc.o ftp.o md5.o mediacheck.o moduledeps.o
 
 SLANGLIB = -lslang
 ifneq (ia64, $(ARCH))
@@ -28,7 +28,7 @@ MODULELINKAGE :=-lmodutils -lmodutilutil -lmodutilobj
 
 COPTS = $(DEBUG) -Wall -DVERSION='"$(VERSION)"' 
 
-CFLAGS = $(COPTS) $(OPTS) -ffunction-sections -D_GNU_SOURCE=1 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DHAVE_LIBIO_H -ggdb -DPRODUCTNAME='$(PRODUCTNAME)'
+CFLAGS = $(COPTS) $(OPTS) -ffunction-sections -D_GNU_SOURCE=1 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DHAVE_LIBIO_H -ggdb -DPRODUCTNAME='$(PRODUCTNAME)' -DGZLIB=1
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
@@ -83,7 +83,7 @@ STATIC = -static
 
 ifeq (i386, $(ARCH))
 MINILIBC=minilibc.o
-COPTS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
+COPTS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV 
 LDFLAGS = -nostdlib /usr/lib/crt1.o
 LOADERLIBS += -lrpc
 ISYS = ../isys/libisys-diet.a

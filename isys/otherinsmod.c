@@ -8,6 +8,7 @@
 
 #include "cpio.h"
 #include "isys.h"
+#include "stubs.h"
 
 /* hack */
 int combined_insmod_main(int argc, char ** argv);
