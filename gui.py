@@ -196,7 +196,7 @@ class ProgressWindow:
         processEvents ()
 
     def set (self, amount):
-	self.progress.update (float (amount) / self.total)
+	self.progress.set_fraction (float (amount) / self.total)
         processEvents ()        
     
     def pop(self):
