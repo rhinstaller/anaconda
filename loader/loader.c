@@ -1525,6 +1525,10 @@ logMessage("Flags are 0x%x\n", flags);
 	}
     }
 
+    mlLoadModule("raid0", modLoaded, modDeps, NULL, flags);
+    mlLoadModule("raid1", modLoaded, modDeps, NULL, flags);
+    mlLoadModule("raid5", modLoaded, modDeps, NULL, flags);
+
     stopNewt();
     closeLog();
 
