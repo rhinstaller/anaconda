@@ -179,7 +179,6 @@ class Partitions:
                                                 preexist = 1)
             spec.size = spec.getActualSize(self, diskset)
             self.addRequest(spec)
-        diskset.stopAllRaid()
 
         # now to read in pre-existing LVM stuff
         lvm.vgscan()
@@ -201,9 +200,14 @@ class Partitions:
                     continue
                 if fields[0].strip() == "PE size":
                     pesize = fields[1].strip()
+                    try:
+                        pesize = int(pesize)
+                    except:
+                        log("PE size for %s not a valid integer, defaulting to 4096" %(vg,))
+                        pesize = 4096
 
             if not pesize:
-                log("Unable to find PE size for %s, defaulting to 4096" (vg,))
+                log("Unable to find PE size for %s, defaulting to 4096" %(vg,))
                 pesize = 4096
 
             # Now find the physical volumes associated with this VG
@@ -271,6 +275,8 @@ class Partitions:
                                                              preexist = 1)
                 self.addRequest(spec)
         lvm.vgdeactivate()
+
+        diskset.stopAllRaid()
             
         
 
