@@ -1000,7 +1000,7 @@ class ToDo:
 	  _("Checking dependencies in packages selected for installation..."))
 	self.getCompsList()
         if self.upgrade:
-            self.fstab.mountFilesystems (self.instPath)
+	    # the partitions are already mounted
             db = rpm.opendb (0, self.instPath)
             ts = rpm.TransactionSet(self.instPath, db)
         else:
@@ -1055,7 +1055,6 @@ class ToDo:
         del ts
         if self.upgrade:
             del db
-            self.fstab.umountFilesystems (self.instPath)            
 
 	win.pop()
 
@@ -1097,8 +1096,10 @@ class ToDo:
     def upgradeFindRoot(self):
 	if not self.setupFilesystems: return [ self.instPath ]
 	return upgrade.findExistingRoots(self.intf, self.fstab)
-                    
-    def upgradeFindPackages (self, rootInfo):
+
+    def upgradeMountFilesystems(self, rootInfo):
+	# mount everything and turn on swap
+
         if self.setupFilesystems:
 	    try:
 		upgrade.mountRootPartition(self.intf,rootInfo,
@@ -1110,9 +1111,6 @@ class ToDo:
 		      "/etc/fstab on your Linux system cannot be mounted. "
 		      "Please fix this problem and try to upgrade again."))
 		sys.exit(0)
-
-	    if os.access("/mnt/loophost/rh-swap.img", os.R_OK):
-		self.fstab.setLoopbackSwapSize(-1)
 
 	    checkLinks = [ '/etc', '/var', '/var/lib', '/var/lib/rpm',
 			   '/boot', '/tmp', '/var/tmp' ]
@@ -1133,8 +1131,10 @@ class ToDo:
 		self.intf.messageWindow(("Absolute Symlinks"), message)
 		sys.exit(0)
 
-	    self.fstab.turnOnSwap(formatSwap = 0)
-
+	self.fstab.turnOnSwap(self.instPath, self.intf.progressWindow,
+			      formatSwap = 0)
+                    
+    def upgradeFindPackages (self):
         self.getCompsList ()
 	self.getHeaderList ()
 	self.method.mergeFullHeaders(self.hdList)
@@ -1211,9 +1211,6 @@ class ToDo:
                     package.select()
             
         del db
-
-	if self.setupFilesystems:
-	    self.fstab.umountFilesystems (self.instPath)
 
         # new package dependency fixup
         deps = self.verifyDeps ()
@@ -1668,8 +1665,13 @@ class ToDo:
 		else:
 		    self.fstab.savePartitions ()
 		    self.fstab.makeFilesystems ()
-		    self.fstab.turnOnSwap()
+		    self.fstab.turnOnSwap(self.instPath, 
+					  self.intf.progressWindow)
 
+	    # We do this for upgrades, even though everything is already
+	    # mounted. While this may seem a bit strange, we reference
+	    # count the mounts, which is easier then special casing
+	    # the mount/unmounts all the way through
             self.fstab.mountFilesystems (self.instPath)
 
 	self.method.mergeFullHeaders(self.hdList)
@@ -1818,7 +1820,6 @@ class ToDo:
 	    del db
 	    self.instLog.close()
 	    del syslog
-
 
 	    self.method.systemUnmounted ()
 	    self.fstab.umountFilesystems(self.instPath)
