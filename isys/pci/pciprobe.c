@@ -9,12 +9,7 @@
 
 #include <pci/pci.h>
 
-
-struct pciDevice {
-    unsigned int vendor, device, type;
-    char * driver;
-    char * desc;
-};
+#include "pciprobe.h"
 
 struct pciDevice * pciDeviceList = NULL;
 static int numPciDevices = 0;
@@ -33,7 +28,7 @@ static int devCmp(const void * a, const void * b) {
       return y;
 }
 
-int buildDriverList(const char * fn) {
+int probePciReadDrivers(const char * fn) {
     int fd;
     struct stat sb;
     char * buf;
@@ -168,7 +163,7 @@ int main(int argc, char **argv) {
     struct pciDevice **list,*dev;
     int x=0;
     
-    if (buildDriverList("pcitable")) {
+    if (probePciReadDrivers("pcitable")) {
 	perror("error reading pci table");
 	exit(0);
     }
