@@ -433,6 +433,7 @@ class InstallControlWindow:
         buffer.feed(ics.getHTML(self.langSearchPath))
         textbuffer = buffer.get_buffer()
         self.help.set_buffer(textbuffer)
+        # scroll to the top.  Do this with a mark so it's done in the idle loop
         iter = textbuffer.get_iter_at_offset(0)
         mark = textbuffer.create_mark("top", iter, gtk.FALSE)
         self.help.scroll_to_mark(mark, 0.0, gtk.FALSE, 0.0, 0.0)
