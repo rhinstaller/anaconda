@@ -1,20 +1,15 @@
 How to make screenshots:
 
 
-- boot install with:
+This will only currently work for graphical installs.
 
-     boot: text display=<remove X display>:0
+During a graphical installation, you can now press SHIFT-Print Screen
+and a screenshot of the current installation screen will be taken.
 
-Be sure you do a 'xhost +' on the remote machine.
+These are stored in the following directory:
 
-then go through the loader to the first stage 2 screen.
+   /root/anaconda-screenshots/
 
-On VC2 enter:
-
-   anaconda -m nfs://mnt/source --xmode (GUI mode)
-
-or
-
-   anaconda -m nfs://mnt/source --text --xmode (TUI mode)
+The screenshots can be accessed once the newly-installed system is rebooted.
 
 
