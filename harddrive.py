@@ -26,6 +26,12 @@ FILENAME = 1000000
 
 # Install from a set of files laid out on the hard drive like a CD
 class OldHardDriveInstallMethod(InstallMethod):
+    def copyFileToTemp(self, filename):
+        tmppath = self.getTempPath()
+        path = tmppath + os.path.basename(filename)
+        shutil.copy(self.tree + "/" + filename, path)
+        
+        return path
 
     def mountMedia(self):
 	if (self.isMounted):
@@ -105,6 +111,12 @@ class OldHardDriveInstallMethod(InstallMethod):
         
 # Install from one or more iso images
 class HardDriveInstallMethod(InstallMethod):
+    def copyFileToTemp(self, filename):
+        tmppath = self.getTempPath()
+        path = tmppath + os.path.basename(tmppath)
+        shutil.copy(self.tree + "/" + filename, path)
+        
+        return path
 
     # mounts disc image cdNum under self.tree
     def mountMedia(self, cdNum):

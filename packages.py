@@ -550,6 +550,13 @@ def doPreInstall(method, id, intf, instPath, dir):
                              "Press the OK button to reboot your system."))
         sys.exit(0)
 
+    # try to copy the comps package.  if it doesn't work, don't worry about it
+    try:
+        id.compspkg = method.copyFileToTemp("RedHat/base/comps.rpm")
+    except:
+        log("Unable to copy comps package")
+        id.compspkg = None
+
     # write out the fstab
     if not upgrade:
         id.fsset.write(instPath)
@@ -774,7 +781,7 @@ def doPostInstall(method, id, intf, instPath):
 	return
     
     w = intf.progressWindow(_("Post Install"),
-                            _("Performing post install configuration..."), 5)
+                            _("Performing post install configuration..."), 6)
 
     upgrade = id.upgrade.get()
     arch = iutil.getArch ()
@@ -887,6 +894,28 @@ def doPostInstall(method, id, intf, instPath):
 	    migrateXinetd(instPath, instLogName)
 
         w.set(5)
+
+        # FIXME: hack to install the comps package
+        if (id.compspkg is not None and
+            os.access(id.compspkg, os.R_OK)):
+            try:
+                # ugly hack
+                path = id.compspkg.split("/mnt/sysimage")[1]
+                args = ["/bin/rpm", "-Uvh", path]
+                rc = iutil.execWithRedirect(args[0], args,
+                                            stdout = "/dev/tty5",
+                                            stderr = "/dev/tty5",
+                                            root = instPath)
+                os.unlink(id.compspkg)
+            except:
+                log("failed to install comps.rpm.  oh well")
+                try:
+                    os.unlink(id.compspkg)
+                except:
+                    pass
+                
+        w.set(6)
+
 
     finally:
 	pass

@@ -43,6 +43,13 @@ class ImageInstallMethod(InstallMethod):
     def getSourcePath(self):
         return self.tree
 
+    def copyFileToTemp(self, filename):
+        tmppath = self.getTempPath()
+        path = tmppath + os.path.basename(filename)
+        shutil.copy(self.tree + "/" + filename, path)
+        
+        return path
+
     def __init__(self, tree, rootPath):
 	InstallMethod.__init__(self, rootPath)
 	self.tree = tree
@@ -93,7 +100,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	    timer.stop()
 
 	    f = open("/mnt/source/.discinfo")
-	    timestamp = f.readline()
+	    timestamp = f.readline().strip()
 	    f.close()
 
 	    self.currentDisc = h[1000002]
@@ -113,17 +120,17 @@ class CdromInstallMethod(ImageInstallMethod):
 			       readOnly = 1):
 			if os.access("/mnt/source/.discinfo", os.O_RDONLY):
 			    f = open("/mnt/source/.discinfo")
-			    newStamp = f.readline()
+			    newStamp = f.readline().strip()
                             try:
-                                descr = f.readline()
+                                descr = f.readline().strip()
                             except:
                                 descr = None
                             try:
-                                arch = f.readline()
+                                arch = f.readline().strip()
                             except:
                                 arch = None
                             try:
-                                discNum = string.atoi(f.readline())
+                                discNum = string.atoi(f.readline().strip())
                             except:
                                 discNum = 0
 			    f.close()
@@ -157,17 +164,17 @@ class CdromInstallMethod(ImageInstallMethod):
 
                     if os.access("/mnt/source/.discinfo", os.O_RDONLY):
                         f = open("/mnt/source/.discinfo")
-			newStamp = f.readline()
+			newStamp = f.readline().strip()
                         try:
-                            descr = f.readline()
+                            descr = f.readline().strip()
                         except:
                             descr = None
                         try:
-                            arch = f.readline()
+                            arch = f.readline().strip()
                         except:
                             arch = None
                         try:
-                            discNum = string.atoi(f.readline())
+                            discNum = string.atoi(f.readline().strip())
                         except:
                             discNum = 0
 			f.close()
@@ -210,6 +217,7 @@ class CdromInstallMethod(ImageInstallMethod):
         os.remove(fullName)
 
     def filesDone(self):
+        isys.umount("/mnt/source")
         if not self.loopbackFile: return
 
 	try:
@@ -217,6 +225,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	    os.unlink(self.loopbackFile)
 	except SystemError:
 	    pass
+        
 
     def __init__(self, url, messageWindow, progressWindow, rootPath):
 	(self.device, tree) = string.split(url, "/", 1)
@@ -258,7 +267,7 @@ def findIsoImages(path, messageWindow):
                         f.readline() # skip timestamp
                         f.readline() # skip release description
                         discArch = string.strip(f.readline()) # read architecture
-                        discNum = string.atoi(f.readline()) # read disc number
+                        discNum = string.atoi(f.readline().strip()) # read disc number
                     except:
                         discArch = None
                         discNum = 0

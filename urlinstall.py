@@ -68,6 +68,30 @@ class UrlInstallMethod(InstallMethod):
                 
 	return file
 
+    def copyFileToTemp(self, filename):
+        tmppath = self.getTempPath()
+
+        if self.multiDics:
+            base = "%s/disc1" % (self.pkgUrl,)
+        else:
+            base = self.pkgUrl
+        fullPath = base + filename
+
+        file = tmppath + os.path.basename(fullPath)
+
+        connected = 0
+        while not connected:
+            try:
+                urllib.urlretrieve(fullPath, file)
+            except IOError, (errnum, msg):
+		log("IOError %s occurred getting %s: %s",
+			errnum, fullPath, str(msg))
+                time.sleep(5)
+            else:
+                connected = 1
+                
+	return file
+
     def unlinkFilename(self, fullName):
 	os.remove(fullName)
 
