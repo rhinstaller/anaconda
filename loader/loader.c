@@ -1896,11 +1896,11 @@ static char * doMountImage(char * location,
 # if defined (__sparc__) || defined (__alpha__)
     /* Check any attached CDROM device for a
        Red Hat CD. If there is one there, just die happy */
-    if (!FL_EXPERT(flags)) {
+    if (!FL_ASKMETHOD(flags)) {
 # else
     /* If no network is available, check any attached CDROM device for a
        Red Hat CD. If there is one there, just die happy */
-    if (!FL_EXPERT(flags)) {
+    if (!FL_ASKMETHOD(flags)) {
 # endif
        url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDepsPtr,
 			flags, 1, 1);
@@ -2432,7 +2432,10 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 
     for (i = 0; i < argc; i++) {
         if (!strcasecmp(argv[i], "expert"))
-	    flags |= LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK;
+	    flags |= (LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK | 
+		      LOADER_FLAGS_ASKMETHOD);
+	else if (!strcasecmp(argv[i], "askmethod"))
+	    flags |= LOADER_FLAGS_ASKMETHOD;
         else if (!strcasecmp(argv[i], "telnet"))
 	    flags |= LOADER_FLAGS_TELNETD;
         else if (!strcasecmp(argv[i], "noshell"))

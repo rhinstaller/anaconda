@@ -17,6 +17,9 @@ resolution=<mode> Run installer in mode specified, '1024x768' for example.
 nousb           Do not load USB support (helps if install hangs 
                 early sometimes).
 
+askmethod       Do not automatically use the CD-ROM as the install
+		source if we detect a Red Hat Linux CD in your CD-ROM drive.
+
 nousbstorage	Do not load usbstorage module in loader.  May help with
 		device ordering on SCSI systems.
 
