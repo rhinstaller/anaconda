@@ -355,9 +355,7 @@ class InstallCallback:
 	    elif cur_amount < 0:
 		cur_amount = 0
 
-	    if self.size <= 0:
-		log("Bogus size %s!", self.size)
-	    else:
+	    if self.size > 0:
 		self.progress.setPackageScale(cur_amount, self.size)
 	elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
 	    os.close (self.rpmFD)
@@ -478,7 +476,7 @@ def doPreInstall(method, id, intf, instPath, dir):
     arch = iutil.getArch ()
 
     # this is a crappy hack, but I don't want bug reports from these people
-    if (arch == "i386") and (not hdList.has_key("kernel")):
+    if (arch == "i386") and (not id.hdList.has_key("kernel")):
         intf.messageWindow(_("Error"),
                            _("You are trying to install on a machine "
                              "which isn't supported by this release of "
@@ -653,8 +651,8 @@ def doInstall(method, id, intf, instPath):
     upgrade = id.upgrade.get()
     ts = rpm.TransactionSet(instPath)
 
-    ts.setVSFlags(~rpm.RPMVSF_NORSA|~rpm.RPMVSF_NODSA)
-    ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5|rpm.RPMTRANS_FLAG_CHAINSAW)
+    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
+    ts.setFlags(rpm.RPMTRANS_FLAG_CHAINSAW)
 
     total = 0
     totalSize = 0
@@ -747,7 +745,7 @@ def doInstall(method, id, intf, instPath):
     cb.initWindow = intf.waitWindow(_("Install Starting"),
 				    _("Starting install process, this may take several minutes..."))
 
-    ts.setProbFilter(rpm.RPMPROB_FILTER_DISKSPACE)
+#    ts.setProbFilter(rpm.RPMPROB_FILTER_DISKSPACE)
     problems = ts.run(cb.cb, 0)
 
     if problems:
