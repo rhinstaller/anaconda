@@ -14,3 +14,6 @@ class InstallWindow:
 
     def getICS (self):
         return self.ics
+
+    def fixUp (self):
+        pass
