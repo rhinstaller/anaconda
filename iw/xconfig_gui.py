@@ -560,6 +560,7 @@ class XConfigWindow (InstallWindow):
 	    self.sunServer = 0            
         ics.setTitle (_("X Configuration"))
         ics.readHTML ("xconf")
+
         
 #        self.videoCard = ""
 #        self.videoRam = ""
@@ -567,14 +568,11 @@ class XConfigWindow (InstallWindow):
 #        self.videoCardState = ""
 
     def getNext (self):
-#        print "Inside getNext"
-
 #        original_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
 #        print "self.videoCardOriginalNode : ", original_parent_node , " - ", cardname2
 #        self.todo.videoCardOriginalNode = ""
 #        self.todo.videoCardRamState = 
 
-        
         if self.skipme:
             return None
 
@@ -645,18 +643,15 @@ class XConfigWindow (InstallWindow):
         self.ctree.thaw()
 
     def selectCb_tree (self, ctree, node, column):
-#        print "Inside selectCb_tree"
         try:
             self.current_node = node
             parent, cardname = ctree.node_get_row_data (node)
-#            print cardname
             if cardname:
                 card = self.cards[cardname]
                 depth = 0
                 while depth < 16 and card.has_key ("SEE"):
                     card = self.cards[card["SEE"]]
                     depth = depth + 1
-#                print card
                 self.todo.x.setVidcard (card)
         except:
             pass
@@ -666,26 +661,23 @@ class XConfigWindow (InstallWindow):
             current_parent_node, cardname1 = self.ctree.node_get_row_data(self.current_node)
             original_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
 
-            #        data = self.todo.videoCardOriginalName
-
-            #        print "self.current_node : ", current_parent_node , " - ", cardname1
-            #        print "self.videoCardOriginalNode : ", original_parent_node , " - ", cardname2
-
             if current_parent_node != original_parent_node:
                 self.ctree.collapse(current_parent_node)
 
             if cardname1 != cardname2:
                 self.movetree2(self.ctree, self.todo.videoCardOriginalNode, 0)
             else:
-                #            print "Cardnames are equal...don't do anything"
                 pass
 
         except:
             pass
         
-        self.todo.videoRamState = self.default_ram
+        #--If current value == original value, then don't change anything  -- BSF
+        if self.todo.videoRamState != self.todo.videoRamOriginal:
+            self.todo.videoRamState = self.todo.videoRamOriginal
+
         self.ramOption.remove_menu ()
-        self.ramMenu.set_active(self.default_ram)
+        self.ramMenu.set_active (self.todo.videoRamOriginal)
         self.ramOption.set_menu (self.ramMenu)
 
     def desktopCb (self, widget, desktop):
@@ -1241,7 +1233,6 @@ class XConfigWindow (InstallWindow):
             self.ramMenu.add(mem7)
             self.ramMenu.add(mem8)
 
-            self.default_ram = 0
             count = 0
 
             for size in ("256k", "512k", "1024k", "2048k", "4096k",
@@ -1249,10 +1240,10 @@ class XConfigWindow (InstallWindow):
                 if size[:-1] == self.todo.x.vidRam:
                     if self.todo.videoRamState == "":          
                         self.todo.videoRamState = count
+                        self.todo.videoRamOriginal = count
                         self.ramMenu.set_active(count)
                     else:                        
-                        self.ramMenu.set_active(self.todo.videoRamState)                    
-                    self.default_ram = count
+                        self.ramMenu.set_active(self.todo.videoRamState)
                 count = count + 1
 
             hbox.pack_start(label, FALSE)
