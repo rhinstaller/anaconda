@@ -182,6 +182,10 @@ void stopNewt(void) {
     newtRunning = 0;
 }
 
+void initializeConsole() {
+    isysLoadFont();
+}
+
 static void spawnShell(int flags) {
     pid_t pid;
     int fd;
@@ -944,6 +948,8 @@ int main(int argc, char ** argv) {
     if (FL_TELNETD(flags))
         startTelnetd(&kd, &loaderData, modInfo, modLoaded, modDeps, flags);
 
+    initializeConsole();
+    
     url = doLoaderMain("/mnt/source", &loaderData, &kd, modInfo, modLoaded, &modDeps, flags);
 
     if (!FL_TESTING(flags)) {

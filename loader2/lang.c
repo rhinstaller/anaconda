@@ -35,7 +35,6 @@
 
 #include "../isys/stubs.h"
 #include "../isys/cpio.h"
-#include "../isys/lang.h"
 
 struct aString {
     unsigned int hash;
@@ -211,8 +210,6 @@ void setLanguage (char * key, int flags) {
             setenv("LC_ALL", languages[i].lc_all, 1);
             setenv("LINGUAS", languages[i].lc_all, 1);
             loadLanguage (NULL, flags);
-            if (languages[i].map)
-                isysLoadFont();
             break;
         }
     }
@@ -312,10 +309,6 @@ int chooseLanguage(char ** lang, int flags) {
     } else {
         loadLanguage (NULL, flags);
     }
-
-    if (languages[choice].map)
-        isysLoadFont();
-
     
     buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
     newtDrawRootText(0, 0, buf);
