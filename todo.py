@@ -206,12 +206,14 @@ class Language (SimpleConfigFile):
 	f.close()
 	self.langs = {}
 	self.font = {}
+	self.map = {}
 
 	for line in lines:
 	    string.strip(line)
 	    l = string.split(line)
 	    self.langs[l[0]] = l[4]
-	    self.font[l[0]] = l[3]
+	    self.font[l[0]] = l[2]
+	    self.map[l[0]] = l[3]
 	
         # kickstart needs this
         self.abbrevMap = {}
@@ -230,6 +232,15 @@ class Language (SimpleConfigFile):
         self.lang = self.langs[lang]
         self.info["LANG"] = self.langs[lang]
         os.environ["LANG"] = self.langs[lang]
+
+	if self.font[lang] != "None":
+	    self.info["SYSFONT"] = self.font[lang]
+	    self.info["SYSFONTACM"] = self.map[lang]
+	else:
+            if self.info.has_key("SYSFONT"):
+                del self.info["SYSFONT"]
+            if self.info.has_key("SYSFONTACM"):
+                del self.info["SYSFONTACM"]
 
 	rpm.addMacro("_install_langs", self.langs[lang]);
         os.environ["LINGUAS"] = self.langs[lang]
@@ -502,7 +513,6 @@ class ToDo:
 
         f = open (self.instPath + "/etc/sysconfig/network", "w")
         f.write ("NETWORKING=yes\n"
-                 "FORWARD_IPV4=false\n"
                  "HOSTNAME=")
 	if self.network.hostname:
 	    f.write(self.network.hostname + "\n")
