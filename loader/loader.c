@@ -64,7 +64,7 @@
 #include "isys/imount.h"
 #include "isys/isys.h"
 #include "isys/probe.h"
-#include "isys/gzlib/gzlib.h"
+#include "stubs.h"
 
 #include "cdrom.h"
 #include "devices.h"
@@ -1844,7 +1844,7 @@ static char * doMountImage(char * location,
 
 #if defined(__alpha__) || defined(__ia64__) \
     || defined(__s390__ ) || defined(__s390x__)
-    for (i = ; i < numMethods; i++) {
+    for (i = 0; i < numMethods; i++) {
 	installNames[numValidMethods] = _(installMethods[i].name);
 	validMethods[numValidMethods++] = i;
     }
