@@ -16,6 +16,7 @@
 import string
 import kudzu
 import iutil
+import isys
 from translate import _
 from log import log
 
@@ -135,6 +136,9 @@ class MonitorInfo:
     def getFBMonitorSection(self):
         return self.fbmonSect
 
+    def getFBMonitorMode(self):
+        return self.fbmonMode
+
     def getMonitorID(self, useProbed = 0):
         if not useProbed:
             return self.monID
@@ -197,10 +201,13 @@ class MonitorInfo:
                 log("ddcprobe failed")
                 pass
 
+        self.fbmonMode = {}
         if fbDevice != None:
             try:
                 (vidram, depth, mode, monitor) = isys.fbconProbe("/dev/" + fbDevice)
                 self.fbmonSect = monitor
+                self.fbmonMode = {}
+                self.fbmonMode[str(depth)] = [str(mode)]
             except:
                 pass
 
