@@ -1377,12 +1377,12 @@ class FileSystemSetEntry:
             self.origfsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
                                    readOnly = readOnly,
                                    bindMount = isinstance(self.device,
-                                                          BindMountDevice)
+                                                          BindMountDevice))
         else:
             self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
                                readOnly = readOnly,
                                bindMount = isinstance(self.device,
-                                                      BindMountDevice)
+                                                      BindMountDevice))
 
         self.mountcount = self.mountcount + 1
 
