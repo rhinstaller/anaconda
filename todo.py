@@ -391,7 +391,7 @@ class ToDo:
         if not self.__dict__.has_key('fstab'):
             raise RuntimeError, "No fstab object"
 
-        (drives, raid) = self.fstab.partitionList()
+        (drives, raid) = self.fstab.raidList()
 
 	# rearrange the fstab so it's indexed by device
 	mountsByDev = {}
