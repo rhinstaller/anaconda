@@ -1045,7 +1045,7 @@ class ToDo:
         for version in kernelVersions:
 	    iutil.execWithRedirect ("/sbin/depmod",
                                     [ "/sbin/depmod", "-a", version ],
-                                    root = scriptRoot)
+                                    root = self.instPath)
 
     def writeConfiguration(self):
         self.writeLanguage ()
