@@ -1,7 +1,10 @@
 2004-10-18  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.  
+	Rebuild against newer bogl to hopefully fix CJK text installs
+
 	* scripts/upd-instroot: Add Bluecurve icon theme index, hopefully
-	fixes the icon theme to be right.
+	fixes the icon theme to be correct.
 
 	* bootloader.py: Add a trailing newline to /etc/sysconfig/kernel
 

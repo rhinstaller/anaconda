@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.19
+Version: 10.0.3.20
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct 18 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.20-1
+- Fix traceback with %post logging (Gijs Hollestelle, #136154)
+- When using a local stage2.img for FTP/HTTP install, give an error earlier 
+  if you point at an invalid tree (#135603, #117155, #120101)
+- Add a trailing newline to /etc/sysconfig/kernel
+- Try to fix the icon theme
+- Rebuild against new dietlibc, hopefully fixes CJK text installs
+
 * Sun Oct 17 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.19-1
 - Fix font size to fit on disk display better (#135731)
 - Write out part lines for autopart lvm correctly (#135714)
