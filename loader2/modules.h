@@ -12,7 +12,7 @@ struct loadedModuleInfo {
     int weLoaded;
     int written;
     char * path;
-    int firstDevNum, lastDevNum;	/* only used for ethernet currently */
+    int firstDevNum, lastDevNum;
     enum driverMajor major;
     enum driverMinor minor;
 };
