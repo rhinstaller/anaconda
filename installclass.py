@@ -124,6 +124,7 @@ class BaseInstallClass:
                  "findrootparts",
 		 "betanag",
 		 "installtype",
+		 "zfcpconfig",
                  "partitionmethod",
                  "partitionobjinit",
                  "partitionmethodsetup",
@@ -168,6 +169,9 @@ class BaseInstallClass:
 
 	if not BETANAG:
 	    dispatch.skipStep("betanag", permanent=1)
+
+	if iutil.getArch() != "s390":
+            dispatch.skipStep("zfcpconfig")
 
         if iutil.getArch() != "i386" or 1:
             dispatch.skipStep("bootdisk")
@@ -357,6 +361,9 @@ class BaseInstallClass:
 
     def setSELinux(self, id, sel):
         id.security.setSELinux(sel)
+
+    def setZFCP(self, id, fcpdev):
+        id.zfcp.fcpdevices = fcpdev
 
     def setFirewall(self, id, enable = 1, trusts = [], ports = []):
 	id.firewall.enabled = enable

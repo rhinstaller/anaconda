@@ -47,6 +47,7 @@ stepToClass = {
     "mouse" : ("mouse_gui", "MouseWindow"),
     "welcome" : ("welcome_gui", "WelcomeWindow"),
     "installtype" : ("installpath_gui", "InstallPathWindow"),
+    "zfcpconfig" : ("zfcp_gui", "ZFCPWindow"),
     "partitionmethod" : ("partmethod_gui", "PartitionMethodWindow"),
     "partition" : ("partition_gui", "PartitionWindow"),
     "autopartition" : ("partition_gui", "AutoPartitionWindow"),
