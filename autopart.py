@@ -303,6 +303,8 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             # FIXME: this is a hack to make sure prep boot is even more first
             if request.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
                 numDrives = -1
+            if request.fstype == fsset.fileSystemTypeGet("Apple Bootstrap"):
+                numDrives = -1
         else:
             drives = getDriveList(request, diskset)
             numDrives = len(drives)
@@ -1017,7 +1019,7 @@ def doPartitioning(diskset, requests, doRefresh = 1):
     ret = bootRequestCheck(requests, diskset)
 
     if ret == BOOTALPHA_NOT_BSD:
-        raise PartitioningWarning, _("Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to boot from this paritition. Use a partition belonging to a BSD disk label or change this device disk label to BSD.") %(requests.getBootableRequest()[0].mountpoint,)
+        raise PartitioningWarning, _("Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to boot from this partition. Use a partition belonging to a BSD disk label or change this device disk label to BSD.") %(requests.getBootableRequest()[0].mountpoint,)
     elif ret == BOOTALPHA_NO_RESERVED_SPACE:
         raise PartitioningWarning, _("Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot") %(requests.getBootableRequest()[0].mountpoint,)
     elif ret == BOOTEFI_NOT_VFAT:
@@ -1091,7 +1093,8 @@ def doClearPartAction(partitions, diskset):
         disk = diskset.disks[drive]
         part = disk.next_partition()
         while part:
-            if not part.is_active() or (part.type == parted.PARTITION_EXTENDED):
+            if (not part.is_active() or (part.type == parted.PARTITION_EXTENDED) or
+               (part.disk.type.name == "mac" and part.num == 1 and part.get_name() == "Apple")):
                 part = disk.next_partition(part)
                 continue
             if part.fs_type:
@@ -1487,7 +1490,7 @@ def autoCreatePartitionRequests(autoreq):
     """
     
     requests = []
-    for (mntpt, fstype, minsize, maxsize, grow, format) in autoreq:
+    for (mntpt, fstype, minsize, maxsize, grow, format, asvol) in autoreq:
         if fstype:
             ptype = fsset.fileSystemTypeGet(fstype)
         else:
@@ -1575,9 +1578,8 @@ def getAutopartitionBoot():
         return [ (None, "PPC PReP Boot", 16, None, 0, 1, 0) ]
     elif (iutil.getPPCMachine() == "iSeries") and iutil.hasiSeriesNativeStorage():
         return []
-    elif (iutil.getPPCMachine() == "PMac") and iutil.getPPCMacGen == "NewWorld":
-        return [ ( None, "Apple Bootstrap", 1, 1, 0, 1, 0) , 
-                 ("/boot", None, 100, None, 0, 1, 0) ]
+    elif (iutil.getPPCMachine() == "PMac") and iutil.getPPCMacGen() == "NewWorld":
+        return [ ( None, "Apple Bootstrap", 1, 1, 0, 1, 0) ]
     else:
         return [ ("/boot", None, 100, None, 0, 1, 0) ]
 

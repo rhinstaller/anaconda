@@ -551,7 +551,12 @@ class BaseInstallClass:
         if doClear:
             partitions.autoClearPartType = clear
             partitions.autoClearPartDrives = []
-        partitions.autoPartitionRequests = autoCreateLVMPartitionRequests(autorequests)
+
+        if (iutil.getPPCMachine() == "PMac"):
+            # No LVM on a Mac partition table
+            partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
+        else:
+            partitions.autoPartitionRequests = autoCreateLVMPartitionRequests(autorequests)
         
 
     def setInstallData(self, id, intf = None):

@@ -32,7 +32,7 @@ makeBootImages() {
 	    --loaderbin loader \
 	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES $USBMODS =scsi =net"
 
-	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp $TOPDESTPATH/images/pseries
+	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp $TOPDESTPATH/images/pseries $TOPDESTPATH/images/mac64
 	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/chrp/vmlinuz
         cp $BOOTDISKDIR/yaboot.conf.pseries $TOPDESTPATH/etc/yaboot.conf
 	cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
@@ -67,6 +67,23 @@ netboot.img - A network boot image for starting an installation on pSeries
 Images for installing on an iSeries machine can be found in the ppc/iSeries
 directory.
 EOF
+
+	# Create the Mac G5 boot.iso
+	mkdir -p $TOPDESTPATH/ppc/mac64
+	cp $TOPDESTPATH/ppc/chrp/ramdisk.image.gz $TOPDESTPATH/ppc/mac64/
+	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/mac64/vmlinuz
+	cp $BOOTDISKDIR/yaboot.conf.mac64 $TOPDESTPATH/ppc/mac64/yaboot.conf
+	cp $BOOTDISKDIR/ofboot.b $TOPDESTPATH/ppc/mac64/ofboot.b
+	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/mac64/
+
+	# we also want to make a boot.iso here 
+	mkdir -p $TOPDESTPATH/isopath/ppc/mac64
+	cp $TOPDESTPATH/ppc/mac64/* $TOPDESTPATH/isopath/ppc/mac64/
+
+	# Create the boot.iso
+	mkisofs -quiet -o $TOPDESTPATH/images/mac64/boot.iso -part -hfs -T -r -l -J -A "$PRODUCT $VERSION" -sysid PPC -V "PBOOT" -volset "$VERSION" -volset-size 1 -volset-seqno 1 -hfs-volid "$VERSION" -hfs-bless "$TOPDESTPATH/isopath/ppc/mac64" -map $BOOTDISKDIR/mapping -magic $BOOTDISKDIR/magic -no-desktop -allow-multidot $TOPDESTPATH/isopath
+	rm -rf $TOPDESTPATH/isopath/
+
     elif [ "$KERNELARCH" = "ppc64iseries" ]; then
 	mkdir -p $TOPDESTPATH/ppc/iSeries
 

@@ -818,8 +818,10 @@ class applebootstrapFileSystem(hfsFileSystem):
         self.maxSizeMB = 1
         self.name = "Apple Bootstrap"
         if iutil.getPPCMacGen() == "NewWorld":
+            self.linuxnativefs = 1
             self.supported = 1
         else:
+            self.linuxnativefs = 0
             self.supported = 0
 
 fileSystemTypeRegister(applebootstrapFileSystem())

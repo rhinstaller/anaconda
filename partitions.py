@@ -616,6 +616,11 @@ class Partitions:
                 return [ bootreq ]
             else:
                 return None
+        elif iutil.getPPCMachine() == "PMac":
+            for req in self.requests:
+                if req.fstype == fsset.fileSystemTypeGet("Apple Bootstrap"):
+                    return [ req ]
+            return None
         elif iutil.getPPCMachine() == "iSeries":
             for req in self.requests:
                 if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
@@ -796,6 +801,25 @@ class Partitions:
             if not bootreq or bootreq.getActualSize(self, diskset) < 50:
                 errors.append(_("You must create a /boot/efi partition of "
                                 "type FAT and a size of 50 megabytes."))
+
+        if iutil.getPPCMacGen() == "NewWorld":
+            reqs = self.getBootableRequest()
+            found = 0
+
+            bestreq = None
+            if reqs:
+                for req in reqs:
+                    if req.fstype == fsset.fileSystemTypeGet("Apple Bootstrap"):
+                        found = 1
+                        # the best one is either the first or the first
+                        # newly formatted one
+                        if ((bestreq is None) or ((bestreq.format == 0) and
+                                                  (req.format == 1))):
+                            bestreq = req
+                        break
+                
+            if not found:
+                errors.append(_("You must create an Apple Bootstrap partition."))
 
         if (iutil.getPPCMachine() == "pSeries" or
             iutil.getPPCMachine() == "iSeries"):
