@@ -12,8 +12,10 @@
 #include "smp.h"
 
 static PyObject * doFindModInfo(PyObject * s, PyObject * args);
+static PyObject * doInsmod(PyObject * s, PyObject * args);
 static PyObject * doMount(PyObject * s, PyObject * args);
 static PyObject * doReadModInfo(PyObject * s, PyObject * args);
+static PyObject * doRmmod(PyObject * s, PyObject * args);
 static PyObject * doUMount(PyObject * s, PyObject * args);
 static PyObject * getModuleList(PyObject * s, PyObject * args);
 static PyObject * makeDevInode(PyObject * s, PyObject * args);
@@ -22,10 +24,12 @@ static PyObject * smpAvailable(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "findmoduleinfo", (PyCFunction) doFindModInfo, METH_VARARGS, NULL },
+    { "insmod", (PyCFunction) doInsmod, METH_VARARGS, NULL },
     { "mkdevinode", (PyCFunction) makeDevInode, METH_VARARGS, NULL },
     { "modulelist", (PyCFunction) getModuleList, METH_VARARGS, NULL },
     { "pciprobe", (PyCFunction) pciProbe, METH_VARARGS, NULL },
     { "readmoduleinfo", (PyCFunction) doReadModInfo, METH_VARARGS, NULL },
+    { "rmmod", (PyCFunction) doRmmod, METH_VARARGS, NULL },
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
@@ -118,6 +122,55 @@ static PyObject * makeDevInode(PyObject * s, PyObject * args) {
 	PyErr_SetString(PyExc_TypeError, "unknown device");
       case -2:
 	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doRmmod(PyObject * s, PyObject * pyargs) {
+    char * modName;
+
+    if (!PyArg_ParseTuple(pyargs, "s", &modName)) return NULL;
+
+    if (rmmod(modName)) {
+	PyErr_SetString(PyExc_SystemError, "rmmod failed");
+	return NULL;
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doInsmod(PyObject * s, PyObject * pyargs) {
+    char * modName;
+    PyObject * args, * obj;
+    int argCount;
+    int i;
+    char ** argv;
+
+    if (!PyArg_ParseTuple(pyargs, "sO", &modName, &args)) return NULL;
+
+    if (!(PyList_Check(args))) {
+	PyErr_SetString(PyExc_TypeError, "argument list expected");
+	return NULL;
+    }
+
+    argCount = PyList_Size(args);
+    argv = alloca(sizeof(*args) * (argCount + 1));
+    for (i = 0; i < argCount; i++) {
+	obj = PyList_GetItem(args, i);
+	if (!PyString_Check(obj)) {
+	    PyErr_SetString(PyExc_TypeError, "argument list expected");
+	    return NULL;
+	}
+	argv[i] = PyString_AsString(obj);
+    }
+    argv[i] = NULL;
+
+    if (insmod(modName, argv)) {
+	PyErr_SetString(PyExc_SystemError, "insmod failed");
 	return NULL;
     }
 
