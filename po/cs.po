@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: install VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-06-09 10:25+0200\n"
+"PO-Revision-Date: 2004-07-01 13:43+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -605,7 +605,7 @@ msgstr "Vzdálené přihlášení (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "WWW server (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
@@ -1533,7 +1533,7 @@ msgstr ""
 "Chcete toto DASD přeformátovat pomocí formátu CDL?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1541,22 +1541,17 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"Tabulka oddílů na zařízení /dev/%s je typu %s, který není na vaší "
-"architektuře očekáván. Pokud chcete na tento disk nainstalovat %s, musí být "
-"tabulka oddílů znovu inicializována, což znamená ztrátu VŠECH DAT na tomto "
-"disku.\n"
+"/dev/%s má momentálně rozložení oddílů %s. Abyste na tento disk mohli nainstalovat %s, musí být znovu inicializován, což znamená ztrátu VŠECH DAT na tomto disku.\n"
 "\n"
-"Chcete tento disk inicializovat?"
+"Chcete tento disk naformátovat?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Ignorovat"
+msgstr "_Ignorovat disk"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Formátovat"
+msgstr "_Formátovat disk"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -1573,7 +1568,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Prosím čekejte, formátuje se disk %s...\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1584,9 +1579,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Tabulka oddílů na zařízení %s je nečitelná. Aby mohly být vytvořeny nové "
-"oddíly, musí být tabulka oddílů inicializována, což znamená ztrátu VŠECH DAT "
-"na tomto disku.\n"
+"Tabulka oddílů na zařízení %s (%s) je nečitelná. Aby mohly být vytvořeny nové oddíly, musí být tabulka oddílů inicializována, což znamená ztrátu VŠECH DAT na tomto disku.\n"
 "\n"
 "Tato operace nebere ohled na dřívější volby disků, které ignorovat.\n"
 "\n"
@@ -3229,7 +3222,7 @@ msgstr "Po_volit firewall"
 msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
-msgstr ""
+msgstr "Na firewallu možná budete chtít povoliž ostatním přístup ke konkrétním službám ve vašem počítači. Ke kterým službám povolit přístup?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3237,12 +3230,12 @@ msgid ""
 "than are available in a traditional Linux system.  It can be set up in a "
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
-msgstr ""
+msgstr "Security Enhanced Linux (SELinux) poskytuje jemnější ovládání zabezpečení než to, co je k dispozici v tradičním systému Linux. Dá se nastavit do zakázaného stavu, stavu, který jen varuje o věcech, které by byly zakázány nebo do plně aktivního stavu."
 
+# FIXME: "?:" ???
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "Zakázat SELinux"
+msgstr "Povolit _SELinux?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3798,14 +3791,12 @@ msgid "_Point to Point (IP)"
 msgstr "_Point to Point (IP)"
 
 #: ../iw/network_gui.py:238
-#, fuzzy
 msgid "_ESSID"
-msgstr "ESSID"
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
-#, fuzzy
 msgid "Encryption _Key"
-msgstr "Šifrovací klíč"
+msgstr "_Šifrovací klíč"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -5470,9 +5461,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "Nemůžete nastavovat zakázaný firewall."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Upravit nastavení grafického systému"
+msgstr "Upravit nastavení firewallu"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -6956,9 +6946,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Na zaváděcí disketě nemohu nalézt soubor ks.cfg."
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Chybný argument kickstart příkazu metody HD %s: %s"
+msgstr "Chybný argument kickstart příkazu metody shutdown %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -8144,7 +8134,7 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arabština"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -8199,9 +8189,8 @@ msgid "German"
 msgstr "Němčina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Hledání"
+msgstr "Hindština"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8225,7 +8214,7 @@ msgstr "Korejština"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Makedonština"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8249,7 +8238,7 @@ msgstr "Portugalština(brazilská)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Paňdžábština"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8268,9 +8257,8 @@ msgid "Swedish"
 msgstr "Švédština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmánie"
+msgstr "Tamilština"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8282,7 +8270,7 @@ msgstr "Ukrajiština"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamština"
 
 #. generated from lang-table
 msgid "Welsh"
@@ -8306,35 +8294,14 @@ msgstr "Zulu"
 #~ msgid "Warning: Bad Token"
 #~ msgstr "Varování: špatná položka"
 
-#~ msgid "Allow others on the internet to access these services."
-#~ msgstr "Umožnit ostatním na Internetu přistupovat k těmto službám."
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "Povo_lit příchozí:"
-
-#~ msgid "Web Server"
-#~ msgstr "WWW server"
-
 #~ msgid "Other _ports:"
 #~ msgstr "_Ostatní porty:"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "Rozšíření _Security Enhanced Linux (SELinux):"
 
 #~ msgid "Trusted Devices:"
 #~ msgstr "Důvěryhodná zařízení:"
 
-#~ msgid "SSH"
-#~ msgstr "SSH"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "WWW (HTTP)"
-
 #~ msgid "Mail (SMTP)"
 #~ msgstr "Pošta (SMTP)"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
 
 #~ msgid "Other ports"
 #~ msgstr "Ostatní porty"
