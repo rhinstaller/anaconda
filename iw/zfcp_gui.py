@@ -28,8 +28,8 @@ class ZFCPWindow(InstallWindow):
         InstallWindow.__init__(self, ics)
 
     def getNext(self):
-        self.fcp.updateConfig(self.fcpdevices, self.diskset, self.intf)
         self.fcp.fcpdevices = self.fcpdevices
+        self.fcp.updateConfig(self.fcpdevices, self.diskset, self.intf)
 
     def setupDevices(self):
         def sortFcpDevs(one, two):
@@ -227,8 +227,16 @@ class ZFCPWindow(InstallWindow):
                         break
                 if invalid == 0:
                     editWin.destroy()
+                    for i in range(0, len(self.fcpdevices)):
+                        if self.fcpdevices[i][0] == devicenum:
+                            break
+                    if  (i >= len(self.fcpdevices)):
+                        raise ValueError, "Unable to find device: %s" %(devicenum,)
+                    
                     for t in range(len(self.options)):
                         self.store.set_value(iter, t, tmpvals[t])
+                        self.fcpdevices[i][t] = tmpvals[t]
+
                     break
         return
 
@@ -242,7 +250,15 @@ class ZFCPWindow(InstallWindow):
               "configuration. Are you sure that you wish "
               "to continue?"), type = "yesno")
         if rc == 1:
+            devicenum = model.get_value(iter, 0)
+            for i in range(0, len(self.fcpdevices)):
+                if self.fcpdevices[i][0] == devicenum:
+                    break
+            if  (i >= len(self.fcpdevices)):
+                raise ValueError, "Unable to find device: %s" %(devicenum,)
+            self.fcpdevices.pop(i)
             self.store.remove(iter)
+            
         return
 
 # vim:tw=78:ts=4:et:sw=4
