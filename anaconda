@@ -36,15 +36,21 @@ import traceback
 import string
 
 import isys
+if isys.isPsudoTTY(0):
+    os.environ["TERM"] = "kon"
+
 import iutil
 from translate import _
 from exception import handleException
 
 setverPath = None
 
-
+if os.environ.has_key ("ANACONDAARGS"):
+    theargs = string.split (os.environ["ANACONDAARGS"])
+else:
+    theargs = sys.argv[1:]
 try:
-    (args, extra) = isys.getopt(sys.argv[1:], 'GTRxtdr:fm:', 
+    (args, extra) = isys.getopt(theargs, 'GTRxtdr:fm:', 
           [ 'gui', 'text', 'reconfig', 'xmode', 'test', 'debug', 'nofallback',
             'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
@@ -57,10 +63,15 @@ except TypeError, msg:
 # save because we're about to munge argv
 [execname] = string.split(sys.argv[0], '/')[-1:]
 
+savedargs = []
+
 # remove the arguments - gnome_init doesn't understand them
 for arg in sys.argv[1:]:
+    savedargs.append (arg)
     sys.argv.remove (arg)
 sys.argc = 1
+
+os.environ["ANACONDAARGS"] = string.join(savedargs)
 
 #
 # default root to install into if doing a normal install
