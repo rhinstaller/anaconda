@@ -11,7 +11,7 @@
  * Michael Fulbright <msf@redhat.com>
  * Jeremy Katz <katzj@redhat.com>
  *
- * Copyright 1997 - 2003 Red Hat, Inc.
+ * Copyright 1997 - 2004 Red Hat, Inc.
  *
  * This software may be freely redistributed under the terms of the GNU
  * General Public License.
@@ -558,6 +558,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             loaderData->ethtool = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "allowcddma", 10))
             flags |= LOADER_FLAGS_ENABLECDDMA;
+        else if (!strncasecmp(argv[i], "selinux=0", 9))
+            flags |= LOADER_FLAGS_NOSELINUX;
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */
@@ -1331,6 +1333,37 @@ int main(int argc, char ** argv) {
     /* symlink rhpl/ will work                                    */
     if (access("/tmp/updates", F_OK))
 	mkdirChain("/tmp/updates");
+
+    /* now load SELinux policy before exec'ing anaconda (unless we've
+     * specified not to */
+    if (!FL_NOSELINUX(flags)) {
+        char * fn;
+        int pid;
+
+        if (!access("/tmp/updates/policy.15", R_OK))
+            fn = strdup("/tmp/updates/policy.15");
+        else if (!access("/mnt/source/RHupdates/policy.15", R_OK))
+            fn = strdup("/mnt/source/RHupdates/policy.15");
+        else 
+            fn = strdup("/mnt/runtime/etc/security/selinux/policy.15");
+
+        logMessage("Loading SELinux policy from %s", fn);
+        if (!(pid = fork())) {
+            setenv("LD_LIBRARY_PATH", LIBPATH, 1);
+            if (mount("/selinux", "/selinux", "selinuxfs", 0, NULL)) {
+                logMessage("failed to mount /selinux: %s", strerror(errno));
+                exit(1);
+            } else {
+                execl("/usr/sbin/load_policy", 
+                      "/usr/sbin/load_policy", fn, NULL);
+                logMessage("exec of load_policy failed: %s", strerror(errno));
+                exit(1);
+            }
+        }
+
+        waitpid(pid, NULL, 0);
+        free(fn);
+    }
 
     logMessage("Running anaconda script %s", *(argptr-1));
     
