@@ -129,6 +129,12 @@ PCMCIAMODULES_EXCLUDED="
 	serial_cs
 	serial_cb
 	sram_mtd
+        aironet4500_cs
+        orinoco_cs
+        orinoco
+        orinoco_old_cs
+        wavelan_cs
+        wvlan_cs
 "
 PCMCIAMODULES_EXCLUDED_SED="sed"
 for m in $PCMCIAMODULES_EXCLUDED
