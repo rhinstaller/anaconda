@@ -362,7 +362,7 @@ class InstallControlWindow:
 
         self.reloadRcQueued = 1
 
-#        self.html.set_font_charset (locale)
+        self.html.set_font_charset (locale)
 	self.updateStockButtons()
         self.navFrame.set_label (_("Online Help"))
         self.installFrame.set_label (_("Language Selection"))
@@ -389,14 +389,6 @@ class InstallControlWindow:
 	self.dir = 1
 
         self.setScreen ()
-        if self.helpWin:
-            self.html.source (self.currentWindow.getICS().getHTML(self.langSearchPath))
-
-        self.html.source (self.currentWindow.getICS().getHTML(self.langSearchPath))
-#        self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
-#        self.html.source ("<HTML><BODY BGCOLOR=white><H1>Flight of the Navigator</h1><br>&nbsp;<br>&nbsp;<br><p>Coming soon to an anaconda near you</BODY></HTML>")
-
-
 
     def helpClicked (self, widget, simulated = 0):
         self.hbox.remove (widget)
@@ -420,12 +412,6 @@ class InstallControlWindow:
             self.hbox.pack_start (self.hideHelpButton, FALSE)
             self.hbox.reorder_child (self.hideHelpButton, 0)
             self.displayHelp = TRUE
-
-    def closeHelp(self, args):
-        self.helpWin.destroy()
-        self.html.destroy()
-        self.helpWin = None
-        self.showHelpButton.set_sensitive(TRUE)
 
     def close (self, args):
         self.textWin.destroy()
@@ -572,6 +558,7 @@ class InstallControlWindow:
         prevButton.set_sensitive (ics.getPrevEnabled ())
         nextButton.set_sensitive (ics.getNextEnabled ())
  
+        self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
         self.html.source (ics.getHTML(self.langSearchPath))
 
         if (ics.getGrabNext ()):
@@ -601,7 +588,6 @@ class InstallControlWindow:
         self.ii = ii
         self.dispatch = dispatch
 	self.setLanguage(locale)
-        self.helpWin = None
         self.handle = None
 
     def keyRelease (self, window, event):
@@ -725,7 +711,6 @@ class InstallControlWindow:
         self.html = GtkXmHTML()
         self.html.set_allow_body_colors(TRUE)
         self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
-        self.html.source ("<HTML><BODY BGCOLOR=white><H1>Flight of the Navigator</h1><br>&nbsp;<br>&nbsp;<br><p>Coming soon to an anaconda near you</BODY></HTML>")
 
         self.navFrame = GtkFrame (_("Online Help"))
         self.box = GtkVBox (FALSE, 0)
