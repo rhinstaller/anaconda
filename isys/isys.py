@@ -50,19 +50,37 @@ def inet_aton (addr):
     return rc
 
 def inet_calcNetmask (ip):
+    if isinstance (ip, type (0)):
+        addr = inet_ntoa (ip)
+    else:
+        addr = ip
+    quad = string.splitfields (addr, ".")
+    if len (quad) > 0:
+        klass = string.atoi (quad[0])
+        if klass <= 127:
+            mask = "255.0.0.0";
+        if klass <= 191:
+            mask = "255.255.0.0";
+        else:
+            mask = "255.255.255.0";
+    return mask
+    
+def inet_calcNetBroad (ip, nm):
     if isinstance (ip, type ("")):
         ipaddr = inet_aton (ip)
     else:
         ipaddr = ip
-    if (ipaddr >> 24 & 0x000000ff) <= 127:
-        mask = "255.0.0.0";
-    elif (ipaddr >> 24 & 0x000000ff) <= 191:
-        mask = "255.255.0.0";
+
+    if isinstance (nm, type ("")):
+        ipaddr = inet_aton (ip)
     else:
-        mask = "255.255.255.0";
-        
-    return mask
-    
+        ipaddr = ip
+
+    netaddr = ipaddr & nmaddr
+    bcaddr = netaddr | (~nmaddr);
+            
+    return (inet_ntoa (netaddr), inet_ntoa (bcaddr))
+
 try:
     _isys.readmoduleinfo("/modules/module-info")
 except IOError:
