@@ -231,7 +231,9 @@ def handleX11Packages(dir, intf, disp, id, instPath):
 # END BLOCK
 
     # set default runlevel based on packages
-    gnomeSelected = (id.grpset.hdrlist.has_key('gdm')
+    gnomeSelected = (id.grpset.hdrlist.has_key('gnome-session')
+                     and id.grpset.hdrlist['gnome-session'].isSelected())
+    gdmSelected = (id.grpset.hdrlist.has_key('gdm')
                      and id.grpset.hdrlist['gdm'].isSelected())
     kdeSelected = (id.grpset.hdrlist.has_key('kdebase')
                    and id.grpset.hdrlist['kdebase'].isSelected())
@@ -245,7 +247,7 @@ def handleX11Packages(dir, intf, disp, id, instPath):
     elif kdeSelected:
         id.desktop.setDefaultDesktop("KDE")
 
-    if (gnomeSelected or kdeSelected) and (xinstalled) and (not flags.serial) and (not flags.virtpconsole):
+    if (gdmSelected or kdeSelected) and (xinstalled) and (not flags.serial) and (not flags.virtpconsole):
         id.desktop.setDefaultRunLevel(5)
     else:
         id.desktop.setDefaultRunLevel(3)        
