@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
-"POT-Creation-Date: 2000-06-01 11:33-0400\n"
-"PO-Revision-Date: 2000-07-03 00:23+0200\n"
+"POT-Creation-Date: 2000-06-30 14:48-0400\n"
+"PO-Revision-Date: 2000-07-13 21:25+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -529,13 +529,15 @@ msgstr "Ett undantagsfel inträffade"
 
 #: ../text.py:782
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "Spara kraschdump"
 
 #: ../text.py:783
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
+"Var vänlig och sätt i en diskett nu. Allt innehåll på disketten kommer att "
+"raderas, så var noga med valet av diskett."
 
 #: ../text.py:793
 msgid ""
@@ -545,10 +547,15 @@ msgid ""
 "will help Red hat in fixing the problem.\n"
 "\n"
 msgstr ""
+"Ett internt fel inträffade i installationsprogrammet. Var vänlig och "
+"rapportera det här felet till Red Hat (genom webbplatsen "
+"bugzilla.redhat.com) så snart som möjligt. Informationen om det här felet "
+"kan sparas på en diskett, och kan hjälpa Red Hat att åtgärda problemet.\n"
+"\n"
 
 #: ../text.py:800 ../text.py:803
 msgid "Save"
-msgstr ""
+msgstr "Spara"
 
 #: ../text.py:800 ../text.py:801
 msgid "Debug"
@@ -559,11 +566,10 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux © 2000 Red Hat, Inc."
 
 #: ../text.py:817
-#, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
-" <F1> för hjälp | <Tab> mellan element | <Blanksteg> väljer | <F12> nästa "
+"<F1> för hjälp | <Tab> mellan element | <Blanksteg> väljer | <F12> nästa "
 "skärm"
 
 #: ../text.py:819
@@ -707,12 +713,7 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Jag kan inte gå till det föregående steget härifrån. Du måste försöka igen."
 
-#: ../todo.py:350
-#, c-format
-msgid "Error copying timezone (from %s): %s"
-msgstr "Fel vid kopiering av tidszon (från %s): %s"
-
-#: ../todo.py:417
+#: ../todo.py:488
 msgid "Creating boot disk..."
 msgstr "Skapar bootdiskett..."
 
@@ -768,14 +769,13 @@ msgstr ""
 "stäng sedan ner korrekt för att uppgradera."
 
 #: ../todo.py:849
-#, fuzzy
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Ett eller flera av filsystemen på ditt Linuxsystem avmonterades inte "
-"korrekt. Boota din linuxinstallation och låt filsystemen kontrolleras, och "
-"stäng sedan ner korrekt för att uppgradera."
+"Ett eller flera av filsystemen som finns med i /etc/fstab på ditt "
+"Linuxsystem kan inte monteras. Var vänlig och åtgärda detta problem och "
+"prova sedan att uppgradera igen."
 
 #: ../todo.py:870
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
@@ -863,9 +863,8 @@ msgid "Vertical frequency range"
 msgstr "Vertikalt frekvensintervall"
 
 #: ../xserver.py:26
-#, fuzzy
 msgid "Mouse Not Detected"
-msgstr "Musval"
+msgstr "Ingen mus upptäcktes"
 
 #: ../xserver.py:27
 msgid ""
@@ -874,10 +873,13 @@ msgid ""
 "information. You may also use text mode installation which does not require "
 "a mouse."
 msgstr ""
+"Din mus kunde inte upptäckas automatiskt. För att kunna fortsätta "
+"installationen måste du fortsätta till nästa skärm och ange informationen om "
+"din mus. Du kan också använda textlägesinstallationen som inte kräver en mus."
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
-msgstr ""
+msgstr "Använd textläge"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -991,36 +993,32 @@ msgid "NIS Server: "
 msgstr "NIS-server: "
 
 #: ../iw/auth_gui.py:118 ../textw/userauth_text.py:332
-#, fuzzy
 msgid "Enable LDAP"
-msgstr "Aktivera NIS"
+msgstr "Aktivera LDAP"
 
 #: ../iw/auth_gui.py:121 ../textw/userauth_text.py:338
-#, fuzzy
 msgid "LDAP Server:"
-msgstr "NIS-server:"
+msgstr "LDAP-server:"
 
 #: ../iw/auth_gui.py:123 ../textw/userauth_text.py:340
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "LDAP-basdomän:"
 
 #: ../iw/auth_gui.py:150 ../textw/userauth_text.py:357
-#, fuzzy
 msgid "Enable Kerberos"
-msgstr "Aktivera stumma tangenter"
+msgstr "Aktivera Kerberos"
 
 #: ../iw/auth_gui.py:154 ../textw/userauth_text.py:364
 msgid "Realm:"
-msgstr ""
+msgstr "Realm:"
 
 #: ../iw/auth_gui.py:156 ../textw/userauth_text.py:366
 msgid "KDC:"
-msgstr ""
+msgstr "KDC:"
 
 #: ../iw/auth_gui.py:158 ../textw/userauth_text.py:368
-#, fuzzy
 msgid "Admin Server:"
-msgstr "NIS-server:"
+msgstr "Administrationsserver:"
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
@@ -1135,9 +1133,8 @@ msgstr ""
 " Du kan inte uppgradera detta system!"
 
 #: ../iw/examine_gui.py:46
-#, fuzzy
 msgid "Please select the device containing the root filesystem: "
-msgstr "%s-katalogen måste finnas på rotfilsystemet."
+msgstr "Välj enheten som innehåller rotfilsystemet: "
 
 #: ../iw/examine_gui.py:74
 msgid "Customize packages to be upgraded"
@@ -1621,9 +1618,8 @@ msgid "Skip X Configuration"
 msgstr "Hoppa över konfiguration av X"
 
 #: ../iw/xconfig_gui.py:486
-#, fuzzy
 msgid "Default Desktop:"
-msgstr "Standard"
+msgstr "Standardskrivbord:"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
@@ -1698,7 +1694,7 @@ msgstr "Nollställ"
 
 #: ../textw/lilo_text.py:126
 msgid "Edit Boot Label Please"
-msgstr "Vänligen ändra bootetiketten"
+msgstr "Var vänlig och ändra bootetiketten"
 
 #: ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
 msgid "Invalid Boot Label"
@@ -1709,9 +1705,8 @@ msgid "Boot label may not be empty."
 msgstr "Bootetiketten får inte vara tom."
 
 #: ../textw/lilo_text.py:150
-#, fuzzy
 msgid "Boot label contains illegal characters."
-msgstr "Bootetiketter kan inte innehålla blanksteg."
+msgstr "Bootetiketten innehåller ogiltiga tecken."
 
 #: ../textw/lilo_text.py:206
 msgid ""
@@ -1742,9 +1737,8 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS4 (COM4 i DOS)"
 
 #: ../textw/mouse_text.py:26
-#, fuzzy
 msgid "What device is your mouse located on?"
-msgstr "På vilken enhet finns din mus? %s %i"
+msgstr "På vilken enhet finns din mus?"
 
 #: ../textw/mouse_text.py:45
 msgid "Which model mouse is attached to this computer?"
@@ -2095,7 +2089,7 @@ msgstr "Begär server via broadcast"
 
 #: ../libfdisk/fsedit.c:447
 msgid "partitioning did not meet requirements"
-msgstr ""
+msgstr "partitioneringen uppfyllde inte kraven"
 
 #: ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:978
 #: ../libfdisk/fsedit.c:987 ../libfdisk/fsedit.c:1014
@@ -2212,7 +2206,7 @@ msgstr ""
 
 #: ../libfdisk/fsedit.c:1093
 msgid "No Drives Found"
-msgstr "Inga hårddiskar funna"
+msgstr "Inga hårddiskar hittades"
 
 #: ../libfdisk/fsedit.c:1094
 msgid ""
@@ -2229,7 +2223,7 @@ msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr ""
-"Det uppstog ett fel vid läsning av partitionstabellen för blockenhet %s.  "
+"Det uppstog ett fel vid läsning av partitionstabellen för blockenhet %s. "
 "Felet var"
 
 #: ../libfdisk/fsedit.c:1463
@@ -2379,10 +2373,10 @@ msgid ""
 "partitions also.  Clear those mount points and then you will be able to "
 "assign '/' to this partition."
 msgstr ""
-"Du har försökt tilldela \"/\"-monteringspunkten till en FAT-liknande "
+"Du har försökt knyta \"/\"-monteringspunkten till en FAT-liknande "
 "partitition. Du kan inte göra det nu eftersom monteringspunkter även har "
-"tilldelats ext2-partitioner. Ta bort de monteringspunkterna så kan du sedan "
-"tilldela \"/\" till denna partition."
+"knytits till ext2-partitioner. Ta bort de monteringspunkterna så kan du "
+"sedan knyta \"/\" till denna partition."
 
 #: ../libfdisk/gnomefsedit.c:1201 ../libfdisk/newtfsedit.c:661
 msgid ""
@@ -2401,8 +2395,8 @@ msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
 msgstr ""
-"Storleken du bad om är inte tillåten. Försäkra dig om att den är större än "
-"0, och angiven i decimalt heltalsformat (basen 10)."
+"Storleken du bad om är inte tillåten. Försäkra dig om att den är större än 0 "
+"och angiven i decimalt heltalsformat (basen 10)."
 
 #: ../libfdisk/gnomefsedit.c:1253 ../libfdisk/gnomefsedit.c:2268
 #: ../libfdisk/newtfsedit.c:705
@@ -2420,20 +2414,16 @@ msgstr ""
 "storleken på en växlingspartition är %ld megabyte."
 
 #: ../libfdisk/gnomefsedit.c:1268
-#, fuzzy
 msgid "No Drives Specified"
-msgstr "Inga hårddiskar funna"
+msgstr "Inga hårddiskar angivna"
 
 #: ../libfdisk/gnomefsedit.c:1269 ../libfdisk/gnomefsedit.c:1286
 msgid "Close"
 msgstr "Stäng"
 
 #: ../libfdisk/gnomefsedit.c:1270
-#, fuzzy
 msgid "You must constrain this partition to at least one drive."
-msgstr ""
-"Du måste skapa en växlingspartition (swappartition) för att kunna fortsätta "
-"installationen."
+msgstr "Du måste begränsa den här partitionen till åtminstone en hårddisk."
 
 #: ../libfdisk/gnomefsedit.c:1278 ../libfdisk/gnomefsedit.c:1285
 msgid "No RAID Drive Constraint"
@@ -2709,15 +2699,15 @@ msgstr "Geom [C/H/S]"
 
 #: ../libfdisk/gnomefsedit.c:3156
 msgid "Total (M)"
-msgstr "Totalt (M)"
+msgstr "Totalt"
 
 #: ../libfdisk/gnomefsedit.c:3157
 msgid "Free (M)"
-msgstr "Ledigt (M)"
+msgstr "Ledigt"
 
 #: ../libfdisk/gnomefsedit.c:3158
 msgid "Used (M)"
-msgstr "Använt (M)"
+msgstr "Använt"
 
 #: ../libfdisk/gnomefsedit.c:3159
 msgid "Used (%)"
@@ -2773,9 +2763,8 @@ msgid "Swap Partition"
 msgstr "Växlingspartition (swap)"
 
 #: ../libfdisk/newtfsedit.c:201
-#, fuzzy
 msgid "Raid Partition"
-msgstr "Ändra partition"
+msgstr "RAID-partition"
 
 #: ../libfdisk/newtfsedit.c:356
 msgid "Edit New Partition"
@@ -2834,18 +2823,16 @@ msgstr ""
 "installationen."
 
 #: ../libfdisk/newtfsedit.c:1610
-#, fuzzy
 msgid "No /boot/efi Partition"
-msgstr "Ingen rotpartition"
+msgstr "Ingen /boot/efi-partition"
 
 #: ../libfdisk/newtfsedit.c:1612
-#, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr ""
-"Du måste skapa en växlingspartition (swappartition) för att kunna fortsätta "
-"installationen."
+"Du måste knyta monteringspunkten /boot/efi till en primär partition av "
+"FAT-typ innan du kan fortsätta installationen."
 
 #: ../libfdisk/newtfsedit.c:1633
 msgid ""
@@ -2869,7 +2856,7 @@ msgstr "Spara ändringar av partitionstabell(er)?"
 
 #: ../libfdisk/newtfsedit.c:1695
 msgid "You may only delete NFS mounts."
-msgstr "Du kan endast radera NFS-monteringar."
+msgstr "Du kan endast ta bort NFS-monteringar."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
@@ -3504,9 +3491,8 @@ msgstr "Spel"
 msgid "Multimedia Support"
 msgstr "Multimediastöd"
 
-#, fuzzy
 msgid "Laptop Support"
-msgstr "Skrivarstöd"
+msgstr "Stöd för bärbar dator"
 
 msgid "Networked Workstation"
 msgstr "Arbetsstation för nätverk"
@@ -3558,6 +3544,3 @@ msgstr "Verktyg"
 
 #~ msgid "Error copying timezone (from %s): %s"
 #~ msgstr "Fel vid kopiering av tidszon (från %s): %s"
-
-#~ msgid "Clustering"
-#~ msgstr "Klustring"
