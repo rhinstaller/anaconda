@@ -40,12 +40,14 @@ startinetd()
 
 	/sbin/xinetd -stayalive -reuse -pidfile /tmp/xinetd.pid
 	/sbin/sshd
-	while : ; do
-		echo
-		echo $"Please connect now to $IPADDR and start 'loader' from this shell."
-      /bin/sh --login
-		[ $? = 0 ] || break
-	done
+	if [ -z "$RUNKS" ]; then
+  	  while : ; do
+			echo
+			echo $"Please connect now to $IPADDR and start 'loader' from this shell."
+			/bin/sh --login
+			[ $? = 0 ] || break
+	  done
+	fi
 }
 
 S390ARCH=`uname -m`
@@ -363,6 +365,10 @@ fi
 echo "loader" >> /.bash_history
 
 startinetd
+
+if [ -n "$RUNKS" ]; then
+	 /sbin/loader
+fi
 
 umount -a
 umount /proc
