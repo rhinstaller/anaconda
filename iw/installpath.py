@@ -17,6 +17,7 @@ from installtype import *
 from dependencies import *
 from lilo import *
 from examine import *
+from bootdisk import *
 
 UPGRADE = 0
 INSTALL = 1
@@ -34,7 +35,7 @@ class InstallPathWindow (InstallWindow):
 
         self.installSteps = [NetworkWindow, PartitionWindow, FormatWindow, PackageSelectionWindow,
 	                     UnresolvedDependenciesWindow, LiloWindow, AuthWindow, AccountWindow,
-                             InstallProgressWindow, CongratulationWindow]
+                             InstallProgressWindow, BootdiskWindow, CongratulationWindow]
 
 	self.upgradeSteps = [UpgradeExamineWindow,
 	                     UnresolvedDependenciesWindow, InstallProgressWindow,

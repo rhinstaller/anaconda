@@ -11,11 +11,26 @@ class LiloWindow (InstallWindow):
         self.type = None
 
     def getNext (self):
-        self.type = self.list.selection[0]
-        if self.list.selection[0] == 0:
-            self.todo.setLiloLocation (self.boothd)
+        if self.lilo.get_active ():
+            self.todo.setLiloLocation (None)
         else:
-            self.todo.setLiloLocation (self.bootpart)
+            self.type = self.list.selection[0]
+            if self.list.selection[0] == 0:
+                self.todo.setLiloLocation (self.boothd)
+            else:
+                self.todo.setLiloLocation (self.bootpart)
+
+        if self.bootdisk.get_active ():
+            self.todo.bootdisk = 1
+        else:
+            self.todo.bootdisk = 0
+
+
+    def toggled (self, widget, *args):
+        if widget.get_active ():
+            self.list.set_sensitive (FALSE)
+        else:
+            self.list.set_sensitive (TRUE)
 
     def getScreen (self):
         if '/' not in self.todo.mounts.keys (): return None
@@ -48,4 +63,16 @@ class LiloWindow (InstallWindow):
         self.list.thaw ()
         sw.add (self.list)
 
-        return sw
+        box = GtkVBox (FALSE, 5)
+        self.bootdisk = GtkCheckButton ("Create boot disk")
+        self.bootdisk.set_active (TRUE)
+        box.pack_start (self.bootdisk, FALSE)
+        box.pack_start (GtkHSeparator (), FALSE, padding=3)
+
+        self.lilo = GtkCheckButton ("Skip LILO install")
+        self.lilo.set_active (FALSE)
+        self.lilo.connect ("toggled", self.toggled)
+        box.pack_start (self.lilo, FALSE)
+        box.pack_start (sw)
+
+        return box
