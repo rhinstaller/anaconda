@@ -2,7 +2,6 @@ SUBDIRS = rpmmodule isys balkan po libfdisk collage loader
 BUILDONLYSUBDIRS = pump
 
 TOPDIR = ../../..
-DESTDIR = $(TOPDIR)/RedHat/instimage
 CATALOGS = po/anaconda-text.pot
 ALLSUBDIRS = $(BUILDONLYSUBDIRS) $(SUBDIRS) 
 
@@ -19,10 +18,16 @@ subdirs:
 	for d in $(ALLSUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d; done
 
 install: all
+	@if [ "$(DESTDIR)" = "" ]; then \
+		echo " "; \
+		echo "ERROR: A destdir is required"; \
+		exit 1; \
+	fi
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/usr/lib/python1.5/site-packages
 	mkdir -p $(DESTDIR)/usr/bin/iw
-	cp -a anaconda *.py $(DESTDIR)/usr/bin
+	cp -a anaconda $(DESTDIR)/usr/bin
+	cp -a *.py $(DESTDIR)/usr/lib/python1.5/site-packages
 	cp -a iw/*.py $(DESTDIR)/usr/bin/iw
-	cp -a *.so $(DESTDIR)/usr/lib/python1.5/site-packages
-	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d install; done
+	cp -a *.py *.so $(DESTDIR)/usr/lib/python1.5/site-packages
+	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) DESTDIR=$(DESTDIR) -C $$d install; done
