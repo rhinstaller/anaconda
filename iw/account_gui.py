@@ -15,6 +15,7 @@ import gtk
 import gobject
 import re
 import string
+import gui
 from gui import WrappingLabel
 from iw_gui import *
 from translate import _, N_
@@ -211,11 +212,11 @@ class AccountWindow (InstallWindow):
 	self.win.show_all()
 
     def userWindow (self, title, editting):
-        userWin = gtk.Dialog()
+        userWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
+        gui.addFrame(userWin)
         userWin.set_modal(gtk.TRUE)
         userWin.set_size_request(350, 200)		
         userWin.set_position (gtk.WIN_POS_CENTER)
-        userWin.set_border_width(5)
 
         userTable = gtk.Table (5, 2)
         userTable.set_homogeneous(gtk.FALSE)
