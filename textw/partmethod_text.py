@@ -22,7 +22,7 @@ from autopart import PARTMETHOD_TYPE_DESCR_TEXT
 class PartitionMethod:
     def __call__(self, screen, partitions, instclass):
         rc = ButtonChoiceWindow(screen, _("Disk Partitioning Setup"),
-                                PARTMETHOD_TYPE_DESCR_TEXT,
+                               _(PARTMETHOD_TYPE_DESCR_TEXT),
                                 [ (_("Autopartition"), "auto"),
                                   (_("Disk Druid"), "ds"),
                                   (_("fdisk"), "fd"), TEXT_BACK_BUTTON ],

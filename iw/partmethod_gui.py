@@ -46,7 +46,7 @@ class PartitionMethodWindow(InstallWindow):
         box = GtkVBox (FALSE)
         box.set_border_width (5)
 
-        label=GtkLabel(PARTMETHOD_TYPE_DESCR_TEXT)
+        label=GtkLabel(_(PARTMETHOD_TYPE_DESCR_TEXT))
         label.set_line_wrap(1)
         label.set_alignment(0.0, 0.0)
         label.set_usize(400, -1)
