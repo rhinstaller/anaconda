@@ -1111,6 +1111,19 @@ class LiloImagesWindow:
 
 	return INSTALL_OK
 
+class XConfigWindow:
+    def __call__(self, screen, todo):
+        todo.x.probe ()
+
+        rc = ButtonChoiceWindow (screen, _("X probe results"),
+                                 todo.x.probeReport (),
+                                 buttons = [ _("OK"), _("Back") ])
+        
+        if rc == string.lower (_("Back")):
+            return INSTALL_BACK
+        return INSTALL_OK
+
+
 class BeginInstallWindow:
     def __call__ (self, screen, todo):
         rc = ButtonChoiceWindow (screen, _("Installation to begin"),
@@ -1458,6 +1471,8 @@ class InstallInterface:
 		(self.screen, todo, self.individual), "package-selection" ],
             [_("Package Dependencies"), PackageDepWindow, (self.screen, todo),
 		"package-selection" ],
+            [_("X Configuration"), XConfigWindow, (self.screen, todo),
+                "config" ],
             [_("Boot Disk"), BootDiskWindow, (self.screen, todo),
 		"bootdisk" ],
             [_("Installation Begins"), BeginInstallWindow, 
