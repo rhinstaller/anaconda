@@ -103,9 +103,10 @@ static void dhcpBoxCallback(newtComponent co, void * ptr) {
     newtEntrySetFlags(c->nsEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
 }
 
-int readNetConfig(char * device, struct pumpNetIntf * dev, int flags) {
+int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     newtComponent text, f, okay, back, answer, dhcpCheckbox;
     newtGrid grid, subgrid, buttons;
+    struct networkDeviceConfig newCfg;
     struct intfconfig_s c;
     int i;
     struct in_addr addr;
@@ -136,10 +137,29 @@ int readNetConfig(char * device, struct pumpNetIntf * dev, int flags) {
     c.gwEntry = newtEntry(-1, -1, NULL, 16, &c.gw, 0);
     c.nsEntry = newtEntry(-1, -1, NULL, 16, &c.ns, 0);
 
+    if (!cfg->isDynamic) {
+	if (cfg->dev.set & PUMP_INTFINFO_HAS_IP)
+	    newtEntrySet(c.ipEntry, inet_ntoa(cfg->dev.ip), 1);
+
+	if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)
+	    newtEntrySet(c.nmEntry, inet_ntoa(cfg->dev.netmask), 1);
+
+	if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+	    newtEntrySet(c.gwEntry, inet_ntoa(cfg->dev.gateway), 1);
+
+	if (cfg->dev.numDns)
+	    newtEntrySet(c.nsEntry, inet_ntoa(cfg->dev.dnsServers[0]), 1);
+
+    	dhcpChoice = ' ';
+    } else {
+    	dhcpChoice = '*';
+    }
+
     dhcpCheckbox = newtCheckbox(-1, -1, 
     		_("Use dynamic IP configuration (BOOTP/DHCP)"),
-		' ', NULL, &dhcpChoice);
+		dhcpChoice, NULL, &dhcpChoice);
     newtComponentAddCallback(dhcpCheckbox, dhcpBoxCallback, &c);
+    if (dhcpChoice == '*') dhcpBoxCallback(dhcpCheckbox, &c);
 
     newtGridSetField(subgrid, 1, 0, NEWT_GRID_COMPONENT, c.ipEntry,
 		     1, 0, 0, 0, 0, 0);
@@ -182,16 +202,17 @@ int readNetConfig(char * device, struct pumpNetIntf * dev, int flags) {
 
 	if (dhcpChoice == ' ') {
 	    i = 0;
+	    memset(&newCfg, 0, sizeof(newCfg));
 	    if (*c.ip && inet_aton(c.ip, &addr)) {
 		i++;
-		dev->ip = addr;
-		dev->set |= PUMP_INTFINFO_HAS_IP;
+		newCfg.dev.ip = addr;
+		newCfg.dev.set |= PUMP_INTFINFO_HAS_IP;
 	    }
 
 	    if (*c.nm && inet_aton(c.nm, &addr)) {
 		i++;
-		dev->netmask = addr;
-		dev->set |= PUMP_INTFINFO_HAS_NETMASK;
+		newCfg.dev.netmask = addr;
+		newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
 	    }
 
 	    if (i != 2) {
@@ -199,42 +220,89 @@ int readNetConfig(char * device, struct pumpNetIntf * dev, int flags) {
 			    _("You must enter both a valid IP address and a "
 			      "netmask."));
 	    }
+
+	    strcpy(newCfg.dev.device, device);
+	    newCfg.isDynamic = 0;
 	} else {
-	    if (FL_TESTING(flags))
-	    	i = 2;
-	    else {
-		chptr = pumpDhcpRun(device, 0, 0, NULL, dev, NULL);
+	    if (!FL_TESTING(flags)) {
+		chptr = pumpDhcpRun(device, 0, 0, NULL, &newCfg.dev, NULL);
 		logMessage("pump told us: %s", chptr);
-		if (!chptr) i = 2; else i = 0;
+	    } else {
+	    	chptr = NULL;
+	    }
+
+	    if (!chptr) {
+		i = 2; 
+		cfg->isDynamic = 1;
+	    } else {
+		i = 0;
 	    }
 	}
     } while (i != 2);
 
-    if (!(dev->set & PUMP_INTFINFO_HAS_BROADCAST)) {
-	*((int32 *) &dev->broadcast) = (*((int32 *) &dev->ip) & 
-			   *((int32 *) &dev->netmask)) | 
-			   ~(*((int32 *) &dev->netmask));
-	dev->set |= PUMP_INTFINFO_HAS_BROADCAST;
+    cfg->dev = newCfg.dev;
+
+    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST)) {
+	*((int32 *) &cfg->dev.broadcast) = (*((int32 *) &cfg->dev.ip) & 
+			   *((int32 *) &cfg->dev.netmask)) | 
+			   ~(*((int32 *) &cfg->dev.netmask));
+	cfg->dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
     }
 
-    if (!(dev->set & PUMP_INTFINFO_HAS_NETWORK)) {
-	*((int32 *) &dev->network) = 
-		*((int32 *) &dev->ip) &
-		*((int32 *) &dev->netmask);
-	dev->set |= PUMP_INTFINFO_HAS_NETWORK;
+    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_NETWORK)) {
+	*((int32 *) &cfg->dev.network) = 
+		*((int32 *) &cfg->dev.ip) &
+		*((int32 *) &cfg->dev.netmask);
+	cfg->dev.set |= PUMP_INTFINFO_HAS_NETWORK;
     }
 
-    if (!(dev->set & PUMP_NETINFO_HAS_GATEWAY)) {
+    if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
 	if (*c.gw && inet_aton(c.gw, &addr)) {
-	    dev->gateway = addr;
-	    dev->set = PUMP_NETINFO_HAS_GATEWAY;
+	    cfg->dev.gateway = addr;
+	    cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
 	}
     }
 
-    strcpy(dev->device, device);
+    if (!(cfg->dev.numDns)) {
+	if (*c.ns && inet_aton(c.ns, &addr)) {
+	    cfg->dev.dnsServers[0] = addr;
+	    cfg->dev.numDns = 1;
+	}
+    }
 
     newtPopWindow();
 
     return 0;
 }
 
+int configureNetwork(struct networkDeviceConfig * dev) {
+    pumpSetupInterface(&dev->dev);
+
+    if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+	pumpSetupDefaultGateway(&dev->dev.gateway);
+
+    return 0;
+}
+
+int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
+    FILE * f;
+
+    if (!(f = fopen(fn, "w"))) return -1;
+
+    fprintf(f, "DEVICE=%s\n", dev->dev.device);
+    if (dev->isDynamic) {
+	fprintf(f, "BOOTPROTO=dhcp\n");
+    } else {
+	fprintf(f, "BOOTPROTO=static\n");
+	fprintf(f, "IPADDR=%s\n", inet_ntoa(dev->dev.ip));
+	fprintf(f, "NETMASK=%s\n", inet_ntoa(dev->dev.netmask));
+	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+	    fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
+	if (dev->dev.numDns) 
+	    fprintf(f, "NS1=%s\n", inet_ntoa(dev->dev.dnsServers[0]));
+    }
+
+    fclose(f);
+
+    return 0;
+}

@@ -35,7 +35,6 @@
 #include <unistd.h>
 
 #include "isys/imount.h"
-#include "pump/pump.h"
 #include "isys/isys.h"
 #include "isys/probe.h"
 #include "isys/pci/pciprobe.h"
@@ -293,9 +292,9 @@ static int ensureNetDevice(struct knownDevices * kd,
 static int mountNfsImage(char * location, struct knownDevices * kd,
     		         moduleInfoSet modInfo, moduleList modLoaded,
 		         moduleDeps modDeps, int flags) {
-    struct pumpNetIntf netDev;
+    static struct networkDeviceConfig netDev;
     char * devName;
-    int i;
+    int i, rc;
     char * host = NULL;
     char * dir = NULL;
     char * fullPath;
@@ -303,12 +302,14 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
     i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
     if (i) return i;
 
-    readNetConfig(devName, &netDev, flags);
-    nfsGetSetup(&host, &dir);
+    do {
+	rc = readNetConfig(devName, &netDev, flags);
+        if (rc) return rc;
+    } while (nfsGetSetup(&host, &dir) == LOADER_BACK);
+
     
     if (!FL_TESTING(flags)) {
-	pumpSetupInterface(&netDev);
-	pumpSetupDefaultGateway(&netDev.gateway);
+	configureNetwork(&netDev);
 
 	mlLoadModule("nfs", modLoaded, modDeps, flags);
 
@@ -318,6 +319,8 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
 	logMessage("mounting nfs path %s", fullPath);
 
 	doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL);
+
+	writeNetInfo("/tmp/netinfo", &netDev);
     }		  
 
     free(host);
@@ -365,13 +368,11 @@ static int doMountImage(char * location, struct knownDevices * kd,
 	rc = newtWinMenu(_("Installation Method"), 
 			 _("What type of media contains the packages to be "
 			   "installed?"), 30, 10, 20, 6, installNames, 
-			 &methodNum, _("Ok"), _("Back"), NULL);
-
-	if (rc == 2) return LOADER_BACK;
+			 &methodNum, _("Ok"), NULL);
 
     	rc = installMethods[validMethods[methodNum]].mountImage(location,
     		   kd, modInfo, modLoaded, modDeps, flags);
-    } while (rc == 2);
+    } while (rc);
 
     return 0;
 }

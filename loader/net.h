@@ -1,7 +1,17 @@
 #ifndef H_LOADER_NET
 #define H_LOADER_NET
 
-int readNetConfig(char * device, struct pumpNetIntf * dev, int flags);
+#include "pump/pump.h"
+
+struct networkDeviceConfig {
+    struct pumpNetIntf dev;
+    int isDynamic;
+};
+
+int readNetConfig(char * device, struct networkDeviceConfig * dev, 
+		  int flags);
+int configureNetwork(struct networkDeviceConfig * dev);
 int nfsGetSetup(char ** hostptr, char ** dirptr);
+int writeNetInfo(const char * fn, struct networkDeviceConfig * dev);
 
 #endif
