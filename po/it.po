@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anacondapo $Revision$\n"
 "POT-Creation-Date: 2002-08-22 02:05-0400\n"
-"PO-Revision-Date: 2002-08-07 14:12GMT\n"
+"PO-Revision-Date: 2002-08-29 10:15GMT\n"
 "Last-Translator: Marisa <marisa@redhat.it>\n"
 "Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -391,6 +391,9 @@ msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
+"La dimensione dei moduli del kernel necessari per il corretto funzionamento "
+"del computer non consente di creare un dischetto di avvio valido per un "
+"dischetto floppy."
 
 #: ../floppy.py:101
 msgid "Insert a floppy disk"
@@ -774,6 +777,8 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
+"Si è verificato un errore nella disattivazione del CD. Accertarsi di non "
+"utilizzare%s dalla shell su tty2, quindi fare clic su OK per riprovare."
 
 #: ../image.py:99
 msgid "Copying File"
@@ -1850,6 +1855,9 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
+"Gli aggiornamenti di questa versione di %s sono supportati solo da Red Hat "
+"Linux 6.2 o successivo. Questo sistema sembra precedente. Si desidera "
+"continuare il processo di aggiornamento?"
 
 #: ../xserver.py:48
 msgid "Mouse Not Detected"
@@ -2756,7 +2764,6 @@ msgstr ""
 "divolumi."
 
 #: ../iw/lvm_dialog_gui.py:165
-#, fuzzy
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is too large compared to the size of the smallest physical volume "
@@ -7386,41 +7393,3 @@ msgstr "Svedese"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ucraino"
-
-#~ msgid "No password"
-#~ msgstr "Nessuna password"
-
-#~ msgid "Change _Password"
-#~ msgstr "Modificare la _password"
-
-#~ msgid "_Use a Boot Loader Password"
-#~ msgstr "_Utilizzare una password per il boot loader"
-
-#~ msgid "Set _Password"
-#~ msgstr "Impostare la _password"
-
-#~ msgid ""
-#~ "Force the use of LBA32 extensions for booting (not normally required)"
-#~ msgstr "Attiva le estensioni LBA32 per l'avvio (normalmente non richieste)"
-
-#~ msgid "_Force LBA32"
-#~ msgstr "_Attiva LBA32"
-
-#~ msgid "General kernel parameters"
-#~ msgstr "Parametri generali del kernel"
-
-#~ msgid ""
-#~ "The label is what is displayed in the boot loader to choose to boot this "
-#~ "operating system.  The device is the device which it boots from."
-#~ msgstr ""
-#~ "L'etichetta viene visualizzata nel boot loader per eseguire l'avvio del "
-#~ "sistema operativo.Il dispositivo è quello su cui viene eseguito l'avvio."
-
-#~ msgid "Default Boot Target"
-#~ msgstr "Destinazione di avvio predefinita"
-
-#~ msgid "Insert some text about booting other operating systems"
-#~ msgstr "Inserire il testo relativo all'avvio di altri sistemi operativi"
-
-#~ msgid "Blah, this is the BIOS drive order, more information, etc"
-#~ msgstr "Questo è l'ordine dell'unità BIOS con informazioni aggiuntive ecc"

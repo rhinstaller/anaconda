@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2002-08-22 02:05-0400\n"
-"PO-Revision-Date: 2002-08-30 16:38-0400\n"
+"PO-Revision-Date: 2002-08-31 16:52+0200\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1036,6 +1036,15 @@ msgid ""
 "\n"
 "and file a report against 'Red Hat Public Beta'.\n"
 msgstr ""
+"Takk for at du lastet ned denne betautgaven av Red Hat Linux.\n"
+"\n"
+"Dette er ikke en ferdig versjon og er ikke ment for bruk på systemer som står i produksjon. Målet med denne versjonen er å samle tilbakemeldinger fra testere, og den er ikke passende for daglig bruk.\n"
+"\n"
+"For å rapportere tilbake gå til:\n"
+"\n"
+"    http://bugzilla.redhat.com/bugzilla\n"
+"\n"
+"og send inn en rapport under «Red Hat Public Beta».\n"
 
 #: ../packages.py:1105
 msgid "_Install BETA"
@@ -2321,7 +2330,7 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:55
 msgid "About to Install"
-msgstr "I ferd med å installere"
+msgstr "Klar til å installere"
 
 #: ../iw/confirm_gui.py:60
 #, python-format
@@ -2479,6 +2488,21 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
+"Forvalgt arbeidsstasjonoppsett inkluderer våre anbefalinger for nye brukere, deriblant:\n"
+"\n"
+"\tSkrivebordsmiljø (GNOME)\n"
+"\tKontorstøtteprogramvare (OpenOffice)\n"
+"\tNettleser (Mozilla)\n"
+"\tE-post (Evolution)\n"
+"\tInstant Messging\n"
+"\tLyd- og bildeprogrammer\n"
+"\tSpill\n"
+"\tProgramvareutvikling\n"
+"\tAdministrasjonsverktøy\n"
+"\n"
+"Etter installasjonen kan du legge til eller fjerne pakker ved å bruke verktøyet «redhat-config-package».\n"
+"\n"
+"Hvis du er kjent med %s er det mulig at du har spesifikke pakker du ønsker å installere eller unngå at blir installert. Kryss av i boksen under for å tilpasse din installasjon."
 
 #: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:10
 msgid "Personal Desktop"
@@ -2509,12 +2533,25 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
+"Forvalgt oppsett for personlig skrivebord inkluderer våre anbefalinger for nye brukere, deriblant:\n"
+"\n"
+"\tSkrivebordsmiljø (GNOME)\n"
+"\tKontorstøtteprogramvare (OpenOffice)\n"
+"\tNettleser (Mozilla)\n"
+"\tE-post (Evolution)\n"
+"\tInstant Messging\n"
+"\tLyd- og bildeprogrammer\n"
+"\tSpill\n"
+"\n"
+"Etter installasjonen kan du legge til eller fjerne pakker ved å bruke verktøyet «redhat-config-package».\n"
+"\n"
+"Hvis du er kjent med %s er det mulig at du har spesifikke pakker du ønsker å installere eller unngå at blir installert. Kryss av i boksen under for å tilpasse din installasjon."
 
 #: ../iw/desktop_choice_gui.py:98
 msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
-msgstr ""
+msgstr "Hvis du ønsker å endre forvalgt pakkesett som skal installeres kan du velge å tilpasse dette under."
 
 #: ../iw/desktop_choice_gui.py:106
 msgid "_Accept the current package list"
@@ -2590,6 +2627,9 @@ msgid ""
 "\n"
 "For example, '1234:udp'"
 msgstr ""
+"Ugyldig port oppgitt: %s. Riktig format er «port:protokoll», hvor port er mellom 1 og 65535, og protokoll er enten «tcp» eller «udp».\n"
+"\n"
+"For eksempel, «1234:udp»"
 
 #: ../iw/firewall_gui.py:136
 msgid "Warning: Bad Token"
@@ -3314,6 +3354,9 @@ msgid ""
 "\n"
 "Select the optional packages to be installed:"
 msgstr ""
+"En pakkegruppe kan ha både basis- og alternative pakkemedlemmer. Basispakker er alltid valgt så lenge pakkegruppen er valgt.\n"
+"\n"
+"Velg tilleggspakker som skal installeres:"
 
 #: ../iw/package_gui.py:821
 msgid "Base Packages"
@@ -3583,7 +3626,7 @@ msgstr "Opprett en RAID-en_het [forvalg=/dev/md%s]."
 #: ../iw/partition_gui.py:1250
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
+msgstr "Klone en _disk for å opprette en RAID-enhet [forvalg=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1289
 msgid "Couldn't Create Drive Clone Editor"
@@ -4493,7 +4536,7 @@ msgid ""
 "Remove any floppy diskettes you used during the installation process and "
 "press <Enter> to reboot your system.\n"
 "\n"
-msgstr ""
+msgstr "Fjern disketter du brukte under installasjonen og trykk <Linjeskift> for å starte systemet på nytt.\n"
 
 #: ../textw/complete_text.py:43
 msgid "Complete"
@@ -4568,6 +4611,9 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
+"Alternativene Personlig skrivebord og Arbeidsstasjon installerer et forvalgt sett med applikasjoner som vil la deg lese internettsider, sende og motta e-post og opprette og redigere dokumenter på ditt %s-system. Arbeidsstasjon-valget inkluderer verktøy for programvareutvikling og systemadministrasjon i tillegg.\n"
+"\n"
+"Likevel, %s kommer med mange flere applikasjoner, og du kan tilpasse utvalget av programvare som installeres hvis du ønsker det."
 
 #: ../textw/desktop_choice_text.py:39
 msgid "Customize software selection"
@@ -5721,14 +5767,14 @@ msgstr "Tilpasset"
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and authentication preferences."
-msgstr ""
+msgstr "Velg denne installasjonstypen for å få fullstendig kontroll over installasjonsprosessen, inkludert utvalg av programvarepakker og brukervalg for autentisering."
 
 #: ../installclasses/personal_desktop.py:12
 msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
-msgstr ""
+msgstr "Perfekt for en personlig datamaskin eller en bærbar. Velg denne installasjonstypen for å installere et grafisk skrivebordsmiljø og et system som er ideelt for hjemmebruk."
 
 #: ../installclasses/server.py:10
 msgid "Server"
@@ -5739,7 +5785,7 @@ msgid ""
 "Select this installation type if you would like to set up file sharing, "
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
-msgstr ""
+msgstr "Velg denne installasjonstypen hvis du ønsker å sette opp fildeling, deling av skrivere og web-tjenester. Tilleggstjenester kan også aktiveres og du kan velge om du vil installere et grafisk miljø eller ikke."
 
 #: ../installclasses/upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -5753,7 +5799,7 @@ msgstr "Oppgrader"
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
-msgstr ""
+msgstr "Dette valget installerer et grafisk skrivebordsmiljø med verktøy for programvareutvikling og systemadministrasjon."
 
 #: ../loader/cdrom.c:31
 msgid "CDROM type"

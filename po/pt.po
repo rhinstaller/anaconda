@@ -434,15 +434,14 @@ msgstr ""
 "agora reiniciado."
 
 #: ../floppy.py:91
-#, fuzzy
 msgid "Unable to make boot floppy"
-msgstr "Não consegui montar disquete."
+msgstr "Não foi possível criar a disquete de arranque"
 
 #: ../floppy.py:92
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
-msgstr ""
+msgstr "O tamanho dos módulos do 'kernel' para a sua máquina impossibilitam a criação de um disco de arranque que caiba numa disquete."
 
 #: ../floppy.py:101
 msgid "Insert a floppy disk"
@@ -839,7 +838,7 @@ msgstr "Falta o CD #%d, o qual é necessário para a instalação."
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
-msgstr ""
+msgstr "Ocorreu um erro ao desmontar o CD. Verifique por favor que não se encontra a aceder ao %s na linha de comandos em tty2 e carregue em OK para repetir."
 
 #: ../image.py:99
 msgid "Copying File"
@@ -1963,7 +1962,7 @@ msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
-msgstr ""
+msgstr "As actualizações para esta versão do %s só são suportadas para o Red Hat Linux 6.2 e superiores. Este parece ser um sistema mais antigo. Deseja continuar o processo de actualização?"
 
 #: ../xserver.py:48
 msgid "Mouse Not Detected"
@@ -2885,7 +2884,7 @@ msgstr ""
 "pequeno (%10.2f MB) no grupo de volumes."
 
 #: ../iw/lvm_dialog_gui.py:165
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is too large compared to the size of the smallest physical volume "
@@ -7569,43 +7568,3 @@ msgstr "Sueco"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ucraniano"
-
-#~ msgid "No password"
-#~ msgstr "Sem senha"
-
-#~ msgid "Change _Password"
-#~ msgstr "Alterar a _Senha"
-
-#~ msgid "_Use a Boot Loader Password"
-#~ msgstr "_Utilizar uma senha no gestor de arranque"
-
-#~ msgid "Set _Password"
-#~ msgstr "Escolher _Senha"
-
-#~ msgid ""
-#~ "Force the use of LBA32 extensions for booting (not normally required)"
-#~ msgstr ""
-#~ "Forçar utilização das extensões LBA32 (não é normalmente necessário)"
-
-#~ msgid "_Force LBA32"
-#~ msgstr "_Forçar o modo LBA32"
-
-#~ msgid "General kernel parameters"
-#~ msgstr "Parâmetros gerais do kernel"
-
-#~ msgid ""
-#~ "The label is what is displayed in the boot loader to choose to boot this "
-#~ "operating system.  The device is the device which it boots from."
-#~ msgstr ""
-#~ "O texto a ser mostrado no menu do gestor de arranque para escolher "
-#~ "iniciar este sistema operativo.  O dispositivo é o dispositivo a partir "
-#~ "do qual ele arranca."
-
-#~ msgid "Default Boot Target"
-#~ msgstr "Imagem de Arranque por Omissão"
-
-#~ msgid "Insert some text about booting other operating systems"
-#~ msgstr "Inserir texto acerca arrancar outros sistemas operativos"
-
-#~ msgid "Blah, this is the BIOS drive order, more information, etc"
-#~ msgstr "Blah, ordem de drives da BIOS, mais informações, etc"

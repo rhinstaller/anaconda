@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-08-22 02:05-0400\n"
-"PO-Revision-Date: 2002-08-27 02:14+0800\n"
+"PO-Revision-Date: 2002-08-31 12:20+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.org>\n"
 "MIME-Version: 1.0\n"
@@ -335,6 +335,8 @@ msgid ""
 "You have selected to remove all Linux partitions (and ALL DATA on them) on the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Anda telah memilih untuk membuang semua partisyen Linux (dan SEMUA data didalamnya) pada pemacu berikut:%s\n"
+"Anda pasti untuk melakukannya?"
 
 #: ../bootloader.py:89
 msgid "Bootloader"
@@ -346,7 +348,7 @@ msgstr "Memasang PemuatBoot..."
 
 #: ../bootloader.py:124
 msgid "No kernel packages were installed on your system.  Your boot loader configuration will not be changed."
-msgstr ""
+msgstr "TIada pakej kernel dipasang pada sistem anda. Konfigurasi pemuat but anda tidak akan berubah."
 
 #: ../comps.py:719
 #: ../comps.py:747
@@ -784,7 +786,7 @@ msgstr "_Undur"
 
 #: ../gui.py:910
 msgid "_Next"
-msgstr "_Seterusnya"
+msgstr "_Maju"
 
 #: ../gui.py:912
 msgid "_Release Notes"
@@ -1661,7 +1663,7 @@ msgstr ""
 
 #: ../text.py:337
 msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
-msgstr ""
+msgstr "  <Tab>/<Alt-Tab> Antara unsur   |  <Space> pilih   |  <F12> Skrin seterusnya "
 
 #: ../text.py:435
 msgid "Cancelled"
@@ -1734,7 +1736,7 @@ msgstr "Cari pakej untuk ditingkatupaya..."
 
 #: ../upgrade.py:317
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr ""
+msgstr "Pembinaan semula pangkalan data RPM gagal. Anda mungkin kehabisan ruang cakera?"
 
 #: ../upgrade.py:335
 msgid "An error occurred when finding the packages to upgrade."
@@ -1806,24 +1808,23 @@ msgstr "Katalaluan pengguna diterima."
 
 #: ../iw/account_gui.py:91
 msgid "Root account can not be added here."
-msgstr ""
+msgstr "Akaun root tak boleh ditambah di sini."
 
 #: ../iw/account_gui.py:94
 msgid "System accounts can not be added here."
-msgstr ""
+msgstr "Akaun sistem tak boleh ditambah di sini."
 
 #: ../iw/account_gui.py:96
 msgid "Please enter user password."
 msgstr "Sila masukkan katalaluan pengguna."
 
 #: ../iw/account_gui.py:98
-#, fuzzy
 msgid "User password is too short."
-msgstr "Lihat kata-laluan _tapak...."
+msgstr "katalaluan pengguna terlalu pendek."
 
 #: ../iw/account_gui.py:100
 msgid "User passwords do not match."
-msgstr ""
+msgstr "Katalaluan pengguna tidak sepadan."
 
 #: ../iw/account_gui.py:190
 msgid "Add a New User"
@@ -1859,13 +1860,12 @@ msgid "Please enter user name"
 msgstr "Sila masukkan nama pengguna"
 
 #: ../iw/account_gui.py:346
-#, fuzzy
 msgid "Enter the root (administrator) password for the system."
-msgstr "Masukkan maklumat untuk pengguna"
+msgstr "Masukkan katalaluan root (pentadbir) bagi sistem."
 
 #: ../iw/account_gui.py:363
 msgid "Root _Password: "
-msgstr "_Katalaluan Root :"
+msgstr "_Katalaluan root: "
 
 #: ../iw/account_gui.py:366
 msgid "_Confirm: "
@@ -1898,32 +1898,28 @@ msgstr "_Edit"
 
 #: ../iw/account_gui.py:447
 msgid "It is recommended that you create a personal account for normal (non-administrative) use. Accounts can also be created for additional users."
-msgstr ""
+msgstr "Dicadangkan anda mencipta akaun peribadi untuk pernggunaan biasa (bukan pentadbiran). Akaun boleh juga dicipta untuk pengguna tambahan."
 
 #: ../iw/auth_gui.py:22
 #: ../textw/userauth_text.py:325
-#, fuzzy
 msgid "Authentication Configuration"
-msgstr "Autentifikasi gagal"
+msgstr "Konfigurasi Autentifikasi"
 
 #: ../iw/auth_gui.py:98
-#, fuzzy
 msgid "Enable _MD5 passwords"
-msgstr "Aktifkan bunyi"
+msgstr "Hidupkan katalaluan _MD5"
 
 #: ../iw/auth_gui.py:99
-#, fuzzy
 msgid "Enable shado_w passwords"
-msgstr "Nama pengguna dan katalaluan"
+msgstr "Hidupkan katalaluan shado_w"
 
 #: ../iw/auth_gui.py:102
-#, fuzzy
 msgid "Enable N_IS"
-msgstr "Hidupkan TLS"
+msgstr "Hidupkan N_IS"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
-msgstr ""
+msgstr "Gua _siaran untuk mencari pelayan NIS"
 
 #: ../iw/auth_gui.py:115
 msgid "NIS _Domain: "
@@ -1947,12 +1943,11 @@ msgstr "Pelayan _LDAP:"
 
 #: ../iw/auth_gui.py:149
 msgid "LDAP _Base DN:"
-msgstr ""
+msgstr "DN _Asas LDAP:"
 
 #: ../iw/auth_gui.py:177
-#, fuzzy
 msgid "Enable _Kerberos"
-msgstr "Aktifkan beep"
+msgstr "Hidupkan _Kerberos"
 
 #: ../iw/auth_gui.py:181
 #, fuzzy
@@ -1960,28 +1955,24 @@ msgid "R_ealm:"
 msgstr "Ingat"
 
 #: ../iw/auth_gui.py:184
-#, fuzzy
 msgid "K_DC:"
-msgstr "KDC:"
+msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
-#, fuzzy
 msgid "_Admin Server:"
-msgstr "Pelayan:"
+msgstr "Pen_tadbir Pelayan:"
 
 #: ../iw/auth_gui.py:216
 msgid "Enable SMB _Authentication"
 msgstr "Hidupkan _Autentikasi SMB"
 
 #: ../iw/auth_gui.py:219
-#, fuzzy
 msgid "SMB _Server:"
-msgstr "Pelayan:"
+msgstr "Pelayan _SMB:"
 
 #: ../iw/auth_gui.py:222
-#, fuzzy
 msgid "SMB Work_group:"
-msgstr "kumpulankerja:"
+msgstr "Kumpulankerja SMB:"
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
@@ -2013,7 +2004,7 @@ msgstr "Tukar _katalaluan"
 
 #: ../iw/blpasswidget.py:99
 msgid "Enter Boot Loader Password"
-msgstr "Masukkkan katalaluan pemuat but"
+msgstr "Masukkkan Katalaluan Pemuat But"
 
 #: ../iw/blpasswidget.py:105
 msgid "Enter a boot loader password and then confirm it."
@@ -2116,7 +2107,7 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:101
 msgid "C_ontinue with no boot loader"
-msgstr ""
+msgstr "_Teruskan dengan tiada pemuat but"
 
 #: ../iw/bootloader_main_gui.py:126
 msgid "Please select the boot loader that the computer will use.  GRUB is the default boot loader. However, if you do not wish to overwrite your current boot loader, select \"Do not install a boot loader.\"  "
@@ -2124,11 +2115,11 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:134
 msgid "Use _GRUB as the boot loader"
-msgstr ""
+msgstr "Guna _GRUB sebagai pemuat but"
 
 #: ../iw/bootloader_main_gui.py:137
 msgid "Use _LILO as the boot loader"
-msgstr ""
+msgstr "Guna _LILO sebagai pemuat but"
 
 #: ../iw/bootloader_main_gui.py:138
 msgid "_Do not install a boot loader"
@@ -2141,37 +2132,35 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:165
 msgid "No boot loader will be installed."
-msgstr ""
+msgstr "Tiada pemuat but dipasang."
 
 #: ../iw/bootloader_main_gui.py:217
-#, fuzzy
 msgid "_Change boot loader"
-msgstr "Memasang PemuatBoot..."
+msgstr "_Tukar pemuat but"
 
 #: ../iw/bootloader_main_gui.py:245
-#, fuzzy
 msgid "Configure advanced boot loader _options"
-msgstr "Konfigurasi Sistem"
+msgstr "Konfigurasi _opsyen lanjutan pemuat but"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
-msgstr ""
+msgstr "Pasang rekod pemuat but pada:"
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
-msgstr ""
+msgstr "_Tukar Turutan Pemacu"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Unable to Change Drive Order for LILO"
-msgstr ""
+msgstr "Tak dapat Menukar Turutan Pemacu bagi LILO"
 
 #: ../iw/bootlocwidget.py:85
 msgid "We do not support changing the drive order for use with LILO."
-msgstr ""
+msgstr "Kami tidak menyokong penukaran turutan pemacu untuk digunakan dgn LILO."
 
 #: ../iw/bootlocwidget.py:92
 msgid "Edit Drive Order"
-msgstr ""
+msgstr "Edit Turutan Pemacu"
 
 #: ../iw/bootlocwidget.py:97
 msgid ""
@@ -2187,7 +2176,7 @@ msgstr "Akan memasang"
 #: ../iw/confirm_gui.py:60
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr ""
+msgstr "Klik Maju untuk memulakan pemasangan bagi %s."
 
 #: ../iw/confirm_gui.py:61
 #, python-format
@@ -2221,6 +2210,9 @@ msgid ""
 "\n"
 ""
 msgstr ""
+"Jika anda telah mencipta disket but untuk but sistem, selitkannya sebelum mengulangbut.\n"
+"\n"
+""
 
 #: ../iw/congrats_gui.py:56
 #, python-format
@@ -2376,6 +2368,8 @@ msgid ""
 "You don't have any Linux partitions.\n"
 "You can't upgrade this sytem!"
 msgstr ""
+"Anda tidak mempunyai sebarang partisyen Linux.\n"
+" Anda tidak boleh tingkatupaya sistem ini!"
 
 #: ../iw/examine_gui.py:61
 msgid "Please select the device containing the root filesystem: "
@@ -2394,7 +2388,7 @@ msgstr "Personalisasikan Pakej untuk dikemaskini"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
-msgstr ""
+msgstr "fdasd"
 
 #: ../iw/fdasd_gui.py:28
 msgid "Select drive to run fdasd on"
@@ -2423,13 +2417,12 @@ msgid ""
 msgstr ""
 
 #: ../iw/firewall_gui.py:136
-#, fuzzy
 msgid "Warning: Bad Token"
-msgstr "Amaran: "
+msgstr "Amaran: Token Teruk"
 
 #: ../iw/firewall_gui.py:188
 msgid "Select a security level for the system:  "
-msgstr ""
+msgstr "Pilih tahap keselamatan bagi sistem: "
 
 #: ../iw/firewall_gui.py:197
 msgid "Hi_gh"
@@ -2475,12 +2468,12 @@ msgstr "Kehilangan Alamat IP"
 
 #: ../iw/ipwidget.py:109
 msgid "IP Addresses must contain numbers between 1 and 255"
-msgstr ""
+msgstr "Alamat IP mesti mengandungi nombor di antara 1 dan 255"
 
 #: ../iw/ipwidget.py:114
 #: ../iw/ipwidget.py:116
 msgid "IP Addresses must contain numbers between 0 and 255"
-msgstr ""
+msgstr "Alamat IP mesti mengandungi nombor di antara 0 dan 255"
 
 #: ../iw/language_gui.py:61
 #: ../textw/language_text.py:40
@@ -2493,23 +2486,20 @@ msgid "Additional Language Support"
 msgstr "Sokongan Bahasa Tambahan"
 
 #: ../iw/language_support_gui.py:149
-#, fuzzy
 msgid "Select the _default language for the system:   "
-msgstr "Pilih bahasa default bagi sistem ini:  "
+msgstr "Pilih bahasa _default bagi sistem ini:  "
 
 #: ../iw/language_support_gui.py:159
-#, fuzzy
 msgid "Select _additional languages to install on the system:"
-msgstr "Pilih bahasa tambahan yang anda ingin guna pada sistem ini:"
+msgstr "Pilih bahasa _tambahan yang anda ingin guna pada sistem ini:"
 
 #: ../iw/language_support_gui.py:208
 msgid "_Select All"
 msgstr "_Pilih Semua"
 
 #: ../iw/language_support_gui.py:214
-#, fuzzy
 msgid "Select Default _Only"
-msgstr "Tetapkan sebagai default"
+msgstr "Pilih Defaul _Sahaja"
 
 #: ../iw/language_support_gui.py:220
 msgid "Rese_t"
@@ -2524,7 +2514,7 @@ msgstr "Ulang_tetap"
 #: ../iw/lvm_dialog_gui.py:628
 #: ../iw/lvm_dialog_gui.py:823
 msgid "Not enough space"
-msgstr ""
+msgstr "Ruang tidak mencukupi"
 
 #: ../iw/lvm_dialog_gui.py:108
 msgid "The physical extent size cannot be changed because otherwise the space required by the currently defined logical volumes will be increased to more than the available space."
@@ -2561,7 +2551,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:179
 msgid "Too small"
-msgstr ""
+msgstr "Terlalu kecil"
 
 #: ../iw/lvm_dialog_gui.py:180
 msgid "This change in the value of the physical extent will waste substantial space on one or more of the physical volumes in the volume group."
@@ -2578,16 +2568,16 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:358
 msgid "Make Logical Volume"
-msgstr ""
+msgstr "Buat Volum Logikal"
 
 #: ../iw/lvm_dialog_gui.py:361
 #, python-format
 msgid "Edit Logical Volume: %s"
-msgstr ""
+msgstr "Edit Volum Logikal: %s"
 
 #: ../iw/lvm_dialog_gui.py:363
 msgid "Edit Logical Volume"
-msgstr ""
+msgstr "Edit Volum Logikal"
 
 #: ../iw/lvm_dialog_gui.py:376
 #: ../iw/partition_dialog_gui.py:281
@@ -2612,18 +2602,17 @@ msgstr "Entah"
 
 #: ../iw/lvm_dialog_gui.py:403
 msgid "_Logical Volume Name:"
-msgstr ""
+msgstr "Nama Volum _Logikal:"
 
 #: ../iw/lvm_dialog_gui.py:411
 msgid "Logical Volume Name:"
-msgstr ""
+msgstr "Nama Volum Logikal:"
 
 # Saiz perut Menteri Besar (MB).
 #: ../iw/lvm_dialog_gui.py:419
 #: ../iw/partition_dialog_gui.py:356
-#, fuzzy
 msgid "_Size (MB):"
-msgstr "Saiz (MB):"
+msgstr "_Saiz (MB):"
 
 # Saiz perut Menteri Besar (MB).
 #: ../iw/lvm_dialog_gui.py:425
@@ -2638,12 +2627,11 @@ msgstr "Saiz (MB):"
 #: ../iw/lvm_dialog_gui.py:440
 #, python-format
 msgid "(Max size is %s MB)"
-msgstr ""
+msgstr "(Saiz maks %s MB)"
 
 #: ../iw/lvm_dialog_gui.py:501
-#, fuzzy
 msgid "Illegal size"
-msgstr "Jumlah saiz (kB)"
+msgstr "Saiz tidak sah"
 
 #: ../iw/lvm_dialog_gui.py:502
 msgid "The requested size as entered is not a valid number greater than 0."
@@ -2656,11 +2644,11 @@ msgstr "Titik Lekapan sedang digunakan"
 #: ../iw/lvm_dialog_gui.py:536
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
+msgstr "Titik lekapan \"%s\" sedang digunakan, sila pilih titik lekapan lain."
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
-msgstr ""
+msgstr "Nama volum logikal tidak sah"
 
 #: ../iw/lvm_dialog_gui.py:566
 msgid "Illegal logical volume name"
@@ -2684,9 +2672,8 @@ msgstr ""
 #: ../textw/partition_text.py:831
 #: ../textw/partition_text.py:853
 #: ../textw/partition_text.py:1024
-#, fuzzy
 msgid "Error With Request"
-msgstr "Permintaan kelebaran"
+msgstr "Ralat Dengan Permintaan"
 
 #: ../iw/lvm_dialog_gui.py:629
 #: ../iw/lvm_dialog_gui.py:824
@@ -2696,7 +2683,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:679
 msgid "No free slots"
-msgstr ""
+msgstr "Tiada slot kosong"
 
 #: ../iw/lvm_dialog_gui.py:680
 #, python-format
@@ -2712,18 +2699,17 @@ msgid "There is no room left in the volume group to create new logical volumes. 
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:715
-#, fuzzy, python-format
+#, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "Adakah anda pasti untuk boot semula mesin ini?"
+msgstr "Adakah anda pasti untuk memadam volum logikal \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:835
-#, fuzzy
 msgid "Invalid Volume Group Name"
-msgstr "Namahos tidak sah"
+msgstr "Nama Kumpulan Volum tidak sah"
 
 #: ../iw/lvm_dialog_gui.py:848
 msgid "Name in use"
-msgstr ""
+msgstr "Nama sudah digunakan"
 
 #: ../iw/lvm_dialog_gui.py:849
 #, python-format
@@ -2732,7 +2718,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:893
 msgid "Not enough physical volumes"
-msgstr ""
+msgstr "Tidak cukup volum fizikal"
 
 #: ../iw/lvm_dialog_gui.py:894
 msgid ""
@@ -2746,18 +2732,17 @@ msgid "Make LVM Volume Group"
 msgstr "Buat Kumpulan Volum LVM"
 
 #: ../iw/lvm_dialog_gui.py:908
-#, fuzzy, python-format
+#, python-format
 msgid "Edit LVM Volume Group: %s"
-msgstr "Namahos tidak sah"
+msgstr "Edit Kumpulan Volum LVM: %s"
 
 #: ../iw/lvm_dialog_gui.py:910
-#, fuzzy
 msgid "Edit LVM Volume Group"
-msgstr "Namahos tidak sah"
+msgstr "Edit Kumpulan Volum LVM"
 
 #: ../iw/lvm_dialog_gui.py:926
 msgid "_Volume Group Name:"
-msgstr ""
+msgstr "Nama Kumpulan _Volum:"
 
 #: ../iw/lvm_dialog_gui.py:934
 msgid "Volume Group Name:"
@@ -2789,7 +2774,7 @@ msgstr "Jumlah Ruang:"
 
 #: ../iw/lvm_dialog_gui.py:1033
 msgid "Logical Volume Name"
-msgstr ""
+msgstr "Nama Volum Logikal"
 
 # MB = Menteri Besar?
 #: ../iw/lvm_dialog_gui.py:1039
@@ -2799,7 +2784,7 @@ msgstr "Saiz (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1070
 msgid "Logical Volumes"
-msgstr ""
+msgstr "Volum Logikal:"
 
 #: ../iw/mouse_gui.py:26
 msgid "Mouse Configuration"
@@ -2835,13 +2820,12 @@ msgid "_Model"
 msgstr "_Model"
 
 #: ../iw/mouse_gui.py:221
-#, fuzzy
 msgid "_Emulate 3 buttons"
-msgstr "Contoh Butang"
+msgstr "Emulasi 3 Butang"
 
 #: ../iw/mouse_gui.py:235
 msgid "Select the appropriate mouse for the system."
-msgstr ""
+msgstr "Pilih tetikus sesuai bagi sistem."
 
 #: ../iw/network_gui.py:26
 #: ../iw/network_gui.py:569
@@ -2861,7 +2845,6 @@ msgstr "DNS Sekunder"
 
 #: ../iw/network_gui.py:27
 #: ../iw/network_gui.py:575
-#, fuzzy
 msgid "Tertiary DNS"
 msgstr "DNS ketiga"
 
@@ -2871,19 +2854,16 @@ msgid "_Gateway"
 msgstr "Guatemala"
 
 #: ../iw/network_gui.py:29
-#, fuzzy
 msgid "_Primary DNS"
-msgstr "DNS Utama"
+msgstr "DNS _Utama"
 
 #: ../iw/network_gui.py:30
-#, fuzzy
 msgid "_Secondary DNS"
-msgstr "DNS Sekunder"
+msgstr "DNS _Sekunder"
 
 #: ../iw/network_gui.py:30
-#, fuzzy
 msgid "_Tertiary DNS"
-msgstr "DNS ketiga"
+msgstr "DNS ke_tiga"
 
 #: ../iw/network_gui.py:34
 msgid "Network Configuration"
@@ -2896,13 +2876,12 @@ msgstr "Konfigurasi Rangkaian"
 #: ../iw/network_gui.py:172
 #: ../iw/network_gui.py:176
 #: ../iw/network_gui.py:181
-#, fuzzy
 msgid "Error With Data"
-msgstr "Permintaan kelebaran"
+msgstr "Ralat Dengan Data"
 
 #: ../iw/network_gui.py:154
 msgid "You have not specified a hostname.  Depending on your network environment this may cause problems later."
-msgstr ""
+msgstr "Anda tidak menyatakan namahos. Bergantung kepada persekitaran rangkaian ia akan menyebabkan masalah kelak."
 
 #: ../iw/network_gui.py:158
 #, python-format
@@ -2916,6 +2895,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Namahos \"%s\" tidak sah kerana alasan berikut:\n"
+"\n"
+"%s"
 
 #: ../iw/network_gui.py:167
 #, python-format
@@ -2923,15 +2905,17 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
+"Ralat berlaku bila cuba menukar nilai yang dimasukkan bagi \"%s\":\n"
+"%s"
 
 #: ../iw/network_gui.py:173
 #, python-format
 msgid "A value is required for the field \"%s\"."
-msgstr ""
+msgstr "Satu nilai diperlukan bagi medan \"%s\"."
 
 #: ../iw/network_gui.py:177
 msgid "The IP information you have entered is invalid."
-msgstr ""
+msgstr "Maklumat IP yang anda masukkan adalah tidak sah."
 
 #: ../iw/network_gui.py:181
 msgid ""
@@ -2943,17 +2927,15 @@ msgstr ""
 #: ../iw/network_gui.py:200
 #, python-format
 msgid "Edit Interface %s"
-msgstr ""
+msgstr "Edit Antaramuka %s"
 
 #: ../iw/network_gui.py:210
-#, fuzzy
 msgid "Configure using _DHCP"
-msgstr "Konfigurasi mengguna DHCP"
+msgstr "Konfigurasi mengguna _DHCP"
 
 #: ../iw/network_gui.py:216
-#, fuzzy
 msgid "_Activate on boot"
-msgstr "Aktifkan semasa boot"
+msgstr "_Aktifkan semasa boot"
 
 #: ../iw/network_gui.py:225
 msgid "_IP Address"
@@ -3063,9 +3045,8 @@ msgid "Default Boot _Target"
 msgstr "_Sasaran But Default"
 
 #: ../iw/osbootwidget.py:223
-#, fuzzy
 msgid "You must specify a label for the entry"
-msgstr "Anda mesti pilih pembekal bagi sumber data baru"
+msgstr "Anda mesti nyatakan label bagi kemasukan"
 
 # gnome-vfs. Sistem Fail Maya GNOME
 # Copyright (C) YEAR Free Software Foundation, Inc.
@@ -3081,19 +3062,16 @@ msgid "Duplicate Label"
 msgstr ""
 
 #: ../iw/osbootwidget.py:257
-#, fuzzy
 msgid "This label is already in use for another boot entry."
-msgstr "Terdapat jenis MIME menggunakan nama itu."
+msgstr "Label ini telah digunakan olegh kemasukan but lain."
 
 #: ../iw/osbootwidget.py:270
-#, fuzzy
 msgid "Duplicate Device"
-msgstr "Peranti Perkakasan"
+msgstr "Klonkan Peranti"
 
 #: ../iw/osbootwidget.py:271
-#, fuzzy
 msgid "This device is already being used for another boot entry."
-msgstr "Terdapat jenis MIME menggunakan nama itu."
+msgstr "Peranti ini telah digunakan oleh kemasukan but lain."
 
 #: ../iw/osbootwidget.py:335
 msgid "Cannot Delete"
@@ -3119,6 +3097,9 @@ msgid ""
 "Version: %s\n"
 ""
 msgstr ""
+"Pakej: %s\n"
+"Versi: %s\n"
+""
 
 #: ../iw/package_gui.py:366
 msgid "_Tree View"
@@ -3146,9 +3127,8 @@ msgid "Select _all in group"
 msgstr "Pilih _semua dalam kumpulan"
 
 #: ../iw/package_gui.py:443
-#, fuzzy
 msgid "_Unselect all in group"
-msgstr "Nyahpilih semua  dalam kumpulan"
+msgstr "_Nyahpilih semua  dalam kumpulan"
 
 #: ../iw/package_gui.py:480
 #: ../textw/packages_text.py:57
@@ -3157,7 +3137,7 @@ msgstr "Pemilihan Kumpulan Pakej"
 
 #: ../iw/package_gui.py:700
 msgid "Minimal"
-msgstr ""
+msgstr "Minima"
 
 #: ../iw/package_gui.py:771
 #, python-format
@@ -3184,9 +3164,8 @@ msgid "Details"
 msgstr "Perincian"
 
 #: ../iw/package_gui.py:1165
-#, fuzzy
 msgid "_Select individual packages"
-msgstr "Nyahpilih semua pakej"
+msgstr "_Pilih individu pakej"
 
 #: ../iw/partition_dialog_gui.py:55
 msgid "Additional Size Options"
@@ -3219,9 +3198,8 @@ msgid "Edit Partition: /dev/%s"
 msgstr "Edit partisyen: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:263
-#, fuzzy
 msgid "Edit Partition"
-msgstr "Perlindungan"
+msgstr "Edit partisyen"
 
 #: ../iw/partition_dialog_gui.py:290
 #: ../iw/raid_dialog_gui.py:302
@@ -3229,9 +3207,8 @@ msgid "File System _Type:"
 msgstr "_Jenis Sistem Fail:"
 
 #: ../iw/partition_dialog_gui.py:322
-#, fuzzy
 msgid "Allowable _Drives:"
-msgstr "Benarkan sebagai pelayan anjal"
+msgstr "Pemacu Diizinkan:"
 
 #: ../iw/partition_dialog_gui.py:335
 msgid "Drive:"
@@ -3279,11 +3256,12 @@ msgid "End"
 msgstr "Akhir"
 
 #: ../iw/partition_gui.py:392
-#, fuzzy
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
-msgstr "Titik Lekapan"
+msgstr ""
+"Titik Lekapan/\n"
+"RAID/Volum"
 
 # MB = Menteri Besar?
 #: ../iw/partition_gui.py:394
@@ -3326,9 +3304,8 @@ msgid "Partitioning Warnings"
 msgstr "Amaran pempartisyenan"
 
 #: ../iw/partition_gui.py:669
-#, fuzzy
 msgid "Format Warnings"
-msgstr "Amaran"
+msgstr "Amaran Pengformatan"
 
 #: ../iw/partition_gui.py:674
 msgid "_Format"
@@ -3362,9 +3339,8 @@ msgstr "Ruang bebas"
 
 #: ../iw/partition_gui.py:854
 #: ../textw/partition_text.py:135
-#, fuzzy
 msgid "Extended"
-msgstr "Away lanjutan"
+msgstr "Lanjutan"
 
 #: ../iw/partition_gui.py:856
 #: ../textw/partition_text.py:137
@@ -3438,9 +3414,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/partition_gui.py:1234
-#, fuzzy
 msgid "What do you want to do now?"
-msgstr "Direktori manakah yang anda ingin cari?"
+msgstr "Apa yang anda ingin lakukan sekarang?"
 
 #: ../iw/partition_gui.py:1243
 #, fuzzy
@@ -3685,7 +3660,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:509
 #: ../iw/raid_dialog_gui.py:522
 msgid "Source Drive Error"
-msgstr ""
+msgstr "Ralat Pemacu Sumber"
 
 #: ../iw/raid_dialog_gui.py:498
 msgid ""
@@ -3713,7 +3688,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:555
 msgid "Target Drive Error"
-msgstr ""
+msgstr "Ralat Pemacu Sasaran"
 
 #: ../iw/raid_dialog_gui.py:537
 #, fuzzy
@@ -3723,7 +3698,7 @@ msgstr "Pilih Produk untuk pepijat yang hendak dilapor."
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
+msgstr "Pemacu sumber /dev/%s \" tak boleh  dipilih sebagai pamacu sasaran."
 
 #: ../iw/raid_dialog_gui.py:556
 #, python-format
@@ -3800,11 +3775,11 @@ msgstr "Konfigurasi Silo"
 #: ../iw/upgrade_swap_gui.py:148
 #: ../textw/upgrade_text.py:110
 msgid "Partition"
-msgstr ""
+msgstr "Partisyen"
 
 #: ../iw/silo_gui.py:172
 msgid "Install SILO boot record on:"
-msgstr ""
+msgstr "Pasang rekod but SILO pada:"
 
 #: ../iw/silo_gui.py:189
 #, fuzzy
@@ -3902,7 +3877,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
-msgstr ""
+msgstr "Ini adalah opsyen yang dicadangkan."
 
 #: ../iw/upgrade_bootloader_gui.py:80
 #: ../textw/upgrade_bootloader_text.py:57
@@ -4002,7 +3977,7 @@ msgstr ""
 #: ../iw/upgrade_swap_gui.py:209
 #: ../textw/upgrade_text.py:176
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "Fail swap mestilah bersaiz diantara 1 dan 2000 MB "
 
 #: ../iw/upgrade_swap_gui.py:216
 #: ../textw/upgrade_text.py:171
@@ -4035,17 +4010,17 @@ msgstr "Kedalaman _Warna:"
 #: ../iw/xconfig_gui.py:225
 #: ../textw/xconfig_text.py:109
 msgid "256 Colors (8 Bit)"
-msgstr ""
+msgstr "256 Warna (8 Bit)"
 
 #: ../iw/xconfig_gui.py:225
 #: ../textw/xconfig_text.py:109
 msgid "High Color (16 Bit)"
-msgstr ""
+msgstr "Warna Tinggi (16 Bit)"
 
 #: ../iw/xconfig_gui.py:225
 #: ../textw/xconfig_text.py:109
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "Warna Sebenar (24 Bit)"
 
 #: ../iw/xconfig_gui.py:235
 msgid "_Screen Resolution:"
@@ -4204,11 +4179,11 @@ msgstr "Direktori manakah yang anda ingin cari?"
 
 #: ../textw/bootloader_text.py:46
 msgid "Use GRUB Boot Loader"
-msgstr ""
+msgstr "Guna Pemuat But GRUB"
 
 #: ../textw/bootloader_text.py:47
 msgid "Use LILO Boot Loader"
-msgstr ""
+msgstr "Guna Pemuat But LILO"
 
 #: ../textw/bootloader_text.py:48
 msgid "No Boot Loader"
@@ -4606,7 +4581,7 @@ msgstr "Peranti rangkaian: %s"
 
 #: ../textw/network_text.py:70
 msgid "Use bootp/dhcp"
-msgstr ""
+msgstr "Guna bootp/dhcp"
 
 #: ../textw/network_text.py:73
 msgid "Activate on boot"
@@ -4888,7 +4863,7 @@ msgstr "Format partisyen?"
 
 #: ../textw/partition_text.py:999
 msgid "Invalid Entry for RAID Spares"
-msgstr ""
+msgstr "Kemasukan tidak sah bagi gantian RAID"
 
 #: ../textw/partition_text.py:1012
 #, fuzzy
@@ -5102,7 +5077,7 @@ msgstr "Panjang Katalaluan"
 
 #: ../textw/userauth_text.py:55
 msgid "The root password must be at least 6 characters long."
-msgstr ""
+msgstr "Katalaluan root mestilah sekurang-kurangnya 6 aksara panjang."
 
 #: ../textw/userauth_text.py:59
 #: ../textw/userauth_text.py:134
@@ -5139,7 +5114,7 @@ msgstr "Nama Pengguna"
 
 #: ../textw/userauth_text.py:114
 msgid "User names must contain only characters A-Z, a-z, and 0-9."
-msgstr ""
+msgstr "Nama pengguna mestilah mengandungi aksara A-Z, a-z, dan 0-9."
 
 #: ../textw/userauth_text.py:121
 #, fuzzy
@@ -5153,7 +5128,7 @@ msgstr "Anda mesti masukkan username/login untuk sambungan anda."
 
 #: ../textw/userauth_text.py:127
 msgid "The password must be at least 6 characters long."
-msgstr ""
+msgstr "Katalaluan mestilah sekurang-kurangnya 6 aksara panjang."
 
 #: ../textw/userauth_text.py:143
 #: ../textw/userauth_text.py:150
@@ -5163,11 +5138,11 @@ msgstr "Penguna Wujud"
 
 #: ../textw/userauth_text.py:144
 msgid "The root user is already configured. You don't need to add this user here."
-msgstr ""
+msgstr "Pengguna root sudah dikonfigurasikan. Anda tidak perlu menambah pengguna itu di sini."
 
 #: ../textw/userauth_text.py:151
 msgid "This system user is already configured. You don't need to add this user here."
-msgstr ""
+msgstr "Pengguna sistem telah dikonfigurasikan. Anda tidak perlu menambah pengguna itu di sini."
 
 #: ../textw/userauth_text.py:159
 #, fuzzy
@@ -5245,7 +5220,7 @@ msgstr "Pelayan LDAP:"
 
 #: ../textw/userauth_text.py:376
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "DN Asas LDAP:"
 
 #: ../textw/userauth_text.py:386
 msgid "Use TLS connections"
@@ -5415,11 +5390,11 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:338
 msgid "HSync Rate: "
-msgstr ""
+msgstr "Kadar HSync: "
 
 #: ../textw/xconfig_text.py:343
 msgid "VSync Rate: "
-msgstr ""
+msgstr "Kadar VSync: "
 
 #: ../textw/xconfig_text.py:444
 #, python-format
@@ -5432,11 +5407,11 @@ msgstr "Monitor:"
 
 #: ../textw/xconfig_text.py:455
 msgid "HSync Rate:"
-msgstr ""
+msgstr "Kadar HSync:"
 
 #: ../textw/xconfig_text.py:465
 msgid "VSync Rate:"
-msgstr ""
+msgstr "Kadar VSync: "
 
 #: ../textw/xconfig_text.py:547
 msgid "Video Card"
@@ -5523,11 +5498,11 @@ msgstr "Jenis CDROM"
 
 #: ../loader/cdrom.c:31
 msgid "What type of CDROM do you have?"
-msgstr ""
+msgstr "Apa jenis CDROM yang anda ada?"
 
 #: ../loader/cdrom.c:88
 msgid "Initializing CDROM..."
-msgstr ""
+msgstr "Menginitialisasi CDROM"
 
 #: ../loader/devices.c:88
 msgid "This module can take parameters which affects its operation. If you don't know what parameters to supply, just skip this screen by pressing the \"OK\" button now."
@@ -5609,7 +5584,7 @@ msgstr "Selamat datang ke %s"
 #: ../loader/lang.c:42
 #: ../loader/loader.c:205
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
+msgstr "  <Tab>/<Alt-Tab> Antara unsur   |  <Space> pilih   |  <F12> Skrin seterusnya "
 
 #: ../loader/lang.c:305
 msgid "Choose a Language"
@@ -5788,7 +5763,7 @@ msgstr ""
 
 #: ../loader/loader.c:1750
 msgid "FTP and HTTP installs require 20MB or more of system memory."
-msgstr ""
+msgstr "Pemasangan FTP dan HTTP memerlukan 20MB atau lebih memori sistem"
 
 #: ../loader/loader.c:1990
 msgid "Rescue Method"
@@ -5808,7 +5783,7 @@ msgstr ""
 
 #: ../loader/loader.c:2793
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr ""
+msgstr "Tak menjumpai ks.cfg pada liut but."
 
 #: ../loader/loader.c:2885
 msgid "Updates Disk"
@@ -5816,7 +5791,7 @@ msgstr "Kemaskini Cakera"
 
 #: ../loader/loader.c:2886
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr ""
+msgstr "Selitkan cekara kemaskini anda dan tekan \"OK\" untuk meneruskan."
 
 #: ../loader/loader.c:2891
 #, c-format
@@ -5881,6 +5856,9 @@ msgid ""
 "\n"
 "It is not recommended to use this media."
 msgstr ""
+"GAGAL.\n"
+"\n"
+"Adalah tidak dicadangkan untuk menggunakan media ini."
 
 #: ../loader/mediacheck.c:317
 msgid ""
