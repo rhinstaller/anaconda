@@ -317,6 +317,8 @@ class InstSyslog:
         if not self.pid:
             if os.access ("./anaconda", os.X_OK):
                 path = "./anaconda"
+            elif os.access ("/usr/bin/anaconda.real", os.X_OK):
+                path = "/usr/bin/anaconda.real"
             else:
                 path = "/usr/bin/anaconda"
             os.execv (path, ("syslogd", "--syslogd", root, log))
@@ -335,6 +337,7 @@ class ToDo:
 	self.comps = None
 	self.instPath = rootPath
 	self.setupFilesystems = setupFilesystems
+        self.madeFilesystems = 0
 	self.installSystem = installSystem
         self.language = Language ()
         self.network = Network ()
@@ -497,7 +500,8 @@ class ToDo:
 	    os.remove( '/tmp/' + device);
 
     def makeFilesystems(self, createSwap = 1, createFs = 1):
-	if (not self.setupFilesystems): return 
+        if not self.setupFilesystems: return
+        if self.madeFilesystems: return
 
 	# let's make the RAID devices first -- the fstab will then proceed
 	# naturally
@@ -575,6 +579,7 @@ class ToDo:
 
             os.remove('/tmp/' + device)
 	    w.pop()
+        self.madeFilesystems = 1
 
     def addMount(self, device, location, fsystem, reformat = 1):
         if fsystem == "swap":
@@ -1352,6 +1357,10 @@ class ToDo:
                 probs = probs + prob
                 
             self.intf.messageWindow (_("Disk Space"), probs)
+
+            if self.setupFilesystems:
+                self.mountFilesystems ()
+            
             return 1
 
         # This should close the RPM database so that you can
