@@ -177,6 +177,23 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
 #endif
 
 static void fillInIpInfo(struct networkDeviceConfig * cfg) {
+    int32 * i;
+    char * nm;
+   
+    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)) {
+	i = (int32 *) &cfg->dev.ip;
+
+	if (((*i & 0xFF000000) >> 24) <= 127)
+	    nm = "255.0.0.0";
+	else if (((*i & 0xFF000000) >> 24) <= 191)
+	    nm = "255.255.0.0";
+	else 
+	    nm = "255.255.255.0";
+
+	inet_aton(nm, &cfg->dev.netmask);
+	cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
+    }
+
     if (!(cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST)) {
 	*((int32 *) &cfg->dev.broadcast) = (*((int32 *) &cfg->dev.ip) & 
 			   *((int32 *) &cfg->dev.netmask)) | 
