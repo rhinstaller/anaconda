@@ -44,8 +44,8 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         tag.set_property('font', '%s %d' % (baseFont, baseSize))
             
         tag = self.buffer.create_tag('p')
-        tag.set_property('pixels-above-lines', '5')
-        tag.set_property('pixels-below-lines', '5')
+        tag.set_property('pixels-above-lines', 5)
+        tag.set_property('pixels-below-lines', 5)
 
         tag = self.buffer.create_tag('tt')
         tag.set_property('font', 'Monospace %d' % (baseSize,))
@@ -70,8 +70,8 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         tag = self.buffer.create_tag('ul')
         tag.set_property('left-margin', 20)
         # reset spacing in paragraphs incase this list is inside <p>
-        tag.set_property('pixels-above-lines', '0')
-        tag.set_property('pixels-below-lines', '0')
+        tag.set_property('pixels-above-lines', 0)
+        tag.set_property('pixels-below-lines', 0)
 
         tag = self.buffer.create_tag('li')
         tag.set_property('indent', -9)
