@@ -47,6 +47,8 @@ class Mouse (SimpleConfigFile):
         ("netmouse", "NetMousePS/2", "psaux", 1, "geniusprops/2"),
 	N_("Genius - NetScroll (PS/2)"):
         ("netmouse", "NetScrollPS/2", "psaux", 1, "geniusscrollps/2"),
+	N_("Genius - NetScroll+ (PS/2)") :
+		("netmouse", "NetMousePS/2", "psaux", 1, "geniusscrollps/2+"),
 	N_("Kensington - Thinking Mouse (serial)"):
         ("Microsoft", "ThinkingMouse", "ttyS", 1, "thinking"),
 	N_("Kensington - Thinking Mouse (PS/2)"):
