@@ -808,3 +808,4 @@ for kernelvers in $vertag; do
 . $TOPDIR/mk-images.${BUILDARCH}
 
 rm -rf $KERNELROOT
+done
