@@ -18,7 +18,7 @@
 
 #if defined(__s390__) || defined(__s390x__)
 /* s390 stuff to detect DASDs */
-static int vtoc_read_volume_label (int fd, unsigned long vlabel_start,
+static int read_volume_label (int fd, unsigned long vlabel_start,
 		volume_label_t *vlabel) {
 	int rc;
 	if (lseek(fd, vlabel_start, SEEK_SET) < 0) {
