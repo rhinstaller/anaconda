@@ -4,6 +4,7 @@ import os
 
 class InstallClass(personal_desktop.InstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
+    id = "workstation"
     name = N_("_Workstation")
     pixmap = "workstation.png"
     description = N_("This option installs a graphical desktop "

@@ -8,6 +8,7 @@ from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 # custom installs are easy :-)
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
+    id = "custom"
     name = N_("_Custom")
     pixmap = "custom.png"
     description = N_("Select this installation type to gain complete "

@@ -8,6 +8,7 @@ from fsset import *
 
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
+    id = "personal desktop"
     name = N_("_Personal Desktop")
     pixmap = "workstation.png"
     description = N_("Perfect for personal computers or laptops, select this "

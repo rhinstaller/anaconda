@@ -8,6 +8,7 @@ from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 class InstallClass(BaseInstallClass):
 
     # name has underscore used for mnemonics, strip if you dont need it
+    id = "server"
     name = N_("_Server")
     pixmap = "server.png"
     description = N_("Select this installation type if you would like to "
