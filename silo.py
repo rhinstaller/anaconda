@@ -124,7 +124,7 @@ class SiloInstall:
 	    i = i - 1
 	silo.addEntry("partition", bootpart[i+1:])
 	silo.addEntry("timeout", "50")
-	silo.addEntry("root", rootDev)
+	silo.addEntry("root", '/dev/' + rootDev)
 	silo.addEntry("read-only")
 
 	kernelList = []
