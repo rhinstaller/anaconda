@@ -53,8 +53,8 @@ makeBootImages() {
 }
 
 makeSecondStage() {
-    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
-    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"
-    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES"
+    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES =scsi"
+    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES =net"
+    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES =net =scsi"
     makemainimage "stage2" "cramfs"
 }
