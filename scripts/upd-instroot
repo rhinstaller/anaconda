@@ -455,8 +455,8 @@ for p in $DEST $DESTGR; do
 	    ln -s ash $p/bin/sh
 	fi
 
-	(cd $p/bin; find) | (cd $p/bin; cpio --quiet -pdmu $p/usr/bin)
-	(cd $p/sbin; find) | (cd $p/sbin; cpio --quiet -pdmu $p/usr/sbin)
+	(cd $p/bin; find) | (cd $p/bin; /bin/cpio --quiet -pdmu $p/usr/bin)
+	(cd $p/sbin; find) | (cd $p/sbin; /bin/cpio --quiet -pdmu $p/usr/sbin)
 	rm -rf $p/bin
 	rm -rf $p/sbin
 
