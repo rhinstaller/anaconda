@@ -73,7 +73,7 @@ fi
 %define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
 
 %changelog
-* %{date} Cristian Gafton <gafton@redhat.com>
+* %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
 
 * Thu Feb 03 2000 Michael Fulbright <drmike@redhat.com>
