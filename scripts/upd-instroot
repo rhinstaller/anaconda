@@ -118,8 +118,8 @@ if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
 fi
 
+PACKAGES="$PACKAGES db1 db2"
 if [ $ARCH != ia64 ]; then
-    PACKAGES="$PACKAGES db1 db2"
     PACKAGESGR="$PACKAGESGR mtools pine modutils"
 fi
 
