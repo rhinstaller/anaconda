@@ -217,7 +217,7 @@ char * mountNfsImage(struct installMethod * method,
 void setKickstartNfs(struct knownDevices * kd, 
                      struct loaderData_s * loaderData, int argc,
                      char ** argv, int * flagsPtr) {
-    char * host, * dir;
+    char * host = NULL, * dir = NULL;
     poptContext optCon;
     int rc;
     struct poptOption ksNfsOptions[] = {
@@ -235,6 +235,11 @@ void setKickstartNfs(struct knownDevices * kd,
                          "command %s: %s"),
                        poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
                        poptStrerror(rc));
+        return;
+    }
+
+    if (!host || !dir) {
+        logMessage("host and directory for nfs kickstart not specified");
         return;
     }
 
