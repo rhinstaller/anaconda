@@ -453,7 +453,7 @@ msgstr ""
 "http://www.redhat.com/errata を参照してください。\n"
 "\n"
 "Red Hat Linux の設定と使用方法に関する情報は、"
-"Red Hat Linux のマニュアルを参照してください。""
+"Red Hat Linux のマニュアルを参照してください。"
 
 #: ../text.py:515
 msgid ""
@@ -467,7 +467,7 @@ msgid ""
 msgstr ""
 "設定が完了しました。\n"
 "\n"
-""本リリースの Red Hat Linux の修正情報については、"
+"本リリースの Red Hat Linux の修正情報については、"
 "http://www.redhat.com/errata を参照してください。\n"
 "\n"
 "システムの追加設定については、『Official Red Hat Linux ユーザーズガイド』の"
@@ -1670,8 +1670,8 @@ msgid ""
 "blank."
 msgstr ""
 "システムが正しく機能するためには、起動時にカーネルに対して特別なオプションを"
-渡す必要がある場合があります。"カーネルにブートオプションを渡す必要がある場合には、"
-ここで入力してください。"オプションが必要ないか、または不明な場合には、"
+"渡す必要がある場合があります。カーネルにブートオプションを渡す必要がある場合には、"
+"ここで入力してください。オプションが必要ないか、または不明な場合には、"
 "空白にしておいてください。"
 
 #: ../textw/lilo_text.py:85 ../textw/silo_text.py:103
@@ -2110,7 +2110,7 @@ msgid ""
 msgstr ""
 "マウントポイント %s が不適当です。.\n"
 "\n"
-マウントポイントの最後には / を使用できません。"
+"マウントポイントの最後には / を使用できません。"
 
 #: ../libfdisk/fsedit.c:988
 #, c-format
@@ -2866,7 +2866,7 @@ msgid ""
 "button now."
 msgstr ""
 "このモジュールにパラメータを渡してモジュールの動きを調整することができます。"
-"指定するパラメータが不明である場合は、ここで \[OK\] ボタンを押して"
+"指定するパラメータが不明である場合は、ここで [OK] ボタンを押して"
 "この画面をスキップしてください。"
 
 #: ../loader/devices.c:85
@@ -2884,7 +2884,7 @@ msgstr "ドライバディスクがありますか?"
 
 #: ../loader/devices.c:210
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "ドライバディスクを挿入してから \[OK\] を押して続行してください。"
+msgstr "ドライバディスクを挿入してから [OK] を押して続行してください。"
 
 #: ../loader/devices.c:230 ../loader/devices.c:440
 msgid "Failed to mount driver disk."
@@ -3057,7 +3057,7 @@ msgid ""
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 "CDROM ドライブの中に Red Hat Linux CDROM が見つかりません。"
-"Red Hat CD を挿入してから \[OK\] を押して再試行してください。"
+"Red Hat CD を挿入してから [OK] を押して再試行してください。"
 
 #: ../loader/loader.c:934
 msgid "Networking Device"
@@ -3123,11 +3123,11 @@ msgstr "%s ディレクトリの読み込みに失敗しました: %s"
 
 #: ../loader/loader.c:2051
 msgid "Updates Disk"
-msgstr "ディスクのアップデート""
+msgstr "ディスクのアップデート"
 
 #: ../loader/loader.c:2052
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "アップデートディスクを挿入してから \[OK\] を押して続行してください。"
+msgstr "アップデートディスクを挿入してから [OK] を押して続行してください。"
 
 #: ../loader/loader.c:2060
 msgid "Failed to mount floppy disk."
@@ -3322,7 +3322,7 @@ msgstr ""
 "\n"
 "    o FTP サーバの名前または IP アドレス\n"
 "    o 使用アーキテクチャ用の Red Hat Linux を含む、サーバ\n"
-"      上のディレクトリ"
+"      上のディレクトリ\n"
 
 #: ../loader/urls.c:163
 msgid ""
@@ -3336,7 +3336,7 @@ msgstr ""
 "\n"
 "    o Web サーバ名または IP アドレス\n"
 "    o 使用アーキテクチャ用の Red Hat Linux を含む、サーバ\n"
-"      上のディレクトリ"
+"      上のディレクトリ\n"
 
 #: ../loader/urls.c:181
 msgid "FTP site name:"
