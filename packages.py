@@ -162,6 +162,26 @@ def handleX11Packages(dir, intf, disp, id, instPath):
     if gnomeSelected or kdeSelected:
         id.desktop.setDefaultRunLevel(5)
 
+def checksig(fileName):
+    # RPM spews to stdout/stderr.  Redirect.
+    # stolen from up2date/up2date.py
+    saveStdout = os.dup(1)
+    saveStderr = os.dup(2)
+    redirStdout = os.open("/dev/null", os.O_WRONLY | os.O_APPEND)
+    redirStderr = os.open("/dev/null", os.O_WRONLY | os.O_APPEND)
+    os.dup2(redirStdout, 1)
+    os.dup2(redirStderr, 2)
+    # now do the rpm thing
+    ret = rpm.checksig(fileName, rpm.CHECKSIG_MD5)
+    # restore normal stdout and stderr
+    os.dup2(saveStdout, 1)
+    os.dup2(saveStderr, 2)
+    # Clean up
+    os.close(redirStdout)
+    os.close(redirStderr)
+    os.close(saveStdout)
+    os.close(saveStderr)
+    return ret    
 
 def checkDependencies(dir, intf, disp, id, instPath):
     if dir == DISPATCH_BACK:
@@ -254,12 +274,16 @@ class InstallCallback:
                                                  h[rpm.RPMTAG_VERSION],
                                                  h[rpm.RPMTAG_RELEASE]))
 	    self.instLog.flush ()
-	    fn = self.method.getFilename(h, self.pkgTimer)
 
 	    self.rpmFD = -1
             self.size = h[rpm.RPMTAG_SIZE]
 	    while self.rpmFD < 0:
+                fn = self.method.getFilename(h, self.pkgTimer)
 		try:
+                    ret = checksig(fn)
+#                    log("return of checksig for %s is %s" %(fn, ret))
+                    if ret != 0:
+                        raise SystemError                    
 		    self.rpmFD = os.open(fn, os.O_RDONLY)
 		    # Make sure this package seems valid
 		    try:
@@ -498,14 +522,23 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
 	       '/etc/sysconfig', '/etc/sysconfig/network-scripts',
-	       '/etc/X11', '/root' ):
+	       '/etc/X11', '/root', '/var/tmp' ):
 	try:
 	    os.mkdir(instPath + i)
 	except os.error, (errno, msg):
-            #self.intf.messageWindow("Error",
-            #                        "Error making directory %s: "
-            #                        "%s" % (i, msg))
-	    pass
+            pass
+#            log("Error making directory %s: %s" % (i, msg))
+
+
+    try:
+        os.symlink("/mnt/sysimage/var/tmp", "/var/tmp")
+    except:
+        intf.messageWindow(_("Error"),
+                           _("Unable to create symlink for /var/tmp.  This "
+                             "should only happen if there were errors "
+                             "creating your filesystems.\n\n"
+                             "Press the OK button to reboot your system."))
+        sys.exit(0)
 
     # write out the fstab
     if not upgrade:
