@@ -68,7 +68,7 @@ class XCustomWindow:
         if widget == self.graphrb:
             self.selectedRunLevel = 5
         elif widget == self.textrb:
-            self.selectedDesktop = 3
+            self.selectedRunLevel = 3
         else:
             print "Invalid widget in xconfig_text::loginCB"
         
@@ -244,7 +244,7 @@ class XCustomWindow:
         newmodes[self.selectedDepth] = []
         newmodes[self.selectedDepth].append (self.selectedRes)
         self.xconfig.setManualModes(newmodes)
-        
+
         desktop.setDefaultDesktop (self.selectedDesktop)
         desktop.setDefaultRunLevel(self.selectedRunLevel)
         
