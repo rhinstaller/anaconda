@@ -1,3 +1,8 @@
+2005-03-28  Peter Jones  <pjones@redhat.com>
+	* partitions.py, partRequests.py: don't put snapshot LVs into
+	RequestSpecs after all.  Instead, look for children when we
+	actually do the lvremove()
+	
 2005-03-28  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/loader.c (parseCmdLineFlags): Allow setting mtu on the

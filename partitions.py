@@ -192,7 +192,6 @@ class Partitions:
         lvm.vgactivate()
 
         pvs = lvm.pvlist()
-        snapshots = {}
         for (vg, size, pesize) in lvm.vglist():
             try:
                 preexist_size = float(size)
@@ -219,10 +218,10 @@ class Partitions:
             vgid = self.addRequest(spec)
 
             for (lvvg, lv, size, lvorigin) in lvm.lvlist():
+                if lvorigin:
+                    continue
                 if lvvg != vg:
                     continue
-                snapshots.setdefault(lvorigin, [])
-                snapshots[lvorigin].append(lv)
                 
                 # size is number of bytes, we want size in megs
                 lvsize = float(size)
@@ -239,15 +238,8 @@ class Partitions:
 
                 spec = partRequests.LogicalVolumeRequestSpec(fsystem,
                     format = format, size = lvsize, volgroup = vgid,
-                    lvname = lv, mountpoint = mnt, preexist = 1,
-                    lvorigin = lvorigin)
+                    lvname = lv, mountpoint = mnt, preexist = 1)
                 self.addRequest(spec)
-
-        for origin, snapnames in snapshots.items():
-            parent = self.getRequestByLogicalVolumeName(origin)
-            for snapname in snapnames:
-                child = self.getRequestByLogicalVolumeName(snapname)
-                parent.snapshots.append(child)
 
         for vg in lvm.partialvgs():
             spec = partRequests.PartialVolumeGroupSpec(vgname = vg)
@@ -1249,12 +1241,33 @@ class Partitions:
         diskset.startAllRaid()
         lvm.vgactivate()
 
+        snapshots = {}
+        for (lvvg, lv, size, lvorigin) in lvm.lvlist():
+            snapshots.setdefault(lv, [])
+            if lvorigin:
+                snapshots.setdefault(lvorigin, [])
+                snapshots[lvorigin].append((lv, lvvg))
+
+        lvm_parent_deletes = []
+        tmp = {}
+        def addSnap(name, vg):
+            snaps = snapshots[name]
+            for snap, snapvg in snaps:
+                addSnap(snap, snapvg)
+            if not tmp.has_key((name, vg)):
+                tmp[(name, vg)] = 1
+                lvm_parent_deletes.append((name,vg))
+
         # now, go through and delete logical volumes
         for delete in self.deletes:
             if isinstance(delete, partRequests.DeleteLogicalVolumeSpec):
                 if not delete.beenDeleted():
-                    lvm.lvremove(delete.name, delete.vg)
+                    addSnap(delete.name, delete.vg)
                     delete.setDeleted(1)
+
+        for name,vg in lvm_parent_deletes:
+            log("removing lv %s" % (name,))
+            lvm.lvremove(name, vg)
 
         # now, go through and delete volume groups
         for delete in self.deletes:
@@ -1292,8 +1305,6 @@ class Partitions:
                         self.addDelete(delete)
             elif isinstance(req, partRequests.LogicalVolumeRequestSpec):
                 if id == req.volumeGroup:
-                    for child in req.snapshots:
-                        toRemove.append(child)
                     toRemove.append(req)
                     tmp = self.getRequestByID(req.volumeGroup)
                     if not tmp:
