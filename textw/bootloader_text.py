@@ -245,6 +245,9 @@ class BootloaderImagesWindow:
 	    default = '*'
 	else:
 	    default = ""
+
+        if not label:
+            label = ""
 	    
 	return "%-10s  %-25s %-7s %-10s" % ( "/dev/" + device, type, default, label)
 
