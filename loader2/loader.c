@@ -606,7 +606,7 @@ static char *doLoaderMain(char * location,
     char * kbdtype = NULL;
 
     for (i = 0; i < numMethods; i++, numValidMethods++) {
-        installNames[numValidMethods] = _(installMethods[i].name);
+        installNames[numValidMethods] = installMethods[i].name;
         validMethods[numValidMethods] = i;
 
         /* have we preselected this to be our install method? */
@@ -685,6 +685,12 @@ static char *doLoaderMain(char * location,
             if (loaderData->method && (methodNum != -1)) {
                 rc = 1;
             } else {
+                /* we need to set these each time through so that we get
+                 * updated for language changes (#83672) */
+                for (i = 0; i < numMethods; i++) {
+                    installNames[i] = _(installMethods[i].name);
+                }
+
                 rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
                                  _("Installation Method"),
                                  FL_RESCUE(flags) ?
