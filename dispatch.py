@@ -48,7 +48,7 @@ from network import networkDeviceCheck
 installSteps = [
     ("welcome", ("id.configFileData",)),
     ("language", ("intf", "id.instLanguage")),
-    ("keyboard", ("id.instLanguage", "id.keyboard", "id.xconfig")),
+    ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard", "id.xconfig")),
     ("mouse", ("id.mouse",)),
     ("installtype", ("dispatch", "id", "method", "intf")),
     ("findrootparts", findRootParts, ("intf", "id", "dir", "instPath")),
@@ -235,7 +235,8 @@ class Dispatcher:
 	    obj = self
 	    for item in string.split(arg, '.'):
 		if not obj.__dict__.has_key(item):
-		    print "cannot find %s in %s" % (item, obj)
+                    exec "obj = self.%s" %(arg,)
+                    break
 		obj = obj.__dict__[item]
 	    newArgs = newArgs + (obj,)
 
