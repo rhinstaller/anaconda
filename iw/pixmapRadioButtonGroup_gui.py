@@ -239,7 +239,7 @@ if __name__ == "__main__":
     
     win.add(vbox)
     win.show_all()
-    gtk.mainloop()
+    gtk.main()
 
     
     

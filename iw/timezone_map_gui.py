@@ -296,5 +296,5 @@ if __name__ == "__main__":
     vbox.pack_start(button, gtk.FALSE, gtk.FALSE)
     win.add(vbox)
     win.show_all()
-    gtk.mainloop()
+    gtk.main()
     
