@@ -359,6 +359,12 @@ def findIsoImages(path, messageWindow):
 
                     if num not in discNum or discArch != arch:
                         continue
+
+                    # if it's disc1, it needs to have RedHat/base/stage2.img
+                    if (num == 1 and not
+                        os.access("/mnt/cdimage/RedHat/base/stage2.img",
+                                  os.R_OK)):
+                        continue
                     
 		    # warn user if images appears to be wrong size
 		    if os.stat(what)[stat.ST_SIZE] % 2048:
