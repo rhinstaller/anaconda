@@ -2,7 +2,6 @@ import string
 import os
 import isys
 import iutil
-import edd
 
 class LiloConfigFile:
     def __repr__ (self, tab = 0):
@@ -255,7 +254,7 @@ class LiloConfiguration:
         # XXX edd overrides linear, lba32/linear are mutually exclusive
         if self.edd:
 	    lilo.addEntry("lba32", replace = 0)
-        else if self.liloLinear:
+        elif self.liloLinear:
 	    lilo.addEntry("linear", replace = 0)
 
 	smpInstalled = (hdList.has_key('kernel-smp') and 
@@ -372,6 +371,9 @@ class LiloConfiguration:
 	self.liloAppend = None
 	self.default = None
 	self.initrdsMade = {}
+        # XXX only i386 supports edd, nothing else should
+        # instantiate this class
+        import edd
         self.edd = edd.detect()
 
 
