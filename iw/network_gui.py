@@ -15,7 +15,8 @@ class NetworkWindow (InstallWindow):
         self.calcNMHandler = None
 
         for dev in self.todo.network.available ().values ():
-            dev.set (("onboot", "yes"))  # TEMPRORY FIX UNTIL TODO SETS THIS
+	    if not dev.get('onboot'):
+		dev.set (("onboot", "yes"))
 
     def getNext (self):
 	if not self.__dict__.has_key("gw"):
@@ -166,8 +167,7 @@ class NetworkWindow (InstallWindow):
             self.ipTable = GtkTable (len (options), 2) # this is the iptable used for DNS, et. al
 
             DHCPcb.connect ("toggled", self.DHCPtoggled, (devs[i], ipTable))
-            DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp" or
-                               devs[i].get ("bootproto") == "")
+            DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
 
             forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
