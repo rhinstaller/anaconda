@@ -865,7 +865,7 @@ for kernelvers in $vertag; do
     kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
     mkdir -p $KERNELROOT/lib/modules/misc
     if [ ! -f "$kpackage" ]; then
-	echo 'kernel-$kernelvers does not exist -- using kernel package'
+	echo "kernel-$kernelvers does not exist -- using kernel package"
 	kpackage=$($LATEST $KERNELPATH kernel)
 	kernelvers=""
     fi
