@@ -204,7 +204,6 @@ class Mouse (SimpleConfigFile):
             "MM HitTablet (serial)" :
 	            ("MMHitTab", "MMHittab", "ttyS"),
             }
-            
 
     def available (self):
         return self.mice.keys ()
@@ -218,6 +217,103 @@ class Mouse (SimpleConfigFile):
         self.info["MOUSETYPE"] = gpm
         self.info["XMOUSETYPE"] = x11
         self.info["FULLNAME"] = mouse
+
+class Keyboard (SimpleConfigFile):
+    # XXX fixme - externalize
+    def __init__ (self):
+        self.info = {}
+
+    def available (self):
+        return [
+            "azerty",
+            "be-latin1",
+            "be2-latin1",
+            "fr-latin0",
+            "fr-latin1",
+            "fr-pc",
+            "fr",
+            "wangbe",
+            "ANSI-dvorak",
+            "dvorak-l",
+            "dvorak-r",
+            "dvorak",
+            "pc-dvorak-latin1",
+            "tr_f-latin5",
+            "trf",
+            "bg",
+            "cf",
+            "cz-lat2-prog",
+            "cz-lat2",
+            "defkeymap",
+            "defkeymap_V1.0",
+            "dk-latin1",
+            "dk",
+            "emacs",
+            "emacs2",
+            "es",
+            "fi-latin1",
+            "fi",
+            "gr-pc",
+            "gr",
+            "hebrew",
+            "hu101",
+            "is-latin1",
+            "it-ibm",
+            "it",
+            "it2",
+            "jp106",
+            "la-latin1",
+            "lt",
+            "lt.l4",
+            "nl",
+            "no-latin1",
+            "no",
+            "pc110",
+            "pl",
+            "pt-latin1",
+            "pt-old",
+            "ro",
+            "ru-cp1251",
+            "ru-ms",
+            "ru-yawerty",
+            "ru",
+            "ru1",
+            "ru2",
+            "ru_win",
+            "se-latin1",
+            "sk-prog-qwerty",
+            "sk-prog",
+            "sk-qwerty",
+            "tr_q-latin5",
+            "tralt",
+            "trf",
+            "trq",
+            "ua",
+            "uk",
+            "us",
+            "croat",
+            "cz-us-qwertz",
+            "de-latin1-nodeadkeys",
+            "de-latin1",
+            "de",
+            "fr_CH-latin1",
+            "fr_CH",
+            "hu",
+            "sg-latin1-lk450",
+            "sg-latin1",
+            "sg",
+            "sk-prog-qwertz",
+            "sk-qwertz",
+            "slovene",
+            ]
+
+    def set (self, keytable):
+        self.info["KEYTABLE"] = keytable
+
+    def get (self):
+        if self.info.has_key ("KEYTABLE"):
+            return self.info["KEYTABLE"]
+
 
 class Authentication:
     def __init__ (self):
@@ -243,6 +339,7 @@ class ToDo:
         self.network = Network ()
         self.rootpassword = Password ()
         self.mouse = Mouse ()
+        self.keyboard = Keyboard ()
         self.auth = Authentication ()
 
     def umountFilesystems(self):
@@ -285,18 +382,21 @@ class ToDo:
     def writeFstab(self):
 	format = "%-23s %-23s %-7s %-15s %d %d\n";
 
-	f = open(self.instPath + "/etc/fstab", "w")
-	self.mounts.sort(mountListCmp)
+	f = open (self.instPath + "/etc/fstab", "w")
+	self.mounts.sort (mountListCmp)
 	for n in self.mounts: 
 	    (dev, fs, reformat) = n
 	    if (fs == '/'):
-		f.write(format % ( '/dev/' + dev, fs, 'ext2', 'defaults', 1, 1))
+		f.write (format % ( '/dev/' + dev, fs, 'ext2', 'defaults', 1, 1))
 	    else:
-		f.write(format % ( '/dev/' + dev, fs, 'ext2', 'defaults', 1, 2))
-	f.write(format % ("/mnt/floppy", "/dev/fd0", 'ext', 'noauto', 0, 0))
-	f.write(format % ("none", "/proc", 'proc', 'defaults', 0, 0))
-	f.write(format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
-	f.close()
+		f.write (format % ( '/dev/' + dev, fs, 'ext2', 'defaults', 1, 2))
+	f.write (format % ("/mnt/floppy", "/dev/fd0", 'ext', 'noauto', 0, 0))
+	f.write (format % ("none", "/proc", 'proc', 'defaults', 0, 0))
+	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
+	f.close ()
+        # touch mtab
+        open (self.instPath + "/etc/mtab", "w+")
+        f.close ()
 
     def writeLanguage(self):
 	f = open(self.instPath + "/etc/sysconfig/i18n", "w")
@@ -306,6 +406,11 @@ class ToDo:
     def writeMouse(self):
 	f = open(self.instPath + "/etc/sysconfig/mouse", "w")
 	f.write(str (self.mouse))
+	f.close()
+
+    def writeKeyboard(self):
+	f = open(self.instPath + "/etc/sysconfig/keyboard", "w")
+	f.write(str (self.keyboard))
 	f.close()
 
     def installLilo(self):
@@ -489,6 +594,7 @@ class ToDo:
 	self.writeFstab ()
         self.writeLanguage ()
         self.writeMouse ()
+        self.writeKeyboard ()
         self.writeNetworkConfig ()
         self.writeRootPassword ()
 	self.installLilo ()

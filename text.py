@@ -34,6 +34,23 @@ class LanguageWindow:
         todo.language.set (languages.keys()[choice])
         return INSTALL_OK
 
+class KeyboardWindow:
+    def run(self, screen, todo):
+        keyboards = todo.keyboard.available ()
+        keyboards.sort ()
+        current = todo.keyboard.get ()
+
+        (button, choice) = \
+            ListboxChoiceWindow(screen, _("Keyboard Selection"),
+                                _("Which model keyboard is attached to this computer?"), keyboards, 
+                                buttons = [_("Ok"), _("Back")], width = 30, scroll = 1, height = 8)
+        
+        if button == string.lower (_("Back")):
+            return INSTALL_BACK
+        todo.keyboard.set (keyboards[choice])
+        return INSTALL_OK
+
+
 class RootPasswordWindow:
     def run(self, screen, todo):
         toplevel = GridForm (screen, _("Root Password"), 1, 3)
@@ -323,7 +340,7 @@ class IndividualPackageWindow:
         return INSTALL_OK
 
 
-class MouseConfigWindow:
+class MouseWindow:
     def run(self, screen, todo):
         mice = todo.mouse.available ()
         mice.sort ()
@@ -548,12 +565,13 @@ class InstallInterface:
         individual = Flag(0)
         steps = [
             [_("Language Selection"), LanguageWindow, (self.screen, todo)],
+            [_("Keyboard Selection"), KeyboardWindow, (self.screen, todo)],
             [_("Welcome"), WelcomeWindow, (self.screen,)],
             [_("Partition"), PartitionWindow, (self.screen, todo)],
             [_("Network Setup"), NetworkWindow, (self.screen, todo)],
             [_("Package Groups"), PackageGroupWindow, (self.screen, todo, individual)],
             [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, individual)],
-            [_("Mouse Configuration"), MouseConfigWindow, (self.screen, todo)],
+            [_("Mouse Configuration"), MouseWindow, (self.screen, todo)],
             [_("Root Password"), RootPasswordWindow, (self.screen, todo)],
             [_("Installation Begins"), BeginInstallWindow, (self.screen, todo)],
         ]
