@@ -47,7 +47,7 @@ class BootloaderPasswordWindow (InstallWindow):
             elif len (pw) < 6:
                 self.rootStatus.set_text (_("Password is too short."))
             else:
-                self.rootStatus.set_text (_("Passwords do not match.asdfasdfdsafasdfdf"))
+                self.rootStatus.set_text (_("Passwords do not match."))
                 
             self.ics.setNextEnabled (FALSE)
         
