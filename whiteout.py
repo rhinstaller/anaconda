@@ -1,9 +1,10 @@
 #
 # whiteout.py - dependency whiteout setup
 #
-# Copyright 2002  Red Hat, Inc.
+# Copyright 2002-2004  Red Hat, Inc.
 #
 
+import os
 import rpm
 import rhpl.arch
 
@@ -11,9 +12,17 @@ import rhpl.arch
 # this with all of the useful rpm bits
 rpm.addMacro("__dbi_cdb", "create private mpool mp_mmapsize=16Mb mp_size=1Mb")
 
-# and set where we should have the file contexts come from
-rpm.addMacro("__file_context_path",
-             "/mnt/runtime/etc/security/selinux/src/policy/file_contexts/file_contexts")
+# assuming that SELinux is set up, tell rpm where to pull file contexts from
+f = open("/proc/cmdline", "r")
+line = f.readline()
+f.close()
+if os.path.exists("/selinux/load") and line.find(" selinux=0") == -1:
+    for fn in ("/tmp/updates/file_contexts",
+               "/mnt/source/RHupdates/file_contexts",
+               "/mnt/runtime/etc/security/selinux/src/policy/file_contexts/file_contexts"):
+        if os.access(fn, os.R_OK):
+            break
+    rpm.addMacro("__file_context_path", fn)
 
 whiteout="""
 	pango-gtkbeta-devel>pango-gtkbeta\
