@@ -554,6 +554,7 @@ EOF
 	$MBD_DIR input/mice c 13 63 664 root:root
 	$MBD_DIR fd0 b 2 0 644 root:root
 	$MBD_DIR fd1 b 2 1 644 root:root
+	$MBD_DIR sg0 c 21 0 666 root:root
 	$MBD_DIR st0 c 9 0 666 root:root
 	$MBD_DIR nst0 c 9 128 666 root:root
 	$MBD_DIR random c 1 8 644 root:root
