@@ -83,7 +83,7 @@ static const struct langInfo languages[] = {
 	{ "Russian", 	"ru", 	"Cyr_a8x16", 	"koi2alt",	"ru_RU.KOI8-R" },
 	{ "Serbian",	"sr",	"lat2-sun16",	"iso02",	"sr_YU" },
 	{ "Slovak",	"sk",	"lat2-sun16",	"iso02",	"sk_SK" },
-	{ "Slovanian",	"sl",	"lat2-sun16",	"iso02",	"sl_SI" },
+	{ "Slovenian",	"sl",	"lat2-sun16",	"iso02",	"sl_SI" },
 	{ "Turkish",	"tr",	"iso05.f16",	"iso05",	"tr_TR" },
 	{ "Ukrainian",  "uk",   "Cyr_a8x16",	"koi2alt",	"ru_RU.KOI8-R" },
 };
