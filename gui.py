@@ -818,11 +818,15 @@ class InstallControlWindow:
 
     def close (self, *args):
         self.textWin.destroy()
-        self.releaseButton.set_sensitive(gtk.TRUE)
+        for (icon, name, text, func) in self.stockButtons:
+            if self.__dict__.has_key(name):
+                self.__dict__[name].set_sensitive(gtk.TRUE)
 
     def releaseClicked (self, widget):
         self.textWin = gtk.Dialog(parent=mainWindow, flags=gtk.DIALOG_MODAL)
-        self.releaseButton.set_sensitive(gtk.FALSE)
+        for (icon, name, text, func) in self.stockButtons:
+            if self.__dict__.has_key(name):
+                self.__dict__[name].set_sensitive(gtk.FALSE)
 
         table = gtk.Table(3, 3, gtk.FALSE)
         self.textWin.vbox.pack_start(table)
