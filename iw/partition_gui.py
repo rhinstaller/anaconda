@@ -1537,7 +1537,7 @@ class PartitionWindow(InstallWindow):
         self.accelgroup = GtkAccelGroup()
 
 	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-            ops = ((_("_Edit"), self.editCb),)
+            ops = ((_("_Edit partitions"), self.editCb),)
         else:
             ops = ((_("_New"), self.newCB),
                    (_("_Edit"), self.editCb),
