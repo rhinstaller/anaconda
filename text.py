@@ -147,6 +147,10 @@ class ProgressWindow:
 
 class InstallInterface:
     def helpWindow(self, screen, key):
+        lang = self.instLanguage.getCurrent()
+        lang = self.instLanguage.getLangNick(lang)
+        self.langSearchPath = expandLangs(lang) + ['C']
+
         if key == "helponhelp":
             if self.showingHelpOnHelp:
                 return None
@@ -163,7 +167,7 @@ class InstallInterface:
                 fn = "/usr/share/anaconda/help/%s/s1-help-screens-%s.txt" \
                      % (lang, key)
 # uncomment to test help text installed in local directory instead            
-#                fn = "./text-help/%s/s1-help-screens-%s.txt" % (lang, key)
+                fn = "./text-help/%s/s1-help-screens-%s.txt" % (lang, key)
 
                 try:
                     f = open(fn)
@@ -349,6 +353,7 @@ class InstallInterface:
             id.instLanguage.setRuntimeLanguage(lang)
         lang = id.instLanguage.getLangNick(lang)
         self.langSearchPath = expandLangs(lang) + ['C']
+        self.instLanguage = id.instLanguage
 
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)
