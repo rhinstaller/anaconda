@@ -867,9 +867,8 @@ class XConfigWindow (InstallWindow):
 
         parent = None
         iter = self.cardstore.get_iter_first()
-        next = 1
         # iterate over the list, looking for the current mouse selection
-        while next:
+        while iter:
             # if this is a parent node, get the first child and iter over them
             if self.cardstore.iter_has_child(iter):
                 parent = iter
