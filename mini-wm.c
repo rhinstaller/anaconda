@@ -16,6 +16,7 @@
 
 
 #include <stdio.h>
+#include <unistd.h>
 
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
@@ -103,6 +104,10 @@ int main( int   argc,
     gtk_init (&argc, &argv);
 
     mini_wm_start ();
+
+    /* Indicate back to anaconda that we now have established
+     * connection to the display. */
+    write(1, "#", 1);
 
     gtk_main();
 
