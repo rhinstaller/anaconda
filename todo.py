@@ -1136,7 +1136,7 @@ class ToDo:
             # flag this so we only do it once.
             self.dbpath = None
 
-        self.method.targetFstab (self.fstab)
+        self.method.systemMounted (self.fstab, self.instPath)
 
 	if not self.installSystem: 
 	    return

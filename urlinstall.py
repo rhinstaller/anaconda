@@ -1,6 +1,7 @@
 # Install method for disk image installs (CD & NFS)
 
 from comps import ComponentSet, HeaderList
+from installmethod import InstallMethod
 import os
 import rpm
 import time
@@ -18,7 +19,7 @@ import todo
 
 FILENAME = 1000000
 
-class InstallMethod:
+class UrlInstallMethod(InstallMethod):
 
     def readComps(self, hdlist):
 	return ComponentSet(self.baseUrl + '/RedHat/base/comps',
@@ -82,13 +83,9 @@ class InstallMethod:
 
 	return HeaderList(hl)
 
-    def targetFstab(self, fstab):
-	pass
-	    
-    def filesDone(self):
-	pass
-
     def __init__(self, url):
+	InstallMethod.__init__(self)
+
 	i = string.index(url, '://') + 2
 	self.baseUrl = url[0:i]
 	rem = url[i:]

@@ -1,6 +1,7 @@
 # Install method for disk image installs (CD & NFS)
 
 from comps import ComponentSet, HeaderList
+from installmethod import InstallMethod
 import os
 import isys
 import rpm
@@ -10,7 +11,7 @@ import todo
 
 FILENAME = 1000000
 
-class InstallMethod:
+class HardDriveInstallMethod(InstallMethod):
 
     def mountMedia(self):
 	if (self.isMounted):
@@ -66,16 +67,14 @@ class InstallMethod:
 	self.umountMedia()
 	return HeaderList(hl)
 
-    def targetFstab(self, fstab):
+    def systemMounted(self, fstab, mntPoint):
 	self.mountMedia()
 	    
     def filesDone(self):
 	self.umountMedia()
 
-    def unlinkFilename(self, fullName):
-	pass
-	    
     def __init__(self, device, type, path):
+	InstallMethod.__init__(self)
 	self.device = device
 	self.path = path
 	self.fstype = type
