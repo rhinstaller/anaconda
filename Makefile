@@ -1,6 +1,6 @@
 SUBDIRSHD = rpmmodule isys balkan libfdisk collage loader stubs po kudzu \
 	    minislang
-SUBDIRS = $(SUBDIRSHD) gnome-map iw ddcprobe
+SUBDIRS = $(SUBDIRSHD) gnome-map iw ddcprobe help
 BUILDONLYSUBDIRS = pump
 
 TOPDIR = ../../..
