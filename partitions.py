@@ -631,6 +631,12 @@ class Partitions:
         if iutil.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")
             return bootreq
+        elif iutil.getPPCMachine() == "pSeries":
+            for req in self.requests:
+                if request.fs_type == fsset.fileSystemTypeGet("PPC PReP Boot"):
+                    return req
+            return None
+        
         if not bootreq:
             bootreq = self.getRequestByMountPoint("/boot")
         if not bootreq:
