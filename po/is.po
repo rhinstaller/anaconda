@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.84\n"
 "POT-Creation-Date: 2001-03-01 11:37-0500\n"
-"PO-Revision-Date: 2001-02-21 08:21+0000\n"
+"PO-Revision-Date: 2001-03-05 08:21+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -493,7 +493,7 @@ msgstr "Hverskonar kerfi viltu setja upp?"
 
 #: ../iw/lilo_gui.py:50 ../text.py:340
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "Halda áfram með uppfærslu?"
 
 #: ../iw/lilo_gui.py:51 ../text.py:341
 msgid ""
@@ -501,12 +501,17 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"Skráarkerfi Linux uppsetningarinnar sem þú hefur kosið að uppfæra hafa þegar "
+"verið tengd. Þú getur ekki farið til baka aftur fyrir þennan stað. \n"
+"\n"
 
 #: ../text.py:345
 msgid ""
 "If you would like to exit the upgrade select Exit, or choose Ok to continue "
 "with the upgrade."
 msgstr ""
+"Veldi hætta ef þú vilt hætta við uppfærsluna eða veldu Í lagi til að halda "
+"uppfærslunni áfram."
 
 #: ../text.py:375
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
@@ -517,13 +522,12 @@ msgid "System to Upgrade"
 msgstr "Kerfi sem á að uppfæra"
 
 #: ../text.py:405
-#, fuzzy
 msgid "Upgrade Partition"
-msgstr "Raiddisksneið"
+msgstr "Uppfæra disksneið"
 
 #: ../text.py:406
 msgid "Going to upgrade partition /dev/"
-msgstr ""
+msgstr "Uppfæri disksneið /dev/"
 
 #: ../text.py:415
 msgid "Customize Packages to Upgrade"
@@ -1179,7 +1183,7 @@ msgstr "Nota textaham"
 
 #: ../xserver.py:69
 msgid "Probing for mouse type..."
-msgstr ""
+msgstr "Leita að mús..."
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -1573,14 +1577,12 @@ msgid "Lilo Configuration"
 msgstr "Stillingar Lilo"
 
 #: ../iw/lilo_gui.py:55
-#, fuzzy
 msgid "Would you like to continue with the upgrade?"
-msgstr "Viltu stilla kerfið þitt?"
+msgstr "Viltu halda áfram með uppfærsluna?"
 
 #: ../iw/lilo_gui.py:64
-#, fuzzy
 msgid "Aborting upgrade"
-msgstr "Uppfærsla að hefjast"
+msgstr "Hætti við uppfærslu"
 
 #: ../iw/lilo_gui.py:233 ../iw/lilo_gui.py:394 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
@@ -3904,9 +3906,8 @@ msgstr ""
 "Það er ekki nægjanlegt vinnsluminni í vélinni til að setja upp Red Hat Linux"
 
 #: ../loader/loader.c:2934
-#, fuzzy
 msgid "Running anaconda - please wait...\n"
-msgstr "Les inn uppfærslur fyrir anaconda..."
+msgstr "Keyri anaconda - Vinsamlegast bíðið...\n"
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
