@@ -800,12 +800,18 @@ class KickstartBase(BaseInstallClass):
             raise RuntimeError, "Must specify the size of a logical volume"
         if percent and percent <= 0 or percent > 100:
             raise ValueError, "Logical Volume percentage must be between 0 and 100 percent"
+
         if not name:
             raise RuntimeError, "Must specify a logical volume name"
 
+        vgid = self.ksVGMapping[vgname]
+	for areq in id.partitions.autoPartitionRequests:
+	    if areq.type == REQUEST_LV:
+		if areq.volumeGroup == vgid and areq.logicalVolumeName == name:
+		    raise ValueError, "Logical volume name %s already used in volume group %s" % (name,vgname)
+
         if not self.ksVGMapping.has_key(vgname):
             raise ValueError, "Logical volume specifies a non-existent volume group"
-        vgid = self.ksVGMapping[vgname]
 
         request = partRequests.LogicalVolumeRequestSpec(filesystem,
                                                         format = format,
