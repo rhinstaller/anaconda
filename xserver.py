@@ -42,7 +42,7 @@ def startX():
 
     x = XF86Config ((mouseProtocol, mouseEmulate, mouseDev))
     x.probe ()
-    if len (x.server) >= 3 and x.server[0:3] == 'Sun':
+    if x.server and len (x.server) >= 3 and x.server[0:3] == 'Sun':
 	serverPath = '/usr/X11R6/bin/Xs' + x.server[1:]
     elif x.server:
         serverPath = '/usr/X11R6/bin/XF86_' + x.server
