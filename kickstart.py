@@ -698,7 +698,6 @@ class KickstartBase(BaseInstallClass):
 		onPart = arg
 	    elif str == '--ondisk' or str == '--ondrive':
 		disk = arg
-            # XXX hook this back up again
             elif str == '--bytes-per-inode':
                 fsopts = ['-i', arg]
             # XXX this doesn't do anything right now
@@ -734,7 +733,13 @@ class KickstartBase(BaseInstallClass):
                 uniqueID = extra[0]
             else:
                 filesystem = fileSystemTypeGetDefault()
-                mountpoint = extra[0]                
+                mountpoint = extra[0]
+
+        # XXX bytes per inode is the only per fs option at the moment
+        # and we can assume that it works like this since it only works
+        # with ext[23]
+        if fsopts:
+            filesystem.extraFormatArgs.extend(fsopts)
 
         request = PartitionSpec(filesystem, mountpoint = mountpoint, format=1)
         if size:
