@@ -27,6 +27,11 @@ TOPDIR=$(cd $TOPDIR; pwd)
     KERNELROOT=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELROOT/moddeps
     BUILDARCH=$4
+
+    KERNELNAME=vmlinuz
+    if [ "$BUILDARCH" == ia64 ]; then
+	KERNELNAME=vmlinux
+    fi
     
     if [ $BUILDARCH = "sparc64" ]; then
 	BASEARCH=sparc
@@ -35,7 +40,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     fi
 
     if [ ! -d "$1" ]; then
-	LATEST=latest --arch $BUILDARCH
+	LATEST="rsh porkchop latest --arch $BUILDARCH"
     else
 	LATEST=findPackage
     fi
@@ -285,15 +290,13 @@ makeinitrd() {
 	exit 1
     fi
     if [ -z "$LOADERMODULES" ]; then
-	echo "no loader modules specified!" >&2
-	exit 1
+	echo "warning: no loader modules specified!" >&2
     fi
     if [ -z "$INITRDSIZE" ]; then
 	echo "I don't know how big to make the initrd image!" >&2
 	exit 1
     fi
 
-    MODSET=`expandModuleSet "$LOADERMODULES"`
     MBD_DIR=/tmp/makebootdisk.dir.$$
     MBD_FSIMAGE=/tmp/makebootdisk.initrdimage.$$
     MBD_MNTPOINT=/tmp/makebootdisk.mount.$$
@@ -312,7 +315,10 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/state
     ln -s /tmp $MBD_DIR/var/state/xkb
 
-    makemoduleball $MBD_DIR/modules "$MODSET"
+    if [ -n "$LOADERMODULES" ]; then
+	MODSET=`expandModuleSet "$LOADERMODULES"`
+        makemoduleball $MBD_DIR/modules "$MODSET"
+    fi
 
     cat > $MBD_DIR/etc/passwd << EOF
     root::0:0:root:/:/bin/bash
@@ -461,7 +467,7 @@ makebootdisk() {
 
     if [ -n "$EXTRAKERNELPATH" ]; then
 	mkdir -p `dirname $EXTRAKERNELPATH`
-	cp -a $KERNELROOT/boot/vmlinuz-* $EXTRAKERNELPATH
+	cp -af $KERNELROOT/boot/${KERNELNAME}-* $EXTRAKERNELPATH
     fi
 
     rm -f $MBD_FILENAME
@@ -620,8 +626,19 @@ makedriverdisk () {
 
 # Find the kernel, unpack it, and verify it
     kpackage=$($LATEST $KERNELPATH kernel-BOOT)
+    vertag=BOOT
+    if [ ! -f "$kpackage" ]; then
+	echo 'kernel-BOOT does not exist -- using kernel package'
+	kpackage=$($LATEST $KERNELPATH kernel)
+	vertag=""
+    fi
+
     ppackage=$($LATEST $KERNELPATH kernel-pcmcia-cs)
-    version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)BOOT
+    if [ ! -f "$ppackage" ]; then
+	ppackage=""
+    fi
+
+    version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${vertag}
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
     if [ ! -z $ppackage ]; then 
@@ -633,8 +650,8 @@ makedriverdisk () {
 	usage
     fi
 
-    if [ ! -f "$KERNELROOT/boot/vmlinuz-$version" ]; then
-	echo "$KERNELROOT/boot/vmlinuz-$version does not exist"
+    if [ ! -f "$KERNELROOT/boot/${KERNELNAME}-$version" ]; then
+	echo "$KERNELROOT/boot/${KERNELNAME}-$version does not exist"
 	usage
     fi
 
