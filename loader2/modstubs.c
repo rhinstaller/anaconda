@@ -131,7 +131,12 @@ int ourInsmodCommand(int argc, char ** argv) {
         return 1;
     }
 
-    rc = init_module(modbuf, sb.st_size, "");
+    if (argc > 2) {
+        /* FIXME: only allows one param */
+        rc = init_module(modbuf, sb.st_size, argv[2]);
+    } else {
+        rc = init_module(modbuf, sb.st_size, "");
+    }
     if (rc != 0)
         logMessage("failed to insert module (%d)", errno);
     return rc;
