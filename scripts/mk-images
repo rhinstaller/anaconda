@@ -311,7 +311,7 @@ makemoduleball() {
     getmoddeps "$(find . -name *.ko)" ../modules.dep
 
     # create the pcitable
-    $TRIMPCITABLE $(find . -name *.ko -exec basename {} \;) < $PCITABLE > ../pcitable
+    $TRIMPCITABLE ignore $(find . -name *.ko -exec basename {} \;) < $PCITABLE > ../pcitable
     
     # create the modules.pcimap
     $TRIMMODMAP $PCITABLE $(find . -name *.ko -exec basename {} \;) < $MODMAPS > ../modules.pcimap
