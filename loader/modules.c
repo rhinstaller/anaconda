@@ -159,6 +159,8 @@ int mlLoadDeps(moduleDeps moduleDepList, const char * path) {
 static int moduleLoaded(moduleList modList, const char * name) {
     int i;
 
+    if (!modList) return 0;
+
     for (i = 0; i < modList->numModules; i++)
         if (!strcmp(modList->modules[i], name)) return 1;
 
@@ -172,6 +174,9 @@ int mlLoadModule(char * modName, moduleList modLoaded,
     char fileName[80];
     int rc;
 
+    if (moduleLoaded(modLoaded, modName)) {
+	return 0;
+    }
 
     for (dep = modDeps; dep->name && strcmp(dep->name, modName);
     	 dep++);
@@ -191,7 +196,6 @@ int mlLoadModule(char * modName, moduleList modLoaded,
 
     sprintf(fileName, "%s.o", modName);
 
-    printf("loading %s\n", fileName);
     rc = insmod(fileName, NULL);
     if (!rc)
 	modLoaded->modules[modLoaded->numModules++] = strdup(modName);
