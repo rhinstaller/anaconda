@@ -1557,6 +1557,16 @@ MAILADDR root
         # XXX hack to make the device node exist for the root fs if
         # it's a logical volume so that mkinitrd can create the initrd.
         root = self.getEntryByMountPoint("/")
+        if not root:
+            if self.messageWindow:
+                self.messageWindow(_("Error"),
+                                   _("Error finding / entry.\n\n"
+                                   "This is most likely means that "
+                                   "your fstab is incorrect."
+                                   "\n\n"
+                                   "Press OK to reboot your "
+                                   "system."))
+            sys.exit(0)
 
         rootlvm1 = 0
         if trylvm1:
