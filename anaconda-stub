@@ -44,4 +44,4 @@ rm libs.cgz
 
 cd /
 
-exec /usr/bin/anaconda.real -T $*
+exec /usr/bin/anaconda.real -T "$@"
