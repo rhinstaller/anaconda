@@ -127,7 +127,11 @@ if [ $ARCH = sparc ]; then
 fi
 
 if [ $ARCH = i386 ]; then
-    PACKAGESGR="$PACKAGESGR XFree86-I128 syslinux"
+    PACKAGESGR="$PACKAGESGR XFree86-I128 XFree86-3DLabs syslinux"
+fi
+
+if [ $ARCH = alpha ]; then
+    PACKAGESGR="$PACKAGESGR XFree86-3DLabs"
 fi
 
 KEEPFILE=/tmp/keepfile.$$
