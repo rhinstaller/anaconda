@@ -35,10 +35,8 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
 	KERNELNAME=vmlinux
-	KERNELARCH=ppc64
     else
 	KERNELNAME=vmlinuz
-	KERNELARCH=$BUILDARCH
     fi
 
     if [ "$BUILDARCH" = "ia64" ]; then
@@ -859,13 +857,13 @@ fi
 
 # Find the kernel, unpack it, and verify it
 vertag="BOOT"
-if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-    vertag="dummyvar tape"
-fi
 if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
-    vertag="pseries iseries"
+    arches="ppc64pseries ppc64iseries"
+else
+    arches="$BUILDARCH"
 fi
-for kernelvers in $vertag; do
+for KERNELARCH in $arches; do
+  for kernelvers in $vertag; do
     kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
     mkdir -p $KERNELROOT/lib/modules/misc
     if [ ! -f "$kpackage" ]; then
@@ -916,6 +914,7 @@ for kernelvers in $vertag; do
 
     # make the boot images
     makeBootImages
+  done
 done
 
 # make the second stage
