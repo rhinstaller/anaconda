@@ -1020,6 +1020,12 @@ int main(int argc, char ** argv) {
     mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs", modLoaded, modDeps, 
                     modInfo, flags);
 
+    /* JKFIXME: THIS HAS GOT TO GO! */
+#ifdef __powerpc__
+    mlLoadModuleSet("veth", modLoaded, modDeps, modInfo, flags);
+    logMessage("WARNING: hack to load veth module used -- need real veth probing"); 
+#endif
+
     /* now let's do some initial hardware-type setup */
     ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
     scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
