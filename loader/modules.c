@@ -69,10 +69,15 @@ int mlReadLoadedList(moduleList * mlp) {
 
 void mlFreeList(moduleList ml) {
     int i;
+    int j;
 
     for (i = 0; i < ml->numModules; i++) {
         free(ml->mods[i].name);
-	if (ml->mods[i].args) free(ml->mods[i].args);
+	if (ml->mods[i].args) {
+	    for (j = 0; ml->mods[j].args[j]; j++)
+		free(ml->mods[i].args[j]);
+	    free(ml->mods[i].args);
+	}
     }
     free(ml);
 }
@@ -196,9 +201,9 @@ int mlLoadModule(char * modName, moduleList modLoaded,
 
     rc = insmod(fileName, NULL);
     if (!rc) {
-	modLoaded->mods[modLoaded->numModules++].name = strdup(modName);
-	modLoaded->mods[modLoaded->numModules++].args = NULL;
-	modLoaded->mods[modLoaded->numModules++].weLoaded = 0;
+	modLoaded->mods[modLoaded->numModules].name = strdup(modName);
+	modLoaded->mods[modLoaded->numModules].args = NULL;
+	modLoaded->mods[modLoaded->numModules++].weLoaded = 1;
     }
 
     return rc;
