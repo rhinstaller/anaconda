@@ -262,14 +262,36 @@ class Fstab:
     def turnOffSwap(self):
 	if not self.swapOn: return
 	self.swapOn = 0
+
+	if self.rootOnLoop() and self.loopbackSwapSize:
+	    isys.swapoff("/mnt/loophost/rh-swap.img")
+
 	for (device, doFormat) in self.swapList():
 	    file = '/tmp/swap/' + device
 	    isys.swapoff(file)
 
     def turnOnSwap(self, formatSwap = 1):
 	# we could be smarter about this
-	if self.swapOn or self.rootOnLoop(): return
+	if self.swapOn: return
 	self.swapOn = 1
+
+	if self.rootOnLoop() and self.loopbackSwapSize:
+	    (rootDev, rootFs) = self.getRootDevice()
+
+	    isys.mount(rootDev, "/mnt/loophost", fstype = "vfat")
+
+	    isys.ddfile("/mnt/loophost/rh-swap.img", 
+			self.loopbackSwapSize)
+
+	    iutil.execWithRedirect ("/usr/sbin/mkswap",
+			     [ "mkswap", '-v1', 
+			       '/mnt/loophost/rh-swap.img' ],
+			     stdout = None, stderr = None)
+
+	    isys.swapon("/mnt/loophost/rh-swap.img")
+
+	    return
+
 
 	iutil.mkdirChain('/tmp/swap')
 
@@ -488,6 +510,36 @@ class Fstab:
                                         args, stdout = messageFile, 
 					stderr = messageFile, searchPath = 1)
 		w.pop()
+	    elif fsystem == "vfat":
+		# do a magical loopback mount -- whee!
+		isys.mount(device, "/mnt/loophost", fstype = "vfat")
+		
+		isys.makeDevInode("loop0", '/tmp/' + "loop0")
+		isys.ddfile("/mnt/loophost/redhat.img", self.loopbackSize,
+		    (self.progressWindow, _("Loopback"),
+		      _("Creating loopback filesystem on device /dev/%s...")
+			    % device))
+
+		isys.losetup("/tmp/loop0", "/mnt/loophost/redhat.img")
+
+		if self.serial:
+		    messageFile = "/tmp/mke2fs.log"
+		else:
+		    messageFile = "/dev/tty5"
+
+		w = self.waitWindow(_("Formatting"),
+			      _("Formatting %s filesystem...") % (mntpoint,))
+
+                iutil.execWithRedirect ("/usr/sbin/mke2fs", 
+					[ "mke2fs", "/tmp/loop0" ],
+                                        stdout = messageFile, 
+					stderr = messageFile, searchPath = 1)
+
+		# don't leave this setup, or we'll get confused later
+		isys.unlosetup("/tmp/loop0")
+		isys.umount("/mnt/loophost")
+
+		w.pop()
             else:
                 pass
 
@@ -518,39 +570,12 @@ class Fstab:
             if fsystem == "swap":
 		continue
 	    elif fsystem == "vfat" and mntpoint == "/":
-		# do a magical loopback mount -- whee!
-		w = self.waitWindow(_("Loopback"),
-			      _("Creating loopback filesystem on device /dev/%s...") % (device,))
-
-		iutil.mkdirChain("/mnt/loophost")
 		isys.mount(device, "/mnt/loophost", fstype = "vfat")
-		
+
 		isys.makeDevInode("loop0", '/tmp/' + "loop0")
-		isys.ddfile("/mnt/loophost/redhat.img", self.loopbackSize)
+
 		isys.losetup("/tmp/loop0", "/mnt/loophost/redhat.img")
-
-		if self.serial:
-		    messageFile = "/tmp/mke2fs.log"
-		else:
-		    messageFile = "/dev/tty5"
-
-                iutil.execWithRedirect ("/usr/sbin/mke2fs", 
-					[ "mke2fs", "/tmp/loop0" ],
-                                        stdout = messageFile, 
-					stderr = messageFile, searchPath = 1)
-
 		isys.mount("loop0", instPath)
-
-		if self.loopbackSwapSize:
-		    isys.ddfile("/mnt/loophost/rh-swap.img", 
-				self.loopbackSwapSize)
-		    iutil.execWithRedirect ("/usr/sbin/mkswap",
-				     [ "mkswap", '-v1', 
-				       '/mnt/loophost/rh-swap.img' ],
-				     stdout = None, stderr = None)
-		    isys.swapon("/mnt/loophost/rh-swap.img")
-
-		w.pop()
 	    elif fsystem == "ext2":
 		try:
 		    iutil.mkdirChain(instPath + mntpoint)
@@ -730,7 +755,8 @@ class Fstab:
 	self.shouldRunDruid = state
 
     def __init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
-		 readOnly, waitWindow, messageWindow, ignoreRemovable):
+		 readOnly, waitWindow, messageWindow, progressWindow,
+		 ignoreRemovable):
 	self.fsedit = fsedit
 	self.fsCache = {}
         self.clearfsOptions()
@@ -743,6 +769,7 @@ class Fstab:
 	self.readOnly = readOnly
 	self.waitWindow = waitWindow
 	self.messageWindow = messageWindow
+	self.progressWindow = progressWindow
 	self.badBlockCheck = 0
         self.ignoreRemovable = ignoreRemovable
 
@@ -783,12 +810,13 @@ class GuiFstab(Fstab):
 	self.beenSaved = 0
 
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow,
-		 messageWindow, ignoreRemovable):
+		 messageWindow, progressWindow, ignoreRemovable):
 	from gnomepyfsedit import fsedit        
 	from gtk import *
 
 	Fstab.__init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
-		       readOnly, waitWindow, messageWindow, ignoreRemovable)
+		       readOnly, waitWindow, messageWindow, 
+		       progressWindow, ignoreRemovable)
 
 	self.GtkFrame = GtkFrame
         self.GtkAccelGroup = GtkAccelGroup
@@ -798,11 +826,12 @@ class GuiFstab(Fstab):
 class NewtFstab(Fstab):
 
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow,
-		 messageWindow, ignoreRemovable):
+		 messageWindow, progressWindow, ignoreRemovable):
 	from newtpyfsedit import fsedit        
 
 	Fstab.__init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
-		       readOnly, waitWindow, messageWindow, ignoreRemovable)
+		       readOnly, waitWindow, messageWindow, progressWindow, 
+		       ignoreRemovable)
 
 def readFstab (path, fstab):
     f = open (path, "r")
