@@ -1016,6 +1016,7 @@ rm -rf $DEST/usr/lib/anaconda-runtime
 find $DESTGR/usr/lib/anaconda/ -name "*.py" | while read fn; do
     if [ -f ${fn}c ]; then
 	rm -f $fn
+    fi
 done
 
 
