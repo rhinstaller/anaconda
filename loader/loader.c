@@ -3,7 +3,8 @@
  * 
  * This is the installer loader.  Its job is to somehow load the rest
  * of the installer into memory and run it.  This may require setting
- * up some devices and networking, etc.
+ * up some devices and networking, etc. The main point of this code is
+ * to stay SMALL! Remember that, live by that, and learn to like it.
  *
  * Erik Troan <ewt@redhat.com>
  * Matt Wilson <msw@redhat.com>
@@ -49,6 +50,7 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
+    newtInit();
     newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
 
     newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
