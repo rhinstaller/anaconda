@@ -388,7 +388,7 @@ try:
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
             'autostep', 'resolution=', 'skipddc',
-	    'vnc', 'vncconnect=', 'cmdline', 'headless'])
+	    'vnc', 'vncconnect=', 'vnc=', 'cmdline', 'headless'])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
