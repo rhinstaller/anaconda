@@ -894,3 +894,44 @@ rtl8150
 usbnet
 	eth
 	"USB Host-to-Host Link Driver"
+
+# wireless
+airo_cs
+	eth
+	"Aironet 802.11 PCMCIA wireless ethernet"
+
+airo
+	eth
+	"Aironet 802.11 wireless ethernet"
+
+atmel_cs
+	eth
+	"Atmel at76c50x 802.11 PCMCIA wireless ethernet"
+
+atmel_pci
+	eth
+	"Atmel at76c50x 802.11 wireless ethernet"
+
+orinoco_cs
+	eth
+	"Orinoco, Prism II and similar PCMCIA wireless ethernet"
+
+orinoco_pci
+	eth
+	"Orinoco, Prism II and similar wireless ethernet"
+
+orinoco_plx
+	eth
+	"Orinoco, Prism II and similar wireless ethernet"
+
+orinoco_tmd
+	eth
+	"Orinoco, Prism II and similar wireless ethernet"
+
+wavelan_cs
+	eth
+	"WaveLAN PCMCIA wireless ethernet"
+
+wl3501_cs
+	eth
+	"Planet wl3501 PCMCIA wirelesss ethernet"
