@@ -28,8 +28,6 @@ class WelcomeWindow (InstallWindow):
 
     # WelcomeWindow tag="wel"
     def getScreen (self, configFileData):
-        print configFileData
-        
         frame = GtkFrame ()
         frame.set_shadow_type (SHADOW_IN)
 
