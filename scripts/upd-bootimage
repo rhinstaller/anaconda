@@ -26,11 +26,15 @@ fi
 if [ ! -x $LOOPMNT/sbin/$TO ]; then
     echo "$LOOPMNT/sbin/$TO doesn't exist"
 else
-    install -s $FROM $LOOPMNT/sbin/$TO
+    cp $FROM $FROM.foo
+    strip $FROM.foo
+    install $FROM.foo $LOOPMNT/sbin/$TO
+    rm -f $FROM.foo
 fi
 
 umount $LOOPMNT
-gzip -9 < $INITRD > $MNTPOINT/initrd.img
+gzip -9 < $INITRD > $INITRD.new
+cp $INITRD.new $MNTPOINT/initrd.img
 umount $MNTPOINT
 
-rm -rf $MNTPOINT $LOOPMNT $INITRD
+rm -rf $MNTPOINT $LOOPMNT $INITRD $INITRD.new

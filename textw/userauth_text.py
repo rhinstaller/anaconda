@@ -6,7 +6,7 @@ import iutil
 
 class RootPasswordWindow:
     def __call__ (self, screen, todo):
-        toplevel = GridForm (screen, _("Root Password"), 1, 3)
+        toplevel = GridFormHelp (screen, _("Root Password"), "rootpw", 1, 3)
 
         toplevel.add (TextboxReflowed(37, _("Pick a root password. You must "
 				"type it twice to ensure you know "
@@ -79,7 +79,8 @@ class UsersWindow:
 			   (_("Full Name"), fullname),
 			   (_("Password"), pass1),
 			   (_("Password (confirm)"), pass2) ],
-			 buttons = [ (_("OK"), "ok"), (cancelText, "cancel") ])
+			 buttons = [ (_("OK"), "ok"), (cancelText, "cancel") ],
+			 help = "edituser")
             
             if rc == "cancel":
                 return INSTALL_BACK
@@ -158,7 +159,7 @@ class UsersWindow:
 		return INSTALL_OK
 	    self.users[user["id"]] = user
         
-        g = GridForm (screen, _("User Account Setup"), 1, 4)
+        g = GridFormHelp (screen, _("User Account Setup"), "addusers", 1, 4)
 
 	t = TextboxReflowed(60, _("What user account would you like to have "
 	    "on the system? You should have at least one non-root account "
@@ -256,7 +257,8 @@ class AuthConfigWindow:
     def __call__(self, screen, todo):
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 
-        toplevel = GridForm (screen, _("Authentication Configuration"), 1, 5)
+        toplevel = GridFormHelp (screen, _("Authentication Configuration"), 
+				 "authconfig", 1, 5)
         self.shadow = Checkbox (_("Use Shadow Passwords"), todo.auth.useShadow)
         toplevel.add (self.shadow, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
         self.md5 = Checkbox (_("Enable MD5 Passwords"), todo.auth.useMD5)

@@ -92,7 +92,8 @@ class NetworkWindow:
 
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 
-        toplevel = GridForm (screen, _("Network Configuration"), 1, 3)
+        toplevel = GridFormHelp (screen, _("Network Configuration"), 
+				 "network", 1, 3)
         toplevel.add (firstg, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
         toplevel.add (secondg, 0, 1, (0, 0, 0, 1))
         toplevel.add (bb, 0, 2, growx = 1)
@@ -140,7 +141,8 @@ class HostnameWindow:
              _("The hostname is the name of your computer.  If your "
                "computer is attached to a network, this may be "
                "assigned by your network administrator."),
-             [(_("Hostname"), entry)], buttons = [ _("OK"), _("Back")])
+             [(_("Hostname"), entry)], buttons = [ _("OK"), _("Back")],
+	     help = "hostname")
 
         if rc == string.lower (_("Back")):
             return INSTALL_BACK

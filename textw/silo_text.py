@@ -25,7 +25,7 @@ class SiloAppendWindow:
 	buttons = ButtonBar(screen, [(_("OK"), "ok"), (_("Skip"), "skip"),  
 			     (_("Back"), "back") ] )
 
-	grid = GridForm(screen, _("SILO Configuration"), 1, 3)
+	grid = GridForm(screenHelp, _("SILO Configuration"), 1, 3)
 	grid.add(t, 0, 0)
 	grid.add(entry, 0, 1, padding = (0, 0, 0, 1))
 	grid.add(buttons, 0, 2, growx = 1)
@@ -97,7 +97,7 @@ class SiloWindow:
 
 	bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 
-	g = GridForm (screen, _("SILO Configuration"), 1, 8)
+	g = GridFormHelp (screen, _("SILO Configuration"), "silowin", 1, 8)
 
 	g.add (Label (_("Where do you want to install the bootloader?")), 0, 0)
 	g.add (rc1, 0, 1)
@@ -140,7 +140,7 @@ class SiloImagesWindow:
 	subgrid.setField(bootLabel, 0, 1, anchorLeft = 1)
 	subgrid.setField(newLabel, 1, 1, padding = (1, 0, 0, 0), anchorLeft = 1)
 
-	g = GridForm(screen, _("Edit Boot Label"), 1, 2)
+	g = GridFormHelp(screen, _("Edit Boot Label"), "bootlabel", 1, 2)
 	g.add(subgrid, 0, 0, padding = (0, 0, 0, 1))
 	g.add(buttons, 0, 1, growx = 1)
 
@@ -210,7 +210,7 @@ class SiloImagesWindow:
 		      "and what label you want to use for each of them."))
 
 	title = _("SILO Configuration")
-	g = GridForm(screen, title, 1, 4)
+	g = GridFormHelp(screen, title, "siloimages", 1, 4)
 	g.add(text, 0, 0, anchorLeft = 1)
 	g.add(listboxLabel, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
 	g.add(listbox, 0, 2, padding = (0, 0, 0, 1), anchorLeft = 1)

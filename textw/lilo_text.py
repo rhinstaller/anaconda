@@ -28,7 +28,7 @@ class LiloAppendWindow:
 	    entry.set(todo.lilo.getAppend())
 
 	buttons = ButtonBar(screen, [(_("OK"), "ok"), (_("Skip"), "skip"),  
-			     (_("Back"), "back") ] )
+			     (_("Back"), "back") ], help = "kernelopts" )
 
 	grid = GridForm(screen, _("LILO Configuration"), 1, 4)
 	grid.add(t, 0, 0)
@@ -84,7 +84,8 @@ class LiloWindow:
         (rc, sel) = ListboxChoiceWindow (screen, _("LILO Configuration"),
                                          _("Where do you want to install the bootloader?"),
                                          locations, default = default,
-                                         buttons = [ _("OK"), _("Back") ])
+                                         buttons = [ _("OK"), _("Back") ],
+					 help = "lilolocation")
 
         if sel == 0:
             todo.lilo.setDevice("mbr")
@@ -111,7 +112,7 @@ class LiloImagesWindow:
 	subgrid.setField(bootLabel, 0, 1, anchorLeft = 1)
 	subgrid.setField(newLabel, 1, 1, padding = (1, 0, 0, 0), anchorLeft = 1)
 
-	g = GridForm(screen, _("Edit Boot Label Please"), 1, 2)
+	g = GridFormHelp(screen, _("Edit Boot Label Please"), "bootlabel", 1, 2)
 	g.add(subgrid, 0, 0, padding = (0, 0, 0, 1))
 	g.add(buttons, 0, 1, growx = 1)
 
@@ -195,7 +196,7 @@ class LiloImagesWindow:
                       "Press the F2 key to select the partition to boot by "
                       "default."))
 
-	g = GridForm(screen, _("LILO Configuration"), 1, 4)
+	g = GridFormHelp(screen, _("LILO Configuration"), "lilolabels", 1, 4)
 	g.add(text, 0, 0, anchorLeft = 1)
 	g.add(listboxLabel, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
 	g.add(listbox, 0, 2, padding = (0, 0, 0, 1), anchorLeft = 1)

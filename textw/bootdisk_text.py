@@ -32,7 +32,8 @@ class BootDiskWindow:
 				       _("\nOn SMCC made Ultra machines floppy booting "
 					 "probably does not work\n\n"))
 
-	rc = ButtonChoiceWindow(screen, _("Bootdisk"), text, buttons = buttons)
+	rc = ButtonChoiceWindow(screen, _("Bootdisk"), text, buttons = buttons,
+				help = "bootdiskquery")
 
 	if rc == string.lower (_("Yes")):
 	    todo.bootdisk = 1
@@ -55,7 +56,7 @@ class MakeBootDiskWindow:
                        "floppy drive. "
 		       "All data on this disk will be erased during creation "
 		       "of the boot disk."),
-		     [ _("OK"), _("Skip") ])                
+		     [ _("OK"), _("Skip") ], help = "insertbootdisk")
         if rc == string.lower (_("Skip")):
             return INSTALL_OK
             

@@ -80,7 +80,8 @@ class TimezoneWindow:
 	self.c = Checkbox(_("Hardware clock set to GMT?"), isOn = asUtc)
 	self.c.setCallback(self.updateSysClock)
 
-	self.g = GridForm(screen, _("Time Zone Selection"), 1, 5)
+	self.g = GridFormHelp(screen, _("Time Zone Selection"), "timezone",
+			      1, 5)
 	self.g.add(t, 0, 0)
 	self.g.add(self.label, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
 	self.g.add(self.c, 0, 2, padding = (0, 1, 0, 1), anchorLeft = 1)

@@ -20,7 +20,7 @@ class PartitionMethod:
 	      "\n"
 	      "Which tool would you like to use?"),
 	    [ (_("Disk Druid"), "dd") , (_("fdisk"), "fd"), 
-	      (_("Back"), "back") ], width = 50)
+	      (_("Back"), "back") ], width = 50, help = "parttool")
 
 	if rc == "back":
 	    return INSTALL_BACK
@@ -61,7 +61,7 @@ class ManualPartitionWindow:
 		     "drives in your system so you can boot into Linux "
 		     "with LILO."), choices,
 		[ (_("Done"), "done") , (_("Edit"), "edit"), 
-		  (_("Back"), "back") ], width = 50)
+		  (_("Back"), "back") ], width = 50, help = "fdisk")
 
 	    if button != "done" and button != "back":
 		# free our fd's to the hard drive -- we have to 
@@ -135,7 +135,8 @@ class AutoPartitionWindow:
 	      "and perform a fully customized installation.") % 
 		    (todo.getPartitionWarningText(), ),
 	    [_("Continue"), _("Manually partition")], 
-	    buttons = basicButtons, default = _("Continue"))
+	    buttons = basicButtons, default = _("Continue"), 
+	    help = "confirmautopart")
 
 	if (rc == "back"): 
 	    # This happens automatically when we go out of scope, but it's
@@ -197,7 +198,8 @@ class TurnOnSwapWindow:
 			 "need to turn on swap space immediately. To do this "
 			 "we'll have to write your new partition table to the "
 			 "disk immediately. Is that okay?"),
-		       [ (_("Yes"), "yes"), (_("No"), "back") ], width = 50)
+		       [ (_("Yes"), "yes"), (_("No"), "back") ], width = 50,
+		       help = "earlyswapon")
 
 	    if (rc == "back"):
 		return INSTALL_BACK
@@ -238,7 +240,8 @@ class FormatWindow:
 
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 
-        g = GridForm (screen, _("Choose Partitions to Format"), 1, 4)
+        g = GridFormHelp (screen, _("Choose Partitions to Format"), 
+			 "formatwhat", 1, 4)
         g.add (tb, 0, 0, (0, 0, 0, 1))
         g.add (ct, 0, 1)
         g.add (cb, 0, 2, (0, 1, 0, 1))
@@ -285,7 +288,8 @@ class LoopSizeWindow:
 		  "total less then %d megabytes in size." % (avail, )),
 		    [ ( _("Root filesystem size"), sizeEntry ),
 		      ( _("Swap space"), swapSizeEntry ) ],
-		    buttons = [ (_("OK"), "ok"), (_("Back"), "back") ] )
+		    buttons = [ (_("OK"), "ok"), (_("Back"), "back") ],
+		    help = "loopbacksize")
 
 	    if rc == "back": return INSTALL_BACK
 

@@ -12,35 +12,6 @@ import signal
 from translate import _, cat, N_
 from log import log
 
-# dont do this anymore, makes update disk hard
-#from textw.constants import *
-#from textw.lilo import LiloWindow
-#from textw.lilo import LiloAppendWindow
-#from textw.lilo import LiloImagesWindow
-#from textw.silo import SiloWindow
-#from textw.silo import SiloAppendWindow
-#from textw.silo import SiloImagesWindow
-#from textw.network import NetworkWindow
-#from textw.network import HostnameWindow
-#from textw.userauth import RootPasswordWindow
-#from textw.userauth import UsersWindow
-#from textw.userauth import AuthConfigWindow
-#from textw.partitioning import PartitionMethod
-#from textw.partitioning import LoopSizeWindow
-#from textw.partitioning import ManualPartitionWindow
-#from textw.partitioning import AutoPartitionWindow
-#from textw.partitioning import PartitionWindow
-#from textw.partitioning import TurnOnSwapWindow
-#from textw.partitioning import FormatWindow
-#from textw.packages import PackageGroupWindow
-#from textw.packages import IndividualPackageWindow
-#from textw.packages import PackageDepWindow
-#from textw.timezone import TimezoneWindow
-#from textw.bootdisk import BootDiskWindow
-#from textw.bootdisk import MakeBootDiskWindow
-#
-# instead we do
-#
 from constants_text import *
 from lilo_text import LiloWindow
 from lilo_text import LiloAppendWindow
@@ -84,13 +55,13 @@ class LanguageWindow:
             buttons = [_("Ok"), _("Back")]
         else:
             buttons = [_("Ok")]
-               
+
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Language Selection"),
 			_("What language would you like to use during the "
 			  "installation process?"), descriptions, 
 			buttons, width = 30, default = default, scroll = 1,
-                                height = height)
+                                height = height, help = "lang")
 
 	if (button == string.lower(_("Back"))): return INSTALL_BACK
 
@@ -135,7 +106,7 @@ class MouseDeviceWindow:
 
 	(button, result) = ListboxChoiceWindow(screen, _("Device"),
 		    _("What device is your mouse located on? %s %i") % (mouse, default), l,
-		    [ _("Ok"), _("Back") ], default = default )
+		    [ _("Ok"), _("Back") ], help = "mousedevice", default = default )
 	if (button == string.lower(_("Back"))): return INSTALL_BACK
 
 	todo.mouse.setDevice(choices[l[result]])
@@ -168,7 +139,7 @@ class MouseWindow:
 
 	c = Checkbox(_("Emulate 3 Buttons?"), isOn = emulate)
 
-	g = GridForm(screen, _("Mouse Selection"), 1, 4)
+	g = GridFormHelp(screen, _("Mouse Selection"), "mousetype", 1, 4)
 	g.add(t, 0, 0)
 	g.add(l, 0, 1, padding = (0, 1, 0, 1))
 	g.add(c, 0, 2, padding = (0, 0, 0, 1))
@@ -209,7 +180,7 @@ class KeyboardWindow:
             ListboxChoiceWindow(screen, _("Keyboard Selection"),
                                 _("Which model keyboard is attached to this computer?"), keyboards, 
                                 buttons = [_("OK"), _("Back")], width = 30, scroll = 1, height = 8,
-                                default = default)
+                                default = default, help = "kybd")
         
         if button == string.lower (_("Back")):
             return INSTALL_BACK
@@ -276,7 +247,7 @@ class InstallPathWindow:
 	(button, choice) = ListboxChoiceWindow(screen, _("Installation Type"),
 			_("What type of system would you like to install?"),
 			    choices, [(_("OK"), "ok"), (_("Back"), "back")],
-			    width = 40, default = default)
+			    width = 40, default = default, help = "installpath")
 
         if button == "back":
             return INSTALL_BACK
@@ -344,7 +315,8 @@ class UpgradeExamineWindow:
                                     _("What partition holds the root partition "
                                       "of your installation?"), parts, 
                                     [ _("OK"), _("Back") ], width = 30,
-                                    scroll = scroll, height = height)
+                                    scroll = scroll, height = height,
+				    root = "multipleroot")
             if button == string.lower (_("Back")):
                 return INSTALL_BACK
             else:
@@ -364,7 +336,8 @@ class CustomizeUpgradeWindow:
                                    "for installation. Would you like "
                                    "to customize the set of packages "
                                    "that will be upgraded?"),
-                                 buttons = [ _("Yes"), _("No"), _("Back") ])
+                                 buttons = [ _("Yes"), _("No"), _("Back") ],
+				help = "custupgrade")
 
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
@@ -388,7 +361,8 @@ class WelcomeWindow:
                                   "If you have purchased Official Red Hat Linux, be sure to "
                                   "register your purchase through our web site, "
                                   "http://www.redhat.com/."),
-                                buttons = [_("OK"), _("Back")], width = 50)
+                                buttons = [_("OK"), _("Back")], width = 50,
+				help = "welcome")
 
 	if rc == string.lower(_("Back")):
 	    return INSTALL_BACK
@@ -405,7 +379,8 @@ class ReconfigWelcomeWindow:
                                   "\n\n"
                                   "To exit without changing your setup "
                                   "select the ""Cancel"" button below."),
-                                buttons = [_("OK"), _("Cancel")], width = 50)
+                                buttons = [_("OK"), _("Cancel")], width = 50,
+				help = "reconfigwelcome")
 
 	if rc == string.lower(_("Cancel")):
             screen.finish()
@@ -476,7 +451,8 @@ class XConfigWindow:
 					       cards,
 					       buttons = [_("OK"), _("Back")],
 					       width = 70, scroll = 1,
-					       height = screen.height - 14)
+					       height = screen.height - 14,
+					       help = "videocard")
 	    if rc == string.lower (_("Back")):
 		return INSTALL_BACK
 
@@ -488,7 +464,8 @@ class XConfigWindow:
 					servers,
 					buttons = [ (_("Ok"), "ok"), (_("Back"), "back") ],
 					scroll = 1,
-					height = screen.height - 14)
+					height = screen.height - 14,
+					help = "xserver")
 
 		if (rc == "back"):
 		    rc = INSTALL_BACK
@@ -546,7 +523,8 @@ class BeginInstallWindow:
                                 _("A complete log of your installation will be in "
                                   "/tmp/install.log after rebooting your system. You "
                                   "may want to keep this file for later reference."),
-                                buttons = [ _("OK"), _("Back") ])
+                                buttons = [ _("OK"), _("Back") ],
+				help = "begininstall")
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
         return INSTALL_OK
@@ -559,33 +537,18 @@ class InstallWindow:
 
 class FinishedWindow:
     def __call__ (self, screen, todo):
-        if not todo.reconfigOnly:
-            rc = ButtonChoiceWindow (screen, _("Complete"), 
-                     _("Congratulations, installation is complete.\n\n"
-                       "Press return to reboot, and be sure to remove your "
-		       "boot medium as the system reboots, or your system "
-		       "will rerun the install. For information on fixes which "
-                       "are available for this release of Red Hat Linux, "
-                       "consult the "
-                       "Errata available from http://www.redhat.com/errata.\n\n"
-                       "Information on configuring and using your Red Hat "
-		       "Linux system is contained in the Red Hat Linux "
-		       "manuals."),
-                    [ _("OK") ])
-        else:
-            todo.writeConfiguration()
-            
-            rc = ButtonChoiceWindow (screen, _("Complete"), 
-                       _("Congratulations, configuration is complete.\n\n"
-                         " For information on fixes which "
-                         "are available for this release of Red Hat Linux, "
-                         "consult the "
-                         "Errata available from http://www.redhat.com.\n\n"
-                         "Information on further configuring your system is "
-                         "available "
-                         "in the post install chapter of the Official Red Hat "
-                         "Linux User's Guide."),
-                      [ _("OK") ])
+	rc = ButtonChoiceWindow (screen, _("Complete"), 
+		 _("Congratulations, installation is complete.\n\n"
+		   "Press return to reboot, and be sure to remove your "
+		   "boot medium as the system reboots, or your system "
+		   "will rerun the install. For information on fixes which "
+		   "are available for this release of Red Hat Linux, "
+		   "consult the "
+		   "Errata available from http://www.redhat.com/errata.\n\n"
+		   "Information on configuring and using your Red Hat "
+		   "Linux system is contained in the Red Hat Linux "
+		   "manuals."),
+		[ _("OK") ], help = "finished")
 
         return INSTALL_OK
 
@@ -605,7 +568,7 @@ class ReconfigFinishedWindow:
                                    "available "
                                    "in the post install chapter of the Official Red Hat "
                                    "Linux User's Guide."),
-                                 [ _("OK") ])
+                                 [ _("OK") ], help = "reconfigfinished")
 
         return INSTALL_OK
 
@@ -790,6 +753,65 @@ class ProgressWindow:
 	self.screen.refresh()
 
 class InstallInterface:
+
+    def helpWindow(self, screen, key):
+	try:
+	    lang = cat.getlangs()
+	    if not lang or lang[0] == "en_US":
+		lang = 'C'
+	    else:
+		lang = lang[0]
+
+	    fn = "/usr/share/anaconda/help/%s/s1-help-screens-%s.txt" \
+			% (lang, key)
+	    try:
+		f = open(fn)
+	    except IOError:
+		return self.helpWindow(screen, "helponhelp")
+
+	    l = f.readlines()
+	    while not string.strip(l[0]):
+		l = l[1:]
+	    title = string.strip(l[0])
+	    l = l[1:]
+	    while not string.strip(l[0]):
+		l = l[1:]
+	    f.close()
+
+	    height = 10
+	    scroll = 1
+	    if len(l) < height: 
+		height = len(l)
+		scroll = 0
+
+	    width = len(title) + 6
+	    stream = ""
+	    for line in l:
+		line = string.strip(line)
+		stream = stream + line + "\n"
+		if len(line) > width:
+		    width = len(line)
+
+	    bb = ButtonBar(screen, [ (_("OK"), "ok" ) ] )
+	    t = Textbox(width, height, stream, scroll = scroll)
+
+	    g = GridFormHelp(screen, title, "helponhelp", 1, 2)
+	    g.add(t, 0, 0, padding = (0, 0, 0, 1))
+	    g.add(bb, 0, 1, growx = 1)
+
+	    g.runOnce()
+	except:
+	    import sys, traceback
+	    (type, value, tb) = sys.exc_info()
+	    from string import joinfields
+	    list = traceback.format_exception (type, value, tb)
+	    text = joinfields (list, "")
+	    rc = self.exceptionWindow (_("Exception Occurred"), text)
+	    if rc:
+		import pdb
+		pdb.post_mortem (tb)
+	    os._exit (1)
+
     def progressWindow(self, title, text, total):
         return ProgressWindow (self.screen, _(title), _(text), total)
 
@@ -813,10 +835,14 @@ class InstallInterface:
     def drawFrame(self):
         self.welcomeText = _("Red Hat Linux (C) 2000 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
-        self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
+	if (os.access("/usr/share/anaconda/help/C/s1-help-screens-lang.txt", os.R_OK)):
+	    self.screen.pushHelpLine (_(" <F1> for help> | <Tab> between elements | <Space> selects | <F12> next screen"))
+	else:
+	    self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
 
     def __init__(self):
         self.screen = SnackScreen()
+	self.screen.helpCallback(self.helpWindow)
 	self.drawFrame()
 # uncomment this line to make the installer quit on <Ctrl+Z>
 # handy for quick debugging.

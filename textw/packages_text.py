@@ -19,7 +19,8 @@ class PackageGroupWindow:
 
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 
-        g = GridForm (screen, _("Package Group Selection"), 1, 3)
+        g = GridFormHelp (screen, _("Package Group Selection"), 
+			  "components", 1, 3)
         g.add (ct, 0, 0, (0, 0, 0, 1))
         g.add (cb, 0, 1, (0, 0, 0, 1))
         g.add (bb, 0, 2, growx = 1)
@@ -63,7 +64,7 @@ class IndividualPackageWindow:
 
 	txt = TextboxReflowed(60, self.get_rpm_desc(header), maxHeight = 10)
 
-	g = GridForm (screen, header[rpm.RPMTAG_NAME], 1, 3)
+	g = GridFormHelp (screen, header[rpm.RPMTAG_NAME], 1, 3)
 	g.add (sg, 0, 0, (0, 0, 0, 1))
 	g.add (txt, 0, 1, (0, 0, 0, 1))
 	g.add (bb, 0, 2, growx = 1)
@@ -197,18 +198,19 @@ class IndividualPackageWindow:
 	self.lbl = Label ("")
 	self.printTotal()
 
-	g = GridForm (screen, _("Package Group Selection"), 1, 3)
+	g = GridFormHelp (screen, _("Package Group Selection"), "packagetree", 
+			    1, 3)
 	g.add (ct, 0, 0, (0, 0, 0, 0))
 	g.add (self.lbl, 0, 1, (self.length + 5, 0, 0, 1))
 	g.add (bb, 0, 2, growx = 1)
 
-	g.addHotKey("F1")
+	g.addHotKey("F2")
 
-	screen.pushHelpLine (_("  <Space>,<+>,<-> selection  |  <F1> package description  |  <F12> next screen"))
+	screen.pushHelpLine (_("   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"))
 
 	while 1:
 	    result = g.run ()
-	    if result != "F1":
+	    if result != "F2":
 		break
 	    header = self.ct.getCurrent()
 	    (branch, isOn) = self.ct.getEntryValue(header)
@@ -232,7 +234,8 @@ class PackageDepWindow:
         if not deps:
             return INSTALL_NOOP
 
-        g = GridForm(screen, _("Package Dependencies"), 1, 5)
+        g = GridFormHelp(screen, _("Package Dependencies"), 
+			 "pacakgedeps", 1, 5)
         g.add (TextboxReflowed (45, _("Some of the packages you have "
                                       "selected to install require "
                                       "packages you have not selected. If "
