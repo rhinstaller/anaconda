@@ -142,7 +142,17 @@ int ourRmmodCommand(int argc, char ** argv) {
         return rmmod_usage();
     }
 
-    return rmmod(argv[2]);
+    return rmmod(argv[1]);
+}
+
+static char * modNameMunge(char * mod) {
+    unsigned int i;
+
+    for (i = 0; mod[i]; i++) {
+        if (mod[i] == '-')
+            mod[i] = '_';
+    }
+    return mod;
 }
 
 int rmmod(char * modName) {
@@ -150,8 +160,10 @@ int rmmod(char * modName) {
     int status;
     int rc = 0;
 
+    modName = modNameMunge(modName);
     if ((child = fork()) == 0) {
-        exit(delete_module(modName, O_NONBLOCK|O_EXCL));
+        rc = delete_module(modName, O_NONBLOCK|O_EXCL);
+        exit(rc);
     }
 
     waitpid(child, &status, 0);
