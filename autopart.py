@@ -62,7 +62,7 @@ def fitConstrained(diskset, requests, primOnly=0):
                 raise PartitioningError, "Tried to create constrained partition without size or end"
 
             fsType = request.fstype.getPartedFileSystemType()
-            disk = diskset.disks[request.drive]
+            disk = diskset.disks[request.drive[0]]
             if not disk: # this shouldn't happen
                 raise PartitioningError, "Selected to put partition on non-existent disk!"
 
@@ -113,7 +113,7 @@ def fitConstrained(diskset, requests, primOnly=0):
                                            "a flag that is not available.")
                 newp.set_flag(flag, 1)
             request.device = PartedPartitionDevice(newp).getDevice()
-            request.currentDrive = request.drive
+            request.currentDrive = request.drive[0]
 
     return PARTITION_SUCCESS
 
@@ -132,8 +132,6 @@ def fitSized(diskset, requests, primOnly = 0):
             continue
         if not request.drive:
             request.drive = diskset.disks.keys()
-        if type(request.drive) != type([]):
-            request.drive = [ request.drive ]
         if not todo.has_key(len(request.drive)):
             todo[len(request.drive)] = [ request ]
         else:
@@ -256,7 +254,7 @@ def growParts(diskset, requests):
         for request in growable[drive]:
             percent = request.size / (growSize[drive] * 1.0)
             
-            request.drive = request.currentDrive
+            request.drive = [request.currentDrive]
             
             max = int(percent * freeSize[drive]) + request.size
             if max > request.maxSize:
