@@ -37,7 +37,7 @@ class CdromInstallMethod(ImageInstallMethod):
     def systemMounted(self, fstab, mntPoint, selected):
 	changeloop=0
 	for p in selected:
-	    if p[1000002] > 1:
+	    if p[1000002] and p[1000002] > 1:
 		changeloop=1
 		break
 	if changeloop == 0:
