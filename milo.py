@@ -111,8 +111,8 @@ class MiloInstall:
             kernelroot = '/boot/'
 
         if os.access (self.todo.instPath + "/etc/milo.conf", os.R_OK):
-           os.rename (self.todo.instPath + "/etc/milo.conf",
-                      self.todo.instPath + "/etc/milo.conf.rpmsave")
+            os.rename (self.todo.instPath + "/etc/milo.conf",
+                       self.todo.instPath + "/etc/milo.conf.rpmsave")
         f = open (self.todo.instPath + "/etc/milo.conf", "w")
         if hasboot:
             f.write ("# NOTICE:  You have a /boot partition.  This means that all\n")
@@ -133,7 +133,8 @@ class MiloInstall:
         for version, label in kernels:
             f.write ("image=%svmlinuz-%s\n" % (kernelroot, version))
             f.write ("\tlabel=%s\n" % label)
-            f.write ("\troot=/dev/%s" % rootDevice)
+            f.write ("\troot=/dev/%s\n" % rootDevice)
+        f.close()
                 
     def write (self):
         if onMILO ():
