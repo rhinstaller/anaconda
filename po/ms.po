@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-09-24 09:35+0800\n"
+"PO-Revision-Date: 2004-10-07 11:27+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -70,13 +70,11 @@ msgstr "Memberhentikan usaha untuk menyambung selepas 50 kali percubaan!\n"
 #: ../anaconda:198
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Sila sambung secara manual klien vnc anda ke %s untuk memulakan pemasangan."
+msgstr "Sila sambung secara manual klien vnc anda ke %s untuk memulakan pemasangan."
 
 #: ../anaconda:200
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Sila sambungkan klien vnc anda secara manual untuk memulakan pemasangan."
+msgstr "Sila sambungkan klien vnc anda secara manual untuk memulakan pemasangan."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
@@ -253,8 +251,7 @@ msgstr ""
 
 #: ../autopart.py:1030
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Partisyen boot %s mungkin tidak memenuhi kehendak memboot untuk rekabentuk "
 "anda."
@@ -1253,8 +1250,7 @@ msgstr "Namahos mesti 64 atau kurang panjang aksara."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Namahos mesti bermula dengan aksara yang sah dalam julat 'a-z' atau 'A-Z'"
+msgstr "Namahos mesti bermula dengan aksara yang sah dalam julat 'a-z' atau 'A-Z'"
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1315,8 +1311,7 @@ msgstr ""
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
-msgstr ""
-"Anda cuba memasang pada mesin yang tidak disokong oleh keluaran bagi %s."
+msgstr "Anda cuba memasang pada mesin yang tidak disokong oleh keluaran bagi %s."
 
 #: ../packages.py:293
 msgid "Dependency Check"
@@ -1945,8 +1940,7 @@ msgid "Confirm Reset"
 msgstr "Kepastian Ulangtetap"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Adakah anda pasti untuk ulangtetap jadual partisyen ke keadaan asal?"
 
 #: ../partitioning.py:77
@@ -1996,10 +1990,8 @@ msgstr ""
 "untuk memasang %s."
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Anda mesti mencipta partisyen /boot/efi jenis FAT dan saiznya 50 Megabyte."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Anda mesti mencipta partisyen /boot/efi jenis FAT dan saiznya 50 Megabyte."
 
 #: ../partitions.py:796
 msgid "You must create a PPC PReP Boot partition."
@@ -2063,10 +2055,8 @@ msgstr "partisyen yang menjadi ahli kepada Kumpulan Volum LVM."
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Titik lekapan ini tidak sah. Direktori %s mesti berada pada sistem fail / ."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Titik lekapan ini tidak sah. Direktori %s mesti berada pada sistem fail / ."
 
 #: ../partRequests.py:236
 #, python-format
@@ -2156,8 +2146,7 @@ msgstr "Dibatal"
 
 #: ../rescue.py:224 ../text.py:501
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Saya tidak boleh pergi ke langkah terdahulu dari sini. Anda perlu cuba lagi."
+msgstr "Saya tidak boleh pergi ke langkah terdahulu dari sini. Anda perlu cuba lagi."
 
 #: ../rescue.py:240 ../rescue.py:275 ../rescue.py:432
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2309,8 +2298,7 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> untuk bantuan | <Tab> antara unsur | <Space> pilih | <F12> skrin "
 "berikutnya"
@@ -2493,20 +2481,17 @@ msgstr ""
 "naiktaraf?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Rekabentuk pengeluaran %s yang anda sedang naiktaraf kelihatan sebagai %s "
-"yang tidak sepadan dengan rekabentuk %s yang dipasang dahulu.  Ini "
-"berkemungkinan besar tidak akan berjaya.  Adakah anda hendak meneruskan "
+"Anda kelihatan hendak menaiktaraf daripada sistem yang terlalu lama untuk dinaiktaraf kepada versi %s.  Adakah anda pasti hendak meneruskan "
 "proses naiktaraf?"
 
 #: ../urlinstall.py:46
-#, fuzzy
 msgid "Connecting..."
-msgstr "Memeriksa \"%s\" ..."
+msgstr "Menyambung..."
 
 #: ../vnc.py:54
 msgid "Unable to Start X"
@@ -2970,8 +2955,7 @@ msgstr "Tidak dapat Menukar Turutan Pemacu bagi LILO"
 
 #: ../iw/bootlocwidget.py:85
 msgid "We do not support changing the drive order for use with LILO."
-msgstr ""
-"Kami tidak menyokong penukaran turutan pemacu untuk digunakan dengan LILO."
+msgstr "Kami tidak menyokong penukaran turutan pemacu untuk digunakan dengan LILO."
 
 #: ../iw/bootlocwidget.py:92
 msgid "Edit Drive Order"
@@ -3617,8 +3601,7 @@ msgstr "Tiada slot kosong"
 #: ../iw/lvm_dialog_gui.py:695
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
-"Anda tidak boleh cipta lebih daripada %s volum logikal per kumpulan volum."
+msgstr "Anda tidak boleh cipta lebih daripada %s volum logikal per kumpulan volum."
 
 #: ../iw/lvm_dialog_gui.py:701
 msgid "No free space"
@@ -4232,15 +4215,12 @@ msgid "Partitioning"
 msgstr "Pempartisyenan"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
-msgstr ""
-"Ralat kritikal berikut wujud disebabkan skema pempartisyenan yang anda pinta."
+msgid "The following critical errors exist with your requested partitioning scheme."
+msgstr "Ralat kritikal berikut wujud disebabkan skema pempartisyenan yang anda pinta."
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Ralat ini mesti diperbaiki sebelum meneruskan pemasangan bagi %s anda."
 
 #: ../iw/partition_gui.py:637
@@ -4253,8 +4233,7 @@ msgstr "Amaran berikut wujud disebabkan skema pempartisyenan yang anda pinta."
 
 #: ../iw/partition_gui.py:645
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr ""
-"Adakah anda ingin meneruskan dengan skema pempartisyenan yang anda pinta?"
+msgstr "Adakah anda ingin meneruskan dengan skema pempartisyenan yang anda pinta?"
 
 #: ../iw/partition_gui.py:650
 msgid "Partitioning Warnings"
@@ -4873,8 +4852,7 @@ msgstr "Ini akan mengemaskini pemuat but semasa anda."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Pemasang mengesan pemuat but %s kini dipasang Ã¼ada %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -5010,10 +4988,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Fail swap mestilah bersaiz diantara 1 dan 2000 MB "
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"Tidak cukup ruang cakera pada peranti yang anda pilih untuk partisyen swap."
+msgid "There is not enough space on the device you selected for the swap partition."
+msgstr "Tidak cukup ruang cakera pada peranti yang anda pilih untuk partisyen swap."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
 msgid "Unprobed Monitor"
@@ -5380,8 +5356,7 @@ msgstr ""
 "digunakan bagi setiap daripadanya."
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Ruang> pilih butang | <F2> pilih kemasukan but default | <F12> skrin "
 "berikutnya>"
@@ -5810,8 +5785,7 @@ msgid "Select individual packages"
 msgstr "Pilih pakej individu"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Ruang>,<+>,<-> pemilihan   |   <F2> Perincian Kumpulan   |   <F12> skrin "
 "berikutnya"
@@ -5838,8 +5812,7 @@ msgid "Total size"
 msgstr "Jumlah saiz"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>,<+>,<-> pilihan   |   <F1> bantuan   |   <F2> huraian pakej"
 
 #: ../textw/packages_text.py:374
@@ -5984,8 +5957,7 @@ msgstr "Opsyen Sistem Fail"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Sila pilih bagaimana anda ingin menyediakan sistem fail pada partisyen ini."
+msgstr "Sila pilih bagaimana anda ingin menyediakan sistem fail pada partisyen ini."
 
 #: ../textw/partition_text.py:605
 msgid "Check for bad blocks"
@@ -6110,10 +6082,8 @@ msgid "RAID"
 msgstr "RAD"
 
 #: ../textw/partition_text.py:1445
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Bantuan              F3-Edit   F4-Padam    F5-Ulangtetap    F12-OK    "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Bantuan              F3-Edit   F4-Padam    F5-Ulangtetap    F12-OK    "
 
 #: ../textw/partition_text.py:1474
 msgid "No Root Partition"
@@ -6358,15 +6328,13 @@ msgid "User Exists"
 msgstr "Penguna Wujud"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Pengguna root sudah dikonfigurasikan. Anda tidak perlu menambah pengguna itu "
 "di sini."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Pengguna sistem telah dikonfigurasikan. Anda tidak perlu menambah pengguna "
 "itu di sini."
@@ -6759,7 +6727,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6769,9 +6736,9 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
-"\tShell Desktop (GNOME)\n"
-"\tSuit Pejabat (OpenOffice.org)\n"
-"\tPelungsur Web(Mozilla) \n"
+"\tShell desktop (GNOME)\n"
+"\tSuit pejabat (OpenOffice.org)\n"
+"\tPelungsur web \n"
 "\tEmel (Evolution)\n"
 "\tPesanan segera\n"
 "\tAplikasi bunyi dan video\n"
@@ -6779,7 +6746,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6789,21 +6756,25 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tShell desktop (GNOME)\n"
+"\tAlatan Pentadbiran\n"
+"\tAlatan Tetapan Pelayan\n"
+"\tPelayan Web\n"
+"\tPelayan Fail Windows (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6815,9 +6786,9 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
-"\tShell Desktop (GNOME)\n"
-"\tSuit Pejabat(OpenOffice.org)\n"
-"\tPelungsur Web (Mozilla) \n"
+"\tShell desktop (GNOME)\n"
+"\tSuit pejabat(OpenOffice.org)\n"
+"\tPelungsur web \n"
 "\tEmel (Evolution)\n"
 "\tPesanan segera\n"
 "\tAplikasi bunyi dan video\n"
@@ -7209,8 +7180,7 @@ msgid "Welcome to %s"
 msgstr "Selamat datang ke %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> Antara unsur   |  <Space> pilih   |  <F12> Skrin "
 "seterusnya "
@@ -7247,8 +7217,7 @@ msgstr ""
 #: ../loader2/loader.c:337
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Masukkan cekara kemaskini ke /dev/%s  dan tekan \"OK\" untuk meneruskan."
+msgstr "Masukkan cekara kemaskini ke /dev/%s  dan tekan \"OK\" untuk meneruskan."
 
 #: ../loader2/loader.c:339
 msgid "Updates Disk"
@@ -7795,8 +7764,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Waktu Atlantik - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Waktu Atlantik - Nova Scotia (kebanyakan tempat), NB, W Labrador, E Quebec & "
 "PEI"
@@ -7986,8 +7954,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Waktu Timur - Ontario - most locations"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Waktu Timur - Ontario & Quebec - tempat tidak diperhati DST 1967-1973"
 
 #. generated from zone.tab
@@ -8175,8 +8142,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Waktu Piawai Gunung - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "Waktu Piawan Gunung - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
@@ -8588,52 +8554,3 @@ msgstr "Welsh"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "Pengemaskinian bagi versi  %s hanya disokong dari Red Hat Linux 6.2 ke "
-#~ "atas. Nampaknya ini sistem lebih tua.  Adakah anda ingin meneruskan "
-#~ "proses naiktaraf?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tShell Desktop (GNOME)\n"
-#~ "\tSuit Pejabat (OpenOffice.org)\n"
-#~ "\tPelungsur Web(Mozilla) \n"
-#~ "\tEmel (Evolution)\n"
-#~ "\tPesanan segera\n"
-#~ "\tAplikasi bunyi dan video\n"
-#~ "\tPermainan\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tShell Desktop (GNOME)\n"
-#~ "\tSuit Pejabat(OpenOffice.org)\n"
-#~ "\tPelungsur Web (Mozilla) \n"
-#~ "\tEmel (Evolution)\n"
-#~ "\tPesanan segera\n"
-#~ "\tAplikasi bunyi dan video\n"
-#~ "\tPermainan\n"
-#~ "\tAlatan Pembangunan Perisian\n"
-#~ "\tAlatan Pentadbiran\n"
