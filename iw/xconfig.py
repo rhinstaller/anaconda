@@ -142,6 +142,7 @@ class MonitorWindow (InstallWindow):
 
     def moveto (self, ctree, area, node):
         ctree.node_moveto (node, 0, 0.5, 0.0)
+        self.selectCb (ctree, node, -1)
 
     def getScreen (self):
         # Don't configure X in reconfig mode.
