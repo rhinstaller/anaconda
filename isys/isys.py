@@ -472,7 +472,7 @@ def doGetBiosDisk(mbrSig):
 biosdisks = {}
 for d in range(80, 80 + 15):
     disk = doGetBiosDisk("%d" %(d,))
-    print "biosdisk of %s is %s" %(d, disk)
+    #print "biosdisk of %s is %s" %(d, disk)
     if disk is not None:
         biosdisks[disk] = d
 

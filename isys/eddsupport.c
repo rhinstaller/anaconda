@@ -81,16 +81,22 @@ int probeBiosDisks() {
 
     devices = createDiskList();
     if(!devices){
+#ifdef STANDALONE
         fprintf(stderr, "No disks!\n");
+#endif
         return -1;
     }
 
     if(!(diskSigToName = uniqueSignatureExists(devices))) {
+#ifdef STANDALONE
         fprintf(stderr, "WARNING: Unique disk signatures don't exist\n");
+#endif
         return -1;
     } else {
         if(!mapBiosDisks(diskSigToName, EDD_DIR)){
+#ifdef STANDALONE
             fprintf(stderr, "WARNING: couldn't map BIOS disks\n");
+#endif
             return -1;
         }
     }
@@ -110,7 +116,9 @@ static struct diskMapTable * uniqueSignatureExists(struct device **devices) {
 
     hashTable = initializeHashTable(HASH_TABLE_SIZE);
     if(!hashTable){
+#ifdef STANDALONE
         fprintf(stderr, "Error initializing diskSigToName table\n");
+#endif
         return NULL;
     }
 
@@ -144,8 +152,10 @@ static int readDiskSig(char *device, uint32_t *disksig) {
 
     fd = open("/tmp/biosdev", O_RDONLY);
     if (fd < 0) {
+#ifdef STANDALONE
         fprintf(stderr, "Error opening devce %s: %s\n ", device, 
                 strerror(errno));
+#endif
         return -1;
     }
 
@@ -153,8 +163,10 @@ static int readDiskSig(char *device, uint32_t *disksig) {
     if (rc < 0){
         close(fd);
 
+#ifdef STANDALONE
         fprintf(stderr, "Error seeking to MBRSIG_OFFSET in %s: %s\n", 
                 device, strerror(errno));
+#endif
         return -1;
     }
 
@@ -162,7 +174,9 @@ static int readDiskSig(char *device, uint32_t *disksig) {
     if (rc < sizeof(uint32_t)) {
         close(fd);
 
+#ifdef STANDALONE
         fprintf(stderr, "Failed to read signature from %s\n", device); 
+#endif
         return -1;
     }
 
@@ -179,14 +193,18 @@ static int mapBiosDisks(struct diskMapTable* hashTable,const char *path) {
 
     dirHandle = opendir(path);
     if(!dirHandle){
+#ifdef STANDALONE
         fprintf(stderr, "Failed to open directory %s: %s\n", path, 
                 strerror(errno));
+#endif
         return 0;
     }
 
     mbrSigToName = initializeHashTable(HASH_TABLE_SIZE);
     if(!mbrSigToName){
+#ifdef STANDALONE
         fprintf(stderr, "Error initializing mbrSigToName table\n");
+#endif
         return 0;
     }
 
@@ -217,13 +235,17 @@ static int readMbrSig(char *filename, uint32_t *int_sig){
 
     fh = fopen(filename,"r");
     if(fh == NULL) {
+#ifdef STANDALONE
         fprintf(stderr, "Error opening mbr_signature file %s: %s\n", filename,
                 strerror(errno));
+#endif
         return -1;
     }
     fseek(fh, 0, SEEK_SET);
     if (fscanf(fh, "%x", int_sig) != 1) {
+#ifdef STANDALONE
         fprintf(stderr, "Error reading %s\n", filename);
+#endif
         fclose(fh);
         return -1;
     }
@@ -287,7 +309,9 @@ static int addToHashTable(struct diskMapTable *hashTable,
     diskSigToNameEntry->diskname = diskName;
 
     if ((index = insertHashItem(hashTable, diskSigToNameEntry)) < 0){
+#ifdef STANDALONE
         fprintf(stderr, "Unable to insert item\n");
+#endif
         return 0;
     } else {
         return 1;
