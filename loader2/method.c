@@ -20,6 +20,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <inttypes.h>
 #include <libgen.h>
 #include <newt.h>
 #include <stdlib.h>
@@ -596,7 +597,7 @@ int copyFileAndLoopbackMount(int fd, char * dest, int flags,
 
     rc = copyFileFd(fd, dest);
     stat(dest, &sb);
-    logMessage("copied %jd bytes to %s (%s)", sb.st_size, dest, 
+    logMessage("copied %" PRId64 " bytes to %s (%s)", sb.st_size, dest, 
                ((rc) ? " incomplete" : "complete"));
     
     if (rc) {
