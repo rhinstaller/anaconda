@@ -60,14 +60,14 @@ prunePackageList() {
 expandPackageSet() {
     RPMS=$1
     PKGDEST=$2
-    KEEPFILE=$3
+    KEEPFILES=$3
 
     for n in $RPMS; do 
 	echo -ne "\rExpanding packages..." $(basename $n)
 	if [ $(rpm -qp --qf '%{NAME}' $n) = "glibc" ] ; then
 	    GLIBC=$n
 	fi 
-	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILE --quiet -iumd)
+	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)
 	echo -ne "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
     done
 }

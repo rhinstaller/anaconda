@@ -592,6 +592,7 @@ makeImage () {
     chmod 644 $MI_TO
 
     echo "Wrote $MI_TO (${left}k of ${MI_SIZE}k free)"
+    rm -f $MI_TMPIMAGE
 }
 
 makeinstimage () {
