@@ -56,10 +56,12 @@ class pixmapRadioButtonGroup:
 		
 	    label.set_size_request(wraplen, -1)
 	label.set_use_markup (gtk.TRUE)
+	label.set_use_underline(gtk.TRUE)
 	    
 	hbox.pack_start (label, gtk.TRUE, gtk.TRUE, 0)
 	button = gtk.RadioButton (group)
 	button.add (hbox)
+	label.set_mnemonic_widget(button)
         return button
 
     # add a entry to end of list
@@ -219,9 +221,9 @@ if __name__ == "__main__":
     upbox.pack_start(upboxtmp, gtk.TRUE, gtk.TRUE)
 
     r = pixmapRadioButtonGroup()
-    r.addEntry("Upgrade Existing Installation", pixmap=readPixmap("/usr/share/anaconda/pixmaps/upgrade.png"),  descr="Choose this option if you would like to upgrade your existing Red Hat Linux system.  This option will preserve the data on your driver.", userdata="data")
+    r.addEntry("upgrade", "_Upgrade Existing Installation", pixmap=readPixmap("/usr/share/anaconda/pixmaps/upgrade.png"),  descr="Choose this option if you would like to upgrade your existing Red Hat Linux system.  This option will preserve the data on your driver.", userdata="data")
 
-    r.addEntry("Reinstall Red Hat Linux", pixmap=readPixmap("../pixmaps/install.png"),
+    r.addEntry("install", "_Reinstall Red Hat Linux", pixmap=readPixmap("../pixmaps/install.png"),
 	       descr="Choose this option to reinstall your system.  Depending on how you partition your system your previous data may or may not be lost.", userdata="data2")
     b = r.render()
     r.setCurrent("Don't Upgrade")
