@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2001-03-16 20:06-0500\n"
-"PO-Revision-Date: 2001-03-08 20:54+0100\n"
+"PO-Revision-Date: 2001-03-17 15:46+0100\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -90,23 +90,20 @@ msgstr ""
 "sistema.\n"
 
 #: ../fstab.py:494
-#, fuzzy
 msgid "Swap Space"
 msgstr "Espacio de intercambio"
 
 #: ../fstab.py:495
-#, fuzzy
 msgid "Creating swap space..."
-msgstr "Formatando o espacio de intercambio en /dev/%s..."
+msgstr "Creando o espacio de intercambio..."
 
 #: ../fstab.py:513 ../fstab.py:776 ../fstab.py:1235
 msgid "Formatting"
 msgstr "Formatando"
 
 #: ../fstab.py:514
-#, fuzzy
 msgid "Formatting swap space..."
-msgstr "Formatando o espacio de intercambio en /dev/%s..."
+msgstr "Formatando o espacio de intercambio..."
 
 #: ../fstab.py:523
 msgid "Error creating swap on device "
@@ -891,9 +888,8 @@ msgid "Examine System"
 msgstr "Examinar sistema"
 
 #: ../text.py:1065
-#, fuzzy
 msgid "System Swap Space"
-msgstr "Espacio de intercambio"
+msgstr "Espacio de intercambio do sistema"
 
 #: ../text.py:1072
 msgid "Customize Upgrade"
@@ -947,9 +943,8 @@ msgid "no suggestion"
 msgstr "ningunha suxestión"
 
 #: ../todo.py:1155 ../upgrade.py:99
-#, fuzzy
 msgid "Dirty Filesystems"
-msgstr "Tamaño do sistema de ficheiros raíz"
+msgstr "Sistemas de ficheiros erróneos"
 
 #: ../todo.py:1156
 msgid ""
@@ -1422,11 +1417,8 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Seleccione o dispositivo que conteña o sistema de ficheiros raíz: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:187
-#, fuzzy
 msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-msgstr ""
-"O sistema operativo Red Hat Linux instalado na partición /dev/%s vai ser "
-"actualizado."
+msgstr "Actualizando a instalación de Red Hat Linux na partición /dev/"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -1546,7 +1538,7 @@ msgstr "Escolla a lingua predeterminada:"
 
 #: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
-msgstr ""
+msgstr "Linguas instaladas actualmente:"
 
 #: ../iw/language_support_gui.py:157
 msgid "Choose the languages to install:"
@@ -1920,9 +1912,8 @@ msgid "Automatic Partitioning"
 msgstr "Particionamento automático"
 
 #: ../iw/rootpartition_gui.py:376
-#, fuzzy
 msgid "Disk Partitioning"
-msgstr "Particionamento manual"
+msgstr "Particionamento do disco"
 
 #: ../iw/rootpartition_gui.py:378
 #, c-format
@@ -1933,6 +1924,12 @@ msgid ""
 "\n"
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
+"Seleccione o tipo de particionamento do disco que quere usar.\n"
+"\n"
+"%s\n"
+"\n"
+"Seleccionando o particionamento manual, poderá crear manualmente as "
+"particións."
 
 #: ../iw/rootpartition_gui.py:384
 msgid "Automatic Partitioning Failed"
@@ -2084,9 +2081,8 @@ msgid "UTC Offset"
 msgstr "Desprazamento da hora universal"
 
 #: ../iw/upgrade_swap_gui.py:18
-#, fuzzy
 msgid "Upgrade Swap Partition"
-msgstr "Partición para actualizar"
+msgstr "Actualizar a partición de intercambio"
 
 #: ../iw/upgrade_swap_gui.py:101 ../textw/upgrade_text.py:22
 #, c-format
@@ -2096,19 +2092,22 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"O núcleo 2.4 necesita significativamente máis espacio que os núcleos "
+"anteriores, tanto como o dobre da memoria RAM do sistema. Actualmente ten "
+"%dMB de espacio de intercambio, pero agora pode crear espacio adicional "
+"nalgún dos sistemas de ficheiros."
 
 #: ../iw/upgrade_swap_gui.py:115
 msgid "I want to create a swap file"
-msgstr ""
+msgstr "Quero crear un ficheiro de intercambio"
 
 #: ../iw/upgrade_swap_gui.py:124
 msgid "Select the partition to put the swap file on:"
-msgstr ""
+msgstr "Seleccionar a partición onde pór o ficheiro de intercambio:"
 
 #: ../iw/upgrade_swap_gui.py:129
-#, fuzzy
 msgid "Free Space (MB)"
-msgstr "Espacio de disco"
+msgstr "Espacio libre (MB)"
 
 #: ../iw/upgrade_swap_gui.py:144
 #, c-format
@@ -2116,15 +2115,16 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
+"Recoméndase que o ficheiro de intercambio teña polo menos %d MB. Indique o "
+"tamaño desexado:"
 
 #: ../iw/upgrade_swap_gui.py:157 ../textw/upgrade_text.py:58
-#, fuzzy
 msgid "Swap file size (MB):"
-msgstr "Tamaño do espacio de intercambio:"
+msgstr "Tamaño do ficheiro de intercambio (MB):"
 
 #: ../iw/upgrade_swap_gui.py:165
 msgid "I don't want to create a swap file"
-msgstr ""
+msgstr "Non quero crear un ficheiro de intercambio"
 
 #: ../iw/upgrade_swap_gui.py:175
 msgid ""
@@ -2132,15 +2132,20 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
+"É moi recomendado que faga un ficheiro de intercambio.  Se non o fai, "
+"podería causar que o instalador aborte a execución.  ¿Está seguro de que "
+"desexa continuar?"
 
 #: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:101
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "O ficheiro de intercambio debe ter entre 1 e 2000 Mb."
 
 #: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:97
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
+"Non hai espacio dabondo no dispositivo seleccionado para a partición de "
+"intercambio."
 
 #: ../iw/welcome_gui.py:81
 msgid "Would you like to configure your system?"
@@ -2224,7 +2229,7 @@ msgstr "Configuración do monitor"
 
 #: ../iw/xconfig_gui.py:736
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "Monitor detectado con DDC"
 
 #: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
 msgid "Restore original values"
@@ -2589,7 +2594,7 @@ msgid "Done"
 msgstr "Feito"
 
 #: ../textw/partitioning_text.py:150
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "\n"
@@ -2685,24 +2690,20 @@ msgid "Hardware clock set to GMT?"
 msgstr "¿O reloxo hardware ten a hora universal?"
 
 #: ../textw/upgrade_text.py:40
-#, fuzzy
 msgid "Free Space"
-msgstr "Espacio de disco"
+msgstr "Espacio libre"
 
 #: ../textw/upgrade_text.py:55
-#, fuzzy
 msgid "Suggested size (MB):"
-msgstr "Tamaño (MB)"
+msgstr "Tamaño suxerido (MB):"
 
 #: ../textw/upgrade_text.py:66
-#, fuzzy
 msgid "Add Swap"
-msgstr "Intercambio"
+msgstr "Engadir intercambio"
 
 #: ../textw/upgrade_text.py:91
-#, fuzzy
 msgid "The value you entered is not a valid number."
-msgstr "O tamaño indicado ten que ser un número."
+msgstr "O valor indicado non é un número válido."
 
 #: ../textw/upgrade_text.py:121
 msgid ""
@@ -2887,13 +2888,12 @@ msgid "Custom System"
 msgstr "Sistema personalizado"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase any preexisting Linux installations on "
 "your system."
 msgstr ""
-"Está a piques de borrar calquera instalación de Linux existente no seu "
-"sistema."
+"O particionamento automático borrará calquera instalación de Linux existente "
+"no seu sistema."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -2904,13 +2904,12 @@ msgid "Server System"
 msgstr "Sistema servidor"
 
 #: ../installclasses/server.py:38
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase ALL DATA on your hard drive to make room "
 "for your Linux installation."
 msgstr ""
-"Está a piques de borrar TÓDOLOS DATOS no seu disco duro para facer espacio "
-"para a súa instalación de Linux."
+"O particionamento automático borrará TÓDOLOS DATOS no seu disco duro para "
+"facer espacio para a instalación de Linux."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
@@ -5205,7 +5204,3 @@ msgstr "Turco"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ucraíno"
-
-#, fuzzy
-#~ msgid "Going to upgrade partition /dev/"
-#~ msgstr "Partición para actualizar"
