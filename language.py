@@ -157,6 +157,8 @@ class InstallTimeLanguage:
             pass
 
         newlangs = [lang]
+        if lang.find(".") != -1:
+            newlangs.append(lang[:lang.find(".")])
 	if len(lang) > 2:
             newlangs.append(lang[:2])
         cat.setlangs(newlangs)
