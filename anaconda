@@ -405,9 +405,9 @@ if (progmode == 'reconfig'):
         display_mode = 't'
 
 if (display_mode != 't' and method and
-    ((len (method) >= 6 and method[:6] == "ftp://")
-    or (len (method) >= 7 and method[:7] == "http://")
-    or (len (method) >= 5 and method[:5] == "hd://"))):
+    method.startswith('ftp://') or
+    method.startswith('http://') or
+    method.startswith('hd://'))
     print _("Graphical installation not available for %s installs.  "
             "Starting text mode.") % (string.split(method, ':')[0],)
     display_mode = 't'
@@ -530,17 +530,17 @@ else:
 
 # imports after setting up the path
 if method:
-    if (method[0:8] == "cdrom://"):
+    if method.startswith('cdrom://'):
         from image import CdromInstallMethod
         method = CdromInstallMethod(method[8:], intf.messageWindow,
 				    intf.progressWindow)
-    elif (method[0:5] == "nfs:/"):
+    elif method.startswith('nfs:/'):
         from image import NfsInstallMethod
         method = NfsInstallMethod(method[5:])
-    elif (method[0:6] == "ftp://" or method[0:7] == "http://"):
+    elif method.startswith('ftp://') or method.startswith('http://'):
         from urlinstall import UrlInstallMethod
         method = UrlInstallMethod(method)
-    elif (method[0:5] == "hd://"):
+    elif method.startswith('hd://'):
         method = method[5:]
 
         i = string.index(method, ":")
@@ -553,7 +553,7 @@ if method:
 
         from harddrive import HardDriveInstallMethod
         method = HardDriveInstallMethod(drive, type, dir, intf.messageWindow)
-    elif (method[0:8] == "oldhd://"):
+    elif method.startwith('oldhd://'):
         method = method[8:]
 
         i = string.index(method, ":")
