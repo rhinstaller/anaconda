@@ -140,9 +140,11 @@ char *convertUIToURL(struct iurlinfo *ui) {
     return url;
 }
 
-
-int urlinstStartTransfer(struct iurlinfo * ui, char * filename, 
-                         int silentErrors) {
+/* extraHeaders only applicable for http and used for pulling ks from http */
+/* see ftp.c:httpGetFileDesc() for details */
+/* set to NULL if not needed */
+int urlinstStartTransfer(struct iurlinfo * ui, char * filename, char *extraHeaders,
+			 int silentErrors) {
     char * buf;
     int fd;
     char * finalPrefix;
@@ -180,7 +182,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
             return -1;
         }
     } else {
-        fd = httpGetFileDesc(ui->address, -1, buf);
+        fd = httpGetFileDesc(ui->address, -1, buf, extraHeaders);
         if (fd < 0) {
             if (!silentErrors)
                 newtWinMessage(_("Error"), _("OK"), 

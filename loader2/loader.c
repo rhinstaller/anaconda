@@ -489,6 +489,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_SERIAL;
         else if (!strcasecmp(argv[i], "nofb"))
             flags |= LOADER_FLAGS_NOFB;
+        else if (!strcasecmp(argv[i], "kssendmac"))
+            flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
         else if (!strncasecmp(argv[i], "debug=", 6))
             setLogLevel(strtol(argv[i] + 6, (char **)NULL, 10));
         else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
@@ -1100,6 +1102,9 @@ int main(int argc, char ** argv) {
     if (testing) flags |= LOADER_FLAGS_TESTING;
     if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
     if (ksFile) flags |= LOADER_FLAGS_KICKSTART;
+
+    /* uncomment to send mac address in ks=http:/ header by default*/
+    /* flags |= LOADER_FLAGS_KICKSTART_SEND_MAC; */
 
     /* JKFIXME: I do NOT like this... it also looks kind of bogus */
 #if defined(__s390__) && !defined(__s390x__)

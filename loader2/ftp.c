@@ -418,12 +418,16 @@ const char *ftpStrerror(int errorNumber) {
       return("FTP Unknown or unexpected error");
   }
 }
-  
-int httpGetFileDesc(char * hostname, int port, char * remotename) {
+
+/* extraHeaders is either NULL or a string with extra headers separated by '\r\n', ending with
+ * '\r\n'
+ */
+int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHeaders) {
     char * buf;
     struct timeval timeout;
     char headers[4096];
     char * nextChar = headers;
+    char *hstr;
     int checkedCode;
     struct in_addr serverAddress;
     int sock;
@@ -449,8 +453,13 @@ int httpGetFileDesc(char * hostname, int port, char * remotename) {
         return FTPERR_FAILED_CONNECT;
     }
 
-    buf = alloca(strlen(remotename) + strlen(hostname) + 25);
-    sprintf(buf, "GET %s HTTP/1.0\t\nHost: %s\r\n\r\n", remotename, hostname);
+    if (extraHeaders)
+	hstr = extraHeaders;
+    else
+	hstr = "";
+
+    buf = alloca(strlen(remotename) + strlen(hostname) + strlen(hstr) + 25);
+    sprintf(buf, "GET %s HTTP/1.0\t\nHost: %s\r\n%s\r\n", remotename, hostname, hstr);
     write(sock, buf, strlen(buf));
 
     /* This is fun; read the response a character at a time until we:
