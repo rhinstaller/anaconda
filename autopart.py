@@ -1394,15 +1394,21 @@ def queryAutoPartitionOK(intf, diskset, partitions):
         drives = diskset.disks.keys()
 
     drives.sort()
-    i = 0
+    width = 44
+    str = ""
+    maxlen = 0
     for drive in drives:
-        drvstr = drvstr + "%-10s" % ("/dev/"+drive)
-#        i = i + 1
-#        if i > 3:
-#            drvstr = drvstr + "\n    "
-#            i = 0
-
-    drvstr = drvstr +"\n"
+         if (len(drive) > maxlen):
+             maxlen = len(drive)
+    maxlen = maxlen + 8   # 5 for /dev/, 3 for spaces
+    for drive in drives:
+        if (len(str) + maxlen <= width):
+             str = str + "%-*s" % (maxlen, "/dev/"+drive)
+        else:
+             drvstr = drvstr + str + "\n"
+             str = ""
+             str = "%-*s" % (maxlen, "/dev/"+drive)
+    drvstr = drvstr + str + "\n"
     
     rc = intf.messageWindow(_("Warning"), _(msg) % drvstr, type="yesno", default="no", custom_icon ="warning")
 
