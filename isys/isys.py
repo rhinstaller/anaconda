@@ -497,6 +497,32 @@ def readXFSLabel(device, makeDevNode = 1):
         label = readXFSLabel_int(device)
     return label
 
+def readJFSLabel_int(device):
+    jfslabel = None
+    try:
+        fd = os.open(device, os.O_RDONLY)
+    except:
+        return jfslabel
+
+    os.lseek(fd,32768,0)
+    buf = os.read(fd, 180)
+    os.close(fd)
+
+    if (len(buf) == 180 and buf[0:4] == "JFS1"):
+        jfslabel = string.rstrip(buf[152:168],"\0x00")
+
+    return jfslabel
+    
+def readJFSLabel(device, makeDevNode = 1):
+    if makeDevNode:
+        makeDevInode(device, "/tmp/disk")
+	label = readJFSLabel_int("/tmp/disk")
+	os.unlink("/tmp/disk")
+    else:
+        label = readJFSLabel_int(device)
+    return label
+
+
 def readExt2Label(device, makeDevNode = 1):
     if makeDevNode:
         makeDevInode(device, "/tmp/disk")

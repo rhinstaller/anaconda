@@ -446,6 +446,7 @@ class jfsFileSystem(FileSystemType):
         self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
+        self.maxLabelChars = 16
         # this is totally, 100% unsupported.  Boot with "linux jfs"
         # at the boot: prompt will let you make new reiserfs filesystems
         # in the installer.  Bugs filed when you use this will be closed
@@ -468,6 +469,13 @@ class jfsFileSystem(FileSystemType):
 
         self.maxSizeMB = 1024 * 1024
 
+    def labelDevice(self, entry, chroot):
+        devicePath = entry.device.setupDevice(chroot)
+	label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars)
+	rc = iutil.execWithRedirect("/sbin/jfs_tune",
+	                            ["jfs_tune", "-L", label, devicePath],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
