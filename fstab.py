@@ -61,8 +61,9 @@ class Fstab:
                 fstab.append ((dev, mntpoint))
 
         # if doing a harddrive install mark source partition so it isnt erased
-        for i in self.protectList:
-            fstab.append ((i, "DONT ERASE "+i))
+        if self.protectList:
+            for i in self.protectList:
+                fstab.append ((i, "DONT ERASE "+i))
 
 	ddruid = self.createDruid(fstab = fstab, ignoreBadDrives = 1)
 
@@ -486,8 +487,13 @@ class Fstab:
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
 	    if not doFormat:
                 continue
-            for i in self.protectList:
-                if i == device:
+            if self.protectList:
+                founddev = 0
+                for i in self.protectList:
+                    if i == device:
+                        founddev = 1
+                        break;
+                if founddev != 0:
                     continue
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2":
