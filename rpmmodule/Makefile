@@ -25,5 +25,5 @@ clean:
 	rm -f *.o $(TARGET) *~
 
 install: $(TARGET)
-	install -d $(PYTHON)
+	[ -d $(PYTHON) ] || install -d $(PYTHON)
 	install -m 755  $(TARGET) $(PYTHON)
