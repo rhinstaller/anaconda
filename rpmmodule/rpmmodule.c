@@ -1406,7 +1406,8 @@ static PyObject * rpmtransRun(rpmtransObject * s, PyObject * args) {
     }
 
     if (rc < 0) {
-	return Py_BuildValue("i", rc);
+	list = PyList_New(0);
+	return list;
     } else if (!rc) {
 	Py_INCREF(Py_None);
 	return Py_None;
