@@ -161,8 +161,7 @@ def get_logical_partitions(disk):
     rc = []
     part = disk.next_partition ()
     while part:
-        if (part.type & parted.PARTITION_FREESPACE
-            or part.type & parted.PARTITION_METADATA):
+        if not part.is_active():
             part = disk.next_partition(part)
             continue
         if part.type & parted.PARTITION_LOGICAL:
@@ -186,7 +185,7 @@ def get_raid_partitions(disk):
     rc = []
     part = disk.next_partition()
     while part:
-        if part.get_flag(parted.PARTITION_RAID) == 1:
+        if part.is_active() and part.get_flag(parted.PARTITION_RAID) == 1:
             rc.append(part)
         part = disk.next_partition(part)
 
