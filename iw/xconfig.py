@@ -4,6 +4,7 @@ from gui import _
 
 import string
 import sys
+import iutil
 
 """
 _("Video Card")
@@ -203,10 +204,13 @@ class XConfigWindow (InstallWindow):
             keys.sort ()
             self.monlist = GtkCList ()
             self.monlist.set_selection_mode (SELECTION_BROWSE)
+	    arch = iutil.getArch()
                     
             for monitor in keys:
                 index = self.monlist.append ((monitor,))
                 self.monlist.set_row_data (index, (monitor, monitors[monitor]))
+		if arch == 'sparc' and monitor[:3] == 'Sun':
+		    self.monlist.select_row (index, 0)
             sw = GtkScrolledWindow ()
             sw.add (self.monlist)
             sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
