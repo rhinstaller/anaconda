@@ -401,7 +401,7 @@ if "__main__" == __name__:
     try:
         options, args = getopt.getopt(sys.argv[1:], '', theargs)
     except getopt.error, error:
-        usage(msg)
+        usage(error)
 
     myopts = {}
     for i in options:
