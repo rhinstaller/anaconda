@@ -231,15 +231,17 @@ static int loadFont(char * fontFile, int flags) {
     return 0;
 }
 
-void setLanguage (char * key) {
+void setLanguage (char * key, int flags) {
     int i;
+
+    if (!languages) loadLanguageList(flags);
 
     for (i = 0; i < numLanguages; i++) {
 	if (!strcmp(languages[i].key, key)) {
 	    setenv("LANG", languages[i].key, 1);
 	    setenv("LC_ALL", languages[i].lc_all, 1);
 	    setenv("LINGUAS", languages[i].key, 1);
-	    loadLanguage (NULL, 0);
+	    loadLanguage (NULL, flags);
 	    if (languages[i].map)
 		loadFont(languages[i].map, 0);
 	    break;

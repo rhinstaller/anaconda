@@ -7,7 +7,7 @@
 int chooseLanguage(char ** lang, int flags);
 int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags);
 char * translateString(char * str);
-void setLanguage (char * key);
+void setLanguage (char * key, int flags);
 
 /* define ask johnsonm@redhat.com where this came from */
 #define KMAP_MAGIC 0x8B39C07F

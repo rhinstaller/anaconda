@@ -1554,7 +1554,7 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	    flags |= LOADER_FLAGS_KSFILE;
 	    *ksSource = argv[i] + 8;
 	} else if (!strncasecmp(argv[i], "lang=", 5)) {
-	    setLanguage (argv[i] + 5);
+	    setLanguage (argv[i] + 5, flags);
 #ifdef INCLUDE_KON
 	    if (!strcmp (argv[i] + 5, "ja") && startKon) {
 		char * args[5];
