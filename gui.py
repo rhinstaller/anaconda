@@ -80,6 +80,103 @@ elif iutil.getArch() == 's390':
     stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
 
 
+
+#
+# Stuff for screenshots
+#
+screenshotDir = None
+screenshotIndex = 0
+
+def copyScreenshots():
+    global screenshotIndex
+    global screenshotDir
+    
+    # see if any screenshots taken
+    if screenshotIndex == 0:
+	return
+
+    destDir = "/mnt/sysimage/root/anaconda-screenshots"
+    if not os.access(destDir, os.R_OK):
+	try:
+	    os.mkdir(destDir, 0750)
+	except:
+	    window = MessageWindow("Error Saving Screenshot", 
+				   _("An error occurred copying the "
+				     "screenshots over."), type="warning")
+	    return
+
+    # copy all png's over
+    for f in os.listdir(screenshotDir):
+	(path, fname) = os.path.split(f)
+	(b, ext) = os.path.splitext(f)
+	if ext == ".png":
+	    iutil.copyFile(screenshotDir + '/' + f,
+			   destDir + '/' + fname)
+
+    window = MessageWindow(_("Screenshots Copied"), 
+			   _("The screenshots have been saved into the "
+			     "directory:\n\n"
+			     "\t/root/anaconda-screenshots/\n\n"
+			     "You can access these when you reboot and "
+			     "login as root."))
+
+
+
+def takeScreenShot():
+    global screenshotIndex
+    global screenshotDir
+
+    if screenshotDir is None:
+	screenshotDir = "/tmp/ramfs/anaconda-screenshots"
+
+	if  not os.access(screenshotDir, os.R_OK):
+	    try:
+		os.mkdir(screenshotDir)
+	    except:
+		screenshotDir = None
+		return
+
+    try:
+	screenshot = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, gtk.FALSE, 8,
+				    gtk.gdk.screen_width(), gtk.gdk.screen_height())
+	screenshot.get_from_drawable(gtk.gdk.get_default_root_window(),
+				     gtk.gdk.colormap_get_system(),
+				     0, 0, 0, 0,
+				     gtk.gdk.screen_width(), gtk.gdk.screen_height())
+
+	if screenshot:
+	    while (1):
+		sname = "screenshot-%04d.png" % ( screenshotIndex,)
+		if not os.access(screenshotDir + '/' + sname, os.R_OK):
+		    break
+
+		screenshotIndex = screenshotIndex + 1
+		if screenshotIndex > 9999:
+		    log("Too many screenshots!")
+		    return
+
+	    screenshot.save (screenshotDir + '/' + sname, "png")
+	    screenshotIndex = screenshotIndex + 1
+
+	    window = MessageWindow(_("Saving Screenshot"), 
+				   _("A screenshot named '%s' has been saved.") % (sname,) ,
+				   type="ok")
+    except:
+	window = MessageWindow(_("Error Saving Screenshot"), 
+			       _("An error occurred while saving "
+				 "the screenshot.  If this occurred"
+				 "during package installation, you may need "
+				 "to try several times for it to succeed."),
+			       type="warning")
+
+		
+def handleShiftPrintScrnRelease (window, event):
+    if (event.keyval == gtk.keysyms.Print and event.state & gtk.gdk.SHIFT_MASK):
+	takeScreenShot()
+	    
+	    
+	
+
 #
 # HACK to make treeview work
 # 
@@ -283,6 +380,10 @@ def addFrame(dialog, title=None):
     frame.add(box)
     frame.show()
     dialog.add(frame)
+
+    # make screen shots work
+    dialog.connect ("key-release-event", handleShiftPrintScrnRelease)
+
 
 class WaitWindow:
     def __init__(self, title, text):
@@ -960,6 +1061,9 @@ class InstallControlWindow:
         elif (event.keyval == gtk.keysyms.F12
               and self.currentWindow.getICS().getNextEnabled()):
             self.nextClicked()
+	elif (event.keyval == gtk.keysyms.Print
+	      and event.state & gtk.gdk.SHIFT_MASK):
+	    takeScreenShot()
 
     def buildStockButtons(self):
 	for (icon, item, text, action) in self.stockButtons:

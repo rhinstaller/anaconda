@@ -31,6 +31,10 @@ class CongratulationWindow (InstallWindow):
         ics.setHelpEnabled(gtk.FALSE)
 	ics.setGrabNext(1)
 
+    def getNext(self):
+	# XXX - copy any screenshots over
+	gui.copyScreenshots()
+
     # CongratulationWindow tag=NA
     def getScreen (self):
         self.ics.setHelpEnabled (gtk.FALSE)
