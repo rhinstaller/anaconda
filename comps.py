@@ -118,6 +118,11 @@ class HeaderList:
     def list(self):
 	return self.packages.values()
 
+    def mergeFullHeaders(self, file):
+	fd = os.open(file, os.O_RDONLY)
+	rpm.mergeHeaderListFromFD(self.hdlist, fd, 1000004)
+	os.close(fd)
+
     def __init__(self, hdlist, compatPackages = None, noscore = 0):
         self.hdlist = hdlist
 	self.packages = {}

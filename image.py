@@ -22,6 +22,9 @@ class ImageInstallMethod(InstallMethod):
     def readHeaders(self):
 	return HeaderListFromFile(self.tree + "/RedHat/base/hdlist")
 
+    def mergeFullHeaders(self, hdlist):
+	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
+
     def writeCleanupPath(self, f):
 	isys.makeDevInode("loop0", "/tmp/loop0")
 	f.write("umount /mnt/runtime\n")

@@ -35,16 +35,21 @@ class UrlInstallMethod(InstallMethod):
 		tmppath = root + p
 		break
 
-	file = tmppath + h[FILENAME]
+	# h doubles as a filename -- gross
+	if type("/") == type(h):
+	    fullPath = self.baseUrl + "/" + h
+	else:
+	    fullPath = self.baseUrl + "/RedHat/RPMS/" + h[FILENAME],
+
+	file = tmppath + os.path.basename(fullPath)
 
         connected = 0
         while not connected:
             try:
-                urllib.urlretrieve(self.baseUrl + "/RedHat/RPMS/" + h[FILENAME],
-                                   file)
+                urllib.urlretrieve(fullPath, file)
             except IOError, (errnum, msg):
 		log("IOError %s occured getting %s: %s",
-			errnum, self.baseUrl + "/RedHat/RPMS/" + h[FILENAME], str(msg))
+			errnum, fullPath, str(msg))
                 time.sleep(5)
             else:
                 connected = 1
@@ -55,7 +60,6 @@ class UrlInstallMethod(InstallMethod):
 	os.remove(fullName)
 
     def readHeaders(self):
-
         connected = 0
         while not connected:
             try:
@@ -85,6 +89,11 @@ class UrlInstallMethod(InstallMethod):
 	    raw = url.read(16)
 
 	return HeaderList(hl)
+
+    def mergeFullHeaders(self, hdlist):
+	fn = self.getFilename("RedHat/base/hdlist2", None)
+	hdlist.mergeFullHeaders(fn)
+	os.unlink(fn)
 
     def __init__(self, url):
 	InstallMethod.__init__(self)

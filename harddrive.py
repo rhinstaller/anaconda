@@ -69,6 +69,9 @@ class OldHardDriveInstallMethod(InstallMethod):
 	self.umountMedia()
 	return HeaderList(hl)
 
+    def mergeFullHeaders(self, hdlist):
+	# since we read headers from the disk, we don't need to do this
+
     def systemMounted(self, fstab, mntPoint, selected):
 	self.mountMedia()
 	    
@@ -171,6 +174,9 @@ class HardDriveInstallMethod(InstallMethod):
 		sys.exit(0)
 
 	return hl
+
+    def mergeFullHeaders(self, hdlist):
+	# since we read headers from the disk, we don't need to do this
 
     def systemMounted(self, fstab, mntPoint, selected):
 	self.mountMedia(1)

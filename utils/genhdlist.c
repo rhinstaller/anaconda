@@ -11,14 +11,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <rpm/misc.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <time.h>
 #include <unistd.h>
+
+#include "hash.h"
 
 #define FILENAME_TAG 1000000
 #define FILESIZE_TAG 1000001
 #define CDNUM_TAG    1000002
 #define ORDER_TAG    1000003
+#define MATCHER_TAG  1000004
 
 struct onePackageInfo {
     char * name;
@@ -36,10 +41,18 @@ int pkgInfoCmp(const void * a, const void * b) {
     return strcmp(one->arch, two->arch);
 }
 
+int tagsInList2[] = {
+    RPMTAG_FILESIZES, RPMTAG_FILEMODES, RPMTAG_FILEMD5S, RPMTAG_FILELINKTOS, 
+    RPMTAG_FILEFLAGS, RPMTAG_FILELANGS,
+    RPMTAG_DIRNAMES, RPMTAG_DIRINDEXES, RPMTAG_BASENAMES,
+    -1
+};
+
 struct onePackageInfo * pkgList;
 int pkgListItems = 0;
 int pkgListAlloced = 0;
 char ** depOrder = NULL;
+hashTable requireTable;
 
 /* mmmm... linear search */
 int getOrder (char * fn)
@@ -64,12 +77,82 @@ int getOrder (char * fn)
     return -1;
 }
 
-int onePass(FD_t outfd, const char * dirName, int cdNum) {
+int onePrePass(const char * dirName) {
+    struct dirent * ent;
+    DIR * dir;
+    char * subdir = alloca(strlen(dirName) + 20);
+    FD_t fd;
+    int rc;
+    Header h;
+    int isSource;
+    char ** requires;
+    int c;
+
+    sprintf(subdir, "%s/RedHat/RPMS", dirName);
+
+    dir = opendir(subdir);
+    if (!dir) {
+	fprintf(stderr,"error opening directory %s: %s\n", subdir,
+		strerror(errno));
+	return 1;
+    }
+
+    chdir(subdir);
+
+    errno = 0;
+    ent = readdir(dir);
+    if (errno) {
+	perror("readdir");
+	return 1;
+    }
+
+    while (ent) {
+       int i = strlen (ent->d_name);
+
+       if (i > 4 && strcasecmp (&ent->d_name [i - 4], ".rpm") == 0) {
+	    fd = Fopen(ent->d_name, "r");
+
+	    if (!fd) {
+		perror("open");
+		exit(1);
+	    }
+
+	    rc = rpmReadPackageHeader(fd, &h, &isSource, NULL, NULL);
+
+	    if (!rc) {
+		if (headerGetEntry(h, RPMTAG_REQUIRENAME, NULL,
+				   (void **) &requires, &c)) {
+		    while (c--) 
+			if (*requires[c] == '/') 
+			    htAddToTable(requireTable, requires[c], ".");
+		}
+
+		headerFree(h);
+		/* XXX free requires */
+	    }
+
+	    Fclose(fd);
+	}
+
+	errno = 0;
+	ent = readdir(dir);
+	if (errno) {
+	    perror("readdir");
+	    return 1;
+	}
+    }
+
+    closedir(dir);
+
+    return 0;
+}
+
+int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum) {
     FD_t fd;
     struct dirent * ent;
     char * subdir = alloca(strlen(dirName) + 20);
     int errno;
-    Header h, nh;
+    Header h, nh, h2;
     int isSource, rc;
     int_32 size;
     DIR * dir;
@@ -77,7 +160,11 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
     int_32 * fileSizes;
     int fileCount;
     int order = -1;
-
+    char ** newFileList, ** fileNames;
+    uint_32 * newFileFlags, * fileFlags;
+    int newFileListCount;
+    int marker = time(NULL);	/* good enough counter; we'll increment it */
+    
     sprintf(subdir, "%s/RedHat/RPMS", dirName);
 
     dir = opendir(subdir);
@@ -207,11 +294,79 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
 				    &order, 1);
 		}
 
+		expandFilelist(h);
+		newFileList = NULL;
+		if (headerGetEntry(h, RPMTAG_OLDFILENAMES, NULL,
+				    (void **) &fileNames, &fileCount)) {
+		    headerGetEntry(h, RPMTAG_FILEFLAGS, NULL,
+					(void **) &fileFlags, NULL);
+
+		    newFileList = malloc(sizeof(*newFileList) * fileCount);
+		    newFileFlags = malloc(sizeof(*newFileList) * fileCount);
+		    newFileListCount = 0;
+
+		    for (i = 0; i < fileCount; i++) {
+			if (htInTable(requireTable, fileNames[i], ".")) {
+			    newFileList[newFileListCount] = strdup(fileNames[i]);
+			    newFileFlags[newFileListCount] = fileFlags[i];
+			    newFileListCount++;
+			}
+		    }
+
+		    if (!newFileListCount) {
+			free(newFileList);
+			free(newFileFlags);
+			newFileList = NULL;
+		    }
+
+		    /* XXX free fileNames */
+		}
+		compressFilelist(h);
+
+		h2 = headerNew();
+		for (i = 0; tagsInList2[i] > -1; i++) {
+		    int_32 type, c;
+		    void * p;
+
+		    if (headerGetEntry(h, tagsInList2[i], &type, &p, &c)) {
+			headerAddEntry(h2, tagsInList2[i], type, p, c);
+			headerRemoveEntry(h, tagsInList2[i]);
+		    }
+
+		    /* XXX need to headerFreeData */
+		}
+
+		if (newFileList) {
+		    headerAddEntry(h, RPMTAG_OLDFILENAMES, 
+				    RPM_STRING_ARRAY_TYPE,
+				    newFileList, newFileListCount);
+		    headerAddEntry(h, RPMTAG_FILEFLAGS, 
+				    RPM_INT32_TYPE,
+				    &newFileFlags, newFileListCount);
+
+		    compressFilelist(h);
+		    while (newFileListCount--) {
+			printf("f: %s\n", newFileList[newFileListCount]);
+			free(newFileList[newFileListCount]);
+		    }
+		    free(newFileList);
+		    free(newFileFlags);
+		    newFileList = NULL;
+		}
+
+		headerAddEntry(h, MATCHER_TAG, RPM_INT32_TYPE, &marker, 1);
+		headerAddEntry(h2, MATCHER_TAG, RPM_INT32_TYPE, &marker, 1);
+		marker++;
+
 		nh = headerCopy (h);
 		headerWrite(outfd, nh, HEADER_MAGIC_YES);
+		headerWrite(out2fd, h2, HEADER_MAGIC_YES);
+
 		headerFree(h);
 		headerFree(nh);
+		headerFree(h2);
 	    }
+
 	    Fclose(fd);
 	}
 
@@ -235,13 +390,14 @@ static void usage(void) {
 
 int main(int argc, const char ** argv) {
     char buf[300];
-    FD_t outfd;
+    FD_t outfd, out2fd;
     int cdNum = -1;
     const char ** args;
     int doNumber = 0;
     int rc;
     int i;
     char * hdListFile = NULL;
+    char * hdListFile2 = NULL;
     char * depOrderFile = NULL;
     poptContext optCon;
     struct poptOption options[] = {
@@ -302,6 +458,8 @@ int main(int argc, const char ** argv) {
 	    numpkgs++;
 	}
     }
+
+    requireTable = htNewTable(1000);
     
     if (!hdListFile) {
 	strcpy(buf, args[0]);
@@ -310,10 +468,21 @@ int main(int argc, const char ** argv) {
     }
 
     unlink(hdListFile);
+
+    hdListFile2 = malloc(strlen(hdListFile) + 2);
+    sprintf(hdListFile2, "%s2", hdListFile);
     
     outfd = Fopen(hdListFile, "w");
     if (!outfd) {
-	fprintf(stderr,"error creating file %s: %s\n", buf, strerror(errno));
+	fprintf(stderr,"error creating file %s: %s\n", hdListFile, 
+		strerror(errno));
+	return 1;
+    }
+
+    out2fd = Fopen(hdListFile2, "w");
+    if (!out2fd) {
+	fprintf(stderr,"error creating file %s: %s\n", hdListFile2, 
+		strerror(errno));
 	return 1;
     }
 
@@ -325,14 +494,23 @@ int main(int argc, const char ** argv) {
 /*  	exit(1); */
 /*      } */
 
-    while (args[0]) {
-	if (onePass(outfd, args[0], cdNum))
+    i = 0;
+    while (args[i]) {
+	if (onePrePass(args[i]))
+	    return 1;
+	i++;
+    }
+
+    i = 0;
+    while (args[i]) {
+	if (onePass(outfd, out2fd, args[i], cdNum))
 	    return 1;
 	if (doNumber) cdNum++;
-	args++;
+	i++;
     }
 
     Fclose(outfd);
+    Fclose(out2fd);
 
     poptFreeContext(optCon);
 

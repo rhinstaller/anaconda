@@ -1650,6 +1650,8 @@ class ToDo:
 
             self.fstab.mountFilesystems (self.instPath)
 
+	self.method.mergeFullHeaders(self.hdList)
+
         if self.upgrade:
 	    # An old mtab can cause confusion (esp if loop devices are
 	    # in it)

@@ -357,7 +357,7 @@ def fbinfo():
     return _isys.fbinfo()
 
 def ideCdRwList():
-    if not os.access("/proc/sys/dev/cdrom/info", os.R_OK): return None
+    if not os.access("/proc/sys/dev/cdrom/info", os.R_OK): return []
 
     f = open("/proc/sys/dev/cdrom/info", "r")
     lines = f.readlines()
@@ -372,7 +372,7 @@ def ideCdRwList():
 	if (line and line[0] == "drive name"):
 	    line = string.split(line[1])
 	    # no CDROM drives
-	    if not line:  return
+	    if not line:  return []
 
 	    for device in line:
 		if device[0:2] == 'sr':
