@@ -568,7 +568,7 @@ def doPreInstall(method, id, intf, instPath, dir):
         elif iutil.getArch() == "i386" and id.bootloader.useGrubVal == 1:
             select(id.hdList, 'grub')
         elif iutil.getArch() == "s390":
-            select(id.hdList, 'zipl')
+            select(id.hdList, 's390utils')
         elif iutil.getArch() == "ppc":
             select(id.hdList, 'yaboot')
         elif iutil.getArch() == "ia64":
