@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2001-01-24 22:20-0500\n"
-"PO-Revision-Date: 2001-01-19 22:06+0100\n"
+"PO-Revision-Date: 2001-01-25 23:24+0100\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -1410,18 +1410,16 @@ msgid "Select drive to run fdisk on"
 msgstr "Escolla a unidade na que executar fdisk"
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid "Warning: "
-msgstr "Aviso"
+msgstr "Aviso: "
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid " is an invalid port."
-msgstr "%s non é un nome de máquina válido."
+msgstr " é un porto non válido."
 
 #: ../iw/firewall_gui.py:141
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr ""
+msgstr "O formato é 'porto:protocolo'.  Por exemplo, '1234:udp'"
 
 #: ../iw/firewall_gui.py:245
 msgid "Please choose your security level:  "
@@ -1798,7 +1796,6 @@ msgstr ""
 "particións no disco inmediatamente. ¿Confirmar?"
 
 #: ../iw/rootpartition_gui.py:82
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1812,7 +1809,7 @@ msgid ""
 "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 msgstr ""
 "Colocou a partición que contén o núcleo (a partición de arrinque) por riba "
-"do límite do cilindro 1023, e semella que a BIOS deste sistema non permite "
+"do límite do cilindro 1024, e semella que a BIOS deste sistema non permite "
 "arrincar alén dese límite. Se continúa, fará probablemente que o sistema non "
 "poida reiniciar en Linux.\n"
 "\n"
@@ -1820,11 +1817,11 @@ msgstr ""
 "cando se lle pregunte. Isto garantirá que terá un método para arrincar o "
 "sistema trala instalación.\n"
 "\n"
-"¿Está seguro de que quere continuar?"
+"Prema Aceptar para continuar, ou Cancelar para voltar para atrás e asociar "
+"novamente a partición de arrinque."
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
 #: ../textw/partitioning_text.py:411
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit. It appears that this systems BIOS supports booting "
@@ -1835,7 +1832,7 @@ msgid ""
 "Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
 "Colocou a partición que contén o núcleo (a partición de arrinque) por riba "
-"do límite do cilindro 1023. Semella que a BIOS deste sistema permite "
+"do límite do cilindro 1024. Semella que a BIOS deste sistema permite "
 "arrincar alén dese límite. \n"
 "\n"
 "É MOI recomendable que faga un disquete de arrinque cando o instalador llo "
@@ -1936,7 +1933,6 @@ msgid "Boot Partition Location Warning"
 msgstr "Aviso da Localización da Partición de Arrinque"
 
 #: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:391
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1950,7 +1946,7 @@ msgid ""
 "Are you sure you want to proceed?"
 msgstr ""
 "Colocou a partición que contén o núcleo (a partición de arrinque) por riba "
-"do límite do cilindro 1023, e semella que a BIOS deste sistema non permite "
+"do límite do cilindro 1024, e semella que a BIOS deste sistema non permite "
 "arrincar alén dese límite. Se continúa, fará probablemente que o sistema non "
 "poida reiniciar en Linux.\n"
 "\n"
@@ -2268,9 +2264,9 @@ msgstr ""
 "portos adicionais da forma 'servicio:protocolo', por exemplo 'imap:tcp'."
 
 #: ../textw/firewall_text.py:186
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: %s is not a valid port."
-msgstr "%s non é un nome de máquina válido."
+msgstr "Atención: %s non é un porto válido."
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -4248,9 +4244,3 @@ msgstr "Desenvolvemento do Núcleo"
 
 msgid "Utilities"
 msgstr "Utilidades"
-
-#~ msgid "IDE"
-#~ msgstr "IDE"
-
-#~ msgid "Initializing IDE modules..."
-#~ msgstr "Inicializando os módulos IDE..."
