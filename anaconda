@@ -32,8 +32,8 @@ gettext.bindtextdomain("anaconda", "/usr/share/locale")
 gettext.textdomain("anaconda")
 _ = gettext.gettext
 
-(args, extra) = isys.getopt(sys.argv[1:], 'GITRtdr:fm:', 
-          [ 'gui', 'install', 'text', 'reconfig', 'test', 'debug',
+(args, extra) = isys.getopt(sys.argv[1:], 'GTRtdr:fm:', 
+          [ 'gui', 'text', 'reconfig', 'test', 'debug',
             'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=',
@@ -102,9 +102,6 @@ for n in args:
 
     if (str == '-G' or str == '--gui'):
 	display_mode = 'g'
-    elif (str == '-I' or str == '--install'):
-        reconfigOnly = 0
-        progmode = 'install'
     elif (str == '-T' or str == '--text'):
 	display_mode = 't'
     elif (str == '-R' or str == '--reconfig'):
@@ -117,6 +114,8 @@ for n in args:
 	extraModules.append((path, subdir, name))
     elif (str == '-m' or str == '--method'):
 	method = arg
+        reconfigOnly = 0
+        progmode = 'install'
     elif (str == '-d' or str == '--debug'):
 	debug = 1
     elif (str == '--kickstart'):
@@ -139,19 +138,12 @@ for n in args:
         keymap = arg
     elif (str == '--kbdtype'):
         kbdtype = arg
-#
-# see how we were run, override command line mode selection
-#
-if (execname == "anaconda-reconfig"):
-    print "overriding to reconfig mode based on script name"
-    reconfigOnly = 1
-
 
 #
 # must specify install or reconfig mode
 #
 if (progmode == None)
-    print "Must specify either --reconfig or --install for program mode"
+    print "Must specify either --reconfig or --method for program mode"
     sys.exit(1)
 
 #

@@ -55,7 +55,7 @@ install-reconfig: all
 	mkdir -p $(RECFGDESTDIR)/$(PYTHONLIBDIR)
 
 	cp -a reconfig.init $(RECFGDESTDIR)/etc/rc.d/init.d/reconfig
-	cp -a anaconda $(RECFGDESTDIR)/usr/sbin/anaconda-reconfig
+	cp -a anaconda $(RECFGDESTDIR)/usr/sbin/anaconda
 	cp -var $(PYFILES) $(RECFGDESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(RECFGDESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(RECFGDESTDIR)/$(PYTHONLIBDIR)
@@ -94,6 +94,7 @@ create-archive:
 	@rm -rf /tmp/anaconda-$(VERSION)
 	@echo "WARNING WARNING WARNING: Pulling HEAD off - need to do tagging instead!"
 	@cd /tmp ; cvs -Q -d $(CVSROOT) export -r HEAD anaconda || echo "Um... export aborted."
+	@cd /tmp/anaconda ; rm isys/modutils/modutils.spec; rm pump/pump.spec 
 	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" < anaconda.spec.in > anaconda.spec
 	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
 	@cd /tmp ; tar -czSpf anaconda-$(VERSION).tar.gz anaconda-$(VERSION)

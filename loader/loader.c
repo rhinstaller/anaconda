@@ -2047,8 +2047,6 @@ int main(int argc, char ** argv) {
 	*argptr++ = "-m";
 	*argptr++ = url;
 
-	*argptr++ = "--install";
-
 	if (FL_SERIAL(flags))
 	    *argptr++ = "--serial";
 	if (FL_TEXT(flags))

@@ -1,11 +1,11 @@
 Name: anaconda
 Version: @@VERSION@@
-Release: 5
+Release: 6
 Copyright: GPL
 Summary: The Red Hat Linux first time booting configuration tool.
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.gz
-Obsoletes: rhs-hwdiag setconsole
+Obsoletes: anaconda-reconfig
 Prereq: chkconfig
 BuildRoot: /var/tmp/anaconda-%{PACKAGE_VERSION}
 
