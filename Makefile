@@ -1,9 +1,9 @@
 # Copyright (C) 1998-2002  Red Hat, Inc.
 include Makefile.inc
 
-ifneq (ia64, $(ARCH))
 MINISLANG=minislang
 MININEWT=mininewt
+ifneq (ia64, $(ARCH))
 STUBS=stubs
 endif
 
