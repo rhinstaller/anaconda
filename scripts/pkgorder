@@ -12,8 +12,8 @@ fns = {}
 import comps
 
 def cmpHeaderByName(h1, h2):
-    n1 = h1['name']
-    n2 = h2['name']
+    n1 = string.lower(h1['name'])
+    n2 = string.lower(h2['name'])
 
     if n1 < n2:
 	return -1
@@ -100,6 +100,8 @@ for h in pkgOrder:
 pkgOrder = []
 
 ts.order()
+
+print "here"
 
 problems = ts.run(rpm.RPMTRANS_FLAG_TEST, ~0, transCB, None)
 
