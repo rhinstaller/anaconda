@@ -175,11 +175,12 @@ class GtkMainThread (Thread):
         try:
             mainloop ()
         except SystemExit, code:
-            # pass exit on down
+            threads_leave ()
             sys.exit(code)
         except:
             ExceptionWindow ()
         threads_leave ()
+        sys.exit (0)
 
 class MessageWindow:
     def quit (self, dialog, button):
@@ -314,6 +315,7 @@ class InstallInterface:
         self.icw = InstallControlWindow (self, commonSteps, todo)
         self.icw.start ()
         self.finishedTODO.wait ()
+        sys.exit (0)
 
 class InstallControlWindow (Thread):
     def setLanguage (self, lang):
@@ -657,10 +659,6 @@ class InstallControlWindow (Thread):
         self.window.add (vbox)
         threads_leave ()
 
-        # let her rip...
-	self.mutex = allocate_lock ()
-        self.mutex.acquire ()
-
         # Popup the ICW and wait for it to wake us back up
         threads_enter ()
         self.window.show_all ()
@@ -668,8 +666,6 @@ class InstallControlWindow (Thread):
         if splashwindow:
             splashwindow.destroy ()
         threads_leave ()
-
-        self.mutex.acquire ()
 
     def run (self):
         threads_enter ()
