@@ -46,7 +46,7 @@ loader: $(OBJS)
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
-        -lrpm -lz -lresolv -lnewt -lslang
+        -lrpm -lz -lresolv -lnewt -lslang -lpci
 
 init: init.o $(MINILIBC)
 	$(CC) $(STATIC) -g $(LDFLAGS) -o $@ init.o $(MINILIBC)

@@ -9,7 +9,7 @@
  * Erik Troan <ewt@redhat.com>
  * Matt Wilson <msw@redhat.com>
  *
- * Copyright 1999 Red Hat Software 
+ * Copyright 1999 Red Hat, Inc.
  *
  * This software may be freely redistributed under the terms of the GNU
  * public license.
@@ -71,21 +71,11 @@ static int numSteps = sizeof(loaderSteps) / sizeof(struct loaderStep);
 int testing;
 
 static int welcomeScreen(struct loaderState *state) {
-    newtWinMessage(_("Red Hat Linux"), _("OK"), 
-		   _("Welcome to Red Hat Linux!\n\n"
-		     "This short process is outlined in detail in the "
-		     "Official Red Hat Linux Installation Guide available from "
-		     "Red Hat Software. If you have access to this manual, you "
-		     "should read the installation section before continuing.\n\n"
-		     "If you have purchased Official Red Hat Linux, be sure to "
-		     "register your purchase through our web site, "
-		     "http://www.redhat.com."));
-
     return LOADER_OK;
 }
 
 static int detectHardware(struct loaderState *state) {
-    char ** modules, *module;
+    struct pciDevice **devices, *device;
 
     if (probePciReadDrivers(testing ? "../isys/pci/pcitable" :
 			              "/etc/pcitable")) {
@@ -94,18 +84,18 @@ static int detectHardware(struct loaderState *state) {
 	return LOADER_ERROR;
     }
     
-    modules = probePciDriverList();
-    if (modules == NULL) {
-	printf("No PCI devices found :(\n");
+    devices = probePci(0, 1);
+    if (devices == NULL) {
+	printf("No PCI devices found\n");
     } else {
-	while ((module = *modules++)) {
+	while ((device = *devices++)) {
 	    if (!testing) {
-		winStatus(60, 3, "Module Insertion", "Inserting module %s", module);
-		insmod(module, NULL);
+		insmod(device->driver, NULL);
 		newtPopWindow();
 	    } else {
 		newtWinMessage("Testing", "OK",
-			       "Test mode: I would run insmod(%s, args);\n", module);
+			       "Test mode: I would run insmod(%s, args);\n",
+			       device->driver);
 	    }
 	}
     }
@@ -213,7 +203,7 @@ int main(int argc, char ** argv) {
 	symlink("mnt/source/RedHat/instimage/lib", "/lib");
 
 	if (access("/usr/bin/anaconda", R_OK)) {
-	    perror("NFS mount does not appear to be a Red Hat 6.1 tree:");
+	    perror("NFS mount does not appear to be a Red Hat 6.1 tree");
 	    exit (1);
 	}
     }
