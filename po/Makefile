@@ -11,7 +11,7 @@ NLSPACKAGE = anaconda
 POS = $(wildcard *.po)
 FMTCATALOGS = $(patsubst %.po,%.mo,$(POS))
 
-POTFILES = ../*.py ../iw/*.py ../textw/*.py \
+POTFILES = ../anaconda ../*.py ../iw/*.py ../textw/*.py \
            ../installclasses/*.py \
            ../loader/*.c
 
@@ -21,11 +21,9 @@ NONPOTFILES = /usr/share/zoneinfo/zone.tab \
 
 all: $(FMTCATALOGS)
 
-$(NLSPACKAGE).pot: $(POTFILES) $(NONPOTFILES) ../anaconda
+$(NLSPACKAGE).pot: $(POTFILES) $(NONPOTFILES)
 	xgettext --default-domain=$(NLSPACKAGE) \
 		 --keyword=_ --keyword=N_ $(POTFILES)
-	xgettext --default-domain=$(NLSPACKAGE) \
-		 --keyword=_ --keyword=N_ --language=Python ../anaconda
 	cat /usr/share/zoneinfo/zone.tab | cut -f4 | grep "^[a-zA-Z]" | sort -u | while read line; do echo -e "\n#. generated from zone.tab\nmsgid \"$$line\"\nmsgstr \"\""; done >> $(NLSPACKAGE).po
 	cat ../lang-table | cut -f1 | while read line; do echo -e "\n#. generated from lang-table\nmsgid \"$$line\"\nmsgstr \"\""; done >> $(NLSPACKAGE).po
 	if cmp -s $(NLSPACKAGE).po $(NLSPACKAGE).pot; then \
