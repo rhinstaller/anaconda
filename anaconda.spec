@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.11
+Version: 10.0.3.12
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct  4 2004 Mike McLean <mikem@redhat.com> - 10.0.3.12-1
+- add command line options to pkgorder (mikem)
+
 * Mon Oct  4 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.11-1
 - Handle 32 raid devs (#134438)
 - Fix LCS PORTNAME (#134487)
