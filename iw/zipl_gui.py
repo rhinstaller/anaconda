@@ -26,7 +26,7 @@ class ZiplWindow (InstallWindow):
     checkMark = None
     checkMark_Off = None
 
-    windowTitle = N_("Zipl Boot Loader Configuration")
+    windowTitle = N_("z/IPL Boot Loader Configuration")
     htmlTag = "bootloader"
 
     def getPrev (self):
@@ -68,6 +68,7 @@ class ZiplWindow (InstallWindow):
         self.ignoreSignals = 0
 
         box  = GtkVBox(FALSE, 5)
+        box.set_border_width(5)
         label = GtkLabel(_("The z/IPL Boot Loader will now be installed "
                            "on your system."
                            "\n"
@@ -91,9 +92,11 @@ class ZiplWindow (InstallWindow):
         label.set_line_wrap(TRUE)
         label.set_alignment(0.0, 0.0)
         label.set_padding(50,50)
-        box.pack_start(label)
+        box.pack_start(label, FALSE)
 
 #	choices = fsset.bootloaderChoices(diskSet)
+
+        box.pack_start (GtkHSeparator (), FALSE)
 
         label = GtkLabel(_("Kernel Parameters") + ":")
         label.set_alignment(0.0, 0.5)
@@ -101,8 +104,8 @@ class ZiplWindow (InstallWindow):
 #        if bl.args and bl.args.get():
 #            self.appendEntry.set_text(bl.args.get())
         hbox = GtkHBox(FALSE, 5)
-        hbox.pack_start(label)
+        hbox.pack_start(label, FALSE)
         hbox.pack_start(self.appendEntry)
-        box.pack_start(hbox)
+        box.pack_start(hbox, FALSE)
 
         return box
