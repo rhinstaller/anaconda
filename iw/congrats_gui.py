@@ -22,13 +22,13 @@ class CongratulationWindow (InstallWindow):
     windowTitle = N_("Congratulations")
 
     def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
+	InstallWindow.__init__(self, ics)
 
-        ics.setPrevEnabled (gtk.FALSE)
-        ics.setNextButton (gtk.STOCK_QUIT, _("Exit"))
-        ics.setHelpButtonEnabled (gtk.FALSE)
+        ics.setPrevEnabled(gtk.FALSE)
+        ics.setNextButton(gtk.STOCK_QUIT, _("_Exit"))
+        ics.setHelpButtonEnabled(gtk.FALSE)
         ics.setHelpEnabled(gtk.FALSE)
-	ics.setGrabNext (1)
+	ics.setGrabNext(1)
 
     # CongratulationWindow tag=NA
     def getScreen (self):
