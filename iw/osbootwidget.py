@@ -19,6 +19,7 @@ import iutil
 import partedUtils
 import gui
 from rhpl.translate import _, N_
+from constants import *
 
 
 class OSBootWidget:
@@ -334,8 +335,9 @@ class OSBootWidget:
         else:
             self.intf.messageWindow(_("Cannot Delete"),
                                     _("This boot target cannot be deleted "
-				      "because it is for the Red Hat Linux "
-				      "system you are about to install."),
+				      "because it is for the %s "
+				      "system you are about to install.")
+                                    %(productName,),
                                       type="warning")
 
     def editEntry(self, widget, *args):
