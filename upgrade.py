@@ -48,7 +48,8 @@ def findRootParts(intf, id, dispatch, dir, chroot):
 
     if id.rootParts is not None and len(id.rootParts) > 0:
         dispatch.skipStep("findinstall", skip = 0)
-        dispatch.skipStep("installtype", skip = 1)
+        if productName.find("Red Hat Enterprise Linux") == -1:
+            dispatch.skipStep("installtype", skip = 1)
     else:
         dispatch.skipStep("findinstall", skip = 1)
         dispatch.skipStep("installtype", skip = 0)

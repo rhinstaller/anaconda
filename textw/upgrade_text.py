@@ -196,13 +196,14 @@ class UpgradeExamineWindow:
         else:
             scroll = 0
         partList = []
+        partList.append(_("Reinstall System"))
+
         for (drive, fs, desc) in parts:
 	    if drive[:5] != "/dev/":
 		devname = "/dev/" + drive
 	    else:
 		devname = drive
             partList.append("%s (%s)" %(desc, drive))
-        partList.append(_("Reinstall System"))
 
         (button, choice) =  ListboxChoiceWindow(screen, _("System to Upgrade"),
                             _("One or more existing Linux installations "

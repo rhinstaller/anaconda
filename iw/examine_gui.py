@@ -55,6 +55,12 @@ class UpgradeExamineWindow (InstallWindow):
 
     def createUpgradeOption(self):
 	r = pixmapRadioButtonGroup()
+	r.addEntry(REINSTALL_STR,
+                   _("_Install %s") %(productName,),
+		   pixmap=self.ics.readPixmap("install.png"),
+		   descr=_("Choose this option to freshly install your system. "                           "Existing software and data may be overwritten "
+			   "depending on your configuration choices."))        
+        
 	r.addEntry(UPGRADE_STR,
                    _("_Upgrade an existing installation"),
 		   pixmap=self.ics.readPixmap("upgrade.png"),
@@ -63,11 +69,6 @@ class UpgradeExamineWindow (InstallWindow):
                            "This option will preserve the "
                            "existing data on your drives.") %(productName,))
         
-	r.addEntry(REINSTALL_STR,
-                   _("_Install %s") %(productName,),
-		   pixmap=self.ics.readPixmap("install.png"),
-		   descr=_("Choose this option to freshly install your system. "                           "Existing software and data may be overwritten "
-			   "depending on your configuration choices."))        
 	return r
 
     def upgradeOptionsSetSensitivity(self, state):
