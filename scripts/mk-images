@@ -615,7 +615,7 @@ makeinitrd() {
 	mkdir -p $MBD_DIR/$LIBDIR/security
 	cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
 	ln -s /tmp $MBD_DIR/var/state/xkb
-	cp $IMGPATH/sbin/xauth $MBD_DIR/sbin/xauth
+	cp $IMGPATH/usr/X11R6/bin/xauth $MBD_DIR/sbin/xauth
     fi
 
     if [ -n "$INITRDMODULES" ]; then
