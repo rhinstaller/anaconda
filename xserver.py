@@ -5,6 +5,7 @@ import isys
 import sys
 import time
 from xf86config import *
+from kbd import Keyboard
 
 def startX():
     global serverPath
@@ -54,8 +55,47 @@ def startX():
         print serverPath, "missing.  Falling back to VGA16"
         serverPath = '/usr/X11R6/bin/XF86_VGA16'
         
+    keycodes = "xfree86"
+    symbols = "us(pc101)"
+    geometry = "pc"
+    rules = "xfree86"
+    model = "pc101"
+
+    kbd = Keyboard()
+    if kbd.type == 'Sun':
+	rules = "sun"
+	model = kbd.model
+	keycodes = "sun(" + kbd.model + ")"
+	if model == 'type4':
+	    geometry = "sun(type4)"
+	    symbols = "sun/us(sun4)"
+	else:
+	    if model == 'type5':
+		geometry = "sun"
+	    elif model == 'type5_euro':
+		geometry = "sun(type5euro)"
+	    else:
+		geometry = "sun(type5unix)"
+	    symbols = "sun/us(sun5)"
+	if kbd.layout == 'en_US':
+	    symbols = symbols + "+iso9995-3(basic)"
+	elif kbd.layout != 'us':
+	    symbols = symbols + "+" + kbd.layout
+	    
+    mouseEmulateStr="""
+    Emulate3Buttons
+    Emulate3Timeout    50
+"""
+    if not mouseEmulate:
+	mouseEmulateStr=""
     settings = { "mouseDev" : '/dev/' + mouseDev ,
-                 "mouseProto" : mouseProtocol }
+                 "mouseProto" : mouseProtocol,
+		 "keycodes" : keycodes,
+		 "symbols" : symbols,
+		 "geometry" : geometry,
+		 "rules" : rules,
+		 "model" : model,
+		 "emulate" : mouseEmulateStr }
     f = open ('/tmp/XF86Config', 'w')
     f.write ("""
 Section "Files"
@@ -81,22 +121,20 @@ Section "Keyboard"
     RightAlt    Meta
     ScrollLock  Compose
     RightCtl    Control
-    XkbKeymap       "xfree86(us)"
-    XkbKeycodes     "xfree86"
+    XkbKeycodes     "%(keycodes)s"
     XkbTypes        "default"
     XkbCompat       "default"
-    XkbSymbols      "us(pc101)"
-    XkbGeometry     "pc"
-    XkbRules        "xfree86"
-    XkbModel        "pc101"
+    XkbSymbols      "%(symbols)s"
+    XkbGeometry     "%(geometry)s"
+    XkbRules        "%(rules)s"
+    XkbModel        "%(model)s"
     XkbLayout       "us"
 EndSection
 
 Section "Pointer"
     Protocol    "%(mouseProto)s"
     Device      "%(mouseDev)s"
-    Emulate3Buttons
-    Emulate3Timeout    50
+%(emulate)s
 EndSection
 """ % settings)
     f.write (x.monitorSection ())

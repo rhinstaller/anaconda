@@ -7,6 +7,7 @@ import iutil
 import kudzu
 import time
 import os
+from kbd import Keyboard
 
 def _(x):
     return x
@@ -31,14 +32,11 @@ class XF86Config:
         self.keyRules = "xfree86"
         self.keyModel = "pc101"
         self.keyLayout = "us"
-        # XXX temp hack to get GUI installs working on sparc
-        try:
-            f = open ("/dev/kbd", "r")
-            f.close()
-            self.keyRules = "sun"
-            self.keyModel = "type5"
-        except:
-            pass
+	kbd = Keyboard()
+	if kbd.type == 'Sun':
+	    self.keyRules = "sun"
+	    self.keyModel = kbd.model
+	    self.keyLayout = kbd.layout
         self.keyVariant = ""
         self.keyOptions = ""
         
