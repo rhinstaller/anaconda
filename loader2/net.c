@@ -498,6 +498,9 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
                  struct knownDevices * kd) {
     FILE * f;
     int i;
+#if defined(__s390__) || defined(__s390x__)
+    return 0;
+#endif
 
     for (i = 0; i < kd->numKnown; i++)
         if (!strcmp(kd->known[i].name, dev->dev.device)) break;

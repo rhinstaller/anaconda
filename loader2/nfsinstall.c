@@ -232,9 +232,7 @@ char * mountNfsImage(struct installMethod * method,
         }
     }
 
-#if !defined (__s390__) && !defined (__s390x__)
     writeNetInfo("/tmp/netinfo", &netDev, kd);
-#endif
     free(host);
     free(directory);
 
