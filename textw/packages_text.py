@@ -103,7 +103,14 @@ class PackageGroupWindow:
 		pkgselection[k] = origpkgselection[k]
 
 	    for pkg in origpkgselection.keys():
-		gct.append(pkg, pkg, pkgselection[pkg][1])
+                if grpset.hdrlist.pkgs.has_key(pkg):
+                    name = grpset.hdrlist.pkgs[pkg].name
+                elif grpset.groups.has_key(pkg):
+                    name = grpset.groups[pkg].name
+                else:
+                    log("unknown package %s" %(pkg,))
+                    continue
+		gct.append(name, pkg, pkgselection[pkg][1])
 
 	    bb2 = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON))
 
