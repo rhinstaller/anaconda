@@ -165,6 +165,11 @@ class Fstab:
     # partition table we construct at the start of the install
     # in disk druid/autopartitioning!!!
     def getBootPartitionMaxCylFromDrive(self):
+
+        # avoid if partitionless install
+        if rootOnLoop(self):
+            return 0
+        
 	bootpart = self.getBootDevice()
 	boothd = self.getMbrDevice()
 
@@ -219,6 +224,10 @@ class Fstab:
         (drives, raid) = self.partitionList()
 
         for (dev, devName, type, start, size, maxcyl, preexist) in drives:
+            # only test if putting on ext2 partition, skip for
+            # dos since its a partitionless install
+            if type == 1:
+                continue
             if dev == bootpart:
                 log ("maxcyl of %s is %s" % (dev, maxcyl))
                 return maxcyl
