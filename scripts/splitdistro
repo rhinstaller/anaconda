@@ -7,10 +7,14 @@ disc2dirs = [ "preview" ]
 jointfiles = [ "beta_eula.txt", "RPM-GPG-KEY", "README", "autorun",
                "GPL", "EULA"]
 
-targetSize = 650 * 1024.0 * 1024.0
+targetSize = 648 * 1024.0 * 1024.0
 
 # Leave about 1.2MB of space on the disc
 fudgeFactor = 1.2 * 1024 * 1024
+
+# rough estimate of the size of the comps package -- we don't create it
+# until after we run splitdistro but need to leave room for it on CD1
+compsSize = 10.0 * 1024 * 1024
 
 #-----------------
 
@@ -193,7 +197,7 @@ for file in jointfiles:
     linkFile(disc1Dir, disc2Dir, file)
 
 disc2pkgs = excessFiles(distDir + "/RedHat/RPMS", binPkgList, 
-			targetSize - disc1used - fudgeFactor)
+			targetSize - disc1used - fudgeFactor - compsSize)
 
 moveFiles("%s/RedHat/RPMS" % disc1Dir, 
 	  "%s/RedHat/RPMS" % disc2Dir, 
