@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-10 16:02-0500\n"
+"POT-Creation-Date: 2000-02-13 20:42-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,16 +14,16 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ../fstab.py:232 ../fstab.py:388
+#: ../fstab.py:235 ../fstab.py:391
 msgid "Formatting"
 msgstr ""
 
-#: ../fstab.py:233
+#: ../fstab.py:236
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
 msgstr ""
 
-#: ../fstab.py:243 ../fstab.py:320 ../fstab.py:454
+#: ../fstab.py:246 ../fstab.py:323 ../fstab.py:457
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
 #: ../loader/devices.c:183 ../loader/lang.c:89 ../loader/loader.c:471
 #: ../loader/loader.c:481 ../loader/loader.c:701 ../loader/loader.c:753
@@ -35,38 +35,38 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: ../fstab.py:243
+#: ../fstab.py:246
 msgid "Error creating swap on device "
 msgstr ""
 
-#: ../fstab.py:321
+#: ../fstab.py:324
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr ""
 
-#: ../fstab.py:343 ../todo.py:410
+#: ../fstab.py:346 ../todo.py:410
 msgid "Creating"
 msgstr ""
 
-#: ../fstab.py:343
+#: ../fstab.py:346
 msgid "Creating RAID devices..."
 msgstr ""
 
-#: ../fstab.py:389
+#: ../fstab.py:392
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr ""
 
-#: ../fstab.py:411
+#: ../fstab.py:414
 msgid "Loopback"
 msgstr ""
 
-#: ../fstab.py:412
+#: ../fstab.py:415
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr ""
 
-#: ../fstab.py:455
+#: ../fstab.py:458
 #, c-format
 msgid "Error mounting %s: %s"
 msgstr ""
@@ -91,7 +91,7 @@ msgstr ""
 #: ../textw/lilo.py:178 ../textw/packages.py:20 ../textw/packages.py:85
 #: ../textw/packages.py:144 ../textw/packages.py:153
 #: ../textw/partitioning.py:23 ../textw/partitioning.py:63
-#: ../textw/partitioning.py:214 ../textw/partitioning.py:263
+#: ../textw/partitioning.py:228 ../textw/partitioning.py:277
 #: ../textw/silo.py:26 ../textw/silo.py:88 ../textw/silo.py:195
 #: ../textw/timezone.py:66 ../textw/userauth.py:30 ../textw/userauth.py:154
 #: ../textw/userauth.py:185 ../textw/userauth.py:257
@@ -221,8 +221,8 @@ msgstr ""
 #: ../text.py:724 ../text.py:744 ../text.py:757 ../text.py:769 ../text.py:964
 #: ../text.py:968 ../text.py:1165 ../textw/lilo.py:30 ../textw/lilo.py:87
 #: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144
-#: ../textw/partitioning.py:214 ../textw/partitioning.py:263
-#: ../textw/partitioning.py:273 ../textw/partitioning.py:281
+#: ../textw/partitioning.py:228 ../textw/partitioning.py:277
+#: ../textw/partitioning.py:287 ../textw/partitioning.py:295
 #: ../textw/silo.py:25 ../textw/silo.py:88 ../textw/timezone.py:66
 #: ../textw/userauth.py:30 ../textw/userauth.py:44 ../textw/userauth.py:49
 #: ../textw/userauth.py:82 ../textw/userauth.py:95 ../textw/userauth.py:101
@@ -309,7 +309,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
 #: ../loader/loader.c:608 ../loader/net.c:719 ../text.py:318 ../text.py:517
-#: ../text.py:535 ../text.py:542 ../textw/partitioning.py:175
+#: ../text.py:535 ../text.py:542 ../textw/partitioning.py:189
 msgid "Yes"
 msgstr ""
 
@@ -320,7 +320,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
 #: ../loader/net.c:719 ../text.py:318 ../text.py:323 ../text.py:517
-#: ../text.py:535 ../text.py:545 ../textw/partitioning.py:175
+#: ../text.py:535 ../text.py:545 ../textw/partitioning.py:189
 msgid "No"
 msgstr ""
 
@@ -615,7 +615,7 @@ msgstr ""
 msgid "Automatic Partition"
 msgstr ""
 
-#: ../text.py:1065 ../textw/partitioning.py:255
+#: ../text.py:1065 ../textw/partitioning.py:269
 msgid "Root Filesystem Size"
 msgstr ""
 
@@ -964,7 +964,7 @@ msgstr ""
 msgid "fdisk"
 msgstr ""
 
-#: ../iw/fdisk.py:78
+#: ../iw/fdisk.py:80
 msgid "Select drive to run fdisk on"
 msgstr ""
 
@@ -1213,18 +1213,18 @@ msgstr ""
 msgid "Disk Druid"
 msgstr ""
 
-#: ../iw/rootpartition.py:43 ../textw/partitioning.py:170
+#: ../iw/rootpartition.py:43 ../textw/partitioning.py:184
 msgid "Low Memory"
 msgstr ""
 
-#: ../iw/rootpartition.py:44 ../textw/partitioning.py:171
+#: ../iw/rootpartition.py:44 ../textw/partitioning.py:185
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
 
-#: ../iw/rootpartition.py:115 ../textw/partitioning.py:256
+#: ../iw/rootpartition.py:115 ../textw/partitioning.py:270
 #, c-format
 msgid ""
 "You've chosen to put your root filesystem in a file on an already-existing "
@@ -1245,7 +1245,7 @@ msgstr ""
 msgid "Automatic Partitioning"
 msgstr ""
 
-#: ../iw/rootpartition.py:225 ../textw/partitioning.py:125
+#: ../iw/rootpartition.py:234 ../textw/partitioning.py:125
 #, c-format
 msgid ""
 "%s\n"
@@ -1255,11 +1255,11 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/rootpartition.py:239
+#: ../iw/rootpartition.py:248
 msgid "Remove data"
 msgstr ""
 
-#: ../iw/rootpartition.py:242 ../textw/partitioning.py:129
+#: ../iw/rootpartition.py:251 ../textw/partitioning.py:129
 msgid "Manually partition"
 msgstr ""
 
@@ -1440,7 +1440,7 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: ../textw/partitioning.py:190
+#: ../textw/partitioning.py:204
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -1448,31 +1448,31 @@ msgid ""
 "previous install."
 msgstr ""
 
-#: ../textw/partitioning.py:211
+#: ../textw/partitioning.py:225
 msgid "Check for bad blocks during format"
 msgstr ""
 
-#: ../textw/partitioning.py:216
+#: ../textw/partitioning.py:230
 msgid "Choose Partitions to Format"
 msgstr ""
 
-#: ../textw/partitioning.py:261
+#: ../textw/partitioning.py:275
 msgid "Root filesystem size"
 msgstr ""
 
-#: ../textw/partitioning.py:262
+#: ../textw/partitioning.py:276
 msgid "Swap space"
 msgstr ""
 
-#: ../textw/partitioning.py:271 ../textw/partitioning.py:277
+#: ../textw/partitioning.py:285 ../textw/partitioning.py:291
 msgid "Bad Size"
 msgstr ""
 
-#: ../textw/partitioning.py:272
+#: ../textw/partitioning.py:286
 msgid "The size you enter must be a number."
 msgstr ""
 
-#: ../textw/partitioning.py:278
+#: ../textw/partitioning.py:292
 #, c-format
 msgid ""
 "The total size must be smaller then the amount of free space on the disk, "

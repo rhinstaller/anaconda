@@ -9,7 +9,7 @@ class ConfirmWindow (InstallWindow):
         ics.setNextEnabled (1)
         ics.setPrevEnabled (1)
         ics.setTitle (_("About to Install"))
-        ics.setHelpEnabled (FALSE)
+#        ics.setHelpEnabled (FALSE)
         ics.readHTML ("aboutinstall")
 
     def getScreen (self):
@@ -27,12 +27,15 @@ class ConfirmWindow (InstallWindow):
         
         label = GtkLabel (_("Click next to begin installation of Red Hat Linux."))
         label.set_line_wrap (TRUE)
+        label.set_usize(190, -1)
+
         
         label2 = GtkLabel (_("A complete log of your installation will be in "
                               "/tmp/install.log after rebooting your system. You "
                               "may want to keep this file for later reference."))
 
         label2.set_line_wrap (TRUE)
+        label2.set_usize(190, -1)
         
         box.pack_start (label, FALSE)
         box.pack_start (label2, FALSE)

@@ -18,7 +18,7 @@ class BootdiskWindow (InstallWindow):
         if not self.todo.needBootdisk():
             return None
         
-        if self.bootdisk.get_active ():
+        if self.bootdisk and self.bootdisk.get_active ():
             return None
 
         threads_leave ()
