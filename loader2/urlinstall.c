@@ -366,6 +366,7 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     logMessage("kickstartFromUrl");
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksUrlOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
+        startNewt(*flagsPtr);
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to Url kickstart method "
                          "command %s: %s"),

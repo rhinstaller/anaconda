@@ -263,6 +263,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
     logMessage("kickstartFromNfs");
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksNfsOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
+        startNewt(*flagsPtr);
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to NFS kickstart method "
                          "command %s: %s"),

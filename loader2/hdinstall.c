@@ -513,6 +513,7 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
     logMessage("kickstartFromHD");
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksHDOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
+        startNewt(*flagsPtr);
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to HD kickstart method "
                          "command %s: %s"),
