@@ -1,6 +1,6 @@
-LOADLIBES =  -L../isys -lisys
+LOADLIBES =  -L../isys -lisys -lpopt
 CFLAGS = -Wall -g
-LDFLAGS = -g
+LDFLAGS = -g 
 
 all:	modlist moddeps genhdlist snarffont
 
