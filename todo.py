@@ -1000,6 +1000,7 @@ class ToDo:
 	todo.bootdisk = todo.instClass.getMakeBootdisk()
 	todo.zeroMbr = todo.instClass.zeroMbr
 	(where, linear, append) = todo.instClass.getLiloInformation()
+        todo.desktop.set (todo.instClass.getDesktop())
 
         arch = iutil.getArch ()
 	if arch == "i386":	
@@ -1064,9 +1065,6 @@ class ToDo:
 	    todo.mouse.set(type, emulateThreeButtons, thedev = device)
             todo.x.setMouse(todo.mouse)
             
-        if todo.instClass.desktop:
-            todo.desktop.set (todo.instClass.desktop)
-
         # this is messy, needed for upgradeonly install class
         if todo.instClass.installType == "upgrade":
             todo.upgrade = 1
@@ -1539,7 +1537,7 @@ class ToDo:
             self.instLog.write ("\n\nThe following packages were available on the CD but NOT upgraded:\n")
             for p in self.hdList.packages.values ():
                 if not p.selected:
-                    self.instLog.write("%s-%s-%s.%s.rpm" %
+                    self.instLog.write("%s-%s-%s.%s.rpm\n" %
                                        (p.h[rpm.RPMTAG_NAME],
                                         p.h[rpm.RPMTAG_VERSION],
                                         p.h[rpm.RPMTAG_RELEASE],
