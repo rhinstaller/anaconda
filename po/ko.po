@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: 1999-09-19 11:17-0400\n"
-"PO-Revision-Date: 1999-09-16 06:26+0900\n"
+"PO-Revision-Date: 1999-09-21 02:08+0900\n"
 "Last-Translator: Byeong-Chan Kim <redhands@linux.sarang.net>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -664,13 +664,12 @@ msgid "Skip boot disk creation"
 msgstr "부트디스크 제작 생략"
 
 #: ../iw/confirm.py:10
-#, fuzzy
 msgid "About to Install"
-msgstr "설치"
+msgstr "설치에 대하여"
 
 #: ../iw/confirm.py:15
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr ""
+msgstr "NEXT 버튼을 누르시면 레드햇 리눅스의 설치가 시작됩니다."
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -758,9 +757,8 @@ msgid "Upgrade"
 msgstr "업그레이드"
 
 #: ../iw/installpath.py:188
-#, fuzzy
 msgid "Use fdisk"
-msgstr "FDISK"
+msgstr "FDISK 사용"
 
 #: ../iw/keyboard.py:12
 msgid "Keyboard Configuration"
@@ -779,9 +777,8 @@ msgid "Variant"
 msgstr "기타 설정"
 
 #: ../iw/keyboard.py:95
-#, fuzzy
 msgid "Test your selection here:"
-msgstr "키보드 선택"
+msgstr "선택한 것에 대한 테스트:"
 
 #: ../iw/language.py:14 ../loader/lang.c:245
 msgid "What language should be used during the installation process?"
@@ -1922,23 +1919,27 @@ msgstr "장치명"
 
 #: ../loader/devices.c:166
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr ""
+msgstr "계속하려면 드라이버 디스크를 넣고 \"OK\"를 누르십시오."
 
 #: ../loader/devices.c:175
 msgid "Failed to mount floppy disk."
-msgstr ""
+msgstr "플로피 디스크 마운트에 실패했습니다."
 
 #: ../loader/devices.c:179
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
+"넣으신 플로피 디스크는 현재 버젼의 레드햇 리눅스에 맞는 드라이버 디스크가 "
+"아닙니다."
 
 #: ../loader/devices.c:198
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
+"어떤 드라이버를 시도해 볼까요? 필요한 드라이버가 목록에 없거나 별도의 "
+"드라이버 디스크가 있다면 F2 글쇠를 눌러 주십시오."
 
 #: ../loader/devices.c:203
 msgid "Which driver should I try?"
@@ -2343,6 +2344,3 @@ msgstr "HTTP 프록시 포트:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "SCSI 드라이버 읽는 중"
-
-#~ msgid "Use fdisk to format drives"
-#~ msgstr "드라이브 포맷에 FDISK 이용"
