@@ -18,6 +18,8 @@ rm -rf $TMPDIR
 rm -rf $TMPDIR
 mkdir -p $TMPDIR
 
+OLDFONT=/tmp/consolefont.$$
+setfont -om $OLDFONT
 for n in $fontlist; do
     echo -n $n
     map=$(grep $n $LANGTABLE | head -1 | awk '{ print $3 }')
@@ -25,11 +27,12 @@ for n in $fontlist; do
     echo -n " map "
     echo $map
 
-    consolechars --tty /dev/tty1 -f $map -m $n
+    setfont v $n -m $map
     ../utils/snarffont > $TMPDIR/$n
 done
 
-consolechars --tty /dev/tty1 -d
+setfont $OLDFONT
+rm -f $OLDFONT
 
 (cd $TMPDIR > /dev/null; ls * | cpio -o -H crc) | gzip -9 > fonts-$ARCH
 
