@@ -297,8 +297,8 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
     if(fd) {
         line = (char *)malloc(sizeof(char) * 200);
         while (fgets (line, 199, fd) != NULL) {
-            if((parms = strstr(line, " dasd=")) ||
-               (parms = strstr(line, " DASD="))) {
+            if((parms = strstr(line, "dasd=")) ||
+               (parms = strstr(line, "DASD="))) {
                 parms++;
                 strncpy(parms, "dasd", 4);
                 parms_end = parms;
