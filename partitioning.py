@@ -1312,7 +1312,7 @@ class DiskSet:
             except parted.error, msg:
                 DiskSet.skippedDisks.append(drive)
                 continue
-            if initAll:
+            if initAll and not flags.test:
                 try:
                     dev.disk_create(getDefaultDiskType())
                     disk = parted.PedDisk.open(dev)
@@ -1401,7 +1401,7 @@ def partitionObjectsInitialize(diskset, partitions, dir, intf):
     if dir == DISPATCH_BACK:
         diskset.closeDevices()
         return
-    
+
     # read in drive info
     diskset.refreshDevices(intf, partitions.reinitializeDisks)
 
