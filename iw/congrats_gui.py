@@ -49,7 +49,7 @@ class CongratulationWindow (InstallWindow):
 	    a.set_size_request(200, -1)
             hbox.pack_start (a, gtk.FALSE, gtk.FALSE, 36)
 
-        if iutil.getArch() != "ia64":
+        if iutil.getArch() not in ('ia64', 's390'):
             bootstr = _("If you created a boot diskette during this "
 			"installation as your primary means of "
 			"booting %s, insert it before "
