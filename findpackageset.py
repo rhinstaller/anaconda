@@ -27,14 +27,30 @@ def addNewPackageToUpgSet(pkgDict, pkg):
 
     
 
-def findpackageset(hdlist, dbPath='/'):
+def findpackageset(hdrlist, dbPath='/'):
     ts = rpm.TransactionSet(dbPath)
     ts.setVSFlags(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA)
     ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5)
 
     pkgDict = {}
+
+    # go through and figure out which packages in the header list are
+    # actually applicable for our architecture
+    pkgDict = {}
+    for h in hdrlist:
+        score1 = rpm.archscore(h[rpm.RPMTAG_ARCH])
+        if (score1):
+            name = h[rpm.RPMTAG_NAME]
+            if pkgDict.has_key(name):
+                score2 = rpm.archscore(pkgDict[name][rpm.RPMTAG_ARCH])
+                if (score1 < score2):
+                    pkgDict[name] = h
+            else:
+                pkgDict[name] = h
+    hdlist = pkgDict.values()
     
-    # first loop through packages and find ones which are a newer
+    pkgDict = {}
+    # loop through packages and find ones which are a newer
     # version than what we have
     for pkg in hdlist:
         mi = ts.dbMatch('name', pkg[rpm.RPMTAG_NAME])
