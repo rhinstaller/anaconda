@@ -142,6 +142,37 @@ makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --modules "$PCMCIAMAINMODULES"
 [ $? = 0 ] || exit 1
 
+TIER1LANGS="de_DE|fr_FR|it_IT|es_ES|ja_JP"
+for I in $BOOTDISKDIR; do
+#for I in $BOOTDISKDIR `find $BOOTDISKDIR -type d | egrep "($TIER1LANGS)"`; do
+    BOOTLANG=`basename $I`
+    BOOTDIR=`basename $I | cut -d'_' -f1`
+
+    if [ $BOOTLANG = "boot" ]; then
+	BOOTLANG=""
+	BOOTDIR=""
+    fi
+
+    echo "Building $BOOTDIR/boot.img"
+    makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
+		 --bootdisksize 1440 \
+		 --imagename $BOOTDIR/boot.img \
+		 --initrd $TOPDESTPATH/dosutils/autoboot/initrd.img
+    [ $? = 0 ] || exit 1
+
+    echo "Building $BOOTDIR/bootnet.img"
+    makebootdisk --kernelto $TOPDESTPATH/images/pxeboot/vmlinuz  \
+		 --bootdisksize 1440 \
+		 --imagename $BOOTDIR/bootnet.img \
+		 --initrd $TOPDESTPATH/images/pxeboot/initrd.img
+    [ $? = 0 ] || exit 1
+
+    echo "Building $BOOTDIR/pcmcia.img"
+    makebootdisk --imagename $BOOTDIR/pcmcia.img \
+	         --bootdisksize 1440 \
+		 --initrd $TOPDESTPATH/images/initrd-pcmcia.img
+    [ $? = 0 ] || exit 1
+done
 
 rm -f $TOPDESTPATH/images/initrd-pcmcia.img
 
