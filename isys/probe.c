@@ -136,13 +136,13 @@ int kdFindNetList(struct knownDevices * devices, int code) {
 	*end = '\0';
 	
     	if (strcmp(start, "lo")) {
-	    if (deviceKnown(devices, start)) continue;
-
-	    newDevice.name = strdup(start);
-	    newDevice.model = NULL;
-	    newDevice.class = CLASS_NETWORK;
-	    newDevice.code = code;
-	    addDevice(devices, newDevice);
+	    if (!deviceKnown(devices, start)) {
+                newDevice.name = strdup(start);
+                newDevice.model = NULL;
+                newDevice.class = CLASS_NETWORK;
+                newDevice.code = code;
+                addDevice(devices, newDevice);
+            }
 	}
 
 	start = strchr(end + 1, '\n');
