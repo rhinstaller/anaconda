@@ -544,21 +544,8 @@ class KickstartBase(BaseInstallClass):
 	self.packageList = packages
         self.excludedList = excludedPackages
 
-        # XXX actual partitioning processing should happen after %pre
-        doPartitioning(id.diskset, id.partrequests)
-        for request in id.partrequests.requests:
-            # XXX improve sanity checking
-            if not request.fstype or (request.fstype.isMountable() and not request.mountpoint):
-                continue
-            entry = request.toEntry()
-            id.fsset.add (entry)
-
-        # XXX bootloader stuff shouldn't be done here either
-        choices = id.fsset.bootloaderChoices(id.diskset)
-        if not choices:
-            raise RuntimeError, "Unable to find device to install bootloader to"
-        device = choices[0][0]
-        id.bootloader.setDevice(device)
+        # XXX this is just not really a good way to do this...
+        id.bootloader.setDefaultDevice = 1
 
         # test to see if they specified to clear partitions and also
         # tried to --onpart on a logical partition
@@ -588,8 +575,8 @@ class KickstartBase(BaseInstallClass):
             # XXX invalid clearpart arguments
             return
 
-        # XXX need to include list of drive to restrict clear to!
-        doClearPartAction(id, type, None)
+        # XXX want to have --drive hda,hdb 
+        self.setClearParts(id, type, None)
 
     def defineRaid(self, args):
 	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=' ] )
@@ -684,9 +671,12 @@ class KickstartBase(BaseInstallClass):
         if not format:
             request.format = 0
         
-        id.partrequests.addRequest(request)
+        id.autoPartitionRequests.append(request)
 
         self.skipSteps.append("partition")
+        self.skipSteps.append("partitionmethod")
+        self.skipSteps.append("partitionmethodsetup")
+        self.skipSteps.append("fdisk")
         self.skipSteps.append("autopartition")
 
     def setSteps(self, dispatch):

@@ -365,6 +365,7 @@ class x86BootloaderInfo:
 	self.useGrubVal = 1		    # use lilo otherwise
 	self.device = None
         self.useLinear = 1    # only used for kickstart compatibility
+        self.setDefaultDevice = 0  # XXX hack, used by kickstart
 
 def availableBootDevices(diskSet, fsset):
     devs = []
@@ -388,7 +389,17 @@ def availableBootDevices(diskSet, fsset):
 
     return devs
 
-def partitioningComplete(dispatch, bl, fsset, diskSet):
+# XXX move me somewhere else and split the bootloader and fsset parts
+# into different functions
+def partitioningComplete(dispatch, bl, fsset, diskSet, partitions):
+    fsset.reset()
+    for request in partitions.requests:
+        # XXX improve sanity checking
+        if not request.fstype or (request.fstype.isMountable() and not request.mountpoint):
+            continue
+        entry = request.toEntry()
+        fsset.add (entry)
+    
     choices = fsset.bootloaderChoices(diskSet)
     if not choices:
 	dispatch.skipStep("instbootloader")
@@ -396,6 +407,10 @@ def partitioningComplete(dispatch, bl, fsset, diskSet):
 	dispatch.skipStep("instbootloader", skip = 0)
 
     bl.images.setup(diskSet, fsset)
+
+    if bl.setDefaultDevice and choices:
+        bl.setDevice(choices[0][0])
+    
 
 def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     justConfigFile = not flags.setupFilesystems

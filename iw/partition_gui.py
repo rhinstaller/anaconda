@@ -440,16 +440,6 @@ class PartitionWindow(InstallWindow):
     def getNext(self):
         self.diskStripeGraph.shutDown()    
         self.clearTree()
-        self.fsset.reset()
-        for request in self.partitions.requests:
-            # XXX improve sanity checking
-            if not request.fstype or (request.fstype.isMountable() and not request.mountpoint):
-                continue
-            entry = request.toEntry()
-            self.fsset.add (entry)
-
-#        print self.fsset.fstab()
-#        print self.fsset.raidtab()
         del self.parent
         return None
 

@@ -9,6 +9,7 @@ import string
 from xf86config import XF86Config
 from translate import _
 from instdata import InstallData
+from autopart import *
 
 class BaseInstallClass:
     # default to not being hidden
@@ -44,17 +45,15 @@ class BaseInstallClass:
         id.bootloader.args.set(appendLine)
         id.bootloader.useGrubVal = 0
 
-    def setClearParts(self, clear, warningText = None):
-	self.clearParts = clear
+    def setClearParts(self, id, clear, drives = None, warningText = None):
+	id.autoClearPartType = clear
+        id.autoClearPartDrives = drives
         # XXX hack for install help text in GUI mode
-        if clear == FSEDIT_CLEAR_LINUX:
+        if clear == CLEARPART_TYPE_LINUX:
             self.clearType = "wkst"
-        if clear == FSEDIT_CLEAR_ALL:
-            self.clearType = "svr"        
+        if clear == CLEARPART_TYPE_ALL:
+            self.clearType = "svr"
 	self.clearPartText = warningText
-
-    def getClearParts(self):
-        return self.clearParts
 
     def getFstab(self):
 	return self.fstab

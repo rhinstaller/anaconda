@@ -803,13 +803,7 @@ class PartitionWindow:
                     self.intf.messageWindow(_("No Root Partition"),
                         _("Must have a / partition to install on."))
                     continue
-                self.fsset.reset()
-                for request in self.partitions.requests:
-                    # XXX improve sanity checking
-                    if not request.fstype or (request.fstype.isMountable() and not request.mountpoint):
-                        continue
-                    entry = request.toEntry()
-                    self.fsset.add (entry)                
+
                 screen.popHelpLine()
                 screen.popWindow()                
                 return INSTALL_OK
