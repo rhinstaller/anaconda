@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include <sys/types.h>
 #include <sys/io.h>
 #include <sys/stat.h>
@@ -66,9 +67,14 @@ int main(int argc, char **argv)
 		       vbe_info->product_revision.string);
 	}
 
-	/* Memory. */
-	printf("Memory installed = %d * 64k blocks = %dkb\n",
-	       vbe_info->memory_size, vbe_info->memory_size * 64);
+       if (strcasestr(vbe_info->oem_name.string, "intel")
+           && strstr(vbe_info->oem_name.string, "810")) {
+               printf("Intel 810 VESA video memory = %d * 64k blocks = %dkb. Use 4MB video memory.\n",
+                      vbe_info->memory_size, vbe_info->memory_size * 64);
+               printf("Memory installed = 64 * 64k blocks = 4096kb\n");
+       } else
+               printf("Memory installed = %d * 64k blocks = %dkb\n",
+                      vbe_info->memory_size, vbe_info->memory_size * 64);
 
 	/* List supported standard modes. */
 	mode_list = vbe_info->mode_list.list;

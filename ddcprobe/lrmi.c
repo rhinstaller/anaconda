@@ -748,6 +748,7 @@ lrmi_vm86(struct vm86_struct *vm)
 #endif
 
 
+#ifdef ORIGINAL_LRMI_CODE_THAT_GOT_IFDEFED_OUT
 static void
 debug_info(int vret)
 	{
@@ -782,7 +783,7 @@ debug_info(int vret)
 
 	fputs("]\n", stderr);
 	}
-
+#endif
 
 static int
 run_vm86(void)
