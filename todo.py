@@ -330,14 +330,10 @@ class ToDo:
         self.rootpassword = Password ()
         self.extraModules = extraModules
 
-        log.open(0,0,0)
-        log("In todo we were passed mouse = %s" % mouse)
         if mouse:
             self.mouse = mouse
         else:
-            log("calling Mouse from todo")
             self.mouse = Mouse ()
-        log.close()
         
         self.keyboard = Keyboard ()
         self.auth = Authentication ()
