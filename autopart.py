@@ -17,6 +17,8 @@ import parted
 import math
 import fsset
 from partitioning import *
+from dispatch import DISPATCH_NOOP
+from translate import _, N_
 
 PARTITION_FAIL = -1
 PARTITION_SUCCESS = 0
@@ -119,7 +121,7 @@ def fitConstrained(diskset, requests, primOnly=0):
             constraint = disk.constraint_any ()
             try:
                 disk.add_partition (newp, constraint)
-                status = 1
+
             except parted.error, msg:
                 return PARTITION_FAIL
 #                raise PartitioningError, msg
@@ -528,14 +530,9 @@ def doAutoPartition(id):
 
     try:
         doPartitioning(id.diskset, id.partrequests)
-        rc = 0
     except PartitioningError, msg:
         # restore drives to original state
         id.diskset.refreshDevices()
-        id.partrequests = partitioning.PartitionRequests(id.diskset)
-        self.intf.messageWindow(_("Error Partitioning"),
+        id.partrequests = PartitionRequests(id.diskset)
+        id.intf.messageWindow(_("Error Partitioning"),
                _("Could not allocated requested partitions: %s.") % (msg))
-        rc = -1
-
-        
-    
