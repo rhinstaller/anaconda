@@ -121,7 +121,6 @@ class InstallData:
         self.timezone.write (instPath)
         self.auth.write (instPath)
 	self.firewall.write (instPath)
-	self.zfcp.write (instPath)
         self.security.write (instPath)
         self.rootPassword.write (instPath, self.auth)
         self.accounts.write (instPath, self.auth)
