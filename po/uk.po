@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2001-08-14 14:53-0400\n"
+"POT-Creation-Date: 2001-08-14 18:40-0400\n"
 "PO-Revision-Date: 2000-08-17 16:58+09:00\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
 "Language-Team:  <blackcat-support@blackcatlinux.com>\n"
@@ -36,8 +36,8 @@ msgstr ""
 #: ../loader/urls.c:158 ../loader/urls.c:236 ../loader/urls.c:241
 #: ../loader/urls.c:247 ../loader/urls.c:387 ../mouse.py:281 ../rescue.py:34
 #: ../rescue.py:130 ../rescue.py:151 ../rescue.py:168 ../rescue.py:174
-#: ../text.py:283 ../text.py:400 ../textw/bootdisk_text.py:65
-#: ../textw/bootdisk_text.py:67 ../textw/complete_text.py:47
+#: ../text.py:283 ../text.py:400 ../textw/bootdisk_text.py:66
+#: ../textw/bootdisk_text.py:68 ../textw/complete_text.py:47
 #: ../textw/complete_text.py:62 ../textw/complete_text.py:78
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:20 ../textw/fdisk_text.py:41
@@ -165,12 +165,12 @@ msgid ""
 "%s.%s"
 msgstr "╢ невизначен╕ розд╕ли..."
 
-#: ../autopart.py:945 ../harddrive.py:233 ../iw/bootloader_gui.py:58
+#: ../autopart.py:945 ../harddrive.py:236 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1280
-#: ../iw/partition_gui.py:1605 ../iw/upgrade_swap_gui.py:171
+#: ../iw/partition_gui.py:1606 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:694 ../partitioning.py:1401
-#: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:426
+#: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
 #: ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
 msgid "Warning"
@@ -266,9 +266,9 @@ msgstr ""
 "Становище вашо╖ системи було записано на дискету. С╕стему буде "
 "перезавантажено."
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:359 ../fsset.py:765
-#: ../fsset.py:784 ../fsset.py:829 ../fsset.py:849 ../fsset.py:883
-#: ../fsset.py:926 ../harddrive.py:171 ../image.py:65 ../image.py:142
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:371 ../fsset.py:783
+#: ../fsset.py:802 ../fsset.py:847 ../fsset.py:867 ../fsset.py:901
+#: ../fsset.py:944 ../harddrive.py:171 ../image.py:65 ../image.py:142
 #: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:27
 #: ../loader/lang.c:102 ../loader/loader.c:478 ../loader/loader.c:535
@@ -277,7 +277,7 @@ msgstr ""
 #: ../loader/loader.c:2207 ../loader/loader.c:2237 ../loader/loader.c:2315
 #: ../loader/loader.c:2524 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
-#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:236
+#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:237
 #: ../partitioning.py:1258 ../partitioning.py:1289
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
@@ -311,7 +311,7 @@ msgstr "Пошук дефектних блок╕в при форматуванн╕"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Пошук дефектних блок╕в при форматуванн╕"
 
-#: ../fsset.py:360
+#: ../fsset.py:372
 #, c-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -320,15 +320,15 @@ msgid ""
 "Would you like to continue without migrating %s?"
 msgstr ""
 
-#: ../fsset.py:706 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:724 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Головний завантажувальний сектор (MBR)"
 
-#: ../fsset.py:707 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:725 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Перший сектор розд╕лу завантаження"
 
-#: ../fsset.py:766
+#: ../fsset.py:784
 #, fuzzy, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -342,7 +342,7 @@ msgstr ""
 "\n"
 "Натиснiть OK для перезавантаження системи."
 
-#: ../fsset.py:785
+#: ../fsset.py:803
 #, fuzzy, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -357,7 +357,7 @@ msgstr ""
 "\n"
 "Натиснiть OK для перезавантаження системи."
 
-#: ../fsset.py:830
+#: ../fsset.py:848
 #, fuzzy, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -371,7 +371,7 @@ msgstr ""
 "\n"
 "Натиснiть OK для перезавантаження системи."
 
-#: ../fsset.py:850
+#: ../fsset.py:868
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -380,7 +380,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:884
+#: ../fsset.py:902
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -389,12 +389,12 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:904 ../fsset.py:913
+#: ../fsset.py:922 ../fsset.py:931
 #, fuzzy
 msgid "Invalid mount point"
 msgstr "Нев╕рна точка монтування"
 
-#: ../fsset.py:905
+#: ../fsset.py:923
 #, fuzzy, c-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -408,7 +408,7 @@ msgstr ""
 "\n"
 "Натиснiть OK для перезавантаження системи."
 
-#: ../fsset.py:914
+#: ../fsset.py:932
 #, fuzzy, c-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -422,7 +422,7 @@ msgstr ""
 "\n"
 "Натиснiть OK для перезавантаження системи."
 
-#: ../fsset.py:927
+#: ../fsset.py:945
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -437,11 +437,11 @@ msgstr ""
 "\n"
 "Натиснiть OK для перезавантаження системи."
 
-#: ../fsset.py:1465
+#: ../fsset.py:1488
 msgid "Formatting"
 msgstr "Форматування"
 
-#: ../fsset.py:1466
+#: ../fsset.py:1489
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Форматування файлово╖ системи %s..."
@@ -453,15 +453,15 @@ msgstr ""
 #: ../gui.py:109 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
 #: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:97 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:281
-#: ../textw/bootdisk_text.py:25 ../textw/bootloader_text.py:76
+#: ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
 msgid "Yes"
 msgstr "Так"
 
 #: ../gui.py:110 ../iw/partition_gui.py:499 ../iw/partition_gui.py:657
 #: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:100 ../loader/devices.c:231
-#: ../loader/net.c:889 ../text.py:282 ../textw/bootdisk_text.py:25
-#: ../textw/bootdisk_text.py:54 ../textw/bootloader_text.py:76
+#: ../loader/net.c:889 ../text.py:282 ../textw/bootdisk_text.py:26
+#: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 #: ../textw/upgrade_text.py:259
 msgid "No"
@@ -643,47 +643,47 @@ msgstr ""
 msgid "Use text mode"
 msgstr "Використовувати текстовий режим"
 
-#: ../iw/package_gui.py:30 ../packages.py:37
+#: ../iw/package_gui.py:30 ../packages.py:38
 msgid "Proceed with upgrade?"
 msgstr ""
 
-#: ../iw/package_gui.py:31 ../packages.py:38
+#: ../iw/package_gui.py:31 ../packages.py:39
 msgid ""
 "The filesystems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
 
-#: ../iw/package_gui.py:35 ../packages.py:42
+#: ../iw/package_gui.py:35 ../packages.py:43
 #, fuzzy
 msgid "Would you like to continue with the upgrade?"
 msgstr "Чи бажа╓те ви сконф╕гурувати вашу систему?"
 
-#: ../packages.py:96
+#: ../packages.py:97
 msgid "Reading"
 msgstr "Читання"
 
-#: ../packages.py:96
+#: ../packages.py:97
 msgid "Reading package information..."
 msgstr "Читання информац╕╖ пакет╕в..."
 
-#: ../packages.py:153
+#: ../packages.py:154
 msgid "Dependency Check"
 msgstr "Перев╕рка залежностей"
 
-#: ../packages.py:154
+#: ../packages.py:155
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Перев╕рка залежностей пакет╕в, що вибран╕ для встановлення..."
 
-#: ../packages.py:202 ../packages.py:473
+#: ../packages.py:203 ../packages.py:474
 msgid "Processing"
 msgstr "Обробка"
 
-#: ../packages.py:203
+#: ../packages.py:204
 msgid "Preparing to install..."
 msgstr "П╕дготовка до встановлення... "
 
-#: ../packages.py:237
+#: ../packages.py:238
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -692,21 +692,21 @@ msgstr ""
 "Неможливо в╕дкрити файл %s. Це може бути через в╕дсутн╕й файл, поганий пакет "
 "або поганий нос╕й. Натисн╕ть <Enter> для повтору."
 
-#: ../packages.py:474
+#: ../packages.py:475
 msgid "Setting up RPM transaction..."
 msgstr ""
 
-#: ../packages.py:515
+#: ../packages.py:516
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Оновлення %s.\n"
 
-#: ../packages.py:517
+#: ../packages.py:518
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Встановлення %s.\n"
 
-#: ../packages.py:577
+#: ../packages.py:578
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -716,16 +716,16 @@ msgstr ""
 "Вам потр╕бно б╕льше м╕сця на цих файлових системах:\n"
 "\n"
 
-#: ../iw/partition_gui.py:1542 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:581 ../packages.py:601 ../textw/upgrade_text.py:106
+#: ../iw/partition_gui.py:1543 ../iw/upgrade_swap_gui.py:123
+#: ../packages.py:582 ../packages.py:602 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Точка монтування"
 
-#: ../packages.py:582
+#: ../packages.py:583
 msgid "Space Needed"
 msgstr "Необх╕дно м╕сце"
 
-#: ../packages.py:597
+#: ../packages.py:598
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -735,19 +735,19 @@ msgstr ""
 "Вам потр╕бно б╕льше м╕сця на цих файлових системах:\n"
 "\n"
 
-#: ../packages.py:602
+#: ../packages.py:603
 msgid "Nodes Needed"
 msgstr "Необх╕дно вузли"
 
-#: ../packages.py:608
+#: ../packages.py:609
 msgid "Disk Space"
 msgstr "Дисковий прост╕р"
 
-#: ../packages.py:646
+#: ../packages.py:647
 msgid "Post Install"
 msgstr "Пост-установочн╕ д╕╖"
 
-#: ../packages.py:647
+#: ../packages.py:648
 msgid "Performing post install configuration..."
 msgstr "Конф╕гурац╕я пост-установочних д╕й..."
 
@@ -1133,8 +1133,8 @@ msgstr ""
 
 #: ../iw/partition_gui.py:579 ../partitioning.py:1844
 msgid ""
-"Selected 'Yes' to continue and format these partitions, or 'No' to go back "
-"and change these settings."
+"Select 'Yes' to continue and format these partitions, or 'No' to go back and "
+"change these settings."
 msgstr ""
 
 #: ../partitioning.py:1850
@@ -1166,8 +1166,8 @@ msgstr ""
 msgid "Continue"
 msgstr "Продовжити"
 
-#: ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:67
-#: ../textw/bootdisk_text.py:89 ../textw/silo_text.py:36
+#: ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:68
+#: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:118
 msgid "Skip"
 msgstr "Пропустити"
@@ -1468,7 +1468,7 @@ msgid "Password:"
 msgstr "Пароль:"
 
 #: ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
-#: ../textw/bootloader_text.py:387
+#: ../textw/bootloader_text.py:390
 #, fuzzy
 msgid "Confirm:"
 msgstr "П╕дтвердження: "
@@ -1503,7 +1503,7 @@ msgstr "Повне ╕м'я"
 msgid "Add"
 msgstr "Додати"
 
-#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:274
+#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:277
 #: ../textw/fdisk_text.py:41 ../textw/partition_text.py:987
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
@@ -1619,7 +1619,7 @@ msgstr ""
 msgid "Boot Disk Creation"
 msgstr "Створення диску завантаження"
 
-#: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:74
+#: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
 msgid ""
 "The boot disk allows you to boot your Red Hat Linux system from a floppy "
 "diskette.\n"
@@ -1628,7 +1628,7 @@ msgid ""
 "diskette. All data will be ERASED during creation of the boot disk."
 msgstr ""
 
-#: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:83
+#: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:84
 msgid ""
 "\n"
 "\n"
@@ -1641,7 +1641,7 @@ msgstr "Пропустити створення системного диску"
 
 #: ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 #: ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
-#: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:369
+#: ../textw/bootloader_text.py:286 ../textw/bootloader_text.py:372
 #, fuzzy
 msgid "Boot Loader Configuration"
 msgstr "Конф╕гурац╕я мон╕тору"
@@ -1662,7 +1662,7 @@ msgid "Partition"
 msgstr "Розд╕л"
 
 #: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:433
-#: ../iw/partition_gui.py:1542 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../iw/partition_gui.py:1543 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 msgid "Type"
 msgstr "Тип"
 
@@ -1688,7 +1688,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/bootloader_gui.py:353 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:259 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:207
 #: ../textw/xconfig_text.py:377 ../textw/xconfig_text.py:384
 #: ../textw/xconfig_text.py:480 ../textw/xconfig_text.py:481
 #: ../textw/xconfig_text.py:500 ../textw/xconfig_text.py:501
@@ -1696,21 +1696,21 @@ msgid "Default"
 msgstr "Типово"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
-#: ../iw/partition_gui.py:1541 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:259
+#: ../iw/partition_gui.py:1542 ../iw/silo_gui.py:263
+#: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:262
 #: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 #: ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Пристр╕й"
 
 #: ../iw/bootloader_gui.py:354 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:259 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:207
 msgid "Partition type"
 msgstr "Тип розд╕лу"
 
 #: ../iw/bootloader_gui.py:354 ../iw/bootloader_gui.py:443
 #: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:192
-#: ../textw/bootloader_text.py:259 ../textw/silo_text.py:143
+#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "Етикетка системи"
@@ -1737,7 +1737,7 @@ msgstr "Встановити стандартний пристр╕й завантаження в PROM"
 msgid "Boot Loader Password Configuration"
 msgstr "Конф╕гурац╕я мон╕тору"
 
-#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:427
+#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:430
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -1760,7 +1760,7 @@ msgstr "Пароль користувача root закороткий."
 msgid "Passwords do not match."
 msgstr "Парол╕ root не сп╕впадають."
 
-#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:364
+#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:367
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -2159,7 +2159,7 @@ msgstr ""
 msgid "Flat View"
 msgstr ""
 
-#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1542
+#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1543
 msgid "Size (MB)"
 msgstr "Розм╕р (Megs):"
 
@@ -2280,7 +2280,7 @@ msgstr ""
 msgid "Add Partition"
 msgstr "Розд╕л"
 
-#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1346
+#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1347
 #: ../textw/partition_text.py:205
 msgid "Mount Point:"
 msgstr "Точка монтування:"
@@ -2362,7 +2362,7 @@ msgid "Check for bad blocks"
 msgstr "Пошук дефектних блок╕в при форматуванн╕"
 
 #: ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
-#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1476
+#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1477
 #: ../textw/partition_text.py:750 ../textw/partition_text.py:772
 #: ../textw/partition_text.py:901
 msgid "Error With Request"
@@ -2397,88 +2397,88 @@ msgstr "_Створити RAID пристр╕й"
 msgid "At least two software RAID partitions are needed."
 msgstr ""
 
-#: ../iw/partition_gui.py:1353 ../textw/partition_text.py:226
+#: ../iw/partition_gui.py:1354 ../textw/partition_text.py:226
 #, fuzzy
 msgid "Filesystem type:"
 msgstr "Розм╕р файлово╖ системи Root"
 
-#: ../iw/partition_gui.py:1365 ../textw/partition_text.py:382
+#: ../iw/partition_gui.py:1366 ../textw/partition_text.py:382
 #, fuzzy
 msgid "RAID Level:"
 msgstr "Тип RAID:"
 
-#: ../iw/partition_gui.py:1400 ../textw/partition_text.py:400
+#: ../iw/partition_gui.py:1401 ../textw/partition_text.py:400
 #, fuzzy
 msgid "RAID Members:"
 msgstr "Тип RAID:"
 
-#: ../iw/partition_gui.py:1411
+#: ../iw/partition_gui.py:1412
 msgid "Number of spares:"
 msgstr ""
 
-#: ../iw/partition_gui.py:1418 ../textw/partition_text.py:842
+#: ../iw/partition_gui.py:1419 ../textw/partition_text.py:842
 #, fuzzy
 msgid "Format partition?"
 msgstr "Нема╓ кореневого розд╕лу"
 
-#: ../iw/partition_gui.py:1522
+#: ../iw/partition_gui.py:1523
 #, fuzzy
 msgid "_New"
 msgstr "Новий"
 
-#: ../iw/partition_gui.py:1523
+#: ../iw/partition_gui.py:1524
 #, fuzzy
 msgid "_Edit"
 msgstr "Редагувати"
 
-#: ../iw/partition_gui.py:1524
+#: ../iw/partition_gui.py:1525
 msgid "_Delete"
 msgstr "_Видалити"
 
-#: ../iw/partition_gui.py:1525
+#: ../iw/partition_gui.py:1526
 msgid "_Reset"
 msgstr "_В╕дм╕нити"
 
-#: ../iw/partition_gui.py:1526
+#: ../iw/partition_gui.py:1527
 #, fuzzy
 msgid "Make _RAID"
 msgstr "RAID пристр╕й, який використову╓ться"
 
-#: ../iw/partition_gui.py:1541
+#: ../iw/partition_gui.py:1542
 #, fuzzy
 msgid "Start"
 msgstr "Стан"
 
-#: ../iw/partition_gui.py:1541
+#: ../iw/partition_gui.py:1542
 msgid "End"
 msgstr ""
 
-#: ../iw/partition_gui.py:1542
+#: ../iw/partition_gui.py:1543
 #, fuzzy
 msgid "Format"
 msgstr "Форматування"
 
-#: ../iw/partition_gui.py:1587 ../textw/partition_text.py:1063
+#: ../iw/partition_gui.py:1588 ../textw/partition_text.py:1063
 msgid "Automatic Partitioning"
 msgstr "Автоматичний розпод╕л"
 
-#: ../iw/partition_gui.py:1606
+#: ../iw/partition_gui.py:1607
 #, fuzzy
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "Вибер╕ть п╕дтр╕мку мов:"
 
-#: ../iw/partition_gui.py:1645
+#: ../iw/partition_gui.py:1646
 #, fuzzy
 msgid "I want to have automatic partitioning:"
 msgstr "Автоматичний розпод╕л"
 
-#: ../iw/partition_gui.py:1676 ../textw/partition_text.py:1086
+#: ../iw/partition_gui.py:1677 ../textw/partition_text.py:1086
 #, fuzzy
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Де Ви бажа╓те встановити завантажувач?"
 
-#: ../iw/partition_gui.py:1698
+#: ../iw/partition_gui.py:1699
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr ""
@@ -2845,7 +2845,7 @@ msgstr "В╕деокарта"
 msgid "Skip X Configuration"
 msgstr "Пропустити настройку Х"
 
-#: ../textw/bootdisk_text.py:26
+#: ../textw/bootdisk_text.py:27
 #, fuzzy
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
@@ -2866,7 +2866,7 @@ msgstr ""
 "\n"
 "Чи створити диск завантаження зараз?"
 
-#: ../textw/bootdisk_text.py:50 ../textw/bootdisk_text.py:86
+#: ../textw/bootdisk_text.py:51 ../textw/bootdisk_text.py:87
 msgid "Boot Disk"
 msgstr "Диск завантаження"
 
@@ -2940,7 +2940,7 @@ msgstr "Етикетка системи не може бути порожньою."
 msgid "Boot label contains illegal characters."
 msgstr "Етикетка системи м╕стить заборонен╕ символи."
 
-#: ../textw/bootloader_text.py:278 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -2950,32 +2950,32 @@ msgstr ""
 "системи. Вкаж╕ть, як╕ розд╕ли Ви хочете завантажувати та як╕ етикетки Ви "
 "хочетете використовувати для кожного з них."
 
-#: ../textw/bootloader_text.py:374
+#: ../textw/bootloader_text.py:377
 #, fuzzy
 msgid "Use a GRUB Password"
 msgstr "Використовувати т╕ньов╕ парол╕"
 
-#: ../textw/bootloader_text.py:386
+#: ../textw/bootloader_text.py:389
 #, fuzzy
 msgid "Boot Loader Password:"
 msgstr "Пароль користувача root: "
 
-#: ../textw/bootloader_text.py:416
+#: ../textw/bootloader_text.py:419
 #, fuzzy
 msgid "Passwords Do Not Match"
 msgstr "Парол╕ root не сп╕впадають."
 
-#: ../textw/bootloader_text.py:417
+#: ../textw/bootloader_text.py:420
 #, fuzzy
 msgid "Passwords do not match"
 msgstr "Парол╕ root не сп╕впадають."
 
-#: ../textw/bootloader_text.py:421
+#: ../textw/bootloader_text.py:424
 #, fuzzy
 msgid "Password Too Short"
 msgstr "Пароль користувача root закороткий."
 
-#: ../textw/bootloader_text.py:422
+#: ../textw/bootloader_text.py:425
 #, fuzzy
 msgid "Boot loader password is too short"
 msgstr "Пароль користувача root закороткий."
@@ -3396,8 +3396,9 @@ msgid "No RAID partitions"
 msgstr "<Розд╕л RAID>"
 
 #: ../textw/partition_text.py:880
-msgid "Invalid Entry for Raid Spares"
-msgstr ""
+#, fuzzy
+msgid "Invalid Entry for RAID Spares"
+msgstr "Некоректна ╕нформац╕я"
 
 #: ../textw/partition_text.py:893
 #, fuzzy
@@ -5394,11 +5395,6 @@ msgid "English"
 msgstr "Зак╕нчити"
 
 #. generated from lang-table
-#, fuzzy
-msgid "Danish"
-msgstr "Зак╕нчити"
-
-#. generated from lang-table
 msgid "French"
 msgstr ""
 
@@ -5406,10 +5402,6 @@ msgstr ""
 #, fuzzy
 msgid "German"
 msgstr "Пошук"
-
-#. generated from lang-table
-msgid "Hungarian"
-msgstr ""
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -5432,25 +5424,7 @@ msgid "Norwegian"
 msgstr ""
 
 #. generated from lang-table
-msgid "Portuguese"
-msgstr ""
-
-#. generated from lang-table
-#, fuzzy
-msgid "Romanian"
-msgstr "Залишилось"
-
-#. generated from lang-table
 msgid "Russian"
-msgstr ""
-
-#. generated from lang-table
-#, fuzzy
-msgid "Serbian"
-msgstr "Пошук"
-
-#. generated from lang-table
-msgid "Slovak"
 msgstr ""
 
 #. generated from lang-table
@@ -5466,13 +5440,17 @@ msgstr "Зак╕нчити"
 msgid "Swedish"
 msgstr ""
 
-#. generated from lang-table
-msgid "Turkish"
-msgstr ""
+#, fuzzy
+#~ msgid "Danish"
+#~ msgstr "Зак╕нчити"
 
-#. generated from lang-table
-msgid "Ukrainian"
-msgstr ""
+#, fuzzy
+#~ msgid "Romanian"
+#~ msgstr "Залишилось"
+
+#, fuzzy
+#~ msgid "Serbian"
+#~ msgstr "Пошук"
 
 #, fuzzy
 #~ msgid "You cannot edit this partition, as it is in use by the installer."

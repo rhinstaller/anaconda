@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
-"POT-Creation-Date: 2001-08-14 14:53-0400\n"
+"POT-Creation-Date: 2001-08-14 18:40-0400\n"
 "PO-Revision-Date: 2001-08-09 16:39-05:00\n"
 "Last-Translator: Matt Wilson <msw@redhat.com>\n"
 "Language-Team: Japanese <eng-jp@redhat.com>\n"
@@ -41,8 +41,8 @@ msgstr ""
 #: ../loader/urls.c:158 ../loader/urls.c:236 ../loader/urls.c:241
 #: ../loader/urls.c:247 ../loader/urls.c:387 ../mouse.py:281 ../rescue.py:34
 #: ../rescue.py:130 ../rescue.py:151 ../rescue.py:168 ../rescue.py:174
-#: ../text.py:283 ../text.py:400 ../textw/bootdisk_text.py:65
-#: ../textw/bootdisk_text.py:67 ../textw/complete_text.py:47
+#: ../text.py:283 ../text.py:400 ../textw/bootdisk_text.py:66
+#: ../textw/bootdisk_text.py:68 ../textw/complete_text.py:47
 #: ../textw/complete_text.py:62 ../textw/complete_text.py:78
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:20 ../textw/fdisk_text.py:41
@@ -183,12 +183,12 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:945 ../harddrive.py:233 ../iw/bootloader_gui.py:58
+#: ../autopart.py:945 ../harddrive.py:236 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1280
-#: ../iw/partition_gui.py:1605 ../iw/upgrade_swap_gui.py:171
+#: ../iw/partition_gui.py:1606 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:694 ../partitioning.py:1401
-#: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:426
+#: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
 #: ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
 msgid "Warning"
@@ -297,9 +297,9 @@ msgid ""
 "will now be reset."
 msgstr "システム状態のフロッピーへの書き込みに成功。システムを再起動します"
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:359 ../fsset.py:765
-#: ../fsset.py:784 ../fsset.py:829 ../fsset.py:849 ../fsset.py:883
-#: ../fsset.py:926 ../harddrive.py:171 ../image.py:65 ../image.py:142
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:371 ../fsset.py:783
+#: ../fsset.py:802 ../fsset.py:847 ../fsset.py:867 ../fsset.py:901
+#: ../fsset.py:944 ../harddrive.py:171 ../image.py:65 ../image.py:142
 #: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:27
 #: ../loader/lang.c:102 ../loader/loader.c:478 ../loader/loader.c:535
@@ -308,7 +308,7 @@ msgstr "システム状態のフロッピーへの書き込みに成功。システムを再起動します"
 #: ../loader/loader.c:2207 ../loader/loader.c:2237 ../loader/loader.c:2315
 #: ../loader/loader.c:2524 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
-#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:236
+#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:237
 #: ../partitioning.py:1258 ../partitioning.py:1289
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
@@ -341,7 +341,7 @@ msgstr "不良ブロックを走査中"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "/dev/%sの不良ブロックを走査中..."
 
-#: ../fsset.py:360
+#: ../fsset.py:372
 #, c-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -354,15 +354,15 @@ msgstr ""
 "\n"
 "%sを移行させないで続行しますか?"
 
-#: ../fsset.py:706 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:724 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "マスタブートレコード (MBR)"
 
-#: ../fsset.py:707 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:725 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "ブートパーティションの最初のセクタ"
 
-#: ../fsset.py:766
+#: ../fsset.py:784
 #, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -375,7 +375,7 @@ msgstr ""
 "\n"
 "[Enter]を押してシステムを再起動して下さい"
 
-#: ../fsset.py:785
+#: ../fsset.py:803
 #, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -391,7 +391,7 @@ msgstr ""
 "\n"
 "[OK] を押してシステムを再起動して下さい"
 
-#: ../fsset.py:830
+#: ../fsset.py:848
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -404,7 +404,7 @@ msgstr ""
 "\n"
 "[Enter]を押してシステムを再起動して下さい"
 
-#: ../fsset.py:850
+#: ../fsset.py:868
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -417,7 +417,7 @@ msgstr ""
 "\n"
 "[Enter]を押してシステムを再起動して下さい"
 
-#: ../fsset.py:884
+#: ../fsset.py:902
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -430,11 +430,11 @@ msgstr ""
 "\n"
 "[Enter]を押してシステムを再起動して下さい"
 
-#: ../fsset.py:904 ../fsset.py:913
+#: ../fsset.py:922 ../fsset.py:931
 msgid "Invalid mount point"
 msgstr "不適切なマウントポイント"
 
-#: ../fsset.py:905
+#: ../fsset.py:923
 #, c-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -447,7 +447,7 @@ msgstr ""
 "\n"
 "[Enter]を押してシステムを再起動して下さい。"
 
-#: ../fsset.py:914
+#: ../fsset.py:932
 #, c-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -460,7 +460,7 @@ msgstr ""
 "\n"
 "[Enter]を押してシステムを再起動して下さい"
 
-#: ../fsset.py:927
+#: ../fsset.py:945
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -476,11 +476,11 @@ msgstr ""
 "\n"
 "OKを押してシステムを再起動して下さい"
 
-#: ../fsset.py:1465
+#: ../fsset.py:1488
 msgid "Formatting"
 msgstr "フォーマット中"
 
-#: ../fsset.py:1466
+#: ../fsset.py:1489
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "%s ファイルシステムのフォーマット中..."
@@ -492,15 +492,15 @@ msgstr "修正"
 #: ../gui.py:109 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
 #: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:97 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:281
-#: ../textw/bootdisk_text.py:25 ../textw/bootloader_text.py:76
+#: ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
 msgid "Yes"
 msgstr "はい"
 
 #: ../gui.py:110 ../iw/partition_gui.py:499 ../iw/partition_gui.py:657
 #: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:100 ../loader/devices.c:231
-#: ../loader/net.c:889 ../text.py:282 ../textw/bootdisk_text.py:25
-#: ../textw/bootdisk_text.py:54 ../textw/bootloader_text.py:76
+#: ../loader/net.c:889 ../text.py:282 ../textw/bootdisk_text.py:26
+#: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 #: ../textw/upgrade_text.py:259
 msgid "No"
@@ -678,11 +678,11 @@ msgstr ""
 msgid "Use text mode"
 msgstr "テキストモードを使用"
 
-#: ../iw/package_gui.py:30 ../packages.py:37
+#: ../iw/package_gui.py:30 ../packages.py:38
 msgid "Proceed with upgrade?"
 msgstr "アップグレードしますか?"
 
-#: ../iw/package_gui.py:31 ../packages.py:38
+#: ../iw/package_gui.py:31 ../packages.py:39
 msgid ""
 "The filesystems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -691,35 +691,35 @@ msgstr ""
 "アップグレードするように選択した Linux インストールファイルシステムは既にマウ"
 "ント済みです。これを解決することなしに戻ることはできません\n"
 
-#: ../iw/package_gui.py:35 ../packages.py:42
+#: ../iw/package_gui.py:35 ../packages.py:43
 msgid "Would you like to continue with the upgrade?"
 msgstr "アップグレードを続行しますか?"
 
-#: ../packages.py:96
+#: ../packages.py:97
 msgid "Reading"
 msgstr "読み込み中"
 
-#: ../packages.py:96
+#: ../packages.py:97
 msgid "Reading package information..."
 msgstr "パッケージ情報読み込み中..."
 
-#: ../packages.py:153
+#: ../packages.py:154
 msgid "Dependency Check"
 msgstr "依存関係チェック"
 
-#: ../packages.py:154
+#: ../packages.py:155
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "インストール対象パッケージの依存関係をチェック中..."
 
-#: ../packages.py:202 ../packages.py:473
+#: ../packages.py:203 ../packages.py:474
 msgid "Processing"
 msgstr "処理中"
 
-#: ../packages.py:203
+#: ../packages.py:204
 msgid "Preparing to install..."
 msgstr "インストール準備中..."
 
-#: ../packages.py:237
+#: ../packages.py:238
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -728,21 +728,21 @@ msgstr ""
 "ファイル %s を開けません。原因はファイルの欠落、パッケージ、またはメディアの"
 "不良です。<return> を押してやり直して下さい"
 
-#: ../packages.py:474
+#: ../packages.py:475
 msgid "Setting up RPM transaction..."
 msgstr "RPMトランザクションを設定中..."
 
-#: ../packages.py:515
+#: ../packages.py:516
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "%s をアップグレード中\n"
 
-#: ../packages.py:517
+#: ../packages.py:518
 #, c-format
 msgid "Installing %s.\n"
 msgstr "%s をインストール中\n"
 
-#: ../packages.py:577
+#: ../packages.py:578
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -752,16 +752,16 @@ msgstr ""
 "ファイルシステム上に空き領域が必要です:\n"
 "\n"
 
-#: ../iw/partition_gui.py:1542 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:581 ../packages.py:601 ../textw/upgrade_text.py:106
+#: ../iw/partition_gui.py:1543 ../iw/upgrade_swap_gui.py:123
+#: ../packages.py:582 ../packages.py:602 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "マウントポイント"
 
-#: ../packages.py:582
+#: ../packages.py:583
 msgid "Space Needed"
 msgstr "領域不足"
 
-#: ../packages.py:597
+#: ../packages.py:598
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -771,19 +771,19 @@ msgstr ""
 "次のファイルシステム上により多くのファイルノードが必要です:\n"
 "\n"
 
-#: ../packages.py:602
+#: ../packages.py:603
 msgid "Nodes Needed"
 msgstr "ノード数不足"
 
-#: ../packages.py:608
+#: ../packages.py:609
 msgid "Disk Space"
 msgstr "ディスク容量"
 
-#: ../packages.py:646
+#: ../packages.py:647
 msgid "Post Install"
 msgstr "インストール後の設定"
 
-#: ../packages.py:647
+#: ../packages.py:648
 msgid "Performing post install configuration..."
 msgstr "インストール後の設定を実行中..."
 
@@ -1191,9 +1191,10 @@ msgstr ""
 "されています"
 
 #: ../iw/partition_gui.py:579 ../partitioning.py:1844
+#, fuzzy
 msgid ""
-"Selected 'Yes' to continue and format these partitions, or 'No' to go back "
-"and change these settings."
+"Select 'Yes' to continue and format these partitions, or 'No' to go back and "
+"change these settings."
 msgstr ""
 "'はい'を選択すると処理を続け、これらのパーティションをフォーマットします。'い"
 "いえ'なら戻ってこれらの設定を変更できます"
@@ -1234,8 +1235,8 @@ msgstr ""
 msgid "Continue"
 msgstr "続行"
 
-#: ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:67
-#: ../textw/bootdisk_text.py:89 ../textw/silo_text.py:36
+#: ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:68
+#: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:118
 msgid "Skip"
 msgstr "スキップ"
@@ -1539,7 +1540,7 @@ msgid "Password:"
 msgstr "パスワード:"
 
 #: ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
-#: ../textw/bootloader_text.py:387
+#: ../textw/bootloader_text.py:390
 msgid "Confirm:"
 msgstr "確認:"
 
@@ -1572,7 +1573,7 @@ msgstr "フルネーム"
 msgid "Add"
 msgstr "追加"
 
-#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:274
+#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:277
 #: ../textw/fdisk_text.py:41 ../textw/partition_text.py:987
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
@@ -1687,7 +1688,7 @@ msgstr "SMB"
 msgid "Boot Disk Creation"
 msgstr "起動ディスクの作成"
 
-#: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:74
+#: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
 msgid ""
 "The boot disk allows you to boot your Red Hat Linux system from a floppy "
 "diskette.\n"
@@ -1701,7 +1702,7 @@ msgstr ""
 "フロッピードライブからディスクを抜いて、空のディスクを挿入して下さい。ブート"
 "ディスクを作ることでその内容は完全に消去されます。"
 
-#: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:83
+#: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:84
 msgid ""
 "\n"
 "\n"
@@ -1717,7 +1718,7 @@ msgstr "ブートディスク作成を省略"
 
 #: ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 #: ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
-#: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:369
+#: ../textw/bootloader_text.py:286 ../textw/bootloader_text.py:372
 msgid "Boot Loader Configuration"
 msgstr "ブートローダの設定"
 
@@ -1742,7 +1743,7 @@ msgid "Partition"
 msgstr "パーティション"
 
 #: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:433
-#: ../iw/partition_gui.py:1542 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../iw/partition_gui.py:1543 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 msgid "Type"
 msgstr "タイプ"
 
@@ -1769,7 +1770,7 @@ msgstr ""
 "択して下さい"
 
 #: ../iw/bootloader_gui.py:353 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:259 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:207
 #: ../textw/xconfig_text.py:377 ../textw/xconfig_text.py:384
 #: ../textw/xconfig_text.py:480 ../textw/xconfig_text.py:481
 #: ../textw/xconfig_text.py:500 ../textw/xconfig_text.py:501
@@ -1777,21 +1778,21 @@ msgid "Default"
 msgstr "デフォルト"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
-#: ../iw/partition_gui.py:1541 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:259
+#: ../iw/partition_gui.py:1542 ../iw/silo_gui.py:263
+#: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:262
 #: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 #: ../textw/silo_text.py:207
 msgid "Device"
 msgstr "デバイス"
 
 #: ../iw/bootloader_gui.py:354 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:259 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:207
 msgid "Partition type"
 msgstr "パーティションタイプ"
 
 #: ../iw/bootloader_gui.py:354 ../iw/bootloader_gui.py:443
 #: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:192
-#: ../textw/bootloader_text.py:259 ../textw/silo_text.py:143
+#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "ブートラベル"
@@ -1816,7 +1817,7 @@ msgstr "標準のブートイメージ"
 msgid "Boot Loader Password Configuration"
 msgstr "ブートローダパスワードの設定"
 
-#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:427
+#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:430
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -1839,7 +1840,7 @@ msgstr "パスワードが短かすぎます"
 msgid "Passwords do not match."
 msgstr "パスワードが一致していません"
 
-#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:364
+#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:367
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -2235,7 +2236,7 @@ msgstr "ツリー表示"
 msgid "Flat View"
 msgstr "フラット表示"
 
-#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1542
+#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1543
 msgid "Size (MB)"
 msgstr "容量 (メガバイト):"
 
@@ -2350,7 +2351,7 @@ msgstr "可能な最大容量まで拡大"
 msgid "Add Partition"
 msgstr "パーティション追加"
 
-#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1346
+#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1347
 #: ../textw/partition_text.py:205
 msgid "Mount Point:"
 msgstr "マウントポイント:"
@@ -2423,7 +2424,7 @@ msgid "Check for bad blocks"
 msgstr "不良ブロックをチェック"
 
 #: ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
-#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1476
+#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1477
 #: ../textw/partition_text.py:750 ../textw/partition_text.py:772
 #: ../textw/partition_text.py:901
 msgid "Error With Request"
@@ -2455,76 +2456,76 @@ msgstr "RAID デバイス作成"
 msgid "At least two software RAID partitions are needed."
 msgstr "少なくとも二つのソフトウェアRAIDパーティションが必要です"
 
-#: ../iw/partition_gui.py:1353 ../textw/partition_text.py:226
+#: ../iw/partition_gui.py:1354 ../textw/partition_text.py:226
 msgid "Filesystem type:"
 msgstr "ファイルシステムタイプ:"
 
-#: ../iw/partition_gui.py:1365 ../textw/partition_text.py:382
+#: ../iw/partition_gui.py:1366 ../textw/partition_text.py:382
 msgid "RAID Level:"
 msgstr "RAID レベル:"
 
-#: ../iw/partition_gui.py:1400 ../textw/partition_text.py:400
+#: ../iw/partition_gui.py:1401 ../textw/partition_text.py:400
 msgid "RAID Members:"
 msgstr "RAID メンバー:"
 
-#: ../iw/partition_gui.py:1411
+#: ../iw/partition_gui.py:1412
 msgid "Number of spares:"
 msgstr "スペア数:"
 
-#: ../iw/partition_gui.py:1418 ../textw/partition_text.py:842
+#: ../iw/partition_gui.py:1419 ../textw/partition_text.py:842
 msgid "Format partition?"
 msgstr "パーティションをフォーマットしますか?"
 
-#: ../iw/partition_gui.py:1522
+#: ../iw/partition_gui.py:1523
 msgid "_New"
 msgstr "新規(_N)"
 
-#: ../iw/partition_gui.py:1523
+#: ../iw/partition_gui.py:1524
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../iw/partition_gui.py:1524
+#: ../iw/partition_gui.py:1525
 msgid "_Delete"
 msgstr "削除(_D)"
 
-#: ../iw/partition_gui.py:1525
+#: ../iw/partition_gui.py:1526
 msgid "_Reset"
 msgstr "リセット(_R)"
 
-#: ../iw/partition_gui.py:1526
+#: ../iw/partition_gui.py:1527
 msgid "Make _RAID"
 msgstr "RAID 作成(_R)"
 
-#: ../iw/partition_gui.py:1541
+#: ../iw/partition_gui.py:1542
 msgid "Start"
 msgstr "開始"
 
-#: ../iw/partition_gui.py:1541
+#: ../iw/partition_gui.py:1542
 msgid "End"
 msgstr "終了"
 
-#: ../iw/partition_gui.py:1542
+#: ../iw/partition_gui.py:1543
 msgid "Format"
 msgstr "フォーマット"
 
-#: ../iw/partition_gui.py:1587 ../textw/partition_text.py:1063
+#: ../iw/partition_gui.py:1588 ../textw/partition_text.py:1063
 msgid "Automatic Partitioning"
 msgstr "自動パーティション設定"
 
-#: ../iw/partition_gui.py:1606
+#: ../iw/partition_gui.py:1607
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "インストールするドライブは少なくとも一つ選択しなければなりません"
 
-#: ../iw/partition_gui.py:1645
+#: ../iw/partition_gui.py:1646
 msgid "I want to have automatic partitioning:"
 msgstr "自動パーティション設定するドライブ:"
 
-#: ../iw/partition_gui.py:1676 ../textw/partition_text.py:1086
+#: ../iw/partition_gui.py:1677 ../textw/partition_text.py:1086
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "このインストール方法をどのドライブに使用しますか?"
 
-#: ../iw/partition_gui.py:1698
+#: ../iw/partition_gui.py:1699
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr "レビュー(自動パーティション設定の結果を確認し、変更できます)"
@@ -2901,7 +2902,7 @@ msgstr "ビデオカード RAM:"
 msgid "Skip X Configuration"
 msgstr "X の設定を行わない"
 
-#: ../textw/bootdisk_text.py:26
+#: ../textw/bootdisk_text.py:27
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal boot loader. This is useful if you don't want to "
@@ -2921,7 +2922,7 @@ msgstr ""
 "\n"
 "システムのブートディスクを作成しますか?"
 
-#: ../textw/bootdisk_text.py:50 ../textw/bootdisk_text.py:86
+#: ../textw/bootdisk_text.py:51 ../textw/bootdisk_text.py:87
 msgid "Boot Disk"
 msgstr "ブートディスク"
 
@@ -2997,7 +2998,7 @@ msgstr "ブートラベルは空白にはできません"
 msgid "Boot label contains illegal characters."
 msgstr "ブートラベルに不適切な文字が含まれています"
 
-#: ../textw/bootloader_text.py:278 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -3007,27 +3008,27 @@ msgstr ""
 "することもできます。ブート可能にするパーティションとそのパーティション用に使"
 "用するブートラベルを設定して下さい"
 
-#: ../textw/bootloader_text.py:374
+#: ../textw/bootloader_text.py:377
 msgid "Use a GRUB Password"
 msgstr "GRUBパスワードを使用"
 
-#: ../textw/bootloader_text.py:386
+#: ../textw/bootloader_text.py:389
 msgid "Boot Loader Password:"
 msgstr "ブートローダパスワード: "
 
-#: ../textw/bootloader_text.py:416
+#: ../textw/bootloader_text.py:419
 msgid "Passwords Do Not Match"
 msgstr "パスワードが一致していません"
 
-#: ../textw/bootloader_text.py:417
+#: ../textw/bootloader_text.py:420
 msgid "Passwords do not match"
 msgstr "パスワードが一致していません"
 
-#: ../textw/bootloader_text.py:421
+#: ../textw/bootloader_text.py:424
 msgid "Password Too Short"
 msgstr "パスワードが短かすぎます"
 
-#: ../textw/bootloader_text.py:422
+#: ../textw/bootloader_text.py:425
 msgid "Boot loader password is too short"
 msgstr "ブートローダパスワードが短かすぎます"
 
@@ -3435,7 +3436,8 @@ msgid "No RAID partitions"
 msgstr "RAIDパーティションなし"
 
 #: ../textw/partition_text.py:880
-msgid "Invalid Entry for Raid Spares"
+#, fuzzy
+msgid "Invalid Entry for RAID Spares"
 msgstr "不適切なRAIDスペアエントリ"
 
 #: ../textw/partition_text.py:893
@@ -5438,20 +5440,12 @@ msgid "English"
 msgstr "英語"
 
 #. generated from lang-table
-msgid "Danish"
-msgstr "デンマーク語"
-
-#. generated from lang-table
 msgid "French"
 msgstr "仏語"
 
 #. generated from lang-table
 msgid "German"
 msgstr "独語"
-
-#. generated from lang-table
-msgid "Hungarian"
-msgstr "ハンガリー語"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -5474,24 +5468,8 @@ msgid "Norwegian"
 msgstr "ノルウェー語"
 
 #. generated from lang-table
-msgid "Portuguese"
-msgstr "ポルトガル語"
-
-#. generated from lang-table
-msgid "Romanian"
-msgstr "ローマ語"
-
-#. generated from lang-table
 msgid "Russian"
 msgstr "露語"
-
-#. generated from lang-table
-msgid "Serbian"
-msgstr "セルビア語"
-
-#. generated from lang-table
-msgid "Slovak"
-msgstr "スロヴァキア語"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -5505,13 +5483,29 @@ msgstr "スペイン語"
 msgid "Swedish"
 msgstr "スウェーデン語"
 
-#. generated from lang-table
-msgid "Turkish"
-msgstr "トルコ語"
+#~ msgid "Danish"
+#~ msgstr "デンマーク語"
 
-#. generated from lang-table
-msgid "Ukrainian"
-msgstr "ウクライナ語"
+#~ msgid "Hungarian"
+#~ msgstr "ハンガリー語"
+
+#~ msgid "Portuguese"
+#~ msgstr "ポルトガル語"
+
+#~ msgid "Romanian"
+#~ msgstr "ローマ語"
+
+#~ msgid "Serbian"
+#~ msgstr "セルビア語"
+
+#~ msgid "Slovak"
+#~ msgstr "スロヴァキア語"
+
+#~ msgid "Turkish"
+#~ msgstr "トルコ語"
+
+#~ msgid "Ukrainian"
+#~ msgstr "ウクライナ語"
 
 #~ msgid "You cannot edit this partition, as it is in use by the installer."
 #~ msgstr "インストーラが使用中なので編集できません"

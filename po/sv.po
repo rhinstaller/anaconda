@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"POT-Creation-Date: 2001-08-14 14:53-0400\n"
-"PO-Revision-Date: 2001-07-27 00:36+0200\n"
+"POT-Creation-Date: 2001-08-14 18:40-0400\n"
+"PO-Revision-Date: 2001-08-14 23:13+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,13 +15,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../anaconda:313
-#, fuzzy
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
-"Du har inte tillräckligt med minne för att installera Red Hat Linux på denna "
-"maskin."
+"Du har inte tillräckligt med minne för att använda det grafiska "
+"installationsprogrammet. Startar textläge."
 
 #: ../anaconda:332 ../gui.py:111 ../iw/account_gui.py:150
 #: ../iw/account_gui.py:161 ../iw/partition_gui.py:496
@@ -44,8 +43,8 @@ msgstr ""
 #: ../loader/urls.c:158 ../loader/urls.c:236 ../loader/urls.c:241
 #: ../loader/urls.c:247 ../loader/urls.c:387 ../mouse.py:281 ../rescue.py:34
 #: ../rescue.py:130 ../rescue.py:151 ../rescue.py:168 ../rescue.py:174
-#: ../text.py:283 ../text.py:400 ../textw/bootdisk_text.py:65
-#: ../textw/bootdisk_text.py:67 ../textw/complete_text.py:47
+#: ../text.py:283 ../text.py:400 ../textw/bootdisk_text.py:66
+#: ../textw/bootdisk_text.py:68 ../textw/complete_text.py:47
 #: ../textw/complete_text.py:62 ../textw/complete_text.py:78
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:20 ../textw/fdisk_text.py:41
@@ -57,63 +56,59 @@ msgstr "OK"
 
 #: ../anaconda:375
 msgid "Probing for video card:   "
-msgstr ""
+msgstr "Undersöker grafikkort:   "
 
 #: ../anaconda:383
-#, fuzzy
 msgid "Unable to probe\n"
-msgstr "Kan inte testa"
+msgstr "Kan inte undersöka\n"
 
 #: ../anaconda:385
-#, fuzzy
 msgid "Probing for monitor type: "
-msgstr "Testar mustyp..."
+msgstr "Undersöker bildskärmstyp: "
 
 #: ../anaconda:392
-#, fuzzy
 msgid "Probing for mouse type:   "
-msgstr "Testar mustyp..."
+msgstr "Undersöker mustyp:   "
 
 #: ../anaconda:396
 msgid "Skipping mouse probe.\n"
-msgstr ""
+msgstr "Hoppar över undersökningen av mustyp.\n"
 
 #: ../anaconda:410
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
+"Grafisk installation är inte tillgänglig för %s-installationer. Startar "
+"textläge."
 
 #: ../anaconda:420
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
+"Ingen mus hittades. En mus krävs för grafisk installation. Startar textläge."
 
 #: ../anaconda:425
-#, fuzzy
 msgid "Using mouse type: "
-msgstr "Testar mustyp..."
+msgstr "Använder mustyp: "
 
 #: ../autopart.py:682
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr "Kunde inte allokera begärda partitioner: %s."
+msgstr ""
+"Kunde inte allokera cylinderbaserade partitioner som primära partitioner"
 
 #: ../autopart.py:685
-#, fuzzy
 msgid "Could not allocate partitions as primary partitions"
-msgstr "Kunde inte allokera begärda partitioner: %s."
+msgstr "Kunde inte allokera partitioner som primära partitioner"
 
 #: ../autopart.py:688
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions"
-msgstr "Kunde inte allokera begärda partitioner: %s."
+msgstr "Kunde inte allokera cylinderbaserade partitioner"
 
 #: ../autopart.py:691
-#, fuzzy
 msgid "Could not allocate partitions"
-msgstr "Kunde inte allokera begärda partitioner: %s."
+msgstr "Kunde inte allokera partitioner"
 
 #: ../autopart.py:739
 #, c-format
@@ -188,12 +183,12 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:945 ../harddrive.py:233 ../iw/bootloader_gui.py:58
+#: ../autopart.py:945 ../harddrive.py:236 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1280
-#: ../iw/partition_gui.py:1605 ../iw/upgrade_swap_gui.py:171
+#: ../iw/partition_gui.py:1606 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:694 ../partitioning.py:1401
-#: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:426
+#: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
 #: ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
 msgid "Warning"
@@ -305,9 +300,9 @@ msgstr ""
 "Systemets tillstånd har skrivits till disketten. Ditt system kommer nu att "
 "startas om."
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:359 ../fsset.py:765
-#: ../fsset.py:784 ../fsset.py:829 ../fsset.py:849 ../fsset.py:883
-#: ../fsset.py:926 ../harddrive.py:171 ../image.py:65 ../image.py:142
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:371 ../fsset.py:783
+#: ../fsset.py:802 ../fsset.py:847 ../fsset.py:867 ../fsset.py:901
+#: ../fsset.py:944 ../harddrive.py:171 ../image.py:65 ../image.py:142
 #: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:27
 #: ../loader/lang.c:102 ../loader/loader.c:478 ../loader/loader.c:535
@@ -316,7 +311,7 @@ msgstr ""
 #: ../loader/loader.c:2207 ../loader/loader.c:2237 ../loader/loader.c:2315
 #: ../loader/loader.c:2524 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
-#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:236
+#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:237
 #: ../partitioning.py:1258 ../partitioning.py:1289
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
@@ -341,16 +336,15 @@ msgid "Creating boot disk..."
 msgstr "Skapar startdiskett..."
 
 #: ../fsset.py:145
-#, fuzzy
 msgid "Checking for Bad Blocks"
-msgstr "Sök efter skadade block"
+msgstr "Söker efter skadade block"
 
 #: ../fsset.py:146
-#, fuzzy, c-format
+#, c-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "Sök efter skadade block"
+msgstr "Söker efter skadade block på /dev/%s..."
 
-#: ../fsset.py:360
+#: ../fsset.py:372
 #, c-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -358,16 +352,20 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
+"Ett fel uppstod vid migrering av %s till ext3. Det är möjligt att fortsätta "
+"utan att migrera detta filsystem om så önskas.\n"
+"\n"
+"Vill du fortsätta utan att migrera %s?"
 
-#: ../fsset.py:706 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:724 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Huvudstartposten (MBR)"
 
-#: ../fsset.py:707 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:725 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Första sektorn av startpartitionen"
 
-#: ../fsset.py:766
+#: ../fsset.py:784
 #, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -380,7 +378,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:785
+#: ../fsset.py:803
 #, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -395,7 +393,7 @@ msgstr ""
 "\n"
 "Tryck OK för att starta om ditt system."
 
-#: ../fsset.py:830
+#: ../fsset.py:848
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -408,7 +406,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:850
+#: ../fsset.py:868
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -421,7 +419,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:884
+#: ../fsset.py:902
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -434,38 +432,38 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:904 ../fsset.py:913
-#, fuzzy
+#: ../fsset.py:922 ../fsset.py:931
 msgid "Invalid mount point"
-msgstr "Felaktig monteringspunkt"
+msgstr "Ogiltig monteringspunkt"
 
-#: ../fsset.py:905
-#, fuzzy, c-format
+#: ../fsset.py:923
+#, c-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Ett fel inträffade vid försöket att migrera %s. Detta problem är allvarligt "
-"och installationsprogrammet kan inte fortsätta.\n"
+"Ett fel inträffade vid försöket att skapa %s. Ett element i sökvägen är inte "
+"en katalog. Detta är ett ödesdigert fel och installationen kan inte "
+"fortsätta.\n"
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:914
-#, fuzzy, c-format
+#: ../fsset.py:932
+#, c-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Ett fel inträffade vid försöket att migrera %s. Detta problem är allvarligt "
-"och installationsprogrammet kan inte fortsätta.\n"
+"Ett fel inträffade vid försöket att skapa %s: %s. Detta problem är "
+"ödesdigert och installationsprogrammet kan inte fortsätta.\n"
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:927
+#: ../fsset.py:945
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -480,11 +478,11 @@ msgstr ""
 "\n"
 "Tryck OK för att starta om ditt system."
 
-#: ../fsset.py:1465
+#: ../fsset.py:1488
 msgid "Formatting"
 msgstr "Formaterar"
 
-#: ../fsset.py:1466
+#: ../fsset.py:1489
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formaterar %s-filsystem..."
@@ -496,15 +494,15 @@ msgstr "Fixa"
 #: ../gui.py:109 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
 #: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:97 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:281
-#: ../textw/bootdisk_text.py:25 ../textw/bootloader_text.py:76
+#: ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
 msgid "Yes"
 msgstr "Ja"
 
 #: ../gui.py:110 ../iw/partition_gui.py:499 ../iw/partition_gui.py:657
 #: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:100 ../loader/devices.c:231
-#: ../loader/net.c:889 ../text.py:282 ../textw/bootdisk_text.py:25
-#: ../textw/bootdisk_text.py:54 ../textw/bootloader_text.py:76
+#: ../loader/net.c:889 ../text.py:282 ../textw/bootdisk_text.py:26
+#: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 #: ../textw/upgrade_text.py:259
 msgid "No"
@@ -683,11 +681,11 @@ msgstr ""
 msgid "Use text mode"
 msgstr "Använd textläge"
 
-#: ../iw/package_gui.py:30 ../packages.py:37
+#: ../iw/package_gui.py:30 ../packages.py:38
 msgid "Proceed with upgrade?"
 msgstr "Fortsätt med uppgraderingen?"
 
-#: ../iw/package_gui.py:31 ../packages.py:38
+#: ../iw/package_gui.py:31 ../packages.py:39
 msgid ""
 "The filesystems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -697,35 +695,35 @@ msgstr ""
 "redan monterats. Du kan inte gå tillbaka efter detta.\n"
 "\n"
 
-#: ../iw/package_gui.py:35 ../packages.py:42
+#: ../iw/package_gui.py:35 ../packages.py:43
 msgid "Would you like to continue with the upgrade?"
 msgstr "Vill du fortsätta med uppgraderingen?"
 
-#: ../packages.py:96
+#: ../packages.py:97
 msgid "Reading"
 msgstr "Läser"
 
-#: ../packages.py:96
+#: ../packages.py:97
 msgid "Reading package information..."
 msgstr "Läser paketinformation..."
 
-#: ../packages.py:153
+#: ../packages.py:154
 msgid "Dependency Check"
 msgstr "Beroendekontroll"
 
-#: ../packages.py:154
+#: ../packages.py:155
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kontrollerar beroenden hos de paket som valts för installation..."
 
-#: ../packages.py:202 ../packages.py:473
+#: ../packages.py:203 ../packages.py:474
 msgid "Processing"
 msgstr "Bearbetar"
 
-#: ../packages.py:203
+#: ../packages.py:204
 msgid "Preparing to install..."
 msgstr "Förbereder installation..."
 
-#: ../packages.py:237
+#: ../packages.py:238
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -734,21 +732,21 @@ msgstr ""
 "Filen %s kan inte öppnas. Detta kan bero på att filen saknas, ett felaktigt "
 "paket, eller felaktigt medium. Tryck på <Retur> för att försöka igen."
 
-#: ../packages.py:474
+#: ../packages.py:475
 msgid "Setting up RPM transaction..."
 msgstr "Ställer in RPM-transaktion..."
 
-#: ../packages.py:515
+#: ../packages.py:516
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Uppgraderar %s.\n"
 
-#: ../packages.py:517
+#: ../packages.py:518
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerar %s.\n"
 
-#: ../packages.py:577
+#: ../packages.py:578
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -758,16 +756,16 @@ msgstr ""
 "du har valt. Du behöver mer utrymme på följande filsystem:\n"
 "\n"
 
-#: ../iw/partition_gui.py:1542 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:581 ../packages.py:601 ../textw/upgrade_text.py:106
+#: ../iw/partition_gui.py:1543 ../iw/upgrade_swap_gui.py:123
+#: ../packages.py:582 ../packages.py:602 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../packages.py:582
+#: ../packages.py:583
 msgid "Space Needed"
 msgstr "Nödvändigt utrymme"
 
-#: ../packages.py:597
+#: ../packages.py:598
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -777,19 +775,19 @@ msgstr ""
 "har valt. Du behöver fler filnoder på följande filsystem:\n"
 "\n"
 
-#: ../packages.py:602
+#: ../packages.py:603
 msgid "Nodes Needed"
 msgstr "Noder som behövs"
 
-#: ../packages.py:608
+#: ../packages.py:609
 msgid "Disk Space"
 msgstr "Diskutrymme"
 
-#: ../packages.py:646
+#: ../packages.py:647
 msgid "Post Install"
 msgstr "Postinstallation"
 
-#: ../packages.py:647
+#: ../packages.py:648
 msgid "Performing post install configuration..."
 msgstr "Utför postinstallationskonfiguration..."
 
@@ -936,7 +934,7 @@ msgstr ""
 "(%d MB) på ditt system. Detta kan påverka prestanda negativt."
 
 #: ../partitioning.py:695
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type for your "
 "architecture.  To use this disk for installation of Red Hat Linux, it must "
@@ -944,8 +942,10 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"Partitionstabellen på enhet %s är oläsbar. För att skapa nya partitioner "
-"måste den initieras, vilket kommer att förstöra ALL DATA på denna enhet.\n"
+"Partitionstabellen på enheten /dev/%s är av en typ som är oväntad för din "
+"arkitektur. För att denna disk ska kunna användas för installation av Red "
+"Hat Linux måste den initieras om, vilket kommer att förstöra ALL DATA på "
+"denna enhet.\n"
 "\n"
 "Vill du initiera denna enhet?"
 
@@ -1118,9 +1118,8 @@ msgstr ""
 "skriva din nya partitionstabell till hårddisken. Är det okej?"
 
 #: ../partitioning.py:1769
-#, fuzzy
 msgid "Format as Swap?"
-msgstr "Formatera som %s"
+msgstr "Formatera som växlingspartition?"
 
 #: ../partitioning.py:1770
 #, c-format
@@ -1130,6 +1129,10 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
+"/dev/%s har en partitionstyp som är 0x82 (Linux swap), men den verkar inte "
+"vara formaterad som en Linux-växlingspartition.\n"
+"\n"
+"Vill du formatera denna partition som en växlingspartition?"
 
 #: ../partitioning.py:1789 ../partitioning.py:1807
 msgid "Format?"
@@ -1142,13 +1145,12 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Du har valt att formatera en redan existerande partition. Detta kommer att "
-"förstöra all data som tidigare fanns på den.\n"
+"Du har valt att formatera en befintlig partition. Detta kommer att förstöra "
+"all data som tidigare fanns på den.\n"
 "\n"
 "Är du säker på att du vill göra detta?"
 
 #: ../partitioning.py:1798
-#, fuzzy
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1158,10 +1160,11 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Du har valt att inte formatera en redan existerande partition som är "
-"monterad som en systemkatalog. Det rekommenderas att du formaterar denna "
-"partition för att garantera att data som tidigare fanns på partitionen inte "
-"förstör din nya installation.\n"
+"Du har valt att inte formatera en befintlig partition som är monterad under "
+"en systemkatalog. Såvida du inte har några speciella skäl att behålla data "
+"på denna partition, rekommenderas att du formaterar denna partition för att "
+"garantera att data som tidigare fanns på partitionen inte förstör din nya "
+"installation.\n"
 "\n"
 "Är du säker på att du vill göra detta?"
 
@@ -1208,17 +1211,20 @@ msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
+"De följande befintliga partitionerna har valts ut för formatering som kommer "
+"att förstöra all data."
 
 #: ../iw/partition_gui.py:579 ../partitioning.py:1844
 msgid ""
-"Selected 'Yes' to continue and format these partitions, or 'No' to go back "
-"and change these settings."
+"Select 'Yes' to continue and format these partitions, or 'No' to go back and "
+"change these settings."
 msgstr ""
+"Välj \"Ja\" för att fortsätta och formatera dessa partitioner, eller \"Nej\" "
+"för att gå tillbaka och ändra dessa inställningar."
 
 #: ../partitioning.py:1850
-#, fuzzy
 msgid "Format Warning"
-msgstr "Formaterar"
+msgstr "Formateringsvarning"
 
 #: ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1254,8 +1260,8 @@ msgstr ""
 msgid "Continue"
 msgstr "Fortsätt"
 
-#: ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:67
-#: ../textw/bootdisk_text.py:89 ../textw/silo_text.py:36
+#: ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:68
+#: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:118
 msgid "Skip"
 msgstr "Hoppa över"
@@ -1394,9 +1400,8 @@ msgstr ""
 "och stäng sedan ner korrekt för att uppgradera."
 
 #: ../upgrade.py:214
-#, fuzzy
 msgid "Mount failed"
-msgstr "Test misslyckades"
+msgstr "Montering misslyckades"
 
 #: ../upgrade.py:215
 msgid ""
@@ -1422,7 +1427,7 @@ msgstr ""
 #: ../upgrade.py:241
 #, c-format
 msgid "%s not found"
-msgstr ""
+msgstr "%s hittades inte"
 
 #: ../upgrade.py:263
 msgid "Finding"
@@ -1449,6 +1454,11 @@ msgid ""
 "or may cause other system instability.  Do you wish to continue the upgrade "
 "process?"
 msgstr ""
+"Detta system verkar ha tredjepartspaket installerade som överlappar med "
+"paket som ingår i Red Hat Linux. Att fortsätta uppgraderingsprocessen kan, "
+"eftersom dessa paket överlappar varandra, göra att systemet slutar fungera "
+"ordentligt eller orsaka instabilitet i systemet. Vill du fortsätta "
+"uppgraderingsprocessen?"
 
 #: ../upgrade.py:367
 msgid ""
@@ -1457,6 +1467,10 @@ msgid ""
 "leave the system in an unusable state.  Do you wish to continue the upgrade "
 "process?"
 msgstr ""
+"Detta system har ingen fil vid namn /etc/redhat-release. Det är möjligt att "
+"detta system inte är ett Red Hat Linux-system. Att fortsätta "
+"uppgraderingsprocessen kan lämna systemet i ett oanvändbart tillstånd. Vill "
+"du fortsätta uppgraderingsprocessen?"
 
 #: ../videocard.py:401
 msgid "Unknown Card"
@@ -1556,7 +1570,7 @@ msgid "Password:"
 msgstr "Lösenord:"
 
 #: ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
-#: ../textw/bootloader_text.py:387
+#: ../textw/bootloader_text.py:390
 msgid "Confirm:"
 msgstr "Bekräfta:"
 
@@ -1589,7 +1603,7 @@ msgstr "Fullständigt namn"
 msgid "Add"
 msgstr "Lägg till"
 
-#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:274
+#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:277
 #: ../textw/fdisk_text.py:41 ../textw/partition_text.py:987
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
@@ -1705,7 +1719,7 @@ msgstr "SMB"
 msgid "Boot Disk Creation"
 msgstr "Skapande av startdiskett"
 
-#: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:74
+#: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
 msgid ""
 "The boot disk allows you to boot your Red Hat Linux system from a floppy "
 "diskette.\n"
@@ -1718,7 +1732,7 @@ msgstr ""
 "Ta bort alla disketter från diskettstationen och sätt i en tom diskett. All "
 "data kommer att TAS BORT under skapandet av startdisketten."
 
-#: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:83
+#: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:84
 msgid ""
 "\n"
 "\n"
@@ -1734,7 +1748,7 @@ msgstr "Hoppa över skapandet av startdiskett"
 
 #: ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 #: ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
-#: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:369
+#: ../textw/bootloader_text.py:286 ../textw/bootloader_text.py:372
 msgid "Boot Loader Configuration"
 msgstr "Konfiguration av startprogram"
 
@@ -1758,7 +1772,7 @@ msgid "Partition"
 msgstr "Partition"
 
 #: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:433
-#: ../iw/partition_gui.py:1542 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../iw/partition_gui.py:1543 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 msgid "Type"
 msgstr "Typ"
 
@@ -1785,7 +1799,7 @@ msgstr ""
 "startprogram kan du välja \"Installera inte ett startprogram\"."
 
 #: ../iw/bootloader_gui.py:353 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:259 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:207
 #: ../textw/xconfig_text.py:377 ../textw/xconfig_text.py:384
 #: ../textw/xconfig_text.py:480 ../textw/xconfig_text.py:481
 #: ../textw/xconfig_text.py:500 ../textw/xconfig_text.py:501
@@ -1793,21 +1807,21 @@ msgid "Default"
 msgstr "Standard"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
-#: ../iw/partition_gui.py:1541 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:259
+#: ../iw/partition_gui.py:1542 ../iw/silo_gui.py:263
+#: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:262
 #: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 #: ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Enhet"
 
 #: ../iw/bootloader_gui.py:354 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:259 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:207
 msgid "Partition type"
 msgstr "Partitionstyp"
 
 #: ../iw/bootloader_gui.py:354 ../iw/bootloader_gui.py:443
 #: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:192
-#: ../textw/bootloader_text.py:259 ../textw/silo_text.py:143
+#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "Startetikett"
@@ -1832,13 +1846,17 @@ msgstr "Normal startfil"
 msgid "Boot Loader Password Configuration"
 msgstr "Konfiguration av lösenord för startprogram"
 
-#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:427
+#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:430
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
+"Ditt lösenord för startprogrammet innehåller mindre än sex tecken. Vi "
+"rekommenderar ett längre lösenord för startprogrammet.\n"
+"\n"
+"Vill du fortsätta med detta lösenord?"
 
 #: ../iw/bootloaderpassword_gui.py:54
 msgid "Password accepted."
@@ -1849,18 +1867,16 @@ msgid "Password is too short."
 msgstr "Lösenordet är för kort."
 
 #: ../iw/bootloaderpassword_gui.py:61
-#, fuzzy
 msgid "Passwords do not match."
-msgstr "Lösenorden stämmer inte överens"
+msgstr "Lösenorden stämmer inte överens."
 
-#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:364
-#, fuzzy
+#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:367
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"Ett GRUB-lösenord förhindrar användare från att skicka godtyckliga "
+"Ett startprogramslösenord förhindrar användare från att skicka godtyckliga "
 "alternativ till kärnan. Vi rekommenderar att ett lösenord anges för största "
 "möjliga säkerhet, men detta är inte nödvändigt för användare som inte har så "
 "stort behov av säkerhet."
@@ -1920,9 +1936,12 @@ msgid ""
 "it before you press <Enter> to reboot.\n"
 "\n"
 msgstr ""
+"Om du skapade en startdiskett för att starta ditt Red Hat Linus-system bör "
+"du sätta i denna innan du trycker <Retur> för att starta om.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:55
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Congratulations, your Red Hat Linux installation is complete.\n"
 "\n"
@@ -1937,14 +1956,11 @@ msgid ""
 msgstr ""
 "Gratulerar, din Red Hat Linux-installation är färdig.\n"
 "\n"
-"Ta bort alla cd-skivor och disketter som du använde under installationen och "
-"tryck <Enter> för att starta om ditt system.\n"
+"Ta bort alla disketter som du använde under installationen och tryck <Retur> "
+"för att starta om ditt system.\n"
 "\n"
-"Om du skapade en startdiskett för att kunna starta ditt Red Hat Linux-system "
-"bör du sätta in denna innan du trycker på <Retur> för att starta om.\n"
-"\n"
-"Information om uppdateringar och programfixar hittar du på http://www.redhat."
-"com/errata.\n"
+"%sInformation om uppdateringar och programfixar hittar du på http://www."
+"redhat.com/errata.\n"
 "\n"
 "Information om användning och konfiguration av ditt system finns i Red Hat "
 "Linux-manualerna på http://www.redhat.com/support/manuals."
@@ -2252,7 +2268,7 @@ msgstr "Trädvy"
 msgid "Flat View"
 msgstr "Platt vy"
 
-#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1542
+#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1543
 msgid "Size (MB)"
 msgstr "Storlek (MB)"
 
@@ -2318,9 +2334,8 @@ msgid "Partitioning Warnings"
 msgstr "Partitioneringsvarningar"
 
 #: ../iw/partition_gui.py:589
-#, fuzzy
 msgid "Format Warnings"
-msgstr "Formatera som:"
+msgstr "Formateringsvarningar"
 
 #: ../iw/partition_gui.py:642 ../textw/partition_text.py:75
 #: ../textw/partition_text.py:114
@@ -2369,7 +2384,7 @@ msgstr "Fyll till största möjliga storlek"
 msgid "Add Partition"
 msgstr "Lägg till partition"
 
-#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1346
+#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1347
 #: ../textw/partition_text.py:205
 msgid "Mount Point:"
 msgstr "Monteringspunkt:"
@@ -2442,7 +2457,7 @@ msgid "Check for bad blocks"
 msgstr "Sök efter skadade block"
 
 #: ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
-#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1476
+#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1477
 #: ../textw/partition_text.py:750 ../textw/partition_text.py:772
 #: ../textw/partition_text.py:901
 msgid "Error With Request"
@@ -2472,78 +2487,78 @@ msgstr "Skapa RAID-enhet"
 
 #: ../iw/partition_gui.py:1339 ../textw/partition_text.py:830
 msgid "At least two software RAID partitions are needed."
-msgstr ""
+msgstr "Minst två programvaru-RAID-partitioner behövs."
 
-#: ../iw/partition_gui.py:1353 ../textw/partition_text.py:226
+#: ../iw/partition_gui.py:1354 ../textw/partition_text.py:226
 msgid "Filesystem type:"
 msgstr "Filsystemstyp:"
 
-#: ../iw/partition_gui.py:1365 ../textw/partition_text.py:382
+#: ../iw/partition_gui.py:1366 ../textw/partition_text.py:382
 msgid "RAID Level:"
 msgstr "RAID-nivå:"
 
-#: ../iw/partition_gui.py:1400 ../textw/partition_text.py:400
+#: ../iw/partition_gui.py:1401 ../textw/partition_text.py:400
 msgid "RAID Members:"
 msgstr "RAID-medlemmar:"
 
-#: ../iw/partition_gui.py:1411
+#: ../iw/partition_gui.py:1412
 msgid "Number of spares:"
 msgstr "Antal reserver:"
 
-#: ../iw/partition_gui.py:1418 ../textw/partition_text.py:842
+#: ../iw/partition_gui.py:1419 ../textw/partition_text.py:842
 msgid "Format partition?"
 msgstr "Formatera partitionen?"
 
-#: ../iw/partition_gui.py:1522
+#: ../iw/partition_gui.py:1523
 msgid "_New"
 msgstr "_Ny"
 
-#: ../iw/partition_gui.py:1523
+#: ../iw/partition_gui.py:1524
 msgid "_Edit"
 msgstr "R_edigera"
 
-#: ../iw/partition_gui.py:1524
+#: ../iw/partition_gui.py:1525
 msgid "_Delete"
 msgstr "_Ta bort"
 
-#: ../iw/partition_gui.py:1525
+#: ../iw/partition_gui.py:1526
 msgid "_Reset"
 msgstr "_Återställ"
 
-#: ../iw/partition_gui.py:1526
+#: ../iw/partition_gui.py:1527
 msgid "Make _RAID"
 msgstr "Skapa _RAID"
 
-#: ../iw/partition_gui.py:1541
+#: ../iw/partition_gui.py:1542
 msgid "Start"
 msgstr "Start"
 
-#: ../iw/partition_gui.py:1541
+#: ../iw/partition_gui.py:1542
 msgid "End"
 msgstr "Slut"
 
-#: ../iw/partition_gui.py:1542
+#: ../iw/partition_gui.py:1543
 msgid "Format"
 msgstr "Formatera"
 
-#: ../iw/partition_gui.py:1587 ../textw/partition_text.py:1063
+#: ../iw/partition_gui.py:1588 ../textw/partition_text.py:1063
 msgid "Automatic Partitioning"
 msgstr "Automatisk partitionering"
 
-#: ../iw/partition_gui.py:1606
+#: ../iw/partition_gui.py:1607
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "Du måste välja minst en enhet som du vill installera Red Hat Linux på."
 
-#: ../iw/partition_gui.py:1645
+#: ../iw/partition_gui.py:1646
 msgid "I want to have automatic partitioning:"
 msgstr "Jag vill ha automatisk partitionering:"
 
-#: ../iw/partition_gui.py:1676 ../textw/partition_text.py:1086
+#: ../iw/partition_gui.py:1677 ../textw/partition_text.py:1086
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Vilken eller vilka enheter vill du använda för denna installation?"
 
-#: ../iw/partition_gui.py:1698
+#: ../iw/partition_gui.py:1699
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr ""
@@ -2771,7 +2786,7 @@ msgstr "Välkommen"
 
 #: ../iw/welcome_gui.py:62
 msgid "Exiting anaconda now"
-msgstr ""
+msgstr "Avslutar nu anaconda"
 
 #: ../iw/welcome_gui.py:89
 msgid "Would you like to configure your system?"
@@ -2925,7 +2940,7 @@ msgstr "Grafikminne: "
 msgid "Skip X Configuration"
 msgstr "Hoppa över konfiguration av X"
 
-#: ../textw/bootdisk_text.py:26
+#: ../textw/bootdisk_text.py:27
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal boot loader. This is useful if you don't want to "
@@ -2945,7 +2960,7 @@ msgstr ""
 "\n"
 "Vill du skapa en startdiskett för ditt system?"
 
-#: ../textw/bootdisk_text.py:50 ../textw/bootdisk_text.py:86
+#: ../textw/bootdisk_text.py:51 ../textw/bootdisk_text.py:87
 msgid "Boot Disk"
 msgstr "Startdiskett"
 
@@ -3022,7 +3037,7 @@ msgstr "Startetiketten får inte vara tom."
 msgid "Boot label contains illegal characters."
 msgstr "Startetiketten innehåller ogiltiga tecken."
 
-#: ../textw/bootloader_text.py:278 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -3032,31 +3047,29 @@ msgstr ""
 "måste berätta vilka andra partitioner du vill kunna starta och vilka "
 "startetiketter du vill använda för att starta dem."
 
-#: ../textw/bootloader_text.py:374
+#: ../textw/bootloader_text.py:377
 msgid "Use a GRUB Password"
 msgstr "Använd ett GRUB-lösenord"
 
-#: ../textw/bootloader_text.py:386
+#: ../textw/bootloader_text.py:389
 msgid "Boot Loader Password:"
 msgstr "Lösenord för startprogram:"
 
-#: ../textw/bootloader_text.py:416
+#: ../textw/bootloader_text.py:419
 msgid "Passwords Do Not Match"
 msgstr "Lösenorden stämmer inte överens"
 
-#: ../textw/bootloader_text.py:417
+#: ../textw/bootloader_text.py:420
 msgid "Passwords do not match"
 msgstr "Lösenorden stämmer inte överens"
 
-#: ../textw/bootloader_text.py:421
-#, fuzzy
+#: ../textw/bootloader_text.py:424
 msgid "Password Too Short"
-msgstr "Lösenordet är för kort."
+msgstr "Lösenordet är för kort"
 
-#: ../textw/bootloader_text.py:422
-#, fuzzy
+#: ../textw/bootloader_text.py:425
 msgid "Boot loader password is too short"
-msgstr "Rootlösenordet är för kort."
+msgstr "Lösenordet till startprogrammet är för kort"
 
 #: ../textw/complete_text.py:25
 msgid "<Enter> to reboot"
@@ -3068,7 +3081,7 @@ msgid "Complete"
 msgstr "Färdig"
 
 #: ../textw/complete_text.py:36
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Congratulations, your Red Hat Linux installation is complete.\n"
 "\n"
@@ -3083,14 +3096,11 @@ msgid ""
 msgstr ""
 "Gratulerar, din Red Hat Linux-installation är färdig.\n"
 "\n"
-"Ta bort alla cd-skivor och disketter som du använde under installationen och "
-"tryck <Enter> för att starta om ditt system.\n"
+"Ta bort alla disketter som du använde under installationen och tryck <Retur> "
+"för att starta om ditt system.\n"
 "\n"
-"Om du skapade en startdiskett för att kunna starta ditt Red Hat Linux-system "
-"bör du sätta in denna innan du trycker på <Retur> för att starta om.\n"
-"\n"
-"Information om uppdateringar och programfixar hittar du på http://www.redhat."
-"com/errata.\n"
+"%sInformation om uppdateringar och programfixar hittar du på http://www."
+"redhat.com/errata.\n"
 "\n"
 "Information om användning av ditt system finns i Red Hat Linux-manualerna på "
 "http://www.redhat.com/support/manuals."
@@ -3365,27 +3375,25 @@ msgid "Package Dependencies"
 msgstr "Paketberoenden"
 
 #: ../textw/packages_text.py:295
-#, fuzzy
 msgid ""
 "Some of the packages you have selected to install require packages you have "
 "not selected. If you just select OK all of those required packages will be "
 "installed."
 msgstr ""
-"Vissa paket du har valt att installera kräver paket som du inte har valt. Om "
-"du bara väljer Ok kommer även alla dessa paket att installeras."
+"En del av de paket du har valt att installera kräver paket som du inte har "
+"valt. Om du bara väljer OK kommer även alla dessa paket att installeras."
 
 #: ../textw/partition_text.py:35
-#, fuzzy
 msgid "Must specify a value"
-msgstr "Måste ange storlek"
+msgstr "Måste ange ett värde"
 
 #: ../textw/partition_text.py:38
 msgid "Requested value is not an integer"
-msgstr ""
+msgstr "Begärt värde är inte ett heltal"
 
 #: ../textw/partition_text.py:40
 msgid "Requested value is too large"
-msgstr ""
+msgstr "Begärt värde är för stort"
 
 #: ../textw/partition_text.py:167
 #, c-format
@@ -3448,31 +3456,28 @@ msgid "Leave unchanged"
 msgstr "Lämna oändrad"
 
 #: ../textw/partition_text.py:691 ../textw/partition_text.py:740
-#, fuzzy
 msgid "Invalid Entry for Partition Size"
-msgstr "Ogiltig information"
+msgstr "Ogiltigt värde på partitionsstorlek"
 
 #: ../textw/partition_text.py:703
-#, fuzzy
 msgid "Invalid Entry for Maximum Size"
-msgstr "Ange maximalstorlek"
+msgstr "Ogiltigt värde på maxstorlek"
 
 #: ../textw/partition_text.py:722
 msgid "Invalid Entry for Starting Cylinder"
-msgstr ""
+msgstr "Ogiltigt värde på startcylider"
 
 #: ../textw/partition_text.py:732
 msgid "Invalid Entry for End Cylinder"
-msgstr ""
+msgstr "Ogiltigt värde på slutcylinder"
 
 #: ../textw/partition_text.py:829
-#, fuzzy
 msgid "No RAID partitions"
-msgstr "<RAID-partition>"
+msgstr "Inga RAID-partitioner"
 
 #: ../textw/partition_text.py:880
-msgid "Invalid Entry for Raid Spares"
-msgstr ""
+msgid "Invalid Entry for RAID Spares"
+msgstr "Ogiltigt värde på RAID-reserver"
 
 #: ../textw/partition_text.py:893
 msgid "Too many spares"
@@ -3495,11 +3500,10 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:990
-#, fuzzy
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
-"     F1-Hjälp   F2-Ny   F3-Redigera   F4-Ta bort   F5-Återställ   F12-Ok     "
+"     F1-Hjälp   F2-Ny   F3-Redigera   F4-Ta bort   F5-Återställ   F12-OK     "
 
 #: ../textw/partition_text.py:1017
 msgid "No Root Partition"
@@ -3981,9 +3985,8 @@ msgid "VSync Rate:"
 msgstr "Vertikal frekvens:"
 
 #: ../textw/xconfig_text.py:423
-#, fuzzy
 msgid "You cannot go back from this step."
-msgstr "Du kan inte ta bort ledigt utrymme."
+msgstr "Du kan inte gå tillbaka från detta steg."
 
 #: ../textw/xconfig_text.py:477
 #, c-format
@@ -4074,7 +4077,6 @@ msgid "Miscellaneous"
 msgstr "Diverse"
 
 #: ../loader/devices.c:86
-#, fuzzy
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
@@ -4082,7 +4084,7 @@ msgid ""
 msgstr ""
 "Denna modul kan ta parametrar som påverkar dess funktion. Om du inte vet "
 "vilka parametrar du bör ange hoppar du bara över denna skärm genom att "
-"trycka på knappen \"Ok\"."
+"trycka på knappen \"OK\"."
 
 #: ../loader/devices.c:91
 msgid "Module Parameters"
@@ -4098,9 +4100,8 @@ msgid "Do you have a driver disk?"
 msgstr "Har du en drivrutinsdiskett?"
 
 #: ../loader/devices.c:239
-#, fuzzy
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "Sätt i din drivrutinsdiskett och tryck på \"Ok\" för att fortsätta."
+msgstr "Sätt i din drivrutinsdiskett och tryck på \"OK\" för att fortsätta."
 
 #: ../loader/devices.c:260
 msgid "Failed to mount driver disk."
@@ -5451,20 +5452,12 @@ msgid "English"
 msgstr "Engelska"
 
 #. generated from lang-table
-msgid "Danish"
-msgstr "Danska"
-
-#. generated from lang-table
 msgid "French"
 msgstr "Franska"
 
 #. generated from lang-table
 msgid "German"
 msgstr "Tyska"
-
-#. generated from lang-table
-msgid "Hungarian"
-msgstr "Ungerska"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -5487,24 +5480,8 @@ msgid "Norwegian"
 msgstr "Norska"
 
 #. generated from lang-table
-msgid "Portuguese"
-msgstr "Portugisiska"
-
-#. generated from lang-table
-msgid "Romanian"
-msgstr "Rumänska"
-
-#. generated from lang-table
 msgid "Russian"
 msgstr "Ryska"
-
-#. generated from lang-table
-msgid "Serbian"
-msgstr "Serbiska"
-
-#. generated from lang-table
-msgid "Slovak"
-msgstr "Slovakiska"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -5518,13 +5495,39 @@ msgstr "Spanska"
 msgid "Swedish"
 msgstr "Svenska"
 
-#. generated from lang-table
-msgid "Turkish"
-msgstr "Turkiska"
+#~ msgid ""
+#~ "Selected 'Yes' to continue and format these partitions, or 'No' to go "
+#~ "back and change these settings."
+#~ msgstr ""
+#~ "Välj \"Ja\" för att fortsätta och formatera dessa partitioner, eller \"Nej"
+#~ "\" för att gå tillbaka och ändra dessa inställningar."
 
-#. generated from lang-table
-msgid "Ukrainian"
-msgstr "Ukrainska"
+#~ msgid "Invalid Entry for Raid Spares"
+#~ msgstr "Ogiltigt värde på Raid-reserver"
+
+#~ msgid "Danish"
+#~ msgstr "Danska"
+
+#~ msgid "Hungarian"
+#~ msgstr "Ungerska"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugisiska"
+
+#~ msgid "Romanian"
+#~ msgstr "Rumänska"
+
+#~ msgid "Serbian"
+#~ msgstr "Serbiska"
+
+#~ msgid "Slovak"
+#~ msgstr "Slovakiska"
+
+#~ msgid "Turkish"
+#~ msgstr "Turkiska"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukrainska"
 
 #~ msgid "You cannot edit this partition, as it is in use by the installer."
 #~ msgstr ""
@@ -6207,10 +6210,6 @@ msgstr "Ukrainska"
 
 #~ msgid "You may only delete NFS mounts."
 #~ msgstr "Du kan endast ta bort NFS-monteringar."
-
-#, fuzzy
-#~ msgid "Passwords do not match.asdfasdfdsafasdfdf"
-#~ msgstr "Lösenorden stämmer inte överens."
 
 #~ msgid "Horizontal Frequency Range"
 #~ msgstr "Horisontellt frekvensintervall"
