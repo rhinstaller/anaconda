@@ -20,6 +20,7 @@ import os
 import string
 import raid
 import struct
+import _balkan
 from translate import _
 
 def isValidExt2(device):
@@ -351,6 +352,31 @@ class Fstab:
 	for (raidDevice, mntPoint, fileSystem, deviceList) in self.existingRaid:
 	    isys.raidstop(raidDevice)
 
+    def readLabels(self, skipList = []):
+	labels = {}
+        for drive in self.driveList():
+            isys.makeDevInode(drive, '/tmp/' + drive)
+            
+            try:
+                table = _balkan.readTable ('/tmp/' + drive)
+            except SystemError:
+		next
+
+	    for i in range (len (table)):
+		dev = drive + str (i + 1)
+		try:
+		    skipList.index(dev)
+		except ValueError, msg:
+		    (type, sector, size) = table[i]
+		    # 2 is ext2 in balkan speek
+		    if type == 2:
+			label = isys.readExt2Label(dev)
+			if label:
+			    labels[dev] = label
+			#print "label for", dev
+
+	return labels
+
     def makeFilesystems(self):
 	# let's make the RAID devices first -- the fstab will then proceed
 	# naturally
@@ -377,6 +403,9 @@ class Fstab:
 	    # XXX remove extraneous inodes here
 #	    print "created raid"
 
+	for (raidDevice, mntPoint, fileSystem, deviceList) in self.existingRaid:
+	    isys.raidstart(raidDevice, deviceList[0])
+
         if not self.setupFilesystems: return
 
         arch = iutil.getArch ()
@@ -384,11 +413,19 @@ class Fstab:
         if arch == "alpha":
             bootPart = self.getBootDevice()
 
+	labelSkipList = []
+	labels = {}
+	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
+	    if doFormat: labelSkipList.append(device)
+	for label in self.readLabels(labelSkipList).values():
+	    labels[label] = 1
+
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
 	    if not doFormat: continue
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2":
-                args = [ "mke2fs", '/tmp/' + device ]
+		label = createLabel(labels, mntpoint)
+                args = [ "mke2fs", '/tmp/' + device, '-L', label ]
                 # FORCE the partition that MILO has to read
                 # to have 1024 block size.  It's the only
                 # thing that our milo seems to read.
@@ -427,9 +464,6 @@ class Fstab:
 
     def mountFilesystems(self, instPath):
 	if (not self.setupFilesystems): return 
-
-	for (raidDevice, mntPoint, fileSystem, deviceList) in self.existingRaid:
-	    isys.raidstart(raidDevice, deviceList[0])
 
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
             if fsystem == "swap":
@@ -494,24 +528,30 @@ class Fstab:
 	format = "%-23s %-23s %-7s %-15s %d %d\n";
 
 	f = open (prefix + "/etc/fstab", "w")
+	labels = self.readLabels()
 	for (mntpoint, dev, fs, reformat, size) in self.mountList():
 	    if fs == "vfat" and mntpoint == "/":
 		f.write("# LOOP0: /dev/%s %s /redhat.img\n" % (dev, fs))
 		dev = "loop0"
 		fs = "ext2"
 
+	    if labels.has_key(dev):
+		devName = "LABEL=" + labels[dev]
+	    else:
+		devName = '/dev/' + dev
+
 	    iutil.mkdirChain(prefix + mntpoint)
 	    if mntpoint == '/':
-		f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 1))
+		f.write (format % ( devName, mntpoint, fs, 'defaults', 1, 1))
 	    else:
                 if fs == "ext2":
-                    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 2))
+                    f.write (format % ( devName, mntpoint, fs, 'defaults', 1, 2))
                 elif fs == "iso9660":
-                    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,owner,ro', 0, 0))
+                    f.write (format % ( devName, mntpoint, fs, 'noauto,owner,ro', 0, 0))
 		elif fs == "auto" and (dev == "zip" or dev == "jaz"):
-		    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,owner', 0, 0))
+		    f.write (format % ( devName, mntpoint, fs, 'noauto,owner', 0, 0))
                 else:
-                    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 0, 0))
+                    f.write (format % ( devName, mntpoint, fs, 'defaults', 0, 0))
 	f.write (format % (fdDevice, "/mnt/floppy", 'auto', 'noauto,owner', 0, 0))
 	f.write (format % ("none", "/proc", 'proc', 'defaults', 0, 0))
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
@@ -726,3 +766,19 @@ def readFstab (path, fstab):
 				    fields[2], raidByDev[int(fields[0][7:])])
 	else:
 	    fstab.addMount(fields[0][5:], fields[1], fields[2])
+
+def createLabel(labels, newLabel):
+    if len(newLabel) > 16:
+	newLabel = newLabel[0:16]
+    count = 0
+    while labels.has_key(newLabel):
+	count = count + 1
+	s = "%s" % count
+	if (len(newLabel) + len(s)) <= 16:
+	    newLabel = newLabel + s
+	else:
+	    strip = len(newLabel) + len(s) - 16
+	    newLabel = newLabel[0:len(newLabel) - strip] + s
+    labels[newLabel] = 1
+
+    return newLabel
