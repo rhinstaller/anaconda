@@ -1,8 +1,8 @@
 include Makefile.inc
 
-VERSION = 7.0.1
-RELEASE = 6
-SNAPRELEASE = $(shell date "+1.%Y%m%d%H%M")
+VERSION = 7.1
+RELEASE = 1
+SNAPRELEASE = $(RELEASE)$(shell date "+.%Y%m%d%H%M")
 
 SUBDIRSHD = balkan isys libfdisk collage minislang loader po text-help \
 	    textw utils scripts bootdisk installclasses \
