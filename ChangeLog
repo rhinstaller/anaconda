@@ -1,5 +1,8 @@
 2004-11-07  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/scrubtree: Clean up handling of binaries that we
+	want busybox to override.  Inspired by #137948.
+
 	* dispatch.py (installSteps): Add handleMiscPackages steps.
 	* installclass.py (BaseInstallClass.setSteps): Likewise.
 	* upgradeclass.py (InstallClass.setSteps): Likewise.
