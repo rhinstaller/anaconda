@@ -877,7 +877,7 @@ class PartitionWindow:
 
             request.raidmembers = raidmembers
             if invalidInteger(spares.value()):
-                self.intf.messageWindow(_("Invalid Entry for Raid Spares"),
+                self.intf.messageWindow(_("Invalid Entry for RAID Spares"),
                                         invalidInteger(spares.value()))
                 continue
             
