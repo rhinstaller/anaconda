@@ -499,6 +499,8 @@ class KickstartBase(BaseInstallClass):
 		     "part"		: self.definePartition	,
 		     "partition"	: self.definePartition	,
 		     "raid"		: self.defineRaid	,
+                     "volgroup"         : self.defineVolumeGroup,
+                     "logvol"           : self.defineLogicalVolume,
 		     "reboot"		: self.doReboot		,
 		     "rootpw"		: self.doRootPw		,
 		     "skipx"		: self.doSkipX		,
@@ -662,6 +664,88 @@ class KickstartBase(BaseInstallClass):
             
         self.setClearParts(id, type, drives, initAll = initAll)
 
+    def defineLogicalVolume(self, id, args):
+        (args, extra) = isys.getopt(args, '', [ 'vgname=',
+                                                'size=',
+                                                'name=',
+                                                'fstype=' ])
+
+        mountpoint = None
+        vgname = None
+        size = None
+        name = None
+        fstype = None
+        format = 1
+
+        for n in args:
+            (str, arg) = n
+            if str == '--vgname':
+                vgname = arg
+            elif str == '--size':
+                size = int(arg)
+            elif str == '--name':
+                name = arg
+            elif str == '--fstype':
+                fstype = arg
+            else:
+                print str, " ", arg
+
+        if extra[0] == 'swap':
+            fstype = fileSystemTypeGet('swap')
+            mountpoint = None
+        else:
+            if fstype:
+                filesystem = fileSystemTypeGet(fstype)
+            else:
+                filesystem = fileSystemTypeGetDefault()
+
+            mountpoint = extra[0]
+
+        if not vgname:
+            raise RuntimeError, "Must specify the volume group for the logical volume to be in"
+        if not size:
+            raise RuntimeError, "Must specify the size of a logical volume"
+        if not name:
+            raise RuntimeError, "Must specify a logical volume name"
+
+        if not self.ksVGMapping.has_key(vgname):
+            raise ValueError, "Logical volume specifies a non-existent volume group"
+        vgid = self.ksVGMapping[vgname]
+
+        request = partRequests.LogicalVolumeRequestSpec(filesystem,
+                                                        format = format,
+                                                        mountpoint = mountpoint,
+                                                        size = size,
+                                                        volgroup = vgid,
+                                                        lvname = name)
+        id.partitions.autoPartitionRequests.append(request)        
+                                                        
+
+    def defineVolumeGroup(self, id, args):
+        (args, extra) = isys.getopt(args, '', [])
+
+        vgname = extra[0]
+
+        pvs = []
+        # get the unique ids of each of the physical volumes
+        for pv in extra[1:]:
+            if pv not in self.ksPVMapping.keys():
+                raise RuntimeError, "Tried to use an undefined partition in RAID specification"
+            pvs.append(self.ksPVMapping[pv])
+
+        if len(pvs) == 0:
+            raise ValueError, "Volume group defined without any physical volumes"
+
+        # get a sort of hackish id
+        uniqueID = self.ksID
+        self.ksVGMapping[extra[0]] = uniqueID
+        self.ksID = self.ksID + 1
+            
+        request = partRequests.VolumeGroupRequestSpec(vgname = vgname,
+                                                      physvols = pvs)
+        request.uniqueID = uniqueID
+        id.partitions.autoPartitionRequests.append(request)
+
     def defineRaid(self, id, args):
 	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=',
                                                 'spares=', 'fstype=',
@@ -744,7 +828,6 @@ class KickstartBase(BaseInstallClass):
         fstype = None
         mountpoint = None
         uniqueID = None
-        thisRaidID = None
         start = None
         end = None
         badblocks = None
@@ -807,10 +890,20 @@ class KickstartBase(BaseInstallClass):
             if self.ksRaidMapping.has_key(extra[0]):
                 raise RuntimeError, "Defined RAID partition %s multiple times" % (extra[0],)
             
-            # XXX use the hackish raid unique ID
-            thisRaidID = self.raidID
-            self.ksRaidMapping[extra[0]] = thisRaidID
-            self.raidID = self.raidID + 1
+            # get a sort of hackish id
+            uniqueID = self.ksID
+            self.ksRaidMapping[extra[0]] = uniqueID
+            self.ksID = self.ksID + 1
+        elif extra[0].startswith("pv."):
+            filesystem = fileSystemTypeGet("physical volume (LVM)")
+
+            if self.ksPVMapping.has_key(extra[0]):
+                raise RuntimeError, "Defined PV partition %s multiple times" % (extra[0],)
+
+            # get a sort of hackish id
+            uniqueID = self.ksID
+            self.ksPVMapping[extra[0]] = uniqueID
+            self.ksID = self.ksID + 1
         # XXX should we let people not do this for some reason?
         elif extra[0] == "/boot/efi":
             filesystem = fileSystemTypeGet("vfat")
@@ -853,10 +946,8 @@ class KickstartBase(BaseInstallClass):
             request.primary = 1
         if not format:
             request.format = 0
-        if id:
+        if uniqueID:
             request.uniqueID = uniqueID
-        if thisRaidID:
-            request.uniqueID = thisRaidID
         if badblocks:
             request.badblocks = badblocks
         if onPart:
@@ -960,8 +1051,10 @@ class KickstartBase(BaseInstallClass):
 	self.skipSteps = []
         self.interactive = 0
         self.ksRaidMapping = {}
-        # XXX hack to give us a starting point for RAID unique IDs.  ugh.
-        self.raidID = 100000 
+        self.ksPVMapping = {}
+        self.ksVGMapping = {}
+        # XXX hack to give us a starting point for RAID, LVM, etc unique IDs.
+        self.ksID = 100000 
 	BaseInstallClass.__init__(self, 0)
 
 def Kickstart(file, serial):
