@@ -1,5 +1,10 @@
 #!/bin/bash
 
+usage() {
+	echo "Usage: buildinstall [--comp <component>] [--pkgorder <file>] <root>" >&2
+	exit 1
+}
+
 COMPNAME=dist-7.0
 
 while [ $# -gt 0 ]; do
@@ -14,14 +19,17 @@ while [ $# -gt 0 ]; do
 	    ;;
 	*)
 	    if [ -n "$DIR" -o ! -d $1/RedHat/RPMS ]; then
-		echo "Usage: buildinstall [--comp <component>] [--pkgorder <file>] <root>" >&2
-		exit 1
+		usage
 	    fi
 	    DIR=$1
 	    shift
 	    ;;
     esac
 done
+
+if [ -z "$DIR" ]; then
+    usage
+fi
 
 p=`cd $DIR; /bin/pwd`
 
