@@ -342,9 +342,13 @@ plip
 # NOT YET MODULARIZED!
 #pt
 
-rtl8139
+rtl8129
 	eth
-	"MPX5030, SMC1211TX, RTL81x9 Fast Ethernet"
+	"RealTek RTL8129 Fast Ethernet"
+
+8139too
+	eth
+	"RTL8139, SMC EZ Card Fast Ethernet"
 
 sis900
 	eth
