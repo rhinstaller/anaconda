@@ -171,4 +171,5 @@ int main(int argc, char **argv) {
     close(isofd);
 
     printf("Done!\n");
+    exit(0);
 }
