@@ -6,7 +6,7 @@ ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
 SUBDIRSHD = rpmmodule balkan isys libfdisk collage loader po \
-	    minislang textw utils
+	    minislang textw utils scripts
 SUBDIRS = $(SUBDIRSHD)
 
 ifneq (ia64, $(ARCH))
@@ -54,8 +54,6 @@ install:
 	mkdir -p $(DESTDIR)/etc/rc.d/init.d
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
-
-	install -m 755 upd-instroot $(DESTDIR)/$(RUNTIMEDIR)
 
 	cp -a reconfig.init $(DESTDIR)/etc/rc.d/init.d/reconfig
 	cp -a anaconda $(DESTDIR)/usr/sbin/anaconda
