@@ -403,7 +403,7 @@ def makeDriveDeviceNodes():
     for drive in hardDrives.keys():
         isys.makeDevInode(drive, "/dev/%s" % (drive,))
 
-        if drive.startswith("hd"):
+        if drive[:2] == "hd":
             num = 64
         else:
             num = 16
