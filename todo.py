@@ -380,8 +380,10 @@ class ToDo:
     def mountFilesystems(self):
 	if (not self.setupFilesystems): return 
 
-	for n in self.mounts.items ():
-            (mntpoint, (device, filesystem, format)) = n
+        keys = self.mounts.keys ()
+	keys.sort()
+	for mntpoint in keys
+            (device, filesystem, format) = self.mounts[mntpoint]
             isys.makeDevInode(device, '/tmp/' + device)
             try:
                 os.mkdir (self.instPath + mntpoint)
