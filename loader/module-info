@@ -73,11 +73,7 @@ Version 0
 
 3c59x
 	eth
-	"3Com 3c590/3c595 Vortex"
-
-3c90x
-	eth
-	"3Com 3c90x and 3c980"
+	"3Com 3c590/3c595/3c90x/3cx980"
 
 82596
 	eth
@@ -98,9 +94,13 @@ acenic
 	eth
 	"Alteon AceNIC Gigabit"
 
-rtl8139
+aironet4500_card
 	eth
-	"MPX5030, SMC1211TX, RTL81x9 Fast Ethernet"
+	"Aironet 4500 PCI-ISA-i365 wireless"
+
+arlan
+	eth
+	"Aironet Arlan 655"
 
 #apricot
 #	eth
@@ -166,13 +166,22 @@ dgrs
 	ipaddr "List of four IP addresses"
 	ipxnet "IPX network number"
 
-dlci
-	dlci
-	"RFC 1490 Frame Relay protocol"
+#dlci
+	#dlci
+	#"RFC 1490 Frame Relay protocol"
+
+dmfe
+	eth
+	"Davicom DM9102(A)/DM9132/DM9801 fast ethernet"
+
 
 dummy
 	dummy
 	"Placeholder device for intermittent links"
+
+e100
+	eth
+	"Intel's EtherExpress/100 driver"
 
 e1000
 	eth
@@ -231,6 +240,10 @@ fmv18x
 	"Fujitsu FMV-181/182/183/184"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 	irq "IRQ level" "[0-9]+"
+
+hamachi
+	eth
+	"A Packet Engines GNIC-II Gigabit"
 
 hp-plus
 	eth
@@ -331,7 +344,15 @@ plip
 
 rtl8139
 	eth
-	"RealTek RTL8129/8139"
+	"MPX5030, SMC1211TX, RTL81x9 Fast Ethernet"
+
+sis900
+	eth
+	"SiS 900/7016 PCI Fast Ethernet"
+
+sk98lin
+	eth
+	"SysKonnect SK-98xx Gigabit"
 
 sdla
 	sdla
@@ -387,6 +408,10 @@ sunbmac
 	eth
 	"Sun BigMac Ethernet"
 
+sundance
+	eth
+	"Sundance ST201 Alta"
+
 sunhme
 	eth
 	"Sun Happy Meal Ethernet"
@@ -430,6 +455,10 @@ wd
 wic
 	wic
 	"parallel port network driver"
+
+winbond
+	eth
+	"Compex RL100ATX-PCI"
 
 yellowfin
 	eth
