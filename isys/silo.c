@@ -258,16 +258,27 @@ scan_walk_callback(int node) {
 		break;
 	    case SDSK_TYPE_SD:
 		for (nextnode = prom_getchild(node); nextnode; nextnode = prom_getsibling(nextnode)) {
-		    prop = prom_getproperty("name", &len);
+		    prop = prom_getproperty("compatible", &len);
 		    if (prop && len > 0 && !strcmp (prop, "sd"))
+			break;
+		    prop = prom_getproperty("name", &len);
+		    if (prop && len > 0 && (!strcmp (prop, "sd") || !strcmp (prop, "disk")))
 			break;
 		}
 		if (!nextnode || hd[disk].hi)
 		    continue;
-		if (!promvers)
+		if (promvers) {
+		    char name[1024];
+		    prop = prom_getproperty("name", &len);
+		    if (prop && len > 0)
+			strcpy (name, prop);
+		    else
+			strcpy (name, "sd");
+		    if (!prop)
+			prop = ((struct openpromio *)buf)->oprom_array;
+		    sprintf (prop, "/%s@%d,%d", name, hd[disk].mid, hd[disk].lo);
+		} else
 		    sprintf (prop, "sd(%d,%d,", v0ctrl, hd[disk].mid);
-		else
-		    sprintf (prop, "/sd@%d,%d", hd[disk].mid, hd[disk].lo);
 		break;
 	    case SDSK_TYPE_PLN:
 		sprintf (prop, "/SUNW,pln@%x,%x/SUNW,ssd@%d,%d",
@@ -716,7 +727,7 @@ disk2PromPath (PyObject *self, PyObject *args)
     if (diskno == -1)
 	part = -1;
     else if (!disk[0])
-	part = 0;
+	part = 3;
     else {
 	part = atoi (disk);
 	if (part <= 0 || part > 8) part = -1;
