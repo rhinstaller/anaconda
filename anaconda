@@ -220,6 +220,19 @@ if (display_mode == 'g' and not os.environ.has_key('DISPLAY')):
     else:
         (mouseInfo, x) = (result)
 
+#
+# setup links required by graphical mode if installing and verify display mode
+#
+if (display_mode == 'g'):
+    if not test and not localInstall and not reconfigOnly:
+        for i in ( "imrc", "im_palette.pal", "gtk" ):
+            os.symlink ("../mnt/source/RedHat/instimage/etc/" + i, "/etc/" + i)
+    from gui import InstallInterface
+elif (display_mode == 't'):
+    from text import InstallInterface
+else:
+    sys.exit(1)
+
 if traceOnly:
     # prints a list of all the modules imported
     import pdb
@@ -237,21 +250,6 @@ if traceOnly:
                 print bar[3]
         
     sys.exit(0)
-
-#
-# setup links required by graphical mode if installing and verify display mode
-#
-if (display_mode == 'g'):
-    if not test and not localInstall and not reconfigOnly:
-        for i in ( "imrc", "im_palette.pal", "gtk" ):
-            os.symlink ("../mnt/source/RedHat/instimage/etc/" + i, "/etc/" + i)
-    from gui import InstallInterface
-elif (display_mode == 't'):
-    print "text mode"
-    from text import InstallInterface
-else:
-    print "No mode was specified"
-    sys.exit(1)
 
 # imports after setting up the path
 if not reconfigOnly:
