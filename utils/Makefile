@@ -5,7 +5,7 @@ ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
 LOADLIBES =  -L../isys -lisys -lpopt
 CFLAGS = -Wall -g -I/usr/include/rpm
-LDFLAGS = -g 
+LDFLAGS = -g -static
 
 ifneq ($(ARCH),ia64)
 MODDEPS=moddeps
@@ -29,10 +29,9 @@ moddeps: moddeps.o
 	    ../isys/modutils/obj/libobj.a -lrpm -lbz2 -lz -lpopt
 
 genhdlist: genhdlist.c
-	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2 -static -lz -lpopt -ldb
+	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2 -lz -lpopt -ldb
 
 depends:
-	
 
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
