@@ -6,7 +6,7 @@ disc2dirs = [ "preview" ]
 # These files appear on all binary CDs
 jointfiles = [ "beta_eula.txt", "RPM-GPG-KEY", "README", "autorun" ]
 
-targetSize = 640 * 1024.0 * 1024.0
+targetSize = 650 * 1024.0 * 1024.0
 
 # Leave about 1.2MB of space on the disc
 fudgeFactor = 1.2 * 1024 * 1024
