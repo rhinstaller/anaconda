@@ -17,7 +17,7 @@ import parted
 import math
 import fsset
 from partitioning import *
-from dispatch import DISPATCH_NOOP
+from constants import *
 from translate import _, N_
 
 PARTITION_FAIL = -1
@@ -130,7 +130,7 @@ def fitConstrained(diskset, requests, primOnly=0):
                     raise PartitioningError, ("requested FileSystemType needs "
                                            "a flag that is not available.")
                 newp.set_flag(flag, 1)
-            request.device = PartedPartitionDevice(newp).getDevice()
+            request.device = fsset.PartedPartitionDevice(newp).getDevice()
             request.currentDrive = request.drive[0]
 
     return PARTITION_SUCCESS
@@ -222,7 +222,7 @@ def fitSized(diskset, requests, primOnly = 0):
                                            "a flag that is not available.")
                 newp.set_flag(flag, 1)
 
-            request.device = PartedPartitionDevice(newp).getDevice()
+            request.device = fsset.PartedPartitionDevice(newp).getDevice()
             drive = newp.geom.disk.dev.path[5:]
             request.currentDrive = drive
 

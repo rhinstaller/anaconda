@@ -16,7 +16,6 @@
 import string
 import kudzu
 import iutil
-import isys
 from translate import _
 from log import log
 

@@ -19,11 +19,9 @@ import os
 from string import *
 import types
 import urllib
-from translate import _
-from translate import N_
+from translate import _, N_
 from log import log
 import time
-import string
 
 ExcludePackages = { 'XFree86-3DLabs' : None, 	'XFree86-8514' : None,
                     'XFree86-AGX' : None, 	'XFree86-I128' : None,
@@ -669,7 +667,7 @@ class ComponentSet:
 		    # install is ok.
 		    conflicts = 1
 		    if reqversion:
-			fields = string.split(reqversion, '-')
+			fields = split(reqversion, '-')
 			if (len (fields) == 2):
 			    needed = ("", fields [0], fields [1])
 			else:
@@ -726,7 +724,7 @@ class ComponentSet:
 	# nick is used to generate the lilo name
 	for (ktag, nick) in [ ('kernel-enterprise', 'nick'),
 			      ('kernel-smp', 'smp') ]:
-	    tag = string.split(ktag, '-')[1]
+	    tag = split(ktag, '-')[1]
 	    if (self.packages.has_key(ktag) and 
 		self.packages[ktag].selected):
 		version = (self.packages[ktag][rpm.RPMTAG_VERSION] + "-" +

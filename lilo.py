@@ -1,8 +1,5 @@
 import string
 import os
-import isys
-import iutil
-import rpm
 
 def needsEnterpriseKernel():
     rc = 0

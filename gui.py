@@ -18,20 +18,21 @@ os.environ["PYGTK_FATAL_EXCEPTIONS"] = "1"
 os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 # msw says this is a good idea
 os.environ["LC_ALL"] = "C"
-from gtk import *
-from _gtk import gtk_set_locale
-from _gtk import gtk_rc_init
-from _gtk import gtk_rc_reparse_all
-from _gtk import _gtk_nuke_rc_files
-from _gtk import _gtk_nuke_rc_mtimes
+
 import GDK
 import GdkImlib
-from splashscreen import splashScreenPop
-
-import time
 import iutil
+import string
+import isys
+import sys
+from translate import cat, _
+from gnome.ui import *
+from gnome.xmhtml import *
+from gtk import *
+from _gtk import gtk_set_locale, gtk_rc_init, gtk_rc_reparse_all
+from _gtk import _gtk_nuke_rc_files, _gtk_nuke_rc_mtimes
 from language import expandLangs
-
+from splashscreen import splashScreenPop
 from log import log
 
 StayOnScreen = "stayOnScreen"
@@ -74,16 +75,6 @@ if iutil.getArch() == 'sparc':
     stepToClass["bootloader"] = ( "silo_gui", "SiloWindow" )
 else:
     stepToClass["bootloader"] = ( "lilo_gui", "LiloWindow" )
-
-
-from translate import cat, _
-from gnome.ui import *
-from gnome.xmhtml import *
-
-import string
-import isys
-import sys
-import rpm
 
 # setup globals
 
@@ -192,7 +183,6 @@ class ExceptionWindow:
         # I did it this way for future expantion
         # 0 is debug
         if self.rc == 0:
-            import isys
             try:
                 # switch to VC1 so we can debug
                 isys.vtActivate (1)
@@ -276,9 +266,8 @@ class InstallInterface:
 
     def dumpWindow(self):
         window = MessageWindow("Save Crash Dump", 
-                               _("Please insert a floppy now. All "
-                                 "contents of the disk "
-                                 "will be erased, so please "
+                               _("Please insert a floppy now. All contents "
+                                 "of the disk will be erased, so please "
                                  "choose your diskette carefully."),
                                "okcancel")
         rc = window.getrc()
@@ -286,9 +275,6 @@ class InstallInterface:
 
     def getBootdisk (self):
         return None
-
-    def getCongratulation (self):
-        return CongratulationWindow
 
     def run(self, id, dispatch):
         from xkb import XKB
@@ -490,6 +476,7 @@ class InstallControlWindow:
 		return self.prevClicked()
 		
 	(file, className) = stepToClass[step]
+        newScreenClass = None
 	s = "from %s import %s; newScreenClass = %s" % (file, className, className)
 	exec s
 
@@ -576,7 +563,6 @@ class InstallControlWindow:
         if ((event.keyval == GDK.KP_Delete or event.keyval == GDK.Delete)
             and (event.state & (GDK.CONTROL_MASK | GDK.MOD1_MASK))):
             mainquit ()
-            import os
             os._exit (0)
 
     def buildStockButtons(self):

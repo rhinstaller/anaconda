@@ -1,8 +1,8 @@
+import rpm
+from constants import *
 from snack import *
 from constants_text import *
 from translate import _
-import rpm
-import dispatch
 
 class InstallProgressWindow:
     def completePackage(self, header, timer):
@@ -146,7 +146,7 @@ class InstallProgressWindow:
 class setupForInstall:
 
     def __call__(self, screen, dir, intf, id):
-	if dir == dispatch.DISPATCH_BACK:
+	if dir == DISPATCH_BACK:
 	    id.setInstallProgressClass(None)
 	    return INSTALL_BACK
 	else:

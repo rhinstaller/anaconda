@@ -22,9 +22,10 @@ import isys
 import parted
 import math
 import raid
-
-from fsset import *
+import fsset
+import os
 from translate import _
+from log import log
 
 # different types of partition requests
 # REQUEST_PREEXIST is a placeholder for a pre-existing partition on the system
@@ -92,14 +93,14 @@ def get_partition_name(partition):
 
 def get_partition_file_system_type(part):
     if part.fs_type.name == "linux-swap":
-        ptype = fileSystemTypeGet("swap")
+        ptype = fsset.fileSystemTypeGet("swap")
     elif part.fs_type.name == "FAT":
-        ptype = fileSystemTypeGet("vfat")
+        ptype = fsset.fileSystemTypeGet("vfat")
     else:
         try:
-            ptype = fileSystemTypeGet(part.fs_type.name)
+            ptype = fsset.fileSystemTypeGet(part.fs_type.name)
         except:
-            ptype = fileSystemTypeGet("foreign")
+            ptype = fsset.fileSystemTypeGet("foreign")
 
     return ptype
     
@@ -451,10 +452,11 @@ class PartitionSpec:
     # turn a partition request into a fsset entry
     def toEntry(self):
         if self.type == REQUEST_RAID:
-            device = RAIDDevice(int(self.raidlevel[-1:]), self.raidmembers,
-                                    spares = self.raidspares)
+            device = fsset.RAIDDevice(int(self.raidlevel[-1:]),
+                                      self.raidmembers,
+                                      spares = self.raidspares)
         else:
-            device = PartitionDevice(self.device)
+            device = fsset.PartitionDevice(self.device)
 
         # pin down our partitions so that we can reread the table
         device.solidify()
@@ -464,7 +466,7 @@ class PartitionSpec:
         else:
             mountpoint = self.mountpoint
 
-        entry = FileSystemSetEntry(device, mountpoint, self.fstype)
+        entry = fsset.FileSystemSetEntry(device, mountpoint, self.fstype)
         if self.format:
             entry.setFormat(self.format)
         return entry
@@ -515,7 +517,7 @@ class PartitionRequests:
                 spec = PartitionSpec(ptype, requesttype = REQUEST_PREEXIST,
                                      start = start, end = end, size = size,
                                      drive = drive, format = format)
-                spec.device = PartedPartitionDevice(part).getDevice()
+                spec.device = fsset.PartedPartitionDevice(part).getDevice()
 
                 self.addRequest(spec)
                 part = disk.next_partition(part)
@@ -617,7 +619,7 @@ class DiskSet:
 
         return labels
 
-    def findExistingRootPartitions(self):
+    def findExistingRootPartitions(self, intf):
         rootparts = []
 
         drives = self.disks.keys()

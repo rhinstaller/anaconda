@@ -1,8 +1,8 @@
+import iutil
 from iw_gui import *
 from gtk import *
 from translate import _, N_
-import iutil
-import dispatch
+from dispatch import *
 
 class BootdiskWindow (InstallWindow):
 

@@ -26,6 +26,41 @@ from log import log
 
 initrdsMade = {}
 
+## if 0:
+##     if arch == "sparc":
+##         errors = self.silo.install (self.fstab, instPath, 
+##                             id.hdList, upgrade)
+##     elif arch == "i386":
+##         defaultlang = self.language.getLangNickByName(self.language.getDefault())
+##         langlist = expandLangs(defaultlang)
+##         errors = self.lilo.install (self.fstab, instPath, 
+##                             id.hdList, upgrade, langlist)
+##     elif arch == "ia64":
+##         errors = self.eli.install (self.fstab, instPath, 
+##                             id.hdList, upgrade)
+##     elif arch == "alpha":
+##         errors = self.milo.write ()
+##     else:
+##         raise RuntimeError, "What kind of machine is this, anyway?!"
+
+## if errors:
+##     w.pop()
+##     mess = _("An error occured while installing "
+##              "the bootloader.\n\n"
+##              "We HIGHLY recommend you make a recovery "
+##              "boot floppy when prompted, otherwise you "
+##              "may not be able to reboot into Red Hat Linux."
+##              "\n\nThe error reported was:\n\n") + errors
+##     intf.messageWindow(_("Bootloader Errors"), mess)
+
+##     # make sure bootdisk window appears
+##     if iutil.getArch () == "i386":
+##         self.instClass.removeFromSkipList('bootdisk')
+##         self.bootdisk = 1
+
+##     w = apply(apply, createWindow)
+
+
 class KernelArguments:
 
     def get(self):

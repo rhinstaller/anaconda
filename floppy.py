@@ -18,8 +18,8 @@ import errno
 import iutil
 import re
 import os
-import dispatch
 import rpm
+from constants import *
 from log import log
 from flags import flags
 from translate import _
@@ -85,7 +85,7 @@ def probeFloppyDevice():
 
 def makeBootdisk (intf, floppyDevice, hdList, instPath):
     if flags.test:
-	return dispatch.DISPATCH_NOOP
+	return DISPATCH_NOOP
 
     # this is faster then waiting on mkbootdisk to fail
     device = floppyDevice
@@ -94,7 +94,7 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath):
     try:
 	fd = os.open(file, os.O_RDONLY)
     except:
-	return dispatch.DISPATCH_BACK
+	return DISPATCH_BACK
     os.close(fd)
 
     kernel = hdList['kernel']
@@ -113,5 +113,5 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath):
     w.pop()
 
     if rc:
-	return dispatch.DISPATCH_BACK
+	return DISPATCH_BACK
 

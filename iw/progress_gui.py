@@ -1,13 +1,13 @@
-from gtk import *
-from iw_gui import *
 import string
 import rpm
 import os
 import gui
-from translate import _, N_
 import sys
+from gtk import *
+from iw_gui import *
+from translate import _, N_
 from packages import doInstall
-import dispatch
+from constants import *
 
 class InstallProgressWindow (InstallWindow):
 
@@ -138,7 +138,7 @@ class InstallProgressWindow (InstallWindow):
 
 	self.intf = intf
 
-	if dir == dispatch.DISPATCH_BACK:
+	if dir == DISPATCH_BACK:
 	    intf.icw.prevClicked()
 
 	    return

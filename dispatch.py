@@ -13,12 +13,9 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-DISPATCH_BACK = -1
-DISPATCH_FORWARD = 1
-DISPATCH_NOOP = None
-
 import string
 from types import *
+from constants import *
 from packages import readPackages, checkDependencies, doInstall
 from packages import handleX11Packages, writeConfiguration, writeXConfiguration
 from packages import writeKSConfiguration, turnOnFilesystems

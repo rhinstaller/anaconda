@@ -335,8 +335,7 @@ class BaseInstallClass:
         else:
             id.desktop.setDefaultRunLevel(3)
 
-        import xf86config
-        xcfg = xf86config.XF86Config(id.videocard, id.monitor, id.mouse)
+        xcfg = XF86Config(id.videocard, id.monitor, id.mouse)
 
         available = xcfg.availableModes()
         
@@ -436,7 +435,6 @@ def availableClasses(showHidden=0):
 	done[mainName] = 1
 
 	obj = None
-	name = None
 	cmd = "import %s\nif %s.__dict__.has_key('InstallClass'): obj = %s.InstallClass\n" % (mainName, mainName, mainName)
 	exec(cmd)
 

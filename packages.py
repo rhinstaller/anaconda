@@ -13,7 +13,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from translate import _
 import iutil
 import isys
 import rpm
@@ -22,13 +21,14 @@ import timer
 import sys
 import string
 import pcmcia
-import dispatch
 import fsset
 from log import log
 from flags import flags
+from constants import *
+from translate import _
 
 def queryUpgradeContinue(intf, dir):
-    if dir == dispatch.DISPATCH_FORWARD:
+    if dir == DISPATCH_FORWARD:
         return
 
     rc = intf.messageWindow(_("Proceed with upgrade?"),
@@ -100,7 +100,7 @@ def readPackages(intf, method, id):
 
 def handleX11Packages(dir, intf, disp, id, instPath):
 
-    if dir == dispatch.DISPATCH_BACK:
+    if dir == DISPATCH_BACK:
         return
         
     # skip X setup if it is not being installed
@@ -134,7 +134,7 @@ def handleX11Packages(dir, intf, disp, id, instPath):
 
 
 def checkDependencies(dir, intf, disp, id, instPath):
-    if dir == dispatch.DISPATCH_BACK:
+    if dir == DISPATCH_BACK:
 	return
 
     win = intf.waitWindow(_("Dependency Check"),
@@ -291,7 +291,7 @@ class rpmErrorClass:
 	self.f = f
 
 def turnOnFilesystems(dir, thefsset, diskset, upgrade, instPath):
-    if dir == dispatch.DISPATCH_BACK:
+    if dir == DISPATCH_BACK:
 	thefsset.umountFilesystems(instPath)
 	return
 
@@ -382,7 +382,7 @@ def doInstall(method, id, intf, instPath):
 
     if method.systemMounted (id.fsset, instPath, id.hdList.selected()):
 	id.fsset.umountFilesystems(instPath)
-	return dispatch.DISPATCH_BACK
+	return DISPATCH_BACK
 
     for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
 	       '/etc/sysconfig', '/etc/sysconfig/network-scripts',
@@ -526,7 +526,7 @@ def doInstall(method, id, intf, instPath):
 	method.systemUnmounted ()
 
 	rpm.errorSetCallback (oldError)
-	return dispatch.DISPATCH_BACK
+	return DISPATCH_BACK
 
     # This should close the RPM database so that you can
     # do RPM ops in the chroot in a %post ks script
@@ -658,46 +658,9 @@ def doInstall(method, id, intf, instPath):
 	    # needed for prior systems which were not xinetd based
 	    migrateXinetd(instPath, instLogName)
 
+        w.set(5)
+
 	if flags.setupFilesystems:
-	    errors = None
-
-	    if 0:
-		if arch == "sparc":
-		    errors = self.silo.install (self.fstab, instPath, 
-					id.hdList, upgrade)
-		elif arch == "i386":
-		    defaultlang = self.language.getLangNickByName(self.language.getDefault())
-		    langlist = expandLangs(defaultlang)
-		    errors = self.lilo.install (self.fstab, instPath, 
-					id.hdList, upgrade, langlist)
-		elif arch == "ia64":
-		    errors = self.eli.install (self.fstab, instPath, 
-					id.hdList, upgrade)
-		elif arch == "alpha":
-		    errors = self.milo.write ()
-		else:
-		    raise RuntimeError, "What kind of machine is this, anyway?!"
-
-	    if errors:
-		w.pop()
-		mess = _("An error occured while installing "
-			 "the bootloader.\n\n"
-			 "We HIGHLY recommend you make a recovery "
-			 "boot floppy when prompted, otherwise you "
-			 "may not be able to reboot into Red Hat Linux."
-			 "\n\nThe error reported was:\n\n") + errors
-		self.intf.messageWindow(_("Bootloader Errors"), mess)
-
-		# make sure bootdisk window appears
-		if iutil.getArch () == "i386":
-		    self.instClass.removeFromSkipList('bootdisk')
-		    self.bootdisk = 1
-
-		w = apply(apply, createWindow)
-
-
-	    w.set(5)
-
 	    # go ahead and depmod modules as modprobe in rc.sysinit
 	    # will complain loaduly if we don't do it now.
 	    depmodModules(id.comps, instPath)
@@ -711,8 +674,6 @@ def doInstall(method, id, intf, instPath):
 	if flags.setupFilesystems:
 	    f = open("/tmp/cleanup", "w")
 	    method.writeCleanupPath(f)
-	    # XXX
-	    #self.fstab.writeCleanupPath(f)
 	    f.close()
 
 	w.set(8)

@@ -14,9 +14,6 @@
 #
 
 import string
-import kudzu
-import iutil
-import isys
 from log import log
 
 class Desktop:

@@ -2,7 +2,7 @@ import iutil
 from translate import _
 from snack import *
 from constants_text import *
-import dispatch
+from constants import *
 
 class BootDiskWindow:
     def __call__(self, screen, dir, disp):
@@ -61,7 +61,7 @@ class MakeBootDiskWindow:
 
 	buttons = [ _("OK"), _("Skip") ]
 
-	if dir == dispatch.DISPATCH_FORWARD:
+	if dir == DISPATCH_FORWARD:
 	    rc = ButtonChoiceWindow (screen, _("Bootdisk"),
 		     _("If you have the install floppy in your drive, first "
 		       "remove it. Then insert a blank floppy in the first "

@@ -20,6 +20,7 @@ import os
 import parted
 import sys
 import struct
+import partitioning
 from log import log
 from translate import _, N_
 
@@ -61,7 +62,6 @@ class LabelFactory:
 
     def createLabel(self, mountpoint):
         if self.labels == None:
-            import partitioning
 
             self.labels = {}
             diskset = partitioning.DiskSet()
@@ -855,8 +855,6 @@ class LoopbackDevice(Device):
 
 # XXX fix RAID
 def readFstab (path):
-    import partitioning
-
     fsset = FileSystemSet()
 
     # first, we look at all the disks on the systems and get any ext2/3
@@ -1062,7 +1060,6 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
     return 1
 
 if __name__ == "__main__":
-    import sys
     log.open("foo")
     
     fsset = readFstab("fstab")
