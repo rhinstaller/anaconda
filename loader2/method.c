@@ -445,7 +445,8 @@ int copyDirectory(char * from, char * to) {
 
     errno = 0;
     while ((ent = readdir(dir))) {
-        if (ent->d_name[0] == '.') continue;
+        /* we could lose .a this way, but at least, we lose less */
+        if ((ent->d_name[0] == '.') && (strlen(ent->d_name) <= 2)) continue;
 
         sprintf(filespec, "%s/%s", from, ent->d_name);
         sprintf(filespec2, "%s/%s", to, ent->d_name);
