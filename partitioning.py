@@ -1712,11 +1712,6 @@ def doEditPartitionByRequest(intf, requestlist, part):
 
     request = requestlist.getRequestByDeviceName(get_partition_name(part))
     if request:
-        if request.type == REQUEST_PROTECTED:
-            intf.messageWindow(_("Unable to Edit"),
-                               _("You cannot edit this "
-                      "partition, as it is in use by the installer."))
-            return (None, None)
         if requestlist.isRaidMember(request):
             intf.messageWindow( _("Unable to Edit"),
                                _("You cannot edit this partition "

@@ -589,7 +589,7 @@ class PartitionWindow:
 
             fsoptLbl = None
 
-        else:
+        elif origrequest.type == REQUEST_PREEXIST and origrequest.fstype:
 
             # set some defaults
             format = origrequest.format
@@ -634,7 +634,7 @@ class PartitionWindow:
             poplevel.add(subgrid, 0, row, (0,1,0,0))
 
         row = row + 1
-        if origrequest.type == REQUEST_NEW:
+        if origrequest.type == REQUEST_NEW or origrequest.type == REQUEST_PROTECTED:
             popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON))
         else:
             popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,
@@ -752,14 +752,17 @@ class PartitionWindow:
             else:
                 request = copy.copy(origrequest)
 
-                request.fstype = newfstype
+                if request.type == REQUEST_PREEXIST:
+                    request.fstype = newfstype
+                    
                 if request.fstype.isMountable():
                     request.mountpoint = self.mount.value()
 
-                request.format = format
-                request.migrate = migrate
-                request.fstype = newfstype
-                request.badblocks = badblocks
+                if request.type == REQUEST_PREEXIST:
+                    request.format = format
+                    request.migrate = migrate
+                    request.fstype = newfstype
+                    request.badblocks = badblocks
 
                 err = sanityCheckPartitionRequest(self.partitions, request)
                 if err:
