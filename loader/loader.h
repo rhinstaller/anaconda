@@ -57,3 +57,4 @@
 
 #define CODE_PCMCIA	1
 
+void startNewt(int flags);
