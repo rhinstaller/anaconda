@@ -717,9 +717,8 @@ msgid "fdisk"
 msgstr "fdisk"
 
 #: ../iw/fdisk.py:43
-#, fuzzy
 msgid "Select drive to run fdisk on"
-msgstr "Selectaþi modul de conectare a imprimantei"
+msgstr "Selectaþi un disk pentru partiþionare cu fdisk"
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
@@ -760,7 +759,7 @@ msgstr "Actualizare"
 
 #: ../iw/installpath.py:185
 msgid "Use fdisk to format drives"
-msgstr ""
+msgstr "Foloseºte fdisk pentru partiþionare discuri"
 
 #: ../iw/keyboard.py:12
 msgid "Keyboard Configuration"
@@ -779,9 +778,8 @@ msgid "Variant"
 msgstr "Variantã"
 
 #: ../iw/keyboard.py:95
-#, fuzzy
 msgid "Test your selection here:"
-msgstr "Tip tastaturã"
+msgstr "Testaþi setãrile alease:"
 
 #: ../iw/language.py:14 ../loader/lang.c:245
 msgid "What language should be used during the installation process?"
@@ -1157,14 +1155,14 @@ msgstr "Continuare"
 
 #: ../textw/partitioning.py:142
 msgid "Low Memory"
-msgstr ""
+msgstr "Memorie insuficientã"
 
 #: ../textw/partitioning.py:143
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
-msgstr ""
+msgstr "Acest calculator nu are suficientã memorie pentru a permite programului de instalare sã continue. Pentru a obþine memorie adiþionalã este necesarã activarea imediatã a spaþiului de swap. Pentru a face acest lucru trebuie ca tabela de partiþii sã fie scrisã pe disk în acest moment. Doriþi ca noua tabelã de partiþii sã fie scrisã?"
 
 #: ../textw/partitioning.py:162
 msgid ""
@@ -1183,9 +1181,8 @@ msgid "Check for bad blocks during format"
 msgstr "Verificare blocuri defecte la formatare"
 
 #: ../textw/partitioning.py:186
-#, fuzzy
 msgid "Choose Partitions to Format"
-msgstr "Alegaþi partiþiile care vor fi formatate"
+msgstr "Alegaþi Partiþiile pentru Formatare"
 
 #: ../textw/userauth.py:12
 msgid ""
@@ -1207,9 +1204,8 @@ msgid "Password (again):"
 msgstr "Parola (din nou):"
 
 #: ../textw/userauth.py:42 ../textw/userauth.py:93
-#, fuzzy
 msgid "Password Length"
-msgstr "Parola"
+msgstr "Lungimea Parolei"
 
 #: ../textw/userauth.py:43
 msgid "The root password must be at least 6 characters long."
@@ -1226,86 +1222,78 @@ msgstr ""
 "tastare). Încercaþi din nou."
 
 #: ../textw/userauth.py:73
-#, fuzzy
 msgid "Edit User"
-msgstr "Editare"
+msgstr "Modificare Utilizator"
 
 #: ../textw/userauth.py:75
-#, fuzzy
 msgid "Add User"
-msgstr "Folosit pentru"
+msgstr "Adaugã Utlizator"
 
 #: ../textw/userauth.py:80
 msgid "User ID"
-msgstr ""
+msgstr "ID Utilizator"
 
 #: ../textw/userauth.py:94
-#, fuzzy
 msgid "The password must be at least 6 characters long."
-msgstr "Parola de root trebuie sã fie de cel putin ºase caractere lungime"
+msgstr "Parola trebuie sã fie de cel putin 6 caractere lungime"
 
 #: ../textw/userauth.py:111
 msgid "User Exists"
-msgstr ""
+msgstr "Utilizator Existemt"
 
 #: ../textw/userauth.py:112
 msgid "This user id already exists.  Choose another."
-msgstr ""
+msgstr "Acest calculator conþine utlizatorul selectat. Selectaþi un cont diferit."
 
 #: ../textw/userauth.py:139
 msgid ""
 "You should use a normal user account for most activities on your system. By "
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
-msgstr ""
+msgstr "Este recomandat sã folosiþi un cont normal de utilizator pentru majoritatea aplicaþiilor pe care le veþi rula pe acest calculator. Prin folosirea contului de root numai în cazul cînd este absolut necesar reduceþi riscurile de modificare neaºteptatã a configuraþiei sistemului."
 
 #: ../textw/userauth.py:152
 msgid ""
 "What user account would you like to have on the system? You should have at "
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
-msgstr ""
+msgstr "Ce cont de utilizator doriþi sã folosiþi pe acest calculator? Trebuie sã configuraþi cel puþin un utilizator diferit de root pentru activitãþile normale. Bineînþeles cã puteþi configura mai mult de un singur cont în acest moment dacã doriþi."
 
 #: ../textw/userauth.py:162
-#, fuzzy
 msgid "User name"
-msgstr "Numele serverului NFS:"
+msgstr "Nume utilizator"
 
 #: ../textw/userauth.py:186
 msgid "Enter the information for the user."
-msgstr ""
+msgstr "Introduceþi detalii despre cont."
 
 #: ../textw/userauth.py:198
 msgid "Change the information for this user."
-msgstr ""
+msgstr "Schimbaþi detaliile de cont."
 
 #: ../textw/userauth.py:249
-#, fuzzy
 msgid "Use Shadow Passwords"
-msgstr "Activeazã shadow passwords"
+msgstr "Foloseºte shadow passwords"
 
 #: ../textw/userauth.py:251
-#, fuzzy
 msgid "Enable MD5 Passwords"
 msgstr "Folosire parole MD5"
 
 #: ../textw/userauth.py:258
-#, fuzzy
 msgid "NIS Domain:"
 msgstr "Domeniu NIS: "
 
 #: ../textw/userauth.py:260
-#, fuzzy
 msgid "NIS Server:"
 msgstr "Server NIS: "
 
 #: ../textw/userauth.py:262
 msgid "or use:"
-msgstr ""
+msgstr "sau folosiþi:"
 
 #: ../textw/userauth.py:265
 msgid "Request server via broadcast"
-msgstr ""
+msgstr "Detectare server prin broadcast"
 
 #: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
 #: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
@@ -1935,36 +1923,32 @@ msgid "Initializing CDROM..."
 msgstr "Initializare CDROM..."
 
 #: ../loader/devices.c:45
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "Alte Opþiuni:"
+msgstr "Alte Opþiuni"
 
 #: ../loader/devices.c:54
-#, fuzzy
 msgid "Module Parameters"
-msgstr "Parametri pentru Kernel"
+msgstr "Parametri Driver"
 
 #: ../loader/devices.c:54
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
-msgstr ""
+msgstr "Acest driver poate avea parametri care afecteazã funcþionalitatea sa. Dacã nu ºtiþi ce parametri trebuie specificaþi pentru acest driver, selectaþi \"OK\" ºi treceþi la urmãtorul ecran."
 
 #: ../loader/devices.c:120
 msgid "Which driver should I try?"
 msgstr "Care driver trebuie încercat?"
 
 #: ../loader/devices.c:135
-#, fuzzy
 msgid "Specify module parameters"
-msgstr "Parametri pentru Kernel"
+msgstr "Introduceþi parametri pentru driver"
 
 #: ../loader/devices.c:141 ../loader/loader.c:239 ../loader/loader.c:298
 #: ../loader/loader.c:313
-#, fuzzy
 msgid "Devices"
-msgstr "Partiþie"
+msgstr "Devices"
 
 #: ../loader/kickstart.c:57 ../loader/kickstart.c:67 ../loader/kickstart.c:106
 msgid "Kickstart Error"
@@ -1990,35 +1974,30 @@ msgid "Choose a Language"
 msgstr "Limbã program instalare"
 
 #: ../loader/lang.c:501
-#, fuzzy
 msgid "Keyboard Type"
-msgstr "Tip tastaturã"
+msgstr "Tip Tastaturã"
 
 #: ../loader/lang.c:502
-#, fuzzy
 msgid "What type of keyboard do you have?"
-msgstr "Ce model de imprimantã aveþi?"
+msgstr "Ce model de tastaturã este conectatã la acest calculator?"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
-msgstr ""
+msgstr "Unitate CDROM"
 
 #: ../loader/loader.c:101
 msgid "NFS image"
-msgstr ""
+msgstr "Director NFS"
 
 #: ../loader/loader.c:106
-#, fuzzy
 msgid "Hard drive"
-msgstr "Hard Discuri"
+msgstr "Hard Disc"
 
 #: ../loader/loader.c:122
-#, fuzzy
 msgid "Welcome to Red Hat Linux"
-msgstr "Bun venit la Red Hat Linux!"
+msgstr "Bun venit în Red Hat Linux!"
 
 #: ../loader/loader.c:124
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -2027,67 +2006,54 @@ msgstr ""
 
 #: ../loader/loader.c:226
 msgid "SCSI"
-msgstr ""
+msgstr "SCSI"
 
 #: ../loader/loader.c:240
-#, fuzzy
 msgid "What kind of device would you like to add"
-msgstr "Ce tip de system doriþi sã instalaþi?"
+msgstr "Ce tip de periferic doriþi sã adãugaþi?"
 
 #: ../loader/loader.c:287
-#, fuzzy
 msgid "I have found the following devices in your system:"
-msgstr ""
-"Am gãsit urmãtoarele tipuri de adaptoare SCSI în acest calculator:\n"
-"\n"
+msgstr "Am gãsit urmãtoarele extensii în acest calculator:"
 
 #: ../loader/loader.c:289 ../loader/loader.c:313
-#, fuzzy
 msgid "Add Device"
-msgstr "Partiþie"
+msgstr "Adaugã Periferic"
 
 #: ../loader/loader.c:314
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
-msgstr ""
+msgstr "Nu s-a încãrcat nici un driver specific penbtru periferice acestui sistem. În caz cã acest lucru este necesar, doriþi sã încãrcaþi aceste drivere în acest moment?"
 
 #: ../loader/loader.c:398 ../loader/loader.c:400
-#, fuzzy
 msgid "Loading"
-msgstr "Locaþie"
+msgstr "Încãrcare"
 
 #: ../loader/loader.c:452
 msgid "Loading second stage ramdisk..."
 msgstr "Încãrcare ramdisk pentru etapa a doua..."
 
 #: ../loader/loader.c:456
-#, fuzzy
 msgid "Error loading ramdisk."
-msgstr "Eroare la citirea ramdisk pentru etapa a doua..."
+msgstr "Eroare la încãrcarea ramdisk-ului"
 
 #: ../loader/loader.c:577
 msgid "Hard Drives"
 msgstr "Hard Discuri"
 
 #: ../loader/loader.c:578
-#, fuzzy
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"Spaþiu pentru memoria swap nu este definit. Doriþi sã continuaþi sau sã "
-"reparþitionaþi discul?"
+msgstr "Nu am putut detecta nici un hard disk în acest calculator! Doriþi sã configuraþi alte periferice?"
 
 #: ../loader/loader.c:591
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
-msgstr ""
-"Ce partiþie si ce director din acea partiþie conþin directoarele RedHat/RPMS "
-"ºi RedHat/base?"
+msgstr "Ce partiþie si ce director din acea partiþie conþin directoarele RedHat/RPMS ºi RedHat/base? Dacã hard diskul dorit nu se regãseºte în lista de mai jos, apãsaþi F2 pentru a configura periferice adiþionale."
 
 #: ../loader/loader.c:605
 msgid "Directory holding Red Hat:"
@@ -2106,7 +2072,7 @@ msgstr "Partiþia %s nu conþine o versiune de instalare a Red Hat Linux."
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
-msgstr ""
+msgstr "Nu s-a putut detecta un CD cu Red Hat Linux în nici una dintre unitãþile de CD din acest sistem. Încãrcaþi CD-ul cu Red Hat Linux în unitatea CDROM ºi selectaþi \"OK\" pentru a reîncerca."
 
 #: ../loader/loader.c:847
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -2118,16 +2084,15 @@ msgstr "Nu s-a putut citi directorul specificat de pe server"
 
 #: ../loader/loader.c:937
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader/loader.c:938
-#, fuzzy
 msgid "Unable to retrieve the second stage ramdisk"
-msgstr "Nu s-a putut receptiona ramdiskul pentru stagiul doi: %s"
+msgstr "Nu s-a putut obþine ramdisk-ul pentru etapa a doua"
 
 #: ../loader/loader.c:1062
 msgid "Rescue Method"
-msgstr ""
+msgstr "Metodã de Salvare"
 
 #: ../loader/loader.c:1063
 msgid "Installation Method"
@@ -2135,12 +2100,11 @@ msgstr "Metodã de Instalare"
 
 #: ../loader/loader.c:1065
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "Unde se gãseºte imaginea de restaurare?"
 
 #: ../loader/loader.c:1067
-#, fuzzy
 msgid "What type of media contains the packages to be installed?"
-msgstr "Ce tip de system doriþi sã instalaþi?"
+msgstr "Unde sînt aflate aplicaþiile pentru instalare?"
 
 #: ../loader/loader.c:1461
 msgid "Cannot find ks.cfg on boot floppy."
@@ -2148,12 +2112,11 @@ msgstr "Fiºierul ks.cfg nu existã pe discheta de boot."
 
 #: ../loader/loader.c:1571
 msgid "PC Card"
-msgstr ""
+msgstr "PC Card"
 
 #: ../loader/loader.c:1571
-#, fuzzy
 msgid "Initializing PC Card Devices..."
-msgstr "Initializare CDROM..."
+msgstr "Se iniþializeazã perifericele de tip PC Card..."
 
 #: ../loader/net.c:147
 msgid "NFS server name:"
@@ -2164,9 +2127,8 @@ msgid "Red Hat directory:"
 msgstr "Directorul Red Hat:"
 
 #: ../loader/net.c:156
-#, fuzzy
 msgid "NFS Setup"
-msgstr "Setare SMB"
+msgstr "Configurare NFS"
 
 #: ../loader/net.c:157
 msgid ""
@@ -2192,30 +2154,27 @@ msgstr ""
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr ""
+msgstr "Configurare IP prin metodã dinamicã (BOOTP/DHCP)"
 
 #: ../loader/net.c:298
 msgid "Configure TCP/IP"
 msgstr "Configurare TCP/IP"
 
 #: ../loader/net.c:329
-#, fuzzy
 msgid "Missing Information"
-msgstr "Setare imprimantã"
+msgstr "Informaþie Inexistentã"
 
 #: ../loader/net.c:330
-#, fuzzy
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "Trebuie sã introduceþi date corecte pentru IP."
+msgstr "Trebuie sã introduceþi o adresã de IP ºi netmask corecte."
 
 #: ../loader/net.c:338 ../loader/net.c:569
 msgid "Dynamic IP"
-msgstr ""
+msgstr "Adresã IP dinamicã"
 
 #: ../loader/net.c:339 ../loader/net.c:570
-#, fuzzy
 msgid "Sending request for IP information..."
-msgstr "Trimitere cerere DHCP..."
+msgstr "Detectare configuraþie IP..."
 
 #: ../loader/net.c:461
 msgid "Determining host name and domain..."
@@ -2231,37 +2190,30 @@ msgid "bad argument to kickstart network command %s: %s"
 msgstr "argument eronat pentru comanda network în kickstart %s: %s "
 
 #: ../loader/net.c:607
-#, fuzzy
 msgid "Boot protocol to use"
-msgstr "Prococol Boot"
+msgstr "Protocol folosit la iniþializare"
 
 #: ../loader/net.c:609
-#, fuzzy
 msgid "Network gateway"
-msgstr "Configurare Reþea"
+msgstr "Gateway reþea"
 
 #: ../loader/net.c:611
-#, fuzzy
 msgid "IP address"
-msgstr "Adresã IP:"
+msgstr "Adresã IP"
 
 #: ../loader/net.c:613
-#, fuzzy
 msgid "Nameserver"
-msgstr "Server"
+msgstr "Server DNS"
 
 #: ../loader/net.c:620
-#, fuzzy
 msgid "Domain name"
-msgstr "Domeniu NIS: "
+msgstr "Domeniu DNS"
 
 #: ../loader/net.c:623
-#, fuzzy
 msgid "Network device"
-msgstr "Configurare Reþea"
+msgstr "Placã de reþea"
 
 #: ../loader/net.c:695
-#, fuzzy
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
@@ -2270,19 +2222,17 @@ msgstr ""
 "ecran "
 
 #: ../loader/net.c:696
-#, fuzzy, c-format
+#, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
+msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
 #: ../loader/net.c:698
-#, fuzzy
 msgid "Network configuration"
 msgstr "Configurare Reþea"
 
 #: ../loader/net.c:699
-#, fuzzy
 msgid "Would you like to set up networking?"
-msgstr "Fãrã setare de reþea LAN"
+msgstr "Doriþi sã configuraþi accesul la reþea pentru acest calculator?"
 
 #: ../loader/urls.c:62 ../loader/urls.c:65
 msgid "Retrieving"
@@ -2331,9 +2281,8 @@ msgid "Use non-anonymous ftp or a proxy server"
 msgstr "Utilizaþi non-anonymous ftp sau un proxy server"
 
 #: ../loader/urls.c:180
-#, fuzzy
 msgid "Use proxy server"
-msgstr "Selectaþi un server"
+msgstr "Folosire server proxy"
 
 #: ../loader/urls.c:191
 msgid "FTP Setup"
@@ -2370,9 +2319,8 @@ msgstr ""
 "Daca folositi un proxy server pentru HTTP introduceti numele serverului."
 
 #: ../loader/urls.c:295
-#, fuzzy
 msgid "Account name:"
-msgstr "Nume Cont"
+msgstr "Nume Cont:"
 
 #: ../loader/urls.c:303
 msgid "FTP Proxy:"
@@ -2391,9 +2339,8 @@ msgid "HTTP Proxy Port:"
 msgstr "HTTP Proxy Port:"
 
 #: ../loader/windows.c:46
-#, fuzzy
 msgid "Loading SCSI driver"
-msgstr "Încãrcare Driver Disk..."
+msgstr "Încãrcare Driver SCSI..."
 
 #~ msgid "Root Partition Selection"
 #~ msgstr "Selectare Partiþia de Root"
