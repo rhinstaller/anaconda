@@ -138,7 +138,7 @@ void sleep(int secs);
 int strcmp(const char * a, const char * b);
 int strncmp(const char * a, const char * b, size_t len);
 void printint(int i);
-int printf(char * fmt, ...);
+void printf(char * fmt, ...);
 char * strchr(char * str, int ch);
 char * strncpy(char * dst, const char * src, size_t len);
 

@@ -169,7 +169,7 @@ char * strchr(char * str, int ch) {
     return NULL;
 }
 
-int printf(char * fmt, ...) {
+void printf(char * fmt, ...) {
     char buf[2048];
     char * start = buf;
     char * chptr = buf;
@@ -205,5 +205,4 @@ int printf(char * fmt, ...) {
 	    start = NULL;
 	}
     }
-    return 0;
 }
