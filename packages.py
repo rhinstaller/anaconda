@@ -1169,8 +1169,8 @@ def copyExtraModules(instPath, grpset, extraModules):
 
 	for (n, tag) in kernelVersions:
 	    fromFile = "%s/lib/modules/%s/%s.o" % (instPath, n, name)
-	    toDir = "%s/lib/modules/%s/kernel/drivers/%s" % \
-		    (instPath, n, subdir)
+	    toDir = "%s/lib/modules/%s/update" % \
+		    (instPath, n)
 	    to = "%s/%s.o" % (toDir, name)
 
 	    if (os.access(fromFile, os.R_OK) and 
