@@ -154,7 +154,8 @@ def depMatch(dep, hdrlist):
         hdr = None
         for h in hdrlist.pkgs.values():
             l = []
-            for f in h.hdr.fiFromHeader(): l.append(f[0])
+            for f in h.hdr.fiFromHeader():
+                l.append(f[0])
             if (dep in l):
                 hdr = betterPackageForProvides(h, hdr)
         if hdr is not None:
@@ -219,9 +220,12 @@ class Package:
     def setState(self, state):
         (self.usecount, self.manual_state) = state
 
-    def addDeps(self, deps):
+    def addDeps(self, deps, main = 1):
         self.dependencies.extend(deps)
-        self.depsFound = 1
+        # FIXME: this is a hack so that adding deps for lang support stuff
+        # doesn't set depsFound
+        if main:
+            self.depsFound = 1
 
     def select(self, isManual = 0, isDep = 0):
         self.usecount = self.usecount + 1
@@ -401,9 +405,16 @@ class Group:
 
         # obviously enough, hidden components aren't shown
         self.hidden = not xmlgrp.user_visible
+
         # whether or not a group should be enabled by default.  only
         # really matters for custom installs
         self.default = xmlgrp.default
+
+        # if it's a biarch group and we're not a biarch-arch, be hidden and off
+        if xmlgrp.biarchonly and rhpl.arch.getSecondaryArch() is None:
+            self.hidden = 1
+            self.default = 0
+        
         # FIXME: this is a hack to handle language support groups
         self.langonly = xmlgrp.langonly
 
@@ -481,18 +492,21 @@ class Group:
                   deps = pkg[rpm.RPMTAG_REQUIRENAME]
                   thisone = []
                   for dep in deps:
-                      if dep in checked:
-                          continue
+                      # hey wait, this is me!
                       if ((pkg[rpm.RPMTAG_PROVIDENAME] is not None) and
                           (dep in pkg[rpm.RPMTAG_PROVIDENAME])):
                           continue
+                      # ignore rpmlib stuff
                       if dep.startswith("rpmlib("):
                           continue
                       p = depMatch(dep, self.grpset.hdrlist)
-                      if p in checked:
+                      # don't care about self referential deps
+                      if p == pkg.nevra():
+                          continue
+                      if p in checked or p in tocheck or p in pkgs:
                           continue
                       if p is None:
-                          log("ERROR: unable to resolve dep %s" %(dep,))
+#                          log("ERROR: unable to resolve dep %s" %(dep,))
                           continue
 
                       self.grpset.hdrlist[p].select()
@@ -507,21 +521,21 @@ class Group:
               else:
                   deps = pkg.dependencies
                   for dep in deps:
+                      # if we've already checked for this package, don't worry
+                      if dep in checked or dep in tocheck or dep in pkgs:
+                          continue
                       # hmm, not in the header list.  we can't do much but
                       # hope for the best
                       if not self.grpset.hdrlist.has_key(dep):
                           log("Package %s requires %s which we don't have"
                               %(tocheck, dep))
                           continue
-                      # if we've already checked for this package, don't worry
-                      if dep in checked:
-                          continue
                       self.grpset.hdrlist[dep].select()
                       # FIXME: this is a hack so we can make sure the usecount
                       # is bumped high enough for langsupport packages
                       self.grpset.hdrlist[dep].usecount += uses - 1
                       pkgs.append(dep)
-                      checked.append(dep)
+              checked.append(pkgnevra)
 
 
     # FIXME: this doesn't seem like the right place for it, but ... :/
@@ -535,18 +549,18 @@ class Group:
 
                 deps = pkg.dependencies
                 for dep in deps:
+                    # if we've already checked for this package, don't worry
+                    if dep in checked or dep in tocheck or dep in pkgs:
+                        continue
                     # hmm, not in the header list.  we can't do much but
                     # hope for the best
                     if not self.grpset.hdrlist.has_key(dep):
                         log("Package %s requires %s which we don't have"
                             %(tocheck, dep))
                         continue
-                    # if we've already checked for this package, don't worry
-                    if dep in checked:
-                        continue
                     self.grpset.hdrlist[dep].unselect()
-                    pkgs.append(nevra(self.grpset.hdrlist[dep]))
-                    checked.append(dep)
+                    pkgs.append(dep)
+                checked.append(pkgnevra)
         
 
     # forInclude is whether this group is an include from a previous
@@ -561,6 +575,10 @@ class Group:
         self.usecount = self.usecount + 1
         if not forInclude:
             self.manual_state = MANUAL_ON
+
+        for grpid in self.groupreqs:
+            self.grpset.groups[grpid].select(forInclude = (not subAsInclude))
+
         if self.usecount > 1:
             return
 
@@ -573,12 +591,9 @@ class Group:
             if pkg["meta"] == 0:
                 hdrlist[pkgnevra].select()
                 selected.append(pkgnevra)
+                self.selectDeps([pkgnevra])                
             else:
                 self.grpset.groups[pkgnevra].select(forInclude = 1)
-        self.selectDeps(selected)
-
-        for grpid in self.groupreqs:
-            self.grpset.groups[grpid].select(forInclude = (not subAsInclude))
 
     # manual package selection
     def selectPackage(self, pkgnevra):
@@ -602,6 +617,10 @@ class Group:
         if not forInclude:
             self.manual_state = MANUAL_OFF
         if self.usecount < 0: log("WARNING: usecount for %s < 0 (%d)" %(self.id, self.usecount))
+
+        for grpid in self.groupreqs:
+            self.grpset.groups[grpid].unselect(forInclude = 1)
+
         if self.usecount > 0:
             return
 
@@ -614,12 +633,9 @@ class Group:
             if pkg["meta"] == 0:
                 hdrlist[pkgnevra].unselect()
                 selected.append(pkgnevra)
+                self.unselectDeps([pkgnevra])
             else:
                 self.grpset.groups[pkgnevra].unselect(forInclude = 1)
-        self.unselectDeps(selected)
-        
-        for grpid in self.groupreqs:
-            self.grpset.groups[grpid].unselect(forInclude = 1)
 
     def unselectPackage(self, pkgnevra):
         pkg = self.packages[pkgnevra]
@@ -723,15 +739,14 @@ class GroupSet:
                 return
         raise KeyError, "No such group %s" %(group,)
 
-    def unselectAll(self, unselectPkgs = 1):
+    def unselectAll(self):
+        # force everything to be in an off state
         for group in self.groups.values():
-            if group.isSelected(justManual = 1):
-                group.unselect()
-        if unselectPkgs:
-            # force packages into an off state
-            for pkg in self.hdrlist.pkgs.values():
-                self.usecount = 0
-                self.manual_state = MANUAL_NONE
+            group.usecount = 0
+            group.manual_state = MANUAL_NONE
+        for pkg in self.hdrlist.pkgs.values():
+            pkg.usecount = 0
+            pkg.manual_state = MANUAL_NONE
 
     def getSelectionState(self):
         grpst = []
