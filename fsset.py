@@ -792,7 +792,7 @@ class prepbootFileSystem(FileSystemType):
                         break
 
             if cut < 0:
-                partNum = int(dev[cut:]) - 1
+                partNum = int(dev[cut:])
             else:
                 partNum = None
 
@@ -808,8 +808,12 @@ class prepbootFileSystem(FileSystemType):
             log("oops, somehow got a bogus device for the PrEP partition "
                 "(%s)" %(devicePath,))
             return
+
+        args = [ "sfdisk", "--change-id", disk, "%d" %(part,), "41" ]
+        if disk.startswith("/tmp/") and not os.access(disk, os.R_OK):
+            isys.makeDevInode(disk[5:], disk)
         
-        args = [ "sfdisk", "--change-id", disk, part, "41" ]
+        log("going to run %s" %(args,))
         rc = iutil.execWithRedirect("/usr/sbin/sfdisk", args,
                                     stdout = "/dev/tty5", stderr = "/dev/tty5")
         if rc:
