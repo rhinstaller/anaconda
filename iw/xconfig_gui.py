@@ -235,7 +235,7 @@ class XCustomWindow (InstallWindow):
         frame1.set_border_width (10)
         hbox1.pack_start(frame1, TRUE, FALSE, 0)
 
-        depth_list = ["256 Colors (8 Bit)", "High Color (16 Bit)", "True Color (24 Bit)"]
+        depth_list = [(_("256 Colors (8 Bit)")), (_("High Color (16 Bit)")), (_("True Color (24 Bit)"))]
         self.bit_depth = ["8", "16", "32"]
 
         self.avail_depths = depth_list[:self.depth_count]
