@@ -520,20 +520,20 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_SERIAL;
         else if (!strncasecmp(argv[i], "debug=", 6))
             setLogLevel(strtol(argv[i] + 6, (char **)NULL, 10));
-        /*JKFIXME: add back kickstart stuff */
         else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
             loaderData->netDev = strdup(argv[i] + 9);
             loaderData->netDev_set = 1;
         }
-        /* JKFIXME: this isn't quite right... */
         else if (!strcasecmp(argv[i], "ks") || !strncasecmp(argv[i], "ks=", 3))
             loaderData->ksFile = strdup(argv[i]);
         else if (!strncasecmp(argv[i], "display=", 8))
             setenv("DISPLAY", argv[i] + 8, 1);
-        else if (!strncasecmp(argv[i], "lang=", 5)) {
+        else if ((!strncasecmp(argv[i], "lang=", 5)) && 
+                 (strlen(argv[i]) > 5))  {
             loaderData->lang = strdup(argv[i] + 5);
             loaderData->lang_set = 1;
-        } else if (!strncasecmp(argv[i], "keymap=", 7)) {
+        } else if (!strncasecmp(argv[i], "keymap=", 7) &&
+                   (strlen(argv[i]) > 7)) {
             loaderData->kbd = strdup(argv[i] + 7);
             loaderData->kbd_set = 1;
         } else if (!strncasecmp(argv[i], "method=", 7)) {
