@@ -10,9 +10,7 @@ import time
 import os
 from kbd import Keyboard
 from mouse import Mouse
-
-def _(x):
-    return x
+from translate import _
 
 class XF86Config:
     def __init__ (self, mouse = None):
