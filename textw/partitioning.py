@@ -124,6 +124,7 @@ class PartitionWindow:
 	if not todo.getSkipPartitioning():
 	    dir = todo.ddruid.edit ()
 
+	todo.resetMounts()
 	for partition, mount, fstype, size in todo.ddruid.getFstab ():
 	    todo.addMount(partition, mount, fstype)
 

@@ -646,6 +646,9 @@ class ToDo:
                 reformat = 1
         self.mounts[location] = (device, fsystem, reformat)
 
+    def resetMounts(self):
+	self.mounts = {}
+
     def writeFstab(self):
 	format = "%-23s %-23s %-7s %-15s %d %d\n";
 

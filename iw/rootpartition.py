@@ -74,13 +74,13 @@ class PartitionWindow (InstallWindow):
 	bootPartition = None
 	rootPartition = None
 
+	self.todo.resetMounts()
         for (partition, mount, fsystem, size) in fstab:
             self.todo.addMount(partition, mount, fsystem)
 	    if mount == "/":
 		rootPartition = partition
 	    elif mount == "/boot":
 		bootPartition = partition
-		
 
         (drives, raid) = self.todo.ddruid.partitionList()
 
