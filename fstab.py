@@ -1181,7 +1181,7 @@ def readFstab (path, fstab):
 	# all valid fstab entries have 6 fields
 	if len (fields) < 4 or len (fields) > 6: continue
 
-	if fields[2] != "ext2" and fields[2] != "ext3" and fields[2] != "swap":
+	if fields[2] != "ext2" and fields[2] != "ext3" and fields[2] != "swap" and fields[2] != "vfat":
 	    continue
 	if string.find(fields[3], "noauto") != -1: continue
 
