@@ -1,5 +1,7 @@
 2004-09-23  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/cdinstall.c: Don't use PROBE_LOADED for cd probing (#131033)
+
 	* loader2/hardware.c: We can always probe devices with current
 	supported hardware. (#132592)
 
