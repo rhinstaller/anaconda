@@ -526,6 +526,30 @@ void ejectCdrom(void) {
   }
 }
 
+int mystrstr(char *str1, char *str2) {
+    char *p;
+    int rc=0;
+
+    for (p=str1; *p; p++) {
+	if (*p == *str2) {
+	    char *s, *t;
+
+	    rc = 1;
+	    for (s=p, t=str2; *s && *t; s++, t++)
+		if (*s != *t) {
+		    rc = 0;
+		    p++;
+		}
+
+	    if (rc)
+		return rc;
+	} 
+    }
+    return rc;
+}
+
+
+
 int main(int argc, char **argv) {
     pid_t installpid, childpid;
     int waitStatus;
@@ -536,6 +560,7 @@ int main(int argc, char **argv) {
     int doReboot = 0;
     int doShutdown =0;
     int isSerial = 0;
+    int noKill = 0;
 #ifdef __alpha__
     char * kernel;
 #endif
@@ -543,6 +568,9 @@ int main(int argc, char **argv) {
     char ** argvp = argvc;
     char twelve = 12;
     int i;
+    char buf[500];
+    int len;
+
 
 #if !defined(__s390__) && !defined(__s390x__)
     testing = (getppid() != 0) && (getppid() != 1);
@@ -585,11 +613,20 @@ int main(int argc, char **argv) {
     signal(SIGINT, SIG_IGN);
     signal(SIGTSTP, SIG_IGN);
 
+    /* these args are only for testing from commandline */
     for (i = 1; i < argc; i++)
 	if (!strcmp (argv[i], "serial")) {
 	    isSerial = 1;
 	    break;
 	}
+
+    /* look through /proc/cmdline for special options */
+    if ((fd = open("/proc/cmdline", O_RDONLY,0)) > 0) {
+	len = read(fd, buf, sizeof(buf) - 1);
+	close(fd);
+	if (len > 0 && mystrstr(buf, "nokill"))
+	    noKill = 1;
+    }
 
 #if !defined(__s390__) && !defined(__s390x__)
     if (ioctl (0, TIOCLINUX, &twelve) < 0)
@@ -751,7 +788,7 @@ int main(int argc, char **argv) {
 
     sync(); sync();
 
-    if (!testing) {
+    if (!testing && !noKill) {
 	printf("sending termination signals...");
 	kill(-1, 15);
 	sleep(2);
