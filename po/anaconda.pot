@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-01-14 12:03-0500\n"
+"POT-Creation-Date: 2000-01-18 14:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,59 +14,59 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ../fstab.py:190 ../fstab.py:347
+#: ../fstab.py:204 ../fstab.py:359
 msgid "Formatting"
 msgstr ""
 
-#: ../fstab.py:191
+#: ../fstab.py:205
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
 msgstr ""
 
-#: ../fstab.py:203 ../fstab.py:280 ../fstab.py:413
+#: ../fstab.py:215 ../fstab.py:292 ../fstab.py:425
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
 #: ../loader/devices.c:183 ../loader/loader.c:467 ../loader/loader.c:477
 #: ../loader/loader.c:693 ../loader/loader.c:738 ../loader/loader.c:876
-#: ../loader/loader.c:881 ../loader/loader.c:1631 ../loader/loader.c:1677
-#: ../loader/loader.c:1748 ../loader/urls.c:70 ../loader/urls.c:79
+#: ../loader/loader.c:881 ../loader/loader.c:1633 ../loader/loader.c:1679
+#: ../loader/loader.c:1750 ../loader/urls.c:70 ../loader/urls.c:79
 #: ../loader/urls.c:86 ../loader/urls.c:223 ../loader/urls.c:228
-#: ../text.py:245 ../text.py:728 ../todo.py:336 ../todo.py:833 ../todo.py:864
-#: ../todo.py:1225
+#: ../text.py:275 ../text.py:758 ../todo.py:335 ../todo.py:841 ../todo.py:872
+#: ../todo.py:1241
 msgid "Error"
 msgstr ""
 
-#: ../fstab.py:203
+#: ../fstab.py:215
 msgid "Error creating swap on device "
 msgstr ""
 
-#: ../fstab.py:281
+#: ../fstab.py:293
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr ""
 
-#: ../fstab.py:303 ../todo.py:483
+#: ../fstab.py:315 ../todo.py:482
 msgid "Creating"
 msgstr ""
 
-#: ../fstab.py:303
+#: ../fstab.py:315
 msgid "Creating RAID devices..."
 msgstr ""
 
-#: ../fstab.py:348
+#: ../fstab.py:360
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr ""
 
-#: ../fstab.py:370
+#: ../fstab.py:382
 msgid "Loopback"
 msgstr ""
 
-#: ../fstab.py:371
+#: ../fstab.py:383
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr ""
 
-#: ../fstab.py:414
+#: ../fstab.py:426
 #, c-format
 msgid "Error mounting %s: %s"
 msgstr ""
@@ -80,13 +80,13 @@ msgstr ""
 #: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:536
 #: ../loader/loader.c:251 ../loader/loader.c:599 ../loader/loader.c:635
 #: ../loader/loader.c:738 ../loader/loader.c:1110 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:55
-#: ../text.py:66 ../text.py:101 ../text.py:102 ../text.py:121 ../text.py:144
-#: ../text.py:174 ../text.py:177 ../text.py:219 ../text.py:248 ../text.py:262
-#: ../text.py:264 ../text.py:283 ../text.py:285 ../text.py:307 ../text.py:309
-#: ../text.py:416 ../text.py:467 ../text.py:469 ../text.py:482 ../text.py:500
-#: ../text.py:513 ../text.py:550 ../text.py:552 ../text.py:578 ../text.py:581
-#: ../text.py:590 ../text.py:648 ../text.py:649 ../textw/constants.py:10
+#: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:54
+#: ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143
+#: ../text.py:173 ../text.py:176 ../text.py:222 ../text.py:278 ../text.py:292
+#: ../text.py:294 ../text.py:313 ../text.py:315 ../text.py:337 ../text.py:339
+#: ../text.py:446 ../text.py:497 ../text.py:499 ../text.py:512 ../text.py:530
+#: ../text.py:543 ../text.py:580 ../text.py:582 ../text.py:608 ../text.py:611
+#: ../text.py:620 ../text.py:678 ../text.py:679 ../textw/constants.py:10
 #: ../textw/lilo.py:31 ../textw/lilo.py:86 ../textw/lilo.py:93
 #: ../textw/lilo.py:168 ../textw/packages.py:20 ../textw/packages.py:85
 #: ../textw/packages.py:136 ../textw/packages.py:145
@@ -114,8 +114,8 @@ msgstr ""
 msgid "Online Help"
 msgstr ""
 
-#: ../gui.py:278 ../iw/language.py:10 ../text.py:60 ../text.py:972
-#: ../text.py:1001
+#: ../gui.py:278 ../iw/language.py:10 ../text.py:59 ../text.py:998
+#: ../text.py:1027
 msgid "Language Selection"
 msgstr ""
 
@@ -149,9 +149,9 @@ msgid ""
 msgstr ""
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:664 ../libfdisk/fsedit.c:671 ../libfdisk/fsedit.c:678
-#: ../libfdisk/fsedit.c:687 ../libfdisk/fsedit.c:713 ../libfdisk/fsedit.c:723
-#: ../libfdisk/fsedit.c:752 ../libfdisk/fsedit.c:768 ../libfdisk/fsedit.c:1157
+#: ../libfdisk/fsedit.c:669 ../libfdisk/fsedit.c:676 ../libfdisk/fsedit.c:683
+#: ../libfdisk/fsedit.c:692 ../libfdisk/fsedit.c:719 ../libfdisk/fsedit.c:729
+#: ../libfdisk/fsedit.c:758 ../libfdisk/fsedit.c:774 ../libfdisk/fsedit.c:1163
 #: ../libfdisk/gnomefsedit.c:677 ../libfdisk/gnomefsedit.c:1047
 #: ../libfdisk/gnomefsedit.c:1073 ../libfdisk/gnomefsedit.c:1091
 #: ../libfdisk/gnomefsedit.c:1296 ../libfdisk/gnomefsedit.c:1390
@@ -167,39 +167,39 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1300 ../libfdisk/newtfsedit.c:1426
 #: ../libfdisk/newtfsedit.c:1447 ../libfdisk/newtfsedit.c:1541
 #: ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86
-#: ../loader/urls.c:234 ../text.py:55 ../text.py:57 ../text.py:101
-#: ../text.py:590 ../textw/constants.py:10 ../textw/lilo.py:104
+#: ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100
+#: ../text.py:620 ../textw/constants.py:10 ../textw/lilo.py:104
 #: ../textw/lilo.py:117 ../textw/lilo.py:167 ../textw/silo.py:124
 #: ../textw/silo.py:137 ../textw/silo.py:185
 msgid "Ok"
 msgstr ""
 
-#: ../text.py:61
+#: ../text.py:60
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
-#: ../text.py:81
+#: ../text.py:80
 msgid "/dev/ttyS0 (COM1 under DOS)"
 msgstr ""
 
-#: ../text.py:82
+#: ../text.py:81
 msgid "/dev/ttyS1 (COM2 under DOS)"
 msgstr ""
 
-#: ../text.py:83
+#: ../text.py:82
 msgid "/dev/ttyS2 (COM3 under DOS)"
 msgstr ""
 
-#: ../text.py:84
+#: ../text.py:83
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr ""
 
-#: ../iw/lilo.py:201 ../iw/silo.py:246 ../text.py:99 ../textw/lilo.py:99
+#: ../iw/lilo.py:201 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:99
 #: ../textw/lilo.py:158 ../textw/silo.py:119 ../textw/silo.py:176
 msgid "Device"
 msgstr ""
 
-#: ../text.py:100
+#: ../text.py:99
 #, c-format
 msgid "What device is your mouse located on? %s %i"
 msgstr ""
@@ -211,14 +211,14 @@ msgstr ""
 #: ../loader/loader.c:467 ../loader/loader.c:477 ../loader/loader.c:635
 #: ../loader/loader.c:693 ../loader/loader.c:738 ../loader/loader.c:876
 #: ../loader/loader.c:881 ../loader/loader.c:966 ../loader/loader.c:1110
-#: ../loader/loader.c:1631 ../loader/loader.c:1677 ../loader/loader.c:1740
-#: ../loader/loader.c:1748 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/loader.c:1633 ../loader/loader.c:1679 ../loader/loader.c:1742
+#: ../loader/loader.c:1750 ../loader/net.c:162 ../loader/net.c:284
 #: ../loader/net.c:557 ../loader/net.c:588 ../loader/urls.c:146
 #: ../loader/urls.c:223 ../loader/urls.c:228 ../loader/urls.c:361
-#: ../text.py:121 ../text.py:174 ../text.py:219 ../text.py:262 ../text.py:307
-#: ../text.py:324 ../text.py:416 ../text.py:436 ../text.py:467 ../text.py:550
-#: ../text.py:578 ../text.py:648 ../text.py:673 ../text.py:687 ../text.py:707
-#: ../text.py:720 ../text.py:732 ../text.py:927 ../text.py:931 ../text.py:1128
+#: ../text.py:120 ../text.py:173 ../text.py:222 ../text.py:292 ../text.py:337
+#: ../text.py:354 ../text.py:446 ../text.py:466 ../text.py:497 ../text.py:580
+#: ../text.py:608 ../text.py:678 ../text.py:703 ../text.py:717 ../text.py:737
+#: ../text.py:750 ../text.py:762 ../text.py:957 ../text.py:961 ../text.py:1158
 #: ../textw/lilo.py:30 ../textw/lilo.py:86 ../textw/packages.py:20
 #: ../textw/packages.py:85 ../textw/packages.py:136
 #: ../textw/partitioning.py:211 ../textw/partitioning.py:260
@@ -231,104 +231,104 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../text.py:123
+#: ../text.py:122
 msgid "Which model mouse is attached to this computer?"
 msgstr ""
 
-#: ../text.py:132
+#: ../text.py:131
 msgid "Emulate 3 Buttons?"
 msgstr ""
 
-#: ../text.py:134
+#: ../text.py:133
 msgid "Mouse Selection"
 msgstr ""
 
-#: ../text.py:172 ../text.py:974 ../text.py:1003
+#: ../text.py:171 ../text.py:1000 ../text.py:1029
 msgid "Keyboard Selection"
 msgstr ""
 
-#: ../text.py:173
+#: ../text.py:172
 msgid "Which model keyboard is attached to this computer?"
 msgstr ""
 
-#: ../text.py:212
+#: ../text.py:215
 msgid "Install GNOME Workstation"
 msgstr ""
 
-#: ../text.py:213
+#: ../text.py:216
 msgid "Install KDE Workstation"
 msgstr ""
 
-#: ../text.py:214
+#: ../text.py:217
 msgid "Install Server System"
 msgstr ""
 
-#: ../text.py:215
+#: ../text.py:218
 msgid "Install Custom System"
 msgstr ""
 
-#: ../text.py:216
+#: ../text.py:219
 msgid "Upgrade Existing Installation"
 msgstr ""
 
-#: ../text.py:217 ../text.py:1006
+#: ../text.py:220 ../text.py:1032
 msgid "Installation Type"
 msgstr ""
 
-#: ../text.py:218
+#: ../text.py:221
 msgid "What type of system would you like to install?"
 msgstr ""
 
-#: ../text.py:246
+#: ../text.py:276
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr ""
 
-#: ../text.py:259
+#: ../text.py:289
 msgid "System to Upgrade"
 msgstr ""
 
-#: ../text.py:260
+#: ../text.py:290
 msgid "What partition holds the root partition of your installation?"
 msgstr ""
 
-#: ../text.py:275
+#: ../text.py:305
 msgid "Customize Packages to Upgrade"
 msgstr ""
 
-#: ../text.py:276
+#: ../text.py:306
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
 
-#: ../iw/welcome.py:90 ../libfdisk/fsedit.c:696 ../libfdisk/gnomefsedit.c:602
+#: ../iw/welcome.py:88 ../libfdisk/fsedit.c:702 ../libfdisk/gnomefsedit.c:602
 #: ../libfdisk/gnomefsedit.c:1003 ../libfdisk/gnomefsedit.c:1109
 #: ../libfdisk/gnomefsedit.c:2046 ../libfdisk/gnomefsedit.c:2316
 #: ../libfdisk/gnomefsedit.c:2369 ../libfdisk/newtfsedit.c:499
 #: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
-#: ../loader/loader.c:599 ../loader/net.c:711 ../text.py:283 ../text.py:482
-#: ../text.py:500 ../text.py:507 ../textw/partitioning.py:172
+#: ../loader/loader.c:599 ../loader/net.c:711 ../text.py:313 ../text.py:512
+#: ../text.py:530 ../text.py:537 ../textw/partitioning.py:172
 msgid "Yes"
 msgstr ""
 
-#: ../iw/welcome.py:93 ../libfdisk/fsedit.c:696 ../libfdisk/gnomefsedit.c:602
+#: ../iw/welcome.py:91 ../libfdisk/fsedit.c:702 ../libfdisk/gnomefsedit.c:602
 #: ../libfdisk/gnomefsedit.c:1003 ../libfdisk/gnomefsedit.c:1109
 #: ../libfdisk/gnomefsedit.c:2046 ../libfdisk/gnomefsedit.c:2316
 #: ../libfdisk/gnomefsedit.c:2369 ../libfdisk/newtfsedit.c:499
 #: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
-#: ../loader/net.c:711 ../text.py:283 ../text.py:288 ../text.py:482
-#: ../text.py:500 ../text.py:510 ../textw/partitioning.py:172
+#: ../loader/net.c:711 ../text.py:313 ../text.py:318 ../text.py:512
+#: ../text.py:530 ../text.py:540 ../textw/partitioning.py:172
 msgid "No"
 msgstr ""
 
-#: ../text.py:298 ../text.py:316
+#: ../text.py:328 ../text.py:346
 msgid "Red Hat Linux"
 msgstr ""
 
-#: ../text.py:299
+#: ../text.py:329
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -340,7 +340,7 @@ msgid ""
 "purchase through our web site, http://www.redhat.com/."
 msgstr ""
 
-#: ../text.py:317
+#: ../text.py:347
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -353,59 +353,59 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:677 ../libfdisk/gnomefsedit.c:1646
 #: ../libfdisk/gnomefsedit.c:2154 ../libfdisk/newtfsedit.c:463
 #: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168
-#: ../loader/loader.c:1740 ../text.py:324 ../text.py:326 ../textw/lilo.py:104
+#: ../loader/loader.c:1742 ../text.py:354 ../text.py:356 ../textw/lilo.py:104
 #: ../textw/lilo.py:122 ../textw/silo.py:124 ../textw/silo.py:142
 #: ../textw/userauth.py:62
 msgid "Cancel"
 msgstr ""
 
-#: ../text.py:388
+#: ../text.py:418
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../loader/net.c:234 ../text.py:393
+#: ../loader/net.c:234 ../text.py:423
 msgid "IP address:"
 msgstr ""
 
-#: ../loader/net.c:237 ../text.py:394
+#: ../loader/net.c:237 ../text.py:424
 msgid "Netmask:"
 msgstr ""
 
-#: ../loader/net.c:240 ../text.py:395
+#: ../loader/net.c:240 ../text.py:425
 msgid "Default gateway (IP):"
 msgstr ""
 
-#: ../loader/net.c:243 ../text.py:396
+#: ../loader/net.c:243 ../text.py:426
 msgid "Primary nameserver:"
 msgstr ""
 
-#: ../iw/network.py:11 ../text.py:418
+#: ../iw/network.py:11 ../text.py:448
 msgid "Network Configuration"
 msgstr ""
 
-#: ../text.py:434
+#: ../text.py:464
 msgid "Invalid information"
 msgstr ""
 
-#: ../text.py:435
+#: ../text.py:465
 msgid "You must enter valid IP information to continue"
 msgstr ""
 
-#: ../text.py:463
+#: ../text.py:493
 msgid "Hostname Configuration"
 msgstr ""
 
-#: ../text.py:464
+#: ../text.py:494
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
 
-#: ../iw/network.py:210 ../loader/net.c:458 ../loader/net.c:630 ../text.py:467
+#: ../iw/network.py:210 ../loader/net.c:458 ../loader/net.c:630 ../text.py:497
 msgid "Hostname"
 msgstr ""
 
-#: ../text.py:483
+#: ../text.py:513
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -417,56 +417,56 @@ msgid ""
 "Would you like to create a boot disk for your system?"
 msgstr ""
 
-#: ../text.py:502
+#: ../text.py:532
 msgid ""
 "\n"
 "On SMCC made Ultra machines floppy booting probably does not work\n"
 "\n"
 msgstr ""
 
-#: ../text.py:505 ../text.py:716
+#: ../text.py:535 ../text.py:746
 msgid "Bootdisk"
 msgstr ""
 
-#: ../text.py:548
+#: ../text.py:578
 msgid "X probe results"
 msgstr ""
 
-#: ../text.py:567 ../text.py:586
+#: ../text.py:597 ../text.py:616
 msgid "Unlisted Card"
 msgstr ""
 
-#: ../text.py:575
+#: ../text.py:605
 msgid "Video Card Selection"
 msgstr ""
 
-#: ../text.py:576
+#: ../text.py:606
 msgid "Which video card do you have?"
 msgstr ""
 
-#: ../text.py:588
+#: ../text.py:618
 msgid "X Server Selection"
 msgstr ""
 
-#: ../text.py:588
+#: ../text.py:618
 msgid "Choose a server"
 msgstr ""
 
-#: ../text.py:644
+#: ../text.py:674
 msgid "Installation to begin"
 msgstr ""
 
-#: ../iw/confirm.py:30 ../text.py:645
+#: ../iw/confirm.py:31 ../text.py:675
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 
-#: ../text.py:662 ../text.py:677 ../text.py:697
+#: ../text.py:692 ../text.py:707 ../text.py:727
 msgid "Complete"
 msgstr ""
 
-#: ../iw/congrats.py:32 ../text.py:663
+#: ../iw/congrats.py:32 ../text.py:693
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -479,7 +479,7 @@ msgid ""
 "in the Red Hat Linux manuals."
 msgstr ""
 
-#: ../text.py:678 ../text.py:698
+#: ../text.py:708 ../text.py:728
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -490,234 +490,234 @@ msgid ""
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
 
-#: ../iw/bootdisk.py:50 ../text.py:717
+#: ../iw/bootdisk.py:50 ../text.py:747
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
 
-#: ../text.py:720 ../text.py:721 ../text.py:732 ../text.py:733
+#: ../text.py:750 ../text.py:751 ../text.py:762 ../text.py:763
 #: ../textw/lilo.py:30 ../textw/silo.py:25
 msgid "Skip"
 msgstr ""
 
-#: ../iw/bootdisk.py:54 ../text.py:729
+#: ../iw/bootdisk.py:54 ../text.py:759
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
 
-#: ../text.py:791
+#: ../text.py:821
 msgid "Package Installation"
 msgstr ""
 
-#: ../text.py:793
+#: ../text.py:823
 msgid "Name   : "
 msgstr ""
 
-#: ../text.py:794
+#: ../text.py:824
 msgid "Size   : "
 msgstr ""
 
-#: ../text.py:795
+#: ../text.py:825
 msgid "Summary: "
 msgstr ""
 
-#: ../text.py:821
+#: ../text.py:851
 msgid "    Packages"
 msgstr ""
 
-#: ../text.py:822
+#: ../text.py:852
 msgid "       Bytes"
 msgstr ""
 
-#: ../text.py:823
+#: ../text.py:853
 msgid "        Time"
 msgstr ""
 
-#: ../text.py:825
+#: ../text.py:855
 msgid "Total    :"
 msgstr ""
 
-#: ../text.py:832
+#: ../text.py:862
 msgid "Completed:   "
 msgstr ""
 
-#: ../text.py:842
+#: ../text.py:872
 msgid "Remaining:  "
 msgstr ""
 
-#: ../text.py:931 ../text.py:932
+#: ../text.py:961 ../text.py:962
 msgid "Debug"
 msgstr ""
 
-#: ../text.py:944
+#: ../text.py:974
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr ""
 
-#: ../text.py:946
+#: ../text.py:976
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 
-#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:970 ../text.py:1005
+#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:996 ../text.py:1031
 msgid "Welcome"
 msgstr ""
 
-#: ../text.py:976 ../text.py:1044
+#: ../text.py:1002 ../text.py:1070
 msgid "Hostname Setup"
 msgstr ""
 
-#: ../text.py:978 ../text.py:1046
+#: ../text.py:1004 ../text.py:1072
 msgid "Network Setup"
 msgstr ""
 
-#: ../text.py:984 ../text.py:1052
+#: ../text.py:1010 ../text.py:1078
 msgid "Time Zone Setup"
 msgstr ""
 
-#: ../text.py:986 ../text.py:1054 ../textw/userauth.py:8
+#: ../text.py:1012 ../text.py:1080 ../textw/userauth.py:8
 msgid "Root Password"
 msgstr ""
 
-#: ../text.py:988 ../text.py:1056 ../textw/userauth.py:152
+#: ../text.py:1014 ../text.py:1082 ../textw/userauth.py:152
 msgid "User Account Setup"
 msgstr ""
 
-#: ../text.py:990 ../text.py:1058
+#: ../text.py:1016 ../text.py:1084
 msgid "Authentication"
 msgstr ""
 
-#: ../text.py:996
+#: ../text.py:1022
 msgid "Configuration Complete"
 msgstr ""
 
-#: ../text.py:1014 ../textw/silo.py:28 ../textw/silo.py:89
+#: ../text.py:1040 ../textw/silo.py:28 ../textw/silo.py:89
 #: ../textw/silo.py:193
 msgid "SILO Configuration"
 msgstr ""
 
-#: ../text.py:1020 ../textw/lilo.py:33 ../textw/lilo.py:83
+#: ../text.py:1046 ../textw/lilo.py:33 ../textw/lilo.py:83
 #: ../textw/lilo.py:176
 msgid "LILO Configuration"
 msgstr ""
 
 #: ../iw/lilo.py:104 ../iw/lilo.py:223 ../iw/silo.py:125 ../iw/silo.py:269
-#: ../text.py:1024 ../text.py:1030
+#: ../text.py:1050 ../text.py:1056
 msgid "Partition"
 msgstr ""
 
-#: ../text.py:1026
+#: ../text.py:1052
 msgid "Manually Partition"
 msgstr ""
 
-#: ../text.py:1028
+#: ../text.py:1054
 msgid "Automatic Partition"
 msgstr ""
 
-#: ../text.py:1032 ../textw/partitioning.py:252
+#: ../text.py:1058 ../textw/partitioning.py:252
 msgid "Root Filesystem Size"
 msgstr ""
 
-#: ../text.py:1034
+#: ../text.py:1060
 msgid "Swap"
 msgstr ""
 
-#: ../text.py:1036
+#: ../text.py:1062
 msgid "Filesystem Formatting"
 msgstr ""
 
-#: ../iw/mouse.py:55 ../text.py:1048 ../text.py:1050
+#: ../iw/mouse.py:55 ../text.py:1074 ../text.py:1076
 msgid "Mouse Configuration"
 msgstr ""
 
-#: ../text.py:1060
+#: ../text.py:1086
 msgid "Package Groups"
 msgstr ""
 
-#: ../text.py:1062 ../text.py:1090
+#: ../text.py:1088 ../text.py:1116
 msgid "Individual Packages"
 msgstr ""
 
-#: ../text.py:1064 ../textw/packages.py:114
+#: ../text.py:1090 ../textw/packages.py:114
 msgid "Package Dependencies"
 msgstr ""
 
-#: ../iw/xconfig.py:249 ../text.py:1066 ../text.py:1074
+#: ../iw/xconfig.py:249 ../text.py:1092 ../text.py:1100
 msgid "X Configuration"
 msgstr ""
 
-#: ../text.py:1068 ../text.py:1073 ../text.py:1091 ../text.py:1094
+#: ../text.py:1094 ../text.py:1099 ../text.py:1117 ../text.py:1120
 msgid "Boot Disk"
 msgstr ""
 
-#: ../text.py:1070
+#: ../text.py:1096
 msgid "Installation Begins"
 msgstr ""
 
-#: ../text.py:1072
+#: ../text.py:1098
 msgid "Install System"
 msgstr ""
 
-#: ../text.py:1076
+#: ../text.py:1102
 msgid "Installation Complete"
 msgstr ""
 
-#: ../text.py:1081
+#: ../text.py:1107
 msgid "Examine System"
 msgstr ""
 
-#: ../text.py:1088
+#: ../text.py:1114
 msgid "Customize Upgrade"
 msgstr ""
 
-#: ../text.py:1093
+#: ../text.py:1119
 msgid "Upgrade System"
 msgstr ""
 
-#: ../text.py:1095
+#: ../text.py:1121
 msgid "Upgrade Complete"
 msgstr ""
 
-#: ../text.py:1125
+#: ../text.py:1155
 msgid "Cancelled"
 msgstr ""
 
-#: ../text.py:1126
+#: ../text.py:1156
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
-#: ../todo.py:337
+#: ../todo.py:336
 #, c-format
 msgid "Error copying file: %s"
 msgstr ""
 
-#: ../todo.py:483
+#: ../todo.py:482
 msgid "Creating boot disk..."
 msgstr ""
 
-#: ../todo.py:636
+#: ../todo.py:635
 msgid "Reading"
 msgstr ""
 
-#: ../todo.py:637
+#: ../todo.py:636
 msgid "Reading package information..."
 msgstr ""
 
-#: ../todo.py:806 ../todo.py:816
+#: ../todo.py:811 ../todo.py:824
 msgid "no suggestion"
 msgstr ""
 
-#: ../todo.py:822
+#: ../todo.py:830
 msgid "Searching"
 msgstr ""
 
-#: ../todo.py:823
+#: ../todo.py:831
 msgid "Searching for Red Hat Linux installations..."
 msgstr ""
 
-#: ../todo.py:834 ../todo.py:865
+#: ../todo.py:842 ../todo.py:873
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr ""
@@ -730,60 +730,60 @@ msgstr ""
 msgid "Finding packages to upgrade..."
 msgstr ""
 
-#: ../todo.py:1105
+#: ../todo.py:1121
 msgid "Processing"
 msgstr ""
 
-#: ../todo.py:1106
+#: ../todo.py:1122
 msgid "Preparing to install..."
 msgstr ""
 
-#: ../todo.py:1220
+#: ../todo.py:1236
 msgid "Rebuilding"
 msgstr ""
 
-#: ../todo.py:1221
+#: ../todo.py:1237
 msgid "Rebuilding RPM database..."
 msgstr ""
 
-#: ../todo.py:1226
+#: ../todo.py:1242
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 
-#: ../todo.py:1276
+#: ../todo.py:1292
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr ""
 
-#: ../todo.py:1278
+#: ../todo.py:1294
 #, c-format
 msgid "Installing %s.\n"
 msgstr ""
 
-#: ../todo.py:1299
+#: ../todo.py:1315
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../todo.py:1302
+#: ../todo.py:1318
 msgid "Mount Point"
 msgstr ""
 
-#: ../todo.py:1302
+#: ../todo.py:1318
 msgid "Space Needed"
 msgstr ""
 
-#: ../todo.py:1315
+#: ../todo.py:1331
 msgid "Disk Space"
 msgstr ""
 
-#: ../todo.py:1339
+#: ../todo.py:1355
 msgid "Post Install"
 msgstr ""
 
-#: ../todo.py:1340
+#: ../todo.py:1356
 msgid "Performing post install configuration..."
 msgstr ""
 
@@ -823,48 +823,60 @@ msgstr ""
 msgid "Account Configuration"
 msgstr ""
 
-#: ../iw/account.py:130
+#: ../iw/account.py:35
+msgid "Root password accepted."
+msgstr ""
+
+#: ../iw/account.py:38
+msgid "Root password is too short."
+msgstr ""
+
+#: ../iw/account.py:40
+msgid "Root password does not match."
+msgstr ""
+
+#: ../iw/account.py:136
 msgid "Root Password: "
 msgstr ""
 
-#: ../iw/account.py:133
+#: ../iw/account.py:139
 msgid "Confirm: "
 msgstr ""
 
-#: ../iw/account.py:184 ../iw/account.py:227
+#: ../iw/account.py:195 ../iw/account.py:234
 msgid "Account Name"
 msgstr ""
 
-#: ../iw/account.py:188 ../textw/userauth.py:79
+#: ../iw/account.py:199 ../textw/userauth.py:79
 msgid "Password"
 msgstr ""
 
-#: ../iw/account.py:192 ../textw/userauth.py:80
+#: ../iw/account.py:203 ../textw/userauth.py:80
 msgid "Password (confirm)"
 msgstr ""
 
-#: ../iw/account.py:196 ../iw/account.py:227 ../textw/userauth.py:78
+#: ../iw/account.py:207 ../iw/account.py:234 ../textw/userauth.py:78
 #: ../textw/userauth.py:164
 msgid "Full Name"
 msgstr ""
 
-#: ../iw/account.py:205 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:175
+#: ../iw/account.py:216 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:175
 msgid "Add"
 msgstr ""
 
-#: ../iw/account.py:207 ../libfdisk/newtfsedit.c:1291
+#: ../iw/account.py:218 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:167 ../textw/lilo.py:189
 #: ../textw/partitioning.py:62 ../textw/silo.py:185 ../textw/silo.py:207
 #: ../textw/userauth.py:176
 msgid "Edit"
 msgstr ""
 
-#: ../iw/account.py:209 ../libfdisk/newtfsedit.c:1291
+#: ../iw/account.py:220 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:175
 msgid "Delete"
 msgstr ""
 
-#: ../iw/account.py:211
+#: ../iw/account.py:222
 msgid "New"
 msgstr ""
 
@@ -908,7 +920,7 @@ msgstr ""
 msgid "About to Install"
 msgstr ""
 
-#: ../iw/confirm.py:27
+#: ../iw/confirm.py:28
 msgid "Click next to begin installation of Red Hat Linux."
 msgstr ""
 
@@ -951,13 +963,13 @@ msgstr ""
 msgid "Upgrade Examine"
 msgstr ""
 
-#: ../iw/examine.py:34
+#: ../iw/examine.py:35
 msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
 msgstr ""
 
-#: ../iw/examine.py:59
+#: ../iw/examine.py:60
 msgid "Customize packages to be upgraded"
 msgstr ""
 
@@ -965,7 +977,7 @@ msgstr ""
 msgid "fdisk"
 msgstr ""
 
-#: ../iw/fdisk.py:79
+#: ../iw/fdisk.py:80
 msgid "Select drive to run fdisk on"
 msgstr ""
 
@@ -998,15 +1010,15 @@ msgstr ""
 msgid "Install Type"
 msgstr ""
 
-#: ../iw/installpath.py:173
+#: ../iw/installpath.py:181
 msgid "Install"
 msgstr ""
 
-#: ../iw/installpath.py:175
+#: ../iw/installpath.py:183
 msgid "Upgrade"
 msgstr ""
 
-#: ../iw/installpath.py:228
+#: ../iw/installpath.py:236
 msgid "Use fdisk"
 msgstr ""
 
@@ -1014,19 +1026,27 @@ msgstr ""
 msgid "Keyboard Configuration"
 msgstr ""
 
-#: ../iw/keyboard.py:55
+#: ../iw/keyboard.py:56
 msgid "Model"
 msgstr ""
 
-#: ../iw/keyboard.py:74
+#: ../iw/keyboard.py:75
 msgid "Layout"
 msgstr ""
 
-#: ../iw/keyboard.py:93
-msgid "Variant"
+#: ../iw/keyboard.py:94
+msgid "Dead Keys"
 msgstr ""
 
-#: ../iw/keyboard.py:108
+#: ../iw/keyboard.py:103
+msgid "Enable dead keys"
+msgstr ""
+
+#: ../iw/keyboard.py:104
+msgid "Disable dead keys"
+msgstr ""
+
+#: ../iw/keyboard.py:113
 msgid "Test your selection here:"
 msgstr ""
 
@@ -1598,17 +1618,17 @@ msgstr ""
 msgid "Request server via broadcast"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:664 ../libfdisk/fsedit.c:671 ../libfdisk/fsedit.c:678
-#: ../libfdisk/fsedit.c:687 ../libfdisk/fsedit.c:713 ../libfdisk/fsedit.c:723
+#: ../libfdisk/fsedit.c:669 ../libfdisk/fsedit.c:676 ../libfdisk/fsedit.c:683
+#: ../libfdisk/fsedit.c:692 ../libfdisk/fsedit.c:719 ../libfdisk/fsedit.c:729
 msgid "Bad Mount Point"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:665
+#: ../libfdisk/fsedit.c:670
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:672
+#: ../libfdisk/fsedit.c:677
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1616,7 +1636,7 @@ msgid ""
 "Mount points must begin with a leading /."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:679
+#: ../libfdisk/fsedit.c:684
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1624,7 +1644,7 @@ msgid ""
 "Mount points may not end with a /."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:688
+#: ../libfdisk/fsedit.c:693
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1632,7 +1652,7 @@ msgid ""
 "Mount points may only printable characters."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:697
+#: ../libfdisk/fsedit.c:703
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
@@ -1640,7 +1660,7 @@ msgid ""
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:714
+#: ../libfdisk/fsedit.c:720
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1648,7 +1668,7 @@ msgid ""
 "System partitions must be on Linux Native partitions."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:724
+#: ../libfdisk/fsedit.c:730
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1656,74 +1676,74 @@ msgid ""
 "/usr must be on a Linux Native partition or an NFS volume."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:752
+#: ../libfdisk/fsedit.c:758
 msgid "Too Many Drives"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:753
+#: ../libfdisk/fsedit.c:759
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:768
+#: ../libfdisk/fsedit.c:774
 msgid "No Drives Found"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:769
+#: ../libfdisk/fsedit.c:775
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1079 ../libfdisk/fsedit.c:1141
+#: ../libfdisk/fsedit.c:1085 ../libfdisk/fsedit.c:1147
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1118
+#: ../libfdisk/fsedit.c:1124
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1123
+#: ../libfdisk/fsedit.c:1129
 msgid "Bad Partition Table"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1124
+#: ../libfdisk/fsedit.c:1130
 msgid "Initialize"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1124 ../libfdisk/fsedit.c:1145
+#: ../libfdisk/fsedit.c:1130 ../libfdisk/fsedit.c:1151
 msgid "Skip Drive"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1145 ../loader/net.c:329
+#: ../libfdisk/fsedit.c:1151 ../loader/net.c:329
 msgid "Retry"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1157
+#: ../libfdisk/fsedit.c:1163
 msgid "BSD Disklabel"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1157
+#: ../libfdisk/fsedit.c:1163
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1187
+#: ../libfdisk/fsedit.c:1193
 #, c-format
 msgid "System error %d"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1196 ../libfdisk/fsedit.c:1198
+#: ../libfdisk/fsedit.c:1202 ../libfdisk/fsedit.c:1204
 msgid "Fdisk Error"
 msgstr ""
 
@@ -2150,7 +2170,7 @@ msgid "Module Parameters"
 msgstr ""
 
 #: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:249
-#: ../loader/loader.c:308 ../loader/loader.c:324 ../loader/loader.c:1740
+#: ../loader/loader.c:308 ../loader/loader.c:324 ../loader/loader.c:1742
 msgid "Devices"
 msgstr ""
 
@@ -2158,7 +2178,7 @@ msgstr ""
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr ""
 
-#: ../loader/devices.c:179 ../loader/loader.c:1749
+#: ../loader/devices.c:179 ../loader/loader.c:1751
 msgid "Failed to mount floppy disk."
 msgstr ""
 
@@ -2336,35 +2356,35 @@ msgstr ""
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 
-#: ../loader/loader.c:1632
+#: ../loader/loader.c:1634
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr ""
 
-#: ../loader/loader.c:1678
+#: ../loader/loader.c:1680
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr ""
 
-#: ../loader/loader.c:1741
+#: ../loader/loader.c:1743
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
-#: ../loader/loader.c:1754
+#: ../loader/loader.c:1756
 msgid "Updates"
 msgstr ""
 
-#: ../loader/loader.c:1754
+#: ../loader/loader.c:1756
 msgid "Reading anaconda updates..."
 msgstr ""
 
-#: ../loader/loader.c:1907
+#: ../loader/loader.c:1909
 msgid "PC Card"
 msgstr ""
 
-#: ../loader/loader.c:1907
+#: ../loader/loader.c:1909
 msgid "Initializing PC Card Devices..."
 msgstr ""
 

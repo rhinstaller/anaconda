@@ -45,7 +45,7 @@ class InstallMethod:
 
     def targetFstab(self, fstab):
 	self.isMounted = 0
-	for (mntpoint, device, fsystem, reformat, size) in self.mountList():
+	for (mntpoint, device, fsystem, reformat, size) in fstab.mountList():
 	    if (device == self.device):
 		self.isMounted = 1
 		self.tree = "/mnt/sysimage" + mntpoint + "/" + self.path

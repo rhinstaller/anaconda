@@ -1540,8 +1540,8 @@ int kickstartFromNfs(char * location, moduleList modLoaded, moduleDeps modDeps,
 	strcpy(ksPath, ksSource);
     } else {
 	ksPath = alloca(strlen(file) + 
-			strlen(inet_ntoa(netDev.dev.bootServer)) + 70);
-	strcpy(ksPath, inet_ntoa(netDev.dev.bootServer));
+			strlen(inet_ntoa(netDev.dev.nextServer)) + 70);
+	strcpy(ksPath, inet_ntoa(netDev.dev.nextServer));
 	strcat(ksPath, ":");
 	strcat(ksPath, file);
     }
