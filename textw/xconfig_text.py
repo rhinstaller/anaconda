@@ -28,50 +28,64 @@ unprobed_monitor_string = _("Unprobed Monitor")
 class XCustomWindow:
 
     def depthchangeCB(self, screen):
+	availdepths = self.xsetup.xhwstate.available_color_depths()
+
+	# newt list want a list of strings, but availdepths is list of ints
+	depthlist = []
+	for d in availdepths:
+	    depthlist.append(str(d))
+	    
         (button, result) = ListboxChoiceWindow(screen, _("Color Depth"),
                             _("Please select the color depth you "
-                            "would like to use:") , self.available_depths,
+                            "would like to use:") , depthlist,
                             [ TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON],
                             scroll = 0, height = 3, help = "colordepthsel",
-                            default = self.bit_depth.index(self.selectedDepth))
+                            default = availdepths.index(self.selectedDepth))
 
         if button != TEXT_CANCEL_CHECK:
             self.selectedDepth = self.bit_depth[result]
-            self.available_res = self.available_res_by_depth[self.selectedDepth]
-            if not self.selectedRes in self.available_res:
-                self.selectedRes = self.available_res[-1]
+	    self.xsetup.xhwstate.set_colordepth(self.selectedDepth)
+
+	    self.selectedRes = self.xsetup.xhwstate.get_resolution()
+	    newmodes = self.xsetup.xhwstate.available_resolutions()
+
+	    if not self.selectedRes in newmodes:
+                self.selectedRes = newmodes[-1]
 
     def reschangeCB(self, screen):
-        try:
-            sel = self.available_res.index(self.selectedRes)
+	availmodes = self.xsetup.xhwstate.available_resolutions()
+	try:
+            sel = availmodes.index(self.selectedRes)
         except:
-            sel = len(self.available_res)
+            sel = len(availmodes)
             
         (button, result) = ListboxChoiceWindow(screen, _("Resolution"),
                             _("Please select the resolution you "
-                            "would like to use:") , self.available_res,
+                            "would like to use:") , availmodes,
                             [ TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON],
-                            scroll = (len(self.available_res) > 7), height = 7, help = "resdepthsel",
-                            default = sel)
+                            scroll = (len(availmodes) > 7), height = 7,
+			    help = "resdepthsel", default = sel)
 
         if button != TEXT_CANCEL_CHECK:
-            self.selectedRes = self.available_res[result]
+            self.selectedRes = availmodes[result]
         
     def testCB(self, screen):
-        newmodes = {}
-        newmodes[self.selectedDepth] = []
-        newmodes[self.selectedDepth].append (self.selectedRes)
-
-        manmodes = self.xconfig.getManualModes()
-        self.xconfig.setManualModes(newmodes)
-
-        try:
-            self.xconfig.test (root=self.instPath)
-        except RuntimeError:
-            ### test failed window
-            pass
-
-        self.xconfig.setManualModes(manmodes)
+	return
+    
+#         newmodes = {}
+#         newmodes[self.selectedDepth] = []
+#         newmodes[self.selectedDepth].append (self.selectedRes)
+#
+#         manmodes = self.xconfig.getManualModes()
+#         self.xconfig.setManualModes(newmodes)
+#
+#         try:
+#             self.xconfig.test (root=self.instPath)
+#         except RuntimeError:
+#             ### test failed window
+#             pass
+#
+#         self.xconfig.setManualModes(manmodes)
         
     def loginCB(self, widget):
         if widget == self.graphrb:
@@ -91,7 +105,7 @@ class XCustomWindow:
             print "Invalid widget in xconfig_text::desktopCB"
 
 
-    def __call__(self, screen, xconfig, monitor, videocard, desktop, comps,
+    def __call__(self, screen, xsetup, monitor, videocard, desktop, comps,
                  instPath):
 
         def numCompare (first, second):
@@ -103,66 +117,26 @@ class XCustomWindow:
                 return -1
             return 0
 
-        self.xconfig = xconfig
         self.instPath = instPath
+        self.xsetup = xsetup
+	self.origres = self.xsetup.xhwstate.get_resolution()
+	self.origdepth = self.xsetup.xhwstate.get_colordepth()
 
-        depth_list = [(_("256 Colors (8 Bit)")), (_("High Color (16 Bit)")), (_("True Color (24 Bit)"))]
-        self.bit_depth = ["8", "16", "32"]
+        availableRes    = self.xsetup.xhwstate.available_resolutions()
+	availableDepths = self.xsetup.xhwstate.available_color_depths()
 
-        self.available_res_by_depth = self.xconfig.availableModes()
-        availableDepths = []
-        for adepth in self.available_res_by_depth.keys():
-            if len(self.available_res_by_depth[adepth]) > 0:
-                availableDepths.append(adepth)
-        availableDepths.sort(numCompare)
+        self.selectedDepth = self.xsetup.xhwstate.get_colordepth()
+        self.selectedRes   = self.xsetup.xhwstate.get_resolution()
 
-        self.available_depths = []
-        for i in availableDepths:
-               self.available_depths.append(depth_list[self.bit_depth.index(i)])
-	if not videocard.getSupportedModes():
-	    self.res_list = ["640x480", "800x600", "1024x768", "1152x864",
-			     "1280x1024", "1400x1050", "1600x1200"]
-	else:
-	    self.res_list = videocard.getSupportedModes()
-
-	    for depth in availableDepths:
-		tmpavail = copy.copy(self.available_res_by_depth[depth])
-		for mode in self.available_res_by_depth[depth]:
-		    if mode not in self.res_list:
-			tmpavail.remove(mode)
-		self.available_res_by_depth[depth] = tmpavail
+        depth_list = [(_("256 Colors (8 Bit)")),
+		      (_("High Color (16 Bit)")),
+		      (_("True Color (24 Bit)"))]
+        self.bit_depth = [8, 16, 24]
+        self.avail_depths = depth_list[:len(availableDepths)]
+        self.res_list = ["640x480", "800x600", "1024x768", "1152x864",
+			 "1280x960", "1280x1024", "1400x1050", "1600x1200",
+			 "1920x1440", "2048x1536"]
 	       
-        manualmodes = self.xconfig.getManualModes()
-        if manualmodes:
-            self.selectedDepth = manualmodes.keys()[0]
-            self.selectedRes = manualmodes[self.selectedDepth][0]
-        else:
-            self.selectedDepth = None
-            self.selectedRes = None
-
-        # if selected depth not acceptable then force it to be at least 8bpp
-        if self.selectedDepth and int(self.selectedDepth) < 8:
-            self.selectedDepth = "8"
-
-        if not self.selectedDepth or not self.selectedRes:
-            if len(self.available_res_by_depth) == 1:
-                self.available_res = self.available_res_by_depth["8"]
-                self.selectedDepth = "8"
-                self.selectedRes = self.available_res[0]
-            elif len(self.available_res_by_depth) >= 2:
-                #--If they can do 16 bit color, default to 16 bit at 1024x768
-                self.selectedDepth = "16"
-            
-                self.available_res = self.available_res_by_depth["16"]
-
-                if "1024x768" in self.available_res_by_depth["16"]:
-                    self.selectedRes = "1024x768"
-                elif "800x600" in self.available_res_by_depth["16"]:
-                    self.selectedRes = "800x600"
-                else:
-                    self.selectedRes = "640x480"
-        else:
-            self.available_res = self.available_res_by_depth[self.selectedDepth]
         #--If both KDE and GNOME are selected
         if comps:
             gnomeSelected = (comps.packages.has_key('gnome-session')
@@ -177,16 +151,21 @@ class XCustomWindow:
         self.selectedRunLevel = desktop.getDefaultRunLevel()
 
         while 1:
-            bb = ButtonBar (screen, (TEXT_OK_BUTTON, (_("Test"), "test"),
-                                     TEXT_BACK_BUTTON))
+# removing test option
+#
+#            bb = ButtonBar (screen, (TEXT_OK_BUTTON, (_("Test"), "test"),
+#                                     TEXT_BACK_BUTTON))
+
+            bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
             toplevel = GridFormHelp (screen, _("X Customization"),
                                      "custom", 1, 5)
 
             text = _("Select the color depth and video mode you want to "
-                     "use for your system. "
-                     "Use the '%s' button to test the video mode."
-                     % (_("Test")))
+                     "use for your system. ")
+	    
+#                     "Use the '%s' button to test the video mode."
+#                     % (_("Test")))
 
             customgrid = Grid(3,2)
             label = Label(_("Color Depth:"))
@@ -255,8 +234,8 @@ class XCustomWindow:
             elif rc == TEXT_OK_CHECK or result == TEXT_F12_CHECK:
                 screen.popWindow()
                 break
-            elif rc == "test":
-                self.testCB(screen)
+#            elif rc == "test":
+#                self.testCB(screen)
             elif result == depthchangebutton:
                 self.depthchangeCB(screen)
             elif result == reschangebutton:
@@ -265,14 +244,16 @@ class XCustomWindow:
             screen.popWindow()
 
         # store results
-        newmodes = {}
-        newmodes[self.selectedDepth] = []
-        newmodes[self.selectedDepth].append (self.selectedRes)
-        self.xconfig.setManualModes(newmodes)
+        self.xsetup.xhwstate.set_colordepth(self.selectedDepth)
+	self.xsetup.xhwstate.set_resolution(self.selectedRes)
+
+	ButtonChoiceWindow(screen, "Report",
+			   "%s %s" % (self.selectedDepth, self.selectedRes),
+			   buttons=[TEXT_OK_BUTTON])
 
         desktop.setDefaultDesktop (self.selectedDesktop)
         desktop.setDefaultRunLevel(self.selectedRunLevel)
-        
+
         return INSTALL_OK
  
 class MonitorWindow:
@@ -373,9 +354,9 @@ class MonitorWindow:
         self.vsync = self.origVsync
         self.currentMonitor = self.origMonitorName
         
-    def __call__(self, screen, xconfig, monitor):
+    def __call__(self, screen, xsetup, monitor):
 
-        self.xconfig = xconfig
+        self.xsetup = xsetup
         self.monitor = monitor
 
         self.origMonitorID = self.monitor.getMonitorID()
@@ -510,11 +491,16 @@ class MonitorWindow:
 	else:
 	    selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
 
-
 	if selMonitor:
 	    self.monitor.setSpecs(hval, vval, id=selMonitor[0],
 				  name=selMonitor[0])
         
+	    # shove into hw state object, force it to recompute available modes
+	    self.xsetup.xhwstate.monitor = self.monitor
+	    self.xsetup.xhwstate.set_monitor_name(selMonitor[0])
+	    self.xsetup.xhwstate.set_hsync(hval)
+	    self.xsetup.xhwstate.set_vsync(vval)
+	    self.xsetup.xhwstate.recalc_mode()
         
         return INSTALL_OK
 
@@ -582,13 +568,11 @@ class XConfigWindowCard:
             
 
     
-    def __call__(self, screen, dispatch, xconfig, videocard, intf):
+    def __call__(self, screen, dispatch, xsetup, videocard, intf):
         
         self.dispatch = dispatch
         self.videocard = videocard
-        self.xconfig = xconfig
-
-        self.xconfig.filterModesByMemory ()
+        self.xsetup = xsetup
 
         # setup database and list of possible cards
         self.cards = self.videocard.cardsDB()
@@ -698,13 +682,13 @@ class XConfigWindowCard:
             self.dispatch.skipStep("monitor")
             self.dispatch.skipStep("xcustom")
             self.dispatch.skipStep("writexconfig")
-            self.xconfig.skipx = 1
+            self.xsetup.skipx = 1
             return INSTALL_OK
         else:
             self.dispatch.skipStep("monitor", skip = 0)
             self.dispatch.skipStep("xcustom", skip = 0)
             self.dispatch.skipStep("writexconfig", skip = 0)
-            self.xconfig.skipx = 0
+            self.xsetup.skipx = 0
 
         # store selected videocard
         selection = self.cards[self.cardslist[self.selectedCard]]
@@ -726,6 +710,6 @@ class XConfigWindowCard:
         # store selected ram
         vidram = self.videocard.possible_ram_sizes()[self.selectedRam]
         self.videocard.primaryCard().setVideoRam(str(vidram))
-        self.xconfig.filterModesByMemory ()
+        self.xsetup.xhwstate.set_videocard_card(self.videocard.primaryCard())
 
         return INSTALL_OK
