@@ -26,6 +26,7 @@ from log import log
 from flags import flags
 from constants import *
 from translate import _
+from syslogd import syslog
 
 def queryUpgradeContinue(intf, dir):
     if dir == DISPATCH_FORWARD:
@@ -306,7 +307,6 @@ def turnOnFilesystems(dir, thefsset, diskset, upgrade, instPath):
             thefsset.mountFilesystems (instPath)
 
 def doInstall(method, id, intf, instPath):
-    id.fsset.verify()
     if flags.test:
 	return
 
@@ -434,7 +434,7 @@ def doInstall(method, id, intf, instPath):
 	pass
 
     instLog = open(instLogName, "w+")
-    syslog = iutil.InstSyslog (instPath, instPath + logname)
+    syslog.start (instPath, instPath + logname)
 
     ts.scriptFd = instLog.fileno ()
     # the transaction set dup()s the file descriptor and will close the
@@ -524,7 +524,7 @@ def doInstall(method, id, intf, instPath):
 	del ts
 	del db
 	instLog.close()
-	del syslog
+	syslog.stop()
 
 	method.systemUnmounted ()
 
@@ -681,14 +681,11 @@ def doInstall(method, id, intf, instPath):
 
 	w.set(8)
 
-	del syslog
-
     finally:
 	pass
 
     w.pop ()
 
-    id.fsset.verify()
     sys.stdout.flush()
 
 def migrateXinetd(instPath, instLog):

@@ -1,5 +1,5 @@
 #
-# syslogd.py - a simple syslogd implementation
+# syslogd.py - a simple syslogd implementation and wrapper for launching it
 #
 # Erik Troan <ewt@redhat.com>
 #
@@ -14,6 +14,7 @@
 #
 
 import sys, os
+import string
 from socket import *
 from select import select
 
@@ -52,3 +53,37 @@ class Syslogd:
 	output = output
 	filename = root + socket;
         self.goSyslog(output, filename)
+
+class InstSyslog:
+    def __init__ (self):
+        self.pid = -1;
+
+    def start (self, root, log):
+        self.pid = os.fork ()
+        if not self.pid:
+            # look on PYTHONPATH first, so we use updated anaconda
+            path = None
+            if os.environ.has_key('PYTHONPATH'):
+                for f in string.split(os.environ['PYTHONPATH'], ":"):
+                    if os.access (f+"/anaconda", os.X_OK):
+                        path = f+"/anaconda"
+                        break
+                
+            if not path:
+                if os.access ("./anaconda", os.X_OK):
+                    path = "./anaconda"
+                elif os.access ("/usr/bin/anaconda.real", os.X_OK):
+                    path = "/usr/bin/anaconda.real"
+                else:
+                    path = "/usr/bin/anaconda"
+                    
+            os.execv (path, ("syslogd", "--syslogd", root, log))
+
+    def stop(self):
+        if self.pid == -1:
+            raise RuntimeError, "syslogd not running"
+        os.kill (self.pid, 15)
+        os.wait (self.pid)
+        self.pid = -1
+
+syslog = InstSyslog()
