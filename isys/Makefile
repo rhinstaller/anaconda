@@ -16,7 +16,7 @@ DOBJECTS = $(patsubst %.o,%.do,$(OBJECTS))
 
 GENERATED = nfs_mountversion.h
 
-ifeq ($(ARCH),i386)
+ifeq (1, $(USEDIET))
 DIETLIB=libisys-diet.a
 endif
 
@@ -28,7 +28,6 @@ endif
 ifeq ($(ARCH),ppc)
 OBJECTS += minifind.o
 SOURCES += minifind.c
-DIETLIB=libisys-diet.a
 endif
 
 ifeq (.depend,$(wildcard .depend))

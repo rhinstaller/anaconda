@@ -1,15 +1,5 @@
 include ../Makefile.inc
 
-# JKFIXME: this should go somewhere common.  I need to know about diet in
-# a few locations.  and we should really just always use diet
-ifeq (i386, $(ARCH))
-USEDIET=1
-endif
-# should we use diet on this arch?
-ifeq (ppc, $(ARCH))
-USEDIET=1
-endif
-
 ifeq (.depend,$(wildcard .depend))
 TARGET=$(PROGS)
 else
@@ -53,13 +43,14 @@ BTERMLIB = -lbtermdiet -lbogldiet
 WLITELIB = -lwlite
 ISYSLIB = ../isys/libisys-diet.a
 GUNZIP = ../isys/gzlib/libgunzip-diet.a
+
+OBJS += dietstubs.o ctype.o
+ISYSLIB += -lrpc
 endif
 
 ifeq (i386, $(ARCH))
 BINS += loader
-OBJS += dietstubs.o ctype.o
 COPTS += -DUSE_LOGDEV
-ISYSLIB += -lrpc
 endif
 
 # translation stuff
@@ -112,7 +103,7 @@ loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	$(HWLIBS) $(ISYSLIB) \
 	$(MODULELINKAGE) $(GUNZIP) \
-	-lpump $(NEWTLIB) $(SLANGLIB) $(BTERMLIB) $(WLITELIB)
+	-lpump -lresolv $(NEWTLIB) $(SLANGLIB) $(BTERMLIB) $(WLITELIB)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \
