@@ -35,7 +35,7 @@ class UpgradeExamineWindow (InstallWindow):
         for part in parts:
             group = GtkRadioButton (group, part)
             group.connect ("toggled", self.toggled, part)
-            box.pack_start (part, FALSE)
+            box.pack_start (group, FALSE)
 
         sw = GtkScrolledWindow ()
         sw.add_with_viewport (box)
