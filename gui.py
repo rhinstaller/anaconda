@@ -1068,7 +1068,7 @@ class InstallControlWindow:
     def setScreen (self):
 	(step, args) = self.dispatch.currentStep()
 	if step is None:
-	    gtk.mainquit()
+	    gtk.main_quit()
 	    return
 
 	if not stepToClass[step]:
@@ -1215,7 +1215,7 @@ class InstallControlWindow:
         if ((event.keyval == gtk.keysyms.KP_Delete
              or event.keyval == gtk.keysyms.Delete)
             and (event.state & (gtk.gdk.CONTROL_MASK | gtk.gdk.MOD1_MASK))):
-            gtk.mainquit()
+            gtk.main_quit()
             os._exit(0)
         # XXX hack: remove me when the accelerators work again.
         elif (event.keyval == gtk.keysyms.F12
