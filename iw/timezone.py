@@ -27,7 +27,6 @@ class TimezoneWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         ics.setTitle (_("Time Zone Selection"))
-        ics.setPrevEnabled (0)
         ics.setNextEnabled (1)
         ics.setHTML ("<HTML><BODY>Select your current location</BODY></HTML>")
 
