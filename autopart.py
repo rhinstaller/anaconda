@@ -781,7 +781,7 @@ PARTMETHOD_TYPE_DESCR_TEXT = N_("Automatic Partitioning sets up your "
                                "environment. You can set the filesystem "
                                "types, mount points, size and more in this "
                                "easy to use, powerful interface.\n\n"
-                               "fdisk is the traditional, text based "
+                               "fdisk is the traditional, text-based "
                                "partitioning tool offered by Red Hat. "
                                "Although it is not as easy to use, there are "
                                "cases where fdisk is preferred.")
