@@ -249,6 +249,11 @@ def checkDependencies(dir, intf, disp, id, instPath):
     else:
         ts = getAnacondaTS()        
         how = "i"
+
+    # set the rpm log file to /dev/null so that we don't segfault
+    f = open("/dev/null", "w+")
+    rpm.setLogFile(f)
+    ts.scriptFd = f.fileno()
     
     for p in id.grpset.hdrlist.pkgs.values():
         if p.isSelected():
