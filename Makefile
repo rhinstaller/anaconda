@@ -1,7 +1,7 @@
 include Makefile.inc
 
-VERSION = 7.2.92
-RELEASE = 3
+VERSION = 7.2.93
+RELEASE = 0
 SNAPRELEASE = $(RELEASE)$(shell date "+.%Y%m%d%H%M")
 
 ifneq (ia64, $(ARCH))
