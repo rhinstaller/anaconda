@@ -242,7 +242,8 @@ static int detectHardware(moduleInfoSet modInfo,
 
     for (device = devices; *device; device++) {
 	driver = (*device)->driver;
-	if (strcmp (driver, "ignore") && strcmp (driver, "unknown")) {
+	if (strcmp (driver, "ignore") && strcmp (driver, "unknown")
+	    && strcmp (driver, "disabled")) {
 	    logMessage("found suggestion of %s", driver);
 	    if ((mod = isysFindModuleInfo(modInfo, driver))) {
 		logMessage("found %s device", driver);
