@@ -412,7 +412,7 @@ class ToDo:
         while i < 0 and bootpart[i] in digits:
             i = i - 1
 	drives = self.drives.available().keys()
-	drives.sort()
+	drives.sort(isys.compareDrives)
         boothd = drives[0]
 
 	return (bootpart, boothd)

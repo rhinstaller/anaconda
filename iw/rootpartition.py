@@ -4,6 +4,7 @@ from thread import *
 import isys
 from gui import _
 from fdisk import *
+import isys
 
 class ConfirmPartitionWindow (InstallWindow):
     def __init__ (self, ics):
@@ -97,7 +98,7 @@ class AutoPartitionWindow(InstallWindow):
 	if (self.__dict__.has_key("manuallyPartition") and   
 		self.manuallyPartition.get_active()):
             drives = self.todo.drives.available ().keys ()
-            drives.sort ()
+            drives.sort (isys.compareDrives)
             self.todo.ddruid = fsedit(0, drives, self.fstab, self.todo.zeroMbr)
 	    self.todo.manuallyPartition()
 	    
@@ -118,7 +119,7 @@ class AutoPartitionWindow(InstallWindow):
 
         if not todo.ddruid:
             drives = todo.drives.available ().keys ()
-            drives.sort ()
+            drives.sort (isys.compareDrives)
             todo.ddruid = fsedit(0, drives, self.fstab, self.todo.zeroMbr)
 	    todo.instClass.finishPartitioning(todo.ddruid)
 

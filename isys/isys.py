@@ -133,3 +133,33 @@ def parseArgv(str):
 
 def getopt(*args):
     return apply(_isys.getopt, args)
+
+def compareDrives(first, second):
+    type1 = first[0:3]
+    type2 = second[0:3]
+
+    if type1 == "hda":
+	type1 = 0
+    elif type1 == "sda":
+	type1 = 1
+    else:
+	type1 = 2
+
+    if type2 == "hda":
+	type2 = 0
+    elif type2 == "sda":
+	type2 = 1
+    else:
+	type2 = 2
+
+    if (type1 < type2):
+	return -1
+    elif (type1 > type2):
+	return 1
+    elif first < second:
+	return -1
+    elif first > second:
+	return 1
+
+    return 0
+

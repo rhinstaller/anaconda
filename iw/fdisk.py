@@ -3,6 +3,7 @@ from iw import *
 from gnome.zvt import *
 from os import execvp
 from gui import _
+import isys
 
 class FDiskWindow (InstallWindow):		
 
@@ -42,7 +43,7 @@ class FDiskWindow (InstallWindow):
         label = GtkLabel (_("Select drive to run fdisk on"))
 
         drives = self.todo.drives.available ().keys ()
-        drives.sort ()
+	drives.sort(isys.compareDrives)
         for drive in drives:
             button = GtkButton (drive)
             button.connect ("clicked", self.button_clicked, drive)
