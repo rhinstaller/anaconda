@@ -57,7 +57,7 @@ moduleInfoSet isysNewModuleInfoSet(void) {
 }
 
 int isysReadModuleInfo(const char * filename, moduleInfoSet mis,
-		       char * ident) {
+		       enum miLocationTypes identType, void * ident) {
     int fd, isIndented;
     char * buf, * start, * next, * chptr;
     struct stat sb;
@@ -131,6 +131,7 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis,
 		    nextModule->flags = 0;
 		    nextModule->args = NULL;
 		    nextModule->numArgs = 0;
+		    nextModule->location = identType;
 		    nextModule->locationID = ident;
 		}
 	    } else if (!nextModule) {
