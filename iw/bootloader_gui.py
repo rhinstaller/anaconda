@@ -10,7 +10,7 @@ import iutil
 from package_gui import queryUpgradeContinue
 import gui
 
-class LiloWindow (InstallWindow):
+class BootloaderWindow (InstallWindow):
     foo = GdkImlib.create_image_from_xpm (CHECKBOX_ON_XPM)
     foo.render()
     checkMark = foo.make_pixmap()
@@ -22,7 +22,7 @@ class LiloWindow (InstallWindow):
     del foo
 
     windowTitle = N_("Bootloader Configuration")
-    htmlTag = "lilo"
+    htmlTag = "bootloader"
 
     def getPrev (self):
         # avoid coming back in here if the user backs past and then tries
