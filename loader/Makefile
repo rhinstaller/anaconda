@@ -5,13 +5,13 @@ DESTDIR = ../../trees/initrd
 OBJS = log.o windows.o modules.o devices.o cdrom.o kickstart.o lang.o \
        misc.o ftp.o md5.o mediacheck.o moduledeps.o
 
-SLANGLIB = -lslang
-NEWTLIB = -lnewt
-ifneq (ia64, $(ARCH))
-ifneq (i386, $(ARCH))
-OBJS += fnmatch-stub.o printf-stub.o pwd-stub.o dl-stub.o
 SLANGLIB = ../minislang/libslang.a
 NEWTLIB = ../mininewt/libnewt.a
+ifneq (ia64, $(ARCH))
+ifneq (i386, $(ARCH))
+ifneq (x86_64, $(ARCH))
+OBJS += fnmatch-stub.o printf-stub.o pwd-stub.o dl-stub.o
+endif
 endif
 endif
 
@@ -53,13 +53,12 @@ OBJS += dietstubs.o ctype.o
 endif
 
 ifeq (x86_64, $(ARCH))
-BINS += loader-local loader-network loader-pcmcia
+BINS += loader
  ifeq (1, $(JAPANESE))
  KONOBJS = ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
  CFLAGS += -DINCLUDE_KON
  DIRS += kon2
  endif
-OBJS += stubs.o
 endif
 
 ifeq (ia64, $(ARCH))
@@ -111,13 +110,6 @@ CC=$(DIET) $(REALCC)
 STATIC=-static
 else
 REALCC=$(CC)
-ifeq (x86_64, $(ARCH))
-COPTS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
-MINILIBC=minilibc.o
-LDFLAGS = -nostdlib /usr/lib64/crt1.o
-LOADERLIBS += -lresolv
-STATIC= -static
-else
 ifeq (sparc, $(ARCH))
 MINILIBC=minilibc.o /usr/lib/libc.a
 CFLAGS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
@@ -128,7 +120,6 @@ else
 CFLAGS+=-DUSE_MINILIBC=0
 STATIC=-static
 LOADERLIBS += -lresolv
-endif
 endif
 endif
 
