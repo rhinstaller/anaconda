@@ -21,7 +21,7 @@ gzFile gunzip_dopen(int fd) {
 
     pipe(p);
 
-    oldsig = signal(SIGCLD, SIG_IGN);
+    oldsig = signal(SIGCLD, SIG_DFL);
 
     child = fork();
     if (!child) {
