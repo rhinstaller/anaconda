@@ -302,7 +302,11 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
                 self.packageList.clear()
                 self.packageList.freeze()
-                pkgList = self.pkgs.packages.keys()
+                pkgList = []
+                for key in self.pkgs.packages.keys():
+                    pkg = self.pkgs.packages[key]
+                    if not self.comps["Base"].includesPackage(pkg):
+                        pkgList.append(key)
                 pkgList.sort()
 
                 for key in pkgList:
