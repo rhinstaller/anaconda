@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2000-07-31 14:21-0400\n"
-"PO-Revision-Date: 2000-08-02 14:20+0200\n"
+"PO-Revision-Date: 2000-08-03 04:02+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -174,11 +174,11 @@ msgstr "Kopierar fil"
 
 #: ../image.py:41
 msgid "Transferring install image to hard drive..."
-msgstr "Överför installationsbilden till hårddisken..."
+msgstr "Överför installationsavbildsfilen till hårddisken..."
 
 #: ../image.py:58
 msgid "Change CDROM"
-msgstr "Byt CDROM"
+msgstr "Byt cd-rom"
 
 #: ../image.py:59
 #, c-format
@@ -187,15 +187,15 @@ msgstr "Sätt in skiva %d för att fortsätta."
 
 #: ../image.py:68
 msgid "Wrong CDROM"
-msgstr "Fel CDROM"
+msgstr "Fel cd-rom"
 
 #: ../image.py:69
 msgid "That's not the correct Red Hat CDROM."
-msgstr "Detta är inte rätt Red Hat-CDROM."
+msgstr "Detta är inte rätt Red Hat-cd."
 
 #: ../image.py:74
 msgid "The CDROM could not be mounted."
-msgstr "CDROM-skivan kunde inte monteras."
+msgstr "Cd-romskivan kunde inte monteras."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
@@ -1014,7 +1014,7 @@ msgstr "LDAP-server:"
 
 #: ../iw/auth_gui.py:123 ../textw/userauth_text.py:340
 msgid "LDAP Base DN:"
-msgstr "LDAP-basdomän:"
+msgstr "LDAP-bas-DN:"
 
 #: ../iw/auth_gui.py:150 ../textw/userauth_text.py:357
 msgid "Enable Kerberos"
@@ -1243,7 +1243,7 @@ msgstr "Parametrar till kärnan"
 
 #: ../iw/lilo_gui.py:277 ../iw/silo_gui.py:225
 msgid "Create boot disk"
-msgstr "Skapa bootdisk"
+msgstr "Skapa bootdiskett"
 
 #: ../iw/lilo_gui.py:281
 msgid "Do not install LILO"
@@ -2297,11 +2297,11 @@ msgstr "<RAID-partition>"
 
 #: ../libfdisk/gnomefsedit.c:727 ../libfdisk/newtfsedit.c:836
 msgid "Delete Partition"
-msgstr "Radera partition"
+msgstr "Ta bort partition"
 
 #: ../libfdisk/gnomefsedit.c:728 ../libfdisk/newtfsedit.c:837
 msgid "Are you sure you want to delete this partition?"
-msgstr "Är du säker på att du vill radera denna partition?"
+msgstr "Är du säker på att du vill ta bort denna partition?"
 
 #: ../libfdisk/gnomefsedit.c:777 ../libfdisk/newtfsedit.c:344
 msgid "Cannot Edit Partitions"
@@ -2667,11 +2667,11 @@ msgstr "Arbetsstation"
 
 #: ../libfdisk/gnomefsedit.c:2600
 msgid "Delete RAID Device?"
-msgstr "Radera RAID-enhet?"
+msgstr "Ta bort RAID-enhet?"
 
 #: ../libfdisk/gnomefsedit.c:2601
 msgid "Are you sure you want to remove this RAID device?"
-msgstr "Är du säker på att du vill radera denna RAID-enhet?"
+msgstr "Är du säker på att du vill ta bort denna RAID-enhet?"
 
 #: ../libfdisk/gnomefsedit.c:2652 ../libfdisk/newtfsedit.c:1741
 msgid "Reset Partition Table"
@@ -2755,7 +2755,7 @@ msgstr "_Återställ"
 
 #: ../libfdisk/gnomefsedit.c:3526
 msgid "_Delete"
-msgstr "_Radera"
+msgstr "_Ta bort"
 
 #. try having make raid device button available in read-only mode too
 #: ../libfdisk/gnomefsedit.c:3539
@@ -2872,19 +2872,19 @@ msgstr "Du kan endast ta bort NFS-monteringar."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
-msgstr "Annan CDROM"
+msgstr "Annan cd-rom"
 
 #: ../loader/cdrom.c:32
 msgid "CDROM type"
-msgstr "CDROM-typ"
+msgstr "Cd-romtyp"
 
 #: ../loader/cdrom.c:32
 msgid "What type of CDROM do you have?"
-msgstr "Vilken typ av CDROM har du?"
+msgstr "Vilken typ av cd-rom har du?"
 
 #: ../loader/cdrom.c:89
 msgid "Initializing CDROM..."
-msgstr "Initialiserar CDROM..."
+msgstr "Initialiserar cd-rom..."
 
 #: ../loader/devices.c:77
 msgid "Miscellaneous"
@@ -3007,11 +3007,11 @@ msgstr "Vilken typ av tangentbord har du?"
 
 #: ../loader/loader.c:121
 msgid "Local CDROM"
-msgstr "Lokal CDROM"
+msgstr "Lokal cd-rom"
 
 #: ../loader/loader.c:124
 msgid "NFS image"
-msgstr "NFS-bild"
+msgstr "NFS-avbildsfil"
 
 #: ../loader/loader.c:129
 msgid "Hard drive"
@@ -3094,8 +3094,8 @@ msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"Jag kunde inte hitta en Red Hat Linux-CDROM i någon av dina CDROM-enheter. "
-"Sätt in Red Hat-CD:n och tryck \"OK\" för att försöka igen."
+"Jag kunde inte hitta en Red Hat Linux-cd i någon av dina cd-romenheter. Sätt "
+"in Red Hat-cd:n och tryck \"OK\" för att försöka igen."
 
 #: ../loader/loader.c:940
 msgid "Networking Device"
@@ -3127,11 +3127,11 @@ msgstr "HTTP"
 
 #: ../loader/loader.c:1072
 msgid "Unable to retrieve the first install image"
-msgstr "Misslyckades med att hämta första installationsbilden"
+msgstr "Misslyckades med att hämta första installationsavbildsfilen"
 
 #: ../loader/loader.c:1081
 msgid "Unable to retrieve the second install image"
-msgstr "Misslyckades med att hämta andra installationsbilden"
+msgstr "Misslyckades med att hämta andra installationsavbildsfilen"
 
 #: ../loader/loader.c:1322
 msgid "Rescue Method"
@@ -3143,7 +3143,7 @@ msgstr "Installationsmetod"
 
 #: ../loader/loader.c:1325
 msgid "What type of media contains the rescue image?"
-msgstr "Vilket medium innehåller räddningsbilden?"
+msgstr "Vilket medium innehåller räddningsavbilden?"
 
 #: ../loader/loader.c:1327
 msgid "What type of media contains the packages to be installed?"
