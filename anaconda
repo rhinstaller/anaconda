@@ -515,6 +515,38 @@ else: # s390 checks
         time.sleep(2)
 
 if display_mode == 'g' and not os.environ.has_key('DISPLAY'):
+    import rhpl.monitor as monitor
+    
+    # if no monitor probed lets guess based on runres
+    hsync = monitorhw.getMonitorHorizSync()
+    vsync = monitorhw.getMonitorVertSync()
+    res_supported = monitor.monitor_supports_mode(hsync, vsync,  runres)
+    
+    if not res_supported:
+	if runres == "800x600":
+	    monitorhw.setSpecs("31.5-48.5", "50-70")
+	elif runres == "1024x768":
+	    monitorhw.setSpecs("31.5-48.5", "40-70")
+	elif runres == "1280x1024":
+	    monitorhw.setSpecs("31.5-67", "50-75")
+	elif runres == "1400x1050":
+	    monitorhw.setSpecs("31.5-90", "59-75")
+	elif runres == "1600x1200":
+	    monitorhw.setSpecs("31.5-90", "60")
+	else:
+	    # just pick something reasonable for most modes
+	    monitorhw.setSpecs("31.5-65.0", "50-90")
+
+	# XXX - need to fix
+	#
+	# messy hack for how rhpl.xhwstate works
+	# current it wants to use probed values which we dont have so we'll
+	# fake them
+	hsync = monitorhw.getMonitorHorizSync()
+	vsync = monitorhw.getMonitorVertSync()
+	monitorhw.orig_monHoriz = hsync
+	monitorhw.orig_monVert  = vsync
+
     xsetup_failed = xserver.startXServer(videohw, monitorhw, mousehw, kbd,
 					 runres,
 					 xStartedCB=doStartupX11Actions,
