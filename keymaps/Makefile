@@ -15,3 +15,5 @@ i386:
 alpha:
 	./updkmaps alpha
 
+sparc:
+	./updkmaps sparc
