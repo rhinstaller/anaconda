@@ -55,39 +55,6 @@ class BaseInstallClass:
             self.clearType = "svr"
 	self.clearPartText = warningText
 
-    def getFstab(self):
-	return self.fstab
-
-    def addRaidEntry(self, mntPoint, raidDev, level, devices):
-	# throw an exception for bad raid levels
-	[ 0, 1, 5 ].index(level)
-
-	for device in devices:
-	    found = 0
-
-            for (otherMountPoint, sizespc, (devX, partX, primOnlyX), typespecX, fsoptsX) in self.partitions:
-		if otherMountPoint == device:
-		    found = 1
-
-            # check prexisting partions specified in ks.cfg with --usepart
-            if not found:
-                for (otherMountPoint, (devX, fstypeX, reformatX)) in self.fstab:
-                    if otherMountPoint == device:
-                        found = 1
-                
-	    if not found:
-		raise ValueError, "unknown raid device %s" % (device,)
-	if mntPoint[0] != '/' and mntPoint != 'swap':
-	    raise ValueError, "bad raid mount point %s" % (mntPoint,)
-	if raidDev[0:2] != "md":
-	    raise ValueError, "bad raid device point %s" % (raidDev,)
-	if level == 5 and len(devices) < 3:
-	    raise ValueError, "raid 5 arrays require at least 3 devices"
-	if len(devices) < 2:
-	    raise ValueError, "raid arrays require at least 2 devices"
-
-	self.raidList.append(mntPoint, raidDev, level, devices)
-
     def setSteps(self, dispatch):
 	dispatch.setStepList(
 		 "language",
