@@ -9,7 +9,7 @@
 
 #include "probe.h"
 
-int dac960GetDevices(struct knownDevices * devices);
+static int dac960GetDevices(struct knownDevices * devices);
 static int CompaqSmartArrayGetDevices(struct knownDevices * devices);
 
 static int sortDevices(const void * a, const void * b) {
@@ -174,7 +174,11 @@ int kdFindScsiList(struct knownDevices * devices) {
     char tapeNum = '0';
     struct kddevice device;
 
-    if (access("/proc/scsi/scsi", R_OK)) return 0;
+    if (access("/proc/scsi/scsi", R_OK)) {
+	dac960GetDevices(devices);
+	CompaqSmartArrayGetDevices(devices);
+	return 0;
+    }
 
     fd = open("/proc/scsi/scsi", O_RDONLY);
     if (fd < 0) return 1;
@@ -186,6 +190,12 @@ int kdFindScsiList(struct knownDevices * devices) {
     }
     close(fd);
     buf[i] = '\0';
+
+    if (!strncmp(buf, "Attached devices: none", 22)) {
+	dac960GetDevices(devices);
+	CompaqSmartArrayGetDevices(devices);
+	return 0;
+    }
 
     start = buf;
     while (*start) {
@@ -317,51 +327,46 @@ struct knownDevices kdInit(void) {
 }
 
 static int dac960GetDevices(struct knownDevices * devices) {
-    const char *filename;
-    char buf[256];
-    char *ptr, *iptr;
-    int numMatches = 0;
-    int numIDIs = 0;
-    FILE* f;
     struct kddevice newDevice;
+    char ctl[50];
+    int ctlNum = 0;
+    char buf[4096];
+    int fd;
+    int i;
+    char * start, * chptr;
 
-    if (!access("/var/log/dmesg", R_OK))
-	filename = "/var/log/dmesg";
-    else
-	filename = "/tmp/syslog";
+    sprintf(ctl, "/proc/rd/c%d/current_status", ctlNum++);
+		
+    while ((fd = open(ctl, O_RDONLY)) >= 0) {
+	i = read(fd, buf, sizeof(buf));
+	buf[i] = '\0';
+	start = buf;
+	while (start && (start = strstr(start, "/dev/rd/"))) {
+	    start += 5;
+	    chptr = strchr(start, ':');
 
-    if (!(f = fopen(filename, "r"))) {
-	return 1;
-    }
+	    *chptr = '\0';
+	    if (!deviceKnown(devices, start)) {
+		newDevice.name = strdup(start);
 
-    /* We are looking for lines of this format:
-DAC960#0:     /dev/rd/c0d0: RAID-7, Online, 17928192 blocks, Write Thru
-0123456790123456789012
-    */
-    buf [sizeof(buf) - 1] = '\0';
-    while (fgets(buf, sizeof(buf) - 1, f)) {
-	ptr = strstr (buf, "/dev/rd/");
-	if (ptr) {
-	    iptr = strchr (ptr, ':');
-	    if (iptr) {
-		/* put a NULL at the ':' */
-		*iptr = '\0';
+		start = chptr + 2;
+		chptr = strchr(start, '\n');
+		*chptr = '\0';
 
-		if (!deviceKnown(devices, ptr + 5)) {
-		    newDevice.name = strdup(ptr + 5);
-		    newDevice.class = CLASS_HD;
+		newDevice.model = strdup(start);
+		newDevice.class = CLASS_HD;
+		addDevice(devices, newDevice);
 
-		    ptr = iptr;
-		    while (*ptr != ',')
-			ptr++;
-		    *ptr = '\0';
-
-		    newDevice.model = strdup(iptr + 2);
-
-		    addDevice(devices, newDevice);
-		}
+		*chptr = '\n';
+	    } else {
+		*chptr = '\0';
 	    }
+
+	    start = strchr(chptr, '\n');
+	    if (start) start++;
 	}
+
+	sprintf(ctl, "/proc/array/ida%d", ctlNum++);
     }
 
     return 0;
@@ -373,10 +378,8 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
     char buf[256];
     char *ptr;
     int numMatches = 0, ctlNum = 0;
-    char ctl[20];
+    char ctl[40];
 
-    printf("here\n");
-    
     sprintf(ctl, "/proc/array/ida%d", ctlNum++);
 		
     while ((f = fopen(ctl, "r"))){
