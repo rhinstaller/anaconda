@@ -5,6 +5,7 @@ from installmethod import InstallMethod
 import iutil
 import os
 import isys
+import time
 import string
 from translate import _
 from log import log
@@ -62,8 +63,11 @@ class CdromInstallMethod(ImageInstallMethod):
 		    _("Please insert disc %d to continue.") % self.currentDisc)
 
 		try:
-		    isys.mount(self.device, "/mnt/source", fstype = "iso9660",
-			       readOnly = 1)
+		    if isys.mount(self.device, "/mnt/source", 
+				  fstype = "iso9660", readOnly = 1):
+			time.sleep(3)
+			isys.mount(self.device, "/mnt/source", 
+				   fstype = "iso9660", readOnly = 1)
 		    
 		    if os.access("/mnt/source/%s" % key, os.O_RDONLY):
 			done = 1
