@@ -436,7 +436,7 @@ class x86BootloaderInfo(bootloaderInfo):
                 continue
 	    f.write('title %s\n' % (longlabel))
 	    f.write('\trootnoverify %s\n' % grubbyPartitionName(device))
-            f.write('\tmakeactive\n')
+#            f.write('\tmakeactive\n')
             f.write('\tchainloader +1')
 	    f.write('\n')
 
