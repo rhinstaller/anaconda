@@ -281,6 +281,7 @@ class AuthConfigWindow:
 
         self.ldapServer.setFlags (FLAG_DISABLED, server)
         self.ldapBasedn.setFlags (FLAG_DISABLED, server)
+        self.ldapTLS.setFlags (FLAG_DISABLED, server)
 
     def krb5setsensitive (self):
         # handle other forms here...
