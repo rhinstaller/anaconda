@@ -49,6 +49,8 @@ if (os.path.exists('booty')):
 else:
     sys.path.append('/usr/lib/booty')
 
+sys.path.append('/usr/share/redhat-config-keyboard')
+
 try:
     import updates_disk_hook
 except ImportError:
