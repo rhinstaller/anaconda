@@ -78,6 +78,11 @@ def startVNCServer(vncpassword=None, root='/'):
 	# write password again
 	os.write(fd, passwd + "\n")
 	
+	# write out a 'n\n' to answer question about creating a view only pw
+	os.read(fd, 1000)
+	os.read(fd, 1000)
+	os.write(fd, "n\n")
+        
 	# read remaining output
 	os.read(fd, 1000)
 
@@ -99,7 +104,12 @@ def startVNCServer(vncpassword=None, root='/'):
 
 	# set passwd if necessary
 	if vncpassword is not None:
-	    rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
+	    try:
+		rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
+	    except:
+		dup_log("Unknown expection setting vnc password.")
+		rc = 1
+
 	    if rc:
 		dup_log(_("Unable to set vnc password - using no password!"))
 		dup_log(_("Make sure your password is at least 6 characters in length."))
