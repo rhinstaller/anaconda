@@ -945,7 +945,7 @@ def doPostInstall(method, id, intf, instPath):
 	    # XXX currently Bad Things (X async reply) happen when doing
 	    # Mouse Magic on Sparc (Mach64, specificly)
 	    # The s390 doesn't even have a mouse!
-            if (os.environ.get("DISPLAY") == ":1" and arch != 'sparc'):
+            if os.environ.get('DISPLAY') == ':1' and arch != 'sparc':
 		try:
                     import xmouse
 		    mousedev = xmouse.get()[0]
