@@ -119,3 +119,8 @@ echo "Building stage2.img"
 makemainimage "stage2" "cramfs"
 [ $? = 0 ] || exit 1
 
+# now make a boot iso
+mkdir -p $TOPDESTPATH/images/isopath
+cp -rl $TOPDESTPATH/isolinux $TOPDESTPATH/images/isopath
+mkisofs -o $TOPDESTPATH/images/boot.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -V -T $TOPDESTPATH/images/isopath
+rm -rf $TOPDESTPATH/images/isopath
