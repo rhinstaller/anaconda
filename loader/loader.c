@@ -139,6 +139,8 @@ static void spawnShell(int flags) {
     pid_t pid;
     int fd;
 
+    if (FL_SERIAL(flags))
+	return;
     if (!FL_TESTING(flags)) {
 	fd = open("/dev/tty2", O_RDWR);
 	if (fd < 0) {
@@ -1660,6 +1662,7 @@ int main(int argc, char ** argv) {
     moduleInfoSet modInfo;
     char * where;
     struct moduleInfo * mi;
+    char twelve = 12;
     char * ksFile = NULL, * ksSource = NULL;
     struct poptOption optionTable[] = {
     	    { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
@@ -1687,6 +1690,11 @@ int main(int argc, char ** argv) {
     else if (!strcmp(argv[0] + strlen(argv[0]) - 5, "probe"))
 	return probe_main(argc, argv);
 #endif
+
+    if (ioctl (0, TIOCLINUX, &twelve) < 0) {
+	/* Obviously we cannot run in GUI mode on serial console. */
+	flags |= LOADER_FLAGS_SERIAL | LOADER_FLAGS_TEXT;
+    }
 
     optCon = poptGetContext(NULL, argc, argv, optionTable, 0);
 
@@ -1875,6 +1883,8 @@ int main(int argc, char ** argv) {
 	*argptr++ = "-m";
 	*argptr++ = url;
 
+	if (FL_SERIAL(flags))
+	    *argptr++ = "--serial";
 	if (FL_TEXT(flags))
 	    *argptr++ = "-T";
 	if (FL_EXPERT(flags))
