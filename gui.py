@@ -7,6 +7,9 @@ from gtk import *
 from gtk import _root_window
 from _gtk import gtk_set_locale
 from _gtk import gtk_rc_init
+from _gtk import gtk_rc_reparse_all
+from _gtk import _gtk_nuke_rc_files
+from _gtk import _gtk_nuke_rc_mtimes
 import GdkImlib
 from GDK import *
 import time
@@ -383,8 +386,10 @@ class InstallControlWindow:
 	self.todo.instTimeLanguage.setRuntimeLanguage(lang)
 
         gtk_set_locale ()
+        _gtk_nuke_rc_files ()
         gtk_rc_init ()
-
+        gtk_rc_reparse_all ()
+        
         found = 0
         for l in self.todo.instTimeLanguage.getCurrentLangSearchList():
             if os.access ("/etc/gtk/gtkrc." + l, os.R_OK):
@@ -393,6 +398,9 @@ class InstallControlWindow:
         if not found:
             rc_parse("/etc/gtk/gtkrc")
 
+        _gtk_nuke_rc_mtimes ()
+        gtk_rc_reparse_all ()
+        
 	if not self.__dict__.has_key('window'): return
 
         self.window.reset_rc_styles ()
