@@ -320,9 +320,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         self.sortType = "Package"
         self.packageList.set_column_title (1, (_("Package")))
-        self.packageList.set_column_sizing (1, gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+        self.packageList.set_column_sizing (1, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
         self.packageList.set_column_title (2, (_("Size (MB)")))
-        self.packageList.set_column_sizing (2, gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+        self.packageList.set_column_sizing (2, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
         self.packageList.set_headers_visible(gtk.TRUE)
 
         self.packageList.set_column_min_width(0, 16)
