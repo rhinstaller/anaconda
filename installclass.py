@@ -86,7 +86,7 @@ class BaseInstallClass:
                  "networkdevicecheck",
 		 "network",
 		 "firewall",
-		 "languagesupport",
+#		 "languagesupport",
 		 "timezone",
 		 "accounts",
 		 "authentication",

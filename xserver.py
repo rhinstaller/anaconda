@@ -4,7 +4,7 @@
 # Matt Wilson <msw@redhat.com>
 # Brent Fox <bfox@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -27,7 +27,7 @@ from snack import *
 from translate import _
 from constants_text import *
 from mouse_text import MouseWindow, MouseDeviceWindow
-from videocard import FrameBufferCard, VGA16Card
+from videocard import VGA16Card, VESADriverCard
 
 serverPath = ""
 
@@ -85,29 +85,50 @@ def startX(resolution, nofbmode, video, monitor, mouse):
     serverPath = None
 
     #--see if framebuffer works on this card
-    fbavail = isys.fbinfo()
+#
+# we're removing fb support
+#
+#    fbavail = isys.fbinfo()
+#
+#    if fbavail:
+#        attempt = 'FB'
+#    else:
+#        attempt = 'PROBED'
 
-    if fbavail:
-        attempt = 'FB'
-    else:
-        attempt = 'PROBED'
+#    attempt = 'PROBED'
+    attempt = 'VESA'
 
     failed = 1
     next_attempt = None
     while next_attempt != 'END':
         card = None
-        if attempt == 'FB':
-            if fbavail and nofbmode == 0 and canUseFrameBuffer(video.primaryCard()):
-                print _("Attempting to start framebuffer based X server")
-                card = FrameBufferCard()
-            else:
-                card = None
 
-            next_attempt = 'PROBED'
-        elif attempt == 'PROBED':
+# 
+# we're removing framebuffer support
+#	
+#        if attempt == 'FB':
+#            if fbavail and nofbmode == 0 and canUseFrameBuffer(video.primaryCard()):
+#                print _("Attempting to start framebuffer based X server")
+#                card = FrameBufferCard()
+#            else:
+#                card = None
+#
+#            next_attempt = 'PROBED'
+        if attempt == 'PROBED':
             if video.primaryCard():
                 print _("Attempting to start native X server")
                 card = video.primaryCard()
+            else:
+                card = None
+            next_attempt = 'VESA'
+	elif attempt == 'VESA':
+            if video.primaryCard():
+                print _("Attempting to start VESA driver X server")
+		vram = video.primaryCard().getVideoRam()
+		if vram:
+		    card = VESADriverCard(vram)
+		else:
+		    card = None
             else:
                 card = None
             next_attempt = 'VGA16'
@@ -136,6 +157,8 @@ def startX(resolution, nofbmode, video, monitor, mouse):
                 except (RuntimeError, IOError):
                     pass
 
+#	time.sleep(5)
+
         attempt = next_attempt
         
     #--If original server isn't there...send them to text mode
@@ -145,10 +168,15 @@ def startX(resolution, nofbmode, video, monitor, mouse):
     return x
 
 def canUseFrameBuffer (videocard):
-    if videocard:
-        carddata = videocard.getProbedCard()
+#    if videocard:
+#        carddata = videocard.getProbedCard()
+#
+#    return 1
 
-    return 1
+#
+# we're turning off framebuffer support
+#
+    return 0
 
 def testx(x):
     try:
@@ -240,6 +268,7 @@ def start_existing_X():
 	args.append("/usr/X11R6/lib/X11/fonts/misc/,"
                     "/usr/X11R6/lib/X11/fonts/75dpi/,"
                     "/usr/X11R6/lib/X11/fonts/100dpi/,"
+                    "/usr/X11R6/lib/X11/fonts/korean/,"
                     "/usr/X11R6/lib/X11/fonts/cyrillic/,"
                     "/usr/share/fonts/ISO8859-2/misc/,"
                     "/usr/share/fonts/ISO8859-2/75dpi/,"

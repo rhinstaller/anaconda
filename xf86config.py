@@ -3,8 +3,9 @@
 #
 # Matt Wilson <msw@redhat.com>
 # Brent Fox <bfox@redhat.com>
+# Michael Fulbright <msf@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -617,11 +618,31 @@ class XF86Config:
 
         monsyncknown = (self.monitor.getMonitorHorizSync() != None) and (self.monitor.getMonitorVertSync() != None)
 
-        if self.res == "640x480":
-            self.modes = { "8" :  ["640x480"] }
-            if not monsyncknown:
-                self.monitor.setSpecs("31.5-35.5", "50-61")
-        else:
+	if self.res:
+	    if self.res == "640x480":
+		self.modes = { "8" :  ["640x480"] }
+		if not monsyncknown:
+		    self.monitor.setSpecs("31.5-35.5", "50-61")
+	    else:
+		# assume they are specifying resolution for laptop/lcd
+		# these are values for generic laptop display from monitorsdb
+		self.modes = { "16" :  [self.res] }
+		if not monsyncknown:
+		    if self.res == "800x600":
+			self.monitor.setSpecs("31.5-48.5", "50-70")
+		    elif self.res == "1024x768":
+			self.monitor.setSpecs("31.5-48.5", "40-70")
+		    elif self.res == "1280x1024":
+			self.monitor.setSpecs("31.5-67", "50-75")
+		    elif self.res == "1400x1050":
+			self.monitor.setSpecs("31.5-90", "59-75")
+		    elif self.res == "1600x1200":
+			self.monitor.setSpecs("31.5-90", "60")
+		    else:
+			# just pick something reasonable for most modes
+			self.monitor.setSpecs("31.5-65.0", "50-90")
+	else:
+	    # fallback if nothing avail
             self.modes = { "16" :  ["800x600"] }
             if not monsyncknown:
                 self.monitor.setSpecs("31.5-48.5", "50-70")
@@ -720,11 +741,23 @@ class XF86Config:
 
         if not vidRam:
             return modes
-        if string.atoi(vidRam) >= 8192:
+        if string.atoi(vidRam) >= 10240:
             modes["8"] = ["640x480", "800x600", "1024x768","1152x864",
-                          "1280x1024", "1400x1050", "1600x1200"]
+                          "1280x1024", "1400x1050", "1600x1200",
+                          "1920x1440", "2048x1536"]
             modes["16"] = ["640x480", "800x600", "1024x768", "1152x864",
-                           "1280x1024", "1400x1050", "1600x1200"]
+                           "1280x1024", "1400x1050", "1600x1200",
+                           "1920x1440", "2048x1536"]
+            modes["32"] = ["640x480", "800x600", "1024x768", "1152x864",
+                           "1280x1024", "1400x1050", "1600x1200",
+                           "1920x1440", "2048x1536"]
+        elif string.atoi(vidRam) >= 8192:
+            modes["8"] = ["640x480", "800x600", "1024x768","1152x864",
+                          "1280x1024", "1400x1050", "1600x1200",
+                          "1920x1440", "2048x1536"]			  
+            modes["16"] = ["640x480", "800x600", "1024x768", "1152x864",
+                           "1280x1024", "1400x1050", "1600x1200",
+                          "1920x1440", "2048x1536"]			  
             modes["32"] = ["640x480", "800x600", "1024x768", "1152x864",
                            "1280x1024", "1400x1050", "1600x1200"]
         elif string.atoi(vidRam) >= 6144:
@@ -905,7 +938,16 @@ class XF86Config:
         
         f.write("xconfig")
 
-        for arg in self.getArgList(xmodes):
+	args = self.getArgList(xmodes) 
+	if desktop: 
+            rl = desktop.getDefaultRunLevel() 
+	    if rl and str(rl) == '5': 
+		args = args + ['--startxonboot', ''] 
+	    gui = desktop.getDefaultDesktop() 
+	    if gui: 
+		args = args + ['--defaultdesktop', string.lower(gui)] 
+
+        for arg in args: 
             f.write(" " + arg)
         f.write("\n")
 
@@ -968,6 +1010,7 @@ class XF86Config:
     FontPath	"/usr/X11R6/lib/X11/fonts/Speedo/"
     FontPath	"/usr/X11R6/lib/X11/fonts/75dpi:unscaled"
     FontPath	"/usr/X11R6/lib/X11/fonts/100dpi:unscaled"
+    FontPath    "/usr/X11R6/lib/X11/fonts/korean:unscaled"
     FontPath    "/usr/X11R6/lib/X11/fonts/cyrillic:unscaled"
     FontPath    "/usr/share/fonts/ISO8859-2/misc:unscaled"
     FontPath    "/usr/share/fonts/ISO8859-2/75dpi:unscaled"

@@ -123,7 +123,8 @@ rescue = 0			# run in rescue mode
 rescue_nomount = 0		# don't automatically mount device in rescue
 overhead = 0			# kilobytes of memory used already
 runres = '800x600'		# resolution to run the GUI install in
-nofbmode = 0			# don't use framebuffer X, no matter what
+nofbmode = 1			# don't use framebuffer X, no matter what
+skipddc = 0			# if true skip ddcprobe (locks some machines)
 instClass = None		# the install class to use
 progmode = 'install' 		# 'rescue', or 'install'
 method = None			# URL representation of install method
@@ -183,8 +184,11 @@ for n in args:
 	extraModules.append((path, subdir, name))
     elif (str == '--nofallback'):
 	nofallback = 1
-    elif (str == '--nofb'):
-        nofbmode = 1
+#
+# we're removing fb support
+#
+#    elif (str == '--nofb'):
+#        nofbmode = 1
     elif (str == "--nomount"):
         rescue_nomount = 1
     elif (str == '--overhead'):
@@ -194,7 +198,12 @@ for n in args:
     elif (str == '--resolution'):
         # run native X server at specified resolution, ignore fb
         runres = arg
-        nofb = 1
+#
+# we're removing fb support
+#
+#        nofbmode = 1
+    elif (str == "--skipddc"):	
+	skipddc = 1
     elif (str == "--autostep"):
 	flags.autostep = 1
     elif (str == '-r' or str == '--rootpath'):
@@ -372,35 +381,30 @@ if os.environ.has_key('DISPLAY') and display_mode == 'g':
 else:
     x_already_set = 0
 
-    
 mousehw    = mouse.Mouse(skipProbe = 1)
-#if display_mode == 'g':
 
-# lets try always probing this stuff, probably ought to provide way to
-# skip probing if we have really sensitive hw that HAS to use text mode
-if 1:
-    sys.stdout.write(    _("Probing for video card:   "))
-    fbdev = None
-    videohw    = videocard.VideoCardInfo(skipDDCProbe = flags.test)
+sys.stdout.write(    _("Probing for video card:   "))
+fbdev = None
+videohw    = videocard.VideoCardInfo(skipDDCProbe = (skipddc or flags.test))
 
-    if videohw and videohw.primaryCard():
-        sys.stdout.write(videohw.primaryCard().shortDescription()+'\n')
-        fbdev = videohw.primaryCard().getDevice()
-    else:
-        sys.stdout.write(_("Unable to probe\n"))
+if videohw and videohw.primaryCard():
+    sys.stdout.write(videohw.primaryCard().shortDescription()+'\n')
+#    fbdev = videohw.primaryCard().getDevice()
+else:
+    sys.stdout.write(_("Unable to probe\n"))
 
-    sys.stdout.write(    _("Probing for monitor type: "))
-    monitorhw  = monitor.MonitorInfo(fbDevice=fbdev, skipDDCProbe = flags.test)
-    sys.stdout.write(monitorhw.shortDescription()+'\n')
+sys.stdout.write(    _("Probing for monitor type: "))
+monitorhw  = monitor.MonitorInfo(fbDevice=fbdev, skipDDCProbe = (skipddc or flags.test))
+sys.stdout.write(monitorhw.shortDescription()+'\n')
 
-    # only probe if we're installing a real box or
-    # we're running in a virtual console and need to startup X server
-    if not os.environ.has_key('DISPLAY') or flags.setupFilesystems:
-	sys.stdout.write(_("Probing for mouse type:   "))
-	mousehw.probe (frob = 1)
-        sys.stdout.write(mousehw.shortDescription()+'\n')
-    else:
-	sys.stdout.write(_("Skipping mouse probe.\n"))
+# only probe if we're installing a real box or
+# we're running in a virtual console and need to startup X server
+if not os.environ.has_key('DISPLAY') or flags.setupFilesystems:
+    sys.stdout.write(_("Probing for mouse type:   "))
+    mousehw.probe (frob = 1)
+    sys.stdout.write(mousehw.shortDescription()+'\n')
+else:
+    sys.stdout.write(_("Skipping mouse probe.\n"))
 
 if (display_mode != 't' and method and
     method.startswith('ftp://') or

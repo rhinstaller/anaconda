@@ -5,7 +5,7 @@
 # Brent Fox <bfox@redhat.com>
 # Mike Fulbright <msf@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -38,7 +38,6 @@ def Video_cardsDBLookup(thecard):
     card = Video_cardslist[thecard]
 
     return card
-
 
 class VideoCard:
 #
@@ -220,7 +219,25 @@ class VGA16Card(VideoCard):
 
     def FixedMode(self):
         return { "4" : ["640x480"]}
-    
+
+def VESADriverCard(vram=None):
+    try:
+	card = 'VESA driver (generic)'
+	vc = VideoCard()
+	if vram:
+	    vc.setVideoRam(vram)
+	info = Video_cardslist[card]
+	vc.setProbedCard(card)
+	vc.setDevice(None)
+	vc.setDescription(card)
+	vc.setCardData(info)
+	vc.setDevID(info["NAME"])
+	vc.setXServer('XFree86')
+    except:
+	vc = None
+
+    return vc
+
 class VideoCardInfo:
 
 #
@@ -248,7 +265,7 @@ class VideoCardInfo:
 
     def possible_ram_sizes(self):
         #--Valid video ram sizes--
-        return [256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]
+        return [256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072]
 
     def index_closest_ram_size(self, detected):
         possram = self.possible_ram_sizes()
@@ -270,6 +287,21 @@ class VideoCardInfo:
     def possible_depths(self):
         #--Valid bit depths--
         return ["8", "16", "24", "32"]
+
+    # returns list of modes we know card can do
+    # returns None if no restrictions
+    def getSupportedModes(self):
+	vc = self.primaryCard()
+	if not vc:
+	    return None
+
+	carddata = vc.getCardData()
+	if carddata.has_key('DRIVER') and carddata['DRIVER'] == 'vesa':
+	    return ['640x480', '800x600', '1024x768']
+	else:
+	    return None
+           
+	return None
 
     def manufacturerDB(self):
         return ["3DLabs",
@@ -381,13 +413,21 @@ class VideoCardInfo:
                              kudzu.BUS_PCI | kudzu.BUS_SBUS,
                              kudzu.PROBE_ALL);
 
+        if not skipDDCProbe:
+	    prval = kudzu.probe(kudzu.CLASS_VIDEO, kudzu.BUS_DDC,
+				kudzu.PROBE_ALL)
+	else:
+	    prval = None
+
+	self.ddcprobe_data = prval
+
         # just use first video card we recognize
         # store as a list of class VideoCard
         self.videocards = []
         self.primary = None
 
         if self.readCardsDB() < 0:
-            return
+            return None
 
         for card in cards:
             (device, server, descr) = card
@@ -425,65 +465,77 @@ class VideoCardInfo:
                 else:
                     server = None
 
-#
-# This old code picked the XFree86 4.x driver if it exists and was not
-# marked unsupported. Its left here for reference.
-#
-#                if (vc.getCardData().has_key("DRIVER") and
-#                    not vc.getCardData().has_key("UNSUPPORTED")):
-#                    server = "XFree86"
-#                else:
-#                    server = "XF86_" + vc.getCardData()["SERVER"]
-#
                 if server:
 		    vc.setXServer(server)
 		    self.videocards.append(vc)
                 
         if len(self.videocards) == 0:
             # insert a best guess at a card
-            vc = VideoCard()
-            vc.setDescription(_("Unknown Card"))
-            self.videocards.append(vc)
-            self.orig_videocards = copy.deepcopy(self.videocards)
-            self.primary = 0
-            self.orig_primary = self.primary
-
-            return
+	    if prval and prval[0].videoram > 0:
+		try:
+		    card = 'VESA driver (generic)'
+		    vc = VideoCard()
+		    vc.setVideoRam(prval[0].videoram)
+		    info = Video_cardslist[card]
+		    vc.setProbedCard(card)
+		    vc.setDevice(None)
+		    vc.setDescription(card)
+		    vc.setCardData(info)
+		    vc.setDevID(info["NAME"])
+		    vc.setXServer('XFree86')
+		except:
+		    vc = None
+	    else:
+		vc = None
+               
+	    if not vc:
+		vc = VideoCard()
+		vc.setDescription(_("Unknown Card"))
+		
+	    self.videocards.append(vc)
+	    self.orig_videocards = copy.deepcopy(self.videocards)
+	    self.primary = 0
+	    self.orig_primary = self.primary
+	    return
+		
 
         # default primary card to be the first card found
         self.primary = 0
 
         # VESA probe for videoram, etc.
         # for now assume fb corresponds to primary video card
-        if not skipDDCProbe:
-            probe = kudzu.probe(kudzu.CLASS_VIDEO, kudzu.BUS_DDC,
-                                kudzu.PROBE_ALL)
-            if probe:
-                # XXX should we use this description?
-                #self.primaryCard().setDescription(probe[0].desc)
-                
-                if probe[0].mem != 0:
-                    self.primaryCard().setVideoRam("%d" % (probe[0].mem,))
+	if prval:
+	    # XXX need to get vendor data from kudzu and use this code
+#	    if prval[0].vendor != None:
+#		cardManf = prval[0].vendor
+#		self.primaryCard().setCardManf(cardManf)
+#		self.primaryCard().getCardData()["VENDOR"] = cardManf
 
+	    if prval[0].mem != 0:
+		self.primaryCard().setVideoRam("%d" % (prval[0].mem,))
+
+#
+# we're removing framebuffer support
+#
         # try to get frame buffer information if we don't know video ram
-        if not self.primaryCard().getVideoRam() and self.primaryCard().getDevice():
-            try:
-                (vidram, depth, mode, monitor) = isys.fbconProbe("/dev/" + self.primaryCard().getDevice())
-                if vidram:
-                    self.primaryCard().setVideoRam("%d" % vidram)
-
-                if depth:
-                    self.primaryCard().setFBModes({ "%d" % depth : [ mode ] })
-                    self.primaryCard().setFBBpp( "%d" % depth )
-            except:
-                pass
-
-            try:
-                if isys.fbinfo() != None:
-                    x, y, depth = isys.fbinfo()
-                    self.primaryCard().setFBBpp(depth)
-            except:
-                pass
+#        if not self.primaryCard().getVideoRam() and self.primaryCard().getDevice():
+#            try:
+#                (vidram, depth, mode, monitor) = isys.fbconProbe("/dev/" + self.primaryCard().getDevice())
+#                if vidram:
+#                    self.primaryCard().setVideoRam("%d" % vidram)
+#
+#                if depth:
+#                    self.primaryCard().setFBModes({ "%d" % depth : [ mode ] })
+#                    self.primaryCard().setFBBpp( "%d" % depth )
+#            except:
+#                pass
+#
+#            try:
+#                if isys.fbinfo() != None:
+#                    x, y, depth = isys.fbinfo()
+#                    self.primaryCard().setFBBpp(depth)
+#            except:
+#                pass
 
         # kludge to handle i810 displays which require at least 16 Meg
         if (self.primaryCard().getCardData()).has_key("DRIVER"):
