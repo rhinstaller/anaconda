@@ -149,50 +149,23 @@ class HostnameWindow:
             return
         
         entry = Entry (24)
-        domainEntry = Entry (24)
 
         if todo.network.hostname != "localhost.localdomain":
-
-            #--Loader passes in hostname and domain as one line.  To make it more clear to the user,
-            #--we split the hostname off the domain and put them in different GtkEntry boxes
-            hs = todo.network.hostname
-            tmp = string.split(hs, ".")
-
-            entry.set (tmp[0])
-            count = 0
-            domain = ""
-            for token in tmp:
-                if count == 0:
-                    pass
-                elif count == 1:
-                    domain = domain + token
-                else:
-                    domain = domain + "." + token
-                count = count + 1
-
-            domainEntry.set (domain)
-
-            
-#            entry.set (todo.network.hostname)
+            entry.set (todo.network.hostname)
 
 
         rc, values = EntryWindow(screen, _("Hostname Configuration"),
              _("The hostname is the name of your computer.  If your "
                "computer is attached to a network, this may be "
                "assigned by your network administrator."),
-             [(_("Hostname"), entry), (_("Domain"), domainEntry)], buttons = [ _("OK"), _("Back")],
+             [(_("Hostname"), entry)], buttons = [ _("OK"), _("Back")],
 	     help = "hostname")
 
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
 
-#        todo.network.hostname = entry.value ()
+        todo.network.hostname = entry.value ()
 
-        
-#        if (self.hostname.get_text () != ""):
-
-        fullname = entry.value() + "." + domainEntry.value()
-        todo.network.hostname = fullname
         print todo.network.hostname
 
 
