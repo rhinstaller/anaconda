@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.19\n"
+"Project-Id-Version: install 1.22\n"
 "POT-Creation-Date: 1999-09-13 14:19-0400\n"
 "PO-Revision-Date: 1999-09-15 13:16+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
@@ -66,7 +66,7 @@ msgstr "Tæki"
 #: ../text.py:73
 #, c-format
 msgid "What device is your mouse located on? %s %i"
-msgstr "Á hvaða tæki er músin tengd? %s %i"
+msgstr "Við hvaða tæki er músin tengd? %s %i"
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
@@ -150,7 +150,7 @@ msgstr "Setja upp sérsniðið kerfi"
 
 #: ../text.py:164
 msgid "Upgrade Existing Installation"
-msgstr "Uppfæra kerfi sem er þegar til staðar"
+msgstr "Uppfæra núverandi kerfi"
 
 #: ../text.py:165 ../text.py:823
 msgid "Installation Type"
@@ -158,7 +158,7 @@ msgstr "Tegund uppsetningar"
 
 #: ../text.py:166
 msgid "What type of system would you like to install?"
-msgstr "Hverskonar kerfi villtu setja upp?"
+msgstr "Hverskonar kerfi viltu setja upp?"
 
 #: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
 #: ../loader/loader.c:663 ../loader/loader.c:708 ../loader/loader.c:841
@@ -389,7 +389,7 @@ msgid ""
 "a formatted floppy in the first floppy drive."
 msgstr ""
 "Það kom upp villa þegar reynt var að búa til ræsidisklinginn. Vinsamlegast "
-"gaktu úr skugga um að forsniðin disketta sé í fyrsta disklingadrifinu."
+"gakktu úr skugga um að forsniðin disketta sé í fyrsta disklingadrifinu."
 
 #: ../text.py:625
 msgid "Package Installation"
@@ -550,7 +550,7 @@ msgstr "Uppsetningu lokið"
 
 #: ../text.py:883
 msgid "Examine System"
-msgstr "Rannsaka kerfið"
+msgstr "Skoða kerfið"
 
 #: ../text.py:884
 msgid "Customize Upgrade"
@@ -975,7 +975,7 @@ msgstr "Skoða:"
 
 #: ../iw/timezone.py:140
 msgid "Use Daylight Saving Time"
-msgstr "Nota hvaðabullerþetta tíma"
+msgstr "Nota sumartíma/vetrartíma"
 
 #: ../iw/timezone.py:147
 msgid "Location"
@@ -1011,7 +1011,7 @@ msgstr "Lóðrétt tíðnisvið"
 
 #: ../iw/xconfig.py:14
 msgid "Test failed"
-msgstr "Tilraun mistókst"
+msgstr "Prófun mistókst"
 
 #: ../iw/xconfig.py:22 ../iw/xconfig.py:198
 msgid "Customize X Configuration"
@@ -1035,13 +1035,13 @@ msgstr ""
 
 #: ../iw/xconfig.py:157
 msgid "Autoprobe results:"
-msgstr "Útkoma leitar:"
+msgstr "Niðurstaða leitar:"
 
 #: ../iw/xconfig.py:171
 msgid ""
 "Your monitor could not be autodetected. Please choose it from the list below:"
 msgstr ""
-"Ekki var hægt að finna skjáinn sjálfvirkt. Vinsamlegast veldu hann úr "
+"Ekki tókst að finna skjáinn þinn sjálfvirkt. Vinsamlegast veldu hann úr "
 "listanum:"
 
 #: ../iw/xconfig.py:201
@@ -1050,7 +1050,7 @@ msgstr "Nota grafíska auðkenningu"
 
 #: ../iw/xconfig.py:203
 msgid "Skip X Configuration"
-msgstr "Sleppa að stila X"
+msgstr "Sleppa að stilla X"
 
 #: ../textw/lilo.py:12
 msgid ""
@@ -1183,7 +1183,7 @@ msgid ""
 msgstr ""
 "Veldu rótarlykilorð. Þú verður að slá það inn tvisvar til að tryggja að þú "
 "vitir örugglega hvað það er og þú hafir ekki slegið það rangt inn. Mundu að "
-"rótarlykilorðið er mjög mikilvægur þáttur í öryggi vélarinnar þinnar!"
+"rótarlykilorðið er mjög mikilvægur þáttur í öryggi vélarinnar!"
 
 #: ../loader/urls.c:298 ../textw/userauth.py:25
 msgid "Password:"
@@ -1203,11 +1203,11 @@ msgstr "Rótarlykilorðið verður að vera amk 6 stafir að lengd."
 
 #: ../textw/userauth.py:47 ../textw/userauth.py:101
 msgid "Password Mismatch"
-msgstr "Mismunandi lykilorð"
+msgstr "Lykilorð stemmir ekki"
 
 #: ../textw/userauth.py:48 ../textw/userauth.py:102
 msgid "The passwords you entered were different. Please try again."
-msgstr "Lykilorðin sem þú slóst inn eru ekki þau sömu. Reyndu aftur."
+msgstr "Lykilorðin sem þú slóst inn eru ekki eins. Reyndu aftur."
 
 #: ../textw/userauth.py:73
 msgid "Edit User"
@@ -1227,7 +1227,7 @@ msgstr "Lykilorðið verður að vera amk 6 stafir að lengd."
 
 #: ../textw/userauth.py:111
 msgid "User Exists"
-msgstr "Notandi þegar til"
+msgstr "Notandinn er þegar til"
 
 #: ../textw/userauth.py:112
 msgid "This user id already exists.  Choose another."
@@ -1249,9 +1249,9 @@ msgid ""
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
-"Hvaða notandi villtu vera á þessari vél? Þú ættir að hafa að minnsta kosti "
-"einn aðgang sem er ekki rót fyrir dagleg störf. Fjölnotandavélar geta haft "
-"marga aðganga."
+"Hvaða notandi viltu vera á þessari vél? Þú ættir að hafa að minnsta kosti "
+"einn notanda aðgang, sem er ekki rót fyrir dagleg störf. Fjölnotandavélar "
+"geta haft ótakmarkaðan fjölda notenda."
 
 #: ../textw/userauth.py:162
 msgid "User name"
@@ -1259,7 +1259,7 @@ msgstr "Notandi"
 
 #: ../textw/userauth.py:186
 msgid "Enter the information for the user."
-msgstr "Sláðu inn upplýsingum þessa notanda."
+msgstr "Sláðu inn upplýsingar þessa notanda."
 
 #: ../textw/userauth.py:198
 msgid "Change the information for this user."
@@ -1364,8 +1364,8 @@ msgid ""
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
-"Þú hefur fleiri drif en þetta forrit styður. Vinsamlegast notaðu staðlað "
-"fdisk til þess að setja upp drifin þín og láttu Red Hat Software vita að "
+"Þú hefur fleiri drif en þetta forrit styður. Vinsamlegast notaðu staðlaða "
+"fdisk forritið til að setja upp drifin þín og láttu Red Hat Software vita að "
 "þetta hafi komið upp hjá þér"
 
 #: ../libfdisk/fsedit.c:695
@@ -1413,7 +1413,7 @@ msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
-"Disksneiðataflan á tæki %s er skemmd.  Til þess að hægt sé að búa til "
+"Disksneiðataflan á tæki %s er skemmd.  Til þess að hægt sé að búa til nýjar "
 "disksneiðar þarf að frumstilla hana, sem veldur því að ÖLL GÖGN á disknum "
 "tapast."
 
@@ -1441,7 +1441,7 @@ msgid ""
 msgstr ""
 "Diskur með BSD diskmerki hefur fundist. Red Hat uppsetningarforritið styður "
 "einungis BSD diskmerki í ritvörðum ham svo þú verður að velja 'Sérsniðna' "
-"uppsetningu og fdisk (ekki Diska Drúídan)."
+"uppsetningu og fdisk (ekki Diska Drúídann)."
 
 #: ../libfdisk/fsedit.c:1078
 #, c-format
@@ -1535,7 +1535,7 @@ msgid ""
 "Please select a valid mount point."
 msgstr ""
 "Tengipunkturinn sem þú valdir er annað hvort ólöglegur eða þegar í notkun. "
-"Vinsamlegast veldu löglegann tengipunkt."
+"Vinsamlegast veldu löglegan tengipunkt."
 
 #: ../libfdisk/gnomefsedit.c:1026 ../libfdisk/newtfsedit.c:545
 msgid "Size Error"
@@ -1546,7 +1546,7 @@ msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
 msgstr ""
-"Stærðin sem þú valdir er ólögleg. Gaktu úr skugga um að stærðin sé stærri "
+"Stærðin sem þú valdir er ólögleg. Gakktu úr skugga um að stærðin sé stærri "
 "núll (0), og sé talin fram í tugakerfistölu (base 10)."
 
 #: ../libfdisk/gnomefsedit.c:1062 ../libfdisk/gnomefsedit.c:1967
@@ -1561,7 +1561,7 @@ msgid ""
 "You have created a swap partition which is too large. The maximum size of a "
 "swap partition is %ld Megabytes."
 msgstr ""
-"Þú hefur búið til diskminnissneið sem er og stór. Hámarks stærð "
+"Þú hefur búið til diskminnissneið sem er of stór. Hámarks stærð "
 "diskminnissneiðar er %ld Megabæti."
 
 #: ../libfdisk/gnomefsedit.c:1079 ../libfdisk/gnomefsedit.c:1086
@@ -1647,8 +1647,8 @@ msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
-"Tengipunkturinn sem þú valdir er þegar í notkun. Vinsamlegast veldu "
-"löglegann tengipunkt."
+"Tengipunkturinn sem þú valdir er þegar í notkun. Vinsamlegast veldu löglegan "
+"tengipunkt."
 
 #: ../libfdisk/gnomefsedit.c:1868
 msgid "Booting From RAID Warning"
@@ -1659,8 +1659,8 @@ msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
 msgstr ""
-"Þú hefur gert þetta raid tæki að ræsanlegri disksneið. Vinsamlegast gaktu úr "
-"skugga um að allar sneiðar sem er í tækinu eru ræsanlegar."
+"Þú hefur gert þetta raid tæki að ræsanlegri disksneið. Vinsamlegast gakktu "
+"úr skugga um að allar sneiðar sem er í tækinu eru ræsanlegar."
 
 #: ../libfdisk/gnomefsedit.c:1879
 msgid "No RAID Device"
@@ -1685,7 +1685,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1900
 msgid "Not Enough Partitions"
-msgstr "Ekki næjanlega margar disksneiðar"
+msgstr "Ekki nógu margar disksneiðar"
 
 #: ../libfdisk/gnomefsedit.c:1902
 msgid ""
@@ -1710,7 +1710,7 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
-"Disksneiðin %s er þegar disksneið sem notuð er í þessu RAID tæki. "
+"Disksneiðin %s er disksneið sem þegar er notuð í þessu RAID tæki. "
 "Tengipunktur þess er /boot. Ertu viss um að það sé hægt að ræsa frá þessari "
 "disksneið?"
 
@@ -1773,7 +1773,7 @@ msgstr "<Ekki stillt>"
 
 #: ../libfdisk/gnomefsedit.c:2941
 msgid "Unallocated Partitions Exist..."
-msgstr "Sneiðar sem ekki fundust pláss fyrir..."
+msgstr "Sneiðar sem ekki fannst pláss fyrir..."
 
 #: ../libfdisk/gnomefsedit.c:2952
 msgid ""
@@ -1881,11 +1881,11 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1500
 msgid "Save Changes"
-msgstr "Vista breytingum"
+msgstr "Vista breytingar"
 
 #: ../libfdisk/newtfsedit.c:1502
 msgid "Save changes to partition table(s)?"
-msgstr "Vista breytingum á disksneiðatöflunni?"
+msgstr "Vista breytingar á disksneiðatöflunni?"
 
 #: ../libfdisk/newtfsedit.c:1546
 msgid "You may only delete NFS mounts."
@@ -2012,7 +2012,7 @@ msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
-"Það eru engir sérstakir tækjareklar í notkun fyrir vélina þína. Villtu lesa "
+"Það eru engir sérstakir tækjareklar í notkun fyrir vélina þína. Viltu lesa "
 "einhverja inn núna?"
 
 #: ../loader/loader.c:393 ../loader/loader.c:395
@@ -2036,7 +2036,7 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Þú virðist ekki vera með neina harða diska í vélinni! Villtu stilla önnur "
+"Þú virðist ekki vera með neina harða diska í vélinni! Viltu stilla önnur "
 "tæki?"
 
 #: ../loader/loader.c:586
@@ -2101,7 +2101,7 @@ msgstr "Á hverskonar miðli er neyðardisklingurinn?"
 
 #: ../loader/loader.c:1062
 msgid "What type of media contains the packages to be installed?"
-msgstr "Hverskonar kerfi villtu setja upp?"
+msgstr "Hverskonar kerfi viltu setja upp?"
 
 #: ../loader/loader.c:1388
 msgid "Cannot find ks.cfg on boot floppy."
@@ -2229,7 +2229,7 @@ msgstr "Stillingar nets"
 
 #: ../loader/net.c:699
 msgid "Would you like to set up networking?"
-msgstr "Villtu setja upp net?"
+msgstr "Viltu setja upp net?"
 
 #: ../loader/urls.c:62 ../loader/urls.c:65
 msgid "Retrieving"
