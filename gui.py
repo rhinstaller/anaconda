@@ -458,51 +458,68 @@ class InstallControlWindow:
             self.displayHelp = TRUE
 
     def releaseClicked (self, widget):
-
         self.textWin = GtkWindow()
-
-        self.textWin.set_default_size (520, 400)
-        self.textWin.set_usize (520, 400)
-        self.textWin.set_position (WIN_POS_CENTER)
-        
-        text = GtkText()
-
-        sw = GtkScrolledWindow()
-        sw.set_policy(POLICY_NEVER, POLICY_ALWAYS)
-        sw.add(text)
-
-        vbox1 = GtkVBox()
-        vbox1.pack_start(sw, TRUE, TRUE)
+        closeButton = GtkButton("Close")
+        closeButton.connect("clicked", self.textWin.hide)
+        vbox1 = GtkVBox()        
+        self.textWin.add(vbox1)
 
         try:
-            file = open("/mnt/source/RELEASE-NOTES", "r")
-            for line in file.readlines():
-                text.insert(None, None, None, line)
-            file.close()
-
-        except:
+#            self.textWin.set_default_size (520, 400)
+#            self.textWin.set_usize (520, 400)
+            self.textWin.set_position (WIN_POS_CENTER)
+        
+            text = GtkText()
             try:
+                file = open("/mnt/source/RELEASE-NOTES", "r")
+                for line in file.readlines():
+                    text.insert(None, None, None, line)
+                file.close()
+
+            except:
                 file = open("/RELEASE-NOTES", "r")
                 for line in file.readlines():
                     text.insert(None, None, None, line)
                 file.close()
                 
+            sw = GtkScrolledWindow()
+            sw.set_policy(POLICY_NEVER, POLICY_ALWAYS)
+            sw.add(text)
+
+#            vbox1 = GtkVBox()
+            vbox1.pack_start(sw, TRUE, TRUE)
+
+            try:
+                file = open("/mnt/source/RELEASE-NOTES", "r")
+                for line in file.readlines():
+                    text.insert(None, None, None, line)
+                file.close()
+
             except:
-                print "Unable to load", file
+                file = open("/RELEASE-NOTES", "r")
+                for line in file.readlines():
+                    text.insert(None, None, None, line)
+                file.close()
+                
+            self.textWin.set_default_size (520, 400)
+            self.textWin.set_usize (520, 400)
+            self.textWin.set_position (WIN_POS_CENTER)
 
+            vbox1.pack_start(closeButton, FALSE, FALSE)
 
-#        for line in file.readlines():
-#            text.insert(None, None, None, line)
-#        file.close()
+            self.textWin.set_border_width(10)
+            self.textWin.show_all()
 
-        self.textWin.add(vbox1)
+        except:
+#            print "Unable to load file"
+            self.textWin.set_position (WIN_POS_CENTER)
+            label = GtkLabel("Unable to load file!")
 
-        closeButton = GtkButton("Close")
-        closeButton.connect("clicked", self.textWin.hide)
-        vbox1.pack_start(closeButton, FALSE, FALSE)
+            vbox1.pack_start(label, FALSE, FALSE)
+            vbox1.pack_start(closeButton, FALSE, FALSE)
 
-        self.textWin.show_all()
-
+            self.textWin.set_border_width(10)
+            self.textWin.show_all()
 
 
     def setScreen (self, screen, direction):
@@ -669,7 +686,14 @@ class InstallControlWindow:
 #                im = GdkImlib.Image ("pixmaps/first.png")
 
             except:
-                print "Unable to load", file
+                try:
+                    pix, msk = create_pixmap_from_xpm(self.window, None, "/tmp/updates/anaconda_header.xpm")
+                    pixmap = GtkPixmap(pix, msk)
+                    pixmap.show()
+                    vbox.pack_start(pixmap, FALSE, TRUE, 0)
+
+                except:
+                    print "Unable to load", file
 
         vbox.set_spacing(0)
 
