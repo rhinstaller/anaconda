@@ -1002,7 +1002,12 @@ for p in $DEST $DESTGR; do
 done
 
 # do some stripping of debugging symbols
-find $DESTGR -type f -name '*.so' |xargs strip -g
+if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
+    REALPATH=`(cd $DEST; /bin/pwd | sed 's,/md1/,/,g')`
+    runroot $COMPONENT --onlyone --arch $ARCH "cd $REALPATH\; find $DESTGR -type f -name '*.so' |xargs strip -g"
+else
+    find $DESTGR -type f -name '*.so' |xargs strip -g
+fi
 
 # some python stuff we don't need for stage2
 rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/distutils/
