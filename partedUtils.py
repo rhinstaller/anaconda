@@ -634,12 +634,12 @@ class DiskSet:
         except:
             pass
 
-	self.disks[drive].close()
         argList = [ "/sbin/dasdfmt",
                     "-y",
                     "-b", "4096",
                     "-d", "cdl",
                     "-P",
+                    "-F",
                     "-f",
                     "/tmp/%s" % drive]
         
@@ -693,7 +693,6 @@ class DiskSet:
         except OSError, (num, msg):
             print __name__, "waitpid:", msg
 
-	self.disks[drive].open()
         os.close(fd)
 
         w and w.pop()
