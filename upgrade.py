@@ -236,8 +236,8 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
                   "upgrade again."))
             sys.exit(0)
 
-	checkLinks = [ '/etc', '/var', '/var/lib', '/var/lib/rpm',
-		       '/boot', '/tmp', '/var/tmp', '/root' ]
+	checkLinks = ( '/etc', '/var', '/var/lib', '/var/lib/rpm',
+		       '/boot', '/tmp', '/var/tmp', '/root' )
 	badLinks = []
 	for n in checkLinks:
 	    if not os.path.islink(instPath + n): continue
@@ -540,8 +540,8 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         pass
     if recs:
         log("Upgrade: gnome-core was on the system.  Upgrading to GNOME 2")
-        for pkg in ["gnome-terminal", "gnome-desktop", "gnome-session",
-                    "gnome-panel", "metacity", "file-roller", "yelp"]:
+        for pkg in ("gnome-terminal", "gnome-desktop", "gnome-session",
+                    "gnome-panel", "metacity", "file-roller", "yelp"):
             try:
                 id.hdList[pkg].select()
             except:
