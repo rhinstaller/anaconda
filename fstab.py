@@ -455,6 +455,13 @@ class Fstab:
 
 	isys.umount(instPath + '/proc', removeDir = 0)
 
+        try:
+            isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
+            log("Umount USB OK")
+        except:
+            log("Umount USB Fail")
+            pass
+
 	mounts = self.mountList()
 	mounts.reverse()
 	for (n, device, fsystem, doFormat, size) in mounts:
