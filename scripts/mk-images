@@ -405,6 +405,8 @@ makeinitrd() {
     install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
        install -s -m 755 $LOADERBINDIR/$INITBIN $MBD_DIR/sbin
+    else
+       install -s -m 755 $LOADERBINDIR/$INITBIN $MBD_DIR/sbin/startanaconda
     fi
     install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
     install -m 644 $FONTS $MBD_DIR/etc/fonts.cgz
@@ -440,7 +442,7 @@ makeinitrd() {
        ln -s ../linuxrc $MBD_DIR/sbin/init
        cp -f $IMGPATH/usr/bin/ksh $MBD_DIR/sbin/ksh
        ln -sf ksh $MBD_DIR/sbin/sh
-       cp -f $IMGPATH/usr/bin/ssh-keygen $MBD_DIR/sbin/ssh-keygen
+       #cp -f $IMGPATH/usr/bin/ssh-keygen $MBD_DIR/sbin/ssh-keygen
        cp -f $IMGPATH/usr/bin/ldd $MBD_DIR/sbin/ldd
        cp -f $IMGPATH/usr/bin/ps $MBD_DIR/sbin/ps
        cp -f $IMGPATH/usr/bin/strace $MBD_DIR/sbin/strace
@@ -457,6 +459,8 @@ makeinitrd() {
        cp -f $IMGPATH/usr/bin/hostname $MBD_DIR/sbin/hostname
        cp -f $IMGPATH/usr/bin/mount $MBD_DIR/sbin/mount
        cp -f $IMGPATH/etc/inetd.conf $MBD_DIR/etc/inetd.conf
+       cp -pf $IMGPATH/etc/ssh/* $MBD_DIR/etc/ssh/
+       cp -f $IMGPATH/etc/services $MBD_DIR/etc/
        cp -df $IMGPATH/lib/libpam.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libdl.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libdl-*.so* $MBD_DIR/lib

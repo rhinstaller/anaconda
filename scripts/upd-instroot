@@ -125,9 +125,9 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGES="$PACKAGES s390utils oco binutils installer pdksh ssh_keys
+    PACKAGES="$PACKAGES s390utils oco binutils installer pdksh
 	sed net-tools inetd openssh openssh-server fileutils modutils
-	portmap textutils telnet-server"
+	portmap textutils telnet-server login ssh_keys"
 fi
 
 # xpm is missing
@@ -179,9 +179,9 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGESGR="$PACKAGESGR s390utils oco binutils installer pdksh ssh_keys
-	sed net-tools inetd openssh openssh-server fileutils 
-	modutils portmap textutils openssl telnet-server strace"
+    PACKAGESGR="$PACKAGESGR s390utils oco binutils installer pdksh
+	sed net-tools inetd openssh openssh-server fileutils login
+	modutils portmap textutils openssl telnet-server strace ssh_keys"
 fi
 
 KEEPFILE=/tmp/keepfile.$$
@@ -292,7 +292,7 @@ usr/share/terminfo/s/screen
 usr/share/terminfo/v/vt100
 usr/share/terminfo/v/vt102
 bin/ksh
-usr/bin/ssh-keygen
+usr/sbin/sshd
 usr/bin/strace
 usr/bin/ldd
 bin/ps
@@ -603,6 +603,11 @@ rm -rf $TZDIR
 
 chown -R root:root $DEST $DESTGR
 chmod -R a+rX-w $DEST $DESTGR
+if [ $ARCH = s390 -o $ARCH = s390x ]; then
+    for i in $DEST $DESTGR; do
+	(cd $i/etc/ssh; chmod og-r ssh_host*key primes sshd_config)
+    done
+fi
 
 if [ $ARCH = sparc ]; then
     rm -f $DESTGR/usr/X11R6/bin/XF86_VGA16
