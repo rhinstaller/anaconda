@@ -13,9 +13,9 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-BETANAG = 0
+BETANAG = 1
 
-DEBUG = 0
+DEBUG = 1
 
 DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1
