@@ -376,21 +376,32 @@ def getPreExistFormatWarnings(partitions, diskset):
 
     devs = []
     for request in partitions.requests:
-        if request.preexist == 1 and request.device:
-            devs.append(request.device)
+        if request.getPreExisting() == 1:
+            devs.append(request.uniqueID)
 
     devs.sort()
     
     rc = []
     for dev in devs:
-        request = partitions.getRequestByDeviceName(dev)
+        request = partitions.getRequestByID(dev)
         if request.format:
             if request.fstype.isMountable():
                 mntpt = request.mountpoint
             else:
                 mntpt = ""
-                
-            rc.append((request.device, request.fstype.getName(), mntpt))
+
+            if isinstance(request, partRequests.PartitionSpec):
+                dev = request.device
+            elif isinstance(request, partRequests.RaidRequestSpec):
+                dev = "md%s" %(request.raidminor,)
+            elif isinstance(request, partRequests.VolumeGroupRequestSpec):
+                dev = request.volumeGroupName
+            elif isinstance(request, partRequests.LogicalVolumeRequestSpec):
+                vgreq = partitions.getRequestByID(request)
+                dev = "%s/%s" %(vgreq.volumeGroupName,
+                                request.logicalVolumeName)
+
+            rc.append((dev, request.fstype.getName(), mntpt))
 
     if len(rc) == 0:
         return None
