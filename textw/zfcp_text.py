@@ -173,9 +173,9 @@ class ZFCPWindow:
         fcp.fcpdevices = fcpdevs
 
         # FIXME: this should be common between tui & gui
-        fcp.writeFcpSysfs(self.fcpdevices)
+        fcp.writeFcpSysfs(fcp.fcpdevices)
         isys.flushDriveDict()
-        self.diskset.refreshDevices(self.intf)
+        self.diskset.refreshDevices(intf)
         try:
             iutil.makeDriveDeviceNodes()
         except:
