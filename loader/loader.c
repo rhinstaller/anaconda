@@ -1982,7 +1982,7 @@ static char * doMountImage(char * location,
 #endif
 
 #if defined(__alpha__) || defined(__ia64__) \
-    || defined(__s390__ ) || defined(__s390x__)
+    || defined(__s390__ ) || defined(__s390x__) || defined(__powerpc__)
     for (i = 0; i < numMethods; i++) {
 	installNames[numValidMethods] = _(installMethods[i].name);
 	validMethods[numValidMethods++] = i;
@@ -3062,7 +3062,7 @@ char *getCurrentFloppyDevice() {
     return floppyDevice;
 }
 void setFloppyDevice(int flags) {
-#if defined(__i386__) || defined(__ia64__)
+#if defined(__i386__) || defined(__ia64__) || defined(__powerpc__)
     struct device ** devices;
     int foundFd0 = 0;
     int i = 0;
@@ -3590,7 +3590,8 @@ int main(int argc, char ** argv) {
 
     if (!continuing) {
 	if ((access("/proc/bus/pci/devices", R_OK) &&
-	      access("/proc/openprom", R_OK)) || FL_MODDISK(flags)) { 
+	     access("/proc/openprom", R_OK) &&
+	     access("/proc/iSeries", R_OK)) || FL_MODDISK(flags)) { 
 	    startNewt(flags);
 	    devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 1, 1,
 			      floppyDevice);
@@ -3766,7 +3767,8 @@ int main(int argc, char ** argv) {
     }
 
     if (((access("/proc/bus/pci/devices", R_OK) &&
-	  access("/proc/openprom", R_OK)) || 
+	  access("/proc/openprom", R_OK) &&
+	  access("/proc/iSeries", R_OK)) || 
 	  FL_ISA(flags) || FL_NOPROBE(flags)) && !ksFile) {
 	startNewt(flags);
 	manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);

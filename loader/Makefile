@@ -87,6 +87,11 @@ BINS += loader loader-local
 OBJS += stubs.o
 endif
 
+ifeq (ppc, $(ARCH))
+BINS += loader
+OBJS += stubs.o
+endif
+
 ifeq (.depend,$(wildcard .depend))
 TARGET=$(PROGS)
 else
