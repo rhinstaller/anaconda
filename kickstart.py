@@ -684,7 +684,8 @@ class KickstartBase(BaseInstallClass):
                                         'bytes-per-inode=', 'usepart=',
                                         'type=', 'fstype=', 'asprimary',
                                         'noformat', 'start=', 'end=',
-                                        'badblocks', 'recommended'])
+                                        'badblocks', 'recommended',
+                                        'ondrive='])
 
 	for n in args:
 	    (str, arg) = n
@@ -712,9 +713,9 @@ class KickstartBase(BaseInstallClass):
             elif str == "--fstype":
                 fstype = arg
             elif str == "--start":
-                start = arg
+                start = int(arg)
             elif str == "--end":
-                end = arg
+                end = int(arg)
             elif str == "--badblocks":
                 badblocks = 1
             elif str == "--recommended":
