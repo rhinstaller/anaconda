@@ -230,6 +230,8 @@ class Language (SimpleConfigFile):
 	self.font = {}
 	self.map = {}
 
+        self.tempDefault = ""
+        
 	for line in lines:
 	    string.strip(line)
 	    l = string.split(line)
@@ -259,6 +261,12 @@ class Language (SimpleConfigFile):
         if self.info["SUPPORTED"]:
             return string.split (self.info["SUPPORTED"], ':')
         return None
+
+    def setTempDefault (self, lang):
+        self.tempDefault = lang
+
+    def getTempDefault (self):
+        return self.tempDefault
 
     def setSupported (self, langlist):
         if langlist:
