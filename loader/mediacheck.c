@@ -13,14 +13,13 @@
 
 #include "md5.h"
 
+#include "log.h"
+
 #define APPDATA_OFFSET 883
 #define SIZE_OFFSET 84
 
 #define MAX(x, y)  ((x > y) ? x : y)
 #define MIN(x, y)  ((x < y) ? x : y)
-
-/* number of sectors to ignore at end of iso when computing sum */
-#define SKIPSECTORS 150
 
 typedef void (*checkCallback)(void *, long long offset);
 
@@ -37,8 +36,12 @@ struct progressCBdata {
 
 /* finds primary volume descriptor and returns info from it */
 /* mediasum must be a preallocated buffer at least 33 bytes long */
-int parsepvd(int isofd, char *mediasum, long long *isosize) {
+int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize) {
     unsigned char buf[2048];
+    unsigned char buf2[512];
+    unsigned char tmpbuf[512];
+    int skipfnd, md5fnd;
+    unsigned int loc;
     long long offset;
     unsigned char *p;
 
@@ -56,22 +59,72 @@ int parsepvd(int isofd, char *mediasum, long long *isosize) {
 	    return ((long long)-1);
 	offset += 2048L;
     }
-    
-    /* read out md5sum */
-    memcpy(mediasum, buf + APPDATA_OFFSET + 13, 32);
-    mediasum[32] = '\0';
 
-    for (p=mediasum; *p; p++)
-	if (*p != ' ')
-	    break;
+        /* read out md5sum */
+    memcpy(buf2, buf + APPDATA_OFFSET, 512);
+    buf2[511] = '\0';
 
-    /* if the md5sum was all spaces, we didn't find md5sum */
-    if (!*p)
+    md5fnd = 0;
+    skipfnd = 0;
+    loc = 0;
+    while (loc < 512) {
+	if (!strncmp(buf2 + loc, "ISO MD5SUM = ", 13)) {
+
+	    logMessage("Found ISO MD5SUM");
+	    /* make sure we dont walk off end */
+	    if ((loc + 32) > 511)
+		return -1;
+
+	    memcpy(mediasum, buf2 + loc + 13, 32);
+	    mediasum[32] = '\0';
+	    md5fnd = 1;
+
+	    logMessage("MD5SUM -> %s", mediasum);
+
+	    loc += 45;
+	    for (p=buf2+loc; loc < 512 && *p != ';'; p++, loc++);
+	} else if (!strncmp(buf2 + loc, "SKIPSECTORS = ", 14)) {
+	    char *errptr;
+
+	    /* make sure we dont walk off end */
+	    if ((loc + 14) > 511)
+		return -1;
+
+	    logMessage("Found SKIPSECTORS");
+	    loc = loc + 14;
+	    for (p=tmpbuf; loc < 512 && buf2[loc] != ';'; p++, loc++)
+		*p = buf2[loc];
+
+	    *p = '\0';
+
+	    logMessage("SKIPSECTORS -> |%s|", tmpbuf);
+
+	    *skipsectors = strtol(tmpbuf, &errptr, 10);
+	    if (errptr && *errptr) {
+		logMessage("Could not parse |%s|", errptr);
+ 	        return -1;
+	    } else {
+		logMessage("skipsectors = %d", *skipsectors);
+ 	        skipfnd = 1;
+	    }
+
+	    for (p=buf2+loc; loc < 512 && *p != ';'; p++, loc++);
+	} else {
+	    loc += 1;
+	}
+
+	if (skipfnd & md5fnd)
+ 	    break;
+    }
+	    
+	    
+    if (!(skipfnd & md5fnd))
 	return -1;
 
     /* get isosize */
     *isosize = (buf[SIZE_OFFSET]*0x1000000+buf[SIZE_OFFSET+1]*0x10000 +
 		buf[SIZE_OFFSET+2]*0x100 + buf[SIZE_OFFSET+3]) * 2048LL;
+
 
     return offset;
 }
@@ -85,6 +138,7 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
     int i;
     int appdata_start_offset, appdata_end_offset;
     int nattempt;
+    int skipsectors;
     unsigned int bufsize = 32768;
     unsigned char md5sum[16];
     unsigned int len;
@@ -92,7 +146,7 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
     long long isosize, offset, pvd_offset, apoff;
     MD5_CTX md5ctx;
 
-    if ((pvd_offset = parsepvd(isofd, mediasum, &isosize)) < 0)
+    if ((pvd_offset = parsepvd(isofd, mediasum, &skipsectors, &isosize)) < 0)
 	return -1;
 
     /*    printf("Mediasum = %s\n",mediasum); */
@@ -106,10 +160,8 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
     apoff = pvd_offset + APPDATA_OFFSET;
 
     buf = malloc(bufsize * sizeof(unsigned char));
-    while (offset < isosize - SKIPSECTORS*2048) {
-	nattempt = MIN(isosize - SKIPSECTORS*2048 - offset, bufsize);
-
-	/*	printf("%lld %lld %lld %d\n", offset, isosize, isosize-SKIPSECTORS*2048, nattempt); */
+    while (offset < isosize - skipsectors*2048) {
+	nattempt = MIN(isosize - skipsectors*2048 - offset, bufsize);
 
 	nread = read(isofd, buf, nattempt);
 	if (nread <= 0)
@@ -186,9 +238,10 @@ int doMediaCheck(int isofd, char *descr, char *mediasum, char *computedsum, long
     int rc;
     int dlen;
     int llen;
+    int skipsectors;
     char tmpstr[1024];
 
-    if (parsepvd(isofd, mediasum, isosize) < 0) {
+    if (parsepvd(isofd, mediasum, &skipsectors, isosize) < 0) {
 	newtWinMessage(_("Error"), _("OK"),
 		       _("Unable to read the disc checksum from the "
 			 "primary volume descriptor.  This probably "
