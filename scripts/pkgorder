@@ -83,19 +83,17 @@ pkgHash = {}
 
 # We always want all the kernels-.* in our package list, except for a few
 for package in hdlist.keys():
-    if ((len(package) >= 7 and package[:7] == "kernel-")
-        and not (len(package) >= 10 and package[:10] == "kernel-doc")
-        and not (len(package) >= 13 and package[:13] == "kernel-source")
-        and not (len(package) >= 12 and package[:12] == "kernel-debug")
-        and not (len(package) >= 11 and package[:11] == "kernel-BOOT")):
+    if (package.startswith("kernel") and
+        not package.startswith("kernel-doc") and
+        not package.startswith("kernel-source") and
+        not package.startswith("kernel-debug")):
         hdlist[package].selected = 1
         pkgOrder.append(hdlist[package].h)
         pkgHash[hdlist[package].h] = None
 
 # Tier 1 language packages get priority.
-os.environ["LINGUAS"] = ("ja_JP.eucJP:ja_JP:ja:de_DE:de:fr_FR:fr:it_IT:it:"
-                         "es_ES:es:ko_KR.eucKR:ko_KR:ko")
-
+tier1langs = ("en:en_US:de:de_DE:es:es_ES:fr:fr_FR:it:it_IT:ja:ja_JP:"
+              "ko:ko_KR:zh:zh_CN:zh_TW:pt:pt_BR:en_GB:en_CA")
 
 # Form a dictionary of _all_ the components, even sub comps
 compsDict = {}
@@ -118,13 +116,43 @@ for comp in comps:
 #print subComps
 #print compsDict
 
+# FIXME: this is a hack to get things we want to be first on the CDs earlier
+# in a more perfect world, we'd read the installclasses to do this
+complist = ["Core", "Base", "Text-based Internet", "Web Server",
+            "Windows File Server", "Printing Support",
+            "Dialup Networking Support", "Server Configuration Tools",
+            "Administration Tools"]
+# now let's pull in all of workstation common
+if comps.has_key("Workstation Common"):
+    comp = comps["Workstation Common"]
+    complist.append("Workstation Common")
+    for name in comp.includes:
+        if name not in complist:
+            complist.append(name)
+# a couple more that make sense to have early
+complist.extend(["GNOME Desktop Environment", "Emacs", "Development Tools",
+                 "Development Libraries", "X Software Development",
+                 "GNOME Software Development", "KDE Desktop Environment",
+                 "KDE Software Development"])
+        
+latelangs = []
+for name in comps:
+    if comp.name in complist:
+        continue
+    if ((comp.lang is not None) and
+        (string.find(tier1langs, comp.lang) == -1)):
+        latelangs.append(comp.name)
+    else:
+        complist.append(comp.name)
+complist.extend(latelangs)
+
 # for each comp, staring with base, list the packages
 # in alphabetical order.
-for comp in comps:
-    list = []
-    # We don't want to pay any attention to everything.
-    if len(comp.name) >= 10 and comp.name[:10] == 'Everything':
+for name in complist:
+    if not comps.has_key(name):
         continue
+    comp = comps[name]
+    list = []
 
     # don't update the hdlist selection state yet, we're going to do
     # a lot of toggling here.

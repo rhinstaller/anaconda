@@ -549,6 +549,9 @@ class Component:
         self.selectionCount = 0
         self.depsDict = {}
 
+        # this is used for the language support groups hack
+        self.lang = compgroup.langonly
+
         for pkg in compgroup.packages.keys():
             if not packages.has_key(pkg):
                 log("%s references package %s which doesn't exist"
