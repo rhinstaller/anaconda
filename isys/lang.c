@@ -89,6 +89,11 @@ int loadKeymap(gzFile stream) {
     if (isVioConsole())
         return 0;
 
+    /* assume that if we're already on a pty loading a keymap is silly */
+    fstat(0, &sb);
+    if (major(sb.st_rdev) == 3 || major(sb.st_rdev) == 136)
+	return 0;
+
     if (gunzip_read(stream, &magic, sizeof(magic)) != sizeof(magic))
 	return -EIO;
 
