@@ -40,7 +40,7 @@ def handleException(todo, (type, value, tb)):
 
 	os.close(fd)
 
-	args = [ "mkdosfs", 'mkdosfs', '/tmp/floppy' ]
+	args = [ 'mkdosfs', '/tmp/floppy' ]
 
 	cmd = "/usr/sbin/mkdosfs"
 	if os.access("/sbin/mkdosfs", os.X_OK):
