@@ -2087,8 +2087,6 @@ int kickstartFromHttp(struct knownDevices * kd, char * location,
 
     writeNetInfo("/tmp/netinfo", &netDev, kd);
 
-    logMessage("source was %s", ksSource);
-
     if (ksSource) {
         ksPath = alloca(strlen(ksSource) + 1);
         strcpy(ksPath, ksSource);
