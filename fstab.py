@@ -962,7 +962,7 @@ def readFstab (path, fstab):
 
 	if not fields: continue
 
-	if fields[0] == "#" and len(fields)>4 and fields[2:6] == "LOOP":
+	if fields[0] == "#" and len(fields)>4 and fields[1][0:4] == "LOOP":
 	    device = string.lower(fields[1])
 	    if device[len(device) - 1] == ":":
 		device = device[0:len(device) - 1]
@@ -971,7 +971,7 @@ def readFstab (path, fstab):
 		realDevice = realDevice[5:]
 	    loopIndex[device] = (realDevice, fields[3])
 
-	elif fields and fields[0][0] == '#':
+	elif line[0] == "#":
 	    # skip comments
 	    continue
 
