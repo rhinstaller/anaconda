@@ -481,9 +481,15 @@ static int loadCompressedRamdisk(int fd, off_t size, char *title,
 static int loadStage2Ramdisk(int fd, off_t size, int flags,
 			     char * device, char * mntpoint) {
     int rc;
+    char * buf;
+    char * message = N_("Loading %s ramdisk...");
+
+    message = _(message);
+
+    buf = alloca(strlen(message) + strlen(mntpoint) + 20);
+    sprintf(buf, message, mntpoint);
     
-    rc = loadCompressedRamdisk(fd, size, _("Loading second stage ramdisk..."),
-			       device, flags);
+    rc = loadCompressedRamdisk(fd, size, buf, device, flags);
     
     if (rc) {
 	newtWinMessage(_("Error"), _("OK"), _("Error loading ramdisk."));
@@ -1471,6 +1477,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	};
 #endif
 #ifdef INCLUDE_LOCAL
+    int fd;
     int partNum;
     char * partname = NULL;
     struct partitionTable partTable;
@@ -1630,7 +1637,6 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 			  modDepsPtr, flags, 1, 1);
     } else if (ksType == KS_CMD_HD) {
 	char * fsType;
-	int fd;
 	logMessage("partname is %s", partname);
 
 	for (i = 0; i < kd->numKnown; i++) {
