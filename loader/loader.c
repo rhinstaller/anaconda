@@ -179,7 +179,7 @@ static int setupRamdisk(void) {
     return 0;
 }
 
-static void startNewt(int flags) {
+void startNewt(int flags) {
     if (!newtRunning) {
 	newtInit();
 	newtCls();
@@ -412,6 +412,7 @@ int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
 int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 	     int justProbe, struct knownDevices * kd, int flags) {
     int i;
+    char modules[1024];
     struct moduleInfo ** modList;
 
     if (FL_NOPROBE(flags)) return 0;
@@ -422,29 +423,19 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
         if (detectHardware(modInfo, &modList, flags)) {
 	    logMessage("failed to scan pci bus!");
 	    return 0;
+	} else if (modList && justProbe) {
+	    for (i = 0; modList[i]; i++)
+		if (modList[i]->major == DRIVER_NET)
+		    printf("%s\n", modList[i]->moduleName);
 	} else if (modList) {
-	    logMessage("found devices justProbe is %d", justProbe);
+	    *modules = '\0';
 
 	    for (i = 0; modList[i]; i++) {
-		if (justProbe) {
-		    printf("%s\n", modList[i]->moduleName);
-		} else {
-		    if (modList[i]->major == DRIVER_NET) {
-			mlLoadModule(modList[i]->moduleName, 
-				     modLoaded, modDeps, NULL, modInfo, flags);
-		    }
-		}
+		if (i) strcat(modules, ":");
+		strcat(modules, modList[i]->moduleName);
 	    }
 
-	    for (i = 0; !justProbe && modList[i]; i++) {
-	    	if (modList[i]->major == DRIVER_SCSI) {
-		    startNewt(flags);
-
-		    mlLoadModule(modList[i]->moduleName, 
-				 modLoaded, modDeps, 
-				 NULL, modInfo, flags);
-		}
-	    }
+	    mlLoadModuleSet(modules, modLoaded, modDeps, NULL, modInfo, flags);
 
 	    kdFindScsiList(kd, 0);
 	    kdFindNetList(kd, 0);
