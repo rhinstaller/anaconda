@@ -9,7 +9,7 @@ MINISLANG=minislang
 STUBS=stubs
 endif
 
-SUBDIRSHD = balkan isys collage $(MINISLANG) po \
+SUBDIRSHD = balkan isys collage $(MINISLANG) loader po \
 	    textw utils scripts bootdisk installclasses \
 	    keymaps fonts iw pixmaps $(STUBS) iconvmodule
 SUBDIRS = $(SUBDIRSHD)
