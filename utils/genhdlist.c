@@ -44,22 +44,24 @@ char ** depOrder = NULL;
 /* mmmm... linear search */
 int getOrder (char * fn)
 {
-    char *p = NULL;
-    int i = 0;
+    char *p;
+    int i;
 
     if (!depOrder || !depOrder[0] || !depOrder[0][0]) {
 	return -1;
     }
+
+    i = -1;
+    do {
+	i++;
+	p = depOrder[i];
+    } while (p && *p && strncmp (fn, p, strlen(p)));
     
-    p = depOrder[i];
-    while (p && *p && strncmp (fn, p, strlen(p))) {
-	p = depOrder[i++];
-    }
     if (p) {
 	return i;
     }
 
-    return -1;
+    return i;
 }
 
 int onePass(FD_t outfd, const char * dirName, int cdNum) {
@@ -203,7 +205,7 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
 }
 
 static void usage(void) {
-    fprintf(stderr, "genhdlist:		genhdlist [--withnumbers] [--hdlist <path>] <paths>+\n");
+    fprintf(stderr, "genhdlist:		genhdlist [--withnumbers] [--pkgorder <path>] [--hdlist <path>] <paths>+\n");
     exit(1);
 }
 
@@ -269,7 +271,6 @@ int main(int argc, const char ** argv) {
 
 	    len = strlen(buf);
 	    depOrder[numpkgs] = malloc (len + 1);
-	    /* chomp off \n */
 	    strcpy (depOrder[numpkgs], buf);
 	    numpkgs++;
 	}
