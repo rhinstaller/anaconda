@@ -301,33 +301,34 @@ class NetworkWindow:
         for n in self.ip, self.nm, self.gw, self.ns:
             n.setFlags (FLAG_DISABLED, sense)
 
+    def calcNM (self):
+        ip = self.ip.value ()
+        if ip and not self.nm.value ():
+            try:
+                mask = isys.inet_calcNetmask (ip)
+            except ValueError:
+                return
+
+            self.nm.set (mask)
+
+    def calcGW (self):
+        ip = self.ip.value ()
+        nm = self.nm.value ()
+        if ip and nm:
+            try:
+                (net, bcast) = isys.inet_calcNetBroad (ip, nm)
+            except ValueError:
+                return
+
+            if not self.gw.value ():
+                gw = isys.inet_calcGateway (bcast)
+                self.gw.set (gw)
+            if not self.ns.value ():
+                ns = isys.inet_calcNS (net)
+                self.ns.set (ns)
+
     def __call__(self, screen, todo):
 
-        def calcNM (self):
-            ip = self.ip.value ()
-            if ip and not self.nm.value ():
-                try:
-                    mask = isys.inet_calcNetmask (ip)
-                except ValueError:
-                    return
-
-                self.nm.set (mask)
-
-        def calcGW (self):
-            ip = self.ip.value ()
-            nm = self.nm.value ()
-            if ip and nm:
-                try:
-                    (net, bcast) = isys.inet_calcNetBroad (ip, nm)
-                except ValueError:
-                    return
-
-                if not self.gw.value ():
-                    gw = isys.inet_calcGateway (bcast)
-                    self.gw.set (gw)
-                if not self.ns.value ():
-                    ns = isys.inet_calcNS (net)
-                    self.ns.set (ns)
 
         devices = todo.network.available ()
         if not devices:
@@ -366,8 +367,8 @@ class NetworkWindow:
         self.ns.set (todo.network.primaryNS)
 
         self.cb.setCallback (self.setsensitive)
-        self.ip.setCallback (calcNM, self)
-        self.nm.setCallback (calcGW, self)
+        self.ip.setCallback (self.calcNM)
+        self.nm.setCallback (self.calcGW)
 
         secondg.setField (self.ip, 1, 0, (1, 0, 0, 0))
 	secondg.setField (self.nm, 1, 1, (1, 0, 0, 0))
