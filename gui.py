@@ -61,8 +61,8 @@ class WaitWindow:
         thread = currentThread ()
         print thread.getName ()
         if thread.getName () == "gtk_main":
-        while events_pending ():
-            mainiteration (FALSE)
+            while events_pending ():
+                mainiteration (FALSE)
         threads_leave ()
             
     def pop(self):
