@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.3\n"
 "POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2002-03-24 23:30+0200\n"
+"PO-Revision-Date: 2002-04-02 07:20+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@amis.net>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -2025,12 +2025,12 @@ msgstr "Kliknite naprej za zaèetek namestitve sistema %s."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /root/install.log after "
+"A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
-"Popoln dnevnik namestitve boste na¹li v datoteki /root/install.log, ko boste "
+"Popoln dnevnik namestitve boste na¹li v datoteki /tmp/install.log, ko boste "
 "znova zagnali sistem. Morda boste ¾eleli obdr¾ati to datoteko za poznej¹i "
 "ogled. Datoteka za hitri zagon, ki vsebuje va¹e namestitvene izbore, je v /"
 "root/anaconda-ks.cfg."
@@ -2046,10 +2046,10 @@ msgstr "Kliknite naprej za zaèetek nadgradnje sistema %s."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"Popoln dnevnik namestitve boste na¹li v datoteki /root/install.log takoj, ko "
+"Popoln dnevnik namestitve boste na¹li v datoteki /tmp/install.log takoj, ko "
 "boste ponovno zagnali sistem. Morda boste ¾eleli obdr¾ati to datoteko za "
 "poznej¹i ogled."
 
@@ -2815,9 +2815,8 @@ msgstr "Nadgradi nastavitev zagonskega nalagalnika"
 
 #: ../iw/upgrade_bootloader_gui.py:69 ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
-#, fuzzy
 msgid "Update boot loader configuration"
-msgstr "Nadgradi nastavitev zagonskega nalagalnika"
+msgstr "Osve¾i nastavitev zagonskega nalagalnika"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
@@ -2847,9 +2846,8 @@ msgstr ""
 "uporablja."
 
 #: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
-#, fuzzy
 msgid "Create new boot loader configuration"
-msgstr "Prikroji nastavitev novega zagonskega nalagalnika"
+msgstr "Ustvari nastavitev novega zagonskega nalagalnika"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
@@ -2860,9 +2858,8 @@ msgstr ""
 "¾elite preklapljati med zagonskimi nalagalniki, bi morali izbrati to."
 
 #: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
-#, fuzzy
 msgid "Skip boot loader updating"
-msgstr "Preskoèi zagonski nalagalnik"
+msgstr "Preskoèi osve¾evanje zagonskega nalagalnika"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
@@ -3367,10 +3364,10 @@ msgstr "Zaèetek namestitve"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /root/install.log after "
+"A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"Popoln dnevnik namestitve boste na¹li v datoteki /root/install.log takoj, ko "
+"Popoln dnevnik namestitve boste na¹li v datoteki /tmp/install.log takoj, ko "
 "boste ponovno zagnali sistem. Morda boste ¾eleli obdr¾ati to datoteko za "
 "poznej¹i ogled."
 
@@ -4964,11 +4961,11 @@ msgstr "Ne moremo zapisovati dnevnika v %s: %s"
 #: ../loader/urls.c:91 ../loader/urls.c:99
 #, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Ne moremo obnoviti %s: %s"
+msgstr "Ni moè nalo¾iti %s: %s"
 
 #: ../loader/urls.c:104
 msgid "Retrieving"
-msgstr "Obnavljamo"
+msgstr "Nalaganje"
 
 #: ../loader/urls.c:183
 #, c-format
@@ -5279,7 +5276,7 @@ msgstr "Kanarski otoki"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr "Postaja Casey, Bailey Peninsula"
+msgstr "Postaja Casey, polotok Bailey"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
@@ -5287,11 +5284,11 @@ msgstr "Katamarka (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr "osrednja Kitajska - Gansu, Guizhou, Seèuan, Yunnan, itd."
+msgstr "osrednja Kitajska - Gansu, Gvid¾ov, Seèuan, Jinnan, itd."
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr "centralna Crimea"
+msgstr "osrednja Krimeja"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
@@ -5315,7 +5312,7 @@ msgstr "Srednjeameri¹ki èas - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr "Srednjeameri¹ki èas - Manitoba & zahodni Ontario"
+msgstr "Srednjeameri¹ki èas - Manitoba in zahodni Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
@@ -5335,7 +5332,7 @@ msgstr "Srednjeameri¹ki èas - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr "Srednjeameri¹ki èas - Rainy River & Fort Frances, Ontario"
+msgstr "Srednjeameri¹ki èas - Rainy River in Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
@@ -5354,9 +5351,8 @@ msgid "Davis Station, Vestfold Hills"
 msgstr "Postaja Davis, Vestfold Hills"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Dornod, Sukhbaatar"
-msgstr "Dornod, ©ukbatar (ni zagotovo)"
+msgstr "Dornod, Sukbatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
@@ -5372,7 +5368,7 @@ msgstr "V. Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr "vzhodna Kitajska - Peking, Guangdong, ©anghaj, itd."
+msgstr "vzhodna Kitajska - Peking, Gvandung, ©anghaj, itd."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
@@ -5473,11 +5469,11 @@ msgstr "Havaji"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr "Heilongjiang"
+msgstr "Hejlongd¾jang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr "Irian Jaya & Moluccas"
+msgstr "Irian Jaya in Moluccas"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
@@ -5485,7 +5481,7 @@ msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr "Java & Sumatra"
+msgstr "Java in Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
@@ -5501,7 +5497,7 @@ msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr "Kwajalein"
+msgstr "Kvajalejn"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -5584,9 +5580,8 @@ msgid "Moscow+07 - Sakhalin Island"
 msgstr "Moskva+07 - otok Sahalin"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+08 - Magadan"
-msgstr "Moskva+08 - Magadan in Sahalin"
+msgstr "Moskva+08 - Magadan"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
@@ -5677,11 +5672,11 @@ msgstr "Severno podroèje"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr "Pacifi¹ki èas - severni Yukon"
+msgstr "Pacifi¹ki èas - severni Jukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr "Pacifi¹ki èas - ju¾ni Yukon"
+msgstr "Pacifi¹ki èas - ju¾ni Jukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
@@ -5709,7 +5704,7 @@ msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr "Queensland - Holiday Islands"
+msgstr "Queensland - otoki Holiday"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
@@ -5749,7 +5744,7 @@ msgstr "jugozahodni Mali"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr "jugozahodni Xinjiang Uyghur"
+msgstr "jugozahodni Èinjang Ujgur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
@@ -5761,7 +5756,7 @@ msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr "Postaja Syowa, V.  Ongul I"
+msgstr "Postaja Syowa, V Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
@@ -5769,12 +5764,11 @@ msgstr "Tasmanija"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr "Thule / Pituffik"
+msgstr "Thule / Pitufik"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr "Tibet in Xinjiang"
+msgstr "Tibet in veèina ©injang Ujgurja"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -5782,7 +5776,7 @@ msgstr "Tokantini"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr "Truk (Chuuk)"
+msgstr "Truk (Èuuk)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -5794,15 +5788,15 @@ msgstr "Postaja Vostok, J magnetni pol"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr "Wake Island"
+msgstr "Otok Wake"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr "Z. Amazonka"
+msgstr "Z Amazonka"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr "Z. Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+msgstr "Z Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -5817,9 +5811,8 @@ msgid "Western Australia"
 msgstr "Zahodna Avstralija"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "West Kazakhstan"
-msgstr "vzhodni Kazahstan"
+msgstr "Zahodni Kazahstan"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -5827,7 +5820,7 @@ msgstr "zahodni Uzbekistan"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr "Z. Para, Rondonija"
+msgstr "Z Para, Rondonija"
 
 #. generated from zone.tab
 msgid "Yap"

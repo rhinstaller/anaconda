@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: installer 7.2\n"
 "POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2002-03-26 11:55GMT\n"
+"PO-Revision-Date: 2002-04-06 13:28GMT\n"
 "Last-Translator: Frigga <frigga@redhat.it>\n"
-"Language-Team: german <C@li.org>\n"
+"Language-Team: german <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -541,7 +541,7 @@ msgid ""
 msgstr ""
 "Ein außergewöhnlicher Zustand ist eingetreten. Dies weist wahrscheinlich auf "
 "einen Fehler hin. Bitte kopieren Sie den vollständigen Text der angezeigten "
-"Meldung oder sichern Sie den Fehlerbericht auf einer Floppy und reichen Sie "
+"Meldung oder sichern Sie den Fehlerbericht auf einer Floppy, und reichen Sie "
 "unter http://bugzilla.redhat.com/bugzilla einen detaillierten Fehlerbericht "
 "ein."
 
@@ -1090,8 +1090,8 @@ msgstr "Zurücksetzen bestätigen"
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
-"Sind Sie sicher, dass Sie die Partitionstabelle in den "
-"Originalzustandzurücksetzenn möchten?"
+"Sind Sie sicher, dass Sie die Partitionstabelle in den Originalzustand "
+"zurücksetzenn möchten?"
 
 #: ../partitioning.py:1683
 msgid "the partition in use by the installer."
@@ -1911,7 +1911,7 @@ msgid ""
 msgstr ""
 "Wählen Sie den Bootloader, den der Computer verwendet. GRUB ist der "
 "standardmäßige Bootloader. Wenn Sie jedoch Ihren derzeitigen Bootloader "
-"nicht überschreiben möchten, wählen Sie \"Bootloader nicht installieren.\" "
+"nicht überschreiben möchten, wählen Sie \"Keinen Bootloader installieren.\" "
 
 #: ../iw/bootloader_gui.py:356 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:266 ../textw/silo_text.py:207
@@ -1991,10 +1991,10 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"Durch Bootloader-Passwort wird vermieden, dass Benutzer willkürliche "
-"Optionen an den Kernel übergeben. Für eine verbesserte Sicherheit empfehlen "
-"wir die Erstellung eines Passworts. Dies ist jedoch für Benutzer, die das "
-"System nur gelegentlich nutzen, nicht notwendig."
+"Durch das Bootloader-Passwort wird vermieden, dass Benutzer willkürliche "
+"Optionen an den Kernel übergeben. Zur besseren Sicherheit empfehlen wir die "
+"Erstellung eines Passworts. Dies ist jedoch für Benutzer, die das System nur "
+"gelegentlich nutzen, nicht notwendig."
 
 #: ../iw/bootloaderpassword_gui.py:84
 msgid "Use a GRUB Password?"
@@ -2014,12 +2014,12 @@ msgstr "Klicken Sie auf Weiter, um mit der Installation von %s zu beginnen."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /root/install.log after "
+"A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in "
 "/root/anaconda-ks.cfg."
 msgstr ""
-"Nach dem Neustart des Systems befindet sich im Verzeichnis /root/install.log "
+"Nach dem Neustart des Systems befindet sich im Verzeichnis /tmp/install.log "
 "ein vollständiges Protokoll der Installation. Sie sollten diese Datei für "
 "Referenzzwecke dauerhaft speichern. Eine Kickstart-Datei mit Ihrer Auswahl "
 "befindet sich im Verzeichnis /root/anaconda-ks.cfg."
@@ -2034,11 +2034,11 @@ msgstr "Klicken Sie auf Weiter, um mit dem Aktualisieren von %s zu beginnen."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
 "Ein komplettes Protokoll mit Angaben zu Ihrem Upgrade steht Ihnen nach dem "
-"Neustart Ihres Systems in /root/upgrade.log zur Verfügung. Sie sollten diese "
+"Neustart Ihres Systems in /tmp/upgrade.log zur Verfügung. Sie sollten diese "
 "Datei für Referenzzwecke dauerhaft speichern."
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
@@ -2367,7 +2367,7 @@ msgstr "Zweiter DNS"
 
 #: ../iw/network_gui.py:252
 msgid "Tertiary DNS"
-msgstr "Tertiary DNS"
+msgstr "Dritter DNS"
 
 #: ../iw/package_gui.py:41 ../textw/packages_text.py:237
 msgid "Individual Package Selection"
@@ -3246,8 +3246,7 @@ msgstr ""
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
-" <Leertaste> wählt den Button | <F2> wählt den Standard-Booteintrag | <F12> "
-"nächster Bildschirm>"
+" <Leertaste> Button | <F2> Standard-Booteintrag | <F12> nächster Bildschirm>"
 
 #: ../textw/bootloader_text.py:384
 msgid "Use a GRUB Password"
@@ -3356,10 +3355,10 @@ msgstr "Installation beginnt"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /root/install.log after "
+"A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"Nach dem Neustart des Systems befindet sich im Verzeichnis /root/install.log "
+"Nach dem Neustart des Systems befindet sich im Verzeichnis /tmp/install.log "
 "ein vollständiges Protokoll der Installation. Sie sollten diese Datei für "
 "Referenzzwecke dauerhaft speichern."
 
@@ -5874,7 +5873,7 @@ msgid ""
 "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN.GB2312  "
 "          us              Asia/Shanghai"
 msgstr ""
-"Chinesische(vereinfacht)    zh_CN.GB2312    Kein    Kein            "
+"Chinesisch(vereinfacht)    zh_CN.GB2312    Kein    Kein            "
 "zh_CN.GB2312            us              Asien/Shanghai"
 
 #. generated from lang-table
@@ -5882,8 +5881,8 @@ msgid ""
 "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW.Big5    "
 "          us              Asia/Taipei"
 msgstr ""
-"Chinesisch(Traditional)   zh_TW.Big5      Kein    Kein            zh_TW.Big5 "
-"             us              Asien/Taipei"
+"Chinesisch(Traditionell)   zh_TW.Big5      Kein    Kein            "
+"zh_TW.Big5              us              Asien/Taipei"
 
 #. generated from lang-table
 msgid "Czech"

@@ -3,13 +3,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2001-08-26 10:50+0200\n"
+"PO-Revision-Date: 2002-04-03 15:50+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9alpha\n"
 
 #: ../anaconda:313
 msgid ""
@@ -612,14 +611,14 @@ msgid "Hide Help"
 msgstr "Skjul hjælp"
 
 #: ../gui.py:678
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer"
-msgstr "Efter installation"
+msgstr "%s-installation"
 
 #: ../gui.py:693
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer on %s"
-msgstr "Red Hat Linux installerer på %s"
+msgstr "%s-installation på %s"
 
 #: ../gui.py:731
 msgid "Unable to load title bar"
@@ -751,9 +750,8 @@ msgstr ""
 "eller defekt medie. Tryk <return> for at prøve igen."
 
 #: ../packages.py:280
-#, fuzzy
 msgid "Error Installing Package"
-msgstr "Installerer pakker"
+msgstr "Fejl ved installering af pakke"
 
 #: ../packages.py:281
 #, python-format
@@ -765,34 +763,42 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"Der var en fejl ved installation af %s. Dette kan betyde en fejl på mediet, "
+"mangel på diskplads og/eller problemer med udstyr. Dette er en afgørende fejl "
+"og din installation vil blive afbrudt. Kontrollér venligs dit medie og "
+"prøv at installere igen."
 
 #: ../packages.py:530
 msgid "Setting up RPM transaction..."
 msgstr "Opsætter RPM-transaktion..."
 
 #: ../packages.py:567
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
-msgstr "Opgraderer %s.\n"
+msgstr ""
+"Opgraderer %s pakker\n"
+"\n"
 
 #: ../packages.py:569
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
-msgstr "Installerer pakker"
+msgstr ""
+"Installerer %s pakker\n"
+"\n"
 
 #: ../packages.py:576
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s-%s-%s.\n"
-msgstr "Opgraderer %s.\n"
+msgstr "Opgraderer %s-%s-%s.\n"
 
 #: ../packages.py:578
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.\n"
-msgstr "Installerer %s.\n"
+msgstr "Installerer %s-%s-%s.\n"
 
 #: ../packages.py:594
 #, python-format
@@ -804,15 +810,20 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"De følgende pakker blev automatisk\n"
+"valgt til at blive installeret:\n"
+"%s\n"
+"\n"
 
 #: ../packages.py:600
-#, fuzzy
 msgid "Install Starting"
-msgstr "Installationstype"
+msgstr "Installationen starter"
 
 #: ../packages.py:601
 msgid "Starting install process, this may take several minutes..."
-msgstr ""
+msgstr "Starter installationsproces, dette kan tage adskillige minutter..."
 
 #: ../packages.py:646
 msgid ""
@@ -858,6 +869,9 @@ msgid ""
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
+"\n"
+"\n"
+"De følgende pakker var tilstede i denne version men blev IKKE opgraderet:\n"
 
 #: ../packages.py:715
 msgid "Post Install"
@@ -872,13 +886,12 @@ msgid "Foreign"
 msgstr "Dansk"
 
 #: ../partitioning.py:355
-#, fuzzy
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters and no spaces."
 msgstr ""
 "Monteringspunktet er ugyldigt. Monteringspunkter skal begynde med '/', kan "
-"ikke slutte med '/', og må bare indeholde udskrivbare tegn."
+"ikke slutte med '/', og må bare indeholde udskrivbare tegn og ingen blanke."
 
 #: ../partitioning.py:363
 msgid "Please specify a mount point for this partition."
@@ -956,22 +969,22 @@ msgstr ""
 "reservediske skal du tilføje medlemmer på RAID-enheden."
 
 #: ../partitioning.py:578
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
 "Du har ikke defineret en rod-partition (/). Dette skal gøres før "
-"installationen af Red Hat Linux kan fortsætte."
+"installationen af %s kan fortsætte."
 
 #: ../partitioning.py:581
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
 "Din rod-partition er mindre end 250 megabyte og dette er normalt for lidt "
-"til at installere Red Hat Linux."
+"til at installere %s."
 
 #: ../partitioning.py:586
 msgid ""
@@ -980,13 +993,13 @@ msgstr ""
 "Du skal lave en /boot/efi-partition af type FAT og med størrelse 50 MB."
 
 #: ../partitioning.py:594
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
 "Din %s-partition er mindre end %s megabyte og dette er lavere end anbefalet "
-"for en almindelig installation af Red Hat Linux."
+"for en almindelig installation af %s."
 
 #: ../partitioning.py:621
 msgid ""
@@ -998,12 +1011,12 @@ msgstr ""
 "installationer."
 
 #: ../partitioning.py:625
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"Du har specificeret mere end 32 swap-enheder. Kernen for Red Hat Linux "
+"Du har specificeret mere end 32 swap-enheder. Kernen for %s "
 "støtter kun 32 swap-enheder."
 
 #: ../partitioning.py:634
@@ -1016,7 +1029,7 @@ msgstr ""
 "system. Dette kan have negativ indvirkning på ydelsen."
 
 #: ../partitioning.py:707
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type for your "
 "architecture.  To use this disk for installation of %s, it must be re-"
@@ -1025,7 +1038,7 @@ msgid ""
 "Would you like to initialize this drive?"
 msgstr ""
 "Partitionstabellen på enhed /dev/%s er af en uventet type for din "
-"arkitektur. For at bruge denne disk for en installation af Red Hat Linux "
+"arkitektur. For at bruge denne disk for en installation af %s "
 "skal den re-initieres. Dette medfører tab af ALLE DATA på denne disk.\n"
 "\n"
 "Ønsker du at initiere denne disk?"
@@ -1254,7 +1267,7 @@ msgid "Error with Partitioning"
 msgstr "Fejl under partitionering"
 
 #: ../partitioning.py:1895
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
 "These errors must be corrected prior to continuing with your install of %s.\n"
@@ -1262,7 +1275,7 @@ msgid ""
 "%s"
 msgstr ""
 "Følgende kritiske fejl opstod med dit forespurgte partitionsoplæg. Disse "
-"fejl skal rettes op før du fortsætter med installationen af Red Hat Linux.\n"
+"fejl skal rettes op før du fortsætter med installationen af %s.\n"
 "\n"
 "%s"
 
@@ -1314,7 +1327,6 @@ msgid "Rescue"
 msgstr "Red"
 
 #: ../rescue.py:100
-#, fuzzy
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory /mnt/sysimage.  You can then "
@@ -1328,7 +1340,9 @@ msgid ""
 msgstr ""
 "Redningsmiljøet vil nu forsøge at finde din Red Hat Linux installation og "
 "montere den under kataloget /mnt/sysimage. Du kan da udføre alle ændringer "
-"på systemet. Hvis du vil fortsætte med denne opgave vælg 'Fortsæt'.\n"
+"krævet for systemet. Hvis du vil fortsætte med denne opgave vælg 'Fortsæt'. "
+"Du kan også vælge at montere dine filsystemer med skrivebeskyttelse i "
+"stedet for både med læse- og skriverettigheder ved at vælge 'Skrivebeskyttet'.\n"
 "\n"
 "Hvis denne proces fejler af nogen grund kan du vælge 'Hop over' så vil dette "
 "trin blive hoppet over og du vil gå direkte til en kommandoskal.\n"
@@ -1339,9 +1353,8 @@ msgid "Continue"
 msgstr "Fortsæt"
 
 #: ../rescue.py:110 ../rescue.py:119
-#, fuzzy
 msgid "Read-Only"
-msgstr "Læser"
+msgstr "Skrivebeskyttet"
 
 #: ../rescue.py:110 ../rescue.py:112 ../textw/bootdisk_text.py:68
 #: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
@@ -1364,14 +1377,14 @@ msgid "Exit"
 msgstr "Afslut"
 
 #: ../rescue.py:164
-#, fuzzy
 msgid ""
 "Your system had dirty filesystems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Du har ikke nogen linux-partitioner. Tryk <return> for at gå til en "
-"kommandofortolker. Computeren vil automatisk genstarte når du afslutter "
+"Dit system har urene filsystemer som du har valgt ikke at montere. Tryk "
+"<return> for at gå til en kommandofortolker hvorfra du kan tjekke (med fsck) "
+"og montere dine partitioner. Maskinen vil automatisk genstarte når du afslutter "
 "kommandofortolkeren."
 
 #: ../rescue.py:172
@@ -1446,9 +1459,9 @@ msgid "Debug"
 msgstr "Fejlfind"
 
 #: ../text.py:321
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2002 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
+msgstr "%s (C) 2002 Red Hat, Inc."
 
 #: ../text.py:324
 msgid ""
@@ -1476,9 +1489,9 @@ msgid "Searching"
 msgstr "Søger"
 
 #: ../upgrade.py:44
-#, fuzzy, python-format
+#, python-format
 msgid "Searching for %s installations..."
-msgstr "Søger efter Red Hat Linux-installationer..."
+msgstr "Søger efter %s-installationer..."
 
 #: ../upgrade.py:77 ../upgrade.py:84
 msgid "Dirty Filesystems"
@@ -1495,14 +1508,12 @@ msgstr ""
 "og lukket ordentligt ned for at opgradere."
 
 #: ../upgrade.py:85
-#, fuzzy
 msgid ""
 "One or more filesystems for your Linux system was not unmounted cleanly.  "
 "Would you like to mount them anyway?"
 msgstr ""
 "Et eller flere filsystemer på dit system blev ikke afmonteret uden "
-"problemer. Genstart din Linux-installation, lad filsystemerne blive tjekket "
-"og lukket ordentligt ned for at opgradere."
+"problemer. Vil du montere dem alligevel?"
 
 #: ../upgrade.py:225 ../upgrade.py:231
 msgid "Mount failed"
@@ -1514,17 +1525,17 @@ msgid ""
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
 "Et eller flere af de filsystemer der står i din /etc/fstab kunne ikke "
-"monteres. Ret venligst dette problem, og prøv opgraderingen igen."
+"monteres. Ret venligst dette problem, og prøv at opgradere igen."
 
 #: ../upgrade.py:232
-#, fuzzy
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab of your Linux system "
 "are inconsistent and cannot be mounted.  Please fix this problem and try to "
 "upgrade again."
 msgstr ""
-"Et eller flere af de filsystemer der står i din /etc/fstab kunne ikke "
-"monteres. Ret venligst dette problem, og prøv opgraderingen igen."
+"Et eller flere af de filsystemer der står i /etc/fstab på dit Linux-system "
+"er inkonsistente og kan ikke "
+"monteres. Ret venligst dette problem, og prøv at opgradere igen."
 
 #: ../upgrade.py:248
 msgid ""
@@ -1605,15 +1616,15 @@ msgstr "Kunne ikke identificere skærmkort"
 
 #: ../xserver.py:101
 msgid "Attempting to start framebuffer based X server"
-msgstr "Forsøger at starte framebuffer-baseret X-tjener"
+msgstr "Forsøger at starte framebuffer-baseret X-server"
 
 #: ../xserver.py:109
 msgid "Attempting to start native X server"
-msgstr "Forsøger at starte \"native\" X-tjener"
+msgstr "Forsøger at starte \"native\" X-server"
 
 #: ../xserver.py:117
 msgid "Attempting to start VGA16 X server"
-msgstr "Forsøger at starte VGA16 X-tjener"
+msgstr "Forsøger at starte VGA16 X-server"
 
 #: ../xserver.py:170
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
@@ -1831,14 +1842,14 @@ msgid "Boot Disk Creation"
 msgstr "Fremstil opstartsdiskette"
 
 #: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot disk allows you to boot your %s system from a floppy diskette.\n"
 "\n"
 "Please remove any diskettes from the floppy drive and insert a blank "
 "diskette. All data will be ERASED during creation of the boot disk."
 msgstr ""
-"Opstartsdisketten lader dig starte dit Red Hat Linux system fra en "
+"Opstartsdisketten lader dig starte dit %s system op fra en "
 "diskette.\n"
 "\n"
 "Venligst fjern alle disketter fra diskettestationen og indsæt en tom "
@@ -2009,18 +2020,18 @@ msgid "About to Install"
 msgstr "Klar til at installere"
 
 #: ../iw/confirm_gui.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Klik på næste for at begynde installation af Red Hat Linux"
+msgstr "Klik på næste for at begynde installation af %s"
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /root/install.log after "
+"A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
-"En komplet log af installationen vil befinde sig i /root/install.log efter "
+"En komplet log af installationen vil befinde sig i /tmp/install.log efter "
 "omstart af systemet. Du vil måske beholde denne fil som et referencepunkt "
 "til senere. En kickstart-fil som repræsenterer valgene du gjorde vil være i /"
 "root/anaconda-ks.cfg."
@@ -2030,16 +2041,16 @@ msgid "About to Upgrade"
 msgstr "Klar til at opgradere"
 
 #: ../iw/confirm_gui.py:73
-#, fuzzy, python-format
+#, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Klik på næste for at begynde opgradering af Red Hat Linux"
+msgstr "Klik på næste for at begynde opgradering af %s"
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"En komplet log af din installation vil befinde sig i /root/install.log efter "
+"En komplet log af din installation vil befinde sig i /tmp/install.log efter "
 "du har genstartet dit system. Du kan beholde denne fil til senere reference."
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
@@ -2047,18 +2058,18 @@ msgid "Congratulations"
 msgstr "Tillykke"
 
 #: ../iw/congrats_gui.py:48 ../textw/complete_text.py:30
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you created a boot disk to use to boot your %s system, insert it before "
 "you press <Enter> to reboot.\n"
 "\n"
 msgstr ""
-"Hvis du lavede en opstartsdiskette for opstart af dit Red Hat Linux-system, "
-"så sæt den i diskettestationen før du trykker <Enter> for omstart.\n"
+"Hvis du lavede en opstartsdiskette for opstart af dit %s-system, "
+"så sæt den i diskettestationen før du trykker <Enter> for genstart.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:56
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -2071,19 +2082,19 @@ msgid ""
 "Information on using and configuring your system is available in the %s "
 "manuals at http://www.redhat.com/docs."
 msgstr ""
-"Tillykke, din installation af Red Hat Linux er færdig.\n"
+"Tillykke, din installation af %s er færdig.\n"
 "\n"
 "Fjern alle disketter som blev brugt under installationsprocessen og tryk "
 "<retur> for at genstarte maskinen.\n"
 "\n"
-"%sFor oplysninger om hvilke fejlretninger der findes for denne udgave af Red "
-"Hat Linux, se http://www.redhat.com/errata/.\n"
+"%sFor oplysninger om hvilke opdateringer og fejlretninger der findes, "
+"se http://www.redhat.com/errata/.\n"
 "\n"
-"Information om brug og konfiguration af dit system finder du i Red Hat Linux "
+"Information om brug og konfiguration af dit system finder du i %s-"
 "manualerne tilgængelig på http://www.redhat.com/support/manuals/."
 
 #: ../iw/congrats_gui.py:104
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -2095,10 +2106,10 @@ msgid ""
 msgstr ""
 "Tillykke, konfigureringen er færdig.\n"
 "\n"
-"For oplysninger om hvilke fejlretninger der findes, se http://www.redhat."
-"com.\n"
+"For oplysninger om hvilke opdateringer og fejlretninger der findes, "
+"se http://www.redhat.com/errata/.\n"
 "\n"
-"Information om brug og konfiguration af dit system finder du i Red Hat Linux "
+"Information om brug og konfiguration af dit system finder du i %s "
 "manualerne tilgængelig på http://www.redhat.com/support/manuals/."
 
 #: ../iw/dependencies_gui.py:20
@@ -2149,9 +2160,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Vælg enheden som indeholder rodfilsystemet: "
 
 #: ../iw/examine_gui.py:89 ../textw/upgrade_text.py:225
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading the %s installation on partition /dev/%s"
-msgstr "Opgraderer Red Hat Linux-installationen på partition /dev/%s"
+msgstr "Opgraderer %s-installationen på partition /dev/%s"
 
 #: ../iw/examine_gui.py:95
 msgid "Customize packages to be upgraded"
@@ -2367,7 +2378,6 @@ msgid "Secondary DNS"
 msgstr "Sekundær DNS"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Tertiary DNS"
 msgstr "Tertiær DNS"
 
@@ -2428,12 +2438,11 @@ msgid ""
 msgstr "Følgende kritiske fejl opstod med dit forespurgte partitionsoplæg."
 
 #: ../iw/partition_gui.py:556
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
-"Disse fejl skal rettes op før du fortsætter med installationen af Red Hat "
-"Linux."
+"Disse fejl skal rettes op før du fortsætter med installationen af %s."
 
 #: ../iw/partition_gui.py:563
 msgid "Partitioning Errors"
@@ -2664,9 +2673,9 @@ msgid "Automatic Partitioning"
 msgstr "Automatisk partitionering"
 
 #: ../iw/partition_gui.py:1626
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one drive to have %s installed onto."
-msgstr "Du skal vælge mindst et drev du skal installere Red Hat Linux på."
+msgstr "Du skal vælge mindst et drev du skal installere %s på."
 
 #: ../iw/partition_gui.py:1666
 msgid "I want to have automatic partitioning:"
@@ -2801,74 +2810,77 @@ msgid "UTC Offset"
 msgstr "GMT forskydning"
 
 #: ../iw/upgrade_bootloader_gui.py:29 ../textw/upgrade_bootloader_text.py:72
-#, fuzzy
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Konfiguration af opstartsindlæser"
+msgstr "Opgradér konfiguration af opstartsindlæser"
 
 #: ../iw/upgrade_bootloader_gui.py:69 ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
-#, fuzzy
 msgid "Update boot loader configuration"
-msgstr "Konfiguration af opstartsindlæser"
+msgstr "Opdatér konfiguration af opstartsindlæser"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
-msgstr ""
+msgstr "Dette vil opdatere din nuværende opstartsindlæser."
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
+"Installeringen har fundet %s opstartsindlæseren aktuelt installeret på %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 #, python-format
 msgid "%s  %s"
-msgstr ""
+msgstr "%s  %s"
 
 #: ../iw/upgrade_bootloader_gui.py:77
 msgid "This is the recommended option."
-msgstr ""
+msgstr "Dette er den anbefalede valgmulighed."
 
 #: ../iw/upgrade_bootloader_gui.py:81 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
+"Installeringen kan ikke finde nogen opstartsindlæser som bruges for nærværende  på dit system."
 
 #: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
-#, fuzzy
 msgid "Create new boot loader configuration"
-msgstr "Opret opstartsdiskette"
+msgstr "Opret ny konfiguration af opstartsindlæser"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
+"Dette vil lade dig oprette en ny konfiguration for opstartsindlæser. Hvis du "
+"ønsker at skifte opstartsindlæser bør du vælge dette." 
 
 #: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
-#, fuzzy
 msgid "Skip boot loader updating"
-msgstr "Hop over opstartsindlæser"
+msgstr "Overspring opdatering af opstartsindlæser"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
+"Dette vil ikke lave nogen ændringer til din konfiguration af "
+"opstartsindlæser. Hvis du bruger en tredjeparts opstartsindlæser bør du vælge "
+"dette."
+
 
 #: ../iw/upgrade_bootloader_gui.py:111
-#, fuzzy
 msgid "What would you like to do?"
-msgstr "Hvilken slags enhed vil du gerne tilføje"
+msgstr "Hvad har du lyst al lave?"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:31
 msgid "Migrate Filesystems"
 msgstr "Migrér filsystemer"
 
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journalling filesystem.  It has several "
 "benefits over the ext2 filesystem traditionally shipped in %s.  It is "
@@ -2877,9 +2889,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Denne udgave af Red Hat Linux understøtter det journaliserende ext3-"
-"filsystem. Det har flere fordele frem for ext2-filsystemet som traditionelt "
-"har vært brugt i Red Hat Linux. Det er muligt at migrere ext2-formaterede "
+"Denne udgave af %s understøtter det journaliserende ext3-"
+"filsystem. Det har flere fordele fremfor ext2-filsystemet som traditionelt "
+"har vært brugt i %s. Det er muligt at migrere ext2-formaterede "
 "partitioner til ext3 uden tab af data.\n"
 "\n"
 "Hvilken af disse partitioner vil du migrere?"
@@ -3070,19 +3082,20 @@ msgid "Graphical Interface (X) Configuration"
 msgstr "Konfiguration af grafisk grænseflade (X)"
 
 #: ../iw/xconfig_gui.py:723
-#, fuzzy
 msgid "Unknown server"
-msgstr "Ukendt vært"
+msgstr "Ukendt server"
 
 #: ../iw/xconfig_gui.py:724
 msgid ""
 "This video card has no suitable X server in the database.  You will need to "
 "choose a different card or choose the 'Skip X Configuration' button."
 msgstr ""
+"Dette videokort har ingen passende X-server i databasen. Du er nødt til at "
+"vælge et andet kort eller vælge 'Overspring konfiguration af X'-knappen."
 
 #: ../iw/xconfig_gui.py:731 ../textw/xconfig_text.py:620
 msgid "Unspecified video card"
-msgstr "Ikke-specificeret skærmkort"
+msgstr "U-specificeret skærmkort"
 
 #: ../iw/xconfig_gui.py:732 ../textw/xconfig_text.py:621
 msgid ""
@@ -3091,7 +3104,7 @@ msgid ""
 "button."
 msgstr ""
 "Du skal vælge et skærmkort før X-konfigurationen kan fortsætte. Hvis du "
-"ønsker at hoppe over X-konfigurationen vælg 'Hop over konfiguration af X'-"
+"ønsker at hoppe over X-konfigurationen vælg 'Overspring konfiguration af X'-"
 "knappen."
 
 #: ../iw/xconfig_gui.py:852
@@ -3242,6 +3255,7 @@ msgstr ""
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
+"<mellemrum> vælger knap | <F2> standard opstartsindgang | <F12> næste skærm>"
 
 #: ../textw/bootloader_text.py:384
 msgid "Use a GRUB Password"
@@ -3277,7 +3291,7 @@ msgid "Complete"
 msgstr "Færdig"
 
 #: ../textw/complete_text.py:37
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -3290,7 +3304,7 @@ msgid ""
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/docs."
 msgstr ""
-"Tillykke, din Red Hat Linux installation er fuldført.\n"
+"Tillykke, din %s installation er færdig.\n"
 "\n"
 "Fjern alle disketter du brugte under installationen og tryk <Enter> for at "
 "starte igen.\n"
@@ -3299,14 +3313,14 @@ msgstr ""
 "www.redhat.com/errata.\n"
 "\n"
 "Information om brug af systemet er tilgængelig i Red Hat Linux "
-"brugerhåndbøgene som findes på http://www.redhat.com/support/manuals."
+"brugerhåndbøgene som findes på http://www.redhat.com/docs."
 
 #: ../textw/complete_text.py:55
 msgid "<Enter> to continue"
 msgstr "<Retur> for at genstarte"
 
 #: ../textw/complete_text.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, package installation is complete.\n"
 "\n"
@@ -3315,19 +3329,19 @@ msgid ""
 "Information on configuring and using your Red Hat Linux system is contained "
 "in the %s manuals."
 msgstr ""
-"Tillykke, pakkeinstallationen er fuldført.\n"
+"Tillykke, pakkeinstallationen er færdig.\n"
 "\n"
 "Tryk <Enter> for at fortsætte.\n"
 "\n"
-"Information om konfiguration og brug af dit Red Hat Linux system findes i "
-"Red Hat Linux brugerhåndbøgene."
+"Information om konfiguration og brug af dit Red Hat Linux-system findes i "
+"%s-brugerhåndbøgene."
 
 #: ../textw/complete_text.py:69
 msgid "<Enter> to exit"
 msgstr "<Retur> for at afslutte"
 
 #: ../textw/complete_text.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -3337,13 +3351,13 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs."
 msgstr ""
-"Tillykke, konfigurationen er fuldført.\n"
+"Tillykke, konfigurationen er færdig.\n"
 "\n"
 "For information om errata (opdateringer og fejlrettinger), besøg http://www."
 "redhat.com/errata.\n"
 "\n"
-"Information om brug af systemet er tilgængelig i Red Hat Linux "
-"brugerhåndbøgene på http://www.redhat.com/support/manuals."
+"Information om brug af systemet er tilgængelig i %s "
+"brugerhåndbøgene på http://www.redhat.com/docs."
 
 #: ../textw/confirm_text.py:20
 msgid "Installation to begin"
@@ -3351,10 +3365,10 @@ msgstr "Installation begynder"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /root/install.log after "
+"A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"En komplet log af din installation vil befinde sig i /root/install.log efter "
+"En komplet log af din installation vil befinde sig i /tmp/install.log efter "
 "du har genstartet dit system. Du kan beholde denne fil for senere reference."
 
 #: ../textw/confirm_text.py:32
@@ -3496,9 +3510,9 @@ msgid "Mouse Selection"
 msgstr "Musevalg"
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "Network Device: %s"
-msgstr "Netværksenhed"
+msgstr "Netværksenhed: %s"
 
 #: ../textw/network_text.py:70
 msgid "Use bootp/dhcp"
@@ -3525,14 +3539,13 @@ msgid "Secondary nameserver:"
 msgstr "Sekundær navneserver:"
 
 #: ../textw/network_text.py:85
-#, fuzzy
 msgid "Tertiary nameserver:"
 msgstr "Tertiær navneserver:"
 
 #: ../textw/network_text.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Network Configuration for %s"
-msgstr "Konfiguration af netværk"
+msgstr "Konfiguration af netværk for %s"
 
 #: ../textw/network_text.py:137
 msgid "Invalid information"
@@ -3872,9 +3885,8 @@ msgstr ""
 "meget vigtig del af systemets sikkerhed!"
 
 #: ../textw/userauth_text.py:38
-#, fuzzy
 msgid "Password (confirm):"
-msgstr "Adgangskode (bekræft)"
+msgstr "Adgangskode (bekræft):"
 
 #: ../textw/userauth_text.py:54 ../textw/userauth_text.py:128
 msgid "Password Length"
@@ -3897,9 +3909,8 @@ msgid "Add User"
 msgstr "Tilføj bruger"
 
 #: ../textw/userauth_text.py:100
-#, fuzzy
 msgid "User Name"
-msgstr "Brugernavn:"
+msgstr "Brugernavn"
 
 #: ../textw/userauth_text.py:101
 msgid "Password"
@@ -4015,10 +4026,10 @@ msgstr "Brug TLS-forbindelser"
 #: ../textw/welcome_text.py:22 ../textw/welcome_text.py:42
 #, python-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../textw/welcome_text.py:23
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -4029,17 +4040,17 @@ msgid ""
 "If you have purchased Official %s, be sure to register your purchase through "
 "our web site, http://www.redhat.com/."
 msgstr ""
-"Velkommen til Red Hat Linux!\n"
+"Velkommen til %s!\n"
 "\n"
-"Denne installationsproces er beskrevet i detaljer i den officielle Red Hat "
-"Linux installationsguide som kan fås fra Red Hat, Inc.. Hvis du har adgang "
+"Denne installationsproces er beskrevet i detaljer i den officielle %s "
+"installationsguide som kan fås fra Red Hat, Inc.. Hvis du har adgang "
 "til denne manual, bør du læse afsnittet om installation før du fortsætter.\n"
 "\n"
-"Har du købt den officielle Red Hat Linux, husk da at registrere dit køb "
+"Har du købt den officielle %s, husk da at registrere dit køb "
 "gennem vores webside, http://www.redhat.com/."
 
 #: ../textw/welcome_text.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -4048,12 +4059,12 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
-"Velkommen til Red Hat Linux!\n"
+"Velkommen til %s!\n"
 "\n"
 "Du er i en omkonfigurationstilstand som giver dig mulighed for at "
 "konfigurere din maskines lokalt-specifikke indstillinger.\n"
 "\n"
-"Tryk på Annullér knappen for afslutte uden at ændre din opsætning."
+"Tryk på Annullér-knappen nedenfor for afslutte uden at ændre din opsætning."
 
 #: ../textw/xconfig_text.py:24
 msgid "Color Depth"
@@ -4318,13 +4329,13 @@ msgid "Failed to mount driver disk."
 msgstr "Kunne ikke montere driverdiskette."
 
 #: ../loader/devices.c:266
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of %"
 "s."
 msgstr ""
 "Disketten du indsatte er ikke en gyldig driverdiskette til denne udgave af "
-"Red Hat Linux."
+"%s."
 
 #: ../loader/devices.c:326
 msgid ""
@@ -4363,9 +4374,9 @@ msgid "Error on line %d of kickstart file %s."
 msgstr "Fejl på linje %d i kickstartsfilen %s."
 
 #: ../loader/lang.c:41 ../loader/loader.c:195
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s"
-msgstr "Velkommen"
+msgstr "Velkommen til %s"
 
 #: ../loader/lang.c:42 ../loader/loader.c:201
 msgid ""
@@ -4406,9 +4417,8 @@ msgid "What kind of device would you like to add"
 msgstr "Hvilken slags enhed vil du gerne tilføje"
 
 #: ../loader/loader.c:377
-#, fuzzy
 msgid "The following devices have been found on your system:"
-msgstr "Jeg har fundet følgende enheder på dit system:"
+msgstr "De følgende enheder er belvet fundet på dit system:"
 
 #: ../loader/loader.c:379 ../loader/loader.c:404
 msgid "Done"
@@ -4419,12 +4429,11 @@ msgid "Add Device"
 msgstr "Tilføj enhed"
 
 #: ../loader/loader.c:405
-#, fuzzy
 msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
 msgstr ""
-"Jeg har ikke indlæst nogle specialenhedsdrivere for dit system. Vil du gerne "
+"Der er ikke indlæst nogle specialenhedsdrivere for dit system. Vil du gerne "
 "have nogle indlæst nu?"
 
 #: ../loader/loader.c:489 ../loader/loader.c:896 ../loader/loader.c:2749
@@ -4437,6 +4446,8 @@ msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
+"En fejl skete ved læsning af installation fra ISO-billederne, Kontrollér "
+"venligts dine ISO-billeder og prøv igen."
 
 #: ../loader/loader.c:913
 #, c-format
@@ -4445,14 +4456,17 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"Ønsker du at udføre en test af tjeksum på ISO-billedet:\n"
+"\n"
+"   %s?"
 
 #: ../loader/loader.c:916
 msgid "Checksum Test"
-msgstr ""
+msgstr "Test af tjeksum"
 
 #: ../loader/loader.c:1026
 msgid "Hard Drives"
-msgstr "Harddiske"
+msgstr "Diskdrev"
 
 #: ../loader/loader.c:1027
 msgid ""
@@ -4463,15 +4477,15 @@ msgstr ""
 "konfigurere yderligere enheder?"
 
 #: ../loader/loader.c:1072
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Hvilken partition, og hvilket katalog på denne partition, indeholder RedHat/"
-"RPMS og RedHat/base katalogerne? Hvis du ikke kan se det diskdrev du bruger "
-"her, tryk på F2 for at konfigurere yderligere enheder."
+"Hvilken partition og hvilket katalog på denne partition indeholder cd-billederne"
+"i iso9660-format for %s? Hvis du ikke kan se det diskdrev du bruger "
+"her, så tryk på F2 for at konfigurere yderligere enheder."
 
 #: ../loader/loader.c:1088
 msgid "Directory holding images:"
@@ -4488,11 +4502,11 @@ msgstr "Enheden %s ser ikke ud til at indeholde et Red Hat-installationstræ."
 
 #: ../loader/loader.c:1209 ../loader/loader.c:1227 ../loader/mediacheck.c:209
 msgid "Media Check"
-msgstr ""
+msgstr "Tjek af medie"
 
 #: ../loader/loader.c:1209 ../loader/loader.c:1213
 msgid "Eject CD"
-msgstr ""
+msgstr "Skub cd ud"
 
 #: ../loader/loader.c:1210
 #, c-format
@@ -4500,6 +4514,8 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
+"Vælg \"%s\" for at afprøve den cd der sidder i drevet, eller \"%s\" for at "
+"skubbe cd-en ud og isætte en anden til afprøvning."
 
 #: ../loader/loader.c:1228
 #, c-format
@@ -4511,20 +4527,26 @@ msgid ""
 "To begin the installation process insert CD #1 into the drive and press \"%s"
 "\"."
 msgstr ""
+"Hvis du ønsker at afprøve flere medier, så indsæt den næste cd og tryk \"%s"
+"\". Du behøver ikke afprøve alle cd'er selv om det anbefales at du gør dette "
+"mindst én gang.\n"
+"\n"
+"For at begynde installationsprocessen skal du indsætte cd nummer 1 i drevet "
+"og trykke \"%s"
+"\"."
 
 #: ../loader/loader.c:1249 ../loader/loader.c:1363
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Jeg kunne ikke finde en Red Hat Linux-cd-rom i nogen af dine cd-rom-drev. "
-"Indsæt Red Hat-cd'en og tryk på \"O.k.\" for at prøve igen."
+"Jeg kunne ikke finde en %s-cd-rom i nogen af dine cdrom-drev. "
+"Indsæt %s-cd'en og tryk på %s for at prøve igen."
 
 #: ../loader/loader.c:1292
-#, fuzzy
 msgid "CD Found"
-msgstr "Ingen drev fundet"
+msgstr "Cd fundet"
 
 #: ../loader/loader.c:1294
 #, c-format
@@ -4533,6 +4555,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
+"Tryk %s for at begynde afprøvning af cd-medier før installationen.\n "
+"\n"
+"Vælg %s for at overspringe afprøvning af media og starte installationen."
 
 #: ../loader/loader.c:1459
 msgid "Networking Device"
@@ -4551,14 +4576,13 @@ msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Det katalog ser ikke ud til at indeholde et Red Hat installationstræ."
 
 #: ../loader/loader.c:1581
-#, fuzzy
 msgid "That directory could not be mounted from the server"
-msgstr "Jeg kunne ikke montere dette katalog fra server"
+msgstr "Dette katalog kunne ikke monteres fra serveren"
 
 #: ../loader/loader.c:1623
 #, c-format
 msgid "File %s/%s not found on server."
-msgstr "Filen %s/%s blev ikke fundet på tjeneren."
+msgstr "Filen %s/%s blev ikke fundet på serveren."
 
 #: ../loader/loader.c:1661
 msgid "HTTP"
@@ -4601,13 +4625,13 @@ msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Indsæt din opdateringsdiskette og tryk \"O.k.\" for at fortsætte."
 
 #: ../loader/loader.c:2817
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of %"
 "s."
 msgstr ""
 "Disketten du indsatte er ikke en gyldig driverdiskette til denne udgave af "
-"Red Hat Linux."
+"%s."
 
 #: ../loader/loader.c:2827
 msgid "Failed to mount floppy disk."
@@ -4622,9 +4646,9 @@ msgid "Reading anaconda updates..."
 msgstr "Læser anaconda-opdateringer..."
 
 #: ../loader/loader.c:3046
-#, fuzzy, c-format
+#, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr "Du har ikke RAM nok til at installere Red Hat Linux på denne maskine."
+msgstr "Du har ikke RAM nok til at installere %s på denne maskine."
 
 #: ../loader/loader.c:3082
 msgid ""
@@ -4632,6 +4656,8 @@ msgid ""
 "boot disk which you are using.  This shouldn't happen, and I'm rebooting "
 "your system now."
 msgstr ""
+"Trin to af installationen som du har valgt passer ikke med opstartsdisketten "
+"som du bruger. Dette burde ikke ske, og dit system bliver genstartet nu."
 
 #: ../loader/loader.c:3457
 msgid ""
@@ -4639,6 +4665,8 @@ msgid ""
 "drivers for the installation to succeed. Would you like to select drivers "
 "now?"
 msgstr ""
+"Ingen diske fundet. Du behøver nok at manuelt vælge enhedsdrivere for at "
+"installationen kan lykkes. Ønsker du at vælge enhedsdrivere nu?"
 
 #: ../loader/loader.c:3617
 msgid "Running anaconda - please wait...\n"
@@ -4649,20 +4677,22 @@ msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
+"Kan ikke læse tjeksummen for disken for beskrivelsen af den første disk. "
+"Dette betyder nok at disken blev lavet uden at tilføje tjeksummen."
 
 #: ../loader/mediacheck.c:201
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr ""
+msgstr "Tjekker \"%s\"..."
 
 #: ../loader/mediacheck.c:203
 msgid "Checking media now..."
-msgstr ""
+msgstr "Tjekker medie nu..."
 
 #: ../loader/mediacheck.c:248
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find install image %s"
-msgstr "Kunne ikke hente det første trins ramdisk"
+msgstr "Kunne ikke installere det første installeringsbillede %s"
 
 #: ../loader/mediacheck.c:261
 msgid ""
@@ -4670,6 +4700,9 @@ msgid ""
 "\n"
 "It is not recommended to use this media."
 msgstr ""
+"MISLYKKEDES.\n"
+"\n"
+"Det anbefales ikke at bruge dette medie."
 
 #: ../loader/mediacheck.c:263
 msgid ""
@@ -4677,6 +4710,9 @@ msgid ""
 "\n"
 "It is OK to install from this media."
 msgstr ""
+"BESTÅET.\n"
+"\n"
+"Det er O.k. at installere fra dette medie."
 
 #: ../loader/mediacheck.c:265
 msgid ""
@@ -4684,10 +4720,13 @@ msgid ""
 "\n"
 "No checksum information available, unable to verify media."
 msgstr ""
+"I/T.\n"
+"\n"
+"Ingen tjeksums-information tilgængelig, kan ikke afprøve media."
 
 #: ../loader/mediacheck.c:267
 msgid "Media Check Result"
-msgstr ""
+msgstr "Resultat af afprøvning af medie"
 
 #: ../loader/mediacheck.c:271
 #, c-format
@@ -4697,11 +4736,15 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"af billedet:\n"
+"\n"
+"%s\n"
+"\n"
 
 #: ../loader/mediacheck.c:275
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr ""
+msgstr "Afprøvningen af mediet %s er færdig, og resultatet er: %s\n"
 
 #: ../loader/modules.c:390
 #, c-format
@@ -4719,7 +4762,7 @@ msgstr "Indlæser"
 #: ../loader/modules.c:423 ../loader/windows.c:47
 #, c-format
 msgid "Loading %s driver..."
-msgstr "Indlæser %s ramdisk..."
+msgstr "Indlæser %s driver..."
 
 #: ../loader/modules.c:442
 msgid "Driver Disk"
@@ -4739,7 +4782,7 @@ msgid "Red Hat directory:"
 msgstr "Red Hat-katalog:"
 
 #: ../loader/net.c:179
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4749,9 +4792,9 @@ msgid ""
 msgstr ""
 "Indtast følgende information:\n"
 "\n"
-"    o navn eller IP nummer på din NFS-server\n"
-"    o navnet på kataloget til den server der indeholder\n"
-"      Red Hat Linux til din arkitektur (i386/alpha/..)"
+"    - navnet eller IP nummeret på din NFS-server\n"
+"    - navnet på kataloget til den server der indeholder\n"
+"      %s til din arkitektur"
 
 #: ../loader/net.c:184
 msgid "NFS Setup"
@@ -4901,12 +4944,11 @@ msgstr "Den diskette ligner ikke en Red Hat PCMCIA driverdiskette."
 
 #: ../loader/telnetd.c:64
 msgid "Waiting for telnet connection..."
-msgstr ""
+msgstr "Venter på telnet-forbindelse..."
 
 #: ../loader/telnetd.c:106
-#, fuzzy
 msgid "Running anaconda via telnet..."
-msgstr "Kører anaconda - vent venligst...\n"
+msgstr "Kører anaconda via telnet..."
 
 #: ../loader/urls.c:81
 #, c-format
@@ -4923,7 +4965,7 @@ msgid "Retrieving"
 msgstr "Modtager"
 
 #: ../loader/urls.c:183
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4933,9 +4975,9 @@ msgid ""
 msgstr ""
 "Indtast venligst den følgende information:\n"
 "\n"
-"    o navnet eller IP-nummeret på din webserver\n"
-"    o kataloget på serveren som indeholder\n"
-"      Red Hat Linux til din arkitektur\n"
+"    - navnet eller IP-nummeret på din %s-server\n"
+"    - kataloget på serveren som indeholder\n"
+"      %s til din arkitektur\n"
 
 #: ../loader/urls.c:226
 msgid "FTP site name:"
@@ -5107,13 +5149,13 @@ msgid "NFS File Server"
 msgstr "NFS-filserver"
 
 msgid "Windows File Server"
-msgstr "Windows filtjener"
+msgstr "Windows filserver"
 
 msgid "Anonymous FTP Server"
 msgstr "Anonym ftp-server"
 
 msgid "SQL Database Server"
-msgstr "SQL-databasetjener"
+msgstr "SQL-databaseserver"
 
 msgid "Web Server"
 msgstr "Web-server"
@@ -5191,7 +5233,7 @@ msgstr "Amundsen-Scott-stationen, Sydpolen"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -5214,7 +5256,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -5238,11 +5280,11 @@ msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr ""
+msgstr "centrale Kina - Gansu, Guizhou, Sichuan, Yunnan, osv."
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr "Centrale Krim"
+msgstr "centrale Krim"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
@@ -5277,9 +5319,8 @@ msgid "Central Time - most locations"
 msgstr "Centralamerikansk tid - de fleste steder"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Oliver County"
-msgstr "Centralamerikansk tid - de fleste steder"
+msgstr "Centralamerikansk tid - North Dakota - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
@@ -5306,9 +5347,8 @@ msgid "Davis Station, Vestfold Hills"
 msgstr "Davis-stationen, Vestfold Hills"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Dornod, Sukhbaatar"
-msgstr "Dornod, Sukhbaatar (usikker om dette)"
+msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
@@ -5324,11 +5364,11 @@ msgstr "Østargentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "østlige Kina - Beijing, Guangdong, Shanghai, osv."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "østkysten, nord for Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
@@ -5427,7 +5467,7 @@ msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr ""
+msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -5534,14 +5574,12 @@ msgid "Moscow+07 - Amur River"
 msgstr "Moskva+07 - Amurfloden"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+07 - Sakhalin Island"
-msgstr "Moskva+08 - Magadan & Sakhalin"
+msgstr "Moskva+07 - Sakhalin-øen"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+08 - Magadan"
-msgstr "Moskva+08 - Magadan & Sakhalin"
+msgstr "Moskva+08 - Magadan"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
@@ -5674,7 +5712,7 @@ msgstr "Queensland - de fleste steder"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -5690,7 +5728,7 @@ msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
@@ -5706,7 +5744,7 @@ msgstr "sydvestlige Mali"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr ""
+msgstr "sydvestlige Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
@@ -5727,12 +5765,11 @@ msgstr "Tasmanien"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr "Tibet & Xinjiang"
+msgstr "Tibet & det meste af Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -5775,9 +5812,8 @@ msgid "Western Australia"
 msgstr "vestlige Australien"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "West Kazakhstan"
-msgstr "Østlige Kazakhstan"
+msgstr "Vestlige Kazakhstan"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -5800,21 +5836,24 @@ msgid ""
 "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
 "GB2312            us              Asia/Shanghai"
 msgstr ""
+"Kinesisk(forenklet)    zh_CN.GB2312    Ingen   Ingen           zh_CN."
+"GB2312            us              Asia/Shanghai"
 
 #. generated from lang-table
 msgid ""
 "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
 "Big5              us              Asia/Taipei"
 msgstr ""
+"Kinesisk(traditionel)   zh_TW.Big5      Ingen   Ingen           zh_TW."
+"Big5              us              Asia/Taipei"
 
 #. generated from lang-table
 msgid "Czech"
 msgstr "Tjekkisk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Danish"
-msgstr "Spansk"
+msgstr "Dansk"
 
 #. generated from lang-table
 msgid "English"
@@ -5849,13 +5888,12 @@ msgid "Norwegian"
 msgstr "Norsk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese"
-msgstr "eller brug:"
+msgstr "Portugisisk"
 
 #. generated from lang-table
 msgid "Portuguese(Brasilian) pt"
-msgstr ""
+msgstr "Portugisisk-brasiliansk pt"
 
 #. generated from lang-table
 msgid "Russian"
@@ -5875,85 +5913,4 @@ msgstr "Svensk"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
-
-#, fuzzy
-#~ msgid "Customize new boot loader configuration"
-#~ msgstr "Konfiguration af opstartsindlæser"
-
-#~ msgid "China coast"
-#~ msgstr "Kina, kysten"
-
-#~ msgid "China mountains"
-#~ msgstr "Kina, bjergene"
-
-#~ msgid "Eastern Turkestan"
-#~ msgstr "Østlige Turkestan"
-
-#~ msgid "central Kazakhstan"
-#~ msgstr "Centrale Kazakhstan"
-
-#~ msgid "east Greenland"
-#~ msgstr "Østgrønland"
-
-#~ msgid "north Manchuria"
-#~ msgstr "nordlige Manchuria"
-
-#~ msgid "northwest Greenland"
-#~ msgstr "Nordvestgrønland"
-
-#~ msgid "southwest Greenland"
-#~ msgstr "Sydvestgrønland"
-
-#~ msgid "west Kazakhstan"
-#~ msgstr "vestlige Kazakhstan"
-
-#~ msgid "What language should be used during the installation process?"
-#~ msgstr "Hvilket sprog skal benyttes under installationsprocessen?"
-
-#, fuzzy
-#~ msgid "Welcome to "
-#~ msgstr "Velkommen"
-
-#, fuzzy
-#~ msgid ""
-#~ "? If you don't see the disk drive you're using listed here, press F2 to "
-#~ "configure additional devices."
-#~ msgstr ""
-#~ "Du ser ikke ud til at have nogen harddiske på dit system! Vil du gerne "
-#~ "konfigurere yderligere enheder?"
-
-#, fuzzy
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      "
-#~ msgstr ""
-#~ "Indtast venligst den følgende information:\n"
-#~ "\n"
-#~ "    o navnet eller IP-nummeret på din ftp-server\n"
-#~ "    o kataloget på serveren som indeholder\n"
-#~ "      Red Hat Linux til din arkitektur\n"
-
-#~ msgid "Red Hat Linux Installer"
-#~ msgstr "Red Hat Linux installation"
-
-#~ msgid "Password (again):"
-#~ msgstr "Adgangskode (igen):"
-
-#~ msgid "User ID"
-#~ msgstr "Bruger-ID"
-
-#~ msgid "Red Hat Linux"
-#~ msgstr "Red Hat Linux"
-
-#~ msgid "Welcome to Red Hat Linux"
-#~ msgstr "Velkommen til Red Hat Linux"
-
-#~ msgid "Chinese(Simplified)"
-#~ msgstr "Kinesisk (forenklet)"
-
-#~ msgid "Chinese(Traditional)"
-#~ msgstr "Kinesisk (traditionel)"
+msgstr "Ukrainsk"

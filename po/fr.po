@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Installer 7.0\n"
 "POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2002-03-26 09:45GMT\n"
-"Last-Translator:  <bettina@redhat.it>\n"
+"PO-Revision-Date: 2002-04-05 16:58GMT\n"
+"Last-Translator: Bettina De Monti <bettina@redhat.it>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -84,8 +84,8 @@ msgstr "Aucune détection de la souris.\n"
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
-"Installation graphique non disponible pour l'installations de %s. Démarrage "
-"du mode texte."
+"Installation graphique non disponible pour les installations de %s. "
+"Démarrage du mode texte."
 
 #: ../anaconda:420
 msgid ""
@@ -97,7 +97,7 @@ msgstr ""
 
 #: ../anaconda:425
 msgid "Using mouse type: "
-msgstr "Type de souris utilisé :"
+msgstr "Type de souris utilisée :"
 
 #: ../autopart.py:713
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -368,7 +368,7 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
-"Une erreur s'est vérifiée lors de la migration de %s vers ext3. Vous pouvez "
+"Une erreur s'est produite lors de la migration de %s vers ext3. Vous pouvez "
 "continuer sans migrer ce système de fichiers.\n"
 "\n"
 "Souhaitez-vous continuer sans migrer %s ?"
@@ -621,7 +621,7 @@ msgstr "Fenêtre d'installation"
 
 #: ../harddrive.py:173
 msgid "Missing CD #%d, which is required for the install."
-msgstr "Le CD-ROM #%d est demandé pour l'installation."
+msgstr "Le CD-ROM #%d est nécessaire pour l'installation."
 
 #: ../image.py:60
 msgid "Copying File"
@@ -2018,13 +2018,13 @@ msgstr "Cliquer sur Suivant pour commencer l'installation de %s."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /root/install.log after "
+"A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in "
 "/root/anaconda-ks.cfg."
 msgstr ""
 "Un historique complet de votre installation figurera dans le fichier journal "
-"/root/install.log après le redémarrage de votre système. Vous pouvez "
+"/tmp/install.log après le redémarrage de votre système. Vous pouvez "
 "conserver ce fichier pour le consulter ultérieurement. Un fichier kickstart "
 "contenant les choix que vous avez faits figurera dans /root/anaconda-ks.cfg."
 
@@ -2038,11 +2038,11 @@ msgstr "Cliquer sur Suivant pour commencer la mise à jour de %s."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
 "Un historique complet de votre mise à jour figurera dans le fichier journal "
-"/root/upgrade.log après le redémarrage de votre système. Vous pouvez "
+"/tmp/upgrade.log après le redémarrage de votre système. Vous pouvez "
 "conserver ce fichier pour le consulter ultérieurement."
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
@@ -3361,11 +3361,11 @@ msgstr "Début de l'installation"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /root/install.log after "
+"A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 "Un historique complet de votre installation figurera dans le fichier journal "
-"/root/install.log après le redémarrage de votre système. Vous pouvez "
+"/tmp/install.log après le redémarrage de votre système. Vous pouvez "
 "conserver ce fichier pour le consulter ultérieurement."
 
 #: ../textw/confirm_text.py:32

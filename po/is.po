@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.130\n"
 "POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2001-08-24 01:31+0000\n"
+"PO-Revision-Date: 2002-04-06 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -607,14 +607,14 @@ msgid "Hide Help"
 msgstr "Fela hjálp"
 
 #: ../gui.py:678
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer"
-msgstr "Eftir uppsetningu"
+msgstr "%s uppsetningarforrit"
 
 #: ../gui.py:693
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer on %s"
-msgstr "Red Hat Linux uppsetningarforritið á %s"
+msgstr "%s uppsetningarforrit á %s"
 
 #: ../gui.py:731
 msgid "Unable to load title bar"
@@ -746,9 +746,8 @@ msgstr ""
 "pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
 
 #: ../packages.py:280
-#, fuzzy
 msgid "Error Installing Package"
-msgstr "Set inn pakka"
+msgstr "Villa við að setja inn pakka"
 
 #: ../packages.py:281
 #, python-format
@@ -760,34 +759,44 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"Það kom upp villa við uppsetningu %s. Þetta gæti orsakast af skemmdum disk, "
+"ekki nógu diskplássi og/eða vélbúnaðarbilunar. Þetta er banvæn villa og því "
+"mun uppsetningin ekki halda áfram.  Vinsamlegast láttu yfirfara diskinn og "
+"reyndu aftur.\n"
+"\n"
+"Veldu Í lagi hnappinn til að endurræsa."
 
 #: ../packages.py:530
 msgid "Setting up RPM transaction..."
 msgstr "Set upp RPM færslu..."
 
 #: ../packages.py:567
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
-msgstr "Uppfæri %s.\n"
+msgstr ""
+"Uppfæri %s pakkana\n"
+"\n"
 
 #: ../packages.py:569
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
-msgstr "Set inn pakka"
+msgstr ""
+"Set inn %s pakkana\n"
+"\n"
 
 #: ../packages.py:576
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s-%s-%s.\n"
-msgstr "Uppfæri %s.\n"
+msgstr "Uppfæri %s-%s-%s.\n"
 
 #: ../packages.py:578
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.\n"
-msgstr "Set inn %s.\n"
+msgstr "Set inn %s-%s-%s.\n"
 
 #: ../packages.py:594
 #, python-format
@@ -799,15 +808,20 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"Eftirfarandi pakkar voru valdir sjálfvirkt\n"
+"til uppsetningar:\n"
+"%s\n"
+"\n"
 
 #: ../packages.py:600
-#, fuzzy
 msgid "Install Starting"
-msgstr "Tegund uppsetningar"
+msgstr "Uppsetning að hefjast"
 
 #: ../packages.py:601
 msgid "Starting install process, this may take several minutes..."
-msgstr ""
+msgstr "Ræsi uppsetningarferlið. Þetta gæti tekið nokkrar mínútur..."
 
 #: ../packages.py:646
 msgid ""
@@ -853,6 +867,9 @@ msgid ""
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
+"\n"
+"\n"
+"Eftirfarandi pakkar voru til staðar í þessari útgáfu en EKKI uppfærðir:\n"
 
 #: ../packages.py:715
 msgid "Post Install"
@@ -867,13 +884,12 @@ msgid "Foreign"
 msgstr "Ókunnugt"
 
 #: ../partitioning.py:355
-#, fuzzy
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters and no spaces."
 msgstr ""
 "Tengipunkturinn er óleyfilegur. Heiti tengipunkta verða að byrja á '/' en "
-"mega ekki enda á '/' og verða að innihalda aðeins prentanlega stafi."
+"mega ekki enda á '/' og verða að innihalda aðeins prentanlega stafi og engin orðabil."
 
 #: ../partitioning.py:363
 msgid "Please specify a mount point for this partition."
@@ -947,22 +963,21 @@ msgstr ""
 "að bæta fleiri drifum við þetta RAID tæki."
 
 #: ../partitioning.py:578
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
-"Þú hefur ekki skilgreint rótarsneið (/) sem er nauðsynlegt svo uppsetningin "
-"geti haldið áfram."
+"Þú hefur ekki skilgreint rótarsneið (/) sem er nauðsynleg svo uppsetning "
+"%s geti haldið áfram."
 
 #: ../partitioning.py:581
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
-"Rótarsneiðin þín er minni en 250 megabæti sem er yfirleitt of lítið fyrir "
-"Red Hat Linux."
+"Rótarsneiðin þín er minni en 250 megabæti sem er yfirleitt of lítið fyrir %s."
 
 #: ../partitioning.py:586
 msgid ""
@@ -971,13 +986,13 @@ msgstr ""
 "Þú verður að búa til /boot/efi sneið af gerðinni FAT sem er 50 megabæti."
 
 #: ../partitioning.py:594
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
 "%s disksneiðin er minni en %s megabæti sem er minna en mælt er með fyrir "
-"venjulega RedHat Linux uppsetningu."
+"venjulega %s uppsetningu."
 
 #: ../partitioning.py:621
 msgid ""
@@ -988,12 +1003,12 @@ msgstr ""
 "nauðsynlegt mun það bæta afköst til muna í flestum tilfellum."
 
 #: ../partitioning.py:625
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"Þú hefur skilgreint fleiri en 32 diskminnissneiðar. Linux kjarninn styður "
+"Þú hefur skilgreint fleiri en 32 diskminnissneiðar. Kjarninn í %s styður "
 "einungis 32 diskminnissneiðar."
 
 #: ../partitioning.py:634
@@ -1006,7 +1021,7 @@ msgstr ""
 "Þetta getur haft neikvæð áhrif á afköst vélarinnar."
 
 #: ../partitioning.py:707
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type for your "
 "architecture.  To use this disk for installation of %s, it must be re-"
@@ -1015,7 +1030,7 @@ msgid ""
 "Would you like to initialize this drive?"
 msgstr ""
 "Disksneiðataflan á tæki %s er af gerð sem ekki passar fyrir vélbúnað þinn. "
-"Til þess að hægt sé að nota diskinn fyrir þessa uppsetningu af Red Hat Linux "
+"Til þess að hægt sé að nota diskinn fyrir þessa uppsetningu af %s "
 "þarf að frumstilla disksneiðatöfluna, sem veldur því að ÖLL GÖGN á disknum "
 "tapast.\n"
 "\n"
@@ -1241,7 +1256,7 @@ msgid "Error with Partitioning"
 msgstr "Villa við disksneiðingu"
 
 #: ../partitioning.py:1895
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
 "These errors must be corrected prior to continuing with your install of %s.\n"
@@ -1249,8 +1264,7 @@ msgid ""
 "%s"
 msgstr ""
 "Alvarlegar villur komu upp með disksneiðarnar sem þú skilgreindir. Þessar "
-"villur verður að lagfæra áður en uppsetningin á Red Hat Linux getur haldið "
-"áfram.\n"
+"villur verður að lagfæra áður en uppsetningin á %s getur haldið áfram.\n"
 "\n"
 "%s"
 
@@ -1305,7 +1319,6 @@ msgid "Rescue"
 msgstr "Bjarga"
 
 #: ../rescue.py:100
-#, fuzzy
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory /mnt/sysimage.  You can then "
@@ -1318,8 +1331,10 @@ msgid ""
 "\n"
 msgstr ""
 "Björgunarumhverfið mun nú reyna að finna Red Hat Linux kerfið þitt og tengja "
-"það undir möppunni /mnt/sysimage. Þú getur gert þær breytingar sem þú þarft "
-"þar inni.  Ef þú vilt halda áfram veldu þá 'Halda áfram'.\n"
+"það undir möppuna /mnt/sysimage. Þú getur gert þær breytingar sem þú þarft "
+"í þeirri möppu.  Ef þú vilt halda áfram veldu þá 'Halda áfram'. Þú getur "
+"einnig kosið að tengja diskinn annig að einungis er hægt að lesa hann með "
+"'Einungis lestur' hnappnum.\n"
 "\n"
 "Ef þetta bregst á einhvern hátt getur þú valið 'Sleppa' og þessu þrepi "
 "verður þá sleppt og þú lendir í skel.\n"
@@ -1330,9 +1345,8 @@ msgid "Continue"
 msgstr "Halda áfram"
 
 #: ../rescue.py:110 ../rescue.py:119
-#, fuzzy
 msgid "Read-Only"
-msgstr "Les"
+msgstr "Einungis lestur"
 
 #: ../rescue.py:110 ../rescue.py:112 ../textw/bootdisk_text.py:68
 #: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
@@ -1355,14 +1369,15 @@ msgid "Exit"
 msgstr "Hætta"
 
 #: ../rescue.py:164
-#, fuzzy
 msgid ""
 "Your system had dirty filesystems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Þú ert ekki með neinar Linux disksneiðar. Sláðu á <return> til að komast í "
-"skel. Vélin mun endurræsa sig sjálfvirkt þegar þú hættir í skelinni."
+"Vélin þín er með skráarkerfi sem ekki voru aftengd á réttann hátt sem þú "
+"kaust að tengja ekki. Sláðu á 'Return' hnappinn til að komast í skél og "
+"lagfæra (með fsck) og tengja skráarkerfin. Vélin mun endurræsa sig þegar "
+"þú hættir í skélinni."
 
 #: ../rescue.py:172
 msgid ""
@@ -1435,9 +1450,9 @@ msgid "Debug"
 msgstr "Aflúsun"
 
 #: ../text.py:321
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2002 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
+msgstr "%s (C) 2002 Red Hat, Inc."
 
 #: ../text.py:324
 msgid ""
@@ -1466,9 +1481,9 @@ msgid "Searching"
 msgstr "Leita"
 
 #: ../upgrade.py:44
-#, fuzzy, python-format
+#, python-format
 msgid "Searching for %s installations..."
-msgstr "Leita að Red Hat Linux uppsetningum..."
+msgstr "Leita að %s uppsetningum..."
 
 #: ../upgrade.py:77 ../upgrade.py:84
 msgid "Dirty Filesystems"
@@ -1485,14 +1500,12 @@ msgstr ""
 "og keyrðu svo vélina rétt niður til að uppfæra."
 
 #: ../upgrade.py:85
-#, fuzzy
 msgid ""
 "One or more filesystems for your Linux system was not unmounted cleanly.  "
 "Would you like to mount them anyway?"
 msgstr ""
 "Eitt eða fleiri af Linux skráarkerfunum þínum var ekki aftengt á réttan "
-"máta. Vinsamlegast ræstu upp Linux kerfið þitt, láttu yfirfara skráarkerfin "
-"og keyrðu svo vélina rétt niður til að uppfæra."
+"máta. Viltu tengja þau þrátt fyrir það ?"
 
 #: ../upgrade.py:225 ../upgrade.py:231
 msgid "Mount failed"
@@ -1507,7 +1520,6 @@ msgstr ""
 "vélinni þinni. Vinsamlegast lagfærðu þetta og reyndu svo að uppfæra aftur."
 
 #: ../upgrade.py:232
-#, fuzzy
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab of your Linux system "
 "are inconsistent and cannot be mounted.  Please fix this problem and try to "
@@ -1821,14 +1833,14 @@ msgid "Boot Disk Creation"
 msgstr "Búa til ræsidiskling"
 
 #: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot disk allows you to boot your %s system from a floppy diskette.\n"
 "\n"
 "Please remove any diskettes from the floppy drive and insert a blank "
 "diskette. All data will be ERASED during creation of the boot disk."
 msgstr ""
-"Ræsidisklingurinn gerir þér kleyft að ræsa vélina upp frá disklingadrifi. \n"
+"Ræsidisklingurinn gerir þér kleyft að ræsa %s vélina upp frá disklingadrifi. \n"
 "\n"
 "Vinsamlegast taktu burt disklinga úr drifunum og settu inn tóman diskling. "
 "Öllum gögnum á disklingnum verður EYTT þegar ræsidisklingurinn er búinn til."
@@ -1997,18 +2009,18 @@ msgid "About to Install"
 msgstr "Uppsetning að hefjast"
 
 #: ../iw/confirm_gui.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Veldu áfram-örina til að byrja uppsetningu  Red Hat Linux."
+msgstr "Veldu áfram-örina til að byrja uppsetningu %s."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /root/install.log after "
+"A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
-"Eftir að uppsetningunni lýkur verður til annáll sem heitir /root/install.log. "
+"Eftir að uppsetningunni lýkur verður til annáll sem heitir /tmp/install.log. "
 "Honum ættir þú að halda til haga. Kickstart skrá verður búin til fyrir þig "
 "í /root/anaconda-ks.cfg eftir því sem þú hefur valið hér."
 
@@ -2017,16 +2029,16 @@ msgid "About to Upgrade"
 msgstr "Uppfærsla að hefjast"
 
 #: ../iw/confirm_gui.py:73
-#, fuzzy, python-format
+#, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Veldu áfram-örina til að byrja uppsetningu Red Hat Linux."
+msgstr "Veldu áfram-örina til að byrja uppsetningu %s.."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"Eftir að uppfærslunni lýkur verður til annáll sem heitir /root/upgrade.log. "
+"Eftir að uppfærslunni lýkur verður til annáll sem heitir /tmp/upgrade.log. "
 "Honum ættir þú að halda til haga."
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
@@ -2034,18 +2046,18 @@ msgid "Congratulations"
 msgstr "Til hamingju"
 
 #: ../iw/congrats_gui.py:48 ../textw/complete_text.py:30
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you created a boot disk to use to boot your %s system, insert it before "
 "you press <Enter> to reboot.\n"
 "\n"
 msgstr ""
-"Ef þú bjóst til ræsidiskling til að ræsa vélina settu hann í núna áður en þú "
+"Ef þú bjóst til ræsidiskling til að ræsa %s settu hann í núna áður en þú "
 "slærð á <Enter> til að endurræsa.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:56
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -2058,20 +2070,19 @@ msgid ""
 "Information on using and configuring your system is available in the %s "
 "manuals at http://www.redhat.com/docs."
 msgstr ""
-"Til hamingju, uppsetningu Red Hat Linux er lokið.\n"
+"Til hamingju, uppsetningu %s er lokið.\n"
 "\n"
 "Fjarlægðu disklinga og geisladiska úr drifunum sem þú notaðir í "
 "uppsetningunni og sláðu á <Enter> til að endurræsa vélina. \n"
 "\n"
 "%sÁ http://www.redhat.com/errata má finna uppfærslur, viðbætur og/eða "
-"lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu af Red Hat "
-"Linux.\n"
+"lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu stýrikerfisins.\n"
 "\n"
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna í Red Hat Linux handbókunum á http://www.redhat.com/support/manuals."
+"finna í %s handbókunum á http://www.redhat.com/docs."
 
 #: ../iw/congrats_gui.py:104
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -2088,7 +2099,7 @@ msgstr ""
 "Linux.\n"
 "\n"
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna í Red Hat Linux handbókunum á http://www.redhat.com/support/manuals."
+"finna í %s handbókunum á http://www.redhat.com/docs."
 
 #: ../iw/dependencies_gui.py:20
 msgid "Unresolved Dependencies"
@@ -2138,9 +2149,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Vinsamlegast veldu tækið sem inniheldur rótarskráarkerfið: "
 
 #: ../iw/examine_gui.py:89 ../textw/upgrade_text.py:225
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading the %s installation on partition /dev/%s"
-msgstr "Uppfæri Red Hat Linux kerifð á disksneið /dev/%s"
+msgstr "Uppfæri %s kerfið á disksneið /dev/%s"
 
 #: ../iw/examine_gui.py:95
 msgid "Customize packages to be upgraded"
@@ -2356,7 +2367,6 @@ msgid "Secondary DNS"
 msgstr "Annar nafnaþjónn"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Tertiary DNS"
 msgstr "Þriðji nafnaþjónn"
 
@@ -2417,11 +2427,11 @@ msgid ""
 msgstr "Alvarlegar villur komu upp með disksneiðarnar sem þú skilgreindir."
 
 #: ../iw/partition_gui.py:556
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
-"Þessar villur verður að lagfæra áður en uppsetningin á Red Hat Linux getur "
+"Þessar villur verður að lagfæra áður en uppsetningin á %s getur "
 "haldið áfram."
 
 #: ../iw/partition_gui.py:563
@@ -2654,9 +2664,9 @@ msgid "Automatic Partitioning"
 msgstr "Sjálfvirk disksneiðing"
 
 #: ../iw/partition_gui.py:1626
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one drive to have %s installed onto."
-msgstr "Þú verður að velja amk. eitt drif til að setja Red Hat Linux upp á."
+msgstr "Þú verður að velja amk. eitt drif til að setja %s upp á."
 
 #: ../iw/partition_gui.py:1666
 msgid "I want to have automatic partitioning:"
@@ -2790,74 +2800,76 @@ msgid "UTC Offset"
 msgstr "Frávik frá UTC"
 
 #: ../iw/upgrade_bootloader_gui.py:29 ../textw/upgrade_bootloader_text.py:72
-#, fuzzy
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Stillingar ræsistjóra"
+msgstr "Uppfæra stillingar ræsistjóra"
 
 #: ../iw/upgrade_bootloader_gui.py:69 ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
-#, fuzzy
 msgid "Update boot loader configuration"
-msgstr "Stillingar ræsistjóra"
+msgstr "Uppfæra stillingar ræsistjóra"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
-msgstr ""
+msgstr "Þetta mun uppfæra núverandi ræsistjóra."
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
+"Uppsetningarforritið hefur fundið %s ræsistjórann á %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 #, python-format
 msgid "%s  %s"
-msgstr ""
+msgstr "%s  %s"
 
 #: ../iw/upgrade_bootloader_gui.py:77
 msgid "This is the recommended option."
-msgstr ""
+msgstr "Mælt er með þessu."
 
 #: ../iw/upgrade_bootloader_gui.py:81 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
+"Uppsetningarforritið finnur ekki ræsistjórann sem er núna í notkun á "
+"vélinni þinni."
 
 #: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
-#, fuzzy
 msgid "Create new boot loader configuration"
-msgstr "Búa til ræsidiskling"
+msgstr "Búa til nýjar ræsistjórastillingar"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
+"Þetta gerir þér kleyft að velja nýjar ræsistjórastillingar. Ef þú vilt "
+"skipta um ræsistjóra ættir þú að velja þetta."
 
 #: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
-#, fuzzy
 msgid "Skip boot loader updating"
-msgstr "sleppa ræsistjóra"
+msgstr "sleppa uppfærslu ræsistjóra"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
+"Þetta veldur engum breytingum á ræsistjóranum. Ef þú ert að nota ræsistjóra frá "
+"þriðja aðila, þá ættir þú að velja þetta."
 
 #: ../iw/upgrade_bootloader_gui.py:111
-#, fuzzy
 msgid "What would you like to do?"
-msgstr "Hverskonar tæki viltu bæta við"
+msgstr "Hvað viltu gera?"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:31
 msgid "Migrate Filesystems"
 msgstr "Breyta skráarkerfum"
 
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journalling filesystem.  It has several "
 "benefits over the ext2 filesystem traditionally shipped in %s.  It is "
@@ -2866,12 +2878,12 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Þessi útgáfa af Red Hat Linux styður ext3 \"journalling\" skráarkerfið. Ext3 "
+"Þessi útgáfa af %s styður ext3 \"journalling\" skráarkerfið. Ext3 "
 "hefur marga eiginleika umfram ext2 sem er staðlaða skráarkerfið sem hefur "
-"verið í Red Hat Linux hingað til. Það er einnig hægt að breyta disksneiðum "
+"verið í %s hingað til. Það er einnig hægt að breyta disksneiðum "
 "sem eru forsniðnar sem ext2 í ext3 án þess að tapa gögnum.\n"
 "\n"
-"Hvaða disksneiðar viltu breyta ?"
+"Hvaða disksneiðum viltu breyta ?"
 
 #: ../iw/upgrade_swap_gui.py:30
 msgid "Upgrade Swap Partition"
@@ -3061,15 +3073,16 @@ msgid "Graphical Interface (X) Configuration"
 msgstr "Myndræn (X) stilling"
 
 #: ../iw/xconfig_gui.py:723
-#, fuzzy
 msgid "Unknown server"
-msgstr "Óþekkt vél"
+msgstr "Óþekktur þjónn"
 
 #: ../iw/xconfig_gui.py:724
 msgid ""
 "This video card has no suitable X server in the database.  You will need to "
 "choose a different card or choose the 'Skip X Configuration' button."
 msgstr ""
+"Þetta skjákort hefur engann X rekil sem hentar því í gagnagrunninum. Þú "
+"þarft að velja annað kort eða nota 'Sleppa að stilla X' hnappinn."
 
 #: ../iw/xconfig_gui.py:731 ../textw/xconfig_text.py:620
 msgid "Unspecified video card"
@@ -3229,6 +3242,7 @@ msgstr ""
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
+" <Bilslá> velur hnapp | <F2> velur sjálfgefna ræsifærslu | <F12> Næsti skjár>"
 
 #: ../textw/bootloader_text.py:384
 msgid "Use a GRUB Password"
@@ -3264,7 +3278,7 @@ msgid "Complete"
 msgstr "Lokið"
 
 #: ../textw/complete_text.py:37
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -3277,24 +3291,24 @@ msgid ""
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/docs."
 msgstr ""
-"Til hamingju, uppsetningu Red Hat Linux er lokið.\n"
+"Til hamingju, uppsetningu %s er lokið.\n"
 "\n"
 "Fjarlægðu disklinga og geisladiska úr drifunum sem þú notaðir í "
 "uppsetningunni og sláðu á <Enter> til að endurræsa vélina. \n"
 "\n"
 "%sÁ http://www.redhat.com/errata má finna uppfærslur, viðbætur og/eða "
-"lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu af Red Hat "
-"Linux.\n"
+"lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu af "
+"stýrikerfinu.\n"
 "\n"
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna í Red Hat Linux handbókunum á http://www.redhat.com/support/manuals."
+"finna í Red Hat Linux handbókunum á http://www.redhat.com/docs."
 
 #: ../textw/complete_text.py:55
 msgid "<Enter> to continue"
 msgstr "<Enter> til að halda áfram"
 
 #: ../textw/complete_text.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, package installation is complete.\n"
 "\n"
@@ -3307,7 +3321,7 @@ msgstr ""
 "\n"
 "Sláðu á return til að halda áfram.\n"
 "\n"
-"Upplýsingar um hvernig stilla skuli kerfið og nota það eru í Red Hat Linux "
+"Upplýsingar um hvernig stilla skuli kerfið og nota það eru í %s "
 "handbókunum."
 
 #: ../textw/complete_text.py:69
@@ -3315,7 +3329,6 @@ msgid "<Enter> to exit"
 msgstr "<Enter> til að hætta"
 
 #: ../textw/complete_text.py:73
-#, fuzzy, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -3328,11 +3341,11 @@ msgstr ""
 "Til hamingju, uppsetningu er lokið.\n"
 "\n"
 "Á http://www.redhat.com/errata má finna uppfærslur, viðbætur og/eða "
-"lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu af Red Hat "
-"Linux.\n"
+"lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu af "
+"stýrikerfinu.\n"
 "\n"
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna í Red Hat Linux handbókunum á http://www.redhat.com/support/manuals."
+"finna í Red Hat Linux handbókunum á http://www.redhat.com/docs."
 
 #: ../textw/confirm_text.py:20
 msgid "Installation to begin"
@@ -3340,10 +3353,10 @@ msgstr "Uppsetning að hefjast"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /root/install.log after "
+"A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"Eftir að uppsetningunni lýkur verður til annáll sem heitir /root/install.log. "
+"Eftir að uppsetningunni lýkur verður til annáll sem heitir /tmp/install.log. "
 "Honum ættir þú að halda til haga."
 
 #: ../textw/confirm_text.py:32
@@ -3486,9 +3499,9 @@ msgid "Mouse Selection"
 msgstr "Stillingar músar"
 
 #: ../textw/network_text.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "Network Device: %s"
-msgstr "Netkort"
+msgstr "Netkort: %s"
 
 #: ../textw/network_text.py:70
 msgid "Use bootp/dhcp"
@@ -3515,14 +3528,13 @@ msgid "Secondary nameserver:"
 msgstr "Annar nafnaþjónn:"
 
 #: ../textw/network_text.py:85
-#, fuzzy
 msgid "Tertiary nameserver:"
 msgstr "Þriðji nafnaþjónn:"
 
 #: ../textw/network_text.py:114
-#, fuzzy, python-format
+#, python-format
 msgid "Network Configuration for %s"
-msgstr "Stillingar nets"
+msgstr "Stillingar nets %s"
 
 #: ../textw/network_text.py:137
 msgid "Invalid information"
@@ -3863,9 +3875,8 @@ msgstr ""
 "rótarlykilorðið er mjög mikilvægur þáttur í öryggi vélarinnar!"
 
 #: ../textw/userauth_text.py:38
-#, fuzzy
 msgid "Password (confirm):"
-msgstr "Lykilorð (aftur)"
+msgstr "Lykilorð (staðfesta):"
 
 #: ../textw/userauth_text.py:54 ../textw/userauth_text.py:128
 msgid "Password Length"
@@ -3888,9 +3899,8 @@ msgid "Add User"
 msgstr "Bæta við notanda"
 
 #: ../textw/userauth_text.py:100
-#, fuzzy
 msgid "User Name"
-msgstr "Notandanafn:"
+msgstr "Notandanafn"
 
 #: ../textw/userauth_text.py:101
 msgid "Password"
@@ -4006,10 +4016,10 @@ msgstr "Nota TLS tengingar"
 #: ../textw/welcome_text.py:22 ../textw/welcome_text.py:42
 #, python-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../textw/welcome_text.py:23
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -4020,17 +4030,17 @@ msgid ""
 "If you have purchased Official %s, be sure to register your purchase through "
 "our web site, http://www.redhat.com/."
 msgstr ""
-"Velkomin(n) í Red Hat Linux!\n"
+"Velkomin(n) í %s!\n"
 "\n"
-"Uppsetningin er útskýrð í smáatriðum í 'Red Hat Linux Installation Guide' "
-"bókinni sem er fáanleg frá Red Hat Software. Ef þú hefur aðgang að þessari "
+"Uppsetningin er útskýrð í smáatriðum í %s uppsetningarhandbókinni "
+"bókinni sem er fáanleg frá Red Hat Inc. Ef þú hefur aðgang að þessari "
 "bók ættir þú að lesa um uppsetninguna áður en þú heldur áfram.\n"
 "\n"
-"Ef þú hefur keypt opinbert eintak Red Hat Linux mundu þá að skrá það á "
+"Ef þú hefur keypt opinbert eintak %s mundu þá að skrá það á "
 "vefsíðu okkar á http://www.redhat.com."
 
 #: ../textw/welcome_text.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -4039,7 +4049,7 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
-"Velkomin(n) í Red Hat Linux!\n"
+"Velkomin(n) í %s!\n"
 "\n"
 "Þú ert kominn í breytingarham, sem leyfir þér að sérsníða uppsetningu "
 "vélarinnar að breyttum aðstæðum. \n"
@@ -4311,13 +4321,13 @@ msgid "Failed to mount driver disk."
 msgstr "Gat ekki tengt rekladisklinginn."
 
 #: ../loader/devices.c:266
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of %"
 "s."
 msgstr ""
 "Disklingurinn sem þú settir í drifið er ekki gildur rekladisklingur fyrir "
-"þessa útgáfu af Red Hat Linux."
+"þessa útgáfu af %s."
 
 #: ../loader/devices.c:326
 msgid ""
@@ -4356,9 +4366,9 @@ msgid "Error on line %d of kickstart file %s."
 msgstr "Villa í línu %d í hraðuppsetningarskrá %s."
 
 #: ../loader/lang.c:41 ../loader/loader.c:195
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s"
-msgstr "Velkomin(n)"
+msgstr "Velkomin(n) í %s"
 
 #: ../loader/lang.c:42 ../loader/loader.c:201
 msgid ""
@@ -4399,7 +4409,6 @@ msgid "What kind of device would you like to add"
 msgstr "Hverskonar tæki viltu bæta við"
 
 #: ../loader/loader.c:377
-#, fuzzy
 msgid "The following devices have been found on your system:"
 msgstr "Eftirfarandi tæki hafa fundist í vélinni þinni:"
 
@@ -4412,7 +4421,6 @@ msgid "Add Device"
 msgstr "Bæta við tæki"
 
 #: ../loader/loader.c:405
-#, fuzzy
 msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
@@ -4430,6 +4438,8 @@ msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
+"Villa kom upp þegar reynt var að lesa uppsetningarforritið úr ISO diskmynd. "
+"Vinsamlegast athugaðu diskmyndirnar og reyndu aftur."
 
 #: ../loader/loader.c:913
 #, c-format
@@ -4438,10 +4448,13 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"Viltu yfirfara diskmyndina:\n"
+"\n"
+"   %s?"
 
 #: ../loader/loader.c:916
 msgid "Checksum Test"
-msgstr ""
+msgstr "Gátsummupróf"
 
 #: ../loader/loader.c:1026
 msgid "Hard Drives"
@@ -4456,14 +4469,14 @@ msgstr ""
 "tæki?"
 
 #: ../loader/loader.c:1072
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
 "Hvaða disksneið og mappa á þeirri sneið inniheldur diskmyndirnar (iso9660) "
-"af Red Hat Linux? Ef þú sérð ekki diskinn í listanum ýttu þá á F2 til að "
+"af %s? Ef þú sérð ekki diskinn í listanum ýttu þá á F2 til að "
 "bæta við tækjum."
 
 #: ../loader/loader.c:1088
@@ -4481,11 +4494,11 @@ msgstr "Tæki %s virðist ekki innihalda Red Hat diskmyndir."
 
 #: ../loader/loader.c:1209 ../loader/loader.c:1227 ../loader/mediacheck.c:209
 msgid "Media Check"
-msgstr ""
+msgstr "Yfirfara disk"
 
 #: ../loader/loader.c:1209 ../loader/loader.c:1213
 msgid "Eject CD"
-msgstr ""
+msgstr "Henda út disk"
 
 #: ../loader/loader.c:1210
 #, c-format
@@ -4493,6 +4506,8 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
+"Veldu \"%s\" til að yfirfara diskinn sem er núna í drifinu eða \"%s\" til "
+"að henda honum út og yfirfara annann disk."
 
 #: ../loader/loader.c:1228
 #, c-format
@@ -4504,21 +4519,25 @@ msgid ""
 "To begin the installation process insert CD #1 into the drive and press \"%s"
 "\"."
 msgstr ""
+"Ef þú vilt yfirfara fleiri diska, settu næsta disk í núna og veldu \"%s"
+"\". Þú þarft ekki að yfirfara þá alla alltaf en við mælum þó með að þú gerir "
+"það amk. einusinni.\n"
+"\n"
+"Til að hefja uppsetninguna, settu disk #1 í drifið og veldu \"%s\"."
 
 #: ../loader/loader.c:1249 ../loader/loader.c:1363
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Red Hat Linux geisladiskurinn fannst ekki í neinu tiltæku geisladrifi. "
-"Vinsamlegast settu Red Hat geisladiskinn í viðeigandi drif og veldu \"Í lagi"
-"\" til að reyna aftur."
+"%s geisladiskurinn fannst ekki í neinu gf geisladrifunum þínum. "
+"Vinsamlegast settu %s geisladiskinn í viðeigandi drif og veldu %s til að "
+"reyna aftur."
 
 #: ../loader/loader.c:1292
-#, fuzzy
 msgid "CD Found"
-msgstr "Engin drif fundust"
+msgstr "Geisladiskur fundinn"
 
 #: ../loader/loader.c:1294
 #, c-format
@@ -4527,6 +4546,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
+"Ef þú vilt yfirfara diskmyndina áður en uppsetningin hefst, veldu %s.\n"
+"\n"
+"Veldu %s til að sleppa yfirferðinni og hefja uppsetninguna."
 
 #: ../loader/loader.c:1459
 msgid "Networking Device"
@@ -4545,7 +4567,6 @@ msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Þetta skráakerfi virðist ekki innihalda Red Hat uppsetningartré."
 
 #: ../loader/loader.c:1581
-#, fuzzy
 msgid "That directory could not be mounted from the server"
 msgstr "Ekki tókst að tengja þetta skráakerfi frá þjóninum"
 
@@ -4597,13 +4618,13 @@ msgstr ""
 "Settu uppfærsludisklinginn í drifið og veldu \"Í lagi\" til að halda áfram."
 
 #: ../loader/loader.c:2817
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of %"
 "s."
 msgstr ""
 "Disklingurinn sem þú settir í drifið er ekki gildur uppfærsludisklingur "
-"fyrir þessa útgáfu af Red Hat Linux."
+"fyrir þessa útgáfu af %s."
 
 #: ../loader/loader.c:2827
 msgid "Failed to mount floppy disk."
@@ -4618,10 +4639,9 @@ msgid "Reading anaconda updates..."
 msgstr "Les inn uppfærslur fyrir anaconda..."
 
 #: ../loader/loader.c:3046
-#, fuzzy, c-format
+#,  c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
-"Það er ekki nægjanlegt vinnsluminni í vélinni til að setja upp Red Hat Linux."
+msgstr "Það er ekki nægjanlegt vinnsluminni í vélinni til að setja upp %s."
 
 #: ../loader/loader.c:3082
 msgid ""
@@ -4629,6 +4649,9 @@ msgid ""
 "boot disk which you are using.  This shouldn't happen, and I'm rebooting "
 "your system now."
 msgstr ""
+"Seinna þrep uppsetningarforritsins passar ekki við ræsidisklinginn sem þú "
+"notaðir. Þetta ætti ekki að eiga sér stað og því mun vélin þín ræsa upp að "
+"nýju núna."
 
 #: ../loader/loader.c:3457
 msgid ""
@@ -4636,6 +4659,8 @@ msgid ""
 "drivers for the installation to succeed. Would you like to select drivers "
 "now?"
 msgstr ""
+"Engir harðir diskar fundust. Þú þarft líklega að velja rekla fyrir diskana "
+"handvirkt svo uppsetningin geti haldið áfram. Viltu velja þá núna ?"
 
 #: ../loader/loader.c:3617
 msgid "Running anaconda - please wait...\n"
@@ -4646,20 +4671,22 @@ msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
+"Get ekki lesið gátsummu diskmyndarinnar. Þetta þýðir að diskurinn var líklega "
+"búinn til án hennar."
 
 #: ../loader/mediacheck.c:201
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr ""
+msgstr "Fer yfir \"%s\"..."
 
 #: ../loader/mediacheck.c:203
 msgid "Checking media now..."
-msgstr ""
+msgstr "Fer yfir diskmyndina..."
 
 #: ../loader/mediacheck.c:248
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find install image %s"
-msgstr "Get ekki sótt fyrstu uppsetningardiskmyndina"
+msgstr "Get ekki sótt uppsetningardiskmyndina %s"
 
 #: ../loader/mediacheck.c:261
 msgid ""
@@ -4667,6 +4694,9 @@ msgid ""
 "\n"
 "It is not recommended to use this media."
 msgstr ""
+"EKKI Í LAGI.\n"
+"\n"
+"Við mælum með að þú notir þetta ekki."
 
 #: ../loader/mediacheck.c:263
 msgid ""
@@ -4674,6 +4704,9 @@ msgid ""
 "\n"
 "It is OK to install from this media."
 msgstr ""
+"Í LAGI.\n"
+"\n"
+"Það er í lagi að setja upp frá þessu."
 
 #: ../loader/mediacheck.c:265
 msgid ""
@@ -4681,10 +4714,13 @@ msgid ""
 "\n"
 "No checksum information available, unable to verify media."
 msgstr ""
+"VILLA.\n"
+"\n"
+"Engin gátsumma til staðar. Get ekki yfirfarið diskmynndina."
 
 #: ../loader/mediacheck.c:267
 msgid "Media Check Result"
-msgstr ""
+msgstr "Niðurstöður yfirferðar á diskmynd"
 
 #: ../loader/mediacheck.c:271
 #, c-format
@@ -4694,11 +4730,15 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"af diskmynd:\n"
+"\n"
+"%s\n"
+"\n"
 
 #: ../loader/mediacheck.c:275
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr ""
+msgstr "Yfirferð diskmyndar %s er lokið og niðurstaðan er: %s\n"
 
 #: ../loader/modules.c:390
 #, c-format
@@ -4736,7 +4776,7 @@ msgid "Red Hat directory:"
 msgstr "Red Hat mappan:"
 
 #: ../loader/net.c:179
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4748,7 +4788,7 @@ msgstr ""
 "\n"
 "    o heiti eða IP vistfang NFS þjónsins þíns\n"
 "    o nafn möppunnar á þjóninum sem inniheldur\n"
-"      Red Hat Linux fyrir vélina þína"
+"      %s fyrir vélina þína"
 
 #: ../loader/net.c:184
 msgid "NFS Setup"
@@ -4898,12 +4938,11 @@ msgstr "Þessi disklingur virðist ekki vera Red Hat PCMCIA rekladiskur."
 
 #: ../loader/telnetd.c:64
 msgid "Waiting for telnet connection..."
-msgstr ""
+msgstr "Bíð eftir telnet tengingu..."
 
 #: ../loader/telnetd.c:106
-#, fuzzy
 msgid "Running anaconda via telnet..."
-msgstr "Keyri anaconda - Vinsamlegast bíðið...\n"
+msgstr "Keyri anaconda gegnum telnet..."
 
 #: ../loader/urls.c:81
 #, c-format
@@ -4920,7 +4959,7 @@ msgid "Retrieving"
 msgstr "Sæki"
 
 #: ../loader/urls.c:183
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4930,9 +4969,9 @@ msgid ""
 msgstr ""
 "Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
 "\n"
-"    o heiti eða IP vistfang vefþjónsins\n"
+"    o heiti eða IP vistfang %s þjónsins\n"
 "    o nafn möppu á þjóninum sem inniheldur\n"
-"      Red Hat Linux fyrir vélina þína\n"
+"      %s fyrir vélina þína\n"
 
 #: ../loader/urls.c:226
 msgid "FTP site name:"
@@ -4944,7 +4983,7 @@ msgstr "Vefþjónn:"
 
 #: ../loader/urls.c:245
 msgid "Use non-anonymous ftp"
-msgstr "Nota \"non-anonymous\" ftp"
+msgstr "Nota auðkennt ftp"
 
 #: ../loader/urls.c:250
 msgid "Use proxy server"
@@ -5184,7 +5223,7 @@ msgstr "Amundsen-Scott Station, suðurskautið"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -5206,7 +5245,7 @@ msgstr "Atlantic Time - Nova Scotia - staðir sem fóru ekki eftir DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -5230,7 +5269,7 @@ msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr ""
+msgstr "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -5269,9 +5308,8 @@ msgid "Central Time - most locations"
 msgstr "Central Time - most locations"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Oliver County"
-msgstr "Central Time - most locations"
+msgstr "Central Time - North Dakota - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
@@ -5298,9 +5336,8 @@ msgid "Davis Station, Vestfold Hills"
 msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Dornod, Sukhbaatar"
-msgstr "Dornod, Sukhbaatar (unsure about this)"
+msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
@@ -5316,11 +5353,11 @@ msgstr "E Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "east China - Beijing, Guangdong, Shanghai, etc."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "east coast, north of Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
@@ -5418,7 +5455,7 @@ msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr ""
+msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -5525,14 +5562,12 @@ msgid "Moscow+07 - Amur River"
 msgstr "Moscow+07 - Amur River"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+07 - Sakhalin Island"
-msgstr "Moscow+08 - Magadan & Sakhalin"
+msgstr "Moscow+07 - Sakhalin Island"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+08 - Magadan"
-msgstr "Moscow+08 - Magadan & Sakhalin"
+msgstr "Moscow+08 - Magadan"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
@@ -5662,7 +5697,7 @@ msgstr "Queensland - flestir staðir"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -5678,7 +5713,7 @@ msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
@@ -5694,7 +5729,7 @@ msgstr "southwest Mali"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr ""
+msgstr "southwest Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
@@ -5714,12 +5749,11 @@ msgstr "Tasmania"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr "Tibet & Xinjiang"
+msgstr "Tibet & most of Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -5762,9 +5796,8 @@ msgid "Western Australia"
 msgstr "Western Australia"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "West Kazakhstan"
-msgstr "east Kazakhstan"
+msgstr "West Kazakhstan"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -5787,21 +5820,24 @@ msgid ""
 "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
 "GB2312            us              Asia/Shanghai"
 msgstr ""
+"Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
+"GB2312            us              Asia/Shanghai"
 
 #. generated from lang-table
 msgid ""
 "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
 "Big5              us              Asia/Taipei"
 msgstr ""
+"Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
+"Big5              us              Asia/Taipei"
 
 #. generated from lang-table
 msgid "Czech"
 msgstr "Tékkneska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Danish"
-msgstr "Spánska"
+msgstr "Danska"
 
 #. generated from lang-table
 msgid "English"
@@ -5836,13 +5872,12 @@ msgid "Norwegian"
 msgstr "Norska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese"
-msgstr "eða nota:"
+msgstr "Postúgalska"
 
 #. generated from lang-table
 msgid "Portuguese(Brasilian) pt"
-msgstr ""
+msgstr "Postúgalska(Brasil) pt"
 
 #. generated from lang-table
 msgid "Russian"
@@ -5862,85 +5897,5 @@ msgstr "Sænska"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "Úkraínska"
 
-#, fuzzy
-#~ msgid "Customize new boot loader configuration"
-#~ msgstr "Stillingar ræsistjóra"
-
-#~ msgid "China coast"
-#~ msgstr "China coast"
-
-#~ msgid "China mountains"
-#~ msgstr "China mountains"
-
-#~ msgid "Eastern Turkestan"
-#~ msgstr "Eastern Turkestan"
-
-#~ msgid "central Kazakhstan"
-#~ msgstr "Central Kazakhstan"
-
-#~ msgid "east Greenland"
-#~ msgstr "east Greenland"
-
-#~ msgid "north Manchuria"
-#~ msgstr "north Manchuria"
-
-#~ msgid "northwest Greenland"
-#~ msgstr "northwest Greenland"
-
-#~ msgid "southwest Greenland"
-#~ msgstr "southwest Greenland"
-
-#~ msgid "west Kazakhstan"
-#~ msgstr "west Kazakhstan"
-
-#~ msgid "What language should be used during the installation process?"
-#~ msgstr "Hvaða tungumál viltu nota meðan á uppsetningu stendur?"
-
-#, fuzzy
-#~ msgid "Welcome to "
-#~ msgstr "Velkomin(n)"
-
-#, fuzzy
-#~ msgid ""
-#~ "? If you don't see the disk drive you're using listed here, press F2 to "
-#~ "configure additional devices."
-#~ msgstr ""
-#~ "Þú virðist ekki vera með neina harða diska í vélinni! Viltu stilla önnur "
-#~ "tæki?"
-
-#, fuzzy
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      "
-#~ msgstr ""
-#~ "Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
-#~ "\n"
-#~ "    o heiti eða IP vistfang FTP þjónsins\n"
-#~ "    o nafn möppu á þjóninum sem inniheldur\n"
-#~ "      Red Hat Linux fyrir vélina þína\n"
-
-#~ msgid "Red Hat Linux Installer"
-#~ msgstr "Red Hat Linux uppsetningarforritið"
-
-#~ msgid "Password (again):"
-#~ msgstr "Lykilorð (aftur):"
-
-#~ msgid "User ID"
-#~ msgstr "Notandanafn"
-
-#~ msgid "Red Hat Linux"
-#~ msgstr "Red Hat Linux"
-
-#~ msgid "Welcome to Red Hat Linux"
-#~ msgstr "Velkomin(n) í Red Hat Linux"
-
-#~ msgid "Chinese(Simplified)"
-#~ msgstr "Kínverska(Simplified)"
-
-#~ msgid "Chinese(Traditional)"
-#~ msgstr "Kínverska(Traditional)"
