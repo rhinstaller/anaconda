@@ -165,14 +165,19 @@ class LanguageSupportWindow:
                 # --If they selected all langs, then set todo.language.setSupported to 
                 # None.  This installs all langs
 
-                todo.language.setSupported (ct.getSelection())
+                if ct.getSelection() == []:
+                    ButtonChoiceWindow(screen, _("Invalid Choice"),
+                                       _("You select at least one language to install."),
+                                       buttons = [ _("OK") ], width = 40)
 
-                # we may need to reset the default language
-                default = todo.language.getDefault()
-                if default not in ct.getSelection():
-                    todo.language.setDefault(None)
-                screen.popWindow()
-                return INSTALL_OK
+                else:
+                    # we may need to reset the default language
+                    todo.language.setSupported (ct.getSelection())
+                    default = todo.language.getDefault()
+                    if default not in ct.getSelection():
+                        todo.language.setDefault(None)
+                    screen.popWindow()
+                    return INSTALL_OK
 
 
 class LanguageDefaultWindow:
