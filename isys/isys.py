@@ -434,6 +434,27 @@ def driveIsRemovable(device):
     else:
         makeDevInode(device, "/tmp/disk")
         rc = (_isys.isScsiRemovable("/tmp/disk") == 1)
+
+        # need to test if its USB or IEEE1394 even if it doesnt look removable
+        if not rc:
+            if os.access("/tmp/scsidisks", os.R_OK):
+                sdlist=open("/tmp/scsidisks", "r")
+                sdlines = sdlist.readlines()
+                sdlist.close()
+                for l in sdlines:
+                    try:
+                        # each line has format of:  <device>  <module>
+                        (sddev, sdmod) = string.split(l)
+
+                        if sddev == device:
+                            if sdmod in ['sbp2', 'usb-storage']:
+                                rc = 1
+                            else:
+                                rc = 0
+                            break
+                    except:
+                        pass
+                  
         os.unlink("/tmp/disk")
 
     return rc
