@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-13 14:23-0500\n"
-"PO-Revision-Date: 2004-11-06 01:31+0000\n"
+"PO-Revision-Date: 2005-02-15 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
@@ -775,7 +775,7 @@ msgstr ""
 "Sláðu á <Enter> til að endurræsa vélina."
 
 #: ../fsset.py:1355
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -786,7 +786,7 @@ msgid ""
 msgstr ""
 "Villa kom upp þegar reynt var að virkja diskminni á tæki %s: %s\n"
 "\n"
-"Þetta þýðir líklega að diskminnissneiðin hefur ekki verið forsniðin.\n"
+"Skráin /etc/fstab vísar ekki í neina gilda diskminnissneið.\n"
 "\n"
 "Veldu Í lagi til að endurræsa vélina."
 
@@ -904,7 +904,6 @@ msgstr ""
 "Veldu Í lagi til að endurræsa vélina."
 
 #: ../fsset.py:1575
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -912,9 +911,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Villa kom upp þegar reynt var að tengja tæki %s á %s: %s\n"
+"/ færslan fannst ekki.\n"
 "\n"
-"Þetta þýðir líklega að disksneiðin hefur ekki verið forsniðin.\n"
+"Þetta þýðir líklega að fstab skráin er skemmd.\n"
 "\n"
 "Veldu Í lagi til að endurræsa vélina."
 
@@ -1298,6 +1297,8 @@ msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
 msgstr ""
+"Það vantar mikilvæga hópa í comps skrána í uppsetningartréinu þínu. "
+"Vinsamlegast gaktu úr skugga um að það hafi verið búið til á réttann hátt."
 
 #: ../packages.py:197 ../packages.py:629
 #, python-format
@@ -1339,15 +1340,16 @@ msgstr ""
 "Sláðu á <return> til að reyna aftur."
 
 #: ../packages.py:441
-#, fuzzy
 msgid "Re_boot"
-msgstr "Endurræsa"
+msgstr "En_durræsa"
 
 #: ../packages.py:445
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
+"Ef þú endurræsir núna verður vélin í annarlegu ástand og þarf líklega að setja "
+"stýrikerfið upp aftur. Ertu viss um að þú viljir halda áfram?"
 
 #: ../packages.py:459
 msgid "Installing..."
@@ -2863,7 +2865,6 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Frekari stillingar ræsistjóra"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
@@ -2871,9 +2872,7 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 "Ef þú neyðir ræsistjórann til að nota LBA32 ham þegar BIOS vélarinnar styður "
-"það ekki getur það leitt til þess að vélin geti ekki ræst. Við mælum "
-"eindregið með að þú útbúir ræsidiskling síðar þegar þér er boðið upp á að "
-"gera það.\n"
+"það ekki getur það leitt til þess að vélin geti ekki ræst.\n"
 "\n"
 "Viltu halda áfram og nota LBA32?"
 
@@ -2908,7 +2907,6 @@ msgid "Change Boot Loader"
 msgstr "Breyta ræsistjóra"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -3895,9 +3893,8 @@ msgid "Encryption _Key"
 msgstr "Dulritunar_lykill"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Hardware address:"
-msgstr "IP vistfang:"
+msgstr "Vélbúnaðarvistfang:"
 
 #: ../iw/network_gui.py:291
 #, python-format
@@ -5665,7 +5662,7 @@ msgstr "Lýsing: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Vélbúnaðarvistfang: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -7141,9 +7138,9 @@ msgid "Welcome to %s"
 msgstr "Velkomin(n) í %s"
 
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Velkomin(n) í %s"
+msgstr "Velkomin(n) í %s - Björgunarham"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:138
 msgid ""
@@ -7668,14 +7665,12 @@ msgid "Account name:"
 msgstr "Notandanafn:"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "FTP stillingar"
+msgstr "Frekari FTP stillingar"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "HTTP stillingar"
+msgstr "Frekari HTTP stillingar"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
@@ -8546,41 +8541,3 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "%s uppsetningarforrit á %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Þú hefur kosið að setja ekki upp ræsistjóra á vélinni þinni. Þú munt því "
-#~ "þurfa að búa til ræsidiskling svo vélin geti ræst.\n"
-#~ "\n"
-#~ "Viltu halda áfram án ræsistjóra?"
-
-#~ msgid "Total"
-#~ msgstr "Alls"
-
-#~ msgid "Remaining"
-#~ msgstr "Eftir"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "Set inn %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "Framvinda pakka: "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "Heildarframvinda: "
-
-#~ msgid "Status"
-#~ msgstr "Staða"
-
-#~ msgid "Packages"
-#~ msgstr "Pakkar"
-
-#~ msgid "Time"
-#~ msgstr "Tími"
