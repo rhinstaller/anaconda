@@ -1664,14 +1664,14 @@ static char * getLoginName(char * login, struct iurlinfo ui) {
     int i;
 
     i = 0;
-    /* password w/o login isn't usefull */
+    /* password w/o login isn't useful */
     if (ui.login && strlen(ui.login)) {
 	i += strlen(ui.login) + 5;
 	if (strlen(ui.password))
 	    i += 3*strlen(ui.password) + 5;
 
 	if (ui.login || ui.password) {
-	    login = alloca(i);
+	    login = malloc(i);
 	    strcpy(login, ui.login);
 	    if (ui.password) {
 		char * chptr;
