@@ -29,6 +29,19 @@ from constants import *
 
 class VolumeGroupEditor:
 
+    def computeSpaceValues(self, usepe=None):
+	if usepe is None:
+	    pesize = self.peOptionMenu.get_active().get_data("value")
+	else:
+	    pesize = usepe
+	    
+        pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
+	tspace = self.computeVGSize(pvlist, pesize)
+	uspace = self.computeLVSpaceNeeded(self.logvolreqs)
+	fspace =  tspace - uspace
+
+	return (tspace, uspace, fspace)
+
     def getPVWastedRatio(self, newpe):
         """ given a new pe value, return percentage of smallest PV wasted
 
@@ -127,13 +140,14 @@ class VolumeGroupEditor:
 
 	# see if PE is too large compared to smallest PV
 	# remember PE is in KB, PV size is in MB
-	if curval > self.getSmallestPVSize()*1024:
+	maxpvsize = self.getSmallestPVSize()
+	if curval > maxpvsize * 1024:
             self.intf.messageWindow(_("Not enough space"),
                                     _("The physical extent size cannot be "
                                       "changed because the value selected "
 				      "(%10.2f MB) is larger than the smallest "
 				      "physical volume (%10.2f MB) in the "
-				      "volume group.") % (curval/1024.0, pvsize))
+				      "volume group.") % (curval/1024.0, maxpvsize))
 	    peOption.set_history(lastidx)
             return 0
 
@@ -229,10 +243,7 @@ class VolumeGroupEditor:
 	else:
 	    pvlist.append(id)
 	
-	pesize = self.peOptionMenu.get_active().get_data("value")
-	availSpaceMB = self.computeVGSize(pvlist, pesize)
-	neededSpaceMB = self.computeLVSpaceNeeded(self.logvolreqs)
-
+	(availSpaceMB, neededSpaceMB, fspace) = self.computeSpaceValues()
 	if availSpaceMB <= neededSpaceMB:
 	    self.intf.messageWindow(_("Not enough space"),
 				    _("You cannot remove this physical "
@@ -347,6 +358,8 @@ class VolumeGroupEditor:
         maintable.attach(lvnameEntry, 1, 2, row, row + 1)
 	if logrequest and logrequest.logicalVolumeName:
 	    lvnameEntry.set_text(logrequest.logicalVolumeName)
+	else:
+	    lvnameEntry.set_text(lvm.createSuggestedLVName(self.logvolreqs))
         row = row + 1
 
         maintable.attach(createAlignedLabel(_("Size (MB):")), 0, 1, row, row+1)
@@ -355,6 +368,16 @@ class VolumeGroupEditor:
 	if logrequest:
 	    sizeEntry.set_text("%g" % (logrequest.getActualSize(self.partitions, self.diskset),))
         row = row + 1
+
+	pesize = self.peOptionMenu.get_active().get_data("value")
+	(tspace, uspace, fspace) = self.computeSpaceValues(usepe=pesize)
+	maxlv = min(lvm.getMaxLVSize(pesize), fspace)
+
+	maxlabel = createAlignedLabel(_("(Max size is %s MB)") % (maxlv,))
+	labelalign = gtk.Alignment()
+	labelalign.set(0.5, 0.5, 0.0, 0.0)
+	labelalign.add(maxlabel)
+        maintable.attach(labelalign, 1, 2, row, row + 1)
 
         dialog.vbox.pack_start(maintable)
         dialog.show_all()
@@ -512,8 +535,7 @@ class VolumeGroupEditor:
  		continue
 
 	    # see if there is room for request
-	    pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
-	    availSpaceMB = self.computeVGSize(pvlist, pesize)
+	    (availSpaceMB, neededSpaceMB, fspace) = self.computeSpaceValues(usepe=pesize)
 
 	    tmplogreqs = []
 	    for l in self.logvolreqs:
@@ -576,7 +598,9 @@ class VolumeGroupEditor:
 	self.editLogicalVolume(logrequest)
 
     def addLogicalVolumeCB(self, widget):
-        request = LogicalVolumeRequestSpec(fileSystemTypeGetDefault(), size = 1)
+        (tspace, uspace, fspace) = self.computeSpaceValues()
+        request = LogicalVolumeRequestSpec(fileSystemTypeGetDefault(),
+					   size = fspace/2)
 	self.editLogicalVolume(request, isNew = 1)
 	return
 
@@ -673,10 +697,7 @@ class VolumeGroupEditor:
 	else:
 	    pvlist = alt_pvlist
 	    
-	pesize = self.peOptionMenu.get_active().get_data("value")
-	tspace = self.computeVGSize(pvlist, pesize)
-	uspace = self.computeLVSpaceNeeded(self.logvolreqs)
-	fspace =  tspace - uspace
+        (tspace, uspace, fspace) = self.computeSpaceValues()
 
 	self.totalSpaceLabel.set_text("%10.2f MB" % (tspace,))
 	self.usedSpaceLabel.set_text("%10.2f MB" % (uspace,))
@@ -702,6 +723,7 @@ class VolumeGroupEditor:
 	    pesize = self.peOptionMenu.get_active().get_data("value")
 	    availSpaceMB = self.computeVGSize(pvlist, pesize)
 	    neededSpaceMB = self.computeLVSpaceNeeded(self.logvolreqs)
+
 	    if neededSpaceMB > availSpaceMB:
 		self.intf.messageWindow(_("Not enough space"),
 					_("The logical volumes you have "
@@ -762,11 +784,14 @@ class VolumeGroupEditor:
 
         self.availlvmparts = self.partitions.getAvailLVMPartitions(self.origvgrequest,
                                                               self.diskset)
+        self.logvolreqs = self.partitions.getLVMLVForVG(self.origvgrequest)
+	self.origvolreqs = copy.copy(self.logvolreqs)
 
         # if no PV exist, raise an error message and return
         if len(self.availlvmparts) < 1:
 	    self.intf.messageWindow(_("Not enough physical volumes"),
-			       _("At least one physical volume partition is "
+			       _("At least one unused physical "
+				 "volume partition is "
 				 "needed to create a LVM Volume Group.\n\n"
 				 "First create a partition or raid array "
 				 "of type \"physical volume (LVM)\" and then "
@@ -801,6 +826,8 @@ class VolumeGroupEditor:
         self.volnameEntry = gtk.Entry(16)
 	if not self.isNew:
 	    self.volnameEntry.set_text(self.origvgrequest.volumeGroupName)
+	else:
+	    self.volnameEntry.set_text(lvm.createSuggestedVGName(self.partitions))
 	    
         maintable.attach(self.volnameEntry, 1, 2, row, row + 1)
 	row = row + 1
@@ -815,7 +842,7 @@ class VolumeGroupEditor:
         maintable.attach(self.peOption, 1, 2, row, row + 1)
         row = row + 1
 
-        (self.lvmlist, sw) = self.createAllowedLvmPartitionsList(self.availlvmparts, [], self.partitions)
+        (self.lvmlist, sw) = self.createAllowedLvmPartitionsList(self.availlvmparts, self.origvgrequest.physicalVolumes, self.partitions)
         self.lvmlist.set_size_request(275, 80)
         maintable.attach(createAlignedLabel(_("Physical Volumes to Use:")), 0, 1,
 			 row, row + 1)
@@ -881,9 +908,6 @@ class VolumeGroupEditor:
 				      gobject.TYPE_STRING,
 				      gobject.TYPE_STRING)
 	
-        self.logvolreqs = self.partitions.getLVMLVForVG(self.origvgrequest)
-	self.origvolreqs = copy.copy(self.logvolreqs)
-
 	if self.logvolreqs:
 	    for lvrequest in self.logvolreqs:
 		iter = self.logvolstore.append()
@@ -937,7 +961,7 @@ class VolumeGroupEditor:
 	maintable.attach(frame, 0, 2, row, row+1)
 	row = row + 1
 	
-	dialog.set_size_request(500, 400)
+	dialog.set_size_request(500, 450)
 
         dialog.vbox.pack_start(maintable)
         dialog.show_all()
