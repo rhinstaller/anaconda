@@ -249,7 +249,10 @@ readType()
     return (int)type;
 }
 
-static int intelDetectSMP(void)
+#define MODE_SMP_CHECK 1
+#define MODE_SUMMIT_CHECK 2
+
+static int groupForSMP(int mode)
 {
     vm_offset_t paddr;
     int         where;
@@ -290,6 +293,15 @@ static int intelDetectSMP(void)
 	    close (pfd);
 	    return 0;
 	}
+
+	if (mode == MODE_SUMMIT_CHECK) {
+	    if (!strncmp(cth.oem_id, "IBM ENSW", 8) &&
+		(!strncmp(cth.product_id, "NF 6000R", 8) ||
+		 !strncmp(cth.product_id, "VIGIL SMP", 9)))
+		return 1;
+	    return 0;
+	}
+	
 	count = cth.entry_count;
 	for (i = 0; i < count; i++) {
 	    if ( readType() == 0 ) {
@@ -490,9 +502,12 @@ readEntry( void* entry, int size )
     }
 }
 
-#endif /* __i386__ */
+static int intelDetectSMP(void)
+{
+    return groupForSMP(MODE_SMP_CHECK);
+}
 
-#ifdef __i386__
+/* ---- end mptable mess ---- */
 
 static inline void cpuid(int op, int *eax, int *ebx, int *ecx, int *edx)
 {
@@ -501,6 +516,8 @@ static inline void cpuid(int op, int *eax, int *ebx, int *ecx, int *edx)
 	    : "a" (op));
 }
 
+/* XXX: rewrite using /proc/cpuinfo info if it there.  Only fall
+   back to inline asm if it is not */
 int detectHT(void)
 {
     FILE *f;
@@ -536,9 +553,19 @@ int detectHT(void)
     return 0;
 }
 
+int detectSummit(void)
+{
+    return groupForSMP(MODE_SUMMIT_CHECK);
+}
+
 #else /* ndef __i386__ */
 
 int detectHT(void)
+{
+    return 0;
+}
+
+int detectSummit(void)
 {
     return 0;
 }

@@ -185,6 +185,18 @@ def smpAvailable():
 
 htavailable = _isys.htavailable
 
+def summitavailable():
+    try:
+        f = open("/proc/cmdline")
+        line = f.readline()
+        if string.find(line, " summit") != -1:
+            return 1
+        del f
+    except:
+        pass
+    
+    return _isys.summitavailable()
+
 def chroot (path):
     return _isys.chroot (path)
 
