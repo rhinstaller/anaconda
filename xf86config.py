@@ -966,9 +966,7 @@ class XF86Config:
                 fbmonsect = self.monitor.getFBMonitorSection()
 
                 if fbmonsect:
-                    print fbmonsect
                     self.manualModes = self.monitor.getFBMonitorMode()
-                    print "set to ",self.manualModes
                 elif self.videocard.hasFixedMode():
                     self.manualModes = self.videocard.FixedMode()
                 else:
