@@ -322,6 +322,25 @@ class IndividualPackageWindow:
 
         return INSTALL_OK
 
+
+class MouseConfigWindow:
+    def run(self, screen, todo):
+        mice = todo.mouse.available ()
+        mice.sort ()
+        current = todo.mouse.get ()
+
+        (button, choice) = \
+            ListboxChoiceWindow(screen, _("Mouse Selection"),
+                                _("Which model mouse is attached to this computer?"), mice, 
+                                buttons = [_("Ok"), _("Back")], width = 30, scroll = 1, height = 8)
+        
+        if button == string.lower (_("Back")):
+            return INSTALL_BACK
+        todo.mouse.set (mice[choice])
+        return INSTALL_OK
+
+
+
 class BeginInstallWindow:
     def run(self, screen, todo):
         rc = ButtonChoiceWindow(screen, _("Installation to begin"),
@@ -532,9 +551,10 @@ class InstallInterface:
             [_("Welcome"), WelcomeWindow, (self.screen,)],
             [_("Partition"), PartitionWindow, (self.screen, todo)],
             [_("Network Setup"), NetworkWindow, (self.screen, todo)],
-            [_("Root Password"), RootPasswordWindow, (self.screen, todo)],
             [_("Package Groups"), PackageGroupWindow, (self.screen, todo, individual)],
             [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, individual)],
+            [_("Mouse Configuration"), MouseConfigWindow, (self.screen, todo)],
+            [_("Root Password"), RootPasswordWindow, (self.screen, todo)],
             [_("Installation Begins"), BeginInstallWindow, (self.screen, todo)],
         ]
         

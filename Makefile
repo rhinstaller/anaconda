@@ -1,4 +1,4 @@
-SUBDIRS = rpmmodule isys balkan loader po
+SUBDIRS = rpmmodule isys balkan loader po libfdisk
 TOPDIR = ../../..
 DESTDIR = $(TOPDIR)/RedHat/instimage/usr/bin
 CATALOGS = po/anaconda-text.pot

@@ -163,7 +163,7 @@ class Mouse (SimpleConfigFile):
                     ("ps/2", "PS/2", "psaux"),
             "Generic 3 Button Mouse (PS/2)" :
 	            ("ps/2", "PS/2", "psaux"),
-            "Genius NetMouse (serial)",
+            "Genius NetMouse (serial)" :
         	   ("ms3", "IntelliMouse", "ttyS"),
             "Genius NetMouse (PS/2)" :
 	            ("netmouse", "NetMousePS/2", "psaux"),
@@ -209,11 +209,24 @@ class Mouse (SimpleConfigFile):
     def available (self):
         return self.mice.keys ()
 
+    def get (self):
+        if self.info.has_key ("FULLNAME"):
+            return self.info ("FULLNAME")
+
     def set (self, mouse):
         (gpm, x11, dev) = self.mice[mouse]
         self.info["MOUSETYPE"] = gpm
         self.info["XMOUSETYPE"] = x11
         self.info["FULLNAME"] = mouse
+
+class Authentication:
+    def __init__ (self):
+        self.domain = ""
+        self.useBroadcast = 0
+        self.server = ""
+        self.useNis = 0
+        self.useShadow = 1
+        self.useMD5 = 1
         
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
@@ -230,6 +243,7 @@ class ToDo:
         self.network = Network ()
         self.rootpassword = Password ()
         self.mouse = Mouse ()
+        self.auth = Authentication ()
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -474,6 +488,7 @@ class ToDo:
         
 	self.writeFstab ()
         self.writeLanguage ()
+        self.writeMouse ()
         self.writeNetworkConfig ()
         self.writeRootPassword ()
 	self.installLilo ()
