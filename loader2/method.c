@@ -118,6 +118,8 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
         return LOADER_ERROR;
     }
 
+    close(loopfd);
+
     if (doPwMount(filename, mntpoint, "iso9660", 1,
                   0, NULL, NULL, 0, 0)) {
         if (doPwMount(filename, mntpoint, "ext2", 1,
@@ -126,14 +128,13 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
                           0, NULL, NULL, 0, 0)) {
                 logMessage("failed to mount loop: %s", 
                            strerror(errno));
+                loopfd = open(filename, O_RDONLY);
                 ioctl(loopfd, LOOP_CLR_FD, 0);
                 close(loopfd);
                 return LOADER_ERROR;
             }
         }
     }
-
-    close(loopfd);
 
     return 0;
 }
