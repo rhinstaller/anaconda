@@ -57,7 +57,8 @@ class PartitionWindow (InstallWindow):
         from gnomepyfsedit import fsedit
 
         if not self.todo.ddruid:
-            self.todo.ddruid = fsedit(1, ['hda'], [])
+            self.todo.ddruid = \
+                fsedit(1, self.todo.drives.available ().keys (), [])
             self.todo.ddruid.setCallback (self.enableCallback, self)
    
         self.bin = GtkFrame (None, _obj = self.todo.ddruid.getWindow ())
