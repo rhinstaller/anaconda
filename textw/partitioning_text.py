@@ -325,7 +325,7 @@ class LoopSizeWindow:
 	    size = avail / 2
             if size > 2000:
                 size = 2000
-	    swapSize = 32
+	    swapSize = 128
 
 	sizeEntry = Entry(6, "%d" % (size,))
 	swapSizeEntry = Entry(6, "%d" % (swapSize,))
