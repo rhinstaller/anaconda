@@ -288,6 +288,24 @@ class KickstartBase(BaseInstallClass):
 
     def doLilo	(self, id, args):
         self.doBootloader(id, args, useLilo = 1)
+
+    def doFirstboot(self, id, args):
+        (args, extra) = isys.getopt(args, '',
+                                    ['reconfig', 'enable', 'disable'])
+
+        fb = FIRSTBOOT_SKIP
+
+	for n in args:
+	    (str, arg) = n
+	    if str == '--reconfig':
+                fb = FIRSTBOOT_RECONFIG
+            elif str == '--enable':
+                fb = FIRSTBOOT_DEFAULT
+            elif str == '--disable':
+                fb = FIRSTBOOT_SKIP
+
+        id.firstboot = fb
+        
         
     def doLiloCheck (self, id, args):
         drives = isys.hardDriveDict ().keys()
@@ -513,6 +531,7 @@ class KickstartBase(BaseInstallClass):
 		     "zerombr"		: self.doZeroMbr	,
                      "interactive"      : self.doInteractive    ,
                      "autostep"         : self.doAutoStep       ,
+                     "firstboot"        : self.doFirstboot      ,
 		   }
 
 	packages = []
@@ -1038,6 +1057,7 @@ class KickstartBase(BaseInstallClass):
 
 	self.installType = "install"
         self.id = id
+        self.id.firstboot = FIRSTBOOT_SKIP
 
         # parse the %pre
 	self.readKickstart(id, self.file, parsePre = 1)
