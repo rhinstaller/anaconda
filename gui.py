@@ -28,6 +28,7 @@ from log import log
 from flags import flags
 
 StayOnScreen = "stayOnScreen"
+mainWindow = None
 
 stepToClass = {
     "language" : ("language_gui", "LanguageWindow"),
@@ -88,8 +89,8 @@ def partedExceptionWindow(exc):
     print exc.type_string
     print exc.message
     print exc.options
-    win = gtk.Dialog (exc.type_string)
-    win.set_position (gtk.WIN_POS_CENTER)
+    win = gtk.Dialog(exc.type_string, mainWindow)
+    win.set_position(gtk.WIN_POS_CENTER)
     label = WrappingLabel(exc.message)
     win.vbox.pack_start (label)
     numButtons = 0
@@ -190,7 +191,7 @@ class ProgressWindow:
 
 class ExceptionWindow:
     def __init__ (self, text):
-        win = gtk.Dialog ("Exception Occured")
+        win = gtk.Dialog("Exception Occured", mainWindow)
         win.add_button("Debug", 0)
         win.add_button("Save to floppy", 1)
         win.add_button('gtk-ok', 2)
@@ -253,27 +254,33 @@ class MessageWindow:
             self.rc = 1
             return
         self.rc = None
-#        window = gtk.Dialog(flags=gtk.DIALOG_MODAL)
-        window = gtk.Dialog("Foo", None, gtk.DIALOG_MODAL)
-        window = gtk.Dialog()
-        window.vbox.pack_start(WrappingLabel(_(text)), gtk.FALSE)
-        if type == "ok":
-            window.add_button('gtk-ok', 1)
-        if type == "okcancel":
-            window.add_button('gtk-ok', 1)
-            window.add_button('gtk-cancel', 0)
-        if type == "yesno":
-            window.add_button('gtk-yes', 1)
-            window.add_button('gtk-no', 0)
+        if type == 'ok':
+            buttons = gtk.BUTTONS_OK
+            style = gtk.MESSAGE_INFO
+        elif type == 'okcancel':
+            buttons = gtk.BUTTONS_OK_CANCEL
+            style = gtk.MESSAGE_WARNING
+        elif type == 'yesno':
+            buttons = gtk.BUTTONS_YES_NO
+            style = gtk.MESSAGE_QUESTION
+
+        window = gtk.MessageDialog(mainWindow, 0, style, buttons, _(text))
+        
         if default == "no":
             window.set_default_response(0)
         elif default == "yes" or default == "ok":
             window.set_default_response(1)
         else:
-            raise RuntimeError, "unhandled default"
+            window.set_default_response(0)
+
         window.set_position (gtk.WIN_POS_CENTER)
         window.show_all ()
-        self.rc = window.run ()
+        rc = window.run()
+        if rc == gtk.RESPONSE_OK or rc == gtk.RESPONSE_YES:
+            self.rc = 1
+        elif (rc == gtk.RESPONSE_CANCEL or rc == gtk.RESPONSE_NO
+            or rc == gtk.RESPONSE_CLOSE):
+            self.rc = 0
         window.destroy()
     
 class InstallInterface:
@@ -443,7 +450,7 @@ class InstallControlWindow:
         self.releaseButton.set_sensitive(gtk.TRUE)
 
     def releaseClicked (self, widget):
-        self.textWin = gtk.Dialog ()
+        self.textWin = gtk.Dialog(parent=mainWindow)
         self.releaseButton.set_sensitive(gtk.FALSE)
 
         table = gtk.Table(3, 3, gtk.FALSE)
@@ -636,7 +643,7 @@ class InstallControlWindow:
         self.handle = None
 
     def abortInstall (self, *args):
-        dlg = gtk.Dialog(_("Warning"))
+        dlg = gtk.Dialog(_("Warning"), mainWindow)
         dlg.set_modal(gtk.TRUE)
         dlg.set_usize(350, 200)
         dlg.set_position(gtk.WIN_POS_CENTER)
@@ -697,6 +704,8 @@ class InstallControlWindow:
 
     def setup_window (self, runres):
         self.window = gtk.Window ()
+        global mainWindow
+        mainWindow = self.window
         self.window.set_events (gtk.gdk.KEY_RELEASE_MASK)
 
         if runres == '640x480':
