@@ -84,7 +84,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
     status = -1
     try:
         (pid, status) = os.waitpid(childpid, 0)
-    except OSError (errno, msg):
+    except OSError, (errno, msg):
         print __name__, "waitpid:", msg
 
     if newPgrp:
@@ -131,7 +131,7 @@ def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0):
 
     try:
         os.waitpid(childpid, 0)
-    except OSError (errno, msg):
+    except OSError, (errno, msg):
         print __name__, "waitpid:", msg
 
     return rc

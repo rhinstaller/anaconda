@@ -42,7 +42,7 @@ class Syslogd:
 	os.kill(self.child, 15)
         try:
             os.waitpid(self.child, 0)
-        except OSError (errno, msg):
+        except OSError, (errno, msg):
             print __name__, "waitpid:", msg
 
     def __init__(self, root = "", output = sys.stdout, socket = "/dev/log"):

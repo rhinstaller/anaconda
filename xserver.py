@@ -176,7 +176,7 @@ def testx(mouse, x):
         pid = 0
         try:
             pid, status = os.waitpid (server, os.WNOHANG)
-        except OSError (errno, msg):
+        except OSError, (errno, msg):
             print __name__, "waitpid:", msg
 	if pid:
 	    sys.stderr.write("X SERVER FAILED");
@@ -196,7 +196,7 @@ def testx(mouse, x):
     if (child):
 	try:
 	    pid, status = os.waitpid(child, 0)
-        except OSError (errno, msg):
+        except OSError, (errno, msg):
             print __name__, "waitpid:", msg
 	    sys.exit (-1)
 
@@ -248,7 +248,7 @@ def start_existing_X():
     status = 0
     try:
         pid, status = os.waitpid (server, os.WNOHANG)
-    except OSError (errno, msg):
+    except OSError, (errno, msg):
         print __name__, "waitpid:", msg
 
     if status:

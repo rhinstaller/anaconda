@@ -48,7 +48,7 @@ class XKB:
 
         try:
             pid, status = os.waitpid(child, 0)
-        except OSError (errno, msg):
+        except OSError, (errno, msg):
             print __name__, "waitpid:", msg
         return
 
