@@ -19,7 +19,7 @@ BUILDARCH=`rpm -qp --qf "%{ARCH}" $p/RedHat/RPMS/anaconda-runtime-[0-9]*`
 
 if [ ! -f $UPD_INSTROOT ]; then
     cd $BUILDINSTDIR
-    rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd usr/lib/anaconda-runtime/upd-instroot
+    rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd ./usr/lib/anaconda-runtime/upd-instroot usr/lib/anaconda-runtime/upd-instroot
     mv usr/lib/anaconda-runtime/upd-instroot .
     rm -rf usr
 else
@@ -29,7 +29,7 @@ UPD_INSTROOT=$BUILDINSTDIR/upd-instroot
 
 if [ ! -f $MK_IMAGES ]; then
     cd $BUILDINSTDIR
-    rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd usr/lib/anaconda-runtime/mk-images*
+    rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd ./usr/lib/anaconda-runtime/mk-images* usr/lib/anaconda-runtime/mk-images*
     mv usr/lib/anaconda-runtime/mk-images* .
     rm -rf usr
 else

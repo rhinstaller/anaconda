@@ -433,6 +433,11 @@ rm -rf $DEST; mkdir -p $DEST/usr/sbin
 rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin $DESTGR/var/lib
 ln -s /tmp $DESTGR/var/lib/xkb 
 
+for file in $KEEPFILE $KEEPFILEGR; do
+   cat $file | awk '{print $1 "\n./" $1}' > $file-
+   mv -f $file- $file
+done
+
 echo -n "Expanding packages..."
 expandPackageSet "$RPMS" $DEST $KEEPFILE
 
@@ -444,7 +449,7 @@ echo -e "\rExpanding packages..."
 echo "retrieving timezones"
 TZDIR=/tmp/glibc-timezone-$$
 mkdir -p $TZDIR/usr/share/zoneinfo
-rpm2cpio $GLIBC | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo usr/share/zoneinfo/*)
+rpm2cpio $GLIBC | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo ./usr/share/zoneinfo ./usr/share/zoneinfo/* usr/share/zoneinfo/*)
 (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DEST; tar xSpf -)
 (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DESTGR; tar xSpf -)
 rm -rf $TZDIR
