@@ -18,6 +18,7 @@ import isys
 import iutil
 import upgrade
 import gui
+import gobject
 import gtk
 from iw_gui import *
 from package_gui import queryUpgradeContinue
@@ -42,15 +43,17 @@ class UpgradeSwapWindow (InstallWindow):
             else:
                 return None
 
-        data = self.clist.get_row_data(self.row)
-        if data:
-            mnt, part, size = data
+	selection = self.view.get_selection()
+	rc = selection.get_selected()
+	if rc:
+	    model, iter = rc
+	    mnt = model.get_value(iter, 0)
+	    part = model.get_value(iter, 1)
+	    size = int(model.get_value(iter, 2))
             val = int(self.entry.get_text())
-            size = int(size)
-            val = int(val)
-        else:
-            val = 0
-            
+	else:
+	    raise RuntimeError, "unknown value for upgrade swap location"
+
         if val > 2000 or val < 1:
             rc = self.swapWrongSize()
             raise gui.StayOnScreen
@@ -73,6 +76,15 @@ class UpgradeSwapWindow (InstallWindow):
         self.row = row
     
     def getScreen (self, intf, fsset, instPath, swapInfo, dispatch):
+
+#
+# use to test function
+#
+#	fslist = [('/', 'hda1', 1000)]
+#	fslist.append(('/var', 'hda2', 100))
+#	fslist.append(('/opt', 'hda3', 500))
+#	swapInfo = (fslist, 1000, '/var')
+	
         self.neededSwap = 0
         self.fsset = fsset
         self.instPath = instPath
@@ -97,7 +109,7 @@ class UpgradeSwapWindow (InstallWindow):
                           (iutil.memInstalled(corrected = 1)/1024))
 
         label.set_alignment (0.5, 0.0)
-        label.set_size_request(400, 100)
+#        label.set_size_request(400, 200)
         label.set_line_wrap (gtk.TRUE)
         box.pack_start(label, gtk.FALSE)
 
@@ -119,20 +131,36 @@ class UpgradeSwapWindow (InstallWindow):
         a.add(label)
         self.swapbox.pack_start(a, gtk.FALSE)
 
-        titles = ((_("Mount Point")), (_("Partition")), (_("Free Space (MB)")))
-        self.clist = gtk.CList(3, titles)
-        self.clist.connect("select-row", self.clist_cb)
-        a = gtk.Alignment(0.5, 0.5)
-        a.add(self.clist)
+	self.store = gtk.ListStore(gobject.TYPE_STRING,
+				   gobject.TYPE_STRING,
+				   gobject.TYPE_STRING)
+
+        for (mnt, part, size) in fsList:
+	    iter = self.store.append()
+	    self.store.set_value(iter, 0, mnt)
+	    self.store.set_value(iter, 1, part)
+	    self.store.set_value(iter, 2, str(size))
+
+	self.view=gtk.TreeView(self.store)
+
+	i = 0
+	for title in [(_("Mount Point")), (_("Partition")), (_("Free Space (MB)"))]:
+	    col = gtk.TreeViewColumn(title, gtk.CellRendererText(), text=i)
+	    self.view.append_column(col)
+	    i = i + 1
+
+	sw = gtk.ScrolledWindow()
+	sw.add(self.view)
+	sw.set_shadow_type(gtk.SHADOW_IN)
+	sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+	sw.set_size_request(300, 90)
+	a = gtk.Alignment(0.5, 0.5)
+        a.add(sw)
         self.swapbox.pack_start(a, gtk.FALSE, gtk.TRUE, 10)
 
-        count = 0
-        for (mnt, part, size) in fsList:
-            self.clist.append([mnt, part, str(size)])
-            self.clist.set_row_data(count, [mnt, part, size])
-            count = count + 1
-
-        self.clist.select_row(0, 0)
+	rootiter = self.store.get_iter_root()
+	sel = self.view.get_selection()
+	sel.select_iter(rootiter)
 
         label = gtk.Label (_("It is recommended that your swap file be at "
                             "least %d MB.  Please enter a size for the swap "
