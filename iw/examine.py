@@ -19,6 +19,8 @@ class UpgradeExamineWindow (InstallWindow):
         threads_enter ()
         
         if self.individualPackages.get_active ():
+            # XXX fix me
+            from package import IndividualPackageSelectionWindow
             return IndividualPackageSelectionWindow
         return None
 
