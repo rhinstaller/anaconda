@@ -210,10 +210,13 @@ intcopymodules () {
             echo "Module $n not found in kernel rpm" >&2
         else 
 	    echo $n >> $MODULESUSED
-	    echo $n
-	    if ! cp $m $dir ; then
-		echo "Failed to copy $m to $dir (for module $n)"
-	    fi
+	    for o in $m ; do 
+		ver=$(echo $o |cut -d / -f 6)
+		if ! [ -d $dir/$ver ] ; then mkdir $dir/$ver ; fi
+		if ! cp $o $dir/$ver; then
+		    echo "Failed to copy $o to $dir/$ver (for module $n)" >&2
+		fi
+	    done
         fi
     done
 }
@@ -302,19 +305,16 @@ makemoduleball() {
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
 	$MMB_MODULESET > ../$MMB_MODINFO
 
-    getmoddeps "*.o" ../modules.dep
+    getmoddeps $(find . -name "*.o") ../modules.dep
 
     # create the pcitable
-    $TRIMPCITABLE *.o < $PCITABLE > ../pcitable
+    $TRIMPCITABLE $(find . -name *.o) < $PCITABLE > ../pcitable
 
     if [ -n "$MMB_DD" ]; then
 	echo $MMB_DD > $MMB_DIR/rhdd-6.1
     fi
 
-    mkdir $version
-    mv *.o $version
-
-    find $version -type f | cpio --quiet -H crc -o | gzip -9 > ../$MMB_NAME
+    find . -type f | cpio --quiet -H crc -o | gzip -9 > ../$MMB_NAME
     cd ..
     rm -rf modules
     chmod 644 *
@@ -877,12 +877,14 @@ for kernelvers in $vertag; do
 
     rundepmod "$allmods" $MODDEPS
     rm -f $MODDEPS.foo
+    find $KERNELROOT/lib/modules/$version > $CACHE
 
     # make the boot images
     makeBootImages
 done
 
 # make the second stage
+find $KERNELROOT/lib/modules/ > $CACHE
 makeSecondStage
 rm -rf $KERNELROOT
 
