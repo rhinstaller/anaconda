@@ -87,10 +87,10 @@ gzFile gzip_dopen(int fd) {
 }
 
 
-gzFile gzip_open(const char * file, int flags) {
+gzFile gzip_open(const char * file, int flags, int perms) {
     int fd;
 
-    fd = open(file, flags);
+    fd = open(file, flags, perms);
     if (fd < 0) return NULL;
 
     return gzip_dopen(fd);
