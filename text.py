@@ -428,6 +428,9 @@ class InstallInterface:
 		step = len(classNames) - 1
 
 	    while step >= 0 and step < len(classNames):
+                # reget the args.  they could change (especially direction)
+                (foo, args) = dispatch.currentStep()
+
                 nextWindow = None
 		s = "from %s import %s; nextWindow = %s" % \
 			(file, classNames[step], classNames[step])
@@ -445,8 +448,10 @@ class InstallInterface:
 
 		if rc == INSTALL_BACK:
 		    step = step - 1
+                    dispatch.dir = DISPATCH_BACK
 		elif rc == INSTALL_OK:
 		    step = step + 1
+                    dispatch.dir = DISPATCH_FORWARD
 
 		lastrc = rc
 
