@@ -141,11 +141,14 @@ class progressDisplay:
     def processEvents(self):
         pass
 
-    def setSizes(self, total, totalSize):
+    def setSizes(self, total, totalSize, totalFiles):
         self.total = total
         self.totalSize = totalSize
         self.numComplete = 0
         self.sizeComplete = 0
+
+    def setPackageStatus(self, state, amount):
+        print state
 
 
 def setupProgressDisplay(dir, intf, id):
