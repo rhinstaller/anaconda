@@ -445,11 +445,11 @@ makeinstimage () {
     makemoduleball $tmpdir/modules "$modlist"
 
     if [ -n "$SIZE2" ]; then
-	makeImage $tmpdir/usr $SIZE1 $INSTIMGPATH/${imagename}2.img
+	makeImage $tmpdir/usr $SIZE2 $INSTIMGPATH/${imagename}2.img
 	rm -rf $tmpdir/usr
     fi
 
-    makeImage $tmpdir $SIZE2 $INSTIMGPATH/${imagename}1.img
+    makeImage $tmpdir $SIZE1 $INSTIMGPATH/${imagename}1.img
     rm -rf $tmpdir
 }
 
