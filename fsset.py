@@ -1179,14 +1179,13 @@ class LoopbackDevice(Device):
         self.device = "loop1"
 
     def setupDevice(self, chroot, devPrefix='/tmp/'):
-        isys.makeDevInode("loop1", '/tmp/' + "loop1")
-        
         if not self.isSetup:
             isys.mount(self.host[5:], "/mnt/loophost", fstype = "vfat")
-            isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
-
-        self.isSetup = 1
-        return "/tmp/loop1"
+            self.device = allocateLoopback("/mnt/loophost/redhat.img")
+            if not self.device:
+                raise SystemError, "Unable to allocate loopback device"
+            self.isSetup = 1
+        return "/tmp/" + self.device
 
     def getComment (self):
         return "# LOOP1: %s %s /redhat.img\n" % (self.host, self.hostfs)
@@ -1307,19 +1306,37 @@ def isValidExt2(device):
 
     return 0
 
-def mountLoopbackRoot(device, skipMount = 0):
+def allocateLoopback(file):
+    found = 1
+    for i in range(8):
+        dev = "loop%d" % (i,)
+        path = "/tmp/loop%d" % (i,)
+        isys.makeDevInode(dev, path)
+        try:
+            isys.losetup(path, file)
+            found = 1
+        except SystemError:
+            continue
+        break
+    if found:
+        return dev
+    return None
+
+_loopbackRootDevice = None
+def mountLoopbackRoot(device, skipMount=0):
+    global _loopbackRootDevice
     isys.mount(device, '/mnt/loophost', fstype = "vfat")
-    isys.makeDevInode("loop1", '/tmp/' + "loop1")
-    isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
-
+    _loopbackRootDevice = allocateLoopback("/mnt/loophost/redhat.img")
     if not skipMount:
-	isys.mount("loop1", '/mnt/sysimage')
-
-def unmountLoopbackRoot(skipMount = 0):
+        isys.mount(_loopbackRootDevice, '/mnt/sysimage')
+    
+def unmountLoopbackRoot(skipMount=0):
+    global _loopbackRootDevice
     if not skipMount:
-	isys.umount('/mnt/sysimage')
-    isys.makeDevInode("loop1", '/tmp/' + "loop1")
-    isys.unlosetup("/tmp/loop1")
+        isys.umount('/mnt/sysimage')
+    path = '/tmp/' + _loopbackRootDevice
+    isys.makeDevInode(_loopbackRootDevice, path)
+    isys.unlosetup(path)
     isys.umount('/mnt/loophost')
 
 def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
