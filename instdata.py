@@ -158,7 +158,7 @@ class InstallData:
 	f.write("\n%post\n")
 	self.accounts.writeKScommands(f, self.auth)
 
-    def __init__(self, extraModules, floppyDevice, configFileData):
+    def __init__(self, extraModules, floppyDevice, configFileData, methodstr):
 	self.instLanguage = language.InstallTimeLanguage()
 	self.keyboard = keyboard.Keyboard()
         self.tmpData = configFileData
@@ -174,5 +174,6 @@ class InstallData:
 
         # FIXME: this is a major hack to get the comps package installed
         self.compspkg = None
-        
+
+        self.methodstr = methodstr
 	self.reset()
