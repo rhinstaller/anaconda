@@ -13,12 +13,12 @@ msgstr ""
 "Project-Id-Version: anaconda 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-03-29 16:05+0300\n"
+"PO-Revision-Date: 2005-04-03 02:16+0300\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.fothnet.gr>\n"
 "Language-Team: Greek <nls@hellug.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:102
 msgid "Starting VNC..."
@@ -426,7 +426,7 @@ msgstr "Απάντηση σε όλους τους παραλήπτες του μ
 
 #: ../autopart.py:1655
 msgid "Keep all partitions and use existing free space"
-msgstr ""
+msgstr "Διατήρηση όλων των τμημάτων και χρήση του διαθέσιμου ελεύθερου χώρου"
 
 #: ../autopart.py:1657
 #, python-format
@@ -898,7 +898,7 @@ msgstr "_Αποσφαλμάτωση"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "Απο_θήκευση σε δισκέτα"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -930,9 +930,8 @@ msgid "Release notes are missing.\n"
 msgstr "Απομεμακρυσμένο δικτυακό όνομα λείπει!"
 
 #: ../gui.py:1069
-#, fuzzy
 msgid "The release notes are missing."
-msgstr "Απομεμακρυσμένο δικτυακό όνομα λείπει!"
+msgstr "Δεν υπάρχουν πληροφορίες έκδοσης."
 
 #
 #: ../gui.py:1168
@@ -1061,9 +1060,9 @@ msgid "Change CDROM"
 msgstr "Αλλαγή CDROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Πατήστε επόμενο για να συνεχίσετε."
+msgstr "Παρακαλώ εισάγετε %s δίσκο %d για να συνεχίσετε."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1959,9 +1958,8 @@ msgid "Attempting to start %s"
 msgstr ""
 
 #: ../rescue.py:178
-#, fuzzy
 msgid "Setup Networking"
-msgstr "Δίκτυο"
+msgstr "Ρύθμιση Δικτύωσης"
 
 #: ../rescue.py:179
 msgid "Do you want to start the network interfaces on this system?"
@@ -2121,9 +2119,8 @@ msgstr ""
 "  <Tab>/<Alt-Tab> Αλλαγή πεδίου     | <Space> επιλογή | <F12> επόμενη οθ. "
 
 #: ../upgradeclass.py:19
-#, fuzzy
 msgid "Upgrade Existing System"
-msgstr "&Ενημέρωση υπάρχοντος συστήματος"
+msgstr "Αναβάθμιση Υπάρχοντος Συστήματος"
 
 #: ../upgradeclass.py:23
 msgid "Upgrade"
@@ -2203,9 +2200,9 @@ msgid "Invalid Directories"
 msgstr "Μη Έγκυροι Κατάλογοι"
 
 #: ../upgrade.py:319
-#, fuzzy, python-format
+#, python-format
 msgid "%s not found"
-msgstr "το %s δε βρέθηκε"
+msgstr "%s δε βρέθηκε"
 
 #: ../upgrade.py:362
 #, fuzzy
@@ -3443,9 +3440,8 @@ msgid "Primary DNS"
 msgstr "Πρωτεύον DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:614
-#, fuzzy
 msgid "Secondary DNS"
-msgstr "Δευτερεύων"
+msgstr "Δευτερεύων DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:616
 msgid "Tertiary DNS"
@@ -3612,12 +3608,11 @@ msgstr "_χειρονακτικά"
 
 #: ../iw/network_gui.py:566
 msgid "(ex. \"host.domain.com\")"
-msgstr ""
+msgstr "(πχ. \"host.domain.com\")"
 
 #: ../iw/network_gui.py:573 ../loader2/net.c:811
-#, fuzzy
 msgid "Hostname"
-msgstr "Όνομα Host:"
+msgstr "Όνομα Συστήματος"
 
 #: ../iw/network_gui.py:621
 msgid "Miscellaneous Settings"
@@ -3758,7 +3753,7 @@ msgstr "Επιλογή Ομάδας Πακέτων"
 
 #: ../iw/package_gui.py:678
 msgid "Minimal"
-msgstr ""
+msgstr "Ελάχιστη"
 
 #: ../iw/package_gui.py:740
 #, python-format
@@ -3813,9 +3808,8 @@ msgid "The end cylinder must be greater than the start cylinder."
 msgstr ""
 
 #: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:709
-#, fuzzy
 msgid "Add Partition"
-msgstr "Προσθήκη διαμέρισης"
+msgstr "Προσθήκη τμήματος"
 
 #: ../iw/partition_dialog_gui.py:272
 #, fuzzy, python-format
@@ -4367,14 +4361,12 @@ msgid ""
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:699
-#, fuzzy
 msgid "Source Drive:"
-msgstr "Οδηγός"
+msgstr "Οδηγός Προέλευσης:"
 
 #: ../iw/raid_dialog_gui.py:707
-#, fuzzy
 msgid "Target Drive(s):"
-msgstr "Σκληροί δίσκοι"
+msgstr "Δίσκος(οι) Προορισμού:"
 
 #: ../iw/raid_dialog_gui.py:715
 msgid "Drives"
@@ -4972,6 +4964,9 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Συγχαρτήρια, η %s εγκατάσταση σας ολοκληρώθηκε.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:41
 #, python-format
@@ -5057,18 +5052,16 @@ msgid "Next"
 msgstr "Επόμενο"
 
 #: ../textw/fdasd_text.py:32
-#, fuzzy
 msgid "Edit Partitions"
-msgstr "Προσθήκη διαμέρισης"
+msgstr "Επεξεργασία Τμημάτων"
 
 #: ../textw/fdasd_text.py:33
 msgid "Format DASD"
 msgstr "Μορφοποίηση DASD"
 
 #: ../textw/fdasd_text.py:50 ../textw/fdisk_text.py:39
-#, fuzzy
 msgid "Disk Setup"
-msgstr "Ρυθμίσεις Εκτύπωσης"
+msgstr "Ρύθμιση Δίσκου"
 
 #: ../textw/fdasd_text.py:74
 #, fuzzy, python-format
@@ -5180,7 +5173,7 @@ msgstr "Πρέπει να επιλέξετε ποιά αρχεία να διαγ
 
 #: ../textw/language_text.py:189
 msgid "Default Language"
-msgstr "Εξ ορισμού Γλώσσα"
+msgstr "Πρεπιλεγμένη Γλώσσα"
 
 #: ../textw/language_text.py:190
 #, fuzzy
@@ -5322,9 +5315,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/network_text.py:407 ../textw/network_text.py:413
-#, fuzzy
 msgid "Invalid Hostname"
-msgstr "Άκυρη λογική τιμή"
+msgstr "Μη έγκυρο Όνομα Συστήματος"
 
 #: ../textw/network_text.py:408
 msgid "You have not specified a hostname."
@@ -5543,7 +5535,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:619
 msgid "Format as:"
-msgstr "Μορφoποίηση σαν:"
+msgstr "Μορφoποίηση ως:"
 
 #: ../textw/partition_text.py:639
 #, fuzzy
@@ -5556,9 +5548,9 @@ msgid "Force to be a primary partition"
 msgstr "Δημιουργία νέας κατάτμησης"
 
 #: ../textw/partition_text.py:768
-#, fuzzy
 msgid "Not Supported"
-msgstr "Εφαρμογίδια δικτύων"
+msgstr "Δεν Υποστηρίζεται"
+""
 
 #: ../textw/partition_text.py:769
 msgid "LVM Volume Groups can only be edited in the graphical installer."
@@ -5649,9 +5641,8 @@ msgstr "Θα θέλατε να ρυθμίσετε έναν εκτυπωτή;"
 
 #
 #: ../textw/partition_text.py:1366
-#, fuzzy
 msgid "partition"
-msgstr "Κατάτμηση"
+msgstr "τμήμα"
 
 #: ../textw/partition_text.py:1366
 msgid "logical volume"
@@ -5696,9 +5687,8 @@ msgstr "Ποιά κατάτμηση θέλετε να χρησιμοποιήσε
 
 #
 #: ../textw/partmethod_text.py:26
-#, fuzzy
 msgid "Autopartition"
-msgstr "διαμέριση"
+msgstr "Αυτόματη κατάτμηση"
 
 #: ../textw/partmethod_text.py:27
 msgid "Disk Druid"
@@ -5792,7 +5782,7 @@ msgstr "Ελεύθερος Χώρος"
 #: ../textw/upgrade_text.py:127
 #, fuzzy
 msgid "RAM detected (MB):"
-msgstr "Έχει ληφθεί (kB)"
+msgstr "Αναγνωρίστηκε RAM (MB):"
 
 #: ../textw/upgrade_text.py:130
 msgid "Suggested size (MB):"
@@ -6044,11 +6034,12 @@ msgstr "%s"
 
 #
 #: ../textw/welcome_text.py:23
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
-msgstr "Καλώς ήρθατε στο %s"
+msgstr "Καλώς ήλθατε στο %s!\n"
+"\n"
 
 #: ../textw/xconfig_text.py:35
 msgid "Color Depth"
@@ -6107,9 +6098,8 @@ msgstr "KDE"
 
 #
 #: ../textw/xconfig_text.py:176
-#, fuzzy
 msgid "Default Login:"
-msgstr "Εξ' ορισμού τόπος:"
+msgstr "Προεπιλεγμένη Είσοδος:"
 
 #: ../textw/xconfig_text.py:178
 #, fuzzy
@@ -6502,9 +6492,8 @@ msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 
 #: ../loader2/driverdisk.c:390
-#, fuzzy
 msgid "Insert Driver Disk"
-msgstr "&Δισκέτα οδηγού"
+msgstr "Εισαγωγή Δίσκου Οδηγού"
 
 # gconf/gconf-internals.c:2416
 #: ../loader2/driverdisk.c:405
@@ -6811,9 +6800,8 @@ msgid "What type of media contains the packages to be installed?"
 msgstr "Θα εγκατασταθούν τα παρακάτω πακέτα"
 
 #: ../loader2/loader.c:889
-#, fuzzy
 msgid "No driver found"
-msgstr "Προσάρτηση Δίσκων"
+msgstr "Δε βρέθηκε οδηγός"
 
 #: ../loader2/loader.c:889
 msgid "Select driver"
