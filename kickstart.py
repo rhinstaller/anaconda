@@ -203,7 +203,7 @@ class KickstartBase(BaseInstallClass):
     def doBootloader (self, id, args):
         (args, extra) = isys.getopt(args, '',
                 [ 'append=', 'location=', 'useLilo', '--lba32',
-                  'password=', 'md5pass='])
+                  'password=', 'md5pass=', 'linear', 'nolinear'])
 
         appendLine = None
         location = "mbr"
@@ -211,6 +211,7 @@ class KickstartBase(BaseInstallClass):
         password = None
         md5pass = None
         forceLBA = 0
+        linear = 1
 
         for n in args:
             (str, arg) = n
@@ -227,6 +228,11 @@ class KickstartBase(BaseInstallClass):
                 password = arg
             elif str == '--md5pass':
                 md5pass = arg
+	    elif str == '--linear':
+		linear = 1
+	    elif str == '--nolinear':
+		linear = 0
+                
                 
         self.setBootloader(id, useLilo, forceLBA, password, md5pass, appendLine)
         self.skipSteps.append("bootloader")
