@@ -407,7 +407,23 @@ class x86BootloaderInfo(bootloaderInfo):
 
 	bootDev = bootDev.device.getDevice(asBoot = 1)
 
-        f.write('default=0\n')
+        # get the default image to boot... we have to walk and find it
+        # since grub indexes by where it is in the config file
+        if defaultDev == rootDev:
+            default = 0
+        else:
+            i = 0
+            for (label, longlabel, version) in kernelList:
+                i = i + 1
+            for (label, longlabel, device) in chainList:
+                if ((not longlabel) or (longlabel == "")):
+                    continue
+                if defaultDev == device:
+                    default = i
+                    break
+                i = i + 1
+
+        f.write('default=%s\n' % (default))
         f.write('timeout=10\n')
         f.write('splashimage=%s%sgrub/splash.xpm.gz\n'
                 % (grubbyPartitionName(bootDev), cfPath))
