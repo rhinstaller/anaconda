@@ -39,8 +39,8 @@ class MiloInstall:
         if self.todo.mounts.has_key ('/boot'):
             confprefix = self.todo.instPath + "/boot/etc"
             kernelprefix = '/'
-            partition = partitionNum (self.todo.mounts['/boot'])
-            abootdev = wholeDevice (self.todo.mounts['/boot'])
+            partition = partitionNum (self.todo.mounts['/boot'][0])
+            abootdev = wholeDevice (self.todo.mounts['/boot'][0])
             try:
                 os.mkdir (confprefix)
 		os.remove(todo.instPath + "/etc/aboot.conf")
@@ -51,8 +51,8 @@ class MiloInstall:
         else:
             confprefix = self.todo.instPath + "/etc"
             kernelprefix = '/boot/'
-            partition = partitionNum (self.todo.mounts['/'])
-            abootdev = wholeDevice (self.todo.mounts['/'])
+            partition = partitionNum (self.todo.mounts['/'][0])
+            abootdev = wholeDevice (self.todo.mounts['/'][0])
 
         if os.access (confprefix + "/etc/aboot.conf", os.R_OK):
             os.rename (confprefix + "/etc/aboot.conf",
@@ -64,7 +64,7 @@ class MiloInstall:
             f.write ("#          all kernel paths are relative to /boot/\n")
 
         lines = 0
-        rootdev = self.todo.mounts['/']
+        rootdev = self.todo.mounts['/'][0]
         for package, tag in (('kernel-smp', 'smp'), ('kernel', '')):
             if (self.todo.hdList.has_key(package) and
                 self.todo.hdList[package].selected):
@@ -121,7 +121,7 @@ class MiloInstall:
         for version, label in kernels:
             f.write ("image=%svmlinuz-%s\n" % (kernelroot, version))
             f.write ("\tlabel=%s\n" % label)
-            f.write ("\troot=/dev/%s" % self.todo.mounts ['/'])
+            f.write ("\troot=/dev/%s" % self.todo.mounts ['/'][0])
                 
     def write (self):
         if onMILO ():
