@@ -178,17 +178,6 @@ def readPackages(intf, method, id):
                                  "Press <return> to try again."))
             continue
 
-    while iutil.getArch() == "ia64":
-        try:
-            method.mergeFullHeaders(hdrlist)
-            break
-        except FileCopyException:
-            method.unmountCD()
-            intf.messageWindow(_("Error"),
-                               _("Unable to merge header list.  This may be "
-                                 "due to a missing file or bad media.  "
-                                 "Press <return> to try again."))
-
     # this is a crappy hack, but I don't want bug reports from these people
     if (iutil.getArch() == "i386") and (not grpset.hdrlist.has_key("kernel")):
         intf.messageWindow(_("Error"),

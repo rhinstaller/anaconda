@@ -1,3 +1,9 @@
+2005-01-11  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py (readPackages): Remove hack for ia64 stuff added in
+	revision 1.169.6.32 as we don't install i386 packages on ia64
+	in anaconda anymore.
+
 2005-01-10  Jeremy Katz  <katzj@redhat.com>
 
 	* installclass.py (BaseInstallClass.setSteps): Allow install
