@@ -160,7 +160,7 @@ class NetworkWindow(InstallWindow):
 
 
     # NetworkWindow tag="netconf"
-    def getScreen(self, network):
+    def getScreen(self, network, dispatch):
         box = gtk.VBox()
         box.set_border_width(5)
 	self.network = network
