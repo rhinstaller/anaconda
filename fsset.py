@@ -494,6 +494,11 @@ class extFileSystem(FileSystemType):
         devicePath = entry.device.setupDevice(chroot)
         devArgs = self.getDeviceArgs(entry.device)
         args = [ "/usr/sbin/mke2fs", devicePath]
+
+        # JKFIXME: this *MUST* be fixed before the final
+        # workaround for #87639
+        args.extend(["-b", "4096"])
+        
         args.extend(devArgs)
         args.extend(self.extraFormatArgs)
 
