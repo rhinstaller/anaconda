@@ -2256,6 +2256,8 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
       "for this release of Red Hat Linux.")
 #endif
 
+logMessage("UPDATES floppy evice is %s", floppyDevice);
+
 	devMakeInode(floppyDevice, "/tmp/floppy");
 	if (doPwMount("/tmp/floppy", "/tmp/update-disk", "ext2", 1, 0, NULL, 
 		      NULL)) {
@@ -2465,22 +2467,10 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo, int flags,
 			      struct knownDevices * kd) {
 
-#if 0
-    startNewt(flags);
-
-    winStatus(40, 3, _("IDE"), _("Initializing IDE modules..."));
-
-    mlLoadModule("ide-mod", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("ide-probe-mod", NULL, modLoaded, modDeps, NULL, modInfo, 
-		 flags);
-    mlLoadModule("ide-disk", NULL, modLoaded, modDeps, NULL, modInfo, 
-		 flags);
+    /* This is fast enough that we don't need a screen to pop up */
     mlLoadModule("ide-cd", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
-    newtPopWindow();
-
-    kdFindIdeList(kd, CODE_PCMCIA);
-#endif
+    kdFindIdeList(kd, 0);
 }
 
 int main(int argc, char ** argv) {
