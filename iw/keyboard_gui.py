@@ -110,9 +110,6 @@ class KeyboardWindow (InstallWindow):
         hbox.pack_start(label, gtk.FALSE)
         box.pack_start(hbox, gtk.FALSE)
 
-	def moveto(widget, *args):
-            widget.moveto(widget.selection[0], 0, 0.5, 0.5)
-
 	box.pack_start(gtk.Label(_("Model")), gtk.FALSE)
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
