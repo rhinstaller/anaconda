@@ -21,7 +21,7 @@ class LiloWindow (InstallWindow):
     checkMark_Off = foo.make_pixmap()
     del foo
 
-    windowTitle = N_("Lilo Configuration")
+    windowTitle = N_("Bootloader Configuration")
     htmlTag = "lilo"
 
     def getPrev (self):
@@ -256,7 +256,7 @@ class LiloWindow (InstallWindow):
         spacer.set_usize(10, 1)
         self.radioBox.attach(spacer, 0, 1, 2, 4, FALSE)
 
-        label = GtkLabel(_("Install LILO boot record on:"))
+        label = GtkLabel(_("Install GRUB boot record on:"))
         label.set_alignment(0.0, 0.5)
         self.liloLocationBox = GtkVBox (FALSE, 0)
         self.liloLocationBox.pack_start(label)
