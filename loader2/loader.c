@@ -467,7 +467,9 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             if (!strncasecmp(argv[i], "resolution=", 11) ||
                 !strncasecmp(argv[i], "lowres", 6) ||
                 !strncasecmp(argv[i], "skipddc", 7) ||
-                !strncasecmp(argv[i], "nomount", 7)) {
+                !strncasecmp(argv[i], "nomount", 7) ||
+                !strncasecmp(argv[i], "vnc", 3) ||
+                !strncasecmp(argv[i], "vncpasswd=", 10)) {
                 int arglen;
 
                 arglen = strlen(argv[i])+3;
