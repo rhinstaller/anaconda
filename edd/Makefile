@@ -25,7 +25,7 @@ eddmodule.so: pyedd.c edd.o lrmi.o
 	gcc -shared -g -o $@ pyedd.o edd.o lrmi.o
 
 clean:
-	rm -f *.o *.so *~ core
+	rm -f *.o *.so *~ core *.a
 
 depend:
 	$(CPP) -M $(CFLAGS) *.c > .depend
