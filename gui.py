@@ -739,20 +739,28 @@ class InstallControlWindow:
 
 	if ics.getNextButton():
 	    (icon, text) = ics.getNextButton()
-	    nextButton = gtk.Button(stock=icon)
-#            nextButton.set_property("label", _(text))
-	    nextButton.connect("clicked", self.nextClicked)
-	    nextButton.show_all()
+            button = gtk.Button()
+            box = gtk.HBox(gtk.FALSE, 0)
+            image = gtk.Image()
+            image.set_from_stock(icon, gtk.ICON_SIZE_BUTTON)
+            box.pack_start(image, gtk.FALSE, gtk.FALSE)
+            label = gtk.Label(_(text))
+            label.set_property("use-underline", gtk.TRUE)
+            box.pack_start(label, gtk.TRUE, gtk.TRUE)
+            button.add(box)
+	    button.connect("clicked", self.nextClicked)
+	    button.show_all()
+            button.label = label
+            nextButton = button
 
-        children = self.buttonBox.get_children ()
+        children = self.buttonBox.get_children()
 
-        if not prevButton in children:
-            self.buttonBox.remove (children[0])
-            self.buttonBox.pack_start (prevButton)
-
-        if not nextButton in children:
-            self.buttonBox.remove (children[1])
-            self.buttonBox.pack_end (nextButton)
+        if not nextButton in children and self.nextButtonStock in children:
+            pos = children.index(self.nextButtonStock)
+            self.buttonBox.remove(self.nextButtonStock)
+            self.buttonBox.pack_end(nextButton)
+            self.buttonBox.reorder_child(nextButton, pos)
+            self.nextButtonStock = nextButton
 
         prevButton.set_sensitive (ics.getPrevEnabled ())
         nextButton.set_sensitive (ics.getNextEnabled ())
