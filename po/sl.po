@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 6.2\n"
-"POT-Creation-Date: 2001-01-24 22:20-0500\n"
+"POT-Creation-Date: 2001-01-29 11:03-0500\n"
 "PO-Revision-Date: 2000-09-05 21:40+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@hermes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -9,11 +9,11 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../comps.py:460
+#: ../comps.py:481
 msgid "Everything"
 msgstr "Vse"
 
-#: ../exception.py:13 ../text.py:924
+#: ../exception.py:13 ../text.py:914
 msgid "Exception Occurred"
 msgstr "Pri¹lo je do izjeme"
 
@@ -57,9 +57,9 @@ msgstr "Iskanje"
 #: ../loader/loader.c:1273 ../loader/loader.c:2142 ../loader/loader.c:2188
 #: ../loader/loader.c:2266 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94
-#: ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:352
-#: ../textw/bootdisk_text.py:69 ../todo.py:1098 ../todo.py:1111
-#: ../todo.py:1485 ../upgrade.py:22 ../upgrade.py:50
+#: ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:346
+#: ../textw/bootdisk_text.py:69 ../todo.py:1130 ../todo.py:1143
+#: ../todo.py:1520 ../upgrade.py:22 ../upgrade.py:50 ../upgrade.py:68
 msgid "Error"
 msgstr "Napaka"
 
@@ -93,7 +93,7 @@ msgstr "Napaka pri ustvarjanju izmenjalnega prostora na napravi "
 msgid "Error unmounting %s: %s"
 msgstr "Napaka pri odklapljanju %s: %s"
 
-#: ../fstab.py:662 ../todo.py:664
+#: ../fstab.py:662 ../todo.py:696
 msgid "Creating"
 msgstr "Ustvarja se"
 
@@ -125,7 +125,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../gui.py:171
+#: ../gui.py:173
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report at "
@@ -135,7 +135,7 @@ msgstr ""
 "vso besedilo te izjeme in izpolnite poroèilo o hro¹èu na "
 "http://bugzilla.redhat.com/bugzilla"
 
-#: ../gui.py:307 ../text.py:942
+#: ../gui.py:309 ../text.py:932
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -143,22 +143,22 @@ msgstr ""
 "Zdaj, prosimo, vstavite disketo. Vsa vsebina diskete do zbrisana, zato, "
 "prosimo, to disketo izberite nadvse pazljivo."
 
-#: ../gui.py:413 ../gui.py:781
+#: ../gui.py:407 ../gui.py:771
 msgid "Next"
 msgstr "Naprej"
 
-#: ../gui.py:414 ../gui.py:780 ../libfdisk/newtfsedit.c:1474
+#: ../gui.py:408 ../gui.py:770 ../libfdisk/newtfsedit.c:1474
 #: ../libfdisk/newtfsedit.c:1482 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:215 ../loader/devices.c:312 ../loader/lang.c:582
 #: ../loader/loader.c:288 ../loader/loader.c:810 ../loader/loader.c:847
 #: ../loader/loader.c:961 ../loader/loader.c:1053 ../loader/loader.c:1505
 #: ../loader/net.c:164 ../loader/net.c:251 ../loader/net.c:336
 #: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:99 ../text.py:61
-#: ../text.py:72 ../text.py:148 ../text.py:193 ../text.py:200 ../text.py:222
-#: ../text.py:225 ../text.py:300 ../text.py:355 ../text.py:373 ../text.py:376
-#: ../text.py:395 ../text.py:398 ../text.py:420 ../text.py:423 ../text.py:480
-#: ../text.py:483 ../text.py:508 ../text.py:512 ../text.py:521 ../text.py:594
-#: ../text.py:596 ../text.py:606 ../text.py:608 ../textw/bootdisk_text.py:30
+#: ../text.py:72 ../text.py:142 ../text.py:187 ../text.py:194 ../text.py:216
+#: ../text.py:219 ../text.py:294 ../text.py:349 ../text.py:367 ../text.py:370
+#: ../text.py:389 ../text.py:392 ../text.py:414 ../text.py:417 ../text.py:474
+#: ../text.py:477 ../text.py:502 ../text.py:506 ../text.py:515 ../text.py:588
+#: ../text.py:590 ../text.py:600 ../text.py:602 ../textw/bootdisk_text.py:30
 #: ../textw/firewall_text.py:9 ../textw/lilo_text.py:34
 #: ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
 #: ../textw/lilo_text.py:209 ../textw/mouse_text.py:27
@@ -171,65 +171,65 @@ msgstr "Naprej"
 #: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:219
 #: ../textw/partitioning_text.py:258 ../textw/partitioning_text.py:341
 #: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
-#: ../textw/timezone_text.py:68 ../textw/userauth_text.py:30
+#: ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:165 ../textw/userauth_text.py:199
 #: ../textw/userauth_text.py:297
 msgid "Back"
 msgstr "Nazaj"
 
-#: ../gui.py:415 ../gui.py:786
+#: ../gui.py:409 ../gui.py:776
 msgid "Show Help"
 msgstr "Prika¾imo pomoè"
 
-#: ../gui.py:416 ../gui.py:785
+#: ../gui.py:410 ../gui.py:775
 msgid "Hide Help"
 msgstr "Skrijmo pomoè"
 
-#: ../gui.py:417 ../gui.py:784
+#: ../gui.py:411 ../gui.py:774
 msgid "Finish"
 msgstr "Konec"
 
-#: ../gui.py:420 ../gui.py:816
+#: ../gui.py:414 ../gui.py:806
 msgid "Online Help"
 msgstr "Pomoè na zvezi"
 
-#: ../gui.py:421 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../text.py:66 ../text.py:1014 ../text.py:1047
+#: ../gui.py:415 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../text.py:66 ../text.py:1004 ../text.py:1037
 msgid "Language Selection"
 msgstr "Izbira jezika"
 
-#: ../gui.py:522 ../iw/firewall_gui.py:145 ../libfdisk/gnomefsedit.c:1292
+#: ../gui.py:517 ../iw/firewall_gui.py:145 ../libfdisk/gnomefsedit.c:1292
 #: ../libfdisk/gnomefsedit.c:1309
 msgid "Close"
 msgstr "Zapri"
 
-#: ../gui.py:527 ../gui.py:783
+#: ../gui.py:522 ../gui.py:773
 msgid "Release Notes"
 msgstr ""
 
-#: ../gui.py:558
+#: ../gui.py:553
 msgid "Unable to load file!"
 msgstr ""
 
-#: ../gui.py:688
+#: ../gui.py:694
 msgid "Red Hat Linux Installer"
 msgstr "Namestitveni program Red Hat Linuxa"
 
-#: ../gui.py:692
+#: ../gui.py:698
 msgid "Red Hat Linux Install Shell"
 msgstr "Namestitvena lupina Red Hat Linuxa"
 
-#: ../gui.py:703
+#: ../gui.py:709
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Namestitveni program Red Hat Linuxa na %s"
 
-#: ../gui.py:704
+#: ../gui.py:710
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Namestitvena lupina Red Hat Linuxa na %s"
 
-#: ../gui.py:865
+#: ../gui.py:855
 msgid "Install Window"
 msgstr "Namestitveno okno"
 
@@ -291,10 +291,10 @@ msgstr "CD-ROM-a ni moè priklopiti."
 #: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../loader/urls.c:375 ../rescue.py:17 ../rescue.py:67 ../rescue.py:85
-#: ../rescue.py:93 ../text.py:148 ../text.py:222 ../text.py:300 ../text.py:373
-#: ../text.py:420 ../text.py:438 ../text.py:480 ../text.py:508 ../text.py:594
-#: ../text.py:606 ../text.py:635 ../text.py:656 ../text.py:826 ../text.py:884
-#: ../text.py:910 ../text.py:936 ../text.py:944 ../text.py:959 ../text.py:1201
+#: ../rescue.py:93 ../text.py:142 ../text.py:216 ../text.py:294 ../text.py:367
+#: ../text.py:414 ../text.py:432 ../text.py:474 ../text.py:502 ../text.py:588
+#: ../text.py:600 ../text.py:629 ../text.py:650 ../text.py:820 ../text.py:874
+#: ../text.py:900 ../text.py:926 ../text.py:934 ../text.py:949 ../text.py:1191
 #: ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54
 #: ../textw/firewall_text.py:9 ../textw/firewall_text.py:122
 #: ../textw/firewall_text.py:124 ../textw/firewall_text.py:187
@@ -307,7 +307,7 @@ msgstr "CD-ROM-a ni moè priklopiti."
 #: ../textw/partitioning_text.py:341 ../textw/partitioning_text.py:352
 #: ../textw/partitioning_text.py:360 ../textw/partitioning_text.py:367
 #: ../textw/silo_text.py:25 ../textw/silo_text.py:99
-#: ../textw/timezone_text.py:68 ../textw/userauth_text.py:30
+#: ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:44 ../textw/userauth_text.py:49
 #: ../textw/userauth_text.py:84 ../textw/userauth_text.py:99
 #: ../textw/userauth_text.py:105 ../textw/userauth_text.py:111
@@ -330,7 +330,7 @@ msgstr ""
 msgid "System to Rescue"
 msgstr "Nadgraditev sistema"
 
-#: ../rescue.py:65 ../text.py:371
+#: ../rescue.py:65 ../text.py:365
 msgid "What partition holds the root partition of your installation?"
 msgstr "Katera razdelitev je korenska razdelitev va¹ega sistema?"
 
@@ -378,10 +378,10 @@ msgstr ""
 
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924
-#: ../libfdisk/fsedit.c:931 ../libfdisk/fsedit.c:940 ../libfdisk/fsedit.c:967
-#: ../libfdisk/fsedit.c:980 ../libfdisk/fsedit.c:990 ../libfdisk/fsedit.c:1019
-#: ../libfdisk/fsedit.c:1029 ../libfdisk/fsedit.c:1046
-#: ../libfdisk/fsedit.c:1454 ../libfdisk/gnomefsedit.c:783
+#: ../libfdisk/fsedit.c:931 ../libfdisk/fsedit.c:940 ../libfdisk/fsedit.c:971
+#: ../libfdisk/fsedit.c:984 ../libfdisk/fsedit.c:994 ../libfdisk/fsedit.c:1023
+#: ../libfdisk/fsedit.c:1033 ../libfdisk/fsedit.c:1050
+#: ../libfdisk/fsedit.c:1458 ../libfdisk/gnomefsedit.c:783
 #: ../libfdisk/gnomefsedit.c:818 ../libfdisk/gnomefsedit.c:1166
 #: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:1237
 #: ../libfdisk/gnomefsedit.c:1256 ../libfdisk/gnomefsedit.c:1430
@@ -402,7 +402,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1628 ../libfdisk/newtfsedit.c:1656
 #: ../libfdisk/newtfsedit.c:1740 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
-#: ../text.py:193 ../text.py:521 ../textw/lilo_text.py:123
+#: ../text.py:187 ../text.py:515 ../textw/lilo_text.py:123
 #: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
 #: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:420
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
@@ -414,59 +414,59 @@ msgstr "V redu"
 msgid "What language would you like to use during the installation process?"
 msgstr "Kateri jezik bi radi uporabljali med namestitvenim postopkom?"
 
-#: ../text.py:150
+#: ../text.py:144
 #, fuzzy
 msgid "Choose the languages to be installed:"
 msgstr "Katero vrsto nosilca vsebuje paket, ki bi ga radi namestili?"
 
-#: ../text.py:154 ../text.py:1110
+#: ../text.py:148 ../text.py:1100
 #, fuzzy
 msgid "Language Support"
 msgstr "Podpora za prenosnike"
 
-#: ../text.py:195
+#: ../text.py:189
 #, fuzzy
 msgid "Default Language"
 msgstr "Izberite jezik"
 
-#: ../text.py:196
+#: ../text.py:190
 #, fuzzy
 msgid "Choose the default language: "
 msgstr "Izberite jezik"
 
-#: ../text.py:220 ../text.py:1016 ../text.py:1053
+#: ../text.py:214 ../text.py:1006 ../text.py:1043
 msgid "Keyboard Selection"
 msgstr "Izbira tipkovnice"
 
-#: ../text.py:221
+#: ../text.py:215
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Kateri model tipkovnice je prikljuèen na ta raèunalnik?"
 
-#: ../text.py:276
+#: ../text.py:270
 msgid "Upgrade Existing Installation"
 msgstr "Nadgraditev obstojeèe namestitve"
 
-#: ../text.py:298 ../text.py:1056
+#: ../text.py:292 ../text.py:1046
 msgid "Installation Type"
 msgstr "Vrsta namestitve"
 
-#: ../text.py:299
+#: ../text.py:293
 msgid "What type of system would you like to install?"
 msgstr "Katero vrsto sistema bi radi namestili?"
 
-#: ../text.py:353
+#: ../text.py:347
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Nimate nobene razdelitve Linuxa. Tega sistema ne morete nadgraditi!"
 
-#: ../text.py:370
+#: ../text.py:364
 msgid "System to Upgrade"
 msgstr "Nadgraditev sistema"
 
-#: ../text.py:387
+#: ../text.py:381
 msgid "Customize Packages to Upgrade"
 msgstr "Prikrojitev paketov za nadgradnjo"
 
-#: ../text.py:388
+#: ../text.py:382
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -485,7 +485,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:871 ../libfdisk/newtfsedit.c:1677
 #: ../libfdisk/newtfsedit.c:1695 ../libfdisk/newtfsedit.c:1782
 #: ../loader/devices.c:207 ../loader/loader.c:810 ../loader/net.c:812
-#: ../text.py:395 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
+#: ../text.py:389 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:219
 #: ../textw/partitioning_text.py:402
 msgid "Yes"
@@ -499,17 +499,17 @@ msgstr "Da"
 #: ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739
 #: ../libfdisk/newtfsedit.c:871 ../libfdisk/newtfsedit.c:1677
 #: ../libfdisk/newtfsedit.c:1695 ../libfdisk/newtfsedit.c:1782
-#: ../loader/devices.c:208 ../loader/net.c:812 ../text.py:395 ../text.py:401
+#: ../loader/devices.c:208 ../loader/net.c:812 ../text.py:389 ../text.py:395
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:402
 msgid "No"
 msgstr "Ne"
 
-#: ../text.py:411 ../text.py:430
+#: ../text.py:405 ../text.py:424
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:412
+#: ../text.py:406
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -530,7 +530,7 @@ msgstr ""
 "Èe ste kupili Official Red Hat Linux, registrirajte va¹ izvod v na¹em "
 "spleti¹èu, http://www.redhat.com/."
 
-#: ../text.py:431
+#: ../text.py:425
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -550,41 +550,41 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2487 ../libfdisk/newtfsedit.c:575
 #: ../libfdisk/newtfsedit.c:1695 ../loader/devices.c:215
 #: ../loader/devices.c:507 ../loader/loader.c:2251 ../loader/pcmcia.c:104
-#: ../text.py:438 ../text.py:441 ../text.py:826 ../text.py:827 ../text.py:944
-#: ../text.py:946 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
+#: ../text.py:432 ../text.py:435 ../text.py:820 ../text.py:821 ../text.py:934
+#: ../text.py:936 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "Preklic"
 
-#: ../text.py:478
+#: ../text.py:472
 msgid "X probe results"
 msgstr "Izidi preisku¹anja X"
 
-#: ../text.py:498 ../text.py:517
+#: ../text.py:492 ../text.py:511
 msgid "Unlisted Card"
 msgstr "Nena¹teta kartica"
 
-#: ../text.py:505
+#: ../text.py:499
 msgid "Video Card Selection"
 msgstr "Izbira grafiène kartice"
 
-#: ../text.py:506
+#: ../text.py:500
 msgid "Which video card do you have?"
 msgstr "Katero grafièno kartico imate?"
 
-#: ../text.py:519
+#: ../text.py:513
 msgid "X Server Selection"
 msgstr "Izbira stre¾nika X"
 
-#: ../text.py:519
+#: ../text.py:513
 msgid "Choose a server"
 msgstr "Izberite stre¾nik"
 
-#: ../text.py:590
+#: ../text.py:584
 msgid "Installation to begin"
 msgstr "Zaèetek namestitve"
 
-#: ../iw/confirm_gui.py:45 ../text.py:591
+#: ../iw/confirm_gui.py:45 ../text.py:585
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -593,11 +593,11 @@ msgstr ""
 "boste ponovno zagnali sistem. Morda boste ¾eleli obdr¾ati to datoteko za "
 "poznej¹i ogled."
 
-#: ../text.py:602
+#: ../text.py:596
 msgid "Upgrade to begin"
 msgstr "Nadgradnja za zaèetek"
 
-#: ../iw/confirm_gui.py:41 ../text.py:603
+#: ../iw/confirm_gui.py:41 ../text.py:597
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -606,17 +606,17 @@ msgstr ""
 "boste ponovno zagnali sistem. Morda boste ¾eleli obdr¾ati to datoteko za "
 "poznej¹i ogled."
 
-#: ../text.py:622
+#: ../text.py:616
 msgid ""
 "                              <Return> to reboot                             "
 " "
 msgstr ""
 
-#: ../text.py:624 ../text.py:647
+#: ../text.py:618 ../text.py:641
 msgid "Complete"
 msgstr "Opravljeno"
 
-#: ../iw/congrats_gui.py:34 ../text.py:625
+#: ../iw/congrats_gui.py:34 ../text.py:619
 #, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
@@ -639,13 +639,13 @@ msgstr ""
 "Informacije o prikrojitvi in uporabi sistema lahko najdete v priroènikih za "
 "Red Hat Linux."
 
-#: ../text.py:643
+#: ../text.py:637
 msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr ""
 
-#: ../text.py:648
+#: ../text.py:642
 #, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
@@ -665,59 +665,59 @@ msgstr ""
 "uporabni¹kem priroèniku za Red Hat Linux, ki opisuje prikrojevanje po "
 "namestitvi."
 
-#: ../text.py:715
+#: ../text.py:709
 msgid "Package Installation"
 msgstr "Namestitev paketov"
 
-#: ../text.py:717
+#: ../text.py:711
 msgid "Name   : "
 msgstr "Ime     :"
 
-#: ../text.py:718
+#: ../text.py:712
 msgid "Size   : "
 msgstr "Velikost:"
 
-#: ../text.py:719
+#: ../text.py:713
 msgid "Summary: "
 msgstr "Opis    :"
 
-#: ../text.py:745
+#: ../text.py:739
 msgid "    Packages"
 msgstr "      Paketi"
 
-#: ../text.py:746
+#: ../text.py:740
 msgid "       Bytes"
 msgstr "       Zlogi"
 
-#: ../text.py:747
+#: ../text.py:741
 msgid "        Time"
 msgstr "         Èas"
 
-#: ../text.py:749
+#: ../text.py:743
 msgid "Total    :"
 msgstr "Skupno   :"
 
-#: ../text.py:756
+#: ../text.py:750
 msgid "Completed:   "
 msgstr "Opravljeno:  "
 
-#: ../text.py:766
+#: ../text.py:760
 msgid "Remaining:  "
 msgstr "Preostanek: "
 
-#: ../text.py:882
+#: ../text.py:872
 msgid "Help not available"
 msgstr "Pomoè ni na voljo"
 
-#: ../text.py:883
+#: ../text.py:873
 msgid "No help is available for this install."
 msgstr "Za to namestitev pomoè ni dostopna."
 
-#: ../text.py:941
+#: ../text.py:931
 msgid "Save Crash Dump"
 msgstr "Shrani posmrtne ostanke"
 
-#: ../text.py:952
+#: ../text.py:942
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -731,210 +731,210 @@ msgstr ""
 "odpravljanju napake.\n"
 "\n"
 
-#: ../text.py:959 ../text.py:962
+#: ../text.py:949 ../text.py:952
 msgid "Save"
 msgstr "Shrani"
 
-#: ../text.py:959 ../text.py:960
+#: ../text.py:949 ../text.py:950
 msgid "Debug"
 msgstr "Razhro¹èimo"
 
-#: ../text.py:970
+#: ../text.py:960
 msgid " "
 msgstr ""
 
-#: ../text.py:974
+#: ../text.py:964
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
-#: ../text.py:977
+#: ../text.py:967
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> med elementi    | <Space> izbere  | <F12> naslednji zaslon"
 
-#: ../text.py:979
+#: ../text.py:969
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> med elementi    | <presl.> izbere  | <F12> naslednji zaslon"
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1012
-#: ../text.py:1055
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1002
+#: ../text.py:1045
 msgid "Welcome"
 msgstr "Dobrodo¹li"
 
-#: ../text.py:1018 ../text.py:1101
+#: ../text.py:1008 ../text.py:1091
 msgid "Hostname Setup"
 msgstr "Nastavitev imena raèunalnika"
 
-#: ../text.py:1020 ../text.py:1098
+#: ../text.py:1010 ../text.py:1088
 msgid "Network Setup"
 msgstr "Nastavitev omre¾ja"
 
-#: ../iw/firewall_gui.py:12 ../text.py:1022 ../text.py:1103
+#: ../iw/firewall_gui.py:12 ../text.py:1012 ../text.py:1093
 #: ../textw/firewall_text.py:11
 #, fuzzy
 msgid "Firewall Configuration"
 msgstr "Nastavitev LILO"
 
-#: ../text.py:1030 ../text.py:1115
+#: ../text.py:1020 ../text.py:1105
 msgid "Time Zone Setup"
 msgstr "Nastavitev èasovnega pasu"
 
-#: ../text.py:1032 ../text.py:1117 ../textw/userauth_text.py:9
+#: ../text.py:1022 ../text.py:1107 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "Geslo za root"
 
-#: ../text.py:1034 ../text.py:1119 ../textw/userauth_text.py:172
+#: ../text.py:1024 ../text.py:1109 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "Namestitev uporabni¹kega raèuna"
 
-#: ../text.py:1036 ../text.py:1121
+#: ../text.py:1026 ../text.py:1111
 msgid "Authentication"
 msgstr "Identifikacija"
 
-#: ../text.py:1042
+#: ../text.py:1032
 msgid "Configuration Complete"
 msgstr "Nastavitev konèana"
 
-#: ../text.py:1064 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../text.py:1054 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "Nastavitev SILO"
 
-#: ../text.py:1070 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
+#: ../text.py:1060 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
 #: ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "Nastavitev LILO"
 
-#: ../text.py:1074
+#: ../text.py:1064
 msgid "Automatic Partition"
 msgstr "Samodejna razdelitev"
 
 #: ../iw/lilo_gui.py:205 ../iw/lilo_gui.py:364 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../text.py:1076 ../text.py:1080
+#: ../iw/silo_gui.py:280 ../text.py:1066 ../text.py:1070
 msgid "Partition"
 msgstr "Razdelitev diska"
 
-#: ../text.py:1078
+#: ../text.py:1068
 msgid "Manually Partition"
 msgstr "Roèna razdelitev"
 
-#: ../text.py:1082 ../textw/partitioning_text.py:333
+#: ../text.py:1072 ../textw/partitioning_text.py:333
 msgid "Root Filesystem Size"
 msgstr "Velikost korenskega datoteènega sistema"
 
-#: ../text.py:1084
+#: ../text.py:1074
 msgid "Swap"
 msgstr "Izmenjalna"
 
-#: ../text.py:1086 ../textw/partitioning_text.py:390
+#: ../text.py:1076 ../textw/partitioning_text.py:390
 #: ../textw/partitioning_text.py:410
 #, fuzzy
 msgid "Boot Partition Warning"
 msgstr "Samodejna razdelitev"
 
-#: ../text.py:1088
+#: ../text.py:1078
 msgid "Filesystem Formatting"
 msgstr "Formatiranje datoteènega sistema"
 
-#: ../iw/mouse_gui.py:56 ../text.py:1105 ../text.py:1107
+#: ../iw/mouse_gui.py:56 ../text.py:1095 ../text.py:1097
 msgid "Mouse Configuration"
 msgstr "Nastavitev mi¹ke"
 
-#: ../text.py:1112
+#: ../text.py:1102
 #, fuzzy
 msgid "Language Default"
 msgstr "Izbira jezika"
 
-#: ../text.py:1123
+#: ../text.py:1113
 msgid "Package Groups"
 msgstr "Skupina paketov"
 
-#: ../text.py:1125 ../text.py:1153
+#: ../text.py:1115 ../text.py:1143
 msgid "Individual Packages"
 msgstr "Posamezni paketi"
 
-#: ../text.py:1127 ../textw/packages_text.py:304
+#: ../text.py:1117 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Odvisnosti paketov"
 
-#: ../iw/xconfig_gui.py:1007 ../text.py:1129 ../text.py:1137
+#: ../iw/xconfig_gui.py:1007 ../text.py:1119 ../text.py:1127
 msgid "X Configuration"
 msgstr "Nastavitev X"
 
-#: ../text.py:1131
+#: ../text.py:1121
 msgid "Installation Begins"
 msgstr "Zaèetek namestitve"
 
-#: ../text.py:1133
+#: ../text.py:1123
 msgid "Install System"
 msgstr "Namesti sistem"
 
-#: ../text.py:1134 ../text.py:1136 ../text.py:1157 ../text.py:1159
+#: ../text.py:1124 ../text.py:1126 ../text.py:1147 ../text.py:1149
 msgid "Boot Disk"
 msgstr "Zagonska disketa"
 
-#: ../text.py:1139
+#: ../text.py:1129
 msgid "Installation Complete"
 msgstr "Namestitev je konèana"
 
-#: ../text.py:1144
+#: ../text.py:1134
 msgid "Examine System"
 msgstr "Prei¹èi sistem"
 
-#: ../text.py:1151
+#: ../text.py:1141
 msgid "Customize Upgrade"
 msgstr "Prilagodi nadgradnjo"
 
-#: ../text.py:1154
+#: ../text.py:1144
 msgid "Upgrade Begins"
 msgstr "Prei¹èimo nadgradnjo"
 
-#: ../text.py:1156
+#: ../text.py:1146
 msgid "Upgrade System"
 msgstr "Nadgradi sistem"
 
-#: ../text.py:1160
+#: ../text.py:1150
 msgid "Upgrade Complete"
 msgstr "Popolnoma nadgradi"
 
-#: ../text.py:1198
+#: ../text.py:1188
 msgid "Cancelled"
 msgstr "Preklicano"
 
-#: ../text.py:1199
+#: ../text.py:1189
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Ne moremo se vrniti na prej¹nji korak. Poskusiti boste morali ponovno."
 
-#: ../todo.py:664
+#: ../todo.py:696
 msgid "Creating boot disk..."
 msgstr "Ustvarjamo zagonski disk..."
 
-#: ../todo.py:683
+#: ../todo.py:715
 msgid "Reading"
 msgstr "Branje"
 
-#: ../todo.py:684
+#: ../todo.py:716
 msgid "Reading package information..."
 msgstr "Beremo podatke o paketih..."
 
-#: ../todo.py:943
+#: ../todo.py:975
 msgid "Dependency Check"
 msgstr "Preverjanje odvisnosti"
 
-#: ../todo.py:944
+#: ../todo.py:976
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Preverjam odvisnosti v paketih, izbranih za namestitev..."
 
-#: ../todo.py:971 ../todo.py:1013 ../todo.py:1019 ../todo.py:1036
-#: ../todo.py:1161
+#: ../todo.py:1003 ../todo.py:1045 ../todo.py:1051 ../todo.py:1068
+#: ../todo.py:1193
 msgid "no suggestion"
 msgstr "ni predloga"
 
-#: ../todo.py:1051
+#: ../todo.py:1083
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -943,7 +943,7 @@ msgstr ""
 "Linux, ni mogoèe priklopiti. Prosimo, odpravite te¾avo in znova poskusite "
 "nadgraditi sistem."
 
-#: ../todo.py:1069
+#: ../todo.py:1101
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -951,50 +951,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../todo.py:1083
+#: ../todo.py:1115
 msgid "Finding"
 msgstr "Iskanje"
 
-#: ../todo.py:1084
+#: ../todo.py:1116
 msgid "Finding packages to upgrade..."
 msgstr "I¹èemo pakete za nadgradnjo..."
 
-#: ../todo.py:1099
+#: ../todo.py:1131
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Ponovna gradnja baze podatkov o RPM neuspe¹na. Morda zmanjkuje prostora na "
 "disku?"
 
-#: ../todo.py:1112
+#: ../todo.py:1144
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Med iskanjem paketov, ki jih je treba nadgraditi, je pri¹lo do napake."
 
-#: ../todo.py:1451
+#: ../todo.py:1486
 msgid "Processing"
 msgstr "Obdelujemo"
 
-#: ../todo.py:1452
+#: ../todo.py:1487
 msgid "Preparing to install..."
 msgstr "Pripravljamo se na namestitev..."
 
-#: ../todo.py:1486
+#: ../todo.py:1521
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
 
-#: ../todo.py:1729
+#: ../todo.py:1764
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Nadgrajujemo %s.\n"
 
-#: ../todo.py:1731
+#: ../todo.py:1766
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Name¹èamo %s.\n"
 
-#: ../todo.py:1776
+#: ../todo.py:1811
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1004,15 +1004,15 @@ msgstr ""
 "Potrebujete veè prostora na naslednjem datoteènem sistemu:\n"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:3033 ../todo.py:1779 ../todo.py:1795
+#: ../libfdisk/gnomefsedit.c:3033 ../todo.py:1814 ../todo.py:1830
 msgid "Mount Point"
 msgstr "Toèka priklopa"
 
-#: ../todo.py:1779
+#: ../todo.py:1814
 msgid "Space Needed"
 msgstr "Potreben prostor"
 
-#: ../todo.py:1792
+#: ../todo.py:1827
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -1023,20 +1023,20 @@ msgstr ""
 "Potrebujete veè prostora na naslednjem datoteènem sistemu:\n"
 "\n"
 
-#: ../todo.py:1795
+#: ../todo.py:1830
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Potreben prostor"
 
-#: ../todo.py:1801
+#: ../todo.py:1836
 msgid "Disk Space"
 msgstr "Prostor na disku"
 
-#: ../todo.py:1836
+#: ../todo.py:1871
 msgid "Post Install"
 msgstr "Po namestitvi"
 
-#: ../todo.py:1837
+#: ../todo.py:1872
 msgid "Performing post install configuration..."
 msgstr "Izvajamo nastavitve po namestitvi..."
 
@@ -1053,7 +1053,11 @@ msgstr "I¹èemo namestitve Red Hat Linuxa..."
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "Napaka pri priklapljanju datoteènega sistema ext2 na %s: %s"
 
-#: ../upgrade.py:95
+#: ../upgrade.py:69
+msgid "Partitionless upgrades are NOT supported in this beta"
+msgstr ""
+
+#: ../upgrade.py:101
 msgid ""
 "One or more of the filesystems for your Linux system was not unmounted "
 "cleanly. Please boot your Linux installation, let the filesystems be "
@@ -1383,7 +1387,7 @@ msgstr "Prikrojitev paketov za nadgradnjo"
 msgid "fdisk"
 msgstr "fdisk"
 
-#: ../iw/fdisk_gui.py:106
+#: ../iw/fdisk_gui.py:105
 msgid "Select drive to run fdisk on"
 msgstr "Izberite pogon na katerem boste poganjali fdisk"
 
@@ -1467,51 +1471,51 @@ msgstr "Nastavitev nastavitve"
 msgid "Model"
 msgstr "Model"
 
-#: ../iw/keyboard_gui.py:105
+#: ../iw/keyboard_gui.py:106
 msgid "Layout"
 msgstr "Videz"
 
-#: ../iw/keyboard_gui.py:124
+#: ../iw/keyboard_gui.py:126
 msgid "Dead Keys"
 msgstr "Neme tipke"
 
-#: ../iw/keyboard_gui.py:133
+#: ../iw/keyboard_gui.py:135
 msgid "Enable dead keys"
 msgstr "Omogoèimo neme tipke"
 
-#: ../iw/keyboard_gui.py:134
+#: ../iw/keyboard_gui.py:136
 msgid "Disable dead keys"
 msgstr "Onemogoèimo neme tipke"
 
-#: ../iw/keyboard_gui.py:143
+#: ../iw/keyboard_gui.py:145
 msgid "Test your selection here:"
 msgstr "Tukaj preverite va¹o izbiro:"
 
-#: ../iw/language_gui.py:67 ../loader/lang.c:291
+#: ../iw/language_gui.py:40 ../loader/lang.c:291
 msgid "What language should be used during the installation process?"
 msgstr "Kateri jezik boste uporabljali med namestitvenim postopkom?"
 
-#: ../iw/language_support_gui.py:142
+#: ../iw/language_support_gui.py:137
 #, fuzzy
 msgid "Choose the default language:   "
 msgstr "Izberite jezik"
 
-#: ../iw/language_support_gui.py:153
+#: ../iw/language_support_gui.py:148
 #, fuzzy
 msgid "Choose the languages to install:"
 msgstr "Izberite jezik"
 
-#: ../iw/language_support_gui.py:198
+#: ../iw/language_support_gui.py:193
 #, fuzzy
 msgid "Select all"
 msgstr "Izberite razdelitev"
 
-#: ../iw/language_support_gui.py:204
+#: ../iw/language_support_gui.py:199
 #, fuzzy
 msgid "Reset"
 msgstr "_Resetirajmo"
 
-#: ../iw/language_support_gui.py:218
+#: ../iw/language_support_gui.py:213
 msgid "Select as default"
 msgstr ""
 
@@ -1931,33 +1935,27 @@ msgstr "Nastavimo privzeto zagonsko napravo PROM na linux"
 msgid "Do not install SILO"
 msgstr "Ne name¹èajmo zaganjalnika SILO"
 
-#: ../iw/timezone_gui.py:31 ../textw/timezone_text.py:88
+#: ../iw/timezone_gui.py:31 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
 msgstr "Izbira èasovnega pasu"
 
-#. pick New York City as default
-#: ../gnome-map/gglobe-canvas.c:781 ../gnome-map/timezonemapmodule.c:766
-#: ../gnome-map/timezonemapmodule.c:768 ../iw/timezone_gui.py:140
-msgid "America/New_York"
-msgstr "Europe/Ljubljana"
-
-#: ../iw/timezone_gui.py:157
+#: ../iw/timezone_gui.py:158
 msgid "View:"
 msgstr "Pogled:"
 
-#: ../iw/timezone_gui.py:165 ../iw/timezone_gui.py:166
+#: ../iw/timezone_gui.py:166 ../iw/timezone_gui.py:167
 msgid "System clock uses UTC"
 msgstr "Sistemska ura uporablja UTC"
 
-#: ../iw/timezone_gui.py:214
+#: ../iw/timezone_gui.py:215
 msgid "Use Daylight Saving Time (US only)"
 msgstr "Uporaba zimskega èasa (le ZDA)"
 
-#: ../iw/timezone_gui.py:228
+#: ../iw/timezone_gui.py:229
 msgid "Location"
 msgstr "Lokacija"
 
-#: ../iw/timezone_gui.py:229
+#: ../iw/timezone_gui.py:230
 msgid "UTC Offset"
 msgstr "Popravek UTC"
 
@@ -2478,11 +2476,11 @@ msgstr "Nastavimo privzeto zagonsko napravo PROM"
 msgid "Edit Boot Label"
 msgstr "Uredimo zagonsko oznako"
 
-#: ../textw/timezone_text.py:70
+#: ../textw/timezone_text.py:71
 msgid "What time zone are you located in?"
 msgstr "V katerem èasovnem pasu ¾ivite?"
 
-#: ../textw/timezone_text.py:85
+#: ../textw/timezone_text.py:86
 msgid "Hardware clock set to GMT?"
 msgstr "Je strojna ura nastavljena na GMT?"
 
@@ -2664,8 +2662,8 @@ msgid "partitioning did not meet requirements"
 msgstr "razdeljevanje ni zadostilo zahtevam"
 
 #: ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924 ../libfdisk/fsedit.c:931
-#: ../libfdisk/fsedit.c:940 ../libfdisk/fsedit.c:967 ../libfdisk/fsedit.c:980
-#: ../libfdisk/fsedit.c:990
+#: ../libfdisk/fsedit.c:940 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:984
+#: ../libfdisk/fsedit.c:994
 msgid "Bad Mount Point"
 msgstr "Nepravilna toèka priklopa"
 
@@ -2707,20 +2705,20 @@ msgstr ""
 "\n"
 "Toèke priklopa lahko vsebujejo le izpisljive znake."
 
-#: ../libfdisk/fsedit.c:949
+#. "You've asked to put your root (/) filesystem on a DOS-style "
+#. "FAT partition. You can do this, but you may not use any "
+#. "other filesystems for your Linux system. Additionally, there "
+#. "will be a speed penalty for not using Linux-native partitions."
+#.
+#: ../libfdisk/fsedit.c:955
 msgid ""
-"You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
-"You can do this, but you may not use any other filesystems for your Linux "
-"system. Additionally, there will be a speed penalty for not using "
-"Linux-native partitions. Do you want to continue?"
+"\n"
+"WARNING: Partitionless installs are known to often fail in this BETA release "
+"so do NOT report errors if you choose to do this.\n"
+" Do you want to continue?"
 msgstr ""
-"Va¹ korenski datoteèni sistem (/) ste ¾eleli postaviti na dosovsko "
-"razdelitev FAT. To lahko storite, a v va¹em sistemu Linux potem ne smete "
-"uporabljati nobenih drugih datoteènih sistemov. Poleg tega bo uporaba "
-"nedomorodnih razdelitev za Linux upoèasnila delovanje sistema. ®elite vseeno "
-"nadaljevati?"
 
-#: ../libfdisk/fsedit.c:968
+#: ../libfdisk/fsedit.c:972
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2731,12 +2729,12 @@ msgstr ""
 "\n"
 "Sistemske razdelitve morajo biti v razdelitvah tipa Linux."
 
-#: ../libfdisk/fsedit.c:981
+#: ../libfdisk/fsedit.c:985
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
 msgstr "Na tej platformi mora biti /boot v dosovskem datoteènem sistemu %x."
 
-#: ../libfdisk/fsedit.c:991
+#: ../libfdisk/fsedit.c:995
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2747,11 +2745,11 @@ msgstr ""
 "\n"
 "/usr mora biti na razdelitvi tipa Linux ali NFS."
 
-#: ../libfdisk/fsedit.c:1019
+#: ../libfdisk/fsedit.c:1023
 msgid "Too Many Drives"
 msgstr "Preveè pogonov"
 
-#: ../libfdisk/fsedit.c:1020
+#: ../libfdisk/fsedit.c:1024
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
@@ -2761,11 +2759,11 @@ msgstr ""
 "program fdisk za nastavitev va¹ih diskov in prosim obvestite Red Hat "
 "Software, da ste videli to sporoèilo."
 
-#: ../libfdisk/fsedit.c:1029
+#: ../libfdisk/fsedit.c:1033
 msgid "Error Creating Device Nodes"
 msgstr "Napaka pri ustvarjanju nodov naprav"
 
-#: ../libfdisk/fsedit.c:1030
+#: ../libfdisk/fsedit.c:1034
 #, fuzzy
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
@@ -2775,11 +2773,11 @@ msgstr ""
 "Med ustvarjanjem nodov naprav za va¹e diske je pri¹lo do napake. Morda vam "
 "je zmanjkalo prostora v disku, v razdelitvi /tmp."
 
-#: ../libfdisk/fsedit.c:1046
+#: ../libfdisk/fsedit.c:1050
 msgid "No Drives Found"
 msgstr "Noben pogon ni bil najden"
 
-#: ../libfdisk/fsedit.c:1047
+#: ../libfdisk/fsedit.c:1051
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -2788,7 +2786,7 @@ msgstr ""
 "ustvarili nove datoteène sisteme. Prosim preverite va¹o strojno opremo za "
 "razlog te te¾ave."
 
-#: ../libfdisk/fsedit.c:1375 ../libfdisk/fsedit.c:1438
+#: ../libfdisk/fsedit.c:1379 ../libfdisk/fsedit.c:1442
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
@@ -2797,7 +2795,7 @@ msgstr ""
 "Med branjem razdelitvene tabele blokovne naprave je pri¹lo do napake. Napaka "
 "je bila"
 
-#: ../libfdisk/fsedit.c:1415
+#: ../libfdisk/fsedit.c:1419
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -2807,27 +2805,27 @@ msgstr ""
 "nove razdelitve, jo morate inicializirati, kar bo povzroèilo izgubo VSEH "
 "PODATKOV na tem pogonu."
 
-#: ../libfdisk/fsedit.c:1420
+#: ../libfdisk/fsedit.c:1424
 msgid "Bad Partition Table"
 msgstr "Slaba razdelitvena tabela"
 
-#: ../libfdisk/fsedit.c:1421
+#: ../libfdisk/fsedit.c:1425
 msgid "Initialize"
 msgstr "Inicializirajmo"
 
-#: ../libfdisk/fsedit.c:1421 ../libfdisk/fsedit.c:1442
+#: ../libfdisk/fsedit.c:1425 ../libfdisk/fsedit.c:1446
 msgid "Skip Drive"
 msgstr "Preskoèi pogon"
 
-#: ../libfdisk/fsedit.c:1442 ../loader/net.c:256 ../loader/net.c:381
+#: ../libfdisk/fsedit.c:1446 ../loader/net.c:256 ../loader/net.c:381
 msgid "Retry"
 msgstr "Ponovno"
 
-#: ../libfdisk/fsedit.c:1454
+#: ../libfdisk/fsedit.c:1458
 msgid "BSD Disklabel"
 msgstr "Oznaka diska BSD"
 
-#: ../libfdisk/fsedit.c:1454
+#: ../libfdisk/fsedit.c:1458
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -2837,12 +2835,12 @@ msgstr ""
 "diska BSD le v naèinu samo za branje, zato morate za stroje z oznakami diska "
 "BSD uporabiti prilagojeno namestitev in fdisk (ne Disk Druida)."
 
-#: ../libfdisk/fsedit.c:1484
+#: ../libfdisk/fsedit.c:1488
 #, c-format
 msgid "System error %d"
 msgstr "Sistemska napaka %d"
 
-#: ../libfdisk/fsedit.c:1493 ../libfdisk/fsedit.c:1495
+#: ../libfdisk/fsedit.c:1497 ../libfdisk/fsedit.c:1499
 msgid "Fdisk Error"
 msgstr "Napaka v fdisku"
 
@@ -4119,6 +4117,12 @@ msgstr "gglobe-canvas"
 msgid "View: "
 msgstr "Pogled: "
 
+#. pick New York City as default
+#: ../gnome-map/gglobe-canvas.c:781 ../gnome-map/timezonemapmodule.c:766
+#: ../gnome-map/timezonemapmodule.c:768
+msgid "America/New_York"
+msgstr "Europe/Ljubljana"
+
 msgid "Base"
 msgstr "Osnova"
 
@@ -4194,6 +4198,18 @@ msgstr "Razvoj jedra"
 
 msgid "Utilities"
 msgstr "Pripomoèki"
+
+#~ msgid ""
+#~ "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
+#~ "You can do this, but you may not use any other filesystems for your Linux "
+#~ "system. Additionally, there will be a speed penalty for not using "
+#~ "Linux-native partitions. Do you want to continue?"
+#~ msgstr ""
+#~ "Va¹ korenski datoteèni sistem (/) ste ¾eleli postaviti na dosovsko "
+#~ "razdelitev FAT. To lahko storite, a v va¹em sistemu Linux potem ne smete "
+#~ "uporabljati nobenih drugih datoteènih sistemov. Poleg tega bo uporaba "
+#~ "nedomorodnih razdelitev za Linux upoèasnila delovanje sistema. ®elite vseeno "
+#~ "nadaljevati?"
 
 #, fuzzy
 #~ msgid "IDE"
