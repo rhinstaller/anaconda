@@ -256,12 +256,17 @@ class ReconfigStation(BaseInstallClass):
         self.addToSkipList("xconfig")
 
 allClasses = []
+allClasses_hidden = []
 
 # returns ( className, classObject, classLogo ) tuples
-def availableClasses(showhidden=0):
+def availableClasses(showHidden=0):
     global allClasses
+    global allClasses_hidden
 
-    if allClasses: return allClasses
+    if not showHidden:
+        if allClasses: return allClasses
+    else:
+        if allClasses_hidden: return allClasses_hidden
 
     if os.access("installclasses", os.R_OK):
 	path = "installclasses"
@@ -291,14 +296,20 @@ def availableClasses(showhidden=0):
 	    else:
 		sortOrder = 0
                 
-            if obj.hidden == 0 or showhidden == 1:
+            if obj.hidden == 0 or showHidden == 1:
                 list.append(((obj.name, obj, obj.pixmap), sortOrder))
 
     list.sort(ordering)
     for (item, priority) in list:
-	allClasses.append(item)
+        if showHidden:
+            allClasses_hidden.append(item)
+        else:
+            allClasses.append(item)
 
-    return allClasses
+    if showHidden:
+        return allClasses_hidden
+    else:
+        return allClasses
 
 def ordering(first, second):
     ((name1, obj, logo), priority1) = first
@@ -317,3 +328,5 @@ def ordering(first, second):
     return 0
 
 
+def requireDisplayMode():
+    return None

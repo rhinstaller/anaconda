@@ -194,12 +194,34 @@ from installclass import DefaultInstall
 from installclass import ReconfigStation
 from kickstart import Kickstart
 
+
+
 #
 # override display mode if machine cannot nicely run X
 #
 if (not test):
     if (iutil.memInstalled() < 30000):
 	forced_display_mode = 't'
+
+
+#
+# handle class passed from loader
+#
+instClass = None
+if customClass:
+    import installclass
+
+    classes = installclass.availableClasses(showHidden=1)
+    for (className, objectClass, logo) in classes:
+	if className == customClass:
+		instClass = objectClass(expert)
+                reqmode = instClass.requiredDisplayMode()
+                if reqmode:
+                    forced_display_mode = reqmode
+
+    if not instClass:
+	raise TypeError, "installation class "+customClass+" not available"
+	sys.exit(0)
 
 #
 # if in reconfig mode set display mode based on inittab default runlevel
@@ -279,26 +301,15 @@ if traceOnly:
     sys.exit(0)
 
 #
-# handle class passed from loader
+# if no instClass declared by user figure it out based on other cmdline args
 #
-if customClass:
-    import installclass
-
-    instClass = None
-    classes = installclass.availableClasses(1)
-    for (className, objectClass, logo) in classes:
-	if className == customClass:
-		instClass = objectClass(expert)
-
-    if not instClass:
-	raise TypeError, "installation class "+customClass+" not available"
-	sys.exit(0)
-elif kickstart:
-    instClass = Kickstart(kickstart, serial)
-elif reconfigOnly:
-    instClass = ReconfigStation(expert)
-else:
-    instClass = DefaultInstall(expert)
+if not instClass:
+    if kickstart:
+        instClass = Kickstart(kickstart, serial)
+    elif reconfigOnly:
+        instClass = ReconfigStation(expert)
+    else:
+        instClass = DefaultInstall(expert)
 
 intf = InstallInterface()
 

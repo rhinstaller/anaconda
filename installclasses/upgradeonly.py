@@ -8,6 +8,10 @@ class InstallClass(BaseInstallClass):
     hidden = 1
     sortPriority = 1
 
+
+    def requiredDisplayMode(self):
+        return 't'
+    
     def __init__(self, expert):
 	BaseInstallClass.__init__(self)
 
