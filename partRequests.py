@@ -768,9 +768,9 @@ class VolumeGroupRequestSpec(RequestSpec):
             for pvid in self.physicalVolumes:
                 pvreq = partitions.getRequestByID(pvid)
                 size = pvreq.getActualSize(partitions, diskset)
-                log("size for pv %s is %s" % (pvid, size))
+                #log("size for pv %s is %s" % (pvid, size))
                 size = lvm.clampPVSize(size, self.pesize) - (self.pesize/1024)
-                log("  clamped size is %s" % (size,))
+                #log("  clamped size is %s" % (size,))
                 totalspace = totalspace + size
 
         return totalspace

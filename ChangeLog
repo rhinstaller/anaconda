@@ -1,3 +1,10 @@
+2005-03-07  Peter Jones  <pjones@redhat.com>
+
+	* anaconda: add LVM_SUPPRESS_FD_WARNINGS to the environment,
+	which should make the lvm tools not complain about open FDs on exec.
+	* partRequests.py: comment out not-so-useful log events.
+	* autopart.py: still clamp each LV to the pesize.
+
 2005-03-07  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

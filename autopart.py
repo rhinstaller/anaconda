@@ -517,8 +517,11 @@ def growLogicalVolumes(diskset, requests):
 	cursize = {}
 	for req in growreqs:
 	    size = req.getActualSize(requests, diskset)
+            size = lvm.clampPVSize(size, vgreq.pesize)
 	    initsize[req.logicalVolumeName] = size
 	    cursize[req.logicalVolumeName] = size
+            if req.maxSizeMB:
+                req.maxSizeMB = lvm.clampPVSize(req.maxSizeMB, vgreq.pesize)
 #	    print "init sizes",req.logicalVolumeName, size
             if DEBUG_LVM_GROW:
 		log("init sizes for %s: %s",req.logicalVolumeName, size)
@@ -572,7 +575,9 @@ def growLogicalVolumes(diskset, requests):
 		
 		fraction = float(req.getStartSize())/float(totsize)
 
-		newsize = cursize[req.logicalVolumeName] + vgfree*fraction
+		newsize = lvm.clampPVSize(vgfree*fraction, vgreq.pesize)
+                newsize += cursize[req.logicalVolumeName]
+
 		if req.maxSizeMB:
 		    newsize = min(newsize, req.maxSizeMB)
 		    
