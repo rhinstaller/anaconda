@@ -894,8 +894,9 @@ int removeLoadedModule(const char * modName, moduleList modLoaded,
     return rc;
 }
 
-void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
-                    char ** argv, int * flagsPtr) {
+void loadKickstartModule(struct knownDevices * kd, 
+                         struct loaderData_s * loaderData, int argc, 
+                         char ** argv, int * flagsPtr) {
     char * opts = NULL;
     char * module = NULL;
     char * type = NULL;
@@ -911,6 +912,7 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
     optCon = poptGetContext(NULL, argc, (const char **) argv, 
                             ksDeviceOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
+        startNewt(flags);
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to device kickstart method "
                          "command %s: %s"),
