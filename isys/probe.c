@@ -212,6 +212,7 @@ int kdFindIdeList(struct knownDevices * devices, int code) {
 	
 	devMakeInode(name, "/tmp/ideprobe");
 	fd = open("/tmp/ideprobe", O_RDONLY | O_NONBLOCK);
+	unlink("/tmp/ideprobe");
 
 	if (fd < 0) continue;
 
