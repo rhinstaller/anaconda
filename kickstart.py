@@ -1387,20 +1387,20 @@ def parseKickstartVNC(ksfile):
 		except:
 		    raise RuntimeError, "Missing argument to vnc --password option"
 		idx += 2
-	    elif args[idx] == "--connecthost":
+	    elif args[idx] == "--connect":
 		try:
-		    vnchost = args[idx+1]
+		    connectspec = args[idx+1]
 		except:
-		    raise RuntimeError, "Missing argument to vnc --connecthost option"
-		idx += 2
-	    elif args[idx] == "--connectport":
-		try:
-		    vncport = args[idx+1]
-		except:
-		    raise RuntimeError, "Missing argument to vnc --connectport option"
+		    raise RuntimeError, "Missing argument to vnc --connect option"
+		cargs = string.split(connectspec, ":")
+		vnchost = cargs[0]
+		if len(cargs) > 1:
+		    if len(cargs[1]) > 0:
+			vncport = cargs[1]
+		    
 		idx += 2
 	    else:
-		raise RuntimeError, "Unknown vnc option %s" % (arg[idx],)
+		raise RuntimeError, "Unknown vnc option %s" % (args[idx],)
 
 	usevnc = 1
 	break
