@@ -4,6 +4,7 @@
 # This file is distributed under the same license as the anaconda package.
 # Amanpreet Singh Alam <amanlinux@netscpe.net>, 2004.
 # Amanpreet Singh Alam <aalam@redhat.com>, 2004, 2005.
+# Amanpreet Singh Alam <amanpreetalam@yahoo.com>, 2005.
 #
 #
 msgid ""
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-03 14:34-0500\n"
-"PO-Revision-Date: 2005-01-14 18:46+0530\n"
-"Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
+"PO-Revision-Date: 2005-03-07 08:03+0530\n"
+"Last-Translator: Amanpreet Singh Alam <amanpreetalam@yahoo.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -156,8 +157,7 @@ msgstr "ਗਲਤੀ, ਕਿੱਕਸਟਾਰਟ ਸੰਰਚਨਾ ਦੇ ਦ�
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
-msgstr ""
-"ਤੁਹਾਡੇ ਕੋਲ ਗਰਾਫਿਕਲ ਇੰਸਟਾਲਰ ਲਈ ਲੋਡ਼ੀਦੀ ਰੈਮ(RAM) ਨਹੀ ਹੈ।  ਪਾਠ ਢੰਗ ਹੀ ਸ਼ੁਰੂ ਕੀਤਾ ਜਾਦਾਹੈ।"
+msgstr "ਤੁਹਾਡੇ ਕੋਲ ਗਰਾਫਿਕਲ ਇੰਸਟਾਲਰ ਲਈ ਲੋਡ਼ੀਦੀ ਰੈਮ(RAM) ਨਹੀ ਹੈ।  ਪਾਠ ਢੰਗ ਹੀ ਸ਼ੁਰੂ ਕੀਤਾ ਜਾਦਾਹੈ।"
 
 #: ../anaconda:797
 msgid "Install class forcing text mode installation"
@@ -212,15 +212,15 @@ msgid "Could not allocate partitions"
 msgstr "ਭਾਗਾਂ ਨੂੰ ਨਹੀ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: ../autopart.py:1022
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
-"ਬੂਟ ਭਾਗ %s ਇੱਕ ਬੀਐਸਡੀ(BSD) ਡਿਸਕ ਲੇਬਲ ਨਾਲ ਸੰਬੰਧ ਨਹੀ ਹੈ। ਐਸਆਰਐਮ(SRM) ਇਸ ਭਾਗ ਤੋ ਬੂਟ ਨਹੀ "
-"ਕਰ ਸਕਦਾ ਹੈ। ਬੀਐਸਡੀ(BSD) ਡਿਸਕ ਲੇਬਲ ਨਾਲ ਸੰਬੰਧਿਤ ਭਾਗ ਵਰਤੋਂ ਜਾਂ ਇਸ ਜੰਤਰ ਡਿਸਕ ਦਾ ਡਿਸਕ ਲੇਬਲ "
-"ਬੀਐਸਡੀ(BSD) ਵਿੱਚ ਤਬਦੀਲ ਕਰ ਦਿਉ।"
+"ਬੂਟ ਭਾਗ %s ਇੱਕ ਬੀਐਸਡੀ(BSD) ਡਿਸਕ ਲੇਬਲ ਨਾਲ ਸੰਬੰਧ ਨਹੀ ਹੈ। ਐਸਆਰਐਮ(SRM) ਇਸ ਭਾਗ ਤੋਂ "
+"ਬੂਟ ਨਹੀ ਕਰ ਸਕਦਾ ਹੈ। ਬੀਐਸਡੀ(BSD) ਡਿਸਕ ਲੇਬਲ ਨਾਲ ਸੰਬੰਧਿਤ ਭਾਗ ਵਰਤੋਂ ਜਾਂ ਇਸ ਜੰਤਰ ਡਿਸਕ ਦਾ "
+"ਡਿਸਕ ਲੇਬਲ ਬੀਐਸਡੀ(BSD) ਵਿੱਚ ਤਬਦੀਲ ਕਰ ਦਿਉ।"
 
 #: ../autopart.py:1024
 #, python-format
@@ -250,8 +250,7 @@ msgstr ""
 
 #: ../autopart.py:1035
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "ਬੂਟ ਭਾਗ %s ਤੁਹਾਡੇ ਢਾਂਚੇ ਲਈ ਬੂਟ ਕਰਨ ਦੀਆਂ ਲੋੜੀਦੀਆਂ ਸੀਮਾਂਵਾਂ ਵਿੱਚ ਨਹੀ ਆ ਰਿਹਾ ਹੈ।"
 
 #: ../autopart.py:1061
@@ -259,8 +258,7 @@ msgstr "ਬੂਟ ਭਾਗ %s ਤੁਹਾਡੇ ਢਾਂਚੇ ਲਈ ਬੂ�
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
-"ਇਸ ਭਾਗ ਨੂੰ ਜੋਡ਼ਨ ਨਾਲ %s ਵਿੱਚ ਪਹਿਲਾਂ ਜਾਰੀ ਕੀਤੇ ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਲਈ ਲੋਡ਼ੀਦੀ ਥਾਂ ਨਹੀ ਰਹੇਗੀ।"
+msgstr "ਇਸ ਭਾਗ ਨੂੰ ਜੋਡ਼ਨ ਨਾਲ %s ਵਿੱਚ ਪਹਿਲਾਂ ਜਾਰੀ ਕੀਤੇ ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਲਈ ਲੋਡ਼ੀਦੀ ਥਾਂ ਨਹੀ ਰਹੇਗੀ।"
 
 #: ../autopart.py:1229
 msgid "Requested Partition Does Not Exist"
@@ -504,8 +502,7 @@ msgstr "ਬੂਟ-ਲੋਡਰ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹ�
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਕੋਈ ਕਰਨਲ ਪੈਕੇਜ ਇੰਸਟਾਲ ਨਹੀ ਹੈ। ਤੁਹਾਡੀ ਬੂਟ-ਲੋਡਰ ਸੰਰਚਨਾ ਤਬਦੀਲ ਨਹੀ ਹੋਵੇਗੀ।"
+msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਕੋਈ ਕਰਨਲ ਪੈਕੇਜ ਇੰਸਟਾਲ ਨਹੀ ਹੈ। ਤੁਹਾਡੀ ਬੂਟ-ਲੋਡਰ ਸੰਰਚਨਾ ਤਬਦੀਲ ਨਹੀ ਹੋਵੇਗੀ।"
 
 #: ../cmdline.py:42
 msgid "Completed"
@@ -566,8 +563,7 @@ msgstr "ਡੰਪ ਲਿਖਿਆ ਗਿਆ"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
-"ਸਿਸਟਮ ਦੀ ਸਥਿਤੀ ਸਫਲਤਾਪੂਰਕ ਫਲਾਪੀ ਤੇ ਲਿਖੀ ਗਈ ਹੈ। ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁਡ਼ ਨਿਰਧਾਰਿਤ ਹੋਵੇਗਾ।"
+msgstr "ਸਿਸਟਮ ਦੀ ਸਥਿਤੀ ਸਫਲਤਾਪੂਰਕ ਫਲਾਪੀ ਤੇ ਲਿਖੀ ਗਈ ਹੈ। ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁਡ਼ ਨਿਰਧਾਰਿਤ ਹੋਵੇਗਾ।"
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
@@ -1014,8 +1010,7 @@ msgstr "ਗਲਤੀ ਕਿੱਕਸਟਾਰਟ ਸੰਰਚਨਾ ਨੂੰ �
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
-msgstr ""
-"ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਫਲਾਪੀ ਪਾਉ। ਡਿਸਕ ਦੇ ਸਾਰੇ ਅੰਸ਼ ਮਿਟ ਜਾਣਗੇ, ਇਸਕਰਕੇ ਆਪਣੀ ਫਲਾਪੀ ਧਿਆਨ ਨਾਲ ਚੁਣੋ।"
+msgstr "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਫਲਾਪੀ ਪਾਉ। ਡਿਸਕ ਦੇ ਸਾਰੇ ਅੰਸ਼ ਮਿਟ ਜਾਣਗੇ, ਇਸਕਰਕੇ ਆਪਣੀ ਫਲਾਪੀ ਧਿਆਨ ਨਾਲ ਚੁਣੋ।"
 
 #: ../gui.py:846
 msgid "default:LTR"
@@ -1193,19 +1188,18 @@ msgstr "ਸਿਸਟਮ ਤੇ ਇੰਸਟਾਲ"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Scriptlet ਅਸਫਲ"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"%s ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਗਲਤੀ ਹੈ। ਇਹ ਮਾਧਿਅਮ ਦੀ ਅਸਫਲਤਾ, ਡਿਸਕ ਵਿੱਚ ਲੋਡ਼ੀਦੀ ਥਾਂ ਨਾ ਹੋਣਾ ਅਤੇ/"
-"ਜਾਂ ਹਾਰਡਵੇਅਰ ਸਮੱਸਿਆ ਨੂੰ ਵੇਖਾ ਰਿਹਾ ਹੈ। ਇਹ ਇੱਕ ਗੰਭੀਰ ਗਲਤੀ ਹੈ ਅਤੇ ਤੁਹਾਡੀ ਇੰਸਟਾਲੇਸ਼ਨ ਨੂੰ ਇਥੇ ਹੀ "
-"ਛੱਡਣਾ ਪੈ ਰਿਹਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਮਾਧਿਅਮ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਮੁਡ਼ ਇੰਸਟਾਲ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ ਕਰੋ\n"
+"scriptlet ਚਲਾਉਣ ਦੌਰਾਨ ਗਲਤੀ ਆਈ ਹੈ। ਤੁਸੀਂ %s ਵਿੱਚ ਆਉਟਪੁੱਟ ਵੇਖ ਸਕਦੇ ਹੋ। ਇਹ ਇੱਕ ਗੰਭੀਰ "
+"ਗਲਤੀ ਹੈ ਅਤੇ ਤੁਹਾਡੀ ਇੰਸਟਾਲੇਸ਼ਨ ਨੂੰ ਇਥੇ ਹੀ ਛੱਡਣਾ ਪੈ ਰਿਹਾ ਹੈ।\n"
 "\n"
 "ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਮੁਡ਼-ਚਾਲੂ ਕਰਨ ਲਈ 'ਠੀਕ ਹੈ' ਦਬਾਓ।"
 
@@ -1949,8 +1943,7 @@ msgid "Confirm Reset"
 msgstr "ਮੁਡ਼-ਨਿਰਧਾਰਨ ਦੀ ਪੁਸ਼ਟੀ"
 
 #: ../partIntfHelpers.py:529
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "ਕੀ ਤੁਸੀ ਯਕੀਨਨ ਹੀ ਭਾਗ-ਸਾਰਣੀ ਨੂੰ ਮੁਡ਼ ਮੁੱਢਲੀ ਸਥਿਤੀ ਤੇ ਲਿਆਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: ../partitioning.py:77
@@ -1996,14 +1989,12 @@ msgid ""
 msgstr "ਤੁਸੀ ਰੂਟ(root) ਭਾਗ ੨੫੦(250) ਮੈਗਾਬਾਇਟ ਤੋ ਘੱਟ ਹੈ, ਜੋ ਕਿ ਇੰਸਟਾਲ %s ਲਈ ਬਹੁਤ ਘੱਟ ਹੈ।"
 
 #: ../partitions.py:803
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "ਤੁਹਾਨੂੰ ਇੱਕ /boot/efi ਭਾਗ ਫੈਟ(FAT) ਕਿਸਮ ਅਤੇ 50 ਮੈਗਾਬਾਇਟ ਦਾ ਬਣਾਉਣਾ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: ../partitions.py:823
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "ਤੁਹਾਨੂੰ ਇੱਕ PPC PReP ਬੂਟ-ਭਾਗ ਬਣਾਉਣਾ ਜ਼ਰੂਰੀ ਹੈ।"
+msgstr "ਤੁਹਾਨੂੰ ਇੱਕ Apple Bootstrap ਭਾਗ ਬਣਾਉਣਾ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: ../partitions.py:845
 msgid "You must create a PPC PReP Boot partition."
@@ -2066,8 +2057,7 @@ msgstr "ਇੱਕ ਭਾਗ, ਜੋ ਕਿ LVM ਵਾਲੀਅਮ ਸਮੂਹ �
 
 #: ../partRequests.py:286
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ਮਾਊਟ ਸਥਿਤੀ ਜਾਇਜ਼ ਨਹੀ ਹੈ।  ਡਾਇਰੈਕਟਰੀ %s ਫਾਇਲ-ਸਿਸਟਮ / ਤੇ ਮੌਜੂਦ ਹੋਣੀ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: ../partRequests.py:289
@@ -2088,8 +2078,7 @@ msgstr "ਇਹ ਮਾਊਟ ਸਥਿਤੀ ਲੀਨਕਸ ਫਾਇਲ ਸਿ�
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"ਮਾਊਟ ਸਥਿਤੀ \"%s\" ਪਹਿਲਾਂ ਹੀ ਵਰਤੀ ਜਾ ਚੁੱਕੀ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰੀ ਮਾਊਟ ਸਥਿਤੀ ਚੁਣੋ।"
+msgstr "ਮਾਊਟ ਸਥਿਤੀ \"%s\" ਪਹਿਲਾਂ ਹੀ ਵਰਤੀ ਜਾ ਚੁੱਕੀ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰੀ ਮਾਊਟ ਸਥਿਤੀ ਚੁਣੋ।"
 
 #: ../partRequests.py:331
 #, python-format
@@ -2309,8 +2298,7 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) ੨੦੦੪ Red Hat, Inc."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> ਸਹਾਇਤਾ ਲਈ | <Tab> ਇਕਾਈਆਂ ਵਿੱਚ | <Space> ਚੋਣ | <F12> ਅਗਲਾ ਪਰਦਾ"
 
 #: ../text.py:369
@@ -3014,13 +3002,12 @@ msgid "Congratulations"
 msgstr "ਮੁਬਾਰਕ"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media  used during the installation process and "
 "press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"ਕੋਈ ਵੀ ਇੰਸਟਾਲੇਸ਼ਨ ਮਾਧਿਅਮ(ਡਿਸਕੀਟ ਅਤੇ ਸੀਡੀ-ਰੋਮ), ਜੋ ਵੀ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਵਰਤਿਆ ਹੈ, ਹਟਾਉ ਅਤੇ "
+"ਕੋਈ ਵੀ ਇੰਸਟਾਲੇਸ਼ਨ ਮਾਧਿਅਮ, ਜੋ ਵੀ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਵਰਤਿਆ ਹੈ, ਹਟਾਓ ਅਤੇ "
 "\"ਮੁਡ਼ ਚਾਲੂ\" ਬਟਨ ਨਾਲ ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਲਈ ਇਸਤੇਮਾਲ ਕਰੋ।\n"
 "\n"
 
@@ -3134,8 +3121,7 @@ msgstr ""
 msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
-msgstr ""
-"ਜੇਕਰ ਤੁਸੀ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਮੂਲ ਪੈਕੇਜਾਂ ਵਿੱਚ ਤਬਦੀਲੀ ਕਰਨੀ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਹੇਠ ਲਿਖੇ ਡੱਬੇ ਵਿੱਚੋ ਚੋਣ ਕਰੋ।"
+msgstr "ਜੇਕਰ ਤੁਸੀ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਮੂਲ ਪੈਕੇਜਾਂ ਵਿੱਚ ਤਬਦੀਲੀ ਕਰਨੀ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਹੇਠ ਲਿਖੇ ਡੱਬੇ ਵਿੱਚੋ ਚੋਣ ਕਰੋ।"
 
 #: ../iw/desktop_choice_gui.py:78
 msgid "_Install default software packages"
@@ -4164,14 +4150,12 @@ msgid "Partitioning"
 msgstr "ਵਿਭਾਗੀਕਰਨ"
 
 #: ../iw/partition_gui.py:631
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "ਇਹ ਘਾਤਕ ਗਲਤੀਆਂ ਕਰਕੇ ਤੁਹਾਡੀ ਲੋਡ਼ੀਦੀ ਵਿਭਾਗੀਕਰਨ ਸਕੀਮ ਖਤਮ ਹੋ ਗਈ ਹੈ।"
 
 #: ../iw/partition_gui.py:634
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "ਇਹ ਗਲਤੀਆਂ ਠੀਕ ਕਰਨੀਆਂ ਜਰੂਰੀ ਹਨ ਤਾਂਕਿ ਤੁਸੀ %s ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਰੀ ਰਹੋ।"
 
 #: ../iw/partition_gui.py:640
@@ -4749,8 +4733,7 @@ msgstr "ਇਹ ਤੁਹਾਡੇ ਮੌਜੂਦਾ ਬੂਟ-ਲੋਡਰ ਦ�
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "ਇੰਸਟਾਲਰ ਨੇ %s ਬੂਟ-ਲੋਡਰ ਇਸ ਸਮੇ %s ਤੇ ਖੋਜਿਆ ਹੈ।"
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4881,8 +4864,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "ਸਵੈਪ ਫਾਇਲ ਦਾ ਆਕਾਰ 1 ਅਤੇ 2000 ਮੈਬਾ ਵਿੱਚ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।"
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "ਜੋ ਜੰਤਰ ਤੁਸੀ ਸਵੈਪ ਲਈ ਚੁਣਿਆ ਹੈ, ਤੇ ਲੋਡ਼ੀਦਾ ਥਾਂ ਨਹੀ ਹੈ।"
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -5078,8 +5060,7 @@ msgstr "FCP ਜੰਤਰ %s ਸੋਧ"
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
-"ਤੁਸੀਂ ਆਪਣੀ ਸੰਰਚਨਾ ਵਿੱਚੋਂ FCP ਡਿਸਕ ਹਟਾਉਣ ਲਈ ਤਿਆਰ ਹੋ। ਕੀ ਤੁਸੀਂ ਜਾਰੀ ਰੱਖਣ ਲਈ ਸਹਿਮਤ ਹੋ?"
+msgstr "ਤੁਸੀਂ ਆਪਣੀ ਸੰਰਚਨਾ ਵਿੱਚੋਂ FCP ਡਿਸਕ ਹਟਾਉਣ ਲਈ ਤਿਆਰ ਹੋ। ਕੀ ਤੁਸੀਂ ਜਾਰੀ ਰੱਖਣ ਲਈ ਸਹਿਮਤ ਹੋ?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5236,8 +5217,7 @@ msgstr ""
 "ਪਵੇਗਾ ਕਿ ਕਿਹਡ਼ਾ ਭਾਗ ਤੋ ਬੂਟ ਕਰਨਾ ਹੈ ਅਤੇ ਉਸ ਲਈ ਵੱਖਰਾ ਲੇਬਲ ਵੀ ਨਿਰਧਾਰਿਤ ਕਰਨਾ ਪਵੇਗਾ।"
 
 #: ../textw/bootloader_text.py:297
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Space> ਬਟਨ ਚੁਣੋ | <F2> ਮੂਲਬੂਟ ਇੰਦਰਾਜ਼ ਚੁਣੋ | <F12> ਅੱਗੇ ਪਰਦਾ>"
 
 #: ../textw/bootloader_text.py:376
@@ -5286,14 +5266,13 @@ msgid "<Enter> to exit"
 msgstr "ਬਾਹਰ ਲਈ <Enter>"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"ਕੋਈ ਵੀ ਇੰਸਟਾਲੇਸ਼ਨ ਮਾਧਿਅਮ (ਡਿਸਕੀਟ ਅਤੇ ਸੀਡੀ-ਰੋਮ), ਜੋ ਕਿ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਵਰਤੇ ਗਏ ਨੂੰ ਹਟਾ ਦਿਉ "
-"ਅਤੇ ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਮੁਡ਼-ਚਾਲੂ ਕਰਨ ਲਈ<Enter> ਦਬਾਉ।\n"
+"ਕੋਈ ਵੀ ਇੰਸਟਾਲੇਸ਼ਨ ਮਾਧਿਅਮ, ਜੋ ਕਿ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਵਰਤੇ ਗਏ ਨੂੰ ਹਟਾ ਦਿਓ "
+"ਅਤੇ ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਮੁਡ਼-ਚਾਲੂ ਕਰਨ ਲਈ<Enter> ਦਬਾਓ।\n"
 "\n"
 
 #: ../textw/complete_text.py:34
@@ -5666,8 +5645,7 @@ msgid "Select individual packages"
 msgstr "ਵੱਖ-ਵੱਖ ਪੈਕੇਜ ਚੁਣੋ"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> ਚੋਣ   |   <F2> ਸਮੂਹ ਵੇਰਵਾ   |   <F12> ਅਗਲਾ ਪਰਦਾ"
 
 #: ../textw/packages_text.py:119
@@ -5692,8 +5670,7 @@ msgid "Total size"
 msgstr "ਕੁੱਲ ਆਕਾਰ"
 
 #: ../textw/packages_text.py:328
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>,<+>,<-> ਚੋਣ   |   <F1> ਸਹਾਇਤਾ   |   <F2> ਪੈਕੇਜ ਵੇਰਵਾ"
 
 #: ../textw/packages_text.py:376
@@ -5920,8 +5897,7 @@ msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਬਣਾਉਣ ਲਈ ਕੋਈ �
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
-msgstr ""
-"ਮੌਜੂਦਾ ਲੋਡ਼ੀਦਾ ਆਕਾਰ(%10.2f ਮੈਬਾ) ਅਧਿਕਤਮ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਆਕਾਰ (%10.2f ਮੈਬਾ) ਤੋਂ ਵੱਧ ਹੈ।"
+msgstr "ਮੌਜੂਦਾ ਲੋਡ਼ੀਦਾ ਆਕਾਰ(%10.2f ਮੈਬਾ) ਅਧਿਕਤਮ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਆਕਾਰ (%10.2f ਮੈਬਾ) ਤੋਂ ਵੱਧ ਹੈ।"
 
 #: ../textw/partition_text.py:1308
 #, python-format
@@ -5959,10 +5935,8 @@ msgid "RAID"
 msgstr "ਰੇਡ(RAID)"
 
 #: ../textw/partition_text.py:1445
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-ਸਹਾਇਤਾ   F2-ਨਵਾਂ      F3-ਸੋਧ   F4-ਹਟਾਉ    F5-ਮੁਡ਼-ਪ੍ਰਾਪਤ    F12-ਠੀਕ ਹੈ     "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-ਸਹਾਇਤਾ   F2-ਨਵਾਂ      F3-ਸੋਧ   F4-ਹਟਾਉ    F5-ਮੁਡ਼-ਪ੍ਰਾਪਤ    F12-ਠੀਕ ਹੈ     "
 
 #: ../textw/partition_text.py:1474
 msgid "No Root Partition"
@@ -6210,14 +6184,11 @@ msgid "User Exists"
 msgstr "ਉਪਭੋਗਤਾ ਮੌਜੂਦ ਹੈ"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr ""
-"ਪ੍ਰਬੰਧਕ(root) ਉਪਭੋਗਤਾ ਪਹਿਲਾਂ ਹੀ ਸੰਰਚਿਤ ਹੈ। ਤੁਹਾਨੂੰ ਇਸ ਨੂੰ ਇਥੇ ਮੁਡ਼ ਸ਼ਾਮਿਲ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀ ਹੈ।"
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "ਪ੍ਰਬੰਧਕ(root) ਉਪਭੋਗਤਾ ਪਹਿਲਾਂ ਹੀ ਸੰਰਚਿਤ ਹੈ। ਤੁਹਾਨੂੰ ਇਸ ਨੂੰ ਇਥੇ ਮੁਡ਼ ਸ਼ਾਮਿਲ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀ ਹੈ।"
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr "ਸਿਸਟਮ ਉਪਭੋਗਤਾ ਪਹਿਲਾਂ ਹੀ ਸੰਰਚਿਤ ਹੈ। ਤੁਹਾਨੂੰ ਇਸ ਉਪਭੋਗਤਾ ਨੂੰ ਇਥੇ ਸ਼ਾਮਿਲ ਦੀ ਲੋੜ ਨਹੀ ਹੈ।"
 
 #: ../textw/userauth_text.py:171
@@ -7038,8 +7009,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s ਤੇ ਜੀ ਆਇਆਂ ਨੂੰ - ਸੰਕਟਕਾਲੀਨ ਢੰਗ"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:139
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> ਇਕਾਈਆਂ ਵਿੱਚ  | <Space> ਚੋਣ | <F12> ਅਗਲਾ ਪਰਦਾ"
 
 #: ../loader2/lang.c:377
@@ -7149,8 +7119,7 @@ msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਇਹ ਜੰਤਰ ਖੋਜ�
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"ਤੁਹਾਡੇ ਸਿਸਟਮ ਲਈ ਕੋਈ ਜੰਤਰ-ਡਰਾਇਵਰ ਲੋਡ ਨਹੀ ਕੀਤੇ ਗਏ ਹਨ। ਕੀ ਤੁਸੀ ਕਿਸੇ ਨੂੰ ਹੁਣ ਲੋਡ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
+msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਲਈ ਕੋਈ ਜੰਤਰ-ਡਰਾਇਵਰ ਲੋਡ ਨਹੀ ਕੀਤੇ ਗਏ ਹਨ। ਕੀ ਤੁਸੀ ਕਿਸੇ ਨੂੰ ਹੁਣ ਲੋਡ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: ../loader2/loader.c:1055
 msgid "Devices"
@@ -7546,8 +7515,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"ਜੇਕਰ ਤੁਸੀ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਵਰਤ ਰਹੇ ਹੋ, ਤਾਂ ਵਰਤਣ ਲਈ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਦਾ ਨਾਂ ਭਰੋ।"
+msgstr "ਜੇਕਰ ਤੁਸੀ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਵਰਤ ਰਹੇ ਹੋ, ਤਾਂ ਵਰਤਣ ਲਈ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਦਾ ਨਾਂ ਭਰੋ।"
 
 #: ../loader2/urls.c:434
 msgid "Account name:"
@@ -7638,8 +7606,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "ਐਟਲਿਕ ਸਮਾਂ - E ਲਾਬਰਾਡੋਰ"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr "ਐਟਲਿਕ ਸਮਾਂ - ਨੋਵਾ ਸਕੋਟਿਕ (ਆਮ ਥਾਵਾਂ), NB, W ਲਾਬਰਾਡੋਰ, E ਕਿਊਬਿਸ ਤੇ PEI"
 
 #. generated from zone.tab
@@ -7827,8 +7794,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "ਪੂਰਬੀ ਸਮਾਂ - ਓਨਟੀਰੀਓ - ਆਮ ਥਾਵਾਂ"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "ਪੂਰਬੀ ਸਮਾਂ - ਓਨਟਾਰੀਓ ਤੇ ਕਿਊਬਸ - ਥਾਵਾਂ, ਜੋ ਕਿ DST 1967-1973 ਨੂੰ ਨਹੀ ਵੇਖੀਆ"
 
 #. generated from zone.tab
@@ -8016,8 +7982,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "ਪਹਾਡ਼ੀ ਮਿਆਰੀ ਸਮਾਂ - ਅਰੀਜ਼ੋਨਾ"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "ਪਹਾਡ਼ੀ ਮਿਆਰੀ ਸਮਾਂ - ਡਾਵਸਨ ਕਰੈਕ ਤੇ ਕਿਲਾ ਸੈਟ ਜੋਹਨ, ਬਰਤਾਨਵੀਂ ਕੋਲੰਬੀਆ"
 
 #. generated from zone.tab
@@ -8428,17 +8393,3 @@ msgstr "ਵਾਲਿਸ਼"
 msgid "Zulu"
 msgstr "ਜ਼ੂਲੂ"
 
-#~ msgid "no suggestion"
-#~ msgstr "ਕੋਈ ਸੁਝਾਅ ਨਹੀ"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "ਲੀਲੋ(_LILO) ਨੂੰ ਬੂਟ ਲੋਡਰ ਵਜੋਂ ਵਰਤੋਂ"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "ਲੀਲੋ(LILO) ਲਈ ਡਰਾਇਵ ਕ੍ਰਮ ਤਬਦੀਲ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr "ਲੀਲੋ(LILO) ਨਾਲ ਵਰਤਣ ਲਈ ਅਸੀ ਡਰਾਇਵ ਕ੍ਰਮ ਵਿੱਚ ਤਬਦੀਲੀ ਨੂੰ ਅਸੀ ਸਹਿਯੋਗੀ ਨਹੀ ਹਾਂ।"
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "ਲੀਲੋ(LILO) ਬੂਟ ਲੋਡਰ ਵਰਤੋਂ"
