@@ -824,7 +824,7 @@ class XConfigWindow (InstallWindow):
             card_data = primary_card.getCardData()
             if (card_data.has_key("DRIVER") and
                 not card_data.has_key("UNSUPPORTED")):
-                server = "XOrg"
+                server = "Xorg"
             else:
                 server = "XF86_" + card_data["SERVER"]
 
