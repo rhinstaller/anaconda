@@ -127,7 +127,7 @@ fi
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils oco binutils installer pdksh wget installer
 	sed net-tools inetd openssh openssh-server fileutils modutils
-	initscripts mount
+	initscripts mount gawk
 	portmap textutils sh-utils telnet-server login ssh_keys"
 fi
 
@@ -318,6 +318,8 @@ sbin/swapoff
 sbin/mkswap
 sbin/tune2fs
 bin/dd
+bin/gawk
+bin/mknod
 bin/login
 bin/ksh
 bin/cat

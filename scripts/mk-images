@@ -452,6 +452,8 @@ makeinitrd() {
        cp -f $IMGPATH/usr/bin/ksh $MBD_DIR/sbin/ksh
        ln -sf ksh $MBD_DIR/sbin/sh
        cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
+       cp -vf $IMGPATH/usr/bin/gawk $MBD_DIR/sbin/awk
+       cp -vf $IMGPATH/usr/bin/mknod $MBD_DIR/sbin/mknod
        cp -f $IMGPATH/usr/bin/formatmnt $MBD_DIR/sbin/formatmnt
        cp -f $IMGPATH/usr/bin/netsetup $MBD_DIR/sbin/netsetup
        #cp -f $IMGPATH/usr/bin/rpm $MBD_DIR/sbin/rpm
