@@ -21,11 +21,12 @@ static int dac960GetDevices(struct knownDevices * devices);
 static int CompaqSmartArrayGetDevices(struct knownDevices * devices);
 static int CompaqSmartArray5300GetDevices(struct knownDevices * devices);
 static int ataraidGetDevices(struct knownDevices * devices);
-/* Added support for I2O Block devices: Boji Kannanthanam 
-	<boji.t.Kannanthanam@intel.com> */
+static int viodGetDevices(struct knownDevices * devices);
+/* Added support for I2O Block devices: Boji Kannanthanam
+       <boji.t.Kannanthanam@intel.com> */
 static int ProcPartitionsGetDevices(struct knownDevices * devices);
 
-static int readFD (int fd, char **buf)
+int readFD (int fd, char **buf)
 {
     char *p;
     size_t size = 4096;
@@ -64,7 +65,7 @@ static int sortDevices(const void * a, const void * b) {
     return strcmp(one->name, two->name);
 }
 
-static int deviceKnown(struct knownDevices * devices, char * dev) {
+int deviceKnown(struct knownDevices * devices, char * dev) {
     int i;
 
     for (i = 0; i < devices->numKnown; i++)
@@ -73,7 +74,7 @@ static int deviceKnown(struct knownDevices * devices, char * dev) {
     return 0;
 }
 
-static void addDevice(struct knownDevices * devices, struct kddevice dev) {
+void addDevice(struct knownDevices * devices, struct kddevice dev) {
     if (devices->numKnown == devices->numKnownAlloced) {
     	devices->numKnownAlloced += 5;
     	devices->known = realloc(devices->known, 
@@ -414,6 +415,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
 	CompaqSmartArray5300GetDevices(devices);
+	viodGetDevices(devices);
 	return 0;
     }
 
@@ -432,6 +434,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
 	CompaqSmartArray5300GetDevices(devices);
+	viodGetDevices(devices);
 	goto bye;
     }
 
@@ -563,6 +566,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     dac960GetDevices(devices);
     CompaqSmartArrayGetDevices(devices);
     CompaqSmartArray5300GetDevices(devices);
+    viodGetDevices(devices);
     /* we can't really sanely do ataraid devs yet (#82848) */
 #if 0
     ataraidGetDevices(devices);
@@ -896,3 +900,18 @@ static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {
     
     return 0;
 }
+
+static int viodGetDevices(struct knownDevices * devices) {
+    if (access("/proc/iSeries", X_OK))
+	return 0;
+
+    vioGetCdDevs(devices);
+    vioGetDasdDevs(devices);
+
+    return 0;
+}
+
+
+
+
+

@@ -87,4 +87,10 @@ void kdAddDevice(struct knownDevices * devices, enum deviceClass devClass,
 		 char * devName, char * devModel);
 char *getDasdPorts();
 
+int vioGetDasdDevs(struct knownDevices * devices);
+int vioGetCdDevs(struct knownDevices * devices);
+
+int readFD (int fd, char **buf);
+void addDevice(struct knownDevices * devices, struct kddevice dev);
+int deviceKnown(struct knownDevices * devices, char * dev);
 #endif
