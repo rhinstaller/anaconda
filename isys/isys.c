@@ -7,7 +7,7 @@
 #include "Python.h"
 
 #include "imount.h"
-#include "inet.h"
+#include "../pump/pump.h"
 #include "isys.h"
 #include "pci/pciprobe.h"
 #include "probe.h"
@@ -341,7 +341,7 @@ static void emptyDestructor(PyObject * s) {
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     char * dev, * ip, * netmask, * broadcast, * network;
     int * isPtp, rc;
-    struct intfInfo device;
+    struct pumpNetIntf device;
     
     if (!PyArg_ParseTuple(args, "sssssd", &dev, &ip, &netmask, &broadcast,
 			  &network, &isPtp)) return NULL;
@@ -351,15 +351,13 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     device.netmask.s_addr = inet_addr(netmask);
     device.broadcast.s_addr = inet_addr(broadcast);
     device.network.s_addr = inet_addr(network);
-    device.isPtp = 0;
-    device.isUp = 0;
+    device.set = PUMP_INTFINFO_HAS_IP | PUMP_INTFINFO_HAS_NETMASK |
+		 PUMP_INTFINFO_HAS_BROADCAST | PUMP_INTFINFO_HAS_NETWORK;
     
-    rc = configureNetDevice(&device);
-    
-    if (rc == INET_ERR_ERRNO) 
+    if (pumpSetupInterface(&device)) {
 	PyErr_SetFromErrno(PyExc_SystemError);
-    else if (rc)
-	PyErr_SetString(PyExc_SystemError, "net configure failed");
+	return NULL;
+    }
 
     Py_INCREF(Py_None);
     return Py_None;
