@@ -529,6 +529,7 @@ EOF
 
     mkdir -p $MBD_DIR/usr/$LIBDIR
     for lib in $IMGPATH/usr/$LIBDIR/libkrb5.so* \
+	       $IMGPATH/usr/$LIBDIR/libkrb5support.so* \
 	       $IMGPATH/usr/$LIBDIR/libgssapi_krb5.so* \
 	       $IMGPATH/usr/$LIBDIR/libk5crypto.so* \
 	       $IMGPATH/usr/$LIBDIR/libcom_err.so* ; do
