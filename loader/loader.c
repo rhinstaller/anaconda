@@ -980,7 +980,7 @@ static char * mountUrlImage(struct installMethod * method,
     }
 
     url = malloc(strlen(ui.prefix) + 25 + strlen(ui.address));
-    sprintf(url, "%s//%s/%s", 
+    sprintf(url, "%s://%s/%s", 
 	    ui.protocol == URL_METHOD_FTP ? "ftp" : "http",
 	    ui.address, ui.prefix);
 
