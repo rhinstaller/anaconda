@@ -286,7 +286,7 @@ void startPcmciaDevices() {
     if (has_pcmcia() <= 0)
         return;
 
-    devices = probeDevices(CLASS_UNSPEC, BUS_PCMCIA, PROBE_ALL);
+    devices = probeDevices(CLASS_UNSPEC, BUS_PCMCIA, 0);
     if (!devices) {
         logMessage("no devices to activate\n");
         return;
