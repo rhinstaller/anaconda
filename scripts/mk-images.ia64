@@ -16,7 +16,8 @@ prepareBootImage() {
 	cp -a $BOOTDISKDIR/* $MBD_BOOTTREE/
 	cp $KERNELROOT/boot/efi/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 	cat > $MBD_BOOTTREE/elilo.conf << EOF
-timeout=5
+prompt	
+timeout=50
 
 image=vmlinuz
         label=linux
