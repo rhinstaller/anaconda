@@ -48,7 +48,19 @@ def queryUpgradeContinue(intf, dir):
     return DISPATCH_FORWARD
 
 def doPostAction(id, instPath):
-    id.instClass.postAction(instPath, flags.serial)        
+    id.instClass.postAction(instPath, flags.serial)
+
+def firstbootConfiguration(id, instPath):
+    if id.firstboot == FIRSTBOOT_RECONFIG:
+        f = open(instPath + '/etc/reconfigSys', 'w+')
+        f.close()
+    elif id.firstboot == FIRSTBOOT_SKIP:
+        f = open(instPath + '/etc/sysconfig/firstboot', 'w+')
+        f.write('RUN_FIRSTBOOT=NO')
+        f.close()
+
+    return
+        
 
 def writeConfiguration(id, instPath):
     log("Writing main configuration")

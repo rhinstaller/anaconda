@@ -22,7 +22,7 @@ from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
 from packages import queryUpgradeContinue
 from packages import doPreInstall, doPostInstall, doPostAction
-from autopart import doAutoPartition
+from autopart import doAutoPartition, firstbootConfiguration
 from partitioning import partitionMethodSetup, partitionObjectsInitialize
 from partitioning import partitioningComplete
 from floppy import makeBootdisk
@@ -116,10 +116,10 @@ installSteps = [
     ("installpackages", doInstall, ("method", "id", "intf", "instPath")),
     ("postinstallconfig", doPostInstall, ("method", "id", "intf", "instPath")),
     ("writeconfig", writeConfiguration, ("id", "instPath")),
+    ("firstboot", firstbootConfiguration, ("id", "instPath")),
     ("instbootloader", writeBootloader, ("intf", "instPath", "id.fsset", 
                                          "id.bootloader", "id.langSupport",
                                          "id.comps")),
-    ("dopostaction", doPostAction, ("id", "instPath")),
     ("bootdisk", ("dir", "dispatch", "id.fsset")),
     ("makebootdisk", makeBootdisk, ("intf", "id.floppyDevice",
                                     "id.hdList", "instPath", "id.bootloader")),
@@ -129,6 +129,7 @@ installSteps = [
                  "id.desktop", "id.comps", "instPath")),
     ("writexconfig", writeXConfiguration, ("id", "instPath")),
     ("writeksconfig", writeKSConfiguration, ("id", "instPath")),
+    ("dopostaction", doPostAction, ("id", "instPath")),
     ("complete", ()),
     ]
 

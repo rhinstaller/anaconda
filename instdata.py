@@ -74,6 +74,7 @@ class InstallData:
         self.upgradeSwapInfo = None
         self.upgradeDeps = ""
         self.configFileData = self.tmpData
+        self.firstboot = FIRSTBOOT_DEFAULT
 
     def setInstallProgressClass(self, c):
 	self.instProgress = c

@@ -117,6 +117,7 @@ class BaseInstallClass:
 		 "installpackages",
                  "postinstallconfig",
 		 "writeconfig",
+                 "firstboot",
 		 "instbootloader",
                  "dopostaction",
 		 "writexconfig",

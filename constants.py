@@ -46,6 +46,11 @@ CHECK_DEPS = 0
 IGNORE_DEPS = 1
 RESOLVE_DEPS = 2
 
+# firstboot settings
+FIRSTBOOT_DEFAULT = 0
+FIRSTBOOT_SKIP = 1
+FIRSTBOOT_RECONFIG = 2
+
 # common string needs to be easy to change
 import product
 productName = product.productName
