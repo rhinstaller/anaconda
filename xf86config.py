@@ -933,7 +933,8 @@ class XF86Config:
     def Version3Config (self, test=0):
         info = {}
         devices = ""
-
+        screens = ""
+        
         for card in self.vidCards:
             devices = devices + """
 Section "Device"
