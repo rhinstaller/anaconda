@@ -74,7 +74,7 @@ static char **getPartitionsList(void) {
 
     /* read through /proc/partitions and parse out partitions */
     while (1) {
-	char *tmpptr;
+	char *tmpptr, *pptr;
 	char tmpstr[4096];
 
 	tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
@@ -112,14 +112,32 @@ static char **getPartitionsList(void) {
 			break;
 
 		    /* we found a partition! */
-		    if (!rc)
-			rc = (char **) malloc(sizeof(char *));
-		    else
-			rc = (char **) realloc(rc, (numfound+1)*sizeof(char *));
-		    /* XXX need to insertion sort these! */
-		    rc[numfound] = (char *) malloc(strlen(b) + 7);
-		    sprintf(rc[numfound], "/dev/%s", b);
+		    pptr = (char *) malloc(strlen(b) + 7);
+		    sprintf(pptr, "/dev/%s", b);
 
+		    if (!rc) {
+			rc = (char **) malloc(2*sizeof(char *));
+		        rc[0] = pptr;
+			rc[1] = NULL;
+		    } else {
+			int idx;
+			
+			rc = (char **) realloc(rc, (numfound+2)*sizeof(char *));
+			idx = 0;
+			while (idx < numfound) {
+			    if (strcmp(pptr, rc[idx]) < 0)
+				break;
+
+			    idx++;
+			}
+
+			/* move existing out of way if necessary */
+			if (idx != numfound)
+			    memmove(rc+idx+1, rc+idx, (numfound-idx)*sizeof(char *));
+
+			rc[idx] = pptr;
+			rc[numfound+1] = NULL;
+		    }
 		    numfound++;
 		    break;
 		}
@@ -158,6 +176,9 @@ void freePartitionsList(char **list) {
 
     free(list);
 }
+
+/* set to 0 and set ifdef around test code at bottom to test partitionList */
+#if 1
 
 /* pull in second stage image for hard drive install */
 static int loadHDImages(char * prefix, char * dir, int flags, 
@@ -496,7 +517,7 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
     logMessage("results of hd ks, partition is %s, dir is %s", partition, dir);
 }
 
-
+#endif
 
 /* use for testing */
 #if 0
