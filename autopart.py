@@ -708,7 +708,25 @@ def growParts(diskset, requests, newParts):
                     if maxsect > maxUserSize:
                         maxsect = long(maxUserSize)
                         imposedMax = 1
+			
+		else:
+		    # XXX HACK enforce silent limit for swap otherwise it
+		    #     can grow up to 2TB!
+		    if request.fstype.name == "swap":
+			(xxxint, tmpint) = iutil.swapSuggestion(quiet=1)
 
+			# convert to sectors
+			tmpint = tmpint*1024*1024/sector_size
+			tmpint = long(tmpint / cylsectors)
+			maxsugswap = tmpint * cylsectors
+			userstartsize = origSize[request.uniqueID]*1024*1024/sector_size
+			if maxsugswap >= userstartsize:
+			    maxsect = maxsugswap
+			    imposedMax = 1
+			    log("Enforced max swap size of %s based on suggested max swap", maxsect)
+
+		    
+		    
                 # round max fs limit down a cylinder, helps when growing
                 # so we don't end up with a free cylinder at end if
                 # maxlimit fell between cylinder boundaries
