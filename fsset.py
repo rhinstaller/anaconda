@@ -493,7 +493,7 @@ class FileSystemSet:
                 or not entry.getFormat()):
                 continue
             try:
-                entry.fsystem.formatDevice(entry, self.progressWindow
+                entry.fsystem.formatDevice(entry, self.progressWindow,
                                            chroot)
             except SystemError:
                 if self.messageWindow:
