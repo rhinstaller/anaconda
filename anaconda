@@ -213,12 +213,16 @@ if traceOnly:
     import pdb
     import image
     import harddrive
+    import urlinstall
     sys.exit(0)
 
 # imports after setting up the path
 if (method[0:5] == "dir:/"):
     from image import InstallMethod
     method = InstallMethod(method[5:])
+elif (method[0:6] == "ftp://" or method[0:7] == "http://"):
+    from urlinstall import InstallMethod
+    method = InstallMethod(method)
 elif (method[0:5] == "hd://"):
     method = method[5:]
     i = string.index(method, '/')
