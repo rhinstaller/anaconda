@@ -346,7 +346,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
 	    if (!chptr) {
 		i = 2; 
-		cfg->isDynamic = 1;
+		newCfg.isDynamic = 1;
 	    } else {
 		logMessage("pump told us: %s", chptr);
 		i = 0;
@@ -355,6 +355,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     } while (i != 2);
 
     cfg->dev = newCfg.dev;
+    cfg->isDynamic = newCfg.isDynamic;
 
     fillInIpInfo(cfg);
 
