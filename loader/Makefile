@@ -60,11 +60,11 @@ install: all
 
 loader-local: loader-local.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-        ../kudzu/libkudzu.a ../isys/libisys.a ../balkan/libbalkan.a \
+        ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
-        -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
+        -L../pump -lpump -lrpm -lz -lresolv -lnewt -lslang -lpci
 
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
@@ -78,7 +78,7 @@ loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o $(OBJS) \
 	    $(PCMCIAOBJS) -L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
         -lpopt     \
-        ../kudzu/libkudzu.a ../isys/libisys.a ../balkan/libbalkan.a \
+        ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
