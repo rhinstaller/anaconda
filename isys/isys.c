@@ -940,7 +940,7 @@ static PyObject * doFbconProbe (PyObject * s, PyObject * args) {
 
 static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args) {
     int fd;
-    int size;
+    unsigned long size;
     struct md_superblock_s sb;
 
     if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
