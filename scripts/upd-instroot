@@ -105,6 +105,13 @@ if [ $ARCH = ia64 ]; then
     PACKAGES="$PACKAGES elilo slang"
 fi
 
+if [ $ARCH = s390 -o $ARCH = s390x ]; then
+    PACKAGES="$PACKAGES s390utils oco binutils s390installer pdksh wget 
+	sed net-tools inetd openssh openssh-server fileutils modutils
+	initscripts mount gawk xauth
+	portmap textutils sh-utils telnet-server login ssh_keys"
+fi
+
 # xpm is missing
 
 # Some packages are listed twice, but that's okay
@@ -152,6 +159,13 @@ fi
 
 if [ $ARCH = ia64 ]; then
     PACKAGESGR="$PACKAGESGR elilo slang"
+fi
+
+if [ $ARCH = s390 -o $ARCH = s390x ]; then
+    PACKAGESGR="$PACKAGESGR s390utils oco binutils s390installer pdksh 
+	sed net-tools inetd openssh openssh-server fileutils login 
+	wget initscripts xauth
+	modutils portmap textutils openssl telnet-server strace ssh_keys"
 fi
 
 KEEPFILE=/tmp/keepfile.$$
@@ -249,6 +263,81 @@ usr/share/doc/kon2*/terminfo.kon
 usr/share/kudzu/pcitable
 usr/share/pci.ids
 EOF
+
+if [ $ARCH = s390 -o $ARCH = s390x ]; then
+    cat >> $KEEPFILE <<EOF
+linuxrc
+usr/share/terminfo/a/ansi
+usr/share/terminfo/d/dumb
+usr/share/terminfo/s/screen
+usr/share/terminfo/v/vt100
+usr/share/terminfo/v/vt102
+usr/share/terminfo/x/xterm
+usr/bin/strace
+usr/bin/ldd
+usr/bin/wget
+usr/bin/printf
+usr/bin/dasdformat
+usr/bin/formatmnt
+usr/bin/mountpoint
+usr/bin/netsetup
+usr/bin/pkgselect
+usr/bin/pkgsrc
+usr/sbin/chroot
+usr/sbin/sshd
+usr/sbin/glibc_post_upgrade
+usr/sbin/inetd
+usr/sbin/in.telnetd
+sbin/busybox.anaconda
+sbin/consoletype
+sbin/rhsetup
+sbin/ifconfig
+sbin/route
+sbin/portmap
+sbin/fdasd
+sbin/dasdfmt
+sbin/swapon
+sbin/swapoff
+sbin/mkswap
+sbin/tune2fs
+bin/dd
+bin/gawk-3.1.0
+bin/mknod
+bin/login
+bin/ksh
+bin/cat
+bin/chmod
+bin/sed
+bin/sort
+bin/mount
+bin/umount
+bin/rpm
+lib/libpam.so*
+lib/libdl.so*
+lib/libdl-*.so*
+usr/lib/libz.so*
+lib/libnsl.so*
+lib/libnsl-*.so*
+lib/libnss*
+lib/libutil.so*
+lib/libutil-*.so*
+lib/libcrypt*
+lib/libc.so*
+lib/libc-*so*
+lib/ld.so*
+lib/ld-*.so*
+lib/libresolv.so*
+lib/libresolv-*.so*
+lib/libvtoc*.so*
+lib/modules/ibm*
+etc/inetd.conf
+etc/ssh/*
+etc/motd
+etc/issue.net
+usr/X11R6/bin/xauth
+EOF
+fi
+      
 
 KEEPFILEGR=/tmp/keepfilegr.$$
 cp $KEEPFILE $KEEPFILEGR
@@ -534,6 +623,15 @@ rm -rf $TZDIR
 
 chown -R root:root $DEST $DESTGR
 chmod -R a+rX-w $DEST $DESTGR
+if [ $ARCH = s390 -o $ARCH = s390x ]; then
+    for i in $DEST $DESTGR; do
+	(cd $i/etc/ssh; chmod og-r ssh_host*key primes sshd_config)
+	mv $i/bin/sed $i/bin/sed_save
+	mv $i/bin/mount $i/bin/mount_save
+	mv $i/bin/sort $i/bin/sort_save
+	mv $i/bin/mknod $i/bin/mknod_save
+    done
+fi
 
 if [ $ARCH = sparc ]; then
     rm -f $DESTGR/usr/X11R6/bin/XF86_VGA16
@@ -644,7 +742,9 @@ for p in $DEST $DESTGR; do
 	    rm -f $p/usr/lib/lib$f.so
 	done
 
-	(cd $p/lib; rm -f libnss_files.so.1 libnss_dns.so.1)
+	if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
+	   (cd $p/lib; rm -f libnss_files.so.1 libnss_dns.so.1)
+	fi
 
 	(cd /usr/share/zoneinfo; find . -type f -or -type l | 
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
@@ -717,17 +817,19 @@ for p in $DEST $DESTGR; do
 	done
 done
 
-if [ $NEEDGR ]; then
-    # Xserver needs a place to put the compiled xkb maps.
-    rm -rf $DESTGR/usr/X11R6/lib/X11/xkb/compiled
-    ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
-fi
-
 # this is only for the minimal second stage
 echo "Cleaning ramdisk install images..."
     rm -rf $DEST/usr/lib/anaconda-runtime
 
-if [ -n "$NEEDGR" ]; then
+if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
+   if [ $NEEDGR ]; then
+       # Xserver needs a place to put the compiled xkb maps.
+       rm -rf $DESTGR/usr/X11R6/lib/X11/xkb/compiled
+       ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
+   fi
+
+   if [ -n "$NEEDGR" ]; then
     cd $ORIGDIR
     $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
+   fi
 fi

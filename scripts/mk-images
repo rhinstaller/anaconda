@@ -113,7 +113,7 @@ findPackage() {
 
 findmodule () {
     if [ ! -f $CACHE ]; then
-        find $KERNELROOT/lib/modules > $CACHE
+        find $KERNELROOT/lib/modules/ > $CACHE
     fi
     
     grep "/$1\.o" $CACHE
@@ -301,6 +301,10 @@ makemainmodules() {
     rm -rf $FULLMODPATH
     rm -rf $FINALFULLMODPATH
 
+    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+       mkdir -p $KERNELROOT/lib/modules/misc
+       cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $KERNELROOT/lib/modules/misc
+    fi
     makemoduleball $extraargs $FULLMODPATH "$modlist"
     cp -ar $FULLMODPATH $FINALFULLMODPATH
     rm -rf $FULLMODPATH
@@ -470,7 +474,7 @@ EOF
 EOF
     ln -s fb0 $MBD_DIR/dev/fb
 
-    dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=12000
+    dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=16000
     mke2fs -Fq $MBD_DIR/etc/ramfs.img.big
     gzip -9 < $MBD_DIR/etc/ramfs.img.big > $MBD_DIR/etc/ramfs.img
     rm -f $MBD_DIR/etc/ramfs.img.big
@@ -624,6 +628,10 @@ makeinstimage () {
 
     mkdir -p $tmpdir
     (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmpdir)
+    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+       mkdir -p $KERNELROOT/lib/modules/misc
+       cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $KERNELROOT/lib/modules/misc
+    fi
     makemoduleball $tmpdir/modules "$modlist"
 
     mkcramfs $tmpdir $INSTIMGPATH/${imagename}1.img
@@ -748,19 +756,17 @@ makedriverdisk () {
 }
 
 # Find the kernel, unpack it, and verify it
-    kpackage=$($LATEST $KERNELPATH kernel-BOOT)
-    vertag=BOOT
+vertag="BOOT"
+if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+    vertag="BOOT BOOTtape"
+fi
+for kernelvers in $vertag; do
+    kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
+    mkdir -p $KERNELROOT/lib/modules/misc
     if [ ! -f "$kpackage" ]; then
-	if [ "$BUILDARCH" == "ia64" ]; then
-	    # XXX remove me post beta
-	    echo 'kernel-BOOT does not exist -- using kernel-smp package on ia64'
-	    kpackage=$($LATEST $KERNELPATH kernel-smp)
-	    vertag="smp"
-	else
-	    echo 'kernel-BOOT does not exist -- using kernel package'
-	    kpackage=$($LATEST $KERNELPATH kernel)
-	    vertag=""
-	fi
+	echo 'kernel-$kernelvers does not exist -- using kernel package'
+	kpackage=$($LATEST $KERNELPATH kernel)
+	vertag=""
     fi
 
     ppackage=$($LATEST $KERNELPATH kernel-pcmcia-cs)
@@ -768,7 +774,8 @@ makedriverdisk () {
 	ppackage=""
     fi
 
-    version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${vertag}
+    version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kernelvers}
+    echo "unpacking $kpackage"
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
     if [ ! -z $ppackage ]; then 
@@ -785,7 +792,7 @@ makedriverdisk () {
 	usage
     fi
 
-    if [ -d $KERNELROOT/lib/modules/$version/pcmcia ]; then
+    if [ -d $KERNELROOT/lib/modules/$version/pcmcia -a -f KERNELROOT/etc/pcmcia/config ]; then
 	# This gets all of the modules in the pcmcia directory, as well as
 	# everything mentioned in /etc/pcmcia/config
 	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config;
