@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2002-07-12 02:16-0400\n"
-"PO-Revision-Date: 2002-04-03 15:50+0200\n"
+"PO-Revision-Date: 2002-07-12 15:50+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -92,7 +92,7 @@ msgstr "Bruger musetype: "
 
 #: ../anaconda:454
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "DISPLAY-variabel ikke sat. Starter i teksttilstand!"
 
 #: ../autopart.py:723
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -126,13 +126,15 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
+"Tilføjelse af denne partition ville ikke efterlade nok plads til allerede "
+"oprettede logiske afsnit i %s."
 
 #: ../autopart.py:952
 msgid "Requested Partition Does Not Exist"
 msgstr "Forespurgt partition eksisterer ikke"
 
 #: ../autopart.py:953
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -143,12 +145,11 @@ msgstr ""
 "Tryk O.k. for at starte systemet igen."
 
 #: ../autopart.py:983 ../autopart.py:1022
-#, fuzzy
 msgid "Automatic Partitioning Errors"
-msgstr "Automatisk partitionering"
+msgstr "Fejl ved automatisk partitionering"
 
 #: ../autopart.py:984
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -156,7 +157,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Følgende fejl opstod under partitionering:\n"
+"Følgende fejl opstod under din partitionering:\n"
 "\n"
 "%s\n"
 "\n"
@@ -183,6 +184,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"\n"
+"\n"
+"Tryk O.k. for at starte systemet igen."
 
 #: ../autopart.py:1007 ../iw/partition_gui.py:942
 #: ../textw/partition_text.py:198
@@ -227,7 +231,6 @@ msgid "Warning"
 msgstr "Advarsel"
 
 #: ../autopart.py:1106
-#, fuzzy
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -245,12 +248,10 @@ msgstr ""
 "\n"
 "Værktøjet for manuel partitionering, Disk Druid, lader dig opsætte dine "
 "partitioner i et interaktivt miljø. Du kan sætte filsystemtyper, "
-"monteringspunkter, størrelse og andet i denne letanvendelige, stærke "
-"grænseflade.\n"
+"monteringspunkter, størrelse på partitioner med mere.\n"
 "\n"
-"fdisk er det traditionelle, tekstbaserede partitioneringsværktøj som "
-"tilbydes af Red Hat. Selv om dette kan være noget vanskeligere i brug, "
-"findes der tilfælde hvor fdisk er at foretrække."
+"Partitioneringsværktøjet 'fdisk' er et tekstbaseret værktøj som kun anbefales "
+"til avancerede brugere som har brug for at udføre specielle opgaver."
 
 #: ../autopart.py:1120
 msgid ""
@@ -273,29 +274,24 @@ msgid "Keep all partitions and use existing free space"
 msgstr "Behold alle partitioner og brug eksisterende ledig plads"
 
 #: ../autopart.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have selected to remove all partitions (ALL DATA) on the following "
 "drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"ADVARSEL!!\tADVARSEL!!\n"
-"\n"
-"Du har valgt at fjerne alle partitioner (ALLE DATA) på følgende drev:%s\n"
-"\n"
+"Du har valgt at fjerne alle partitioner (ALLE DATA) på de følgende drev:%s\n"
 "Er du sikker på at du vil gøre dette?"
 
 #: ../autopart.py:1133
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have selected to remove all Linux partitions (and ALL DATA on them) on "
 "the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"ADVARSEL!!\tADVARSEL!!\n"
-"\n"
 "Du har valgt at fjerne alle Linux-partitioner (og ALLE DATA på dem) på "
-"følgende drev:%s\n"
+"de følgende drev:%s\n"
 "Er du sikker på at du ønsker at gøre dette?"
 
 #: ../bootloader.py:89
@@ -338,32 +334,28 @@ msgstr ""
 "Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
 
 #: ../floppy.py:59
-#, fuzzy
 msgid "Insert a floppy disk"
-msgstr "Kunne ikke montere diskette."
+msgstr "Indsæt en diskette"
 
 #: ../floppy.py:60
-#, fuzzy
 msgid ""
 "Please remove any diskettes from the floppy drive, and insert the floppy "
 "diskette that is to contain the boot disk.\n"
 "\n"
 "All data will be ERASED during creation of the boot disk."
 msgstr ""
-"Opstartsdisketten lader dig starte dit %s system op fra en diskette.\n"
-"\n"
 "Venligst fjern alle disketter fra diskettestationen og indsæt en tom "
-"diskette. Alle data vil blive SLETTET under opretning af opstartsdisketten."
+"diskette.\n"
+"\n"
+"Alle data vil blive SLETTET ved oprettelsen af opstartsdisketten."
 
 #: ../floppy.py:64
-#, fuzzy
 msgid "_Cancel"
-msgstr "Annullér"
+msgstr "_Annullér"
 
 #: ../floppy.py:64
-#, fuzzy
 msgid "_Make boot disk"
-msgstr "Opret opstartsdiskette"
+msgstr "_Opret opstartsdiskette"
 
 #: ../floppy.py:76 ../floppy.py:105 ../fsset.py:554 ../fsset.py:1015
 #: ../fsset.py:1034 ../fsset.py:1081 ../fsset.py:1092 ../fsset.py:1128
@@ -391,7 +383,6 @@ msgid "Error"
 msgstr "Fejl"
 
 #: ../floppy.py:77 ../floppy.py:106
-#, fuzzy
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
@@ -417,7 +408,7 @@ msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Kontrollerer for dårlige blokke på /dev/%s..."
 
 #: ../fsset.py:555
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
 "migrating this file system if desired.\n"
@@ -425,14 +416,13 @@ msgid ""
 "Would you like to continue without migrating %s?"
 msgstr ""
 "En fejl opstod under migrering af %s til ext3. Det er muligt at fortsætte "
-"uden at migrere filsystemet.\n"
+"om ønsket uden at migrere filsystemet.\n"
 "\n"
 "Ønsker du at fortsætte uden at migrere %s?"
 
 #: ../fsset.py:948
-#, fuzzy
 msgid "RAID Device"
-msgstr "RAID-enhed %s"
+msgstr "RAID-enhed"
 
 #: ../fsset.py:951 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
@@ -570,13 +560,13 @@ msgid "Formatting"
 msgstr "Formaterer"
 
 #: ../fsset.py:1966
-#, fuzzy, python-format
+#, python-format
 msgid "Formatting %s file system..."
-msgstr "Formaterer %s filsystem..."
+msgstr "Formaterer %s-filsystem..."
 
 #: ../gui.py:100 ../text.py:312
 msgid "Fix"
-msgstr "Fiks"
+msgstr "Reparér"
 
 #: ../gui.py:101 ../text.py:313 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:78 ../textw/constants_text.py:48
@@ -652,34 +642,28 @@ msgid "Release notes are missing.\n"
 msgstr "Udgivelsesnoter for denne udgave mangler.\n"
 
 #: ../gui.py:790 ../packages.py:968
-#, fuzzy
 msgid "_Back"
-msgstr "Tilbage"
+msgstr "_Tilbage"
 
 #: ../gui.py:792
-#, fuzzy
 msgid "_Next"
-msgstr "Næste"
+msgstr "_Næste"
 
 #: ../gui.py:794
-#, fuzzy
 msgid "_Release Notes"
-msgstr "Udgivelsesnoter"
+msgstr "_Udgivelsesnoter"
 
 #: ../gui.py:796
-#, fuzzy
 msgid "Show _Help"
-msgstr "Vis vejledning"
+msgstr "Vis _vejledning"
 
 #: ../gui.py:798
-#, fuzzy
 msgid "Hide _Help"
-msgstr "Skjul hjælp"
+msgstr "Skjul _hjælp"
 
 #: ../gui.py:800
-#, fuzzy
 msgid "_Debug"
-msgstr "Fejlfind"
+msgstr "_Fejlsøg"
 
 #: ../gui.py:856
 #, python-format
@@ -734,19 +718,17 @@ msgid "Wrong CDROM"
 msgstr "Forkert cd-rom"
 
 #: ../image.py:182
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s CDROM."
-msgstr "Dette er ikke den korrekte Red Hat-cd-rom"
+msgstr "Dette er ikke den korrekte %s-cd-rom"
 
 #: ../image.py:188
 msgid "The CDROM could not be mounted."
 msgstr "cd-rom'en kunne ikke monteres."
 
 #: ../installclass.py:30
-#, fuzzy
 msgid "The following software will be installed:"
 msgstr ""
-"Installeringen har fundet %s opstartsindlæseren aktuelt installeret på %s."
 
 #: ../installclass.py:32
 #, python-format
@@ -759,9 +741,8 @@ msgid ""
 msgstr ""
 
 #: ../installclass.py:55
-#, fuzzy
 msgid "Install on System"
-msgstr "Installationstype"
+msgstr "Installér på system"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -776,14 +757,13 @@ msgid "Proceed with upgrade?"
 msgstr "Vil du fortsætte opgraderingen?"
 
 #: ../packages.py:40 ../iw/package_gui.py:35
-#, fuzzy
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
 "Filsystemerne for den Linux-installation, du har valgt at opgradere, er "
-"allerede monteret. Du kan ikke gå tilbage til før dette. \n"
+"allerede monteret. Du kan ikke gå tilbage til før dette punkt. \n"
 "\n"
 
 #: ../packages.py:44 ../iw/package_gui.py:39
@@ -828,7 +808,7 @@ msgid "Error Installing Package"
 msgstr "Fejl ved installering af pakke"
 
 #: ../packages.py:306
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
 "disk space, and/or hardware problems.  This is a fatal error and your "
@@ -839,8 +819,10 @@ msgid ""
 msgstr ""
 "Der var en fejl ved installation af %s. Dette kan betyde en fejl på mediet, "
 "mangel på diskplads og/eller problemer med udstyr. Dette er en afgørende "
-"fejl og din installation vil blive afbrudt. Kontrollér venligs dit medie og "
+"fejl og din installation vil blive afbrudt. Kontrollér venligst dit medie og "
 "prøv at installere igen."
+"\n"
+"Tryk O.k. for at starte systemet igen."
 
 #: ../packages.py:548
 msgid "Setting up RPM transaction..."
@@ -900,7 +882,6 @@ msgid "Starting install process, this may take several minutes..."
 msgstr "Starter installationsproces, dette kan tage adskillige minutter..."
 
 #: ../packages.py:664
-#, fuzzy
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -921,19 +902,18 @@ msgid "Space Needed"
 msgstr "Nødvendig plads"
 
 #: ../packages.py:684
-#, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
 "\n"
 msgstr ""
-"Du ser ikke ud til at have nok filpladser til at installere de pakker du har "
-"valgt. Du har brug for mere plads på følgende filsystemer:\n"
+"Du ser ikke ud til at have nok filnoder til at installere de pakker du har "
+"valgt. Du har brug for flere filnoder på følgende filsystemer:\n"
 "\n"
 
 #: ../packages.py:689
 msgid "Nodes Needed"
-msgstr "Nødvendige filpladser"
+msgstr "Filnoder krævet"
 
 #: ../packages.py:695
 msgid "Disk Space"
@@ -977,35 +957,31 @@ msgid ""
 msgstr ""
 
 #: ../packages.py:962 ../iw/congrats_gui.py:28
-#, fuzzy
 msgid "_Exit"
-msgstr "Afslut"
+msgstr "_Afslut"
 
 #: ../packages.py:962
-#, fuzzy
 msgid "_Install BETA"
-msgstr "Installér"
+msgstr "_Installér BETA"
 
 #: ../packages.py:965
-#, fuzzy
 msgid "Rebooting System"
-msgstr "Opgradér eksisterende system"
+msgstr "Genstarter system"
 
 #: ../packages.py:966
 msgid "Your system will now be rebooted..."
 msgstr ""
 
 #: ../packages.py:968
-#, fuzzy
 msgid "_Reboot"
-msgstr "_Nulstil"
+msgstr "_Genstart"
 
 #: ../partedUtils.py:171
 msgid "Foreign"
 msgstr "Dansk"
 
 #: ../partedUtils.py:241
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type %s for your "
 "architecture.  To use this disk for installation of %s, it must be re-"
@@ -1013,21 +989,20 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"Partitionstabellen på enhed /dev/%s er af en uventet type for din "
+"Partitionstabellen på enhed /dev/%s er af en uventet type %s for din "
 "arkitektur. For at bruge denne disk for en installation af %s skal den re-"
 "initieres. Dette medfører tab af ALLE DATA på denne disk.\n"
 "\n"
 "Ønsker du at initiere denne disk?"
 
 #: ../partedUtils.py:452
-#, fuzzy, python-format
+#, python-format
 msgid "Error mounting file system on %s: %s"
-msgstr "Fejl under montering af filsystem på %s: %s"
+msgstr "Fejl ved montering af filsystem på %s: %s"
 
 #: ../partedUtils.py:543
-#, fuzzy
 msgid "Initializing"
-msgstr "Opstarter cd-rom..."
+msgstr ""
 
 #: ../partedUtils.py:544
 #, python-format
@@ -1053,7 +1028,6 @@ msgid "No Drives Found"
 msgstr "Ingen drev fundet"
 
 #: ../partedUtils.py:770
-#, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1063,14 +1037,12 @@ msgstr ""
 "til dette problem."
 
 #: ../partIntfHelpers.py:35
-#, fuzzy
 msgid "Please enter a volume group name."
-msgstr "Indtast venligst brugernavn"
+msgstr ""
 
 #: ../partIntfHelpers.py:39
-#, fuzzy
 msgid "Volume Group Names must be less than 128 characters"
-msgstr "'root'-adgangskoden skal være på mindst 6 tegn."
+msgstr ""
 
 #: ../partIntfHelpers.py:42
 #, python-format
@@ -1078,14 +1050,12 @@ msgid "Error - the volume group name %s is not valid."
 msgstr ""
 
 #: ../partIntfHelpers.py:45
-#, fuzzy
 msgid "Error - the volume group name contains illegal characters  or spaces."
-msgstr "Opstartsnavn indeholder ugyldige tegn."
+msgstr ""
 
 #: ../partIntfHelpers.py:54
-#, fuzzy
 msgid "Please enter a logical volume name."
-msgstr "Indtast venligst brugernavn"
+msgstr ""
 
 #: ../partIntfHelpers.py:58
 msgid "Logical Volume Names must be less than 128 characters"
@@ -1097,9 +1067,8 @@ msgid "Error - the logical volume name %s is not valid."
 msgstr ""
 
 #: ../partIntfHelpers.py:67
-#, fuzzy
 msgid "Error - the logical volume name contains illegal characters or spaces."
-msgstr "Opstartsnavn indeholder ugyldige tegn."
+msgstr ""
 
 #: ../partIntfHelpers.py:89
 msgid ""
@@ -1114,46 +1083,43 @@ msgid "Please specify a mount point for this partition."
 msgstr "Specificér et monteringspunkt for denne partition."
 
 #: ../partIntfHelpers.py:104
-#, fuzzy, python-format
+#, python-format
 msgid ""
-"You cannot %s this partition, as it is holding the data for the hard drive "
+"You cannot %s this partition, as it is holding the datafor the hard drive "
 "install."
 msgstr ""
-"Du kan ikke fjerne denne partition, da den indeholder data for harddisk "
+"Du kan ikke %s denne partition, da den indeholder data for harddisk-"
 "installationen."
 
 #: ../partIntfHelpers.py:110
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot %%s this partition as it is part of the RAID device /dev/md%s."
 msgstr ""
-"Du kan ikke redigere denne partition, da den er en del af en RAID-enhed"
+"Du kan ikke %%s denne partition, da den er en del af RAID-enheden /dev/md%s."
 
 #: ../partIntfHelpers.py:113
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot %s this partition as it is part of a RAID device."
-msgstr ""
-"Du kan ikke redigere denne partition, da den er en del af en RAID-enhed"
+msgstr "Du kan ikke %s denne partition, da den er en del af en RAID-enhed."
 
 #: ../partIntfHelpers.py:119
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot %%s this partition, as it is part of the LVM volume group '%s'."
-msgstr "Du kan ikke fjerne denne partition, da den er en del af en RAID-enhed."
+msgstr "Du kan ikke %%s denne partition, da den er en del af LVM-afsnitsgruppen '%s'."
 
 #: ../partIntfHelpers.py:122
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot %s this partition, as it is part of a LVM volume group."
-msgstr "Du kan ikke fjerne denne partition, da den er en del af en RAID-enhed."
+msgstr "Du kan ikke %s denne partition, da den er en del af en LVM-afsnitsgruppe."
 
 #: ../partIntfHelpers.py:138 ../partIntfHelpers.py:152
 #: ../partIntfHelpers.py:162 ../partIntfHelpers.py:179
-#, fuzzy
 msgid "Unable To Delete"
 msgstr "Kan ikke fjerne"
 
 #: ../partIntfHelpers.py:139
-#, fuzzy
 msgid "You must first select a partition to delete."
 msgstr "Du skal først vælge en partition som skal fjernes."
 
@@ -1162,17 +1128,16 @@ msgid "DASD partitions can only be deleted with fdasd"
 msgstr ""
 
 #: ../partIntfHelpers.py:153
-#, fuzzy
 msgid "You cannot delete free space."
 msgstr "Du kan ikke fjerne ledig plads."
 
 #: ../partIntfHelpers.py:163
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
-"Du kan ikke redigere denne partition, da den er en udvidet partition som "
+"Du kan ikke slette denne partition, da den er en udvidet partition som "
 "indeholder %s"
 
 #: ../partIntfHelpers.py:222 ../partIntfHelpers.py:520
@@ -1181,12 +1146,9 @@ msgid "Confirm Delete"
 msgstr "Bekræft sletning"
 
 #: ../partIntfHelpers.py:223
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"Du er i færd med at slette partitionen /dev/%s.\n"
-"\n"
-"Er du sikker?"
+msgstr "Du er i færd med at slette alle partitioner på enheden /dev/%s."
 
 #: ../partIntfHelpers.py:226 ../partIntfHelpers.py:521
 #: ../iw/account_gui.py:425 ../iw/lvm_dialog_gui.py:682
@@ -1200,18 +1162,12 @@ msgid "Notice"
 msgstr ""
 
 #: ../partIntfHelpers.py:285
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
 "\n"
 "%s"
 msgstr ""
-"\n"
-"\n"
-"De følgende pakker blev automatisk\n"
-"valgt til at blive installeret:\n"
-"%s\n"
-"\n"
 
 #: ../partIntfHelpers.py:301 ../partIntfHelpers.py:314
 #: ../partIntfHelpers.py:344 ../partIntfHelpers.py:355
@@ -1335,28 +1291,18 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:509
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr ""
-"Du er i færd med at slette en RAID-enhed.\n"
-"\n"
-"Er du sikker?"
+msgstr "Du er i færd med at slette det logiske afsnit '%s'."
 
 #: ../partIntfHelpers.py:512
-#, fuzzy
 msgid "You are about to delete a RAID device."
-msgstr ""
-"Du er i færd med at slette en RAID-enhed.\n"
-"\n"
-"Er du sikker?"
+msgstr "Du er i færd med at slette en RAID-enhed."
 
 #: ../partIntfHelpers.py:515
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr ""
-"Du er i færd med at slette partitionen /dev/%s.\n"
-"\n"
-"Er du sikker?"
+msgstr "Du er i færd med at slette partitionen /dev/%s."
 
 #: ../partIntfHelpers.py:518
 msgid "The partition you selected will be deleted."
@@ -1392,7 +1338,6 @@ msgid "Low Memory"
 msgstr "Lav hukommelse"
 
 #: ../partitioning.py:115
-#, fuzzy
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1440,9 +1385,8 @@ msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Opstartspartitioner er kun tilladte på RAID1-enheder."
 
 #: ../partitions.py:790
-#, fuzzy
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "Opstartspartitioner er kun tilladte på RAID1-enheder."
+msgstr "Opstartspartitioner kan ikke ligge på et logisk afsnit."
 
 #: ../partitions.py:794
 msgid ""
@@ -1480,24 +1424,21 @@ msgid "a partition which is a member of a RAID array."
 msgstr "en partition som er medlem af en RAID-række."
 
 #: ../partitions.py:1019
-#, fuzzy
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr "en partition som er medlem af en RAID-række."
+msgstr "en partition som er medlem af en LVM-afsnitsgruppe."
 
 #: ../partRequests.py:214
-#, fuzzy
 msgid ""
 "This mount point is invalid.  This directory must be on the / file system."
 msgstr ""
-"Monteringspunktet er ugyldigt. Dette katalog skal ligge på rodfilsystemet."
+"Dette monteringspunkt er ugyldigt. Dette katalog skal ligge på rodfilsystemet."
 
 #: ../partRequests.py:219
-#, fuzzy
 msgid "This mount point must be on a linux file system."
 msgstr "Dette monteringspunkt skal være på et linux-filsystem."
 
 #: ../partRequests.py:234
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
@@ -1506,13 +1447,13 @@ msgstr ""
 "monteringspunkt."
 
 #: ../partRequests.py:248
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
 msgstr ""
-"Størrelsen på %s-partitionen (størrelse = %s Mb) overskrider maksimal "
-"størrelse på %s Mb."
+"Størrelsen på %s-partitionen (%10.2f Mb) overskrider maksimal "
+"størrelse på %10.2f Mb."
 
 #: ../partRequests.py:436
 #, python-format
@@ -1563,7 +1504,7 @@ msgid "Rescue"
 msgstr "Red"
 
 #: ../rescue.py:98
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory %s.  You can then make any "
@@ -1576,12 +1517,12 @@ msgid ""
 "\n"
 msgstr ""
 "Redningsmiljøet vil nu forsøge at finde din Red Hat Linux installation og "
-"montere den under kataloget /mnt/sysimage. Du kan da udføre alle ændringer "
+"montere den under kataloget %s. Du kan da udføre alle ændringer "
 "krævet for systemet. Hvis du vil fortsætte med denne opgave vælg 'Fortsæt'. "
 "Du kan også vælge at montere dine filsystemer med skrivebeskyttelse i stedet "
 "for både med læse- og skriverettigheder ved at vælge 'Skrivebeskyttet'.\n"
 "\n"
-"Hvis denne proces fejler af nogen grund kan du vælge 'Hop over' så vil dette "
+"Hvis denne proces fejler af nogen grund kan du vælge 'Overspring' så vil dette "
 "trin blive hoppet over og du vil gå direkte til en kommandoskal.\n"
 "\n"
 
@@ -1598,7 +1539,7 @@ msgstr "Skrivebeskyttet"
 #: ../textw/upgrade_text.py:121 ../loader/loader.c:911 ../loader/loader.c:1288
 #: ../loader/loader.c:1290
 msgid "Skip"
-msgstr "Spring over"
+msgstr "Overspring"
 
 #: ../rescue.py:140
 msgid "System to Rescue"
@@ -1613,19 +1554,18 @@ msgid "Exit"
 msgstr "Afslut"
 
 #: ../rescue.py:162
-#, fuzzy
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 "Dit system har urene filsystemer som du har valgt ikke at montere. Tryk "
-"<return> for at gå til en kommandofortolker hvorfra du kan tjekke (med fsck) "
+"<retur> for at gå til en kommandofortolker hvorfra du kan tjekke (med fsck) "
 "og montere dine partitioner. Maskinen vil automatisk genstarte når du "
 "afslutter kommandofortolkeren."
 
 #: ../rescue.py:170
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
 "\n"
@@ -1636,17 +1576,17 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Dit system blev monteret under /mnt/sysimage.\n"
+"Dit system blev monteret under %s.\n"
 "\n"
 "Tryk <retur> for at gå til skallen. Hvis du vil gøre dit system til rod-"
 "miljø, kør kommandoen:\n"
 "\n"
-"chroot /mnt/sysimage\n"
+"chroot %s\n"
 "\n"
-"Systemet vil starte igen når du afslutter skallen."
+"Systemet vil automatisk starte igen når du afslutter skallen."
 
 #: ../rescue.py:188
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
 "be mounted under %s.\n"
@@ -1654,11 +1594,11 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"Der opstod en fejl under montering af hele eller dele af dit system. Noget "
-"af det er måske monteret under /mnt/sysimage.\n"
+"Der opstod en fejl ved forsøg på montering af hele eller dele af dit system. Noget "
+"af det er måske monteret under %s.\n"
 "\n"
-"Tryk <retur> for at gå til en kommandofortolker. Computeren vil automatisk "
-"genstarte når du afslutter kommandofortolkeren."
+"Tryk <retur> for at gå til en kommandofortolker. Computeren vil "
+"genstarte automatisk når du afslutter kommandofortolkeren."
 
 #: ../rescue.py:194
 msgid "Rescue Mode"
@@ -1674,9 +1614,9 @@ msgstr ""
 "kommandofortolkeren."
 
 #: ../rescue.py:205
-#, fuzzy, python-format
+#, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr "Dit system er monteret i kataloget /mnt/sysimage"
+msgstr "Dit system er monteret i kataloget %s."
 
 #: ../text.py:192
 msgid "Help not available"
@@ -1734,12 +1674,11 @@ msgid "Searching for %s installations..."
 msgstr "Søger efter %s-installationer..."
 
 #: ../upgrade.py:88 ../upgrade.py:96
-#, fuzzy
 msgid "Dirty File Systems"
 msgstr "Urene filsystemer"
 
 #: ../upgrade.py:89
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
 "cleanly.  Please boot your Linux installation, let the file systems be "
@@ -1747,34 +1686,34 @@ msgid ""
 "%s"
 msgstr ""
 "Et eller flere filsystemer på dit system blev ikke afmonteret uden "
-"problemer. Genstart din Linux-installation, lad filsystemerne blive tjekket "
-"og lukket ordentligt ned for at opgradere."
+"problemer. Genstart din Linux-installation, og lad filsystemerne blive tjekket "
+"og lukket ordentligt ned for at opgradere.\n"
+"%s"
 
 #: ../upgrade.py:97
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"Et eller flere filsystemer på dit system blev ikke afmonteret uden "
-"problemer. Vil du montere dem alligevel?"
+"De følgende filsystemer på dit system blev ikke afmonteret uden "
+"problemer. Vil du montere dem alligevel?\n"
+"%s"
 
 #: ../upgrade.py:226 ../upgrade.py:232
 msgid "Mount failed"
 msgstr "Montering fejlede"
 
 #: ../upgrade.py:227
-#, fuzzy
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Et eller flere af de filsystemer der står i din /etc/fstab kunne ikke "
+"Et eller flere af de filsystemer der står i /etc/fstab på dit Linux-system kan ikke "
 "monteres. Ret venligst dette problem, og prøv at opgradere igen."
 
 #: ../upgrade.py:233
-#, fuzzy
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -1866,9 +1805,8 @@ msgid "Attempting to start native X server"
 msgstr "Forsøger at starte \"native\" X-server"
 
 #: ../xserver.py:127
-#, fuzzy
 msgid "Attempting to start VESA driver X server"
-msgstr "Forsøger at starte \"native\" X-server"
+msgstr "Forsøger at starte X-server for VESA-driver"
 
 #: ../xserver.py:140
 msgid "Attempting to start VGA16 X server"
@@ -1907,9 +1845,8 @@ msgid "Root account can not be added here."
 msgstr "'root'-konto kan ikke oprettes her."
 
 #: ../iw/account_gui.py:95
-#, fuzzy
 msgid "System accounts can not be added here."
-msgstr "'root'-konto kan ikke oprettes her."
+msgstr "Systemkonti kan ikke oprettes her."
 
 #: ../iw/account_gui.py:97
 msgid "Please enter user password."
@@ -1932,43 +1869,36 @@ msgid "Edit User"
 msgstr "Redigér bruger"
 
 #: ../iw/account_gui.py:211
-#, fuzzy
 msgid "Add a User Account"
-msgstr "Brugerkontiopsætning"
+msgstr "Ny brugerkonto"
 
 #: ../iw/account_gui.py:228
-#, fuzzy
 msgid "Enter a user _name:"
-msgstr "Indtast venligst brugernavn"
+msgstr "Indtast et bruger_navn:"
 
 #: ../iw/account_gui.py:236
-#, fuzzy
 msgid "Enter a user _password:"
-msgstr "Indtast adgangskode for bruger."
+msgstr "Indtast en _adgangskode for bruger:"
 
 #: ../iw/account_gui.py:245
-#, fuzzy
 msgid "Pass_word (confirm):"
-msgstr "Adgangskode (bekræft):"
+msgstr "Adgangs_kode (bekræft):"
 
 #: ../iw/account_gui.py:254
-#, fuzzy
 msgid "_Full Name:"
-msgstr "Fulde navn:"
+msgstr "_Fulde navn:"
 
 #: ../iw/account_gui.py:262
 msgid "Please enter user name"
 msgstr "Indtast venligst brugernavn"
 
 #: ../iw/account_gui.py:345
-#, fuzzy
 msgid "Enter the root (administrator) password for the system."
-msgstr "Opgiv adgangskode for root-bruger (administrator) på dette system."
+msgstr "Indtast adgangskode for root-bruger (administrator) på dette system."
 
 #: ../iw/account_gui.py:365
-#, fuzzy
 msgid "_Confirm: "
-msgstr "Bekræft: "
+msgstr "_Bekræft: "
 
 #: ../iw/account_gui.py:407
 msgid "Account Name"
@@ -1981,9 +1911,8 @@ msgstr "Fulde navn"
 
 #: ../iw/account_gui.py:420 ../iw/lvm_dialog_gui.py:1014
 #: ../iw/osbootwidget.py:93
-#, fuzzy
 msgid "_Add"
-msgstr "Tilføj"
+msgstr "_Tilføj"
 
 #: ../iw/account_gui.py:422 ../iw/lvm_dialog_gui.py:1017
 #: ../iw/network_gui.py:456 ../iw/osbootwidget.py:97
@@ -2002,89 +1931,72 @@ msgid "Authentication Configuration"
 msgstr "Godkendelseskonfiguration"
 
 #: ../iw/auth_gui.py:98
-#, fuzzy
 msgid "Enable _MD5 passwords"
-msgstr "Brug MD5-adgangskoder"
+msgstr "Brug _MD5-adgangskoder"
 
 #: ../iw/auth_gui.py:99
-#, fuzzy
 msgid "Enable shado_w passwords"
-msgstr "Brug skygge-adgangskoder"
+msgstr "Brug _skygge-adgangskoder"
 
 #: ../iw/auth_gui.py:102
-#, fuzzy
 msgid "Enable N_IS"
-msgstr "Anvend NIS"
+msgstr "Brug N_IS"
 
 #: ../iw/auth_gui.py:103
-#, fuzzy
 msgid "Use _broadcast to find NIS server"
-msgstr "Benyt rundkastning til at finde NIS-server"
+msgstr "Benyt _rundkastning til at finde NIS-server"
 
 #: ../iw/auth_gui.py:115
-#, fuzzy
 msgid "NIS _Domain: "
-msgstr "NIS-domæne: "
+msgstr "NIS-_domæne: "
 
 #: ../iw/auth_gui.py:118
-#, fuzzy
 msgid "NIS _Server: "
-msgstr "NIS-Server: "
+msgstr "NIS-_Server: "
 
 #: ../iw/auth_gui.py:142
-#, fuzzy
 msgid "Enable _LDAP"
-msgstr "Anvend LDAP"
+msgstr "Anvend _LDAP"
 
 #: ../iw/auth_gui.py:145
-#, fuzzy
 msgid "Use _TLS lookups"
-msgstr "Brug TLS-opslag."
+msgstr "Brug _TLS-opslag."
 
 #: ../iw/auth_gui.py:146
-#, fuzzy
 msgid "LDAP _Server:"
-msgstr "LDAP-server:"
+msgstr "LDAP-_server:"
 
 #: ../iw/auth_gui.py:149
-#, fuzzy
 msgid "LDAP _Base DN:"
-msgstr "LDAP basal DN:"
+msgstr "LDAP _basal DN:"
 
 #: ../iw/auth_gui.py:177
-#, fuzzy
 msgid "Enable _Kerberos"
-msgstr "Aktivér Kerberos"
+msgstr "Aktivér _Kerberos"
 
 #: ../iw/auth_gui.py:181
-#, fuzzy
 msgid "R_ealm:"
-msgstr "'Realm':"
+msgstr "'R_ealm':"
 
 #: ../iw/auth_gui.py:184
-#, fuzzy
 msgid "K_DC:"
-msgstr "KDC:"
+msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
-#, fuzzy
 msgid "_Admin Server:"
-msgstr "Admin-Server:"
+msgstr "_Admin-Server:"
 
 #: ../iw/auth_gui.py:216
-#, fuzzy
 msgid "Enable SMB _Authentication"
-msgstr "Aktivér SMB-autenticering"
+msgstr "Aktivér SMB-_autenticering"
 
 #: ../iw/auth_gui.py:219
-#, fuzzy
 msgid "SMB _Server:"
-msgstr "SMB-server:"
+msgstr "SMB-_server:"
 
 #: ../iw/auth_gui.py:222
-#, fuzzy
 msgid "SMB Work_group:"
-msgstr "SMB-arbejdsgruppe:"
+msgstr "SMB-arbejds_gruppe:"
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
@@ -2103,16 +2015,14 @@ msgid "SMB"
 msgstr "SMB"
 
 #: ../iw/blpasswidget.py:37
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
-"En adgangskode for opstartsindlæseren hindrer brugere i at give tilfældige "
-"flag til kernen. For højest mulig sikkerhed anbefaler vi at sætte en "
-"adgangskode, men dette er ikke nødvendig for brugere med mindre krav til "
-"sikkerhed."
+"En adgangskode for opstartsindlæseren hindrer brugere i at ændre "
+"flag til kernen. For højere sikkerhed anbefales det at sætte en "
+"adgangskode."
 
 #: ../iw/blpasswidget.py:42
 #, fuzzy

@@ -3,11 +3,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2002-07-12 02:16-0400\n"
-"PO-Revision-Date: 2002-04-16 12:17-0400\n"
-"Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
+"PO-Revision-Date: 2002-07-15 01:40+0200\n"
+"Last-Translator: Trond Eivind GlomsrÃ¸d <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Emacs 21.1\n"
 
@@ -16,7 +16,7 @@ msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
-"Du har ikke nok RAM til å bruke grafisk installasjon på denne maskinen. "
+"Du har ikke nok RAM til Ã¥ bruke grafisk installasjon pÃ¥ denne maskinen. "
 "Starter tekstmodus."
 
 #: ../anaconda:356 ../gui.py:103 ../rescue.py:36 ../rescue.py:143
@@ -53,23 +53,23 @@ msgstr "OK"
 
 #: ../anaconda:401
 msgid "Probing for video card:   "
-msgstr "Søker etter skjermkort:   "
+msgstr "SÃ¸ker etter skjermkort:   "
 
 #: ../anaconda:409
 msgid "Unable to probe\n"
-msgstr "Kunne ikke søke\n"
+msgstr "Kunne ikke sÃ¸ke\n"
 
 #: ../anaconda:411
 msgid "Probing for monitor type: "
-msgstr "Søker etter skjermtype: "
+msgstr "SÃ¸ker etter skjermtype: "
 
 #: ../anaconda:422
 msgid "Probing for mouse type:   "
-msgstr "Søker etter mustype:   "
+msgstr "SÃ¸ker etter mustype:   "
 
 #: ../anaconda:426
 msgid "Skipping mouse probe.\n"
-msgstr "Hopper over søk etter mus.\n"
+msgstr "Hopper over sÃ¸k etter mus.\n"
 
 #: ../anaconda:433
 #, c-format
@@ -98,11 +98,11 @@ msgstr ""
 #: ../autopart.py:723
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr ""
-"Kunne ikke allokere sylinder-baserte partisjoner som primære partisjoner"
+"Kunne ikke allokere sylinder-baserte partisjoner som primÃ¦re partisjoner"
 
 #: ../autopart.py:726
 msgid "Could not allocate partitions as primary partitions"
-msgstr "Kunne ikke allokere partisjoner som primære partisjoner"
+msgstr "Kunne ikke allokere partisjoner som primÃ¦re partisjoner"
 
 #: ../autopart.py:729
 msgid "Could not allocate cylinder-based partitions"
@@ -118,8 +118,8 @@ msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
-"Oppstartspartisjon %s møter muligens ikke oppstartsbegrensningene for din "
-"arkitektur. Det er sterkt anbefalt å opprette en oppstartsdiskett."
+"Oppstartspartisjon %s mÃ¸ter muligens ikke oppstartsbegrensningene for din "
+"arkitektur. Det er sterkt anbefalt Ã¥ opprette en oppstartsdiskett."
 
 #: ../autopart.py:808
 #, python-format
@@ -133,7 +133,7 @@ msgid "Requested Partition Does Not Exist"
 msgstr "Forespurt partisjon eksisterer ikke"
 
 #: ../autopart.py:953
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -141,15 +141,14 @@ msgid ""
 msgstr ""
 "Kan ikke finne partisjon %s som skal brukes til %s.\n"
 "\n"
-"Trykk OK for å starte systemet på nytt."
+"Trykk Â«OKÂ» for Ã¥ starte systemet pÃ¥ nytt."
 
 #: ../autopart.py:983 ../autopart.py:1022
-#, fuzzy
 msgid "Automatic Partitioning Errors"
-msgstr "Automatisk partisjonering"
+msgstr "Feil under automatisk partisjonering"
 
 #: ../autopart.py:984
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -157,11 +156,11 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Følgende feil oppsto under partisjonering:\n"
+"FÃ¸lgende feil oppsto under partisjonering:\n"
 "\n"
 "%s\n"
 "\n"
-"Trykk OK for å starte systemet på nytt."
+"Trykk Â«OKÂ» for Ã¥ starte systemet pÃ¥ nytt."
 
 #: ../autopart.py:993
 msgid "Warnings During Automatic Partitioning"
@@ -174,7 +173,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Følgende advarsler ble gitt under automatisk partisjonering:\n"
+"FÃ¸lgende advarsler ble gitt under automatisk partisjonering:\n"
 "\n"
 "%s"
 
@@ -240,63 +239,58 @@ msgid ""
 "The partitioning tool, fdisk, is a text-based utility only recommended for "
 "advanced users who need to perform specialized tasks."
 msgstr ""
-"Automatisk partisjonering setter opp dine partisjoner basert på din "
-"installasjonstype. Du kan også tilpasse de resulterende partisjonene for å "
-"møte dine behov.\n"
-"Verktøyet for manuell partisjonering, Disk Druid, lar deg sette opp dine "
-"partisjoner i et interaktivt miljø. Du kan sette filsystemtyper, "
-"monteringspunkter, størrelse og mer i dette lettbrukte, kraftige "
+"Automatisk partisjonering setter opp dine partisjoner basert pÃ¥ din "
+"installasjonstype. Du kan ogsÃ¥ tilpasse de resulterende partisjonene for Ã¥ "
+"mÃ¸te dine behov.\n"
+"VerktÃ¸yet for manuell partisjonering, Disk Druid, lar deg sette opp dine "
+"partisjoner i et interaktivt miljÃ¸. Du kan sette filsystemtyper, "
+"monteringspunkter, stÃ¸rrelse og mer i dette lettbrukte, kraftige "
 "grensesnittet.\n"
 "\n"
-"fdisk er det tradisjonelle, tekstbaserte partisjoneringsverktøyet som tilbys "
-"av Red Hat. Selv om dette kan være noe vanskeligere i bruk, finnes det "
-"tilfeller hvor fdisk er å foretrekke."
+"fdisk er det tradisjonelle, tekstbaserte partisjoneringsverktÃ¸yet som tilbys "
+"av Red Hat. Selv om dette kan vÃ¦re noe vanskeligere i bruk, finnes det "
+"tilfeller hvor fdisk er Ã¥ foretrekke."
 
 #: ../autopart.py:1120
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
 msgstr ""
-"Før automatisk partisjonering utføres av installasjonsprogrammet må du velge "
-"hvordan plassen på harddiskene skal brukes."
+"FÃ¸r automatisk partisjonering utfÃ¸res av installasjonsprogrammet mÃ¥ du velge "
+"hvordan plassen pÃ¥ harddiskene skal brukes."
 
 #: ../autopart.py:1125
 msgid "Remove all partitions on this system"
-msgstr "Fjern alle partisjoner på dette systemet"
+msgstr "Fjern alle partisjoner pÃ¥ dette systemet"
 
 #: ../autopart.py:1126
 msgid "Remove all Linux Partitions on this system"
-msgstr "Fjern alle Linux-partisjoner på dette systemet"
+msgstr "Fjern alle Linux-partisjoner pÃ¥ dette systemet"
 
 #: ../autopart.py:1127
 msgid "Keep all partitions and use existing free space"
 msgstr "Behold alle partisjoner og bruk eksisterende ledig plass"
 
 #: ../autopart.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have selected to remove all partitions (ALL DATA) on the following "
 "drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"ADVARSEL!!\tADVARSEL!!\n"
+"Du har valgt Ã¥ fjerne alle partisjoner (ALLE DATA) pÃ¥ fÃ¸lgende stasjoner:%s\n"
 "\n"
-"Du har valgt å fjerne alle partisjoner (ALLE DATA) på følgende stasjoner:%s\n"
-"\n"
-"Er du sikker på at du vil gjøre dette?"
+"Er du sikker pÃ¥ at du vil gjÃ¸re dette?"
 
 #: ../autopart.py:1133
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have selected to remove all Linux partitions (and ALL DATA on them) on "
 "the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"ADVARSEL!!\tADVARSEL!!\n"
-"\n"
-"Du har valgt å fjerne alle Linux-partisjoner (og ALLE DATA på dem) på "
-"følgende stasjoner:%s\n"
-"Er du sikker på at du ønsker å gjøre dette?"
+"Du har valgt Ã¥ fjerne alle Linux-partisjoner (og ALLE DATA pÃ¥ dem) pÃ¥ fÃ¸lgende stasjoner:%s\n"
+"Er du sikker pÃ¥ at du Ã¸nsker Ã¥ gjÃ¸re dette?"
 
 #: ../bootloader.py:89
 msgid "Bootloader"
@@ -311,7 +305,7 @@ msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
-"Ingen kjerne-pakker ble installert på systemet. "
+"Ingen kjerne-pakker ble installert pÃ¥ systemet. "
 "Oppstartslasterkonfigurasjonen vil ikke bli endret."
 
 #: ../comps.py:514
@@ -335,13 +329,12 @@ msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
-"Systemets tilstand ble skrevet til disketten. Systemet vil nå bli startet på "
+"Systemets tilstand ble skrevet til disketten. Systemet vil nÃ¥ bli startet pÃ¥ "
 "nytt."
 
 #: ../floppy.py:59
-#, fuzzy
 msgid "Insert a floppy disk"
-msgstr "Kunne ikke montere disketten."
+msgstr "Sett inn en diskett"
 
 #: ../floppy.py:60
 #, fuzzy
@@ -357,14 +350,12 @@ msgstr ""
 "diskett. Alle data vil bli SLETTET under oppretting av oppstartsdisketten."
 
 #: ../floppy.py:64
-#, fuzzy
 msgid "_Cancel"
-msgstr "Avbryt"
+msgstr "_Avbryt"
 
 #: ../floppy.py:64
-#, fuzzy
 msgid "_Make boot disk"
-msgstr "Lag oppstartsdiskett"
+msgstr "_Lag oppstartsdiskett"
 
 #: ../floppy.py:76 ../floppy.py:105 ../fsset.py:554 ../fsset.py:1015
 #: ../fsset.py:1034 ../fsset.py:1081 ../fsset.py:1092 ../fsset.py:1128
@@ -392,13 +383,10 @@ msgid "Error"
 msgstr "Feil"
 
 #: ../floppy.py:77 ../floppy.py:106
-#, fuzzy
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
-msgstr ""
-"En feil oppstod under oppretting av oppstartsdisketten. Forsikre deg om at "
-"det står en formatert diskett i diskettstasjonen."
+msgstr "En feil oppstod under oppretting av oppstartsdisketten. Forsikre deg om at det stÃ¥r en diskett i diskettstasjonen."
 
 #: ../floppy.py:92
 msgid "Creating"
@@ -410,12 +398,12 @@ msgstr "Oppretter oppstartsdiskett..."
 
 #: ../fsset.py:172
 msgid "Checking for Bad Blocks"
-msgstr "Leter etter dårlige blokker"
+msgstr "Leter etter dÃ¥rlige blokker"
 
 #: ../fsset.py:173
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "Leter etter dårlige blokker på /dev/%s..."
+msgstr "Leter etter dÃ¥rlige blokker pÃ¥ /dev/%s..."
 
 #: ../fsset.py:555
 #, fuzzy, python-format
@@ -425,19 +413,18 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
-"En feil oppstod under migrering av %s til ext3. Det er mulig å fortsette "
-"uten å migrere filsystemet.\n"
+"En feil oppstod under migrering av %s til ext3. Det er mulig Ã¥ fortsette "
+"uten Ã¥ migrere filsystemet.\n"
 "\n"
-"Ønsker du å fortsette uten å migrere %s?"
+"Ã˜nsker du Ã¥ fortsette uten Ã¥ migrere %s?"
 
 #: ../fsset.py:948
-#, fuzzy
 msgid "RAID Device"
-msgstr "RAID-enhet %s"
+msgstr "RAID-enhet"
 
 #: ../fsset.py:951 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
-msgstr "Første sektor på oppstartspartisjonen"
+msgstr "FÃ¸rste sektor pÃ¥ oppstartspartisjonen"
 
 #: ../fsset.py:952 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
@@ -451,10 +438,10 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"En feil oppsto under forsøk på å initiere swap på enhet %s. Dette problemet "
+"En feil oppsto under forsÃ¸k pÃ¥ Ã¥ initiere swap pÃ¥ enhet %s. Dette problemet "
 "er alvorlig, og installasjonen kan ikke fortsette.\n"
 "\n"
-"Trykk <Enter> for å starte systemet på nytt."
+"Trykk <Enter> for Ã¥ starte systemet pÃ¥ nytt."
 
 #: ../fsset.py:1035
 #, python-format
@@ -469,7 +456,7 @@ msgstr ""
 "\n"
 "Dette betyr sannsynligvis at swap-partisjonen ikke er initiert.\n"
 "\n"
-"Trykk OK for å starte systemet på nytt."
+"Trykk OK for Ã¥ starte systemet pÃ¥ nytt."
 
 #: ../fsset.py:1082
 #, python-format
@@ -488,10 +475,10 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"En feil oppsto under søk etter dårlige blokker på %s. Dette problemet er "
+"En feil oppsto under sÃ¸k etter dÃ¥rlige blokker pÃ¥ %s. Dette problemet er "
 "alvorlig, og installasjonen kan ikke fortsette.\n"
 "\n"
-"Trykk <Enter> for å starte systemet på nytt."
+"Trykk <Enter> for Ã¥ starte systemet pÃ¥ nytt."
 
 #: ../fsset.py:1129
 #, python-format
@@ -504,7 +491,7 @@ msgstr ""
 "En feil oppsto under formatering av %s. Dette problemet er alvorlig, og "
 "installasjonen kan ikke fortsette.\n"
 "\n"
-"Trykk <Enter> for å starte systemet på nytt."
+"Trykk <Enter> for Ã¥ starte systemet pÃ¥ nytt."
 
 #: ../fsset.py:1179
 #, python-format
@@ -517,7 +504,7 @@ msgstr ""
 "En feil oppsto under migrering av %s. Dette problemet er alvorlig, og "
 "installasjonen kan ikke fortsette.\n"
 "\n"
-"Trykk <Enter> for å starte systemet på nytt."
+"Trykk <Enter> for Ã¥ starte systemet pÃ¥ nytt."
 
 #: ../fsset.py:1199 ../fsset.py:1208
 msgid "Invalid mount point"
@@ -532,10 +519,10 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 "En feil oppsto under opprettelse av %s. Et element i denne stien er ikke en "
-"katalog. Dette problemet er så alvorlig at installasjonen ikke kan "
+"katalog. Dette problemet er sÃ¥ alvorlig at installasjonen ikke kan "
 "fortsette.\n"
 "\n"
-"Trykk <Enter> for å starte systemet på nytt."
+"Trykk <Enter> for Ã¥ starte systemet pÃ¥ nytt."
 
 #: ../fsset.py:1209
 #, python-format
@@ -548,7 +535,7 @@ msgstr ""
 "En feil oppsto under opprettelse av %s: %s. Dette problemet er alvorlig, og "
 "installasjonen kan ikke fortsette.\n"
 "\n"
-"Trykk <Enter> for å starte systemet på nytt."
+"Trykk <Enter> for Ã¥ starte systemet pÃ¥ nytt."
 
 #: ../fsset.py:1222
 #, python-format
@@ -563,14 +550,14 @@ msgstr ""
 "\n"
 "Dette betyr sannsynligvis at partisjonen ikke er formatert.\n"
 "\n"
-"Trykk OK for å starte systemet på nytt."
+"Trykk OK for Ã¥ starte systemet pÃ¥ nytt."
 
 #: ../fsset.py:1965
 msgid "Formatting"
 msgstr "Formaterer"
 
 #: ../fsset.py:1966
-#, fuzzy, python-format
+#, python-format
 msgid "Formatting %s file system..."
 msgstr "Formaterer %s-filsystem..."
 
@@ -595,7 +582,7 @@ msgstr "Nei"
 
 #: ../gui.py:104 ../text.py:316 ../loader/net.c:274 ../loader/net.c:400
 msgid "Retry"
-msgstr "Prøv igjen"
+msgstr "PrÃ¸v igjen"
 
 #: ../gui.py:105 ../text.py:317
 msgid "Ignore"
@@ -619,9 +606,9 @@ msgid ""
 "file a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
 msgstr ""
-"Et uhåndtert unntak har oppstått. Dette er mest sannsynlig en feil. Kopier "
-"hele teksten fra unntaksmeldingen og lagre informasjon om krasjet på en "
-"diskett; send så inn en detaljert feilrapport for anaconda på https://"
+"Et uhÃ¥ndtert unntak har oppstÃ¥tt. Dette er mest sannsynlig en feil. Kopier "
+"hele teksten fra unntaksmeldingen og lagre informasjon om krasjet pÃ¥ en "
+"diskett; send sÃ¥ inn en detaljert feilrapport for anaconda pÃ¥ https://"
 "bugzilla.redhat.com/bugzilla/"
 
 #: ../gui.py:442 ../text.py:280
@@ -629,8 +616,8 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Sett inn en diskett: Alt innhold på disketten vil slettes, så vær forsiktig "
-"når du velger diskett."
+"Sett inn en diskett: Alt innhold pÃ¥ disketten vil slettes, sÃ¥ vÃ¦r forsiktig "
+"nÃ¥r du velger diskett."
 
 #: ../gui.py:507 ../gui.py:956
 msgid "Online Help"
@@ -638,7 +625,7 @@ msgstr "Online hjelp"
 
 #: ../gui.py:508 ../iw/language_gui.py:21 ../textw/language_text.py:39
 msgid "Language Selection"
-msgstr "Valg av språk"
+msgstr "Valg av sprÃ¥k"
 
 #: ../gui.py:600
 msgid "Release Notes"
@@ -653,14 +640,12 @@ msgid "Release notes are missing.\n"
 msgstr "Notis for denne utgaven mangler.\n"
 
 #: ../gui.py:790 ../packages.py:968
-#, fuzzy
 msgid "_Back"
-msgstr "Tilbake"
+msgstr "Til_bake"
 
 #: ../gui.py:792
-#, fuzzy
 msgid "_Next"
-msgstr "Neste"
+msgstr "_Neste"
 
 #: ../gui.py:794
 #, fuzzy
@@ -668,19 +653,16 @@ msgid "_Release Notes"
 msgstr "Kommentarer til denne utgaven"
 
 #: ../gui.py:796
-#, fuzzy
 msgid "Show _Help"
-msgstr "Vis hjelp"
+msgstr "Vis _hjelp"
 
 #: ../gui.py:798
-#, fuzzy
 msgid "Hide _Help"
-msgstr "Skjul hjelp"
+msgstr "Skjul _hjelp"
 
 #: ../gui.py:800
-#, fuzzy
 msgid "_Debug"
-msgstr "Debug"
+msgstr "_Debug"
 
 #: ../gui.py:856
 #, python-format
@@ -690,7 +672,7 @@ msgstr "%s installering"
 #: ../gui.py:871
 #, python-format
 msgid "%s Installer on %s"
-msgstr "%s installering på %s"
+msgstr "%s installering pÃ¥ %s"
 
 #: ../gui.py:910
 msgid "Unable to load title bar"
@@ -703,7 +685,7 @@ msgstr "Installasjonsvindu"
 #: ../harddrive.py:185
 #, python-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr "Mangler CD #%d, som kreves for å fullføre installasjonen."
+msgstr "Mangler CD #%d, som kreves for Ã¥ fullfÃ¸re installasjonen."
 
 #: ../image.py:74
 msgid "Copying File"
@@ -711,14 +693,14 @@ msgstr "Kopierer fil"
 
 #: ../image.py:75
 msgid "Transferring install image to hard drive..."
-msgstr "Overfører installasjonsbildet til harddisken..."
+msgstr "OverfÃ¸rer installasjonsbildet til harddisken..."
 
 #: ../image.py:78
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
-"En feil oppsto under overføring av installasjonsfilen til din harddisk. Du "
+"En feil oppsto under overfÃ¸ring av installasjonsfilen til din harddisk. Du "
 "har sannsynligvis sluppet opp for diskplass."
 
 #: ../image.py:146
@@ -728,27 +710,24 @@ msgstr "Bytt CD-ROM"
 #: ../image.py:147
 #, python-format
 msgid "Please insert disc %d to continue."
-msgstr "Sett inn CD %d for å fortsette."
+msgstr "Sett inn CD %d for Ã¥ fortsette."
 
 #: ../image.py:181
 msgid "Wrong CDROM"
 msgstr "Feil CD-ROM"
 
 #: ../image.py:182
-#, fuzzy, python-format
+#, python-format
 msgid "That's not the correct %s CDROM."
-msgstr "Dette er ikke den korrekte Red Hat CD-ROMen."
+msgstr "Dette er ikke den korrekte %s-CD-ROMen."
 
 #: ../image.py:188
 msgid "The CDROM could not be mounted."
 msgstr "Denne CD-ROMen kunne ikke monteres."
 
 #: ../installclass.py:30
-#, fuzzy
 msgid "The following software will be installed:"
-msgstr ""
-"Installeringsprogrammet har detektert at oppstartslasteren %s er installert "
-"på %s."
+msgstr "FÃ¸lgende programvare vil bli installert:"
 
 #: ../installclass.py:32
 #, python-format
@@ -761,9 +740,8 @@ msgid ""
 msgstr ""
 
 #: ../installclass.py:55
-#, fuzzy
 msgid "Install on System"
-msgstr "Installasjonstype"
+msgstr "Installer pÃ¥ systemet"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -775,19 +753,14 @@ msgstr ""
 
 #: ../packages.py:39 ../iw/package_gui.py:34
 msgid "Proceed with upgrade?"
-msgstr "Gå videre med oppgradering?"
+msgstr "GÃ¥ videre med oppgradering?"
 
 #: ../packages.py:40 ../iw/package_gui.py:35
-#, fuzzy
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
 "\n"
-msgstr ""
-"Filsystemene på Linux-systemet du har valgt å oppgradere er allerede "
-"montert.\n"
-"Du kan ikke gå lengre tilbake enn dette.\n"
-"\n"
+msgstr "Filsystemene pÃ¥ Linux-systemet du har valgt Ã¥ oppgradere er allerede montert. Du kan ikke gÃ¥ lengre tilbake enn dette.\n"
 
 #: ../packages.py:44 ../iw/package_gui.py:39
 msgid "Would you like to continue with the upgrade?"
@@ -823,8 +796,8 @@ msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
-"Filen %s kan ikke åpnes. Dette pga. en manglende fil, en dårlig pakke, eller "
-"et dårlig media. Trykk <Enter> for å prøve igjen."
+"Filen %s kan ikke Ã¥pnes. Dette pga. en manglende fil, en dÃ¥rlig pakke, eller "
+"et dÃ¥rlig media. Trykk <Enter> for Ã¥ prÃ¸ve igjen."
 
 #: ../packages.py:305
 msgid "Error Installing Package"
@@ -840,12 +813,9 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Det oppstod en feil ved installering av %s. Dette kan tyde på feil ved "
-"installeringsmediumet, mangel på diskplass og/eller hardwareproblem. Dette "
-"er en alvorlig feil, og din installering vil avbrytes. Sjekk "
-"installeringsmediumet og prøv på nytt.\n"
+"Det oppstod en feil ved installering av %s. Dette kan tyde pÃ¥ feil ved installeringsmediumet, mangel pÃ¥ diskplass og/eller problemer med maskinvaren. Dette er en fatal feil, og din installasjon vil avbrytes. Sjekk installeringsmediumet og prÃ¸v pÃ¥ nytt.\n"
 "\n"
-"Trykk OK for å starte programmet på nytt."
+"Trykk OK for Ã¥ starte maskinen pÃ¥ nytt."
 
 #: ../packages.py:548
 msgid "Setting up RPM transaction..."
@@ -891,7 +861,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Følgende pakker ble automatisk valgt for\n"
+"FÃ¸lgende pakker ble automatisk valgt for\n"
 "installering:\n"
 "%s\n"
 "\n"
@@ -905,14 +875,13 @@ msgid "Starting install process, this may take several minutes..."
 msgstr "Starter installeringsprosessen. Dette kan ta noen minutter..."
 
 #: ../packages.py:664
-#, fuzzy
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
 "\n"
 msgstr ""
-"Det ser ikke ut til at du har nok diskplass til å installere pakkene du har "
-"valgt. Du må ha mer plass på følgende filsystemer:\n"
+"Det ser ikke ut til at du har nok diskplass til Ã¥ installere pakkene du har "
+"valgt. Du mÃ¥ ha mer plass pÃ¥ fÃ¸lgende filsystemer:\n"
 "\n"
 
 #: ../packages.py:668 ../packages.py:688 ../iw/lvm_dialog_gui.py:997
@@ -923,17 +892,14 @@ msgstr "Monteringspunkt"
 
 #: ../packages.py:669
 msgid "Space Needed"
-msgstr "Nødvendig plass"
+msgstr "NÃ¸dvendig plass"
 
 #: ../packages.py:684
-#, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
 "\n"
-msgstr ""
-"Det ser ikke ut til at du har nok filnoder til å installere pakkene du har "
-"valgt. Du må ha flere filnoder på følgende filsystemer:\n"
+msgstr "Det ser ikke ut til at du har nok filnoder til Ã¥ installere pakkene du har valgt. Du mÃ¥ ha flere filnoder pÃ¥ fÃ¸lgende filsystemer:\n\n"
 
 #: ../packages.py:689
 msgid "Nodes Needed"
@@ -951,7 +917,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Følgende pakker er tilgjengelige i denne versjonen men IKKE oppgradert:\n"
+"FÃ¸lgende pakker er tilgjengelige i denne versjonen men IKKE oppgradert:\n"
 
 #: ../packages.py:733
 msgid "Post Install"
@@ -959,7 +925,7 @@ msgstr "Etter-installasjon"
 
 #: ../packages.py:734
 msgid "Performing post install configuration..."
-msgstr "Utfører etter-installasjons konfigurasjon..."
+msgstr "UtfÃ¸rer etter-installasjons konfigurasjon..."
 
 #: ../packages.py:948
 msgid "Warning! This is a beta!"
@@ -981,35 +947,31 @@ msgid ""
 msgstr ""
 
 #: ../packages.py:962 ../iw/congrats_gui.py:28
-#, fuzzy
 msgid "_Exit"
-msgstr "Avslutt"
+msgstr "A_vslutt"
 
 #: ../packages.py:962
-#, fuzzy
 msgid "_Install BETA"
-msgstr "Installer"
+msgstr "_Installer BETA"
 
 #: ../packages.py:965
-#, fuzzy
 msgid "Rebooting System"
-msgstr "Oppgrader eksisterende system"
+msgstr "Starter maskinen pÃ¥ nytt"
 
 #: ../packages.py:966
 msgid "Your system will now be rebooted..."
-msgstr ""
+msgstr "Maskinen vil nÃ¥ startes pÃ¥ nytt..."
 
 #: ../packages.py:968
-#, fuzzy
 msgid "_Reboot"
-msgstr "_Nullstill"
+msgstr "Sta_rt pÃ¥ nytt"
 
 #: ../partedUtils.py:171
 msgid "Foreign"
 msgstr "Utenlandsk"
 
 #: ../partedUtils.py:241
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type %s for your "
 "architecture.  To use this disk for installation of %s, it must be re-"
@@ -1017,26 +979,23 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"Partisjonstabellen på enhet /dev/%s er av en uventet type for din "
-"arkitektur. For å bruke denne disken for en installasjon av %s må den re-"
-"initieres. Dette medfører tap av ALLE DATA på denne disken.\n"
+"Partisjonstabellen pÃ¥ enhet /dev/%s er av en uventet type, %s, for din arkitektur. For Ã¥ bruke denne disken med en installasjon av %s mÃ¥ den re-initieres. Dette medfÃ¸rer tap av ALLE DATA pÃ¥ denne disken.\n"
 "\n"
-"Ønsker du å initiere denne stasjonen?"
+"Ã˜nsker du Ã¥ initiere denne stasjonen?"
 
 #: ../partedUtils.py:452
-#, fuzzy, python-format
+#, python-format
 msgid "Error mounting file system on %s: %s"
-msgstr "Feil under montering av filsystem på %s: %s"
+msgstr "Feil under montering av filsystem pÃ¥ %s: %s"
 
 #: ../partedUtils.py:543
-#, fuzzy
 msgid "Initializing"
-msgstr "Initierer CD-ROM..."
+msgstr "Initierer"
 
 #: ../partedUtils.py:544
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr ""
+msgstr "Vennligst vent mens stasjon %s formateres...\n"
 
 #: ../partedUtils.py:659
 #, python-format
@@ -1046,139 +1005,122 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"Partisjonstabellen på enhet %s kunne ikke leses. For å opprette nye "
-"partisjoner må denne initieres. Dette medfører tap av ALLE DATA på denne "
+"Partisjonstabellen pÃ¥ enhet %s kunne ikke leses. For Ã¥ opprette nye "
+"partisjoner mÃ¥ denne initieres. Dette medfÃ¸rer tap av ALLE DATA pÃ¥ denne "
 "disken.\n"
 "\n"
-"Ønsker du å initiere denne stasjonen?"
+"Ã˜nsker du Ã¥ initiere denne stasjonen?"
 
 #: ../partedUtils.py:769 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "Ingen stasjoner funnet"
 
 #: ../partedUtils.py:770
-#, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
-"En feil har oppstått - ingen gyldige enheter for oppretting av filsystemer "
-"ble funnet. Sjekk maskinvaren din for å finne årsaken til problemet."
+"En feil har oppstÃ¥tt - ingen gyldige enheter for oppretting av filsystemer "
+"ble funnet. Sjekk maskinvaren din for Ã¥ finne Ã¥rsaken til problemet."
 
 #: ../partIntfHelpers.py:35
-#, fuzzy
 msgid "Please enter a volume group name."
-msgstr "Vennligst oppgi brukernavn"
+msgstr "Vennligst oppgi et gruppenavn for volumet."
 
 #: ../partIntfHelpers.py:39
-#, fuzzy
 msgid "Volume Group Names must be less than 128 characters"
-msgstr "Root-passordet må være minst 6 tegn langt."
+msgstr "Gruppenavn for volumer mÃ¥ vÃ¦re mindre enn 128 tegn"
 
 #: ../partIntfHelpers.py:42
 #, python-format
 msgid "Error - the volume group name %s is not valid."
-msgstr ""
+msgstr "Feil - gruppenavn for volum, %s, er ikke gyldig."
 
 #: ../partIntfHelpers.py:45
-#, fuzzy
 msgid "Error - the volume group name contains illegal characters  or spaces."
-msgstr "Oppstartsnavnet inneholder ugyldige tegn."
+msgstr "Feil - gruppenavn for volum inneholder ugyldige tegn eller mellomrom."
 
 #: ../partIntfHelpers.py:54
-#, fuzzy
 msgid "Please enter a logical volume name."
-msgstr "Vennligst oppgi brukernavn"
+msgstr "Vennligst oppgi navn pÃ¥ logisk volum."
 
 #: ../partIntfHelpers.py:58
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr ""
+msgstr "Navn pÃ¥ logiske volum mÃ¥ vÃ¦re mindre enn 128 tegn"
 
 #: ../partIntfHelpers.py:62
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr ""
+msgstr "Feil - navn pÃ¥ logisk volum, %s, er ikke gyldig."
 
 #: ../partIntfHelpers.py:67
-#, fuzzy
 msgid "Error - the logical volume name contains illegal characters or spaces."
-msgstr "Oppstartsnavnet inneholder ugyldige tegn."
+msgstr "Feil - navn pÃ¥ logisk volum inneholder ugyldige tegn eller mellomrom."
 
 #: ../partIntfHelpers.py:89
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Monteringspunktet er ugyldig. Monteringspunkter må begynne med '/', kan ikke "
-"slutte med '/', og må bare inneholde utskrivbare tegn."
+"Monteringspunktet er ugyldig. Monteringspunkter mÃ¥ begynne med '/', kan ikke "
+"slutte med '/', og mÃ¥ bare inneholde utskrivbare tegn."
 
 #: ../partIntfHelpers.py:96
 msgid "Please specify a mount point for this partition."
 msgstr "Spesifiser et monteringspunkt for denne partisjonen."
 
 #: ../partIntfHelpers.py:104
-#, fuzzy, python-format
+#, python-format
 msgid ""
-"You cannot %s this partition, as it is holding the data for the hard drive "
+"You cannot %s this partition, as it is holding the datafor the hard drive "
 "install."
-msgstr ""
-"Du kan ikke fjerne denne partisjonen siden den inneholder data for harddisk "
-"installasjonen."
+msgstr "Du kan ikke %s denne partisjonen siden den inneholder data for harddisk installasjonen."
 
 #: ../partIntfHelpers.py:110
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot %%s this partition as it is part of the RAID device /dev/md%s."
-msgstr ""
-"Du kan ikke redigere denne partisjonen da den er en del av en RAID-enhet"
+msgstr "Du kan ikke %%s denne partisjonen da den er en del av RAID-enhet /dev/md%s."
 
 #: ../partIntfHelpers.py:113
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot %s this partition as it is part of a RAID device."
-msgstr ""
-"Du kan ikke redigere denne partisjonen da den er en del av en RAID-enhet"
+msgstr "Du kan ikke %s denne partisjonen da den er en del av en RAID-enhet."
 
 #: ../partIntfHelpers.py:119
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot %%s this partition, as it is part of the LVM volume group '%s'."
-msgstr ""
-"Du kan ikke fjerne denne partisjonen siden den er en del av en RAID-enhet."
+msgstr "Du kan ikke %%s denne partisjonen siden den er en del av LVM-volumgruppe Â«%sÂ»."
 
 #: ../partIntfHelpers.py:122
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot %s this partition, as it is part of a LVM volume group."
-msgstr ""
-"Du kan ikke fjerne denne partisjonen siden den er en del av en RAID-enhet."
+msgstr "Du kan ikke %s denne partisjonen siden den er en del av en LVM-volumgruppe."
 
 #: ../partIntfHelpers.py:138 ../partIntfHelpers.py:152
 #: ../partIntfHelpers.py:162 ../partIntfHelpers.py:179
-#, fuzzy
 msgid "Unable To Delete"
-msgstr "Kan ikke fjerne"
+msgstr "Kan ikke slette"
 
 #: ../partIntfHelpers.py:139
-#, fuzzy
 msgid "You must first select a partition to delete."
-msgstr "Du må først velge en partisjon som skal fjernes."
+msgstr "Du mÃ¥ fÃ¸rst velge en partisjon som skal slettes."
 
 #: ../partIntfHelpers.py:145 ../textw/partition_text.py:1060
 msgid "DASD partitions can only be deleted with fdasd"
-msgstr ""
+msgstr "DASD-partisjoner kan kun slettes med fdasd"
 
 #: ../partIntfHelpers.py:153
-#, fuzzy
 msgid "You cannot delete free space."
-msgstr "Du kan ikke fjerne ledig plass."
+msgstr "Du kan ikke slette ledig plass."
 
 #: ../partIntfHelpers.py:163
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Du kan ikke redigere denne partisjonen siden den er en utvidet partisjon som "
-"inneholder %s"
+msgstr "Du kan ikke slette denne partisjonen siden den er en utvidet partisjon som inneholder %s"
 
 #: ../partIntfHelpers.py:222 ../partIntfHelpers.py:520
 #: ../iw/lvm_dialog_gui.py:679
@@ -1186,12 +1128,9 @@ msgid "Confirm Delete"
 msgstr "Bekreft sletting"
 
 #: ../partIntfHelpers.py:223
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"Du er i ferd med å slette partisjonen /dev/%s.\n"
-"\n"
-"Er du sikker?"
+msgstr "Du er i ferd med Ã¥ slette alle partisjoner pÃ¥ enheten Â«/dev/%sÂ»."
 
 #: ../partIntfHelpers.py:226 ../partIntfHelpers.py:521
 #: ../iw/account_gui.py:425 ../iw/lvm_dialog_gui.py:682
@@ -1202,21 +1141,18 @@ msgstr "_Slett"
 
 #: ../partIntfHelpers.py:284
 msgid "Notice"
-msgstr ""
+msgstr "Melding"
 
 #: ../partIntfHelpers.py:285
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
 "\n"
 "%s"
 msgstr ""
+"FÃ¸lgende partisjoner ble ikke slettet fordi de er i bruk:\n"
 "\n"
-"\n"
-"Følgende pakker ble automatisk valgt for\n"
-"installering:\n"
-"%s\n"
-"\n"
+"%s"
 
 #: ../partIntfHelpers.py:301 ../partIntfHelpers.py:314
 #: ../partIntfHelpers.py:344 ../partIntfHelpers.py:355
@@ -1225,7 +1161,7 @@ msgstr "Kan ikke redigere"
 
 #: ../partIntfHelpers.py:302
 msgid "You must select a partition to edit"
-msgstr "Du må velge en partisjon for redigering"
+msgstr "Du mÃ¥ velge en partisjon for redigering"
 
 #: ../partIntfHelpers.py:327
 msgid "You must go back and use fdasd to inititalize this partition"
@@ -1252,10 +1188,10 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s har partisjonstype 0x82 (Linux swap), men ser ikke ut til å være "
+"/dev/%s har partisjonstype 0x82 (Linux swap), men ser ikke ut til Ã¥ vÃ¦re "
 "formatert som en swappartisjon.\n"
 "\n"
-"Ønsker du å formatere denne partisjonen som en swappartisjon?"
+"Ã˜nsker du Ã¥ formatere denne partisjonen som en swappartisjon?"
 
 #: ../partIntfHelpers.py:398
 msgid ""
@@ -1287,8 +1223,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Følgende kritiske feil oppsto for ditt forespurte partisjonsopplegg. Disse "
-"feilene må rettes opp før du fortsetter med installasjonen av %s\n"
+"FÃ¸lgende kritiske feil oppsto for ditt forespurte partisjonsopplegg. Disse "
+"feilene mÃ¥ rettes opp fÃ¸r du fortsetter med installasjonen av %s\n"
 "\n"
 "%s"
 
@@ -1305,7 +1241,7 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
-"Følgende advarsler oppstod med ditt partisjoneringsopplegg.\n"
+"FÃ¸lgende advarsler oppstod med ditt partisjoneringsopplegg.\n"
 "\n"
 "%s\n"
 "\n"
@@ -1316,7 +1252,7 @@ msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"Disse eksisterende partisjonene er merket for formatering, som vil ødelegge "
+"Disse eksisterende partisjonene er merket for formatering, som vil Ã¸delegge "
 "alle data."
 
 #: ../partIntfHelpers.py:451
@@ -1324,8 +1260,8 @@ msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"Velg 'Ja' for å fortsette med formatering av disse partisjonene, eller 'Nei' "
-"for å tilbake og endre disse innstillingene."
+"Velg 'Ja' for Ã¥ fortsette med formatering av disse partisjonene, eller 'Nei' "
+"for Ã¥ tilbake og endre disse innstillingene."
 
 #: ../partIntfHelpers.py:457
 msgid "Format Warning"
@@ -1340,32 +1276,22 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:509
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr ""
-"Du er i ferd med å slette en RAID-enhet.\n"
-"\n"
-"Er du sikker?"
+msgstr "Du er i ferd med Ã¥ slette logisk volum Â«%sÂ»."
 
 #: ../partIntfHelpers.py:512
-#, fuzzy
 msgid "You are about to delete a RAID device."
-msgstr ""
-"Du er i ferd med å slette en RAID-enhet.\n"
-"\n"
-"Er du sikker?"
+msgstr "Du er i ferd med Ã¥ slette en RAID-enhet."
 
 #: ../partIntfHelpers.py:515
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr ""
-"Du er i ferd med å slette partisjonen /dev/%s.\n"
-"\n"
-"Er du sikker?"
+msgstr "Du er i ferd med Ã¥ slette partisjonen /dev/%s."
 
 #: ../partIntfHelpers.py:518
 msgid "The partition you selected will be deleted."
-msgstr ""
+msgstr "Partisjonen du valgte vil bli slettet."
 
 #: ../partIntfHelpers.py:528
 msgid "Confirm Reset"
@@ -1375,7 +1301,7 @@ msgstr "Bekreft nullstilling"
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
-"Er du sikker på at du vil nullstille partisjonstabellen til opprinnelig "
+"Er du sikker pÃ¥ at du vil nullstille partisjonstabellen til opprinnelig "
 "tilstand?"
 
 #: ../partitioning.py:83
@@ -1389,7 +1315,7 @@ msgid ""
 "with the installation process?"
 msgstr ""
 "Partisjoneringsalternativene du har valgt er allerede aktivert. Du vil ikke "
-"kunne gå tilbake til skjermen for redigering av disker. Vil du fortsette "
+"kunne gÃ¥ tilbake til skjermen for redigering av disker. Vil du fortsette "
 "installasjonsprosessen?"
 
 #: ../partitioning.py:114
@@ -1397,15 +1323,14 @@ msgid "Low Memory"
 msgstr "Lite minne"
 
 #: ../partitioning.py:115
-#, fuzzy
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
 msgstr ""
-"Siden du ikke har mye minne på denne maskinen, må vi benytte et swap-område "
-"med en gang. For å gjøre dette må vi skrive den nye partisjonstabellen til "
-"disken nå. Er dette ok?"
+"Siden du ikke har mye minne pÃ¥ denne maskinen, mÃ¥ vi benytte et swap-omrÃ¥de "
+"med en gang. For Ã¥ gjÃ¸re dette mÃ¥ vi skrive den nye partisjonstabellen til "
+"disken nÃ¥. Er dette ok?"
 
 #: ../partitions.py:737
 #, python-format
@@ -1413,7 +1338,7 @@ msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
-"Du har ikke definert en rot-partisjon (/). Dette må gjøres før "
+"Du har ikke definert en rot-partisjon (/). Dette mÃ¥ gjÃ¸res fÃ¸r "
 "installasjonen av %s kan fortsette."
 
 #: ../partitions.py:742
@@ -1423,12 +1348,12 @@ msgid ""
 "install %s."
 msgstr ""
 "Din rot-partisjon er mindre enn 250 megabyte og dette er vanligvis for lite "
-"for å installere %s."
+"for Ã¥ installere %s."
 
 #: ../partitions.py:749
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr "Du må lage en /boot/efi-partisjon av type FAT og med størrelse 50 MB."
+msgstr "Du mÃ¥ lage en /boot/efi-partisjon av type FAT og med stÃ¸rrelse 50 MB."
 
 #: ../partitions.py:757
 #, python-format
@@ -1441,12 +1366,11 @@ msgstr ""
 
 #: ../partitions.py:784 ../partRequests.py:617
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Oppstartbare partisjoner kan kun plasseres på RAID1-enheter."
+msgstr "Oppstartbare partisjoner kan kun plasseres pÃ¥ RAID1-enheter."
 
 #: ../partitions.py:790
-#, fuzzy
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "Oppstartbare partisjoner kan kun plasseres på RAID1-enheter."
+msgstr "Oppstartbare partisjoner kan ikke ligge pÃ¥ et logisk volum."
 
 #: ../partitions.py:794
 msgid ""
@@ -1454,7 +1378,7 @@ msgid ""
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 "Du har ikke spesifisert en swap-partisjon. Selv om det ikke er et strengt "
-"krav om dette i alle tilfeller, så vil det øke ytelsen for de fleste "
+"krav om dette i alle tilfeller, sÃ¥ vil det Ã¸ke ytelsen for de fleste "
 "installasjoner."
 
 #: ../partitions.py:801
@@ -1463,7 +1387,7 @@ msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"Du har spesifisert mer en 32 swap-enheter. Kjernen for %s støtter kun 32 "
+"Du har spesifisert mer en 32 swap-enheter. Kjernen for %s stÃ¸tter kun 32 "
 "swap-enheter."
 
 #: ../partitions.py:812
@@ -1472,8 +1396,8 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"Du har allokert mindre swap-område (%dM) enn tilgjengelig RAM (%dM) i ditt "
-"system. Dette kan ha negativ innvirkning på ytelsen."
+"Du har allokert mindre swap-omrÃ¥de (%dM) enn tilgjengelig RAM (%dM) i ditt "
+"system. Dette kan ha negativ innvirkning pÃ¥ ytelsen."
 
 #: ../partitions.py:1013
 msgid "the partition in use by the installer."
@@ -1484,38 +1408,31 @@ msgid "a partition which is a member of a RAID array."
 msgstr "en partisjon som er medlem av et RAID-array."
 
 #: ../partitions.py:1019
-#, fuzzy
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr "en partisjon som er medlem av et RAID-array."
+msgstr "en partisjon som er medlem av en LVM-volumgruppe."
 
 #: ../partRequests.py:214
-#, fuzzy
 msgid ""
 "This mount point is invalid.  This directory must be on the / file system."
-msgstr ""
-"Monteringspunktet er ugyldig. Denne katalogen må være på \"/\" filsystemet."
+msgstr "Monteringspunktet er ugyldig. Denne katalogen mÃ¥ vÃ¦re pÃ¥ filsystemet /."
 
 #: ../partRequests.py:219
-#, fuzzy
 msgid "This mount point must be on a linux file system."
-msgstr "Dette monteringspunktet må være på et linux-filsystem."
+msgstr "Dette monteringspunktet mÃ¥ vÃ¦re pÃ¥ et linux-filsystem."
 
 #: ../partRequests.py:234
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"Monteringspunktet %s er allerede i bruk. Velg et annet monteringspunkt."
+msgstr "Monteringspunktet Â«%sÂ» er allerede i bruk. Velg et annet monteringspunkt."
 
 #: ../partRequests.py:248
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"Størrelsen på %s-partisjonen (størrelse = %s MB) overgår maksimal størrelse "
-"på %s MB."
+msgstr "StÃ¸rrelsen pÃ¥ %s-partisjonen (%10.2f MB) overstiger maksimal stÃ¸rrelse pÃ¥ %10.2f MB."
 
 #: ../partRequests.py:436
 #, python-format
@@ -1523,30 +1440,30 @@ msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
-"Størrelsen på forespurt partisjon (størrelse = %s MB) overgår maksimal "
-"størrelse på %s MB. "
+"StÃ¸rrelsen pÃ¥ forespurt partisjon (stÃ¸rrelse = %s MB) overgÃ¥r maksimal "
+"stÃ¸rrelse pÃ¥ %s MB. "
 
 #: ../partRequests.py:441
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "Størrelsen på forespurt partisjon er negativ! (størrelse = %s MB)"
+msgstr "StÃ¸rrelsen pÃ¥ forespurt partisjon er negativ! (stÃ¸rrelse = %s MB)"
 
 #: ../partRequests.py:445
 msgid "Partitions can't start below the first cylinder."
-msgstr "Partisjoner kan ikke starte under første sylinder."
+msgstr "Partisjoner kan ikke starte under fÃ¸rste sylinder."
 
 #: ../partRequests.py:448
 msgid "Partitions can't end on a negative cylinder."
-msgstr "Partisjoner kan ikke slutte på en negativ sylinder."
+msgstr "Partisjoner kan ikke slutte pÃ¥ en negativ sylinder."
 
 #: ../partRequests.py:609
 msgid "No members in RAID request, or not RAID level specified."
-msgstr "Ingen medlemmer i RAID-forespørsel, eller ingen RAID-nivå oppgitt."
+msgstr "Ingen medlemmer i RAID-forespÃ¸rsel, eller ingen RAID-nivÃ¥ oppgitt."
 
 #: ../partRequests.py:621
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr "En RAID-enhet av type %s må ha minst %s medlemmer."
+msgstr "En RAID-enhet av type %s mÃ¥ ha minst %s medlemmer."
 
 #: ../partRequests.py:627
 #, python-format
@@ -1554,12 +1471,12 @@ msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
-"Denne RAID-enheten kan ha maksimalt %s reservedisker. For å ha flere "
-"reservedisker må du legge til medlemmer på RAID-enheten."
+"Denne RAID-enheten kan ha maksimalt %s reservedisker. For Ã¥ ha flere "
+"reservedisker mÃ¥ du legge til medlemmer pÃ¥ RAID-enheten."
 
 #: ../rescue.py:70 ../rescue.py:113 ../rescue.py:208
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr "Når ferdig, avslutt skallet for å starte systemet på nytt."
+msgstr "NÃ¥r ferdig, avslutt skallet for Ã¥ starte systemet pÃ¥ nytt."
 
 #: ../rescue.py:97 ../rescue.py:161 ../rescue.py:169 ../rescue.py:187
 msgid "Rescue"
@@ -1578,14 +1495,14 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"Redningsmiljøet vil nå forsøke å finne din Red Hat Linux installasjon og "
-"montere den under katalogen /mnt/sysimage. Du kan da utføre de nødvendige "
-"endringer på systemet. Hvis du vil fortsette med denne oppgaven velg "
-"'Fortsett'. Du kan også velge å montere filsystemet uten skrivemulighet (kun "
+"RedningsmiljÃ¸et vil nÃ¥ forsÃ¸ke Ã¥ finne din Red Hat Linux installasjon og "
+"montere den under katalogen /mnt/sysimage. Du kan da utfÃ¸re de nÃ¸dvendige "
+"endringer pÃ¥ systemet. Hvis du vil fortsette med denne oppgaven velg "
+"'Fortsett'. Du kan ogsÃ¥ velge Ã¥ montere filsystemet uten skrivemulighet (kun "
 "lesbart).\n"
 "\n"
-"Hvis denne prosessen feiler av noen grunn kan du velge 'Hopp over' så vil "
-"dette steget bli hoppet over og du vil gå direkte til et kommandoskall.\n"
+"Hvis denne prosessen feiler av noen grunn kan du velge 'Hopp over' sÃ¥ vil "
+"dette steget bli hoppet over og du vil gÃ¥ direkte til et kommandoskall.\n"
 "\n"
 
 #: ../rescue.py:108 ../iw/partition_gui.py:546 ../loader/loader.c:1222
@@ -1623,8 +1540,8 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 "Ditt system har filsystemer som ikke er tatt ned kontrollert og som du "
-"valgte ikke å montere. Press <Enter> for å starte et skall der du kan kjøre "
-"filsystemsjekk og montere dine partisjoner. Systemet vil starte på nytt når "
+"valgte ikke Ã¥ montere. Press <Enter> for Ã¥ starte et skall der du kan kjÃ¸re "
+"filsystemsjekk og montere dine partisjoner. Systemet vil starte pÃ¥ nytt nÃ¥r "
 "du avslutter skallet."
 
 #: ../rescue.py:170
@@ -1641,12 +1558,12 @@ msgid ""
 msgstr ""
 "Ditt system ble montert under /mnt/sysimage.\n"
 "\n"
-"Trykk <Enter> for å gå til skallet. Hvis du vil gjøre ditt system til rot-"
-"miljøet, kjør kommandoen:\n"
+"Trykk <Enter> for Ã¥ gÃ¥ til skallet. Hvis du vil gjÃ¸re ditt system til rot-"
+"miljÃ¸et, kjÃ¸r kommandoen:\n"
 "\n"
 "chroot /mnt/sysimage\n"
 "\n"
-"Systemet vil starte på nytt når du avslutter skallet."
+"Systemet vil starte pÃ¥ nytt nÃ¥r du avslutter skallet."
 
 #: ../rescue.py:188
 #, fuzzy, python-format
@@ -1657,10 +1574,10 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"En feil oppsto under forsøk på å montere deler av, eller hele systemet. "
-"Deler kan være montert under /mnt/sysimage.\n"
+"En feil oppsto under forsÃ¸k pÃ¥ Ã¥ montere deler av, eller hele systemet. "
+"Deler kan vÃ¦re montert under /mnt/sysimage.\n"
 "\n"
-"Trykk <Enter> for å gå til et skall. Systemet vil starte på nytt når du "
+"Trykk <Enter> for Ã¥ gÃ¥ til et skall. Systemet vil starte pÃ¥ nytt nÃ¥r du "
 "avslutter skallet."
 
 #: ../rescue.py:194
@@ -1672,13 +1589,13 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"Du har ingen Linux-partisjoner. Trykk <Enter> for å gå til et skall. "
-"Systemet vil starte på nytt når du avslutter skallet."
+"Du har ingen Linux-partisjoner. Trykk <Enter> for Ã¥ gÃ¥ til et skall. "
+"Systemet vil starte pÃ¥ nytt nÃ¥r du avslutter skallet."
 
 #: ../rescue.py:205
-#, fuzzy, python-format
+#, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr "Systemet er montert under katalogen \"/mnt/sysimage\"."
+msgstr "Systemet er montert under katalogen %s."
 
 #: ../text.py:192
 msgid "Help not available"
@@ -1726,11 +1643,11 @@ msgstr "Avbrutt"
 
 #: ../text.py:436
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "Kan ikke gå tilbake til forrige steg herfra. Du må forsøke igjen."
+msgstr "Kan ikke gÃ¥ tilbake til forrige steg herfra. Du mÃ¥ forsÃ¸ke igjen."
 
 #: ../upgrade.py:46
 msgid "Searching"
-msgstr "Søker"
+msgstr "SÃ¸ker"
 
 #: ../upgrade.py:47
 #, python-format
@@ -1738,9 +1655,8 @@ msgid "Searching for %s installations..."
 msgstr "Leter etter installert %s..."
 
 #: ../upgrade.py:88 ../upgrade.py:96
-#, fuzzy
 msgid "Dirty File Systems"
-msgstr "Filsystemer merket \"dirty\" (må gjennom filsystemsjekk)"
+msgstr "Skitne filsystemer"
 
 #: ../upgrade.py:89
 #, fuzzy, python-format
@@ -1751,8 +1667,8 @@ msgid ""
 "%s"
 msgstr ""
 "Ett eller flere av filsystemene i ditt Linux-system ble ikke riktig "
-"avmontert. Start opp din Linux-installasjon, la filsystemene gå gjennom "
-"sjekk, og steng ned på riktig måte før du prøver å oppgradere."
+"avmontert. Start opp din Linux-installasjon, la filsystemene gÃ¥ gjennom "
+"sjekk, og steng ned pÃ¥ riktig mÃ¥te fÃ¸r du prÃ¸ver Ã¥ oppgradere."
 
 #: ../upgrade.py:97
 #, fuzzy, python-format
@@ -1774,8 +1690,8 @@ msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Ett eller flere av filsystemene som er listet i /etc/fstab på ditt Linux-"
-"system kan ikke monteres. Rett opp dette problemet og forsøk å oppgradere "
+"Ett eller flere av filsystemene som er listet i /etc/fstab pÃ¥ ditt Linux-"
+"system kan ikke monteres. Rett opp dette problemet og forsÃ¸k Ã¥ oppgradere "
 "igjen."
 
 #: ../upgrade.py:233
@@ -1785,9 +1701,9 @@ msgid ""
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
-"Ett eller flere av filsystemene som er listet i /etc/fstab på ditt Linux-"
-"system er inkonsistent kan ikke monteres. Rett opp dette problemet og forsøk "
-"å oppgradere igjen."
+"Ett eller flere av filsystemene som er listet i /etc/fstab pÃ¥ ditt Linux-"
+"system er inkonsistent kan ikke monteres. Rett opp dette problemet og forsÃ¸k "
+"Ã¥ oppgradere igjen."
 
 #: ../upgrade.py:249
 msgid ""
@@ -1796,9 +1712,9 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
-"Følgende filer er absolutte symbolske lenker, noe som ikke støttes under "
-"oppgradering. Du må endre dem til relative symbolske lenker og starte "
-"oppgraderingen på nytt.\n"
+"FÃ¸lgende filer er absolutte symbolske lenker, noe som ikke stÃ¸ttes under "
+"oppgradering. Du mÃ¥ endre dem til relative symbolske lenker og starte "
+"oppgraderingen pÃ¥ nytt.\n"
 "\n"
 
 #: ../upgrade.py:260
@@ -1820,7 +1736,7 @@ msgstr "Gjenoppbygging av RPM-databasen feilet. Ikke mer diskplass?"
 
 #: ../upgrade.py:331
 msgid "An error occurred when finding the packages to upgrade."
-msgstr "En feil oppsto under søk etter pakker som skal oppgraderes."
+msgstr "En feil oppsto under sÃ¸k etter pakker som skal oppgraderes."
 
 #: ../upgrade.py:386
 msgid ""
@@ -1830,7 +1746,7 @@ msgid ""
 "or may cause other system instability.  Do you wish to continue the upgrade "
 "process?"
 msgstr ""
-"Dette systemet ser ut til å ha tredjeparts-pakker installert som overlapper "
+"Dette systemet ser ut til Ã¥ ha tredjeparts-pakker installert som overlapper "
 "med pakker inkludert i Red Hat Linux. Da disse pakkene overlapper er det "
 "mulig at du vil oppleve at disse ikke fungerer eller at systemet blir "
 "ustabilt hvis du fortsetter med oppgraderingen. Vil du fortsette med "
@@ -1859,9 +1775,9 @@ msgid ""
 "information. You may also use text mode installation which does not require "
 "a mouse."
 msgstr ""
-"Musen din ble ikke funnet automatisk. For å fortsette i grafisk "
+"Musen din ble ikke funnet automatisk. For Ã¥ fortsette i grafisk "
 "installasjonsmodus, fortsett til neste skjerm og oppgi informasjon om din "
-"mus. Du kan også bruke tekstmodus-installasjon som ikke er avhengig av mus."
+"mus. Du kan ogsÃ¥ bruke tekstmodus-installasjon som ikke er avhengig av mus."
 
 #: ../xserver.py:53 ../xserver.py:54
 msgid "Use text mode"
@@ -1869,16 +1785,16 @@ msgstr "Bruk tekstmodus"
 
 #: ../xserver.py:120
 msgid "Attempting to start native X server"
-msgstr "Forsøker å starte \"native\" X-tjener"
+msgstr "ForsÃ¸ker Ã¥ starte \"native\" X-tjener"
 
 #: ../xserver.py:127
 #, fuzzy
 msgid "Attempting to start VESA driver X server"
-msgstr "Forsøker å starte \"native\" X-tjener"
+msgstr "ForsÃ¸ker Ã¥ starte \"native\" X-tjener"
 
 #: ../xserver.py:140
 msgid "Attempting to start VGA16 X server"
-msgstr "Forsøker å starte VGA16 X-tjener"
+msgstr "ForsÃ¸ker Ã¥ starte VGA16 X-tjener"
 
 #: ../xserver.py:193
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
@@ -1913,9 +1829,8 @@ msgid "Root account can not be added here."
 msgstr "Root-kontoen kan ikke legges til her."
 
 #: ../iw/account_gui.py:95
-#, fuzzy
 msgid "System accounts can not be added here."
-msgstr "Root-kontoen kan ikke legges til her."
+msgstr "Systemkontoer kan ikke legges til her."
 
 #: ../iw/account_gui.py:97
 msgid "Please enter user password."
@@ -1938,43 +1853,36 @@ msgid "Edit User"
 msgstr "Rediger bruker"
 
 #: ../iw/account_gui.py:211
-#, fuzzy
 msgid "Add a User Account"
-msgstr "Oppsett av brukerkonto"
+msgstr "Legg til en brukerkonto"
 
 #: ../iw/account_gui.py:228
-#, fuzzy
 msgid "Enter a user _name:"
-msgstr "Vennligst oppgi brukernavn"
+msgstr "Oppgi et bruker_navn:"
 
 #: ../iw/account_gui.py:236
-#, fuzzy
 msgid "Enter a user _password:"
-msgstr "Vennligst skriv inn brukers passord."
+msgstr "Oppgi brukers _passord:"
 
 #: ../iw/account_gui.py:245
-#, fuzzy
 msgid "Pass_word (confirm):"
-msgstr "Passord (bekreft):"
+msgstr "Pass_ord (bekreft):"
 
 #: ../iw/account_gui.py:254
-#, fuzzy
 msgid "_Full Name:"
-msgstr "Fullt navn:"
+msgstr "_Fullt navn:"
 
 #: ../iw/account_gui.py:262
 msgid "Please enter user name"
 msgstr "Vennligst oppgi brukernavn"
 
 #: ../iw/account_gui.py:345
-#, fuzzy
 msgid "Enter the root (administrator) password for the system."
 msgstr "Oppgi passord for root-bruker (administrator) for dette systemet."
 
 #: ../iw/account_gui.py:365
-#, fuzzy
 msgid "_Confirm: "
-msgstr "Bekreft: "
+msgstr "_Bekreft: "
 
 #: ../iw/account_gui.py:407
 msgid "Account Name"
@@ -1987,9 +1895,8 @@ msgstr "Fullt navn"
 
 #: ../iw/account_gui.py:420 ../iw/lvm_dialog_gui.py:1014
 #: ../iw/osbootwidget.py:93
-#, fuzzy
 msgid "_Add"
-msgstr "Legg til"
+msgstr "_Legg til"
 
 #: ../iw/account_gui.py:422 ../iw/lvm_dialog_gui.py:1017
 #: ../iw/network_gui.py:456 ../iw/osbootwidget.py:97
@@ -2008,89 +1915,73 @@ msgid "Authentication Configuration"
 msgstr "Konfigurasjon av autentisering"
 
 #: ../iw/auth_gui.py:98
-#, fuzzy
 msgid "Enable _MD5 passwords"
-msgstr "Bruk MD5-passord"
+msgstr "Bruk _MD5-passord"
 
 #: ../iw/auth_gui.py:99
-#, fuzzy
 msgid "Enable shado_w passwords"
-msgstr "Bruk skyggepassord"
+msgstr "Bruk sk_yggepassord"
 
 #: ../iw/auth_gui.py:102
-#, fuzzy
 msgid "Enable N_IS"
-msgstr "Bruk NIS"
+msgstr "Bruk N_IS"
 
 #: ../iw/auth_gui.py:103
 #, fuzzy
 msgid "Use _broadcast to find NIS server"
-msgstr "Bruk kringkasting for å finne NIS-tjener"
+msgstr "Bruk kringkasting for Ã¥ finne NIS-tjener"
 
 #: ../iw/auth_gui.py:115
-#, fuzzy
 msgid "NIS _Domain: "
-msgstr "NIS-domene: "
+msgstr "NIS-_domene: "
 
 #: ../iw/auth_gui.py:118
-#, fuzzy
 msgid "NIS _Server: "
-msgstr "NIS-tjener: "
+msgstr "NI_S-tjener: "
 
 #: ../iw/auth_gui.py:142
-#, fuzzy
 msgid "Enable _LDAP"
-msgstr "Bruk LDAP"
+msgstr "Bruk _LDAP"
 
 #: ../iw/auth_gui.py:145
-#, fuzzy
 msgid "Use _TLS lookups"
-msgstr "Bruk TLS-oppslag"
+msgstr "Bruk _TLS-oppslag"
 
 #: ../iw/auth_gui.py:146
-#, fuzzy
 msgid "LDAP _Server:"
-msgstr "LDAP-tjener:"
+msgstr "LDAP-_tjener:"
 
 #: ../iw/auth_gui.py:149
-#, fuzzy
 msgid "LDAP _Base DN:"
-msgstr "LDAP basis DN:"
+msgstr "LDAP _basis DN:"
 
 #: ../iw/auth_gui.py:177
-#, fuzzy
 msgid "Enable _Kerberos"
-msgstr "Bruk Kerberos"
+msgstr "Bruk _Kerberos"
 
 #: ../iw/auth_gui.py:181
-#, fuzzy
 msgid "R_ealm:"
-msgstr "Område:"
+msgstr "_OmrÃ¥de:"
 
 #: ../iw/auth_gui.py:184
-#, fuzzy
 msgid "K_DC:"
-msgstr "KDC:"
+msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
-#, fuzzy
 msgid "_Admin Server:"
-msgstr "Admin-tjener:"
+msgstr "_Admin-tjener:"
 
 #: ../iw/auth_gui.py:216
-#, fuzzy
 msgid "Enable SMB _Authentication"
-msgstr "Aktiver SMB-autentisering"
+msgstr "_Aktiver SMB-autentisering"
 
 #: ../iw/auth_gui.py:219
-#, fuzzy
 msgid "SMB _Server:"
-msgstr "SMB-tjener:"
+msgstr "SMB-_tjener:"
 
 #: ../iw/auth_gui.py:222
-#, fuzzy
 msgid "SMB Work_group:"
-msgstr "SMB-arbeidsgruppe:"
+msgstr "SMB-arbeids_gruppe:"
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
@@ -2115,42 +2006,35 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
-"Et passord for oppstartslasteren hindrer brukere i å gi tilfeldige flagg til "
-"kjernen. For høyest mulig sikkerhet anbefaler vi å sette et passord, men "
-"dette er ikke nødvendig for brukere med mindre krav til sikkerhet."
+"Et passord for oppstartslasteren hindrer brukere i Ã¥ gi tilfeldige flagg til "
+"kjernen. For hÃ¸yest mulig sikkerhet anbefaler vi Ã¥ sette et passord, men "
+"dette er ikke nÃ¸dvendig for brukere med mindre krav til sikkerhet."
 
 #: ../iw/blpasswidget.py:42
-#, fuzzy
 msgid "_Use a boot loader password"
-msgstr "Passord for oppstartslaster:"
+msgstr "Br_uk passord for oppstartslaster"
 
 #: ../iw/blpasswidget.py:76
-#, fuzzy
 msgid "Change _password"
-msgstr "Vennligst oppgi passord"
+msgstr "Endre _passord"
 
 #: ../iw/blpasswidget.py:99
-#, fuzzy
 msgid "Enter Boot Loader Password"
-msgstr "Passord for oppstartslaster:"
+msgstr "Oppgi passord for oppstartslaster"
 
 #: ../iw/blpasswidget.py:105
-#, fuzzy
 msgid "Enter a boot loader password and then confirm it."
-msgstr "Passordet for oppstartslasteren er for kort"
+msgstr "Oppgi passord for oppstartslaster og bekreft det."
 
 #: ../iw/blpasswidget.py:112
-#, fuzzy
 msgid "_Password:"
-msgstr "Passord:"
+msgstr "_Passord:"
 
 #: ../iw/blpasswidget.py:118
-#, fuzzy
 msgid "Con_firm:"
-msgstr "Bekreft:"
+msgstr "Be_kreft:"
 
 #: ../iw/blpasswidget.py:139
-#, fuzzy
 msgid "Passwords don't match"
 msgstr "Passordene er ikke like"
 
@@ -2190,14 +2074,12 @@ msgid "_Yes, I would like to create a boot disk"
 msgstr ""
 
 #: ../iw/bootdisk_gui.py:73
-#, fuzzy
 msgid "No, I _do not want to create a boot disk"
-msgstr "Jeg ønsker ikke å lage en swapfil."
+msgstr "Nei, _jeg Ã¸nsker ikke Ã¥ lage en oppstartsdiskett"
 
 #: ../iw/bootloader_advanced_gui.py:27
-#, fuzzy
 msgid "Advanced Boot Loader Configuration"
-msgstr "Konfigurasjon av oppstartslaster"
+msgstr "Avansert konfigurasjon av oppstartslaster"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:135
 msgid ""
@@ -2207,9 +2089,9 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Tvungen bruk av LBA32 for din oppstartslaster uten at BIOS støtter dette kan "
-"forårsake at maskinen ikke kan starte. Vi anbefaler på det sterkeste at du "
-"oppretter en oppstartsdiskett når du blir spurt senere i installasjonen.\n"
+"Tvungen bruk av LBA32 for din oppstartslaster uten at BIOS stÃ¸tter dette kan "
+"forÃ¥rsake at maskinen ikke kan starte. Vi anbefaler pÃ¥ det sterkeste at du "
+"oppretter en oppstartsdiskett nÃ¥r du blir spurt senere i installasjonen.\n"
 "\n"
 "Vil du fortsette med tvungen bruk av LBA32-modus?"
 
@@ -2220,7 +2102,7 @@ msgstr ""
 #: ../iw/bootloader_advanced_gui.py:72
 #, fuzzy
 msgid "_Force LBA32 (not normally required)"
-msgstr "Tvungen bruk av LBA32 (ikke vanligvis nødvendig)"
+msgstr "Tvungen bruk av LBA32 (ikke vanligvis nÃ¸dvendig)"
 
 #: ../iw/bootloader_advanced_gui.py:76
 msgid ""
@@ -2229,9 +2111,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:82
-#, fuzzy
 msgid "_General kernel parameters"
-msgstr "Parametere for kjerne"
+msgstr "_Generelle parametere for kjernen"
 
 #: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:50
 #: ../textw/bootloader_text.py:118 ../textw/bootloader_text.py:175
@@ -2240,9 +2121,8 @@ msgid "Boot Loader Configuration"
 msgstr "Konfigurasjon av oppstartslaster"
 
 #: ../iw/bootloader_main_gui.py:71
-#, fuzzy
 msgid "Change Boot Loader"
-msgstr "Ingen oppstartslaster"
+msgstr "Bytt oppstartslaster"
 
 #: ../iw/bootloader_main_gui.py:89
 msgid ""
@@ -2253,9 +2133,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/bootloader_main_gui.py:101
-#, fuzzy
 msgid "C_ontinue with no boot loader"
-msgstr "Ikke installer oppstartslaster"
+msgstr "F_ortsett uten oppstartslaster"
 
 #: ../iw/bootloader_main_gui.py:126
 msgid ""
@@ -2264,48 +2143,41 @@ msgid ""
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
 "Vennligst velg oppstartslaster som datamaskinen skal bruke. GRUB er forvalgt "
-"oppstartslaster. Hvis du ikke vil overskrive din nåværende oppstartslaster, "
+"oppstartslaster. Hvis du ikke vil overskrive din nÃ¥vÃ¦rende oppstartslaster, "
 "velger du \"Ikke installer en oppstartslaster.\""
 
 #: ../iw/bootloader_main_gui.py:134
-#, fuzzy
 msgid "Use _GRUB as the boot loader"
-msgstr "Bruk GRUB som oppstartslaster"
+msgstr "Bruk _GRUB som oppstartslaster"
 
 #: ../iw/bootloader_main_gui.py:137
-#, fuzzy
 msgid "Use _LILO as the boot loader"
-msgstr "Bruk LILO som oppstartslaster"
+msgstr "Bruk _LILO som oppstartslaster"
 
 #: ../iw/bootloader_main_gui.py:138
-#, fuzzy
 msgid "_Do not install a boot loader"
-msgstr "Ikke installer oppstartslaster"
+msgstr "_Ikke installer oppstartslaster"
 
 #: ../iw/bootloader_main_gui.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr ""
-"Installeringsprogrammet har detektert at oppstartslasteren %s er installert "
-"på %s."
+msgstr "Oppstartslasteren %s vil bli installert pÃ¥ /dev%s."
 
 #: ../iw/bootloader_main_gui.py:165
 msgid "No boot loader will be installed."
-msgstr ""
+msgstr "Ingen oppstartslaster vil bli installert."
 
 #: ../iw/bootloader_main_gui.py:217
-#, fuzzy
 msgid "_Change boot loader"
-msgstr "Installerer blader..."
+msgstr "_Endre oppstartslaster"
 
 #: ../iw/bootloader_main_gui.py:245
-#, fuzzy
 msgid "Configure advanced boot loader _options"
-msgstr "Konfigurasjon av oppstartslaster"
+msgstr "Konfigurasjon av avanserte alternativer for _oppstartslaster"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
-msgstr "Installer oppstartslaster på:"
+msgstr "Installer oppstartslaster pÃ¥:"
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
@@ -2335,12 +2207,12 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:55
 msgid "About to Install"
-msgstr "I ferd med å installere"
+msgstr "I ferd med Ã¥ installere"
 
 #: ../iw/confirm_gui.py:60
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Klikk neste for å starte installasjonen av %s."
+msgstr "Klikk neste for Ã¥ starte installasjonen av %s."
 
 #: ../iw/confirm_gui.py:61
 #, python-format
@@ -2354,12 +2226,12 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:68
 msgid "About to Upgrade"
-msgstr "I ferd med å oppgradere"
+msgstr "I ferd med Ã¥ oppgradere"
 
 #: ../iw/confirm_gui.py:73
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Klikk neste for å starte oppgradering av %s."
+msgstr "Klikk neste for Ã¥ starte oppgradering av %s."
 
 #: ../iw/confirm_gui.py:74
 #, python-format
@@ -2380,7 +2252,7 @@ msgid ""
 "\n"
 msgstr ""
 "Hvis du laget en oppstartsdiskett for oppstart av ditt %s-system, sett den i "
-"diskettstasjonen før du trykker <Enter> for omstart.\n"
+"diskettstasjonen fÃ¸r du trykker <Enter> for omstart.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:55
@@ -2409,14 +2281,14 @@ msgstr ""
 
 #: ../iw/dependencies_gui.py:21
 msgid "Unresolved Dependencies"
-msgstr "Uløste avhengigheter"
+msgstr "UlÃ¸ste avhengigheter"
 
 #: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:254
 #: ../iw/package_gui.py:493 ../textw/packages_text.py:24
 #: ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
-msgstr "Total størrelse for installasjon: %s"
+msgstr "Total stÃ¸rrelse for installasjon: %s"
 
 #: ../iw/dependencies_gui.py:74 ../iw/progress_gui.py:208
 #: ../textw/packages_text.py:301
@@ -2428,24 +2300,20 @@ msgid "Requirement"
 msgstr "Avhengighet"
 
 #: ../iw/dependencies_gui.py:90
-#, fuzzy
 msgid "_Install packages to satisfy dependencies"
-msgstr "Installer pakker for å tilfredsstille avhengigheter"
+msgstr "_Installer pakker for Ã¥ tilfredsstille avhengigheter"
 
 #: ../iw/dependencies_gui.py:93
-#, fuzzy
 msgid "_Do not install packages that have dependencies"
-msgstr "Ikke installer pakker som har avhengigheter"
+msgstr "I_kke installer pakker som har avhengigheter"
 
 #: ../iw/dependencies_gui.py:97
-#, fuzzy
 msgid "I_gnore package dependencies"
-msgstr "Ignorer pakkeavhengigheter"
+msgstr "I_gnorer pakkeavhengigheter"
 
 #: ../iw/desktop_choice_gui.py:26 ../textw/desktop_choice_text.py:25
-#, fuzzy
 msgid "Workstation Defaults"
-msgstr "Arbeidsstasjon"
+msgstr "Forvalg for arbeidsstasjon"
 
 #: ../iw/desktop_choice_gui.py:59
 msgid "_Accept the current package list"
@@ -2457,14 +2325,13 @@ msgid "_Customize the set of packages to be installed"
 msgstr "Velg pakker som skal oppgraderes"
 
 #: ../iw/driveorderwidget.py:44
-#, fuzzy
 msgid "Drive"
-msgstr "Stasjon:"
+msgstr "Stasjon"
 
 #: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:209
 #: ../iw/progress_gui.py:272 ../textw/partition_text.py:1096
 msgid "Size"
-msgstr "Størrelse"
+msgstr "StÃ¸rrelse"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Model"
@@ -2489,7 +2356,7 @@ msgstr "Vennligst velg enheten som inneholder rotfilsystemet: "
 #: ../iw/examine_gui.py:89 ../textw/upgrade_text.py:226
 #, python-format
 msgid "Upgrading the %s installation on partition /dev/%s"
-msgstr "Oppgraderer %s-systemet på partisjonen /dev/%s"
+msgstr "Oppgraderer %s-systemet pÃ¥ partisjonen /dev/%s"
 
 #: ../iw/examine_gui.py:95
 #, fuzzy
@@ -2498,22 +2365,19 @@ msgstr "Velg pakker som skal oppgraderes"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
-msgstr ""
+msgstr "fdasd"
 
 #: ../iw/fdasd_gui.py:28
-#, fuzzy
 msgid "Select drive to run fdasd on"
-msgstr "Velg disk som fdisk skal kjøres på"
+msgstr "Velg disk som fdasd skal kjÃ¸res pÃ¥"
 
 #: ../iw/fdisk_gui.py:26
-#, fuzzy
 msgid "Partitioning with fdisk"
-msgstr "Partisjonering"
+msgstr "Partisjonerer med fdisk"
 
 #: ../iw/fdisk_gui.py:100
-#, fuzzy
 msgid "Select a drive to partition with fdisk:"
-msgstr "Velg disk som fdisk skal kjøres på"
+msgstr "Velg disk som skal partisjoneres med fdisk:"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
 msgid "Firewall Configuration"
@@ -2529,62 +2393,52 @@ msgid ""
 msgstr ""
 
 #: ../iw/firewall_gui.py:128
-#, fuzzy
 msgid "Warning: Bad Token"
-msgstr "Advarsel: "
+msgstr "Advarsel: ugyldig tegn"
 
 #: ../iw/firewall_gui.py:180
 msgid "Select a security level for the system:  "
-msgstr ""
+msgstr "Velg sikkerhetsnivÃ¥ for systemet: "
 
 #: ../iw/firewall_gui.py:189
-#, fuzzy
 msgid "Hi_gh"
-msgstr "Høyt"
+msgstr "H_Ã¸yt"
 
 #: ../iw/firewall_gui.py:190
-#, fuzzy
 msgid "_Medium"
-msgstr "Middels"
+msgstr "_Middels"
 
 #: ../iw/firewall_gui.py:191
-#, fuzzy
 msgid "N_o firewall"
-msgstr "Ingen brannvegg"
+msgstr "I_ngen brannvegg"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Use _default firewall rules"
-msgstr "Bruk standard regelsett for brannvegg"
+msgstr "Bruk _forvalgt regelsett for brannvegg"
 
 #: ../iw/firewall_gui.py:208
-#, fuzzy
 msgid "_Customize"
-msgstr "Tilpass"
+msgstr "_Tilpass"
 
 #: ../iw/firewall_gui.py:221
-#, fuzzy
 msgid "_Trusted devices:"
-msgstr "Enheter vi stoler på:"
+msgstr "Enhe_ter vi stoler pÃ¥:"
 
 #: ../iw/firewall_gui.py:246
-#, fuzzy
 msgid "_Allow incoming:"
-msgstr "Tillat innkommende:"
+msgstr "Till_at innkommende:"
 
 #: ../iw/firewall_gui.py:270
-#, fuzzy
 msgid "Other _ports:"
-msgstr "Andre porter:"
+msgstr "Andre _porter:"
 
 #: ../iw/installpath_gui.py:36 ../textw/installpath_text.py:42
 msgid "Installation Type"
 msgstr "Installasjonstype"
 
 #: ../iw/ipwidget.py:104
-#, fuzzy
 msgid "IP Address is missing"
-msgstr "IP-adresse"
+msgstr "IP-adresse mangler"
 
 #: ../iw/ipwidget.py:109
 msgid "IP Addresses must contain numbers between 1 and 255"
@@ -2596,26 +2450,24 @@ msgstr ""
 
 #: ../iw/language_gui.py:59 ../textw/language_text.py:40 ../loader/lang.c:306
 msgid "What language would you like to use during the installation process?"
-msgstr "Hvilket språk ønsker du å bruke under installeringen?"
+msgstr "Hvilket sprÃ¥k Ã¸nsker du Ã¥ bruke under installeringen?"
 
 #: ../iw/language_support_gui.py:22
 msgid "Additional Language Support"
-msgstr "Støtte for flere språk"
+msgstr "StÃ¸tte for flere sprÃ¥k"
 
 #: ../iw/language_support_gui.py:147
-#, fuzzy
 msgid "Select the _default language for the system:   "
-msgstr "Velg standard språk for dette systemet:   "
+msgstr "Sett forvalgt sprÃ¥k for dette systemet:   "
 
 #: ../iw/language_support_gui.py:157
 #, fuzzy
 msgid "Select _additional languages to install on the system:"
-msgstr "Velg tilleggsspråk du ønsker å bruke på dette systemet:"
+msgstr "Velg tilleggssprÃ¥k du Ã¸nsker Ã¥ bruke pÃ¥ dette systemet:"
 
 #: ../iw/language_support_gui.py:206
-#, fuzzy
 msgid "_Select All"
-msgstr "Velg alle"
+msgstr "_Velg alle"
 
 #: ../iw/language_support_gui.py:212
 #, fuzzy
@@ -2656,9 +2508,8 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:124 ../iw/lvm_dialog_gui.py:167
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:182
-#, fuzzy
 msgid "C_ontinue"
-msgstr "Fortsett"
+msgstr "F_ortsett"
 
 #: ../iw/lvm_dialog_gui.py:151
 #, python-format
@@ -2702,19 +2553,16 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:344 ../iw/partition_dialog_gui.py:279
 #: ../iw/raid_dialog_gui.py:292
-#, fuzzy
 msgid "_Mount Point:"
-msgstr "Monteringspunkt:"
+msgstr "_Monteringspunkt:"
 
 #: ../iw/lvm_dialog_gui.py:352
-#, fuzzy
 msgid "_File System Type:"
-msgstr "Filsystemtype:"
+msgstr "_Filsystemtype:"
 
 #: ../iw/lvm_dialog_gui.py:360 ../iw/partition_dialog_gui.py:297
-#, fuzzy
 msgid "Original File System Type:"
-msgstr "Opprinnelig filsystemtype:"
+msgstr "_Opprinnelig filsystemtype:"
 
 #: ../iw/lvm_dialog_gui.py:365 ../iw/partition_dialog_gui.py:308
 #: ../iw/raid_dialog_gui.py:313
@@ -2730,15 +2578,14 @@ msgid "Logical Volume Name:"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:387 ../iw/partition_dialog_gui.py:354
-#, fuzzy
 msgid "_Size (MB):"
-msgstr "Størrelse (MB):"
+msgstr "_StÃ¸rrelse (MB):"
 
 #: ../iw/lvm_dialog_gui.py:393 ../iw/partition_dialog_gui.py:371
 #: ../iw/partition_dialog_gui.py:414 ../textw/partition_text.py:317
 #: ../textw/partition_text.py:400 ../textw/partition_text.py:484
 msgid "Size (MB):"
-msgstr "Størrelse (MB):"
+msgstr "StÃ¸rrelse (MB):"
 
 #: ../iw/lvm_dialog_gui.py:405
 #, python-format
@@ -2746,25 +2593,22 @@ msgid "(Max size is %s MB)"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:466
-#, fuzzy
 msgid "Illegal size"
-msgstr "Total størrelse"
+msgstr "Ugyldig stÃ¸rrelse"
 
 #: ../iw/lvm_dialog_gui.py:467
 #, fuzzy
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr "Størrelsen du oppgav er ikke et gyldig tall."
+msgstr "StÃ¸rrelsen du oppgav er ikke et gyldig tall."
 
 #: ../iw/lvm_dialog_gui.py:500
-#, fuzzy
 msgid "Mount point in use"
-msgstr "Monteringspunkt"
+msgstr "Monteringspunktet er i bruk"
 
 #: ../iw/lvm_dialog_gui.py:501
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-"Monteringspunktet %s er allerede i bruk. Velg et annet monteringspunkt."
+msgstr "Monteringspunktet Â«%sÂ» er allerede i bruk. Velg et annet."
 
 #: ../iw/lvm_dialog_gui.py:512
 msgid "Illegal Logical Volume Name"
@@ -2792,7 +2636,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:222 ../textw/partition_text.py:813
 #: ../textw/partition_text.py:835 ../textw/partition_text.py:1006
 msgid "Error With Request"
-msgstr "Feil med forespørsel"
+msgstr "Feil med forespÃ¸rsel"
 
 #: ../iw/lvm_dialog_gui.py:594 ../iw/lvm_dialog_gui.py:788
 #, python-format
@@ -2804,7 +2648,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:644
 msgid "No free slots"
-msgstr ""
+msgstr "Ingen ledige plasser"
 
 #: ../iw/lvm_dialog_gui.py:645
 #, python-format
@@ -2812,9 +2656,8 @@ msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:651
-#, fuzzy
 msgid "No free space"
-msgstr "Ledig plass"
+msgstr "Ingen ledig plass"
 
 #: ../iw/lvm_dialog_gui.py:652
 msgid ""
@@ -2826,7 +2669,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:680
 #, fuzzy, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "Er du sikker på at du vil slette denne partisjonen?"
+msgstr "Er du sikker pÃ¥ at du vil slette denne partisjonen?"
 
 #: ../iw/lvm_dialog_gui.py:799
 #, fuzzy
@@ -2899,7 +2742,7 @@ msgstr "Fri diskplass"
 #: ../iw/lvm_dialog_gui.py:965
 #, fuzzy
 msgid "Total Space:"
-msgstr "Total størrelse: "
+msgstr "Total stÃ¸rrelse: "
 
 #: ../iw/lvm_dialog_gui.py:994
 msgid "Logical Volume Name"
@@ -2907,7 +2750,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:1000 ../iw/partition_gui.py:352
 msgid "Size (MB)"
-msgstr "Størrelse (MB)"
+msgstr "StÃ¸rrelse (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1031
 msgid "Logical Volumes"
@@ -2959,15 +2802,15 @@ msgstr "Gateway"
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:536
 msgid "Primary DNS"
-msgstr "Primær DNS"
+msgstr "PrimÃ¦r DNS"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:538
 msgid "Secondary DNS"
-msgstr "Sekundær DNS"
+msgstr "SekundÃ¦r DNS"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:540
 msgid "Tertiary DNS"
-msgstr "Tertiær DNS"
+msgstr "TertiÃ¦r DNS"
 
 #: ../iw/network_gui.py:29
 #, fuzzy
@@ -2977,17 +2820,17 @@ msgstr "Gateway"
 #: ../iw/network_gui.py:29
 #, fuzzy
 msgid "_Primary DNS"
-msgstr "Primær DNS"
+msgstr "PrimÃ¦r DNS"
 
 #: ../iw/network_gui.py:30
 #, fuzzy
 msgid "_Secondary DNS"
-msgstr "Sekundær DNS"
+msgstr "SekundÃ¦r DNS"
 
 #: ../iw/network_gui.py:30
 #, fuzzy
 msgid "_Tertiary DNS"
-msgstr "Tertiær DNS"
+msgstr "TertiÃ¦r DNS"
 
 #: ../iw/network_gui.py:34
 msgid "Network Configuration"
@@ -2998,7 +2841,7 @@ msgstr "Nettverkskonfigurasjon"
 #: ../iw/network_gui.py:182
 #, fuzzy
 msgid "Error With Data"
-msgstr "Feil med forespørsel"
+msgstr "Feil med forespÃ¸rsel"
 
 #: ../iw/network_gui.py:157
 msgid ""
@@ -3037,7 +2880,7 @@ msgstr ""
 #: ../iw/network_gui.py:178
 #, fuzzy
 msgid "The IP information you have entered is invalid."
-msgstr "Størrelsen du oppgav er ikke et gyldig tall."
+msgstr "StÃ¸rrelsen du oppgav er ikke et gyldig tall."
 
 #: ../iw/network_gui.py:182
 msgid ""
@@ -3160,7 +3003,7 @@ msgstr "Sett standard oppstartsfil"
 #: ../iw/osbootwidget.py:222
 #, fuzzy
 msgid "You must specify a label for the entry"
-msgstr "Du må velge en partisjon for redigering"
+msgstr "Du mÃ¥ velge en partisjon for redigering"
 
 #: ../iw/osbootwidget.py:231
 #, fuzzy
@@ -3179,7 +3022,7 @@ msgstr "Denne brukeren eksisterer allerede. Velg en annen."
 #: ../iw/osbootwidget.py:269
 #, fuzzy
 msgid "Duplicate Device"
-msgstr "Enheter vi stoler på:"
+msgstr "Enheter vi stoler pÃ¥:"
 
 #: ../iw/osbootwidget.py:270
 #, fuzzy
@@ -3231,11 +3074,11 @@ msgstr "Pakke"
 #: ../iw/package_gui.py:377
 #, fuzzy
 msgid "_Size (MB)"
-msgstr "Størrelse (MB)"
+msgstr "StÃ¸rrelse (MB)"
 
 #: ../iw/package_gui.py:428
 msgid "Total size: "
-msgstr "Total størrelse: "
+msgstr "Total stÃ¸rrelse: "
 
 #: ../iw/package_gui.py:431
 #, fuzzy
@@ -3258,12 +3101,12 @@ msgstr "Velg individuelle pakker"
 
 #: ../iw/partition_dialog_gui.py:55
 msgid "Additional Size Options"
-msgstr "Flere alternativer for størrelse"
+msgstr "Flere alternativer for stÃ¸rrelse"
 
 #: ../iw/partition_dialog_gui.py:60
 #, fuzzy
 msgid "_Fixed size"
-msgstr "Fast størrelse"
+msgstr "Fast stÃ¸rrelse"
 
 #: ../iw/partition_dialog_gui.py:62
 #, fuzzy
@@ -3273,7 +3116,7 @@ msgstr "Fyll all plass opp til (MB):"
 #: ../iw/partition_dialog_gui.py:72
 #, fuzzy
 msgid "Fill to maximum _allowable size"
-msgstr "Fyll opp til maksimal tillatt størrelse"
+msgstr "Fyll opp til maksimal tillatt stÃ¸rrelse"
 
 #: ../iw/partition_dialog_gui.py:171
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3320,12 +3163,12 @@ msgstr "Sluttsylinder:"
 #: ../iw/partition_dialog_gui.py:446
 #, fuzzy
 msgid "Force to be a _primary partition"
-msgstr "Tving til å være en primærpartisjon"
+msgstr "Tving til Ã¥ vÃ¦re en primÃ¦rpartisjon"
 
 #: ../iw/partition_dialog_gui.py:454
 #, fuzzy
 msgid "Check for _bad blocks"
-msgstr "Sjekk etter dårlige blokker"
+msgstr "Sjekk etter dÃ¥rlige blokker"
 
 #: ../iw/partition_gui.py:348 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 #: ../textw/partition_text.py:1096
@@ -3356,7 +3199,7 @@ msgstr "Monteringspunkt"
 msgid ""
 "Size\n"
 "(MB)"
-msgstr "Størrelse (MB)"
+msgstr "StÃ¸rrelse (MB)"
 
 #: ../iw/partition_gui.py:520 ../textw/partition_text.py:1090
 msgid "Partitioning"
@@ -3365,14 +3208,14 @@ msgstr "Partisjonering"
 #: ../iw/partition_gui.py:603
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
-msgstr "Følgende kritiske feil oppsto for ditt forespurte partisjonsopplegg."
+msgstr "FÃ¸lgende kritiske feil oppsto for ditt forespurte partisjonsopplegg."
 
 #: ../iw/partition_gui.py:606
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
-"Disse feilene må rettes opp før du fortsetter med installasjonen av %s."
+"Disse feilene mÃ¥ rettes opp fÃ¸r du fortsetter med installasjonen av %s."
 
 #: ../iw/partition_gui.py:612
 msgid "Partitioning Errors"
@@ -3380,7 +3223,7 @@ msgstr "Feil under partisjonering"
 
 #: ../iw/partition_gui.py:618
 msgid "The following warnings exist with your requested partition scheme."
-msgstr "Følgende advarsler oppsto med ditt partisjoneringsopplegg."
+msgstr "FÃ¸lgende advarsler oppsto med ditt partisjoneringsopplegg."
 
 #: ../iw/partition_gui.py:620
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3457,7 +3300,7 @@ msgstr "Fortsett"
 #: ../iw/partition_gui.py:1131 ../iw/partition_gui.py:1145
 #, fuzzy
 msgid "Not supported"
-msgstr "Støtte for nettverk"
+msgstr "StÃ¸tte for nettverk"
 
 #: ../iw/partition_gui.py:1132
 msgid "LVM is NOT supported on this platform."
@@ -3506,7 +3349,7 @@ msgstr ""
 #: ../iw/partition_gui.py:1195
 #, fuzzy
 msgid "What do you want to do now?"
-msgstr "Hva vil du gjøre?"
+msgstr "Hva vil du gjÃ¸re?"
 
 #: ../iw/partition_gui.py:1204
 #, fuzzy
@@ -3570,7 +3413,7 @@ msgstr "Automatisk partisjonering"
 #: ../iw/partition_gui.py:1389
 #, python-format
 msgid "You need to select at least one drive to have %s installed onto."
-msgstr "Du må velge minst en disk for installasjon av %s."
+msgstr "Du mÃ¥ velge minst en disk for installasjon av %s."
 
 #: ../iw/partition_gui.py:1431
 msgid "I want to have automatic partitioning:"
@@ -3595,12 +3438,12 @@ msgstr "<Ikke brukbar>"
 #: ../iw/partition_ui_helpers_gui.py:241
 #, fuzzy
 msgid "How would you like to prepare the file system on this partition?"
-msgstr "Hvordan ønsker du å forberede filsystemet på denne partisjonen?"
+msgstr "Hvordan Ã¸nsker du Ã¥ forberede filsystemet pÃ¥ denne partisjonen?"
 
 #: ../iw/partition_ui_helpers_gui.py:249
 #, fuzzy
 msgid "Leave _unchanged (preserve data)"
-msgstr "La den være (ta vare på data)"
+msgstr "La den vÃ¦re (ta vare pÃ¥ data)"
 
 #: ../iw/partition_ui_helpers_gui.py:255
 #, fuzzy
@@ -3615,7 +3458,7 @@ msgstr "Migrer partisjon til:"
 #: ../iw/partition_ui_helpers_gui.py:301
 #, fuzzy
 msgid "Check for _bad blocks?"
-msgstr "Sjekk etter dårlige blokker?"
+msgstr "Sjekk etter dÃ¥rlige blokker?"
 
 #: ../iw/partition_ui_helpers_gui.py:335
 #, python-format
@@ -3657,7 +3500,7 @@ msgstr "Total"
 
 #: ../iw/progress_gui.py:103 ../iw/progress_gui.py:261
 msgid "Remaining"
-msgstr "Gjenstår"
+msgstr "GjenstÃ¥r"
 
 #: ../iw/progress_gui.py:136
 #, python-format
@@ -3715,7 +3558,7 @@ msgstr "RAID-enhet %s"
 #: ../iw/raid_dialog_gui.py:337
 #, fuzzy
 msgid "RAID _Level:"
-msgstr "RAID-nivå:"
+msgstr "RAID-nivÃ¥:"
 
 #: ../iw/raid_dialog_gui.py:379
 #, fuzzy
@@ -3803,7 +3646,7 @@ msgstr "Slett"
 #: ../iw/raid_dialog_gui.py:612
 #, fuzzy
 msgid "Please select a source drive."
-msgstr "Vennligst sett inn %s-driverdisketten nå."
+msgstr "Vennligst sett inn %s-driverdisketten nÃ¥."
 
 #: ../iw/raid_dialog_gui.py:632
 #, python-format
@@ -3875,7 +3718,7 @@ msgstr "Partisjon"
 
 #: ../iw/silo_gui.py:172
 msgid "Install SILO boot record on:"
-msgstr "Installer SILO oppstartssektor på:"
+msgstr "Installer SILO oppstartssektor pÃ¥:"
 
 #: ../iw/silo_gui.py:189
 msgid "Create PROM alias"
@@ -3961,7 +3804,7 @@ msgstr "Oppdater konfigurasjon av oppstartslaster"
 
 #: ../iw/upgrade_bootloader_gui.py:69
 msgid "This will update your current boot loader."
-msgstr "Dette vil oppdatere din nåværende oppstartslaster."
+msgstr "Dette vil oppdatere din nÃ¥vÃ¦rende oppstartslaster."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
@@ -3969,7 +3812,7 @@ msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Installeringsprogrammet har detektert at oppstartslasteren %s er installert "
-"på %s."
+"pÃ¥ %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -3980,8 +3823,8 @@ msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
-"Installeringsprogrammet klarte ikke å finne en oppstartslaster på ditt "
-"nåværende system."
+"Installeringsprogrammet klarte ikke Ã¥ finne en oppstartslaster pÃ¥ ditt "
+"nÃ¥vÃ¦rende system."
 
 #: ../iw/upgrade_bootloader_gui.py:89
 #, fuzzy
@@ -3994,7 +3837,7 @@ msgid ""
 "switch boot loaders, you should choose this."
 msgstr ""
 "Dette vil la deg lage en ny konfigurering for din oppstartslaster. Hvis du "
-"ønsker å bytte oppstartslaster bør du velge dette."
+"Ã¸nsker Ã¥ bytte oppstartslaster bÃ¸r du velge dette."
 
 #: ../iw/upgrade_bootloader_gui.py:98
 #, fuzzy
@@ -4007,11 +3850,11 @@ msgid ""
 "third party boot loader, you should choose this."
 msgstr ""
 "Dette vil ikke endre din oppstartslasterkonfigurasjon. Hvis du bruker en "
-"tredjeparts oppstartslaster bør du velge dette."
+"tredjeparts oppstartslaster bÃ¸r du velge dette."
 
 #: ../iw/upgrade_bootloader_gui.py:111
 msgid "What would you like to do?"
-msgstr "Hva vil du gjøre?"
+msgstr "Hva vil du gjÃ¸re?"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:32
 #, fuzzy
@@ -4028,9 +3871,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Denne utgaven av %s støtter det journalførende ext3-filsystemet. Det har "
-"flere fordeler over ext2-filsystemet som tradisjonelt har vært brukt i %s. "
-"Det er mulig å migrere ext2-formaterte partisjoner til ext3 uten tap av "
+"Denne utgaven av %s stÃ¸tter det journalfÃ¸rende ext3-filsystemet. Det har "
+"flere fordeler over ext2-filsystemet som tradisjonelt har vÃ¦rt brukt i %s. "
+"Det er mulig Ã¥ migrere ext2-formaterte partisjoner til ext3 uten tap av "
 "data.\n"
 "\n"
 "Hvilke av disse partisjonene vil du migrere?"
@@ -4047,9 +3890,9 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"2.4-kjernen trenger vesentlig mer swap enn eldre kjerner, så mye som\n"
-"det dobbelte av systemets RAM. Du har nå %d MB av swap konfigurert,\n"
-"men du kan opprette mer swap på et av dine filsystemer nå."
+"2.4-kjernen trenger vesentlig mer swap enn eldre kjerner, sÃ¥ mye som\n"
+"det dobbelte av systemets RAM. Du har nÃ¥ %d MB av swap konfigurert,\n"
+"men du kan opprette mer swap pÃ¥ et av dine filsystemer nÃ¥."
 
 #: ../iw/upgrade_swap_gui.py:108
 #, python-format
@@ -4065,12 +3908,12 @@ msgstr ""
 #: ../iw/upgrade_swap_gui.py:120
 #, fuzzy
 msgid "I _want to create a swap file"
-msgstr "Jeg ønsker å lage en swapfil."
+msgstr "Jeg Ã¸nsker Ã¥ lage en swapfil."
 
 #: ../iw/upgrade_swap_gui.py:129
 #, fuzzy
 msgid "Select the _partition to put the swap file on:"
-msgstr "Velg partisjonen å legge swapfilen på:"
+msgstr "Velg partisjonen Ã¥ legge swapfilen pÃ¥:"
 
 #: ../iw/upgrade_swap_gui.py:148
 msgid "Free Space (MB)"
@@ -4082,17 +3925,17 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
-"Det anbefales at swapfilen er minst %d MB. Oppgi en størrelse for swapfilen:"
+"Det anbefales at swapfilen er minst %d MB. Oppgi en stÃ¸rrelse for swapfilen:"
 
 #: ../iw/upgrade_swap_gui.py:181
 #, fuzzy
 msgid "Swap file _size (MB):"
-msgstr "Størrelse på swapfil(MB):"
+msgstr "StÃ¸rrelse pÃ¥ swapfil(MB):"
 
 #: ../iw/upgrade_swap_gui.py:191
 #, fuzzy
 msgid "I _don't want to create a swap file"
-msgstr "Jeg ønsker ikke å lage en swapfil."
+msgstr "Jeg Ã¸nsker ikke Ã¥ lage en swapfil."
 
 #: ../iw/upgrade_swap_gui.py:201
 msgid ""
@@ -4100,19 +3943,19 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
-"Det anbefales sterkt at du lager en swapfil. Hvis dette ikke gjøres, kan\n"
+"Det anbefales sterkt at du lager en swapfil. Hvis dette ikke gjÃ¸res, kan\n"
 "installeringsprogrammet blitt utsatt for feil under installeringen. Er du "
 "sikker\n"
-"på at du vil fortsette?"
+"pÃ¥ at du vil fortsette?"
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:176
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Størrelsen på swapfilen må være mellom 1 og 2000 MB."
+msgstr "StÃ¸rrelsen pÃ¥ swapfilen mÃ¥ vÃ¦re mellom 1 og 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:171
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
-msgstr "Det er ikke nok plass på enheten du oppga for swapområdet."
+msgstr "Det er ikke nok plass pÃ¥ enheten du oppga for swapomrÃ¥det."
 
 #: ../iw/welcome_gui.py:20
 msgid "Welcome"
@@ -4151,7 +3994,7 @@ msgstr "Millioner av farger (24 bit)"
 #: ../iw/xconfig_gui.py:233
 #, fuzzy
 msgid "_Screen Resolution:"
-msgstr "Skjermoppløsning:"
+msgstr "SkjermopplÃ¸sning:"
 
 #: ../iw/xconfig_gui.py:320
 #, fuzzy
@@ -4160,11 +4003,11 @@ msgstr "   Test Innstillinger  "
 
 #: ../iw/xconfig_gui.py:343
 msgid "Please choose your default desktop environment:"
-msgstr "Vennligst velg ditt standard skrivebordsmiljø:"
+msgstr "Vennligst velg ditt standard skrivebordsmiljÃ¸:"
 
 #: ../iw/xconfig_gui.py:345
 msgid "Your desktop environment is:"
-msgstr "Ditt skrivebordsmiljø er:"
+msgstr "Ditt skrivebordsmiljÃ¸ er:"
 
 #: ../iw/xconfig_gui.py:360
 #, fuzzy
@@ -4178,7 +4021,7 @@ msgstr "KDE"
 
 #: ../iw/xconfig_gui.py:391
 msgid "Please choose your login type:"
-msgstr "Vennligst velg påloggingstype:"
+msgstr "Vennligst velg pÃ¥loggingstype:"
 
 #: ../iw/xconfig_gui.py:398
 #, fuzzy
@@ -4253,8 +4096,8 @@ msgid ""
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
 "button."
 msgstr ""
-"Du må velge et skjermkort før X-konfigurasjonen kan fortsette. Hvis du "
-"ønsker å hoppe over X-konfigurasjonen velg 'Hopp over konfigurasjon av X'-"
+"Du mÃ¥ velge et skjermkort fÃ¸r X-konfigurasjonen kan fortsette. Hvis du "
+"Ã¸nsker Ã¥ hoppe over X-konfigurasjonen velg 'Hopp over konfigurasjon av X'-"
 "knappen."
 
 #: ../iw/xconfig_gui.py:926
@@ -4262,7 +4105,7 @@ msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"Mengden videominne kunne ikke finnes av autosøk. Velg mengden videoram fra "
+"Mengden videominne kunne ikke finnes av autosÃ¸k. Velg mengden videoram fra "
 "listen under:"
 
 #: ../iw/xconfig_gui.py:934
@@ -4272,13 +4115,13 @@ msgid ""
 "detected settings are not correct for the hardware, select the right "
 "settings."
 msgstr ""
-"I de fleste tilfeller kan grafikk-maskinvaren finnes automatisk for å "
+"I de fleste tilfeller kan grafikk-maskinvaren finnes automatisk for Ã¥ "
 "bestemme de beste innstillingene for din skjerm."
 
 #: ../iw/xconfig_gui.py:1027
 #, fuzzy
 msgid "_Video card RAM: "
-msgstr "Minne på skjermkort: "
+msgstr "Minne pÃ¥ skjermkort: "
 
 #: ../iw/xconfig_gui.py:1053
 #, fuzzy
@@ -4329,7 +4172,7 @@ msgstr "Oppstartsdiskett"
 
 #: ../textw/bootloader_text.py:29
 msgid "Which boot loader would you like to use?"
-msgstr "Hvilken oppstartslaster ønsker du å bruke?"
+msgstr "Hvilken oppstartslaster Ã¸nsker du Ã¥ bruke?"
 
 #: ../textw/bootloader_text.py:45
 msgid "Use GRUB Boot Loader"
@@ -4356,12 +4199,12 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Du har valgt å ikke installere en oppstartslaster. Det anbefales at du "
+"Du har valgt Ã¥ ikke installere en oppstartslaster. Det anbefales at du "
 "installerer en oppstartslaster med mindre du har et avansert behov. En "
-"oppstartslaster er nesten alltid nødvendig for å starte systemet med Linux "
+"oppstartslaster er nesten alltid nÃ¸dvendig for Ã¥ starte systemet med Linux "
 "direkte fra harddisken.\n"
 "\n"
-"Er du sikker på at du vil hoppe over installasjon av oppstartslaster?"
+"Er du sikker pÃ¥ at du vil hoppe over installasjon av oppstartslaster?"
 
 #: ../textw/bootloader_text.py:103 ../textw/silo_text.py:25
 msgid ""
@@ -4370,14 +4213,14 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-"For noen få systemer kan det være nødvendig å gi spesielle flagg til kjernen "
-"ved oppstart for at systemet skal fungere ordentlig. Hvis du trenger å gi "
-"oppstartsflagg til kjernen, skriv dem inn nå. Hvis du ikke trenger dette, "
-"eller ikke er sikker, kan du la dette stå tomt."
+"For noen fÃ¥ systemer kan det vÃ¦re nÃ¸dvendig Ã¥ gi spesielle flagg til kjernen "
+"ved oppstart for at systemet skal fungere ordentlig. Hvis du trenger Ã¥ gi "
+"oppstartsflagg til kjernen, skriv dem inn nÃ¥. Hvis du ikke trenger dette, "
+"eller ikke er sikker, kan du la dette stÃ¥ tomt."
 
 #: ../textw/bootloader_text.py:112
 msgid "Force use of LBA32 (not normally required)"
-msgstr "Tvungen bruk av LBA32 (ikke vanligvis nødvendig)"
+msgstr "Tvungen bruk av LBA32 (ikke vanligvis nÃ¸dvendig)"
 
 #: ../textw/bootloader_text.py:176
 msgid "Where do you want to install the boot loader?"
@@ -4398,7 +4241,7 @@ msgstr "Ugyldig oppstartsnavn"
 
 #: ../textw/bootloader_text.py:236
 msgid "Boot label may not be empty."
-msgstr "Oppstartsnavnet kan ikke være tomt."
+msgstr "Oppstartsnavnet kan ikke vÃ¦re tomt."
 
 #: ../textw/bootloader_text.py:241
 msgid "Boot label contains illegal characters."
@@ -4418,7 +4261,7 @@ msgid ""
 "label you want to use for each of them."
 msgstr ""
 "Oppstartslasteren som brukes av Red Hat kan starte andre operativsystemer "
-"også. Du må fortelle hvilke partisjoner du ønsker å starte andre systemer "
+"ogsÃ¥. Du mÃ¥ fortelle hvilke partisjoner du Ã¸nsker Ã¥ starte andre systemer "
 "fra og hvilket navn du vil gi hvert av dem."
 
 #: ../textw/bootloader_text.py:308
@@ -4434,9 +4277,9 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"Et passord for oppstartslasteren hindrer brukere i å gi tilfeldige flagg til "
-"kjernen. For høyest mulig sikkerhet anbefaler vi å sette et passord, men "
-"dette er ikke nødvendig for brukere med mindre krav til sikkerhet."
+"Et passord for oppstartslasteren hindrer brukere i Ã¥ gi tilfeldige flagg til "
+"kjernen. For hÃ¸yest mulig sikkerhet anbefaler vi Ã¥ sette et passord, men "
+"dette er ikke nÃ¸dvendig for brukere med mindre krav til sikkerhet."
 
 #: ../textw/bootloader_text.py:397
 msgid "Use a GRUB Password"
@@ -4464,7 +4307,7 @@ msgstr "Passordet for oppstartslasteren er for kort"
 
 #: ../textw/complete_text.py:24
 msgid "<Enter> to reboot"
-msgstr "<Enter> for å starte på nytt"
+msgstr "<Enter> for Ã¥ starte pÃ¥ nytt"
 
 #: ../textw/complete_text.py:28
 #, python-format
@@ -4474,7 +4317,7 @@ msgid ""
 "\n"
 msgstr ""
 "Hvis du laget en oppstartsdiskett for oppstart av ditt %s-system, sett den i "
-"diskettstasjonen før du trykker <Enter> for omstart.\n"
+"diskettstasjonen fÃ¸r du trykker <Enter> for omstart.\n"
 "\n"
 
 #: ../textw/complete_text.py:37
@@ -4499,12 +4342,12 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs."
 msgstr ""
-"Gratulerer, konfigurasjonen er fullført.\n"
+"Gratulerer, konfigurasjonen er fullfÃ¸rt.\n"
 "\n"
-"For informasjon om errata (oppdateringer og feilrettinger), besøk http://www."
+"For informasjon om errata (oppdateringer og feilrettinger), besÃ¸k http://www."
 "redhat.com/errata.\n"
 "\n"
-"Informasjon om bruk av systemet er tilgjengelig brukerhåndbøkene for %s på "
+"Informasjon om bruk av systemet er tilgjengelig brukerhÃ¥ndbÃ¸kene for %s pÃ¥ "
 "http://www.redhat.com/docs."
 
 #: ../textw/confirm_text.py:20
@@ -4555,7 +4398,7 @@ msgstr "Tilpassing av X"
 #: ../textw/fdasd_text.py:31
 #, fuzzy
 msgid "Choose a disk to run fdasd or dasdfmt on"
-msgstr "Velg en disk som fdisk skal kjøres på"
+msgstr "Velg en disk som fdisk skal kjÃ¸res pÃ¥"
 
 #: ../textw/fdasd_text.py:32
 #, fuzzy
@@ -4574,7 +4417,7 @@ msgstr "Diskoppsett"
 #: ../textw/fdasd_text.py:74
 #, fuzzy, python-format
 msgid "An error occurred while running %s on drive %s."
-msgstr "En feil oppsto under søk etter pakker som skal oppgraderes."
+msgstr "En feil oppsto under sÃ¸k etter pakker som skal oppgraderes."
 
 #: ../textw/fdasd_text.py:85
 #, python-format
@@ -4594,12 +4437,12 @@ msgid ""
 "\n"
 "Back to the fdasd screen?"
 msgstr ""
-"En feil har oppstått - ingen gyldige enheter for oppretting av filsystemer "
-"ble funnet. Sjekk maskinvaren din for å finne årsaken til problemet."
+"En feil har oppstÃ¥tt - ingen gyldige enheter for oppretting av filsystemer "
+"ble funnet. Sjekk maskinvaren din for Ã¥ finne Ã¥rsaken til problemet."
 
 #: ../textw/fdisk_text.py:40
 msgid "Choose a disk to run fdisk on"
-msgstr "Velg en disk som fdisk skal kjøres på"
+msgstr "Velg en disk som fdisk skal kjÃ¸res pÃ¥"
 
 #: ../textw/firewall_text.py:24
 msgid "Customize"
@@ -4612,18 +4455,18 @@ msgid ""
 "as telnet or printing), but allows other connections. No firewall allows all "
 "connections and is not recommended. "
 msgstr ""
-"En brannvegg beskytter mot innbrudd på nettverket. Høy sikkerhet blokkerer "
+"En brannvegg beskytter mot innbrudd pÃ¥ nettverket. HÃ¸y sikkerhet blokkerer "
 "all innkommende trafikk. Medium blokkerer tilgang til systemtjenester (slik "
 "som telnet og utskrift), men tillater andre tilkoblinger. Ingen brannvegg "
 "tillater alle tilkoblinger og er ikke anbefalt."
 
 #: ../textw/firewall_text.py:44
 msgid "Security Level:"
-msgstr "Sikkerhetsnivå:"
+msgstr "SikkerhetsnivÃ¥:"
 
 #: ../textw/firewall_text.py:48
 msgid "High"
-msgstr "Høyt"
+msgstr "HÃ¸yt"
 
 #: ../textw/firewall_text.py:51
 msgid "Medium"
@@ -4635,7 +4478,7 @@ msgstr "Ingen brannvegg"
 
 #: ../textw/firewall_text.py:73
 msgid "Trusted Devices:"
-msgstr "Enheter vi stoler på:"
+msgstr "Enheter vi stoler pÃ¥:"
 
 #: ../textw/firewall_text.py:85
 msgid "Allow incoming:"
@@ -4689,10 +4532,10 @@ msgid ""
 "protocols explicitly through the firewall. In a comma separated list, "
 "specify additional ports in the form 'service:protocol' such as 'imap:tcp'. "
 msgstr ""
-"Du kan tilpasse din brannvegg på to måter. Du kan velge å tillate all "
+"Du kan tilpasse din brannvegg pÃ¥ to mÃ¥ter. Du kan velge Ã¥ tillate all "
 "trafikk fra enkelte nettverksgrensesnitt. Videre kan du tillate visse "
 "protokoller eksplisitt gjennom brannveggen. Du kan spesifisere flere porter "
-"på formen 'tjeneste:protokoll' i en komma-separert liste, f.eks. 'imap:tcp'."
+"pÃ¥ formen 'tjeneste:protokoll' i en komma-separert liste, f.eks. 'imap:tcp'."
 
 #: ../textw/firewall_text.py:194
 #, python-format
@@ -4701,7 +4544,7 @@ msgstr "Advarsel: %s er ikke en gyldig port."
 
 #: ../textw/installpath_text.py:43
 msgid "What type of system would you like to install?"
-msgstr "Hvilken installeringstype ønsker du?"
+msgstr "Hvilken installeringstype Ã¸nsker du?"
 
 #: ../textw/keyboard_text.py:36
 msgid "Keyboard Selection"
@@ -4709,7 +4552,7 @@ msgstr "Tastaturvalg"
 
 #: ../textw/keyboard_text.py:37
 msgid "Which model keyboard is attached to this computer?"
-msgstr "Hvilken type tastatur brukes på denne datamaskinen?"
+msgstr "Hvilken type tastatur brukes pÃ¥ denne datamaskinen?"
 
 #: ../textw/language_text.py:116
 msgid "Select All"
@@ -4721,31 +4564,31 @@ msgstr "Nullstill"
 
 #: ../textw/language_text.py:118
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr "Velg tilleggsspråk du ønsker å bruke på dette systemet:"
+msgstr "Velg tilleggssprÃ¥k du Ã¸nsker Ã¥ bruke pÃ¥ dette systemet:"
 
 #: ../textw/language_text.py:122
 msgid "Language Support"
-msgstr "Språkstøtte"
+msgstr "SprÃ¥kstÃ¸tte"
 
 #: ../textw/language_text.py:154
 msgid "You must select at least one language to install."
-msgstr "Du må velge minst ett språk for installasjon."
+msgstr "Du mÃ¥ velge minst ett sprÃ¥k for installasjon."
 
 #: ../textw/language_text.py:182
 msgid "Default Language"
-msgstr "Standardspråk"
+msgstr "StandardsprÃ¥k"
 
 #: ../textw/language_text.py:183
 msgid "Choose the default language for this system: "
-msgstr "Velg standardspråk for dette systemet: "
+msgstr "Velg standardsprÃ¥k for dette systemet: "
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
-msgstr "Hvilken enhet er musen plassert på?"
+msgstr "Hvilken enhet er musen plassert pÃ¥?"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
-msgstr "Hvilken mustype brukes på denne datamaskinen?"
+msgstr "Hvilken mustype brukes pÃ¥ denne datamaskinen?"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
@@ -4782,15 +4625,15 @@ msgstr "Standard gateway (IP):"
 
 #: ../textw/network_text.py:87 ../loader/net.c:314
 msgid "Primary nameserver:"
-msgstr "Primær navnetjener:"
+msgstr "PrimÃ¦r navnetjener:"
 
 #: ../textw/network_text.py:89
 msgid "Secondary nameserver:"
-msgstr "Sekundær navnetjener:"
+msgstr "SekundÃ¦r navnetjener:"
 
 #: ../textw/network_text.py:91
 msgid "Tertiary nameserver:"
-msgstr "Tertiær navnetjener:"
+msgstr "TertiÃ¦r navnetjener:"
 
 #: ../textw/network_text.py:94
 #, fuzzy
@@ -4808,7 +4651,7 @@ msgstr "Ugyldig informasjon"
 
 #: ../textw/network_text.py:153
 msgid "You must enter valid IP information to continue"
-msgstr "Du må skrive inn gyldig IP-informasjon for å fortsette"
+msgstr "Du mÃ¥ skrive inn gyldig IP-informasjon for Ã¥ fortsette"
 
 #: ../textw/network_text.py:220
 msgid "Hostname Configuration"
@@ -4819,7 +4662,7 @@ msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
-"Vertsnavnet er navnet på din datamaskin.  Hvis datamaskinen er tilknyttet et "
+"Vertsnavnet er navnet pÃ¥ din datamaskin.  Hvis datamaskinen er tilknyttet et "
 "nettverk, er det mulig at dette oppgis av din nettverksadministrator."
 
 #: ../textw/packages_text.py:50
@@ -4832,7 +4675,7 @@ msgstr "Pakke     :"
 
 #: ../textw/packages_text.py:96
 msgid "Size    :"
-msgstr "Størr.   :"
+msgstr "StÃ¸rr.   :"
 
 #: ../textw/packages_text.py:97
 #, python-format
@@ -4841,7 +4684,7 @@ msgstr "%.1f kB"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
-msgstr "Total størrelse"
+msgstr "Total stÃ¸rrelse"
 
 #: ../textw/packages_text.py:245
 msgid ""
@@ -4859,12 +4702,12 @@ msgid ""
 "not selected. If you just select OK all of those required packages will be "
 "installed."
 msgstr ""
-"Noen av pakkene du har valgt å installere trenger pakker som ikke er valgt. "
-"Hvis du velger Ok vil alle de nødvendige pakkene bli installert."
+"Noen av pakkene du har valgt Ã¥ installere trenger pakker som ikke er valgt. "
+"Hvis du velger Ok vil alle de nÃ¸dvendige pakkene bli installert."
 
 #: ../textw/packages_text.py:316
 msgid "Install packages to satisfy dependencies"
-msgstr "Installer pakker for å tilfredsstille avhengigheter"
+msgstr "Installer pakker for Ã¥ tilfredsstille avhengigheter"
 
 #: ../textw/packages_text.py:317
 msgid "Do not install packages that have dependencies"
@@ -4876,7 +4719,7 @@ msgstr "Ignorer pakkeavhengigheter"
 
 #: ../textw/partition_text.py:39
 msgid "Must specify a value"
-msgstr "Verdi må spesifiseres"
+msgstr "Verdi mÃ¥ spesifiseres"
 
 #: ../textw/partition_text.py:42
 msgid "Requested value is not an integer"
@@ -4919,11 +4762,11 @@ msgstr "Tillatte stasjoner:"
 
 #: ../textw/partition_text.py:351
 msgid "Fixed Size:"
-msgstr "Fast størrelse:"
+msgstr "Fast stÃ¸rrelse:"
 
 #: ../textw/partition_text.py:353
 msgid "Fill maximum size of (MB):"
-msgstr "Fyll maksimal størrelse på (MB):"
+msgstr "Fyll maksimal stÃ¸rrelse pÃ¥ (MB):"
 
 #: ../textw/partition_text.py:357
 msgid "Fill all available space:"
@@ -4939,7 +4782,7 @@ msgstr "Sluttsylinder:"
 
 #: ../textw/partition_text.py:417
 msgid "RAID Level:"
-msgstr "RAID-nivå:"
+msgstr "RAID-nivÃ¥:"
 
 #: ../textw/partition_text.py:435
 msgid "RAID Members:"
@@ -4979,7 +4822,7 @@ msgstr "Migrer til %s"
 #: ../textw/partition_text.py:496 ../textw/partition_text.py:729
 #: ../textw/partition_text.py:957
 msgid "Leave unchanged"
-msgstr "La være"
+msgstr "La vÃ¦re"
 
 #: ../textw/partition_text.py:512 ../textw/partition_text.py:701
 #: ../textw/partition_text.py:933
@@ -4993,16 +4836,16 @@ msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
 msgstr ""
-"Vennligst velg hvordan du ønsker å forberede filsystemet på denne "
+"Vennligst velg hvordan du Ã¸nsker Ã¥ forberede filsystemet pÃ¥ denne "
 "partisjonen."
 
 #: ../textw/partition_text.py:523 ../textw/partition_text.py:671
 msgid "Check for bad blocks"
-msgstr "Sjekk etter dårlige blokker"
+msgstr "Sjekk etter dÃ¥rlige blokker"
 
 #: ../textw/partition_text.py:527
 msgid "Leave unchanged (preserve data)"
-msgstr "La den være (ta vare på data)"
+msgstr "La den vÃ¦re (ta vare pÃ¥ data)"
 
 #: ../textw/partition_text.py:536
 msgid "Format as:"
@@ -5014,12 +4857,12 @@ msgstr "Migrer til:"
 
 #: ../textw/partition_text.py:668
 msgid "Force to be a primary partition"
-msgstr "Tving til å være en primærpartisjon"
+msgstr "Tving til Ã¥ vÃ¦re en primÃ¦rpartisjon"
 
 #: ../textw/partition_text.py:679
 #, fuzzy
 msgid "Not Supported"
-msgstr "Støtte for nettverk"
+msgstr "StÃ¸tte for nettverk"
 
 #: ../textw/partition_text.py:680
 msgid "LVM Volume Groups can only be edited in the graphical installer."
@@ -5027,11 +4870,11 @@ msgstr ""
 
 #: ../textw/partition_text.py:754 ../textw/partition_text.py:803
 msgid "Invalid Entry for Partition Size"
-msgstr "Ugyldig verdi for partisjonsstørrelse"
+msgstr "Ugyldig verdi for partisjonsstÃ¸rrelse"
 
 #: ../textw/partition_text.py:766
 msgid "Invalid Entry for Maximum Size"
-msgstr "Ugyldig oppføring for maksimum størrelse"
+msgstr "Ugyldig oppfÃ¸ring for maksimum stÃ¸rrelse"
 
 #: ../textw/partition_text.py:785
 msgid "Invalid Entry for Starting Cylinder"
@@ -5101,7 +4944,7 @@ msgstr "Ingen rotpartisjon"
 
 #: ../textw/partition_text.py:1143
 msgid "Must have a / partition to install on."
-msgstr "Må ha en \"/\"-partisjon å installere på."
+msgstr "MÃ¥ ha en \"/\"-partisjon Ã¥ installere pÃ¥."
 
 #: ../textw/partition_text.py:1210
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5129,7 +4972,7 @@ msgstr " Navn  : "
 
 #: ../textw/progress_text.py:82
 msgid " Size   : "
-msgstr " Størr. : "
+msgstr " StÃ¸rr. : "
 
 #: ../textw/progress_text.py:83
 msgid " Summary: "
@@ -5157,7 +5000,7 @@ msgstr "Ferdig  :"
 
 #: ../textw/progress_text.py:130
 msgid "Remaining:  "
-msgstr "Gjenstår:   "
+msgstr "GjenstÃ¥r:   "
 
 #: ../textw/silo_text.py:39 ../textw/silo_text.py:112
 #: ../textw/silo_text.py:224
@@ -5209,10 +5052,10 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"2.4-kjernen trenger vesentlig mer swap enn eldre kjerner, så mye som\n"
-"det dobbelte av systemets RAM er anbefalt. Du har nå %d MB av swap "
+"2.4-kjernen trenger vesentlig mer swap enn eldre kjerner, sÃ¥ mye som\n"
+"det dobbelte av systemets RAM er anbefalt. Du har nÃ¥ %d MB av swap "
 "konfigurert,\n"
-"men du kan opprette mer swap på et av dine filsystemer nå."
+"men du kan opprette mer swap pÃ¥ et av dine filsystemer nÃ¥."
 
 #: ../textw/upgrade_text.py:110
 msgid "Free Space"
@@ -5224,11 +5067,11 @@ msgstr "Gjenkjent RAM (MB):"
 
 #: ../textw/upgrade_text.py:128
 msgid "Suggested size (MB):"
-msgstr "Anbefalt størrelse(MB):"
+msgstr "Anbefalt stÃ¸rrelse(MB):"
 
 #: ../textw/upgrade_text.py:131
 msgid "Swap file size (MB):"
-msgstr "Størrelse på swapfil(MB):"
+msgstr "StÃ¸rrelse pÃ¥ swapfil(MB):"
 
 #: ../textw/upgrade_text.py:139
 msgid "Add Swap"
@@ -5236,7 +5079,7 @@ msgstr "Legg til swap"
 
 #: ../textw/upgrade_text.py:164
 msgid "The value you entered is not a valid number."
-msgstr "Størrelsen du oppgav er ikke et gyldig tall."
+msgstr "StÃ¸rrelsen du oppgav er ikke et gyldig tall."
 
 #: ../textw/upgrade_text.py:194
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
@@ -5260,8 +5103,8 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
-"Pakkene du har installert, og eventuelle andre pakker som er nødvendige for "
-"å tilfredsstille deres avhengigheter, er valgt for installering. Ønsker du å "
+"Pakkene du har installert, og eventuelle andre pakker som er nÃ¸dvendige for "
+"Ã¥ tilfredsstille deres avhengigheter, er valgt for installering. Ã˜nsker du Ã¥ "
 "endre pakkesettet som skal oppgraderes?"
 
 #: ../textw/userauth_text.py:22
@@ -5274,7 +5117,7 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"Velg et root-passord. Du må skrive det inn to ganger for å være sikker på at "
+"Velg et root-passord. Du mÃ¥ skrive det inn to ganger for Ã¥ vÃ¦re sikker pÃ¥ at "
 "du vet hva det er og at du ikke gjorde en skrivefeil. Husk at root-passordet "
 "er kritisk for systemsikkerheten!"
 
@@ -5292,7 +5135,7 @@ msgstr "Passordlengde"
 
 #: ../textw/userauth_text.py:55
 msgid "The root password must be at least 6 characters long."
-msgstr "Root-passordet må være minst 6 tegn langt."
+msgstr "Root-passordet mÃ¥ vÃ¦re minst 6 tegn langt."
 
 #: ../textw/userauth_text.py:59 ../textw/userauth_text.py:134
 msgid "Password Mismatch"
@@ -5300,7 +5143,7 @@ msgstr "Passordene er ikke like"
 
 #: ../textw/userauth_text.py:60 ../textw/userauth_text.py:135
 msgid "The passwords you entered were different. Please try again."
-msgstr "Passordene du skrev inn var forskjellige. Vennligst forsøk igjen."
+msgstr "Passordene du skrev inn var forskjellige. Vennligst forsÃ¸k igjen."
 
 #: ../textw/userauth_text.py:93
 msgid "Add User"
@@ -5327,7 +5170,7 @@ msgstr "Brukernavn"
 #, fuzzy
 msgid "User names must contain only characters A-Z, a-z, and 0-9."
 msgstr ""
-"Bruker-IDer må være mindre enn 8 tegn og kan kun inneholde tegnene A-Z, a-z "
+"Bruker-IDer mÃ¥ vÃ¦re mindre enn 8 tegn og kan kun inneholde tegnene A-Z, a-z "
 "og 0-9."
 
 #: ../textw/userauth_text.py:121
@@ -5338,11 +5181,11 @@ msgstr "Manglende bruker-ID"
 #: ../textw/userauth_text.py:122
 #, fuzzy
 msgid "You must provide a user name"
-msgstr "Du må oppgi en bruker-ID"
+msgstr "Du mÃ¥ oppgi en bruker-ID"
 
 #: ../textw/userauth_text.py:127
 msgid "The password must be at least 6 characters long."
-msgstr "Passordet må bestå av minst 6 tegn."
+msgstr "Passordet mÃ¥ bestÃ¥ av minst 6 tegn."
 
 #: ../textw/userauth_text.py:143 ../textw/userauth_text.py:150
 #: ../textw/userauth_text.py:158
@@ -5353,7 +5196,7 @@ msgstr "Brukeren eksisterer"
 msgid ""
 "The root user is already configured. You don't need to add this user here."
 msgstr ""
-"Root-brukeren er allerede konfigurert. Du trenger ikke å legge til denne "
+"Root-brukeren er allerede konfigurert. Du trenger ikke Ã¥ legge til denne "
 "brukeren her."
 
 #: ../textw/userauth_text.py:151
@@ -5361,7 +5204,7 @@ msgstr ""
 msgid ""
 "This system user is already configured. You don't need to add this user here."
 msgstr ""
-"Root-brukeren er allerede konfigurert. Du trenger ikke å legge til denne "
+"Root-brukeren er allerede konfigurert. Du trenger ikke Ã¥ legge til denne "
 "brukeren her."
 
 #: ../textw/userauth_text.py:159
@@ -5374,8 +5217,8 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
-"Du bør bruke en vanlig brukerkonto for de fleste aktivitetene på systemet "
-"ditt. Ved å ikke bruke root-kontoen reduserer du sjansene for å ødelegge "
+"Du bÃ¸r bruke en vanlig brukerkonto for de fleste aktivitetene pÃ¥ systemet "
+"ditt. Ved Ã¥ ikke bruke root-kontoen reduserer du sjansene for Ã¥ Ã¸delegge "
 "systemets konfigurasjon."
 
 #: ../textw/userauth_text.py:197
@@ -5389,7 +5232,7 @@ msgid ""
 "have at least one non-root account for normal work, but multi-user systems "
 "can have any number of accounts set up."
 msgstr ""
-"Hvilken brukerkonto ønsker du å ha på systemet? Du bør ha minst en konto ved "
+"Hvilken brukerkonto Ã¸nsker du Ã¥ ha pÃ¥ systemet? Du bÃ¸r ha minst en konto ved "
 "siden av root for vanlig arbeid, men flerbrukersystemer kan ha mange kontoer "
 "satt opp."
 
@@ -5435,7 +5278,7 @@ msgstr "eller bruk:"
 
 #: ../textw/userauth_text.py:347
 msgid "Request server via broadcast"
-msgstr "Forespør tjener via kringkasting"
+msgstr "ForespÃ¸r tjener via kringkasting"
 
 #: ../textw/userauth_text.py:368
 msgid "Enable LDAP"
@@ -5459,7 +5302,7 @@ msgstr "Bruk Kerberos"
 
 #: ../textw/userauth_text.py:404
 msgid "Realm:"
-msgstr "Område:"
+msgstr "OmrÃ¥de:"
 
 #: ../textw/userauth_text.py:406
 msgid "KDC:"
@@ -5490,9 +5333,9 @@ msgstr ""
 "\n"
 "Denne installasjonsprosessen er beskrevet i detalj i installeringsguiden\n"
 "for %s som er tilgjengelig fra Red Hat, Inc. Hvis du har tilgang til denne\n"
-"håndboken bør du lese delen om installering før du fortsetter.\n"
+"hÃ¥ndboken bÃ¸r du lese delen om installering fÃ¸r du fortsetter.\n"
 "\n"
-"Hvis du har kjøpt Official %s bør du registrere kjøpet gjennom vårt "
+"Hvis du har kjÃ¸pt Official %s bÃ¸r du registrere kjÃ¸pet gjennom vÃ¥rt "
 "nettsted, http://www.redhat.com/."
 
 #: ../textw/xconfig_text.py:31
@@ -5501,15 +5344,15 @@ msgstr "Fargedybde"
 
 #: ../textw/xconfig_text.py:32
 msgid "Please select the color depth you would like to use:"
-msgstr "Vennligst velg fargedybden du ønsker å bruke:"
+msgstr "Vennligst velg fargedybden du Ã¸nsker Ã¥ bruke:"
 
 #: ../textw/xconfig_text.py:50
 msgid "Resolution"
-msgstr "Oppløsning"
+msgstr "OpplÃ¸sning"
 
 #: ../textw/xconfig_text.py:51
 msgid "Please select the resolution you would like to use:"
-msgstr "Vennligst velg oppløsningen du ønsker å bruke:"
+msgstr "Vennligst velg opplÃ¸sningen du Ã¸nsker Ã¥ bruke:"
 
 #: ../textw/xconfig_text.py:180 ../textw/xconfig_text.py:189
 #: ../loader/loader.c:911 ../loader/loader.c:1201 ../loader/loader.c:1204
@@ -5527,8 +5370,8 @@ msgid ""
 "Select the color depth and video mode you want to use for your system. Use "
 "the '%s' button to test the video mode."
 msgstr ""
-"Velg fargedybden og grafikkmodus du ønsker å bruke for ditt system. Bruk '%"
-"s'-knappen for å teste grafikkmodus."
+"Velg fargedybden og grafikkmodus du Ã¸nsker Ã¥ bruke for ditt system. Bruk '%"
+"s'-knappen for Ã¥ teste grafikkmodus."
 
 #: ../textw/xconfig_text.py:192
 msgid "Color Depth:"
@@ -5542,7 +5385,7 @@ msgstr "Endre"
 
 #: ../textw/xconfig_text.py:199
 msgid "Resolution:"
-msgstr "Oppløsning:"
+msgstr "OpplÃ¸sning:"
 
 #: ../textw/xconfig_text.py:209
 msgid "Default Desktop:"
@@ -5558,7 +5401,7 @@ msgstr "KDE"
 
 #: ../textw/xconfig_text.py:229
 msgid "Default Login:"
-msgstr "Standard pålogging:"
+msgstr "Standard pÃ¥logging:"
 
 #: ../textw/xconfig_text.py:231
 msgid "Graphical"
@@ -5589,8 +5432,8 @@ msgid ""
 msgstr ""
 "Vennligst skriv inn synkroniseringsfrekvenser for din skjerm.\n"
 "\n"
-"MERK - det er ikke vanligvis nødvendig p redigere synkroniseringsfrekvenser "
-"manuelt, og man bør forsikre seg om at verdiene som oppgis er korrekt."
+"MERK - det er ikke vanligvis nÃ¸dvendig p redigere synkroniseringsfrekvenser "
+"manuelt, og man bÃ¸r forsikre seg om at verdiene som oppgis er korrekt."
 
 #: ../textw/xconfig_text.py:315
 msgid "HSync Rate: "
@@ -5629,11 +5472,11 @@ msgstr ""
 "\n"
 "      %s\n"
 "\n"
-"En gyldig synkroniseringsfrekvens skal være på formen:\n"
+"En gyldig synkroniseringsfrekvens skal vÃ¦re pÃ¥ formen:\n"
 "\n"
 "      31.5                   ett enkelt tall\n"
-"    50.1-90.2                et tallområde\n"
-"31.5,35.0,39.3-40.0          en liste med tall/områder\n"
+"    50.1-90.2                et tallomrÃ¥de\n"
+"31.5,35.0,39.3-40.0          en liste med tall/omrÃ¥der\n"
 
 #: ../textw/xconfig_text.py:437
 #, python-format
@@ -5641,8 +5484,8 @@ msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
 msgstr ""
-"Velg skjermen for ditt system. Bruk '%s'-knappen for å gå tilbake til "
-"verdiene fra autosøk."
+"Velg skjermen for ditt system. Bruk '%s'-knappen for Ã¥ gÃ¥ tilbake til "
+"verdiene fra autosÃ¸k."
 
 #: ../textw/xconfig_text.py:441
 msgid "Monitor:"
@@ -5666,7 +5509,7 @@ msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
 msgstr ""
-"Vennligst velg skjermkort for ditt system. Velg '%s' for å gå tilbake til "
+"Vennligst velg skjermkort for ditt system. Velg '%s' for Ã¥ gÃ¥ tilbake til "
 "valget installasjonsprogrammet fant for ditt system."
 
 #: ../textw/xconfig_text.py:553
@@ -5679,8 +5522,8 @@ msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
-"Vennligst velg mengden video-RAM som finnes på ditt skjermkort. Velg '%s' "
-"for å gå tilbake til mengden installasjonsprogrammet fant på ditt kort."
+"Vennligst velg mengden video-RAM som finnes pÃ¥ ditt skjermkort. Velg '%s' "
+"for Ã¥ gÃ¥ tilbake til mengden installasjonsprogrammet fant pÃ¥ ditt kort."
 
 #: ../textw/xconfig_text.py:624
 msgid "Skip X Configuration"
@@ -5783,9 +5626,9 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
-"Denne modulen kan ta parametere som har innvirkning på måten den virker. "
+"Denne modulen kan ta parametere som har innvirkning pÃ¥ mÃ¥ten den virker. "
 "Hvis du ikke vet hvilke parametere du skal oppgi, kan du hoppe over denne "
-"skjermen ved å trykke \"OK\"-knappen nå."
+"skjermen ved Ã¥ trykke \"OK\"-knappen nÃ¥."
 
 #: ../loader/devices.c:93
 msgid "Module Parameters"
@@ -5802,7 +5645,7 @@ msgstr "Har du en driverdisk?"
 
 #: ../loader/devices.c:241
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "Sett inn driverdisketten og trykk \"OK\" for å fortsette."
+msgstr "Sett inn driverdisketten og trykk \"OK\" for Ã¥ fortsette."
 
 #: ../loader/devices.c:259
 msgid "Failed to mount driver disk."
@@ -5822,7 +5665,7 @@ msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
-"Hvilken driver skal jeg forsøke? Hvis driveren du trenger ikke finnes på "
+"Hvilken driver skal jeg forsÃ¸ke? Hvis driveren du trenger ikke finnes pÃ¥ "
 "denne listen, og du har en separat driverdiskett, vennligst trykk F2."
 
 #: ../loader/devices.c:335
@@ -5832,7 +5675,7 @@ msgstr "Spesifiser parametere for modul"
 #: ../loader/devices.c:429
 #, c-format
 msgid "Failed to insert %s module."
-msgstr "Klarte ikke å laste %s-modul."
+msgstr "Klarte ikke Ã¥ laste %s-modul."
 
 #: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
 msgid "Kickstart Error"
@@ -5841,7 +5684,7 @@ msgstr "Kickstart-feil"
 #: ../loader/kickstart.c:60
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
-msgstr "Feil under åpning: kickstart-fil %s: %s"
+msgstr "Feil under Ã¥pning: kickstart-fil %s: %s"
 
 #: ../loader/kickstart.c:70
 #, c-format
@@ -5851,7 +5694,7 @@ msgstr "Feil under lesing av innholdet i kickstart-fil %s: %s"
 #: ../loader/kickstart.c:109
 #, c-format
 msgid "Error on line %d of kickstart file %s."
-msgstr "Feil på linje %d i kickstart-fil %s."
+msgstr "Feil pÃ¥ linje %d i kickstart-fil %s."
 
 #: ../loader/lang.c:41 ../loader/loader.c:199
 #, c-format
@@ -5866,7 +5709,7 @@ msgstr ""
 
 #: ../loader/lang.c:305
 msgid "Choose a Language"
-msgstr "Velg et språk"
+msgstr "Velg et sprÃ¥k"
 
 #: ../loader/lang.c:632
 msgid "Keyboard Type"
@@ -5898,11 +5741,11 @@ msgstr "Nettverk"
 
 #: ../loader/loader.c:329
 msgid "What kind of device would you like to add"
-msgstr "Hvilken enhet ønsker du å legge til?"
+msgstr "Hvilken enhet Ã¸nsker du Ã¥ legge til?"
 
 #: ../loader/loader.c:378
 msgid "The following devices have been found on your system:"
-msgstr "Følgende typer enheter er funnet på ditt system:"
+msgstr "FÃ¸lgende typer enheter er funnet pÃ¥ ditt system:"
 
 #: ../loader/loader.c:380 ../loader/loader.c:405
 msgid "Done"
@@ -5917,8 +5760,8 @@ msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
 msgstr ""
-"Ingen spesielle enhetsdrivere er lastet for ditt system. Ønsker du å gjøre "
-"dette nå?"
+"Ingen spesielle enhetsdrivere er lastet for ditt system. Ã˜nsker du Ã¥ gjÃ¸re "
+"dette nÃ¥?"
 
 #: ../loader/loader.c:489 ../loader/loader.c:891 ../loader/loader.c:2793
 #, c-format
@@ -5931,7 +5774,7 @@ msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
-"En feil oppstod ved lesing fra ISO-filene. Sjekk ISO-filene og prøv på nytt."
+"En feil oppstod ved lesing fra ISO-filene. Sjekk ISO-filene og prÃ¸v pÃ¥ nytt."
 
 #: ../loader/loader.c:908
 #, c-format
@@ -5940,7 +5783,7 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
-"Ønsker du å teste sjekksummen av ISO-filen:\n"
+"Ã˜nsker du Ã¥ teste sjekksummen av ISO-filen:\n"
 "\n"
 "   %s?"
 
@@ -5953,7 +5796,7 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Det ser ikke ut som om du har noen harddisker på systemet ditt! Ønsker du å "
+"Det ser ikke ut som om du har noen harddisker pÃ¥ systemet ditt! Ã˜nsker du Ã¥ "
 "konfigurere noen tilleggsenheter?"
 
 #: ../loader/loader.c:1067
@@ -5963,9 +5806,9 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Hvilken partisjon og hvilken katalog på denne partisjonen inneholder CD-"
-"filene (iso9660) for %s? Hvis du ikke ser disken du bruker på denne listen, "
-"trykk F2 for å konfigurere tilleggsenheter."
+"Hvilken partisjon og hvilken katalog pÃ¥ denne partisjonen inneholder CD-"
+"filene (iso9660) for %s? Hvis du ikke ser disken du bruker pÃ¥ denne listen, "
+"trykk F2 for Ã¥ konfigurere tilleggsenheter."
 
 #: ../loader/loader.c:1083
 msgid "Directory holding images:"
@@ -5978,7 +5821,7 @@ msgstr "Velg partisjon"
 #: ../loader/loader.c:1151
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr "Enheten %s ser ikke ut til å inneholde et Red Hat CDROM-bilde."
+msgstr "Enheten %s ser ikke ut til Ã¥ inneholde et Red Hat CDROM-bilde."
 
 #: ../loader/loader.c:1201 ../loader/loader.c:1222 ../loader/mediacheck.c:209
 msgid "Media Check"
@@ -5986,7 +5829,7 @@ msgstr "Mediasjekk"
 
 #: ../loader/loader.c:1201 ../loader/loader.c:1205
 msgid "Eject CD"
-msgstr "Løs ut CD"
+msgstr "LÃ¸s ut CD"
 
 #: ../loader/loader.c:1202
 #, c-format
@@ -5994,7 +5837,7 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
-"Velg \"%s\" for å teste CDen som er i CD-stasjonen, eller \"%s\" for å bytte "
+"Velg \"%s\" for Ã¥ teste CDen som er i CD-stasjonen, eller \"%s\" for Ã¥ bytte "
 "CD."
 
 #: ../loader/loader.c:1223
@@ -6007,11 +5850,11 @@ msgid ""
 "To begin the installation process insert CD #1 into the drive and press \"%s"
 "\"."
 msgstr ""
-"Hvis du ønsker å teste flere installeringsmedia, sett inn neste CD og trykk "
-"\"%s\". Du trenger ikke teste alle CDene, selv om det er anbefalt at du gjør "
-"dette ihvertfall første gangen du bruker dem.\n"
+"Hvis du Ã¸nsker Ã¥ teste flere installeringsmedia, sett inn neste CD og trykk "
+"\"%s\". Du trenger ikke teste alle CDene, selv om det er anbefalt at du gjÃ¸r "
+"dette ihvertfall fÃ¸rste gangen du bruker dem.\n"
 "\n"
-"For å fortsette installeringsprosessen sett inn CD #1 i CD-ROM-stasjonen og "
+"For Ã¥ fortsette installeringsprosessen sett inn CD #1 i CD-ROM-stasjonen og "
 "trykk \"%s\"."
 
 #: ../loader/loader.c:1244 ../loader/loader.c:1358
@@ -6021,7 +5864,7 @@ msgid ""
 "and press %s to retry."
 msgstr ""
 "%s CDen ble ikke funnet i noen av dine CD-ROM-stasjoner. Sett inn %s CDen og "
-"press %s for å forsøke på nytt"
+"press %s for Ã¥ forsÃ¸ke pÃ¥ nytt"
 
 #: ../loader/loader.c:1287
 msgid "CD Found"
@@ -6034,9 +5877,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"For å starte testing av CDer før installeringen trykk %s.\n"
+"For Ã¥ starte testing av CDer fÃ¸r installeringen trykk %s.\n"
 "\n"
-"Velg %s for å hoppe over denne testen og starte installeringen."
+"Velg %s for Ã¥ hoppe over denne testen og starte installeringen."
 
 #: ../loader/loader.c:1454
 msgid "Networking Device"
@@ -6047,12 +5890,12 @@ msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"Du har flere nettverksenheter på dette systemet. Hvilken enhet skal du bruke "
+"Du har flere nettverksenheter pÃ¥ dette systemet. Hvilken enhet skal du bruke "
 "for installasjonen?"
 
 #: ../loader/loader.c:1572
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr "Den katalogen ser ikke ut til å inneholde et Red Hat installasjonstre."
+msgstr "Den katalogen ser ikke ut til Ã¥ inneholde et Red Hat installasjonstre."
 
 #: ../loader/loader.c:1577
 msgid "That directory could not be mounted from the server"
@@ -6061,7 +5904,7 @@ msgstr "Kunne ikke montere denne katalogen fra den oppgitte tjeneren"
 #: ../loader/loader.c:1619
 #, c-format
 msgid "File %s/%s not found on server."
-msgstr "Filen %s/%s ble ikke funnet på tjeneren."
+msgstr "Filen %s/%s ble ikke funnet pÃ¥ tjeneren."
 
 #: ../loader/loader.c:1657
 msgid "HTTP"
@@ -6069,7 +5912,7 @@ msgstr "HTTP"
 
 #: ../loader/loader.c:1658
 msgid "Unable to retrieve the first install image"
-msgstr "Kunne ikke finne første installasjonsbilde"
+msgstr "Kunne ikke finne fÃ¸rste installasjonsbilde"
 
 #: ../loader/loader.c:1719
 msgid "FTP and HTTP installs require 20MB or more of system memory."
@@ -6093,7 +5936,7 @@ msgstr "Hvilken type media inneholder pakkene som skal installeres?"
 
 #: ../loader/loader.c:2763
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr "Kan ikke finne ks.cfg på oppstartsdisketten."
+msgstr "Kan ikke finne ks.cfg pÃ¥ oppstartsdisketten."
 
 #: ../loader/loader.c:2855
 msgid "Updates Disk"
@@ -6101,7 +5944,7 @@ msgstr "Oppdateringsdiskett"
 
 #: ../loader/loader.c:2856
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "Sett inn oppdateringsdisketten og trykk \"OK\" for å fortsette."
+msgstr "Sett inn oppdateringsdisketten og trykk \"OK\" for Ã¥ fortsette."
 
 #: ../loader/loader.c:2861
 #, c-format
@@ -6127,7 +5970,7 @@ msgstr "Leser anaconda-oppdateringer..."
 #: ../loader/loader.c:3090
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr "Du har ikke nok RAM til å installere %s på denne maskinen."
+msgstr "Du har ikke nok RAM til Ã¥ installere %s pÃ¥ denne maskinen."
 
 #: ../loader/loader.c:3126
 msgid ""
@@ -6135,9 +5978,9 @@ msgid ""
 "boot disk which you are using.  This shouldn't happen, and I'm rebooting "
 "your system now."
 msgstr ""
-"Andre del av installeringsprogrammet er ikke det samme som delen på "
-"oppstartsdisketten du bruker. Dette skal ikke skje, og systemet vil nå "
-"starte på nytt."
+"Andre del av installeringsprogrammet er ikke det samme som delen pÃ¥ "
+"oppstartsdisketten du bruker. Dette skal ikke skje, og systemet vil nÃ¥ "
+"starte pÃ¥ nytt."
 
 #: ../loader/loader.c:3521
 msgid ""
@@ -6145,20 +5988,20 @@ msgid ""
 "drivers for the installation to succeed. Would you like to select drivers "
 "now?"
 msgstr ""
-"Ingen harddisker er funnet. Du er sannsynligvis nødt til å velge en driver "
-"for å kunne fortsette installeringen. Hvis du velge driver nå?"
+"Ingen harddisker er funnet. Du er sannsynligvis nÃ¸dt til Ã¥ velge en driver "
+"for Ã¥ kunne fortsette installeringen. Hvis du velge driver nÃ¥?"
 
 #: ../loader/loader.c:3693
 msgid "Running anaconda - please wait...\n"
-msgstr "Kjører anaconda - snart tilbake...\n"
+msgstr "KjÃ¸rer anaconda - snart tilbake...\n"
 
 #: ../loader/mediacheck.c:193
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
-"Klarte ikke å lese CDens sjekksum fra primær volum-beskrivelse. Dette betyr "
-"sannsynligvis at at CDen ble laget uten å legge til sjekksum."
+"Klarte ikke Ã¥ lese CDens sjekksum fra primÃ¦r volum-beskrivelse. Dette betyr "
+"sannsynligvis at at CDen ble laget uten Ã¥ legge til sjekksum."
 
 #: ../loader/mediacheck.c:201
 #, c-format
@@ -6167,7 +6010,7 @@ msgstr "Kontrollerer %s..."
 
 #: ../loader/mediacheck.c:203
 msgid "Checking media now..."
-msgstr "Sjekker medium nå..."
+msgstr "Sjekker medium nÃ¥..."
 
 #: ../loader/mediacheck.c:248
 #, c-format
@@ -6182,7 +6025,7 @@ msgid ""
 msgstr ""
 "FEIL.\n"
 "\n"
-"Det anbefales å ikke bruke dette mediet."
+"Det anbefales Ã¥ ikke bruke dette mediet."
 
 #: ../loader/mediacheck.c:263
 msgid ""
@@ -6192,7 +6035,7 @@ msgid ""
 msgstr ""
 "OK.\n"
 "\n"
-"Det er ok å installere fra dette mediet."
+"Det er ok Ã¥ installere fra dette mediet."
 
 #: ../loader/mediacheck.c:265
 msgid ""
@@ -6251,7 +6094,7 @@ msgstr "Driverdisk"
 #: ../loader/modules.c:443
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr "Vennligst sett inn %s-driverdisketten nå."
+msgstr "Vennligst sett inn %s-driverdisketten nÃ¥."
 
 #: ../loader/net.c:62
 #, c-format
@@ -6262,15 +6105,15 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
-"Skriv inn følgende informasjon:\n"
+"Skriv inn fÃ¸lgende informasjon:\n"
 "\n"
 "    o navnet eller IP-adressen til din %s-tjener\n"
-"    o katalogen på den tjeneren som inneholder\n"
+"    o katalogen pÃ¥ den tjeneren som inneholder\n"
 "      %s for din arkitektur\n"
 
 #: ../loader/net.c:176
 msgid "NFS server name:"
-msgstr "Navn på NFS-tjener:"
+msgstr "Navn pÃ¥ NFS-tjener:"
 
 #: ../loader/net.c:179 ../loader/urls.c:226
 msgid "Red Hat directory:"
@@ -6295,10 +6138,10 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
-"Din forespørsel om dynamisk IP returnerte informasjon om IP-konfigurasjon, "
+"Din forespÃ¸rsel om dynamisk IP returnerte informasjon om IP-konfigurasjon, "
 "men den inkluderte ikke en DNS-navnetjener. Hvis du har informasjon om din "
-"navnetjener, skriv den inn nå. Hvis du ikke har denne informasjonen kan du "
-"la dette feltet stå tomt og installasjonen vil fortsette."
+"navnetjener, skriv den inn nÃ¥. Hvis du ikke har denne informasjonen kan du "
+"la dette feltet stÃ¥ tomt og installasjonen vil fortsette."
 
 #: ../loader/net.c:274
 msgid "Invalid IP Information"
@@ -6313,7 +6156,7 @@ msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
-"Vær snill og skriv inn IP-konfigurasjonen for denne maskinen. Hver oppføring "
+"VÃ¦r snill og skriv inn IP-konfigurasjonen for denne maskinen. Hver oppfÃ¸ring "
 "skal skrives inn som en IP-adresse i punktdelt desimal notasjon (f.eks, "
 "1.2.3.4)."
 
@@ -6331,7 +6174,7 @@ msgstr "Manglende informasjon"
 
 #: ../loader/net.c:401
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "Du må skrive inn både en gyldig IP-adresse og en nettmaske."
+msgstr "Du mÃ¥ skrive inn bÃ¥de en gyldig IP-adresse og en nettmaske."
 
 #: ../loader/net.c:409 ../loader/net.c:746
 msgid "Dynamic IP"
@@ -6339,11 +6182,11 @@ msgstr "Dynamisk IP"
 
 #: ../loader/net.c:410 ../loader/net.c:747
 msgid "Sending request for IP information..."
-msgstr "Sender forespørsel om IP-informasjon..."
+msgstr "Sender forespÃ¸rsel om IP-informasjon..."
 
 #: ../loader/net.c:623
 msgid "Determining host name and domain..."
-msgstr "Undersøker vertsnavn og domene..."
+msgstr "UndersÃ¸ker vertsnavn og domene..."
 
 #: ../loader/net.c:730 ../loader/net.c:763
 msgid "kickstart"
@@ -6415,7 +6258,7 @@ msgstr "PC-kort"
 
 #: ../loader/pcmcia.c:36
 msgid "Initializing PC Card Devices..."
-msgstr "Initierer enheter på PC-kort..."
+msgstr "Initierer enheter pÃ¥ PC-kort..."
 
 #: ../loader/pcmcia.c:104
 msgid "PCMCIA"
@@ -6423,7 +6266,7 @@ msgstr "PCMCIA"
 
 #: ../loader/pcmcia.c:105
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-msgstr "Vennligst sett inn PCMCIA-driverdisketten i diskettstasjonen nå."
+msgstr "Vennligst sett inn PCMCIA-driverdisketten i diskettstasjonen nÃ¥."
 
 #: ../loader/pcmcia.c:114
 msgid "Failed to mount disk."
@@ -6431,25 +6274,25 @@ msgstr "Kunne ikke montere disken."
 
 #: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-msgstr "Den disketten ser ikke ut til å være en PCMCIA driverdisk."
+msgstr "Den disketten ser ikke ut til Ã¥ vÃ¦re en PCMCIA driverdisk."
 
 #: ../loader/telnetd.c:64
 msgid "Waiting for telnet connection..."
-msgstr "Venter på telnet-forbindelse..."
+msgstr "Venter pÃ¥ telnet-forbindelse..."
 
 #: ../loader/telnetd.c:106
 msgid "Running anaconda via telnet..."
-msgstr "Kjører anaconda via telnet..."
+msgstr "KjÃ¸rer anaconda via telnet..."
 
 #: ../loader/urls.c:82
 #, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Klarte ikke logge inn på %s: %s"
+msgstr "Klarte ikke logge inn pÃ¥ %s: %s"
 
 #: ../loader/urls.c:92 ../loader/urls.c:100
 #, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Klarte ikke å hente %s: %s"
+msgstr "Klarte ikke Ã¥ hente %s: %s"
 
 #: ../loader/urls.c:105
 msgid "Retrieving"
@@ -6457,11 +6300,11 @@ msgstr "Henter"
 
 #: ../loader/urls.c:222
 msgid "FTP site name:"
-msgstr "Navn på FTP-område:"
+msgstr "Navn pÃ¥ FTP-omrÃ¥de:"
 
 #: ../loader/urls.c:223
 msgid "Web site name:"
-msgstr "Navn på WWW-område:"
+msgstr "Navn pÃ¥ WWW-omrÃ¥de:"
 
 #: ../loader/urls.c:241
 msgid "Use non-anonymous ftp"
@@ -6481,11 +6324,11 @@ msgstr "HTTP-oppsett"
 
 #: ../loader/urls.c:269
 msgid "You must enter a server name."
-msgstr "Du må skrive inn et tjenernavn."
+msgstr "Du mÃ¥ skrive inn et tjenernavn."
 
 #: ../loader/urls.c:274
 msgid "You must enter a directory."
-msgstr "Du må skrive inn en katalog."
+msgstr "Du mÃ¥ skrive inn en katalog."
 
 #: ../loader/urls.c:279
 msgid "Unknown Host"
@@ -6501,8 +6344,8 @@ msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
-"Hvis du bruker ikke-anonym ftp, skriv inn kontonavnet og passordet du ønsker "
-"å bruke under. Hvis du bruker en FTP-proxy, skriv inn navnet til FTP-"
+"Hvis du bruker ikke-anonym ftp, skriv inn kontonavnet og passordet du Ã¸nsker "
+"Ã¥ bruke under. Hvis du bruker en FTP-proxy, skriv inn navnet til FTP-"
 "proxytjeneren som skal brukes."
 
 #: ../loader/urls.c:365
@@ -6541,7 +6384,7 @@ msgid "Base"
 msgstr "Basis"
 
 msgid "Printing Support"
-msgstr "Støtte for utskrift"
+msgstr "StÃ¸tte for utskrift"
 
 msgid "Classic X Window System"
 msgstr "Klassisk X-vindussystem"
@@ -6550,20 +6393,20 @@ msgid "X Window System"
 msgstr "X vindussystem"
 
 msgid "Laptop Support"
-msgstr "Støtte for bærbare"
+msgstr "StÃ¸tte for bÃ¦rbare"
 
 msgid "Sound and Multimedia Support"
-msgstr "Lyd- og multimediastøtte"
+msgstr "Lyd- og multimediastÃ¸tte"
 
 msgid "Network Support"
-msgstr "Støtte for nettverk"
+msgstr "StÃ¸tte for nettverk"
 
 msgid "Dialup Support"
-msgstr "Støtte for ekstern pålogging"
+msgstr "StÃ¸tte for ekstern pÃ¥logging"
 
 # ../comps/comps-master:577
 msgid "Messaging and Web Tools"
-msgstr "Meldinger og web-verktøy"
+msgstr "Meldinger og web-verktÃ¸y"
 
 msgid "Graphics and Image Manipulation"
 msgstr "Grafikk- og bildemanipulasjon"
@@ -6602,10 +6445,10 @@ msgid "Emacs"
 msgstr "Emacs"
 
 msgid "Utilities"
-msgstr "Verktøy"
+msgstr "VerktÃ¸y"
 
 msgid "Legacy Application Support"
-msgstr "Støtte for eldre applikasjoner"
+msgstr "StÃ¸tte for eldre applikasjoner"
 
 msgid "Software Development"
 msgstr "Programvareutvikling"
@@ -6647,11 +6490,11 @@ msgstr "Alaska-tid - vest-Alaska"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr "de Aleutiske øyer"
+msgstr "de Aleutiske Ã¸yer"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr "Amapa, østre Para"
+msgstr "Amapa, Ã¸stre Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
@@ -6663,17 +6506,17 @@ msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr "Atlanterhavsøyene"
+msgstr "AtlanterhavsÃ¸yene"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr "\"Atlantic Time\" - østre Labrador"
+msgstr "\"Atlantic Time\" - Ã¸stre Labrador"
 
 #. generated from zone.tab
 msgid ""
 "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
-"\"Atlantic Time\" - de fleste steder i Nova Scotia, NB, vest-Labrador, øst-"
+"\"Atlantic Time\" - de fleste steder i Nova Scotia, NB, vest-Labrador, Ã¸st-"
 "Quebec og PEI"
 
 #. generated from zone.tab
@@ -6695,11 +6538,11 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr "Kanariøyene"
+msgstr "KanariÃ¸yene"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr "Casey-stasjonen, Bailey-halvøyen"
+msgstr "Casey-stasjonen, Bailey-halvÃ¸yen"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
@@ -6767,11 +6610,11 @@ msgstr "Ceuta og Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr "Chatham-øyene"
+msgstr "Chatham-Ã¸yene"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr "Davis-stasjonen, Vestfold-høydene"
+msgstr "Davis-stasjonen, Vestfold-hÃ¸ydene"
 
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar"
@@ -6783,27 +6626,27 @@ msgstr "Dumont-d'Urville-basen, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr "Østre Amazonas"
+msgstr "Ã˜stre Amazonas"
 
 #. generated from zone.tab
 msgid "E Argentina (BA, DF, SC, TF)"
-msgstr "Østre Argentina (BA, DF, SC, TF)"
+msgstr "Ã˜stre Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr "øst-Kina - Beijing, Guangdong, Shanghai, etc."
+msgstr "Ã¸st-Kina - Beijing, Guangdong, Shanghai, etc."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr "østkysten, nord for Scoresbysund"
+msgstr "Ã¸stkysten, nord for Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr "østre Kongo"
+msgstr "Ã¸stre Kongo"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr "Påskeøyene & Sala y Gomez"
+msgstr "PÃ¥skeÃ¸yene & Sala y Gomez"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
@@ -6811,7 +6654,7 @@ msgstr "\"Eastern Standard Time\" - midt-Nunavut."
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr "\"Eastern Standard Time\" - østre-Nunavut"
+msgstr "\"Eastern Standard Time\" - Ã¸stre-Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
@@ -6835,11 +6678,11 @@ msgstr "\"Eastern Standard Time\" - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr "\"Eastern Time\" (USAs østkyst)"
+msgstr "\"Eastern Time\" (USAs Ã¸stkyst)"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "\"Eastern Time\" - Kentucky - Louisville-området"
+msgstr "\"Eastern Time\" - Kentucky - Louisville-omrÃ¥det"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
@@ -6866,23 +6709,23 @@ msgstr "\"Eastern Time\" - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "Øst- og syd-Borneo, Celebes, Bali, Nusa Tengarra, vest-Timor"
+msgstr "Ã˜st- og syd-Borneo, Celebes, Bali, Nusa Tengarra, vest-Timor"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr "øst-Uzbekistan"
+msgstr "Ã¸st-Uzbekistan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr "Galapagos-øyene"
+msgstr "Galapagos-Ã¸yene"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr "Gambier-øyene"
+msgstr "Gambier-Ã¸yene"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr "Gilbert-øyene"
+msgstr "Gilbert-Ã¸yene"
 
 #. generated from zone.tab
 msgid "Great Britain"
@@ -6930,7 +6773,7 @@ msgstr "Line Islands"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr "Lord Howe-øya"
+msgstr "Lord Howe-Ã¸ya"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
@@ -6938,7 +6781,7 @@ msgstr "Madeira"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr "Marquesas-øyene"
+msgstr "Marquesas-Ã¸yene"
 
 #. generated from zone.tab
 msgid "Mato Grosso, Mato Grosso do Sul"
@@ -6958,7 +6801,7 @@ msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr "Midway-øyene"
+msgstr "Midway-Ã¸yene"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -6990,7 +6833,7 @@ msgstr "Moskva+04 - Yenisei-elven"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr "Moskva+05 - Baikal-sjøen"
+msgstr "Moskva+05 - Baikal-sjÃ¸en"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
@@ -7041,7 +6884,7 @@ msgstr "\"Mountain Time\""
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 msgstr ""
-"\"Mountain Time\" - Alberta, østre britisk Columbia og vest-Saskatchewan"
+"\"Mountain Time\" - Alberta, Ã¸stre britisk Columbia og vest-Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -7061,7 +6904,7 @@ msgstr "\"Mountain Time\" - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "\"Mountain Time\" - sør-Idaho og øst-Oregon"
+msgstr "\"Mountain Time\" - sÃ¸r-Idaho og Ã¸st-Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
@@ -7069,7 +6912,7 @@ msgstr "\"Mountain Time\" - vest-\"Northwest Territories\""
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
-msgstr "Nordøstre Brasil (MA, PI, CE, RN, PR)"
+msgstr "NordÃ¸stre Brasil (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
@@ -7085,7 +6928,7 @@ msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
-msgstr "nordøstre Mali"
+msgstr "nordÃ¸stre Mali"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
@@ -7101,7 +6944,7 @@ msgstr "\"Pacific Time\" - nord-Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr "\"Pacific Time\" - sør-Yukon"
+msgstr "\"Pacific Time\" - sÃ¸r-Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
@@ -7109,7 +6952,7 @@ msgstr "\"Pacific Time\" - vestre Britisk Columbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr "Palmer Station, Anvers-øya"
+msgstr "Palmer Station, Anvers-Ã¸ya"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
@@ -7121,7 +6964,7 @@ msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr "Phoenix-øyene"
+msgstr "Phoenix-Ã¸yene"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
@@ -7173,7 +7016,7 @@ msgstr "sydvest Xinjian Uyghur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "Syd- og Sydøst-Brasil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "Syd- og SydÃ¸st-Brasil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -7181,7 +7024,7 @@ msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr "Syowa Station, østre Ongul I"
+msgstr "Syowa Station, Ã¸stre Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
@@ -7249,7 +7092,7 @@ msgstr "Yap"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr "Zaporozh'ye, østre Lugansk"
+msgstr "Zaporozh'ye, Ã¸stre Lugansk"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
@@ -7306,7 +7149,7 @@ msgstr "Portugisisk:"
 #. generated from lang-table
 #, fuzzy
 msgid "Romanian"
-msgstr "Gjenstår"
+msgstr "GjenstÃ¥r"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7329,7 +7172,7 @@ msgid "Ukrainian"
 msgstr "Ukrainsk"
 
 #~ msgid "Partition Request Sanity Check Errors"
-#~ msgstr "Feil under sjekk av partisjonsforespørsel"
+#~ msgstr "Feil under sjekk av partisjonsforespÃ¸rsel"
 
 #~ msgid "Install"
 #~ msgstr "Installer"
@@ -7345,9 +7188,9 @@ msgstr "Ukrainsk"
 #~ "enter additional user accounts."
 #~ msgstr ""
 #~ "Flere kontoer kan opprettes for andre brukere av systemet. Slike kontoer "
-#~ "kan være for personlige innloggingskontoer eller for andre ikke-"
+#~ "kan vÃ¦re for personlige innloggingskontoer eller for andre ikke-"
 #~ "administrative brukere som trenger tilgang til systemet. Bruk <Legg til>-"
-#~ "knappen for å opprette flere brukerkontoer."
+#~ "knappen for Ã¥ opprette flere brukerkontoer."
 
 #~ msgid "Use GRUB as the boot loader"
 #~ msgstr "Bruk GRUB som oppstartslaster"
@@ -7368,7 +7211,7 @@ msgstr "Ukrainsk"
 #~ "En komplett logg av installasjonen vil befinne seg i /tmp/install.log "
 #~ "etter omstart av systemet. Du vil kanskje beholde denne filen som et "
 #~ "referansepunkt til senere. En kickstart-fil som representerer valgene du "
-#~ "gjorde vil være i /root/anaconda-ks.cfg."
+#~ "gjorde vil vÃ¦re i /root/anaconda-ks.cfg."
 
 #~ msgid ""
 #~ "Congratulations, your %s installation is complete.\n"
@@ -7382,19 +7225,19 @@ msgstr "Ukrainsk"
 #~ "Information on using and configuring your system is available in the %s "
 #~ "manuals at http://www.redhat.com/docs."
 #~ msgstr ""
-#~ "Gratulerer, din installering av %s er fullført.\n"
+#~ "Gratulerer, din installering av %s er fullfÃ¸rt.\n"
 #~ "\n"
 #~ "Fjern disketter du har brukt under installeringsprosessen og trykk "
-#~ "<Enter> for å starte systemet på nytt.\n"
+#~ "<Enter> for Ã¥ starte systemet pÃ¥ nytt.\n"
 #~ "\n"
-#~ "%sFor informasjon om errata (oppdateringer og feilrettinger), besøk "
+#~ "%sFor informasjon om errata (oppdateringer og feilrettinger), besÃ¸k "
 #~ "http://www.redhat.com/errata.\n"
 #~ "\n"
 #~ "Informasjon om bruk og konfigurasjon av systemet er tilgjengelig i "
-#~ "brukerhåndbøkene for %s, som finnes på http://www.redhat.com/docs."
+#~ "brukerhÃ¥ndbÃ¸kene for %s, som finnes pÃ¥ http://www.redhat.com/docs."
 
 #~ msgid "Please choose your security level:  "
-#~ msgstr "Vennligst velg sikkerhetsnivå:  "
+#~ msgstr "Vennligst velg sikkerhetsnivÃ¥:  "
 
 #, fuzzy
 #~ msgid "_Select all"
@@ -7408,7 +7251,7 @@ msgstr "Ukrainsk"
 #~ msgid ""
 #~ "Re_view (allows you to see and change the automatic partitioning results)"
 #~ msgstr ""
-#~ "Revider (lar deg se og endre på resultatet av automatisk partisjonering)"
+#~ "Revider (lar deg se og endre pÃ¥ resultatet av automatisk partisjonering)"
 
 #, fuzzy
 #~ msgid "Have the installer _automatically partition for you"
@@ -7418,17 +7261,17 @@ msgstr "Ukrainsk"
 #~ "If the probed settings do not match your hardware, select the correct "
 #~ "hardware settings below:"
 #~ msgstr ""
-#~ "Hvis innstillingene fra autosøk ikke er riktig for din maskinvare, velg "
+#~ "Hvis innstillingene fra autosÃ¸k ikke er riktig for din maskinvare, velg "
 #~ "de riktige innstillingene for maskinvaren under:"
 
 #~ msgid "Laptop"
-#~ msgstr "Bærbar"
+#~ msgstr "BÃ¦rbar"
 
 #~ msgid "Close"
 #~ msgstr "Lukk"
 
 #~ msgid "Unable to probe"
-#~ msgstr "Kunne ikke søke"
+#~ msgstr "Kunne ikke sÃ¸ke"
 
 #~ msgid ""
 #~ "You cannot remove this partition, as it is an extended partition which "
@@ -7446,10 +7289,10 @@ msgstr "Ukrainsk"
 #~ "\n"
 #~ "Are you sure you want to do this?"
 #~ msgstr ""
-#~ "Du har valgt å formatere en eksisterende partisjon. Dette vil ødelegge "
-#~ "alle data som er på den.\n"
+#~ "Du har valgt Ã¥ formatere en eksisterende partisjon. Dette vil Ã¸delegge "
+#~ "alle data som er pÃ¥ den.\n"
 #~ "\n"
-#~ "Er du sikker på at du vil gjøre dette?"
+#~ "Er du sikker pÃ¥ at du vil gjÃ¸re dette?"
 
 #~ msgid ""
 #~ "You have chosen not to format a pre-existing partition which is being "
@@ -7460,19 +7303,19 @@ msgstr "Ukrainsk"
 #~ "\n"
 #~ "Are you sure you want to do this?"
 #~ msgstr ""
-#~ "Du har valgt å ikke formatere en eksisterende partisjon som skal monteres "
-#~ "som en systemkatalog. Med mindre du har spesielle behov for å bevare data "
-#~ "på denne partisjonen anbefales det på det sterkeste at du formaterer "
-#~ "denne partisjonen for å sikre at tidligere data ikke gjør den nye "
+#~ "Du har valgt Ã¥ ikke formatere en eksisterende partisjon som skal monteres "
+#~ "som en systemkatalog. Med mindre du har spesielle behov for Ã¥ bevare data "
+#~ "pÃ¥ denne partisjonen anbefales det pÃ¥ det sterkeste at du formaterer "
+#~ "denne partisjonen for Ã¥ sikre at tidligere data ikke gjÃ¸r den nye "
 #~ "installasjonen korrupt.\n"
 #~ "\n"
-#~ "Er du sikker på at du ikke ønsker å formatere?"
+#~ "Er du sikker pÃ¥ at du ikke Ã¸nsker Ã¥ formatere?"
 
 #~ msgid "Unknown Card"
 #~ msgstr "Ukjent kort"
 
 #~ msgid "Video Ram"
-#~ msgstr "Minne på skjermkort"
+#~ msgstr "Minne pÃ¥ skjermkort"
 
 #~ msgid "X server"
 #~ msgstr "X-tjener"
@@ -7481,7 +7324,7 @@ msgstr "Ukrainsk"
 #~ msgstr "Kunne ikke finne skjermkort"
 
 #~ msgid "Attempting to start framebuffer based X server"
-#~ msgstr "Forsøker å starte framebuffer-basert X-tjener"
+#~ msgstr "ForsÃ¸ker Ã¥ starte framebuffer-basert X-tjener"
 
 #~ msgid "Root Password: "
 #~ msgstr "Root-passord: "
@@ -7493,7 +7336,7 @@ msgstr "Ukrainsk"
 #~ msgstr ""
 #~ "\n"
 #~ "\n"
-#~ "En oppstartsdiskett er PÅKREVET for å starte en partisjonsløs "
+#~ "En oppstartsdiskett er PÃ…KREVET for Ã¥ starte en partisjonslÃ¸s "
 #~ "installasjon."
 
 #~ msgid "Skip boot disk creation"
@@ -7525,11 +7368,11 @@ msgstr "Ukrainsk"
 #~ msgstr ""
 #~ "Gratulerer, konfigurasjonen er ferdig.\n"
 #~ "\n"
-#~ "For informasjon om errata (oppdateringer og feilrettinger), besøk http://"
+#~ "For informasjon om errata (oppdateringer og feilrettinger), besÃ¸k http://"
 #~ "www.redhat.com/errata.\n"
 #~ "\n"
 #~ "Informasjon om bruk og konfigurasjon av systemet er tilgjengelig i "
-#~ "brukerhåndbøkene for %s, og er tilgjengelige på http://www.redhat.com/"
+#~ "brukerhÃ¥ndbÃ¸kene for %s, og er tilgjengelige pÃ¥ http://www.redhat.com/"
 #~ "docs."
 
 #~ msgid " is an invalid port."
@@ -7551,19 +7394,19 @@ msgstr "Ukrainsk"
 #~ msgstr "Utforming"
 
 #~ msgid "Dead Keys"
-#~ msgstr "Døde taster"
+#~ msgstr "DÃ¸de taster"
 
 #~ msgid "Enable dead keys"
-#~ msgstr "Bruk døde taster"
+#~ msgstr "Bruk dÃ¸de taster"
 
 #~ msgid "Disable dead keys"
-#~ msgstr "Ikke bruk døde taster"
+#~ msgstr "Ikke bruk dÃ¸de taster"
 
 #~ msgid "Test your selection here:"
 #~ msgstr "Test ditt valg her:"
 
 #~ msgid "Currently installed languages:"
-#~ msgstr "Støtte er installert for følgende språk:"
+#~ msgstr "StÃ¸tte er installert for fÃ¸lgende sprÃ¥k:"
 
 #~ msgid "Port"
 #~ msgstr "Port"
@@ -7572,7 +7415,7 @@ msgstr "Ukrainsk"
 #~ msgstr "Kringkast"
 
 #~ msgid "Total install size: "
-#~ msgstr "Total størrelse for installasjon: "
+#~ msgstr "Total stÃ¸rrelse for installasjon: "
 
 #~ msgid "_New"
 #~ msgstr "_Ny"
@@ -7584,7 +7427,7 @@ msgstr "Ukrainsk"
 #~ msgstr "%s  %s"
 
 #~ msgid "Exiting anaconda now"
-#~ msgstr "Avslutter anaconda nå"
+#~ msgstr "Avslutter anaconda nÃ¥"
 
 #~ msgid "Would you like to configure your system?"
 #~ msgstr "Vil du konfigurere systemet ditt?"
@@ -7613,15 +7456,15 @@ msgstr "Ukrainsk"
 #~ "\n"
 #~ "Would you like to create a boot disk for your system?"
 #~ msgstr ""
-#~ "En egendefinert oppstartsdiskett gir deg en måte å starte opp ditt Linux "
-#~ "system uten å være avhengig av oppstartslasteren. Dette er nyttig hvis du "
-#~ "ikke ønsker å installere lilo på systemet, et annet operativsystem "
+#~ "En egendefinert oppstartsdiskett gir deg en mÃ¥te Ã¥ starte opp ditt Linux "
+#~ "system uten Ã¥ vÃ¦re avhengig av oppstartslasteren. Dette er nyttig hvis du "
+#~ "ikke Ã¸nsker Ã¥ installere lilo pÃ¥ systemet, et annet operativsystem "
 #~ "fjerner lilo, eller hvis lilo ikke virker med din "
-#~ "maskinvarekonfigurasjon. En egendefinert oppstartsdiskett kan også brukes "
-#~ "med Red Hats redningsdisk, og gjør det mye lettere å rette opp alvorlige "
+#~ "maskinvarekonfigurasjon. En egendefinert oppstartsdiskett kan ogsÃ¥ brukes "
+#~ "med Red Hats redningsdisk, og gjÃ¸r det mye lettere Ã¥ rette opp alvorlige "
 #~ "systemfeil.\n"
 #~ "\n"
-#~ "Ønsker du å lage en oppstartsdiskett for ditt system?"
+#~ "Ã˜nsker du Ã¥ lage en oppstartsdiskett for ditt system?"
 
 #~ msgid ""
 #~ "Congratulations, your %s installation is complete.\n"
@@ -7635,19 +7478,19 @@ msgstr "Ukrainsk"
 #~ "Information on using your system is available in the Red Hat Linux "
 #~ "manuals at http://www.redhat.com/docs."
 #~ msgstr ""
-#~ "Gratulerer, din installering av %s er fullført.\n"
+#~ "Gratulerer, din installering av %s er fullfÃ¸rt.\n"
 #~ "\n"
 #~ "Fjern alle disketter du brukte under installasjonen og trykk <Enter> for "
-#~ "å starte på nytt.\n"
+#~ "Ã¥ starte pÃ¥ nytt.\n"
 #~ "\n"
-#~ "%sFor informasjon om errata (oppdateringer og feilrettinger), besøk "
+#~ "%sFor informasjon om errata (oppdateringer og feilrettinger), besÃ¸k "
 #~ "http://www.redhat.com/errata.\n"
 #~ "\n"
-#~ "Informasjon om bruk av systemet er tilgjengelig i brukerhåndbøkene for "
-#~ "Red Hat Linux som finnes på http://www.redhat.com/docs."
+#~ "Informasjon om bruk av systemet er tilgjengelig i brukerhÃ¥ndbÃ¸kene for "
+#~ "Red Hat Linux som finnes pÃ¥ http://www.redhat.com/docs."
 
 #~ msgid "<Enter> to continue"
-#~ msgstr "<Enter> for å fortsette"
+#~ msgstr "<Enter> for Ã¥ fortsette"
 
 #~ msgid ""
 #~ "Congratulations, package installation is complete.\n"
@@ -7657,15 +7500,15 @@ msgstr "Ukrainsk"
 #~ "Information on configuring and using your Red Hat Linux system is "
 #~ "contained in the %s manuals."
 #~ msgstr ""
-#~ "Gratulerer, pakkeinstallasjonen er fullført.\n"
+#~ "Gratulerer, pakkeinstallasjonen er fullfÃ¸rt.\n"
 #~ "\n"
-#~ "Trykk <Enter> for å fortsette.\n"
+#~ "Trykk <Enter> for Ã¥ fortsette.\n"
 #~ "\n"
 #~ "Informasjon om konfigurasjon og bruk av ditt Red Hat Linux system finnes "
-#~ "i brukerhåndbøkene for %s."
+#~ "i brukerhÃ¥ndbÃ¸kene for %s."
 
 #~ msgid "<Enter> to exit"
-#~ msgstr "<Enter> for å avslutte"
+#~ msgstr "<Enter> for Ã¥ avslutte"
 
 #~ msgid "Bad User ID"
 #~ msgstr "Ugyldig bruker-ID"
@@ -7680,13 +7523,13 @@ msgstr "Ukrainsk"
 #~ msgstr ""
 #~ "Velkommen til %s!\n"
 #~ "\n"
-#~ "Du har gått til rekonfigurasjonsmodus, som lar deg konfigurere steds-"
+#~ "Du har gÃ¥tt til rekonfigurasjonsmodus, som lar deg konfigurere steds-"
 #~ "spesifikke alternativer for din maskin.\n"
 #~ "\n"
-#~ "For å avslutte uten å endre oppsettet velg Avbryt-knappen under."
+#~ "For Ã¥ avslutte uten Ã¥ endre oppsettet velg Avbryt-knappen under."
 
 #~ msgid "You cannot go back from this step."
-#~ msgstr "Du kan ikke gå tilbake fra dette steget."
+#~ msgstr "Du kan ikke gÃ¥ tilbake fra dette steget."
 
 #~ msgid "Other CDROM"
 #~ msgstr "Annen CD-ROM"
@@ -7698,20 +7541,20 @@ msgstr "Ukrainsk"
 #~ "    o the directory on that server containing\n"
 #~ "      %s for your architecture"
 #~ msgstr ""
-#~ "Skriv inn følgende informasjon:\n"
+#~ "Skriv inn fÃ¸lgende informasjon:\n"
 #~ "\n"
 #~ "    o navnet eller IP-adressen til din NFS-tjener\n"
-#~ "    o katalogen på tjeneren som inneholder \n"
+#~ "    o katalogen pÃ¥ tjeneren som inneholder \n"
 #~ "      %s for din arkitektur."
 
 #~ msgid "Map Image to display"
 #~ msgstr "Kart som skal vises"
 
 #~ msgid "Width of map (in pixels)"
-#~ msgstr "Bredde på kart (i piksler)"
+#~ msgstr "Bredde pÃ¥ kart (i piksler)"
 
 #~ msgid "Enable antialias"
-#~ msgstr "Slå på antialias"
+#~ msgstr "SlÃ¥ pÃ¥ antialias"
 
 #~ msgid "World"
 #~ msgstr "Verden"
@@ -7720,7 +7563,7 @@ msgstr "Ukrainsk"
 #~ msgstr "Nord-Amerika"
 
 #~ msgid "South America"
-#~ msgstr "Sør-Amerika"
+#~ msgstr "SÃ¸r-Amerika"
 
 #~ msgid "Indian Rim"
 #~ msgstr "Indiske hav"
@@ -7744,7 +7587,7 @@ msgstr "Ukrainsk"
 #~ msgstr "Vis:"
 
 #~ msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-#~ msgstr "Nordøstre Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+#~ msgstr "NordÃ¸stre Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #~ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 #~ msgstr "Vest-Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
@@ -7770,31 +7613,31 @@ msgstr "Ukrainsk"
 #~ msgstr "Kina-kysten"
 
 #~ msgid "China mountains"
-#~ msgstr "Kina - fjellområdene"
+#~ msgstr "Kina - fjellomrÃ¥dene"
 
 #~ msgid "Eastern Turkestan"
-#~ msgstr "Østre Turkmenistan"
+#~ msgstr "Ã˜stre Turkmenistan"
 
 #~ msgid "central Kazakhstan"
 #~ msgstr "midt-Kazakhstan"
 
 #~ msgid "east Greenland"
-#~ msgstr "øst-Grønland"
+#~ msgstr "Ã¸st-GrÃ¸nland"
 
 #~ msgid "north Manchuria"
 #~ msgstr "nord-Mandsjuria"
 
 #~ msgid "northwest Greenland"
-#~ msgstr "nordvestre Grønland"
+#~ msgstr "nordvestre GrÃ¸nland"
 
 #~ msgid "southwest Greenland"
-#~ msgstr "sydvest-Grønland"
+#~ msgstr "sydvest-GrÃ¸nland"
 
 #~ msgid "west Kazakhstan"
 #~ msgstr "vest-Kazakhstan"
 
 #~ msgid "What language should be used during the installation process?"
-#~ msgstr "Hvilket språk skal brukes under installasjonen?"
+#~ msgstr "Hvilket sprÃ¥k skal brukes under installasjonen?"
 
 #, fuzzy
 #~ msgid "Welcome to "
@@ -7805,8 +7648,8 @@ msgstr "Ukrainsk"
 #~ "? If you don't see the disk drive you're using listed here, press F2 to "
 #~ "configure additional devices."
 #~ msgstr ""
-#~ "Det ser ikke ut som om du har noen harddisker på systemet ditt! Ønsker du "
-#~ "å konfigurere noen tilleggsenheter?"
+#~ "Det ser ikke ut som om du har noen harddisker pÃ¥ systemet ditt! Ã˜nsker du "
+#~ "Ã¥ konfigurere noen tilleggsenheter?"
 
 #, fuzzy
 #~ msgid ""
@@ -7816,10 +7659,10 @@ msgstr "Ukrainsk"
 #~ "    o the directory on that server containing\n"
 #~ "      "
 #~ msgstr ""
-#~ "Skriv inn følgende informasjon:\n"
+#~ "Skriv inn fÃ¸lgende informasjon:\n"
 #~ "\n"
 #~ "    o navnet eller IP-adressen til din FTP-tjener\n"
-#~ "    o katalogen på tjeneren som inneholder\n"
+#~ "    o katalogen pÃ¥ tjeneren som inneholder\n"
 #~ "      Red Hat Linux  for din arkitektur\n"
 
 #~ msgid "Red Hat Linux Installer"
