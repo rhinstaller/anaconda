@@ -38,6 +38,7 @@
 #include <sys/utsname.h>
 #include <unistd.h>
 #include <zlib.h>
+#include <sys/vt.h>
 
 #include <popt.h>
 /* Need to tell loop.h what the actual dev_t type is. */
@@ -213,7 +214,9 @@ static int detectHardware(moduleInfoSet modInfo,
 
     logMessage("probing buses");
 
-    devices = probeDevices(CLASS_UNSPEC,BUS_PCI|BUS_SBUS,PROBE_ALL);
+    devices = probeDevices(CLASS_UNSPEC,
+			   BUS_PCI | BUS_SBUS,
+			   PROBE_ALL);
 
     logMessage("finished bus probing");
 
@@ -2140,8 +2143,10 @@ void setFloppyDevice(int flags) {
 
     devices = probeDevices(CLASS_FLOPPY, BUS_IDE, PROBE_ALL);
 
-    if (!devices) logMessage("no ide floppy devices found");
-    if (!devices) return;
+    if (!devices) {
+	logMessage("no ide floppy devices found");
+	return;
+    }
 
     logMessage("found IDE floppy %s", devices[0]->device);
 
@@ -2160,6 +2165,48 @@ void setFloppyDevice(int flags) {
 #endif
 
     logMessage("system floppy device is %s", floppyDevice);
+}
+
+static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
+			 moduleInfoSet modInfo, int flags) {
+    struct device ** devices;
+
+    if (FL_TESTING(flags)) return 0;
+
+    logMessage("looking for usb controllers");
+
+    devices = probeDevices(CLASS_USB, BUS_PCI, PROBE_ALL);
+
+    if (!devices) {
+	logMessage("no usb controller found");
+	return 0;
+    }
+
+    logMessage("found USB controller %s", devices[0]->driver);
+    if (mlLoadModule(devices[0]->driver, NULL, modLoaded, modDeps, NULL, 
+		 modInfo, flags)) {
+	logMessage("failed to insert usb module");
+	return 1;
+    }
+
+    if (doPwMount("/proc/bus/usb", "/proc/bus/usb", "usbdevfs", 0, 0, 
+		  NULL, NULL))
+	logMessage("failed to mount device usbdevfs: %s", strerror(errno));
+
+    mlLoadModule("hid", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("keybdev", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+
+    return 0;
+}
+
+/* This forces a pause between initializing usb and trusting the /proc 
+   stuff */
+static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
+			      moduleInfoSet modInfo, int flags) {
+    if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL))
+
+    mlLoadModule("mousedev", NULL, modLoaded, modDeps, NULL, modInfo, 
+		 flags);
 }
 
 int main(int argc, char ** argv) {
@@ -2266,6 +2313,10 @@ int main(int argc, char ** argv) {
     mlReadLoadedList(&modLoaded);
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
+
+    /* Note we *always* do this. If you could avoid this you could get
+       a system w/o USB keyboard support, which would be bad. */
+    usbInitialize(modLoaded, modDeps, modInfo, flags);
 
     if (FL_KSFLOPPY(flags)) {
 	startNewt(flags);
@@ -2451,6 +2502,8 @@ logMessage("found url image %s", url);
     mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("ext3", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 #endif
+
+    usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
 
 #if 0
     for (i = 0; i < kd.numKnown; i++) {
