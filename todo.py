@@ -1618,44 +1618,45 @@ class ToDo:
                 except:
                     pass
 
-	# this is NICE and LATE. It lets kickstart/server/workstation
-	# installs detect this properly
-	if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
-	    self.hdList['kernel-smp'].selected = 1
+        if not self.upgrade:
+            # this is NICE and LATE. It lets kickstart/server/workstation
+            # installs detect this properly
+            if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
+                self.hdList['kernel-smp'].selected = 1
 
-	if (self.hdList.has_key('kernel-enterprise')):
-	    import lilo
+            if (self.hdList.has_key('kernel-enterprise')):
+                import lilo
 
-	    if lilo.needsEnterpriseKernel():
-		self.hdList['kernel-enterprise'].selected = 1
+                if lilo.needsEnterpriseKernel():
+                    self.hdList['kernel-enterprise'].selected = 1
 
-	# we *always* need a kernel installed
-	if (self.hdList.has_key('kernel')):
-	    self.hdList['kernel'].selected = 1
+            # we *always* need a kernel installed
+            if (self.hdList.has_key('kernel')):
+                self.hdList['kernel'].selected = 1
 
-        # if NIS is configured, install ypbind and dependencies:
-        if self.auth.useNIS:
-            self.hdList['ypbind'].selected = 1
-            self.hdList['yp-tools'].selected = 1
-            self.hdList['portmap'].selected = 1
+            # if NIS is configured, install ypbind and dependencies:
+            if self.auth.useNIS:
+                self.hdList['ypbind'].selected = 1
+                self.hdList['yp-tools'].selected = 1
+                self.hdList['portmap'].selected = 1
 
-        if self.auth.useLdap:
-            self.hdList['nss_ldap'].selected = 1
-            self.hdList['openldap'].selected = 1
-            self.hdList['perl'].selected = 1
+            if self.auth.useLdap:
+                self.hdList['nss_ldap'].selected = 1
+                self.hdList['openldap'].selected = 1
+                self.hdList['perl'].selected = 1
 
-        if self.auth.useKrb5:
-            self.hdList['pam_krb5'].selected = 1
-            self.hdList['krb5-workstation'].selected = 1
-            self.hdList['krbafs'].selected = 1
-            self.hdList['krb5-libs'].selected = 1
+            if self.auth.useKrb5:
+                self.hdList['pam_krb5'].selected = 1
+                self.hdList['krb5-workstation'].selected = 1
+                self.hdList['krbafs'].selected = 1
+                self.hdList['krb5-libs'].selected = 1
 
-        if self.x.server and not self.x.server == "XFree86":
-            # trim off the XF86_
-            try:
-                self.selectPackage ('XFree86-' + self.x.server[5:])
-            except ValueError, message:
-                log ("Error selecting XFree86 server package: %s", message)
+            if self.x.server and not self.x.server == "XFree86":
+                # trim off the XF86_
+                try:
+                    self.selectPackage ('XFree86-' + self.x.server[5:])
+                except ValueError, message:
+                    log ("Error selecting XFree86 server package: %s", message)
 
         # make sure that all comps that include other comps are
         # selected (i.e. - recurse down the selected comps and turn
