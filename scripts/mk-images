@@ -1,11 +1,11 @@
 #!/bin/bash
 
 usage () {
-    echo "usage: mk-images <kernelpath> <imagepath> <fullmodpath>"
+    echo "usage: mk-images <kernelpath> <imagepath> <fullmodpath> <imgpath> <temlpatepath>"
     exit 0
 }
 
-if [ -z "$1" -o -z "$2" -o -z "$3" ]; then usage; fi
+if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" ]; then usage; fi
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
@@ -18,6 +18,8 @@ TOPDIR=$(cd $TOPDIR; pwd)
     KERNELPATH=$1
     IMAGEPATH=$2
     FULLMODPATH=$3
+    INSTIMGPATH=$4
+    INSTIMGTEMPLATE=$5
     IMGPATH=$(echo $FULLMODPATH | sed 's,/[^/]*$,,')
     KERNELROOT=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELROOT/moddeps
@@ -31,10 +33,11 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     rm -rf $IMAGEPATH
     rm -rf $FULLMODPATH
+    rm -rf $KERNELROOT
     mkdir -p $IMAGEPATH
     mkdir -p $FULLMODPATH
-    rm -rf $KERNELROOT
     mkdir -p $KERNELROOT
+    mkdir -p $INSTIMGPATH
 
 # Stuff that we need
     TRIMPCITABLE=$IMGPATH/usr/lib/anaconda-runtime/trimpcitable
@@ -345,6 +348,41 @@ EOF
     rm -f $MBD_FILENAME
     mv -f $MBD_TMPIMAGE $MBD_FILENAME
     rm -rf $MBD_TMPIMAGE
+}
+
+makeinstimage () {
+    imagename=$1
+    modlist=$(expandModuleSet $2)
+    tmpimage=/tmp/instimage.img
+    mntpoint=/tmp/instimage.mnt
+    tmpdir=/tmp/instimage.dir
+
+    rm -rf $tmpimage $mntpoint $tmpdir
+    mkdir -p $mntpoint $tmpdir
+
+    mkdir -p $tmpdir
+    (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmpdir)
+    makemoduleball $tmpdir/modules "$modlist"
+
+    if [ $ARCH = "i386" ]; then
+	SIZE=4096
+    else
+	echo "I don't know how big to make the image!" >&2
+	exit 1
+    fi
+
+    dd if=/dev/zero of=$tmpimage bs=1k count=$SIZE 2>/dev/null
+    echo y | mke2fs -i 4096 $tmpimage  > /dev/null 2>/dev/null
+    mount -o loop $tmpimage $mntpoint
+    (cd $tmpdir; find . | cpio --quiet -p $mntpoint)
+
+    umount $mntpoint
+    rmdir $mntpoint
+    rm -rf $tmpdir
+
+    gzip -9 < $tmpimage > $INSTIMGPATH/${imagename}.img
+
+    rm $tmpimage
 }
 
 makedriverdisk () {
