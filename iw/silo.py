@@ -20,6 +20,8 @@ class SiloWindow (InstallWindow):
         self.type = None
         self.bootdisk = None
         self.silo = None
+	self.linuxAlias = None
+	self.bootDevice = None
 
     def getNext (self):
         # XXX
@@ -108,15 +110,15 @@ class SiloWindow (InstallWindow):
         self.ignoreSignals = 0
 
     def getScreen (self):
-	self.images = self.todo.getLiloImages()
+	self.images = self.todo.silo.getSiloImages()
         self.ignoreSignals = 0
 
         if '/' not in self.todo.mounts.keys (): return None
-	(bootpart, boothd) = self.todo.getLiloOptions()
+	(bootpart, boothd) = self.todo.silo.getSiloOptions()
             
         format = "/dev/%s"
 
-        self.radioBox = GtkTable(2, 6)
+        self.radioBox = GtkTable(2, 7)
         self.radioBox.set_border_width (5)
         
 	spacer = GtkLabel("")
@@ -129,11 +131,27 @@ class SiloWindow (InstallWindow):
 
         part = GtkRadioButton(None,
 	    ("/dev/%s %s" % (bootpart, 
-		_("First sector of boot partition (recommended)"))))
+		_("First sector of boot partition"))))
         self.mbr = GtkRadioButton(part, 
 	    ("/dev/%s %s" % (boothd, _("Master Boot Record (MBR)"))))
 	self.radioBox.attach(part, 1, 2, 2, 3)
 	self.radioBox.attach(self.mbr, 1, 2, 3, 4)
+
+	print "bootpart ", bootpart, " ", self.todo.silo.disk2PromPath(bootpart)
+
+	# FIXME: Position this correctly
+        self.linuxAlias = GtkCheckButton(
+	    ("%s: linux %s" % (_("Create PROM alias"), self.todo.silo.disk2PromPath(bootpart))))
+        self.radioBox.attach(self.linuxAlias, 0, 2, 4, 5)
+	if (self.todo.silo.hasAliases()):
+	    self.linuxAlias.set_active (TRUE)
+	else:
+	    self.linuxAlias.set_active (FALSE)
+	    self.linuxAlias.set_sensitive (FALSE)
+
+        self.bootDevice = GtkCheckButton(_("Set default PROM boot device to linux"))
+        self.radioBox.attach(self.bootDevice, 0, 2, 4, 6)
+	self.bootDevice.set_active (TRUE)
 
 	label = GtkLabel(_("Kernel parameters") + ":")
 	label.set_alignment(0.0, 0.5)
@@ -144,14 +162,18 @@ class SiloWindow (InstallWindow):
 	alignment = GtkAlignment()
 	alignment.set(0.0, 0.5, 0, 1.0)
 	alignment.add(box)
-	self.radioBox.attach(alignment, 0, 2, 5, 6)
+	self.radioBox.attach(alignment, 0, 2, 5, 7)
 	
         box = GtkVBox (FALSE, 0)
 
         optionBox = GtkVBox (FALSE, 5)
         optionBox.set_border_width (5)
         self.bootdisk = GtkCheckButton (_("Create boot disk"))
-        self.bootdisk.set_active (TRUE)
+	if self.todo.silo.hasUsableFloppy():
+	    self.bootdisk.set_active (TRUE)
+	else:
+	    self.bootdisk.set_active (FALSE)
+	    self.bootdisk.set_sensitive (FALSE)
         optionBox.pack_start (self.bootdisk)
 
         self.silo = GtkCheckButton (_("Do not install SILO"))

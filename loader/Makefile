@@ -39,7 +39,7 @@ BINS += loader
 endif
 
 ifeq (sparc, $(ARCH))
-BINS += loader
+BINS += loader loader-local
 OBJS += stubs.o
 endif
 
@@ -101,7 +101,7 @@ install: all
 
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-	../kudzu/libkudzu.a ../isys/libisys.a ../balkan/libbalkan.a \
+	../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
 	../isys/modutils/insmod/libmodutils.a    \
 	../isys/modutils/util/libutil.a          \
 	../isys/modutils/obj/libobj.a            \

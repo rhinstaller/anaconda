@@ -1,6 +1,7 @@
 import rpm, os
 import iutil, isys
 from lilo import LiloConfiguration
+from silo import SiloInstall
 import string
 import socket
 import crypt
@@ -432,6 +433,10 @@ class ToDo:
         self.bootdisk = 0
 	self.liloImages = {}
         self.liloDevice = None
+	if iutil.getArch() == "sparc":
+	    self.silo = SiloInstall(self)
+	else:
+	    self.silo = None
 	self.timezone = None
         self.upgrade = 0
 	self.ddruidAlreadySaved = 0
@@ -1564,7 +1569,10 @@ class ToDo:
 	    devnull = os.open("/dev/null", os.O_RDWR)
 	    iutil.execWithRedirect(argv[0], argv, root = self.instPath,
 				   stdout = devnull)
-	self.installLilo ()
+	if self.silo:
+	    self.silo.installSilo ()
+	else:
+	    self.installLilo ()
 
 	if self.instClass.postScript:
 	    scriptRoot = "/"

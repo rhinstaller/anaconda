@@ -33,6 +33,7 @@
 #include <string.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
+#include <sys/utsname.h>
 #include <unistd.h>
 #include <zlib.h>
 
@@ -540,6 +541,9 @@ static char * mountHardDrive(struct installMethod * method,
     char * type;
     char * url = NULL;
     int numPartitions;
+    #ifdef __sparc__
+    static int ufsloaded;
+    #endif
 
     mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
 
@@ -554,8 +558,17 @@ static char * mountHardDrive(struct installMethod * method,
 				   "device %s: %d", kd->known[i].name, rc);
 		    } else {
 			for (j = 0; j < table.maxNumPartitions; j++) {
-			    if (table.parts[j].type == BALKAN_PART_DOS ||
-				    table.parts[j].type == BALKAN_PART_EXT2) {
+			    switch (table.parts[j].type) {
+			    #ifdef __sparc__
+			      case BALKAN_PART_UFS:
+				if (!ufsloaded) {
+				    ufsloaded = 1;
+				    mlLoadModule("ufs", NULL, modLoaded, modDeps, NULL, flags);
+				}
+				/* FALLTHROUGH */
+			    #endif
+			      case BALKAN_PART_DOS:
+			      case BALKAN_PART_EXT2:
 				sprintf(partitions[numPartitions].name, 
 					"/dev/%s%d", kd->known[i].name, j + 1);
 				partitions[numPartitions].type = 
@@ -573,7 +586,7 @@ static char * mountHardDrive(struct installMethod * method,
 		unlink("/tmp/hddevice");
 	    }
 	}
-
+	
 	if (!numPartitions) {
 	    rc = newtWinChoice(_("Hard Drives"), _("Yes"), _("Back"),
 			    _("You don't seem to have any hard drives on "
@@ -658,6 +671,9 @@ static char * mountHardDrive(struct installMethod * method,
 	logMessage("partition %s selected", part->name);
 	
 	switch (part->type) {
+	#ifdef __sparc__
+	  case BALKAN_PART_UFS:     type = "ufs"; 		break;
+	#endif
 	  case BALKAN_PART_EXT2:    type = "ext2"; 		break;
 	  case BALKAN_PART_DOS:	    type = "vfat"; 		break;
 	  default:	continue;
@@ -1341,6 +1357,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	imageUrl = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps, 
 			  flags, 1);
     } else if (ksType == KS_CMD_HD) {
+	char * fsType;
 	logMessage("partname is %s", partname);
 
 	for (i = 0; i < kd->numKnown; i++) {
@@ -1375,11 +1392,14 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	    return NULL;
 	}
 
-	/* XXX this shouldn't be hard coded to ext2 */
-	imageUrl = setupHardDrive(partname, 
-		partTable.parts[partNum].type == BALKAN_PART_EXT2 ? 
-			"ext2" : "vfat", 
-	        dir, flags);
+	switch (partTable.parts[partNum].type) {
+	#ifdef __sparc__
+	  case BALKAN_PART_UFS: fsType = "ufs"; break;
+	#endif
+	  case BALKAN_PART_EXT2: fsType = "ext2"; break;
+	  default: fsType = "vfat"; break;
+	}
+	imageUrl = setupHardDrive(partname, fsType, dir, flags);
     } 
 #endif
 
@@ -1511,6 +1531,9 @@ int kickstartFromHardDrive(char * location,
     char * fullFn;
 
     mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
+    #ifdef __sparc__
+    mlLoadModule("ufs", NULL, modLoaded, modDeps, NULL, flags);
+    #endif
 
     fileName = strchr(source, '/');
     *fileName = '\0';
@@ -1581,6 +1604,42 @@ void readExtraModInfo(moduleInfoSet modInfo) {
 	sprintf(fileName, "/tmp/DD-%d/modinfo", ++num);
     }
 }
+
+#ifdef __sparc__
+/* Don't load the large ufs module if it will not be needed
+   to save some memory on lowmem SPARCs. */
+void loadUfs(struct knownDevices *kd, moduleList modLoaded,
+	     moduleDeps modDeps, int flags) {
+    int i, j, fd, rc;
+    struct partitionTable table;
+    int ufsloaded = 0;
+
+    for (i = 0; i < kd->numKnown; i++) {
+	if (kd->known[i].class == CLASS_HD) {
+	    devMakeInode(kd->known[i].name, "/tmp/hddevice");
+	    if ((fd = open("/tmp/hddevice", O_RDONLY)) >= 0) {
+		if ((rc = balkanReadTable(fd, &table))) {
+		    logMessage("failed to read partition table for "
+			       "device %s: %d", kd->known[i].name, rc);
+		} else {
+		    for (j = 0; j < table.maxNumPartitions; j++) {
+			if (table.parts[j].type == BALKAN_PART_UFS) {
+			    if (!ufsloaded)
+				mlLoadModule("ufs", NULL, modLoaded, modDeps, NULL, flags);
+			    ufsloaded = 1;
+			}
+		    }
+		}
+
+		close(fd);
+	    }
+	    unlink("/tmp/hddevice");
+	}
+    }
+}
+#else
+#define loadUfs(kd,modLoaded,modDeps,flags) do { } while (0)
+#endif
 
 int main(int argc, char ** argv) {
     char ** argptr;
@@ -1662,12 +1721,6 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
-#ifdef __sparc__
-    /* XXX: sparc -BOOT kernels should compile openprom in. */
-    if (!FL_TESTING(flags))
-	insmod ("openprom", NULL, NULL);
-#endif
-
     if (FL_KSFLOPPY(flags)) {
 	ksFile = "/tmp/ks.cfg";
 	kickstartFromFloppy(ksFile, modLoaded, modDeps, flags);
@@ -1729,17 +1782,28 @@ int main(int argc, char ** argv) {
 
 	unlink("/modules/modules.dep");
 	unlink("/modules/module-info");
-	unlink("/modules/modules.cgz");
 	unlink("/modules/pcitable");
 
 	symlink("../mnt/runtime/modules/modules.dep",
 		"/modules/modules.dep");
 	symlink("../mnt/runtime/modules/module-info",
 		"/modules/module-info");
-	symlink("../mnt/runtime/modules/modules.cgz",
-		"/modules/modules.cgz");
 	symlink("../mnt/runtime/modules/pcitable",
 		"/modules/pcitable");
+
+#ifndef __sparc__
+	unlink("/modules/modules.cgz");
+
+	symlink("../mnt/runtime/modules/modules.cgz",
+		"/modules/modules.cgz");
+#else
+	/* All sparc32 modules are on the first stage image, if it is sparc64,
+	   then we must keep both the old /modules/modules.cgz which may
+	   either contain all modules, or the basic set + one of net or scsi
+	   and we extend it with the full set of net + scsi modules. */
+	symlink("../mnt/runtime/modules/modules64.cgz",
+		"/modules/modules65.cgz");
+#endif
     }
 
     spawnShell(flags);			/* we can attach gdb now :-) */
@@ -1764,6 +1828,8 @@ int main(int argc, char ** argv) {
 	  FL_ISA(flags) || FL_NOPROBE(flags)) && !ksFile) {
 	manualDeviceCheck(modInfo, modLoaded, modDeps, &kd, flags);
     }
+
+    loadUfs(&kd, modLoaded, modDeps, flags);
 
     if (!FL_TESTING(flags)) {
         int fd;

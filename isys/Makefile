@@ -1,3 +1,5 @@
+ARCH := $(patsubst i%86,i386,$(shell uname -m))
+ARCH := $(patsubst sparc%,sparc,$(ARCH))
 CFLAGS = -I/usr/include/python1.5 -I.. -g
 OBJECTS = nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o
@@ -6,11 +8,19 @@ STATICLIBS = ../kudzu/libkudzu.a
 LOADLIBES = -lrpm -lbz2 -lresolv -lz -lpci -lpopt
 SUBDIRS = modutils pci
 PYTHONLIBDIR = $(DESTDIR)/usr/lib/python1.5/site-packages
+PYMODULES = _isys.so
 
-all: subdirs _isys.so libisys.a 
+ifeq ($(ARCH),sparc)
+PYMODULES += _silo.so
+endif
+
+all: subdirs $(PYMODULES) libisys.a 
 
 _isys.so: isys.o $(OBJECTS) $(STATICLIBS)
 	gcc -shared -g -o $@ isys.o $(OBJECTS) $(STATICLIBS) $(LOADLIBES)
+
+_silo.so: silo.c
+	gcc -shared $(CFLAGS) -fpic -o $@ silo.c
 
 libisys.a: libisys.a($(OBJECTS) $(STATICOBJS))
 
@@ -19,7 +29,7 @@ clean:
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d clean; done
 
 install: all
-	cp _isys.so isys.py $(PYTHONLIBDIR)
+	cp $(PYMODULES) isys.py $(PYTHONLIBDIR)
 
 subdirs:
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d; done

@@ -41,12 +41,11 @@ PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
           XFree86-S3 XFree86-S3V XFree86-Mach32 XFree86-Mach64
           XFree86-FBDev XFree86-I128 XFree86-3DLabs XFree86-VGA16
           XFree86-Sun XFree86-75dpi-fonts XFree86-100dpi-fonts
-          XFree86-100dpi-fonts XFree86-ISO8859-2
-          XFree86-cyrillic-fonts XFree86-3. xpm-3 glib- gtk+-
-          gnome-libs python-1 newt imlib-1 libpng libtiff libjpeg-
-          libtermcap-2 zlib rpm rpm-devel ash- bash- pygtk- pygnome-
-          util-linux procps esound-0 audiofile-0 kernel-pcmcia-cs
-          Xconfigurator raidtools-"
+          XFree86-ISO8859-2 XFree86-cyrillic-fonts XFree86-3.
+	  xpm-3 glib- gtk+- gnome-libs python-1 newt imlib-1 libpng
+	  libtiff libjpeg- libtermcap-2 zlib rpm rpm-devel ash- bash-
+	  pygtk- pygnome- util-linux procps esound-0 audiofile-0
+	  kernel-pcmcia-cs Xconfigurator raidtools-"
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
@@ -318,5 +317,9 @@ ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
 	cd $DEST/usr
 	find X11R6 | cpio --quiet -H crc -o | gzip -9 > X11R6.cgz
 	rm -rf X11R5
+
+	cd $DEST/usr/sbin
+	ls [a-r]* | cpio --quiet -H crc -o | gzip -9 > sbin.cgz
+	rm -f [a-r]*
 
 	cp -a $HOMEDIR/anaconda-stub $DEST/usr/bin/anaconda

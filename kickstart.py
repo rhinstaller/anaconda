@@ -195,7 +195,8 @@ class Kickstart(InstallClass):
 	     "msbm" : "Microsoft - Bus Mouse" ,
 	     "mousesystems" : "Mouse Systems - Mouse (serial)" ,
 	     "mmseries" : "MM - Series (serial)" ,
-	     "mmhittab" : "MM - HitTablet (serial)" 
+	     "mmhittab" : "MM - HitTablet (serial)" ,
+	     "sun" : "Sun - Mouse"
 	}
 
 	(args, extra) = isys.getopt(args, '', [ 'device=', 'emulthree',

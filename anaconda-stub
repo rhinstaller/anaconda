@@ -2,6 +2,8 @@
 
 cd /mnt/runtime/modules
 rm *
+cd /modules
+rm *
 
 rm /bin/loader
 cd /tmp
@@ -28,6 +30,10 @@ for n in *.cgz; do
     uncpio < $n
     rm $n
 done
+
+cd /usr/sbin
+uncpio < sbin.cgz
+rm sbin.cgz
 
 cd /lib
 uncpio < libs.cgz

@@ -84,6 +84,10 @@ int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
 
 	if (!strncmp(fs, "vfat", 4))
 	    mount_opt="check=relaxed";
+	#ifdef __sparc__
+	if (!strncmp(fs, "ufs", 3))
+	    mount_opt="ufstype=sun";
+	#endif
 
 	/*logMessage("calling mount(%s, %s, %s, %ld, %p)", buf, where, fs, 
 			flag, mount_opt);*/

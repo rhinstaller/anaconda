@@ -20,7 +20,7 @@ int ourInsmodCommand(int argc, char ** argv) {
     char * chptr;
     FD_t fd;
     int rc, rmObj = 0;
-    int sparc64 = 0;
+    int sparc64 = 0, i;
     char * ballPath = NULL;
     char fullName[100];
     struct utsname u;
@@ -44,32 +44,46 @@ int ourInsmodCommand(int argc, char ** argv) {
 	argv += 2;
 	argc -= 2;
     } else {
-	ballPath = sparc64 ?
-		    "/modules/modules64.cgz" : "/modules/modules.cgz";
+	ballPath = strdup(sparc64 ?
+			  "/modules/modules64.cgz" :
+			  "/modules/modules.cgz");
 
     }
 
     file = argv[1];
 
     if (access(file, R_OK)) {
-	/* it might be having a ball */
-	fd = fdOpen(ballPath, O_RDONLY, 0);
-	if (fdFileno(fd) < 0) {
-	    return 1;
+	/* Try two balls on sparc64, one elsewhere */
+	for (i = 0; ; i++) {
+	    /* it might be having a ball */
+	    fd = fdOpen(ballPath, O_RDONLY, 0);
+	    if (fdFileno(fd) < 0) {
+		free(ballPath);
+		return 1;
+	    }
+
+	    chptr = strrchr(file, '/');
+	    if (chptr) file = chptr + 1;
+	    sprintf(finalName, "/tmp/%s", file);
+
+	    sprintf(fullName, "%s/%s", u.release, file);
+
+	    if (installCpioFile(fd, fullName, finalName, 0)) {
+		if (i < sparc64) {
+		    ballPath[strlen(ballPath)-5] = '5';
+		    continue;
+		}
+		free(ballPath);
+		return 1;
+	    }
+
+	    rmObj = 1;
+	    file = finalName;
+	    break;
 	}
-
-	chptr = strrchr(file, '/');
-	if (chptr) file = chptr + 1;
-	sprintf(finalName, "/tmp/%s", file);
-
-	sprintf(fullName, "%s/%s", u.release, file);
-
-	if (installCpioFile(fd, fullName, finalName, 0))
-	    return 1;
-
-	rmObj = 1;
-	file = finalName;
     }
+
+    free(ballPath);
 
     argv[0] = "insmod";
     argv[1] = file;

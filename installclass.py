@@ -90,7 +90,7 @@ class InstallClass:
 
     def addToSkipList(self, type):
 	# this throws an exception if there is a problem
-	[ "lilo", "mouse", "network", "authentication", "complete", "complete",
+	[ "lilo", "silo", "mouse", "network", "authentication", "complete", "complete",
 	  "package-selection", "bootdisk", "partition", "format", "timezone",
 	  "accounts", "dependencies", "language", "keyboard", "xconfig",
 	  "welcome", "installtype", "mouse", "confirm-install" ].index(type)
@@ -232,6 +232,7 @@ class Workstation(InstallClass):
 	InstallClass.__init__(self)
 	self.setHostname("localhost.localdomain")
 	self.addToSkipList("lilo")
+	self.addToSkipList("silo")
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
 	self.addToSkipList("partition")
@@ -265,6 +266,7 @@ class Server(InstallClass):
 	self.setGroups(["Server"])
 	self.setHostname("localhost.localdomain")
 	self.addToSkipList("lilo")
+	self.addToSkipList("silo")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
