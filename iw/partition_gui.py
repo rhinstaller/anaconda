@@ -603,9 +603,8 @@ def raidlevelchangeCB(widget, sparesb):
         value = adj.value
         if adj.value > maxspares:
             value = maxspares
-        adj.set_all(value, 0, maxspares,
-                    adj.step_increment, adj.page_increment,
-                    adj.page_size)
+        adj.set_value(value)
+        adj.clamp_page(0, maxspares)
         sparesb.set_adjustment(adj)
         sparesb.set_value(value)
         
@@ -916,9 +915,7 @@ class PartitionWindow(InstallWindow):
 
             # ugly got to be better way
             adj = fillmaxszsb.get_adjustment()
-            adj.set_all(adj.value, size, adj.upper,
-                        adj.step_increment, adj.page_increment,
-                        adj.page_size)
+            adj.clamp_page(size, adj.upper)
             fillmaxszsb.set_adjustment(adj)
 
         def cylspinchangedCB(widget, data):
@@ -946,6 +943,7 @@ class PartitionWindow(InstallWindow):
             maxsizeAdj = gtk.Adjustment(value = 1, lower = 1,
                                         upper = MAX_PART_SIZE, step_incr = 1)
             fillmaxszsb = gtk.SpinButton(maxsizeAdj, digits = 0)
+            fillmaxszsb.set_property('numeric', gtk.TRUE)
             fillmaxszhbox = gtk.HBox()
             fillmaxszhbox.pack_start(fillmaxszrb)
             fillmaxszhbox.pack_start(fillmaxszsb)
@@ -1071,6 +1069,7 @@ class PartitionWindow(InstallWindow):
                 sizeAdj = gtk.Adjustment(value = 1, lower = 1,
                                          upper = MAX_PART_SIZE, step_incr = 1)
                 sizespin = gtk.SpinButton(sizeAdj, digits = 0)
+                sizespin.set_property('numeric', gtk.TRUE)
 
                 if origrequest.size:
                     sizespin.set_value(origrequest.size)
@@ -1095,6 +1094,7 @@ class PartitionWindow(InstallWindow):
                                         upper=maxcyl,
                                         step_incr=1)
                 startcylspin = gtk.SpinButton(cylAdj, digits=0)
+                startcylspin.set_property('numeric', gtk.TRUE)
                 maintable.attach(startcylspin, 1, 2, row, row + 1)
                 row = row + 1
                 
@@ -1105,6 +1105,7 @@ class PartitionWindow(InstallWindow):
                 maintable.attach(createAlignedLabel(_("End Cylinder:")),
                                  0, 1, row, row + 1)
                 endcylspin = gtk.SpinButton(endcylAdj, digits = 0)
+                endcylspin.set_property('numeric', gtk.TRUE)
                 maintable.attach(endcylspin, 1, 2, row, row + 1)
 
                 startcylspin.connect("changed", cylspinchangedCB,

@@ -38,8 +38,10 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         else:
             baseSize = 10
 
+        baseFont = 'sans'
+
         tag = self.buffer.create_tag('body')
-        tag.set_property('font', 'Sans %d' % (baseSize,))
+        tag.set_property('font', '%s %d' % (baseFont, baseSize))
             
         tag = self.buffer.create_tag('p')
         tag.set_property('pixels-above-lines', '5')
@@ -49,14 +51,14 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         tag.set_property('font', 'Monospace %d' % (baseSize,))
 
         tag = self.buffer.create_tag('a')
-        tag.set_property('font', 'Sans %d' % (baseSize,))
+        tag.set_property('font', '%s %d' % (baseFont, baseSize))
 
         tag = self.buffer.create_tag('h1')
-        tag.set_property('font', 'Sans %d' % (baseSize + 10,))
+        tag.set_property('font', '%s %d' % (baseFont, baseSize + 10))
         tag.set_property('weight', pango.WEIGHT_BOLD)        
 
         tag = self.buffer.create_tag('h2')
-        tag.set_property('font', 'Sans %d' % (baseSize + 4,))
+        tag.set_property('font', '%s %d' % (baseFont, baseSize + 4))
         tag.set_property('weight', pango.WEIGHT_BOLD)
 
         tag = self.buffer.create_tag('b')
