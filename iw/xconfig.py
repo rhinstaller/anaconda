@@ -14,6 +14,41 @@ _("Vertical Frequency Range")
 _("Test failed")
 """
 
+class XCustomWindow (InstallWindow):
+    def __init__ (self, ics):
+	InstallWindow.__init__ (self, ics)
+
+        self.ics.setNextEnabled (FALSE)
+
+        self.todo = ics.getToDo ()
+        ics.setTitle (_("Customize X Configuration"))
+        ics.setHTML ("<HTML><BODY>This is the configuration customization screen<</BODY></HTML>")
+
+        self.didTest = 0
+
+    def getScreen (self):
+        box = GtkVBox (FALSE, 5)
+        box.set_border_width (5)
+
+        hbox = GtkHBox (FALSE, 5)
+
+        depths = self.todo.x.modes.keys ()
+        depths.sort ()
+
+        for depth in depths:
+            vbox = GtkVBox (FALSE, 5)
+            vbox.pack_start (GtkLabel (depth + _("Bits per Pixel")), FALSE)
+            for res in self.todo.x.modes[depth]:
+                vbox.pack_start (GtkCheckButton (res), FALSE)
+
+            hbox.pack_start (vbox)
+
+        box.pack_start (hbox, FALSE)
+        return box
+
+    def getPrev (self):
+        return XConfigWindow
+    
 class XConfigWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
@@ -25,6 +60,11 @@ class XConfigWindow (InstallWindow):
         ics.setHTML ("<HTML><BODY>This is the X configuration screen<</BODY></HTML>")
 
         self.didTest = 0
+
+    def getNext (self):
+        if self.custom.get_active ():
+            return XCustomWindow
+        return None
 
     def setNext (self):
         if self.skip.get_active () or self.custom.get_active () or self.didTest:
