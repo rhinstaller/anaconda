@@ -1149,9 +1149,6 @@ class InstallControlWindow:
 
         if self.displayHelp:
             self.refreshHelp()
-        if step == "install":
-            gtk.mainloop()
-        
             
     def destroyCurrentWindow(self):
         children = self.installFrame.get_children ()
