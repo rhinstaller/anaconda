@@ -259,11 +259,14 @@ class InstallInterface:
             else:
                 return 0
 	elif type == "custom":
-	    rc = ButtonChoiceWindow(self.screen, title, text,
-			       buttons=custom_buttons)
-	    
+	    tmpbut = []
+	    for but in custom_buttons:
+		tmpbut.append(string.replace(but,"_",""))
+
+	    rc = ButtonChoiceWindow(self.screen, title, text, buttons=tmpbut)
+
 	    idx = 0
-	    for b in custom_buttons:
+	    for b in tmpbut:
 		if string.lower(b) == rc:
 		    return idx != 0
 		idx = idx + 1
