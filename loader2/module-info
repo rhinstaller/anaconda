@@ -296,6 +296,10 @@ ibmtr
 	"Shared-memory IBM Token Ring 16/4"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 
+ixgb
+	eth
+	"Intel PRO/10GbE"
+
 lance
 	eth
 	"AT1500, HP J2405A, most NE2100/clone"
