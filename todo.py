@@ -631,7 +631,7 @@ class ToDo:
             # all valid fstab entries have 6 fields
             if not len (fields) < 4 and len (fields) <= 6:
                 if fields and (fields[2] == "ext2" or fields[2] == "swap") \
-                   and fields[3] == "defaults":
+                   and fields[3] != "noauto":
                     format = 0
                     # XXX always format swap. 
                     if fields[2] == "swap": format = 1
