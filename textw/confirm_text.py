@@ -19,8 +19,8 @@ class BeginInstallWindow:
     def __call__ (self, screen):
         rc = ButtonChoiceWindow (screen, _("Installation to begin"),
                                 _("A complete log of your installation will be in "
-                                  "/root/install.log after rebooting your system. You "
-                                  "may want to keep this file for later reference."),
+                                  "%s after rebooting your system. You "
+                                  "may want to keep this file for later reference.") %("/root/install.log",),
                                 buttons = [ _("OK"), _("Back") ],
 				help = "begininstall")
         if rc == string.lower (_("Back")):
@@ -31,8 +31,8 @@ class BeginUpgradeWindow:
     def __call__ (self, screen) :
         rc = ButtonChoiceWindow (screen, _("Upgrade to begin"),
                                 _("A complete log of your upgrade will be in "
-                                  "/root/upgrade.log after rebooting your system. You "
-                                  "may want to keep this file for later reference."),
+                                  "%s after rebooting your system. You "
+                                  "may want to keep this file for later reference." %("/root/upgrade.log",)),
                                 buttons = [ _("OK"), _("Back") ],
 				help = "beginupgrade")
         if rc == string.lower (_("Back")):

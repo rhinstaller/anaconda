@@ -59,10 +59,11 @@ class InstallConfirmWindow (ConfirmWindow):
 	return ConfirmWindow.getScreen(self,
 	    _("Click next to begin installation of %s.") % (productName,),
 	    _("A complete log of your installation will be in "
-	      "/root/install.log after rebooting your system. You "
+	      "%s after rebooting your system. You "
 	      "may want to keep this file for later reference. "
               "A kickstart file representing the choices you have made "
-              "will be in /root/anaconda-ks.cfg."))
+              "will be in %s.") % ("/root/install.log",
+                                   "/root/anaconda-ks.cfg"))
 
 class UpgradeConfirmWindow (ConfirmWindow):
     windowTitle = N_("About to Upgrade")
@@ -72,6 +73,7 @@ class UpgradeConfirmWindow (ConfirmWindow):
 	return ConfirmWindow.getScreen(self,
             _("Click next to begin upgrade of %s.") % (productName,),
             _("A complete log of your upgrade will be in "
-	      "/root/upgrade.log after rebooting your system. You "
-	      "may want to keep this file for later reference."))
+	      "after rebooting your system. You "
+	      "may want to keep this file for later "
+              "reference.") % ("/root/upgrade.log",))
 
