@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 1.130\n"
-"POT-Creation-Date: 2001-08-14 14:10-0400\n"
+"POT-Creation-Date: 2001-08-14 14:53-0400\n"
 "PO-Revision-Date: 2001-07-12 16:00+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../anaconda:332 ../gui.py:111 ../iw/account_gui.py:150
 #: ../iw/account_gui.py:161 ../iw/partition_gui.py:496
-#: ../iw/partition_gui.py:847 ../iw/partition_gui.py:1317 ../loader/cdrom.c:34
+#: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1323 ../loader/cdrom.c:34
 #: ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532
@@ -155,7 +155,7 @@ msgid ""
 "%s"
 msgstr "Ég vil sneiða diskinn sjálfvirkt:"
 
-#: ../autopart.py:910 ../iw/partition_gui.py:1270
+#: ../autopart.py:910 ../iw/partition_gui.py:1275
 #: ../textw/partition_text.py:163
 msgid "Error Partitioning"
 msgstr "Villa við disksneiðingu"
@@ -169,8 +169,8 @@ msgid ""
 msgstr "Gat ekki búið til umbeðnar disksneiðar: %s."
 
 #: ../autopart.py:945 ../harddrive.py:233 ../iw/bootloader_gui.py:58
-#: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1275
-#: ../iw/partition_gui.py:1600 ../iw/upgrade_swap_gui.py:171
+#: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1280
+#: ../iw/partition_gui.py:1605 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:694 ../partitioning.py:1401
 #: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:426
@@ -498,7 +498,7 @@ msgid "Ignore"
 msgstr "Hunsa"
 
 #: ../gui.py:114 ../iw/account_gui.py:151 ../iw/account_gui.py:162
-#: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1318
+#: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1324
 #: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
 #: ../loader/pcmcia.c:104 ../text.py:115 ../text.py:116 ../text.py:250
 #: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:197
@@ -738,7 +738,7 @@ msgstr ""
 "valdir. Þú þarft meira pláss í eftirtöldum skráarkerfum:\n"
 "\n"
 
-#: ../iw/partition_gui.py:1537 ../iw/upgrade_swap_gui.py:123
+#: ../iw/partition_gui.py:1542 ../iw/upgrade_swap_gui.py:123
 #: ../packages.py:581 ../packages.py:601 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Tengipunktur"
@@ -1307,7 +1307,7 @@ msgstr "Leita"
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Leita að Red Hat Linux uppsetningum..."
 
-#: ../upgrade.py:77 ../upgrade.py:214
+#: ../upgrade.py:77
 msgid "Dirty Filesystems"
 msgstr "Óhrein skráarkerfi"
 
@@ -1320,6 +1320,11 @@ msgstr ""
 "Eitt eða fleiri af Linux skráarkerfunum þínum var ekki aftengt á réttann "
 "máta. Vinsamlegast ræstu upp Linux kerfið þitt, láttu yfirfara skráarkerfin "
 "og keyrðu svo vélina rétt niður til að uppfæra."
+
+#: ../upgrade.py:214
+#, fuzzy
+msgid "Mount failed"
+msgstr "Prófun mistókst"
 
 #: ../upgrade.py:215
 msgid ""
@@ -1512,13 +1517,13 @@ msgid "Add"
 msgstr "Bæta við"
 
 #: ../iw/account_gui.py:332 ../textw/bootloader_text.py:274
-#: ../textw/fdisk_text.py:41 ../textw/partition_text.py:983
+#: ../textw/fdisk_text.py:41 ../textw/partition_text.py:987
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
 msgid "Edit"
 msgstr "Breyta"
 
-#: ../iw/account_gui.py:335 ../textw/partition_text.py:983
+#: ../iw/account_gui.py:335 ../textw/partition_text.py:987
 #: ../textw/userauth_text.py:218
 msgid "Delete"
 msgstr "Eyða"
@@ -1679,7 +1684,7 @@ msgid "Partition"
 msgstr "Disksneið"
 
 #: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:433
-#: ../iw/partition_gui.py:1537 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../iw/partition_gui.py:1542 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 msgid "Type"
 msgstr "Tegund"
 
@@ -1714,7 +1719,7 @@ msgid "Default"
 msgstr "Sjálfgefið"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
-#: ../iw/partition_gui.py:1536 ../iw/silo_gui.py:263
+#: ../iw/partition_gui.py:1541 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:259
 #: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 #: ../textw/silo_text.py:207
@@ -2177,7 +2182,7 @@ msgstr "Trjáarhamur"
 msgid "Flat View"
 msgstr "Flatur hamur"
 
-#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1537
+#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1542
 msgid "Size (MB)"
 msgstr "Stærð (MB)"
 
@@ -2274,207 +2279,207 @@ msgstr "Laust"
 msgid "RAID Device %s"
 msgstr "RAID tæki %s"
 
-#: ../iw/partition_gui.py:802
+#: ../iw/partition_gui.py:803
 msgid "Additional Size Options"
 msgstr "Frekari stærðarrofar"
 
-#: ../iw/partition_gui.py:807
+#: ../iw/partition_gui.py:808
 msgid "Fixed size"
 msgstr "Föst stærð"
 
-#: ../iw/partition_gui.py:808
+#: ../iw/partition_gui.py:809
 msgid "Fill all space up to (MB):"
 msgstr "Nota allt pláss upp að (MB):"
 
-#: ../iw/partition_gui.py:816
+#: ../iw/partition_gui.py:817
 msgid "Fill to maximum allowable size"
 msgstr "Stækka upp í mestu leyfilegu stærð"
 
-#: ../iw/partition_gui.py:845 ../textw/partition_text.py:540
+#: ../iw/partition_gui.py:846 ../textw/partition_text.py:541
 msgid "Add Partition"
 msgstr "Bæta við disksneið"
 
-#: ../iw/partition_gui.py:862 ../iw/partition_gui.py:1340
+#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1346
 #: ../textw/partition_text.py:205
 msgid "Mount Point:"
 msgstr "Tengipunktur:"
 
-#: ../iw/partition_gui.py:870 ../textw/partition_text.py:603
+#: ../iw/partition_gui.py:871 ../textw/partition_text.py:604
 msgid "Filesystem Type:"
 msgstr "Tegund skráarkerfis:"
 
-#: ../iw/partition_gui.py:878
+#: ../iw/partition_gui.py:879
 msgid "Original Filesystem Type:"
 msgstr "Upprunaleg tegund skráarkerfis:"
 
-#: ../iw/partition_gui.py:887
+#: ../iw/partition_gui.py:888
 msgid "Unknown"
 msgstr "Óþekkt"
 
-#: ../iw/partition_gui.py:899 ../textw/partition_text.py:260
+#: ../iw/partition_gui.py:900 ../textw/partition_text.py:260
 msgid "Allowable Drives:"
 msgstr "Leyfileg drif:"
 
-#: ../iw/partition_gui.py:910
+#: ../iw/partition_gui.py:911
 msgid "Drive:"
 msgstr "Drif:"
 
-#: ../iw/partition_gui.py:919
+#: ../iw/partition_gui.py:920
 #, fuzzy
 msgid "Original Filesystem Label:"
 msgstr "Upprunaleg tegund skráarkerfis:"
 
-#: ../iw/partition_gui.py:930 ../iw/partition_gui.py:945
-#: ../iw/partition_gui.py:981 ../textw/partition_text.py:282
-#: ../textw/partition_text.py:365 ../textw/partition_text.py:619
+#: ../iw/partition_gui.py:931 ../iw/partition_gui.py:946
+#: ../iw/partition_gui.py:982 ../textw/partition_text.py:282
+#: ../textw/partition_text.py:365 ../textw/partition_text.py:620
 msgid "Size (MB):"
 msgstr "Stærð (MB):"
 
-#: ../iw/partition_gui.py:950 ../textw/partition_text.py:345
+#: ../iw/partition_gui.py:951 ../textw/partition_text.py:345
 msgid "Start Cylinder:"
 msgstr "Fyrsti geiri:"
 
-#: ../iw/partition_gui.py:966 ../textw/partition_text.py:358
+#: ../iw/partition_gui.py:967 ../textw/partition_text.py:358
 msgid "End Cylinder:"
 msgstr "Síðasti geiri:"
 
-#: ../iw/partition_gui.py:997
+#: ../iw/partition_gui.py:998
 msgid "How would you like to prepare the filesystem on this partition?"
 msgstr "Hvernig viltu undirbúa skráarkerfið á þessari disksneið?"
 
-#: ../iw/partition_gui.py:1006 ../textw/partition_text.py:448
+#: ../iw/partition_gui.py:1007 ../textw/partition_text.py:448
 msgid "Leave unchanged (preserve data)"
 msgstr "Láta kyrra (varðveita gögn)"
 
-#: ../iw/partition_gui.py:1011
+#: ../iw/partition_gui.py:1012
 msgid "Format partition as:"
 msgstr "Forsníða disksneiðina sem:"
 
-#: ../iw/partition_gui.py:1031
+#: ../iw/partition_gui.py:1032
 msgid "Migrate partition to:"
 msgstr "Breyta disksneiðinni í:"
 
-#: ../iw/partition_gui.py:1052
+#: ../iw/partition_gui.py:1053
 msgid "Check for bad blocks?"
 msgstr "Leita að skemmdum blokkum?"
 
-#: ../iw/partition_gui.py:1083 ../textw/partition_text.py:582
+#: ../iw/partition_gui.py:1084 ../textw/partition_text.py:583
 msgid "Force to be a primary partition"
 msgstr "Gera að primary disksneið"
 
-#: ../iw/partition_gui.py:1090 ../textw/partition_text.py:446
-#: ../textw/partition_text.py:585
+#: ../iw/partition_gui.py:1091 ../textw/partition_text.py:446
+#: ../textw/partition_text.py:586
 msgid "Check for bad blocks"
 msgstr "Leita að skemmdum blokkum"
 
-#: ../iw/partition_gui.py:1161 ../iw/partition_gui.py:1170
-#: ../iw/partition_gui.py:1208 ../iw/partition_gui.py:1470
-#: ../textw/partition_text.py:749 ../textw/partition_text.py:771
-#: ../textw/partition_text.py:896
+#: ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
+#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1476
+#: ../textw/partition_text.py:750 ../textw/partition_text.py:772
+#: ../textw/partition_text.py:901
 msgid "Error With Request"
 msgstr "Villa"
 
-#: ../iw/partition_gui.py:1271 ../textw/partition_text.py:164
+#: ../iw/partition_gui.py:1276 ../textw/partition_text.py:164
 #, fuzzy, c-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Gat ekki búið til umbeðnar disksneiðar: %s."
 
-#: ../iw/partition_gui.py:1277 ../textw/partition_text.py:168
+#: ../iw/partition_gui.py:1282 ../textw/partition_text.py:168
 msgid "Modify Partition"
 msgstr "Breyta disksneið"
 
-#: ../iw/partition_gui.py:1278 ../textw/partition_text.py:168
+#: ../iw/partition_gui.py:1283 ../textw/partition_text.py:168
 msgid "Add anyway"
 msgstr "Bæta samt við"
 
-#: ../iw/partition_gui.py:1282
+#: ../iw/partition_gui.py:1287
 #, c-format
 msgid "Warning: %s."
 msgstr "Aðvörun: %s."
 
-#: ../iw/partition_gui.py:1315 ../textw/partition_text.py:801
+#: ../iw/partition_gui.py:1321 ../textw/partition_text.py:806
 msgid "Make RAID Device"
 msgstr "Búa til RAID tæki"
 
-#: ../iw/partition_gui.py:1333 ../textw/partition_text.py:825
+#: ../iw/partition_gui.py:1339 ../textw/partition_text.py:830
 msgid "At least two software RAID partitions are needed."
 msgstr ""
 
-#: ../iw/partition_gui.py:1347 ../textw/partition_text.py:226
+#: ../iw/partition_gui.py:1353 ../textw/partition_text.py:226
 msgid "Filesystem type:"
 msgstr "Tegund skráarkerfis:"
 
-#: ../iw/partition_gui.py:1359 ../textw/partition_text.py:382
+#: ../iw/partition_gui.py:1365 ../textw/partition_text.py:382
 msgid "RAID Level:"
 msgstr "RAID tegund:"
 
-#: ../iw/partition_gui.py:1394 ../textw/partition_text.py:400
+#: ../iw/partition_gui.py:1400 ../textw/partition_text.py:400
 #, fuzzy
 msgid "RAID Members:"
 msgstr "Raid drif:"
 
-#: ../iw/partition_gui.py:1405
+#: ../iw/partition_gui.py:1411
 #, fuzzy
 msgid "Number of spares:"
 msgstr "Fjöldi varadrifa?:"
 
-#: ../iw/partition_gui.py:1412 ../textw/partition_text.py:837
+#: ../iw/partition_gui.py:1418 ../textw/partition_text.py:842
 msgid "Format partition?"
 msgstr "Forsníða disksneiðina?"
 
-#: ../iw/partition_gui.py:1517
+#: ../iw/partition_gui.py:1522
 #, fuzzy
 msgid "_New"
 msgstr "Nýr"
 
-#: ../iw/partition_gui.py:1518
+#: ../iw/partition_gui.py:1523
 #, fuzzy
 msgid "_Edit"
 msgstr "Breyta"
 
-#: ../iw/partition_gui.py:1519
+#: ../iw/partition_gui.py:1524
 msgid "_Delete"
 msgstr "_Eyða"
 
-#: ../iw/partition_gui.py:1520
+#: ../iw/partition_gui.py:1525
 msgid "_Reset"
 msgstr "_Endurstilla"
 
-#: ../iw/partition_gui.py:1521
+#: ../iw/partition_gui.py:1526
 #, fuzzy
 msgid "Make _RAID"
 msgstr "Búa til Raid"
 
-#: ../iw/partition_gui.py:1536
+#: ../iw/partition_gui.py:1541
 msgid "Start"
 msgstr "Byrjun"
 
-#: ../iw/partition_gui.py:1536
+#: ../iw/partition_gui.py:1541
 msgid "End"
 msgstr "Endir"
 
-#: ../iw/partition_gui.py:1537
+#: ../iw/partition_gui.py:1542
 msgid "Format"
 msgstr "Forsníða"
 
-#: ../iw/partition_gui.py:1582 ../textw/partition_text.py:1059
+#: ../iw/partition_gui.py:1587 ../textw/partition_text.py:1063
 msgid "Automatic Partitioning"
 msgstr "Sjálfvirk disksneiðing"
 
-#: ../iw/partition_gui.py:1601
+#: ../iw/partition_gui.py:1606
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "Þú verður að velja amk. eitt drif til að setja Red Hat Linux upp á."
 
-#: ../iw/partition_gui.py:1640
+#: ../iw/partition_gui.py:1645
 msgid "I want to have automatic partitioning:"
 msgstr "Ég vil sneiða diskinn sjálfvirkt:"
 
-#: ../iw/partition_gui.py:1671 ../textw/partition_text.py:1082
+#: ../iw/partition_gui.py:1676 ../textw/partition_text.py:1086
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hvaða harðadiska viltu nota fyrir Linux?"
 
-#: ../iw/partition_gui.py:1693
+#: ../iw/partition_gui.py:1698
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr "Endurskoða (leyfir þér að skoða og breyta sjálfvirku disksneiðingunni)"
@@ -3328,7 +3333,7 @@ msgstr "Nota allt tiltækt pláss:"
 msgid "Number of spares?"
 msgstr "Fjöldi varadrifa?"
 
-#: ../textw/partition_text.py:437 ../textw/partition_text.py:641
+#: ../textw/partition_text.py:437 ../textw/partition_text.py:642
 msgid "Filesystem Options"
 msgstr "Rofar skráarkerfis"
 
@@ -3347,88 +3352,88 @@ msgstr "Forsníða sem:"
 msgid "Migrate to:"
 msgstr "Breyta í:"
 
-#: ../textw/partition_text.py:613
+#: ../textw/partition_text.py:614
 #, fuzzy
 msgid "Filesystem Label:"
 msgstr "Tegund skráarkerfis:"
 
-#: ../textw/partition_text.py:624
+#: ../textw/partition_text.py:625
 msgid "Filesystem Option:"
 msgstr "Rofi skráarkerfis:"
 
-#: ../textw/partition_text.py:627 ../textw/partition_text.py:661
+#: ../textw/partition_text.py:628 ../textw/partition_text.py:662
 #, c-format
 msgid "Format as %s"
 msgstr "Forsniða sem %s"
 
-#: ../textw/partition_text.py:629 ../textw/partition_text.py:663
+#: ../textw/partition_text.py:630 ../textw/partition_text.py:664
 #, c-format
 msgid "Migrate to %s"
 msgstr "Breyta í %s"
 
-#: ../textw/partition_text.py:631 ../textw/partition_text.py:665
+#: ../textw/partition_text.py:632 ../textw/partition_text.py:666
 msgid "Leave unchanged"
 msgstr "Láta ósnert"
 
-#: ../textw/partition_text.py:690 ../textw/partition_text.py:739
+#: ../textw/partition_text.py:691 ../textw/partition_text.py:740
 #, fuzzy
 msgid "Invalid Entry for Partition Size"
 msgstr "Ógildar upplýsingar"
 
-#: ../textw/partition_text.py:702
+#: ../textw/partition_text.py:703
 msgid "Invalid Entry for Maximum Size"
 msgstr ""
 
-#: ../textw/partition_text.py:721
+#: ../textw/partition_text.py:722
 msgid "Invalid Entry for Starting Cylinder"
 msgstr ""
 
-#: ../textw/partition_text.py:731
+#: ../textw/partition_text.py:732
 msgid "Invalid Entry for End Cylinder"
 msgstr ""
 
-#: ../textw/partition_text.py:824
+#: ../textw/partition_text.py:829
 #, fuzzy
 msgid "No RAID partitions"
 msgstr "<RAID disksneið>"
 
-#: ../textw/partition_text.py:875
+#: ../textw/partition_text.py:880
 msgid "Invalid Entry for Raid Spares"
 msgstr ""
 
-#: ../textw/partition_text.py:888
+#: ../textw/partition_text.py:893
 #, fuzzy
 msgid "Too many spares"
 msgstr "Of mörg drif"
 
-#: ../textw/partition_text.py:889
+#: ../textw/partition_text.py:894
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr ""
 
-#: ../textw/partition_text.py:973
+#: ../textw/partition_text.py:977
 msgid "Partitioning"
 msgstr "Disksneiðing"
 
-#: ../textw/partition_text.py:983
+#: ../textw/partition_text.py:987
 msgid "New"
 msgstr "Nýr"
 
-#: ../textw/partition_text.py:983
+#: ../textw/partition_text.py:987
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:986
+#: ../textw/partition_text.py:990
 #, fuzzy
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Hjálp   F2-Bæta við  F3-Breyta   F4-Eyða   F5-Frumstilla  F12-Í lagi  "
 
-#: ../textw/partition_text.py:1013
+#: ../textw/partition_text.py:1017
 msgid "No Root Partition"
 msgstr "Engin rótarsneið"
 
-#: ../textw/partition_text.py:1014
+#: ../textw/partition_text.py:1018
 msgid "Must have a / partition to install on."
 msgstr "Þú verður að hafa / disksneið til að setja upp á."
 
@@ -6126,9 +6131,6 @@ msgstr "Úkraínska"
 
 #~ msgid "Vertical Frequency Range"
 #~ msgstr "Lóðrétt tíðnisvið"
-
-#~ msgid "Test failed"
-#~ msgstr "Prófun mistókst"
 
 #~ msgid "Make Raid Device"
 #~ msgstr "Búa til Raid tæki"
