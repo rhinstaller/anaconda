@@ -79,7 +79,7 @@ def writeXConfiguration(id, instPath):
         fn = "/tmp/"
 
     id.xconfig.write(fn+"/etc/X11")
-    id.desktop.write(instpath)
+    id.desktop.write(instPath)
 
 def readPackages(intf, method, id):
     if (not id.hdList):
