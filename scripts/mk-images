@@ -316,7 +316,10 @@ makemoduleball() {
 
     pushd $MMB_DIR/modules > /dev/null
 
-    find . -name '*.o.gz' |xargs gunzip
+    GZIPPED=$(find . -name '*.o.gz')
+    if [ -n $GZIPPED ]; then
+	echo $GZIPPED | xargs gunzip
+    fi
 
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
 	$MMB_MODULESET > ../$MMB_MODINFO
@@ -896,7 +899,10 @@ for kernelvers in $vertag; do
 	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*(network|scsi|ide).*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config | sed 's/\.o//g') | sort -u)
     fi
 
-    find $KERNELROOT/lib/modules/$version -name "*.o.gz" |xargs gunzip
+    GZIPPED=$(find $KERNELROOT/lib/modules/$version -name "*.o.gz")
+    if [ -n $GZIPPED ]; then
+	echo $GZIPPED |xargs gunzip
+    fi
     allmods=$(find $KERNELROOT/lib/modules/$version -name *.o)
 
     rundepmod "$allmods" $MODDEPS
