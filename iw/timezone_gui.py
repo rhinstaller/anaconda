@@ -97,7 +97,6 @@ class TimezoneWindow (InstallWindow):
                 self.tz.setcurrent (self.default)
             except:
                 pass
-        widget.disconnect (self.id)
 
     # TimezoneWindow tag="timezone"
     def getScreen (self, instLang, timezone):
