@@ -180,7 +180,7 @@ char *getDasdPorts() {
 }
 
 int kdFindDasdList(struct knownDevices * devices, int code) {
-        char format[10], devname[10];
+        char devname[10];
         char *line;
         int ret;
         FILE *fd;
@@ -195,7 +195,7 @@ int kdFindDasdList(struct knownDevices * devices, int code) {
         line = (char *)malloc(100*sizeof(char));
         while (fgets (line, 100, fd) != NULL) {
                 ret = sscanf (line, "%*[A-Za-z0-9](ECKD) at ( %*d: %*d) is %s : %*s",
-                                format, devname);
+                                devname);
                 if (ret == 1) {
                         if(!deviceKnown(devices, devname)) {
                                 device.code = code;
