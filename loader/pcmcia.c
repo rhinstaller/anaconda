@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <fcntl.h>
 #include <kudzu/kudzu.h>
 #include <newt.h>
@@ -143,10 +144,10 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
 	}
     }
 
-    sprintf("%s:ds", pcic);
+    sprintf(buf, "%s:ds", pcic);
 
-    if (mlLoadModuleSet(pcic, modLoaded, modDeps, modInfo, flags)) {
-	logMessage("failed to load pcic/ds");
+    if (mlLoadModuleSet(buf, modLoaded, modDeps, modInfo, flags)) {
+	logMessage("failed to load pcic.o or ds.o");
 	umount("/modules");
 	return LOADER_ERROR;
     }
@@ -165,6 +166,6 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
     umount("/modules");
 
     strcpy(pcicPtr, pcic);
-    
+
     return 0;
 }
