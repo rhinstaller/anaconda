@@ -238,7 +238,7 @@ class NetworkWindow(InstallWindow):
 
         if (isys.isWireless(dev)):
             newopt = [(_("_ESSID"), "essid"),
-                      (_("Encryption _Key"), "wepkey")]
+                      (_("Encryption _Key"), "key")]
             devopts.extend(newopt)
             
         ipTable = gtk.Table(len(options) + 1, 2)
