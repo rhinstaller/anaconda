@@ -924,14 +924,14 @@ fi
 host=`rpm --nodigest --nosignature -qp --qf "%{POSTIN}\n" $PACKAGEDIR/gtk2*.rpm |grep update-gdk-pixbuf |awk {'print $2;'}`
 
 case "$host" in
-  *linux) host="$1-gnu"
+  *linux) canonhost="$host-gnu"
   ;;
-  *) host=$1
+  *) canonhost=$host
   ;;
 esac
  
 # autoconf uses powerpc not ppc
-HOSTTRIPLET=`echo $host | sed "s/^ppc/powerpc/"`
+HOSTTRIPLET=`echo $canonhost | sed "s/^ppc/powerpc/"`
 
 
 mkdir -p $DESTGR/etc/gtk-2.0/$HOSTTRIPLET
