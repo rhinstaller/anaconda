@@ -1227,6 +1227,7 @@ def migrateXinetd(instPath, instLog):
 
 def copyExtraModules(instPath, grpset, extraModules):
     kernelVersions = grpset.kernelVersionList()
+    foundModule = 0
 
     try:
         f = open("/etc/arch")
@@ -1235,7 +1236,7 @@ def copyExtraModules(instPath, grpset, extraModules):
     except IOError:
         arch = os.uname()[2]
 
-    for (path, subdir, name) in extraModules:
+    for (path, name) in extraModules:
         if not path:
             path = "/modules.cgz"
 	pattern = ""
@@ -1258,22 +1259,37 @@ def copyExtraModules(instPath, grpset, extraModules):
 	os.system(command)
 
 	for (n, tag) in kernelVersions:
-	    fromFile = "%s/lib/modules/%s/%s.o" % (instPath, n, name)
+            if tag == "up":
+                pkg = "kernel"
+            else:
+                pkg = "kernel-%s" %(tag,)
+            
 	    toDir = "%s/lib/modules/%s/updates" % \
 		    (instPath, n)
 	    to = "%s/%s.o" % (toDir, name)
 
-	    if (os.access(fromFile, os.R_OK) and 
-		    os.access(toDir, os.X_OK)):
-		log("moving %s to %s" % (fromFile, to))
-		os.rename(fromFile, to)
+            if (os.path.isdir("%s/lib/modules/%s" %(instPath, n)) and not
+                os.path.isdir("%s/lib/modules/%s/updates" %(instPath, n))):
+                os.mkdir("%s/lib/modules/%s/updates" %(instPath, n))
+            if not os.path.isdir(toDir):
+                continue
 
-		# the file might not have been owned by root in the cgz
-		os.chown(to, 0, 0)
-	    else:
-		log("missing DD module %s (this may be okay)" % 
-			    fromFile)
+            arch = grpset.hdrlist[pkg][rpm.RPMTAG_ARCH]
+            for p in ("%s/%s.o" %(arch, name), "%s.o" %(name,)):
+                fromFile = "%s/lib/modules/%s/%s" % (instPath, n, p)
 
+                if (os.access(fromFile, os.R_OK)):
+                    log("moving %s to %s" % (fromFile, to))
+                    os.rename(fromFile, to)
+                    # the file might not have been owned by root in the cgz
+                    os.chown(to, 0, 0)
+                    foundModule = 1
+                else:
+                    log("missing DD module %s (this may be okay)" % 
+                        fromFile)
+
+    if foundModule == 1:
+        for (n, tag) in kernelVersions:
             recreateInitrd(n, instPath)
 
 
