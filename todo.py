@@ -407,7 +407,10 @@ class ToDo:
 	    if not floppyDrive: return
 
 	    # Look in syslog for a real fd0 (which would take precedence)
-	    f = open("/tmp/syslog", "r")
+            try:
+                f = open("/tmp/syslog", "r")
+            except IOError:
+                return
 	    for line in f.readlines():
 		# chop off the loglevel (which init's syslog leaves behind)
 		line = line[3:]
