@@ -11,8 +11,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import gtk
 from iw_gui import *
-from gtk import *
 from translate import _, N_
 
 class UnresolvedDependenciesWindow (InstallWindow):
@@ -59,11 +59,11 @@ class UnresolvedDependenciesWindow (InstallWindow):
 	self.deps = deps
 	self.comps = comps
 
-        sw = GtkScrolledWindow ()
+        sw = gtk.GtkScrolledWindow ()
         sw.set_border_width (5)
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
-        list = GtkCList (2, (_("Package"), _("Requirement")))
+        list = gtk.GtkCList (2, (_("Package"), _("Requirement")))
         list.freeze ()
         for (name, suggest) in self.deps:
             list.append ((name, suggest))
@@ -75,19 +75,19 @@ class UnresolvedDependenciesWindow (InstallWindow):
 	self.origSelection = self.comps.getSelectionState()
         self.comps.selectDeps (self.deps)
 
-        self.sizelabel = GtkLabel()
+        self.sizelabel = gtk.GtkLabel()
         self.sizelabel.set_alignment (1, .5)
         self.updateSize()
 
-        rb = GtkVBox (FALSE)
-        self.dependRB = GtkRadioButton (None, _("Install packages to "
+        rb = gtk.GtkVBox (FALSE)
+        self.dependRB = gtk.GtkRadioButton (None, _("Install packages to "
                                                 "satisfy dependencies"))
         
-        self.causeRB  = GtkRadioButton (self.dependRB, _("Do not install "
+        self.causeRB  = gtk.GtkRadioButton (self.dependRB, _("Do not install "
                                                          "packages that "
                                                          "have dependencies"))
         
-        self.ignoreRB = GtkRadioButton (self.dependRB, _("Ignore package "
+        self.ignoreRB = gtk.GtkRadioButton (self.dependRB, _("Ignore package "
                                                          "dependencies"))
 
         rb.pack_start (self.dependRB)
@@ -100,7 +100,7 @@ class UnresolvedDependenciesWindow (InstallWindow):
         self.causeRB.connect('toggled', self.causeToggled)
         self.ignoreRB.connect('toggled', self.ignoreToggled)
 
-        box = GtkVBox (FALSE, 5)
+        box = gtk.GtkVBox (FALSE, 5)
         box.pack_start (sw, TRUE)
         box.pack_start (rb, FALSE)
 
