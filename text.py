@@ -69,11 +69,30 @@ class LanguageWindow:
 
         choice = descriptions[choice]
         lang = languages [choice]
+
+        if (todo.setupFilesystems
+            and lang[:2] == "ja" and not isys.isPsudoTTY(0)):
+            # we're not running KON yet, lets fire it up
+            os.environ["ANACONDAARGS"] = (os.environ["ANACONDAARGS"] +
+                                          " --lang ja_JP.eucJP")
+            os.environ["TERM"] = "kon"
+            os.environ["LANG"] = "ja_JP.eucJP"
+            os.environ["LC_ALL"] = "ja_JP.eucJP"
+            os.environ["LC_NUMERIC"] = "C"
+            if os.access("/tmp/updates/anaconda", os.X_OK):
+                prog = "/tmp/updates/anaconda"
+            else:
+                prog = "/usr/bin/anaconda"
+            args = [ "kon", "-e", prog ]
+            screen.finish()
+            os.execv ("/sbin/loader", args)
+
         newlangs = [lang]
 	if len(lang) > 2:
             newlangs.append(lang[:2])
         cat.setlangs (newlangs)
         todo.language.set (choice)
+                
 	if not todo.serial:
 	    map = todo.language.getFontMap(choice)
 	    font = todo.language.getFontFile(choice)
