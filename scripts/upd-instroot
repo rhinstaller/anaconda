@@ -59,17 +59,11 @@ prunePackageList() {
 	PATTERN=""
 	PACKAGEFILES=""
 	for PKG in $PACKAGES; do
-	    PATTERN="${PATTERN:+${PATTERN}|}(^$PKG )"
-	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
+	    this="$(ls $PACKAGEPATH/../Updates/${PKG}*{${ARCH},noarch}.rpm $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
+	    PACKAGEFILES="$PACKAGEFILES $(echo $this | egrep "(^$PKG )" | sed 's/.* //')"
 	done
 
-	# gtk+, enough said
-	PATTERN=$(echo $PATTERN | sed 's,[\+\*],\\&,g')
-
-	PACKAGEFILES=$(ls $PACKAGEFILES | sort -u)
-
-	rpm --nodigest --nosignature --qf "%{NAME} $PACKAGEPATH/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
-		-qp $PACKAGEFILES  | egrep "$PATTERN"  | sed 's/.* //' 
+	ls -1 $PACKAGEFILES |sort -u
 }
 
 expandPackageSet() {

@@ -26,7 +26,8 @@ data = {"timestamp": None,
         "baseDir": None,
         "packagesDir": None,
         "pixmapsDir": None,
-        "outfile": None}
+        "outfile": None,
+        "updatesDir": None}
 allDiscs = None
 
 opts = []
@@ -92,5 +93,7 @@ else:
 f.write("%s\n" % data["baseDir"])
 f.write("%s\n" % data["packagesDir"])
 f.write("%s\n" % data["pixmapsDir"])
+if data["updatesDir"] is not None:
+    f.write("%s\n" % data["updatesDir"])    
 
     

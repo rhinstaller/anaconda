@@ -71,7 +71,12 @@ class UrlInstallMethod(InstallMethod):
 	    else:
 		base = self.pkgUrl
 
-	    fullPath = base + "/RedHat/RPMS/" + h[FILENAME]
+            if h[1000005] is not None:
+                path = "/RedHat/Updates/"
+            else:
+                path = "/RedHat/RPMS/"
+
+	    fullPath = base + path + h[FILENAME]
 
 	file = tmppath + os.path.basename(fullPath)
 

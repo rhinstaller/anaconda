@@ -25,6 +25,7 @@
 #define CDNUM_TAG    1000002
 #define ORDER_TAG    1000003
 #define MATCHER_TAG  1000004
+#define UPDATES_TAG  1000005
 
 void expandFilelist(Header h);
 void compressFilelist(Header h);
@@ -100,10 +101,10 @@ int getOrder (char * fn)
     return -1;
 }
 
-int onePrePass(const char * dirName) {
+int doOnePrePass(char * dirName) {
     struct dirent * ent;
     DIR * dir;
-    char * subdir = alloca(strlen(dirName) + 20);
+    char * subdir = dirName;
     FD_t fd;
     int rc;
     Header h;
@@ -113,8 +114,6 @@ int onePrePass(const char * dirName) {
     rpmtsSetRootDir(ts, "/");
     rpmtsSetVSFlags(ts, ~RPMVSF_NOHDRCHK);
     rpmtsCloseDB(ts);
-
-    sprintf(subdir, "%s/RedHat/RPMS", dirName);
 
     dir = opendir(subdir);
     if (!dir) {
@@ -173,8 +172,26 @@ int onePrePass(const char * dirName) {
     return 0;
 }
 
-int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum, 
-            int doSplit) {
+int onePrePass(const char * dirName) {
+    char * subdir = malloc(strlen(dirName) + 30);
+    int rc;
+
+    sprintf(subdir, "%s/Updates/RPMS", dirName);
+    if (!access(subdir, X_OK)) {
+        rc = doOnePrePass(subdir);
+        if (rc) return rc;
+    }
+
+    sprintf(subdir, "%s/RedHat/RPMS", dirName);
+    rc = doOnePrePass(subdir);
+    if (rc) return rc;
+
+    free(subdir);
+    return 0;
+}
+
+int doOnePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum, 
+              int doSplit, int isUpdates) {
     FD_t fd;
     struct dirent * ent;
     char * subdir = alloca(strlen(dirName) + 20);
@@ -298,6 +315,8 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum,
 		headerAddEntry(h, FILENAME_TAG, RPM_STRING_TYPE, ent->d_name, 1);
 		headerAddEntry(h, FILESIZE_TAG, RPM_INT32_TYPE, 
 				&size, 1);
+                if (isUpdates)
+                    headerAddEntry(h, UPDATES_TAG, RPM_INT32_TYPE, &isUpdates, 1);
 
 		/* Recaclulate the package size based on a 4k block size */
 		if (headerGetEntry(h, RPMTAG_FILESIZES, NULL, 
@@ -415,6 +434,25 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum,
 
     closedir(dir);
 
+    return 0;
+}
+
+int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum, 
+            int doSplit) {
+    char * subdir = malloc(strlen(dirName) + 30);
+    int rc;
+
+    sprintf(subdir, "%s/Updates/RPMS", dirName);
+    if (!access(subdir, X_OK)) {
+        rc = doOnePass(outfd, out2fd, subdir, cdNum, doSplit, 1);
+        if (rc) return rc;
+    }
+
+    sprintf(subdir, "%s/RedHat/RPMS", dirName);
+    rc = doOnePass(outfd, out2fd, subdir, cdNum, doSplit, 0);
+    if (rc) return rc;
+
+    free(subdir);
     return 0;
 }
 

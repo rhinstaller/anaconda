@@ -45,7 +45,11 @@ class ImageInstallMethod(InstallMethod):
         if self.currentIso is not None and self.currentIso != h[1000002]:
             log("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentIso, h[1000002], h['name'], h['version'], h['release'], h['arch']))
         self.currentIso = h[1000002]
-	return self.tree + "/RedHat/RPMS/" + h[1000000]
+        if h[1000005] is not None:
+            path = "/RedHat/Updates/"
+        else:
+            path = "/RedHat/RPMS/"
+	return self.tree + path + h[1000000]
 
     def readHeaders(self):
         if not os.access(self.tree + "/RedHat/base/hdlist", os.R_OK):
@@ -269,7 +273,12 @@ class CdromInstallMethod(ImageInstallMethod):
         # FIXME: should retry a few times then prompt for new cd
         while tries < 5:
             try:
-                shutil.copy(self.tree + "/RedHat/RPMS/" + h[1000000],
+                if h[1000005] is not None:
+                    path = "/RedHat/Updates/"
+                else:
+                    path = "/RedHat/RPMS/"
+                
+                shutil.copy(self.tree + path + h[1000000],
                             tmppath + h[1000000])
             except IOError, (errnum, msg):
                 log("IOError %s occurred copying %s: %s",
@@ -417,7 +426,12 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	    self.umountImage()
 	    self.mountImage(h[1000002])
 
-	return self.mntPoint + "/RedHat/RPMS/" + h[1000000]
+        if h[1000005] is not None:
+            path = "/RedHat/Updates/"
+        else:
+            path = "/RedHat/RPMS/"
+
+	return self.mntPoint + path + h[1000000]
 
     def umountImage(self):
 	if self.imageMounted:

@@ -89,7 +89,12 @@ firstRun() {
 echo "Running buildinstall..."
 
 pushd $BUILDINSTDIR
-rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd './usr*'
+if [ -f $p/RedHat/Updates/anaconda-runtime-[0-9]* ]; then
+  path=RedHat/Updates
+else
+  path=RedHat/RPMS
+fi
+rpm2cpio $p/$path/anaconda-runtime-[0-9]* | cpio --quiet -iumd './usr*'
 popd
 
 UPD_INSTROOT=./upd-instroot
