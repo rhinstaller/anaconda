@@ -387,11 +387,11 @@ class LiloConfiguration:
 	    kernelFile = "/boot/vmlinuz" + kernelTag
 
 	    try:
-		(fsType, sl) = lilo.getImage(label)
 		lilo.delImage(label)
-                sl = LiloConfigFile(imageType = "image", path = kernelFile)
 	    except IndexError, msg:
-		sl = LiloConfigFile(imageType = "image", path = kernelFile)
+		pass
+
+	    sl = LiloConfigFile(imageType = "image", path = kernelFile)
 
 	    initrd = self.makeInitrd (kernelTag, instRoot)
 
