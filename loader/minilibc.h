@@ -129,7 +129,6 @@ void exit(int arg);
 /* x86_64 doesn't have some old crufty syscalls */
 #if defined(__x86_64__) 
 #define __NR__newselect __NR_select
-#define __NR_socketcall __NR_socket
 #define __NR_signal __NR_rt_sigaction
 #endif
 
@@ -188,10 +187,22 @@ static inline _syscall0(int,fork)
 #endif
 static inline _syscall0(pid_t,setsid)
 static inline _syscall3(int,syslog,int, type, char *, buf, int, len);
+
+/* socket calls don't use the socketcall multiplexor on x86_64 */
+#if defined(__x86_64__)
+static inline _syscall3(int,socket,int,domain,int,type,int,protocol);
+static inline _syscall3(int,bind,int,sockfd,void *,addr,int,addrlen);
+static inline _syscall2(int,listen,int,sockfd,int,backlog);
+static inline _syscall3(int,accept,int,sockfd,void *,addr,void *,addrlen);
+#endif /* x86_64 */
+
+
 #else
 static inline _syscall5(int,_newselect,int,n,fd_set *,rd,fd_set *,wr,fd_set *,ex,struct timeval *,timeval);
 static inline _syscall3(int,write,int,fd,const char *,buf,unsigned long,count)
+#if !defined(__x86_64__)
 static inline _syscall2(int,socketcall,int,code,unsigned long *, args)
+#endif
 #define __NR__do_exit __NR_exit
 extern inline _syscall1(int,_do_exit,int,exitcode)
 #endif
@@ -200,10 +211,15 @@ extern inline _syscall1(int,_do_exit,int,exitcode)
 
 extern int errno;
 
+/* socket calls don't use the socketcall multiplexor on x86_64 */
+#if !defined(__x86_64__)
 inline int socket(int a, int b, int c);
 inline int bind(int a, void * b, int c);
 inline int listen(int a, int b);
 inline int accept(int a, void * addr, void * addr2);
+#endif
+
+
 size_t strlen(const char * string);
 char * strcpy(char * dst, const char * src);
 void * memcpy(void * dst, const void * src, size_t count);

@@ -33,6 +33,10 @@ __libc_start_main (int (*main) (int, char **, char **), int argc,
 void _fini (int __status) {
 }
 
+/* x86_64 has to be different and use a separate syscall for each of the
+ * socket calls instead of doing a socketcall multiplexor.  bleah
+ */
+#if !defined(__x86_64__)
 inline int socket(int a, int b, int c) {
     unsigned long args[] = { a, b, c };
 
@@ -56,6 +60,7 @@ inline int accept(int a, void * addr, void * addr2) {
 
     return socketcall(SYS_ACCEPT, args);
 }
+#endif
 
 size_t strlen(const char * string) {
     size_t i = 0;
