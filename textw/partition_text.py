@@ -405,7 +405,7 @@ class PartitionWindow:
         subgrid.setField(driveLbl, 0, 0)
         disks = self.diskset.disks.keys()
         drivelist = CheckboxTree(height=2, scroll=1)
-        avail = get_available_raid_partitions(self.diskset, self.partitions, request)
+        avail = self.partitions.getAvailRaidPartitions(request, self.diskset)
 
         # XXX
         if not request.raidmembers:
@@ -639,7 +639,7 @@ class PartitionWindow:
             poplevel.add(subgrid, 0, row, (0,1,0,0))
 
         row = row + 1
-        if origrequest.type == REQUEST_NEW or origrequest.type == REQUEST_PROTECTED:
+        if origrequest.type == REQUEST_NEW or origrequest.getProtected():
             popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON))
         else:
             popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,
@@ -749,7 +749,7 @@ class PartitionWindow:
                     else: # can't ever get here
                         raise RuntimeError, "Selected a way of partitioning by cylinder that's not supported"
                     
-                err = sanityCheckPartitionRequest(self.partitions, request)
+                err = request.sanityCheckRequest(self.partitions)
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
@@ -771,17 +771,14 @@ class PartitionWindow:
                     request.fstype = newfstype
                     request.badblocks = badblocks
 
-                err = sanityCheckPartitionRequest(self.partitions, request)
+                err = request.sanityCheckRequest(self.partitions)
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
                     continue
 
-#                if not origrequest.format and request.format:
-#                    if not queryFormatPreExisting(self.intf):
-#                        continue
-
-                if not request.format and request.mountpoint and isFormatOnByDefault(request):
+                if (not request.format and request.mountpoint
+                    and request.formatOnByDefault()):
                     if not queryNoFormatPreExisting(self.intf):
                         continue
 
@@ -826,7 +823,7 @@ class PartitionWindow:
         drivegrid = Grid(2, 1)
 
         #Let's see if we have any RAID partitions to make a RAID device with
-        avail = get_available_raid_partitions(self.diskset, self.partitions, raidrequest)
+        avail = self.partitions.getAvailRaidPartitions(raidrequest, self.diskset)
         
         #If we don't, then tell the user that none exist
         if len(avail) < 2:
@@ -900,7 +897,7 @@ class PartitionWindow:
                 continue
                 
 
-            err = sanityCheckRaidRequest(self.partitions, request)
+            err = request.sanityCheckRequest(self.partitions)
             if err:
                 self.intf.messageWindow(_("Error With Request"),
                                         "%s" % (err))
@@ -1045,8 +1042,7 @@ class PartitionWindow:
                         _("Must have a / partition to install on."))
                     continue
                 
-                (errors, warnings) = sanityCheckAllRequests(self.partitions,
-                                                            self.diskset)
+                (errors, warnings) = self.partitions.sanityCheckAllRequests(self.diskset)
                 rc = partitionSanityErrors(self.intf, errors)
                 if rc != 1:
                     continue

@@ -743,8 +743,7 @@ class PartitionWindow(InstallWindow):
         return rc
         
     def getNext(self):
-        (errors, warnings) = sanityCheckAllRequests(self.partitions,
-                                                    self.diskset)
+        (errors, warnings) = self.partitions.sanityCheckAllRequests(self.diskset)
 
         if errors:
             labelstr1 =  _("The following critical errors exist "
@@ -1444,7 +1443,7 @@ class PartitionWindow(InstallWindow):
 
                         continue
 
-                err = sanityCheckPartitionRequest(self.partitions, request)
+                err = request.sanityCheckRequest(self.partitions)
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
@@ -1482,7 +1481,7 @@ class PartitionWindow(InstallWindow):
                 else:
                     request.mountpoint = None
 
-                err = sanityCheckPartitionRequest(self.partitions, request)
+                err = request.sanityCheckRequest(self.partitions)
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
@@ -1493,7 +1492,7 @@ class PartitionWindow(InstallWindow):
 #                        continue
 
                 if (not request.format and
-                    request.mountpoint and isFormatOnByDefault(request)):
+                    request.mountpoint and request.formatByDefault()):
                     if not queryNoFormatPreExisting(self.intf):
                         continue
             
@@ -1595,9 +1594,8 @@ class PartitionWindow(InstallWindow):
         #
         # start of editRaidRuquest
         #
-        availraidparts = get_available_raid_partitions(self.diskset,
-                                                       self.partitions,
-                                                       raidrequest)
+        availraidparts = self.partitions.getAvailRaidPartitions(raidrequest,
+                                                                    self.diskset)
         # if no raid partitions exist, raise an error message and return
         if len(availraidparts) < 2:
             dlg = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
@@ -1758,7 +1756,7 @@ class PartitionWindow(InstallWindow):
             else:
                 request.format = 0
 
-            err = sanityCheckRaidRequest(self.partitions, request)
+            err = request.sanityCheckRequest(self.partitions)
             if err:
                 self.intf.messageWindow(_("Error With Request"),
                                         "%s" % (err))
@@ -1858,7 +1856,12 @@ class PartitionWindow(InstallWindow):
 	    
 	    lvname = string.strip(lvnameEntry.get_text())
 
-	    err = sanityCheckMountPoint(mntpt, fsystem, REQUEST_LV)
+            if logrequest:
+                preexist = logrequest.preexist
+            else:
+                preexist = 0
+                
+	    err = sanityCheckMountPoint(mntpt, fsystem, preexist)
 	    if err:
 		self.intf.messageWindow(_("Bad mount point"), err)
 		continue
@@ -1986,9 +1989,8 @@ class PartitionWindow(InstallWindow):
 	self.editCurrentLogicalVolume()
 
     def editLVMVolumeGroup(self, origvgrequest, isNew = 0):
-        availlvmparts = get_available_lvm_partitions(self.diskset,
-						     self.partitions,
-						     origvgrequest)
+        availlvmparts = self.partitions.getAvailLVMPartitions(origvgrequest,
+                                                              self.diskset)
 
         # if no raid partitions exist, raise an error message and return
         if len(availlvmparts) < 1:
@@ -2151,7 +2153,7 @@ class PartitionWindow(InstallWindow):
 	    if origvname != volname:
 		tmpreq = VolumeGroupRequestSpec(physvols = pv,
                                                 vgname = volname)
-		if isVolumeGroupNameInUse(self.partitions, tmpreq):
+		if self.partitions.isVolumeGroupNameInUse(volname):
 		    self.intf.messageWindow(_("Name in use"),
 					    _("The volume group name %s is "
 					      "already in use. Please pick "

@@ -160,3 +160,22 @@ def get_raid_max_spares(raidlevel, nummembers):
     else:
         raise ValueError, "invalid raidlevel in get_raid_max_spares"
 
+def register_raid_device(mdname, newdevices, newlevel, newnumActive):
+    """Register a new RAID device in the mdlist."""
+    for dev, devices, level, numActive in partedUtils.DiskSet.mdList:
+        if mdname == dev:
+            if (devices != newdevices or level != newlevel or
+                numActive != newnumActive):
+                raise ValueError, "%s is already in the mdList!" % (mdname,)
+            else:
+                return
+    partedUtils.DiskSet.mdList.append((mdname, newdevices[:], newlevel,
+                                       newnumActive))
+
+def lookup_raid_device(mdname):
+    """Return the requested RAID device information."""
+    for dev, devices, level, numActive in partedUtils.DiskSet.mdList:
+        if mdname == dev:
+            return (dev, devices, level, numActive)
+    raise KeyError, "md device not found"
+

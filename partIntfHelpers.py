@@ -1,12 +1,12 @@
 #
-# partIntfHelps.py: partitioning interface helper functions
+# partIntfHelpers.py: partitioning interface helper functions
 #
 # Matt Wilson <msw@redhat.com>
 # Jeremy Katz <katzj@redhat.com>
 # Mike Fulbright <msf@redhat.com>
 # Harald Hoyer <harald@redhat.de>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -25,8 +25,6 @@ import parted
 import fsset
 import iutil
 import partRequests
-
-from partitioning import containsImmutablePart, deleteAllLogicalPartitions
 
 def sanityCheckVolumeGroupName(volname):
     """Make sure that the volume group name doesn't contain invalid chars."""
@@ -69,6 +67,36 @@ def sanityCheckLogicalVolumeName(logvolname):
                  "characters or spaces.")
     return None
 
+def sanityCheckMountPoint(mntpt, fstype, preexisting):
+    """Sanity check that the mountpoint is valid.
+
+    mntpt is the mountpoint being used.
+    fstype is the file system being used on the request.
+    preexisting is whether the request was preexisting (request.preexist)
+    """
+    if mntpt:
+        passed = 1
+        if not mntpt:
+            passed = 0
+        else:
+            if mntpt[0] != '/' or (len(mntpt) > 1 and mntpt[-1:] == '/'):
+                passed = 0
+	    elif mntpt.find(' ') > -1:
+		passed = 0
+                
+        if not passed:
+            return _("The mount point is invalid.  Mount points must start "
+                     "with '/' and cannot end with '/', and must contain "
+                     "printable characters and no spaces.")
+        else:
+            return None
+    else:
+        if (fstype and fstype.isMountable() and not preexisting):
+            return _("Please specify a mount point for this partition.")
+        else:
+            # its an existing partition so don't force a mount point
+            return None
+
 def doDeletePartitionByRequest(intf, requestlist, partition):
     """Delete a partition from the request list.
 
@@ -97,7 +125,7 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
     else:
         device = partedUtils.get_partition_name(partition)
 
-    ret = containsImmutablePart(partition, requestlist)
+    ret = requestlist.containsImmutablePart(partition)
     if ret:
         intf.messageWindow(_("Unable To Remove"),
                            _("You cannot remove this "
@@ -108,7 +136,7 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
     # see if device is in our partition requests, remove
     request = requestlist.getRequestByDeviceName(device)
     if request:
-        if request.type == REQUEST_PROTECTED:
+        if request.getProtected():
             intf.messageWindow(_("Unable To Remove"),
                                _("You cannot remove this "
                                  "partition, as it is holding the data for "
@@ -145,14 +173,14 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
             drive = partedUtils.get_partition_drive(partition)
 
             if partition.type & parted.PARTITION_EXTENDED:
-                deleteAllLogicalPartitions(partition, requestlist)
+                requestlist.deleteAllLogicalPartitions(partition)
 
             delete = partRequests.DeleteSpec(drive, partition.geom.start,
                                              partition.geom.end)
             requestlist.addDelete(delete)
     else: # is this a extended partition we made?
         if partition.type & parted.PARTITION_EXTENDED:
-            deleteAllLogicalPartitions(partition, requestlist)
+            requestlist.deleteAllLogicalPartitions(partition)
         else:
             raise ValueError, "Deleting a non-existent partition"
 
@@ -202,7 +230,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
     elif part.type & parted.PARTITION_EXTENDED:
         return (None, None)
     
-    ret = containsImmutablePart(part, requestlist)
+    ret = requestlist.containsImmutablePart(part)
     if ret:
         intf.messageWindow(_("Unable To Edit"),
                            _("You cannot edit this "
@@ -330,6 +358,32 @@ def partitionPreExistFormatWarnings(intf, warnings):
                                 type="yesno")
     return rc
 
+def getPreExistFormatWarnings(partitions, diskset):
+    """Return a list of preexisting partitions being formatted."""
+
+    devs = []
+    for request in partitions.requests:
+        if request.preexist == 1 and request.device:
+            devs.append(request.device)
+
+    devs.sort()
+    
+    rc = []
+    for dev in devs:
+        request = partitions.getRequestByDeviceName(dev)
+        if request.format:
+            if request.fstype.isMountable():
+                mntpt = request.mountpoint
+            else:
+                mntpt = ""
+                
+            rc.append((request.device, request.fstype.getName(), mntpt))
+
+    if len(rc) == 0:
+        return None
+    else:
+        return rc
+            
 def confirmDeleteRequest(intf, request):
     """Confirm the deletion of a request."""
     if request.device:

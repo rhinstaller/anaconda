@@ -23,6 +23,7 @@ import sys
 import struct
 import partitioning
 import partedUtils
+import raid
 import types
 from log import log
 from translate import _, N_
@@ -1390,8 +1391,8 @@ class RAIDDevice(Device):
                                     ('mkraid', '--really-force',
                                      '--configfile', raidtab, node),
                                     stderr="/dev/tty5", stdout="/dev/tty5")
-            partitioning.register_raid_device(self.device, self.members[:],
-                                              self.level, self.numDisks)
+            raid.register_raid_device(self.device, self.members[:],
+                                      self.level, self.numDisks)
             self.isSetup = 1
         return node
 
@@ -1604,8 +1605,7 @@ class LoopbackDevice(Device):
 def makeDevice(dev):
     if dev.startswith('md'):
         try:
-            mdname, devices, level, numActive = \
-                    partitioning.lookup_raid_device(dev)
+            (mdname, devices, level, numActive) = raid.lookup_raid_device(dev)
             device = RAIDDevice(level, devices,
                                 minor=int(mdname[2:]),
                                 spares=len(devices) - numActive,

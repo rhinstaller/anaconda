@@ -244,6 +244,16 @@ def checkDiskLabel(disk, intf):
     else:
         return 1
 
+def isLinuxNativeByNumtype(numtype):
+    """Check if the type is a 'Linux native' filesystem."""
+    linuxtypes = [0x82, 0x83, 0x8e, 0xfd]
+
+    for t in linuxtypes:
+        if int(numtype) == t:
+            return 1
+
+    return 0
+
 class DiskSet:
     """The disks in the system."""
 

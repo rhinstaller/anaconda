@@ -9,6 +9,7 @@ from flags import flags
 import sys
 import raid
 import string
+import partRequests
 
 class Script:
     def __repr__(self):
@@ -660,10 +661,13 @@ class KickstartBase(BaseInstallClass):
         if len(raidmems) == 0:
             raise ValueError, "RAID Partition defined without any RAID members"
 
-        request = RaidRequestSpec(filesystem, mountpoint = mountpoint,
-                                raidmembers = raidmems, raidlevel = level,
-                                raidspares = spares, format = format,
-                                raidminor = raidDev)
+        request = partRequests.RaidRequestSpec(filesystem,
+                                               mountpoint = mountpoint,
+                                               raidmembers = raidmems,
+                                               raidlevel = level,
+                                               raidspares = spares,
+                                               format = format,
+                                               raidminor = raidDev)
         id.partitions.autoPartitionRequests.append(request)
 
 
@@ -770,8 +774,9 @@ class KickstartBase(BaseInstallClass):
         if fsopts:
             filesystem.extraFormatArgs.extend(fsopts)
 
-        request = PartitionRequestSpec(filesystem, mountpoint = mountpoint,
-                                       format = 1)
+        request = partRequests.PartitionRequestSpec(filesystem,
+                                                    mountpoint = mountpoint,
+                                                    format = 1)
         if size:
             request.size = size
         if start:

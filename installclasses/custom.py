@@ -1,11 +1,9 @@
 from installclass import BaseInstallClass
 from translate import N_
+from constants import *
 import os
 import iutil
-from autopart import CLEARPART_TYPE_LINUX
-from autopart import CLEARPART_TYPE_ALL
-from autopart import CLEARPART_TYPE_NONE
-from partitioning import *
+from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 
 # custom installs are easy :-)
 class InstallClass(BaseInstallClass):

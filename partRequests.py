@@ -23,9 +23,12 @@ import string
 import os, sys
 
 from constants import *
+from translate import _
 
 import fsset
+import raid
 import partedUtils
+import partIntfHelpers
 
 class DeleteSpec:
     """Defines a preexisting partition which is intended to be removed."""
@@ -139,6 +142,129 @@ class RequestSpec:
         """Return whether the partition existed before we started playing."""
         return self.preexist
 
+    def doMountPointLinuxFSChecks(self):
+        """Return an error string if the mountpoint is not valid for Linux FS."""
+        mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root',
+                        '/mnt', 'lost+found', '/proc']
+        mustbeonlinuxfs = ['/', '/boot', '/var', '/tmp', '/usr', '/home']
+
+        if not self.mountpoint:
+            return None
+
+        if self.fstype is None:
+            return None
+
+        if self.fstype.isMountable():    
+            if self.mountpoint in mustbeonroot:
+                return _("This mount point is invalid.  This directory must "
+                         "be on the / filesystem.")
+
+        if not self.fstype.isLinuxNativeFS():
+            if self.mountpoint in mustbeonlinuxfs:
+                return _("This mount point must be on a linux filesystem.")
+
+        return None
+
+    def isMountPointInUse(self, partitions):
+        """Return whether my mountpoint is in use by another request."""
+        mntpt = self.mountpoint
+        if not mntpt:
+            return None
+
+        if partitions and partitions.requests:
+            for request in partitions.requests:
+                if request.mountpoint == mntpt:
+                    if (not self.device
+                        or request.device != self.device):
+                        return _("The mount point %s is already in use, "
+                                 "please choose a different mount point."
+                                 %(mntpt))
+        return None
+
+    def doSizeSanityCheck(self):
+        """Sanity check that the size of the request is sane."""
+        if not self.fstype:
+            return None
+
+        if not self.format:
+            return None
+
+        if self.size and self.size > self.fstype.getMaxSizeMB():
+            return (_("The size of the %s partition (size = %s MB) "
+                      "exceeds the maximum size of %s MB.")
+                    % (self.fstype.getName(), self.size,
+                       self.fstype.getMaxSizeMB()))
+        
+        return None
+
+    def sanityCheckRequest(self, partitions):
+        """Run the basic sanity checks on the request."""
+        # see if mount point is valid if its a new partition request
+        mntpt = self.mountpoint
+        fstype = self.fstype
+        preexist = self.preexist
+
+        rc = self.doSizeSanityCheck()
+        if rc:
+            return rc
+
+        rc = partIntfHelpers.sanityCheckMountPoint(mntpt, fstype, preexist)
+        if rc:
+            return rc
+
+        rc = self.isMountPointInUse(partitions)
+        if rc:
+            return rc
+
+        rc = self.doMountPointLinuxFSChecks()
+        if rc:
+            return rc
+
+        return None
+        
+
+    def formatByDefault(self):
+        """Return whether or not the request should be formatted by default."""
+        def inExceptionList(mntpt):
+            exceptlist = ['/home', '/usr/local', '/opt', '/var/www']
+            for q in exceptlist:
+                if os.path.commonprefix([mntpt, q]) == q:
+                    return 1
+            return 0
+
+        # check first to see if its a Linux filesystem or not
+        formatlist = ['/boot', '/var', '/tmp', '/usr']
+
+        if not self.fstype:
+            return 0
+
+        if not self.fstype.isLinuxNativeFS():
+            return 0
+
+        if self.fstype.isMountable():
+            mntpt = self.mountpoint
+            if mntpt == "/":
+                return 1
+
+            if mntpt in formatlist:
+                return 1
+
+            for p in formatlist:
+                if os.path.commonprefix([mntpt, p]) == p:
+                    if inExceptionList(mntpt):
+                        return 0
+                    else:
+                        return 1
+
+            return 0
+        else:
+            if self.fstype.getName() == "swap":
+                return 1
+
+        # be safe for anything else and default to off
+        return 0
+        
+
 # XXX preexistings store start/end as sectors, new store as cylinders. ICK
 class PartitionSpec(RequestSpec):
     """Object to define a requested partition."""
@@ -227,6 +353,34 @@ class PartitionSpec(RequestSpec):
         """Return a device to solidify."""        
         dev = fsset.PartitionDevice(self.device)
         return dev
+
+    def doSizeSanityCheck(self):
+        """Sanity check that the size of the partition is sane."""
+        if not self.fstype:
+            return None
+        if not self.format:
+            return None
+        ret = RequestSpec.doSizeSanityCheck(self)
+        if ret is not None:
+            return ret
+
+        if (self.size and self.maxSizeMB
+            and (self.size > self.maxSizeMB)):
+            return (_("The size of the requested partition (size = %s MB) "
+                     "exceeds the maximum size of %s MB.")
+                    % (self.size, self.maxSizeMB))
+
+        if self.size and self.size < 0:
+            return _("The size of the requested partition is "
+                     "negative! (size = %s MB)") % (self.size)
+
+        if self.start and self.start < 1:
+            return _("Partitions can't start below the first cylinder.")
+
+        if self.end and self.end < 1:
+            return _("Partitions can't end on a negative cylinder.")
+
+        return None
 
 class NewPartitionSpec(PartitionSpec):
     """Object to define a NEW requested partition."""
@@ -337,6 +491,40 @@ class RaidRequestSpec(RequestSpec):
                                raidmems, minor = self.raidminor,
                                spares = self.raidspares)
         return dev
+
+    # do RAID specific sanity checks; this is an internal function
+    def sanityCheckRaid(self, partitions):
+        if not self.raidmembers or not self.raidlevel:
+            return _("No members in RAID request, or not RAID "
+                     "level specified.")
+        # XXX fix this code to look to see if there is a bootable partition
+        bootreq = partitions.getBootableRequest()
+        if not bootreq and self.mountpoint:
+            # XXX 390 can't have boot on raid
+            if ((self.mountpoint == "/boot" or self.mountpoint == "/")
+                and not raid.isRaid1(self.raidlevel)):
+                return _("Bootable partitions can only be on RAID1 devices.")
+
+        minmembers = raid.get_raid_min_members(self.raidlevel)
+        if len(self.raidmembers) < minmembers:
+            return _("A RAID device of type %s "
+                     "requires at least %s members.") % (self.raidlevel,
+                                                         minmembers)
+
+        if self.raidspares:
+            if (len(self.raidmembers) - self.raidspares) < minmembers:
+                return _("This RAID device can have a maximum of %s spares. "
+                         "To have more spares you will need to add members to "
+                         "the RAID device.") % (len(self.raidmembers)
+                                                - minmembers )
+        return None
+
+    def sanityCheckRequest(self, partitions):
+        """Run the basic sanity checks on the request."""
+        rc = self.sanityCheckRaid(partitions)
+        if rc:
+            return rc
+        return RequestSpec.sanityCheckRequest(self, partitions)
 
 class VolumeGroupRequestSpec(RequestSpec):
     """Request to represent volume group devices."""

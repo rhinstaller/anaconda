@@ -608,7 +608,7 @@ def growParts(diskset, requests, newParts):
 
 def setPreexistParts(diskset, requests, newParts):
     for request in requests:
-        if request.type != REQUEST_PREEXIST and request.type != REQUEST_PROTECTED:
+        if request.type != REQUEST_PREEXIST:
             continue
         disk = diskset.disks[request.drive]
         part = disk.next_partition()
@@ -803,10 +803,11 @@ def doClearPartAction(partitions, diskset):
                 ptype = partedUtils.get_partition_file_system_type(part)
             else:
                 ptype = None
-            if (linuxOnly == 0) or (ptype and ptype.isLinuxNativeFS()) or \
-               (not ptype and query_is_linux_native_by_numtype(part.native_type)):
+            if ((linuxOnly == 0) or (ptype and ptype.isLinuxNativeFS()) or 
+                (not ptype and
+                 partedUtils.isLinuxNativeByNumtype(part.native_type))):
                 old = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
-                if old.type == REQUEST_PROTECTED:
+                if old.getProtected():
                     part = disk.next_partition(part)
                     continue
 
@@ -863,14 +864,14 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     if instClass.name and instClass.name == "kickstart":
         isKickstart = 1
 	# XXX hack
-	setProtected(partitions, dispatch)
+	partitions.setProtected(dispatch)
     else:
         isKickstart = 0
         
     if dir == DISPATCH_BACK:
         diskset.refreshDevices()
         partitions.setFromDisk(diskset)
-        setProtected(partitions, dispatch)
+        partitions.setProtected(dispatch)
         return
     
     # if no auto partition info in instclass we bail
@@ -932,7 +933,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
 
     # sanity checks for the auto partitioning requests; mostly only useful
     # for kickstart as our installclass defaults SHOULD be sane 
-    (errors, warnings) = sanityCheckAllRequests(partitions, diskset, 1)
+    (errors, warnings) = partitions.sanityCheckAllRequests(diskset, 1)
     if warnings:
         for warning in warnings:
             log("WARNING: %s" % (warning))
@@ -970,6 +971,43 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
         if isKickstart:
             sys.exit(0)
 
+def autoCreatePartitionRequests(autoreq):
+    """Return a list of requests created with a shorthand notation.
+
+    Mainly used by installclasses; make a list of tuples of the form
+    (mntpt, fstype, minsize, maxsize, grow, format)
+    mntpt = None for non-mountable, otherwise is mount point
+    fstype = None to use default, otherwise a string
+    minsize = smallest size
+    maxsize = max size, or None means no max
+    grow = 0 or 1, should partition be grown
+    format = 0 or 1, whether to format
+    """
+    
+    requests = []
+    for (mntpt, fstype, minsize, maxsize, grow, format) in autoreq:
+        if fstype:
+            ptype = fsset.fileSystemTypeGet(fstype)
+        else:
+            ptype = fsset.fileSystemTypeGetDefault()
+            
+        newrequest = partRequests.PartitionSpec(ptype,
+                                                mountpoint = mntpt,
+                                                size = minsize,
+                                                maxSizeMB = maxsize,
+                                                grow = grow,
+                                                format = format)
+        
+        requests.append(newrequest)
+
+    return requests
+
+def getAutopartitionBoot():
+    """Return the proper shorthand for the boot dir (arch dependent)."""
+    if iutil.getArch() == "ia64":
+        return ("/boot/efi", "vfat", 100, None, 0, 1)
+    else:
+        return ("/boot", None, 50, None, 0, 1)
 
 def queryAutoPartitionOK(intf, diskset, partitions):
     type = partitions.autoClearPartType

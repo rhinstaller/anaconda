@@ -1,8 +1,9 @@
 from installclass import BaseInstallClass
 from translate import *
+from constants import *
 import os
 import iutil
-from partitioning import *
+from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 
 class InstallClass(BaseInstallClass):
 

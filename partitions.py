@@ -23,10 +23,15 @@ import string
 import os, sys
 
 from constants import *
+from translate import _
+from log import log
 
 import fsset
+import raid
 import partedUtils
 import partRequests
+
+from partitioning import requestSize
 
 class Partitions:
     """Defines all of the partition requests and delete requests."""
@@ -212,6 +217,50 @@ class Partitions:
 
         return retval
 
+    def getRaidDevices(self):
+        """Find and return a list of all of the requests for use in RAID."""
+        raidRequests = []
+        for request in self.requests:
+            if isinstance(request, partRequests.RaidRequestSpec):
+                raidRequests.append(request)
+                
+        return raidRequests
+
+    def getAvailRaidPartitions(self, request, diskset):
+        """Return a list of tuples of RAID partitions which can be used.
+
+        Return value is (part, size, used) where used is 0 if not,
+        1 if so, 2 if used for *this* request.
+        """
+        rc = []
+        drives = diskset.disks.keys()
+        raiddevs = self.getRaidDevices()
+        drives.sort()
+        for drive in drives:
+            disk = diskset.disks[drive]
+            for part in partedUtils.get_raid_partitions(disk):
+                partname = partedUtils.get_partition_name(part)
+                used = 0
+                for raid in raiddevs:
+                    if raid.raidmembers:
+                        for raidmem in raid.raidmembers:
+                            tmpreq = self.getRequestByID(raidmem)
+                            if (partname == tmpreq.device):
+                                if raid.device == request.device:
+                                    used = 2
+                                else:
+                                    used = 1
+                                break
+                    if used:
+                        break
+                size = partedUtils.getPartSizeMB(part)
+
+                if not used:
+                    rc.append((partname, size, 0))
+                elif used == 2:
+                    rc.append((partname, size, 1))
+        return rc
+
     def isRaidMember(self, request):
         """Return whether or not the request is being used in a RAID device."""
         raiddev = self.getRaidRequests()
@@ -266,13 +315,46 @@ class Partitions:
 
         return retval
 
+    def getAvailLVMPartitions(self, request, diskset):
+        """Return a list of tuples of PV partitions which can be used.
+
+        Return value is (part, size, used) where used is 0 if not,
+        1 if so, 2 if used for *this* request.
+        """
+        rc = []
+        drives = diskset.disks.keys()
+        drives.sort()
+        volgroups = self.getLVMVGRequests()
+        for drive in drives:
+            disk = diskset.disks[drive]
+            for part in partedUtils.get_lvm_partitions(disk):
+                partname = partedUtils.get_partition_name(part)
+                partrequest = self.getRequestByDeviceName(partname)
+                used = 0
+                for volgroup in volgroups:
+                    if volgroup.physicalVolumes:
+                        if partrequest.uniqueID in volgroup.physicalVolumes:
+                            if (request and request.uniqueID and
+                                volgroup.uniqueID == request.uniqueID):
+                                used = 2
+                            else:
+                                used = 1
+
+                    if used:
+                        break
+                size = partedUtils.getPartSizeMB(part)                    
+
+                if used == 0:
+                    rc.append((partname, part, 0))
+                elif used == 2:
+                    rc.append((partname, part, 1))
+        return rc
+
     def isLVMVolumeGroupMember(self, request):
         """Return whether or not the request is being used in an LVM device."""
 	volgroups = self.getLVMVGRequests()
 	if not volgroups:
 	    return 0
-
-        # XXX is it nonsensical to check if this isn't a real partition?
 
 	for volgroup in volgroups:
 	    if volgroup.physicalVolumes:
@@ -280,7 +362,20 @@ class Partitions:
 			return 1
 
 	return 0
-	    
+
+    def isVolumeGroupNameInUse(self, vgname):
+        """Return whether or not the requested volume group name is in use."""
+        if not vgname:
+            return None
+
+        lvmrequests = self.getLVMRequests()
+        if not lvmrequests:
+            return None
+
+        if vgname in lvmrequests.keys():
+            return 1
+        return 0
+
     def getBootableRequest(self):
         """Return the name of the current 'boot' mount point."""
         bootreq = None
@@ -361,6 +456,119 @@ class Partitions:
         # move to the front of the list
         boot.extend(self.requests)
         self.requests = boot
+
+    def sanityCheckAllRequests(self, diskset, baseChecks = 0):
+        """Do a sanity check of all of the requests.
+
+        This function is called at the end of partitioning so that we
+        can make sure you don't have anything silly (like no /, a really
+        small /, etc).  Returns (errors, warnings) where each is a list
+        of strings or None if there are none.
+        If baseChecks is set, the basic sanity tests which the UI runs prior to
+        accepting a partition will be run on the requests as well.
+        """
+        checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 50),
+                      ('/home', 100), ('/boot', 20)]
+        warnings = []
+        errors = []
+
+        slash = self.getRequestByMountPoint('/')
+        if not slash:
+            errors.append(_("You have not defined a root partition (/), "
+                            "which is required for installation of Red "
+                            "Hat Linux to continue."))
+
+        if slash and requestSize(slash, diskset) < 250:
+            warnings.append(_("Your root partition is less than 250 "
+                              "megabytes which is usually too small to "
+                              "install Red Hat Linux."))
+
+        if iutil.getArch() == "ia64":
+            bootreq = self.getRequestByMountPoint("/boot/efi")
+            if not bootreq or requestSize(bootreq, diskset) < 50:
+                errors.append(_("You must create a /boot/efi partition of "
+                                "type FAT and a size of 50 megabytes."))
+
+        for (mount, size) in checkSizes:
+            req = self.getRequestByMountPoint(mount)
+            if not req:
+                continue
+            if requestSize(req, diskset) < size:
+                warnings.append(_("Your %s partition is less than %s "
+                                  "megabytes which is lower than recommended "
+                                  "for a normal Red Hat Linux install.")
+                                %(mount, size))
+
+        foundSwap = 0
+        swapSize = 0
+        for request in self.requests:
+            if request.fstype and request.fstype.getName() == "swap":
+                foundSwap = foundSwap + 1
+                swapSize = swapSize + requestSize(request, diskset)
+            if baseChecks:
+                rc = request.doSizeSanityCheck()
+                if rc:
+                    warnings.append(rc)
+                rc = request.doMountPointLinuxFSChecks()
+                if rc:
+                    errors.append(rc)
+                if isinstance(request, partRequests.RaidRequestSpec):
+                    rc = request.sanityCheckRaid(self)
+                    if rc:
+                        errors.append(rc)
+
+        bootreq = self.getBootableRequest()
+        # XXX 390 can't have boot on RAID
+        if (bootreq and (isinstance(bootreq, partRequests.RaidRequestSpec)) and
+            (not raid.isRaid1(bootreq.raidlevel))):
+            errors.append(_("Bootable partitions can only be on RAID1 "
+                            "devices."))
+
+        # can't have bootable partition on LV
+        if (bootreq and
+            (isinstance(bootreq, partRequests.LogicalVolumeRequestSpec))):
+            errors.append(_("Bootable partitions cannot be on a "
+                            "logical volume."))
+
+        if foundSwap == 0:
+            warnings.append(_("You have not specified a swap partition.  "
+                              "Although not strictly required in all cases, "
+                              "it will significantly improve performance for "
+                              "most installations."))
+
+        # XXX number of swaps not exported from kernel and could change
+        if foundSwap >= 32:
+            warnings.append(_("You have specified more than 32 swap devices.  "
+                              "The kernel for Red Hat Linux only supports 32 "
+                              "swap devices."))
+
+        mem = iutil.memInstalled(corrected = 0)
+        rem = mem % 16384
+        if rem:
+            mem = mem + (16384 - rem)
+        mem = mem / 1024
+
+        if foundSwap and (swapSize < (mem - 8)) and (mem < 1024):
+            warnings.append(_("You have allocated less swap space (%dM) than "
+                              "available RAM (%dM) on your system.  This "
+                              "could negatively impact performance.")
+                            %(swapSize, mem))
+
+        if warnings == []:
+            warnings = None
+        if errors == []:
+            errors = None
+
+        return (errors, warnings)
+
+    def setProtected(self, dispatch):
+        """Set any partitions which should be protected to be so."""
+        protected = dispatch.method.protectedPartitions()
+        if protected:
+            for device in protected:
+                log("%s is a protected partition" % (device))
+                request = self.getRequestByDeviceName(device)
+                request.setProtected(1)
 
     def copy (self):
         """Deep copy the object."""
@@ -510,4 +718,43 @@ class Partitions:
             args.append("%s" % (string.join(raidmems)))
 
             f.write("#raid %s\n" % (string.join(args)))
+
+    def deleteAllLogicalPartitions(self, part):
+        """Add delete specs for all logical partitions in part."""
+        for partition in partedUtils.get_logical_partitions(part.geom.disk):
+            partName = partedUtils.get_partition_name(partition)
+            request = self.getRequestByDeviceName(partName)
+            self.removeRequest(request)
+            if request.preexist:
+                drive = partedUtils.get_partition_drive(partition)
+                delete = partRequests.DeleteSpec(drive, partition.geom.start,
+                                                 partition.geom.end)
+                self.addDelete(delete)
+
+    def containsImmutablePart(self, part):
+        """Returns whether the partition contains parts we can't delete."""
+        if not part or (type(part) == type("RAID")) or (type(part) == type(1)):
+            return None
+
+        if not part.type & parted.PARTITION_EXTENDED:
+            return None
+
+        disk = part.geom.disk
+        while part:
+            if not part.is_active():
+                part = disk.next_partition(part)
+                continue
+
+            device = partedUtils.get_partition_name(part)
+            request = self.getRequestByDeviceName(device)
+
+            if request:
+                if request.getProtected():
+                    return _("the partition in use by the installer.")
+
+                if self.isRaidMember(request):
+                    return _("a partition which is a member of a RAID array.")
+
+            part = disk.next_partition(part)
+        return None
 
