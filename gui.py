@@ -33,6 +33,7 @@ from _gtk import _gtk_nuke_rc_files, _gtk_nuke_rc_mtimes
 from language import expandLangs
 from splashscreen import splashScreenPop
 from log import log
+from flags import flags
 
 StayOnScreen = "stayOnScreen"
 
@@ -309,17 +310,17 @@ class InstallInterface:
 
 	self.dispatch = dispatch
 
-	# XXX
-        #if todo.installSystem:
-            #try:
-                #kb.setMouseKeys (1)
-            #except SystemError:
-                #pass
-        #if todo.instClass.keyboard:
-	    #info = todo.keyboard.getXKB()
-	    #if info:
-                #(rules, model, layout, variant, options) = info
-                #kb.setRule (model, layout, variant, "complete")
+        if flags.setupFilesystems:
+            try:
+                kb.setMouseKeys (1)
+            except SystemError:
+                pass
+
+        if id.keyboard:
+	    info = id.keyboard.getXKB()
+	    if info:
+                (rules, model, layout, variant, options) = info
+                kb.setRule (model, layout, variant, "complete")
 
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)

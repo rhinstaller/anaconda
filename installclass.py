@@ -189,15 +189,17 @@ class BaseInstallClass:
     def setKeyboard(self, id, kb):
 	id.keyboard.set(kb)
 
+	xkb = id.keyboard.getXKB ()
+
+	if xkb:
+            apply(id.xconfig.setKeyboard, xkb)
+
 	# XXX
-	#xkb = todo.keyboard.getXKB ()
+        #apply (todo.x.setKeyboard, xkb)
 
-	#if xkb:
-	    #apply (todo.x.setKeyboard, xkb)
-
-	    ## hack - apply to instclass preset if present as well
-	    #if (todo.instClass.x):
-		#apply (todo.instClass.x.setKeyboard, xkb)
+	## hack - apply to instclass preset if present as well
+	#if (todo.instClass.x):
+	#apply (todo.instClass.x.setKeyboard, xkb)
 
     def setHostname(self, id, hostname):
 	id.network.setHostname(hostname);
