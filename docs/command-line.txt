@@ -102,6 +102,9 @@ kssendmac	Adds HTTP headers to ks=http:// request that can be helpful
                 HTTP_X_RHN_PROVISIONING_0, HTTP_X_RHN_PROVISIONING_1, etc, for
                 all nics.
 
+dhcpclass=<class> Sends a custom DHCP vendor class identifier. ISC's dhcpcd can
+                inspect this value using "option vendor-class-identifier". 
+
 upgradeany	Don't require an /etc/redhat-release that matches the 
 		expected syntax to upgrade.
 

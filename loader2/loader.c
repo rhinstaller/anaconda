@@ -527,6 +527,9 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
             loaderData->netDev = strdup(argv[i] + 9);
             loaderData->netDev_set = 1;
+        } else if (!strncasecmp(argv[i], "dhcpclass=", 8)) {
+            loaderData->netCls = strdup(argv[i] + 8);
+            loaderData->netCls_set = 1;
         }
         else if (!strcasecmp(argv[i], "ks") || !strncasecmp(argv[i], "ks=", 3))
             loaderData->ksFile = strdup(argv[i]);
@@ -897,7 +900,7 @@ static char *doLoaderMain(char * location,
 	    /* populate netDev based on any kickstart data */
 	    setupNetworkDeviceConfig(&netDev, loaderData, flags);
 
-            rc = readNetConfig(devName, &netDev, flags);
+            rc = readNetConfig(devName, &netDev, loaderData->netCls, flags);
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) {
                 step = STEP_IFACE;

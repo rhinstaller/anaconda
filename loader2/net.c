@@ -199,6 +199,8 @@ void printLoaderDataIPINFO(struct loaderData_s *loaderData) {
     logMessage("loaderData->noDns      = %d", loaderData->noDns);
     logMessage("loaderData->netDev_set = %d", loaderData->netDev_set);
     logMessage("loaderData->netDev     = %s", loaderData->netDev);
+    logMessage("loaderData->netCls_set = %d", loaderData->netCls_set);
+    logMessage("loaderData->netCls     = %s", loaderData->netCls);
 }
 
 /* given loader data from kickstart, populate network configuration struct */
@@ -234,7 +236,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
-                chptr = pumpDhcpRun(loaderData->netDev, 0, 0, NULL, &cfg->dev, NULL);
+                chptr = pumpDhcpClassRun(loaderData->netDev, 0, 0, NULL, loaderData->netCls ? loaderData->netCls : "anaconda", &cfg->dev, NULL);
             } else {
                 chptr = NULL;
             }
@@ -346,7 +348,8 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     cfg->noDns = loaderData->noDns;
 }
 
-int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
+int readNetConfig(char * device, struct networkDeviceConfig * cfg, 
+                  char * dhcpclass, int flags) {
     newtComponent text, f, okay, back, answer, dhcpCheckbox;
     newtGrid grid, subgrid, buttons;
     struct networkDeviceConfig newCfg;
@@ -485,7 +488,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
                           _("Sending request for IP information for %s..."), 
                           device, 0);
                 waitForLink(device);
-                chptr = pumpDhcpRun(device, 0, 0, NULL, &newCfg.dev, NULL);
+                chptr = pumpDhcpClassRun(device, 0, 0, NULL, dhcpclass ? dhcpclass : "anaconda", &newCfg.dev, NULL);
                 newtPopWindow();
             } else {
                 chptr = NULL;
@@ -678,13 +681,14 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
 
 void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr) {
-    char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL;
+    char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL, * class = NULL;
     int noDns = 0, rc;
     poptContext optCon;
 
     struct poptOption ksOptions[] = {
         { "bootproto", '\0', POPT_ARG_STRING, &bootProto, 0 },
         { "device", '\0', POPT_ARG_STRING, &device, 0 },
+        { "dhcpclass", '\0', POPT_ARG_STRING, &class, 0 },
         { "gateway", '\0', POPT_ARG_STRING, NULL, 'g' },
         { "ip", '\0', POPT_ARG_STRING, NULL, 'i' },
         { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n' },
@@ -753,6 +757,11 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     if (device) {
         loaderData->netDev = strdup(device);
         loaderData->netDev_set = 1;
+    }
+
+    if (class) {
+        loaderData->netCls = strdup(class);
+        loaderData->netCls_set = 1;
     }
 
     if (ethtool) {
@@ -918,7 +927,8 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
 
     setupNetworkDeviceConfig(netCfgPtr, loaderData, flags);
 
-    rc = readNetConfig(loaderData->netDev, netCfgPtr, flags);
+    rc = readNetConfig(loaderData->netDev, netCfgPtr, loaderData->netCls, 
+                       flags);
     if ((rc == LOADER_BACK) || (rc == LOADER_ERROR)) {
         logMessage("unable to setup networking");
         return -1;

@@ -282,7 +282,7 @@ class Network:
 	    for dev in self.netdevices.values():
                 if (dev.get('bootproto') == "dhcp" and
                     dev.get('onboot') == "yes"):
-		    ret = isys.pumpNetDevice(dev.get('device'))
+		    ret = isys.pumpNetDevice(dev.get('device'), dev.get('dhcpclass'))
                     if ret is None:
                         continue
                     myns = ret
@@ -348,6 +348,8 @@ class Network:
 		    f.write(" --onboot no")
                 if dev.get('bootproto') == 'dhcp':
                     f.write(" --bootproto dhcp")
+                    if dev.get('dhcpclass'):
+			f.write(" --class %s" % dev.get('dhcpclass'))
 		    if self.overrideDHCPhostname:
 			if (self.hostname and
 			    self.hostname != "localhost.localdomain"):
@@ -389,6 +391,8 @@ class Network:
             if (dev.get('bootproto') == 'dhcp' and self.hostname and
                 self.overrideDHCPhostname):
                 f.write("DHCP_HOSTNAME=%s\n" %(self.hostname,))
+            if dev.get('dhcpclass'):
+                f.write("DHCP_CLASSID=%s\n" % dev.get('dhcpclass'))
                 
             f.close()
 

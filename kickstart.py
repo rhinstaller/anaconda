@@ -447,7 +447,8 @@ class KickstartBase(BaseInstallClass):
 	# nodns is only used by the loader
 	(args, extra) = isys.getopt(args, '',
 		[ 'bootproto=', 'ip=', 'netmask=', 'gateway=', 'nameserver=',
-		  'nodns', 'device=', 'hostname=', 'ethtool=', 'onboot='])
+		  'nodns', 'device=', 'hostname=', 'ethtool=', 'onboot=',
+		  'dhcpclass='])
 	bootProto = "dhcp"
 	ip = None
 	netmask = ""
@@ -457,6 +458,7 @@ class KickstartBase(BaseInstallClass):
         ethtool = ""
 	onboot = 1
         device = None
+        dhcpclass = None
 	for n in args:
 	    (str, arg) = n
 	    if str == "--bootproto":
@@ -480,8 +482,10 @@ class KickstartBase(BaseInstallClass):
 		    onboot = 0
 		else:
 		    onboot = 1
+	    elif str == "--class":
+		dhcpclass = arg
 
-	self.setNetwork(id, bootProto, ip, netmask, ethtool, device=device, onboot=onboot)
+	self.setNetwork(id, bootProto, ip, netmask, ethtool, device=device, onboot=onboot, dhcpclass=dhcpclass)
 	if hostname != "":
 	    self.setHostname(id, hostname, override = 1)
         if nameserver != "":

@@ -12,7 +12,7 @@ struct networkDeviceConfig {
 };
 
 int readNetConfig(char * device, struct networkDeviceConfig * dev, 
-		  int flags);
+		  char * dhcpclass, int flags);
 int configureNetwork(struct networkDeviceConfig * dev);
 int writeNetInfo(const char * fn, struct networkDeviceConfig * dev);
 int findHostAndDomain(struct networkDeviceConfig * dev, int flags);
