@@ -823,10 +823,11 @@ class Partitions:
             iutil.getPPCMachine() == "iSeries"):
             reqs = self.getBootableRequest()
             found = 0
-            for req in reqs:
-                if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
-                    found = 1
-                    break
+            if reqs:
+                for req in reqs:
+                    if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
+                        found = 1
+                        break
             if not found:
                 errors.append(_("You must create a PPC PReP Boot partition."))
 
