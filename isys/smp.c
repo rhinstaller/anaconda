@@ -97,6 +97,13 @@ int sparcDetectSMP(void)
 }
 #endif /* __sparc__ */
 
+#ifdef __powerpc__
+/* FIXME: placeholder */
+int ppcDetectSMP(void) {
+    return 0;
+}
+#endif
+
 #ifdef __i386__
 /*
  * Copyright (c) 1996, by Steve Passe
@@ -593,6 +600,8 @@ int detectSMP(void)
     return isSMP = 1;
 #elif __x86_64__
     return isSMP = 1;
+#elif __powerpc__
+    return isSMP = ppcDetectSMP();
 #else
     #error unknown architecture
 #endif
