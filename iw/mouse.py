@@ -103,13 +103,11 @@ class MouseWindow (InstallWindow):
 	(gpm, xdev, device, emulate) = self.availableMice[cur]
         self.emulate3.set_active (emulate)
 	if device == "ttyS":
-	    print "device is", self.serialDevice
 	    if (self.serialDevice):
 		self.locList.select_row(int(self.serialDevice[4]), 1)
 		self.ics.setNextEnabled (TRUE)
 	    else:
 		self.locList.unselect_all()
-		print "disabling next"
 		self.ics.setNextEnabled (FALSE)
 
 	    self.locList.set_sensitive (TRUE)
@@ -187,6 +185,8 @@ class MouseWindow (InstallWindow):
                 break
         if not found:
             self.selectMouse (nodes, splitv)
+
+        self.emulate3.set_active (emulate3)
 
         align = GtkAlignment ()
         align.add (self.emulate3)
