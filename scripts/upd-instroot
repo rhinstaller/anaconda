@@ -119,27 +119,28 @@ rm -rf $DEST $DESTGR
 mkdir -p $DEST
 mkdir -p $DESTGR
 
-PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
-	 ash kon2 e2fsprogs util-linux raidtools popt mount procps rpm
-	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
-	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
-	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help booty
-         hdparm lvm rhpl pyxf86config libxml2 libxml2-python rdate
-         glib2 elfutils-libelf"
+PACKAGES="glibc glibc-common setup openssl python python2 newt slang
+	 libtermcap zlib ash e2fsprogs util-linux raidtools popt
+	 mount procps rpm XFree86 Xconfigurator anaconda
+	 anaconda-runtime kudzu-devel kudzu hwdata db3 bzip2
+	 bzip2-libs dosfstools pciutils reiserfs-utils parted
+	 busybox-anaconda rpm-python anaconda-help booty hdparm lvm
+	 rhpl pyxf86config libxml2 libxml2-python rdate glib2
+	 elfutils-libelf bogl-bterm"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
 fi
 
 if [ $ARCH = ia64 ]; then
-    PACKAGES="$PACKAGES elilo slang"
+    PACKAGES="$PACKAGES elilo"
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGES="$PACKAGES s390utils binutils s390installer
+    PACKAGES="$PACKAGES s390utils binutils s390installer libgcc
 	sed net-tools inetd openssh openssh-server coreutils modutils
 	initscripts mount gawk xauth bash pygtk2 portmap textutils 
-   sh-utils telnet-server login ssh_keys"
+	sh-utils telnet-server login ssh_keys"
 fi
 
 # xpm is missing
@@ -192,7 +193,7 @@ if [ $ARCH = alpha ]; then
 fi
 
 if [ $ARCH = ia64 ]; then
-    PACKAGESGR="$PACKAGESGR elilo slang"
+    PACKAGESGR="$PACKAGESGR elilo"
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
@@ -213,7 +214,6 @@ bin/ash
 bin/fdisk*
 bin/mkfs*
 etc/group
-etc/nsswitch.conf
 etc/passwd
 etc/protocols
 etc/services
@@ -349,9 +349,9 @@ usr/sbin/ddcprobe
 usr/sbin/dmidecode
 usr/share/anaconda/locale-list
 usr/share/anaconda/anaconda.conf
+usr/share/terminfo/b/bterm
 usr/share/terminfo/l/linux
 usr/share/terminfo/v/vt100
-usr/share/doc/kon2*/terminfo.kon
 usr/share/hwdata/pcitable
 usr/share/hwdata/pci.ids
 usr/share/hwdata/Cards
@@ -657,7 +657,6 @@ usr/share/pixmaps/yes.xpm
 usr/share/redhat-config-keyboard/*
 usr/share/terminfo/l/linux
 usr/share/terminfo/x/xterm
-usr/share/terminfo/k/kon
 usr/share/terminfo/v/vt100
 usr/share/themes/Bluecurve/gtk-2.0/*
 usr/share/vte/termcap/xterm
@@ -708,12 +707,6 @@ expandPackageSet "$RPMS" $DEST $KEEPFILE
 expandPackageSet "$RPMSGR" $DESTGR $KEEPFILEGR
 echo -e "\rExpanding packages..."
 
-if [ -f $DEST/usr/share/doc/kon2*/terminfo.kon ]; then
-   tic $DEST/usr/share/doc/kon2*/terminfo.kon -o $DEST/usr/share/terminfo
-   tic $DEST/usr/share/doc/kon2*/terminfo.kon -o $DESTGR/usr/share/terminfo
-   rm $DEST/usr/share/doc/kon2*/terminfo.kon
-fi
-
 echo "retrieving timezones"
 TZDIR=/tmp/glibc-timezone-$$
 mkdir -p $TZDIR/usr/share/zoneinfo
@@ -740,7 +733,8 @@ fi
 
 # Remove locales unused during the install
 cat $DESTGR/usr/lib/anaconda/lang-table* | awk '
-{ print $5;
+{ gsub("-", "", $5);
+  print $5;
   print gensub(/\..*$/,"","",$5);
   print gensub(/_.*$/,"","",$5);
   if (split ($5, a, "\.") > 1) {
@@ -759,6 +753,28 @@ rm -f $DESTGR/locales $DESTGR/locales.list
 # Remove unneeded XFree86 modules
 rm -rf $DESTGR/usr/X11R6/$LIBDIR/modules/dri
 rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/lib{GLcore,glx,pex5}*
+
+echo "Creating nsswitch.conf"
+cat > $DEST/etc/nsswitch.conf <<EOF
+# munged nsswitch.conf with just what anaconda needs
+# created by upd-instroot
+#
+passwd:     files
+shadow:     files
+group:      files
+hosts:      files dns
+ethers:     files
+netmasks:   files
+networks:   files
+protocols:  files
+rpc:        files
+services:   files
+netgroup:   files
+automount:  files
+aliases:    files
+EOF
+
+cp $DEST/etc/nsswitch.conf $DESTGR/etc/nsswitch.conf
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
@@ -791,7 +807,6 @@ fi
 echo "Getting gtk2 gdk-pixbuf loaders"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	/usr/bin/gdk-pixbuf-query-loaders > /etc/gtk-2.0/gdk-pixbuf.loaders
 	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gdk-pixbuf-query-loaders 2> $REALPATH/etc/gtk-2.0/gdk-pixbuf.loaders"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/gdk-pixbuf.loaders
@@ -807,11 +822,6 @@ if [ -n "$NEEDGR" ]; then
     mv $DESTGR/etc/fonts/fonts.conf.foo $DESTGR/etc/fonts/fonts.conf
 fi
 
-# minislang can pretend to be utf8 slang for us
-for p in $DEST $DESTGR; do
-    ln -sf ./libslang.so.1 $p/usr/$LIBDIR/libslang-utf8.so.1
-done
-
 rm -f $KEEPFILE $KEEPFILEGR
 
 echo -n "Scrubbing trees..."
@@ -824,11 +834,15 @@ for p in $DEST $DESTGR; do
 	cp $p/usr/lib/anaconda/list-harddrives-stub $p/usr/bin/list-harddrives
 	cp $p/usr/lib/anaconda/kudzu-probe-stub $p/usr/bin/kudzu-probe
 	cp $p/usr/lib/anaconda/loadkeys-stub $p/usr/bin/loadkeys
+	cp $p/usr/lib/anaconda/mknod-stub $p/usr/bin/mknod
 
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
 	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/$LIBDIR
 
-	mv $p/usr/lib/anaconda-runtime/collage $p/usr/bin
+	# we only want the libunicode-lite stuff on the minimal image
+	if [ $p = $DESTGR ]; then
+	    rm -f $p/usr/$LIBDIR/libunicode-lite*
+	fi
 
 	find $p -type d | xargs chmod 755
 
