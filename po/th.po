@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-30 17:34+0700\n"
+"PO-Revision-Date: 2004-08-06 00:02+0700\n"
 "Last-Translator: Kamthorn Krairaksa <kamthorn_k@yahoo.com>\n"
-"Language-Team: Thai <L10N@OpenTLE.org>\n"
+"Language-Team: Thai <l10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -5156,9 +5156,9 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"XXX\n"
+"สภาพแวดล้อมการติดตั้งโดยปริยายจะประกอบไปด้วยการเลือกแพกเกจที่เราแนะนำไว้ล่วงหน้า  หลังจากการติดตั้ง สามารถเพิ่มหรือถอดถอนแพกเกจเพิ่มเติมได้โดยใช้เครื่องมือชื่อ 'system-config-packages'\n"
 "\n"
-"XXX %s XXX"
+"อย่างไรก็ตาม %s มาพร้อมกับแอพลิเคชันมากมายกว่านั้นมาก โดยคุณอาจจะปรับแต่งการเลือกติดตั้งซอฟต์แวร์ได้ดังที่คุณต้องการ"
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
@@ -5166,7 +5166,7 @@ msgstr "การเลือกซอฟต์แวร์แบบละเอ
 
 #: ../textw/fdasd_text.py:31
 msgid "Choose a disk to run fdasd or dasdfmt on"
-msgstr "เลือกดิสก์ที่ต้องการรัน fdasd "
+msgstr "เลือกดิสก์ที่ต้องการรัน fdasd หรือ dasdfmt"
 
 #: ../textw/fdasd_text.py:32
 msgid "Next"
@@ -5187,7 +5187,7 @@ msgstr "ติดตั้งดิสก์"
 #: ../textw/fdasd_text.py:74
 #, python-format
 msgid "An error occurred while running %s on drive %s."
-msgstr "เกิดข้อผิดพลาดขณะที่กำลังทำงาน %s บนไดรฟ์ %s"
+msgstr "เกิดข้อผิดพลาดขณะที่กำลังรัน %s บนไดรฟ์ %s"
 
 #: ../textw/fdasd_text.py:85
 #, python-format
@@ -5197,10 +5197,10 @@ msgid ""
 "\n"
 "Do you really want this?"
 msgstr ""
-"การเรียกใช้งาน dasdfmt หมายถึงการ\n"
-"ทำลายข้อมูลทั้งหมดบนไดรฟ์ %s.\n"
+"การเรียกใช้งาน dasdfmt จะทำให้\n"
+"สูญเสียข้อมูลทั้งหมดบนไดรฟ์ %s.\n"
 "\n"
-"คุณต้องการจะทำหรือไม่?"
+"คุณต้องการจะทำจริงๆ หรือไม่?"
 
 #: ../textw/fdasd_text.py:101
 msgid ""
@@ -5244,28 +5244,27 @@ msgid "You cannot customize a disabled firewall."
 msgstr "คุณไม่สามารถปรับแต่งไฟร์วอลล์ที่ปิดอยู่ได้"
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "การกำหนดค่าแบบกราฟิกเลือกเอง"
+msgstr "การกำหนดค่าไฟร์วอลล์เลือกเอง"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "Security Enhanced Linux"
 
 #: ../textw/firewall_text.py:161
 msgid ""
 "Security Enhanced Linux (SELinux) provides stricter access controls to "
 "improve the security of your system.  How would you like this support "
 "enabled?"
-msgstr ""
+msgstr "Security Enhanced Linux (SELinux) ทำให้ควบคุมการเข้าถึงได้เข้มงวดมากขึ้น ทำให้เพิ่มความปลอดภัยบนระบบของคุณ  คุณต้องการให้เปิดใช้งานหรือไม่ อย่างไร?"
 
 #: ../textw/firewall_text.py:169
 msgid "Disable SELinux"
-msgstr ""
+msgstr "ไม่ใช้ SELinux"
 
 #: ../textw/firewall_text.py:171
 msgid "Warn on violations"
-msgstr ""
+msgstr "เตือนเมื่อมีเหตุการณ์ไม่น่าไว้ใจ"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -5317,7 +5316,7 @@ msgstr "เมาส์ที่ต่ออยู่กับคอมพิว
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr "จำลองเป็น 3 ปุ่มหรือไม่?"
+msgstr "จำลองเป็น 3 ปุ่ม?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
@@ -5325,16 +5324,16 @@ msgstr "การเลือกเมาส์"
 
 #: ../textw/network_text.py:30
 msgid "Invalid IP string"
-msgstr ""
+msgstr "สตริงของไอพีไม่ถูกต้อง"
 
 #: ../textw/network_text.py:31
 #, python-format
 msgid "The entered IP '%s' is not a valid IP."
-msgstr ""
+msgstr "ไอพีที่ป้อนเข้ามา '%s' ไม่ใช่ไอพีที่เป็นไปได้"
 
 #: ../textw/network_text.py:68
 msgid "IP Address"
-msgstr "หมายเลข IP"
+msgstr "หมายเลขไอพี"
 
 #: ../textw/network_text.py:69
 msgid "Netmask"
@@ -5342,16 +5341,15 @@ msgstr "เน็ตมาสก์"
 
 #: ../textw/network_text.py:71
 msgid "Point to Point (IP)"
-msgstr ""
+msgstr "Point to Point (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:186
-#, fuzzy
 msgid "ESSID"
-msgstr "SCSI"
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:187
 msgid "Encryption Key"
-msgstr ""
+msgstr "Encryption Key"
 
 #: ../textw/network_text.py:88
 #, python-format
@@ -5365,11 +5363,11 @@ msgstr "รายละเอียด: %s"
 
 #: ../textw/network_text.py:99
 msgid "Configure using DHCP"
-msgstr "ตั้งค่าการใช้ DHCP "
+msgstr "ตั้งค่าโดยใช้ DHCP "
 
 #: ../textw/network_text.py:112
 msgid "Activate on boot"
-msgstr "ใช้เมื่อบูต"
+msgstr "เปิดใช้เมื่อบูต"
 
 #: ../textw/network_text.py:138
 #, python-format
@@ -5406,15 +5404,15 @@ msgstr "การตั้งค่าเน็ตเวิร์กอื่น
 
 #: ../textw/network_text.py:351
 msgid "automatically via DHCP"
-msgstr "ิผ่าน DHCP แบบอัตโนมัติ"
+msgstr "DHCP กำหนดให้โดยอัตโนมัติ"
 
 #: ../textw/network_text.py:355
 msgid "manually"
-msgstr "ทำด้วยตัวเอง  "
+msgstr "กำหนดด้วยตัวเอง"
 
 #: ../textw/network_text.py:374
 msgid "Hostname Configuration"
-msgstr "การปรับแต่งชื่อโฮสต์"
+msgstr "การกำหนดชื่อโฮสต์"
 
 #: ../textw/network_text.py:377
 msgid ""
@@ -5422,7 +5420,7 @@ msgid ""
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
-msgstr ""
+msgstr "ถ้าระบบของคุณเป็นส่วนหนึ่งของเน็ตเวิร์คขนาดใหญ่ที่ชื่อโฮสต์ถูกกำหนดโดย DHCP ให้เลือก 'DHCP กำหนดให้โดยอัตโนมัติ' มิฉะนั้น เลือก 'กำหนดด้วยตัวเอง' แล้วป้อนชื่อโฮสต์สำหรับระบบของคุณ ถ้าคุณไม่กำหนด ระบบของคุณจะใช้ชื่อว่า 'localhost'"
 
 #: ../textw/network_text.py:403 ../textw/network_text.py:409
 msgid "Invalid Hostname"
@@ -5430,7 +5428,7 @@ msgstr "ชื่อโฮสต์ไม่ถูกต้อง"
 
 #: ../textw/network_text.py:404
 msgid "You have not specified a hostname."
-msgstr ""
+msgstr "คุณไม่ได้กำหนดชื่อโฮสต์"
 
 #: ../textw/packages_text.py:56
 msgid "Select individual packages"
@@ -5446,11 +5444,11 @@ msgstr "รายละเอียดของกลุ่มแพ็กเก
 
 #: ../textw/packages_text.py:172
 msgid "Package :"
-msgstr "แพ็กเกจ:"
+msgstr "แพ็กเกจ :"
 
 #: ../textw/packages_text.py:177
 msgid "Size    :"
-msgstr "ขนาด:"
+msgstr "ขนาด   :"
 
 #: ../textw/packages_text.py:178
 #, python-format
@@ -5476,7 +5474,7 @@ msgid ""
 "installed."
 msgstr ""
 "แพ็กเกจบางตัวที่คุณเลือกเพื่อติดตั้งนั้นต้องการแพ็กเกจอื่นที่คุณไม่ได้เลือก\n"
-"ถ้าคุณเพียงแต่เลือก ตกลง แพ็กเกจที่ต้องการทั้งหมดจะถูกติดตั้ง"
+"เพียงแค่เลือก ตกลง แพ็กเกจที่ต้องการทั้งหมดจะถูกเลือกเพื่อติดตั้งทันที"
 
 #: ../textw/packages_text.py:397
 msgid "Install packages to satisfy dependencies"
@@ -5514,11 +5512,11 @@ msgstr "คำเตือน: %s"
 
 #: ../textw/partition_text.py:228
 msgid "Modify Partition"
-msgstr "แก้ไขพาร์ทิชัน"
+msgstr "กลับไปแก้ไขพาร์ทิชัน"
 
 #: ../textw/partition_text.py:228
 msgid "Add anyway"
-msgstr "เพิ่ม"
+msgstr "เพิ่มโดยไม่แก้ไข"
 
 #: ../textw/partition_text.py:266
 msgid "Mount Point:"
@@ -5574,7 +5572,7 @@ msgstr "ชื่อของระบบไฟล์:"
 
 #: ../textw/partition_text.py:518
 msgid "File System Option:"
-msgstr "ตัวเลือกของระบบไฟล์:"
+msgstr "ตัวเลือกของการสร้างระบบไฟล์:"
 
 #: ../textw/partition_text.py:521 ../textw/partition_text.py:759
 #: ../textw/partition_text.py:996
@@ -5596,7 +5594,7 @@ msgstr "ปล่อยไว้อย่างเดิม"
 #: ../textw/partition_text.py:541 ../textw/partition_text.py:736
 #: ../textw/partition_text.py:976
 msgid "File System Options"
-msgstr "ตัวเลือกของระบบไฟล์"
+msgstr "ตัวเลือกของการสร้างระบบไฟล์"
 
 #: ../textw/partition_text.py:544
 msgid ""
@@ -5630,7 +5628,7 @@ msgstr "ไม่สนับสนุน"
 
 #: ../textw/partition_text.py:715
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
+msgstr "LVM Volume Groups สามารถแก้ไขได้ในตัวติดตั้งแบบกราฟิกเท่านั้น"
 
 #: ../textw/partition_text.py:791 ../textw/partition_text.py:844
 msgid "Invalid Entry for Partition Size"
@@ -5654,7 +5652,7 @@ msgstr "ไม่มีพาร์ทิชัน RAID"
 
 #: ../textw/partition_text.py:950
 msgid "At least two software RAID partitions are needed."
-msgstr "ซอฟต์แวร์ RAID ต้องการอย่างน้อยสองพาร์ทิชัน"
+msgstr "ต้องการพาร์ทิชันซอฟต์แวร์ RAID อย่างน้อยสองพาร์ทิชัน"
 
 #: ../textw/partition_text.py:962
 msgid "Format partition?"
@@ -5682,7 +5680,7 @@ msgstr "ลบ"
 
 #: ../textw/partition_text.py:1137
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../textw/partition_text.py:1140
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
@@ -5708,7 +5706,7 @@ msgstr "แบ่งพาร์ทิชันอัตโนมัติ"
 
 #: ../textw/partmethod_text.py:27
 msgid "Disk Druid"
-msgstr ""
+msgstr "Disk Druid"
 
 #: ../textw/progress_text.py:98
 msgid "Package Installation"
@@ -5724,7 +5722,7 @@ msgstr " ขนาด   : "
 
 #: ../textw/progress_text.py:102
 msgid " Summary: "
-msgstr " สรุป:"
+msgstr " สรุปสั้นๆ : "
 
 #: ../textw/progress_text.py:147
 msgid "    Packages"
@@ -5744,11 +5742,11 @@ msgstr "ทั้งหมด    :"
 
 #: ../textw/progress_text.py:158
 msgid "Completed:   "
-msgstr "เสร็จสมบูรณ์:"
+msgstr "เสร็จไปแล้ว:"
 
 #: ../textw/progress_text.py:168
 msgid "Remaining:  "
-msgstr "เหลืออยู่:"
+msgstr "ยังเหลืออยู่:  "
 
 #: ../textw/silo_text.py:39 ../textw/silo_text.py:112
 #: ../textw/silo_text.py:224
@@ -5757,7 +5755,7 @@ msgstr "การกำหนดค่า SILO"
 
 #: ../textw/silo_text.py:77
 msgid "Create PROM alias `linux'"
-msgstr "สร้าง PROM แทน `linux'"
+msgstr "สร้าง PROM ชื่อ `linux'"
 
 #: ../textw/silo_text.py:78
 msgid "Set default PROM boot device"
@@ -5773,8 +5771,8 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
-"ตัวจัดการการบูตของลินุกซ์ทะเล สามารถบูตระบบปฏิบัติการอื่นได้ดีเช่นกัน \n"
-"คุณจำเป็นต้องบอกเราว่าพาร์ทิชันใดบ้างที่ต้องการให้บูต \n"
+"ตัวจัดการการบูตของลินุกซ์ทะเล สามารถบูตระบบปฏิบัติการอื่นได้ดีเช่นกัน "
+"คุณต้องบอกเราว่าพาร์ทิชันใดบ้างที่ต้องการให้บูต"
 "และบอกชื่อที่คุณต้องการใช้สำหรับแต่ละพาร์ทิชัน"
 
 #: ../textw/timezone_text.py:79
@@ -5784,7 +5782,7 @@ msgstr "คุณอยู่ในเขตเวลาอะไร?"
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr "อัพเดตการตั้งค่าบูตโหลดเดอร์"
+msgstr "อัพเดตบูตโหลดเดอร์"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
@@ -5792,7 +5790,7 @@ msgstr "ข้ามการอัพเดตบูตโหลดเดอร
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr "สรัางการตั้งค่าบูตโหลดเดอร์ใหม่"
+msgstr "ติดตั้งบูตโหลดเดอร์ใหม่"
 
 #: ../textw/upgrade_text.py:94
 #, python-format
@@ -5832,7 +5830,7 @@ msgstr "ค่าที่คุณป้อนเข้ามาเป็นต
 
 #: ../textw/upgrade_text.py:205
 msgid "Reinstall System"
-msgstr "ติดตั้งระบบซ้ำ"
+msgstr "ติดตั้งระบบใหม่"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
@@ -5845,6 +5843,10 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
+"XXX "
+"\n"
+"\n"
+"xxx"
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
