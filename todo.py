@@ -609,7 +609,7 @@ class ToDo:
                 if self.badBlockCheck:
                     args.append ("-c")
 
-                self.log ("running mke2fs on %s with args %s\n", device, repr (args))
+                self.log ("running mke2fs on %s with args %s", device, repr (args))
                 
                 iutil.execWithRedirect ("/usr/sbin/mke2fs",
                                         args,
