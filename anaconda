@@ -301,7 +301,10 @@ logFile = None			# may be a file object or a file name
 doXProbe = 1
 
 # probing for hardware on an s390 seems silly...
-if iutil.getArch() == "s390":
+if iutil.getArch() == "s390"
+    doXProbe = 0
+# probing for hardware is equally silly on iSeries
+if iutil.getPPCMachine() == "iSeries":
     doXProbe = 0
 
 #
@@ -625,8 +628,9 @@ if doXProbe:
             time.sleep(2)
         else:
 	    dup_log(_("Using mouse type: %s"), mousehw.shortDescription())
-else: # s390 checks
-    if display_mode == 'g' and not os.environ.has_key('DISPLAY'):
+else: # s390/iSeries checks
+    if display_mode == 'g' and not (os.environ.has_key('DISPLAY') or
+                                    flags.usevnc):
 	dup_log("DISPLAY variable not set. Starting text mode!")
         display_mode = 't'
         time.sleep(2)
