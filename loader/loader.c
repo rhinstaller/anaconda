@@ -493,7 +493,8 @@ int findScsiList(void) {
     return 0;
 }
 
-static int detectHardware(struct moduleInfo *** modules) {
+static int detectHardware(moduleInfoSet modInfo, 
+			  struct moduleInfo *** modules) {
     struct pciDevice **devices, **device;
     struct moduleInfo * mod, ** modList;
     int numMods, i;
@@ -516,7 +517,7 @@ static int detectHardware(struct moduleInfo *** modules) {
     numMods = 0;
 
     for (device = devices; *device; device++) {
-	if ((mod = isysFindModuleInfo((*device)->driver))) {
+	if ((mod = isysFindModuleInfo(modInfo, (*device)->driver))) {
 	    for (i = 0; i < numMods; i++) 
 	        if (modList[i] == mod) break;
 	    if (i == numMods) 
@@ -547,6 +548,7 @@ int main(int argc, char ** argv) {
     moduleDeps modDeps;
     int local = 0;
     int i, rc;
+    moduleInfoSet modInfo;
     int newtRunning = 0;
     struct intfInfo netDev;
     struct moduleInfo ** modList;
@@ -572,7 +574,8 @@ int main(int argc, char ** argv) {
     }
 
     arg = testing ? "/boot/module-info" : "/modules/module-info";
-    if (isysReadModuleInfo(arg)) {
+    modInfo = isysNewModuleInfoSet();
+    if (isysReadModuleInfo(arg, modInfo)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
 	exit(1);
@@ -591,7 +594,7 @@ int main(int argc, char ** argv) {
 
     if (!access("/proc/bus/pci/devices", R_OK)) {
         /* autodetect whatever we can */
-        if (detectHardware(&modList)) {
+        if (detectHardware(modInfo, &modList)) {
 	    fprintf(stderr, "failed to scan for pci devices\n");
 	    sleep(5);
 	    exit(1);
@@ -603,7 +606,6 @@ int main(int argc, char ** argv) {
 		}
 	    }
 
-	    /* if we have any SCSI devices to load, we need to get newt going */
 	    for (i = 0; modList[i]; i++) {
 	    	if (modList[i]->major == DRIVER_SCSI) {
 		    if (!newtRunning) {
@@ -633,6 +635,28 @@ int main(int argc, char ** argv) {
     }
 
     readNetConfig("eth0", &netDev);
+    netDev.isPtp = netDev.isUp = 0;
+
+    configureNetDevice(&netDev);
+
+    mlLoadModule("nfs", modLoaded, modDeps, 
+		 testing);
+
+    doPwMount("207.175.42.68:/mnt/test/msw/i386",
+    	      "/mnt/source", "nfs", 1, 0, NULL, NULL);
+ 
+    symlink("mnt/source/RedHat/instimage/usr", "/usr");
+    symlink("mnt/source/RedHat/instimage/lib", "/lib");
+
+    unlink("/modules/modules.dep");
+    unlink("/modules/module-info");
+    unlink("/modules/modules.cgz");
+    unlink("/modules/pcitable");
+
+    symlink("mnt/source/RedHat/instimage/modules/modules.dep", "/modules");
+    symlink("mnt/source/RedHat/instimage/modules/modules.info", "/modules");
+    symlink("mnt/source/RedHat/instimage/modules/modules.cgz", "/modules");
+    symlink("mnt/source/RedHat/instimage/modules/pcitable", "/modules");
 
     if (newtRunning) newtFinished();
     closeLog();
@@ -651,23 +675,7 @@ int main(int argc, char ** argv) {
 	    printf("\n");
     }
 
-    printf("name: %s\n", netDev.device);
-    printf("ip: %s\n", inet_ntoa(netDev.ip));
-    printf("netmask: %s\n", inet_ntoa(netDev.netmask));
-    printf("broadcast: %s\n", inet_ntoa(netDev.broadcast));
-    printf("network: %s\n", inet_ntoa(netDev.network));
-    netDev.isPtp = netDev.isUp = 0;
-
     configureNetDevice(&netDev);
-
-    mlLoadModule("nfs", modLoaded, modDeps, 
-		 testing);
-
-    doPwMount("207.175.42.68:/mnt/test/msw/i386",
-    	      "/mnt/source", "nfs", 1, 0, NULL, NULL);
- 
-    symlink("mnt/source/RedHat/instimage/usr", "/usr");
-    symlink("mnt/source/RedHat/instimage/lib", "/lib");
 
     spawnShell();
 
