@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
 "POT-Creation-Date: 2001-03-26 15:39-0500\n"
-"PO-Revision-Date: 2001-03-23 21:20+0900\n"
+"PO-Revision-Date: 2001-03-28 01:20+0900\n"
 "Last-Translator: Jong-Hoon Ryu <queenrjh@chollian.net>\n"
 "Language-Team: Korean Linux Extension project <kle@kldp.org>\n"
 "MIME-Version: 1.0\n"
@@ -3104,11 +3104,10 @@ msgid ""
 msgstr ""
 "이와같은 상황은 설치 프로그램에서 검색된 드라이브의 지오메트리 내용과 "
 "드라이브가 파티션 되었을 때 사용된 지오메트리의 내용이 서로 다르기 "
-"때문입니다.  이 문제를 해결하기 위해서는 설치 프로그램의 부팅시 커널 명령 "
-"행에서 드라이브의 정확한 지오메트리를 직접 입력해 주시면 됩니다."
+"때문입니다.  이 문제를 해결하시려면, 설치 프로그램의 부팅시 커널 명령 행에서 "
+"드라이브의 정확한 지오메트리를 직접 입력해 주시기 바랍니다."
 
 #: ../libfdisk/fsedit.c:1564
-#, fuzzy
 msgid ""
 "This error has occurred because there is a logical partition on the drive "
 "which has a partition type of zero (0).  A partition type of zero means that "
@@ -3117,11 +3116,13 @@ msgid ""
 "supported by the anaconda installer.  You may be able to set the partition "
 "type correctly using your other operating system's partitioning program."
 msgstr ""
-"이와같은 상황은 여러분 시스템의 드라이브에 용량이 '0' 인 논리 파티션이 "
-"존재하기 때문입니다. 이 파티션은 현재 아나콘다 설치 프로그램에서는 지원되지 "
-"않습니다. 이러한 논리 파티션은 대부분 다른 운영체제의 파티션 설정 프로그램에 "
-"의해 생성된 것이므로, 그 파티션 설정 프로그램을 통해서만 이 문제를 해결하실 "
-"수 있습니다."
+"이 오류의 원인은 여러분 시스템의 드라이브에 파티션 유형이 '0' 인 논리 "
+"파티션이 존재하기 때문입니다.  파티션 유형이 '0' 인 파티션은 해당 드라이브의 "
+"파티션이 완전히 정의되어 있지 않은 것이며, 다른 운영체제의 파티션 설정 "
+"프로그램에 의해 생성된 것입니다.  이와같은 상황은 현재 아나콘다 설치 "
+"프로그램에서는 지원하지 않습니다.  이 문제를 해결하시려면, 그 파티션을 "
+"생성한 운영체제의 파티션 설정 프로그램을 사용하여 해당 파티션의 유형을 "
+"올바로 지정해 주시기 바랍니다."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
@@ -4956,9 +4957,8 @@ msgid "New South Wales - most locations"
 msgstr "New South Wales - most locations"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Broken Hill"
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
@@ -5082,7 +5082,7 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Vostok Station, S Magnetic Pole"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -5203,6 +5203,3 @@ msgstr "터키어"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "우크라이나어"
-
-#~ msgid "Transdniestria"
-#~ msgstr "Transdniestria"
