@@ -548,7 +548,7 @@ class VolumeGroupEditor:
 		self.intf.messageWindow(_("Not enough space"),
 					_("The current requested size "
 					  "(%10.2f MB) is larger than maximum "
-					  "logical volume size (%10.2f MB) "
+					  "logical volume size (%10.2f MB). "
 					  "To increase this limit you can "
 					  "increase the Physical Extent size "
 					  "for this Volume Group."), custom_icon="error")
