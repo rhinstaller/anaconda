@@ -6,7 +6,9 @@
  * Michael Fulbright <msf@redhat.com>
  * Jeremy Katz <katzj@redhat.com>
  *
- * Copyright 1999 - 2002 Red Hat, Inc.
+ * Copyright 1999 - 2003 Red Hat, Inc.
+ * Portions of this code from pcmcia-cs, copyright David A. Hinds
+ * <dahinds@users.sourceforge.net>
  *
  * This software may be freely redistributed under the terms of the GNU
  * General Public License.
@@ -64,7 +66,6 @@ int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
                                moduleInfoSet modInfo, int flags) {
     char * pcic = NULL;
     char * mods;
-    int i;
 
     if (FL_NOPCMCIA(flags) || FL_TESTING(flags))
 	return 0;
@@ -141,9 +142,11 @@ struct bind_info_t {
 
 
 #define DS_BIND_REQUEST _IOWR('d', 60, struct bind_info_t)
+#define DS_GET_DEVICE_INFO _IOWR('d', 61, struct bind_info_t)
 int activate_pcmcia_device(struct pcmciaDevice *pdev) {
     int fd;
     struct bind_info_t * bind;
+    int j, ret;
 
     if (has_pcmcia() <= 0) {
         logMessage("pcmcia not loaded, can't activate module");  
@@ -163,6 +166,19 @@ int activate_pcmcia_device(struct pcmciaDevice *pdev) {
         logMessage("failed to activate pcmcia device");
         return LOADER_ERROR;
     }
+
+    for (ret = j = 0; j < 10; j++) {
+        ret = ioctl(fd, DS_GET_DEVICE_INFO, bind);
+        if ((ret == 0) || (errno != EAGAIN))
+            break;
+        usleep(100000);
+    }
+
+    if (j >= 10) {
+        logMessage("activated, but unable to get device info");
+        return LOADER_ERROR;
+    }
+    
     return LOADER_OK;
 }
 
@@ -194,3 +210,4 @@ void startPcmciaDevices(moduleList modLoaded, int flags) {
         activate_pcmcia_device((struct pcmciaDevice *)devices[i]);
     }
 }
+
