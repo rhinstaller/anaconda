@@ -293,7 +293,7 @@ def get_raid_device_size(raidrequest):
         return (nummembers-1) * smallest
     else:
         raise ValueError, "Invalid raidlevel in get_raid_device_size()"
-    
+
 # sanityCheckMountPoint
 def sanityCheckMountPoint(mntpt, fstype, reqtype):
     if mntpt:
@@ -709,6 +709,15 @@ class Partitions:
                     return 1
         return 0
 
+    def getMigratableRequests(self):
+        retval = []
+        for request in self.requests:
+            if request.origfstype:
+                if request.origfstype.isMigratable():
+                    retval.append(request)
+
+        return retval
+    
     # return name of boot mount point in current requests
     def getBootableRequest(self):
         bootreq = None
@@ -1134,7 +1143,6 @@ def doEditPartitionByRequest(intf, requestlist, part):
     elif part.type & parted.PARTITION_EXTENDED:
         return (None, None)
 
-    request = requestlist.getRequestByDeviceName(get_partition_name(part))
     if request:
         if request.type == REQUEST_PROTECTED:
             intf.messageWindow(_("Unable to Edit"),
