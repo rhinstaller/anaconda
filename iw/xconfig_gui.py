@@ -485,9 +485,6 @@ class MonitorWindow (InstallWindow):
         self.selectCb (ctree, node, -1)
 
     def getScreen (self):
-        #--If they want to skip X configuration, skip this screen
-        if self.todo.x.skip == 1:
-            return
 
         # Don't configure X in reconfig mode.
         # in regular install, check to see if the XFree86 package is
@@ -500,6 +497,10 @@ class MonitorWindow (InstallWindow):
             return None
         else:
             self.skipme = FALSE
+
+        #--If they want to skip X configuration, skip this screen
+        if self.todo.x.skip == 1:
+            return
 
 
         box = GtkVBox (FALSE, 5)
