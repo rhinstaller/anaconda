@@ -187,9 +187,8 @@ msgid "Using mouse type: %s"
 msgstr "Músartegund: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Leita að %s uppsetningum..."
+msgstr "Ræsi myndræna uppsetningu..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -247,12 +246,11 @@ msgstr ""
 "ekki geta ræst úr þessari sneið."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
-"Ræsidisksneiðin %s uppfyllir líklega ekki ræsikröfur vélarinnar þinnar.  Við "
-"mælum eindregið með að þú útbúir ræsidiskling."
+"Ræsidisksneiðin %s uppfyllir líklega ekki ræsikröfur vélarinnar þinnar."
 
 #: ../autopart.py:1056
 #, python-format
@@ -2571,50 +2569,44 @@ msgid ""
 msgstr ""
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Tæki"
+msgstr "Tæki númer"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Þú hefur ekki skilgreint vélarheiti."
+msgstr "Þú hefur ekki skilgreint tækjabnúmer eða númerið er ógilt"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI vistfang"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Þú hefur ekki skilgreint vélarheiti."
+msgstr "Þú hefur ekki skilgreint SCSI vistfang eða það er ógilt."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Þú hefur ekki skilgreint vélarheiti."
+msgstr "Þú hefur ekki skilgreint 'worldwide port' heiti eða það er ógilt."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Þú hefur ekki skilgreint vélarheiti."
+msgstr "Þú hefur ekki skilgreint SCSI LUN eða það er ógilt."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Þú hefur ekki skilgreint vélarheiti."
+msgstr "Þú hefur ekki skilgreint FCP LUN eða það er ógilt."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -5139,28 +5131,25 @@ msgid "_Skip X configuration"
 msgstr "_Sleppa að stilla X"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "Stillingar VNC"
+msgstr "Stillingar ZFCP"
 
 #: ../iw/zfcp_gui.py:99
 msgid "_Remove"
-msgstr ""
+msgstr "_Fjarlægja"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Tæki"
+msgstr "FCP Tæki"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Bæta við tæki"
+msgstr "Bæta við FCP tæki"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Breyta RAID tæki"
+msgstr "Breyta FCP tæki %s"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
@@ -5887,7 +5876,6 @@ msgid "End Cylinder:"
 msgstr "Síðasti geiri:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
 msgstr "Sýndardiskahópur:"
 
@@ -6015,9 +6003,8 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Hámarksfjöldi varadiska í RAID0 drifi er 0."
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "LVM sýndardiskhópar"
+msgstr "Engir sýndardiskhópar"
 
 #: ../textw/partition_text.py:1175
 #, fuzzy
@@ -6052,14 +6039,12 @@ msgid "Would you like to create a new partition or a new logical volume?"
 msgstr "Ræsisneiðar mega ekki vera á sýndardiskum."
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Disksneið"
+msgstr "disksneið"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
-msgstr "Sýndardiskar"
+msgstr "sýndardiskur"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -6662,40 +6647,36 @@ msgid "Video RAM:"
 msgstr "Vinnsluminni skjákorts:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Tæki"
+msgstr "Tæki númer:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "Tæki"
+msgstr "FCP tæki"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "Tæki"
+msgstr "Tæki #"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "Fjarlægja"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -8105,9 +8086,8 @@ msgid "most locations"
 msgstr "flestir staðir"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "flestir staðir (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "flestir staðir (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -8372,9 +8352,8 @@ msgid "Bengali"
 msgstr "Bengalí"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Ungverska"
+msgstr "Búlgarska"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8465,9 +8444,8 @@ msgid "Persian"
 msgstr "Persneska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Enska"
+msgstr "Pólska"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8520,6 +8498,3 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
-
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "E Argentina (BA, DF, SC, TF)"
