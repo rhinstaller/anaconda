@@ -1,3 +1,9 @@
+2004-12-14  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/driverdisk.c (useKickstartDD): Add support for 
+	biosdev in driverdisk directive.  Patch basically from Rez Kabir
+	AT dell (#142738)
+
 2004-12-14  Paul Nasrat  <pnasrat@redhat.com>
 
 	* lvm.py: LVM on RAID - (#141781)
