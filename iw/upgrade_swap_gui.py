@@ -41,13 +41,13 @@ class UpgradeSwapWindow (InstallWindow):
                 self.todo.upgradeFindPackages()
                 threads_enter()
                 return None
-        elif val > 2000 or val < 0:
+        elif val > 2000 or val < 1:
             threads_leave()
             rc = self.swapWrongSize()
             threads_enter()
             raise gui.StayOnScreen
 
-        elif (val-16) > size:
+        elif (val+16) > size:
             threads_leave()
             rc = self.swapTooBig()
             threads_enter()
