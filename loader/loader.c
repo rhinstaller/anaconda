@@ -164,6 +164,7 @@ static void startNewt(int flags) {
 
 void stopNewt(void) {
     if (newtRunning) newtFinished();
+    newtRunning = 0;
 }
 
 static void spawnShell(int flags) {
@@ -427,106 +428,22 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
     return 0;
 }
 
-static int loadCompressedRamdisk(int fd, off_t size, char *title,
-				 char *ramdisk, int flags) {
-    int rc = 0, ram, i;
-    gzFile stream;
-    char buf[1024];
-    newtComponent form = NULL, scale = NULL;
-    int total;
-
-    if (FL_TESTING(flags)) return 0;
-
-    stream = gzdopen(dup(fd), "r");
-
-    strcpy(buf, "/tmp/");
-    strcat(buf, ramdisk);
-    
-    if (devMakeInode(ramdisk, buf)) return 1;
-    ram = open(buf, O_WRONLY);
-    unlink(buf);
-
-    logMessage("created inode");
-
-    if (title != NULL) {
-	if (size > 0)
-	    newtCenteredWindow(70, 5, _("Loading"));
-	else
-	    newtCenteredWindow(70, 3, _("Loading"));
-	
-	form = newtForm(NULL, NULL, 0);
-	
-	newtFormAddComponent(form, newtLabel(1, 1, title));
-	if (size > 0) {
-	    scale = newtScale(1, 3, 68, size);
-	    newtFormAddComponent(form, scale);
-	}
-	newtDrawForm(form);
-	newtRefresh();
-    }
-
-    total = 0;
-    while (!gzeof(stream) && !rc) {
-	if ((i = gzread(stream, buf, sizeof(buf))) != sizeof(buf)) {
-	    if (!gzeof(stream)) {
-		logMessage("error reading from device: %s", strerror(errno));
-		rc = 1;
-		break;
-	    }
-	}
-
-	if (write(ram, buf, i) != i) {
-	    logMessage("error writing to device: %s", strerror(errno));
-	    rc = 1;
-	}
-
-	total += i;
-
-	if (title != NULL && size > 0) {
-	    newtScaleSet(scale, lseek(fd, 0L, SEEK_CUR));
-	    newtRefresh();
-	}
-    }
-
-    logMessage("done loading %d bytes", total);
-
-    memoryOverhead += (total / 1024);
-
-    if (title != NULL) {
-	newtPopWindow();
-	newtFormDestroy(form);
-    }
-    
-    close(ram);
-    gzclose(stream);
-
-    return rc;
-}
-
-static int loadStage2Ramdisk(int fd, off_t size, int flags,
+static int setupStage2Image(int fd, char * dest, int flags,
 			     char * device, char * mntpoint) {
     int rc;
-    char * buf;
-    char * message = N_("Loading %s ramdisk...");
+    struct stat sb;
 
-    message = _(message);
+    rc = copyFileFd(fd, dest);
+    stat(dest, &sb);
+    logMessage("copied %d bytes to %s", sb.st_size, dest);
 
-    buf = alloca(strlen(message) + strlen(mntpoint) + 20);
-    sprintf(buf, message, mntpoint);
-    
-    rc = loadCompressedRamdisk(fd, size, buf, device, flags);
-    
     if (rc) {
-	newtWinMessage(_("Error"), _("OK"), _("Error loading ramdisk."));
-	return rc;
-    }
-
-    if (devMakeInode(device, "/tmp/ram")) {
-	logMessage("failed to make device %s", device);
+	/* just to make sure */
+	unlink(dest);
 	return 1;
     }
-    
-    if (doPwMount("/tmp/ram", mntpoint, "ext2", 0, 0, NULL, NULL)) {
+
+    if (mountLoopback(dest, mntpoint, device)) {
 	newtWinMessage(_("Error"), _("OK"),
 		"Error mounting /dev/%s on %s (%s). This shouldn't "
 		    "happen, and I'm rebooting your system now.", 
@@ -534,28 +451,26 @@ static int loadStage2Ramdisk(int fd, off_t size, int flags,
 	exit(1);
     }
 
-    unlink("/tmp/ram");
-
     return 0;
 }
 
 #ifdef INCLUDE_LOCAL
-static int loadSingleImage(char * prefix, char * dir, char * file, int flags, 
+static int loadLocalImages(char * prefix, char * dir, int flags, 
 			   char * device, char * mntpoint) {
     int fd, rc;
     char * path;
 
-    path = alloca(50 + strlen(file) + strlen(prefix) + 
-			(dir ? strlen(dir) : 2));
+    path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
 
-    sprintf(path, "%s/%s/%s", prefix, dir ? dir : "", file);
+    sprintf(path, "%s/%s/RedHat/base/hdstg1.img", prefix, dir ? dir : "");
 
     if ((fd = open(path, O_RDONLY)) < 0) {
 	logMessage("failed to open %s: %s", path, strerror(errno));
 	return 1;
     } 
 
-    rc = loadStage2Ramdisk(fd, 0, flags, device, mntpoint);
+    rc = setupStage2Image(fd, "/tmp/ramfs/hdstg1.img", flags, device, mntpoint);
+
     close(fd);
 
     return rc;
@@ -603,18 +518,11 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 		continue;
 	    }
 
-	    rc = loadSingleImage("/tmp/loopimage", "/",
-				 "RedHat/base/hdstg1.img", 
-				 flags, "ram3", "/mnt/runtime");
-	    if (!rc) {
-		rc = loadSingleImage("/tmp/loopimage", "/",
-				     "RedHat/base/hdstg2.img", 
-				     flags, "ram4", "/mnt/runtime/usr");
-		if (!rc) { 
-		    umountLoopback("/tmp/loopimage", "loop0");
-		    break;
-		}
-
+	    rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop0",
+				 "/mnt/runtime");
+	    if (!rc) { 
+		umountLoopback("/tmp/loopimage", "loop0");
+		break;
 	    }
 
 	    umountLoopback("/tmp/loopimage", "loop0");
@@ -649,13 +557,9 @@ static char * setupOldHardDrive(char * device, char * type, char * dir,
 	if (doPwMount("/tmp/hddev", "/tmp/hdimage", type, 1, 0, NULL, NULL))
 	    return NULL;
 
-	rc = loadSingleImage("/tmp/hdimage", dir, "RedHat/base/hdstg1.img", 
-			     flags, "ram3", "/mnt/runtime");
-	if (!rc) {
-	    rc = loadSingleImage("/tmp/hdimage", dir, "RedHat/base/hdstg2.img", 
-				 flags, "ram4", "/mnt/runtime/usr");
-	    if (rc) umount("/mnt/hdimage");
-	}
+	rc = loadLocalImages("/tmp/hdimage", dir, flags, "loop0",
+			     "/mnt/runtime");
+	if (rc) umount("/mnt/hdimage");
 
 	umount("/tmp/hdimage");
 
@@ -1108,6 +1012,8 @@ static int ensureNetDevice(struct knownDevices * kd,
 	return 0;
     }
 
+    startNewt(flags);
+
     deviceNum = 0;
     rc = newtWinMenu(_("Networking Device"), 
 		     _("You have multiple network devices on this system. "
@@ -1217,7 +1123,7 @@ static char * mountNfsImage(struct installMethod * method,
 #ifdef INCLUDE_NETWORK
 
 static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags, 
-			char * device, char * mntpoint) {
+			char * dest, char * mntpoint, char * device) {
     int fd;
     int rc;
 
@@ -1226,29 +1132,20 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
     if (fd < 0)
 	return 1;
 
-    rc = loadStage2Ramdisk(fd, 0, flags, device, mntpoint);
+    rc = setupStage2Image(fd, dest, flags, device, mntpoint);
+
     urlinstFinishTransfer(ui, fd);
 
-    if (rc) return 1;
-
-    return 0;
+    return rc;
 }
 
 static int loadUrlImages(struct iurlinfo * ui, int flags) {
-    if (loadSingleUrlImage(ui, "base/netstg1.img", flags, "ram3",
-		     "/mnt/runtime")) {
+    if (loadSingleUrlImage(ui, "base/netstg1.img", flags, 
+			   "/tmp/ramfs/netstg1.img",
+			   "/mnt/runtime", "loop0")) {
 	newtWinMessage(ui->protocol == URL_METHOD_FTP ?
 			_("FTP") : _("HTTP"), _("OK"), 
 	       _("Unable to retrieve the first install image"));
-	return 1;
-    }
-
-    if (loadSingleUrlImage(ui, "base/netstg2.img", flags, "ram4",
-		     "/mnt/runtime/usr")) {
-	umount("/mnt/runtime");
-	newtWinMessage(ui->protocol == URL_METHOD_FTP ?
-			_("FTP") : _("HTTP"), _("OK"), 
-	       _("Unable to retrieve the second install image"));
 	return 1;
     }
 
@@ -1924,6 +1821,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
     for (i = 0; i < argc; i++) {
         if (!strcasecmp(argv[i], "expert"))
 	    flags |= LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK;
+        else if (!strcasecmp(argv[i], "telnet"))
+	    flags |= LOADER_FLAGS_TELNETD;
         else if (!strcasecmp(argv[i], "noshell"))
 	    flags |= LOADER_FLAGS_NOSHELL;
         else if (!strcasecmp(argv[i], "lowres"))
@@ -2455,7 +2354,7 @@ static void checkForRam(int flags) {
     if (!FL_EXPERT(flags) && (totalMemory() < MIN_RAM)) {
 	startNewt(flags);
 	newtWinMessage(_("Error"), _("OK"), _("You do not have enough "
-					      "system memory to install Red Hat Linux on this machine."));
+		       "RAM to install Red Hat Linux on this machine."));
 	stopNewt();
 	exit(0);
     }
@@ -2570,8 +2469,11 @@ int main(int argc, char ** argv) {
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
     mlLoadModule("cramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("ramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
     if (!continuing) {
+	doPwMount("/tmp/ramfs", "/tmp/ramfs", "ramfs", 0, 0, NULL, NULL);
+
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
 	scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
 
@@ -2622,9 +2524,8 @@ int main(int argc, char ** argv) {
 #endif
 
     if (!continuing) {
-	if (((access("/proc/bus/pci/devices", X_OK) &&
-	      access("/proc/openprom", X_OK)) || FL_MODDISK(flags)) 
-	    && !ksFile) {
+	if ((access("/proc/bus/pci/devices", X_OK) &&
+	      access("/proc/openprom", X_OK)) || FL_MODDISK(flags)) { 
 	    startNewt(flags);
 	    devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 1, 1,
 			      floppyDevice);
@@ -2668,6 +2569,27 @@ int main(int argc, char ** argv) {
 	url = setupKickstart("/mnt/source", &kd, modInfo, modLoaded, &modDeps, 
 			     &flags, ksNetDevice);
     }
+
+#ifdef INCLUDE_NETWORK
+    if (FL_TELNETD(flags)) {
+	struct networkDeviceConfig netDev;
+
+	if (!ksNetDevice) {
+	    if (ensureNetDevice(&kd, modInfo, modLoaded, &modDeps, flags, 
+				&ksNetDevice))
+		return 1;
+	}
+
+	kickstartNetwork(&ksNetDevice, &netDev, NULL, flags);
+	writeNetInfo("/tmp/netinfo", &netDev, &kd);
+
+	stopNewt();
+#if 0
+	beTelnet();
+#endif
+	startNewt(flags);
+    }
+#endif
 
     if (!url) {
 	url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, &modDeps,

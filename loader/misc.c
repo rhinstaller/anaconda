@@ -5,19 +5,15 @@
 
 #include "log.h"
 
-int copyFile(char * source, char * dest) {
-    int infd = -1, outfd = -1;
+int copyFileFd(int infd, char * dest) {
+    int outfd;
     char buf[4096];
     int i;
     int rc = 0;
 
     outfd = open(dest, O_CREAT | O_RDWR, 0666);
-    infd = open(source, O_RDONLY);
 
-    if (infd < 0) {
-	logMessage("failed to open %s: %s", source, strerror(errno));
-	return 1;
-    } else if (outfd < 0) {
+    if (outfd < 0) {
 	close(infd);
 	logMessage("failed to open %s: %s", dest, strerror(errno));
 	return 1;
@@ -30,8 +26,25 @@ int copyFile(char * source, char * dest) {
 	}
     }
 
-    close(infd);
     close(outfd);
+
+    return rc;
+}
+
+int copyFile(char * source, char * dest) {
+    int infd = -1;
+    int rc;
+
+    infd = open(source, O_RDONLY);
+
+    if (infd < 0) {
+	logMessage("failed to open %s: %s", source, strerror(errno));
+	return 1;
+    }
+
+    rc = copyFileFd(infd, dest);
+
+    close(infd);
 
     return rc;
 }

@@ -37,6 +37,9 @@ struct aString {
 struct aString * strings = NULL;
 int numStrings = 0, allocedStrings = 0;
 
+static char * topLineWelcome = N_("Welcome to Red Hat Linux");
+static char * bottomHelpLine = N_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen ");
+
 static int aStringCmp(const void * a, const void * b) {
     const struct aString * first = a;
     const struct aString * second = b;
@@ -305,6 +308,10 @@ int chooseLanguage(char ** lang, int flags) {
             free(strings), strings = NULL;
             numStrings = allocedStrings = 0;
         }
+
+	newtDrawRootText(0, 0, _(topLineWelcome));
+	newtPushHelpLine(_(bottomHelpLine));
+
 	return 0;
     }
 
@@ -341,8 +348,8 @@ int chooseLanguage(char ** lang, int flags) {
     if (languages[choice].map)
 	loadFont(languages[choice].map, flags);
 
-    newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
-    newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
+    newtDrawRootText(0, 0, _(topLineWelcome));
+    newtPushHelpLine(_(bottomHelpLine));
 
     return 0;
 }

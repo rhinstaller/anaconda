@@ -58,6 +58,13 @@
 #define syslog klogctl
 #endif
 
+struct unmountInfo {
+    char * name;
+    int mounted;
+    int loopDevice;
+    enum { FS, LOOP } what;
+} ;
+
 #include <linux/cdrom.h>
 
 #define KICK_FLOPPY     1
@@ -315,16 +322,81 @@ int setupTerminal(int fd) {
     return 0;
 }
 
+void undoLoop(struct unmountInfo * fs, int numFs, int this);
+
+void undoMount(struct unmountInfo * fs, int numFs, int this) {
+    int len = strlen(fs[this].name);
+    int i;
+
+    if (!fs[this].mounted) return;
+    fs[this].mounted = 0;
+
+    /* unmount everything underneath this */
+    for (i = 0; i < numFs; i++) {
+	if (fs[i].name[len] == '/' && 
+		!strncmp(fs[this].name, fs[i].name, len)) {
+	    if (fs[i].what == LOOP)
+		undoLoop(fs, numFs, i);
+	    else
+		undoMount(fs, numFs, i);
+	}
+    }
+
+    printf("\t%s", fs[this].name);
+    /* don't need to unmount /tmp.  it is busy anyway. */
+    if (!testing) {
+	if (umount(fs[this].name) < 0) {
+	    printf(" umount failed (%d)", errno);
+	} else {
+	    printf(" done");
+	}
+    }
+    printf("\n");
+}
+
+void undoLoop(struct unmountInfo * fs, int numFs, int this) {
+    int i;
+    int fd;
+
+    if (!fs[this].mounted) return;
+    fs[this].mounted = 0;
+
+    /* find the device mount */
+    for (i = 0; i < numFs; i++) {
+	if (fs[i].what == FS && (fs[i].loopDevice == fs[this].loopDevice))
+	    break;
+    }
+
+    if (i < numFs) {
+	/* the device is mounted, unmount it (and recursively, anything
+	 * underneath) */
+	undoMount(fs, numFs, i);
+    }
+
+    unlink("/tmp/loop");
+    mknod("/tmp/loop", 0600 | S_IFBLK, (7 << 8) | fs[this].loopDevice);
+    printf("\tdisabling /dev/loop%d", fs[this].loopDevice);
+    if ((fd = open("/tmp/loop", O_RDONLY, 0)) < 0) {
+	printf(" failed to open device: %d", errno);
+    } else {
+	if (!testing && ioctl(fd, LOOP_CLR_FD, 0))
+	    printf(" LOOP_CLR_FD failed: %d", errno);
+	close(fd);
+    }
+
+    printf("\n");
+}
+
 void unmountFilesystems(void) {
     int fd, size;
     char buf[65535];			/* this should be big enough */
     char * chptr, * start;
-    struct {
-	char * name;
-	int len;
-    } filesystems[500], tmp;
+    struct unmountInfo filesystems[500];
     int numFilesystems = 0;
-    int i, j;
+    int i;
+    struct loop_info li;
+    char * device;
+    struct stat sb;
 
     fd = open("/proc/mounts", O_RDONLY, 0);
     if (fd < 1) {
@@ -341,39 +413,61 @@ void unmountFilesystems(void) {
 
     chptr = buf;
     while (*chptr) {
+	device = chptr;
 	while (*chptr != ' ') chptr++;
-	chptr++;
+	*chptr++ = '\0';
 	start = chptr;
 	while (*chptr != ' ') chptr++;
 	*chptr++ = '\0';
-	filesystems[numFilesystems].name = start;
-	filesystems[numFilesystems].len = strlen(start);
-	numFilesystems++;
+
+	if (strcmp(start, "/") && strcmp(start, "/tmp")) {
+	    filesystems[numFilesystems].name = alloca(strlen(start) + 1);
+	    strcpy(filesystems[numFilesystems].name, start);
+	    filesystems[numFilesystems].what = FS;
+	    filesystems[numFilesystems].mounted = 1;
+
+	    stat(start, &sb);
+	    if ((sb.st_dev >> 8) == 7) {
+		filesystems[numFilesystems].loopDevice = sb.st_dev & 0xf;
+	    } else {
+		filesystems[numFilesystems].loopDevice = -1;
+	    }
+
+	    numFilesystems++;
+	}
+
 	while (*chptr != '\n') chptr++;
 	chptr++;
     }
 
-    /* look ma, a *bubble* sort */
-    for (i = 0; i < (numFilesystems - 1); i++) {
-	for (j = i; j < numFilesystems; j++) {
-	    if (filesystems[i].len < filesystems[j].len) {
-		tmp = filesystems[i];
-		filesystems[i] = filesystems[j];
-		filesystems[j] = tmp;
+    for (i = 0; i < 7; i++) {
+	unlink("/tmp/loop");
+	mknod("/tmp/loop", 0600 | S_IFBLK, (7 << 8) | i);
+	if ((fd = open("/tmp/loop", O_RDONLY, 0)) >= 0) {
+	    if (!ioctl(fd, LOOP_GET_STATUS, &li) && li.lo_name[0]) {
+		filesystems[numFilesystems].name = alloca(strlen(li.lo_name) 
+								+ 1);
+		strcpy(filesystems[numFilesystems].name, li.lo_name);
+		filesystems[numFilesystems].what = LOOP;
+		filesystems[numFilesystems].mounted = 1;
+		filesystems[numFilesystems].loopDevice = i;
+		numFilesystems++;
 	    }
+
+	    close(fd);
 	}
     }
 
-    /* -1 because the last one will always be '/' */
-    for (i = 0; i < numFilesystems - 1; i++) {
-	printf("\t%s", filesystems[i].name);
-	/* don't need to unmount /tmp.  it is busy anyway. */
-	if (!testing && strncmp(filesystems[i].name, "/tmp", 4)) {
-	    if (umount(filesystems[i].name) < 0) {
-		printf(" umount failed (%d)", errno);
-	    }
+    for (i = 0; i < numFilesystems; i++) {
+	if (filesystems[i].what == LOOP) {
+	    undoLoop(filesystems, numFilesystems, i);
 	}
-	printf("\n");
+    }
+
+    for (i = 0; i < numFilesystems; i++) {
+	if (filesystems[i].mounted) {
+	    undoMount(filesystems, numFilesystems, i);
+	}
     }
 }
 
@@ -411,74 +505,6 @@ void disableSwap(void) {
     }
 }
 
-int handleCleanup(void) {
-    int i;
-    char buf[4096];
-    int fd;
-    int loopfd, ejectfd;
-    char * start, * end;
-
-    fd = open("/tmp/cleanup", O_RDONLY, 0);
-    if (fd < 0) return 1;
-
-    i = read(fd, buf, sizeof(buf) - 1);
-    buf[i] = '\0';
-    close(fd);
-
-    start = buf;
-    while (*start) {
-	end = start;
-	while (*end && *end != '\n') end++;
-	if (!*end) return 0;
-	*end = '\0';
-
-	if (!strncmp(start, "lounsetup ", 10)) {
-	    start += 10;
-	    while (isspace(*start) && start < end) start++;
-	    if (start == end) return 1;
-
-	    loopfd = open(start, O_RDONLY, 0);
-	    if (loopfd < 0) {
-		printf("\terror opening %s: %d\n", start, errno);
-	    } else {
-		printf("disabling %s", start);
-		if (ioctl(loopfd, LOOP_CLR_FD, 0))
-		    printf(" failed: %d", errno);
-		printf("\n");
-	    }
-
-	    close(loopfd);
-	} else if (!strncmp(start, "umount ", 7)) {
-	    start += 7;
-	    while (isspace(*start) && start < end) start++;
-	    if (start == end) return 1;
-
-	    printf("unmounting %s...", start);
-	    if (umount(start) < 0)
-		printf(" failed (%d)", errno);
-	    printf("\n");
-	} else if (!strncmp(start, "eject ", 6)) {
-	    start += 6;
-	    while (isspace(*start) && start < end) start++;
-	    if (start == end) return 1;
-
-	    printf("ejecting %s...", start);
-	    if ((ejectfd = open(start, O_RDONLY | O_NONBLOCK, 0)) >= 0) {
-	    	if (ioctl(ejectfd, CDROMEJECT, 0))
-	    	    printf("eject failed %d ", errno);
-
-	    	close(ejectfd);
-	    }
-
-	    printf("\n");
-	}
-
-	start = end + 1;
-    }
-
-    return 0;
-}
-
 int main(int argc, char **argv) {
     pid_t installpid, childpid;
     int waitStatus;
@@ -506,6 +532,14 @@ int main(int argc, char **argv) {
     } else {
 	printstr("(running in test mode).\n");
     }
+
+#if 0
+    printf("unmounting filesystems...\n"); 
+    unmountFilesystems();
+    exit(0);
+#endif
+
+    umask(022);
 
     printstr("Greetings.\n");
 
@@ -700,8 +734,6 @@ int main(int argc, char **argv) {
 
     printf("disabling swap...\n");
     disableSwap();
-
-    handleCleanup();
 
     printf("unmounting filesystems...\n"); 
     unmountFilesystems();

@@ -6,8 +6,8 @@ int atexit (void (*__func) (void)) {
     return 0;
 }
 
-void exit() {
-    _do_exit(0);
+void exit(int arg) {
+    _do_exit(arg);
     for (;;); /* Shut up gcc */
 }
 
@@ -137,6 +137,11 @@ void printint(int i) {
     char buf[10];
     char * chptr = buf + 9;
     int j = 0;
+
+    if (!i) {
+	write(1, "0", 1);
+	return;
+    }
 
     if (i < 0) {
 	write(1, "-", 1);

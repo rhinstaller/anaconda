@@ -102,5 +102,20 @@ int _dl_aux_init() { return 0;}
 void * __libc_dlopen() {return 0;}
 void * __libc_dlsym() {return 0;}
 void * __libc_dlclose() {return 0;}
+int __argz_create_sep() {return 0;}
+int __argz_add_sep() {return 0;}
+void __rpc_thread_key_cleanup() {} 
+void __rpc_thread_svc_cleanup() {} 
+void __rpc_thread_clnt_cleanup() {}
+void _svcauth_des(void * a, void * b) {} 
+
+int getdomainname(char * name, int len) {
+    *name = '\0';
+    return 0;
+}
+
+int _rpc_dtablesize(void) {
+    return __getdtablesize();
+}
 
 int _dl_pagesize = 4096;

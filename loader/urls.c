@@ -328,13 +328,13 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
 
     if (protocol == URL_METHOD_FTP) {
 	accountEntry = newtEntry(-1, -1, NULL, 24, &account, 
-				 NEWT_ENTRY_SCROLL);
+				 NEWT_FLAG_SCROLL);
 	passwordEntry = newtEntry(-1, -1, NULL, 24, &password, 
-				  NEWT_ENTRY_SCROLL | NEWT_ENTRY_HIDDEN);
+				  NEWT_FLAG_SCROLL | NEWT_FLAG_PASSWORD);
     }
     proxyEntry = newtEntry(-1, -1, ui->proxy, 24, &proxy, NEWT_ENTRY_SCROLL);
     proxyPortEntry = newtEntry(-1, -1, ui->proxyPort, 6, &proxyPort,
-			       NEWT_ENTRY_SCROLL);
+			       NEWT_FLAG_SCROLL);
 
     entryGrid = newtCreateGrid(2, 4);
     if (protocol == URL_METHOD_FTP) {

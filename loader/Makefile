@@ -29,7 +29,7 @@ MODULELINKAGE :=../isys/modutils/insmod/libmodutils.a    \
 	       	../isys/modutils/util/libutil.a          \
 	       	../isys/modutils/obj/libobj.a
 
-CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1 -DVERSION='"$(VERSION)"' -DHAVE_LIBIO_H -ggdb
+CFLAGS = $(DEBUG) $(OPTS) -ffunction-sections -Wall -D_GNU_SOURCE=1 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1 -DVERSION='"$(VERSION)"' -DHAVE_LIBIO_H -ggdb
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
@@ -111,7 +111,8 @@ dirs:
 install: all
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)/loader
 	for n in $(BINS); do \
-	    install -s -m 755 $$n $(DESTDIR)/$(RUNTIMEDIR)/loader; \
+	    install -m 755 $$n $(DESTDIR)/$(RUNTIMEDIR)/loader; \
+	    strip $(DESTDIR)/$(RUNTIMEDIR)/loader/$$n; \
 	done
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 kon-loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
@@ -126,7 +127,7 @@ loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	-lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-	-lpump -lbz2 -lz -lresolv -lnewt $(SLANGLIB) -lpci
+	-lpump -lz -lresolv -lnewt $(SLANGLIB) -lpci
 
 loader-local: loader-local.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
@@ -145,13 +146,13 @@ loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -lpump -lbz2 -lz -lresolv -lnewt $(SLANGLIB) -lpci
+        -lpump -lz -lresolv -lnewt $(SLANGLIB) -lpci -lutil
 
 loader-network-kon: loader-net-kon.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -lpump -lbz2 -lz -lresolv -lnewt $(SLANGLIB) -lpci \
+        -lpump -lz -lresolv -lnewt $(SLANGLIB) -lpci -lutil \
 	$(KONOBJS)
 
 loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
@@ -160,7 +161,7 @@ loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
         -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -lpump -lbz2 -lz -lresolv -lnewt $(SLANGLIB) -lpci
+        -lpump -lz -lresolv -lnewt $(SLANGLIB) -lpci -lutil
 
 loader-pcmcia-kon: loader-pcmcia-kon.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	$(CC) -g $(STATIC) -o $@ loader-pcmcia-kon.o $(OBJS) \
@@ -168,7 +169,7 @@ loader-pcmcia-kon: loader-pcmcia-kon.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
         -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -lpump -lbz2 -lz -lresolv -lnewt $(SLANGLIB) -lpci \
+        -lpump -lz -lresolv -lnewt $(SLANGLIB) -lpci -lutil \
         $(KONOBJS)
 
 loader.o: loader.c
