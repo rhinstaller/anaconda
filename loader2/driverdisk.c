@@ -301,6 +301,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
             if (rc == 2) {
                 freePartitionsList(part_list);
                 stage = DEV_DEVICE;
+                dir = -1;
                 break;
             }
 
