@@ -172,29 +172,21 @@ class LiloWindow (InstallWindow):
 
 
     def defaultUpdated(self, *args):
-        print "Inside defaultUpdated"
         if self.ignoreSignals: return
 
         index = self.imageList.selection[0]
         
         if range(self.count) > 0:
-            print "hello"
-        
             for i in range(self.count):
-                print "i in range self.count is ", i
                 self.imageList.set_pixmap(i, 0, self.checkMark_Off)
         
         if self.defaultCheck.get_active():
-            print "inside self.defaultCheck.get_active()"
             if self.default != None:
-#                self.imageList.set_text(self.default, 0, "")
                 self.imageList.set_pixmap(self.default, 0, self.checkMark_Off)
 
             self.imageList.set_pixmap(index, 0, self.checkMark)
             self.default = index
         else:
-            print "inside else"
-#            self.imageList.set_text(index, 0, "")
             self.imageList.set_pixmap(index, 0, self.checkMark_Off)
             self.default = None
 
@@ -364,8 +356,6 @@ class LiloWindow (InstallWindow):
                 self.imageList.set_pixmap(self.count, 0, self.checkMark_Off)
             self.count = self.count + 1
 
-        print self.count
-        print range(self.count)
 
         self.imageList.connect("select_row", self.labelSelected)
         self.imageList.columns_autosize ()
