@@ -250,7 +250,7 @@ class Keyboard (SimpleConfigFile):
             if self.type == "PC":
                 self.info["KEYTABLE"] = "us"
             else:
-                return "sunkeymap"
+                self.info["KEYTABLE"] = "sunkeymap"
 
     def get (self):
         if self.info.has_key ("KEYTABLE"):
