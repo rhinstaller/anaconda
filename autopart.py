@@ -1438,11 +1438,11 @@ CLEARPART_TYPE_ALL_DESCR_TEXT = N_("Remove all partitions on this system")
 CLEARPART_TYPE_LINUX_DESCR_TEXT = N_("Remove all Linux partitions on this system")
 CLEARPART_TYPE_NONE_DESCR_TEXT = N_("Keep all partitions and use existing free space")
 
-CLEARPART_TYPE_ALL_WARNING_MSG = N_("You have selected to remove "
+CLEARPART_TYPE_ALL_WARNING_MSG = N_("You have chosen to remove "
                                     "all partitions (ALL DATA) on the "
                                     "following drives:%s\nAre you sure you "
                                     "want to do this?")
-CLEARPART_TYPE_LINUX_WARNING_MSG = N_("You have selected to "
+CLEARPART_TYPE_LINUX_WARNING_MSG = N_("You have chosen to "
                                       "remove all Linux partitions "
                                       "(and ALL DATA on them) on the "
                                       "following drives:%s\n"
