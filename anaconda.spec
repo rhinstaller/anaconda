@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.6
+Version: 10.2.0.7
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -70,6 +70,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Dec 20 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.7-1
+- Better error handling on device creation (#142273)
+- Reset package selection to defaults if selected (#142415)
+- LVM on RAID1 fix (nasrat, #141781)
+- Add support for biosdev in driverdisk from Rez Kabir (#142738)
+- Some more SX8 fixes
+- Create /dev as a tmpfs (#141570)
+- Remove some old code
+- Improve quoting of fstype in anaconda-ks.cfg (Danen Brücker)
+
 * Wed Dec  8 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.6-1
 - Write out wepkey better (#140645)
 - Try to skip source isos with nfsiso (#106017)
