@@ -48,13 +48,17 @@ class MakeBootDiskWindow:
         if not todo.needBootdisk():
             return INSTALL_NOOP
 
+	if todo.fstab.rootOnLoop():
+	    buttons = [ _("OK") ]
+	else:
+	    buttons = [ _("OK"), _("Skip") ]
+
         rc = ButtonChoiceWindow (screen, _("Bootdisk"),
 		     _("If you have the install floppy in your drive, first "
                        "remove it. Then insert a blank floppy in the first "
                        "floppy drive. "
 		       "All data on this disk will be erased during creation "
-		       "of the boot disk."),
-		     [ _("OK"), _("Skip") ], help = "insertbootdisk")
+		       "of the boot disk."), buttons, help = "insertbootdisk")
         if rc == string.lower (_("Skip")):
             return INSTALL_OK
             
@@ -65,8 +69,7 @@ class MakeBootDiskWindow:
                 rc = ButtonChoiceWindow (screen, _("Error"),
 			_("An error occured while making the boot disk. "
 			  "Please make sure that there is a formatted floppy "
-			  "in the first floppy drive."),
-			  [ _("OK"), _("Skip")] )
+			  "in the first floppy drive."), buttons)
                 if rc == string.lower (_("Skip")):
                     break
                 continue
