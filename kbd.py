@@ -224,7 +224,11 @@ class Keyboard (SimpleConfigFile):
 
         fuzzy = None
         for key in keys:
-            (mod, lay) = key
+            if type(key) == type(()):
+                (mod, lay) = key
+            else:
+                mod = model
+                lay = key;
             if model == mod and layout == lay:
                 self.info["KEYTABLE"] = mapping[key]
                 break
