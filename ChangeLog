@@ -1,6 +1,12 @@
 2004-12-03  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
+	
+	* loader2/mediacheck.c: Disable read-ahead for the last meg or so
+	of the CD to try to avoid mediacheck problems (#131051 and others)
+	* loader2/mediacheck.h (mediaCheckFile): Add new arg.
+	* loader2/cdinstall.c (mediaCheckCdrom): Likewise.
+	* loader2/method.c (queryISOMediaCheck): Likewise.
 
 	* constants.py (BETANAG): turn off beta nag.
 

@@ -9,7 +9,12 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
+#include <errno.h>
 #include <newt.h>
+
+/* FIXME: for turning off read-ahead */
+#include <sys/ioctl.h>
+#include <linux/fs.h>
 
 #include "md5.h"
 
@@ -145,7 +150,7 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 /* mediasum is the sum encoded in media, computedsum is one we compute   */
 /* both strings must be pre-allocated at least 33 chars in length        */
 int checkmd5sum(int isofd, char *mediasum, char *computedsum, 
-		checkCallback cb, void *cbdata) {
+		checkCallback cb, void *cbdata, int isCD) {
     int nread;
     int i;
     int appdata_start_offset, appdata_end_offset;
@@ -157,7 +162,21 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
     unsigned int len;
     unsigned char *buf;
     long long isosize, offset, pvd_offset, apoff;
+    int cfd, readahead_hack = 1, readahead_disabled = 0;
     MD5_CTX md5ctx;
+
+    /* FIXME: the kernel doesn't properly handle EOF on ide-cds.  
+     * turning off read-ahead for the last meg or so should help, per alan.  
+     * let people opt out of this with "nocdhack" on the boot command line */
+    if ((cfd = open("/proc/cmdline", O_RDONLY)) >= 0) {
+        char buf[1024];
+        int len;
+
+        len = read(cfd, buf, sizeof(buf) - 1);
+        close(cfd);
+        if (strstr(buf, "nocdhack") == NULL)
+            readahead_hack = 0;
+    }
 
     isostatus = 0;
     if ((pvd_offset = parsepvd(isofd, mediasum, &skipsectors, &isosize, &isostatus)) < 0)
@@ -173,6 +192,21 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
 
     buf = malloc(bufsize * sizeof(unsigned char));
     while (offset < isosize - skipsectors*2048) {
+        /* turn off read-ahead for the last meg of the CD.  see above
+         * for the gory details */
+        if ((isCD == 1) && (offset > (isosize - 1024 * 1024 * 1024))) {
+            if ((readahead_disabled == 0) && (readahead_hack == 1)) {
+                if (ioctl(isofd, BLKRASET, (unsigned long) 0) == -1) {
+                    logMessage("failed to disable readahead: %s",
+                               strerror(errno));
+                    readahead_disabled = -1;
+                } else {
+                    logMessage("disabled readahead");
+                    readahead_disabled = 1;
+                }
+            }
+        }
+
 	nattempt = MIN(isosize - skipsectors*2048 - offset, bufsize);
 
 	nread = read(isofd, buf, nattempt);
@@ -220,6 +254,18 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
 	strcat(computedsum, tmpstr);
     }
 
+    /* if we disabled readahead, then we should probably turn it back on.
+     * otherwise, people are going to hate life as their installs take a 
+     * week */
+    if (readahead_disabled == 1) {
+        if (ioctl(isofd, BLKRASET, (unsigned long) 256) == -1) {
+        logMessage("failed to re-enable readahead: %s",
+                   strerror(errno));
+        } else {
+            logMessage("re-enabled readahead");
+        }
+    }
+
     if (strcmp(mediasum, computedsum))
 	return 0;
     else
@@ -242,7 +288,7 @@ static void readCB(void *co, long long pos) {
     newtRefresh();
 }
 
-int doMediaCheck(int isofd, char *descr, char *mediasum, char *computedsum, long long *isosize, int *isostatus) {
+int doMediaCheck(int isofd, char *descr, char *mediasum, char *computedsum, long long *isosize, int *isostatus, int isCD) {
     struct progressCBdata data;
     newtComponent t, f, scale, label;
     int rc;
@@ -287,7 +333,7 @@ int doMediaCheck(int isofd, char *descr, char *mediasum, char *computedsum, long
     data.scale = scale;
     data.label = label;
 
-    rc = checkmd5sum(isofd, mediasum, computedsum, readCB, &data);
+    rc = checkmd5sum(isofd, mediasum, computedsum, readCB, &data, isCD);
 
     newtFormDestroy(f);
     newtPopWindow();
@@ -295,7 +341,7 @@ int doMediaCheck(int isofd, char *descr, char *mediasum, char *computedsum, long
     return rc;
 }
 
-int mediaCheckFile(char *file, char *descr) {
+int mediaCheckFile(char *file, char *descr, int isCD) {
     int isofd;
     int rc;
     int isostatus;
@@ -315,7 +361,7 @@ int mediaCheckFile(char *file, char *descr) {
     }
 
     isostatus = 0;
-    rc = doMediaCheck(isofd, descr, mediasum, computedsum, &isosize, &isostatus);
+    rc = doMediaCheck(isofd, descr, mediasum, computedsum, &isosize, &isostatus, isCD);
     close(isofd);
 
     if (rc == 0) {
@@ -371,7 +417,7 @@ int main(int argc, char **argv) {
 
     newtInit();
     newtCls();
-    rc = mediaCheckFile(argv[1], "TESTING");
+    rc = mediaCheckFile(argv[1], "TESTING", 0);
     newtFinished();
     exit (0);
 }

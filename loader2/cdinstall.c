@@ -98,7 +98,7 @@ static char * mediaCheckCdrom(char *cddriver) {
 	if (!ejectcd) {
 	    /* XXX MSFFIXME: should check return code for error */
 	    readStampFileFromIso("/tmp/cdrom", &tstamp, &descr);
-	    mediaCheckFile("/tmp/cdrom", descr);
+	    mediaCheckFile("/tmp/cdrom", descr, 1);
 
 	    if (descr)
 		free(descr);

@@ -5,7 +5,7 @@
 /* Copyright 2001 Red Hat, Inc.                                    */
 /* Michael Fulbright msf@redhat.com                                */
 
-int mediaCheckFile(char *file, char *descr);
+int mediaCheckFile(char *file, char *descr, int isCD);
 int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, int *isostatus);
 
 #endif

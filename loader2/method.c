@@ -417,7 +417,7 @@ void queryIsoMediaCheck(char *isoFile, int flags) {
 		free(tdescr);
 	    continue;
 	} else {
-	    mediaCheckFile(isoImage, tdescr);
+	    mediaCheckFile(isoImage, tdescr, 0);
 	    if (tdescr)
 		free(tdescr);
 
