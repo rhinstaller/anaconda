@@ -148,9 +148,11 @@ int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps *modDepsPtr, int flags, char * mntPoint,
 		      struct driverDiskInfo * ddi) {
     int badDisk = 0;
-    char from[200];
+    char from[200], to[200];
     struct stat sb;
+    static int ddNum = 0;
     char * diskName;
+    FILE * f;
     int fd;
     char * fileCheck[] = { "rhdd-6.1", "modinfo", "modules.dep", "pcitable",
 			    NULL };
@@ -189,6 +191,27 @@ int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     mlLoadDeps(modDepsPtr, from);
     sprintf(from, "%s/pcitable", mntPoint);
     pciReadDrivers(from);
+
+    /* save this modinfo file for later -- we may need it again in
+       ddReadDriverDiskModInfo() */
+    sprintf(to, "/tmp/DD-%d", ddNum);
+    mkdirChain(to);
+
+    sprintf(from, "%s/modinfo", mntPoint);
+    sprintf(to, "/tmp/DD-%d/modinfo", ddNum);
+
+    if (copyFile(from, to))
+	return 0;
+
+    sprintf(to, "/tmp/DD-%d/diskInfo", ddNum);
+    f = fopen(to, "w");
+    fprintf(f, "%s\n", ddi->title);
+    fprintf(f, "%s\n", ddi->mntDevice);
+    fprintf(f, "%s\n", ddi->fs);
+    fprintf(f, "%s\n", ddi->device ? ddi->device : "(NONE)");
+    fclose(f);
+
+    ddNum++;
 
     return 0;
 }
@@ -509,3 +532,34 @@ char * extractModule(struct driverDiskInfo * ddi, char * modName) {
 	if (rc == 2) return NULL;
     }
 }
+
+void ddReadDriverDiskModInfo(moduleInfoSet modInfo) {
+    int num = 0;
+    char fileName[80];
+    struct stat sb;
+    FILE * f;
+    struct driverDiskInfo * ddi;
+
+    sprintf(fileName, "/tmp/DD-%d/diskInfo", num);
+    while (!access(fileName, R_OK)) {
+	stat(fileName, &sb);
+
+	f = fopen(fileName, "r");
+	ddi = malloc(sizeof(*ddi));
+	ddi->title = readLine(f);
+	ddi->mntDevice = readLine(f);
+	ddi->fs = readLine(f);
+	ddi->device = readLine(f);
+	if (!strcmp("(NONE)", ddi->device)) {
+	    free(ddi->device);
+	    ddi->device = NULL;
+	}
+	fclose(f);
+
+	sprintf(fileName, "/tmp/DD-%d/modinfo", num);
+	isysReadModuleInfo(fileName, modInfo, ddi);
+
+	sprintf(fileName, "/tmp/DD-%d/diskName", ++num);
+    }
+}
+
