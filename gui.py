@@ -5,15 +5,19 @@ import sys
 import _balkan
 import thread
 import rpm
+from threading import *
 
 class WelcomeWindow:		
     def next(self, win):
+        return
         mainquit()
 
     def __init__(self):
+        return
         self.rc = 0
 
     def run(self):
+        return
         window = GtkWindow()
         window.set_border_width(10)
         window.set_title("Welcome to Red Hat Linux!")
@@ -141,26 +145,28 @@ class PartitionWindow:
 
 class InstallProgressWindow:
     def setPackageScale(self, amount, total):
-	self.progress.update((amount * 1.0)/ total)
-  	while events_pending():
-	    mainiteration(FALSE)
+        threads_enter ()
+	self.progress.update(float (amount) / total)
+        threads_leave ()
 
     def completePackage(self, header):
 	pass
 
     def setPackage(self, header):
+        threads_enter ()
         self.name.set_text (header[rpm.RPMTAG_NAME])
         self.size.set_text ("%d k" % (header[rpm.RPMTAG_SIZE] / 1024))
         self.summary.set_text (header[rpm.RPMTAG_SUMMARY])
+        threads_leave ()
         print "setPackage update"	
-  	while events_pending():
-	    print "   event!!"
-	    mainiteration(FALSE)
 
     def __del__(self):
+        threads_enter ()
        	self.window.destroy()
+        threads_leave ()
 
     def __init__(self, total, totalSize):
+        threads_enter ()
         self.window = GtkWindow()
         self.window.set_border_width(10)
         self.window.set_title('Installing Packages')
@@ -193,6 +199,7 @@ class InstallProgressWindow:
 
 	self.window.add(table)
 	self.window.show_all()
+        threads_leave ()
 
 class WaitWindow:
     def showWaitWindow(self, title, text):
@@ -221,6 +228,12 @@ class WaitWindow:
 	return
 	self.lock.release()
 
+class GtkMainThread(Thread):
+    def run (self):
+        threads_enter ()
+        mainloop ()
+        threads_leave ()
+    
 class InstallInterface:
     def waitWindow(self, title, text):
 	return WaitWindow(title, text)
@@ -230,6 +243,7 @@ class InstallInterface:
 
     def run(self, todo):
         rc_parse("gtkrc")
+        GtkMainThread ().start ()
 
         steps = [
             ["Welcome", WelcomeWindow, ()],
