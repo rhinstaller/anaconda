@@ -15,11 +15,26 @@
 
 import parted
 import math
-from fsset import *
 from partitioning import *
+from fsset import *
 
 PARTITION_FAIL = -1
 PARTITION_SUCCESS = 0
+
+CLEARPART_TYPE_LINUX = 1
+CLEARPART_TYPE_ALL   = 2
+CLEARPART_TYPE_NONE  = 3
+
+def printFreespaceitem(part):
+    return get_partition_name(part), part.geom.start, part.geom.end, getPartSize(part)
+
+def printFreespace(free):
+    print "Free Space Summary:"
+    for drive in free.keys():
+        print "On drive ",drive
+        for part in free[drive]:
+            print "Freespace:", printFreespaceitem(part)
+        
 
 def findFreespace(diskset):
     free = {}
@@ -29,6 +44,7 @@ def findFreespace(diskset):
         part = disk.next_partition()
         while part:
             if part.type & parted.PARTITION_FREESPACE:
+#                print "found free", printFreespaceitem(part)
                 free[drive].append(part)
             part = disk.next_partition(part)
     return free
@@ -72,7 +88,7 @@ def fitConstrained(diskset, requests, primOnly=0):
                 endCyl = request.end
             elif request.size:
                 endCyl = end_sector_to_cyl(disk.dev, ((1024 * 1024 * request.size) / disk.dev.sector_size) + startSec)
-            
+
             endSec = end_cyl_to_sector(disk.dev, endCyl)
 
             # XXX need to check overlaps properly here
@@ -137,19 +153,22 @@ def fitSized(diskset, requests, primOnly = 0):
         else:
             todo[len(request.drive)].append(request)
 
-
     number = todo.keys()
     number.sort()
     free = findFreespace(diskset)
 
     for num in number:
         for request in todo[num]:
+#            print "\nInserting ->",request
             largestPart = (0, None)
             request.drive.sort()
+#            print "Trying drives to find best free space out of", free
             for drive in request.drive:
-                disk = diskset.disks[drive]        
+#                print "Trying drive", drive
+                disk = diskset.disks[drive]
 
                 for part in free[drive]:
+#                    print "Trying partition", printFreespaceitem(part)
                     partSize = getPartSize(part)
                     if partSize >= request.requestSize and partSize > largestPart[0]:
                         if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
@@ -159,10 +178,11 @@ def fitSized(diskset, requests, primOnly = 0):
                 return PARTITION_FAIL
 #                raise PartitioningError, "Can't fulfill request for partition: \n%s" %(request)
 
+#            print "largestPart is",largestPart
             freespace = largestPart[1]
             disk = freespace.geom.disk
             startSec = freespace.geom.start + 1
-            endSec = startSec + ((request.requestSize * 1024L * 1024L) / disk.dev.sector_size) - 1
+            endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sector_size)) - 1
 
             if endSec > freespace.geom.end:
                 endSec = freespace.geom.end
@@ -188,7 +208,6 @@ def fitSized(diskset, requests, primOnly = 0):
                     raise PartitioningError, "Impossible partition to create"
 
             fsType = request.fstype.getPartedFileSystemType()
-
             newp = disk.partition_new (partType, fsType, startSec, endSec)
             constraint = disk.constraint_any ()
             try:
@@ -200,19 +219,18 @@ def fitSized(diskset, requests, primOnly = 0):
                     raise PartitioningError, ("requested FileSystemType needs "
                                            "a flag that is not available.")
                 newp.set_flag(flag, 1)
+
             request.device = PartedPartitionDevice(newp).getDevice()
             drive = newp.geom.disk.dev.path[5:]
             request.currentDrive = drive
-            free[drive].remove(freespace)
-            part = disk.next_partition(newp)
-            if part and part.type & parted.PARTITION_FREESPACE:
-                free[drive].append(part)
+
+            free = findFreespace(diskset)
+
     return PARTITION_SUCCESS
 
 
 # grow partitions
 def growParts(diskset, requests):
-#    print "growing"
     newRequest = requests.copy()
 
     free = findFreespace(diskset)
@@ -227,12 +245,15 @@ def growParts(diskset, requests):
         for part in free[key]:
             freeSize[key] = freeSize[key] + getPartSize(part)
 
-#    print freeSize
-
     # find growable partitions and find out the size of the growable parts
     growable = {}
     growSize = {}
     for request in newRequest.requests:
+        if request.type != REQUEST_NEW:
+            continue
+
+        request.drive = [request.currentDrive]
+            
         if request.grow:
             if not growable.has_key(request.currentDrive):
                 growable[request.currentDrive] = [ request ]
@@ -245,53 +266,103 @@ def growParts(diskset, requests):
     if not growable.keys():
         return PARTITION_SUCCESS
 
+    # loop over all drives, grow all growable partitions one at a time
+    grownList = []
     for drive in growable.keys():
         # no free space on this drive, so can't grow any of its parts
         if not free.has_key(drive):
             continue
 
         # process each request
-        for request in growable[drive]:
-            percent = request.size / (growSize[drive] * 1.0)
+        # grow all growable partitions on this drive until all can grow no more
+        donegrowing = 0
+        while not donegrowing:
+            donegrowing = 1
+
+            growList = growable[drive]
             
-            request.drive = [request.currentDrive]
+            # sort in order of size, consider biggest first
+            n = 0
+            while n < len(growList):
+                for request in growList:
+                    if request.size < growList[n].size:
+                        tmp = growList[n]
+                        index = growList.index(request)
+                        growList[n] = request
+                        growList[index] = tmp
+                n = n + 1
             
-            max = int(percent * freeSize[drive]) + request.size
-            if max > request.maxSize:
-                max = request.maxSize
-            if max > request.fstype.getMaxSize():
-                max = request.fstype.getMaxSize()
+            growSize[drive] = 0
+            for request in growList:
+                if request.uniqueID in grownList:
+                    continue
+                growSize[drive] = growSize[drive] + request.requestSize
+                
+            for request in growList:
+                if request.uniqueID in grownList:
+                    continue
 
-            min = request.requestSize
-            diff = max - min
-            cur = max - (diff / 2)
-            lastDiff = 0
+#                print "processing ID",request.uniqueID, request.mountpoint
+#                print "growSize, freeSize = ",growSize[drive], freeSize[drive]
+                donegrowing = 0
+                percent = request.size / (growSize[drive] * 1.0)
+#                print "percent is ",percent
 
-            # binary search
-            while (max != min) and (lastDiff != diff):
-                request.requestSize = cur
+                max = int(percent * freeSize[drive]) + request.size
+#                print "max is ",max
+                if request.maxSize:
+                    if max > request.maxSize:
+                        max = request.maxSize
 
-                # try adding
-                (ret, msg) = processPartitioning(diskset, newRequest)
-#                print diskset.diskState()
+                if max > request.fstype.getMaxSize():
+                    max = request.fstype.getMaxSize()
 
-                if ret == PARTITION_SUCCESS:
-                    min = cur
-                else:
-                    max = cur
+#                print "freesize, max = ",freeSize[drive],max
 
-                lastDiff = diff
+                origSize = request.requestSize
+                min = request.requestSize
                 diff = max - min
                 cur = max - (diff / 2)
+                lastDiff = 0
 
+                # binary search
+#                print "min, max, cur, diffs = ",min,max,cur,diff,lastDiff
+                while (max != min) and (lastDiff != diff):
+                    request.requestSize = cur
 
-            # we could have failed on the last try, in which case we
-            # should go back to the smaller size
-            if ret == PARTITION_FAIL:
-                request.requestSize = min
-                # XXX this can't fail (?)
-                (ret, msg) = processPartitioning(diskset, newRequest)
+                    # try adding
+                    (ret, msg) = processPartitioning(diskset, newRequest)
 
+                    if ret == PARTITION_SUCCESS:
+                        min = cur
+                    else:
+                        max = cur
+
+                    lastDiff = diff
+                    diff = max - min
+                    cur = max - (diff / 2)
+
+#                    print "sizes",min,max,diff,lastDiff
+
+#                print "putting ",request.uniqueID," in grownList"
+                grownList.append(request.uniqueID)
+                freeSize[drive] = freeSize[drive] - (min - origSize)
+#                print "shrinking freeSize to ",freeSize[drive]
+                if freeSize[drive] < 0:
+                    print "freesize < 0!"
+                    freeSize[drive] = 0
+                growSize[drive] = growSize[drive] - origSize
+                if growSize[drive] < 0:
+                    print "growsize < 0!"
+                    growSize[drive] = 0
+                
+                # we could have failed on the last try, in which case we
+                # should go back to the smaller size
+                if ret == PARTITION_FAIL:
+                    request.requestSize = min
+                    # XXX this can't fail (?)
+                    (ret, msg) = processPartitioning(diskset, newRequest)
+                
     return PARTITION_SUCCESS
 
 
@@ -373,8 +444,8 @@ def processPartitioning(diskset, requests):
     for request in requests.requests:
         # set the unique identifier for raid devices
         if request.type == REQUEST_RAID and not request.device:
-            request.device = str(requests.maxcontainer)
-            requests.maxcontainer = requests.maxcontainer + 1
+            request.device = str(requests.nextUniqueID)
+            requests.nextUniqueID = requests.nextUniqueID + 1
 
         if request.type == REQUEST_RAID:
             request.size = get_raid_device_size(request) / 1024 / 1024
@@ -404,4 +475,67 @@ def doPartitioning(diskset, requests):
         return
 
     raise PartitioningError, "Growing partitions failed"
+
+# given clearpart specification execute it
+# probably want to reset diskset and partition request lists before calling
+# this the first time
+def doClearPartAction(id, type, cleardrives):
+    if type == CLEARPART_TYPE_LINUX:
+        linuxOnly = 1
+    elif type == CLEARPART_TYPE_ALL:
+        linuxOnly = 0
+    elif type == CLEARPART_TYPE_NONE:
+        return
+    else:
+        raise ValueError, "Invalid clear part type in doClearPartAction"
+        
+    drives = id.diskset.disks.keys()
+    drives.sort()
+
+    for drive in drives:
+        # skip drives not in clear drive list
+        if cleardrives and len(cleardrives) > 0 and not drive in cleardrives:
+            continue
+        disk = id.diskset.disks[drive]
+        part = disk.next_partition()
+        while part:
+            if part.fs_type:
+                ptype = get_partition_file_system_type(part)
+            else:
+                ptype = None
+            if ptype and ( (linuxOnly == 0) or (ptype.isLinuxNativeFS())):
+                old = id.partrequests.getRequestByDeviceName(get_partition_name(part))
+                id.partrequests.removeRequest(old)
+
+                drive = part.geom.disk.dev.path[5:]
+                delete = DeleteSpec(drive, part.geom.start, part.geom.end)
+                id.partrequests.addDelete(delete)
+            part = disk.next_partition(part)
+    
+def doAutoPartition(id):
+    # if no auto partition info in instclass we bail
+    if len(id.autoPartitionRequests) < 1:
+        return DISPATCH_NOOP
+
+    # reset drive and request info to original state
+    id.diskset.refreshDevices()
+    id.partrequests = partitioning.PartitionRequests(id.diskset)
+
+    doClearPartAction(id, id.autoClearPartType, id.autoClearPartDrives)
+
+    for request in id.autoPartitionRequests:
+        id.partrequests.addRequest(request)
+
+    try:
+        doPartitioning(id.diskset, id.partrequests)
+        rc = 0
+    except PartitioningError, msg:
+        # restore drives to original state
+        id.diskset.refreshDevices()
+        id.partrequests = partitioning.PartitionRequests(id.diskset)
+        self.intf.messageWindow(_("Error Partitioning"),
+               _("Could not allocated requested partitions: %s.") % (msg))
+        rc = -1
+
+        
     
