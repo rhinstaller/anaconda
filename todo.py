@@ -280,7 +280,7 @@ class ToDo:
         self.desktop = Desktop ()
         self.ddruidReadOnly = 0
         self.badBlockCheck = 0
-        self.bootdisk = 0
+        self.bootdisk = 1
 	self.liloImages = {}
 	# liloDevice, liloLinear, liloAppend are initialized form the
 	# default install class
@@ -1024,7 +1024,6 @@ class ToDo:
 	list = isys.cdromList()
 	count = 0
 	for device in list:
-	    (device, descript) = device
 	    cdname = "cdrom"
 	    if (count):
 		cdname = "%s%d" % (cdname, count)
@@ -1042,15 +1041,23 @@ class ToDo:
 	    self.fstab.addMount(cdname, mntpoint, "iso9660")
 
     def createRemovable(self, rType):
-	self.log ("making %s drive links (if any)", % rType)
-	list = isys.floppyDriveList()
-	list = list + isys.hardDriveList()
+	devDict = isys.floppyDriveDict()
+
+	d = isys.hardDriveDict()
+	for item in d.keys():
+	    devDict[item] = d[item]
+
+	list = devDict.keys()
+	list.sort()
+
 	count = 0
 	for device in list:
-	    (device, descript) = device
-	    if string.find(string.upper(descript), 
-			   string.upper(rType)) != -1 or 
+	    descript = devDict[device]
+	    if string.find(string.upper(descript), string.upper(rType)) == -1:
+		continue
+
 	    self.log ("found %s disk, creating link", rType)
+
 	    try:
 		os.stat(self.instPath + "/dev/%s" % rType)
 		self.log ("link exists, removing")
