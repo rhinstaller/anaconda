@@ -1,4 +1,6 @@
-from iw import *
+# must replace with explcit form so update disks will work
+#from iw import *
+
 from gtk import *
 from translate import _
 from xpms import SMALL_CHECK
