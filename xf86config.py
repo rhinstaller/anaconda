@@ -572,7 +572,7 @@ class XF86Config:
 # the X server to render fonts.
 
     FontPath   "/usr/X11R6/lib/X11/fonts/TrueType"
-    FontPath   "unix/:-1"
+    FontPath   "unix/:7100"
 """
         
         
