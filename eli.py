@@ -32,18 +32,18 @@ class EliConfiguration:
 	perms = 0644
         if os.access (instRoot + '/boot/eli.cfg', os.R_OK):
 	    perms = os.stat(instRoot + '/boot/eli.conf')[0] & 0777
-	    #lilo.read (instRoot + '/boot/eli.cfg')
+	    #eli.read (instRoot + '/boot/eli.cfg')
 	    os.rename(instRoot + '/boot/eli.cfg',
 		      instRoot + '/boot/eli.cfg.rpmsave')
 
 	# Remove any invalid entries that are in the file; we probably
 	# just removed those kernels. 
-	for label in lilo.listImages():
-	    (fsType, sl) = lilo.getImage(label)
+	for label in eli.listImages():
+	    (fsType, sl) = eli.getImage(label)
 	    if fsType == "other": continue
 
 	    if not os.access(instRoot + sl.getPath(), os.R_OK):
-		lilo.delImage(label)
+		eli.delImage(label)
 
 	bootpart = fstab.getBootDevice()
 	boothd = fstab.getMbrDevice()
@@ -87,27 +87,21 @@ class EliConfiguration:
 	    kernelFile = "/boot/vmlinuz" + kernelTag
 
 	    try:
-		(fsType, sl) = lilo.getImage(label)
-		lilo.delImage(label)
+		(fsType, sl) = eli.getImage(label)
+		eli.delImage(label)
 	    except IndexError, msg:
 		sl = LiloConfigFile(imageType = "image", path = kernelFile)
 
-	    initrd = self.makeInitrd (kernelTag, instRoot)
-
 	    sl.addEntry("label", label)
-	    if os.access (instRoot + initrd, os.R_OK):
-		sl.addEntry("initrd", initrd)
-
 	    sl.addEntry("read-only")
 	    sl.addEntry("root", '/dev/' + rootDev)
 
 	    if self.eliAppend:
 		sl.addEntry('append', '"%s"' % (self.eliAppend,))
 		
-	    eli.addImage ("image", kernelFile, sl)
-	    lilo.addImage (sl)
+	    eli.addImage (sl)
 
-	eli.write(instRoot + "/boot/eli.cfg", perms = perms)
+	eli.write(instRoot + "/boot/efi/eli.cfg", perms = perms)
 
     def __init__(self):
 	self.eliImages = {}
