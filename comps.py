@@ -122,8 +122,8 @@ class HeaderList:
 		    self.packages[name] = Package(h)
         if hdlist and not self.packages:
             raise RuntimeError, ("the header list was read, but no packages "
-                                 "matching this architecture were found for "
-                                 "architecture '%s'." % os.uname()[4])
+                                 "matching architecture '%s' were found."
+                                 % os.uname()[4])
 
 	if compatPackages != None:
 	    # don't use list + here, as it creates a new object
