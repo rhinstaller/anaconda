@@ -71,7 +71,7 @@ class UrlInstallMethod(InstallMethod):
 	    else:
 		base = self.pkgUrl
 
-            if h[1000005] is not None:
+            if self.isUpdateRPM(h):
                 path = "/RedHat/Updates/"
             else:
                 path = "/RedHat/RPMS/"

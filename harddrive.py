@@ -75,7 +75,7 @@ class OldHardDriveInstallMethod(InstallMethod):
 	return cs
 
     def getFilename(self, h, timer):
-        if h[1000005] is not None:
+        if self.isUpdateRPM(h):
             path = "/RedHat/Updates/"
         else:
             path = "/RedHat/RPMS/"
@@ -207,7 +207,7 @@ class HardDriveInstallMethod(InstallMethod):
 	    self.umountMedia()
 	    self.mountMedia(h[1000002])
 
-        if h[1000005] is not None:
+        if self.isUpdateRPM(h):
             path = "/RedHat/Updates/"
         else:
             path = "/RedHat/RPMS/"

@@ -42,14 +42,14 @@ class ImageInstallMethod(InstallMethod):
 	return groupSetFromCompsFile(fname, hdlist)
 
     def getFilename(self, h, timer):
-        if h[1000005] is not None and self.updatesCopied == 1:
+        if self.isUpdateRPM(h) and self.updatesCopied == 1:
             log ("going to use cached package for %s" %(h[1000000],))
             return "/var/spool/anaconda-updates/" + h[1000000]
         if self.currentIso is not None and self.currentIso != h[1000002]:
             log("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentIso, h[1000002], h['name'], h['version'], h['release'], h['arch']))
             
         self.currentIso = h[1000002]
-        if h[1000005] is not None:
+        if self.isUpdateRPM(h):
             path = "/RedHat/Updates/"
         else:
             path = "/RedHat/RPMS/"
@@ -138,7 +138,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	isys.lochangefd("/tmp/loop", self.loopbackFile)
 
     def getFilename(self, h, timer):
-        if h[1000005] is not None and self.updatesCopied == 1:
+        if self.isUpdateRPM(h) and self.updatesCopied == 1:
             log ("going to use cached package for %s" %(h[1000000],))
             return "/var/spool/anaconda-updates/" + h[1000000]
         if h[1000002] == None:
@@ -280,7 +280,7 @@ class CdromInstallMethod(ImageInstallMethod):
         # FIXME: should retry a few times then prompt for new cd
         while tries < 5:
             try:
-                if h[1000005] is not None:
+                if self.isUpdateRPM(h):
                     path = "/RedHat/Updates/"
                 else:
                     path = "/RedHat/RPMS/"
@@ -434,7 +434,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	    self.umountImage()
 	    self.mountImage(h[1000002])
 
-        if h[1000005] is not None:
+        if self.isUpdateRPM(h):
             path = "/RedHat/Updates/"
         else:
             path = "/RedHat/RPMS/"

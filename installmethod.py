@@ -96,6 +96,11 @@ class InstallMethod:
     def systemMounted(self, fstab, mntPoint):
 	pass
 
+    def isUpdateRPM(self, hdr):
+        if (1000005 in hdr.keys()) and (hdr[1000005] is not None):
+            return 1
+        return 0
+
     def cacheUpdates(self, chroot, hdlist, intf):
         if self.needUpdateCache == 0:
             log("not caching updates")
@@ -104,7 +109,7 @@ class InstallMethod:
         size = 0
         num = 0
         for h in hdlist.values():
-            if h.isSelected() and h[1000005] is not None:
+            if h.isSelected() and self.isUpdateRPM(h):
                 log("%s is selected, size is %s" %(h.nevra(), h[1000001]))
                 size += h[1000001] # FILESIZE_TAG
                 num += 1
@@ -121,7 +126,7 @@ class InstallMethod:
         iutil.mkdirChain(chroot + "/var/spool/anaconda-updates")
         num = 0
         for h in hdlist.values():
-            if h.isSelected() and h[1000005] is not None:
+            if h.isSelected() and self.isUpdateRPM(h):
                 path = "/RedHat/Updates/"
                 shutil.copy(self.tree + path + h[1000000],
                             "%s/var/spool/anaconda-updates/%s" % (chroot, h[1000000]))
