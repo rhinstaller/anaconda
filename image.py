@@ -430,10 +430,15 @@ def findIsoImages(path, messageWindow):
 	       "The ISO image %s has a size which is not "
 	       "a multiple of 2048 bytes.  This may mean "
 	       "it was corrupted on transfer to this computer."
-	       "\n\nPress OK to continue (but installation will "
-	       "probably fail), or Cancel to exit the "
-	       "installer (RECOMMENDED). " % file, type = "okcancel")
-			if rc:
+	       "\n\n"
+               "It is recommended that you reboot and abort your "
+               "installation, but you can choose to continue if "
+               "you think this is in error." % (file,),
+                                           type="custom",
+                                           custom_icon="warning",
+                                           custom_buttons= [_("_Reboot"),
+                                                            _("_Continue")])
+                        if rc == 0:
 			    sys.exit(0)
 
 		    discImages[num] = file
