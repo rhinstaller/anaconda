@@ -166,7 +166,7 @@ class BaseInstallClass:
 
         # if there's only one install class, it doesn't make much sense
         # to show it
-        if availableClasses() < 2:
+        if len(availableClasses()) < 2:
             dispatch.skipStep("installtype")
 
     # called from anaconda so that we can skip steps in the headless case
