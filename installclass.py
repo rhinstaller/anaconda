@@ -22,7 +22,21 @@ from instdata import InstallData
 from partitioning import *
 
 from rhpl.log import log
-from rhpl.translate import _
+from rhpl.translate import _, N_
+
+#
+# XXX constant here really should be in install method???
+#
+DEFAULT_DESKTOP_LABEL_1 = N_("The following software will be installed:")
+
+DEFAULT_DESKTOP_LABEL_2 = N_("These applications will allow you to browse the "
+			   "Internet, send and receive email, and create and "
+			   "edit documents on your %s system.\n\n"
+			   "However %s ships with many more applications, and "
+			   "you may customize the selection of software "
+			   "installed if you want.")
+			  
+			  
 
 class BaseInstallClass:
     # default to not being hidden

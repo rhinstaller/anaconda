@@ -55,6 +55,7 @@ stepToClass = {
     "timezone" : ("timezone_gui", "TimezoneWindow"),
     "accounts" : ("account_gui", "AccountWindow"),
     "authentication" : ("auth_gui", "AuthWindow"),
+    "desktopchoice": ("desktop_choice_gui", "DesktopChoiceWindow"),
     "package-selection" : ("package_gui", "PackageSelectionWindow"),
     "indivpackage" : ("package_gui", "IndividualPackageSelectionWindow"),
     "dependencies" : ("dependencies_gui", "UnresolvedDependenciesWindow"),
