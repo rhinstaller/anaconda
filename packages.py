@@ -769,6 +769,7 @@ def doInstall(method, id, intf, instPath):
         instLog.write(_("Installing %s packages\n\n") % (num,))
 
     ts.scriptFd = instLog.fileno ()
+    rpm.setLogFile(instLog)
     # the transaction set dup()s the file descriptor and will close the
     # dup'd when we go out of scope
 
@@ -778,7 +779,6 @@ def doInstall(method, id, intf, instPath):
 	modeText = _("Installing %s-%s-%s.\n")
 
     errors = rpmErrorClass(instLog)
-#    oldError = rpm.errorSetCallback (errors.cb)
     pkgTimer = timer.Timer(start = 0)
 
     id.instProgress.setSizes(total, totalSize)
@@ -890,14 +890,12 @@ def doInstall(method, id, intf, instPath):
 
 	method.systemUnmounted ()
 
-#	rpm.errorSetCallback (oldError)
 	return DISPATCH_BACK
 
     # This should close the RPM database so that you can
     # do RPM ops in the chroot in a %post ks script
     ts.closeDB()
     del ts
-#    rpm.errorSetCallback (oldError)
     
     method.filesDone ()
 
