@@ -778,7 +778,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
         self.maxSizeMB = maxSizeMB
         self.startSize = size
 	
-        if not percent and not size:
+        if not percent and not size and not preexist:
             raise RuntimeError, "Error with Volume Group:Logical Volume %s:%s - Logical Volume must specify either percentage of vgsize or size" % (volgroup, lvname)
 
 	if percent and grow:
