@@ -311,7 +311,7 @@ def upgradeFindPackages (intf, method, id, instPath):
 		package.select()
 
     if iutil.getArch() == "i386" and id.bootloader.useGrub():
-        if id.hdList.has_key("grub") and not id.hdList["grub"].isSelected()
+        if id.hdList.has_key("grub") and not id.hdList["grub"].isSelected():
             try:
                 db.findbyname ("grub")
             except rpm.error:
