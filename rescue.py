@@ -24,13 +24,19 @@ class RescueInterface:
     def __init__(self, screen):
 	self.screen = screen
 
-def runRescue(url, serial):
+def runRescue(url, serial, mountroot):
 
     from fstab import NewtFstab
 
     fstab = None
 
     log.open (serial, 0, 0, 1)
+
+    for file in [ "services", "protocols", "group" ]:
+       os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
+
+    if (not mountroot):
+	os.execv("/bin/sh", [ "-/bin/sh" ])
 
     try:
 	fstab = NewtFstab(1, serial, 0, 0, None, None, None, 0, [], 0, 0,
@@ -132,9 +138,6 @@ def runRescue(url, serial):
 			   [ _("Back") ], width = 50)
 
     screen.finish()
-
-    for file in [ "services", "protocols", "group" ]:
-       os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
 
     if rootmounted:
         print

@@ -1954,6 +1954,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "rescue"))
 	    flags |= LOADER_FLAGS_RESCUE;
+        else if (!strcasecmp(argv[i], "nomount"))
+	    flags |= LOADER_FLAGS_RESCUE_NOMOUNT;
 	else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
 	    *ksDevice = argv[i] + 9;
 	} else if (!strcasecmp(argv[i], "serial"))
@@ -2838,6 +2840,8 @@ int main(int argc, char ** argv) {
 	    } while (rc);
 	}
 	*argptr++ = "--rescue";
+	if (FL_RESCUE_NOMOUNT(flags))
+	    *argptr++ = "--nomount";
     } else {
 	if (FL_SERIAL(flags))
 	    *argptr++ = "--serial";

@@ -55,7 +55,7 @@ try:
             'method=', 'rootpath=', 'pcic=', "overhead=",
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
-	    'expert', 'serial', 'lowres', 'nofb', 'rescue'])
+	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount'])
 except TypeError, msg:
     print "Error:", msg
     sys.exit(-1)
@@ -112,6 +112,7 @@ localInstall = 0
 reconfigOnly = 0
 nofallback = 0
 rescue = 0
+rescue_nomount = 0
 overhead = 0
 runres = '800x600'
 nofbmode = 0
@@ -157,6 +158,8 @@ for n in args:
 	overhead = int(arg)
     elif (str == '--rescue'):
         progmode = 'rescue'
+    elif (str == "--nomount"):
+        rescue_nomount = 1
     elif (str == '--nofallback'):
 	nofallback = 1
     elif (str == '--module'):
@@ -211,7 +214,7 @@ if (progmode == None):
 
 if (progmode == 'rescue'):
     import rescue
-    rescue.runRescue(method, serial)
+    rescue.runRescue(method, serial, not rescue_nomount)
     # shouldn't get back here
     sys.exit(1)
 

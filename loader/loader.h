@@ -24,6 +24,7 @@
 #define LOADER_FLAGS_LOWRES             (1 << 18)
 #define LOADER_FLAGS_NOFB               (1 << 19)
 #define LOADER_FLAGS_NOPCMCIA           (1 << 20)
+#define LOADER_FLAGS_RESCUE_NOMOUNT     (1 << 21)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -46,6 +47,7 @@
 #define FL_LOWRES(a)	    ((a) & LOADER_FLAGS_LOWRES)
 #define FL_NOFB(a)          ((a) & LOADER_FLAGS_NOFB)
 #define FL_NOPCMCIA(a)	    ((a) & LOADER_FLAGS_NOPCMCIA)
+#define FL_RESCUE_NOMOUNT(a) ((a) & LOADER_FLAGS_RESCUE_NOMOUNT)
 
 #define CODE_PCMCIA	1
 
