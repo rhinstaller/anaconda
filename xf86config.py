@@ -378,7 +378,7 @@ class XF86Config:
             config4 = self.Version4Config (self.videocard)
         except RuntimeError:
             return
-        config = open (path + "/XF86Config-4", 'w')
+        config = open (path + "/XF86Config", 'w')
         config.write (config4)
         config.close ()
 
