@@ -78,8 +78,6 @@ class ReconfigCongratulationWindow (InstallWindow):
             a.set (0.5, 0.5, 1.0, 1.0)
             hbox.pack_start (a, FALSE)
 
-        self.ics.cw.todo.writeConfiguration()
-
         label = GtkLabel(_("Congratulations, configuration is complete.\n\n"
                            "For information on fixes which are "
                            "available for this release of Red Hat Linux, consult the "
