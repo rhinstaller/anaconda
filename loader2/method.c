@@ -19,6 +19,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <libgen.h>
 #include <newt.h>
 #include <stdlib.h>
 #include <string.h>
@@ -31,6 +32,8 @@
 #include "loadermisc.h"
 #include "log.h"
 #include "lang.h"
+#include "mediacheck.h"
+#include "method.h"
 
 #include "../isys/imount.h"
 #include "../isys/isys.h"
@@ -147,9 +150,9 @@ char * validIsoImages(char * dirName) {
     /* Walk through the directories looking for a Red Hat CD image. */
     errno = 0;
     while ((ent = readdir(dir))) {
-        sprintf(isoImage, "%s/%s", dirName, ent->d_name);
+        snprintf(isoImage, sizeof(isoImage), "%s/%s", dirName, ent->d_name);
         
-        if (fileIsIso(isoImage)) {
+        if (!fileIsIso(isoImage)) {
             errno = 0;
             continue;
         }
@@ -177,9 +180,243 @@ char * validIsoImages(char * dirName) {
     return strdup(isoImage);
 }
 
-/* JKFIXME: needs implementing.  should be very similar to the cdrom version */
-void queryIsoMediaCheck(char * isoDir, int flags) {
-    return;
+/* get timestamp and description of ISO image from stamp file */
+/* returns 0 on success, -1 otherwise                         */
+int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
+    DIR * dir;
+    FILE *f;
+    struct dirent * ent;
+    struct stat sb;
+    char *stampfile;
+    char *descr, *tstamp;
+    char tmpstr[1024];
+    int  filetype;
+    int  rc;
+
+    lstat(file, &sb);
+    if (S_ISBLK(sb.st_mode)) {
+	filetype = 1;
+	if (doPwMount(file, "/tmp/testmnt",
+		      "iso9660", 1, 0, NULL, NULL)) {
+	    logMessage("Failed to mount device %s to get description", file);
+	    return -1;
+	}
+    } else if (S_ISREG(sb.st_mode)) {
+	filetype = 2;
+	if (mountLoopback(file, "/tmp/testmnt", "loop6")) {
+	    logMessage("Failed to mount iso %s to get description", file);
+	    return -1;
+	}
+    } else {
+	    logMessage("Unknown type of file %s to get description", file);
+	    return -1;
+    }
+
+    if (!(dir = opendir("/tmp/testmnt"))) {
+	umount("/tmp/testmnt");
+	if (filetype == 2)
+	    umountLoopback("/tmp/testmnt", "loop6");
+	return -1;
+    }
+
+    errno = 0;
+    stampfile = NULL;
+    while ((ent = readdir(dir))) {
+	if (!strncmp(ent->d_name, ".discinfo", 9)) {
+	    stampfile = strdup(".discinfo");
+	    break;
+	}
+    }
+
+    closedir(dir);
+    descr = NULL;
+    tstamp = NULL;
+    if (stampfile) {
+	snprintf(tmpstr, sizeof(tmpstr), "/tmp/testmnt/%s", stampfile);
+	f = fopen(tmpstr, "r");
+	if (f) {
+	    char *tmpptr;
+
+	    /* readtime stamp line */
+	    tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
+	    
+	    if (tmpstr)
+		tstamp = strdup(tmpstr);
+
+	    /* now read OS description line */
+	    if (tmpptr)
+		tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
+
+	    if (tmpptr)
+		descr = strdup(tmpstr);
+
+	    /* skip over arch */
+	    if (tmpptr)
+		tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
+
+	    /* now get the CD number */
+	    if (tmpptr) {
+		unsigned int len;
+		char *p, *newstr;
+
+		tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
+		
+		/* nuke newline from end of descr, stick number on end*/
+		for (p=descr+strlen(descr); p != descr && !isspace(*p); p--);
+
+		*p = '\0';
+		len = strlen(descr) + strlen(tmpstr) + 10;
+		newstr = malloc(len);
+		strncpy(newstr, descr, len-1);
+		strncat(newstr, " ", len-1);
+
+		/* is this a DVD or not?  If disc id has commas, like */
+		/* "1,2,3", its a DVD                                 */
+		if (strchr(tmpstr, ','))
+		    strncat(newstr, "DVD\n", len-1);
+		else {
+		    strncat(newstr, "disc ", len-1);
+		    strncat(newstr, tmpstr, len-1);
+		}
+
+		free(descr);
+		descr = newstr;
+	    }
+
+	    fclose(f);
+	}
+    }
+
+    free(stampfile);
+
+    umount("/tmp/testmnt");
+    if (filetype == 2)
+	umountLoopback("/tmp/testmnt", "loop6");
+
+    if (descr != NULL && tstamp != NULL) {
+	descr[strlen(descr)-1] = '\0';
+	*releasedescr = descr;
+
+	tstamp[strlen(tstamp)-1] = '\0';
+	*timestamp = tstamp;
+
+	rc = 0;
+    } else {
+	rc = 1;
+    }	
+
+    return rc;
+}
+
+/* XXX this ignores "location", which should be fixed
+ *
+ * Given a starting isoFile, will offer choice to mediacheck it and
+ * all other ISO images in the same directory with the same stamp
+ */
+void queryIsoMediaCheck(char *isoFile, int flags) {
+    DIR * dir;
+    struct dirent * ent;
+    char *isoDir;
+    char isoImage[1024];
+    char tmpmessage[1024];
+    char *master_timestamp;
+    char *tmpstr;
+    int rc, first;
+
+    /* dont bother to test in automated installs */
+    if (FL_KICKSTART(flags))
+	return;
+
+    /* if they did not specify to mediacheck explicitely then return */
+    if (!FL_MEDIACHECK(flags))
+	return;
+
+    /* check that file is actually an iso */
+    if (!fileIsIso(isoFile))
+	return;
+
+    /* get stamp of isoFile, free descr since we dont care */
+    readStampFileFromIso(isoFile, &master_timestamp, &tmpstr);
+    free(tmpstr);
+    
+    /* get base path from isoFile */
+    tmpstr = strdup(isoFile);
+    isoDir = strdup(dirname(tmpstr));
+    free(tmpstr);
+
+    logMessage("isoFile = %s", isoFile);
+    logMessage("isoDir  = %s", isoDir);
+    logMessage("Master Timestemp = %s", master_timestamp);
+
+    if (!(dir = opendir(isoDir))) {
+	newtWinMessage(_("Error"), _("OK"), 
+		       _("Failed to read directory %s: %s"),
+		       isoDir, strerror(errno));
+	free(isoDir);
+	free(master_timestamp);
+	return;
+    }
+
+    /* Walk through the directories looking for a Red Hat CD images. */
+    errno = 0;
+    first = 0;
+    while (1) {
+	char *nextname;
+	char *tdescr, *tstamp;
+
+	if (first) {
+	    first = 1;
+	    nextname = isoFile;
+	} else {
+	    ent = readdir(dir);
+	    if (!ent)
+		break;
+
+	    nextname = ent->d_name;
+	}
+
+	/* synthesize name of iso from isoDir and file entry */
+	snprintf(isoImage, sizeof(isoImage), "%s/%s", isoDir, nextname);
+
+	/* see if this is an iso image */
+	if (!fileIsIso(isoImage)) {
+	    errno = 0;
+	    continue;
+	}
+
+	/* see if its part of the current CD set */
+	readStampFileFromIso(isoImage, &tstamp, &tdescr);
+	if (strcmp(tstamp, master_timestamp)) {
+	    errno = 0;
+	    continue;
+	}
+	    
+	/* found a valid candidate, proceed */
+	snprintf(tmpmessage, sizeof(tmpmessage),
+		 _("Would you like to perform a checksum "
+		   "test of the ISO image:\n\n   %s?"), isoImage);
+
+	rc = newtWinChoice(_("Checksum Test"), _("Test"), _("Skip"),
+			   tmpmessage);
+
+	if (rc == 2) {
+	    logMessage("mediacheck: skipped checking of %s", isoImage);
+	    if (tdescr)
+		free(tdescr);
+	    continue;
+	} else {
+	    mediaCheckFile(isoImage, tdescr);
+	    if (tdescr)
+		free(tdescr);
+
+	    continue;
+	}
+    }
+
+    free(isoDir);
+    free(master_timestamp);
+    closedir(dir);
+    
 }
 
 /* Recursive */
