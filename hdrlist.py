@@ -83,10 +83,15 @@ class DependencyChecker:
     def callback(self, ts, tag, name, evr, flags):
         if tag == rpm.RPMTAG_REQUIRENAME:
             hdr = None
-            # FIXME: need to handle file dep solving
             if name[0] == "/":
-                log("WARNING: Unable to solve file deps right now: %s"%(name,))
-                return 1
+                for h in self.grpset.hdrlist.pkgs.values():
+                    l = []
+                    for f in h.hdr.fiFromHeader(): l.append(f[0])
+                    
+                    if ((name in l) and
+                        ((hdr is None) or (len(h[rpm.RPMTAG_NAME]) <
+                                           len(hdr[rpm.RPMTAG_NAME])))):
+                        hdr = h
             else:
                 # do we have a package named this?
                 if self.grpset.hdrlist.has_key(name):
@@ -100,7 +105,11 @@ class DependencyChecker:
                             hdr = h
                             
             if hdr is not None:
-                log("using %s to satisfy %s" %(nevra(hdr), name))
+                if evr:
+                    nevr = "%s-%s" %(name, evr)
+                else:
+                    nevr = name
+                log("using %s to satisfy %s" %(nevra(hdr), nevr))
                 ts.addInstall(hdr.hdr, hdr.hdr, self.how)
                 self.added.append(nevra(hdr.hdr))
                 return -1
@@ -784,7 +793,7 @@ if __name__ == "__main__":
     f.close()
     showMem()
     hdrlist = HeaderList(hdrs)
-#    hdrlist.mergeFullHeaders(tree + "/RedHat/base/hdlist2")
+    hdrlist.mergeFullHeaders(tree + "/RedHat/base/hdlist2")
     showMem()
     hdrlist.mergePackageDeps(comps.packages)
     showMem()    
