@@ -8,6 +8,8 @@
 
 	* language.py (InstallTimeLanguage.setSupported):  supported is a list
 	of language names, not nicknames.
+	* language.py (InstallTimeLanguage.setDefault):  Fix check for if we
+	got a match or not.
 
 	* loader2/lang.c (loadLanguageList):  Language names may now contain
 	spaces, which sscanf splits on.  Change what it's looking for.

@@ -189,20 +189,21 @@ class InstallTimeLanguage:
             return 'English (USA)'
 
     def setDefault(self, nick):
-        log ("starting setDefault")
 	if not nick:
 	    self.default = None
 	    return
 
         # Try to find a match for the language nick we were given.
+        name = None
         for k in self.langInfoByName.keys():
             row = self.langInfoByName[k]
             if nick in expandLangs(row[0]):
                 name = k
 
         # It's possible we didn't find a match.
-        self.default = None
-        return
+        if name == None:
+            self.default = None
+            return
 
 	self.default = name
 	(lang, map, font) = self.langInfoByName[name]
