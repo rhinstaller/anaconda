@@ -58,6 +58,23 @@ int pkgListAlloced = 0;
 char ** depOrder = NULL;
 hashTable requireTable;
 
+/* make sure its <package>-<version>-<release> */
+int sanityCheckDepOrderLine(char *line) {
+    char *r, *v;
+
+
+    r = strrchr(line, '-');
+    if (!r)
+	return -1;
+
+    v = strrchr(r, '-');
+    if (!v)
+	return -1;
+
+    return 0;
+
+}
+
 /* mmmm... linear search */
 int getOrder (char * fn)
 {
@@ -455,6 +472,15 @@ int main(int argc, const char ** argv) {
 	    len = strlen(b);
 	    /* chop */
 	    b[--len] = '\0';
+
+	    /* sanity check */
+	    /* should have the format of a <package name>-<version>-<release> */
+	    if (sanityCheckDepOrderLine(b)) {
+		fprintf(stderr, "genhdlist: FATAL ERROR -> \"%s\" is not a package name!!\n",b);
+		fprintf(stderr, "Your package list file %s is most likely CORRUPT!\n", depOrderFile);
+		exit(1);
+	    }
+
 	    depOrder[numpkgs] = malloc (len + 1);
 	    strcpy (depOrder[numpkgs], b);
 	    numpkgs++;
