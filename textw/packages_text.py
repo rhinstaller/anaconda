@@ -17,9 +17,9 @@ class PackageGroupWindow:
             if not comp.hidden: comp.unselect(0)
 
 	# it's a shame component selection sucks
+        comps['Base'].select (1)
 
         # turn on all the comps we selected
-        comps['Base'].select (1)
         for comp in ct.getSelection():
             comp.select (1)
 
