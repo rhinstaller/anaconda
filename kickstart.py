@@ -393,6 +393,15 @@ class KickstartBase(BaseInstallClass):
 	self.setGroups(groups)
 	self.setPackages(packages)
 
+        # test to see if they specified to clear partitions and also
+        # tried to --onpart on a logical partition
+        if iutil.getArch() == 'i386' and self.fstab:
+            clear = self.getClearParts()
+            if clear == FSEDIT_CLEAR_LINUX or clear == FSEDIT_CLEAR_ALL:
+		for (mntpoint, (dev, fstype, reformat)) in self.fstab:
+		    if int(dev[-1:]) > 4:
+			raise RuntimeError, "Clearpart and --onpart on non-primary partition %s not allowed" % dev
+                
 	if where =="pre" or where == "post":
 	    s = Script(script, scriptInterp, scriptChroot)
 	    if where == "pre":

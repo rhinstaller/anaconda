@@ -41,6 +41,9 @@ class BaseInstallClass:
             self.clearType = "svr"        
 	self.clearPartText = warningText
 
+    def getClearParts(self):
+        return self.clearParts
+
     def getLiloInformation(self):
 	return self.lilo
 

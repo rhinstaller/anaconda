@@ -71,7 +71,7 @@ class HardDriveInstallMethod(InstallMethod):
     def filesDone(self):
 	self.umountMedia()
 
-    def protectedDevices(self):
+    def protectedPartitions(self):
         rc = []
         rc.append(self.device)
         return rc

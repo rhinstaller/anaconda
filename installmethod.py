@@ -1,6 +1,6 @@
 class InstallMethod:
 
-    def protectedDevices(self):
+    def protectedPartitions(self):
         return None
 
     def readComps(self, hdlist):

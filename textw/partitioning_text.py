@@ -103,6 +103,17 @@ class AutoPartitionWindow:
     def __call__(self, screen, todo):
 	druid = None
 
+
+        # if harddrive install and installing from a logical partition,
+        # do not offer autopartitioning
+        if iutil.getArch() == 'i386':
+            pp = todo.method.protectedPartitions()
+            if pp:
+                for p in pp:
+                    if p[-1:] > 4:
+                        todo.fstab.setRunDruid(1)
+                        return
+
         # if instClass has new or old partition info we are in ks
 	if todo.instClass.partitions or todo.instClass.fstab:
 	    druid = \

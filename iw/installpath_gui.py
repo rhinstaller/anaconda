@@ -129,7 +129,7 @@ class InstallPathWindow (InstallWindow):
 				       self.todo.intf.messageWindow,
 				       self.todo.intf.progressWindow,
                                        not self.todo.expert,
-                                       self.todo.method.protectedDevices())
+                                       self.todo.method.protectedPartitions())
 
 ###
 ### msf - 05-11-2000 - need to move this code!!!!!!
