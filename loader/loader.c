@@ -2698,6 +2698,10 @@ int main(int argc, char ** argv) {
     kdFindNetList(&kd, continuing ? 0 : CODE_PCMCIA);
 #endif
 
+    /* we have to explicitly read this to let libkudzu know we want to
+       merge in future tables rather then replace the initial one */
+    pciReadDrivers("/modules/pcitable");
+
     if (!continuing) {
 	if ((access("/proc/bus/pci/devices", R_OK) &&
 	      access("/proc/openprom", R_OK)) || FL_MODDISK(flags)) { 
