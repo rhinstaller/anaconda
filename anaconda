@@ -74,7 +74,7 @@ def startVNCServer(vncpasswd=None, root='/'):
 	# read remaining output
 	os.read(fd, 1000)
 
-    dup_log(_("Starting VNC"))
+    dup_log(_("Starting VNC..."))
 
     vncpid = os.fork()
 
