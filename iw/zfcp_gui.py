@@ -21,7 +21,7 @@ from rhpl.translate import _, N_
 class ZFCPWindow(InstallWindow):
 
     windowTitle = N_("ZFCP Configuration")
-    htmlTag = "zfcpconf"
+    htmlTag = "fcpdevices"
 
     def __init__(self, ics):
         InstallWindow.__init__(self, ics)
