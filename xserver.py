@@ -90,7 +90,7 @@ def startX():
                 print ("CardDB missing SERVER for " + driver[5:] + ".\n"
                        "Falling back to VGA16")
                 serverPath = '/usr/X11R6/bin/XF86_VGA16'                       
-        else
+        else:
             if len (driver) > 7 and driver[0:7] == "Server:":
                 serverPath = '/usr/X11R6/bin/XF86_' + driver[7:]
 
