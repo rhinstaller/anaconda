@@ -251,7 +251,7 @@ class Network:
 			f.write(" --gateway %s" % (self.gateway,))
 
 		    if self.dnsString():
-                        f.write(" --nameserver %s" % (self.dnsString(),)
+                        f.write(" --nameserver %s" % (self.dnsString(),))
                         
 		    if (self.hostname and
 			self.hostname != "localhost.localdomain"):
