@@ -444,7 +444,7 @@ class BootloaderWindow (InstallWindow):
 
         # Alliteration!
         self.labelLabel = GtkLabel(_("Boot label") + ":")
-        self.labelEntry = GtkEntry(15)
+        self.labelEntry = GtkEntry(32)
 
         self.imageList.connect("select_row", self.labelSelected)
         self.defaultCheck.connect("toggled", self.defaultUpdated)
