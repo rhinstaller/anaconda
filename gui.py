@@ -16,7 +16,8 @@ class LanguageWindow:
     def __init__ (self, ics):
         ics.setTitle ("Language Selection")
         ics.setNextEnabled (1)
-        ics.setHTML ("<HTML><BODY>This is the language help window.</BODY></HTML>")
+        ics.setHTML ("<HTML><BODY>Select which language you would like"
+                     "to use for the system default.</BODY></HTML>")
         
         self.languages = ("English", "German", "French", "Spanish",
                           "Hungarian", "Japanese", "Chinese", "Korean")
