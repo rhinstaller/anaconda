@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
-"POT-Creation-Date: 2001-03-28 00:50-0500\n"
+"POT-Creation-Date: 2001-03-28 17:32-0500\n"
 "PO-Revision-Date: 2001-03-02 16:39-05:00\n"
 "Last-Translator: Matt Wilson <msw@redhat.com>\n"
 "Language-Team: Japanese <eng-jp@redhat.com>\n"
@@ -142,7 +142,7 @@ msgstr "フロッピーディスクを挿入して下さい。ディスクの内容はすべて消去されます。
 msgid "Next"
 msgstr "次"
 
-#: ../gui.py:420 ../gui.py:788 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910 ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1519 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61 ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228 ../text.py:231 ../text.py:311 ../text.py:356 ../text.py:359 ../text.py:416 ../text.py:419 ../text.py:445 ../text.py:449 ../text.py:458 ../text.py:531 ../text.py:533 ../text.py:543 ../text.py:545 ../textw/bootdisk_text.py:30 ../textw/firewall_text.py:9 ../textw/lilo_text.py:34 ../textw/lilo_text.py:93 ../textw/lilo_text.py:101 ../textw/lilo_text.py:209 ../textw/mouse_text.py:27 ../textw/mouse_text.py:28 ../textw/mouse_text.py:55 ../textw/mouse_text.py:81 ../textw/network_text.py:102 ../textw/network_text.py:161 ../textw/network_text.py:164 ../textw/packages_text.py:55 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/packages_text.py:353 ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65 ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:220 ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342 ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206 ../textw/timezone_text.py:69 ../textw/upgrade_text.py:68 ../textw/upgrade_text.py:155 ../textw/upgrade_text.py:173 ../textw/upgrade_text.py:176 ../textw/upgrade_text.py:190 ../textw/upgrade_text.py:191 ../textw/upgrade_text.py:206 ../textw/upgrade_text.py:209 ../textw/userauth_text.py:30 ../textw/userauth_text.py:165 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297
+#: ../gui.py:420 ../gui.py:788 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910 ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1519 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61 ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228 ../text.py:231 ../text.py:311 ../text.py:356 ../text.py:359 ../text.py:416 ../text.py:419 ../text.py:445 ../text.py:449 ../text.py:458 ../text.py:531 ../text.py:533 ../text.py:543 ../text.py:545 ../textw/bootdisk_text.py:30 ../textw/firewall_text.py:9 ../textw/lilo_text.py:34 ../textw/lilo_text.py:108 ../textw/lilo_text.py:116 ../textw/lilo_text.py:224 ../textw/mouse_text.py:27 ../textw/mouse_text.py:28 ../textw/mouse_text.py:55 ../textw/mouse_text.py:81 ../textw/network_text.py:102 ../textw/network_text.py:161 ../textw/network_text.py:164 ../textw/packages_text.py:55 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/packages_text.py:353 ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65 ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:220 ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342 ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206 ../textw/timezone_text.py:69 ../textw/upgrade_text.py:68 ../textw/upgrade_text.py:155 ../textw/upgrade_text.py:173 ../textw/upgrade_text.py:176 ../textw/upgrade_text.py:190 ../textw/upgrade_text.py:191 ../textw/upgrade_text.py:206 ../textw/upgrade_text.py:209 ../textw/userauth_text.py:30 ../textw/userauth_text.py:165 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297
 msgid "Back"
 msgstr "戻る"
 
@@ -238,7 +238,7 @@ msgstr "適切な Red Hat CD-ROM ではありません"
 msgid "The CDROM could not be mounted."
 msgstr "CD-ROM のマウントに失敗しました"
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435 ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520 ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:910 ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1241 ../loader/loader.c:1250 ../loader/loader.c:1281 ../loader/loader.c:1519 ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2228 ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:687 ../loader/net.c:720 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:20 ../rescue.py:92 ../rescue.py:110 ../rescue.py:126 ../text.py:135 ../text.py:174 ../text.py:228 ../text.py:311 ../text.py:356 ../text.py:374 ../text.py:416 ../text.py:445 ../text.py:531 ../text.py:543 ../text.py:572 ../text.py:593 ../text.py:763 ../text.py:817 ../text.py:843 ../text.py:869 ../text.py:877 ../text.py:892 ../text.py:1129 ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9 ../textw/firewall_text.py:126 ../textw/firewall_text.py:128 ../textw/firewall_text.py:191 ../textw/lilo_text.py:33 ../textw/lilo_text.py:93 ../textw/lilo_text.py:152 ../textw/lilo_text.py:158 ../textw/mouse_text.py:55 ../textw/network_text.py:102 ../textw/network_text.py:123 ../textw/network_text.py:161 ../textw/packages_text.py:55 ../textw/packages_text.py:89 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342 ../textw/partitioning_text.py:353 ../textw/partitioning_text.py:361 ../textw/partitioning_text.py:368 ../textw/silo_text.py:25 ../textw/silo_text.py:99 ../textw/timezone_text.py:69 ../textw/upgrade_text.py:67 ../textw/upgrade_text.py:173 ../textw/userauth_text.py:30 ../textw/userauth_text.py:44 ../textw/userauth_text.py:49 ../textw/userauth_text.py:84 ../textw/userauth_text.py:99 ../textw/userauth_text.py:105 ../textw/userauth_text.py:111 ../textw/userauth_text.py:119 ../textw/userauth_text.py:128 ../textw/userauth_text.py:135 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297 ../xserver.py:34
+#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435 ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520 ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:910 ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1241 ../loader/loader.c:1250 ../loader/loader.c:1281 ../loader/loader.c:1519 ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2228 ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:687 ../loader/net.c:720 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:20 ../rescue.py:92 ../rescue.py:110 ../rescue.py:126 ../text.py:135 ../text.py:174 ../text.py:228 ../text.py:311 ../text.py:356 ../text.py:374 ../text.py:416 ../text.py:445 ../text.py:531 ../text.py:543 ../text.py:572 ../text.py:593 ../text.py:763 ../text.py:817 ../text.py:843 ../text.py:869 ../text.py:877 ../text.py:892 ../text.py:1129 ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9 ../textw/firewall_text.py:126 ../textw/firewall_text.py:128 ../textw/firewall_text.py:191 ../textw/lilo_text.py:33 ../textw/lilo_text.py:108 ../textw/lilo_text.py:167 ../textw/lilo_text.py:173 ../textw/mouse_text.py:55 ../textw/network_text.py:102 ../textw/network_text.py:123 ../textw/network_text.py:161 ../textw/packages_text.py:55 ../textw/packages_text.py:89 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342 ../textw/partitioning_text.py:353 ../textw/partitioning_text.py:361 ../textw/partitioning_text.py:368 ../textw/silo_text.py:25 ../textw/silo_text.py:99 ../textw/timezone_text.py:69 ../textw/upgrade_text.py:67 ../textw/upgrade_text.py:173 ../textw/userauth_text.py:30 ../textw/userauth_text.py:44 ../textw/userauth_text.py:49 ../textw/userauth_text.py:84 ../textw/userauth_text.py:99 ../textw/userauth_text.py:105 ../textw/userauth_text.py:111 ../textw/userauth_text.py:119 ../textw/userauth_text.py:128 ../textw/userauth_text.py:135 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297 ../xserver.py:34
 msgid "OK"
 msgstr "OK"
 
@@ -299,7 +299,7 @@ msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr "システムを /mnt/sysimage ディレクトリの下にマウント"
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024 ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051 ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:756 ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879 ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333 ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526 ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651 ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737 ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278 ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332 ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354 ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374 ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544 ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170 ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577 ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672 ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717 ../libfdisk/newtfsedit.c:848 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../libfdisk/newtfsedit.c:1610 ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659 ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63 ../text.py:199 ../text.py:458 ../textw/lilo_text.py:123 ../textw/lilo_text.py:208 ../textw/mouse_text.py:27 ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:421 ../textw/silo_text.py:136 ../textw/silo_text.py:149 ../textw/silo_text.py:205 ../textw/upgrade_text.py:22 ../textw/upgrade_text.py:141 ../textw/upgrade_text.py:190
+#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024 ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051 ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:756 ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879 ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333 ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526 ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651 ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737 ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278 ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332 ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354 ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374 ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544 ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170 ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577 ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672 ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717 ../libfdisk/newtfsedit.c:848 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../libfdisk/newtfsedit.c:1610 ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659 ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63 ../text.py:199 ../text.py:458 ../textw/lilo_text.py:138 ../textw/lilo_text.py:223 ../textw/mouse_text.py:27 ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:421 ../textw/silo_text.py:136 ../textw/silo_text.py:149 ../textw/silo_text.py:205 ../textw/upgrade_text.py:22 ../textw/upgrade_text.py:141 ../textw/upgrade_text.py:190
 msgid "Ok"
 msgstr "OK"
 
@@ -392,7 +392,7 @@ msgstr ""
 "\n"
 "設定内容を変更せずに終了する場合は下の[取り消し]ボタンを選択して下さい"
 
-#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578 ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104 ../text.py:374 ../text.py:377 ../text.py:763 ../text.py:764 ../text.py:877 ../text.py:879 ../textw/lilo_text.py:124 ../textw/silo_text.py:136 ../textw/silo_text.py:154 ../textw/userauth_text.py:63
+#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578 ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104 ../text.py:374 ../text.py:377 ../text.py:763 ../text.py:764 ../text.py:877 ../text.py:879 ../textw/lilo_text.py:139 ../textw/silo_text.py:136 ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "取り消し"
 
@@ -604,7 +604,7 @@ msgstr "設定完了"
 msgid "SILO Configuration"
 msgstr "SILO の設定"
 
-#: ../text.py:989 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90 ../textw/lilo_text.py:217
+#: ../text.py:989 ../textw/lilo_text.py:36 ../textw/lilo_text.py:105 ../textw/lilo_text.py:232
 msgid "LILO Configuration"
 msgstr "LILO の設定"
 
@@ -976,7 +976,7 @@ msgstr "フルネーム"
 msgid "Add"
 msgstr "追加"
 
-#: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1476 ../libfdisk/newtfsedit.c:1484 ../textw/lilo_text.py:208 ../textw/partitioning_text.py:64 ../textw/silo_text.py:205 ../textw/silo_text.py:227 ../textw/userauth_text.py:199
+#: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1476 ../libfdisk/newtfsedit.c:1484 ../textw/lilo_text.py:223 ../textw/partitioning_text.py:64 ../textw/silo_text.py:205 ../textw/silo_text.py:227 ../textw/userauth_text.py:199
 msgid "Edit"
 msgstr "編集"
 
@@ -1296,11 +1296,11 @@ msgstr "タイプ"
 msgid "Install LILO boot record on:"
 msgstr "LILO ブートレコードをインストールする場所:"
 
-#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87 ../textw/silo_text.py:64
+#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:102 ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
 msgstr "マスタブートレコード (MBR)"
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88 ../textw/silo_text.py:65
+#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:103 ../textw/silo_text.py:65
 msgid "First sector of boot partition"
 msgstr "ブートパーティションの最初のセクタ"
 
@@ -1320,19 +1320,19 @@ msgstr "ブートディスクを作成"
 msgid "Install LILO"
 msgstr "LILO をインストール"
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199 ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:214 ../textw/silo_text.py:196
 msgid "Default"
 msgstr "デフォルト"
 
-#: ../iw/lilo_gui.py:361 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257 ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:118 ../textw/lilo_text.py:199 ../textw/mouse_text.py:25 ../textw/silo_text.py:131 ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:361 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257 ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:133 ../textw/lilo_text.py:214 ../textw/mouse_text.py:25 ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
 msgstr "デバイス"
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199 ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:214 ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "パーティションタイプ"
 
-#: ../iw/lilo_gui.py:361 ../iw/lilo_gui.py:400 ../iw/silo_gui.py:257 ../iw/silo_gui.py:292 ../textw/lilo_text.py:119 ../textw/lilo_text.py:199 ../textw/silo_text.py:132 ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:361 ../iw/lilo_gui.py:400 ../iw/silo_gui.py:257 ../iw/silo_gui.py:292 ../textw/lilo_text.py:134 ../textw/lilo_text.py:214 ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
 msgstr "ブートラベル"
 
@@ -1660,11 +1660,11 @@ msgstr ""
 "\n"
 "先に進みますか?"
 
-#: ../iw/rootpartition_gui.py:508 ../iw/welcome_gui.py:89 ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742 ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680 ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785 ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:854 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220 ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:206
+#: ../iw/rootpartition_gui.py:508 ../iw/welcome_gui.py:89 ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742 ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680 ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785 ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:854 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:38 ../textw/lilo_text.py:62 ../textw/partitioning_text.py:220 ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:206
 msgid "Yes"
 msgstr "はい"
 
-#: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:92 ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742 ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680 ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785 ../loader/devices.c:231 ../loader/net.c:854 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:206 ../textw/upgrade_text.py:212
+#: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:92 ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742 ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680 ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785 ../loader/devices.c:231 ../loader/net.c:854 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41 ../textw/lilo_text.py:62 ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:206 ../textw/upgrade_text.py:212
 msgid "No"
 msgstr "いいえ"
 
@@ -1982,31 +1982,43 @@ msgstr "%s は無効なポートです"
 msgid "A few systems will need to pass special options to the kernel at boot time for the system to function properly. If you need to pass boot options to the kernel, enter them now. If you don't need any or aren't sure, leave this blank."
 msgstr "システムが正しく機能するためには、起動時にカーネルに対して特別なオプションを渡す必要がある場合があります。カーネルにブートオプションを渡す必要がある場合には、ここで入力して下さい。オプションが必要ないか、または不明な場合には、空白にしておいて下さい。"
 
-#: ../textw/lilo_text.py:91 ../textw/silo_text.py:103
+#: ../textw/lilo_text.py:52
+#, fuzzy
+msgid "Skip LILO"
+msgstr "スキップ"
+
+#: ../textw/lilo_text.py:53
+msgid ""
+"You have elected to not install LILO. It is strongly recommended that you do install LILO unless you have an advanced need.  LILO is almost always required in order to reboot your system into Linux directly from the hard drive.\n"
+"\n"
+"Are you sure you want to skip LILO installation?"
+msgstr ""
+
+#: ../textw/lilo_text.py:106 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
 msgstr "ブートローダーのインストール場所を指定して下さい"
 
-#: ../textw/lilo_text.py:123 ../textw/silo_text.py:136 ../textw/silo_text.py:157
+#: ../textw/lilo_text.py:138 ../textw/silo_text.py:136 ../textw/silo_text.py:157
 msgid "Clear"
 msgstr "クリア"
 
-#: ../textw/lilo_text.py:132
+#: ../textw/lilo_text.py:147
 msgid "Edit Boot Label Please"
 msgstr "ブートラベルの編集"
 
-#: ../textw/lilo_text.py:150 ../textw/lilo_text.py:155
+#: ../textw/lilo_text.py:165 ../textw/lilo_text.py:170
 msgid "Invalid Boot Label"
 msgstr "無効なブートラベル"
 
-#: ../textw/lilo_text.py:151
+#: ../textw/lilo_text.py:166
 msgid "Boot label may not be empty."
 msgstr "ブートラベルは空白にはできません"
 
-#: ../textw/lilo_text.py:156
+#: ../textw/lilo_text.py:171
 msgid "Boot label contains illegal characters."
 msgstr "ブートラベルに不適切な文字が含まれています"
 
-#: ../textw/lilo_text.py:212 ../textw/silo_text.py:208
+#: ../textw/lilo_text.py:227 ../textw/silo_text.py:208
 msgid "The boot manager Red Hat uses can boot other operating systems as well. You need to tell me what partitions you would like to be able to boot and what label you want to use for each of them."
 msgstr "Red Hat が使用するブートマネージャは他のオペレーティングシステムの起動に使用することもできます。ブート可能にするパーティションとそのパーティション用に使用するブートラベルを設定して下さい"
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
-"POT-Creation-Date: 2001-03-28 00:50-0500\n"
+"POT-Creation-Date: 2001-03-28 17:32-0500\n"
 "PO-Revision-Date: 2000-08-17 11:34+0200\n"
 "Last-Translator: László Németh <nemeth@qwertynet.hu>\n"
 "Language-Team: Hungarian\n"
@@ -182,8 +182,8 @@ msgstr "Következõ"
 #: ../text.py:419 ../text.py:445 ../text.py:449 ../text.py:458 ../text.py:531
 #: ../text.py:533 ../text.py:543 ../text.py:545 ../textw/bootdisk_text.py:30
 #: ../textw/firewall_text.py:9 ../textw/lilo_text.py:34
-#: ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
-#: ../textw/lilo_text.py:209 ../textw/mouse_text.py:27
+#: ../textw/lilo_text.py:108 ../textw/lilo_text.py:116
+#: ../textw/lilo_text.py:224 ../textw/mouse_text.py:27
 #: ../textw/mouse_text.py:28 ../textw/mouse_text.py:55
 #: ../textw/mouse_text.py:81 ../textw/network_text.py:102
 #: ../textw/network_text.py:161 ../textw/network_text.py:164
@@ -325,8 +325,8 @@ msgstr "A CDROM-ot nem lehet mountolni."
 #: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
 #: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
 #: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
-#: ../textw/lilo_text.py:93 ../textw/lilo_text.py:152
-#: ../textw/lilo_text.py:158 ../textw/mouse_text.py:55
+#: ../textw/lilo_text.py:108 ../textw/lilo_text.py:167
+#: ../textw/lilo_text.py:173 ../textw/mouse_text.py:55
 #: ../textw/network_text.py:102 ../textw/network_text.py:123
 #: ../textw/network_text.py:161 ../textw/packages_text.py:55
 #: ../textw/packages_text.py:89 ../textw/packages_text.py:236
@@ -431,8 +431,8 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659
 #: ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
-#: ../text.py:199 ../text.py:458 ../textw/lilo_text.py:123
-#: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
+#: ../text.py:199 ../text.py:458 ../textw/lilo_text.py:138
+#: ../textw/lilo_text.py:223 ../textw/mouse_text.py:27
 #: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:421
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
 #: ../textw/silo_text.py:205 ../textw/upgrade_text.py:22
@@ -549,7 +549,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
 #: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
 #: ../text.py:374 ../text.py:377 ../text.py:763 ../text.py:764 ../text.py:877
-#: ../text.py:879 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
+#: ../text.py:879 ../textw/lilo_text.py:139 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "Mégsem"
@@ -805,8 +805,8 @@ msgstr "Beállítás kész"
 msgid "SILO Configuration"
 msgstr "SILO beállítás"
 
-#: ../text.py:989 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
-#: ../textw/lilo_text.py:217
+#: ../text.py:989 ../textw/lilo_text.py:36 ../textw/lilo_text.py:105
+#: ../textw/lilo_text.py:232
 msgid "LILO Configuration"
 msgstr "LILO beállítás"
 
@@ -1208,7 +1208,7 @@ msgid "Add"
 msgstr "Hozzáad"
 
 #: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1476
-#: ../libfdisk/newtfsedit.c:1484 ../textw/lilo_text.py:208
+#: ../libfdisk/newtfsedit.c:1484 ../textw/lilo_text.py:223
 #: ../textw/partitioning_text.py:64 ../textw/silo_text.py:205
 #: ../textw/silo_text.py:227 ../textw/userauth_text.py:199
 msgid "Edit"
@@ -1557,12 +1557,12 @@ msgstr "Típus"
 msgid "Install LILO boot record on:"
 msgstr "LILO boot record telepítése:"
 
-#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87
+#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:102
 #: ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88
+#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:103
 #: ../textw/silo_text.py:65
 msgid "First sector of boot partition"
 msgstr "Boot-partíció elsõ szektora"
@@ -1584,25 +1584,25 @@ msgstr "Boot lemez létrehozása"
 msgid "Install LILO"
 msgstr "Telepítés"
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
+#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:214
 #: ../textw/silo_text.py:196
 msgid "Default"
 msgstr "Alapértelmezés"
 
 #: ../iw/lilo_gui.py:361 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
-#: ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:118
-#: ../textw/lilo_text.py:199 ../textw/mouse_text.py:25
+#: ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:133
+#: ../textw/lilo_text.py:214 ../textw/mouse_text.py:25
 #: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
 msgstr "Eszköz"
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
+#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:214
 #: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "Partíció-típus"
 
 #: ../iw/lilo_gui.py:361 ../iw/lilo_gui.py:400 ../iw/silo_gui.py:257
-#: ../iw/silo_gui.py:292 ../textw/lilo_text.py:119 ../textw/lilo_text.py:199
+#: ../iw/silo_gui.py:292 ../textw/lilo_text.py:134 ../textw/lilo_text.py:214
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
 msgstr "Boot címke"
@@ -1965,8 +1965,9 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:854
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
-#: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220
-#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:206
+#: ../textw/bootdisk_text.py:38 ../textw/lilo_text.py:62
+#: ../textw/partitioning_text.py:220 ../textw/partitioning_text.py:403
+#: ../textw/upgrade_text.py:206
 msgid "Yes"
 msgstr "Igen"
 
@@ -1980,8 +1981,8 @@ msgstr "Igen"
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:231 ../loader/net.c:854 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
-#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:206
-#: ../textw/upgrade_text.py:212
+#: ../textw/lilo_text.py:62 ../textw/partitioning_text.py:403
+#: ../textw/upgrade_text.py:206 ../textw/upgrade_text.py:212
 msgid "No"
 msgstr "Nem"
 
@@ -2365,32 +2366,47 @@ msgstr ""
 "kernelnek. Ha szüksége van ilyen opciókra, akkor most adja meg ezeket. Ha "
 "nincs szüksége ezekre, vagy nem biztos benne, hagyja üresen."
 
-#: ../textw/lilo_text.py:91 ../textw/silo_text.py:103
+#: ../textw/lilo_text.py:52
+#, fuzzy
+msgid "Skip LILO"
+msgstr "Kihagy"
+
+#: ../textw/lilo_text.py:53
+msgid ""
+"You have elected to not install LILO. It is strongly recommended that you do "
+"install LILO unless you have an advanced need.  LILO is almost always "
+"required in order to reboot your system into Linux directly from the hard "
+"drive.\n"
+"\n"
+"Are you sure you want to skip LILO installation?"
+msgstr ""
+
+#: ../textw/lilo_text.py:106 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
 msgstr "Hová akarja telepíteni a boot betöltõt?"
 
-#: ../textw/lilo_text.py:123 ../textw/silo_text.py:136
+#: ../textw/lilo_text.py:138 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:157
 msgid "Clear"
 msgstr "Töröl"
 
-#: ../textw/lilo_text.py:132
+#: ../textw/lilo_text.py:147
 msgid "Edit Boot Label Please"
 msgstr "Kérem irja be a boot címkét"
 
-#: ../textw/lilo_text.py:150 ../textw/lilo_text.py:155
+#: ../textw/lilo_text.py:165 ../textw/lilo_text.py:170
 msgid "Invalid Boot Label"
 msgstr "Érvénytelen boot címke"
 
-#: ../textw/lilo_text.py:151
+#: ../textw/lilo_text.py:166
 msgid "Boot label may not be empty."
 msgstr "A boot címke nem lehet üres."
 
-#: ../textw/lilo_text.py:156
+#: ../textw/lilo_text.py:171
 msgid "Boot label contains illegal characters."
 msgstr "A boot címke hibás karaktereket tartalmaz."
 
-#: ../textw/lilo_text.py:212 ../textw/silo_text.py:208
+#: ../textw/lilo_text.py:227 ../textw/silo_text.py:208
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
