@@ -132,6 +132,13 @@ def betterPackageForProvides(h1, h2):
     if len(h2['name']) < len(h1['name']):
         return h2
 
+    # compare versions, newer version is better
+    cmp = rpm.versionCompare(h1.hdr, h2.hdr)
+    if cmp < 0:
+        return h2
+    elif cmp > 0:
+        return h1
+
     # same package names, which is a better arch?
     score1 = rhpl.arch.score(h1['arch'])
     score2 = rhpl.arch.score(h2['arch'])
@@ -369,11 +376,24 @@ class HeaderList:
             arches = (rhpl.arch.getBaseArch(), rhpl.arch.canonArch)
         else:
             arches = (rhpl.arch.canonArch, )
+            
         for basearch in arches:
             for (nevra, arch) in self.pkgnames[item]:
                 score = rhpl.arch.archDifference(basearch, arch)
                 if not score:
                     continue
+                
+                # get the "best" version
+                if bestpkg is not None:
+                    cmp = rpm.versionCompare(self.pkgs[nevra].hdr,
+                                             self.pkgs[bestpkg].hdr)
+                    if cmp < 0:
+                        continue
+                    elif cmp > 0:
+                        bestscore = score
+                        bestpkg = nevra
+                        continue
+                
                 if (bestscore == 0) or (score < bestscore):
                     bestpkg = nevra
                     bestscore = score
