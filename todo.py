@@ -583,8 +583,10 @@ class ToDo:
 	kernelList = []
 	label = "linux"
 
-	if (self.hdList.has_key('kernel-smp') and
-	    	self.hdList['kernel-smp'].selected):
+	smpInstalled = (self.hdList.has_key('kernel-smp') and 
+		self.hdList['kernel-smp'].selected and isys.smpAvailable())
+
+	if (smpInstalled):
 	    kernelList.append((label, self.hdList['kernel-smp'], "smp"))
 	    label = "linux-up"
 
