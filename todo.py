@@ -1735,6 +1735,8 @@ class ToDo:
                     except RuntimeError:
                         pass
 
+		isys.umount(self.instPath + '/proc/bus/usb', removeDir = 0)
+
 	    w.set(4);
 
             if self.upgrade:
