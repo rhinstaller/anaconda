@@ -25,8 +25,14 @@ class NetworkWindow (InstallWindow):
         self.todo.network.primaryNS = self.ns.get_text ()
         self.todo.network.secondaryNS = self.ns2.get_text ()
         self.todo.network.ternaryNS = self.ns3.get_text ()
+
+
         if (self.hostname.get_text () != ""):
-            self.todo.network.hostname = self.hostname.get_text ()
+            fullname = self.hostname.get_text() + "." + self.domainname.get_text()
+            self.todo.network.hostname = fullname
+#            self.todo.network.hostname = self.hostname.get_text ()
+#        print self.todo.network.hostname
+            
         return None
 
     def focusInIP (self, widget, event, (ip, nm)):
@@ -38,7 +44,25 @@ class NetworkWindow (InstallWindow):
     def focusOutIP (self, widget, event, ip):
         if (self.hostname.get_text () == ""
             and self.todo.network.hostname != "localhost.localdomain"):
-            self.hostname.set_text (self.todo.network.hostname)
+
+            hs = self.todo.network.hostname
+            tmp = string.split(hs, ".")
+
+            self.hostname.set_text (tmp[0])
+            count = 0
+            domain = ""
+            for token in tmp:
+                if count == 0:
+                    pass
+                elif count == 1:
+                    domain = domain + token
+                else:
+                    domain = domain + "." + token
+                count = count + 1
+
+            self.domainname.set_text (domain)
+
+#            self.hostname.set_text (self.todo.network.hostname)
 
         if ip.calcNMHandler != None:
             ip.disconnect (ip.calcNMHandler)
@@ -208,14 +232,14 @@ class NetworkWindow (InstallWindow):
         box.pack_start (notebook, FALSE)
         box.pack_start (GtkHSeparator (), FALSE, padding=10)
 
-        options = [_("Hostname"),
+        options = [_("Hostname"),_("Domain"),
                    _("Gateway"), _("Primary DNS"), _("Secondary DNS"), _("Ternary DNS")]
 
         for i in range (len (options)):
             label = GtkLabel ("%s:" % (options[i],))
             label.set_alignment (0.0, 0.0)
             self.ipTable.attach (label, 0, 1, i, i+1, FILL, 0, 10)
-            if i == 0:
+            if i == 0 or i == 1:
                 options[i] = GtkEntry ()
                 options[i].set_usize (7 * 30, -1)
             else:
@@ -225,24 +249,45 @@ class NetworkWindow (InstallWindow):
             align = GtkAlignment (0, 0.5)
             align.add (options[i])
             self.ipTable.attach (align, 1, 2, i, i+1, FILL, 0)
-        self.ipTable.set_row_spacing (0, 5)
+        self.ipTable.set_row_spacing (1, 5)
 
         self.hostname = options[0]
+        self.domainname = options[1]
 
         # bring over the value from the loader
         if (self.todo.network.hostname != "localhost.localdomain"):
-            self.hostname.set_text (self.todo.network.hostname)
+#            self.hostname.set_text (self.todo.network.hostname)
 
-        self.gw = options[1]
+            #--Loader passes in hostname and domain as one line.  To make it more clear to the user,
+            #--we split the hostname off the domain and put them in different GtkEntry boxes
+            hs = self.todo.network.hostname
+            tmp = string.split(hs, ".")
+
+            self.hostname.set_text (tmp[0])
+            count = 0
+            domain = ""
+            for token in tmp:
+                if count == 0:
+                    pass
+                elif count == 1:
+                    domain = domain + token
+                else:
+                    domain = domain + "." + token
+                count = count + 1
+
+            self.domainname.set_text (domain)
+
+        self.gw = options[2]
         self.gw.set_text (self.todo.network.gateway)
 
-        self.ns = options[2]
+        self.ns = options[3]
         self.ns.set_text (self.todo.network.primaryNS)
 
-        self.ns2 = options[3]
+        self.ns2 = options[4]
         self.ns2.set_text (self.todo.network.secondaryNS)
 
-        self.ns3 = options[4]
+        self.ns3 = options[5]
         self.ns3.set_text (self.todo.network.ternaryNS)
         box.pack_start (self.ipTable, FALSE, FALSE, 5)
         return box
+
