@@ -348,12 +348,17 @@ class ExceptionWindow:
 ##         if file:
 ##             hbox.pack_start (GnomePixmap (file), gtk.FALSE)
 
+        if iutil.getArch() == 's390':
+             floppymsg = "and"
+        else:
+             floppymsg = "or save the crash dump to a floppy then"
         info = WrappingLabel(_("An unhandled exception has occurred.  This "
                                "is most likely a bug.  Please copy the "
-                               "full text of this exception or save the crash "
-                               "dump to a floppy then file a detailed bug "
+                               "full text of this exception %s "
+                               "file a detailed bug "
                                "report against anaconda at "
-                               "http://bugzilla.redhat.com/bugzilla/"))
+                               "http://bugzilla.redhat.com/bugzilla/") 
+                               % (floppymsg,))
         info.set_size_request (400, -1)
 
         hbox.pack_start (sw, gtk.TRUE)
