@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2003-02-20 01:15-0500\n"
+"POT-Creation-Date: 2003-02-20 22:29-0500\n"
 "PO-Revision-Date: 2001-08-22 21:06EET\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -32,16 +32,16 @@ msgstr ""
 #: ../loader2/cdinstall.c:257 ../loader2/cdinstall.c:260
 #: ../loader2/cdinstall.c:352 ../loader2/cdinstall.c:357
 #: ../loader2/cdinstall.c:360 ../loader2/cdinstall.c:429
-#: ../loader2/driverdisk.c:203 ../loader2/driverdisk.c:219
-#: ../loader2/driverdisk.c:231 ../loader2/driverdisk.c:384
+#: ../loader2/driverdisk.c:211 ../loader2/driverdisk.c:227
+#: ../loader2/driverdisk.c:239 ../loader2/driverdisk.c:392
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:255 ../loader2/hdinstall.c:422
 #: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:504
 #: ../loader2/hdinstall.c:554 ../loader2/kbd.c:125 ../loader2/kickstart.c:101
 #: ../loader2/kickstart.c:111 ../loader2/kickstart.c:154
 #: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/lang.c:375
-#: ../loader2/loader.c:297 ../loader2/loader.c:309 ../loader2/loader.c:320
-#: ../loader2/loader.c:565 ../loader2/loader.c:687 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:303 ../loader2/loader.c:316 ../loader2/loader.c:327
+#: ../loader2/loader.c:572 ../loader2/loader.c:694 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:160 ../loader2/method.c:368 ../loader2/method.c:453
 #: ../loader2/modules.c:928 ../loader2/net.c:170 ../loader2/net.c:366
@@ -57,7 +57,7 @@ msgstr ""
 msgid "OK"
 msgstr "Гаразд"
 
-#: ../anaconda:477 ../anaconda:695 ../bar.py:23
+#: ../anaconda:477 ../anaconda:695
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
@@ -154,7 +154,7 @@ msgstr ""
 "\n"
 "Натисніть \"Гаразд\" для перевантаження вашої системи."
 
-#: ../autopart.py:1285 ../autopart.py:1325
+#: ../autopart.py:1285 ../autopart.py:1326
 #, fuzzy
 msgid "Automatic Partitioning Errors"
 msgstr "Автоматичний розподіл"
@@ -174,11 +174,11 @@ msgstr ""
 "\n"
 "Натисніть \"Гаразд\" для перевантаження вашої системи."
 
-#: ../autopart.py:1295
+#: ../autopart.py:1296
 msgid "Warnings During Automatic Partitioning"
 msgstr "Попередження під час автоматичного розподілу"
 
-#: ../autopart.py:1296
+#: ../autopart.py:1297
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -189,19 +189,19 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1309
+#: ../autopart.py:1310
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1310 ../iw/partition_gui.py:983
+#: ../autopart.py:1311 ../iw/partition_gui.py:983
 #: ../textw/partition_text.py:213
 msgid "Error Partitioning"
 msgstr "Помилка розподілу"
 
-#: ../autopart.py:1311
+#: ../autopart.py:1312
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -212,7 +212,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1326
+#: ../autopart.py:1327
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -226,7 +226,7 @@ msgid ""
 "Press 'OK' to continue."
 msgstr ""
 
-#: ../autopart.py:1404 ../bootloader.py:123 ../image.py:386
+#: ../autopart.py:1405 ../bootloader.py:123 ../image.py:386
 #: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:303
 #: ../upgrade.py:438 ../upgrade.py:458 ../upgrade.py:500
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
@@ -235,11 +235,11 @@ msgstr ""
 #: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:139
 #: ../textw/bootloader_text.py:454 ../textw/fdasd_text.py:84
 #: ../textw/partition_text.py:217 ../textw/upgrade_text.py:177
-#: ../loader2/loader.c:345
+#: ../loader2/loader.c:352
 msgid "Warning"
 msgstr "Увага"
 
-#: ../autopart.py:1410
+#: ../autopart.py:1411
 #, fuzzy
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
@@ -262,7 +262,7 @@ msgstr ""
 "Незважаючи на те, що вона не є легкою у використанні, існують випадки в яких "
 "краще використовувати fdsik."
 
-#: ../autopart.py:1421
+#: ../autopart.py:1422
 #, fuzzy
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
@@ -271,19 +271,19 @@ msgstr ""
 "Перед автоматичним розподілом за допомогою програми встановлення, ви маєте "
 "виказати як використовувати простір на жорсткому диску."
 
-#: ../autopart.py:1426
+#: ../autopart.py:1427
 msgid "Remove all partitions on this system"
 msgstr "Видалити всі розділи в цій системі"
 
-#: ../autopart.py:1427
+#: ../autopart.py:1428
 msgid "Remove all Linux Partitions on this system"
 msgstr "Видалити розділи Linux в цій системі"
 
-#: ../autopart.py:1428
+#: ../autopart.py:1429
 msgid "Keep all partitions and use existing free space"
 msgstr "Зберегти всі розділи і використовувати вільний простір"
 
-#: ../autopart.py:1430
+#: ../autopart.py:1431
 #, fuzzy, python-format
 msgid ""
 "You have selected to remove all partitions (ALL DATA) on the following "
@@ -295,7 +295,7 @@ msgstr ""
 "Ви вибрали видалення всіх розділів (ВСІ ДАНІ) на таких пристроях:%s\n"
 "Ви впевнені що ви бажаєте це зробити?"
 
-#: ../autopart.py:1434
+#: ../autopart.py:1435
 #, fuzzy, python-format
 msgid ""
 "You have selected to remove all Linux partitions (and ALL DATA on them) on "
@@ -430,18 +430,18 @@ msgstr "Створити системний диск"
 #: ../fsset.py:1117 ../fsset.py:1153 ../fsset.py:1203 ../fsset.py:1246
 #: ../harddrive.py:217 ../image.py:76 ../image.py:113 ../image.py:249
 #: ../packages.py:140 ../packages.py:154 ../packages.py:341 ../packages.py:513
-#: ../packages.py:585 ../partedUtils.py:531 ../partIntfHelpers.py:147
+#: ../packages.py:586 ../partedUtils.py:531 ../partIntfHelpers.py:147
 #: ../partIntfHelpers.py:332 ../upgrade.py:333 ../upgrade.py:358
 #: ../upgrade.py:384 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1068
 #: ../textw/partition_text.py:1079 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:144
-#: ../loader2/cdinstall.c:429 ../loader2/driverdisk.c:231
-#: ../loader2/driverdisk.c:303 ../loader2/hdinstall.c:255
+#: ../loader2/cdinstall.c:429 ../loader2/driverdisk.c:239
+#: ../loader2/driverdisk.c:311 ../loader2/hdinstall.c:255
 #: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:554
-#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/loader.c:320
-#: ../loader2/loader.c:565 ../loader2/mediacheck.c:255
+#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/loader.c:327
+#: ../loader2/loader.c:572 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:160 ../loader2/method.c:368
 #: ../loader2/method.c:453 ../loader2/nfsinstall.c:223
 #: ../loader2/nfsinstall.c:227 ../loader2/telnetd.c:86
@@ -695,9 +695,9 @@ msgstr "Виправити"
 
 #: ../gui.py:237 ../rescue.py:141 ../text.py:322 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:348
-#: ../loader2/driverdisk.c:359 ../loader2/hdinstall.c:368
-#: ../loader2/loader.c:345
+#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:356
+#: ../loader2/driverdisk.c:367 ../loader2/hdinstall.c:368
+#: ../loader2/loader.c:352
 msgid "Yes"
 msgstr "Так"
 
@@ -705,8 +705,8 @@ msgstr "Так"
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
-#: ../loader2/driverdisk.c:348 ../loader2/driverdisk.c:359
-#: ../loader2/loader.c:345
+#: ../loader2/driverdisk.c:356 ../loader2/driverdisk.c:367
+#: ../loader2/loader.c:352
 msgid "No"
 msgstr "Ні"
 
@@ -724,8 +724,8 @@ msgstr "Ігнорувати"
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
 #: ../textw/bootloader_text.py:216 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:204
-#: ../loader2/loader.c:309
+#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:212
+#: ../loader2/loader.c:316
 msgid "Cancel"
 msgstr "Відмінити"
 
@@ -770,7 +770,8 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: ../gui.py:969 ../packages.py:1256 ../iw/congrats_gui.py:29
+#: ../gui.py:969 ../packages.py:518 ../packages.py:1257
+#: ../iw/congrats_gui.py:29
 #, fuzzy
 msgid "_Exit"
 msgstr "Вихід"
@@ -780,21 +781,21 @@ msgstr "Вихід"
 msgid "_Retry"
 msgstr "Повторити"
 
-#: ../gui.py:972 ../packages.py:1259
+#: ../gui.py:972 ../packages.py:1260
 #, fuzzy
 msgid "Rebooting System"
 msgstr "Оновлення Існуючої Системи"
 
-#: ../gui.py:973 ../packages.py:1260
+#: ../gui.py:973 ../packages.py:1261
 msgid "Your system will now be rebooted..."
 msgstr ""
 
-#: ../gui.py:976 ../packages.py:1262
+#: ../gui.py:976 ../packages.py:1263
 #, fuzzy
 msgid "_Reboot"
 msgstr "_Відмінити"
 
-#: ../gui.py:1067 ../packages.py:1262
+#: ../gui.py:1067 ../packages.py:1263
 #, fuzzy
 msgid "_Back"
 msgstr "Назад"
@@ -900,34 +901,34 @@ msgstr "CDROM не може бути змонтовано."
 msgid "Install on System"
 msgstr "Тип встановлення"
 
-#: ../kickstart.py:1168
+#: ../kickstart.py:1170
 #, fuzzy
 msgid "Missing Package"
 msgstr "Встановлення Пакетів"
 
-#: ../kickstart.py:1169
+#: ../kickstart.py:1171
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../kickstart.py:1175 ../kickstart.py:1201
+#: ../kickstart.py:1177 ../kickstart.py:1203
 #, fuzzy
 msgid "_Abort"
 msgstr "_Відмінити"
 
-#: ../kickstart.py:1176 ../kickstart.py:1202 ../iw/partition_gui.py:997
+#: ../kickstart.py:1178 ../kickstart.py:1204 ../iw/partition_gui.py:997
 #, fuzzy
 msgid "_Continue"
 msgstr "Продовжити"
 
-#: ../kickstart.py:1194
+#: ../kickstart.py:1196
 #, fuzzy
 msgid "Missing Group"
 msgstr "Пропущена Інформація"
 
-#: ../kickstart.py:1195
+#: ../kickstart.py:1197
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -995,7 +996,7 @@ msgstr "Перевірка Залежностей"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Перевірка залежностей у пакетах, що вибрані для встановлення..."
 
-#: ../packages.py:293 ../packages.py:708
+#: ../packages.py:293 ../packages.py:709
 msgid "Processing"
 msgstr "Обробка"
 
@@ -1036,7 +1037,7 @@ msgid ""
 "of %s."
 msgstr ""
 
-#: ../packages.py:586 ../upgrade.py:334
+#: ../packages.py:587 ../upgrade.py:334
 #, fuzzy
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
@@ -1045,35 +1046,35 @@ msgstr ""
 "Неможливо відкрити файл %s. Це може бути через відсутній файл, поганий пакет "
 "або поганий носій. Натисніть <Ввід> для повторної спроби."
 
-#: ../packages.py:709
+#: ../packages.py:710
 msgid "Setting up RPM transaction..."
 msgstr "Встановлення транзакції RPM..."
 
-#: ../packages.py:778
+#: ../packages.py:779
 #, fuzzy, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr "Оновлення %s.\n"
 
-#: ../packages.py:780
+#: ../packages.py:781
 #, fuzzy, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr "Встановлення Пакетів"
 
-#: ../packages.py:788 ../packages.py:1094
+#: ../packages.py:789 ../packages.py:1095
 #, fuzzy, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Оновлення %s.\n"
 
-#: ../packages.py:790 ../packages.py:1096
+#: ../packages.py:791 ../packages.py:1097
 #, fuzzy, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Встановлення %s.\n"
 
-#: ../packages.py:806
+#: ../packages.py:807
 #, python-format
 msgid ""
 "\n"
@@ -1084,16 +1085,16 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../packages.py:812
+#: ../packages.py:813
 #, fuzzy
 msgid "Install Starting"
 msgstr "Тип встановлення"
 
-#: ../packages.py:813
+#: ../packages.py:814
 msgid "Starting install process, this may take several minutes..."
 msgstr ""
 
-#: ../packages.py:858
+#: ../packages.py:859
 #, fuzzy
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
@@ -1104,17 +1105,17 @@ msgstr ""
 "Вам потрібно більше місця на цих файлових системах:\n"
 "\n"
 
-#: ../packages.py:862 ../packages.py:883 ../iw/lvm_dialog_gui.py:1064
+#: ../packages.py:863 ../packages.py:884 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:349 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1116 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Точка Монтування"
 
-#: ../packages.py:863
+#: ../packages.py:864
 msgid "Space Needed"
 msgstr "Необхідне Місце"
 
-#: ../packages.py:879
+#: ../packages.py:880
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -1125,34 +1126,34 @@ msgstr ""
 "Вам потрібно більше місця на цих файлових системах:\n"
 "\n"
 
-#: ../packages.py:884
+#: ../packages.py:885
 msgid "Nodes Needed"
 msgstr "Необхідні Вузли"
 
-#: ../packages.py:895
+#: ../packages.py:896
 msgid "Disk Space"
 msgstr "Дисковий Простір"
 
-#: ../packages.py:932
+#: ../packages.py:933
 msgid ""
 "\n"
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
 
-#: ../packages.py:953
+#: ../packages.py:954
 msgid "Post Install"
 msgstr "Повстановлювальні дії"
 
-#: ../packages.py:954
+#: ../packages.py:955
 msgid "Performing post install configuration..."
 msgstr "Здійснення повстанолювальної кофіґурації..."
 
-#: ../packages.py:1242
+#: ../packages.py:1243
 msgid "Warning! This is a beta!"
 msgstr ""
 
-#: ../packages.py:1243
+#: ../packages.py:1244
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1167,7 +1168,7 @@ msgid ""
 "and file a report against 'Red Hat Public Beta'.\n"
 msgstr ""
 
-#: ../packages.py:1256
+#: ../packages.py:1257
 #, fuzzy
 msgid "_Install BETA"
 msgstr "Встановити"
@@ -1792,7 +1793,7 @@ msgstr ""
 "\n"
 
 #: ../rescue.py:189 ../iw/partition_gui.py:562 ../loader2/cdinstall.c:116
-#: ../loader2/cdinstall.c:124 ../loader2/driverdisk.c:304
+#: ../loader2/cdinstall.c:124 ../loader2/driverdisk.c:312
 msgid "Continue"
 msgstr "Продовжити"
 
@@ -2238,31 +2239,6 @@ msgstr "Kerberos 5"
 #: ../iw/auth_gui.py:253
 msgid "SMB"
 msgstr "SMB"
-
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1403
-#: ../textw/partition_text.py:1207
-msgid "Automatic Partitioning"
-msgstr "Автоматичний розподіл"
-
-#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1431
-#, fuzzy, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"Необхідно вибрати як мімімум один диск для встановлення Red Hat Linux на "
-"нього."
-
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1473
-msgid "I want to have automatic partitioning:"
-msgstr "Я хочу мати автоматичний розподіл:"
-
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1504
-#, fuzzy
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Які пристрої ви хочете використати для цього встановлення?"
-
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1528
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr ""
 
 #: ../iw/blpasswidget.py:37
 #, fuzzy
@@ -3891,6 +3867,30 @@ msgstr ""
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr ""
 
+#: ../iw/partition_gui.py:1403 ../textw/partition_text.py:1207
+msgid "Automatic Partitioning"
+msgstr "Автоматичний розподіл"
+
+#: ../iw/partition_gui.py:1431
+#, fuzzy, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr ""
+"Необхідно вибрати як мімімум один диск для встановлення Red Hat Linux на "
+"нього."
+
+#: ../iw/partition_gui.py:1473
+msgid "I want to have automatic partitioning:"
+msgstr "Я хочу мати автоматичний розподіл:"
+
+#: ../iw/partition_gui.py:1504
+#, fuzzy
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Які пристрої ви хочете використати для цього встановлення?"
+
+#: ../iw/partition_gui.py:1528
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr ""
+
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:236
 #: ../textw/partition_text.py:238 ../textw/partition_text.py:240
@@ -4801,11 +4801,11 @@ msgstr ""
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
 #: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:360
-#: ../loader2/driverdisk.c:204 ../loader2/driverdisk.c:219
+#: ../loader2/driverdisk.c:212 ../loader2/driverdisk.c:227
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:368
-#: ../loader2/hdinstall.c:422 ../loader2/kbd.c:125 ../loader2/loader.c:297
-#: ../loader2/loader.c:687 ../loader2/loader.c:715 ../loader2/net.c:170
+#: ../loader2/hdinstall.c:422 ../loader2/kbd.c:125 ../loader2/loader.c:303
+#: ../loader2/loader.c:694 ../loader2/loader.c:723 ../loader2/net.c:170
 #: ../loader2/net.c:366 ../loader2/net.c:788 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:248 ../loader2/urls.c:433
 msgid "Back"
@@ -6131,12 +6131,12 @@ msgstr "Завантаження"
 msgid "Reading driver disk..."
 msgstr "Не можу змонтувати диск з драйвером."
 
-#: ../loader2/driverdisk.c:198
+#: ../loader2/driverdisk.c:206
 #, fuzzy
 msgid "Driver Disk Source"
 msgstr "Диск з Драйвером"
 
-#: ../loader2/driverdisk.c:199
+#: ../loader2/driverdisk.c:207
 #, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
@@ -6144,55 +6144,55 @@ msgid ""
 msgstr ""
 "В цій системі більше одного пристрою мережі. Який Ви хочете встановити?"
 
-#: ../loader2/driverdisk.c:217
+#: ../loader2/driverdisk.c:225
 #, fuzzy, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "Вставте диск драйверів та натисніть \"Гаразд\" для продовження."
 
-#: ../loader2/driverdisk.c:219
+#: ../loader2/driverdisk.c:227
 #, fuzzy
 msgid "Insert Driver Disk"
 msgstr "Диск з Драйвером"
 
-#: ../loader2/driverdisk.c:232
+#: ../loader2/driverdisk.c:240
 msgid "Failed to mount driver disk."
 msgstr "Не можу змонтувати диск з драйвером."
 
-#: ../loader2/driverdisk.c:303
+#: ../loader2/driverdisk.c:311
 msgid "Manually choose"
 msgstr ""
 
-#: ../loader2/driverdisk.c:304
+#: ../loader2/driverdisk.c:312
 msgid "Load another disk"
 msgstr ""
 
-#: ../loader2/driverdisk.c:305
+#: ../loader2/driverdisk.c:313
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 
-#: ../loader2/driverdisk.c:348
+#: ../loader2/driverdisk.c:356
 #, fuzzy
 msgid "Driver disk"
 msgstr "Диск з Драйвером"
 
-#: ../loader2/driverdisk.c:349
+#: ../loader2/driverdisk.c:357
 msgid "Do you have a driver disk?"
 msgstr "Ви маєте диск з драйвером?"
 
-#: ../loader2/driverdisk.c:359
+#: ../loader2/driverdisk.c:367
 #, fuzzy
 msgid "More Driver Disks?"
 msgstr "Диск з Драйвером"
 
-#: ../loader2/driverdisk.c:360
+#: ../loader2/driverdisk.c:368
 #, fuzzy
 msgid "Do you wish to load any more driver disks?"
 msgstr "Ви маєте диск з драйвером?"
 
-#: ../loader2/driverdisk.c:384 ../loader2/hdinstall.c:504
+#: ../loader2/driverdisk.c:392 ../loader2/hdinstall.c:504
 #: ../loader2/kickstart.c:101 ../loader2/kickstart.c:111
 #: ../loader2/kickstart.c:154 ../loader2/modules.c:928 ../loader2/net.c:702
 #: ../loader2/net.c:725 ../loader2/nfsinstall.c:265
@@ -6359,12 +6359,12 @@ msgstr "Жорсткий диск"
 msgid "NFS image"
 msgstr "Образ на NFS"
 
-#: ../loader2/loader.c:292
+#: ../loader2/loader.c:298
 #, fuzzy
 msgid "Update Disk Source"
 msgstr "Диск з оновленням"
 
-#: ../loader2/loader.c:293
+#: ../loader2/loader.c:299
 #, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
@@ -6372,84 +6372,84 @@ msgid ""
 msgstr ""
 "В цій системі більше одного пристрою мережі. Який Ви хочете встановити?"
 
-#: ../loader2/loader.c:307
+#: ../loader2/loader.c:314
 #, fuzzy, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "Вставте ваш диск поновлення та натисніть \"Гаразд\" для продовження."
 
-#: ../loader2/loader.c:309
+#: ../loader2/loader.c:316
 msgid "Updates Disk"
 msgstr "Диск з оновленням"
 
-#: ../loader2/loader.c:321
+#: ../loader2/loader.c:328
 #, fuzzy
 msgid "Failed to mount updates disk"
 msgstr "Не можу змонтувати диск з драйвером."
 
-#: ../loader2/loader.c:324
+#: ../loader2/loader.c:331
 msgid "Updates"
 msgstr "Оновлення"
 
-#: ../loader2/loader.c:324
+#: ../loader2/loader.c:331
 msgid "Reading anaconda updates..."
 msgstr "Зчитування поновленнь anaconda..."
 
-#: ../loader2/loader.c:346
+#: ../loader2/loader.c:353
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
 
-#: ../loader2/loader.c:562
+#: ../loader2/loader.c:569
 #, fuzzy, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "Ви не маєте достатньо пам'яті для встановлення Red Hat Linux на цій машині."
 
-#: ../loader2/loader.c:679
+#: ../loader2/loader.c:686
 msgid "Rescue Method"
 msgstr "Метод спасіння"
 
-#: ../loader2/loader.c:680
+#: ../loader2/loader.c:687
 msgid "Installation Method"
 msgstr "Метод встановлення"
 
-#: ../loader2/loader.c:682
+#: ../loader2/loader.c:689
 msgid "What type of media contains the rescue image?"
 msgstr "Пристрій якого типу містить рятівний образ?"
 
-#: ../loader2/loader.c:684
+#: ../loader2/loader.c:691
 msgid "What type of media contains the packages to be installed?"
 msgstr "Носій якого типу містить пакети для установки?"
 
-#: ../loader2/loader.c:714
+#: ../loader2/loader.c:722
 #, fuzzy
 msgid "No driver found"
 msgstr "Диски Не Знайдено"
 
-#: ../loader2/loader.c:714
+#: ../loader2/loader.c:722
 #, fuzzy
 msgid "Select driver"
 msgstr "Виберіть пристрій на який запустити fdisk"
 
-#: ../loader2/loader.c:715
+#: ../loader2/loader.c:723
 #, fuzzy
 msgid "Use a driver disk"
 msgstr "Ви маєте диск з драйвером?"
 
-#: ../loader2/loader.c:716
+#: ../loader2/loader.c:724
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: ../loader2/loader.c:810
+#: ../loader2/loader.c:818
 #, fuzzy
 msgid "The following devices have been found on your system."
 msgstr "У вашій системі виявлено такі пристрої:"
 
-#: ../loader2/loader.c:812
+#: ../loader2/loader.c:820
 #, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
@@ -6458,19 +6458,19 @@ msgstr ""
 "Не було завантажено жодного спеціального драйвера пристроїв для цієї "
 "системи. Чи бажаєте завантажити драйвери зараз?"
 
-#: ../loader2/loader.c:816
+#: ../loader2/loader.c:824
 msgid "Devices"
 msgstr "Пристрої"
 
-#: ../loader2/loader.c:817
+#: ../loader2/loader.c:825
 msgid "Done"
 msgstr "Готово"
 
-#: ../loader2/loader.c:818
+#: ../loader2/loader.c:826
 msgid "Add Device"
 msgstr "Додати пристрій"
 
-#: ../loader2/loader.c:1196
+#: ../loader2/loader.c:1204
 #, fuzzy, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Зчитування поновлень anaconda - зачекайте, будь ласка...\n"
@@ -7516,10 +7516,6 @@ msgid "Russian"
 msgstr "Російська"
 
 #. generated from lang-table
-msgid "Slovenian"
-msgstr "Словенська"
-
-#. generated from lang-table
 msgid "Spanish"
 msgstr "Іспанська"
 
@@ -7528,8 +7524,11 @@ msgid "Swedish"
 msgstr "Шведська"
 
 #. generated from lang-table
-msgid "Ukrainian"
+msgid "Turkish"
 msgstr ""
+
+#~ msgid "Slovenian"
+#~ msgstr "Словенська"
 
 #~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
 #~ msgstr "Помилка перебудови бази RPM. Мало місця на диску?"
