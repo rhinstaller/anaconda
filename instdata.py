@@ -171,5 +171,8 @@ class InstallData:
 	self.extraModules = extraModules
 	self.floppyDevice = floppyDevice
 	self.fsset = fsset.FileSystemSet()
+
+        # FIXME: this is a major hack to get the comps package installed
+        self.compspkg = None
         
 	self.reset()
