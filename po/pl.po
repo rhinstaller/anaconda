@@ -1354,7 +1354,6 @@ msgstr ""
 "Naciśnij <Enter> aby spróbować ponownie."
 
 #: ../packages.py:441
-#, fuzzy
 msgid "Re_boot"
 msgstr "Re_start"
 
@@ -2895,7 +2894,6 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Zaawansowana konfiguracja programu startowego"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
@@ -2938,7 +2936,6 @@ msgid "Change Boot Loader"
 msgstr "Zmień program startowy"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -3936,7 +3933,6 @@ msgid "Encryption _Key"
 msgstr "_Klucz szyfrujący"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Hardware address:"
 msgstr "Adres sprzętu:"
 
@@ -7185,7 +7181,7 @@ msgid "Welcome to %s"
 msgstr "Witamy w %s"
 
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
 msgstr "Witamy w %s - tryb ratunkowy"
 
