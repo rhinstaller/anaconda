@@ -53,6 +53,12 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath, bootloader):
     if flags.test:
 	return DISPATCH_NOOP
 
+    intf.messageWindow( _("Insert a floppy disk"),
+			_("Please remove any diskettes from the floppy "
+			  "drive, and insert the floppy diskette that "
+			  "is to contain the boot disk.\n\nAll data will "
+			  "be ERASED during creation of the boot disk."))
+
     # this is faster then waiting on mkbootdisk to fail
     device = floppyDevice
     file = "/tmp/floppy"
@@ -62,7 +68,7 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath, bootloader):
     except:
         intf.messageWindow( _("Error"),
 		    _("An error occured while making the boot disk. "
-		      "Please make sure that there is a formatted floppy "
+		      "Please make sure that there is a floppy "
 		      "in the first floppy drive."))
 	return DISPATCH_BACK
     os.close(fd)
@@ -91,7 +97,7 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath, bootloader):
     if rc:
         intf.messageWindow( _("Error"),
 		    _("An error occured while making the boot disk. "
-		      "Please make sure that there is a formatted floppy "
+		      "Please make sure that there is a floppy "
 		      "in the first floppy drive."))
 	return DISPATCH_BACK
     return DISPATCH_FORWARD
