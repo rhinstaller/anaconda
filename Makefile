@@ -13,7 +13,6 @@ endif
 
 ifeq (i386, $(ARCH))
 SUBDIRS := ddcprobe edd $(SUBDIRS)
-#SUBDIRS += ddcprobe edd
 endif
 
 
