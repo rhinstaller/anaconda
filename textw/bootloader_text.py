@@ -317,7 +317,7 @@ class bootloaderPassword:
     
     def __call__(self, screen, dispatch, bl, fsset, diskSet):    
         if not bl.useGrub():
-            return
+            return INSTALL_NOOP
 
         self.bl = bl
 
