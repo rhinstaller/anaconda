@@ -125,7 +125,7 @@ class InstallProgressWindow (InstallWindow):
         if len (size) > 3:
             size = size [0:len(size) - 3] + ',' + size[len(size) - 3:]
         self.curPackage["size"].set_text (_("%s KBytes") % size)
-        summary = header[rpm.RPMTAG_SUMMARY]
+        summary = utf8(header[rpm.RPMTAG_SUMMARY])
 	if (summary == None):
             summary = "(none)"
         self.curPackage["summary"].set_text (summary)

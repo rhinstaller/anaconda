@@ -19,6 +19,10 @@ os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 
 import gtk
 from flags import flags
+from translate import cat
+
+# for GTK+ 2.0
+cat.setunicode(1)
 
 splashwindow = None
 

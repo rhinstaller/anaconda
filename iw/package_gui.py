@@ -26,7 +26,7 @@ from iw_gui import *
 from string import *
 from thread import *
 from examine_gui import *
-from translate import _, N_
+from translate import _, N_, utf8
 
 
 def queryUpgradeContinue(intf):
@@ -183,6 +183,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         desc = replace (header[rpm.RPMTAG_DESCRIPTION], "\n\n", "\x00")
         desc = replace (desc, "\n", " ")
         desc = replace (desc, "\x00", "\n\n")
+        desc = utf8(desc)
         return desc
 
     def make_group_list(self, hdList, comps, displayBase = 0):
@@ -197,7 +198,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         for key in hdList.packages.keys():
             header = hdList.packages[key]
 
-            group = header[rpm.RPMTAG_GROUP]
+            group = utf8(header[rpm.RPMTAG_GROUP])
             toplevel = string.split(group, '/')[0]
 
             # make sure the dictionary item exists for group and toplevel
