@@ -7,6 +7,7 @@ from xpms_gui import CHECKBOX_ON_XPM
 from xpms_gui import CHECKBOX_OFF_XPM
 import GdkImlib
 import iutil
+from package_gui import queryUpgradeContinue
 import gui
 
 if iutil.getArch() == 'i386':
@@ -45,18 +46,12 @@ class LiloWindow (InstallWindow):
         # we can't allow them to go back in install, since we've
         # started swap and mounted the systems filesystems
         # if we've already started an upgrade, cannot back out
-        if self.todo.upgrade:
-            threads_leave()
-            rc = self.todo.intf.messageWindow(_("Proceed with upgrade?"),
-              _("The filesystems of the Linux installation "
-                "you have chosen to upgrade have already been "
-                "mounted. You cannot go back past this point. "
-                "\n\n") + 
-              _( "Would you like to continue with the upgrade?"),
-                type = "yesno").getrc()
-
-            threads_enter()
-
+        #
+        # if we are skipping indivual package selection, must stop it here
+        # very messy.
+        #
+        if self.todo.upgrade and self.todo.instClass.skipStep("indivpackage"):
+            rc = queryUpgradeContinue(self.todo.intf)
             if not rc:
                 raise gui.StayOnScreen
             else:

@@ -123,7 +123,7 @@ class BaseInstallClass:
 	  "accounts", "dependencies", "language", "keyboard", "xconfig",
 	  "welcome", "custom-upgrade", "installtype", "mouse", 
 	  "confirm-install", "confirm-upgrade", "languagesupport",
-          "languagedefault", "lba32warning" ].index(type)
+          "languagedefault", "lba32warning", "indivpackage" ].index(type)
 	self.skipSteps[type] = 1
 
     def setHostname(self, hostname):

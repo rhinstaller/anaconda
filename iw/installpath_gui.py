@@ -76,6 +76,7 @@ class InstallPathWindow (InstallWindow):
 	self.upgradeSteps = [
 		     ( UpgradeExamineWindow, "custom-upgrade"),
                      ( UpgradeSwapWindow, "System Swap Space"),
+                     ( IndividualPackageSelectionWindow, "indivpackage"),
 		     ( BootloaderWindow, BootloaderSkipname ),
 		     UnresolvedDependenciesWindow,
                      ( ConfirmWindow, "confirm" ),
@@ -115,6 +116,7 @@ class InstallPathWindow (InstallWindow):
 	    self.todo.upgrade = 1
             icw.setStateList (self.commonSteps + 
                               self.upgradeSteps, len (self.commonSteps)-1)
+            self.todo.instClass.addToSkipList("indivpackage")
 	else:
             icw.setStateList (self.commonSteps + 
                               self.installSteps, len (self.commonSteps)-1)

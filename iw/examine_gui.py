@@ -19,10 +19,19 @@ class UpgradeExamineWindow (InstallWindow):
         self.todo.upgradeMountFilesystems (self.root)
         threads_enter ()
 
+# do this via skiplist, made individialpackageselectionwindow a member
+# of upgrade steps.
+#
+#        if self.individualPackages.get_active ():
+#            # XXX fix me
+#            from package_gui import IndividualPackageSelectionWindow
+#            return IndividualPackageSelectionWindow
+
         if self.individualPackages.get_active ():
-            # XXX fix me
-            from package_gui import IndividualPackageSelectionWindow
-            return IndividualPackageSelectionWindow
+            self.todo.instClass.removeFromSkipList("indivpackage")
+        else:
+            self.todo.instClass.addToSkipList("indivpackage")
+
         return None
 
     #UpgradeExamineWindow tag = "upgrade"
@@ -69,9 +78,16 @@ class UpgradeExamineWindow (InstallWindow):
             # if there is only one partition, go on.
             self.ics.setNextEnabled (TRUE)
             self.root = self.parts[0]
+	    label = GtkLabel (_("Upgrading the Red Hat Linux installation on partition /dev/") + self.root[0] + "\n\n")
+	    label.set_alignment(0.0, 0.5)
+	    vbox.pack_start(label, FALSE)
             
         self.individualPackages = GtkCheckButton (_("Customize packages to be upgraded"))
-        self.individualPackages.set_active (FALSE)
+        if self.todo.instClass.skipStep("indivpackage"):
+            self.individualPackages.set_active (FALSE)
+        else:
+            self.individualPackages.set_active (TRUE)
+            
         align = GtkAlignment (0.0, 0.5)
         align.add (self.individualPackages)
 

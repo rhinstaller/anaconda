@@ -5,6 +5,7 @@ from string import *
 from thread import *
 from examine_gui import *
 import rpm
+import gui
 import GdkImlib
 import GtkExtra
 import string
@@ -15,6 +16,18 @@ import checklist
 import time
 from threading import *
 import os
+
+def queryUpgradeContinue(intf):
+    threads_leave()
+    rc = intf.messageWindow(_("Proceed with upgrade?"),
+                       _("The filesystems of the Linux installation "
+                         "you have chosen to upgrade have already been "
+                         "mounted. You cannot go back past this point. "
+                         "\n\n") + 
+                     _( "Would you like to continue with the upgrade?"),
+                                      type = "yesno").getrc()
+    threads_enter()
+    return rc
 
 class IndividualPackageSelectionWindow (InstallWindow):
 
@@ -40,7 +53,14 @@ class IndividualPackageSelectionWindow (InstallWindow):
             if isinstance (x, PackageSelectionWindow):
                 return PackageSelectionWindow
             elif isinstance (x, UpgradeExamineWindow):
-                return UpgradeExamineWindow
+                rc = queryUpgradeContinue(self.todo.intf)
+                if not rc:
+                    raise gui.StayOnScreen
+                else:
+                    import sys
+                    print _("Aborting upgrade")
+                    sys.exit(0)
+
         return None
     
 

@@ -7,6 +7,7 @@ import iutil
 from log import log
 import upgrade
 from gnome.ui import *
+from package_gui import queryUpgradeContinue
 import gui
 
 class UpgradeSwapWindow (InstallWindow):		
@@ -24,15 +25,7 @@ class UpgradeSwapWindow (InstallWindow):
         # we can't allow them to go back in install, since we've
         # started swap and mounted the systems filesystems
         # if we've already started an upgrade, cannot back out
-        threads_leave()
-        rc = self.todo.intf.messageWindow(_("Proceed with upgrade?"),
-                            _("The filesystems of the Linux installation "
-                              "you have chosen to upgrade have already been "
-                              "mounted. You cannot go back past this point. "
-                              "\n\n") + 
-                           _( "Would you like to continue with the upgrade?"),
-                           type = "yesno").getrc()
-        threads_enter()
+        rc = queryUpgradeContinue(self.todo.intf)
 
         if not rc:
             raise gui.StayOnScreen
@@ -98,7 +91,7 @@ class UpgradeSwapWindow (InstallWindow):
             threads_leave()
 	    self.todo.upgradeFindPackages ()
             threads_enter()
-	    return None
+            return None
 
         self.neededSwap = 1
         self.row = 0
@@ -188,7 +181,7 @@ class UpgradeSwapWindow (InstallWindow):
     def swapWrongSize(self):
         
         rc = self.todo.intf.messageWindow(_("Warning"), 
-                    _("The swap file must be between 0 and 2000 MB in size."),
+                    _("The swap file must be between 1 and 2000 MB in size."),
                        type = "okcancel").getrc()
         return rc
 

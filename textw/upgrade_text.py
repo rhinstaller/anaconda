@@ -98,7 +98,7 @@ class UpgradeSwapWindow:
 			  "selected for the swap partition."))
                 elif val > 2000 or val < 1:
                     todo.intf.messageWindow(_("Warning"), 
-                    _("The swap file must be between 0 and 2000 MB in size."))
+                    _("The swap file must be between 1 and 2000 MB in size."))
 		else:
 		    screen.popWindow()
                     if todo.setupFilesystems:
