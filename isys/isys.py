@@ -251,3 +251,10 @@ def ext2IsDirty(device):
     label = _isys.e2dirty("/tmp/disk");
     os.unlink("/tmp/disk")
     return label
+
+def driveIsRemovable(device):
+    # assume ide if starts with 'hd'
+    if device[:1] == "hd":
+        return _isys.isIdeRemovable("/dev/"+device)
+    else:
+        return _isys.isScsiRemovable("/dev/"+device)

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <dirent.h>
 #include <errno.h>
 #include <linux/ext2_fs.h>
 #include <ext2fs/ext2fs.h>
@@ -75,6 +76,7 @@ static PyObject * doLoadKeymap(PyObject * s, PyObject * args);
 static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args);
 static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
 static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args);
+static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "e2dirty", (PyCFunction) doExt2Dirty, METH_VARARGS, NULL },
@@ -116,6 +118,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "loadFont", (PyCFunction) doLoadFont, METH_VARARGS, NULL },
     { "loadKeymap", (PyCFunction) doLoadKeymap, METH_VARARGS, NULL },
     { "isScsiRemovable", (PyCFunction) doIsScsiRemovable, METH_VARARGS, NULL},
+    { "isIdeRemovable", (PyCFunction) doIsIdeRemovable, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1220,6 +1223,47 @@ static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args) {
 	    rc = 0;
     } else {
 /*	printf ("ioctl resulted in error %d\n", rc); */
+	rc = -1;
+    }
+
+    return Py_BuildValue("i", rc); 
+}
+
+
+
+static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args) {
+    char *path;
+    char str[100];
+    char *devpath[250];
+    char *t;
+    int fd;
+    int rc, i;
+    DIR * dir;
+    
+    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
+
+    if (access("/proc/ide", R_OK))
+	return Py_BuildValue("i", -1); 
+
+    if (!(dir = opendir("/proc/ide")))
+	return Py_BuildValue("i", -1); 
+
+    t = strrchr(path, '/');
+    if (!t)
+	return Py_BuildValue("i", -1); 
+
+    /* set errno to 0, so we can tell when readdir() fails */
+    snprintf(devpath, sizeof(devpath), "/proc/ide/%s/media", t+1);
+    if ((fd = open(devpath, O_RDONLY)) >= 0) {
+	i = read(fd, str, sizeof(str));
+	close(fd);
+	str[i - 1] = '\0';		/* chop off trailing \n */
+
+	if (!strcmp(str, "floppy"))
+	    rc = 1;
+	else
+	    rc = 0;
+    } else {
 	rc = -1;
     }
 

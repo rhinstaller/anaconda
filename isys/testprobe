@@ -20,6 +20,10 @@ for i in p:
 
 print "Removable test"
 for (dclass, path, comment) in p:
-    print path,_isys.isScsiRemovable("/dev/"+path)
+#    print "IDE  Test-> ",path,_isys.isIdeRemovable("/dev/"+path)
+#    print "SCSI Test-> ",path,_isys.isScsiRemovable("/dev/"+path)
+     import isys
+     
+     print path, isys.driveIsRemovable(path)
     
 
