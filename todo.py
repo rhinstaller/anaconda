@@ -489,6 +489,7 @@ class ToDo:
         self.rootpassword = Password ()
         self.extraModules = extraModules
         self.pcicController = pcicController
+        self.verifiedState = None
 
         if mouse:
             self.mouse = mouse
@@ -502,7 +503,7 @@ class ToDo:
         self.bootdisk = 1
         self.bdstate = ""
 
-        log.open (serial, reconfigOnly, test)
+        log.open (serial, reconfigOnly, test, setupFilesystems)
 
         self.fstab = None
 
@@ -719,7 +720,7 @@ class ToDo:
 	return self.hdList
 
     def getCompsList(self):
-	if (not self.comps):
+	if not self.comps:
 	    self.getHeaderList()
 	    self.comps = self.method.readComps(self.hdList)
             self.updateInstClassComps ()
@@ -731,7 +732,7 @@ class ToDo:
 
     def updateInstClassComps(self):
 	# don't load it just for this
-	if (not self.comps): return
+	if not self.comps: return
 
 	group = self.instClass.getGroups()
         optional = self.instClass.getOptionalGroups()
@@ -972,6 +973,12 @@ class ToDo:
             out.write (inf.read ())
 
     def verifyDeps (self):
+        # if we still have the same packages selected, bail - we don't need to
+        # do this again.
+        if self.verifiedState == self.comps.getSelectionState()[1]:
+            return
+        self.verifiedState = self.comps.getSelectionState()[1]
+        
 	win = self.intf.waitWindow(_("Dependency Check"),
 	  _("Checking dependencies in packages selected for installation..."))
 	self.getCompsList()
@@ -982,8 +989,6 @@ class ToDo:
         else:
             ts = rpm.TransactionSet()
             
-        self.comps['Base'].select ()
-
 	for p in self.hdList.packages.values ():
             if p.selected:
                 ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]))
@@ -1024,8 +1029,8 @@ class ToDo:
 
 		    if conflicts:
 			log ("%s-%s-%s conflicts with to-be-installed "
-                             "package %s, removing from set",
-                             name, version, release, reqname)
+                             "package %s-%s, removing from set",
+                             name, version, release, reqname, reqversion)
 			if self.hdList.packages.has_key (reqname):
 			    self.hdList.packages[reqname].selected = 0
 			    log ("... removed")
@@ -1148,6 +1153,9 @@ class ToDo:
 		self.fstab.umountFilesystems (self.instPath)
 	    sys.exit(0)
                 
+        # Turn off all comps
+        for comp in self.comps:
+            comp.unselect()
 
         # unselect all packages
         for package in self.hdList.packages.values ():
@@ -1269,11 +1277,27 @@ class ToDo:
 
 	if todo.instClass.language:
 	    langName = todo.language.getLangNameByNick(todo.instClass.language)
-	    todo.language.setSupported([langName])
-	    todo.language.setDefault(langName)
+            if todo.instClass.langsupported != None:
+                todo.language.setSupported([langName])
+            if not todo.instClass.langdefault:
+                todo.language.setDefault(langName)
 	    instLangName = todo.instTimeLanguage.getLangNameByNick(todo.instClass.language)
 	    todo.instTimeLanguage.setRuntimeLanguage(instLangName)
 
+	if todo.instClass.langsupported != None:
+            if len (todo.instClass.langsupported) == 0:
+                all = todo.language.getAllSupported()
+                todo.language.setSupported(all)
+            else:
+                newlist = []
+                for lang in todo.instClass.langsupported:
+                    newlist.append(todo.language.getLangNameByNick(lang))
+                todo.language.setSupported(newlist)
+
+        if todo.instClass.langdefault:
+            todo.language.setDefault(todo.language.getLangNameByNick(
+                todo.instClass.langdefault))
+            
 	if todo.instClass.keyboard:
 	    todo.keyboard.set(todo.instClass.keyboard)
             if todo.instClass.keyboard != "us":
@@ -2026,6 +2050,3 @@ class ToDo:
 
         finally:
             w.pop ()
-
-
-

@@ -331,8 +331,17 @@ class KickstartBase(BaseInstallClass):
     def doLang(self, args):
         self.setLanguage(args[0])
         self.addToSkipList("language")
+        # XXX remove these two when langsupport is documented
         self.addToSkipList("languagesupport")
         self.addToSkipList("languagedefault")
+
+    def doLangSupport (self, args):
+        (args, extra) = isys.getopt(args, '', [ 'default=' ])
+        if args:
+            self.addToSkipList("languagedefault")
+            self.setLanguageDefault (args[0][1])
+        self.addToSkipList("languagesupport")
+        self.setLanguageSupport(extra)
 
     def doKeyboard(self, args):
         self.setKeyboard(args[0])
@@ -415,6 +424,7 @@ class KickstartBase(BaseInstallClass):
 		     "install"		: self.doInstall	,
 		     "keyboard"		: self.doKeyboard	,
 		     "lang"		: self.doLang		,
+                     "langsupport"	: self.doLangSupport	,
 		     "lilo"		: self.doLilo		,
 		     "lilocheck"	: self.doLiloCheck	,
 		     "mouse"		: self.doMouse		,

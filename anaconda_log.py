@@ -1,3 +1,5 @@
+import sys, os
+
 class LogFile:
     def __init__ (self):
         self.logFile = None
@@ -5,8 +7,10 @@ class LogFile:
     def close (self):
         self.logFile.close ()
     
-    def open (self, serial, reconfigOnly, test):
-        if serial:
+    def open (self, serial, reconfigOnly, test, setupFilesystems):
+        if not setupFilesystems:
+            self.logFile = sys.stderr
+        elif serial:
 	    self.logFile = open("/tmp/install.log", "w")
 	elif reconfigOnly:
 	    self.logFile = open("/tmp/reconfig.log", "w")

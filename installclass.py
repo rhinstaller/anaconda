@@ -243,6 +243,12 @@ class BaseInstallClass:
     def setLanguage(self, lang):
 	self.language = lang
 
+    def setLanguageSupport(self, langlist):
+        self.langsupported = langlist
+
+    def setLanguageDefault(self, default):
+        self.langdefault = default
+
     def setKeyboard(self, kb):
 	self.keyboard = kb
 
@@ -278,6 +284,8 @@ class BaseInstallClass:
 	self.clearPartText = None
 	self.zeroMbr = 0
 	self.language = None
+        self.langsupported = None
+        self.langdefault = None
 	self.keyboard = None
 	self.mouse = None
 	self.x = None
