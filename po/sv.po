@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-03-17 13:31-0500\n"
-"PO-Revision-Date: 2001-03-17 01:07+0100\n"
+"PO-Revision-Date: 2001-03-17 15:49+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -944,16 +944,15 @@ msgid "no suggestion"
 msgstr "inget förslag"
 
 #: ../todo.py:1155 ../upgrade.py:99
-#, fuzzy
 msgid "Dirty Filesystems"
-msgstr "Storlek på rotfilsystem"
+msgstr "Nedsmutsade filsystem"
 
 #: ../todo.py:1156
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Ett eller flera av filsystemen som finns med i /etc/fstab på ditt "
+"Ett eller flera av de filsystem som finns med i /etc/fstab på ditt "
 "Linuxsystem kan inte monteras. Var vänlig och åtgärda detta problem och "
 "prova sedan att uppgradera igen."
 
@@ -1418,9 +1417,8 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Välj enheten som innehåller rotfilsystemet: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:187
-#, fuzzy
 msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-msgstr "Söker efter Red Hat Linux-installationer..."
+msgstr "Uppgraderar Red Hat Linux-installationen på partitionen /dev/"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -1918,7 +1916,7 @@ msgid "Disk Partitioning"
 msgstr "Diskpartitionering"
 
 #: ../iw/rootpartition_gui.py:378
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please select the type of disk partitioning you would like to use.\n"
 "\n"
@@ -1928,7 +1926,7 @@ msgid ""
 msgstr ""
 "Var vänlig och välj den typ av diskpartitionering som du vill använda.\n"
 "\n"
-"Automatisk partitionering kommer att ta bort %s\n"
+"%s\n"
 "\n"
 "Genom att välja manuell partitionering kan du skapa partitionerna för hand."
 
@@ -2139,9 +2137,8 @@ msgstr ""
 "vill fortsätta?"
 
 #: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:101
-#, fuzzy
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Växlingsfilen måste vara mellan 0 och 2000 MB stor."
+msgstr "Växlingsfilen måste vara mellan 1 och 2000 MB stor."
 
 #: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:97
 msgid ""
@@ -2593,7 +2590,7 @@ msgid "Done"
 msgstr "Färdig"
 
 #: ../textw/partitioning_text.py:150
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "\n"
@@ -2601,7 +2598,7 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
-"Automatisk partitionering kommer att ta bort %s\n"
+"%s\n"
 "\n"
 "Om du inte vill göra detta kan du fortsätta installationen genom att "
 "partitionera manuellt, eller gå tillbaka och utföra en helt anpassad "
@@ -2889,11 +2886,12 @@ msgid "Custom System"
 msgstr "Anpassat system"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase any preexisting Linux installations on "
 "your system."
-msgstr "alla tidigare Linuxinstallationer på ditt system."
+msgstr ""
+"Automatisk partitionering kommer att ta bort alla tidigare "
+"Linuxinstallationer på ditt system."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -2904,11 +2902,12 @@ msgid "Server System"
 msgstr "Serversystem"
 
 #: ../installclasses/server.py:38
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase ALL DATA on your hard drive to make room "
 "for your Linux installation."
-msgstr "ALL DATA på din hårddisk för att göra plats åt din Linuxinstallation."
+msgstr ""
+"Automatisk partitionering kommer att ta bort ALL DATA på din hårddisk för "
+"att göra plats åt din Linuxinstallation."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
@@ -5138,9 +5137,8 @@ msgid "French"
 msgstr "Franska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "German"
-msgstr "Serbiska"
+msgstr "Tyska"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -5201,13 +5199,3 @@ msgstr "Turkiska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainska"
-
-#~ msgid ""
-#~ "German          de      lat0-16         iso09           de_DE           "
-#~ "de-latin1-nodeadkeys    Europe/Berlin"
-#~ msgstr ""
-#~ "Tyska           de      lat0-16         iso09           de_DE           "
-#~ "de-latin1-nodeadkeys    Europa/Berlin"
-
-#~ msgid "Going to upgrade partition /dev/"
-#~ msgstr "Kommer att uppgradera partitionen /dev/"
