@@ -318,6 +318,8 @@ class InstallPathWindow:
 
 	if (choice == upgradeChoice):
             intf.steps = intf.commonSteps + intf.upgradeSteps
+	    if not todo.upgrade:
+		needNewDruid = 1
             todo.upgrade = 1
         else:
             intf.steps = intf.commonSteps + intf.installSteps
