@@ -137,8 +137,6 @@ class InstallControlWindow (Thread):
             self.stateListIndex = self.stateListIndex + 1
             if self.stateListIndex < len (self.stateList):
                 self.currentScreen = self.stateList[self.stateListIndex]
-                if self.stateListIndex == len (self.stateList) - 2:
-                    print "show finish button here"
             else:
                 self.ii.finishedTODO.set ()
                 sys.exit (0)
@@ -198,7 +196,7 @@ class InstallControlWindow (Thread):
             elif button["pixmap"] == STOCK_BUTTON_NEXT and not button["label"]:
                 buttons[name] = self.nextButtonStock
             else:
-                buttons[name] = GnomePixmapButton (GnomeStock (button["pixmap"], button["label"]))
+                buttons[name] = GnomePixmapButton (GnomeStock (button["pixmap"]), button["label"])
                 if   name == "prev": buttons[name].connect ("clicked", self.prevClicked)
                 elif name == "next": buttons[name].connect ("clicked", self.nextClicked)
                 buttons[name].show ()
@@ -233,7 +231,7 @@ class InstallControlWindow (Thread):
 
         self.buttonBox = GtkHButtonBox ()
         self.buttonBox.set_layout (BUTTONBOX_END)
-        self.prevButtonStock = GnomeStockButton (STOCK_BUTTON_PREV)
+        self.prevButtonStock = GnomePixmapButton (GnomeStock (STOCK_BUTTON_PREV), "Back")
         self.nextButtonStock = GnomeStockButton (STOCK_BUTTON_NEXT)
         
         self.finishButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_APPLY), "Finish")

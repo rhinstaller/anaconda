@@ -1,4 +1,5 @@
 from gtk import *
+from gnome.ui import *
 from iw import *
 
 class CongratulationWindow (InstallWindow):		
@@ -8,6 +9,7 @@ class CongratulationWindow (InstallWindow):
 
         ics.setTitle ("Congratulations")
         ics.setPrevEnabled (0)
+        ics.setNextButton (STOCK_BUTTON_EXIT, "Exit")
         ics.setNextEnabled (1)
 
     def getScreen (self):
