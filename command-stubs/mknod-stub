@@ -1,0 +1,50 @@
+#!/usr/bin/python
+
+import sys
+import isys
+import string
+import stat
+
+def usage():
+    sys.stderr.write("Usage: %s <path> [b|c] <major> <minor> or\n" %(sys.argv[0],))
+    sys.stderr.write("Usage: %s <path>\n" %(sys.argv[0],))
+    sys.exit(1)
+
+def main():
+    if len(sys.argv) < 2:
+        usage()
+
+    if (sys.argv[1] == '-h') or (sys.argv[1] == '--help'):
+        usage()
+
+    path = sys.argv[1]
+    if (len(sys.argv) == 2):
+        drive = path
+        # strip off any path elements up until what's useful for making the
+        # inode
+        while (drive.find('/') != -1):
+            if (drive.startswith("cciss") or drive.startswith("ida") or
+                drive.startswith("rd") or drive.startswith("ataraid")):
+                break
+            drive = drive[drive.find('/') + 1:]
+        isys.makeDevInode(drive, path)
+        sys.exit(0)
+
+    if len(sys.argv) < 5:
+        usage()
+
+    if (sys.argv[2] == 'b'):
+        type = stat.S_IFBLK
+    elif (sys.argv[2] == 'c'):
+        type = stat.S_IFCHR
+    else:
+        usage()
+
+    major = int(sys.argv[3])
+    minor = int(sys.argv[4])
+    path = sys.argv[1]
+    
+    isys.mknod(path, 0644 | type, isys.makedev(major, minor))
+
+if __name__ == "__main__":
+    main()

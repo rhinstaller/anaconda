@@ -1,7 +1,7 @@
 include ../Makefile.inc
 
 STUBS = raidstart-stub raidstop-stub kudzu-probe-stub list-harddrives-stub \
-	loadkeys-stub losetup-stub pump-stub
+	loadkeys-stub losetup-stub pump-stub mknod-stub
 
 all:
 	@echo "Nothing to do"
