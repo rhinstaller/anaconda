@@ -31,11 +31,11 @@ class EliloConfiguration:
         # on upgrade read in the elilo config file
 	elilo = LiloConfigFile ()
 	perms = 0644
-        if os.access (instRoot + '/boot/efi/redhat/elilo.conf', os.R_OK):
-	    perms = os.stat(instRoot + '/boot/efi/redhat/elilo.conf')[0] & 0777
-	    #elilo.read (instRoot + '/boot/efi/redhat/elilo.conf')
-	    os.rename(instRoot + '/boot/efi/redhat/elilo.conf',
-		      instRoot + '/boot/efi/redhat/elilo.conf.rpmsave')
+        if os.access (instRoot + '/boot/efi/EFI/redhat/elilo.conf', os.R_OK):
+	    perms = os.stat(instRoot + '/boot/efi/EFI/redhat/elilo.conf')[0] & 0777
+	    #elilo.read (instRoot + '/boot/efi/EFI/redhat/elilo.conf')
+	    os.rename(instRoot + '/boot/efi/EFI/redhat/elilo.conf',
+		      instRoot + '/boot/efi/EFI/redhat/elilo.conf.rpmsave')
 
 	# Remove any invalid entries that are in the file; we probably
 	# just removed those kernels. 
@@ -95,7 +95,7 @@ class EliloConfiguration:
 	    initrd = self.makeInitrd (kernelTag, instRoot)
 
 	    sl.addEntry("label", label)
-	    if os.access (instRoot + "/boot/efi/redhat/" + initrd, os.R_OK):
+	    if os.access (instRoot + "/boot/efi/EFI/redhat/" + initrd, os.R_OK):
 		sl.addEntry("initrd", initrd)
 		
 	    sl.addEntry("read-only")
@@ -106,7 +106,7 @@ class EliloConfiguration:
 		
 	    elilo.addImage (sl)
 
-	elilo.write(instRoot + "/boot/efi/redhat/elilo.conf", perms = perms)
+	elilo.write(instRoot + "/boot/efi/EFI/redhat/elilo.conf", perms = perms)
 	
     def makeInitrd (self, kernelTag, instRoot):
 	initrd = "initrd%s.img" % (kernelTag, )
@@ -114,7 +114,7 @@ class EliloConfiguration:
 	    iutil.execWithRedirect("/sbin/mkinitrd",
 	    			[ "/sbin/mkinitrd",
 				"--ifneeded",
-				"/boot/efi/redhat/%s" % initrd,
+				"/boot/efi/EFI/redhat/%s" % initrd,
 				kernelTag[1:] ],
 				stdout = None, stderr = None, searchPath = 1,
 				root = instRoot)
@@ -129,13 +129,13 @@ class EliloConfiguration:
 
 if __name__ == "__main__":
     config = LiloConfigFile ()
-    config.read ('/boot/efi/redhat/elilo.conf')
+    config.read ('/boot/efi/EFI/redhat/elilo.conf')
     print config
     print "image list", config.listImages()
     config.delImage ('vmlinuz-2.4.0-0.32')
     print '----------------------------------'
     config = LiloConfigFile ()
-    config.read ('/boot/efi/redhat/elilo.conf')
+    config.read ('/boot/efi/EFI/redhat/elilo.conf')
     print config
     print '----------------------------------'    
     print config.getImage('vmlinuz-2.4.0-0.32')
