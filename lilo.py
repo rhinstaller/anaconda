@@ -256,7 +256,7 @@ class LiloConfiguration:
 	    self.initrdsMade[kernelTag] = 1
 	return initrd
 
-    def install(self, fstab, instRoot, hdList, upgrade):
+    def install(self, fstab, instRoot, hdList, upgrade, langs):
 	# If self.liloDevice is None, skipping lilo doesn't work
 	if not self.liloDevice: return
 
@@ -310,7 +310,13 @@ class LiloConfiguration:
 	lilo.addEntry("install", "/boot/boot.b", replace = 0)
 	lilo.addEntry("prompt", replace = 0)
 	lilo.addEntry("timeout", "50", replace = 0)
-	lilo.addEntry("message", "/boot/message", replace = 0)
+        message = "/boot/message"
+        for lang in langs:
+            fn = "/boot/message." + lang
+            if os.access(instRoot + fn, os.R_OK):
+                message = fn
+                break
+	lilo.addEntry("message", message, replace = 0)
         # XXX edd overrides linear, lba32/linear are mutually exclusive
         #
         # test to see if one of these already in lilo.conf, use if so

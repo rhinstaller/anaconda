@@ -279,6 +279,7 @@ class InstallTimeLanguage:
 	return self.font[lang]
 
     def getLangNick (self, lang):
+        # returns the short locale ID
 	return self.langNicks[lang]
 
     def getLangNameByNick(self, lang):
@@ -354,6 +355,10 @@ class Language (SimpleConfigFile):
 		return langName
 
 	raise KeyError, "language %s not found" % nick
+
+    def getLangNickByName(self, name):
+	(lang, map, font) = self.langInfoByName[name]
+        return lang
 
     def getSupported (self):
 	return self.supported
@@ -1961,8 +1966,10 @@ class ToDo:
                     self.silo.install (self.fstab, self.instPath, self.hdList, 
                                        self.upgrade)
                 elif arch == "i386":
+                    defaultlang = self.language.getLangNickByName(self.language.getDefault())
+                    langlist = expandLangs(defaultlang)
                     self.lilo.install (self.fstab, self.instPath, self.hdList, 
-                                       self.upgrade)
+                                       self.upgrade, langlist)
                 elif arch == "ia64":
                     self.eli.install (self.fstab, self.instPath, self.hdList, 
                                        self.upgrade)
