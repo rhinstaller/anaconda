@@ -126,7 +126,7 @@ class XCustomWindow (InstallWindow):
 	self.xsetup.xhwstate.set_colordepth(self.selectedDepth)
 
 	# now we set color depth, read out what modes are now supported
-	self.selectedRes = self.xsetup.xhwstate.get_colordepth()
+	self.selectedRes = self.xsetup.xhwstate.get_resolution()
 	newmodes = self.xsetup.xhwstate.available_resolutions()
         self.res_combo.set_popdown_strings(newmodes)
         if self.selectedRes in newmodes:
@@ -241,6 +241,16 @@ class XCustomWindow (InstallWindow):
         self.load_monitor_preview_pixmap("monitor.png")
         self.box.pack_start (self.hbox)
 
+        hbox1 = gtk.HBox (gtk.FALSE, 5)
+        hbox3 = gtk.HBox (gtk.FALSE, 5)
+        hbox4 = gtk.HBox (gtk.FALSE, 5)
+
+        frame1 = gtk.Frame (_("_Color Depth:"))
+        frame1.get_label_widget().set_property("use-underline", gtk.TRUE)
+        frame1.set_shadow_type (gtk.SHADOW_NONE)
+        frame1.set_border_width (10)
+        hbox1.pack_start(frame1, gtk.TRUE, gtk.FALSE, 0)
+
         # determine video modes available for this card/monitor combo
 #
 # old pre-rhpl backend code
@@ -252,23 +262,18 @@ class XCustomWindow (InstallWindow):
 #                availableDepths.append(adepth)
 #        availableDepths.sort(self.numCompare)
 
-        available = self.xsetup.xhwstate.available_resolutions()
+        availableRes = self.xsetup.xhwstate.available_resolutions()
 	availableDepths = self.xsetup.xhwstate.available_color_depths()
 
-        hbox1 = gtk.HBox (gtk.FALSE, 5)
-        hbox3 = gtk.HBox (gtk.FALSE, 5)
-        hbox4 = gtk.HBox (gtk.FALSE, 5)
-
-        frame1 = gtk.Frame (_("_Color Depth:"))
-        frame1.get_label_widget().set_property("use-underline", gtk.TRUE)
-        frame1.set_shadow_type (gtk.SHADOW_NONE)
-        frame1.set_border_width (10)
-        hbox1.pack_start(frame1, gtk.TRUE, gtk.FALSE, 0)
-
-        depth_list = [(_("256 Colors (8 Bit)")), (_("High Color (16 Bit)")), (_("True Color (24 Bit)"))]
+        depth_list = [(_("256 Colors (8 Bit)")),
+		      (_("High Color (16 Bit)")),
+		      (_("True Color (24 Bit)"))]
         self.bit_depth = [8, 16, 24]
-
         self.avail_depths = depth_list[:len(availableDepths)]
+        self.res_list = ["640x480", "800x600", "1024x768", "1152x864",
+			 "1280x960", "1280x1024", "1400x1050", "1600x1200",
+			 "1920x1440", "2048x1536"]
+
         self.depth_combo = gtk.Combo ()
 	self.depth_combo.entry.set_property("editable", gtk.FALSE)
         self.depth_combo.set_popdown_strings (self.avail_depths)
@@ -281,10 +286,6 @@ class XCustomWindow (InstallWindow):
         frame2.set_border_width (10)
         hbox1.pack_start (frame2, gtk.TRUE, gtk.FALSE, 2)
 
-        self.res_list = ["640x480", "800x600", "1024x768", "1152x864",
-			 "1280x960", "1280x1024", "1400x1050", "1600x1200",
-			 "1920x1440", "2048x1536"]
-
         self.res_combo = gtk.Combo ()
         self.res_combo.entry.set_property("editable", gtk.FALSE)
 
@@ -292,7 +293,7 @@ class XCustomWindow (InstallWindow):
 
         self.selectedDepth = self.xsetup.xhwstate.get_colordepth()
         self.selectedRes   = self.xsetup.xhwstate.get_resolution()
-        self.res_combo.set_popdown_strings (available)
+        self.res_combo.set_popdown_strings (availableRes)
 
         frame2.add (self.res_combo)
         frame2.get_label_widget().set_mnemonic_widget(self.res_combo.entry)
@@ -355,7 +356,7 @@ class XCustomWindow (InstallWindow):
                 break
             count = count + 1
 
-        location = available.index(self.selectedRes)
+        location = availableRes.index(self.selectedRes)
         self.swap_monitor(location)
 
         self.depth_combo.list.connect ("select-child", self.depth_cb)
