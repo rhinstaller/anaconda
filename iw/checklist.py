@@ -22,12 +22,33 @@ class CheckList (gtk.TreeView):
     """A class (derived from gtk.TreeView) that provides a list of
     checkbox / text string pairs"""
 
+    # override this to make your own columns if necessary
+    def create_columns(self, columns):
+        # add the string columns to the tree view widget
+        for i in range(1, columns + 1):
+            renderer = gtk.CellRendererText()
+            column = gtk.TreeViewColumn('Text', renderer, text=i)
+            column.set_clickable(gtk.FALSE)
+            self.append_column(column)
+
     # XXX need to handle the multicolumn case better still....
-    def __init__ (self, columns = 1):
-        self.store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
-                                   gobject.TYPE_STRING, gobject.TYPE_STRING)
+    def __init__ (self, columns = 1, custom_store=None):
+
+	if not custom_store:
+	    self.store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
+				       gobject.TYPE_STRING,
+				       gobject.TYPE_STRING)
+	else:
+	    self.store = custom_store
+	    
         gtk.TreeView.__init__ (self, self.store)
         
+        # XXX we only handle two text columns right now
+        if custom_store == None and columns > 2:
+            raise RuntimeError, "CheckList supports a maximum of 2 columns"
+	
+        self.columns = columns
+	
         self.checkboxrenderer = gtk.CellRendererToggle()
         column = gtk.TreeViewColumn('', self.checkboxrenderer, active=0)
         column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
@@ -36,17 +57,7 @@ class CheckList (gtk.TreeView):
         self.checkboxrenderer.connect ("toggled", self.toggled_item)        
         self.append_column(column)
 
-        # XXX we only handle two text columns right now
-        if columns > 2:
-            raise RuntimeError, "CheckList supports a maximum of 2 columns"
-        self.columns = columns
-
-        # add the string columns to the tree view widget
-        for i in range(1, columns + 1):
-            renderer = gtk.CellRendererText()
-            column = gtk.TreeViewColumn('Text', renderer, text=i)
-            column.set_clickable(gtk.FALSE)
-            self.append_column(column)
+	self.create_columns(columns)
 
         self.set_rules_hint(gtk.FALSE)
         self.set_headers_visible(gtk.FALSE)

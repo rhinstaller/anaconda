@@ -501,24 +501,8 @@ class PackageSelectionWindow (InstallWindow):
 
 
 class PackageCheckList(checklist.CheckList):
-    def __init__(self, columns = 2):
-        self.store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
-                                   gobject.TYPE_STRING, gobject.TYPE_INT)
-        gtk.TreeView.__init__ (self, self.store)
-        
-        self.checkboxrenderer = gtk.CellRendererToggle()
-        column = gtk.TreeViewColumn('', self.checkboxrenderer, active=0)
-        column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-        column.set_fixed_width(50)
-        column.set_clickable(gtk.TRUE)
-        self.checkboxrenderer.connect ("toggled", self.toggled_item)        
-        self.append_column(column)
 
-        if columns != 2:
-            raise RuntimeError, "Invalid column specification"
-        self.columns = columns
-
-        # add the string columns to the tree view widget
+    def create_columns(self, columns):
         renderer = gtk.CellRendererText()
         column = gtk.TreeViewColumn('Text', renderer, text = 1)
         column.set_clickable(gtk.FALSE)
@@ -528,12 +512,12 @@ class PackageCheckList(checklist.CheckList):
         column = gtk.TreeViewColumn('Size', renderer, text = 2)
         column.set_clickable(gtk.FALSE)
         self.append_column(column)
+    
+    def __init__(self, columns = 2):
+        store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
+                                   gobject.TYPE_STRING, gobject.TYPE_INT)
 
-        self.set_rules_hint(gtk.FALSE)
-        self.set_headers_visible(gtk.FALSE)
-        self.columns_autosize()
-        self.set_enable_search(gtk.FALSE)
+	checklist.CheckList.__init__(self, columns=columns,
+				     custom_store = store)
 
-        # keep track of the number of rows we have so we can
-        # iterate over them all
-        self.num_rows = 0
+	

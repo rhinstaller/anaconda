@@ -23,6 +23,7 @@ import parted
 import string
 import copy
 import types
+import checklist
 from iw_gui import *
 from translate import _, N_
 from partitioning import *
@@ -470,69 +471,103 @@ def setMntPtComboStateFromType(fstype, mountCombo):
 def fstypechangeCB(widget, mountCombo):
     fstype = widget.get_data("type")
     setMntPtComboStateFromType(fstype, mountCombo)
-    
-def createAllowedDrivesClist(disks, reqdrives):
-    driveclist = gtk.CList()
-    driveclist.set_selection_mode(gtk.SELECTION_MULTIPLE)
-    driveclist.set_size_request(-1, 75)
+
+class DriveCheckList(checklist.CheckList):
+    def __init__(self, columns, store):
+	checklist.CheckList.__init__(self, columns=columns,
+				     custom_store = store)
+
+	selection = self.get_selection()
+	selection.set_mode(gtk.SELECTION_NONE)
+
+	# make checkbox column wider
+	column = self.get_column(0)
+	column.set_fixed_width(75)
+	column.set_alignment(0.0)
+
+class RaidCheckList(checklist.CheckList):
+    def __init__(self, columns, store):
+	checklist.CheckList.__init__(self, columns=columns,
+				     custom_store = store)
+
+	selection = self.get_selection()
+	selection.set_mode(gtk.SELECTION_NONE)
+
+	# make checkbox column wider
+	column = self.get_column(0)
+	column.set_fixed_width(75)
+	column.set_alignment(0.0)
+
+def createAllowedDrivesList(disks, reqdrives):
+    store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
+			  gobject.TYPE_STRING,
+			  gobject.TYPE_STRING,
+			  gobject.TYPE_STRING)
+    drivelist = DriveCheckList(3, store)
 
     driverow = 0
     drives = disks.keys()
     drives.sort()
     for drive in drives:
         size = getDeviceSizeMB(disks[drive].dev)
-        str = "%s: %s - %0.0f MB" % (drive, disks[drive].dev.model, size)
-        row = driveclist.append((str,))
-        driveclist.set_row_data(row, drive)
-
+	selected = 0
         if reqdrives:
             if drive in reqdrives:
-                driveclist.select_row(driverow, 0)
+		selected = 1
         else:
-            driveclist.select_row(driverow, 0)
-        driverow = driverow + 1
+	    selected = 1
 
-    return driveclist
+	sizestr = "%8.0f MB" % size
+	drivelist.append_row((drive,disks[drive].dev.model, sizestr), selected)
 
-def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
+    return drivelist
 
-    partclist = gtk.CList()
-    partclist.set_selection_mode(gtk.SELECTION_MULTIPLE)
-    partclist.set_size_request(-1, 95)
+def createAllowedRaidPartitionsList(allraidparts, reqraidpart):
+
+    store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
+			  gobject.TYPE_STRING,
+			  gobject.TYPE_STRING)
+    partlist = RaidCheckList(2, store)
+
     sw = gtk.ScrolledWindow()
-    sw.add(partclist)
+    sw.add(partlist)
     sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 
     partrow = 0
     for part, size, used in allraidparts:
-        partname = "%s: %8.0f MB" % (part, size)
-        partclist.append((partname,))
-
+        partname = "%s" % part
+	partsize = "%8.0f MB" % size
         if used or not reqraidpart:
-            partclist.select_row(partrow, 0)
-        partrow = partrow + 1
+            selected = 1
+	else:
+	    selected = 0
 
-    return (partclist, sw)
+	partlist.append_row((partname, partsize), selected)
 
-def createAllowedLvmPartitionsClist(alllvmparts, reqlvmpart):
+    return (partlist, sw)
 
-    partclist = gtk.CList()
-    partclist.set_selection_mode(gtk.SELECTION_MULTIPLE)
-    partclist.set_size_request(-1, 95)
+def createAllowedLvmPartitionsList(alllvmparts, reqlvmpart):
+
+    store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
+			  gobject.TYPE_STRING,
+			  gobject.TYPE_STRING)
+    partlist = RaidCheckList(2, store)
+
     sw = gtk.ScrolledWindow()
-    sw.add(partclist)
+    sw.add(partlist)
     sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 
-    partrow = 0
     for part, size, used in alllvmparts:
-        partname = "%s: %8.0f MB" % (part, size)
-        partclist.append((partname,))
-
+        partname = "%s" % part
+	partsize = "%8.0f MB" % size
         if used or not reqlvmpart:
-            partclist.select_row(partrow, 0)
-        partrow = partrow + 1
+            selected = 1
+	else:
+	    selected = 0
 
-    return (partclist, sw)
+	partlist.append_row((partname, partsize), selected)
+
+    return (partlist, sw)
 
 def createRaidLevelMenu(levels, reqlevel, raidlevelchangeCB, sparesb):
     leveloption = gtk.OptionMenu()
@@ -1054,13 +1089,14 @@ class PartitionWindow(InstallWindow):
                 maintable.attach(createAlignedLabel(_("Allowable Drives:")),
                                  0, 1, row, row + 1)
 
-                driveclist = createAllowedDrivesClist(self.diskset.disks,
+                driveview = createAllowedDrivesList(self.diskset.disks,
                                                       origrequest.drive)
 
                 sw = gtk.ScrolledWindow()
-                sw.add(driveclist)
+                sw.add(driveview)
                 sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
                 maintable.attach(sw, 1, 2, row, row + 1)
+		driveview.set_size_request(375, 80)
             else:
                 maintable.attach(createAlignedLabel(_("Drive:")),
                                  0, 1, row, row + 1)
@@ -1308,13 +1344,22 @@ class PartitionWindow(InstallWindow):
                     else:
                         maxsize = None
 
-                    if len(driveclist.selection) == len(self.diskset.disks.keys()):
-                        allowdrives = None
-                    else:
-                        allowdrives = []
-                        for i in driveclist.selection:
-                            allowdrives.append(driveclist.get_row_data(i))
+		    allowdrives = []
+		    model = driveview.get_model()
+		    iter = model.get_iter_root()
+		    next = 1
+		    while next:
+			val   = model.get_value(iter, 0)
+			drive = model.get_value(iter, 1)
 
+			if val:
+			    allowdrives.append(drive)
+
+			next = model.iter_next(iter)
+
+                    if len(allowdrives) == len(self.diskset.disks.keys()):
+                        allowdrives = None
+			
                     request.size = sizespin.get_value_as_int()
                     request.drive = allowdrives
                     request.grow = grow
@@ -1569,9 +1614,10 @@ class PartitionWindow(InstallWindow):
                          0, 1, row, row + 1)
 
         # XXX need to pass in currently used partitions for this device
-        (raidclist, sw) = createAllowedRaidPartitionsClist(availraidparts,
-                                                     raidrequest.raidmembers)
+        (raidlist, sw) = createAllowedRaidPartitionsList(availraidparts,
+						       raidrequest.raidmembers)
 
+        raidlist.set_size_request(275, 80)
         maintable.attach(sw, 1, 2, row, row + 1)
         row = row + 1
 
@@ -1619,10 +1665,19 @@ class PartitionWindow(InstallWindow):
             else:
                 request.mountpoint = None
 
-            raidmembers = []
-            for i in raidclist.selection:
-                id = self.partitions.getRequestByDeviceName(availraidparts[i][0]).uniqueID
-                raidmembers.append(id)
+	    raidmembers = []
+	    model = raidlist.get_model()
+	    iter = model.get_iter_root()
+	    next = 1
+	    while next:
+		val   = model.get_value(iter, 0)
+		part = model.get_value(iter, 1)
+
+		if val:
+		    req = self.partitions.getRequestByDeviceName(part)
+		    raidmembers.append(req.uniqueID)
+
+		next = model.iter_next(iter)
 
             request.raidmembers = raidmembers
             request.raidlevel = leveloptionmenu.get_active().get_data("level")
@@ -1734,7 +1789,8 @@ class PartitionWindow(InstallWindow):
 
         row = row + 1
 
-        (lvmclist, sw) = createAllowedLvmPartitionsClist(lvmparts, [])
+        (lvmlist, sw) = createAllowedLvmPartitionsList(lvmparts, [])
+        lvmlist.set_size_request(275, 80)
 
         maintable.attach(createAlignedLabel(_("PVs to Use")), 0, 1, row, row + 1)
         maintable.attach(sw, 1, 2, row, row + 1)
@@ -1760,11 +1816,18 @@ class PartitionWindow(InstallWindow):
         rc = dialog.run()
 
         pv = []
-        
-        for i in lvmclist.selection:
-            print i
-            id = self.partitions.getRequestByDeviceName(lvmparts[i][0]).uniqueID
-            pv.append(id)
+	model = lvmlist.get_model()
+	iter = model.get_iter_root()
+	next = 1
+	while next:
+	    val   = model.get_value(iter, 0)
+	    drive = model.get_value(iter, 1)
+
+	    if val:
+		id = self.partitions.getRequestByDeviceName(drive).uniqueID
+		pv.append(id)
+		
+	    next = model.iter_next(iter)
 
         # first add the volume group
         request = PartitionSpec(fileSystemTypeGet("volume group (LVM)"),
@@ -1873,8 +1936,17 @@ class AutoPartitionWindow(InstallWindow):
             self.partitions.autoClearPartType = autopart.CLEARPART_TYPE_NONE
 
         allowdrives = []
-        for i in self.driveclist.selection:
-            allowdrives.append(self.driveclist.get_row_data(i))
+	model = self.drivelist.get_model()
+	iter = model.get_iter_root()
+	next = 1
+	while next:
+	    val   = model.get_value(iter, 0)
+	    drive = model.get_value(iter, 1)
+
+	    if val:
+		allowdrives.append(drive)
+
+	    next = model.iter_next(iter)
 
         if len(allowdrives) < 1:
             dlg = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK,
@@ -1954,13 +2026,13 @@ class AutoPartitionWindow(InstallWindow):
                                     "this installation?"))
         label.set_alignment(0.0, 0.0)
         drivesbox.pack_start(label, gtk.FALSE, gtk.FALSE, 10)
-        self.driveclist = createAllowedDrivesClist(diskset.disks,
-                                                   cleardrives)
+        self.drivelist = createAllowedDrivesList(diskset.disks, cleardrives)
+
         # XXX bad use of usize
-        self.driveclist.set_size_request(300, 80)
+        self.drivelist.set_size_request(375, 80)
 
         sw = gtk.ScrolledWindow()
-        sw.add(self.driveclist)
+        sw.add(self.drivelist)
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         
 	align = gtk.Alignment()
