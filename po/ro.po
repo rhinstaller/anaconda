@@ -428,7 +428,7 @@ msgstr "Încearcã din nou"
 
 #: ../gui.py:112 ../text.py:305
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorã"
 
 #: ../gui.py:113 ../iw/account_gui.py:151 ../iw/account_gui.py:162
 #: ../iw/partition_gui.py:861 ../iw/partition_gui.py:1343
@@ -471,15 +471,15 @@ msgstr "Închide"
 
 #: ../gui.py:459 ../gui.py:632
 msgid "Release Notes"
-msgstr ""
+msgstr "Note de Producþie"
 
 #: ../gui.py:491
 msgid "Unable to load file!"
-msgstr ""
+msgstr "Nu s-a putut încãrca fiºierul!"
 
 #: ../gui.py:522
 msgid "Release notes are missing.\n"
-msgstr ""
+msgstr "Notele de producþie lipsesc.\n"
 
 #: ../gui.py:628 ../loader/cdrom.c:34 ../loader/devices.c:95
 #: ../loader/devices.c:240 ../loader/devices.c:334 ../loader/lang.c:631
@@ -567,7 +567,7 @@ msgstr "Instalare"
 
 #: ../monitor.py:155 ../mouse.py:183 ../videocard.py:152
 msgid "Unable to probe"
-msgstr ""
+msgstr "Nu -sa putut efectua autodetecþia"
 
 #: ../mouse.py:275 ../xserver.py:44
 msgid "Mouse Not Detected"
@@ -592,7 +592,7 @@ msgstr "Folosire mod text"
 
 #: ../iw/package_gui.py:30 ../packages.py:38
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "Doriþi sã continuaþi cu actualizarea?"
 
 #: ../iw/package_gui.py:31 ../packages.py:39
 msgid ""
@@ -653,7 +653,7 @@ msgstr ""
 
 #: ../packages.py:530
 msgid "Setting up RPM transaction..."
-msgstr ""
+msgstr "Se creazã tranzacþia RPM..."
 
 #: ../packages.py:567
 msgid ""
@@ -727,7 +727,7 @@ msgstr ""
 
 #: ../packages.py:671
 msgid "Nodes Needed"
-msgstr ""
+msgstr "Noduri Necesare"
 
 #: ../packages.py:677
 msgid "Disk Space"
@@ -750,7 +750,7 @@ msgstr "Se ruleazã procesul de configurare post-instalare..."
 
 #: ../partitioning.py:171
 msgid "Foreign"
-msgstr ""
+msgstr "Strãin"
 
 #: ../partitioning.py:355
 msgid ""
@@ -760,7 +760,7 @@ msgstr ""
 
 #: ../partitioning.py:363
 msgid "Please specify a mount point for this partition."
-msgstr ""
+msgstr "Specificaþi un director de montare pentru aceastã partiþie."
 
 #: ../partitioning.py:382
 msgid ""
@@ -960,7 +960,7 @@ msgstr ""
 
 #: ../partitioning.py:1759 ../partitioning.py:1781
 msgid "Unable To Edit"
-msgstr ""
+msgstr "Nu s-a putut Edita"
 
 #: ../partitioning.py:1760
 msgid "You must select a partition to edit"
@@ -1248,7 +1248,9 @@ msgstr ""
 msgid ""
 "One or more filesystems for your Linux system was not unmounted cleanly.  "
 "Would you like to mount them anyway?"
-msgstr "Unul sau mai multe din sistemele de fiºiere montate pe acest sistem nu a putut fi dezactivat corect. Doriþi sã le montaþi în pofida acestui fapt?"
+msgstr ""
+"Unul sau mai multe din sistemele de fiºiere montate pe acest sistem nu a "
+"putut fi dezactivat corect. Doriþi sã le montaþi în pofida acestui fapt?"
 
 #: ../upgrade.py:225 ../upgrade.py:231
 msgid "Mount failed"
@@ -1281,11 +1283,11 @@ msgstr ""
 
 #: ../upgrade.py:259
 msgid "%s not found"
-msgstr ""
+msgstr "Nu s-a gãsit %s"
 
 #: ../upgrade.py:281
 msgid "Finding"
-msgstr "Incãrcare"
+msgstr "Cãutare"
 
 #: ../upgrade.py:282
 msgid "Finding packages to upgrade..."
@@ -1356,7 +1358,7 @@ msgstr ""
 
 #: ../xserver.py:197
 msgid " X server started successfully."
-msgstr ""
+msgstr "Serverul X Windows a fost pornit cu succes."
 
 #: ../iw/account_gui.py:26
 msgid "Account Configuration"
@@ -1772,11 +1774,15 @@ msgid ""
 msgstr ""
 "Felicitãri, instalarea %s s-a terminat cu succes.\n"
 "\n"
-"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter pentru a reiniþializa sistemul.\n"
+"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter "
+"pentru a reiniþializa sistemul.\n"
 "\n"
-"%s Pentru informaþii despre corecþii ºi actualizãri disponibile pentru aceastã versiune de %s, vã rugam sã consultaþi Errata din pagina noastrã de web - http://www.redhat.com/errata.\n"
+"%s Pentru informaþii despre corecþii ºi actualizãri disponibile pentru "
+"aceastã versiune de %s, vã rugam sã consultaþi Errata din pagina noastrã de "
+"web - http://www.redhat.com/errata.\n"
 "\n"
-"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în manualele disponibile on-line la adresa http://www.redhat.com/docs."
+"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în "
+"manualele disponibile on-line la adresa http://www.redhat.com/docs."
 
 #: ../iw/congrats_gui.py:104
 msgid ""
@@ -1790,9 +1796,12 @@ msgid ""
 msgstr ""
 "Felicitãri, instalarea s-a terminat cu succes.\n"
 "\n"
-"Pentru informaþii despre corecþii ºi actualizãri disponibile pentru aceastã versiune de Red Hat Linux, vã rugam sã consultaþi Errata din pagina noastrã de web - http://www.redhat.com/errata.\n"
+"Pentru informaþii despre corecþii ºi actualizãri disponibile pentru aceastã "
+"versiune de Red Hat Linux, vã rugam sã consultaþi Errata din pagina noastrã "
+"de web - http://www.redhat.com/errata.\n"
 "\n"
-"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în manualele %s disponibile on-line la adresa http://www.redhat.com/docs."
+"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în "
+"manualele %s disponibile on-line la adresa http://www.redhat.com/docs."
 
 #: ../iw/dependencies_gui.py:20
 msgid "Unresolved Dependencies"
@@ -2944,11 +2953,16 @@ msgid ""
 msgstr ""
 "Felicitãri, instalarea %s s-a terminat cu succes.\n"
 "\n"
-"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter pentru a reiniþializa sistemul.\n"
+"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter "
+"pentru a reiniþializa sistemul.\n"
 "\n"
-"%s Pentru informaþii despre corecþii ºi actualizãri disponibile pentru aceastã versiune de Red Hat Linux, vã rugam sã consultaþi Errata din pagina noastrã de web - http://www.redhat.com/errata.\n"
+"%s Pentru informaþii despre corecþii ºi actualizãri disponibile pentru "
+"aceastã versiune de Red Hat Linux, vã rugam sã consultaþi Errata din pagina "
+"noastrã de web - http://www.redhat.com/errata.\n"
 "\n"
-"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în manualele pentru Red Hat Linux disponibile de la adresa http://www.redhat.com/support/manuals."
+"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în "
+"manualele pentru Red Hat Linux disponibile de la adresa "
+"http://www.redhat.com/support/manuals."
 
 #: ../textw/complete_text.py:55
 msgid "<Enter> to continue"
@@ -2980,9 +2994,11 @@ msgid ""
 msgstr ""
 "Felicitãri, instalarea s-a terminat cu succes.\n"
 "\n"
-"Pentru informaþii despre corecþii ºi actualizãri disponibile vã rugam sã consultaþi Errata din pagina noastrã de web - http://www.redhat.com/errata.\n"
+"Pentru informaþii despre corecþii ºi actualizãri disponibile vã rugam sã "
+"consultaþi Errata din pagina noastrã de web - http://www.redhat.com/errata.\n"
 "\n"
-"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în manualele %s disponibile on-line la adresa http://www.redhat.com/docs."
+"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în "
+"manualele %s disponibile on-line la adresa http://www.redhat.com/docs."
 
 #: ../textw/confirm_text.py:20
 msgid "Installation to begin"
@@ -3656,9 +3672,13 @@ msgid ""
 msgstr ""
 "Vã mulþumim pentru cã aþi ales %s!\n"
 "\n"
-"Aceastã procedurã de instalare este descrisã în detaliu în Official %s Installation Guide, care se poate procura de la Red Hat, Inc. Dacã aveþi acces la acest manual este recomandat sa citiþi secþiunea dedicatã procesului de instalare înainte de a continua.\n"
+"Aceastã procedurã de instalare este descrisã în detaliu în Official %s "
+"Installation Guide, care se poate procura de la Red Hat, Inc. Dacã aveþi "
+"acces la acest manual este recomandat sa citiþi secþiunea dedicatã "
+"procesului de instalare înainte de a continua.\n"
 "\n"
-"Dacã aþi cumpãrat Official %s, vã rugam sa ne vizitaþi pagina de web la http://www.redhat.com ºi sã vã inregistraþi ca utilizator oficial."
+"Dacã aþi cumpãrat Official %s, vã rugam sa ne vizitaþi pagina de web la "
+"http://www.redhat.com ºi sã vã inregistraþi ca utilizator oficial."
 
 #: ../textw/welcome_text.py:43
 msgid ""
@@ -3671,9 +3691,11 @@ msgid ""
 msgstr ""
 "Bine aþi venit în %s!\n"
 "\n"
-"Acum vã aflaþi în modul de reconfigurare, care vã va permite sã vã configuraþi opþiunile specifice pentru acest calculator.\n"
+"Acum vã aflaþi în modul de reconfigurare, care vã va permite sã vã "
+"configuraþi opþiunile specifice pentru acest calculator.\n"
 "\n"
-"Pentru a ieºi din acest program fãrã a schimba nimic selectaþi butonul de Abandon de mai jos."
+"Pentru a ieºi din acest program fãrã a schimba nimic selectaþi butonul de "
+"Abandon de mai jos."
 
 #: ../textw/xconfig_text.py:24
 msgid "Color Depth"
@@ -3917,7 +3939,9 @@ msgstr "Nu s-a putut recunoaºte sistemul de fiºiere de pe dischetã."
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "%s."
-msgstr "Discheta introdusã nu este o dischetã de drivere validã pentru aceastã versiune de %s."
+msgstr ""
+"Discheta introdusã nu este o dischetã de drivere validã pentru aceastã "
+"versiune de %s."
 
 #: ../loader/devices.c:326
 msgid ""
@@ -4111,7 +4135,10 @@ msgstr ""
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
-msgstr "Nu s-a putut detecta un CD cu %s în nici una dintre unitãþile de CD din acest sistem. Încãrcaþi CD-ul cu %s în unitatea CDROM ºi selectaþi %s pentru a reîncerca."
+msgstr ""
+"Nu s-a putut detecta un CD cu %s în nici una dintre unitãþile de CD din "
+"acest sistem. Încãrcaþi CD-ul cu %s în unitatea CDROM ºi selectaþi %s pentru "
+"a reîncerca."
 
 #: ../loader/loader.c:1292
 msgid "CD Found"
@@ -4195,7 +4222,9 @@ msgstr "Introduceþi discheta cu drivere ºi selectaþi \"OK\" pentru a continua."
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "%s."
-msgstr "Discheta introdusã nu este o dischetã de drivere validã pentru aceastã versiune de %s."
+msgstr ""
+"Discheta introdusã nu este o dischetã de drivere validã pentru aceastã "
+"versiune de %s."
 
 #: ../loader/loader.c:2827
 msgid "Failed to mount floppy disk."
@@ -4212,7 +4241,9 @@ msgstr "Se încarcã actualizãrile pentru Anaconda..."
 #: ../loader/loader.c:3046
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr "Nu aveþi suficientã memorie RAM pentru instalarea %s în mod grafic. Instalarea se va desfãºura în mod text."
+msgstr ""
+"Nu aveþi suficientã memorie RAM pentru instalarea %s în mod grafic. "
+"Instalarea se va desfãºura în mod text."
 
 #: ../loader/loader.c:3082
 msgid ""
