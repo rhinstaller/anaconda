@@ -910,11 +910,11 @@ if display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevn
     else:
 	xlogfile = None
 	
-     xsetup_failed = xserver.startXServer(videohw, monitorhw, mousehw, kbd,
- 					 runres,
- 					 xStartedCB=doStartupX11Actions,
- 					 xQuitCB=doShutdownX11Actions,
- 					 logfile=xlogfile)
+    xsetup_failed = xserver.startXServer(videohw, monitorhw, mousehw, kbd,
+                                         runres,
+                                         xStartedCB=doStartupX11Actions,
+                                         xQuitCB=doShutdownX11Actions,
+                                         logfile=xlogfile)
 
     if xsetup_failed:
 	dup_log(" X startup failed, falling back to text mode")
