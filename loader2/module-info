@@ -873,3 +873,24 @@ i82365
 tcic
 	pcmcia
 	"Databook TCIC-2 PCMCIA socket driver"
+
+# usb
+catc
+	eth
+	"CATC EL1210A NetMate USB Ethernet driver"
+
+kaweth
+	eth
+	"KL5USB101 USB Ethernet driver"
+
+pegasus
+	eth
+	"Pegasus/Pegasus II USB Ethernet driver"
+
+rtl8150
+	eth
+	"rtl8150-based USB Ethernet driver"
+
+usbnet
+	eth
+	"USB Host-to-Host Link Driver"
