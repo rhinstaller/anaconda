@@ -50,7 +50,30 @@ static inline _syscall1(int,unlink,const char *,fn)
 static inline _syscall1(int,close,int,fd)
 static inline _syscall0(int,getpid)
 static inline _syscall0(int,sync)
+#ifdef __sparc__
+/* Nonstandard fork calling convention :( */
+static inline int fork(void) {
+  int __res;
+  __asm__ __volatile__ (
+    "mov %0, %%g1\n\t"
+    "t 0x10\n\t"
+    "bcc 1f\n\t"
+    "dec %%o1\n\t"
+    "sethi %%hi(%2), %%g1\n\t"
+    "st %%o0, [%%g1 + %%lo(%2)]\n\t"
+    "b 2f\n\t"
+    "mov -1, %0\n\t"
+    "1:\n\t"
+    "and %%o0, %%o1, %0\n\t"
+    "2:\n\t"
+    : "=r" (__res)
+    : "0" (__NR_fork), "i" (&errno)
+    : "g1", "o0", "cc");
+  return __res;
+}
+#else
 static inline _syscall0(int,fork)
+#endif
 static inline _syscall0(pid_t,setsid)
 static inline _syscall1(int,exit,int,exitcode)
 static inline _syscall3(int,syslog,int, type, char *, buf, int, len);

@@ -1427,6 +1427,12 @@ int main(int argc, char ** argv) {
 
 logMessage("Flags are 0x%x\n", flags);
 
+#ifdef __sparc__
+    /* XXX: sparc -BOOT kernels should compile openprom in. */
+    if (!FL_TESTING(flags))
+	insmod ("openprom", NULL);
+#endif
+
     if (FL_KSFLOPPY(flags)) {
 	ksFile = "/tmp/ks.cfg";
 	kickstartFromFloppy(ksFile, modLoaded, modDeps, flags);

@@ -1,4 +1,10 @@
 #include <gconv.h>
+ 
+#if !defined(UNKNOWN_10646_CHAR) && defined(__UNKNOWN_10646_CHAR)
+/* Newer glibcs use underscores in gconv.h */
+#define GCONV_OK       __GCONV_OK
+#define GCONV_NOCONV   __GCONV_NOCONV
+#endif
 
 #define ASM_GLOBAL_DIRECTIVE .globl
 #define __SYMBOL_PREFIX

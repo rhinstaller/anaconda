@@ -3,7 +3,7 @@ DESTDIR = ../../trees/initrd
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
-OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o
+OBJS = stubs.o log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o
 LOADEROBJS = loader.o loader-pcmcia.o popen.o
 SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
 BINS = init
@@ -16,15 +16,14 @@ ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 ifeq (i386, $(ARCH))
 BINS += loader-local loader-network loader-pcmcia
 DIRS += pcmcia-install
-OBJS += stubs.o
 endif
 
 ifeq (alpha, $(ARCH))
-BINS += loader-network
+BINS += loader
 endif
 
 ifeq (sparc, $(ARCH))
-BINS += loader-network
+BINS += loader
 endif
 
 ifeq (.depend,$(wildcard .depend))
@@ -39,14 +38,21 @@ CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/rpm -I.. -DUSE_AL
 
 STATIC = -static
 
-ifeq (i386,$(ARCH))
+ifeq (i386, $(ARCH))
 MINILIBC=minilibc.o
+CFLAGS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
+LDFLAGS = -nostdlib /usr/lib/crt1.o
+STATIC=-static
+else
+ifeq (sparc, $(ARCH))
+MINILIBC=minilibc.o /usr/lib/libc.a
 CFLAGS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
 LDFLAGS = -nostdlib /usr/lib/crt1.o
 STATIC=-static
 else
 CFLAGS+=-DUSE_MINILIBC=0
 STATIC=-static
+endif
 endif
 
 VERSION = 6.0
@@ -59,13 +65,21 @@ dirs:
 	done
 
 install: all
-	#mkdir -p $(DESTDIR)/sbin
-	#mkdir -p $(DESTDIR)/etc
-	#rm -f $(DESTDIR)/sbin/loader
-	#rm -f $(DESTDIR)/sbin/init
-	#install -s loader $(DESTDIR)/sbin/loader
-	#install -s init $(DESTDIR)/sbin/init
-	#install -m 755 ../kudzu/pcitable $(DESTDIR)/etc
+#	mkdir -p $(DESTDIR)/sbin
+#	mkdir -p $(DESTDIR)/etc
+#	rm -f $(DESTDIR)/sbin/loader
+#	rm -f $(DESTDIR)/sbin/init
+#	install -s loader $(DESTDIR)/sbin/loader
+#	install -s init $(DESTDIR)/sbin/init
+#	install -m 755 ../kudzu/pcitable $(DESTDIR)/etc
+
+loader: loader.o $(OBJS) $(NETOBJS)
+	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
+	../kudzu/libkudzu.a ../isys/libisys.a ../balkan/libbalkan.a \
+	../isys/modutils/insmod/libmodutils.a    \
+	../isys/modutils/util/libutil.a          \
+	../isys/modutils/obj/libobj.a            \
+	-L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
 loader-local: loader-local.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
@@ -73,7 +87,7 @@ loader-local: loader-local.o $(OBJS)
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
-        -L../pump -lpump -lrpm -lz -lresolv -lnewt -lslang -lpci
+        -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
@@ -92,6 +106,9 @@ loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
         -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
+
+loader.o: loader.c
+	$(CC) -DINCLUDE_LOCAL -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $^
 
 loader-local.o: loader.c
 	$(CC) -DINCLUDE_LOCAL $(CFLAGS) -o $@ -c $^
