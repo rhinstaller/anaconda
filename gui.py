@@ -457,7 +457,7 @@ class InstallControlWindow (Thread):
         self.todo = todo
         self.steps = steps
         if os.environ.has_key ("LC_ALL"):
-            self.locale = os.environ["LC_ALL"]
+            self.locale = os.environ["LC_ALL"][:2]
         else:
             self.locale = "C"
 
