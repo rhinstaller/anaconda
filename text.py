@@ -685,9 +685,14 @@ class PartitionWindow:
             drives = todo.drives.available ().keys ()
             drives.sort ()
             todo.ddruid = fsedit(0, drives, fstab)
-        dir = todo.ddruid.edit ()
-        for partition, mount, fstype, size in todo.ddruid.getFstab ():
-            todo.addMount(partition, mount, fstype)
+
+	dir = INSTALL_NOOP
+	todo.instClass.finishPartitioning(todo.ddruid)
+	if not todo.instClass.skipPartitioning:
+	    dir = todo.ddruid.edit ()
+
+	for partition, mount, fstype, size in todo.ddruid.getFstab ():
+	    todo.addMount(partition, mount, fstype)
                 
         return dir
 

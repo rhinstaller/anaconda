@@ -126,6 +126,7 @@ class Kickstart(InstallClass):
 		     "lilo"		: self.doLilo		,
 		     "network"		: None			,
 		     "nfs"		: None			,
+		     "partition"	: self.definePartition	,
 		     "rootpw"		: self.doRootPw		,
 		     "timezone"		: self.doTimezone	,
 		     "upgrade"		: self.doUpgrade	,
@@ -140,11 +141,36 @@ class Kickstart(InstallClass):
 
 	    cmd = args[0]
 	    if handlers[cmd]: handlers[cmd](args[1:])
-	    
+
+    def definePartition(self, args):
+	# we just set up the desired partitions -- magic in our base class 
+	# does the actual partitioning (no, you don't want to know the 
+	# details)
+	size = 0
+	grow = 0
+	maxSize = 0
+
+	(args, extra) = getopt.getopt(args, '', [ 'size=', 'maxsize=', 
+					'grow' ])
+
+	for n in args:
+	    (str, arg) = n
+	    if str == '--size':
+		size = int(arg)
+	    elif str == '--maxsize':
+		maxSize = int(arg)
+	    elif str == '--grow':
+		grow = 1
+
+	self.partitions.append((extra[0], size, maxSize, grow))
+
+        self.addToSkipList("partition")
+
     def __init__(self, file):
 	InstallClass.__init__(self)
 	self.addToSkipList("bootdisk")
         self.addToSkipList("welcome")
+	self.partitions = []
 
 	self.installType = "install"
 	self.readKickstart(file)

@@ -25,7 +25,6 @@ from iw.installpath import *
 
 import sys
 import GdkImlib
-from gnomepyfsedit import fsedit
 
 import isys
 import sys
@@ -89,9 +88,6 @@ class InstallInterface:
     def exceptionWindow(self, title, text):
         print text
         return 1
-
-    def getDDruid (self, drives):
-        return fsedit (1, drives)
 
     def getBootdisk ():
         return None

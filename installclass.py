@@ -6,6 +6,33 @@
 
 class InstallClass:
 
+    # ummm, HACK
+    def finishPartitioning(self, ddruid):
+	if not self.partitions: return
+
+	attempt = []
+	swapCount = 0
+
+	for (mntpoint, size, maxsize, grow) in self.partitions:
+	    type = 0x83
+	    if (mntpoint == "swap"):
+		mntpoint = "Swap%04d-auto" % swapCount
+		swapCount = swapCount + 1
+		type = 0x82
+
+	    attempt.append((mntpoint, size, type, grow, -1))
+
+	try:
+	    ddruid.attempt (attempt, "Junk Argument", 0)
+	    return 1
+	except:
+	    # life's a female dog <shrug> -- we should log something though
+	    # <double-shrug>
+	    self.skipPartitioning = 0
+	    pass
+
+	return 0
+
     # look in mouse.py for a list of valid mouse names -- use the LONG names
     def setMouseType(self, name, device = None, emulateThreeButtons = 0):
 	self.mouse = (name, device, emulateThreeButtons)
@@ -31,7 +58,10 @@ class InstallClass:
 	  "package-selection", "bootdisk", "partition", "format", "timezone",
 	  "accounts", "dependencies", "language", "keyboard",
 	  "welcome", "installtype", "mouse" ].index(type)
-	self.skipSteps[type] = 1
+	if type == "partition":
+	    self.skipPartitioning = 1
+	else:
+	    self.skipSteps[type] = 1
 
     def setHostname(self, hostname):
 	self.hostname = hostname
@@ -90,6 +120,8 @@ class InstallClass:
 	self.netmask = ""
 	self.gateway = ""
 	self.nameserver = ""
+	self.partitions = []
+	self.skipPartitioning = 0
 
 # custom installs are easy :-)
 class CustomInstall(InstallClass):
