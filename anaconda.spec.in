@@ -59,6 +59,7 @@ fi
 %files
 %defattr(-,root,root)
 %doc COPYING
+%doc docs/command-line.txt
 /usr/sbin/anaconda
 /usr/share/anaconda
 /usr/share/locale/*/*/*
