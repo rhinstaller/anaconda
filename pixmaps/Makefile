@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-RNOTES_LANGS= de en fr it
+RNOTES_LANGS= de en es fr it
 
 all:
 	@echo "nothing to do"
