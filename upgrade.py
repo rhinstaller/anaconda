@@ -140,6 +140,8 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
                     fsList.append(info)
 
     suggestion = mem * 2 - swap
+    if suggestion < 32:
+        suggestion = 32
     suggSize = 0
     suggMnt = None
     for (mnt, part, size) in fsList:
