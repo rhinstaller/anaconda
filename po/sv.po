@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-01-24 22:20-0500\n"
-"PO-Revision-Date: 2001-01-23 03:27+0100\n"
+"PO-Revision-Date: 2001-01-26 01:16+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1411,18 +1411,16 @@ msgid "Select drive to run fdisk on"
 msgstr "Välj enhet att använda fdisk på"
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid "Warning: "
-msgstr "Varning"
+msgstr "Varning: "
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid " is an invalid port."
-msgstr "%s är inget giltigt värdnamn."
+msgstr " är en ogiltig port."
 
 #: ../iw/firewall_gui.py:141
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr ""
+msgstr "Formatet är \"port:protokoll\". Exempelvis \"1234:udp\""
 
 #: ../iw/firewall_gui.py:245
 msgid "Please choose your security level:  "
@@ -1800,7 +1798,6 @@ msgstr ""
 "skriva din nya partitionstabell till hårddisken. Är det okej?"
 
 #: ../iw/rootpartition_gui.py:82
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1814,7 +1811,7 @@ msgid ""
 "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 msgstr ""
 "Du har lagt partitionen som innehåller kärnan (bootpartitionen) ovanför "
-"1023-cylindersgränsen, och det verkar som om systemets BIOS inte stöder "
+"1024-cylindersgränsen, och det verkar som om systemets BIOS inte stöder "
 "uppstart från platser ovanför denna gräns. Om du fortsätter kommer systemet "
 "troligtvis inte att kunna startas om i Linux.\n"
 "\n"
@@ -1822,11 +1819,11 @@ msgstr ""
 "bootdiskett när du frågas om detta. Det garanterar att du har en möjlighet "
 "att starta systemet efter installationen.\n"
 "\n"
-"Är du säker på att du vill fortsätta?"
+"Tryck OK för att fortsätta, eller Avbryt för att gå tillbaka och lägga "
+"bootpartitionen någon annanstans."
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
 #: ../textw/partitioning_text.py:411
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit. It appears that this systems BIOS supports booting "
@@ -1837,7 +1834,7 @@ msgid ""
 "Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
 "Du har lagt partitionen som innehåller kärnan (bootpartitionen) ovanför "
-"1023-cylindersgränsen. Det verkar som om systemets BIOS stöder uppstart från "
+"1024-cylindersgränsen. Det verkar som om systemets BIOS stöder uppstart från "
 "platser ovanför denna gräns. \n"
 "\n"
 "Det rekommenderas VARMT att skapar en bootdiskett när "
@@ -1939,7 +1936,6 @@ msgid "Boot Partition Location Warning"
 msgstr "Varning angående plats för bootpartition"
 
 #: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:391
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1953,7 +1949,7 @@ msgid ""
 "Are you sure you want to proceed?"
 msgstr ""
 "Du har lagt partitionen som innehåller kärnan (bootpartitionen) ovanför "
-"1023-cylindersgränsen, och det verkar som om systemets BIOS inte stöder "
+"1024-cylindersgränsen, och det verkar som om systemets BIOS inte stöder "
 "uppstart från platser ovanför denna gräns. Om du fortsätter kommer systemet "
 "troligtvis inte att kunna startas om i Linux.\n"
 "\n"
@@ -2269,9 +2265,9 @@ msgstr ""
 "\"tjänst:protokoll\", exempelvis \"imap:tcp\". "
 
 #: ../textw/firewall_text.py:186
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: %s is not a valid port."
-msgstr "%s är inget giltigt värdnamn."
+msgstr "Varning: %s är inte en giltig port."
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -4249,9 +4245,3 @@ msgstr "Kärnutveckling"
 
 msgid "Utilities"
 msgstr "Verktyg"
-
-#~ msgid "IDE"
-#~ msgstr "IDE"
-
-#~ msgid "Initializing IDE modules..."
-#~ msgstr "Initierar IDE-moduler..."
