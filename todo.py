@@ -496,6 +496,7 @@ class ToDo:
             self.mouse = Mouse ()
         
         self.keyboard = Keyboard ()
+        self.deadkeyState = ""
         self.auth = Authentication ()
 	self.firewall = Firewall()
         self.ddruidReadOnly = 0
