@@ -13,6 +13,11 @@
 
 RETVAL=$?
 
+#
+# this is required to avoid system logging intercepting input/output
+# action on
+#
+
 case "$1" in
  start)
         if grep -i reconfig /proc/cmdline >/dev/null || [ -f /etc/reconfigSys ]; then
