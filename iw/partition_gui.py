@@ -24,9 +24,13 @@ import parted
 import string
 import copy
 import types
-import checklist
 import raid
 from iw_gui import *
+
+import lvm_dialog_gui
+import raid_dialog_gui
+import partition_dialog_gui
+
 from rhpl.translate import _, N_
 from partitioning import *
 from partIntfHelpers import *
@@ -34,6 +38,7 @@ from partedUtils import *
 from fsset import *
 from partRequests import *
 from constants import *
+from partition_ui_helpers_gui import *
 
 STRIPE_HEIGHT = 32.0
 LOGICAL_INSET = 3.0
@@ -44,10 +49,6 @@ TREE_SPACING = 2
 
 MODE_ADD = 1
 MODE_EDIT = 2
-
-# XXX this is made up and used by the size spinner; should just be set with
-# a callback
-MAX_PART_SIZE = 1024*1024*1024
 
 class DiskStripeSlice:
     def eventHandler(self, widget, event):
@@ -432,292 +433,6 @@ class DiskTreeModel(gtk.TreeStore):
         raise KeyError, iter
 
 
-# this should probably go into a class
-# some helper functions for build UI components
-def createAlignedLabel(text):
-    label = gtk.Label(text)
-    label.set_alignment(0.0, 0.0)
-
-    return label
-
-def createMountPointCombo(request):
-    mountCombo = gtk.Combo()
-
-    mntptlist = []
-    if request.type != REQUEST_NEW and request.fslabel:
-	mntptlist.append(request.fslabel)
-    
-    for p in defaultMountPoints:
-	if not p in mntptlist and (p[0] == "/"):
-	    mntptlist.append(p)
-	
-    mountCombo.set_popdown_strings (mntptlist)
-
-    mountpoint = request.mountpoint
-
-    if request.fstype and request.fstype.isMountable():
-        mountCombo.set_sensitive(1)
-        if mountpoint:
-            mountCombo.entry.set_text(mountpoint)
-        else:
-            mountCombo.entry.set_text("")
-    else:
-        mountCombo.entry.set_text(_("<Not Applicable>"))
-        mountCombo.set_sensitive(0)
-
-    mountCombo.set_data("saved_mntpt", None)
-
-    return mountCombo
-
-def setMntPtComboStateFromType(fstype, mountCombo):
-    prevmountable = mountCombo.get_data("prevmountable")
-    mountpoint = mountCombo.get_data("saved_mntpt")
-
-    if prevmountable and fstype.isMountable():
-        return
-
-    if fstype.isMountable():
-        mountCombo.set_sensitive(1)
-        if mountpoint != None:
-            mountCombo.entry.set_text(mountpoint)
-        else:
-            mountCombo.entry.set_text("")
-    else:
-        if mountCombo.entry.get_text() != _("<Not Applicable>"):
-            mountCombo.set_data("saved_mntpt", mountCombo.entry.get_text())
-        mountCombo.entry.set_text(_("<Not Applicable>"))
-        mountCombo.set_sensitive(0)
-
-    mountCombo.set_data("prevmountable", fstype.isMountable())
-    
-def fstypechangeCB(widget, mountCombo):
-    fstype = widget.get_data("type")
-    setMntPtComboStateFromType(fstype, mountCombo)
-
-class DriveCheckList(checklist.CheckList):
-    def __init__(self, columns, store):
-	checklist.CheckList.__init__(self, columns=columns,
-				     custom_store = store)
-
-	selection = self.get_selection()
-	selection.set_mode(gtk.SELECTION_NONE)
-
-	# make checkbox column wider
-	column = self.get_column(0)
-	column.set_fixed_width(75)
-	column.set_alignment(0.0)
-
-class RaidCheckList(checklist.CheckList):
-    def __init__(self, columns, store):
-	checklist.CheckList.__init__(self, columns=columns,
-				     custom_store = store)
-
-	selection = self.get_selection()
-	selection.set_mode(gtk.SELECTION_NONE)
-
-	# make checkbox column wider
-	column = self.get_column(0)
-	column.set_fixed_width(75)
-	column.set_alignment(0.0)
-
-def createAllowedDrivesList(disks, reqdrives):
-    store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
-			  gobject.TYPE_STRING,
-			  gobject.TYPE_STRING,
-			  gobject.TYPE_STRING)
-    drivelist = DriveCheckList(3, store)
-
-    driverow = 0
-    drives = disks.keys()
-    drives.sort()
-    for drive in drives:
-        size = getDeviceSizeMB(disks[drive].dev)
-	selected = 0
-        if reqdrives:
-            if drive in reqdrives:
-		selected = 1
-        else:
-	    selected = 1
-
-	sizestr = "%8.0f MB" % size
-	drivelist.append_row((drive, sizestr, disks[drive].dev.model),selected)
-
-    return drivelist
-
-def createAllowedRaidPartitionsList(allraidparts, reqraidpart):
-
-    store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
-			  gobject.TYPE_STRING,
-			  gobject.TYPE_STRING)
-    partlist = RaidCheckList(2, store)
-
-    sw = gtk.ScrolledWindow()
-    sw.add(partlist)
-    sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
-    sw.set_shadow_type(gtk.SHADOW_IN)
-
-    partrow = 0
-    for part, size, used in allraidparts:
-        partname = "%s" % part
-	partsize = "%8.0f MB" % size
-        if used or not reqraidpart:
-            selected = 1
-	else:
-	    selected = 0
-
-	partlist.append_row((partname, partsize), selected)
-
-    return (partlist, sw)
-
-def createAllowedLvmPartitionsList(alllvmparts, reqlvmpart, partitions):
-
-    store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
-			  gobject.TYPE_STRING,
-			  gobject.TYPE_STRING)
-    partlist = RaidCheckList(2, store)
-
-    sw = gtk.ScrolledWindow()
-    sw.add(partlist)
-    sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
-    sw.set_shadow_type(gtk.SHADOW_IN)
-
-    for uid, size, used in alllvmparts:
-	request = partitions.getRequestByID(uid)
-	if request.type != REQUEST_RAID:
-	    partname = "%s" % (request.device,)
-	else:
-	    partname = "md%d" % (request.raidminor,)
-	partsize = "%8.0f MB" % size
-        if used or not reqlvmpart:
-            selected = 1
-	else:
-	    selected = 0
-
-	partlist.append_row((partname, partsize), selected)
-
-    return (partlist, sw)
-
-def createRaidLevelMenu(levels, reqlevel, raidlevelchangeCB, sparesb):
-    leveloption = gtk.OptionMenu()
-    leveloptionmenu = gtk.Menu()
-    defindex = None
-    i = 0
-    for lev in levels:
-        item = gtk.MenuItem(lev)
-        item.set_data("level", lev)
-        # XXX gtk bug, if you don't show then the menu will be larger
-        # than the largest menu item
-        item.show()        
-        leveloptionmenu.add(item)
-        if reqlevel and lev == reqlevel:
-            defindex = i
-        if raidlevelchangeCB and sparesb:
-            item.connect("activate", raidlevelchangeCB, sparesb)
-        i = i + 1
-
-    leveloption.set_menu(leveloptionmenu)
-    
-    if defindex:
-        leveloption.set_history(defindex)
-
-    if reqlevel and reqlevel == "RAID0":
-        sparesb.set_sensitive(0)
-        
-    return (leveloption, leveloptionmenu)
-
-
-def createRaidMinorMenu(minors, reqminor):
-    minoroption = gtk.OptionMenu()
-    minoroptionmenu = gtk.Menu()
-    defindex = None
-    i = 0
-    for minor in minors:
-        item = gtk.MenuItem("md%d" % (minor,))
-        item.set_data("minor", minor)
-        # XXX gtk bug, if you don't show then the menu will be larger
-        # than the largest menu item
-        item.show()
-        minoroptionmenu.add(item)
-        if reqminor and minor == reqminor:
-            defindex = i
-        i = i + 1
-
-    minoroption.set_menu(minoroptionmenu)
-    
-    if defindex:
-        minoroption.set_history(defindex)
-
-    return (minoroption, minoroptionmenu)
-
-# pass in callback for when fs changes because of python scope issues
-def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
-                     availablefstypes = None, ignorefs = None):
-    fstypeoption = gtk.OptionMenu()
-    fstypeoptionMenu = gtk.Menu()
-    types = fileSystemTypeGetTypes()
-    if availablefstypes:
-        names = availablefstypes
-    else:
-        names = types.keys()
-    if fstype and fstype.isSupported() and fstype.isFormattable():
-        default = fstype
-    else:
-        default = fileSystemTypeGetDefault()
-        
-    names.sort()
-    defindex = None
-    i = 0
-    for name in names:
-        if not fileSystemTypeGet(name).isSupported():
-            continue
-
-        if ignorefs and name in ignorefs:
-            continue
-        
-        if fileSystemTypeGet(name).isFormattable():
-            item = gtk.MenuItem(name)
-            item.set_data("type", types[name])
-            # XXX gtk bug, if you don't show then the menu will be larger
-            # than the largest menu item
-            item.show()
-            fstypeoptionMenu.add(item)
-            if default and default.getName() == name:
-                defindex = i
-                defismountable = types[name].isMountable()
-            if fstypechangeCB and mountCombo:
-                item.connect("activate", fstypechangeCB, mountCombo)
-            i = i + 1
-
-    fstypeoption.set_menu(fstypeoptionMenu)
-
-    if defindex:
-        fstypeoption.set_history(defindex)
-
-    if mountCombo:
-        mountCombo.set_data("prevmountable",
-                            fstypeoptionMenu.get_active().get_data("type").isMountable())
-
-    return (fstypeoption, fstypeoptionMenu)
-
-def raidlevelchangeCB(widget, sparesb):
-    raidlevel = widget.get_data("level")
-    numparts = sparesb.get_data("numparts")
-    maxspares = raid.get_raid_max_spares(raidlevel, numparts)
-    if maxspares > 0 and raidlevel != "RAID0":
-        sparesb.set_sensitive(1)
-        adj = sparesb.get_adjustment()
-        value = adj.value
-        if adj.value > maxspares:
-            value = maxspares
-        adj.set_value(value)
-        adj.clamp_page(0, maxspares)
-        sparesb.set_adjustment(adj)
-        sparesb.set_value(value)
-        
-    else:
-        sparesb.set_value(0)
-        sparesb.set_sensitive(0)
-
 class PartitionWindow(InstallWindow):
     def __init__(self, ics):
 	InstallWindow.__init__(self, ics)
@@ -1039,508 +754,6 @@ class PartitionWindow(InstallWindow):
 
         self.editPartitionRequest(request, isNew = 1)
 
-    # edit a partition request
-    # isNew implies that this request has never been successfully used before
-    def editPartitionRequest(self, origrequest, isNew = 0):
-
-        def formatOptionCB(widget, data):
-            (menuwidget, menu, mntptcombo, ofstype) = data
-            menuwidget.set_sensitive(widget.get_active())
-
-            # inject event for fstype menu
-            if widget.get_active():
-                fstype = menu.get_active().get_data("type")
-                setMntPtComboStateFromType(fstype, mntptcombo)
-            else:
-                setMntPtComboStateFromType(ofstype, mntptcombo)
-
-        def noformatCB(widget, badblocks):
-            badblocks.set_sensitive(widget.get_active())
-
-        def sizespinchangedCB(widget, fillmaxszsb):
-            size = widget.get_value_as_int()
-            maxsize = fillmaxszsb.get_value_as_int()
-            if size > maxsize:
-                fillmaxszsb.set_value(size)
-
-            # ugly got to be better way
-            adj = fillmaxszsb.get_adjustment()
-            adj.clamp_page(size, adj.upper)
-            fillmaxszsb.set_adjustment(adj)
-
-        def cylspinchangedCB(widget, data):
-            (dev, startcylspin, endcylspin, bycyl_sizelabel) = data
-            startsec = start_cyl_to_sector(dev,
-                                           startcylspin.get_value_as_int())
-            endsec = end_cyl_to_sector(dev, endcylspin.get_value_as_int())
-            cursize = (endsec - startsec)/2048
-            bycyl_sizelabel.set_text("%s" % (int(cursize))) 
-
-        def fillmaxszCB(widget, spin):
-            spin.set_sensitive(widget.get_active())
-
-        # pass in CB defined above because of two scope limitation of python!
-        def createSizeOptionsFrame(request, fillmaxszCB):
-            frame = gtk.Frame(_("Additional Size Options"))
-            sizeoptiontable = gtk.Table()
-            sizeoptiontable.set_row_spacings(5)
-            sizeoptiontable.set_border_width(4)
-            
-            fixedrb     = gtk.RadioButton(label=_("Fixed size"))
-            fillmaxszrb = gtk.RadioButton(group=fixedrb,
-                                          label=_("Fill all space up "
-                                                  "to (MB):"))
-            maxsizeAdj = gtk.Adjustment(value = 1, lower = 1,
-                                        upper = MAX_PART_SIZE, step_incr = 1)
-            fillmaxszsb = gtk.SpinButton(maxsizeAdj, digits = 0)
-            fillmaxszsb.set_property('numeric', gtk.TRUE)
-            fillmaxszhbox = gtk.HBox()
-            fillmaxszhbox.pack_start(fillmaxszrb)
-            fillmaxszhbox.pack_start(fillmaxszsb)
-            fillunlimrb = gtk.RadioButton(group=fixedrb,
-                                         label=_("Fill to maximum allowable "
-                                                 "size"))
-
-            fillmaxszrb.connect("toggled", fillmaxszCB, fillmaxszsb)
-
-            # default to fixed, turn off max size spinbutton
-            fillmaxszsb.set_sensitive(0)
-            if request.grow:
-                if request.maxSizeMB != None:
-                    fillmaxszrb.set_active(1)
-                    fillmaxszsb.set_sensitive(1)
-                    fillmaxszsb.set_value(request.maxSizeMB)
-                else:
-                    fillunlimrb.set_active(1)
-            else:
-                fixedrb.set_active(1)
-
-            sizeoptiontable.attach(fixedrb, 0, 1, 0, 1)
-            sizeoptiontable.attach(fillmaxszhbox, 0, 1, 1, 2)
-            sizeoptiontable.attach(fillunlimrb, 0, 1, 2, 3)
-            
-            frame.add(sizeoptiontable)
-
-            return (frame, fixedrb, fillmaxszrb, fillmaxszsb)
-
-        #
-        # start of editPartitionRequest
-        #
-        dialog = gtk.Dialog(_("Add Partition"), self.parent)
-        gui.addFrame(dialog)
-        dialog.add_button('gtk-cancel', 2)
-        dialog.add_button('gtk-ok', 1)
-        dialog.set_position(gtk.WIN_POS_CENTER)
-        
-        maintable = gtk.Table()
-        maintable.set_row_spacings(5)
-        maintable.set_col_spacings(5)
-        row = 0
-
-        # see if we are creating a floating request or by cylinder
-        if origrequest.type == REQUEST_NEW:
-            newbycyl = origrequest.start != None
-
-        # Mount Point entry
-        maintable.attach(createAlignedLabel(_("Mount Point:")),
-                                            0, 1, row, row + 1)
-        mountCombo = createMountPointCombo(origrequest)
-        maintable.attach(mountCombo, 1, 2, row, row + 1)
-        row = row + 1
-
-        # Partition Type
-        if origrequest.type == REQUEST_NEW:
-            maintable.attach(createAlignedLabel(_("Filesystem Type:")),
-                             0, 1, row, row + 1)
-
-            (newfstype, newfstypeMenu) = createFSTypeMenu(origrequest.fstype,
-                                                          fstypechangeCB,
-                                                          mountCombo)
-            maintable.attach(newfstype, 1, 2, row, row + 1)
-        else:
-            maintable.attach(createAlignedLabel(_("Original Filesystem "
-                                                  "Type:")),
-                             0, 1, row, row + 1)
-
-            if origrequest.origfstype:
-                typestr = origrequest.origfstype.getName()
-                if origrequest.origfstype.getName() == "foreign":
-                    part = get_partition_by_name(self.diskset.disks,
-                                                 origrequest.device)
-                    typestr = map_foreign_to_fsname(part.native_type)
-            else:
-                typestr = _("Unknown")
-
-            fstypelabel = gtk.Label(typestr)
-            maintable.attach(fstypelabel, 1, 2, row, row + 1)
-            newfstype = None
-            newfstypeMenu = None
-            
-        row = row + 1
-
-        # allowable drives
-        if origrequest.type == REQUEST_NEW:
-            if not newbycyl:
-                maintable.attach(createAlignedLabel(_("Allowable Drives:")),
-                                 0, 1, row, row + 1)
-
-                driveview = createAllowedDrivesList(self.diskset.disks,
-                                                      origrequest.drive)
-
-                sw = gtk.ScrolledWindow()
-                sw.add(driveview)
-                sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-		sw.set_shadow_type(gtk.SHADOW_IN)
-                maintable.attach(sw, 1, 2, row, row + 1)
-		driveview.set_size_request(375, 80)
-            else:
-                maintable.attach(createAlignedLabel(_("Drive:")),
-                                 0, 1, row, row + 1)
-                maintable.attach(createAlignedLabel(origrequest.drive[0]),
-                                 1, 2, row, row + 1)
-
-            row = row + 1
-
-        # original fs label
-        if origrequest.type != REQUEST_NEW and origrequest.fslabel:
-            maintable.attach(createAlignedLabel(_("Original Filesystem "
-                                                  "Label:")),
-                             0, 1, row, row + 1)
-            fslabel = gtk.Label(origrequest.fslabel)
-            maintable.attach(fslabel, 1, 2, row, row + 1)
-
-            row = row + 1
-
-        # size
-        if origrequest.type == REQUEST_NEW:
-            if not newbycyl:
-                # Size specification
-                maintable.attach(createAlignedLabel(_("Size (MB):")),
-                                 0, 1, row, row + 1)
-                sizeAdj = gtk.Adjustment(value = 1, lower = 1,
-                                         upper = MAX_PART_SIZE, step_incr = 1)
-                sizespin = gtk.SpinButton(sizeAdj, digits = 0)
-                sizespin.set_property('numeric', gtk.TRUE)
-
-                if origrequest.size:
-                    sizespin.set_value(origrequest.size)
-
-                maintable.attach(sizespin, 1, 2, row, row + 1)
-                bycyl_sizelabel = None
-            else:
-                # XXX need to add partition by size and
-                #     wire in limits between start and end
-                dev = self.diskset.disks[origrequest.drive[0]].dev
-                maintable.attach(createAlignedLabel(_("Size (MB):")),
-                                 0, 1, row, row + 1)
-                bycyl_sizelabel = createAlignedLabel("")
-                maintable.attach(bycyl_sizelabel, 1, 2, row, row + 1)
-                row = row + 1
-                maintable.attach(createAlignedLabel(_("Start Cylinder:")),
-                                 0, 1, row, row + 1)
-
-                maxcyl = self.diskset.disks[origrequest.drive[0]].dev.cylinders
-                cylAdj = gtk.Adjustment(value=origrequest.start,
-                                        lower=origrequest.start,
-                                        upper=maxcyl,
-                                        step_incr=1)
-                startcylspin = gtk.SpinButton(cylAdj, digits=0)
-                startcylspin.set_property('numeric', gtk.TRUE)
-                maintable.attach(startcylspin, 1, 2, row, row + 1)
-                row = row + 1
-                
-                endcylAdj = gtk.Adjustment(value=origrequest.end,
-                                           lower=origrequest.start,
-                                           upper=maxcyl,
-                                           step_incr=1)
-                maintable.attach(createAlignedLabel(_("End Cylinder:")),
-                                 0, 1, row, row + 1)
-                endcylspin = gtk.SpinButton(endcylAdj, digits = 0)
-                endcylspin.set_property('numeric', gtk.TRUE)
-                maintable.attach(endcylspin, 1, 2, row, row + 1)
-
-                startcylspin.connect("changed", cylspinchangedCB,
-                            (dev, startcylspin, endcylspin, bycyl_sizelabel))
-                endcylspin.connect("changed", cylspinchangedCB,
-                             (dev, startcylspin, endcylspin, bycyl_sizelabel))
-                
-                startsec = start_cyl_to_sector(dev, origrequest.start)
-                endsec = end_cyl_to_sector(dev, origrequest.end)
-                cursize = (endsec - startsec)/2048
-                bycyl_sizelabel.set_text("%s" % (int(cursize)))
-        else:
-            maintable.attach(createAlignedLabel(_("Size (MB):")),
-                             0, 1, row, row + 1)
-            sizelabel = gtk.Label("%d" % (origrequest.size))
-            maintable.attach(sizelabel, 1, 2, row, row + 1)
-            sizespin = None
-            
-        row = row + 1
-
-        # format/migrate options for pre-existing partitions
-        if origrequest.type == REQUEST_PREEXIST and origrequest.fstype:
-
-            ofstype = origrequest.fstype
-            
-            maintable.attach(gtk.HSeparator(), 0, 2, row, row + 1)
-            row = row + 1
-
-            label = gtk.Label(_("How would you like to prepare the filesystem "
-                               "on this partition?"))
-            label.set_line_wrap(1)
-            label.set_alignment(0.0, 0.0)
-#            label.set_size_request(400, -1)
-
-            maintable.attach(label, 0, 2, row, row + 1)
-            row = row + 1
-            
-            noformatrb = gtk.RadioButton(label=_("Leave unchanged "
-                                                 "(preserve data)"))
-            noformatrb.set_active(1)
-            maintable.attach(noformatrb, 0, 2, row, row + 1)
-            row = row + 1
-
-            formatrb = gtk.RadioButton(label=_("Format partition as:"),
-                                       group = noformatrb)
-            formatrb.set_active(0)
-            if origrequest.format:
-                formatrb.set_active(1)
-
-            maintable.attach(formatrb, 0, 1, row, row + 1)
-            (fstype, fstypeMenu) = createFSTypeMenu(ofstype,fstypechangeCB,
-                                                    mountCombo)
-            fstype.set_sensitive(formatrb.get_active())
-            maintable.attach(fstype, 1, 2, row, row + 1)
-            row = row + 1
-
-            if not formatrb.get_active() and not origrequest.migrate:
-                mountCombo.set_data("prevmountable", ofstype.isMountable())
-
-            formatrb.connect("toggled", formatOptionCB, (fstype, fstypeMenu,
-                                                         mountCombo, ofstype))
-
-            if origrequest.origfstype.isMigratable():
-                migraterb = gtk.RadioButton(label=_("Migrate partition to:"),
-                                            group=noformatrb)
-                migraterb.set_active(0)
-                if origrequest.migrate:
-                    migraterb.set_active(1)
-
-                migtypes = origrequest.origfstype.getMigratableFSTargets()
-
-                maintable.attach(migraterb, 0, 1, row, row + 1)
-                (migfstype, migfstypeMenu)=createFSTypeMenu(ofstype,
-                                                            None, None,
-                                                   availablefstypes = migtypes)
-                migfstype.set_sensitive(migraterb.get_active())
-                maintable.attach(migfstype, 1, 2, row, row + 1)
-                row = row + 1
-
-                migraterb.connect("toggled", formatOptionCB, (migfstype,
-                                                              migfstypeMenu,
-                                                              mountCombo,
-                                                              ofstype))
-                
-            else:
-                migraterb = None
-
-            badblocks = gtk.CheckButton(_("Check for bad blocks?"))
-            badblocks.set_active(0)
-            maintable.attach(badblocks, 0, 1, row, row + 1)
-            formatrb.connect("toggled", noformatCB, badblocks)
-            if not origrequest.format:
-                badblocks.set_sensitive(0)
-
-            if origrequest.badblocks:
-                badblocks.set_active(1)
-            
-            row = row + 1
-            
-        else:
-            noformatrb = None
-            formatrb = None
-            migraterb = None
-
-        # size options
-        if origrequest.type == REQUEST_NEW:
-            if not newbycyl:
-                (sizeframe, fixedrb, fillmaxszrb,
-                 fillmaxszsb) = createSizeOptionsFrame(origrequest,
-                                                       fillmaxszCB)
-                sizespin.connect("changed", sizespinchangedCB, fillmaxszsb)
-
-                maintable.attach(sizeframe, 0, 2, row, row + 1)
-            else:
-                # XXX need new by cyl options (if any)
-                pass
-            row = row + 1
-        else:
-            sizeoptiontable = None
-
-        # create only as primary
-        if origrequest.type == REQUEST_NEW:
-            primonlycheckbutton = gtk.CheckButton(_("Force to be a primary "
-                                                    "partition"))
-            primonlycheckbutton.set_active(0)
-            if origrequest.primary:
-                primonlycheckbutton.set_active(1)
-            maintable.attach(primonlycheckbutton, 0, 2, row, row+1)
-            row = row + 1
-
-            badblocks = gtk.CheckButton(_("Check for bad blocks"))
-            badblocks.set_active(0)
-            maintable.attach(badblocks, 0, 1, row, row + 1)
-            row = row + 1
-            if origrequest.badblocks:
-                badblocks.set_active(1)
-            
-        # put main table into dialog
-        dialog.vbox.pack_start(maintable)
-        dialog.show_all()
-
-        while 1:
-            rc = dialog.run()
-
-            # user hit cancel, do nothing
-            if rc == 2:
-                dialog.destroy()
-                return
-
-            if origrequest.type == REQUEST_NEW:
-                # read out UI into a partition specification
-                filesystem = newfstypeMenu.get_active().get_data("type")
-
-                request = copy.copy(origrequest)
-                request.fstype = filesystem
-                request.format = gtk.TRUE
-                
-                if request.fstype.isMountable():
-                    request.mountpoint = mountCombo.entry.get_text()
-                else:
-                    request.mountpoint = None
-                    
-                if primonlycheckbutton.get_active():
-                    primonly = gtk.TRUE
-                else:
-                    primonly = None
-
-                if badblocks and badblocks.get_active():
-                    request.badblocks = gtk.TRUE
-                else:
-                    request.badblocks = None
-
-                if not newbycyl:
-                    if fixedrb.get_active():
-                        grow = None
-                    else:
-                        grow = gtk.TRUE
-
-                    if fillmaxszrb.get_active():
-                        maxsize = fillmaxszsb.get_value_as_int()
-                    else:
-                        maxsize = None
-
-		    allowdrives = []
-		    model = driveview.get_model()
-		    iter = model.get_iter_root()
-		    next = 1
-		    while next:
-			val   = model.get_value(iter, 0)
-			drive = model.get_value(iter, 1)
-
-			if val:
-			    allowdrives.append(drive)
-
-			next = model.iter_next(iter)
-
-                    if len(allowdrives) == len(self.diskset.disks.keys()):
-                        allowdrives = None
-			
-                    request.size = sizespin.get_value_as_int()
-                    request.drive = allowdrives
-                    request.grow = grow
-                    request.primary = primonly
-                    request.maxSizeMB = maxsize
-                else:
-                    request.start = startcylspin.get_value_as_int()
-                    request.end = endcylspin.get_value_as_int()
-
-                    if request.end <= request.start:
-                        self.intf.messageWindow(_("Error With Request"),
-                                                _("The end cylinder must be "
-                                                "greater than the start "
-                                                "cylinder."))
-
-                        continue
-
-                err = request.sanityCheckRequest(self.partitions)
-                if err:
-                    self.intf.messageWindow(_("Error With Request"),
-                                            "%s" % (err))
-                    continue
-
-            else:
-                # preexisting partition, just set mount point and format flag
-                request = copy.copy(origrequest)
-                if formatrb:
-                    request.format = formatrb.get_active()
-                    if request.format:
-                        request.fstype = fstypeMenu.get_active().get_data("type")
-                    if badblocks and badblocks.get_active():
-                        request.badblocks = gtk.TRUE
-                    else:
-                        request.badblocks = None
-                        
-                else:
-                    request.format = 0
-                    request.badblocks = None
-
-                if migraterb:
-                    request.migrate = migraterb.get_active()
-                    if request.migrate:
-                        request.fstype =migfstypeMenu.get_active().get_data("type")
-                else:
-                    request.migrate = 0
-
-                # set back if we are not formatting or migrating
-                if not request.format and not request.migrate:
-                    request.fstype = origrequest.origfstype
-
-                if request.fstype.isMountable():
-                    request.mountpoint =  mountCombo.entry.get_text()
-                else:
-                    request.mountpoint = None
-
-                err = request.sanityCheckRequest(self.partitions)
-                if err:
-                    self.intf.messageWindow(_("Error With Request"),
-                                            "%s" % (err))
-                    continue
-
-                if (not request.format and
-                    request.mountpoint and request.formatByDefault()):
-                    if not queryNoFormatPreExisting(self.intf):
-                        continue
-            
-            if not isNew:
-                self.partitions.removeRequest(origrequest)
-
-            self.partitions.addRequest(request)
-            if self.refresh():
-                # the add failed; remove what we just added and put
-                # back what was there if we removed it
-                self.partitions.removeRequest(request)
-                if not isNew:
-                    self.partitions.addRequest(origrequest)
-                if self.refresh():
-                    # this worked before and doesn't now...
-                    raise RuntimeError, ("Returning partitions to state "
-                                         "prior to edit failed")
-            else:
-                break
-
-        dialog.destroy()
-
     def deleteCb(self, widget):
         curselection = self.tree.getCurrentPartition()
 
@@ -1617,642 +830,124 @@ class PartitionWindow(InstallWindow):
 
     # isNew implies that this request has never been successfully used before
     def editRaidRequest(self, raidrequest, isNew = 0):
-        #
-        # start of editRaidRuquest
-        #
-        availraidparts = self.partitions.getAvailRaidPartitions(raidrequest,
-								self.diskset)
-        # if no raid partitions exist, raise an error message and return
-        if len(availraidparts) < 2:
-            dlg = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
-                                    gtk.BUTTONS_OK,
-                                    _("At least two software RAID "
-                                      "partitions are needed."))
-            gui.addFrame(dlg)
-            dlg.show_all()
-            dlg.set_position(gtk.WIN_POS_CENTER)
-            dlg.run()
-            dlg.destroy()
-            return
+	raideditor = raid_dialog_gui.RaidEditor(self.partitions,
+						     self.diskset, self.intf,
+						     self.parent, raidrequest,
+						     isNew)
+	
+	while 1:
+	    request = raideditor.run()
 
-        dialog = gtk.Dialog(_("Make RAID Device"), self.parent)
-        gui.addFrame(dialog)
-        dialog.add_button('gtk-cancel', 2)
-        dialog.add_button('gtk-ok', 1)
-        dialog.set_position(gtk.WIN_POS_CENTER)
-        
-        maintable = gtk.Table()
-        maintable.set_row_spacings(5)
-        maintable.set_col_spacings(5)
-        row = 0
+	    if request is None:
+		return
 
-        # Mount Point entry
-        maintable.attach(createAlignedLabel(_("Mount Point:")),
-                                            0, 1, row, row + 1)
-        mountCombo = createMountPointCombo(raidrequest)
-        maintable.attach(mountCombo, 1, 2, row, row + 1)
-        row = row + 1
+	    if not isNew:
+		self.partitions.removeRequest(raidrequest)
 
-        # Filesystem Type
-        maintable.attach(createAlignedLabel(_("Filesystem type:")),
-                                            0, 1, row, row + 1)
+	    self.partitions.addRequest(request)
 
-        (fstypeoption, fstypeoptionMenu) = createFSTypeMenu(raidrequest.fstype,
-                                                            fstypechangeCB,
-                                                            mountCombo,
-                                                            ignorefs = ["software RAID"])
-        maintable.attach(fstypeoption, 1, 2, row, row + 1)
-        row = row + 1
+	    if self.refresh():
+		# how can this fail?  well, if it does, do the remove new,
+		# add old back in dance
+		self.partitions.removeRequest(request)
+		if not isNew:
+		    self.partitions.addRequest(raidrequest)
+		if self.refresh():
+		    raise RuntimeError, ("Returning partitions to state "
+					 "prior to RAID edit failed")
+	    else:
+		break
 
-	# raid minors
-        maintable.attach(createAlignedLabel(_("RAID Device:")),
-                                            0, 1, row, row + 1)
+	raideditor.destroy()		
 
-	availminors = self.partitions.getAvailableRaidMinors()[:16]
-	reqminor = raidrequest.raidminor
-	if reqminor is not None:
-	    availminors.append(reqminor)
 
-	availminors.sort()
-	(minorOption, minorOptionMenu) = createRaidMinorMenu(availminors, reqminor)
-        maintable.attach(minorOption, 1, 2, row, row + 1)
-        row = row + 1
+    def editPartitionRequest(self, origrequest, isNew = 0):
+	parteditor = partition_dialog_gui.PartitionEditor(self.partitions,
+							  self.diskset,
+							  self.intf,
+							  self.parent,
+							  origrequest,
+							  isNew)
 
-        # raid level
-        maintable.attach(createAlignedLabel(_("RAID Level:")),
-                                            0, 1, row, row + 1)
+	while 1:
+	    request = parteditor.run()
+	    print request
 
-        # Create here, pack below
-        numparts =  len(availraidparts)
-        if raidrequest.raidspares:
-            nspares = raidrequest.raidspares
-        else:
-            nspares = 0
-            
-        if raidrequest.raidlevel:
-            maxspares = raid.get_raid_max_spares(raidrequest.raidlevel, numparts)
-        else:
-            maxspares = 0
+	    if request is None:
+		return
 
-        spareAdj = gtk.Adjustment(value = nspares, lower = 0,
-                                  upper = maxspares, step_incr = 1)
-        sparesb = gtk.SpinButton(spareAdj, digits = 0)
-        sparesb.set_data("numparts", numparts)
-
-        if maxspares > 0:
-            sparesb.set_sensitive(1)
-        else:
-            sparesb.set_value(0)
-            sparesb.set_sensitive(0)
-
-        (leveloption, leveloptionmenu) = createRaidLevelMenu(availRaidLevels,
-                                                       raidrequest.raidlevel,
-                                                       raidlevelchangeCB,
-                                                       sparesb)
-        maintable.attach(leveloption, 1, 2, row, row + 1)
-        row = row + 1
-
-        # raid members
-        maintable.attach(createAlignedLabel(_("RAID Members:")),
-                         0, 1, row, row + 1)
-
-        # XXX need to pass in currently used partitions for this device
-        (raidlist, sw) = createAllowedRaidPartitionsList(availraidparts,
-						       raidrequest.raidmembers)
-
-        raidlist.set_size_request(275, 80)
-        maintable.attach(sw, 1, 2, row, row + 1)
-        row = row + 1
-
-        # number of spares - created widget above
-        maintable.attach(createAlignedLabel(_("Number of spares:")),
-                         0, 1, row, row + 1)
-        maintable.attach(sparesb, 1, 2, row, row + 1)
-        row = row + 1
-
-        # format or not?
-        if raidrequest.fstype and raidrequest.fstype.isFormattable():
-            formatButton = gtk.CheckButton(_("Format partition?"))
-            # XXX this probably needs more logic once we detect existing raid
-            if raidrequest.format == None or raidrequest.format != 0:
-                formatButton.set_active(1)
-            else:
-                formatButton.set_active(0)
-            maintable.attach(formatButton, 0, 2, row, row + 1)
-            row = row + 1
-
-        else:
-            formatButton = None
-            
-        # put main table into dialog
-        dialog.vbox.pack_start(maintable)
-
-        dialog.show_all()
-
-        while 1:
-            rc = dialog.run()
-
-            # user hit cancel, do nothing
-            if rc == 2:
-                dialog.destroy()
-                return
-
-            # read out UI into a partition specification
-            request = copy.copy(raidrequest)
-
-            filesystem = fstypeoptionMenu.get_active().get_data("type")
-            request.fstype = filesystem
-
-            if request.fstype.isMountable():
-                request.mountpoint = mountCombo.entry.get_text()
-            else:
-                request.mountpoint = None
-
-	    raidmembers = []
-	    model = raidlist.get_model()
-	    iter = model.get_iter_root()
-	    next = 1
-	    while next:
-		val   = model.get_value(iter, 0)
-		part = model.get_value(iter, 1)
-
-		if val:
-		    req = self.partitions.getRequestByDeviceName(part)
-		    raidmembers.append(req.uniqueID)
-
-		next = model.iter_next(iter)
-
-	    request.raidminor = minorOptionMenu.get_active().get_data("minor")
-
-            request.raidmembers = raidmembers
-            request.raidlevel = leveloptionmenu.get_active().get_data("level")
-            if request.raidlevel != "RAID0":
-                request.raidspares = sparesb.get_value_as_int()
-            else:
-                request.raidspares = 0
-            
-            if formatButton:
-                request.format = formatButton.get_active()
-            else:
-                request.format = 0
-
-            err = request.sanityCheckRequest(self.partitions)
-            if err:
-                self.intf.messageWindow(_("Error With Request"),
-                                        "%s" % (err))
-                continue
-            
             if not isNew:
-                self.partitions.removeRequest(raidrequest)
+                self.partitions.removeRequest(origrequest)
 
             self.partitions.addRequest(request)
-            
             if self.refresh():
-                # how can this fail?  well, if it does, do the remove new,
-                # add old back in dance
+                # the add failed; remove what we just added and put
+                # back what was there if we removed it
+		print "failed"
                 self.partitions.removeRequest(request)
                 if not isNew:
-                    self.partitions.addRequest(raidrequest)
+                    self.partitions.addRequest(origrequest)
                 if self.refresh():
+                    # this worked before and doesn't now...
                     raise RuntimeError, ("Returning partitions to state "
-                                         "prior to RAID edit failed")
+                                         "prior to edit failed")
             else:
-                break
+		break
 
-        dialog.destroy()
+	parteditor.destroy()
 
-    def getCurrentLogicalVolume(self):
-	selection = self.logvollist.get_selection()
-	rc = selection.get_selected()
-	if rc:
-	    model, iter = rc
-	else:
-	    return None
-
-	return iter
-
-
-    def editLogicalVolume(self, logrequest, isNew = 0):
-        dialog = gtk.Dialog(_("Make Logical Volume"), self.parent)
-        gui.addFrame(dialog)
-        dialog.add_button('gtk-cancel', 2)
-        dialog.add_button('gtk-ok', 1)
-        dialog.set_position(gtk.WIN_POS_CENTER)
-
-        maintable = gtk.Table()
-        maintable.set_row_spacings(5)
-        maintable.set_col_spacings(5)
-        row = 0
-
-	maintable.attach(createAlignedLabel(_("Mount point:")), 0, 1, row,row+1)
-        mountCombo = createMountPointCombo(logrequest)
-        maintable.attach(mountCombo, 1, 2, row, row + 1)
-        row = row + 1
-
-	maintable.attach(createAlignedLabel(_("Filesystem Type:")),
-			 0, 1, row, row + 1)
-
-	(newfstype, newfstypeMenu) = createFSTypeMenu(logrequest.fstype,
-						      fstypechangeCB,
-						      mountCombo,
-						      ignorefs = ["software RAID", "physical volume (LVM)", "vfat"])
-	maintable.attach(newfstype, 1, 2, row, row + 1)
-	row = row+1
-			 
-        maintable.attach(createAlignedLabel(_("Size (MB):")), 0, 1, row, row+1)
-        sizeEntry = gtk.Entry(16)
-        maintable.attach(sizeEntry, 1, 2, row, row + 1)
-	if logrequest:
-	    sizeEntry.set_text("%g" % (logrequest.size,))
-        row = row + 1
-
-        maintable.attach(createAlignedLabel(_("Logical Volume Name:")), 0, 1, row, row + 1)
-        lvnameEntry = gtk.Entry(16)
-        maintable.attach(lvnameEntry, 1, 2, row, row + 1)
-	if logrequest and logrequest.logicalVolumeName:
-	    lvnameEntry.set_text(logrequest.logicalVolumeName)
-        row = row + 1
-
-        dialog.vbox.pack_start(maintable)
-        dialog.show_all()
-
-	while 1:
-	    rc = dialog.run()
-	    if rc == 2:
-		dialog.destroy()
-		return
-
-	    fsystem = newfstypeMenu.get_active().get_data("type")
-            mntpt = string.strip(mountCombo.entry.get_text())
-	    badsize = 0
-	    try:
-		size = int(sizeEntry.get_text())
-	    except:
-		badsize = 1
-
-	    if badsize or size <= 0:
-		self.intf.messageWindow(_("Illegal size"),
-					_("The requested size as entered is "
-					  "not a valid number greater than 0."))
-		continue
-	    
-	    lvname = string.strip(lvnameEntry.get_text())
-
-            if logrequest:
-                preexist = logrequest.preexist
-            else:
-                preexist = 0
-
-	    if fsystem.isMountable():
-		err = sanityCheckMountPoint(mntpt, fsystem, preexist)
-	    else:
-		mntpt = None
-		err = None
-		
-	    if err:
-		self.intf.messageWindow(_("Bad mount point"), err)
-		continue
-
-	    used = 0
-	    if fsystem.isMountable():
-		if not logrequest or mntpt != logrequest.mountpoint:
-		    # check in existing requests
-		    curreq = self.partitions.getRequestByMountPoint(mntpt)
-		    if curreq:
-			used = 1
-
-		    # check in pending logical volume requests
-		    if not used:
-			for lv in self.logvolreqs:
-			    if logrequest and logrequest.mountpoint and lv.mountpoint == logrequest.mountpoint:
-				continue
-
-			    if lv.mountpoint == mntpt:
-				used = 1
-				break
-
-	    if used:
-		self.intf.messageWindow(_("Mount point in use"),
-					_("The mount point %s is in use, "
-					  "please pick another.") % (mntpt,))
-		continue
-
-	    err = sanityCheckLogicalVolumeName(lvname)
-	    if err:
-		self.intf.messageWindow(_("Illegal Logical Volume Name"),
-					err)
-		continue
-
-	    # is it in use?
-	    used = 0
-	    if logrequest:
-		origlvname = logrequest.logicalVolumeName
-	    else:
-		origlvname = None
-		
-	    if not used:
-		for lv in self.logvolreqs:
-		    if logrequest and lv.mountpoint == logrequest.mountpoint:
-			continue
-
-		    if lv.logicalVolumeName == lvname:
-			used = 1
-			break
-
-	    if used:
-		self.intf.messageWindow(_("Illegal logical volume name"),
-					_("The logical volume name %s is "
-					  "already in use. Please pick "
-					  "another.") % (lvname,))
-		continue
-
-	    # everything ok
-	    break
-
-	if not isNew:
-	    self.logvolreqs.remove(logrequest)
-	    iter = self.getCurrentLogicalVolume()
-	    self.logvolstore.remove(iter)
-	    
-        request = LogicalVolumeRequestSpec(fsystem, mountpoint = mntpt,
-                                           lvname = lvname, size = size)
-        self.logvolreqs.append(request)
-
-	iter = self.logvolstore.append()
-	self.logvolstore.set_value(iter, 0, lvname)
-	if request.fstype and request.fstype.isMountable():
-	    self.logvolstore.set_value(iter, 1, mntpt)
-	self.logvolstore.set_value(iter, 2, "%g" % (size,))
-
-        dialog.destroy()
-	
-    def editCurrentLogicalVolume(self):
-	iter = self.getCurrentLogicalVolume()
-
-	if iter is None:
-	    return
-	
-	logvolname = self.logvolstore.get_value(iter, 0)
-	logrequest = None
-	for lv in self.logvolreqs:
-	    if lv.logicalVolumeName == logvolname:
-		logrequest = lv
-		
-	if logrequest is None:
-	    return
-
-	self.editLogicalVolume(logrequest)
-
-    def addLogicalVolumeCB(self, widget):
-        request = LogicalVolumeRequestSpec(fileSystemTypeGetDefault(), size = 1)
-	self.editLogicalVolume(request, isNew = 1)
-	return
-
-    def editLogicalVolumeCB(self, widget):
-	self.editCurrentLogicalVolume()
-	return
-
-    def delLogicalVolumeCB(self, widget):
-	iter = self.getCurrentLogicalVolume()
-	if iter is None:
-	    return
-	
-	logvolname = self.logvolstore.get_value(iter, 0)
-	if logvolname is None:
-	    return
-
-	rc = self.intf.messageWindow(_("Confirm Delete"),
-				_("Are you sure you want to remove the "
-				"logical volume %s?") % (logvolname,),
-				type = "yesno")
-	if not rc:
-	    return
-
-	for lv in self.logvolreqs:
-	    if lv.logicalVolumeName == logvolname:
-		self.logvolreqs.remove(lv)
-
-	self.logvolstore.remove(iter)
-	return
-    
-    def logvolActivateCb(self, view, path, col):
-	self.editCurrentLogicalVolume()
 
     def editLVMVolumeGroup(self, origvgrequest, isNew = 0):
-        availlvmparts = self.partitions.getAvailLVMPartitions(origvgrequest,
-                                                              self.diskset)
-
-        # if no raid partitions exist, raise an error message and return
-        if len(availlvmparts) < 1:
-	    self.intf.messageWindow(_("Not enough physical volumes"),
-			       _("At least one LVM partition is needed."))
-            return
-
-
-        dialog = gtk.Dialog(_("Make LVM Device"), self.parent)
-        gui.addFrame(dialog)
-        dialog.add_button('gtk-cancel', 2)
-        dialog.add_button('gtk-ok', 1)
-
-        dialog.set_position(gtk.WIN_POS_CENTER)
-
-        maintable = gtk.Table()
-        maintable.set_row_spacings(5)
-        maintable.set_col_spacings(5)
-        row = 0
-
-        # volume group name
-	labelalign = gtk.Alignment()
-	labelalign.set(0.0, 0.5, 0.0, 0.0)
-	labelalign.add(createAlignedLabel(_("Volume Group Name:")))
-        maintable.attach(labelalign, 0, 1, row, row + 1)
-        volnameEntry = gtk.Entry(16)
-	if not isNew:
-	    volnameEntry.set_text(origvgrequest.volumeGroupName)
-	    
-        maintable.attach(volnameEntry, 1, 2, row, row + 1)
-	row = row + 1
-
-        (lvmlist, sw) = createAllowedLvmPartitionsList(availlvmparts, [], self.partitions)
-        lvmlist.set_size_request(275, 80)
-
-        maintable.attach(createAlignedLabel(_("Physical Volumes to Use:")), 0, 1,
-			 row, row + 1)
-        maintable.attach(sw, 1, 2, row, row + 1)
-        row = row + 1
-
-	# populate list of logical volumes
-        lvtable = gtk.Table()
-        lvtable.set_row_spacings(5)
-        lvtable.set_col_spacings(5)
-	self.logvolstore = gtk.ListStore(gobject.TYPE_STRING,
-				      gobject.TYPE_STRING,
-				      gobject.TYPE_STRING)
+	vgeditor = lvm_dialog_gui.VolumeGroupEditor(self.partitions,
+						    self.diskset,
+						    self.intf, self.parent,
+						    origvgrequest, isNew)
 	
-        self.logvolreqs = self.partitions.getLVMLVForVG(origvgrequest)
-	self.origvolreqs = copy.copy(self.logvolreqs)
+	origpartitions = self.partitions.copy()
+	origvolreqs = origpartitions.getLVMLVForVG(origvgrequest)
 
-	if self.logvolreqs:
-	    for lvrequest in self.logvolreqs:
-		iter = self.logvolstore.append()
-		self.logvolstore.set_value(iter, 0, lvrequest.logicalVolumeName)
-		if lvrequest.fstype and lvrequest.fstype.isMountable():
-		    self.logvolstore.set_value(iter, 1, lvrequest.mountpoint)
-		else:
-		    self.logvolstore.set_value(iter, 1, "")
-		self.logvolstore.set_value(iter, 2, "%g" % (lvrequest.getActualSize(self.partitions, self.diskset)))
+	while (1):
+	    rc = vgeditor.run()
 
-	self.logvollist = gtk.TreeView(self.logvolstore)
-        col = gtk.TreeViewColumn(_("Logical Volume Name"),
-				 gtk.CellRendererText(), text=0)
-        self.logvollist.append_column(col)
-        col = gtk.TreeViewColumn(_("Mount Point"),
-				 gtk.CellRendererText(), text=1)
-        self.logvollist.append_column(col)
-        col = gtk.TreeViewColumn(_("Size (MB)"),
-				 gtk.CellRendererText(), text=2)
-        self.logvollist.append_column(col)
-        self.logvollist.connect('row-activated', self.logvolActivateCb)
-
-        sw = gtk.ScrolledWindow()
-        sw.add(self.logvollist)
-        sw.set_size_request(100, 100)
-        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-	sw.set_shadow_type(gtk.SHADOW_IN)
-        lvtable.attach(sw, 0, 1, 0, 1)
-
-	# button box of options
-	lvbbox = gtk.VBox()
-        add = gtk.Button(_("_Add"))
-        add.connect("clicked", self.addLogicalVolumeCB)
-	lvbbox.pack_start(add)
-        edit = gtk.Button(_("_Edit"))
-        edit.connect("clicked", self.editLogicalVolumeCB)
-	lvbbox.pack_start(edit)
-        delete = gtk.Button(_("_Delete"))
-        delete.connect("clicked", self.delLogicalVolumeCB)
-	lvbbox.pack_start(delete)
-
-	lvalign = gtk.Alignment()
-	lvalign.set(0.5, 0.0, 0.0, 0.0)
-	lvalign.add(lvbbox)
-        lvtable.attach(lvalign, 1, 2, 0, 1, gtk.SHRINK, gtk.SHRINK)
-
-	# pack all logical volumne stuff in a frame
-	frame = gtk.Frame(_("Logical Volumes"))
-	frame.add(lvtable)
-	maintable.attach(frame, 0, 2, row, row+1)
-	row = row + 1
-	
-	dialog.set_size_request(500, 400)
-
-        dialog.vbox.pack_start(maintable)
-        dialog.show_all()
-
-	while 1:
-	    rc = dialog.run()
-
-	    if rc == 2:
-		dialog.destroy()
+	    #
+	    # return code is either None or a tuple containing
+	    # volume group request and logical volume requests
+	    #
+	    if rc is None:
 		return
 
-	    pv = []
-	    model = lvmlist.get_model()
-	    iter = model.get_iter_root()
-	    next = 1
-	    availSpaceMB = 0
-	    while next:
-		val      = model.get_value(iter, 0)
-		partname = model.get_value(iter, 1)
+	    (vgrequest, logvolreqs) = rc
 
-		if val:
-		    pvreq = self.partitions.getRequestByDeviceName(partname)
-		    id = pvreq.uniqueID
-		    pv.append(id)
+	    # first add the volume group
+	    if not isNew:
+		for lv in origvolreqs:
+		    self.partitions.removeRequest(lv)
 
-		    availSpaceMB = (availSpaceMB +
-                                    pvreq.getActualSize(self.partitions,
-                                                        self.diskset))
-		next = model.iter_next(iter)
+		self.partitions.removeRequest(origvgrequest)
 
-	    print "Total size of volume group is %g MB" % (availSpaceMB,)
+	    vgID = self.partitions.addRequest(vgrequest)
 
-	    neededSpaceMB = 0
-	    for lv in self.logvolreqs:
-		neededSpaceMB = neededSpaceMB + lv.getActualSize(self.partitions, self.diskset)
+	    # now add the logical volumes
+	    for lv in logvolreqs:
+		lv.volumeGroup = vgID
+		lv.format = 1
+		self.partitions.addRequest(lv)
 
-	    print "Required size for logical volumes is %g MB" % (neededSpaceMB,)
-
-	    if neededSpaceMB > availSpaceMB:
-		self.intf.messageWindow(_("Not enough space"),
-					_("The logical volumes you have "
-					  "configured require %g MB, but the "
-					  "volume group only has %g MB.  Please "
-					  "either make the volume group larger "
-					  "or make the logical volume(s) smaller.") % (neededSpaceMB, availSpaceMB))
+	    if self.refresh():
+		if not isNew:
+		    self.partitions = origpartitions.copy()
+		    if self.refresh():
+			raise RuntimeError, ("Returning partitions to state "
+					     "prior to edit failed")
 		continue
-
-	    # check volume name
-	    volname = string.strip(volnameEntry.get_text())
-	    err = sanityCheckVolumeGroupName(volname)
-	    if err:
-		self.intf.messageWindow(_("Invalid Volume Group Name"), err)
-		continue
-
-	    if origvgrequest:
-		origvname = origvgrequest.volumeGroupName
 	    else:
-		origname = None
+		break
 
-	    if origvname != volname:
-		tmpreq = VolumeGroupRequestSpec(physvols = pv,
-                                                vgname = volname)
-		if self.partitions.isVolumeGroupNameInUse(volname):
-		    self.intf.messageWindow(_("Name in use"),
-					    _("The volume group name %s is "
-					      "already in use. Please pick "
-					      "another." % (volname,)))
-		    del tmpreq
-		    continue
-
-		del tmpreq
-
-	    # everything ok
-	    break
-
-        # first add the volume group
-	if not isNew:
-	    for lv in self.origvolreqs:
-		self.partitions.removeRequest(lv)
-
-	    self.partitions.removeRequest(origvgrequest)
+	vgeditor.destroy()
 
 
-	request = VolumeGroupRequestSpec(physvols = pv, vgname = volname)
-        vgID = self.partitions.addRequest(request)
 
-        # now add the logical volumes
-        for lv in self.logvolreqs:
-            lv.volumeGroup = vgID
-            lv.format = 1
-            self.partitions.addRequest(lv)
-
-#        for req in self.partitions.requests:
-#            log("%s" % (req,))
-
-	# XXX - probably shouldn't do this here - trying to force refresh of ui
-#        self.diskStripeGraph.shutDown()
-#        self.tree.clear()
-#        self.populate()
-
-        # XXX should probably check if this fails, cant see how it could
-        self.refresh()
-	
-        dialog.destroy()
-	return
-    
     def makeLvmCB(self, widget):
-
         request = VolumeGroupRequestSpec()
         self.editLVMVolumeGroup(request, isNew = 1)
 
@@ -2289,8 +984,8 @@ class PartitionWindow(InstallWindow):
             ops = ((_("_New"), self.newCB),
                    (_("_Edit"), self.editCb),
                    (_("_Delete"), self.deleteCb),
-                   (_("_Reset"), self.resetCb),
-                   (_("Make _RAID"), self.makeraidCB),
+                   (_("Re_set"), self.resetCb),
+                   (_("_RAID"), self.makeraidCB),
                    (_("_LVM"), self.makeLvmCB))
         
         for label, cb in ops:
