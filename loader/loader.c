@@ -3690,7 +3690,7 @@ int main(int argc, char ** argv) {
     closeLog();
 
     if (!FL_TESTING(flags)) {
-	printf(_("Running anaconda - please wait...\n"));
+	printf(_("Running the anaconda system installer - please wait...\n"));
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
     }
