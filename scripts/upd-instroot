@@ -787,7 +787,7 @@ rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/librecord.a
 rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/lib{GLcore,glx,pex5}*
 
 # fixup joe links
-ln -fs jpicosrc $DESTGR/etc/joe/picosrc
+ln -fs jpicorc $DESTGR/etc/joe/picorc
 ln -fs jmacsrc $DESTGR/etc/joe/emacsrc
 ln -fs jmacs $DESTGR/usr/bin/emacs
 ln -fs jpico $DESTGR/usr/bin/pico
