@@ -11,7 +11,7 @@ l'expert mode.
 Per attivare l'installazione in expert mode, digitate 0fexpert <ENTER>07.
 
 In expert mode, avrete il completo controllo del processo di installazione.
-Percio' dovrete essere in grado di inserire i parametri opzionali dei moduli.
+In alcuni casi dovrete inserire i parametri opzionali dei moduli.
 
 
 
