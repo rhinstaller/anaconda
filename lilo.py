@@ -217,7 +217,7 @@ class LiloConfiguration:
 	perms = 0644
         if os.access (instRoot + '/etc/lilo.conf', os.R_OK):
 	    perms = os.stat(instRoot + '/etc/lilo.conf')[0] & 0777
-	    lilo.read (instRoot + '/etc/lilo.conf')
+	    #lilo.read (instRoot + '/etc/lilo.conf')
 	    os.rename(instRoot + '/etc/lilo.conf',
 		      instRoot + '/etc/lilo.conf.rpmsave')
 
