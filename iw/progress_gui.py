@@ -198,7 +198,7 @@ class InstallProgressWindow_NEW (InstallWindow):
                     num = 0
 		    self.wrappedpixlist = 1
 		    
-                pix = self.ics.readPixmapDithered (self.pixmaps[num], 425, 225)
+                pix = self.ics.readPixmapDithered (self.pixmaps[num], 500, 325)
                 if pix:
 		    if self.adpix:
 			self.adbox.remove (self.adpix)
