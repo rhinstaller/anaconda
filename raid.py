@@ -14,11 +14,10 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-# XXX partedify
-
-import _balkan
+import parted
 import isys
 import os
+import partitioning
 from log import log
 
 def scanForRaid(drives):
@@ -26,19 +25,20 @@ def scanForRaid(drives):
     raidDevices = {}
 
     for d in drives:
+        parts = []
 	isys.makeDevInode(d, "/tmp/" + d)
-	try:
-	    parts = _balkan.readTable('/tmp/' + d)
-	except SystemError, msg:
-	    parts = []
+        try:
+            dev = parted.PedDevice.get("/tmp/" + d)
+            disk = parted.PedDisk.open(dev)
+
+            raidParts = partitioning.get_raid_partitions(disk)
+            for part in raidParts:
+                parts.append(partitioning.get_partition_name(part))
+        except:
+            pass
 
 	os.remove("/tmp/" + d)
-	for i in range(0, len(parts)):
-	    (type, start, size) = parts[i]
-	    if type != _balkan.RAID: continue
-
-	    dev = "%s%d" % (d, i + 1)
-
+        for dev in parts:
             try:
                 (major, minor, raidSet, level, nrDisks, totalDisks, mdMinor) =\
                         isys.raidsb(dev)
