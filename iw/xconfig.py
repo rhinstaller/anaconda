@@ -205,16 +205,19 @@ class XConfigWindow (InstallWindow):
             self.monlist = GtkCList ()
             self.monlist.set_selection_mode (SELECTION_BROWSE)
 	    arch = iutil.getArch()
+	    select = 0
                     
             for monitor in keys:
                 index = self.monlist.append ((monitor,))
                 self.monlist.set_row_data (index, (monitor, monitors[monitor]))
 		if arch == 'sparc' and monitor[:3] == 'Sun':
 		    self.monlist.select_row (index, 0)
+		    select = index
             sw = GtkScrolledWindow ()
             sw.add (self.monlist)
             sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
             self.autoBox.pack_start (sw, TRUE, TRUE)
+	    self.monlist.moveto (select, 0, 0.5, 0)
 
 	if not self.sunServer:
 	    test = GtkAlignment ()

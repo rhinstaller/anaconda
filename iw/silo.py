@@ -201,6 +201,7 @@ class SiloWindow (InstallWindow):
 	
         box = GtkVBox (FALSE, 0)
 
+	topBox = GtkHBox (FALSE, 2)
         optionBox = GtkVBox (FALSE, 5)
         optionBox.set_border_width (5)
         self.bootdisk = GtkCheckButton (_("Create boot disk"))
@@ -217,8 +218,18 @@ class SiloWindow (InstallWindow):
         self.silo.set_active (FALSE)
         self.silo.connect ("toggled", self.toggled)
         optionBox.pack_start (self.silo, FALSE)
+	topBox.pack_start (optionBox)
 
-        box.pack_start (optionBox, FALSE)
+	im = self.ics.readPixmap ("silo.png")
+	if im:
+	    im.render ()
+	    pix = im.make_pixmap ()
+	    a = GtkAlignment ()
+	    a.add (pix)
+	    a.set (1.0, 0.0, 0.0, 0.0)
+	    topBox.pack_start (a, FALSE)
+
+        box.pack_start (topBox, FALSE)
 
         box.pack_start (GtkHSeparator (), FALSE)
         box.pack_start (self.radioBox, FALSE)
