@@ -658,6 +658,8 @@ def doClearPartAction(id, type, cleardrives):
 def doAutoPartition(dir, id, intf):
 
     if dir == DISPATCH_BACK:
+        id.diskset.refreshDevices()
+        id.partrequests.setFromDisk(id.diskset)
         return
     
     # if no auto partition info in instclass we bail
