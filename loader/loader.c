@@ -33,6 +33,7 @@
 #include <string.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
+#include <sys/sysmacros.h>
 #include <sys/utsname.h>
 #include <unistd.h>
 #include <zlib.h>
@@ -142,8 +143,10 @@ static void spawnShell(int flags) {
     pid_t pid;
     int fd;
 
-    if (FL_SERIAL(flags))
+    if (FL_SERIAL(flags)) {
+	logMessage("not spawning a shell over a serial connection");
 	return;
+    }
     if (!FL_TESTING(flags)) {
 	fd = open("/dev/tty2", O_RDWR);
 	if (fd < 0) {
@@ -162,7 +165,7 @@ static void spawnShell(int flags) {
 	    close(fd);
 	    setsid();
 	    if (ioctl(0, TIOCSCTTY, NULL)) {
-		perror("could not set new controlling tty");
+		logMessage("could not set new controlling tty");
 	    }
 
 	    execl("/bin/sh", "-/bin/sh", NULL);
@@ -1452,6 +1455,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 		     LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "text"))
 	    flags |= LOADER_FLAGS_TEXT;
+        else if (!strcasecmp(argv[i], "updates"))
+	    flags |= LOADER_FLAGS_UPDATES;
         else if (!strcasecmp(argv[i], "isa"))
 	    flags |= LOADER_FLAGS_ISA;
         else if (!strcasecmp(argv[i], "dd"))
@@ -1637,6 +1642,108 @@ void readExtraModInfo(moduleInfoSet modInfo) {
     }
 }
 
+/* Recursive */
+int copyDirectory(char * from, char * to) {
+    DIR * dir;
+    struct dirent * ent;
+    int fd, outfd;
+    char buf[4096];
+    int i;
+    struct stat sb;
+    char filespec[256];
+    char filespec2[256];
+    char link[1024];
+
+    mkdir(to, 0755);
+
+    if (!(dir = opendir(from))) {
+	newtWinMessage(_("Error"), _("OK"), 
+		       _("Failed to read directory %s: %s"),
+		       from, strerror(errno));
+	return 1;
+    }
+
+    errno = 0;
+    while ((ent = readdir(dir))) {
+	if (ent->d_name[0] == '.') continue;
+
+	sprintf(filespec, "%s/%s", from, ent->d_name);
+	sprintf(filespec2, "%s/%s", to, ent->d_name);
+
+	lstat(filespec, &sb);
+
+	if (S_ISDIR(sb.st_mode)) {
+	    logMessage("recursively copying %s", filespec);
+	    if (copyDirectory(filespec, filespec2)) return 1;
+	} else if (S_ISLNK(sb.st_mode)) {
+	    i = readlink(filespec, link, sizeof(link) - 1);
+	    link[i] = '\0';
+	    if (symlink(link, filespec2)) {
+		logMessage("failed to symlink %s to %s: %s",
+		    filespec2, link, strerror(errno));
+	    }
+	} else {
+	    fd = open(filespec, O_RDONLY);
+	    if (fd < 0) {
+		logMessage("failed to open %s: %s", filespec,
+			   strerror(errno));
+		return 1;
+	    } 
+	    outfd = open(filespec2, O_RDWR | O_TRUNC | O_CREAT, 0644);
+	    if (outfd < 0) {
+		logMessage("failed to create %s: %s", filespec2,
+			   strerror(errno));
+	    } else {
+		fchmod(outfd, sb.st_mode & 07777);
+
+		while ((i = read(fd, buf, sizeof(buf))) > 0)
+		    write(outfd, buf, i);
+		close(outfd);
+	    }
+
+	    close(fd);
+	}
+
+	errno = 0;
+    }
+
+    closedir(dir);
+
+    return 0;
+}
+
+void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
+	         moduleDeps modDeps, int flags) {
+    int done = 0;
+    int rc;
+
+    do { 
+	rc = newtWinChoice(_("Devices"), _("OK"), _("Cancel"),
+		_("Insert your updates disk and press \"OK\" to continue."));
+
+	if (rc == 2) return;
+
+	devMakeInode("fd0", "/tmp/fd0");
+	if (doPwMount("/tmp/fd0", "/tmp/update-disk", "ext2", 1, 0, NULL, 
+		      NULL)) {
+	    newtWinMessage(_("Error"), _("OK"), 
+			   _("Failed to mount floppy disk."));
+	} else {
+	    /* Copy everything to /tmp/updates so .so files don't get run
+	       from /dev/fd0. We could (and probably should) get smarter about
+	       this at some point. */
+	    winStatus(40, 3, _("Updates"), _("Reading anaconda updates..."));
+	    if (!copyDirectory("/tmp/update-disk", "/tmp/updates")) done = 1;
+	    newtPopWindow();
+	    umount("/tmp/update-disk");
+	}
+    } while (!done);
+
+    chdir("/tmp/updates");
+
+    return;
+}
+
 #ifdef __sparc__
 /* Don't load the large ufs module if it will not be needed
    to save some memory on lowmem SPARCs. */
@@ -1694,6 +1801,7 @@ int main(int argc, char ** argv) {
     struct moduleInfo * mi;
     char twelve = 12;
     char * ksFile = NULL, * ksSource = NULL;
+    struct stat sb;
     struct poptOption optionTable[] = {
     	    { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
 	    { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
@@ -1710,9 +1818,10 @@ int main(int argc, char ** argv) {
 	return ourInsmodCommand(argc, argv);
 
 #ifdef INCLUDE_KON
-    else if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon"))
-	return kon_main(argc, argv);
-    else if (!strcmp(argv[0] + strlen(argv[0]) - 8, "continue"))
+    else if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon")) {
+	i = kon_main(argc, argv);
+	return i;
+    } else if (!strcmp(argv[0] + strlen(argv[0]) - 8, "continue"))
 	startKon = 0;
 #endif
 
@@ -1723,8 +1832,13 @@ int main(int argc, char ** argv) {
 	return probe_main(argc, argv);
 #endif
 
-    if (ioctl (0, TIOCLINUX, &twelve) < 0)
-	flags |= LOADER_FLAGS_SERIAL;
+    /* The fstat checks disallows serial console if we're running through
+       a pty. This is handy for Japanese. */
+    fstat(0, &sb);
+    if (major(sb.st_rdev) != 3) {
+	if (ioctl (0, TIOCLINUX, &twelve) < 0)
+	    flags |= LOADER_FLAGS_SERIAL;
+    }
 
     optCon = poptGetContext(NULL, argc, argv, optionTable, 0);
 
@@ -1871,6 +1985,9 @@ int main(int argc, char ** argv) {
 	  FL_ISA(flags) || FL_NOPROBE(flags)) && !ksFile) {
 	manualDeviceCheck(modInfo, modLoaded, modDeps, &kd, flags);
     }
+
+    if (FL_UPDATES(flags))
+        loadUpdates(&kd, modLoaded, modDeps, flags);
 
     loadUfs(&kd, modLoaded, modDeps, flags);
 
