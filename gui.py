@@ -928,6 +928,16 @@ class InstallControlWindow:
 	    child = os.fork()
 
 	    if (child == 0):
+		# close unneeded fd's
+		# Could not find any info on way to get list of existing fds
+		# other than scanning /proc/<pid>/fds (YUCK), so this will
+		# have to do.
+		for i in range(3,255):
+		    try:
+			os.close(i)
+		    except:
+			pass
+		    
 		os.execv(path[0], path + args)
 
 	    # we are going to check several times a second to see if
