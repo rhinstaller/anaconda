@@ -1,9 +1,13 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# Arjan van de Ven <arjanv@redhat.com>, 2001.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2001-02-19 18:55-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Ajran van de Ven <arjanv@redhat.com>\n"
+"Last-Translator: Arjan van de Ven <arjanv@redhat.com>\n"
 "Language-Team: Dutch <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
@@ -32,9 +36,8 @@ msgid ""
 "The following partitions are newly created, but you have chosen not to "
 "format them. This will probably cause an error later in the install.\n"
 "\n"
-msgstr ""
-"De volgende partities zijn aangemaakt, maar U heeft er voor gekozenom deze "
-"niet te formatteren. Dit zal een fout verder in de installatie veroorzaken.\n"
+msgstr "De volgende partities zijn aangemaakt, maar U heeft er voor gekozen"
+"om deze niet te formatteren. Dit zal een fout verder in de installatie veroorzaken.\n"
 "\n"
 
 #: ../fstab.py:73
@@ -43,11 +46,10 @@ msgid ""
 "\n"
 "Press OK to continue, or Cancel to go back and select these partitions to be "
 "formatted (RECOMMENDED)."
-msgstr ""
+msgstr "\n"
 "\n"
-"\n"
-"Kies OK om de installatie voort te zetten, Cancel om terug te gaan en  de "
-"paritities aan te merken voor formatteren. (AANBEVOLEN)."
+"Kies OK om de installatie voort te zetten, Cancel om terug te gaan en  "
+"de paritities aan te merken voor formatteren. (AANBEVOLEN)."
 
 #: ../fstab.py:74 ../harddrive.py:235 ../iw/rootpartition_gui.py:81
 #: ../iw/rootpartition_gui.py:97
@@ -76,12 +78,11 @@ msgid ""
 "because you modified extended partitions. While this is not critical, you "
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
-msgstr ""
-"De linux kernel was niet in staat om de nieuwe partitie-informatiete lezen, "
-"U heeft waarschijnlijk zgn 'extended partities' gewijzigd. Dit is geen "
-"kritieke fout, maar U moet uw systeem herstarten voordat U verder kunt gaan. "
-"Doe de Red Hat boot disk in de driver en kies \"OK\" om Uw systeem te "
-"herstarten.\n"
+msgstr "De linux kernel was niet in staat om de nieuwe partitie-informatie"
+"te lezen, U heeft waarschijnlijk zgn 'extended partities' gewijzigd. Dit is "
+"geen kritieke fout, maar U moet uw systeem herstarten voordat U verder "
+"kunt gaan. Doe de Red Hat boot disk in de driver en kies \"OK\" om Uw "
+"systeem te herstarten.\n" 
 
 #: ../fstab.py:503 ../fstab.py:772 ../fstab.py:1209
 msgid "Formatting"
@@ -132,11 +133,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Er is een foutsituatie opgretreden bij het mounten van device %s als %s : %s "
+"Er is een foutsituatie opgretreden bij het mounten van device %s als %s : %s \n"
 "\n"
-"\n"
-"Dit is waarschijnlijk veroorzaakt doordat deze partitie niet geformateerd "
-"is.\n"
+"Dit is waarschijnlijk veroorzaakt doordat deze partitie niet geformateerd is.\n"
 "\n"
 "Kies OK om uw systeem te herstarten."
 
@@ -146,9 +145,9 @@ msgid ""
 "copy the full text of this exception and file a bug report at "
 "http://bugzilla.redhat.com/bugzilla"
 msgstr ""
-"Er is iets vreemds gebeurt. Dit is waarschijnlijk een fout. Wij verzoeken U "
-"om de volledige 'exception' tekst te kopieren een de fout te rapporteren op "
-"http://bugzilla.redhat.com/bugzilla"
+"Er is iets vreemds gebeurt. Dit is waarschijnlijk een fout. Wij verzoeken "
+"U om de volledige 'exception' tekst te kopieren een de fout te rapporteren "
+"op http://bugzilla.redhat.com/bugzilla"
 
 #: ../gui.py:316 ../text.py:944
 msgid ""
@@ -238,8 +237,8 @@ msgid "Red Hat Linux Installer on %s"
 msgstr "Red Hat Linux Installer op %s"
 
 #: ../gui.py:718
-#, fuzzy, c-format
-msgid "Red Hat Linux Install Shell on %s"
+#, c-format
+msgid "Red Hat Linux Installer Shell on %s"
 msgstr "Red Hat Linux Installatie Shell op %s"
 
 #: ../gui.py:863
@@ -264,8 +263,8 @@ msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
-"Er is een fout opgetreden tijdens het overzetten van de "
-"installatie-bestanden.Waarschijnlijk is uw harddisk vol."
+"Er is een fout opgetreden tijdens het overzetten van de installatie-bestanden."
+"Waarschijnlijk is uw harddisk vol."
 
 #: ../image.py:118
 msgid "Change CDROM"
@@ -337,9 +336,8 @@ msgstr "WAARSCHUWING: er zijn geen bruikbare (hard)disks gevonden.\n"
 
 #: ../rescue.py:38
 msgid "ERROR: unknown error encountered reading partition tables.\n"
-msgstr ""
-"FOUT: er is een onbekende fout opgetreden bij het lezen van de partitie "
-"tabel.\n"
+msgstr "FOUT: er is een onbekende fout opgetreden bij het lezen van "
+"de partitie tabel.\n"
 
 #: ../rescue.py:64
 msgid "System to Rescue"
@@ -378,8 +376,8 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"Een fout is opgetreden tijdens het mounten van (een deel van) uw systeem.Een "
-"deel kan gemount zijn als /mnt/sysimage.\n"
+"Een fout is opgetreden tijdens het mounten van (een deel van) uw systeem."
+"Een deel kan gemount zijn als /mnt/sysimage.\n"
 "\n"
 "Typ <enter> om een shellprompt te krijgen. Het systeem zal automatisch "
 "herstarten als U de shell verlaat."
@@ -393,8 +391,8 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"U heeft geen Linux partities. Typ <enter> om een shellprompt te krijgen.Het "
-"systeem zal automatisch herstarten als u de shell verlaat."
+"U heeft geen Linux partities. Typ <enter> om een shellprompt te krijgen."
+"Het systeem zal automatisch herstarten als u de shell verlaat."
 
 #: ../rescue.py:108
 msgid "Your system is mounted under the /mnt/sysimage directory."
@@ -510,6 +508,7 @@ msgid ""
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
 
+
 #: ../iw/rootpartition_gui.py:503 ../iw/welcome_gui.py:89
 #: ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
@@ -561,8 +560,9 @@ msgstr ""
 "deze handleiding bezit, raden wij U aan om het installatie hoofdstuk te "
 "lezen voordat U verder gaat. \n"
 "\n"
-"Als u een 'Official Red Hat Linux' heeft gekocht, bevelen wij U aan om uw "
-"aanschaf te registreren via onze website, http://www.redhat.com/."
+"Als u een 'Official Red Hat Linux' heeft gekocht, bevelen wij U aan "
+"om uw aanschaf te registreren via onze website, http://www.redhat.com/."
+
 
 #: ../text.py:436
 msgid ""
@@ -901,8 +901,7 @@ msgstr "Afgebroken"
 
 #: ../text.py:1203
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Het is niet mogelijk om naar de vorige stap terug te gaan. Probeer opniew."
+msgstr "Het is niet mogelijk om naar de vorige stap terug te gaan. Probeer opniew."
 
 #: ../todo.py:697
 msgid "Creating boot disk..."
@@ -1044,7 +1043,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:12 ../xf86config.py:960
 msgid "Video Card"
-msgstr ""
+msgstr "Video Kaart"
 
 #: ../iw/xconfig_gui.py:14 ../xf86config.py:962
 msgid "Video Ram"
@@ -1060,11 +1059,11 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:13 ../xf86config.py:975 ../xf86config.py:977
 msgid "Monitor"
-msgstr ""
+msgstr "Beeldscherm"
 
 #: ../xf86config.py:977
 msgid "Plug and Play Monitor"
-msgstr ""
+msgstr "Plug en Play Beeldscherm"
 
 #: ../xf86config.py:979
 msgid "Horizontal frequency range"
@@ -1076,7 +1075,7 @@ msgstr ""
 
 #: ../xserver.py:27
 msgid "Mouse Not Detected"
-msgstr ""
+msgstr "Muis niet gevonden"
 
 #: ../xserver.py:28
 msgid ""
@@ -1096,23 +1095,23 @@ msgstr ""
 
 #: ../iw/account_gui.py:39
 msgid "Root password accepted."
-msgstr ""
+msgstr "root-wachtwoord geaccepteerd"
 
 #: ../iw/account_gui.py:42
 msgid "Please enter root password."
-msgstr ""
+msgstr "Voer het root-wachtwoord in."
 
 #: ../iw/account_gui.py:44
 msgid "Root password is too short."
-msgstr ""
+msgstr "Het root-wachtwoord is te kort"
 
 #: ../iw/account_gui.py:46
 msgid "Root passwords do not match."
-msgstr ""
+msgstr "De root-wachtwoorden komen niet overeen."
 
 #: ../iw/account_gui.py:59
 msgid "User password accepted."
-msgstr ""
+msgstr "Wachtwoord geaccepteerd"
 
 #: ../iw/account_gui.py:64
 msgid "Root account can not be added here."
@@ -1124,19 +1123,19 @@ msgstr ""
 
 #: ../iw/account_gui.py:68
 msgid "User password is too short."
-msgstr ""
+msgstr "Wachtwoord is te kort."
 
 #: ../iw/account_gui.py:70
 msgid "User passwords do not match."
-msgstr ""
+msgstr "Wachtwoorden komen niet overeen."
 
 #: ../iw/account_gui.py:192
 msgid "Root Password: "
-msgstr ""
+msgstr "Root Wachtwoord:"
 
 #: ../iw/account_gui.py:195
 msgid "Confirm: "
-msgstr ""
+msgstr "Bevestig: "
 
 #: ../iw/account_gui.py:256 ../iw/account_gui.py:305
 msgid "Account Name"
@@ -1144,37 +1143,37 @@ msgstr ""
 
 #: ../iw/account_gui.py:260 ../textw/userauth_text.py:81
 msgid "Password"
-msgstr ""
+msgstr "Wachtwoord"
 
 #: ../iw/account_gui.py:264 ../textw/userauth_text.py:82
 msgid "Password (confirm)"
-msgstr ""
+msgstr "Wachtwoord (bevestig)"
 
 #: ../iw/account_gui.py:275 ../iw/account_gui.py:305
 #: ../textw/userauth_text.py:83 ../textw/userauth_text.py:184
 msgid "Full Name"
-msgstr ""
+msgstr "Volledige Naam"
 
 #: ../iw/account_gui.py:284 ../libfdisk/newtfsedit.c:1483
 #: ../textw/userauth_text.py:198
 msgid "Add"
-msgstr ""
+msgstr "Toevoegen"
 
 #: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1476
 #: ../libfdisk/newtfsedit.c:1484 ../textw/lilo_text.py:208
 #: ../textw/partitioning_text.py:64 ../textw/silo_text.py:205
 #: ../textw/silo_text.py:227 ../textw/userauth_text.py:199
 msgid "Edit"
-msgstr ""
+msgstr "Wijzigen"
 
 #: ../iw/account_gui.py:288 ../libfdisk/newtfsedit.c:1484
 #: ../textw/userauth_text.py:198
 msgid "Delete"
-msgstr ""
+msgstr "Verwijderen"
 
 #: ../iw/account_gui.py:290
 msgid "New"
-msgstr ""
+msgstr "Nieuw"
 
 #: ../iw/auth_gui.py:11 ../textw/userauth_text.py:299
 msgid "Authentication Configuration"
@@ -1238,7 +1237,7 @@ msgstr ""
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
-msgstr ""
+msgstr "Opstartfloppy Aanmaken"
 
 #: ../iw/bootdisk_gui.py:58
 msgid ""
@@ -1255,7 +1254,7 @@ msgstr ""
 
 #: ../iw/bootdisk_gui.py:69
 msgid "Skip boot disk creation"
-msgstr ""
+msgstr "Opstart floppy niet aanmaken"
 
 #: ../iw/confirm_gui.py:13
 msgid "About to Upgrade"
@@ -1267,15 +1266,15 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:34
 msgid "Click next to begin upgrade of Red Hat Linux."
-msgstr ""
+msgstr "Kies 'volgende' om de upgrade van Red Hat Linux te starten."
 
 #: ../iw/confirm_gui.py:36
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr ""
+msgstr "Kies 'volgende' om de installatie van Red Hat Linux te starten."
 
 #: ../iw/congrats_gui.py:11 ../iw/congrats_gui.py:60
 msgid "Congratulations"
-msgstr ""
+msgstr "Gefeliciteerd"
 
 #: ../iw/congrats_gui.py:83
 msgid ""
@@ -1301,7 +1300,7 @@ msgstr ""
 #: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:380
 #: ../iw/progress_gui.py:191 ../textw/packages_text.py:312
 msgid "Package"
-msgstr ""
+msgstr "Pakket"
 
 #: ../iw/dependencies_gui.py:69 ../textw/packages_text.py:312
 msgid "Requirement"
@@ -1359,19 +1358,19 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:206
 msgid "Please choose your security level:  "
-msgstr ""
+msgstr "Kies uw beveiligingsniveau"
 
 #: ../iw/firewall_gui.py:215 ../textw/firewall_text.py:33
 msgid "High"
-msgstr ""
+msgstr "Zwaar"
 
 #: ../iw/firewall_gui.py:216 ../textw/firewall_text.py:36
 msgid "Medium"
-msgstr ""
+msgstr "Middelmatig"
 
 #: ../iw/firewall_gui.py:217 ../textw/firewall_text.py:39
 msgid "No firewall"
-msgstr ""
+msgstr "Geen firewall"
 
 #: ../iw/firewall_gui.py:233
 msgid "Use default firewall rules"
@@ -1379,7 +1378,7 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:234 ../textw/firewall_text.py:9
 msgid "Customize"
-msgstr ""
+msgstr "Aanpassen"
 
 #: ../iw/firewall_gui.py:247
 msgid "Trusted devices:"
@@ -1403,7 +1402,7 @@ msgstr ""
 
 #: ../iw/installpath_gui.py:97
 msgid "Install Type"
-msgstr ""
+msgstr "Installatie Type"
 
 #: ../iw/installpath_gui.py:179
 msgid "Install"
@@ -1415,11 +1414,11 @@ msgstr ""
 
 #: ../iw/keyboard_gui.py:16
 msgid "Keyboard Configuration"
-msgstr ""
+msgstr "Toetsenbord Instellingen"
 
 #: ../iw/keyboard_gui.py:86
 msgid "Model"
-msgstr ""
+msgstr "Model"
 
 #: ../iw/keyboard_gui.py:106
 msgid "Layout"
@@ -1439,36 +1438,36 @@ msgstr ""
 
 #: ../iw/keyboard_gui.py:145
 msgid "Test your selection here:"
-msgstr ""
+msgstr "Test uw keuze hier:"
 
 #: ../iw/language_gui.py:40 ../loader/lang.c:292
 msgid "What language should be used during the installation process?"
-msgstr ""
+msgstr "Welke taal wilt U tijdens de installatie gebruiken?"
 
 #: ../iw/language_support_gui.py:144
 msgid "Choose the default language:   "
-msgstr ""
+msgstr "Kies de standaard taal     :   "
 
 #: ../iw/language_support_gui.py:155
 msgid "Choose the languages to install:"
-msgstr ""
+msgstr "Kies de talen die U wilt installeren"
 
 #: ../iw/language_support_gui.py:202
 msgid "Select all"
-msgstr ""
+msgstr "Alles selecteren"
 
 #: ../iw/language_support_gui.py:222
 msgid "Select as default"
-msgstr ""
+msgstr "Als standaard selecteren"
 
 #: ../iw/lilo_gui.py:30
 msgid "Lilo Configuration"
-msgstr ""
+msgstr "Lilo Instellingen"
 
 #: ../iw/lilo_gui.py:208 ../iw/lilo_gui.py:365 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: ../iw/lilo_gui.py:253
 msgid "Install LILO boot record on:"
@@ -1477,28 +1476,28 @@ msgstr ""
 #: ../iw/lilo_gui.py:260 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87
 #: ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
-msgstr ""
+msgstr "Master Boot Record (MBR)"
 
 #: ../iw/lilo_gui.py:264 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88
 #: ../textw/silo_text.py:65
 msgid "First sector of boot partition"
-msgstr ""
+msgstr "Eerste sector van de opstart partitie"
 
 #: ../iw/lilo_gui.py:268 ../textw/lilo_text.py:27
 msgid "Use linear mode (needed for some SCSI drives)"
-msgstr ""
+msgstr "'linear mode' gebruiken (nodig voor een aantal SCSI apparaten)"
 
 #: ../iw/lilo_gui.py:279 ../iw/silo_gui.py:208
 msgid "Kernel parameters"
-msgstr ""
+msgstr "Kernel paramters"
 
 #: ../iw/lilo_gui.py:296 ../iw/silo_gui.py:226
 msgid "Create boot disk"
-msgstr ""
+msgstr "Boot floppy aanmaken"
 
 #: ../iw/lilo_gui.py:310
 msgid "Install LILO"
-msgstr ""
+msgstr "LILO Installeren"
 
 #: ../iw/lilo_gui.py:337 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
@@ -1549,11 +1548,11 @@ msgstr ""
 
 #: ../iw/mouse_gui.py:145
 msgid "Port"
-msgstr ""
+msgstr "Poort"
 
 #: ../iw/network_gui.py:11 ../textw/network_text.py:104
 msgid "Network Configuration"
-msgstr ""
+msgstr "Netwerk Instellingen"
 
 #: ../iw/network_gui.py:178
 msgid "Configure using DHCP"
@@ -1565,7 +1564,7 @@ msgstr ""
 
 #: ../iw/network_gui.py:193
 msgid "IP Address"
-msgstr ""
+msgstr "IP Adres"
 
 #: ../iw/network_gui.py:194 ../loader/net.c:752
 msgid "Netmask"
@@ -1590,15 +1589,15 @@ msgstr ""
 
 #: ../iw/network_gui.py:243
 msgid "Primary DNS"
-msgstr ""
+msgstr "Eerste DNS server"
 
 #: ../iw/network_gui.py:243
 msgid "Secondary DNS"
-msgstr ""
+msgstr "Tweede DNS server"
 
 #: ../iw/network_gui.py:243
 msgid "Ternary DNS"
-msgstr ""
+msgstr "Derde DNS server"
 
 #: ../iw/package_gui.py:25
 msgid "Individual Package Selection"
@@ -1610,11 +1609,11 @@ msgstr ""
 
 #: ../iw/package_gui.py:382
 msgid "Size (MB)"
-msgstr ""
+msgstr "Grootte (MB)"
 
 #: ../iw/package_gui.py:413
 msgid "Total size: "
-msgstr ""
+msgstr "Totale grootte:"
 
 #: ../iw/package_gui.py:416
 msgid "Select all in group"
@@ -1626,7 +1625,7 @@ msgstr ""
 
 #: ../iw/package_gui.py:455
 msgid "File not found"
-msgstr ""
+msgstr "Bestand niet gevonden"
 
 #: ../iw/package_gui.py:498 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
@@ -1651,56 +1650,56 @@ msgstr ""
 
 #: ../iw/package_gui.py:629 ../textw/packages_text.py:54
 msgid "Select individual packages"
-msgstr ""
+msgstr "Individuele Pakketten kiezen"
 
 #: ../iw/progress_gui.py:51
 msgid "Installing Packages"
-msgstr ""
+msgstr "Pakketten Installeren"
 
 #: ../iw/progress_gui.py:140
 #, c-format
 msgid "%s KBytes"
-msgstr ""
+msgstr "%s KByte"
 
 #: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 msgid "Size"
-msgstr ""
+msgstr "Grootte"
 
 #: ../iw/progress_gui.py:193
 msgid "Summary"
-msgstr ""
+msgstr "Overzicht"
 
 #: ../iw/progress_gui.py:223
 msgid "Package Progress: "
-msgstr ""
+msgstr "Pakket Voortgang:"
 
 #: ../iw/progress_gui.py:228
 msgid "Total Progress:   "
-msgstr ""
+msgstr "Algemene Voortgang:"
 
 #: ../iw/progress_gui.py:245
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: ../iw/progress_gui.py:245
 msgid "Packages"
-msgstr ""
+msgstr "Pakketten"
 
 #: ../iw/progress_gui.py:245
 msgid "Time"
-msgstr ""
+msgstr "Tijd"
 
 #: ../iw/progress_gui.py:255
 msgid "Total"
-msgstr ""
+msgstr "Totaal"
 
 #: ../iw/progress_gui.py:256
 msgid "Completed"
-msgstr ""
+msgstr "Voltooid"
 
 #: ../iw/progress_gui.py:257
 msgid "Remaining"
-msgstr ""
+msgstr "Resterend"
 
 #: ../iw/rootpartition_gui.py:39 ../textw/partitioning_text.py:23
 msgid "Disk Druid"
@@ -1763,7 +1762,7 @@ msgstr ""
 #: ../iw/rootpartition_gui.py:324 ../iw/rootpartition_gui.py:375
 #: ../textw/partitioning_text.py:149
 msgid "Automatic Partitioning"
-msgstr ""
+msgstr "Automatisch Partitioneren"
 
 #: ../iw/rootpartition_gui.py:377 ../textw/partitioning_text.py:150
 #, c-format
@@ -1777,7 +1776,7 @@ msgstr ""
 
 #: ../iw/rootpartition_gui.py:383
 msgid "Automatic Partitioning Failed"
-msgstr ""
+msgstr "Automatisch Partitioneren is mislukt"
 
 #: ../iw/rootpartition_gui.py:384
 msgid ""
@@ -1792,7 +1791,7 @@ msgstr ""
 
 #: ../iw/rootpartition_gui.py:391
 msgid "Manual Partitioning"
-msgstr ""
+msgstr "Handmatig Partitioneren"
 
 #: ../iw/rootpartition_gui.py:392
 msgid ""
@@ -1833,7 +1832,7 @@ msgstr ""
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
-msgstr ""
+msgstr "Silo Instellingen"
 
 #: ../iw/silo_gui.py:164
 msgid "Install SILO boot record on:"
@@ -1849,11 +1848,11 @@ msgstr ""
 
 #: ../iw/silo_gui.py:236
 msgid "Do not install SILO"
-msgstr ""
+msgstr "SILO niet installeren"
 
 #: ../iw/timezone_gui.py:31 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
-msgstr ""
+msgstr "Tijdzone Keuze"
 
 #: ../iw/timezone_gui.py:158
 msgid "View:"
@@ -1865,11 +1864,11 @@ msgstr ""
 
 #: ../iw/timezone_gui.py:215
 msgid "Use Daylight Saving Time (US only)"
-msgstr ""
+msgstr "Zomertijd gebruiken (alleen in de VS)"
 
 #: ../iw/timezone_gui.py:229
 msgid "Location"
-msgstr ""
+msgstr "Lokatie"
 
 #: ../iw/timezone_gui.py:230
 msgid "UTC Offset"
@@ -1877,7 +1876,7 @@ msgstr ""
 
 #: ../iw/welcome_gui.py:81
 msgid "Would you like to configure your system?"
-msgstr ""
+msgstr "Wilt U uw systeem instellen ?"
 
 #: ../iw/xconfig_gui.py:15
 msgid "Horizontal Frequency Range"
@@ -1889,11 +1888,11 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:17
 msgid "Test failed"
-msgstr ""
+msgstr "Test is mislukt"
 
 #: ../iw/xconfig_gui.py:25
 msgid "Customize Graphics Configuration"
-msgstr ""
+msgstr "Grafische Instellingen Aanpassen"
 
 #: ../iw/xconfig_gui.py:255
 msgid "Color Depth:"
@@ -1901,7 +1900,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:283
 msgid "Screen Resolution:"
-msgstr ""
+msgstr "Scherm Resolutie:"
 
 #: ../iw/xconfig_gui.py:393
 msgid "   Test Setting   "
@@ -1913,15 +1912,15 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:420 ../iw/xconfig_gui.py:481
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #: ../iw/xconfig_gui.py:422 ../iw/xconfig_gui.py:495
 msgid "KDE"
-msgstr ""
+msgstr "KDE"
 
 #: ../iw/xconfig_gui.py:461
 msgid "Your desktop environment is:"
-msgstr ""
+msgstr "Uw desktop omgeving is:"
 
 #: ../iw/xconfig_gui.py:506
 msgid "Please choose your login type:"
@@ -1929,11 +1928,11 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:515
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #: ../iw/xconfig_gui.py:516
 msgid "Graphical"
-msgstr ""
+msgstr "Grafisch"
 
 #: ../iw/xconfig_gui.py:564
 msgid "Bits per Pixel"
@@ -1941,11 +1940,11 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:584
 msgid "Monitor Configuration"
-msgstr ""
+msgstr "Beeldscherm Instellingen"
 
 #: ../iw/xconfig_gui.py:853 ../iw/xconfig_gui.py:1649
 msgid "Restore original values"
-msgstr ""
+msgstr "Oorspronkelijk waardes terughalen"
 
 #: ../iw/xconfig_gui.py:861
 msgid "Horizontal Sync:"
@@ -1957,11 +1956,11 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:869
 msgid "kHz"
-msgstr ""
+msgstr "kHz"
 
 #: ../iw/xconfig_gui.py:872
 msgid "Hz"
-msgstr ""
+msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:1057
 msgid ""
@@ -1991,7 +1990,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:1653
 msgid "Skip X Configuration"
-msgstr ""
+msgstr "X Configuratie overslaan"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
@@ -2014,13 +2013,13 @@ msgstr ""
 
 #: ../textw/bootdisk_text.py:35 ../textw/bootdisk_text.py:56
 msgid "Bootdisk"
-msgstr ""
+msgstr "Opstartschijf"
 
 #: ../textw/bootdisk_text.py:54 ../textw/bootdisk_text.py:62
 #: ../textw/bootdisk_text.py:73 ../textw/lilo_text.py:33
 #: ../textw/silo_text.py:25
 msgid "Skip"
-msgstr ""
+msgstr "Overslaan"
 
 #: ../textw/bootdisk_text.py:57
 msgid ""
@@ -2039,36 +2038,36 @@ msgstr ""
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
-msgstr ""
+msgstr "Beveiligingsniveau:"
 
 #: ../textw/firewall_text.py:59
 msgid "Trusted Devices:"
-msgstr ""
+msgstr "Betrouwbare interfaces:"
 
 #: ../textw/firewall_text.py:84
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/firewall_text.py:86
 msgid "SSH"
-msgstr ""
+msgstr "SSH"
 
 #: ../textw/firewall_text.py:88
 msgid "Telnet"
-msgstr ""
+msgstr "Telnet"
 
 #: ../textw/firewall_text.py:90
 msgid "WWW (HTTP)"
-msgstr ""
+msgstr "WWW (HTTP)"
 
 #: ../textw/firewall_text.py:92
 msgid "Mail (SMTP)"
-msgstr ""
+msgstr "E-mail (SMTP)"
 
 #: ../loader/loader.c:1238 ../loader/loader.c:1247
 #: ../textw/firewall_text.py:94
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../textw/firewall_text.py:98
 msgid "Other ports"
@@ -2093,7 +2092,7 @@ msgstr ""
 #: ../textw/firewall_text.py:190
 #, c-format
 msgid "Warning: %s is not a valid port."
-msgstr ""
+msgstr "Waarschuwing: %s is geen geldige poort."
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -2105,12 +2104,12 @@ msgstr ""
 
 #: ../textw/lilo_text.py:91 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
-msgstr ""
+msgstr "Waar wilt U de bootloader installeren?"
 
 #: ../textw/lilo_text.py:123 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:157
 msgid "Clear"
-msgstr ""
+msgstr "Wissen"
 
 #: ../textw/lilo_text.py:132
 msgid "Edit Boot Label Please"
@@ -2118,15 +2117,15 @@ msgstr ""
 
 #: ../textw/lilo_text.py:150 ../textw/lilo_text.py:155
 msgid "Invalid Boot Label"
-msgstr ""
+msgstr "Ongeldig Boot Label"
 
 #: ../textw/lilo_text.py:151
 msgid "Boot label may not be empty."
-msgstr ""
+msgstr "Het Boot Label mag niet leeg zijn"
 
 #: ../textw/lilo_text.py:156
 msgid "Boot label contains illegal characters."
-msgstr ""
+msgstr "Het Boot Label bevat ongeldige tekens."
 
 #: ../textw/lilo_text.py:212 ../textw/silo_text.py:208
 msgid ""
@@ -2141,7 +2140,7 @@ msgstr ""
 
 #: ../textw/mouse_text.py:57
 msgid "Which model mouse is attached to this computer?"
-msgstr ""
+msgstr "Wat voor muis gebruikt U?"
 
 #: ../textw/mouse_text.py:68
 msgid "Emulate 3 Buttons?"
@@ -2149,7 +2148,7 @@ msgstr ""
 
 #: ../textw/mouse_text.py:71
 msgid "Mouse Selection"
-msgstr ""
+msgstr "Muis keuze"
 
 #: ../textw/network_text.py:66
 msgid "Use bootp/dhcp"
@@ -2157,7 +2156,7 @@ msgstr ""
 
 #: ../loader/net.c:307 ../textw/network_text.py:71
 msgid "IP address:"
-msgstr ""
+msgstr "IP adres:"
 
 #: ../loader/net.c:310 ../textw/network_text.py:72
 msgid "Netmask:"
@@ -2169,23 +2168,23 @@ msgstr ""
 
 #: ../loader/net.c:316 ../textw/network_text.py:74
 msgid "Primary nameserver:"
-msgstr ""
+msgstr "Hoofd nameserver"
 
 #: ../textw/network_text.py:75
 msgid "Secondary nameserver:"
-msgstr ""
+msgstr "Tweede nameserver:"
 
 #: ../textw/network_text.py:76
 msgid "Ternary nameserver:"
-msgstr ""
+msgstr "Derde nameserver:"
 
 #: ../textw/network_text.py:121
 msgid "Invalid information"
-msgstr ""
+msgstr "Ongeldige informatie"
 
 #: ../textw/network_text.py:122
 msgid "You must enter valid IP information to continue"
-msgstr ""
+msgstr "U moet geldige IP instellingen invoeren om verder te gaan"
 
 #: ../textw/network_text.py:157
 msgid "Hostname Configuration"
@@ -2199,20 +2198,20 @@ msgstr ""
 
 #: ../textw/packages_text.py:91
 msgid "Package :"
-msgstr ""
+msgstr "Pakket  :"
 
 #: ../textw/packages_text.py:96
 msgid "Size    :"
-msgstr ""
+msgstr "Grootte :"
 
 #: ../textw/packages_text.py:97
 #, c-format
 msgid "%.1f KBytes"
-msgstr ""
+msgstr "%.1f KByte"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
-msgstr ""
+msgstr "Totale grootte"
 
 #: ../textw/packages_text.py:249
 msgid ""
@@ -2246,19 +2245,23 @@ msgid ""
 "dedicated to Linux. We suggest placing that partition on one of the first "
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
+"Om Red Hat Linux to installeren moet U een partitie van tenminste 150 MB "
+"speciaal voor Linux reserveren. We raden U aan om deze partitie op een "
+"van de eerste twee harddisks te plaatsen, zodat U LILO kunt gebruiken om "
+"Linux op te starten."
 
 #: ../loader/loader.c:341 ../loader/loader.c:366
 #: ../textw/partitioning_text.py:64
 msgid "Done"
-msgstr ""
+msgstr "Gereed"
 
 #: ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:156
 msgid "Continue"
-msgstr ""
+msgstr "Doorgaan"
 
 #: ../textw/partitioning_text.py:154
 msgid "Manually partition"
-msgstr ""
+msgstr "Partities handmatig instellen"
 
 #: ../textw/partitioning_text.py:235
 msgid ""
@@ -2270,11 +2273,11 @@ msgstr ""
 
 #: ../textw/partitioning_text.py:255
 msgid "Check for bad blocks during format"
-msgstr ""
+msgstr "Controleren op diskfouten tijdens het formatteren"
 
 #: ../textw/partitioning_text.py:260
 msgid "Choose Partitions to Format"
-msgstr ""
+msgstr "Kies de partities die U wilt formatteren"
 
 #: ../textw/partitioning_text.py:339
 msgid "Root filesystem size"
@@ -2287,7 +2290,7 @@ msgstr ""
 #: ../textw/partitioning_text.py:350 ../textw/partitioning_text.py:356
 #: ../textw/partitioning_text.py:363
 msgid "Bad Size"
-msgstr ""
+msgstr "Ongeldige grootte"
 
 #: ../textw/partitioning_text.py:351
 msgid "The size you enter must be a number."
@@ -2320,7 +2323,7 @@ msgstr ""
 
 #: ../textw/timezone_text.py:71
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "In welke tijdzone bevindt U zich?"
 
 #: ../textw/timezone_text.py:86
 msgid "Hardware clock set to GMT?"
@@ -2332,22 +2335,26 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
+"Kies een wachtwoord voor de 'root' gebruiker. U moet het wachtwoord twee "
+"maal invoeren om er zeker van te zijn dat U geen typfout heeft gemaakt. "
+"Denk er aan dat het root-wachtwoord een critisch onderdeel van de "
+"systeembeveiliging is!"
 
 #: ../loader/urls.c:345 ../textw/userauth_text.py:24
 msgid "Password:"
-msgstr ""
+msgstr "Wachtwoord:"
 
 #: ../textw/userauth_text.py:25
 msgid "Password (again):"
-msgstr ""
+msgstr "Wachtwoord (herhaal)"
 
 #: ../textw/userauth_text.py:41 ../textw/userauth_text.py:108
 msgid "Password Length"
-msgstr ""
+msgstr "Wachtwoord lengte"
 
 #: ../textw/userauth_text.py:42
 msgid "The root password must be at least 6 characters long."
-msgstr ""
+msgstr "Het root-wachtwoord moet tenminste 6 tekens lang zijn."
 
 #: ../textw/userauth_text.py:46 ../textw/userauth_text.py:116
 msgid "Password Mismatch"
@@ -2355,15 +2362,15 @@ msgstr ""
 
 #: ../textw/userauth_text.py:47 ../textw/userauth_text.py:117
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
+msgstr "De wachtwoorden zijn verschillend. Probeer opniew."
 
 #: ../textw/userauth_text.py:72
 msgid "Edit User"
-msgstr ""
+msgstr "Gebruiker wijzigen"
 
 #: ../textw/userauth_text.py:75
 msgid "Add User"
-msgstr ""
+msgstr "Gebruiker toevoegen"
 
 #: ../textw/userauth_text.py:80
 msgid "User ID"
@@ -2389,7 +2396,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:109
 msgid "The password must be at least 6 characters long."
-msgstr ""
+msgstr "Het wachtwoord moet tenminste 6 tekens lang zijn."
 
 #: ../textw/userauth_text.py:125 ../textw/userauth_text.py:133
 msgid "User Exists"
@@ -2420,7 +2427,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:184
 msgid "User name"
-msgstr ""
+msgstr "Gebruikersnaam"
 
 #: ../textw/userauth_text.py:211
 msgid "Enter the information for the user."
@@ -2469,11 +2476,11 @@ msgstr ""
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
-msgstr ""
+msgstr "Laptop"
 
 #: ../installclasses/server.py:8
 msgid "Server System"
-msgstr ""
+msgstr "Server Computer"
 
 #: ../installclasses/server.py:38
 msgid ""
@@ -2810,7 +2817,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1387
 msgid "No Drives Specified"
-msgstr ""
+msgstr "Geen drivers geselecteerd"
 
 #: ../libfdisk/gnomefsedit.c:1389
 msgid "You must constrain this partition to at least one drive."
@@ -2946,7 +2953,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2353
 msgid "Not Enough Partitions"
-msgstr ""
+msgstr "Niet genoeg partities"
 
 #: ../libfdisk/gnomefsedit.c:2355
 msgid ""
@@ -2982,7 +2989,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2466
 msgid "Use Pre-existing Partition?"
-msgstr ""
+msgstr "Bestaande partitie gebruiken?"
 
 #: ../libfdisk/gnomefsedit.c:2544
 msgid "Cannot Add RAID Devices"
@@ -3000,15 +3007,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2593
 msgid "Using Existing Disk Space"
-msgstr ""
+msgstr "Bestaande diskruimte gebruiken"
 
 #: ../libfdisk/gnomefsedit.c:2612
 msgid "Remove Linux partitions"
-msgstr ""
+msgstr "Linux partities verwijderen"
 
 #: ../libfdisk/gnomefsedit.c:2623
 msgid "Use existing free space"
-msgstr ""
+msgstr "Vrije ruimte gebruiken"
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2635
@@ -3017,11 +3024,11 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2654 ../libfdisk/gnomefsedit.c:2674
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #: ../libfdisk/gnomefsedit.c:2754
 msgid "Delete RAID Device?"
-msgstr ""
+msgstr "RAID device verwijderen ?"
 
 #: ../libfdisk/gnomefsedit.c:2755
 msgid "Are you sure you want to remove this RAID device?"
@@ -3033,15 +3040,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1786
 msgid "Reset partition table to original contents? "
-msgstr ""
+msgstr "De partitie tabel terugzetten naar de oorspronkelijke inhoud? "
 
 #: ../libfdisk/gnomefsedit.c:2846 ../libfdisk/gnomefsedit.c:2897
 msgid "<Swap>"
-msgstr ""
+msgstr "<Swap>"
 
 #: ../libfdisk/gnomefsedit.c:2848
 msgid "<RAID>"
-msgstr ""
+msgstr "<RAID>"
 
 #: ../libfdisk/gnomefsedit.c:2850
 msgid "<not set>"
@@ -3049,39 +3056,39 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3134
 msgid "Requested"
-msgstr ""
+msgstr "Gevraagd"
 
 #: ../libfdisk/gnomefsedit.c:3135
 msgid "Actual"
-msgstr ""
+msgstr "Werkelijke"
 
 #: ../libfdisk/gnomefsedit.c:3308
 msgid "Drive"
-msgstr ""
+msgstr "Drive"
 
 #: ../libfdisk/gnomefsedit.c:3309
 msgid "Geom [C/H/S]"
-msgstr ""
+msgstr "Geom [C/H/S]"
 
 #: ../libfdisk/gnomefsedit.c:3310
 msgid "Total (M)"
-msgstr ""
+msgstr "Totaal (M)"
 
 #: ../libfdisk/gnomefsedit.c:3311
 msgid "Free (M)"
-msgstr ""
+msgstr "Beschikbaar (M)"
 
 #: ../libfdisk/gnomefsedit.c:3312
 msgid "Used (M)"
-msgstr ""
+msgstr "Gebruikt (M)"
 
 #: ../libfdisk/gnomefsedit.c:3313
 msgid "Used (%)"
-msgstr ""
+msgstr "Gebruikt (%)"
 
 #: ../libfdisk/gnomefsedit.c:3561
 msgid "Unallocated Partitions Exist..."
-msgstr ""
+msgstr "Er zijn niet toegewezen partities..."
 
 #: ../libfdisk/gnomefsedit.c:3567 ../libfdisk/gnomefsedit.c:3585
 msgid ""
@@ -3091,23 +3098,23 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3656
 msgid "Partitions"
-msgstr ""
+msgstr "Partities"
 
 #: ../libfdisk/gnomefsedit.c:3686
 msgid "_Add..."
-msgstr ""
+msgstr "_Toevoegen"
 
 #: ../libfdisk/gnomefsedit.c:3693
 msgid "_Edit..."
-msgstr ""
+msgstr "_Bewerken"
 
 #: ../libfdisk/gnomefsedit.c:3694
 msgid "_Reset"
-msgstr ""
+msgstr "_Reset"
 
 #: ../libfdisk/gnomefsedit.c:3699
 msgid "_Delete"
-msgstr ""
+msgstr "_Verwijder"
 
 #. try having make raid device button available in read-only mode too
 #: ../libfdisk/gnomefsedit.c:3712
@@ -3120,31 +3127,31 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3731
 msgid "Drive Summary"
-msgstr ""
+msgstr "Drive Overzicht"
 
 #: ../libfdisk/newtfsedit.c:204
 msgid "Swap Partition"
-msgstr ""
+msgstr "Swap Partitie"
 
 #: ../libfdisk/newtfsedit.c:210
 msgid "Raid Partition"
-msgstr ""
+msgstr "RAID Partitie"
 
 #: ../libfdisk/newtfsedit.c:366
 msgid "Edit New Partition"
-msgstr ""
+msgstr "Nieuwe Partitie Bewerken"
 
 #: ../libfdisk/newtfsedit.c:432 ../libfdisk/newtfsedit.c:433
 msgid "Use remaining space?:"
-msgstr ""
+msgstr "Resterende ruimte gebruiken?:"
 
 #: ../libfdisk/newtfsedit.c:477
 msgid "Type:"
-msgstr ""
+msgstr "Type:"
 
 #: ../libfdisk/newtfsedit.c:491
 msgid "Unknown"
-msgstr ""
+msgstr "Onbekend"
 
 #: ../libfdisk/newtfsedit.c:1461
 msgid "Current Disk Partitions"
@@ -3161,7 +3168,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1494
 msgid "Drive Summaries"
-msgstr ""
+msgstr "Drive overzicht"
 
 #: ../libfdisk/newtfsedit.c:1496
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
@@ -3169,7 +3176,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1610
 msgid "No Root Partition"
-msgstr ""
+msgstr "Geen Root Partitie"
 
 #: ../libfdisk/newtfsedit.c:1611
 msgid ""
@@ -3179,7 +3186,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1630
 msgid "No Swap Partition"
-msgstr ""
+msgstr "Geen Swap Partitie"
 
 #: ../libfdisk/newtfsedit.c:1632
 msgid "You must assign a swap partition for the install to proceed."
@@ -3205,11 +3212,11 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1697
 msgid "Save Changes"
-msgstr ""
+msgstr "Wijzigingen Opslaan"
 
 #: ../libfdisk/newtfsedit.c:1699
 msgid "Save changes to partition table(s)?"
-msgstr ""
+msgstr "Wijzigingen in de partitie-tabel opslaan?"
 
 #: ../libfdisk/newtfsedit.c:1744
 msgid "You may only delete NFS mounts."
@@ -3221,11 +3228,11 @@ msgstr ""
 
 #: ../loader/cdrom.c:32
 msgid "CDROM type"
-msgstr ""
+msgstr "CDROM type"
 
 #: ../loader/cdrom.c:32
 msgid "What type of CDROM do you have?"
-msgstr ""
+msgstr "Welk type CDROM heeft U?"
 
 #: ../loader/cdrom.c:89
 msgid "Initializing CDROM..."
@@ -3233,7 +3240,7 @@ msgstr ""
 
 #: ../loader/devices.c:77
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Overig"
 
 #: ../loader/devices.c:86
 msgid ""
@@ -3839,77 +3846,103 @@ msgstr ""
 msgid "View: "
 msgstr ""
 
+# ../comps/comps-master:3
 msgid "Base"
 msgstr "Basis"
 
+# ../comps/comps-master:157
 msgid "Printer Support"
 msgstr "Printer Ondersteuning"
 
+# ../comps/comps-master:188
 msgid "X Window System"
 msgstr ""
 
+# ../comps/comps-master:421
 msgid "Mail/WWW/News Tools"
 msgstr ""
 
+# ../comps/comps-master:473
 msgid "DOS/Windows Connectivity"
 msgstr ""
 
+# ../comps/comps-master:486
 msgid "Graphics Manipulation"
 msgstr ""
 
+# ../comps/comps-master:505
 msgid "Games"
 msgstr "Spelletjes"
 
+# ../comps/comps-master:533
 msgid "Multimedia Support"
 msgstr "Multimedia Ondersteuning"
 
+# ../comps/comps-master:576
 msgid "Laptop Support"
 msgstr "Laptop Ondersteuning"
 
+# ../comps/comps-master:582
 msgid "Networked Workstation"
 msgstr "Netwerk Verbinding"
 
+# ../comps/comps-master:645
 msgid "Dialup Workstation"
 msgstr "Inbel Verbindingen"
 
+# ../comps/comps-master:686
 msgid "News Server"
 msgstr "News Server"
 
+# ../comps/comps-master:692
 msgid "NFS Server"
 msgstr "NFS Server"
 
+# ../comps/comps-master:698
 msgid "SMB (Samba) Server"
 msgstr "Samba (NT) File Server"
 
+# ../comps/comps-master:705
 msgid "IPX/Netware(tm) Connectivity"
 msgstr "Netware(tm) Connectivity"
 
+# ../comps/comps-master:712
 msgid "Anonymous FTP Server"
 msgstr "Anoniem toegankelijke FTP Server"
 
+# ../comps/comps-master:719
 msgid "SQL Server"
 msgstr "SQL Database Server"
 
+# ../comps/comps-master:729
 msgid "Web Server"
 msgstr "Web Server"
 
+# ../comps/comps-master:757
 msgid "DNS Name Server"
 msgstr "DNS Name Server"
 
+# ../comps/comps-master:771
 msgid "Network Management Workstation"
 msgstr ""
 
+# ../comps/comps-master:782
 msgid "Authoring/Publishing"
 msgstr ""
 
+# ../comps/comps-master:813
 msgid "Emacs"
 msgstr "Emacs"
 
+# ../comps/comps-master:833
 msgid "Development"
 msgstr "Software Ontwikkeling"
 
+# ../comps/comps-master:1000
 msgid "Kernel Development"
 msgstr "Kernel Ontwikkeling"
 
+# ../comps/comps-master:1006
 msgid "Utilities"
 msgstr ""
+
