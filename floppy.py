@@ -17,7 +17,7 @@ import isys
 import errno
 import iutil
 import re
-import os
+import os, stat
 import rpm404 as rpm
 import kudzu
 from constants import *
@@ -56,6 +56,48 @@ def makeBootdisk (intf, dir, floppyDevice, hdList, instPath, bootloader):
     if flags.test:
 	return DISPATCH_NOOP
 
+    kernel = hdList['kernel']
+    kernelTag = "-%s-%s" % (kernel[rpm.RPMTAG_VERSION],
+			    kernel[rpm.RPMTAG_RELEASE])
+
+
+    # FIXME: if other arches had working boot disks, we wouldn't be able
+    # to hardcode /boot
+    kernel = "%s/boot/vmlinuz%s" %(instPath, kernelTag)
+    size = 0
+    if os.access(kernel, os.R_OK):
+        try:
+            kernelsize = os.stat(kernel)[stat.ST_SIZE]
+            log("kernelsize is %s" %(kernelsize,))
+        except:
+            kernelsize = 0
+        size = size + kernelsize
+        
+    initrd = "%s/boot/initrd%s.img" %(instPath, kernelTag)
+    if os.access(initrd, os.R_OK):
+        try:
+            initrdsize = os.stat(initrd)[stat.ST_SIZE]
+            log("initrdsize is %s" %(initrdsize,)            )
+        except:
+            initrdsize = 0
+        size = size + initrdsize
+
+    log("boot floppy size is %s" %(size,))
+
+    # go within 10 K of the size of the boot disk to have a tad
+    # bit of safety.  if this fails, we're no worse off than we used
+    # to be.
+    if size >= 1416 * 1024 * 1024:
+        intf.messageWindow(_("Unable to make boot floppy"),
+                           _("The size of the kernel modules needed "
+                             "for your machine make it impossible to "
+                             "create a boot disk that will fit on a "
+                             "floppy diskette."),
+                           type = "warning")
+        return DISPATCH_NOOP
+
+    
+
     rc = intf.messageWindow( _("Insert a floppy disk"),
 			_("Please remove any diskettes from the floppy "
 			  "drive, and insert the floppy diskette that "
@@ -79,10 +121,6 @@ def makeBootdisk (intf, dir, floppyDevice, hdList, instPath, bootloader):
 		      "in the first floppy drive."))
 	return DISPATCH_BACK
     os.close(fd)
-
-    kernel = hdList['kernel']
-    kernelTag = "-%s-%s" % (kernel[rpm.RPMTAG_VERSION],
-			    kernel[rpm.RPMTAG_RELEASE])
 
     if bootloader.args.get():
         args = bootloader.args.get()
