@@ -335,7 +335,7 @@ class PartitionSpec(RequestSpec):
 
         str = ("%(n)s Part Request -- mountpoint: %(mount)s uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
-               "  device: %(dev)s drive: %(drive)  primary: %(primary)s\n"
+               "  device: %(dev)s drive: %(drive)s  primary: %(primary)s\n"
                "  size: %(size)s  grow: %(grow)s  maxsize: %(max)s\n"
                "  start: %(start)s  end: %(end)s"
                "  migrate: %(migrate)s  origfstype: %(origfs)s" % 
@@ -542,7 +542,7 @@ class VolumeGroupRequestSpec(RequestSpec):
         if not fstype:
             fsset.fileSystemTypeGet("volume group (LVM)")
         RequestSpec.__init__(self, fstype = fstype, format = format)
-        self.type = REQUEST_LV
+        self.type = REQUEST_VG
 
         self.volumeGroupName = vgname
         self.physicalVolumes = physvols
@@ -584,7 +584,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
 
         RequestSpec.__init__(self, fstype = fstype, format = format,
                              mountpoint = mountpoint, size = size)
-        self.type = REQUEST_VG
+        self.type = REQUEST_LV
 
         self.logicalVolumeName = lvname
         self.volumeGroup = volgroup
