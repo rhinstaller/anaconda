@@ -854,7 +854,7 @@ class s390BootloaderInfo(bootloaderInfo):
         str = self.writeZipl(instRoot, fsset, bl, langs, kernelList, 
                              chainList, defaultDev,
                              justConfig | (not self.useZiplVal))
-	str = self.writeChandevConf(instroot)
+	str = self.writeChandevConf(instRoot)
     
     def __init__(self):
         bootloaderInfo.__init__(self)
