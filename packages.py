@@ -747,6 +747,13 @@ def doPreInstall(method, id, intf, instPath, dir):
             except Exception, e:
                 log("error mounting selinuxfs: %s" %(e,))
 
+        # we need to have a /dev during install and now that udev is
+        # handling /dev, it gets to be more fun.  so just bind mount the
+        # installer /dev
+        if not id.grpset.hdrlist.has_key("dev"):
+            log("no dev package, going to bind mount /dev")
+            isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
+
     # try to copy the comps package.  if it doesn't work, don't worry about it
     try:
         id.compspkg = method.copyFileToTemp("%s/base/comps.rpm" % (productPath,))
