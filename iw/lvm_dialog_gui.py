@@ -26,14 +26,76 @@ from partRequests import *
 from partition_ui_helpers_gui import *
 from constants import *
 
+
 class VolumeGroupEditor:
+
+    def createPEOptionMenu(self, default=4096):
+	peOption = gtk.OptionMenu()
+	peOptionMenu = gtk.Menu()
+
+	idx = 0
+	defindex = None
+	actualPE = lvm.getPossiblePhysicalExtents(floor=1024)
+	for curpe in actualPE:
+	    if curpe < 1024:
+		val = "%s KB" % (curpe,)
+	    elif curpe < 1024*1024:
+		val = "%s MB" % (curpe/1024,)
+	    else:
+		val = "%s GB" % (curpe/1024/1024,)
+
+            item = gtk.MenuItem(val)
+            item.set_data("value", curpe)
+	    item.show()
+	    peOptionMenu.add(item)
+
+	    if default == curpe:
+		defindex = idx
+		
+	    idx = idx + 1
+
+	peOption.set_menu(peOptionMenu)
+
+	if defindex:
+	    peOption.set_history(defindex)
+	    
+	return (peOption, peOptionMenu)
+
+    def clickCB(self, row, data):
+	model = self.lvmlist.get_model()
+	pvlist = self.getSelectedPhysicalVolumes(model)
+
+	iter = model.get_iter((string.atoi(data),))
+	val      = model.get_value(iter, 0)
+	partname = model.get_value(iter, 1)
+	id = self.partitions.getRequestByDeviceName(partname).uniqueID
+	if val:
+	    pvlist.remove(id)
+	else:
+	    pvlist.append(id)
+	
+	availSpaceMB = self.computeVGSize(pvlist)
+	neededSpaceMB = self.computeLVSpaceNeeded(self.logvolreqs)
+
+	if availSpaceMB <= neededSpaceMB:
+	    self.intf.messageWindow(_("Not enough space"),
+				    _("You cannot remove this physical "
+				      "volume because otherwise the "
+				      "volume group will be too small to "
+				      "hold the currently defined logical "
+				      "volumes."))
+	    return gtk.FALSE
+
+	self.updateVGSpaceLabels(alt_pvlist = pvlist)
+	return gtk.TRUE
+	
 
     def createAllowedLvmPartitionsList(self, alllvmparts, reqlvmpart, partitions):
 
 	store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 			      gobject.TYPE_STRING,
 			      gobject.TYPE_STRING)
-	partlist = WideCheckList(2, store)
+	partlist = WideCheckList(2, store, self.clickCB)
 
 	sw = gtk.ScrolledWindow()
 	sw.add(partlist)
@@ -70,6 +132,13 @@ class VolumeGroupEditor:
 
 
     def editLogicalVolume(self, logrequest, isNew = 0):
+
+	if logrequest and logrequest.preexist:
+	    self.intf.messageWindow(_("Not supported"),
+				    "Editting a preexisting LV is not supported (yet)")
+	    return
+	    
+	
         dialog = gtk.Dialog(_("Make Logical Volume"), self.parent)
         gui.addFrame(dialog)
         dialog.add_button('gtk-cancel', 2)
@@ -125,22 +194,24 @@ class VolumeGroupEditor:
 	    # check size specification
 	    badsize = 0
 	    try:
-		size = int(sizeEntry.get_text())
+		size = long(sizeEntry.get_text())
 	    except:
 		badsize = 1
 
 	    if badsize or size <= 0:
 		self.intf.messageWindow(_("Illegal size"),
 					_("The requested size as entered is "
-					  "not a valid number greater than 0."))
+					  "not a valid number greater "
+					  "than 0."))
 		continue
-	    
-	    # test mount point
+
+	    # is this an existing logical volume or one we're editting
             if logrequest:
                 preexist = logrequest.preexist
             else:
                 preexist = 0
 
+	    # test mount point
 	    if fsystem.isMountable():
 		err = sanityCheckMountPoint(mntpt, fsystem, preexist)
 	    else:
@@ -193,7 +264,7 @@ class VolumeGroupEditor:
 		
 	    if not used:
 		for lv in self.logvolreqs:
-		    if logrequest and lv.mountpoint == logrequest.mountpoint:
+		    if logrequest and logrequest.mountpoint and lv.mountpoint == logrequest.mountpoint:
 			continue
 
 		    if lv.logicalVolumeName == lvname:
@@ -206,16 +277,46 @@ class VolumeGroupEditor:
 					  "another.") % (lvname,))
 		continue
 
+	    # create potential request
+	    pesize = self.peOptionMenu.get_active().get_data("value")
+	    size = lvm.clampLVSizeRequest(size, pesize)
+	    request = LogicalVolumeRequestSpec(fsystem, mountpoint = mntpt,
+					       lvname = lvname, size = size)
+
+	    # see if there is room for request
+	    pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
+	    availSpaceMB = self.computeVGSize(pvlist)
+
+	    tmplogreqs = []
+	    for l in self.logvolreqs:
+		if logrequest and logrequest.mountpoint and l.mountpoint == logrequest.mountpoint:
+		    continue
+		tmplogreqs.append(l)
+
+	    tmplogreqs.append(request)
+	    neededSpaceMB = self.computeLVSpaceNeeded(tmplogreqs)
+
+	    if neededSpaceMB > availSpaceMB:
+		self.intf.messageWindow(_("Not enough space"),
+					_("The logical volumes you have "
+					  "configured require %g MB, but the "
+					  "volume group only has %g MB.  Please "
+					  "either make the volume group larger "
+					  "or make the logical volume(s) smaller.") % (neededSpaceMB, availSpaceMB))
+		del request
+		del tmplogreqs
+		continue
+
+
 	    # everything ok
 	    break
 
+	# now remove the previous request, insert request created above
 	if not isNew:
 	    self.logvolreqs.remove(logrequest)
 	    iter = self.getCurrentLogicalVolume()
 	    self.logvolstore.remove(iter)
 	    
-        request = LogicalVolumeRequestSpec(fsystem, mountpoint = mntpt,
-                                           lvname = lvname, size = size)
         self.logvolreqs.append(request)
 
 	iter = self.logvolstore.append()
@@ -283,8 +384,9 @@ class VolumeGroupEditor:
 
     def getSelectedPhysicalVolumes(self, model):
 	pv = []
-	iter = model.get_iter_root()
+	iter = model.get_iter_first()
 	next = 1
+	currow = 0
 	while next:
 	    val      = model.get_value(iter, 0)
 	    partname = model.get_value(iter, 1)
@@ -295,6 +397,7 @@ class VolumeGroupEditor:
 		pv.append(id)
 
 	    next = model.iter_next(iter)
+	    currow = currow + 1
 
 	return pv
 
@@ -309,18 +412,25 @@ class VolumeGroupEditor:
 
     def computeLVSpaceNeeded(self, logreqs):
 	neededSpaceMB = 0
-	print logreqs
 	for lv in logreqs:
-	    print lv.getActualSize(self.partitions, self.diskset)
 	    neededSpaceMB = neededSpaceMB + lv.getActualSize(self.partitions, self.diskset)
 
 	return neededSpaceMB
 
-    def updateVGSpaceLabels(self):
-	pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
+    def updateVGSpaceLabels(self, alt_pvlist=None):
+	if alt_pvlist == None:
+	    pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
+	else:
+	    pvlist = alt_pvlist
+	    
 	tspace = self.computeVGSize(pvlist)
-	self.totalSpaceLabel.set_text(("%8.0f MB") % (tspace,))
-	self.freeSpaceLabel.set_text(("%8.0f MB") % (tspace - self.computeLVSpaceNeeded(self.logvolreqs),))
+	uspace = self.computeLVSpaceNeeded(self.logvolreqs)
+	fspace =  tspace - uspace
+	self.totalSpaceLabel.set_text("%10.2f MB" % (tspace,))
+	self.usedSpaceLabel.set_text("%10.2f MB" % (uspace,))
+	self.usedPercentLabel.set_text("(%4.1f %%)" % (100.0*(uspace/tspace),))
+	self.freeSpaceLabel.set_text("%10.2f MB" % (fspace,))
+	self.freePercentLabel.set_text("(%4.1f %%)" % (100.0*(fspace/tspace),))
 
 #
 # run the VG editor we created
@@ -338,11 +448,7 @@ class VolumeGroupEditor:
 
 	    pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
 	    availSpaceMB = self.computeVGSize(pvlist)
-	    print "Total size of volume group is %g MB" % (availSpaceMB,)
-
 	    neededSpaceMB = self.computeLVSpaceNeeded(self.logvolreqs)
-	    print "Required size for logical volumes is %g MB" % (neededSpaceMB,)
-
 	    if neededSpaceMB > availSpaceMB:
 		self.intf.messageWindow(_("Not enough space"),
 					_("The logical volumes you have "
@@ -377,10 +483,14 @@ class VolumeGroupEditor:
 
 		del tmpreq
 
+	    # get physical extent
+	    pesize = self.peOptionMenu.get_active().get_data("value")
+
 	    # everything ok
 	    break
 
-	request = VolumeGroupRequestSpec(physvols = pvlist, vgname = volname)
+	request = VolumeGroupRequestSpec(physvols = pvlist, vgname = volname,
+					 pesize = pesize)
 
 	return (request, self.logvolreqs)
 
@@ -400,10 +510,17 @@ class VolumeGroupEditor:
         self.availlvmparts = self.partitions.getAvailLVMPartitions(self.origvgrequest,
                                                               self.diskset)
 
-        # if no raid partitions exist, raise an error message and return
+        # if no PV exist, raise an error message and return
         if len(self.availlvmparts) < 1:
 	    self.intf.messageWindow(_("Not enough physical volumes"),
 			       _("At least one LVM partition is needed."))
+	    self.dialog = None
+            return
+
+        # can't edit preexisting (yet)
+	if self.origvgrequest.preexist:
+	    self.intf.messageWindow(_("Not supported"),
+			       "Cannot edit preexisting VG (yet)")
 	    self.dialog = None
             return
 
@@ -435,8 +552,10 @@ class VolumeGroupEditor:
 	labelalign.set(0.0, 0.5, 0.0, 0.0)
 	labelalign.add(createAlignedLabel(_("Physical Extent:")))
         maintable.attach(labelalign, 0, 1, row, row + 1)
-        self.extentEntry = gtk.Entry(16)
-        maintable.attach(self.extentEntry, 1, 2, row, row + 1)
+
+	(self.peOption, self.peOptionMenu) = self.createPEOptionMenu(self.origvgrequest.pesize)
+
+        maintable.attach(self.peOption, 1, 2, row, row + 1)
         row = row + 1
 
         (self.lvmlist, sw) = self.createAllowedLvmPartitionsList(self.availlvmparts, [], self.partitions)
@@ -448,25 +567,49 @@ class VolumeGroupEditor:
 
 	labelalign = gtk.Alignment()
 	labelalign.set(0.0, 0.5, 0.0, 0.0)
-	labelalign.add(createAlignedLabel(_("Total Space:")))
+	labelalign.add(createAlignedLabel(_("Used Space:")))
         maintable.attach(labelalign, 0, 1, row, row + 1)
-	self.totalSpaceLabel = gtk.Label("")
-	self.totalSpaceLabel.set_text("Test")
+	lbox = gtk.HBox()
+	self.usedSpaceLabel = gtk.Label("")
 	labelalign = gtk.Alignment()
-	labelalign.set(0.0, 0.5, 0.0, 0.0)
-	labelalign.add(self.totalSpaceLabel)
-        maintable.attach(labelalign, 1, 2, row, row + 1)
+	labelalign.set(1.0, 0.5, 0.0, 0.0)
+	labelalign.add(self.usedSpaceLabel)
+	lbox.pack_start(labelalign, gtk.FALSE, gtk.FALSE)
+	self.usedPercentLabel = gtk.Label("")
+	labelalign = gtk.Alignment()
+	labelalign.set(1.0, 0.5, 0.0, 0.0)
+	labelalign.add(self.usedPercentLabel)
+	lbox.pack_start(labelalign, gtk.FALSE, gtk.FALSE, padding=10)
+        maintable.attach(lbox, 1, 2, row, row + 1)
         row = row + 1
 
 	labelalign = gtk.Alignment()
 	labelalign.set(0.0, 0.5, 0.0, 0.0)
 	labelalign.add(createAlignedLabel(_("Free Space:")))
         maintable.attach(labelalign, 0, 1, row, row + 1)
+	lbox = gtk.HBox()
 	self.freeSpaceLabel = gtk.Label("")
-	self.freeSpaceLabel.set_text("Test")
+	labelalign = gtk.Alignment()
+	labelalign.set(1.0, 0.5, 0.0, 0.0)
+	labelalign.add(self.freeSpaceLabel)
+	lbox.pack_start(labelalign, gtk.FALSE, gtk.FALSE)
+	self.freePercentLabel = gtk.Label("")
+	labelalign = gtk.Alignment()
+	labelalign.set(1.0, 0.5, 0.0, 0.0)
+	labelalign.add(self.freePercentLabel)
+	lbox.pack_start(labelalign, gtk.FALSE, gtk.FALSE, padding=10)
+
+        maintable.attach(lbox, 1, 2, row, row + 1)
+        row = row + 1
+
 	labelalign = gtk.Alignment()
 	labelalign.set(0.0, 0.5, 0.0, 0.0)
-	labelalign.add(self.freeSpaceLabel)
+	labelalign.add(createAlignedLabel(_("Total Space:")))
+        maintable.attach(labelalign, 0, 1, row, row + 1)
+	self.totalSpaceLabel = gtk.Label("")
+	labelalign = gtk.Alignment()
+	labelalign.set(0.0, 0.5, 0.0, 0.0)
+	labelalign.add(self.totalSpaceLabel)
         maintable.attach(labelalign, 1, 2, row, row + 1)
         row = row + 1
 

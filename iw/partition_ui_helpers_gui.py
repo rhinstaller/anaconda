@@ -28,7 +28,17 @@ from partedUtils import *
 from rhpl.translate import _, N_
 
 class WideCheckList(checklist.CheckList):
-    def __init__(self, columns, store):
+    def toggled_item(self, data, row):
+
+	rc = gtk.TRUE
+	if self.clickCB:
+	    rc = self.clickCB(data, row)
+
+	if rc == gtk.TRUE:
+	    checklist.CheckList.toggled_item(self, data, row)
+
+    
+    def __init__(self, columns, store, clickCB=None):
 	checklist.CheckList.__init__(self, columns=columns,
 				     custom_store = store)
 
@@ -39,6 +49,8 @@ class WideCheckList(checklist.CheckList):
 	column = self.get_column(0)
 	column.set_fixed_width(75)
 	column.set_alignment(0.0)
+
+	self.clickCB = clickCB
 
 def createAlignedLabel(text):
     label = gtk.Label(text)
