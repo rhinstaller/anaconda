@@ -1,10 +1,10 @@
 %define i386buildreqs dietlibc kernel-pcmcia-cs
 
-ExclusiveArch: i386 ia64
+ExclusiveArch: i386 ia64 alpha
 Name: anaconda
 Version: @@VERSION@@
 Release: @@RELEASE@@
-Copyright: GPL
+License: GPL
 Summary: The Red Hat Linux installation program.
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
