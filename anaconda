@@ -7,6 +7,8 @@ signal.signal(signal.SIGINT, signal.SIG_DFL)
 # For anaconda in reconfig mode
 #
 sys.path.append('/usr/lib/anaconda')
+sys.path.append('/usr/lib/anaconda/textw')
+sys.path.append('/usr/lib/anaconda/iw')
 
 # For anaconda in test mode
 if (os.path.exists('rpmmodule')):
