@@ -984,7 +984,7 @@ class InstallInterface:
 	return InstallProgressWindow(self.screen, total, totalSize)
 
     def drawFrame(self):
-        self.welcomeText = _("Red Hat Linux (C) 2000 Red Hat, Inc.")
+        self.welcomeText = _("Red Hat Linux (C) 2001 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
 	if (os.access("/usr/share/anaconda/help/C/s1-help-screens-lang.txt", os.R_OK)):
 	    self.screen.pushHelpLine (_(" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"))
