@@ -730,10 +730,15 @@ def doInstall(method, id, intf, instPath):
         pass
     syslog.start (instPath, syslogname)
 
-    if upgrade:
-        instLog.write(_("Upgrading %s packages\n\n") % (i))        
+    if id.compspkg is not None:
+        num = i + 1
     else:
-        instLog.write(_("Installing %s packages\n\n") % (i))
+        num = i
+
+    if upgrade:
+        instLog.write(_("Upgrading %s packages\n\n") % (num,))
+    else:
+        instLog.write(_("Installing %s packages\n\n") % (num,))
 
     ts.scriptFd = instLog.fileno ()
     # the transaction set dup()s the file descriptor and will close the
@@ -1040,8 +1045,8 @@ def doPostInstall(method, id, intf, instPath):
                 os.unlink(id.compspkg)
                 del ts
 
-            except:
-                log("failed to install comps.rpm.  oh well")
+            except Exception, e:
+                log("comps.rpm failed to install: %s" %(e,))
                 try:
                     os.unlink(id.compspkg)
                 except:
@@ -1055,8 +1060,10 @@ def doPostInstall(method, id, intf, instPath):
     finally:
 	pass
 
-    # XXX hack - we should really write a proper /etc/lvmtab
-    if os.access(instPath + "/sbin/vgscan", os.X_OK):
+    # XXX hack - we should really write a proper /etc/lvmtab.  but for now
+    # just create the lvmtab if they have /sbin/vgscan and some VGs
+    if (os.access(instPath + "/sbin/vgscan", os.X_OK) and
+        len(os.listdir("/proc/lvm/VGs")) > 0):
         rc = iutil.execWithRedirect("/sbin/vgscan",
                                     ["vgscan", "-v"],
                                     stdout = "/dev/tty5",
