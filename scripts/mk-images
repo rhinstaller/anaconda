@@ -119,11 +119,16 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
        # go ahead and create the keymaps so we only have to do it once
-       echo "Running: GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
-       $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
-       if [ $? != 0 ]; then
-           echo "Unable to create keymaps and thus can't create initrd."
-	   exit 1
+       if [ -f $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BUILDARCH ]; then
+	   echo "Found keymap override, using it"
+	   cp $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BUILDARCH $KEYMAPS
+       else
+	   echo "Running: GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
+	   $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
+	   if [ $? != 0 ]; then
+	       echo "Unable to create keymaps and thus can't create initrd."
+	       exit 1
+	   fi
        fi
     fi
  
