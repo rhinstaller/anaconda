@@ -230,6 +230,22 @@ class Fstab:
 
 	raise TypeError, "unknown partition to format %s" % (device,)
 
+    # sorted largest to smallest
+    def filesystemSpace(self):
+	space = {}
+	for (mntpoint, partition, fsystem, doFormat, size) in self.mountList():
+	    space[mntpoint] = isys.fsSpaceAvailable(mntpoint)
+
+	list = space.keys()
+	list.sort()
+	list.reverse()
+
+	newList = []
+	for mnt in list:
+	    newList.append((mnt, space[mnt]))
+
+	return newList
+
     def formatAllFilesystems(self):
 	for (partition, mount, fsystem, size) in self.ddruid.getFstab():
 	    if mount[0] == '/' and fsystem == "ext2":
@@ -501,7 +517,6 @@ class Fstab:
 			if label:
 			    labels[dev] = label
 			#print "label for", dev
-        log (str(labels))
 	return labels
 
     def makeFilesystems(self):
@@ -958,6 +973,11 @@ def readFstab (path, fstab):
     fstab.clearExistingRaid()
     fstab.clearMounts()
 
+    labelByMount = {}
+    labels = fstab.readLabels()
+    for device in labels.keys():
+	labelsByMount[labels[device]] = device
+
     drives = fstab.driveList()
     raidList = raid.scanForRaid(drives)
     raidByDev = {}
@@ -1001,10 +1021,15 @@ def readFstab (path, fstab):
 	    fstab.addExistingRaidDevice(fields[0][5:], fields[1], 
 				    fields[2], raidByDev[int(fields[0][7:])])
 	else:
-	    device = fields[0][5:]
+	    if fields[0][0:6] == "LABEL=":
+		label = fields[0][6:]
+		device = labelsByDev[label]
+	    else:
+		device = fields[0][5:]
+		if loopIndex.has_key(device):
+		    (device, fsystem) = loopIndex[device]
+
 	    fsystem = fields[2]
-	    if loopIndex.has_key(device):
-		(device, fsystem) = loopIndex[device]
 
 	    fstab.addMount(device, fields[1], fsystem)
 
