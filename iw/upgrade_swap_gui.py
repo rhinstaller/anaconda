@@ -93,7 +93,7 @@ class UpgradeSwapWindow (InstallWindow):
                             "your file systems now.")
                           % (iutil.swapAmount() / 1024) +
                           _("\n\nThe installer has detected %s MB of RAM.\n") %
-                          (iutil.memInstalled()/1024))
+                          (iutil.memInstalled(corrected = 1)/1024))
 
         label.set_alignment (0.5, 0.0)
         label.set_usize(400, 100)
