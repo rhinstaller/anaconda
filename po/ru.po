@@ -505,8 +505,8 @@ msgstr ""
 "для перезагрузки. Информация об исправлениях, доступных для данного выпуска "
 "Red Hat Linux, доступна в разделе Errata на http://www.redhat.com.\n"
 "\n"
-"Информацию о конфигурировании вашей системы после установки можно почерпнуть "
-"из Официального руководства пользователя Red Hat Linux."
+"Информацию о настойке и использовании вашей системы содержится в "
+"руководствах по пользователя Red Hat Linux."
 
 #: ../text.py:715 ../text.py:735
 msgid ""
@@ -518,13 +518,13 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Поздравляем, конфигурирование завершено.\n"
+"Поздравляем, настройка завершена.\n"
 "\n"
 "Информация об исправлениях, доступных для данного выпуска Red Hat Linux, "
 "доступна в разделе Errata на http://www.redhat.com.\n"
 "\n"
-"Информацию о дальнейшем конфигурировании вашей системы можно почерпнуть в "
-"разделе \"post install\" Официального руководства пользователя Red Hat Linux."
+"Информацию о дальнейшей настройке вашей системы можно почерпнуть в разделе "
+"\"post install\" Официального руководства пользователя Red Hat Linux."
 
 #: ../iw/bootdisk.py:50 ../text.py:754
 msgid ""
@@ -632,7 +632,7 @@ msgstr "Аутентификация"
 
 #: ../text.py:1029
 msgid "Configuration Complete"
-msgstr "Конфигурирование завершено"
+msgstr "Настройка завершена"
 
 #: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:90
 #: ../textw/silo.py:202
@@ -722,13 +722,14 @@ msgid "Upgrade Complete"
 msgstr "Обновление завершено"
 
 #: ../text.py:1162
-#, fuzzy
 msgid "Cancelled"
 msgstr "Отменено"
 
 #: ../text.py:1163
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
+"С этого места невозможно вернуться к предыдущему этапу. Вам придется "
+"повторить попытку."
 
 #: ../todo.py:331
 #, c-format
@@ -963,7 +964,6 @@ msgid "Exit"
 msgstr "Выход"
 
 #: ../iw/congrats.py:80
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -973,14 +973,13 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Поздравляем, установка завершена.\n"
+"Поздравляем, настройка завершена.\n"
 "\n"
-"Удалите дискету из дисковода и нажмите <Enter> для перезагрузки. Информация "
-"об исправлениях, доступных для данного выпуска Red Hat Linux, доступна в "
-"разделе Errata на http://www.redhat.com.\n"
+"Информация об исправлениях, доступных для данного выпуска Red Hat Linux, "
+"доступна в разделе Errata на http://www.redhat.com.\n"
 "\n"
-"Информацию о конфигурировании вашей системы после установки можно почерпнуть "
-"из Официального руководства пользователя Red Hat Linux."
+"Информацию о дальнейшей настройке вашей системы можно почерпнуть в разделе "
+"\"post install\" Официального руководства пользователя Red Hat Linux."
 
 #: ../iw/dependencies.py:9
 msgid "Unresolved Dependencies"
@@ -2135,7 +2134,7 @@ msgstr "Неверная точка монтирования RAID"
 
 #: ../libfdisk/gnomefsedit.c:2079
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr "На компьютерах Alpha разделы RAID не согут быть смонтированы как /."
+msgstr "На компьютерах Alpha разделы RAID не могут быть смонтированы как /."
 
 #: ../libfdisk/gnomefsedit.c:2162
 #, c-format
@@ -2145,8 +2144,8 @@ msgid ""
 "possible to boot from this partition?"
 msgstr ""
 "Раздел %s - существующий раздел в наборе разделов этого устройства RAID. "
-"Точка монтирования установлена в /boot. Вы уверены что возможна загрузка "
-"сэтого раздела?"
+"Точка монтирования установлена в /boot. Вы уверены что возможна загрузка с "
+"этого раздела?"
 
 #: ../libfdisk/gnomefsedit.c:2169
 msgid "Use Pre-existing Partition?"
