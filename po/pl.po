@@ -551,7 +551,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "Instaluję %s-%s-%s... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -559,11 +559,10 @@ msgid ""
 msgstr ""
 "Wystąpił nieobsługiwany wyjątek. Prawdopodobnie jest to błąd w programie. "
 "Proszę, skopiuj cały tekst z opisem wyjątku lub zapisz zrzut na dyskietkę, a "
-"następnie złóż szczegółowy raport o błędzie w programie anaconda pod adresem "
-"http://bugzilla.redhat.com/bugzilla/"
+"następnie złóż szczegółowy raport o błędzie w programie anaconda pod adresem %s"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
@@ -571,7 +570,7 @@ msgid ""
 msgstr ""
 "Wystąpił nieobsługiwany wyjątek. Prawdopodobnie jest to błąd w programie. "
 "Proszę, skopiuj cały tekst z opisem wyjątku oraz złóż szczegółowy raport o "
-"błędzie w programie anaconda pod adresem http://bugzilla.redhat.com/bugzilla/"
+"błędzie w programie anaconda pod adresem %s"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -1018,7 +1017,6 @@ msgid "Cancel"
 msgstr "Anuluj"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
 msgstr "Wystąpił wyjątek"
 
@@ -1028,7 +1026,7 @@ msgstr "_Debugowanie"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "Zapi_sz na dyskietkę"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1557,7 +1555,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Uwaga! To oprogramowanie jest w wersji testowej!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1578,7 +1576,8 @@ msgstr ""
 "ono odpowiednie do codziennej pracy.\n"
 "\n"
 "Wszelkie uwagi proszę zgłaszać korzystając z:\n"
-"   http://bugzilla.redhat.com/bugzilla\n"
+"\n"
+"   %s\n"
 "\n"
 "zaznaczając w zgłoszeniu '%s'.\n"
 
@@ -3109,7 +3108,6 @@ msgid "Congratulations"
 msgstr "Gratulacje"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
@@ -5051,13 +5049,13 @@ msgid "Unknown video card"
 msgstr "Nieznana karta graficzna"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
 msgstr ""
 "Po wybraniu karty graficznej %s wystąpił błąd. Proszę zgłosić ten błąd do "
-"bugzilla.redhat.com."
+"%s."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -6104,9 +6102,8 @@ msgid "What time zone are you located in?"
 msgstr "W jakiej strefie czasowej się znajdujesz?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Zegar systemowy używa _UTC"
+msgstr "Zegar systemowy używa UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -8377,12 +8374,11 @@ msgstr "Zaporoże, wschodni Lugańsk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "afrikaans"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "arabski"
+msgstr "amharski"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8408,12 +8404,12 @@ msgstr "kataloński"
 #  generated from lang-table
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "chiński (uproszczony)"
+msgstr "chiński uproszczony"
 
 #  generated from lang-table
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "chiński (tradycyjny)"
+msgstr "chiński tradycyjny"
 
 #. generated from lang-table
 msgid "Croatian"
@@ -8470,9 +8466,8 @@ msgid "Icelandic"
 msgstr "islandzki"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "macedoński"
+msgstr "indonezyjski"
 
 #  generated from lang-table
 #. generated from lang-table
@@ -8502,9 +8497,8 @@ msgid "Norwegian"
 msgstr "norweski"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Terytoria Północne"
+msgstr "northern sotho"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8521,7 +8515,7 @@ msgstr "portugalski"
 #  generated from lang-table
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr "portugalski (brazylijski)"
+msgstr "portugalski brazylijski"
 
 #. generated from lang-table
 msgid "Punjabi"
@@ -8533,9 +8527,8 @@ msgstr "rosyjski"
 
 #  generated from lang-table
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "słoweński"
+msgstr "słowacki"
 
 #  generated from lang-table
 #. generated from lang-table
@@ -8558,9 +8551,8 @@ msgstr "tamilski"
 
 #  generated from zone.tab
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "tamilski"
+msgstr "tajski"
 
 #. generated from lang-table
 msgid "Turkish"
