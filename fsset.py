@@ -733,6 +733,14 @@ class FileSystemSet:
     def badblocksEntry(self, entry, chroot):
         entry.fsystem.badblocksDevice(entry, self.progressWindow, chroot)
         
+    def getMigratableEntries(self):
+        retval = []
+        for entry in self.entries:
+            if entry.origfsystem and entry.origfsystem.isMigratable():
+                retval.append(entry)
+
+        return retval
+    
     def formattablePartitions(self):
         list = []
         for entry in self.entries:

@@ -30,28 +30,22 @@ class UpgradeMigrateFSWindow (InstallWindow):
     htmlTag = "upmigfs"
 
     def getNext (self):
-        # reset
-        for req in self.migratereq:
-            req.format = 0
-            req.migrate = 0
-            req.fstype = req.origfstype
+        for entry in migent:
+            entry.setFormat(0)
+            entry.setMigrate(0)
+            entry.fsystem = entry.origfsystem
 
-        for (cb, req) in self.cbs:
+        for (cb, entry) in self.cbs:
             if cb.get_active():
-                req.format = 0
-                req.migrate = 1
-                req.fstype = fileSystemTypeGet("ext3")
-                
-                entry = self.fsset.getEntryByDeviceName(req.device)
                 entry.setFileSystemType(fileSystemTypeGet("ext3"))
                 entry.setFormat(0)
                 entry.setMigrate(1)
                 
         return None
 
-    def getScreen (self, fsset, partitions):
+    def getScreen (self, fsset):
       
-        self.migratereq = partitions.getMigratableRequests(fsset)
+        self.migent = fsset.getMigratableEntries()
         self.fsset = fsset
         
         box = GtkVBox (FALSE, 5)
@@ -72,26 +66,19 @@ class UpgradeMigrateFSWindow (InstallWindow):
 
         cbox = GtkVBox(FALSE, 5)
         self.cbs = []
-        for req in self.migratereq:
-            if req.origfstype.getName() != req.fstype.getName():
+        for entry in self.migent:
+            if entry.fsystem.getName() != entry.origfsystem.getName():
                 migrating = 1
             else:
                 migrating = 0
-
-            entry = fsset.getEntryByDeviceName(req.device)
-            if not entry:
-                # only show partitions in current fstab
-                continue
-            else:
-                mntpt = entry.mountpoint
-
-            cb = GtkCheckButton("%s - %s - %s" % (req.device,
-                                              req.origfstype.getName(),
-                                              mntpt))
+            
+            cb = GtkCheckButton("/dev/%s - %s - %s" % (entry.device.getDevice(),
+                                              entry.origfsystem.getName(),
+                                              entry.mountpoint))
             cb.set_active(migrating)
             cbox.pack_start(cb, FALSE)
 
-            self.cbs.append((cb, req))
+            self.cbs.append((cb, entry))
 
         a = GtkAlignment(0.25, 0.5)
         a.add(cbox)

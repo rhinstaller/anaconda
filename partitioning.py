@@ -845,20 +845,6 @@ class Partitions:
                     return 1
         return 0
 
-    def getMigratableRequests(self, thefsset):
-        retval = []
-        for request in self.requests:
-            if request.type != REQUEST_PREEXIST:
-                continue
-            
-            if request.origfstype:
-                if request.origfstype.isMigratable():
-                    entry = thefsset.getEntryByDeviceName(request.device)
-                    if entry:
-                        retval.append(request)
-
-        return retval
-    
     # return name of boot mount point in current requests
     def getBootableRequest(self):
         bootreq = None

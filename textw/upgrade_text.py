@@ -23,9 +23,9 @@ from flags import flags
 from translate import _
 
 class UpgradeMigrateFSWindow:
-    def __call__ (self, screen, fsset, partitions):
+    def __call__ (self, screen, thefsset):
       
-        migratereq = partitions.getMigratableRequests(fsset)
+        migent = thefsset.getMigratableEntries()
 
 	g = GridFormHelp(screen, _("Migrate Filesystems"), "upmigfs", 1, 4)
 
@@ -40,22 +40,15 @@ class UpgradeMigrateFSWindow:
 	g.add(tb, 0, 0, anchorLeft = 1, padding = (0, 0, 0, 1))
 
         partlist = CheckboxTree(height=4, scroll=1)
-        for req in migratereq:
-            if req.origfstype.getName() != req.fstype.getName():
+        for entry in migent:
+            if entry.fsystem.getName() != entry.origfsystem.getName():
                 migrating = 1
             else:
                 migrating = 0
 
-            entry = fsset.getEntryByDeviceName(req.device)
-            if not entry:
-                # only show partitions in current fstab
-                continue
-            else:
-                mntpt = entry.mountpoint
-
-            partlist.append("%s - %s - %s" % (req.device,
-                                              req.origfstype.getName(),
-                                              mntpt), req, migrating)
+            partlist.append("/dev/%s - %s - %s" % (entry.device.getDevice(),
+                                              entry.origfsystem.getName(),
+                                              entry.mountpoint), entry, migrating)
             
 	g.add(partlist, 0, 1, padding = (0, 0, 0, 1))
         
@@ -73,15 +66,14 @@ class UpgradeMigrateFSWindow:
 		return INSTALL_BACK
 
             # reset
-            for req in migratereq:
-                req.format = 0
-                req.migrate = 0
-                req.fstype = req.origfstype
+            for entry in migent:
+                entry.setFormat(0)
+                entry.setMigrate(0)
+                entry.fsystem = entry.origfsystem
 
-            for req in partlist.getSelection():
-                req.format = 0
-                req.migrate = 1
-                req.fstype = fileSystemTypeGet("ext3")
+            for entry in partlist.getSelection():
+                entry.setMigrate(1)
+                entry.fsystem = fileSystemTypeGet("ext3")
 
             screen.popWindow()
             return INSTALL_OK
