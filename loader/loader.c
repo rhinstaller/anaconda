@@ -77,7 +77,7 @@ static void spawnShell(void) {
 	    logMessage("cannot open /dev/tty2 -- no shell will be provided");
 	    return;
 	} else if (access("/bin/sh",  X_OK))  {
-	    logMessage("cannot open shell - /usr/bin/sh doesn't exist");
+	    logMessage("cannot open shell - /bin/sh doesn't exist");
 	    return;
 	}
 
