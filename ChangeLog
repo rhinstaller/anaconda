@@ -1,3 +1,9 @@
+2005-03-29  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/lang.c: Fix for removed instlang line.  Require tabs for
+	spacing language information.
+	* loader2/lang.h: Remove instlang.
+
 2005-03-28  Peter Jones  <pjones@redhat.com>
 	* partitions.py, partRequests.py: don't put snapshot LVs into
 	RequestSpecs after all.  Instead, look for children when we

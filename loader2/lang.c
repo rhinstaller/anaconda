@@ -95,7 +95,7 @@ static void loadLanguageList(int flags) {
     FILE * f;
     char line[256];
     char name[256], key[256], font[256], code[256],
-         keyboard[256], timezone[256], instlang[256];
+        keyboard[256], timezone[256];
     int lineNum = 0;
 
     f = fopen(file, "r");
@@ -108,16 +108,16 @@ static void loadLanguageList(int flags) {
     while (fgets(line, sizeof(line), f)) {
         lineNum++;
         languages = realloc(languages, sizeof(*languages) * (numLanguages + 1));
-        if (sscanf(line, "%s %s %s %s %s %s %s\n", name, key, font, 
-                   code, keyboard, timezone, instlang) != 7) {
+        if (sscanf(line, "%s\t%s\t%s\t%s\t%s\t%s\n", name, key, font, 
+                   code, keyboard, timezone) != 6) {
+            printf("bad line %d in lang-table", lineNum);
             logMessage("bad line %d in lang-table", lineNum);
         } else {
             languages[numLanguages].lang = strdup(name);
             languages[numLanguages].key = strdup(key);
             languages[numLanguages].font = strdup(font);
             languages[numLanguages].lc_all = strdup(code);
-            languages[numLanguages].keyboard = strdup(keyboard);
-            languages[numLanguages++].instlang = strdup(instlang);
+            languages[numLanguages++].keyboard = strdup(keyboard);
         }
     }
     fclose(f);
@@ -215,9 +215,9 @@ static void setLangEnv (int i, int flags) {
     if (!strcmp(languages[i].font, "None"))
         return;
 
-    setenv("LANG", languages[i].instlang, 1);
+    setenv("LANG", languages[i].lang, 1);
     setenv("LANGKEY", languages[i].key, 1);
-    setenv("LINGUAS", languages[i].instlang, 1);
+    setenv("LINGUAS", languages[i].lang, 1);
     loadLanguage (NULL, flags);
 }
 
@@ -358,10 +358,11 @@ int chooseLanguage(char ** lang, int flags) {
     langs = alloca(sizeof(*langs) * (numLanguages + 1)); 
 
     for (i = 0; i < numLanguages; i++) {
+        printf("foo\n");
         if (!strncmp(languages[i].key, "en", 2))
             english = numLangs;
         if (currentLangName &&
-            !strcmp(languages[i].instlang, currentLangName))
+            !strcmp(languages[i].lang, currentLangName))
             current = numLangs;
 
         langs[numLangs++] = languages[i].lang;
