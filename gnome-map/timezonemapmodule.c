@@ -763,9 +763,10 @@ main (int argc, char **argv)
     gtk_widget_show_all (mainwindow);
 
     /* pick New York City as default */
-    printf ("%s\n", _("America/New_York"));
+#define foolgettext _
     set_selection (mapdata,
-		   find_location (mapdata->Locations, _("America/New_York")),
+		   find_location (mapdata->Locations,
+				  foolgettext("America/New_York")),
 		   TRUE);
 
     gtk_main ();

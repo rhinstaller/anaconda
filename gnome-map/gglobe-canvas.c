@@ -778,7 +778,8 @@ main (int argc, char **argv)
     gtk_widget_show_all (mainwindow);
 
     /* pick New York City as default */
-    set_selection (find_location (_("America/New_York")), TRUE);
+#define foolgettext _
+    set_selection (find_location (foolgettext("America/New_York")), TRUE);
 
     gtk_main ();
     
