@@ -707,12 +707,10 @@ msgstr ""
 msgid "File Transfer (FTP)"
 msgstr ""
 
-#
 # ../textw/firewall_text.py:103
 #: ../firewall.py:58
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "Sähköposti (SMTP)"
+msgstr "Sähköpostipalvelin (SMTP)"
 
 # ../loader/loader.c:2316
 #: ../floppy.py:103
@@ -1197,9 +1195,8 @@ msgstr ""
 # ../textw/xconfig_text.py:480 ../textw/xconfig_text.py:481
 # ../textw/xconfig_text.py:500 ../textw/xconfig_text.py:501
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Oletus"
+msgstr "oletus:LTR"
 
 # ../gui.py:497
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
@@ -1400,9 +1397,9 @@ msgstr "Vaihda CD-levy"
 
 # ../image.py:120
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Syötä levy %d."
+msgstr "Syötä %s -levy %d."
 
 # ../image.py:137
 #: ../image.py:320
@@ -2875,21 +2872,18 @@ msgid "Use text mode"
 msgstr ""
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Käynnistetään VNC:tä..."
+msgstr "Käynnistä VNC"
 
 # ../iw/silo_gui.py:28
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Silo-asetukset"
+msgstr "VNC-asetukset"
 
 # ../textw/userauth_text.py:22
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Pääkäyttäjän salasana"
+msgstr "Ei salasanaa"
 
 #: ../vnc.py:62
 msgid ""
@@ -2926,7 +2920,6 @@ msgstr "Salasanan pituus"
 
 # ../textw/userauth_text.py:129
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
 msgstr "Salasanan on oltava vähintään kuusi merkkiä pitkä."
 
