@@ -334,6 +334,7 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
 
     i = db.match()
     h = i.next()
+    found = 0
     while h:
         release = h[rpm.RPMTAG_RELEASE]
         # I'm going to try to keep this message as politically correct
@@ -343,24 +344,34 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
         # just want to warn our users that there are packages on the system
         # that might get messed up during the upgrade process.  Nothing
         # personal, guys.  - msw
-        if (string.find(h[rpm.RPMTAG_RELEASE], "helix") > -1
-            or string.find(h[rpm.RPMTAG_RELEASE], "ximian") > -1
-            or string.find(h[rpm.RPMTAG_RELEASE], "eazel") > -1):
-            rc = intf.messageWindow(_("Warning"),
-                                    _("This system appears to have third "
-                                      "party packages installed that "
-                                      "overlap with packages included in "
-                                      "Red Hat Linux. Because these packages "
-                                      "overlap, continuing the upgrade "
-                                      "process may cause them to stop "
-                                      "functioning properly or may cause "
-                                      "other system instability.  Do you "
-                                      "wish to continue the upgrade process?"),
-                                    type="yesno")
-            if rc == 0:
-                sys.exit(0)
-            break
+        if (string.find(release, "helix") > -1
+            or string.find(release, "ximian") > -1
+            or string.find(release, "eazel") > -1):
+            log("Third party package %s-%s-%s could cause problems." %
+                (h[rpm.RPMTAG_NAME],
+                 h[rpm.RPMTAG_VERSION],
+                 h[rpm.RPMTAG_RELEASE]))
+            found = 1
         h = i.next()
+
+    if found:
+        rc = intf.messageWindow(_("Warning"),
+                                _("This system appears to have third "
+                                  "party packages installed that "
+                                  "overlap with packages included in "
+                                  "Red Hat Linux. Because these packages "
+                                  "overlap, continuing the upgrade "
+                                  "process may cause them to stop "
+                                  "functioning properly or may cause "
+                                  "other system instability.  Do you "
+                                  "wish to continue the upgrade process?"),
+                                type="yesno")
+        if rc == 0:
+            try:
+                iutil.rmrf (rebuildpath)
+            except:
+                pass
+            sys.exit(0)
 
     if not os.access (instPath + "/etc/redhat-release", os.R_OK):
         rc = intf.messageWindow(_("Warning"),
@@ -372,6 +383,10 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
                                   "you wish to continue the upgrade process?"),
                                   type="yesno")
         if rc == 0:
+            try:
+                iutil.rmrf (rebuildpath)
+            except:
+                pass
             sys.exit(0)
 
     # check the installed system to see if the packages just
