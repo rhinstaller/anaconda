@@ -304,7 +304,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                  * beginning with them */
                 stage = DEV_DEVICE;
             } else {
-                rc = chooseManualDriver(class, modLoaded, *modDepsPtr, modInfo,
+                rc = chooseManualDriver(class, modLoaded, modDepsPtr, modInfo,
                                         kd, flags);
                 /* if they go back from a manual driver, we'll ask again.
                  * if they load something, assume it's what we need */

@@ -28,6 +28,7 @@
 #include "log.h"
 #include "lang.h"
 #include "hardware.h"
+#include "driverdisk.h"
 
 struct sortModuleList {
     int index;
@@ -139,14 +140,17 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
     return LOADER_OK;
 }
 
-int chooseManualDriver(int class, moduleList modLoaded, moduleDeps modDeps,
-                       moduleInfoSet modInfo, struct knownDevices * kd, 
-                       int flags) {
+int chooseManualDriver(int class, moduleList modLoaded, 
+                       moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
+                       struct knownDevices * kd, int flags) {
     int i, numSorted, num = 0, done = 0;
     enum driverMajor type;
     struct sortModuleList * sortedOrder;
     char giveArgs = ' ';
     char ** moduleArgs = NULL;
+    moduleDeps modDeps;
+
+    modDeps = *modDepsPtr;
 
     newtComponent text, f, ok, back, argcheckbox, listbox;
     newtGrid grid, buttons;
@@ -165,24 +169,35 @@ int chooseManualDriver(int class, moduleList modLoaded, moduleDeps modDeps,
         return LOADER_ERROR;
     }
 
-    sortedOrder = malloc(sizeof(*sortedOrder) * modInfo->numModules);
-    numSorted = 0;
-
-    for (i = 0; i < modInfo->numModules; i++) {
-        if (mlModuleInList(modInfo->moduleList[i].moduleName, modLoaded) ||
-            !modInfo->moduleList[i].description ||
-            ((type >= 0) && (type != modInfo->moduleList[i].major)))
+    do {
+        sortedOrder = malloc(sizeof(*sortedOrder) * modInfo->numModules);
+        numSorted = 0;
+        
+        for (i = 0; i < modInfo->numModules; i++) {
+            if (mlModuleInList(modInfo->moduleList[i].moduleName, modLoaded) ||
+                !modInfo->moduleList[i].description ||
+                ((type >= 0) && (type != modInfo->moduleList[i].major)))
+                continue;
+            sortedOrder[numSorted].index = i;
+            sortedOrder[numSorted++].modInfo = modInfo;
+        }
+        
+        if (numSorted == 0) {
+            i = newtWinChoice(_("No drivers found"), _("Load driver disk"), 
+                              _("Back"), _("No drivers were found to manually "
+                                           "insert.  Would you like to use "
+                                           "a driver disk?"));
+            if (i != 1)
+                return LOADER_BACK;
+            
+            loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo, kd,
+                                flags, 1);
             continue;
-        sortedOrder[numSorted].index = i;
-        sortedOrder[numSorted++].modInfo = modInfo;
-    }
-
-    if (numSorted == 0) {
-        /* JKFIXME: if no drivers to load, should we ask about driver disk? */
-        logMessage("no drivers to load");
-        return LOADER_BACK;
-    }
-
+        } else {
+            break;
+        }
+    } while (1);
+        
     qsort(sortedOrder, numSorted, sizeof(*sortedOrder), sortDrivers);
 
     f = newtForm(NULL, NULL, 0);
@@ -228,9 +243,7 @@ int chooseManualDriver(int class, moduleList modLoaded, moduleDeps modDeps,
         if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
             done = -1;
         } else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
-            logMessage("need to go to load a driver disk here");
-            /* JKFIXME: ^^^ */
-            done = -1;
+            done = -2;
         } else {
             if (giveArgs != ' ') {
                 i = getManualModuleArgs(&(modInfo->moduleList[num]), 
@@ -251,7 +264,12 @@ int chooseManualDriver(int class, moduleList modLoaded, moduleDeps modDeps,
 
     if (done == -1) 
         return LOADER_BACK;
-
+    if (done == -2) {
+        loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo, kd,
+                            flags, 1);
+        return chooseManualDriver(class, modLoaded, modDepsPtr, modInfo, 
+                                  kd, flags);
+    }
 
     mlLoadModule(modInfo->moduleList[num].moduleName, modLoaded, modDeps,
                  modInfo, moduleArgs, flags);
