@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2002-09-02 23:28-0400\n"
-"PO-Revision-Date: 2002-09-04 08:04+0200\n"
+"PO-Revision-Date: 2002-09-15 01:09+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -130,16 +130,14 @@ msgstr "Nemohu alokovat oddíly"
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
-msgstr ""
-"Zavádìcí oddíl %s mù¾e být mimo hranice mo¾ností va¹eho poèítaèe.  "
-"Doporuèujeme vytvoøit zavádìcí diketu."
+msgstr "Zavádìcí oddíl %s mù¾e být mimo hranice mo¾ností va¹eho poèítaèe. Doporuèujeme vytvoøit zavádìcí disketu."
 
 #: ../autopart.py:950
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr "Pøidání totoho oddílu by nenechalo dost diskového prostoru pro ji¾ alokované logické oddíly v %s."
+msgstr "Pøidání tohoto oddílu by nenechalo dost diskového prostoru pro ji¾ alokované logické oddíly v %s."
 
 #: ../autopart.py:1094
 msgid "Requested Partition Does Not Exist"
@@ -177,7 +175,7 @@ msgstr ""
 
 #: ../autopart.py:1136
 msgid "Warnings During Automatic Partitioning"
-msgstr "Varování bìhem automatického vytváøení oddílù"
+msgstr "Varování bìhem automatického vytvoøení oddílù"
 
 #: ../autopart.py:1137
 #, python-format
@@ -186,7 +184,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Pøi automatickém vytváøení oddílù vznikly tyto varování:\n"
+"Pøi automatickém vytvoøení oddílù vznikly tyto varování:\n"
 "\n"
 "%s"
 
@@ -230,7 +228,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"To se mù¾e stát, pokud na va¹em pevném disku (discích) není pro instalaci dostatek místa. Mù¾ete zvolit jinou volbu automatického vytváøení oddílù, nebo kliknìte na Zpìt a zvolte ruèní vytvoøení oddílù.\n"
+"To se mù¾e stát, pokud na va¹em pevném disku (discích) není pro instalaci dostatek místa. Mù¾ete zvolit jinou volbu automatického vytvoøení oddílù, nebo kliknìte na Zpìt a zvolte ruèní vytvoøení oddílù.\n"
 "\n"
 "Pro pokraèování stisknìte OK."
 
@@ -258,7 +256,7 @@ msgid ""
 "The partitioning tool, fdisk, is a text-based utility only recommended for "
 "advanced users who need to perform specialized tasks."
 msgstr ""
-"Automatické vytváøení oddílù je závislé na zvoleném typu instalace. Jeho \n"
+"Automatické vytvoøení oddílù je závislé na zvoleném typu instalace. Jeho \n"
 "výsledek mù¾ete dodateènì upravit.\n"
 "\n"
 "Disk Druid je nástroj na ruèní vytváøení oddílù. Mù¾ete zvolit typy systémù souborù, místa pøipojení, velikosti a dal¹í podrobnosti v pøíjemném a pøehledném grafickém rozhraní.\n"
@@ -270,7 +268,7 @@ msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
 msgstr ""
-"Pøed automatickým vytváøením oddílù musíte zvolit, jak bude vyu¾ito místo \n"
+"Pøed automatickým vytvoøením oddílù musíte zvolit, jak bude vyu¾ito místo \n"
 "na pevných discích."
 
 #: ../autopart.py:1270
@@ -317,9 +315,7 @@ msgstr "Instaluji zavadìè systému..."
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"V systému není nainstalován ¾ádný balíèek s jádrem. Konfigurace zavadìèe "
-"systému nebude zmìnìna."
+msgstr "V systému není nainstalován ¾ádný balíèek s jádrem. Nastavení zavadìèe systému nebude zmìnìno."
 
 #: ../comps.py:724 ../comps.py:752
 msgid "Everything"
@@ -368,7 +364,7 @@ msgstr "Nelze vytvoøit zavádìcí disketu."
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
-msgstr "Na disketu se nemohou vejít v¹echny moduly jádra potøebné pro Vá¹ poèítaè."
+msgstr "Na disketu se nemohou vejít v¹echny moduly jádra potøebné pro vá¹ poèítaè."
 
 #: ../floppy.py:101
 msgid "Insert a floppy disk"
@@ -381,7 +377,7 @@ msgid ""
 "\n"
 "All data will be ERASED during creation of the boot disk."
 msgstr ""
-"Vyjmìte prsím z disketové jednotky disketu a vlo¾te disketu, ze které chcete udìlat zavádìcí disketu.\n"
+"Vyjmìte prosím z disketové jednotky disketu a vlo¾te disketu, ze které chcete udìlat zavádìcí disketu.\n"
 "\n"
 "V¹echna data budou bìhem vytváøení zavádìcí diskety VYMAZÁNA."
 
@@ -430,7 +426,7 @@ msgstr "Vytváøení"
 
 #: ../floppy.py:130
 msgid "Creating boot disk..."
-msgstr "Vytváøím zavádìcí disk..."
+msgstr "Vytváøím zavádìcí disketu..."
 
 #: ../fsset.py:172
 msgid "Checking for Bad Blocks"
@@ -639,10 +635,7 @@ msgid ""
 "copy the full text of this exception or save the crash dump to a floppy then "
 "file a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
-msgstr ""
-"Byla zachycena vyjímka. Obvykle to znamená, ¾e v programu je chyba. "
-"Zkopírujte prosím plné znìní této vyjímky nebo ulo¾te výpis na disketu a "
-"ohla¹te chybu na adrese http://bugzilla.redhat.com/bugzilla/"
+msgstr "Byla zachycena vyjímka. Obvykle to znamená, ¾e v programu je chyba. Zkopírujte prosím plné znìní této vyjímky nebo ulo¾te výpis na disketu a ohlaste chybu na adrese http://bugzilla.redhat.com/bugzilla/"
 
 #: ../gui.py:502 ../text.py:279
 msgid ""
@@ -679,7 +672,7 @@ msgstr "Chyba!"
 #: ../gui.py:814
 msgid ""
 "An error occured when attempting to load an installer interface component."
-msgstr "Pøi nahrávání komponenty rozhraní instlátoru nastala chyba."
+msgstr "Pøi nahrávání komponenty rozhraní instalaèního programu nastala chyba."
 
 #: ../gui.py:818 ../packages.py:1134 ../iw/congrats_gui.py:29
 msgid "_Exit"
@@ -728,12 +721,12 @@ msgstr "_Ladìní"
 #: ../gui.py:999
 #, python-format
 msgid "%s Installer"
-msgstr "%s Instalátor"
+msgstr "%s Instalaèní program"
 
 #: ../gui.py:1014
 #, python-format
 msgid "%s Installer on %s"
-msgstr "%s Instalátor na %s"
+msgstr "%s Instalaèní program na %s"
 
 #: ../gui.py:1053
 msgid "Unable to load title bar"
@@ -767,9 +760,7 @@ msgstr "Pøená¹ím instalaèní obraz na pevný disk..."
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr ""
-"Do¹lo k chybì pøi pøenosu instalaèních souborù na vá¹ pevný disk. Disk je "
-"pravdìpodobnì plný."
+msgstr "Do¹lo k chybì pøi pøenosu instalaèních souborù na vá¹ pevný disk. Disk je pravdìpodobnì plný."
 
 #: ../image.py:178
 msgid "Change CDROM"
@@ -793,9 +784,7 @@ msgstr "Toto není správné %s CD-ROM."
 msgid "The CDROM could not be mounted."
 msgstr "Nelze pøipojit CD-ROM."
 
-# FIXME
 #: ../installclass.py:44
-#, fuzzy
 msgid "Install on System"
 msgstr "Typ instalace"
 
@@ -828,7 +817,7 @@ msgstr "Ètení"
 
 #: ../packages.py:114
 msgid "Reading package information..."
-msgstr "Ètení informací o balíècích..."
+msgstr "Ètu informace o balíècích..."
 
 #: ../packages.py:191
 msgid "Dependency Check"
@@ -845,7 +834,7 @@ msgstr "Pracuji"
 
 #: ../packages.py:258
 msgid "Preparing to install..."
-msgstr "Pøíprava na instalaci..."
+msgstr "Pøipravuji instalaci..."
 
 #: ../packages.py:309
 #, python-format
@@ -944,7 +933,7 @@ msgstr "Místo pøipojení"
 
 #: ../packages.py:767
 msgid "Space Needed"
-msgstr "Nedostatek místa"
+msgstr "Potøebné místo"
 
 #: ../packages.py:782
 msgid ""
@@ -955,7 +944,7 @@ msgstr "Nemáte dostatek volných inodù pro balíèky, které jste si vybrali. Potøeb
 
 #: ../packages.py:787
 msgid "Nodes Needed"
-msgstr "Nedostatek inodù"
+msgstr "Potøebné inody"
 
 #: ../packages.py:793
 msgid "Disk Space"
@@ -997,7 +986,7 @@ msgid ""
 "\n"
 "and file a report against 'Red Hat Public Beta'.\n"
 msgstr ""
-"Dìkujeme Vám, ¾e jste si stáhli tuto Red Hat betaverzi.\n"
+"Dìkujeme vám, ¾e jste si stáhli tuto Red Hat betaverzi.\n"
 "\n"
 "Toto není koneèná verze a není urèena pro nasazení na dùle¾itých poèítaèích. Úèel této verze je získat ohlasy od testerù, není urèena pro bì¾né pou¾ití.\n"
 "\n"
@@ -1143,7 +1132,7 @@ msgstr "Nelze odstranit"
 
 #: ../partIntfHelpers.py:142
 msgid "You must first select a partition to delete."
-msgstr "Nejprve musíte zvolit oddíl, který chcete ostranit."
+msgstr "Nejprve musíte zvolit oddíl, který chcete odstranit."
 
 #: ../partIntfHelpers.py:148 ../textw/partition_text.py:1078
 msgid "DASD partitions can only be deleted with fdasd"
@@ -1169,12 +1158,12 @@ msgstr "Nelze odstranit tento oddíl:\n\n"
 #: ../partIntfHelpers.py:227 ../partIntfHelpers.py:527
 #: ../iw/lvm_dialog_gui.py:714
 msgid "Confirm Delete"
-msgstr "Potvrzení ostranìní"
+msgstr "Potvrzení odstranìní"
 
 #: ../partIntfHelpers.py:228
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr "Chcete ostranit v¹echny oddíly na zaøízení /dev/%s."
+msgstr "Chcete odstranit v¹echny oddíly na zaøízení /dev/%s."
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
 #: ../iw/account_gui.py:426 ../iw/lvm_dialog_gui.py:717
@@ -1434,10 +1423,7 @@ msgstr "Urèili jste více ne¾ 32 odkládacích zaøízení, co¾ je více ne¾ podporuje 
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr ""
-"Máte k dispozici ménì odkládacího prostoru (%dM), ne¾ je velikost RAM (%dM) "
-"na va¹em poèítaèi. Tato skuteènost mù¾e negativnì ovlivnit výkon va¹eho "
-"systému."
+msgstr "Máte k dispozici ménì odkládacího prostoru (%dM), ne¾ je velikost RAM (%dM) na va¹em poèítaèi. Tato skuteènost mù¾e negativnì ovlivnit výkon va¹eho systému."
 
 #: ../partitions.py:1093
 msgid "the partition in use by the installer."
@@ -1708,10 +1694,7 @@ msgstr "Pøipojení selhalo"
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr ""
-"Jeden nebo více systémù souboru zaznamenaných v /etc/fstab na va¹em "
-"Linuxovém systému nemù¾e být pøipojeno. Opravte prosím tento problém a "
-"zkuste opìt spustit aktualizaci."
+msgstr "Jeden nebo více systémù souboru zaznamenaných v /etc/fstab na va¹em Linuxovém systému nemù¾e být pøipojeno. Opravte prosím tento problém a zkuste opìt spustit aktualizaci."
 
 #: ../upgrade.py:233
 msgid ""
@@ -1814,7 +1797,7 @@ msgstr "Zkou¹ím spustit X server s VESA ovladaèem"
 
 #: ../xserver.py:189
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr "Èekám na start X serveru... log je v souboru /tmp/X.log\n"
+msgstr "Èekám na start X serveru... záznam je v souboru /tmp/X.log\n"
 
 #: ../xserver.py:216
 msgid " X server started successfully."
@@ -1894,7 +1877,7 @@ msgstr "Prosím vlo¾te u¾ivatelské jméno"
 
 #: ../iw/account_gui.py:346
 msgid "Enter the root (administrator) password for the system."
-msgstr "Vlo¾te heslo pro správce systému (root, administrator)."
+msgstr "Vlo¾te heslo pro správce systému (root, administrátor)."
 
 #: ../iw/account_gui.py:363
 msgid "Root _Password: "
@@ -2027,7 +2010,7 @@ msgstr "Heslo pro zavadìè systému brání u¾ivatelùm mìnit volby jádra. Pro vy¹¹í 
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "_Pou¾ít heslo poro zavadìè systému"
+msgstr "_Pou¾ít heslo pro zavadìè systému"
 
 #: ../iw/blpasswidget.py:76
 msgid "Change _password"
@@ -2082,7 +2065,7 @@ msgid ""
 "\n"
 "It is highly recommended you create a boot disk.\n"
 msgstr ""
-"Zavádìcí disketa Vám umo¾òuje zavést vá¹ systém %s z diskety, kdy¾ nastavení zavadìèe systému pøestane fungovat, pokud se rozhodnete nenainstalovat zavadìè systému, nebo pokud Vá¹ zavadìè systému tøetí strany nepodporuje Linux\n"
+"Zavádìcí disketa vám umo¾òuje zavést vá¹ systém %s z diskety, kdy¾ nastavení zavadìèe systému pøestane fungovat, pokud se rozhodnete nenainstalovat zavadìè systému, nebo pokud vá¹ zavadìè systému tøetí strany nepodporuje Linux\n"
 "\n"
 "Doporuèuje se vytvoøit zavádìcí disketu.\n"
 
@@ -2092,11 +2075,11 @@ msgstr "_Ano, chci vytvoøit zavádìcí disketu"
 
 #: ../iw/bootdisk_gui.py:73
 msgid "No, I _do not want to create a boot disk"
-msgstr "_Ne, nechci vytvo¾it zavádìcí disketu"
+msgstr "_Ne, nechci vytvoøit zavádìcí disketu"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
-msgstr "Pokroèilá konfigurace zavadìèe systému"
+msgstr "Pokroèilé nastavení zavadìèe systému"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:136
 msgid ""
@@ -2106,23 +2089,23 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Pokud pou¾ijete podporu LBA32 a vá¹ BIOS to nepodporuje, poèítaè nebude schopen nastartovat. Doporuèujeme proto vytvoøit zavádìcí disketu pozdìji v procesu instalace.\n"
+"Pokud vnutíte pou¾ití LBA32 a vá¹ BIOS to nepodporuje, poèítaè nebude schopen nastartovat. Doporuèujeme proto pozdìji v procesu instalace vytvoøit zavádìcí disketu.\n"
 "\n"
-"Chcete pou¾ít LBA32?"
+"Chcete vnutit LBA32?"
 
 #: ../iw/bootloader_advanced_gui.py:51
 msgid "Force LBA32"
-msgstr "Pou¾ít LBA32"
+msgstr "Vnutit LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:72
 msgid "_Force LBA32 (not normally required)"
-msgstr "_Pou¾ít LBA32 (obvykle není potøeba)"
+msgstr "_Vnutit LBA32 (obvykle není potøeba)"
 
 #: ../iw/bootloader_advanced_gui.py:76
 msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
-msgstr "Pokud si pøejete pøidat k zavádìcímu pøíkazu výchozí volby, vlo¾te je do pole Obecné parametry jádra."
+msgstr "Pokud si pøejete pøidat k zavádìcímu pøíkazu implicitní volby, vlo¾te je do pole Obecné parametry jádra."
 
 #: ../iw/bootloader_advanced_gui.py:82
 msgid "_General kernel parameters"
@@ -2132,7 +2115,7 @@ msgstr "_Obecné parametry jádra"
 #: ../textw/bootloader_text.py:119 ../textw/bootloader_text.py:178
 #: ../textw/bootloader_text.py:301 ../textw/bootloader_text.py:393
 msgid "Boot Loader Configuration"
-msgstr "Konfigurace zavadìèe systému"
+msgstr "Nastavení zavadìèe systému"
 
 #: ../iw/bootloader_main_gui.py:71
 msgid "Change Boot Loader"
@@ -2158,10 +2141,7 @@ msgid ""
 "Please select the boot loader that the computer will use.  GRUB is the "
 "default boot loader. However, if you do not wish to overwrite your current "
 "boot loader, select \"Do not install a boot loader.\"  "
-msgstr ""
-"Zvolte zavadìè systému, který chcete pou¾ít. Implicitnì je zvolen GRUB. "
-"Pokud nechcete pøepsat vá¹ stávající zavadìè systému, za¹krtnìte volbu "
-"\"Neinstalovat zavadìè systému.\""
+msgstr "Zvolte zavadìè systému, který chcete pou¾ít. Implicitnì je zvolen GRUB. Pokud nechcete pøepsat vá¹ stávající zavadìè systému, za¹krtnìte volbu \"Neinstalovat zavadìè systému.\""
 
 #: ../iw/bootloader_main_gui.py:134
 msgid "Use _GRUB as the boot loader"
@@ -2254,7 +2234,7 @@ msgstr "Aktualizace systému"
 #: ../iw/confirm_gui.py:73
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Kliknìte na Dal¹í pro zahájení aktualiazace distribuce %s."
+msgstr "Kliknìte na Dal¹í pro zahájení aktualizace distribuce %s."
 
 #: ../iw/confirm_gui.py:74
 #, python-format
@@ -2299,7 +2279,7 @@ msgid ""
 msgstr ""
 "Blahopøejeme, instalace je hotova.\n"
 "\n"
-"Vyjmìte v¹echna instlaèní média (diskety nebo CD-ROM) pou¾itá pøi instalaci.\n"
+"Vyjmìte v¹echna instalaèní média (diskety nebo CD-ROM) pou¾itá pøi instalaci.\n"
 "\n"
 "%sPro informace o errata (aktualizace a opravy chyb) nav¹tivte:\n"
 "\thttp://www.redhat.com/errata/\n"
@@ -2338,7 +2318,7 @@ msgstr "Po¾adavek"
 
 #: ../iw/dependencies_gui.py:90
 msgid "_Install packages to satisfy dependencies"
-msgstr "_Instalace balíèkù k vyøe¹ení závislostí"
+msgstr "_Instalovat balíèky k vyøe¹ení závislostí"
 
 #: ../iw/dependencies_gui.py:93
 msgid "_Do not install packages that have dependencies"
@@ -2351,7 +2331,7 @@ msgstr "Nebrat _ohled na závislosti balíèkù"
 #: ../iw/desktop_choice_gui.py:25 ../iw/desktop_choice_gui.py:53
 #: ../textw/desktop_choice_text.py:24
 msgid "Workstation Defaults"
-msgstr "Výchozí pro pracovní stanici"
+msgstr "Implicitní pro pracovní stanici"
 
 #: ../iw/desktop_choice_gui.py:52 ../installclasses/workstation.py:6
 msgid "Workstation"
@@ -2380,11 +2360,11 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"Výchozí prostøedí pro pracovní stanici obsahuje na¹e doporuèení pro nové u¾ivatele, zahrnující:\n"
+"Implicitní prostøedí pro pracovní stanici obsahuje na¹e doporuèení pro nové u¾ivatele, zahrnující:\n"
 "\n"
 "\tProstøedí pracovní plochy (GNOME)\n"
 "\tKanceláøský balík (OpenOffice)\n"
-"\tWebový prohlí¾eè (Mozilla) \n"
+"\tWWW prohlí¾eè (Mozilla) \n"
 "\tEmail (Evolution)\n"
 "\tInstant messaging\n"
 "\tAplikace pro zvuk a video\n"
@@ -2394,7 +2374,7 @@ msgstr ""
 "\n"
 "Po instalaci lze pøidat nebo odebrat software nástrojem 'redhat-config-package'.\n"
 "\n"
-"Pokud znáte %s, mo¾ná budete chtít nainstalovat nebo se vyhnout instalaci konkrétních balíèkù. Pro upravení Va¹í instalace za¹krtnìte volbu ní¾e."
+"Pokud znáte %s, mo¾ná budete chtít nainstalovat nebo se vyhnout instalaci konkrétních balíèkù. Pro upravení va¹í instalace za¹krtnìte volbu ní¾e."
 
 #: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:10
 msgid "Personal Desktop"
@@ -2402,7 +2382,7 @@ msgstr "Osobní systém"
 
 #: ../iw/desktop_choice_gui.py:76
 msgid "Personal Desktop Defaults"
-msgstr "Výchozí pro osobní systém"
+msgstr "Implicitní pro osobní systém"
 
 #: ../iw/desktop_choice_gui.py:81
 #, python-format
@@ -2425,24 +2405,24 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"Výchozí prostøedí pro osobní systém obsahuje na¹e doporuèení pro nové u¾ivatele, zahrnující:\n"
+"Implicitní prostøedí pro osobní systém obsahuje na¹e doporuèení pro nové u¾ivatele, zahrnující:\n"
 "\n"
 "\tProstøedí pracovní plochy (GNOME)\n"
 "\tKanceláøský balík (OpenOffice)\n"
-"\tWebový prohlí¾eè (Mozilla) \n"
+"\tWWW prohlí¾eè (Mozilla) \n"
 "\tEmail (Evolution)\n"
 "\tInstant messaging\n"
 "\tAplikace pro zvuk a video\n"
 "\tHry\n"
 "\n"
 "Po instalaci lze pøidat nebo odebrat software nástrojem 'redhat-config-package'.\n"
-"Pokud znáte %s, mo¾ná budete chtít nainstalovat nebo se vyhnout instalaci konkrétních balíèkù. Pro upravení Va¹í instalace za¹krtnìte volbu ní¾e."
+"Pokud znáte %s, mo¾ná budete chtít nainstalovat nebo se vyhnout instalaci konkrétních balíèkù. Pro upravení va¹í instalace za¹krtnìte volbu ní¾e."
 
 #: ../iw/desktop_choice_gui.py:98
 msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
-msgstr "Pokud chcete zmìnit výchozí sadu instalovaných balíèkù, mù¾ete zvolit její úpravu ní¾e."
+msgstr "Pokud chcete zmìnit implicitní sadu instalovaných balíèkù, mù¾ete zvolit její úpravu ní¾e."
 
 #: ../iw/desktop_choice_gui.py:106
 msgid "_Accept the current package list"
@@ -2500,7 +2480,7 @@ msgstr "Vyberte jednotku, na kterou spustit fdasd"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
-msgstr "Vytváøení oddílù pomocí fdisk"
+msgstr "Vytváøení oddílù programem fdisk"
 
 #: ../iw/fdisk_gui.py:103
 msgid "Select a drive to partition with fdisk:"
@@ -2522,11 +2502,9 @@ msgstr ""
 "\n"
 "Napøíklad '1234:udp'"
 
-# FIXME
 #: ../iw/firewall_gui.py:136
-#, fuzzy
 msgid "Warning: Bad Token"
-msgstr "Varování: ¹patný atom"
+msgstr "Varování: ¹patná polo¾ka"
 
 #: ../iw/firewall_gui.py:188
 msgid "Select a security level for the system:  "
@@ -2578,7 +2556,7 @@ msgstr "IP adresy musí obsahovat èísla mezi 1 a 255"
 
 #: ../iw/ipwidget.py:114 ../iw/ipwidget.py:116
 msgid "IP Addresses must contain numbers between 0 and 255"
-msgstr "IP adressy musí obsahovat èísla mezi 0 a 255"
+msgstr "IP adresy musí obsahovat èísla mezi 0 a 255"
 
 #: ../iw/language_gui.py:61 ../textw/language_text.py:40 ../loader/lang.c:306
 msgid "What language would you like to use during the installation process?"
@@ -2634,7 +2612,7 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
-"Tato zmìna hodnoty fyzického oddílu bude znamenat, ¾e se velikosti aktuálních po¾adavkù logických svazkù zaokrohlí nahoru na násobek fyzického oddílu.\n"
+"Tato zmìna hodnoty fyzického oddílu bude znamenat, ¾e se velikosti aktuálních po¾adavkù logických svazkù zaokrouhlí nahoru na násobek fyzického oddílu.\n"
 "\n"
 "Tato zmìna bude mít okam¾itý úèinek."
 
@@ -2657,7 +2635,7 @@ msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
-msgstr "Velikost fyzického svazku nelze zmìnit, proto¾e zvolená hodnota (%10.2f MB) je pøili¹ velká vzhledem k velikosti nejmen¹ího fyzického svazku (%10.2f MB) ve skupinì svazkù."
+msgstr "Velikost fyzického svazku nelze zmìnit, proto¾e zvolená hodnota (%10.2f MB) je pøíli¹ velká vzhledem k velikosti nejmen¹ího fyzického svazku (%10.2f MB) ve skupinì svazkù."
 
 #: ../iw/lvm_dialog_gui.py:179
 msgid "Too small"
@@ -2983,14 +2961,14 @@ msgstr "Chyba v datech"
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
-msgstr "Nezadali jste jméno poèítaèe. To mù¾e, v závislosti na Va¹em sí»ovém prostøedí, pozdìji zpùsobit problémy."
+msgstr "Nezadali jste jméno poèítaèe. To mù¾e, v závislosti na va¹em sí»ovém prostøedí, pozdìji zpùsobit problémy."
 
 #: ../iw/network_gui.py:158
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr "Nevyplnili jste pole \"%s\". To mù¾e, v závislosti na Va¹em sí»ovém prostøedí, pozdìji zpùsobit problémy."
+msgstr "Nevyplnili jste pole \"%s\". To mù¾e, v závislosti na va¹em sí»ovém prostøedí, pozdìji zpùsobit problémy."
 
 #: ../iw/network_gui.py:162
 #, python-format
@@ -3030,7 +3008,7 @@ msgid ""
 "inactive at this point. When you reboot your system the adapter will be "
 "activated automatically."
 msgstr ""
-"Nemáte ¾ádná aktivní sí»ová zaøízení. Vá¹ systém nebude moci komunikovat po síti bez aktivního za¾ízení.\n"
+"Nemáte ¾ádná aktivní sí»ová zaøízení. Vá¹ systém nebude moci komunikovat po síti bez aktivního zaøízení.\n"
 "\n"
 "POZNÁMKA: Pokud máte sí»ový adaptér PCMCIA, mìli byste jej nyní nechat neaktivní. Po restartu bude adaptér automaticky aktivován."
 
@@ -3116,7 +3094,7 @@ msgid ""
 "additional operating systems, which are not automatically detected, click "
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
-msgstr "Mù¾ete nakonfigurovat zavadìè systému pro zavádìní jiných operaèních systémù. Budete moci vybrat ze seznamu operaèní systém, který chcete zavést. Dal¹í operaèní systémy, které nejsou automaticky detekovány, pøidejte kliknutím na Pøidat. Systém, který je implicitnì zavádìn, zmìníte vybráním Výchozí pro vybraný operaèný systém."
+msgstr "Mù¾ete nakonfigurovat zavadìè systému pro zavádìní jiných operaèních systémù. Budete moci vybrat ze seznamu operaèní systém, který chcete zavést. Dal¹í operaèní systémy, které nejsou automaticky detekovány, pøidejte kliknutím na Pøidat. Systém, který je implicitnì zavádìn, zmìníte vybráním Implicitní pro vybraný operaèní systém."
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:277 ../textw/silo_text.py:207
@@ -3124,7 +3102,7 @@ msgstr "Mù¾ete nakonfigurovat zavadìè systému pro zavádìní jiných operaèních sys
 #: ../textw/xconfig_text.py:551 ../textw/xconfig_text.py:552
 #: ../textw/xconfig_text.py:571 ../textw/xconfig_text.py:572
 msgid "Default"
-msgstr "Výchozí"
+msgstr "Implicitní"
 
 #: ../iw/osbootwidget.py:65
 msgid "Label"
@@ -3247,8 +3225,7 @@ msgid ""
 "\n"
 "Select the optional packages to be installed:"
 msgstr ""
-"Skupina balíèkù mù¾e obsahovat základní a volitelné balíèky. Základní balíèky\n"
-"jsou vybrány v¾dy, kdy je vybrána skupina balíèkù.\n"
+"Skupina balíèkù mù¾e obsahovat základní a volitelné balíèky. Základní balíèky jsou vybrány v¾dy, kdy je vybrána daná skupina balíèkù.\n"
 "\n"
 "Vyberte volitelné balíèky, které chcete instalovat:"
 
@@ -3363,7 +3340,7 @@ msgid ""
 "Size\n"
 "(MB)"
 msgstr ""
-"Velikost\\n\n"
+"Velikost\n"
 "(MB)"
 
 #: ../iw/partition_gui.py:533 ../textw/partition_text.py:1108
@@ -3520,12 +3497,12 @@ msgstr "Vytvoøit _oddíl softwarového RAID."
 #: ../iw/partition_gui.py:1246
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr "Vytvoøit _zaøízení RAID [výchozí /dev/md%s]."
+msgstr "Vytvoøit _zaøízení RAID [implicitní /dev/md%s]."
 
 #: ../iw/partition_gui.py:1250
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "Vytvoøit zaøízení RAID _klonovánom disku [výchozí /dev/md%s]."
+msgstr "Vytvoøit zaøízení RAID _klonováním disku [implicitní /dev/md%s]."
 
 #: ../iw/partition_gui.py:1289
 msgid "Couldn't Create Drive Clone Editor"
@@ -3729,7 +3706,7 @@ msgstr "_Formátovat oddíl?"
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
-msgstr "Zdrojový disk nemá ¾ádné oddíly pro klonování. Ne¾ tento disk mù¾e být klonován, musíte na nem nejdøíve definovat oddíly typu 'softwarový RAID'."
+msgstr "Zdrojový disk nemá ¾ádné oddíly pro klonování. Ne¾ tento disk mù¾e být klonován, musíte na nìm nejdøíve definovat oddíly typu 'softwarový RAID'."
 
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
@@ -3817,7 +3794,7 @@ msgid ""
 "\n"
 "\n"
 "WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
-msgstr "\n\nVARONÁNÍ! V©ECHNA DATA NA CÍLOVÝCH DISCÍCH BUDOU ZNIÈENA."
+msgstr "\n\nVAROVÁNÍ! V©ECHNA DATA NA CÍLOVÝCH DISCÍCH BUDOU ZNIÈENA."
 
 #: ../iw/raid_dialog_gui.py:645
 msgid "Final Warning"
@@ -3848,7 +3825,7 @@ msgid ""
 msgstr ""
 "Nástroj pro klonování diskù\n"
 "\n"
-"Tento nástroj Vám umo¾òuje podstatnì zjednodu¹it vytvoøení polí RAID. Vytvoøíte zdrojový disk s po¾adovaným rozlo¾ením oddílù a naklonujete toto rozlo¾ení na ostatní, podobnì velké disky. Pak lze vytvoøit zaøízení RAID.\n"
+"Tento nástroj vám umo¾òuje podstatnì zjednodu¹it vytvoøení polí RAID. Vytvoøíte zdrojový disk s po¾adovaným rozlo¾ením oddílù a naklonujete toto rozlo¾ení na ostatní, podobnì velké disky. Pak lze vytvoøit zaøízení RAID.\n"
 "\n"
 "UPOZORNÌNÍ: Zdrojový disk musí mít oddíly, které jsou omezené jen na ten disk, a mù¾e obsahovat jen nepou¾ité oddíly softwarového RAID. Jiné typy oddílù nejsou dovoleny.\n"
 "\n"
@@ -3947,7 +3924,7 @@ msgstr "Aktualizace zavadìèe systému"
 
 #: ../iw/upgrade_bootloader_gui.py:68
 msgid "_Update boot loader configuration"
-msgstr "_Aktualizace zavadìèe systému"
+msgstr "_Aktualizovat zavadìè systému"
 
 #: ../iw/upgrade_bootloader_gui.py:69
 msgid "This will update your current boot loader."
@@ -3957,7 +3934,7 @@ msgstr "Bude provedena aktualizace zavadìèe systému."
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
-msgstr "Instalátor nalezl zavadìè %s nainstalovaný na %s."
+msgstr "Instalaèní program nalezl zavadìè %s nainstalovaný na %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -3967,7 +3944,7 @@ msgstr "Toto je doporuèená volba."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr "Instalátor není chopen detekovat, jaký zavadìè je v systému pou¾íván."
+msgstr "Instalaèní program není chopen detekovat, jaký zavadìè je v systému pou¾íván."
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
@@ -3981,7 +3958,7 @@ msgstr "Vytvoøení nového nastavení zavadìèe systému. Tuto volbu zvolte, pokud ch
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
-msgstr "_Pøeskoèit aktaliazaci zavadìèe"
+msgstr "_Pøeskoèit aktualizaci zavadìèe"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
@@ -4024,12 +4001,7 @@ msgid ""
 "twice as much swap space as RAM on the system.  You currently have %dMB of "
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
-msgstr ""
-"Jádra øady 2.4 potøebují více odkládacího prostoru, ne¾ jádra star¹í. "
-"Doporuèená velikost odkládacího prostoru je dvojnásobek velikosti RAM, "
-"kterou máte ve va¹em poèítaèi. V souèasné dobì máte %dMB odkládacího "
-"prostoru. Pokud budete chtít, mù¾ete v tuto chvíli na jednom ze systémù "
-"souborù odkládací prostor pøidat."
+msgstr "Jádra øady 2.4 potøebují více odkládacího prostoru, ne¾ jádra star¹í. Doporuèená velikost odkládacího prostoru je dvojnásobek velikosti RAM, kterou máte ve va¹em poèítaèi. V souèasné dobì máte %dMB odkládacího prostoru. Pokud budete chtít, mù¾ete v tuto chvíli na jednom ze systémù souborù odkládací prostor pøidat."
 
 #: ../iw/upgrade_swap_gui.py:108
 #, python-format
@@ -4037,10 +4009,7 @@ msgid ""
 "\n"
 "\n"
 "The installer has detected %s MB of RAM.\n"
-msgstr ""
-"\n"
-"\n"
-"Instalátor nadetekoval %s MB RAM.\n"
+msgstr "\n\nInstalaèní program detekoval %s MB RAM.\n"
 
 #: ../iw/upgrade_swap_gui.py:120
 msgid "I _want to create a swap file"
@@ -4194,7 +4163,7 @@ msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:750
 msgid "Graphical Interface (X) Configuration"
-msgstr "Konfigurace grafického prostøedí (X)"
+msgstr "Nastavení grafického prostøedí (X)"
 
 #: ../iw/xconfig_gui.py:775
 msgid "Unknown video card"
@@ -4205,7 +4174,7 @@ msgstr "Neznámá videokarta"
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
-msgstr "Pøi výbìru videokarty %s do¹lo k chybì. Prosím nahla¹te tuto chybu na bugzilla.redhat.com."
+msgstr "Pøi výbìru videokarty %s do¹lo k chybì. Prosím nahlaste tuto chybu na bugzilla.redhat.com."
 
 #: ../iw/xconfig_gui.py:800 ../textw/xconfig_text.py:679
 msgid "Unspecified video card"
@@ -4224,9 +4193,7 @@ msgstr ""
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
-msgstr ""
-"Velikost va¹í video RAM nelze automaticky detekovat. Prosím vyberte velikost "
-"z uvedených mo¾ností:"
+msgstr "Velikost va¹í video RAM nelze automaticky detekovat. Prosím vyberte velikost z uvedených mo¾ností:"
 
 #: ../iw/xconfig_gui.py:938
 msgid ""
@@ -4245,7 +4212,7 @@ msgstr "_Pøeskoèit nastavování X"
 
 #: ../iw/zipl_gui.py:33
 msgid "z/IPL Boot Loader Configuration"
-msgstr "Konfigurace zavadìèe systému z/IPL"
+msgstr "Nastavení zavadìèe systému z/IPL"
 
 #: ../iw/zipl_gui.py:75 ../textw/zipl_text.py:22
 msgid ""
@@ -4267,11 +4234,11 @@ msgstr ""
 "\n"
 "Koøenový oddíl bude ten, co jste zvolili pøi nastavování oddílù.\n"
 "\n"
-"Jádro pou¾ité pro zavedení systému bude výchozí nainstalované jádro.\n"
+"Jádro pou¾ité pro zavedení systému bude implicitní nainstalované jádro.\n"
 "\n"
 "Pokud chcete zmìnit nastaveni, upravte po instalaci konfiguraèní soubor /etc/zipl.conf.\n"
 "\n"
-"Nyní mù¾ete zadat pøídavné parametry jádra, které jsou potøeba pro Vá¹ poèítaè."
+"Nyní mù¾ete zadat pøídavné parametry jádra, které jsou potøeba pro vá¹ poèítaè."
 
 #: ../iw/zipl_gui.py:102 ../textw/zipl_text.py:54
 msgid "Kernel Parameters"
@@ -4288,9 +4255,9 @@ msgid ""
 "\n"
 "Would you like to create a boot disk?"
 msgstr ""
-"Zavádìcí disketa umo¾òuje zavést Vá¹ systém %s z diskety, kdy¾ Va¹e konfigurace zavadìèe systému pøestane fungovat.\n"
+"Zavádìcí disketa umo¾òuje zavést vá¹ systém %s z diskety, kdy¾ va¹e konfigurace zavadìèe systému pøestane fungovat.\n"
 "\n"
-"Doporujèuje se vytvoøit zavádìcí disketu.\n"
+"Doporuèuje se vytvoøit zavádìcí disketu.\n"
 "\n"
 "Chcete vytvoøit zavádìcí disketu?"
 
@@ -4327,9 +4294,7 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Nezvolili jste instalaci ¾ádného zavadìèe. Doporuèujeme jeho instalci "
-"neprovádìt jen v pøípadì, ¾e k tomu nemáte zvlá¹tní dùvody. Zavadìè je "
-"potøeba pro zavedení systému pøímo z pevného disku.\n"
+"Nezvolili jste instalaci ¾ádného zavadìèe. Doporuèujeme jeho instalaci neprovádìt jen v pøípadì, ¾e k tomu nemáte zvlá¹tní dùvody. Zavadìè je potøeba pro zavedení systému pøímo z pevného disku.\n"
 "\n"
 "Jste si opravdu jisti, ¾e chcete vynechat instalaci zavadìèe systému?"
 
@@ -4346,7 +4311,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:113
 msgid "Force use of LBA32 (not normally required)"
-msgstr "Pou¾ít LBA32 (obvykle není potøeba)"
+msgstr "Vnutit LBA32 (obvykle není potøeba)"
 
 #: ../textw/bootloader_text.py:179
 msgid "Where do you want to install the boot loader?"
@@ -4359,7 +4324,7 @@ msgstr "Smazat"
 
 #: ../textw/bootloader_text.py:219 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
-msgstr "Zmìnit jmenovku systému"
+msgstr "Upravit jmenovku systému"
 
 #: ../textw/bootloader_text.py:237 ../textw/bootloader_text.py:242
 msgid "Invalid Boot Label"
@@ -4512,7 +4477,7 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"Mo¾nosti Osobní systém a Pracovní stanice nainstalují výchozí sadu aplikací, která Vám na Va¹em systém %s umo¾ní pou¾ívat WWW, posílat a èíst email a vytváøet a mìnit dokumenty. Mo¾nost Pracovní stanice obsahuje i nástroje pro vývoj a administraci.\n"
+"Mo¾nosti Osobní systém a Pracovní stanice nainstalují implicitní sadu aplikací, která vám na va¹em systém %s umo¾ní pou¾ívat WWW, posílat a èíst email a vytváøet a mìnit dokumenty. Mo¾nost Pracovní stanice obsahuje i nástroje pro vývoj a administraci.\n"
 "\n"
 "%s je ale dodáván s mnohem více aplikacemi a jestli¾e chcete, mù¾ete upravit výbìr instalovaného softwaru."
 
@@ -4572,7 +4537,7 @@ msgstr "Vyberte jednotku, na kterou spustit fdisk"
 
 #: ../textw/firewall_text.py:24
 msgid "Customize"
-msgstr "Vlastní úpravy"
+msgstr "Upravit"
 
 #: ../textw/firewall_text.py:28
 msgid ""
@@ -4580,11 +4545,11 @@ msgid ""
 "blocks all incoming accesses. Medium blocks access to system services (such "
 "as telnet or printing), but allows other connections. No firewall allows all "
 "connections and is not recommended. "
-msgstr "Firewall chrání proti neoprávnìnému pøístupu po síti. Vysoké zabezpeèení blokuje ve¹kerý pøíchozí provoz. Støední zabespeèení blokuje pøístup k systémovým slu¾bám (napøíklad telnet nebo tisk), ale umo¾òuje ostatní spojení. Pokud firewall nepou¾ijete, jsou povolena v¹echna spojení (nedoporuèujeme)."
+msgstr "Firewall chrání proti neoprávnìnému pøístupu po síti. Vysoké zabezpeèení blokuje ve¹kerý pøíchozí provoz. Støední zabezpeèení blokuje pøístup k systémovým slu¾bám (napøíklad telnet nebo tisk), ale umo¾òuje ostatní spojení. Pokud firewall nepou¾ijete, jsou povolena v¹echna spojení (nedoporuèujeme)."
 
 #: ../textw/firewall_text.py:44
 msgid "Security Level:"
-msgstr "Úroveò bezpeènosti:"
+msgstr "Úroveò zabezpeèení:"
 
 #: ../textw/firewall_text.py:48
 msgid "High"
@@ -5016,7 +4981,7 @@ msgstr "Maximální poèet rezerv s polem RAID0 je 0."
 
 #: ../textw/partition_text.py:1067
 msgid "You must go back and use fdasd to initialize this partition"
-msgstr "Pro inicializaci totoho oddílu se musíte vrátit a pou¾ít fdasd"
+msgstr "Pro inicializaci tohoto oddílu se musíte vrátit a pou¾ít fdasd"
 
 #: ../textw/partition_text.py:1120 ../textw/partition_text.py:1127
 #: ../textw/userauth_text.py:224
@@ -5030,7 +4995,7 @@ msgstr "RAID"
 #: ../textw/partition_text.py:1123
 msgid ""
 "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "    F1-Nápovìda            F3-Zmìnit  F4-Smazat    F5-Obnovit  F12-Ok        "
+msgstr "    F1-Nápovìda            F3-Upravit F4-Smazat    F5-Obnovit  F12-Ok        "
 
 #: ../textw/partition_text.py:1125
 msgid "New"
@@ -5039,8 +5004,7 @@ msgstr "Nový"
 #: ../textw/partition_text.py:1131
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Nápovìda  F2-Nový   F3-Zmìnit  F4-Smazat    F5-Obnovit  F12-Ok        "
+msgstr "    F1-Nápovìda  F2-Nový   F3-Upravit F4-Smazat    F5-Obnovit  F12-Ok        "
 
 #: ../textw/partition_text.py:1160
 msgid "No Root Partition"
@@ -5138,7 +5102,7 @@ msgstr "Aktualizace zavadìèe systému"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
-msgstr "Pøeskoèit aktaliazaci zavadìèe"
+msgstr "Pøeskoèit aktualizaci zavadìèe"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
@@ -5151,12 +5115,7 @@ msgid ""
 "twice as much swap space as RAM on the system. You currently have %dMB of "
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
-msgstr ""
-"Jádra øady 2.4 potøebují více odkládacího prostoru, ne¾ jádra star¹í. "
-"Doporuèená velikost odkládacího prostoru je dvojnásobek velikosti RAM, "
-"kterou máte ve va¹em poèítaèi. V souèasné dobì máte %dMB odkládacího "
-"prostoru. Pokud budete chtít, mù¾ete v tuto chvíli na jednom ze systémù "
-"souborù odkládací prostor pøidat."
+msgstr "Jádra øady 2.4 potøebují více odkládacího prostoru, ne¾ jádra star¹í. Doporuèená velikost odkládacího prostoru je dvojnásobek velikosti RAM, kterou máte ve va¹em poèítaèi. V souèasné dobì máte %dMB odkládacího prostoru. Pokud budete chtít, mù¾ete v tuto chvíli na jednom ze systémù souborù odkládací prostor pøidat."
 
 #: ../textw/upgrade_text.py:110
 msgid "Free Space"
@@ -5188,7 +5147,7 @@ msgstr "Neexistují ¾ádné linuxové oddíly. Tento systém nelze aktualizovat!"
 
 #: ../textw/upgrade_text.py:211
 msgid "System to Upgrade"
-msgstr "Upgrade systému"
+msgstr "Aktualizace systému"
 
 #: ../textw/upgrade_text.py:225
 msgid "Upgrade Partition"
@@ -5308,10 +5267,7 @@ msgid ""
 "You should use a normal user account for most activities on your system. By "
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
-msgstr ""
-"Pro vìt¹inu èinností byste mìli pou¾ívat normální u¾ivatelský úèet. Nebudete-"
-"li zbyteènì pou¾ívat úèet root, sní¾íte pravdìpodobnost po¹kození va¹eho "
-"systému."
+msgstr "Pro vìt¹inu èinností byste mìli pou¾ívat normální u¾ivatelský úèet. Nebudete-li zbyteènì pou¾ívat úèet root, sní¾íte pravdìpodobnost po¹kození va¹eho systému."
 
 #: ../textw/userauth_text.py:197
 msgid "User Account Setup"
@@ -5458,9 +5414,7 @@ msgstr "Vlastní nastavení X"
 msgid ""
 "Select the color depth and video mode you want to use for your system. Use "
 "the '%s' button to test the video mode."
-msgstr ""
-"Zvolte barevnou hloubku a rozli¹ení, které chcete pou¾ívat. Sti¹knìte "
-"tlaèítko '%s' pro test."
+msgstr "Zvolte barevnou hloubku a rozli¹ení, které chcete pou¾ívat. Stisknìte tlaèítko '%s' pro test."
 
 #: ../textw/xconfig_text.py:192
 msgid "Color Depth:"
@@ -5556,8 +5510,7 @@ msgid ""
 msgstr ""
 "Vlo¾te frekvence synchronizace pro vá¹ monitor.\n"
 "\n"
-"Obvykle není nutné mìnit pøednastavené hodnoty. Pokud je budete mìnit, dejte "
-"pozor, aby odpovídaly skuteènosti."
+"Obvykle není nutné mìnit pøednastavené hodnoty. Pokud je budete mìnit, dejte pozor, aby odpovídaly skuteènosti."
 
 #: ../textw/xconfig_text.py:338
 msgid "HSync Rate: "
@@ -5572,9 +5525,7 @@ msgstr "Vertikální  :"
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
-msgstr ""
-"Zvolte monitor, který je pøipojen k va¹emu systému. Instalaèní program "
-"detekoval '%s'"
+msgstr "Zvolte monitor, který je pøipojen k va¹emu systému. Instalaèní program detekoval '%s'"
 
 #: ../textw/xconfig_text.py:448
 msgid "Monitor:"
@@ -5608,9 +5559,7 @@ msgstr "Video RAM"
 msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
-msgstr ""
-"Zvolte velikost video pamìti na va¹í grafické kartì. Instalaèní program "
-"detekoval '%s'."
+msgstr "Zvolte velikost video pamìti na va¹í grafické kartì. Instalaèní program detekoval '%s'."
 
 #: ../textw/xconfig_text.py:637
 msgid "Skip X Configuration"
@@ -5648,14 +5597,14 @@ msgstr "Vlastní"
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and authentication preferences."
-msgstr "Zvolením tohoto typu instalace, získáte úplnou kontrolu nad procesem instalace, vèetne výbìru balíèkù a nastavení autentizace."
+msgstr "Zvolením tohoto typu instalace získáte úplnou kontrolu nad procesem instalace, vèetnì výbìru balíèkù a nastavení autentizace."
 
 #: ../installclasses/personal_desktop.py:12
 msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
-msgstr "Ideální pro osobní poèítaèe nebo laptopy, zvolením tohoto typu instalace nainstalujete graficeké prostøedí a vytvoøíte systém ideální pro domácí nebo kanceláøské pou¾ití."
+msgstr "Urèeno pro osobní poèítaèe nebo laptopy. Zvolením tohoto typu instalace nainstalujete grafické prostøedí a vytvoøíte systém ideální pro domácí nebo kanceláøské pou¾ití."
 
 #: ../installclasses/server.py:10
 msgid "Server"
@@ -5666,9 +5615,7 @@ msgid ""
 "Select this installation type if you would like to set up file sharing, "
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
-msgstr ""
-"Zvolte tento typ instalace, pokud chcete nastavit sdílení souborù, sdílení tiskáren nebo Webové slu¾by. Mù¾ete povolit dal¹í slu¾by, a mù¾ete si vybrat,\n"
-"jestli chcete instalovat grafické prostøedí."
+msgstr "Zvolte tento typ instalace, pokud chcete nastavit sdílení souborù, sdílení tiskáren nebo slu¾by WWW. Mù¾ete povolit dal¹í slu¾by a mù¾ete si vybrat, jestli chcete instalovat grafické prostøedí."
 
 #: ../installclasses/upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -5831,9 +5778,7 @@ msgstr "Pøidat zaøízení"
 msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
-msgstr ""
-"®ádné speciální ovladaèe zaøízení pro vá¹ systém nejsou zavedeny. Chcete "
-"nìjaké zavést?"
+msgstr "®ádné speciální ovladaèe zaøízení pro vá¹ systém nejsou zavedeny. Chcete nìjaké zavést?"
 
 #: ../loader/loader.c:494 ../loader/loader.c:935 ../loader/loader.c:2922
 #, c-format
@@ -6007,11 +5952,11 @@ msgstr "Na zavádìcí disketì nelze nalézt soubor ks.cfg."
 
 #: ../loader/loader.c:2984
 msgid "Updates Disk"
-msgstr "Disk s aktualiazací"
+msgstr "Disk s aktualizací"
 
 #: ../loader/loader.c:2985
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "Pro pokraèování vlo¾te disk s updaty a stisknìte \"OK\"."
+msgstr "Pro pokraèování vlo¾te disk s aktualizacemi a stisknìte \"OK\"."
 
 #: ../loader/loader.c:2990
 #, c-format
@@ -6032,7 +5977,7 @@ msgstr "Aktualizace"
 
 #: ../loader/loader.c:3005
 msgid "Reading anaconda updates..."
-msgstr "Naèítání aktualizací anakondy..."
+msgstr "Ètu aktualizace anacondy..."
 
 #: ../loader/loader.c:3147 ../loader/modules.c:423
 msgid "Loading"
@@ -6073,14 +6018,12 @@ msgstr "Spou¹tím Anacondu, instalaèní program systému %s - èekejte prosím...\n"
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr ""
-"Nemohu pøeèíst kontrolní souèet disku z primárního desriptoru svazku. Disk "
-"byl pravdìpodobnì vytvoøen bez kontrolního souètu."
+msgstr "Nemohu pøeèíst kontrolní souèet disku z primárního deskriptoru svazku. Disk byl pravdìpodobnì vytvoøen bez kontrolního souètu."
 
 #: ../loader/mediacheck.c:264
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr "Kontrola \"%s\"..."
+msgstr "Kontroluji \"%s\"..."
 
 #: ../loader/mediacheck.c:266
 msgid "Checking media now..."
@@ -6202,10 +6145,7 @@ msgid ""
 "not include a DNS nameserver. If you know what your nameserver is, please "
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
-msgstr ""
-"Odpovìï na ¾ádost o pøidìlení IP adresy neobsahuje jméno DNS serveru. Pokud "
-"víte, jaká je IP adresa DNS serveru, vlo¾te ji. Pokud tuto adresu neznáte, "
-"ponechte políèko prázné a instalace bude pokraèovat."
+msgstr "Odpovìï na ¾ádost o pøidìlení IP adresy neobsahuje jméno DNS serveru. Pokud víte, jaká je IP adresa DNS serveru, vlo¾te ji. Pokud tuto adresu neznáte, ponechte políèko prázdné a instalace bude pokraèovat."
 
 #: ../loader/net.c:274
 msgid "Invalid IP Information"
@@ -6335,7 +6275,7 @@ msgstr "Selhalo pøipojení disku."
 
 #: ../loader/pcmcia.c:135
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-msgstr "Tato disketa nevypadá jako Red Hat PCMCIA driver disk."
+msgstr "Tato disketa nevypadá jako disketa s ovladaèi PCMCIA pro Red Hat."
 
 #: ../loader/telnetd.c:64
 msgid "Waiting for telnet connection..."
@@ -6343,7 +6283,7 @@ msgstr "Èekám na telnetové spojení..."
 
 #: ../loader/telnetd.c:106
 msgid "Running anaconda via telnet..."
-msgstr "Spou¹tím Anacondu via telnet..."
+msgstr "Spou¹tím anacondu via telnet..."
 
 #: ../loader/urls.c:82
 #, c-format
@@ -7168,7 +7108,7 @@ msgstr "Ukrajin¹tina"
 #~ msgstr "Nastavit _heslo:"
 
 #~ msgid "Edit Boot Label Please"
-#~ msgstr "Zmìnte prosím jmenovku systému"
+#~ msgstr "Zmìòte prosím jmenovku systému"
 
 #~ msgid "Base"
 #~ msgstr "Základ"
@@ -7298,9 +7238,7 @@ msgstr "Ukrajin¹tina"
 #~ msgid ""
 #~ "If the probed settings do not match your hardware, select the correct "
 #~ "hardware settings below:"
-#~ msgstr ""
-#~ "Pokud zji¹tìné hodnoty neodpovídají va¹emu hardware, vlo¾te sami správné "
-#~ "hodnoty:"
+#~ msgstr "Pokud zji¹tìné hodnoty neodpovídají va¹emu hardware, vlo¾te sami správné hodnoty:"
 
 #~ msgid "Laptop"
 #~ msgstr "Laptop"
@@ -7478,8 +7416,7 @@ msgstr "Ukrajin¹tina"
 #~ msgstr ""
 #~ "Vítá vás %s!\n"
 #~ "\n"
-#~ "Vstoupili jste do rekonfiguraèního re¾imu, ve kterém mù¾ete nastavit "
-#~ "lokální konfiguraci va¹eho poèítaèe.\n"
+#~ "Vstoupili jste do rekonfiguraèního re¾imu, ve kterém mù¾ete nastavit lokální konfiguraci va¹eho poèítaèe.\n"
 #~ "\n"
 #~ "Pro ukonèení této operace beze zmìny nastavení stisknìte tlaèítko Zru¹it."
 

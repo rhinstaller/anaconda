@@ -5,12 +5,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-09-02 23:28-0400\n"
-"PO-Revision-Date: 2002-09-03 16:56+0100\n"
+"PO-Revision-Date: 2002-11-07 12:43+0000\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
-"Content-Transfer-Encoding: none\n"
+"Content-Transfer-Encoding: 8bit\n"
 "X-Spell-Extra: OK ecrã deseleccionar detalhadamente imprimíveis\n"
 "X-Spell-Extra: inalterada inconsistentes instabilidades item\n"
 "X-Spell-Extra: interoperabilidade particionamento particionar\n"
@@ -1671,7 +1671,7 @@ msgstr ""
 
 #: ../rescue.py:70 ../rescue.py:113 ../rescue.py:208
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr "Quando terminar saía da consolo e o seu sistema será reiniciado."
+msgstr "Quando terminar saia da consola e o seu sistema será reiniciado."
 
 #: ../rescue.py:97 ../rescue.py:161 ../rescue.py:169 ../rescue.py:187
 msgid "Rescue"
@@ -2126,7 +2126,7 @@ msgstr "Configuração da Autenticação"
 
 #: ../iw/auth_gui.py:98
 msgid "Enable _MD5 passwords"
-msgstr "Activar as senhas _MD5"
+msgstr "Acti_var as senhas MD5"
 
 #: ../iw/auth_gui.py:99
 msgid "Enable shado_w passwords"
@@ -2319,7 +2319,7 @@ msgstr "Forçar o modo LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:72
 msgid "_Force LBA32 (not normally required)"
-msgstr "_Forçar LBA32 (não é normalmente necessário)"
+msgstr "_Forçar o modo LBA32 (não é normalmente necessário)"
 
 #: ../iw/bootloader_advanced_gui.py:76
 msgid ""
@@ -2341,7 +2341,7 @@ msgstr "Configuração do Gestor de Arranque"
 
 #: ../iw/bootloader_main_gui.py:71
 msgid "Change Boot Loader"
-msgstr "Mudar o gestor de arranque"
+msgstr "Mudar o Gestor de Arranque"
 
 #: ../iw/bootloader_main_gui.py:89
 msgid ""
@@ -2394,7 +2394,7 @@ msgstr "Não vai ser instalado gestor de arranque."
 
 #: ../iw/bootloader_main_gui.py:217
 msgid "_Change boot loader"
-msgstr "_Mudar o gestor de arranque"
+msgstr "Mudar o _gestor de arranque"
 
 #: ../iw/bootloader_main_gui.py:245
 msgid "Configure advanced boot loader _options"
@@ -2406,7 +2406,7 @@ msgstr "Instalar gestor de arranque no:"
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
-msgstr "Alterar _Ordenação das Unidades"
+msgstr "Mudar a _Ordenação das Unidades"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Unable to Change Drive Order for LILO"
@@ -2601,8 +2601,7 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"O ambiente da estação de trabalho por omissão inclui as nossas recomendações "
-"para os utilizadores novos, o que inclui:\n"
+"O ambiente da estação de trabalho por omissão inclui as nossas recomendações para os utilizadores novos, o que inclui:\n"
 "\n"
 "\tAmbiente de trabalho gráfico (GNOME)\n"
 "\tPacote de escritório (OpenOffice)\n"
@@ -2614,12 +2613,9 @@ msgstr ""
 "        Ferramentas de Desenvolvimento de 'Software'\n"
 "        Ferramentas de Administração\n"
 "\n"
-"Depois da instalação, o 'software' adicional pode ser adicionado ou removido "
-"com o pacote 'redhat-config-package'.\n"
+"Depois da instalação, o 'software' adicional pode ser adicionado ou removido com o pacote 'redhat-config-package'.\n"
 "\n"
-"Se estiver familiarizado com o %s, poderá ter alguns pacotes específicos que "
-"queira instalar ou não. Verifique a opção em baixo para personalizar a sua "
-"instalação."
+"Se estiver familiarizado com o %s, poderá ter alguns pacotes específicos que queira instalar ou não. Escolha a opção em baixo para personalizar a sua instalação."
 
 #: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:10
 msgid "Personal Desktop"
@@ -2650,8 +2646,7 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"O ambiente da estação de trabalho por omissão inclui as nossas recomendações "
-"para os utilizadores novos, o que inclui:\n"
+"O ambiente da estação de trabalho por omissão inclui as nossas recomendações para os utilizadores novos, o que inclui:\n"
 "\n"
 "\tAmbiente de trabalho gráfico (GNOME)\n"
 "\tPacote de escritório (OpenOffice)\n"
@@ -2661,12 +2656,9 @@ msgstr ""
 "\tAplicações de som e vídeo\n"
 "\tJogos\n"
 "\n"
-"Depois da instalação, o 'software' adicional pode ser adicionado ou removido "
-"com o pacote 'redhat-config-package'.\n"
+"Depois da instalação, o 'software' adicional pode ser adicionado ou removido com o pacote 'redhat-config-package'.\n"
 "\n"
-"Se estiver familiarizado com o %s, poderá ter alguns pacotes específicos que "
-"queira instalar ou não. Verifique a opção em baixo para personalizar a sua "
-"instalação."
+"Se estiver familiarizado com o %s, poderá ter alguns pacotes específicos que queira instalar ou não. Escolha a opção em baixo para personalizar a sua instalação."
 
 #: ../iw/desktop_choice_gui.py:98
 msgid ""
@@ -2740,7 +2732,7 @@ msgstr "Escolha a unidade onde quer correr o fdisk:"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
 msgid "Firewall Configuration"
-msgstr "Configuração da \"Firewall\""
+msgstr "Configuração da 'Firewall'"
 
 #: ../iw/firewall_gui.py:132
 #, python-format
@@ -2769,7 +2761,7 @@ msgstr "Al_to"
 
 #: ../iw/firewall_gui.py:198
 msgid "_Medium"
-msgstr "_Médio"
+msgstr "Mé_dio"
 
 #: ../iw/firewall_gui.py:199
 msgid "N_o firewall"
@@ -2789,7 +2781,7 @@ msgstr "Dispositivos de _confiança:"
 
 #: ../iw/firewall_gui.py:254
 msgid "_Allow incoming:"
-msgstr "Permitir _entrada:"
+msgstr "Permitir a _entrada:"
 
 #: ../iw/firewall_gui.py:278
 msgid "Other _ports:"
@@ -2833,7 +2825,7 @@ msgstr "E_scolher Todas"
 
 #: ../iw/language_support_gui.py:214
 msgid "Select Default _Only"
-msgstr "Seleccionar por _Omissão Apenas"
+msgstr "Por _Omissão Apenas"
 
 #: ../iw/language_support_gui.py:220
 msgid "Rese_t"
@@ -2953,11 +2945,11 @@ msgstr "_Montar em:"
 
 #: ../iw/lvm_dialog_gui.py:384
 msgid "_File System Type:"
-msgstr "Tipo do Sistema de _Ficheiros:"
+msgstr "Tipo de Sistema de _Ficheiros:"
 
 #: ../iw/lvm_dialog_gui.py:392 ../iw/partition_dialog_gui.py:299
 msgid "Original File System Type:"
-msgstr "Tipo Original do Sistema de Ficheiros:"
+msgstr "Tipo Original de Sistema de Ficheiros:"
 
 #: ../iw/lvm_dialog_gui.py:397 ../iw/partition_dialog_gui.py:310
 #: ../iw/raid_dialog_gui.py:315
@@ -3190,7 +3182,7 @@ msgstr "_Dispositivo"
 
 #: ../iw/mouse_gui.py:138
 msgid "_Model"
-msgstr "_Modelo"
+msgstr "M_odelo"
 
 #: ../iw/mouse_gui.py:221
 msgid "_Emulate 3 buttons"
@@ -3322,7 +3314,7 @@ msgstr "Endereço _IP"
 
 #: ../iw/network_gui.py:226
 msgid "Net_mask"
-msgstr "_Máscara"
+msgstr "Másca_ra"
 
 #: ../iw/network_gui.py:229
 msgid "Point to Point (IP)"
@@ -3372,7 +3364,7 @@ msgstr "_automaticamente via DHCP"
 
 #: ../iw/network_gui.py:511
 msgid "_manually"
-msgstr "_manualmente"
+msgstr "manua_lmente"
 
 #: ../iw/network_gui.py:579
 msgid "Miscellaneous Settings"
@@ -3494,7 +3486,7 @@ msgstr "_Pacote"
 
 #: ../iw/package_gui.py:385
 msgid "_Size (MB)"
-msgstr "Ta_manho (MB)"
+msgstr "Taman_ho (MB)"
 
 #: ../iw/package_gui.py:436
 msgid "Total size: "
@@ -3585,7 +3577,7 @@ msgstr "Editar Partição"
 
 #: ../iw/partition_dialog_gui.py:290 ../iw/raid_dialog_gui.py:302
 msgid "File System _Type:"
-msgstr "_Tipo do Sistema de Ficheiros:"
+msgstr "_Tipo de Sistema de Ficheiros:"
 
 #: ../iw/partition_dialog_gui.py:322
 msgid "Allowable _Drives:"
@@ -3957,11 +3949,11 @@ msgstr "Resumo"
 
 #: ../iw/progress_gui.py:241
 msgid "Package Progress: "
-msgstr "Progresso do pacote: "
+msgstr "Evolução do pacote: "
 
 #: ../iw/progress_gui.py:246
 msgid "Total Progress:   "
-msgstr "Progresso total:  "
+msgstr "Evolução total:  "
 
 #: ../iw/progress_gui.py:273
 msgid "Status"
@@ -4420,7 +4412,7 @@ msgstr ""
 
 #: ../iw/welcome_gui.py:20
 msgid "Welcome"
-msgstr "Bem vindo"
+msgstr "Bem-vindo"
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:24
 msgid "DDC Probed Monitor"
@@ -4468,7 +4460,7 @@ msgstr "O seu ambiente de trabalho é:"
 
 #: ../iw/xconfig_gui.py:362
 msgid "GNO_ME"
-msgstr "GNO_ME"
+msgstr "_GNOME"
 
 #: ../iw/xconfig_gui.py:364
 msgid "_KDE"
@@ -4691,7 +4683,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:113
 msgid "Force use of LBA32 (not normally required)"
-msgstr "Forçar utilização de LBA32 (não é normalmente necessário)"
+msgstr "Forçar o modo LBA32 (não é normalmente necessário)"
 
 #: ../textw/bootloader_text.py:179
 msgid "Where do you want to install the boot loader?"
@@ -4956,11 +4948,11 @@ msgstr "Nível de Segurança:"
 
 #: ../textw/firewall_text.py:48
 msgid "High"
-msgstr "Alta"
+msgstr "Alto"
 
 #: ../textw/firewall_text.py:51
 msgid "Medium"
-msgstr "Média"
+msgstr "Médio"
 
 #: ../textw/firewall_text.py:54
 msgid "No firewall"
@@ -4972,7 +4964,7 @@ msgstr "Dispositivos de Confiança:"
 
 #: ../textw/firewall_text.py:85
 msgid "Allow incoming:"
-msgstr "Permitir entrada:"
+msgstr "Permitir a entrada:"
 
 #: ../textw/firewall_text.py:90
 msgid "DHCP"
@@ -5013,7 +5005,7 @@ msgstr "Não pode personalizar uma \"firewall\" inactiva"
 
 #: ../textw/firewall_text.py:136
 msgid "Firewall Configuration - Customize"
-msgstr "Configuração da \"Firewall\" - Personalizar"
+msgstr "Configuração da 'Firewall' - Personalizar"
 
 #: ../textw/firewall_text.py:138
 msgid ""
@@ -5074,7 +5066,7 @@ msgstr "Escolha a língua por omissão do computador: "
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
-msgstr "Em que dispositivo está o seu rato?"
+msgstr "A que dispositivo está ligado o seu rato?"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
@@ -5082,7 +5074,7 @@ msgstr "Que tipo de rato está ligado a este computador?"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr "Emular 3 Botões"
+msgstr "Emular 3 Botões?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
@@ -5284,7 +5276,7 @@ msgstr "Número de reservas?"
 
 #: ../textw/partition_text.py:483
 msgid "File System Type:"
-msgstr "Tipo do Sistema de Ficheiros:"
+msgstr "Tipo de Sistema de Ficheiros:"
 
 #: ../textw/partition_text.py:496
 msgid "File System Label:"
@@ -5590,7 +5582,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:22
 msgid "Root Password"
-msgstr "Senha de root"
+msgstr "Senha de 'Root'"
 
 #: ../textw/userauth_text.py:24
 msgid ""
@@ -5727,11 +5719,11 @@ msgstr "Alterar as informações deste utilizador."
 
 #: ../textw/userauth_text.py:327
 msgid "Use Shadow Passwords"
-msgstr "Utilizar senhas \"shadow\""
+msgstr "Utilizar Senhas \"Shadow\""
 
 #: ../textw/userauth_text.py:329
 msgid "Enable MD5 Passwords"
-msgstr "Activar senhas MD5"
+msgstr "Activar Senhas MD5"
 
 #: ../textw/userauth_text.py:334
 msgid "Enable NIS"
@@ -5763,7 +5755,7 @@ msgstr "Servidor LDAP:"
 
 #: ../textw/userauth_text.py:376
 msgid "LDAP Base DN:"
-msgstr "DN base de LDAP:"
+msgstr "DN Base de LDAP:"
 
 #: ../textw/userauth_text.py:386
 msgid "Use TLS connections"
@@ -5862,7 +5854,7 @@ msgstr "Resolução:"
 
 #: ../textw/xconfig_text.py:209
 msgid "Default Desktop:"
-msgstr "Ambiente de Trabalho Por Omissão"
+msgstr "Ambiente de Trabalho por Omissão:"
 
 #: ../textw/xconfig_text.py:213 ../textw/xconfig_text.py:222
 msgid "GNOME"
@@ -6173,7 +6165,7 @@ msgstr "Erro na linha %d do ficheiro de kickstart %s."
 #: ../loader/lang.c:41 ../loader/loader.c:204
 #, c-format
 msgid "Welcome to %s"
-msgstr "Bem vindo ao %s"
+msgstr "Bem-vindo ao %s"
 
 #: ../loader/lang.c:42 ../loader/loader.c:210
 msgid ""
@@ -6191,7 +6183,7 @@ msgstr "Tipo de Teclado"
 
 #: ../loader/lang.c:633
 msgid "What type of keyboard do you have?"
-msgstr "Que tipo teclado possui?"
+msgstr "Que tipo de teclado é que utiliza?"
 
 #: ../loader/loader.c:140
 msgid "Local CDROM"
@@ -6223,7 +6215,7 @@ msgstr "Os seguintes dispositivos foram encontrados no seu sistema:"
 
 #: ../loader/loader.c:385 ../loader/loader.c:410
 msgid "Done"
-msgstr "Pronto"
+msgstr "Terminado"
 
 #: ../loader/loader.c:385 ../loader/loader.c:410
 msgid "Add Device"

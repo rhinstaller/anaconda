@@ -1,23 +1,25 @@
 # Plik z zasobami dla polskiego u¿ytkownika.
 # Jacek Smyda <smyda@posexperts.com.pl>, 1998.
 # Rafa³ Maszkowski <rzm@icm.edu.pl>, 1999, 2000
+# Bartosz Sapijaszko <bartosz@sapek.net>, 2002
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat installation\n"
 "POT-Creation-Date: 2002-09-02 23:28-0400\n"
-"PO-Revision-Date: 2000-02-21 21:00+0100\n"
-"Last-Translator: Rafa³ Maszkowski <rzm@icm.edu.pl>\n"
-"Language-Team: Polish\n"
+"PO-Revision-Date: 2002-10-07 09:56+0200\n"
+"Last-Translator: Bartosz Sapijaszko <bartosz@sapek.net>\n"
+"Language-Team: Polski <pl@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-2\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.6\n"
 
 #: ../anaconda:341 ../anaconda:343
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
-msgstr ""
+msgstr "Nie masz wystarczaj±cej ilo¶ci pamiêci RAM do instalacji w trybie graficznym.  Startujê w trybie tekstowym."
 
 #: ../anaconda:358 ../gui.py:140 ../rescue.py:36 ../rescue.py:143
 #: ../rescue.py:166 ../rescue.py:176 ../rescue.py:192 ../rescue.py:198
@@ -58,81 +60,76 @@ msgstr "Nie uda³o siê wykryæ karty graficznej"
 
 #: ../anaconda:411
 msgid "Probing for video card:   "
-msgstr ""
+msgstr "Wykrywanie karty graficznej:   "
 
 #: ../anaconda:412
 #, c-format
 msgid "Probing for video card:   %s"
-msgstr ""
+msgstr "Wykrywanie karty graficznej:   %s"
 
 #: ../anaconda:416
 msgid "Probing for monitor type: "
-msgstr ""
+msgstr "Wykrywanie typu monitora: "
 
 #: ../anaconda:417
 #, c-format
 msgid "Probing for monitor type: %s"
-msgstr ""
+msgstr "Wykrywanie typu monitora: %s"
 
 #: ../anaconda:426
 msgid "Probing for mouse type:   "
-msgstr ""
+msgstr "Wykrywanie myszy:   "
 
 #: ../anaconda:430
 #, c-format
 msgid "Probing for mouse type:   %s"
-msgstr ""
+msgstr "Wykrywanie myszy:   %s"
 
 #: ../anaconda:432 ../anaconda:433
 msgid "Skipping mouse probe."
-msgstr ""
+msgstr "Pomijam wykrywanie myszy."
 
 #: ../anaconda:440 ../anaconda:442
 #, c-format
-msgid ""
-"Graphical installation not available for %s installs.  Starting text mode."
-msgstr ""
+msgid "Graphical installation not available for %s installs.  Starting text mode."
+msgstr "Instalacja w trybie graficznym nie jest dostêpna dla %s.  Startujê tryb tektowy."
 
 #: ../anaconda:454 ../anaconda:456
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
-msgstr ""
+msgstr "Nie wykryto myszy.  Mysz jest wymagana do instalacji w trybie graficznym.  Startujê tryb tekstowy."
 
 #: ../anaconda:461
 msgid "Using mouse type: "
-msgstr ""
+msgstr "U¿ywany typ myszy: "
 
 #: ../anaconda:465
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "Zmienna DISPLAY nie jest ustawiona. Startujê tryb tekstowy!"
 
 #: ../autopart.py:853
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr "Istniej± niezaalokowane partycje..."
+msgstr "Nie mo¿na zaalokowaæ partycji opartej na cylindrach jako primary."
 
 #: ../autopart.py:856
-#, fuzzy
 msgid "Could not allocate partitions as primary partitions"
-msgstr "Istniej± niezaalokowane partycje..."
+msgstr "Nie mo¿na zaalokowaæ partycji jako primary"
 
 #: ../autopart.py:859
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions"
-msgstr "Istniej± niezaalokowane partycje..."
+msgstr "Nie mo¿na zaalokowaæ partycji opartej na cylindrach"
 
 #: ../autopart.py:862
-#, fuzzy
 msgid "Could not allocate partitions"
-msgstr "Istniej± niezaalokowane partycje..."
+msgstr "Nie mo¿na zaalokowaæ partycji"
 
 #: ../autopart.py:925
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
-msgstr ""
+msgstr "Partycja startowa %s mo¿e byæ ustawiona niew³a¶ciwie. Bardzo wskazane jest wykonanie dyskietki startowehj."
 
 #: ../autopart.py:950
 #, python-format
@@ -140,11 +137,12 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
+"Dodanie tej partycji nie pozostawi wystarczaj±cej ilo¶ci wolnego miejsca dla ju¿ zaalokowanych "
+"dysków logicznych na %s."
 
 #: ../autopart.py:1094
-#, fuzzy
 msgid "Requested Partition Does Not Exist"
-msgstr "Istniej± niezaalokowane partycje..."
+msgstr "Wymagana partycja nie istnieje!"
 
 #: ../autopart.py:1095
 #, python-format
@@ -153,11 +151,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Nie mo¿na zlokalizowaæ partycji %s w celu u¿ycia dla %s.\n"
+"\n"
+"Naci¶nij 'OK' w celu ponownego uruchomienia komputera."
 
 #: ../autopart.py:1126 ../autopart.py:1166
-#, fuzzy
 msgid "Automatic Partitioning Errors"
-msgstr "Automatyczny podzia³ dysku"
+msgstr "Automatyczny podzia³ dysku zakoñczy³ siê b³êdami"
 
 #: ../autopart.py:1127
 #, python-format
@@ -168,19 +168,26 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Twój podzia³ dysku na partycje zawiera nastêpuj±ce b³êdy:\n"
+"\n"
+"%s\n"
+"\n"
+"Naci¶nij 'OK' w celu ponownego uruchomienia komputera."
 
 #: ../autopart.py:1136
-#, fuzzy
 msgid "Warnings During Automatic Partitioning"
-msgstr "Automatyczny podzia³ dysku"
+msgstr "Ostrze¿enia podczas automatycznego podzia³u na partycje"
 
 #: ../autopart.py:1137
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
 "\n"
 "%s"
-msgstr "Automatyczny podzia³ dysku"
+msgstr ""
+"Podczas automatycznego podzia³u dysku pojawi³y siê nastêpuj±ce ostrze¿enia:\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1150
 msgid ""
@@ -188,20 +195,25 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"\n"
+"\n"
+"Naci¶nij 'OK' w celu ponownego uruchomienia komputera."
 
 #: ../autopart.py:1151 ../iw/partition_gui.py:980
 #: ../textw/partition_text.py:213
-#, fuzzy
 msgid "Error Partitioning"
-msgstr "Rêczny podzia³ na partycje"
+msgstr "B³±d podczas podzia³u dysku na partycje"
 
 #: ../autopart.py:1152
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
 "%s.%s"
-msgstr "Istniej± niezaalokowane partycje..."
+msgstr ""
+"Nie mo¿na zaalokowaæ wymaganych partycji: \n"
+"\n"
+"%s.%s "
 
 #: ../autopart.py:1167
 #, python-format
@@ -216,6 +228,15 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
+"Twój podzia³ na partycje zawiera nastêpuj±ce b³êdy:\n"
+"\n"
+"%s\n"
+"\n"
+"To mo¿e zdarzyæ siê w przypadku, gdy dyski(i) nie maj± wystarczaj±cej ilo¶ci miejsca na istalacjê. "
+"Mo¿esz wybraæ inn± opcjê automatycznego podzia³u na partycje lub nacisn±æ 'Back' i wybraæ "
+"opcjê rêcznego podzia³u dysku.\n"
+"\n"
+"Naci¶nij 'OK' aby kontynuowaæ."
 
 #: ../autopart.py:1245 ../bootloader.py:123 ../image.py:336
 #: ../partedUtils.py:240 ../partedUtils.py:668 ../upgrade.py:260
@@ -226,9 +247,8 @@ msgstr ""
 #: ../textw/bootloader_text.py:135 ../textw/bootloader_text.py:450
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:217
 #: ../textw/upgrade_text.py:175 ../loader/loader.c:3721
-#, fuzzy
 msgid "Warning"
-msgstr "Szukanie"
+msgstr "Ostrze¿enie"
 
 #: ../autopart.py:1251
 msgid ""
@@ -242,68 +262,78 @@ msgid ""
 "The partitioning tool, fdisk, is a text-based utility only recommended for "
 "advanced users who need to perform specialized tasks."
 msgstr ""
+"Proces automatycznego podzia³u na partycje bazuje na wybranym typie instalacji. Mo¿esz równie¿ "
+"dostosowaæ podzia³ dysku po utworzeniu partycji.\n"
+"\n"
+"Narzêdzie do rêcznego podzia³u dysku o nazwie Disk Druid pozwala na interaktywne tworzenie "
+"partycji. Mo¿esz równie¿ ustawiaæ typy systemów plików, punkty montowania, rozmiary "
+"partycji i inne.\n"
+"\n"
+"Narzêdzie do podzia³u dysku o nazwie fdisk jest programem pracuj±cym w trybie tekstowym. "
+"Program ten jest zalecany dla u¿ytkowników zaawansowanych do wykonywania specjalistycznych "
+"zadañ."
 
 #: ../autopart.py:1265
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
 msgstr ""
+"Przed rozpoczêciem automatycznego podzia³u dysku musisz okre¶liæ sposób "
+"wykorzystania przestrzeni na twardych dyskach."
 
 #: ../autopart.py:1270
-#, fuzzy
 msgid "Remove all partitions on this system"
-msgstr "Usuniêcie partycji linuxowej"
+msgstr "Usuniêcie wszystkich partycji w tym systemie"
 
 #: ../autopart.py:1271
-#, fuzzy
 msgid "Remove all Linux Partitions on this system"
-msgstr "Usuniêcie partycji linuxowej"
+msgstr "Usuniêcie wszystkich partycji linuksowych w tym systemie"
 
 #: ../autopart.py:1272
-#, fuzzy
 msgid "Keep all partitions and use existing free space"
-msgstr "U¿ycie wolnego± miejsca na dysku"
+msgstr "Pozostawienie wszystkich partycji i u¿ycie istniej±cego wolnego miejsca"
 
 #: ../autopart.py:1274
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have selected to remove all partitions (ALL DATA) on the following "
 "drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Skonfigurowa³e¶ partycje RAID bez ograniczenia jej do pojedyñczego dysku.\n"
-" Jeste¶ pewien, ¿e tka chcesz?"
+"Wybra³e¶ opcjê usuniêcia wszystkich partycji (WSZYSTKICH DANYCH) na "
+"nastêpuj±cych napêdach: %s\n"
+"Jeste¶ pewien, ¿e tego chcesz?"
 
 #: ../autopart.py:1278
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have selected to remove all Linux partitions (and ALL DATA on them) on "
 "the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Skonfigurowa³e¶ partycje RAID bez ograniczenia jej do pojedyñczego dysku.\n"
-" Jeste¶ pewien, ¿e tka chcesz?"
+"Wybra³e¶ opcjê usuniêcia wszystkich partycji linuksowych (i WSZYSTKICH DANYCH na nich ) na "
+"nastêpuj±cych napêdach: %s\n"
+"Jeste¶ pewien, ¿e tego chcesz?"
 
 #: ../bootloader.py:89
-#, fuzzy
 msgid "Bootloader"
-msgstr "Etykieta bootowania"
+msgstr "Program rozruchowy (bootloader)"
 
 #: ../bootloader.py:89
-#, fuzzy
 msgid "Installing bootloader..."
-msgstr "Instalacja %s.\n"
+msgstr "Instalacja programu rozruchowego (bootloadera)..."
 
 #: ../bootloader.py:124
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
+"W twoi systemie nie zainstalowano ¿adnych pakietów z j±drem systemu.  Konfiguracja "
+"programu rozruchowego (bootloadera) nie zostanie zmieniona."
 
 #: ../comps.py:724 ../comps.py:752
-#, fuzzy
 msgid "Everything"
-msgstr "Szukanie"
+msgstr "Wszystko"
 
 #: ../comps.py:898 ../comps.py:964 ../upgrade.py:611
 msgid "no suggestion"
@@ -626,8 +656,7 @@ msgid "Error!"
 msgstr "B³±d"
 
 #: ../gui.py:814
-msgid ""
-"An error occured when attempting to load an installer interface component."
+msgid "An error occured when attempting to load an installer interface component."
 msgstr ""
 
 #: ../gui.py:818 ../packages.py:1134 ../iw/congrats_gui.py:29
@@ -1294,8 +1323,7 @@ msgstr "Potwierd¼:"
 
 #: ../partIntfHelpers.py:536
 #, fuzzy
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Czy je¶te¶ pewien, ¿e chcesz usun±æ tê partycjê?"
 
 #: ../partitioning.py:83
@@ -1340,8 +1368,7 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:749
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 
 #: ../partitions.py:757
@@ -1396,8 +1423,7 @@ msgstr ""
 
 #: ../partRequests.py:215
 #, fuzzy, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "Katalog %s musi znajdowaæ siê na systemie plików root."
 
 #: ../partRequests.py:220
@@ -1580,17 +1606,14 @@ msgstr "Linux Red Hat (C) 2001 Red Hat, Inc."
 
 #: ../text.py:339
 #, fuzzy
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> nastêpny element | <Space> wybór | <F12> nastêpny ekran "
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "  <Tab>/<Alt-Tab> nastêpny element | <Space> wybór | <F12> nastêpny ekran "
 
 #: ../text.py:341
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> nastêpne pole | <Spacja> wybór | <F12> nastêpny ekran "
+msgstr "  <Tab>/<Alt-Tab> nastêpne pole | <Spacja> wybór | <F12> nastêpny ekran "
 
 #: ../text.py:439
 msgid "Cancelled"
@@ -1598,8 +1621,7 @@ msgstr "Anulowane"
 
 #: ../text.py:440
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Nie mogê cofn±æ siê do poprzedniego kroku. Mo¿esz spróbowaæ jeszcze raz."
+msgstr "Nie mogê cofn±æ siê do poprzedniego kroku. Mo¿esz spróbowaæ jeszcze raz."
 
 #: ../upgrade.py:46
 msgid "Searching"
@@ -3335,14 +3357,12 @@ msgid "Partitioning"
 msgstr "Partycja"
 
 #: ../iw/partition_gui.py:625
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
 #: ../iw/partition_gui.py:628
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 
 #: ../iw/partition_gui.py:634
@@ -3940,8 +3960,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4060,8 +4079,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:171
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
 #: ../iw/welcome_gui.py:20
@@ -4365,8 +4383,7 @@ msgstr ""
 "etykiety tych partycji."
 
 #: ../textw/bootloader_text.py:309
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 
 #: ../textw/bootloader_text.py:388
@@ -4806,8 +4823,7 @@ msgid "Total size"
 msgstr "Razem"
 
 #: ../textw/packages_text.py:245
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr ""
 
 #: ../textw/packages_text.py:293
@@ -5053,8 +5069,7 @@ msgid "RAID"
 msgstr "<RAID>"
 
 #: ../textw/partition_text.py:1123
-msgid ""
-"    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
 #: ../textw/partition_text.py:1125
@@ -5062,8 +5077,7 @@ msgid "New"
 msgstr "Nowe"
 
 #: ../textw/partition_text.py:1131
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
 #: ../textw/partition_text.py:1160
@@ -5217,8 +5231,7 @@ msgstr "Podana wielko¶c musi byæ liczb±."
 
 #: ../textw/upgrade_text.py:194
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr ""
-"Nie masz ¿adnej partycji linuxowej. Nie mo¿esz uaktualniæ tego systemu!"
+msgstr "Nie masz ¿adnej partycji linuxowej. Nie mo¿esz uaktualniæ tego systemu!"
 
 #: ../textw/upgrade_text.py:211
 msgid "System to Upgrade"
@@ -5331,13 +5344,11 @@ msgid "User Exists"
 msgstr "u¿ytkownik ju¿ istnieje"
 
 #: ../textw/userauth_text.py:144
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 
 #: ../textw/userauth_text.py:151
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 
 #: ../textw/userauth_text.py:159
@@ -5829,10 +5840,8 @@ msgid "Welcome to %s"
 msgstr "Witamy"
 
 #: ../loader/lang.c:42 ../loader/loader.c:210
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> nastêpny element | <Space> wybór | <F12> nastêpny ekran "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> nastêpny element | <Space> wybór | <F12> nastêpny ekran "
 
 #: ../loader/lang.c:305
 msgid "Choose a Language"
@@ -5902,8 +5911,7 @@ msgstr "Nie mo¿na przeczytaæ katalogu %s: %s"
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
-msgstr ""
-"Znaleziono b³±d podczas czytania tabeli partycji w urz±dzeniu %s. B³±d: "
+msgstr "Znaleziono b³±d podczas czytania tabeli partycji w urz±dzeniu %s. B³±d: "
 
 #: ../loader/loader.c:952
 #, c-format
@@ -6334,8 +6342,7 @@ msgstr ""
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> nastêpny element  | <Space> wybór | <F12> nastêpny ekran "
+msgstr "  <Tab>/<Alt-Tab> nastêpny element  | <Space> wybór | <F12> nastêpny ekran "
 
 #: ../loader/net.c:905
 #, c-format
@@ -6528,8 +6535,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 
 #. generated from zone.tab
@@ -6709,8 +6715,7 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 
 #. generated from zone.tab
@@ -6888,8 +6893,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 
 #. generated from zone.tab
@@ -8529,3 +8533,4 @@ msgstr ""
 
 #~ msgid "Which driver should I try?"
 #~ msgstr "Który sterownik powinienem wypróbowaæ?"
+

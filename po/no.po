@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2002-09-02 23:28-0400\n"
-"PO-Revision-Date: 2002-09-03 13:05-0400\n"
+"PO-Revision-Date: 2002-09-05 23:44+0200\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2345,6 +2345,9 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
+"Plasser stasjonene i samme rekkefølge som brukt av BIOS. Endring av rekkefølgen for stasjonene kan være nyttig hvis du har flere SCSI-kort eller både SCSI og IDE-kontrollere og ønsker å starte opp fra SCSI-enheten.\n"
+"\n"
+"Endring av rekkefølgen for stasjonene vil forandre på hvor installasjonsprogrammet leter etter Master Boot Record (MBR)."
 
 #: ../iw/confirm_gui.py:55
 msgid "About to Install"
@@ -2760,7 +2763,7 @@ msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
-msgstr ""
+msgstr "Fysisk størrelse kan ikke endres fordi plassen som kreves av nåværende definerte logiske volumer da vil bli mer større enn tilgjengelig plass."
 
 #: ../iw/lvm_dialog_gui.py:117
 msgid "Confirm Physical Extent Change"
@@ -2774,6 +2777,9 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
+"Denne endringen i verdien for fysisk område vil kreve at størrelsene på nåværende forespurte størrelser på aktivt logisk volum rundes opp til et heltall ganger fysisk område.\n"
+"\n"
+"Denne endringen vil aktiveres med en gang."
 
 #: ../iw/lvm_dialog_gui.py:127 ../iw/lvm_dialog_gui.py:186
 #: ../iw/network_gui.py:154 ../iw/network_gui.py:158 ../iw/network_gui.py:181
@@ -2786,7 +2792,7 @@ msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
-msgstr ""
+msgstr "Fysisk område kan ikke endres fordi verdien som ble valgt (%10.2f MB) er større enn det minste fysiske volumet (%10.2f MB) i volumgruppen."
 
 #: ../iw/lvm_dialog_gui.py:165
 #, python-format
@@ -2794,7 +2800,7 @@ msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
-msgstr ""
+msgstr "Fysisk områdes størrelse kan ikke endres fordi verdien som ble valgt (%10.2f MB) er for stor sammenlignet med størrelsen på det minste fysiske volumet (%10.2f MB) i volumgruppen."
 
 #: ../iw/lvm_dialog_gui.py:179
 msgid "Too small"
@@ -2804,7 +2810,7 @@ msgstr "For liten"
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr ""
+msgstr "Denne endringen i verdien for fysisk område vil kaste bort mye plass på et eller flere volum i volumgruppen."
 
 #: ../iw/lvm_dialog_gui.py:205
 #, python-format
@@ -2812,13 +2818,13 @@ msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
-msgstr ""
+msgstr "Størrelse på fysisk område kan ikke endres fordi resulterende maksimal logisk volumstørrelse (%10.2f MB) er mindre enn ett eller flere definerte logiske volum."
 
 #: ../iw/lvm_dialog_gui.py:287
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
-msgstr ""
+msgstr "Du kan ikke fjerne dette fysiske volumet fordi volumgruppen da vil være for liten til å holde definerte logiske volum."
 
 #: ../iw/lvm_dialog_gui.py:358
 msgid "Make Logical Volume"
@@ -2910,7 +2916,7 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can increase the Physical "
 "Extent size for this Volume Group."
-msgstr ""
+msgstr "Nåværende forespurt størrelse (%10.2f MB) er større enn maksimal størrelse på logiske volum (%10.2f MB). For å øke denne grensen kan du øke størrelsen for Fysisk område i denne volumgruppen."
 
 #: ../iw/lvm_dialog_gui.py:605 ../iw/partition_dialog_gui.py:169
 #: ../iw/partition_dialog_gui.py:181 ../iw/partition_dialog_gui.py:229
@@ -2925,7 +2931,7 @@ msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
 "only has %g MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
-msgstr ""
+msgstr "Det logiske volumet du har konfigurert krever %g MB, men volumgruppen har kun %g MB. Vennligst gjør volumgruppen større eller det logiske volumet mindre."
 
 #: ../iw/lvm_dialog_gui.py:679
 msgid "No free slots"
@@ -2945,7 +2951,7 @@ msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
-msgstr ""
+msgstr "Det er ikke ledig plass i volumgruppen til å opprette nye logiske volum. For å gjøre dette må du redusere størrelsen på ett eller flere av de eksisterende logiske volumene."
 
 #: ../iw/lvm_dialog_gui.py:715
 #, python-format
@@ -2977,6 +2983,9 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
+"Minst en ubrukt partisjon for logiske volum kreves for å opprette en LVM-volumgruppe.\n"
+"\n"
+"Opprett en partisjon eller et RAID av type «fysisk volum (LVM)» og velg så alternativet «LVM» igjen."
 
 #: ../iw/lvm_dialog_gui.py:917
 msgid "Make LVM Volume Group"
@@ -3256,7 +3265,7 @@ msgid ""
 "additional operating systems, which are not automatically detected, click "
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
-msgstr ""
+msgstr "Du kan konfigurere oppstartslasteren til å starte andre operativsystemer. Den vil la deg velge et operativsystem som du vil starte fra listen. For å legge til flere operativsystemer som ikke detekteres automatisk, klikker du på «Legg til». For å endre hvilket operativsystem som settes som forvalgt velger du «Forvalgt» for ønsket operativsystem."
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:277 ../textw/silo_text.py:207
@@ -3278,7 +3287,7 @@ msgstr "Bilde"
 msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
-msgstr ""
+msgstr "Oppgi en etikett som skal vises i menyen for oppstartslasteren. Enheten (eller harddisken og partisjonsnummeret) er oppstartsenheten."
 
 #: ../iw/osbootwidget.py:150
 msgid "_Label"
@@ -3320,7 +3329,7 @@ msgstr "Kan ikke slette"
 msgid ""
 "This boot target cannot be deleted because it is for the Red Hat Linux "
 "system you are about to install."
-msgstr ""
+msgstr "Dette oppstartsmålet kan ikke slettes fordi det er Red Hat Linux-systemet du er i ferd med å installere."
 
 #: ../iw/package_gui.py:48 ../textw/packages_text.py:237
 msgid "Individual Package Selection"
@@ -3612,13 +3621,13 @@ msgstr "Programvare-RAID er IKKE støttet på denne plattformen."
 
 #: ../iw/partition_gui.py:1191
 msgid "No RAID minor device numbers available"
-msgstr ""
+msgstr "Ingen mindre enhetsnummer tilgjengelig for RAID"
 
 #: ../iw/partition_gui.py:1192
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
+msgstr "En enhet for programvatre-RAID kan ikke opprettes fordi alle tilgjengelige mindre enhetsnummer for RAID er brukt opp."
 
 #: ../iw/partition_gui.py:1206
 msgid "RAID Options"
@@ -3635,6 +3644,10 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
+"Programvare-RAID lar deg kombinere flere disker til en større RAID-enhet. En RAID-enhet kan konfigureres til å gi større hastighet og pålitelighet sammenlignet med en individuell stasjon. For mer informasjon om bruk av RAID-enheter se dokumentasjonen for %s.\n"
+"\n"
+"Du har nå %s programvare-RAID-partisjon(er) som er ledig for bruk.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1228
 msgid ""
@@ -3642,7 +3655,7 @@ msgid ""
 "RAID'.  Then you can create a RAID device which can be formatted and "
 "mounted.\n"
 "\n"
-msgstr ""
+msgstr "For å bruke RAID må du først opprette minst to partisjoner av type «programvare-RAID». Etter dette kan du opprette en RAID-enhet som kan formateres og monteres.\n\n"
 
 #: ../iw/partition_gui.py:1234
 msgid "What do you want to do now?"
@@ -3664,7 +3677,7 @@ msgstr "Klone en _disk for å opprette en RAID-enhet [forvalg=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1289
 msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
+msgstr "Kunne iike opprette editor for diskkloning"
 
 #: ../iw/partition_gui.py:1290
 msgid "The drive clone editor could not be created for some reason."
@@ -3696,7 +3709,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1384
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "Skjul RAID-enhet/_gruppemedlemmer for LVM-volumgruppe"
 
 #: ../iw/partition_gui.py:1399 ../textw/partition_text.py:1205
 msgid "Automatic Partitioning"
@@ -3751,7 +3764,7 @@ msgstr "Sjekk etter _dårlige blokker?"
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
-msgstr ""
+msgstr "Partisjoner av type «%s» må begrenses til en enkelt stasjon. Dette gjøres ved å velge stasjonen i avkryssingslisten «Tillatte stasjoner»."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -3822,6 +3835,9 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
+"Minst to ubrukte programvare-RAID-partisjoner kreves for å opprette en RAID-enhet.\n"
+"\n"
+"Opprett først minst to partisjoner av type «programvare-RAID» og velg så alternativet «RAID» igjen."
 
 #: ../iw/raid_dialog_gui.py:275 ../iw/raid_dialog_gui.py:680
 #: ../textw/partition_text.py:889
@@ -3861,7 +3877,7 @@ msgstr "_Formater partisjon?"
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
-msgstr ""
+msgstr "Kildestasjonen har ingen partisjoner som skal klones. Du må definere partisjoner av type «programvare-RAID» på denne stasjonen før den kan klones."
 
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
@@ -3875,6 +3891,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
+"Kildestasjonen som er valgt har partisjoner som ikke er av type «programvare-RAID».\n"
+"\n"
+"Disse partisjonene vil måtte fjernes før denne stasjonen kan klones. "
 
 #: ../iw/raid_dialog_gui.py:510
 #, python-format
@@ -3885,6 +3904,9 @@ msgid ""
 "These partitions will have to be removed or restricted to this drive before "
 "this drive can be cloned. "
 msgstr ""
+"Kildestasjonen som er valgt har partisjoner som ikke er begrenset til stasjonen /dev/%s.\n"
+"\n"
+"Disse partisjonene vil måtte fjernes eller begrenses til denne stasjonen før den kan klones. "
 
 #: ../iw/raid_dialog_gui.py:523
 msgid ""
@@ -3893,6 +3915,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
+"Kildestasjonen som er valgt har programvare-RAID-partisjon(er) som er medlemmer av en aktiv programvare-RAID-enhet.\n"
+"\n"
+"Disse partisjonene vil måtte fjernes før stasjonen kan klones."
 
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:555
@@ -3918,6 +3943,11 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
+"Målstasjon /dev/%s har en partisjon som ikke kan fjernes av følgende årsak:\n"
+"\n"
+"«%s»\n"
+"\n"
+"Denne partisjonen må fjernes før denne stasjonen kan være et mål."
 
 #: ../iw/raid_dialog_gui.py:617
 msgid "Please select a source drive."
@@ -3952,7 +3982,7 @@ msgstr "Kloning av disker"
 
 #: ../iw/raid_dialog_gui.py:656
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
+msgstr "Det oppsto en feil under tømming av målstasjonene.  Kloning feilet."
 
 #: ../iw/raid_dialog_gui.py:690
 msgid ""
@@ -3969,6 +3999,13 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
+"Verktøy for kloning av stasjoner\n"
+"\n"
+"Dette verktøyet lar deg redusere mengden arbeid som kreves for å sette opp RAID-enheter drastisk. Ideen er at man tar en kildestasjon som er forberedt med ønsket partisjoner, og kloner denne til stasjoner med samme utseende. Etter dette kan en RAID-enhet opprettes.\n"
+"\n"
+"MERK: Kildestasjonen må ha partisjoner som er begrenset til å være kun på denne stasjonen, og kan kun inneholde ubrukte programvare-RAID-partisjoner. Andre partisjonstyper er ikke tillatt.\n"
+"\n"
+"ALLE DATA på målstasjonen(e) vil bli ødelagt i denne prosessen."
 
 #: ../iw/raid_dialog_gui.py:710
 msgid "Source Drive:"
@@ -4394,6 +4431,15 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
+"z/IPL-oppstartslasteren vil nå installeres på ditt system.\n"
+"\n"
+"Rotpartisjonen vil være den du valgte tidligere i oppsett av partisjoner.\n"
+"\n"
+"Kjernen som brukes til å starte maskinen vil være den som ble installert som forvalg.\n"
+"\n"
+"Hvis du ønsker å gjøre endringer senere kan du gjøre disse i konfigurasjonfilen /etc/zipl.conf.\n"
+"\n"
+"Du kan nå oppgi tilleggsparametere for kjernen som din maskin eventuelt trenger."
 
 #: ../iw/zipl_gui.py:102 ../textw/zipl_text.py:54
 msgid "Kernel Parameters"
@@ -4410,6 +4456,11 @@ msgid ""
 "\n"
 "Would you like to create a boot disk?"
 msgstr ""
+"Oppstartsdisketten lar deg starte opp ditt %s-system fra en diskett. En oppstartsdisk lar deg starte systemet hvis oppstartslasterens konfigurasjon slutter å fungere.\n"
+"\n"
+"Det anbefales på det sterkeste at du oppretter en oppstartsdisk.\n"
+"\n"
+"Vil du opprette en oppstartsdisk?"
 
 #: ../textw/bootdisk_text.py:31
 msgid "Boot Disk"
@@ -7341,574 +7392,3 @@ msgstr "Svensk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-#~ msgid "Romanian"
-#~ msgstr "Rumensk"
-
-#~ msgid "No password"
-#~ msgstr "Uten passord"
-
-#~ msgid "Change _Password"
-#~ msgstr "Endre _passord"
-
-#~ msgid "_Use a Boot Loader Password"
-#~ msgstr "Br_uk passord for oppstartslaster"
-
-#~ msgid "Set _Password"
-#~ msgstr "Sett _passord"
-
-#~ msgid ""
-#~ "Force the use of LBA32 extensions for booting (not normally required)"
-#~ msgstr ""
-#~ "Tvungen bruk av LBA32-utvidelsene for oppstart (ikke vanligvis nødvendig)"
-
-#~ msgid "_Force LBA32"
-#~ msgstr "_Bruk LBA32"
-
-#~ msgid "General kernel parameters"
-#~ msgstr "Generelle parametere for kjernen"
-
-#~ msgid "Default Boot Target"
-#~ msgstr "Forvalgt oppstartsmål"
-
-#~ msgid "Unable to probe\n"
-#~ msgstr "Kunne ikke søke\n"
-
-#~ msgid "Edit Boot Label Please"
-#~ msgstr "Vennligst rediger oppstartsnavn"
-
-#~ msgid "Base"
-#~ msgstr "Basis"
-
-#~ msgid "Printing Support"
-#~ msgstr "Støtte for utskrift"
-
-#~ msgid "Classic X Window System"
-#~ msgstr "Klassisk X-vindussystem"
-
-#~ msgid "X Window System"
-#~ msgstr "X vindussystem"
-
-#~ msgid "Laptop Support"
-#~ msgstr "Støtte for bærbare"
-
-#~ msgid "Sound and Multimedia Support"
-#~ msgstr "Lyd- og multimediastøtte"
-
-#~ msgid "Network Support"
-#~ msgstr "Støtte for nettverk"
-
-#~ msgid "Dialup Support"
-#~ msgstr "Støtte for ekstern pålogging"
-
-# ../comps/comps-master:577
-#~ msgid "Messaging and Web Tools"
-#~ msgstr "Meldinger og web-verktøy"
-
-#~ msgid "Graphics and Image Manipulation"
-#~ msgstr "Grafikk- og bildemanipulasjon"
-
-#~ msgid "News Server"
-#~ msgstr "Nyhetstjener"
-
-#~ msgid "NFS File Server"
-#~ msgstr "NFS filtjener"
-
-#~ msgid "Windows File Server"
-#~ msgstr "Windows tiltjener"
-
-#~ msgid "Anonymous FTP Server"
-#~ msgstr "Anonym FTP-tjener"
-
-#~ msgid "SQL Database Server"
-#~ msgstr "SQL databasetjener"
-
-#~ msgid "Web Server"
-#~ msgstr "Web-tjener"
-
-#~ msgid "Router / Firewall"
-#~ msgstr "Ruter / brannvegg"
-
-#~ msgid "DNS Name Server"
-#~ msgstr "DNS navnetjener"
-
-#~ msgid "Network Managed Workstation"
-#~ msgstr "Nettverksadministrert arbeidsstasjon"
-
-#~ msgid "Authoring and Publishing"
-#~ msgstr "Skriving og publisering"
-
-#~ msgid "Emacs"
-#~ msgstr "Emacs"
-
-#~ msgid "Utilities"
-#~ msgstr "Verktøy"
-
-#~ msgid "Legacy Application Support"
-#~ msgstr "Støtte for eldre applikasjoner"
-
-#~ msgid "Software Development"
-#~ msgstr "Programvareutvikling"
-
-#~ msgid "Kernel Development"
-#~ msgstr "Kjerneutvikling"
-
-# ../comps/comps-master:1055
-#~ msgid "Windows Compatibility / Interoperability"
-#~ msgstr "Windows kompatibilitet / interoperabilitet"
-
-# ../comps/comps-master:1073
-#~ msgid "Games and Entertainment"
-#~ msgstr "Spill og underholdning"
-
-#~ msgid "Attempting to start VGA16 X server"
-#~ msgstr "Forsøker å starte VGA16 X-tjener"
-
-#~ msgid "The following software will be installed:"
-#~ msgstr "Følgende programvare vil bli installert:"
-
-#~ msgid "delete"
-#~ msgstr "slett"
-
-#~ msgid "Partition Request Sanity Check Errors"
-#~ msgstr "Feil under sjekk av partisjonsforespørsel"
-
-#~ msgid "Install"
-#~ msgstr "Installer"
-
-#~ msgid ""
-#~ "Additional accounts can be created for other users of this system. Such "
-#~ "accounts could be for a personal login account, or for other non-"
-#~ "administrative users who need to use this system. Use the <Add> button to "
-#~ "enter additional user accounts."
-#~ msgstr ""
-#~ "Flere kontoer kan opprettes for andre brukere av systemet. Slike kontoer "
-#~ "kan være for personlige innloggingskontoer eller for andre ikke-"
-#~ "administrative brukere som trenger tilgang til systemet. Bruk <Legg til>-"
-#~ "knappen for å opprette flere brukerkontoer."
-
-#~ msgid "Use GRUB as the boot loader"
-#~ msgstr "Bruk GRUB som oppstartslaster"
-
-#~ msgid "Use LILO as the boot loader"
-#~ msgstr "Bruk LILO som oppstartslaster"
-
-#~ msgid "Do not install a boot loader"
-#~ msgstr "Ikke installer oppstartslaster"
-
-#~ msgid ""
-#~ "Congratulations, your %s installation is complete.\n"
-#~ "\n"
-#~ "Remove any floppy diskettes you used during the installation process and "
-#~ "press <Enter> to reboot your system. \n"
-#~ "\n"
-#~ "%sFor information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using and configuring your system is available in the %s "
-#~ "manuals at http://www.redhat.com/docs."
-#~ msgstr ""
-#~ "Gratulerer, din installering av %s er fullført.\n"
-#~ "\n"
-#~ "Fjern disketter du har brukt under installeringsprosessen og trykk "
-#~ "<Enter> for å starte systemet på nytt.\n"
-#~ "\n"
-#~ "%sFor informasjon om errata (oppdateringer og feilrettinger), besøk "
-#~ "http://www.redhat.com/errata.\n"
-#~ "\n"
-#~ "Informasjon om bruk og konfigurasjon av systemet er tilgjengelig i "
-#~ "brukerhåndbøkene for %s, som finnes på http://www.redhat.com/docs."
-
-#~ msgid "Please choose your security level:  "
-#~ msgstr "Vennligst velg sikkerhetsnivå:  "
-
-#~ msgid ""
-#~ "If the probed settings do not match your hardware, select the correct "
-#~ "hardware settings below:"
-#~ msgstr ""
-#~ "Hvis innstillingene fra autosøk ikke er riktig for din maskinvare, velg "
-#~ "de riktige innstillingene for maskinvaren under:"
-
-#~ msgid "Laptop"
-#~ msgstr "Bærbar"
-
-#~ msgid "Close"
-#~ msgstr "Lukk"
-
-#~ msgid ""
-#~ "You cannot remove this partition, as it is an extended partition which "
-#~ "contains %s"
-#~ msgstr ""
-#~ "Du kan ikke fjerne denne partisjonen siden den er en utvidet partisjon "
-#~ "som inneholder %s"
-
-#~ msgid "Unable to Edit"
-#~ msgstr "Kan ikke redigere"
-
-#~ msgid ""
-#~ "You have chosen to format a pre-existing partition.  This will destroy "
-#~ "all data that was previously on it.\n"
-#~ "\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Du har valgt å formatere en eksisterende partisjon. Dette vil ødelegge "
-#~ "alle data som er på den.\n"
-#~ "\n"
-#~ "Er du sikker på at du vil gjøre dette?"
-
-#~ msgid ""
-#~ "You have chosen not to format a pre-existing partition which is being "
-#~ "mounted under a system directory.  Unless you have particular needs to "
-#~ "preserve data on this partition, it is highly recommended you format this "
-#~ "partition to guarantee the data formerly on the partition does not "
-#~ "corrupt your new installation.\n"
-#~ "\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Du har valgt å ikke formatere en eksisterende partisjon som skal monteres "
-#~ "som en systemkatalog. Med mindre du har spesielle behov for å bevare data "
-#~ "på denne partisjonen anbefales det på det sterkeste at du formaterer "
-#~ "denne partisjonen for å sikre at tidligere data ikke gjør den nye "
-#~ "installasjonen korrupt.\n"
-#~ "\n"
-#~ "Er du sikker på at du ikke ønsker å formatere?"
-
-#~ msgid "Unknown Card"
-#~ msgstr "Ukjent kort"
-
-#~ msgid "Video Ram"
-#~ msgstr "Minne på skjermkort"
-
-#~ msgid "X server"
-#~ msgstr "X-tjener"
-
-#~ msgid "Unable to detect video card"
-#~ msgstr "Kunne ikke finne skjermkort"
-
-#~ msgid "Attempting to start framebuffer based X server"
-#~ msgstr "Forsøker å starte framebuffer-basert X-tjener"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "A boot disk is REQUIRED to boot a partitionless install."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "En oppstartsdiskett er PÅKREVET for å starte en partisjonsløs "
-#~ "installasjon."
-
-#~ msgid "Skip boot disk creation"
-#~ msgstr "Hopp over oppstartsdiskett"
-
-#~ msgid "Boot Loader Password Configuration"
-#~ msgstr "Passord for oppstartslaster"
-
-#~ msgid "Password accepted."
-#~ msgstr "Passordet er godtatt."
-
-#~ msgid "Password is too short."
-#~ msgstr "Passordet er for kort."
-
-#~ msgid "Passwords do not match."
-#~ msgstr "Passordene er ikke like."
-
-#~ msgid "Use a GRUB Password?"
-#~ msgstr "Bruk passord for GRUB?"
-
-#~ msgid ""
-#~ "Congratulations, configuration is complete.\n"
-#~ "\n"
-#~ "For information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using and configuring your system is available in the %s "
-#~ "manuals at http://www.redhat.com/docs."
-#~ msgstr ""
-#~ "Gratulerer, konfigurasjonen er ferdig.\n"
-#~ "\n"
-#~ "For informasjon om errata (oppdateringer og feilrettinger), besøk http://"
-#~ "www.redhat.com/errata.\n"
-#~ "\n"
-#~ "Informasjon om bruk og konfigurasjon av systemet er tilgjengelig i "
-#~ "brukerhåndbøkene for %s, og er tilgjengelige på http://www.redhat.com/"
-#~ "docs."
-
-#~ msgid " is an invalid port."
-#~ msgstr " er en ugyldig port."
-
-#~ msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-#~ msgstr "Formatet er 'port:protokoll'. For eksempel '1234:udp'"
-
-#~ msgid "Choose partitions to Format"
-#~ msgstr "Velg partisjoner som skal formateres"
-
-#~ msgid "Keyboard Configuration"
-#~ msgstr "Konfigurasjon av tastatur"
-
-#~ msgid "Which model keyboard is attached to the computer?"
-#~ msgstr "Hvilken type tastatur er koblet til denne datamaskinen?"
-
-#~ msgid "Layout"
-#~ msgstr "Utforming"
-
-#~ msgid "Dead Keys"
-#~ msgstr "Døde taster"
-
-#~ msgid "Enable dead keys"
-#~ msgstr "Bruk døde taster"
-
-#~ msgid "Disable dead keys"
-#~ msgstr "Ikke bruk døde taster"
-
-#~ msgid "Test your selection here:"
-#~ msgstr "Test ditt valg her:"
-
-#~ msgid "Currently installed languages:"
-#~ msgstr "Støtte er installert for følgende språk:"
-
-#~ msgid "Port"
-#~ msgstr "Port"
-
-#~ msgid "Broadcast"
-#~ msgstr "Kringkast"
-
-#~ msgid "Total install size: "
-#~ msgstr "Total størrelse for installasjon: "
-
-#~ msgid "_New"
-#~ msgstr "_Ny"
-
-#~ msgid "View:"
-#~ msgstr "Vis:"
-
-#~ msgid "%s  %s"
-#~ msgstr "%s  %s"
-
-#~ msgid "Exiting anaconda now"
-#~ msgstr "Avslutter anaconda nå"
-
-#~ msgid "Would you like to configure your system?"
-#~ msgstr "Vil du konfigurere systemet ditt?"
-
-#~ msgid "Unknown server"
-#~ msgstr "Ukjent vert"
-
-#~ msgid ""
-#~ "This video card has no suitable X server in the database.  You will need "
-#~ "to choose a different card or choose the 'Skip X Configuration' button."
-#~ msgstr ""
-#~ "Dette grafikkorter har ingen driver for X i databasen. Du kan velge et "
-#~ "annet grafikkort eller\n"
-#~ "'Hopp over konfigurasjon av X'."
-
-#~ msgid "Other"
-#~ msgstr "Andre"
-
-#~ msgid ""
-#~ "A custom boot disk provides a way of booting into your Linux system "
-#~ "without depending on the normal boot loader. This is useful if you don't "
-#~ "want to install lilo on your system, another operating system removes "
-#~ "lilo, or lilo doesn't work with your hardware configuration. A custom "
-#~ "boot disk can also be used with the Red Hat rescue image, making it much "
-#~ "easier to recover from severe system failures.\n"
-#~ "\n"
-#~ "Would you like to create a boot disk for your system?"
-#~ msgstr ""
-#~ "En egendefinert oppstartsdiskett gir deg en måte å starte opp ditt Linux "
-#~ "system uten å være avhengig av oppstartslasteren. Dette er nyttig hvis du "
-#~ "ikke ønsker å installere lilo på systemet, et annet operativsystem "
-#~ "fjerner lilo, eller hvis lilo ikke virker med din "
-#~ "maskinvarekonfigurasjon. En egendefinert oppstartsdiskett kan også brukes "
-#~ "med Red Hats redningsdisk, og gjør det mye lettere å rette opp alvorlige "
-#~ "systemfeil.\n"
-#~ "\n"
-#~ "Ønsker du å lage en oppstartsdiskett for ditt system?"
-
-#~ msgid ""
-#~ "Congratulations, your %s installation is complete.\n"
-#~ "\n"
-#~ "Remove any floppy diskettes you used during the installation process and "
-#~ "press <Enter> to reboot your system. \n"
-#~ "\n"
-#~ "%sFor information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using your system is available in the Red Hat Linux "
-#~ "manuals at http://www.redhat.com/docs."
-#~ msgstr ""
-#~ "Gratulerer, din installering av %s er fullført.\n"
-#~ "\n"
-#~ "Fjern alle disketter du brukte under installasjonen og trykk <Enter> for "
-#~ "å starte på nytt.\n"
-#~ "\n"
-#~ "%sFor informasjon om errata (oppdateringer og feilrettinger), besøk "
-#~ "http://www.redhat.com/errata.\n"
-#~ "\n"
-#~ "Informasjon om bruk av systemet er tilgjengelig i brukerhåndbøkene for "
-#~ "Red Hat Linux som finnes på http://www.redhat.com/docs."
-
-#~ msgid "<Enter> to continue"
-#~ msgstr "<Enter> for å fortsette"
-
-#~ msgid ""
-#~ "Congratulations, package installation is complete.\n"
-#~ "\n"
-#~ "Press return to continue.\n"
-#~ "\n"
-#~ "Information on configuring and using your Red Hat Linux system is "
-#~ "contained in the %s manuals."
-#~ msgstr ""
-#~ "Gratulerer, pakkeinstallasjonen er fullført.\n"
-#~ "\n"
-#~ "Trykk <Enter> for å fortsette.\n"
-#~ "\n"
-#~ "Informasjon om konfigurasjon og bruk av ditt Red Hat Linux system finnes "
-#~ "i brukerhåndbøkene for %s."
-
-#~ msgid "<Enter> to exit"
-#~ msgstr "<Enter> for å avslutte"
-
-#~ msgid "Bad User ID"
-#~ msgstr "Ugyldig bruker-ID"
-
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ "You have entered reconfiguration mode, which will allow you to configure "
-#~ "site-specific options of your computer.\n"
-#~ "\n"
-#~ "To exit without changing your setup select the Cancel button below."
-#~ msgstr ""
-#~ "Velkommen til %s!\n"
-#~ "\n"
-#~ "Du har gått til rekonfigurasjonsmodus, som lar deg konfigurere steds-"
-#~ "spesifikke alternativer for din maskin.\n"
-#~ "\n"
-#~ "For å avslutte uten å endre oppsettet velg Avbryt-knappen under."
-
-#~ msgid "You cannot go back from this step."
-#~ msgstr "Du kan ikke gå tilbake fra dette steget."
-
-#~ msgid "Other CDROM"
-#~ msgstr "Annen CD-ROM"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      %s for your architecture"
-#~ msgstr ""
-#~ "Skriv inn følgende informasjon:\n"
-#~ "\n"
-#~ "    o navnet eller IP-adressen til din NFS-tjener\n"
-#~ "    o katalogen på tjeneren som inneholder \n"
-#~ "      %s for din arkitektur."
-
-#~ msgid "Map Image to display"
-#~ msgstr "Kart som skal vises"
-
-#~ msgid "Width of map (in pixels)"
-#~ msgstr "Bredde på kart (i piksler)"
-
-#~ msgid "Enable antialias"
-#~ msgstr "Slå på antialias"
-
-#~ msgid "World"
-#~ msgstr "Verden"
-
-#~ msgid "North America"
-#~ msgstr "Nord-Amerika"
-
-#~ msgid "South America"
-#~ msgstr "Sør-Amerika"
-
-#~ msgid "Indian Rim"
-#~ msgstr "Indiske hav"
-
-#~ msgid "Europe"
-#~ msgstr "Europa"
-
-#~ msgid "Africa"
-#~ msgstr "Afrika"
-
-#~ msgid "Asia"
-#~ msgstr "Asia"
-
-#~ msgid "Cannot load timezone data"
-#~ msgstr "Kan ikke lese inn tidssonedata"
-
-#~ msgid "gglobe-canvas"
-#~ msgstr "gglobe-canvas"
-
-#~ msgid "View: "
-#~ msgstr "Vis:"
-
-#~ msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-#~ msgstr "Nordøstre Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-
-#~ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-#~ msgstr "Vest-Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-
-#~ msgid ""
-#~ "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
-#~ "GB2312            us              Asia/Shanghai"
-#~ msgstr ""
-#~ "Kinesisk(forenklet)    zh_CN.GB2312    None    None            zh_CN."
-#~ "GB2312            us              Asia/Shanghai"
-
-#~ msgid ""
-#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
-#~ "Big5              us              Asia/Taipei"
-#~ msgstr ""
-#~ "Kinesisk(Tradisjonell)   zh_TW.Big5      None    None            zh_TW."
-#~ "Big5              us              Asia/Taipei"
-
-#~ msgid "Portuguese(Brasilian) pt"
-#~ msgstr "Portugisisk(Brasil)"
-
-#~ msgid "China coast"
-#~ msgstr "Kina-kysten"
-
-#~ msgid "China mountains"
-#~ msgstr "Kina - fjellområdene"
-
-#~ msgid "Eastern Turkestan"
-#~ msgstr "Østre Turkmenistan"
-
-#~ msgid "central Kazakhstan"
-#~ msgstr "midt-Kazakhstan"
-
-#~ msgid "east Greenland"
-#~ msgstr "øst-Grønland"
-
-#~ msgid "north Manchuria"
-#~ msgstr "nord-Mandsjuria"
-
-#~ msgid "northwest Greenland"
-#~ msgstr "nordvestre Grønland"
-
-#~ msgid "southwest Greenland"
-#~ msgstr "sydvest-Grønland"
-
-#~ msgid "west Kazakhstan"
-#~ msgstr "vest-Kazakhstan"
-
-#~ msgid "What language should be used during the installation process?"
-#~ msgstr "Hvilket språk skal brukes under installasjonen?"
-
-#~ msgid "Red Hat Linux Installer"
-#~ msgstr "Red Hat Linux installasjon"
-
-#~ msgid "Password (again):"
-#~ msgstr "Passord (igjen):"
-
-#~ msgid "User ID"
-#~ msgstr "Bruker-ID:"
-
-#~ msgid "Red Hat Linux"
-#~ msgstr "Red Hat Linux"
-
-#~ msgid "Welcome to Red Hat Linux"
-#~ msgstr "Velkommen til Red Hat Linux"

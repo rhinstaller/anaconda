@@ -240,7 +240,7 @@ msgstr ""
 "partitioneringsalternativ eller klikke på \"Tilbage\" for at vælge manuel "
 "partitionering.\n"
 "\n"
-"Tryck på \"O.k.\" for at fortsætte."
+"Tryk på \"O.k.\" for at fortsætte."
 
 #: ../autopart.py:1245 ../bootloader.py:123 ../image.py:336
 #: ../partedUtils.py:240 ../partedUtils.py:668 ../upgrade.py:260
@@ -1160,7 +1160,7 @@ msgid ""
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
 "Fejl - det logiske afsnitsnavn indeholder ikke tilladte tegn eller "
-"blanktegn. Tilladte tegn er bokgtaver, cifre, \".\" eller \"-\"."
+"blanktegn. Tilladte tegn er bogstaver, cifre, \".\" eller \"-\"."
 
 #: ../partIntfHelpers.py:94
 msgid ""
@@ -2113,7 +2113,7 @@ msgstr "_Admin-Server:"
 
 #: ../iw/auth_gui.py:216
 msgid "Enable SMB _Authentication"
-msgstr "Aktivér SMB-_autenticering"
+msgstr "Aktivér SMB-_autentificering"
 
 #: ../iw/auth_gui.py:219
 msgid "SMB _Server:"
@@ -2357,7 +2357,7 @@ msgid ""
 "the Master Boot Record (MBR)."
 msgstr ""
 "Arrangér diskene så de er i samme rækkefølge som bruges af BIOS'en. At ændre "
-"rækkefølgen på diskene kan være nyttigt hvis du har flere SCSI-adapitere "
+"rækkefølgen på diskene kan være nyttigt hvis du har flere SCSI-adaptere "
 "eller både SCSI- og IDE-adaptere og vil starte fra SCSI-enheder.\n"
 "\n"
 "At ændre rækkefølgen på diskene vil ændre hvor installationsprogrammet "
@@ -2450,7 +2450,7 @@ msgstr ""
 "%sFor information om opdateringer og fejlrettelser, besøg:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
-"For information om automatiske opdateringar gennem Red Hat Network, besøg:\n"
+"For information om automatiske opdateringer gennem Red Hat Network, besøg:\n"
 "\thttp://rhn.redhat.com/\n"
 "\n"
 "For information om brug og konfiguration af systemet, besøg:\n"
@@ -2598,7 +2598,7 @@ msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
 msgstr ""
-"Hvis du vil ændre stendardsamlingen af pakker som skal installeres kan du "
+"Hvis du vil ændre standardsamlingen af pakker som skal installeres kan du "
 "vælge at tilpasse det nedenfor."
 
 #: ../iw/desktop_choice_gui.py:106
@@ -3220,7 +3220,7 @@ msgid ""
 "inactive at this point. When you reboot your system the adapter will be "
 "activated automatically."
 msgstr ""
-"Du har inen aktive netværksenheder. Dit system vil ikke kunne kommunikere "
+"Du har ingen aktive netværksenheder. Dit system vil ikke kunne kommunikere "
 "over et netværk som standard uden mindst én aktiv enhed.\n"
 "\n"
 "BEMÆRK: Hvis du har et PCMCIA-baseret netværkskort bør du lade det være "
@@ -3724,7 +3724,7 @@ msgstr "Hvad har du lyst at lave nu?"
 
 #: ../iw/partition_gui.py:1243
 msgid "Create a software RAID _partition."
-msgstr "Opret en _partition med programmmeret RAID"
+msgstr "Opret en _partition med programmeret RAID"
 
 #: ../iw/partition_gui.py:1246
 #, python-format
@@ -3770,7 +3770,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1384
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr "Skjul RAID-enhedsmedlemmer/LVM-afsnit_gruppmedlemmer"
+msgstr "Skjul RAID-enhedsmedlemmer/LVM-afsnit_gruppemedlemmer"
 
 #: ../iw/partition_gui.py:1399 ../textw/partition_text.py:1205
 msgid "Automatic Partitioning"
@@ -4030,7 +4030,7 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Drevet /dev%s vil nu blve klonet til de følgende diske:\n"
+"Drevet /dev%s vil nu blive klonet til de følgende diske:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:642
@@ -4450,7 +4450,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:800 ../textw/xconfig_text.py:679
 msgid "Unspecified video card"
-msgstr "U-specificeret skærmkort"
+msgstr "Uspecificeret skærmkort"
 
 #: ../iw/xconfig_gui.py:801 ../textw/xconfig_text.py:680
 msgid ""
@@ -4513,7 +4513,7 @@ msgstr ""
 "Rodpartitionen vil være den du valgte tidligere under "
 "partitionskonfigurationen.\n"
 "\n"
-"Kernan som bruges for at starte maskinen vil være den som installeres som "
+"Kernen som bruges for at starte maskinen vil være den som installeres som "
 "standard.\n"
 "\n"
 "Hvis du vil lave ændringer senere efter installationen kan du redigere "
@@ -4729,7 +4729,7 @@ msgstr ""
 "%s%sFor information om errata (opdateringer og fejlrettinger), besøg http://"
 "www.redhat.com/errata.\n"
 "\n"
-"Information om brug af systemet er tilgængelig i %s-brugerhåndbøgene på "
+"Information om brug af systemet er tilgængelig i %s- brugerhåndbøgerne på "
 "http://www.redhat.com/docs."
 
 #: ../textw/confirm_text.py:20
@@ -4781,7 +4781,7 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"Installationsalternativen personligt skrivebord og arbejdsstation "
+"Installationsalternativerne personligt skrivebord og arbejdsstation "
 "installerer en standardsamling med programmer som lader dig surfe på "
 "Internet, sende og modtage e-post, og oprette og redigere dokumenter på dit %"
 "s-system. Arbejdsstationsalternativet indeholder derudover udviklings- og "
@@ -5285,7 +5285,7 @@ msgstr "Ingen RAID-partitioner"
 
 #: ../textw/partition_text.py:925
 msgid "At least two software RAID partitions are needed."
-msgstr "Mindst to partitioner med programmmeret-RAID kræves."
+msgstr "Mindst to partitioner med programmeret-RAID kræves."
 
 #: ../textw/partition_text.py:937
 msgid "Format partition?"
@@ -5968,8 +5968,8 @@ msgid ""
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
 msgstr ""
-"Vælg denne installationstype hvis du vil konfigurere fildelning, "
-"udskriftsdelning og webtjenester. Yderligere tjenester kan desuden "
+"Vælg denne installationstype hvis du vil konfigurere fildeling, "
+"udskriftsdeling og webtjenester. Yderligere tjenester kan desuden "
 "aktiveres, og du kan vælge om du vil installere et grafisk miljø eller ej."
 
 #: ../installclasses/upgradeclass.py:8
@@ -6125,7 +6125,7 @@ msgstr "Hvilken slags enhed vil du gerne tilføje"
 
 #: ../loader/loader.c:383
 msgid "The following devices have been found on your system:"
-msgstr "De følgende enheder er belvet fundet på dit system:"
+msgstr "De følgende enheder er blevet fundet på dit system:"
 
 #: ../loader/loader.c:385 ../loader/loader.c:410
 msgid "Done"
@@ -6187,7 +6187,7 @@ msgid ""
 "to configure additional devices."
 msgstr ""
 "Hvilken partition og hvilket katalog på denne partition indeholder cd-"
-"billedernei iso9660-format for %s? Hvis du ikke kan se det diskdrev du "
+"billederne i iso9660-format for %s? Hvis du ikke kan se det diskdrev du "
 "bruger her, så tryk på F2 for at konfigurere yderligere enheder."
 
 #: ../loader/loader.c:1199
@@ -6984,13 +6984,13 @@ msgstr "Østamerikansk tid - Michigan - de fleste steder"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - most locations"
-msgstr "Østamerikansk tid - Ontario & Quebec - de fleste steder"
+msgstr "Østamerikansk tid - Ontario & Québec - de fleste steder"
 
 #. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
-"Østamerikansk tid - Ontario & Quebec - steder, der ikke havde sommertid i "
+"Østamerikansk tid - Ontario & Québec - steder, der ikke havde sommertid i "
 "1967-1973"
 
 #. generated from zone.tab

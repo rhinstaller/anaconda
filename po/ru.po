@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "POT-Creation-Date: 2002-09-02 23:28-0400\n"
-"PO-Revision-Date: 2002-08-09 14:28+0300\n"
+"PO-Revision-Date: 2002-09-06 00:08+0300\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -381,15 +381,16 @@ msgstr ""
 "перезагружена."
 
 #: ../floppy.py:91
-#, fuzzy
 msgid "Unable to make boot floppy"
-msgstr "Ошибка монтирования дискеты."
+msgstr "Не удается создать загрузочный диск"
 
 #: ../floppy.py:92
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
+"Размер модулей ядра, необходимых для вашей машины, слишком велик для "
+"создания загрузочного диска."
 
 #: ../floppy.py:101
 msgid "Insert a floppy disk"
@@ -782,6 +783,8 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
+"Произошла ошибка отмонтирования CD. Убедитесь, что вы не занимаете %s из "
+"оболочки на tty2, и нажмите Ok для повтора."
 
 #: ../image.py:99
 msgid "Copying File"
@@ -1301,6 +1304,12 @@ msgid ""
 "contains files that you need to keep, such as a users home directories, then "
 "you should continue without formatting this partition."
 msgstr ""
+"Вы решили использовать для этой установки ранее существовавший раздел без "
+"его форматирования. Red Hat рекомендует отформатировать этот раздел, чтобы "
+"файлы от предыдущей установки не вызвали проблем с этой установкой Linux. В "
+"то же время если раздел содержит файлы, которые необходимо сохранить, такие "
+"как домашние каталоги пользователей, вы можете продолжить без форматирования "
+"этого раздела."
 
 #: ../partIntfHelpers.py:417
 msgid "Format?"
@@ -2181,6 +2190,12 @@ msgid ""
 "\n"
 "It is highly recommended you create a boot disk.\n"
 msgstr ""
+"Загрузочный диск позволяет вам загрузить вашу систему %s при помощи флоппи-"
+"диска в случае сбоя загрузчика, установленного на жестком диске, если "
+"загрузчик не был установлен или если ваш загрузчик производства третьей "
+"фирмы не поддерживает Linux.\n"
+"\n"
+"Настоятельно рекомендуется создать загрузочный диск.\n"
 
 #: ../iw/bootdisk_gui.py:70
 msgid "_Yes, I would like to create a boot disk"
@@ -2552,6 +2567,8 @@ msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
 msgstr ""
+"Если вы хотите изменить список устанавливаемых пакетов по умолчанию, "
+"выберите соответствующий параметр ниже."
 
 #: ../iw/desktop_choice_gui.py:106
 msgid "_Accept the current package list"
@@ -2682,11 +2699,11 @@ msgstr "Адрес IP не указан"
 
 #: ../iw/ipwidget.py:109
 msgid "IP Addresses must contain numbers between 1 and 255"
-msgstr ""
+msgstr "Адрес IP должен содержать числа от 1 до 255"
 
 #: ../iw/ipwidget.py:114 ../iw/ipwidget.py:116
 msgid "IP Addresses must contain numbers between 0 and 255"
-msgstr ""
+msgstr "Адрес IP должен содержать числа от 0 до 255"
 
 #: ../iw/language_gui.py:61 ../textw/language_text.py:40 ../loader/lang.c:306
 msgid "What language would you like to use during the installation process?"
@@ -2822,11 +2839,11 @@ msgstr "Неизвестный"
 
 #: ../iw/lvm_dialog_gui.py:403
 msgid "_Logical Volume Name:"
-msgstr ""
+msgstr "_Имя логического тома:"
 
 #: ../iw/lvm_dialog_gui.py:411
 msgid "Logical Volume Name:"
-msgstr ""
+msgstr "Имя логического тома:"
 
 #: ../iw/lvm_dialog_gui.py:419 ../iw/partition_dialog_gui.py:356
 msgid "_Size (MB):"
@@ -2841,7 +2858,7 @@ msgstr "Размер (МB):"
 #: ../iw/lvm_dialog_gui.py:440
 #, python-format
 msgid "(Max size is %s MB)"
-msgstr ""
+msgstr "(Макс. размер %s MB)"
 
 #: ../iw/lvm_dialog_gui.py:501
 msgid "Illegal size"
@@ -2864,16 +2881,16 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
-msgstr ""
+msgstr "Неверное имя логического тома"
 
 #: ../iw/lvm_dialog_gui.py:566
 msgid "Illegal logical volume name"
-msgstr ""
+msgstr "Неверное имя логического тома"
 
 #: ../iw/lvm_dialog_gui.py:567
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
+msgstr "Имя логического тома \"%s\" уже используется. Выберите другое имя."
 
 #: ../iw/lvm_dialog_gui.py:581
 #, python-format
@@ -2900,7 +2917,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:679
 msgid "No free slots"
-msgstr ""
+msgstr "Нет свободных слотов"
 
 #: ../iw/lvm_dialog_gui.py:680
 #, python-format
@@ -3089,6 +3106,8 @@ msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
+"Вы не указали имя компьютера.  В зависимости от сетевого окружения это может "
+"вызвать проблемы в дальнейшем."
 
 #: ../iw/network_gui.py:158
 #, python-format
@@ -3096,6 +3115,8 @@ msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
+"Вы оставили незаполненным поле \"%s\".  В зависимости от вашего сетевого "
+"окружения в дальнейшем это может вызвать проблемы."
 
 #: ../iw/network_gui.py:162
 #, python-format
@@ -3104,6 +3125,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Имя компьютера \"%s\" является недействительным по следующим причинам:\n"
+"\n"
+"%s"
 
 #: ../iw/network_gui.py:167
 #, python-format
@@ -3130,6 +3154,12 @@ msgid ""
 "inactive at this point. When you reboot your system the adapter will be "
 "activated automatically."
 msgstr ""
+"У вас нет активных сетевых устройств.  Ваша система не сможет работать в "
+"сети, не имея хотя бы одного активного сетевого устройства.\n"
+"\n"
+"Примечание: если у вас установлена сетевая плата типа pcmcia, здесь ее "
+"необходимо оставить неактивной. Этот адаптер активируется автоматически при "
+"загрузке системы."
 
 #: ../iw/network_gui.py:200
 #, python-format
@@ -3214,6 +3244,11 @@ msgid ""
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
 msgstr ""
+"Вы можете настроить загрузчик для загрузки других операционных систем. Это "
+"позволит выбрать операционную систему из списка при загрузке. Чтобы добавить "
+"другую операционную систему, которая не была обнаружена автоматически, "
+"нажмите кнопку \"Добавить\". Чтобы выбрать ОС, загружаемую по умолчанию, "
+"установите параметр \"По умолчанию\" для этой ОС."
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:277 ../textw/silo_text.py:207
@@ -3344,6 +3379,10 @@ msgid ""
 "\n"
 "Select the optional packages to be installed:"
 msgstr ""
+"Группы пакетов могут включать как обязательные, так и необязательные "
+"компоненты.  Обязательные компоненты всегда выбраны, если выбрана группа "
+"пакетов. \n"
+"Выберите необязательные компоненты для установки:"
 
 #: ../iw/package_gui.py:821
 msgid "Base Packages"
@@ -3355,7 +3394,7 @@ msgstr "Необязательные пакеты"
 
 #: ../iw/package_gui.py:1071
 msgid "Details"
-msgstr "Подробно"
+msgstr "Дополнительно"
 
 #: ../iw/package_gui.py:1165
 msgid "_Select individual packages"
@@ -4370,6 +4409,12 @@ msgid ""
 "\n"
 "Would you like to create a boot disk?"
 msgstr ""
+"Загрузочный диск позволяет загрузить вашу систему %s при помощи гибкого "
+"диска в случае сбоя загрузчика, установленного на жестком диске.\n"
+"\n"
+"Настоятельно рекомендуется создать загрузочный диск.\n"
+"\n"
+"Создать загрузочный диск?"
 
 #: ../textw/bootdisk_text.py:31
 msgid "Boot Disk"
@@ -4605,6 +4650,14 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
+"При выборе установки персонального компьютера или рабочей станции "
+"устанавливается типичный набор приложений, который позволяет просматривать "
+"Интернет, работать с электронной почтой и редактировать документы в вашей "
+"системе %s. В комплект рабочей станции также входят средства разработки ПО и "
+"системного администрирования.\n"
+"\n"
+"В то же время в состав %s входит множество других приложений. При "
+"необходимости вы можете изменить список устанавливаемого ПО."
 
 #: ../textw/desktop_choice_text.py:39
 msgid "Customize software selection"
