@@ -24,7 +24,7 @@ import re
 class HTMLBuffer(HTMLParser.HTMLParser):
     ignoreTags = ('title',)
     noTagTags = ('html', 'head', 'span')
-    newlineTags = ('p', 'h1', 'h2', 'ul')
+    newlineTags = ('p', 'h1', 'h2')
     whiteSpaceNuker = re.compile(r"""\s+""", re.MULTILINE) 
     def __init__(self):
         self.buffer = gtk.TextBuffer(None)
