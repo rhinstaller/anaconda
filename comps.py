@@ -177,7 +177,7 @@ class Component:
 
 	for pkg in self.pkgs:
 	    pkg.updateSelectionCache()
-	
+
 	for comp in self.includes:
 	    comp.select(forInclude = 1)
 
@@ -192,7 +192,7 @@ class Component:
 	if forInclude:
 	    self.selectionCount = self.selectionCount - 1
 	    if self.selectionCount < 0:
-		self.selectCount = 0
+		self.selectionCount = 0
 	else:
 	    self.manuallySelected = 0
 
