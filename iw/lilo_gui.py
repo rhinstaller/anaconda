@@ -88,11 +88,11 @@ class LiloWindow (InstallWindow):
 	    self.part.set_sensitive(0)
 	    self.linearCheck.set_sensitive(0)
 
-    def labelInsertText(self, text, len, data):
+    def labelInsertText(self, entry, text, len, data):
         i = 0
         while i < len:
             if text[i] == ' ':
-                self.emit_stop_by_name ("insert_text");
+                entry.emit_stop_by_name ("insert_text");
                 return;
             i = i + 1
 
