@@ -496,7 +496,9 @@ def doPreInstall(method, id, intf, instPath, dir):
             select(id.hdList, 'pam_smb')
 
         if iutil.getArch() == "i386" and id.bootloader.useGrubVal == 0:
-            select(id.hdList, 'lilo')            
+            select(id.hdList, 'lilo')
+        elif iutil.getArch() == "i386" and id.bootloader.useGrubVal == 1:
+            select(id.hdList, 'grub')
 
         if pcmcia.pcicType():
             select(id.hdList, 'kernel-pcmcia-cs')
