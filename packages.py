@@ -848,6 +848,24 @@ def copyExtraModules(instPath, comps, extraModules):
 		log("missing DD module %s (this may be okay)" % 
 			    fromFile)
 
+            log("recreating initrd")
+            recreateInitrd(n, instPath)
+
+
+#Recreate initrd for use when driver disks add modules
+def recreateInitrd (kernelTag, instRoot):
+    if iutil.getArch() == 'ia64':
+        initrd = "/boot/efi/initrd%s.img" % (kernelTag, )
+    else:
+        initrd = "/boot/initrd%s.img" % (kernelTag, )
+
+    iutil.execWithRedirect("/sbin/mkinitrd",
+                           [ "/sbin/mkinitrd", "--ifneeded", "-f",
+                             initrd, kernelTag[1:] ],
+                           stdout = None, stderr = None,
+                           searchPath = 1, root = instRoot)
+                
+
 def depmodModules(comps, instPath):
     kernelVersions = comps.kernelVersionList()
 
