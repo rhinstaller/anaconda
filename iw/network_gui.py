@@ -22,6 +22,7 @@ from rhpl.translate import _, N_
 import network
 import checklist
 import ipwidget
+import iutil
 
 global_options = [_("Gateway"), _("Primary DNS"),
 		  _("Secondary DNS"), _("Tertiary DNS")]
@@ -32,7 +33,10 @@ global_option_labels = [_("_Gateway"), _("_Primary DNS"),
 class NetworkWindow(InstallWindow):		
 
     windowTitle = N_("Network Configuration")
-    htmlTag = "netconf"
+    if iutil.getArch() == "s390":
+        htmlTag = "netconf-s390"
+    else:
+        htmlTag = "netconf"
 
     def __init__(self, ics):
 	InstallWindow.__init__(self, ics)
