@@ -1,32 +1,28 @@
 #include <stdio.h>
-#include <zlib.h>
+#include <fcntl.h>
 
 #include "cpio.h"
 
 int main(int argc, char ** argv) {
-    char * pattern[2];
     gzFile in, out; 
     int rc;
 
-    if (argc != 3) {
-	fprintf(stderr, "ack!\n");
+    if (argc < 3) {
+	fprintf(stderr, "bad arguments!\n");
 	return 1;
     }
 
-    in = gzopen(argv[1], "r");
+    in = gunzip_open(argv[1]);
     if (!in) {
 	fprintf(stderr, "failed to open %s\n", argv[1]);
     }
 
-    out = gzdopen(1, "w");
+    out = gzip_dopen(1);
 
-    pattern[0] = argv[2];
-    pattern[1] = NULL;
-
-    rc = myCpioFilterArchive(in, out, pattern);
+    rc = myCpioFilterArchive(in, out, argv + 2);
     fprintf(stderr, "returned %d\n", rc);
 
-    gzclose(out);
+    gzip_close(out);
 
     return rc;
 }
