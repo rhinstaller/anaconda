@@ -50,7 +50,7 @@ class PartitionWindow (InstallWindow):
 	    threads_enter ()
 	    return 0
 
-	self.todo.ddruid.save ()
+	self.fstab.savePartitions()
 	self.fstab.turnOnSwap(self.intf.waitWindow)
 	self.todo.ddruidAlreadySaved = 1
 	PartitionWindow.swapon = 1
