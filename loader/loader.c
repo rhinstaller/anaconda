@@ -58,6 +58,7 @@ struct knownDevices devices;
 struct installMethod {
     char * name;
     int network;
+    enum deviceClass deviceType;			/* for pcmcia */
     char * (*mountImage)(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
@@ -82,11 +83,11 @@ static char * mountUrlImage(struct installMethod * method,
 		      moduleDeps modDeps, int flags);
 
 static struct installMethod installMethods[] = {
-    { N_("Local CDROM"), 0, mountCdromImage },
-    { "FTP", 1, mountUrlImage },
-    { "HTTP", 1, mountUrlImage },
-    { N_("Hard drive"), 0, mountHardDrive },
-    { N_("NFS image"), 1, mountNfsImage },
+    { N_("Local CDROM"), 0, DEVICE_CDROM, mountCdromImage },
+    { "FTP", 1, DEVICE_NET, mountUrlImage },
+    { "HTTP", 1, DEVICE_NET, mountUrlImage },
+    { N_("Hard drive"), 0, DEVICE_DISK, mountHardDrive },
+    { N_("NFS image"), 1, DEVICE_NET, mountNfsImage },
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -869,7 +870,7 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 			moduleList modLoaded,
 		        moduleDeps modDeps, int flags) {
     static int defaultMethod = 0;
-    int i, rc;
+    int i, j, rc;
     int validMethods[10];
     int numValidMethods = 0;
     char * installNames[10];
@@ -891,8 +892,15 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 
 #ifdef INCLUDE_PCMCIA
     for (i = 0; i < numMethods; i++) {
-	installNames[numValidMethods] = installMethods[i].name;
-	validMethods[numValidMethods++] = i;
+	for (j = 0; j < kd->numKnown; j++)
+	    if (installMethods[i].deviceType == kd->known[j].class) break;
+
+	if (j < kd->numKnown) {
+	    if (i == defaultMethod) methodNum = numValidMethods;
+
+	    installNames[numValidMethods] = installMethods[i].name;
+	    validMethods[numValidMethods++] = i;
+	}
     }
 #else
     for (i = 0; i < numMethods; i++) {
@@ -1038,8 +1046,11 @@ int main(int argc, char ** argv) {
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
 #ifdef INCLUDE_PCMCIA
+    startNewt(flags);
+
+    winStatus(40, 3, _("PC Card"), _("Initializing PC Card Devices..."));
     startPcmcia(modLoaded, modDeps, flags);
-    logMessage("pcmcia initialized");
+    newtPopWindow();
 #endif
 
     kdFindIdeList(&kd);
