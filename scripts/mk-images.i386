@@ -87,21 +87,16 @@ ISOLINUXMODULES="usbcore ehci-hcd ieee1394 ohci1394 sbp2"
 # XXX hack hack
 PCMCIAMODULES_EXCLUDED="
 	apa1480_cb
-	atmel
-	atmel_cs
-	atmel_pci
 	iflash2+_mtd
 	iflash2_mtd
 	memory_cb
 	memory_cs
-	netwave_cs
 	parport_cs
 	parport_pc
 	parport
 	serial_cs
 	serial_cb
 	sram_mtd
-	wl3501_cs
 "
 PCMCIAMODULES_EXCLUDED_SED="sed"
 for m in $PCMCIAMODULES_EXCLUDED
