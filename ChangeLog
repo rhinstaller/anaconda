@@ -1,3 +1,9 @@
+2005-01-18  Chris Lumens  <clumens@redhat.com>
+
+	* iw/partition_gui.py (PartitionWindow.refresh):  Only repopulate the
+	partition display screen if we were successful in adding the request.
+	(corner case - #137119).
+
 2005-01-14  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py:  Support bytes per inode on a per-partition basis

@@ -1020,7 +1020,9 @@ class PartitionWindow(InstallWindow):
                     for req in reqs:
                         req.ignoreBootConstraints = 1
 
-        self.populate()
+	if not rc == -1:
+	    self.populate()
+
         return rc
 
     def editCb(self, *args):
