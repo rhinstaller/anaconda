@@ -810,14 +810,8 @@ class PartitionWindow(InstallWindow):
                     part = disk.next_partition(part)
                     continue
 
-                device = get_partition_name(part)
-
-                if ((part.type & parted.PARTITION_FREESPACE) and
-                    (device[:4] == "dasd" and part.geom.start < 2
-                        and disk.next_partition(part)):
-                    continue
-
                 stripe.add(part)
+                device = get_partition_name(part)
                 request = self.partitions.getRequestByDeviceName(device)
 
                 if part.type == parted.PARTITION_EXTENDED:
