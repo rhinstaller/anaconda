@@ -1,39 +1,11 @@
 #!/bin/sh
 
-LANGTABLE=../lang-table
-
 ARCH=$1
 if [ -z "$ARCH" ]; then
     echo "usage: $0 <arch>"
     exit 1
 fi
 
-fontlist=`awk '{ print $4 }' < $LANGTABLE | egrep -v "(None|Kon)" | sort -u`
-
-echo $fontlist
-
-TMPDIR=/tmp/fontdir.$$
-rm -rf $TMPDIR
-
-rm -rf $TMPDIR
-mkdir -p $TMPDIR
-
-OLDFONT=/tmp/consolefont.$$
-setfont -om $OLDFONT
-for n in $fontlist; do
-    echo -n $n
-    map=$(grep $n $LANGTABLE | head -1 | awk '{ print $3 }')
-
-    echo -n " map "
-    echo $map
-
-    setfont v $n -m $map
-    ../utils/snarffont > $TMPDIR/$n
-done
-
-setfont $OLDFONT
-rm -f $OLDFONT
-
-(cd $TMPDIR > /dev/null; ls * | cpio -o -H crc) | gzip -9 > fonts-$ARCH
-
-rm -rf $TMPDIR
+setfont latarcyrheb-sun16
+../utils/snarffont > screenfont-$ARCH
+gzip -9 screenfont-$ARCH

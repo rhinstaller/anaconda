@@ -11,18 +11,27 @@ void die(char * mess) {
     exit(1);
 }
 
+#define MAXFONTSIZE	65536
+
 int main(void) {
-    char font[8192];
+    char buf[MAXFONTSIZE];
+    struct console_font_op cfo;
     unsigned short map[E_TABSZ];
     struct unipair descs[2048];
     struct unimapdesc d;
     int fd;
 
-    if ((fd = open("/dev/tty1", O_RDONLY)) < 0)
+    if ((fd = open("/dev/tty", O_RDONLY)) < 0)
 	die("open");
 
-    if (ioctl(fd, GIO_FONT, font))
-	die("GIO_FONT"); 
+    cfo.op = KD_FONT_OP_GET;
+    cfo.flags = 0;
+    cfo.width = 8;
+    cfo.height = 16;
+    cfo.charcount = 512;
+    cfo.data = buf;
+    if (ioctl(fd, KDFONTOP, &cfo))
+	die("KDFONTOP KD_FONT_OP_GET"); 
 
     if (ioctl(fd, GIO_UNISCRNMAP, map))
 	die("GIO_UNISCRNMAP");
@@ -32,7 +41,8 @@ int main(void) {
     if (ioctl(fd, GIO_UNIMAP, &d))
     	die("GIO_UNIMAP");
 
-    write(1, font, sizeof(font));
+    write(1, &cfo, sizeof(cfo));
+    write(1, buf, sizeof(buf));
     write(1, map, sizeof(map));
     write(1, &d.entry_ct, sizeof(d.entry_ct));
     write(1, descs, d.entry_ct * sizeof(descs[0]));

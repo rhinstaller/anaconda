@@ -16,9 +16,10 @@ else
 TARGET=depend $(PROGS)
 endif
 
-# JKFIXME: switch to use system libslang and libnewt with msw's wcwidth()
-SLANGLIB = ../minislang/libslang.a
-NEWTLIB = ../mininewt/libnewt.a
+SLANGLIB = -lslang
+NEWTLIB = -lnewt
+BTERMLIB = -lbterm -lbogl 
+WLITELIB = -lwlite
 ISYSLIB = ../isys/libisys.a
 GUNZIP = -lz
 MODULELINKAGE :=-lmodutils -lmodutilutil -lmodutilobj
@@ -49,9 +50,8 @@ CFLAGS += -DGZLIB=1
 DIET=diet
 REALCC=gcc
 CC=$(DIET) $(REALCC)
-# JKFIXME: this also goes away when we go to system {newt,slang}
-SLANGLIB = ../minislang/libslang-diet.a
-NEWTLIB = ../mininewt/libnewt-diet.a
+BTERMLIB = -lbtermdiet -lbogldiet 
+WLITELIB = -lwlite
 ISYSLIB = ../isys/libisys-diet.a
 GUNZIP = ../isys/gzlib/libgunzip-diet.a
 endif
@@ -75,7 +75,7 @@ loader.tr: $(TR) ../lang-table
 	(cd tr; ls $(TRFILES) | cpio --quiet -Hcrc -o |gzip -9) > $@
 
 tr/%.tr: ../po/%.po loader.po
-	msgmerge $< loader.po | ./simplemot > $@
+	msgmerge $< loader.po | msgconv -t utf-8 | ./simplemot > $@
 
 loader.po: $(wildcard *.c)
 	xgettext --default-domain=loader --add-comments \
@@ -106,7 +106,7 @@ loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	$(HWLIBS) $(ISYSLIB) \
 	$(MODULELINKAGE) $(GUNZIP) \
-	-lpump $(NEWTLIB) $(SLANGLIB)  $(KONOBJS)
+	-lpump $(NEWTLIB) $(SLANGLIB) $(BTERMLIB) $(WLITELIB)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \

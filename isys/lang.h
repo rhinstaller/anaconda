@@ -18,7 +18,7 @@ struct kmapInfo {
 };
 
 int loadKeymap(gzFile stream);
-int isysLoadFont(char * fontFile);
+int isysLoadFont(void);
 int isysLoadKeymap(char * keymap);
 
 #endif

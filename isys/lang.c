@@ -14,33 +14,32 @@
 #include "lang.h"
 #include "stubs.h"
 
-int isysLoadFont(char * fontFile) {
-    char font[8192];
+int isysLoadFont(void) {
+    char font[65536];
+    struct console_font_op cfo;
     unsigned short map[E_TABSZ];
     struct unimapdesc d;
     struct unimapinit u;
     struct unipair desc[2048];
-    int fd;
     gzFile stream;
     int rc;
 
-    stream = gunzip_open("/etc/fonts.cgz");
+    stream = gunzip_open("/etc/screenfont.gz");
     if (!stream)
 	return -EACCES;
 
-    rc = installCpioFile(stream, fontFile, "/tmp/font", 1);
-    gunzip_close(stream);
-    if (rc || access("/tmp/font", R_OK))
-        return -EACCES;
-
-    fd = open("/tmp/font", O_RDONLY);
-    read(fd, font, sizeof(font));
-    read(fd, map, sizeof(map));
-    read(fd, &d.entry_ct, sizeof(d.entry_ct));
+    gunzip_read(stream, &cfo, sizeof(cfo));
+    gunzip_read(stream, font, sizeof(font));
+    gunzip_read(stream, map, sizeof(map));
+    gunzip_read(stream, &d.entry_ct, sizeof(d.entry_ct));
     d.entries = desc;
-    read(fd, desc, d.entry_ct * sizeof(desc[0]));
-    close(fd);
-    rc = ioctl(1, PIO_FONT, font);
+    gunzip_read(stream, desc, d.entry_ct * sizeof(desc[0]));
+    gunzip_close(stream);
+
+    cfo.data = font;
+    cfo.op = KD_FONT_OP_SET;
+
+    rc = ioctl(1, KDFONTOP, &cfo);
     if (rc) return rc;
     rc = ioctl(1, PIO_UNIMAPCLR, &u);
     if (rc) return rc;
@@ -48,6 +47,7 @@ int isysLoadFont(char * fontFile) {
     if (rc) return rc;
     rc = ioctl(1, PIO_UNISCRNMAP, map);
     if (rc) return rc;
+    /* activate the font map */
     fprintf(stderr, "\033(K");
     return 0;
 }
@@ -74,6 +74,9 @@ int loadKeymap(gzFile stream) {
     if (console < 0)
 	return -EACCES;
 
+    /* place keyboard in unicode mode */
+    ioctl(console, KDSKBMODE, K_UNICODE);
+     
     for (kmap = 0; kmap < MAX_NR_KEYMAPS; kmap++) {
 	if (!keymaps[kmap]) continue;
 

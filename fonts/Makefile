@@ -5,7 +5,7 @@ all:
 depend:
 
 install:
-	install -m 644 fonts-$(ARCH) $(DESTDIR)/$(RUNTIMEDIR)
+	install -m 644 screenfont-$(ARCH).gz $(DESTDIR)/$(RUNTIMEDIR)
 
 clean:
 

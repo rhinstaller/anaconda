@@ -3,6 +3,10 @@
 $inone = 0;
 $intran = 0;
 $total = 0;
+
+binmode(STDIN, ":raw");
+binmode(STDOUT, ":raw");
+
 while (<>) {
     if (!$inone && /^msgid/) {
 	chop;

@@ -6,6 +6,10 @@
 #include <ctype.h>
 #include <stdarg.h>
 
+#define WLITE_REDEF_STDC 0
+#include <wlite_wchar.h>
+#include <wlite_wctype.h>
+
 struct glibc_stat {
     long long st_dev;
     unsigned short int __pad1;
@@ -163,4 +167,27 @@ void * __rawmemchr (void* s, int c) {
 
 char * dcgettext (const char *domainname, const char *msgid, int category) {
     return msgid;
+}
+
+int wcwidth (wchar_t c) {
+    return wlite_wcwidth(c);
+}
+
+size_t mbrtowc (wchar_t *pwc, const char *s, size_t n, void *ps) {
+    return wlite_mbrtowc (pwc, s, n, ps);
+}
+
+int iswspace (wchar_t c) {
+    return wlite_iswctype((c), wlite_space_);
+}
+
+size_t wcrtomb(char *s, wchar_t wc, void *ps) {
+    return wlite_wcrtomb (s, wc, ps);
+}
+
+/* lie to slang to trick it into using unicode chars for linedrawing */
+char *setlocale (int category, const char *locale) {
+    if (locale == NULL || *locale == '\0')
+	return "en_US.UTF-8";
+    return 0;
 }

@@ -75,7 +75,6 @@ char * translateString(char * str) {
     }
 
     key.hash = (sum << 16) | ((xor & 0xFF) << 8) | (len & 0xFF);
-
     match = bsearch(&key, strings, numStrings, sizeof(*strings), aStringCmp);
     if (!match)
         return str;
@@ -213,7 +212,7 @@ void setLanguage (char * key, int flags) {
             setenv("LINGUAS", languages[i].lc_all, 1);
             loadLanguage (NULL, flags);
             if (languages[i].map)
-                isysLoadFont(languages[i].map);
+                isysLoadFont();
             break;
         }
     }
@@ -315,7 +314,7 @@ int chooseLanguage(char ** lang, int flags) {
     }
 
     if (languages[choice].map)
-        isysLoadFont(languages[choice].map);
+        isysLoadFont();
 
     
     buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
