@@ -172,7 +172,6 @@ class Kickstart(InstallClass):
 	    elif str == "--nameserver":
 		nameserver = arg
 	self.setNetwork(bootProto, ip, netmask, gateway, nameserver)
-        self.addToSkipList("network")
 
     def doLang(self, args):
         self.setLanguage(args[0])
@@ -376,6 +375,7 @@ class Kickstart(InstallClass):
         self.addToSkipList("welcome")
         self.addToSkipList("package-selection")
         self.addToSkipList("confirm-install")
+        self.addToSkipList("network")
 	self.setEarlySwapOn(1)
 	self.partitions = []
 

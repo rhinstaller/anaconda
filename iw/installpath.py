@@ -71,7 +71,7 @@ class InstallPathWindow (InstallWindow):
 		   ]
 
 	self.upgradeSteps = [
-		     UpgradeExamineWindow,
+		     ( UpgradeExamineWindow, "custom-upgrade"),
 		     ( BootloaderWindow, BootloaderSkipname ),
 		     UnresolvedDependenciesWindow,
 		     InstallProgressWindow,
