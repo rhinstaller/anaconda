@@ -75,6 +75,7 @@ class CdromInstallMethod(ImageInstallMethod):
 
     def writeCleanupPath(self, f):
 	isys.makeDevInode("loop0", "/tmp/loop0")
+	f.write("umount /mnt/runtime\n")
 	f.write("lounsetup /tmp/loop0\n")
 
     def __init__(self, url, messageWindow, progressWindow):
