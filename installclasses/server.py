@@ -18,17 +18,17 @@ class InstallClass(BaseInstallClass):
     def setGroupSelection(self, comps):
 	BaseInstallClass.__init__(self, comps)
 	self.showGroups(comps, 
-			  [ "KDE", 
-			    ("GNOME", 0),
-                            "Classic X Window System",
-			    ("X Window System", 0),
+			  [ "KDE Desktop Environment", 
+			    ("GNOME Desktop Environment", 0),
+			    ("Base X Support", 0),
                             "DNS Name Server",
                             "Web Server",
                             "SQL Database Server",
                             "NFS File Server",
                             "Windows File Server",
-                            "Anonymous FTP Server",
-			    "News Server"])
+                            "FTP Server",
+			    "News Server",
+                            "Network Servers"])
 
 	comps["Server"].select()
 
