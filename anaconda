@@ -423,18 +423,19 @@ if (display_mode != 't' and method and
     display_mode = 't'
     time.sleep(2)
 
-# if no mouse we force text mode
-mousedev = mousehw.get()
-if display_mode != 't' and mousedev[0] == "None - None":
-    # ask for the mouse type
-    if mouse.mouseWindow(mousehw) == 0:
-        print _("No mouse was detected.  A mouse is required for graphical "
+if iutil.getArch() != "s390" and iutil.getArch() != "s390x":
+    # if no mouse we force text mode
+    mousedev = mousehw.get()
+    if display_mode != 't' and mousedev[0] == "None - None":
+        # ask for the mouse type
+        if mouse.mouseWindow(mousehw) == 0:
+            print _("No mouse was detected.  A mouse is required for graphical "
                 "installation.  Starting text mode.")
-        display_mode = 't'
-        time.sleep(2)
-    else:
-        sys.stdout.write(_("Using mouse type: "))
-        sys.stdout.write(mousehw.shortDescription()+'\n')
+            display_mode = 't'
+            time.sleep(2)
+        else:
+            sys.stdout.write(_("Using mouse type: "))
+            sys.stdout.write(mousehw.shortDescription()+'\n')
 
 #
 # startup X server is we're not already running under an X session
