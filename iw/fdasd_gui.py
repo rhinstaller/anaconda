@@ -28,7 +28,7 @@ class FDasdWindow (InstallWindow):
         self.selectlabel = _("Select drive to run fdasd on")
 
         ics.setTitle (self.fdasd_name)
-        ics.readHTML (self.fdasd_name)
+        ics.readHTML ("fdasd-s390")
 
     def getNext(self):
         # reread partitions
@@ -49,7 +49,7 @@ class FDasdWindow (InstallWindow):
             # XXX fixme
             pass
 
-        self.ics.readHTML (self.fdasd_name)
+        self.ics.readHTML ("fdasd-s390")
         self.ics.setPrevEnabled (1)
         self.ics.setNextEnabled (1)
 #        self.ics.setHelpEnabled (1)
@@ -80,7 +80,7 @@ class FDasdWindow (InstallWindow):
         self.windowContainer.remove (self.buttonBox)
         self.windowContainer.pack_start (zvt)
 
-        self.ics.readHTML ("fdasdpart")
+        self.ics.readHTML ("fdasd-s390")
 	self.ics.setPrevEnabled (0)
         self.ics.setNextEnabled (0)
 

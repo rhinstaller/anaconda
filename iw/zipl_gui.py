@@ -29,8 +29,7 @@ class ZiplWindow (InstallWindow):
     def __init__ (self, ics):
         InstallWindow.__init__ (self, ics)
         self.ics.setTitle ("z/IPL")
-        self.ics.htmlTag = "zipl"
-        self.ics.readHTML ("zipl")
+        self.ics.readHTML ("zipl-s390")
         self.ics.windowTitle = N_("z/IPL Boot Loader Configuration")
 
     def getPrev (self):
