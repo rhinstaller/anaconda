@@ -751,10 +751,10 @@ class ComponentSet:
 #	arch2 = None
 #	if arch == "sparc" and os.uname ()[4] == "sparc64":
 #	    arch2 = "sparc64"
-## #
-##         arch2 = os.uname ()[4]
-##         if not arch2 in self.archList:
-##             self.archList.append (arch2)
+#
+        arch2 = os.uname ()[4]
+        if not arch2 in self.archList:
+            self.archList.append (arch2)
         
 	self.packages = hdlist
 	self.readCompsFile(file, self.packages)
