@@ -497,8 +497,7 @@ class Group:
                       # langsupport packages
                       self.grpset.hdrlist[p].usecount += uses - 1
 
-                      pkgs.append(nevra(self.grpset.hdrlist[p]))
-                      checked.append(p)
+                      pkgs.append(p)
                       thisone.append(p)
                   pkg.addDeps(thisone)
               else:
@@ -517,7 +516,7 @@ class Group:
                       # FIXME: this is a hack so we can make sure the usecount
                       # is bumped high enough for langsupport packages
                       self.grpset.hdrlist[dep].usecount += uses - 1
-                      pkgs.append(nevra(self.grpset.hdrlist[dep]))
+                      pkgs.append(dep)
                       checked.append(dep)
 
 
