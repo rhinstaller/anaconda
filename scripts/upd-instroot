@@ -133,7 +133,8 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            anaconda-images anaconda-help hdparm XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
            redhat-config-keyboard Xft fontconfig expat redhat-artwork
-           ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts rdate"
+           ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts rdate 
+           comps-extras"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -604,6 +605,7 @@ usr/share/fonts/ko/TrueType/dotum.ttf
 usr/share/fonts/ja/TrueType/kochi-gothic.ttf
 usr/share/fonts/zh_TW/TrueType/bsmi00lp.ttf
 usr/share/locale/*
+usr/share/pixmaps/comps/*.png
 usr/share/pixmaps/gnome-default-dlg.png
 usr/share/pixmaps/gnome-error.png
 usr/share/pixmaps/gnome-info.png
@@ -715,6 +717,13 @@ rm -f $DESTGR/locales $DESTGR/locales.list
 # Remove unneeded XFree86 modules
 rm -rf $DESTGR/usr/X11R6/lib/modules/dri
 rm -f $DESTGR/usr/X11R6/lib/modules/extensions/lib{GLcore,glx,pex5}*
+
+# moving comps-extras images in to where anaconda expects them
+echo "Moving comps-extras pixmaps to where anaconda expects them"
+if [ -n "$NEEDGR" ]; then
+    mkdir -p $DESTGR/usr/share/pixmaps/comps
+    mv $DESTGR/usr/share/pixmaps/comps/* $DESTGR/usr/share/anaconda/pixmaps/comps/
+fi
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
