@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2001-03-10 09:38-0500\n"
-"PO-Revision-Date: 2001-03-08 20:49GMT\n"
+"PO-Revision-Date: 2001-03-10 22:44GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -86,23 +86,20 @@ msgstr ""
 "og tryk \"O.k.\" for at genstarte.\n"
 
 #: ../fstab.py:492
-#, fuzzy
 msgid "Swap Space"
-msgstr "Swapplads"
+msgstr "Swapområde"
 
 #: ../fstab.py:493
-#, fuzzy
 msgid "Creating swap space..."
-msgstr "Formaterer swapplads på /dev/%s..."
+msgstr "Formaterer swapområde..."
 
 #: ../fstab.py:507 ../fstab.py:771 ../fstab.py:1230
 msgid "Formatting"
 msgstr "Formaterer"
 
 #: ../fstab.py:508
-#, fuzzy
 msgid "Formatting swap space..."
-msgstr "Formaterer swapplads på /dev/%s..."
+msgstr "Formaterer swapområde..."
 
 #: ../fstab.py:517
 msgid "Error creating swap on device "
@@ -886,9 +883,8 @@ msgid "Examine System"
 msgstr "Undersøg system"
 
 #: ../text.py:1079
-#, fuzzy
 msgid "System Swap Space"
-msgstr "Swapplads"
+msgstr "System-swapområde"
 
 #: ../text.py:1086
 msgid "Customize Upgrade"
@@ -2138,7 +2134,7 @@ msgstr "Skærmkonfiguration"
 
 #: ../iw/xconfig_gui.py:736
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "DDC-specificeret skærm"
 
 #: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
 msgid "Restore original values"
@@ -2562,7 +2558,7 @@ msgstr ""
 
 #: ../textw/silo_text.py:66
 msgid "Create PROM alias `linux'"
-msgstr "Opret PROM-alias `linux'"
+msgstr "Opret PROM-alias 'linux'"
 
 #: ../textw/silo_text.py:67
 msgid "Set default PROM boot device"
@@ -2588,43 +2584,41 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"Kerne 2.4 kræver betydeligt mere swap end ældre kerner. Faktisk helst det "
+"dobbelte af den mængde RAM, systemet har. Du har konfigureret %dMb swap, men "
+"du kan oprette mere swapplads på en af dine filsystemer nu."
 
 #: ../textw/upgrade_text.py:40
-#, fuzzy
 msgid "Free Space"
-msgstr "Diskplads"
+msgstr "Ledig plads"
 
 #: ../textw/upgrade_text.py:55
-#, fuzzy
 msgid "Suggested size (MB):"
-msgstr "Størrelse (Mb)"
+msgstr "Forestlået størrelse (Mb)"
 
 #: ../textw/upgrade_text.py:58
-#, fuzzy
 msgid "Swap file size (MB):"
-msgstr "Swappladsstørrelse:"
+msgstr "Swapområdestørrelse (Mb):"
 
 #: ../textw/upgrade_text.py:66
-#, fuzzy
 msgid "Add Swap"
-msgstr "Swap"
+msgstr "Tilføj swap"
 
 #: ../textw/upgrade_text.py:90
-#, fuzzy
 msgid "The value you entered is not a valid number."
-msgstr "Størrelsen, du angiver, skal være et tal."
+msgstr "Den værdi, du angav, er ikke et gyldigt tal."
 
 #: ../textw/upgrade_text.py:96
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
-msgstr ""
+msgstr "Der er ikke plads nok til swappartitionen på den enhed, du valgte."
 
 #: ../textw/upgrade_text.py:116
 msgid ""
 "If you would like to exit the upgrade select Exit, or choose Ok to continue "
 "with the upgrade."
 msgstr ""
-"Vælg afslut hvis du vil afbryde opgraderingen. Vælg O.k. for at fortsætte "
+"Vælg Afslut hvis du vil afbryde opgraderingen. Vælg O.k. for at fortsætte "
 "opgraderingen."
 
 #: ../textw/upgrade_text.py:146
@@ -2640,9 +2634,8 @@ msgid "Upgrade Partition"
 msgstr "Opgrader patition"
 
 #: ../textw/upgrade_text.py:182
-#, fuzzy
 msgid "Going to upgrade partition /dev/"
-msgstr "Opgrader patition"
+msgstr "Opgraderer partition /dev/"
 
 #: ../textw/upgrade_text.py:191
 msgid "Customize Packages to Upgrade"
@@ -4452,7 +4445,7 @@ msgstr "Aleuterne"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr "Amapa, Ø-Para"
+msgstr "Amapa, Østpara"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
@@ -4464,13 +4457,13 @@ msgstr "Atlantiske øer"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr "Atlantisk tid - Ø-Labrador"
+msgstr "Atlantisk tid - Østlabrador"
 
 #. generated from zone.tab
 msgid ""
 "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
-"Atlantisk tid - (det meste af) Nova Scotia, NB, V-Labrador, Ø-Quebec & PEI"
+"Atlantisk tid - (det meste af) Nova Scotia, NB, Vestlabrador, Østquebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -4571,23 +4564,23 @@ msgstr "Kina, bjergene"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr "Davis Station, Vestfold Hills"
+msgstr "Davis-stationen, Vestfold Hills"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Dumont-d'Urville Base, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr "Ø-Amazona"
+msgstr "Østamazonas"
 
 #. generated from zone.tab
 msgid "E Argentina (BA, DF, SC, TF)"
-msgstr "Ø-Argentina (BA, DF, SC, TF)"
+msgstr "Østargentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr "østlige Demokratiske Republik Congo"
+msgstr "Demokratiske Republik Congo - øst"
 
 #. generated from zone.tab
 msgid "Easter Island"
@@ -4599,7 +4592,7 @@ msgstr "Østamerikansk standardtid - Midtnunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr "Østamerikansk standardtid - østlige Nunavut"
+msgstr "Østamerikansk standardtid - østnunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
@@ -4674,7 +4667,7 @@ msgstr "Galapagosøerne"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "Gambierøerne"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
@@ -4690,7 +4683,7 @@ msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr "Irian Jaya & Moluccas"
+msgstr "Irlandsk Jaya & Moluccaerne"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
@@ -4718,7 +4711,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Linieøerne"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
@@ -4738,11 +4731,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Mawson-stationen, Holme Bay"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr "McMurdo Station, Ross-øen"
+msgstr "McMurdo-stationen, Ross-øen"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
@@ -4750,7 +4743,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "Midway-øerne"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -4766,7 +4759,7 @@ msgstr "Moskva-01 - Kaliningrad"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr "Moskva+02 - Ural"
+msgstr "Moskva+02 - Uralbjergene"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
@@ -4831,7 +4824,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr "Amerikansk bjergtid - midtnordvestlige territorier"
+msgstr "Amerikansk bjergtid - midt Nordvest-territorierne"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
@@ -4843,7 +4836,7 @@ msgstr "Amerikansk bjergtid - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr "Amerikansk bjergtid - S-Baja, Nayarit, Sinaloa"
+msgstr "Amerikansk bjergtid - Syedbaja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
@@ -4851,15 +4844,15 @@ msgstr "Amerikansk bjergtid - Sydlige Idaho & Østlige Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr "Amerikansk bjergtid - Vestnordvestlige territorier"
+msgstr "Amerikansk bjergtid - vestlige nordvestterritorier"
 
 #. generated from zone.tab
 msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-msgstr "NØ-Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+msgstr "Nordøstlige Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
-msgstr "NØ-Brazilien (MA, PI, CE, RN, PR)"
+msgstr "Nordøstbrazilien (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
@@ -4883,7 +4876,7 @@ msgstr "Nordirland"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr "Nordlige territorier"
+msgstr "Nord-territoriet"
 
 #. generated from zone.tab
 msgid "north Manchuria"
@@ -4907,7 +4900,7 @@ msgstr "Pacific Time - vestlige Britisk Columbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Palmer-stationen, Anversøen"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
@@ -4919,7 +4912,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "Fønixøerne"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
@@ -4927,7 +4920,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "Queensland - Ferieøerne"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
@@ -4963,7 +4956,8 @@ msgstr "sydvestlige Mali"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "S- & SØ-Brazilien (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr ""
+"sydlige & sydøstlige Brazilien (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -4971,7 +4965,7 @@ msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr "Syowa Station, Ø-Ongul"
+msgstr "Syowa-stationen, Østongul"
 
 #. generated from zone.tab
 msgid "Tasmania"
@@ -4983,7 +4977,7 @@ msgstr "Tibet & Xinjiang"
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr ""
+msgstr "Tocantinerne"
 
 #. generated from zone.tab
 msgid "Transdniestria"
@@ -5003,11 +4997,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr "V-Amazona"
+msgstr "Vestamazonas"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr "V-Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+msgstr "Vestargentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
@@ -5027,7 +5021,7 @@ msgstr "vestlige Uzbekistan"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "Vestpara, Rondonien"
 
 #. generated from zone.tab
 msgid "Yap"
@@ -5035,11 +5029,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporozh'ye, Østlugansk"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr "Tjekkiet"
+msgstr "Tjekkisk"
 
 #. generated from lang-table
 msgid "English"
@@ -5118,8 +5112,3 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-#~ msgid ""
-#~ "The Red Hat Linux OS installed on partition /dev/%s will now be upgraded."
-#~ msgstr ""
-#~ "Red Hat Linux operativsystemet på partition /dev/%s vil nu blive opgraderet."
