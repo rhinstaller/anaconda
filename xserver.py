@@ -20,7 +20,6 @@ import kudzu
 import isys
 import sys
 import time
-from xf86config import *
 
 from flags import flags
 
@@ -29,11 +28,8 @@ from constants_text import *
 from mouse_text import MouseWindow, MouseDeviceWindow
 
 from rhpl.translate import _
-from rhpl.keyboard import Keyboard
-from rhpl.mouse import Mouse
-from rhpl.videocard import VGA16Card, VESADriverCard
-
-serverPath = ""
+from rhpl.xhwstate import *
+from rhpl.log import log
 
 def mouseWindow(mouse):
     screen = SnackScreen()
@@ -92,10 +88,7 @@ def startMiniWM(root='/'):
 	
 
 # start X server for install process ONLY
-def startX(resolution, nofbmode, video, monitor, mouse, keyboard):
-    global serverPath
-    global mode
-    
+def startX(resolution, video, monitor, mouse, keyboard):
     os.environ['DISPLAY'] = ':1'
     serverPath = None
 
@@ -109,7 +102,7 @@ def startX(resolution, nofbmode, video, monitor, mouse, keyboard):
         if attempt == 'PROBED':
             if video.primaryCard():
                 print _("Attempting to start native X server")
-                card = video.primaryCard()
+                card = video.primaryCard().getDevID()
             else:
                 card = None
             next_attempt = 'VESA'
@@ -118,38 +111,32 @@ def startX(resolution, nofbmode, video, monitor, mouse, keyboard):
                 print _("Attempting to start VESA driver X server")
 		vram = video.primaryCard().getVideoRam()
 		if vram:
-		    card = VESADriverCard(vram)
+                    card = "VESA driver (generic)"
 		else:
 		    card = None
             else:
                 card = None
             next_attempt = 'END'
-#
-# Disabling VGA16 - does bad things with Xft currently
-#
-#        elif attempt == 'VGA16':
-            # if no xserver then try falling back to VGA16 in no fb
-#            card = VGA16Card()
-#            
-#            print _("Attempting to start VGA16 X server")
-#            next_attempt = 'END'
         else:
             print "Got off end somehow!"
             break
 
-        if card and card.getXServer() != None:
-            serverPath = '/usr/X11R6/bin/' + card.getXServer()
+	if card:
+	    #
+	    # XXX - assuming 'XFree86' is the binary for server
+	    #
+	    servername = 'XFree86'
+            serverPath = '/usr/X11R6/bin/' + servername
 
             if os.access (serverPath, os.X_OK):
                 try:
-                    x = XF86Config (card, monitor, mouse, keyboard, resolution)
+		    hwstate = XF86HardwareState(defcard=video,
+						defmon=monitor,
+						probeflags=XF86HW_PROBE_NONE)
+		    hwstate.set_resolution(resolution)
+		    hwstate.set_videocard_card(card)
+		    testx(hwstate, mouse, keyboard)
 
-                    if x.res == "640x480":
-                        x.setForcedDPI(75)
-                    else:
-                        x.setForcedDPI(96)
-		    
-                    testx(x)
                     failed = 0
                     break
             
@@ -162,19 +149,23 @@ def startX(resolution, nofbmode, video, monitor, mouse, keyboard):
     if failed:
         raise RuntimeError, "No X server binaries found to run"
     
-    return x
+    return hwstate
 
-def testx(x):
+
+def testx(hwstate, mouse, keyboard):
     try:
-	server = x.test ([':1', 'vt7', '-s', '1440', '-terminate',
-                          '-dpms', '-v', '-ac', '-nolisten', 'tcp'], spawn=1)
+	server = writeXConfigAndRunX(hwstate, mouse, keyboard,
+			    serverflags = [':1', 'vt7', '-s', '1440',
+					   '-terminate', '-dpms', '-v',
+					   '-ac', '-nolisten', 'tcp'],
+			    standalone = 1)
     except:
-	import traceback
-        server = None
-	(type, value, tb) = sys.exc_info()
-	list = traceback.format_exception (type, value, tb)
-	text = string.joinfields (list, "")
-	print text
+ 	import traceback
+	server = None
+ 	(type, value, tb) = sys.exc_info()
+ 	list = traceback.format_exception (type, value, tb)
+ 	text = string.joinfields (list, "")
+ 	print text
 
     # give time for the server to fail (if it is going to fail...)
     # FIXME: Should find out if X server is already running
@@ -216,7 +207,12 @@ def testx(x):
     print _(" X server started successfully.")
 
     # now start up mini-wm
-    if not flags.test:
+    #
+    # I think its ok to always try if we actually had to start an X server
+    # 
+    #    if not flags.test or 1:
+
+    if 1:
         try:
             miniwm_pid = startMiniWM()
             log("Started mini-wm")
@@ -225,7 +221,26 @@ def testx(x):
             log("Unable to start mini-wm")
     else:
 	miniwm_pid = None
-	
+
+    # test to setup dpi
+    # cant do this if miniwm didnt run because otherwise when
+    # we open and close an X connection in the xutils calls
+    # the X server will exit since this is the first X
+    # connection (if miniwm isnt running)
+    if miniwm_pid is not None:
+	import xutils
+
+	if xutils.screenWidth() > 640:
+	    dpi = "96"
+	else:
+	    dpi = "75"
+	    
+	xutils.setRootResource('Xft.antialias', '1')
+	xutils.setRootResource('Xft.dpi', dpi)
+	xutils.setRootResource('Xft.hinting', '1')
+	xutils.setRootResource('Xft.hintstyle', 'hintslight')
+	xutils.setRootResource('Xft.rgba', 'none')
+
     child = os.fork()
     if (child):
 	# here we fork and wait on our child, which will contine
@@ -258,3 +273,119 @@ def testx(x):
 	    sys.exit(0)
 
 	sys.exit(-1)
+
+#
+# should probably be in rhpl
+#
+def writeXConfig(filename, hwstate, mouse, keyboard, standalone = 0):
+    if hwstate.videocard == None:
+	return None
+
+    standalone_fontpaths = ["/usr/X11R6/lib/X11/fonts/misc:unscaled",
+			    "/usr/X11R6/lib/X11/fonts/Type1/",
+			    "/usr/X11R6/lib/X11/fonts/Speedo/",
+			    "/usr/X11R6/lib/X11/fonts/75dpi:unscaled",
+			    "/usr/X11R6/lib/X11/fonts/100dpi:unscaled",
+			    "/usr/X11R6/lib/X11/fonts/korean:unscaled",
+			    "/usr/X11R6/lib/X11/fonts/cyrillic:unscaled",
+			    "/usr/share/fonts/ISO8859-2/misc:unscaled",
+			    "/usr/share/fonts/ISO8859-2/75dpi:unscaled",
+			    "/usr/share/fonts/ISO8859-2/100dpi:unscaled",
+			    "/usr/share/fonts/ISO8859-9/misc:unscaled",
+			    "/usr/share/fonts/ISO8859-9/75dpi:unscaled",
+			    "/usr/share/fonts/ISO8859-9/100dpi:unscaled",
+			    "/usr/share/fonts/KOI8-R/misc:unscaled",
+			    "/usr/share/fonts/KOI8-R/75dpi:unscaled"
+			    ]
+
+    #
+    # get an xg86config object that represents the config file we're going
+    # to write out
+    #
+    xcfgdata = hwstate.generate_xconfig(mouse, keyboard)
+
+    # add the font paths we need if desired
+    if standalone:
+	files = xcfgdata.files
+	tmpfp = files.fontpath
+	newfp = ""
+	for fp in standalone_fontpaths:
+	    newfp = newfp + fp + ","
+
+	newfp = newfp + tmpfp
+
+	files.fontpath = newfp
+    
+    xcfgdata.write(filename)
+
+#
+# should probably be in rhpl
+#
+#
+# hwstate is a X hw state object from rhpl.xhwstate
+# mouse is mouse object from rhpl.mouse
+# keyboard is a keyboard object from rhpl.keyboard
+# serverflags are extra flags to throw at X server command line
+# root is top of hierarchy we look for X server in
+# standalone = 1 means we're running without xfs (anaconda mode essentially)
+#
+def writeXConfigAndRunX(hwstate, mouse, keyboard, serverflags=None,
+			root='/', standalone = 0):
+
+    if hwstate.videocard == None:
+	return None
+
+    #
+    #   XXX - Assuming X server binary is 'XFree86'
+    #
+    servername = 'XFree86'
+    use_resolution = hwstate.get_resolution()
+
+    #
+    # make text fit on screen
+    #
+    if use_resolution == "640x480":
+	forced_dpi = 75
+    else:
+	forced_dpi = 96
+
+    # write X Config
+    writeXConfig('%s/tmp/XF86Config.test' % (root,), hwstate, mouse, keyboard, standalone)
+
+    # setup to run X server
+    serverPath = "/usr/X11R6/bin/" + servername
+
+    serverpid = os.fork()
+
+    if (not serverpid):
+	if (root and root != '/'): 
+	    os.chroot (root)
+	    os.chdir("/")
+
+	args = [serverPath, '-xf86config', '/tmp/XF86Config.test' ]
+	logFile = "/tmp/X.log"
+	if servername == "XFree86":
+	    args = args + [ "-logfile", "/dev/null" ]
+	if serverflags:
+	    args = args + serverflags
+	else:
+	    args = args +  [ ":9", "vt6" ]
+	    logFile = "/tmp/X-Test.log"
+
+	try:
+	    err = os.open(logFile, os.O_RDWR | os.O_CREAT)
+	    if err < 0:
+		sys.stderr.write("error opening /tmp/X.log\n")
+	    else:
+		os.dup2(err, 2)
+		os.close(err)
+	except:
+	    # oh well
+	    pass
+
+	os.execv(args[0], args)
+	sys.exit (1)
+
+    return serverpid
+
+
