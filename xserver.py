@@ -203,6 +203,12 @@ EndSection
             pid, status = os.waitpid(child, 0)
         except:
             sys.exit (-1)
+	try:
+	    sys.kill(server, 15)
+	    pid, status = os.waitpid(server, 0)
+	except:
+	    sys.exit(-1)
+
         sys.exit((status >> 8) & 0xf)
 
     return ((mouseProtocol, mouseEmulate, mouseDev), x)
