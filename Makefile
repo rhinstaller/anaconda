@@ -1,13 +1,9 @@
 # Copyright (C) 1998-2002  Red Hat, Inc.
 include Makefile.inc
 
-ifneq (ia64, $(ARCH))
-STUBS=stubs
-endif
-
-SUBDIRSHD = isys loader2 po \
+SUBDIRSHD = isys loader2 po stubs \
 	    textw utils scripts bootdisk installclasses \
-	    fonts iw pixmaps $(STUBS) isomd5sum command-stubs
+	    fonts iw pixmaps isomd5sum command-stubs
 SUBDIRS = $(SUBDIRSHD)
 
 # DESTDIR        - destination for install image for install purposes

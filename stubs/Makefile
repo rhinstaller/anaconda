@@ -3,7 +3,13 @@ include ../Makefile.inc
 LIBBZ = libbz2.so.1
 LIBUTF8 = libunicode-lite.so.1
 
-all:	$(LIBBZ) $(LIBUTF8)
+TARGETS= $(LIBUTF8)
+
+ifneq (ia64, $(ARCH))
+TARGETS += $(LIBBZ)
+endif
+
+all:	$(TARGETS)
 
 $(LIBBZ):   bzip.c
 	gcc -fPIC -shared -o $@ $<
@@ -15,7 +21,7 @@ clean:
 	rm -f *.so.* *.o
 
 install:
-	install $(LIBBZ) $(DESTDIR)/$(RUNTIMEDIR)
-	install $(LIBUTF8) $(DESTDIR)/$(RUNTIMEDIR)
+	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
+	for lib in $(TARGETS) ; do install $$lib $(DESTDIR)/$(RUNTIMEDIR) ; done
 
 depend:
