@@ -158,8 +158,9 @@ static void mountCdromStage2(char *cddev) {
 		break;
 	    }
 	} while (1);
-	
+
 	rc = mountStage2("/mnt/source/RedHat/base/stage2.img");
+
 	/* if we failed, umount /mnt/source and keep going */
 	if (rc) {
 	    umount("/mnt/source");
@@ -292,7 +293,9 @@ char * setupCdrom(char * location,
 		  int requirepkgs) {
     int i, rc;
     int foundinvalid = 0;
+    int stage2inram = 0;
     char * buf;
+    char *stage2img;
 
 #if 0
     if (FL_TESTING(flags) && interactive) {
@@ -310,13 +313,28 @@ char * setupCdrom(char * location,
         for (i = 0; i < kd->numKnown; i++) {
             if (kd->known[i].class != CLASS_CDROM) continue;
 
-            logMessage("trying to mount device %s", kd->known[i].name);
+            logMessage("trying to mount CD device %s", kd->known[i].name);
             devMakeInode(kd->known[i].name, "/tmp/cdrom");
             if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, 
                            NULL, NULL, 0, 0)) {
                 if (!access("/mnt/source/RedHat/base/stage2.img", R_OK) &&
 		    (!requirepkgs || !access("/mnt/source/.discinfo", R_OK))) {
-                    rc = mountStage2("/mnt/source/RedHat/base/stage2.img");
+
+
+		    /* if in rescue mode lets copy stage 2 into RAM so we can */
+		    /* free up the CD drive and user can have it avaiable to  */
+		    /* aid system recovery.                                   */
+		    if (FL_RESCUE(flags) && totalMemory() > 128000) {
+			rc = copyFile("/mnt/source/RedHat/base/stage2.img", "/tmp/ramfs/stage2.img");
+			stage2img = "/tmp/ramfs/stage2.img";
+			stage2inram = 1;
+		    } else {
+			stage2img = "/mnt/source/RedHat/base/stage2.img";
+			stage2inram = 0;
+		    }
+	
+		    rc = mountStage2(stage2img);
+
                     /* if we failed, umount /mnt/source and keep going */
                     if (rc) {
                         umount("/mnt/source");
@@ -326,6 +344,13 @@ char * setupCdrom(char * location,
 
                     /* do the media check */
                     queryCDMediaCheck(kd->known[i].name, flags);
+
+		    /* if in rescue mode and we copied stage2 to RAM */
+		    /* we can now unmount the CD                     */
+		    if (FL_RESCUE(flags) && stage2inram) {
+			umount("/mnt/source");
+			unlink("/tmp/cdrom");
+		    }
 
                     buf = malloc(200);
                     sprintf(buf, "cdrom://%s:/mnt/source", kd->known[i].name);
