@@ -156,7 +156,8 @@ char * mountNfsImage(struct installMethod * method,
                     logMessage("unable to access %s", mntPath);
                 }
 
-                if ((path = validIsoImages("/mnt/source"))) {
+                if ((path = validIsoImages("/mnt/source", &foundinvalid))) {
+		    foundinvalid = 0;
 		    logMessage("Path to valid iso is %s", path);
                     copyUpdatesImg("/mnt/source/updates.img");
 

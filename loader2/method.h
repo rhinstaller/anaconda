@@ -21,7 +21,7 @@ struct installMethod {
 int umountLoopback(char * mntpoint, char * device);
 int mountLoopback(char * fsystem, char * mntpoint, char * device);
 
-char * validIsoImages(char * dirName);
+char * validIsoImages(char * dirName, int *foundinvalid);
 int readStampFileFromIso(char *file, char **descr, char **timestamp);
 void queryIsoMediaCheck(char * isoDir, int flags);
 

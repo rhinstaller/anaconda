@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.12
+Version: 10.2.0.13
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -70,6 +70,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 25 2005 Peter Jones <pjones@redhat.com> - 10.2.0.13-1
+- Hopefully fix LVM size bug (#145183)
+- Support multiple iso sets in the same directory (#146053)
+
 * Wed Jan 19 2005 Chris Lumens <clumens@redhat.com> 10.2.0.12-1 
 - Fix partitioning bugs (#101432, #137119)
 - Support --bytes-per-inode on a per-partition basis (#57550)

@@ -198,7 +198,7 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 
 	sprintf(filespec, "/tmp/hdimage/%s", dirName);
 
-	if ((path = validIsoImages(filespec))) {
+	if ((path = validIsoImages(filespec, 0))) {
 	    char updpath[4096];
 
 	    logMessage("Path to valid iso is %s", path);

@@ -145,7 +145,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 }
 
 /* returns the *absolute* path (malloced) to the #1 iso image */
-char * validIsoImages(char * dirName) {
+char * validIsoImages(char * dirName, int *foundinvalid) {
     DIR * dir;
     struct dirent * ent;
     char isoImage[1024];
@@ -175,10 +175,18 @@ char * validIsoImages(char * dirName) {
         }
         
 	snprintf(path, sizeof(path), "/tmp/loopimage/%s/base/hdstg2.img", getProductPath());
-        if (!access(path, F_OK)) {
-            umountLoopback("/tmp/loopimage", "loop7");
-            break;
-        }
+	if (mountLoopback(path, "/mnt/runtime", "loop0")) {
+	    umountLoopback("/mnt/runtime", "loop0");
+	} else {
+	    if (verifyStamp("/mnt/runtime")) {
+		umountLoopback("/tmp/runtime", "loop0");
+		umountLoopback("/tmp/loopimage", "loop7");
+		break;
+	    }
+	    logMessage("disc %s is not the right image", isoImage);
+	    umountLoopback("/mnt/runtime", "loop0");
+	    if (foundinvalid) *foundinvalid = 1;
+	}
         
         umountLoopback("/tmp/loopimage", "loop7");
         
