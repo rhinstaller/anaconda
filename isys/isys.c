@@ -64,7 +64,6 @@ static PyObject * doMknod(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
 static PyObject * htAvailable(PyObject * s, PyObject * args);
 static PyObject * summitAvailable(PyObject * s, PyObject * args);
-static PyObject * createProbedList(PyObject * s, PyObject * args);
 static PyObject * doCheckBoot(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
 static PyObject * doSwapoff(PyObject * s, PyObject * args);
@@ -129,7 +128,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "mkdevinode", (PyCFunction) makeDevInode, METH_VARARGS, NULL },
     { "makedev", (PyCFunction) pyMakeDev, METH_VARARGS, NULL },
     { "mknod", (PyCFunction) doMknod, METH_VARARGS, NULL },
-    { "ProbedList", (PyCFunction) createProbedList, METH_VARARGS, NULL }, 
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "htavailable", (PyCFunction) htAvailable, METH_VARARGS, NULL },
@@ -167,55 +165,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "getIPAddress", (PyCFunction) doGetIPAddress, METH_VARARGS, NULL},
     { NULL }
 } ;
-
-typedef struct {
-    PyObject_HEAD;
-    struct knownDevices list;
-} probedListObject;
-
-static PyObject * probedListGetAttr(probedListObject * o, char * name);
-static void probedListDealloc (probedListObject * o);
-static PyObject * probedListNet(probedListObject * s, PyObject * args);
-static PyObject * probedListScsi(probedListObject * s, PyObject * args);
-static PyObject * probedListIde(probedListObject * s, PyObject * args);
-static PyObject * probedListDasd(probedListObject * s, PyObject * args);
-static int probedListLength(PyObject * o);
-static PyObject * probedListSubscript(probedListObject * o, int item);
-
-static PyMethodDef probedListObjectMethods[] = {
-    { "updateNet", (PyCFunction) probedListNet, METH_VARARGS, NULL },
-    { "updateScsi", (PyCFunction) probedListScsi, METH_VARARGS, NULL },
-    { "updateIde", (PyCFunction) probedListIde, METH_VARARGS, NULL },
-    { "updateDasd", (PyCFunction) probedListDasd, METH_VARARGS, NULL },
-    { NULL },
-};
-
-static PySequenceMethods probedListAsSequence = {
-	probedListLength,		    /* length */
-	0,		     		    /* concat */
-	0,				    /* repeat */
-	(intargfunc) probedListSubscript,   /* item */
-	0,			 	    /* slice */
-	0,				    /* assign item */
-	0,				    /* assign slice */
-};
-
-static PyTypeObject probedListType = {
-	PyObject_HEAD_INIT(&PyType_Type)
-	0,				/* ob_size */
-	"ProbedList",			/* tp_name */
-	sizeof(probedListObject),	/* tp_size */
-	0,				/* tp_itemsize */
-	(destructor) probedListDealloc,	/* tp_dealloc */
-	0,				/* tp_print */
-	(getattrfunc) probedListGetAttr,/* tp_getattr */
-	0,				/* tp_setattr */
-	0,				/* tp_compare */
-	0,				/* tp_repr */
-	0,				/* tp_as_number */
-	&probedListAsSequence,		/* tp_as_sequence */
-	0,				/* tp_as_mapping */
-};
 
 static PyObject * pyMakeDev(PyObject * s, PyObject * args) {
     int major, minor;
@@ -687,113 +636,6 @@ static PyObject * doPumpNetDevice(PyObject * s, PyObject * args) {
 	rc = PyString_FromString("");
 
     return rc;
-}
-
-static PyObject * probedListGetAttr(probedListObject * o, char * name) {
-    return Py_FindMethod(probedListObjectMethods, (PyObject * ) o, name);
-}
-
-static void probedListDealloc (probedListObject * o) {
-    kdFree(&o->list);
-}
-
-static PyObject * probedListNet(probedListObject * o, PyObject * args) {
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-    
-    kdFindNetList(&o->list, 0);
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * probedListScsi(probedListObject * o, PyObject * args) {
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-
-    kdFindScsiList(&o->list, 0);
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * probedListDasd(probedListObject * o, PyObject * args) {
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-
-    kdFindDasdList(&o->list, 0);
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * probedListIde(probedListObject * o, PyObject * args) {
-    kdFilterType filter = NULL;
-
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-
-    kdFindFilteredIdeList(&o->list, 0, filter);
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * createProbedList(PyObject * s, PyObject * args) {
-    probedListObject * o;
-
-    o = (probedListObject *) PyObject_NEW(PyObject, &probedListType);
-    o->list = kdInit();
-
-    return (PyObject *) o;
-}
-
-static int probedListLength(PyObject * o) {
-    return ((probedListObject *) o)->list.numKnown;
-}
-
-static PyObject *indexerr;
-
-static PyObject * probedListSubscript(probedListObject * o, int item) {
-    probedListObject * po = (probedListObject *) o;
-    char * model = "";
-    char * class = NULL;
-
-    if (item > o->list.numKnown - 1) {
-	indexerr = PyString_FromString("list index out of range");
-	PyErr_SetObject(PyExc_IndexError, indexerr);
-	return NULL;
-    }
-    if (po->list.known[item].model) model = po->list.known[item].model;
-
-    switch (po->list.known[item].class) {
-      case CLASS_CDROM:
-	class = "cdrom"; break;
-      case CLASS_HD:
-	class = "disk"; break;
-      case CLASS_TAPE:
-	class = "tape"; break;
-      case CLASS_NETWORK:
-	class = "net"; break;
-      case CLASS_FLOPPY:
-	class = "floppy"; break;
-      case CLASS_UNSPEC:
-      case CLASS_OTHER:
-      case CLASS_SCSI:
-      case CLASS_VIDEO:
-      case CLASS_AUDIO:
-      case CLASS_MOUSE:
-      case CLASS_MODEM:
-      case CLASS_SCANNER:
-      case CLASS_RAID:
-      case CLASS_PRINTER:
-      case CLASS_CAPTURE:
-      case CLASS_KEYBOARD:
-      case CLASS_MONITOR:
-      case CLASS_USB:
-      case CLASS_SOCKET:
-      case CLASS_FIREWIRE:
-      case CLASS_IDE:
-	break;
-    }
-
-    return Py_BuildValue("(sss)", class, po->list.known[item].name, model);
 }
 
 static PyObject * doPoptParse(PyObject * s, PyObject * args) {
