@@ -236,7 +236,7 @@ int addDeviceManually(moduleInfoSet modInfo, moduleList modLoaded,
     do {
 	rc = newtWinMenu(_("Devices"), 
 		       _("What kind of device would you like to add"), 40,
-		       0, 20, 2, items, &choice, _("Ok"), _("Back"), NULL);
+		       0, 20, 2, items, &choice, _("OK"), _("Back"), NULL);
 	if (rc == 2) return LOADER_BACK;
 
 	if (choice == 1)
@@ -448,7 +448,7 @@ static int loadStage2Ramdisk(int fd, off_t size, int flags) {
 			       "ram3", flags);
     
     if (rc) {
-	newtWinMessage(_("Error"), _("Ok"), _("Error loading ramdisk."));
+	newtWinMessage(_("Error"), _("OK"), _("Error loading ramdisk."));
 	return rc;
     }
 
@@ -458,7 +458,7 @@ static int loadStage2Ramdisk(int fd, off_t size, int flags) {
     }
     
     if (doPwMount("/tmp/ram3", "/mnt/runtime", "ext2", 0, 0, NULL, NULL)) {
-	newtWinMessage(_("Error"), _("Ok"),
+	newtWinMessage(_("Error"), _("OK"),
 		"Error mounting ramdisk. This shouldn't "
 		    "happen, and I'm rebooting your system now.");
 	exit(1);
@@ -607,7 +607,7 @@ static char * mountHardDrive(struct installMethod * method,
 				     NEWT_GRID_COMPONENT, dirEntry,
 				     NEWT_GRID_EMPTY);
 
-	buttons = newtButtonBar(_("Ok"), &okay, _("Back"), &back, NULL);
+	buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
 	
 	grid = newtCreateGrid(1, 4);
 	newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
@@ -662,7 +662,7 @@ static char * mountHardDrive(struct installMethod * method,
 	url = setupHardDrive(part->name + 5, type, dir, flags);
 	if (dir) free(dir);
 	if (!url) {
-	    newtWinMessage(_("Error"), _("Ok"), 
+	    newtWinMessage(_("Error"), _("OK"), 
 			_("Device %s does not appear to contain "
 			  "a Red Hat installation tree."), part->name);
 	    continue;
@@ -707,10 +707,10 @@ static char * setupCdrom(struct installMethod * method,
 	if (probeQuickly) return NULL;
 
 	if (hasCdrom) {
-	    rc = newtWinChoice(_("Error"), _("Ok"), _("Back"), 
+	    rc = newtWinChoice(_("Error"), _("OK"), _("Back"), 
 			_("I could not find a Red Hat Linux "
 			  "CDROM in any of your CDROM drives. Please insert "
-			  "the Red Hat CD and press \"Ok\" to retry."));
+			  "the Red Hat CD and press \"OK\" to retry."));
 	    if (rc == 2) return NULL;
 	} else {
 	    rc = setupCDdevice(kd, modInfo, modLoaded, modDeps, flags);
@@ -840,12 +840,12 @@ static char * mountNfsImage(struct installMethod * method,
 		    stage = NFS_STAGE_DONE;
 		} else {
 		    umount("/mnt/source");
-		    newtWinMessage(_("Error"), _("Ok"), 
+		    newtWinMessage(_("Error"), _("OK"), 
 				   _("That directory does not seem to contain "
 				     "a Red Hat installation tree."));
 		}
 	    } else {
-		newtWinMessage(_("Error"), _("Ok"), 
+		newtWinMessage(_("Error"), _("OK"), 
 		        _("I could not mount that directory from the server"));
 	    }
 
@@ -931,7 +931,7 @@ static char * mountUrlImage(struct installMethod * method,
 		newtPopWindow();
 		snprintf(buf, sizeof(buf), "%s/RedHat/base/stage2.img",
 			 ui.urlprefix);
-		newtWinMessage(_("FTP"), _("Ok"), 
+		newtWinMessage(_("FTP"), _("OK"), 
 		       _("Unable to retrieve the second stage ramdisk"));
 		/*XXX ufdClose(fd);*/
 		stage = URL_STAGE_MAIN;
@@ -971,6 +971,7 @@ static char * doMountImage(char * location, struct knownDevices * kd,
     int localAvailable = 0;
     void * class;
     char * url = NULL;
+    enum { STEP_LANG, STEP_METHOD, STEP_URL, STEP_DONE } step;
 
     if ((class = isysGetModuleList(modInfo, DRIVER_NET))) {
 	networkAvailable = 1;
@@ -1032,25 +1033,43 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 
     startNewt(flags);
 
-    chooseLanguage(flags);
-
-    do { 
-	rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
-				_("Installation Method"), 
-			 FL_RESCUE(flags) ?
-			   _("What type of media contains the rescue image?")
-			 :
-			   _("What type of media contains the packages to be "
-			     "installed?"), 
-			 30, 10, 20, 6, installNames, 
-			 &methodNum, _("Ok"), NULL);
-
-	if (rc && rc != 1) continue;
-
-    	url = installMethods[validMethods[methodNum]].mountImage(
+    step = STEP_LANG;
+    while (step != STEP_DONE) {
+	switch (step) {
+	case STEP_LANG:
+	    chooseLanguage(flags);
+	    step = STEP_METHOD;
+	    break;
+	    
+	case STEP_METHOD:
+	    rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
+			     _("Installation Method"), 
+			     FL_RESCUE(flags) ?
+			     _("What type of media contains the rescue image?")
+			     :
+			     _("What type of media contains the packages to be "
+			       "installed?"), 
+			     30, 10, 20, 6, installNames, 
+			     &methodNum, _("OK"), _("Back"), NULL);
+	    if (rc && rc != 1)
+		step = STEP_LANG;
+	    else
+		step = STEP_URL;
+	    break;
+	case STEP_URL:
+	    url = installMethods[validMethods[methodNum]].mountImage(
 		   installMethods + validMethods[methodNum], location,
     		   kd, modInfo, modLoaded, modDeps, flags);
-    } while (!url);
+	    if (!url)
+		step = STEP_METHOD;
+	    else
+		step = STEP_DONE;
+	    break;
+	default:
+	    break;
+	}
+	
+    }
 
     return url;
 }
@@ -1353,7 +1372,7 @@ int kickstartFromFloppy(char * location, moduleList modLoaded,
     }
 
     if (access("/tmp/ks/ks.cfg", R_OK)) {
-	newtWinMessage(_("Error"), _("Ok"), 
+	newtWinMessage(_("Error"), _("OK"), 
 		_("Cannot find ks.cfg on boot floppy."));
 	return 1;
     }

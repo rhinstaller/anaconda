@@ -77,7 +77,7 @@ static const struct langInfo languages[] = {
 	{ "Romanian",	"ro",	"lat2-sun16",	"iso02",	"ro_RO" },
 	{ "Slovak",	"sk",	"lat2-sun16",	"iso02",	"sk_SK" },
 	{ "Russian", 	"ru", 	"Cyr_a8x16", 	"koi2alt",	"ru_SU" },
-	{ "Ukrainian", "uk_UA", "RUSCII_8x16",	"koi2alt",	"uk_UA" },
+	{ "Ukrainian",  "uk", "RUSCII_8x16",	"koi2alt",	"uk_UA" },
 };
 /* FONT LIST ENDS */
 const int numLanguages = sizeof(languages) / sizeof(struct langInfo);

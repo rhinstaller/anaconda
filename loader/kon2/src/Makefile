@@ -1,6 +1,6 @@
 DISP	= display.a
 OBJS	= vt.o sock.o fnld.o vc.o mouse.o term.o main.o utmp.o errors.o child.o
-KON	= libkon.a(vt.o sock.o fnld.o vc.o mouse.o term.o main.o utmp.o errors.o child.o)
+KON	= libkon.a($(OBJS))
 
 ifeq (../.config,$(wildcard ../.config))
 include ../.config

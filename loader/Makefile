@@ -83,7 +83,7 @@ tr/%.tr: ../po/%.po loader.po
 
 dirs:
 	for n in $(DIRS); do \
-	    (cd $$n; make -n) \
+	    (cd $$n; make) \
 	done
 
 install: all
