@@ -10,6 +10,8 @@
 #
 # Source function library.
 . /etc/init.d/functions
+. /etc/sysconfig/i18n
+export LANG
 
 RETVAL=$?
 
