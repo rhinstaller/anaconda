@@ -4,7 +4,7 @@ import sys, os
 from socket import *
 from select import select
 
-class Syslog:
+class Syslogd:
 
     def goSyslog(self, output, sockName):
 	sock = socket(AF_UNIX, SOCK_STREAM)

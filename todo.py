@@ -6,7 +6,7 @@
 import rpm, os
 import iutil, isys
 from lilo import LiloConfiguration
-from syslog import Syslog
+from syslogd import Syslogd
 import string
 import socket
 import crypt
@@ -746,7 +746,7 @@ class ToDo:
 	ts.order()
 
 	instLog = open(self.instPath + '/tmp/install.log', "w+")
-	syslog = Syslog(root = self.instPath, output = instLog)
+	syslog = Syslogd(root = self.instPath, output = instLog)
 
 	instLogFd = os.open(self.instPath + '/tmp/install.log', os.O_RDWR)
 	ts.scriptFd = instLogFd
