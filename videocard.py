@@ -435,7 +435,7 @@ class VideoCardInfo:
                 # XXX should we use this description?
                 #self.primaryCard().setDescription(probe[0].desc)
                 
-                if mem != 0:
+                if probe[0].mem != 0:
                     self.primaryCard().setVideoRam(probe[0].mem)
 
         # try to get frame buffer information if we don't know video ram
