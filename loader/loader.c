@@ -595,7 +595,7 @@ static char * mountHardDrive(char * location, struct knownDevices * kd,
 	    if (rc) continue;
 
 	    url = malloc(50);
-	    sprintf(url, "hd://%s/RedHat", part->name + 5);
+	    sprintf(url, "hd://%s/.", part->name + 5);
 
 	}
 
