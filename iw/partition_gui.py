@@ -1338,8 +1338,9 @@ class PartitionWindow(InstallWindow):
         if len(availraidparts) < 2:
             dlg = GnomeMessageBox(_("At least two software RAID partitions are needed."),
                                   MESSAGE_BOX_ERROR,STOCK_BUTTON_OK)
+            dlg.set_position(WIN_POS_CENTER)
             dlg.show()
-            dlg.run_and_close
+            dlg.run_and_close()
             return
 
         # Mount Point entry
