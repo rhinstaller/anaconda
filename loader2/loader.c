@@ -182,8 +182,13 @@ void stopNewt(void) {
     newtRunning = 0;
 }
 
-void initializeConsole() {
+void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
+                       moduleInfoSet modInfo, int flags) {
+    mlLoadModuleSet("vga16fb", modLoaded, modDeps, modInfo, flags);
+
     isysLoadFont();
+
+
 }
 
 static void spawnShell(int flags) {
@@ -875,12 +880,9 @@ int main(int argc, char ** argv) {
     extraArgs[0] = NULL;
     flags = parseCmdLineFlags(flags, &loaderData, cmdLine, extraArgs);
 
-    initializeConsole();
-    
     if (FL_SERIAL(flags) && !getenv("DISPLAY"))
         flags |= LOADER_FLAGS_TEXT;
 
-    checkForRam(flags);
     setupRamfs();
 
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
@@ -896,6 +898,9 @@ int main(int argc, char ** argv) {
     mlReadLoadedList(&modLoaded);
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
+
+    initializeConsole(modLoaded, modDeps, modInfo, flags);
+    checkForRam(flags);
 
     mlLoadModuleSet("cramfs:vfat:nfs:loop", modLoaded, modDeps, 
                     modInfo, flags);
