@@ -781,10 +781,11 @@ class ToDo:
             out = open (self.instPath + "/etc/conf.modules", "a")
             out.write (inf.read ())
 
-    def verifyDeps (self, path = None, db = None):
+    def verifyDeps (self):
 	self.getCompsList()
-        if path and db:
-            ts = rpm.TransactionSet(path, db)
+        if self.upgrade:
+            db = rpm.opendb (self.instPath)
+            ts = rpm.TransactionSet(self.instPath, db)
         else:
             ts = rpm.TransactionSet()
             
@@ -930,7 +931,7 @@ class ToDo:
                     self.comps['GNOME'].items[package].selected = 1
             
         # new package dependency fixup
-        deps = self.verifyDeps (self.instPath, db)
+        deps = self.verifyDeps ()
         del db
         
         self.fstab.umountFilesystems (self.instPath)
