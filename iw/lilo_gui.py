@@ -13,7 +13,7 @@ class LiloWindow (InstallWindow):
     del foo
 
     def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
+        InstallWindow.__init__ (self, ics)
 
         ics.readHTML ("lilo")
 
@@ -25,9 +25,9 @@ class LiloWindow (InstallWindow):
         self.lilo = None
 
     def getPrev (self):
-	# avoid coming back in here if the user backs past and then tries
-	# to skip this screen
-	self.bootdisk = None
+        # avoid coming back in here if the user backs past and then tries
+        # to skip this screen
+        self.bootdisk = None
 
     def getNext (self):
         if not self.bootdisk: return None
@@ -37,44 +37,44 @@ class LiloWindow (InstallWindow):
         else:
             self.todo.bootdisk = 0
 
-	if self.lilo.get_active ():
-	    self.todo.lilo.setDevice(None)
-	elif self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
-	    if self.mbr.get_active ():
-		self.todo.lilo.setDevice("mbr")
-	    else:
-		self.todo.lilo.setDevice("partition")
+        if self.lilo.get_active ():
+            self.todo.lilo.setDevice(None)
+        elif self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
+            if self.mbr.get_active ():
+                self.todo.lilo.setDevice("mbr")
+            else:
+                self.todo.lilo.setDevice("partition")
 
-	images = {}
-	default = None
-	linuxDevice = None
-	for index in range(self.numImages):
-	    device = self.imageList.get_text(index, 1)[5:]
-	    type = self.types[index]
-	    label = self.imageList.get_text(index, 3)
-	    images[device] = (label, type)
-	    if self.default == index:
-		default = label
-	    if type == 2:
-		linuxDevice = label
+        images = {}
+        default = None
+        linuxDevice = None
+        for index in range(self.numImages):
+            device = self.imageList.get_text(index, 1)[5:]
+            type = self.types[index]
+            label = self.imageList.get_text(index, 3)
+            images[device] = (label, type)
+            if self.default == index:
+                default = label
+            if type == 2:
+                linuxDevice = label
 
-	if not default:
-	    default = linuxDevice
+        if not default:
+            default = linuxDevice
 
-	self.todo.lilo.setLiloImages(images)
-	self.todo.lilo.setLinear(self.linearCheck.get_active())
-	self.todo.lilo.setAppend(self.appendEntry.get_text())
-	self.todo.lilo.setDefault(default)
+        self.todo.lilo.setLiloImages(images)
+        self.todo.lilo.setLinear(self.linearCheck.get_active())
+        self.todo.lilo.setAppend(self.appendEntry.get_text())
+        self.todo.lilo.setDefault(default)
 
     def typeName(self, type):
-	if (type == 2):
-	    return "Linux Native"
-	elif (type == 1):
-	    return "DOS/Windows"
-	elif (type == 4):	
-	    return "OS/2 / Windows NT"
-	else:
-	    return "Other"
+        if (type == 2):
+            return "Linux Native"
+        elif (type == 1):
+            return "DOS/Windows"
+        elif (type == 4):       
+            return "OS/2 / Windows NT"
+        else:
+            return "Other"
 
     def checkLiloReqs(self):
         if self.default == None:
@@ -109,20 +109,20 @@ class LiloWindow (InstallWindow):
 
     def toggled (self, widget, *args):
         if widget.get_active ():
-	    state = FALSE
+            state = FALSE
         else:
-	    state = TRUE
+            state = TRUE
 
-	for n in [self.mbr, self.part, self.appendEntry, self.editBox, 
-		  self.imageList, self.liloLocationBox, self.radioBox ]:
+        for n in [self.mbr, self.part, self.appendEntry, self.editBox, 
+                  self.imageList, self.liloLocationBox, self.radioBox ]:
             n.set_sensitive (state)
 
-	if state and not \
-		self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
-	    self.liloLocationBox.set_sensitive(0)
-	    self.mbr.set_sensitive(0)
-	    self.part.set_sensitive(0)
-	    self.linearCheck.set_sensitive(0)
+        if state and not \
+                self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
+            self.liloLocationBox.set_sensitive(0)
+            self.mbr.set_sensitive(0)
+            self.part.set_sensitive(0)
+            self.linearCheck.set_sensitive(0)
 
     def labelInsertText(self, entry, text, len, data):
         i = 0
@@ -134,11 +134,11 @@ class LiloWindow (InstallWindow):
             i = i + 1
 
     def labelUpdated(self, *args):
-	index = self.imageList.selection[0]
-	device = self.imageList.get_text(index, 1)
+        index = self.imageList.selection[0]
+        device = self.imageList.get_text(index, 1)
 
-	label = self.labelEntry.get_text()
-	self.imageList.set_text(index, 3, label)
+        label = self.labelEntry.get_text()
+        self.imageList.set_text(index, 3, label)
 
         # cannot allow user to select as default is zero length
         if label:
@@ -159,19 +159,19 @@ class LiloWindow (InstallWindow):
 
 
     def defaultUpdated(self, *args):
-	if self.ignoreSignals: return
+        if self.ignoreSignals: return
 
-	index = self.imageList.selection[0]
+        index = self.imageList.selection[0]
 
-	if self.defaultCheck.get_active():
-	    if self.default != None:
-		self.imageList.set_text(self.default, 0, "")
+        if self.defaultCheck.get_active():
+            if self.default != None:
+                self.imageList.set_text(self.default, 0, "")
 
-	    self.imageList.set_pixmap(index, 0, self.checkMark)
-	    self.default = index
-	else:
-	    self.imageList.set_text(index, 0, "")
-	    self.default = None
+            self.imageList.set_pixmap(index, 0, self.checkMark)
+            self.default = index
+        else:
+            self.imageList.set_text(index, 0, "")
+            self.default = None
 
         if self.checkLiloReqs():
             self.ics.setNextEnabled (1)
@@ -180,16 +180,16 @@ class LiloWindow (InstallWindow):
         
 
     def labelSelected(self, *args):
-	index = self.imageList.selection[0]
-	device = self.imageList.get_text(index, 1)
-	type = self.imageList.get_text(index, 2)
-	label = self.imageList.get_text(index, 3)
+        index = self.imageList.selection[0]
+        device = self.imageList.get_text(index, 1)
+        type = self.imageList.get_text(index, 2)
+        label = self.imageList.get_text(index, 3)
 
-	self.deviceLabel.set_text(_("Partition") + ": " + device)
-	device = device[5:]
+        self.deviceLabel.set_text(_("Partition") + ": " + device)
+        device = device[5:]
 
-	self.typeLabel.set_text(_("Type") + ":" + type)
-	self.labelEntry.set_text(label)
+        self.typeLabel.set_text(_("Type") + ":" + type)
+        self.labelEntry.set_text(label)
 
         # do not allow blank label to be default
         if not label:
@@ -197,79 +197,79 @@ class LiloWindow (InstallWindow):
             self.defaultCheck.set_sensitive (FALSE)
 
         self.ignoreSignals = 1
-	if index == self.default:
-	    self.defaultCheck.set_active(1)
-	else:
-	    self.defaultCheck.set_active(0)
+        if index == self.default:
+            self.defaultCheck.set_active(1)
+        else:
+            self.defaultCheck.set_active(0)
         self.ignoreSignals = 0
 
     def getScreen (self):
         (self.rootdev, rootfs) = self.todo.fstab.getRootDevice()
 
-	if self.todo.fstab.rootOnLoop():
-	    self.todo.bootdisk = 1
-	    return None
+        if self.todo.fstab.rootOnLoop():
+            self.todo.bootdisk = 1
+            return None
 
 # comment these two lines to get lilo screen in test mode
         if not self.todo.fstab.setupFilesystems:
             return None
         
-	(imageList, defaultLabel) = \
-		self.todo.lilo.getLiloImages(self.todo.fstab)
+        (imageList, defaultLabel) = \
+                self.todo.lilo.getLiloImages(self.todo.fstab)
         self.ignoreSignals = 0
 
-	if self.todo.fstab.mountList()[0][0] != '/': return None
+        if self.todo.fstab.mountList()[0][0] != '/': return None
 
-	bootpart = self.todo.fstab.getBootDevice()
-	boothd = self.todo.fstab.getMbrDevice()
+        bootpart = self.todo.fstab.getBootDevice()
+        boothd = self.todo.fstab.getMbrDevice()
             
         format = "/dev/%s"
 
         self.radioBox = GtkTable(2, 6)
         self.radioBox.set_border_width (5)
         
-	spacer = GtkLabel("")
-	spacer.set_usize(10, 1)
-	self.radioBox.attach(spacer, 0, 1, 2, 4, FALSE)
+        spacer = GtkLabel("")
+        spacer.set_usize(10, 1)
+        self.radioBox.attach(spacer, 0, 1, 2, 4, FALSE)
 
-	label = GtkLabel(_("Install LILO boot record on:"))
-	label.set_alignment(0.0, 0.5)
+        label = GtkLabel(_("Install LILO boot record on:"))
+        label.set_alignment(0.0, 0.5)
         self.liloLocationBox = GtkVBox (FALSE, 0)
-	self.liloLocationBox.pack_start(label)
-	self.radioBox.attach(self.liloLocationBox, 0, 2, 1, 2)
+        self.liloLocationBox.pack_start(label)
+        self.radioBox.attach(self.liloLocationBox, 0, 2, 1, 2)
 
         self.mbr = GtkRadioButton(None, 
-	    ("/dev/%s %s" % (boothd, _("Master Boot Record (MBR)"))))
-	self.radioBox.attach(self.mbr, 1, 2, 2, 3)
+            ("/dev/%s %s" % (boothd, _("Master Boot Record (MBR)"))))
+        self.radioBox.attach(self.mbr, 1, 2, 2, 3)
         self.part = GtkRadioButton(self.mbr, 
-	    ("/dev/%s %s" % (bootpart, 
-		_("First sector of boot partition"))))
-	self.radioBox.attach(self.part, 1, 2, 3, 4)
+            ("/dev/%s %s" % (bootpart, 
+                _("First sector of boot partition"))))
+        self.radioBox.attach(self.part, 1, 2, 3, 4)
 
-	self.linearCheck = GtkCheckButton(
-	    _("Use linear mode (needed for some SCSI drives)"))
-	self.linearCheck.set_active(self.todo.lilo.getLinear())
-	self.radioBox.attach(self.linearCheck, 0, 2, 4, 5)
+        self.linearCheck = GtkCheckButton(
+            _("Use linear mode (needed for some SCSI drives)"))
+        self.linearCheck.set_active(self.todo.lilo.getLinear())
+        self.radioBox.attach(self.linearCheck, 0, 2, 4, 5)
 
-	if not self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
-	    self.liloLocationBox.set_sensitive(0)
-	    self.mbr.set_sensitive(0)
-	    self.part.set_sensitive(0)
-	    self.linearCheck.set_sensitive(0)
+        if not self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
+            self.liloLocationBox.set_sensitive(0)
+            self.mbr.set_sensitive(0)
+            self.part.set_sensitive(0)
+            self.linearCheck.set_sensitive(0)
 
-	label = GtkLabel(_("Kernel parameters") + ":")
-	label.set_alignment(0.0, 0.5)
-	self.appendEntry = GtkEntry()
-	if self.todo.lilo.getAppend():
-	    self.appendEntry.set_text(self.todo.lilo.getAppend())
-	box = GtkHBox(FALSE, 5)
-	box.pack_start(label)
-	box.pack_start(self.appendEntry)
-	alignment = GtkAlignment()
-	alignment.set(0.0, 0.5, 0, 1.0)
-	alignment.add(box)
-	self.radioBox.attach(alignment, 0, 2, 5, 6)
-	
+        label = GtkLabel(_("Kernel parameters") + ":")
+        label.set_alignment(0.0, 0.5)
+        self.appendEntry = GtkEntry()
+        if self.todo.lilo.getAppend():
+            self.appendEntry.set_text(self.todo.lilo.getAppend())
+        box = GtkHBox(FALSE, 5)
+        box.pack_start(label)
+        box.pack_start(self.appendEntry)
+        alignment = GtkAlignment()
+        alignment.set(0.0, 0.5, 0, 1.0)
+        alignment.add(box)
+        self.radioBox.attach(alignment, 0, 2, 5, 6)
+        
         box = GtkVBox (FALSE, 0)
 
         optionBox = GtkVBox (FALSE, 5)
@@ -288,75 +288,76 @@ class LiloWindow (InstallWindow):
         box.pack_start (GtkHSeparator (), FALSE)
         box.pack_start (self.radioBox, FALSE)
 
-	self.imageList = GtkCList (4,
-	    ( _("Default"), _("Device"), _("Partition type"), _("Boot label")))
+        self.imageList = GtkCList (4,
+            ( _("Default"), _("Device"), _("Partition type"), _("Boot label")))
 
-	sortedKeys = imageList.keys()
-	sortedKeys.sort()
-	self.numImages = len(sortedKeys)
+        sortedKeys = imageList.keys()
+        sortedKeys.sort()
+        self.numImages = len(sortedKeys)
 
         self.default = None
-	count = 0
-	self.types = []
-	for n in sortedKeys:
-	    (label, type) = imageList[n]
-	    self.types.append(type)
-	    self.imageList.append(("", "/dev/" + n, self.typeName(type), 
-				    label))
-	    if (label == defaultLabel):
-		self.default = count
-		self.imageList.set_pixmap(count, 0, self.checkMark)
-	    count = count + 1
+        count = 0
+        self.types = []
+        for n in sortedKeys:
+            (label, type) = imageList[n]
+            self.types.append(type)
+            self.imageList.append(("", "/dev/" + n, self.typeName(type), 
+                                    label))
+            if (label == defaultLabel):
+                self.default = count
+                self.imageList.set_pixmap(count, 0, self.checkMark)
+            count = count + 1
 
-	self.imageList.connect("select_row", self.labelSelected)
+        self.imageList.connect("select_row", self.labelSelected)
         self.imageList.columns_autosize ()
         self.imageList.column_title_passive (1)
         self.imageList.set_border_width (5)
 
-	self.deviceLabel = GtkLabel(_("Partition") + ":")
-	self.typeLabel = GtkLabel(_("Type") + ":")
+        self.deviceLabel = GtkLabel(_("Partition") + ":")
+        self.typeLabel = GtkLabel(_("Type") + ":")
 
-	tempBox = GtkHBox(TRUE)
-	self.deviceLabel.set_alignment(0.0, 0.0)
-	self.typeLabel.set_alignment(0.0, 0.0)
-	tempBox.pack_start(self.deviceLabel, FALSE)
-	tempBox.pack_start(self.typeLabel, FALSE)
-	self.defaultCheck = GtkCheckButton(_("Default boot image"))
-	self.defaultCheck.connect("toggled", self.defaultUpdated)
+        tempBox = GtkHBox(TRUE)
+        self.deviceLabel.set_alignment(0.0, 0.0)
+        self.typeLabel.set_alignment(0.0, 0.0)
+        tempBox.pack_start(self.deviceLabel, FALSE)
+        tempBox.pack_start(self.typeLabel, FALSE)
+        self.defaultCheck = GtkCheckButton(_("Default boot image"))
+        self.defaultCheck.connect("toggled", self.defaultUpdated)
 
-	# Alliteration!
-	self.labelLabel = GtkLabel(_("Boot label") + ":")
-	self.labelEntry = GtkEntry(15)
-	self.labelEntry.connect("changed", self.labelUpdated)
-	self.labelEntry.connect("insert_text", self.labelInsertText)
+        # Alliteration!
+        self.labelLabel = GtkLabel(_("Boot label") + ":")
+        self.labelEntry = GtkEntry(15)
+        self.labelEntry.connect("changed", self.labelUpdated)
+        self.labelEntry.connect("insert_text", self.labelInsertText)
 
-	tempBox2 = GtkHBox(FALSE, 5)
-	self.labelLabel.set_alignment(0.0, 0.5)
-	tempBox2.pack_start(self.labelLabel, FALSE)
-	tempBox2.pack_start(self.labelEntry, FALSE)
+        tempBox2 = GtkHBox(FALSE, 5)
+        self.labelLabel.set_alignment(0.0, 0.5)
+        tempBox2.pack_start(self.labelLabel, FALSE)
+        tempBox2.pack_start(self.labelEntry, FALSE)
 
-	self.editBox = GtkVBox ()
-	self.editBox.pack_start (tempBox, FALSE)
-	self.editBox.pack_start (self.defaultCheck, FALSE)
-	self.editBox.pack_start (tempBox2, FALSE)
-	self.editBox.set_border_width (5)
+        self.editBox = GtkVBox ()
+        self.editBox.pack_start (tempBox, FALSE)
+        self.editBox.pack_start (self.defaultCheck, FALSE)
+        self.editBox.pack_start (tempBox2, FALSE)
+        self.editBox.set_border_width (5)
 
         box.pack_start (GtkHSeparator (), FALSE)
         box.pack_start (self.editBox, FALSE)
 
         self.imageList.set_selection_mode (SELECTION_BROWSE)
 
-	sw = GtkScrolledWindow ()
-	sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
-	sw.add (self.imageList)
+        sw = GtkScrolledWindow ()
+        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+        sw.add (self.imageList)
         box.pack_start (sw, TRUE)
 
-	where = self.todo.lilo.getDevice()
-	if not where:
-	    self.lilo.set_active(1)
-	elif where == "mbr":
-	    self.mbr.set_active(1)
-	else:
-	    self.part.set_active(1)
+        where = self.todo.lilo.getDevice()
+        if not where:
+            self.lilo.set_active(1)
+        elif where == "mbr":
+            self.mbr.set_active(1)
+        else:
+            self.part.set_active(1)
 
         return box
+
