@@ -9,7 +9,7 @@ endif
 
 SUBDIRSHD = balkan isys collage $(MINISLANG) $(MININEWT) loader po \
 	    textw utils scripts bootdisk installclasses \
-	    keymaps fonts iw pixmaps $(STUBS) isomd5sum
+	    fonts iw pixmaps $(STUBS) isomd5sum
 SUBDIRS = $(SUBDIRSHD)
 
 # DESTDIR        - destination for install image for install purposes
