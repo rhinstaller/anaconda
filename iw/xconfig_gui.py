@@ -289,7 +289,10 @@ class XConfigWindow (InstallWindow):
         ics.setTitle (_("X Configuration"))
         ics.readHTML ("xconf")
         
+        self.videoCard = ""
+        self.videoRam = ""
         self.didTest = 0
+        self.videoCardState = ""
 
     def getNext (self):
         if self.skipme:
@@ -309,6 +312,10 @@ class XConfigWindow (InstallWindow):
 	    if self.custom.get_active () and not self.skip.get_active ():
 		return XCustomWindow
 
+        #--Set state to the whatever node is selected when they click "Next"
+#        parent_node, cardname = self.ctree.node_get_row_data(self.current_node)     
+#        self.todo.videoCardState = cardname
+
         return None
 
     def customToggled (self, widget, *args):
@@ -327,19 +334,43 @@ class XConfigWindow (InstallWindow):
         else:
             self.didTest = 1
 
+#    def memory_cb (self, widget, size):
+#        self.todo.x.vidRam = size[:-1]
+#        self.todo.x.filterModesByMemory ()
+
     def memory_cb (self, widget, size):
         self.todo.x.vidRam = size[:-1]
         self.todo.x.filterModesByMemory ()
 
-#    def moveto (self, clist, area, row):
-#        clist.select_row (row, 0)
-#        clist.moveto (row, 0, 0.5, 0.0)
+        count = 0
+
+        for sizes in ("256k", "512k", "1024k", "2048k", "4096k",
+                     "8192k", "16384k", "32768k"):     
+            if size == sizes:
+                self.todo.videoRamState = count
+            count = count + 1
+
+
+#        self.todo.videoRamState = 
+#        print size[:-1]
 
     def movetree (self, ctree, area, selected_node):
-        self.ctree.select(selected_node)
-        parent_node, cardname = self.ctree.node_get_row_data(selected_node)                        
+        self.ctree.select(self.selected_node)
+        parent_node, cardname = self.ctree.node_get_row_data(self.selected_node)                        
         self.ctree.expand(parent_node)
-        self.ctree.node_moveto(selected_node, 0, 0.5, 0)
+        self.ctree.node_moveto(self.selected_node, 0, 0.5, 0)
+
+    def movetree2 (self, ctree, area, node):
+        node = self.todo.videoCardOriginalNode
+#        current_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
+#        print current_parent_node
+#        print cardname2
+
+        self.ctree.select(node)
+        parent_node, cardname = self.ctree.node_get_row_data(node)                        
+        self.ctree.expand(node)
+        self.ctree.node_moveto(node, 0, 0.5, 0)
+
 
 #    def selectCb (self, list, row, col, event):
 #        cardname = list.get_row_data (row)
@@ -352,15 +383,47 @@ class XConfigWindow (InstallWindow):
 #            self.todo.x.setVidcard (card)
 
     def selectCb_tree (self, ctree, node, column):
-        parent, cardname = ctree.node_get_row_data (node)
-        if cardname:
-            card = self.cards[cardname]
-            depth = 0
-            while depth < 16 and card.has_key ("SEE"):
-                card = self.cards[card["SEE"]]
-                depth = depth + 1
-            self.todo.x.setVidcard (card)
+        try:
+            print "Inside selectCb_tree"
+            self.current_node = node
+            parent, cardname = ctree.node_get_row_data (node)
+            print cardname
+            if cardname:
+                card = self.cards[cardname]
+                depth = 0
+                while depth < 16 and card.has_key ("SEE"):
+                    card = self.cards[card["SEE"]]
+                    depth = depth + 1
+                print "Setting self.todo.x.setVidcard to ", card
+                self.todo.x.setVidcard (card)
+        except:
+            pass
             
+    def restorePressed (self, ramMenu):
+        current_parent_node, cardname1 = self.ctree.node_get_row_data(self.current_node)
+#        current_parent_node, cardname2 = self.ctree.node_get_row_data(self.selected_node)
+        original_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
+        data = self.todo.videoCardOriginalName
+
+        print "Inside restorePressed"
+        print current_parent_node
+        print cardname1
+        print original_parent_node
+        print cardname2
+
+        
+        print data
+        
+        if current_parent_node != original_parent_node:
+            self.ctree.collapse(current_parent_node)
+
+#        self.movetree(self.ctree, self.selected_node, 0)
+        self.movetree2(self.ctree, self.todo.videoCardOriginalNode, 0)
+
+        self.ramOption.remove_menu ()
+        self.ramMenu.set_active(self.default_ram)
+        self.ramOption.set_menu (self.ramMenu)
+
     def desktopCb (self, widget, desktop):
         self.newDesktop = desktop
         
@@ -376,6 +439,7 @@ class XConfigWindow (InstallWindow):
             return None
         else:
             self.skipme = FALSE
+
 
         self.newDesktop = ""
         self.todo.x.probe ()
@@ -448,7 +512,6 @@ class XConfigWindow (InstallWindow):
             self.ctree.set_selection_mode (SELECTION_BROWSE)
             self.ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
             self.ctree.set_line_style(CTREE_LINES_NONE)
-#            self.ctree.connect ("tree_select_row", self.selectCb)
 
             self.videocard_p, self.videocard_b = create_pixmap_from_xpm_d (self.ctree, None, xpms_gui.VIDEOCARD_XPM)
 
@@ -604,7 +667,7 @@ class XConfigWindow (InstallWindow):
 #            self.cardList.set_selection_mode (SELECTION_BROWSE)
 #            self.cardList.connect ("select_row", self.selectCb)
 
-            self.ctree.connect ("tree_select_row", self.selectCb_tree)
+
 
 
             self.cards = self.todo.x.cards ()
@@ -825,12 +888,36 @@ class XConfigWindow (InstallWindow):
                     self.ctree.node_set_row_data(node, (other, card))
 
 
+
+
+
                 if self.todo.x.vidCards:
                     if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
-                        selected_node = node
+                        print card
+                        #--If we haven't been to this screen before, initialize the state to the original value
+                        if self.todo.videoCardOriginalName == "":
+                            self.todo.videoCardOriginalName = card
+                            self.todo.videoCardOriginalNode = node
+
+                        self.current_node = node
+                        self.selected_node = node
+
+                    elif card == self.todo.videoCardOriginalName:
+                        card = self.todo.videoCardOriginalName
+                        self.todo.videoCardOriginalNode = node
+#                        self.current_node = node
+#                        self.selected_node = node
+
                 else:
                     if card == "Generic VGA compatible":
-                        selected_node = node
+                        #--If we haven't been to this screen before, initialize the state to the original value
+                        if self.todo.videoCardOriginalName == "":
+                            self.todo.videoCardOriginalName = card
+                            self.todo.videoCardOriginalNode = node
+                        else:
+                            self.todo.videoCardOriginalNode = node
+
+                        self.selected_node = node
                     
 #            for card in cards:
 #                row = self.cardList.append ((card,))
@@ -845,8 +932,9 @@ class XConfigWindow (InstallWindow):
 #                        select = row
 
             #- Once ctree is realized, then expand necessary branch and select selected item.
-            self.ctree.connect ("draw", self.movetree, selected_node)
-            
+            self.ctree.connect ("tree_select_row", self.selectCb_tree)
+            self.ctree.connect ("draw", self.movetree, self.selected_node)
+
 #            self.cardList.connect ("draw", self.moveto, select)
             sw = GtkScrolledWindow ()
 #            sw.add (self.cardList)
@@ -856,6 +944,64 @@ class XConfigWindow (InstallWindow):
 
 
 
+            #Memory configuration menu
+            hbox = GtkHBox()
+            hbox.set_border_width(3)
+            
+            label = GtkLabel (_("RAM present on video card: "))
+
+            self.ramOption = GtkOptionMenu()
+            self.ramMenu = GtkMenu()
+
+            mem1 = GtkMenuItem("256 kB")
+            mem1.connect ("activate", self.memory_cb, "256k")
+            mem2 = GtkMenuItem("512 kB")
+            mem2.connect ("activate", self.memory_cb, "512k")
+            mem3 = GtkMenuItem("1 MB")
+            mem3.connect ("activate", self.memory_cb, "1024k")
+            mem4 = GtkMenuItem("2 MB")
+            mem4.connect ("activate", self.memory_cb, "2048k")
+            mem5 = GtkMenuItem("4 MB")
+            mem5.connect ("activate", self.memory_cb, "4096k")
+            mem6 = GtkMenuItem("8 MB")
+            mem6.connect ("activate", self.memory_cb, "8192k")
+            mem7 = GtkMenuItem("16 MB")
+            mem7.connect ("activate", self.memory_cb, "16384k")
+            mem8 = GtkMenuItem("32 MB")
+            mem8.connect ("activate", self.memory_cb, "32768k")
+            self.ramMenu.add(mem1)
+            self.ramMenu.add(mem2)
+            self.ramMenu.add(mem3)
+            self.ramMenu.add(mem4)
+            self.ramMenu.add(mem5)
+            self.ramMenu.add(mem6)
+            self.ramMenu.add(mem7)
+            self.ramMenu.add(mem8)
+
+            self.default_ram = 0
+            count = 0
+            for size in ("256k", "512k", "1024k", "2048k", "4096k",
+                         "8192k", "16384k", "32768k"):
+                if size[:-1] == self.todo.x.vidRam:
+                    if self.todo.videoRamState == "":          
+                        self.todo.videoRamState = count
+                        self.ramMenu.set_active(count)
+                        #                            self.selected_node = node
+                    else:                        
+                        print self.todo.videoRamState
+                        self.ramMenu.set_active(self.todo.videoRamState)
+                    
+#                    self.ramMenu.set_active(count)
+                    self.default_ram = count
+                count = count + 1
+
+            hbox.pack_start(label, FALSE)
+            hbox.pack_start(self.ramOption, TRUE, TRUE, 25)
+
+            self.ramOption.set_menu (self.ramMenu)
+            box.pack_start (hbox, FALSE)
+
+                
             # Memory configuration table
             table = GtkTable()
             group = None
@@ -863,7 +1009,7 @@ class XConfigWindow (InstallWindow):
             for size in ("256k", "512k", "1024k", "2048k", "4096k",
                          "8192k", "16384k", "32768k"):
                 button = GtkRadioButton (group, size)
-                button.connect ('clicked', self.memory_cb, size)
+#                button.connect ('clicked', self.memory_cb, size)
                 if size[:-1] == self.todo.x.vidRam:
                     button.set_active (1)
                 if not group:
@@ -871,8 +1017,12 @@ class XConfigWindow (InstallWindow):
                 table.attach (button, count % 4, (count % 4) + 1,
                               count / 4, (count / 4) + 1)
                 count = count + 1
-            box.pack_start (table, FALSE)
+#            box.pack_start (table, FALSE)
         optbox = GtkVBox (FALSE, 5)
+
+
+
+        
 
 
         # cannot reliably test on i810 or Voodoo driver, or on Suns who dont
@@ -894,7 +1044,22 @@ class XConfigWindow (InstallWindow):
             test = GtkAlignment ()
             button = GtkButton (_("Test this configuration"))
             button.connect ("clicked", self.testPressed)
-            test.add (button)
+
+#            hbox = GtkHBox ()
+
+            buttonBox = GtkHButtonBox ()
+            buttonBox.set_layout (BUTTONBOX_EDGE)
+#            buttonBox.pack_start (button)
+
+            restore = GtkButton (_("Restore original values"))
+            restore.connect ("clicked", self.restorePressed)
+            buttonBox.pack_start (restore)
+
+#            test.add (button)
+#            test.add (restore)
+            test.add (buttonBox)
+
+#            box.pack_start (hbox, FALSE) 
             box.pack_start (test, FALSE)
 
             self.custom = GtkCheckButton (_("Customize X Configuration"))
@@ -905,7 +1070,7 @@ class XConfigWindow (InstallWindow):
         self.skip = GtkCheckButton (_("Skip X Configuration"))
         self.skip.connect ("toggled", self.skipToggled) 
 
-        optbox.pack_start (self.xdm, FALSE)
+#        optbox.pack_start (self.xdm, FALSE)
 
         hbox = GtkHBox (TRUE, 5)
         hbox.pack_start (optbox, FALSE)
