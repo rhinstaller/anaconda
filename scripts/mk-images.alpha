@@ -17,6 +17,6 @@ makebootdisk --bootdisksize 1440 --kernelto $TOPDESTPATH/kernels/vmlinux.gz \
 	     --imagename generic.img
 
 makemainmodules "$SECSTAGE"
-makeinstimage --size1 2660 --size2 2460 "netstg" "=scsi $SECSTAGE"
-makeinstimage --size1 2660 --size2 2460 "hdstg" "=net $SECSTAGE"
+makeinstimage --size1 3000 --size2 3000 "netstg" "=scsi $SECSTAGE"
+makeinstimage --size1 3000 --size2 3000 "hdstg" "=net $SECSTAGE"
 makemainimage "stage2"
