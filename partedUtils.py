@@ -241,7 +241,7 @@ def getDefaultDiskType():
         return parted.disk_type_get("msdos")
 
 archLabels = {'i386': ['msdos'],
-              's390': ['dasd'],
+              's390': ['dasd', 'msdos'],
               'alpha': ['bsd', 'msdos'],
               'sparc': ['sun'],
               'ia64': ['msdos', 'gpt'],
