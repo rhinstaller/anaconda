@@ -508,7 +508,7 @@ static char * setupHardDrive(char * device, char * type, char * dir,
 	    return NULL;
 
 	path = alloca(50 + (dir ? strlen(dir) : 2));
-	sprintf(path, "/tmp/hdimage/%s/RedHat/base/stage2.img", 
+	sprintf(path, "/tmp/hdimage/%s/RedHat/base/hdstg2.img", 
 		    dir ? dir : "");
 	if ((fd = open(path, O_RDONLY)) < 0) {
 	    logMessage("cannot open %s", path);
@@ -989,7 +989,7 @@ static char * mountUrlImage(struct installMethod * method,
 		break;
 	    }
 
-	    fd = urlinstStartTransfer(&ui, "base/stage2.img");
+	    fd = urlinstStartTransfer(&ui, "base/netstg2.img");
 	    
 	    if (fd < 0) {
 		newtWinMessage(_("FTP"), _("OK"), 
