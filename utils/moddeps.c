@@ -7,8 +7,17 @@
 #include "../isys/isys.h"
 #include "../loader/modules.h"
 
-int extractModules(location, modName) {
+int extractModules(int location, char * modName) {
     return 0;
+}
+
+void scsiWindow(const char * foo) {
+}
+
+void startNewt(int flags) {
+}
+
+void newtPopWindow(void) {
 }
 
 int main(int argc, char ** argv) {
