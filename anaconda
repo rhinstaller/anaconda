@@ -70,6 +70,10 @@ extraModules = []
 display_mode = 'g'
 forced_display_mode = None
 
+# Force text mode on ia64
+if iutil.getArch() == 'ia64':
+    forced_display_mode = 't'
+
 # booleans - value is 0 for false or non-zero for true
 # test           - in test mode?
 # debug          - in debug mode?
