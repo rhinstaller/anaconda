@@ -432,7 +432,8 @@ class FormatWindow:
 
         for mount in todo.mounts.keys ():
             (dev, fstype, format) = todo.mounts[mount]
-            todo.mounts[mount] = (dev, fstype, 0)
+            if fstype == "ext2":
+                todo.mounts[mount] = (dev, fstype, 0)
 
         for mount in ct.getSelection():
             (dev, fstype, format) = todo.mounts[mount]
