@@ -9,7 +9,6 @@
 
 #define _(foo) foo
 
-static int mkdirChain(char * chain);
 static int mkdirIfNone(char * directory);
 
 int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
@@ -100,7 +99,7 @@ int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
     return 0;
 }
 
-static int mkdirChain(char * origChain) {
+int mkdirChain(char * origChain) {
     char * chain;
     char * chptr;
 
