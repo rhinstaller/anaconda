@@ -1,5 +1,8 @@
 2004-10-07  Jeremy Katz  <katzj@redhat.com>
 
+	* fsset.py (FileSystemSet.makeLVMNodes): Make sure the DM node
+	doesn't exist before we create it (#124092)
+
 	* textw/packages_text.py: Sort packages in the group 
 	details screen (#123437)
 
