@@ -354,13 +354,13 @@ class HostnameWindow:
             else:
                 hname = string.strip(hostEntry.value())
                 if len(hname) == 0:
-                    ButtonChoiceWindow(_("Invalid Hostname"),
+                    ButtonChoiceWindow(screen, _("Invalid Hostname"),
                                        _("You have not specified a hostname."),
                                        buttons = [ _("OK") ])
                     continue
                 neterrors = sanityCheckHostname(hname)
                 if neterrors is not None:
-                    ButtonChoiceWindow(_("Invalid Hostname"),
+                    ButtonChoiceWindow(screen, _("Invalid Hostname"),
                                        _("The hostname \"%s\" is not valid "
                                          "for the following reason:\n\n%s")
                                        %(hname, neterrors),
