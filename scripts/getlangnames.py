@@ -7,8 +7,13 @@ import language
 rhpl.translate.cat.setunicode(1)
 
 langs = language.InstallTimeLanguage()
-for lang in langs.available():
-    langs.setRuntimeLanguage(lang)
-    print lang, _(lang)
+names = {}
+for k in langs.localeInfo.keys():
+    langs.setRuntimeLanguage(k)
+    names[langs.localeInfo[k][0]] = _(langs.localeInfo[k][0])
 
-    
+nameList = names.keys()
+nameList.sort()
+
+for k in nameList:
+    print k, names[k]
