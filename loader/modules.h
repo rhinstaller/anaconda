@@ -9,5 +9,6 @@ int mlLoadDeps(moduleDeps moduleDepList, const char * path);
 moduleDeps mlNewDeps(void);
 int mlLoadModule(struct moduleInfo * modInfo, moduleList modLoaded,
 	         moduleDeps modDeps);
+char ** mlGetDeps(moduleDeps modDeps, const char * modName);
 
 #endif

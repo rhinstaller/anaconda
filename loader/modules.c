@@ -185,3 +185,13 @@ int mlLoadModule(struct moduleInfo * modInfo, moduleList modLoaded,
 
     return insmod(modInfo->moduleName, NULL);
 }
+
+char ** mlGetDeps(moduleDeps modDeps, const char * modName) {
+    moduleDeps dep;
+    
+    for (dep = modDeps; dep->name && strcmp(dep->name, modName); dep++);
+
+    if (dep) return dep->deps;
+
+    return NULL;
+}
