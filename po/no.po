@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2002-08-16 02:09-0400\n"
-"PO-Revision-Date: 2002-08-02 20:41+0200\n"
+"PO-Revision-Date: 2002-08-19 12:19+0200\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -140,7 +140,7 @@ msgstr ""
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
+msgstr "Hvis du legger til denne partisjonen vil det ikke være nok diskplass til allerede allokerte logiske volum i %s."
 
 #: ../autopart.py:952
 msgid "Requested Partition Does Not Exist"
@@ -341,13 +341,13 @@ msgid ""
 "This group includes all the packages available.  Note that this is "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
-msgstr ""
+msgstr "Denne gruppen inneholder alle tilgjengelige pakker. Merk at dette er mange flere pakker enn det som vises i pakkegruppene på denne siden."
 
 #: ../comps.py:1073
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
-msgstr ""
+msgstr "Velg denne gruppen for å få det minste pakkesettet som er mulig. Nyttig ved installasjon av små ruter-/brannveggmaskiner for eksempel."
 
 #: ../exception.py:167 ../text.py:235
 msgid "Exception Occurred"
@@ -499,6 +499,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
+"Ugyldige blokker ble funnet på enhet /dev/%s. Vi anbefaler at du ikke bruker denne enheten.\n"
+"\n"
+"Trykk <Linjeskift> for å starte systemet på nytt."
 
 #: ../fsset.py:1093
 #, python-format
@@ -679,7 +682,7 @@ msgstr "Feil!"
 #: ../gui.py:806
 msgid ""
 "An error occured when attempting to load an installer interface component."
-msgstr ""
+msgstr "En feil oppsto ved forsøk på å laste en grensesnittkomponent for installasjonsprogrammet."
 
 #: ../gui.py:810 ../packages.py:1100 ../iw/congrats_gui.py:29
 msgid "_Exit"
@@ -1334,6 +1337,9 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
+"Du er i ferd med å slette volumgruppen «%s».\n"
+"\n"
+"ALLE logisske volum i denne volumgruppen vil gå tapt!"
 
 #: ../partIntfHelpers.py:516
 #, python-format
@@ -1969,7 +1975,7 @@ msgstr "R_ediger"
 msgid ""
 "It is recommended that you create a personal account for normal (non-"
 "administrative) use. Accounts can also be created for additional users."
-msgstr ""
+msgstr "Det anbefales at du oppretter en personlig konto for normal (ikke-administrativ) bruk. Kontoer kan også opprettes for flere brukere."
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:325
 msgid "Authentication Configuration"
@@ -3744,7 +3750,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:555
 msgid "Target Drive Error"
-msgstr ""
+msgstr "Feil på målstasjon"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
@@ -3775,7 +3781,7 @@ msgstr "Vennligst velg en kildestasjon."
 msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
-msgstr ""
+msgstr "Stasjonen /dev/%s vil nå bli klonet til følgende stasjoner:\n\n"
 
 #: ../iw/raid_dialog_gui.py:642
 msgid ""
@@ -4134,7 +4140,7 @@ msgstr "Skjermkonfigurasjon"
 msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
-msgstr ""
+msgstr "I de fleste tilfeller kan skjermen detekteres automatisk. Hvis innstillingene som finnes ikke er korrekte for skjermen må du velge de riktige innstillingene."
 
 #: ../iw/xconfig_gui.py:662
 msgid "Generic"
@@ -4173,7 +4179,7 @@ msgstr "Ukjent skjermkort"
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
-msgstr ""
+msgstr "En feil har oppstått ved valg av skjermkort %s. Vennligst rapporter denne feilen til http://bugzilla.redhat.com/bugzilla/."
 
 #: ../iw/xconfig_gui.py:800 ../textw/xconfig_text.py:679
 msgid "Unspecified video card"
@@ -4519,6 +4525,10 @@ msgid ""
 "\n"
 "Do you really want this?"
 msgstr ""
+"Hvis du kjører dasdfmt vil du tape \n"
+"ALLE DATA på stasjon %s.\n"
+"\n"
+"Vil du virkelig gjøre dette?"
 
 #: ../textw/fdasd_text.py:101
 msgid ""

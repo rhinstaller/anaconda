@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2002-08-16 02:09-0400\n"
-"PO-Revision-Date: 2002-08-05 19:50+0200\n"
+"PO-Revision-Date: 2002-08-17 19:50+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -826,7 +826,6 @@ msgid "Proceed with upgrade?"
 msgstr "Vil du fortsætte opgraderingen?"
 
 #: ../packages.py:40 ../iw/package_gui.py:38
-#, fuzzy
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -1797,7 +1796,6 @@ msgid "Mount failed"
 msgstr "Montering fejlede"
 
 #: ../upgrade.py:227
-#, fuzzy
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
@@ -1806,7 +1804,6 @@ msgstr ""
 "kan ikke monteres. Ret venligst dette problem, og prøv at opgradere igen."
 
 #: ../upgrade.py:233
-#, fuzzy
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -1849,7 +1846,6 @@ msgid "An error occurred when finding the packages to upgrade."
 msgstr "Der skete en fejl under søgning efter pakker som skal opgraderes."
 
 #: ../upgrade.py:390
-#, fuzzy
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1864,15 +1860,14 @@ msgstr ""
 "opgraderingsprocessen?"
 
 #: ../upgrade.py:409
-#, fuzzy
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
 "leave the system in an unusable state.  Do you wish to continue the upgrade "
 "process?"
 msgstr ""
-"Dette system har ikke filen /etc/redhat-release. Det er muligt at dette ikke "
-"er et Red Hat Linux system. Hvis du fortsætter opgraderingen kan du risikere "
+"Dette system har ikke en /etc/redhat-release-fil. Det er muligt at dette ikke "
+"er et Red Hat Linux system. Hvis du fortsætter opgraderingsprocessen kan du risikere "
 "at systemet ender som ubrugeligt. Vil du fortsætte opgraderingsprocessen?"
 
 #: ../xserver.py:48
@@ -2364,18 +2359,18 @@ msgid "About to Upgrade"
 msgstr "Klar til at opgradere"
 
 #: ../iw/confirm_gui.py:73
-#, fuzzy, python-format
+#, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Klik på næste for at begynde opgradering af %s"
+msgstr "Klik på næste for at begynde opgradering af %s."
 
 #: ../iw/confirm_gui.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the upgrade can be found in the %s file after rebooting "
 "your system."
 msgstr ""
 "En komplet log af din installation vil befinde sig i %s efter du har "
-"genstartet dit system. Du kan beholde denne fil til senere reference."
+"genstartet dit system."
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
@@ -2595,12 +2590,10 @@ msgid "Model"
 msgstr "Model"
 
 #: ../iw/examine_gui.py:24
-#, fuzzy
 msgid "Upgrade Examine"
 msgstr "Opgraderingsundersøgelse"
 
 #: ../iw/examine_gui.py:51
-#, fuzzy
 msgid ""
 "You don't have any Linux partitions.\n"
 "You can't upgrade this sytem!"
@@ -2790,15 +2783,15 @@ msgstr ""
 "afsnitsgruppen."
 
 #: ../iw/lvm_dialog_gui.py:165
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
-"Størrelsen på den fysiske ydre kan ikke ændres da den værdi som valgtes (%"
-"10.2f Mb) er større end det mindste fysiske afsnit (%10.2f MB) i "
-"afsnitsgruppen."
+"Størrelsen på det fysiske ydre kan ikke ændres da den værdi som valgtes (%"
+"10.2f Mb) er for stor sammenholdt med størrelsen på det mindste fysiske "
+"afsnit (%10.2f MB) i afsnitsgruppen."
 
 #: ../iw/lvm_dialog_gui.py:179
 msgid "Too small"
@@ -4145,7 +4138,6 @@ msgid "Description"
 msgstr "Beskrivelse"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
-#, fuzzy
 msgid "Upgrade Boot Loader Configuration"
 msgstr "Opgradér konfiguration af opstartsindlæser"
 
@@ -4227,9 +4219,8 @@ msgstr ""
 "Hvilke af disse partitioner ønsker du at migrere?"
 
 #: ../iw/upgrade_swap_gui.py:31
-#, fuzzy
 msgid "Upgrade Swap Partition"
-msgstr "Opgradér Swappartitionen"
+msgstr "Opgradér swappartition"
 
 #: ../iw/upgrade_swap_gui.py:101
 #, python-format
@@ -4734,12 +4725,11 @@ msgid "Back"
 msgstr "Tilbage"
 
 #: ../textw/confirm_text.py:32
-#, fuzzy
 msgid "Upgrade to begin"
-msgstr "Opgradér system"
+msgstr "Opgradering begynder"
 
 #: ../textw/confirm_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
@@ -5448,7 +5438,6 @@ msgid "The value you entered is not a valid number."
 msgstr "Den værdi, du angav, er ikke et gyldigt tal."
 
 #: ../textw/upgrade_text.py:194
-#, fuzzy
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Du har ingen Linux-partitioner. Du kan ikke opgradere dette system!"
 
@@ -5457,7 +5446,6 @@ msgid "System to Upgrade"
 msgstr "System som skal opgraderes"
 
 #: ../textw/upgrade_text.py:225
-#, fuzzy
 msgid "Upgrade Partition"
 msgstr "Opgradér partition"
 
@@ -5952,7 +5940,6 @@ msgstr ""
 "aktiveres, og du kan vælge om du vil installere et grafisk miljø eller ej."
 
 #: ../installclasses/upgradeclass.py:8
-#, fuzzy
 msgid "Upgrade Existing System"
 msgstr "Opgradér eksisterende system"
 
@@ -7454,42 +7441,3 @@ msgstr "Svensk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-#~ msgid "No password"
-#~ msgstr "Ingen adgangskode"
-
-#~ msgid "Change _Password"
-#~ msgstr "Ændr _adgangskode"
-
-#~ msgid "_Use a Boot Loader Password"
-#~ msgstr "_Brug en adgangskode for opstartsindlæser:"
-
-#~ msgid "Set _Password"
-#~ msgstr "Sæt _adgangskode"
-
-#~ msgid ""
-#~ "Force the use of LBA32 extensions for booting (not normally required)"
-#~ msgstr ""
-#~ "Tvungen brug af LBA32-udvidelser for opstart (ikke nødvendig normalt)"
-
-#~ msgid "_Force LBA32"
-#~ msgstr "_Tvungen brug af LBA32"
-
-#~ msgid "General kernel parameters"
-#~ msgstr "Generelle kerneparametre"
-
-#~ msgid ""
-#~ "The label is what is displayed in the boot loader to choose to boot this "
-#~ "operating system.  The device is the device which it boots from."
-#~ msgstr ""
-#~ "Etiketten er hvad som vises i opstartsindlæseren så dette operativsystem "
-#~ "kan vælget til opstart. Enheden er den enhed som den starter fra."
-
-#~ msgid "Default Boot Target"
-#~ msgstr "Standard-opstartsbillede"
-
-#~ msgid "Insert some text about booting other operating systems"
-#~ msgstr "Indsæt en tekst om opstart af andre operativsystemer"
-
-#~ msgid "Blah, this is the BIOS drive order, more information, etc"
-#~ msgstr "Blah, dette er BIOS-enhedsordningen, mere information, osv."
