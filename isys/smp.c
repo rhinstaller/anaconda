@@ -552,21 +552,38 @@ static int intelDetectSMP(void)
 /* ---- end mptable mess ---- */
 #endif /* __i386__ || __x86_64__ */
 
-#ifdef __i386__
-static inline void cpuid(int op, int *eax, int *ebx, int *ecx, int *edx)
+#if defined(__i386__)
+static inline unsigned int cpuid_ebx(int op)
 {
-    __asm__("pushl %%ebx; cpuid; movl %%ebx,%1; popl %%ebx"
-	    : "=a"(*eax), "=r"(*ebx), "=c"(*ecx), "=d"(*edx)
-	    : "0" (op));
-}
+    unsigned int eax, ebx;
 
+    __asm__("cpuid"
+            : "=a" (eax), "=b" (ebx)
+            : "0" (op)
+            : "cx", "dx");
+    return ebx;
+}
+#elif defined(__x86_64__)
+static inline unsigned int cpuid_ebx(int op)
+{
+    unsigned int eax, ebx;
+
+    __asm__("cpuid"
+            : "=a" (eax), "=b" (ebx)
+            : "0" (op)
+            : "cx", "dx");
+    return ebx;
+}
+#endif
+
+#if defined(__i386__) || defined(__x86_64__)
 /* XXX: rewrite using /proc/cpuinfo info if it there.  Only fall
    back to inline asm if it is not */
 int detectHT(void)
 {
     FILE *f;
     int htflag = 0;
-    uint32_t eax = 0, ebx = 0, ecx = 0, edx = 0;
+    uint32_t ebx = 0;
     int smp_num_siblings = 0;
     
     f = fopen("/proc/cpuinfo", "r");
@@ -589,7 +606,7 @@ int detectHT(void)
     if (!htflag)
 	return 0;
 
-    cpuid(1, &eax, &ebx, &ecx, &edx);
+    ebx = cpuid_ebx(1);
     smp_num_siblings = (ebx & 0xff0000) >> 16;
     
     if (smp_num_siblings == 2)
