@@ -262,6 +262,10 @@ fmv18x
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 	irq "IRQ level" "[0-9]+"
 
+forcedeth
+        eth
+        "nForce Ethernet Driver"
+
 hamachi
 	eth
 	"A Packet Engines GNIC-II Gigabit"
