@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-13 14:23-0500\n"
-"PO-Revision-Date: 2005-01-13 23:08+0100\n"
+"PO-Revision-Date: 2005-01-28 22:39+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -1862,7 +1862,6 @@ msgstr ""
 "\n"
 "%s"
 
-# bewerken -> aanpassen?
 #: ../partIntfHelpers.py:308 ../partIntfHelpers.py:321
 #: ../partIntfHelpers.py:347 ../partIntfHelpers.py:358
 msgid "Unable To Edit"
@@ -4271,7 +4270,6 @@ msgstr "Partitie toevoegen"
 msgid "Edit Partition: /dev/%s"
 msgstr "Partitie: /dev/%s bewerken"
 
-# aanpassen ipv bewerken?
 #: ../iw/partition_dialog_gui.py:274
 msgid "Edit Partition"
 msgstr "Partitie bewerken"
@@ -4646,7 +4644,7 @@ msgstr "Downloaden van %s"
 #: ../iw/progress_gui.py:223
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "Installeren van pakket: %s-%s-%s.%s (%s)"
+msgstr "Installeren van %s-%s-%s.%s (%s)"
 
 #: ../iw/progress_gui.py:352
 msgid "Summary"
@@ -5458,7 +5456,7 @@ msgstr "Het bootlabel bevat ongeldige tekens."
 #: ../textw/silo_text.py:238 ../textw/userauth_text.py:237
 #: ../textw/zfcp_text.py:109
 msgid "Edit"
-msgstr "Wijzigen"
+msgstr "Bewerken"
 
 #: ../textw/bootloader_text.py:300
 #, python-format
@@ -6037,7 +6035,7 @@ msgstr "Eind-cylinder:"
 
 #: ../textw/partition_text.py:474
 msgid "Volume Group:"
-msgstr "Volume Group:"
+msgstr "Volumegroep:"
 
 #: ../textw/partition_text.py:496
 msgid "RAID Level:"
