@@ -259,6 +259,8 @@ class FirewallWindow (InstallWindow):
             else:
                 if device in self.todo.firewall.trustdevs:
                     self.trusted.append_row ((device, device), TRUE)
+	    if self.todo.network.netdevices[device].get('bootproto') == 'dhcp':
+		self.todo.firewall.dhcp = 1
 
             count = count + 1
 
