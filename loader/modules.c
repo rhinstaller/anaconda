@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 #include "isys/isys.h"
@@ -200,6 +201,8 @@ int mlLoadModule(char * modName, char * path, moduleList modLoaded,
     char ** arg, ** newArgs;
     struct moduleInfo * mi;
     int ethDevices = -1;
+    pid_t child;
+    int status;
 
     if (mlModuleInList(modName, modLoaded)) {
 	return 0;
@@ -237,7 +240,26 @@ int mlLoadModule(char * modName, char * path, moduleList modLoaded,
     } else {
 	logMessage("going to insmod %s (path is %s)", fileName,
 		   path ? path : "NULL");
-	rc = insmod(fileName, path, args);
+
+	if (!(child = fork())) {
+	    int fd = open("/dev/tty3", O_RDWR);
+
+	    dup2(fd, 0);
+	    dup2(fd, 1);
+	    dup2(fd, 2);
+	    close(fd);
+
+	    rc = insmod(fileName, path, args);
+	    _exit(rc);
+	}
+
+	waitpid(child, &status, 0);
+
+	if (!WIFEXITED(status) || WEXITSTATUS(status)) {
+	    rc = 1;
+	} else {
+	    rc = 0;
+	}
     }
 
     if (!rc) {

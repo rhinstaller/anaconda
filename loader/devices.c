@@ -12,6 +12,7 @@
 #include "../isys/isys.h"
 #include "lang.h"
 #include "loader.h"
+#include "log.h"
 #include "misc.h"
 #include "modules.h"
 #include "windows.h"
@@ -351,6 +352,10 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 	    free(*arg);
 	free(args);
     }
+
+    if (rc)
+	newtWinMessage(_("Error"), _("Failed to insert %s module."),
+		       mod->moduleName);
 
     if (!rc && moduleName)
         *moduleName = mod->moduleName;
