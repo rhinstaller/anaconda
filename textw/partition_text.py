@@ -684,8 +684,10 @@ class PartitionWindow:
             # XXX need to see if cylinder range is in extended or not
             row = row + 1
             primary = Checkbox(_("Force to be a primary partition"))
-            poplevel.add(primary, 0, row, (0,1,0,0))
-            row = row + 1
+            # only show if we have something other than primary
+            if not self.diskset.onlyPrimaryParts():
+                poplevel.add(primary, 0, row, (0,1,0,0))
+                row = row + 1
 
 	    # XXX We are not allowing badblocks checking
 	    badblocksCB = None

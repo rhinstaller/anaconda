@@ -450,8 +450,11 @@ class PartitionEditor:
             self.primonlycheckbutton.set_active(0)
             if self.origrequest.primary:
                 self.primonlycheckbutton.set_active(1)
-            maintable.attach(self.primonlycheckbutton, 0, 2, row, row+1)
-            row = row + 1
+
+            # only show if we have something other than primary
+            if not self.diskset.onlyPrimaryParts():
+                maintable.attach(self.primonlycheckbutton, 0, 2, row, row+1)
+                row = row + 1
 
 	    # disable option for badblocks checking
 	    self.badblocks = None

@@ -406,6 +406,15 @@ class DiskSet:
     mdList = []
     def __init__ (self):
         self.disks = {}
+        self.onlyPrimary = None
+
+    def onlyPrimaryParts(self):
+        for disk in self.disks.values():
+            if disk.type.check_feature(parted.DISK_TYPE_EXTENDED):
+                return 0
+
+        return 1
+        
 
     def startAllRaid(self):
         """Start all of the raid devices associated with the DiskSet."""
