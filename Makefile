@@ -26,7 +26,7 @@ PYFILES = $(wildcard *.py)
 all: subdirs _xkb.so xmouse.so $(CATALOGS) lang-table
 
 _xkb.so: xkb.c
-	gcc -Wall -o _xkb.o -fPIC -I/usr/include/python1.5 `gtk-config --cflags gtk` -c xkb.c 
+	gcc -Wall -o _xkb.o -O2 -fPIC -I/usr/include/python1.5 `gtk-config --cflags gtk` -c xkb.c 
 	gcc -o _xkb.so -shared _xkb.o /usr/X11R6/lib/libxkbfile.a `gtk-config --libs gtk`
 
 xmouse.so: xmouse.c
@@ -65,6 +65,7 @@ install:
 	cp -a lang-table-kon $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
+	strip $(DESTDIR)/$(PYTHONLIBDIR)/*.so
 	cp -a raid*stub $(DESTDIR)/$(PYTHONLIBDIR)
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
