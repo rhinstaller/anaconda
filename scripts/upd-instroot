@@ -83,7 +83,6 @@ PACKAGES="glibc setup python newt libtermcap zlib ash
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
-    PACKAGESGR="$PACKAGESGR syslinux"
 fi
 
 # xpm is missing
@@ -111,7 +110,7 @@ if [ $ARCH = sparc ]; then
 fi
 
 if [ $ARCH = i386 ]; then
-    PACKAGESGR="$PACKAGESGR XFree86-I128"
+    PACKAGESGR="$PACKAGESGR XFree86-I128 syslinux"
 fi
 
 KEEPFILE=/tmp/keepfile.$$
