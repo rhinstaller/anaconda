@@ -46,7 +46,7 @@ LOCALMODULES="$COMMONMODULES AM53C974 BusLogic DAC960 aacraid advansys
              aic7xxx cpqarray eata_dma ips initio megaraid ncr53c8xx 
 	     qlogicisp"
 NETWORKMODULES="$COMMONMODULES 3c509 3c59x 3c90x 8390 ac3200 at1700 de4x5
-	       de600 de620 depca dgrs e1000 eepro100 eepro hp-plus hp hp100
+	       de600 de620 depca dgrs eepro100 eepro hp-plus hp hp100
 	       ne ne2k-pci ni52 old_tulip pcnet32 rtl8139 tlan tulip
 	       via-rhine 
                nfs vfat"
@@ -123,12 +123,10 @@ BOOTDIR="ja"
 
 # hack hack hack - we are *out* of space
 NETWORKMODULES="$COMMONMODULES 3c509 3c59x 3c90x 8390 ac3200 at1700 de4x5
-	       de600 de620 eepro100 hp-plus hp hp100
+	       de600 de620 depca e1000 eepro100 hp-plus hp hp100
 	       ne ne2k-pci ni52 old_tulip pcnet32 rtl8139 tlan tulip
 	       via-rhine 
                nfs vfat"
-
-
 
 makebootdisk --bootdisksize 1440 \
 	     --imagename ja/boot.img \
