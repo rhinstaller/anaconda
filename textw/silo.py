@@ -56,9 +56,10 @@ class SiloWindow:
 	if todo.skipLilo: return INSTALL_NOOP
 
 	bootpart = todo.fstab.getBootDevice()
-	boothd = todo.fstab.getMbrDevice()
+	boothd = todo.silo.getMbrDevice(todo.fstab)
 
 	format = "/dev/%-11s %s%*s" 
+	# FIXME: Should be Master Boot Records (MBR) in RAID1 case
 	str1 = _("Master Boot Record (MBR)")
 	str2 = _("First sector of boot partition")
 	str3 = _("Create PROM alias `linux'")
@@ -72,10 +73,19 @@ class SiloWindow:
 	    dflt = 1
 	else:
 	    dflt = 0
-	rc1 = SingleRadioButton (format % (boothd, str1, lenmax - len1, ""), None, dflt )
+	bootdisk = boothd
+	if bootpart[:2] == "md":
+	    bootdisk = bootpart
+	rc1 = SingleRadioButton (format % (bootdisk, str1, lenmax - len1, ""), None, dflt )
 	rc2 = SingleRadioButton (format % (bootpart, str2, lenmax - len2, ""), rc1, 1 - dflt)
+	if bootpart[:2] == "md":
+	    rc1.setFlags (FLAG_DISABLED, FLAGS_SET)
+	    rc2.setFlags (FLAG_DISABLED, FLAGS_SET)
 
-	prompath = todo.silo.disk2PromPath(bootpart)
+	bootdisk = bootpart
+	if bootpart[:2] == "md":
+	    bootdisk = boothd
+	prompath = todo.silo.disk2PromPath(bootdisk)
 	if prompath and len(prompath) > 0 and todo.silo.hasAliases():
 	    default = 1
 	else:

@@ -6,6 +6,13 @@ import iutil
 import isys
 
 class SiloInstall:
+    def allowSiloLocationConfig(self, fstab):
+	bootDevice = fstab.getBootDevice()
+	if bootDevice[0:2] == "md":
+	    self.setDevice(("raid", bootDevice))
+	    return None
+	return 1
+
     def checkUFS(self, dev):
 	f = open("/proc/mounts","r")
 	lines = f.readlines ()
@@ -71,13 +78,21 @@ class SiloInstall:
 	self.siloImages = images
 
     def getSiloImages(self, fstab):
-        (drives, raid) = fstab.raidList()
+	(drives, raid) = fstab.raidList()
 
 	# rearrange the fstab so it's indexed by device
 	mountsByDev = {}
 	for (mntpoint, device, fsystem, doFormat, size) in \
 		fstab.mountList():
 	    mountsByDev[device] = mntpoint
+
+	for (mntpoint, device, fstype, raidType, start, size, makeup) in raid:
+	    mountsByDev[device] = mntpoint
+	    drives.append(device, "", 2, 0, 0)
+
+	for (device, mntpoint, fsystem, makeup) in fstab.existingRaidList():
+	    mountsByDev[device] = mntpoint
+	    drives.append(device, "", 2, 0, 0)
 
 	oldImages = {}
 	for dev in self.siloImages.keys():
@@ -87,13 +102,13 @@ class SiloInstall:
 	nSolaris = 0
 	nSunOS = 0
 	for (dev, devName, type, start, size) in drives:
-	    # ext2 partitions get listed if 
+	    # ext2 and raid partitions get listed if 
 	    #	    1) they're /
 	    #	    2) they're not mounted
 	    #	       and contain /boot of
 	    #	       some Linux installation
 	    # FIXME: For now only list / and UFS partitions,
-	    # for 6.2 write code which will read and parse silo.conf from other
+	    # for 7.0 write code which will read and parse silo.conf from other
 	    # Linux partitions and merge it in (after required device
 	    # substitions etc.
 
@@ -129,6 +144,8 @@ class SiloInstall:
 	# Check partition at cylinder 0 on the boot disk
 	# is /, /boot or Linux swap
 	bootpart = fstab.getBootDevice()
+	if bootpart[:2] == "md":
+	    return "mbr"
 	i = len (bootpart) - 1
 	while i > 0 and bootpart[i] in string.digits:
 	    i = i - 1
@@ -180,15 +197,40 @@ class SiloInstall:
     def makeInitrd (self, kernelTag, instRoot):
 	initrd = "/boot/initrd%s.img" % (kernelTag, )
 	if not self.initrdsMade.has_key(initrd):
-            iutil.execWithRedirect("/sbin/mkinitrd",
-                                  [ "/sbin/mkinitrd",
+	    iutil.execWithRedirect("/sbin/mkinitrd",
+				  [ "/sbin/mkinitrd",
 				    "--ifneeded",
-                                    initrd,
-                                    kernelTag[1:] ],
-                                  stdout = None, stderr = None, searchPath = 1,
-                                  root = instRoot)
+				    initrd,
+				    kernelTag[1:] ],
+				  stdout = None, stderr = None, searchPath = 1,
+				  root = instRoot)
 	    self.initrdsMade[kernelTag] = 1
 	return initrd
+
+    def getMbrDevices(self, fstab):
+	bootpart = fstab.getBootDevice()
+	mbrdevs = []
+	if bootpart[:2] == "md":
+	    (devices, raid) = fstab.raidList()
+	    for (raidMntPoint, raidDevice, fsType, raidType, raidStart, raidSize, raidDevs) in raid:
+		if raidDevice != bootpart: continue
+		for raidDev in raidDevs:
+		    for (device, name, type, start, size) in devices:
+			if name == raidDev:
+			    i = len(device) - 1
+			    while i > 0 and device[i] in string.digits:
+				i = i - 1
+			    mbrdevs.append(device[:i+1])
+	else:
+	    # Do not use fstab.getMbrDevice() here
+	    i = len (bootpart) - 1
+	    while i > 0 and bootpart[i] in string.digits:
+		i = i - 1
+	    mbrdevs.append(bootpart[:i+1])
+	return mbrdevs
+
+    def getMbrDevice(self, fstab):
+	return self.getMbrDevices(fstab)[0]
 
     def install(self, fstab, instRoot, hdList, upgrade):
 	silo = LiloConfigFile ()
@@ -198,40 +240,30 @@ class SiloInstall:
 	    self.setSiloImages(images)
 
 	bootpart = fstab.getBootDevice()
-	boothd = fstab.getMbrDevice()
-
+	boothd = self.getMbrDevice(fstab)
 	smpInstalled = (hdList.has_key('kernel-smp') and 
 			hdList['kernel-smp'].selected)
 
-        rootDev = fstab.getRootDevice ()
-        if rootDev:
+	rootDev = fstab.getRootDevice ()
+	if rootDev:
 	    # strip off the filesystem; we don't need it
-            rootDev = rootDev[0]
-        else:
-            raise RuntimeError, "Installing lilo, but there is no root device"
+	    rootDev = rootDev[0]
+	else:
+	    raise RuntimeError, "Installing silo, but there is no root device"
 
 	args = [ "silo" ]
 
-	bootpart = fstab.getBootDevice()
-	boothd = fstab.getMbrDevice()
-
-	if self.siloDevice == "mbr":
-	    device = boothd
-	    try:
-		num = _silo.zeroBasedPart(instRoot + "/dev/" + boothd)
-		if num:
-		    device = boothd + "%d" % num
-	    except:
-		pass
+	if bootpart[:2] == "md":
+	    self.siloDevice = "mbr"
 	else:
-	    device = bootpart
-	    args.append("-t")
-	bootDevice = self.disk2PromPath(device)
+	    if self.siloDevice != "mbr":
+		args.append("-t")
 
-	i = len (bootpart) - 1
-	while i > 0 and bootpart[i] in string.digits:
-	    i = i - 1
-	silo.addEntry("partition", bootpart[i+1:])
+	    i = len (bootpart) - 1
+	    while i > 0 and bootpart[i] in string.digits:
+		i = i - 1
+	    silo.addEntry("partition", bootpart[i+1:])
+
 	silo.addEntry("timeout", "50")
 	silo.addEntry("root", '/dev/' + rootDev)
 	silo.addEntry("read-only")
@@ -249,7 +281,7 @@ class SiloInstall:
 		while i > 0 and drive[i] in string.digits:
 		    i = i - 1
 		prompath = drive[:i+1]
-		if prompath == boothd:
+		if bootpart[:2] != "md" and prompath == boothd:
 		    prompath = drive[i+1:]
 		else:
 		    prompath = self.disk2PromPath(prompath)
@@ -286,7 +318,7 @@ class SiloInstall:
 	    if os.access (instRoot + initrd, os.R_OK):
 		sl.addEntry("initrd", initrdFile)
 
-            if self.siloAppend:
+	    if self.siloAppend:
 		sl.addEntry('append', '"%s"' % self.siloAppend)
 
 	    silo.addImage ("image", kernelFile, sl)
@@ -328,22 +360,54 @@ class SiloInstall:
 	else:
 	    silo.write(instRoot + "/etc/silo.conf")
 
-        if self.serial:
-            messages = "/tmp/silo.log"
-        else:
-            messages = "/dev/tty3"
-        iutil.execWithRedirect('/sbin/silo',
-                               args,
-                               stdout = None,
-                               root = instRoot)
-        linuxAlias = ""
-        if self.linuxAlias and self.hasAliases():
-            linuxAlias = bootDevice
-        if not self.bootDevice:
-            bootDevice = ""
-        if not linuxAlias:
-            linuxAlias = ""
-        _silo.setPromVars(linuxAlias,bootDevice)
+	if self.serial:
+	    messages = "/tmp/silo.log"
+	else:
+	    messages = "/dev/tty3"
+	iutil.execWithRedirect('/sbin/silo',
+			       args,
+			       stdout = None,
+			       root = instRoot)
+
+	if bootpart[:2] == "md":
+	    mbrdevs = self.getMbrDevices(fstab)
+	    linuxAliases = []
+	    for mbrdev in mbrdevs:
+		device = mbrdev
+		try:
+		    num = _silo.zeroBasedPart(instRoot + "/dev/" + mbrdev)
+		    if num:
+			device = mbrdev + "%d" % num
+		except:
+		    pass
+		linuxAliases.append(self.disk2PromPath(device))
+	    bootDevice = linuxAliases[0]
+	    linuxAlias = ""
+	    for alias in linuxAliases:
+		if alias and alias != "":
+		    linuxAlias = linuxAlias + ";" + alias
+	elif self.siloDevice == "mbr":
+	    device = boothd
+	    try:
+		num = _silo.zeroBasedPart(instRoot + "/dev/" + boothd)
+		if num:
+		    device = boothd + "%d" % num
+	    except:
+		pass
+	    linuxAlias = self.disk2PromPath(device)
+	    bootDevice = linuxAlias
+	else:
+	    device = bootpart
+	    linuxAlias = self.disk2PromPath(device)
+	    bootDevice = linuxAlias
+
+	if not (self.linuxAlias and self.hasAliases()):
+	    linuxAlias = ""
+	if not self.bootDevice:
+	    bootDevice = ""
+	if not linuxAlias:
+	    linuxAlias = ""
+	_silo.setPromVars(linuxAlias,bootDevice)
 
     def setDevice(self, device):
 	if (type(device) == type((1,))):
@@ -378,4 +442,6 @@ class SiloInstall:
 	self.siloAppend = None
 	self.default = None
 	self.initrdsMade = {}
-        self.serial = serial
+	self.serial = serial
+	self.linuxAlias = 1
+	self.bootDevice = 1

@@ -13,37 +13,37 @@ class SiloWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.readHTML ("silo")
+	ics.readHTML ("silo")
 
-        ics.setTitle (_("Silo Configuration"))
-        ics.setNextEnabled (1)
-        self.type = None
-        self.bootdisk = None
-        self.silo = None
+	ics.setTitle (_("Silo Configuration"))
+	ics.setNextEnabled (1)
+	self.type = None
+	self.bootdisk = None
+	self.silo = None
 	self.linuxAlias = None
 	self.linuxAliasLabel = None
 	self.bootDevice = None
 
     def getNext (self):
-        # XXX
-        if not self.bootdisk:
+	# XXX
+	if not self.bootdisk:
 	    if self.todo.silo.hasUsableFloppy() == 2:
 		self.todo.bootdisk = 1
 	    else:
 		self.todo.bootdisk = 0
 	    return None
 
-        if self.bootdisk.get_active ():
-            self.todo.bootdisk = 1
-        else:
-            self.todo.bootdisk = 0
+	if self.bootdisk.get_active ():
+	    self.todo.bootdisk = 1
+	else:
+	    self.todo.bootdisk = 0
 
-        if self.silo.get_active ():
-            self.todo.silo.setDevice(None)
-        else:
-            if self.mbr.get_active ():
+	if self.silo.get_active ():
+	    self.todo.silo.setDevice(None)
+	elif self.silo.allowSiloLocationConfig(self.todo.fstab):
+	    if self.mbr.get_active ():
 		self.todo.silo.setDevice("mbr")
-            else:
+	    else:
 		self.todo.silo.setDevice("partition")
 
 	self.todo.silo.setAppend(self.appendEntry.get_text())
@@ -67,13 +67,13 @@ class SiloWindow (InstallWindow):
 	    return "Other"
 
     def toggled (self, widget, *args):
-        if widget.get_active ():
+	if widget.get_active ():
 	    state = FALSE
-        else:
+	else:
 	    state = TRUE
 
-	for n in [self.radioBox, self.editBox, self.imageList ]:
-            n.set_sensitive (state)
+	for n in [ self.radioBox, self.editBox, self.imageList ]:
+	    n.set_sensitive (state)
 
     def mbr_toggled (self, widget, *args):
 	if widget.get_active ():
@@ -97,10 +97,10 @@ class SiloWindow (InstallWindow):
 	label = self.labelEntry.get_text()
 	self.imageList.set_text(index, 3, label)
 
-        if label:
-            self.defaultCheck.set_sensitive (TRUE)
-        else:
-            self.defaultCheck.set_sensitive (FALSE)
+	if label:
+	    self.defaultCheck.set_sensitive (TRUE)
+	else:
+	    self.defaultCheck.set_sensitive (FALSE)
 
     def defaultUpdated(self, *args):
 	if self.ignoreSignals: return
@@ -130,31 +130,30 @@ class SiloWindow (InstallWindow):
 	self.typeLabel.set_text(_("Type") + ":" + self.typeName(type))
 	self.labelEntry.set_text(label)
 
-        if not label:
-            self.defaultCheck.set_sensitive (FALSE)
+	if not label:
+	    self.defaultCheck.set_sensitive (FALSE)
 
-        self.ignoreSignals = 1
+	self.ignoreSignals = 1
 	if index == self.default:
 	    self.defaultCheck.set_active(1)
 	else:
 	    self.defaultCheck.set_active(0)
-        self.ignoreSignals = 0
+	self.ignoreSignals = 0
 
     def getScreen (self):
 	(self.images, defaultLabel) = self.todo.silo.getSiloImages(self.todo.fstab)
-        self.ignoreSignals = 0
+	self.ignoreSignals = 0
 
 	(mount, dev, fstype, format, size) = self.todo.fstab.mountList()[0]
 	if mount != '/': return None
 
 	self.bootpart = self.todo.fstab.getBootDevice()
-	self.mbrpart = self.todo.fstab.getMbrDevice()
-            
-        format = "/dev/%s"
+	self.mbrpart = self.todo.silo.getMbrDevice(self.todo.fstab)
+	format = "/dev/%s"
 
-        self.radioBox = GtkTable(2, 7)
-        self.radioBox.set_border_width (5)
-        
+	self.radioBox = GtkTable(2, 7)
+	self.radioBox.set_border_width (5)
+	
 	spacer = GtkLabel("")
 	spacer.set_usize(10, 1)
 	self.radioBox.attach(spacer, 0, 1, 2, 4, FALSE)
@@ -163,15 +162,19 @@ class SiloWindow (InstallWindow):
 	label.set_alignment(0.0, 0.5)
 	self.radioBox.attach(label, 0, 2, 1, 2)
 
-        self.mbr = GtkRadioButton(None, 
-	    ("/dev/%s %s" % (self.mbrpart, _("Master Boot Record (MBR)"))))
-        part = GtkRadioButton(self.mbr,
+	mbrpart = self.mbrpart
+	if self.bootpart[:2] == "md":
+	    mbrpart = self.bootpart
+	# FIXME: Should be Master Boot Records (MBR) in the RAID1 case
+	self.mbr = GtkRadioButton(None, 
+	    ("/dev/%s %s" % (mbrpart, _("Master Boot Record (MBR)"))))
+	part = GtkRadioButton(self.mbr,
 	    ("/dev/%s %s" % (self.bootpart, 
 		_("First sector of boot partition"))))
 	self.radioBox.attach(self.mbr, 1, 2, 2, 3)
 	self.radioBox.attach(part, 1, 2, 3, 4)
 
-        self.linuxAlias = GtkCheckButton(
+	self.linuxAlias = GtkCheckButton(
 	    _("Create PROM alias") + ":")
 	if (self.todo.silo.hasAliases()):
 	    self.linuxAlias.set_active (TRUE)
@@ -182,16 +185,21 @@ class SiloWindow (InstallWindow):
 	tempBox = GtkHBox (FALSE, 5)
 	tempBox.pack_start(self.linuxAlias)
 	tempBox.pack_start(self.linuxAliasLabel)
-        self.radioBox.attach(tempBox, 0, 2, 4, 5)
+	self.radioBox.attach(tempBox, 0, 2, 4, 5)
 
 	self.mbr.connect("toggled", self.mbr_toggled)
+	if self.bootpart[:2] == "md":
+	    self.mbr.set_active (TRUE)
+	    label.set_sensitive (FALSE)
+	    self.mbr.set_sensitive (FALSE)
+	    part.set_sensitive (FALSE)
 	if self.todo.silo.getSiloMbrDefault(self.todo.fstab) == 'mbr':
 	    self.mbr.set_active (TRUE)
 	else:
 	    part.set_active (TRUE);
 
-        self.bootDevice = GtkCheckButton(_("Set default PROM boot device to linux"))
-        self.radioBox.attach(self.bootDevice, 0, 2, 5, 6)
+	self.bootDevice = GtkCheckButton(_("Set default PROM boot device to linux"))
+	self.radioBox.attach(self.bootDevice, 0, 2, 5, 6)
 	self.bootDevice.set_active (TRUE)
 
 	label = GtkLabel(_("Kernel parameters") + ":")
@@ -207,12 +215,12 @@ class SiloWindow (InstallWindow):
 	alignment.add(box)
 	self.radioBox.attach(alignment, 0, 2, 6, 7)
 	
-        box = GtkVBox (FALSE, 0)
+	box = GtkVBox (FALSE, 0)
 
 	topBox = GtkHBox (FALSE, 2)
-        optionBox = GtkVBox (FALSE, 5)
-        optionBox.set_border_width (5)
-        self.bootdisk = GtkCheckButton (_("Create boot disk"))
+	optionBox = GtkVBox (FALSE, 5)
+	optionBox.set_border_width (5)
+	self.bootdisk = GtkCheckButton (_("Create boot disk"))
 	floppy = self.todo.silo.hasUsableFloppy()
 	if floppy == 2:
 	    self.bootdisk.set_active (TRUE)
@@ -220,12 +228,12 @@ class SiloWindow (InstallWindow):
 	    self.bootdisk.set_active (FALSE)
 	if floppy == 0:
 	    self.bootdisk.set_sensitive (FALSE)
-        optionBox.pack_start (self.bootdisk)
+	optionBox.pack_start (self.bootdisk)
 
-        self.silo = GtkCheckButton (_("Do not install SILO"))
-        self.silo.set_active (FALSE)
-        self.silo.connect ("toggled", self.toggled)
-        optionBox.pack_start (self.silo, FALSE)
+	self.silo = GtkCheckButton (_("Do not install SILO"))
+	self.silo.set_active (FALSE)
+	self.silo.connect ("toggled", self.toggled)
+	optionBox.pack_start (self.silo, FALSE)
 	topBox.pack_start (optionBox)
 
 	im = self.ics.readPixmap ("silo.png")
@@ -237,19 +245,19 @@ class SiloWindow (InstallWindow):
 	    a.set (1.0, 0.0, 0.0, 0.0)
 	    topBox.pack_start (a, FALSE)
 
-        box.pack_start (topBox, FALSE)
+	box.pack_start (topBox, FALSE)
 
-        box.pack_start (GtkHSeparator (), FALSE)
-        box.pack_start (self.radioBox, FALSE)
+	box.pack_start (GtkHSeparator (), FALSE)
+	box.pack_start (self.radioBox, FALSE)
 
 	self.imageList = GtkCList (4,
 	    ( _("Default"), _("Device"), _("Partition type"), _("Boot label")))
-        self.imageList.set_selection_mode (SELECTION_BROWSE)
+	self.imageList.set_selection_mode (SELECTION_BROWSE)
 
 	sortedKeys = self.images.keys()
 	sortedKeys.sort()
 
-        self.default = None
+	self.default = None
 	count = 0
 	for n in sortedKeys:
 	    (label, type) = self.images[n]
@@ -260,9 +268,9 @@ class SiloWindow (InstallWindow):
 		self.imageList.set_pixmap(count, 0, self.checkMark)
 	    count = count + 1
 
-        self.imageList.columns_autosize ()
-        self.imageList.column_title_passive (1)
-        self.imageList.set_border_width (5)
+	self.imageList.columns_autosize ()
+	self.imageList.column_title_passive (1)
+	self.imageList.set_border_width (5)
 	self.imageList.connect("select_row", self.labelSelected)
 	self.imageList.set_column_justification(2, JUSTIFY_CENTER)
 
@@ -293,8 +301,8 @@ class SiloWindow (InstallWindow):
 	self.editBox.pack_start (tempBox2, FALSE)
 	self.editBox.set_border_width (5)
 
-        box.pack_start (GtkHSeparator (), FALSE)
-        box.pack_start (self.editBox, FALSE)
-        box.pack_start (self.imageList, TRUE)
+	box.pack_start (GtkHSeparator (), FALSE)
+	box.pack_start (self.editBox, FALSE)
+	box.pack_start (self.imageList, TRUE)
 
-        return box
+	return box
