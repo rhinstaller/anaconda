@@ -242,15 +242,27 @@ classMap = { "disk": kudzu.CLASS_HD,
              "cdrom": kudzu.CLASS_CDROM,
              "floppy": kudzu.CLASS_FLOPPY }
 
+cachedDrives = None
+
+def flushDriveDict():
+    global cachedDrives
+    cachedDrives = None
+
 def driveDict(klassArg):
-    ret = {}
+    global cachedDrives
+    if cachedDrives is not None:
+        return cachedDrives
     
+    ret = {}
+
     # FIXME: need to add dasd probing to kudzu
-    devs = kudzu.probe(kudzu.CLASS_UNSPEC, kudzu.BUS_UNSPEC, 0)
+    devs = kudzu.probe(kudzu.CLASS_HD | kudzu.CLASS_CDROM | kudzu.CLASS_FLOPPY,
+                       kudzu.BUS_UNSPEC, kudzu.PROBE_SAFE)
     for dev in devs:
         if dev.deviceclass == classMap[klassArg]:
             ret[dev.device] = dev.desc
 
+    cachedDrives = ret
     return ret
 
 def hardDriveDict():
