@@ -93,11 +93,13 @@ NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci
 
 PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
 
+echo "Building dosutils/autoboot/initrd.img"
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
 	   --initrdsize 2750 \
 	   --loaderbin loader-local \
 	   --modules "$LOCALMODULES"
 
+echo "Building images/pxeboot/initrd.img"
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
 	   --initrdsize 2750 \
 	   --loaderbin loader-network \
@@ -124,6 +126,7 @@ do
 done
 PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 
+echo "Building images/initrd-pcmcia.img"
 makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --pcmcia \
 	   --initrdsize 2750 \
@@ -142,18 +145,21 @@ for I in $BOOTDISKDIR `find $BOOTDISKDIR -type d | egrep "($TIER1LANGS)"`; do
 	BOOTDIR=""
     fi
 
+    echo "Building $BOOTDIR/boot.img"
     makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
 		 --bootdisksize 1440 \
 		 --imagename $BOOTDIR/boot.img \
 		 --initrd $TOPDESTPATH/dosutils/autoboot/initrd.img
     [ $? = 0 ] || exit 1
 
+    echo "Building $BOOTDIR/bootnet.img"
     makebootdisk --kernelto $TOPDESTPATH/images/pxeboot/vmlinuz  \
 		 --bootdisksize 1440 \
 		 --imagename $BOOTDIR/bootnet.img \
 		 --initrd $TOPDESTPATH/images/pxeboot/initrd.img
     [ $? = 0 ] || exit 1
 
+    echo "Building $BOOTDIR/pcmcia.img"
     makebootdisk --imagename $BOOTDIR/pcmcia.img \
 	         --bootdisksize 1440 \
 		 --initrd $TOPDESTPATH/images/initrd-pcmcia.img
@@ -162,34 +168,40 @@ done
 
 rm -f $TOPDESTPATH/images/initrd-pcmcia.img
 
+echo "Building drvblock.img"
 makedriverdisk --padsize 1440 "Supplemental Block Device Drivers" "drvblock" "+scsi"
 [ $? = 0 ] || exit 1
+echo "Building drvnet.img"
 makedriverdisk --padsize 1440 "Supplemental Network Drivers" "drvnet" "+net"
 [ $? = 0 ] || exit 1
 
+echo "Building oldcdrom.img"
 makedriverdisk --padsize 1440 "Supplemental CDROM controllers" "oldcdrom" "parport_pc parport +cdrom"
 [ $? = 0 ] || exit 1
 
+echo "Building pcmciadd.img"
 makedriverdisk --padsize 1440 "PCMCIA Driver Diskette" "pcmciadd" "$PCMCIAMODULES"
 [ $? = 0 ] || exit 1
 
 unset BOOTLANG
 unset BOOTDIR
 
+echo "Building dosutils/autoboot/initrd.img"
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
 	   --initrdsize 4100 \
 	   --pcmcia \
 	   --loaderbin loader-pcmcia \
-	   --modules "$COMMONMODULES $PCMCIAMODULES nfs =scsi $IDEMODS 
-		      $SCSIMODS"
+	   --modules "$COMMONMODULES $SCSIMODS =scsi $IDEMODS"
 [ $? = 0 ] || exit 1
 
+echo "Building cdboot.img"
 makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
 	     --bootdisksize 2880 \
 	     --imagename ../dosutils/autoboot/cdboot.img \
 	     --initrd $TOPDESTPATH/dosutils/autoboot/initrd.img
 [ $? = 0 ] || exit 1
 
+echo "Building initrd-everything.img"
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 	   --pcmcia \
 	   --initrdsize 4000 \
@@ -197,13 +209,17 @@ makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 	   --modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES =scsi =net"
 [ $? = 0 ] || exit 1
 
+echo "Building main moduleball"
 makemainmodules "=scsi =net $SECSTAGE"
 [ $? = 0 ] || exit 1
 
+echo "Building netstg.img"
 makeinstimage "netstg" "=scsi $SECSTAGE"
 [ $? = 0 ] || exit 1
+echo "Building hdstg.img"
 makeinstimage "hdstg" "=net $SECSTAGE"
 [ $? = 0 ] || exit 1
+echo "Building stage2.img"
 makemainimage "stage2" "cramfs"
 [ $? = 0 ] || exit 1
 
