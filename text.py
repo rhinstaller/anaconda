@@ -40,6 +40,9 @@ from bootdisk_text import BootDiskWindow
 from bootdisk_text import MakeBootDiskWindow
 from mouse_text import MouseWindow, MouseDeviceWindow
 from firewall_text import FirewallWindow
+from upgrade_text import UpgradeExamineWindow
+from upgrade_text import UpgradeSwapWindow
+from upgrade_text import CustomizeUpgradeWindow
 
 import installclass
 
@@ -333,111 +336,6 @@ class InstallPathWindow:
                                    not todo.expert,
                                    todo.method.protectedPartitions(),
                                    todo.expert, todo.upgrade)
-
-        return INSTALL_OK
-
-class UpgradeExamineWindow:
-    def __call__ (self, dir, screen, todo):
-	if dir == -1:
-            # msf dont go back!
-            rc = ButtonChoiceWindow(screen, _("Proceed with upgrade?"),
-                            _("The filesystems of the Linux installation "
-                              "you have chosen to upgrade have already been "
-                              "mounted. You cannot go back past this point. "
-                              "\n\n") +
-                              _("If you would like to exit the upgrade select "
-                              "Exit, or choose Ok to continue with the "
-                              "upgrade."),
-                               [ _("Ok"), _("Exit") ], width = 50)
-
-            if rc == 'ok':
-                return INSTALL_OK
-            else:
-                import sys
-                sys.exit(0)
-           
-	    # Hack to let backing out of upgrades work properly
-	    from fstab import NewtFstab
-	    if todo.fstab:
-		todo.fstab.turnOffSwap()
-	    todo.fstab = NewtFstab(todo.setupFilesystems, 
-                                   todo.serial, 0, 0,
-                                   todo.intf.waitWindow,
-                                   todo.intf.messageWindow,
-                                   todo.intf.progressWindow,
-                                   not todo.expert,
-                                   todo.method.protectedPartitions(),
-                                   todo.expert, 1)
-
-	    return INSTALL_NOOP
-
-        parts = todo.upgradeFindRoot ()
-
-        if not parts:
-            ButtonChoiceWindow(screen, _("Error"),
-                               _("You don't have any Linux partitions. You "
-                                 "can't upgrade this system!"),
-                               [ _("Back") ], width = 50)
-            return INSTALL_BACK
-        
-        if len (parts) > 1:
-            height = min (len (parts), 12)
-            if height == 12:
-                scroll = 1
-            else:
-                scroll = 0
-
-	    partList = []
-	    for (drive, fs) in parts:
-		partList.append(drive)
-
-            (button, choice) = \
-                ListboxChoiceWindow(screen, _("System to Upgrade"),
-                                    _("What partition holds the root partition "
-                                      "of your installation?"), partList, 
-                                    [ _("OK"), _("Back") ], width = 30,
-                                    scroll = scroll, height = height,
-				    help = "multipleroot")
-            if button == string.lower (_("Back")):
-                return INSTALL_BACK
-            else:
-                root = parts[choice]
-        else:
-            root = parts[0]
-            (drive, fs) = root
-
-            # terrible hack - need to fix in future
-            # if we're skipping confirm upgrade window, we must be in
-            # upgradeonly mode, so don't display this window either
-            if not todo.instClass.skipStep('confirm-upgrade'):
-                rc = ButtonChoiceWindow (screen, _("Upgrade Partition"),
-                                         _("The Red Hat Linux OS installed on partition /dev/%s will now be upgraded.") + drive,
-                                         buttons = [ _("Ok"), _("Back") ])
-                if rc  == string.lower (_("Back")):
-                    return INSTALL_BACK
-
-        todo.upgradeFindPackages (root)
-
-class CustomizeUpgradeWindow:
-    def __call__ (self, screen, todo, indiv):
-        rc = ButtonChoiceWindow (screen, _("Customize Packages to Upgrade"),
-                                 _("The packages you have installed, "
-                                   "and any other packages which are "
-                                   "needed to satisfy their "
-                                   "dependencies, have been selected "
-                                   "for installation. Would you like "
-                                   "to customize the set of packages "
-                                   "that will be upgraded?"),
-                                 buttons = [ _("Yes"), _("No"), _("Back") ],
-				help = "custupgrade")
-
-        if rc == string.lower (_("Back")):
-            return INSTALL_BACK
-
-        if rc == string.lower (_("No")):
-            indiv.set (0)
-        else:
-            indiv.set (1)
 
         return INSTALL_OK
 
@@ -1021,7 +919,7 @@ class InstallInterface:
 	self.drawFrame()
 # uncomment this line to make the installer quit on <Ctrl+Z>
 # handy for quick debugging.
-#	self.screen.suspendCallback(killSelf, self.screen)
+	#self.screen.suspendCallback(killSelf, self.screen)
 # uncomment this line to drop into the python debugger on <Ctrl+Z>
 # --VERY handy--
 	#self.screen.suspendCallback(debugSelf, self.screen)
@@ -1103,6 +1001,9 @@ class InstallInterface:
 	    BootloaderConfiguration = _("LILO Configuration")
             BootloaderSkipName = "lilo"            
 
+	# note that the parameter "dir" will be replaced with the direction
+	# we're traveling
+
         self.installSteps = [
             [N_("Automatic Partition"), AutoPartitionWindow, 
 		    (self.screen, todo), "partition" ],
@@ -1116,7 +1017,7 @@ class InstallInterface:
 		    "partition" ],
             [N_("Swap"), TurnOnSwapWindow, (self.screen, todo),
 		    "partition" ],
-            [N_("Boot Partition Warning"), LBA32WarningWindow, (self.screen, todo),
+            [N_("Boot Partition Warning"), LBA32WarningWindow, ("dir", self.screen, todo),
 		    "lba32warning" ],
             [N_("Filesystem Formatting"), FormatWindow, (self.screen, todo),
 		    "format" ],
@@ -1162,7 +1063,7 @@ class InstallInterface:
             [N_("X Configuration"), XConfigWindow, (self.screen, todo),
                 "xconfig" ],
             [N_("Installation Begins"), BeginInstallWindow, 
-		(self.screen, todo), "confirm-install" ],
+		("dir", self.screen, todo), "confirm-install" ],
             [N_("Install System"), InstallWindow, (self.screen, todo) ],
             [N_("Boot Disk"), BootDiskWindow, (self.screen, todo),
 		"bootdisk" ],
@@ -1174,7 +1075,8 @@ class InstallInterface:
             ]
 
 	self.upgradeSteps = [
-	    [_("Examine System"), UpgradeExamineWindow, (self.screen, todo)],
+	    [_("Examine System"), UpgradeExamineWindow, ("dir", self.screen, todo)],
+	    [_("System Swap Space"), UpgradeSwapWindow, ("dir", self.screen, todo)],
             [BootloaderConfiguration, BootloaderAppendWindow, 
 		    (self.screen, todo), "lilo"],
             [BootloaderConfiguration, BootloaderWindow, 
@@ -1213,15 +1115,18 @@ class InstallInterface:
 		self.screen.drawRootText (len(_(self.welcomeText)), 0,
 			  (self.screen.width - len(_(self.welcomeText))) * " ")
 		self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
-		# This is *disgusting* (ewt)
-		if step[1] == UpgradeExamineWindow:
-		    rc = apply (step[1](), (dir,) + step[2])
-                elif step[1] == LBA32WarningWindow:
-		    rc = apply (step[1](), (dir,) + step[2])
-                elif step[1] == BeginInstallWindow:
-		    rc = apply (step[1](), (dir,) + step[2])
-		else:
-		    rc = apply (step[1](), step[2])
+
+		args = step[2]
+		if "dir" in args:
+		    newArgs = ()
+		    for n in args:
+			if n == "dir":
+			    newArgs = newArgs + (dir,)
+			else:
+			    newArgs = args + (n,)
+		    args = newArgs
+
+		rc = apply (step[1](), step[2])
 
 	    if rc == INSTALL_BACK:
 		dir = -1
