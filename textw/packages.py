@@ -87,8 +87,16 @@ class IndividualPackageWindow:
         g = GridForm (screen, _("Package Group Selection"), 1, 2)
         g.add (ct, 0, 0, (0, 0, 0, 1))
         g.add (bb, 0, 1, growx = 1)
+	g.addHotKey("F1")
 
-        result = g.runOnce ()
+	result = g.run()
+	while result == "F1":
+	    h = ct.getCurrent()
+	    if type(h) != type(""):
+		ButtonChoiceWindow(screen, h['name'], h['description'], 
+				    buttons = [ _('Ok') ], x = 5, y = 5)
+	    result = g.run()
+	screen.popWindow()
  
         # turn off all the packages
         for key in todo.hdList.packages.keys ():
