@@ -222,6 +222,12 @@ extern int bterm_main(int argc, char **argv);
 int startBterm(int flags) {
     char *args[4] = { "bterm", "-s", "-f", NULL };
     int rc;
+    struct stat sb;
+
+    /* assume that if we're already on a pty we can handle unicode */
+    fstat(0, &sb);
+    if (major(sb.st_rdev) == 3 || major(sb.st_rdev) == 136)
+	return 0;
 
     if (FL_TESTING(flags))
 	args[3] = "font.bgf.gz";	
