@@ -2209,6 +2209,51 @@ static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 		 flags);
 }
 
+
+static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
+			     moduleInfoSet modInfo, int flags) {
+    struct device ** devices, *p;
+    int i;
+
+    if (FL_TESTING(flags)) return 0;
+
+    logMessage("looking for video cards requiring agpgart module");
+
+    devices = probeDevices(CLASS_VIDEO, BUS_UNSPEC, PROBE_ALL);
+
+    if (!devices) {
+	logMessage("no video cards found");
+	return 0;
+    }
+
+    /* loop thru cards, see if we need agpgart */
+/*    for (p = devices[0]; p; p++) {*/
+    for (i=0; devices[i]; i++) {
+	p = devices[i];
+	logMessage("found video card controller %s", p->driver);
+
+    /* HACK - need to have list of cards which match!! */
+#if 0
+	if (!strcmp(p->driver, "Card:Intel 810")) {
+	    logMessage("found i810 card requiring agpgart, loading module");
+	    
+	    if (mlLoadModule("agpgart", NULL, modLoaded, modDeps, NULL, 
+			     modInfo, flags)) {
+		logMessage("failed to insert agpgart module");
+		return 1;
+	    } else {
+		/* only load it once! */
+		return 0;
+	    }
+
+	}
+#endif
+    }
+
+    return 0;
+}
+
+
 int main(int argc, char ** argv) {
     char ** argptr;
     char * anacondaArgs[40];
@@ -2317,6 +2362,14 @@ int main(int argc, char ** argv) {
     /* Note we *always* do this. If you could avoid this you could get
        a system w/o USB keyboard support, which would be bad. */
     usbInitialize(modLoaded, modDeps, modInfo, flags);
+
+    printf("1\n"); sleep(2);
+
+
+    /* We must look for cards which require the agpgart module */
+    agpgartInitialize(modLoaded, modDeps, modInfo, flags);
+
+    printf("2\n"); sleep(2);
 
     if (FL_KSFLOPPY(flags)) {
 	startNewt(flags);
