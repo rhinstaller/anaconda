@@ -55,15 +55,16 @@ echo "DESTGR is $DESTGR"
 PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
           XFree86-S3 XFree86-S3V XFree86-Mach32 XFree86-Mach64
           XFree86-FBDev XFree86-I128 XFree86-3DLabs XFree86-VGA16
-          XFree86-Sun XFree86-TGA XFree86-75dpi-fonts XFree86-100dpi-fonts
-          XFree86-ISO8859-2 XFree86-cyrillic-fonts XFree86-3.
-	  xpm-3 glib- gtk+- gnome-libs python-1 newt imlib-1 libpng
-	  libtiff libjpeg- libtermcap-2 zlib rpm rpm-devel rpm-python ash- bash-
-	  pygtk- pygnome- util-linux procps esound-0 audiofile-0
-	  kernel-pcmcia-cs Xconfigurator raidtools- locale-ja
-          open- cpio- tar- fileutils- net-tools- grep- sed- mt-st- gzip-
-          iputils- traceroute- sh-utils- textutils- pine- less-
-          rsh- ncurses- popt mtools- ftp- readline- mount- modutils-"
+          XFree86-Sun XFree86-TGA XFree86-75dpi-fonts
+          XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
+          XFree86-cyrillic-fonts XFree86-3.  xpm-3 glib- gtk+-
+          gnome-libs python-1 newt imlib-1 libpng libtiff libjpeg-
+          libtermcap-2 zlib rpm rpm-devel rpm-python ash- bash- pygtk-
+          pygnome- util-linux procps esound-0 audiofile-0
+          kernel-pcmcia-cs Xconfigurator raidtools- locale-ja open-
+          cpio- tar- fileutils- net-tools- grep- sed- mt-st- gzip-
+          iputils- traceroute- sh-utils- textutils- pine- less- rsh-
+          ncurses- popt mtools- ftp- readline- mount- modutils-"
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
@@ -217,6 +218,13 @@ usr/share/fonts/ISO8859-2/75dpi/fonts*
 usr/share/fonts/ISO8859-2/misc/6x*
 usr/share/fonts/ISO8859-2/misc/9x*
 usr/share/fonts/ISO8859-2/misc/fonts*
+usr/share/fonts/ISO8859-9/75dpi/cour*
+usr/share/fonts/ISO8859-9/75dpi/helv*
+usr/share/fonts/ISO8859-9/75dpi/tim*
+usr/share/fonts/ISO8859-9/75dpi/fonts*
+usr/share/fonts/ISO8859-9/misc/6x*
+usr/share/fonts/ISO8859-9/misc/9x*
+usr/share/fonts/ISO8859-9/misc/fonts*
 usr/X11R6/lib/X11/locale/*
 usr/X11R6/lib/X11/xkb/*
 usr/X11R6/lib/X11/rgb*
