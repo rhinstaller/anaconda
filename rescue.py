@@ -154,12 +154,6 @@ def runRescue(instPath, mountroot, id):
 
 	screen.finish()
 
-    # load st.o if they have any tape drives
-    tapes = kudzu.probe(kudzu.CLASS_TAPE, kudzu.BUS_SCSI, kudzu.PROBE_ALL)
-    if len(tapes) > 0:
-        log("Loading st.o because tape drives detected")
-        os.system("/bin/modprobe st.o")
-
     if (not mountroot):
         print
         print _("When finished please exit from the shell and your "
