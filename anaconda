@@ -568,7 +568,7 @@ configFile = configFileData.configFileData()
 configFileData = configFile.getConfigData()
 
 # setup links required for all install types
-for i in ( "services", "protocol", "nsswitch.conf"):
+for i in ( "services", "protocol", "nsswitch.conf", "joe"):
     try:
         os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
     except:
