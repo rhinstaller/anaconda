@@ -1,6 +1,5 @@
 %define i386buildreqs dietlibc kernel-pcmcia-cs
 
-ExcludeArch: s390 s390x ppc
 Name: anaconda
 Version: @@VERSION@@
 Release: @@RELEASE@@
