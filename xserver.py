@@ -207,7 +207,7 @@ EndSection
 	    sys.kill(server, 15)
 	    pid, status = os.waitpid(server, 0)
 	except:
-	    sys.exit(-1)
+	    sys.exit(0)
 
         sys.exit((status >> 8) & 0xf)
 
