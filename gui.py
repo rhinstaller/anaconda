@@ -38,47 +38,47 @@ from flags import flags
 StayOnScreen = "stayOnScreen"
 
 stepToClass = {
-    "language" : ( "language_gui", "LanguageWindow" ),
-    "keyboard" : ( "keyboard_gui", "KeyboardWindow" ),
-    "mouse" : ( "mouse_gui", "MouseWindow" ),
-    "welcome" : ("welcome_gui", "WelcomeWindow" ),
-    "installtype" : ( "installpath_gui", "InstallPathWindow" ),
-    "partitionmethod" : ( "partmethod_gui", "PartitionMethodWindow" ),
-    "partition" : ( "partition_gui", "PartitionWindow" ),
-    "autopartition" : ("partition_gui", "AutoPartitionWindow" ),
-    "findinstall" : ( "examine_gui", "UpgradeExamineWindow" ),
-    "addswap" : ( "upgrade_swap_gui", "UpgradeSwapWindow" ),
+    "language" : ("language_gui", "LanguageWindow"),
+    "keyboard" : ("keyboard_gui", "KeyboardWindow"),
+    "mouse" : ("mouse_gui", "MouseWindow"),
+    "welcome" : ("welcome_gui", "WelcomeWindow"),
+    "installtype" : ("installpath_gui", "InstallPathWindow"),
+    "partitionmethod" : ("partmethod_gui", "PartitionMethodWindow"),
+    "partition" : ("partition_gui", "PartitionWindow"),
+    "autopartition" : ("partition_gui", "AutoPartitionWindow"),
+    "findinstall" : ("examine_gui", "UpgradeExamineWindow"),
+    "addswap" : ("upgrade_swap_gui", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_migratefs_gui", "UpgradeMigrateFSWindow"),
-    "fdisk" : ( "fdisk_gui", "FDiskWindow" ),
-    "format" : ( "format_gui", "FormatWindow" ),
-    "bootloader": ("bootloader_gui", "BootloaderWindow" ), 
-    "network" : ( "network_gui", "NetworkWindow" ),
-    "firewall" : ( "firewall_gui", "FirewallWindow" ),
-    "languagesupport" : ( "language_support_gui", "LanguageSupportWindow" ),
-    "timezone" : ( "timezone_gui", "TimezoneWindow" ),
-    "accounts" : ( "account_gui", "AccountWindow" ),
-    "authentication" : ( "auth_gui", "AuthWindow" ),
-    "package-selection" : ( "package_gui", "PackageSelectionWindow" ),
-    "indivpackage" : ( "package_gui", "IndividualPackageSelectionWindow" ),
-    "dependencies" : ( "dependencies_gui", "UnresolvedDependenciesWindow" ),
-    "videocard" : ( "xconfig_gui", "XConfigWindow" ),
-    "monitor" : ( "xconfig_gui", "MonitorWindow" ),
-    "xcustom" : ( "xconfig_gui", "XCustomWindow" ),
-    "confirminstall" : ( "confirm_gui", "InstallConfirmWindow" ),
-    "confirmupgrade" : ( "confirm_gui", "UpgradeConfirmWindow" ),
+    "fdisk" : ("fdisk_gui", "FDiskWindow"),
+    "format" : ("format_gui", "FormatWindow"),
+    "bootloader": ("bootloader_gui", "BootloaderWindow"), 
+    "network" : ("network_gui", "NetworkWindow"),
+    "firewall" : ("firewall_gui", "FirewallWindow"),
+    "languagesupport" : ("language_support_gui", "LanguageSupportWindow"),
+    "timezone" : ("timezone_gui", "TimezoneWindow"),
+    "accounts" : ("account_gui", "AccountWindow"),
+    "authentication" : ("auth_gui", "AuthWindow"),
+    "package-selection" : ("package_gui", "PackageSelectionWindow"),
+    "indivpackage" : ("package_gui", "IndividualPackageSelectionWindow"),
+    "dependencies" : ("dependencies_gui", "UnresolvedDependenciesWindow"),
+    "videocard" : ("xconfig_gui", "XConfigWindow"),
+    "monitor" : ("xconfig_gui", "MonitorWindow"),
+    "xcustom" : ("xconfig_gui", "XCustomWindow"),
+    "confirminstall" : ("confirm_gui", "InstallConfirmWindow"),
+    "confirmupgrade" : ("confirm_gui", "UpgradeConfirmWindow"),
     "finishxconfig" : None,
-    "install" : ( "progress_gui", "InstallProgressWindow" ),
-    "bootdisk" : ( "bootdisk_gui", "BootdiskWindow" ),
-    "complete" : ( "congrats_gui", "CongratulationWindow" ),
+    "install" : ("progress_gui", "InstallProgressWindow"),
+    "bootdisk" : ("bootdisk_gui", "BootdiskWindow"),
+    "complete" : ("congrats_gui", "CongratulationWindow"),
     "reconfigwelcome" : ("welcome_gui", "ReconfigWelcomeWindow"),
     "reconfigkeyboard" : ("keyboard_gui", "KeyboardWindow"),
     "reconfigcomplete" : ("congrats_gui", "ReconfigCongratulationWindow")
 }
 
 if iutil.getArch() == 'sparc':
-    stepToClass["bootloader"] = ( "silo_gui", "SiloWindow" )
+    stepToClass["bootloader"] = ("silo_gui", "SiloWindow")
 else:
-    stepToClass["bootloader"] = ( "bootloader_gui", "BootloaderWindow" )
+    stepToClass["bootloader"] = ("bootloader_gui", "BootloaderWindow")
 
 # setup globals
 
@@ -92,11 +92,15 @@ def partedExceptionWindow(exc):
     print exc.message
     print exc.options
     win = GnomeDialog (exc.type_string)
-    win.vbox.pack_start (GtkLabel(exc.message))
+    win.set_position (WIN_POS_CENTER)
+    label = GtkLabel(exc.message)
+    label.set_line_wrap (TRUE)
+    win.vbox.pack_start (label)
     numButtons = 0
     buttonToAction = {}
     
-    flags = ((parted.EXCEPTION_YES, N_("Yes")),
+    flags = ((parted.EXCEPTION_FIX, N_("Fix")),
+             (parted.EXCEPTION_YES, N_("Yes")),
              (parted.EXCEPTION_NO, N_("No")),
              (parted.EXCEPTION_OK, N_("Ok")),
              (parted.EXCEPTION_RETRY, N_("Retry")),
@@ -239,7 +243,7 @@ class MessageWindow:
     def getrc (self):
         return self.rc
     
-    def __init__ (self, title, text, type = "ok"):
+    def __init__ (self, title, text, type="ok"):
         self.rc = None
         if type == "ok":
             self.window = GnomeOkDialog (_(text))
@@ -290,7 +294,7 @@ class InstallInterface:
         self.ppw.setSizes (total, totalSize)
         return self.ppw
 
-    def messageWindow(self, title, text, type = "ok"):
+    def messageWindow(self, title, text, type="ok"):
         rc = MessageWindow (title, text, type).getrc()
         return rc
 
@@ -390,7 +394,7 @@ class InstallControlWindow:
 
         self.setScreen ()
 
-    def helpClicked (self, widget, simulated = 0):
+    def helpClicked (self, widget, simulated=0):
         self.hbox.remove (widget)
         if widget == self.hideHelpButton:
             self.bin.remove (self.table)
@@ -572,16 +576,16 @@ class InstallControlWindow:
         self.hideHelpButton = None
 
 	self.stockButtons = [ 
-	    ( STOCK_BUTTON_PREV, "prevButtonStock",
-		    _("Back"), self.prevClicked ),
-	    ( STOCK_BUTTON_NEXT, "nextButtonStock",
-		    _("Next"), self.nextClicked ),
-	    ( STOCK_BUTTON_HELP, "releaseButton",
-		    _("Release Notes"), self.releaseClicked ),
-	    ( STOCK_BUTTON_HELP, "showHelpButton",
-		    _("Show Help"), self.helpClicked ),
-	    ( STOCK_BUTTON_HELP, "hideHelpButton",
-		    _("Hide Help"), self.helpClicked ),
+	    (STOCK_BUTTON_PREV, "prevButtonStock",
+             _("Back"), self.prevClicked),
+	    (STOCK_BUTTON_NEXT, "nextButtonStock",
+             _("Next"), self.nextClicked),
+	    (STOCK_BUTTON_HELP, "releaseButton",
+             _("Release Notes"), self.releaseClicked),
+	    (STOCK_BUTTON_HELP, "showHelpButton",
+             _("Show Help"), self.helpClicked),
+	    (STOCK_BUTTON_HELP, "hideHelpButton",
+             _("Hide Help"), self.helpClicked),
 	    ]
 
         self.reloadRcQueued = 0
@@ -767,7 +771,8 @@ class InstallControlState:
         self.prevButton = STOCK_BUTTON_PREV
         self.nextButtonLabel = None
         self.prevButtonLabel = None
-        self.helpEnabled = 3 # Values other than TRUE or FALSE don't change the help setting
+        # Values other than TRUE or FALSE don't change the help setting        
+        self.helpEnabled = 3 
         self.grabNext = 0
 
     def setTitle (self, title):

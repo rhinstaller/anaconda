@@ -30,54 +30,55 @@ from flags import flags
 from constants_text import *
 
 stepToClasses = {
-    "language" : ( "language_text", "LanguageWindow" ),
-    "keyboard" : ( "keyboard_text", "KeyboardWindow" ),
-    "mouse" : ( "mouse_text", ( "MouseWindow", "MouseDeviceWindow" ) ),
-    "welcome" : ("welcome_text", "WelcomeWindow" ),
-    "reconfigwelcome" : ("welcome_text", "ReconfigWelcomeWindow" ),
-    "installtype" : ("installpath_text", "InstallPathWindow" ),
+    "language" : ("language_text", "LanguageWindow"),
+    "keyboard" : ("keyboard_text", "KeyboardWindow"),
+    "mouse" : ("mouse_text", ("MouseWindow", "MouseDeviceWindow")),
+    "welcome" : ("welcome_text", "WelcomeWindow"),
+    "reconfigwelcome" : ("welcome_text", "ReconfigWelcomeWindow"),
+    "installtype" : ("installpath_text", "InstallPathWindow"),
     "autopartition" : ("partition_text", "AutoPartitionWindow"),
-    "custom-upgrade" : ("upgrade_text", "UpgradeExamineWindow" ),
-    "addswap" : ("upgrade_text", "UpgradeSwapWindow" ),
+    "custom-upgrade" : ("upgrade_text", "UpgradeExamineWindow"),
+    "addswap" : ("upgrade_text", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_text", "UpgradeMigrateFSWindow"),
-    "fdisk" : ("fdisk_text", "fdiskPartitionWindow" ),
-    "partitionmethod" : ("partmethod_text", ("PartitionMethod") ),
-    "partition": ("partition_text", ("PartitionWindow") ),
-    "findinstall" : ( "upgrade_text", ("UpgradeExamineWindow", "CustomizeUpgradeWindow") ),
-    "addswap" : ( "upgrade_text", "UpgradeSwapWindow" ),
+    "fdisk" : ("fdisk_text", "fdiskPartitionWindow"),
+    "partitionmethod" : ("partmethod_text", ("PartitionMethod")),
+    "partition": ("partition_text", ("PartitionWindow")),
+    "findinstall" : ("upgrade_text", ("UpgradeExamineWindow",
+                                      "CustomizeUpgradeWindow")),
+    "addswap" : ("upgrade_text", "UpgradeSwapWindow"),
     "bootloader" : ("bootloader_text", ("BootloaderChoiceWindow",
-                                  "BootloaderAppendWindow",
-				  "BootloaderWindow",
-				  "BootloaderImagesWindow" ) ),
-    "network" : ("network_text", ( "NetworkWindow", "HostnameWindow" ) ),
-    "firewall" : ( "firewall_text", "FirewallWindow" ),
-    "languagesupport" : ( "language_text", ( "LanguageSupportWindow",
-                                             "LanguageDefaultWindow") ),
-    "timezone" : ( "timezone_text", "TimezoneWindow" ),
-    "accounts" : ( "userauth_text", ( "RootPasswordWindow", "UsersWindow" ) ),
-    "authentication" : ( "userauth_text", ( "AuthConfigWindow" ) ),
-    "package-selection"  : ( "packages_text", "PackageGroupWindow" ),
-    "indivpackage" : ("packages_text", ( "IndividualPackageWindow" ) ),
-    "dependencies" : ( "packages_text", "PackageDepWindow" ),
-    "videocard" : ( "xconfig_text", "XConfigWindowCard"),
-    "monitor" : ( "xconfig_text", "MonitorWindow" ),
-    "xcustom" : ( "xconfig_text", "XCustomWindow" ),
-    "confirminstall" : ( "confirm_text", "BeginInstallWindow" ),
-    "confirmupgrade" : ( "confirm_text", "BeginUpgradeWindow" ),
-    "install" : ( "progress_text", "setupForInstall" ),
-    "bootdisk" : ( "bootdisk_text", ( "BootDiskWindow",
-                                      "MakeBootDiskWindow" ) ),
-    "complete" : ( "complete_text", "FinishedWindow" ),
-    "reconfigcomplete" : ( "complete_text", "ReconfigFinishedWindow" ),
+                                        "BootloaderAppendWindow",
+                                        "BootloaderWindow",
+                                        "BootloaderImagesWindow")),
+    "network" : ("network_text", ("NetworkWindow", "HostnameWindow")),
+    "firewall" : ("firewall_text", "FirewallWindow"),
+    "languagesupport" : ("language_text", ("LanguageSupportWindow",
+                                           "LanguageDefaultWindow")),
+    "timezone" : ("timezone_text", "TimezoneWindow"),
+    "accounts" : ("userauth_text", ("RootPasswordWindow", "UsersWindow")),
+    "authentication" : ("userauth_text", ("AuthConfigWindow")),
+    "package-selection"  : ("packages_text", "PackageGroupWindow"),
+    "indivpackage" : ("packages_text", ("IndividualPackageWindow")),
+    "dependencies" : ("packages_text", "PackageDepWindow"),
+    "videocard" : ("xconfig_text", "XConfigWindowCard"),
+    "monitor" : ("xconfig_text", "MonitorWindow"),
+    "xcustom" : ("xconfig_text", "XCustomWindow"),
+    "confirminstall" : ("confirm_text", "BeginInstallWindow"),
+    "confirmupgrade" : ("confirm_text", "BeginUpgradeWindow"),
+    "install" : ("progress_text", "setupForInstall"),
+    "bootdisk" : ("bootdisk_text", ("BootDiskWindow",
+                                    "MakeBootDiskWindow")),
+    "complete" : ("complete_text", "FinishedWindow"),
+    "reconfigcomplete" : ("complete_text", "ReconfigFinishedWindow"),
 }
 
 stepToClasses["reconfigkeyboard"] = stepToClasses["keyboard"]
 
 if iutil.getArch() == 'sparc':
-    stepToClasses["bootloader"] = ( "silo_text", ( "SiloAppendWindow",
-                                                   "SiloWindow"
-                                                   "SiloImagesWindow" ) )
-
+    stepToClasses["bootloader"] = ("silo_text", ("SiloAppendWindow",
+                                                 "SiloWindow"
+                                                 "SiloImagesWindow"))
+    
 
 class InstallWindow:
     def __call__ (self, screen, todo):
@@ -87,7 +88,6 @@ class InstallWindow:
         return INSTALL_OK
 
 class WaitWindow:
-
     def pop(self):
 	self.screen.popWindow()
 	self.screen.refresh()
@@ -104,25 +104,13 @@ class WaitWindow:
 	g.draw()
 	self.screen.refresh()
 
-class Flag:
-    """a quick mutable boolean class"""
-    def __init__(self, value = 0):
-        self.flag = value
-
-    def set(self, value):
-        self.flag = value;
-
-    def get(self):
-        return self.flag
-
 class OkCancelWindow:
-
     def getrc(self):
 	return self.rc
 
     def __init__(self, screen, title, text):
 	rc = ButtonChoiceWindow(screen, _(title), _(text),
-			        buttons = [ TEXT_OK_BUTTON, _("Cancel") ])
+			        buttons=[ TEXT_OK_BUTTON, _("Cancel") ])
 	if rc == string.lower(_("Cancel")):
 	    self.rc = 1
 	else:
@@ -135,8 +123,8 @@ class ProgressWindow:
         del self.scale
         self.scale = None
 
-    def set (self, amount):
-        self.scale.set (amount)
+    def set(self, amount):
+        self.scale.set(amount)
 	self.screen.refresh()
 
     def __init__(self, screen, title, text, total):
@@ -147,16 +135,16 @@ class ProgressWindow:
 	t = TextboxReflowed(width, text)
 
 	g = GridForm(self.screen, title, 1, 2)
-	g.add(t, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
+	g.add(t, 0, 0, (0, 0, 0, 1), anchorLeft=1)
 
-        self.scale = Scale (width, total)
+        self.scale = Scale(width, total)
         g.add(self.scale, 0, 1)
                 
 	g.draw()
 	self.screen.refresh()
 
 class InstallInterface:
-    def helpWindow(self, screen, key, firstTime = 1):
+    def helpWindow(self, screen, key, firstTime=1):
 	try:
             f = None
 
@@ -171,7 +159,7 @@ class InstallInterface:
 #                fn = "./text-help/%s/s1-help-screens-%s.txt" % (lang, key)
 
                 try:
-                    f = open (fn)
+                    f = open(fn)
                 except IOError, msg:
                     continue
                 break
@@ -179,11 +167,11 @@ class InstallInterface:
 
             if not f:
 		if firstTime:	
-		    return self.helpWindow(screen, "helponhelp", firstTime = 0)
+		    return self.helpWindow(screen, "helponhelp", firstTime=0)
 		else:
 		    ButtonChoiceWindow(screen, _("Help not available"), 
 				_("No help is available for this install."),
-				       buttons = [ TEXT_OK_BUTTON ])
+				       buttons=[ TEXT_OK_BUTTON ])
 		    return None
 
 	    l = f.readlines()
@@ -210,35 +198,35 @@ class InstallInterface:
 		    width = len(line)
 
 	    bb = ButtonBar(screen, [ TEXT_OK_BUTTON ] )
-	    t = Textbox(width, height, stream, scroll = scroll)
+	    t = Textbox(width, height, stream, scroll=scroll)
 
 	    g = GridFormHelp(screen, title, "helponhelp", 1, 2)
-	    g.add(t, 0, 0, padding = (0, 0, 0, 1))
-	    g.add(bb, 0, 1, growx = 1)
+	    g.add(t, 0, 0, padding=(0, 0, 0, 1))
+	    g.add(bb, 0, 1, growx=1)
 
 	    g.runOnce()
 	except:
 	    import traceback
 	    (type, value, tb) = sys.exc_info()
 	    from string import joinfields
-	    list = traceback.format_exception (type, value, tb)
-	    text = joinfields (list, "")
-	    rc = self.exceptionWindow (_("Exception Occurred"), text)
+	    list = traceback.format_exception(type, value, tb)
+	    text = joinfields(list, "")
+	    rc = self.exceptionWindow(_("Exception Occurred"), text)
 	    if rc:
 		import pdb
-		pdb.post_mortem (tb)
-	    os._exit (1)
+		pdb.post_mortem(tb)
+	    os._exit(1)
 
     def progressWindow(self, title, text, total):
-        return ProgressWindow (self.screen, _(title), _(text), total)
+        return ProgressWindow(self.screen, _(title), _(text), total)
 
-    def messageWindow(self, title, text, type = "ok"):
+    def messageWindow(self, title, text, type="ok"):
 	if type == "ok":
 	    ButtonChoiceWindow(self.screen, _(title), _(text),
-			       buttons = [ TEXT_OK_BUTTON ])
+			       buttons=[ TEXT_OK_BUTTON ])
         elif type == "yesno":
 	    rc = ButtonChoiceWindow(self.screen, _(title), _(text),
-			       buttons = [ TEXT_YES_BUTTON, TEXT_NO_BUTTON ])
+			       buttons=[ TEXT_YES_BUTTON, TEXT_NO_BUTTON ])
             if rc == "yes":
                 return 1
             else:
@@ -252,7 +240,7 @@ class InstallInterface:
 	      "will be erased, so please choose your diskette carefully."),
 	    [ TEXT_OK_BUTTON, _("Cancel") ])
 
-        if rc == string.lower (_("Cancel")):
+        if rc == string.lower(_("Cancel")):
 	    return 1
 
 	return 0
@@ -265,17 +253,18 @@ class InstallInterface:
 		"and will help Red Hat in fixing the problem.\n\n")
 
 	rc = ButtonChoiceWindow(self.screen, title, ugh + text,
-                           buttons = [ TEXT_OK_BUTTON, _("Save"), _("Debug") ])
-        if rc == string.lower (_("Debug")):
+                           buttons=[ TEXT_OK_BUTTON, _("Save"), _("Debug") ])
+        if rc == string.lower(_("Debug")):
             return 1
-	elif rc == string.lower (_("Save")):
+	elif rc == string.lower(_("Save")):
             return 2
         return None
 
     def partedExceptionWindow(self, exc):
         buttons = []
         buttonToAction = {}
-        flags = ((parted.EXCEPTION_YES, N_("Yes")),
+        flags = ((parted.EXCEPTION_FIX, N_("Fix")),
+                 (parted.EXCEPTION_YES, N_("Yes")),
                  (parted.EXCEPTION_NO, N_("No")),
                  (parted.EXCEPTION_OK, N_("Ok")),
                  (parted.EXCEPTION_RETRY, N_("Retry")),
@@ -286,7 +275,7 @@ class InstallInterface:
                 buttons.append(_(errorstring))
                 buttonToAction[string.lower(errorstring)] = flag
         rc = ButtonChoiceWindow(self.screen, exc.type_string, exc.message,
-                                buttons = buttons)
+                                buttons=buttons)
 
         return buttonToAction[rc]
     
@@ -298,9 +287,9 @@ class InstallInterface:
         self.welcomeText = _("Red Hat Linux (C) 2001 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
 	if (os.access("/usr/share/anaconda/help/C/s1-help-screens-lang.txt", os.R_OK)):
-	    self.screen.pushHelpLine (_(" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"))
+	    self.screen.pushHelpLine(_(" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"))
 	else:
-	    self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
+	    self.screen.pushHelpLine(_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
 
     def shutdown(self):
 	self.screen.finish()
@@ -386,31 +375,31 @@ class InstallInterface:
                                        _("I can't go to the previous step "
                                          "from here. You will have to try "
                                          "again."),
-                                       buttons = [ _("OK") ])
+                                       buttons=[ _("OK") ])
 		dispatch.gotoPrev()
 	    else:
 		dispatch.gotoNext()
 
 	    (step, args) = dispatch.currentStep()
 
-        self.screen.finish ()
+        self.screen.finish()
 
 def killSelf(screen):
     screen.finish()
     os._exit(0)
 
 def debugSelf(screen):
-    screen.suspend ()
+    screen.suspend()
     import pdb
     try:
         pdb.set_trace()
     except:
         sys.exit(-1)
-    screen.resume ()
+    screen.resume()
 
 def spawnShell(screen):
-    screen.suspend ()
+    screen.suspend()
     print "\n\nType <exit> to return to the install program.\n"
-    iutil.execWithRedirect ("/bin/sh", ["-/bin/sh"])
+    iutil.execWithRedirect("/bin/sh", ["-/bin/sh"])
     time.sleep(5)
-    screen.resume ()
+    screen.resume()
