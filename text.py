@@ -788,18 +788,66 @@ class WaitWindow:
 	g.draw()
 	self.screen.refresh()
 
+
+#
+# do these belong here or should they be made nested functions in
+# the TimeZoneWindow below, or perhaps put in a utility module?
+#
+def makerelname(relpath, filename):
+    if relpath != '':
+        return relpath+'/'+filename
+    else:
+        return filename
+    
+    
+def findtz(basepath, relpath):
+    tzdata = []
+    for n in os.listdir(basepath+'/'+relpath):
+        timezone = makerelname(relpath, n)
+        if relpath != '':
+            timezone = relpath+'/'+n
+        else:
+            timezone = n
+            
+            filestat = os.lstat(basepath+'/'+timezone)
+            [filemode] = filestat[:1]
+            
+            if (not (stat.S_ISLNK(filemode) or
+                     stat.S_ISREG(filemode) or
+                     stat.S_ISDIR(filemode))):
+                continue
+            elif n[:1] >= 'A' and n[:1] <= 'Z':
+                if stat.S_ISDIR(filemode):
+                    tmptzdata = findtz(basepath, timezone)
+                else:
+                    tmptzdata = [timezone]
+                    
+                    for m in tmptzdata:
+                        if tzdata == []:
+                            tzdata = [m]
+                        else:
+                            tzdata.append(m)
+                            
+    return tzdata
+
+
 class TimezoneWindow:
 
     def getTimezoneList(self, test):
-	if test and not os.access("/usr/lib/timezones.gz", os.R_OK):
-	    cmd = "./gettzlist"
-	    stdin = None
+	if not os.access("/usr/lib/timezones.gz", os.R_OK):
+            if test:
+                cmd = "./gettzlist"
+                stdin = None
+            else:
+                zoneList = findtz('/usr/share/zoneinfo', '')
+                cmd = ""
 	else:
 	    cmd = "/usr/bin/gunzip"
 	    stdin = os.open("/usr/lib/timezones.gz", 0)
 
-	zones = iutil.execWithCapture(cmd, [ cmd ], stdin = stdin)
-	zoneList = string.split(zones)
+        if cmd != "":
+            zones = iutil.execWithCapture(cmd, [ cmd ], stdin = stdin)
+            zoneList = string.split(zones)
 
 	if (stdin != None): os.close(stdin)
 
