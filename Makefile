@@ -28,7 +28,7 @@ lang-names: lang-table
 	PYTHONPATH="." $(PYTHON) scripts/getlangnames.py > lang-names
 
 locale-list:
-	PYTHONPATH="." $(PYTHON) scripts/genlocalelist > locale-list
+	PYTHONPATH="." $(PYTHON) scripts/genlocalelist.py > locale-list
 
 mini-wm: mini-wm.c
 	gcc -o mini-wm mini-wm.c `pkg-config gtk+-x11-2.0 --cflags --libs`
