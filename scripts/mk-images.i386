@@ -130,6 +130,9 @@ do
 done
 PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 
+# need to make sure the bsae modules are included
+PCMCIAMODULES="$PCMCIAMODULES yenta_socket pcmcia_core ds"
+
 echo "Building $TOPDESTPATH/images/pxeboot/initrd.img"
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
 	   --initrdsize 2750 \
