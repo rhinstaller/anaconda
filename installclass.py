@@ -63,7 +63,7 @@ class BaseInstallClass:
     # we can use a different install data class
     installDataClass = InstallData
 
-    def postAction(self, rootPath, serial):
+    def postAction(self, rootPath, serial, intf = None):
 	pass
 
     def setBootloader(self, id, useLilo=0, location=None, linear=1,

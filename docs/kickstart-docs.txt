@@ -472,14 +472,14 @@ Creating the Kickstart File
 
        firewall --enabled|--disabled [--trust=] <device> [--port=] 
 
-       --enabled
+       --enabled or --enable
 
             Reject incoming connections that are not in response to
             outbound requests, such as DNS replies or DHCP requests. If
             access to services running on this machine is needed, you can
             choose to allow specific services through the firewall.
 
-       --disabled
+       --disabled or --disable
 
             Do not configure any iptables rules.
 
@@ -520,11 +520,11 @@ Creating the Kickstart File
        is booted. If enabled, the firstboot package must be installed. If
        not specified, this option is disabled by default.
 
-       --enable
+       --enable or --enabled
 
             The Setup Agent is started the first time the system boots.
 
-       --disable
+       --disable or --disabled
 
             The Setup Agent is not started the first time the system
             boots.
@@ -675,6 +675,44 @@ Creating the Kickstart File
 
            Use an existing logical volume and reformat it.
 
+       --fstype=
+
+           Sets the file system type for the logical volume. Valid values
+           are ext2, ext3, swap, and vfat.
+
+       --fsoptions=
+
+           Specifies a free form string of options to be used when
+           mounting the filesystem. This string will be copied into the
+           /etc/fstab file of the installed system and should be enclosed
+           in quotes.
+
+       --bytes-per-inode=
+
+           Specifies the size of inodes on the filesystem to be made on
+           the logical volume.  Not all filesystems support this option,
+           so it is silently ignored for those cases.
+
+       --grow
+
+           Tells the logical volume to grow to fill available space (if
+           any), or up to the maximum size setting.
+
+       --maxsize=
+
+           The maximum size in megabytes when the logical volume is set to
+           grow. Specify an integer value here, and do not append the
+           number with MB.
+
+       --recommended
+
+           Determine the size of the logical volume automatically.
+
+       --percent
+
+           Specify the size of the logical volume as a percentage of
+           available space in the volume group.
+
        Create the partition first, create the logical volume group, and
        then create the logical volume. For example:
 
@@ -682,41 +720,10 @@ Creating the Kickstart File
        volgroup myvg pv.01                                         
        logvol / --vgname=myvg --size=2000 --name=rootvol           
 
-   mouse (required)
+   mouse
 
-       Configures the mouse for the system, both in GUI and text modes.
-       Options are:
-
-       --device=
-
-           Device the mouse is on (such as --device=ttyS0).
-
-       --emulthree
-
-           If present, simultaneous clicks on the left and right mouse
-           buttons will be recognized as the middle mouse button by the X
-           Window System. This option should be used if you have a two
-           button mouse.
-
-       After options, the mouse type may be specified as one of the
-       following:
-
-       alpsps/2, ascii, asciips/2, atibm, generic, generic3, genericps/2,
-       generic3ps/2, genericwheelps/2, genericusb, generic3usb,
-       genericwheelusb, geniusnm, geniusnmps/2, geniusprops/2,
-       geniusscrollps/2, geniusscrollps/2+, thinking, thinkingps/2,
-       logitech, logitechcc, logibm, logimman, logimmanps/2, logimman+,
-       logimman+ps/2, logimmusb, microsoft, msnew, msintelli,
-       msintellips/2, msintelliusb, msbm, mousesystems, mmseries,
-       mmhittab, sun, none
-
-       This list can also be found in the
-       /usr/lib/python2.2/site-packages/rhpl/mouse.py file, which is part
-       of the rhpl package.
-
-       If the mouse command is given without any arguments, or it is
-       omitted, the installation program will attempt to auto-detect the
-       mouse. This procedure works for most modern mice.
+       The mouse configuration option is deprecated. It is still
+       recognized for backwards compatibility, but has no effects.
 
    network (optional)
 
@@ -807,6 +814,27 @@ Creating the Kickstart File
        --hostname=
 
            Hostname for the installed system.
+
+       --ethtool=
+
+           Specifies additional low-level settings for the network device
+           which will be passed to the ethtool program.
+
+       --essid=
+
+           The network ID for wireless networks.
+
+       --wepkey=
+
+           The encryption key for wireless networks.
+
+       --onboot=
+
+           Whether or not to enable the device a boot time.
+
+       --class=
+
+           The DHCP class.
 
    part or partition (required for installs, ignored for upgrades)
 
@@ -900,6 +928,13 @@ Creating the Kickstart File
            Sets the file system type for the partition. Valid values are
            ext2, ext3, swap, and vfat.
 
+       --fsoptions=
+
+           Specifies a free form string of options to be used when
+           mounting the filesystem. This string will be copied into the
+           /etc/fstab file of the installed system and should be enclosed
+           in quotes.
+
        --start=
 
            Specifies the starting cylinder for the partition. It requires
@@ -911,6 +946,21 @@ Creating the Kickstart File
 
            Specifies the ending cylinder for the partition. It requires
            that the starting cylinder be specified with --start=.
+
+       --bytes-per-inode=
+
+           Specifies the size of inodes on the filesystem to be made on
+           the partition. Not all filesystems support this option, so it
+           is silently ignored for those cases.
+
+       --recommended
+
+           Determine the size of the partition automatically.
+
+       --onbiosdisk
+
+           Forces the partition to be created on a particular disk as
+           discovered by the BIOS.
 
        Note                                                      
        If partitioning fails for any reason, diagnostic messages will
@@ -951,6 +1001,13 @@ Creating the Kickstart File
 
            Sets the file system type for the RAID array. Valid values are
            ext2, ext3, swap, and vfat.
+
+       --fsoptions=
+
+           Specifies a free form string of options to be used when
+           mounting the filesystem. This string will be copied into the
+           /etc/fstab file of the installed system and should be enclosed
+           in quotes.
 
        --noformat
 
@@ -1111,6 +1168,10 @@ Creating the Kickstart File
 
            Use an existing volume group and reformat it.
 
+       --pesize=
+
+           Set the size of the physical extents.
+
        Create the partition first, create the logical volume group, and
        then create the logical volume. For example:
 
@@ -1224,6 +1285,13 @@ Creating the Kickstart File
        Python. Replace /usr/bin/python with the scripting language of your
        choice.
 
+   --erroronfail
+
+       If the pre-installation script fails, this option will cause an
+       error dialog to be displayed and will halt installation. The error
+       message will direct you to where the cause of the failure is
+       logged.
+
 Example
 
    Here is an example %pre section:
@@ -1316,6 +1384,13 @@ fi
        Allows you to specify a different scripting language, such as
        Python. Replace /usr/bin/python with the scripting language of your
        choice.
+
+   --erroronfail
+
+       If the post-installation script fails, this option will cause an
+       error dialog to be displayed and will halt installation. The error
+       message will direct you to where the cause of the failure is
+       logged.
 
 Examples
 

@@ -1,3 +1,10 @@
+2005-02-09  Chris Lumens  <clumens@redhat.com>
+
+	* installclass.py (BaseInstallClass.postAction):  Handle the default
+	case where there is no %post script.
+
+	* docs/kickstart-docs.txt:  Synchronize options with kickstart.py.
+
 2005-02-09  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (KEEPFILE): urlgrabber is in a noarch
