@@ -590,7 +590,7 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
     foundSwap = 0
     swapSize = 0
     for request in requests.requests:
-        if request.fstype and request.fstype.getName() == "swap":
+        if request.fstype and request.fstype.getName() == "swap" and not request.raidlevel:
             foundSwap = foundSwap + 1
             swapSize = swapSize + requestSize(request, diskset)
         if baseChecks:
