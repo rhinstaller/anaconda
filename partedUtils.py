@@ -469,7 +469,8 @@ def productMatches(oldproduct, newproduct):
                                      "Red Hat Linux Advanced Workstation",
                                      "Red Hat Enterprise Linux AS",
                                      "Red Hat Enterprise Linux ES",
-                                     "Red Hat Enterprise Linux WS")
+                                     "Red Hat Enterprise Linux WS"),
+        "Fedora Core": ("Red Hat Linux",)
         }
 
     if productUpgrades.has_key(newproduct):
