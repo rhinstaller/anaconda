@@ -26,10 +26,13 @@ class CongratulationWindow (InstallWindow):
 	InstallWindow.__init__(self, ics)
 
         ics.setPrevEnabled(gtk.FALSE)
-        ics.setNextButton(gtk.STOCK_QUIT, _("Reboo_t"))
         ics.setHelpButtonEnabled(gtk.FALSE)
         ics.setHelpEnabled(gtk.FALSE)
-	ics.setGrabNext(1)
+        # this mucks around a bit, but it's the weird case and it's
+        # better than adding a lot of complication to the normal
+	ics.cw.mainxml.get_widget("nextButton").hide()
+	ics.cw.mainxml.get_widget("rebootButton").show()
+	ics.cw.mainxml.get_widget("rebootButton").grab_focus()
 
     def getNext(self):
 	# XXX - copy any screenshots over
