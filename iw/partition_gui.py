@@ -1196,7 +1196,7 @@ class PartitionWindow(InstallWindow):
         row = row + 1
 
         # number of spares - created widget above
-        maintable.attach(createAlignedLabel(_("Number of spares?:")),
+        maintable.attach(createAlignedLabel(_("Number of spares:")),
                          0, 1, row, row + 1)
         maintable.attach(sparesb, 1, 2, row, row + 1)
         row = row + 1
