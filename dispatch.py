@@ -56,7 +56,7 @@ installSteps = [
     ("welcome", ("id.configFileData",)),
     ("betanag", betaNagScreen, ("intf", "dir")),
     ("language", ("intf", "id.instLanguage")),
-    ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard", "id.xsetup")),
+    ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard")),
     ("mouse", ("id.mouse",)),
     ("findrootparts", findRootParts, ("intf", "id", "dispatch", "dir", "instPath")),
     ("findinstall", ("dispatch", "intf", "id", "instPath")),
