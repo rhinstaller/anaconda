@@ -69,6 +69,8 @@
 #include "hdinstall.h"
 #include "urlinstall.h"
 
+#include "telnetd.h"
+
 #include "../isys/imount.h"
 #include "../isys/isys.h"
 #include "../isys/probe.h"
@@ -352,6 +354,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOUSBSTORAGE;
         else if (!strcasecmp(argv[i], "nousb"))
             flags |= LOADER_FLAGS_NOUSB;
+        else if (!strcasecmp(argv[i], "telnet"))
+            flags |= LOADER_FLAGS_TELNETD;
         else if (!strcasecmp(argv[i], "nofirewire"))
             flags |= LOADER_FLAGS_NOIEEE1394;
         else if (!strcasecmp(argv[i], "noprobe"))
@@ -865,7 +869,8 @@ int main(int argc, char ** argv) {
         }
     }
 
-    /* JKFIXME: telnetd */
+    if (FL_TELNETD(flags))
+        startTelnetd(&kd, &loaderData, modInfo, modLoaded, modDeps, flags);
 
     url = doLoaderMain("/mnt/source", &loaderData, &kd, modInfo, modLoaded, &modDeps, flags);
 

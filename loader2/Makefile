@@ -32,8 +32,7 @@ OBJS = log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
 	md5.o mediacheck.o kickstart.o \
 	$(HWOBJS) $(METHOBJS)
 LOADEROBJS = loader.o loader-pcmcia.o
-NETOBJS = net.o urls.o telnet.o telnetd.o
-NETOBJS = net.o urls.o ftp.o
+NETOBJS = net.o urls.o ftp.o telnet.o telnetd.o
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 
