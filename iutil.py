@@ -395,4 +395,4 @@ def copyDeviceNode(src, dest):
         # XXX should we just fallback to copying normally?
         raise RuntimeError, "Tried to copy %s which isn't a device node" % (src,)
 
-    isys.mknod(dest, mode | type, filestat[stat.ST_DEV])
+    isys.mknod(dest, mode | type, filestat.st_rdev)
