@@ -315,11 +315,12 @@ int chooseLanguage(char ** lang, int flags) {
 	extern int continuing;
 	extern void stopNewt(void);
 
-	if (!strcmp (languages[choice].key, "ja") && !continuing) {
+	if (!strcmp (languages[choice].key, "ja") && !continuing
+	    && !FL_TESTING(flags)) {
 	    char * args[4];
 
 	    stopNewt();
-	    
+
 	    args[0] = "kon";
 	    args[1] = "-e";
 	    args[2] = FL_TESTING(flags) ? "./loader" : "/sbin/continue";
