@@ -21,14 +21,14 @@ class BootDiskWindow:
     def __call__(self, screen, dir, disp, fsset):
 	buttons = [ _("Yes"), _("No") ]
 
-	text = _("The boot disk allows you to boot your %s "
-                 "system from a floppy diskette.  A boot disk "
-		 "allows you to boot your system if your "
+	text = _("The boot diskette allows you to boot your %s "
+                 "system from a floppy diskette.  A boot diskette "
+		 "allows you to boot your system in the event your "
 		 "bootloader configuration stops working.\n\nIt is "
-		 "highly recommended you create a boot disk.\n\n"
-		 "Would you like to create a boot disk?") % (productName,)
+		 "highly recommended you create a boot diskette.\n\n"
+		 "Would you like to create a boot diskette?") % (productName,)
 
-	rc = ButtonChoiceWindow(screen, _("Boot Disk"), text,
+	rc = ButtonChoiceWindow(screen, _("Boot Diskette"), text,
                                 buttons=buttons,
 				help="bootdiskquery")
 

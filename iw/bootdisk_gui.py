@@ -20,7 +20,7 @@ from constants import *
 class BootdiskWindow (InstallWindow):
 
     htmlTag = "bootdisk"
-    windowTitle =  N_("Boot Disk Creation")
+    windowTitle =  N_("Boot Diskette Creation")
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
@@ -67,10 +67,10 @@ class BootdiskWindow (InstallWindow):
         radioBox = gtk.VBox (gtk.FALSE)
 
         self.createDisk = gtk.RadioButton(
-            None, _("_Yes, I would like to create a boot disk"))
+            None, _("_Yes, I would like to create a boot diskette"))
 	radioBox.pack_start(self.createDisk, gtk.FALSE, gtk.FALSE, padding=10)
         self.skipDisk = gtk.RadioButton(
-            self.createDisk, _("No, I _do not want to create a boot disk"))
+            self.createDisk, _("No, I _do not want to create a boot diskette"))
 	radioBox.pack_start(self.skipDisk, gtk.FALSE, gtk.FALSE)
 
 	self.createDisk.set_active(1)
