@@ -246,7 +246,7 @@ class Partitions:
                 self.addRequest(spec)
 
         for vg in lvm.partialvgs():
-            spec = partRequests.PartialVolumeGroupRequestSpec(vgname = vg)
+            spec = partRequests.PartialVolumeGroupSpec(vgname = vg)
             self.addDelete(spec)
             
         lvm.vgdeactivate()
@@ -471,8 +471,8 @@ class Partitions:
     def getPartialLVMRequests(self):
         """Return a list of all of the partial volume groups names."""
         retval = []
-        for request in self.requests:
-            if isinstance(request, partRequests.PartialVolumeGroupRequestSpec):
+        for request in self.deletes:
+            if isinstance(request, partRequests.PartialVolumeGroupSpec):
                 retval.append(request.volumeGroupName)
 	    
         return retval

@@ -3,10 +3,11 @@
 	* anaconda.spec: Bump version.
 
 	* partitions.py (Partitions.setFromDisk): Adding as a request
-	requires more bits (#142304)
+	requires more bits, do as a delete (#142304)
+	(Partitions.getPartialLVMRequests): Check deletes now
 
 	* partRequests.py (PartialVolumeGroupRequestSpec): It's not really
-	a RequestSpec
+	a RequestSpec, change accordingly.
 
 2004-12-03  Jeremy Katz  <katzj@redhat.com>
 
