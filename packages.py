@@ -132,7 +132,7 @@ def writeXConfiguration(id, instPath):
 def readPackages(intf, method, id):
     if id.grpset:
         grpset = id.grpset
-        hdrlist = idr.grpset.hdrlist
+        hdrlist = id.grpset.hdrlist
     else:
         grpset = None
         hdrlist = None
@@ -1248,3 +1248,4 @@ def selectLanguageSupportGroups(grpset, langSupport):
                     sys.stdout.flush()
                     grpset.hdrlist[package].usecount += grpset.hdrlist[req].usecount - 1
                     group.selectDeps([package], uses = grpset.hdrlist[req].usecount - 1)
+    
