@@ -356,7 +356,7 @@ def getGeometry(device):
 def fbinfo():
     return _isys.fbinfo()
 
-def ideCdRwList():
+def cdRwList():
     if not os.access("/proc/sys/dev/cdrom/info", os.R_OK): return []
 
     f = open("/proc/sys/dev/cdrom/info", "r")
@@ -390,3 +390,10 @@ def ideCdRwList():
     l = finalDict.keys()
     l.sort()
     return l
+
+def ideCdRwList():
+    newList = []
+    for dev in cdRwList():
+	if dev[0:2] == 'hd': newList.append(dev)
+
+    return newList
