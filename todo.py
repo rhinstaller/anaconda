@@ -1220,9 +1220,9 @@ class ToDo:
 		    script.close()
 		    os.chmod(self.instPath + "/etc/X11/X", 0755)
 		else:
-                    if os.access (self.todo.instPath + "/etc/X11/X", os.R_OK):
-                        os.rename (self.todo.instPath + "/etc/X11/X",
-                                   self.todo.instPath + "/etc/X11/X.rpmsave")
+                    if os.access (self.instPath + "/etc/X11/X", os.R_OK):
+                        os.rename (self.instPath + "/etc/X11/X",
+                                   self.instPath + "/etc/X11/X.rpmsave")
 		    os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
 				self.instPath + "/etc/X11/X")
 		self.x.write (self.instPath + "/etc/X11/XF86Config")
