@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-05-25 18:58-0400\n"
-"PO-Revision-Date: 2004-05-03 16:17+0200\n"
+"PO-Revision-Date: 2004-06-08 22:34+0200\n"
 "Last-Translator: Josep Puigdemont <baldrick@terra.es>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -999,11 +999,14 @@ msgid ""
 "The following error was found while parsing your kickstart configuration:n\n"
 "%s"
 msgstr ""
+"S'ha trobat el següent error en analitzar la configuració de l'inici ràpid:"
+"n\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
 #, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "S'ha produït un error en obrir el fitxer d'inici ràpid %s: %s"
+msgstr "S'ha produït un error en analitzar la configuració de l'inici ràpid"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1014,9 +1017,8 @@ msgstr ""
 "seu contingut."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Predeterminat"
+msgstr "predeterminat:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -7109,9 +7111,10 @@ msgid "Add Device"
 msgstr "Afegeix dispositiu"
 
 #: ../loader2/loader.c:1112
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "ja s'ha executat el carregador. S'està iniciant l'intèrpret d'ordres."
+msgstr ""
+"ja s'ha executat el carregador. S'està iniciant l'intèrpret d'ordres.\n"
 
 #: ../loader2/loader.c:1460
 #, c-format
@@ -7253,19 +7256,21 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s és un adaptador de xarxa sense fil. Indiquey el ESSID i la clau de "
+"xifratge que calgui per accedir a la xarxa sense fil. Si no cal cap clau, "
+"deixeu aquest camp en blanc i la instal·lació continuarà."
 
 #: ../loader2/net.c:183
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../loader2/net.c:184
 msgid "Encryption Key"
-msgstr ""
+msgstr "Clau de xifratge"
 
 #: ../loader2/net.c:187
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Configuracions diverses"
+msgstr "Configuració de la xarxa sense fil"
 
 #: ../loader2/net.c:200
 msgid "Nameserver IP"
