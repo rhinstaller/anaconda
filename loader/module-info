@@ -489,6 +489,16 @@ yellowfin
 	eth
 	"Packet Engines G-NIC PCI Gigabit"
 
+# S/390 stuff
+netiucv
+	eth
+	"S/390 Inter-User Communication Vehicle (iucv)"
+
+ctc
+	eth
+	"S/390 Channel to Channel"
+
+
 # NOT YET MODULARIZED!
 #znet
 #	eth
