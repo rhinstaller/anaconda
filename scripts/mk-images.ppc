@@ -78,7 +78,7 @@ EOF
 	$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux.sm $TOPDESTPATH/ppc/iSeries/boot.img
 	rm -f $TOPDESTPATH/ppc/iSeries/vmlinux.sm
     elif [ "$KERNELARCH" = "ppc" ]; then
-	FAKEARCH="ppc32"
+	FAKEARCH="ppc"
 	mkdir -p $TOPDESTPATH/ppc/mac
 
         echo "Building ppc initrd"
