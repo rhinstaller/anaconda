@@ -399,7 +399,11 @@ class Network:
         f.write(localline)
 
 	if ip:
-	    f.write("%s\t\t%s\n" % (ip, self.hostname))
+            nameline = "%s\t\t%s" % (ip, self.hostname))
+            n = string.split(self.hostname, ".")
+            if len(n) > 1:
+                nameline = nameline + " " + n[0]
+            f.write("%s\n" %(nameline,))
 
 	# If the hostname was not looked up, but typed in by the user,
 	# domain might not be computed, so do it now.
