@@ -889,10 +889,9 @@ class InstallControlState:
                      "%s" % (arch,), "" ]
             
             for path in self.searchPath:
-                for lang in langPath:
+                for lang in langPath + ['C']:
                     for tag in tags:
                         try:
-                            print "trying lang: %s, tag: %s" % (lang, tag)
                             text = open("%s/help/%s/s1-help-screens-%s%s.html"
                                         % (path, lang, file, tag)).read ()
                         except IOError:
@@ -901,14 +900,6 @@ class InstallControlState:
                             break
                 if text:
                     break
-                try:
-                    for tag in tags:
-                        print "trying tag: %s" % (tag,)
-                        text = open("%s/help/C/s1-help-screens-%s%s.html" %
-                                    (path, file, tag)).read ()
-                except IOError:
-                        continue
-
             if text:
                 return text
 
