@@ -1272,8 +1272,9 @@ def readFstab (path):
 
 	    if file[:15] == "/initrd/loopfs/":
 		file = file[14:]
-
-	    device = PiggybackSwapFileDevice("/mnt/loophost", file)
+                device = PiggybackSwapFileDevice("/mnt/loophost", file)
+            else:
+                device = SwapFileDevice("/mnt/loophost", file)
         elif fields[0][:9] == "/dev/loop":
 	    # look up this loop device in the index to find the
             # partition that houses the filesystem image
