@@ -200,7 +200,7 @@ class InstallPathWindow:
 
 	if needNewDruid or not todo.fstab:
 	    todo.fstab = NewtFstab(todo.setupFilesystems, 
-                                   todo.serial, 0, 0,
+                                   todo.serial, todo.zeroMbr, 0,
                                    todo.intf.waitWindow,
                                    todo.intf.messageWindow,
                                    todo.intf.progressWindow,
