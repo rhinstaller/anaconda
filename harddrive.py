@@ -43,7 +43,7 @@ class OldHardDriveInstallMethod(InstallMethod):
 
 	for line in l:
 	    s = string.split(line)
-	    if s[0] == "/tmp/" + self.device:
+	    if s[0] == "/dev/" + self.device:
 		self.tree = s[1] + "/"
 		return
 	
@@ -156,7 +156,7 @@ class HardDriveInstallMethod(InstallMethod):
 
 	for line in l:
 	    s = string.split(line)
-	    if s[0] == "/tmp/" + self.device:
+	    if s[0] == "/dev/" + self.device:
 		self.isoDir = s[1] + "/"
 		return
 	
