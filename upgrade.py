@@ -3,7 +3,7 @@
 #
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -456,7 +456,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             try:
                 resetRpmdb(id.dbpath)
             except Exception, e:
-                logMessage("error returning rpmdb to old state: %s" %(e,))
+                log("error returning rpmdb to old state: %s" %(e,))
                 pass
             sys.exit(0)
 
@@ -473,7 +473,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             try:
                 resetRpmdb(id.dbpath)
             except Exception, e:
-                logMessage("error returning rpmdb to old state: %s" %(e,))
+                log("error returning rpmdb to old state: %s" %(e,))
                 pass
             sys.exit(0)
 
@@ -514,7 +514,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             try:
                 resetRpmdb(id.dbpath)
             except Exception, e:
-                logMessage("error returning rpmdb to old state: %s" %(e,))
+                log("error returning rpmdb to old state: %s" %(e,))
                 pass
             sys.exit(0)
 
