@@ -11,7 +11,7 @@ STRIP=strip
 ARCH=`uname -m | sed -e 's/i.86/i386/'`
 
 if [ $ARCH = ia64 ]; then
-    STRIP=echo
+    STRIP=strip --strip-debug
 fi
 
 # Must create ld.so.conf, because ldconfig does not cache

@@ -6,7 +6,7 @@ prepareBootImage() {
 	mount -o loop -t vfat $MBD_TMPIMAGE $MBD_BOOTTREE
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 
-	cp $KERNELROOT/boot/vmlinux-* $MBD_BOOTTREE/vmlinux
+	cp $KERNELROOT/boot/efi/vmlinux-* $MBD_BOOTTREE/vmlinux
 }
 
 makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinux  \
@@ -14,3 +14,7 @@ makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinux  \
 	     --initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
 		     	    --initrdsize 4096 \
 			    --loaderbin loader'
+
+makeinstimage --size1 5000 --size2 7000 "netstg"
+makeinstimage --size1 5000 --size2 7000 "hdstg" 
+makemainimage "stage2"
