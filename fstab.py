@@ -509,7 +509,7 @@ class Fstab:
 			iutil.execWithRedirect ("/usr/sbin/mkswap", 
 				      [ "mkswap", '-v1', file ],
 					 stdout = None, stderr = None)
-
+                        os.chmod(file, 0600)
 			formatThisSwap = 1
 		    else:
 			log("swap file %s is in the fstab, but does not exist",
