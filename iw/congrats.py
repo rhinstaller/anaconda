@@ -9,7 +9,7 @@ class CongratulationWindow (InstallWindow):
 
         ics.setTitle ("Congratulations")
         ics.setPrevEnabled (0)
-        ics.setNextButton (STOCK_BUTTON_EXIT, "Exit")
+        ics.setNextButton (STOCK_PIXMAP_QUIT, "Exit")
         ics.setNextEnabled (1)
 
     def getScreen (self):
