@@ -1,5 +1,8 @@
 2005-01-04  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/net.c: Fix multiple dns servers being specified on the
+	command line.  Again.  Patch from Matthew Miller (#84409)
+
 	* packages.py (rpmErrorClass.selected): Fix tyop (#143257)
 
 	* loader2/loader.c: Apparently, I can't count (#144006)

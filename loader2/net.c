@@ -572,7 +572,8 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
 
             if (c.ns && *c.ns && inet_aton(c.ns, &addr)) {
                 cfg->dev.dnsServers[0] = addr;
-                cfg->dev.numDns = 1;
+                if (cfg->dev.numDns < 1)
+                    cfg->dev.numDns = 1;
             }
 
             if (i != 2) {
