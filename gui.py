@@ -125,7 +125,7 @@ class InstallInterface:
 
 class InstallControlWindow:
 
-    def prevClicked (self, widget, *args):
+    def prevClicked (self, *args):
         prev = self.currentScreen.getPrev ()
         if prev:
             for x in self.windowList:
@@ -135,9 +135,9 @@ class InstallControlWindow:
         else:
             self.stateListIndex = self.stateListIndex - 1
             self.currentScreen = self.stateList[self.stateListIndex]
-        self.setScreen (self.currentScreen)
+        self.setScreen (self.currentScreen, self.prevClicked)
 
-    def nextClicked (self, widget, *args):
+    def nextClicked (self, *args):
         next = self.currentScreen.getNext ()
         if next:
             for x in self.windowList:
@@ -147,7 +147,7 @@ class InstallControlWindow:
         else:
             self.stateListIndex = self.stateListIndex + 1
             self.currentScreen = self.stateList[self.stateListIndex]
-        self.setScreen (self.currentScreen)
+        self.setScreen (self.currentScreen, self.nextClicked)
 
     def helpClicked (self, widget, *args):
         self.hbox.remove (widget)
@@ -173,18 +173,19 @@ class InstallControlWindow:
             self.hbox.reorder_child (self.hideHelpButton, 0)
             self.displayHelp = TRUE
 
-    def setScreen (self, screen):
-#        if screen == len (self.stateList):
-#            self.mutex.release ()
-#            return
+    def setScreen (self, screen, direction):
+        # if getScreen returns None, we continue advancing in direction given
+	new_screen = screen.getScreen ()
+	if not new_screen:
+            direction ()
 
         self.update (screen.getICS ())
 
         child = self.installFrame.children ()[0]
         self.installFrame.remove (child)
         child.destroy ()
-        
-        self.installFrame.add (screen.getScreen ())
+
+        self.installFrame.add (new_screen)
         self.installFrame.show_all ()
 
     def update (self, ics):
