@@ -1,5 +1,7 @@
 2004-11-23  Jeremy Katz  <katzj@redhat.com>
 
+	* Makefile.inc (USEDIET): No diet on i386.
+
 	* textw/upgrade_bootloader_text.py
 	(UpgradeBootloaderWindow.__call__): Set a default when we can't
 	determine the boot loader to avoid indeterminate state (#139603)
