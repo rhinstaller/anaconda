@@ -1417,6 +1417,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 		     LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "text"))
 	    flags |= LOADER_FLAGS_TEXT;
+        else if (!strcasecmp(argv[i], "isa"))
+	    flags |= LOADER_FLAGS_ISA;
         else if (!strcasecmp(argv[i], "dd"))
 	    flags |= LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "driverdisk"))
@@ -1692,6 +1694,7 @@ int main(int argc, char ** argv) {
         devLoadDriverDisk(modInfo, modLoaded, modDeps, flags, 1);
     }
 
+
     busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
     if (probeOnly) exit(0);
 
@@ -1702,7 +1705,7 @@ int main(int argc, char ** argv) {
     } 
     
 #ifdef INCLUDE_NETWORK
-    if (FL_KICKSTART(flags)) {
+    if (FL_KICKSTART(flags) && !ksFile) {
 	ksFile = "/tmp/ks.cfg";
 	startNewt(flags);
 	kickstartFromNfs(ksFile, modLoaded, modDeps, flags);
@@ -1759,8 +1762,8 @@ int main(int argc, char ** argv) {
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
     if (((access("/proc/bus/pci/devices", X_OK) &&
-	  access("/proc/openprom", X_OK)) ||
-	FL_NOPROBE(flags)) && !ksFile) {
+	  access("/proc/openprom", X_OK)) || 
+	  FL_ISA(flags) || FL_NOPROBE(flags)) && !ksFile) {
 	manualDeviceCheck(modInfo, modLoaded, modDeps, &kd, flags);
     }
 
