@@ -1,7 +1,8 @@
 # Install method for hard drive installs
 
 from comps import ComponentSet, HeaderList, HeaderListFromFile
-from installmethod import InstallMethod, findIsoImages
+from installmethod import InstallMethod
+from image import findIsoImages
 import os
 import isys
 import iutil
