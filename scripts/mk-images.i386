@@ -208,7 +208,7 @@ makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
 echo "Building initrd-everything.img"
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 	   --pcmcia \
-	   --initrdsize 4000 \
+	   --initrdsize 5000 \
 	   --loaderbin loader-pcmcia \
 	   --modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES =scsi =net"
 [ $? = 0 ] || exit 1
