@@ -886,6 +886,11 @@ if [ -n "$NEEDGR" ]; then
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
     fi
     rm -f $DESTGR/usr/bin/pango-querymodules
+    # more sick hackery since it doesn't fall back to this like owen thought
+    cat > /etc/pango/pangorc <<EOF
+[Pango]
+ModuleFiles=/etc/pango/pango.modules
+EOF
 fi
 
 echo "Getting gtk2 input method modules"
