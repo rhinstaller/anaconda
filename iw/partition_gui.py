@@ -482,7 +482,10 @@ class PartitionWindow(InstallWindow):
 	InstallWindow.__init__(self, ics)
         ics.setTitle (_("Disk Setup"))
         ics.setNextEnabled (TRUE)
-        ics.readHTML("partition")
+	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+            ics.readHTML("dasd-s390")
+	else:
+            ics.readHTML("partition")
         self.parent = ics.getICW().window
 
     def quit(self):
