@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 1.130\n"
-"POT-Creation-Date: 2001-08-22 16:24-0400\n"
+"POT-Creation-Date: 2001-08-23 12:33-0400\n"
 "PO-Revision-Date: 2001-08-18 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
@@ -191,11 +191,12 @@ msgid "Warning"
 msgstr "Aðvörun"
 
 #: ../autopart.py:954
+#, fuzzy
 msgid ""
 "Automatic Partitioning sets up your partitioning based on your installation "
 "type. You also can customize the resulting partitions to meet your needs.\n"
 "\n"
-"The manual disk paritioning tool, Disk Druid, allows you to set up your "
+"The manual disk partitioning tool, Disk Druid, allows you to set up your "
 "partitions in an interactive environment. You can set the filesystem types, "
 "mount points, size and more in this easy to use, powerful interface.\n"
 "\n"
@@ -717,7 +718,7 @@ msgstr "Athuga pakkaskilyrði"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Athuga skilyrði pakkanna sem voru valdir til uppsetningar..."
 
-#: ../packages.py:206 ../packages.py:477
+#: ../packages.py:206 ../packages.py:480
 msgid "Processing"
 msgstr "Vinnsla"
 
@@ -734,21 +735,21 @@ msgstr ""
 "Ekki er hægt að opna skrána %s. Þetta orsakast af skrá sem vantar, skemmdum "
 "pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
 
-#: ../packages.py:478
+#: ../packages.py:481
 msgid "Setting up RPM transaction..."
 msgstr "Set upp RPM færslu..."
 
-#: ../packages.py:519
+#: ../packages.py:522
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Uppfæri %s.\n"
 
-#: ../packages.py:521
+#: ../packages.py:524
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Set inn %s.\n"
 
-#: ../packages.py:581
+#: ../packages.py:584
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -759,15 +760,15 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1545 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:585 ../packages.py:605 ../textw/upgrade_text.py:106
+#: ../packages.py:588 ../packages.py:608 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Tengipunktur"
 
-#: ../packages.py:586
+#: ../packages.py:589
 msgid "Space Needed"
 msgstr "Þarfnast diskrýmis"
 
-#: ../packages.py:601
+#: ../packages.py:604
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -777,19 +778,19 @@ msgstr ""
 "valdir. Þú þarft fleiri lausar skrár (inóður) í eftirtöldum skráarkerfum:\n"
 "\n"
 
-#: ../packages.py:606
+#: ../packages.py:609
 msgid "Nodes Needed"
 msgstr "Vantar inóður"
 
-#: ../packages.py:612
+#: ../packages.py:615
 msgid "Disk Space"
 msgstr "Diskpláss"
 
-#: ../packages.py:650
+#: ../packages.py:653
 msgid "Post Install"
 msgstr "Eftir uppsetningu"
 
-#: ../packages.py:651
+#: ../packages.py:654
 msgid "Performing post install configuration..."
 msgstr "Breyta stillingum eftir uppsetningu..."
 
@@ -1465,19 +1466,19 @@ msgstr ""
 msgid "Unknown Card"
 msgstr "Óþekkt kort"
 
-#: ../textw/xconfig_text.py:476 ../xf86config.py:850
+#: ../textw/xconfig_text.py:476 ../xf86config.py:849
 msgid "Video Card"
 msgstr "Skjákort"
 
-#: ../xf86config.py:852
+#: ../xf86config.py:851
 msgid "Video Ram"
 msgstr "Skjáminni"
 
-#: ../xf86config.py:855
+#: ../xf86config.py:854
 msgid "X server"
 msgstr "X þjónn"
 
-#: ../xf86config.py:858
+#: ../xf86config.py:857
 msgid "Unable to detect video card"
 msgstr "Finn ekki skjákort"
 

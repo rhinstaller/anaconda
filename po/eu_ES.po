@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 7.1\n"
-"POT-Creation-Date: 2001-08-22 16:24-0400\n"
+"POT-Creation-Date: 2001-08-23 12:33-0400\n"
 "PO-Revision-Date: 2001-01-10 22:20+1\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <blackziggy@freemail.it>\n"
 "Language-Team: BASQUE <linux-eu@chanae.alphanet.ch>\n"
@@ -238,7 +238,7 @@ msgid ""
 "Automatic Partitioning sets up your partitioning based on your installation "
 "type. You also can customize the resulting partitions to meet your needs.\n"
 "\n"
-"The manual disk paritioning tool, Disk Druid, allows you to set up your "
+"The manual disk partitioning tool, Disk Druid, allows you to set up your "
 "partitions in an interactive environment. You can set the filesystem types, "
 "mount points, size and more in this easy to use, powerful interface.\n"
 "\n"
@@ -867,7 +867,7 @@ msgid "Checking dependencies in packages selected for installation..."
 msgstr "Ezarketarako hautatuako programa sorten menpekotasunak egiaztatzen..."
 
 # ../todo.py:1302
-#: ../packages.py:206 ../packages.py:477
+#: ../packages.py:206 ../packages.py:480
 msgid "Processing"
 msgstr "Burutzen"
 
@@ -887,24 +887,24 @@ msgstr ""
 "diskete okerra egoteagatik izan daiteke. Berriz saiatzeko lerro-itzulera "
 "(Return) zapaldu."
 
-#: ../packages.py:478
+#: ../packages.py:481
 msgid "Setting up RPM transaction..."
 msgstr ""
 
 # ../todo.py:1556
-#: ../packages.py:519
+#: ../packages.py:522
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "%s eguneratzen.\n"
 
 # ../todo.py:1558
-#: ../packages.py:521
+#: ../packages.py:524
 #, c-format
 msgid "Installing %s.\n"
 msgstr "%s ezartzen.\n"
 
 # ../todo.py:1583
-#: ../packages.py:581
+#: ../packages.py:584
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -916,17 +916,17 @@ msgstr ""
 
 # ../libfdisk/gnomefsedit.c:2992 ../todo.py:1586
 #: ../iw/partition_gui.py:1545 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:585 ../packages.py:605 ../textw/upgrade_text.py:106
+#: ../packages.py:588 ../packages.py:608 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Loturagunea"
 
 # ../todo.py:1586
-#: ../packages.py:586
+#: ../packages.py:589
 msgid "Space Needed"
 msgstr "Diskoan Lekua behar da"
 
 # ../todo.py:1583
-#: ../packages.py:601
+#: ../packages.py:604
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -938,23 +938,23 @@ msgstr ""
 "\n"
 
 # ../todo.py:1586
-#: ../packages.py:606
+#: ../packages.py:609
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Diskoan Lekua behar da"
 
 # ../todo.py:1599
-#: ../packages.py:612
+#: ../packages.py:615
 msgid "Disk Space"
 msgstr "Diskaren Zabaltegia"
 
 # ../todo.py:1634
-#: ../packages.py:650
+#: ../packages.py:653
 msgid "Post Install"
 msgstr "Ezarketa Ondorengoa"
 
 # ../todo.py:1635
-#: ../packages.py:651
+#: ../packages.py:654
 msgid "Performing post install configuration..."
 msgstr "Ezarketa ondorengo egokitzaketa lantzen..."
 
@@ -1645,22 +1645,22 @@ msgid "Unknown Card"
 msgstr "Ezezaguna"
 
 # ../iw/xconfig_gui.py:10 ../xf86config.py:867
-#: ../textw/xconfig_text.py:476 ../xf86config.py:850
+#: ../textw/xconfig_text.py:476 ../xf86config.py:849
 msgid "Video Card"
 msgstr "Bideo Xafla"
 
 # ../iw/xconfig_gui.py:12 ../xf86config.py:869
-#: ../xf86config.py:852
+#: ../xf86config.py:851
 msgid "Video Ram"
 msgstr "Bideo memoria"
 
 # ../xf86config.py:871
-#: ../xf86config.py:855
+#: ../xf86config.py:854
 msgid "X server"
 msgstr "X zerbitzaria"
 
 # ../xf86config.py:873
-#: ../xf86config.py:858
+#: ../xf86config.py:857
 msgid "Unable to detect video card"
 msgstr "Bideo xafla ezin ezagutu"
 

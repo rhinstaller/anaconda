@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
-"POT-Creation-Date: 2001-08-22 16:24-0400\n"
+"POT-Creation-Date: 2001-08-23 12:33-0400\n"
 "PO-Revision-Date: 2001-08-22 18:13EDT\n"
-"Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
+"Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -71,7 +71,8 @@ msgstr "Hopper over søk etter mus.\n"
 
 #: ../anaconda:410
 #, c-format
-msgid "Graphical installation not available for %s installs.  Starting text mode."
+msgid ""
+"Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 "Grafisk installasjon er ikke tilgjengelig for %s-installasjoner. Starter "
 "tekstmodus."
@@ -90,7 +91,8 @@ msgstr "Bruker mustype: "
 
 #: ../autopart.py:684
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr "Kunne ikke allokere sylinder-baserte partisjoner som primære partisjoner"
+msgstr ""
+"Kunne ikke allokere sylinder-baserte partisjoner som primære partisjoner"
 
 #: ../autopart.py:687
 msgid "Could not allocate partitions as primary partitions"
@@ -195,7 +197,7 @@ msgid ""
 "Automatic Partitioning sets up your partitioning based on your installation "
 "type. You also can customize the resulting partitions to meet your needs.\n"
 "\n"
-"The manual disk paritioning tool, Disk Druid, allows you to set up your "
+"The manual disk partitioning tool, Disk Druid, allows you to set up your "
 "partitions in an interactive environment. You can set the filesystem types, "
 "mount points, size and more in this easy to use, powerful interface.\n"
 "\n"
@@ -268,7 +270,9 @@ msgstr ""
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr "Ingen kjerne-pakker ble installert på systemet. Oppstartslasterkonfigurasjonen vil ikke bli endret."
+msgstr ""
+"Ingen kjerne-pakker ble installert på systemet. "
+"Oppstartslasterkonfigurasjonen vil ikke bli endret."
 
 #: ../bootloader.py:737
 msgid "Bootloader"
@@ -658,7 +662,7 @@ msgstr "Denne CD-ROMen kunne ikke monteres."
 
 #: ../installclass.py:28
 msgid "Install"
-msgstr "Installér"
+msgstr "Installer"
 
 #: ../monitor.py:152 ../mouse.py:184 ../videocard.py:135
 msgid "Unable to probe"
@@ -718,7 +722,7 @@ msgstr "Sjekk av avhengigheter"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Sjekker avhengigheter i pakker valgt for installasjon..."
 
-#: ../packages.py:206 ../packages.py:477
+#: ../packages.py:206 ../packages.py:480
 msgid "Processing"
 msgstr "Arbeider"
 
@@ -735,21 +739,21 @@ msgstr ""
 "Filen %s kan ikke åpnes. Dette pga. en manglende fil, en dårlig pakke, eller "
 "et dårlig media. Trykk <Enter> for å prøve igjen."
 
-#: ../packages.py:478
+#: ../packages.py:481
 msgid "Setting up RPM transaction..."
 msgstr "Setter opp RPM-transaksjon..."
 
-#: ../packages.py:519
+#: ../packages.py:522
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Oppgraderer %s.\n"
 
-#: ../packages.py:521
+#: ../packages.py:524
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerer %s.\n"
 
-#: ../packages.py:581
+#: ../packages.py:584
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -760,15 +764,15 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1545 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:585 ../packages.py:605 ../textw/upgrade_text.py:106
+#: ../packages.py:588 ../packages.py:608 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../packages.py:586
+#: ../packages.py:589
 msgid "Space Needed"
 msgstr "Nødvendig plass"
 
-#: ../packages.py:601
+#: ../packages.py:604
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -777,19 +781,19 @@ msgstr ""
 "Det ser ikke ut til at du har nok filnoder til å installere pakkene du har "
 "valgt. Du må ha flere filnoder på følgende filsystemer:\n"
 
-#: ../packages.py:606
+#: ../packages.py:609
 msgid "Nodes Needed"
 msgstr "Manglende noder"
 
-#: ../packages.py:612
+#: ../packages.py:615
 msgid "Disk Space"
 msgstr "Diskplass"
 
-#: ../packages.py:650
+#: ../packages.py:653
 msgid "Post Install"
 msgstr "Etter-installasjon"
 
-#: ../packages.py:651
+#: ../packages.py:654
 msgid "Performing post install configuration..."
 msgstr "Utfører etter-installasjons konfigurasjon..."
 
@@ -807,16 +811,20 @@ msgstr ""
 
 #: ../partitioning.py:360
 msgid "Please specify a mount point for this partition."
-msgstr "Spesifisér et monteringspunkt for denne partisjonen."
+msgstr "Spesifiser et monteringspunkt for denne partisjonen."
 
 #: ../partitioning.py:379
 #, c-format
-msgid "The mount point %s is already in use, please choose a different mount point."
-msgstr "Monteringspunktet %s er allerede i bruk. Velg et annet monteringspunkt."
+msgid ""
+"The mount point %s is already in use, please choose a different mount point."
+msgstr ""
+"Monteringspunktet %s er allerede i bruk. Velg et annet monteringspunkt."
 
 #: ../partitioning.py:436
-msgid "This mount point is invalid.  This directory must be on the / filesystem."
-msgstr "Monteringspunktet er ugyldig. Denne katalogen må være på \"/\" filsystemet."
+msgid ""
+"This mount point is invalid.  This directory must be on the / filesystem."
+msgstr ""
+"Monteringspunktet er ugyldig. Denne katalogen må være på \"/\" filsystemet."
 
 #: ../partitioning.py:441
 msgid "This mount point must be on a linux filesystem."
@@ -892,7 +900,8 @@ msgstr ""
 "for å installere Red Hat Linux."
 
 #: ../partitioning.py:574
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Du må lage en /boot/efi-partisjon av type FAT og med størrelse 50 MB."
 
 #: ../partitioning.py:582
@@ -1010,7 +1019,8 @@ msgid "Confirm Reset"
 msgstr "Bekreft nullstilling"
 
 #: ../partitioning.py:1595
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Er du sikker på at du vil nullstille partisjonstabellen til opprinnelig "
 "tilstand?"
@@ -1055,7 +1065,8 @@ msgstr ""
 
 #: ../partitioning.py:1664
 msgid "You cannot remove this partition, as it is part of a RAID device."
-msgstr "Du kan ikke fjerne denne partisjonen siden den er en del av en RAID-enhet."
+msgstr ""
+"Du kan ikke fjerne denne partisjonen siden den er en del av en RAID-enhet."
 
 #: ../partitioning.py:1695 ../partitioning.py:1717
 msgid "Unable To Edit"
@@ -1080,7 +1091,8 @@ msgstr "Kan ikke redigere"
 
 #: ../partitioning.py:1727
 msgid "You cannot edit this partition as it is part of a RAID device"
-msgstr "Du kan ikke redigere denne partisjonen da den er en del av en RAID-enhet"
+msgstr ""
+"Du kan ikke redigere denne partisjonen da den er en del av en RAID-enhet"
 
 #: ../partitioning.py:1739
 msgid "Installation cannot continue."
@@ -1344,7 +1356,8 @@ msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
 #: ../text.py:304
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> for hjelp | <Tab> mellom elementer | <Mellomrom> velger | <F12> neste "
 "skjerm"
@@ -1463,19 +1476,19 @@ msgstr ""
 msgid "Unknown Card"
 msgstr "Ukjent kort"
 
-#: ../textw/xconfig_text.py:476 ../xf86config.py:850
+#: ../textw/xconfig_text.py:476 ../xf86config.py:849
 msgid "Video Card"
 msgstr "Skjermkort"
 
-#: ../xf86config.py:852
+#: ../xf86config.py:851
 msgid "Video Ram"
 msgstr "Minne på skjermkort"
 
-#: ../xf86config.py:855
+#: ../xf86config.py:854
 msgid "X server"
 msgstr "X-tjener"
 
-#: ../xf86config.py:858
+#: ../xf86config.py:857
 msgid "Unable to detect video card"
 msgstr "Kunne ikke finne skjermkort"
 
@@ -1541,7 +1554,7 @@ msgstr "Legg til ny bruker"
 
 #: ../iw/account_gui.py:158 ../textw/userauth_text.py:92
 msgid "Edit User"
-msgstr "Redigér bruker"
+msgstr "Rediger bruker"
 
 #: ../iw/account_gui.py:183
 msgid "User Name:"
@@ -1595,7 +1608,7 @@ msgstr "Legg til"
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
 msgid "Edit"
-msgstr "Redigér"
+msgstr "Rediger"
 
 #: ../iw/account_gui.py:338 ../textw/partition_text.py:989
 #: ../textw/userauth_text.py:218
@@ -1992,7 +2005,7 @@ msgstr "Avhengighet"
 
 #: ../iw/dependencies_gui.py:83 ../textw/packages_text.py:316
 msgid "Install packages to satisfy dependencies"
-msgstr "Installér pakker for å tilfredsstille avhengigheter"
+msgstr "Installer pakker for å tilfredsstille avhengigheter"
 
 #: ../iw/dependencies_gui.py:86 ../textw/packages_text.py:317
 msgid "Do not install packages that have dependencies"
@@ -2000,7 +2013,7 @@ msgstr "Ikke installer pakker som har avhengigheter"
 
 #: ../iw/dependencies_gui.py:90 ../textw/packages_text.py:318
 msgid "Ignore package dependencies"
-msgstr "Ignorér pakkeavhengigheter"
+msgstr "Ignorer pakkeavhengigheter"
 
 #: ../iw/examine_gui.py:23
 msgid "Upgrade Examine"
@@ -2181,7 +2194,7 @@ msgstr "/dev/ttyS3 (COM4 i DOS)"
 
 #: ../iw/mouse_gui.py:150
 msgid "Emulate 3 Buttons"
-msgstr "Emulér 3 knapper"
+msgstr "Emuler 3 knapper"
 
 #: ../iw/mouse_gui.py:156
 msgid "Port"
@@ -2197,7 +2210,7 @@ msgstr "Nettverkskonfigurasjon"
 
 #: ../iw/network_gui.py:177
 msgid "Configure using DHCP"
-msgstr "Konfigurér ved bruk av DHCP"
+msgstr "Konfigurer ved bruk av DHCP"
 
 #: ../iw/network_gui.py:183
 msgid "Activate on boot"
@@ -2292,7 +2305,8 @@ msgid "Disk Setup"
 msgstr "Diskoppsett"
 
 #: ../iw/partition_gui.py:543
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr "Følgende kritiske feil oppsto for ditt forespurte partisjonsopplegg."
 
 #: ../iw/partition_gui.py:546
@@ -2456,7 +2470,7 @@ msgstr "Kunne ikke allokere forespurte partisjoner: %s."
 
 #: ../iw/partition_gui.py:1282 ../textw/partition_text.py:168
 msgid "Modify Partition"
-msgstr "Redigér partisjon"
+msgstr "Rediger partisjon"
 
 #: ../iw/partition_gui.py:1283 ../textw/partition_text.py:168
 msgid "Add anyway"
@@ -2501,7 +2515,7 @@ msgstr "_Ny"
 
 #: ../iw/partition_gui.py:1526
 msgid "_Edit"
-msgstr "R_edigér"
+msgstr "R_ediger"
 
 #: ../iw/partition_gui.py:1527
 msgid "_Delete"
@@ -2532,7 +2546,8 @@ msgid "Automatic Partitioning"
 msgstr "Automatisk partisjonering"
 
 #: ../iw/partition_gui.py:1609
-msgid "You need to select at least one drive to have Red Hat Linux installed onto."
+msgid ""
+"You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "Du må velge minst en stasjon du skal installere Red Hat Linux på."
 
 #: ../iw/partition_gui.py:1648
@@ -2544,8 +2559,10 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hvilke stasjoner vil du bruke for denne installasjonen?"
 
 #: ../iw/partition_gui.py:1701
-msgid "Review (allows you to see and change the automatic partitioning results)"
-msgstr "Revidér (lar deg se og endre på resultatet av automatisk partisjonering)"
+msgid ""
+"Review (allows you to see and change the automatic partitioning results)"
+msgstr ""
+"Revider (lar deg se og endre på resultatet av automatisk partisjonering)"
 
 #: ../iw/partmethod_gui.py:24 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -2618,7 +2635,7 @@ msgstr "Silo-konfigurasjon"
 
 #: ../iw/silo_gui.py:172
 msgid "Install SILO boot record on:"
-msgstr "Installér SILO oppstartssektor på:"
+msgstr "Installer SILO oppstartssektor på:"
 
 #: ../iw/silo_gui.py:189
 msgid "Create PROM alias"
@@ -2728,7 +2745,8 @@ msgstr "Fri diskplass (MB)"
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
-msgstr "Det anbefales at swapfilen er minst %d MB. Oppgi en størrelse for swapfilen:"
+msgstr ""
+"Det anbefales at swapfilen er minst %d MB. Oppgi en størrelse for swapfilen:"
 
 #: ../iw/upgrade_swap_gui.py:153 ../textw/upgrade_text.py:128
 msgid "Swap file size (MB):"
@@ -2754,7 +2772,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Størrelsen på swapfilen må være mellom 1 og 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:168
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "Det er ikke nok plass på enheten du oppga for swapområdet."
 
 #: ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
@@ -3000,7 +3019,7 @@ msgstr "Slett"
 
 #: ../textw/bootloader_text.py:210
 msgid "Edit Boot Label Please"
-msgstr "Vennligst redigér oppstartsnavn"
+msgstr "Vennligst rediger oppstartsnavn"
 
 #: ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
 msgid "Invalid Boot Label"
@@ -3269,7 +3288,7 @@ msgstr "Hvilken mustype brukes på denne datamaskinen?"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr "Emulér 3 knapper?"
+msgstr "Emuler 3 knapper?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
@@ -3341,8 +3360,10 @@ msgid "Total size"
 msgstr "Total størrelse"
 
 #: ../textw/packages_text.py:245
-msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr "   <Mellomrom>,<+>,<-> valg    |   <F1 hjelp   |   <F2> pakkebeskrivelse"
+msgid ""
+"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr ""
+"   <Mellomrom>,<+>,<-> valg    |   <F1 hjelp   |   <F2> pakkebeskrivelse"
 
 #: ../textw/packages_text.py:293
 msgid "Package Dependencies"
@@ -3395,7 +3416,8 @@ msgid "Filesystem Options"
 msgstr "Alternativer for filsystem"
 
 #: ../textw/partition_text.py:440
-msgid "Please choose how you would like to prepare the filesystem on this partition."
+msgid ""
+"Please choose how you would like to prepare the filesystem on this partition."
 msgstr ""
 "Vennligst velg hvordan du ønsker å forberede filsystemet på denne "
 "partisjonen."
@@ -3475,8 +3497,10 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:992
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "    F1-Hjelp    F2-Ny     F3-Redigér F4-Slett    F5-Nullstill F12-OK       "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr ""
+"    F1-Hjelp    F2-Ny     F3-Rediger F4-Slett    F5-Nullstill F12-OK       "
 
 #: ../textw/partition_text.py:1019
 msgid "No Root Partition"
@@ -3553,7 +3577,7 @@ msgstr "Hvor vil du installere oppstartslasteren?"
 
 #: ../textw/silo_text.py:155
 msgid "Edit Boot Label"
-msgstr "Redigér oppstartsnavn"
+msgstr "Rediger oppstartsnavn"
 
 #: ../textw/timezone_text.py:77
 msgid "What time zone are you located in?"
@@ -3701,7 +3725,8 @@ msgid "User Exists"
 msgstr "Brukeren eksisterer"
 
 #: ../textw/userauth_text.py:146
-msgid "The root user is already configured. You don't need to add this user here."
+msgid ""
+"The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Root-brukeren er allerede konfigurert. Du trenger ikke å legge til denne "
 "brukeren her."
@@ -4152,8 +4177,10 @@ msgid "Welcome to Red Hat Linux"
 msgstr "Velkommen til Red Hat Linux"
 
 #: ../loader/lang.c:41 ../loader/loader.c:188
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/Alt-Tab> mellom elementer  | <Mellomrom> velger | <F12> neste skjerm "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/Alt-Tab> mellom elementer  | <Mellomrom> velger | <F12> neste skjerm "
 
 #: ../loader/lang.c:297
 msgid "Choose a Language"
@@ -4424,7 +4451,7 @@ msgstr "Bruk dynamisk konfigurasjon av IP (BOOTP/DHCP)"
 
 #: ../loader/net.c:373
 msgid "Configure TCP/IP"
-msgstr "Konfigurér TCP/IP"
+msgstr "Konfigurer TCP/IP"
 
 #: ../loader/net.c:404
 msgid "Missing Information"
@@ -4826,14 +4853,16 @@ msgid "Atlantic Time - E Labrador"
 msgstr "\"Atlantic Time\" - østre Labrador"
 
 #. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid ""
+"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "\"Atlantic Time\" - de fleste steder i Nova Scotia, NB, vest-Labrador, øst-"
 "Quebec og PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr "\"Atlantisk Tid\" - steder i Nova Scotia som ikke hadde sommertid i 1966-1971"
+msgstr ""
+"\"Atlantisk Tid\" - steder i Nova Scotia som ikke hadde sommertid i 1966-1971"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -4992,7 +5021,8 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "\"Eastern Time\" - de fleste steder i Ontario og Quebec"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "\"Eastern Time\" - steder i Ontario og Quebec som ikke hadde sommertid i "
 "1967-1973"
@@ -5146,8 +5176,10 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "\"Mountain Standard Time\" - Arizona"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr "\"Mountain Standard Time: - Dawson Creek, Fort Saint John, britisk Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr ""
+"\"Mountain Standard Time: - Dawson Creek, Fort Saint John, britisk Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -5159,7 +5191,8 @@ msgstr "\"Mountain Time\""
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr "\"Mountain Time\" - Alberta, østre britisk Columbia og vest-Saskatchewan"
+msgstr ""
+"\"Mountain Time\" - Alberta, østre britisk Columbia og vest-Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
@@ -5460,4 +5493,3 @@ msgstr "Spansk"
 #. generated from lang-table
 msgid "Swedish"
 msgstr "Svensk"
-
