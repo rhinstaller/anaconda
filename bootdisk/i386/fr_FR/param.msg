@@ -1,26 +1,23 @@
 
 
-                        09Aide sur le paramétrage du noyau07
+                      09Aide sur les paramŠtres du noyau07
 
-Il est possible de spécifier certains paramètres du noyau dans la ligne de
-commande ; ils seront transmis au noyau en fonctionnement. Ceux-ci n'incluent
-pas d'options pour les modules tels que les cartes ethernet ou les périphériques
-tels que les lecteurs de CD-ROM.
+ A partir de la ligne de commande, on peut donner certains paramŠtres au noyau 
+ qui seront pass‚s … celui-ci. Cela ne concerne pas les options des modules 
+ comme les cartes Ethernet ou les p‚riph‚riques comme les lecteurs de CD-ROM.
 
-Pour transmettre une option au noyau, utilisez le format suivant :
-     0f<options> linux07
-Si vous souhaitez un autre mode d'installation, entrez-le après les options.
+ Pour passer une option au noyau, utilisez la syntaxe suivante :
+     0flinux <options>07
+ Si vous d‚sirez un autre mode d'installation, pr‚cisez-le aprŠs les options.
 
-Par exemple, pour effectuer une installation sur un système disposant de
-128 Mo de RAM en mode expert, entrez ce qui suit :
+ Par exemple, pour faire une installation sur un systŠme ayant 128 Mo de RAM 
+ en utilisant le mode expert, entrez la ligne suivante :
      0flinux mem=128M expert07
 
-Pour transmettre des options à des modules, utilisez le mode expert afin de
-désactiver l'autodétection PCI. Lorsque le programme d'installation demande
-quel est le type de périphérique nécessitant le transfert d'une option ou
-d'un paramètre, un espace est prévu pour les y insérer. 
+ Pour passer des options aux modules, vous devrez utiliser le mode expert afin 
+ de d‚sactiver la d‚tection PCI automatique. Lorsque l'on vous demandera quel 
+ type de p‚riph‚rique a besoin d'une option ou quel paramŠtre il faut passer, 
+ vous aurez de la place pour entrer ces informations … ce moment l….
 
 
-
-05[F1-Principal] [F2-Général] [F3-Expert] [F4-Noyau] [F5-Secours]07
-
+05[F1-Principal] [F2-G‚n‚ral] [F3-Expert] [F4-Noyau] [F5-Secours]07
