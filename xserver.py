@@ -150,7 +150,8 @@ def canUseFrameBuffer (videocard):
 
 def testx(x):
     try:
-	server = x.test ([':1', 'vt7', '-s', '1440', '-terminate'], spawn=1)
+	server = x.test ([':1', 'vt7', '-s', '1440', '-terminate',
+                          '-dpms', '-v'], spawn=1)
     except:
 	import traceback
         server = None
@@ -226,7 +227,8 @@ def start_existing_X():
     # override fontpath because xfs is not running yet!
     if (not server):
         print "Starting X using existing XF86Config"
-	args = [serverPath, ':1', 'vt7', '-s', '1440', '-terminate']
+	args = [serverPath, ':1', 'vt7', '-s', '1440', '-terminate', '-dpms',
+                '-v']
 	args.append("-fp")
 	args.append("/usr/X11R6/lib/X11/fonts/misc/,"
                     "/usr/X11R6/lib/X11/fonts/75dpi/,"
