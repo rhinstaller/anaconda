@@ -274,7 +274,7 @@ class FirewallWindow (InstallWindow):
 
         box.pack_start (gtk.HSeparator(), gtk.FALSE)
 
-        label = gtk.Label(_("_Security Enhanced Linux (SELinux) Extentions:"))
+        label = gtk.Label(_("_Security Enhanced Linux (SELinux) Extensions:"))
         label.set_use_underline(gtk.TRUE)
         self.se_option_menu = gtk.OptionMenu()
         label.set_mnemonic_widget(self.se_option_menu)

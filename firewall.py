@@ -83,7 +83,7 @@ class Firewall:
 	return args
 
     def write (self, instPath):
-	args = [ "/usr/sbin/lokkit", "--quiet", "--nostart" ]
+	args = [ "/usr/sbin/lokkit", "--quiet", "--nostart", "-f" ]
 
         if self.enabled:
 	    args = args + self.getArgList()
