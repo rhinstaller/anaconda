@@ -304,9 +304,6 @@ class ToDo:
 	    raise TypeError, "installation class expected"
 	self.setClass(instClass)
 
-        self.todo.network.gateway = self.gw.get_text ()
-        self.todo.network.primaryNS = self.ns.get_text ()
-
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
 
@@ -862,14 +859,14 @@ class ToDo:
 	(bootProto, ip, netmask, gateway, nameserver) = \
 		todo.instClass.getNetwork()
 
-        self.gateway = gateway
-        self.primaryNS = nameserver
+        todo.network.gateway = gateway
+        todo.network.primaryNS = nameserver
 
         devices = todo.network.available ()
-	if (devices):
+	if (devices and bootProto):
 	    list = devices.keys ()
 	    list.sort()
-	    dev = list[0]
+	    dev = devices[list[0]]
 	    dev.set (("bootproto", bootProto))
 
 	    if (ip):
