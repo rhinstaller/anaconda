@@ -64,14 +64,15 @@ startinetd()
 # read file from CMS and write it to /tmp
 readcmsfile() # $1=dasdport $2=filename
 {
+   local dev
    if [ $# -ne 2 ]; then return; fi
    mknod /dev/dasda b 94 0
    insmod dasd_mod$LO dasd=$1
    insmod dasd_eckd_mod$LO
    cmsfscat -d /dev/dasda -a $2 > /tmp/$2
    echo 0 > /sys/bus/ccw/drivers/dasd-eckd/*$1/online
-   rmmod dasd_eckd_mod.ko
-   rmmod dasd_mod.ko
+   rmmod dasd_eckd_mod
+   rmmod dasd_mod
 }
 
 setupdevice()
