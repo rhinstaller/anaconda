@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1.9\n"
-"POT-Creation-Date: 2001-08-09 20:37-0400\n"
+"POT-Creation-Date: 2001-08-10 12:18-0400\n"
 "PO-Revision-Date: 2001-07-23 12:50\n"
 "Last-Translator: Arjan van de Ven <arjanv@redhat.com>\n"
 "Language-Team: Dutch <LL@li.org>\n"
@@ -19,17 +19,35 @@ msgid ""
 "mode."
 msgstr ""
 
-#: ../anaconda:332 ../iw/account_gui.py:150 ../iw/account_gui.py:161
-#: ../iw/partition_gui.py:496 ../iw/partition_gui.py:847
-#: ../iw/partition_gui.py:1317 ../loader/urls.c:79 ../loader/urls.c:89
-#: ../loader/urls.c:97 ../loader/urls.c:247 ../mouse.py:280 ../rescue.py:34
+#: ../anaconda:332 ../gui.py:111 ../iw/account_gui.py:150
+#: ../iw/account_gui.py:161 ../iw/partition_gui.py:496
+#: ../iw/partition_gui.py:847 ../iw/partition_gui.py:1317 ../loader/cdrom.c:34
+#: ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259
+#: ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435
+#: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532
+#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
+#: ../loader/lang.c:27 ../loader/lang.c:102 ../loader/lang.c:299
+#: ../loader/lang.c:608 ../loader/loader.c:323 ../loader/loader.c:478
+#: ../loader/loader.c:535 ../loader/loader.c:853 ../loader/loader.c:912
+#: ../loader/loader.c:967 ../loader/loader.c:1061 ../loader/loader.c:1140
+#: ../loader/loader.c:1145 ../loader/loader.c:1185 ../loader/loader.c:1213
+#: ../loader/loader.c:1244 ../loader/loader.c:1490 ../loader/loader.c:2207
+#: ../loader/loader.c:2237 ../loader/loader.c:2300 ../loader/loader.c:2315
+#: ../loader/loader.c:2524 ../loader/net.c:185 ../loader/net.c:272
+#: ../loader/net.c:359 ../loader/net.c:722 ../loader/net.c:755
+#: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
+#: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
+#: ../loader/urls.c:158 ../loader/urls.c:236 ../loader/urls.c:241
+#: ../loader/urls.c:247 ../loader/urls.c:387 ../mouse.py:280 ../rescue.py:34
 #: ../rescue.py:130 ../rescue.py:151 ../rescue.py:168 ../rescue.py:174
-#: ../text.py:399 ../textw/bootdisk_text.py:65 ../textw/bootdisk_text.py:67
-#: ../textw/complete_text.py:47 ../textw/complete_text.py:62
-#: ../textw/complete_text.py:78 ../textw/confirm_text.py:24
-#: ../textw/confirm_text.py:36 ../textw/constants_text.py:20
+#: ../text.py:282 ../text.py:399 ../textw/bootdisk_text.py:65
+#: ../textw/bootdisk_text.py:67 ../textw/complete_text.py:47
+#: ../textw/complete_text.py:62 ../textw/complete_text.py:78
+#: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
+#: ../textw/constants_text.py:20 ../textw/fdisk_text.py:41
 #: ../textw/firewall_text.py:201 ../textw/network_text.py:134
-#: ../textw/silo_text.py:110 ../xserver.py:51
+#: ../textw/silo_text.py:110 ../textw/silo_text.py:147
+#: ../textw/silo_text.py:160 ../xserver.py:51
 msgid "OK"
 msgstr "OK"
 
@@ -152,12 +170,12 @@ msgstr "Er zijn niet toegewezen partities..."
 
 #: ../autopart.py:945 ../harddrive.py:233 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1275
-#: ../iw/partition_gui.py:1598 ../iw/upgrade_swap_gui.py:169
-#: ../iw/upgrade_swap_gui.py:177 ../iw/upgrade_swap_gui.py:184
+#: ../iw/partition_gui.py:1598 ../iw/upgrade_swap_gui.py:171
+#: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:691 ../partitioning.py:1398
 #: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:424
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-#: ../upgrade.py:240 ../upgrade.py:342 ../upgrade.py:359
+#: ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
 msgid "Warning"
 msgstr "Waarschuwing"
 
@@ -228,7 +246,7 @@ msgstr "Pakketten Installeren"
 msgid "Everything"
 msgstr "Alles"
 
-#: ../comps.py:672 ../upgrade.py:435
+#: ../comps.py:672 ../upgrade.py:442
 msgid "no suggestion"
 msgstr "geen suggesties"
 
@@ -260,7 +278,7 @@ msgstr ""
 #: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:236
 #: ../partitioning.py:1255 ../partitioning.py:1286
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
-#: ../textw/upgrade_text.py:189 ../textw/xconfig_text.py:422 ../upgrade.py:293
+#: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
 #: ../upgrade.py:305
 msgid "Error"
 msgstr "Fout"
@@ -444,7 +462,7 @@ msgstr ""
 #: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:97 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:280
 #: ../textw/bootdisk_text.py:25 ../textw/bootloader_text.py:76
-#: ../textw/constants_text.py:32 ../textw/upgrade_text.py:251
+#: ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
 msgid "Yes"
 msgstr "Ja"
 
@@ -452,31 +470,10 @@ msgstr "Ja"
 #: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:100 ../loader/devices.c:231
 #: ../loader/net.c:889 ../text.py:281 ../textw/bootdisk_text.py:25
 #: ../textw/bootdisk_text.py:54 ../textw/bootloader_text.py:76
-#: ../textw/constants_text.py:36 ../textw/upgrade_text.py:251
-#: ../textw/upgrade_text.py:258
+#: ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
+#: ../textw/upgrade_text.py:259
 msgid "No"
 msgstr "Nee"
-
-#: ../gui.py:111 ../loader/cdrom.c:34 ../loader/devices.c:92
-#: ../loader/devices.c:237 ../loader/devices.c:259 ../loader/devices.c:266
-#: ../loader/devices.c:335 ../loader/devices.c:435 ../loader/devices.c:480
-#: ../loader/devices.c:500 ../loader/devices.c:532 ../loader/kickstart.c:58
-#: ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:27
-#: ../loader/lang.c:102 ../loader/lang.c:299 ../loader/lang.c:608
-#: ../loader/loader.c:323 ../loader/loader.c:478 ../loader/loader.c:535
-#: ../loader/loader.c:853 ../loader/loader.c:912 ../loader/loader.c:967
-#: ../loader/loader.c:1061 ../loader/loader.c:1140 ../loader/loader.c:1145
-#: ../loader/loader.c:1185 ../loader/loader.c:1213 ../loader/loader.c:1244
-#: ../loader/loader.c:1490 ../loader/loader.c:2207 ../loader/loader.c:2237
-#: ../loader/loader.c:2300 ../loader/loader.c:2315 ../loader/loader.c:2524
-#: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:359
-#: ../loader/net.c:722 ../loader/net.c:755 ../loader/pcmcia.c:104
-#: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:158
-#: ../loader/urls.c:236 ../loader/urls.c:241 ../loader/urls.c:387
-#: ../text.py:282 ../textw/fdisk_text.py:41 ../textw/silo_text.py:147
-#: ../textw/silo_text.py:160
-msgid "Ok"
-msgstr "Ok"
 
 #: ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:283
 msgid "Retry"
@@ -714,7 +711,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1535 ../iw/upgrade_swap_gui.py:121
+#: ../iw/partition_gui.py:1535 ../iw/upgrade_swap_gui.py:123
 #: ../packages.py:581 ../packages.py:601 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr ""
@@ -1128,7 +1125,7 @@ msgstr "Overslaan"
 msgid "System to Rescue"
 msgstr "Systeem om the herstellen"
 
-#: ../rescue.py:128 ../textw/upgrade_text.py:208
+#: ../rescue.py:128 ../textw/upgrade_text.py:209
 msgid "What partition holds the root partition of your installation?"
 msgstr "Welke partitie bevat de bron partitie van Uw installatie?"
 
@@ -1285,7 +1282,7 @@ msgstr ""
 msgid "An error occured when finding the packages to upgrade."
 msgstr ""
 
-#: ../upgrade.py:343
+#: ../upgrade.py:350
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1294,7 +1291,7 @@ msgid ""
 "process?"
 msgstr ""
 
-#: ../upgrade.py:360
+#: ../upgrade.py:367
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1591,7 +1588,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:432
-#: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:121
+#: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:123
 #: ../textw/upgrade_text.py:107
 msgid "Partition"
 msgstr "Partitie"
@@ -1825,7 +1822,7 @@ msgstr "U heeft geen Linux partities. U kunt dit systeem niet upgraden!"
 msgid "Please select the device containing the root filesystem: "
 msgstr ""
 
-#: ../iw/examine_gui.py:88 ../textw/upgrade_text.py:222
+#: ../iw/examine_gui.py:88 ../textw/upgrade_text.py:223
 #, c-format
 msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr ""
@@ -2527,7 +2524,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "RAID Partitie"
 
-#: ../iw/upgrade_swap_gui.py:88
+#: ../iw/upgrade_swap_gui.py:90
 #, c-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -2536,7 +2533,7 @@ msgid ""
 "file systems now."
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:95
+#: ../iw/upgrade_swap_gui.py:97
 #, c-format
 msgid ""
 "\n"
@@ -2544,47 +2541,47 @@ msgid ""
 "The installer has detected %s MB of RAM.\n"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:107
+#: ../iw/upgrade_swap_gui.py:109
 msgid "I want to create a swap file"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:116
+#: ../iw/upgrade_swap_gui.py:118
 msgid "Select the partition to put the swap file on:"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:121
+#: ../iw/upgrade_swap_gui.py:123
 #, fuzzy
 msgid "Free Space (MB)"
 msgstr "Schijfruimte"
 
-#: ../iw/upgrade_swap_gui.py:136
+#: ../iw/upgrade_swap_gui.py:138
 #, c-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:151 ../textw/upgrade_text.py:128
+#: ../iw/upgrade_swap_gui.py:153 ../textw/upgrade_text.py:128
 #, fuzzy
 msgid "Swap file size (MB):"
 msgstr "Grootte (MB)"
 
-#: ../iw/upgrade_swap_gui.py:160
+#: ../iw/upgrade_swap_gui.py:162
 msgid "I don't want to create a swap file"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:170
+#: ../iw/upgrade_swap_gui.py:172
 msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:178 ../textw/upgrade_text.py:173
+#: ../iw/upgrade_swap_gui.py:180 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:185 ../textw/upgrade_text.py:168
+#: ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:168
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
@@ -3130,7 +3127,7 @@ msgstr "Pakket Afhankelijkheden"
 #: ../textw/packages_text.py:295
 msgid ""
 "Some of the packages you have selected to install require packages you have "
-"not selected. If you just select Ok all of those required packages will be "
+"not selected. If you just select OK all of those required packages will be "
 "installed."
 msgstr ""
 
@@ -3261,7 +3258,7 @@ msgstr "<RAID>"
 
 #: ../textw/partition_text.py:979
 msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
 #: ../textw/partition_text.py:1006
@@ -3385,24 +3382,24 @@ msgstr "Swap"
 msgid "The value you entered is not a valid number."
 msgstr ""
 
-#: ../textw/upgrade_text.py:190
+#: ../textw/upgrade_text.py:191
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "U heeft geen Linux partities. U kunt dit systeem niet upgraden!"
 
-#: ../textw/upgrade_text.py:207
+#: ../textw/upgrade_text.py:208
 msgid "System to Upgrade"
 msgstr "Systeem om te upgraden"
 
-#: ../textw/upgrade_text.py:221
+#: ../textw/upgrade_text.py:222
 #, fuzzy
 msgid "Upgrade Partition"
 msgstr "RAID Partitie"
 
-#: ../textw/upgrade_text.py:243
+#: ../textw/upgrade_text.py:244
 msgid "Customize Packages to Upgrade"
 msgstr "Aanpassen van de uptegraden pakketten"
 
-#: ../textw/upgrade_text.py:244
+#: ../textw/upgrade_text.py:245
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -3814,7 +3811,7 @@ msgstr "Overig"
 #: ../loader/devices.c:86
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
-"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
 
@@ -3832,7 +3829,7 @@ msgid "Do you have a driver disk?"
 msgstr ""
 
 #: ../loader/devices.c:239
-msgid "Insert your driver disk and press \"Ok\" to continue."
+msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr ""
 
 #: ../loader/devices.c:260
@@ -5248,6 +5245,9 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+#~ msgid "Ok"
+#~ msgstr "Ok"
 
 #~ msgid "No Drives Specified"
 #~ msgstr "Geen drivers geselecteerd"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
-"POT-Creation-Date: 2001-08-09 20:37-0400\n"
+"POT-Creation-Date: 2001-08-10 12:18-0400\n"
 "PO-Revision-Date: 2001-08-08 12:47+0200\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -17,17 +17,35 @@ msgstr ""
 "Du har ikke nok RAM til å bruke grafisk installasjon på denne maskinen. "
 "Starter tekstmodus."
 
-#: ../anaconda:332 ../iw/account_gui.py:150 ../iw/account_gui.py:161
-#: ../iw/partition_gui.py:496 ../iw/partition_gui.py:847
-#: ../iw/partition_gui.py:1317 ../loader/urls.c:79 ../loader/urls.c:89
-#: ../loader/urls.c:97 ../loader/urls.c:247 ../mouse.py:280 ../rescue.py:34
+#: ../anaconda:332 ../gui.py:111 ../iw/account_gui.py:150
+#: ../iw/account_gui.py:161 ../iw/partition_gui.py:496
+#: ../iw/partition_gui.py:847 ../iw/partition_gui.py:1317 ../loader/cdrom.c:34
+#: ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259
+#: ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435
+#: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532
+#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
+#: ../loader/lang.c:27 ../loader/lang.c:102 ../loader/lang.c:299
+#: ../loader/lang.c:608 ../loader/loader.c:323 ../loader/loader.c:478
+#: ../loader/loader.c:535 ../loader/loader.c:853 ../loader/loader.c:912
+#: ../loader/loader.c:967 ../loader/loader.c:1061 ../loader/loader.c:1140
+#: ../loader/loader.c:1145 ../loader/loader.c:1185 ../loader/loader.c:1213
+#: ../loader/loader.c:1244 ../loader/loader.c:1490 ../loader/loader.c:2207
+#: ../loader/loader.c:2237 ../loader/loader.c:2300 ../loader/loader.c:2315
+#: ../loader/loader.c:2524 ../loader/net.c:185 ../loader/net.c:272
+#: ../loader/net.c:359 ../loader/net.c:722 ../loader/net.c:755
+#: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
+#: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
+#: ../loader/urls.c:158 ../loader/urls.c:236 ../loader/urls.c:241
+#: ../loader/urls.c:247 ../loader/urls.c:387 ../mouse.py:280 ../rescue.py:34
 #: ../rescue.py:130 ../rescue.py:151 ../rescue.py:168 ../rescue.py:174
-#: ../text.py:399 ../textw/bootdisk_text.py:65 ../textw/bootdisk_text.py:67
-#: ../textw/complete_text.py:47 ../textw/complete_text.py:62
-#: ../textw/complete_text.py:78 ../textw/confirm_text.py:24
-#: ../textw/confirm_text.py:36 ../textw/constants_text.py:20
+#: ../text.py:282 ../text.py:399 ../textw/bootdisk_text.py:65
+#: ../textw/bootdisk_text.py:67 ../textw/complete_text.py:47
+#: ../textw/complete_text.py:62 ../textw/complete_text.py:78
+#: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
+#: ../textw/constants_text.py:20 ../textw/fdisk_text.py:41
 #: ../textw/firewall_text.py:201 ../textw/network_text.py:134
-#: ../textw/silo_text.py:110 ../xserver.py:51
+#: ../textw/silo_text.py:110 ../textw/silo_text.py:147
+#: ../textw/silo_text.py:160 ../xserver.py:51
 msgid "OK"
 msgstr "OK"
 
@@ -164,12 +182,12 @@ msgstr ""
 
 #: ../autopart.py:945 ../harddrive.py:233 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1275
-#: ../iw/partition_gui.py:1598 ../iw/upgrade_swap_gui.py:169
-#: ../iw/upgrade_swap_gui.py:177 ../iw/upgrade_swap_gui.py:184
+#: ../iw/partition_gui.py:1598 ../iw/upgrade_swap_gui.py:171
+#: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:691 ../partitioning.py:1398
 #: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:424
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-#: ../upgrade.py:240 ../upgrade.py:342 ../upgrade.py:359
+#: ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
 msgid "Warning"
 msgstr "Advarsel"
 
@@ -259,7 +277,7 @@ msgstr "Installerer bootloader..."
 msgid "Everything"
 msgstr "Alt"
 
-#: ../comps.py:672 ../upgrade.py:435
+#: ../comps.py:672 ../upgrade.py:442
 msgid "no suggestion"
 msgstr "ingen forslag"
 
@@ -293,7 +311,7 @@ msgstr ""
 #: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:236
 #: ../partitioning.py:1255 ../partitioning.py:1286
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
-#: ../textw/upgrade_text.py:189 ../textw/xconfig_text.py:422 ../upgrade.py:293
+#: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
 #: ../upgrade.py:305
 msgid "Error"
 msgstr "Feil"
@@ -331,6 +349,10 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
+"En feil oppstod under migrering av %s til ext3. Det er mulig å fortsette "
+"uten å migrere filsystemet.\n"
+"\n"
+"Ønsker du å fortsette uten å migrere %s?"
 
 #: ../fsset.py:692 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
@@ -351,7 +373,7 @@ msgstr ""
 "En feil oppsto under forsøk på å initiere swap på enhet %s. Dette problemet "
 "er alvorlig, og installasjonen kan ikke fortsette.\n"
 "\n"
-"Trykk linjeskift for å starte systemet på nytt."
+"Trykk <Enter> for å starte systemet på nytt."
 
 #: ../fsset.py:771
 #, c-format
@@ -379,7 +401,7 @@ msgstr ""
 "En feil oppsto under søk etter dårlige blokker på %s. Dette problemet er "
 "alvorlig, og installasjonen kan ikke fortsette.\n"
 "\n"
-"Trykk linjeskift for å starte systemet på nytt."
+"Trykk <Enter> for å starte systemet på nytt."
 
 #: ../fsset.py:836
 #, c-format
@@ -392,7 +414,7 @@ msgstr ""
 "En feil oppsto under formatering av %s. Dette problemet er alvorlig, og "
 "installasjonen kan ikke fortsette.\n"
 "\n"
-"Trykk linjeskift for å starte systemet på nytt."
+"Trykk <Enter> for å starte systemet på nytt."
 
 #: ../fsset.py:870
 #, c-format
@@ -405,38 +427,38 @@ msgstr ""
 "En feil oppsto under migrering av %s. Dette problemet er alvorlig, og "
 "installasjonen kan ikke fortsette.\n"
 "\n"
-"Trykk linjeskift for å starte systemet på nytt."
+"Trykk <Enter> for å starte systemet på nytt."
 
 #: ../fsset.py:890 ../fsset.py:899
-#, fuzzy
 msgid "Invalid mount point"
 msgstr "Ugyldig monteringspunkt"
 
 #: ../fsset.py:891
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"En feil oppsto under migrering av %s. Dette problemet er alvorlig, og "
-"installasjonen kan ikke fortsette.\n"
+"En feil oppsto under opprettelse av %s. Et element i denne stien er ikke en "
+"katalog. Dette problemet er så alvorlig at installasjonen ikke kan "
+"fortsette.\n"
 "\n"
-"Trykk linjeskift for å starte systemet på nytt."
+"Trykk <Enter> for å starte systemet på nytt."
 
 #: ../fsset.py:900
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"En feil oppsto under migrering av %s. Dette problemet er alvorlig, og "
+"En feil oppsto under opprettelse av %s: %s. Dette problemet er alvorlig, og "
 "installasjonen kan ikke fortsette.\n"
 "\n"
-"Trykk linjeskift for å starte systemet på nytt."
+"Trykk <Enter> for å starte systemet på nytt."
 
 #: ../fsset.py:913
 #, c-format
@@ -470,7 +492,7 @@ msgstr "Fiks"
 #: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:97 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:280
 #: ../textw/bootdisk_text.py:25 ../textw/bootloader_text.py:76
-#: ../textw/constants_text.py:32 ../textw/upgrade_text.py:251
+#: ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
 msgid "Yes"
 msgstr "Ja"
 
@@ -478,31 +500,10 @@ msgstr "Ja"
 #: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:100 ../loader/devices.c:231
 #: ../loader/net.c:889 ../text.py:281 ../textw/bootdisk_text.py:25
 #: ../textw/bootdisk_text.py:54 ../textw/bootloader_text.py:76
-#: ../textw/constants_text.py:36 ../textw/upgrade_text.py:251
-#: ../textw/upgrade_text.py:258
+#: ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
+#: ../textw/upgrade_text.py:259
 msgid "No"
 msgstr "Nei"
-
-#: ../gui.py:111 ../loader/cdrom.c:34 ../loader/devices.c:92
-#: ../loader/devices.c:237 ../loader/devices.c:259 ../loader/devices.c:266
-#: ../loader/devices.c:335 ../loader/devices.c:435 ../loader/devices.c:480
-#: ../loader/devices.c:500 ../loader/devices.c:532 ../loader/kickstart.c:58
-#: ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:27
-#: ../loader/lang.c:102 ../loader/lang.c:299 ../loader/lang.c:608
-#: ../loader/loader.c:323 ../loader/loader.c:478 ../loader/loader.c:535
-#: ../loader/loader.c:853 ../loader/loader.c:912 ../loader/loader.c:967
-#: ../loader/loader.c:1061 ../loader/loader.c:1140 ../loader/loader.c:1145
-#: ../loader/loader.c:1185 ../loader/loader.c:1213 ../loader/loader.c:1244
-#: ../loader/loader.c:1490 ../loader/loader.c:2207 ../loader/loader.c:2237
-#: ../loader/loader.c:2300 ../loader/loader.c:2315 ../loader/loader.c:2524
-#: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:359
-#: ../loader/net.c:722 ../loader/net.c:755 ../loader/pcmcia.c:104
-#: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:158
-#: ../loader/urls.c:236 ../loader/urls.c:241 ../loader/urls.c:387
-#: ../text.py:282 ../textw/fdisk_text.py:41 ../textw/silo_text.py:147
-#: ../textw/silo_text.py:160
-msgid "Ok"
-msgstr "Ok"
 
 #: ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:283
 msgid "Retry"
@@ -754,7 +755,7 @@ msgstr ""
 "valgt. Du må ha mer plass på følgende filsystemer:\n"
 "\n"
 
-#: ../iw/partition_gui.py:1535 ../iw/upgrade_swap_gui.py:121
+#: ../iw/partition_gui.py:1535 ../iw/upgrade_swap_gui.py:123
 #: ../packages.py:581 ../packages.py:601 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Monteringspunkt"
@@ -1252,7 +1253,7 @@ msgstr "Hopp over"
 msgid "System to Rescue"
 msgstr "System som skal reddes"
 
-#: ../rescue.py:128 ../textw/upgrade_text.py:208
+#: ../rescue.py:128 ../textw/upgrade_text.py:209
 msgid "What partition holds the root partition of your installation?"
 msgstr "Hvilken partisjon inneholder rotpartisjonen til din installasjon?"
 
@@ -1274,8 +1275,8 @@ msgid ""
 msgstr ""
 "Ditt system ble montert under /mnt/sysimage.\n"
 "\n"
-"Trykk <linjeskift> for å gå til skallet. Hvis du vil gjøre ditt system til "
-"rot-miljøet, kjør kommandoen:\n"
+"Trykk <Enter> for å gå til skallet. Hvis du vil gjøre ditt system til rot-"
+"miljøet, kjør kommandoen:\n"
 "\n"
 "chroot /mnt/sysimage\n"
 "\n"
@@ -1292,7 +1293,7 @@ msgstr ""
 "En feil oppsto under forsøk på å montere deler av, eller hele systemet. "
 "Deler kan være montert under /mnt/sysimage.\n"
 "\n"
-"Trykk <linjeskift> for å gå til et skall. Systemet vil starte på nytt når du "
+"Trykk <Enter> for å gå til et skall. Systemet vil starte på nytt når du "
 "avslutter skallet."
 
 #: ../rescue.py:170
@@ -1304,7 +1305,7 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"Du har ingen Linux-partisjoner. Trykk linjeskift for å gå til et skall. "
+"Du har ingen Linux-partisjoner. Trykk <Enter> for å gå til et skall. "
 "Systemet vil starte på nytt når du avslutter skallet."
 
 #: ../rescue.py:181
@@ -1422,7 +1423,7 @@ msgstr "Gjenoppbygging av RPM-databasen feilet. Ikke mer diskplass?"
 msgid "An error occured when finding the packages to upgrade."
 msgstr "En feil oppsto under søk etter pakker som skal oppgraderes."
 
-#: ../upgrade.py:343
+#: ../upgrade.py:350
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1436,7 +1437,7 @@ msgstr ""
 "ustabilt hvis du fortsetter med oppgraderingen. Vil du fortsette med "
 "oppgraderingsprosessen?"
 
-#: ../upgrade.py:360
+#: ../upgrade.py:367
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1743,7 +1744,7 @@ msgstr ""
 "Vil du fortsette med tvungen bruk av LBA32-modus?"
 
 #: ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:432
-#: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:121
+#: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:123
 #: ../textw/upgrade_text.py:107
 msgid "Partition"
 msgstr "Partisjon"
@@ -1912,9 +1913,12 @@ msgid ""
 "it before you press <Enter> to reboot.\n"
 "\n"
 msgstr ""
+"Hvis du laget en oppstartsdiskett for oppstart av ditt Red Hat Linux-system, "
+"sett den i diskettstasjonen før du trykker <Enter> for omstart.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:55
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Congratulations, your Red Hat Linux installation is complete.\n"
 "\n"
@@ -1929,18 +1933,15 @@ msgid ""
 msgstr ""
 "Gratulerer, din Red Hat Linux installasjon er fullført.\n"
 "\n"
-"Fjern alle CD-ROMer eller disketter du har brukt under installasjonen og "
-"trykk <linjeskift> for å starte systemet på nytt.\n"
+"Fjern disketter du har brukt under installeringsprosessen og trykk <Enter> "
+"for å starte systemet på nytt.\n"
 "\n"
-"Hvis du opprettet en oppstartsdiskett som du skal bruke for å starte ditt "
-"Red Hat Linux system, sett denne inn før du trykker <linjeskift> for å "
-"starte på nytt.\n"
+"%sFor informasjon om errata (oppdateringer og feilrettinger), besøk http://"
+"www.redhat.com/errata.\n"
 "\n"
-"For informasjon om errata (oppdateringer og feilrettinger), besøk http://www."
-"redhat.com/errata.\n"
-"\n"
-"Informasjon om bruk og konfigurasjon av systemet er tilgjengelig i Red Hat "
-"Linux brukerhåndbøkene som finnes på http://www.redhat.com/support/manuals."
+"Informasjon om bruk og konfigurasjon av systemet er tilgjengelig i "
+"brukerhåndbøkene for Red Hat Linux, som finnes på http://www.redhat.com/"
+"support/manuals."
 
 #: ../iw/congrats_gui.py:102
 msgid ""
@@ -2007,7 +2008,7 @@ msgstr ""
 msgid "Please select the device containing the root filesystem: "
 msgstr "Vennligst velg enheten som inneholder rotfilsystemet: "
 
-#: ../iw/examine_gui.py:88 ../textw/upgrade_text.py:222
+#: ../iw/examine_gui.py:88 ../textw/upgrade_text.py:223
 #, c-format
 msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr "Oppgraderer Red Hat Linux-systemet på partisjonen /dev/%s"
@@ -2681,7 +2682,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr "Swap for oppgradering"
 
-#: ../iw/upgrade_swap_gui.py:88
+#: ../iw/upgrade_swap_gui.py:90
 #, c-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -2693,7 +2694,7 @@ msgstr ""
 "det dobbelte av systemets RAM. Du har nå %d MB av swap konfigurert,\n"
 "men du kan opprette mer swap på et av dine filsystemer nå."
 
-#: ../iw/upgrade_swap_gui.py:95
+#: ../iw/upgrade_swap_gui.py:97
 #, c-format
 msgid ""
 "\n"
@@ -2704,19 +2705,19 @@ msgstr ""
 "\n"
 "Installasjonsprogrammet har funnet %s MB med RAM.\n"
 
-#: ../iw/upgrade_swap_gui.py:107
+#: ../iw/upgrade_swap_gui.py:109
 msgid "I want to create a swap file"
 msgstr "Jeg ønsker å lage en swapfil."
 
-#: ../iw/upgrade_swap_gui.py:116
+#: ../iw/upgrade_swap_gui.py:118
 msgid "Select the partition to put the swap file on:"
 msgstr "Velg partisjonen å legge swapfilen på:"
 
-#: ../iw/upgrade_swap_gui.py:121
+#: ../iw/upgrade_swap_gui.py:123
 msgid "Free Space (MB)"
 msgstr "Fri diskplass (Mb)"
 
-#: ../iw/upgrade_swap_gui.py:136
+#: ../iw/upgrade_swap_gui.py:138
 #, c-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
@@ -2724,15 +2725,15 @@ msgid ""
 msgstr ""
 "Det anbefales at swapfilen er minst %d MB. Oppgi en størelse for swapfilen:"
 
-#: ../iw/upgrade_swap_gui.py:151 ../textw/upgrade_text.py:128
+#: ../iw/upgrade_swap_gui.py:153 ../textw/upgrade_text.py:128
 msgid "Swap file size (MB):"
 msgstr "Størrelse på swapfil(MB):"
 
-#: ../iw/upgrade_swap_gui.py:160
+#: ../iw/upgrade_swap_gui.py:162
 msgid "I don't want to create a swap file"
 msgstr "Jeg ønsker ikke å lage en swapfil."
 
-#: ../iw/upgrade_swap_gui.py:170
+#: ../iw/upgrade_swap_gui.py:172
 msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
@@ -2743,11 +2744,11 @@ msgstr ""
 "sikker\n"
 "på at du vil fortsette?"
 
-#: ../iw/upgrade_swap_gui.py:178 ../textw/upgrade_text.py:173
+#: ../iw/upgrade_swap_gui.py:180 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Størrelsen på swapfilen må være mellom 1 og 2000 MB."
 
-#: ../iw/upgrade_swap_gui.py:185 ../textw/upgrade_text.py:168
+#: ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:168
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr "Det er ikke nok plass på enheten du oppga for swapområdet."
@@ -3053,7 +3054,7 @@ msgid "Complete"
 msgstr "Ferdig"
 
 #: ../textw/complete_text.py:36
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Congratulations, your Red Hat Linux installation is complete.\n"
 "\n"
@@ -3068,11 +3069,11 @@ msgid ""
 msgstr ""
 "Gratulerer, din Red Hat Linux installasjon er fullført.\n"
 "\n"
-"Fjern alle disketter du brukte under installasjonen og trykk <Linjeskift> "
-"for å starte på nytt.\n"
+"Fjern alle disketter du brukte under installasjonen og trykk <Enter> for å "
+"starte på nytt.\n"
 "\n"
-"For informasjon om errata (oppdateringer og feilrettinger), besøk http://www."
-"redhat.com/errata.\n"
+"%sFor informasjon om errata (oppdateringer og feilrettinger), besøk http://"
+"www.redhat.com/errata.\n"
 "\n"
 "Informasjon om bruk av systemet er tilgjengelig i Red Hat Linux "
 "brukerhåndbøkene som finnes på http://www.redhat.com/support/manuals."
@@ -3092,7 +3093,7 @@ msgid ""
 msgstr ""
 "Gratulerer, pakkeinstallasjonen er fullført.\n"
 "\n"
-"Trykk linjeskift for å fortsette.\n"
+"Trykk <Enter> for å fortsette.\n"
 "\n"
 "Informasjon om konfigurasjon og bruk av ditt Red Hat Linux system finnes i "
 "Red Hat Linux brukerhåndbøkene."
@@ -3346,9 +3347,10 @@ msgid "Package Dependencies"
 msgstr "Pakkeavhengigheter"
 
 #: ../textw/packages_text.py:295
+#, fuzzy
 msgid ""
 "Some of the packages you have selected to install require packages you have "
-"not selected. If you just select Ok all of those required packages will be "
+"not selected. If you just select OK all of those required packages will be "
 "installed."
 msgstr ""
 "Noen av pakkene du har valgt å installere trenger pakker som ikke er valgt. "
@@ -3473,8 +3475,9 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:979
+#, fuzzy
 msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Hjelp    F2-Ny     F3-Rediger F4-Slett    F5-Nullstill F12-Ok       "
 
@@ -3596,23 +3599,23 @@ msgstr "Legg til swap"
 msgid "The value you entered is not a valid number."
 msgstr "Størrelsen du oppgav er ikke et gyldig tall."
 
-#: ../textw/upgrade_text.py:190
+#: ../textw/upgrade_text.py:191
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Du har ingen Linux-partisjoner. Du kan ikke oppgradere dette systemet!"
 
-#: ../textw/upgrade_text.py:207
+#: ../textw/upgrade_text.py:208
 msgid "System to Upgrade"
 msgstr "System som skal oppgraderes"
 
-#: ../textw/upgrade_text.py:221
+#: ../textw/upgrade_text.py:222
 msgid "Upgrade Partition"
 msgstr "Oppgrader partisjon"
 
-#: ../textw/upgrade_text.py:243
+#: ../textw/upgrade_text.py:244
 msgid "Customize Packages to Upgrade"
 msgstr "Tilpass pakker som skal oppgraderes"
 
-#: ../textw/upgrade_text.py:244
+#: ../textw/upgrade_text.py:245
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -3957,9 +3960,8 @@ msgid "VSync Rate:"
 msgstr "VSynk frekvens:"
 
 #: ../textw/xconfig_text.py:423
-#, fuzzy
 msgid "You cannot go back from this step."
-msgstr "Du kan ikke fjerne ledig plass."
+msgstr "Du kan ikke gå tilbake etter å ha utført dette skrittet."
 
 #: ../textw/xconfig_text.py:477
 #, c-format
@@ -4048,9 +4050,10 @@ msgid "Miscellaneous"
 msgstr "Forskjellig"
 
 #: ../loader/devices.c:86
+#, fuzzy
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
-"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
 "Denne modulen kan ta parametere som har innvirkning på måten den virker. "
@@ -4071,7 +4074,8 @@ msgid "Do you have a driver disk?"
 msgstr "Har du en driverdisk?"
 
 #: ../loader/devices.c:239
-msgid "Insert your driver disk and press \"Ok\" to continue."
+#, fuzzy
+msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Sett inn driverdisketten og trykk \"Ok\" for å fortsette."
 
 #: ../loader/devices.c:260
@@ -5502,6 +5506,9 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
+
+#~ msgid "Ok"
+#~ msgstr "OK"
 
 #~ msgid "Must specify a base size for the partition."
 #~ msgstr "Størrelse må spesifiseres for partisjonen."
