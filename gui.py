@@ -7,7 +7,6 @@ from gtk import *
 from gtk import _root_window
 from _gtk import gtk_set_locale
 from _gtk import gtk_rc_init
-from _gtk import _gtk_nuke_rc_files
 import GdkImlib
 from GDK import *
 import time
@@ -380,28 +379,30 @@ class InstallControlWindow:
     def setLanguage (self, lang):
 	self.todo.instTimeLanguage.setRuntimeLanguage(lang)
 
-        gtk_rc_init ()
-        _gtk_nuke_rc_files ()
         gtk_set_locale ()
-        _gtk_nuke_rc_files ()
         gtk_rc_init ()
 
         found = 0
         for l in self.todo.instTimeLanguage.getCurrentLangSearchList():
             if os.access ("/etc/gtk/gtkrc." + l, os.R_OK):
-                print "/etc/gtk/gtkrc." + l
                 rc_parse("/etc/gtk/gtkrc." + l)
                 found = 1
         if not found:
             rc_parse("/etc/gtk/gtkrc")
-            gtk_rc_init ()
 
 	if not self.__dict__.has_key('window'): return
 
         self.window.reset_rc_styles ()
 
-        locale = self.todo.instTimeLanguage.getLangNick(lang)
-        self.html.set_font_charset (locale)
+        # XXX recreate html widget to set new locale
+        # there has to be a better way to do this, but I
+        # can't find it.  I try html.set_font_charset, but
+        # it screws everything up.
+        self.box.remove(self.html)
+        self.html = GtkXmHTML()
+        self.box.add (self.html)
+        self.html.show ()
+        self.html.source (self.currentScreen.getICS ().getHTML ())
 
         # get the labels
         for (button, text) in [ (self.nextButtonStock, _("Next")),
