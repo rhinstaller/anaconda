@@ -16,6 +16,7 @@
 
 import gettext_rh, os, iutil
 import string
+import language
 from xf86config import XF86Config
 from instdata import InstallData
 from partitioning import *
@@ -48,12 +49,18 @@ class BaseInstallClass:
             sup = id.langSupport.getAllSupported()
 
         for group in id.comps.compsxml.groups.values():
-            if group.langonly in sup:
-                if not id.comps.compsDict.has_key(group.name):
-                    log("Where did the %s component go?" %(group.name,))
+            for name in sup:
+                try:
+                    lang = id.langSupport.langInfoByName[name][0]
+                    langs = language.expandLangs(lang)
+                except:
                     continue
-                id.comps.compsDict[group.name].select()
-
+                if group.langonly in langs:
+                    if not id.comps.compsDict.has_key(group.name):
+                        log("Where did the %s component go?"
+                            %(group.name,))
+                        continue
+                    id.comps.compsDict[group.name].select()
         return
 
     def postAction(self, rootPath, serial):
