@@ -752,6 +752,14 @@ class KickstartBase(BaseInstallClass):
 		where = args[0][1:]
 		args = isys.parseArgv(n)
 
+                script = ""
+                scriptInterp = "/bin/sh"
+                scriptLog = None
+                if where == "pre" or where == "traceback":
+                    scriptChroot = 0
+                else:
+                    scriptChroot = 1
+
 		argList = [ 'interpreter=' ]
 		if where == "post":
 		    argList.append('nochroot')

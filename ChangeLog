@@ -1,5 +1,9 @@
 2004-10-05  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstart.py (KickstartBase.readKickstart): Have to reset things
+	when we enter a new scriptlet to break multiple scriptlet with
+	different interpreters (#134707)
+
 	* isys/devnodes.c: Working scsi disk nodes again (#134709)
 
 2004-10-04  Jeremy Katz  <katzj@redhat.com>
