@@ -518,10 +518,10 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 		continue;
 	    }
 
-	    rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop0",
+	    rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop1",
 				 "/mnt/runtime");
 	    if (!rc) { 
-		umountLoopback("/tmp/loopimage", "loop0");
+		umountLoopback("/tmp/loopimage", "loop1");
 		break;
 	    }
 
@@ -592,13 +592,21 @@ static int umountLoopback(char * mntpoint, char * device) {
 static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     struct loop_info loopInfo;
     int targfd, loopfd;
+    char *filename;
+
+    mkdirChain(mntpoint);
+    filename = alloca(15 + strlen(device));
+    sprintf(filename, "/tmp/%s", device);
+
+    devMakeInode(device, filename);
+    loopfd = open(filename, O_RDONLY);
 
     mkdirChain(mntpoint);
 
     targfd = open(fsystem, O_RDONLY);
 
-    devMakeInode(device, "/tmp/loop");
-    loopfd = open("/tmp/loop", O_RDONLY);
+    devMakeInode(device, filename);
+    loopfd = open(filename, O_RDONLY);
     logMessage("loopfd is %d", loopfd);
 
     if (ioctl(loopfd, LOOP_SET_FD, targfd)) {
@@ -621,11 +629,11 @@ static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 
     close(loopfd);
 
-    if (doPwMount("/tmp/loop", mntpoint, "iso9660", 1,
+    if (doPwMount(filename, mntpoint, "iso9660", 1,
 		  0, NULL, NULL)) {
-	if (doPwMount("/tmp/loop", mntpoint, "ext2", 1,
+	if (doPwMount(filename, mntpoint, "ext2", 1,
 		      0, NULL, NULL)) {
-	    if (doPwMount("/tmp/loop", mntpoint, "cramfs", 1,
+	    if (doPwMount(filename, mntpoint, "cramfs", 1,
 			  0, NULL, NULL)) {
 	    
 		logMessage("failed to mount loop: %s", 
