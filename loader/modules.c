@@ -429,8 +429,10 @@ static char * filterDriverModules(struct driverDiskInfo * ddi,
 	    gunzip_close(to);
 	    while(1) {
 		int rc;
+		extern int errno;
+
 		rc = umount("/tmp/drivers");
-		if (rc != -1)
+		if ((rc != -1) || (errno != -EBUSY))
 		    break;
 	    }
 

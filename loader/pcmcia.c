@@ -167,9 +167,10 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
     busProbe(modInfo, modLoaded, modDeps, 0, kd, flags);
 
     while(1) {
+	extern int errno;
 	sleep(2);
 	rc = umount("/modules");
-	if (rc != -1) {
+	if ((rc != -1) || (errno != -EBUSY)) {
 	    break;
 	}
 	logMessage("return code of /modules unmount is %d", rc);
