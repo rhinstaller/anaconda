@@ -1050,7 +1050,7 @@ class KickstartBase(BaseInstallClass):
             dispatch.skipStep("upgrademigfind")
             dispatch.skipStep("upgrademigratefs")
             dispatch.skipStep("upgradecontinue")
-            dispatch.skipStep("findinstall")
+            dispatch.skipStep("findinstall", permanent = 1)
             dispatch.skipStep("language")
             dispatch.skipStep("keyboard")
             dispatch.skipStep("mouse")
