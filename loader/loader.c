@@ -1158,6 +1158,7 @@ static char * mountUrlImage(struct installMethod * method,
     static struct networkDeviceConfig netDev;
     char * url;
     char * login;
+    char * finalPrefix;
     enum urlprotocol_t proto = 
 	!strcmp(method->name, "FTP") ? URL_METHOD_FTP : URL_METHOD_HTTP;
 
@@ -1240,10 +1241,15 @@ static char * mountUrlImage(struct installMethod * method,
 	}
     }
 
-    url = malloc(strlen(ui.prefix) + 25 + strlen(ui.address) + strlen(login));
+    if (!strcmp(ui.prefix, "/"))
+	finalPrefix = "/.";
+    else
+	finalPrefix = ui.prefix;
+
+    url = malloc(strlen(finalPrefix) + 25 + strlen(ui.address) + strlen(login));
     sprintf(url, "%s://%s%s/%s", 
 	    ui.protocol == URL_METHOD_FTP ? "ftp" : "http",
-	    login, ui.address, ui.prefix);
+	    login, ui.address, finalPrefix);
 
     writeNetInfo("/tmp/netinfo", &netDev, kd);
 
@@ -2270,7 +2276,7 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo, int flags) {
 
-    if (FL_NOUSB(flags)) return 0;
+    if (FL_NOUSB(flags)) return;
 
     logMessage("looking for USB mouse...");
     if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL)) {
